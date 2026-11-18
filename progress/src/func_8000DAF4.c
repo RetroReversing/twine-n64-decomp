@@ -16,6 +16,8 @@ extern void *D_800E0750;
 extern void *D_800E0754;
 
 void func_8000DAF4(void) {
+void *__repair_cached_pointer = D_800E0754;
+
     M2C_FIELD(D_800E0750, f32 *, 0x30) = (f32) (M2C_FIELD(D_800E0750, f32 *, 0x30) + 800.0f);
-    M2C_FIELD(D_800E0754, f32 *, 0x34) = (f32) (M2C_FIELD(D_800E0754, f32 *, 0x34) + 800.0f);
+    M2C_FIELD(__repair_cached_pointer, f32 *, 0x34) = (f32) (M2C_FIELD(D_800E0754, f32 *, 0x34) + 800.0f);
 }
