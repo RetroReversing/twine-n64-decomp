@@ -14,13 +14,14 @@ typedef s32 M2C_UNK32;
 
 s16 strlen(s8 *, M2C_UNK, s32, s32);                /* extern */
 
+typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[8]; short field_1C; unsigned short field_1E; short field_20; short field_22; unsigned char pad_24[4]; int field_28; } __repair_record_arg0;
 void func_80070ECC(void *arg0, s8 *arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5) {
-    M2C_FIELD(arg0, s16 *, 0x20) = arg2;
-    M2C_FIELD(arg0, s16 *, 0x22) = arg3;
-    M2C_FIELD(arg0, s32 *, 0x28) = (s32) ((M2C_FIELD(arg0, s32 *, 0x28) & ~0xFC) | 0x10);
-    M2C_FIELD(arg0, s32 *, 0x10) = arg5;
-    M2C_FIELD(arg0, u16 *, 0x1E) = (u16) (M2C_FIELD(arg0, u16 *, 0x1E) | arg4);
+    ((__repair_record_arg0*)arg0)->field_20 = arg2;
+    ((__repair_record_arg0*)arg0)->field_22 = arg3;
+    ((__repair_record_arg0*)arg0)->field_28 = (s32) ((((__repair_record_arg0*)arg0)->field_28 & ~0xFC) | 0x10);
+    ((__repair_record_arg0*)arg0)->field_10 = arg5;
+    ((__repair_record_arg0*)arg0)->field_1E = (u16) (((__repair_record_arg0*)arg0)->field_1E | arg4);
     *arg1 = 0;
     M2C_FIELD(arg0, s8 **, 0x18) = arg1;
-    M2C_FIELD(arg0, s16 *, 0x1C) = strlen(arg1, -0xFD, arg5, arg4);
+    ((__repair_record_arg0*)arg0)->field_1C = strlen(arg1, -0xFD, arg5, arg4);
 }
