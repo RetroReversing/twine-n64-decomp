@@ -45,7 +45,8 @@ block_15:
             goto block_15;
         case 1:
             var_a0 = 0x26;
-            goto block_15;
+            {
+            func_80026004(temp_s0, "%s", func_80087100(var_a0));break;}
         }
         M2C_FIELD(temp_s1, s32 *, 0x14) = (s32) ((((D_801002F1 * 0xF) + 2) << 0x10) | 8);
         M2C_FIELD(temp_s2, s32 *, 0x14) = (s32) ((((D_801002F0 * 0xF) + 2) << 0x10) | 8);
