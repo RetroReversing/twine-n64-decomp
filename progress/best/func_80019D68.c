@@ -17,6 +17,8 @@ extern s32 D_801002B8;
 extern s32 D_801002BC;
 
 s32 func_80019D68(void) {
+int __repair_literal;
+
     s32 var_s0;
     s32 var_s0_2;
     s32 var_v0;
@@ -35,7 +37,9 @@ loop_2:
     } else {
 block_4:
         var_s0_2 = 4;
-        if ((D_801002BC + 4) > 4) {
+__repair_literal = 4;
+
+        if ((D_801002BC + 4) > __repair_literal) {
 loop_6:
             var_v0 = 0;
             if ((func_80019B34(var_s0_2 & 0xFFFF) & 0xFFFF) == 0x159) {
