@@ -19,5 +19,5 @@ void func_8007AB18(s32 arg0, s32 arg1, s32 arg2) {
     s32 sp10;
 
     func_8007A974(arg0, arg1, &sp10);
-    func_8007AABC(arg0, sp10, arg2);
+    func_8007AABC(arg0, sp10);
 }

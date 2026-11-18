@@ -96,6 +96,8 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
     sp1C = M2C_FIELD(temp_v0, s32 *, 8);
     temp_s3 = M2C_FIELD(temp_v0, u16 *, 4) + 1;
     switch (arg1) {
+case 0: break;
+
     case 1:
     case 2:
     case 3:

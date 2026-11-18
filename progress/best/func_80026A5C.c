@@ -16,7 +16,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     register unsigned long temp_v0_3;
     s32 var_v0;
     u16 var_a0;
-    s32 var_v0_3;
+    unsigned int var_v0_3;
     unsigned long temp_a2;
     u32 temp_v1;
     void *temp_v0;
@@ -31,7 +31,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     }
     (*(s32 *)((char *)(temp_v0) + 0x28)) = var_v0;
     (*(u16 *)((char *)(temp_v0) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
-    (*(u16 *)((char *)(temp_v0) + 0x22)) = (u16) (*(u16 *)((char *)((unsigned short)arg0) + 0x1A));
+    (*(u16 *)((char *)(temp_v0) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x1A));
     (*(s32 *)((char *)(temp_v0) + 0x10)) = arg1;
     (*(u16 *)((char *)(temp_v0) + 0x1E)) = (s32)0U;
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x2000) {
@@ -79,7 +79,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
         (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x80);
     }
     if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x40) {
-        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x100);
+        (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)((u32)temp_v0) + 0x1E)) | 0x100);
     }
     if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x80) {
         temp_a2 = (*(u32 *)((char *)(arg0) + 0x20));
@@ -90,7 +90,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
         }
     } else {
         register var_a0 = (*(u16 *)((char *)(arg0) + 0));
-        if (!var_a0) {
+        if (var_a0 == 0) {
             var_a0 = 3;
         }
         (*(s32 *)((char *)(temp_v0) + 0x18)) = func_80087100(var_a0);
