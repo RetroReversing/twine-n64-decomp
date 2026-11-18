@@ -29,31 +29,13 @@ extern M2C_UNK D_8010A950;
 
 s32 func_8002495C(s32 arg0, s8 arg1) {
     s32 temp_a0;
-    s32 var_v0;
-    void ***temp_v0;
+    
+    union { void *** pointer; s32 value; } __repair_phase_storage;
     void **temp_s0;
 
     temp_a0 = arg0 & 0xFFFF;
     if (temp_a0 != 0x2000) {
-        if (temp_a0 >= 0x2001) {
-            switch (temp_a0) {                      /* irregular */
-            case 0x4000:
-                var_v0 = 0x8002;
-                if ((func_8002AF30(&D_8010A950) & 0xFF) == 1) {
-                    return 0x2002;
-                }
-                /* Duplicate return node #24. Try simplifying control flow for better match */
-                return var_v0;
-            case 0x8000:
-                func_80024D78(temp_a0);
-                var_v0 = 2;
-                M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
-                /* Duplicate return node #24. Try simplifying control flow for better match */
-                return var_v0;
-            default:
-                return 2;
-            }
-        } else {
+        if (temp_a0 < 0x2001) {
             if (temp_a0 != 0) {
                 return 2;
             }
@@ -62,14 +44,14 @@ s32 func_8002495C(s32 arg0, s8 arg1) {
                 func_80026424(D_80102F2C, 0x18);
                 return 2;
             }
-            temp_v0 = func_8002A920(&D_80107EA8, arg1);
-            if (temp_v0 == NULL) {
+            __repair_phase_storage.pointer = func_8002A920(&D_80107EA8, arg1);
+            if (__repair_phase_storage.pointer == NULL) {
                 return 0x8002;
             }
-            temp_s0 = *temp_v0;
-            var_v0 = 0x8002;
+            temp_s0 = *__repair_phase_storage.pointer;
+            __repair_phase_storage.value = 0x8002;
             if (temp_s0 != NULL) {
-                var_v0 = 0x8002;
+                __repair_phase_storage.value = 0x8002;
                 if (M2C_FIELD(*temp_s0, s32 *, 0x18) != 0) {
                     if (func_800AB950(M2C_FIELD(*temp_s0, s32 *, 0x18), func_80087100(0x3004)) != 0) {
                         return 0x2002;
@@ -79,7 +61,25 @@ s32 func_8002495C(s32 arg0, s8 arg1) {
                     return 0x4002;
                 }
             }
-            return var_v0;
+            return __repair_phase_storage.value;
+        } else {
+            switch (temp_a0) {                      /* irregular */
+            case 0x4000:
+                __repair_phase_storage.value = 0x8002;
+                if ((func_8002AF30(&D_8010A950) & 0xFF) == 1) {
+                    return 0x2002;
+                }
+                /* Duplicate return node #24. Try simplifying control flow for better match */
+                return __repair_phase_storage.value;
+            case 0x8000:
+                func_80024D78(temp_a0);
+                __repair_phase_storage.value = 2;
+                M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
+                /* Duplicate return node #24. Try simplifying control flow for better match */
+                return __repair_phase_storage.value;
+            default:
+                return 2;
+            }
         }
     } else {
         func_8002CB2C(arg1 & 0xFF);

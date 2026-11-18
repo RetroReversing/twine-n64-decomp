@@ -32,8 +32,8 @@ s32 func_8001499C(s32 arg0) {
     m2c_initial_frame.view_sp14.value = arg0;
     m2c_initial_frame.view_sp24.value = 1;
     func_800148A4(&m2c_initial_frame.view_sp10.value);
-    var_v0 = 0;
-    if (m2c_initial_frame.view_sp2C.value == 0) {
+    
+    if (m2c_initial_frame.view_sp2C.value != 0) { var_v0=0; } else {
         var_v0 = m2c_initial_frame.view_sp1C.value;
     }
     return var_v0;

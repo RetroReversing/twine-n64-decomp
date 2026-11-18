@@ -30,14 +30,14 @@ s32 func_800982B4(s16 arg0) {
     u32 temp_v0;
 
     temp_v0 = (u32) (arg0 & 0xFFFF) >> 6;
-    temp_a2 = temp_v0 * 4;
+    temp_a2 = temp_v0;
     D_800F3884 = temp_v0;
     var_v0 = 0;
-    if (*(&D_800F8D60 + temp_a2) != 0) {
-        temp_a1 = *(&D_800F8D62 + temp_a2);
+    if (*((M2C_UNK *)((s8 *)&D_800F8D60 + temp_a2)) != 0) {
+        var_v0 = (u16)(*((M2C_UNK *)((s8 *)&D_800F8D62 + temp_a2)));
         D_800F388C = arg0;
-        D_800F3880 = (s32) temp_a1;
-        temp_v0_2 = func_800956E0(&D_800F388C - 4, (temp_a1 * 8) + &D_800F9560, *(&D_800F8D60 + temp_a2), 8, &func_800986BC);
+        D_800F3880 = (s32) var_v0;
+        temp_v0_2 = func_800956E0(&D_800F388C - 4, (var_v0 * 8) + &D_800F9560, *((M2C_UNK *)((s8 *)&D_800F8D60 + temp_a2)), 8, &func_800986BC);
         D_800F3890 = temp_v0_2;
         if (temp_v0_2 == NULL) {
             return 0;
