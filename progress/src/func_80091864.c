@@ -17,7 +17,7 @@ M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_80091654(s32, s32, M2C_UNK, s32);      /* extern */
 extern u8 D_800CF540;
 
-void func_80091864(s32 arg0, s32 arg1, M2C_UNK arg2, s32 arg3) {
+void func_80091864(u8 arg0, u16 arg1, M2C_UNK arg2, u8 arg3) {
     if (D_800CF540 != 0) {
         func_8008C0D4();
         func_80091654(arg0 & 0xFF, arg1 & 0xFFFF, arg2, arg3 & 0xFF);
