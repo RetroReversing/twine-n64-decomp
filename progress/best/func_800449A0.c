@@ -1,0 +1,163 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 func_8000828C();
+s32 func_8003C7C4();
+s32 func_80064250();
+s32 func_80073400();
+s32 func_8007560C();
+s32 func_80083C98();
+s32 func_80083D04();
+extern s32 D_800CA31C;
+extern s8 D_801002E4;
+extern s8 D_801002E5;
+extern s8 D_80100300;
+extern s8 D_80100784;
+extern s8 D_80102F38;
+extern s8 D_80103020;
+extern s8 D_8010302A;
+extern s32 D_8010302C;
+extern s8 D_80103041;
+extern s8 D_801032A4;
+extern s8 D_801032AC;
+extern s8 D_80103EB1;
+extern s8 D_80107B60;
+extern s32 D_80107E9C;
+extern s8 D_80107ECC;
+extern s8 D_80107ECD;
+extern s8 D_80107ECE;
+extern s8 D_80107ECF;
+extern s8 D_80108F74;
+extern s8 D_80108F94;
+extern s8 D_801093A0;
+extern s8 D_8010957C;
+extern s8 D_80109684;
+extern s32 D_80109688;
+extern s8 D_80109A34;
+extern s8 D_80109A35;
+extern s8 D_80109B1E;
+extern s32 D_80109CB4;
+extern s8 D_8010A2B8;
+extern s8 D_8010A2CC;
+extern s8 D_8010A3C4;
+extern s8 D_8010A4B8;
+extern s32 D_8010A500;
+extern s8 D_8010A91C;
+extern s8 D_8010D2B0;
+extern s8 D_8010D2B8;
+extern s32 D_8010D2C0;
+extern s8 D_8010D36C;
+extern s8 D_8010D374;
+extern s32 D_8010D380;
+extern s8 D_80110CA8;
+extern s8 D_80110DB1;
+extern s8 D_80112F88;
+extern s8 D_80115318;
+extern s8 D_80117734;
+
+void func_800449A0(void) {
+    char *var_a0;
+    char *var_a3;
+    char *var_t0;
+    char *var_v1;
+    char *var_v1_2;
+    char *var_v1_3;
+    u32 var_a1;
+    u32 var_a2;
+    u32 var_a2_2;
+    u32 var_a2_3;
+
+    func_80083D04(0);
+    func_80083C98();
+    func_8000828C();
+    func_80064250();
+    func_80073400();
+    var_a2 = 0;
+    var_v1 = &D_80109688;
+    do {
+        *(s32 *)var_v1 = 0;
+        var_a2 += 1;
+        var_v1 += 4;
+    } while (var_a2 < 6U);
+    var_a2_2 = 0;
+    var_v1_2 = &D_8010A500;
+    do {
+        *(s32 *)var_v1_2 = 0;
+        var_a2_2 += 1;
+        var_v1_2 += 4;
+    } while (var_a2_2 < 4U);
+    var_a2_3 = 0;
+    var_t0 = &D_8010D2C0;
+    var_a3 = &D_8010D380;
+    do {
+        var_a1 = 0;
+        var_a0 = var_t0;
+        var_v1_3 = var_a3;
+loop_6:
+        *(s32 *)var_v1_3 = 0;
+        *(s32 *)var_a0 = 0;
+        var_a0 += 4;
+        var_a1 += 1;
+        var_v1_3 += 4;
+        if (var_a1 < 6U) {
+            goto loop_6;
+        }
+        var_t0 += 0x1C;
+        var_a2_3 += 1;
+        var_a3 += 0x1C;
+    } while (var_a2_3 < 6U);
+    D_8010302C = 0;
+    D_800CA31C = func_8003C7C4(var_a0, var_a1, var_a2_3, var_a3);
+    func_8007560C();
+    D_801032AC = 0xA0;
+    D_8010D374 = 0x60;
+    D_80109A34 = 0xEF;
+    D_80109684 = 0x40;
+    D_8010A4B8 = 0x10;
+    D_80107E9C = 0;
+    D_801032A4 = 0xFF;
+    D_80108F74 = 0xFF;
+    D_80102F38 = 0xFF;
+    D_80112F88 = 0xFF;
+    D_80107B60 = 0xFF;
+    D_80100784 = 0xFF;
+    D_80103041 = 0;
+    D_8010302A = 0;
+    D_8010957C = 0;
+    D_80103EB1 = 0;
+    D_80115318 = 8;
+    D_8010A3C4 = 0;
+    D_80110DB1 = 8;
+    D_80107ECE = 0;
+    D_80108F94 = 0xFF;
+    D_80103020 = 0;
+    D_80107ECF = 0;
+    D_8010D2B8 = 0xFF;
+    D_8010A2CC = 0;
+    D_8010D36C = 0;
+    D_801002E4 = 0;
+    D_80107ECD = 0x80;
+    D_801093A0 = 0;
+    D_801002E5 = 0;
+    D_80110CA8 = 0x80;
+    D_80100300 = 0;
+    D_8010A91C = 0;
+    D_80109B1E = 0;
+    D_80117734 = 0;
+    D_8010A2B8 = 0;
+    D_8010D2B0 = 0;
+    D_80107ECC = 0;
+    D_80109A35 = 0;
+    D_80109CB4 = 0;
+}

@@ -1,0 +1,142 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+f32 func_800461D4(s32, s32);                        /* extern */
+M2C_UNK func_80117740(s32 *, void *);               /* extern */
+M2C_UNK func_8011775C(void *);                      /* extern */
+extern void *D_8011F068;
+extern u32 D_8011F06C;
+extern s32 D_8011F070;
+extern void *D_8011F074;
+extern s32 D_8011F0C8;
+
+void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
+    f32 temp_fv0;
+    f32 var_fv1;
+    s32 temp_v0_3;
+    s32 var_s6;
+    u32 var_s2;
+    u32 var_s2_2;
+    void *temp_v0;
+    void *temp_v0_2;
+    void *temp_v0_4;
+    void *temp_v1;
+    void *temp_v1_2;
+    void *temp_v1_3;
+    void *var_a0;
+    void *var_a1;
+    void *var_s0;
+    void *var_s1;
+    void *var_v0;
+    void *var_v1;
+
+    var_s6 = 0;
+    var_s2 = 0;
+    var_s1 = NULL;
+    if (D_8011F06C != 0) {
+        var_v1 = D_8011F068;
+        __repair_rows: {
+            M2C_FIELD(var_v1, s32 *, 0) = 0;
+            M2C_FIELD(var_v1, s32 *, 4) = 0;
+            M2C_FIELD(var_v1, s32 *, 8) = 0;
+            M2C_FIELD(var_v1, f32 *, 0xC) = -1.0f;
+            var_s2 += 1;
+            var_v1 += 0x58;
+        }
+if (var_s2 < (u32) D_8011F06C) goto __repair_rows;
+    }
+    if (arg0 == arg1) {
+        temp_v0 = (arg0 * 0x58) + D_8011F068;
+        M2C_FIELD(arg2, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 0);
+        M2C_FIELD(arg2, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 4);
+        M2C_FIELD(arg2, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 8);
+        M2C_FIELD(arg3, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 0);
+        M2C_FIELD(arg3, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 4);
+        M2C_FIELD(arg3, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x10), M2C_UNK32 *, 8);
+        return;
+    }
+    D_8011F0C8 = 1;
+    D_8011F070 = 0;
+    temp_v1 = D_8011F068 + (arg0 * 0x58);
+    D_8011F074 = temp_v1;
+    M2C_FIELD(temp_v1, s32 *, 0xC) = 0;
+    if (0 == 0) {
+loop_8:
+        var_v0 = D_8011F074;
+        var_fv1 = 999999.0f;
+        var_s1 = NULL;
+        if (var_v0 != NULL) {
+            do {
+                temp_fv0 = M2C_FIELD(var_v0, f32 *, 0xC);
+                if (temp_fv0 < var_fv1) {
+                    var_s1 = var_v0;
+                    var_fv1 = temp_fv0;
+                }
+                var_v0 = M2C_FIELD(var_v0, void **, 4);
+            } while (var_v0 != NULL);
+        }
+        if (var_s1 != NULL) {
+            var_s2_2 = 0;
+            if (var_s1 == (D_8011F068 + (arg1 * 0x58))) {
+                var_s6 = 1;
+            } else {
+                var_s0 = var_s1;
+                do {
+                    temp_v0_2 = M2C_FIELD(var_s0, void **, 0x14);
+                    var_s2_2 += 1;
+                    if ((temp_v0_2 != NULL) && (M2C_FIELD(temp_v0_2, f32 *, 0xC) == -1.0f)) {
+                        M2C_FIELD(M2C_FIELD(var_s0, void **, 0x14), f32 *, 0xC) = (f32) (s32) (M2C_FIELD(var_s1, f32 *, 0xC) + func_800461D4(M2C_FIELD(var_s1, s32 *, 0x10), M2C_FIELD(temp_v0_2, s32 *, 0x10)));
+                        M2C_FIELD(M2C_FIELD(var_s0, void **, 0x14), void **, 8) = var_s1;
+                        func_80117740(&D_8011F070, M2C_FIELD(var_s0, void **, 0x14));
+                        *(s32 *)0x8011F0C8 = D_8011F0C8 + 1;
+                    }
+                    var_s0 += 4;
+                } while (var_s2_2 < 0x10U);
+                func_8011775C(var_s1);
+                D_8011F0C8 -= 1;
+            }
+            if (var_s6 != 0) {
+                goto block_22;
+            }
+            goto loop_8;
+        }
+        temp_v0_3 = arg0 * 0x58;
+        temp_v1_2 = M2C_FIELD((temp_v0_3 + D_8011F068), void **, 0x10);
+        M2C_FIELD(arg2, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(temp_v1_2, M2C_UNK32 *, 0);
+        M2C_FIELD(arg2, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(temp_v1_2, M2C_UNK32 *, 4);
+        M2C_FIELD(arg2, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(temp_v1_2, M2C_UNK32 *, 8);
+        temp_v0_4 = M2C_FIELD((temp_v0_3 + D_8011F068), void **, 0x10);
+        M2C_FIELD(arg3, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(temp_v0_4, M2C_UNK32 *, 0);
+        M2C_FIELD(arg3, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(temp_v0_4, M2C_UNK32 *, 4);
+        M2C_FIELD(arg3, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(temp_v0_4, M2C_UNK32 *, 8);
+        return;
+    }
+block_22:
+    var_a1 = M2C_FIELD(var_s1, void **, 0x10);
+    temp_v1_3 = D_8011F068 + (arg0 * 0x58);
+    var_a0 = var_a1;
+    if (var_s1 != temp_v1_3) {
+        do {
+            var_s1 = M2C_FIELD(var_s1, void **, 8);
+            var_a1 = var_a0;
+            var_a0 = M2C_FIELD(var_s1, void **, 0x10);
+        } while (var_s1 != temp_v1_3);
+    }
+    M2C_FIELD(arg2, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(var_a0, M2C_UNK32 *, 0);
+    M2C_FIELD(arg2, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(var_a0, M2C_UNK32 *, 4);
+    M2C_FIELD(arg2, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(var_a0, M2C_UNK32 *, 8);
+    M2C_FIELD(arg3, M2C_UNK32 *, 0) = (M2C_UNK32) M2C_FIELD(var_a1, M2C_UNK32 *, 0);
+    M2C_FIELD(arg3, M2C_UNK32 *, 4) = (M2C_UNK32) M2C_FIELD(var_a1, M2C_UNK32 *, 4);
+    M2C_FIELD(arg3, M2C_UNK32 *, 8) = (M2C_UNK32) M2C_FIELD(var_a1, M2C_UNK32 *, 8);
+}

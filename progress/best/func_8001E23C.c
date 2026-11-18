@@ -1,0 +1,51 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 func_80021CA0();
+s32 func_80026004();
+void *func_8002638C();
+s32 func_8002A644();
+s32 func_8002A9A8();
+s32 func_8002AC04();
+s32 func_80087100();
+extern s8 D_800BD690;
+extern char D_800BD928[];
+extern char D_80100198[];
+extern u8 D_801002AD;
+extern char D_80100408[];
+extern char D_8010A488[];
+extern s32 func_8001AC88;
+extern s32 func_80022C04;
+
+void func_8001E23C(void) {
+    s32 temp_v1;
+    u8 var_s1;
+    void *temp_v0;
+
+    D_800BD690 = 1;
+    temp_v0 = func_8002638C(D_800BD928, 0x7E);
+    if (temp_v0 != NULL) {
+        temp_v1 = D_801002AD * 0x18;
+        var_s1 = *(D_80100198 + temp_v1);
+        if (var_s1 >= 8U) {
+            var_s1 = 7;
+        }
+        M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + (&D_801002AD - 0x115));
+        func_80026004(temp_v0, "%s", func_80087100((var_s1 + 0x96) & 0xFFFF));
+        func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &func_80022C04, &func_8001AC88);
+        func_80021CA0(var_s1);
+        func_8002A9A8(D_8010A488, D_801002AD);
+        func_8002AC04(D_8010A488, 1);
+    }
+}

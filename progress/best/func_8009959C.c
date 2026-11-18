@@ -1,0 +1,70 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 func_8008C1B0();
+s32 func_8008C590();
+s32 func_80098A18();
+extern u8 D_801002EA;
+extern u8 D_8010A930;
+extern u8 D_8010D720;
+extern char D_8010D724[];
+extern char D_8010D784[];
+extern char D_8010D7E1[];
+extern u8 D_80110DB0;
+extern char D_80117388[];
+extern char D_80117389[];
+
+void func_8009959C(s32 arg0) {
+    s32 temp_v0;
+    s32 var_v0;
+    u8 temp_a1;
+    void *temp_a0;
+    void *temp_s1;
+
+    if (arg0 != -1) {
+        var_v0 = arg0 * 2;
+        if (func_8008C1B0() & 0xFF) {
+            func_8008C590(arg0);
+            var_v0 = arg0 * 2;
+        }
+        temp_v0 = (((var_v0 + arg0) * 4) + arg0) << 5;
+        temp_s1 = temp_v0 + D_8010D724;
+        *(D_8010D784 + temp_v0) = arg0;
+        func_80098A18(temp_s1);
+        temp_a1 = M2C_FIELD(temp_s1, u8 *, 0x63);
+        M2C_FIELD(temp_s1, s32 *, 0) = 0;
+        M2C_FIELD(temp_s1, s8 *, 0x2E) = 0;
+        temp_a0 = (temp_a1 * 4) + D_80117388;
+        if (M2C_FIELD(temp_a0, u16 *, 2) == 0) {
+            M2C_FIELD(temp_a0, u16 *, 2) = 1U;
+            if (D_801002EA != 0xFF) {
+                M2C_FIELD(temp_a0, u8 *, 1) = 0xFF;
+                M2C_FIELD(temp_a0, u8 *, 0) = (u8) D_80110DB0;
+                *(D_80117389 + (D_80110DB0 * 4)) = temp_a1;
+            } else {
+                M2C_FIELD(temp_a0, u8 *, 1) = 0xFF;
+                M2C_FIELD(temp_a0, u8 *, 0) = 0xFFU;
+                D_801002EA = temp_a1;
+            }
+            D_80110DB0 = temp_a1;
+            if (M2C_FIELD(temp_s1, u8 *, 0x4C) != 0) {
+                D_8010A930 -= 1;
+            } else {
+                D_8010D720 -= 1;
+            }
+        }
+        M2C_FIELD(temp_s1, s32 *, 0x60) = -1;
+        *(D_8010D7E1 + (arg0 * 0x1A0)) = 0;
+    }
+}

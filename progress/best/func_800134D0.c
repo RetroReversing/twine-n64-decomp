@@ -1,0 +1,596 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+extern M2C_UNK D_800B269F;
+extern M2C_UNK D_800B26BF;
+extern M2C_UNK D_800B27E0;
+extern M2C_UNK D_800B281C;
+extern u32 D_800B283C;
+extern M2C_UNK D_800B2CB8;
+extern M2C_UNK D_800B3134;
+extern u16 D_801032B0;
+extern u16 D_80108970;
+extern u8 D_80108FA0;
+extern u32 D_80112EE0;
+
+void func_800134D0(void *arg0) {
+    void *sp4;
+    u16 *spC;
+    s32 sp14;
+    u32 sp1C;
+    s32 sp2C;
+    s32 *var_a0_5;
+    s32 *var_a1_3;
+    s32 *var_a2_5;
+    s32 *var_t7_2;
+    s32 temp_a1_3;
+    s32 temp_s2;
+    s32 temp_s6;
+    s32 temp_t5;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 temp_v0_4;
+    s32 temp_v1_2;
+    s32 temp_v1_3;
+    s32 var_a2;
+    s32 var_a2_10;
+    s32 var_a2_4;
+    s32 var_a2_8;
+    s32 var_a2_9;
+    s32 var_t1;
+    s32 var_t1_2;
+    s32 var_t1_8;
+    s32 var_t3;
+    s32 var_t3_2;
+    s32 var_t3_3;
+    s32 var_t3_4;
+    s32 var_t3_5;
+    s32 var_t4;
+    s32 var_t4_2;
+    s32 var_t5_2;
+    s32 var_t6;
+    s32 var_t7;
+    s32 var_t9;
+    s32 var_v0;
+    s32 var_v0_2;
+    s32 var_v0_3;
+    s8 temp_v1_7;
+    u16 *var_a1_4;
+    u16 *var_v1_5;
+    u16 temp_v1_5;
+    u16 var_a1_6;
+    u16 var_t1_7;
+    u32 *temp_v1;
+    u32 *var_a0;
+    u32 *var_a0_2;
+    u32 *var_a0_3;
+    u32 *var_a0_4;
+    u32 *var_s1;
+    u32 *var_s2;
+    u32 *var_t0;
+    u32 *var_t0_2;
+    u32 *var_t5;
+    u32 *var_t5_3;
+    u32 *var_t6_2;
+    u32 *var_t6_3;
+    u32 *var_t8;
+    u32 *var_v1;
+    u32 *var_v1_2;
+    u32 *var_v1_3;
+    u32 temp_a1;
+    u32 temp_a1_2;
+    u32 temp_a2;
+    u32 temp_t1;
+    u32 temp_t2;
+    u32 temp_t2_10;
+    u32 temp_t2_11;
+    u32 temp_t2_2;
+    u32 temp_t2_3;
+    u32 temp_t2_4;
+    u32 temp_t2_5;
+    u32 temp_t2_6;
+    u32 temp_t2_7;
+    u32 temp_t2_8;
+    u32 temp_t2_9;
+    u32 var_a1;
+    u32 var_a1_2;
+    u32 var_a1_5;
+    u32 var_a2_3;
+    u32 var_a2_6;
+    u32 var_a2_7;
+    u32 var_a3;
+    u32 var_a3_2;
+    u32 var_a3_3;
+    u32 var_a3_4;
+    u32 var_a3_5;
+    u32 var_a3_6;
+    u32 var_a3_7;
+    u32 var_a3_8;
+    u32 var_a3_9;
+    u32 var_s3;
+    u32 var_s4;
+    u32 var_t1_3;
+    u32 var_t1_4;
+    u32 var_t1_5;
+    u32 var_t1_6;
+    u32 var_t2;
+    u32 var_t2_2;
+    u32 var_v1_6;
+    u32 var_v1_7;
+    u8 *var_a0_6;
+    u8 *var_fp;
+    u8 *var_v1_4;
+    u8 *var_v1_8;
+    u8 temp_v0_6;
+    u8 temp_v1_4;
+    u8 temp_v1_6;
+    u8 var_a2_2;
+    void *temp_v0;
+    void *temp_v0_5;
+
+    sp4 = arg0;
+    var_fp = M2C_FIELD(arg0, u8 **, 0);
+    sp1C = 0;
+    temp_v0 = M2C_FIELD(arg0, void **, 4);
+    var_t2 = M2C_FIELD(temp_v0, u32 *, 0xC);
+    var_s4 = M2C_FIELD(temp_v0, u32 *, 0x10);
+    var_s1 = temp_v0 + 0x14;
+    var_t4 = 0x1F;
+loop_1:
+    var_a2 = var_t2 & 1;
+    if (var_t4 < 0) {
+        temp_t2 = var_s4;
+        var_s4 = *var_s1;
+        var_s1 += 4;
+        var_a2 = (var_t2 + (temp_t2 << (var_t4 + 1))) & 1;
+        var_t2_2 = temp_t2 >> -var_t4;
+        var_t4 += 0x20;
+    } else {
+        var_t2_2 = var_t2 >> 1;
+    }
+    if (var_a2 == 0) {
+        var_t4 -= 0xF;
+        if (var_t4 >= 0) {
+            var_t1 = var_t2_2 & 0x7FFF;
+            var_t2_2 = var_t2_2 >> 0xF;
+        } else {
+            temp_t2_2 = var_s4;
+            var_s4 = *var_s1;
+            var_s1 += 4;
+            var_t1 = (var_t2_2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
+            var_t2_2 = temp_t2_2 >> -var_t4;
+            var_t4 += 0x20;
+        }
+        var_t1_2 = var_t1 - 1;
+        if (var_t1 != 0) {
+            __repair_rows: {
+                var_t4 -= 8;
+                var_a2_2 = var_t2_2 & 0xFF;
+                if (var_t4 < 0) {
+                    temp_t2_3 = var_s4;
+                    var_s4 = *var_s1;
+                    var_s1 += 4;
+                    var_a2_2 = (var_t2_2 + (temp_t2_3 << (var_t4 + 8))) & 0xFF;
+                    var_t2_2 = temp_t2_3 >> -var_t4;
+                    var_t4 += 0x20;
+                } else {
+                    var_t2_2 = var_t2_2 >> 8;
+                }
+                *var_fp = var_a2_2;
+                var_fp += 1;
+                var_t1_2 -= 1;
+            }
+if (var_t1_2 != 0) goto __repair_rows;
+            var_t4_2 = var_t4 - 1;
+        } else {
+            goto block_123;
+        }
+        goto block_124;
+    }
+    sp14 = 1;
+loop_17:
+    var_s3 = 8;
+    spC = &D_80108970;
+    sp14 -= 1;
+    if (sp14 != 0) {
+        spC = &D_801032B0;
+        var_s3 = 0xA;
+    }
+    var_t4 -= 9;
+    var_a2_3 = var_t2_2 & 0x1FF;
+    if (var_t4 < 0) {
+        temp_t2_4 = var_s4;
+        var_s4 = *var_s1;
+        var_s1 += 4;
+        var_a2_3 = (var_t2_2 + (temp_t2_4 << (var_t4 + 9))) & 0x1FF;
+        var_t2_2 = temp_t2_4 >> -var_t4;
+        var_t4 += 0x20;
+    } else {
+        var_t2_2 = var_t2_2 >> 9;
+    }
+    if (var_a2_3 != 0) {
+        var_a3 = 1;
+        var_v1 = &D_80112EE0 + 4;
+        do {
+            *var_v1 = 0;
+            var_a3 += 1;
+            var_v1 += 4;
+        } while (var_a3 < 0x21U);
+        var_a3_2 = 0;
+        var_a0 = &D_800B283C;
+        do {
+            var_t4 -= 1;
+            var_a2_4 = var_t2_2 & 1;
+            if (var_t4 < 0) {
+                temp_t2_5 = var_s4;
+                var_s4 = *var_s1;
+                var_s1 += 4;
+                var_a2_4 = (var_t2_2 + (temp_t2_5 << (var_t4 + 1))) & 1;
+                var_t2_2 = temp_t2_5 >> -var_t4;
+                var_t4 += 0x20;
+            } else {
+                var_t2_2 = var_t2_2 >> 1;
+            }
+            if (var_a2_4 == 1) {
+                var_t4 -= 4;
+                if (var_t4 < 0) {
+                    sp1C = var_t2_2;
+                    temp_t2_6 = var_s4;
+                    var_s4 = *var_s1;
+                    var_s1 += 4;
+                    sp1C = (sp1C + (temp_t2_6 << (var_t4 + 4))) & 0xF;
+                    var_t2_2 = temp_t2_6 >> -var_t4;
+                    var_t4 += 0x20;
+                } else {
+                    sp1C = var_t2_2 & 0xF;
+                    var_t2_2 = var_t2_2 >> 4;
+                }
+            }
+            *var_a0 = sp1C;
+            temp_v1 = &(&D_80112EE0)[sp1C];
+            var_a3_2 += 1;
+            *temp_v1 += 1;
+            var_a0 += 4;
+        } while (var_a3_2 < var_a2_3);
+        D_80112EE0 = 0;
+        var_t3 = 0;
+        var_a3_3 = 1;
+        do {
+            var_a1 = 0;
+            if (var_a2_3 != 0) {
+                var_a0_2 = &D_800B283C;
+                var_v1_2 = (var_t3 * 4) + &D_800B3134;
+                do {
+                    if (*var_a0_2 == var_a3_3) {
+                        *var_v1_2 = var_a1;
+                        var_v1_2 += 4;
+                        var_t3 += 1;
+                    }
+                    var_a1 += 1;
+                    var_a0_2 += 4;
+                } while (var_a1 < var_a2_3);
+            }
+            var_a3_3 += 1;
+            var_t1_3 = 1;
+        } while (var_a3_3 < 0x10U);
+        var_t3_2 = 0;
+        var_a0_3 = &D_80112EE0 + 4;
+        do {
+            var_a3_4 = 1;
+            if (*var_a0_3 != 0) {
+                var_v1_3 = &(&D_800B283C)[var_t3_2];
+                do {
+                    *var_v1_3 = var_t1_3;
+                    var_v1_3 += 4;
+                    var_a3_4 += 1;
+                    var_t3_2 += 1;
+                } while ((u32) *var_a0_3 >= var_a3_4);
+            }
+            var_t1_3 += 1;
+            var_a0_3 += 4;
+        } while (var_t1_3 < 0x10U);
+        (&D_800B283C)[var_t3_2] = 0;
+        var_t1_4 = D_800B283C;
+        var_a3_5 = 0;
+        var_t3_3 = 0;
+        if (var_t1_4 != 0) {
+            var_t6 = 0;
+            var_t5 = &D_800B283C;
+            do {
+                if (*var_t5 == var_t1_4) {
+                    var_t0 = &(&D_800B283C)[var_t3_3];
+                    var_a2_5 = (var_t3_3 * 4) + &D_800B2CB8;
+                    do {
+                        var_a1_2 = var_a3_5 | (1 << var_t1_4);
+                        var_a3_5 += 1;
+                        *var_a2_5 = 0;
+loop_51:
+                        temp_v1_2 = var_a1_2 & 1;
+                        var_a1_2 = var_a1_2 >> 1;
+                        *var_a2_5 = (*var_a2_5 * 2) + temp_v1_2;
+                        if (var_a1_2 != 1) {
+                            goto loop_51;
+                        }
+                        var_t0 += 4;
+                        var_a2_5 += 4;
+                        var_t6 += 4;
+                        var_t5 += 4;
+                        var_t3_3 += 1;
+                    } while (*var_t0 == var_t1_4);
+                }
+                var_a3_5 *= 2;
+                var_t1_4 += 1;
+            } while (*(&D_800B283C + var_t6) != 0);
+            var_a3_5 = 0;
+        }
+        var_v1_4 = &D_80108FA0;
+        do {
+            *var_v1_4 = 0;
+            var_a3_5 += 1;
+            var_v1_4 += 1;
+        } while ((var_a3_5 >> var_s3) == 0);
+        var_t1_5 = 1;
+        var_t3_4 = 0;
+        if (var_s3 > 1U) {
+            var_t7 = 4;
+            var_t6_2 = &D_80112EE0 + 4;
+            do {
+                var_a3_6 = 1;
+                if (*var_t6_2 != 0) {
+                    temp_t5 = 1 << var_t1_5;
+                    temp_v0_2 = var_t3_4 * 4;
+                    var_a1_3 = temp_v0_2 + &D_800B3134;
+                    var_a0_4 = temp_v0_2 + &D_800B2CB8;
+                    do {
+                        var_a2_6 = *var_a0_4;
+                        var_v1_5 = &spC[var_a2_6];
+loop_62:
+                        var_a2_6 += temp_t5;
+                        *var_v1_5 = (*var_a1_3 << 7) + var_t1_5;
+                        var_v1_5 = &var_v1_5[temp_t5];
+                        if ((var_a2_6 >> var_s3) == 0) {
+                            goto loop_62;
+                        }
+                        var_a3_6 += 1;
+                        var_a1_3 += 4;
+                        var_a0_4 += 4;
+                        var_t3_4 += 1;
+                    } while ((u32) *(var_t7 + &D_80112EE0) >= var_a3_6);
+                }
+                var_t7 += 4;
+                var_t1_5 += 1;
+                var_t6_2 += 4;
+            } while (var_t1_5 < var_s3);
+        }
+        temp_s2 = var_t3_4;
+        if (var_t1_5 < 0x10U) {
+            var_t5_2 = var_t1_5 * 4;
+            var_t6_3 = &(&D_80112EE0)[var_t1_5];
+            do {
+                var_a3_7 = 1;
+                if (*var_t6_3 != 0) {
+                    var_t0_2 = &(&D_800B283C)[var_t3_4];
+                    var_a0_5 = (var_t3_4 * 4) + &D_800B2CB8;
+                    do {
+                        temp_a1 = *var_t0_2;
+                        temp_v1_3 = *var_a0_5 & ((1 << var_s3) - 1);
+                        var_a3_7 += 1;
+                        if ((u8) (&D_80108FA0)[temp_v1_3] < temp_a1) {
+                            (&D_80108FA0)[temp_v1_3] = (u8) temp_a1;
+                        }
+                        var_t0_2 += 4;
+                        var_a0_5 += 4;
+                        var_t3_4 += 1;
+                    } while ((u32) *(var_t5_2 + &D_80112EE0) >= var_a3_7);
+                }
+                var_t5_2 += 4;
+                var_t1_5 += 1;
+                var_t6_3 += 4;
+            } while (var_t1_5 < 0x10U);
+        }
+        var_a2_7 = 0;
+        var_a3_8 = 0;
+        var_a0_6 = &D_80108FA0;
+        var_a1_4 = spC;
+loop_74:
+        temp_v1_4 = *var_a0_6;
+        temp_v0_3 = temp_v1_4 & 0xFF;
+        if (temp_v0_3 != 0) {
+            if ((u32) (temp_v0_3 - var_s3) >= 8U) {
+                M2C_FIELD(sp4, s32 *, 0x1C) = -8;
+                return;
+            }
+            *var_a1_4 = (var_a2_7 << 7) + ((temp_v1_4 - var_s3) * 0x10);
+            var_a2_7 += 1 << (*var_a0_6 - var_s3);
+            goto block_78;
+        }
+block_78:
+        var_a0_6 += 1;
+        var_a3_8 += 1;
+        var_a1_4 += 2;
+        if ((var_a3_8 >> var_s3) != 0) {
+            var_t1_6 = var_s3;
+            if (var_a2_7 >= 0x200U) {
+                M2C_FIELD(sp4, s32 *, 0x1C) = -9;
+                return;
+            }
+            var_t3_5 = temp_s2;
+            if (var_t1_6 < 0x10U) {
+                temp_s6 = 1 << var_t1_6;
+                sp2C = temp_s6 - 1;
+                var_t9 = var_t1_6 * 4;
+                var_s2 = &(&D_80112EE0)[var_t1_6];
+                do {
+                    var_a3_9 = 1;
+                    if (*var_s2 != 0) {
+                        temp_v0_4 = var_t3_5 * 4;
+                        var_t8 = &(&D_800B283C)[var_t3_5];
+                        var_t7_2 = temp_v0_4 + &D_800B3134;
+                        var_t5_3 = temp_v0_4 + &D_800B2CB8;
+                        do {
+                            temp_a2 = *var_t5_3;
+                            temp_v1_5 = spC[temp_a2 & sp2C];
+                            var_a1_5 = temp_a2 >> var_s3;
+loop_86:
+                            (&spC[(temp_v1_5 >> 7) + temp_s6])[var_a1_5] = (*var_t7_2 << 7) + *var_t8;
+                            var_a1_5 += 1 << (*var_t8 - var_s3);
+                            if ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0) {
+                                goto loop_86;
+                            }
+                            var_a3_9 += 1;
+                            var_t8 += 4;
+                            var_t7_2 += 4;
+                            var_t5_3 += 4;
+                            var_t3_5 += 1;
+                        } while ((u32) *(var_t9 + &D_80112EE0) >= var_a3_9);
+                    }
+                    var_t9 += 4;
+                    var_t1_6 += 1;
+                    var_s2 += 4;
+                } while (var_t1_6 < 0x10U);
+            }
+            goto block_89;
+        }
+        goto loop_74;
+    }
+block_89:
+    if (sp14 < 0) {
+loop_91:
+        var_v0 = var_t4 < 0xF;
+loop_92:
+        if (var_v0 != 0) {
+            var_v1_6 = var_t2_2 + (var_s4 << var_t4);
+        } else {
+            var_v1_6 = var_t2_2;
+        }
+        var_t1_7 = (&D_801032B0)[var_v1_6 & 0x3FF];
+        var_v0_2 = var_t1_7 & 0xF;
+        if (var_v0_2 == 0) {
+            var_t1_7 = (&D_801032B0 + 0x800)[((var_v1_6 >> 0xA) & ((1 << ((var_t1_7 >> 4) & 7)) - 1)) + (var_t1_7 >> 7)];
+            var_v0_2 = var_t1_7 & 0xF;
+        }
+        var_t4 -= var_v0_2;
+        var_t2_2 = var_t2_2 >> var_v0_2;
+        if (var_t4 < 0) {
+            temp_t2_7 = var_s4;
+            var_s4 = *var_s1;
+            var_s1 += 4;
+            var_t2_2 = temp_t2_7 >> -var_t4;
+            var_t4 += 0x20;
+        }
+        temp_t1 = var_t1_7 >> 7;
+        if (temp_t1 < 0x100U) {
+            *var_fp = (u8) temp_t1;
+            var_fp += 1;
+            goto loop_91;
+        }
+        if (temp_t1 != 0x100) {
+            temp_v1_6 = *(&D_800B26BF + temp_t1);
+            var_a2_8 = 0;
+            if (temp_v1_6 != 0) {
+                var_t4 -= temp_v1_6;
+                if (var_t4 < 0) {
+                    temp_t2_8 = var_s4;
+                    var_s4 = *var_s1;
+                    var_s1 += 4;
+                    var_a2_8 = (var_t2_2 + (temp_t2_8 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
+                    var_t2_2 = temp_t2_8 >> -var_t4;
+                    var_t4 += 0x20;
+                } else {
+                    var_a2_8 = var_t2_2 & ((1 << temp_v1_6) - 1);
+                    var_t2_2 = var_t2_2 >> temp_v1_6;
+                }
+            }
+            var_t1_8 = *(&D_800B269F + temp_t1) + var_a2_8 + 3;
+            if (var_t4 < 0xF) {
+                var_v1_7 = var_t2_2 + (var_s4 << var_t4);
+            } else {
+                var_v1_7 = var_t2_2;
+            }
+            var_a1_6 = (&D_80108970)[var_v1_7 & 0xFF];
+            var_v0_3 = var_a1_6 & 0xF;
+            if (var_v0_3 == 0) {
+                var_a1_6 = (&D_80108970 + 0x200)[((var_v1_7 >> 8) & ((1 << ((var_a1_6 >> 4) & 7)) - 1)) + (var_a1_6 >> 7)];
+                var_v0_3 = var_a1_6 & 0xF;
+            }
+            var_t4 -= var_v0_3;
+            var_t2_2 = var_t2_2 >> var_v0_3;
+            if (var_t4 < 0) {
+                temp_t2_9 = var_s4;
+                var_s4 = *var_s1;
+                var_s1 += 4;
+                var_t2_2 = temp_t2_9 >> -var_t4;
+                var_t4 += 0x20;
+            }
+            temp_a1_2 = var_a1_6 >> 7;
+            temp_v1_7 = *(&D_800B281C + temp_a1_2);
+            var_a2_9 = 0;
+            if (temp_v1_7 != 0) {
+                var_t4 -= temp_v1_7;
+                if (var_t4 < 0) {
+                    temp_t2_10 = var_s4;
+                    var_s4 = *var_s1;
+                    var_s1 += 4;
+                    var_a2_9 = (var_t2_2 + (temp_t2_10 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
+                    var_t2_2 = temp_t2_10 >> -var_t4;
+                    var_t4 += 0x20;
+                } else {
+                    var_a2_9 = var_t2_2 & ((1 << temp_v1_7) - 1);
+                    var_t2_2 = var_t2_2 >> temp_v1_7;
+                }
+            }
+            temp_a1_3 = *((temp_a1_2 * 2) + &D_800B27E0) + var_a2_9;
+            temp_v0_5 = var_fp - temp_a1_3;
+            var_v1_8 = temp_v0_5 - 1;
+            if (temp_a1_3 == 0) {
+                do {
+                    *var_fp = M2C_FIELD(temp_v0_5, u8 *, -1);
+                    var_t1_8 -= 1;
+                    var_fp += 1;
+                } while (var_t1_8 != 0);
+                var_v0 = var_t4 < 0xF;
+            } else {
+                do {
+                    temp_v0_6 = *var_v1_8;
+                    var_v1_8 += 1;
+                    var_t1_8 -= 1;
+                    *var_fp = temp_v0_6;
+                    var_fp += 1;
+                } while (var_t1_8 != 0);
+                var_v0 = var_t4 < 0xF;
+            }
+            goto loop_92;
+        }
+block_123:
+        var_t4_2 = var_t4 - 1;
+block_124:
+        var_a2_10 = var_t2_2 & 1;
+        if (var_t4_2 < 0) {
+            temp_t2_11 = var_s4;
+            var_s4 = *var_s1;
+            var_s1 += 4;
+            var_a2_10 = (var_t2_2 + (temp_t2_11 << (var_t4_2 + 1))) & 1;
+            var_t2 = temp_t2_11 >> -var_t4_2;
+            var_t4_2 += 0x20;
+        } else {
+            var_t2 = var_t2_2 >> 1;
+        }
+        var_t4 = var_t4_2 - 1;
+        if (var_a2_10 != 0) {
+            return;
+        }
+        goto loop_1;
+    }
+    goto loop_17;
+}

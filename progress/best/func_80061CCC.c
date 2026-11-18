@@ -1,0 +1,56 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 func_80017EC0();
+s32 func_80044670();
+s32 func_80045CF8();
+s32 func_80061BE4();
+extern char D_80109A60[];
+
+void func_80061CCC(void *arg0) {
+    s32 var_fv0;
+    u8 temp_v0;
+    u8 temp_v0_2;
+    void *temp_s0;
+
+    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
+    temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
+    if (temp_v0 != 0) {
+        if (*(D_80109A60 + temp_v0) != M2C_FIELD(temp_s0, u8 *, 5)) {
+            M2C_FIELD(arg0, s32 *, 0x70) = 0;
+            goto block_12;
+        }
+        goto block_4;
+    }
+block_4:
+    var_fv0 = 0x41200000;
+    if (M2C_FIELD(temp_s0, s8 *, 8) != 0) {
+        var_fv0 = 0x43480000;
+    }
+    func_80017EC0(arg0, 0x40000000, var_fv0);
+    temp_v0_2 = M2C_FIELD(temp_s0, u8 *, 6) + 1;
+    M2C_FIELD(temp_s0, u8 *, 6) = temp_v0_2;
+    if ((u8) M2C_FIELD(temp_s0, u8 *, 7) < (u32) (temp_v0_2 & 0xFF)) {
+        M2C_FIELD(temp_s0, u8 *, 6) = 0U;
+    }
+    func_80044670(arg0, M2C_FIELD(temp_s0, u8 *, 6), (u32) M2C_FIELD(temp_s0, u32 *, 0) >> 0x14);
+    M2C_FIELD(arg0, s8 *, 0x7E) = 5;
+    if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x7000) && (M2C_FIELD(temp_s0, s8 *, 8) != 0) && (func_80045CF8(0x1E) == 0)) {
+        func_80061BE4(arg0);
+        M2C_FIELD(arg0, s32 *, 0x60) = 0;
+        return;
+    }
+block_12:
+    M2C_FIELD(arg0, s32 *, 0x60) = 0;
+}
