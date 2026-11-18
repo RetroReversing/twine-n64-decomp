@@ -31,13 +31,12 @@ s32 func_8008EA58(void) {
         var_v0 = -1;
         if (var_a0 != -1) {
             var_v0_2 = var_a0 & 0xFF;
-            __repair_rows: {
-                temp_v1 = var_v0_2 * 0x1A0;
-                if (*(&D_8010D784 + temp_v1) == var_a0) {
+            __repair_rows: {{ s32 __repair_value; __repair_value = var_v0_2 * 0x68; temp_v1 = __repair_value; }
+                if (*((M2C_UNK *)((s8 *)&D_8010D784 + temp_v1)) == var_a0) {
                     var_s0 = 0;
-                    *(&D_8010D748 + temp_v1) = *(&D_8010D748 + temp_v1) | 8;
+                    *((M2C_UNK *)((s8 *)&D_8010D748 + temp_v1)) = *((M2C_UNK *)((s8 *)&D_8010D748 + temp_v1)) | 8;
                 }
-                var_a0 = *(&D_8010D734 + temp_v1);
+                var_a0 = *((M2C_UNK *)((s8 *)&D_8010D734 + temp_v1));
                 var_v0_2 = var_a0 & 0xFF;
             }
 if (var_a0 != -1) goto __repair_rows;
@@ -47,5 +46,5 @@ if (var_a0 != -1) goto __repair_rows;
 block_6:
         var_v0 = var_s0;
     }
-    return var_v0;
+    return var_s0;
 }

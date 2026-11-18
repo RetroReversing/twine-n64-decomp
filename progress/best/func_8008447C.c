@@ -35,20 +35,22 @@ void func_8008447C(void *arg0) {
     temp_fs0 = func_80084270(arg0 + 0x24, &sp10);
     switch (D_80108F78) {                           /* switch 1; irregular */
     case 29:                                        /* switch 1 */
-        var_a0 = *(&D_800CE614 + (func_80045CF8(9) * 2));
+        var_a0 = *((M2C_UNK *)((s8 *)&D_800CE614 + (func_80045CF8(9) * 2)));
 block_15:
         var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);
         break;
     case 38:                                        /* switch 1 */
         if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1) != 0x33) {
-            var_a0 = *(&D_800CE5FC + (func_80045CF8(7) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE5FC + (func_80045CF8(7) * 2)));
         } else {
-            var_a0 = *(&D_800CE60C + (func_80045CF8(3) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE60C + (func_80045CF8(3) * 2)));
         }
-        goto block_15;
+        {
+        var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);break;}
     case 1:                                         /* switch 1 */
-        var_a0 = *(&D_800CE5F0 + (func_80045CF8(6) * 2));
-        goto block_15;
+        var_a0 = *((M2C_UNK *)((s8 *)&D_800CE5F0 + (func_80045CF8(6) * 2)));
+        {
+        var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);break;}
     default:                                        /* switch 1 */
         temp_v0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1);
         switch (temp_v0) {                          /* switch 2 */
@@ -60,7 +62,7 @@ block_15:
         case 0x69:                                  /* switch 2 */
         case 0x6A:                                  /* switch 2 */
         case 0x6B:                                  /* switch 2 */
-            var_a0 = *(&D_800CE60C + (func_80045CF8(3) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE60C + (func_80045CF8(3) * 2)));
             goto block_15;
         case 0x15:                                  /* switch 2 */
         case 0x2D:                                  /* switch 2 */
@@ -69,10 +71,10 @@ block_15:
         case 0x36:                                  /* switch 2 */
         case 0x37:                                  /* switch 2 */
         case 0x58:                                  /* switch 2 */
-            var_a0 = *(&D_800CE5E0 + (func_80045CF8(8) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE5E0 + (func_80045CF8(8) * 2)));
             goto block_15;
         }
         break;
     }
-    func_8000AABC(var_s0, *(&D_80109688 + (sp10 * 4)), arg0 + 0x24, 0);
+    func_8000AABC(var_s0, *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0 + 0x24, 0);
 }
