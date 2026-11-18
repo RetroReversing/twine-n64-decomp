@@ -34,5 +34,5 @@ s32 func_80077D40(s32 arg0, void *arg1) {
         } while (var_v1 != NULL);
         var_v0 = var_a1;
     }
-    return var_v0;
+    return var_a1;
 }
