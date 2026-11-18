@@ -15,8 +15,11 @@ typedef s32 M2C_UNK32;
 extern void *D_800BFF08;
 
 u16 func_80030C58(void) {
+    u16 ret;
     if (D_800BFF08 == NULL) {
-        return 2U;
+        ret = 2U;
+    } else {
+        ret = M2C_FIELD(D_800BFF08, u16 *, 0x1A);
     }
-    return M2C_FIELD(D_800BFF08, u16 *, 0x1A);
+    return ret;
 }
