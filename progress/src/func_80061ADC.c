@@ -30,10 +30,10 @@ void *func_80061ADC(s32 arg0, s32 arg1, void *arg2) {
         M2C_FIELD(temp_s0, s32 *, 0) = (s32) ((M2C_FIELD(temp_s0, s32 *, 0) & 0xFFFFF) | (*M2C_FIELD(arg2, s16 **, 0x28) << 0x14));
         M2C_FIELD(temp_s0, s8 *, 4) = (s8) M2C_FIELD(arg2, u16 *, 0x2C);
         M2C_FIELD(temp_s0, s8 *, 5) = (s8) M2C_FIELD(arg2, u16 *, 0x2E);
-        if (M2C_FIELD(arg2, u16 *, 0x30) != 1) {
-            M2C_FIELD(temp_s0, s8 *, 8) = 0;
-        } else {
+        if (M2C_FIELD(arg2, u16 *, 0x30) == 1) {
             M2C_FIELD(temp_s0, s8 *, 8) = 1;
+        } else {
+            M2C_FIELD(temp_s0, s8 *, 8) = 0;
         }
         temp_v0_2 = M2C_FIELD(arg2, u16 *, 0);
         M2C_FIELD(temp_s0, s8 *, 7) = (s8) temp_v0_2;
