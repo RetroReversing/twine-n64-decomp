@@ -19,11 +19,15 @@ extern M2C_UNK D_801096F4;
 extern u8 D_801176E8;
 
 void func_80093410(void) {
+int __repair_literal;
+
     s32 var_s0;
     s32 var_s1;
 
     var_s1 = 0;
-    if ((s32) D_801176E8 > 0) {
+__repair_literal = 0;
+
+    if ((s32) D_801176E8 > __repair_literal) {
         var_s0 = 0;
         do {
             if (*((M2C_UNK *)((s8 *)&D_801096E8 + var_s0)) == 1) {

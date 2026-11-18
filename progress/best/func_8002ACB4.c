@@ -15,8 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8002A1F0();                            /* extern */
 
 void func_8002ACB4(void *arg0) {
-    s32 var_s1;
-    s32 var_v0;
+    u16 var_s1;
     u8 temp_v1;
 
     if (arg0 != NULL) {
@@ -25,14 +24,8 @@ void func_8002ACB4(void *arg0) {
             func_8002A1F0();
             return;
         }
-        var_s1 = 0;
-        if (temp_v1 < (u8) M2C_FIELD(arg0, u8 *, 0x19)) {
-            var_v0 = 0 & 0xFFFF;
-            do {
-                M2C_FIELD(arg0, M2C_UNK (**)(s32, M2C_UNK, s32), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_v0 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_v0);
-                var_s1 += 1;
-                var_v0 = var_s1 & 0xFFFF;
-            } while ((u32) (var_s1 & 0xFFFF) < (u8) M2C_FIELD(arg0, u8 *, 0x19));
+        for (var_s1 = 0; var_s1 < (u8) M2C_FIELD(arg0, u8 *, 0x19); var_s1++) {
+            M2C_FIELD(arg0, M2C_UNK (**)(s32, M2C_UNK, s32), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_s1 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1);
         }
     }
 }

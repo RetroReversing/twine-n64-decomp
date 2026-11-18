@@ -3,12 +3,12 @@
 extern char D_800F2720[];
 
 void func_80096758(s32 arg0, void *arg1, void *arg2) {
-    s32 temp_a1;
-    unsigned int temp_a1_2;
     u8 temp_a3;
-    unsigned int temp_a2;
+    unsigned temp_a1_2;
     s32 var_v0;
+    unsigned int temp_a2;
     u8 temp_v1;
+    s32 temp_a1;
     
     void *temp_v0;
     
@@ -17,7 +17,7 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
     temp_v1 = (*(volatile u8 *)((char *)(arg1) + 0x63));
     temp_a3 = (*(volatile u8 *)((char *)(arg2) + 0x63));
     temp_a2 = arg0 & 0xFF;
-    if (temp_a2 < 0x40U) {
+    if (0x40U > temp_a2) {
 void *temp_v0_2;
 
         var_v0 = arg0 & 0x1F;
@@ -38,5 +38,5 @@ void *temp_v0_2;
         (*(u8 *)((char *)(temp_v1_3) + 1)) = (u8) (*(u8 *)((char *)(temp_v0_2) + 1));
         return;
     }
-    *((var_v0 * 0x86) + D_800F2720 + temp_a2) = *(((((*(u8 *)((char *)(arg2) + 0x63))) & 0xFF) * 0x86) + D_800F2720 + temp_a2);
+    *(((unsigned short)var_v0 * 0x86) + D_800F2720 + temp_a2) = *(((((*(u8 *)((char *)(arg2) + 0x63))) & 0xFF) * 0x86) + D_800F2720 + temp_a2);
 }
