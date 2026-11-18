@@ -20,7 +20,7 @@ u64 func_800ABBE4(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
   u32 prodlo;
   u32 prodhi;
   u32 borrow;
- do { hi = arg0 / arg3; rem = arg0 % arg3; qlo = 0; loop: if (rem) { v1 = arg1; v0 = rem; t = arg3; do { v1 = (v1 >> 1) | (v0 << 31); v0 >>= 1; t >>= 1; } while (v0); t++; v1 /= t; qlo += v1; hi += qlo < v1; product.whole = ((u64) v1) * arg3; prodlo = product.word.lo; prodhi = product.word.hi; borrow = arg1 < prodlo; arg1 -= prodlo; rem = (rem - borrow) - prodhi; goto loop; } v1 = arg1 / arg3; v1 += qlo; hi += v1 < qlo; } while (0);
+ do { hi = arg0 / arg3; rem = arg0 % arg3; qlo = 0; loop: if (rem) { v1 = arg1; v0 = rem; t = arg3; do { v1 = (v1 >> 1) | (v0 << 31); v0 >>= 1; t >>= 1; } while (v0); t++; v1 /= t;/*__repair_loop_weight*/do { qlo += v1;} while (0); hi += qlo < v1; product.whole = ((u64) v1) * arg3; prodlo = product.word.lo; prodhi = product.word.hi; borrow = arg1 < prodlo; arg1 -= prodlo; rem = (rem - borrow) - prodhi; goto loop; } v1 = arg1 / arg3; v1 += qlo; hi += v1 < qlo; } while (0);
   result.word.hi = hi;
   result.word.lo = v1;
   return result.whole;

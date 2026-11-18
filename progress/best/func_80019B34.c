@@ -13,7 +13,7 @@ int __repair_literal;
 
     s32 var_v1_2;
     s32 temp_v1_2;
-    s32 temp_a0;
+    unsigned temp_a0;
     unsigned long temp_v1_3;
     s32 var_a2;
     s32 var_s0_4;
@@ -36,9 +36,9 @@ int __repair_literal;
         var_v1 = 0 & 0xFFFF;
 loop_2:
         if ((var_v1 == (unsigned short)var_a2) || (var_v0 = 0x15A, (*(D_8010019C + (var_v1 * 0x18)) != temp_a0))) {
-            var_s0 += 1;
+            ++var_s0;
             var_v1 = var_s0 & 0xFFFF;
-            if ((var_s0 & 0xFFFF) >= var_a1) {
+            if (((short)var_s0 & 0xFFFF) >= var_a1) {
                 goto block_5;
             }
             goto loop_2;
@@ -66,7 +66,7 @@ loop_7:
     }
 block_10:
     if (D_801002A1 != 0) {
-        var_v0 = 0x159;
+        register var_v0 = 0x159;
         if (!(func_8002BC28(temp_a0, var_a1, var_a2) & 0xFF)) {
             register var_v0 = 0x159;
             if (*(D_801001A1 + ((arg0 & 0xFFFF) * 0x18)) == 0) {
@@ -78,7 +78,7 @@ block_10:
     }
     temp_v1_3 = func_8002BC28(temp_a0, var_a1, var_a2) & 0xFF;
     var_v0 = 0x159;
-    if (temp_v1_3 == 0) {
+    if (!temp_v1_3) {
         var_s0_3 = 0;
         if (D_801002B8 > temp_v1_3) {
             var_v1_2 = 0 & 0xFFFF;
@@ -86,7 +86,7 @@ loop_17:
             if ((var_v1_2 == (arg0 & 0xFFFF)) || (var_v0 = 0x15A, ((func_8002BC28(*(D_8010019C + (var_v1_2 * 0x18))) & 0xFF) != 0))) {
                 var_s0_3++;
                 var_v1_2 = var_s0_3 & 0xFFFF;
-                if ((var_s0_3 & 0xFFFF) >= D_801002B8) {
+                if (((unsigned short)var_s0_3 & 0xFFFF) >= D_801002B8) {
                     goto block_20;
                 }
                 goto loop_17;

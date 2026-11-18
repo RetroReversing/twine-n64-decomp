@@ -29,14 +29,14 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2) {
               
               
     s32 var_a2;
-    f32 var_fs3;
+    f32 var_fv0;
     void *var_s3;
-    register long temp_s2;
+    long temp_s2;
     f32 var_fv1;
     register f32 var_fa0;
-    void *temp_v0;
+    f32 var_fs3;
     int var_s1;
-    f32 var_fv0;
+    void *temp_v0;
 
     temp_s2 = *func_8000182C() - (arg2 != 0);
     temp_v0 = func_80083E90((temp_s2 + 3) * 4, 0x1C);
@@ -49,14 +49,14 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2) {
             m2c_initial_frame.view_spC7C.value = arg1 & 1;
             do {
                 var_a2 = var_s1 + 1;
-                if ((arg2 == 0) && ((u32)var_s1 == m2c_initial_frame.view_spC74.value)) {
+                if ((arg2 == 0) && (var_s1 == m2c_initial_frame.view_spC74.value)) {
                     var_a2 = 1;
                 }
                 var_fv1 = 0.0f;
-                func_800055CC(&m2c_initial_frame.view_sp20.value, arg0, var_a2, 0);
                 var_fv0 = 0.0f;
                 var_fa0 = 0.0f;
                 func_800055CC(&m2c_initial_frame.view_sp648.value, arg0, var_a2 - 1, 0);
+                func_800055CC(&m2c_initial_frame.view_sp20.value, arg0, var_a2, 0);
                 if (m2c_initial_frame.view_spC7C.value != 0) {
                     var_fa0 = m2c_initial_frame.view_sp28.value - m2c_initial_frame.view_sp650.value;
                 }
@@ -67,8 +67,8 @@ void *func_80005158(s32 arg0, s32 arg1, s32 arg2) {
                     var_fv1 = m2c_initial_frame.view_sp30.value - m2c_initial_frame.view_sp658.value;
                 }
                 var_fs3 += func_80082908((var_fa0 * var_fa0) + (var_fv0 * var_fv0) + (var_fv1 * var_fv1));
+                var_s1 += 1;
                 (*(f32 *)((char *)(var_s3) + 0xC)) = var_fs3;
-                ++var_s1;
                 var_s3 += 4;
             } while (temp_s2 > var_s1);
         }
