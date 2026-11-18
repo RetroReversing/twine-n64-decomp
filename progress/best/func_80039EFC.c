@@ -147,7 +147,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                     if (spC == 0) {
                         temp_a0 = (((s32) (((s32) ((var_t2 - temp_t3) + 1) >> 1) + 7) >> 3) & 0x1FF) << 9;
                         temp_a1_2 = (temp_a2_2 * 4) & 0xFFF;
-                        temp_a2_3 = (var_a3 * 4) & 0xFFF;
+                        temp_a2_3 = (temp_s0 * 4) & 0xFFF;
                         var_t1_2 = var_t1 + 0x38;
                         M2C_FIELD(var_t0, s32 *, 8) = arg1;
                         M2C_FIELD(temp_t0, s32 *, -4) = sp1C;
@@ -205,23 +205,23 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                     if (var_v1 >= 0xF1) {
                         var_v1 = 0xF0;
                     }
-                    temp_a0_3 = var_a0 * 4;
+                    temp_t3 = var_a0 * 4;
                     temp_v1_2 = var_v1 * 4;
-                    temp_a1_4 = var_t6 * 4;
+                    temp_a0 = var_t6 * 4;
                     if (D_8010A4E8 != 0) {
                         temp_t0_12 = var_t0_2 + 8;
                         var_fv1_3 = temp_fv0 * 32.0f;
-                        M2C_FIELD(temp_t0_12, s32 *, -4) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | (((temp_v1_2 * 2) & 0xFFF) | 0xE4000000));
-                        M2C_FIELD(var_t0_2, s32 *, 8) = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t8 * 8) & 0xFFF));
+                        M2C_FIELD(temp_t0_12, s32 *, -4) = (s32) (((temp_t3 & 0xFFF) << 0xC) | (((temp_v1_2 * 2) & 0xFFF) | 0xE4000000));
+                        M2C_FIELD(var_t0_2, s32 *, 8) = (s32) (((temp_a0 & 0xFFF) << 0xC) | ((var_t8 * 8) & 0xFFF));
                         var_t0_3 = temp_t0_12 + 8;
                         var_t1 = var_t1_2 + 0x18;
                         var_fv0 = temp_ft1 * 32.0f;
                         var_a0_2 = 0x04000200;
                     } else {
                         temp_t0_13 = var_t0_2 + 8;
-                        M2C_FIELD(temp_t0_13, s32 *, -4) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | ((temp_v1_2 & 0xFFF) | 0xE4000000));
+                        M2C_FIELD(temp_t0_13, s32 *, -4) = (s32) (((temp_t3 & 0xFFF) << 0xC) | ((temp_v1_2 & 0xFFF) | 0xE4000000));
                         var_fv1_3 = temp_fv0 * 32.0f;
-                        M2C_FIELD(var_t0_2, s32 *, 8) = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t8 * 4) & 0xFFF));
+                        M2C_FIELD(var_t0_2, s32 *, 8) = (s32) (((temp_a0 & 0xFFF) << 0xC) | ((var_t8 * 4) & 0xFFF));
                         var_t0_3 = temp_t0_13 + 8;
                         var_t1 = var_t1_2 + 0x18;
                         var_fv0 = temp_ft1 * 32.0f;

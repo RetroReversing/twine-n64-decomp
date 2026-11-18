@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800ABCB0(s32, u32, M2C_UNK, M2C_UNK);      /* extern */
+s32 func_800ABCB0(s32,  u32);      /* extern */
 u64 osGetTime();                                    /* extern */
 s32 osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);        /* extern */
 extern s32 D_80000300;
@@ -23,7 +23,7 @@ extern M2C_UNK D_80109C98;
 void func_80006FB4(void) {
     s32 temp_a2;
     s32 temp_ret_3;
-    u32 temp_a1;
+    
     u32 temp_a1_2;
     u32 temp_a3;
     u32 temp_s1;
@@ -47,9 +47,9 @@ void func_80006FB4(void) {
     D_80108F88 = temp_a2;
     D_80108F8C = temp_a3;
     if (D_80000300 == 0) {
-        temp_a1 = temp_a3 * 5;
-        temp_a1_2 = temp_a1 + 3;
-        temp_ret_3 = func_800ABCB0(((temp_a2 * 4) | (temp_a3 >> 0x1E)) + temp_a2 + (temp_a1 < temp_a3) + (temp_a1_2 < 3U), temp_a1_2, 0, 6);
+        temp_v1 = temp_a3 * 5;
+        temp_a1_2 = temp_v1; temp_a1_2 += 3;
+        temp_ret_3 = func_800ABCB0(((temp_a2 * 4) | (temp_a3 >> 0x1E)) + temp_a2 + (temp_v1 < temp_a3) + (temp_a1_2 < 3U),  temp_a1_2);
         D_80108F88 = temp_ret_3;
         D_80108F8C = (u32) (u64) temp_ret_3;
     }

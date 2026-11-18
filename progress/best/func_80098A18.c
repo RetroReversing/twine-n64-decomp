@@ -45,13 +45,13 @@ void func_80098A18(void *arg0) {
             temp_a0 = (M2C_FIELD(arg0, u8 *, 0x2E) * 4) + D_8010A51A;
             temp_a1_3 = M2C_FIELD(temp_a0, u16 *, 2);
             if (temp_a1_3 != 0xFFFF) {
-                *(D_8010A51A + (temp_a1_3 * 4)) = M2C_FIELD(temp_a0, u16 *, 0);
+                *(s16 *)(D_8010A51A + (temp_a1_3 * 4)) = M2C_FIELD(temp_a0, u16 *, 0);
             } else {
                 D_80109B1C = M2C_FIELD(temp_a0, u16 *, 0);
             }
             temp_a1_4 = M2C_FIELD(temp_a0, u16 *, 0);
             if (temp_a1_4 != 0xFFFF) {
-                *(D_8010A51C + (temp_a1_4 * 4)) = M2C_FIELD(temp_a0, u16 *, 2);
+                *(s16 *)(D_8010A51C + (temp_a1_4 * 4)) = M2C_FIELD(temp_a0, u16 *, 2);
             }
         }
         M2C_FIELD(temp_a2, u16 *, 2) = 0U;

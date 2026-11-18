@@ -36,7 +36,8 @@ block_10:
         if (M2C_FIELD(temp_s0, s32 *, 0x88) & 0x40000000) {
             var_a1 = 0x1FC;
         }
-        goto block_10;
+        {
+        func_80002BD0(arg0, var_a1);break;}
     }
     M2C_FIELD(temp_s0, s8 *, 0x7F) = 0;
 }

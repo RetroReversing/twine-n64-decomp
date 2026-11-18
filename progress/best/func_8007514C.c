@@ -7,7 +7,7 @@ s32 func_800707B4();
 s32 func_80074C34();
 extern s32 D_800C7EE4;
 extern char D_800C7EE8[];
-extern char D_800C7EE9[];
+extern u8 D_800C7EE9[];
 extern char D_800C7EEC[];
 extern u8 D_800CEEB0;
 extern void *D_8010A500;
@@ -29,15 +29,7 @@ void func_8007514C(void *arg0) {
         temp_s2 = (*(void **)((char *)(D_8010A500) + 0x6C));
         var_s0 = 0;
         switch (temp_v1) {
-case 5:                                     /* switch 1 */
-            var_s0 = 1;
-            if ((*(s8 *)((char *)((*(void **)((char *)(D_8010A500) + 0x68))) + 0xE)) == 0x29) {
-                goto block_12;
-            }
-            break;
-        case 0: break;
-                          /* switch 1 */
-        case 2:                                     /* switch 1 */
+case 2:                                     /* switch 1 */
             var_v0 = 0;
             if (func_800312F4(2, 0) != 3) {
                 goto block_13;
@@ -49,6 +41,14 @@ case 5:                                     /* switch 1 */
                 goto block_12;
             }
             break;
+        case 5:                                     /* switch 1 */
+            var_s0 = 1;
+            if ((*(s8 *)((char *)((*(void **)((char *)(D_8010A500) + 0x68))) + 0xE)) == 0x29) {
+                goto block_12;
+            }
+            break;
+        case 0: break;
+                          /* switch 1 */
         case 1:                                     /* switch 1 */
             if ((func_800707B4((int)temp_s2) << 0x18) != 0) {
                 var_s0 = 1;

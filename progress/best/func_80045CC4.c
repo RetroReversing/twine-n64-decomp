@@ -20,5 +20,5 @@ void func_80045CC4(void) {
 
     temp_v0 = D_800C2EB0 + D_800C2EB4;
     D_800C2EB0 = temp_v0;
-    D_800C2EB4 += temp_v0 + (temp_v0 >> 0x1F);
+    D_800C2EB4 += ((temp_v0 >> 0x1F)) + (temp_v0);
 }

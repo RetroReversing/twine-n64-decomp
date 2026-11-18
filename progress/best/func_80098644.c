@@ -33,8 +33,8 @@ void func_80098644(void) {
     D_800FD560 = 0;
     D_800F8D5C = 0;
     do {
-        *(D_800F8D60 + var_v1) = 0;
-        *(D_800F8D62 + var_v1) = 0;
+        *(s16 *)(D_800F8D60 + var_v1) = 0;
+        *(s16 *)(D_800F8D62 + var_v1) = 0;
         var_v1 += 4;
     } while (var_v1 < 0x800);
     func_8008C7B0();

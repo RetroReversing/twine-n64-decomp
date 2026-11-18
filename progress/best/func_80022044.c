@@ -36,7 +36,7 @@ void func_80022044(void) {
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }
-        func_80026004(temp_s0, "%s", func_80087100((var_s1 + 0x96) & 0xFFFF));
+        func_80026004(temp_s0, "%s", func_80087100((unsigned short)(var_s1 + 0x96)));
         func_8002A700(D_8010A488);
         func_80021CA0(var_s1);
         func_8002AC04(D_8010A488, 1);

@@ -44,13 +44,16 @@ block_9:
             goto block_9;
         case 3:
             var_a0 = 0x6C;
-            goto block_9;
+            {
+            func_80026004(temp_s0, "%s", func_80087100(var_a0));break;}
         case 4:
             var_a0 = 0x296;
-            goto block_9;
+            {
+            func_80026004(temp_s0, "%s", func_80087100(var_a0));break;}
         case 5:
             var_a0 = 0x297;
-            goto block_9;
+            {
+            func_80026004(temp_s0, "%s", func_80087100(var_a0));break;}
         }
         *(D_801001A2 + (D_801002AD * 0x18)) = temp_s1;
     }
