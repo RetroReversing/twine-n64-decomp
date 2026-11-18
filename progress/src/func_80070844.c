@@ -16,7 +16,7 @@ u8 func_80070844(s32 arg0, s32 arg1) {
     u32 temp_a1;
 
     temp_a1 = arg1 & 0xFF;
-    if ((arg0 != 0) && (temp_a1 < 0x1EU)) {
+    if ((arg0 != 0) && ((arg1 & 0xFF) < 0x1EU)) {
         return M2C_FIELD(((temp_a1 * 2) + arg0), u8 *, 0x139);
     }
     return 0U;
