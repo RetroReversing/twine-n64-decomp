@@ -13,5 +13,5 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_800A9280(s32 arg0) {
-    *(s32 *)0xA4040010 = arg0;
+    *(volatile s32 *)0xA4040010 = arg0;
 }
