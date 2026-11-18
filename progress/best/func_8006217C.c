@@ -74,7 +74,7 @@ void func_8006217C(void *arg0) {
         temp_s0_2 = temp_s3 + 0x10;
         func_80085E78(arg0, temp_s0_2);
         M2C_FIELD(temp_s3, f32 *, 4) += M2C_FIELD(temp_s3, f32 *, 8);
-        func_80017EC0(arg0, 0x3F800000, 0x40A00000);
+        do { func_80017EC0(arg0, 0x3F800000, 0x40A00000); } while (0);
         func_8007659C(arg0, temp_s3);
         M2C_FIELD(arg0, s32 *, 0x3C) = 0;
         M2C_FIELD(arg0, s32 *, 0x40) = 0;

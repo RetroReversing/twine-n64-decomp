@@ -32,6 +32,6 @@ void func_80005B90(s32 arg0, M2C_UNK arg1, f32 arg2, M2C_UNK arg3) {
         var_s1 = temp_v1;
     }
     func_800055CC(&sp10, arg1, temp_fv0, arg3);
-    func_800055CC(&sp638, arg1, var_s1, arg3);
+    do { func_800055CC(&sp638, arg1, var_s1, arg3); } while (0);
     func_80005D04(arg0, &sp10, &sp638, temp_fs0 - (f32) temp_fv0);
 }

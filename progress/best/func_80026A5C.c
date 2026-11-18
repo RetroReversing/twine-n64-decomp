@@ -85,7 +85,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     M2C_FIELD(temp_v0, s32 *, 0x10) = (s32) ((var_v0_3 & ~0xFF) | (arg1 & 0xFF));
     temp_v0_2 = M2C_FIELD(arg0, u16 *, 0xC) & 0xF;
     if (temp_v0_2 != 0) {
-        M2C_FIELD(temp_v0, s32 *, 0x10) = (s32) ((*(&D_800BD640 + (temp_v0_2 * 4)) & ~0xFF) | (arg1 & 0xFF));
+        M2C_FIELD(temp_v0, s32 *, 0x10) = (s32) ((*(&D_800BD640 + temp_v0_2) & ~0xFF) | (arg1 & 0xFF));
     }
     if (M2C_FIELD(arg0, u8 *, 0x1C) & 0x20) {
         M2C_FIELD(temp_v0, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v0, u16 *, 0x1E) | 0x80);

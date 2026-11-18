@@ -16,16 +16,16 @@ void func_80037788(void *arg0) {
     u32 temp_v0;
 
     temp_s1 = (*(s32 *)((char *)(arg0) + 0x18));
-    if ((temp_s1 != 0) && (D_80107EA0 < D_800B1D84)) {
-        temp_v0 = D_80107EA0 + 1;
-        D_80107EA0 = temp_v0;
+    if ((temp_s1) && (D_80107EA0 < D_800B1D84)) {
+        register temp_v0 = D_80107EA0 + 1;
+        register D_80107EA0 = temp_v0;
         D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
         do { func_800347B0(&D_80112F90, (*(f32 *)((char *)(arg0) + 0x2C)) * 0.0015339808f, (*(f32 *)((char *)(arg0) + 0x30)) * 0.0015339808f, (*(f32 *)((char *)(arg0) + 0x34)) * 0.0015339808f, (*(f32 *)((char *)(arg0) + 0x20)) * 64.0f, (*(f32 *)((char *)(arg0) + 0x24)) * 64.0f, (*(f32 *)((char *)(arg0) + 0x28)) * 64.0f); } while (0);
         func_800A37C0(&D_80112F90, D_8010D538);
         temp_a1 = D_80115328;
         D_80115328 = temp_a1 + 8;
-        (*(s32 *)((char *)(temp_a1) + 4)) = (s32) (D_8010D538 - 0x80000000);
-        (*(s32 *)((char *)(temp_a1) + 0)) = 0xDA380003;
+        (*(s32 *)((char *)(temp_a1) + 4)) = (s32) (D_8010D538 - (s32)0x80000000);
+        (*(s32 *)((char *)(temp_a1) + 0)) = (unsigned short)0xDA380003;
         func_80032630(temp_s1, temp_a1, 0xDA380003);
     }
 }

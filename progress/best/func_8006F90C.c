@@ -22,7 +22,7 @@ void func_8006F90C(void *arg0) {
 
     temp_v0 = M2C_FIELD(arg0, void **, 0x138);
     if (temp_v0 != NULL) {
-        M2C_FIELD(arg0, f32 *, 0x11C) = (f32) (*(&D_800C46AC + (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x68), s8 *, 0xE) * 0xE8)) * D_800C7C9C);
+        M2C_FIELD(arg0, f32 *, 0x11C) = (f32) (*((M2C_UNK *)((s8 *)&D_800C46AC + (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x68), s8 *, 0xE) * 0xE8))) * D_800C7C9C);
         if (D_80108F78 == 0x19) {
             M2C_FIELD(arg0, f32 *, 0x11C) = (f32) D_800C0740;
         }
