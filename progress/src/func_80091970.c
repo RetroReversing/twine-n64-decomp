@@ -24,11 +24,12 @@ extern EntSnd D_800E5AC4[];
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
     s32 key = id & 0x7FFFFFFF;
+    s32 hi = id & 0x80000000;
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
         if (*((u8 *)&D_800E5AC4[0].busy + off) == 0 && *(s32 *)((u8 *)&D_800E5AC4[0].id + off) == key) {
-            return i | (id & 0x80000000);
+            return i | hi;
         }
     }
     return -1;
