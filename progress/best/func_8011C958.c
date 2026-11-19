@@ -20,9 +20,9 @@ int __repair_literal;
     s32 var_s1;
     s32 var_s3;
     s32 var_v0;
-    s32 var_v0_2;
+    
     u8 temp_v1;
-    void *temp_v0;
+    union { void * pointer; s32 value; } __repair_phase_storage;
 
     D_8011F3C4 = func_80015F74(D_8011EDC0);
     D_8011F3C8 = func_80015F74(D_8011EDC0 + 0x24);
@@ -31,7 +31,8 @@ int __repair_literal;
     if (D_801002C0 > 0) {
         var_a0 = 0 & 0xFFFF;
         do {
-            temp_v1 = D_801001A2[var_a0].f0;
+            var_v0 = (unsigned char)var_a0;
+    temp_v1 = D_801001A2[var_v0].f0;
             if (temp_v1 != 0) {
                 var_s1 = 0;
 __repair_literal = 4;
@@ -46,11 +47,11 @@ __repair_literal = 4;
                 }
 block_6:
 loop_7:
-                temp_v0 = func_800162BC(var_a0);
-                if (temp_v0 != NULL) {
-                    func_800448A4(temp_v0, 0x13, 0xF4);
-                    (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) D_800BD644;
-                    *((var_a0 * 4) + (((var_s1 & 0xFFFF) * 0x10) + &D_8011F338)) = temp_v0;
+                __repair_phase_storage.pointer = func_800162BC(var_a0);
+                if (__repair_phase_storage.pointer != NULL) {
+                    func_800448A4(__repair_phase_storage.pointer, 0x13, 0xF4);
+                    (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x10)) = (s32) D_800BD644;
+                    *((var_a0 * 4) + (((var_s1 & 0xFFFF) * 0x10) + &D_8011F338)) = __repair_phase_storage.pointer;
                 }
                 ++var_s1;
                 if ((u32) (var_s1 & 0xFFFF) < 3U) {
@@ -60,13 +61,15 @@ loop_7:
                 register var_s1 = 0;
                 var_v0 = var_s3 & 0xFFFF;
 block_12:
-                var_v0_2 = 0 & 0xFFFF;
-                __repair_rows: {
-                    *((var_v0 * 4) + ((var_v0_2 * 0x10) + &D_8011F338)) = 0;
+                __repair_phase_storage.value = 0 & 0xFFFF;
+                __repair_rows: { {
+                    *((var_v0 * 4) + ((__repair_phase_storage.value * 0x10) + &D_8011F338)) = 0;
                     ++var_s1;
-                    var_v0_2 = var_s1 & 0xFFFF;
+                    var_a0 = var_s1 & 0xFFFF;
+    __repair_phase_storage.value = var_a0;
                 }
-if ((u32) (var_s1 & 0xFFFF) < 3U) goto __repair_rows;
+}
+if ((u32) ((var_a0 = (short)var_s1) & 0xFFFF) < 3U) goto __repair_rows;
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;

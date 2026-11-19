@@ -21,6 +21,8 @@ void func_800081C4(s32 arg0) {
     s32 var_s2;
     char *var_s1;
     u32 var_s0;
+/* Inferred frame reservation; original purpose unknown. */
+char __repair_stack_padding[8];
 
     var_s2 = 0x25800;
     if (D_80108400 != 0) {

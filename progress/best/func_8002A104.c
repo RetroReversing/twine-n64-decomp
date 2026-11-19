@@ -37,10 +37,10 @@ void func_8002A104(void *arg0) {
                 var_ft0 += D_800D2CE0;
             }
             temp_fv1 = M2C_FIELD(arg0, f32 *, 0xC) * (f32) var_ft0;
-            if (temp_fv1 >= 2.1474836e9f) {
-                var_v0 = (s32) (temp_fv1 - 2.1474836e9f) | (s32) &D_80000001;
-            } else {
+            if (temp_fv1 < 2.1474836e9f) {
                 var_v0 = (s32) temp_fv1 + 1;
+            } else {
+                var_v0 = (s32) (temp_fv1 - 2.1474836e9f) | (s32) &D_80000001;
             }
             M2C_FIELD(temp_a0, u8 *, 0x29) = var_v0;
             temp_a0_2 = M2C_FIELD(temp_v0, void **, 8);

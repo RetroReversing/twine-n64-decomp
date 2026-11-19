@@ -1,15 +1,3 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80016160();
@@ -41,12 +29,12 @@ extern char D_80102EFC[];
 void func_8002F868(void *arg0, void *arg1) {
     s16 temp_v1;
     char *var_a2;
-    char *var_a3;
     u16 temp_v1_2;
+    char *var_a3;
     void *temp_t0;
 
     func_8002F718();
-    temp_v1 = M2C_FIELD(arg1, s16 *, 0x7A);
+    temp_v1 = (*(s16 *)((char *)(arg1) + 0x7A));
     switch (temp_v1) {
     case 0:
         func_8002EFD8(arg0, arg1);
@@ -90,17 +78,17 @@ block_19:
             temp_t0 = var_a2 + 0x20;
             D_800BFC92 = temp_v1_2;
             __repair_rows: {
-                M2C_FIELD(var_a3, s32 *, 0) = M2C_FIELD(var_a2, s32 *, 0);
-                M2C_FIELD(var_a3, s32 *, 4) = (s32) M2C_FIELD(var_a2, s32 *, 4);
-                M2C_FIELD(var_a3, s32 *, 8) = (s32) M2C_FIELD(var_a2, s32 *, 8);
-                M2C_FIELD(var_a3, s32 *, 0xC) = (s32) M2C_FIELD(var_a2, s32 *, 0xC);
+                (*(s32 *)((char *)(var_a3) + 0)) = (*(s32 *)((char *)(var_a2) + 0));
+                (*(s32 *)((char *)(var_a3) + 0xC)) = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
+                (*(s32 *)((char *)((unsigned short)var_a3) + 4)) = (s32) (*(s32 *)((char *)(var_a2) + 4));
+                (*(s32 *)((char *)(var_a3) + 8)) = (s32) (*(s32 *)((char *)(var_a2) + 8));
                 var_a2 += 0x10;
                 var_a3 += 0x10;
             }
 if (var_a2 != temp_t0) goto __repair_rows;
             *(s32 *)var_a3 = *(s32 *)var_a2;
-            D_800BFC92 += 1;
-            func_80016160(M2C_FIELD(arg0, s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
+            D_800BFC92++;
+            func_80016160((*(s32 *)((char *)(arg0) + 0x2C)), &D_800BFD74, var_a2, var_a3);
             func_8002FBD4(arg1, 0);
         }
         goto block_23;

@@ -6,7 +6,7 @@ s32 func_800989B8();
 extern char D_8010D734[];
 extern char D_8010D748[];
 extern u8 D_8010D76F[];
-extern char D_8010D779[];
+extern u8 D_8010D779[];
 extern char D_8010D784[];
 
 s32 func_8008E7B8(s32 arg0, s32 arg1) {

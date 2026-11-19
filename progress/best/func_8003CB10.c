@@ -16,6 +16,8 @@ f32 func_800828D0();
 f32 func_80082908();
 
 void func_8003CB10(void *arg0, f32 *arg1, void *arg2, s32 arg3) {
+char *__repair_addr;
+
     f32 *temp_s0;
     f32 *temp_v0;
     char *var_a1;
@@ -58,7 +60,9 @@ void func_8003CB10(void *arg0, f32 *arg1, void *arg2, s32 arg3) {
                 } else if (var_fs0 < temp_fv0) {
                     var_fs0 = temp_fv0;
                 }
-                temp_fv0_2 = M2C_FIELD((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)), f32 *, 4);
+__repair_addr = (char *)((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)));
+
+                temp_fv0_2 = M2C_FIELD(__repair_addr, f32 *, 4);
                 if (temp_fv0_2 < var_fs1) {
                     var_fs1 = temp_fv0_2;
                 } else if (var_fs3 < temp_fv0_2) {
@@ -80,7 +84,7 @@ void func_8003CB10(void *arg0, f32 *arg1, void *arg2, s32 arg3) {
         M2C_FIELD(arg2, f32 *, 0) = var_fa0;
         M2C_FIELD(arg2, f32 *, 8) = var_fs1;
         M2C_FIELD(arg2, f32 *, 0x10) = var_fs5;
-        var_fs2 = func_800828D0(arg0, var_fa0, var_a1);
+        var_fs2 = func_800828D0(arg0);
         if (var_fs2 < func_800828D0(var_fs0)) {
             var_fs2 = var_fs0;
         }

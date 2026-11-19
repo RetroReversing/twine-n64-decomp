@@ -77,7 +77,7 @@ void func_8001B6F0(void) {
         M2C_FIELD(D_800B5B14, f32 *, 0x28) = 0.25f;
         M2C_FIELD(D_800B5B14, f32 *, 0x2C) = -3.0f;
         var_s1 = 0;
-        func_8003E6EC(*D_800CA31C, D_800B5B14, 1);
+        func_8003E6EC(*D_800CA31C);
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(D_800BD68E, 0x30, 0x30, 0x6E, 0xF);
         temp_s2 = func_800316C8();
@@ -91,8 +91,8 @@ loop_3:
             if (temp_v0_2 != 0) {
                 func_800160FC(*temp_s0_2, func_8002BA6C(func_8002B9FC(M2C_FIELD((temp_v1 + temp_s2), u8 *, 2))), 0x40);
             }
-            temp_a2 = var_s1 & 0xFF;
-            var_s1 += 1;
+            temp_a2 = var_s1 & 0xFF;/*__repair_loop_weight*/do {do {do {
+            var_s1 += 1;} while (0);} while (0);} while (0);
             func_8002A7CC(D_8010A488, *temp_s0_2, temp_a2, func_80018318(*temp_s0_2) & 0xFF);
             goto loop_3;
         }
@@ -105,7 +105,7 @@ loop_3:
             func_80026004(temp_s4, "%s", func_80087100(M2C_FIELD(temp_s2, u16 *, 0)));
         }
         func_8002B8AC();
-        temp_v1_2 = *(u16 *)*(D_800C3CF8 + (func_8002B9CC(func_8002B9FC(M2C_FIELD(temp_s2, u8 *, 2))) * 0xC));
+        temp_v1_2 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(func_8002B9FC(M2C_FIELD(temp_s2, u8 *, 2))) * 0xC));
         D_800BD682 = -1;
         D_80107ECC = 1;
         D_800BD680 = temp_v1_2;

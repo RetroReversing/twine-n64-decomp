@@ -77,7 +77,7 @@ void func_80020ABC(void) {
     var_s3 = 2;
 loop_5:
     temp_s4 = var_s3 & 0xFFFF;
-    if (temp_s4 < ((func_80031028(0, 1) & 0xFFFF) + 2)) {{ s32 __repair_value; __repair_value = temp_s4 * 8; temp_s1 = __repair_value; }
+    if (temp_s4 < ((func_80031028(0, 1) & 0xFFFF) + 2)) {{ s32 __repair_value;do{do{do{do{do{ __repair_value = temp_s4 * 8;}while(0);}while(0);}while(0);}while(0);}while(0); temp_s1 = __repair_value; }
         temp_v0_3 = func_800162BC(D_800BD68E);
         temp_s2 = temp_s1 + D_8010A2D8;
         M2C_FIELD(temp_s2, s32 *, 0) = temp_v0_3;
@@ -101,7 +101,7 @@ loop_5:
                 M2C_FIELD(*((s32 *)((s8 *)D_8010A2D8 + temp_s1)), s32 *, 0x10) = 0;
                 temp_s0_3 = *(s32 *)(D_8010A2DC + temp_s1);
                 M2C_FIELD(temp_s0_3, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_3, s32 *, 0x18));
-                M2C_FIELD(*(s32 *)(D_8010A2DC + temp_s1), s16 *, 0x1E) = 0x40;
+                M2C_FIELD(*(s32 *)((*(s32 *)0x8010a2d8) + temp_s1), s16 *, 0x1E) = 0x40;
                 temp_s0_2 = *(s32 *)(D_8010A2DC + temp_s1);
                 M2C_FIELD(temp_s0_2, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_s0_2, s32 *, 0x28) & ~0xFC) | 0xC);
                 M2C_FIELD(*(s32 *)(D_8010A2DC + temp_s1), s32 *, 0x10) = 0;

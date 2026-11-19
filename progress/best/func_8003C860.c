@@ -17,18 +17,21 @@ void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
 
 void *func_8003C860(s32 arg0, s32 arg1) {
     void *temp_v0;
-    void *temp_v0_2;
+    void *ret;
+    
 
     if ((arg1 << 0x18) == 0) {
-        temp_v0_2 = func_80083E90(0x60, 0);
-        func_8003C7E8(temp_v0_2, arg0);
-        return temp_v0_2;
+        temp_v0 = func_80083E90(0x60, 0);
+        func_8003C7E8(temp_v0, arg0);
+        ret = temp_v0;
+    } else {
+        temp_v0 = func_80083E90(0xC8, 0);
+        func_8003C7E8(temp_v0, arg0);
+        M2C_FIELD(temp_v0, void **, 0x20) = (void *) (temp_v0 + 0x60);
+        M2C_FIELD(temp_v0, s32 *, 0xB0) = 0;
+        M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x20), s32 *, 0x58) = 0;
+        M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x20), f32 *, 0x5C) = -500.0f;
+        ret = temp_v0;
     }
-    temp_v0 = func_80083E90(0xC8, 0);
-    func_8003C7E8(temp_v0, arg0);
-    M2C_FIELD(temp_v0, void **, 0x20) = (void *) (temp_v0 + 0x60);
-    M2C_FIELD(temp_v0, s32 *, 0xB0) = 0;
-    M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x20), s32 *, 0x58) = 0;
-    M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x20), f32 *, 0x5C) = -500.0f;
-    return temp_v0;
+    return ret;
 }

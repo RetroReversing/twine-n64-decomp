@@ -18,13 +18,13 @@ s32 func_80096A70(void *arg0, void *arg1) {
     s32 temp_a0_2;
     s32 var_a0;
     s32 var_a0_2;
-    s32 var_a1;
+    
     s32 var_s0;
     s32 var_s1;
     s32 var_s1_2;
     s32 var_v0;
     s32 var_v1;
-    s32 var_v1_2;
+    
     u32 var_s0_2;
     u32 var_s4;
     u32 var_v1_3;
@@ -40,7 +40,8 @@ s32 func_80096A70(void *arg0, void *arg1) {
         var_s2 = arg1;
         do {
             temp_a3 = M2C_FIELD(var_s2, u8 *, 0);
-            temp_a0 = temp_a3 & 0xFF;
+            var_a0_2 = temp_a3 & 0xFF;
+    temp_a0 = var_a0_2;
             var_v1 = temp_a3 & 0xFF;
             if ((((temp_a0 == 0x80) | (temp_a0 == 1)) != 0) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA) | (temp_a0 == 0xA0)) != 0)) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA1) | (temp_a0 == 0x83)) != 0)) || (temp_a0 == 0x84)) {
                 switch (var_v1) {                   /* switch 1; irregular */
@@ -56,27 +57,27 @@ s32 func_80096A70(void *arg0, void *arg1) {
                 }
                 temp_a0_2 = (s32) (var_a0 * M2C_FIELD(var_s2, s16 *, 2)) >> 8;
                 if (temp_a0_2 < -0x2000) {
-                    var_a1 = -0x2000;
+                    var_a0 = -0x2000;
                 } else {
-                    var_a1 = 0x1FFF;
+                    var_a0 = 0x1FFF;
                     if (temp_a0_2 < 0x2000) {
-                        var_a1 = temp_a0_2;
+                        var_a0 = temp_a0_2;
                     }
                 }
                 temp_v1 = M2C_FIELD(var_s2, u8 *, 1);
                 if (temp_v1 != 1) {
                     if ((s32) temp_v1 < 2) {
                         if (temp_v1 == 0) {
-                            var_s1 = var_a1;
+                            var_s1 = var_a0;
                             goto block_33;
                         }
                         var_s0 = var_s1 + 0x2000;
                     } else if (temp_v1 != 2) {
                         var_s0 = var_s1 + 0x2000;
                     } else {
-                        var_s1_2 = (s32) ((var_s0 - 0x2000) * var_a1) >> 0xD;
+                        var_s1_2 = (s32) ((var_s0 - 0x2000) * var_a0) >> 0xD;
                         if (var_s1_2 < -0x2000) {
-                            var_v1_2 = -0x2000;
+                            temp_a0_2 = -0x2000;
                         } else {
                             var_v0 = var_s1_2 < 0x2000;
                             goto block_30;
@@ -84,19 +85,19 @@ s32 func_80096A70(void *arg0, void *arg1) {
                         goto block_32;
                     }
                 } else {
-                    var_s1_2 = var_s0 + (var_a1 - 0x2000);
+                    var_s1_2 = var_s0 + (var_a0 - 0x2000);
                     var_v0 = var_s1_2 < 0x2000;
                     if (var_s1_2 < -0x2000) {
-                        var_v1_2 = -0x2000;
+                        temp_a0_2 = -0x2000;
                     } else {
 block_30:
-                        var_v1_2 = 0x1FFF;
+                        temp_a0_2 = 0x1FFF;
                         if (var_v0 != 0) {
-                            var_v1_2 = var_s1_2;
+                            temp_a0_2 = var_s1_2;
                         }
                     }
 block_32:
-                    var_s1 = var_v1_2;
+                    var_s1 = temp_a0_2;
 block_33:
                     var_s0 = var_s1 + 0x2000;
                 }

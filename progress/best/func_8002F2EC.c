@@ -32,6 +32,6 @@ void func_8002F2EC(s32 arg0, void *arg1) {
             var_a1 = 7;
         }
         func_8002FBD4(arg1, var_a1);
-        func_8002B150(D_800E1584, 0, 0);
+        func_8002B150(D_800E1584, 0);
     }
 }

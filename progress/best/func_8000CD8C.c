@@ -1,16 +1,5 @@
+static __inline__ u16 __repair_inline(u16 a) { return a; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 s32 func_8000C860();
 extern void **D_800B2710;
@@ -37,8 +26,8 @@ void func_8000CD8C(void) {
     D_800E0740 = -1U;
     var_s1 = *D_800B2710;
     do {
-        var_a1 = -1U;
-        temp_v0 = M2C_FIELD(var_s1, s32 *, 0);
+        register var_a1 = -1U;
+        temp_v0 = (*(s32 *)((char *)(var_s1) + 0));
         var_s0 = 0;
         temp_a0 = temp_v0 >> 8;
         temp_v1 = temp_v0 & 0x3F;
@@ -48,7 +37,7 @@ void func_8000CD8C(void) {
             var_s4 = 0;
             break;
         case 0:
-            var_a1 = *M2C_FIELD(var_s1, u16 **, 4);
+            var_a1 = __repair_inline(*(*(u16 **)((char *)(var_s1) + 4)));
             D_800E0740 = var_a1;
             /* fallthrough */
         case 9:
@@ -85,13 +74,13 @@ void func_8000CD8C(void) {
             break;
         case 18:
         case 19:
-            var_a1 = *M2C_FIELD(var_s1, u16 **, 4);
+            var_a1 = *(*(u16 **)((char *)(var_s1) + 4));
             var_s0 = 7;
             break;
         case 11:
         case 12:
         case 13:
-            var_a1 = (u16) *(u16 *)*(D_800C3CF8 + (M2C_FIELD(temp_s1, u8 *, 3) * 0xC));
+            var_a1 = (u16) *(u16 *)*(s32 *)(D_800C3CF8 + ((*(u8 *)((char *)(temp_s1) + 3)) * 0xC));
             var_s0 = 7;
             break;
         case 3:
@@ -100,7 +89,7 @@ void func_8000CD8C(void) {
             var_s0 = 0xC;
             break;
         }
-        if ((s32) var_a1 >= 0) {
+        if (var_a1 >= 0) {
             *(s16 *)var_s2 = (s16) var_a1;
             var_s2 += 2;
             var_s3 += 1;

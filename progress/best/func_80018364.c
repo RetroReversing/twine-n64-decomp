@@ -33,9 +33,9 @@ s32 func_80018364(u8 *arg0, u16 arg1, M2C_UNK arg2) {
         return 0;
     }
     var_s2 = 1;
-    if (temp_a1 != 0) {
+    if ((arg1 & 0xFFFF) != 0) {
         var_s0 = arg0;
-        temp_s6 = temp_a1 + var_s0;
+        temp_s6 = (arg1 & 0xFFFF); temp_s6 += var_s0;
         do {
             temp_s4 = *var_s0;
             switch (temp_s4) {

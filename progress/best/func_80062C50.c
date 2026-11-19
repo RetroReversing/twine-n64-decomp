@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80045CF8();
 s32 func_800629E0();
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 
 void func_80062C50(void *arg0) {
     u16 temp_v0;

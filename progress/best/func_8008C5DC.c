@@ -17,7 +17,7 @@ extern s32 D_800E41DC;
 void func_8008C5DC(s32 arg0) {
     void *temp_a0;
 
-    temp_a0 = (arg0 * 0x68) + D_800E41DC;
+    temp_a0 = (char *)((D_800E41DC)); temp_a0 += (s32)(((arg0 * 0x68)));
     if (M2C_FIELD(temp_a0, u8 *, 0) != 0) {
         M2C_FIELD(temp_a0, u16 *, 0x28) = 0x14U;
         if (M2C_FIELD(temp_a0, u8 *, 1) != 0) {

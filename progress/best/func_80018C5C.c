@@ -57,10 +57,10 @@ void func_80018C5C(void *arg0, void *arg1) {
         if (D_801002C0 >= 5) {
             D_801002C0 = 4;
         }
-        if (D_801002B8 != 1) {
-            var_v0_2 = 4 - D_801002B8;
-        } else {
+        if (D_801002B8 == 1) {
             var_v0_2 = 0x10003;
+        } else {
+            var_v0_2 = 4 - D_801002B8;
         }
         M2C_FIELD(arg1, s32 *, 0x14) = var_v0_2;
         temp_s0 = "%d";

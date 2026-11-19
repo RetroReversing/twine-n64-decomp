@@ -41,8 +41,21 @@ void func_8001D424(void) {
     if (!(func_80027CE0(0x2A) & 0xFF)) {
         D_800B60A6 = 0;
     }
-    temp_v1 = *(&D_800B60A8 + (D_800B60A6 * 4));
+    temp_v1 = *(&D_800B60A8 + D_800B60A6);
     switch (temp_v1) {                              /* irregular */
+    case 30:
+        if (((temp_s0 & 0xFF) | (temp_s1 & 0xFF)) == 0) {
+            var_a0 = 0x1E;
+            if (!(temp_s2 & 0xFF)) {
+                goto block_21;
+            }
+        }
+        goto block_20;
+    case 31:
+        if ((((temp_s0 & 0xFF) | (temp_s2 & 0xFF)) != 0) || (var_a0 = 0x1F, ((temp_s3 & 0xFF) != 0))) {
+            goto block_20;
+        }
+        goto block_21;
     case 32:
         if ((((temp_s0 & 0xFF) | (temp_s1 & 0xFF)) == 0) && (var_a0 = 0x20, ((temp_s3 & 0xFF) == 0))) {
 block_21:
@@ -64,19 +77,6 @@ block_20:
             }
         }
         goto block_20;
-    case 30:
-        if (((temp_s0 & 0xFF) | (temp_s1 & 0xFF)) == 0) {
-            var_a0 = 0x1E;
-            if (!(temp_s2 & 0xFF)) {
-                goto block_21;
-            }
-        }
-        goto block_20;
-    case 31:
-        if ((((temp_s0 & 0xFF) | (temp_s2 & 0xFF)) != 0) || (var_a0 = 0x1F, ((temp_s3 & 0xFF) != 0))) {
-            goto block_20;
-        }
-        goto block_21;
     }
     if (D_800B60A6 == 5) {
         func_8000A894(0xE8);

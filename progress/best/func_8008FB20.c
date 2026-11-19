@@ -96,7 +96,7 @@ loop_3:
                                 } else {
                                     goto block_18;
                                 }
-                            } else if (((temp_a3 != 0) | (temp_t1 != 0)) != 0) {
+                            } else if ((((short)temp_a3 != 0) | (temp_t1 != 0)) != 0) {
                                 temp_t0_2 = D_800EDA8C + var_s2;
                                 temp_a0_3 = (*(u8 *)((char *)(temp_t0_2) + 0x58F));
                                 var_s4 = 6;
