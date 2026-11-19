@@ -36,7 +36,7 @@ void func_80025C54(void) {
     switch (temp_a0) {                              /* irregular */
     case 3:
         D_80102EDC = 0;
-        if (!(func_8002CBF4(temp_a0) & 0xFFFF)) {
+        if (!(func_8002CBF4() & 0xFFFF)) {
             D_800BD562 = 4U;
             return;
         }
