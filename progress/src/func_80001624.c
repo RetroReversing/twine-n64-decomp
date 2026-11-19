@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800015AC();                            /* extern */
 
 void func_80001624(void *arg0) {
-    s8 temp_s1;
+    s32 temp_s1;
 
     temp_s1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE);
     func_800015AC();
