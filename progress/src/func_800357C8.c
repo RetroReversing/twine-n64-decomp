@@ -16,12 +16,7 @@ s32 guRandom();                                     /* extern */
 
 f32 func_800357C8(f32 arg0) {
     s32 temp_v0;
-    s32 var_v0;
 
     temp_v0 = guRandom();
-    var_v0 = temp_v0 >> 0x10;
-    if (temp_v0 < 0) {
-        var_v0 = (s32) (temp_v0 + 0xFFFF) >> 0x10;
-    }
-    return (f32) (temp_v0 - (var_v0 << 0x10)) * 0.000015258789f * arg0;
+    return (f32) (temp_v0 % 0x10000) * 0.000015258789f * arg0;
 }
