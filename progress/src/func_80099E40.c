@@ -45,16 +45,15 @@ block_7:
 block_8:
         if (((M2C_FIELD(arg1, u32 *, 0) >> 8) & 1) && ((M2C_FIELD(arg0, s32 *, 0x24) & 0x40000008) == 8)) {
             M2C_FIELD(arg0, u16 *, 0x68) = 0U;
-        } else if ((M2C_FIELD(arg1, u8 *, 0) & 1) && !(M2C_FIELD(arg0, s32 *, 0x24) & 0x20)) {
+            return 0;
+        }
+        if ((M2C_FIELD(arg1, u8 *, 0) & 1) && !(M2C_FIELD(arg0, s32 *, 0x24) & 0x20)) {
             if (!(func_8008C1B0(M2C_FIELD(arg0, u8 *, 0x63)) & 0xFF)) {
                 M2C_FIELD(arg0, u16 *, 0x68) = 0U;
-            } else {
-                goto block_16;
+                return 0;
             }
-        } else {
-block_16:
-            M2C_FIELD(arg0, s32 *, 4) = (s32) (M2C_FIELD(arg0, s32 *, 0) + (M2C_FIELD(arg1, u16 *, 6) * 8));
         }
+        M2C_FIELD(arg0, s32 *, 4) = (s32) (M2C_FIELD(arg0, s32 *, 0) + (M2C_FIELD(arg1, u16 *, 6) * 8));
     }
     return 0;
 }
