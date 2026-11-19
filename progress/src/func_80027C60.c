@@ -12,28 +12,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800819EC(u8, s32);                         /* extern */
+s32 func_800819EC(u16, s32);                         /* extern */
 extern u8 D_800BD690;
 extern u8 D_800BD691;
 
 s32 func_80027C60(s32 arg0) {
-    s32 var_s0;
-    u8 var_a0;
+    u16 var_s0;
 
     if (D_800BD690 != 0) {
-        var_s0 = 0;
-        var_a0 = 0 & 0xFFFF;
-        for (;;) {
-            var_s0 += 1;
-            if (func_800819EC(var_a0, arg0) != 0) {
-                break;
-            }
-            var_a0 = var_s0 & 0xFFFF;
-            if ((u32) (var_s0 & 0xFFFF) >= 4U) {
-                return 0;
+        for (var_s0 = 0; var_s0 < 4; var_s0++) {
+            if (func_800819EC(var_s0, arg0) != 0) {
+                return 1;
             }
         }
-        return 1;
+        return 0;
     }
     return func_800819EC(D_800BD691, arg0) != 0;
 }
