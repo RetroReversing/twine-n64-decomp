@@ -35,11 +35,11 @@ s32 func_800994B4(s32 arg0) {
         *(D_8010D7E1 + temp_s1) = 1;
         *(D_8010D770 + temp_s1) = 1;
         func_8009876C(temp_s2);
-        *(D_8010D784 + temp_s1) = temp_v0 | ~0xFF;
+        *(s32 *)(D_8010D784 + temp_s1) = temp_v0 | ~0xFF;
         if (func_8008C1B0(temp_v0) & 0xFF) {
             func_8008C590(temp_v0);
         }
-        *(D_8010D724 + temp_s1) = 0;
+        *(s32 *)(D_8010D724 + temp_s1) = 0;
         func_80098B14(temp_s2, temp_s3);
     }
     return temp_v0;
