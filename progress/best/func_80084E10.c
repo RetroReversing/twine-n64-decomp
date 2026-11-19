@@ -22,5 +22,5 @@ void func_80084E10(void) {
     f32 temp_fs0;
 
     temp_fs0 = func_80084270(&sp10);
-    func_8000A8B4(*(&D_800CE700 + (func_80045CF8(2) * 2)), temp_fs0, 0xFF);
+    func_8000A8B4(*((M2C_UNK *)((s8 *)&D_800CE700 + (func_80045CF8(2) * 2))), temp_fs0, 0xFF);
 }

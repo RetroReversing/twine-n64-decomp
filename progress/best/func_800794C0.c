@@ -15,25 +15,25 @@ extern void *D_80108F84;
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
 void func_800794C0(s32 arg0, void *arg1) {
     union {
-        unsigned char bytes[168];
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[52]; f32 value; } view_sp34;
-        struct { unsigned char pad[56]; f32 value; } view_sp38;
-        struct { unsigned char pad[64]; s32 value; } view_sp40;
-        struct { unsigned char pad[68]; f32 value; } view_sp44;
-        struct { unsigned char pad[80]; f32 value; } view_sp50;
-        struct { unsigned char pad[84]; f32 value; } view_sp54;
-        struct { unsigned char pad[88]; f32 value; } view_sp58;
-        struct { unsigned char pad[96]; f32 value; } view_sp60;
-        struct { unsigned char pad[100]; f32 value; } view_sp64;
-        struct { unsigned char pad[104]; f32 value; } view_sp68;
-        struct { unsigned char pad[112]; f32 value; } view_sp70;
-        struct { unsigned char pad[116]; f32 value; } view_sp74;
-        struct { unsigned char pad[120]; f32 value; } view_sp78;
-        struct { unsigned char pad[128]; s32 value; } view_sp80;
-        struct { unsigned char pad[132]; s32 value; } view_sp84;
-        struct { unsigned char pad[136]; s32 value; } view_sp88;
-        struct { unsigned char pad[140]; s32 value; } view_sp8C;
+        unsigned char bytes[96];
+        struct { f32 value; } view_sp30;
+        struct { unsigned char pad[4]; f32 value; } view_sp34;
+        struct { unsigned char pad[8]; f32 value; } view_sp38;
+        struct { unsigned char pad[16]; s32 value; } view_sp40;
+        struct { unsigned char pad[20]; f32 value; } view_sp44;
+        struct { unsigned char pad[32]; f32 value; } view_sp50;
+        struct { unsigned char pad[36]; f32 value; } view_sp54;
+        struct { unsigned char pad[40]; f32 value; } view_sp58;
+        struct { unsigned char pad[48]; f32 value; } view_sp60;
+        struct { unsigned char pad[52]; f32 value; } view_sp64;
+        struct { unsigned char pad[56]; f32 value; } view_sp68;
+        struct { unsigned char pad[64]; f32 value; } view_sp70;
+        struct { unsigned char pad[68]; f32 value; } view_sp74;
+        struct { unsigned char pad[72]; f32 value; } view_sp78;
+        struct { unsigned char pad[80]; s32 value; } view_sp80;
+        struct { unsigned char pad[84]; s32 value; } view_sp84;
+        struct { unsigned char pad[88]; s32 value; } view_sp88;
+        struct { unsigned char pad[92]; s32 value; } view_sp8C;
     } m2c_initial_frame;
 
              

@@ -6,10 +6,10 @@ extern s32 D_80107ED8;
 extern char D_80107EDC[];
 extern char D_80107EE0[];
 extern char D_80107EE4[];
-extern char D_80107EE8[];
+extern u8 D_80107EE8[];
 extern char D_80107EE9[];
 
-void func_8008EB80(s32 arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4) {
+void func_8008EB80(u8 arg0, s32 arg1, u8 arg2, s8 arg3, s32 arg4) {
     char *var_a1;
     register s32 sp10;
     
@@ -28,7 +28,7 @@ void func_8008EB80(s32 arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4) {
 
     var_s1 = arg1;
     if (!(var_s1 & 0xFFFF)) {
-        register var_s1 = arg1 + 1;
+        var_s1 = arg1 + 1;
     }
     temp_s0 = var_s1 & 0xFFFF;
     sp10 = temp_s0;
@@ -37,8 +37,8 @@ void func_8008EB80(s32 arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     switch (temp_a2) {
     case 0xFF:
         var_a2 = 0;
-        var_a1 = &D_80107ED8;
         var_a0 = 0;
+        var_a1 = &D_80107ED8;
         do {
             if ((u8) *(D_80107EE8 + var_a0) < 2U) {
                 *(s32 *)var_a1 = (arg0 & 0xFF) << 0x10;
@@ -64,7 +64,7 @@ void func_8008EB80(s32 arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4) {
             }
             var_a1 += 0x28;
             var_a0_2 += 0x28;
-            var_a2_2 += 1;
+            ++var_a2_2;
         } while (0x20U > var_a2_2);
         return;
     case 0xFA:

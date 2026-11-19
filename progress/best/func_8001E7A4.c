@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_80070844(void *, u8);                      /* extern */
 extern M2C_UNK D_800E0ECC;
 extern M2C_UNK D_800E0ED4;
-extern M2C_UNK D_8010A500;
+extern s32 D_8010A500[];
 
 void func_8001E7A4(s32 arg0) {
     s32 temp_s0;
@@ -24,10 +24,10 @@ void func_8001E7A4(s32 arg0) {
     void *temp_v0;
 
     temp_s0 = arg0 & 0xFFFF;
-    temp_v0 = *(&D_8010A500 + (temp_s0 * 4));
+    temp_v0 = D_8010A500[temp_s0];
     if (temp_v0 != NULL) {
         temp_a0 = M2C_FIELD(temp_v0, void **, 0x6C);
-        temp_s0_2 = temp_s0 * 2;
+        temp_s0_2 = (temp_s0 *= 2);
         if (temp_a0 != NULL) {
             *(&D_800E0ECC + temp_s0_2) = (s16) (s8) M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x68), u8 *, 0xE);
             *(&D_800E0ED4 + temp_s0_2) = func_80070844(temp_a0, M2C_FIELD(temp_a0, u8 *, 0x175)) & 0xFF;

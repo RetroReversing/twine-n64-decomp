@@ -25,7 +25,7 @@ s32 func_800A93A0(M2C_UNK, s32);                    /* extern */
 M2C_UNK func_800A95C0();                            /* extern */
 M2C_UNK func_800A9620(s32, s32, s32, s32);          /* extern */
 s32 func_800ABE20(s32, u32, M2C_UNK, M2C_UNK);      /* extern */
-extern s32 D_80000000;
+extern s8 D_80000000;
 extern s32 D_80000300;
 extern s32 D_8000030C;
 extern M2C_UNK D_8000031C;
@@ -97,7 +97,7 @@ void func_800A6908(void) {
     D_80100C10 = (s8) temp_a0;
     D_80100C0E = (s8) *(volatile s32 *)0xA460002C;
     D_80100C0F = (s8) *(volatile s32 *)0xA4600030;
-    func_800A9620(temp_a0, temp_a1, temp_a2, temp_a3);
+    func_800A9620((*(volatile s32 *)0xA4600028), temp_a1, temp_a2, temp_a3);
     func_800A95C0();
     temp_a1_2 = D_800D1074 * 3;
     temp_ret = func_800ABE20(((D_800D1070 * 2) | ((u32) D_800D1074 >> 0x1F)) + D_800D1070 + (temp_a1_2 < (u32) D_800D1074), temp_a1_2, 0, 4);

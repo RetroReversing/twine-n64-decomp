@@ -10,7 +10,7 @@ extern u16 D_800BFC32;
 extern s32 D_800E0768;
 extern s32 D_800E076A;
 extern s32 D_800E076B;
-extern s32 D_800E0790;
+extern u8 D_800E0790[];
 extern s16 D_800E0938;
 extern s16 D_800E093A;
 extern s16 D_800E093C;
@@ -27,6 +27,8 @@ extern s8 D_8010A3C7;
 extern s8 D_8010A3C8;
 
 u16 func_80012C70(void) {
+int __repair_literal;
+
     s16 *temp_a2;
     s16 temp_v0_2;
     unsigned int temp_a0;
@@ -50,7 +52,9 @@ u16 func_80012C70(void) {
 loop_1:
     temp_v0 = D_800E093A * 2;
     temp_a2 = temp_v0 + &D_80103022;
-    temp_a0 = D_800E093A * 4;
+__repair_literal = 4;
+
+    temp_a0 = D_800E093A * __repair_literal;
     *(temp_v0 + &D_80103022) = 0;
     (&D_80109BA4)[D_800E093A] = 0;
     *((s32 *)((s8 *)&D_801083D4 + temp_v0)) = 0;
@@ -68,7 +72,7 @@ loop_1:
             }
             goto block_22;
         case 0xA5:
-            func_80011800(0xC, (D_800E093A * 0x68) + &D_800E0790, D_800E093A, 0, 0, 0, 0, 0);
+            func_80011800(0xC, (D_800E093A * 0x68) + D_800E0790, D_800E093A, 0, 0, 0, 0, 0);
             func_800109CC();
             goto block_22;
         default:

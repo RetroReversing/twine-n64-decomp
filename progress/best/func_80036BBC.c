@@ -132,7 +132,7 @@ s32 *var_a0;
                         } else {
                             guTranslateF(&D_80112F90, (*(f32 *)((char *)(var_s0) + 0x24)) * 64.0f, (*(f32 *)((char *)(var_s0) + 0x28)) * 64.0f, (*(f32 *)((char *)(var_s0) + 0x2C)) * 64.0f);
                         }
-                        func_800A37C0(&D_80112F90, D_8010D538);
+                        do { func_800A37C0(&D_80112F90, D_8010D538); } while (0);
                         var_a0 = D_80115328;
                         D_80115328 = var_a0 + 8;
                         var_v1 = D_8010D538 - 0x80000000;

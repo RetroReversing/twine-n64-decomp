@@ -37,6 +37,8 @@ extern s32 D_8010A4E4;
 extern s32 D_8011740C;
 
 void func_800068B4(void) {
+short __repair_constant = 2;
+
 int __repair_literal;
 
     unsigned var_a0_2;
@@ -134,7 +136,7 @@ block_39:
                 } else {
                     var_a0_2 = 8;
 block_29:
-                    func_80030F88(var_a0_2);
+                    { func_80030F88(var_a0_2); }
                 }
             }
         }
@@ -157,7 +159,7 @@ block_37:
                         goto block_36;
                     }
                 } else {
-                    var_a0 = 2;
+                    var_a0 = __repair_constant;
 block_36:
                     D_800B19F0 = var_a0;
                 }
@@ -209,7 +211,7 @@ block_52:
         D_800B19F0 = 0xE;
         D_800DC739 = D_80103EB0;
     case 14:
-        (*(f32 *)((char *)(D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) + D_800DC734);
+        (*(f32 *)((char *)((unsigned short)D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) + D_800DC734);
         temp_fv1 = (*(f32 *)((char *)(D_80109688) + 0x12C));
         if ((temp_fv1 <= 0.0f) || ((int)temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {

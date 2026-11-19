@@ -92,11 +92,11 @@ block_17:
     }
     if (temp_s0 != NULL) {
         if (temp_s1 != 0) {
-            *(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = (s16) (s8) M2C_FIELD(temp_s1, u8 *, 0x182);
+            *(s16 *)(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = (s16) (s8) M2C_FIELD(temp_s1, u8 *, 0x182);
             M2C_FIELD(temp_s0, s32 *, 4) = 0;
             return;
         }
-        *(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = -1;
+        *(s16 *)(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = -1;
         M2C_FIELD(temp_s0, s32 *, 4) = 0;
     }
 }

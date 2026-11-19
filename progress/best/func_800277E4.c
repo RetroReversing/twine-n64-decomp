@@ -16,15 +16,18 @@ M2C_UNK func_80026E9C(u8, u8);                      /* extern */
 extern void *D_80109BB0;
 
 s32 func_800277E4(s32 arg0) {
+    s32 ret;
     u8 temp_a1;
 
     temp_a1 = M2C_FIELD(D_80109BB0, u8 *, 0x30);
     if ((temp_a1 + (arg0 & 0xFF)) < 0xFF) {
         M2C_FIELD(D_80109BB0, u8 *, 0x30) = (u8) (temp_a1 + arg0);
         func_80026E9C(M2C_FIELD(D_80109BB0, u8 *, 0x30), temp_a1);
-        return 0;
+        ret = 0;
+    } else {
+        M2C_FIELD(D_80109BB0, u8 *, 0x30) = 0xFFU;
+        func_80026E9C(0xFFU, temp_a1);
+        ret = 1;
     }
-    M2C_FIELD(D_80109BB0, u8 *, 0x30) = 0xFFU;
-    func_80026E9C(0xFFU, temp_a1);
-    return 1;
+    return ret;
 }

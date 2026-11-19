@@ -20,6 +20,7 @@ u32 func_800180D4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4) {
     s32 temp_s2;
     s32 temp_s3;
     s32 temp_v1;
+s32 __repair_result_temp_v1;
     
     u32 var_a0;
     u32 var_s1;
@@ -55,9 +56,9 @@ loop_4:
             /* Duplicate return node #24. Try simplifying control flow for better match */
             return var_v0;
         case 32:
-            temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x10);
-            var_s1 += temp_v0_2;
-            var_s5 += temp_v0_2;
+            temp_v1 = (u8)(M2C_FIELD(temp_v0, u8 *, 0x10));
+            var_s1 += temp_v1;
+            var_s5 += temp_v1;
             goto block_21;
         case 1:
         case 2:
@@ -78,15 +79,15 @@ loop_4:
             temp_s3 = temp_a0 & 0xFF;
             temp_s2 = temp_s3 - 0x21;
             if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0) & 0xFFFF)) < var_s7) != 0))) {
-                temp_v1 = M2C_FIELD(temp_v0, s32 *, 0xC);
-                if (temp_v1 != 0) {do{do{do{
+                __repair_result_temp_v1 = M2C_FIELD(temp_v0, s32 *, 0xC);
+                if (__repair_result_temp_v1 != 0) {do{do{do{
                     temp_a2 = temp_s2 * 8;}while(0);}while(0);}while(0);
                     var_a0 = 0;
-                    if (M2C_FIELD((temp_a2 + temp_v1), u8 *, 4) != 0) {
+                    if (M2C_FIELD((temp_a2 + __repair_result_temp_v1), u8 *, 4) != 0) {
 loop_18:
-                        temp_a1 = temp_a2 + temp_v1;
-                        __repair_phase_storage.pointer = (var_a0 * 2) + M2C_FIELD(temp_a1, s32 *, 0);
-                        var_a0 += 1;
+                        temp_a1 = temp_a2 + __repair_result_temp_v1;
+                        __repair_phase_storage.pointer = (var_a0 * 2) + M2C_FIELD(temp_a1, s32 *, 0);/*__repair_loop_weight*/do {do {do {
+                        var_a0 += 1;} while (0);} while (0);} while (0);
                         if (M2C_FIELD(__repair_phase_storage.pointer, u8 *, 0) != temp_s3) {
                             if (var_a0 < (u8) M2C_FIELD(temp_a1, u8 *, 4)) {
                                 goto loop_18;

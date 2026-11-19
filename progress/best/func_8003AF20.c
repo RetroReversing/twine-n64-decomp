@@ -29,14 +29,14 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     s32 var_a0;
     s32 var_a0_2;
     s32 var_a0_3;
-    register s32 var_a2;
+    register long var_a2;
     s32 var_s1;
     s32 var_s2;
     s32 var_s5;
     s32 var_s5_2;
     s32 var_s6;
     s32 var_t1;
-    s32 var_t1_2;
+    unsigned int var_t1_2;
     s32 var_t8;
     s32 var_t9;
     s32 var_v0;
@@ -99,9 +99,9 @@ block_6:
         var_t1 = 2;
         temp_v0 = D_80115328;
         ((__repair_field_8 *)temp_v0)->value = 0xE3001001;
-        (*(s32 *)((char *)((int)temp_v0) + 0xC)) = 0x8000;
-        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
+        (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x8000;
         (*(s32 *)((char *)(temp_v0) + 4)) = 0xFF2FFFFF;
+        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = 0xFD100000;
         var_t0 = 0x800;
         D_80115328 = temp_v0 + 8;
@@ -128,8 +128,8 @@ block_6:
     temp_a1 = (*(volatile u8 *)((char *)(arg2) + 0x28));
     if (var_t0 < (u32) (temp_a0 * temp_a1)) {
         temp_v1_3 = (*(u16 *)((char *)(arg2) + 0x26));
-        if ((temp_v1_3 == temp_a0) && ((*(u8 *)((char *)(arg2) + 0x29)) == temp_a1)) {
-            func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, (s32) temp_v1_3, (s32) (*(u8 *)((char *)(arg2) + 0x28)), 0x20, 0x20, 0, 0, (s32) (*(u16 *)((char *)(arg2) + 0x24)), (s32) (*(u8 *)((char *)(arg2) + 0x28)), (f32) ((*(u16 *)((char *)(arg2) + 0x20)) + sp44), (f32) ((*(u16 *)((char *)(arg2) + 0x22)) + arg1));
+        if ((temp_v1_3 == temp_a0) && ((*(u8 *)((char *)(arg2) + (int)0x29)) == temp_a1)) {
+            func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, temp_v1_3, (s32) (*(u8 *)((char *)(arg2) + 0x28)), 0x20, 0x20, 0, 0, (s32) (*(u16 *)((char *)(arg2) + 0x24)), (s32) (*(u8 *)((char *)(arg2) + 0x28)), (f32) ((*(u16 *)((char *)(arg2) + 0x20)) + sp44), (f32) ((*(u16 *)((char *)(arg2) + 0x22)) + arg1));
             return;
         }
         func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, (s32) (*(u16 *)((char *)(arg2) + 0x24)), (s32) (*(u8 *)((char *)(arg2) + 0x28)), (s32) (*(u16 *)((char *)(arg2) + 0x26)), (s32) (*(u8 *)((char *)(arg2) + 0x29)), 0x20, 0x20, 0, 0, (s32) (*(u16 *)((char *)(arg2) + 0x24)), (s32) (*(u8 *)((char *)(arg2) + 0x28)), (f32) ((*(u16 *)((char *)(arg2) + 0x20)) + sp44), (f32) ((*(u16 *)((char *)(arg2) + 0x22)) + arg1));
@@ -193,12 +193,12 @@ block_6:
     D_80115328 = __repair_phase_storage.pointer + 0x10;
     D_80115328 = __repair_phase_storage.pointer + 0x18;
     temp_a0_4 = (u32) (*(u8 *)((char *)(arg2) + 0x28));
-    (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x14)) = (s32) ((((((*(u16 *)((char *)(arg2) + 0x24)) - 1) * 4) & 0xFFF) << 0xC) | ((((*(u8 *)((char *)(arg2) + 0x28)) - 1) * 4) & 0xFFF));
     var_s2 = 0;
+    (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x14)) = (s32) ((((((*(u16 *)((char *)(arg2) + 0x24)) - 1) * 4) & 0xFFF) << 0xC) | ((((*(u8 *)((char *)(arg2) + 0x28)) - 1) * 4) & 0xFFF));
     if ((temp_a0_4 >> 0xC) & 0xF) {
         sp54 = var_s1 & 0xFFFF;
-        __repair_phase_storage.value = var_s5_2 << 0x10;
         temp_a0_5 = temp_a0_4 >> 8;
+        __repair_phase_storage.value = var_s5_2 << 0x10;
         do {
             var_t9 = 0;
             if ((temp_a0_5 & 0xF) > 0) {
@@ -225,11 +225,9 @@ block_6:
                         (*(s32 *)((char *)(temp_a3) + 0)) = (s32) ((((temp_a1_5 * 4) & ((s32) ~(s16) (temp_a1_5 * 4) >> 0x1F) & 0xFFC) << 0xC) | (((temp_a2 * 4) & ((s32) ~(s16) (temp_a2 * 4) >> 0x1F) & 0xFFC) | 0xE4000000));
                         if (0 > temp_t2_2) {
                             if ((s16) var_s6 < 0) {
-                                var_v0_3 = (s32) (temp_t2_2 * (s16) var_s6) >> 7;
-                                var_v1_2 = (s32) ~var_v0_3 >> 0x1F;
+                                var_v0_3 = (s32) (temp_t2_2 * (s16) var_s6) >> 7; var_v1_2 = (s32) ~var_v0_3 >> 0x1F;
                             } else {
-                                var_v0_3 = (s32) (temp_t2_2 * (s16) var_s6) >> 7;
-                                var_v1_2 = -(1 > var_v0_3);
+                                var_v0_3 = (s32) (temp_t2_2 * (s16) var_s6) >> 7; var_v1_2 = -(1 > var_v0_3);
                             }
                             var_a0_2 = (var_s1 - (var_v0_3 & var_v1_2)) << 0x10;
                         } else {
@@ -243,18 +241,16 @@ block_6:
                         temp_t1 = temp_a3 + 8;
                         D_80115328 = temp_t1;
                         temp_a1_6 = temp_t2 + (*(u16 *)((char *)(arg2) + 0x26));
-                        (*(s32 *)((char *)(temp_a3) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t3 >> 0x1F) & 0xFFC) << 0xC) | ((temp_v0_3 * 4) & ((s32) ~(s16) (temp_v0_3 * 4) >> 0x1F) & 0xFFC));
                         ((__repair_field_8 *)temp_a3)->value = 0xE1000000;
+                        (*(s32 *)((char *)(temp_a3) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t3 >> 0x1F) & 0xFFC) << 0xC) | ((temp_v0_3 * 4) & ((s32) ~(s16) (temp_v0_3 * 4) >> 0x1F) & 0xFFC));
                         D_80115328 = temp_a3 + 0x10;
                         temp_a2_2 = (*(u8 *)((char *)(arg2) + 0x29)) + temp_v0_3;
                         (*(s32 *)((char *)(temp_a3) + 0)) = (s32) ((((temp_a1_6 * 4) & ((s32) ~(s16) (temp_a1_6 * 4) >> 0x1F) & 0xFFC) << 0xC) | (((temp_a2_2 * 4) & ((s32) ~(s16) (temp_a2_2 * 4) >> 0x1F) & 0xFFC) | 0xE4000000));
                         if (0 > temp_t3) {
                             if ((s16) var_s6 < 0) {
-                                var_v0_4 = (s32) (temp_t3 * (s16) var_s6) >> 7;
-                                var_v1_3 = (s32) ~var_v0_4 >> 0x1F;
+                                var_v0_4 = (s32) (temp_t3 * (s16) var_s6) >> 7; var_v1_3 = (s32) ~var_v0_4 >> 0x1F;
                             } else {
-                                var_v0_4 = (s32) (temp_t3 * (s16) var_s6) >> 7;
-                                var_v1_3 = -(1 > var_v0_4);
+                                var_v0_4 = (s32) (temp_t3 * (s16) var_s6) >> 7; var_v1_3 = -(var_v0_4 < 1);
                             }
                             var_a0_3 = (var_s1 - (var_v0_4 & var_v1_3)) << 0x10;
                         } else {

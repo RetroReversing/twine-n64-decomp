@@ -13,9 +13,9 @@ s32 func_8009852C(s16 arg0, u16 *arg1) {
     register D_800F38D4 = arg0;
     temp_v0 = func_800956E0(&D_800F38D4 - 4, &D_800F815C, D_800F8158, 0xC, &func_800986EC);
     D_800F38DC = temp_v0;
-    if (temp_v0 == NULL) {
-        return 0;
-    }
+    if (!(temp_v0 == NULL)) {
     *arg1 = (*(u16 *)((char *)(temp_v0) + 6));
     return *D_800F38DC;
-}
+} else {
+        return 0;
+    }}

@@ -37,7 +37,7 @@ extern M2C_UNK D_800C447A;
 extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
 extern void *D_80109BB0;
-extern M2C_UNK D_80109D28;
+extern u8 D_80109D28[];
 extern M2C_UNK D_8010A500;
 extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
@@ -60,7 +60,7 @@ void func_8002085C(void) {
     D_800B60EA = 1;
     D_800B60E4 = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_a0 = *(&D_8010A500 + (D_800BD68F * 4));
+    temp_a0 = *(&D_8010A500 + D_800BD68F);
     var_s6 = NULL;
     if (temp_a0 != NULL) {
         temp_s5 = M2C_FIELD(temp_a0, void **, 0x6C);
@@ -73,7 +73,7 @@ void func_8002085C(void) {
                 if ((temp_s1 != 0) || !(var_s2 & 0xFFFF)) {
                     temp_s3 = var_s2 & 0xFFFF;
                     temp_v0 = func_800162BC(D_800BD68E);
-                    temp_s0 = (temp_s3 * 4) + &D_80109D28;
+                    temp_s0 = (temp_s3 * 4) + D_80109D28;
                     *temp_s0 = temp_v0;
                     if (temp_v0 != 0) {
                         func_800160FC(*temp_s0, func_80087100(temp_s1 | 0x7000), 0x40);
@@ -88,7 +88,7 @@ void func_8002085C(void) {
             } while ((u32) (var_s2 & 0xFFFF) < 0x1EU);
             if (var_s6 != NULL) {
                 temp_s1_2 = M2C_FIELD(var_s6, u8 *, 8);
-                temp_v1 = temp_s1_2 * 0x10;
+                temp_v1 = temp_s1_2 * 0x4;
                 temp_s0_2 = func_80026314(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0xA6, 2);
                 func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
                 if (temp_s0_2 != NULL) {
