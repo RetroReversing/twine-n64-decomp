@@ -54,5 +54,7 @@ void func_80061EC0(void *arg0) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         }
         break;
+    case 2:
+        break;
     }
 }
