@@ -19,7 +19,7 @@ extern s16 D_800E0EE2;
 extern s16 D_800E0EE4;
 extern u16 D_800E0EE6;
 
-void func_80022A30(s32 arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
+void func_80022A30(u8 arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     void *temp_v0;
 
     if ((D_800B7CF8 != NULL) || (temp_v0 = func_800162BC(arg0 & 0xFF), D_800B7CF8 = temp_v0, (temp_v0 != NULL))) {
