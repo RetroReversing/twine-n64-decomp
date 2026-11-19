@@ -24,6 +24,6 @@ void func_80008258(void) {
         M2C_FIELD(*var_v1, s32 *, 0x790) = 0;
         var_a0 += 1;
         M2C_FIELD(*var_v1, s32 *, 0x78C) = 0;
-        var_v1 += 4;
+        var_v1 += 1;
     } while (var_a0 < 3U);
 }
