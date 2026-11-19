@@ -31,7 +31,7 @@ void func_80029448(void) {
             if (M2C_FIELD(temp_v1_2, u16 *, 0xC) & 0x800) {
                 *temp_a0 = (s8) ((u32) M2C_FIELD(temp_v1_2, u32 *, 0x14) >> 8);
             } else {
-                *temp_a0 = (s32) M2C_FIELD(temp_v1_2, u8 *, 0x16);
+                *(s32 *) temp_a0 = M2C_FIELD(temp_v1_2, u8 *, 0x16);
             }
         }
         M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 1;
