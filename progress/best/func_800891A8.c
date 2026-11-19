@@ -11,17 +11,19 @@ extern void *D_800E4238;
 extern void *(*D_8010017C)(s32, s32);
 
 typedef struct { void * value; } __repair_field_0;
+static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
+
 void func_800891A8(void *arg0) {
-    register void *var_a0_2;
+    register int temp_s0;
     s32 temp_s1;
     u16 temp_v0_3;
-    int temp_s0;
+    u32 var_v1;
     u32 var_v1_2;
+    void *var_a1;
+    void *var_a0_2;
+    void *var_a0;
     u8 temp_v0_2;
     void *temp_v0;
-    void *var_a0;
-    void *var_a1;
-    register u32 var_v1;
     
     void *var_a2;
 
@@ -44,7 +46,7 @@ void func_800891A8(void *arg0) {
                 (*(s32 *)((char *)(var_a0) + 0xC)) = (s32) ((((D_800E41D4 * (*(u16 *)((char *)(var_a1) + 2))) / 1000) + 3) & 0xFFFC);
                 temp_s1 = (u8)((*(u8 *)((char *)((arg0 + var_v1)) + 0x12)));
                 var_a1 += 2;
-                var_v1 += 1;
+                var_v1++;
                 (*(s16 *)((char *)(var_a2) + 0x2C)) = (s16) (temp_s1 << 8);
                 var_a0 += 4;
                 var_a2 += 2;
@@ -54,14 +56,13 @@ void func_800891A8(void *arg0) {
             var_v1_2 = 0;
             var_a0_2 = arg0;
             var_a0 = temp_v0;
-            __repair_rows: {
+            do {
                 temp_v0_3 = (*(u16 *)((char *)(var_a0_2) + 0x1E));
                 var_a0_2 += 2;
                 var_v1_2 += 1;
-                (*(u16 *)((char *)(var_a0) + 0x40)) = temp_v0_3;
+                (*(u16 *)((char *)(var_a0) + 0x40)) = __repair_store_halfword(temp_v0_3);
                 var_a0 += 2;
-            }
-if (var_v1_2 < 4U) goto __repair_rows;
+            } while (4U > var_v1_2);
         } else {
             (*(s16 *)((char *)(temp_v0) + 0x40)) = 0;
             (*(s16 *)((char *)(temp_v0) + 0x42)) = 0;

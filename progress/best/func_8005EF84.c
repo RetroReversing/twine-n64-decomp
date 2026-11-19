@@ -101,7 +101,7 @@ __repair_literal = 2;
                 if ((*(u16 *)((char *)(arg0) + 0x78)) == 3) {
                     func_80084338(0xD8, arg0 + 0x24);
                 } else {
-                    func_8000A894(0xD8, temp_v0_2);
+                    func_8000A894(0xD8);
                 }
             default:                                /* switch 1 */
 block_66:
@@ -149,7 +149,7 @@ block_26:
                 func_80084338(var_a0_2, arg0 + 0x24);
             } else {
 block_27:
-                func_8000A894(var_a0_2);
+                func_8000A894();
             }
 block_28:
             temp_fv1 = func_80045D2C(0x3F000000);

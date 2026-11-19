@@ -28,7 +28,7 @@ do {
         var_v0_2 = var_s0 & 0xFFFF;
         ++var_s0;
         __base_D_8011F2E8 = &D_8011F2E8;
-        func_80016314(*((var_v0_2 * 4) + (((var_s1 & 0xFFFF) * 0x10) + __base_D_8011F2E8)));
+        func_80016314(*((var_v0_2 * 4) + (((var_s1 & 0xFFFF) * 4) + __base_D_8011F2E8)));
         } while ((u32) (var_s0 & 0xFFFF) < 4U);
         var_s1 += 1;
     } while ((u32) (var_s1 & 0xFFFF) < 9U);

@@ -17,7 +17,7 @@ M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80076C80(void *);                      /* extern */
 M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_800779C4(void *);                      /* extern */
-s32 func_80077E00(void *arg0, void *);                          /* extern */
+s32 func_80077E00(void *arg0);                          /* extern */
 
 typedef struct { s32 w[3]; } __repair_words3;
 void func_80076CE4(void *arg0) {
@@ -32,7 +32,7 @@ void func_80076CE4(void *arg0) {
     void *temp_s0;
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_v1 = M2C_FIELD(temp_s0, u8 *, 0x7F);
+    temp_v1 = M2C_FIELD(temp_s0, const u8 *, 0x7F);
     if (temp_v1 != 5) {
         var_s2 = 0;
         if ((s32) temp_v1 >= 6) {
@@ -47,20 +47,20 @@ void func_80076CE4(void *arg0) {
     } else {
         var_s2 = 2;
 block_7:
-        var_v0 = M2C_FIELD(temp_s0, u8 *, 0x7F) < 0xDU;
+        var_v0 = M2C_FIELD(temp_s0, const u8 *, 0x7F) < 0xDU;
     }
     if (var_v0 != 0) {
-        switch (M2C_FIELD(temp_s0, u8 *, 0x7F)) {   /* switch 1 */
+        switch (M2C_FIELD(temp_s0, const u8 *, 0x7F)) {   /* switch 1 */
         case 0:                                     /* switch 1 */
         case 1:                                     /* switch 1 */
         case 2:                                     /* switch 1 */
         case 3:                                     /* switch 1 */
         case 10:                                    /* switch 1 */
-            M2C_FIELD(arg0, s16 *, 0x7C) = (s16) M2C_FIELD(temp_s0, u8 *, 0x7F);
+            M2C_FIELD(arg0, s16 *, 0x7C) = (s16) M2C_FIELD(temp_s0, const u8 *, 0x7F);
             return;
         case 4:                                     /* switch 1 */
             func_800779C4(arg0);
-            if ((M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0) && ((M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000) == 0x200000)) {
+            if ((M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0) && ((M2C_FIELD(temp_s0, const s32 *, 0x88) & 0x01E00000) == 0x200000)) {
                 M2C_FIELD(temp_s0, u8 *, 0x7F) = var_s2;
                 M2C_FIELD(arg0, s16 *, 0x7C) = (s16) var_s2;
                 func_80002BD0(arg0, 0x1FE);
@@ -70,11 +70,11 @@ block_7:
         case 5:                                     /* switch 1 */
         case 6:                                     /* switch 1 */
             func_800779C4(arg0);
-            temp_v1_2 = M2C_FIELD(temp_s0, u8 *, 0x82);
+            temp_v1_2 = M2C_FIELD(temp_s0, const u8 *, 0x82);
             switch (temp_v1_2) {                    /* switch 2; irregular */
             default:                                /* switch 2 */
             case 0:                                 /* switch 2 */
-                temp_v1_3 = M2C_FIELD(temp_s0, u8 *, 0x7F);
+                temp_v1_3 = M2C_FIELD(temp_s0, const u8 *, 0x7F);
                 if (temp_v1_3 == 5) {
                     M2C_FIELD(temp_s0, u8 *, 0x7F) = 2U;
                     M2C_FIELD(arg0, s16 *, 0x7C) = 2;
@@ -89,11 +89,11 @@ block_7:
                 return;
             case 12:                                /* switch 2 */
                 temp_a2 = M2C_FIELD(temp_s0, void **, 0x40);
-                M2C_FIELD(temp_s0, s32 *, 0x88) = (s32) (M2C_FIELD(temp_s0, s32 *, 0x88) | 0x40000000);
+                M2C_FIELD(temp_s0, s32 *, 0x88) = (s32) (M2C_FIELD(temp_s0, const s32 *, 0x88) | 0x40000000);
                 M2C_FIELD(temp_s0, __repair_words3 *, 0x18) = *(__repair_words3 *) ((s8 *) temp_a2 + 0x24);
-                func_800015AC(arg0, 4, temp_a2, M2C_FIELD(temp_s0, s32 *, 0x20));
+                func_800015AC(arg0, 4, temp_a2, M2C_FIELD(temp_s0, const s32 *, 0x20));
                 M2C_FIELD(temp_s0, u8 *, 0x82) = 0U;
-                if ((func_80077E00(arg0, arg0) << 0x18) != 0) {
+                if ((func_80077E00(arg0) << 0x18) != 0) {
                     func_80002BD0(arg0, 0x14D);
                     var_a1 = 0xB;
 block_28:
