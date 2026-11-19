@@ -25,7 +25,7 @@ u16 func_8008EB00(void) {
     if (temp_v0 != -1) {
         temp_v1 = (temp_v0 & 0xFF) * 0x1A0;
         if ((*((M2C_UNK *)((s8 *)&D_8010D784 + temp_v1)) == temp_v0) && !(*((M2C_UNK *)((s8 *)&D_8010D748 + temp_v1)) & 2)) {
-            return *((M2C_UNK *)((s8 *)&D_8010D7E6 + temp_v1));
+            return *((u16 *)((s8 *)&D_8010D7E6 + temp_v1));
         }
         /* Duplicate return node #5. Try simplifying control flow for better match */
         return 0U;
