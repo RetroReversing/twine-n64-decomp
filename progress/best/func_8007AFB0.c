@@ -25,15 +25,17 @@ void func_8007AFB0(void *arg0) {
     case 0:
     case 1:
     case 3:
-        var_a1 = *(&D_800C9D30 + (func_80045CF8(2) * 2));
+        var_a1 = *((M2C_UNK *)((s8 *)&D_800C9D30 + (func_80045CF8(2) * 2)));
 block_5:
         func_80002BD0(arg0, var_a1);
         break;
     case 10:
         var_a1 = 0x1EB;
-        goto block_5;
+        {
+        func_80002BD0(arg0, var_a1);break;}
     case 2:
         var_a1 = 0x1ED;
-        goto block_5;
+        {
+        func_80002BD0(arg0, var_a1);break;}
     }
 }

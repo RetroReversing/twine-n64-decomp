@@ -17,7 +17,7 @@ M2C_UNK func_8008C08C();                            /* extern */
 s32 osAiSetFrequency(s32);                          /* extern */
 extern s32 D_800E41D4;
 
-s32 func_8008BBFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 func_8008BBFC(s32 *arg0, u16 arg1, u16 arg2, s32 arg3) {
     s32 temp_v0;
     s32 var_v0;
 

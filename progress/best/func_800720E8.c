@@ -22,12 +22,12 @@ extern s32 D_80102ED8;
 extern char D_80109688[];
 
 void func_800720E8(void *arg0, u16 arg1) {
-    s32 temp_fv0;
-    f64 temp_fv1;
-    s8 temp_a0;
     u8 var_v0;
+    s8 temp_a0;
+    f64 temp_fv1;
+    s32 temp_fv0;
     void *temp_s0;
-    void *temp_v0;
+    register void *temp_v0;
 
     temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
     func_80069A90();
@@ -35,11 +35,11 @@ void func_800720E8(void *arg0, u16 arg1) {
     if ((*(u16 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xC)) & 0x200) {
         (*(s16 *)((char *)(arg0) + 0x7C)) = 0xA;
     }
-    if (!D_80102ED8) {
+    if (D_80102ED8 == 0) {
         if ((*(u16 *)((char *)(arg0) + 0x78)) == 0x4D) {
             temp_v0 = *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)));
             temp_fv1 = (f64) (*(f32 *)((char *)(temp_v0) + 0x12C));
-            if (D_800D4818 < temp_fv1) {
+            if (temp_fv1 > D_800D4818) {
                 (*(f32 *)((char *)(temp_v0) + 0x12C)) = (f32) (temp_fv1 * D_800D4820);
             }
             func_800066A0(0xA);
@@ -59,7 +59,7 @@ void func_800720E8(void *arg0, u16 arg1) {
             temp_a0 = (*(s8 *)((char *)(temp_s0) + 0x182));
             (*(s32 *)((char *)(temp_s0) + 0x60)) = 0;
             (*(s32 *)((char *)(temp_s0) + 0x64)) = 0;
-            if (temp_a0 < D_801002B8) {
+            if (D_801002B8 > temp_a0) {
                 var_v0 = *((s32 *)((s8 *)D_801001A0 + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)));
             } else {
                 var_v0 = *(D_800BF688 + (*((s32 *)((s8 *)D_8010019C + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5;
@@ -75,9 +75,9 @@ void func_800720E8(void *arg0, u16 arg1) {
             if (arg1 == 3) {
                 (*(s32 *)((char *)(temp_s0) + 0x20)) = 0;
                 temp_fv0 = (*(s32 *)((char *)(temp_s0) + 0x20));
-                (*(s32 *)((char *)(temp_s0) + 0x1C)) = 0;
                 (*(s32 *)((char *)(temp_s0) + 0x38)) = temp_fv0;
                 (*(s32 *)((char *)(temp_s0) + 0x34)) = temp_fv0;
+                (*(s32 *)((char *)(temp_s0) + 0x1C)) = 0;
                 (*(f32 *)((char *)(temp_s0) + 0x40)) = 1.0f;
                 (*(f32 *)((char *)(temp_s0) + 0x3C)) = 1.0f;
                 do { func_800656C0(arg0, arg0 + 0x24, arg0 + 0x3C); } while (0);

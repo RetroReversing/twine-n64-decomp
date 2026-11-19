@@ -14,26 +14,19 @@ typedef s32 M2C_UNK32;
 
 s32 func_8002A1F0();
 
-void func_8002AC04(void *arg0, s8 arg1) {
-    s32 var_s1;
-    s32 var_v0;
+void func_8002AC04(void *arg0, u8 arg1) {
+    u8 var_s1;
     u32 temp_a1;
 
     if ((arg0 != NULL) && (M2C_FIELD(arg0, s32 (**)(s32, s32, s32), 4) != NULL)) {
         M2C_FIELD(arg0, s8 *, 0x1F) = arg1;
-        temp_a1 = arg1 & 0xFF;
+        temp_a1 = arg1;
         if (temp_a1 != 0) {
             func_8002A1F0(arg0, temp_a1);
             return;
         }
-        var_s1 = 0;
-        if (temp_a1 < (u8) M2C_FIELD(arg0, u8 *, 0x19)) {
-            var_v0 = 0 & 0xFF;
-            do {
-                M2C_FIELD(arg0, s32 (**)(s32, s32, s32), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_v0 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_v0);
-                var_s1 += 1;
-                var_v0 = var_s1 & 0xFF;
-            } while ((u32) (var_s1 & 0xFF) < (u8) M2C_FIELD(arg0, u8 *, 0x19));
+        for (var_s1 = 0; var_s1 < (u8) M2C_FIELD(arg0, u8 *, 0x19); var_s1++) {
+            M2C_FIELD(arg0, s32 (**)(s32, s32, s32), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_s1 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1);
         }
     }
 }

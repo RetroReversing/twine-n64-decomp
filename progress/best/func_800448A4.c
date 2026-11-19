@@ -21,7 +21,7 @@ void func_800448A4(void *arg0, s32 arg1, s32 arg2) {
     void *temp_v0;
 
     if (arg2 >= 0) {
-        temp_v0 = *(&D_800C0784 + (arg2 * 0x10));
+        temp_v0 = *(&D_800C0784 + arg2 * 0x4);
         if (temp_v0 != NULL) {
             temp_a0 = M2C_FIELD(temp_v0, s32 *, 0x18) + (arg1 * 0xC);
             M2C_FIELD(arg0, s32 *, 8) = (s32) M2C_FIELD(temp_a0, s32 *, 8);

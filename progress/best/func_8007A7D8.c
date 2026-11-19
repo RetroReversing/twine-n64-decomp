@@ -28,9 +28,9 @@ s32 func_8007A7D8(void *arg0, void *arg1, s32 *arg2, f32 arg3) {
     s32 temp_a0;
     s32 temp_fv1;
     s32 temp_fv1_2;
-    s32 var_v0;
+    
 
-    var_v0 = 0;
+    temp_a0 = 0;
     if (!(arg3 < func_80045E34(arg0 + 0x24))) {
         temp_fs0 = M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x24);
         temp_fs2 = M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x2C);
@@ -38,7 +38,7 @@ s32 func_8007A7D8(void *arg0, void *arg1, s32 *arg2, f32 arg3) {
         temp_fv0 = func_80046140(temp_fs0, temp_fs2);
         if (D_80102ED8 == 0) {
             temp_fv1 = (s32) (func_80082A70(temp_fs1, temp_fv0) * 651.8986f);
-            var_v0 = 0;
+            temp_a0 = 0;
             if (!(func_800828D0((f32) temp_fv1, temp_fv1) > 512.0f)) {
                 goto block_4;
             }
@@ -51,11 +51,11 @@ block_4:
             if (D_80102ED8 != 0) {
                 var_fs0 = 682.0f;
             }
-            var_v0 = 0;
+            
             if (!(var_fs0 < func_800828D0((f32) temp_a0, temp_a0))) {
-                var_v0 = 1;
-            }
+                temp_a0 = 1;
+            } else { temp_a0=0; }
         }
     }
-    return var_v0;
+    return temp_a0;
 }
