@@ -68,6 +68,7 @@ s32 func_800260A0(u32 arg0) {
         return 0x17;
     case 27:
         return 4;
+    case 0:
     default:
         return 2;
     }
