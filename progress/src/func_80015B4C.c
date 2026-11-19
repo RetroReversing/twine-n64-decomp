@@ -14,6 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern void *D_80109DC4;
 
+typedef struct { void * field_0; unsigned char pad_4[24]; void * field_1C; unsigned char pad_20[56]; int field_58; } __repair_record_var_a0;
 void func_80015B4C(void **arg0) {
     s32 temp_a1;
     void *temp_v1;
@@ -23,14 +24,13 @@ void func_80015B4C(void **arg0) {
         var_a0 = *arg0;
         if (var_a0 != NULL) {
             do {
-                temp_a1 = M2C_FIELD(var_a0, s32 *, 0x58);
-                if ((temp_a1 & 0x20000) && !(temp_a1 & 0x800)) {
+                if (((temp_a1 = ((__repair_record_var_a0*)var_a0)->field_58) & 0x20000) && !(temp_a1 & 0x800)) {
                     temp_v1 = D_80109DC4;
-                    M2C_FIELD(var_a0, s32 *, 0x58) = (s32) (temp_a1 | 0x800);
+                    ((__repair_record_var_a0*)var_a0)->field_58 = (s32) (temp_a1 | 0x800);
                     D_80109DC4 = var_a0;
-                    M2C_FIELD(var_a0, void **, 0x1C) = temp_v1;
+                    ((__repair_record_var_a0*)var_a0)->field_1C = temp_v1;
                 }
-                var_a0 = M2C_FIELD(var_a0, void **, 0);
+                var_a0 = ((__repair_record_var_a0*)var_a0)->field_0;
             } while (var_a0 != NULL);
         }
     }
