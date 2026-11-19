@@ -16,14 +16,10 @@ s32 func_80000A30(s32, s32);                        /* extern */
 M2C_UNK func_8007A974();                            /* extern */
 f32 func_800828D0(f32);                             /* extern */
 
-s32 func_8007AA40(void *arg0, s32 *arg2) {
-    s32 var_v0;
-
-    func_8007A974();
-    var_v0 = 1;
-    if (!(func_800828D0((f32) func_80000A30(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f)) { goto __repair_guard_body; }
-return var_v0;
-__repair_guard_body: {
-        return 0;
+s32 func_8007AA40(void *arg0, s32 arg1, s32 *arg2) {
+    func_8007A974(arg0, arg1, arg2);
+    if (func_800828D0((f32) func_80000A30(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f) {
+        return 1;
     }
+    return 0;
 }
