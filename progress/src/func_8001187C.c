@@ -30,18 +30,11 @@ void func_8001187C(s32 arg0, s32 arg1, s32 arg2) {
     s32 var_v0_2;
     s8 *temp_v0_2;
 
-    var_v0 = arg2 + 0xFF;
     D_800E0964 = arg1;
-    if (var_v0 < 0) {
-        var_v0 = arg2 + 0x1FE;
-    }
-    temp_v0 = var_v0 >> 8;
+    temp_v0 = (arg2 + 0xFF) / 0x100;
     var_v0_2 = temp_v0 << 8;
     D_800E0960 = var_v0_2;
-    if (temp_v0 & 0x800000) {
-        var_v0_2 += 0xFF;
-    }
-    D_800E0968 = var_v0_2 >> 8;
+    D_800E0968 = var_v0_2 / 0x100;
     sprintf(&D_80103030, D_800D24E0, arg0);
     D_800E097C = 0;
     temp_v0_2 = strchr(&D_80103030, 0x2E);
