@@ -16,9 +16,11 @@ M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
 extern s32 D_8010968C;
 
 void func_80032220(void *arg0) {
+    s32 *__base_D_8010968C;
     if (arg0 != NULL) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
-        func_80084048(D_8010968C, 0xE);
-        D_8010968C = 0;
+        __base_D_8010968C = &D_8010968C;
+        func_80084048((*__base_D_8010968C), 0xE);
+        (*__base_D_8010968C) = 0;
     }
 }
