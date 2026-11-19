@@ -34,10 +34,11 @@ f64 func_800AAF80(f64 arg0, s32 arg1, void *arg2) {
     temp_a0 = arg2 + var_a1;
     *temp_a0 &= 0xFF << (8 - (temp_v1_2 & 7));
     if (var_a1 < 7) {
-        do {
+        __repair_rows: {
             var_a1 += 1;
             *(s32 *)(arg2 + var_a1) = 0;
-        } while (var_a1 < 7);
+        }
+if ((temp_v1_2 = var_a1) < 7) goto __repair_rows;
     }
     return arg0 - M2C_FIELD(arg2, f64 *, 0);
 }

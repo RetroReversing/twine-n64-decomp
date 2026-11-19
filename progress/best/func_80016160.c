@@ -21,7 +21,7 @@ void func_80016160(void *arg0, void *arg1) {
     s32 temp_a2;
     s32 temp_v0;
     s32 temp_v0_2;
-    s32 var_v1;
+    
     s32 var_v1_2;
     u16 temp_a0;
     u16 var_v0;
@@ -61,11 +61,11 @@ void func_80016160(void *arg0, void *arg1) {
         M2C_FIELD(arg0, u8 *, 0x29) = var_v0_2;
         temp_v1 = (u32) M2C_FIELD(arg1, u16 *, 0x10);
         if (!(temp_v1 & 0xF0)) {
-            var_v1 = 1;
+            temp_a2 = 1;
         } else {
-            var_v1 = (temp_v1 >> 4) & 0xF;
+            temp_a2 = (temp_v1 >> 4) & 0xF;
         }
-        temp_a0_2 = (M2C_FIELD(arg0, s32 *, 0x28) & 0xFFFF0FFF) | ((var_v1 & 0xF) << 0xC);
+        temp_a0_2 = (M2C_FIELD(arg0, s32 *, 0x28) & 0xFFFF0FFF) | ((temp_a2 & 0xF) << 0xC);
         M2C_FIELD(arg0, s32 *, 0x28) = temp_a0_2;
         temp_v0_2 = (s32) M2C_FIELD(arg1, u16 *, 0x10) & 0xF;
         var_v1_2 = 1;

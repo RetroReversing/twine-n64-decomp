@@ -23,18 +23,18 @@ void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *
 int __repair_literal;
 
     union {
-        unsigned char bytes[144];
-        struct { unsigned char pad[24]; f32 value; } view_sp18;
-        struct { unsigned char pad[28]; f32 value; } view_sp1C;
-        struct { unsigned char pad[32]; f32 value; } view_sp20;
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
-        struct { unsigned char pad[44]; f32 value; } view_sp2C;
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[56]; f32 value; } view_sp38;
-        struct { unsigned char pad[64]; f32 value; } view_sp40;
-        struct { unsigned char pad[68]; f32 value; } view_sp44;
-        struct { unsigned char pad[72]; f32 value; } view_sp48;
-        struct { unsigned char pad[76]; f32 value; } view_sp4C;
+        unsigned char bytes[72];
+        struct { f32 value; } view_sp18;
+        struct { unsigned char pad[4]; f32 value; } view_sp1C;
+        struct { unsigned char pad[8]; f32 value; } view_sp20;
+        struct { unsigned char pad[16]; f32 value; } view_sp28;
+        struct { unsigned char pad[20]; f32 value; } view_sp2C;
+        struct { unsigned char pad[24]; f32 value; } view_sp30;
+        struct { unsigned char pad[32]; f32 value; } view_sp38;
+        struct { unsigned char pad[40]; f32 value; } view_sp40;
+        struct { unsigned char pad[44]; f32 value; } view_sp44;
+        struct { unsigned char pad[48]; f32 value; } view_sp48;
+        struct { unsigned char pad[52]; f32 value; } view_sp4C;
     } m2c_initial_frame;
 
              

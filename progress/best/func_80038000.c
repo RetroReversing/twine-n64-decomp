@@ -61,19 +61,19 @@ typedef struct { unsigned char pad[132]; int value; } __repair_field_84;
 typedef struct { int value; } __repair_field_0;
 typedef struct { unsigned char pad[4]; void * value; } __repair_field_4;
 void func_80038000(void *arg0, s32 arg1) {
-    f32 sp20;
-    f32 *var_s0;
-    f32 sp2C;
-    register void *temp_a1_2;
     f32 sp24;
+    register f32 *var_s0;
+    f32 sp20;
+    register void *temp_a1_2;
+    f32 sp2C;
     
     f32 temp_fs3;
     f32 temp_fv0;
-    register long temp_s7;
+    register unsigned int temp_s7;
     f32 temp_fv1_2;
     long temp_s0_2;
     unsigned temp_s1;
-    long temp_s3;
+    u32 temp_s3;
     unsigned temp_v0;
     f32 temp_fv1;
     unsigned var_a0;
@@ -98,9 +98,9 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(f32 *)((char *)(arg0) + 0x148)) = 2.0f;
     }
     (*(f32 *)((char *)(arg0) + 0x1C)) = (f32) (*(f32 *)((char *)(arg0) + 0x10));
-    (*(f32 *)((char *)(arg0) + 0x20)) = (f32) (*(f32 *)((char *)(arg0) + 0x14));
+    (*(f32 *)((char *)(arg0) + 0x20)) = (f32) (*(f32 *)((char *)((int)arg0) + 0x14));
     (*(f32 *)((char *)(arg0) + 0x24)) = (f32) (*(f32 *)((char *)(arg0) + 0x18));
-    (*(s32 *)((char *)((int)arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg0) + 0x34));
+    (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg0) + 0x34));
     (*(f32 *)((char *)(arg0) + 0x44)) = (f32) (*(f32 *)((char *)(arg0) + 0x38));
     (*(f32 *)((char *)(arg0) + 0x48)) = (f32) (*(f32 *)((char *)(arg0) + 0x3C));
     temp_fv1 = (*(f32 *)((char *)(arg0) + 0x120));
@@ -156,8 +156,8 @@ void func_80038000(void *arg0, s32 arg1) {
         func_800325E4(D_80117728 + temp_s3, D_80117728 + (temp_s1 + 0x360), ((__repair_field_84 *)arg0)->value, (*(s32 *)((char *)(arg0) + 0x80)), 12.8f, D_8010A2D0 * 64.0f, 1.0f);
         temp_a1_2 = D_80117728 + temp_s0_2;
         (*(s16 *)((char *)((int)temp_a1_2) + 0x4F0)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)((u32)arg0) + 0x50)))));
-        (*(s16 *)((char *)(temp_a1_2) + 0x4F4)) = 0x2EF;
         (*(s16 *)((char *)(temp_a1_2) + 0x4F2)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x58)))));
+        (*(s16 *)((char *)(temp_a1_2) + 0x4F4)) = 0x2EF;
         (*(s16 *)((char *)(temp_a1_2) + 0x4F6)) = 0;
         if ((*(s32 *)((char *)(arg0) + 0x100)) & 8) {
             (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) = (s16) (s32) ((f32) (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) + ((f32) (*(&D_800C43A0 + (D_801007B8 & 0x7F)) + 0x80) * 0.078125f));
@@ -176,7 +176,7 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(s16 *)((char *)(temp_v1_3) + 0x6E0)) = (s16) (s32) (2.0f * (((*(f32 *)((char *)(arg0) + 0x4C))) * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)(arg0) + 0x50)))));
         (*(s16 *)((char *)(temp_v1_3) + 0x6E4)) = 0xFF;
         (*(s16 *)((char *)(temp_v1_3) + 0x6E6)) = 0;
-        (*(s16 *)((char *)(temp_v1_3) + 0x6E2)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x58)))));
+        (*(s16 *)((char *)((int)temp_v1_3) + 0x6E2)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x58)))));
         (*(s16 *)((char *)(temp_v1_3) + 0x6E8)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x60)) * 4.0f);
         (*(s16 *)((char *)(temp_v1_3) + 0x6EC)) = 0;
         (*(s16 *)((char *)(temp_v1_3) + 0x6EE)) = 0;

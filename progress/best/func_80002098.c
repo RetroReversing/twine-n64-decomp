@@ -15,11 +15,11 @@ extern s32 D_80109D18;
 
 void func_80002098(s32 *arg0, s32 *arg1, s8 arg2, void *arg3) {
     union {
-        unsigned char bytes[56];
-        struct { unsigned char pad[16]; s32 value; } view_sp10;
-        struct { unsigned char pad[20]; s32 value; } view_sp14;
-        struct { unsigned char pad[24]; s32 value; } view_sp18;
-        struct { unsigned char pad[22]; s16 value; } view_unksp16;
+        unsigned char bytes[16];
+        struct { s32 value; } view_sp10;
+        struct { unsigned char pad[4]; s32 value; } view_sp14;
+        struct { unsigned char pad[8]; s32 value; } view_sp18;
+        struct { unsigned char pad[6]; s16 value; } view_unksp16;
     } m2c_initial_frame;
 
              

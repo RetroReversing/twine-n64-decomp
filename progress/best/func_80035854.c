@@ -16,6 +16,6 @@ f32 func_8003582C();
 
 void func_80035854(void *arg0, s32 arg1, s32 arg2) {
     M2C_FIELD(arg0, f32 *, 0) += func_8003582C(arg0, arg1, arg2);
-    M2C_FIELD(arg0, f32 *, 4) += func_8003582C(arg1, arg2);
-    M2C_FIELD(arg0, f32 *, 8) += func_8003582C(arg1, arg2);
+    M2C_FIELD(arg0, f32 *, 4) += func_8003582C(arg1);
+    M2C_FIELD(arg0, f32 *, 8) += func_8003582C(arg1);
 }

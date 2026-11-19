@@ -75,7 +75,7 @@ s32 func_8004DBD8(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     temp_fa1 = (temp_t3 * temp_fs2) - (temp_fs5 * temp_fv1_2);
     temp_ft2 = (temp_fs5 * temp_fv1) - (temp_t2 * temp_fs2);
     temp_ft4 = (temp_t2 * temp_fv1_2) - (temp_t3 * temp_fv1);
-    temp_ft0 = (temp_fs3 * temp_fa1) + (temp_fs1 * temp_ft2) + (temp_ft5 * temp_ft4);
+    temp_ft0 = ((temp_fs1 * temp_ft2) + (temp_ft5 * temp_ft4)) + ((temp_fs3 * temp_fa1));
     var_v0_2 = 1;
     sp18 = temp_fs2;
     sp30 = temp_fa1;

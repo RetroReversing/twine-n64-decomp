@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_800828D0();
-extern char D_8011508F[];
+extern u8 D_8011508F[];
 
 void func_800698D8(void *arg0, s32 arg1, s32 arg2) {
     f32 temp_fv0;

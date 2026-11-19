@@ -17,6 +17,7 @@ extern s32 D_800E1714;
 extern void *D_800E1718;
 extern u8 D_800E1758;
 
+typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
 void func_80036B38(s32 arg0) {
     u32 var_s0;
     void **var_s1;
@@ -27,7 +28,7 @@ void func_80036B38(s32 arg0) {
         var_s1 = &D_800E1718;
         do {
             temp_a0 = *var_s1;
-            M2C_FIELD(temp_a0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_a0, s32 *, 0x58) | 4);
+            ((__repair_field_58 *)temp_a0)->value = (s32) (((__repair_field_58 *)temp_a0)->value | 4);
             func_800090A4(temp_a0, arg0, D_800E1714, 0);
             var_s0 += 1;
             var_s1 += 4;

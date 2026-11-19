@@ -27,6 +27,8 @@ extern char D_80109688[];
 void func_8006899C(void *arg0, u8 arg1) {
 int __repair_literal;
 
+
+
     unsigned int sp28;
     s32 sp2C;
     s32 var_v0;
@@ -54,7 +56,7 @@ int __repair_literal;
     u8 temp_a1_3;
     u8 temp_v0_2;
     u8 temp_v0_5;
-    void **temp_v0;
+    union { void ** pointer; int value; } __repair_phase_storage;
     void **var_a3;
     void *temp_a1;
     void *temp_s0_2;
@@ -69,11 +71,11 @@ int __repair_literal;
 
     temp_s2 = (*(void **)((char *)(arg0) + 0x6C));
     temp_fp = (*(s8 *)((char *)(temp_s2) + 0x182));
-    temp_v0 = (temp_fp * 4) + D_80109688;
+    __repair_phase_storage.pointer = (temp_fp * 4) + D_80109688;
     var_s6 = 1;
     sp37 = arg1;
     temp_s4 = ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8) + D_800C469C;
-    if (func_80081AA4(temp_fp, 0x12, (*(f32 *)((char *)(*temp_v0) + 0x34)), (*(f32 *)((char *)(*temp_v0) + 0x38)), 0) != 0) {
+    if (func_80081AA4(temp_fp, 0x12, (*(f32 *)((char *)(*__repair_phase_storage.pointer) + 0x34)), (*(f32 *)((char *)(*__repair_phase_storage.pointer) + 0x38)), 0) != 0) {
         var_a3 = (*(void ***)((char *)(arg0) + 0x20));
         var_s5 = (*(void **)((char *)((*(void **)((char *)(var_a3) + 0x20))) + 0x58));
         if (var_a3 != NULL) {
@@ -84,9 +86,9 @@ int __repair_literal;
                     do {
                         register temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78));
                         if (temp_v1 < 0x13) {
-__repair_literal = 0x10;
+__repair_phase_storage.value = 0x10;
 
-                            if ((s32) temp_v1 < __repair_literal) {
+                            if ((s32) temp_v1 < __repair_phase_storage.value) {
                                 if (temp_v1 != 0xB) {
 
                                 } else {
@@ -161,7 +163,9 @@ block_28:
                     (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                 }
                 temp_v1_2 = (*(void **)((char *)(temp_s2) + 0xA8));
-                (*(u16 *)((char *)(temp_s2) + 0x17A)) = (u16) (*(u16 *)((char *)((((*(u8 *)((char *)((temp_s2 + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 8))) + 0x1FD)) * 2) + temp_s4)) + 0x24));
+__repair_literal = 8;
+
+                (*(u16 *)((char *)(temp_s2) + 0x17A)) = (u16) (*(u16 *)((char *)((((*(u8 *)((char *)((temp_s2 + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * __repair_literal))) + 0x1FD)) * 2) + temp_s4)) + 0x24));
                 if (temp_v1_2 != NULL) {
                     (*(s16 *)((char *)(temp_v1_2) + 0x7A)) = 5;
                     func_80067A24((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(temp_s4) + 0x94)));

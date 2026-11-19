@@ -42,7 +42,7 @@ f64 func_800AA798(f64 arg0) {
         if (D_800D6ED0 <= var_fv1) {
             var_s2 = 0x10000000;
             var_s3 = 0;
-            temp_ret = func_800ABE80((D_800D6ED0 / var_fv1) * D_800D6ED8);
+            do { temp_ret = func_800ABE80((D_800D6ED0 / var_fv1) * D_800D6ED8); } while (0);
             var_s0 = temp_ret;
             var_s1 = (u32) temp_ret;
         } else {

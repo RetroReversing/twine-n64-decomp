@@ -19,6 +19,8 @@ extern s16 D_800BFC30;
 extern M2C_UNK D_80107EA8;
 
 s32 func_80024EF0(s32 arg0) {
+char *__repair_addr;
+
     s32 temp_s2;
     s32 var_v0;
     s8 var_s1;
@@ -47,7 +49,9 @@ loop_1:
                     var_s1 += 1;
                     goto block_18;
                 }
-                if (func_800AB950(M2C_FIELD(*temp_s0, s32 *, 0x18), func_80087100(0x3004)) == 0) {
+__repair_addr = (char *)(*temp_s0);
+
+                if (func_800AB950(M2C_FIELD(__repair_addr, s32 *, 0x18), func_80087100(0x3004)) == 0) {
                     return var_s1 & 0xFF;
                 }
                 goto block_17;

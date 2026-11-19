@@ -18,6 +18,8 @@ s32 func_80053940(void *, s32, void *, f32 *, M2C_UNK *, f32, f32, f32, s32, s32
 extern void *D_80108404;
 
 s32 func_80079928(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
+char *__repair_addr;
+
     f32 sp30;
     f32 sp34;
     f32 sp38;
@@ -33,21 +35,23 @@ s32 func_80079928(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
     f32 temp_ft1;
     void *temp_a2;
     void *temp_v1;
-    void *temp_v1_2;
+    
 
     sp30 = M2C_FIELD(arg1, f32 *, 0x24);
     sp34 = M2C_FIELD(arg1, f32 *, 0x28);
     sp38 = M2C_FIELD(arg1, f32 *, 0x2C);
     sp50 = 0;
     *arg2 = 0;
-    *arg3 = 0;
+    {*arg3 = 0;}
     temp_v1 = M2C_FIELD(arg1, void **, 0x68);
     temp_ft1 = M2C_FIELD(arg1, f32 *, 0x28);
     temp_a2 = M2C_FIELD(temp_v1, void **, 0);
     M2C_FIELD(temp_v1, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1, u16 *, 0xC) & 0xFFCF);
-    if ((func_80053940(arg1, arg0, arg1 + 0x30, &sp30, &sp40, 0.55f, temp_ft1 - ((M2C_FIELD(temp_a2, f32 *, 0x1C) + M2C_FIELD(temp_a2, f32 *, 0x40)) * 0.5f), M2C_FIELD(M2C_FIELD(temp_v1, void **, 4), f32 *, 0xAC) - temp_ft1, arg4, arg2, &sp50, arg3) << 0x18) != 0) {
-        temp_v1_2 = M2C_FIELD(arg1, void **, 0x68);
-        M2C_FIELD(temp_v1_2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_2, u16 *, 0xC) | 0x10);
+__repair_addr = (char *)(M2C_FIELD(temp_v1, void **, 4));
+
+    if ((func_80053940(arg1, arg0, arg1 + 0x30, &sp30, &sp40, 0.55f, temp_ft1 - ((M2C_FIELD(temp_a2, f32 *, 0x1C) + M2C_FIELD(temp_a2, f32 *, 0x40)) * 0.5f), M2C_FIELD(__repair_addr, f32 *, 0xAC) - temp_ft1, arg4, arg2, &sp50, arg3) << 0x18) != 0) {
+        temp_a2 = M2C_FIELD(arg1, void **, 0x68);
+        M2C_FIELD(temp_a2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_a2, u16 *, 0xC) | 0x10);
         M2C_FIELD(arg1, f32 *, 0x24) = sp30;
         if (sp34 < M2C_FIELD(arg1, f32 *, 0x28)) {
             M2C_FIELD(arg1, f32 *, 0x28) = sp34;
