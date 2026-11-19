@@ -15,25 +15,10 @@ typedef s32 M2C_UNK32;
 extern s32 D_800E06B8;
 
 void func_8000A790(s32 arg0) {
-    char *var_v1;
-    u32 var_a1;
-
+    u32 i;
     if (arg0 != -1) {
-        var_a1 = 0;
-        var_v1 = &D_800E06B8;
-        for (;;) {
-            if (*(s32 *)var_v1 == arg0) {
-                *(s32 *)var_v1 = -1;
-            } else {
-                var_a1 += 1;
-                var_v1 += 4;
-                if (var_a1 >= 0x10U) {
-
-                } else {
-                    continue;
-                }
-            }
-            break;
+        for (i = 0; i < 0x10; i++) {
+            if (((s32 *)&D_800E06B8)[i] == arg0) { ((s32 *)&D_800E06B8)[i] = -1; return; }
         }
     }
 }
