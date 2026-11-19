@@ -7,7 +7,7 @@ extern char D_80115092[];
 extern char D_80115094[];
 extern char D_80115095[];
 
-void func_80081BC4(s32 arg0, u16 arg1, s32 arg2) {
+void func_80081BC4(s32 arg0, s32 arg1, s32 arg2) {
     long temp_v1;
     s32 var_a2;
     
@@ -15,8 +15,10 @@ void func_80081BC4(s32 arg0, u16 arg1, s32 arg2) {
     var_a2 = arg2;
     temp_v1 = arg0 * 0xA0;
     if (*(s16 *)(D_80115092 + temp_v1) != arg1) {
-        *(s16 *)(D_80115092 + (unsigned short)temp_v1) = arg1;
+        *(s16 *)(D_80115092 + temp_v1) = arg1;
         switch (arg1) {
+        case 6:
+        case 7:
         default:
             *(D_8011508B + (arg0 * 0xA0)) = 0;
             var_a2 = 0;
