@@ -20,18 +20,18 @@ extern char D_800B5B00[];
 extern char D_800C795C[];
 
 void func_80018744(void *arg0) {
+    char sp20[0x30];
     struct {
         s16 f50;
         s16 f52;
         s16 f54;
     } __repair_frame;
-    char sp20[0x30];
     char sp58[0x10];
 
     __repair_frame.f50 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x3C);
     __repair_frame.f52 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x40);
     __repair_frame.f54 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x44);
-    func_80082FE4(arg0, &__repair_frame);
+    func_80082FE4(&__repair_frame, sp20);
     func_800839F0(sp20, D_800B5B00, sp58);
     func_800452AC(arg0 + 0x24, sp58, sp58);
     func_80055B5C(-1, arg0, D_800C795C, sp58, arg0 + 0x3C, 0, 0x3E000);
