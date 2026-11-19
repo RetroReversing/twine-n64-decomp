@@ -27,18 +27,20 @@ s32 func_80011800(u16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     s32 var_v0;
 
     var_v0 = 0;
-    if (D_8010086A) return var_v0;
-        var_v0 = 1;
-        D_800E09B8 = arg1;
-        D_800E09BC = arg2;
-        D_800E09C0 = arg3;
-        D_800E09C4 = arg4;
-        D_800E09C8 = arg5;
-        D_800E09CC = arg6;
-        D_800E09D0 = arg7;
-        D_801032A8 = 0;
-        D_8010086A = arg0;
-        D_800E09B4 = arg0;
+    if (!(D_8010086A)) {
+            var_v0 = 1;
+            D_800E09B8 = arg1;
+            D_800E09BC = arg2;
+            D_800E09C0 = arg3;
+            D_800E09C4 = arg4;
+            D_800E09C8 = arg5;
+            D_800E09CC = arg6;
+            D_800E09D0 = arg7;
+            D_801032A8 = 0;
+            D_8010086A = arg0;
+            D_800E09B4 = arg0;
     
+        return var_v0;
+    }
     return var_v0;
 }
