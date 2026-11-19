@@ -43,7 +43,7 @@ void func_800369B8(s32 arg0) {
                         if (((__repair_field_58 *)var_s0)->value & 0x101000) {
                             temp_a0 = D_800E1758 & 0xFF;
                             if (0x10U > temp_a0) {
-                                *((temp_a0 * 4) + &D_800E1718) = (s32)var_s0;
+                                (&D_800E1718)[temp_a0] = (s32)var_s0;
                                 ++D_800E1758;
                             }
                         } else {
