@@ -83,20 +83,20 @@ void func_800A6908(void) {
     M2C_FIELD((void *)0x80000180, s32 *, 0xC) = (s32) M2C_FIELD(&func_800A71C0, s32 *, 0xC);
     func_800A0220(0x80000000, 0x190, 0x80000180);
     func_800A8050(0x80000000, 0x190);
-    temp_a1 = *(s32 *)0xA4600014;
-    temp_a2 = *(s32 *)0xA4600018;
-    temp_a3 = *(s32 *)0xA460001C;
-    temp_a0 = *(s32 *)0xA4600028;
+    temp_a1 = *(volatile s32 *)0xA4600014;
+    temp_a2 = *(volatile s32 *)0xA4600018;
+    temp_a3 = *(volatile s32 *)0xA460001C;
+    temp_a0 = *(volatile s32 *)0xA4600028;
     D_80109B24 = 7;
     D_80100C0C = 7;
     D_80109B25 = (s8) temp_a1;
     D_80109B28 = (s8) temp_a2;
     D_80109B26 = (s8) temp_a3;
-    D_80109B27 = (s8) *(s32 *)0xA4600020;
-    D_80100C0D = (s8) *(s32 *)0xA4600024;
+    D_80109B27 = (s8) *(volatile s32 *)0xA4600020;
+    D_80100C0D = (s8) *(volatile s32 *)0xA4600024;
     D_80100C10 = (s8) temp_a0;
-    D_80100C0E = (s8) *(s32 *)0xA460002C;
-    D_80100C0F = (s8) *(s32 *)0xA4600030;
+    D_80100C0E = (s8) *(volatile s32 *)0xA460002C;
+    D_80100C0F = (s8) *(volatile s32 *)0xA4600030;
     func_800A9620(temp_a0, temp_a1, temp_a2, temp_a3);
     func_800A95C0();
     temp_a1_2 = D_800D1074 * 3;
@@ -122,7 +122,7 @@ void func_800A6908(void) {
 loop_13:
         goto loop_13;
     }
-    *(s32 *)0xA4500008 = 1;
-    *(s32 *)0xA4500010 = 0x3FFF;
-    *(s32 *)0xA4500014 = 0xF;
+    *(volatile s32 *)0xA4500008 = 1;
+    *(volatile s32 *)0xA4500010 = 0x3FFF;
+    *(volatile s32 *)0xA4500014 = 0xF;
 }

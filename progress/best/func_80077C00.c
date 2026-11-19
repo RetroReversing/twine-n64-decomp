@@ -16,13 +16,13 @@ s32 func_8004C750(s32, s32 *, M2C_UNK *, M2C_UNK *, f32, s32, s32, s32); /* exte
 
 void func_80077C00(void *arg0) {
     union {
-        unsigned char bytes[88];
-        struct { unsigned char pad[32]; M2C_UNK value; } view_sp20;
-        struct { unsigned char pad[36]; f32 value; } view_sp24;
-        struct { unsigned char pad[48]; M2C_UNK value; } view_sp30;
-        struct { unsigned char pad[64]; s32 value; } view_sp40;
-        struct { unsigned char pad[68]; f32 value; } view_sp44;
-        struct { unsigned char pad[72]; s32 value; } view_sp48;
+        unsigned char bytes[48];
+        struct { M2C_UNK value; } view_sp20;
+        struct { unsigned char pad[4]; f32 value; } view_sp24;
+        struct { unsigned char pad[16]; M2C_UNK value; } view_sp30;
+        struct { unsigned char pad[32]; s32 value; } view_sp40;
+        struct { unsigned char pad[36]; f32 value; } view_sp44;
+        struct { unsigned char pad[40]; s32 value; } view_sp48;
     } m2c_initial_frame;
 
                  

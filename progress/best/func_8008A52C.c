@@ -18,26 +18,26 @@ extern s32 D_8010D42C;
 void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     u32 sp10;                                       /* compiler-managed */
     u32 sp14;
-    long sp18;
-    unsigned sp1C;
+    s32 temp_fv1_4;
+    u16 *temp_v1;
     u8 sp28;
     s32 sp24;
-    s32 sp20;
+    u16 *temp_v0;
     s32 var_a0;
-    f64 temp_fv0;
+    s16 var_s6;
     s32 temp_fv1_5;
     s16 var_a0_2;
-    s16 var_s6;
+    f64 temp_fv0;
     s16 var_v0_2;
     s32 temp_a1;
-    s32 temp_a3_3;
+    long temp_a3_3;
     s32 temp_a3_4;
-    s32 temp_a3_5;
-    s32 temp_a3_6;
+    u32 temp_a3_5;
+    unsigned temp_a3_6;
     unsigned int temp_fv1;
     s32 temp_fv1_2;
     s32 temp_fv1_3;
-    s32 temp_fv1_4;
+    long sp18;
     f64 temp_fv1_9;
     s32 temp_fv1_6;
     s32 temp_fv1_7;
@@ -46,8 +46,8 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     s32 var_a1;
     s32 var_s5;
     s32 var_v0;
-    u16 *temp_v0;
-    u16 *temp_v1;
+    s32 sp20;
+    unsigned sp1C;
     u16 temp_a3;
     
     u32 temp_a0_2;
@@ -136,12 +136,12 @@ block_16:
         temp_v1_3 = (*(u8 *)((char *)(arg0) + 0x5D));
         if (temp_v1_3 != 0) {
             if (temp_v1_3 == 3) {
-                if (sp1C != 0) {
+                if (sp1C) {
                     temp_a3_3 = (*(s32 *)((char *)(arg0) + 0x2C));
                     temp_s4 = sp14 & 0x3F & 0xFF;
                     temp_s0_3 = temp_s4 & 0x1F;
-                    func_80089F7C(temp_s1 + 0x30, temp_a3_3 + (((sp14 >> 6) * 0x28) + 0x100), ((u32) (((u32) (sp24 + temp_s0_3 + 0x1F) >> 5) + (temp_s4 >> 5) + 1) >> 1) * 0x28, temp_a3_3 + 0x100);
                     (*(u8 *)((char *)(temp_s1) + 0x3F)) = temp_s4;
+                    func_80089F7C(temp_s1 + 0x30, temp_a3_3 + (((sp14 >> 6) * 0x28) + 0x100), ((u32) (((u32) (sp24 + temp_s0_3 + 0x1F) >> 5) + (temp_s4 >> 5) + 1) >> 1) * 0x28, temp_a3_3 + 0x100);
                     var_s4 = temp_s0_3;
                     (*(s8 *)((char *)(temp_s1) + 0x3D)) = (s8) ((u32) (var_s4 + sp24 + 0x1F) >> 5);
                 } else {
@@ -150,12 +150,12 @@ block_16:
                 }
                 temp_a3_4 = (*(s32 *)((char *)(arg0) + 0x2C));
                 var_s3_2 = sp10 & 0x3F & 0xFF;
-                func_80089F7C(temp_s1 + 0x24, temp_a3_4 + ((((u32) sp10 >> 6) * 0x28) + 0x100), ((u32) (((u32) ((sp18 + 6) + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28, temp_a3_4 + 0x100);
+                func_80089F7C(temp_s1 + 0x24, temp_a3_4 + (((sp10 >> 6) * 0x28) + 0x100), ((u32) (((u32) ((sp18 + 6) + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28, temp_a3_4 + 0x100);
                 (*(s32 *)((char *)(temp_s1) + 0x40)) = func_80089D20((*(s32 *)((char *)(arg0) + 0x2C)));
                 goto block_38;
             }
         } else {
-            if (sp1C != 0) {
+            if (sp1C) {
                 temp_a3_5 = (*(s32 *)((char *)(arg0) + 0x2C));
                 var_s4 = sp14 & 3 & 0xFF;
                 func_80089F7C(temp_s1 + 0x30, temp_a3_5 + ((sp14 & 0xFFFC) * 2), ((var_s4 + sp24 + 3) & 0xFFFC) * 2, temp_a3_5);
@@ -171,7 +171,7 @@ block_16:
             goto block_45;
         }
     } else {
-        temp_v1_4 = (*(u8 *)((char *)(arg0) + 0x5D));
+        register temp_v1_4 = (*(u8 *)((char *)(arg0) + 0x5D));
         if (temp_v1_4 != 0) {
             if (temp_v1_4 == 3) {
                 if (sp1C == 0) {
@@ -187,10 +187,10 @@ block_16:
                     var_s4 = temp_a0_3;
                     (*(s8 *)((char *)(temp_s1) + 0x3D)) = (s8) ((u32) (var_s4 + sp24 + 0x1F) >> 5);
                 }
-                (*(s32 *)((char *)(temp_s1) + 0x24)) = (s32) ((*(s32 *)((char *)(arg0) + 0x2C)) + ((((u32) sp10 >> 6) * 0x28) + 0x100));
+                (*(s32 *)((char *)(temp_s1) + 0x24)) = (s32) ((*(s32 *)((char *)(arg0) + 0x2C)) + (((sp10 >> 6) * 0x28) + 0x100));
                 var_s3_2 = sp10 & 0x3F & 0xFF;
-                (*(s16 *)((char *)(temp_s1) + 0x2E)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x2C)) = (s16) (((u32) (((u32) (sp20 + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28);
+                (*(s16 *)((char *)(temp_s1) + 0x2E)) = 0;
                 (*(s32 *)((char *)(temp_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
 block_38:
                 (*(u8 *)((char *)(temp_s1) + 0x3E)) = var_s3_2;
@@ -198,7 +198,7 @@ block_38:
                 (*(s8 *)((char *)(temp_s1) + 0x3C)) = (s8) ((u32) (var_s3 + sp20 + 0x1F) >> 5);
             }
         } else {
-            if (sp1C == 0) {
+            if (!sp1C) {
                 (*(s32 *)((char *)(temp_s1) + 0x30)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x42)) = 0;
             } else {
@@ -224,7 +224,7 @@ block_45:
         (*(s16 *)((char *)(temp_s1) + 0x48)) = 0x4000;
     } else {
         if (var_s5 == -2) {
-            (*(s16 *)((char *)(temp_s1) + 0x48)) = (s16) (var_s3 + sp18);
+            (*(s16 *)((char *)((u32)temp_s1) + 0x48)) = (s16) (var_s3 + sp18);
             var_v0_2 = (var_s3 + sp18) - 0x20;
         } else {
             (*(s16 *)((char *)(temp_s1) + 0x48)) = (s16) (var_s3 + sp18);
@@ -257,7 +257,7 @@ block_45:
         (*(s32 *)((char *)(temp_s1) + 0x14)) = 0;
         (*(s32 *)((char *)(temp_s1) + 0x10)) = 0;
     } else {
-        (*(s32 *)((char *)(temp_s1) + 0)) = (s32) ((*(s16 *)((char *)(arg0) + 0x18)) << 0x10);
+        (*(s32 *)((char *)(temp_s1) + 0)) = (s32) ((*(s16 *)((char *)((u32)arg0) + 0x18)) << 0x10);
         (*(s32 *)((char *)(temp_s1) + 4)) = (s32) ((*(s16 *)((char *)(arg0) + 0x1A)) << 0x10);
         (*(s32 *)((char *)(temp_s1) + 8)) = (s32) ((*(s16 *)((char *)(arg0) + 0x1C)) << 0x10);
         (*(s32 *)((char *)(temp_s1) + 0xC)) = (s32) ((*(s16 *)((char *)(arg0) + 0x1E)) << 0x10);
@@ -277,11 +277,11 @@ block_45:
     }
     (*(u16 *)((char *)(temp_s1) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 4));
     temp_fv1_9 = ((*(f64 *)((char *)(arg0) + 8)) - func_8008CD54((*(f64 *)((char *)(arg0) + 8)), var_a0)) * D_800D6768;
-    if (D_800D6770 <= temp_fv1_9) {
+    if (temp_fv1_9 >= D_800D6770) {
         var_a0_2 = (s32) (temp_fv1_9 - D_800D6770) | 0x80000000;
         (*(s16 *)((char *)(temp_s1) + 0x20)) = var_a0_2;
     } else {
-        var_a0_2 = (s16) (s32) temp_fv1_9;
+        var_a0_2 = (s16) temp_fv1_9;
         (*(s16 *)((char *)(temp_s1) + 0x20)) = var_a0_2;
     }
     (*(s32 *)((char *)(temp_s1) + 0x44)) = 0;

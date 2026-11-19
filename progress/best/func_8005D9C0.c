@@ -18,6 +18,8 @@ M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
 extern s32 *D_800CA31C;
 extern s8 D_80109B1E;
 
+typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
+typedef struct { unsigned char pad_0[100]; float field_64; unsigned char pad_68[4]; void * field_6C; void * field_70; unsigned char pad_74[4]; short field_78; short field_7A; short field_7C; unsigned char field_7E; } __repair_record_temp_v0;
 void *func_8005D9C0(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
     s16 var_v0;
     u8 temp_v1;
@@ -26,14 +28,14 @@ void *func_8005D9C0(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
 
     temp_v0 = func_80016410(0x50, arg0, arg1);
     if (temp_v0 != NULL) {
-        temp_s1 = M2C_FIELD(temp_v0, void **, 0x6C);
+        temp_s1 = ((__repair_record_temp_v0*)temp_v0)->field_6C;
         M2C_FIELD(temp_s1, s32 *, 0x4C) = (s32) (M2C_FIELD(temp_s1, s32 *, 0x4C) & ~0x40);
         temp_v1 = M2C_FIELD(M2C_FIELD(arg3, void **, 0x24), u8 *, 0x1E);
         switch (temp_v1) {                          /* irregular */
         case 0x2E:
             var_v0 = 0x10;
 block_6:
-            M2C_FIELD(temp_v0, s16 *, 0x78) = var_v0;
+            ((__repair_record_temp_v0*)temp_v0)->field_78 = var_v0;
             break;
         case 0x8F:
             D_80109B1E = 1;
@@ -41,16 +43,16 @@ block_6:
             goto block_6;
         }
         if (arg2 != NULL) {
-            M2C_FIELD(temp_v0, void **, 0x70) = arg2;
-            M2C_FIELD(temp_v0, u8 *, 0x7E) = (u8) M2C_FIELD(arg2, u8 *, 0x45);
-            M2C_FIELD(temp_v0, f32 *, 0x64) = (f32) M2C_FIELD(arg2, f32 *, 0x14);
+            ((__repair_record_temp_v0*)temp_v0)->field_70 = arg2;
+            ((__repair_record_temp_v0*)temp_v0)->field_7E = (u8) M2C_FIELD(arg2, u8 *, 0x45);
+            ((__repair_record_temp_v0*)temp_v0)->field_64 = (f32) M2C_FIELD(arg2, f32 *, 0x14);
         }
         M2C_FIELD(temp_s1, u16 *, 0x34) = (u16) M2C_FIELD(arg3, u16 *, 0x2C);
         M2C_FIELD(temp_s1, u16 *, 0x36) = (u16) M2C_FIELD(arg3, u16 *, 0x2E);
         M2C_FIELD(temp_s1, s32 *, 0x2C) = func_80015D40(M2C_FIELD(arg3, u16 *, 0x34));
-        M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
-        M2C_FIELD(temp_v0, s16 *, 0x7C) = 0;
-        M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) | 0x600);
+        ((__repair_record_temp_v0*)temp_v0)->field_7A = 0;
+        ((__repair_record_temp_v0*)temp_v0)->field_7C = 0;
+        ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);
         func_8003E6EC(*D_800CA31C, temp_v0, 1);
     }
     return temp_v0;

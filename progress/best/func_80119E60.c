@@ -17,9 +17,9 @@ extern M2C_UNK D_8011F3C4;
 
 void func_80119E60(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v1;
-    s8 var_s0;
-    s8 var_s1;
-    s8 var_s2;
+    short var_s0;
+    short var_s1;
+    short var_s2;
     void *temp_a0;
     void *temp_v1_2;
 
@@ -52,7 +52,7 @@ void func_80119E60(s32 arg0, s32 arg1, void *arg2) {
         }
         func_8000A894(0x226);
         func_8000A894(0x21A);
-        temp_a0 = *(&D_8011F3C4 + ((arg0 & 0xFFFF) * 4));
+        temp_a0 = *((M2C_UNK *)((s8 *)&D_8011F3C4 + ((arg0 & 0xFFFF) * 4)));
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, s32 *, 0x10) = (s32) ((var_s2 << 0x18) | (var_s1 << 0x10) | (var_s0 << 8) | 0xFF);
         }

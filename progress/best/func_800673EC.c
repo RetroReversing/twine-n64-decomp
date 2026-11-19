@@ -19,7 +19,7 @@ s32 func_8008194C(s8, s32);                     /* extern */
 s32 func_80081D20(s8, s32);                 /* extern */
 f32 func_8008292C(f32);                             /* extern */
 f32 func_80082968(f32);                             /* extern */
-extern s32 D_800C469C;
+extern s8 D_800C469C;
 extern s32 D_800C46FC;
 extern s32 D_80102ED8;
 extern s32 D_80109688;
@@ -73,7 +73,7 @@ void func_800673EC(void *arg0, void *arg1) {
     temp_s0 = (*(s8 *)((char *)(temp_s2) + 0x182));
     temp_s1 = ((*(s8 *)((char *)(temp_a0) + 0xE)) * 0xE8) + &D_800C469C;
     temp_v1 = (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A));
-    var_s4 = ((*(s8 *)((char *)(temp_a0) + 0x10)) * 0xE8) + &D_800C469C;
+    var_s4 = (char *)(((*(s8 *)((char *)(temp_a0) + 0x10)) * 0xE8)); var_s4 += (s32)(&D_800C469C);
     temp_s5 = D_80102ED8 != 0;
     switch (temp_v1) {
     default:
@@ -190,7 +190,7 @@ block_48:
         func_80001678(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)));
         temp_a1 = (*(u16 *)((char *)(var_s4) + 0x98));
         if (temp_a1) {
-            func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1);
+            do { func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1); } while (0);
             temp_v1 = 4;
             goto block_48;
         }
