@@ -17,6 +17,8 @@ extern void *D_80109A50;
 
 void func_8000B580(void *arg0, s32 arg1) {
     void *temp_s0;
+/* Inferred frame reservation; original purpose unknown. */
+char __repair_stack_padding[8];
 
     func_8000B2EC();
     M2C_FIELD(arg0, s16 *, 0) = 1;
