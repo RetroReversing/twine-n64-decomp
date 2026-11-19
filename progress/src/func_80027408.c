@@ -16,7 +16,7 @@ s16 strlen();                                       /* extern */
 extern s32 D_80102F2C;
 extern void **D_80109BB0;
 
-void *func_80027408(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
+void *func_80027408(s32 arg0, s32 arg1, s16 arg2, u8 arg3) {
     void *p;
 
     p = NULL;
@@ -32,8 +32,8 @@ void *func_80027408(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
         }
         M2C_FIELD(p, s32 *, 0x18) = arg0;
         M2C_FIELD(p, s16 *, 0x1C) = strlen();
-        M2C_FIELD(p, s16 *, 0x22) = (s16) (arg3 & 0xFF);
         M2C_FIELD(p, s16 *, 0x20) = arg2;
+        M2C_FIELD(p, s16 *, 0x22) = arg3;
         M2C_FIELD(p, s16 *, 0x1E) = (s16) (arg1 | 1);
         M2C_FIELD(p, s32 *, 0x10) = (s32) (M2C_FIELD(p, s32 *, 0x10) | 0xFF);
     }
