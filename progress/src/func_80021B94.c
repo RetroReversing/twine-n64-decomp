@@ -21,9 +21,11 @@ extern u8 D_801002AD;
 extern char D_8010A488[];
 
 void func_80021B94(void) {
+    u8 *__base_D_801002AD;
     func_8002A700(D_8010A488);
-    func_80081BC4(D_801002AD, *(D_80100198 + (D_801002AD * 0x18)));
-    D_801002AD = 0;
+    __base_D_801002AD = &D_801002AD;
+    func_80081BC4((*__base_D_801002AD), *(D_80100198 + ((*__base_D_801002AD) * 0x18)));
+    (*__base_D_801002AD) = 0;
     func_80022BB8();
     cache_release_block();
 }
