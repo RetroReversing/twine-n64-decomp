@@ -16,7 +16,7 @@ s32 __osMotorAccess();
 extern char D_800E0790[];
 extern char D_8010A3A0[];
 
-void func_800105F8(s32 arg0) {
+void func_800105F8(s16 arg0) {
     s32 temp_s1;
     s32 var_s0;
     u16 *temp_v0;

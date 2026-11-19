@@ -51,8 +51,8 @@ s32 func_80063998(void *arg0, s32 arg1) {
     void *temp_s1_2;
     void *temp_s3;
     void *temp_v0;
-    void *var_a0;
-    void *var_a2;
+    
+    
     void *var_a3;
 
     temp_s3 = M2C_FIELD(arg0, void **, 0x6C);
@@ -85,10 +85,11 @@ s32 func_80063998(void *arg0, s32 arg1) {
             func_800635B4(arg0, 2);
             if (!(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x200)) {
                 var_a1 = 8;
-            } else {
+            
+            func_800635BC(arg0, var_a1);} else {
                 var_a1 = 0xA;
-            }
-            func_800635BC(arg0, var_a1);
+            
+            func_800635BC(arg0, var_a1);}
             if (D_80102ED8 == 0) {
                 func_8000A344();
                 func_8000A894(0x101);
@@ -100,21 +101,30 @@ s32 func_80063998(void *arg0, s32 arg1) {
                     temp_a0_3 = (s8) M2C_FIELD(temp_s3, u8 *, 0x182) + 0x4013;
                     D_800C7CB4 = temp_a0_3;
                     if ((temp_s0 != 0) & (temp_s0 != (s32) temp_s3)) {
+void *var_a2;
+
+void *var_a0;
+
                         temp_s1 = func_80087100(temp_a0_3 & 0xFFFF);
                         temp_s0_2 = func_80087100(0x1B1);
                         var_a0 = temp_s1;
                         var_a1_2 = "%s%s";
                         var_a2 = temp_s0_2;
                         var_a3 = ((func_80022DBC((s8) M2C_FIELD(temp_s0, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
-                    } else {
+                    
+                    sprintf(var_a0, var_a1_2, var_a2, var_a3);} else {
+void *var_a2;
+
+void *var_a0;
+
                         temp_s1_2 = func_80087100(temp_a0_3 & 0xFFFF);
                         temp_s0_3 = ((func_80022DBC((s8) M2C_FIELD(temp_s3, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                         var_a0 = temp_s1_2;
                         var_a1_2 = "%s %s";
                         var_a2 = temp_s0_3;
                         var_a3 = func_80087100(0x1B2);
-                    }
-                    sprintf(var_a0, var_a1_2, var_a2, var_a3);
+                    
+                    sprintf(var_a0, var_a1_2, var_a2, var_a3);}
                     func_8011B368(D_800C7CAC, D_800C7CAC + 2, M2C_FIELD(temp_s3, u8 *, 0x182));
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), s32 *, 8) = func_80015F74(D_800C7CAC - 0xC);
                 }

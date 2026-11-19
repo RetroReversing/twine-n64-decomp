@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 extern signed char D_801002AE;
 extern int D_80112F68;
@@ -108,20 +96,21 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8002D240(void) {
+    register int temp_s0;
     s32 *temp_s0_2;
-    s32 temp_s0;
-    s32 temp_s1;
-    s32 temp_s1_2;
-    s32 temp_s3;
-    s32 temp_v0;
-    s32 temp_v1;
+    unsigned int temp_s1;
+    unsigned int temp_v0;
+    unsigned temp_s1_2;
+    unsigned temp_s3;
+    unsigned int temp_v1;
     s32 temp_v1_2;
-    s32 var_a0;
+    
     s32 var_s2;
-    s32 var_s2_2;
-    s32 var_s5;
-    s32 var_s5_2;
-    u16 temp_a2;
+    int var_s2_2;
+int __repair_phase_var_s2_2;
+    u32 var_s5;
+    unsigned long var_s5_2;
+    register u16 temp_a2;
     u32 var_s0;
 
     func_8008173C();
@@ -185,49 +174,49 @@ void func_8002D240(void) {
     D_8010A4FF = D_80109B9C == 0;
     func_80007160();
     func_8002B000(D_801002AE + 0x16, 0x1E);
+    (*(s8 *)((char *)(&D_801002AE) + -0xE)) = 0;
     func_8002B000(D_801002AE + 0x1E, 0x1E);
-    M2C_FIELD(&D_801002AE, s8 *, -0xE) = 0;
-    M2C_FIELD(&D_801002AE, s8 *, -0xD) = 0;
+    (*(s8 *)((char *)(&D_801002AE) + -0xD)) = 0;
     D_801002D4 = 1;
     D_801002D5 = 0;
-    M2C_FIELD(&D_801002AE, s8 *, -0xC) = 0;
-    M2C_FIELD(&D_801002AE, s8 *, -0xA) = 0x18;
-    M2C_FIELD(&D_801002AE, s32 *, -6) = 0;
-    M2C_FIELD(&D_801002AE, s8 *, -2) = 0;
+    (*(s8 *)((char *)(&D_801002AE) + -0xC)) = 0;
+    (*(s8 *)((char *)(&D_801002AE) + -(short)0xA)) = 0x18;
+    (*(s8 *)((char *)(&D_801002AE) + -2)) = 0;
+    (*(s32 *)((char *)(&D_801002AE) + -6)) = 0;
     D_801002B4 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     D_801002BC = 0;
     D_801002B8 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     D_801002C0 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
-    M2C_FIELD(&D_801002AE, s8 *, -1) = 0;
+    (*(s8 *)((char *)(&D_801002AE) + -1)) = 0;
     var_s0 = 0 & 0xFFFF;
     do {
         temp_s1 = var_s0 < 4U;
-        if (temp_s1 != 0) {
+        if ((int)temp_s1 != 0) {
             func_80081BC4(var_s0, 2);
         }
         temp_v1 = var_s0 * 0x18;
         *(D_80100198 + temp_v1) = 2;
-        *(D_801001A0 + temp_v1) = 0x64;
+        *(D_801001A0 + temp_v1) = (s32)0x64;
+        temp_s3 = var_s5 & 1;
         *(D_801001A2 + temp_v1) = 1;
         *(D_801001A3 + temp_v1) = 0;
-        temp_v0 = var_s5 & 1;
-        if (temp_s1 != 0) {
-            if (temp_v0 != 0) {
+        if (temp_s1) {
+            if (temp_s3 != 0) {
                 goto block_8;
             }
             goto block_7;
         }
-        if (temp_v0 != 0) {
+        if (temp_s3) {
 block_7:
             *(D_801001A1 + temp_v1) = 1;
             var_s5 += 1;
         } else {
 block_8:
             *(D_801001A1 + temp_v1) = 0;
-            var_s5 += 1;
+            ++var_s5;
         }
         var_s0 = var_s5 & 0xFFFF;
-    } while ((u32) (var_s5 & 0xFFFF) < 0xBU);
+    } while ((u32) ((temp_s1 = (short)var_s5) & 0xFFFF) < 0xBU);
     var_s2 = 0;
     func_8002D7C0();
     D_8010019C = func_8002B9FC(0x11);
@@ -241,30 +230,31 @@ block_8:
     D_8010025C = func_8002B9FC(0x2F);
     D_80100274 = func_8002B9FC(0x37);
     D_8010028C = func_8002B9FC(0x53);
-    var_a0 = 0 & 0xFFFF;
+    temp_s1_2 = 0 & 0xFFFF;
     do {
-        func_8002B000((var_a0 * 8) + D_80117410, 0x1E);
+        func_8002B000((temp_s1_2 * 8) + D_80117410, 0x1E);
         var_s2 += 1;
-        var_a0 = var_s2 & 0xFFFF;
-    } while ((u32) (var_s2 & 0xFFFF) < 2U);
+        var_s2_2 = var_s2 & 0xFFFF;
+    temp_s1_2 = var_s2_2;
+    } while ((u32) ((var_s2_2 = var_s2) & (short)0xFFFF) < (unsigned)2U);
     var_s5_2 = 0;
     do {
-        var_s2_2 = 0;
-        temp_v1_2 = var_s5_2 & 0xFFFF;
-        temp_s3 = temp_v1_2 * 0x18;
+        __repair_phase_var_s2_2 = 0;
+        var_s2 = var_s5_2 & 0xFFFF;
+        temp_s3 = var_s2 * 0x18;
 loop_14:
-        temp_s1_2 = var_s2_2 & 0xFFFF;
+        temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF;
         temp_s0 = temp_s1_2 * 8;
         func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
         temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
         func_8002B000(temp_s0_2, 0x1E);
-        temp_a2 = *((temp_s1_2 * 2) + ((temp_v1_2 * 6) + D_800BFC38));
-        var_s2_2 += 1;
+        temp_a2 = *((temp_s1_2 * 2) + ((var_s2 * 6) + D_800BFC38));
         func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);
-        if ((u32) (var_s2_2 & 0xFFFF) < 3U) {
+        __repair_phase_var_s2_2 += 1;
+        if ((u32) (__repair_phase_var_s2_2 & 0xFFFF) < 3U) {
             goto loop_14;
         }
-        var_s5_2 += 1;
+        ++var_s5_2;
     } while ((u32) (var_s5_2 & 0xFFFF) < 0xEU);
     memset(D_801176C8, 0, 0xE);
     D_801176D8 = 0;

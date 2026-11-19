@@ -20,7 +20,7 @@ s32 func_80044968(s32 arg0) {
 
     var_v0 = 0;
     if (arg0 >= 0) {
-        temp_v1 = *(&D_800C0784 + (arg0 * 0x10));
+        temp_v1 = *(&D_800C0784 + arg0 * 0x4);
         if (temp_v1 != NULL) {
             var_v0 = M2C_FIELD(temp_v1, s32 *, 0x18);
         }

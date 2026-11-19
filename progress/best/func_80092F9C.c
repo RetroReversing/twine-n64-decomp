@@ -28,7 +28,7 @@ __repair_literal = 0;
             temp_a3 = arg1 & 0xFFFF;
             var_a2 = 0;
 loop_3:
-            temp_a1 = *(D_800EDAA4 + var_a2);
+            temp_a1 = *(s32 *)(D_800EDAA4 + var_a2);
             if ((*(u16 *)((char *)(temp_a1) + 4)) != (arg0 & (short)0xFFFF)) {
                 var_a2 += 4;
                 var_v1++;

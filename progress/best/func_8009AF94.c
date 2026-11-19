@@ -201,7 +201,7 @@ void func_8009AF94(void *arg0, u8 arg1, s32 arg2) {
         M2C_FIELD(arg0, s32 *, 0x34) = temp_v1_2;
         M2C_FIELD(arg0, u8 *, 0x2F) = temp_a2;
         M2C_FIELD(arg0, s32 *, 0x38) = (s32) (M2C_FIELD(arg0, u8 *, 0x53) << 0x10);
-        temp_v0 = func_800968E8(M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B), temp_a2);
+        temp_v0 = func_800968E8(M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B));
         if ((temp_v0 & 0xFF) != 0xFF) {
             M2C_FIELD(arg0, u8 *, 0xC1) = temp_v0;
         } else {
@@ -342,11 +342,11 @@ block_120:
             if (D_801176E8 != 0) {
                 var_a2_2 = 0;
                 do {
-                    temp_a0 = *(D_8010D784 + var_a2_2);
+                    temp_a0 = *(s32 *)(D_8010D784 + var_a2_2);
                     if ((temp_a0 == (((M2C_FIELD(arg0, u16 *, 0x4E) + D_800FDB9E) << 8) | ((u16) D_800FDB9C << 0x10) | var_a1_2)) && (temp_a0 != -1)) {
                         temp_v1_7 = (temp_a0 & 0xFF) * 0x1A0;
-                        if (*(D_8010D784 + temp_v1_7) == temp_a0) {
-                            *(D_8010D748 + temp_v1_7) = *(D_8010D748 + temp_v1_7) | 8;
+                        if (*(s32 *)(D_8010D784 + temp_v1_7) == temp_a0) {
+                            *(s32 *)(D_8010D748 + temp_v1_7) = *(s32 *)(D_8010D748 + temp_v1_7) | 8;
                         }
                     }
                     var_a1_2 += 1;
@@ -601,7 +601,7 @@ block_151:
             M2C_FIELD(arg0, u32 *, 0x28) = (u32) ((u16) D_800FDB9C << 0xF);
             break;
         case 0x32:
-            *(D_80112EBE + (D_800FDB9E * 2)) = (s16) D_800FDB9D;
+            *(s16 *)(D_80112EBE + (D_800FDB9E * 2)) = (s16) D_800FDB9D;
             var_a0 = NULL;
             break;
         case 0x33:
@@ -843,7 +843,7 @@ block_196:
                     M2C_FIELD((temp_v0_21 + arg0), s16 *, 0x180) = (s16) D_800FDBA0;
                     goto block_60;
                 }
-                *(D_80112E9E + temp_v0_21) = (s16) D_800FDBA0;
+                *(s16 *)(D_80112E9E + temp_v0_21) = (s16) D_800FDBA0;
                 var_a0 = NULL;
             }
             break;

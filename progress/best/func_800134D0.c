@@ -1,24 +1,12 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
-extern M2C_UNK D_800B269F;
-extern M2C_UNK D_800B26BF;
-extern M2C_UNK D_800B27E0;
-extern M2C_UNK D_800B281C;
+extern s32 D_800B269F;
+extern s32 D_800B26BF;
+extern s32 D_800B27E0;
+extern s32 D_800B281C;
 extern u32 D_800B283C;
-extern M2C_UNK D_800B2CB8;
-extern M2C_UNK D_800B3134;
+extern s32 D_800B2CB8;
+extern s32 D_800B3134;
 extern u16 D_801032B0;
 extern u16 D_80108970;
 extern u8 D_80108FA0;
@@ -27,14 +15,14 @@ extern u32 D_80112EE0;
 void func_800134D0(void *arg0) {
     void *sp4;
     u16 *spC;
-    s32 sp14;
+    s32 var_a2;
     u32 sp1C;
     s32 sp2C;
     s32 *var_a0_5;
     s32 *var_a1_3;
-    s32 *var_a2_5;
+    register s32 *var_a2_5;
     s32 *var_t7_2;
-    s32 temp_a1_3;
+    u32 *var_t8;
     s32 temp_s2;
     s32 temp_s6;
     s32 temp_t5;
@@ -43,25 +31,25 @@ void func_800134D0(void *arg0) {
     s32 temp_v0_4;
     s32 temp_v1_2;
     s32 temp_v1_3;
-    s32 var_a2;
+    u8 *var_a0_6;
     s32 var_a2_10;
     s32 var_a2_4;
     s32 var_a2_8;
     s32 var_a2_9;
     s32 var_t1;
-    s32 var_t1_2;
+    u32 var_t2;
     s32 var_t1_8;
     s32 var_t3;
     s32 var_t3_2;
     s32 var_t3_3;
-    s32 var_t3_4;
+    s32 var_t9;
     s32 var_t3_5;
     s32 var_t4;
-    s32 var_t4_2;
+    u32 var_a3_6;
     s32 var_t5_2;
     s32 var_t6;
     s32 var_t7;
-    s32 var_t9;
+    s32 var_t3_4;
     s32 var_v0;
     s32 var_v0_2;
     s32 var_v0_3;
@@ -84,7 +72,7 @@ void func_800134D0(void *arg0) {
     u32 *var_t5_3;
     u32 *var_t6_2;
     u32 *var_t6_3;
-    u32 *var_t8;
+    s32 temp_a1_3;
     u32 *var_v1;
     u32 *var_v1_2;
     u32 *var_v1_3;
@@ -112,9 +100,9 @@ void func_800134D0(void *arg0) {
     u32 var_a3;
     u32 var_a3_2;
     u32 var_a3_3;
-    u32 var_a3_4;
+    unsigned long var_a3_4;
     u32 var_a3_5;
-    u32 var_a3_6;
+    s32 var_t4_2;
     u32 var_a3_7;
     u32 var_a3_8;
     u32 var_a3_9;
@@ -124,11 +112,11 @@ void func_800134D0(void *arg0) {
     u32 var_t1_4;
     u32 var_t1_5;
     u32 var_t1_6;
-    u32 var_t2;
+    s32 var_t1_2;
     u32 var_t2_2;
     u32 var_v1_6;
     u32 var_v1_7;
-    u8 *var_a0_6;
+    s32 sp14;
     u8 *var_fp;
     u8 *var_v1_4;
     u8 *var_v1_8;
@@ -140,11 +128,11 @@ void func_800134D0(void *arg0) {
     void *temp_v0_5;
 
     sp4 = arg0;
-    var_fp = M2C_FIELD(arg0, u8 **, 0);
+    var_fp = (*(u8 **)((char *)(arg0) + 0));
     sp1C = 0;
-    temp_v0 = M2C_FIELD(arg0, void **, 4);
-    var_t2 = M2C_FIELD(temp_v0, u32 *, 0xC);
-    var_s4 = M2C_FIELD(temp_v0, u32 *, 0x10);
+    temp_v0 = (*(void **)((char *)(arg0) + 4));
+    var_t2 = (*(u32 *)((char *)(temp_v0) + 0xC));
+    var_s4 = (*(u32 *)((char *)(temp_v0) + 0x10));
     var_s1 = temp_v0 + 0x14;
     var_t4 = 0x1F;
 loop_1:
@@ -170,7 +158,7 @@ loop_1:
             var_s1 += 4;
             var_t1 = (var_t2_2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
             var_t2_2 = temp_t2_2 >> -var_t4;
-            var_t4 += 0x20;
+            var_t4 += (short)0x20;
         }
         var_t1_2 = var_t1 - 1;
         if (var_t1 != 0) {
@@ -229,9 +217,9 @@ loop_17:
         } while (var_a3 < 0x21U);
         var_a3_2 = 0;
         var_a0 = &D_800B283C;
-        do {
+        __repair_rows_: {
             var_t4 -= 1;
-            var_a2_4 = var_t2_2 & 1;
+            var_t1_8 = var_t2_2 & 1;
             if (var_t4 < 0) {
                 temp_t2_5 = var_s4;
                 var_s4 = *var_s1;
@@ -242,7 +230,7 @@ loop_17:
             } else {
                 var_t2_2 = var_t2_2 >> 1;
             }
-            if (var_a2_4 == 1) {
+            if (var_t1_8 == 1) {
                 var_t4 -= 4;
                 if (var_t4 < 0) {
                     sp1C = var_t2_2;
@@ -262,7 +250,8 @@ loop_17:
             var_a3_2 += 1;
             *temp_v1 += 1;
             var_a0 += 4;
-        } while (var_a3_2 < var_a2_3);
+        }
+if (var_a3_2 < var_a2_3) goto __repair_rows_;
         D_80112EE0 = 0;
         var_t3 = 0;
         var_a3_3 = 1;
@@ -374,7 +363,7 @@ loop_62:
             } while (var_t1_5 < var_s3);
         }
         temp_s2 = var_t3_4;
-        if (var_t1_5 < 0x10U) {
+        if (0x10U > var_t1_5) {
             var_t5_2 = var_t1_5 * 4;
             var_t6_3 = &(&D_80112EE0)[var_t1_5];
             do {
@@ -408,7 +397,7 @@ loop_74:
         temp_v0_3 = temp_v1_4 & 0xFF;
         if (temp_v0_3 != 0) {
             if ((u32) (temp_v0_3 - var_s3) >= 8U) {
-                M2C_FIELD(sp4, s32 *, 0x1C) = -8;
+                (*(s32 *)((char *)(sp4) + 0x1C)) = -8;
                 return;
             }
             *var_a1_4 = (var_a2_7 << 7) + ((temp_v1_4 - var_s3) * 0x10);
@@ -422,7 +411,7 @@ block_78:
         if ((var_a3_8 >> var_s3) != 0) {
             var_t1_6 = var_s3;
             if (var_a2_7 >= 0x200U) {
-                M2C_FIELD(sp4, s32 *, 0x1C) = -9;
+                (*(s32 *)((char *)(sp4) + 0x1C)) = -9;
                 return;
             }
             var_t3_5 = temp_s2;
@@ -444,7 +433,7 @@ block_78:
                             var_a1_5 = temp_a2 >> var_s3;
 do {
                             (&spC[(temp_v1_5 >> 7) + temp_s6])[var_a1_5] = (*var_t7_2 << 7) + *var_t8;
-                            var_a1_5 += 1 << (*var_t8 - var_s3);
+                            var_a1_5 += 1 << (*var_t8 - (short)var_s3);
                             } while ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0);
                             var_a3_9 += 1;
                             var_t8 += 4;
@@ -511,7 +500,7 @@ loop_92:
                 }
             }
             var_t1_8 = *(&D_800B269F + temp_t1) + var_a2_8 + 3;
-            if (var_t4 < 0xF) {
+            if (0xF > var_t4) {
                 var_v1_7 = var_t2_2 + (var_s4 << var_t4);
             } else {
                 var_v1_7 = var_t2_2;
@@ -553,10 +542,10 @@ loop_92:
             var_v1_8 = temp_v0_5 - 1;
             if (temp_a1_3 == 0) {
                 do {
-                    *var_fp = M2C_FIELD(temp_v0_5, u8 *, -1);
+                    *var_fp = (*(u8 *)((char *)(temp_v0_5) + -1));
                     var_t1_8 -= 1;
                     var_fp += 1;
-                } while (var_t1_8 != 0);
+                } while (var_t1_8);
                 var_v0 = var_t4 < 0xF;
             } else {
                 do {

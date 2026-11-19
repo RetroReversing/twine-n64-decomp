@@ -24,33 +24,33 @@ void func_80091428(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 var_a0_2;
-    s32 var_v1;
+    
     u32 var_a0;
 
     var_a0 = 0;
-    var_v1 = 0;
+    temp_v0_2 = 0;
 loop_1:
-    if ((*(&D_800E6A85 + var_v1) != 0) || (*(&D_800E5AC4 + var_v1) != (arg0 & 0x7FFFFFFF))) {
+    if ((*((M2C_UNK *)((s8 *)&D_800E6A85 + temp_v0_2)) != 0) || (*((M2C_UNK *)((s8 *)&D_800E5AC4 + temp_v0_2)) != (arg0 & 0x7FFFFFFF))) {
         var_a0 += 1;
-        var_v1 += 0xFF8;
+        temp_v0_2 += 0xFF8;
         if (var_a0 >= 8U) {
             var_a0_2 = -1;
         } else {
             goto loop_1;
         }
     } else {
-        var_a0_2 = var_a0 | (arg0 & 0x80000000);
+        var_a0_2 = var_a0 | (arg0 & 0x7fffffff);
     }
     if (var_a0_2 != -1) {
         if (var_a0_2 >= 0) {
             temp_v0 = var_a0_2 * 0xFF8;
-            *(&D_800E5BD4 + temp_v0) = arg1;
-            *(&D_800E5BD8 + temp_v0) = arg2;
+            *((M2C_UNK *)((s8 *)&D_800E5BD4 + temp_v0)) = arg1;
+            *((M2C_UNK *)((s8 *)&D_800E5BD8 + temp_v0)) = arg2;
             return;
         }
         temp_v0_2 = (var_a0_2 & 0x7FFFFFFF) * 0xFF8;
-        *(&D_800E6AA8 + temp_v0_2) = arg1;
-        *(&D_800E6AAC + temp_v0_2) = arg2;
-        *(&D_800E6AB2 + temp_v0_2) = *(&D_800E6AB2 + temp_v0_2) | 0x10;
+        *((M2C_UNK *)((s8 *)&D_800E6AA8 + temp_v0_2)) = arg1;
+        *((M2C_UNK *)((s8 *)&D_800E6AAC + temp_v0_2)) = arg2;
+        *((M2C_UNK *)((s8 *)&D_800E6AB2 + temp_v0_2)) = *((M2C_UNK *)((s8 *)&D_800E6AB2 + temp_v0_2)) | 0x10;
     }
 }

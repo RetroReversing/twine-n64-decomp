@@ -48,7 +48,7 @@ void func_8001DE20(void) {
         if (D_8010A4FE == 0) {
             register var_a0 = 0x1A;
         }
-        func_80026004(__repair_phase_storage.pointer, "%s", func_80087100(var_a0));
+        do { func_80026004(__repair_phase_storage.pointer, "%s", func_80087100(var_a0)); } while (0);
         temp_s2 = var_s3 - 0x28;
         if (D_80108400 != 0) {
             temp_s0 = temp_s4 - 0x28;

@@ -31,7 +31,9 @@ loop_2:
             var_a3 += 1;
             goto block_9;
         }
-        if (*(D_800E5AC4 + var_v1) != (arg0 & 0x7FFFFFFF)) {
+        if (*(s32 *)(D_800E5AC4 + var_v1) == (arg0 & 0x7FFFFFFF)) {
+            var_a0 = var_a3 | (arg0 & 0x7fffffff);
+        } else {
             var_a3 += 1;
 block_9:
             var_v1 += 0xFF8;
@@ -40,12 +42,10 @@ block_9:
             } else {
                 goto loop_2;
             }
-        } else {
-            var_a0 = var_a3 | (arg0 & 0x80000000);
         }
         if (var_a0 != -1) {
             *((var_a0 * 0xFF8) + D_800E5FEC + (arg1 & 0xFF)) = arg2;
-            func_8008F2A4(arg2 & 0xFF, 2, var_a3);
+            func_8008F2A4(arg2 & 0xFF, 2);
         }
     }
 }

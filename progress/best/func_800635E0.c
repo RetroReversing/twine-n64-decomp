@@ -19,6 +19,7 @@ extern f32 D_800E1A00;
 extern s32 D_800E1A04;
 extern s32 D_800E1A08;
 
+typedef struct { unsigned char pad_0[40]; float field_28; unsigned char pad_2C[64]; void * field_6C; unsigned char pad_70[12]; short field_7C; } __repair_record_arg0;
 void func_800635E0(void *arg0, f32 arg1) {
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -33,7 +34,7 @@ void func_800635E0(void *arg0, f32 arg1) {
     void *temp_s1;
 
     temp_fv0 = D_800E1A00 + arg1;
-    temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
+    temp_s1 = ((__repair_record_arg0*)arg0)->field_6C;
     D_800E1A00 = temp_fv0;
     temp_fs0 = func_8008292C(temp_fv0 * 3.0f);
     temp_fs4 = temp_fs0 * func_80082968(D_800E1A00);
@@ -41,12 +42,12 @@ void func_800635E0(void *arg0, f32 arg1) {
     temp_ft0 = M2C_FIELD(temp_s1, f32 *, 0xF0);
     temp_fs3 = temp_fs0_2 * func_8008292C(D_800E1A00);
     temp_fs2 = temp_ft0 - M2C_FIELD(temp_s1, f32 *, 0xFC);
-    if (M2C_FIELD(arg0, s16 *, 0x7C) != 3) {
+    if (((__repair_record_arg0*)arg0)->field_7C != 3) {
         var_fs1 = 1.0f;
     } else {
         D_800E1A04 = 0;
         D_800E1A08 = 0;
-        var_fs1 = 1.0f - ((temp_ft0 - M2C_FIELD(arg0, f32 *, 0x28)) / temp_fs2);
+        var_fs1 = 1.0f - ((temp_ft0 - ((__repair_record_arg0*)arg0)->field_28) / temp_fs2);
     }
     temp_fs0_3 = func_80082A2C(((temp_fs4 * 0.05f) / temp_fs2) * var_fs1);
     temp_fv0_2 = func_80082A2C(((temp_fs3 * 0.05f) / temp_fs2) * var_fs1) * 651.8986f;

@@ -39,10 +39,10 @@ __repair_literal = 0;
                     var_v1 = 0x24;
                 }
             }
-            temp_a0 = (u16) (*(u32 *)((char *)((*(void **)((char *)(arg0) + 4))) + 0x10));
-            temp_v0_2 = (temp_a0 & 0xFF) + 0x10;
+            __repair_phase_temp_v0_2 = (u16)((u16) (*(u32 *)((char *)((*(void **)((char *)(arg0) + 4))) + 0x10)));
+            temp_v0_2 = (__repair_phase_temp_v0_2 & 0xFF) + 0x10;
             if (temp_v0_2 >= 0) {
-                var_a0 = temp_a0 + 0x10;
+                var_a0 = __repair_phase_temp_v0_2 + 0x10;
                 if (0x6C <= temp_v0_2) {
                     var_a0 = 0x6B;
                 }
