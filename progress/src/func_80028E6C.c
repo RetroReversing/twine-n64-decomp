@@ -23,7 +23,9 @@ void func_80028E6C(void) {
     s32 temp_v1;
 
     temp_v1 = func_8002502C(&D_80100910, func_8002D218()) & 0xFFFF;
-    if ((temp_v1 != 0x80) && (temp_v1 == 0xFF)) {
+    if (!((temp_v1 != 0x80))) return;
+if (!((temp_v1 == 0xFF))) return;
+{
         func_80026424(D_80102F2C, D_800BD68C);
     }
 }
