@@ -17,8 +17,8 @@ M2C_UNK func_80075490(M2C_UNK *, s32);              /* extern */
 extern s32 D_80109690;
 
 void func_80074BC4(s32 arg0, s32 arg1) {
-    M2C_UNK sp18;
+    char sp18[0x200];
 
-    func_80075490(&sp18, arg0);
-    func_80074820(D_80109690, &sp18, 0x20, 2, (f32) arg1 * 0.033333335f, 4);
+    func_80075490(sp18, arg0);
+    func_80074820(D_80109690, sp18, 0x20, 2, (f32) arg1 * 0.033333335f, 4);
 }
