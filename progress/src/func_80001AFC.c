@@ -15,9 +15,8 @@ typedef s32 M2C_UNK32;
 s32 func_80001784();
 s32 func_80001D80();
 s32 func_80005158();
-extern s32 D_800C3924;
-extern char D_800C3928[];
-extern char D_800C392A[];
+typedef struct { s32 a; s16 b; s16 c; } Rec;
+extern Rec D_800C3924[];
 extern s16 D_800C39B0;
 extern s32 D_800D93C0;
 extern s32 D_800D93C4;
@@ -43,21 +42,18 @@ extern s32 D_800D9410;
 extern s32 D_80109D18;
 
 void func_80001AFC(void) {
-    s32 var_a0;
+    s32 i;
+    s16 *g;
 
     D_80109D18 = 0;
     func_80001784();
     func_80001D80(0);
-    if (D_800C3924 != 0) {
-        var_a0 = 0;
-        __repair_rows: {
-            *(s16 *)((D_800C392A-6) + var_a0) = 0;
-            if (*(s16 *)(D_800C3928 + var_a0) != D_800C39B0) {
-                *(s16 *)(D_800C392A + var_a0) = 1;
-            }
-            var_a0 += 8;
+    for (i = 0; D_800C3924[i].a != 0; i++) {
+        g = &D_800C39B0;
+        D_800C3924[i].c = 0;
+        if (D_800C3924[i].b != *g) {
+            D_800C3924[i].c = 1;
         }
-if (*(s32 *)(D_800C3924 + var_a0) != 0) goto __repair_rows;
     }
     D_800D93C0 = func_80005158(0x1D0, 4, 0);
     D_800D93C4 = func_80005158(0x331, 4, 0);
