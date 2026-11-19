@@ -17,22 +17,22 @@ extern s16 D_800C9D42;
 extern void *D_80109DF0;
 
 void func_80016DBC(void) {
-    u32 var_s1;
-    void *temp_s0;
-    void *var_a0;
+    u32 i;
+    void *next;
+    void *p;
 
+    i = 0;
     if (D_800C9D42 == 0) {
-        var_a0 = D_80109DF0;
-        if (var_a0 != NULL) {
-            var_s1 = 1;
+        p = D_80109DF0;
+        if (p != NULL) {
             do {
-                temp_s0 = M2C_FIELD(var_a0, void **, 0x10);
-                if ((var_s1 >= 0x39U) && (M2C_FIELD(var_a0, s8 *, 0x38) == 1)) {
-                    func_800167B4(var_a0);
+                i++;
+                next = M2C_FIELD(p, void **, 0x10);
+                if ((i >= 0x39U) && (M2C_FIELD(p, s8 *, 0x38) == 1)) {
+                    func_800167B4(p);
                 }
-                var_a0 = temp_s0;
-                var_s1 += 1;
-            } while (var_a0 != NULL);
+                p = next;
+            } while (p != NULL);
         }
     }
 }
