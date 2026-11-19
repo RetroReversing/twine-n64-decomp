@@ -15,9 +15,12 @@ typedef s32 M2C_UNK32;
 extern s32 D_800E41DC;
 
 void func_8008C380(s32 arg0, s32 arg1) {
+s32 __repair_operand;
+
     void *temp_a0;
 
-    temp_a0 = (arg0 * 0x68) + D_800E41DC;
+    __repair_operand = D_800E41DC;
+    temp_a0 = (arg0 * 0x68) + __repair_operand;
     M2C_FIELD(temp_a0, u16 *, 0x28) = 0x14U;
     if (arg1 & 0xFF) {
         M2C_FIELD(temp_a0, s8 *, 0x5C) = 3;
