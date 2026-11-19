@@ -20,9 +20,9 @@ void func_800070FC(s32 arg0) {
     s32 var_s0;
 
     osViBlack(arg0 & 0xFF);
-    do {
-        var_s0 = 0;
-    } while (osRecvMesg(&D_80109C98, 0, 0) == 0);
+    while (osRecvMesg(&D_80109C98, 0, 0) == 0) {
+    }
+    var_s0 = 0;
     do {
         osRecvMesg(&D_80109C98, 0, 1);
         var_s0 += 1;
