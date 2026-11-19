@@ -34,16 +34,18 @@ void func_80030680(void) {
         var_v1 = func_80087100(*temp_v0);
         var_a0 = var_v1 != NULL;
         if (var_v1 != NULL) {
-loop_3:
-            temp_v0_2 = *var_v1;
-            if (temp_v0_2 != 0) {
-                if (temp_v0_2 == 0xA) {
-                    var_a0 += 1;
+            for (;;) {
+                temp_v0_2 = *var_v1;
+                if (temp_v0_2 != 0) {
+                    if (temp_v0_2 == 0xA) {
+                        var_a0 += 1;
+                    }
+                    var_v1 += 1;
+                    if (var_v1 != NULL) {
+                        continue;
+                    }
                 }
-                var_v1 += 1;
-                if (var_v1 != NULL) {
-                    goto loop_3;
-                }
+                break;
             }
         }
         M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 8), u16 *, 2) = var_a0;
@@ -56,16 +58,18 @@ loop_3:
         var_v1_2 = func_80087100(*temp_v0_3);
         var_a0 = var_v1_2 != NULL;
         if (var_v1_2 != NULL) {
-loop_13:
-            temp_v0_4 = *var_v1_2;
-            if (temp_v0_4 != 0) {
-                if (temp_v0_4 == 0xA) {
-                    var_a0 += 1;
+            for (;;) {
+                temp_v0_4 = *var_v1_2;
+                if (temp_v0_4 != 0) {
+                    if (temp_v0_4 == 0xA) {
+                        var_a0 += 1;
+                    }
+                    var_v1_2 += 1;
+                    if (var_v1_2 != NULL) {
+                        continue;
+                    }
                 }
-                var_v1_2 += 1;
-                if (var_v1_2 != NULL) {
-                    goto loop_13;
-                }
+                break;
             }
         }
         M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 0xC), u16 *, 2) = var_a0;
@@ -78,16 +82,18 @@ loop_13:
         var_v1_3 = func_80087100(*temp_v0_5);
         var_a0 = var_v1_3 != NULL;
         if (var_v1_3 != NULL) {
-loop_23:
-            temp_v0_6 = *var_v1_3;
-            if (temp_v0_6 != 0) {
-                if (temp_v0_6 == 0xA) {
-                    var_a0 += 1;
+            for (;;) {
+                temp_v0_6 = *var_v1_3;
+                if (temp_v0_6 != 0) {
+                    if (temp_v0_6 == 0xA) {
+                        var_a0 += 1;
+                    }
+                    var_v1_3 += 1;
+                    if (var_v1_3 != NULL) {
+                        continue;
+                    }
                 }
-                var_v1_3 += 1;
-                if (var_v1_3 != NULL) {
-                    goto loop_23;
-                }
+                break;
             }
         }
         M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 0x10), u16 *, 2) = var_a0;
