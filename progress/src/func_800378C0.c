@@ -23,12 +23,12 @@ void func_800378C0(void *arg0, void *arg1) {
         temp_v0 = D_80107EA0 + 1;
         D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6); D_80107EA0 = temp_v0; func_800347B0(&D_80112F90, ((__repair_record_arg0*)arg0)->field_2C * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_30 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_34 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_20 * 64.0f, ((__repair_record_arg0*)arg0)->field_24 * 64.0f, ((__repair_record_arg0*)arg0)->field_28 * 64.0f);
         func_800347B0(&D_80109BB8, (*(f32 *)((char *)(arg1) + 0x3C)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x40)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x44)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x24)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x28)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x2C)) * 64.0f);
-        do { func_800A3840(&D_80112F90, &D_80109BB8, &D_80112F90); } while (0);
+        func_800A3840(&D_80112F90, &D_80109BB8, &D_80112F90);
         { func_800A37C0(&D_80112F90, D_8010D538); }
-        temp_a1 = D_80115328;
-        D_80115328 = temp_a1 + 8;
-        (*(s32 *)((char *)(temp_a1) + 4)) = (s32) (D_8010D538 - 0x80000000);
-        (*(s32 *)((char *)(temp_a1) + 0)) = 0xDA380003;
+        { struct { u32 w0; u32 w1; } *g = (void *)D_80115328;
+        D_80115328 = (char *)g + 8;
+        g->w0 = 0xDA380003;
+        g->w1 = (u32)D_8010D538 - 0x80000000; }
         func_80032630(temp_s2);
     }
 }
