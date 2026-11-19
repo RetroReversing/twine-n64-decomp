@@ -2,28 +2,28 @@
 s64 func_800ABE80(f64 arg0) {
 int __repair_literal;
 
-    f64 d;
-    u32 hi;
     u32 lo;
-    u32 mh;
     register u32 e;
+    f64 d;
+    unsigned mh;
+    unsigned int hi;
     u32 s;
-    u32 r;
+    unsigned long r;
 
     hi = ((u32 *)&d)[0];
     lo = ((u32 *)&d)[1];
     d = arg0;
     e = (hi >> 20) & 0x7FF;
-    if (e < 0x3FF) {
+    if (0x3FF > e) {
         return 0;
     }
     e = e - 0x3FF;
-    if (e < 0x40) {
+    if (0x40 > e) {
         mh = (hi & 0xFFFFF) | 0x100000;
         if (e >= 0x34) {
-            s = e - 0x34;
+            s = (unsigned short)e - 0x34;
             if (s != 0) {
-                mh = (mh << s) | (lo >> (0x20 - s));do{do{do{
+                mh = (mh << (u32)s) | (lo >> (0x20 - s));do{do{do{
                 lo = lo << s;}while(0);}while(0);}while(0);
             }
         } else {
@@ -40,7 +40,7 @@ __repair_literal = 0x20;
         }
         if (hi & 0x80000000) {
             lo = -lo;
-            mh = ~mh + (lo == 0);
+            mh = ~mh + (!lo);
         }
         return ((u64)mh << 32) | lo;
     }

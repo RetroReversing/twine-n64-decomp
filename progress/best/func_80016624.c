@@ -15,19 +15,19 @@ typedef s32 M2C_UNK32;
 s32 func_800165E0();
 
 void func_80016624(void *arg0, s32 *arg1, s32 arg2) {
-    s32 *temp_v0;
     s32 *temp_v0_2;
-    s32 *var_v0;
+    s32 *temp_v0;
+    
     s32 *var_v1;
 
-    var_v0 = M2C_FIELD(arg1, s32 **, 4);
-    var_v1 = var_v0;
-    if (var_v0 != NULL) {
+    temp_v0 = M2C_FIELD(arg1, s32 **, 4);
+    var_v1 = temp_v0;
+    if (temp_v0 != NULL) {
 loop_1:
-        if (var_v0 != arg0) {
-            var_v1 = var_v0;
-            var_v0 = M2C_FIELD(var_v0, s32 **, 4);
-            if (var_v0 != NULL) {
+        if (temp_v0 != arg0) {
+            var_v1 = temp_v0;
+            temp_v0 = M2C_FIELD(temp_v0, s32 **, 4);
+            if (temp_v0 != NULL) {
                 goto loop_1;
             }
         } else if (var_v1 != arg0) {

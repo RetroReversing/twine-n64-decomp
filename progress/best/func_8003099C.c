@@ -26,7 +26,7 @@ int __repair_constant = 6;
     s32 temp_s1;
     int temp_a1;
 s32 __repair_phase_temp_s1;
-    s32 var_s0;
+    
     
     s32 temp_a0;
     
@@ -60,19 +60,19 @@ loop_2:
             temp_v1_2 = (u16) temp_v1;
     D_800E1608 = temp_v1_2;
             __repair_phase_temp_v1_2 = temp_v1 & 0xFFFF;
-            var_s0 = 0;
+            temp_s1 = 0;
             if (__repair_phase_temp_v1_2) {
 loop_5:
                 if (temp_a0 != 0) {
-                    temp_a1_2 = ((var_s0 & 0xFFFF) * 8) + temp_a0;
+                    temp_a1_2 = ((temp_s1 & 0xFFFF) * 8) + temp_a0;
                     temp_v0 = ((__repair_record_temp_a1_2*)temp_a1_2)->field_2;
                     temp_a0_2 = temp_v0 & 0xFDF0;
                     ((__repair_record_temp_a1_2*)temp_a1_2)->field_2 = temp_a0_2;
                     if (temp_v0 & 0x400) {
                         ((__repair_record_temp_a1_2*)temp_a1_2)->field_2 = (u16) (temp_a0_2 | 0x200);
                     }
-                    var_s0++;
-                    if ((u32) (var_s0 & 0xFFFF) < __repair_phase_temp_v1_2) {
+                    temp_s1++;
+                    if ((u32) (temp_s1 & 0xFFFF) < __repair_phase_temp_v1_2) {
                         goto loop_5;
                     }
                 }
@@ -81,7 +81,8 @@ loop_5:
             var_s2_2 = 0;
             if (D_800E1608 != 0) {
 loop_10:
-                __repair_phase_temp_s1 = (temp_s1 & 0xFFFF) * 8;
+                temp_a1 = temp_s1 & 0xFFFF;
+    __repair_phase_temp_s1 = (temp_a1) * 8;
                 temp_a1_2 = __repair_phase_temp_s1 + D_800BFF04;
                 ((__repair_record_temp_a1_2*)temp_a1_2)->field_0 = -1;
                 if (D_800BFF04) {

@@ -15,7 +15,7 @@ void guPositionF(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     f32 temp_fs3;
     f32 temp_fs5;
     f32 temp_ft0;
-    f32 temp_ft0_2;
+    register f32 temp_ft0_2;
     f32 temp_ft1;
     f32 temp_ft2;
     f32 temp_ft5;
@@ -50,8 +50,8 @@ void guPositionF(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     (*(f32 *)((char *)(arg0) + 4)) = (f32) (temp_fs5 * temp_fs1_2 * arg4);
     (*(f32 *)((char *)(arg0) + 0x18)) = (f32) (temp_s1 * temp_fs5 * arg4);
     (*(f32 *)((char *)(arg0) + 0x28)) = (f32) (temp_fs3 * temp_fs5 * arg4);
-    (*(f32 *)((char *)(arg0) + 0x10)) = temp_ft2;
     (*(f32 *)((char *)(arg0) + 0x20)) = (f32) ((temp_ft1 + (temp_s1 * temp_fs1_2)) * arg4);
     (*(f32 *)((char *)(arg0) + 0x14)) = (f32) (temp_ft0_2 * arg4);
+    (*(f32 *)((char *)(arg0) + 0x10)) = temp_ft2;
     (*(f32 *)((char *)(arg0) + 0x24)) = (f32) (((temp_fs0_3 * temp_fs1_2) - temp_ft5) * arg4);
 }

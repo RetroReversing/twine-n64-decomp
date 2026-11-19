@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,16 +10,17 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-M2C_UNK func_80011950();                            /* extern */
-s16 osContInit(M2C_UNK *, u8 *, M2C_UNK *);         /* extern */
-M2C_UNK osContStartReadData(M2C_UNK *);             /* extern */
-M2C_UNK osCreateMesgQueue(M2C_UNK *, M2C_UNK *, M2C_UNK, s16 *); /* extern */
-s16 osEepromProbe(M2C_UNK *);                       /* extern */
-M2C_UNK osSetEventMesg(M2C_UNK, M2C_UNK *, M2C_UNK); /* extern */
+s32 func_80011950();
+s16 osContInit();
+s32 osContStartReadData();
+s32 osCreateMesgQueue();
+s16 osEepromProbe();
+s32 osSetEventMesg();
 extern s16 D_800BFC30;
-extern M2C_UNK D_800E0760;
-extern M2C_UNK D_800E0768;
+extern char D_800E0760[];
+extern char D_800E0768[];
 extern s16 D_800E0930;
 extern s16 D_800E093E;
 extern s32 D_800E0960;
@@ -38,18 +38,18 @@ extern u8 D_80108F75;
 extern s16 D_80109DC8;
 extern s16 D_80109DD0;
 extern s16 D_8010A3A0;
-extern M2C_UNK D_8010D298;
+extern char D_8010D298[];
 extern u16 D_8010D430;
 extern s16 D_8010D540;
 
 u8 func_80011FA4(void) {
-    s16 *var_a0;
-    s16 *var_a1;
-    s16 *var_a2;
-    s16 *var_a3;
-    s16 *var_t0;
-    s16 *var_t1;
-    s16 *var_v1;
+    char *var_a0;
+    char *var_a1;
+    char *var_a2;
+    char *var_a3;
+    char *var_t0;
+    char *var_t1;
+    char *var_v1;
     s32 var_t2;
 
     var_t2 = 0;
@@ -69,13 +69,13 @@ u8 func_80011FA4(void) {
     D_800E0960 = 0;
     D_800E093E = 0;
     __repair_rows: {
-        *var_v1 = 0;
-        *var_a0 = 0;
-        *var_a1 = 0;
-        *var_a2 = 0;
-        *var_a3 = 0;
-        *var_t0 = 2;
-        *var_t1 = 0;
+        *(s16 *)var_v1 = 0;
+        *(s16 *)var_a0 = 0;
+        *(s16 *)var_a1 = 0;
+        *(s16 *)var_a2 = 0;
+        *(s16 *)var_a3 = 0;
+        *(s16 *)var_t0 = 2;
+        *(s16 *)var_t1 = 0;
         var_t1 += 2;
         var_t0 += 2;
         var_a3 += 2;
@@ -86,11 +86,11 @@ u8 func_80011FA4(void) {
         var_v1 += 2;
     }
 if (var_t2 < 4) goto __repair_rows;
-    osCreateMesgQueue(&D_8010D298, &D_800E0760, 1, var_a3);
-    osSetEventMesg(5, &D_8010D298, 1);
-    D_800E09B2 = osContInit(&D_8010D298, &D_80108F75, &D_800E0768);
-    D_80100908 = osEepromProbe(&D_8010D298);
-    osContStartReadData(&D_8010D298);
+    osCreateMesgQueue(D_8010D298, D_800E0760, 1, var_a3);
+    osSetEventMesg(5, D_8010D298, 1);
+    D_800E09B2 = osContInit(D_8010D298, &D_80108F75, D_800E0768);
+    D_80100908 = osEepromProbe(D_8010D298);
+    osContStartReadData(D_8010D298);
     D_800E09AE = 1;
     func_80011950();
     D_80109DD0 = 0;

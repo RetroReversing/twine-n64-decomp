@@ -40,7 +40,7 @@ extern u16 D_800E0778;
 extern u8 D_800E077A[];
 extern M2C_UNK D_800E077B;
 extern u8 D_800E077C[];
-extern M2C_UNK D_800E0790;
+extern u8 D_800E0790[];
 extern M2C_UNK D_800E0930;
 extern s16 D_800E093A;
 extern M2C_UNK D_800E097E;
@@ -226,7 +226,7 @@ block_48:
             osContGetQuery(&D_800E0768);
             break;
         case 14:
-            var_v0 = osGbpakInit(&D_8010D298, (D_800E093A * 0x68) + &D_800E0790, D_800E093A);
+            var_v0 = osGbpakInit(&D_8010D298, (D_800E093A * 0x68) + D_800E0790, D_800E093A);
             goto block_48;
         }
         D_8010086A = 0;

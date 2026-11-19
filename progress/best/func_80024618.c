@@ -6,7 +6,7 @@ extern void *D_800BD554;
 extern u16 D_800BD558;
 extern u8 D_800BD55A;
 
-void func_80024618(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_80024618(s32 arg0, u16 arg1, s32 arg2, u8 arg3) {
     long var_a1;
     s16 var_v0;
     u32 temp_v1;
