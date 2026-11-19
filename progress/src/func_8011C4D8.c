@@ -19,7 +19,7 @@ void func_8011C4D8(void) {
     if (temp_v0 != NULL) {
         (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) D_800BD660;
         (*(s16 *)((char *)(temp_v0) + 0x1E)) = 0x21;
-        func_8002B180(D_8011F3AC);
+        func_8002B180(D_8011F3AC, D_8011F0E0);
         (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen(D_8011F0E0);
         D_8011F3BC = temp_v0;
     }
