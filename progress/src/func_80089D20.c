@@ -8,6 +8,8 @@ extern u16 D_80108F70;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 
+typedef struct { int field_0; int field_4; int field_8; } __repair_record_temp_v1;
+typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 s32 func_80089D20(s32 arg0) {
     s32 *temp_v0;
     
@@ -17,22 +19,14 @@ s32 func_80089D20(s32 arg0) {
     s32 temp_v0_3;
     register void *temp_v1;
 
-    var_s0_2 = D_800E424C;
-    if (var_s0_2 != NULL) {
-loop_1:
-        if ((*(s32 *)((char *)(var_s0_2) + 0xC)) != arg0) {
-            var_s0_2 = (*(s32 **)((char *)(var_s0_2) + 0));
-            if (var_s0_2 == NULL) {
-                goto block_3;
-            }
-            goto loop_1;
+    for (var_s0_2 = D_800E424C; var_s0_2 != NULL; var_s0_2 = (*(s32 **)((char *)(var_s0_2) + 0))) {
+        if ((*(s32 *)((char *)(var_s0_2) + 0xC)) == arg0) {
+            (*(s16 *)((char *)(var_s0_2) + 0x10)) = 2;
+            return (((__repair_field_8 *)var_s0_2)->value);
         }
-        (*(s16 *)((char *)(var_s0_2) + 0x10)) = 2;
-        return (*(s32 *)((char *)(var_s0_2) + 8));
     }
-block_3:
-    var_s0_2 = D_800E4250;
     if (D_800E4250 != NULL) {
+        var_s0_2 = D_800E4250;
         temp_v0 = *var_s0_2;
         D_800E4250 = temp_v0;
         if (temp_v0 != NULL) {
@@ -57,15 +51,16 @@ loop_11:
         }
     }
     temp_a1 = D_80109BF8 + 0xC;
+    temp_v0_3 = D_80109BA0;
     (*(s16 *)((char *)(var_s0_2) + 0x10)) = 2;
     (*(s32 *)((char *)(var_s0_2) + 0xC)) = arg0;
     D_80109BF8 = temp_a1;
-    temp_v0_3 = func_800CEEE0(D_80109BA0, temp_a1);
-    temp_v1 = (D_80103EB4) + ((D_80108F70 * 0xC));
-    (*(s32 *)((char *)(temp_v1) + 4)) = arg0;
-    (*(s32 *)((char *)(temp_v1) + 0)) = 0x100;
+    temp_v0_3 = func_800CEEE0(temp_v0_3, temp_a1);
+    temp_v1 = (((D_80108F70 * 0xC))) + ((D_80103EB4));
+    (((__repair_record_temp_v1*)temp_v1)->field_4) = arg0;
+    (((__repair_record_temp_v1*)temp_v1)->field_0) = 0x100;
     D_80109BA0 = temp_v0_3;
     ++D_80108F70;
-    (*(s32 *)((char *)(temp_v1) + 8)) = (s32) (*(s32 *)((char *)(var_s0_2) + 8));
-    return (*(s32 *)((char *)(var_s0_2) + 8));
+    (((__repair_record_temp_v1*)temp_v1)->field_8) = (s32) (((__repair_field_8 *)var_s0_2)->value);
+    return (((__repair_field_8 *)var_s0_2)->value);
 }
