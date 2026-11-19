@@ -29,7 +29,7 @@ void func_80016370(void) {
     do {
         func_80015EF4(&D_8010D268, D_801002DC + var_s0);
         var_s1 += 1;
-        var_s0 += 0xC0;
-    } while (var_s1 < 0x2CU);
+        var_s0 += 44;
+    } while (var_s1 < 192U);
     D_800B3930 = 0;
 }
