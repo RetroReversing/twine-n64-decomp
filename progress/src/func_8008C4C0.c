@@ -14,8 +14,8 @@ typedef s32 M2C_UNK32;
 
 extern s32 D_800E41DC;
 
-void func_8008C4C0(s32 arg0, s16 arg1) {
-    if ((u32) (arg1 & 0xFFFF) < 0x2001U) {
+void func_8008C4C0(s32 arg0, u16 arg1) {
+    if ((u32) arg1 < 0x2001U) {
         M2C_FIELD(((arg0 * 0x68) + D_800E41DC), s16 *, 4) = arg1;
         return;
     }
