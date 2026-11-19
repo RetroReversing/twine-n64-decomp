@@ -30,7 +30,7 @@ void func_80073190(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     D_800E1A34 = (f32) var_fv1;
     D_800E1A30 = arg3;
-    D_800E1A68 = 0;
     D_800C7E6C = M2C_FIELD(arg0, u8 *, 0x44);
+    D_800E1A68 = 0;
     func_8003941C(arg0, arg1, 0, 0, 1);
 }
