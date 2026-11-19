@@ -16,11 +16,15 @@ extern char D_800EE380[];
 extern char D_800EE400[];
 
 void func_800968A4(s32 arg0, s32 arg1, s8 arg2) {
+int __repair_literal;
+
     s32 temp_v1;
 
     temp_v1 = arg1 & 0xFF;
     if (temp_v1 != 0xFF) {
-        *((temp_v1 * 0x10) + D_800EE380 + (arg0 & 0xFF)) = arg2;
+__repair_literal = 0x10;
+
+        *((temp_v1 * __repair_literal) + D_800EE380 + (arg0 & 0xFF)) = arg2;
         return;
     }
     *(D_800EE400 + (arg0 & 0xFF)) = arg2;

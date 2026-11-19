@@ -20,7 +20,7 @@ short __repair_constant = 0x2E5;
     s32 var_a1;
     s32 var_a1_2;
     s32 var_a2;
-    s32 var_v0;
+    
     u8 temp_s2;
     void **temp_a1_2;
     void **temp_a0_2;
@@ -89,11 +89,11 @@ block_16:
         temp_a0_3 = *temp_a1_2;
         (*(s32 *)((char *)(temp_a0_3) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0_3) + 0x28)) & ~0xFC) | 0xC);
         if (temp_s2 == 0) {
-            var_v0 = 0xFF2020FF;
+            var_a0_2 = 0xFF2020FF;
         } else {
-            register var_v0 = 0x2020FFFF;
+            register var_a0_2 = 0x2020FFFF;
         }
-        (*(s32 *)((char *)(*temp_a1_2) + 0x10)) = var_v0;
+        (*(s32 *)((char *)(*temp_a1_2) + 0x10)) = var_a0_2;
         *(s16 *)(D_8011F3E0 + ((s32) (arg0 << 0x10) >> 0xF)) = 0x3C;
     }
 }

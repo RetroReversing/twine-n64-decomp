@@ -12,9 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800C4486;
+typedef struct { u16 f0; u8 pad[14]; } Slot_800C4486;
+extern Slot_800C4486 D_800C4486[];
 
 s32 func_80070730(s32 arg0, s32 arg1, s32 arg2) {
+char *__repair_addr;
+
     s16 temp_v0_2;
     s32 temp_v1;
     s32 var_t0;
@@ -27,7 +30,8 @@ s32 func_80070730(s32 arg0, s32 arg1, s32 arg2) {
 loop_1:
     temp_a3 = (var_v0 * 2) + arg0;
     temp_v0 = M2C_FIELD(temp_a3, u16 *, 0x138);
-    temp_v1 = temp_v0 & 0xFF;
+    var_v0 = temp_v0 & 0xFF;
+    temp_v1 = var_v0;
     if (temp_v1 != (arg1 & 0xFF)) {
         var_t0 += 1;
         goto block_10;
@@ -42,9 +46,11 @@ block_10:
         goto loop_1;
     }
     M2C_FIELD(temp_a3, u16 *, 0x138) = 0x100U;
-    temp_v0_2 = *(&D_800C4486 + (temp_v1 * 0x10));
+    temp_v0_2 = D_800C4486[(unsigned char)temp_v1].f0;
     if (temp_v0_2 != -1) {
-        M2C_FIELD((arg0 + (temp_v0_2 * 8)), s8 *, 0x1FC) = 0;
+__repair_addr = (char *)((arg0 + (temp_v0_2 * 8)));
+
+        M2C_FIELD(__repair_addr, s8 *, 0x1FC) = 0;
     }
     return 1;
 }

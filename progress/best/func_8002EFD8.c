@@ -20,7 +20,7 @@ void func_8002EFD8(void *arg0, M2C_UNK arg1) {
     s32 temp_v1;
     s32 var_a0;
     void *temp_v1_2;
-    void *temp_v1_3;
+    
 
     temp_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x2C), s32 *, 0x10);
     if ((u32) (temp_v1 & 0xFF) < 0xFFU) {
@@ -36,8 +36,8 @@ void func_8002EFD8(void *arg0, M2C_UNK arg1) {
         temp_v1_2 = M2C_FIELD(arg0, void **, 0x2C);
         temp_a0 = var_a0 & 0xFF;
         M2C_FIELD(temp_v1_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_2, s32 *, 0x10) & ~0xFF) | temp_a0);
-        temp_v1_3 = M2C_FIELD(arg0, void **, 0x34);
-        M2C_FIELD(temp_v1_3, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_3, s32 *, 0x10) & ~0xFF) | temp_a0);
+        temp_v1_2 = M2C_FIELD(arg0, void **, 0x34);
+        M2C_FIELD(temp_v1_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_2, s32 *, 0x10) & ~0xFF) | temp_a0);
         return;
     }
     func_8002FBD4(arg1, 5, arg0);

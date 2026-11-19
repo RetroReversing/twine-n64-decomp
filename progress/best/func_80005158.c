@@ -8,19 +8,19 @@ void *func_80083E90(s32, s32);                  /* extern */
 
 void *func_80005158(s32 arg0, s32 arg1, s32 arg2) {
     union {
-        unsigned char bytes[3280];
-        struct { unsigned char pad[16]; s32 value; } view_sp10;
-        struct { unsigned char pad[20]; f32 value; } view_sp14;
-        struct { unsigned char pad[32]; s32 value; } view_sp20;
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
-        struct { unsigned char pad[44]; f32 value; } view_sp2C;
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[1608]; s32 value; } view_sp648;
-        struct { unsigned char pad[1616]; f32 value; } view_sp650;
-        struct { unsigned char pad[1620]; f32 value; } view_sp654;
-        struct { unsigned char pad[1624]; f32 value; } view_sp658;
-        struct { unsigned char pad[3188]; s32 value; } view_spC74;
-        struct { unsigned char pad[3196]; s32 value; } view_spC7C;
+        unsigned char bytes[3192];
+        struct { s32 value; } view_sp10;
+        struct { unsigned char pad[4]; f32 value; } view_sp14;
+        struct { unsigned char pad[16]; s32 value; } view_sp20;
+        struct { unsigned char pad[24]; f32 value; } view_sp28;
+        struct { unsigned char pad[28]; f32 value; } view_sp2C;
+        struct { unsigned char pad[32]; f32 value; } view_sp30;
+        struct { unsigned char pad[1592]; s32 value; } view_sp648;
+        struct { unsigned char pad[1600]; f32 value; } view_sp650;
+        struct { unsigned char pad[1604]; f32 value; } view_sp654;
+        struct { unsigned char pad[1608]; f32 value; } view_sp658;
+        struct { unsigned char pad[3172]; s32 value; } view_spC74;
+        struct { unsigned char pad[3180]; s32 value; } view_spC7C;
     } m2c_initial_frame;
 
                  

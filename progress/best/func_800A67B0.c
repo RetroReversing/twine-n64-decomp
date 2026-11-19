@@ -25,13 +25,13 @@ u32 func_800A67B0(void) {
     var_a1 = &D_A0400000;
 loop_1:
     temp_a2 = *var_a1;
-    temp_a3 = *(&D_A00FFFFC + var_a0);
+    temp_a3 = *((M2C_UNK *)((s8 *)&D_A00FFFFC + var_a0));
     *var_a1 = ~*var_a1;
-    *(&D_A00FFFFC + var_a0) = ~*(&D_A00FFFFC + var_a0);
-    if ((*var_a1 == ~temp_a2) && (*(&D_A00FFFFC + var_a0) == ~temp_a3)) {
+    *((M2C_UNK *)((s8 *)&D_A00FFFFC + var_a0)) = ~*((M2C_UNK *)((s8 *)&D_A00FFFFC + var_a0));
+    if ((*var_a1 == ~temp_a2) && (*((M2C_UNK *)((s8 *)&D_A00FFFFC + var_a0)) == ~temp_a3)) {
         *var_a1 = temp_a2;
         var_a1 += 0x100000;
-        *(&D_A00FFFFC + var_a0) = temp_a3;
+        *((M2C_UNK *)((s8 *)&D_A00FFFFC + var_a0)) = temp_a3;
         var_a0 += 0x100000;
         if (var_a0 <= 0x7FFFFFU) {
             goto loop_1;

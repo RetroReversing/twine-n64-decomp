@@ -16,9 +16,11 @@ s32 func_80002BD0();
 s32 func_80045CF8();
 s32 func_80077960();
 s32 func_8007C094();
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 
 s32 func_80078274(void *arg0) {
+char *__repair_addr;
+
     u16 temp_v1;
     void *temp_s2;
     void *var_s0;
@@ -28,7 +30,9 @@ s32 func_80078274(void *arg0) {
     if (var_s0 != NULL) {
 loop_2:
         temp_v1 = M2C_FIELD(var_s0, u16 *, 0x78);
-        if (((s32) temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E) && ((func_8007C094(arg0, var_s0 + 0x24) << 0x18) != 0) && (*(D_80109A60 + M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), u16 *, 0x34)) == 0)) {
+__repair_addr = (char *)(M2C_FIELD(var_s0, void **, 0x6C));
+
+        if (((s32) temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E) && ((func_8007C094(arg0, var_s0 + 0x24) << 0x18) != 0) && (*(D_80109A60 + M2C_FIELD(__repair_addr, u16 *, 0x34)) == 0)) {
             M2C_FIELD(var_s0, s32 *, 0x60) |= 0x800;
             func_80002BD0(arg0, func_80045CF8(2) + 0x2F1);
             M2C_FIELD(temp_s2, s32 *, 0x88) &= 0xFDFFFFFF;
