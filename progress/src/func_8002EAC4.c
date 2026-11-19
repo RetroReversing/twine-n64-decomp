@@ -16,19 +16,14 @@ M2C_UNK func_8002F868(s32, void *);                 /* extern */
 M2C_UNK func_800304E0(s32, void *);                 /* extern */
 
 void func_8002EAC4(void *arg0) {
-    u16 temp_v1;
-
     if (arg0 != NULL) {
-        temp_v1 = M2C_FIELD(arg0, u16 *, 0x78);
-        switch (temp_v1) {
-case 0: break;
-                          /* irregular */
+        switch (M2C_FIELD(arg0, u16 *, 0x78)) {
         case 0x38:
             func_800304E0(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
-            return;
+            break;
         case 0x37:
             func_800304E0(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
-            return;
+            break;
         case 0x39:
             func_8002F868(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
             break;
