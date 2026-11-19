@@ -24,12 +24,12 @@ void func_80044C04(s32 arg0) {
     var_a1 = &D_800C2E24;
     D_80108F78 = arg0;
     D_80117386 = 0;
-    while (*(s16 *)var_a1 != arg0) {
-        var_v1 += 1;
-        var_a1 += 2;
-        if (var_v1 >= 0x20U) {
+    do {
+        if (*(s16 *)var_a1 == arg0) {
+            D_80117386 = var_v1;
             return;
         }
-    }
-    D_80117386 = var_v1;
+        var_v1 += 1;
+        var_a1 += 2;
+    } while (var_v1 < 0x20U);
 }
