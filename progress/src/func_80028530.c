@@ -19,7 +19,7 @@ M2C_UNK func_800269B4(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 extern M2C_UNK D_800BD7E4;
 extern void *D_80102F2C;
-extern void *D_80109688;
+extern void *volatile D_80109688;
 extern s32 D_80109BB0;
 
 void func_80028530(void) {
