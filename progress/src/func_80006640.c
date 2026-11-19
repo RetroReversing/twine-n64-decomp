@@ -15,7 +15,6 @@ typedef s32 M2C_UNK32;
 extern u8 D_800B19F0;
 
 s32 func_80006640(s32 arg0) {
-    s32 var_v0;
 
     switch (arg0) {
     case 2:
@@ -26,12 +25,11 @@ s32 func_80006640(s32 arg0) {
     case 12:
     case 13:
     case 14:
-        var_v0 = 0;
-        if (!((D_800B19F0 != 1) & (D_800B19F0 != 0x10))) {
-        default:
-            var_v0 = 1;
+        if ((D_800B19F0 != 1) & (D_800B19F0 != 0x10)) {
+            return 0;
         }
-        break;
+    default:
+        return 1;
     }
-    return var_v0;
+
 }
