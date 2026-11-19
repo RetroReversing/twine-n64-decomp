@@ -26,9 +26,9 @@ void *func_8005F664(void *arg0, u16 arg2) {
     register void *temp_v0_2;
     f32 temp_fs2;
     void *temp_s2;
-    void *temp_s0;
-    u16 var_s3;
     void *temp_v0_4;
+    u16 var_s3;
+    void *temp_s0;
 
     var_s3 = arg2;
     if ((var_s3 != 0) & (0x27U > var_s3)) {
@@ -48,8 +48,8 @@ if (!(*(&D_800C469C + var_v1) & 0x8000)) goto __repair_rows;
                 if (temp_v0 != NULL) {
                     (*(u8 *)((char *)(temp_v0) + 0x7F)) = (u8) (*(u8 *)((char *)(arg0) + 0x7F));
                     (*(u8 *)((char *)(temp_v0) + 0x80)) = (u8) (*(u8 *)((char *)(arg0) + 0x80));
-                    (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x24;
                     (*(u8 *)((char *)(temp_v0) + 0x81)) = (u8) (*(u8 *)((char *)(arg0) + 0x81));
+                    (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x24;
                     temp_v0_2 = (*(void **)((char *)(arg0) + 0x68));
                     temp_v1 = (*(void **)((char *)(temp_v0_2) + 0));
                     temp_v0_3 = (*(void **)((char *)(temp_v0_2) + 4));

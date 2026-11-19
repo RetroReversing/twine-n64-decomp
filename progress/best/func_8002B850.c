@@ -15,16 +15,17 @@ typedef s32 M2C_UNK32;
 extern u16 D_800BF680;
 extern u16 *D_80102F40;
 
+typedef struct { unsigned short field_0; unsigned char pad_2[3]; unsigned char field_5; unsigned char pad_6[6]; unsigned short field_C; } __repair_record_D_80102F40;
 s32 func_8002B850(s32 arg0) {
     D_80102F40 = &D_800BF680;
     if (D_800BF680 != 0) {
 loop_1:
-        if (M2C_FIELD(D_80102F40, u8 *, 5) != arg0) {
+        if (((__repair_record_D_80102F40*)D_80102F40)->field_5 != arg0) {
             D_80102F40 += 0xC;
-            if (M2C_FIELD(D_80102F40, u16 *, 0xC) != 0) {
+            if (((__repair_record_D_80102F40*)D_80102F40)->field_C != 0) {
                 goto loop_1;
             }
         }
     }
-    return (s32) D_80102F40 & -(M2C_FIELD(D_80102F40, u16 *, 0) != 0);
+    return (s32) D_80102F40 & -(((__repair_record_D_80102F40*)D_80102F40)->field_0 != 0);
 }

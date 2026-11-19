@@ -30,18 +30,18 @@ void func_80046648(void *arg0, void *arg1) {
     s32 temp_fv0_3;
 
     temp_ft1 = (s32) (M2C_FIELD(arg0, f32 *, 0) * 0.0007669904f * 651.8986f);
-    temp_ft1_2 = *(&D_800CA350 + ((temp_ft1 & 0xFFF) * 4));
+    temp_ft1_2 = *((M2C_UNK *)((s8 *)&D_800CA350 + ((temp_ft1 & 0xFFF) * 4)));
     temp_fv0 = (s32) (M2C_FIELD(arg0, f32 *, 8) * 0.0007669904f * 651.8986f);
-    temp_ft0 = *(&D_800CA350 + ((temp_fv0 & 0xFFF) * 4));
+    temp_ft0 = *((M2C_UNK *)((s8 *)&D_800CA350 + ((temp_fv0 & 0xFFF) * 4)));
     temp_ft5 = temp_ft1_2 * temp_ft0;
-    temp_fv0_2 = *(&D_800CA350 + (((temp_fv0 - 0x400) & 0xFFF) * 4));
+    temp_fv0_2 = *((M2C_UNK *)((s8 *)&D_800CA350 + (((temp_fv0 - 0x400) & 0xFFF) * 4)));
     temp_ft1_3 = temp_ft1_2 * temp_fv0_2;
-    temp_ft3 = *(&D_800CA350 + (((temp_ft1 - 0x400) & 0xFFF) * 4));
+    temp_ft3 = *((M2C_UNK *)((s8 *)&D_800CA350 + (((temp_ft1 - 0x400) & 0xFFF) * 4)));
     temp_ft0_2 = temp_ft3 * temp_ft0;
     temp_ft3_2 = temp_ft3 * temp_fv0_2;
     temp_fv0_3 = (s32) (M2C_FIELD(arg0, f32 *, 4) * 0.0007669904f * 651.8986f);
-    temp_fv0_4 = *(&D_800CA350 + ((temp_fv0_3 & 0xFFF) * 4));
-    temp_fv1 = *(&D_800CA350 + (((temp_fv0_3 - 0x400) & 0xFFF) * 4));
+    temp_fv0_4 = *((M2C_UNK *)((s8 *)&D_800CA350 + ((temp_fv0_3 & 0xFFF) * 4)));
+    temp_fv1 = *((M2C_UNK *)((s8 *)&D_800CA350 + (((temp_fv0_3 - 0x400) & 0xFFF) * 4)));
     M2C_FIELD(arg1, f32 *, 0) = (f32) ((temp_fv0_4 * temp_ft0_2) - (temp_fv1 * temp_ft1_3));
     M2C_FIELD(arg1, f32 *, 4) = (f32) ((temp_fv0_4 * temp_ft3_2) + (temp_fv1 * temp_ft5));
     M2C_FIELD(arg1, f32 *, 8) = (f32) ((temp_fv0_4 * temp_ft1_3) - (temp_fv1 * temp_ft0_2));

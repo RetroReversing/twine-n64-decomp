@@ -7,8 +7,9 @@ s32 func_800A81E0(s8 *a, s8 *b, s32 n) {
     s16 temp_v1;
     s16 temp_v1_5;
     s32 temp_t0;
+s32 __repair_phase_temp_t0;
     s32 temp_t0_2;
-    s32 temp_t0_3;
+    
     s32 temp_t0_4;
     s32 temp_t1;
     s32 temp_t1_2;
@@ -69,9 +70,9 @@ s32 __repair_phase_var_a2;
                     case 0:                         /* switch 2 */
                         break;
                     default:                        /* switch 2 */
-                        temp_v0_2 = (*(s8 *)((char *)(var_a0_2) + -1));
+                        temp_v0 = (s8)((*(s8 *)((char *)(var_a0_2) + -1)));
                         var_a0_2--;
-                        (*(s8 *)((char *)(var_a1_2) + -1)) = temp_v0_2;
+                        (*(s8 *)((char *)(var_a1_2) + -1)) = temp_v0;
                         var_a1_2 -= 1;
                         var_a2 -= 1;
                         break;
@@ -163,9 +164,9 @@ loop_39:
                 case 0:                             /* switch 1 */
                     break;
                 default:                            /* switch 1 */
-                    temp_v0_10 = (*(s8 *)((char *)(var_a0) + 0));
+                    temp_v0 = (s8)((*(s8 *)((char *)(var_a0) + 0)));
                     var_a0 += 1;
-                    (*(s8 *)((char *)(var_a1) + 0)) = temp_v0_10;
+                    (*(s8 *)((char *)(var_a1) + 0)) = temp_v0;
                     var_a1 += 1;
                     var_a2--;
                     break;
@@ -177,10 +178,10 @@ loop_39:
                     var_a2 -= 2;
                     break;
                 case 1:                             /* switch 1 */
-                    temp_v0_12 = (*(s8 *)((char *)(var_a0) + 0));
+                    __repair_phase_temp_t0 = (s8)((*(s8 *)((char *)(var_a0) + 0)));
                     temp_v0 = (s16)((*(s16 *)((char *)(var_a0) + 1)));
                     var_a0 += 3;
-                    (*(s8 *)((char *)(var_a1) + 0)) = temp_v0_12;
+                    (*(s8 *)((char *)(var_a1) + 0)) = __repair_phase_temp_t0;
                     (*(s16 *)((char *)(var_a1) + 1)) = temp_v0;
                     var_a1 += 3;
                     var_a2 -= 3;
@@ -190,7 +191,7 @@ loop_17:
                 if (var_a2 >= 0x20) {
                     temp_v0_13 = (*(s32 *)((char *)(var_a0) + 0));
                     temp_v1_6 = (*(s32 *)((char *)(var_a0) + 4));
-                    temp_t0_3 = (*(s32 *)((char *)(var_a0) + 8));
+                    temp_t0 = (*(s32 *)((char *)(var_a0) + 8));
                     temp_t1_3 = (*(s32 *)((char *)(var_a0) + 0xC));
                     temp_t2_2 = (*(s32 *)((char *)(var_a0) + 0x10));
                     temp_t3_2 = (*(s32 *)((char *)(var_a0) + 0x14));
@@ -199,7 +200,7 @@ loop_17:
                     var_a0 += 0x20;
                     (*(s32 *)((char *)(var_a1) + 0)) = temp_v0_13;
                     (*(s32 *)((char *)(var_a1) + 4)) = temp_v1_6;
-                    (*(s32 *)((char *)(var_a1) + 8)) = temp_t0_3;
+                    (*(s32 *)((char *)(var_a1) + 8)) = temp_t0;
                     (*(s32 *)((char *)(var_a1) + 0xC)) = temp_t1_3;
                     (*(s32 *)((char *)(var_a1) + 0x10)) = temp_t2_2;
                     (*(s32 *)((char *)(var_a1) + 0x14)) = temp_t3_2;

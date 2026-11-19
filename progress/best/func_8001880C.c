@@ -8,12 +8,12 @@ extern f64 D_800D27B0;
 
 void func_8001880C(void *arg0) {
     union {
-        unsigned char bytes[72];
-        struct { unsigned char pad[16]; f32 value; } view_sp10;
-        struct { unsigned char pad[20]; f32 value; } view_sp14;
-        struct { unsigned char pad[32]; f32 value; } view_sp20;
-        struct { unsigned char pad[36]; f32 value; } view_sp24;
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
+        unsigned char bytes[32];
+        struct { f32 value; } view_sp10;
+        struct { unsigned char pad[4]; f32 value; } view_sp14;
+        struct { unsigned char pad[16]; f32 value; } view_sp20;
+        struct { unsigned char pad[20]; f32 value; } view_sp24;
+        struct { unsigned char pad[24]; f32 value; } view_sp28;
     } m2c_initial_frame;
 
              

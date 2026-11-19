@@ -20,7 +20,7 @@ extern M2C_UNK D_8011F3B8;
 void func_8011E894(void) {
     s32 var_s0;
     s32 var_s1;
-    s32 var_s1_2;
+    
     s32 var_v0;
     s32 var_v0_2;
 
@@ -31,16 +31,16 @@ void func_8011E894(void) {
         func_80016314(*((var_v0 * 4) + &D_8011F3B8));
         var_v0 = var_s1 & 0xFFFF;
     } while ((u32) (var_s1 & 0xFFFF) < 6U);
-    var_s1_2 = 0;
+    var_s1 = 0;
     do {
         var_s0 = 0;
         var_v0_2 = 0 & 0xFFFF;
 do {
         var_s0 += 1;
-        func_80016314(*((var_v0_2 * 4) + (((var_s1_2 & 0xFFFF) * 0x10) + &D_8011F2E8)));
+        func_80016314(*((var_v0_2 * 4) + (((var_s1 & 0xFFFF) * 0x10) + &D_8011F2E8)));
         var_v0_2 = var_s0 & 0xFFFF;
         } while ((u32) (var_s0 & 0xFFFF) < 4U);
-        var_s1_2 += 1;
-    } while ((u32) (var_s1_2 & 0xFFFF) < 9U);
+        var_s1 += 1;
+    } while ((u32) (var_s1 & 0xFFFF) < 9U);
     func_8011E800();
 }

@@ -18,12 +18,14 @@ f32 func_80045E34();
 s32 func_80059658();
 s32 func_80084338();
 extern u8 D_80102EE8;
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 extern s32 D_8010A500;
 
 void func_8005DED8(void *arg0) {
+short __repair_constant = 0xFF;
+
     s16 temp_v1_2;
-    s8 var_v0;
+    short var_v0;
     u16 temp_a0;
     u16 temp_a0_2;
     u16 temp_v0;
@@ -46,7 +48,7 @@ void func_8005DED8(void *arg0) {
         M2C_FIELD(arg0, s32 *, 0x60) = 0;
     }
     if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(temp_s1, s32 *, 0x4C) & 0x80) && (M2C_FIELD(arg0, s32 *, 0x58) & 4) && (func_80045E34(arg0 + 0x24, D_8010A500 + 0x24) < 4.0f)) {
-        var_v0 = 0xFF;
+        var_v0 = __repair_constant;
         if (M2C_FIELD(temp_s1, s32 *, 0x2C) & 0x08000802) {
             temp_v0 = M2C_FIELD(temp_s1, u16 *, 0x42) + 1;
             M2C_FIELD(temp_s1, u16 *, 0x42) = temp_v0;
@@ -54,9 +56,9 @@ void func_8005DED8(void *arg0) {
                 var_v0 = 0xBF;
                 goto block_14;
             }
-            M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
-            M2C_FIELD(arg0, u8 *, 0x80) = 0xFF;
-            M2C_FIELD(arg0, u8 *, 0x81) = 0xFF;
+            M2C_FIELD(arg0, u8 *, 0x7F) = __repair_constant;
+            M2C_FIELD(arg0, u8 *, 0x80) = __repair_constant;
+            M2C_FIELD(arg0, u8 *, 0x81) = __repair_constant;
         } else {
 block_14:
             M2C_FIELD(arg0, s8 *, 0x81) = var_v0;
