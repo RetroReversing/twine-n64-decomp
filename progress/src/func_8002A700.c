@@ -19,7 +19,6 @@ void func_8002A700(void *arg0) {
                 } while ((u32) (var_s1 & 0xFF) < (u8) (*(u8 *)((char *)(arg0) + 0x19)));
             }
         }
-        temp_a0 = (*(s32 *)((char *)(arg0) + 0));
         (*(s8 *)((char *)(arg0) + 0x18)) = 0;
         (*(u8 *)((char *)(arg0) + 0x19)) = 0U;
         (*(s8 *)((char *)(arg0) + 0x1C)) = 0;
@@ -27,6 +26,7 @@ void func_8002A700(void *arg0) {
         (*(s16 *)((char *)(arg0) + 0x14)) = 0;
         (*(s32 *)((char *)(arg0) + 0x10)) = 0;
         (*(f32 *)((char *)(arg0) + 0xC)) = 1.0f;
+        temp_a0 = (*(s32 *)((char *)(arg0) + 0));
         if (temp_a0) {
             memset(temp_a0, 0, (*(u8 *)((char *)(arg0) + 0x1A)) * 0xC);
         }
