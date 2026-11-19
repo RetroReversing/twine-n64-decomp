@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_80026868();
 s32 func_80027C60();
 s32 func_80027D60();
-extern char D_800BD694[];
+extern u8 D_800BD694[];
 extern void *D_80102F2C;
 
 void func_80027F44(void) {
