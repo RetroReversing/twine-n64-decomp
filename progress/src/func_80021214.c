@@ -31,6 +31,7 @@ extern s32 func_80022C04;
 void func_80021214(void) {
     s32 *__base_D_80102ED8;
     u8 *__base_D_801002AD;
+    u8 *__repair_offset;
     s32 temp_v1;
     u8 var_s1;
     void *temp_v0;
@@ -43,7 +44,8 @@ void func_80021214(void) {
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }
-        M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + (__base_D_801002AD - 0x115));
+        __repair_offset = __base_D_801002AD - 0x115;
+        M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + __repair_offset);
         func_80026004(temp_v0, "%s", func_80087100((unsigned short)(var_s1 + 0x96)));
         __base_D_80102ED8 = &D_80102ED8;
         if ((*__base_D_80102ED8) != 0) {
