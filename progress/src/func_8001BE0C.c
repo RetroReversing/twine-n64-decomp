@@ -23,7 +23,7 @@ void func_8001BE0C(void) {
     cache_release_block();
     __base_D_800B5B14 = &D_800B5B14;
     if ((*__base_D_800B5B14) != NULL) {
-        M2C_FIELD((*__base_D_800B5B14), s32 *, 0x60) = (s32) (M2C_FIELD((*__base_D_800B5B14), s32 *, 0x60) | 1);
+        M2C_FIELD(D_800B5B14, s32 *, 0x60) = (s32) (M2C_FIELD(D_800B5B14, s32 *, 0x60) | 1);
         (*__base_D_800B5B14) = NULL;
     }
 }
