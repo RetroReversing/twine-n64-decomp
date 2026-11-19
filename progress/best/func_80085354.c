@@ -22,6 +22,6 @@ void func_80085354(s32 arg0, u32 arg1) {
     u16 sp10;
 
     if (arg1 < 2U) {
-        func_8000AABC(func_8000A8B4(*(&D_800CE75C + (arg1 * 2)), func_80084270(&sp10), 0xFF), *(&D_80109688 + (sp10 * 4)), arg0, 0);
+        func_8000AABC(func_8000A8B4(*((M2C_UNK *)((s8 *)&D_800CE75C + (arg1 * 2))), func_80084270(&sp10), 0xFF), *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0, 0);
     }
 }

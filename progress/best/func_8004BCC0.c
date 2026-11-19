@@ -133,7 +133,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) {
             do {
                 if (M2C_FIELD(var_s1, void **, 0x70) != NULL) {
                     temp_s3 = M2C_FIELD(var_s1, s32 *, 0x58) & 0x400;
-                    if ((temp_s3 == 0) && (M2C_FIELD(var_s1, s32 *, 0x5C) & 0x200) && ((func_800487F0(var_s1, arg1, temp_fs2) << 0x18) != 0)) {
+                    if ((temp_s3 == 0) && (M2C_FIELD(var_s1, s32 *, 0x5C) & 0x200) && ((func_800487F0(var_s1) << 0x18) != 0)) {
                         temp_s2 = M2C_FIELD(var_s1, void **, 0x70);
                         sp88 = (s16) (s32) -M2C_FIELD(var_s1, f32 *, 0x3C);
                         sp8A = (s16) (s32) -M2C_FIELD(var_s1, f32 *, 0x40);

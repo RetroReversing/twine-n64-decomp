@@ -15,13 +15,16 @@ typedef s32 M2C_UNK32;
 s32 func_8002E7A0();
 
 s32 func_8002E93C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 ret;
     s32 temp_v0;
 
     if (arg0 == NULL) {
-        return 0;
+        ret = 0;
+    } else {
+        func_8002E7A0(arg0, arg3);
+        temp_v0 = M2C_FIELD(arg0, s32 *, 8) + arg3;
+        M2C_FIELD(arg0, s32 *, 8) = temp_v0;
+        ret = temp_v0;
     }
-    func_8002E7A0(arg0, arg3);
-    temp_v0 = M2C_FIELD(arg0, s32 *, 8) + arg3;
-    M2C_FIELD(arg0, s32 *, 8) = temp_v0;
-    return temp_v0;
+    return ret;
 }

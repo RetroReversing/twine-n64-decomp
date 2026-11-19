@@ -19,6 +19,8 @@ extern s16 D_8011EE4C;
 extern M2C_UNK D_8011F338;
 
 void func_8011C7B4(void) {
+int __repair_literal;
+
     s16 *var_a0;
     s16 var_s1;
     s32 var_s0;
@@ -29,10 +31,12 @@ void func_8011C7B4(void) {
     if (D_801002C0 > 0) {
         var_s0 = 0 & 0xFFFF;
         do {
-            temp_v1 = *(&D_801001A2 + (var_s0 * 0x18));
+            temp_v1 = *(&D_801001A2 + var_s0 * 0x6);
             if (temp_v1 != 0) {
                 var_a0 = &D_8011EE4C - 0x20;
-                if ((s32) temp_v1 >= 4) {
+__repair_literal = 4;
+
+                if ((s32) temp_v1 >= __repair_literal) {
                     var_v0 = var_s1 & 0xFFFF;
                     if (temp_v1 == 5) {
                         var_a0 = &D_8011EE4C - 0x20;

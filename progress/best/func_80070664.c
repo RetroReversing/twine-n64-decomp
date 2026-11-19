@@ -8,7 +8,7 @@ char *__repair_addr;
     int var_a1;
     s16 temp_v1;
     s16 temp_v0;
-    s32 temp_a1;
+    u32 temp_a1;
     u32 temp_a3;
     s32 var_v0;
     u32 temp_a3_2;
@@ -20,7 +20,7 @@ char *__repair_addr;
             var_v0 = 1 << 0x10;
 loop_3:
             temp_v0 = var_a1 + 1;
-            if ((*(u8 *)((char *)(((var_v0 >> 0xF) + arg0)) + 0x139)) != temp_a3) {
+            if ((*(u8 *)((char *)(((var_v0 >> 0xF) + (short)arg0)) + 0x139)) != temp_a3) {
                 var_a1 = temp_v0;
                 var_v0 = var_a1 << 0x10;
                 if (temp_v0 >= 0x1E) {
@@ -33,7 +33,7 @@ __repair_addr = (char *)((arg0 + (temp_v1 * 8)));
                     }
                     var_a1 = arg1 & 0xFF;
                     if (temp_a3_2 < 0x1FU) {
-                        (*(s16 *)((char *)(((var_a1 * 2) + arg0)) + 0x138)) = (s16) (var_a1 | (((s32)arg2 & 0xFF) << 8));
+                        (*(s16 *)((char *)(((var_a1 * 2) + arg0)) + 0x138)) = (s16) (var_a1 | ((arg2 & 0xFF) << 8));
                         goto block_9;
                     }
                     goto block_10;

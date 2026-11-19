@@ -24,6 +24,7 @@ s32 func_8004E418(void *arg0, void *arg1, void *arg2) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 var_fv0;
+f32 __repair_var_fv0_1;
 
     temp_ft3 = M2C_FIELD(arg0, f32 *, 0);
     temp_ft2 = (M2C_FIELD(arg0, f32 *, 4) - temp_ft3) * 0.125f;
@@ -39,10 +40,10 @@ s32 func_8004E418(void *arg0, void *arg1, void *arg2) {
     if (temp_ft1 == 0.0f) {
         D_80100780 = 0.0f;
     } else {
-        var_fv0 = (M2C_FIELD(arg2, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x10)) / temp_ft1;
+        __repair_var_fv0_1 = (M2C_FIELD(arg2, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x10)) / temp_ft1;
         D_80100780 = (M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x10)) / temp_ft1;
     }
-    D_80100160 = var_fv0;
+    D_80100160 = __repair_var_fv0_1;
     temp_fv1 = D_80109CBC;
     if (D_80109BAC < temp_fv1) {
         D_80109CBC = D_80109BAC;

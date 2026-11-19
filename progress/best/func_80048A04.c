@@ -12,6 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { float field_0; float field_4; float field_8; float field_C; float field_10; float field_14; } __repair_record_arg0;
 s32 func_80048A04(void *arg0, void *arg1, void *arg2, f32 arg3) {
     f32 temp_fv1;
     f32 temp_fv1_2;
@@ -21,17 +22,17 @@ s32 func_80048A04(void *arg0, void *arg1, void *arg2, f32 arg3) {
     f32 temp_fv1_6;
     s32 var_v0;
 
-    temp_fv1 = M2C_FIELD(arg0, f32 *, 0);
-    if (M2C_FIELD(arg1, f32 *, 0) < temp_fv1) {
+    temp_fv1 = ((__repair_record_arg0*)arg0)->field_0;
+    if (M2C_FIELD(arg1, f32 *, 0) < (((__repair_record_arg0*)arg0)->field_0)) {
         var_v0 = 0;
-        if (!(M2C_FIELD(arg2, f32 *, 0) < temp_fv1)) {
+        if (!(M2C_FIELD(arg2, f32 *, 0) < (((__repair_record_arg0*)arg0)->field_0))) {
             goto block_3;
         }
     } else {
 block_3:
-        temp_fv1_2 = M2C_FIELD(arg0, f32 *, 4);
+        temp_fv1_2 = ((__repair_record_arg0*)arg0)->field_4;
         if (!(temp_fv1_2 < M2C_FIELD(arg1, f32 *, 0)) || (var_v0 = 0, !(temp_fv1_2 < M2C_FIELD(arg2, f32 *, 0)))) {
-            temp_fv1_3 = M2C_FIELD(arg0, f32 *, 0x10);
+            temp_fv1_3 = ((__repair_record_arg0*)arg0)->field_10;
             if (M2C_FIELD(arg1, f32 *, 8) < temp_fv1_3) {
                 var_v0 = 0;
                 if (!(M2C_FIELD(arg2, f32 *, 8) < temp_fv1_3)) {
@@ -39,8 +40,8 @@ block_3:
                 }
             } else {
 block_8:
-                temp_fv1_4 = M2C_FIELD(arg0, f32 *, 0x14);
-                if ((!(temp_fv1_4 < M2C_FIELD(arg1, f32 *, 8)) || (var_v0 = 0, !(temp_fv1_4 < M2C_FIELD(arg2, f32 *, 8)))) && (((temp_fv1_5 = M2C_FIELD(arg0, f32 *, 8) - arg3, (M2C_FIELD(arg1, f32 *, 4) < temp_fv1_5)) && (M2C_FIELD(arg2, f32 *, 4) < temp_fv1_5)) || ((temp_fv1_6 = M2C_FIELD(arg0, f32 *, 0xC) + arg3, var_v0 = 1, (temp_fv1_6 < M2C_FIELD(arg1, f32 *, 4))) && (temp_fv1_6 < M2C_FIELD(arg2, f32 *, 4))))) {
+                temp_fv1_4 = ((__repair_record_arg0*)arg0)->field_14;
+                if ((!(temp_fv1_4 < M2C_FIELD(arg1, f32 *, 8)) || (var_v0 = 0, !(temp_fv1_4 < M2C_FIELD(arg2, f32 *, 8)))) && (((temp_fv1_5 = ((__repair_record_arg0*)arg0)->field_8 - arg3, (M2C_FIELD(arg1, f32 *, 4) < temp_fv1_5)) && (M2C_FIELD(arg2, f32 *, 4) < temp_fv1_5)) || ((temp_fv1_6 = ((__repair_record_arg0*)arg0)->field_C + arg3, var_v0 = 1, (temp_fv1_6 < M2C_FIELD(arg1, f32 *, 4))) && (temp_fv1_6 < M2C_FIELD(arg2, f32 *, 4))))) {
                     var_v0 = 0;
                 }
             }

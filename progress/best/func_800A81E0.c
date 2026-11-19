@@ -84,10 +84,10 @@ s32 __repair_phase_var_a2;
                         var_a2 -= 2;
                         break;
                     case 3:                         /* switch 2 */
-                        temp_v0_4 = (*(s8 *)((char *)(var_a0_2) + -1));
+                        temp_t0 = (s8)((*(s8 *)((char *)(var_a0_2) + -1)));
                         temp_v0 = (s16)((*(s16 *)((char *)(var_a0_2) + -3)));
                         var_a0_2 -= 3;
-                        (*(s8 *)((char *)(var_a1_2) + -1)) = temp_v0_4;
+                        (*(s8 *)((char *)(var_a1_2) + -1)) = temp_t0;
                         (*(s16 *)((char *)(var_a1_2) + -3)) = temp_v0;
                         var_a1_2 -= 3;
                         var_a2 -= 3;

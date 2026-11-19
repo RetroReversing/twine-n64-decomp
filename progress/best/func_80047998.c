@@ -23,7 +23,7 @@ s32 func_80047998(s32 arg0, M2C_UNK arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5
     M2C_UNK sp38;
 
     func_80047948(arg3, arg5, &sp18);
-    func_800478B4(&sp28, &sp18, arg3, arg2);
+    do { func_800478B4(&sp28, &sp18, arg3, arg2); } while (0);
     func_800478B4(&sp38, &sp18, arg5, arg4);
     if ((func_800476E0(arg1, arg4, arg5, &sp28, arg7) << 0x18) == 0) {
         return 0;
