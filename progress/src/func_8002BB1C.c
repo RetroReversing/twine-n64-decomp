@@ -25,11 +25,7 @@ s32 func_8002BB1C(void) {
     D_80102F40 = temp_v0;
     if (temp_v0 != NULL) {
         temp_fv1 = (f32) (M2C_FIELD(temp_v0, u8 *, 4) * 0xA);
-        if (temp_fv1 >= 2.1474836e9f) {
-            ret = ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000) & 0xFF;
-        } else {
-            ret = (s32) temp_fv1 & 0xFF;
-        }
+        ret = (u32) temp_fv1 & 0xFF;
         ret2 = ret;
     } else {
         ret2 = 0x64;
