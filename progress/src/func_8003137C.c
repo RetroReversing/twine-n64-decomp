@@ -18,15 +18,15 @@ extern s32 D_800BFF04;
 u16 func_8003137C(s16 arg0, s32 arg1) {
     s32 temp_a1;
     s32 temp_v0;
-    s32 var_v0;
+    s16 var_v0;
 
     temp_a1 = arg1 & 0xFFFF;
     if (temp_a1 == 1) {
-        var_v0 = func_8003090C(arg0) << 0x10;
+        var_v0 = func_8003090C(arg0);
     } else {
-        var_v0 = (arg0 - 1) << 0x10;
+        var_v0 = (arg0 - 1);
     }
-    temp_v0 = var_v0 >> 0x10;
+    temp_v0 = var_v0;
     if (temp_v0 < 0) {
         return 3U;
     }
