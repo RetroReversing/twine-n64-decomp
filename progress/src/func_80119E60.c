@@ -25,19 +25,22 @@ void func_80119E60(s32 arg0, s32 arg1, void *arg2) {
 
     temp_v1 = arg1 & 0xFF;
     if (temp_v1 != M2C_FIELD(arg2, s16 *, 0x7C)) {
-        if (temp_v1 != 0) {
-            var_s2 = 0x40;
-            if (temp_v1 != 1) {
-                var_s2 = 0xFF;
-                var_s1 = 0xFF;
-            } else {
-                var_s1 = 0x40;
-            }
-            var_s0 = 0xFF;
-        } else {
+        switch (temp_v1) {
+        case 0:
             var_s2 = 0xFF;
             var_s1 = 0x40;
             var_s0 = 0x40;
+            break;
+        case 1:
+            var_s2 = 0x40;
+            var_s1 = 0x40;
+            var_s0 = 0xFF;
+            break;
+        default:
+            var_s2 = 0xFF;
+            var_s1 = 0xFF;
+            var_s0 = 0xFF;
+            break;
         }
         temp_v1_2 = M2C_FIELD(arg2, void **, 0x6C);
         M2C_FIELD(arg2, s16 *, 0x7C) = (s16) (arg1 & 0xFF);
