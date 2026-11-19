@@ -5,13 +5,13 @@ s32 func_8008C11C();
 extern char D_80112EBE[];
 
 s16 func_8009CD00(s32 arg0, u16 arg1) {
-    u16 *temp_s0;
+    s32 __repair_index;
     u16 temp_s1;
 
-    temp_s0 = ((arg0 & 0xF) * 2) + D_80112EBE;
+    __repair_index = arg0 & 0xF;
     func_8008C0D4();
-    temp_s1 = *temp_s0;
-    *temp_s0 = arg1;
+    temp_s1 = ((u16 *) D_80112EBE)[__repair_index];
+    ((u16 *) D_80112EBE)[__repair_index] = arg1;
     func_8008C11C();
     return (s16) temp_s1;
 }
