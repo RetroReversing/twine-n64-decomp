@@ -17,15 +17,16 @@ M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
 extern s32 *D_800CA31C;
 extern s16 D_80109A58;
 
-void *func_80062BC4(s32 arg0, s32 arg1) {
+typedef struct { unsigned char pad_0[116]; float field_74; short field_78; unsigned char pad_7A[2]; short field_7C; } __repair_record_temp_s0;
+void *func_80062BC4(s32 arg0, u16 arg1) {
     void *temp_s0;
 
     temp_s0 = func_80016410(0, arg0, 0);
     D_80109A58 = 0xFF;
     if (temp_s0 != NULL) {
-        M2C_FIELD(temp_s0, s16 *, 0x78) = 0x6C;
-        M2C_FIELD(temp_s0, s16 *, 0x7C) = 0;
-        M2C_FIELD(temp_s0, f32 *, 0x74) = (f32) (arg1 & 0xFFFF);
+        ((__repair_record_temp_s0*)temp_s0)->field_78 = 0x6C;
+        ((__repair_record_temp_s0*)temp_s0)->field_7C = 0;
+        ((__repair_record_temp_s0*)temp_s0)->field_74 = (f32) (arg1 & 0xFFFF);
         func_8003E6EC(*D_800CA31C, temp_s0, 1);
     }
     return temp_s0;
