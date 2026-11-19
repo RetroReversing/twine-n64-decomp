@@ -21,18 +21,17 @@ extern M2C_UNK D_8010A488;
 
 void func_80021FA8(void) {
     u8 var_s1;
-u8 __repair_result_var_s1;
     void *temp_v0;
 
     func_8002ACB4(&D_8010A488);
-    var_s1 = 0;
     if (func_80029C08(&D_8010A488, 0, 0) & 0xFFFF) {
+        var_s1 = 0;
         temp_v0 = func_8002A980(&D_8010A488);
         if (temp_v0 != NULL) {
-            __repair_result_var_s1 = M2C_FIELD(temp_v0, u8 *, 8);
+            var_s1 = M2C_FIELD(temp_v0, u8 *, 8);
         }
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 0xC)();
-        D_801002AD = __repair_result_var_s1;
+        D_801002AD = var_s1;
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 8)();
     }
 }
