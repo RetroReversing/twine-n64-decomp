@@ -7,8 +7,8 @@ extern void *D_80109BB0;
 typedef struct {
     u8 pad0[0x10];
     int x10;
-    u16 x20;
     u8 pad1[0xC];
+    u16 x20;
     u16 x22;
     u8 pad2[4];
     unsigned hi : 24;
@@ -29,6 +29,6 @@ void func_8001EA6C(void *arg0, u8 arg1) {
         temp_a2->f = -(arg1 == 0) & 7;
         temp_a2->x10 = (*__base_D_80102EBC);
         temp_a2->x10 = ((*__base_D_80102EBC) & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
-        func_80022B60(arg0);
+        func_80022B60(0);
     }
 }
