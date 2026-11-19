@@ -21,17 +21,15 @@ extern char D_800E1584[];
 extern s32 D_80102F2C;
 
 void func_8002F2EC(s32 arg0, void *arg1) {
-    s32 var_a1;
 
     if (func_8002B278(D_800E1584) >= 0x14) {
         if (M2C_FIELD(arg1, s16 *, 0x7A) == 5) {
-            var_a1 = 0xB;
+            func_8002FBD4(arg1, 0xB);
         } else {
             func_80026424(D_80102F2C, 0xD);
             func_8002778C();
-            var_a1 = 7;
+            func_8002FBD4(arg1, 7);
         }
-        func_8002FBD4(arg1, var_a1);
-        func_8002B150(D_800E1584, 0);
+        func_8002B150(D_800E1584, 0, 0);
     }
 }
