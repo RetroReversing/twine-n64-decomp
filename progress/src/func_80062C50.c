@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80045CF8();
-s32 func_800629E0();
+s32 func_800629E0(s32, s32, f32, s32);
 extern u8 D_80109A60[];
 
 void func_80062C50(void *arg0) {
@@ -24,7 +24,7 @@ void func_80062C50(void *arg0) {
         M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
         if ((temp_v0 << 0x10) <= 0) {
             M2C_FIELD(arg0, u16 *, 0x7C) = (u16) (func_80045CF8(0x12C) + 1);
-            func_800629E0(arg0, arg0 + 0x24, 0x3F800000, 0);
+            func_800629E0(arg0, arg0 + 0x24, 1.0f, 0);
         }
     }
 }
