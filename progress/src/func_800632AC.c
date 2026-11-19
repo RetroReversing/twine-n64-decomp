@@ -29,10 +29,10 @@ void *func_800632AC(s32 arg0, void *arg1, s16 arg2) {
         (*(f32 *)((char *)(temp_a0) + 0)) = (f32) (((f32) (*(u16 *)((char *)(arg1) + 0x38)) * 0.1f) + 0.5f);
         (*(s8 *)((char *)(temp_a0) + 0xB)) = (s8) (*(u16 *)((char *)(arg1) + 0x3A));
         (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
-        if ((*(u16 *)((char *)(arg1) + 0x40)) != 1) {
-            (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
-        } else {
+        if ((*(u16 *)((char *)(arg1) + 0x40)) == 1) {
             (*(s8 *)((char *)(temp_a0) + 0xD)) = 1;
+        } else {
+            (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
         }
         func_8003E6EC(*D_800CA31C, temp_v0, 1);
     }
