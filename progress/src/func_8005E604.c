@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_8005E68C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+void *func_8005E68C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 
-void *func_8005E604(s32 arg2, s32 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, s32 arg12, s32 arg13) {
+void *func_8005E604(s32 arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, s32 arg12, s32 arg13) {
     void *temp_v0;
 
-    temp_v0 = func_8005E68C(arg2 & 0xFFFF, arg3 & 0xFFFF, (s32) arg4, (s32) arg5, (s32) arg6, (s32) arg7, (s32) arg8, (s32) arg9, (s32) arg10, (s32) arg11, arg12, arg13);
+    temp_v0 = func_8005E68C(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
     if (temp_v0 != NULL) {
         M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x6C), s8 *, 0x2F) = 0;
     }
