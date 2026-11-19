@@ -19,9 +19,7 @@ extern s32 D_A4500000;
 
 s32 func_800A00D0(s32 arg0, s32 arg1) {
     s32 var_a0;
-    s32 var_v0;
 
-    var_v0 = -1;
     if (func_800A8030() == 0) {
         var_a0 = arg0;
         if (D_800CFDC0 != 0) {
@@ -32,9 +30,9 @@ s32 func_800A00D0(s32 arg0, s32 arg1) {
         } else {
             D_800CFDC0 = 0;
         }
-        var_v0 = 0;
-        D_A4500000 = osVirtualToPhysical(var_a0);
-        *(s32 *)0xA4500004 = arg1;
+        *(volatile s32 *)0xA4500000 = osVirtualToPhysical(var_a0);
+        *(volatile s32 *)0xA4500004 = arg1;
+        return 0;
     }
-    return var_v0;
+    return -1;
 }
