@@ -18,7 +18,6 @@ extern char D_80109A60[];
 
 void func_8005AE38(void *arg0) {
     s16 temp_v1;
-    s16 var_v0;
     u32 temp_a2;
     u32 temp_a2_2;
     u32 temp_a2_3;
@@ -43,9 +42,7 @@ void func_8005AE38(void *arg0) {
             }
             temp_a2 = M2C_FIELD(temp_s0, u32 *, 0);
             func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
-            var_v0 = 1;
-block_30:
-            M2C_FIELD(arg0, s16 *, 0x7A) = var_v0;
+            M2C_FIELD(arg0, s16 *, 0x7A) = 1;
         }
         return;
     case 1:
@@ -82,7 +79,7 @@ block_30:
         }
         temp_a2_4 = M2C_FIELD(temp_s0, u32 *, 0);
         func_80044670(arg0, (temp_a2_4 >> 4) & 0xFFFF, temp_a2_4 >> 0x14);
-        var_v0 = 2;
-        goto block_30;
+        M2C_FIELD(arg0, s16 *, 0x7A) = 2;
+        return;
     }
 }
