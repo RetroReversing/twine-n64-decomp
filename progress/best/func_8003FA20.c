@@ -1,4 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80032884(M2C_UNK);                     /* extern */
-extern M2C_UNK D_800C0784;
-extern M2C_UNK D_800C0788;
+s32 func_80032884();
+extern char D_800C0784[];
+extern char D_800C0788[];
 extern s32 D_80100914;
 
 void func_8003FA20(void) {
@@ -22,11 +22,10 @@ void func_8003FA20(void) {
 
     var_v1 = 0;
     D_80100914 = 0x1FC;
-    __repair_rows: {
-        *(&D_800C0784 + var_v1) = 0;
-        *(&D_800C0788 + var_v1) = 0;
+    do {
+        *(s32 *)(D_800C0784 + var_v1) = 0;
+        *(s32 *)(D_800C0788 + var_v1) = 0;
         var_v1 += 0x10;
-    }
-if (var_v1 < 0x1FC0U) goto __repair_rows;
+    } while (var_v1 < 0x1FC0U);
     func_80032884(0x1FC0);
 }

@@ -153,7 +153,7 @@ loop_2:
     }
     var_a2_4 = var_a2_3 - 1;
     if (__repair_phase_storage.value == 0) {
-        var_t2 = var_a1_3 & 1;
+        temp_v1 = var_a1_3 & 1;
         if (var_a2_4 < 0) {
             temp_a1_4 = var_t1;
             var_t1 = *(u32 *)var_t0;
@@ -165,7 +165,7 @@ loop_2:
             var_a1_4 = var_a1_3 >> 1;
         }
         var_a2_5 = var_a2_4 - 1;
-        var_t2_2 = var_t2 + 4;
+        var_t2_2 = temp_v1 + 4;
         if (var_a2_5 < 0) {
             temp_a1_5 = var_t1;
             var_t1 = *(u32 *)var_t0;

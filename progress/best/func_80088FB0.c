@@ -52,15 +52,15 @@ __repair_literal = 1;
         var_a1 = &D_800E4170 + 4;
         do {
             temp_v0_2 = *var_v1;
-            var_v1 += 4;
-            var_a0 += 1;
+            var_v1 += 4;/*__repair_loop_weight*/do {
+            var_a0 += 1;} while (0);
             *var_a1 = temp_v0_2 + 0x300;
             var_a1 += 4;
         } while (var_a0 < (s32) D_800E41DA);
     }
     var_s1 = 0;
     bzero(D_800E4170, D_800E41DA * 0x300, D_800E41DA);
-    func_800A0220(D_800E4170, D_800E41DA * 0x300);
+    do { func_800A0220(D_800E4170, D_800E41DA * 0x300); } while (0);
     D_800E41D0 = 0;
     func_800A00D0(D_800E4170, 0x300);
     do {
@@ -69,17 +69,17 @@ __repair_literal = 1;
         if (D_800E41D8 == 0) {
             temp_v0_3 = *sp10;
             switch (temp_v0_3) {                    /* irregular */
-            case 0xFF:
-                var_s1 = 1;
-                var_v0 = 1 & 0xFF;
-                break;
             default:
                 var_v0 = var_s1 & 0xFF;
                 break;
             case 0x1:
                 D_800E41D0 = (u8) ((s32) (D_800E41D0 + 1) % (s32) D_800E41DA);
-                func_800A00D0((&D_800E4170)[D_800E41D0], 0x300);
+                do { func_800A00D0((&D_800E4170)[D_800E41D0], 0x300); } while (0);
                 var_v0 = var_s1 & 0xFF;
+                break;
+            case 0xFF:
+                var_s1 = 1;
+                var_v0 = 1 & 0xFF;
                 break;
             }
         }

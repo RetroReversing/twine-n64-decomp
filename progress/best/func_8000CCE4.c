@@ -16,8 +16,12 @@ M2C_UNK func_80079CB4(void *, void *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32,
 extern s32 D_800B2710;
 
 void func_8000CCE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+char *__repair_addr;
+
     void *temp_t0;
 
     temp_t0 = M2C_FIELD((D_800B2710 + (arg0 * 0xD4)), void **, 0x68);
-    func_80079CB4(temp_t0 + 0x24, temp_t0 + 0x3C, 0, 0, 0, 0x64, 0x64, 0x64, arg1, 0, (s32) M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x68), u8 *, 0xB1), arg2, -(M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x68), u8 *, 0xB1) == 0x33) & 3, 0, arg3, 0);
+__repair_addr = (char *)(M2C_FIELD(temp_t0, void **, 0x68));
+
+    func_80079CB4(temp_t0 + 0x24, temp_t0 + 0x3C, 0, 0, 0, 0x64, 0x64, 0x64, arg1, 0, (s32) M2C_FIELD(__repair_addr, u8 *, 0xB1), arg2, -(M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x68), u8 *, 0xB1) == 0x33) & 3, 0, arg3, 0);
 }

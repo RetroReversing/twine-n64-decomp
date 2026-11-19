@@ -71,18 +71,18 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     temp_ft3 = (temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2);
     temp_ft2 = (temp_fs4 * temp_fv1) - (temp_t3 * temp_fv1_3);
     temp_fa1 = (temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1);
-    temp_ft5 = (temp_fs5 * temp_ft3) + (temp_fs2 * temp_ft2) + (temp_fs0 * temp_fa1);
+    temp_ft5 = (temp_fs5 * ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2))) + (temp_fs2 * temp_ft2) + (temp_fs0 * ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1)));
     sp18 = temp_fv1_3;
-    sp30 = temp_ft3;
+    sp30 = ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2));
     sp34 = temp_ft2;
-    sp38 = temp_fa1;
+    sp38 = ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1));
     if (!(temp_ft5 < 1e-10f)) {
         temp_ft4 = M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg2, f32 *, 0);
         sp20 = temp_ft4;
         temp_fa0 = M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg2, f32 *, 4);
         sp24 = temp_fa0;
         temp_ft2_2 = M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg2, f32 *, 8);
-        temp_fa1_2 = (temp_ft4 * temp_ft3) + (temp_fa0 * temp_ft2) + (temp_ft2_2 * temp_fa1);
+        temp_fa1_2 = (temp_ft4 * ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2))) + (temp_fa0 * temp_ft2) + (temp_ft2_2 * ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1)));
         var_v0 = 1;
         sp28 = temp_ft2_2;
         if (!((f64) temp_fa1_2 < 0.0)) {
@@ -98,7 +98,7 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
         temp_fa0_2 = (temp_fa0 * temp_fs0) - (temp_ft2_2 * temp_fs2);
         temp_ft2_3 = (temp_ft2_2 * temp_fs5) - (temp_ft4 * temp_fs0);
         temp_ft3_2 = (temp_ft4 * temp_fs2) - (temp_fa0 * temp_fs5);
-        temp_fv1_4 = (temp_t3 * temp_fa0_2) + (temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2);
+        temp_fv1_4 = ((temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2)) + ((temp_t3 * temp_fa0_2));
         sp40 = temp_fa0_2;
         sp44 = temp_ft2_3;
         sp48 = temp_ft3_2;
