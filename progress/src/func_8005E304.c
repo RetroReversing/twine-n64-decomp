@@ -15,13 +15,16 @@ typedef s32 M2C_UNK32;
 extern char D_80109A60[];
 
 void func_8005E304(void *arg0) {
+    u8 * __repair_hoisted;
+
     s32 temp_v1;
     u8 temp_v1_2;
 
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x60);
+    __repair_hoisted = M2C_FIELD(arg0, u8 **, 0x6C);
     if (temp_v1 & 0x400000) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & 0xFFBFFFFF);
-        temp_v1_2 = *M2C_FIELD(arg0, u8 **, 0x6C);
+        temp_v1_2 = *__repair_hoisted;
         if (temp_v1_2 != 0) {
             *(D_80109A60 + temp_v1_2) = 1;
         }
