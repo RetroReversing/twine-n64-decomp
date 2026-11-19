@@ -15,7 +15,8 @@ typedef s32 M2C_UNK32;
 void *func_80016410(M2C_UNK, s32, void *);          /* extern */
 M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
 M2C_UNK func_80044670(void *, u16, s16);            /* extern */
-M2C_UNK func_80045278(void *, s32);                 /* extern */
+M2C_UNK func_80045278(void *);                 /* extern */
+extern s32 **D_800CA31C_dummy;
 extern s32 *D_800CA31C;
 
 typedef struct { s32 w[3]; } __repair_words3;
@@ -33,10 +34,11 @@ void *func_80018630(s32 arg0, void *arg1, void *arg2) {
         M2C_FIELD(temp_v0, s16 *, 0x7C) = 0;
         M2C_FIELD(temp_a0, __repair_words3 *, 0xC) = *(__repair_words3 *) ((s8 *) arg1 + 0x0);
         M2C_FIELD(temp_a0, s32 *, 0x18) = -1;
-        func_80045278(temp_a0, M2C_FIELD(temp_a0, s32 *, 0x14));
+        func_80045278(temp_a0);
         func_80044670(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
-        M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) | 0x200);
-        func_8003E6EC(*D_800CA31C, temp_v0, 1);
+        { s32 *p = D_800CA31C;
+        M2C_FIELD(temp_v0, s32 *, 0x5C) |= 0x200;
+        func_8003E6EC(*p, temp_v0, 1); }
     }
     return temp_v0;
 }
