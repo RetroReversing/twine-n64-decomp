@@ -15,13 +15,16 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
 
 void func_8005CE70(void *arg0) {
+    void * __repair_hoisted;
+
     s16 temp_v0;
     void *temp_a1;
     void *temp_a2;
 
     temp_a2 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_a2, s16 *, 0x1C);
-    if ((temp_v0 <= 0) || (M2C_FIELD(temp_a2, s16 *, 0x1C) = (s16) (temp_v0 - 1), temp_a1 = arg0 + 0x3C, (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0x3C), f32 *, 0x20)))) {
+    __repair_hoisted = M2C_FIELD(arg0, void **, 0x20);
+    if ((temp_v0 <= 0) || (M2C_FIELD(temp_a2, s16 *, 0x1C) = (s16) (temp_v0 - 1), temp_a1 = arg0 + 0x3C, (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(__repair_hoisted, void **, 0x3C), f32 *, 0x20)))) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
         return;
     }
