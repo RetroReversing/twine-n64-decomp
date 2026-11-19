@@ -11,8 +11,8 @@ void func_80047FB4(void *arg0, f32 arg1) {
     temp_fv0 = (*(f32 *)((char *)(arg0) + 0x128)) + 0.052359883f;
     temp_fs0 = ((*(f32 *)((char *)(arg0) + 0x4C)) - 1.0f) * arg1;
     (*(f32 *)((char *)(arg0) + 0x128)) = temp_fv0;
-    temp_fs1 = ((*(f32 *)((char *)(arg0) + 0x4C)) - 1.0f) * arg1;
     (*(f32 *)((char *)(arg0) + 0x34)) = (f32) ((*(f32 *)((char *)(arg0) + 0x34)) + (temp_fs0 * __sinf(2.0f * temp_fv0)));
+    temp_fs1 = ((*(f32 *)((char *)(arg0) + 0x4C)) - 1.0f) * arg1;
     (*(f32 *)((char *)(arg0) + 0x38)) = (f32) ((*(f32 *)((char *)(arg0) + 0x38)) + (temp_fs1 * __sinf((*(f32 *)((char *)(arg0) + 0x128)))));
     temp_fs0_2 = ((*(f32 *)((char *)(arg0) + 0x4C)) - 1.0f) * arg1;
     (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) ((*(f32 *)((char *)(arg0) + 0x3C)) + (temp_fs0_2 * __sinf((*(f32 *)((char *)(arg0) + 0x128)) * 3.0f)));
