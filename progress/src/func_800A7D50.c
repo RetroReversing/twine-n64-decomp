@@ -47,6 +47,6 @@ s32 func_800A7D50(u8 *arg0, s32 arg1, s32 *arg2) {
         var_v1[7] = arg0[7];
         var_v1[8] = arg0[8];
     }
-    *arg2 = *(s32 *)((*(s32 *)(arg0 + 0xC) | arg1 | (u32)&D_A0000000));
+    *arg2 = *(s32 *)((*(s32 *)(arg0 + 0xC) | arg1 | 0xA0000000));
     return 0;
 }
