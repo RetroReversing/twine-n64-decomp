@@ -46,7 +46,7 @@ s32 func_80088AC0(s32 arg0, s32 arg1) {
                 if (temp_v0_3 != NULL) {
                     func_8009D284(temp_v0_3, D_800E3F14 + 4, D_800E3F20 * 4);
                     D_800CEEC1 = 1;
-                    return 1;
+                    goto ok;
                 }
             }
             goto block_9;
@@ -56,6 +56,7 @@ s32 func_80088AC0(s32 arg0, s32 arg1) {
         D_800E3F1C = arg0 + 4;
         D_800E3F20 = *(s32 *)arg0;
         D_800CEEC1 = 0;
+ok:
         return 1;
     }
 block_9:
