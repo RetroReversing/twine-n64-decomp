@@ -14,15 +14,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_80000A30();
 s32 func_8007A974();
-f32 func_800828D0();
+f32 func_800828D0(f32);
 
 s32 func_8007A9CC(void *arg0, s32 arg1, s32 *arg2, f32 arg3) {
-    s32 var_v0;
 
     func_8007A974(arg0, arg1, arg2);
-    var_v0 = 1;
-    if (!(func_800828D0((f32) func_80000A30(*arg2, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C))) < arg3)) {
-        return 0;
+    if (func_800828D0((f32) func_80000A30(*arg2, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C))) < arg3) {
+        return 1;
     }
-    return var_v0;
+    return 0;
 }
