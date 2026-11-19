@@ -20,19 +20,20 @@ extern void *D_80102F2C;
 extern void *D_80109BB0;
 extern s32 D_80109D18;
 
+typedef struct { unsigned char pad[32]; int value; } __repair_field_20;
 void func_800282D0(void) {
     M2C_UNK (*temp_v0)();
 
     D_80109D18 = 0;
-    if (((func_8002FBC0(M2C_FIELD(D_80109BB0, s32 *, 0x20)) & 0xFFFF) != 1) && ((func_8002FBC0(M2C_FIELD(D_80109BB0, s32 *, 0x20)) & 0xFFFF) != 2)) {
-        func_8002FBD4(M2C_FIELD(D_80109BB0, s32 *, 0x20), 3);
+    if (((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 1) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 2)) {
+        func_8002FBD4(((__repair_field_20 *)D_80109BB0)->value, 3);
     }
     M2C_FIELD(D_80109BB0, s8 *, 0x29) = 0;
     temp_v0 = M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 0x10);
     if (temp_v0 != NULL) {
         temp_v0();
     }
-    if ((func_80027848(0x20) & 0xFF) && ((func_8002FBC0(M2C_FIELD(D_80109BB0, s32 *, 0x20)) & 0xFFFF) == 2)) {
+    if ((func_80027848(0x20) & 0xFF) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) == 2)) {
         func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
     }
 }
