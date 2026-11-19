@@ -16,10 +16,12 @@ extern s32 D_801002B8;
 
 s32 func_80022DE8(s32 arg0) {
     s32 temp_v1;
+    s32 t;
 
     temp_v1 = arg0 & 0xFFFF;
     if (temp_v1 < D_801002B8) {
         return temp_v1;
     }
-    return (arg0 + (D_801002B8 + 0xFFFC)) & 0xFFFF;
+    t = D_801002B8 + 0xFFFC;
+    return (arg0 + t) & 0xFFFF;
 }
