@@ -19,14 +19,5 @@ f64 func_8008CD54(f64 arg0) {
     f64 var_fv1;
     s32 var_v1;
 
-    if (D_800D6800 <= arg0) {
-        var_v1 = (s32) (arg0 - D_800D6800) | 0x80000000;
-    } else {
-        var_v1 = (s32) arg0;
-    }
-    var_fv1 = (f64) var_v1;
-    if (var_v1 < 0) {
-        var_fv1 += D_800D6808;
-    }
-    return var_fv1;
+    return (f64) (u32) arg0;
 }
