@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,10 +10,11 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-f32 func_800828D0();
+f32 func_800828D0(f32);
 
-f32 func_80046054(s32 arg0, f32 arg1, f32 arg2) {
+f32 func_80046054(f32 arg0, f32 arg1, f32 arg2) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_fv0_3;
