@@ -20,13 +20,15 @@ void func_80099C40(void) {
     char *var_v1;
     u32 var_a2;
     u32 var_v1_2;
+int __repair_constant;
 
     var_a2 = 0;
+__repair_constant = 0xFF;
     var_a0 = &D_801007D9;
     do {
         var_v1 = var_a0;
 do {
-        *(s8 *)var_v1 = 0xFF;
+        *(s8 *)var_v1 = __repair_constant;
         var_v1 += 1;
         } while ((u32) var_v1 < (u32) (var_a0 + 0x10));
         var_a2 += 1;
@@ -34,7 +36,7 @@ do {
     } while (var_a2 < 8U);
     var_v1_2 = 0;
     do {
-        *(D_80100C7C + var_v1_2) = 0xFF;
-        var_v1_2 += 1;
+        *(D_80100C7C + var_v1_2) = 0xFF;/*__repair_loop_weight*/do {
+        var_v1_2 += 1;} while (0);
     } while (var_v1_2 < 0x20U);
 }
