@@ -50,7 +50,7 @@ int __repair_literal;
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s1;
-    s32 var_s1_2;
+    
     s32 var_s3;
     s32 var_s3_2;
     void *temp_s2;
@@ -91,7 +91,7 @@ loop_8:
                     }
                     goto block_26;
                 }
-                var_s1_2 = 0;
+                var_s1 = 0;
                 if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
                     var_s3_2 = 0;
 loop_15:
@@ -110,9 +110,9 @@ block_18:
                         *arg6 = var_s0;
                         return M2C_FIELD(var_s0, void **, 8);
                     }
-                    var_s1_2 += 1;
+                    var_s1 += 1;
                     var_s3_2 += 3;
-                    if (var_s1_2 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                    if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
                         goto block_26;
                     }
                     goto loop_15;

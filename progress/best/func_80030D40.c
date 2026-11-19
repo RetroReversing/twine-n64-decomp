@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s32 D_800BFF04;
 extern s32 D_800BFF10;
 extern u16 D_800E1608;
-extern u16 D_800E160A;
+extern u8 D_800E160A;
 
 s32 func_80030D40(void) {
     s32 temp_v0;

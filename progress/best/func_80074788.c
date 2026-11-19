@@ -25,12 +25,12 @@ s32 func_80074788(s32 arg0, s32 arg1) {
     var_s2 = 0;
 loop_1:
     temp_s1 = arg0 + (var_s0 + var_s2);
-    temp_v0 = func_800746A8(temp_s1);
-    temp_v1 = var_s0 + temp_v0;
+    do { temp_v0 = func_800746A8(temp_s1); } while (0);do{do{do{
+    temp_v1 = var_s0 + temp_v0;}while(0);}while(0);}while(0);
     if (temp_v0 != 0) {
         if (temp_v1 >= arg1) {
             *temp_s1 = 0xA;
-            var_s2 = var_s2 + 1 + var_s0;
+            var_s2 = ((var_s2)) + ((1 + var_s0));
             var_s0 = 0;
         } else {
             var_s0 = temp_v1;

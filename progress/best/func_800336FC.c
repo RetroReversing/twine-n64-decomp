@@ -116,16 +116,17 @@ block_47:
                     var_s2_2 = 0;
                     if ((*(u8 *)((char *)(var_s1) + 1)) != 0) {
                         register var_s0_2 = var_s1 + 2;
-                        do {
+                        __repair_rows: {
                             if ((s8) arg8 != 0) {
-                                func_800328CC(D_8010D2B4, arg1, arg2, sp2C, ((*(u8 *)((char *)(var_s0_2) + 0)) << 8) + (*(u8 *)((char *)(var_s0_2) + 1)), ((*(u8 *)((char *)(var_s0_2) + 2)) << 8) + (*(u8 *)((char *)(var_s0_2) + 3)), ((*(u8 *)((char *)(var_s0_2) + 4)) << 8) + (*(u8 *)((char *)(var_s0_2) + 5)), arg5);
+                                func_800328CC(D_8010D2B4, arg1, arg2, arg3, ((*(u8 *)((char *)(var_s0_2) + 0)) << 8) + (*(u8 *)((char *)(var_s0_2) + 1)), ((*(u8 *)((char *)(var_s0_2) + 2)) << 8) + (*(u8 *)((char *)(var_s0_2) + 3)), ((*(u8 *)((char *)(var_s0_2) + 4)) << 8) + (*(u8 *)((char *)(var_s0_2) + 5)), arg5);
                                 D_8010D2B4 += 0x10;
                             } else {
                                 *arg9 += 1;
                             }
                             ++var_s2_2;
                             var_s0_2 += 6;
-                        } while (var_s2_2 < (u8) (*(u8 *)((char *)(var_s1) + 1)));
+                        }
+if (var_s2_2 < (u8) (*(u8 *)((char *)(var_s1) + 1))) goto __repair_rows;
                     }
                     if ((s8) arg8 != 0) {
                         temp_a1_2 = D_8010A510;
@@ -149,7 +150,7 @@ block_45:
                         do {
                             temp_v0 = *(u8 *)var_s0_3;
                             if ((s8) arg8 != 0) {
-                                func_800328CC(D_8010D2B4, arg1, arg2, sp2C, (s32) temp_v0, (s32) temp_v0, (s32) temp_v0, arg5);
+                                func_800328CC(D_8010D2B4, arg1, arg2, arg3, (s32) temp_v0, (s32) temp_v0, (s32) temp_v0, arg5);
                                 D_8010D2B4 += 0x10;
                             } else {
                                 *arg9 += 1;
@@ -178,7 +179,7 @@ block_45:
                         do {
                             register temp_v0_2 = ((*(u8 *)((char *)(var_s0_4) + 0)) << 8) + (*(u8 *)((char *)(var_s0_4) + 1));
                             if ((s8) arg8 != 0) {
-                                func_800328CC(D_8010D2B4, arg1, arg2, sp2C, temp_v0_2, temp_v0_2, temp_v0_2, arg5);
+                                func_800328CC(D_8010D2B4, arg1, arg2, arg3, temp_v0_2, temp_v0_2, temp_v0_2, arg5);
                                 D_8010D2B4 += 0x10;
                             } else {
                                 *arg9 += 1;
@@ -253,13 +254,13 @@ block_51:
                     if ((*(u8 *)((char *)(var_s1) + 0)) == 4) {
                         do {
                             temp_v1_5 = (*(u8 *)((char *)(var_a1_2) + -6));
-                            temp_a2 = (*(u8 *)((char *)(var_a1_2) + -5));
+                            temp_s4_3 = (u8)((*(u8 *)((char *)(var_a1_2) + -5)));
                             temp_a3 = (*(u8 *)((char *)(var_a1_2) + -4));
                             if ((*(u8 *)((char *)(var_a1_2) + -3)) == 4) {
                                 if ((s8) arg8 != 0) {
                                     temp_a0_4 = D_8010A510;
                                     D_8010A510 = temp_a0_4 + 8;
-                                    (*(s32 *)((char *)(temp_a0_4) + 0)) = (s32) ((((temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_a2 << 9) & 0xFE00) | ((temp_a3 * 2) & 0xFF) | 0x06000000);
+                                    (*(s32 *)((char *)(temp_a0_4) + 0)) = (s32) ((((temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_s4_3 << 9) & 0xFE00) | ((temp_a3 * 2) & 0xFF) | 0x06000000);
                                     ((__repair_field_4 *)temp_a0_4)->value = (s32) (((((*(u8 *)((char *)(var_a1_2) + -2)) * 2) & 0xFF) << 0x10) | (((*(u8 *)((char *)(var_a1_2) + -1)) << 9) & 0xFE00) | (((*(u8 *)((char *)(var_a1_2) + 0)) * 2) & 0xFF));
                                 } else {
                                     *arg10 += 1;
@@ -270,7 +271,7 @@ block_51:
                                 if ((s8) (short)arg8 != 0) {
                                     temp_a0_5 = D_8010A510;
                                     D_8010A510 = temp_a0_5 + 8;
-                                    (*(s32 *)((char *)(temp_a0_5) + 0)) = (s32) (((((u32)temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_a2 << 9) & 0xFE00) | ((temp_a3 * 2) & 0xFF) | 0x05000000);
+                                    (*(s32 *)((char *)(temp_a0_5) + 0)) = (s32) (((((u32)temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_s4_3 << 9) & 0xFE00) | ((temp_a3 * 2) & 0xFF) | 0x05000000);
                                     ((__repair_field_4 *)temp_a0_5)->value = 0;
                                 } else {
                                     *arg10 += 1;

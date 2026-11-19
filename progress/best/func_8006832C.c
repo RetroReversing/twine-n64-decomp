@@ -114,7 +114,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
         temp_v0_3 = *temp_s4;
         sp60 = 1.0f;
         sp5C = ((M2C_FIELD(temp_v0_3, f32 *, 0x7C) * M2C_FIELD(temp_s2, f32 *, 0x28)) / M2C_FIELD(temp_v0_3, f32 *, 0x4C)) / M2C_FIELD(temp_v0_3, f32 *, 0x6C);
-        sp88 = func_800829C8(temp_fa0, temp_a0, temp_a1);
+        sp88 = func_800829C8(temp_fa0);
         temp_fs0 = func_800829A0(sp38);
         sp8C = -temp_fs0 * func_800829A0(temp_fa0);
         temp_fs0_2 = func_800829A0(temp_fa0);
@@ -139,11 +139,11 @@ void func_8006832C(void *arg0, f32 *arg1) {
         sp58 = temp_ft1 + sp48;
         sp5C = temp_ft0 + sp4C;
         sp60 = temp_fv0 + sp50;
-        if (*(D_800C46FC + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 8) {
+        if (*(s32 *)(D_800C46FC + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 8) {
             temp_v0_4 = temp_s7 * 0xC;
-            *(D_80109A98 + temp_v0_4) = sp58;
-            *(D_80109A9C + temp_v0_4) = sp5C;
-            *(D_80109AA0 + temp_v0_4) = sp60;
+            *(s32 *)(D_80109A98 + temp_v0_4) = sp58;
+            *(s32 *)(D_80109A9C + temp_v0_4) = sp5C;
+            *(s32 *)(D_80109AA0 + temp_v0_4) = sp60;
         }
         if ((func_800158A4(&sp48, &sp58, M2C_FIELD(*temp_s4, s32 *, 0xF4), &sp68, 0, 0, M2C_FIELD(temp_s2, s32 *, 0), 0, 0) << 0x18) == 0) {
             if ((M2C_FIELD(M2C_FIELD(temp_s2, void **, 0xA8), s16 *, 0x7A) == 0) && (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x21) && (D_80108788 != NULL) && (M2C_FIELD(D_80108788, s16 *, 0x7A) == 0x72)) {

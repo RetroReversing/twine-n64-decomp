@@ -16,14 +16,14 @@ s32 func_80025F78();
 s32 func_80026004();
 s32 func_80087100();
 
-void func_80025E9C(void *arg0, u16 arg1, void *arg2, void *arg3, u16 arg4, u16 arg5) {
+void func_80025E9C(void *arg0, s32 arg1, void *arg2, void *arg3, u16 arg4, u16 arg5) {
     s32 var_v0;
 
     func_80025F78(arg0, arg5);
-    func_80025F78(arg1, arg5);
+    func_80025F78((arg1 & 0xFFFF), arg5);
     var_v0 = arg0 != NULL;
-    if (arg1 != 0) {
-        func_80026004(arg1, "%s", func_80087100(0x13));
+    if ((arg1 & 0xFFFF) != 0) {
+        func_80026004((arg1 & 0xFFFF), "%s", func_80087100(0x13));
         var_v0 = arg0 != NULL;
     }
     if ((var_v0 & (arg2 != NULL)) && (arg3 != NULL)) {

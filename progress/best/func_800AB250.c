@@ -34,8 +34,9 @@ f64 func_800AB250(f64 arg0) {
     if (arg0 >= 0.0) {
         var_fv0_2 = D_800D6FC0;
     }
+    /*__repair_loop_weight*/do {
     temp_fv1 = (s32) ((arg0 / D_800D6FB0) + var_fv0_2);
-    temp_fa0 = arg0 - ((f64) temp_fv1 * D_800D6FC8);
+    } while (0); temp_fa0 = arg0 - ((f64) temp_fv1 * D_800D6FC8);
     var_v0 = 1;
     if (!(temp_fa0 < D_800D6FD0)) {
         var_v0 = 0;

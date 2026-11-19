@@ -50,13 +50,14 @@ void func_80001AFC(void) {
     func_80001D80(0);
     if (D_800C3924 != 0) {
         var_a0 = 0;
-        do {
-            *(D_800C392A + var_a0) = 0;
-            if (*(D_800C3928 + var_a0) != D_800C39B0) {
-                *(D_800C392A + var_a0) = 1;
+        __repair_rows: {
+            *(s16 *)((D_800C392A-6) + var_a0) = 0;
+            if (*(s16 *)(D_800C3928 + var_a0) != D_800C39B0) {
+                *(s16 *)(D_800C392A + var_a0) = 1;
             }
             var_a0 += 8;
-        } while (*(s32 *)(D_800C3924 + var_a0) != 0);
+        }
+if (*(s32 *)(D_800C3924 + var_a0) != 0) goto __repair_rows;
     }
     D_800D93C0 = func_80005158(0x1D0, 4, 0);
     D_800D93C4 = func_80005158(0x331, 4, 0);

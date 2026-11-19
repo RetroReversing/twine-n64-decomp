@@ -22,12 +22,13 @@ extern s8 D_80102EDC;
 extern s32 D_80102F2C;
 extern void *D_80109BB0;
 
+typedef struct { unsigned char pad_0[20]; unsigned short field_14; unsigned char pad_16[22]; unsigned char field_2C; unsigned char pad_2D[1]; unsigned char field_2E; signed char field_2F; } __repair_record_D_80109BB0;
 void func_80025C54(void) {
     u16 temp_a0;
 
-    if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 0) || (M2C_FIELD(D_80109BB0, u8 *, 0x2E) != 0)) {
+    if ((((__repair_record_D_80109BB0*)D_80109BB0)->field_2C == 0) || (((__repair_record_D_80109BB0*)D_80109BB0)->field_2E != 0)) {
         D_800BD562 = 3U;
-        D_80102EDC = M2C_FIELD(D_80109BB0, u16 *, 0x14) == 1;
+        D_80102EDC = ((__repair_record_D_80109BB0*)D_80109BB0)->field_14 == 1;
         func_80029068();
         return;
     }
@@ -40,14 +41,14 @@ void func_80025C54(void) {
             return;
         }
         D_800BD562 = 3U;
-        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
+        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2C = 0U;
         func_80026424(D_80102F2C, 0x18);
         return;
     case 4:
-        M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 1;
+        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2F = 1;
         D_800BD562 = 3U;
         func_800294E4(temp_a0);
-        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 1U;
+        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2C = 1U;
         return;
     }
 }

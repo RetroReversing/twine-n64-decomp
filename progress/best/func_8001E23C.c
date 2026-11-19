@@ -42,7 +42,7 @@ void func_8001E23C(void) {
             var_s1 = 7;
         }
         M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + (&D_801002AD - 0x115));
-        func_80026004(temp_v0, "%s", func_80087100((var_s1 + 0x96) & 0xFFFF));
+        func_80026004(temp_v0, "%s", func_80087100((unsigned short)(var_s1 + 0x96)));
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &func_80022C04, &func_8001AC88);
         func_80021CA0(var_s1);
         func_8002A9A8(D_8010A488, D_801002AD);

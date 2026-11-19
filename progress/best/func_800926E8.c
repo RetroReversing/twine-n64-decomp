@@ -29,7 +29,7 @@ void func_800926E8(void) {
     var_a1 = &D_800E42C0;
     var_a0_2 = 0;
     do {
-        *(D_800E42C4 + var_a0_2) = var_v1_2;
+        *(s32 *)(D_800E42C4 + var_a0_2) = var_v1_2;
         if (var_v1_2 != NULL) {
             *var_v1_2 = var_a1;
         }

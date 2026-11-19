@@ -23,7 +23,7 @@ s32 func_8004478C(s32 arg0, s32 arg1) {
 
     var_v0 = 0;
     if (((u32) ~arg0 >> 0x1F) & ((u32) ~arg1 >> 0x1F)) {
-        temp_a1 = arg1 * 0x10;
+        temp_a1 = arg1 * 0x4;
         if ((*(&D_800C0784 + temp_a1) != 0) && (arg0 < *(&D_800C078C + temp_a1))) {
             temp_v1 = *(&D_800C0788 + temp_a1) + (arg0 * 0x4C);
             var_v0 = (s32) temp_v1 & -(M2C_FIELD(temp_v1, u8 *, 0x45) != 0);

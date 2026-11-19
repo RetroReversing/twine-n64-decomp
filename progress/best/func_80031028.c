@@ -27,18 +27,7 @@ u16 func_80031028(s32 arg0, s32 arg1) {
 
     temp_a0 = arg0 & 0xFFFF;
     if (temp_a0 != 1) {
-        if (temp_a0 >= 2) {
-            switch (temp_a0) {                      /* irregular */
-            case 2:
-                var_v0 = M2C_FIELD(D_800BFF08, void **, 0xC);
-                goto block_22;
-            case 3:
-                var_v0 = M2C_FIELD(D_800BFF08, void **, 0x10);
-                goto block_22;
-            default:
-                return 0U;
-            }
-        } else {
+        if (temp_a0 < 2) {
             if (temp_a0 != 0) {
                 return 0U;
             }
@@ -54,7 +43,8 @@ u16 func_80031028(s32 arg0, s32 arg1) {
                                 var_a2 += 1;
                             }
                             var_a1 += 1;
-                            var_v0_2 = var_a1 & 0xFFFF;
+                            temp_a0 = var_a1 & 0xFFFF;
+    var_v0_2 = temp_a0;
                         } while ((u32) (var_a1 & 0xFFFF) < (u16) D_800E1608);
                     }
                     return var_a2 & 0xFFFF;
@@ -62,6 +52,17 @@ u16 func_80031028(s32 arg0, s32 arg1) {
                 return D_800E1608;
             }
             goto block_24;
+        } else {
+            switch (temp_a0) {                      /* irregular */
+            case 2:
+                var_v0 = M2C_FIELD(D_800BFF08, void **, 0xC);
+                goto block_22;
+            case 3:
+                var_v0 = M2C_FIELD(D_800BFF08, void **, 0x10);
+                goto block_22;
+            default:
+                return 0U;
+            }
         }
     } else {
         var_v0 = M2C_FIELD(D_800BFF08, void **, 8);

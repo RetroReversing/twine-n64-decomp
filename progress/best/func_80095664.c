@@ -20,15 +20,15 @@ s16 func_80095664(s32 arg0) {
 
     temp_v1 = arg0 & 0xFFF;
     if (temp_v1 < 0x400U) {
-        return *(&D_800CF554 + (temp_v1 * 2));
+        return *((M2C_UNK *)((s8 *)&D_800CF554 + (temp_v1 * 2)));
     }
     if (temp_v1 < 0x800U) {
-        return *(&D_800CF554 + ((~arg0 & 0x3FF) * 2));
+        return *((M2C_UNK *)((s8 *)&D_800CF554 + ((~arg0 & 0x3FF) * 2)));
     }
-    if (temp_v1 < 0xC00U) {
-        var_v0 = arg0 & 0x3FF;
-    } else {
+    if (temp_v1 >= 0xC00U) {
         var_v0 = ~arg0 & 0x3FF;
+    } else {
+        var_v0 = arg0 & 0x3FF;
     }
-    return (s16) ((s32) *(&D_800CF554 + (var_v0 * 2)) * -1);
+    return (s16) ((s32) *((M2C_UNK *)((s8 *)&D_800CF554 + (var_v0 * 2))) * -1);
 }

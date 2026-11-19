@@ -20,7 +20,7 @@ extern char D_800CEED0[];
 extern f64 D_800D6700;
 extern f64 D_800D6708;
 extern f64 D_800D6710;
-extern u16 D_800E41F0;
+extern u8 D_800E41F0;
 extern s32 D_800E41F4;
 extern char D_800E41F8[];
 extern char D_800E4210[];
@@ -60,13 +60,13 @@ void func_800895F8(s32 arg0, s32 arg1, s32 arg2) {
         var_ft0_2 += D_800D6708;
     }
     var_fv1 = (f32) var_ft0_2 * 0.00025f;
-    if (var_fv1 >= 2.1474836e9f) {
+    if (var_fv1 < 2.1474836e9f) {
+block_10:
+        var_v0 = (s32) var_fv1 & 0xFFFF;
+    } else {
         var_fv0 = var_fv1 - 2.1474836e9f;
 block_11:
         var_v0 = ((s32) var_fv0 | 0x80000000) & 0xFFFF;
-    } else {
-block_10:
-        var_v0 = (s32) var_fv1 & 0xFFFF;
     }
     D_800E41F0 = var_a0 * (var_v0 + 1);
     temp_lo = D_800E41F0 * 0x310;
@@ -76,15 +76,15 @@ block_10:
         var_ft0_3 += D_800D6710;
     }
     temp_fv1 = (f32) var_ft0_3 * 0.9f;
-    if (temp_fv1 >= 2.1474836e9f) {
-        var_v1 = (s32) (temp_fv1 - 2.1474836e9f) | (s32) &D_8000003F;
-    } else {
+    if (temp_fv1 < 2.1474836e9f) {
         var_v1 = (s32) temp_fv1;
+    } else {
+        var_v1 = (s32) (temp_fv1 - 2.1474836e9f) | (s32) &D_8000003F;
     }
     D_800E41F4 = ((((u32) var_v1 >> 6) * 0x28) + 0xF) & 0xFFF0;
     D_80103EB4 = D_8010017C(D_800E41F0 * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     D_800E4214 = 0;
     func_80089C10(D_800E41F0);
-    func_80089E64((*(D_800CEED0 + ((arg2 & 0xFF) * 2)) * arg0) & 0xFFFF);
+    func_80089E64((*(u16 *)(D_800CEED0 + ((arg2 & 0xFF) * 2)) * arg0) & 0xFFFF);
 }

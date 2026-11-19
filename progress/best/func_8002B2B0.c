@@ -13,23 +13,24 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8002B2B0(void *arg0, void *arg1) {
-    s32 temp_a2;
+    
     s32 temp_v1;
     s32 var_v0;
+s32 __repair_phase_var_v0;
 
-    var_v0 = 0;
-    if (((arg0 == NULL) | (arg1 == NULL)) == 0) {
-        temp_a2 = M2C_FIELD(arg0, s32 *, 0);
-        temp_v1 = M2C_FIELD(arg1, s32 *, 0);
-        if (temp_v1 < temp_a2) {
-            return 1;
-        }
-        var_v0 = 0;
-        if (temp_a2 == temp_v1) {
-            var_v0 = M2C_FIELD(arg1, s8 *, 6) < M2C_FIELD(arg0, s8 *, 6);
-        }
-        /* Duplicate return node #5. Try simplifying control flow for better match */
-        return var_v0;
+    __repair_phase_var_v0 = 0;
+    if (((arg0 == NULL) | (arg1 == NULL)) != 0) {
+        return __repair_phase_var_v0;
     }
+    __repair_phase_var_v0 = M2C_FIELD(arg0, s32 *, 0);
+    temp_v1 = M2C_FIELD(arg1, s32 *, 0);
+    if (temp_v1 < __repair_phase_var_v0) {
+        return 1;
+    }
+    var_v0 = 0;
+    if (__repair_phase_var_v0 == temp_v1) {
+        var_v0 = M2C_FIELD(arg1, s8 *, 6) < M2C_FIELD(arg0, s8 *, 6);
+    }
+    /* Duplicate return node #5. Try simplifying control flow for better match */
     return var_v0;
 }

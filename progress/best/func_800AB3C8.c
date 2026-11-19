@@ -25,14 +25,15 @@ f64 func_800AB3C8(f64 arg0) {
     f64 sp18;
     f64 temp_fa0;
     f64 var_fv0;
+f64 __repair_var_fv0_1;
     s32 var_v0;
     s32 var_v1;
 
     var_fv0 = D_800D7008;
     if (arg0 >= 0.0) {
-        var_fv0 = D_800D7010;
+        __repair_var_fv0_1 = D_800D7010;
     }
-    temp_fa0 = arg0 - ((f64) (s32) ((arg0 / D_800D7000) + var_fv0) * D_800D7018);
+    temp_fa0 = arg0 - ((f64) (s32) ((arg0 / D_800D7000) + __repair_var_fv0_1) * D_800D7018);
     var_v0 = 1;
     if (!(temp_fa0 < D_800D7020)) {
         var_v0 = 0;
