@@ -28,7 +28,7 @@ s32 func_80084208(s32 arg0) {
         var_v1 = 0;
         __repair_rows: {
             var_a1 += 1;
-            var_s0 += *(&D_800CE354 + var_v1);
+            var_s0 += *((M2C_UNK *)((s8 *)&D_800CE354 + var_v1));
             var_v1 += 0xC;
         }
 if (var_a1 < 0x35U) goto __repair_rows;
