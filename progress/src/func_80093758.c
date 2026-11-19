@@ -16,7 +16,7 @@ s32 func_8008C0D4();
 s32 func_8008C11C();
 s32 func_8009959C();
 extern u8 D_800CF540;
-extern char D_801096E8[];
+extern u8 D_801096E8[];
 
 void func_80093758(s32 arg0) {
     s32 temp_a0;
