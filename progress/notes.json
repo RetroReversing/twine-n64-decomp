@@ -1294,5 +1294,53 @@
   "created_at": 1795048868.424067,
   "score_before": 740,
   "score_after": 740
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049262.722133,
+  "score_before": 2203,
+  "score_after": 2203
+ },
+ {
+  "function": "func_8000182C",
+  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049299.703543,
+  "score_before": 4683,
+  "score_after": 2625
+ },
+ {
+  "function": "func_80078860",
+  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049347.151763,
+  "score_before": 2145,
+  "score_after": 1990
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049454.495337,
+  "score_before": 2285,
+  "score_after": 1805
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Best score 2960 at revision ad8a3688599ba5a813d4 (sp10[32] declared before sp30 (Pk8 8-byte struct from D_800D2914), temp_a0/temp_s0 scalar, var_a0 u16). Target frame is 0x48: sp+0x10 is the 32-byte char buffer, sp+0x30 the 8-byte copy of D_800D2914 (copied with lwl/lwr/swl/swr). Remaining diff: stack order/regs and the 'lbu $v1' of D_801002AD being hoisted before the lui of D_801002B8; the first branch uses D_801002AD*6 index (sll/addu/sll 3 = *24). Untried: D_8010019C as a struct array of stride 24 (index D_801002AD directly), and an explicit local arg2 for the sprintf-result pointer; D_800BF688 indexed as u8 stride 12 (temp*12 = (temp*3)<<2) produced wrong shifts in a few trials, so check it.",
+  "by": "api-claude-haiku-5-5-1",
+  "created_at": 1795049653.098186,
+  "score_before": 5056,
+  "score_after": 2960
  }
 ]

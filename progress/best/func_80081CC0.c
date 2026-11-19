@@ -19,6 +19,6 @@ void func_80081CC0(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = arg0 * 0xA0;
-    *(D_80115092 + temp_v0) = -1;
-    func_80081BC4(arg0, *(D_80115092 + temp_v0));
+    *(s16 *)(D_80115092 + (arg0 * 0xA0)) = -1;
+    func_80081BC4(arg0, *(s16 *)(D_80115092 + temp_v0));
 }

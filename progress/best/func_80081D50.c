@@ -33,10 +33,10 @@ void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16 temp_v1;
     u32 temp_v0_2;
     u8 *temp_a0_3;
-    u8 *temp_a0_5;
-    u8 *temp_a1_2;
+    
+    
     u8 *temp_v1_10;
-    u8 *temp_v1_4;
+    
     u8 *temp_v1_5;
     u8 *temp_v1_7;
     u8 *temp_v1_8;
@@ -61,7 +61,7 @@ void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
         var_v0 = 0 & 0xFFFF;
         do {
             temp_s0 = (var_v0 * 8) + arg0;
-            temp_s2 = M2C_FIELD(temp_s0, s8 *, 0);
+            var_v0 = (s8)(M2C_FIELD(temp_s0, s8 *, 0));
             var_s1 = 0;
             if ((D_800CEEB0 == 2) || (func_8002D0BC(0xA3, arg1 & 0xFF) & 0xFFFF)) {
                 var_a2 = 0;
@@ -76,7 +76,7 @@ void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
                     if (temp_v1 == 0) {
                         if (M2C_FIELD(temp_a1, u8 *, 6) == 0) {
                             var_a2_2 = 1;
-                            temp_a0_2 = (temp_s2 * 2) + arg3;
+                            temp_a0_2 = (var_v0 * 2) + arg3;
                             if (M2C_FIELD(temp_a1, u8 *, 1) & 4) {
                                 var_a2_2 = 2;
                             }
@@ -109,10 +109,10 @@ block_12:
                             }
                             var_v0_4 = var_s4 & 0xFFFF;
                         }
-                        temp_v1_3 = temp_s2 * 2;
+                        temp_v1_3 = var_v0 * 2;
                         if (M2C_FIELD(((var_v0_4 * 8) + arg0), u8 *, 1) & 2) {
-                            temp_v1_4 = temp_v1_3 + arg3;
-                            *temp_v1_4 |= 0x20;
+                            temp_a0_3 = temp_v1_3 + arg3;
+                            *temp_a0_3 |= 0x20;
                         } else {
                             temp_v1_5 = temp_v1_3 + arg3;
                             *temp_v1_5 &= 0xDF;
@@ -122,7 +122,7 @@ block_12:
             }
             temp_s1 = var_s1 != 0;
             D_800C9D40 |= temp_s1;
-            temp_a0_3 = (temp_s2 * 2) + arg3;
+            temp_a0_3 = (var_v0 * 2) + arg3;
             temp_v1_6 = *temp_a0_3;
             var_v0_5 = temp_v1_6 | 2;
             if (!(((temp_v1_6 & 1) ^ temp_s1) & temp_s1)) {
@@ -130,37 +130,37 @@ block_12:
             }
             *temp_a0_3 = var_v0_5;
             if (temp_s1 != 0) {
-                var_v1 = (temp_s2 * 2) + arg3;
+                var_v1 = (var_v0 * 2) + arg3;
                 var_v0_6 = *var_v1 | 1;
             } else {
-                var_v1 = (temp_s2 * 2) + arg3;
+                var_v1 = (var_v0 * 2) + arg3;
                 var_v0_6 = *var_v1 & 0xFE;
             }
             *var_v1 = var_v0_6;
-            temp_v1_7 = (temp_s2 * 2) + arg3;
+            temp_v1_7 = (var_v0 * 2) + arg3;
             var_v0_7 = *temp_v1_7;
             if (temp_s1 != 0) {
                 var_v0_7 |= 8;
             }
             *temp_v1_7 = var_v0_7;
             if (1 != 0) {
-                temp_a1_2 = (temp_s2 * 2) + arg3;
-                temp_a0_4 = *temp_a1_2;
+                temp_a0_3 = (var_v0 * 2) + arg3;
+                temp_a0_4 = *temp_a0_3;
                 temp_v0_2 = temp_a0_4 & 0xFF;
                 if ((temp_a0_4 & 8) && ((((temp_v0_2 >> 2) & 1) ^ ((temp_v0_2 >> 3) & 1)) & 1)) {
-                    *temp_a1_2 = temp_a0_4 | 0x10;
+                    *temp_a0_3 = temp_a0_4 | 0x10;
                 } else {
-                    temp_v1_8 = (temp_s2 * 2) + arg3;
+                    temp_v1_8 = (var_v0 * 2) + arg3;
                     *temp_v1_8 &= 0xEF;
                 }
-                temp_a0_5 = (temp_s2 * 2) + arg3;
-                temp_v1_9 = *temp_a0_5;
+                temp_a0_3 = (var_v0 * 2) + arg3;
+                temp_v1_9 = *temp_a0_3;
                 var_v0_8 = temp_v1_9 | 4;
                 if (!(temp_v1_9 & 8)) {
                     var_v0_8 = temp_v1_9 & 0xFB;
                 }
-                *temp_a0_5 = var_v0_8;
-                temp_v1_10 = (temp_s2 * 2) + arg3;
+                *temp_a0_3 = var_v0_8;
+                temp_v1_10 = (var_v0 * 2) + arg3;
                 *temp_v1_10 &= 0xF7;
             }
             var_s4 += 1;

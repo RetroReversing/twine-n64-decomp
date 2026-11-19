@@ -14,10 +14,11 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A580();                            /* extern */
 M2C_UNK func_8000B900(s32, s32, s32);               /* extern */
-s32 func_800930F4(u16, u16, s32, M2C_UNK);          /* extern */
-extern M2C_UNK D_800B2480;
+s32 func_800930F4(u16,  u16);          /* extern */
+extern u8 D_800B2480[];
 extern M2C_UNK D_800B2484;
-extern M2C_UNK D_800B2488;
+typedef struct { u16 f0; u8 pad[10]; } Slot_800B2488;
+extern Slot_800B2488 D_800B2488[];
 extern M2C_UNK D_800B248A;
 extern s32 D_800E06B0;
 extern s32 D_800E0708;
@@ -38,7 +39,7 @@ s32 __repair_result_var_v0;
     var_v1 = 0;
 loop_4:
     var_v0 = -1;
-    if (*(&D_800B2480 + var_v1) != 0) {
+    if (*(D_800B2480 + var_v1) != 0) {
         var_v1 += 0xC;
         if (*(&D_800B248A + var_v1) != arg0) {
             var_s2 += 1;
@@ -46,10 +47,10 @@ loop_4:
         }
         func_8000A580();
         temp_s0 = var_s2 * 0xC;
-        temp_a1 = *(&D_800B2480 + temp_s0);
+        temp_a1 = *(D_800B2480 + temp_s0);
         D_800E06B0 = arg0;
         func_8000B900(D_800E070C, temp_a1, *(&D_800B2484 + temp_s0) - temp_a1);
-        __repair_result_var_v0 = func_800930F4(*(&D_800B2488 + temp_s0), *(&D_800B248A + temp_s0), D_800E070C, 0);
+        __repair_result_var_v0 = func_800930F4(D_800B2488[var_s2].f0,  *(&D_800B248A + temp_s0));
         D_800E0708 = __repair_result_var_v0;
     }
     return __repair_result_var_v0;

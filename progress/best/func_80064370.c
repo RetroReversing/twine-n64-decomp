@@ -19,6 +19,15 @@ void func_80064370(void *arg0, s32 arg1) {
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x58) & ~0xF0;
     M2C_FIELD(arg0, s32 *, 0x58) = temp_v1;
     switch (arg1) {                                 /* irregular */
+    case 2:
+        var_v0 = temp_v1 | 0xB0;
+        goto block_8;
+    case 1:
+        var_v0 = temp_v1 | 0xD0;
+        goto block_8;
+    case 0:
+        var_v0 = temp_v1 | 0xE0;
+        goto block_8;
     default:
         var_v0 = temp_v1 | 0x70;
         if (arg1 != 3) {
@@ -27,14 +36,5 @@ void func_80064370(void *arg0, s32 arg1) {
 block_8:
         M2C_FIELD(arg0, s32 *, 0x58) = var_v0;
         return;
-    case 0:
-        var_v0 = temp_v1 | 0xE0;
-        goto block_8;
-    case 1:
-        var_v0 = temp_v1 | 0xD0;
-        goto block_8;
-    case 2:
-        var_v0 = temp_v1 | 0xB0;
-        goto block_8;
     }
 }

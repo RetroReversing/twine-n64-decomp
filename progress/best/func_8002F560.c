@@ -36,11 +36,11 @@ s32 __repair_phase_temp_v1_4;
 
     __repair_phase_storage.pointer = (*(void **)((char *)(arg0) + 0x2C));
     temp_a0 = (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x10));
-    temp_v1 = temp_a0 & 0xFF;
+    temp_v0_3 = temp_a0 & 0xFF;
     var_t0 = 1;
-    if (temp_v1) {
+    if (temp_v0_3) {
         var_t0 = 0;
-        __repair_phase_temp_v1_2 = temp_v1 - 0x10;
+        __repair_phase_temp_v1_2 = temp_v0_3 - 0x10;
         temp_a0_2 = temp_a0 & ~0xFF;
         if (__repair_phase_temp_v1_2 >= 0) {
             var_v0 = temp_a0_2 | __repair_phase_temp_v1_2;
@@ -67,8 +67,8 @@ s32 __repair_phase_temp_v1_4;
         temp_a1_2 = (*(void **)((char *)(arg0) + 0));
         temp_v0_3 = (*(s32 *)((char *)(temp_a1_2) + 0x10));
         temp_a0_4 = temp_v0_3 & ~0xFF;
-        temp_v0_2 = temp_v0_3 & 0xFF;
-    temp_v1 = (temp_v0_2) - 0x10;
+        var_a0 = temp_v0_3 & 0xFF;
+    temp_v1 = (var_a0) - 0x10;
         if (0 <= temp_v1) {
             var_v0_2 = temp_a0_4 | temp_v1;
             if (temp_v1 >= 0x100) {

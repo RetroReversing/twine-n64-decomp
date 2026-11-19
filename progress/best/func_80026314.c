@@ -29,8 +29,9 @@ u16 *func_80026314(void *arg0, s32 arg1, s32 arg2) {
     if (temp_v0 != 0) {
         var_v0_2 = 0 & 0xFFFF;
 loop_4:
-        temp_v1 = (var_v0_2 * 0x28) + M2C_FIELD(arg0, s32 *, 0);
-        var_a3 += 1;
+        temp_v1 = (var_v0_2 * 0x28) + M2C_FIELD(arg0, s32 *, 0);/*__repair_loop_weight*/__repair_rows: {do {do {
+        var_a3 += 1;} while (0);} while (0);}
+if (0) goto __repair_rows;
         if ((*temp_v1 != (arg1 & 0xFFFF)) || (var_t0 += 1, var_v0 = temp_v1, ((var_t0 & 0xFFFF) != (arg2 & 0xFF)))) {
             var_v0_2 = var_a3 & 0xFFFF;
             if ((u32) (var_a3 & 0xFFFF) >= temp_v0) {

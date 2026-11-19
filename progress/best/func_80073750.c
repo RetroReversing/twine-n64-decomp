@@ -26,7 +26,7 @@ extern u8 D_801007D3;
 extern u8 D_801007D4;
 extern s8 D_801007D5;
 extern u8 D_801096A0;
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 
 void func_80073750(void *arg0) {
     s8 sp10;

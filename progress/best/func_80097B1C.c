@@ -11,13 +11,13 @@ s32 func_80097B1C(s32 arg0) {
     s32 temp_v0_2;
     s32 var_a1;
     s32 var_a2;
-    s32 var_s0_2;
+    s32 var_v1;
     s32 var_s4;
     s32 var_v0;
     char *var_s1;
     u16 **var_s2;
     u16 *temp_a1;
-    s32 var_v1;
+    s32 var_s0_2;
     u16 temp_v0;
     u16 var_a0;
     u32 var_s3;
@@ -79,11 +79,11 @@ loop_16:
                     var_a3 = temp_v0_2 + D_800F38F0;
                     __repair_rows: {
                         (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a3) + 0));
-                        (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));
                         var_t0 += 0xC;
+                        (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));
                         (*(s32 *)((char *)(var_t0) + 8)) = (s32) (*(s32 *)((char *)(var_a3) + 8));
-                        var_a2 += 1;
                         var_a3 += 0xC;
+                        var_a2 += 1;
                     }
 if (var_a2 < D_800F38EC) goto __repair_rows;
                 }

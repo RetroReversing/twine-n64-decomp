@@ -16,16 +16,17 @@ M2C_UNK func_80043FA0();                            /* extern */
 extern u8 D_800C2B40;
 extern s32 *D_80115328;
 
+typedef struct { int value; } __repair_field_0;
 void func_80032630(void *arg0) {
     s32 *temp_v1;
 
-    if ((M2C_FIELD(arg0, s32 *, 0) != 0) || (func_80043FA0(), (M2C_FIELD(arg0, s32 *, 0) != 0))) {
+    if ((((__repair_field_0 *)arg0)->value != 0) || (func_80043FA0(), (((__repair_field_0 *)arg0)->value != 0))) {
         if (!(M2C_FIELD(arg0, u8 *, 0x46) & 0x80)) {
             M2C_FIELD(arg0, u8 *, 0x46) = (u8) D_800C2B40;
         }
         temp_v1 = D_80115328;
-        M2C_FIELD(temp_v1, s32 *, 0) = 0xDE000000;
+        ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
         D_80115328 = temp_v1 + 8;
-        M2C_FIELD(temp_v1, s32 *, 4) = (s32) M2C_FIELD(arg0, s32 *, 0);
+        M2C_FIELD(temp_v1, s32 *, 4) = (s32) ((__repair_field_0 *)arg0)->value;
     }
 }

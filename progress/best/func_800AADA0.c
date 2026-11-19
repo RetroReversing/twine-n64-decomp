@@ -37,12 +37,12 @@ f64 func_800AADA0(f64 arg0, f32 arg1) {
 block_4:
         return func_800ABA40(var_a0, "log", arg1, arg0);
     }
-    if (arg0 != D_800D6F88) {
-        temp_fv0_2 = func_800AACB0(func_800AC0A0(3, &sp28));
-        sp20 = temp_fv0_2;
-        temp_fv0 = ((f64) sp28 * D_800D6F90) + temp_fv0_2;
-        sp20 = temp_fv0;
-        return temp_fv0;
+    if (arg0 == D_800D6F88) {
+        return 0.0;
     }
-    return 0.0;
+    temp_fv0_2 = func_800AACB0(func_800AC0A0(3, &sp28));
+    sp20 = temp_fv0_2;
+    temp_fv0 = (temp_fv0_2) + (((f64) sp28 * D_800D6F90));
+    sp20 = temp_fv0;
+    return temp_fv0;
 }

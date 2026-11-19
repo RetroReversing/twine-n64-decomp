@@ -442,12 +442,10 @@ block_78:
                             temp_a2 = *var_t5_3;
                             temp_v1_5 = spC[temp_a2 & sp2C];
                             var_a1_5 = temp_a2 >> var_s3;
-loop_86:
+do {
                             (&spC[(temp_v1_5 >> 7) + temp_s6])[var_a1_5] = (*var_t7_2 << 7) + *var_t8;
                             var_a1_5 += 1 << (*var_t8 - var_s3);
-                            if ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0) {
-                                goto loop_86;
-                            }
+                            } while ((var_a1_5 >> ((temp_v1_5 >> 4) & 7)) == 0);
                             var_a3_9 += 1;
                             var_t8 += 4;
                             var_t7_2 += 4;

@@ -18,15 +18,17 @@ s32 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *); /* extern */
 extern f64 D_800D3E08;
 
 void *func_80047B44(void *arg0, void *arg1, void *arg2, void *arg3) {
+int __repair_literal;
+
     union {
-        unsigned char bytes[128];
-        struct { unsigned char pad[24]; f32 value; } view_sp18;
-        struct { unsigned char pad[28]; f32 value; } view_sp1C;
-        struct { unsigned char pad[32]; f32 value; } view_sp20;
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
-        struct { unsigned char pad[44]; f32 value; } view_sp2C;
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[56]; f32 value; } view_sp38;
+        unsigned char bytes[56];
+        struct { f32 value; } view_sp18;
+        struct { unsigned char pad[4]; f32 value; } view_sp1C;
+        struct { unsigned char pad[8]; f32 value; } view_sp20;
+        struct { unsigned char pad[16]; f32 value; } view_sp28;
+        struct { unsigned char pad[20]; f32 value; } view_sp2C;
+        struct { unsigned char pad[24]; f32 value; } view_sp30;
+        struct { unsigned char pad[32]; f32 value; } view_sp38;
     } m2c_initial_frame;
 
              
@@ -39,10 +41,10 @@ void *func_80047B44(void *arg0, void *arg1, void *arg2, void *arg3) {
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s0;
-    s32 var_s0_2;
+    
     s32 var_s2;
     s32 var_s2_2;
-    void *temp_s0;
+    union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_s1;
     void *temp_v0;
     void *temp_v0_2;
@@ -58,13 +60,15 @@ void *func_80047B44(void *arg0, void *arg1, void *arg2, void *arg3) {
         if (var_s5 != NULL) {
             temp_fs0 = D_800D3E08;
 loop_3:
-            temp_s0 = M2C_FIELD(var_s5, void **, 4);
-            if ((func_8004886C(temp_s0 + 0x40, arg1, temp_fs1) << 0x18) != 0) {
-                temp_s1 = M2C_FIELD(temp_s0, void **, 0x3C);
+            __repair_phase_storage.pointer = M2C_FIELD(var_s5, void **, 4);
+            if ((func_8004886C(__repair_phase_storage.pointer + 0x40, arg1, temp_fs1) << 0x18) != 0) {
+                temp_s1 = M2C_FIELD(__repair_phase_storage.pointer, void **, 0x3C);
                 if (temp_s1 != NULL) {
                     if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
                         var_s0 = 0;
-                        if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > 0) {
+__repair_literal = 0;
+
+                        if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > __repair_literal) {
                             var_s2 = 0;
 loop_8:
                             temp_v1 = M2C_FIELD(temp_s1, s32 *, 0x34);
@@ -81,7 +85,7 @@ loop_8:
                         }
                         goto block_21;
                     }
-                    var_s0_2 = 0;
+                    __repair_phase_storage.value = 0;
                     if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > 0) {
                         var_s2_2 = 0;
 loop_15:
@@ -99,9 +103,9 @@ block_18:
                             /* Duplicate return node #23. Try simplifying control flow for better match */
                             return var_v0;
                         }
-                        var_s0_2 += 1;
+                        __repair_phase_storage.value += 1;
                         var_s2_2 += 3;
-                        if (var_s0_2 >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
+                        if (__repair_phase_storage.value >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                             goto block_21;
                         }
                         goto loop_15;

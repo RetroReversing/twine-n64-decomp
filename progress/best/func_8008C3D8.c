@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern f64 D_800D67A8;
-extern s32 D_800E41DC;
+extern s8 D_800E41DC;
 
 void func_8008C3D8(s32 arg0, void *arg1) {
     void *temp_v0;
 
-    temp_v0 = (arg0 * 0x68) + D_800E41DC;
+    temp_v0 = (D_800E41DC) + ((arg0 * 0x68));
     M2C_FIELD(temp_v0, u16 *, 0x20) = (u16) M2C_FIELD(arg1, u16 *, 0);
     M2C_FIELD(temp_v0, u16 *, 0x22) = (u16) M2C_FIELD(arg1, u16 *, 2);
     M2C_FIELD(temp_v0, f32 *, 0x24) = (f32) ((f64) (f32) M2C_FIELD(arg1, u16 *, 4) * D_800D67A8);

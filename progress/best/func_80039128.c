@@ -24,7 +24,7 @@ void func_80039128(void *arg0, f32 arg1) {
         D_80107EA0 = temp_v0;
         temp_s0 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
         func_8000BBB4(&D_80112F90, (*(f32 *)((char *)(arg0) + 0x48)) + 3.1415927f, -((*(f32 *)((char *)(arg0) + 0x44)) + 3.1415927f + arg1), (*(s32 *)((char *)(arg0) + 0x40)));
-        do { func_800A37C0(&D_80112F90, temp_s0); } while (0);
+        { func_800A37C0(&D_80112F90, temp_s0); }
         temp_v1 = D_80115328;
         (*(s32 *)((char *)(temp_v1) + 0)) = 0xDA380005;
         (*(s32 *)((char *)(temp_v1) + 4)) = (s32) (temp_s0 - 0x80000000);

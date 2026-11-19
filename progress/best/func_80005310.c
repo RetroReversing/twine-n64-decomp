@@ -53,10 +53,10 @@ void func_80005310(void *arg0) {
     temp_a1 = M2C_FIELD(temp_v1, s32 *, 4);
     temp_v1_2 = temp_v1 + 0xC;
     var_a2 = (s32) ((var_fs0 * (f32) temp_a1) / M2C_FIELD(temp_v1, f32 *, 0));
-    var_v0 = (var_a2 * 4) + temp_v1_2;
+    var_v0 = (char *)((var_a2 * 4)); var_v0 += (s32)(temp_v1_2);
     if (!(var_fs0 < *(f32 *)var_v0)) {
         var_a2 += 1;
-        var_v0_2 = (var_a2 * 4) + temp_v1_2;
+        var_v0_2 = (char *)((var_a2 * 4)); var_v0_2 += (s32)(temp_v1_2);
         var_a3 = var_a2 + 1;
         if (*(f32 *)var_v0_2 <= var_fs0) {
             do {

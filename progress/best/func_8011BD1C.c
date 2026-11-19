@@ -27,19 +27,23 @@ extern M2C_UNK D_8011F288;
 extern M2C_UNK D_8011F290;
 extern M2C_UNK D_8011F2B0;
 
-void *func_8011BD1C(s32 arg0, M2C_UNK arg1, s16 arg2) {
+void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
+unsigned int __repair_literal;
+
     M2C_UNK var_a1;
     s32 temp_s0;
     s32 temp_s0_2;
     s32 temp_s0_3;
     s32 temp_v0_2;
     void *temp_v0;
+__repair_literal = 2U;
 
-    if ((u32) (D_801002A0 - 2) < 2U) {
+
+    if ((u32) (D_801002A0 - 2) < __repair_literal) {
         temp_v0 = func_80016410(0, arg0, arg1, arg1);
-        temp_s0 = arg2 & 0xFFFF;
+        temp_s0 = arg2;
         if (temp_v0 != NULL) {
-            temp_v0_2 = temp_s0 * 4;
+            temp_v0_2 = temp_s0;
             *(&D_8011F160 + temp_v0_2) = temp_v0 + 0x24;
             *(&D_8011F278 + temp_v0_2) = 0;
             *(&D_8011F290 + temp_v0_2) = 0;
@@ -49,15 +53,16 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, s16 arg2) {
             M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) & ~0x200);
             M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 1);
             if (D_801002A0 == 2) {
-                *(&D_8011ED08 + (temp_s0 * 0x24)) = 0xC;
+                *(&D_8011ED08 + temp_s0 * 0x9) = 0xC;
                 if (temp_s0 == 0) {
                     var_a1 = 7;
-                } else {
+                
+                func_80044670(temp_v0, var_a1, 0xF4);} else {
                     var_a1 = 8;
-                }
-                func_80044670(temp_v0, var_a1, 0xF4);
+                
+                func_80044670(temp_v0, var_a1, 0xF4);}
             } else {
-                *(&D_8011ED08 + (temp_s0 * 0x24)) = 0x14;
+                *(&D_8011ED08 + temp_s0 * 0x9) = 0x14;
                 func_80044670(temp_v0, 1, 0xF4);
                 if (temp_s0 == 0) {
                     M2C_FIELD(temp_v0, s8 *, 0x81) = 0xB4;
@@ -70,8 +75,8 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, s16 arg2) {
             }
             func_8003E6EC(*D_800CA31C, temp_v0, 1);
             func_800643C8(temp_v0);
-            temp_s0_2 = arg2 & 0xFFFF;
-            temp_s0_3 = temp_s0_2 * 4;
+            temp_s0_2 = arg2;
+            temp_s0_3 = temp_s0_2;
             *(&D_8011F288 + temp_s0_3) = func_80015F74((temp_s0_2 * 0x24) + &D_8011ECF0);
             *(&D_8011F2B0 + temp_s0_3) = temp_v0;
             return temp_v0;

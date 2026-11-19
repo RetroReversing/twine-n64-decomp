@@ -26,35 +26,36 @@ void func_80001784(void) {
     char *var_a0;
     char *var_a0_2;
     char *var_a0_3;
-    u32 var_v1;
-    u32 var_v1_2;
-    u32 var_v1_3;
+    
+u32 __repair_phase_var_v1;
+    
+    
 
-    var_v1 = 0;
+    __repair_phase_var_v1 = 0;
     var_a0 = &D_800D942C;
     D_800D942A = 0;
     D_800D9428 = 0;
     do {
         *(s16 *)var_a0 = 0x7FFF;
-        var_v1 += 1;
+        __repair_phase_var_v1 += 1;
         var_a0 += 2;
-    } while (var_v1 < 6U);
-    var_v1_2 = 0;
+    } while (__repair_phase_var_v1 < 6U);
     var_a0_2 = &D_800D9500;
+    __repair_phase_var_v1 = 0;
     D_800D94FA = 0;
     D_800D94F8 = 0;
     do {
         *(s16 *)var_a0_2 = 0x7FFF;
-        var_v1_2 += 1;
+        __repair_phase_var_v1 += 1;
         var_a0_2 += 2;
-    } while (var_v1_2 < 8U);
-    var_v1_3 = 0;
+    } while (__repair_phase_var_v1 < 8U);
+    __repair_phase_var_v1 = 0;
     var_a0_3 = &D_800DC718;
     D_800DC712 = 0;
     D_800DC710 = 0;
     do {
         *(s32 *)var_a0_3 = 0x7FFFFFFF;
-        var_v1_3 += 1;
+        __repair_phase_var_v1 += 1;
         var_a0_3 += 4;
-    } while (var_v1_3 < 6U);
+    } while (__repair_phase_var_v1 < 6U);
 }

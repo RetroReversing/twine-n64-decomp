@@ -6,6 +6,8 @@ extern u8 D_800EDA87;
 extern void *D_800EDA8C;
 
 s32 func_80090464(void) {
+int __repair_literal;
+
     
     u32 temp_v1_2;
     u32 var_s2;
@@ -41,8 +43,8 @@ s32 func_80090464(void) {
 
     var_s4 = 1;
     var_s6 = 0;
-    var_s2 = 0;
     var_s1 = 0;
+    var_s2 = 0;
     var_s5 = 0;
     do {
         register temp_t0 = D_800EDA8C;
@@ -61,16 +63,18 @@ loop_4:
                     } else {
                         temp_a0_2 = (*(void **)((char *)(temp_t0) + 0x10C));
                         temp_a1_2 = temp_t0 + var_s5;
-                        temp_a2 = *(s32 *)((temp_a1 * 4) + ((*(s32 *)((char *)(temp_a0_2) + 4)) + temp_a0_2)) + temp_a0_2;
+__repair_literal = 4;
+
+                        temp_a2 = *(s32 *)((temp_a1 * __repair_literal) + ((*(s32 *)((char *)(temp_a0_2) + 4)) + temp_a0_2)) + temp_a0_2;
                         (*(s32 *)((char *)(temp_a1_2) + 0x56C)) = 0;
                         (*(s32 *)((char *)(temp_a1_2) + 0x568)) = 0;
                         (*(s32 *)((char *)(temp_a1_2) + 0x570)) = 0;
                         (*(void **)((char *)(temp_a1_2) + 0x574)) = (void *) (temp_a2 + 0xC);
                         __repair_phase_storage.value = (*(s32 *)((char *)(temp_a2) + 4));
-                        if (__repair_phase_storage.value == 0) {
-                            (*(void **)((char *)(temp_a1_2) + 0x578)) = NULL;
-                        } else {
+                        if (__repair_phase_storage.value != 0) {
                             (*(void **)((char *)(temp_a1_2) + 0x578)) = (void *) (__repair_phase_storage.value + (*(void **)((char *)(temp_t0) + 0x10C)));
+                        } else {
+                            (*(void **)((char *)(temp_a1_2) + 0x578)) = NULL;
                         }
                         temp_a0_2 = D_800EDA8C + var_s5;
                         (*(s32 *)((char *)(temp_a0_2) + (int)0x584)) = 0;
@@ -143,8 +147,9 @@ block_30:
                 (*(s32 *)((char *)(temp_a1_4) + 0x134)) += ((temp_v1_2 >> 0x10) + (*(s32 *)((char *)(D_800EDA8C) + 0x11C)));
             }
         }
-        var_s2 += 0x10;
-        var_s1++;
+        var_s2 += 0x10;/*__repair_loop_weight*/__repair_rows: {do {do {
+        var_s1++;} while (0);} while (0);}
+if (0) goto __repair_rows;
         var_s5 += 0x28;
     } while (var_s1 < 0x40);
     return var_s6;

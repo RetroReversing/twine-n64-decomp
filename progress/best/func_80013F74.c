@@ -90,6 +90,7 @@ void func_80013F74(void *arg0) {
     u32 temp_a1_8;
     u32 temp_a1_9;
     u32 var_a1;
+u32 __repair_result_var_a1;
     u32 var_a1_10;
     u32 var_a1_11;
     u32 var_a1_12;
@@ -103,6 +104,7 @@ void func_80013F74(void *arg0) {
     u32 var_a1_8;
     u32 var_a1_9;
     u32 var_t1;
+u32 __repair_result_var_t1;
     char *var_a0;
     char *var_a3_2;
     char *var_a3_5;
@@ -115,22 +117,22 @@ void func_80013F74(void *arg0) {
     temp_v0 = M2C_FIELD(arg0, void **, 4);
     var_a2 = 0x20;
     var_a0 = M2C_FIELD(arg0, u8 **, 0);
-    var_a1 = M2C_FIELD(temp_v0, u32 *, 0xC);
-    var_t1 = M2C_FIELD(temp_v0, u32 *, 0x10);
+    __repair_result_var_a1 = M2C_FIELD(temp_v0, u32 *, 0xC);
+    __repair_result_var_t1 = M2C_FIELD(temp_v0, u32 *, 0x10);
     var_t0 = temp_v0 + 0x14;
 loop_1:
     var_a2_2 = var_a2 - 1;
 loop_2:
-    var_v1 = var_a1 & 1;
+    var_v1 = __repair_result_var_a1 & 1;
     if (var_a2_2 < 0) {
-        temp_a1 = var_t1;
+        temp_a1 = __repair_result_var_t1;
         var_t1 = *(u32 *)var_t0;
         var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1 << (var_a2_2 + 1))) & 1;
+        var_v1 = (__repair_result_var_a1 + (temp_a1 << (var_a2_2 + 1))) & 1;
         var_a1_2 = temp_a1 >> -var_a2_2;
         var_a2_2 += 0x20;
     } else {
-        var_a1_2 = var_a1 >> 1;
+        var_a1_2 = __repair_result_var_a1 >> 1;
     }
     if (var_v1 == 0) {
         var_a2 = var_a2_2 - 8;

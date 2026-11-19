@@ -19,19 +19,20 @@ extern M2C_UNK D_800E10C0;
 M2C_UNK *func_8002B400(f32 arg0, s32 arg1, s32 arg2) {
     f32 temp_fa0;
     f32 var_fa0;
+f32 __repair_var_fa0_1;
     f32 var_fv0;
     s32 temp_a0;
     s32 temp_a1;
     s32 temp_v0;
     s32 var_v1;
 
-    temp_v0 = arg1 - 3;
-    if (temp_v0 <= 0) {
+    temp_a0 = arg1 - 3;
+    if (temp_a0 <= 0) {
         return &D_800BF5B0;
     }
     var_fv0 = 0.0f;
     if (!(arg0 < 0.0f)) {
-        var_fv0 = (f32) temp_v0;
+        var_fv0 = (f32) temp_a0;
         if (!(arg0 > 1.0f)) {
             var_fa0 = arg0 * var_fv0;
         } else {
@@ -39,15 +40,15 @@ M2C_UNK *func_8002B400(f32 arg0, s32 arg1, s32 arg2) {
         }
     } else {
 block_6:
-        var_fa0 = var_fv0;
+        __repair_var_fa0_1 = var_fv0;
     }
-    var_v1 = (s32) var_fa0;
+    var_v1 = (s32) __repair_var_fa0_1;
     temp_a1 = arg1 - 3;
     if (var_v1 >= temp_a1) {
         var_v1 = temp_a1;
     }
     temp_a0 = arg2 + (var_v1 * 0xC);
-    temp_fa0 = var_fa0 - (f32) var_v1;
+    temp_fa0 = __repair_var_fa0_1 - (f32) var_v1;
     func_80046EB8(temp_fa0, temp_a0, temp_a0 + 0xC, temp_a0 + 0x18, temp_a0 + 0x24, temp_fa0, &D_800E10C0);
     return &D_800E10C0;
 }

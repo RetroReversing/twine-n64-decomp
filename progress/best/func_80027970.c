@@ -17,6 +17,7 @@ M2C_UNK func_80022BB8();                            /* extern */
 M2C_UNK func_8002EB34(s32);                         /* extern */
 extern void *D_80109BB0;
 
+typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 void func_80027970(void) {
     M2C_UNK (*temp_v0)();
     s32 temp_a0_2;
@@ -45,10 +46,10 @@ void func_80027970(void) {
             if (M2C_FIELD(M2C_FIELD(temp_a0, void **, 0x10), u8 *, 5) != 0) {
                 do {
                     temp_s0 = M2C_FIELD(M2C_FIELD(temp_a0, void **, 0x10), s32 *, 0) + ((var_s1 & 0xFF) * 0x28);
-                    temp_a0_2 = M2C_FIELD(temp_s0, s32 *, 8);
+                    temp_a0_2 = ((__repair_field_8 *)temp_s0)->value;
                     var_s1 += 1;
                     func_80016314(temp_a0_2);
-                    M2C_FIELD(temp_s0, s32 *, 8) = 0;
+                    ((__repair_field_8 *)temp_s0)->value = 0;
                 } while ((u32) (var_s1 & 0xFF) < (u8) M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 *, 5));
             }
         }

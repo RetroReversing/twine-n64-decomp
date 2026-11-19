@@ -44,7 +44,8 @@ void func_80089384(u16 arg0, s32 arg1) {
             (*(s8 *)((char *)((temp_v1 + D_800E41E0)) + 0x61)) = 0;
             (*(u8 *)((char *)(((u32)temp_v1 + D_800E41E0)) + 0x60)) = 0xFF;
             var_a1 += 1;
-            var_v0 = var_a1 & 0xFFFF;
+            temp_v1 = var_a1 & 0xFFFF;
+    var_v0 = temp_v1;
         } while ((u32) (var_a1 & 0xFFFF) < (u16) D_800E41E4);
     }
     if (!D_8010086C) {

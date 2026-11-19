@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
 f32 func_80045D2C(M2C_UNK);                         /* extern */
-M2C_UNK func_80047B14(void *, M2C_UNK, void *);     /* extern */
+M2C_UNK func_80047B14(void *, f32, void *);     /* extern */
 M2C_UNK func_80062CD8(void *, void *, f32, M2C_UNK); /* extern */
 extern f64 D_800D42D8;
 
@@ -30,7 +30,7 @@ void func_80063180(void *arg0) {
     M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - func_80045D2C(0x41800000)));
     func_800452AC(temp_s0, temp_s2, temp_s2);
     M2C_FIELD(temp_s0, f32 *, 4) = (f32) (M2C_FIELD(temp_s0, f32 *, 4) - 0.0025520835f);
-    func_80047B14(temp_s0, 0x3F733333, temp_s0);
+    func_80047B14(temp_s0, 0.95f, temp_s0);
     if (M2C_FIELD(temp_s0, f32 *, 4) <= 0.0f) {
         func_80062CD8(arg0, temp_s2, (f32) ((f64) func_80045D2C(0x3ECCCCCD) + D_800D42D8), 1);
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);

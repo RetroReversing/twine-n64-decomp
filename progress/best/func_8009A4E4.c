@@ -32,8 +32,8 @@ s32 func_8009A4E4(void *arg0, u32 *arg1) {
     } else {
         if (temp_a1 > temp_a0) {
             temp_lo = (u32) (temp_a1 << 0xC) / temp_a0;
-            var_a1 = 0;
             var_v1 = 1;
+            var_a1 = 0;
 loop_6:
             if (((u32) (temp_lo >> 0xC) >> var_v1) != 0) {
                 var_a1 = var_v1;do{do{do{do{

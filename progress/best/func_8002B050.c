@@ -12,6 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { int field_0; unsigned short field_4; unsigned char field_6; unsigned char field_7; } __repair_record_arg0;
 void func_8002B050(void *arg0, s32 arg1) {
     s32 temp_v1;
     s32 var_a3;
@@ -23,43 +24,43 @@ u16 __repair_result_var_v0;
 
     var_a3 = 0;
     var_v1 = 0;
-    if ((arg0 != NULL) && (M2C_FIELD(arg0, u8 *, 7) != 0)) {
+    if ((arg0 != NULL) && (((__repair_record_arg0*)arg0)->field_7 != 0)) {
         if (!(arg1 & 0x8000)) {
-            var_v0 = M2C_FIELD(arg0, u16 *, 4) + arg1;
+            var_v0 = ((__repair_record_arg0*)arg0)->field_4 + arg1;
 loop_5:
-            M2C_FIELD(arg0, u16 *, 4) = var_v0;
-            if ((s16) var_v0 >= (s32) M2C_FIELD(arg0, u8 *, 7)) {
+            ((__repair_record_arg0*)arg0)->field_4 = var_v0;
+            if ((s16) var_v0 >= (s32) ((__repair_record_arg0*)arg0)->field_7) {
                 var_a3 += 1;
-                __repair_result_var_v0 = M2C_FIELD(arg0, u16 *, 4) - (s32) M2C_FIELD(arg0, u8 *, 7);
+                __repair_result_var_v0 = ((__repair_record_arg0*)arg0)->field_4 - (s32) ((__repair_record_arg0*)arg0)->field_7;
                 goto loop_5;
             }
-            var_v0_2 = M2C_FIELD(arg0, u8 *, 6) + var_a3;
+            var_v0_2 = ((__repair_record_arg0*)arg0)->field_6 + var_a3;
 loop_10:
-            M2C_FIELD(arg0, u8 *, 6) = var_v0_2;
+            ((__repair_record_arg0*)arg0)->field_6 = var_v0_2;
             if ((s8) var_v0_2 >= 0x3C) {/*__repair_loop_weight*/do {do {do {
                 var_v1 += 1;} while (0);} while (0);} while (0);
-                var_v0_2 = M2C_FIELD(arg0, u8 *, 6) - 0x3C;
+                var_v0_2 = ((__repair_record_arg0*)arg0)->field_6 - 0x3C;
                 goto loop_10;
             }
-            M2C_FIELD(arg0, s32 *, 0) = (s32) (M2C_FIELD(arg0, s32 *, 0) + (var_v1 & 0xFF));
+            ((__repair_record_arg0*)arg0)->field_0 = (s32) (((__repair_record_arg0*)arg0)->field_0 + (var_v1 & 0xFF));
             return;
         }
-        temp_v0 = M2C_FIELD(arg0, u16 *, 4) + arg1;
-        M2C_FIELD(arg0, u16 *, 4) = temp_v0;
+        temp_v0 = ((__repair_record_arg0*)arg0)->field_4 + arg1;
+        ((__repair_record_arg0*)arg0)->field_4 = temp_v0;
         if (temp_v0 & 0x8000) {
-            if ((s8) M2C_FIELD(arg0, u8 *, 6) != 0) {
-                M2C_FIELD(arg0, u16 *, 4) = (u16) M2C_FIELD(arg0, u8 *, 7);
-                M2C_FIELD(arg0, u8 *, 6) = (u8) (M2C_FIELD(arg0, u8 *, 6) - 1);
+            if ((s8) ((__repair_record_arg0*)arg0)->field_6 != 0) {
+                ((__repair_record_arg0*)arg0)->field_4 = (u16) ((__repair_record_arg0*)arg0)->field_7;
+                ((__repair_record_arg0*)arg0)->field_6 = (u8) (((__repair_record_arg0*)arg0)->field_6 - 1);
                 return;
             }
-            temp_v1 = M2C_FIELD(arg0, s32 *, 0);
+            temp_v1 = ((__repair_record_arg0*)arg0)->field_0;
             if (temp_v1 != 0) {
-                M2C_FIELD(arg0, s32 *, 0) = (s32) (temp_v1 - 1);
-                M2C_FIELD(arg0, u8 *, 6) = 0x3BU;
-                M2C_FIELD(arg0, u16 *, 4) = (u16) M2C_FIELD(arg0, u8 *, 7);
+                ((__repair_record_arg0*)arg0)->field_0 = (s32) (temp_v1 - 1);
+                ((__repair_record_arg0*)arg0)->field_6 = 0x3BU;
+                ((__repair_record_arg0*)arg0)->field_4 = (u16) ((__repair_record_arg0*)arg0)->field_7;
                 return;
             }
-            M2C_FIELD(arg0, u16 *, 4) = 0U;
+            ((__repair_record_arg0*)arg0)->field_4 = 0U;
         }
     }
 }

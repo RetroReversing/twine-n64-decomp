@@ -17,9 +17,11 @@ extern s32 D_800E06B0;
 extern s32 D_800E0708;
 
 void func_8000A580(void) {
+int __repair_constant = -1;
+
     if (D_800E0708 != -1) {
         func_80090F24(D_800E0708);
-        D_800E0708 = -1;
+        D_800E0708 = __repair_constant;
     }
-    D_800E06B0 = -1;
+    D_800E06B0 = __repair_constant;
 }

@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 extern s32 D_800CE800;
 extern s32 D_800CE804;
@@ -27,15 +15,15 @@ extern s32 D_800CE82C;
 extern char D_8010A960[];
 
 void *func_80087100(s32 arg0, s32 arg1) {
-    s32 *var_v0;
-    s32 temp_a0_2;
+    u32 temp_a0_4;
+    int temp_a0_2;
     s32 temp_v1;
     s32 var_a1;
     u32 temp_a0;
     u32 temp_a0_3;
-    u32 temp_a0_4;
-    u32 temp_a0_5;
     u32 temp_a0_6;
+    s32 *var_v0;
+    u32 temp_a0_5;
     u32 var_v1;
 
     var_a1 = arg1;
@@ -56,40 +44,41 @@ void *func_80087100(s32 arg0, s32 arg1) {
                         goto block_54;
                     }
                     temp_a0_3 = temp_v1 & 0xFFFF;
-                    if ((temp_a0_3 < 0x25U) && (D_800CE810 != 0)) {
+                    if ((0x25U > temp_a0_3) && (D_800CE810 != 0)) {
                         var_v0 = (temp_a0_3 * 4) + D_800CE810;
                         goto block_53;
                     }
                     goto block_54;
                 }
                 if (temp_a0_2 != 0) {
-                    temp_a0_4 = temp_v1 & 0xFFFF;
+                    var_v1 = temp_v1 & 0xFFFF;
                     if (temp_a0_2 != 0x1000) {
                         goto block_54;
                     }
-                    if ((temp_a0_4 < 0x92U) && (D_800CE808 != 0)) {
-                        var_v0 = (temp_a0_4 * 4) + D_800CE808;
+                    if ((var_v1 < 0x92U) && (D_800CE808 != 0)) {
+                        var_v0 = (var_v1 * 4) + D_800CE808;
                         goto block_53;
                     }
                     goto block_54;
                 }
                 temp_a0_5 = temp_v1 & 0xFFFF;
-                if ((temp_a0_5 < 0x2EAU) && (D_800CE804 != 0)) {
-                    var_v0 = (temp_a0_5 * 4) + D_800CE804;
+                if ((temp_a0_5 < (short)0x2EAU) && (D_800CE804 != 0)) {
+                    var_v0 = (char *)((temp_a0_5 * 4)); var_v0 += (s32)(D_800CE804);
                     goto block_53;
                 }
                 goto block_54;
             }
-            temp_a0_6 = temp_v1 & 0xFFFF;
-            if ((temp_a0_6 < 0x2CU) && (D_800CE80C != 0)) {
+            temp_a0_2 = temp_v1 & 0xFFFF;
+    temp_a0_6 = temp_a0_2;
+            if ((0x2CU > temp_a0_6) && (D_800CE80C != 0)) {
                 var_v0 = (temp_a0_6 * 4) + D_800CE80C;
                 goto block_53;
             }
             goto block_54;
         }
-        if (temp_a0_2 != 0x9000) {
+        if ((short)temp_a0_2 != 0x9000) {
             if (temp_a0_2 <= 0x9000) {
-                if (temp_a0_2 != 0x7000) {
+                if (temp_a0_2 != (int)0x7000) {
                     var_v1 = temp_v1 & 0xFFFF;
                     if (temp_a0_2 != 0x8000) {
                         goto block_54;
@@ -107,13 +96,13 @@ void *func_80087100(s32 arg0, s32 arg1) {
                 }
                 goto block_54;
             }
-            if (temp_a0_2 != 0xB000) {
+            if (temp_a0_2 != (short)0xB000) {
                 if (temp_a0_2 <= 0xB000) {
                     var_v1 = temp_v1 & 0xFFFF;
                     if (temp_a0_2 != 0xA000) {
                         goto block_54;
                     }
-                    if (var_v1 < 0x38U) {
+                    if (0x38U > var_v1) {
                         var_a1 = D_800CE818;
                         goto block_51;
                     }
@@ -131,14 +120,14 @@ void *func_80087100(s32 arg0, s32 arg1) {
             }
             var_v1 = temp_v1 & 0xFFFF;
             if (var_v1 < 0x6DU) {
-                var_a1 = D_800CE828;
+                var_a1 = (*(s32 *)0x800ce82c);
                 goto block_51;
             }
             goto block_54;
         }
         var_v1 = temp_v1 & 0xFFFF;
         if (var_v1 < 0x21U) {
-            var_a1 = D_800CE824;
+            var_a1 = (*(s32 *)0x800ce82c);
             goto block_51;
         }
         goto block_54;
@@ -147,7 +136,7 @@ void *func_80087100(s32 arg0, s32 arg1) {
     if (var_v1 < 0x38U) {
         var_a1 = D_800CE814;
 block_51:
-        if (var_a1 != 0) {
+        if (var_a1) {
             var_v0 = (var_v1 * 4) + var_a1;
 block_53:
             return D_800CE800 + *var_v0;

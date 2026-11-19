@@ -19,6 +19,7 @@ extern f64 D_800D6EB0;
 extern f64 D_800D6EB8;
 
 f64 func_800AA538(f64 arg0, f32 arg1) {
+    f64 ret;
     s32 var_v0;
     s32 var_v1;
 
@@ -31,7 +32,9 @@ f64 func_800AA538(f64 arg0, f32 arg1) {
         var_v1 = 0;
     }
     if ((var_v0 | var_v1) == 0) {
-        return D_800D6EB8 - func_800AA460();
+        ret = D_800D6EB8 - func_800AA460();
+    } else {
+        ret = func_800ABA40(1, "acos", arg1, arg0, 0, 0, 0, 0);
     }
-    return func_800ABA40(1, "acos", arg1, arg0, 0, 0, 0, 0);
+    return ret;
 }

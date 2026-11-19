@@ -69,7 +69,7 @@ void func_8003CD18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         M2C_FIELD(arg3, f32 *, 0) = var_fa0;
         M2C_FIELD(arg3, f32 *, 8) = var_fs1;
         M2C_FIELD(arg3, f32 *, 0x10) = var_fs5;
-        var_fs3 = func_800828D0(var_fa0, var_a1);
+        var_fs3 = func_800828D0(var_fa0);
         if (var_fs3 < func_800828D0(var_fs0)) {
             var_fs3 = var_fs0;
         }

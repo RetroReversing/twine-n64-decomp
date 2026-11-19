@@ -13,15 +13,15 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80045CC4();                                /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, M2C_UNK, void *, void *, s32, s32); /* extern */
+M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, void *, s32, s32); /* extern */
 M2C_UNK func_8005FBB8(s32 *);                       /* extern */
 s32 func_8005FD28(void *);                          /* extern */
 M2C_UNK func_80060968(void *);                      /* extern */
 M2C_UNK func_80060AA8(void *);                      /* extern */
-M2C_UNK func_800624A8(void *, void *, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK func_800624A8(void *, void *, f32, M2C_UNK); /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 M2C_UNK func_800643D8(void *);                      /* extern */
-M2C_UNK func_80073508(void *, M2C_UNK);             /* extern */
+M2C_UNK func_80073508(void *, f32);             /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
 
 void func_8005FBC0(void *arg0) {
@@ -51,9 +51,9 @@ void func_8005FBC0(void *arg0) {
         if (temp_v1_2 & 2) {
             temp_s0_2 = arg0 + 0x24;
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1_2 & ~2);
-            func_80054FEC(0, 0x437A0000, 0x40A00000, arg0, temp_s0_2, 0x20, 0);
-            func_800624A8(arg0, temp_s0_2, 0x3F800000, 1);
-            func_80073508(temp_s0_2, 0x3A83126F);
+            func_80054FEC(0, 250.0f, 5.0f, arg0, temp_s0_2, 0x20, 0);
+            func_800624A8(arg0, temp_s0_2, 1.0f, 1);
+            func_80073508(temp_s0_2, 0.001f);
             func_800853D4(temp_s0_2);
             goto block_8;
         }
