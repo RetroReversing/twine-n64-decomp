@@ -62,7 +62,7 @@ block_10:
                             temp_v1_2 = (*(s32 *)((char *)(temp_s0) + 8));
                             temp_v1_2 |= 0x100000;
                             (*(s32 *)((char *)(temp_s0) + 8)) = temp_v1_2;
-                            func_80093C40(temp_s0, (*(f32 *)((char *)(var_s1) + 4)), (*(s32 *)((char *)(var_s1) + 8)), (*(s32 *)((char *)(var_s1) + 0xC)), (*(f32 *)((char *)(var_s1) + 0x10)), (*(f32 *)((char *)(var_s1) + 0x14)));
+                            do { func_80093C40(temp_s0, (*(f32 *)((char *)(var_s1) + 4)), (*(s32 *)((char *)(var_s1) + 8)), (*(s32 *)((char *)(var_s1) + 0xC)), (*(f32 *)((char *)(var_s1) + 0x10)), (*(f32 *)((char *)(var_s1) + 0x14))); } while (0);
                             (*(s32 *)((char *)(temp_s0) + 8)) = (s32) ((*(s32 *)((char *)(temp_s0) + 8)) & 0xFFFDFFFF);
                             temp_v0_4 = *((s32 *)((s8 *)&D_800EDCFC + var_s2));
                             if (temp_v0_4 != NULL) {
