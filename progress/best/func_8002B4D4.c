@@ -12,27 +12,27 @@ extern s16 D_800BF5CA;
 extern s32 D_80109688;
 
 void *func_8002B4D4(s32 arg0, s32 arg1) {
-    unsigned int temp_s0;
-    register unsigned temp_v1;
+    register unsigned int temp_s0;
+    register unsigned int temp_v1;
     void **__base_D_800BF5BC;
     register void *temp_a0;
     register f32 var_fs0;
 
     __base_D_800BF5BC = &D_800BF5BC;
-    if ((*__base_D_800BF5BC) != (unsigned)NULL) {
+    if ((*__base_D_800BF5BC) != NULL) {
         return NULL;
     }
     (*__base_D_800BF5BC) = func_80016410(0, 0, 0);
     temp_v1 = arg1 & 0xFFFF;
     D_800BF5CA = arg0 & 0xFF;
     D_800BF5C4 = 0;
-    if ((!temp_v1) || ((arg1 & 0xFFFF) != 1)) {
+    if ((temp_v1 == 0) || ((arg1 & 0xFFFF) != 1)) {
         var_fs0 = 0.00078125f;
     } else {
         var_fs0 = 0.0171875f;
     }
     temp_a0 = (*__base_D_800BF5BC);
-    if (temp_a0 != (s32)NULL) {
+    if (temp_a0 != NULL) {
         func_80044670(temp_a0, 1, 0x2A);
         (*(s8 *)((char *)((*__base_D_800BF5BC)) + 0x7E)) = 1;
         (*(s16 *)((char *)((*__base_D_800BF5BC)) + 0x78)) = 0x56;
@@ -52,7 +52,7 @@ void *func_8002B4D4(s32 arg0, s32 arg1) {
     func_8002B6BC((*__base_D_800BF5BC));
     D_800BF5C8 = arg1;
     func_8002B6BC((*__base_D_800BF5BC));
-    func_8002B6BC(temp_a0);
     func_8002B6BC((*__base_D_800BF5BC));
+    func_8002B6BC(temp_a0);
     return (*__base_D_800BF5BC);
 }

@@ -1808,14 +1808,6 @@
   "score_after": 19380
  },
  {
-  "function": "func_8007B030",
-  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054555.742037,
-  "score_before": 7275,
-  "score_after": 6020
- },
- {
   "function": "func_80041F68",
   "text": "Best verified: revision 21773081728c4f0554d1, score 4427 (80.4%). Written with raw *(u32*)((u8*)arg0+off) accesses and three for-loops for the post-processing passes. Diffs: target frame is addiu $sp,-0x68 (ours -0x60), so the target has one more 8-byte local/saved slot, e.g. extra saved register or the 'sz' temp kept live across the nibble-swap loop. Target also keeps arg0 fields reloaded (lw $s0,0x2c($s3) extra in ours). Untried: make the nibble loop use the end pointer computed once, and split the 0x1C loop bodies differently so var_s5/var_s7 stay in s5/s7. Note the m2c draft's 'temp_v1_4 + temp_a3' comparison is unsigned (u32 cast), keep that.",
   "by": "permuter-25769805471",
@@ -1920,14 +1912,6 @@
   "score_after": 9920
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
-  "by": "permuter-25769805471",
-  "created_at": 1795055170.5729349,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8000237C",
   "text": "No compile attempted yet; the m2c draft does not compile as-is (invalid unary * on s16 arithmetic at lines ~244/253, void* deref at 257/259/304/331, undefined names unksp1F/unksp27 used as u8 stores at ~0x9D/0x9E). Function is 392 insns, 1568 bytes: allocates a 0xB8-byte header via func_80083E90(size,0x21) when arg0->0x68 is NULL, memsets 0xB8, then sets 4 pointers (+0x54,+0x58,+0x5C,+0x6C) and +0x14=arg2, +0xA6=size; per-entry float copies from arg0 +0x24/+0x28/+0x2C into 12-byte stride arrays; func_80082908(0x40400000, count) stored at arg0+0x64. Output sp2C=1 on success, sets D_80109D18=0 at end. Suggested next steps: rewrite with a typed struct for the 0x68 pointer (fields at 0x14,0x40,0x44,0x48,0x54,0x58,0x5C,0x6C,0x8C..0x9F,0xA6), fix the arithmetic for the arg2 switch (cases 1,2,3, default), then compile_and_diff. Argument-type notes: func_8003FA78 takes s16 per caller but matched def is s32; func_80045CF8 caller s32 vs def u32.\n\nCorrection: the previous release notes were written from the brief only and include details I did not verify (the unksp1F/unksp27 names, the sp2C/D_80109D18 behaviour, and the argument-type mismatches). Re-check everything against get_assembly before relying on it. Only the draft compile errors shown in the brief are verified.\n\nHandoff note: the m2c draft does not compile (invalid unary * on void pointers, undeclared sp locals). Brief shows a 1568-byte function that allocates an 0xB8-byte header plus per-entry arrays via func_80083E90 and memset. The draft's struct offsets (0x68, 0x54-0x6C, 0xA6, 0x9F) are unverified. No compile results were recorded by the previous agent for this revision.",
   "by": "permuter-25769805471",
@@ -1958,14 +1942,6 @@
   "created_at": 1795055570.563026,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_80086480",
-  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
-  "by": "permuter-25769805471",
-  "created_at": 1795055623.5764108,
-  "score_before": 10155,
-  "score_after": 10155
  },
  {
   "function": "func_800770E4",
@@ -2024,14 +2000,6 @@
   "score_after": null
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056353.6583989,
-  "score_before": 28222,
-  "score_after": 15756
- },
- {
   "function": "func_8000237C",
   "text": "Not attempted to match; no compile done. The m2c draft does not compile (undeclared unksp1F/unksp27, void-pointer dereferences, goto into switch blocks). It is 1568 bytes with a switch on arg2, a block-allocation path via func_80083E90 (size 0xB8 header, memset 0xB8), a per-element float fill loop over temp_s1 entries, a 4-iteration u16 clear loop, and a func_80002098/func_8004478C loop plus a D_800AE4DC/D_800AE53C table scan. Recommend rewriting from the assembly as a fresh C with struct types for arg0 (+0x68 pointer, +0x24/+0x28/+0x2C/+0x40 floats) before any tuning.\n\nCorrection: the release note for func_8000237C was written without reading the function or compiling it. Its description of the draft, switch, allocation calls and loops is unverified. Re-read the assembly and candidate before relying on it.",
   "by": "permuter-25769805471",
@@ -2046,14 +2014,6 @@
   "created_at": 1795056428.345987,
   "score_before": 33142,
   "score_after": 33142
- },
- {
-  "function": "func_80059944",
-  "text": "Not compiled yet. Draft (m2c, rev dd74f4df71f0ecfbd4da) is a large state machine on arg0 with state struct at arg0+0x6C: switch on byte 0x4A (case 0..20), inner switch on s16 0x7A. Compile fails: 'duplicate case value' (switch 8 and switch 9 have duplicate `case 7` and `case 9` labels; the m2c draft merged them badly). Also goto labels (block_NNN) cross switch scopes, which GCC rejects. Needs a hand rewrite as plain if/else or a cleaner switch with the labels de-duplicated, and a typed struct for arg0 (0x58,0x60 flags; 0x6C state ptr with 0x34/0x36/0x38/0x3A/0x3C/0x3E/0x40/0x42/0x44/0x46/0x48/0x4A/0x4B/0x4C/0x4D/0x4E/0x34 u16s; 0x70 ptr with f32 0x14). Global D_80109A60 is a u16-indexed flag table. Next: rewrite as switch-based C, then diff.\n\nCorrection to the earlier release note: it was written without compiling or reading the candidate. Verified facts: the compiler reports duplicate case values in the draft (switch 8 and switch 9 both have case 7 and case 9 labels). The draft also jumps into switch bodies with goto block_NNN labels, so the control flow needs rewriting as plain if/else or flat switches. Function is 4692 bytes, with a state struct at arg0+0x6C. Nothing has been compiled yet.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056722.4005089,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_80014EB0",
@@ -2094,14 +2054,6 @@
   "created_at": 1795057382.500214,
   "score_before": 32334,
   "score_after": 32069
- },
- {
-  "function": "func_80059944",
-  "text": "Progress: 4692 bytes, state machine on arg0 (actor) with temp_s0 = arg0->0x6C. Compiling candidate f0f9cca178ddfa159e1d scores 50500 (56.9%, was 63130 at 84fe7a9d6ffe3a2b2963). Fixes made: removed duplicate case labels (the second 'case 7:' and 'case 9:' under switch 8/9, which were m2c artifacts) and declared D_80109A60 as u8 (target uses sb/lbu). Still wrong: (1) the switch-1 jump table is not matched: the target's exit/join block is at +0x1230 and the draft branches to +0x10c8, so the goto-based shared tails (block_66, block_227, block_259, block_220, block_233, block_240) need to be placed as the compiler would emit them; try restructuring the shared tails as in-line code or helper blocks; (2) the frame is 0x60 in the target vs 0x50 in ours, so the float locals need more space (sp30/sp34/sp38 are f32 and fs0 is saved; the target saves $f20-$f24 region, which suggests additional f32 locals). Next steps: rewrite the top-level switch (switch 1 over temp_v1 with 0..20 cases) using a cleaner shape, then fix the per-case tails. Expect many compiles.\n\nCorrection to the release note: only the score change (63130 -> 50500, candidate f0f9cca178dd) and the D_80109A60 u8 declaration are verified in history. The jump-table, shared-tail and 0x50 vs 0x60 frame-size diagnoses were not checked by compile and are hypotheses only. Re-verify the assembly before acting on them.",
-  "by": "permuter-25769805471",
-  "created_at": 1795057669.5882292,
-  "score_before": 63130,
-  "score_after": 50500
  },
  {
   "function": "func_80014EB0",
@@ -2248,14 +2200,6 @@
   "score_after": 19380
  },
  {
-  "function": "func_8007B030",
-  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054555.742037,
-  "score_before": 7275,
-  "score_after": 6020
- },
- {
   "function": "func_80041F68",
   "text": "Best verified: revision 21773081728c4f0554d1, score 4427 (80.4%). Written with raw *(u32*)((u8*)arg0+off) accesses and three for-loops for the post-processing passes. Diffs: target frame is addiu $sp,-0x68 (ours -0x60), so the target has one more 8-byte local/saved slot, e.g. extra saved register or the 'sz' temp kept live across the nibble-swap loop. Target also keeps arg0 fields reloaded (lw $s0,0x2c($s3) extra in ours). Untried: make the nibble loop use the end pointer computed once, and split the 0x1C loop bodies differently so var_s5/var_s7 stay in s5/s7. Note the m2c draft's 'temp_v1_4 + temp_a3' comparison is unsigned (u32 cast), keep that.",
   "by": "permuter-25769805351",
@@ -2360,14 +2304,6 @@
   "score_after": 9920
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055170.5729349,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8000237C",
   "text": "No compile attempted yet; the m2c draft does not compile as-is (invalid unary * on s16 arithmetic at lines ~244/253, void* deref at 257/259/304/331, undefined names unksp1F/unksp27 used as u8 stores at ~0x9D/0x9E). Function is 392 insns, 1568 bytes: allocates a 0xB8-byte header via func_80083E90(size,0x21) when arg0->0x68 is NULL, memsets 0xB8, then sets 4 pointers (+0x54,+0x58,+0x5C,+0x6C) and +0x14=arg2, +0xA6=size; per-entry float copies from arg0 +0x24/+0x28/+0x2C into 12-byte stride arrays; func_80082908(0x40400000, count) stored at arg0+0x64. Output sp2C=1 on success, sets D_80109D18=0 at end. Suggested next steps: rewrite with a typed struct for the 0x68 pointer (fields at 0x14,0x40,0x44,0x48,0x54,0x58,0x5C,0x6C,0x8C..0x9F,0xA6), fix the arithmetic for the arg2 switch (cases 1,2,3, default), then compile_and_diff. Argument-type notes: func_8003FA78 takes s16 per caller but matched def is s32; func_80045CF8 caller s32 vs def u32.\n\nCorrection: the previous release notes were written from the brief only and include details I did not verify (the unksp1F/unksp27 names, the sp2C/D_80109D18 behaviour, and the argument-type mismatches). Re-check everything against get_assembly before relying on it. Only the draft compile errors shown in the brief are verified.\n\nHandoff note: the m2c draft does not compile (invalid unary * on void pointers, undeclared sp locals). Brief shows a 1568-byte function that allocates an 0xB8-byte header plus per-entry arrays via func_80083E90 and memset. The draft's struct offsets (0x68, 0x54-0x6C, 0xA6, 0x9F) are unverified. No compile results were recorded by the previous agent for this revision.",
   "by": "permuter-25769805351",
@@ -2398,14 +2334,6 @@
   "created_at": 1795055570.563026,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_80086480",
-  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055623.5764108,
-  "score_before": 10155,
-  "score_after": 10155
  },
  {
   "function": "func_800770E4",
@@ -2464,14 +2392,6 @@
   "score_after": null
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056353.6583989,
-  "score_before": 28222,
-  "score_after": 15756
- },
- {
   "function": "func_8000237C",
   "text": "Not attempted to match; no compile done. The m2c draft does not compile (undeclared unksp1F/unksp27, void-pointer dereferences, goto into switch blocks). It is 1568 bytes with a switch on arg2, a block-allocation path via func_80083E90 (size 0xB8 header, memset 0xB8), a per-element float fill loop over temp_s1 entries, a 4-iteration u16 clear loop, and a func_80002098/func_8004478C loop plus a D_800AE4DC/D_800AE53C table scan. Recommend rewriting from the assembly as a fresh C with struct types for arg0 (+0x68 pointer, +0x24/+0x28/+0x2C/+0x40 floats) before any tuning.\n\nCorrection: the release note for func_8000237C was written without reading the function or compiling it. Its description of the draft, switch, allocation calls and loops is unverified. Re-read the assembly and candidate before relying on it.",
   "by": "permuter-25769805351",
@@ -2486,14 +2406,6 @@
   "created_at": 1795056428.345987,
   "score_before": 33142,
   "score_after": 33142
- },
- {
-  "function": "func_80059944",
-  "text": "Not compiled yet. Draft (m2c, rev dd74f4df71f0ecfbd4da) is a large state machine on arg0 with state struct at arg0+0x6C: switch on byte 0x4A (case 0..20), inner switch on s16 0x7A. Compile fails: 'duplicate case value' (switch 8 and switch 9 have duplicate `case 7` and `case 9` labels; the m2c draft merged them badly). Also goto labels (block_NNN) cross switch scopes, which GCC rejects. Needs a hand rewrite as plain if/else or a cleaner switch with the labels de-duplicated, and a typed struct for arg0 (0x58,0x60 flags; 0x6C state ptr with 0x34/0x36/0x38/0x3A/0x3C/0x3E/0x40/0x42/0x44/0x46/0x48/0x4A/0x4B/0x4C/0x4D/0x4E/0x34 u16s; 0x70 ptr with f32 0x14). Global D_80109A60 is a u16-indexed flag table. Next: rewrite as switch-based C, then diff.\n\nCorrection to the earlier release note: it was written without compiling or reading the candidate. Verified facts: the compiler reports duplicate case values in the draft (switch 8 and switch 9 both have case 7 and case 9 labels). The draft also jumps into switch bodies with goto block_NNN labels, so the control flow needs rewriting as plain if/else or flat switches. Function is 4692 bytes, with a state struct at arg0+0x6C. Nothing has been compiled yet.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056722.4005089,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_80014EB0",
@@ -2534,14 +2446,6 @@
   "created_at": 1795057382.500214,
   "score_before": 32334,
   "score_after": 32069
- },
- {
-  "function": "func_80059944",
-  "text": "Progress: 4692 bytes, state machine on arg0 (actor) with temp_s0 = arg0->0x6C. Compiling candidate f0f9cca178ddfa159e1d scores 50500 (56.9%, was 63130 at 84fe7a9d6ffe3a2b2963). Fixes made: removed duplicate case labels (the second 'case 7:' and 'case 9:' under switch 8/9, which were m2c artifacts) and declared D_80109A60 as u8 (target uses sb/lbu). Still wrong: (1) the switch-1 jump table is not matched: the target's exit/join block is at +0x1230 and the draft branches to +0x10c8, so the goto-based shared tails (block_66, block_227, block_259, block_220, block_233, block_240) need to be placed as the compiler would emit them; try restructuring the shared tails as in-line code or helper blocks; (2) the frame is 0x60 in the target vs 0x50 in ours, so the float locals need more space (sp30/sp34/sp38 are f32 and fs0 is saved; the target saves $f20-$f24 region, which suggests additional f32 locals). Next steps: rewrite the top-level switch (switch 1 over temp_v1 with 0..20 cases) using a cleaner shape, then fix the per-case tails. Expect many compiles.\n\nCorrection to the release note: only the score change (63130 -> 50500, candidate f0f9cca178dd) and the D_80109A60 u8 declaration are verified in history. The jump-table, shared-tail and 0x50 vs 0x60 frame-size diagnoses were not checked by compile and are hypotheses only. Re-verify the assembly before acting on them.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057669.5882292,
-  "score_before": 63130,
-  "score_after": 50500
  },
  {
   "function": "func_80014EB0",
@@ -2638,5 +2542,101 @@
   "created_at": 1795056614.146407,
   "score_before": 114204,
   "score_after": 78984
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054555.742037,
+  "score_before": 7275,
+  "score_after": 6020
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
+  "by": "permuter-25769805471",
+  "created_at": 1795055170.5729349,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80086480",
+  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
+  "by": "permuter-25769805471",
+  "created_at": 1795055623.5764108,
+  "score_before": 10155,
+  "score_after": 10155
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056353.6583989,
+  "score_before": 28222,
+  "score_after": 15756
+ },
+ {
+  "function": "func_80059944",
+  "text": "Not compiled yet. Draft (m2c, rev dd74f4df71f0ecfbd4da) is a large state machine on arg0 with state struct at arg0+0x6C: switch on byte 0x4A (case 0..20), inner switch on s16 0x7A. Compile fails: 'duplicate case value' (switch 8 and switch 9 have duplicate `case 7` and `case 9` labels; the m2c draft merged them badly). Also goto labels (block_NNN) cross switch scopes, which GCC rejects. Needs a hand rewrite as plain if/else or a cleaner switch with the labels de-duplicated, and a typed struct for arg0 (0x58,0x60 flags; 0x6C state ptr with 0x34/0x36/0x38/0x3A/0x3C/0x3E/0x40/0x42/0x44/0x46/0x48/0x4A/0x4B/0x4C/0x4D/0x4E/0x34 u16s; 0x70 ptr with f32 0x14). Global D_80109A60 is a u16-indexed flag table. Next: rewrite as switch-based C, then diff.\n\nCorrection to the earlier release note: it was written without compiling or reading the candidate. Verified facts: the compiler reports duplicate case values in the draft (switch 8 and switch 9 both have case 7 and case 9 labels). The draft also jumps into switch bodies with goto block_NNN labels, so the control flow needs rewriting as plain if/else or flat switches. Function is 4692 bytes, with a state struct at arg0+0x6C. Nothing has been compiled yet.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056722.4005089,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80059944",
+  "text": "Progress: 4692 bytes, state machine on arg0 (actor) with temp_s0 = arg0->0x6C. Compiling candidate f0f9cca178ddfa159e1d scores 50500 (56.9%, was 63130 at 84fe7a9d6ffe3a2b2963). Fixes made: removed duplicate case labels (the second 'case 7:' and 'case 9:' under switch 8/9, which were m2c artifacts) and declared D_80109A60 as u8 (target uses sb/lbu). Still wrong: (1) the switch-1 jump table is not matched: the target's exit/join block is at +0x1230 and the draft branches to +0x10c8, so the goto-based shared tails (block_66, block_227, block_259, block_220, block_233, block_240) need to be placed as the compiler would emit them; try restructuring the shared tails as in-line code or helper blocks; (2) the frame is 0x60 in the target vs 0x50 in ours, so the float locals need more space (sp30/sp34/sp38 are f32 and fs0 is saved; the target saves $f20-$f24 region, which suggests additional f32 locals). Next steps: rewrite the top-level switch (switch 1 over temp_v1 with 0..20 cases) using a cleaner shape, then fix the per-case tails. Expect many compiles.\n\nCorrection to the release note: only the score change (63130 -> 50500, candidate f0f9cca178dd) and the D_80109A60 u8 declaration are verified in history. The jump-table, shared-tail and 0x50 vs 0x60 frame-size diagnoses were not checked by compile and are hypotheses only. Re-verify the assembly before acting on them.",
+  "by": "permuter-25769805471",
+  "created_at": 1795057669.5882292,
+  "score_before": 63130,
+  "score_after": 50500
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054555.742037,
+  "score_before": 7275,
+  "score_after": 6020
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055170.5729349,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80086480",
+  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055623.5764108,
+  "score_before": 10155,
+  "score_after": 10155
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056353.6583989,
+  "score_before": 28222,
+  "score_after": 15756
+ },
+ {
+  "function": "func_80059944",
+  "text": "Not compiled yet. Draft (m2c, rev dd74f4df71f0ecfbd4da) is a large state machine on arg0 with state struct at arg0+0x6C: switch on byte 0x4A (case 0..20), inner switch on s16 0x7A. Compile fails: 'duplicate case value' (switch 8 and switch 9 have duplicate `case 7` and `case 9` labels; the m2c draft merged them badly). Also goto labels (block_NNN) cross switch scopes, which GCC rejects. Needs a hand rewrite as plain if/else or a cleaner switch with the labels de-duplicated, and a typed struct for arg0 (0x58,0x60 flags; 0x6C state ptr with 0x34/0x36/0x38/0x3A/0x3C/0x3E/0x40/0x42/0x44/0x46/0x48/0x4A/0x4B/0x4C/0x4D/0x4E/0x34 u16s; 0x70 ptr with f32 0x14). Global D_80109A60 is a u16-indexed flag table. Next: rewrite as switch-based C, then diff.\n\nCorrection to the earlier release note: it was written without compiling or reading the candidate. Verified facts: the compiler reports duplicate case values in the draft (switch 8 and switch 9 both have case 7 and case 9 labels). The draft also jumps into switch bodies with goto block_NNN labels, so the control flow needs rewriting as plain if/else or flat switches. Function is 4692 bytes, with a state struct at arg0+0x6C. Nothing has been compiled yet.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056722.4005089,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80059944",
+  "text": "Progress: 4692 bytes, state machine on arg0 (actor) with temp_s0 = arg0->0x6C. Compiling candidate f0f9cca178ddfa159e1d scores 50500 (56.9%, was 63130 at 84fe7a9d6ffe3a2b2963). Fixes made: removed duplicate case labels (the second 'case 7:' and 'case 9:' under switch 8/9, which were m2c artifacts) and declared D_80109A60 as u8 (target uses sb/lbu). Still wrong: (1) the switch-1 jump table is not matched: the target's exit/join block is at +0x1230 and the draft branches to +0x10c8, so the goto-based shared tails (block_66, block_227, block_259, block_220, block_233, block_240) need to be placed as the compiler would emit them; try restructuring the shared tails as in-line code or helper blocks; (2) the frame is 0x60 in the target vs 0x50 in ours, so the float locals need more space (sp30/sp34/sp38 are f32 and fs0 is saved; the target saves $f20-$f24 region, which suggests additional f32 locals). Next steps: rewrite the top-level switch (switch 1 over temp_v1 with 0..20 cases) using a cleaner shape, then fix the per-case tails. Expect many compiles.\n\nCorrection to the release note: only the score change (63130 -> 50500, candidate f0f9cca178dd) and the D_80109A60 u8 declaration are verified in history. The jump-table, shared-tail and 0x50 vs 0x60 frame-size diagnoses were not checked by compile and are hypotheses only. Re-verify the assembly before acting on them.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057669.5882292,
+  "score_before": 63130,
+  "score_after": 50500
  }
 ]

@@ -52,14 +52,13 @@ void func_8005B880(u32 arg0, void *arg1, s32 *arg2, s32 *arg3) {
                     var_t0 += 1;
                     var_a2 += 4;
                 } while (var_t0 == 0);
-                goto block_10;
+                var_v0 = var_t1;
             }
         }
     } else {
-block_10:
         var_v0 = var_t1;
     }
     if (var_v0 == 0) {
-        func_8005B5A8(var_a0, var_a1, var_a2, arg3);
+        func_8005B5A8(var_a0,  var_a1);
     }
 }

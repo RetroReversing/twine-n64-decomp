@@ -3,24 +3,24 @@
 f32 func_80082908(void);                        /* extern */
 
 s32 func_800458C0(void *arg0, void *arg1, void *arg2, void *arg3) {
-    u32 ret;
+    long ret;
     register f32 __repair_temp_fv1_2_temp_ft1;
     f32 sp10[3];
     register f32 temp_fa1;
     f32 temp_fa1_2;
     f32 temp_fs0;
-    register f32 temp_fs1;
+    f32 temp_fs1;
     f32 temp_fv0_2;
     register f32 temp_ft0;
-    f32 temp_ft0_2;
+    register f32 temp_ft0_2;
     register f32 temp_ft1;
     f32 temp_ft1_2;
-    f32 temp_ft2;
+    register f32 temp_ft2;
     register f32 temp_ft3;
-    register f32 temp_fv0;
+    f32 temp_fv0;
     f32 temp_fs2;
     f32 temp_fv0_3;
-    register f32 temp_fv0_4;
+    f32 temp_fv0_4;
     f32 temp_fv0_5;
     f32 temp_fv1;
     f32 temp_fv1_2;
@@ -30,18 +30,18 @@ s32 func_800458C0(void *arg0, void *arg1, void *arg2, void *arg3) {
     temp_fv0 = (*(f32 *)((char *)(arg2) + 4));
     temp_fs1 = (*(f32 *)((char *)(arg1) + 4));
     temp_fv1 = (*(f32 *)((char *)(arg2) + 8));
-    temp_fa1 = temp_fv0 - temp_fs1;
     temp_ft2 = (*(f32 *)((char *)(arg3) + 8)) - temp_fv1;
-    temp_fs2 = (*(f32 *)((char *)(arg1) + 8));
+    temp_fa1 = temp_fv0 - temp_fs1;
     temp_fv0_2 = (*(f32 *)((char *)(arg2) + 0));
-    temp_fv1_2 = temp_fv1 - temp_fs2;
+    temp_fs2 = (*(f32 *)((char *)(arg1) + 8));
     temp_ft1 = (*(f32 *)((char *)(arg3) + 4)) - temp_fv0;
+    temp_fv1_2 = temp_fv1 - temp_fs2;
     temp_ft0 = (*(f32 *)((char *)(arg3) + 0)) - temp_fv0_2;
     temp_fs0 = (*(f32 *)((char *)(arg1) + 0));
     temp_fv0_3 = temp_fv0_2 - temp_fs0;
     __repair_temp_fv1_2_temp_ft1 = temp_fv1_2 * temp_ft1;
     temp_fa1_2 = (temp_fv0 - temp_fs1) * temp_ft0;
-    temp_ft3 = ((temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1;
+    temp_ft3 = (((s32)temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1;
     temp_fv1_3 = (temp_fv1_2 * temp_ft0) - (temp_fv0_3 * temp_ft2);
     temp_fv0_4 = (temp_fv0_3 * temp_ft1) - temp_fa1_2;
     sp10[0] = (((temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1);

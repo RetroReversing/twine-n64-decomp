@@ -302,7 +302,7 @@ block_127:
             var_v0 = func_80118074() << 0x18;
             goto block_127;
         }
-        var_v0 = func_80118014(temp_a1_4) << 0x18;
+        var_v0 = func_80118014() << 0x18;
         goto block_127;
     case 16:                                        /* switch 1 */
         temp_a1_5 = arg1 & 0xFF;
@@ -311,7 +311,7 @@ block_127:
             var_v0 = func_80117740(temp_a1_5) << 0x18;
             goto block_127;
         case 3:                                     /* switch 8 */
-            var_v0 = func_801178D4(temp_a1_5) << 0x18;
+            var_v0 = func_801178D4() << 0x18;
             goto block_127;
         default:                                    /* switch 8 */
             return 0;
@@ -329,10 +329,10 @@ block_127:
             }
             switch (temp_a1_6) {                    /* switch 9; irregular */
             case 4:                                 /* switch 9 */
-                var_v0 = func_8011851C(temp_a1_6) << 0x18;
+                var_v0 = func_8011851C() << 0x18;
                 goto block_127;
             case 5:                                 /* switch 9 */
-                var_v0 = func_8011858C(temp_a1_6) << 0x18;
+                var_v0 = func_8011858C() << 0x18;
                 goto block_127;
             default:                                /* switch 9 */
                 return 0;

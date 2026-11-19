@@ -42,7 +42,8 @@ extern char D_800C3CF8[];
 extern s32 *D_800CA31C;
 typedef struct { s32 f0; u8 pad[20]; } Slot_8010019C;
 extern Slot_8010019C D_8010019C[];
-extern char D_801001A0[];
+typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
+extern Slot_801001A0 D_801001A0[];
 extern char D_801001A2[];
 extern char D_801001A3[];
 extern u8 D_801002AD;
@@ -66,17 +67,18 @@ extern s32 func_80022C04;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_8001ADE8(void) {
-    s32 sp34;
     s32 *temp_s0_3;
+    long sp34;
     
-    s32 *temp_s0_2;
+    union { s32 * pointer; s32 value; } __repair_phase_storage;
     unsigned int temp_a0;
     s32 temp_a0_2;
+
     
     s32 temp_v0;
-    s32 temp_v0_4;
-    s32 temp_v1;
-    s32 var_a0;
+    register s32 temp_v0_4;
+    register s32 temp_v1;
+    unsigned long var_a0;
 s32 __repair_phase_var_a0;
     s32 var_s0;
     s32 var_s2;
@@ -84,10 +86,10 @@ s32 __repair_phase_var_a0;
     
     u16 temp_v0_2;
     u16 temp_v1_4;
-    u32 temp_s0;
+    register u32 temp_s0;
     u8 *temp_s0_4;
     u8 temp_v1_2;
-    u8 var_a0_3;
+    
     void *temp_a0_3;
     void *temp_a1;
     void *temp_fp;
@@ -96,7 +98,7 @@ s32 __repair_phase_var_a0;
     void *temp_s6;
     void *temp_s7;
     void *temp_v0_3;
-    void *temp_v0_5;
+    register void *temp_v0_5;
     void *temp_v1_3;
     void *var_a2;
 
@@ -116,7 +118,7 @@ s32 __repair_phase_var_a0;
                 temp_a0_2 = func_80022DBC(var_s0);
                 temp_v0 = func_800162BC(D_800BD68E);
                 *((var_s0 * 4) + D_80102F48) = temp_v0;
-                if (temp_v0 != 0) {
+                if (temp_v0) {
                     temp_s1 = func_80087100((var_s2 + 0x4008) & 0xFFFF);
                     temp_s0 = temp_a0_2 & 0xFFFF;
                     if (temp_s0 < 4U) {
@@ -128,10 +130,10 @@ s32 __repair_phase_var_a0;
                     }
                     func_800160FC(*(((var_s2 & 0xFFFF) * 4) + D_80102F48), temp_s1, 0x40);
                 }
-                temp_s0_2 = ((var_s2 & 0xFFFF) * 4) + D_80102F48;
-                temp_a0 = *temp_s0_2;
+                __repair_phase_storage.pointer = ((var_s2 & 0xFFFF) * 4) + D_80102F48;
+                temp_a0 = *__repair_phase_storage.pointer;
                 ++var_s2;
-                func_8002A7CC(D_8010A488, *temp_s0_2, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);
+                func_8002A7CC(D_8010A488, *__repair_phase_storage.pointer, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);
                 var_s0 = var_s2 & 0xFFFF;
             } while ((var_s2 & 0xFFFF) < D_801002B4);
         }
@@ -148,8 +150,8 @@ s32 __repair_phase_var_a0;
         func_80026004(temp_s7, temp_s0_3, (D_801002AD * 0x18) + temp_s0_4);
         (*(void **)((char *)(temp_s7) + -0x18)) = (void *) ((D_801002AD * 0x18) + temp_s0_4);
         temp_v1 = D_801002AD * 0x18;
-        D_80104311 = *(u16 *)(D_801001A0 + temp_v1) / 10;
-        func_80026004(temp_s6, "%d", (void *) *(D_801001A0 + temp_v1));
+        D_80104311 = D_801001A0[D_801002AD].f0 / 10;
+        func_80026004(temp_s6, "%d", (void *) D_801001A0[D_801002AD].f0);
         (*(void **)((char *)(temp_s5) + -0x18)) = (void *) ((D_801002AD * 0x18) + (&D_801002AD - 0x10B));
         temp_v1_2 = *(u16 *)(D_801001A2 + (D_801002AD * 0x18));
         switch (temp_v1_2) {
@@ -181,9 +183,9 @@ s32 __repair_phase_var_a0;
         if ((*(u8 *)((char *)(D_80109BB0) + 8)) != 1) {
             temp_v1_3 = (*(void **)((char *)(D_80109BB0) + 0x18));
             temp_v0_2 = (*(u16 *)((char *)(temp_v1_3) + 0xC));
-            temp_a0_2 = temp_v0_2 & 0xF;
-            if (temp_a0_2 != 0) {
-                var_v0 = *(s32 *)(D_800BD640 + (temp_a0_2 * 4));
+            __repair_phase_storage.value = temp_v0_2 & 0xF;
+            if (__repair_phase_storage.value != 0) {
+                var_v0 = *(s32 *)(D_800BD640 + (__repair_phase_storage.value * 4));
                 (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30)));
             } else {
                 if (temp_v0_2 & 0x80) {
@@ -195,18 +197,18 @@ s32 __repair_phase_var_a0;
             }
             (*(u8 *)((char *)(D_80109BB0) + 8)) = 1U;
             (*(void **)((char *)(D_80109BB0) + 0x18)) = (void *) (temp_s7 - 0x28);
-            temp_v0_3 = (*(void **)((char *)(D_80109BB0) + 0x18));
             temp_a1 = (*(void **)((char *)(temp_v0_3) + 8));
+            temp_v0_3 = (*(void **)((char *)(D_80109BB0) + 0x18));
             if (temp_a1 != NULL) {
                 temp_v0_4 = (*(u16 *)((char *)(temp_v0_3) + 0xC)) & 0xF;
-                if (temp_v0_4 != 0) {
+                if (temp_v0_4) {
                     temp_a0_2 = *(s32 *)(D_800BD640 + (temp_v0_4 * 4));
-                    var_a0_3 = (*(u8 *)((char *)(D_80109BB0) + 0x30));
+                    __repair_phase_storage.value = (*(u8 *)((char *)(D_80109BB0) + 0x30));
                 } else {
                     temp_a0_2 = D_80102EC0;
-                    var_a0_3 = (*(u8 *)((char *)(temp_a1) + 0x13));
+                    __repair_phase_storage.value = (*(u8 *)((char *)(temp_a1) + 0x13));
                 }
-                ((__repair_field_10 *)temp_a1)->value = (s32) ((temp_a0_2 & ~0xFF) | var_a0_3);
+                ((__repair_field_10 *)temp_a1)->value = (s32) ((temp_a0_2 & ~0xFF) | __repair_phase_storage.value);
             }
             func_80027A7C((*(s32 *)((char *)(D_80109BB0) + 0x1C)), (*(void **)((char *)(D_80109BB0) + 0x18)), 0);
         }
@@ -247,8 +249,8 @@ s32 __repair_phase_var_a0;
             (*(f32 *)((char *)(D_800B5B14) + 0x24)) = 1.25f;
             (*(u8 *)((char *)(D_800B5B14) + 0x81)) = 0xFF;
             (*(f32 *)((char *)(D_800B5B14) + 0x28)) = 0.15f;
-            (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
             func_8003E6EC(*D_800CA31C, D_800B5B14, 1);
+            (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
             func_8002B8AC();
             temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(D_8010019C[D_801002AD].f0) * 0xC));
             D_800BD682 = -1;

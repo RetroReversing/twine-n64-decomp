@@ -36,7 +36,7 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
     s32 sp38;
     Node *s0;
     Node *s7;
-    Node *a0n;
+    union { Node * pointer; u32 value; } __repair_phase_storage;
     s32 *p;
     
     u32 a0;
@@ -44,12 +44,12 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
     u32 a2;
     s32 s1;
     s32 s3;
-    u16 s2;
+    s32 s2;
     u32 s4;
     s32 t0;
     s32 v0;
     u32 s1_2;
-    u32 temp_v1_6;
+    
 
     s2 = arg2;
     s4 = arg1;
@@ -104,7 +104,8 @@ Ent *e;
                     continue;
                 }
                 if (a1 + s0->len < s4 + s2) {
-                    p = &sp10[(u16)s3];
+                    s1_2 = (u16)s3;
+    p = &sp10[s1_2];
                     p[0] = s0->data + (s4 - a1);
                     p[4] = s4;
                     p[2] = s0->addr + s0->len - s4;
@@ -116,8 +117,8 @@ Ent *e;
                 }
                 p = &sp10[(u16)s3];
                 p[2] = s2;
-                s2 = 0;/*__repair_loop_weight*/do {
-                s3++;} while (0);
+                s2 = 0;
+                s3++;
                 p[4] = s4;
                 p[0] = s0->data + (s4 - a1);
             }
@@ -127,25 +128,25 @@ Ent *e;
     if (s2 != 0) {
         s1_2 = (s4 - arg3) % 1536;
         do {
-            a0n = D_800E4264;
+            __repair_phase_storage.pointer = D_800E4264;
             if (D_800E4264 != NULL) {
-                D_800E4264 = a0n->prev;
+                D_800E4264 = __repair_phase_storage.pointer->prev;
                 if (D_800E4264 != NULL) {
                     D_800E4264->next = NULL;
                 }
                 if (D_800E4260 != NULL) {
-                    a0n->prev = NULL;
-                    a0n->next = D_800E4260;
-                    D_800E4260->prev = a0n;
+                    __repair_phase_storage.pointer->prev = NULL;
+                    __repair_phase_storage.pointer->next = D_800E4260;
+                    D_800E4260->prev = __repair_phase_storage.pointer;
                 } else {
-                    a0n->prev = D_800E425C;
+                    __repair_phase_storage.pointer->prev = D_800E425C;
                     if (D_800E425C != NULL) {
-                        D_800E425C->next = a0n;
+                        D_800E425C->next = __repair_phase_storage.pointer;
                     }
-                    D_800E425C = a0n;
+                    D_800E425C = __repair_phase_storage.pointer;
                 }
-                D_800E4260 = a0n;
-                s0 = a0n;
+                D_800E4260 = __repair_phase_storage.pointer;
+                s0 = __repair_phase_storage.pointer;
             } else {
                 D_800E425C->prev->next = NULL;
                 s0 = D_800E425C;
@@ -154,17 +155,17 @@ Ent *e;
                 s0->next = NULL;
                 D_800E425C = D_800E425C->prev;
             }
-            temp_v1_6 = s2 + s1_2;
+            __repair_phase_storage.value = s2 + s1_2;
             s0->addr = s4 - s1_2;
             s0->tag = arg3;
-            if (temp_v1_6 >= 0x601U) {
+            if (__repair_phase_storage.value >= 0x601U) {
 Ent *e;
 
                 s0->len = 0x600;
                 D_80109BF8 += 0xC;
                 v0 = func_800CEEE0(D_80109BA0, D_80109BF8, arg2);
-                temp_v1_6 = (u16)s3;
-    p = &sp10[temp_v1_6];
+                __repair_phase_storage.value = (u16)s3;
+    p = &sp10[__repair_phase_storage.value];
                 s3++;
                 D_80109BA0 = v0;
                 e = &D_80103EB4[D_80108F70];
@@ -180,7 +181,7 @@ Ent *e;
             } else {
 Ent *e;
 
-                s0->len = (temp_v1_6 + 0xFF) & ~0xFF;
+                s0->len = (__repair_phase_storage.value + 0xFF) & ~0xFF;
                 D_80109BF8 += 0xC;
                 v0 = func_800CEEE0(D_80109BA0, D_80109BF8, arg2);
                 e = &D_80103EB4[D_80108F70];

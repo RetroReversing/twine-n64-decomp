@@ -26,6 +26,7 @@ extern M2C_UNK D_800C9D18;
 extern M2C_UNK D_800C9D24;
 
 void func_8007B030(void *arg0) {
+    M2C_UNK *__base_D_800C9C00;
     void *var_a1;
     s32 var_a2;
     f32 var_fv1;
@@ -82,8 +83,18 @@ blkX:
     func_8007AFB0(arg0);return;}
     }
     switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
+    case 2:
+        if (var_s2 != 0) {
+            var_a1 = &D_800C9C9C;
+            var_a2 = 2;
+        } else {
+            var_a1 = &D_800C9CA4;
+            var_a2 = 5;
+        }
+        goto block_47;
+    __base_D_800C9C00 = &D_800C9C00;
     case 1:
-        var_a1 = &D_800C9C00;
+        var_a1 = __base_D_800C9C00;
         var_a2 = 6;
         goto block_47;
     case 3:
@@ -113,15 +124,6 @@ blkX:
         } else {
             var_a1 = &D_800C9C94;
             var_a2 = 2;
-        }
-        goto block_47;
-    case 2:
-        if (var_s2 != 0) {
-            var_a1 = &D_800C9C9C;
-            var_a2 = 2;
-        } else {
-            var_a1 = &D_800C9CA4;
-            var_a2 = 5;
         }
         goto block_47;
     }

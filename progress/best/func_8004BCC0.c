@@ -31,15 +31,15 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
     f32 spE0[3];
     f32 spF0;
     void *spFC;
-    s32 *sp104;
     f32 *sp10C;
     f32 *sp114;
     f32 *sp11C;
     f32 *sp124;
+    s32 *sp104;
     register f32 *sp12C;
     s16 *sp134;
     
-    f32 *sp144;
+    
     f32 temp_fs2;
     f32 var_fs0;
     s32 temp_s0;
@@ -80,7 +80,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
     void *temp_a0;
     void *temp_a0_2;
     void *temp_a0_3;
-    void *temp_a0_4;
+    
     void *temp_s1;
     void *temp_s2;
     void *var_s1;
@@ -136,7 +136,8 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                                 if (temp_s3 < (u16) (*(u16 *)((char *)(temp_s2) + 0x40))) {
                                     var_s3 = var_s4 + 4;
                                     do {
-                                        temp_v1_2 = *(u16 *)(((var_s0 & 0xFFFF) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
+                                        temp_v1 = var_s0 & 0xFFFF;
+    temp_v1_2 = *(u16 *)(((temp_v1) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
                                         if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2)) {
                                             temp_v1_3 = (*(s32 *)((char *)(temp_s2) + 0x34));
                                             if ((func_80048CC0(sp38, sp90, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (spA0 >= __repair_float_constant) && (spA0 < var_fs0)) {
@@ -180,7 +181,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
         if (var_s5 != NULL) {
             sp134 = sp88;
             sp10C = spD0;
-            sp144 = spE0;
+            sp114 = spE0;
             do {
                 if (((*(s32 *)((char *)(var_s5) + 0x50)) & 0x200) && ((func_8004886C((s8 *) var_s5 + 0x40) << 0x18) != 0)) {
                     temp_s1 = (*(void **)((char *)(var_s5) + 0x3C));
@@ -211,7 +212,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                         temp_v0_2 = func_8004E418(temp_s0_2, (f32 *) sp134, sp10C);
                         temp_s4 = temp_v0_2 & 0xFF;
                         temp_s3_2 = temp_v0_2 & 0xFF00;
-                        if (!(((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) || (func_80083B64(spA8, (s16 *) sp144), ((((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) == 0))) {
+                        if (!(((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) || (func_80083B64(spA8, (s16 *) sp114), ((((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) == 0))) {
                             if ((*(u8 *)((char *)(temp_s1) + 0x48)) & 4) {
                                 var_s0_3 = 0;
                                 if ((*(u16 *)((char *)(temp_s1) + 0x40)) != 0) {
@@ -276,10 +277,10 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                                 var_s2_4 = 0;
                                 do {
                                     temp_v1_12 = *(u16 *)(((u32)var_s0_6 * 2) + (*(s32 *)((char *)(temp_s1) + 0x38)));
-                                    temp_a0_4 = (*(s32 *)((char *)(temp_s1) + 0x3C)) + var_s2_4;
+                                    temp_a0 = (*(s32 *)((char *)(temp_s1) + 0x3C)) + var_s2_4;
                                     if ((temp_s4 & temp_v1_12) && (temp_s3_2 & temp_v1_12)) {
                                         temp_v1_13 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                        if ((func_8004D910(sp88, spE0, temp_v1_13 + ((*(u8 *)((char *)(temp_a0_4) + 0)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0_4) + 1)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0_4) + 2)) * 0xC), &spF0) & 0xFF) && (spF0 >= __repair_float_constant) && (spF0 < var_fs0)) {
+                                        if ((func_8004D910(sp88, spE0, temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 1)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 2)) * 0xC), &spF0) & 0xFF) && (spF0 >= __repair_float_constant) && (spF0 < var_fs0)) {
                                             var_fs0 = spF0;
                                             D_80108788 = NULL;
                                             D_80108F84 = var_s5;

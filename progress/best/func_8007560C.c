@@ -49,10 +49,10 @@ short __repair_constant = 0x100;
     s32 temp_v1;
     s32 var_s0;
     s32 var_v1;
-    void **var_s1;
     void *temp_s4;
+    void **var_s1;
     void *temp_v1_2;
-    void *var_a0_2;
+    
     unsigned char *__base_D_8010A4C3;
 
     __base_D_8010A4C3 = &D_8010A4C3;
@@ -169,7 +169,7 @@ short __repair_constant = 0x100;
         temp_fs3_2 = temp_fs2_3 + 160.0f;
         func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
         func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-        var_a0_2 = (*(void **)((char *)(D_80109688) + 0xC));
+        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
         var_a1 = temp_fs3_2;
         var_a2 = 120.0f + temp_fs1;
         var_a3 = 160.0f;
@@ -194,7 +194,7 @@ short __repair_constant = 0x100;
         func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs0_5 = 120.0f + temp_fs0_4;
         func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_2, temp_fs0_5, 160.0f, 120.0f, 1.0f, 1.0f);
-        var_a0_2 = (*(void **)((char *)(D_80109688) + 0xC));
+        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
         var_a1 = temp_fs3;
         var_a2 = temp_fs0_5;
         var_a3 = 160.0f;
@@ -209,7 +209,7 @@ short __repair_constant = 0x100;
         if (D_8010A4FD == 1) {
             temp_fs0_2 = 160.0f * 0.5f;
             func_8004844C(((__repair_field_0 *)D_80109688)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
-            var_a0_2 = (*(void **)((char *)(D_80109688) + 4));
+            temp_s4 = (*(void **)((char *)(D_80109688) + 4));
             var_a2 = 120.0f;
             var_a1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;
@@ -217,13 +217,13 @@ short __repair_constant = 0x100;
             temp_fs0_3 = 120.0f * 0.5f;
             temp_fs2 = 160.0f + 160.0f;
             func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, temp_fs0_3, temp_fs2, 120.0f, 1.0f, 1.0f);
-            var_a0_2 = (*(void **)((char *)(D_80109688) + 4));
+            temp_s4 = (*(void **)((char *)(D_80109688) + 4));
             var_a1 = 160.0f;
             var_a3 = temp_fs2;
             var_a2 = 120.0f + temp_fs0_3;
         }
 block_74:
-        func_8004844C(var_a0_2, var_a1, var_a2, var_a3);
+        func_8004844C(temp_s4, var_a1, var_a2, var_a3);
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);
