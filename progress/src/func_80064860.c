@@ -5,24 +5,22 @@ extern u8 D_800C471C[];
 
 s32 func_80064860(void *arg0, u8 arg1, s32 arg2) {
     s32 temp_s0;
-    unsigned int var_v0;
-    s8 temp_v0;
-    s8 temp_v1;
+    register s8 temp_v0;
+    register s8 temp_v1;
     void *temp_a1;
 
     temp_v1 = (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE));
     temp_s0 = (*(s32 *)((char *)(arg0) + 0x6C));
-    if (*(D_800C471C + (temp_v1 * (u32)0xE8)) != 0) {
-        register temp_a1 = temp_s0 + ((s32) (func_80063C7C(temp_v1) << 0x10) >> 0xD);
+    if (*(D_800C471C + (temp_v1 * 0xE8)) == 0) {
+block_3:
+    } else {
+        temp_a1 = temp_s0 + ((s32) (func_80063C7C(temp_v1) << 0x10) >> 0xD);
         temp_v0 = (*(s8 *)((char *)(temp_a1) + 0x1FF));
-        var_v0 = 0;
-        if (temp_v0 >= ((short)arg1 & 0xFF)) {
-            (*(s8 *)((char *)(temp_a1) + 0x1FF)) = (s8) (temp_v0 - arg2);
+        if (temp_v0 >= (arg1 & 0xFF)) {
+            (*(s8 *)((char *)(temp_a1) + 0x1FF)) = (s8) (temp_v0 - (int)arg2);
             goto block_3;
         }
-    } else {
-block_3:
-        var_v0 = 1;
+        return 0;
     }
-    return var_v0;
+    return 1;
 }
