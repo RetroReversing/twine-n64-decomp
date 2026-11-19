@@ -16,20 +16,17 @@ f32 func_80045E34(void *, void *);                  /* extern */
 
 void func_8008168C(void *arg0) {
     void **temp_a0;
-    void *var_a0;
     void *var_s0;
 
     temp_a0 = M2C_FIELD(arg0, void ***, 0x20);
     if (temp_a0 != NULL) {
         var_s0 = *temp_a0;
         if (var_s0 != NULL) {
-            var_a0 = var_s0 + 0x24;
             do {
-                if ((func_80045E34(var_a0, arg0 + 0x24) < 2.5f) && (M2C_FIELD(var_s0, u16 *, 0x78) == 0x3C)) {
+                if ((func_80045E34(var_s0 + 0x24, arg0 + 0x24) < 2.5f) && (M2C_FIELD(var_s0, u16 *, 0x78) == 0x3C)) {
                     M2C_FIELD(var_s0, s32 *, 0x60) = (s32) (M2C_FIELD(var_s0, s32 *, 0x60) | 0x400000);
                 }
                 var_s0 = M2C_FIELD(var_s0, void **, 0);
-                var_a0 = var_s0 + 0x24;
             } while (var_s0 != NULL);
         }
     }
