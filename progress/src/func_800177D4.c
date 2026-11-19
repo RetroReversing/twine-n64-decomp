@@ -17,16 +17,14 @@ f32 func_80045E34(M2C_UNK, void *);                 /* extern */
 void func_800177D4(void **arg0, s32 arg1, M2C_UNK arg2, f32 arg3) {
     s32 temp_v0_2;
     u8 temp_v0;
-    void **var_s1;
     void *temp_a0;
     void *var_s0;
     void *var_s2;
 
-    var_s1 = arg0;
-    if (var_s1 != NULL) {
-        var_s2 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x20), void **, 0x58);
+    if (arg0 != NULL) {
+        var_s2 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0x58);
         do {
-            var_s0 = *var_s1;
+            var_s0 = *arg0;
             if (var_s0 != NULL) {
                 do {
                     if (M2C_FIELD(var_s0, u16 *, 0x78) == 0xB) {
@@ -44,7 +42,7 @@ void func_800177D4(void **arg0, s32 arg1, M2C_UNK arg2, f32 arg3) {
                             if ((M2C_FIELD(temp_a0, u16 *, 0x34) == 0) && (M2C_FIELD(var_s0, s16 *, 0x7A) != 4) && ((arg3 == 0.0f) || (func_80045E34(arg2, var_s0 + 0x24) < arg3))) {
                                 temp_v0_2 = M2C_FIELD(var_s0, s32 *, 0x60) | arg1;
                                 M2C_FIELD(var_s0, s32 *, 0x60) = temp_v0_2;
-                                if (var_s1 == M2C_FIELD(var_s0, s32 *, 0x20)) {
+                                if (arg0 == M2C_FIELD(var_s0, s32 *, 0x20)) {
                                     M2C_FIELD(var_s0, s32 *, 0x60) = (s32) (temp_v0_2 | 8);
                                 }
                             }
@@ -54,11 +52,11 @@ void func_800177D4(void **arg0, s32 arg1, M2C_UNK arg2, f32 arg3) {
                     var_s0 = M2C_FIELD(var_s0, void **, 0);
                 } while (var_s0 != NULL);
             }
-            var_s1 = NULL;
+            arg0 = NULL;
             if (var_s2 != NULL) {
-                var_s1 = M2C_FIELD(var_s2, void ***, 8);
+                arg0 = M2C_FIELD(var_s2, void ***, 8);
                 var_s2 = M2C_FIELD(var_s2, void **, 0);
             }
-        } while (var_s1 != NULL);
+        } while (arg0 != NULL);
     }
 }
