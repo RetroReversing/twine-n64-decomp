@@ -16,32 +16,33 @@ void func_80017E14(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 temp_a1;
     s16 temp_a1_2;
     s16 temp_a2;
+    s16 __repair_temp_a2_2;
     s16 temp_a2_2;
-    s16 temp_a3;
+    
     s16 temp_a3_2;
     s16 var_t0;
-    s16 var_t1;
-    s16 var_v1;
+    
+    
 
     temp_a1 = M2C_FIELD(arg0, u8 *, 0x7F) + arg1;
     temp_a1_2 = temp_a1 & ((s32) ~temp_a1 >> 0x1F);
-    var_v1 = temp_a1_2;
+    temp_a1 = temp_a1_2;
     temp_a2 = M2C_FIELD(arg0, u8 *, 0x80) + arg2;
     temp_a2_2 = temp_a2 & ((s32) ~temp_a2 >> 0x1F);
-    var_t0 = temp_a2_2;
-    temp_a3 = M2C_FIELD(arg0, u8 *, 0x81) + arg3;
-    temp_a3_2 = temp_a3 & ((s32) ~temp_a3 >> 0x1F);
-    var_t1 = temp_a3_2;
+    var_t0 = (temp_a2 & ((s32) ~temp_a2 >> 0x1F));
+    temp_a2 = M2C_FIELD(arg0, u8 *, 0x81) + arg3;
+    temp_a3_2 = temp_a2 & ((s32) ~temp_a2 >> 0x1F);
+    __repair_temp_a2_2 = temp_a3_2;
     if (temp_a1_2 >= 0x100) {
-        var_v1 = 0xFF;
+        temp_a1 = 0xFF;
     }
     if (temp_a2_2 >= 0x100) {
         var_t0 = 0xFF;
     }
     if (temp_a3_2 >= 0x100) {
-        var_t1 = 0xFF;
+        __repair_temp_a2_2 = 0xFF;
     }
-    M2C_FIELD(arg0, u8 *, 0x7F) = (u8) var_v1;
+    M2C_FIELD(arg0, u8 *, 0x7F) = (u8) temp_a1;
     M2C_FIELD(arg0, u8 *, 0x80) = (u8) var_t0;
-    M2C_FIELD(arg0, u8 *, 0x81) = (u8) var_t1;
+    M2C_FIELD(arg0, u8 *, 0x81) = (u8) __repair_temp_a2_2;
 }

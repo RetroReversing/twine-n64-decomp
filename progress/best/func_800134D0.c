@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
 
 extern s32 D_800B269F;
@@ -137,7 +138,7 @@ void func_800134D0(void *arg0) {
     var_t4 = 0x1F;
 loop_1:
     var_a2 = var_t2 & 1;
-    if (var_t4 < 0) {
+    if (__repair_inline(var_t4, 0)) {
         temp_t2 = var_s4;
         var_s4 = *var_s1;
         var_s1 += 4;
@@ -337,8 +338,7 @@ loop_51:
             do {
                 var_a3_6 = 1;
                 if (*var_t6_2 != 0) {
-                    temp_t5 = 1 << var_t1_5;
-                    temp_v0_2 = var_t3_4 * 4;
+                    temp_t5 = 1 << var_t1_5;{ s32 __repair_value; __repair_value = var_t3_4 * 4; temp_v0_2 = __repair_value; }
                     var_a1_3 = temp_v0_2 + &D_800B3134;
                     var_a0_4 = temp_v0_2 + &D_800B2CB8;
                     do {

@@ -17,17 +17,17 @@ extern M2C_UNK D_800E098E;
 extern u8 D_800E0996[];
 extern M2C_UNK D_800E099E;
 extern M2C_UNK D_800E09A6;
-extern M2C_UNK D_80109DC8;
+extern u8 D_80109DC8[];
 
 void func_8001074C(s32 arg0, s16 arg1, s16 arg2) {
     s32 temp_a0_2;
     u32 temp_a0;
 
-    temp_a0 = arg0 & 0xFFFF;
-    temp_a0_2 = temp_a0 * 2;
-    if ((temp_a0 < 4U) && (*(&D_80109DC8 + (temp_a0 * 2)) != 0) && (*(&D_800E09A6 + temp_a0_2) == 0)) {
+    temp_a0 = arg0 & 0xFFFF;do{
+    temp_a0_2 = temp_a0 * 2;}while(0);
+    if ((temp_a0 < 4U) && (*(u16 *)(D_80109DC8 + (temp_a0 * 2)) != 0) && (*(&D_800E09A6 + temp_a0_2) == 0)) {
         *(s16 *)(D_800E0996 + temp_a0_2) = arg2;
-        *(D_800E097E + temp_a0_2) = arg1;
+        *(u16 *)(D_800E097E + temp_a0_2) = arg1;
         *(&D_800E098E + temp_a0_2) = 0;
         *(&D_800E099E + temp_a0_2) = 0;
     }

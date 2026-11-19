@@ -19,7 +19,7 @@ int __repair_constant = 0x26;
     
     void *temp_s4;
     
-    void *temp_v1_3;
+    
     void *temp_v1_4;
 
     temp_s4 = (*(void **)((char *)(arg0) + 0x6C));
@@ -46,9 +46,9 @@ int __repair_constant = 0x26;
         }
         if (!(*(u16 *)(D_800C469C + (temp_v1_2 * 0xE8)) & 0x8000)) {
             do {
-                temp_v1_3 = (*(void **)((char *)(arg0) + 0x68));
+                { void *temp_v1_3; temp_v1_3 = (*(void **)((char *)(arg0) + 0x68));
                 temp_v0_2 = (u8) (*(s8 *)((char *)(temp_v1_3) + 0xF)) - 1;
-                (*(s8 *)((char *)(temp_v1_3) + 0xF)) = temp_v0_2;
+                (*(s8 *)((char *)(temp_v1_3) + 0xF)) = temp_v0_2; }
                 if (temp_v0_2 & 0x80) {
                     (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xF)) = __repair_constant;
                 }
@@ -74,7 +74,7 @@ block_23:
             goto loop_13;
         }
         temp_a1_2 = (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xF));
-        if ((temp_a1_2) && ((func_80063D38(temp_s4, temp_a1_2, temp_a2) << 0x18) == 0)) {
+        if ((temp_a1_2) && ((func_80063D38(temp_s4, temp_a1_2) << 0x18) == 0)) {
             if ((*(u8 *)((char *)(temp_a0) + 0x1FE)) != 0) {
                 if ((func_80063D38(temp_s4, temp_a1) << 0x18) != 0) {
                     (*(u8 *)((char *)(temp_a0) + 0x1FE)) = 0U;

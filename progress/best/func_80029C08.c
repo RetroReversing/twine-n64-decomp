@@ -99,7 +99,7 @@ block_9:
             temp_a1 = (*(void **)((char *)(var_s3) + 8));
             ((__repair_field_10 *)temp_a1)->value = (s32) (((int)D_800BD644 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
-                func_8002AAF4(arg0, temp_a1);
+                do { func_8002AAF4(arg0, temp_a1); } while (0);
             } else {
                 func_8002AB34(arg0, temp_a1);
             }
@@ -165,8 +165,7 @@ block_9:
                     (*(u8 *)((char *)(temp_a0) + 0x29)) = (u8) temp_v1_3;
                 }
                 temp_v0_2 = (*(s32 *)((char *)(var_v0) + 0x14));
-                var_ft0_2 = (f64) temp_v0_2;
-                if (temp_v0_2 < 0) {
+                var_ft0_2 = (f64) temp_v0_2; if (temp_v0_2 < 0) {
                     var_ft0_2 += D_800D2CD8;
                 }
                 temp_fv1_2 = (*(f32 *)((char *)(arg0) + 0x10)) * (f32) var_ft0_2;

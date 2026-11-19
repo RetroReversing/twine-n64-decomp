@@ -14,14 +14,14 @@ extern char D_800BFED8[];
 extern s32 D_80102ED8;
 
 void *func_8003030C(s16 arg0) {
-    void *temp_s0_2;
+    s32 var_s1_2;
     unsigned temp_v0_3;
     s32 var_s0;
-    register s32 temp_v0_2;
-    s32 var_s1_2;
-    s32 var_s1;
-    void *temp_s0;
     s32 var_s0_2;
+    s32 var_s1;
+    void *temp_s0_2;
+    void *temp_s0;
+    register s32 temp_v0_2;
     void *temp_s2;
     void *temp_v0;
 
@@ -44,8 +44,8 @@ void *func_8003030C(s16 arg0) {
         (*(s32 *)((char *)(temp_s0) + 0x10)) = 0;
         *(u16 *)(D_800BFE48 + temp_v0_2) = arg0;
         (*(s32 *)((char *)(temp_s0) + 0x10)) = func_80015F74(temp_v0_2 + D_800BFE28);
-        ++var_s1;
         var_s0 = var_s1 & 0xFFFF;
+        ++var_s1;
     } while ((u32) (var_s1 & 0xFFFF) < 4U);
     var_s1_2 = 0;
     var_s0_2 = 0 & 0xFFFF;
@@ -54,8 +54,8 @@ void *func_8003030C(s16 arg0) {
         temp_s0_2 = (char *)((var_s0_2 * 4)); temp_s0_2 += (s32)(temp_s2);
         (*(s32 *)((char *)(temp_s0_2) + 0x20)) = 0;
         *(u16 *)(D_800BFED8 + temp_v0_2) = arg0;
-        (*(s32 *)((char *)(temp_s0_2) + 0x20)) = func_80015F74(temp_v0_2 + D_800BFEB8);
-        var_s1_2 += 1;
+        (*(s32 *)((char *)(temp_s0_2) + 0x20)) = func_80015F74(temp_v0_2 + D_800BFEB8);/*__repair_loop_weight*/do {
+        var_s1_2 += 1;} while (0);
         var_s0_2 = var_s1_2 & 0xFFFF;
     } while ((u32) (var_s1_2 & 0xFFFF) < 2U);
     D_800BFE24 = arg0;

@@ -21,15 +21,15 @@ void func_80016370(void) {
     D_8010A3D4 = 0;
     D_8010D268 = 0;
     D_8010D26C = 0;
-    temp_v0 = func_80083E90(0x3C00, 0xC);
+    temp_v0 = func_80083E90(0x2C00, 0xD);
     D_801002DC = temp_v0;
-    memset(temp_v0, 0, 0xF00);
+    memset(temp_v0, 0, 0x1640);
     var_s1 = 0;
     var_s0 = 0;
     do {
         func_80015EF4(&D_8010D268, D_801002DC + var_s0);
         var_s1 += 1;
-        var_s0 += 0x3C;
-    } while (var_s1 < 0x40U);
+        var_s0 += 0xC0;
+    } while (var_s1 < 0x2CU);
     D_800B3930 = 0;
 }

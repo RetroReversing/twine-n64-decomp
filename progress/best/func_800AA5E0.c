@@ -14,8 +14,7 @@ void func_800AA5E0(const s64 xin, const s64 yin, f64 *out)
   s64 *p = cordicAtanTable;
   s64 next;
 
-  do
-  {
+  __repair_rows: {
     if (y >= 0)
     {
       next = x + (y >> i);
@@ -32,6 +31,6 @@ void func_800AA5E0(const s64 xin, const s64 yin, f64 *out)
     i++;
     p++;
   }
-  while (i < 52);
+if (i < 52) goto __repair_rows;
   *out = func_8009A430(z) / D_800A7240;
 }
