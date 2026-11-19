@@ -17,6 +17,7 @@ s32 func_80077960();
 
 s32 func_80077E00(void *arg0) {
     s32 var_a1;
+    void *var_a0;
     s16 temp_a0;
     void *temp_v1;
 
@@ -26,16 +27,18 @@ s32 func_80077E00(void *arg0) {
     case 6:
     case 10:
         M2C_FIELD(temp_v1, s8 *, 0x7F) = 0;
-        
-block_4:
-        func_80002BD0(arg0, (var_a1 = 0x66, arg0));
-        func_80077960(arg0, 0x35);
-        return 0;
+        var_a0 = arg0;
+        var_a1 = 0x66;
+        goto block_4;
     case 2:
     case 5:
         M2C_FIELD(temp_v1, s8 *, 0x7F) = 0;
+        var_a0 = arg0;
         var_a1 = 0x25;
-        goto block_4;
+block_4:
+        func_80002BD0(var_a0, var_a1);
+        func_80077960(arg0, 0x35);
+        return 0;
     case 0:
     case 1:
     case 3:
