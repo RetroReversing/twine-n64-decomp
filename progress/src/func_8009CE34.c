@@ -18,14 +18,14 @@ M2C_UNK func_8008F2A4(s32, M2C_UNK);                /* extern */
 void *func_800985A8(s32);                           /* extern */
 extern u8 D_800CF540;
 
-void func_8009CE34(u16 arg0, s8 arg1) {
+void func_8009CE34(u16 arg0, u8 arg1) {
     s32 temp_a0;
     void *temp_v0;
 
     if (D_800CF540 != 0) {
         func_8008C0D4();
         temp_v0 = func_800985A8(arg0 & 0xFFFF);
-        temp_a0 = arg1 & 0xFF;
+        temp_a0 = arg1;
         if (temp_v0 != NULL) {
             if (temp_a0 != 0xFE) {
                 M2C_FIELD(temp_v0, s8 *, 9) = arg1;
