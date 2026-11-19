@@ -5,15 +5,13 @@ s32 func_80082FE4();
 s32 func_80083A6C();
 
 void func_80041114(void *arg0) {
-    register u32 sp10;
+    f32 sp10[12];
     s16 sp40[3];
-    void *temp_s0;
 
     sp40[0] = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x30)) * 651.8986f);
     sp40[1] = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x34)) * 651.8986f);
     sp40[2] = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x38)) * 651.8986f);
-    temp_s0 = arg0 + 0x40;
-    func_800452AC(arg0 + 0x24);
-    do { func_80082FE4(sp40, &sp10); } while (0);
-    func_80083A6C(&sp10, temp_s0);
+    func_80082FE4(sp40, sp10);
+    func_80083A6C(sp10, (char *) arg0 + 0x40);
+    func_800452AC((char *) arg0 + 0x24, (char *) arg0 + 0x40, (char *) arg0 + 0x40);
 }
