@@ -4,7 +4,7 @@ s32 func_8000A310();                            /* extern */
 s32 func_80011938(s32, s32);                /* extern */
 s32 func_800218EC();                            /* extern */
 s32 func_80021938();                            /* extern */
-s32 func_800283B0(s32);                         /* extern */
+s32 func_800283B0();                         /* extern */
 s32 func_80030DD8(s32);                     /* extern */
 s32 func_80045130(s32);                     /* extern */
 extern u16 D_80102EDA;
@@ -14,8 +14,6 @@ extern void *D_80102F2C;
 
 void func_8001EF9C(void) {
     register s16 temp_a0;
-    s32 var_a0;
-    s32 var_s0;
     s8 var_v0;
     u16 temp_s1;
 
@@ -27,14 +25,13 @@ void func_8001EF9C(void) {
             }
         } else {
             func_80045130(0x24);
-            var_s0 = 0;
-            var_a0 = 0 & 0xFFFF;
-            do {
-                func_80011938(var_a0, 0);
-                var_a0 = var_s0 & 0xFFFF;
-                ++var_s0;
-            } while ((u32) (var_s0 & 0xFFFF) < 4U);
-            func_800283B0(var_a0);
+            {
+                u16 __repair_i;
+                for (__repair_i = 0; __repair_i < 4; __repair_i++) {
+                    func_80011938(__repair_i, 0);
+                }
+            }
+            func_800283B0();
             func_80030DD8(7);
             var_v0 = 0xC;
             if (!temp_s1) {
