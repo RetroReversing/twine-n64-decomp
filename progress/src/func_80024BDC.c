@@ -30,14 +30,15 @@ extern char D_80107EA8[];
 extern u8 D_80107EC0;
 extern void *D_80109BB0;
 
+typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_80024BDC(void) {
     s32 temp_a0;
     s32 temp_v1;
 
     D_800BD55A = 1;
-    if (func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x54) != 0) {
+    if (func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0x54) != 0) {
         if (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0) {
-            M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s8 *, 0x24) = (s8) ((D_800BD559 + func_800263B8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x54)) - 1);
+            M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s8 *, 0x24) = (s8) ((D_800BD559 + func_800263B8(((__repair_field_10 *)D_80109BB0)->value, 0x54)) - 1);
         }
     }
     if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) && (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0)) {
