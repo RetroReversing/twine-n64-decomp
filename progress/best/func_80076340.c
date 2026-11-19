@@ -103,13 +103,13 @@ void func_80076340(void *arg0, s32 arg1, f32 arg2) {
             var_s1_3 += 1;
             temp_fs0_2 = (f32) func_80000A30((s32) M2C_FIELD(temp_v0_6, f32 *, 0xC), (s32) M2C_FIELD(temp_v0_6, f32 *, 0x24));
             temp_fs1_2 = (f32) func_80000A30((s32) temp_fs1, (s32) temp_fs0);
-            temp_v0_7 = func_80000A30((s32) temp_fs3, (s32) temp_fs2);
+            var_s1 = func_80000A30((s32) temp_fs3, (s32) temp_fs2);
             temp_v1 = var_s2_2 + M2C_FIELD(arg0, s32 *, 0);
             M2C_FIELD(temp_v1, f32 *, 0x24) = (f32) (M2C_FIELD(temp_v1, f32 *, 0xC) + temp_fs0_2);
             temp_v1_2 = var_s2_2 + M2C_FIELD(arg0, s32 *, 0);
             M2C_FIELD(temp_v1_2, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v1_2, f32 *, 0x10) + temp_fs1_2);
             temp_v1_3 = var_s2_2 + M2C_FIELD(arg0, s32 *, 0);
-            M2C_FIELD(temp_v1_3, f32 *, 0x2C) = (f32) (M2C_FIELD(temp_v1_3, f32 *, 0x14) + (f32) temp_v0_7);
+            M2C_FIELD(temp_v1_3, f32 *, 0x2C) = (f32) (M2C_FIELD(temp_v1_3, f32 *, 0x14) + (f32) var_s1);
             var_s2_2 += 0x18;
         } while (var_s1_3 < (M2C_FIELD(arg0, s16 *, 0xC) - 1));
     }

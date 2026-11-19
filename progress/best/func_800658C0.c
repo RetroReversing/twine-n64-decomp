@@ -13,11 +13,15 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800658C0(void *arg0) {
+int __repair_literal;
+
     s16 temp_v0;
     s16 temp_v1;
 
     temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
-    if ((temp_v1 < 5) && (temp_v1 >= 2)) {
+__repair_literal = 2;
+
+    if ((temp_v1 < 5) && (temp_v1 >= __repair_literal)) {
         goto block_2;
     }
     temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) - 1;

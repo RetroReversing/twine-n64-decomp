@@ -146,7 +146,7 @@ void func_8008B25C(void) {
         D_8010D378 = (s32) temp_v1_2 & ~0xF;
         D_8010D42C = (s32) temp_v1_2;
         *temp_a0_2 = 0;
-        temp_s2 = temp_s4 & 0xFFFF;
+        temp_s2 = (var_v0 - 1) & 0xFFFF;
         *D_800E4218 = 0;
         if (D_800E4268 != temp_s2) {
             var_s1 = 0;

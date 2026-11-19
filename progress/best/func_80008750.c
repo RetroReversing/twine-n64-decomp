@@ -48,7 +48,9 @@ s32 __repair_phase_var_a1;
     void *temp_v1_7;
     void *temp_v1_9;
 
-    switch (arg1) {                                 /* switch 1 */
+    switch (arg1) {
+case 0: break;
+                                 /* switch 1 */
     case 1:                                         /* switch 1 */
     case 2:                                         /* switch 1 */
     case 14:                                        /* switch 1 */
@@ -108,7 +110,7 @@ block_9:
                 (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1A78;
             }
         } else if (D_8010A924) {
-            D_8010A924 = 0;
+            register D_8010A924 = 0;
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
                 temp_v1_3 = D_80115328;
                 D_80115328 = temp_v1_3 + 8;
@@ -226,7 +228,7 @@ block_91:
             (*(s32 **)((char *)(temp_v1_11) + 4)) = &D_800B1BB8;
             (*(s32 *)((char *)(temp_v1_11) + 0)) = 0xDE000000;
         }
-        if (D_801032A0 != 3) {
+        if ((u32)D_801032A0 != 3) {
             D_801032A0 = 3;
             temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             switch (temp_v1_10) {                   /* switch 5; irregular */
@@ -323,8 +325,8 @@ block_91:
             }
 block_88:
             if ((var_v1 == 2) || ((short)var_v1 == 4)) {
-                var_a1_2 = 0xFC119823;
                 var_a0_2 = 0xFF320000;
+                var_a1_2 = 0xFC119823;
                 goto block_91;
             }
         }

@@ -30,8 +30,8 @@ void func_80013374(void) {
         func_80011800(0xC, (var_a2 * 0x68) + D_800E0790, var_a2, 0, 0, 0, 0, 0);
         if (func_800109CC() == 0) {
             *temp_s1 = 1;
-        }
-        var_s0 += 1;
+        }/*__repair_loop_weight*/do {
+        var_s0 += 1;} while (0);
         var_a2 = var_s0 & 0xFFFF;
     } while ((u32) (var_s0 & 0xFFFF) < 4U);
 }

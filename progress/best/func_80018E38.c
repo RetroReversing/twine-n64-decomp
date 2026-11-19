@@ -49,7 +49,7 @@ void func_80018E38(void) {
     u8 var_v1;
     void *temp_a1;
     void *temp_a3;
-    void *temp_s0_2;
+    
     void *var_a2_2;
     void *var_a3;
 
@@ -146,11 +146,12 @@ loop_30:
                     if ((u8) D_801002AD < 4U) {
                         var_a2_2 = func_80087100(0xAD);
                         var_a3 = D_801002AD + 1;
-                    } else {
+                    
+                    sprintf(temp_s1, "%s %d", var_a2_2, var_a3);} else {
                         var_a2_2 = func_80087100(0x158);
                         var_a3 = D_801002AD - 3;
-                    }
-                    sprintf(temp_s1, "%s %d", var_a2_2, var_a3);
+                    
+                    sprintf(temp_s1, "%s %d", var_a2_2, var_a3);}
                     D_800B60A4 = strlen(temp_s1);
                 } else {
                     var_s0 = &M2C_FIELD(&var_s0[strlen(var_s0)], s8 *, 1);
@@ -161,8 +162,8 @@ loop_30:
                     }
                 }
             }
-            temp_s0_2 = M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 0), void **, 8);
-            M2C_FIELD(temp_s0_2, u16 *, 0x1C) = strlen(temp_s1);
+            temp_a1 = M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 0), void **, 8);
+            M2C_FIELD(temp_a1, u16 *, 0x1C) = strlen(temp_s1);
         }
     }
 }
