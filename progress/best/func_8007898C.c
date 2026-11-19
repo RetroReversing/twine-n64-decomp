@@ -27,41 +27,42 @@ extern s8 D_80115319;
 extern s16 D_80117386;
 
 s32 func_8007898C(void *arg0) {
+    void **__base_D_8010A500;
 int __repair_literal;
 
-    s32 __repair_store_0;
-    long temp_a2;
+    unsigned __repair_store_0;
+    s32 __repair_store_1;
     s32 __repair_store_2;
     s32 sp28;
     s32 sp2C;
     s32 sp30;
-    register unsigned long sp34;
-    unsigned long sp38;
+    s32 sp34;
+    s32 sp38;
     s32 sp48;
     s32 sp4C;
     s32 sp50;
-    unsigned long sp54;
+    s32 sp54;
     s32 sp58;
-    register s32 sp5C;
+    s32 sp5C;
     s32 var_a1;
-    unsigned long __repair_store_1;
+    s32 temp_a2;
     s32 temp_a2_2;
-    int temp_a3_4;
-    s32 temp_a3;
-    register s32 temp_a3_2;
-    s32 temp_a3_3;
     s32 temp_a2_3;
+    s32 temp_a3;
+    s32 temp_a3_2;
+    s32 temp_a3_3;
+    s32 temp_a3_4;
     s32 temp_a3_5;
     s32 temp_a3_6;
     s32 temp_a3_7;
-    long temp_a3_8;
+    s32 temp_a3_8;
     s32 temp_v1_3;
     
     u8 temp_v1;
     u8 temp_v1_2;
     void *temp_s1;
     void *temp_s2;
-    void *temp_v0;
+    register void *temp_v0;
     void *temp_v0_10;
     void *temp_v0_11;
     void *temp_v0_2;
@@ -79,8 +80,9 @@ int __repair_literal;
         temp_v1 = (*(u8 *)((char *)(temp_s1) + 0x82));
         if (((s32) temp_v1 < 0x15) && ((s32) temp_v1 >= 0x13) && ((*(u8 *)((char *)(temp_s1) + 0x81)) != 0)) {
             var_a1 = 1;
+            __base_D_8010A500 = &D_8010A500;
             if ((*(s32 *)((char *)(D_8010A500) + 0x20)) == (*(s32 *)((char *)(arg0) + 0x20))) {
-                if ((func_8007C094(arg0, D_8010A500 + 0x24) << 0x18) != 0) {
+                if ((func_8007C094(arg0, (*__base_D_8010A500) + 0x24) << 0x18) != 0) {
                     var_a1 = 0x46;
                     goto block_113;
                 }
@@ -95,8 +97,8 @@ int __repair_literal;
             temp_v1_2 = (*(u8 *)((char *)(temp_s1) + 0x82));
 __repair_literal = 0x10;
 
-            if ((s32) (unsigned)temp_v1_2 >= __repair_literal) {
-                if ((s32) temp_v1_2 >= 0x12) {
+            if ((s32) temp_v1_2 >= __repair_literal) {
+                if (temp_v1_2 >= 0x12) {
                     if ((unsigned)temp_v1_2 == 0x2C) {
                         return 0;
                     }
@@ -128,8 +130,8 @@ __repair_literal = 0x10;
             }
 block_17:
             if (temp_v1_2 != 0x1E) {
-                if (temp_v1_2 < 0x1F) {
-                    if (temp_v1_2 < 0xC) {
+                if ((s32) temp_v1_2 < 0x1F) {
+                    if ((s32) temp_v1_2 < 0xC) {
                         if ((s32) temp_v1_2 < 9) {
                             goto block_40;
                         }
@@ -155,8 +157,8 @@ block_40:
                             var_a1 = 0;
                             if ((func_8007AA40(arg0, temp_s1 + 0x18, &sp30, temp_a3) << 0x18) == 0) {
                                 if ((func_80077E00(arg0) << 0x18) != 0) {
-                                    var_a1 = 0xB;
                                     func_80002BD0(arg0, 0x14D);
+                                    var_a1 = 0xB;
                                     goto block_113;
                                 }
                                 goto block_119;
@@ -174,8 +176,8 @@ block_40:
                         (*(s32 *)((char *)(temp_s1) + 0x1C)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x54));
                         (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x58));
                         if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp48) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {
-                            func_80002BD0(arg0, 0x14D);
                             var_a1 = 0xB;
+                            func_80002BD0(arg0, 0x14D);
                             goto block_113;
                         }
                     }
@@ -185,16 +187,16 @@ block_40:
                     if (temp_v1_3 & 0x1000) {
                         temp_v0_3 = (*(void **)((char *)(temp_s1) + 0x40));
                         temp_a2 = (*(s32 *)((char *)(temp_v0_3) + 0x28));
-                        (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x24));
                         temp_a3_2 = (*(s32 *)((char *)(temp_v0_3) + 0x2C));
+                        (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x24));
                         (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a2;
                         (*(s32 *)((char *)(temp_s1) + 0x20)) = temp_a3_2;
                         var_a1 = 1;
                         if ((func_8007C3F0(arg0, 1, temp_a2, temp_a3_2) << 0x18) == 0) {
                             temp_v0_4 = (*(void **)((char *)(temp_s1) + 0x40));
                             temp_a2_2 = (*(s32 *)((char *)(temp_v0_4) + 0x28));
-                            temp_a3_3 = (*(s32 *)((char *)(temp_v0_4) + 0x2C));
                             (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_4) + 0x24));
+                            temp_a3_3 = (*(s32 *)((char *)(temp_v0_4) + 0x2C));
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a2_2;
                             (*(s32 *)((char *)(temp_s1) + 0x20)) = temp_a3_3;
                             func_80077960(arg0, 5, temp_a2_2, temp_a3_3);
@@ -246,8 +248,8 @@ block_65:
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a3_5;
                             (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_v0_6) + 0x2C));
                             if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp50, temp_a3_5) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {
-                                var_a1 = 0xB;
                                 func_80002BD0(arg0, 0x14D);
+                                var_a1 = 0xB;
                                 goto block_113;
                             }
 block_77:
@@ -306,8 +308,8 @@ block_92:
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a3_7;
                             (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_v0_9) + 0x2C));
                             if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp58, temp_a3_7) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {
-                                var_a1 = 0xB;
                                 func_80002BD0(arg0, 0x14D);
+                                var_a1 = 0xB;
                                 goto block_113;
                             }
                         }
@@ -338,8 +340,8 @@ block_102:
 block_112:
                             func_80077A94(arg0);
                             (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x50));
-                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x58));
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x54));
+                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_s1) + 0x58));
                             var_a1 = 0xD;
                             goto block_113;
                         }

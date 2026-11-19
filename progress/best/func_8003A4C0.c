@@ -39,7 +39,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
-    s32 var_a0;
+    
     s32 var_a0_2;
     s32 var_a0_3;
     s32 var_a2;
@@ -90,17 +90,17 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
             if (temp_v1 & 0x4000) {
                 if (D_800E176D == 1) {
                     D_800E176D = 0;
-                    var_a0 = 0x504340;
+                    sp4C = 0x504340;
                     D_80115328 += 8;
                     M2C_FIELD(D_80115328, s32 *, 0) = 0xE200001C;
-                    M2C_FIELD(D_80115328, s32 *, 4) = var_a0;
+                    M2C_FIELD(D_80115328, s32 *, 4) = sp4C;
                 }
             } else if (D_800E176D == 0) {
-                var_a0 = 0x5040C0;
+                sp4C = 0x5040C0;
                 D_800E176D = 1;
                 D_80115328 += 8;
                 M2C_FIELD(D_80115328, s32 *, 0) = 0xE200001C;
-                M2C_FIELD(D_80115328, s32 *, 4) = var_a0;
+                M2C_FIELD(D_80115328, s32 *, 4) = sp4C;
             }
             temp_v1_2 = D_80115328;
             var_t2 = 0x2000;
@@ -214,10 +214,11 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
             sp54 = var_s1 & 0xFFFF;
             sp4C = var_s5_2 << 0x10;
             var_v0_2 = temp_a0_4 >> 8;
-            do {
+            __repair_rows: {
                 var_t9 = 0;
                 if ((var_v0_2 & 0xF) > 0) {
-                    temp_s4 = var_t8 & 0xFFFF;
+                    temp_t6 = var_t8 & 0xFFFF;
+    temp_s4 = temp_t6;
                     temp_t6 = sp4C >> 0x10;
                     do {
                         temp_t2 = ((__repair_record_arg2*)arg2)->field_20 + sp44 + (((__repair_record_arg2*)arg2)->field_26 * var_s2);
@@ -299,7 +300,8 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                 temp_a0_5 = (u32) ((__repair_record_arg2*)arg2)->field_28;
                 var_s2 += 1;
                 var_v0_2 = temp_a0_5 >> 8;
-            } while ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF));
+            }
+if ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF)) goto __repair_rows;
         }
         temp_v0_6 = D_80115328;
         D_80115328 = temp_v0_6 + 8;

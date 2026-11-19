@@ -7,6 +7,9 @@ extern s16 D_800C2B32;
 extern char D_800D1E58[];
 
 s32 func_80001F40(s16 arg0, s8 arg1, s32 *arg2) {
+    s16 **__base_D_800AE724;
+short __repair_constant = 4;
+
     s16 **var_t1;
     s16 temp_a1;
     s32 var_a3;
@@ -17,9 +20,10 @@ s32 func_80001F40(s16 arg0, s8 arg1, s32 *arg2) {
 
     var_t3 = 0;
     var_a3 = 0;
-    if (D_800AE724 != NULL) {
+    __base_D_800AE724 = &D_800AE724;
+    if ((*__base_D_800AE724) != NULL) {
         var_t2 = 0;
-        var_t1 = &D_800AE724;
+        var_t1 = __base_D_800AE724;
         for (;;) {
             temp_a1 = __repair_inline(*(s32 *)*var_t1);
             if (arg0 == temp_a1) {
@@ -63,10 +67,10 @@ block_25:
 
             }
 block_26:
-            var_t2 += 4;
+            var_t2 += __repair_constant;
             var_a3 += 1;
             var_t1 += 4;
-            if (*(D_800AE724 + var_t2) == 0) {
+            if (*((*(&D_800AE724)) + var_t2) == 0) {
                 goto block_27;
             }
             continue;

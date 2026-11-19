@@ -18,14 +18,16 @@ extern u8 D_8010A4C2;
 extern s32 D_8010A500;
 
 void func_8000CA3C(void) {
+    void **__base_D_80109690;
     s32 temp_s1;
     s32 var_a0;
     s32 var_v0;
     register long var_v0_2;
 
     temp_s1 = (*(s16 *)((char *)(D_800B2710) + 0x10));     if (D_800E0742 != 0) {
-        func_80084048(D_80109690, 0xE);
-        D_80109690 = NULL;
+        __base_D_80109690 = &D_80109690;
+        func_80084048((*__base_D_80109690), 0xE);
+        (*__base_D_80109690) = NULL;
         func_80084048((*(void **)((char *)(D_800B2710) + 4)), 0x33);
         func_80084048(D_800B2710, 0x33);
         func_8000CF14(1);

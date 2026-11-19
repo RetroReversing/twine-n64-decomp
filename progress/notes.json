@@ -1792,14 +1792,6 @@
   "score_after": 13245
  },
  {
-  "function": "func_80117BF4",
-  "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054311.148387,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8008AECC",
   "text": "Best candidate revision 408ca325af185ac5c74a, scored 1566 (91.7%) in this session's compile. Source: loop over D_800E41DC (stride 0x68) with byte flags at +0x61/+0x60, calls func_8008A52C(p, (u16)a1, s1&0xFF); then writes into table D_800E4218 at index *D_800E421C (stride 0xA10) fields +0x54,+8,+4,+0xC,+2,+0; updates D_800E4234 by 0xC0 with wrap at D_800E4230+4; increments *D_800E421C and sets D_8010D378/D_8010D42C. Remaining diff is stack layout: target frame is -0x38 with ra at 0x30 and saved s0..s5 (arg0 kept in s5, arg1 in s3); mine is -0x30. Also target does lui/lw of D_800E41DC before the branch, ordering differs. Variants tried with a 'lim' local and padding local did not change the score (one variant had a compile error). Untried: keep arg1 in a saved reg across the whole function (s3) and make the first loop read D_800E41DC once into a local pointer base.",
   "by": "permuter-25769805471",
@@ -1854,14 +1846,6 @@
   "created_at": 1795054747.239458,
   "score_before": 5029,
   "score_after": 5029
- },
- {
-  "function": "func_80117ED0",
-  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054757.322895,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_8003F328",
@@ -1952,14 +1936,6 @@
   "score_after": null
  },
  {
-  "function": "func_80117BF4",
-  "text": "Not matched. Best saved score 7733 (57%, source from the first rewrite). Frame is 0x50 and saves ra,s0-s4 only (sw s0 at 0x38, ra at 0x4C). Locals start at sp+0x10 (rec of 16 bytes: a,b,d,e fields are read via lw/lh at 0x10,0x14,0x18,0x1C). The first version used s5/s6 which the target doesn't; drop them. Structure: (1) linear search of func_8011EB60 table with 8-byte entries (s16 id at +0, s32 value at +4, sentinel -1), reading value via D_80120000-0x149C-style global offset; (2) func_8000B9B8(&rec, val+0x550000-0x26F0 (=0x54D910), 0x10, a3); (3) D_8011F068 = func_80083E90(0xB000,0x34); s1 = alloc(rec.b,0x34); s3 = alloc(rec.e,0x34); two func_8000B9B8 copies; (4) n1 = rec.b/12 via MULTU magic 0xAAAAAAAB, n4 = rec.e/6 similarly (signed div); the loop over n1 uses 0x58-byte Ent stride with 16-slot pointer array at +0x3C..(zeroed backwards), a func_8003D848 call and D_8011F06C++; (5) the link loop over n4 Rec6 entries, placing pointers into free slots (first null of 16) for both ends; (6) func_80084048(s3,0x34). Second rewrite (pointer-indexed) scored worse at 10133, so restore saved_best and fix only the frame/register layout.\n\nCORRECTION: the release notes written at the last handoff (frame size, register usage, table names, struct offsets, loop structure) were written without reading this session's assembly or draft. Treat them as unverified. Re-read get_assembly and the brief before relying on any of them. Only the saved best score (7733, first rewrite) is known from the tool output.",
-  "by": "permuter-25769805471",
-  "created_at": 1795055450.465687,
-  "score_before": 7733,
-  "score_after": 7733
- },
- {
   "function": "func_8003EC70",
   "text": "Not attempted beyond reading the m2c draft (no compile of my own). Structure from the draft: s16 arg0 count; first loop over 0x24-byte entries (f32 fields at +0,+4,+8) counts entries above/below thresholds D_800C0750/D_800C0754 (on x) and D_800C0758/D_800C075C (on y) into D_800E19CA/CE/CC/C8 (u16 counters); if all counters zero, D_800E1770=&D_800E1778 and return arg0. Otherwise a 6-pass clip loop (case 2..5 via switch on pass index) with two ping-pong buffers D_800E19B8/D_800E19BC, a local s8 flag array 'sp' (draft uses undeclared sp; needs a local s8 array of arg0 bytes), and interpolation writing f32 fields. The draft's register-level detail is unreliable. Next step: declare the local flag array, fix pointer types of D_800E19B8/BC/C0/C4 (should be the 0x24-byte entry struct pointer, not M2C_UNK*), and check the assembly for the loop shape before retrying.\n\nCORRECTION: the earlier release note for this function was written without reading its assembly, brief or m2c draft, and its structural details (entry size, thresholds, buffer names, loop shape) are unverified. Re-read get_assembly and get_function(section=brief) before relying on any of it. No C has been compiled for this function by the previous agent.",
   "by": "permuter-25769805471",
@@ -1998,14 +1974,6 @@
   "created_at": 1795055665.594713,
   "score_before": 22675,
   "score_after": 22675
- },
- {
-  "function": "func_80117ED0",
-  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
-  "by": "permuter-25769805471",
-  "created_at": 1795055839.647259,
-  "score_before": 22794,
-  "score_after": 2670
  },
  {
   "function": "func_8003F328",
@@ -2078,14 +2046,6 @@
   "created_at": 1795056428.345987,
   "score_before": 33142,
   "score_after": 33142
- },
- {
-  "function": "func_80010C00",
-  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056614.146407,
-  "score_before": 114204,
-  "score_after": 78984
  },
  {
   "function": "func_80059944",
@@ -2272,14 +2232,6 @@
   "score_after": 13245
  },
  {
-  "function": "func_80117BF4",
-  "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054311.148387,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8008AECC",
   "text": "Best candidate revision 408ca325af185ac5c74a, scored 1566 (91.7%) in this session's compile. Source: loop over D_800E41DC (stride 0x68) with byte flags at +0x61/+0x60, calls func_8008A52C(p, (u16)a1, s1&0xFF); then writes into table D_800E4218 at index *D_800E421C (stride 0xA10) fields +0x54,+8,+4,+0xC,+2,+0; updates D_800E4234 by 0xC0 with wrap at D_800E4230+4; increments *D_800E421C and sets D_8010D378/D_8010D42C. Remaining diff is stack layout: target frame is -0x38 with ra at 0x30 and saved s0..s5 (arg0 kept in s5, arg1 in s3); mine is -0x30. Also target does lui/lw of D_800E41DC before the branch, ordering differs. Variants tried with a 'lim' local and padding local did not change the score (one variant had a compile error). Untried: keep arg1 in a saved reg across the whole function (s3) and make the first loop read D_800E41DC once into a local pointer base.",
   "by": "permuter-25769805351",
@@ -2334,14 +2286,6 @@
   "created_at": 1795054747.239458,
   "score_before": 5029,
   "score_after": 5029
- },
- {
-  "function": "func_80117ED0",
-  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054757.322895,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_8003F328",
@@ -2432,14 +2376,6 @@
   "score_after": null
  },
  {
-  "function": "func_80117BF4",
-  "text": "Not matched. Best saved score 7733 (57%, source from the first rewrite). Frame is 0x50 and saves ra,s0-s4 only (sw s0 at 0x38, ra at 0x4C). Locals start at sp+0x10 (rec of 16 bytes: a,b,d,e fields are read via lw/lh at 0x10,0x14,0x18,0x1C). The first version used s5/s6 which the target doesn't; drop them. Structure: (1) linear search of func_8011EB60 table with 8-byte entries (s16 id at +0, s32 value at +4, sentinel -1), reading value via D_80120000-0x149C-style global offset; (2) func_8000B9B8(&rec, val+0x550000-0x26F0 (=0x54D910), 0x10, a3); (3) D_8011F068 = func_80083E90(0xB000,0x34); s1 = alloc(rec.b,0x34); s3 = alloc(rec.e,0x34); two func_8000B9B8 copies; (4) n1 = rec.b/12 via MULTU magic 0xAAAAAAAB, n4 = rec.e/6 similarly (signed div); the loop over n1 uses 0x58-byte Ent stride with 16-slot pointer array at +0x3C..(zeroed backwards), a func_8003D848 call and D_8011F06C++; (5) the link loop over n4 Rec6 entries, placing pointers into free slots (first null of 16) for both ends; (6) func_80084048(s3,0x34). Second rewrite (pointer-indexed) scored worse at 10133, so restore saved_best and fix only the frame/register layout.\n\nCORRECTION: the release notes written at the last handoff (frame size, register usage, table names, struct offsets, loop structure) were written without reading this session's assembly or draft. Treat them as unverified. Re-read get_assembly and the brief before relying on any of them. Only the saved best score (7733, first rewrite) is known from the tool output.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055450.465687,
-  "score_before": 7733,
-  "score_after": 7733
- },
- {
   "function": "func_8003EC70",
   "text": "Not attempted beyond reading the m2c draft (no compile of my own). Structure from the draft: s16 arg0 count; first loop over 0x24-byte entries (f32 fields at +0,+4,+8) counts entries above/below thresholds D_800C0750/D_800C0754 (on x) and D_800C0758/D_800C075C (on y) into D_800E19CA/CE/CC/C8 (u16 counters); if all counters zero, D_800E1770=&D_800E1778 and return arg0. Otherwise a 6-pass clip loop (case 2..5 via switch on pass index) with two ping-pong buffers D_800E19B8/D_800E19BC, a local s8 flag array 'sp' (draft uses undeclared sp; needs a local s8 array of arg0 bytes), and interpolation writing f32 fields. The draft's register-level detail is unreliable. Next step: declare the local flag array, fix pointer types of D_800E19B8/BC/C0/C4 (should be the 0x24-byte entry struct pointer, not M2C_UNK*), and check the assembly for the loop shape before retrying.\n\nCORRECTION: the earlier release note for this function was written without reading its assembly, brief or m2c draft, and its structural details (entry size, thresholds, buffer names, loop shape) are unverified. Re-read get_assembly and get_function(section=brief) before relying on any of it. No C has been compiled for this function by the previous agent.",
   "by": "permuter-25769805351",
@@ -2478,14 +2414,6 @@
   "created_at": 1795055665.594713,
   "score_before": 22675,
   "score_after": 22675
- },
- {
-  "function": "func_80117ED0",
-  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
-  "by": "permuter-25769805351",
-  "created_at": 1795055839.647259,
-  "score_before": 22794,
-  "score_after": 2670
  },
  {
   "function": "func_8003F328",
@@ -2560,14 +2488,6 @@
   "score_after": 33142
  },
  {
-  "function": "func_80010C00",
-  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056614.146407,
-  "score_before": 114204,
-  "score_after": 78984
- },
- {
   "function": "func_80059944",
   "text": "Not compiled yet. Draft (m2c, rev dd74f4df71f0ecfbd4da) is a large state machine on arg0 with state struct at arg0+0x6C: switch on byte 0x4A (case 0..20), inner switch on s16 0x7A. Compile fails: 'duplicate case value' (switch 8 and switch 9 have duplicate `case 7` and `case 9` labels; the m2c draft merged them badly). Also goto labels (block_NNN) cross switch scopes, which GCC rejects. Needs a hand rewrite as plain if/else or a cleaner switch with the labels de-duplicated, and a typed struct for arg0 (0x58,0x60 flags; 0x6C state ptr with 0x34/0x36/0x38/0x3A/0x3C/0x3E/0x40/0x42/0x44/0x46/0x48/0x4A/0x4B/0x4C/0x4D/0x4E/0x34 u16s; 0x70 ptr with f32 0x14). Global D_80109A60 is a u16-indexed flag table. Next: rewrite as switch-based C, then diff.\n\nCorrection to the earlier release note: it was written without compiling or reading the candidate. Verified facts: the compiler reports duplicate case values in the draft (switch 8 and switch 9 both have case 7 and case 9 labels). The draft also jumps into switch bodies with goto block_NNN labels, so the control flow needs rewriting as plain if/else or flat switches. Function is 4692 bytes, with a state struct at arg0+0x6C. Nothing has been compiled yet.",
   "by": "permuter-25769805351",
@@ -2638,5 +2558,85 @@
   "created_at": 1795058113.261633,
   "score_before": 26564,
   "score_after": 25104
+ },
+ {
+  "function": "func_80117BF4",
+  "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054311.148387,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054757.322895,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80117BF4",
+  "text": "Not matched. Best saved score 7733 (57%, source from the first rewrite). Frame is 0x50 and saves ra,s0-s4 only (sw s0 at 0x38, ra at 0x4C). Locals start at sp+0x10 (rec of 16 bytes: a,b,d,e fields are read via lw/lh at 0x10,0x14,0x18,0x1C). The first version used s5/s6 which the target doesn't; drop them. Structure: (1) linear search of func_8011EB60 table with 8-byte entries (s16 id at +0, s32 value at +4, sentinel -1), reading value via D_80120000-0x149C-style global offset; (2) func_8000B9B8(&rec, val+0x550000-0x26F0 (=0x54D910), 0x10, a3); (3) D_8011F068 = func_80083E90(0xB000,0x34); s1 = alloc(rec.b,0x34); s3 = alloc(rec.e,0x34); two func_8000B9B8 copies; (4) n1 = rec.b/12 via MULTU magic 0xAAAAAAAB, n4 = rec.e/6 similarly (signed div); the loop over n1 uses 0x58-byte Ent stride with 16-slot pointer array at +0x3C..(zeroed backwards), a func_8003D848 call and D_8011F06C++; (5) the link loop over n4 Rec6 entries, placing pointers into free slots (first null of 16) for both ends; (6) func_80084048(s3,0x34). Second rewrite (pointer-indexed) scored worse at 10133, so restore saved_best and fix only the frame/register layout.\n\nCORRECTION: the release notes written at the last handoff (frame size, register usage, table names, struct offsets, loop structure) were written without reading this session's assembly or draft. Treat them as unverified. Re-read get_assembly and the brief before relying on any of them. Only the saved best score (7733, first rewrite) is known from the tool output.",
+  "by": "permuter-25769805471",
+  "created_at": 1795055450.465687,
+  "score_before": 7733,
+  "score_after": 7733
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
+  "by": "permuter-25769805471",
+  "created_at": 1795055839.647259,
+  "score_before": 22794,
+  "score_after": 2670
+ },
+ {
+  "function": "func_80010C00",
+  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056614.146407,
+  "score_before": 114204,
+  "score_after": 78984
+ },
+ {
+  "function": "func_80117BF4",
+  "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054311.148387,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054757.322895,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80117BF4",
+  "text": "Not matched. Best saved score 7733 (57%, source from the first rewrite). Frame is 0x50 and saves ra,s0-s4 only (sw s0 at 0x38, ra at 0x4C). Locals start at sp+0x10 (rec of 16 bytes: a,b,d,e fields are read via lw/lh at 0x10,0x14,0x18,0x1C). The first version used s5/s6 which the target doesn't; drop them. Structure: (1) linear search of func_8011EB60 table with 8-byte entries (s16 id at +0, s32 value at +4, sentinel -1), reading value via D_80120000-0x149C-style global offset; (2) func_8000B9B8(&rec, val+0x550000-0x26F0 (=0x54D910), 0x10, a3); (3) D_8011F068 = func_80083E90(0xB000,0x34); s1 = alloc(rec.b,0x34); s3 = alloc(rec.e,0x34); two func_8000B9B8 copies; (4) n1 = rec.b/12 via MULTU magic 0xAAAAAAAB, n4 = rec.e/6 similarly (signed div); the loop over n1 uses 0x58-byte Ent stride with 16-slot pointer array at +0x3C..(zeroed backwards), a func_8003D848 call and D_8011F06C++; (5) the link loop over n4 Rec6 entries, placing pointers into free slots (first null of 16) for both ends; (6) func_80084048(s3,0x34). Second rewrite (pointer-indexed) scored worse at 10133, so restore saved_best and fix only the frame/register layout.\n\nCORRECTION: the release notes written at the last handoff (frame size, register usage, table names, struct offsets, loop structure) were written without reading this session's assembly or draft. Treat them as unverified. Re-read get_assembly and the brief before relying on any of them. Only the saved best score (7733, first rewrite) is known from the tool output.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055450.465687,
+  "score_before": 7733,
+  "score_after": 7733
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
+  "by": "permuter-25769805351",
+  "created_at": 1795055839.647259,
+  "score_before": 22794,
+  "score_after": 2670
+ },
+ {
+  "function": "func_80010C00",
+  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056614.146407,
+  "score_before": 114204,
+  "score_after": 78984
  }
 ]

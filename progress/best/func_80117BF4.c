@@ -14,12 +14,12 @@ extern s32 D_8011F06C;
 void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
 int __repair_literal;
 
-    Rec16 rec;
-    s32 a3v;
-    s32 val;
     u8 *s1;
+    unsigned int a3v;
+    unsigned val;
+    Rec16 rec;
     Rec6 *s3;
-    s32 n1;
+    long n1;
     s16 n4;
     s32 i, j, k;
     Ent *ea, *eb;
@@ -44,21 +44,21 @@ int __repair_literal;
     }
     func_8000B9B8(&rec, val + 0x54D910, 0x10, a3v);
     D_8011F068 = func_80083E90(0xB000, 0x34);
-    s1 = func_80083E90(rec.b, 0x34);
     s3 = func_80083E90(rec.e, 0x34);
-    func_8000B9B8(s1, rec.a + 0x54D910, rec.b);
+    s1 = func_80083E90(rec.b, 0x34);
     func_8000B9B8(s3, rec.d + 0x54D910, rec.e);
+    func_8000B9B8(s1, rec.a + 0x54D910, rec.b);
     n1 = (u32)rec.b / 12;
     n4 = (u32)rec.e / 6;
     if (n1 > 0) {
         for (i = 0; i < n1; i++) {
-            Ent *e = &D_8011F068[i];
+            register Ent *e = &D_8011F068[i];
             e->p10 = s1;
             for (j = 15; j >= 0; j--) {
                 e->arr[j] = NULL;
             }
-            s1 += 0xC;
             e->r54 = func_8003D848(e->p10, -1);
+            s1 += 0xC;
             D_8011F06C += 1;
         }
     }
@@ -83,7 +83,7 @@ __repair_literal = 0;
                     break;
                 }
             }
-            r++;/*__repair_loop_weight*/do {do {do {
+            r += 1;/*__repair_loop_weight*/do {do {do {
             t0++;} while (0);} while (0);} while (0);
         } while (t0 < n4);
     }

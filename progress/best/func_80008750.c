@@ -20,11 +20,12 @@ void func_80008750(void *arg0, s32 arg1, s32 arg2) {
 short __repair_constant = 8;
 
     register unsigned long temp_v1_10;
-s32 __repair_phase_temp_v1_10;
+
+s32 __repair_phase___repair_phase_temp_v1_10;
     
     register u32 temp_v1_8;
     
-    s32 var_a0_2;
+    
     
 s32 __repair_phase_var_a1;
     unsigned var_a1_2;
@@ -61,9 +62,9 @@ case 0: break;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0) + 4)) = 0;
         }
-        __repair_phase_temp_v1_10 = D_8010A4D8;
+        __repair_phase___repair_phase_temp_v1_10 = D_8010A4D8;
 block_10:
-        func_80034928(arg0, __repair_phase_temp_v1_10);
+        func_80034928(arg0, __repair_phase___repair_phase_temp_v1_10);
         break;
     case 8:                                         /* switch 1 */
         if (D_8010A92C != 2) {
@@ -74,7 +75,7 @@ block_10:
             (*(s32 *)((char *)(temp_v1) + 4)) = 3;
         }
 block_9:
-        __repair_phase_temp_v1_10 = 2;
+        __repair_phase___repair_phase_temp_v1_10 = 2;
         goto block_10;
     case 3:                                         /* switch 1 */
     case 4:                                         /* switch 1 */
@@ -178,7 +179,11 @@ block_92:
             temp_v1_8 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
             switch (temp_v1_8) {
-case 0: break;
+case 4:                                 /* switch 3 */
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                var_a1_2 = 0xFC119623;
+                goto block_91;
+            case 0: break;
                     /* switch 3; irregular */
             case 1:                                 /* switch 3 */
                 var_a1_2 = 0xFC409681;
@@ -186,14 +191,10 @@ case 0: break;
                 goto block_92;
             case 2:                                 /* switch 3 */
                 var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
 block_91:
-                temp_v1_10 = (int)var_a0_2 | 0xFF7F;
+                temp_v1_10 = __repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
                 goto block_92;
-            case 4:                                 /* switch 3 */
-                var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
-                goto block_91;
             }
         }
         break;
@@ -207,20 +208,20 @@ block_91:
             (*(s32 **)((char *)(temp_v1_9) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 3) {
-            __repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            __repair_phase___repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
-            switch (__repair_phase_temp_v1_10) {                   /* switch 4; irregular */
+            switch (__repair_phase___repair_phase_temp_v1_10) {                   /* switch 4; irregular */
             case 1:                                 /* switch 4 */
-                var_a1_2 = 0xFC409681;
                 temp_v1_10 = 0x332DFEFF;
+                var_a1_2 = 0xFC409681;
                 goto block_92;
             case 2:                                 /* switch 4 */
                 var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
                 goto block_91;
             case 4:                                 /* switch 4 */
                 var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
                 goto block_91;
             }
         }
@@ -243,11 +244,11 @@ block_91:
                 goto block_92;
             case 2:                                 /* switch 5 */
                 var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
                 goto block_91;
             case 4:                                 /* switch 5 */
                 var_a1_2 = 0xFC119623;
-                var_a0_2 = 0xFF2E0000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
                 goto block_91;
             }
         }
@@ -331,7 +332,7 @@ block_91:
 block_88:
             if ((var_v1 == 2) || (var_v1 == 4)) {
                 var_a1_2 = 0xFC119823;
-                var_a0_2 = 0xFF320000;
+                __repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
                 goto block_91;
             }
         }

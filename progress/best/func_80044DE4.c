@@ -39,7 +39,7 @@ extern u8 D_80112F6C;
 extern u8 D_80112F6D;
 
 void func_80044DE4(u32 arg0) {
-    u16 sp10;
+    s32 sp10;
     u16 sp12;
     s16 sp46[2];
     s16 sp4C;

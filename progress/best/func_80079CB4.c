@@ -25,29 +25,29 @@ extern u8 D_80117734;
 extern s32 func_80076CE4;
 
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u8 arg9, s32 arg10, s32 arg11, u8 arg12, u8 arg13, s32 arg14, s32 arg15) {
-    s32 __repair_store_0;
+    long __repair_store_0;
     s32 var_s2;
     s32 __repair_store_2;
-    s32 var_a0;
+    unsigned var_a0;
     register s32 var_a1_2;
     s32 var_a1_3;
-    int temp_s2;
+    void *temp_v1;
     s32 temp_v0;
     s32 temp_v1_2;
     register u8 var_v0_2;
     int var_v1;
     register s32 var_s5;
-    s32 __repair_store_1;
+    register s32 __repair_store_1;
     s32 var_v0_3;
-    s32 var_v1_2;
+    int var_v1_2;
     s8 temp_a0;
     u8 temp_v0_2;
-    s32 var_a1;
+    unsigned long var_a1;
     u8 var_v0_4;
     u8 var_v0_5;
     u8 var_v0_6;
-    void *temp_s0;
-    void *temp_v1;
+    register void *temp_s0;
+    int temp_s2;
     register void *temp_v1_3;
     void *var_s1;
 
@@ -78,7 +78,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
             (*(s16 *)((char *)(temp_s0) + 0x7C)) = 0;
             (*(s16 *)((char *)(temp_s0) + 0x7A)) = 0;
             (*(s16 *)((char *)(temp_s0) + 0x78)) = 0;
-            func_8000237C(var_s1, arg10, 1, -(D_800CA338 == 0));
+            func_8000237C(var_s1, (unsigned)arg10, 1, -(D_800CA338 == 0));
             if ((*(void **)((char *)(var_s1) + 0x68)) != NULL) {
                 func_800015AC(var_s1, arg11);
                 func_80002EAC(var_s1, &func_80076CE4);
@@ -228,7 +228,7 @@ block_76:
                     case 13:                        /* switch 1 */
                     } else {
                         (*(s32 *)((char *)(temp_s0) + 0x88)) = (s32) (((*(s32 *)((char *)(temp_s0) + 0x88)) & 0xFE1FFFFF) | 0x400000);
-                        D_80108F72 += 1;
+                        ++D_80108F72;
                     }
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = 0x15U;
                     break;
@@ -288,7 +288,7 @@ block_76:
                     goto block_75;
                 case 31:                            /* switch 1 */
                     (*(s32 *)((char *)(temp_s0) + 0x88)) = (s32) (((*(s32 *)((char *)(temp_s0) + 0x88)) & 0xFE1FFFFF) | 0x600000);
-                    D_80113020 += 1;
+                    ++D_80113020;
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = 0x1FU;
                     break;
                 case 32:                            /* switch 1 */
@@ -326,8 +326,8 @@ block_66:
                 (*(s32 *)((char *)(var_s1) + 0x2C)) = (s32) (*(s32 *)((char *)(arg0) + 8));
                 (*(s32 *)((char *)(var_s1) + 0x30)) = (s32) (*(s32 *)((char *)(var_s1) + 0x24));
                 (*(s32 *)((char *)(var_s1) + 0x34)) = (s32) (*(s32 *)((char *)(var_s1) + 0x28));
-                (*(s32 *)((char *)(var_s1) + 0x38)) = (s32) (*(s32 *)((char *)(var_s1) + 0x2C));
                 (*(s32 *)((char *)(var_s1) + 0x3C)) = (s32) (*(s32 *)((char *)(arg1) + 0));
+                (*(s32 *)((char *)(var_s1) + 0x38)) = (s32) (*(s32 *)((char *)(var_s1) + 0x2C));
                 (*(s32 *)((char *)(var_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg1) + 4));
                 (*(s32 *)((char *)(var_s1) + 0x44)) = (s32) (*(s32 *)((char *)(arg1) + 8));
                 (*(s32 *)((char *)(var_s1) + 0x48)) = (s32) (*(s32 *)((char *)(var_s1) + 0x3C));

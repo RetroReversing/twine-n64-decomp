@@ -3,7 +3,7 @@ extern u8 D_800BF688[];
 extern u8 D_8011EE68[];
 extern u8 D_8011EE70[];
 f32 func_800461D4(void *, f32 *);
-u16 func_80022DBC(u8 *, s32);
+u16 func_80022DBC(u8 *);
 void func_80002BD0(void *, s32);
 f32 func_80082A70(f32, f32);
 f32 func_800829A0(f32);
@@ -23,17 +23,17 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     if (fv < arg2[0]) {
         arg2[0] = fv;
     }
-    x = func_80022DBC(arg0, (s8)(u8)(*(u8 **)(arg0 + 0x6C))[0x182]) & 0xFFFF;
+    x = func_80022DBC(arg0) & 0xFFFF;
     k = *(u32 *)(D_8010019C + x * 24);
     t16 = *(u16 *)(D_800BF688 + k * 12);
     sel = (t16 >> 2) & 7;
     switch (sel) {
+    case 1:
+    default: *(f32 *)(s1 + 0x80) = 0.0738f; s2 = 0x15F; break;
     case 2: *(f32 *)(s1 + 0x80) = 0.14912f; s2 = 0x165; break;
     case 3: *(f32 *)(s1 + 0x80) = 0.16f; s2 = 0x171; break;
     case 4: *(f32 *)(s1 + 0x80) = 0.2f; s2 = 0x171; break;
     case 5: *(f32 *)(s1 + 0x80) = 0.23f; s2 = 0x171; break;
-    case 1:
-    default: *(f32 *)(s1 + 0x80) = 0.0738f; s2 = 0x15F; break;
     }
     fs2 = *(f32 *)(s1 + 0x80);
     t = arg2[0] - fs2;

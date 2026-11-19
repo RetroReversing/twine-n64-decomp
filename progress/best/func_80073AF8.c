@@ -25,8 +25,8 @@ extern s32 D_8010D38C;
 void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 arg5, s32 arg6, u8 arg7, u8 arg8, s32 arg9, s32 arg10) {
     s32 *__base_D_8010D2C0;
     s32 __repair_store_0;
-    unsigned int __repair_store_2;
-    u32 __repair_store_1;
+    long __repair_store_2;
+    unsigned __repair_store_1;
     char sp10[0x104];
     void *sp114;
     u16 sp11E;
@@ -46,7 +46,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
     s32 *temp_v1_2;
     long temp_v0_3;
     int var_a0;
-    unsigned long var_a1;
+    long var_a1;
     s32 var_fp;
     u16 temp_v0_2;
     register unsigned temp_v1;
@@ -89,8 +89,8 @@ block_10:
         __repair_store_1 = (u16)(strlen(sp10));
         (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) D_8010302C;
         (*(s8 *)((char *)(temp_s1) + 0x135)) = 1;
-        (*(s8 *)((char *)(temp_s1) + 0x136)) = 0;
         (*(u8 *)((char *)(temp_s1) + 0x33)) = (u8) (u16) (*(s16 *)((char *)(sp114) + 0x140));
+        (*(s8 *)((char *)(temp_s1) + 0x136)) = 0;
         temp_v1 = (u32)var_s7 & 0xFF;
         (*(s16 *)((char *)(temp_s3) + 0x7C)) = 0;
         (*(u8 *)((char *)(temp_s1) + 0x35)) = (unsigned)var_s7;
@@ -143,7 +143,7 @@ block_51:
             (*(s32 *)((char *)(temp_s1) + 0x2C)) = arg9;
             func_800AB880(temp_s6, sp10);
             temp_v0_4 = func_80015F0C();
-            if (temp_v0_4 != NULL) {
+            if (temp_v0_4 != (u32)NULL) {
                 (*(s32 **)((char *)(temp_v0_4) + 0x18)) = temp_s6;
                 (*(u16 *)((char *)(temp_v0_4) + 0x1C)) = sp14E;
                 (*(s16 *)((char *)(temp_v0_4) + 0x20)) = var_s4;

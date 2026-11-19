@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,8 +10,9 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
 
-f64 func_800ABA40(M2C_UNK, M2C_UNK *, f32, f64, s32, s32, s32, s32); /* extern */
+f64 func_800ABA40(s32, s32, f32, s32, s32, s32, s32, s32);
 extern f64 D_800D7038;
 extern f64 D_800D7040;
 
@@ -31,7 +31,9 @@ f64 func_800AB4A0(f64 arg0, f32 arg1) {
         return func_800ABA40(1, D_800D7030, arg1, arg0, 0, 0, 0, 0);
     }
     temp_a2 = (M2C_BITWISE(u32, arg1) >> 0x14) & 0x7FF;
-    if (temp_a2 != 0) {
+    if (temp_a2 == 0) {
+        ret = 0.0;
+    } else {
         temp_fv0 = (f32) arg0;
         temp_a1 = (M2C_BITWISE(s32, temp_fv0) & 0xC07FFFFF) | 0x3D000000;
         if ((temp_a2 - 0x3FF) & 1) {
@@ -47,8 +49,6 @@ f64 func_800AB4A0(f64 arg0, f32 arg1) {
             var_a3 += 1;
         } while (var_a3 < 2);
         ret = var_a1;
-    } else {
-        ret = 0.0;
     }
     return ret;
 }

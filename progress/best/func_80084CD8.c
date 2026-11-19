@@ -27,10 +27,10 @@ void func_80084CD8(s32 arg0, s32 arg1) {
 
     temp_fs0 = func_80084270(arg0, &sp10);
     if ((arg1 << 0x18) != 0) {
-        var_a0 = *(&D_800CE6E8 + (func_80045CF8(3) * 2));
+        var_a0 = *((u16 *)((s8 *)&D_800CE6E8 + (func_80045CF8(3) * 2)));
     
-    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&D_80109688 + (sp10 * 4)), arg0, 0);} else {
-        var_a0 = *(&D_800CE6F0 + (func_80045CF8(3) * 2));
+    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0, 0);} else {
+        var_a0 = *((u16 *)((s8 *)&D_800CE6F0 + (func_80045CF8(3) * 2)));
     
-    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&D_80109688 + (sp10 * 4)), arg0, 0);}
+    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0, 0);}
 }

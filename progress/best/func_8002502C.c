@@ -73,10 +73,10 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
     u32 var_a1_6;
     s32 var_s0;
     s32 var_v0;
-    u16 temp_s0;
+    s32 temp_s0;
     void *temp_s0_2;
     u16 temp_v1_2;
-    u16 temp_v1_3;
+    s32 temp_v1_3;
     u16 var_v0_2;
     u16 temp_v1;
 
@@ -305,12 +305,11 @@ block_96:
                                         temp_s0_2 = (*(void **)((char *)(D_80109BB0) + 0));
                                         temp_a0 = (*(s32 *)((char *)(temp_s0_2) + 0x18));
                                         D_800BD68C = 2;
-                                        var_v0 = 0xFF;
                                         if (temp_a0 != 0) {
                                             (*(s16 *)((char *)(temp_s0_2) + 0x1C)) = strlen((s32)temp_a0);
 block_184:
-                                            var_v0 = 0xFF;
                                         }
+                                        var_v0 = 0xFF;
                                         /* Duplicate return node #185. Try simplifying control flow for better match */
                                         return var_v0;
                                     }
@@ -332,8 +331,8 @@ block_184:
                                                 var_a2_3 = 0xA;
                                             }
                                         } else {
-                                            var_a1_4 = 0;
                                             var_a0 = 0;
+                                            var_a1_4 = 0;
                                             var_a2_3 = 0x12;
                                         }
                                         goto block_183;
