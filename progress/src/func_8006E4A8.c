@@ -21,7 +21,7 @@ void func_8006E4A8(void *arg0) {
     M2C_UNK var_a2;
     void *temp_v1;
 
-    if (((u32) (M2C_FIELD(arg0, u16 *, 0x78) - 2) < 2U) && (D_80109CB4 != NULL) && (M2C_FIELD(M2C_FIELD(D_80109CB4, void **, 0x6C), u8 *, 0x4A) == 0x13) && (M2C_FIELD(arg0, f32 *, 0x2C) < M2C_FIELD(D_80109CB4, f32 *, 0x2C))) {
+    if (((u32) (M2C_FIELD(arg0, u16 *, 0x78) - 2) < 2U) && (D_80109CB4 != NULL) && (M2C_FIELD(M2C_FIELD(D_80109CB4, void **, 0x6C), u8 *, 0x4A) == 0x13) && (M2C_FIELD(D_80109CB4, f32 *, 0x2C) > M2C_FIELD(arg0, f32 *, 0x2C))) {
         temp_v1 = M2C_FIELD(arg0, void **, 0x6C);
         M2C_FIELD(arg0, f32 *, 0x74) = -1.0f;
         M2C_FIELD(temp_v1, s32 *, 0x1B4) = 0;
