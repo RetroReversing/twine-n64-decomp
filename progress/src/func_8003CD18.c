@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800828D0();
-f32 func_80082908();
+f32 func_800828D0(f32);
+f32 func_80082908(f32);
 
 void func_8003CD18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
@@ -40,7 +40,7 @@ void func_8003CD18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         var_fs1 = var_fs2;
         var_fs5 = var_fs4;
         if (arg0 != 0) {
-            temp_v1 = (arg0 * 0xC) + var_a1;
+            temp_v1 = (void *) (((arg0 * 0xC)) + (s32) var_a1);
             do {
                 temp_fv0 = M2C_FIELD(var_a1, f32 *, 0);
                 if (temp_fv0 < var_fa0) {
