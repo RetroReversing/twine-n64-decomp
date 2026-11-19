@@ -15,6 +15,8 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8002A1F0();                            /* extern */
 
 void func_8002ACB4(void *arg0) {
+    s32 temp_index;
+    s32 temp_base;
     u16 var_s1;
     u8 temp_v1;
 
@@ -25,7 +27,9 @@ void func_8002ACB4(void *arg0) {
             return;
         }
         for (var_s1 = 0; var_s1 < (u8) M2C_FIELD(arg0, u8 *, 0x19); var_s1++) {
-            M2C_FIELD(arg0, M2C_UNK (**)(s32, M2C_UNK, s32), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_s1 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1);
+            temp_index = var_s1 * 0x3;
+            temp_base = M2C_FIELD(arg0, s32 *, 0);
+            M2C_FIELD(arg0, M2C_UNK (**)(s32, M2C_UNK, s32), 4)(temp_base + temp_index * 4, 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1);
         }
     }
 }
