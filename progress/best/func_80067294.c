@@ -17,6 +17,8 @@ extern char D_800C469C[];
 extern s32 D_80102ED8;
 
 void func_80067294(void *arg0, s32 arg1) {
+char *__repair_addr;
+
     s8 temp_v1;
     s8 var_a2;
     void *temp_s0;
@@ -40,6 +42,8 @@ void func_80067294(void *arg0, s32 arg1) {
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = var_a2;
         func_80070CA4(arg0, arg1, var_a2);
         return;
+__repair_addr = (char *)(M2C_FIELD(arg0, void **, 0x68));
+
     case 1:
     case 2:
     case 3:
@@ -63,13 +67,14 @@ void func_80067294(void *arg0, s32 arg1) {
     case 25:
     case 26:
     case 27:
-        if (!(*(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) {
-            do {
+        if (!(*(u16 *)(D_800C469C + (M2C_FIELD(__repair_addr, s8 *, 0xE) * 0xE8)) & 0x8000)) {
+            __repair_rows: {
                 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) -= 1;
-            } while (!(*(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000));
+            }
+if (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) goto __repair_rows;
         }
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = var_a2;
-        func_80070CA4((s8) M2C_FIELD(arg0, void **, 0x68), var_a2);
+        func_80070CA4((s8) M2C_FIELD(arg0, void **, 0x68));
         M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xA8), s16 *, 0x7A) = 0xA;
         /* fallthrough */
     default:

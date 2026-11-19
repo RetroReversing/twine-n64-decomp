@@ -40,6 +40,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     s32 temp_a1_3;
     register s32 temp_fv1;
     s32 temp_t3;
+s32 __repair_phase_temp_t3;
     s32 temp_t7;
     s32 temp_v1;
     s32 sp2C;
@@ -118,15 +119,15 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                 sp24 = temp_t7 | (((arg4 - 1) & 0xFFF) | 0xFD080000);
                 temp_ft1 = (f32) ((f64) (f32) var_t5 + D_800D2F28);
                 do {
-                    temp_a1 = var_t4 - 1;
-                    temp_t3 = temp_a1 & ((s32) ~temp_a1 >> 0x1F);
-                    var_t2 = var_t4 + arg8;
+                    var_t1_2 = var_t4 - 1;
+                    temp_t3 = var_t1_2 & ((s32) ~var_t1_2 >> 0x1F);do{
+                    var_t2 = var_t4 + arg8;}while(0);
                     temp_fv0 = (f32) ((f64) (f32) var_t4 + D_800D2F28);
                     if (temp_s1 < var_t2) {
                         var_t2 = temp_s1;
                     }
-                    temp_a0 = var_t5 - 1;
-                    temp_a2_2 = temp_a0 & ((s32) ~temp_a0 >> 0x1F);
+                    temp_v1_2 = var_t5 - 1;
+                    temp_a2_2 = temp_v1_2 & ((s32) ~temp_v1_2 >> 0x1F);
                     var_a3 = var_t5 + arg9;
                     if (var_a3 > temp_s0) {
                         var_a3 = temp_s0;
@@ -193,13 +194,13 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                     if (var_v1 >= 0xF1) {
                         var_v1 = 0xF0;
                     }
-                    temp_t3 = var_a0 * 4;
+                    __repair_phase_temp_t3 = var_a0 * 4;
                     temp_v1_2 = var_v1 * 4;
                     temp_a0 = var_t6 * 4;
                     if (D_8010A4E8 != 0) {
                         temp_t0_12 = var_t0_2 + 8;
                         var_fv1_3 = temp_fv0 * 32.0f;
-                        (*(s32 *)((char *)(temp_t0_12) + -4)) = (s32) (((temp_t3 & 0xFFF) << 0xC) | (((temp_v1_2 * 2) & 0xFFF) | 0xE4000000));
+                        (*(s32 *)((char *)(temp_t0_12) + -4)) = (s32) (((__repair_phase_temp_t3 & 0xFFF) << 0xC) | (((temp_v1_2 * 2) & 0xFFF) | 0xE4000000));
                         (*(s32 *)((char *)(var_t0_2) + 8)) = (s32) (((temp_a0 & 0xFFF) << 0xC) | ((var_t8 * 8) & 0xFFF));
                         var_t0_3 = temp_t0_12 + 8;
                         var_t1 = var_t1_2 + 0x18;
@@ -207,7 +208,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                         var_a0_2 = 0x04000200;
                     } else {
                         temp_t0_13 = var_t0_2 + 8;
-                        (*(s32 *)((char *)(temp_t0_13) + -4)) = (s32) (((temp_t3 & 0xFFF) << 0xC) | ((temp_v1_2 & 0xFFF) | 0xE4000000));
+                        (*(s32 *)((char *)(temp_t0_13) + -4)) = (s32) (((__repair_phase_temp_t3 & 0xFFF) << 0xC) | ((temp_v1_2 & 0xFFF) | 0xE4000000));
                         var_fv1_3 = temp_fv0 * 32.0f;
                         (*(s32 *)((char *)(var_t0_2) + 8)) = (s32) (((temp_a0 & 0xFFF) << 0xC) | ((var_t8 * 4) & 0xFFF));
                         var_t0_3 = temp_t0_13 + 8;

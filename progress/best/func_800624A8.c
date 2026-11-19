@@ -44,7 +44,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
         var_fp = 2;
         var_s6 = 0;
     } else {
-        var_s6 = 4; var_fp = 3;
+        var_fp = 3; var_s6 = 4;
     }
     func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, arg0 + 0x3C, NULL, 0.75f, 1.05f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x7F7F8110);
     func_80073508(arg1, arg2 * 0.001f);

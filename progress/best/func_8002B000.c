@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8002B000(void *arg0, s8 arg1) {
-    if (arg0 != NULL) {
-        M2C_FIELD(arg0, s32 *, 0) = 0;
-        M2C_FIELD(arg0, s8 *, 6) = 0;
-        M2C_FIELD(arg0, s16 *, 4) = 0;
-        M2C_FIELD(arg0, s8 *, 7) = arg1;
-        return (arg1 & 0xFF) != 0;
+s32 func_8002B000(void *arg0, u8 arg1) {
+    if (arg0 == NULL) {
+        return 0;
     }
-    return 0;
+    M2C_FIELD(arg0, s32 *, 0) = 0;
+    M2C_FIELD(arg0, s8 *, 6) = 0;
+    M2C_FIELD(arg0, s16 *, 4) = 0;
+    M2C_FIELD(arg0, s8 *, 7) = arg1;
+    return arg1 != 0;
 }

@@ -21,17 +21,17 @@ void *func_80119C2C(void *arg0, s32 arg1, s32 arg2) {
     D_8011F108 = (s32) ((__repair_record_arg0*)arg0)->field_0;
     D_8011F10C = (s32) ((__repair_record_arg0*)arg0)->field_4;
     D_8011F110 = (s32) ((__repair_record_arg0*)arg0)->field_8;
-    if (temp_v0 != NULL) {
+    if ((s32)temp_v0 != NULL) {
         func_80044670(temp_v0, 0, 0xF4);
-        ((__repair_record_temp_v0*)temp_v0)->field_7E = 3;
         ((__repair_record_temp_v0*)temp_v0)->field_54 = (f32) (arg2 & 0xFFFF);
         ((__repair_record_temp_v0*)temp_v0)->field_78 = 0x29;
         ((__repair_record_temp_v0*)temp_v0)->field_7F = 0;
+        ((__repair_record_temp_v0*)temp_v0)->field_7E = 3;
         ((__repair_record_temp_v0*)temp_v0)->field_82 = 0x80;
         ((__repair_record_temp_v0*)temp_v0)->field_80 = 0;
-        ((__repair_record_temp_v0*)temp_v0)->field_5C &= ~0x200;
         ((__repair_record_temp_v0*)temp_v0)->field_81 = 0;
         ((__repair_record_temp_v0*)temp_v0)->field_7A = 0;
+        ((__repair_record_temp_v0*)temp_v0)->field_5C &= ~0x200;
         func_8003E6EC(*D_800CA31C, temp_v0, 1);
     }
     return temp_v0;

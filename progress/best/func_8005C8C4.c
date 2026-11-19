@@ -28,7 +28,6 @@ void func_8005C8C4(void) {
     if ((D_80108788 != NULL) && (temp_a0 = M2C_FIELD(D_80108788, u16 *, 0x78), (((s32) temp_a0 < 0x13) != 0))) {
         var_v0 = 0;
         if ((s32) temp_a0 >= 0x11) {
-            var_a1 = 1;
             if (M2C_FIELD(D_80108788, s16 *, 0x7C) == 0) {
                 M2C_FIELD(D_80108788, s16 *, 0x7C) = 1;
                 if (M2C_FIELD(M2C_FIELD(D_80108788, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
@@ -36,8 +35,8 @@ void func_8005C8C4(void) {
                     func_8000A894(0x12E, 0x08000000);
                     func_80073AF8(0, D_80109688, func_80087100(0x160), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
-                var_a1 = 1;
             }
+            var_a1 = 1;
             goto block_7;
         }
     } else {

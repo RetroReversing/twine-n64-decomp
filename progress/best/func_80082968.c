@@ -15,5 +15,5 @@ typedef s32 M2C_UNK32;
 extern M2C_UNK D_800CA350;
 
 f32 func_80082968(f32 arg0) {
-    return *(&D_800CA350 + (((s32) (arg0 * 651.8986f) & 0xFFF) * 4));
+    return *((M2C_UNK *)((s8 *)&D_800CA350 + (((s32) (arg0 * 651.8986f) & 0xFFF) * 4)));
 }

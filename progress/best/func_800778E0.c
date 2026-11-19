@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s16 D_80100786;
+extern u16 D_80100786;
 extern u8 D_80102EE8;
 extern s16 D_80102F2A;
 extern u16 D_80107E98;
@@ -22,6 +22,8 @@ extern s16 D_80113020;
 extern f32 D_80117408;
 
 void func_800778E0(void) {
+int __repair_literal;
+
     f32 var_fv0;
     u16 temp_v0;
 
@@ -32,7 +34,9 @@ void func_800778E0(void) {
     D_8010A91A = 0;
     D_80113020 = 0;
     D_80107E98 = temp_v0;
-    if ((D_80102EE8 != 1) && (((s32) D_80102EE8 < 2) || (D_80102EE8 != 2))) {
+__repair_literal = 2;
+
+    if ((D_80102EE8 != 1) && (((s32) D_80102EE8 < __repair_literal) || (D_80102EE8 != 2))) {
         var_fv0 = 240.0f;
     } else {
         var_fv0 = 120.0f;

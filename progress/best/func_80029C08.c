@@ -20,12 +20,12 @@ extern void *D_80109BB0;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 s32 func_80029C08(void *arg0, s32 arg1, s32 arg2) {
-    f32 temp_fv1_2;
+    unsigned int var_a0;
     f64 var_ft0;
     s32 var_a0_3;
     f32 temp_fv1;
-    unsigned int var_a0;
     long var_a0_2;
+    f32 temp_fv1_2;
     f64 var_ft0_2;
     s32 *var_a0_4;
     register s32 temp_s0;
@@ -56,7 +56,7 @@ s32 __repair_phase_temp_s0;
     void *var_s4;
     void *var_v0;
 
-    if (arg0 != (s32)NULL) {
+    if (arg0 != NULL) {
         temp_s6 = (*(u8 *)((char *)(arg0) + 0x18));
         if (!(arg2 & 0xFF)) {
             var_s4 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0xAC);
@@ -122,8 +122,8 @@ block_9:
             } else {
                 var_a0_4 = &D_800BD64C;
             }
-            (*(s32 *)((char *)((*(void **)((char *)(var_s3) + 8))) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)((unsigned)D_80109BB0) + 0x30)));
             temp_v1 = (*(u8 *)((char *)(D_80109BB0) + 0x30));
+            (*(s32 *)((char *)((*(void **)((char *)(var_s3) + 8))) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)((unsigned)D_80109BB0) + 0x30)));
             (*(s32 *)((char *)((*(void **)((char *)(var_s4) + 8))) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30)));
             var_s1_2 = 0xFF;
             if (0xFFU > temp_v1) {

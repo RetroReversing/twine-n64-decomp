@@ -41,6 +41,8 @@ extern char D_8011508B[];
 extern char D_80115090[];
 
 void func_80065D90(void *arg0) {
+int __repair_literal;
+
     s32 var_a0_2;
     s32 var_a1;
     f32 temp_fa0;
@@ -215,7 +217,9 @@ block_8:
                         var_a0 += 1;
                     } while (!(*(u16 *)(D_800C469C + ((temp_v1_5 - var_a0) * 0xE8)) & 0x8000));
                 }
-                (*(s8 *)((char *)((temp_s1 + (((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) - var_a0) * 8))) + 0x1FE)) = (s8) var_a0;
+__repair_literal = 8;
+
+                (*(s8 *)((char *)((temp_s1 + (((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) - var_a0) * __repair_literal))) + 0x1FE)) = (s8) var_a0;
                 func_800015AC(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)), temp_a2, temp_a3);
                 func_800643EC(arg0);
                 temp_v1_6 = (*(void **)((char *)(arg0) + 0x68));

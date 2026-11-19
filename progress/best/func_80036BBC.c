@@ -30,26 +30,26 @@ extern void *D_80117728;
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 typedef struct { int value; } __repair_field_0;
 void func_80036BBC(void *arg0) {
-    void *temp_a0;
-    s32 *var_v1_3;
-    s32 *temp_v1;
-    s32 *temp_v1_10;
-    s32 *temp_v1_11;
-    s32 *temp_v1_2;
     s32 *temp_v1_3;
+    s32 *var_v1_3;
+    s32 *temp_v1_10;
+    s32 *temp_v1_2;
+    s32 *temp_v1_11;
+    void *temp_v0;
     s32 *temp_v1_4;
+    s32 *temp_v1;
     s32 temp_v1_8;
-    s32 *var_v0;
+    
     s32 *var_v0_2;
     void *temp_v0_2;
     s32 var_a1;
-    register s32 var_a0_2;
-    int temp_v1_9;
+    register unsigned var_a0_2;
+    register int temp_v1_9;
     s32 var_v1;
     register unsigned int temp_v1_5;
     u32 temp_v1_7;
-    s32 *var_v1_2;
-    void *temp_v0;
+    register s32 *var_v1_2;
+    void *temp_a0;
     
     void *temp_v1_6;
     void *var_s0;
@@ -69,7 +69,7 @@ void func_80036BBC(void *arg0) {
             ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
             (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1A00;
         } else {
-            temp_v1_2 = D_80115328;
+            register temp_v1_2 = D_80115328;
             D_80115328 = temp_v1_2 + 8;
             ((__repair_field_0 *)temp_v1_2)->value = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1B18;
@@ -98,7 +98,7 @@ loop_12:
 loop_13:
             temp_v0 = (*(void **)((char *)(var_s0) + 0x3C));
             if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) (*(u32 *)((char *)(var_s0) + 0x58)) >> 2) & 1) && ((func_80014C10(var_s0 + 0x40, (*(s32 *)((char *)(var_s0) + 0x4C)), var_s2, arg0) << 0x18) != 0)) {
-                register temp_v1_5 = (u32) (*(u32 *)((char *)(var_s0) + 0x58)) >> 2;
+                temp_v1_5 = (u32) (*(u32 *)((char *)(var_s0) + 0x58)) >> 2;
                 if (temp_v1_5 & 0xC) {
                     if (temp_v1_5 & 4) {
                         temp_a0 = (*(void **)((char *)(var_s0) + 0x3C));
@@ -122,7 +122,7 @@ block_26:
                 }
                 if (((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 3) {
                     temp_v1_7 = D_80107EA0 + 1;
-                    if ((u32) D_80107EA0 < D_800B1D84) {
+                    if (D_800B1D84 > D_80107EA0) {
 s32 *var_a0;
 
                         D_80107EA0 = temp_v1_7;
@@ -155,20 +155,20 @@ block_34:
                             switch (temp_v1_8) {
 case 1:                 /* switch 1 */
                             case 4:                 /* switch 1 */
-                                var_v0 = D_80115328;
-                                D_80115328 = var_v0 + 8;
+                                var_v1_3 = D_80115328;
+                                D_80115328 = var_v1_3 + 8;
                                 var_v1_2 = &D_800B1D20;
-                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
+                                ((__repair_field_0 *)var_v1_3)->value = 0xDE000000;
                                 goto block_41;
                             case 0: break;
     /* switch 1; irregular */
                             case 2:                 /* switch 1 */
-                                var_v0 = D_80115328;
-                                D_80115328 = var_v0 + 8;
+                                var_v1_3 = D_80115328;
+                                D_80115328 = var_v1_3 + 8;
                                 var_v1_2 = &D_800B1D48;
-                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
+                                ((__repair_field_0 *)var_v1_3)->value = 0xDE000000;
 block_41:
-                                (*(s32 **)((char *)(var_v0) + 4)) = (unsigned short)var_v1_2;
+                                (*(s32 **)((char *)(var_v1_3) + 4)) = (unsigned short)var_v1_2;
                                 break;
                             }
                         }
@@ -192,10 +192,10 @@ block_48:
                             }
                         }
                         func_80032630((*(void **)((char *)(var_s0) + 0x3C)));
-                        if (D_8010A924 != 0) {
+                        if (D_8010A924) {
                             D_8010A924 = 0;
                             if (((__repair_field_100 *)arg0)->value & 3) {
-                                var_v0_2 = D_80115328;
+                                register var_v0_2 = D_80115328;
                                 D_80115328 = var_v0_2 + 8;
                                 var_v1_3 = &D_800B1A00;
                                 ((__repair_field_0 *)var_v0_2)->value = 0xDE000000;
