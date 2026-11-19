@@ -20,7 +20,7 @@ extern char D_8010A51A[];
 extern char D_8010A51C[];
 
 void func_80098A18(void *arg0) {
-    u16 temp_a1_3;
+    s32 temp_a1_3;
     u16 temp_a1_4;
     u8 temp_a1;
     u8 temp_a1_2;
@@ -45,7 +45,7 @@ void func_80098A18(void *arg0) {
             temp_a0 = (M2C_FIELD(arg0, u8 *, 0x2E) * 4) + D_8010A51A;
             temp_a1_3 = M2C_FIELD(temp_a0, u16 *, 2);
             if (temp_a1_3 != 0xFFFF) {
-                *(s16 *)(D_8010A51A + (temp_a1_3 * 4)) = M2C_FIELD(temp_a0, u16 *, 0);
+                *(s16 *)(D_8010A51A + ((temp_a1_3 *= 4))) = M2C_FIELD(temp_a0, u16 *, 0);
             } else {
                 D_80109B1C = M2C_FIELD(temp_a0, u16 *, 0);
             }
