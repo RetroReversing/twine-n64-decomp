@@ -21,7 +21,7 @@ extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
 extern s32 D_80102ED8;
 extern void *D_80102F2C;
-extern void *D_80109688;
+extern void *volatile D_80109688;
 extern void *D_80109BB0;
 
 void func_80028458(void) {
