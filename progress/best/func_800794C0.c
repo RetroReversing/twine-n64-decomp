@@ -52,26 +52,26 @@ void func_800794C0(s32 arg0, void *arg1) {
              
                    
              
-    void *temp_v1_3;
-    void *temp_v1_2;
     f32 temp_fv1;
+    void *temp_v1_2;
+    void *temp_v1_5;
     f32 var_ft0;
     s16 temp_v1;
     s16 temp_v1_4;
-    s32 temp_v1_7;
+    int temp_v1_7;
     void *temp_a2;
     void *temp_s2;
     f32 temp_fv0;
     f32 temp_fs0;
-    void *temp_v1_5;
+    void *temp_v1_3;
     void *temp_v1_6;
 
     temp_s2 = (*(void **)((char *)(arg1) + 0x6C));
     m2c_initial_frame.view_sp54.value = (*(f32 *)((char *)(&D_800D4E74) + 4));
     m2c_initial_frame.view_sp50.value = (*(f32 *)((char *)(&D_800D4E74) + 0));
     m2c_initial_frame.view_sp58.value = (*(f32 *)((char *)(&D_800D4E74) + 8));
-    m2c_initial_frame.view_sp60.value = (*(f32 *)((char *)(&D_800D4E74) + 0));
     m2c_initial_frame.view_sp64.value = (*(f32 *)((char *)(&D_800D4E74) + 4));
+    m2c_initial_frame.view_sp60.value = (*(f32 *)((char *)(&D_800D4E74) + 0));
     m2c_initial_frame.view_sp68.value = (*(f32 *)((char *)(&D_800D4E74) + 8));
     temp_fs0 = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x38));
     m2c_initial_frame.view_sp80.value = 0;
@@ -81,14 +81,14 @@ void func_800794C0(s32 arg0, void *arg1) {
     D_80103046 += 1;
     if ((0x38 > temp_v1) && (0x36 <= temp_v1)) {
         m2c_initial_frame.view_sp70.value = (*(f32 *)((char *)(arg1) + 0x24));
-        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
         m2c_initial_frame.view_sp78.value = (*(f32 *)((char *)(arg1) + 0x2C));
+        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
         var_ft0 = 42.0f;
         m2c_initial_frame.view_sp74.value += 1.0f;
     } else {
         m2c_initial_frame.view_sp70.value = (*(f32 *)((char *)(arg1) + 0x24));
-        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
         m2c_initial_frame.view_sp78.value = (*(f32 *)((char *)(arg1) + 0x2C));
+        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
         var_ft0 = 41.0f;
     }
     temp_fv0 = (*(f32 *)((char *)(temp_s2) + 0x48)) - 0.32666668f;
@@ -103,8 +103,8 @@ void func_800794C0(s32 arg0, void *arg1) {
     }
     temp_a2 = (*(void **)((char *)(temp_s2) + 0x6C));
     if (temp_a2 != NULL) {
-        (*(s32 *)((char *)(temp_a2) + 0x30)) = m2c_initial_frame.view_sp80.value;
         (*(s32 *)((char *)(temp_a2) + 0x34)) = m2c_initial_frame.view_sp84.value;
+        (*(s32 *)((char *)(temp_a2) + 0x30)) = m2c_initial_frame.view_sp80.value;
         (*(s32 *)((char *)(temp_a2) + 0x38)) = m2c_initial_frame.view_sp88.value;
         (*(s32 *)((char *)(temp_a2) + 0x3C)) = m2c_initial_frame.view_sp8C.value;
     }
@@ -114,7 +114,7 @@ void func_800794C0(s32 arg0, void *arg1) {
     (*(u16 *)((char *)(temp_v1_3) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_3) + 0xC)) | 0x80);
     if ((*(f32 *)((char *)(arg1) + 0x28)) <= (m2c_initial_frame.view_sp34.value + temp_fs0)) {
         if ((D_80108F78 != 0x19) && ((*(f32 *)((char *)(temp_s2) + 0x48)) < -12.0f)) {
-            (*(f32 *)((char *)(arg1) + 0x74)) = -1.0f;
+            (*(f32 *)((char *)(arg1) + (int)0x74)) = -1.0f;
         }
         temp_v1_4 = (*(s16 *)((char *)(arg1) + 0x7A));
         if ((temp_v1_4 < 0x38) && (0x36 <= temp_v1_4)) {
@@ -133,7 +133,7 @@ void func_800794C0(s32 arg0, void *arg1) {
             (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = (u8) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
         }
     } else {
-        temp_v1_6 = (*(void **)((char *)(arg1) + 0x68));
+        register temp_v1_6 = (*(void **)((char *)(arg1) + 0x68));
         (*(u16 *)((char *)(temp_v1_6) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_6) + 0xC)) & 0xFFF7);
     }
     if ((D_80103F00 != 0) && ((*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8)) < m2c_initial_frame.view_sp44.value) && (func_80045CF8(4) == 0)) {
@@ -144,7 +144,7 @@ void func_800794C0(s32 arg0, void *arg1) {
     arg0 = ((__repair_field_88 *)temp_s2)->value & 0xFBFFFFFF;
     ((__repair_field_88 *)temp_s2)->value = arg0;
     if (D_80108788 != 0) {
-        ((__repair_field_88 *)temp_s2)->value = (s32) (arg0 | 0x04000000);
+        ((__repair_field_88 *)temp_s2)->value = (s32) ((u32)arg0 | 0x04000000);
     }
     if ((D_80108F84 != NULL) && (((u32) (*(u32 *)((char *)(D_80108F84) + 0x5C)) >> 0x11) & 2)) {
         ((__repair_field_88 *)temp_s2)->value = (s32) (((__repair_field_88 *)temp_s2)->value | 0x04000000);

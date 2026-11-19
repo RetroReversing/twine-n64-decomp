@@ -31,7 +31,8 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_a0;
     s32 temp_a0_2;
     s32 temp_a0_8;
-    s32 temp_a0_9;
+s32 __repair_phase_temp_a0_8;
+    
     s32 temp_a1_3;
     s32 temp_a1_5;
     s32 temp_a2;
@@ -112,7 +113,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2) {
         }
         temp_v0_2 = var_v1 >> 4;
         var_a2 = 0x800;
-        if (temp_v0_2 > 0) {{ s32 __repair_value; temp_a0_8 = temp_v0_2 + 0x7FF; var_a2 = temp_a0_8; }
+        if (temp_v0_2 > 0) {{ s32 __repair_value; __repair_phase_temp_a0_8 = temp_v0_2 + 0x7FF; var_a2 = __repair_phase_temp_a0_8; }
         }
         temp_v0_3 = ((*(s32 *)((char *)(temp_s4) + 4)) * 0xC) + ((__repair_field_18 *)temp_s3)->value;
         temp_t0 = (*(u16 *)((char *)(temp_v0_3) + 2));
@@ -181,7 +182,7 @@ block_48:
                     break;
                 case 5:
                     var_s0 += 1;
-                    if (D_800C0738 == 0) {
+                    if (!D_800C0738) {
                         temp_a0_3 = D_80115328;
                         temp_t2 = *((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) * 4) + D_800BD640);
                         D_80115328 = temp_a0_3 + 8;
@@ -250,7 +251,7 @@ loop_42:
                     temp_a0_7 = (*(s8 *)((char *)(temp_v1_4) + 4));
                     if (D_8010A4E8 != 0) {
                         var_a2_2 = D_80115328;
-                        temp_a0_8 = arg1 + ((var_s5 - temp_a0_7) * 2);
+                        __repair_phase_temp_a0_8 = arg1 + ((var_s5 - temp_a0_7) * 2);
                         temp_v1_5 = temp_a3 + (*(void **)((char *)(temp_s4) + 8));
                         D_80115328 = var_a2_2 + 8;
                         D_80115328 = var_a2_2 + 0x10;
@@ -258,14 +259,14 @@ loop_42:
                         (*(s32 *)((char *)(var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
                         D_80115328 = var_a2_2 + 0x18;
                         (*(s32 *)((char *)(var_a2_2) + 0x10)) = 0xF1000000;
-                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) (((((arg0 + var_s1) * 4) & 0xFFF) << 0xC) | ((temp_a0_8 * 4) & 0xFFF));
+                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) (((((arg0 + var_s1) * 4) & 0xFFF) << 0xC) | ((__repair_phase_temp_a0_8 * 4) & 0xFFF));
                         (*(s32 *)((char *)(var_a2_2) + 0x14)) = 0x04000200;
                         var_a1_2 = (((arg0 + (var_s1 + (*(u8 *)((char *)(temp_v1_5) + 2)))) * 4) & 0xFFF) << 0xC;
-                        var_a0_2 = temp_a0_8 + ((*(u8 *)((char *)(temp_v1_5) + 3)) * 2);
+                        var_a0_2 = __repair_phase_temp_a0_8 + ((*(u8 *)((char *)(temp_v1_5) + 3)) * 2);
                     } else {
                         var_a2_2 = D_80115328;
                         var_a0_2 = arg0 + var_s1;
-                        temp_a0_9 = arg1 + (var_s5 - temp_a0_7);
+                        temp_a0 = arg1 + (var_s5 - temp_a0_7);
                         temp_v1_6 = temp_a3 + (*(void **)((char *)(temp_s4) + 8));
                         D_80115328 = var_a2_2 + 8;
                         D_80115328 = var_a2_2 + 0x10;
@@ -273,12 +274,12 @@ loop_42:
                         (*(s32 *)((char *)(var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
                         D_80115328 = var_a2_2 + 0x18;
                         (*(s32 *)((char *)(var_a2_2) + 0x10)) = 0xF1000000;
-                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) ((((var_a0_2 * 4) & 0xFFF) << 0xC) | ((temp_a0_9 * 4) & 0xFFF));
+                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) ((((var_a0_2 * 4) & 0xFFF) << 0xC) | ((temp_a0 * 4) & 0xFFF));
                         var_a1_2 = (((var_a0_2 + (*(u8 *)((char *)(temp_v1_6) + 2))) * 4) & 0xFFF) << 0xC;
                         (*(s32 *)((char *)(var_a2_2) + 0x14)) = 0x04000400;
-                        var_a0_2 = temp_a0_9 + (*(u8 *)((char *)(temp_v1_6) + 3));
+                        var_a0_2 = temp_a0 + (*(u8 *)((char *)(temp_v1_6) + 3));
                     }
-                    *var_a2_2 = var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | 0xE4000000);
+                    *var_a2_2 = (unsigned short)var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | 0xE4000000);
                     var_s7 = temp_t2_3;
                     var_v1_3 = (*(u8 *)((char *)(((temp_t2_3 * 5) + (*(void **)((char *)(temp_s4) + 8)))) + 2)) + (*(s8 *)((char *)(temp_s4) + 0x11));
                     var_s1 += var_v1_3;

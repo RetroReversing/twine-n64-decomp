@@ -19,7 +19,7 @@ extern u8 D_801002EA;
 extern u8 D_8010A930;
 extern u8 D_8010D720;
 extern char D_8010D724[];
-extern s32 D_8010D748;
+extern u8 D_8010D748[];
 extern char D_8010D770[];
 extern u8 D_80110DB0;
 extern char D_80117388[];
@@ -27,6 +27,10 @@ extern char D_80117389[];
 extern u8 D_801176E8;
 
 void func_8009991C(s32 arg0) {
+int __repair_constant = 0xFF;
+
+int __repair_literal;
+
     char *var_s1;
     char *var_s4;
     s32 var_s2;
@@ -36,9 +40,11 @@ void func_8009991C(s32 arg0) {
     void *temp_s0;
 
     var_s2 = 0;
-    if ((s32) D_801176E8 > 0) {
-        var_s1 = &D_8010D748;
-        var_s4 = &D_8010D748 - 0x24;
+__repair_literal = 0;
+
+    if ((s32) D_801176E8 > __repair_literal) {
+        var_s1 = D_8010D748;
+        var_s4 = D_8010D748 - 0x24;
         var_s3 = 0;
         do {
             if (*(s32 *)var_s4 != 0) {

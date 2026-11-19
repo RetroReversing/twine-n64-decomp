@@ -21,19 +21,19 @@ extern void *D_80102F2C;
 extern void *D_80109BB0;
 extern M2C_UNK D_8010A500;
 
-s32 func_8001F4B8(s32 arg0, s32 arg1) {
+s32 func_8001F4B8(u16 arg0, u8 arg1) {
     M2C_UNK (*temp_v0)(s32);
     s32 temp_a0;
     s32 temp_s0;
     s32 var_v0;
     void *temp_v0_2;
 
-    temp_a0 = *(&D_8010A500 + ((arg0 & 0xFFFF) * 4));
+    temp_a0 = *((M2C_UNK *)((s8 *)&D_8010A500 + ((arg0 & 0xFFFF) * 4)));
     if (temp_a0 == 0) {
         return 0;
     }
-    temp_s0 = arg1 & 0xFF;
-    temp_v0 = *(&D_800C4480 + (temp_s0 * 0x10));
+    arg0 = arg1 & 0xFF;
+    temp_v0 = *((M2C_UNK *)((s8 *)&D_800C4480 + (arg0 * 0x10)));
     if (temp_v0 != NULL) {
         temp_v0(temp_a0);
     }
@@ -41,7 +41,7 @@ s32 func_8001F4B8(s32 arg0, s32 arg1) {
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 0) {
         var_v0 = arg1 & 0xFF;
         if (D_800B60EA == 1) {
-            if (temp_s0 == 0x13) {
+            if (arg0 == 0x13) {
                 func_800278AC(0xA, D_80102EBC, M2C_FIELD(D_80102F2C, u16 *, 0x7A));
                 return arg1 & 0xFF;
             }
