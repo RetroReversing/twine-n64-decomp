@@ -13,11 +13,6 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800828D8(s32 arg0) {
-    s32 var_v0;
 
-    var_v0 = arg0;
-    if (arg0 < 0) {
-        var_v0 = -var_v0;
-    }
-    return var_v0;
+    return (arg0 >= 0) ? arg0 : -arg0;
 }
