@@ -16,8 +16,9 @@ s32 func_800923AC(u32 *arg0) {
     u32 temp_a0;
 
     temp_a0 = *arg0;
-    if (temp_a0 == -1U) {
+    if (temp_a0 == -1U) { goto __repair_guard_body; }
+return (temp_a0 >> 0x1F) ^ 1;
+__repair_guard_body: {
         return 1;
     }
-    return (temp_a0 >> 0x1F) ^ 1;
 }
