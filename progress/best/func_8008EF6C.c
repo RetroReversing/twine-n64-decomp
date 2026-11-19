@@ -41,7 +41,7 @@ void func_8008EF6C(s32 arg0, s32 arg1, s32 arg2) {
             if ((u8) *(D_80107EE8 + var_a0) < 2U) {
                 *(s32 *)var_a1 = (arg0 & 0xFF) << 0x10;
                 *(s32 *)(D_80107EF8 + var_a0) = sp10;
-                *(D_80107EF4 + var_a0) = (s32) (*(s32 *)var_a1 - *(s32 *)(D_80107EEC + var_a0)) / (s32) (var_s1 & 0xFFFF);
+                *(D_80107EF4 + var_a0) = (s32) (*(s32 *)var_a1 - *(s32 *)(D_80107EEC + var_a0)) / (s32) (var_s1 & (short)0xFFFF);
             }
             var_a1 += 0x28;
             ++var_a2;

@@ -53,7 +53,7 @@ void func_80072C7C(f32 arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
     sp34 = (M2C_FIELD(arg1, f32 *, 0x1C) * sp40) + (M2C_FIELD(arg2, f32 *, 0x1C) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x1C) * temp_fs1);
     sp38 = (M2C_FIELD(arg1, f32 *, 0x20) * sp40) + (M2C_FIELD(arg2, f32 *, 0x20) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x20) * temp_fs1);
     if (temp_fs2 < D_800E1A34) {
-        func_80045348(arg1, arg2, &sp50);
+        do { func_80045348(arg1, arg2, &sp50); } while (0);
         func_80045348(arg2, arg3, &sp78);
         func_80045348(arg3, arg1, &spA0);
         func_80072C7C(temp_fs2, arg1, arg2, &sp18, arg4, arg5);

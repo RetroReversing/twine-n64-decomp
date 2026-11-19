@@ -16,22 +16,22 @@ s32 func_8008FB20(void) {
     
     s32 temp_a3_2;
     s32 temp_t1_2;
-    u32 temp_v0_6;
-    s32 temp_v1;
-    s32 var_a0;
-    s32 var_s2;
+    s32 temp_v0_6;
+    int temp_v1;
+    long var_a0;
+    unsigned var_s2;
     s32 var_s4;
     s32 var_s6;
-    s32 var_s7;
-    s32 var_v0_2;
+    int var_s7;
+    unsigned long var_v0_2;
     s32 var_v1;
     u32 temp_s1;
     u8 temp_a0_2;
     u8 temp_a0_3;
     u8 temp_a1;
     u8 temp_a3;
-    u8 temp_t1;
-    u8 temp_t2;
+    register u8 temp_t1;
+    register u8 temp_t2;
     u8 var_v0;
     void **temp_v1_4;
     void *temp_t0;
@@ -58,8 +58,8 @@ s32 func_8008FB20(void) {
 loop_3:
             temp_s1 = (*(u16 *)((char *)((*(void **)((char *)(var_a2) + 0x574))) + 0)) + (*(u32 *)((char *)(var_a2) + 0x570));
             if ((u32) ((*(s32 *)((char *)(var_a2) + 0x56C)) + (*(s32 *)((char *)(temp_t0) + 0x120))) >= temp_s1) {
-                __repair_phase_storage.pointer = (*(void **)((char *)(var_a2) + 0x574));
                 (*(u32 *)((char *)(var_a2) + 0x570)) = temp_s1;
+                __repair_phase_storage.pointer = (*(void **)((char *)(var_a2) + 0x574));
                 temp_a3 = (*(u8 *)((char *)(__repair_phase_storage.pointer) + 2));
                 temp_a1 = (*(u8 *)((char *)(var_a2) + 0x58C));
                 temp_t1 = (*(u8 *)((char *)(__repair_phase_storage.pointer) + 3));
@@ -120,7 +120,7 @@ loop_3:
                                             var_v0_2 = 0x7F;
                                         }
                                         temp_t0_2 = D_800E5AC0;
-                                        if (temp_t0_2 != NULL) {
+                                        if ((short)temp_t0_2 != NULL) {
                                             temp_v0_4 = ((__repair_field_0 *)temp_t0_2)->value;
                                             D_800E5AC0 = temp_v0_4;
                                             if (temp_v0_4 != NULL) {
@@ -130,7 +130,7 @@ loop_3:
                                             temp_v0_5 = (*(void **)((char *)(D_800EDA8C) + 0xF78));
                                             ((__repair_field_0 *)temp_t0_2)->value = temp_v0_5;
                                             if (temp_v0_5 != NULL) {
-                                                (*(void **)((char *)((*(void **)((char *)((unsigned short)D_800EDA8C) + 0xF78))) + 4)) = temp_t0_2;
+                                                (*(void **)((char *)((*(void **)((char *)(D_800EDA8C) + 0xF78))) + 4)) = temp_t0_2;
                                             }
                                             (*(void **)((char *)(D_800EDA8C) + 0xF78)) = temp_t0_2;
                                         }
@@ -181,7 +181,7 @@ block_18:
                 }
             }
         }
-        ++var_s6;
+        var_s6 += 1;
         var_s2 += 0x28;
     } while (var_s6 < 0x40);
     return var_s7;

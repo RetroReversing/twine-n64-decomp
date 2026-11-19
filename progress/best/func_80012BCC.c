@@ -14,12 +14,14 @@ typedef s32 M2C_UNK32;
 
 extern u16 D_800BFC32;
 extern char D_800E0768[];
-extern char D_800E077C[];
+extern u8 D_800E077C[];
 extern s16 D_800E093A;
 extern char D_80103022[];
 extern u8 D_80108F75;
 
 u16 func_80012BCC(void) {
+int __repair_literal;
+
     s16 *temp_a0;
     s16 temp_v0;
 
@@ -27,7 +29,9 @@ u16 func_80012BCC(void) {
     do {
         temp_a0 = (D_800E093A * 2) + D_80103022;
         *temp_a0 = 0;
-        if ((*(D_800E077C + (D_800E093A * 6)) == 0) && (((s32) D_80108F75 >> D_800E093A) != 0) && ((*(D_800E0768 + (D_800E093A * 4)) & 0x1F07) == 5)) {
+__repair_literal = 4;
+
+        if ((*(D_800E077C + (D_800E093A * 6)) == 0) && (((s32) D_80108F75 >> D_800E093A) != 0) && ((*(u16 *)(D_800E0768 + (D_800E093A * __repair_literal)) & 0x1F07) == 5)) {
             *temp_a0 = 1;
         }
         temp_v0 = (u16) D_800E093A + 1;
