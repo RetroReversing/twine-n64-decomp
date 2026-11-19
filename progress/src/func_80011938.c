@@ -15,5 +15,5 @@ typedef s32 M2C_UNK32;
 extern char D_800E0930[];
 
 void func_80011938(s32 arg0, s16 arg1) {
-    *(D_800E0930 + ((arg0 & 0xFFFF) * 2)) = arg1;
+    *(s16 *)(D_800E0930 + ((arg0 & 0xFFFF) * 2)) = arg1;
 }
