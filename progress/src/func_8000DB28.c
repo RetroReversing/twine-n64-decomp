@@ -19,7 +19,7 @@ extern void *D_80109CB4;
 extern void *D_8010A500;
 
 void func_8000DB28(void) {
-    if ((M2C_FIELD(D_800B2710, s16 *, 0x10) == 7) && (D_80109CB4 != NULL) && (M2C_FIELD(M2C_FIELD(D_80109CB4, void **, 0x6C), u8 *, 0x4A) == 0x13) && (M2C_FIELD(M2C_FIELD(D_800B2710, void **, 0x3B8), f32 *, 0x2C) < M2C_FIELD(D_80109CB4, f32 *, 0x2C))) {
+    if ((M2C_FIELD(D_800B2710, s16 *, 0x10) == 7) && (D_80109CB4 != NULL) && (M2C_FIELD(M2C_FIELD(D_80109CB4, void **, 0x6C), u8 *, 0x4A) == 0x13) && (M2C_FIELD(D_80109CB4, f32 *, 0x2C) > M2C_FIELD(M2C_FIELD(D_800B2710, void **, 0x3B8), f32 *, 0x2C))) {
         M2C_FIELD(D_8010A500, f32 *, 0x74) = -1.0f;
         func_8000CBE0(D_80109CB4, D_800B2710);
         D_800B2715 = 2;
