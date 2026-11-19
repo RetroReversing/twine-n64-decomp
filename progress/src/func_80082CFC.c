@@ -16,8 +16,9 @@ extern f32 D_80102EA4;
 extern f32 D_80102EA8;
 extern f32 D_80102EAC;
 
+typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; } __repair_record_arg0;
 void func_80082CFC(void *arg0) {
-    D_80102EA4 = M2C_FIELD(arg0, f32 *, 0x24);
-    D_80102EA8 = M2C_FIELD(arg0, f32 *, 0x28);
-    D_80102EAC = M2C_FIELD(arg0, f32 *, 0x2C);
+    D_80102EA4 = ((__repair_record_arg0*)arg0)->field_24;
+    D_80102EA8 = ((__repair_record_arg0*)arg0)->field_28;
+    D_80102EAC = ((__repair_record_arg0*)arg0)->field_2C;
 }
