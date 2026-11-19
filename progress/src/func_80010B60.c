@@ -28,32 +28,35 @@ u16 func_80010B60(u32 arg0) {
     case 7:
     case 8:
         var_v0 = 0x30;
-block_11:
         D_800BFC32 = var_v0;
         break;
     case 4:
         var_v0 = 0x15;
-        goto block_11;
+        D_800BFC32 = var_v0;
+        break;
     case 11:
         var_v0_2 = 0x62;
-block_9:
         D_800BFC32 = var_v0_2;
         D_800E0938 = D_800E093A;
         break;
     case 1:
         var_v0 = 0x10;
-        goto block_11;
+        D_800BFC32 = var_v0;
+        break;
     case 2:
         var_v0 = 0x12;
-        goto block_11;
+        D_800BFC32 = var_v0;
+        break;
     case 3:
     case 6:
     case 10:
-        var_v0_2 = 0x20;
-        goto block_9;
+        D_800BFC32 = (0x20);
+        D_800E0938 = D_800E093A;
+        break;
     default:
         var_v0 = 0x11;
-        goto block_11;
+        D_800BFC32 = var_v0;
+        break;
     }
     return D_800BFC32;
 }
