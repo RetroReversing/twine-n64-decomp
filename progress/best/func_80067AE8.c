@@ -44,5 +44,5 @@ void func_80067AE8(void *arg0) {
         func_80064318(temp_s1, temp_s3);
         return;
     }
-    func_800643D8(temp_s1, temp_a1);
+    func_800643D8(temp_s1);
 }

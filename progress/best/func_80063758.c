@@ -21,10 +21,10 @@ f32 func_80063758(f32 arg0, f32 arg1, f32 arg2) {
     temp_v0 = (s32) (((s32) arg1 - (s32) arg0) << 0x14) >> 0x14;
     var_fv1 = 0.0f;
     if (temp_v0 != 0) {
-        if (temp_v0 < 0) {
-            var_v0 = temp_v0 - 1;
-        } else {
+        if (temp_v0 >= 0) {
             var_v0 = temp_v0 + 1;
+        } else {
+            var_v0 = temp_v0 - 1;
         }
         var_fv1 = (f32) (var_v0 >> 1);
         temp_fv0 = -arg2;

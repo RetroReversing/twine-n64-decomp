@@ -64,7 +64,8 @@ s32 func_8009AE24(s32 arg0, void *arg1, s32 arg2) {
         break;
     }
     if (M2C_FIELD(arg1, u8 *, 6) != 0) {
-        var_s2 = (var_s2 & 0xFF) == 0;
+        temp_a2 = var_s2 & 0xFF;
+    var_s2 = (temp_a2) == 0;
     }
     if (var_s2 & 0xFF) {
         M2C_FIELD(arg0, s32 *, 4) = (s32) (M2C_FIELD(arg0, s32 *, 0) + (((u32) M2C_FIELD(arg1, u32 *, 4) >> 0x10) * 8));

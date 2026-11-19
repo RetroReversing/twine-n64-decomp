@@ -58,9 +58,9 @@ void func_80020F84(void) {
     D_800B60E8 = 0;
     temp_v0 = func_800262A8(D_800BDBD0, 0x4000);
     if (temp_v0 != 0) {
-        func_80022A30(D_800BD68E, 0x2D, 0x46, 0xDC, 0x7F);
+        do { func_80022A30(D_800BD68E, 0x2D, 0x46, 0xDC, 0x7F); } while (0);
         var_s5 = NULL;
-        func_80026004(temp_v0, "%s", func_80087100(*(D_800E0ED4 + (D_800BD68F * 2)) | 0x7000));
+        func_80026004(temp_v0, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (D_800BD68F * 2)) | 0x7000));
         var_s4 = 0;
         switch (D_80102EE8) {                       /* irregular */
         case 1:

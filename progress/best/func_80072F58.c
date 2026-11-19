@@ -48,7 +48,7 @@ void func_80072F58(void *arg0) {
             sp18 = M2C_FIELD(temp_s1, f32 *, 8) * 0.033333335f;
             func_800452AC(&sp10, temp_s0, temp_s0);
             temp_a1 = arg0 + 0x3C;
-            func_800452AC(temp_s1, temp_a1, temp_a1);
+            do { func_800452AC(temp_s1, temp_a1, temp_a1); } while (0);
             M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_s1, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x3C), f32 *, 0x20)) {
                 func_80016718(arg0);

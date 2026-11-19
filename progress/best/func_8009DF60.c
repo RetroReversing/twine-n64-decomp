@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,6 +10,7 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 bzero();
 s32 func_8009DBE8();
@@ -31,7 +31,7 @@ s32 func_8009DF60(void *arg0, s32 arg1) {
     s16 spF2;
     s16 spF4;
     s16 spF6;
-    s32 *var_a0;
+    char *var_a0;
     char *var_a2;
     char *var_a3;
     char *var_t1;
@@ -570,6 +570,6 @@ s32 func_8009DF60(void *arg0, s32 arg1) {
         var_v1_3 = sp58;
         var_t0_2 = sp50;
     }
-    M2C_FIELD(arg0, s32 *, 0x11C8) = (s32) (((var_t0_2 & ~0x1F) - var_v1_3) + 0x20);
+    M2C_FIELD(arg0, s32 *, 0x11C8) = (s32) (((sp50 & ~0x1F) - sp58) + 0x20);
     return 0;
 }

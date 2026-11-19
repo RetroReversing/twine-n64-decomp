@@ -24,26 +24,27 @@ s32 func_8008E594(s32 arg1) {
     s32 temp_s0;
     s32 temp_v1;
     s32 var_a0;
+s32 __repair_result_var_a0;
     s32 var_s1;
     s32 var_v0;
     u8 var_a2;
 
     var_s1 = -1;
-    var_a0 = func_800989B8();
+    __repair_result_var_a0 = func_800989B8();
     var_v0 = -1;
-    if (var_a0 != -1) {
+    if (__repair_result_var_a0 != -1) {
 loop_2:
-        temp_s0 = var_a0 & 0xFF;
-        temp_v1 = temp_s0 * 0x1A0;
-        var_v0 = var_s1;
-        if (*(&D_8010D784 + temp_v1) == var_a0) {
+        temp_s0 = __repair_result_var_a0 & 0xFF;
+        var_v0 = var_s1; temp_v1 = temp_s0 * 0x68;
+        if (*(&D_8010D784 + temp_v1) == __repair_result_var_a0) {
             if (*(&D_8010D748 + temp_v1) & 2) {
                 var_a2 = *(&D_8010D779 + temp_v1);
-            } else {
+            
+            func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF);} else {
                 var_a2 = *(&D_8010D76F + temp_v1);
-            }
-            func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF);
-            var_a0 = *(&D_8010D734 + (temp_s0 * 0x1A0));
+            
+            func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF);}
+            var_a0 = *(&D_8010D734 + temp_s0 * 0x68);
             var_s1 = 0;
             if (var_a0 == -1) {
                 var_v0 = 0;
