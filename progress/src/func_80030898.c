@@ -12,30 +12,23 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800BFF04;
+typedef struct { s16 v; s16 pad; s32 pad2; } R8;
+extern R8 *D_800BFF04;
 extern u16 D_800E1608;
 
 s16 func_80030898(void) {
-    s16 temp_v0;
-    s16 var_a0;
-    int var_v1;
-    s32 var_v0;
+    s16 i;
+    s16 n;
 
-    var_v1 = 0;
+    i = 0;
     if (D_800BFF04 == 0) {
         return 0;
     }
-    var_a0 = 0;
-    if (D_800E1608 != 0) {
-        var_v0 = 0 << 0x10;
-        do {
-            if (*(s32 *)((var_v0 >> 0xD) + D_800BFF04) >= 0) {
-                var_a0 += 1;
-            }
-            temp_v0 = var_v1 + 1;
-            var_v1 = temp_v0;
-            var_v0 = var_v1 << 0x10;
-        } while (temp_v0 < (s32) D_800E1608);
+    n = 0;
+    for (; i < D_800E1608; i++) {
+        if (D_800BFF04[i].v >= 0) {
+            n++;
+        }
     }
-    return var_a0;
+    return n;
 }
