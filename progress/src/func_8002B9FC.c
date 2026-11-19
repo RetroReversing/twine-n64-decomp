@@ -27,7 +27,7 @@ s32 func_8002B9FC(s32 arg0) {
 loop_1:
         if (M2C_FIELD(D_80102F40, u8 *, 5) != arg0) {
             temp_v1 = M2C_FIELD(D_80102F40, u16 *, 0xC);
-            D_80102F40 += 0xC;
+            D_80102F40 += 6;
             var_a2 += 1;
             if (temp_v1 != 0) {
                 goto loop_1;
