@@ -22,7 +22,7 @@ void func_80026004(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     void *temp_s0;
 
     if (arg0 != NULL) {
-        temp_v0 = _Printf(&func_80025D50, func_80087100(M2C_FIELD(arg0, u16 *, 0)), arg1, &arg2);
+        temp_v0 = _Printf(&func_80025D50, func_80087100(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, &arg2);
         if (temp_v0 >= 0) {
             *(s32 *)(func_80087100(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
         }

@@ -21,8 +21,9 @@ s32 func_8007AA40(void *arg0, s32 *arg2) {
 
     func_8007A974();
     var_v0 = 1;
-    if (!(func_800828D0((f32) func_80000A30(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f)) {
-        var_v0 = 0;
+    if (!(func_800828D0((f32) func_80000A30(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f)) { goto __repair_guard_body; }
+return var_v0;
+__repair_guard_body: {
+        return 0;
     }
-    return var_v0;
 }

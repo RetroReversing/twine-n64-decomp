@@ -26,8 +26,7 @@ void func_8007539C(void) {
             var_s0 = temp_v1;
             var_s1 = *(s32 *)var_s3;
             __repair_rows: {
-                func_8000B9B8(&sp410, var_s1 + D_148B400, 4);
-                do { func_8000B9B8(&sp10, sp410 + D_148B400, 0x400); } while (0);
+                do{{ func_8000B9B8(&sp410, var_s1 + D_148B400, 4); }{ func_8000B9B8(&sp10, sp410 + D_148B400, 0x400); }}while(0);
                 (*(s16 *)((char *)(var_s0) + 2)) = strlen(&sp10);
                 (*(s32 *)((char *)(var_s0) + 4)) = sp410;
                 var_s0 += 8;

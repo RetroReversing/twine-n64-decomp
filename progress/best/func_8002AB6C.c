@@ -22,28 +22,28 @@ s32 func_8002AB6C(void *arg0) {
     u8 temp_v1;
 
     var_v0 = 0;
-    if (arg0 != NULL) {
-        temp_a1 = M2C_FIELD(arg0, u8 *, 0x18);
-        temp_a2 = M2C_FIELD(arg0, u8 *, 0x19);
-        if ((temp_a1 & 0xFF) != (temp_a2 - 1)) {
-            var_a1 = temp_a1 & 0xFF;
-            var_a3 = 0;
-            if (var_a1 < (s32) temp_a2) {
-                do {
-                    temp_v1 = M2C_FIELD(((var_a1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9);
-                    temp_v0 = var_a1 + 1;
-                    var_a1 = temp_v0;
-                    var_a3 += temp_v1;
-                } while (temp_v0 < (s32) temp_a2);
-            }
-            var_v0 = 0;
-            if (M2C_FIELD(arg0, u8 *, 0x1E) == 0) {
-                var_v0 = (s32) M2C_FIELD(arg0, u8 *, 0x1B) >= var_a3;
-            }
-            /* Duplicate return node #10. Try simplifying control flow for better match */
-            return var_v0;
-        }
+    if (arg0 == NULL) {
+        return var_v0;
+    }
+    temp_a1 = M2C_FIELD(arg0, u8 *, 0x18);
+    temp_a2 = M2C_FIELD(arg0, u8 *, 0x19);
+    if ((temp_a1 & 0xFF) == (temp_a2 - 1)) {
         return 1;
     }
+    var_a1 = temp_a1 & 0xFF;
+    var_a3 = 0;
+    if (var_a1 < (s32) temp_a2) {
+        do {
+            temp_v1 = M2C_FIELD(((var_a1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9);
+            temp_v0 = var_a1 + 1;
+            var_a1 = temp_v0;
+            var_a3 += temp_v1;
+        } while (temp_v0 < (s32) temp_a2);
+    }
+    var_v0 = 0;
+    if (M2C_FIELD(arg0, u8 *, 0x1E) == 0) {
+        var_v0 = (s32) M2C_FIELD(arg0, u8 *, 0x1B) >= var_a3;
+    }
+    /* Duplicate return node #10. Try simplifying control flow for better match */
     return var_v0;
 }

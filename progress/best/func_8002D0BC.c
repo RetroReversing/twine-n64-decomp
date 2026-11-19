@@ -30,7 +30,7 @@ u16 func_8002D0BC(s32 arg0, s32 arg1) {
         if (temp_a0 != 0xA6) {
             return 1U;
         }
-        return *((M2C_UNK *)((s8 *)&D_801083D4 + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&D_801083D4 + ((arg1 & 0xFFFF) * 2)));
     }
     return *((M2C_UNK *)((s8 *)&D_80109DC8 + ((arg1 & 0xFFFF) * 2)));
 }

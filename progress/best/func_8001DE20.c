@@ -22,7 +22,7 @@ void func_8001DE20(void) {
     s32 var_a0_3;
     
     s32 var_a1;
-    s32 var_v0;
+    
     void *temp_s0;
     union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_s2;
@@ -37,12 +37,11 @@ void func_8001DE20(void) {
     __repair_phase_storage.pointer = func_8002638C(D_800BD8EC, 0x19);
     var_s3 = func_8002638C(D_800BD8EC, 0x1C);
     D_800B5B28 = 1;
-    var_v0 = temp_s4 != NULL;
     if (var_s3 == NULL) {
         var_s3 = func_8002638C(D_800BD8EC, 3);
-        var_v0 = temp_s4 != NULL;
     }
-    if ((var_v0 & (temp_s5 != NULL)) && ((__repair_phase_storage.pointer != NULL) & (var_s3 != NULL))) {
+    var_a0_3 = temp_s4 != NULL;
+    if ((var_a0_3 & (temp_s5 != NULL)) && ((__repair_phase_storage.pointer != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((D_8010A4FC * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
         var_a0 = 0x1B;
         if (D_8010A4FE == 0) {

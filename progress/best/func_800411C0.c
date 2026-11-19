@@ -17,8 +17,10 @@ s32 func_80045278();
 s32 func_80045290();
 s32 func_800452AC();
 s32 func_80083E90();
-extern char D_800C0784[];
-extern char D_800C0788[];
+typedef struct { u32 f0; u8 pad[12]; } Slot_800C0784;
+extern Slot_800C0784 D_800C0784[];
+typedef struct { u32 f0; u8 pad[12]; } Slot_800C0788;
+extern Slot_800C0788 D_800C0788[];
 extern f32 D_800E19E0;
 extern f32 D_800E19E4;
 extern f32 D_800E19E8;
@@ -26,7 +28,7 @@ extern s8 D_80109A94;
 
 void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     s32 sp30;
-    register s8 sp34;
+    s32 temp_v0_10;
     s32 sp38;
     s32 sp3C;
     s32 sp40;
@@ -38,14 +40,14 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     s32 var_a1_2;
     f32 var_fs1;
     s32 *temp_a1;
-    s32 *temp_a3_3;
+    register s32 *temp_a3_3;
     s32 *temp_a3_4;
     s32 *temp_v0_16;
     s32 *temp_v1_7;
     s32 *temp_v1_8;
     s32 temp_a1_3;
     s32 temp_a1_4;
-    s32 temp_a2;
+    u32 temp_a2;
     u8 temp_v0_15;
     s32 temp_a3_2;
     s32 temp_a2_3;
@@ -55,20 +57,20 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     s32 temp_s2_2;
     s32 temp_s5;
     s32 temp_s7;
-    s32 temp_v0_10;
+    register s8 sp34;
     s32 temp_v0_13;
     s32 temp_v0_18;
     s32 var_a0;
     s32 var_a0_2;
     s32 var_s0;
-    s32 var_s0_2;
+    s32 temp_a2_2;
     s32 var_s0_3;
     s32 var_s1;
     s32 var_s1_2;
     u16 temp_a0;
     u16 temp_v1_4;
     u32 temp_v1;
-    s32 temp_a2_2;
+    int var_s0_2;
     u8 temp_v0_3;
     u8 temp_v0_4;
     u8 var_v0;
@@ -79,7 +81,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     void *temp_a3_5;
     void *temp_s4;
     void *temp_s4_2;
-    void *temp_v0;
+    void *var_t0;
     void *temp_v0_11;
     void *temp_v0_12;
     void *temp_v0_14;
@@ -96,12 +98,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     void *temp_v1_6;
     void *temp_v1_9;
     void *var_a2;
-    void *var_t0;
+    void *temp_v0;
 
     sp30 = 1;
     sp34 = 1;
     temp_a0 = (*(u16 *)((char *)(arg1) + 0));
-    temp_s7 = *(D_800C0788 + (*(*(s16 **)((char *)(arg1) + 0x28)) * 0x10));
+    temp_s7 = D_800C0788[*(*(s16 **)((char *)(arg1) + 0x28))].f0;
     temp_v0 = (temp_a0 * 0x4C) + temp_s7;
     (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x30)) & 0xFFF0000F) | (temp_a0 * 0x10));
     temp_v0_2 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
@@ -264,8 +266,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 }
                 (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = (s8) sp30;
                 temp_v1_4 = (*(u16 *)((char *)(arg1) + 0));
-                if (((*(u8 *)((char *)(((temp_v1_4 * 0x4C) + temp_s7)) + 0x46)) & 0x80) && (sp34 != 0)) {
-                    temp_v0_12 = *(D_800C0784 + (*(*(s16 **)((char *)(arg1) + 0x28)) * 0x10));
+                if (((*(u8 *)((char *)(((temp_v1_4 * 0x4C) + temp_s7)) + 0x46)) & 0x80) && (sp34)) {
+                    temp_v0_12 = D_800C0784[*(*(s16 **)((char *)(arg1) + 0x28))].f0;
                     if (temp_v0_12 != NULL) {
                         temp_s2 = (*(s32 *)((char *)(temp_v0_12) + 0x10));
                         temp_s1 = (*(s32 *)((char *)(temp_v0_12) + 0x18));
@@ -291,8 +293,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 var_t0 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
                 __repair_rows: {
                     (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a2) + 0));
-                    (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a2) + 4));
                     (*(s32 *)((char *)(var_t0) + 8)) = (s32) (*(s32 *)((char *)(var_a2) + 8));
+                    (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a2) + 4));
                     (*(s32 *)((char *)(var_t0) + 0xC)) = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
                     var_a2 += 0x10;
                     var_t0 += 0x10;
@@ -440,7 +442,7 @@ block_37:
             }
             (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = (s8) sp30;
             if ((*(u8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x46)) & 0x80) {
-                temp_v0_17 = *(D_800C0784 + (*(*(s16 **)((char *)(arg1) + 0x28)) * 0x10));
+                temp_v0_17 = D_800C0784[*(*(s16 **)((char *)(arg1) + 0x28))].f0;
                 if (temp_v0_17 != NULL) {
                     temp_s2_2 = (*(s32 *)((char *)(temp_v0_17) + 0x10));
                     temp_s1_2 = (*(s32 *)((char *)(temp_v0_17) + 0x18));

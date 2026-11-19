@@ -27,7 +27,7 @@ int __repair_literal;
                 lo = lo << s;}while(0);}while(0);}while(0);
             }
         } else {
-            r = 0x34 - e;
+            r = 0x34 - (unsigned short)e;
 __repair_literal = 0x20;
 
             if (r >= __repair_literal) {

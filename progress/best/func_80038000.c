@@ -98,7 +98,7 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(f32 *)((char *)(arg0) + 0x148)) = 2.0f;
     }
     (*(f32 *)((char *)(arg0) + 0x1C)) = (f32) (*(f32 *)((char *)(arg0) + 0x10));
-    (*(f32 *)((char *)(arg0) + 0x20)) = (f32) (*(f32 *)((char *)((int)arg0) + 0x14));
+    (*(f32 *)((char *)(arg0) + 0x20)) = (f32) (*(f32 *)((char *)(arg0) + 0x14));
     (*(f32 *)((char *)((unsigned)arg0) + (u32)0x24)) = (f32) (*(f32 *)((char *)(arg0) + 0x18));
     (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg0) + 0x34));
     (*(f32 *)((char *)(arg0) + 0x44)) = (f32) (*(f32 *)((char *)(arg0) + 0x38));
@@ -150,7 +150,7 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(s16 *)((char *)(__repair_phase_storage.pointer) + 0x30A)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x64)) * 4.0f);
         (*(s16 *)((char *)(__repair_phase_storage.pointer) + 0x30C)) = 0xFF;
         (*(s16 *)((char *)(__repair_phase_storage.pointer) + 0x30E)) = 0;
-        ((__repair_field_0 *)D_80115328)->value = 0xDC080008;
+        ((__repair_field_0 *)D_80115328)->value = (short)0xDC080008;
         ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x300));
         D_80115328 += 8;
         func_800325E4(D_80117728 + temp_s3, D_80117728 + (temp_s1 + 0x360), ((__repair_field_84 *)arg0)->value, (*(s32 *)((char *)(arg0) + 0x80)), 12.8f, D_8010A2D0 * 64.0f, 1.0f);
@@ -181,8 +181,8 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(s16 *)((char *)(temp_v1_3) + 0x6EC)) = 0;
         (*(s16 *)((char *)(temp_v1_3) + 0x6EE)) = 0;
         (*(s16 *)((char *)(temp_v1_3) + 0x6EA)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x64)) * 4.0f);
-        ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x6E0));
         ((__repair_field_0 *)D_80115328)->value = (short)0xDC080008;
+        ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x6E0));
         D_80115328 += 8;
         func_800325E4(D_80117728 + (temp_s3 + 0x560), D_80117728 + (temp_s1 + 0x740), ((__repair_field_84 *)arg0)->value, (*(s32 *)((char *)(arg0) + 0x80)), 0.64f, 64.0f, 1.0f);
         temp_v0 = D_80107EA0 + 1;
@@ -210,11 +210,11 @@ loop_15:
             func_800A37C0(&D_80109BB8, D_80117728 + ((arg1 << 6) + 0x180));
             func_80014E30(arg0);
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
-                func_80014EB0(temp_s7, &sp20);
+                do { func_80014EB0(temp_s7, &sp20); } while (0);
                 func_800156F4();
             }
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 4) {
-                func_80015BA8(arg0 + 0x10, temp_s7, &sp20);
+                do { func_80015BA8(arg0 + 0x10, temp_s7, &sp20); } while (0);
             }
             temp_s0_3 = arg0 + 0x88;
             ++D_800B35B0;

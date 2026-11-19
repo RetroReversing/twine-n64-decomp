@@ -11,6 +11,8 @@ extern s32 D_800E1574;
 extern s32 D_800E1578;
 
 void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
+int __repair_literal;
+
     register f32 temp_fv1;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_lo;
@@ -49,15 +51,15 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
             do { {
                 if (*arg2 == 0) {
                     var_a0_2 = ((s32) D_800E156C >> 2) + (func_80045CC4((s32) var_a0, (s32) var_a1) % (u32) ((s32) D_800E156C >> 1));
-                } else {
-                    var_a0_2 = *temp_s2;
+                } else {/*__repair_loop_weight*/do {
+                    var_a0_2 = *temp_s2;} while (0);
                 }
                 D_800E1564 = (s32) var_a0_2;
                 D_800E1568 = (func_80045CC4((s32) var_a0_2) & 3) + 0x1C;
                 var_a1 = (u16 *) (D_800E1568 * D_800E156C);
                 temp_v0_2 = (func_80045CC4() % 255) - 0x80;
-                (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = temp_v0_2;
                 var_a0 = (char *)(temp_s0); var_a0 += (s32)((D_800E1564 + (s32)var_a1));
+                (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = temp_v0_2;
                 temp_v0_3 = (s32) (temp_v0_2 + *var_a0) >> 1;
                 (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = temp_v0_3;
                 *var_a0 = (s8) temp_v0_3;
@@ -83,7 +85,9 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
                 }
                 D_800E1574 = var_v0;
                 D_800E1564 = 0;
-                if (D_800E156C > 0) {
+__repair_literal = 0;
+
+                if (D_800E156C > __repair_literal) {
                     do {
                         if (((s32) D_800E156C >> 1) >= D_800E1564) {
                             var_v1 = D_800E1564 + 1;
@@ -99,10 +103,10 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
                         }
                         temp_lo = D_800E1574 * D_800E156C;
                         D_800E1578 = var_a0_4;
-                        temp_v1 = *(u8 *)(temp_s0 + (var_a0_4 + temp_lo));
+                        temp_v0_2 = (u8)(*(u8 *)(temp_s0 + (var_a0_4 + temp_lo)));
                         __repair_phase_storage.value = D_800E1568 * D_800E156C;
-                        D_800E157C = (s32) temp_v1;
-                        temp_v1_2 = temp_v1 + *(s32 *)(temp_s0 + (var_a0_4 + __repair_phase_storage.value));
+                        D_800E157C = (s32) temp_v0_2;
+                        temp_v1_2 = temp_v0_2 + *(s32 *)(temp_s0 + (var_a0_4 + __repair_phase_storage.value));
                         D_800E157C = temp_v1_2;
                         temp_v1_3 = temp_v1_2 + *(s32 *)(temp_s0 + (D_800E1564 + temp_lo));
                         D_800E157C = temp_v1_3;

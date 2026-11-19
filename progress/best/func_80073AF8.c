@@ -80,7 +80,7 @@ void *func_80073AF8(void *arg0, void *arg1, M2C_UNK *arg2, u16 arg3, u16 arg4, u
         if (temp_v0 < D_801002C0) {
             goto block_10;
         }
-        if ((u32) ((temp_v0 - 4) & 0xFFFF) >= 2U) {
+        if ((u32) ((unsigned short)(temp_v0 - 4)) >= 2U) {
             return NULL;
         }
         goto block_10;
@@ -107,7 +107,7 @@ block_10:
         case 5:
             temp_v0_3 = M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C;
             var_s7 = 3;
-            if (*(&D_8010D38C + temp_v0_3) != *(&D_8010D2CC + temp_v0_3)) {
+            if (*((M2C_UNK *)((s8 *)&D_8010D38C + temp_v0_3)) != *((M2C_UNK *)((s8 *)&D_8010D2CC + temp_v0_3))) {
                 M2C_FIELD(temp_s3, s32 *, 0x60) = (s32) (M2C_FIELD(temp_s3, s32 *, 0x60) | 1);
                 return NULL;
             }
@@ -214,34 +214,6 @@ block_51:
                 var_s2 += 0xC;
             }
             goto block_51;
-        case 6:
-            var_s7 = 0;
-            var_s4 = 0xA0;
-            if (D_801002C0 != 1) {
-                var_s2 = 0x74;
-                if (D_801002C0 == 2) {
-                    if (D_8010A4FD != 1) {
-                        M2C_FIELD(temp_s1, s8 *, 0x135) = 0;
-                    } else {
-                        goto block_33;
-                    }
-                } else {
-                    goto block_34;
-                }
-            } else {
-block_33:
-                var_s2 = 0x3A;
-block_34:
-                M2C_FIELD(temp_s1, s8 *, 0x135) = 0;
-            }
-            goto block_50;
-        case 1:
-            var_s4 = 0x24;
-            var_s2 = 0x7C;
-            if (sp12F != 0) {
-                var_s2 = 0x88;
-            }
-            goto block_51;
         default:
             var_fp = 0x1E;
             M2C_FIELD(temp_s1, s8 *, 0x135) = 0;
@@ -278,6 +250,34 @@ block_47:
                     var_s4 = var_a1 & 0xFFFF;
                     goto block_50;
                 }
+            }
+            goto block_51;
+        case 6:
+            var_s7 = 0;
+            var_s4 = 0xA0;
+            if (D_801002C0 != 1) {
+                var_s2 = 0x74;
+                if (D_801002C0 == 2) {
+                    if (D_8010A4FD != 1) {
+                        M2C_FIELD(temp_s1, s8 *, 0x135) = 0;
+                    } else {
+                        goto block_33;
+                    }
+                } else {
+                    goto block_34;
+                }
+            } else {
+block_33:
+                var_s2 = 0x3A;
+block_34:
+                M2C_FIELD(temp_s1, s8 *, 0x135) = 0;
+            }
+            goto block_50;
+        case 1:
+            var_s4 = 0x24;
+            var_s2 = 0x7C;
+            if (sp12F != 0) {
+                var_s2 = 0x88;
             }
             goto block_51;
         }

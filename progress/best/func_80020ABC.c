@@ -46,12 +46,15 @@ void func_80020ABC(void) {
     s32 temp_s1;
     s32 temp_s4;
     s32 temp_v0;
-    s32 temp_v0_2;
-    s32 temp_v0_3;
-    s32 temp_v0_4;
+    
+    
+s32 __repair_phase_temp_v0_3;
+    
     s32 var_a2;
+s32 __repair_phase_var_a2;
     s32 var_s3;
     s32 var_v0;
+s32 __repair_phase_var_v0;
     void *temp_s0_3;
     void *temp_s0_2;
     void *temp_v1;
@@ -67,9 +70,9 @@ void func_80020ABC(void) {
         D_8010A2DC = 0;
         func_8002A7CC(D_80115060, D_8010A2D8, 0xFF, func_80018318(M2C_FIELD(D_8010A2D8, s32 *, 0)) & 0xFF);
     }
-    temp_v0_2 = func_800162BC(D_800BD68E);
-    M2C_FIELD(D_8010A2D8, s32 *, 8) = temp_v0_2;
-    if (temp_v0_2 != 0) {
+    temp_v0 = func_800162BC(D_800BD68E);
+    M2C_FIELD(D_8010A2D8, s32 *, 8) = temp_v0;
+    if (temp_v0 != 0) {
         func_800160FC(M2C_FIELD(D_8010A2D8, s32 *, 8), func_80087100((func_800316B8() + 0x72) & 0xFFFF), 0x41);
         D_8010A2E4 = 0;
         func_8002A7CC(D_80115060, D_8010A2D8 + 8, 0xFF, func_80018318(M2C_FIELD(D_8010A2D8, s32 *, 8)) & 0xFF);
@@ -78,13 +81,13 @@ void func_80020ABC(void) {
 loop_5:
     temp_s4 = var_s3 & 0xFFFF;
     if (temp_s4 < ((func_80031028(0, 1) & 0xFFFF) + 2)) {{ s32 __repair_value;do{do{do{do{do{ __repair_value = temp_s4 * 8;}while(0);}while(0);}while(0);}while(0);}while(0); temp_s1 = __repair_value; }
-        temp_v0_3 = func_800162BC(D_800BD68E);
+        temp_v0 = func_800162BC(D_800BD68E);
         temp_s2 = temp_s1 + D_8010A2D8;
-        M2C_FIELD(temp_s2, s32 *, 0) = temp_v0_3;
-        if (temp_v0_3 != 0) {
-            temp_v0_4 = func_800162BC(D_800BD68E);
-            M2C_FIELD(temp_s2, s32 *, 4) = temp_v0_4;
-            if (temp_v0_4 == 0) {
+        M2C_FIELD(temp_s2, s32 *, 0) = temp_v0;
+        if (temp_v0 != 0) {
+            __repair_phase_temp_v0_3 = func_800162BC(D_800BD68E);
+            M2C_FIELD(temp_s2, s32 *, 4) = __repair_phase_temp_v0_3;
+            if (__repair_phase_temp_v0_3 == 0) {
                 var_s3 += 1;
                 func_80016314(*((s32 *)((s8 *)D_8010A2D8 + temp_s1)));
             } else {
@@ -108,11 +111,12 @@ loop_5:
                 if ((temp_s4 - 1) == (func_80031028(0, 1) & 0xFFFF)) {
                     var_a2 = var_s3 & 0xFF;
                     var_v0 = func_80018318(*((s32 *)((s8 *)D_8010A2D8 + temp_s1))) + 1;
-                } else {
-                    var_a2 = var_s3 & 0xFF;
-                    var_v0 = func_80018318(*((s32 *)((s8 *)D_8010A2D8 + temp_s1))) + 2;
-                }
-                func_8002A7CC(D_80115060, temp_s2, var_a2, var_v0 & 0xFF);
+                
+                func_8002A7CC(D_80115060, temp_s2, var_a2, var_v0 & 0xFF);} else {
+                    __repair_phase_var_a2 = var_s3 & 0xFF;
+                    __repair_phase_var_v0 = func_80018318(*((s32 *)((s8 *)D_8010A2D8 + temp_s1))) + 2;
+                
+                func_8002A7CC(D_80115060, temp_s2, __repair_phase_var_a2, __repair_phase_var_v0 & 0xFF);}
                 goto block_13;
             }
         } else {

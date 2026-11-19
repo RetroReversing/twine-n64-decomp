@@ -12,7 +12,7 @@ extern char D_800F9564[];
 extern char D_800F9566[];
 extern char D_800F9568[];
 
-s32 func_80097EF8(s16 arg0, s32 arg1) {
+s32 func_80097EF8(u16 arg0, s32 arg1) {
     char *var_a1;
     unsigned int temp_a1;
     unsigned temp_t2;
@@ -32,7 +32,7 @@ s32 func_80097EF8(s16 arg0, s32 arg1) {
     u16 temp_v1_3;
 
     func_8008C0D4();
-    var_a0 = arg0 & 0xFFFF;
+    var_a0 = arg0;
     temp_t2 = var_a0 >> 6;
     temp_v1 = temp_t2 * 4;
     do { temp_v0 = __repair_inline(*(u16 *)(D_800F8D60 + (temp_t2 * 4))); } while (0);
@@ -97,12 +97,12 @@ block_11:
             } while (var_a2_2 >= (s32) var_t1);
             var_a0_2 = var_t1 * 8;
         }
-        temp_a1 = temp_t2 * 4;
+        var_v0_2 = temp_t2 * 4;
         *(u16 *)(D_800F9564 + var_a0_2) = arg0;
         *(u16 *)(D_800F9566 + var_a0_2) = 1;
         *(s32 *)(D_800F9560 + var_a0_2) = arg1;
-        *(u16 *)(D_800F8D60 + temp_a1) = *(u16 *)(D_800F8D60 + temp_a1) + 1;
-        func_8008C11C(var_a0_2, temp_a1, var_a2_2, (void *) var_a3);
+        *(u16 *)(D_800F8D60 + var_v0_2) = *(u16 *)(D_800F8D60 + var_v0_2) + 1;
+        func_8008C11C(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
         ++D_800F8D5C;
         return 1;
     }

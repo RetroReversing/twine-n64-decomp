@@ -46,8 +46,8 @@ void func_8002A1F0(void *arg0) {
     u8 temp_v1_5;
     u8 temp_v1_7;
     u8 var_a0;
-    u8 var_a1;
-    u8 var_s1_4;
+    short var_a1;
+    short var_s1_4;
     u8 var_v0_2;
     u8 var_v1;
     union { void * pointer; s32 value; } __repair_phase_storage;
@@ -182,14 +182,14 @@ loop_22:
             (*(u16 *)((char *)(arg0) + 0x14)) = 0U;
             return;
         }
-        temp_v0_9 = (*(u16 *)((char *)(arg0) + 0x14));
-        temp_a1_4 = (s32) (temp_v0_9 << 0x10) >> 0x12;
-        var_v0_5 = (s16) temp_v0_9 - 8;
+        temp_t0 = (u16)((*(u16 *)((char *)(arg0) + 0x14)));
+        temp_a1_4 = (s32) (temp_t0 << 0x10) >> 0x12;
+        var_v0_5 = (s16) temp_t0 - 8;
         __repair_phase_storage.value = -temp_a1_4;
         if (__repair_phase_storage.value >= -8) {
-            var_v0_5 = (s16) temp_v0_9 - temp_a1_4;
+            var_v0_5 = (s16) temp_t0 - temp_a1_4;
             if (__repair_phase_storage.value >= 9) {
-                var_v0_5 = (s16) temp_v0_9 + 8;
+                var_v0_5 = (s16) temp_t0 + 8;
             }
         }
         (*(u16 *)((char *)(arg0) + 0x14)) = var_v0_5;
