@@ -23,11 +23,11 @@ void func_80029000(void *arg0) {
         __base_D_80102ED4 = &D_80102ED4;
         if ((*__base_D_80102ED4) != 0) {
             temp_v1 = M2C_FIELD(arg0, s32 *, 0x10);
-            if ((u32) (temp_v1 & 0xFF) < 0x81U) {
+            if ((u32) (temp_v1 & 0xFF) >= 0x81U) {
+                M2C_FIELD(arg0, s32 *, 0x10) = (s32) (temp_v1 - 9);
+            } else {
                 (*__base_D_80102ED4) = 0;
-                return;
             }
-            M2C_FIELD(arg0, s32 *, 0x10) = (s32) (temp_v1 - 9);
             return;
         }
         temp_v1_2 = M2C_FIELD(arg0, s32 *, 0x10);
