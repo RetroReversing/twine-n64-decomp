@@ -12,24 +12,23 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800015AC(M2C_UNK);                     /* extern */
+M2C_UNK func_800015AC(void *, M2C_UNK);                     /* extern */
 M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 
 void func_8007CC00(void *arg0) {
-    M2C_UNK var_a1;
+    void *__repair_base = M2C_FIELD(arg0, void **, 0x6C);
 
     if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) != 0) {
         goto block_8;
     }
-    if ((M2C_FIELD(M2C_FIELD(arg0, void **, 0x6C), s32 *, 0x88) & 0x01E00000) == 0x600000) {
+    if ((M2C_FIELD(__repair_base, s32 *, 0x88) & 0x01E00000) == 0x600000) {
         goto block_8;
     }
-    func_800015AC(4);
+    func_800015AC(arg0, 4);
     if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) != 0) {
-        var_a1 = 0x208;
+        func_80002BD0(arg0, 0x208);
     } else {
 block_8:
-        var_a1 = 0x209;
+        func_80002BD0(arg0, 0x209);
     }
-    func_80002BD0(arg0, var_a1);
 }
