@@ -17,13 +17,13 @@ extern s8 D_800E0743;
 extern s8 D_801002AE;
 
 void func_8000CBE0(void) {
-    M2C_UNK32 temp_fv0;
+    f32 temp_fv0;
 
-    temp_fv0 = M2C_FIELD(D_800B2710, M2C_UNK32 *, 0x2B3C);
+    temp_fv0 = M2C_FIELD(D_800B2710, f32 *, 0x2B3C);
     D_800E0743 = 0x17;
     M2C_FIELD(D_800B2710, s16 *, 0x2B92) = 0xF;
-    M2C_FIELD(D_800B2710, M2C_UNK32 *, 0x2B3C) = 0;
+    M2C_FIELD(D_800B2710, f32 *, 0x2B3C) = 0;
     M2C_FIELD(D_800B2710, s16 *, 0x2B90) = 0;
-    M2C_FIELD(D_800B2710, M2C_UNK32 *, 0x2B30) = temp_fv0;
+    M2C_FIELD(D_800B2710, f32 *, 0x2B30) = temp_fv0;
     D_801002AE = 1;
 }
