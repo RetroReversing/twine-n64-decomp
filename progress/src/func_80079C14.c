@@ -22,22 +22,19 @@ void func_80079C14(void *arg0) {
 
     temp_v1 = *(D_800C470A + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8));
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
-    switch (temp_v1) {                              /* irregular */
-    default:
-        var_a1 = 0x1FC;
-block_10:
-        func_80002BD0(arg0, var_a1);
-        break;
+    switch (temp_v1) {
+    case 0:
+    case 1:
     case 3:
-        var_a1 = 0x1FC;
-        goto block_10;
+        func_80002BD0(arg0, 0x1FC);
+        break;
     case 2:
         var_a1 = 0x1FB;
         if (M2C_FIELD(temp_s0, s32 *, 0x88) & 0x40000000) {
             var_a1 = 0x1FC;
         }
-        {
-        func_80002BD0(arg0, var_a1);break;}
+        func_80002BD0(arg0, var_a1);
+        break;
     }
     M2C_FIELD(temp_s0, s8 *, 0x7F) = 0;
 }
