@@ -153,13 +153,11 @@ u16 __repair_result_spA5C;
             do {
                 var_a0 = 0;
                 var_v1 = var_a1 + 0xB0;
-loop_16:
+do {
                 var_a0 += 1;
                 *(f32 *)var_v1 *= M2C_FIELD(arg0, f32 *, 0x54);
                 var_v1 += 4;
-                if (var_a0 < 3U) {
-                    goto loop_16;
-                }
+                } while (var_a0 < 3U);
                 var_a2 += 1;
                 var_a1 += 0xC;
             } while (var_a2 < 3U);
@@ -384,11 +382,10 @@ block_49:
                     if (((s16) M2C_FIELD(temp_s3, u16 *, 0x94) == 0) && ((s16) M2C_FIELD(temp_s3, u16 *, 0x98) == 0) && ((s16) M2C_FIELD(temp_s3, u16 *, 0x96) == 0) && ((s16) M2C_FIELD(temp_s3, u16 *, 0x9A) == 0)) {
                         var_v0_3 = M2C_FIELD(temp_a0, s32 *, 0x14);
                         var_v1_2 = 0xFFF7FFFF;
-                        goto block_103;
+                        M2C_FIELD(temp_a0, s32 *, 0x14) = (s32) (var_v1_2 & var_v0_3);
                     }
                 } else {
                     var_v0_3 = 0xFFEFFFFF;
-block_103:
                     M2C_FIELD(temp_a0, s32 *, 0x14) = (s32) (var_v1_2 & var_v0_3);
                 }
             }

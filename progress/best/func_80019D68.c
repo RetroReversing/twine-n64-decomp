@@ -21,18 +21,17 @@ int __repair_literal;
 
     s32 var_s0;
     s32 var_s0_2;
-    s32 var_v0;
 
     var_s0 = 0;
     if (D_801002B8 > 0) {
-loop_2:
-        var_v0 = 0;
-        if ((func_80019B34(var_s0 & 0xFFFF) & 0xFFFF) == 0x159) {
+        for (;;) {
+            if ((func_80019B34(var_s0 & 0xFFFF) & 0xFFFF) != 0x159) {
+                break;
+            }
             var_s0 += 1;
             if ((var_s0 & 0xFFFF) >= D_801002B8) {
                 goto block_4;
             }
-            goto loop_2;
         }
     } else {
 block_4:
@@ -41,7 +40,6 @@ __repair_literal = 4;
 
         if ((D_801002BC + 4) > __repair_literal) {
 loop_6:
-            var_v0 = 0;
             if ((func_80019B34(var_s0_2 & 0xFFFF) & 0xFFFF) == 0x159) {
                 var_s0_2 += 1;
                 if ((var_s0_2 & 0xFFFF) >= (D_801002BC + 4)) {
@@ -51,8 +49,8 @@ loop_6:
             }
         } else {
 block_8:
-            var_v0 = 1;
+            return 1;
         }
     }
-    return var_v0;
+    return 0;
 }

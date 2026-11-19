@@ -6,28 +6,28 @@ extern void *D_80115328;
 
 void func_80034630(void *arg0, void *arg1) {
     register f32 temp_ft0;
-    f32 temp_ft0_2;
+    register f32 temp_ft0_2;
     f32 temp_ft1;
     f32 temp_ft2;
-    f32 temp_ft2_2;
+    f32 var_ft4;
     f32 temp_ft5;
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fa0;
     f32 var_fa1;
-    f32 var_ft3;
-    f32 var_ft4;
+    register f32 var_ft3;
     register void *temp_a1;
+    f32 temp_ft2_2;
     void *temp_v0;
 
     temp_ft1 = (*(f32 *)((char *)(arg1) + 0x64));
-    temp_v0 = (*(void **)((char *)(arg0) + 0x20));
     temp_ft0 = (*(f32 *)((char *)(arg1) + 0x60));
     var_fa0 = ((*(f32 *)((char *)(temp_v0) + 0)) + temp_ft0) - 8.0f;
+    temp_v0 = (*(void **)((char *)(arg0) + 0x20));
     var_fa1 = (*(f32 *)((char *)(temp_v0) + 4)) + temp_ft0 + 8.0f;
     var_ft4 = (*(f32 *)((char *)(temp_v0) + 0xC)) + temp_ft1 + 8.0f;
-    var_ft3 = ((*(f32 *)((char *)(temp_v0) + 8)) + temp_ft1) - 8.0f;
     temp_ft2 = (*(f32 *)((char *)(arg1) + 0x70));
+    var_ft3 = ((*(f32 *)((char *)(temp_v0) + 8)) + temp_ft1) - 8.0f;
     temp_ft0_2 = (*(f32 *)((char *)(arg1) + 0x74));
     temp_fv1 = (*(f32 *)((char *)(arg1) + 0x58)) + temp_ft1 + temp_ft0_2;
     temp_ft5 = (*(f32 *)((char *)(arg1) + 0x50)) + temp_ft0 + temp_ft2;
@@ -36,16 +36,16 @@ void func_80034630(void *arg0, void *arg1) {
     if (temp_ft5 > var_fa0) {
         var_fa0 = temp_ft5;
     }
-    if (temp_ft2_2 < var_fa1) {
+    if (var_fa1 > temp_ft2_2) {
         var_fa1 = temp_ft2_2;
     }
-    if (var_ft3 < temp_fv1) {
+    if (temp_fv1 > var_ft3) {
         var_ft3 = temp_fv1;
     }
     if (temp_fv0 < var_ft4) {
         var_ft4 = temp_fv0;
     }
-    if (D_8010A4D4 != 0) {
+    if (D_8010A4D4) {
         temp_a1 = D_80115328;
         D_80115328 = temp_a1 + 8;
         (*(s32 *)((char *)(temp_a1) + 0)) = (s32) ((((s32) (var_fa0 * 4.0f) & 0xFFF) << 0xC) | (((s32) (__repair_inline(var_ft3)) & 0xFFF) | 0xED000000));

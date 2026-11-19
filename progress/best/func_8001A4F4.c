@@ -67,7 +67,7 @@ void func_8001A4F4(void) {
                 if (D_80112F80 == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
-                        temp_s1 = D_801002A0 + 1;
+                        temp_s1 = D_801002A0; temp_s1 += 1;
                     } else {
 block_12:
                         temp_s1 = D_801002A0 - 1;

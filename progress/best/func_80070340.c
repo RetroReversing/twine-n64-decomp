@@ -26,6 +26,7 @@ extern char D_80109688[];
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 void func_80070340(s32 arg0, void *arg1) {
+    s16 *__base_D_800C7D08;
     char *__base_D_80109688;
     s16 *__base_D_800C7CE4;
     f32 temp_fv1;
@@ -41,8 +42,10 @@ void func_80070340(s32 arg0, void *arg1) {
     if (arg1 != NULL) {
         temp_s2 = M2C_FIELD(arg1, s8 *, 0x182);
         if (!(arg0 & 0xFFFF)) {
-            __base_D_80109688 = D_80109688;
-            temp_a0 = (temp_s2 * 4) + __base_D_80109688;
+char *__branch___base_D_80109688;
+
+            __branch___base_D_80109688 = D_80109688;
+            temp_a0 = (temp_s2 * 4) + __branch___base_D_80109688;
             M2C_FIELD(arg1, s8 *, 0x185) = 0;
             temp_a1 = *temp_a0;
             ((__repair_field_100 *)temp_a1)->value = (s32) (((__repair_field_100 *)temp_a1)->value & ~7);
@@ -76,10 +79,11 @@ void func_80070340(s32 arg0, void *arg1) {
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s16 *, 0x22) = 0x25;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s8 *, 0x29) = 7;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s32 *, 0x10) = 0xFF0055;
-        D_800C7D08 = (s16) temp_s2;
+        __base_D_800C7D08 = &D_800C7D08;
+        (*__base_D_800C7D08) = (s16) temp_s2;
         D_800C7CF6 = 0xA6;
         if (M2C_FIELD(arg1, void **, 0x400) == NULL) {
-            M2C_FIELD(arg1, void **, 0x400) = func_80015F74(&D_800C7D08 - 0x20);
+            M2C_FIELD(arg1, void **, 0x400) = func_80015F74(__base_D_800C7D08 - 0x20);
         }
         D_800C7D2C = (s16) temp_s2;
         D_800C7D50 = (s16) temp_s2;

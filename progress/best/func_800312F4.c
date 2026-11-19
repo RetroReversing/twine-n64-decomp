@@ -19,26 +19,25 @@ s32 func_800312F4(s16 arg0, s32 arg1) {
     s32 temp_a0;
     s32 temp_a1;
     s32 temp_v1;
-    s32 var_v0;
-    s32 var_v0_2;
+    s16 var_v0_2;
     u16 temp_v1_2;
 
     temp_a1 = arg1 & 0xFFFF;
     if (temp_a1 == 1) {
-        var_v0_2 = func_8003090C(arg0) << 0x10;
+        var_v0_2 = func_8003090C(arg0);
     } else {
-        var_v0_2 = (arg0 - 1) << 0x10;
+        var_v0_2 = (arg0 - 1);
     }
-    temp_v1 = var_v0_2 >> 0x10;
+    temp_v1 = var_v0_2;
     if ((temp_v1 < 0) || (temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + D_800BFF04), u16 *, 2), temp_a0 = temp_v1_2 & 0xF, ((temp_v1_2 & 0x200) != 0))) {
         return 3;
     }
     if (temp_a0 == 0) {
         return 0;
     }
-    var_v0 = 2;
-    if (temp_a0 != 2) {
-        var_v0 = 1;
+    if (temp_a0 != 2) { goto __repair_guard_body; }
+return 2;
+__repair_guard_body: {
+        return 1;
     }
-    return var_v0;
 }

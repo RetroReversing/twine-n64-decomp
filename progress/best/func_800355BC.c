@@ -13,15 +13,15 @@ extern void *D_80117728;
 
 typedef struct { int value; } __repair_field_0;
 void func_800355BC(void *arg0) {
+    s32 *temp_a0;
     s32 *temp_v1;
     s32 *temp_v1_3;
-    s32 *temp_a0;
     
-    unsigned temp_v1_2;
+    unsigned int temp_v1_2;
     s32 var_s0;
-    unsigned int var_s3;
+    s32 var_s3;
     void *temp_s4;
-    register void *var_s1;
+    void *var_s1;
     void *var_s2;
 
     var_s2 = D_80107E9C;
@@ -29,37 +29,42 @@ void func_800355BC(void *arg0) {
     if (var_s2 != NULL) {
         do {
             var_s1 = (*(void **)((char *)((*(void **)((char *)(var_s2) + 0x20))) + 0x58));
-            var_s0 = 1;
             if (var_s1 != NULL) {
+                var_s0 = 1;
                 do {
                     if ((*(u16 *)((char *)(var_s1) + 0x26)) & 0x800) {
                         temp_s4 = (*(void **)((char *)(var_s1) + 4));
-                        if (var_s0) {
+                        if (var_s0 != 0) {
                             if (var_s3) {
                                 if (D_80112E40 != 0) {
                                     D_80112E40 = 0;
                                     func_80038EE8(var_s2);
                                 }
                                 if (D_8010A924 != 8) {
-                                    register temp_v1 = D_80115328;
+                                    temp_v1 = D_80115328;
                                     D_8010A924 = 8;
                                     D_80115328 = temp_v1 + 8;
                                     ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
                                     (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1AC8;
                                 }
                                 if (D_801032A0 != 4) {
-                                    D_801032A0 = 4;
                                     temp_v1_2 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+                                    D_801032A0 = 4;
                                     switch (temp_v1_2) {
 case 2:
-                                    case 4:
                                         temp_a0 = D_80115328;
                                         D_80115328 = temp_a0 + 8;
-                                        ((__repair_field_0 *)temp_a0)->value = (short)0xFC119823;
+                                        ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
                                         (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
                                         break;
                                     case 0: break;
  /* irregular */
+                                    case 4:
+                                        temp_a0 = D_80115328;
+                                        D_80115328 = temp_a0 + 8;
+                                        ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
+                                        (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
+                                        break;
                                     case 1:
                                         temp_v1_3 = D_80115328;
                                         D_80115328 = temp_v1_3 + 8;
@@ -69,12 +74,12 @@ case 2:
                                     }
                                 }
                                 temp_a0 = D_80115328;
-                                var_s3 = 0;
                                 ((__repair_field_0 *)temp_a0)->value = 0xDA380003;
+                                var_s3 = 0;
                                 D_80115328 = temp_a0 + 8;
                                 (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000);
                             }
-                            do { func_8003438C(var_s2, arg0); } while (0);
+                            func_8003438C(var_s2, arg0);
                             var_s0 = 0;
                         }
                         func_80032630((*(s32 *)((char *)(temp_s4) + 0x3C)));

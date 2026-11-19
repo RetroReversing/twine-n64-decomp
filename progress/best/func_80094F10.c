@@ -42,6 +42,7 @@ void func_80094F10(void) {
     s32 temp_v1_5;
     s32 var_v0;
     s32 var_v0_2;
+s32 __repair_phase_var_v0_2;
     void **temp_v1_6;
     void *temp_s1;
     void *var_s0;
@@ -132,14 +133,13 @@ block_29:
                             M2C_FIELD(var_s0, f32 *, 0x40) = temp_fv0;
                             if (temp_fv0 >= 1.0f) {
                                 var_v0_2 = M2C_FIELD(var_s0, s32 *, 8) & 0xFFEFFFFF;
-                                goto block_43;
+                                M2C_FIELD(var_s0, s32 *, 8) = var_v0_2;
                             }
                         }
                     }
                 } else if (sp18 != 0.0f) {
-                    var_v0_2 = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
-block_43:
-                    M2C_FIELD(var_s0, s32 *, 8) = var_v0_2;
+                    __repair_phase_var_v0_2 = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
+                    M2C_FIELD(var_s0, s32 *, 8) = __repair_phase_var_v0_2;
                 }
             }
             var_s0 = temp_s1;

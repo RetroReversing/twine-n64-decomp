@@ -17,31 +17,25 @@ extern s32 D_80102F2C;
 extern void **D_80109BB0;
 
 void *func_80027408(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
-    void *var_s0;
-    void *var_v0;
+    void *p;
 
-    var_s0 = NULL;
+    p = NULL;
     if (D_80102F2C != 0) {
-        var_s0 = *D_80109BB0;
-        var_v0 = NULL;
-        if (var_s0 != NULL) {
-            if (arg0 == 0) {
-                M2C_FIELD(var_s0, s16 *, 0x1C) = 0;
-                M2C_FIELD(var_s0, s32 *, 0x10) = (s32) (M2C_FIELD(var_s0, s32 *, 0x10) & ~0xFF);
-                return var_s0;
-            }
-            M2C_FIELD(var_s0, s32 *, 0x18) = arg0;
-            M2C_FIELD(var_s0, s16 *, 0x1C) = strlen();
-            M2C_FIELD(var_s0, s16 *, 0x22) = (s16) (arg3 & 0xFF);
-            M2C_FIELD(var_s0, s16 *, 0x20) = arg2;
-            M2C_FIELD(var_s0, s16 *, 0x1E) = (s16) (arg1 | 1);
-            M2C_FIELD(var_s0, s32 *, 0x10) = (s32) (M2C_FIELD(var_s0, s32 *, 0x10) | 0xFF);
-            goto block_5;
+        p = *D_80109BB0;
+        if (p == NULL) {
+            return NULL;
         }
-        /* Duplicate return node #6. Try simplifying control flow for better match */
-        return var_v0;
+        if (arg0 == 0) {
+            M2C_FIELD(p, s16 *, 0x1C) = 0;
+            M2C_FIELD(p, s32 *, 0x10) = (s32) (M2C_FIELD(p, s32 *, 0x10) & ~0xFF);
+            return p;
+        }
+        M2C_FIELD(p, s32 *, 0x18) = arg0;
+        M2C_FIELD(p, s16 *, 0x1C) = strlen();
+        M2C_FIELD(p, s16 *, 0x22) = (s16) (arg3 & 0xFF);
+        M2C_FIELD(p, s16 *, 0x20) = arg2;
+        M2C_FIELD(p, s16 *, 0x1E) = (s16) (arg1 | 1);
+        M2C_FIELD(p, s32 *, 0x10) = (s32) (M2C_FIELD(p, s32 *, 0x10) | 0xFF);
     }
-block_5:
-    var_v0 = var_s0;
-    return var_v0;
+    return p;
 }

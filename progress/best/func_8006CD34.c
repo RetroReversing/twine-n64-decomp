@@ -8,7 +8,7 @@ s32 func_800480A0();
 s32 func_80048124();
 s32 func_80048164();
 s32 func_800481E8();
-s32 func_80048224(s32, s32, s32, s32, f32);
+s32 func_80048224(s32, s32, s32, f32, f32);
 s32 func_80064370();
 s32 func_800643C8();
 s32 func_80082FE4();
@@ -69,7 +69,7 @@ f32 __repair_var_fv1_1;
                 var_fv0_2 = 0.0f;
             }
             temp_ft0 = (*(f32 *)((char *)(temp_s2) + 0x98));
-            temp_s0_2 = (temp_s3 * 4) + D_80109688;
+            temp_s0_2 = (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4) + D_80109688;
             (*(f32 *)((char *)(temp_s2) + 0x98)) = (f32) (((var_fv0_2 - temp_ft0) * 0.1f) + temp_ft0);
             (*(f32 *)((char *)(*temp_s0_2) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x3C));
             func_800480A0(arg0, *temp_s0_2);
@@ -102,7 +102,7 @@ f32 __repair_var_fv1_1;
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 1) {
         func_800643C8(arg0);
         temp_s0_3 = (temp_s3 * 4) + D_80109688;
-        func_80048224(arg0 + 0x24, arg0 + 0x3C, *temp_s0_3, 0x3F800000, 10.0f);
+        func_80048224(arg0 + 0x24, arg0 + 0x3C, *temp_s0_3, 1.0f, 10.0f);
         func_800481E8(arg0,  *temp_s0_3);
         func_80048124(arg0, *temp_s0_3);
         func_80048164(arg0, *temp_s0_3);
@@ -128,7 +128,11 @@ f32 __repair_var_fv1_1;
             sp18[0] = (*__base_D_800D461C);
             sp18[1] = D_800D4620;
             sp18[2] = D_800D4624;
-            func_800643C8(arg0, __base_D_800D461C);
+            /*__repair_pointer_balance*/if ((unsigned long)__base_D_800D461C & 0x100) {
+func_800643C8(arg0, __base_D_800D461C);
+} else {
+func_800643C8(arg0, __base_D_800D461C);
+}
             sp58[0] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x3C));
             sp58[1] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x40));
             sp58[2] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x44));
@@ -138,7 +142,7 @@ f32 __repair_var_fv1_1;
             sp18[1] += (*(f32 *)((char *)(temp_s2_2) + 0x28));
             temp_s0_4 = (temp_s3 * 4) + D_80109688;
             sp18[2] += (*(f32 *)((char *)(temp_s2_2) + 0x2C));
-            func_80045290(sp18, *temp_s0_4 + 0x10);
+            func_80045290(arg0, sp18, *temp_s0_4 + 0x10);
             (*(f32 *)((char *)(*temp_s0_4) + 0x34)) = (f32) ((*(f32 *)((char *)(temp_s2_2) + 0x3C)) * 0.0015339808f);
             (*(f32 *)((char *)(*temp_s0_4) + 0x38)) = (f32) (((*(f32 *)((char *)(temp_s2_2) + 0x40)) * 0.0015339808f) + 3.1415927f);
             (*(f32 *)((char *)(*temp_s0_4) + 0x3C)) = (f32) (((*(f32 *)((char *)(temp_s2_2) + 0x44)) * 0.0015339808f) + 3.1415927f);

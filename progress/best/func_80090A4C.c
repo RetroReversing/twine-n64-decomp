@@ -3,8 +3,8 @@
 s32 func_80099708();
 extern s32 *D_800E5AC0;
 extern char D_800E5AC4[];
-extern char D_800E6A84[];
-extern char D_800E6A85[];
+extern u8 D_800E6A84[];
+extern u8 D_800E6A85[];
 extern char D_800E6AB2[];
 
 void func_80090A4C(s32 arg0) {
@@ -15,34 +15,35 @@ void func_80090A4C(s32 arg0) {
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_a0_2;
-    long var_v0;
-    s32 var_v1;
-    u32 var_a0;
+    s32 var_v0;
+    unsigned long var_v1;
+    unsigned long var_a0;
     void *temp_a0;
     void *temp_s2;
     void *var_s0;
     void *var_s0_2;
 
-    var_a0 = 0;
     var_v1 = 0;
+    var_a0 = 0;
+    arg0 &= 0x7FFFFFFF;
 loop_1:
-    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != (arg0 & 0x7FFFFFFF))) {
-        var_v1 += 0xFF8;
+    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != arg0)) {
         var_a0++;
-        if (8U <= var_a0) {
+        var_v1 += 0xFF8;
+        if (var_a0 >= 8U) {
             var_a0_2 = -1;
         } else {
             goto loop_1;
         }
     } else {
-        var_a0_2 = var_a0 | (arg0 & 0x7fffffff);
+        var_a0_2 = var_a0 | arg0;
     }
     if (var_a0_2 != -1) {
         if (var_a0_2 >= 0) {
             temp_v1 = var_a0_2 * 0xFF8;
             if ((*(D_800E6A84 + temp_v1) != 0) && (*(D_800E6A85 + temp_v1) == 0)) {
-                temp_s2 = temp_v1 + D_800E5AC4;
                 *(D_800E6A84 + temp_v1) = 0;
+                temp_s2 = temp_v1 + D_800E5AC4;
                 var_s0 = (*(void **)((char *)(temp_s2) + 0xF78));
                 if (var_s0 != NULL) {
                     do {

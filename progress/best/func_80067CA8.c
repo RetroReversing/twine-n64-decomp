@@ -9,10 +9,8 @@ extern f64 D_800D4498;
 extern f64 D_800D44A0;
 
 void func_80067CA8(void *arg0) {
-    f32 sp10;
-    f32 sp14;
+    f32 sp10[3];
 f32 __repair_sp14_2;
-    f32 sp18;
     f32 temp_fa0;
     f32 temp_ft0;
     register f32 temp_fv1;
@@ -23,10 +21,10 @@ f32 __repair_sp14_2;
 
     temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
     var_fs0 = 0.0f;
-    sp10 = 0.0f;
-    sp14 = 0.0f;
-    sp18 = 0.0f;
-    sp10 = (*(f32 *)((char *)(temp_s0) + 0x50)) * 0.15f;
+    sp10[0] = 0.0f;
+    sp10[1] = 0.0f;
+    sp10[2] = 0.0f;
+    sp10[0] = (*(f32 *)((char *)(temp_s0) + 0x50)) * 0.15f;
     if (D_800D4498 < (f64) func_800828D0((*(f32 *)((char *)(temp_s0) + 0x48)))) {
         var_fs0 = (*(f32 *)((char *)(temp_s0) + 0x48)) * 0.0012077295f;
     }
@@ -37,17 +35,17 @@ f32 __repair_sp14_2;
     if (temp_v0 != (short)NULL) {
         (*(f32 *)((char *)(temp_s0) + 0x6C)) = (f32) (temp_ft0 + ((*(f32 *)((char *)(temp_v0) + 0x4C)) * 0.2f));
     }
-    temp_fv1 = sp10 + (func_8008292C((*(f32 *)((char *)(temp_s0) + 0x6C))) * 0.01f);
-    sp10 = temp_fv1;
-    temp_fv1_2 = sp14 + (func_800828D0(func_80082968((*(f32 *)((char *)(temp_s0) + 0x6C)))) * 0.01f);
-    sp14 = temp_fv1_2;
-    sp18 += (*(f32 *)((char *)(temp_s0) + 0x70));
+    temp_fv1 = sp10[0] + (func_8008292C((*(f32 *)((char *)(temp_s0) + 0x6C))) * 0.01f);
+    sp10[0] = temp_fv1;
+    temp_fv1_2 = sp10[1] + (func_800828D0(func_80082968((*(f32 *)((char *)(temp_s0) + 0x6C)))) * 0.01f);
+    sp10[1] = temp_fv1_2;
+    sp10[2] += (*(f32 *)((char *)(temp_s0) + 0x70));
     temp_fa0 = (*(f32 *)((char *)(temp_s0) + 0x78)) + 0.052359883f;
     (*(f32 *)((char *)(temp_s0) + 0x70)) = (f32) ((f64) (*(f32 *)((char *)(temp_s0) + 0x70)) * D_800D44A0);
     (*(f32 *)((char *)(temp_s0) + 0x78)) = temp_fa0;
     (*(f32 *)((char *)(temp_s0) + 0x74)) = (f32) ((f64) (*(f32 *)((char *)(temp_s0) + 0x74)) * D_800D44A0);
-    sp10 = temp_fv1 + (func_8008292C(temp_fa0) * 0.001f);
+    sp10[0] = temp_fv1 + (func_8008292C(temp_fa0) * 0.001f);
     __repair_sp14_2 = temp_fv1_2 + (func_80082968((*(f32 *)((char *)(temp_s0) + 0x78)) * 1.7f) * 0.001f);
-    func_80067BB8(arg0, &sp10);
-    func_800673EC(arg0, &sp10);
+    func_80067BB8(arg0, sp10);
+    func_800673EC(arg0, sp10);
 }

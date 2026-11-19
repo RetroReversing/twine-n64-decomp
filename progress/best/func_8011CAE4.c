@@ -18,17 +18,21 @@ extern s32 D_800BD650;
 extern s32 D_800BD678;
 extern s32 D_801002C0;
 extern M2C_UNK D_8010A500;
-extern M2C_UNK D_8011F118;
+extern u8 D_8011F118[];
 extern M2C_UNK D_8011F150;
 extern M2C_UNK D_8011F338;
 
 void func_8011CAE4(void) {
+    M2C_UNK *__base_D_8011F338;
     s16 temp_v1;
     s32 temp_s4;
     s32 temp_s5;
     s32 var_s1;
     s32 var_s3;
     void *temp_s0;
+    u8 *__base_D_8011F118;
+
+    __base_D_8011F118 = D_8011F118;
 
     var_s3 = 0;
     if (D_801002C0 > 0) {
@@ -38,9 +42,10 @@ void func_8011CAE4(void) {
 {
     u16 __repair_i;
     for (__repair_i = 0; __repair_i < 3; __repair_i++) {
-        temp_s0 = *(temp_s4 + ((__repair_i * 0x10) + &D_8011F338));
+        __base_D_8011F338 = &D_8011F338;
+        temp_s0 = *(temp_s4 + ((__repair_i * 0x10) + __base_D_8011F338));
         if (temp_s0 != NULL) {
-        func_8011E95C(temp_s0, ((u32 *) &D_8010A500)[temp_s5], (__repair_i * 0xC) + &D_8011F118, temp_s5);
+        func_8011E95C(temp_s0, ((u32 *) &D_8010A500)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);
         temp_v1 = M2C_FIELD((&D_8011F150)[__repair_i], s16 *, 0x7C);
         switch (temp_v1) {                  /* irregular */
         case 0:

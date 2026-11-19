@@ -17,7 +17,7 @@ extern u8 D_80102EE8;
 extern s32 D_8010A500;
 
 void func_80017D24(void *arg0) {
-    s16 temp_v1;
+    s32 temp_v1;
     s8 var_v0;
     u16 temp_v0;
 
@@ -31,14 +31,16 @@ void func_80017D24(void *arg0) {
                 M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
                 if (!(temp_v0 & 0x10)) {
                     var_v0 = 0x7F;
-                    goto block_10;
+                    M2C_FIELD(arg0, s8 *, 0x81) = var_v0;
+                    M2C_FIELD(arg0, s8 *, 0x80) = var_v0;
+                    M2C_FIELD(arg0, s8 *, 0x7F) = var_v0;
+                    return;
                 }
-                M2C_FIELD(arg0, s8 *, 0x7F) = 0xFF;
-                M2C_FIELD(arg0, s8 *, 0x80) = 0xFF;
+                M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
+                M2C_FIELD(arg0, u8 *, 0x80) = 0xFF;
                 M2C_FIELD(arg0, s8 *, 0x81) = 0xFF;
                 return;
             }
-block_10:
             M2C_FIELD(arg0, s8 *, 0x81) = var_v0;
             M2C_FIELD(arg0, s8 *, 0x80) = var_v0;
             M2C_FIELD(arg0, s8 *, 0x7F) = var_v0;

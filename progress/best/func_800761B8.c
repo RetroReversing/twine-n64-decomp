@@ -32,12 +32,14 @@ extern s32 D_80102EEC;
 extern s32 D_8010A4E4;
 
 void func_800761B8(void) {
+    u8 *__base_D_80102EDF;
     s32 var_a0;
     u8 temp_s1;
 
-    temp_s1 = D_80102EDF;
+    __base_D_80102EDF = &D_80102EDF;
+    temp_s1 = (*__base_D_80102EDF);
     func_80008154();
-    func_80045080(D_80102EDF);
+    func_80045080((*__base_D_80102EDF));
     if (D_80102ED8 != 0) {
         func_80075EBC();
         func_80117BF4(temp_s1);
@@ -49,7 +51,7 @@ void func_800761B8(void) {
     D_80102EEC = 0;
     D_8010A4E4 = 1;
     func_800070A4();
-    switch (D_80102EDF) {
+    switch ((*__base_D_80102EDF)) {
     case 36:
         D_801002AE = 1;
         /* fallthrough */

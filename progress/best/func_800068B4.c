@@ -37,16 +37,16 @@ extern s32 D_8010A4E4;
 extern s32 D_8011740C;
 
 void func_800068B4(void) {
-short __repair_constant = 2;
-
 int __repair_literal;
 
-    unsigned var_a0_2;
-    u8 var_a0;
-    f32 var_fv0;
+    f32 __repair_fzero = 0.0f;
+
+    unsigned long var_a0_2;
     u8 var_v0;
-    f32 temp_fv1;
+    f32 var_fv0;
     s32 var_s0;
+    register u8 var_a0;
+    f32 temp_fv1;
     
 
     switch (D_800B19F0) {
@@ -56,7 +56,7 @@ void *__repair_cached_pointer = D_80109688;
         func_80026F84(0);
         func_800450F0();
         var_a0 = 0x12;
-        (*(f32 *)((char *)(__repair_cached_pointer) + 0x12C)) = 0.0f;
+        (*(f32 *)((char *)(__repair_cached_pointer) + 0x12C)) = (0.0f);
 block_63:
         func_800066A0(var_a0);
     default:
@@ -66,9 +66,9 @@ block_63:
         D_800DC730 = D_8011740C;
         /* fallthrough */
     case 9:
-        if (!D_801002AE) {
-            register var_v0 = 2;
-            if (((int)D_8011740C - D_800DC730) >= 0x1C3) {
+        if (D_801002AE == 0) {
+            var_v0 = 2;
+            if ((D_8011740C - D_800DC730) >= 0x1C3) {
 block_9:
                 D_800B19F0 = var_v0;
             }
@@ -78,8 +78,8 @@ block_10:
         var_a0 = 4;
         if (D_80102EEC == 0) {
             func_8002CC34(4);
-            if ((D_800CEEB0 == 0) && (D_80102EDD != 0)) {
-                if (!D_80102ED8) {
+            if ((!D_800CEEB0) && (D_80102EDD != 0)) {
+                if (D_80102ED8 == 0) {
                     if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
                         goto block_15;
                     }
@@ -87,9 +87,9 @@ block_10:
                     var_s0 = 0;
 __repair_literal = 0;
 
-                    if (((*(s32 *)((char *)(&D_801002B8) + 0)) > __repair_literal) && (!D_801002AE)) {
+                    if (((*(s32 *)((char *)(&D_801002B8) + 0)) > __repair_literal) && (D_801002AE == 0)) {
 loop_19:
-                        ++var_s0;
+                        var_s0 += 1;
                         if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
                             if (var_s0 < (*(s32 *)((char *)(&D_801002B8) + 0))) {
                                 if ((*(u8 *)((char *)(&D_801002B8) + -0xA)) != 0) {
@@ -113,10 +113,10 @@ block_39:
         }
         goto block_63;
     case 18:
-        (*(f32 *)((char *)(D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + (int)0x12C)) + 0.06666667f);
+        (*(f32 *)((char *)(D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) + 0.06666667f);
         if ((*(f32 *)((char *)(D_80109688) + 0x12C)) > 1.0f) {
-            var_v0 = 1;
             (*(f32 *)((char *)(D_80109688) + 0x12C)) = 1.0f;
+            var_v0 = 1;
             goto block_9;
         }
         goto block_10;
@@ -126,17 +126,17 @@ block_39:
             (*(f32 *)((char *)(D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) - 0.033333335f);
             D_80103EB0 = 0;
             if ((*(f32 *)((char *)(D_80109688) + 0x12C)) < 0.0f) {
-                (*(f32 *)((char *)(D_80109688) + 0x12C)) = 0.0f;
+                (*(f32 *)((char *)(D_80109688) + 0x12C)) = (0.0f);
                 func_8000A310();
                 if (D_800B19F0 != 2) {
-                    register var_a0_2 = 4;
+                    var_a0_2 = 4;
                     if (D_800B19F0 == 0xA) {
                         goto block_29;
                     }
                 } else {
                     var_a0_2 = 8;
 block_29:
-                    { func_80030F88(var_a0_2); }
+                    func_80030F88(var_a0_2);
                 }
             }
         }
@@ -155,13 +155,12 @@ block_37:
                 (*(f32 *)((char *)(D_80109688) + 0x124)) = 1.0f;
                 if (D_800B19F0 != 3) {
                     var_a0 = 0xA;
-                    if (D_800B19F0 == 0xB) {
-                        goto block_36;
+                    if ((int)D_800B19F0 == 0xB) {
+                        D_800B19F0 = var_a0;
                     }
                 } else {
-                    var_a0 = __repair_constant;
-block_36:
                     D_800B19F0 = var_a0;
+                    var_a0 = 2;
                 }
             }
         }
@@ -181,7 +180,7 @@ block_36:
     case 15:
         func_800761B8();
         var_a0 = 0x12;
-        (*(f32 *)((char *)(D_80109688) + 0x12C)) = 0.0f;
+        (*(f32 *)((char *)(D_80109688) + 0x12C)) = (0.0f);
         goto block_63;
     case 5:
         func_800067C8();
@@ -211,18 +210,18 @@ block_52:
         D_800B19F0 = 0xE;
         D_800DC739 = D_80103EB0;
     case 14:
-        (*(f32 *)((char *)((unsigned short)D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) + D_800DC734);
+        (*(f32 *)((char *)(D_80109688) + 0x12C)) = (f32) ((*(f32 *)((char *)(D_80109688) + 0x12C)) + D_800DC734);
         temp_fv1 = (*(f32 *)((char *)(D_80109688) + 0x12C));
         if ((temp_fv1 <= 0.0f) || ((int)temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
-                (*(f32 *)((char *)((short)D_80109688) + 0x12C)) = 0.0f;
+                (*(f32 *)((char *)(D_80109688) + 0x12C)) = __repair_fzero;
             } else if (temp_fv1 > 1.0f) {
                 (*(f32 *)((char *)(D_80109688) + 0x12C)) = 1.0f;
             }
-            D_800DC730 -= 1;
+            D_800DC730--;
             if (D_800DC730 <= 0) {
-                D_80103EB0 = D_800DC739;
                 func_800066A0(D_800DC738);
+                D_80103EB0 = D_800DC739;
             }
         }
         goto block_39;

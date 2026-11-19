@@ -59,8 +59,8 @@ s32 func_800458C0(void *arg0, void *arg1, void *arg2, void *arg3) {
         temp_ft0_2 = sp10[0] * temp_fv0_5;
         temp_fv1_4 = sp10[1] * temp_fv0_5;
         (*(f32 *)((char *)(arg0) + 4)) = temp_fv1_4;
-        sp10[1] = temp_fv1_4;
         sp10[0] = temp_ft0_2;
+        sp10[1] = temp_fv1_4;
         (*(f32 *)((char *)(arg0) + 0)) = temp_ft0_2;
         (*(f32 *)((char *)(arg0) + 8)) = sp10[2];
         ret = 1;

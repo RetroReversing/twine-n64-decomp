@@ -20,7 +20,7 @@ char *__repair_addr;
 
     s32 var_condition_bit;
     s32 var_v0;
-    u16 temp_a1_2;
+    s32 temp_a1_2;
     u16 temp_v1;
     u16 temp_v1_2;
     u8 temp_v1_3;
@@ -33,12 +33,12 @@ char *__repair_addr;
             temp_v1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
 __repair_addr = (char *)((arg0 + (temp_v1_2 * 2)));
 
-            var_condition_bit = (f32) M2C_FIELD(__repair_addr, s16 *, 0x1BC) < ((f32) *(D_800C7C16 + (temp_v1_2 * 4)) * 0.5f);
+            var_condition_bit = (f32) M2C_FIELD(__repair_addr, s16 *, 0x1BC) < ((f32) *(s16 *)(D_800C7C16 + (temp_v1_2 * 4)) * 0.5f);
             goto block_9;
         }
         if (temp_v1 == 0) {
             temp_v1_3 = *(D_800C471C + (M2C_FIELD(temp_a1, u16 *, 0x3E) * 0xE8));
-            var_condition_bit = (f32) M2C_FIELD((arg0 + (temp_v1_3 * 2)), s16 *, 0x1BC) < ((f32) *(D_800C7C16 + (temp_v1_3 * 4)) * 0.5f);
+            var_condition_bit = (f32) M2C_FIELD((arg0 + (temp_v1_3 * 2)), s16 *, 0x1BC) < ((f32) *(s16 *)(D_800C7C16 + (temp_v1_3 * 4)) * 0.5f);
             goto block_9;
         }
         temp_a1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
@@ -52,13 +52,12 @@ __repair_addr = (char *)((arg0 + (temp_v1_2 * 2)));
 block_9:
                     var_v0 = 1;
                     if (!var_condition_bit) {
-                        goto block_10;
+                        var_v0 = 0;
                     }
                 }
             }
         }
     } else {
-block_10:
         var_v0 = 0;
     }
     return var_v0;

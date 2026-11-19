@@ -49,7 +49,7 @@ void func_80014EB0(void *arg0, f32 *arg1) {
     if (D_800E09F0 == 0) {
         var_a1 = *(void **)arg0;
         if (var_a1 != NULL) {
-            do {
+            __repair_rows: {
                 if ((*(s32 *)((u8 *)var_a1 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a1 + 0x58) & 0x800)) {
                     temp_v1 = D_80109DC4;
                     *(s32 *)((u8 *)var_a1 + 0x58) |= 0x800;
@@ -57,7 +57,8 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                     *(void **)((u8 *)var_a1 + 0x1C) = temp_v1;
                 }
                 var_a1 = *(void **)var_a1;
-            } while (var_a1 != NULL);
+            }
+if (var_a1 != NULL) goto __repair_rows;
         }
     }
     temp_v0 = D_800E09F0 + 1;
@@ -76,7 +77,7 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                 do {
                     var_a0 = *(void **)(*(void **)((u8 *)var_s6 + 8));
                     if (var_a0 != NULL) {
-                        do {
+                        __repair_rows_: {
                             if ((*(s32 *)((u8 *)var_a0 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a0 + 0x58) & 0x800)) {
                                 temp_v1 = D_80109DC4;
                                 *(s32 *)((u8 *)var_a0 + 0x58) |= 0x800;
@@ -84,7 +85,8 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                                 *(void **)((u8 *)var_a0 + 0x1C) = temp_v1;
                             }
                             var_a0 = *(void **)var_a0;
-                        } while (var_a0 != NULL);
+                        }
+if (var_a0 != NULL) goto __repair_rows_;
                     }
                     temp_ft0 = (*(f32 *)((u8 *)D_8010D53C + 0x10) * *(f32 *)((u8 *)var_s6 + 0xC)) + (*(f32 *)((u8 *)D_8010D53C + 0x14) * *(f32 *)((u8 *)var_s6 + 0x10)) + (*(f32 *)((u8 *)D_8010D53C + 0x18) * *(f32 *)((u8 *)var_s6 + 0x14)) + *(f32 *)((u8 *)var_s6 + 0x18);
                     D_800E0C3C = temp_ft0;
@@ -182,15 +184,15 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                                             for (j = 0; j < temp_s3; j++) {
                                                 f32 *p = &D_800E0B18 + j * 9;
                                                 if (p[0] < box[0]) box[0] = p[0];
-                                                if (box[1] < p[0]) box[1] = p[0];
+                                                if (p[0] > box[1]) box[1] = p[0];
                                                 if (p[1] < box[2]) box[2] = p[1];
                                                 if (box[3] < p[1]) box[3] = p[1];
                                             }
                                             spA7 = 1;
                                         }
                                     }
-                                    spD4 += 3;
-                                    var_s7 += 1;
+                                    spD4 += 3;/*__repair_loop_weight*/do {
+                                    var_s7 += 1;} while (0);
                                     spDC += 6;
                                 } while (var_s7 < (s32) *(u16 *)((u8 *)temp_s4 + 0x40));
                             }

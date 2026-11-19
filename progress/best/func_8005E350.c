@@ -26,8 +26,8 @@ extern s32 D_80109688[];
 
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
-    s16 var_s4;
-    s16 var_s7;
+    s32 var_s4;
+    s32 var_s7;
     s32 temp_s0;
     s32 temp_s1;
     void *temp_s6;
@@ -35,12 +35,12 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     temp_s6 = M2C_FIELD(arg0, void **, 0x6C);
     func_80070664(temp_s6, arg1 & 0xFF, arg2 & 0xFF, 0);
     temp_s1 = arg1 & 0xFFFF;
-    temp_s0 = temp_s1 * 0x4;
+    temp_s0 = temp_s1 * 0x10;
     temp_v0 = *(&D_800C447C + temp_s0);
     var_s7 = -1;
     var_s4 = -1;
     if (temp_v0 != NULL) {
-        do { temp_v0(arg0); } while (0);
+        temp_v0(arg0);
     }
     D_8010302C += 1;
     if (!((temp_s1 == 0x1A) & ((arg2 & 0xFFFF) == 1))) {

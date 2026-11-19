@@ -40,9 +40,9 @@ int __repair_literal;
     f64 temp_fs0;
     s32 temp_v1;
     s32 temp_v1_2;
-    s32 var_s0;
     
-    s32 var_s2;
+    s32 var_s0_2;
+    
     s32 var_s2_2;
     union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_s1;
@@ -65,34 +65,22 @@ loop_3:
                 temp_s1 = M2C_FIELD(__repair_phase_storage.pointer, void **, 0x3C);
                 if (temp_s1 != NULL) {
                     if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
-                        var_s0 = 0;
+                        __repair_phase_storage.value = 0;
 __repair_literal = 0;
 
                         if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > __repair_literal) {
-                            var_s2 = 0;
+                            var_s0_2 = 0;
 loop_8:
                             temp_v1 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                            temp_v0 = M2C_FIELD(temp_s1, s32 *, 0x3C) + var_s2;
+                            temp_v0 = M2C_FIELD(temp_s1, s32 *, 0x3C) + var_s0_2;
                             if (!(func_8004DBD8(arg1, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !(m2c_initial_frame.view_sp38.value >= 0.0f) || !(m2c_initial_frame.view_sp38.value <= temp_fs1)) {
-                                var_s0 += 1;
-                                var_s2 += 6;
-                                if (var_s0 >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
+                                __repair_phase_storage.value += 1;
+                                var_s0_2 += 6;
+                                if (__repair_phase_storage.value >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                                     goto block_21;
                                 }
                                 goto loop_8;
                             }
-                            goto block_18;
-                        }
-                        goto block_21;
-                    }
-                    __repair_phase_storage.value = 0;
-                    if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > 0) {
-                        var_s2_2 = 0;
-loop_15:
-                        temp_v1_2 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                        temp_v0_2 = M2C_FIELD(temp_s1, s32 *, 0x3C) + var_s2_2;
-                        if ((func_8004DBD8(arg1, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs1)) {
-block_18:
                             var_v0 = var_s5;
                             if (arg3 != NULL) {
                                 M2C_FIELD(arg3, f32 *, 0) = (f32) ((f64) (M2C_FIELD(arg1, f32 *, 0) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp18.value)) + ((f64) m2c_initial_frame.view_sp18.value * temp_fs0));
@@ -103,9 +91,28 @@ block_18:
                             /* Duplicate return node #23. Try simplifying control flow for better match */
                             return var_v0;
                         }
-                        __repair_phase_storage.value += 1;
+                        goto block_21;
+                    }
+                    var_s0_2 = 0;
+                    if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > 0) {
+                        var_s2_2 = 0;
+loop_15:
+                        temp_v1_2 = M2C_FIELD(temp_s1, s32 *, 0x34);
+                        temp_v0_2 = M2C_FIELD(temp_s1, s32 *, 0x3C) + var_s2_2;
+                        if ((func_8004DBD8(arg1, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs1)) {
+                            var_v0 = var_s5;
+                            if (arg3 != NULL) {
+                                M2C_FIELD(arg3, f32 *, 0) = (f32) ((f64) (M2C_FIELD(arg1, f32 *, 0) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp18.value)) + ((f64) m2c_initial_frame.view_sp18.value * temp_fs0));
+                                M2C_FIELD(arg3, f32 *, 4) = (f32) ((f64) (M2C_FIELD(arg1, f32 *, 4) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp1C.value)) + ((f64) m2c_initial_frame.view_sp1C.value * temp_fs0));
+                                M2C_FIELD(arg3, f32 *, 8) = (f32) ((f64) (M2C_FIELD(arg1, f32 *, 8) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp20.value)) + ((f64) m2c_initial_frame.view_sp20.value * temp_fs0));
+                                return var_v0;
+                            }
+                            /* Duplicate return node #23. Try simplifying control flow for better match */
+                            return var_v0;
+                        }
+                        var_s0_2 += 1;
                         var_s2_2 += 3;
-                        if (__repair_phase_storage.value >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
+                        if (var_s0_2 >= (s32) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                             goto block_21;
                         }
                         goto loop_15;

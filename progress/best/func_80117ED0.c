@@ -2,8 +2,8 @@ extern u8 D_8010019C[];
 extern u8 D_800BF688[];
 extern u8 D_8011EE68[];
 extern u8 D_8011EE70[];
-f32 func_800461D4(void *);
-u16 func_80022DBC(s32);
+f32 func_800461D4(void *, f32 *);
+u16 func_80022DBC(u8 *, s32);
 void func_80002BD0(void *, s32);
 f32 func_80082A70(f32, f32);
 f32 func_800829A0(f32);
@@ -12,16 +12,18 @@ void func_800828D0(f32);
 void func_8007AABC(void *, s32, f32);
 
 void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
+    register f32 __repair_fzero = 0.0f;
+
     u8 *s1;
     f32 fv, fs0, fs1, fs2, t, dx, dz;
     s32 s2, sel, k;
     u16 x, t16;
     s1 = *(u8 **)(arg0 + 0x6C);
-    fv = func_800461D4(arg0 + 0x24);
+    fv = func_800461D4(arg0 + 0x24, arg1);
     if (fv < arg2[0]) {
         arg2[0] = fv;
     }
-    x = func_80022DBC((s8)(u8)s1[0x182]) & 0xFFFF;
+    x = func_80022DBC(arg0, (s8)(u8)(*(u8 **)(arg0 + 0x6C))[0x182]) & 0xFFFF;
     k = *(u32 *)(D_8010019C + x * 24);
     t16 = *(u16 *)(D_800BF688 + k * 12);
     sel = (t16 >> 2) & 7;
@@ -37,8 +39,8 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     t = arg2[0] - fs2;
     arg2[0] = t;
     if (t < fs2 || *(s16 *)(arg0 + 0x7A) == 7) {
+        arg2[0] = __repair_fzero;
         func_80002BD0(arg0, 0x14D);
-        arg2[0] = 0.0f;
         dx = arg1[0] - *(f32 *)(arg0 + 0x24);
         dz = arg1[2] - *(f32 *)(arg0 + 0x2C);
         if (dx == 0.0f && dz == 0.0f) {
@@ -49,14 +51,15 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         func_8007AABC(arg0, (s32)fv, 0.2f);
         return;
     }
-    dx = arg1[0] - *(f32 *)(arg0 + 0x24);
     dz = arg1[2] - *(f32 *)(arg0 + 0x2C);
+    dx = arg1[0] - *(f32 *)(arg0 + 0x24);
     if (dx == 0.0f && dz == 0.0f) {
         fv = *(f32 *)(arg0 + 0x40);
-    } else {
+    
+    func_8007AABC(arg0, fv, 0.2f);} else {
         fv = func_80082A70(dx, dz) * 650.9f;
-    }
-    func_8007AABC(arg0, (s32)fv, 0.2f);
+    
+    func_8007AABC(arg0, fv, 0.2f);}
     if (arg2[0] != 0.0f) {
         fv = *(f32 *)(s1 + 0x80);
         t = fs2 - fv;

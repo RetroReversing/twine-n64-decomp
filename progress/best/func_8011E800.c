@@ -8,28 +8,28 @@ void func_8011E800(void) {
     s32 var_a0;
     
     s32 var_v0;
-    s32 var_v0_2;
-    
+    int var_v0_2;
+    s32 var_v1;
 
     D_8011F3A8 = 0;
     var_a0 = 0;
-    var_v0 = 0 & 0xFFFF;
-    do {
-        *(((unsigned short)var_v0 * 4) + &D_8011F3B8) = 0;/*__repair_loop_weight*/do {
-        var_a0 += 1;} while (0);
-        var_v0 = var_a0 & 0xFFFF;
-    } while ((u32) (var_a0 & 0xFFFF) < 6U);
+    {
+        u16 __repair_i;
+        for (__repair_i = 0; __repair_i < 6; __repair_i++) {
+            (&D_8011F3B8)[__repair_i] = 0;
+        }
+    }
     var_a0 = 0;
     do {
-        var_v0 = 0;
         var_v0_2 = 0 & 0xFFFF;
+        var_v1 = 0;
 loop_4:
-        *((var_v0_2 * 4) + (((var_a0 & 0xFFFF) * 0x10) + &D_8011F2E8)) = 0;
-        var_v0 += 1;
-        var_v0_2 = var_v0 & 0xFFFF;
-        if ((u32) (var_v0 & 0xFFFF) < 4U) {
+        *((var_v0_2 * 4) + ((((u32)var_a0 & 0xFFFF) * 0x10) + &D_8011F2E8)) = 0;
+        var_v1 += 1;
+        var_v0_2 = var_v1 & 0xFFFF;
+        if ((u32) (var_v1 & 0xFFFF) < 4U) {
             goto loop_4;
-        }
-        var_a0 += 1;
+        }/*__repair_loop_weight*/do {do {do {
+        var_a0 += 1;} while (0);} while (0);} while (0);
     } while ((u32) (var_a0 & 0xFFFF) < 9U);
 }

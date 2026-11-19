@@ -2,55 +2,57 @@
 
 s32 func_8000A894(s32, void *);             /* extern */
 s32 func_80026004(void *, s32 *, s16);      /* extern */
-s16 func_80087100(s32);                         /* extern */
+s16 func_80087100(s32, s32);                         /* extern */
 extern void *D_80109BB0;
 
+extern char D_800D2CB8[];
+extern char D_800D2AF0[];
 void func_800295F0(s32 arg0) {
-    s32 *var_a1;
-    int var_a0;
+    register void *temp_s3;
+    s16 var_s1;
     s16 temp_v0_2;
     s16 var_a2;
-    void *temp_s3;
-    unsigned temp_v0;
-    int var_s0;
-    short var_s2;
-    s16 var_s1;
+    s32 var_a0;
     void *temp_a1;
+    unsigned int var_s0;
+    long var_s2;
     u8 temp_s1;
+    register u32 temp_v0;
+    s32 *var_a1;
 
     temp_a1 = (*(void **)((char *)(D_80109BB0) + 0x18));
+    temp_s3 = (void *)(*(*(s32 **)((char *)(D_80109BB0) + 0x10))); temp_s3 = (void *)((char *)temp_s3 + (s32)((((*(u8 *)((char *)(D_80109BB0) + 8)) * 0x28) + 0x28)));
     temp_s1 = *(*(u8 **)((char *)(temp_a1) + 0x10));
-    temp_s3 = ((((*(u8 *)((char *)(D_80109BB0) + 8)) * 0x28) + 0x28)) + (*(*(s32 **)((char *)(D_80109BB0) + 0x10)));
     if ((*(u16 *)((char *)(temp_a1) + 0xC)) & 0x400) {
         temp_v0 = (*(u32 *)((char *)(temp_a1) + 0x14));
-        var_s2 = temp_v0;
         var_s0 = temp_v0 >> 0x10;
+        var_s2 = temp_v0;
     
-    func_8000A894(0xE8, temp_a1);} else {
-        register var_s2 = 1;
-        register var_s0 = 0;
+    do { func_8000A894(0xE8, temp_a1); } while (0);} else {
+        var_s2 = 1;
+        var_s0 = 0;
     
-    func_8000A894(0xE8, temp_a1);}
-    temp_v0_2 = temp_s1 + arg0;
+    func_8000A894(0xE8, temp_a1);}do{
+    temp_v0_2 = temp_s1 + arg0;}while(0);
     var_s1 = temp_v0_2;
     if ((var_s2 & 0xFFFF) < temp_v0_2) {
         var_s1 = (s16) var_s0;
-    } else if (var_s0 > temp_v0_2) {
+    } else if (temp_v0_2 < (s32) var_s0) {
         var_s1 = (s16) var_s2;
     }
     (*(s8 *)((char *)(D_80109BB0) + 0x2D)) = (s8) (*(*(u8 **)((char *)((*(void **)((char *)(D_80109BB0) + 0x18))) + 0x10)) != (var_s1 & 0xFF));
     *(*(s8 **)((char *)((*(void **)((char *)(D_80109BB0) + 0x18))) + 0x10)) = (s8) var_s1;
     if ((*(s32 *)((char *)((*(void **)((char *)(temp_s3) + 8))) + 0x18)) != 0) {
         if ((*(u16 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x18))) + 0xC)) & 0x400) {
-            var_a1 = "%d";
+            var_a1 = D_800D2CB8;
             var_a2 = var_s1;
         } else {
             var_a0 = 0xA;
             if ((var_s1 << 0x10) != 0) {
                 var_a0 = 9;
             }
-            var_a1 = "%s";
-            var_a2 = func_80087100(var_a0);
+            var_a2 = func_80087100(arg0, var_a0);
+            var_a1 = D_800D2AF0;
         }
         do { func_80026004(temp_s3, var_a1, var_a2); } while (0);
     }

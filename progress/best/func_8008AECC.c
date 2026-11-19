@@ -15,18 +15,18 @@ char *__repair_addr;
 
     u8 *p;
     u16 *q;
-    register s32 a1v;
+    u16 i;
     s32 s1;
-    register s32 s2;
+    s32 s2;
     s32 t;
     s32 a0v;
-    u16 i;
+    s32 a1v;
 
-    a0v = arg0;
-    s2 = 0;
+    s1 = arg0;
     a1v = arg1;
-    i = 0;
     s1 = 0;
+    i = 0;
+    s2 = 0;
     if (D_800E41E4 != 0) {
         do {
             p = (u8 *)(D_800E41DC + i * 0x68);
@@ -39,7 +39,7 @@ char *__repair_addr;
                 func_8008A52C(p, (u16)a1v, s1 & 0xFF);
                 s1 += 1;
             }
-            i += 1;
+            ++i;
         } while (i < D_800E41E4);
     }
     q = (u16 *)(D_800E4218 + *D_800E421C * 0xA10);

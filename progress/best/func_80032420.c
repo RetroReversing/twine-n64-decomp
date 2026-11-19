@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 __cosf(f32);                                    /* extern */
+f32 __cosf(void);                                    /* extern */
 f32 __sinf(f32);                                    /* extern */
 M2C_UNK guMtxIdentF();                              /* extern */
 extern f64 D_800D2E00;
@@ -35,9 +35,9 @@ void func_80032420(f32 *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     s32 var_a1;
     unsigned short var_v0_2;
 
-    guMtxIdentF();
+    guMtxIdentF(arg0);
     temp_fs0 = (f32) ((f64) arg2 * (D_800D2E00 / (f64) arg6)) * 0.5f;
-    temp_fs0_2 = __cosf(temp_fs0);
+    temp_fs0_2 = __cosf();
     temp_fs0_3 = temp_fs0_2 / __sinf(temp_fs0);
     temp_fv1 = arg4 - arg5;
     temp_fs1 = temp_fs0_3 / arg3;
@@ -58,7 +58,7 @@ do {
         var_v1 += 4;
         } while (var_a0 < 4);
         var_a1 += 1;
-        var_s0 += 0x10;
+        var_s0 += 4;
     } while (var_a1 < 4);
     if (arg1 != NULL) {
         temp_fv1_2 = (f64) (arg4 + arg5);

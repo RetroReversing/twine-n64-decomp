@@ -22,13 +22,12 @@ void func_80087380(void *arg0) {
     f32 temp_fv0;
     f32 var_fs0;
     f32 var_fs1;
-    f32 var_fv0;
     s32 temp_a0;
     s32 temp_s0_2;
     u32 var_s6;
     register void *temp_s0;
     
-    void *var_s4;
+    register void *var_s4;
 
     temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
     sp40[0] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x3C));
@@ -55,18 +54,17 @@ void func_80087380(void *arg0) {
         __repair_frame.f50 = temp_a0;
         temp_s0_2 = temp_s0 + 0x24;
         __repair_frame.f4C -= func_80045D2C(var_fs1, temp_a0);
-        func_800452AC(arg0 + 0x24, temp_s0_2, temp_s0_2);
         func_800839F0(sp10, &__repair_frame, temp_s0_2);
+        func_800452AC(arg0 + 0x24, temp_s0_2, temp_s0_2);
         (*(s32 *)((char *)(temp_s0) + 0x30)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x24));
         (*(s32 *)((char *)(temp_s0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x28));
         (*(s32 *)((char *)(temp_s0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x2C));
         (*(f32 *)((char *)(temp_s0) + 0x40)) = (f32) ((*(f32 *)((char *)(arg0) + 0x40)) + *var_s2);
         if (*var_s2 == 0.0f) {
-            var_fv0 = (*(f32 *)((char *)(temp_s0) + 0x3C)) - var_fs0;
+            (*(f32 *)((char *)(temp_s0) + 0x3C)) = (*(f32 *)((char *)(temp_s0) + 0x3C)) - var_fs0;
         } else {
-            var_fv0 = (*(f32 *)((char *)(temp_s0) + 0x3C)) + var_fs0;
+            (*(f32 *)((char *)(temp_s0) + 0x3C)) = (*(f32 *)((char *)(temp_s0) + 0x3C)) + var_fs0;
         }
-        (*(f32 *)((char *)(temp_s0) + 0x3C)) = var_fv0;
         var_s2 += 4;
         var_s5 += 0xC;
         var_s4 += 4;

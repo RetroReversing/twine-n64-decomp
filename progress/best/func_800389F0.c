@@ -17,6 +17,8 @@ extern s16 D_80108F80;
 extern s16 D_8010D6F8;
 extern void *D_80115328;
 
+typedef struct { unsigned char pad_0[88]; float field_58; float field_5C; unsigned char pad_60[4]; float field_64; unsigned char pad_68[152]; int field_100; } __repair_record_arg0;
+typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 void func_800389F0(void *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
@@ -26,9 +28,8 @@ void func_800389F0(void *arg0) {
     f32 temp_fv1_6;
     s32 var_t8;
     s32 var_v0;
-    s32 var_v0_2;
+    
     s32 var_v0_3;
-    s32 var_v0_4;
     s32 var_v0_5;
     void *temp_a0;
     void *temp_a0_2;
@@ -37,12 +38,12 @@ void func_800389F0(void *arg0) {
     void *temp_v1_2;
     void *temp_v1_3;
 
-    if (M2C_FIELD(arg0, s32 *, 0x100) & 0x10) {
+    if (((__repair_record_arg0*)arg0)->field_100 & 0x10) {
         func_800344DC();
         temp_v0 = D_80115328;
         M2C_FIELD(temp_v0, s32 *, 0) = 0xE7000000;
         M2C_FIELD(temp_v0, s32 *, 0xC) = 0x300000;
-        M2C_FIELD(temp_v0, s32 *, 4) = 0;
+        ((__repair_field_4 *)temp_v0)->value = 0;
         M2C_FIELD(temp_v0, s32 *, 8) = 0xE3000A01;
         M2C_FIELD(temp_v0, s32 *, 0x10) = 0xE200001C;
         M2C_FIELD(temp_v0, s32 *, 0x14) = 0x0F0A4000;
@@ -54,29 +55,21 @@ void func_800389F0(void *arg0) {
         temp_v1 = temp_v0 + 0x20;
         D_80115328 = temp_v1;
         D_80115328 = temp_v0 + 0x28;
-        temp_fv1 = M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x58);
-        if (!(temp_fv1 >= 2.1474836e9f)) {
-            var_v0 = (s32) temp_fv1 & 0x3FF;
-        } else {
-            var_v0 = ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000) & 0x3FF;
-        }
+        temp_fv1 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58;
+        var_v0 = (u32) temp_fv1;
         temp_a0 = D_80115328;
         M2C_FIELD(temp_v0, s32 *, 0x20) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | ((var_v0 * 4) | 0xF6000000));
-        M2C_FIELD(temp_v1, s32 *, 4) = 0;
+        ((__repair_field_4 *)temp_v1)->value = 0;
         M2C_FIELD(temp_a0, s32 *, 0) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | ((((D_80108F80 - 1) & 0x3FF) * 4) | 0xF6000000));
-        temp_fv1_2 = (M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x5C)) - 1.0f;
+        temp_fv1_2 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 1.0f;
         D_80115328 = temp_a0 + 8;
-        if (temp_fv1_2 >= 2.1474836e9f) {
-            var_t8 = (s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000;
-        } else {
-            var_t8 = (s32) temp_fv1_2;
-        }
+        var_t8 = (u32) temp_fv1_2;
         temp_v1_2 = D_80115328;
-        M2C_FIELD(temp_a0, s32 *, 4) = (s32) ((var_t8 & 0x3FF) * 4);
+        ((__repair_field_4 *)temp_a0)->value = (s32) ((var_t8 & 0x3FF) * 4);
         M2C_FIELD(temp_v1_2, s32 *, 0x20) = 0xFA000000;
         M2C_FIELD(temp_v1_2, s32 *, 0x24) = 0x80;
         M2C_FIELD(temp_v1_2, s32 *, 0) = 0xE7000000;
-        M2C_FIELD(temp_v1_2, s32 *, 4) = 0;
+        ((__repair_field_4 *)temp_v1_2)->value = 0;
         M2C_FIELD(temp_v1_2, s32 *, 8) = 0xE3000A01;
         M2C_FIELD(temp_v1_2, s32 *, 0xC) = 0;
         M2C_FIELD(temp_v1_2, s32 *, 0x10) = 0xFCFFFFFF;
@@ -104,36 +97,35 @@ void func_800389F0(void *arg0) {
         temp_a0_2 = temp_v1_2 + 0x50;
         D_80115328 = temp_v1_2 + 0x48;
         D_80115328 = temp_a0_2;
-        temp_fv1_3 = M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x58) + 2.0f;
+        temp_fv1_3 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58 + 2.0f;
         D_80115328 = temp_v1_2 + 0x58;
         if (!(temp_fv1_3 >= 2.1474836e9f)) {
-            var_v0_2 = (s32) temp_fv1_3 & 0x3FF;
+            var_t8 = (s32) temp_fv1_3 & 0x3FF;
         } else {
-            var_v0_2 = ((s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000) & 0x3FF;
+            var_t8 = ((s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000) & 0x3FF;
         }
-        M2C_FIELD(temp_v1_2, s32 *, 0x50) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_v0_2 * 4) | 0xF6000000));
-        temp_fv1_4 = M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x58);
+        M2C_FIELD(temp_v1_2, s32 *, 0x50) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_t8 * 4) | 0xF6000000));
+        temp_fv1_4 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58;
         if (temp_fv1_4 >= 2.1474836e9f) {
             var_v0_3 = ((s32) (temp_fv1_4 - 2.1474836e9f) | 0x80000000) & 0x3FF;
         } else {
             var_v0_3 = (s32) temp_fv1_4 & 0x3FF;
         }
-        M2C_FIELD(temp_a0_2, s32 *, 4) = (s32) (var_v0_3 * 4);
+        ((__repair_field_4 *)temp_a0_2)->value = (s32) (var_v0_3 * 4);
         temp_v1_3 = D_80115328;
-        temp_fv1_5 = M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x5C);
+        temp_fv1_5 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C;
         D_80115328 = temp_v1_3 + 8;
         if (!(temp_fv1_5 >= 2.1474836e9f)) {
-            var_v0_4 = (s32) temp_fv1_5 & 0x3FF;
+            M2C_FIELD(temp_v1_3, s32 *, 0) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | (((s32) temp_fv1_5 & 0x3FF * 4) | 0xF6000000));
         } else {
-            var_v0_4 = ((s32) (temp_fv1_5 - 2.1474836e9f) | 0x80000000) & 0x3FF;
+            M2C_FIELD(temp_v1_3, s32 *, 0) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((((s32) (temp_fv1_5 - 2.1474836e9f) | 0x80000000) & 0x3FF * 4) | 0xF6000000));
         }
-        M2C_FIELD(temp_v1_3, s32 *, 0) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_v0_4 * 4) | 0xF6000000));
-        temp_fv1_6 = (M2C_FIELD(arg0, f32 *, 0x64) + M2C_FIELD(arg0, f32 *, 0x5C)) - 2.0f;
+        temp_fv1_6 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 2.0f;
         if (temp_fv1_6 >= 2.1474836e9f) {
             var_v0_5 = ((s32) (temp_fv1_6 - 2.1474836e9f) | 0x80000000) & 0x3FF;
         } else {
             var_v0_5 = (s32) temp_fv1_6 & 0x3FF;
         }
-        M2C_FIELD(temp_v1_3, s32 *, 4) = (s32) (var_v0_5 * 4);
+        ((__repair_field_4 *)temp_v1_3)->value = (s32) (var_v0_5 * 4);
     }
 }

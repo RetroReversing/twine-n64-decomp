@@ -9,7 +9,7 @@ f32 func_80045D8C();
 
 void func_80060D74(void *arg0) {
     f32 sp10;
-    unsigned sp14;
+    register unsigned long sp14;
     register f32 sp18;
     f32 temp_a0;
     void *temp_s0;
@@ -21,11 +21,11 @@ void func_80060D74(void *arg0) {
         temp_a0 = (*(f32 *)((char *)(arg0) + 0x2C));
         sp10 = (*(f32 *)((char *)(arg0) + 0x24));
         sp14 = (*(s32 *)((char *)(arg0) + 0x28));
-        sp18 = temp_a0;
-        sp10 += func_80045D8C(0x40000000, 0x3F800000) * (*(f32 *)((char *)(temp_s3) + 0));
+        sp10 += func_80045D8C(0x40000000) * (*(f32 *)((char *)(temp_s3) + 0));
         temp_v0 = func_80016410(0xC, &sp10, 0);
-        sp18 += func_80045D8C(0x40000000) * (*(f32 *)((char *)(temp_s3) + 0));
-        if (temp_v0 != NULL) {
+        sp18 = (u32)temp_a0;
+        sp18 += func_80045D8C() * (*(f32 *)((char *)(temp_s3) + 0));
+        if (temp_v0 != (int)NULL) {
             temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
             func_80044670(temp_v0, 2, 0x1B);
             (*(f32 *)((char *)(temp_s0) + 4)) = (f32) (*(f32 *)((char *)(temp_s3) + 4));

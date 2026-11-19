@@ -32,8 +32,7 @@ f64 func_800AB250(f64 arg0) {
     s32 var_v1;
 
     q = arg0 / D_800D6FB0;
-    var_fv0_2 = D_800D6FB8;
-    if (arg0 >= 0.0) {
+    var_fv0_2 = D_800D6FB8; if (arg0 >= 0.0) {
         var_fv0_2 = D_800D6FC0;
     }
     temp_fv1 = (s32) (q + var_fv0_2); temp_fa0 = arg0 - ((f64) temp_fv1 * D_800D6FC8);

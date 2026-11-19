@@ -32,7 +32,7 @@ void func_80017E14(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     var_t0 = (temp_a2 & ((s32) ~temp_a2 >> 0x1F));
     temp_a2 = M2C_FIELD(arg0, u8 *, 0x81) + arg3;
     temp_a3_2 = temp_a2 & ((s32) ~temp_a2 >> 0x1F);
-    __repair_temp_a2_2 = temp_a3_2;
+    __repair_temp_a2_2 = (temp_a2 & ((s32) ~temp_a2 >> 0x1F));
     if (temp_a1_2 >= 0x100) {
         temp_a1 = 0xFF;
     }

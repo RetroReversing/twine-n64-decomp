@@ -5,25 +5,26 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
     f32 temp_fa1;
     f32 temp_ft1;
     f32 temp_ft1_2;
-    s32 var_condition_bit;
+    
     f32 temp_ft2;
-    f32 var_fv1;
+    f32 temp_ft2_2;
     f32 temp_ft3;
     f32 temp_ft4;
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 var_ft0;
     f32 var_ft0_2;
-    f32 temp_ft2_2;
+    f32 var_fv1;
     f32 var_fv1_2;
-    s32 var_v0;
+    s32 var_condition_bit;
+s32 __repair_phase_var_condition_bit;
     s32 var_condition_bit_2;
     f32 temp_ft1_3;
 s32 __repair_phase_var_v0;
     s32 var_v0_2;
     s32 var_v0_3;
-    s32 var_v0_4;
-    unsigned long var_v1;
+    
+    s32 var_v1;
     s32 var_v1_2;
     s32 var_v1_3;
 
@@ -38,7 +39,7 @@ s32 __repair_phase_var_v0;
         var_ft0 = temp_ft1;
     }
     if (temp_ft3 > 0.0f) {
-        var_v0 = 0;
+        var_condition_bit = 0;
         if (!(var_fv1 < (*(f32 *)((char *)(arg3) + 0)))) {
             if ((*(f32 *)((char *)(arg2) + 0)) < var_ft0) {
                 return 0;
@@ -46,9 +47,9 @@ s32 __repair_phase_var_v0;
             goto block_9;
         }
         /* Duplicate return node #47. Try simplifying control flow for better match */
-        return var_v0;
+        return var_condition_bit;
     }
-    var_v0 = 0;
+    __repair_phase_var_condition_bit = 0;
     if (!(var_fv1 < (*(f32 *)((char *)(arg2) + 0))) && !((*(f32 *)((char *)(arg3) + 0)) < var_ft0)) {
 block_9:
         var_ft0_2 = (*(f32 *)((char *)(arg1) + 8));
@@ -62,7 +63,7 @@ block_9:
             var_ft0_2 = temp_ft2;
         }
         if (temp_ft1_2 > 0.0f) {
-            var_v0 = 0;
+            var_condition_bit = 0;
             if (!(var_fv1_2 < (*(f32 *)((char *)(arg3) + 8)))) {
                 if ((*(f32 *)((char *)(arg2) + 8)) < var_ft0_2) {
                     return 0;
@@ -70,7 +71,7 @@ block_9:
                 goto block_18;
             }
             /* Duplicate return node #47. Try simplifying control flow for better match */
-            return var_v0;
+            return var_condition_bit;
         }
         __repair_phase_var_v0 = 0;
         if (!(var_fv1_2 < (*(f32 *)((char *)(arg2) + 8))) && !((*(f32 *)((char *)(arg3) + 8)) < var_ft0_2)) {
@@ -93,7 +94,7 @@ block_18:
                 var_condition_bit = temp_ft1_3 < temp_ft2_2;
             }
             var_v1 = 1;
-            if (!var_condition_bit) {
+            if (var_condition_bit == 0) {
                 var_v1 = 0;
             }
             if ((var_v0_2 | var_v1) != 0) {
@@ -114,31 +115,31 @@ block_18:
                 var_condition_bit_2 = temp_fv1_2 < temp_ft2_2;
             }
             var_v1_2 = 1;
-            if (var_condition_bit_2 == 0) {
+            if (!var_condition_bit_2) {
                 var_v1_2 = 0;
             }
             if ((var_v0_3 | var_v1_2) != 0) {
                 return 0;
             }
-            var_v0_4 = 1;
+            var_v0_3 = 1;
             if (!(temp_ft2_2 <= 0.0002f)) {
-                var_v0_4 = 0;
+                var_v0_3 = 0;
             }
             var_v1_3 = 1;
             if (!(temp_ft2_2 >= -0.0002f)) {
                 var_v1_3 = 0;
             }
-            var_v0 = 1;
-            if (!(var_v0_4 & var_v1_3)) {
-                register var_v0 = 2;
-                (*(f32 *)((char *)(arg4) + 0)) = (f32) ((*(f32 *)((char *)(arg0) + 0)) + ((temp_ft1_3 * temp_ft4) / temp_ft2_2));
+            var_condition_bit = 1;
+            if (!(var_v0_3 & var_v1_3)) {
+                var_condition_bit = 2;
                 (*(f32 *)((char *)(arg4) + 8)) = (f32) ((*(f32 *)((char *)(arg0) + 8)) + ((temp_ft1_3 * temp_fa0) / temp_ft2_2));
+                (*(f32 *)((char *)(arg4) + 0)) = (f32) ((*(f32 *)((char *)(arg0) + 0)) + ((temp_ft1_3 * temp_ft4) / temp_ft2_2));
             }
             /* Duplicate return node #47. Try simplifying control flow for better match */
-            return var_v0;
+            return var_condition_bit;
         }
         /* Duplicate return node #47. Try simplifying control flow for better match */
         return __repair_phase_var_v0;
     }
-    return var_v0;
+    return __repair_phase_var_condition_bit;
 }

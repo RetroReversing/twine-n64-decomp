@@ -49,8 +49,8 @@ u32 __repair_phase_var_v1;
         __repair_phase_var_v1 += 1;
         var_a0_2 += 2;
     } while (__repair_phase_var_v1 < 8U);
-    __repair_phase_var_v1 = 0;
     var_a0_3 = &D_800DC718;
+    __repair_phase_var_v1 = 0;
     D_800DC712 = 0;
     D_800DC710 = 0;
     do {

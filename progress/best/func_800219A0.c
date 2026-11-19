@@ -30,8 +30,8 @@ s32 func_800219A0(s8 arg0) {
     s32 t;
 
     t = D_80108400;
-    var_s0 = 1;
     __base_D_8010A4C0 = &D_8010A4C0;
+    var_s0 = 1;
     (*__base_D_8010A4C0) = arg0;
     if ((t == 0) && (arg0 & 0xFF)) {
         (*__base_D_8010A4C0) = 0;

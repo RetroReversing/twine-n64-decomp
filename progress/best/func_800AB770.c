@@ -5,8 +5,8 @@
 s32 func_800AB770(const u8 *str1, const u8 *str2)
 {
   s32 diff;
-  u32 word0;
-  u32 word1;
+  int word0;
+  s32 word1;
 #ifdef PORT
   if ((((uintptr_t) str1) - ((uintptr_t) str2)) & 3)
 #else
@@ -17,7 +17,7 @@ s32 func_800AB770(const u8 *str1, const u8 *str2)
     {
       u32 d = *str2;
       u32 c = *str1;
-      str1++;
+      str1 += 1;
       str2++;
       diff = (word0 = c) - d;
       if ((diff != 0) || (c == 0))
@@ -36,9 +36,9 @@ s32 func_800AB770(const u8 *str1, const u8 *str2)
     u32 d = *str2;
     u32 c = *str1;
     str1++;
-    str2++;
+    str2 += 1;
     diff = (word0 = c) - d;
-    if ((diff != 0) || (word0 == 0))
+    if (((s32)diff != 0) || (word0 == 0))
     {
       return diff;
     }
@@ -47,9 +47,9 @@ s32 func_800AB770(const u8 *str1, const u8 *str2)
   for (;;)
   {
     word0 = *((const u32 *) str1);
-    word1 = *((const u32 *) str2);
     str1 += 4;
     str2 += 4;
+    word1 = *((const u32 *) str2);
     diff = word0 - word1;
     if (diff != 0)
     {

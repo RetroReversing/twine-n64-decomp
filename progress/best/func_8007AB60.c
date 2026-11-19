@@ -24,6 +24,7 @@ extern char D_800C9BF0[];
 extern char D_800C9BF4[];
 
 s32 func_8007AB60(void *arg0) {
+    char *__base_D_800C9BF0;
 int __repair_literal;
 
     s32 *var_s1;
@@ -50,8 +51,9 @@ int __repair_literal;
                 func_80002BD0(arg0, *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
+            __base_D_800C9BF0 = D_800C9BF0;
             case 1:                                 /* switch 2 */
-                func_80002BD0(arg0, *(u16 *)(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(__base_D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             case 2:                                 /* switch 2 */

@@ -50,10 +50,7 @@ extern char D_80112EBE[];
 extern u8 D_801176E8;
 
 void func_8009AF94(void *arg0, u8 arg1, s32 arg2) {
-    s16 sp10;                                       /* compiler-managed */
-    s16 sp12;
-    s16 sp14;
-    s16 sp16;
+    s16 sp10[4];
     s32 var_a2_4;
     s32 var_a2_5;
     s16 temp_v0_20;
@@ -156,7 +153,7 @@ s32 __repair_result_var_v0_4;
     u8 var_v0_3;
     u8 var_v1_2;
     void *temp_a0_10;
-    void *temp_a0_12;
+    
     void *temp_a0_14;
     void *temp_a0_16;
     void *temp_a0_18;
@@ -231,12 +228,12 @@ s32 __repair_result_var_v0_4;
         (*(s16 *)((char *)(arg0) + 0xC2)) = 0;
         (*(u8 *)((char *)(arg0) + 0xBE)) = var_a1;
         (*(s32 *)((char *)(arg0) + 0x24)) &= 8;
-        var_v0 = 0 & 0xFF;
-        do {
-            (*(s16 *)((char *)(((var_v0 * 2) + arg0)) + 0x180)) = 0;
-            ++var_a2;
-            var_v0 = var_a2 & 0xFF;
-        } while ((u32) (var_a2 & 0xFF) < 0x10U);
+        {
+            u8 __repair_i;
+            for (__repair_i = 0; __repair_i < 0x10; __repair_i++) {
+                (*(s16 *)((char *)(((__repair_i * 2) + arg0)) + 0x180)) = 0;
+            }
+        }
         (*(u32 *)((char *)(arg0) + 0xA0)) = 0U;
         (*(u32 *)((char *)(arg0) + 0xA4)) = 0U;
         goto block_19;
@@ -378,14 +375,14 @@ block_60:
             temp_v0_9 = func_8009846C(((u32) D_800FDB9C >> 8) & 0xFFFF);
             if (temp_v0_9 != NULL) {
                 temp_v0_10 = (*(u16 *)((char *)(temp_v0_9) + 0));
-                sp10 = (temp_v0_10 >> 8) | (temp_v0_10 << 8);
+                sp10[0] = (temp_v0_10 >> 8) | (temp_v0_10 << 8);
                 temp_v0_11 = (*(u16 *)((char *)(temp_v0_9) + 2));
-                sp12 = (temp_v0_11 >> 8) | (temp_v0_11 << 8);
+                sp10[1] = (temp_v0_11 >> 8) | (temp_v0_11 << 8);
                 temp_v0_12 = (*(u16 *)((char *)(temp_v0_9) + 4));
-                sp14 = (temp_v0_12 >> 8) | (temp_v0_12 << 8);
+                sp10[2] = (temp_v0_12 >> 8) | (temp_v0_12 << 8);
                 temp_v0_13 = (*(u16 *)((char *)(temp_v0_9) + 6));
-                sp16 = (temp_v0_13 >> 8) | (temp_v0_13 << 8);
-                func_8008C3D8((*(u8 *)((char *)(arg0) + 0x63)), &sp10);
+                sp10[3] = (temp_v0_13 >> 8) | (temp_v0_13 << 8);
+                func_8008C3D8((*(u8 *)((char *)(arg0) + 0x63)), sp10);
                 (*(s32 *)((char *)(arg0) + 0x24)) |= 0x200;
                 goto block_60;
             }
@@ -497,13 +494,13 @@ block_95:
             goto block_120;
         case 0x1B:
             (*(s8 *)((char *)(arg0) + 0x98)) = (s8) (u16) D_800FDB9C;
-            sp10 = (u32) D_800FDBA0 >> 0x10;
+            sp10[0] = (u32) D_800FDBA0 >> 0x10;
             if (((u32) D_800FDBA0 >> 8) & 1) {
-                func_800957A8(&sp10);
+                func_800957A8(sp10);
             } else {
-                func_800957B8(&sp10, arg0);
+                func_800957B8(sp10, arg0);
             }
-            (*(u32 *)((char *)(arg0) + 0x90)) = sp10;
+            (*(u32 *)((char *)(arg0) + 0x90)) = sp10[0];
             if (D_800FDB9E != 0) {
                 var_a0 = NULL;
                 if (D_800FDB9E != 1) {
@@ -701,10 +698,10 @@ block_144:
             temp_s0_5 = temp_v1_16 & 0xFF;
             if (temp_s0_5 < 4U) {
                 (*(u8 *)((char *)(arg0) + 0x12E)) = (u8) (temp_v1_16 + 1);
-                temp_a0_12 = arg0 + 0x11E + (temp_s0_5 * 4);
-                (*(s8 *)((char *)(temp_a0_12) + 0)) = func_80096E1C(D_800FDB9E, 0x01000000);
-                (*(u8 *)((char *)(temp_a0_12) + 1)) = temp_s2_4;
-                (*(s16 *)((char *)(temp_a0_12) + 2)) = (s16) (((s16) D_800FDB9C << 8) / 100);
+                temp_a0_10 = arg0 + 0x11E + (temp_s0_5 * 4);
+                (*(s8 *)((char *)(temp_a0_10) + 0)) = func_80096E1C(D_800FDB9E, 0x01000000);
+                (*(u8 *)((char *)(temp_a0_10) + 1)) = temp_s2_4;
+                (*(s16 *)((char *)(temp_a0_10) + 2)) = (s16) (((s16) D_800FDB9C << 8) / 100);
             }
             goto block_60;
         case 0x44:
@@ -794,14 +791,14 @@ block_144:
             goto block_60;
         case 0x50:
             temp_s0_11 = (u32) D_800FDB9C >> 8;
-            sp10 = (u32) D_800FDB9C >> 0x10;
-            func_800957A8(&sp10);
+            sp10[0] = (u32) D_800FDB9C >> 0x10;
+            func_800957A8(sp10);
             temp_v1_22 = arg0 + ((temp_s0_11 & 0xFF) * 0xC);
             if ((*(u32 *)((char *)(temp_v1_22) + 0x16C)) != 0) {
                 (*(s32 *)((char *)(temp_v1_22) + 0x168)) = 0;
             }
             var_a0 = NULL;
-            (*(u32 *)((char *)(temp_v1_22) + 0x16C)) = sp10;
+            (*(u32 *)((char *)(temp_v1_22) + 0x16C)) = sp10[0];
             break;
         case 0x60:
             var_a2_4 = 0;
@@ -862,7 +859,7 @@ block_204:
         (*(u32 *)((char *)(arg0) + 0x9C)) = 0U;
         (*(u32 *)((char *)(arg0) + 0xA0)) = (u32) (*(u32 *)((char *)(arg0) + 0xA4));
     }
-    if (((*(s32 *)((char *)(arg0) + 0x24)) & 0x100000) && !(func_8008C1B0((*(u8 *)((char *)(arg0) + 0x63)), var_a1, var_a2) & 0xFF)) {
+    if (((*(s32 *)((char *)(arg0) + 0x24)) & 0x100000) && !(func_8008C1B0((*(u8 *)((char *)(arg0) + 0x63))) & 0xFF)) {
         (*(u32 *)((char *)(arg0) + 0x9C)) = 0U;
         (*(s32 *)((char *)(arg0) + 0x24)) &= 0xFFEFFFFF;
         (*(u32 *)((char *)(arg0) + 0xA0)) = (u32) (*(u32 *)((char *)(arg0) + 0xA4));

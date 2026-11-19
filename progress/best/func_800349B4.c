@@ -33,10 +33,10 @@ extern void *D_80115328;
 
 void func_800349B4(void *arg0) {
     register unsigned int temp_v1;
-    u8 var_s1;
-    u8 var_s2;
+    s32 var_s1;
+    s32 var_s2;
     void *temp_a0;
-    u8 var_s3;
+    s32 var_s3;
     void *temp_a3;
 
     var_s2 = 0;

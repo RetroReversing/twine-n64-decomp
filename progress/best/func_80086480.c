@@ -180,7 +180,7 @@ block_127:
                 goto block_127;
             }
         } else {
-            var_v0 = func_80117C9C(temp_a1_2) << 0x18;
+            var_v0 = func_80117C9C() << 0x18;
             goto block_127;
         }
         break;
@@ -214,10 +214,10 @@ block_127:
             if (temp_a1_3 != 3) {
                 return 0;
             }
-            var_v0 = func_80117850(temp_a1_3) << 0x18;
+            var_v0 = func_80117850() << 0x18;
             goto block_127;
         }
-        var_v0 = func_80117848(temp_a1_3) << 0x18;
+        var_v0 = func_80117848() << 0x18;
         goto block_127;
     case 20:                                        /* switch 1 */
         temp_v0_3 = arg1 & 0xFF;
@@ -299,7 +299,7 @@ block_127:
             if (temp_a1_4 != 3) {
                 return 0;
             }
-            var_v0 = func_80118074(temp_a1_4) << 0x18;
+            var_v0 = func_80118074() << 0x18;
             goto block_127;
         }
         var_v0 = func_80118014(temp_a1_4) << 0x18;

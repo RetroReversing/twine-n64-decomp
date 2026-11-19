@@ -2,25 +2,25 @@
 
 extern s16 D_800C4486;
 
-s32 func_80070664(s32 arg0, s8 arg1, s32 arg2) {
+s32 func_80070664(s32 arg0, u8 arg1, s32 arg2) {
 char *__repair_addr;
 
-    int var_a1;
-    s16 temp_v1;
+    u8 __repair_frame[16];
     s16 temp_v0;
-    u32 temp_a1;
-    u32 temp_a3;
+    s16 temp_v1;
+    int var_a1;
+    s32 temp_a1;
+    
     s32 var_v0;
     u32 temp_a3_2;
 
     if (arg0 != 0) {
-        temp_a3 = arg1 & 0xFF;
-        if ((((u32) ((unsigned char)(arg1 - 0x17)) < 2U) | ((unsigned short)temp_a3 == 0x19)) == 0) {
-            var_a1 = 1;
+        if ((((u32) ((unsigned char)(arg1 - 0x17)) < 2U) | ((temp_a1 = arg1 & 0xFF) == 0x19)) == 0) {
             var_v0 = 1 << 0x10;
+            var_a1 = 1;
 loop_3:
             temp_v0 = var_a1 + 1;
-            if ((*(u8 *)((char *)(((var_v0 >> 0xF) + (short)arg0)) + 0x139)) != temp_a3) {
+            if ((*(u8 *)((char *)(((var_v0 >> 0xF) + arg0)) + 0x139)) != temp_a1) {
                 var_a1 = temp_v0;
                 var_v0 = var_a1 << 0x10;
                 if (temp_v0 >= 0x1E) {
@@ -31,9 +31,9 @@ __repair_addr = (char *)((arg0 + (temp_v1 * 8)));
 
                         (*(s8 *)((char *)(__repair_addr) + 0x1FC)) = 1;
                     }
-                    var_a1 = arg1 & 0xFF;
+                    temp_a1 = arg1 & 0xFF;
                     if (temp_a3_2 < 0x1FU) {
-                        (*(s16 *)((char *)(((var_a1 * 2) + arg0)) + 0x138)) = (s16) (var_a1 | ((arg2 & 0xFF) << 8));
+                        (*(s16 *)((char *)(((temp_a1 * 2) + arg0)) + 0x138)) = (s16) (temp_a1 | ((arg2 & 0xFF) << 8));
                         goto block_9;
                     }
                     goto block_10;

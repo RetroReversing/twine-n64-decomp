@@ -51,13 +51,13 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
         }
         if (temp_t0 < 0x46U) {
             var_v0_2 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420) + temp_t0;
-            goto block_22;
+            return -((u8) *var_v0_2 >= 0x40U) & 0x3FFF;
         }
         if ((u32) ((arg0 - 0x60) & 0xFF) < 6U) {
             return 0;
         }
         var_v0 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420) + temp_t0;
-        goto block_27;
+        return *var_v0 << 7;
     }
     temp_a2_2 = arg0 & 0xFF;
     if (temp_a2_2 < 0x40U) {
@@ -79,13 +79,11 @@ block_19:
     }
     if (temp_a2_2 < 0x46U) {
         var_v0_2 = ((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + temp_a2_2;
-block_22:
         return -((u8) *var_v0_2 >= 0x40U) & 0x3FFF;
     }
     if ((u32) ((arg0 - 0x60) & 0xFF) < 6U) {
         return 0;
     }
     var_v0 = ((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + temp_a2_2;
-block_27:
     return *var_v0 << 7;
 }

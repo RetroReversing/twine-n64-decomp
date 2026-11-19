@@ -44,8 +44,8 @@ void func_80021CA0(void) {
     s8 *var_v1;
     s8 temp_v0_2;
     s8 var_a0;
-    u16 temp_a0;
-    u16 temp_a0_2;
+    s32 temp_a0;
+    s32 temp_a0_2;
     u32 temp_s1_3;
     void *temp_s0;
     void *temp_s0_2;
@@ -85,10 +85,10 @@ void func_80021CA0(void) {
             }
         }
         temp_s1_2 = temp_s1 + 0x28;
-        var_a3_2 = (u16)(*(D_80100198 + D_801002AD * 0x6) + 0x18D);
-        M2C_FIELD(temp_s1, u16 *, 0x28) = var_a3_2;
+        temp_a0_2 = *(D_80100198 + D_801002AD * 0x6) + 0x18D;
+        M2C_FIELD(temp_s1, u16 *, 0x28) = temp_a0_2;
         if (M2C_FIELD(temp_s1_2, void **, 8) != NULL) {
-            M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 8), s8 **, 0x18) = func_80087100(var_a3_2);
+            M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 8), s8 **, 0x18) = func_80087100(temp_a0_2);
             temp_s0_2 = M2C_FIELD(temp_s1_2, void **, 8);
             M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s8 **, 0x18));
         }
@@ -126,9 +126,8 @@ void func_80021CA0(void) {
                         sprintf(temp_s2, "%s %d", var_a2, var_a3_2);}
                         func_800160FC(*(((var_s0 & 0xFFFF) * 4) + &D_80102F48), temp_s2, 0x40);
                     }
-                    func_8002A7CC(&D_8010A488, *(((var_s0 & 0xFFFF) * 4) + &D_80102F48), var_s0 & 0xFF, 1);/*__repair_loop_weight*/__repair_rows: {
-                    var_s0 += 1;}
-if (0) goto __repair_rows;
+                    func_8002A7CC(&D_8010A488, *(((var_s0 & 0xFFFF) * 4) + &D_80102F48), var_s0 & 0xFF, 1);
+                    var_s0 += 1;
                 } while ((u32) (var_s0 & 0xFFFF) < (u8) D_80102EB8);
             }
             func_80022E18(D_800BD68E);

@@ -27,8 +27,6 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
     f32 temp_fv1;
     f32 var_fs1;
     f32 var_fv0;
-    f32 var_fv0_2;
-f32 __repair_var_fv0_2_1;
     s16 temp_v1;
     s32 var_s1;
     s32 var_v0_2;
@@ -91,12 +89,7 @@ f32 __repair_var_fv0_2_1;
         if (temp_fa1 != 0.0f) {
             var_v1 = 0;
         }
-        if (var_v0_2 & var_v1) {
-            var_fv0_2 = M2C_FIELD(arg0, f32 *, 0x40);
-        } else {
-            __repair_var_fv0_2_1 = func_80082A70(temp_fa0, temp_fa1) * 651.8986f;
-        }
-        func_8007AABC(arg0, (s32) __repair_var_fv0_2_1, 0.2f);
+        func_8007AABC(arg0, (s32) (var_v0_2 & var_v1) ? (f32) (M2C_FIELD(arg0, f32 *, 0x40)) : (f32) (func_80082A70(temp_fa0, temp_fa1) * 651.8986f), 0.2f);
     }
     M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (var_fs1 * func_800829A0(M2C_FIELD(arg0, f32 *, 0x40))));
     M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (var_fs1 * func_800829C8(M2C_FIELD(arg0, f32 *, 0x40))));

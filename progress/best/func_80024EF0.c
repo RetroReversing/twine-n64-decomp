@@ -20,11 +20,12 @@ extern M2C_UNK D_80107EA8;
 
 extern char D_800D2AC0[];
 s32 func_80024EF0(s32 arg0) {
-char *__repair_addr;
+union { char * pointer; s32 value; } __repair_phase_storage;
 
     s32 temp_s2;
     s32 var_v0;
-    s8 var_s1;
+
+    u8 var_s1;
     void ***temp_v0;
     void **temp_s0;
 
@@ -50,9 +51,9 @@ loop_1:
                     var_s1 += 1;
                     goto block_18;
                 }
-__repair_addr = (char *)(*temp_s0);
+__repair_phase_storage.pointer = (char *)(*temp_s0);
 
-                if (func_800AB950(M2C_FIELD(__repair_addr, s32 *, 0x18), func_80087100(0x3004)) == 0) {
+                if (func_800AB950(M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0x18), func_80087100(0x3004)) == 0) {
                     return var_s1 & 0xFF;
                 }
                 goto block_17;
@@ -73,8 +74,8 @@ block_17:
 block_18:
     if ((u32) (var_s1 & 0xFF) >= 0x10U) {
 block_19:
-        var_v0 = 0;
-        return var_v0;
+        __repair_phase_storage.value = 0;
+        return __repair_phase_storage.value;
     }
     goto loop_1;
 }

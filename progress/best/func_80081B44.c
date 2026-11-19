@@ -20,7 +20,7 @@ f32 func_80081B44(s32 arg0, s32 arg1, s32 arg2) {
 
     temp_v0 = func_800818AC();
     if (temp_v0 != 0) {
-        var_s1 = temp_v0 & -(func_800818AC(arg0, arg2) == 0);
+        var_s1 = temp_v0 & -(func_800818AC(arg0) == 0);
     } else {
         var_s1 = func_800818AC(arg0, arg2);
     }

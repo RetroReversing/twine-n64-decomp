@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
 
 u64 func_800ABE80(f64);                             /* extern */
-f64 func_800ABFA0(s32, u32, s32, s32);              /* extern */
+f64 func_800ABFA0(s32, u32);              /* extern */
 extern s32 D_800D1550;
 extern f64 D_800D6F20;
 extern f64 D_800D6F28;
@@ -29,7 +29,7 @@ f64 func_800AAA20(f64 arg0) {
     var_t1 = (u32) (u32)temp_ret;
     var_v0 = 1 * 8;
     var_a1 = 1;
-    do { {
+    __repair_rows: { {
         __repair_phase_storage.pointer = &D_800D1550;
         temp_v0 = var_v0 + __repair_phase_storage.pointer;
         temp_v1 = (*(u32 *)((char *)(temp_v0) + 4));
@@ -50,10 +50,11 @@ f64 func_800AAA20(f64 arg0) {
             }
             var_s0 = var_s0 + var_v0_2 + (var_s1 < (u32) var_v1);
             var_s1 += var_v1;
-        }
-        var_a1 += 1;
+        }/*__repair_loop_weight*/do {do {do {
+        var_a1 += 1;} while (0);} while (0);} while (0);
         var_v0 = var_a1 * 8;
     }
-} while (var_a1 < 0x36);
-    return func_800ABFA0(var_s0, var_s1, temp_a2, __repair_phase_storage.value) / D_800D6F28;
+}
+if (var_a1 < 0x36) goto __repair_rows;
+    return func_800ABFA0(var_s0, var_s1) / D_800D6F28;
 }

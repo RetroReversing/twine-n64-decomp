@@ -19,7 +19,7 @@ extern char D_800C4486[];
 
 void func_80070B40(void *arg0) {
     s32 var_a0_2;
-    s16 temp_v1;
+    s32 temp_v1;
     s32 var_a0;
     s32 var_a1;
     s8 temp_v0;
@@ -69,13 +69,13 @@ void func_80070B40(void *arg0) {
                 temp_v0_2 = M2C_FIELD(arg0, void **, 0x68);
                 M2C_FIELD(temp_v0_2, s8 *, 0xF) = (s8) M2C_FIELD(temp_v0_2, u8 *, 0xE);
                 {
-                    func_8000A894(var_a0_2, 0x28, 3);break;}
+                    func_8000A894(var_a0_2);break;}
             }
 block_10:
             if (M2C_FIELD((temp_s1 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 8)), u8 *, 0x1FC) != 0) {
                 var_a0_2 = 0x118;
                 if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-                    func_80084338(0x118, arg0 + 0x24, 3);
+                    func_80084338(0x118, arg0 + 0x24);
                 } else {
 block_12:
                     func_8000A894(var_a0_2, 0x28, 3);

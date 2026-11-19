@@ -20,12 +20,13 @@ extern s32 D_801002BC;
 extern s32 D_801002C0;
 extern u8 D_80102EB8;
 
+extern char D_800D2858[];
 void func_80018C5C(void *arg0, void *arg1) {
+    s32 *__base_D_801002B4;
     M2C_UNK *temp_s0;
     s32 temp_v0_2;
     s32 temp_v1;
     s32 var_v0;
-    s32 var_v0_2;
     u8 temp_v0;
 
     if ((arg0 != NULL) & (arg1 != NULL)) {
@@ -45,25 +46,25 @@ void func_80018C5C(void *arg0, void *arg1) {
             D_801002BC = D_801002B8;
         }
         temp_v0_2 = D_801002B8 + D_801002BC;
-        D_801002B4 = temp_v0_2;
+        __base_D_801002B4 = &D_801002B4;
+        (*__base_D_801002B4) = temp_v0_2;
         if (temp_v0_2 >= 5) {
             D_801002BC = 4 - D_801002B8;
-            D_801002B4 = 4;
+            (*__base_D_801002B4) = 4;
         }
         D_801002C0 = D_801002B8;
         if (D_801002B8 == 0) {
-            D_801002C0 = D_801002B4;
+            D_801002C0 = (*__base_D_801002B4);
         }
         if (D_801002C0 >= 5) {
             D_801002C0 = 4;
         }
         if (D_801002B8 == 1) {
-            var_v0_2 = 0x10003;
+            M2C_FIELD(arg1, s32 *, 0x14) = 0x10003;
         } else {
-            var_v0_2 = 4 - D_801002B8;
+            M2C_FIELD(arg1, s32 *, 0x14) = 4 - D_801002B8;
         }
-        M2C_FIELD(arg1, s32 *, 0x14) = var_v0_2;
-        temp_s0 = "%d";
+        temp_s0 = D_800D2858;
         func_80026004(arg0 + 0x28, temp_s0, D_801002B8);
         func_80026004(arg1 + 0x28, temp_s0, D_801002BC);
     }

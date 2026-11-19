@@ -96,6 +96,8 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8002D240(void) {
+short __repair_constant = 2;
+
     register int temp_s0;
     s32 *temp_s0_2;
     unsigned int temp_s1;
@@ -124,8 +126,8 @@ int __repair_phase_var_s2_2;
     D_80102EF0 = 1;
     D_80102EF4 = 0;
     D_80102EF8 = 1;
-    D_80102EE4 = 2;
-    D_80102EE0 = 2;
+    D_80102EE4 = __repair_constant;
+    D_80102EE0 = __repair_constant;
     D_80102EE8 = 0;
     D_801002AE = 0;
     D_801002AF = 0;
@@ -159,7 +161,7 @@ int __repair_phase_var_s2_2;
     D_8010A4CC = 1;
     D_8010A4D0 = 1;
     D_8010A4D4 = 1;
-    D_8010A4D8 = 2;
+    D_8010A4D8 = __repair_constant;
     D_8010A4DC = 1;
     D_8010A4E0 = 1;
     D_8010A4E4 = 1;
@@ -195,7 +197,7 @@ int __repair_phase_var_s2_2;
             func_80081BC4(var_s0, 2);
         }
         temp_v1 = var_s0 * 0x18;
-        *(D_80100198 + temp_v1) = 2;
+        *(D_80100198 + temp_v1) = __repair_constant;
         *(D_801001A0 + temp_v1) = (s32)0x64;
         temp_s3 = var_s5 & 1;
         *(D_801001A2 + temp_v1) = 1;
@@ -234,7 +236,8 @@ block_8:
     do {
         func_8002B000((temp_s1_2 * 8) + D_80117410, 0x1E);
         var_s2 += 1;
-        var_s2_2 = var_s2 & 0xFFFF;
+        __repair_phase_var_s2_2 = var_s2 & 0xFFFF;
+    var_s2_2 = __repair_phase_var_s2_2;
     temp_s1_2 = var_s2_2;
     } while ((u32) ((var_s2_2 = var_s2) & (short)0xFFFF) < (unsigned)2U);
     var_s5_2 = 0;
@@ -245,7 +248,7 @@ block_8:
 loop_14:
         temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF;
         temp_s0 = temp_s1_2 * 8;
-        func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
+        do { func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E); } while (0);
         temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
         func_8002B000(temp_s0_2, 0x1E);
         temp_a2 = *((temp_s1_2 * 2) + ((var_s2 * 6) + D_800BFC38));

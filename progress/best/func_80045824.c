@@ -15,15 +15,21 @@ typedef s32 M2C_UNK32;
 f32 func_80046054(f32, f32, f32);                   /* extern */
 
 f32 func_80045824(void *arg0, void *arg1) {
+    f32 __repair_store_0;
+    f32 __repair_store_1;
+    f32 __repair_store_2;
     f32 temp_fv0;
     f32 temp_fv1;
 
     temp_fv0 = func_80046054(M2C_FIELD(arg1, f32 *, 0), M2C_FIELD(arg1, f32 *, 4), M2C_FIELD(arg1, f32 *, 8));
     if (temp_fv0 != 0.0f) {
         temp_fv1 = 1.0f / temp_fv0;
-        M2C_FIELD(arg0, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) * temp_fv1);
-        M2C_FIELD(arg0, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) * temp_fv1);
-        M2C_FIELD(arg0, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) * temp_fv1);
+        __repair_store_0 = (f32) (M2C_FIELD(arg1, f32 *, 0) * temp_fv1);
+        __repair_store_1 = (f32) (M2C_FIELD(arg1, f32 *, 4) * temp_fv1);
+        __repair_store_2 = (f32) (M2C_FIELD(arg1, f32 *, 8) * temp_fv1);
+        M2C_FIELD(arg0, f32 *, 0) = __repair_store_0;
+        M2C_FIELD(arg0, f32 *, 4) = __repair_store_1;
+        M2C_FIELD(arg0, f32 *, 8) = __repair_store_2;
     } else {
         M2C_FIELD(arg0, f32 *, 8) = 0.0f;
         M2C_FIELD(arg0, f32 *, 4) = 0.0f;

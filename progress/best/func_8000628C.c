@@ -5,6 +5,8 @@ f32 func_80082A70();
 extern u8 D_800CA338;
 
 typedef struct { unsigned char pad_0[20]; int field_14; unsigned char pad_18[124]; short field_94; unsigned char pad_96[2]; short field_98; } __repair_record_temp_a2;
+static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
+
 s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     f32 temp_fs0;
     f32 temp_fs1;
@@ -29,13 +31,13 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     void *temp_s1;
     void *temp_v0;
     
-    void *temp_v1_2;
-    void *temp_v1_4;
+    
+    
     register void *temp_v1_5;
     void *temp_v1_6;
 
     temp_a2 = (*(void **)((char *)(arg0) + 0x68));
-    temp_s1 = temp_a2 + 0x14;
+    temp_s1 = (void *) ((0x14) + (s32) temp_a2);
     if (arg1 != NULL) {
         var_ft1 = 0.2f;
         ((__repair_record_temp_a2*)temp_a2)->field_14 |= 0x180000;
@@ -57,23 +59,23 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         var_a1 = 0;
         var_v1 = arg2 * 2;
     }
-    temp_a2 = var_v1 + temp_s1;
+    temp_a2 = (void *) ((var_v1) + (s32) temp_s1);
     var_a0 = (s32) ((var_s0 - ((__repair_record_temp_a2*)temp_a2)->field_94) * arg3) >> 7;
     if (var_a0 < -0x40) {
         var_a0 = -0x40;
     } else if (var_a0 >= 0x41) {
         var_a0 = 0x40;
     }
-    temp_v1_2 = (arg2 * 2) + temp_s1;
-    temp_v0_2 = (*(u16 *)((char *)(temp_v1_2) + 0x94)) + var_a0;
-    (*(u16 *)((char *)(temp_v1_2) + 0x94)) = temp_v0_2;
+    temp_v0 = (void *) (((arg2 * 2)) + (s32) temp_s1);
+    temp_v0_2 = (*(u16 *)((char *)(temp_v0) + 0x94)) + var_a0;
+    (*(u16 *)((char *)(temp_v0) + 0x94)) = __repair_store_halfword(temp_v0_2);
     if (var_a0 >= 0) {
         var_v0_2 = var_s0 < (s16) temp_v0_2;
     } else {
         var_v0_2 = (s16) temp_v0_2 < var_s0;
     }
     if (var_v0_2) {
-        (*(u16 *)((char *)(temp_v1_2) + 0x94)) = (u16) var_s0;
+        (*(u16 *)((char *)(temp_v0) + 0x94)) = (u16) var_s0;
     }
     if (!arg2) {
         temp_v1_3 = (*(s16 *)((char *)(temp_s1) + 0x94));
@@ -83,11 +85,11 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
             (*(s16 *)((char *)(temp_s1) + 0x94)) = 0x384;
         }
     } else {
-        temp_v1_4 = (arg2 * 2) + temp_s1;
-        temp_a0 = (*(s16 *)((char *)(temp_v1_4) + 0x94));
+        temp_v0 = (void *) (((arg2 * 2)) + (s32) temp_s1);
+        temp_a0 = (*(s16 *)((char *)(temp_v0) + 0x94));
         var_v0_3 = -0x1C2;
         if ((temp_a0 < -0x1C2) || (var_v0_3 = 0x1C2, ((temp_a0 < 0x1C3) == 0))) {
-            (*(s16 *)((char *)(temp_v1_4) + 0x94)) = var_v0_3;
+            (*(s16 *)((char *)(temp_v0) + 0x94)) = var_v0_3;
         }
     }
     var_a0_2 = (s32) ((var_a1 - ((__repair_record_temp_a2*)temp_a2)->field_98) * arg3) >> 7;
@@ -96,7 +98,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     } else if (var_a0_2 >= 0x41) {
         var_a0_2 = 0x40;
     }
-    temp_v1_5 = temp_s1 + (arg2 * 2);
+    temp_v1_5 = (void *) (((arg2 * 2)) + (s32) temp_s1);
     temp_v0_3 = (*(u16 *)((char *)(temp_v1_5) + 0x98)) + var_a0_2;
     (*(u16 *)((char *)(temp_v1_5) + 0x98)) = temp_v0_3;
     if (var_a0_2 >= 0) {
@@ -107,7 +109,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     if (var_v0_4 != 0) {
         (*(u16 *)((char *)(temp_v1_5) + 0x98)) = (u16) var_a1;
     }
-    temp_v1_6 = temp_s1 + (arg2 * 2);
+    temp_v1_6 = (void *) (((arg2 * 2)) + (s32) temp_s1);
     temp_a0_2 = (*(s16 *)((char *)(temp_v1_6) + 0x98));
     var_v0_5 = -0x258;
     if (temp_a0_2 >= -0x258) {

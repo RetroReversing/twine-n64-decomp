@@ -155,8 +155,8 @@ L71:
             void *n;
             if (a != NULL) {
                 do {
-                    n = *(void **)((u8 *)a + 8);
                     func_800167B4(a);
+                    n = *(void **)((u8 *)a + 8);
                     a = n;
                 } while (a != NULL);
             }

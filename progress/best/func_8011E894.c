@@ -6,6 +6,7 @@ extern s32 D_8011F2E8;
 extern s32 D_8011F3B8;
 
 void func_8011E894(void) {
+    s32 *__base_D_8011F2E8;
     register s32 var_s0;
     unsigned long var_s1;
     
@@ -17,7 +18,7 @@ void func_8011E894(void) {
     do {
         var_v0 = var_s1 & 0xFFFF;
         ++var_s1;
-        func_80016314(*((var_v0 * 4) + &D_8011F3B8));
+        func_80016314((&D_8011F3B8)[var_v0]);
     } while ((u32) (var_s1 & 0xFFFF) < 6U);
     var_s1 = 0;
     do {
@@ -26,7 +27,8 @@ void func_8011E894(void) {
 do {
         var_v0_2 = var_s0 & 0xFFFF;
         ++var_s0;
-        func_80016314(*((var_v0_2 * 4) + (((var_s1 & 0xFFFF) * 0x10) + &D_8011F2E8)));
+        __base_D_8011F2E8 = &D_8011F2E8;
+        func_80016314(*((var_v0_2 * 4) + (((var_s1 & 0xFFFF) * 0x10) + __base_D_8011F2E8)));
         } while ((u32) (var_s0 & 0xFFFF) < 4U);
         var_s1 += 1;
     } while ((u32) (var_s1 & 0xFFFF) < 9U);

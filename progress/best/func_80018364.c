@@ -54,6 +54,8 @@ s32 func_80018364(u8 *arg0, u16 arg1, M2C_UNK arg2) {
             case 10:
                 var_s2 += 1;
                 break;
+            case 1:
+            case 2:
             default:
                 if ((var_s5 != 0) && ((u32) (var_s1 + (func_80018578(temp_v0, var_s0) & 0xFFFF)) >= var_s5)) {
                     var_s1 = 0;

@@ -8,14 +8,14 @@ extern u8 func_8004DBD8[];
 void func_8003E400(void *arg0) {
     s32 sp28[3];
     s32 sp38[3];
-    f32 sp4C;
-    void *sp48;
+    register void *sp48;
+    register f32 sp4C;
     void *s0, *s1, *s2, *s3, *s4;
     f32 fs0, fs1, fv1;
 
-    s1 = arg0;
     s4 = NULL;
-    while (s1 != NULL) {
+    s1 = arg0;
+    while (s1 != (int)NULL) {
         s2 = NULL;
         if (*(u16 *)((u8 *)s1 + 0x58) == 0x18) {
             fs1 = 65536.0f;
@@ -39,23 +39,26 @@ void func_8003E400(void *arg0) {
                             s4 = s0;
                             fs1 = *(f32 *)((u8 *)s0 + 0x4C);
                         }
-                        if ((func_8004E6E4(func_8004DBD8, s0, s3, sp38, &sp48, 256.0f, 0, 1, 0) & 0xFF) != 0) {
+                        if ((func_8004E6E4(func_8004DBD8, s0, s3, (u32)sp38, &sp48, 256.0f, 0, 1, 0) & 0xFF) != 0) {
                             fv1 = *(f32 *)((u8 *)s1 + 0x44) - sp4C;
-                            goto block_16;
-                        }
-                        if ((func_8004E6E4(func_8004DBD8, s0, s3, sp28, &sp48, 256.0f, 0, 1, 0) & 0xFF) != 0) {
-                            fv1 = sp4C - *(f32 *)((u8 *)s1 + 0x44);
-block_16:
                             if (fv1 < fs0) {
                                 fs0 = fv1;
                                 s2 = s0;
+                            }
+                        } else {
+                            if ((func_8004E6E4((int)func_8004DBD8, s0, s3, sp28, &sp48, 256.0f, 0, 1, 0) & 0xFF) != 0) {
+                                fv1 = sp4C - *(f32 *)((u8 *)s1 + 0x44);
+                                if (fv1 < fs0) {
+                                    fs0 = fv1;
+                                    s2 = s0;
+                                }
                             }
                         }
                     }
                 }
                 s0 = *(void **)((u8 *)s0 + 0x10);
             }
-            if (s2 != NULL) {
+            if (s2 != (unsigned)NULL) {
                 if ((*(u16 *)((u8 *)s1 + 0x58) >> 2) & 4) {
                     *(f32 *)(*(u8 **)((u8 *)s2 + 0x20) + 0x5C) = *(f32 *)((u8 *)s1 + 0x28);
                 }

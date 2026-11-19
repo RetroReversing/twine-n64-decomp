@@ -1,21 +1,14 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#endif
 
-M2C_UNK func_8000B9B8(u16 *, void *, u32);
+s32 func_8000B9B8(u16 *, void *, u32);
 s32 func_8000BE00(u32, s32, s32);
 u32 func_8001499C(u16 *);
-M2C_UNK func_80014A0C(u16 *, u16 *);
+s32 func_80014A0C(u16 *, u16 *);
 s32 func_80083E24();
-M2C_UNK func_80083E44(s32);
-u16 *func_80083E90(u32, M2C_UNK);
-M2C_UNK func_80084048(u16 *, M2C_UNK);
-M2C_UNK memcpy(u16 *, u16 *, u32);
-extern M2C_UNK D_54D910;
+s32 func_80083E44(s32);
+u16 *func_80083E90(u32, s32);
+s32 func_80084048(u16 *, s32);
+s32 memcpy(u16 *, u16 *, u32);
+extern s32 D_54D910;
 extern u8 D_8010A4FC;
 
 void func_80041F68(void *arg0) {
@@ -27,30 +20,30 @@ void func_80041F68(void *arg0) {
     u16 *var_s5;
     u16 *var_s7;
     u16 temp_s0;
-    u32 temp_a2;
+    unsigned temp_a2;
     u32 temp_v0;
-    u32 temp_v0_2;
+    
     u32 var_a0;
     u32 var_s0;
-    u32 var_s1;
+    unsigned long var_s1;
     u32 i;
     u8 *p;
     u32 n;
 
     sp14 = func_80083E24();
     sp1C = func_80083E90(*(u32 *)((u8 *)arg0 + 0x14) * 8, 0x18);
-    var_a0 = *(u32 *)((u8 *)arg0 + 0x2C);
     temp_fp = func_80083E90(*(u32 *)((u8 *)arg0 + 0x1C) * 0xC, 0x19);
+    var_a0 = *(u32 *)((u8 *)arg0 + 0x2C);
     if (var_a0 < *(u32 *)((u8 *)arg0 + 0x24)) {
         var_a0 = *(u32 *)((u8 *)arg0 + 0x24);
     }
     temp_s4 = func_80083E90(var_a0, 0x2D);
     func_8000B9B8(sp1C, (u8 *)*(u16 **)((u8 *)arg0 + 0x10) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x14) * 8);
-    func_8000B9B8(temp_fp, (u8 *)*(u16 **)((u8 *)arg0 + 0x18) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x1C) * 0xC);
+    do { func_8000B9B8(temp_fp, (u8 *)*(u16 **)((u8 *)arg0 + 0x18) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x1C) * 0xC); } while (0);
     func_8000B9B8(temp_s4, (u8 *)*(u16 **)((u8 *)arg0 + 0x28) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x2C));
-    temp_v0 = func_8001499C(temp_s4);
-    if (temp_v0 != 0) {
-        var_s7 = func_80083E90(temp_v0, 0x1A);
+    var_s0 = func_8001499C(temp_s4);
+    if (var_s0 != 0) {
+        var_s7 = func_80083E90(var_s0, 0x1A);
         func_80014A0C(var_s7, temp_s4);
     } else {
         var_s7 = func_80083E90(*(u32 *)((u8 *)arg0 + 0x2C), 0x1A);
@@ -66,18 +59,18 @@ void func_80041F68(void *arg0) {
         var_s5 = func_80083E90(var_s0, 0x1B);
         memcpy(var_s5, temp_s4, *(u32 *)((u8 *)arg0 + 0x24));
     }
-    temp_v0_2 = var_s0 >> 1;
+    i = var_s0 >> 1;
     if (D_8010A4FC != 0) {
         var_s1 = 0;
-        if (temp_v0_2 != 0) {
+        if (i != 0) {
             var_s2 = var_s5;
             do {
                 temp_s0 = *var_s2;
                 var_s1 += 1;
-                temp_a2 = temp_s0 & 0xFFFF;
-                *var_s2 = func_8000BE00(temp_a2 >> 0xB, (temp_a2 >> 6) & 0x1F, (temp_a2 >> 1) & 0x1F) + (temp_s0 & 1);
+                n = temp_s0 & 0xFFFF;
+                *var_s2 = func_8000BE00(n >> 0xB, (n >> 6) & 0x1F, (n >> 1) & 0x1F) + (temp_s0 & 1);
                 var_s2 += 1;
-            } while (var_s1 < temp_v0_2);
+            } while (var_s1 < (var_s0 >> 1));
         }
     }
     func_80084048(temp_s4, 0x2D);
@@ -100,11 +93,13 @@ void func_80041F68(void *arg0) {
         }
         {
             u32 sz = ((*(u16 *)(p + 2) + 1) * n) >> 1;
-            if (!(p[0] & 1) && sz != 0) {
-                u8 *q;
-                for (q = *(u8 **)(p + 8); (u32)q < (u32)(sz + *(u8 **)(p + 8)); q++) {
-                    u8 v = *q;
-                    *q = (v >> 4) | ((v & 0xF) * 0x10);
+            if (!(p[0] & 1)) {
+                if (sz != 0) {
+                    u8 *q;
+                    for (q = *(u8 **)(p + 8); (u32)q < (u32)(sz + *(u8 **)(p + 8)); q++) {
+                        u8 v = *q;
+                        *q = (v >> 4) | ((v & 0xF) * 0x10);
+                    }
                 }
             }
         }

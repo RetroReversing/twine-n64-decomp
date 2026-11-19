@@ -39,7 +39,7 @@ void *func_8005AB98(s32 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, u8 arg
         if (!(arg3 & 4)) {
             M2C_FIELD(temp_v1, s32 *, 8) = 0;
         } else {
-            M2C_FIELD(temp_v1, s32 *, 8) = (s32) M2C_FIELD(arg1, s32 *, 8);
+            M2C_FIELD(temp_v1, f32 *, 8) = (s32) M2C_FIELD(arg1, s32 *, 8);
         }
         if (arg2 != NULL) {
             M2C_FIELD(temp_v0, void **, 0x70) = arg2;
@@ -47,7 +47,7 @@ void *func_8005AB98(s32 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, u8 arg
             M2C_FIELD(temp_v0, f32 *, 0x64) = (f32) M2C_FIELD(arg2, f32 *, 0x14);
         }
         ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);
-        func_8003E6EC(arg0,  *D_800CA31C);
+        func_8003E6EC(arg0,  *D_800CA31C, 0);
     }
     return temp_v0;
 }

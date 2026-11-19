@@ -16,13 +16,13 @@ void func_8006F974(void *arg0, void *arg1) {
     s32 sp28[3];
     f32 sp38[3];
     u8 sp48[0x10];
-    f32 temp_fv1;
+    register f32 temp_fv1;
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fs2;
     f32 var_fs4;
-    s32 temp_v1;
-    s32 temp_v1_2;
+    long temp_v1;
+    u32 temp_v1_2;
     unsigned long var_v0;
     u16 temp_a0;
     u8 temp_a0_2;
@@ -72,7 +72,7 @@ block_7:
                         } else {
                             temp_v1_3 = (*(u8 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 0xB1));
                             if (temp_v1_3 < 0x3C) {
-                                if ((s32) temp_v1_3 < 0x3A) {
+                                if (temp_v1_3 < 0x3A) {
                                     var_v0 = 6;
                                     goto block_28;
                                 }
@@ -86,9 +86,9 @@ block_7:
                                     sp28[1] = ((*(f32 *)((char *)(temp_v0) + 0x58)) + (*(f32 *)((char *)(temp_v0) + 0xAC))) * 0.5f;
                                     func_800839F0(arg0 + 0x88, sp28, sp38);
                                     sp38[0] += (*(f32 *)((char *)(arg0) + 0xAC));
-                                    sp28[2] = (((__repair_record_arg1*)arg1)->field_2C);
                                     sp38[1] += (*(f32 *)((char *)(arg0) + 0xB0));
                                     temp_fv1 = sp38[2] + (*(f32 *)((char *)(arg0) + 0xB4));
+                                    sp28[2] = (((__repair_record_arg1*)arg1)->field_2C);
                                     sp38[2] = temp_fv1;
                                     if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), (func_800828D0() < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0() < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                         (*(f32 *)((char *)(arg0) + 0x11C)) = sp38[2];

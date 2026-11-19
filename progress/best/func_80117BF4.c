@@ -12,6 +12,8 @@ extern Ent *D_8011F068;
 extern s32 D_8011F06C;
 
 void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
+int __repair_literal;
+
     Rec16 rec;
     s32 a3v;
     s32 val;
@@ -61,7 +63,9 @@ void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
         }
     }
     t0 = 0;
-    if (n4 > 0) {
+__repair_literal = 0;
+
+    if (n4 > __repair_literal) {
         t2 = D_8011F068;
         r = s3;
         do {
@@ -79,8 +83,8 @@ void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
                     break;
                 }
             }
-            r++;
-            t0++;
+            r++;/*__repair_loop_weight*/do {do {do {
+            t0++;} while (0);} while (0);} while (0);
         } while (t0 < n4);
     }
     func_80084048(s3, 0x34);

@@ -16,7 +16,7 @@ f64 func_800AAB20(f64 arg0) {
     f64 temp;
     f64 var;
     dbl_u u;
-    s32 e;
+    unsigned e;
 
     if (!(D_800D6F38 <= arg0)) {
         if (!(arg0 <= D_800D6F40)) {
@@ -29,7 +29,7 @@ f64 func_800AAB20(f64 arg0) {
                 var = D_800D6F60;
             }
             u.d = var;
-            e = ((u.w[0] >> 20) & 0x7FF) + (s32) n;
+            e = ((u.w[0] >> 20) & 0x7FF); e += (s32) n;
             if (e < 0x7FF) {
                 if (e != 0) {
                     u.w[0] = (u.w[0] & 0x800FFFFF) | (e << 20);

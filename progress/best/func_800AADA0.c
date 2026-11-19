@@ -18,9 +18,9 @@ f64 func_800AC0A0(M2C_UNK, s32 *);                  /* extern */
 extern f64 D_800D6F88;
 extern f64 D_800D6F90;
 
+extern char D_800D6F80[];
 f64 func_800AADA0(f64 arg0, f32 arg1) {
-    s32 sp20;                                       /* compiler-managed */
-    s32 sp24;
+    s32 sp20[2];
     s32 sp28;
     M2C_UNK var_a0;
     f64 temp_fv0;
@@ -32,17 +32,17 @@ f64 func_800AADA0(f64 arg0, f32 arg1) {
     }
     var_a0 = 3;
     if (arg0 == 0.0) {
-        sp20 = 0xFFF00000;
-        sp24 = 0;
+        sp20[0] = 0xFFF00000;
+        sp20[1] = 0;
 block_4:
-        return func_800ABA40(var_a0, "log", arg1, arg0);
+        return func_800ABA40(var_a0, D_800D6F80, arg1, arg0);
     }
     if (arg0 == D_800D6F88) {
         return 0.0;
     }
     temp_fv0_2 = func_800AACB0(func_800AC0A0(3, &sp28));
-    sp20 = temp_fv0_2;
-    temp_fv0 = (temp_fv0_2) + (((f64) sp28 * D_800D6F90));
-    sp20 = temp_fv0;
+    sp20[0] = temp_fv0_2;
+    temp_fv0 = ((((f64) sp28 * D_800D6F90))) + ((temp_fv0_2));
+    sp20[0] = temp_fv0;
     return temp_fv0;
 }

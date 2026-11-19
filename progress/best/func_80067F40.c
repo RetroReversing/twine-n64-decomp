@@ -27,6 +27,8 @@ extern char D_80109688[];
 
 typedef struct { f32 x, y, z; } Vec3;
 void func_80067F40(void *arg0, void *arg1) {
+s32 __repair_operand;
+
     f32 m[3][3];
     f32 pad[3];
     f32 ang[2];
@@ -76,7 +78,8 @@ void func_80067F40(void *arg0, void *arg1) {
             m[2][1] = -(temp_fs0_4 * func_800829A0(ang[0]));
             temp_fs0_5 = func_800829C8(ang[0]);
             m[2][2] = temp_fs0_5 * func_800829C8(ang[1]);
-            temp_v0 = (M2C_FIELD(temp_s2, u16 *, 0x90) * 0xC) + M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 0x68), s32 *, 4);
+            __repair_operand = M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 0x68), s32 *, 4);
+            temp_v0 = (M2C_FIELD(temp_s2, u16 *, 0x90) * 0xC) + __repair_operand;
             *(Vec3 *) v = *(Vec3 *) temp_v0;
             v[1] = -v[1];
             v[0] = -v[0];

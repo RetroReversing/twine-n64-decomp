@@ -10,19 +10,19 @@ extern f32 D_800C42B4;
 extern s32 D_800D3E50;
 extern f64 D_800D3E60;
 extern void *D_80108788;
-extern s32 D_80108F78;
+extern f32 D_80108F78;
 extern s32 D_80108F84;
 
 void *func_8004F990(void **arg0, void *arg1, f32 *arg2, s32 arg3, void *arg4, u8 arg5, u8 arg6, s32 arg7) {
-    f32 sp20[3];
     f32 sp50[3];
+    f32 sp20[3];
     f32 sp60[3];
     f32 sp70[3];
     f32 sp30[3];
     s32 sp40[3];
     s32 sp80[3];
     s32 sp90;
-    void *var_s6;
+    register void *var_s6;
     s32 spC4;
     f32 var_fs2;
     void *var_s0;
@@ -31,6 +31,7 @@ void *func_8004F990(void **arg0, void *arg1, f32 *arg2, s32 arg3, void *arg4, u8
     s32 var_s2;
     s32 var_s3;
     f32 var_fs1;
+f32 __repair_var_fs1_1;
     f32 temp_fs0;
     f32 temp_fv1;
     f32 temp_ft0;
@@ -55,7 +56,7 @@ void *func_8004F990(void **arg0, void *arg1, f32 *arg2, s32 arg3, void *arg4, u8
                 if ((f5c & 0x400) && (f5c & arg3)) {
                     var_fs1 = 1.5f;
                     if ((D_80108F78 == 0x19) && (*(u16 *)((u8 *)var_s0 + 0x78) == 1)) {
-                        var_fs1 = 2.5f;
+                        __repair_var_fs1_1 = 2.5f;
                     }
                 }
             }

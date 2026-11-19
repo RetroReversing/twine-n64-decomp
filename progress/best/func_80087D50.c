@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_800162BC(M2C_UNK);                       /* extern */
-M2C_UNK func_8002CC74(M2C_UNK, s16, void *);        /* extern */
+M2C_UNK func_8002CC74(M2C_UNK, s32, void *);        /* extern */
 M2C_UNK func_8002D850();                            /* extern */
 M2C_UNK func_80045CA0();                            /* extern */
 M2C_UNK func_8007560C();                            /* extern */
@@ -30,10 +30,11 @@ extern void *D_80109688;
 extern s32 D_80109CB0;
 extern s32 D_8010A3C0;
 
+typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[10]; short field_1E; short field_20; short field_22; } __repair_record_D_801005AC;
 void func_80087D50(void) {
     f32 temp_fv1;
     s32 temp_v0;
-    short var_a1;
+    s32 var_a1;
     void *temp_s0;
 
     D_80102F30 = &D_80104320;
@@ -49,16 +50,11 @@ void func_80087D50(void) {
     M2C_FIELD(temp_s0, s32 *, 0x18) = temp_v0;
     M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(temp_v0);
     temp_fv1 = M2C_FIELD(D_80109688, f32 *, 0x60);
-    if (temp_fv1 >= 2.1474836e9f) {
-        var_a1 = (s32) (temp_fv1 - 2.1474836e9f); var_a1 = var_a1 | 0x80000000;
-    } else {
-        var_a1 = (s32) temp_fv1;
-    }
-    M2C_FIELD(D_801005AC, s16 *, 0x20) = (s16) var_a1;
-    M2C_FIELD(D_801005AC, s16 *, 0x22) = 0xB4;
-    M2C_FIELD(D_801005AC, s16 *, 0x1E) = 0x21;
-    M2C_FIELD(D_801005AC, s32 *, 0x10) = 0xFFFF00FF;
-    func_8002CC74(0xFFFF00FF, (s16) var_a1, D_801005AC);
+    ((__repair_record_D_801005AC*)D_801005AC)->field_20 = (s16) (var_a1 = (u32) temp_fv1);
+    ((__repair_record_D_801005AC*)D_801005AC)->field_22 = 0xB4;
+    ((__repair_record_D_801005AC*)D_801005AC)->field_1E = 0x21;
+    ((__repair_record_D_801005AC*)D_801005AC)->field_10 = 0xFFFF00FF;
+    func_8002CC74(0xFFFF00FF, var_a1, D_801005AC);
     func_8002D850();
     func_8007560C();
     D_800CEEB1 = 0;

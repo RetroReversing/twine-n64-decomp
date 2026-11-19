@@ -16,20 +16,22 @@ s32 __osMotorAccess();
 extern char D_800E0790[];
 extern char D_8010A3A0[];
 
-void func_800105F8(s16 arg0) {
+void func_800105F8(u16 arg0) {
+    char *__base_D_800E0790;
     s32 temp_s1;
     s32 var_s0;
     u16 *temp_v0;
     void *var_a0;
 
     var_s0 = 0;
-    temp_s1 = (arg0 & 0xFFFF) * 0x68;
-    var_a0 = temp_s1 + D_800E0790;
+    temp_s1 = arg0 * 0x68;
+    __base_D_800E0790 = D_800E0790;
+    var_a0 = (void *) ((temp_s1) + (s32) __base_D_800E0790);
     do {
         __osMotorAccess(var_a0, 0);
         var_s0 += 1;
-        var_a0 = temp_s1 + D_800E0790;
+        var_a0 = (void *) ((temp_s1) + (s32) __base_D_800E0790);
     } while (var_s0 < 3);
-    temp_v0 = ((arg0 & 0xFFFF) * 2) + D_8010A3A0;
+    temp_v0 = (arg0 * 2) + D_8010A3A0;
     *temp_v0 &= 0xFFFE;
 }

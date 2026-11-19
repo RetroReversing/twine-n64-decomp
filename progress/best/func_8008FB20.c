@@ -32,7 +32,7 @@ char *__repair_addr;
     s32 temp_a0_3;
     u8 temp_a1;
     u8 temp_a3;
-    u8 temp_t1;
+    s32 temp_t1;
     u8 temp_t2;
     u8 var_v0;
     void **temp_v1_4;
@@ -40,7 +40,7 @@ char *__repair_addr;
     void *temp_t0_2;
     void *temp_t0_3;
     void *temp_v0;
-    void *temp_v0_2;
+    
     void *temp_v0_3;
     void *temp_v0_4;
     void *temp_v0_5;
@@ -79,8 +79,8 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                             if (temp_a1_2 != 9) {
                                 temp_a0_2 = (*(u8 *)((char *)((temp_a0 + temp_t0)) + 8));
                                 if (temp_a0_2 != 0xFF) {
-                                    temp_v0_2 = (temp_a0_2 * 8) + ((__repair_field_4 *)temp_t0)->value;
-                                    (*(s32 *)((char *)(((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_v0_2) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v0_2) + 2)) << 8) | (*(u8 *)((char *)(temp_v0_2) + 3)));
+                                    temp_t0_2 = (temp_a0_2 * 8) + ((__repair_field_4 *)temp_t0)->value;
+                                    (*(s32 *)((char *)(((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_t0_2) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_t0_2) + 2)) << 8) | (*(u8 *)((char *)(temp_t0_2) + 3)));
                                 }
                             } else {
                                 temp_a0_3 = (*(u8 *)((char *)((temp_a0 + temp_t0)) + 0x8C));

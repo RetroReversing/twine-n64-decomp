@@ -16,7 +16,7 @@ s32 func_8011AE4C();
 s32 func_8011B3D8();
 s32 func_8011C338();
 s32 func_8011D0B4();
-extern u8 D_801002A0;
+extern s8 D_801002A0;
 extern u8 D_801002A1;
 extern u8 D_801002D5;
 extern char D_8011F100[];

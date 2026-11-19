@@ -8,16 +8,16 @@ void func_80083138(void *arg0, void *arg1) {
     register f32 temp_fs0_2;
     f32 temp_ft0_2;
     f32 temp_ft0;
-    f32 temp_ft1;
+    register f32 temp_ft1;
     f32 temp_fs2;
     f32 temp_fv1_2;
-    register f32 temp_fs1;
+    f32 temp_fs0_4;
     f32 temp_fs0_3;
     f32 temp_fs4;
     f32 temp_fv0;
     f32 temp_ft2;
     f32 temp_fv0_2;
-    f32 temp_fs0_4;
+    register f32 temp_fs1;
     register f32 temp_fv1;
     register f32 temp_fs3;
 
@@ -40,9 +40,9 @@ void func_80083138(void *arg0, void *arg1) {
     (*(f32 *)((char *)(arg1) + 0x18)) = (f32) -temp_fs1;
     (*(f32 *)((char *)(arg1) + 0)) = (f32) (temp_fs0_4 * temp_fs2);
     (*(f32 *)((char *)(arg1) + 0xC)) = temp_fv0_2;
+    (*(f32 *)((char *)(arg1) + 4)) = temp_ft2;
     (*(f32 *)((char *)(arg1) + 0x10)) = (f32) (temp_ft1 + (temp_fs0_4 * temp_fs4));
     (*(f32 *)((char *)(arg1) + 0x1C)) = (f32) (temp_fs2 * temp_fs3);
-    (*(f32 *)((char *)(arg1) + 4)) = temp_ft2;
     (*(f32 *)((char *)(arg1) + 0x20)) = (f32) (temp_fs2 * temp_fs4);
     (*(f32 *)((char *)(arg1) + 8)) = temp_ft0_2;
     (*(f32 *)((char *)(arg1) + 0x14)) = (f32) (temp_fv1_2 - (temp_fs0_4 * temp_fs3));

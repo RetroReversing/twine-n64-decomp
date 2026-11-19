@@ -56,7 +56,7 @@ extern void *D_80109BB0;
 extern s16 D_80109DD0;
 extern char D_8010A950[];
 
-s32 func_8002502C(s16 *arg0, s16 arg1) {
+s32 func_8002502C(s16 *arg0, s32 arg1) {
     s32 *var_a1_2;
     long var_a2_3;
     s32 var_a0;
@@ -332,8 +332,8 @@ block_184:
                                                 var_a2_3 = 0xA;
                                             }
                                         } else {
-                                            var_a0 = 0;
                                             var_a1_4 = 0;
+                                            var_a0 = 0;
                                             var_a2_3 = 0x12;
                                         }
                                         goto block_183;
@@ -370,7 +370,7 @@ block_134:
                             func_800277E4(-(((u16) D_800BD68C >= 0xAU) & (D_800BD68C != 0x13)) & (s32)0xFF);
                             var_a1_5 = var_s0 << 0x10;
                             {var_a1 = (s16) (var_a1_5 >> 0x10);
-                        goto block_164;}
+                        return func_8002502C(arg0, (s32) var_a1) & 0xFFFF;}
                         }
                     } else if ((s32) temp_s0 < 0x64) {
                         switch (temp_s0) {    /* switch 5; irregular */
@@ -468,7 +468,6 @@ block_154:
                     switch (D_80100910) {           /* switch 6; irregular */
                     case 1:                         /* switch 6 */
                         var_a1 = func_8002CC54();
-block_164:
                         return func_8002502C(arg0, (s32) var_a1) & 0xFFFF;
                     case 2:                         /* switch 6 */
 block_159:
@@ -482,7 +481,7 @@ block_159:
                         var_a1_5 = var_a1_6 << 0x10;
 block_163:
                         var_a1 = (s16) (var_a1_5 >> 0x10);
-                        goto block_164;
+                        return func_8002502C(arg0, (s32) var_a1) & 0xFFFF;
                     default:                        /* switch 6 */
                         var_v0 = 0xFF;
                         if (D_800BFC34 != 0) {

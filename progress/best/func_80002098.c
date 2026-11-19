@@ -14,6 +14,7 @@ extern s32 D_80102ED8;
 extern s32 D_80109D18;
 
 void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
+    char *__base_D_800AE74A;
     union {
         unsigned char bytes[16];
         struct { s32 value; } view_sp10;
@@ -25,13 +26,13 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
              
              
              
-    unsigned int temp_a1;
-    register void *temp_a3;
+    register unsigned int temp_a1;
+    void *temp_a3;
     s32 var_a0;
-    char *var_v1;
-    s32 var_v0;
+    
+    unsigned var_v0;
     void *temp_a1_2;
-    u16 temp_v1;
+    register u16 temp_v1;
     s32 temp_v0;
 
     temp_v0 = *arg0;
@@ -48,9 +49,8 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
             if (m2c_initial_frame.view_sp14.value >= 0) {
                 m2c_initial_frame.view_sp14.value = (s32) D_800C2852;
             }
-        } else if (D_80109D18 != 0) {
-            temp_a1 = arg2 == 0x27;
-            if ((((m2c_initial_frame.view_sp14.value == 0x1F8) | (m2c_initial_frame.view_sp14.value == 0x1EA)) & temp_a1) || ((m2c_initial_frame.view_sp14.value == 0x1E6) & (arg2 == 0x29)) || ((m2c_initial_frame.view_sp14.value == 0x1E7) & temp_a1) || ((m2c_initial_frame.view_sp14.value == 0x1F0) & temp_a1) || ((m2c_initial_frame.view_sp14.value == 0x1EB) & temp_a1)) {
+        } else if (D_80109D18) {
+            if ((((m2c_initial_frame.view_sp14.value == 0x1F8) | (m2c_initial_frame.view_sp14.value == 0x1EA)) & (temp_a1 = arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1E6) & (arg2 == 0x29)) || ((m2c_initial_frame.view_sp14.value == 0x1E7) & temp_a1) || ((m2c_initial_frame.view_sp14.value == 0x1F0) & temp_a1) || ((m2c_initial_frame.view_sp14.value == 0x1EB) & temp_a1)) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
         } else if ((D_80102ED8 != 0) && ((u8) D_801002D4 < 3U)) {
@@ -62,25 +62,26 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
             if (m2c_initial_frame.view_sp10.value >= 0) {
                 temp_v1 = (*(u16 *)((char *)(temp_a1_2) + 6));
                 if (temp_v1 & 0x38) {
-                    m2c_initial_frame.view_sp14.value = (s32) *(D_800AE72C + ((((temp_v1 >> 2) & 0xE) + m2c_initial_frame.view_sp10.value) * 2));
-                    m2c_initial_frame.view_sp18.value = (s32) *((((u16) (*(u16 *)((char *)(temp_a1_2) + 6)) >> 2) & 0xE) + D_800AE74A + m2c_initial_frame.view_sp10.value);
+                    m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE72C + ((((temp_v1 >> 2) & 0xE) + m2c_initial_frame.view_sp10.value) * 2));
+                    __base_D_800AE74A = D_800AE74A;
+                    m2c_initial_frame.view_sp18.value = (s32) *((((u16) (*(u16 *)((char *)(temp_a1_2) + 6)) >> 2) & 0xE) + __base_D_800AE74A + m2c_initial_frame.view_sp10.value);
                 }
             }
             if ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6) {
                 var_a0 = 0;
                 if (D_800AE760 >= 0) {
-                    var_v1 = &D_800AE760;
-                    var_v0 = *var_v1;
+                    __base_D_800AE74A = &D_800AE760;
+                    var_v0 = *__base_D_800AE74A;
 loop_31:
-                    var_v1 += 2;
+                    __base_D_800AE74A += 2;
                     if (var_v0 != arg2) {
-                        var_v0 = *(s8 *)var_v1;
+                        var_v0 = *(s8 *)__base_D_800AE74A;
                         var_a0 += 2;
                         if (var_v0 >= 0) {
                             goto loop_31;
                         }
                     } else {
-                        m2c_initial_frame.view_sp14.value = (s32) *(D_800AE75A + ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6));
+                        m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE75A + ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6));
                         m2c_initial_frame.view_sp18.value = (s32) *(D_800AE761 + var_a0);
                     }
                 }

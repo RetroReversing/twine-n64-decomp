@@ -86,7 +86,7 @@ void func_80011950(void) {
     u16 temp_v0;
     u16 temp_v0_2;
     u16 temp_v0_3;
-    u16 temp_v1_2;
+    s32 temp_v1_2;
 
     if (D_800E09AE != 0) {
         osRecvMesg(&D_8010D298, 0, 1);

@@ -9,6 +9,9 @@ extern s32 D_80112F90;
 extern void *D_80115328;
 extern void *D_80117728;
 
+typedef struct { int field_0; int field_4; } __repair_record_temp_a0;
+typedef struct { unsigned char pad_0[64]; int field_40; float field_44; float field_48; } __repair_record_arg0;
+typedef struct { int field_0; int field_4; int field_8; int field_C; int field_10; int field_14; } __repair_record_temp_v1;
 void func_80039128(void *arg0, f32 arg1) {
     register s32 temp_s0;
     unsigned long temp_v0;
@@ -17,23 +20,23 @@ void func_80039128(void *arg0, f32 arg1) {
 
     temp_a0 = D_80115328;
     D_80115328 = temp_a0 + 8;
-    (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((D_80117728 + (D_800E1710 << 6)) - 0x80000000);
-    (*(s32 *)((char *)(temp_a0) + 0)) = 0xDA380007;
+    (((__repair_record_temp_a0*)temp_a0)->field_4) = (s32) ((D_80117728 + ((*(s32 *)&D_800E1710) << 6)) - 0x80000000);
+    (((__repair_record_temp_a0*)temp_a0)->field_0) = 0xDA380007;
     if (D_800B1D84 > D_80107EA0) {
         temp_v0 = D_80107EA0 + 1;
         D_80107EA0 = temp_v0;
         temp_s0 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
-        func_8000BBB4(&D_80112F90, (*(f32 *)((char *)(arg0) + 0x48)) + 3.1415927f, -((*(f32 *)((char *)(arg0) + 0x44)) + 3.1415927f + arg1), (*(s32 *)((char *)(arg0) + 0x40)));
+        func_8000BBB4(&D_80112F90, (((__repair_record_arg0*)arg0)->field_48) + 3.1415927f, -((((__repair_record_arg0*)arg0)->field_44) + 3.1415927f + arg1), (((__repair_record_arg0*)arg0)->field_40));
         { func_800A37C0(&D_80112F90, temp_s0); }
         temp_v1 = D_80115328;
-        (*(s32 *)((char *)(temp_v1) + 0)) = 0xDA380005;
-        (*(s32 *)((char *)(temp_v1) + 4)) = (s32) (temp_s0 - 0x80000000);
-        (*(s32 *)((char *)(temp_v1) + 8)) = 0xDB0E0000;
-        (*(s32 *)((char *)(temp_v1) + 0x10)) = 0xDA380003;
+        (((__repair_record_temp_v1*)temp_v1)->field_0) = 0xDA380005;
+        (((__repair_record_temp_v1*)temp_v1)->field_4) = (s32) (temp_s0 - 0x80000000);
+        (((__repair_record_temp_v1*)temp_v1)->field_8) = 0xDB0E0000;
+        (((__repair_record_temp_v1*)temp_v1)->field_10) = 0xDA380003;
         D_80115328 = temp_v1 + 8;
-        (*(s32 *)((char *)(temp_v1) + 0xC)) = (s32) (*(u16 *)((char *)(((D_800E1710 * 2) + D_80117728)) + 0x360));
+        (((__repair_record_temp_v1*)temp_v1)->field_C) = (s32) (*(u16 *)((char *)(((D_800E1710 * 2) + D_80117728)) + 0x360));
         D_80115328 = temp_v1 + 0x10;
         D_80115328 = temp_v1 + 0x18;
-        (*(s32 *)((char *)(temp_v1) + 0x14)) = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000);
+        (((__repair_record_temp_v1*)temp_v1)->field_14) = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000);
     }
 }

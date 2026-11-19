@@ -17,12 +17,13 @@ s32 func_800262A8();
 s32 func_80087100();
 extern s8 D_800BD690;
 extern void *D_80109BB0;
-extern char D_80112F7B[];
+extern u8 D_80112F7B[];
 extern s32 func_8001E5BC;
 extern s32 func_80022848;
 
+extern char D_800D2864[];
 void func_8001ACCC(void) {
-    char *__base_D_80112F7B;
+    u8 *__base_D_80112F7B;
     s32 *var_v1;
     s32 temp_a1;
     s32 temp_s0;
@@ -30,22 +31,18 @@ void func_8001ACCC(void) {
     s32 var_a2;
     u16 temp_v1;
     u16 var_v0;
-    
+    void *temp_v0_2;
     
 
     temp_s0 = func_800262A8(M2C_FIELD(D_80109BB0, void **, 0x10), 0x4000);
     temp_v0 = func_800262A8(M2C_FIELD(D_80109BB0, void **, 0x10), 0x39);
     D_800BD690 = 1;
     if (temp_s0 != 0) {
-void *temp_v0_2;
-
         temp_v0_2 = M2C_FIELD(D_80109BB0, void **, 0x10);
-        func_80026004(temp_s0, "%s", func_80087100(*(s32 *)((M2C_FIELD(temp_v0_2, u8 *, 4) * 0x28) + M2C_FIELD(temp_v0_2, s32 *, 0))));
+        func_80026004(temp_s0, D_800D2864, func_80087100(*(s32 *)((M2C_FIELD(temp_v0_2, u8 *, 4) * 0x28) + M2C_FIELD(temp_v0_2, s32 *, 0))));
     }
     var_a2 = 0;
     if (temp_v0 != 0) {
-void *temp_v0_2;
-
         temp_v0_2 = temp_v0 + 0xC;
         __repair_rows: {
             temp_a1 = var_a2 & 0xFFFF;

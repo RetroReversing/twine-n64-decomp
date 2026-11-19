@@ -21,17 +21,19 @@ s32 func_8008845C(s32 arg0) {
     u32 var_a0;
 
     if (D_800CEEC0 != 0) {
-        var_v1 = 0;
         var_a0 = 0;
-loop_2:
-        if ((*(D_800E2CC0 + var_v1) == 0) || (*(D_800E2CE4 + var_v1) != arg0)) {
-            var_a0 += 1;
-            var_v1 += 0x1228;
-            if (var_a0 >= 2U) {
-                var_a0 = -1U;
-            } else {
-                goto loop_2;
+        var_v1 = 0;
+        for (;;) {
+            if ((*(D_800E2CC0 + var_v1) == 0) || (*(s32 *)(D_800E2CE4 + var_v1) != arg0)) {
+                var_a0 += 1;
+                var_v1 += 0x1228;
+                if (var_a0 >= 2U) {
+                    var_a0 = -1U;
+                } else {
+                    continue;
+                }
             }
+            break;
         }
         if (var_a0 != -1U) {
             return *(D_800E2CC0 + (var_a0 * 0x1228)) != 0;

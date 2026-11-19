@@ -7,50 +7,39 @@ s32 func_800953D8(void *, f32 *);               /* extern */
 extern u8 D_800CF540;
 
 s32 func_800945C4(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, u8 arg5) {
-    register int ret;
-    f32 sp10;
-    register s32 sp30;
-    s32 sp24;
-    register s32 sp3C;
-    register f32 sp1C;
-    s32 sp34;
-    s32 sp38;
-    f32 sp14;
-    f32 sp2C;
-    f32 sp28;
-    s32 sp18;
-    register f32 sp20;
+    register s32 ret;
+    f32 sp10[12];
 
-    if (D_800CF540 == 0) {
+    if (!D_800CF540) {
         ret = 0;
     } else {
         func_8008C0D4();
         (*(s32 *)((char *)(arg0) + 0xC)) = (s32) (*(s32 *)((char *)(arg1) + 0));
-        (*(s32 *)((char *)(arg0) + 0x14)) = (s32) (*(s32 *)((char *)(arg1) + 8));
         (*(s32 *)((char *)(arg0) + 0x10)) = (s32) (*(s32 *)((char *)(arg1) + 4));
-        (*(s32 *)((char *)(arg0) + 0x18)) = (s32) (*(s32 *)((char *)((unsigned short)arg2) + 0));
+        (*(s32 *)((char *)(arg0) + 0x14)) = (s32) (*(s32 *)((char *)(arg1) + 8));
+        (*(s32 *)((char *)(arg0) + 0x18)) = (s32) (*(s32 *)((char *)(arg2) + 0));
         (*(s32 *)((char *)(arg0) + 0x1C)) = (s32) (*(s32 *)((char *)(arg2) + 4));
         (*(s32 *)((char *)(arg0) + 0x20)) = (s32) (*(s32 *)((char *)(arg2) + 8));
         (*(s32 *)((char *)(arg0) + 0x28)) = (s32) (*(s32 *)((char *)(arg3) + 4));
         (*(s32 *)((char *)(arg0) + 0x24)) = (s32) (*(s32 *)((char *)(arg3) + 0));
         (*(s32 *)((char *)(arg0) + 0x2C)) = (s32) (*(s32 *)((char *)(arg3) + 8));
         (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) -(*(f32 *)((char *)(arg4) + 0));
-        (*(f32 *)((char *)((int)arg0) + 0x40)) = (f32) -(*(f32 *)((char *)(arg4) + 4));
+        (*(f32 *)((char *)(arg0) + 0x40)) = (f32) -(*(f32 *)((char *)(arg4) + 4));
         (*(f32 *)((char *)(arg0) + 0x44)) = (f32) -(*(f32 *)((char *)(arg4) + 8));
         func_80095374(arg0 + 0x30, arg0 + 0x3C, arg0 + 0x24);
-        sp10 = (*(f32 *)((char *)(arg0) + 0x30));
-        sp1C = (*(f32 *)((char *)(arg0) + 0x34));
-        sp28 = (*(f32 *)((char *)(arg0) + 0x38));
-        sp14 = (*(f32 *)((char *)(arg0) + 0x3C));
-        sp20 = (*(f32 *)((char *)(arg0) + 0x40));
-        sp2C = (*(f32 *)((char *)(arg0) + 0x44));
-        sp18 = (*(s32 *)((char *)(arg0) + 0x24));
-        sp24 = (*(s32 *)((char *)(arg0) + 0x28));
-        sp30 = (*(s32 *)((char *)(arg0) + 0x2C));
-        sp34 = (*(s32 *)((char *)(arg0) + 0xC));
-        sp38 = (*(s32 *)((char *)(arg0) + 0x10));
-        sp3C = (*(s32 *)((char *)(arg0) + 0x14));
-        func_800953D8(arg0 + 0x48, &sp10);
+        sp10[0] = (*(f32 *)((char *)(arg0) + 0x30));
+        sp10[3] = (*(f32 *)((char *)(arg0) + 0x34));
+        sp10[6] = (*(f32 *)((char *)(arg0) + 0x38));
+        sp10[1] = (*(f32 *)((char *)(arg0) + 0x3C));
+        sp10[4] = (*(f32 *)((char *)(arg0) + 0x40));
+        sp10[7] = (*(f32 *)((char *)(arg0) + 0x44));
+        sp10[2] = (*(s32 *)((char *)(arg0) + 0x24));
+        sp10[5] = (*(s32 *)((char *)(arg0) + 0x28));
+        sp10[8] = (*(s32 *)((char *)(arg0) + 0x2C));
+        sp10[9] = (*(s32 *)((char *)(arg0) + 0xC));
+        sp10[10] = (*(s32 *)((char *)(arg0) + 0x10));
+        sp10[11] = (*(s32 *)((char *)(arg0) + 0x14));
+        func_800953D8(arg0 + 0x48, sp10);
         (*(f32 *)((char *)(arg0) + 0x84)) = (f32) ((f32) arg5 * 0.007874016f);
         func_8008C11C();
         ret = 1;

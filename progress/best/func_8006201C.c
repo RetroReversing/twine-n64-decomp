@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 void *func_80016410();
 s32 func_80044670();
@@ -19,42 +7,42 @@ extern u8 D_800B2322;
 extern s16 D_800C2942;
 
 void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
-    void *temp_a3;
     void *temp_v0;
+    register void *temp_a3;
 
-    temp_v0 = func_80016410(0x30, arg0, 0);
+    temp_v0 = func_80016410(0x30, arg0, 0, arg3);
     if (temp_v0 != NULL) {
-        M2C_FIELD(temp_v0, s16 *, 0x78) = 0x5B;
-        M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
-        M2C_FIELD(temp_v0, u8 *, 0x7F) = 0xFF;
-        M2C_FIELD(temp_v0, s8 *, 0x80) = 0;
-        M2C_FIELD(temp_v0, s8 *, 0x81) = 0;
-        M2C_FIELD(temp_v0, u8 *, 0x82) = 0xFF;
-        M2C_FIELD(temp_v0, f32 *, 0x54) = 0.5f;
-        temp_a3 = M2C_FIELD(temp_v0, void **, 0x6C);
-        if (M2C_FIELD(arg1, u16 *, 4) == 0) {
-            M2C_FIELD(arg1, u16 *, 4) = 0x1EU;
+        (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x5B;
+        (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
+        (*(u8 *)((char *)(temp_v0) + 0x7F)) = 0xFF;
+        (*(s8 *)((char *)(temp_v0) + 0x80)) = 0;
+        (*(s8 *)((char *)(temp_v0) + 0x81)) = 0;
+        (*(u8 *)((char *)(temp_v0) + 0x82)) = 0xFF;
+        (*(f32 *)((char *)(temp_v0) + 0x54)) = 0.5f;
+        temp_a3 = (*(void **)((char *)(temp_v0) + 0x6C));
+        if ((*(u16 *)((char *)(arg1) + 4)) == 0) {
+            (*(u16 *)((char *)(arg1) + 4)) = 0x1EU;
         }
-        M2C_FIELD(temp_a3, s8 *, 0x2E) = (s8) M2C_FIELD(arg1, u16 *, 0x2C);
-        M2C_FIELD(temp_a3, s32 *, 0) = arg2;
-        M2C_FIELD(temp_a3, s16 *, 0xC) = arg3;
-        M2C_FIELD(temp_a3, s16 *, 0xE) = 0;
-        M2C_FIELD(temp_a3, s32 *, 4) = 0;
-        M2C_FIELD(temp_a3, s8 *, 0x2F) = (s8) M2C_FIELD(arg1, u16 *, 0x2E);
-        M2C_FIELD(temp_a3, u16 *, 0x2C) = 0U;
-        M2C_FIELD(temp_a3, s8 *, 0x28) = 0;
-        M2C_FIELD(temp_a3, s8 *, 0x26) = 0;
-        M2C_FIELD(temp_a3, s8 *, 0x27) = 0;
-        M2C_FIELD(temp_a3, u8 *, 0x29) = 0xFF;
-        M2C_FIELD(temp_a3, s16 *, 0x24) = 0xF2;
-        M2C_FIELD(temp_a3, s8 *, 0x2A) = 1;
-        M2C_FIELD(temp_a3, f32 *, 8) = (f32) (1.0f / (f32) M2C_FIELD(arg1, u16 *, 4));
-        M2C_FIELD(temp_a3, f32 *, 0x1C) = (f32) D_800B20D2;
-        M2C_FIELD(temp_a3, s32 *, 0x10) = -1;
-        M2C_FIELD(temp_a3, f32 *, 0x14) = 1000.0f;
-        M2C_FIELD(temp_a3, f32 *, 0x18) = 1000.0f;
-        M2C_FIELD(temp_a3, f32 *, 0x20) = (f32) D_800B2322;
-        func_80044670(temp_v0, M2C_FIELD(temp_a3, u16 *, 0x2C), D_800C2942, temp_a3);
+        (*(s8 *)((char *)(temp_a3) + 0x2E)) = (s8) (*(u16 *)((char *)(arg1) + 0x2C));
+        (*(s32 *)((char *)(temp_a3) + 0)) = arg2;
+        (*(s16 *)((char *)(temp_a3) + 0xC)) = arg3;
+        (*(s16 *)((char *)(temp_a3) + 0xE)) = 0;
+        (*(s32 *)((char *)(temp_a3) + 4)) = 0;
+        (*(s8 *)((char *)(temp_a3) + 0x2F)) = (s8) (*(u16 *)((char *)(arg1) + 0x2E));
+        (*(f32 *)((char *)(temp_a3) + 8)) = (f32) (1.0f / (f32) (*(u16 *)((char *)(arg1) + 4)));
+        (*(u16 *)((char *)(temp_a3) + 0x2C)) = 0U;
+        (*(s8 *)((char *)(temp_a3) + 0x28)) = 0;
+        (*(s8 *)((char *)(temp_a3) + 0x26)) = 0;
+        (*(s8 *)((char *)(temp_a3) + 0x27)) = 0;
+        (*(u8 *)((char *)(temp_a3) + 0x29)) = 0xFF;
+        (*(s16 *)((char *)(temp_a3) + 0x24)) = 0xF2;
+        (*(s8 *)((char *)(temp_a3) + 0x2A)) = 1;
+        (*(f32 *)((char *)(temp_a3) + 0x1C)) = (f32) D_800B20D2;
+        (*(f32 *)((char *)(temp_a3) + 0x14)) = 1000.0f;
+        (*(s32 *)((char *)(temp_a3) + 0x10)) = -1;
+        (*(f32 *)((char *)(temp_a3) + 0x18)) = 1000.0f;
+        (*(f32 *)((char *)(temp_a3) + 0x20)) = (f32) D_800B2322;
+        func_80044670(temp_v0, (*(u16 *)((char *)(temp_a3) + 0x2C)), D_800C2942, temp_a3);
     }
     return temp_v0;
 }

@@ -18,21 +18,19 @@ M2C_UNK func_800957B8(u32 *, void *);               /* extern */
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 s32 func_8009A39C(void *arg0, void *arg1) {
     u32 sp10;
-    s32 var_v0;
     u32 temp_a0;
     u32 temp_v0;
-    char temp_v1;
+    unsigned char temp_v1;
     u32 var_a3;
 
     if (M2C_FIELD(arg1, u8 *, 0) & 3) {
-        var_v0 = M2C_FIELD(arg0, s32 *, 0x24) | 0x8000;
+        M2C_FIELD(arg0, s32 *, 0x24) = M2C_FIELD(arg0, s32 *, 0x24) | 0x8000;
     } else {
-        var_v0 = M2C_FIELD(arg0, s32 *, 0x24) & 0xFFFF7FFF;
+        M2C_FIELD(arg0, s32 *, 0x24) = M2C_FIELD(arg0, s32 *, 0x24) & 0xFFFF7FFF;
     }
-    M2C_FIELD(arg0, s32 *, 0x24) = var_v0;
     sp10 = (u32) (u16) ((__repair_field_4 *)arg1)->value;
     if (((u32) ((__repair_field_4 *)arg1)->value >> 8) & 1) {
-        func_800957A8(&sp10);
+        do { func_800957A8(&sp10); } while (0);
     } else {
         func_800957B8(&sp10, arg0);
     }
@@ -49,7 +47,7 @@ s32 func_8009A39C(void *arg0, void *arg1) {
             } else {
                 M2C_FIELD(arg0, s8 *, 0x79) = (s8) -(s8) temp_v1;
             }
-            M2C_FIELD(arg0, s8 *, 0x78) = (s8) -(s8) var_a3;
+            M2C_FIELD(arg0, s8 *, 0x78) = (s8) -(s8) temp_a0;
             M2C_FIELD(arg0, u32 *, 0x6C) = (u32) ((u32) M2C_FIELD(arg0, u32 *, 0x70) >> 1);
         } else {
             if (!(temp_v1 & 0x80)) {

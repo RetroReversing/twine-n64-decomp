@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003EC70(s32);                /* extern */
+s32 func_8003EC70(s32, void *);                /* extern */
 extern void *D_800E1770;
 extern M2C_UNK D_800E1778;
 extern M2C_UNK D_800E177C;
@@ -39,22 +39,22 @@ __repair_literal = 0;
     if (arg2 > __repair_literal) {
         var_v1 = 0;
         do { {
-            *((M2C_UNK *)((s8 *)&D_800E1778 + var_v1)) = M2C_FIELD(var_a1, f32 *, 0);
-            *((M2C_UNK *)((s8 *)&D_800E177C + var_v1)) = M2C_FIELD(var_a1, f32 *, 4);
+            *((f32 *)((s8 *)&D_800E1778 + var_v1)) = M2C_FIELD(var_a1, f32 *, 0);
+            *((f32 *)((s8 *)&D_800E177C + var_v1)) = M2C_FIELD(var_a1, f32 *, 4);
             temp_fv0 = 1.0f / M2C_FIELD(var_a1, f32 *, 8);
             var_a3 += 1;
             var_a1 += 0x24;
-            *((M2C_UNK *)((s8 *)&D_800E1780 + var_v1)) = temp_fv0;
+            *((f32 *)((s8 *)&D_800E1780 + var_v1)) = temp_fv0;
             var_v1 += 0x24;
         }
 } while (var_a3 < arg2);
     }
-    temp_v0 = func_8003EC70(arg2);
+    temp_v0 = func_8003EC70(arg2, var_a1);
     var_a3 = 0;
     if (__repair_inline(temp_v0, 0)) {
         var_a0 = arg0;
         var_v1_2 = D_800E1770;
-        do { {
+        do {
             M2C_FIELD(var_a0, f32 *, 0) = (f32) M2C_FIELD(var_v1_2, f32 *, 0);
             M2C_FIELD(var_a0, f32 *, 4) = (f32) M2C_FIELD(var_v1_2, f32 *, 4);
             temp_fv0_2 = 1.0f / M2C_FIELD(var_v1_2, f32 *, 8);
@@ -62,8 +62,7 @@ __repair_literal = 0;
             var_v1_2 += 0x24;
             M2C_FIELD(var_a0, f32 *, 8) = temp_fv0_2;
             var_a0 += 0x24;
-        }
-} while (var_a3 < temp_v0);
+        } while (var_a3 < temp_v0);
     }
     return temp_v0;
 }

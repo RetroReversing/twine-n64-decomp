@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80005C70();
+s32 func_80005C70(s32, s32, s32, s32, f32, s32);
 s32 func_8000600C();
 extern f32 D_800D9414;
 
@@ -39,7 +39,7 @@ void func_80005310(void *arg0) {
     temp_v1 = M2C_FIELD(temp_v0, void **, 0x60);
     var_fs0 = M2C_FIELD(temp_v0, f32 *, 0x30);
     temp_fv0 = M2C_FIELD(temp_v1, f32 *, 0);
-    temp_t0 = temp_v0 + 0x14;
+    temp_t0 = (void *) ((0x14) + (s32) temp_v0);
     if (temp_fv0 <= var_fs0) {
         do {
             var_fs0 -= temp_fv0;
@@ -51,8 +51,8 @@ void func_80005310(void *arg0) {
         } while (var_fs0 < 0.0f);
     }
     temp_a1 = M2C_FIELD(temp_v1, s32 *, 4);
-    temp_v1_2 = temp_v1 + 0xC;
     var_a2 = (s32) ((var_fs0 * (f32) temp_a1) / M2C_FIELD(temp_v1, f32 *, 0));
+    temp_v1_2 = (void *) ((0xC) + (s32) temp_v1);
     var_v0 = (char *)((var_a2 * 4)); var_v0 += (s32)(temp_v1_2);
     if (!(var_fs0 < *(f32 *)var_v0)) {
         var_a2 += 1;
@@ -77,7 +77,7 @@ loop_8:
         }
     }
     temp_t1 = var_a3 & -(var_a3 < temp_a1);
-    temp_v0_2 = (var_a2 * 4) + temp_v1_2;
+    temp_v0_2 = (void *) (((var_a2 * 4)) + (s32) temp_v1_2);
     var_fv1 = M2C_FIELD(temp_v0_2, f32 *, 0);
     var_ft0 = var_fs0;
     if (var_a2 > 0) {

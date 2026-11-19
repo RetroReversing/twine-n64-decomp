@@ -7,17 +7,19 @@ extern s32 D_80102EBC;
 extern s32 D_80102EC0;
 extern s32 D_80102EC4;
 extern void *D_80102F2C;
-s32 func_8000A894(s32, void *, void *, void *);
+s32 func_8000A894(s32,  void *);
 s32 func_80027A7C(s32, void *, s32);
 
 void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
+    u8 *__base_D_801002E6;
     u8 *s0, *s2, *a2, *p;
     void *a3;
     u8 t0, s1, a1, a0, cnt, bb;
     u32 v0, val;
     u16 fl;
     s32 i;
-    s8 tv;
+s32 __repair_phase_i;
+    s32 tv;
 
     a1 = arg1;
     a2 = arg2;
@@ -45,25 +47,25 @@ void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
             return;
         }
         s1 = (u8)tv;
-        a3 = &D_801002E6;
-        ((U32U *)(s0 + 0x24))->v = ((U32U *)&D_801002E6)->v;
+        __base_D_801002E6 = &D_801002E6;
+        a3 = __base_D_801002E6;
+        ((U32U *)(s0 + 0x24))->v = ((U32U *)__base_D_801002E6)->v;
         a2 = FLD(s2, 0, u8 *) + i * 40;
-        v0 = s1 & 0xFF;
         if (a2 != NULL) {
-            ((U32U *)&D_801002E6)->v = ((U32U *)(a2 + 0x24))->v;
-            v0 = s1 & 0xFF;
+            ((U32U *)__base_D_801002E6)->v = ((U32U *)(a2 + 0x24))->v;
         }
+        v0 = s1 & 0xFF;
     } else {
         v0 = s1 & 0xFF;
         if (arg0 == 0x101) {
             cnt = FLD(s2, 5, u8);
             a0 = s1;
             if (v0 < cnt) {
-                a1 = cnt;
+                a1 = cnt;cnt=0;
                 do {
                     p = FLD(s2, 0, u8 *) + (a0 & 0xFF) * 40;
                     if (FLD(p, 0xC, u16) & 0x80) {
-                        s1 = a0;
+                        s1 = a0;a0=0;
                         break;
                     }
                     a0++;
@@ -72,13 +74,13 @@ void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
             v0 = s1 & 0xFF;
             a2 = FLD(s2, 0, u8 *) + v0 * 40;
             if (a2 != NULL) {
-                ((U32U *)&D_801002E6)->v = ((U32U *)(a2 + 0x24))->v;
+                ((U32U *)__base_D_801002E6)->v = ((U32U *)(a2 + 0x24))->v;
                 v0 = s1 & 0xFF;
             }
         }
     }
     if (v0 != t0 && FLD(D_80102F2C, 0x7A, s16) != 0x14) {
-        func_8000A894(0xED, (void *)(u32)a1, a2, a3);
+        func_8000A894(0xED,  (void *)(u32)a1);
     }
     a0 = FLD(D_80109BB0, 8, u8);
     if (FLD(D_80109BB0, 7, u8) != a0) {
@@ -93,10 +95,11 @@ void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
     } else {
         if (fl & 0x80) {
             val = D_80102EBC;
-        } else {
+        
+        bb = FLD(FLD(s0, 8, u8 *), 0x13, u8);} else {
             val = D_80102EC4;
-        }
-        bb = FLD(FLD(s0, 8, u8 *), 0x13, u8);
+        
+        bb = FLD(FLD(s0, 8, u8 *), 0x13, u8);}
     }
     FLD(FLD(s0, 8, u8 *), 0x10, u32) = (val & ~0xFF) | bb;
     FLD(D_80109BB0, 8, u8) = s1;
@@ -104,9 +107,9 @@ void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
     FLD(D_80109BB0, 0x18, u8 *) = p;
     if (FLD(p, 8, u8 *) != NULL) {
         fl = FLD(p, 0xC, u16);
-        i = fl & 0xF;
-        if (i != 0) {
-            val = D_800BD640[i];
+        __repair_phase_i = fl & 0xF;
+        if (__repair_phase_i != 0) {
+            val = D_800BD640[__repair_phase_i];
             bb = FLD(D_80109BB0, 0x30, u8);
         } else {
             val = D_80102EC0;

@@ -12,6 +12,7 @@ extern u16 D_8011F15C[];
 extern s32 D_8011F3A8;
 
 u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
+    s32 *__base_D_801002B4;
     u16 buf[2];
     void *q;
     s32 j;
@@ -33,7 +34,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
         for (i = 0; (u32)i < 2; i++) {
             buf[i] = func_8002B278(arg0, arg1) / 10;
         }
-        for (i = 0; i < D_801002B4; i++) {
+        for (i = 0; i < (*(__base_D_801002B4 = &D_801002B4)); i++) {
             p = D_8010A500[i];
             if (p != NULL) {
                 q = PTR(PTR(p, 0x6C), 0xB4);
@@ -54,7 +55,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     case 2:
     case 3:
     case 5:
-        for (i = 0; i < D_801002B4; i++) {
+        for (i = 0; i < (*__base_D_801002B4); i++) {
             p = D_8010A500[i];
             if (p != NULL) {
                 q = PTR(PTR(p, 0x6C), 0xB4);
@@ -75,7 +76,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     case 8:
         s0 = 0;
         s2 = 0;
-        for (j = 0; j < D_801002B4; j++) {
+        for (j = 0; j < (*__base_D_801002B4); j++) {
             p = D_8010A500[j];
             if (p != NULL && ((*(u8 *)((u8 *)PTR(PTR(p, 0x6C), 0xB4) + 0x11) == 0) == 0)) {
                 s0 += j < D_801002B8;
@@ -83,21 +84,21 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
             }
         }
         if (s0 >= D_801002B8) {
-            func_8011A7C8(D_801002B4);
+            func_8011A7C8(arg0, (*__base_D_801002B4));
             if (D_801002B8 <= s0) {
                 D_8011F3A8 = 0x5A;
                 D_801002AC = 1;
                 break;
             }
         }
-        if (!(s2 < D_801002B4 - 1)) {
+        if (!(s2 < (*__base_D_801002B4) - 1)) {
             D_8011F3A8 = 0x5A;
             D_801002AC = 1;
         }
         break;
     default:
         a0 = 0;
-        for (j = 0; j < (s32)D_801002B4; j++) {
+        for (j = 0; j < (s32)(*__base_D_801002B4); j++) {
             p = D_8010A500[j];
             if (p != NULL) {
                 q = PTR(PTR(p, 0x6C), 0xB4);

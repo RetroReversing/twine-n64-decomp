@@ -41,11 +41,10 @@ extern u8 D_80112F6D;
 void func_80044DE4(u32 arg0) {
     u16 sp10;
     u16 sp12;
-    s16 sp46;
-    s16 sp48;
+    s16 sp46[2];
     s16 sp4C;
     char *var_a0_2;
-    char *var_a0_3;
+    
     s16 var_v0;
     s16 var_v0_2;
     s32 var_a0_4;
@@ -53,7 +52,7 @@ void func_80044DE4(u32 arg0) {
     s32 var_v1_2;
     s32 var_v1_3;
     u16 *var_a0;
-    char *var_a1;
+    
     u16 temp_v0;
 
     sp10 = -1U;
@@ -120,7 +119,7 @@ void func_80044DE4(u32 arg0) {
     case 32:
     case 39:
         var_v1 = 0x1B;
-        var_a0_2 = &sp46;
+        var_a0_2 = sp46;
         var_v0 = 0x1FA;
         do {
             *(s16 *)var_a0_2 = var_v0;
@@ -128,7 +127,7 @@ void func_80044DE4(u32 arg0) {
             var_v1 -= 1;
             var_v0 -= 1;
         } while (var_v1 >= 0);
-        sp48 = -1;
+        sp46[1] = -1;
         func_80044D28(&sp10);
         var_a0 = &D_800C2BF4;
         break;
@@ -141,30 +140,30 @@ void func_80044DE4(u32 arg0) {
     }
     var_v1_2 = 0x1B;
     if (D_80112F6C != 0) {
-        var_a0_3 = &sp46;
+        var_a0_2 = sp46;
         var_v0_2 = 0x1FA;
         do {
-            *(s16 *)var_a0_3 = var_v0_2;
-            var_a0_3 -= 2;
+            *(s16 *)var_a0_2 = var_v0_2;
+            var_a0_2 -= 2;
             var_v1_2 -= 1;
             var_v0_2 -= 1;
         } while (var_v1_2 >= 0);
-        sp48 = -1;
+        sp46[1] = -1;
         func_80044D28(&sp10);
     }
     var_v1_3 = 0;
     if (D_80112F6D != 0) {
-        var_a1 = &sp10;
+        var_a0_2 = &sp10;
         var_a0_4 = 0;
         do {
             temp_v0 = *(u16 *)(D_800C447A + var_a0_4);
-            var_a0_4 += 0x10;
-            var_v1_3 += 1;
-            *(u16 *)var_a1 = temp_v0;
-            var_a1 += 2;
+            var_a0_4 += 0x10;/*__repair_loop_weight*/do {
+            var_v1_3 += 1;} while (0);
+            *(u16 *)var_a0_2 = temp_v0;
+            var_a0_2 += 2;
         } while (var_v1_3 < 0x1E);
         sp4C = -1;
-        func_80044D28(&sp12, var_a1);
+        func_80044D28(&sp12, var_a0_2);
     }
     if (D_80102ED8 != 0) {
         func_80044D28(&D_800BD680);

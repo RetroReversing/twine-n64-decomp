@@ -44,13 +44,15 @@ void func_80088DE0(s32 arg0, s32 arg1) {
     var_a0 = 0;
     do {
         var_v1 = 0;
-loop_4:
-        if (*(D_800E2CC0 + var_v1) == 0) {
-            var_a0 += 1;
-            var_v1 += 0x1228;
-            if (var_a0 < 2) {
-                goto loop_4;
+        for (;;) {
+            if (*(D_800E2CC0 + var_v1) == 0) {
+                var_a0 += 1;
+                var_v1 += 0x1228;
+                if (var_a0 < 2) {
+                    continue;
+                }
             }
+            break;
         }
         var_a0 = 0;
     } while (var_a0 != 2);

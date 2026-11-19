@@ -26,7 +26,8 @@ s32 func_8007A7D8(void *arg0, void *arg1, s32 *arg2, f32 arg3) {
     f32 h;
     f32 lim;
     s32 t;
-    s32 r;
+s32 __repair_phase_t;
+    
 
     if (arg3 < func_80045E34(arg0 + 0x24)) {
         return 0;
@@ -41,14 +42,14 @@ s32 func_8007A7D8(void *arg0, void *arg1, s32 *arg2, f32 arg3) {
             return 0;
         }
     }
-    t = (s32) (func_80082A70(dx, dz) * 651.8986f);
-    *arg2 = t;
-    r = func_80000A30(t, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C));
+    __repair_phase_t = (s32) (func_80082A70(dx, dz) * 651.8986f);
+    *arg2 = __repair_phase_t;
+    t = func_80000A30(__repair_phase_t, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C));
     lim = 910.0f;
     if (D_80102ED8 != 0) {
         lim = 682.0f;
     }
-    if (lim < func_800828D0((f32) r, r)) {
+    if (lim < func_800828D0((f32) t, t)) {
         return 0;
     }
     return 1;

@@ -17,11 +17,12 @@ s32 func_80016990();
 extern u8 D_800B2022;
 extern u8 D_800B2272;
 
+typedef struct { s32 w[3]; } __repair_words3;
 void func_800613AC(void *arg0, s32 arg1, void *arg2, s16 arg3) {
     void *temp_a2;
     void *temp_v0;
 
-    temp_v0 = func_80016410(0x48, 0);
+    temp_v0 = func_80016410(arg0);
     if (temp_v0 != NULL) {
         temp_a2 = M2C_FIELD(temp_v0, void **, 0x6C);
         M2C_FIELD(temp_a2, s32 *, 0x18) = 0;
@@ -29,9 +30,7 @@ void func_800613AC(void *arg0, s32 arg1, void *arg2, s16 arg3) {
         M2C_FIELD(temp_v0, s16 *, 0x78) = arg3;
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
         if (arg2 != NULL) {
-            M2C_FIELD(temp_a2, s32 *, 0) = (s32) M2C_FIELD(arg2, s32 *, 0);
-            M2C_FIELD(temp_a2, s32 *, 4) = (s32) M2C_FIELD(arg2, s32 *, 4);
-            M2C_FIELD(temp_a2, s32 *, 8) = (s32) M2C_FIELD(arg2, s32 *, 8);
+            M2C_FIELD(temp_a2, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) arg2 + 0x0);
         }
         M2C_FIELD(temp_a2, s32 *, 0xC) = 0x12C;
         M2C_FIELD(temp_a2, s16 *, 0x40) = 0x42;

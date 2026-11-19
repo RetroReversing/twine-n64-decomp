@@ -30,7 +30,7 @@ __repair_literal = 0;
     if ((s32) D_801176E8 > __repair_literal) {
         var_s0 = 0;
         do {
-            if (*((M2C_UNK *)((s8 *)&D_801096E8 + var_s0)) == 1) {
+            if (*((u8 *)((s8 *)&D_801096E8 + var_s0)) == 1) {
                 func_8008C710(*((M2C_UNK *)((s8 *)&D_801096F0 + var_s0)), *((M2C_UNK *)((s8 *)&D_801096F4 + var_s0)));
             }
             var_s1 += 1;

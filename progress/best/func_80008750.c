@@ -24,15 +24,15 @@ s32 __repair_phase_temp_v1_10;
     
     register u32 temp_v1_8;
     
-    register s32 var_a0_2;
+    s32 var_a0_2;
     
 s32 __repair_phase_var_a1;
     unsigned var_a1_2;
     unsigned int var_v1;
     void *temp_v0;
     void *temp_v0_2;
-    void *temp_v1;
-    void *temp_v1_11;
+    register void *temp_v1;
+    register void *temp_v1_11;
     register void *temp_v1_13;
     register void *temp_v1_14;
     register void *temp_v1_15;
@@ -131,7 +131,7 @@ block_9:
 block_92:
                 (*(s32 *)((char *)(D_80115328) + 0)) = var_a1_2;
                 D_80115328 += 8;
-                (*(s32 *)((char *)(D_80115328) + 4)) = (unsigned)temp_v1_10;
+                (*(s32 *)((char *)(D_80115328) + 4)) = temp_v1_10;
             } else {
                 temp_v1_5 = D_80115328;
                 D_80115328 = temp_v1_5 + 8;
@@ -188,7 +188,7 @@ case 0: break;
                 var_a1_2 = 0xFC119623;
                 var_a0_2 = 0xFF2E0000;
 block_91:
-                temp_v1_10 = var_a0_2 | 0xFF7F;
+                temp_v1_10 = (int)var_a0_2 | 0xFF7F;
                 goto block_92;
             case 4:                                 /* switch 3 */
                 var_a1_2 = 0xFC119623;
@@ -341,8 +341,8 @@ block_88:
         if (D_8010A924 != 8) {
             temp_v1_18 = D_80115328;
             D_8010A924 = 8;
-            D_80115328 = temp_v1_18 + 8;
             (*(s32 **)((char *)(temp_v1_18) + 4)) = &D_800B1AC8;
+            D_80115328 = temp_v1_18 + 8;
             (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;
         }
         if (D_801032A0 != 4) {

@@ -22,6 +22,9 @@ extern u8 D_8010A4FD;
 
 typedef struct { void * value; } __repair_field_0;
 void func_8007560C(void) {
+    s32 *__base_D_801002B4;
+short __repair_constant = 0x100;
+
     f32 temp_fs1;
     f32 temp_fs0_2;
     f32 temp_fs0_3;
@@ -67,7 +70,7 @@ void func_8007560C(void) {
     { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, (f32) var_fv1, (f32) (f64) 0); }
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xEF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xEF;
-    (*(s32 *)((char *)(D_80109698) + 0x100)) |= 0x100;
+    (*(s32 *)((char *)(D_80109698) + 0x100)) |= __repair_constant;
     if (D_8010969C == (int)NULL) {
         func_80048794(5, D_800CA31C);
     }
@@ -79,7 +82,7 @@ void func_8007560C(void) {
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xDF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xDF;
     D_8010A4C2 |= 0x20;
-    (*(s32 *)((char *)(D_8010969C) + 0x100)) |= 0x100;
+    (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
     if (D_80102ED8 == 0) {
         if (((__repair_field_0 *)D_80109688)->value == NULL) {
             func_80048794(0, D_800CA31C);
@@ -95,7 +98,8 @@ void func_8007560C(void) {
         var_a0 = 1;
         goto block_75;
     }
-    if (D_801002B4 > 0) {
+    __base_D_801002B4 = &D_801002B4;
+    if ((*__base_D_801002B4) > 0) {
         var_s0 = 0;
         temp_s4 = __base_D_8010A4C3 - 1;
         temp_fs0 = D_800D48D0;
@@ -114,15 +118,14 @@ void func_8007560C(void) {
                 if (D_801002C0 <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
                     if ((D_801002C0 == 3) & (var_s0 == 3)) {
-                        (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) | var_v1);
-                    } else {
+                        (*(&D_8010A4C3)) = (u8) ((*__base_D_8010A4C3) | var_v1); } else {
                         (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & ~(1 << var_s0));
                         var_v1 = 1 << var_s0;
                     }
                     (*(u8 *)((char *)(temp_s4) + 0)) &= temp_v1;
                     var_v1 = ~var_v1;
                     (*(u8 *)((char *)(temp_s4) + -1)) &= var_v1;
-                    (*(s32 *)((char *)(temp_v1_2) + 0x100)) |= 0x100;
+                    (*(s32 *)((char *)(temp_v1_2) + 0x100)) |= __repair_constant;
                     temp_v1_2 = *var_s1;
                 } else {
                     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) | (1 << var_s0));
@@ -130,7 +133,7 @@ void func_8007560C(void) {
             }
             var_s0 += 1;
             var_s1 += 1;
-        } while (var_s0 < D_801002B4);
+        } while (var_s0 < (*__base_D_801002B4));
     }
     switch (D_801002C0) {                           /* irregular */
     case 1:

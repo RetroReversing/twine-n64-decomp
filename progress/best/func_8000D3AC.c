@@ -4,12 +4,12 @@ extern f32 **D_800B2710;
 
 void func_8000D3AC(s32 arg0, u32 arg1) {
     f32 sp8;
-    f32 sp4;
     f32 sp0;
+    f32 sp4;
     register f32 *temp_a0;
     
     f32 *temp_a0_11;
-    register f32 *temp_a0_12;
+    f32 *temp_a0_12;
     f32 *temp_a0_2;
     f32 *temp_a0_3;
     f32 *temp_a0_4;
@@ -18,11 +18,11 @@ void func_8000D3AC(s32 arg0, u32 arg1) {
     f32 *temp_a0_7;
     f32 *temp_a0_8;
     f32 *temp_a0_9;
-    unsigned temp_t0;
+    int temp_t0;
     void *temp_a2;
     void *temp_a3;
     void *temp_v1;
-    void *temp_v1_2;
+    register void *temp_v1_2;
     void *temp_v1_3;
     void *temp_v1_4;
 
@@ -41,14 +41,14 @@ void func_8000D3AC(s32 arg0, u32 arg1) {
     temp_a0_2 = *D_800B2710;
     *D_800B2710 = temp_a0_2 + 4;
     sp4 = *temp_a0_2;
-    temp_a0_3 = *D_800B2710;
     temp_v1 = D_800B2710 + temp_t0;
+    temp_a0_3 = *D_800B2710;
     *D_800B2710 = temp_a0_3 + 4;
     sp8 = -*temp_a0_3;
     (*(f32 *)((char *)(temp_v1) + 0x38)) = sp0;
     (*(f32 *)((char *)(temp_v1) + 0x3C)) = sp4;
-    (*(f32 *)((char *)(temp_v1) + 0x40)) = sp8;
     temp_a0_4 = *D_800B2710;
+    (*(f32 *)((char *)(temp_v1) + 0x40)) = sp8;
     sp0 = *temp_a0_4;
     *D_800B2710 = temp_a0_4 + 4;
     temp_a0_5 = *D_800B2710;
@@ -72,19 +72,19 @@ void func_8000D3AC(s32 arg0, u32 arg1) {
     *D_800B2710 = temp_a0_9 + 4;
     sp8 = -*temp_a0_9;
     (*(f32 *)((char *)(temp_v1_3) + 0x2C)) = sp0;
-    (*(f32 *)((char *)(temp_v1_3) + 0x34)) = sp8;
     (*(f32 *)((char *)(temp_v1_3) + 0x30)) = sp4;
+    (*(f32 *)((char *)(temp_v1_3) + 0x34)) = sp8;
     temp_a0 = *D_800B2710;
     *D_800B2710 = (u32)temp_a0 + 4;
     sp0 = *temp_a0;
     temp_a0_11 = *D_800B2710;
     *D_800B2710 = (unsigned)temp_a0_11 + 4;
     sp4 = *temp_a0_11;
-    temp_a0_12 = *D_800B2710;
     temp_v1_4 = D_800B2710 + temp_t0;
+    temp_a0_12 = *D_800B2710;
+    (*(f32 *)((char *)(temp_v1_4) + 0x44)) = sp0;
     *D_800B2710 = temp_a0_12 + 4;
     sp8 = -*temp_a0_12;
-    (*(f32 *)((char *)(temp_v1_4) + 0x44)) = sp0;
     (*(f32 *)((char *)(temp_v1_4) + 0x48)) = sp4;
     (*(f32 *)((char *)(temp_v1_4) + 0x4C)) = sp8;
 }

@@ -4,6 +4,8 @@ s32 bzero();
 s32 func_8009DBE8();
 
 s32 func_8009DF60(void *arg0, s32 arg1) {
+int __repair_literal;
+
     s32 sp50;
     s32 sp58;
     s32 sp60;
@@ -147,7 +149,9 @@ s32 func_8009DF60(void *arg0, s32 arg1) {
             } else {
                 var_t0 += 0x20;
                 (*(s16 *)((char *)(arg0) + 0x18C)) = (s16) (((1 << var_v1_2) - 1) & var_v0_2);
-                temp_v0_2 = (*(u32 *)((char *)((arg0 + (((var_t0 >> 5) & 0x3FF) * 4))) + 0x1A0));
+__repair_literal = 4;
+
+                temp_v0_2 = (*(u32 *)((char *)((arg0 + (((var_t0 >> 5) & 0x3FF) * __repair_literal))) + 0x1A0));
                 if (var_v1_2 != 4) {
                     (*(s16 *)((char *)(arg0) + 0x18C)) |= ((temp_v0_2 & ((1 << (4 - var_v1_2)) - 1)) << var_v1_2);
                 }

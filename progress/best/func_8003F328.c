@@ -18,8 +18,8 @@ extern s16 D_800E19C8;
 extern s16 D_800E19CA;
 extern s16 D_800E19CC;
 extern s16 D_800E19CE;
-extern u16 D_800E19D0;
-extern u16 D_800E19D2;
+extern s16 D_800E19D0;
+extern s16 D_800E19D2;
 
 s16 func_8003F328(s32 arg0) {
     Entry **__base_D_800E1770;

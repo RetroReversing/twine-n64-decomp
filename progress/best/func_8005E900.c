@@ -37,16 +37,16 @@ void func_8005E900(void *arg0) {
              
              
              
-    f32 temp_ft0;
-    f32 temp_fs0_2;
+    register f32 temp_ft0;
+    register f32 temp_fs0_2;
     register f64 temp_fs1;
     register void *temp_s2;
-    f32 temp_fs0;
-    f64 temp_fv0;
-    void *temp_v0;
-    f32 temp_fv1;
-    register void *temp_s1;
+    register f32 temp_fs0;
     register u8 var_a1;
+    register f64 temp_fv0;
+    register f32 temp_fv1;
+    register void *temp_s1;
+    register void *temp_v0;
 
     temp_v0 = (*(void **)((char *)(arg0) + 0x70));
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
@@ -62,10 +62,10 @@ void func_8005E900(void *arg0) {
                 (*(f32 *)((char *)(arg0) + 0x28)) = m2c_initial_frame.view_sp24.value;
             }
         }
-        m2c_initial_frame.view_sp24.value = (*(f32 *)((char *)(arg0) + 0x28));
-        temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x3C))) + 0x20));
         m2c_initial_frame.view_sp20.value = (*(f32 *)((char *)(arg0) + 0x24));
         m2c_initial_frame.view_sp28.value = (*(f32 *)((char *)(arg0) + 0x2C));
+        temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x3C))) + 0x20));
+        m2c_initial_frame.view_sp24.value = (*(f32 *)((char *)(arg0) + 0x28));
         if (m2c_initial_frame.view_sp24.value < temp_fv1) {
             m2c_initial_frame.view_sp24.value = temp_fv1;
         }

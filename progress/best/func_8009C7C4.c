@@ -27,32 +27,34 @@ s32 func_8009C7C4(s32 arg0, s32 arg1) {
     s32 temp_s0;
     s32 temp_v1;
     s32 var_s1;
+s32 __repair_result_var_s1;
     s32 var_s2;
     u8 var_a2;
 
     var_s2 = -1;
     if (D_800CF540 != 0) {
         func_8008C0D4();
-        var_s1 = func_800989B8(arg0);
-        if (var_s1 != -1) {
+        __repair_result_var_s1 = func_800989B8(arg0);
+        if (__repair_result_var_s1 != -1) {
 loop_3:
-            temp_s0 = var_s1 & 0xFF;
-            temp_v1 = temp_s0 * 0x1A0;
-            if (*(&D_8010D784 + temp_v1) == var_s1) {
+            temp_s0 = __repair_result_var_s1 & 0xFF;
+            temp_v1 = temp_s0 * 0x68;
+            if (*(&D_8010D784 + temp_v1) == __repair_result_var_s1) {
                 if (*(&D_8010D748 + temp_v1) & 2) {
                     var_a2 = *(&D_8010D779 + temp_v1);
-                } else {
+                
+                func_80095A80(0x5B, temp_s0, var_a2, arg1 & 0xFF);} else {
                     var_a2 = *(&D_8010D76F + temp_v1);
-                }
-                func_80095A80(0x5B, temp_s0, var_a2, arg1 & 0xFF);
-                var_s1 = *(&D_8010D734 + (temp_s0 * 0x1A0));
+                
+                func_80095A80(0x5B, temp_s0, var_a2, arg1 & 0xFF);}
+                var_s1 = *(&D_8010D734 + temp_s0 * 0x68);
                 var_s2 = 0;
                 if (var_s1 != -1) {
                     goto loop_3;
                 }
             }
         }
-        func_8008C11C();
+        func_8008C11C(arg0);
     }
     return var_s2;
 }

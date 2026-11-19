@@ -49,8 +49,8 @@ s32 func_80092DD4(void) {
         temp_v1 = D_800EDAA0 - 1;
         temp_s2 = *((s32 *)((s8 *)D_800EDAA4 + ((s32) (temp_v1 << 0x10) >> 0xE)));
         D_800EDAA0 = temp_v1;
-        temp_v0 = ((__repair_record_temp_s2*)temp_s2)->field_8 + temp_s2;
-        var_s0 = temp_v0 + 8;
+        temp_v0 = (void *)(((__repair_record_temp_s2*)temp_s2)->field_8); temp_v0 = (void *)((char *)temp_v0 + (s32)(temp_s2));
+        var_s0 = (void *) ((8) + (s32) temp_v0);
         var_a0 = M2C_FIELD(temp_v0, u16 *, 8);
         if ((var_a0 & 0xFFFF) != 0xFFFF) {
             do {
@@ -59,8 +59,8 @@ s32 func_80092DD4(void) {
                 var_a0 = *(u16 *)var_s0;
             } while (var_a0 != 0xFFFF);
         }
-        temp_s1 = ((__repair_record_temp_s2*)temp_s2)->field_C + temp_s2;
-        temp_s1_2 = temp_s1 + 8;
+        temp_s1 = (void *) ((((__repair_record_temp_s2*)temp_s2)->field_C) + (s32) temp_s2);
+        temp_s1_2 = (void *) ((8) + (s32) temp_s1);
         var_s0 = temp_s1_2;
         if (M2C_FIELD(temp_s1, u16 *, 8) != 0xFFFF) {
             do {
@@ -75,8 +75,8 @@ s32 func_80092DD4(void) {
                 func_80097B1C(temp_a0);
             } while ((u32) var_s0_3 >= (u32) temp_s1_2);
         }
-        temp_v0_2 = ((__repair_record_temp_s2*)temp_s2)->field_10 + temp_s2;
-        var_s0_4 = temp_v0_2 + 8;
+        temp_v0_2 = (void *)(((__repair_record_temp_s2*)temp_s2)->field_10); temp_v0_2 = (void *)((char *)temp_v0_2 + (s32)(temp_s2));
+        var_s0_4 = (void *) ((8) + (s32) temp_v0_2);
         var_a0_2 = M2C_FIELD(temp_v0_2, u16 *, 8);
         if ((var_a0_2 & 0xFFFF) != 0xFFFF) {
             do {
@@ -85,8 +85,8 @@ s32 func_80092DD4(void) {
                 var_a0_2 = *(u16 *)var_s0_4;
             } while (var_a0_2 != 0xFFFF);
         }
-        temp_v0_3 = ((__repair_record_temp_s2*)temp_s2)->field_14 + temp_s2;
-        var_s0_5 = temp_v0_3 + 8;
+        temp_v0_3 = (void *) ((((__repair_record_temp_s2*)temp_s2)->field_14) + (s32) temp_s2);
+        var_s0_5 = (void *) ((8) + (s32) temp_v0_3);
         var_a0_3 = M2C_FIELD(temp_v0_3, u16 *, 8);
         if ((var_a0_3 & 0xFFFF) != 0xFFFF) {
             do {
@@ -95,8 +95,8 @@ s32 func_80092DD4(void) {
                 var_a0_3 = *(u16 *)var_s0_5;
             } while (var_a0_3 != 0xFFFF);
         }
-        temp_v0_4 = ((__repair_record_temp_s2*)temp_s2)->field_18 + temp_s2;
-        var_s0_6 = temp_v0_4 + 8;
+        temp_v0_4 = (void *) ((((__repair_record_temp_s2*)temp_s2)->field_18) + (s32) temp_s2);
+        var_s0_6 = (void *) ((8) + (s32) temp_v0_4);
         var_a0_4 = M2C_FIELD(temp_v0_4, u16 *, 8);
         if ((var_a0_4 & 0xFFFF) != 0xFFFF) {
             do {

@@ -19,6 +19,8 @@ extern void *D_800BF5A0;
 extern s32 D_80109BB0;
 
 void func_80022950(void) {
+s32 __repair_operand;
+
     s32 temp_s1;
     s32 var_s0;
     void *temp_v1;
@@ -28,8 +30,9 @@ void func_80022950(void) {
         M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 8), s32 *, 0x10) = 0;
         func_80029AC8(D_80109BB0 + 0x2A, D_80109BB0 + 0x28, D_80109BB0 + 0x29);
 loop_2:
+        __repair_operand = M2C_FIELD(D_800BF5A0, s32 *, 0);
         temp_s1 = (var_s0 & 0xFFFF) * 0x28;
-        temp_v1 = temp_s1 + M2C_FIELD(D_800BF5A0, s32 *, 0);
+        temp_v1 = temp_s1 + __repair_operand;
         var_s0 += 1;
         if (!(M2C_FIELD(temp_v1, u16 *, 0xC) & 0x80) || !(func_80027C60(M2C_FIELD(temp_v1, s32 *, 0x10)) & 0xFF)) {
             if ((u32) (var_s0 & 0xFFFF) < 3U) {

@@ -1,7 +1,7 @@
 void func_8000B9B8(void *, void *, s32);
 void func_800426B8(s32, s16, s32);
 s32 func_80083E24(void);
-void func_80083E44(s32);
+void func_80083E44(s32, s32);
 void *func_80083E90(s32, s32);
 void func_80084048(void *, s32);
 extern u8 D_54D910[];
@@ -18,7 +18,7 @@ int __repair_literal;
     u8 sp10[0x20];
     s32 temp_s6, temp_s0, temp_s2, c;
     u8 *temp_v0, *temp_v0_2, *var_s0;
-    register s16 id;
+    s16 id;
     u16 v;
 
     temp_s6 = func_80083E24();
@@ -43,7 +43,7 @@ __repair_literal = 0x10;
             c = sp10[0x1E];
             if (c >= 0xD) {
                 if (c >= 0x12) {
-                    if ((u32)c < 0x27 && c >= 0x23) {
+                    if (c < 0x27 && c >= 0x23) {
                         v = *(u16 *)(var_s0 + 0x2C);
                         if (v != 0) {
                             id = *(s16 *)(D_800C46DC + v * 0xE8);
@@ -81,7 +81,7 @@ __repair_literal = 0x10;
                     }
                 } else {
                     v = *(u16 *)(var_s0 + 0x3A);
-                    if (v) {
+                    if (v != 0) {
                         id = *(s16 *)(D_800C46DC + v * 0xE8);
                         if (id != -1 && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
                             func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 1);
@@ -99,5 +99,5 @@ if ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2)) goto __repair_rows;
     }
     do { func_80084048(temp_v0_2, 0x2D); } while (0);
     func_80084048(temp_v0, 0x2D);
-    func_80083E44(arg0);
+    func_80083E44(arg0, temp_s6);
 }

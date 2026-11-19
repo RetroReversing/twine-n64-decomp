@@ -6,20 +6,20 @@ void func_800458C0(void *, s32, s32, s32);
 void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2) {
     register void *var_t1 = arg0;
     register u8 *var_s0 = arg1;
-    s16 *var_t0 = arg2;
-    register u32 var_s7 = 3;
+    register s16 *var_t0 = arg2;
+    register unsigned long var_s7 = 3;
     u8 *var_s1 = NULL;
     s16 *var_s6 = NULL;
     register u8 *var_s5 = NULL;
-    u8 *var_s3;
-    s16 *var_s4;
-    u8 var_t2;
     u8 *var_s2;
+    s16 *var_s4;
+    register u8 var_t2;
     u32 var_fp;
+    u8 *var_s3;
     s32 a2, a3, v1;
     s32 a2_2, a3_2, v1_2;
     u32 sp10;
-    s32 base;
+    long base;
     s32 tmp8;
     u16 t16, t16b, t16c;
 
@@ -63,9 +63,9 @@ block_15:
         var_s0 += 2;
         var_fp = 0;
         if (var_t2 != 0) {
+            var_s4 = var_s6 + 4;
             var_s2 = var_s0 + 2;
             var_s3 = var_s5 + 2;
-            var_s4 = var_s6 + 4;
             do {
                 switch (var_s7) {
                 case 3:
@@ -127,7 +127,7 @@ after:
                 var_s2 += 3;
                 func_800458C0(&sp10, base + a2 * 12, base + a3 * 12, base + v1 * 12);
                 var_s0 += 3;
-                ++var_fp;
+                var_fp++;
                 *var_t0 = 0;
                 var_t0 += 1;
             } while (var_fp < var_t2);
@@ -148,8 +148,8 @@ after:
             v1 = var_s1[var_s0[2]];
             var_s5[1] = (u8)v1;
             tmp8 = var_s1[var_s0[3]];
-            a2_2 = var_s5[0];
             a2_2 = var_s1[var_s0[1]] & 0xFF;
+            a2_2 = var_s5[0];
             a3_2 = v1 & 0xFF;
             v1_2 = tmp8 & 0xFF;
             var_s5[2] = tmp8;
@@ -162,7 +162,7 @@ after:
             var_s6[1] = t16b;
             tmp8 = var_s0[3];
             a2_2 = t16 & 0xFFFF;
-            t16c = BE16(var_s1 + tmp8 * 2);
+            t16c = BE16(var_s1 + (u32)tmp8 * 2);
             a3_2 = t16b & 0xFFFF;
             v1_2 = t16c & 0xFFFF;
             var_s6[2] = t16c;
@@ -176,8 +176,8 @@ after:
             tmp8 = var_s1[var_s0[3] * 3];
             a2_2 = var_s1[var_s0[1] * 3] & 0xFF;
             a3_2 = v1 & 0xFF;
-            var_s5[2] = tmp8;
             v1_2 = tmp8 & 0xFF;
+            var_s5[2] = tmp8;
             var_s5 += 3;
             break;
         default:
@@ -188,7 +188,7 @@ after:
             tmp8 = var_s0[3] * 3;
             a2_2 = t16 & 0xFFFF;
             t16c = BE16(var_s1 + tmp8 * 2);
-            a3_2 = (int)t16b & 0xFFFF;
+            a3_2 = t16b & 0xFFFF;
             v1_2 = t16c & 0xFFFF;
             var_s6[2] = t16c;
             var_s6 += 3;
@@ -198,7 +198,7 @@ after:
         func_800458C0(&sp10, base + a2_2 * 12, base + a3_2 * 12, base + v1_2 * 12);
         var_s0 += 4;
         *var_t0 = 0;
-        ++var_t0;
+        var_t0++;
         goto loop_48;
     case 10:
         FLD(var_t1, u8, 0x44) = var_s0[1];

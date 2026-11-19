@@ -15,11 +15,6 @@ typedef s32 M2C_UNK32;
 extern u8 D_800CF540;
 
 s32 func_80093FC8(void *arg0) {
-    s32 var_v0;
 
-    var_v0 = 0;
-    if (D_800CF540 != 0) {
-        var_v0 = M2C_FIELD(arg0, u16 *, 8) & 1;
-    }
-    return var_v0;
+    return (D_800CF540 == 0) ? 0 : M2C_FIELD(arg0, u16 *, 8) & 1;
 }

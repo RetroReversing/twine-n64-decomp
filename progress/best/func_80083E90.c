@@ -17,18 +17,19 @@ s32 func_80083E90(s32 arg0, s32 arg1) {
     s32 align;
     s32 t;
     u32 blk;
+u32 __repair_phase_blk;
     s32 r2;
     s32 nv;
 
-    if (D_800E1A90 == 0) {
-        t = arg1 * 12;
+    if (D_800E1A90 == 0) {do{
+        t = arg1 * 12;}while(0);
         align = AT(u8, D_800CE358, t) - 1;
         if (arg1 == 0x2D) {
-            s32 v = D_80102CB8 - arg0;
+            register s32 v = D_80102CB8 - arg0;
             s32 r = v - (v & align);
             s32 d = D_80102CB8 - r;
-            D_80102CB8 = r;
             D_800CE570 += d;
+            D_80102CB8 = r;
             return r;
         }
         blk = D_80109A90;
@@ -43,17 +44,17 @@ s32 func_80083E90(s32 arg0, s32 arg1) {
         if (a != NULL) {
             s32 base = arg1 * 12;
 loop:
-            blk = *(u32 *)(a + 8);
-            b = a + blk;
-            if (blk >= (u32)(arg0 + 0x18)) {
+            __repair_phase_blk = *(u32 *)(a + 8);
+            b = a + __repair_phase_blk;
+            if (__repair_phase_blk >= (u32)(arg0 + 0x18)) {
                 s32 off = ((s32)b - arg0) & (AT(u8, D_800CE358, base) - 1);
-                if (blk >= (u32)(arg0 + 0x18 + off)) {
+                if (__repair_phase_blk >= (u32)(arg0 + 0x18 + off)) {
                     s32 p = arg0 + off;
                     u8 *n = b - (p + 12);
                     AT(u32, D_800CE354, base) = AT(u32, D_800CE354, base) + 12 + p;
                     D_800E1A9C = (D_800E1A9C - 12) - p;
-                    D_800E1AA0 = D_800E1AA0 + 12 + p;
                     *(u32 *)(a + 8) = (u32)((*(u32 *)(a + 8) - 12) - p);
+                    D_800E1AA0 = (12 + p) + (D_800E1AA0);
                     *(void **)n = NULL;
                     *(u32 *)(n + 8) = (u32)(p + 12);
                     *(u8 **)(n + 4) = D_800E1AB0;

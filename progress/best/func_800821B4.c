@@ -45,58 +45,57 @@ extern s32 D_80115120;
 extern s32 D_80115124;
 
 void func_800821B4(void) {
-    u16 sp16;
-    int sp24;
     s32 sp2C;
+    u16 sp16;
     s32 *var_a0_2;
+    unsigned sp24;
     
     s16 *var_s2;
     s16 temp_s0;
     s16 temp_s0_2;
     s16 temp_s0_3;
     s16 temp_s0_4;
-    s16 var_a0;
+    int var_a0;
     
-    unsigned temp_a2;
-s16 __repair_narrow_temp_a2;
+    s32 temp_a2;
     s32 temp_a3;
     s32 temp_s0_5;
     s32 temp_s0_6;
-    s32 temp_s0_7;
-    s32 temp_s0_8;
-    unsigned temp_t0;
+    register s32 temp_s0_7;
+    unsigned int temp_s0_8;
+    long temp_t0;
     s32 temp_t1;
-    s32 temp_t2;
-    s32 temp_v0;
+    u32 temp_t2;
+    unsigned int temp_v0;
     s32 temp_v0_2;
-    unsigned int var_a1;
-    long var_a1_2;
+    long var_a1;
+    s32 var_a1_2;
     s32 var_s0;
     s32 var_s0_2;
-    s32 var_s0_3;
-    int var_s0_4;
+    register s32 var_s0_3;
+    u32 var_s0_4;
     s32 var_s0_5;
     s32 var_s1;
-    int var_s4;
+    s32 var_s4;
     s32 var_s7;
-    int var_v0;
+    s32 var_v0;
     s32 var_v0_2;
-    long var_v0_3;
-    s8 var_s3_2;
-    s8 var_s6;
-    u16 var_s2_2;
+    s32 var_v0_3;
+    register s32 var_s3_2;
+    s32 var_s6;
+    s32 var_s2_2;
     u16 var_t8;
     u8 temp_fp;
-    u8 temp_v1;
+    register u8 temp_v1;
     void *temp_s1;
     register void *temp_s5;
 
     func_80011950();
     temp_v1 = D_800CEEB0;
-    if (temp_v1 == 1) {
+    if ((s32)temp_v1 == 1) {
         func_80087A80();
     }
-    if ((s32)D_800CEEB0 == 2) {
+    if (D_800CEEB0 == 2) {
         func_80087B04();
     }
     var_s2 = &D_8010D436;
@@ -119,10 +118,10 @@ s16 __repair_narrow_temp_a2;
             var_s0_2 = 0x10000;
         }
         *(&(*(s32 *)0x8011510c) + var_s1) = var_s0_2;
-        *(&D_80115110 + var_s1) = var_s0_2 - *(&D_80115108 + var_s1);
-        __repair_narrow_temp_a2 = (s16)(*(&D_8010D434 + var_s4));
-        temp_v0 = func_800828EC(__repair_narrow_temp_a2 & -(func_800828D8(__repair_narrow_temp_a2) >= 0x21));
-        if (temp_v0 != *(&D_80115120 + var_s1)) {
+        *(&D_80115110 + (int)var_s1) = var_s0_2 - *(&D_80115108 + var_s1);
+        var_s0_2 = (s16)(*(&D_8010D434 + var_s4));
+        temp_v0 = func_800828EC(var_s0_2 & -(func_800828D8((s32)var_s0_2) >= 0x21));
+        if (temp_v0 != *(&D_80115120 + (s32)var_s1)) {
             *(&D_80115120 + var_s1) = temp_v0;
             *(&D_80115118 + var_s1) = temp_v0;
         } else {
@@ -130,10 +129,10 @@ s16 __repair_narrow_temp_a2;
         }
         temp_s0_3 = *var_s2;
         if (temp_s0_3 < 0) {
+            var_v0_2 = -(1 > var_s0_3);
             var_s0_3 = temp_s0_3 + 4;
-            var_v0_2 = -(var_s0_3 < 1);
         } else {
-            register var_s0_3 = temp_s0_3 - 4;
+            var_s0_3 = temp_s0_3 - 4;
             var_v0_2 = (s32) ~var_s0_3 >> 0x1F;
         }
         var_s0_4 = ((var_s0_3 & var_v0_2) << 0x10) / 76;
@@ -144,27 +143,27 @@ s16 __repair_narrow_temp_a2;
         }
         *(&D_80115114 + var_s1) = var_s0_4 - *var_a0_2;
         *var_a0_2 = var_s0_4;
-        temp_s0_4 = *var_s2;
-        temp_v0_2 = func_800828EC(temp_s0_4 & -(func_800828D8(temp_s0_4) >= 0x21));
+        var_s0_4 = (s16)(*var_s2);
+        temp_v0_2 = func_800828EC(var_s0_4 & -(func_800828D8(var_s0_4) >= 0x21));
         var_s2 += 8;
-        if (temp_v0_2 != *(&D_80115124 + (u32)var_s1)) {
+        if (temp_v0_2 != *(&D_80115124 + var_s1)) {
             *(&D_80115124 + var_s1) = temp_v0_2;
             *(&D_8011511C + var_s1) = temp_v0_2;
         } else {
             *(&D_8011511C + var_s1) = 0;
         }
+        var_s4 += 8;
         var_a0_2 += 0xA0;
         var_s1 += 0xA0;
-        var_s4 += 8;
     }
 } while ((s32) var_s2 < (s32) &D_8010D456);
     var_t8 = 4;
-    if (D_80102ED8) {
+    if (D_80102ED8 != 0) {
         var_t8 = D_801002BA;
     }
     sp16 = var_t8;
-    var_s6 = 0;
     if ((var_t8 << 0x10) > 0) {
+        var_s6 = 0;
         var_s7 = 0;
         sp24 = 0;
         
@@ -173,7 +172,7 @@ s16 __repair_narrow_temp_a2;
             temp_s5 = *(&D_8010A500 + sp24);
             temp_fp = *(&D_80115091 + var_s7);
             var_a1 = 1;
-            if (temp_s5 != (short)NULL) {
+            if (temp_s5 != NULL) {
                 var_s3_2 = (*(s8 *)((char *)((*(void **)((char *)(temp_s5) + 0x6C))) + 0x183));
                 var_s2_2 = *(&D_8010D430 + (var_s3_2 * 8));
                 var_a0 = *((var_s3_2 * 2) + &D_800E1A80);
@@ -198,8 +197,8 @@ block_75:
                         }
                         break;
                     case 1:                         /* switch 1 */
-                        if (temp_a2 == 0) {
-                            register var_a0 = 0;
+                        if (!temp_a2) {
+                            var_a0 = 0;
                         } else {
                             D_80112E9C = 1;
                             var_a1 = 0;
@@ -209,7 +208,7 @@ block_75:
                         }
                         break;
                     case 2:                         /* switch 1 */
-                        if (temp_a3 != 0) {
+                        if (temp_a3) {
                             if (temp_a2 != 0) {
                                 D_80112EAC = 1;
                                 var_a0 = 4;
@@ -228,8 +227,8 @@ block_65:
                         }
                         break;
                     case 3:                         /* switch 1 */
-                        if (temp_t0 != 0) {
-                            if (temp_a2 != 0) {
+                        if (temp_t0) {
+                            if ((u32)temp_a2 != 0) {
                                 *(&D_80112EB0 - 0xC) = 1;
                                 var_a0 = 6;
                             } else if (temp_a3 != 0) {
@@ -246,7 +245,7 @@ block_65:
                         }
                         break;
                     case 4:                         /* switch 1 */
-                        if ((u32)temp_a2 == 0) {
+                        if (temp_a2 == 0) {
                             var_a0 = temp_t2 & 0xA;
                         } else {
                             goto block_75;
@@ -275,22 +274,22 @@ block_65:
                         break;
                     }
                     var_v0_3 = var_a0 & 7;
-                } while (var_a1);
+                } while (var_a1 != 0);
                 *((var_s3_2 * 2) + &D_800E1A80) = var_a0;
             } else {
                 var_s3_2 = var_s6;
                 var_s2_2 = *(&D_8010D430 + sp2C);
             }
-            var_s0_5 = var_s6 & 0xFF;
             temp_s1 = var_s7 + &D_80115094;
+            var_s0_5 = var_s6 & 0xFF;
             func_80081D50(&D_800CA278, var_s0_5, var_s2_2, temp_s1);
             if ((temp_s5 != NULL) && (D_801002AE == 0)) {
                 switch (temp_fp) {                  /* switch 2 */
                 case 0:                             /* switch 2 */
                     temp_s0_5 = var_s3_2 & 0xFF;
                     var_a0_2 = &D_800C9F90;
+                    var_a1_2 = (s32)temp_s0_5;
                     func_80081D50(&D_800C9D70, temp_s0_5, var_s2_2, temp_s1);
-                    var_a1_2 = temp_s0_5;
                     break;
                 case 1:                             /* switch 2 */
                     temp_s0_6 = var_s3_2 & 0xFF;
@@ -312,13 +311,14 @@ block_91:
                     goto block_91;
                 case 4:                             /* switch 2 */
                     temp_s0_7 = var_s3_2 & 0xFF;
+                    var_a1_2 = temp_s0_7;
                     func_80081D50(&D_800C9E80, temp_s0_7, var_s2_2, temp_s1);
                     var_a0_2 = &D_800C9F90;
-                    var_a1_2 = temp_s0_7;
                     break;
                 case 5:                             /* switch 2 */
-                    temp_s0_8 = var_s3_2 & 0xFF;
                     func_80081D50(&D_800C9F08, temp_s0_8, var_s2_2, temp_s1);
+                    var_a1_2 = var_s3_2 & 0xFF;
+    temp_s0_8 = var_a1_2;
                     var_a0_2 = &D_800C9F90;
                     var_a1_2 = temp_s0_8;
                     break;

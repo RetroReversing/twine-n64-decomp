@@ -3,57 +3,60 @@
 s32 func_8000B900();
 typedef struct { u32 f0; u8 pad[4]; } Slot_800C3924;
 extern Slot_800C3924 D_800C3924[];
-extern u8 D_800C3928[];
+typedef struct { u16 f0; u8 pad[6]; } Slot_800C3928;
+extern Slot_800C3928 D_800C3928[];
 extern s16 D_800D94F8;
 extern s16 D_800D94FA;
 extern char D_800D9500[];
-extern s8 D_800D9510[];
+extern u8 D_800D9510[];
 extern char D_F8D70[];
 
-void *func_80001928(s16 arg0) {
+void *func_80001928(s32 arg0) {
+    u8 *__base_D_800D9510;
 char * __repair_loop_constant;
 
 int __repair_constant = 7;
 
-    register s16 var_s4;
-    s16 temp_a3;
     char *var_v1;
+    s32 temp_a3;
+    s32 var_s4;
     
-    int temp_s0;
-    unsigned temp_s1;
-    u32 temp_v0;
+    u32 temp_s0;
+    int temp_s1;
+    s32 temp_v0;
     void *temp_s2;
-    void *var_a0;
+    register void *var_a0;
 
     __repair_loop_constant = D_800D9500;
 var_s4 = D_800D94FA;
     temp_a3 = var_s4;
-    var_a0 = (var_s4 * 0x640) + D_800D9510;
+    __base_D_800D9510 = D_800D9510;
+    var_a0 = (var_s4 * 0x640) + __base_D_800D9510;
     var_v1 = (var_s4 * 2) + D_800D9500;
 loop_1:
     if (*(s16 *)var_v1 != arg0) {
         var_s4--;
-        var_a0 -= (s32)0x640;
         var_v1 -= 2;
+        var_a0 -= 0x640;
         if (0 > var_s4) {
-            register var_a0 = D_800D9510 + 0x2BC0;
+            var_a0 = __base_D_800D9510 + 0x2BC0;
             var_v1 = __repair_loop_constant + 0xE;
             var_s4 = 7;
         }
         temp_v0 = arg0 * 8;
-        if (var_s4 == (unsigned)temp_a3) {
-            register var_s4 = D_800D94F8 - 1;
+        if (var_s4 == temp_a3) {
+            var_s4 = D_800D94F8 - 1;
             if (var_s4 < 0) {
                 var_s4 = __repair_constant;
             }
             temp_s0 = var_s4 * 0x640;
-            temp_s2 = temp_s0 + D_800D9510;
-            temp_s1 = *(D_800C3928 + temp_v0) << 5;
+            temp_s2 = temp_s0 + __base_D_800D9510;
+            temp_s1 = D_800C3928[arg0].f0 << 5;
             D_800D94F8 = var_s4;
-            func_8000B900(temp_s2, D_800C3924[arg0].f0 + D_F8D70);
+            func_8000B900(arg0, temp_s2, D_800C3924[arg0].f0 + D_F8D70);
+            *(__base_D_800D9510 + (temp_s1 + temp_s0)) = -1;
             D_800D94FA = var_s4;
-            *(s16 *)(D_800D9500 + (var_s4 * 2)) = (unsigned)arg0;
-            *(D_800D9510 + (temp_s1 + temp_s0)) = -1;
+            *(s16 *)(D_800D9500 + (var_s4 * 2)) = arg0;
             return temp_s2;
         }
         goto loop_1;

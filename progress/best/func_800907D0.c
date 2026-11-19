@@ -6,38 +6,39 @@ extern void *D_800EDA8C;
 extern s32 D_801002D8;
 extern s32 D_8010A514;
 
-typedef struct { unsigned char pad[292]; int value; } __repair_field_124;
+typedef struct { u32 time; s32 value; } Ev;
 void func_800907D0(s32 arg0) {
-    unsigned long temp_a0;
-    union { u32 * pointer; u32 value; } __repair_phase_storage;
-    register u32 *temp_a1;
-    u32 *temp_a1_2;
-    
-    register u32 temp_v0;
+char *__repair_addr;
 
-    temp_a1 = (*(s32 **)((char *)(D_800EDA8C) + 0xF68));
-    if (temp_a1 != NULL) {
-        (*(s32 **)((char *)(D_800EDA8C) + 0xF6C)) = temp_a1;
-        (*(s32 *)((char *)(D_800EDA8C) + 0xF74)) = arg0;
-        (*(s32 *)((char *)(D_800EDA8C) + 0xF70)) = 0;
-        if (((*(s32 **)((char *)(D_800EDA8C) + 0xF68)) != NULL) && (*(*(s32 **)((char *)(D_800EDA8C) + 0xF6C)) != -1)) {
+    long temp_a0;
+    Ev *p;
+    u32 v;
+    unsigned hi;
+
+    p = (*(Ev * *)((char *)D_800EDA8C + 0xF68));
+    if (p != NULL) {
+        (*(Ev * *)((char *)D_800EDA8C + 0xF6C)) = p;
+        (*(s32 *)((char *)D_800EDA8C + 0xF74)) = arg0;
+        (*(s32 *)((char *)D_800EDA8C + 0xF70)) = 0;
+        if (((*(Ev * *)((char *)D_800EDA8C + 0xF68)) != (s32)NULL) && ((*(Ev * *)((char *)D_800EDA8C + 0xF6C))->time != -1)) {
+__repair_addr = (char *)((char *)D_800EDA8C + 0xF74);
+
 loop_4:
-            temp_a1_2 = (*(s32 **)((char *)(D_800EDA8C) + 0xF6C));
-            if ((u32) ((*(s32 *)((char *)(D_800EDA8C) + 0xF74)) + (*(s32 *)((char *)(D_800EDA8C) + 0x120))) >= (u32) (*(u32 *)((char *)(temp_a1_2) + 0))) {
-                register temp_a0 = (*(s32 *)((char *)(temp_a1_2) + 4));
-                ((__repair_field_124 *)D_800EDA8C)->value = temp_a0;
-                __repair_phase_storage.pointer = (*(u32 **)((char *)(D_800EDA8C) + 0xF6C));
+            if ((u32) ((*(s32 *)(__repair_addr)) + (*(s32 *)((char *)D_800EDA8C + 0x120))) >= (*(Ev * *)((char *)D_800EDA8C + 0xF6C))->time) {
+                temp_a0 = (*(Ev * *)((char *)D_800EDA8C + 0xF6C))->value;
+                (*(u32 *)((char *)D_800EDA8C + 0x124)) = temp_a0;
                 func_8008CDC0(temp_a0, D_800EDA87, D_800EDA8C);
-                (*(u32 **)((char *)(D_800EDA8C) + 0xF6C)) = (u32 *) (__repair_phase_storage.pointer + 8);
-                if ((*(s32 *)((char *)(__repair_phase_storage.pointer) + 8)) != -1) {
+                p = (*(Ev * *)((char *)D_800EDA8C + 0xF6C));
+                (*(Ev * *)((char *)D_800EDA8C + 0xF6C)) = p + 1;
+                if (p[1].time != -1) {
                     goto loop_4;
                 }
             }
         }
-        __repair_phase_storage.value = ((u32) (((((__repair_field_124 *)D_800EDA8C)->value * (unsigned)0xC00) / 60) * ((s32) (D_801002D8 << 0x10) / D_8010A514)) >> 3) * (*(u16 *)((char *)(D_800EDA8C) + 0xFC2));
-        temp_v0 = __repair_phase_storage.value >> 0x18;
-        (*(s32 *)((char *)(D_800EDA8C) + 0x118)) = (s32) ((__repair_phase_storage.value >> 8) & 0xFFFF);
-        (*(s32 *)((char *)(D_800EDA8C) + 0x120)) = (s32) ((s32) temp_v0 >> 1);
-        (*(u32 *)((char *)(D_800EDA8C) + 0x11C)) = (int)temp_v0;
+        v = ((u32) ((((*(u32 *)((char *)D_800EDA8C + 0x124)) * 0xC00) / 60) * ((s32) (D_801002D8 << 0x10) / (s32)D_8010A514)) >> 3) * (*(u16 *)((char *)D_800EDA8C + 0xFC2));
+        hi = v >> 0x18;
+        (*(s32 *)((char *)D_800EDA8C + 0x118)) = (s32) ((v >> 8) & 0xFFFF);
+        (*(u32 *)((char *)D_800EDA8C + 0x11C)) = (u32)hi;
+        (*(s32 *)((char *)D_800EDA8C + 0x120)) = (s32) hi >> 1;
     }
 }

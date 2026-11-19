@@ -52,7 +52,7 @@ extern s32 D_8010D538;
 extern s32 D_80112E40;
 extern M2C_UNK D_80112F90;
 extern void *D_80115328;
-extern void *D_80117728;
+extern void *volatile D_80117728;
 
 void func_800358D4(void *arg0) {
     union {
@@ -231,7 +231,7 @@ loop_24:
                             }
 block_35:
                             if (var_fs1 < 127.0f) {
-                                temp_fs0 = *((M2C_UNK *)((s8 *)&D_800C0698 + var_s4));
+                                temp_fs0 = *((f32 *)((s8 *)&D_800C0698 + var_s4));
                                 if ((u32) D_80107EA0 < (u32) D_800B1D84) {
                                     temp_v0_3 = D_80107EA0 + 1;
                                     D_80107EA0 = temp_v0_3;
@@ -253,7 +253,7 @@ block_35:
                                     } else {
                                         var_v0 = ((s32) (0.0f - 2.1474836e9f) | 0x80000000) & 0xFF;
                                     }
-                                    M2C_FIELD(temp_a1_2, s32 *, 4) = (s32) ((*((M2C_UNK *)((s8 *)&D_800C06D0 + var_s1)) << 0x18) | (*((M2C_UNK *)((s8 *)&D_800C06DC + var_s1)) << 0x10) | (*((M2C_UNK *)((s8 *)&D_800C06E8 + var_s1)) << 8) | var_v0);
+                                    M2C_FIELD(temp_a1_2, s32 *, 4) = (s32) ((*((u8 *)((s8 *)&D_800C06D0 + var_s1)) << 0x18) | (*((M2C_UNK *)((s8 *)&D_800C06DC + var_s1)) << 0x10) | (*((M2C_UNK *)((s8 *)&D_800C06E8 + var_s1)) << 8) | var_v0);
                                     temp_a0 = M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], s32 **, 0x10);
                                     if ((*temp_a0 != 0) || (func_80043FA0(temp_a0, temp_a1_2), (*M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], s32 **, 0x10) != 0))) {
                                         temp_v1_5 = M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], void **, 0x10);

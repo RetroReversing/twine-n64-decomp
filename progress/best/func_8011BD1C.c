@@ -28,18 +28,16 @@ extern M2C_UNK D_8011F290;
 extern M2C_UNK D_8011F2B0;
 
 void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
-unsigned int __repair_literal;
-
+    u8 *__base_D_801002A0;
     M2C_UNK var_a1;
     s32 temp_s0;
     s32 temp_s0_2;
     s32 temp_s0_3;
     s32 temp_v0_2;
     void *temp_v0;
-__repair_literal = 2U;
 
-
-    if ((u32) (D_801002A0 - 2) < __repair_literal) {
+    __base_D_801002A0 = &D_801002A0;
+    if ((u32) ((*__base_D_801002A0) - 2) < 2U) {
         temp_v0 = func_80016410(0, arg0, arg1, arg1);
         temp_s0 = arg2;
         if (temp_v0 != NULL) {
@@ -47,12 +45,12 @@ __repair_literal = 2U;
             *(&D_8011F160 + temp_v0_2) = temp_v0 + 0x24;
             *(&D_8011F278 + temp_v0_2) = 0;
             *(&D_8011F290 + temp_v0_2) = 0;
-            M2C_FIELD(temp_v0, s16 *, 0x78) = 0x42;
-            M2C_FIELD(temp_v0, s16 *, 0x7A) = arg2;
+            M2C_FIELD(temp_v0, u16 *, 0x78) = 0x42;
+            M2C_FIELD(temp_v0, u16 *, 0x7A) = arg2;
             M2C_FIELD(temp_v0, f32 *, 0x54) = 1.0f;
             M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) & ~0x200);
             M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 1);
-            if (D_801002A0 == 2) {
+            if ((*__base_D_801002A0) == 2) {
                 *(&D_8011ED08 + temp_s0 * 0x9) = 0xC;
                 if (temp_s0 == 0) {
                     var_a1 = 7;
@@ -65,11 +63,11 @@ __repair_literal = 2U;
                 *(&D_8011ED08 + temp_s0 * 0x9) = 0x14;
                 func_80044670(temp_v0, 1, 0xF4);
                 if (temp_s0 == 0) {
-                    M2C_FIELD(temp_v0, s8 *, 0x81) = 0xB4;
+                    M2C_FIELD(temp_v0, u8 *, 0x81) = 0xB4;
                 } else {
-                    M2C_FIELD(temp_v0, s8 *, 0x7F) = 0xB4;
+                    M2C_FIELD(temp_v0, u8 *, 0x7F) = 0xB4;
                 }
-                M2C_FIELD(temp_v0, s8 *, 0x80) = 0xB4;
+                M2C_FIELD(temp_v0, u8 *, 0x80) = 0xB4;
                 M2C_FIELD(temp_v0, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) + 0.76f);
                 M2C_FIELD(temp_v0, f32 *, 0x34) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x34) + 0.76f);
             }

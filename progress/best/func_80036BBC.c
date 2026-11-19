@@ -96,7 +96,11 @@ void func_80036BBC(void *arg0) {
     if (var_s2 != NULL) {
 loop_12:
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
-        func_80034630(var_s2, arg0);
+        /*__repair_pointer_balance*/if ((unsigned long)__base_D_800B1D20 & 0x100) {
+func_80034630(var_s2, arg0);
+} else {
+func_80034630(var_s2, arg0);
+}
         func_8003438C(var_s2, arg0);
         if (var_s0 != NULL) {
 loop_13:
@@ -159,7 +163,8 @@ case 1:                 /* switch 1 */
                                 D_80115328 = var_v0 + 8;
                                 var_v1_2 = __base_D_800B1D20;
                                 ((__repair_field_0 *)var_v0)->value = 0xDE000000;
-                                goto block_41;
+                                (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
+                                break;
                             case 0: break;
     /* switch 1; irregular */
                             case 2:                 /* switch 1 */
@@ -167,7 +172,6 @@ case 1:                 /* switch 1 */
                                 var_v0 = D_80115328;
                                 var_v1_2 = &D_800B1D48;
                                 ((__repair_field_0 *)var_v0)->value = 0xDE000000;
-block_41:
                                 (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
                                 break;
                             }

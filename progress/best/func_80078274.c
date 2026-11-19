@@ -28,23 +28,25 @@ char *__repair_addr;
     var_s0 = *M2C_FIELD(arg0, void ***, 0x20);
     temp_s2 = M2C_FIELD(arg0, void **, 0x6C);
     if (var_s0 != NULL) {
-loop_2:
-        temp_v1 = M2C_FIELD(var_s0, u16 *, 0x78);
-__repair_addr = (char *)(M2C_FIELD(var_s0, void **, 0x6C));
+        for (;;) {
+            temp_v1 = M2C_FIELD(var_s0, u16 *, 0x78);
+            __repair_addr = (char *)(M2C_FIELD(var_s0, void **, 0x6C));
 
-        if (((s32) temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E) && ((func_8007C094(arg0, var_s0 + 0x24) << 0x18) != 0) && (*(D_80109A60 + M2C_FIELD(__repair_addr, u16 *, 0x34)) == 0)) {
-            M2C_FIELD(var_s0, s32 *, 0x60) |= 0x800;
-            func_80002BD0(arg0, func_80045CF8(2) + 0x2F1);
-            M2C_FIELD(temp_s2, s32 *, 0x88) &= 0xFDFFFFFF;
-            func_80077960(arg0, 0x87);
-            return 1;
+                    if (((s32) temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E) && ((func_8007C094(arg0, var_s0 + 0x24) << 0x18) != 0) && (*(D_80109A60 + M2C_FIELD(__repair_addr, u16 *, 0x34)) == 0)) {
+                        M2C_FIELD(var_s0, s32 *, 0x60) |= 0x800;
+                        func_80002BD0(arg0, func_80045CF8(2) + 0x2F1);
+                        M2C_FIELD(temp_s2, s32 *, 0x88) &= 0xFDFFFFFF;
+                        func_80077960(arg0, 0x87);
+                        return 1;
+                    }
+                    var_s0 = M2C_FIELD(var_s0, void **, 0);
+                    if (var_s0 == NULL) {
+                        /* Duplicate return node #8. Try simplifying control flow for better match */
+                        return 0;
+                    }
+                    continue;
+            break;
         }
-        var_s0 = M2C_FIELD(var_s0, void **, 0);
-        if (var_s0 == NULL) {
-            /* Duplicate return node #8. Try simplifying control flow for better match */
-            return 0;
-        }
-        goto loop_2;
     }
     return 0;
 }

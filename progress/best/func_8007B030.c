@@ -55,7 +55,8 @@ void func_8007B030(void *arg0) {
         case 1:
             var_a1 = &D_800C9CB8;
             var_a2 = 2;
-            goto block_47;
+            {
+    func_8007AEA4(arg0, var_a1, var_a2);return;}
         case 0:
             var_a1 = &D_800C9CC8;
             var_a2 = 4;
@@ -77,7 +78,8 @@ void func_8007B030(void *arg0) {
     if (v == 0x1E) goto blkY;
 blkX:
     if (*(u8 *)((s8 *)&D_800C470A + (*(s8 *)((s8 *)*(void **)((s8 *)arg0 + 0x68) + 0xE) * 0xE8)) == 5) {
-        goto block_36;
+        {
+    func_8007AFB0(arg0);return;}
     }
     switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
     case 1:
@@ -105,12 +107,12 @@ blkX:
         }
         goto block_47;
     case 10:
-        if (var_s2 != 0) {
-            var_a1 = &D_800C9C94;
-            var_a2 = 2;
-        } else {
+        if (var_s2 == 0) {
             var_a1 = &D_800C9C70;
             var_a2 = 9;
+        } else {
+            var_a1 = &D_800C9C94;
+            var_a2 = 2;
         }
         goto block_47;
     case 2:
@@ -126,7 +128,8 @@ blkX:
     return;
 blkY:
     if (*(u8 *)((s8 *)&D_800C470A + (*(s8 *)((s8 *)*(void **)((s8 *)arg0 + 0x68) + 0xE) * 0xE8)) == 5) {
-        goto block_36;
+        {
+    func_8007AFB0(arg0);return;}
     }
     switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
     case 1:

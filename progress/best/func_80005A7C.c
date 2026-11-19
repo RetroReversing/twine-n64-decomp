@@ -17,15 +17,15 @@ M2C_UNK func_80005A18(s32, s32, f32 *, M2C_UNK);    /* extern */
 
 void func_80005A7C(s32 arg0, void *arg1) {
     union {
-        unsigned char bytes[648];
-        struct { unsigned char pad[16]; f32 value; } view_sp10;
-        struct { unsigned char pad[20]; f32 value; } view_sp14;
-        struct { unsigned char pad[24]; f32 value; } view_sp18;
+        unsigned char bytes[592];
+        struct { f32 value; } view_sp10;
+        struct { unsigned char pad[4]; f32 value; } view_sp14;
+        struct { unsigned char pad[8]; f32 value; } view_sp18;
     } m2c_initial_frame;
 
              
 
-    func_80005A18(arg0, *func_8000182C() - 1, &m2c_initial_frame.view_sp10.value, 1);
+    func_80005A18(arg0, *func_8000182C(arg0) - 1, &m2c_initial_frame.view_sp10.value, 1);
     func_80005A18(arg0, 0, &m2c_initial_frame.view_sp10.value, 1);
     M2C_FIELD(arg1, f32 *, 0) = (f32) (m2c_initial_frame.view_sp10.value - m2c_initial_frame.view_sp10.value);
     M2C_FIELD(arg1, f32 *, 4) = (f32) (m2c_initial_frame.view_sp14.value - m2c_initial_frame.view_sp14.value);

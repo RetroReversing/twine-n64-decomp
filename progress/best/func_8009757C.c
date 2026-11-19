@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -20,7 +19,10 @@ extern char D_800F3954[];
 extern char D_800F3958[];
 extern char D_800F395C[];
 
+typedef struct { s32 w[2]; } __repair_words2;
 s32 func_8009757C(u16 arg0, s32 arg1) {
+int __repair_literal;
+
     s32 temp_a0;
     s32 temp_s0;
     s32 temp_v0;
@@ -36,7 +38,9 @@ s32 func_8009757C(u16 arg0, s32 arg1) {
     func_8008C0D4();
     temp_a0 = D_800F3950;
     var_t1 = 0;
-    if (__repair_inline(temp_a0, 0)) {
+__repair_literal = 0;
+
+    if (temp_a0 > __repair_literal) {
         temp_a1 = arg0;
         var_v1 = 0;
 loop_2:
@@ -46,7 +50,8 @@ loop_2:
             if (var_t1 < temp_a0) {
                 goto loop_2;
             }
-        }{ s32 __repair_value; __repair_value = var_t1 * 8; temp_s0 = __repair_value; }
+        }
+        temp_s0 = var_t1 * 8;
         if (var_t1 < D_800F3950) {
             if (*(u16 *)(D_800F3958 + temp_s0) != temp_a1) {
                 var_a3 = D_800F3950 - 1;
@@ -55,14 +60,12 @@ loop_2:
                     if (var_a3 >= var_t1) {
                         var_t0 = temp_v1 + D_800F395C;
                         var_a2 = temp_v1 + (D_800F395C - 8);
-                        __repair_rows: {
-                            M2C_FIELD(var_t0, s32 *, 0) = (s32) M2C_FIELD(var_a2, s32 *, 0);
-                            M2C_FIELD(var_t0, s32 *, 4) = (s32) M2C_FIELD(var_a2, s32 *, 4);
+                        do {
+                            M2C_FIELD(var_t0, __repair_words2 *, 0x0) = *(__repair_words2 *) ((s8 *) var_a2 + 0x0);
                             var_t0 -= 8;
                             var_a3 -= 1;
                             var_a2 -= 8;
-                        }
-if (var_a3 >= var_t1) goto __repair_rows;
+                        } while (var_a3 >= var_t1);
                     }
                     var_v0 = D_800F3950 + 1;
                     goto block_15;
@@ -76,7 +79,7 @@ if (var_a3 >= var_t1) goto __repair_rows;
         goto block_13;
     }
 block_13:
-    var_v0 = D_800F3950 + 1;
+    var_v0 = D_800F3950; var_v0 += 1;
     if (D_800F3950 >= 0x800) {
 block_14:
         func_8008C11C(temp_a0);

@@ -22,27 +22,27 @@ int __repair_literal;
     char *var_a1;
     u16 temp_v0;
     int var_a0;
-    register u32 var_s1;
-    s32 var_v0;
-    unsigned long temp_v0_2;
+    unsigned var_s1;
+    register long var_v0;
+    int temp_v0_2;
     u8 temp_v0_3;
 
-    temp_v0 = (-(D_8010086C != 0) & 0x18) | 0x10;
+    temp_v0 = (-((u32)D_8010086C != 0) & 0x18) | 0x10;
     D_800E41DA = temp_v0;
     if ((u32) D_800E41D4 < 0x5623U) {
         D_800E41DA = (u16) (temp_v0 >> 1);
     }
+    (*(&D_800E4170)) = D_8010017C(D_800E41DA * 0x300, 0x80);
     var_a0 = 1;
     var_v1 = __base_D_800E4170;
     __base_D_800E4170 = &D_800E4170;
-    (*(&D_800E4170)) = D_8010017C(D_800E41DA * 0x300, 0x80);
 __repair_literal = 1;
 
     if ((s32) D_800E41DA > __repair_literal) {
         var_a1 = (void *)(__base_D_800E4170); var_a1 = (void *)((char *)var_a1 + (s32)(4));
         do {
             temp_v0_2 = *(s32 *)var_v1;
-            var_v1 += 4;/*__repair_loop_weight*/do {
+            var_v1 += 4;/*(unsigned)__repair_loop_weight*/do {
             var_a0 += 1;} while (0);
             *(s32 *)var_a1 = temp_v0_2 + 0x300;
             var_a1 += 4;
@@ -55,15 +55,15 @@ __repair_literal = 1;
     func_800A00D0((*__base_D_800E4170));
     do {
         osRecvMesg(D_800E4144, &sp10, 1);
-        var_v0 = var_s1 & 0xFF;
+        var_v0 = (unsigned)var_s1 & 0xFF;
         if (D_800E41D8 == 0) {
             temp_v0_3 = *sp10;
             switch (temp_v0_3) {                    /* irregular */
             default:
-                var_v0 = var_s1 & 0xFF;
+                var_v0 = (int)var_s1 & 0xFF;
                 break;
             case 0x1:
-                D_800E41D0 = (u8) ((s32) (D_800E41D0 + 1) % D_800E41DA);
+                D_800E41D0 = (u8) ((s32) ((int)D_800E41D0 + 1) % D_800E41DA);
                 do { func_800A00D0((__base_D_800E4170)[D_800E41D0], 0x300); } while (0);
                 var_v0 = var_s1 & 0xFF;
                 break;

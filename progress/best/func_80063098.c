@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
-f32 func_80045D2C(M2C_UNK);                         /* extern */
+f32 func_80045D2C(f32);                         /* extern */
 M2C_UNK func_80047B14(void *, f32, void *);     /* extern */
 
 void func_80063098(void *arg0) {
@@ -25,9 +25,9 @@ void func_80063098(void *arg0) {
 
     __repair_phase_storage.pointer = M2C_FIELD(arg0, void **, 0x6C);
     M2C_FIELD(arg0, f32 *, 0x54) = (f32) (M2C_FIELD(arg0, f32 *, 0x54) + M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x14));
-    temp_fs0 = func_80045D2C(0x42000000);
+    temp_fs0 = func_80045D2C(32.0f);
     temp_a1 = arg0 + 0x24;
-    M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - func_80045D2C(0x41800000)));
+    M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - func_80045D2C(16.0f)));
     func_800452AC(__repair_phase_storage.pointer, temp_a1, temp_a1);
     M2C_FIELD(__repair_phase_storage.pointer, f32 *, 4) = (f32) (M2C_FIELD(__repair_phase_storage.pointer, f32 *, 4) - 0.0025520835f);
     temp_s1 = M2C_FIELD(arg0, u8 *, 0x82);

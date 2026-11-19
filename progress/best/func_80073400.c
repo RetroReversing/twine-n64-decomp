@@ -16,6 +16,8 @@ extern f32 D_8010D370;
 extern s32 D_8010D450;
 
 void func_80073400(void) {
+    f32 __repair_fzero = 0.0f;
+
 int __repair_constant;
 
     (*(s8 *)((char *)(&D_801007CF) + -1)) = 0;
@@ -29,16 +31,16 @@ __repair_constant = 0xFF;
     (*(s8 *)((char *)(&D_801007CF) + 3)) = __repair_constant;
     (*(s8 *)((char *)(&D_801007CF) + 5)) = __repair_constant;
     D_80100774 = 0xEB;
-    D_80100776 = 0x78;
-    D_80100778 = 0x30;
-    D_80100779 = 0x9B;
-    D_8010077A = 0x28;
-    D_80100775 = 0;
-    D_80100777 = 0;
-    D_8010077B = 0xCD;
-    D_8010077C = __repair_constant;
+    (*(u8 *)&D_80100776) = 0x78;
+    (*(u8 *)&D_80100778) = 0x30;
+    (*(u8 *)&D_80100779) = 0x9B;
+    (*(u8 *)&D_8010077A) = 0x28;
+    (*(u8 *)&D_80100775) = 0;
+    (*(u8 *)&D_80100777) = 0;
+    (*(u8 *)&D_8010077B) = 0xCD;
+    (*(u8 *)&D_8010077C) = __repair_constant;
     D_8010D450 = 0;
     D_801003D8 = 0;
-    D_80109CC0 = 0.0f;
-    D_8010D370 = 0.0f;
+    D_80109CC0 = __repair_fzero;
+    D_8010D370 = __repair_fzero;
 }

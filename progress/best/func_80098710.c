@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern s32 D_800FD970;
-extern M2C_UNK *D_800FD974;
-extern M2C_UNK D_800FD978;
+extern s32 *D_800FD974;
+extern char D_800FD978[];
 extern s32 D_800FDB74;
-extern M2C_UNK *D_800FDB78;
+extern s32 *D_800FDB78;
 
 void func_80098710(void) {
-    M2C_UNK *var_a1;
-    M2C_UNK *var_v1;
+    s32 *var_a1;
+    s32 *var_v1;
     s32 var_a0;
 
     var_v1 = NULL;
@@ -29,15 +29,14 @@ void func_80098710(void) {
     D_800FD970 = 0;
     D_800FDB74 = 0;
     D_800FDB78 = &D_800FD974;
-    __repair_rows: {
-        *(&D_800FD978 + var_a0) = var_v1;
+    do {
+        *(s32 *)(D_800FD978 + var_a0) = var_v1;
         if (var_v1 != NULL) {
             *var_v1 = var_a1;
         }
         var_v1 = var_a1;
         var_a0 += 0x10;
-        var_a1 = var_v1 + 0x10;
-    }
-if (var_a0 < 0x200) goto __repair_rows;
+        var_a1 = (s8 *) var_v1 + 0x10;
+    } while (var_a0 < 0x200);
     *var_v1 = NULL;
 }

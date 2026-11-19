@@ -17,8 +17,8 @@ M2C_UNK func_800055CC(M2C_UNK *, M2C_UNK, s32, M2C_UNK); /* extern */
 M2C_UNK func_80005D04(s32, M2C_UNK *, M2C_UNK *, f32); /* extern */
 
 void func_80005B90(s32 arg0, M2C_UNK arg1, f32 arg2, M2C_UNK arg3) {
-    M2C_UNK sp10;
-    M2C_UNK sp638;
+    u8 sp10[0x628];
+    u8 sp638[0x628];
     f32 temp_fs0;
     s32 temp_fv0;
     s32 temp_v1;
@@ -31,7 +31,7 @@ void func_80005B90(s32 arg0, M2C_UNK arg1, f32 arg2, M2C_UNK arg3) {
     if (temp_v1 < var_s1) {
         var_s1 = temp_v1;
     }
-    func_800055CC(&sp10, arg1, temp_fv0, arg3);
-    do { func_800055CC(&sp638, arg1, var_s1, arg3); } while (0);
-    func_80005D04(arg0, &sp10, &sp638, temp_fs0 - (f32) temp_fv0);
+    func_800055CC(sp10, arg1, temp_fv0, arg3);
+    do { func_800055CC(sp638, arg1, var_s1, arg3); } while (0);
+    func_80005D04(arg0, sp10, sp638, temp_fs0 - (f32) temp_fv0);
 }

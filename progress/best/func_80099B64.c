@@ -16,6 +16,7 @@ extern char D_801007D9[];
 extern char D_80100C7C[];
 
 void func_80099B64(void *arg0) {
+    char *__base_D_801007D9;
     s32 temp_v1;
     u8 temp_a2;
     u8 temp_v0;
@@ -27,6 +28,7 @@ void func_80099B64(void *arg0) {
             *(D_80100C7C + (temp_v1 & 0xFF)) = (s8) temp_v1;
             return;
         }
-        *((temp_v0 * 0x10) + D_801007D9 + temp_a2) = (s8) temp_v1;
+        __base_D_801007D9 = D_801007D9;
+        *((temp_v0 * 0x10) + __base_D_801007D9 + temp_a2) = (s8) temp_v1;
     }
 }

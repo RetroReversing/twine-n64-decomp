@@ -27,18 +27,20 @@ void func_800928F4(u16 *arg0, void *arg1) {
             var_a1 = arg1 + M2C_FIELD(arg1, s32 *, 0xC);
             var_v0 = NULL;
             if (*var_a1 != -1) {
-loop_4:
-                var_v0 = var_a1;
-                if (M2C_FIELD(var_a1, u16 *, 4) != (var_a0 & 0xFFFF)) {
-                    var_a1 += M2C_FIELD(var_a1, s32 *, 0);
-                    var_v0 = NULL;
-                    if (*var_a1 != -1) {
-                        goto loop_4;
+                for (;;) {
+                    var_v0 = var_a1;
+                    if (M2C_FIELD(var_a1, u16 *, 4) != (var_a0 & 0xFFFF)) {
+                        var_a1 += M2C_FIELD(var_a1, s32 *, 0);
+                        var_v0 = NULL;
+                        if (*var_a1 != -1) {
+                            continue;
+                        }
                     }
+                    break;
                 }
             }
             if (var_v0 != NULL) {
-                func_800972A4(*(u16 *)var_s0, var_v0 + 0xC, M2C_FIELD(var_v0, u16 *, 0xA));
+                func_800972A4(*(u16 *)var_s0, (s8 *) var_v0 + 0xC, M2C_FIELD(var_v0, u16 *, 0xA));
             }
             var_s0 += 2;
             var_a0 = *(u16 *)var_s0;

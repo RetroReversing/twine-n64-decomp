@@ -30,6 +30,7 @@ extern char D_8011F288[];
 extern char D_8011F298[];
 extern char D_8011F2B0[];
 
+typedef struct { s32 w[3]; } __repair_words3;
 void func_8011BF0C(void *arg0) {
     s32 var_a2;
     s32 temp_a0;
@@ -56,8 +57,8 @@ void func_8011BF0C(void *arg0) {
 
     if ((D_801002A0 != 3) || (*(D_8011F168 + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
         temp_s4 = M2C_FIELD(arg0, u8 *, 0x7B) ^ 1;
-        temp_s0 = temp_s4 & 0xFF;do{
-        temp_s1 = temp_s0 * 4;}while(0);
+        temp_s0 = temp_s4 & 0xFF;
+        temp_s1 = temp_s0 * 4;
         temp_a0 = *(s32 *)(D_8011F2B0 + temp_s1);
         if ((temp_a0 != 0) && (func_80045E34(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
             if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
@@ -78,17 +79,15 @@ void func_8011BF0C(void *arg0) {
             temp_a0_3 = temp_s0_2 + D_8011F2B0;
             temp_a2 = *temp_a0_3;
             temp_v0_2 = (temp_v1 * 0xC) + D_8011F298;
-            M2C_FIELD(temp_a2, s32 *, 0x24) = (s32) M2C_FIELD(temp_v0_2, s32 *, 0);
-            M2C_FIELD(temp_a2, s32 *, 0x28) = (s32) M2C_FIELD(temp_v0_2, s32 *, 4);
-            M2C_FIELD(temp_a2, s32 *, 0x2C) = (s32) M2C_FIELD(temp_v0_2, s32 *, 8);
+            M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
             temp_v1_2 = *temp_a0_3;
-            temp_a1 = M2C_FIELD(temp_v0_2, s32 *, 0);
+            temp_s0 = M2C_FIELD(temp_v0_2, s32 *, 0);
             temp_a2_2 = M2C_FIELD(temp_v0_2, s32 *, 4);
             temp_a3 = M2C_FIELD(temp_v0_2, s32 *, 8);
-            M2C_FIELD(temp_v1_2, s32 *, 0x30) = temp_a1;
+            M2C_FIELD(temp_v1_2, s32 *, 0x30) = temp_s0;
             M2C_FIELD(temp_v1_2, s32 *, 0x34) = temp_a2_2;
             M2C_FIELD(temp_v1_2, s32 *, 0x38) = temp_a3;
-            func_800643C8(*temp_a0_3, temp_a1, temp_a2_2, temp_a3);
+            func_800643C8(*temp_a0_3);
             temp_v0_3 = *(s32 *)(D_8011F280 + temp_s0_2);
             if (temp_v0_3 != NULL) {
                 temp_v0_4 = M2C_FIELD(temp_v0_3, void **, 0x6C);

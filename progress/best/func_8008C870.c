@@ -9,6 +9,7 @@ extern f64 D_800D67E0;
 extern f64 D_800D67E8;
 
 void func_8008C870(s16 *arg0, s16 *arg1, u32 arg2, u32 arg3, u32 arg4, s16 *arg5, u32 arg6, s16 *arg7) {
+    u8 __repair_frame[24];
     u32 a2 = arg2;
     u32 t3 = arg6;
     if (a2 > 0x7F0000U) a2 = 0x7F0000;
