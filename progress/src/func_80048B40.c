@@ -17,25 +17,21 @@ s32 func_80048B40(void *arg0, void *arg1, void *arg2) {
     f32 temp_fv1_2;
     f32 temp_fv1_3;
     f32 temp_fv1_4;
-    f32 temp_fv1_5;
-    f32 temp_fv1_6;
     s32 var_v0;
 
     var_v0 = 0;
     if ((arg0 != NULL) && ((temp_fv1 = M2C_FIELD(arg0, f32 *, 0) - 0.040000003f, !(M2C_FIELD(arg1, f32 *, 0) < temp_fv1)) || !(M2C_FIELD(arg2, f32 *, 0) < temp_fv1))) {
         temp_fv1_2 = M2C_FIELD(arg0, f32 *, 4) + 0.040000003f;
         if ((!(temp_fv1_2 < M2C_FIELD(arg1, f32 *, 0)) || !(temp_fv1_2 < M2C_FIELD(arg2, f32 *, 0))) && ((temp_fv1_3 = M2C_FIELD(arg0, f32 *, 0x10) - 0.040000003f, !(M2C_FIELD(arg1, f32 *, 8) < temp_fv1_3)) || !(M2C_FIELD(arg2, f32 *, 8) < temp_fv1_3)) && ((temp_fv1_4 = M2C_FIELD(arg0, f32 *, 0x14) + 0.040000003f, !(temp_fv1_4 < M2C_FIELD(arg1, f32 *, 8))) || !(temp_fv1_4 < M2C_FIELD(arg2, f32 *, 8)))) {
-            temp_fv1_5 = M2C_FIELD(arg0, f32 *, 8);
-            if (M2C_FIELD(arg1, f32 *, 4) < temp_fv1_5) {
-                if (!(M2C_FIELD(arg2, f32 *, 4) < temp_fv1_5)) {
+            if (M2C_FIELD(arg1, f32 *, 4) < M2C_FIELD(arg0, f32 *, 8)) {
+                if (!(M2C_FIELD(arg2, f32 *, 4) < M2C_FIELD(arg0, f32 *, 8))) {
                     goto block_12;
                 }
                 goto block_14;
             }
 block_12:
-            temp_fv1_6 = M2C_FIELD(arg0, f32 *, 0xC);
             var_v0 = 1;
-            if ((temp_fv1_6 < M2C_FIELD(arg1, f32 *, 4)) && (temp_fv1_6 < M2C_FIELD(arg2, f32 *, 4))) {
+            if ((M2C_FIELD(arg1, f32 *, 4) > M2C_FIELD(arg0, f32 *, 0xC)) && (M2C_FIELD(arg2, f32 *, 4) > M2C_FIELD(arg0, f32 *, 0xC))) {
                 goto block_14;
             }
         } else {
