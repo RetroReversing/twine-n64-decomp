@@ -13,5 +13,5 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800AA440(void) {
-    return (*(s32 *)0xA4800018 & 3) != 0;
+    return (*(volatile s32 *)0xA4800018 & 3) != 0;
 }
