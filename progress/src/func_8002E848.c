@@ -17,6 +17,7 @@ extern s8 D_800E1554;
 extern s8 D_800E1556;
 
 s32 func_8002E848(void *arg0, s32 arg1, u32 arg2) {
+    u8 __repair_frame[8];
     s32 temp_v1;
     s32 var_t0;
     s8 temp_a1;
