@@ -16,15 +16,16 @@ M2C_UNK func_80015EF4(M2C_UNK *, void *);           /* extern */
 extern s32 D_800B3930;
 extern M2C_UNK D_8010D268;
 
+typedef struct { void * field_0; void * field_4; } __repair_record_arg0;
 void func_80016314(void *arg0) {
     void **temp_v1;
     void *temp_a0;
 
     if (arg0 != NULL) {
-        temp_a0 = M2C_FIELD(arg0, void **, 0);
-        temp_v1 = M2C_FIELD(arg0, void ***, 4);
-        M2C_FIELD(arg0, void **, 0) = NULL;
-        M2C_FIELD(arg0, void ***, 4) = NULL;
+        temp_a0 = ((__repair_record_arg0*)arg0)->field_0;
+        temp_v1 = ((__repair_record_arg0*)arg0)->field_4;
+        ((__repair_record_arg0*)arg0)->field_0 = NULL;
+        ((__repair_record_arg0*)arg0)->field_4 = NULL;
         D_800B3930 -= 1;
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, void ***, 4) = temp_v1;
