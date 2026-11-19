@@ -17,14 +17,16 @@ s32 func_80087100();
 s16 strlen();
 extern s32 func_80025D50;
 
-void func_80026004(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_80026004(void *arg0, s32 arg1, ...) {
+    char *__repair_ap;
     s32 temp_v0;
     void *temp_s0;
 
     if (arg0 != NULL) {
-        temp_v0 = _Printf(&func_80025D50, func_80087100(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, &arg2);
+        __repair_ap = (char *) __builtin_next_arg(arg1);
+        temp_v0 = _Printf(&func_80025D50, func_80087100(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, __repair_ap);
         if (temp_v0 >= 0) {
-            *(s32 *)(func_80087100(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
+            *(s8 *)(func_80087100(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
         }
         temp_s0 = M2C_FIELD(arg0, void **, 8);
         if (temp_s0 != NULL) {
