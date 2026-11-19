@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 
 void func_8005ACA0(void *arg0) {
     u8 temp_v0;
