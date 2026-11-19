@@ -7,7 +7,7 @@ s32 func_80070870(void *);                      /* extern */
 
 void func_80064780(void *arg0) {
     u32 var_s1;
-    u32 var_s1_2;
+    
     void *temp_s2;
     void *temp_v0;
     void *var_s0;
@@ -21,18 +21,18 @@ void func_80064780(void *arg0) {
         var_s1 += 1;
         var_v1 += 2;
     } while (var_s1 < 0x20U);
-    var_s1_2 = 0;
+    var_s1 = 0;
     var_s0 = temp_s2;
     __repair_rows: {
         (*(s8 *)((char *)(var_s0) + 0x1FC)) = 0;
         (*(s8 *)((char *)(var_s0) + 0x1FF)) = 0;
         (*(s8 *)((char *)(var_s0) + 0x1FD)) = 0;
         (*(s8 *)((char *)(var_s0) + 0x1FE)) = 0;
-        (*(f32 *)((char *)(var_s0) + 0x200)) = (f32) (func_800645A4(var_s1_2) & 0xFF);
+        (*(f32 *)((char *)(var_s0) + 0x200)) = (f32) (func_800645A4(var_s1) & 0xFF);
         var_s0 += 8;
-        var_s1_2 += 1;
+        var_s1 += 1;
     }
-if (0x21U > var_s1_2) goto __repair_rows;
+if (0x21U > var_s1) goto __repair_rows;
     (*(s8 *)((char *)(temp_s2) + 0x1FC)) = 1;
     (*(s8 *)((char *)(temp_s2) + 0x32C)) = 0;
     (*(s8 *)((char *)(temp_s2) + 0x324)) = 0;
