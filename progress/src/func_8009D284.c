@@ -18,7 +18,7 @@ s32 func_800A0170();
 s32 osCreateMesgQueue();
 s32 osRecvMesg();
 s32 osYieldThread();
-extern u8 D_800FDBB0;
+extern volatile u8 D_800FDBB0;
 extern char D_800FDBB4[];
 extern char D_800FDBB8[];
 extern char D_800FDBBC[];
@@ -38,7 +38,7 @@ void func_8009D284(s32 arg0, s32 arg1, s32 arg2) {
         *(s32 *)(D_800FDBB4 + (D_800FDBB0 * 0xC)) = arg0;
         *(s32 *)(D_800FDBB8 + (D_800FDBB0 * 0xC)) = arg1;
         *(s32 *)(D_800FDBBC + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
-        D_800FDBB0 += 1;
+        D_800FDBB0++;
         func_800A0170(arg0, arg2);
         func_8008C11C();
         osRecvMesg(D_800FDBE8, 0, 1);
