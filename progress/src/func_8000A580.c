@@ -24,6 +24,7 @@ int __repair_constant = -1;
     if ((*__base_D_800E0708) != -1) {
         func_80090F24((*__base_D_800E0708));
         (*__base_D_800E0708) = __repair_constant;
+__base_D_800E0708 = 0;
     }
     D_800E06B0 = __repair_constant;
 }
