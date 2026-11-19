@@ -19,14 +19,12 @@ s32 osYieldThread();
 extern char D_80113028[];
 
 void func_8000B900(s32 arg0, s32 arg1, u32 arg2) {
-    s32 sp20;
+    u8 sp20[0x18];
     s32 var_s2;
     s32 var_s3;
     s32 var_v0;
     u32 var_s0;
     u32 var_s1;
-/* Inferred frame reservation; original purpose unknown. */
-char __repair_stack_padding[16];
 
     var_s2 = arg0;
     var_s3 = arg1;
@@ -39,7 +37,7 @@ char __repair_stack_padding[16];
             if (var_v0 == 0) {
                 var_s0 = 0x1000;
             }
-            osPiStartDma(&sp20, 0, 0, var_s3, var_s2, var_s0, D_80113028);
+            osPiStartDma(sp20, 0, 0, var_s3, var_s2, var_s0, D_80113028);
             var_s3 += var_s0;
             var_s2 += var_s0;
             var_s1 -= var_s0;
