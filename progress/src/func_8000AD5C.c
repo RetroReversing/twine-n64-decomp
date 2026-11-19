@@ -18,17 +18,15 @@ extern s32 D_801002EC;
 
 s32 func_8000AD5C(s32 arg0, s32 arg1) {
     if (D_801002EC != 0) {
-        if (arg0 != -1) {
-            if (arg1 > 0) {
-                func_8009C930(arg0, arg1 & 0xFF);
-                return arg0;
-            }
-            func_8000A270(arg0);
-            goto block_5;
+        if (arg0 == -1) {
+            return -1;
         }
-        /* Duplicate return node #6. Try simplifying control flow for better match */
-        return -1;
+        if (arg1 > 0) {
+            func_8009C930(arg0, arg1 & 0xFF);
+            return arg0;
+        }
+        func_8000A270(arg0);
+
     }
-block_5:
     return -1;
 }
