@@ -13,17 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80002EB8(void *arg0) {
-    s32 var_v0;
     void *temp_v1;
 
     temp_v1 = M2C_FIELD(arg0, void **, 0x68);
-    var_v0 = 0;
     if (M2C_FIELD(temp_v1, s32 *, 0x64) != 0) {
-        var_v0 = 0;
         if (!(M2C_FIELD(temp_v1, s32 *, 0x14) & 0x10)) {
-            var_v0 = 1;
             M2C_FIELD(temp_v1, f32 *, 0x20) = (f32) -M2C_FIELD(temp_v1, f32 *, 0x20);
+            return 1;
         }
     }
-    return var_v0;
+    return 0;
 }
