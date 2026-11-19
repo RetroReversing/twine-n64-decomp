@@ -15,5 +15,5 @@ typedef s32 M2C_UNK32;
 extern char D_800BF686[];
 
 s32 func_8002BA4C(s32 arg0) {
-    return *(D_800BF686 + (arg0 * 0xC)) & 1;
+    return *(u16 *)(D_800BF686 + (arg0 * 0xC)) & 1;
 }
