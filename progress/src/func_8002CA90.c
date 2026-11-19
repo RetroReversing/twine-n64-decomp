@@ -18,8 +18,10 @@ s32 sprintf();
 extern char D_800E10D0[];
 
 void func_8002CA90(s32 arg0) {
+    short *__base_D_800E1112;
     sprintf(D_800E10D0, "%s\0\0TWINE", arg0);
-    D_800E1112 = 0xF;
-    M2C_FIELD(&D_800E1112, s16 *, -2) = 0;
-    func_8001187C(D_800E10D0, &D_800E1112 - 2, 0x200);
+    __base_D_800E1112 = &D_800E1112;
+    (*__base_D_800E1112) = 0xF;
+    M2C_FIELD((&D_800E1112), s16 *, -2) = 0;
+    func_8001187C(D_800E10D0, __base_D_800E1112 - 0x1, 0x200);
 }
