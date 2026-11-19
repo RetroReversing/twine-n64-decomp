@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 u32 func_8001495C(void *arg0, u32 arg1) {
-    if (M2C_FIELD(arg0, s32 *, 0x18) != M2C_FIELD(arg0, s32 *, 0x14)) {
-        return (arg1 >> 0x18) + ((arg1 >> 8) & 0xFF00) + ((arg1 & 0xFF00) << 8) + (arg1 << 0x18);
+    if (M2C_FIELD(arg0, s32 *, 0x18) == M2C_FIELD(arg0, s32 *, 0x14)) {
+        return arg1;
     }
-    return arg1;
+    return (arg1 >> 0x18) + ((arg1 >> 8) & 0xFF00) + ((arg1 & 0xFF00) << 8) + (arg1 << 0x18);
 }
