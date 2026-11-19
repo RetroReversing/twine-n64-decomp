@@ -21,6 +21,7 @@ void func_80067E94(void *arg0) {
     f32 temp_ft0;
     f32 temp_ft1;
     u32 var_v1;
+    s32 idx;
     void *temp_a1;
     void *temp_a2;
     void *temp_v0;
@@ -28,14 +29,15 @@ void func_80067E94(void *arg0) {
     temp_a1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_a2 = M2C_FIELD(temp_a1, void **, 0x410);
     if (temp_a2 != NULL) {
+        idx = M2C_FIELD(temp_a1, s8 *, 0x182);
         var_v1 = 2;
         if (D_8010A4E8 != 0) {
             var_v1 = 1;
         }
-        temp_v0 = D_80109688[M2C_FIELD(temp_a1, s8 *, 0x182)];
+        temp_v0 = D_80109688[idx];
         temp_ft1 = M2C_FIELD(temp_v0, f32 *, 0x78);
         temp_ft0 = M2C_FIELD(temp_v0, f32 *, 0x7C);
-        __repair_store_0 = (s16) ((s32) ((temp_ft1 * M2C_FIELD(temp_a1, f32 *, 0x24)) + temp_ft1) - ((u16) M2C_FIELD(temp_a2, u16 *, 0x24) >> 1));
+        __repair_store_0 = (s16) (-((u16) M2C_FIELD(temp_a2, u16 *, 0x24) >> 1) + (s32) ((temp_ft1 * M2C_FIELD(temp_a1, f32 *, 0x24)) + temp_ft1));
         __repair_store_1 = (s16) ((s32) ((temp_ft0 * -M2C_FIELD(temp_a1, f32 *, 0x28)) + temp_ft0) - ((u8) M2C_FIELD(temp_a2, u8 *, 0x28) / var_v1));
         M2C_FIELD(temp_a2, s16 *, 0x20) = __repair_store_0;
         M2C_FIELD(temp_a2, s16 *, 0x22) = __repair_store_1;
