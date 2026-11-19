@@ -19,12 +19,14 @@ void func_8005CDDC(void *arg0) {
     temp_a1 = M2C_FIELD(arg0, void **, 0x6C);
     M2C_FIELD(arg0, u8 *, 0x82) = (u8) (M2C_FIELD(arg0, u8 *, 0x82) - M2C_FIELD(temp_a1, u8 *, 0x1E));
     temp_v0 = M2C_FIELD(temp_a1, s16 *, 0x1C);
-    if (temp_v0 <= 0) {
-        M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
-    } else {
+    if (temp_v0 > 0) {
         M2C_FIELD(temp_a1, s16 *, 0x1C) = (s16) (temp_v0 - 1);
-        M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (M2C_FIELD(temp_a1, f32 *, 4) * 0.033333335f));
-        M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (M2C_FIELD(temp_a1, f32 *, 8) * 0.033333335f));
-        M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (M2C_FIELD(temp_a1, f32 *, 0xC) * 0.033333335f));
+        goto block;
     }
+    M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
+    return;
+block:
+    M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (M2C_FIELD(temp_a1, f32 *, 4) * 0.033333335f));
+    M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (M2C_FIELD(temp_a1, f32 *, 8) * 0.033333335f));
+    M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (M2C_FIELD(temp_a1, f32 *, 0xC) * 0.033333335f));
 }

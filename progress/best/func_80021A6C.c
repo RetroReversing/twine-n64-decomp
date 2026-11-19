@@ -21,11 +21,22 @@ extern u8 D_8010A4C0;
 
 extern char D_800D2AA0[];
 void func_80021A6C(void) {
-    M2C_UNK var_a0;
+    s32 var_a0;
     s32 temp_s0;
+    u8 *p;
+    s32 v;
 
     func_80029068();
-    if ((M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) && ((temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, var_a0 = 0x16, ((func_800219A0(D_8010A4C0) & 0xFF) == 0)) || (D_8010A4C0 == 0) || (var_a0 = 0x17, (D_8010A4C0 == 1)))) {
+    if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
+        temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28;
+        p = (u8 *)&D_8010A4C0;
+        if ((func_800219A0(*p) & 0xFF) == 0 || (v = *p) == 0) {
+            var_a0 = 0x16;
+        } else if (v == 1) {
+            var_a0 = 0x17;
+        } else {
+            return;
+        }
         func_80026004(temp_s0, D_800D2AA0, func_80087100(var_a0));
     }
 }

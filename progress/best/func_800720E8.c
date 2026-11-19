@@ -70,11 +70,11 @@ void func_800720E8(void *arg0, s32 arg1) {
             temp_a0 = M2C_FIELD(temp_s0, s8 *, 0x182);
             M2C_FIELD(temp_s0, s32 *, 0x60) = 0;
             M2C_FIELD(temp_s0, s32 *, 0x64) = 0;
-            M2C_FIELD(arg0, f32 *, 0x74) = (f32) (temp_a0 < D_801002B8) ? (u8) (*((s32 *)((s8 *)D_801001A0 + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)))) : (u8) (*(D_800BF688 + (*((s32 *)((s8 *)D_8010019C + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
+            M2C_FIELD(arg0, f32 *, 0x74) = (temp_a0 < D_801002B8) ? *((u8 *)((s8 *)D_801001A0 + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) : (*(D_800BF688 + (*((s32 *)((s8 *)D_8010019C + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
             M2C_FIELD(temp_s0, u8 *, 0x18C) = 0;
             M2C_FIELD(temp_s0, u8 *, 0x18D) = 0x80;
             M2C_FIELD(temp_s0, u8 *, 0x199) = 0U;
-            M2C_FIELD(temp_s0, s32 *, 0x68) = (f32) M2C_FIELD(arg0, f32 *, 0x74);
+            M2C_FIELD(temp_s0, f32 *, 0x68) = M2C_FIELD(arg0, f32 *, 0x74);
             func_80064630(arg0);
             func_8011ACAC(arg0, temp_s0, (u8) M2C_FIELD(temp_s0, s8 *, 0x182));
             func_80063FE8(arg0);

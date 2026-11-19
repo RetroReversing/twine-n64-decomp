@@ -17,7 +17,6 @@ void func_80119F50(void *arg0) {
 
     if (arg0 != NULL) {
         temp_v1 = (*(void **)((char *)(arg0) + 0x6C));
-        var_s2 = 0;
         if (temp_v1 != NULL) {
             if (((*(s16 *)((char *)(temp_v1) + 0x7A)) - 8) > 0) {
                 (*(f32 *)((char *)(temp_v1) + 0x40)) += 8.0f;
@@ -28,10 +27,8 @@ void func_80119F50(void *arg0) {
             if (*temp_v1_2 >= 0) {
                 *temp_v1_2 = -1;
             }
-            var_s2 = 0;
-            goto block_7;
         }
-block_7:
+        var_s2 = 0;
         var_s0 = &D_8010A500;
         do {
             temp_a0 = *var_s0;

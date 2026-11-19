@@ -13,7 +13,7 @@ s32 func_80030C1C();
 s32 func_80030C4C();
 s32 func_80030C7C();
 s32 func_80030D40();
-u8 func_800316B8();
+s32 func_800316B8();
 s32 func_80087100();
 extern s16 D_800B5B24;
 extern s16 D_800B5B26;

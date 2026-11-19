@@ -32,9 +32,9 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     }
     (*(s32 *)((char *)(temp_v0) + 0x28)) = var_v0;
     (*(u16 *)((char *)(temp_v0) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
-    (*(u16 *)((char *)(temp_v0) + 0x1E)) = 0U;
     (*(s32 *)((char *)(temp_v0) + 0x10)) = arg1;
     (*(u16 *)((char *)(temp_v0) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x1A));
+    (*(u16 *)((char *)(temp_v0) + 0x1E)) = 0U;
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x2000) {
         (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x10);
     }

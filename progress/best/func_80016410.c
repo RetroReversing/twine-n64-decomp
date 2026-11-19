@@ -22,9 +22,11 @@ extern char D_8010A400[];
 
 void *func_80016410(s32 arg0, s32 arg1, s32 arg2) {
     void *temp_v0;
+    void *p84;
 
     temp_v0 = func_80083E90(arg0 + 0x84, 0xB);
     if (temp_v0 != NULL) {
+        p84 = temp_v0 + 0x84;
         func_8001682C(temp_v0, arg1);
         if (arg1 == 0) {
             func_80045278(temp_v0 + 0x24);
@@ -38,7 +40,7 @@ void *func_80016410(s32 arg0, s32 arg1, s32 arg2) {
         } else {
             func_80047AEC(arg2, temp_v0 + 0x3C, temp_v0 + 0x48);
         }
-        M2C_FIELD(temp_v0, void **, 0x6C) = (void *) (temp_v0 + 0x84);
+        M2C_FIELD(temp_v0, void **, 0x6C) = p84;
         func_80016928(D_8010A400, temp_v0);
         D_800B3928 += 1;
         return temp_v0;

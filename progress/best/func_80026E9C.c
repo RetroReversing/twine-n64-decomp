@@ -15,24 +15,19 @@ typedef s32 M2C_UNK32;
 extern void **D_80109BB0;
 
 void func_80026E9C(s32 arg0) {
-    s32 var_a1;
+    u8 i;
     void *temp_a0_2;
     void *temp_a0;
     
     void *temp_v1;
 
     if (D_80109BB0 != NULL) {
-        temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x10);
-        if (temp_a0 != NULL) {
-            if (M2C_FIELD(temp_a0, u8 *, 5) != 0) {
-                var_a1 = 0;
-                do {
-                    temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s32 *, 0) + ((var_a1 & 0xFF) * 0x28)), void **, 8);
-                    if (temp_v1 != NULL) {
-                        M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
-                    }
-                    var_a1 += 1;
-                } while ((u32) (var_a1 & 0xFF) < (u8) M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 *, 5));
+        if (M2C_FIELD(D_80109BB0, void **, 0x10) != NULL) {
+            for (i = 0; i < M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 *, 5); i++) {
+                temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s32 *, 0) + (i * 0x28)), void **, 8);
+                if (temp_v1 != NULL) {
+                    M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
+                }
             }
         }
         temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x1C);
