@@ -30,8 +30,8 @@ void func_80067F40(void *arg0, void *arg1) {
 s32 __repair_operand;
 
     f32 m[3][3];
-    f32 pad[3];
-    f32 ang[2];
+    f32 pad[2];
+    f32 ang[3];
     f32 v[3];
     f32 d[3];
     f32 temp_fs0;
