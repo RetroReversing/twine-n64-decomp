@@ -48,6 +48,7 @@ void func_8001A880(void) {
         case 9:
             var_v0 = 0x19;
             break;
+        case 10:
         default:
             var_v0 = 0x1E;
             break;
