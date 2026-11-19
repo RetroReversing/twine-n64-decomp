@@ -2,12 +2,13 @@
 
 void *func_80016410();
 s32 func_8003E6EC();
-extern char D_800C7BE2[];
+extern u16 D_800C7BE2[];
 extern char D_800C7C31[];
 extern char D_800C7C35[];
 extern char D_800C7C39[];
 extern s32 *D_800CA31C;
 
+typedef struct { unsigned hi:12; unsigned tbl:16; unsigned lo:4; } BF1C;
 void func_80061048(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u8 arg6, s32 arg7, u16 arg8) {
     s32 temp_a1;
     void *temp_a0;
@@ -19,7 +20,8 @@ void func_80061048(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u
         temp_a0 = (*(void **)((char *)(temp_v0) + 0x6C));
         (*(s32 *)((char *)(temp_a0) + 0x18)) = arg7;
         (*(u16 *)((char *)(temp_a0) + 0x20)) = (int)arg8;
-        (*(s32 *)((char *)(temp_a0) + 0x1C)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x1C)) & 0xF) | (*(u16 *)(D_800C7BE2 + (arg0 * 2)) * 0x10) | 0x0FB00000);
+        ((BF1C *)((char *)temp_a0 + 0x1C))->tbl = D_800C7BE2[arg0];
+        ((BF1C *)((char *)temp_a0 + 0x1C))->hi = 0xFB;
         (*(u8 *)((char *)(temp_v0) + 0x7F)) = (u8) *(D_800C7C31 + arg0);
         (*(u8 *)((char *)(temp_v0) + 0x80)) = (u8) *(D_800C7C35 + arg0);
         (*(u8 *)((char *)(temp_v0) + 0x81)) = (u8) *(D_800C7C39 + arg0);
