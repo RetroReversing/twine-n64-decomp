@@ -16,11 +16,14 @@ void *func_80087100();
 extern char D_80107B7B[];
 
 void *func_8001270C(s32 arg0) {
+    void *ret;
     u32 temp_a0;
 
     temp_a0 = arg0 & 0xFFFF;
     if (temp_a0 < 0x10U) {
-        return (temp_a0 * 0x18) + D_80107B7B;
+        ret = (temp_a0 * 0x18) + D_80107B7B;
+    } else {
+        ret = func_80087100(3);
     }
-    return func_80087100(3);
+    return ret;
 }
