@@ -42,7 +42,7 @@ void func_8003056C(void *arg0) {
     M2C_FIELD(arg0, s32 *, 4) = 0;
     var_s0 = 0;
     do {
-        temp_s1 = ((var_s0 & 0xFFFF) * 4) + arg0;
+        temp_s1 = (void *) ((((var_s0 & 0xFFFF) * 4)) + (s32) arg0);
         temp_a0_4 = M2C_FIELD(temp_s1, s32 *, 0x10);
         var_s0 += 1;
         if (temp_a0_4 != 0) {
@@ -52,7 +52,7 @@ void func_8003056C(void *arg0) {
     } while ((u32) (var_s0 & 0xFFFF) < 4U);
     var_s0_2 = 0;
     do {
-        temp_s1_2 = ((var_s0_2 & 0xFFFF) * 4) + arg0;
+        temp_s1_2 = (void *) ((((var_s0_2 & 0xFFFF) * 4)) + (s32) arg0);
         temp_a0_5 = M2C_FIELD(temp_s1_2, s32 *, 0x20);
         var_s0_2 += 1;
         if (temp_a0_5 != 0) {
