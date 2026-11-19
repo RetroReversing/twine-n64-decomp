@@ -13,27 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800707B4(s32 arg0, s32 arg1, s32 arg2) {
-    s32 var_a3;
-    s32 var_v0;
+    u8 var_a3;
     u16 temp_v1;
 
-    var_a3 = 1;
-    var_v0 = 1 & 0xFF;
-    for (;;) {
-        temp_v1 = M2C_FIELD(((var_v0 * 2) + arg0), u16 *, 0x138);
-        if ((temp_v1 & 0xFF) != (arg1 & 0xFF)) {
-            var_a3 += 1;
-            goto block_8;
-        }
-        if ((temp_v1 >> 8) == (arg2 & 0xFF)) {
-            break;
-        }
-        var_a3 += 1;
-block_8:
-        var_v0 = var_a3 & 0xFF;
-        if ((u32) (var_a3 & 0xFF) >= 0x1EU) {
-            return 0;
+    for (var_a3 = 1; var_a3 < 0x1E; var_a3++) {
+        temp_v1 = M2C_FIELD(((var_a3 * 2) + arg0), u16 *, 0x138);
+        if (((temp_v1 & 0xFF) == (arg1 & 0xFF)) && ((temp_v1 >> 8) == (arg2 & 0xFF))) {
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
