@@ -27,8 +27,6 @@ extern u8 D_800C46FA[];
 extern u8 D_80102EE8;
 
 s32 func_8007B660(void *arg0, void *arg1) {
-int __repair_literal;
-
     f32 sp20[3];
     f32 sp30[3];
     f32 temp_a2;
@@ -90,10 +88,9 @@ block_9:
             sp30[1] = (f32) (s32) temp_fv0;
             if (M2C_FIELD(temp_s0, u8 *, 0x82) == 9) {
                 if (D_80102EE8 != 1) {
-__repair_literal = 2;
-
-                    if (((s32) D_80102EE8 < __repair_literal) || (D_80102EE8 != 2)) {
-                        var_fs1 = 42.5f; } else {
+                    if (((s32) D_80102EE8 < 2) || (D_80102EE8 != 2)) {
+                        var_fs1 = 42.5f;
+                    } else {
                         var_fs1 = 31.875f;
                     }
                 } else {

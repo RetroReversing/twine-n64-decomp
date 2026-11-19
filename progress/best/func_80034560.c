@@ -4,18 +4,18 @@ extern void *D_80115328;
 
 typedef struct { unsigned char pad_0[80]; float field_50; float field_54; float field_58; float field_5C; float field_60; float field_64; unsigned char pad_68[8]; float field_70; float field_74; } __repair_record_arg0;
 void func_80034560(void *arg0) {
-    register f32 temp_fa1;
     f32 temp_ft3;
-    f32 temp_fv1;
+    void *temp_a1;
     register f32 temp_fa0;
-    register void *temp_a1;
+    f32 temp_fv1;
+    register f32 temp_fa1;
 
     temp_fv1 = ((__repair_record_arg0*)arg0)->field_60;
-    temp_ft3 = ((__repair_record_arg0*)arg0)->field_70;
     temp_fa0 = ((__repair_record_arg0*)arg0)->field_64;
+    temp_ft3 = ((__repair_record_arg0*)arg0)->field_70;
     temp_fa1 = ((__repair_record_arg0*)arg0)->field_74;
-    temp_a1 = D_80115328;
     D_80115328 = temp_a1 + 8;
-    (*(s32 *)((char *)(temp_a1) + 0)) = (s32) ((((s32) ((((__repair_record_arg0*)arg0)->field_50 + temp_fv1 + temp_ft3) * 4.0f) & 0xFFF) << 0xC) | (((s32) ((((__repair_record_arg0*)arg0)->field_58 + (((__repair_record_arg0*)arg0)->field_64) + (((__repair_record_arg0*)arg0)->field_74)) * 4.0f) & 0xFFF) | (unsigned short)0xED000000));
+    temp_a1 = D_80115328;
+    (*(s32 *)((char *)(temp_a1) + 0)) = (s32) ((((s32) ((((__repair_record_arg0*)arg0)->field_50 + temp_fv1 + temp_ft3) * 4.0f) & 0xFFF) << 0xC) | (((s32) ((((__repair_record_arg0*)arg0)->field_58 + (((__repair_record_arg0*)arg0)->field_64) + (((__repair_record_arg0*)arg0)->field_74)) * 4.0f) & 0xFFF) | 0xED000000));
     (*(s32 *)((char *)(temp_a1) + 4)) = (s32) ((((s32) (((((__repair_record_arg0*)arg0)->field_54 + temp_fv1) - temp_ft3) * 4.0f) & 0xFFF) << 0xC) | ((s32) (((((__repair_record_arg0*)arg0)->field_5C + temp_fa0) - temp_fa1) * 4.0f) & 0xFFF));
 }

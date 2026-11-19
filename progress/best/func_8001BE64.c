@@ -49,8 +49,8 @@ void func_8001BE64(void) {
     u32 temp_v1;
 
     D_800BD690 = 1;
-    temp_fp = func_800262A8(D_800BD9A0, 0x5B);
     temp_s6 = func_800262A8(D_800BD9A0, 0x5C);
+    temp_fp = func_800262A8(D_800BD9A0, 0x5B);
     temp_s2 = func_8002638C(D_800BD9A0, 0xE7);
     temp_s5 = func_8002638C(D_800BD9A0, 0x66);
     var_s1 = func_8002638C(D_800BD9A0, 0xB1);
@@ -98,7 +98,7 @@ void func_8001BE64(void) {
         D_80102FD4 = var_v1;
         *(u32 *)((u8 *)var_s1 - 0x14) = var_v0;
         var_v0_2 = 0xB1;
-        if (D_801002A0 == 7) {
+        if ((unsigned)D_801002A0 == 7) {
             var_v0_2 = 0x1AD;
         }
         temp_v1 = *(u32 *)((u8 *)var_s1 - 0x14);
@@ -136,7 +136,7 @@ void func_8001BE64(void) {
         func_80026004(temp_s4, D_800D2864, func_80087100(var_a0));
         if (D_801002D4 == 1) {
             var_v0_4 = func_80087100(0x2E2);
-        } else if (!D_801002D4) {
+        } else if (D_801002D4 == 0) {
             var_v0_4 = func_80087100(0xA);
         } else if (D_801002D4 != 2) {
             var_v0_4 = func_80087100(0x2E4);
@@ -161,7 +161,7 @@ void func_8001BE64(void) {
         if (D_801002A0 == 7) {
             var_v0_2 = 0x1AD;
         
-        do { func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1); } while (0);} else {
+        func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);} else {
             var_v0_2 = 0xB1;
         
         func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);}

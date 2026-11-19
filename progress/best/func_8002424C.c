@@ -33,11 +33,11 @@ typedef struct { short field_0; unsigned char pad_2[34]; short field_24; } __rep
 void func_8002424C(void) {
 int __repair_constant = 3;
 
-    s16 *temp_s3;
-    s32 temp_a0;
-    s32 temp_s0;
-    s32 temp_v0;
-    s32 var_s1;
+    register s16 *temp_s3;
+    u32 temp_a0;
+    unsigned long temp_s0;
+    register s32 temp_v0;
+    register int var_s1;
     s32 temp_v1;
     s32 var_v0;
     void *temp_s2;
@@ -64,10 +64,11 @@ int __repair_constant = 3;
             (*(s32 *)((char *)(temp_s2) + -8)) = 0xF;
         }
         *(D_800BD5D0 - 0x34) = var_s1 + 0x4000;
-        *(s32 *)(D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8)) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
+        temp_s0 = (var_s1 & 0xFFFF) * 8;
+        *(s32 *)(D_80109C18 + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
         *(s32 *)(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
         func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
-        var_s1 += 1;
+        ++var_s1;
     } while ((u32) (var_s1 & 0xFFFF) < 0x10U);
     func_80024D78();
     D_800BD55A = 0;
@@ -89,9 +90,9 @@ int __repair_constant = 3;
     } else {
         var_v0 = 2;
     }
-    do { func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1); } while (0);
     D_800BD558 = var_v0;
     func_8002A9A8(D_80107EA8, 0);
+    func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002AC04(D_80107EA8, 1);
     if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {
         func_8002A9A8(D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);

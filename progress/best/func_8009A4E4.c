@@ -35,15 +35,13 @@ s32 func_8009A4E4(void *arg0, u32 *arg1) {
             temp_lo = (u32) ((s32)temp_a1 << 0xC) / var_a1_2;
             var_v1 = 1;
             var_a1 = 0;
-            for (;;) {
-                if (((u32) (temp_lo >> 0xC) >> var_v1) != 0) {
-                    var_v1 = var_a1 + 1;
-                    var_a1 = var_v1;
-                    if (var_v1 < 0xBU) {
-                        continue;
-                    }
+loop_6:
+            if (((u32) (temp_lo >> 0xC) >> var_v1) != 0) {
+                var_v1 = var_a1 + 1;
+                var_a1 = var_v1;
+                if (var_v1 < 0xBU) {
+                    goto loop_6;
                 }
-                break;
             }
             var_a2 = 0xB;
             __base_D_800CFD60 = D_800CFD60;
@@ -55,10 +53,10 @@ loop_9:
                 var_a2 -= 1;
                 goto loop_9;
             }
-            (*(s16 *)((char *)(arg0) + 0x50)) = (s16) ((u8) (*(u32 *)((char *)(arg0) + 0x5C)) + (var_a1 * 0xC) + var_a2);do{
-            temp_v1 = var_a2 * 2;}while(0);
-            temp_a1_2 = *(temp_v1 + __base_D_800CFD60);
-            (*(s8 *)((char *)(arg0) + 0xC0)) = (s8) ((u32) ((temp_a1 - temp_a1_2) * 0x64) / (u32) (((u16 (*)[0x1]) __base_D_800CFD60)[var_a2][0x1] - temp_a1_2));
+            (*(s16 *)((char *)(arg0) + 0x50)) = (s16) ((u8) (*(u32 *)((char *)(arg0) + 0x5C)) + (var_a1 * 0xC) + var_a2);
+            temp_v1 = var_a2 * 2;
+            var_a2_2 = (u16)(*(temp_v1 + __base_D_800CFD60));
+            (*(s8 *)((char *)(arg0) + 0xC0)) = (s8) ((u32) ((temp_a1 - var_a2_2) * 0x64) / (u32) (((u16 (*)[0x1]) __base_D_800CFD60)[var_a2][0x1] - var_a2_2));
         } else {
             temp_lo_3 = (u32) (var_a1_2 << 0xC) / temp_a1;
             var_a1_2 = 0;

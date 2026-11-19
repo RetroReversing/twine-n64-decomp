@@ -4,26 +4,26 @@ void func_8006D224(void *arg0) {
     f32 temp_fv1;
     s32 var_a0;
     s32 var_v0;
+    unsigned temp_v0_2;
     u32 temp_v1;
-    u32 temp_v0_2;
     void *temp_v0;
 
     temp_v0 = (*(void **)((char *)((*(void **)((char *)(arg0) + 0x6C))) + 0x414));
     if (temp_v0 != NULL) {
         temp_fv1 = (*(f32 *)((char *)(arg0) + 0x74)) * 2.55f;
         if (!(temp_fv1 >= 2.1474836e9f)) {
-            var_a0 = (s32) temp_fv1;
+            var_a0 = temp_fv1;
             var_v0 = (u32) var_a0 < 0x100U;
         } else {
-            var_a0 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
             var_v0 = (u32) var_a0 < 0x100U;
+            var_a0 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
         }
-        if (!var_v0) {
+        if (var_v0 == 0) {
             var_a0 = 0xFF;
         }
         temp_v0_2 = ((u32) var_a0 >> 1) << 0x10;
         temp_v1 = (0xFF - var_a0) | 0x40;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) (temp_v0_2 | 0xFF000000 | temp_v1);
-        (*(s32 *)((char *)(temp_v0) + 0x14)) = (s32) (((short)temp_v0_2 >> 1) | 0x7F800000 | (temp_v1 >> 1));
+        (*(s32 *)((char *)(temp_v0) + 0x14)) = (s32) ((temp_v0_2 >> 1) | 0x7F800000 | (temp_v1 >> 1));
     }
 }

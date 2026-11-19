@@ -11,7 +11,7 @@ extern s32 D_800EDCB0;
 extern s32 *D_80117708;
 
 typedef struct { s32 x, y, z; } V3_93FE8;
-s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg5, u16 arg6, u8 arg7, u8 arg8) {
+s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg5, u16 arg6, u16 argK, u8 arg7, u8 arg8) {
     f32 sp18;
     f32 sp1C;
     s32 sp20;
@@ -24,7 +24,7 @@ s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
     s32 fl;
 
     if (D_800CF540) {
-        key = arg6 | 0x80000000;
+        key = argK;
         func_8008C0D4();
         var_s0 = arg0;
         if (var_s0 == NULL) {

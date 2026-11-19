@@ -14,35 +14,35 @@ typedef s32 M2C_UNK32;
 
 s32 func_8006FD70();
 s32 func_8006FDF8();
-extern u8 D_80109688[];
+extern char D_80109688[];
 
 void func_800705AC(s32 arg0, void *arg1) {
-    s8 temp_v1;
-    void **temp_a0_2;
-    void *temp_v1_2;
-    register void *temp_a1;
-    void *temp_a1_2;
+    s32 temp_v1;
     void **temp_a0;
-    register void *temp_v1_3;
+    void **temp_a0_2;
+    void *temp_a1;
+    void *temp_a1_2;
+    void *temp_v1_2;
+    void *temp_v1_3;
 
     if (arg1 != NULL) {
-        register temp_v1 = (*(s8 *)((char *)(arg1) + 0x182));
+        temp_v1 = M2C_FIELD(arg1, s8 *, 0x182);
         if (!(arg0 & 0xFFFF)) {
             temp_a0 = (temp_v1 * 4) + D_80109688;
-            (*(s8 *)((char *)(arg1) + 0x185)) = 0;
+            M2C_FIELD(arg1, s8 *, 0x185) = 0;
             temp_a1 = *temp_a0;
-            (*(s32 *)((char *)(temp_a1) + 0x100)) = (s32) ((*(s32 *)((char *)(temp_a1) + 0x100)) & ~7);
+            M2C_FIELD(temp_a1, s32 *, 0x100) &= ~7;
             temp_v1_2 = *temp_a0;
-            (*(s32 *)((char *)(temp_v1_2) + 0x100)) = (s32) ((*(s32 *)((char *)(temp_v1_2) + 0x100)) | 1);
+            M2C_FIELD(temp_v1_2, s32 *, 0x100) |= 1;
             func_8006FD70(arg1, temp_a1, arg1);
             return;
         }
-        (*(s8 *)((char *)(arg1) + 0x185)) = 2;
+        M2C_FIELD(arg1, s8 *, 0x185) = 2;
         temp_a0_2 = (temp_v1 * 4) + D_80109688;
         temp_a1_2 = *temp_a0_2;
-        (*(s32 *)((char *)(temp_a1_2) + 0x100)) = (s32) ((*(s32 *)((char *)(temp_a1_2) + 0x100)) & ~7);
+        M2C_FIELD(temp_a1_2, s32 *, 0x100) &= ~7;
         temp_v1_3 = *temp_a0_2;
-        (*(s32 *)((char *)(temp_v1_3) + 0x100)) = (s32) ((*(s32 *)((char *)(temp_v1_3) + 0x100)) | 4);
+        M2C_FIELD(temp_v1_3, s32 *, 0x100) |= 4;
         func_8006FDF8(arg1, 8);
     }
 }

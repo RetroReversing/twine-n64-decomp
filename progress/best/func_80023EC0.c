@@ -11,27 +11,27 @@ extern u8 D_80107EC0;
 s32 func_80023EC0(s32 arg0) {
 char *__repair_addr;
 
+    unsigned long temp_a0;
+    s32 temp_s1;
     s32 temp_v1;
-    unsigned int temp_s1;
-    s32 temp_a0;
     
     register s8 temp_v0_2;
-    s8 temp_v0_4;
+    u8 temp_v0_4;
     s8 var_s1;
     union { void *** pointer; s32 value; } __repair_phase_storage;
     void ***temp_v0_3;
-    register void **temp_s0;
+    void **temp_s0;
     void **temp_s0_2;
 
     temp_s1 = arg0 & 0xEFFF;
     __repair_phase_storage.pointer = func_8002A980(&D_80107EA8);
     if (__repair_phase_storage.pointer != NULL) {
-        temp_s0 = *__repair_phase_storage.pointer;
         __repair_phase_storage.value = temp_s1 | 0x1000;
+        temp_s0 = *__repair_phase_storage.pointer;
         if (temp_s0 != NULL) {
             temp_a0 = (*(s32 *)((char *)(*temp_s0) + 0x18));
             temp_v1 = temp_s1 & 0xFFFF;
-            if (temp_a0) {
+            if (temp_a0 != 0) {
                 if (temp_v1 != 2) {
                     if (temp_v1 < 3) {
                         if (temp_v1 != 1) {
@@ -53,18 +53,18 @@ char *__repair_addr;
                     __repair_phase_storage.value = temp_s1;
 __repair_addr = (char *)(*temp_s0);
 
-                    if (func_800AB950((*(s32 *)((char *)((unsigned short)__repair_addr) + 0x18)), func_80087100(0x3004)) != 0) {
+                    if (func_800AB950((*(s32 *)((char *)(__repair_addr) + 0x18)), func_80087100(0x3004)) != 0) {
                         goto block_26;
                     }
                     /* Duplicate return node #29. Try simplifying control flow for better match */
                     return __repair_phase_storage.value;
                 }
-                if (((func_800AB950(temp_a0, "TWINE") != 0) && (func_8001226C(D_80107EC0) != 0)) || (__repair_phase_storage.value = temp_s1 | 0x1000, (func_800AB950((*(s32 *)((char *)(*temp_s0) + 0x18)), func_80087100(0x3004)) != 0))) {
+                if (((func_800AB950(temp_a0, "TWINE") != 0) && (func_8001226C(D_80107EC0) != 0)) || (__repair_phase_storage.value = temp_s1 | 0x1000, (func_800AB950((*(s32 *)((char *)(*temp_s0) + (u32)0x18)), func_80087100(0x3004)) != 0))) {
                     __repair_phase_storage.value = temp_s1;
-                    if (func_800AB950((*(s32 *)((char *)(*temp_s0) + (unsigned)0x18)), "TWINE") == 0) {
+                    if (func_800AB950((*(s32 *)((char *)(*temp_s0) + 0x18)), "TWINE") == 0) {
                         temp_v0_2 = D_80107EC0 - 1;
                         var_s1 = temp_v0_2;
-                        if (0 <= temp_v0_2) {
+                        if (0 <= (u32)temp_v0_2) {
 loop_17:
                             temp_v0_3 = func_8002A920(&D_80107EA8, temp_v0_2);
                             if (temp_v0_3 == NULL) {

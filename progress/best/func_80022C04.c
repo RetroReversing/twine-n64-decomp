@@ -41,12 +41,12 @@ void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
         }
         if (D_80102EDD != 0) {
             func_80022E88(0);
-            do { func_80022B60(0); } while (0);
+            func_80022B60(0);
             var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
             var_v0_2 = -((arg1 & 0xFF) == 0) & 0x1C;
         } else {
             func_80022E88(3);
-            do { func_80022B60(3); } while (0);
+            func_80022B60(3);
             var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
             var_v0_2 = ((-((arg1 & 0xFF) == 0) & 7) | 3) * 4;
         }

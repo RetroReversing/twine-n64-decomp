@@ -23,7 +23,6 @@ extern s32 func_80022848;
 
 extern char D_800D2864[];
 void func_8001ACCC(void) {
-    u8 *__base_D_80112F7B;
     s32 *var_v1;
     s32 temp_a1;
     s32 temp_s0;
@@ -44,24 +43,22 @@ void func_8001ACCC(void) {
     var_a2 = 0;
     if (temp_v0 != 0) {
         temp_v0_2 = temp_v0 + 0xC;
-        __repair_rows: {
+        do {
             temp_a1 = var_a2 & 0xFFFF;
             M2C_FIELD(temp_v0_2, u16 *, 0) &= 0xFFF0;
             var_v1 = &func_80022848;
-            __base_D_80112F7B = D_80112F7B;
-            if (*(__base_D_80112F7B + temp_a1) != 0) {
+            if (*(D_80112F7B + temp_a1) != 0) {
                 var_v1 = &func_8001E5BC;
             }
             M2C_FIELD(temp_v0_2, s32 **, -8) = var_v1;
             temp_v1 = M2C_FIELD(temp_v0_2, u16 *, 0);
             var_v0 = temp_v1 | 1;
-            if (*(__base_D_80112F7B + temp_a1) == 0) {
+            if (*(D_80112F7B + temp_a1) == 0) {
                 var_v0 = temp_v1 | 5;
             }
             M2C_FIELD(temp_v0_2, u16 *, 0) = var_v0;
             var_a2 += 1;
             temp_v0_2 += 0x28;
-        }
-if ((u32) (var_a2 & 0xFFFF) < 4U) goto __repair_rows;
+        } while ((u32) (var_a2 & 0xFFFF) < 4U);
     }
 }

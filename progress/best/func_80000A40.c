@@ -46,7 +46,7 @@ void func_80000A40(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 arg5) 
     f32 sp30[3];
     s32 sp40[3];
     f32 sp50[16];
-    s32 sp90;
+    char sp90[0x30];
     s32 spC0;
     s32 sp120;
     s16 spA50[3];
@@ -128,9 +128,9 @@ u16 __repair_result_spA5C;
         case 3:
             var_s4 = (s8)(M2C_FIELD(temp_a0, s8 *, 0xB3));
             spA7C = 1;
-            spA84 = (var_s4 * 3) + 2;
-            spA8C = spA84;
-            spA94 = spA84 + var_s4;
+            temp_v0 = (var_s4 * 3) + 2;
+            spA8C = temp_v0;
+            spA94 = temp_v0 + var_s4;
             break;
         }
         temp_v1_3 = M2C_FIELD(arg0, u16 *, 0x78);
@@ -190,15 +190,15 @@ do {
                         if (var_s4 == 0xE) {
                             spA58[0] = M2C_FIELD(temp_s3, u16 *, 0x94) - M2C_FIELD(temp_s3, u16 *, 0x96);
                             __repair_result_spA5C = M2C_FIELD(temp_s3, u16 *, 0x98) - M2C_FIELD(temp_s3, u16 *, 0x9A);
-                            func_80083410(spA58, &sp90);
+                            func_80083410(spA58, sp90);
                             goto block_30;
                         }
                         if (var_s4 == 7) {
                             spA58[1] = -(s16) M2C_FIELD(temp_s3, u16 *, 0x96);
                             spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x9A);
-                            func_800834B8(spA58, &sp90);
+                            func_800834B8(spA58, sp90);
 block_30:
-                            func_80083560(&sp90, temp_s1);
+                            func_80083560(sp90, temp_s1);
                         }
                     }
                     if ((var_fp != NULL) && (D_80102ED8 != 0)) {
@@ -235,8 +235,8 @@ block_42:
                                 spA58[1] = 0;
                                 spA58[2] = (u16) M2C_FIELD(var_fp, s16 *, 0x17C);
 block_49:
-                                func_800834B8(spA58, &sp90);
-                                func_80083560(&sp90, temp_s1);
+                                func_800834B8(spA58, sp90);
+                                func_80083560(sp90, temp_s1);
                             }
                         }
                     }
@@ -369,8 +369,8 @@ block_49:
                         }
                     }
                     var_s5 += 0x20;
-                    var_s6 += 0xC;/*__repair_loop_weight*/do {do {do {
-                    var_s4 += 1;} while (0);} while (0);} while (0);
+                    var_s6 += 0xC;
+                    var_s4 += 1;
                     spAAC += 0xC;
                 } while (*(s16 *)var_s5 >= 0);
             }

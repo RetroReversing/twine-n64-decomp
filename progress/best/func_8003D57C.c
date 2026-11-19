@@ -5,16 +5,16 @@ s32 func_8003D57C(void *arg0, void *arg1) {
 int __repair_literal;
 
     s32 var_a0;
-    register void *var_v1;
-    int var_a3;
+    s32 var_a2;
+    s32 var_a3;
     s32 var_t1;
     s32 var_v0;
     u16 temp_t0;
-    void *temp_a1;
     u16 temp_v0;
+    void *temp_a1;
     void *temp_t2;
     void *temp_t3;
-    s32 var_a2;
+    void *var_v1;
 
     temp_t2 = (*(void **)((char *)(arg0) + 0x3C));
     var_a2 = 0;
@@ -24,39 +24,41 @@ int __repair_literal;
 __repair_literal = 0;
 
     if ((s32) temp_v0 > __repair_literal) {
-        register var_t1 = 0;
+        var_t1 = 0;
 loop_2:
         var_a0 = 0;
-        if ((*(u16 *)((char *)((short)temp_t3) + 0x42)) != 0) {
+        if ((*(u16 *)((char *)(temp_t3) + 0x42)) != 0) {
             __repair_literal = (u16)((*(u16 *)((char *)(temp_t3) + 0x42)));
             var_v1 = (*(void **)((char *)(temp_t3) + 0x34));
             temp_a1 = var_t1 + ((__repair_record_temp_t2*)temp_t2)->field_34;
-loop_4:
-            if ((*(f32 *)((char *)(temp_a1) + 0)) != (*(f32 *)((char *)(var_v1) + 0))) {
-                var_a0 += 1;
-                goto block_11;
-            }
-            var_a0 += 1;
-            if (((*(f32 *)((char *)(temp_a1) + 4)) == (*(f32 *)((char *)(var_v1) + 4))) && ((*(f32 *)((char *)(temp_a1) + 8)) == (*(f32 *)((char *)(var_v1) + 8)))) {
-                var_v0 = var_a0 < (s32) __repair_literal;
-                var_a2 += 1;
-                if (var_a2 == ((__repair_record_temp_t2*)temp_t2)->field_42) {
-                    return 1;
+            for (;;) {
+                if ((*(f32 *)((char *)(temp_a1) + 0)) != (*(f32 *)((char *)(var_v1) + 0))) {
+                    var_a0 += 1;
+                    goto block_11;
                 }
-                goto block_12;
-            }
+                var_a0 += 1;
+                if (((*(f32 *)((char *)(temp_a1) + 4)) == (*(f32 *)((char *)(var_v1) + 4))) && ((*(f32 *)((char *)(temp_a1) + 8)) == (*(f32 *)((char *)(var_v1) + 8)))) {
+                    var_a2 += 1;
+                    var_v0 = var_a0 < (s32) __repair_literal;
+                    if (var_a2 == ((__repair_record_temp_t2*)temp_t2)->field_42) {
+                        return 1;
+                    }
+                    goto block_12;
+                }
 block_11:
-            var_v0 = var_a0 < __repair_literal;
+                var_v0 = var_a0 < (s32) (short)__repair_literal;
 block_12:
-            var_v1 += 0xC;
-            if (var_v0 == 0) {
-                goto block_13;
+                var_v1 += 0xC;
+                if (var_v0 == 0) {
+                    goto block_13;
+                }
+                continue;
+                break;
             }
-            goto loop_4;
         }
 block_13:
-        ++var_a3;
-        var_t1 += (u32)0xC;
+        var_a3 += 1;
+        var_t1 += 0xC;
         if (var_a3 >= (s32) (((__repair_record_temp_t2*)temp_t2)->field_42)) {
             goto block_14;
         }

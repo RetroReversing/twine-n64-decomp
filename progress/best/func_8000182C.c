@@ -13,7 +13,7 @@ int __repair_constant = 5;
     s32 temp_a1;
     s32 var_s1;
     
-    void *temp_s0;
+    register void *temp_s0;
 
     var_s1 = D_800D942A;
     temp_a1 = var_s1;
@@ -22,17 +22,17 @@ loop_1:
     if (*var_v1 != arg0) {
         var_s1 -= 1;
         var_v1 -= 1;
-        if (var_s1 < 0) {
-            register var_v1 = &D_800D942C[5];
+        if (0 > var_s1) {
             var_s1 = __repair_constant;
+            var_v1 = &D_800D942C[5];
         }
         if (var_s1 == temp_a1) {
             var_s1 = D_800D9428 - 1;
-            if (0 > var_s1) {
+            if (var_s1 < 0) {
                 var_s1 = 5;
             }
-            temp_s0 = &D_800D9438[var_s1 << 5];
             D_800D9428 = var_s1;
+            temp_s0 = &D_800D9438[var_s1 << 5];
             func_8000B900(temp_s0, &D_F8D70 + D_437E38 + (arg0 << 5), 0x20);
             D_800D942C[var_s1] = arg0;
             D_800D942A = var_s1;

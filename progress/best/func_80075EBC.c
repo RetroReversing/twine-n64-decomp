@@ -6,62 +6,52 @@ extern s32 D_8010A4E8;
 extern u8 D_8010A4FD;
 
 void func_80075EBC(void) {
-int __repair_literal;
-
-    unsigned var_a1;
-    f32 var_ft0;
-    register int var_a2;
-    f32 var_fv0;
-    unsigned var_a0_2;
-    f32 temp_fv1_2;
-    long var_a0;
-    register f32 temp_fv1;
-    s32 var_a3_2;
     f32 var_fs0;
-    register f32 temp_fv1_3;
-    unsigned long var_a3;
+    register f32 temp_fv1_2;
+    s32 var_a1;
+    f32 temp_fv1;
+    f32 temp_fv1_3;
+    register f32 var_fv0;
+    unsigned var_a0;
+    unsigned int var_a0_2;
+    s32 var_a3_2;
+    s32 var_a2;
+    s32 var_a3;
+    f32 var_ft0;
 
     var_fs0 = 120.0f;
-    var_ft0 = 240.0f; if ((int)D_8010A4E8) {
+    var_ft0 = 240.0f; if (D_8010A4E8 != 0) {
         var_fs0 = 240.0f;
         var_ft0 = 480.0f;
     }
     if (D_801002C0 != 2) {
-__repair_literal = 2;
-
-        if ((__repair_literal <= D_801002C0) && (D_801002C0 < 5)) {
-            temp_fv1 = 160.0f - 1.0f;
-            if (temp_fv1 >= 2.1474836e9f) {
-                register var_a0 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-            } else {
-                register var_a0 = temp_fv1;
+        if ((D_801002C0 >= 2)) {
+            if ((5 > D_801002C0)) {
+                temp_fv1 = 160.0f - 1.0f;
+                if ((u32)temp_fv1 >= 2.1474836e9f) {
+                    var_a0 = (s32) (temp_fv1 - 2.1474836e9f); var_a0 = var_a0 | 0x80000000;
+                } else {
+                    var_a0 = temp_fv1;
+                }
+                var_a3 = (u32) var_ft0;
+                func_80075570(var_a0, 0, 3, var_a3);
+                temp_fv1_2 = var_fs0 - 1.0f;
+                var_a1 = (u32) temp_fv1_2;
+                if (2.1474836e9f <= 320.0f) {
+                    var_fv0 = 320.0f - 2.1474836e9f;
+                    goto block_39;
+                }
+                goto block_38;
+                goto block_40;
             }
-            if ((unsigned short)var_ft0 >= 2.1474836e9f) {
-                var_a3 = (s32) (var_ft0 - 2.1474836e9f) | 0x80000000;
-            } else {
-                var_a3 = var_ft0;
-            }
-            func_80075570(var_a0, 0, 3, var_a3);
-            temp_fv1_2 = var_fs0 - 1.0f;
-            if (temp_fv1_2 >= 2.1474836e9f) {
-                var_a1 = (s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000;
-            } else {
-                var_a1 = (s32) temp_fv1_2;
-            }
-            if (2.1474836e9f <= 320.0f) {
-                var_fv0 = 320.0f - 2.1474836e9f;
-                goto block_39;
-            }
-            goto block_38;
-            goto block_40;
         }
     } else {
         if (D_8010A4FD == 1) {
             if (var_ft0 >= 2.1474836e9f) {
+                var_a3_2 = (s32) (var_ft0 - 2.1474836e9f); var_a3_2 = var_a3_2 | 0x80000000;
                 var_a0_2 = 0x9F;
-                var_a3_2 = (s32) (var_ft0 - 2.1474836e9f); var_a3_2 = var_a3_2 | (short)0x80000000;
             } else {
-                register var_a3_2 = var_ft0;
+                var_a3_2 = var_ft0;
                 var_a0_2 = 0x9F;
             }
             var_a2 = 3;
@@ -69,15 +59,12 @@ __repair_literal = 2;
         } else {
             temp_fv1_3 = var_fs0 - 1.0f;
             if (temp_fv1_3 >= 2.1474836e9f) {
-                register var_a1 = (s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000;
+                var_a1 = (s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000;
             } else {
-                { unsigned int decomp_conversion;
- decomp_conversion = temp_fv1_3;
- var_a1 = decomp_conversion;
- }
+                var_a1 = (s32) temp_fv1_3;
             }
             if (2.1474836e9f <= 320.0f) {
-                register var_fv0 = 320.0f - 2.1474836e9f;
+                var_fv0 = 320.0f - 2.1474836e9f;
 block_39:
                 var_a2 = (s32) var_fv0 | 0x80000000;
                 var_a0_2 = 0;

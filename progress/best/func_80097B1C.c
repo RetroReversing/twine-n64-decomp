@@ -19,10 +19,7 @@ extern char D_800F38E4[];
 extern s32 D_800F38EC;
 extern char D_800F38F0[];
 
-typedef struct { s32 w[3]; } __repair_words3;
 s32 func_80097B1C(s32 arg0) {
-int __repair_literal;
-
     s32 temp_v0_2;
     s32 var_a1;
     s32 var_a2;
@@ -37,7 +34,7 @@ int __repair_literal;
     u16 var_a0;
     u32 var_s3;
     void *var_a3;
-    
+    void *var_s0;
     void *var_t0;
 
     arg0 &= 0xFFFF;
@@ -50,23 +47,23 @@ loop_2:
         var_a0 = *(u16 *)var_s1;
         var_s4 = 0;
         if ((var_a0 & 0xFFFF) != 0xFFFF) {
-            var_a3 = var_s1 + 2;
+            var_s0 = var_s1 + 2;
             do {
                 if (var_a0 == arg0) {
-                    temp_v0 = M2C_FIELD(var_a3, u16 *, 0) - 1;
-                    M2C_FIELD(var_a3, u16 *, 0) = temp_v0;
+                    temp_v0 = M2C_FIELD(var_s0, u16 *, 0) - 1;
+                    M2C_FIELD(var_s0, u16 *, 0) = temp_v0;
                     var_a1 = 1;
                     if (!(temp_v0 & 0xFFFF)) {
-                        func_8008C7C0(var_s1 + 0xC, M2C_FIELD(var_a3, s32 *, 2));
+                        func_8008C7C0(var_s1 + 0xC, M2C_FIELD(var_s0, s32 *, 2));
                         var_a1 = 1;
                     }
                 }
-                if (M2C_FIELD(var_a3, u16 *, 0) != 0) {
+                if (M2C_FIELD(var_s0, u16 *, 0) != 0) {
                     var_s4 = 1;
                 }
                 var_s1 += 0x1C;
                 var_a0 = *(u16 *)var_s1;
-                var_a3 += 0x1C;
+                var_s0 += 0x1C;
             } while (var_a0 != 0xFFFF);
         }
         if (var_a1 & 0xFF) {
@@ -75,12 +72,10 @@ loop_2:
             }
             temp_a1 = *var_s2;
             var_s0_2 = 0;
-__repair_literal = 0;
-
-            if (D_800F38EC > __repair_literal) {
+            if (D_800F38EC > 0) {
                 var_v1 = 0;
 loop_16:
-                if (*(s32 *)(D_800F38F0 + var_v1) != temp_a1) {
+                if (*(D_800F38F0 + var_v1) != temp_a1) {
                     var_s0_2 += 1;
                     var_v1 += 0xC;
                     if (var_s0_2 < D_800F38EC) {
@@ -97,7 +92,9 @@ loop_16:
                     var_t0 = temp_v0_2 + D_800F38E4;
                     var_a3 = temp_v0_2 + D_800F38F0;
                     do {
-                        M2C_FIELD(var_t0, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) var_a3 + 0x0);
+                        M2C_FIELD(var_t0, s32 *, 0) = (s32) M2C_FIELD(var_a3, s32 *, 0);
+                        M2C_FIELD(var_t0, s32 *, 4) = (s32) M2C_FIELD(var_a3, s32 *, 4);
+                        M2C_FIELD(var_t0, s32 *, 8) = (s32) M2C_FIELD(var_a3, s32 *, 8);
                         var_t0 += 0xC;
                         var_a2 += 1;
                         var_a3 += 0xC;

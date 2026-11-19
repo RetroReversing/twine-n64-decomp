@@ -10,14 +10,14 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
     s32 var_s4;
     u32 temp_s7;
     u32 var_s3;
-    
+    u32 var_s3_2;
     u32 var_s6;
     void **var_s2;
     void **var_s2_2;
-    
+    void **var_s2_3;
     void **var_s5;
     void *temp_a0;
-    
+    void *temp_s1;
     void *temp_s1_2;
     void *temp_s1_3;
     void *temp_t0;
@@ -45,13 +45,12 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
         if (var_s0 != NULL) {
             var_s2 = &sp10[0];
             do {
-                temp_a0 = M2C_FIELD(var_s0, void **, 8);
-                temp_t0 = M2C_FIELD(temp_a0, void **, 0x20);
+                temp_s1 = M2C_FIELD(var_s0, void **, 8);
+                temp_t0 = M2C_FIELD(temp_s1, void **, 0x20);
                 if (M2C_FIELD(temp_t0, u16 *, 0x60) != D_800B35B0) {
-                    M2C_FIELD(temp_t0, u16 *, 0x60) = (u16) D_800B35B0;/*__repair_call_balance*/if(sp224){
-                    func_8001792C(temp_a0, 2, var_s4 | 0x2000, sp214);}else{
-                    func_8001792C(temp_a0, 2, var_s4 | 0x2000, sp214);}
-                    *var_s2 = temp_a0;
+                    M2C_FIELD(temp_t0, u16 *, 0x60) = (u16) D_800B35B0;
+                    func_8001792C(temp_s1, 2, var_s4 | 0x2000, sp214);
+                    *var_s2 = temp_s1;
                     var_s2 += 4;
                     var_s6 += 1;
                 }
@@ -90,11 +89,11 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
         if (sp21C == 3) {
             var_s4 &= 0xFFFCFFFF;
         }
-        temp_s7 = sp224;
-        if (temp_s7 < var_s6) {
-            var_s2 = &(&sp10[0])[temp_s7];
+        var_s3_2 = sp224;
+        if (var_s3_2 < var_s6) {
+            var_s2_3 = &(&sp10[0])[var_s3_2];
             do {
-                var_s0_3 = M2C_FIELD(M2C_FIELD(*var_s2, void **, 0x20), void **, 0x58);
+                var_s0_3 = M2C_FIELD(M2C_FIELD(*var_s2_3, void **, 0x20), void **, 0x58);
                 if (var_s0_3 != NULL) {
                     do {
                         temp_s1_3 = M2C_FIELD(var_s0_3, void **, 8);
@@ -106,9 +105,9 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                         var_s0_3 = M2C_FIELD(var_s0_3, void **, 0);
                     } while (var_s0_3 != NULL);
                 }
-                temp_s7 += 1;
-                var_s2 += 4;
-            } while (temp_s7 < var_s6);
+                var_s3_2 += 1;
+                var_s2_3 += 4;
+            } while (var_s3_2 < var_s6);
         }
     }
 }

@@ -40,8 +40,8 @@ void func_8007659C(void *arg0, void *arg1) {
     }
     temp_v1 = (s16) M2C_FIELD(arg1, u16 *, 0xE);
     temp_a3 = M2C_FIELD(arg1, s32 *, 0);
-    temp_v0 = temp_v1 - 1;do{
-    temp_a2 = temp_v1 + 1;}while(0);
+    temp_v0 = temp_v1 - 1;
+    temp_a2 = temp_v1 + 1;
     temp_t0 = temp_v1 + 2;
     temp_s2 = (temp_v0 & ((s32) ~temp_v0 >> 0x1F)) * 0x18;
     temp_s1 = (temp_v1 & ((s32) ~temp_v1 >> 0x1F)) * 0x18;

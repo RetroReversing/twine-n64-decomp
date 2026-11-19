@@ -17,7 +17,7 @@ extern s32 D_800BFF04;
 extern s32 D_800BFF10;
 extern u16 D_800E1608;
 
-void func_80030DD8(s32 arg0, s32 arg1, void *arg2, u16 arg3) {
+void func_80030DD8(u16 arg0, s32 arg1, void *arg2, u16 arg3) {
     s32 temp_v0;
     s32 var_a1;
     s32 var_a1_2;
@@ -27,7 +27,7 @@ void func_80030DD8(s32 arg0, s32 arg1, void *arg2, u16 arg3) {
     
     s32 temp_s0;
     u16 temp_v1_2;
-    s32 var_a0;
+    u16 var_a0;
     s32 var_a3;
     void *temp_v1;
     
@@ -42,7 +42,7 @@ void func_80030DD8(s32 arg0, s32 arg1, void *arg2, u16 arg3) {
         if (D_800E1608 != 0) {
             var_a3 = D_800E1608;
             var_v0 = 0 & 0xFFFF;
-            __repair_rows: {
+            do {
                 temp_v1 = (void *)((var_v0 * 8)); temp_v1 = (void *)((char *)temp_v1 + (s32)(D_800BFF04));
                 var_a0 = M2C_FIELD(temp_v1, u16 *, 2);
                 var_a1 += 1;
@@ -50,8 +50,7 @@ void func_80030DD8(s32 arg0, s32 arg1, void *arg2, u16 arg3) {
                     M2C_FIELD(temp_v1, u16 *, 2) = (u16) ((var_a0 & 0xFFF0) | 1);
                 }
                 var_v0 = var_a1 & 0xFFFF;
-            }
-if ((u32) (var_a1 & 0xFFFF) < var_a3) goto __repair_rows;
+            } while ((u32) (var_a1 & 0xFFFF) < var_a3);
         }
         temp_v0 = func_80030D40(var_a0, var_a1, temp_v1, arg3);
         D_800BFF10 = temp_v0;

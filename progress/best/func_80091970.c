@@ -1,54 +1,51 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-schedule-insns, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef struct {
+    s32 id;            /* 0x000 */
+    u8 pad4[0x10C];
+    s32 w110;          /* 0x110 */
+    s32 w114;          /* 0x114 */
+    u8 pad118[0x410];
+    u8 tbl528[0x80];   /* 0x528 */
+    u8 pad5A8[0xA18];
+    u8 active;         /* 0xFC0 */
+    u8 busy;           /* 0xFC1 */
+    s16 hFC2;          /* 0xFC2 */
+    u8 bFC4;           /* 0xFC4 */
+    u8 bFC5;           /* 0xFC5 */
+    u8 padFC6[0x1E];
+    s32 wFE4;          /* 0xFE4 */
+    s32 wFE8;          /* 0xFE8 */
+    s16 hFEC;          /* 0xFEC */
+    u8 flags;          /* 0xFEE */
+    u8 padFEF[9];
+} EntSnd;
 
-s32 func_8008F2A4();
-extern u8 D_800CF540;
-extern char D_800E5AC4[];
-extern char D_800E5FEC[];
-extern u8 D_800E6A85[];
+extern EntSnd D_800E5AC4[];
 
-void func_80091970(s32 arg0, s32 arg1, s8 arg2) {
-    s32 var_a0;
-    s32 var_v1;
-    u32 var_a3;
+static inline s32 find_snd(s32 id) {
+    u32 i = 0;
+    s32 key = id & 0x7FFFFFFF;
+    s32 off = 0;
 
-    arg0 &= 0x7FFFFFFF;
-    if (D_800CF540 != 0) {
-        var_a3 = 0;
-        var_v1 = 0;
-        for (;;) {
-            if (*(D_800E6A85 + var_v1) != 0) {
-                var_a3 += 1;
-                goto block_9;
-            }
-            if (*(s32 *)(D_800E5AC4 + var_v1) == arg0) {
-                var_a0 = var_a3 | arg0;
-            } else {
-                var_a3 += 1;
-block_9:
-                var_v1 += 0xFF8;
-                if (var_a3 >= 8U) {
-                    var_a0 = -1;
-                } else {
-                    continue;
-                }
-            }
-            break;
+    for (; i < 8; i++, off += sizeof(EntSnd)) {
+        if (*((u8 *)&D_800E5AC4[0].busy + off) == 0 && *(s32 *)((u8 *)&D_800E5AC4[0].id + off) == key) {
+            return i | (id & 0x80000000);
         }
-        if (var_a0 != -1) {
-            *((var_a0 * 0xFF8) + D_800E5FEC + (arg1 & 0xFF)) = arg2;
-            func_8008F2A4(arg2 & 0xFF, 2);
+    }
+    return -1;
+}
+
+void func_8008C0D4(void);
+void func_8008C11C(void);
+extern u8 D_800CF540;
+
+void func_8008F2A4(u8, s32);
+
+void func_80091970(s32 arg0, s32 arg1, s32 arg2) {
+    if (D_800CF540 != 0) {
+        arg0 = find_snd(arg0);
+        if (arg0 != -1) {
+            D_800E5AC4[arg0].tbl528[(u8)arg1] = arg2;
+            func_8008F2A4(arg2, 2);
         }
     }
 }

@@ -12,14 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 func_80030898(void *);                          /* extern */
+s16 func_80030898(void);                          /* extern */
 void *func_80087100(u16);                           /* extern */
 extern s32 D_800BFF04;
 extern u16 D_800E1608;
 
 void func_800315E0(s32 arg0) {
-int __repair_literal;
-
     s16 temp_a0;
     s32 temp_s0;
     u16 temp_v1;
@@ -30,15 +28,14 @@ int __repair_literal;
 
     temp_a0 = arg0 - 1;
     if (temp_a0 < (s32) D_800E1608) {
-__repair_literal = 8;
-
-        temp_s0 = (arg0 - 1) * __repair_literal;
+        temp_s0 = temp_a0 * 8;
         if (temp_a0 >= 0) {
             temp_a0_2 = temp_s0 + D_800BFF04;
             temp_v1 = M2C_FIELD(temp_a0_2, u16 *, 2);
             if (temp_v1 & 0x200) {
                 M2C_FIELD(temp_a0_2, u16 *, 2) = (u16) (temp_v1 & 0xFDFF);
-                M2C_FIELD((temp_v1_2 = temp_s0 + D_800BFF04), s16 *, 0) = func_80030898(temp_a0_2);
+                temp_v1_2 = temp_s0 + D_800BFF04;
+                M2C_FIELD(temp_v1_2, s16 *, 0) = func_80030898();
                 temp_v0 = func_80087100(M2C_FIELD(temp_v1_2, u16 *, 4));
                 if (temp_v0 != NULL) {
                     M2C_FIELD(temp_v0, s8 *, 2) = (s8) (M2C_FIELD((temp_s0 + D_800BFF04), u8 *, 1) + 0x41);

@@ -11,7 +11,7 @@ void func_800084C0(void *arg0, void *arg1) {
     register f32 temp_ft1;
 
     temp_ft1 = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x3C))) + 0x20));
-    do { guPositionF(temp_fa0, &D_80112F90, (*(f32 *)((char *)(arg0) + 0x3C)) * 0.087890625f, (*(f32 *)((char *)(arg0) + 0x40)) * 0.087890625f, temp_fa0, (*(f32 *)((char *)(arg0) + 0x54)), (*(f32 *)((char *)(arg0) + 0x24)) * 64.0f, (temp_ft1 - ((*(f32 *)((char *)(arg0) + 0x28)) - temp_ft1)) * 64.0f, (*(f32 *)((char *)(arg0) + 0x2C)) * 64.0f); } while (0);
+    guPositionF(temp_fa0, &D_80112F90, (*(f32 *)((char *)(arg0) + 0x3C)) * 0.087890625f, (*(f32 *)((char *)(arg0) + 0x40)) * 0.087890625f, temp_fa0, (*(f32 *)((char *)(arg0) + 0x54)), (*(f32 *)((char *)(arg0) + 0x24)) * 64.0f, (temp_ft1 - ((*(f32 *)((char *)(arg0) + 0x28)) - temp_ft1)) * 64.0f, (*(f32 *)((char *)(arg0) + 0x2C)) * 64.0f);
     temp_fa0 = (*(f32 *)((char *)(arg0) + 0x44)) * 0.087890625f;
     D_80112F94 = -D_80112F94;
     D_80112FA4 = -D_80112FA4;

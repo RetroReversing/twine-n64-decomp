@@ -27,7 +27,7 @@ void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
     u32 temp_v1;
     u32 temp_v1_2;
     u32 var_a3;
-    u32 var_s1;
+    unsigned int var_s1;
     u32 var_s3;
     u32 var_t1;
     void *temp_v0;
@@ -42,7 +42,7 @@ void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
     var_a3 = (u32) (u64) temp_ret;
     var_a1 = 0;
     do {
-        if (var_a2 >= 0) {
+        if (0 <= var_a2) {
             if (var_a1 & 0x20) {
                 temp_a0 = var_s2 >> var_a1;
                 var_v0 = var_s2 >> 0x1F;
@@ -84,7 +84,7 @@ void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
                 var_v0_3 = var_s2 >> var_a1;
             }
             var_t1 = var_s1 + var_v1_3;
-            var_t0 = var_s0 + var_v0_3 + (var_t1 < (u32) var_v1_3);
+            var_t0 = var_s0 + var_v0_3 + (var_t1 < var_v1_3);
             if (var_a1 & 0x20) {
                 var_v1_4 = var_s0 >> var_a1;
                 var_v0_4 = var_s0 >> 0x1F;
@@ -104,8 +104,8 @@ void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
             var_a3 += temp_v1_2;
         }
         var_s0 = var_t0;
-        var_a1 += 1;
         var_s1 = var_t1;
+        var_a1 += 1;
     } while (var_a1 < 0x34);
     *arg2 = func_800ABFA0(var_s2, var_s3, var_a2) / (temp_fs0 = D_800D6FA8);
     *arg3 = func_800ABFA0(var_s0, var_s1) / temp_fs0;

@@ -13,11 +13,11 @@ void func_800392A4(void) {
     temp_v1 = D_800E1710 << 6;
     ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xDA380007;
     ((__repair_record_temp_a0*)temp_a0)->field_4 = (s32) ((D_80117728 + (temp_v1 + 0x370)) - 0x80000000);
+    ((__repair_record_temp_a0*)temp_a0)->field_14 = (s32) (D_80117728 + ((D_800E1710 * 0x10) + 0x4F0));
     ((__repair_record_temp_a0*)temp_a0)->field_8 = 0xDA380005;
-    ((__repair_record_temp_a0*)temp_a0)->field_14 = (s32) (D_80117728 + (((short)D_800E1710 * 0x10) + 0x4F0));
+    ((__repair_record_temp_a0*)temp_a0)->field_C = (s32) ((D_80117728 + (temp_v1 + 0x180)) - 0x80000000);
     ((__repair_record_temp_a0*)temp_a0)->field_10 = 0xDC080008;
     D_80115328 = temp_a0 + 8;
-    ((__repair_record_temp_a0*)temp_a0)->field_C = (s32) ((D_80117728 + (temp_v1 + 0x180)) - (short)0x80000000);
     ((__repair_record_temp_a0*)temp_a0)->field_18 = 0xDB0E0000;
     D_80115328 = temp_a0 + 0x10;
     D_80115328 = temp_a0 + 0x18;

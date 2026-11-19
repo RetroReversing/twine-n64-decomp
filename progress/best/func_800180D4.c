@@ -55,9 +55,9 @@ loop_4:
             /* Duplicate return node #24. Try simplifying control flow for better match */
             return var_v0;
         case 32:
-            temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x10);
-            var_s1 += temp_v0_2;
-            var_s5 += temp_v0_2;
+            temp_s2 = (u8)(M2C_FIELD(temp_v0, u8 *, 0x10));
+            var_s1 += temp_s2;
+            var_s5 += temp_s2;
             goto block_21;
         case 1:
         case 2:
@@ -79,8 +79,8 @@ loop_4:
             temp_s2 = temp_s3 - 0x21;
             if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0) & 0xFFFF)) < var_s7) != 0))) {
                 temp_v1 = M2C_FIELD(temp_v0, s32 *, 0xC);
-                if (temp_v1 != 0) {do{do{do{
-                    temp_a2 = temp_s2 * 8;}while(0);}while(0);}while(0);
+                if (temp_v1 != 0) {
+                    temp_a2 = temp_s2 * 8;
                     var_a0 = 0;
                     if (M2C_FIELD((temp_a2 + temp_v1), u8 *, 4) != 0) {
                         for (;;) {

@@ -1,3 +1,4 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -10,7 +11,6 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80011950();
 s16 osContInit();
@@ -55,8 +55,8 @@ u8 func_80011FA4(void) {
     var_t2 = 0;
     var_t1 = &D_801083D4;
     var_t0 = &D_8010A3A0;
-    var_a3 = &D_800E09A6;
     var_a2 = &D_800E099E;
+    var_a3 = &D_800E09A6;
     var_a1 = &D_800E097E;
     var_a0 = &D_80109DC8;
     var_v1 = &D_800E0930;
@@ -68,7 +68,7 @@ u8 func_80011FA4(void) {
     D_8010D540 = 0;
     D_800E0960 = 0;
     D_800E093E = 0;
-    __repair_rows: {
+    do {
         *(s16 *)var_v1 = 0;
         *(s16 *)var_a0 = 0;
         *(s16 *)var_a1 = 0;
@@ -84,8 +84,7 @@ u8 func_80011FA4(void) {
         var_a0 += 2;
         var_t2 += 1;
         var_v1 += 2;
-    }
-if (var_t2 < 4) goto __repair_rows;
+    } while (var_t2 < 4);
     osCreateMesgQueue(D_8010D298, D_800E0760, 1, var_a3);
     osSetEventMesg(5, D_8010D298, 1);
     D_800E09B2 = osContInit(D_8010D298, &D_80108F75, D_800E0768);

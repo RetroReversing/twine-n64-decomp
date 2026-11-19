@@ -14,7 +14,7 @@ void func_800A97A0(void *arg0, void *arg1) {
         temp_t0 = (*(s32 *)((char *)(var_a1) + 0));
         temp_t1 = (*(u32 *)((char *)(var_a1) + 0x20));
         (*(f32 *)((char *)(var_a0) + 4)) = (f32) ((f32) ((temp_t0 << 0x10) | (temp_t1 & 0xFFFF)) * 0.000015258789f);
-        (*(f32 *)((char *)(var_a0) + 0)) = (f32) ((f32) (((short)temp_t0 & (s32)0xFFFF0000) | (temp_t1 >> 0x10)) * 0.000015258789f);
+        (*(f32 *)((char *)(var_a0) + 0)) = (f32) ((f32) ((temp_t0 & (s32)0xFFFF0000) | (temp_t1 >> 0x10)) * 0.000015258789f);
         var_a1 += 4;
         var_a0 += 8;
     } while (var_a1 != temp_t8);

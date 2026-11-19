@@ -20,7 +20,7 @@ extern u8 D_800CF540;
 typedef struct { u32 f0; u8 pad[412]; } Slot_8010D734;
 extern Slot_8010D734 D_8010D734[];
 extern M2C_UNK D_8010D748;
-extern u8 D_8010D76F[];
+extern M2C_UNK D_8010D76F;
 extern u8 D_8010D779[];
 extern M2C_UNK D_8010D784;
 
@@ -32,7 +32,7 @@ s32 __repair_result_var_s0;
     s32 var_s0_2;
     s32 var_s3;
     u32 temp_s5;
-    s32 var_a2;
+    u8 var_a2;
 
     var_s3 = -1;
     if (D_800CF540 != 0) {
@@ -43,17 +43,17 @@ s32 __repair_result_var_s0;
 loop_3:
             temp_s2 = __repair_result_var_s0 & 0xFF;
             temp_s1 = temp_s2 * 0x1A0;
-            if (*((M2C_UNK *)((s8 *)&D_8010D784 + temp_s1)) == __repair_result_var_s0) {
-                if (*((M2C_UNK *)((s8 *)&D_8010D748 + temp_s1)) & 2) {
+            if (*(&D_8010D784 + temp_s1) == __repair_result_var_s0) {
+                if (*(&D_8010D748 + temp_s1) & 2) {
                     var_s0_2 = temp_s2 & 0xFF;
                     func_80095A80(1, var_s0_2, *(D_8010D779 + temp_s1), temp_s5 & 0xFF);
                     var_a2 = *(D_8010D779 + temp_s1);
                 } else {
                     var_s0_2 = temp_s2 & 0xFF;
-                    func_80095A80(1, var_s0_2, *(D_8010D76F + temp_s1), temp_s5 & 0xFF);
-                    var_a2 = *(D_8010D76F + temp_s1);
+                    func_80095A80(1, var_s0_2, *(&D_8010D76F + temp_s1), temp_s5 & 0xFF);
+                    var_a2 = *(&D_8010D76F + temp_s1);
                 }
-                do { func_80095A80(0x21, var_s0_2, var_a2, arg1 & 0x7F & 0xFF); } while (0);
+                func_80095A80(0x21, var_s0_2, var_a2, arg1 & 0x7F & 0xFF);
                 temp_s1 = D_8010D734[temp_s2].f0;
                 var_s3 = 0;
                 if (temp_s1 != -1) {

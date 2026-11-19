@@ -43,14 +43,13 @@ void func_8007C93C(void *arg0) {
         break;
     case 5:
         var_a1 = 0x3C2;
+block_9:
         var_s2 = 1;
         var_s0 = 3;
         break;
     case 6:
         var_a1 = 0x3C4;
-        var_s2 = 1;
-        var_s0 = 3;
-        break;
+        goto block_9;
     case 7:
         (*(s16 *)((char *)(arg0) + 0x7C)) = 8;
         var_s0 = 0xA3;
@@ -61,5 +60,5 @@ void func_8007C93C(void *arg0) {
     if (var_s2 != 0) {
         (*(s32 *)((char *)(temp_s3) + 0x88)) = (s32) ((*(s32 *)((char *)(temp_s3) + 0x88)) | 0x40000000);
     }
-    do { func_80077960(arg0, var_s0); } while (0);
+    func_80077960(arg0, var_s0);
 }

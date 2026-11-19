@@ -13,29 +13,29 @@ extern char D_800EDE8C[];
 extern char D_800EDE90[];
 extern u8 D_800EE1F8;
 
-typedef struct { unsigned char pad[56]; int value; } __repair_field_38;
-s32 func_80094B48(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+s32 func_80094B48(const void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 int __repair_literal;
 
-    s32 temp_v0_2;
-    s32 temp_a0;
-    unsigned int temp_v0;
     s32 *var_a1_2;
+    u8 __repair_frame[8];
+    register unsigned int temp_v0;
+    unsigned temp_a0;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 temp_v1;
     s32 var_a1;
-    unsigned long temp_v1;
-    register s32 temp_v0_3;
-    s32 var_v1;
+    long var_v1;
 
     var_a1 = 0;
 __repair_literal = 0;
 
-    if (__repair_literal < D_800EDE74) {
+    if ((s32) D_800EDE74 > __repair_literal) {
         var_v1 = 0;
         for (;;) {
-            if ((((__repair_field_38 *)arg0)->value) != *((s32 *)((s8 *)D_800EDCF4 + var_v1))) {
+            if ((*(const s32 *)((char *)(arg0) + 0x38)) != *((s32 *)((s8 *)D_800EDCF4 + var_v1))) {
                 var_a1 += 1;
                 var_v1 += 0xC;
-                if (D_800EDE74 > var_a1) {
+                if (var_a1 < (s32) D_800EDE74) {
                     continue;
                 }
             }
@@ -48,7 +48,7 @@ __repair_literal = 0;
             *((s32 *)((s8 *)D_800EDCF8 + temp_v0)) = 0;
             *((s32 *)((s8 *)D_800EDCFC + temp_v0)) = 0;
             D_800EDE74 += 1;
-            *((s32 *)((s8 *)D_800EDCF4 + temp_v0)) = (((__repair_field_38 *)arg0)->value);
+            *((s32 *)((s8 *)D_800EDCF4 + temp_v0)) = (*(const s32 *)((char *)(arg0) + 0x38));
             goto block_7;
         }
         goto block_8;
@@ -63,7 +63,7 @@ block_8:
     if (var_a1_2 != NULL) {
         if (*var_a1_2 != NULL) {
 loop_11:
-            if (!((*(f32 *)((char *)(var_a1_2) + 4)) < arg1)) {
+            if (!((*(const f32 *)((char *)(var_a1_2) + 4)) < arg1)) {
                 var_a1_2 = (*(s32 **)((char *)(var_a1_2) + 0));
                 if (*var_a1_2 != NULL) {
                     goto loop_11;
@@ -80,11 +80,11 @@ loop_11:
     }
     temp_v1 = D_800EE1F8 * 0x1C;
     *((s32 *)((s8 *)D_800EDE90 + temp_v1)) = arg0;
-    D_800EE1F8 += 1;
-    *((s32 *)((s8 *)D_800EDE80 + temp_v1)) = arg2;
     *((s32 *)((s8 *)D_800EDE8C + temp_v1)) = arg5;
-    *((s32 *)((s8 *)D_800EDE88 + temp_v1)) = arg4;
+    *((s32 *)((s8 *)D_800EDE80 + temp_v1)) = arg2;
+    D_800EE1F8 += 1;
     *((s32 *)((s8 *)D_800EDE84 + temp_v1)) = arg3;
+    *((s32 *)((s8 *)D_800EDE88 + temp_v1)) = arg4;
     *((s32 *)((s8 *)D_800EDE7C + temp_v1)) = arg1;
     return 1;
 }

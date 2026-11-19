@@ -24,16 +24,14 @@ s32 func_8009A70C(void *arg0, void *arg1) {
     var_s0 = (*(u32 *)((char *)(arg0) + 0x30));
     temp_a0 = ((*(u8 *)((char *)(arg1) + 0)) | ((*(u8 *)((char *)(arg1) + 7)) << 8)) & 0xFFFF;
     if (temp_a0 != 0) {
-        do { temp_v0 = func_8009846C(temp_a0); } while (0);
+        temp_v0 = func_8009846C(temp_a0);
         temp_v1_2 = var_s0 >> 0x10;
         if (temp_v0 != 0) {
             if (temp_v1_2 < 0x7FU) {
-u32 __repair_branch_temp_v0_0;
-
-                __repair_branch_temp_v0_0 = var_s0 & 0xFFFF;
-                temp_v0_2 = temp_v1_2 + __repair_branch_temp_v0_0;
+                temp_v0 = var_s0 & 0xFFFF;
+                temp_v0_2 = temp_v1_2 + temp_v0;
                 temp_v0_3 = (*(u8 *)((char *)(temp_v0_2) + 0));
-    var_s0 = ((((*(u8 *)((char *)(temp_v0_2) + 1)) - temp_v0_3) * (__repair_branch_temp_v0_0))) + ((temp_v0_3 << 0x10));
+    var_s0 = ((((*(u8 *)((char *)(temp_v0_2) + 1)) - temp_v0_3) * (temp_v0))) + ((temp_v0_3 << 0x10));
             } else {
                 var_s0 = *(u32 *)(temp_v0 + temp_v1_2) << 0x10;
             }

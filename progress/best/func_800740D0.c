@@ -32,8 +32,6 @@ extern char D_8010D2C0[];
 extern char D_8010D380[];
 
 void func_800740D0(void *arg0) {
-char *__repair_addr;
-
     s32 temp_v1;
     s16 var_v0;
     s32 *temp_v1_8;
@@ -80,9 +78,7 @@ char *__repair_addr;
                 var_s0 = func_80015DAC();
                 if (var_s0 != NULL) {
 do {
-__repair_addr = (char *)(M2C_FIELD(var_s0, void **, 0x6C));
-
-                    if ((M2C_FIELD(var_s0, u16 *, 0x78) == 0x19) && (M2C_FIELD(__repair_addr, s32 *, 0x20) == M2C_FIELD(temp_s1, s32 *, 0x20))) {
+                    if ((M2C_FIELD(var_s0, u16 *, 0x78) == 0x19) && (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), s32 *, 0x20) == M2C_FIELD(temp_s1, s32 *, 0x20))) {
                         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x32);
                         if (temp_a0 != 0) {
                             func_80031700(temp_a0);

@@ -1,4 +1,16 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
 s32 func_800160FC();
 s32 func_800162BC();
@@ -21,8 +33,7 @@ extern u8 D_800B7CF0;
 extern u8 D_800BD68E;
 extern s8 D_800BD690;
 extern char D_800BD914[];
-typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
-extern Slot_80100198 D_80100198[];
+extern char D_80100198[];
 extern u8 D_801002AD;
 extern char D_80100408[];
 extern u8 D_801007C1;
@@ -50,48 +61,46 @@ extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
 void func_8001D738(void) {
-int __repair_literal;
-
     s32 temp_a0;
-    register s32 temp_s0;
-    long var_a0_4;
+    s32 temp_s0;
+    s32 temp_s2;
     s32 temp_s2_2;
-    s32 var_a0_3;
+    s32 temp_s3;
     s32 temp_s4;
-    u8 temp_v0_7;
-    s32 temp_s6;
     s32 temp_s5;
+    s32 temp_s6;
+    s32 temp_s7;
     s32 temp_v0_8;
-    u8 temp_v1_3;
+    s32 temp_v1;
     s32 var_a0;
     s32 var_a0_2;
-    s32 temp_v1;
-    u8 temp_v0_3;
-    u32 var_a0_5;
+    s32 var_a0_3;
+    s32 var_a0_4;
+    s32 var_a0_5;
     s32 var_a0_6;
-    u32 temp_s0_2;
+    s32 var_a0_7;
     s32 var_a0_8;
     s32 var_a0_9;
     s32 var_a2;
     s32 var_a3;
     s32 var_s1;
-    unsigned long var_s1_2;
-    s32 var_a0_7;
+    s32 var_s1_2;
+    u32 temp_s0_2;
     u8 temp_v0;
     u8 temp_v0_2;
-    s32 temp_s2;
+    u8 temp_v0_3;
     u8 temp_v0_4;
-    register u8 temp_v0_5;
+    u8 temp_v0_5;
     u8 temp_v0_6;
-    s32 temp_s7;
+    u8 temp_v0_7;
     u8 temp_v1_2;
-    s32 temp_s3;
+    u8 temp_v1_3;
 
     D_800BD690 = 1;
     temp_s6 = func_8002638C(D_800BD914, 0x78);
     temp_s2 = func_8002638C(D_800BD914, 0x79);
     var_s1 = func_8002638C(D_800BD914, 0x7A);
-    if (!var_s1) {
+    if (var_s1 == 0) {
         var_s1 = func_8002638C(D_800BD914, 0x13);
     }
     temp_s3 = func_8002638C(D_800BD914, 0x7B);
@@ -102,7 +111,7 @@ int __repair_literal;
     if (((temp_s6 != 0) & (temp_s2 != 0)) && ((var_s1 != 0) & (temp_s3 != 0)) && ((temp_s7 != 0) & (temp_s4 != 0)) && ((temp_s5 != 0) & (temp_s0 != 0))) {
         D_800B7CF0 = D_801002AD;
         temp_v1 = D_801002AD & 0xFF;
-        D_80100198[temp_v1].f0 = *(D_80115091 + (temp_v1 * 0xA0));
+        *(D_80100198 + (temp_v1 * 0x18)) = *(D_80115091 + (temp_v1 * 0xA0));
         temp_v0 = *(D_80115088 + (D_800B7CF0 * 0xA0));
         D_80109E20 = temp_v0;
         var_a0 = 0x10;
@@ -113,16 +122,14 @@ int __repair_literal;
         temp_v0_2 = *(D_80115089 + (D_800B7CF0 * 0xA0));
         D_8010D454 = temp_v0_2;
         var_a0_2 = 0xA;
-        if (temp_v0_2) {
+        if (temp_v0_2 != 0) {
             var_a0_2 = 9;
         }
         func_80026004(temp_s2, "%s", func_80087100(var_a0_2));
         D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
-        temp_v1_2 = D_80100198[D_800B7CF0].f0;
+        temp_v1_2 = *(D_80100198 + (D_800B7CF0 * 0x18));
         temp_a0 = var_s1 - 0x28;
-__repair_literal = 2;
-
-        if (((s32) temp_v1_2 < __repair_literal) && ((s32) (short)temp_v1_2 >= 0)) {
+        if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= 0)) {
             func_80025E9C(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
         } else {
             func_80025D84(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 0x7A, 1);
@@ -154,12 +161,12 @@ __repair_literal = 2;
         }
         func_80026004(temp_s4, "%s", func_80087100(var_a0_6));
         D_80108960 = *(D_8011508F + (D_800B7CF0 * 0xA0));
-        temp_v1_3 = D_80100198[D_800B7CF0].f0;
+        temp_v1_3 = *(D_80100198 + (D_800B7CF0 * 0x18));
         if ((s32) temp_v1_3 >= 0) {
             var_a0_7 = temp_s0 - 0x28;
-            if ((s32) (short)temp_v1_3 >= 2) {
+            if ((s32) temp_v1_3 >= 2) {
                 if ((s32) temp_v1_3 < 6) {
-                    if ((s32) (short)temp_v1_3 >= 4) {
+                    if ((s32) temp_v1_3 >= 4) {
                         var_a0_7 = temp_s0 - 0x28;
                         goto block_27;
                     }
@@ -169,11 +176,11 @@ __repair_literal = 2;
             }
 block_27:
             func_80025E9C(var_a0_7, temp_s0, temp_s4 - 0x28, temp_s5 - 0x28, 1, 0xD);
-            if ((*(u8 *)((char *)(D_80109BB0) + 8)) == (u32)0xD) {
+            if (M2C_FIELD(D_80109BB0, u8 *, 8) == 0xD) {
                 func_800274BC(0x100, 2);
             }
         } else {
-            register var_a0_7 = temp_s0 - 0x28;
+            var_a0_7 = temp_s0 - 0x28;
 block_30:
 block_31:
             func_80025D84(var_a0_7, temp_s0, temp_s4 - 0x28, temp_s5 - 0x28, 0x162, 1);

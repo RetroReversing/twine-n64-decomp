@@ -25,7 +25,7 @@ void func_8000B9B8(s32 arg0, s32 arg1, u32 arg2) {
             if (var_s1 < var_s0) {
                 var_s0 = var_s1;
             }
-            do { func_8000B900(&sp10, var_s2 - temp_s5, arg2, (var_s1 + temp_s5 + 1) & ~1); } while (0);
+            func_8000B900(&sp10, var_s2 - temp_s5, arg2, (var_s1 + temp_s5 + 1) & ~1);
             var_s0_2 = temp_s4;
             if (var_s0_2 == 0) {
                 var_s0_2 = 8;
@@ -40,7 +40,7 @@ void func_8000B9B8(s32 arg0, s32 arg1, u32 arg2) {
         }
         temp_s0 = var_s1 & ~1;
         if (temp_s0 != 0) {
-            do { func_8000B900((u8 *) var_s3, var_s2, temp_s0); } while (0);
+            func_8000B900((u8 *) var_s3, var_s2, temp_s0);
             var_s2 += temp_s0;
             var_s3 += temp_s0;
         }

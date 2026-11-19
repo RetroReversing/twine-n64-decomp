@@ -23,8 +23,7 @@ extern u8 D_800EE37C;
 
 typedef struct { unsigned char pad[56]; int value; } __repair_field_38;
 void func_800949B4(void *arg0, f32 arg1) {
-int __repair_literal;
-
+    u8 __repair_frame[8];
     s32 *var_a0;
     s32 *var_a2;
     s32 temp_v0;
@@ -34,9 +33,7 @@ int __repair_literal;
     s32 var_v1;
 
     var_a1 = 0;
-__repair_literal = 0;
-
-    if ((s32) D_800EDE74 > __repair_literal) {
+    if ((s32) D_800EDE74 > 0) {
         var_v1 = 0;
         for (;;) {
             if (((__repair_field_38 *)arg0)->value != *((s32 *)((s8 *)D_800EDCF4 + var_v1))) {

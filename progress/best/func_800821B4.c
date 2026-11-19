@@ -333,8 +333,8 @@ block_91:
                 func_80081D50(var_a0_2, var_a1_2, var_s2_2, temp_s1);
             }
             sp24 += 4;
-            sp2C += 8;/*__repair_loop_weight*/do {
-            var_s6 += 1;} while (0);
+            sp2C += 8;
+            var_s6 += 1;
             var_s7 += 0xA0;
         } while (var_s6 < (s16) sp16);
     }

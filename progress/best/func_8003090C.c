@@ -31,20 +31,21 @@ s32 func_8003090C(s32 arg0) {
         if (D_800E1608 != 0) {
             var_v0 = 0;
             for (;;) {
-                temp_v1 = var_v0;do{
-                temp_v0_2 = var_a0 + 1;}while(0);
+                temp_v1 = var_v0;
+                temp_v0_2 = var_a0 + 1;
                 if (*(s32 *)((temp_v1 * 8) + D_800BFF04) == (arg0 - 1)) {
                     break;
                 }
                 var_a0 = temp_v0_2;
                 var_v0 = var_a0;
                 if (temp_v0_2 >= (s32) D_800E1608) {
-                    return -1;
+                    goto block_8;
                 }
             }
             return temp_v1;
         }
-        return -1;
+        goto block_8;
     }
+block_8:
     return -1;
 }

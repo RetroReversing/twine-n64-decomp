@@ -96,11 +96,7 @@ void func_80036BBC(void *arg0) {
     if (var_s2 != NULL) {
 loop_12:
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
-        /*__repair_pointer_balance*/if ((unsigned long)__base_D_800B1D20 & 0x100) {
-func_80034630(var_s2, arg0);
-} else {
-func_80034630(var_s2, arg0);
-}
+        func_80034630(var_s2, arg0);
         func_8003438C(var_s2, arg0);
         if (var_s0 != NULL) {
 loop_13:

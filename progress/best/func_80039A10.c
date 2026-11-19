@@ -92,7 +92,7 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, 
                 sp24 = temp_t8 | (((arg4 - 1) & 0xFFF) | 0xFD080000);
                 temp_ft1 = (f32) ((f64) (f32) var_t6 + D_800D2EF0);
                 temp_t9 = var_t7 + (arg11 - var_t6);
-                __repair_rows: {
+                do {
                     temp_a1 = var_t4 - 1;
                     temp_t3 = temp_a1 & ((s32) ~temp_a1 >> 0x1F);
                     var_t2 = var_t4 + arg6;
@@ -204,8 +204,7 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, 
                     M2C_FIELD(var_t0_3, s32 *, 8) = var_a0_2;
                     var_t4 += arg6;
                     var_t5 += arg6;
-                }
-if (var_t4 < arg10) goto __repair_rows;
+                } while (var_t4 < arg10);
             }
             var_t6 += arg7;
             var_t7 += arg7;

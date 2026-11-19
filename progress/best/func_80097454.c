@@ -19,7 +19,6 @@ extern char D_800F815C[];
 extern char D_800F8160[];
 extern char D_800F8164[];
 
-typedef struct { s32 w[2]; } __repair_words2;
 s32 func_80097454(s32 arg0) {
     s32 *var_a0;
     s16 temp_v1;
@@ -35,15 +34,13 @@ s32 func_80097454(s32 arg0) {
     var_a1 = 0;
     if (D_800F8158 > 0) {
         var_v1 = 0;
-        for (;;) {
-            if (*(u16 *)(D_800F8160 + var_v1) != (arg0 & 0xFFFF)) {
-                var_a1 += 1;
-                var_v1 += 0xC;
-                if (var_a1 < D_800F8158) {
-                    continue;
-                }
+loop_2:
+        if (*(u16 *)(D_800F8160 + var_v1) != (arg0 & 0xFFFF)) {
+            var_a1 += 1;
+            var_v1 += 0xC;
+            if (var_a1 < D_800F8158) {
+                goto loop_2;
             }
-            break;
         }
     }
     var_a3 = D_800F8158;
@@ -60,10 +57,11 @@ s32 func_80097454(s32 arg0) {
                 var_a3 = (s32) (temp_v0_2 + D_800F815C);
                 do {
                     var_a0 = M2C_FIELD(var_a3, s32 **, 8);
-                    M2C_FIELD(var_t0, __repair_words2 *, 0x0) = *(__repair_words2 *) ((s8 *) var_a3 + 0x0);
+                    M2C_FIELD(var_t0, s32 *, 0) = (s32) M2C_FIELD(var_a3, s32 *, 0);
+                    M2C_FIELD(var_t0, s32 *, 4) = (s32) M2C_FIELD(var_a3, s32 *, 4);
                     M2C_FIELD(var_t0, s32 **, 8) = var_a0;
-                    var_t0 += 0xC;/*__repair_loop_weight*/do {
-                    var_a2 += 1;} while (0);
+                    var_t0 += 0xC;
+                    var_a2 += 1;
                     var_a3 += 0xC;
                 } while (var_a2 < D_800F8158);
             }

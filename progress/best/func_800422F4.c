@@ -1,7 +1,7 @@
 void func_8000B9B8(void *, void *, s32);
 void func_800426B8(s32, s16, s32);
 s32 func_80083E24(void);
-void func_80083E44(s32, s32);
+void func_80083E44(s32);
 void *func_80083E90(s32, s32);
 void func_80084048(void *, s32);
 extern u8 D_54D910[];
@@ -13,8 +13,6 @@ extern u8 D_800C46DC[];
 extern void *D_80109688;
 
 void func_800422F4(s32 arg0) {
-int __repair_literal;
-
     u8 sp10[0x20];
     s32 temp_s6, temp_s0, temp_s2, c;
     u8 *temp_v0, *temp_v0_2, *var_s0;
@@ -30,12 +28,10 @@ int __repair_literal;
     func_8000B9B8(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);
     if (temp_s2 != 0) {
         var_s0 = temp_v0_2;
-        __repair_rows: {
+        do {
             id = **(s16 **)(var_s0 + 0x28);
             if (id != arg0) {
-__repair_literal = 0x10;
-
-                if (*(s32 *)(D_800C0784 + id * __repair_literal) == 0) {
+                if (*(s32 *)(D_800C0784 + id * 0x10) == 0) {
                     func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 0);
                 }
             }
@@ -94,10 +90,9 @@ __repair_literal = 0x10;
                 }
             }
             var_s0 += 0x44;
-        }
-if ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2)) goto __repair_rows;
+        } while ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2));
     }
-    do { func_80084048(temp_v0_2, 0x2D); } while (0);
+    func_80084048(temp_v0_2, 0x2D);
     func_80084048(temp_v0, 0x2D);
-    func_80083E44(arg0, temp_s6);
+    func_80083E44(temp_s6);
 }

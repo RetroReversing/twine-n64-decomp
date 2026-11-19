@@ -20,7 +20,7 @@ s32 func_8009A39C(void *arg0, void *arg1) {
     u32 sp10;
     u32 temp_a0;
     u32 temp_v0;
-    unsigned char temp_v1;
+    char temp_v1;
     u32 var_a3;
 
     if (M2C_FIELD(arg1, u8 *, 0) & 3) {
@@ -30,7 +30,7 @@ s32 func_8009A39C(void *arg0, void *arg1) {
     }
     sp10 = (u32) (u16) ((__repair_field_4 *)arg1)->value;
     if (((u32) ((__repair_field_4 *)arg1)->value >> 8) & 1) {
-        do { func_800957A8(&sp10); } while (0);
+        func_800957A8(&sp10);
     } else {
         func_800957B8(&sp10, arg0);
     }

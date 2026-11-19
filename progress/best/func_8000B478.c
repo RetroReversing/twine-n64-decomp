@@ -14,30 +14,28 @@ typedef s32 M2C_UNK32;
 
 extern u16 *D_80109A50;
 
-typedef struct { unsigned short field_0; unsigned char pad_2[2]; int field_4; } __repair_record_var_a1;
 void func_8000B478(s32 arg0) {
     u16 *var_a1;
     u16 *var_t0;
     u16 var_a2;
-u16 __repair_result_var_a2;
     void *temp_v1;
 
     if ((arg0 != 0) && (var_a1 = D_80109A50, var_a2 = *var_a1, var_t0 = NULL, ((var_a2 & 8) == 0))) {
 loop_3:
-        temp_v1 = (void *) ((((__repair_record_var_a1*)var_a1)->field_4) + (s32) var_a1);
+        temp_v1 = var_a1 + M2C_FIELD(var_a1, s32 *, 4);
         if ((var_a2 & 2) && ((arg0 - 0x10) == var_a1)) {
-            ((__repair_record_var_a1*)var_a1)->field_0 = 1;
+            M2C_FIELD(var_a1, u16 *, 0) = 1;
             if (M2C_FIELD(temp_v1, u16 *, 0x10) & 1) {
-                ((__repair_record_var_a1*)var_a1)->field_4 += 0x10 + M2C_FIELD(temp_v1, s32 *, 0x14);
+                M2C_FIELD(var_a1, s32 *, 4) += 0x10 + M2C_FIELD(temp_v1, s32 *, 0x14);
             }
             if ((var_t0 != NULL) && (M2C_FIELD(var_t0, u16 *, 0) & 1)) {
-                M2C_FIELD(var_t0, s32 *, 4) += 0x10 + ((__repair_record_var_a1*)var_a1)->field_4;
+                M2C_FIELD(var_t0, s32 *, 4) += 0x10 + M2C_FIELD(var_a1, s32 *, 4);
             }
         } else {
             var_t0 = var_a1;
-            var_a1 = (void *) ((0x10) + (s32) temp_v1);
-            __repair_result_var_a2 = M2C_FIELD(temp_v1, u16 *, 0x10);
-            if (__repair_result_var_a2 & 8) {
+            var_a1 = temp_v1 + 0x10;
+            var_a2 = M2C_FIELD(temp_v1, u16 *, 0x10);
+            if (var_a2 & 8) {
 
             } else {
                 goto loop_3;

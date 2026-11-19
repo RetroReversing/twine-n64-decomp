@@ -49,7 +49,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     }
     func_80073AF8(0, D_80109688[M2C_FIELD(temp_s6, s8 *, 0x182)], func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-        do { func_80084338(*(&D_800C4484 + temp_s0), arg0 + 0x24); } while (0);
+        func_80084338(*(&D_800C4484 + temp_s0), arg0 + 0x24);
         return;
     }
     func_8000A894(*(&D_800C4484 + temp_s0));

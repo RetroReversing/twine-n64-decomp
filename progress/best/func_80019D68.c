@@ -39,13 +39,14 @@ block_4:
 __repair_literal = 4;
 
         if ((D_801002BC + 4) > __repair_literal) {
-loop_6:
-            if ((func_80019B34(var_s0_2 & 0xFFFF) & 0xFFFF) == 0x159) {
+            for (;;) {
+                if ((func_80019B34(var_s0_2 & 0xFFFF) & 0xFFFF) != 0x159) {
+                    break;
+                }
                 var_s0_2 += 1;
                 if ((var_s0_2 & 0xFFFF) >= (D_801002BC + 4)) {
                     goto block_8;
                 }
-                goto loop_6;
             }
         } else {
 block_8:

@@ -80,7 +80,7 @@ u32 __repair_result_var_s1;
         } while ((var_a0 > var_v1) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_v0_4 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_v0_4 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_v0_4 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (var_s3 > 0));
     }
     temp_v0_5 = (*(s8 *)((char *)(arg0) + 0x11DD));
-    if (((temp_v0_5 == 3) || (temp_v0_5 == 4)) && ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) <= 0) && (var_a0 > var_v1) && (var_s3 > 0)) {
+    if (((temp_v0_5 == 3) || (((*(s8 *)((char *)(arg0) + 0x11DD))) == 4)) && ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) <= 0) && (var_a0 > var_v1) && (var_s3 > 0)) {
         for (;;) {
             bzero((*(s32 *)((char *)(arg0) + 0x198)) + (((u32) (var_s1 % ((__repair_field_19C *)arg0)->value) >> 2) * 8), 0x140);
             __repair_phase_temp_v1_3 = (*(u32 *)((char *)(arg0) + 0x11D8)); __repair_phase_temp_v1_3 += 0xA0;

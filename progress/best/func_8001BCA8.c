@@ -25,22 +25,16 @@ extern M2C_UNK D_8010A488;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[36]; float field_54; } __repair_record_D_800B5B14;
 void func_8001BCA8(void) {
-    M2C_UNK *__base_D_8010A488;
     u8 *__base_D_801002AD;
     void **__base_D_800B5B14;
     s32 *__base_D_80109688;
     u8 var_s0;
     void *temp_v0;
 
-    __base_D_8010A488 = &D_8010A488;
-    func_8002ACB4(__base_D_8010A488);
+    func_8002ACB4(&D_8010A488);
     __base_D_800B5B14 = &D_800B5B14;
     if ((*__base_D_800B5B14) != NULL) {
-        /*__repair_pointer_balance*/if ((unsigned long)__base_D_800B5B14 & 0x100) {
-func_80002EF0((*__base_D_800B5B14));
-} else {
-func_80002EF0((*__base_D_800B5B14));
-}
+        func_80002EF0((*__base_D_800B5B14));
         ((__repair_record_D_800B5B14*)(*__base_D_800B5B14))->field_24 = 1.25f;
         ((__repair_record_D_800B5B14*)(*__base_D_800B5B14))->field_28 = 0.15f;
         ((__repair_record_D_800B5B14*)(*__base_D_800B5B14))->field_2C = -3.0f;
@@ -48,10 +42,10 @@ func_80002EF0((*__base_D_800B5B14));
         __base_D_80109688 = &D_80109688;
         func_8000628C((*__base_D_800B5B14), (*__base_D_80109688) + 0x10, 1, 0x80);
         func_8000628C((*__base_D_800B5B14), (*__base_D_80109688) + 0x10, 0, 0x800);
-        if (func_80029C08(__base_D_8010A488, 0, 0) & 0xFFFF) {
+        if (func_80029C08(&D_8010A488, 0, 0) & 0xFFFF) {
             __base_D_801002AD = &D_801002AD;
             var_s0 = (*__base_D_801002AD);
-            temp_v0 = func_8002A980(__base_D_8010A488);
+            temp_v0 = func_8002A980(&D_8010A488);
             if (temp_v0 != NULL) {
                 var_s0 = M2C_FIELD(temp_v0, u8 *, 8);
             }

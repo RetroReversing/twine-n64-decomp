@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8007AA40(void *, s32, s32 *, s32);         /* extern */
-M2C_UNK func_8007AABC(void *, s32, f32);        /* extern */
+M2C_UNK func_8007AABC(void *, s32, M2C_UNK);        /* extern */
 s32 func_8007C72C(void *arg0, void *, M2C_UNK);                 /* extern */
 extern void *D_8010A500;
 
@@ -32,7 +32,7 @@ s32 func_80081568(void *arg0) {
             M2C_FIELD(temp_s1, __repair_words3 *, 0x18) = *(__repair_words3 *) ((s8 *) D_8010A500 + 0x24);
             var_v0 = 1;
             if ((func_8007AA40(arg0, temp_s1 + 0x18, &sp10, M2C_FIELD(temp_s1, s32 *, 0x1C)) << 0x18) == 0) {
-                do {/*__repair_call_balance*/if(var_v0){ do { func_8007AABC(arg0, sp10, 0.1f); } while (0);}else{ func_8007AABC(arg0, sp10, 0.1f);} } while (0);
+                func_8007AABC(arg0, sp10, 0x3DCCCCCD);
                 var_v0 = 0;
             }
         }

@@ -1,15 +1,14 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 void func_8009EE60(s32 a0, s32 a1, s16 *a2, s16 *a3)
 {
     s32 idx;
     s32 t0, t1, t2, t3, t4;
-    register s32 i;
+    s32 i;
     s16 *p;
 
     if (a0 <= 7) {
         idx = 0;
-        t1 = idx & 7;
         t0 = idx >> 4;
+        t1 = idx & 7;
     } else {
         t0 = (a0 - 8) >> 3;
         t1 = a0 & 7;
@@ -20,12 +19,12 @@ void func_8009EE60(s32 a0, s32 a1, s16 *a2, s16 *a3)
     p = a2;
     for (i = 13; i > 0; i--) {
         s32 v = ((*p << 13) - 0x7000) * t4;
-        *p = (s16)((v + t3) >> t2);
         v = (v + 0x4000) >> 15;
+        *p = (s16)((v + t3) >> t2);
         p++;
     }
     p = a3;
-    for (i = 40; __repair_inline(i, 0); i--) {
+    for (i = 40; i > 0; i--) {
         *p++ = 0;
     }
     p = a3 + a1 * 2;

@@ -49,7 +49,7 @@ void func_80014EB0(void *arg0, f32 *arg1) {
     if (D_800E09F0 == 0) {
         var_a1 = *(void **)arg0;
         if (var_a1 != NULL) {
-            __repair_rows: {
+            do {
                 if ((*(s32 *)((u8 *)var_a1 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a1 + 0x58) & 0x800)) {
                     temp_v1 = D_80109DC4;
                     *(s32 *)((u8 *)var_a1 + 0x58) |= 0x800;
@@ -57,8 +57,7 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                     *(void **)((u8 *)var_a1 + 0x1C) = temp_v1;
                 }
                 var_a1 = *(void **)var_a1;
-            }
-if (var_a1 != NULL) goto __repair_rows;
+            } while (var_a1 != NULL);
         }
     }
     temp_v0 = D_800E09F0 + 1;
@@ -77,7 +76,7 @@ if (var_a1 != NULL) goto __repair_rows;
                 do {
                     var_a0 = *(void **)(*(void **)((u8 *)var_s6 + 8));
                     if (var_a0 != NULL) {
-                        __repair_rows_: {
+                        do {
                             if ((*(s32 *)((u8 *)var_a0 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a0 + 0x58) & 0x800)) {
                                 temp_v1 = D_80109DC4;
                                 *(s32 *)((u8 *)var_a0 + 0x58) |= 0x800;
@@ -85,8 +84,7 @@ if (var_a1 != NULL) goto __repair_rows;
                                 *(void **)((u8 *)var_a0 + 0x1C) = temp_v1;
                             }
                             var_a0 = *(void **)var_a0;
-                        }
-if (var_a0 != NULL) goto __repair_rows_;
+                        } while (var_a0 != NULL);
                     }
                     temp_ft0 = (*(f32 *)((u8 *)D_8010D53C + 0x10) * *(f32 *)((u8 *)var_s6 + 0xC)) + (*(f32 *)((u8 *)D_8010D53C + 0x14) * *(f32 *)((u8 *)var_s6 + 0x10)) + (*(f32 *)((u8 *)D_8010D53C + 0x18) * *(f32 *)((u8 *)var_s6 + 0x14)) + *(f32 *)((u8 *)var_s6 + 0x18);
                     D_800E0C3C = temp_ft0;
@@ -191,8 +189,8 @@ if (var_a0 != NULL) goto __repair_rows_;
                                             spA7 = 1;
                                         }
                                     }
-                                    spD4 += 3;/*__repair_loop_weight*/do {
-                                    var_s7 += 1;} while (0);
+                                    spD4 += 3;
+                                    var_s7 += 1;
                                     spDC += 6;
                                 } while (var_s7 < (s32) *(u16 *)((u8 *)temp_s4 + 0x40));
                             }

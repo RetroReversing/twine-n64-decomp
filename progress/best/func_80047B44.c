@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80045764(f32 *, f32 *);                    /* extern */
+f32 func_80045764(f32 *, void *, f32 *);                    /* extern */
 s32 func_8004886C(s32, void *, f32);                /* extern */
 s32 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *); /* extern */
 extern f64 D_800D3E08;
@@ -56,7 +56,7 @@ int __repair_literal;
         m2c_initial_frame.view_sp28.value = M2C_FIELD(arg2, f32 *, 0) - M2C_FIELD(arg1, f32 *, 0);
         m2c_initial_frame.view_sp2C.value = M2C_FIELD(arg2, f32 *, 4) - M2C_FIELD(arg1, f32 *, 4);
         m2c_initial_frame.view_sp30.value = M2C_FIELD(arg2, f32 *, 8) - M2C_FIELD(arg1, f32 *, 8);
-        temp_fs1 = func_80045764(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
+        temp_fs1 = func_80045764(&m2c_initial_frame.view_sp18.value, arg1, &m2c_initial_frame.view_sp28.value);
         if (var_s5 != NULL) {
             temp_fs0 = D_800D3E08;
 loop_3:

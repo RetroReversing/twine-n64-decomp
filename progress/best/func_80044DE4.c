@@ -39,9 +39,10 @@ extern u8 D_80112F6C;
 extern u8 D_80112F6D;
 
 void func_80044DE4(u32 arg0) {
-    s32 sp10;
+    u16 sp10;
     u16 sp12;
-    s16 sp46[2];
+    s16 sp46;
+    s16 sp48;
     s16 sp4C;
     char *var_a0_2;
     
@@ -119,7 +120,7 @@ void func_80044DE4(u32 arg0) {
     case 32:
     case 39:
         var_v1 = 0x1B;
-        var_a0_2 = sp46;
+        var_a0_2 = &sp46;
         var_v0 = 0x1FA;
         do {
             *(s16 *)var_a0_2 = var_v0;
@@ -127,7 +128,7 @@ void func_80044DE4(u32 arg0) {
             var_v1 -= 1;
             var_v0 -= 1;
         } while (var_v1 >= 0);
-        sp46[1] = -1;
+        sp48 = -1;
         func_80044D28(&sp10);
         var_a0 = &D_800C2BF4;
         break;
@@ -140,7 +141,7 @@ void func_80044DE4(u32 arg0) {
     }
     var_v1_2 = 0x1B;
     if (D_80112F6C != 0) {
-        var_a0_2 = sp46;
+        var_a0_2 = &sp46;
         var_v0_2 = 0x1FA;
         do {
             *(s16 *)var_a0_2 = var_v0_2;
@@ -148,7 +149,7 @@ void func_80044DE4(u32 arg0) {
             var_v1_2 -= 1;
             var_v0_2 -= 1;
         } while (var_v1_2 >= 0);
-        sp46[1] = -1;
+        sp48 = -1;
         func_80044D28(&sp10);
     }
     var_v1_3 = 0;
@@ -157,8 +158,8 @@ void func_80044DE4(u32 arg0) {
         var_a0_4 = 0;
         do {
             temp_v0 = *(u16 *)(D_800C447A + var_a0_4);
-            var_a0_4 += 0x10;/*__repair_loop_weight*/do {
-            var_v1_3 += 1;} while (0);
+            var_a0_4 += 0x10;
+            var_v1_3 += 1;
             *(u16 *)var_a0_2 = temp_v0;
             var_a0_2 += 2;
         } while (var_v1_3 < 0x1E);

@@ -36,5 +36,5 @@ void func_800061D0(void *arg0, s16 arg1, s16 arg2) {
         func_80084180(M2C_FIELD(temp_s0, s32 *, 0x40), M2C_FIELD(temp_s0, s32 *, 0x44), M2C_FIELD(temp_s0, s16 *, 0x92), temp_a3);
     }
     func_800055CC(M2C_FIELD(temp_s0, s32 *, 0x44), arg1, arg2, M2C_FIELD(temp_v1, s32 *, 0x14) & 1);
-    do { func_80005F5C(arg0); } while (0);
+    func_80005F5C(arg0);
 }

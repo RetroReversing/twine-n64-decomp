@@ -39,11 +39,11 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     if (D_80102ED8 != 0) {
         var_a3 = &D_801002C0;
         var_a1_2 = 0;
-        if (*var_a3 > 0) {
-            var_a2 = &D_8010A4C1;do{do{do{
-            var_v1 = 1 << 0;}while(0);}while(0);}while(0);
+        if (D_801002C0 > 0) {
+            var_a2 = &D_8010A4C1;
+            var_v1 = 1 << 0;
             do {
-                var_a0 = *var_a3;
+                var_a0 = D_801002C0;
                 var_a1_2 += 1;
                 M2C_FIELD(&D_8010A4C1, u8 *, 0) |= var_v1;
                 var_v1 = 1 << var_a1_2;
@@ -52,10 +52,10 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
         }
         var_a1 = 0;
         if (D_801002C0 > 0) {
-            var_a2 = &D_8010A4C2;do{do{do{
-            var_v1_2 = 1 << 0;}while(0);}while(0);}while(0);
+            var_a2 = &D_8010A4C2;
+            var_v1_2 = 1 << 0;
             do {
-                var_a0 = (s32)&D_801002C0;
+                var_a0 = D_801002C0;
                 var_a1 += 1;
                 D_8010A4C2 |= var_v1_2;
                 var_v1_2 = 1 << var_a1;

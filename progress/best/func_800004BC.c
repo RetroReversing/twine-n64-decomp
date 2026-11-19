@@ -19,7 +19,7 @@ void func_800004BC(void) {
     osSetEventMesg(0xE, &D_80112E80, 0);
     osRecvMesg(&D_80112E80, 0, 1);
     D_800AE4B0 = 1;
-    do { osViSetYScale(1.0f); } while (0);
+    osViSetYScale(1.0f);
     func_800081C4(0);
     osViBlack(1);
     func_8009D0DC();

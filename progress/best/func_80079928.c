@@ -24,8 +24,7 @@ char *__repair_addr;
     sp30[2] = (*(f32 *)((char *)(arg1) + 0x2C));
     *arg2 = 0;
     sp50 = 0;
-    {__repair_rows: {*arg3 = 0;}
-if (0) goto __repair_rows;}
+    {{*arg3 = 0;}}
     temp_v1 = (*(void **)((char *)(arg1) + 0x68));
     temp_ft1 = (*(f32 *)((char *)(arg1) + 0x28));
     (*(u16 *)((char *)(temp_v1) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1) + 0xC)) & 0xFFCF);

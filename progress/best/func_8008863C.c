@@ -23,8 +23,8 @@ extern u8 D_800CEEC0;
 extern f64 D_800D66D0;
 extern char D_800E1AC0[];
 extern char D_800E2C60[];
-extern u8 D_800E2CC0[];
-extern u8 D_800E2CC1[];
+extern char D_800E2CC0[];
+extern char D_800E2CC1[];
 extern char D_800E2CC2[];
 extern char D_800E2CC3[];
 extern char D_800E2CC4[];
@@ -82,7 +82,7 @@ char *__repair_addr;
                                 }
                                 *(s32 *)(D_800E2CDC + var_s0) = 0;
                                 *(D_800E2CC0 + var_s0) = 2;
-                                *(f32 *)(D_800E2CE0 + var_s0) = ((f32) *(u16 *)(D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
+                                *(D_800E2CE0 + var_s0) = ((f32) *(u16 *)(D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
                                 __repair_rows: { func_8009D9B8(temp_s1); }
 if (0) goto __repair_rows;
 __repair_addr = (char *)(D_800E2CD4 + var_s0);
@@ -104,14 +104,14 @@ __repair_addr = (char *)(D_800E2CD4 + var_s0);
                         if (temp_v0_2 == 0) {
 block_17:
                             if (!(D_800E3F2C & 1)) {
-                                D_80100180(*(u8 *)var_s3);
+                                do { D_80100180(*(u8 *)var_s3); } while (0);
                             }
                             *(D_800E2CC0 + var_s0) = 0;
                             var_s2 += 0x1228;
                         } else {
                             if (temp_v0_2 == 2) {
                                 func_80093758(*(u8 *)var_s6);
-                                do {*(u8 *)var_s6 = -1;}while(0);
+                                *(u8 *)var_s6 = -1;
                             }
                             M2C_FIELD(temp_s1, s8 *, 0x1218) = (s8) (*(u8 *)var_s2 - 1);
                             goto block_23;

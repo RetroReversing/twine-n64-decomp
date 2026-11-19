@@ -51,8 +51,8 @@ s32 func_80097194(s32 arg0) {
         *(u16 *)(D_800F795C + 2 + temp_v1) = temp_v0;
         var_a2 = var_a1 + 1;
         if (!(temp_v0 & 0xFFFF)) {
-            if (var_a2 < var_a3) {do{do{do{do{do{
-                temp_v0_2 = var_a2 * 8;}while(0);}while(0);}while(0);}while(0);}while(0);
+            if (var_a2 < var_a3) {
+                temp_v0_2 = var_a2 * 8;
                 var_t0 = temp_v0_2 + (D_800F7958 - 8);
                 var_a3 = (s32) (temp_v0_2 + D_800F7958);
                 do {

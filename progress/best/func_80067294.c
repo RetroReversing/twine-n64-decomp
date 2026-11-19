@@ -17,9 +17,10 @@ extern char D_800C469C[];
 extern s32 D_80102ED8;
 
 void func_80067294(void *arg0, s32 arg1) {
+    char *__base_D_800C469C;
     void * __repair_hoisted;
 
-    s8 temp_v1;
+    s32 temp_v1;
     s8 var_a2;
     void *temp_s0;
 
@@ -66,11 +67,11 @@ void func_80067294(void *arg0, s32 arg1) {
     case 26:
     case 27:
         __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
-        if (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) {
-            __repair_rows: {
+        __base_D_800C469C = D_800C469C;
+        if (!(*(u16 *)(__base_D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) {
+            do {
                 M2C_FIELD(__repair_hoisted, u8 *, 0xE) -= 1;
-            }
-if (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) goto __repair_rows;
+            } while (!(*(u16 *)(__base_D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000));
         }
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = var_a2;
         func_80070CA4((s8) M2C_FIELD(arg0, void **, 0x68));

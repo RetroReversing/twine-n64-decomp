@@ -19,7 +19,7 @@ s16 strlen(s32);                                    /* extern */
 extern void *D_800BFF08;
 extern M2C_UNK D_800E1600;
 
-M2C_UNK *func_80031144(s32 arg0, s32 arg1) {
+M2C_UNK *func_80031144(s32 arg0, s16 arg1) {
     s32 temp_a0;
     s32 temp_v0;
     u16 *var_v0;
@@ -28,28 +28,21 @@ M2C_UNK *func_80031144(s32 arg0, s32 arg1) {
     M2C_FIELD(&D_800E1600, s16 *, 4) = 0;
     if (D_800BFF08 != NULL) {
         temp_a0 = arg0 & 0xFFFF;
-        switch (temp_a0) {
-void *__repair_cached_pointer = D_800BFF08;
-                          /* irregular */
+        switch (temp_a0) {                          /* irregular */
         case 0:
             temp_a0 = func_80087100(func_8003137C(arg1, 1) & 0xFFFF);
             M2C_FIELD(&D_800E1600, s32 *, 0) = temp_a0;
             M2C_FIELD(&D_800E1600, s16 *, 4) = strlen(temp_a0);
             break;
         case 3:
-            var_v0 = M2C_FIELD(__repair_cached_pointer, u16 **, 0x10);
-            if (var_v0 != NULL) {
-                func_80030818(arg0, &D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
-            }
-            break;
+            var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0x10);
+            goto block_14;
         case 2:
             var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0xC);
-            if (var_v0 != NULL) {
-                func_80030818(arg0, &D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
-            }
-            break;
+            goto block_14;
         case 1:
             var_v0 = M2C_FIELD(D_800BFF08, u16 **, 8);
+block_14:
             if (var_v0 != NULL) {
                 func_80030818(arg0, &D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
             }

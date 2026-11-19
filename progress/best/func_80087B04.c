@@ -28,22 +28,22 @@ extern u16 D_8010D436;
 void func_80087B04(void) {
     s32 temp_a0;
     s32 temp_v1;
-    
-    union { void * pointer; s32 value; } __repair_phase_storage;
+    s32 var_a1;
+    void *temp_v0;
 
     if ((D_8010D430 & 0x1000)) {
         if ((D_8010A3C0 == -1)) {
             D_8010A3C0 = 0xF;
         }
     }
-    __repair_phase_storage.pointer = (D_80102F30) + ((D_80109CB0 * 0x10));
-    D_8010D430 = M2C_FIELD(__repair_phase_storage.pointer, u16 *, 0);
-    D_8010D432 = M2C_FIELD(__repair_phase_storage.pointer, u16 *, 2);
-    D_8010D434 = M2C_FIELD(__repair_phase_storage.pointer, u16 *, 4);
-    D_8010D436 = M2C_FIELD(__repair_phase_storage.pointer, u16 *, 6);
+    temp_v0 = (D_80102F30) + ((D_80109CB0 * 0x10));
+    D_8010D430 = M2C_FIELD(temp_v0, u16 *, 0);
+    D_8010D432 = M2C_FIELD(temp_v0, u16 *, 2);
+    D_8010D434 = M2C_FIELD(temp_v0, u16 *, 4);
+    D_8010D436 = M2C_FIELD(temp_v0, u16 *, 6);
     temp_a0 = D_80109CB0 + 1;
-    (*(s32 *)&D_80102CC8) = M2C_FIELD(__repair_phase_storage.pointer, s32 *, 8);
-    D_80102CCC = M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0xC);
+    (*(s32 *)&D_80102CC8) = M2C_FIELD(temp_v0, s32 *, 8);
+    D_80102CCC = M2C_FIELD(temp_v0, s32 *, 0xC);
     D_80109CB0 = temp_a0;
     if (temp_a0 >= 0x375) {
         if (D_8010A3C0 == -1) {
@@ -65,9 +65,9 @@ block_7:
         func_800066A0(0x11);
     }
     temp_v1 = D_80109CB0 & 0x3F;
-    __repair_phase_storage.value = temp_v1;
+    var_a1 = temp_v1;
     if (temp_v1 >= 0x20) {
-        __repair_phase_storage.value = 0x3F - temp_v1;
+        var_a1 = 0x3F - temp_v1;
     }
-    M2C_FIELD(D_801005AC, s32 *, 0x10) = (s32) ((M2C_FIELD(D_801005AC, s32 *, 0x10) & ~0xFF) | ((s32) (__repair_phase_storage.value << 0x10) >> 0xD));
+    M2C_FIELD(D_801005AC, s32 *, 0x10) = (s32) ((M2C_FIELD(D_801005AC, s32 *, 0x10) & ~0xFF) | ((s32) (var_a1 << 0x10) >> 0xD));
 }

@@ -4,43 +4,46 @@ s32 func_80095A80(s32, s32, u8, s32);       /* extern */
 s32 func_800989B8();                                /* extern */
 typedef struct { u32 f0; u8 pad[412]; } Slot_8010D734;
 extern Slot_8010D734 D_8010D734[];
-extern s32 D_8010D748;
+typedef struct { u32 f0; u8 pad[412]; } Slot_8010D748;
+extern Slot_8010D748 D_8010D748[];
 extern u8 D_8010D76F[];
 extern u8 D_8010D779[];
 extern s32 D_8010D784;
 
 s32 func_8008E680(s32 arg1) {
     s32 temp_s2;
-    register s32 var_v0;
-    s32 var_s0;
+    unsigned long var_s0;
     s32 temp_s1;
+
+    register s32 var_v0;
     s32 var_s0_2;
     
-    unsigned int temp_s4;
-    u8 var_a2;
+    register int temp_s4;
+    s32 var_a2;
+s32 __repair_phase_var_a2;
 
     var_s0 = -1;
-    var_s0_2 = func_800989B8();
+    var_s0_2 = func_800989B8((int)arg1);
     if (var_s0_2 != -1) {
         temp_s4 = (u32) (arg1 & 0xFFFF) >> 7;
 loop_2:
         temp_s2 = var_s0_2 & 0xFF;
-        temp_s1 = temp_s2 * 0x1A0;
         var_v0 = var_s0;
+        temp_s1 = temp_s2 * 0x1A0;
         if (*(&D_8010D784 + temp_s1) == var_s0_2) {
-            if (*(&D_8010D748 + temp_s1) & 2) {
-                register var_s0_2 = temp_s2 & 0xFF;
+            if (D_8010D748[temp_s2].f0 & 2) {
+                var_s0_2 = temp_s2 & 0xFF;
                 func_80095A80(0x84, var_s0_2, *(D_8010D779 + temp_s1), temp_s4 & 0xFF);
                 var_a2 = *(D_8010D779 + temp_s1);
             } else {
-                register var_s0_2 = temp_s2 & 0xFF;
-                func_80095A80(0x84, var_s0_2, *(D_8010D76F + temp_s1), temp_s4 & 0xFF);
                 var_a2 = *(D_8010D76F + temp_s1);
+                func_80095A80(0x84, var_s0_2, *(u16 *)(D_8010D76F + temp_s1), temp_s4 & 0xFF);
+                var_s0_2 = (s32)temp_s2 & 0xFF;
             }
             func_80095A80(0x85, var_s0_2, var_a2, arg1 & 0x7F & 0xFF);
-            temp_s1 = D_8010D734[temp_s2].f0;
+            __repair_phase_var_a2 = D_8010D734[temp_s2].f0;
             var_s0 = 0;
-            if (temp_s1 == -1) {
+            if (__repair_phase_var_a2 == -1) {
                 goto block_7;
             }
             goto loop_2;

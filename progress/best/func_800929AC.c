@@ -23,7 +23,7 @@ void func_800929AC(u16 *arg0, s32 arg1, s32 arg2) {
     if (func_80097814(arg2, func_8008C758(arg1)) & 0xFF) {
         var_a0 = *arg0;
         if ((var_a0 & 0xFFFF) != 0xFFFF) {
-            var_s0 = (char *)(arg0); var_s0 += (s32)(2);
+            var_s0 = (void *)(arg0); var_s0 = (void *)((char *)var_s0 + (s32)(2));
             do {
                 func_80097A40(var_a0, arg2);
                 var_a0 = *(u16 *)var_s0;

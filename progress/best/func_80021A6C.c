@@ -28,8 +28,9 @@ void func_80021A6C(void) {
 
     func_80029068();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28;
+        temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18);
         p = (u8 *)&D_8010A4C0;
+        temp_s0 += 0x28;
         if ((func_800219A0(*p) & 0xFF) == 0 || (v = *p) == 0) {
             var_a0 = 0x16;
         } else if (v == 1) {

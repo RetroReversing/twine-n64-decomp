@@ -9,17 +9,17 @@ extern u8 D_800B241F;
 
 typedef struct { int value; } __repair_field_0;
 void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
-    register void *temp_v0_3;
-    void *temp_v0_2;
+    void *temp_v0_3;
     void *temp_v0_4;
-    register unsigned var_s4;
-    void *var_s2;
+    void *temp_v0_2;
     register void *temp_v0;
+    register void *var_s2;
+    register s32 var_s4;
     void *temp_s0;
 
     temp_v0 = func_80016410(0x4C, 0, 0);
     if (temp_v0 != NULL) {
-        register temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
+        temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
         (*(s8 *)((char *)(temp_s0) + 0x44)) = (s8) (*(u16 *)((char *)(arg2) + 0x2C));
         (*(s8 *)((char *)(temp_s0) + 0x45)) = (s8) (*(u16 *)((char *)(arg2) + 0x2E));
         (*(s8 *)((char *)(temp_s0) + 0x46)) = (s8) (*(u16 *)((char *)(arg2) + 0x30));

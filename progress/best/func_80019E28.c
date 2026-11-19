@@ -36,7 +36,7 @@ void func_80019E28(s32 arg0) {
             var_a0 = 0x15B;
         }
         temp_s1 = func_80087100(var_a0);
-        do { sprintf(sp10, D_800D291C, temp_s1, func_80087100(((u16 *)&sp30)[temp_s0])); } while (0);
+        sprintf(sp10, D_800D291C, temp_s1, func_80087100(((u16 *)&sp30)[temp_s0]));
         func_80026004(arg0, D_800D290C, (u16 *)sp10);
     }
 }

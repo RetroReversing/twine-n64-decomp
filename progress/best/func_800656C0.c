@@ -20,8 +20,8 @@ extern char D_80109688[];
 
 void func_800656C0(void *arg0, void *arg1, void *arg2) {
     unsigned temp_a2;
-    register void *temp_a2_2;
-    long temp_a3;
+    void *temp_a2_2;
+    register unsigned temp_a3;
     register void *temp_s0;
     
 
@@ -36,14 +36,14 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     (*(s32 *)((char *)(temp_s0) + 0x12C)) = (s32) (*(s32 *)((char *)(arg0) + 0x34));
     temp_a3 = (*(s32 *)((char *)(arg2) + 8));
     (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg2) + 4));
-    (*(s32 *)((char *)(arg0) + 0x50)) = temp_a2;
     (*(s32 *)((char *)(temp_s0) + 0x128)) = (s32) (*(s32 *)((char *)(arg0) + 0x30));
     (*(s32 *)((char *)(arg0) + 0x3C)) = (s32) (*(s32 *)((char *)(arg2) + 0));
+    (*(s32 *)((char *)(arg0) + 0x50)) = temp_a2;
     temp_a2 = (*(s32 *)((char *)(arg0) + 0x44));
     (*(s32 *)((char *)(arg0) + 0x44)) = temp_a3;
     (*(s32 *)((char *)(arg0) + 0x48)) = (s32) (*(s32 *)((char *)(arg0) + 0x3C));
     (*(s32 *)((char *)(arg0) + 0x4C)) = (s32) (*(s32 *)((char *)(arg0) + 0x40));
-    do { func_800635B4(arg0,  1); } while (0);
+    func_800635B4(arg0,  1);
     func_800635BC(arg0, 0);
     func_80065684(arg0);
     func_800656B0(arg0);

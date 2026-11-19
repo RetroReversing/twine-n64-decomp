@@ -4,14 +4,14 @@ s32 func_8000299C(void *);                          /* extern */
 extern s32 D_800B0618;
 
 s32 func_80002BD0(void *arg0, s16 arg1) {
-    void *temp_a0_2;
     void *temp_a0;
+    void *temp_a0_2;
     void *temp_v1;
 
     (*(s16 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xA0)) = 0;
     temp_v1 = (*(void **)((char *)(arg0) + 0x68));
     if (!((*(s16 *)((char *)(temp_v1) + 0xA2)) == (unsigned short)arg1)) {
-    (*(s16 *)((char *)((unsigned short)temp_v1) + 0xA2)) = arg1;
+    (*(s16 *)((char *)(temp_v1) + 0xA2)) = arg1;
     (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x64)) = (s32) *(&D_800B0618 + func_8000299C(arg0));
     temp_a0 = (*(void **)((char *)(arg0) + 0x68));
     (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) ((*(s32 *)((char *)(temp_a0) + 0x14)) & ~0x2010);

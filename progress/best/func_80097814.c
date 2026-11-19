@@ -9,51 +9,47 @@ typedef struct { u16 f0; u8 pad[10]; } Slot_800F38F8;
 extern Slot_800F38F8 D_800F38F8[];
 
 s32 func_80097814(u16 *arg0, s32 arg1) {
-int __repair_literal;
-
     s32 temp_v0;
     s16 var_s0;
 s32 __repair_phase_temp_v0;
 s32 __repair_phase___repair_phase_temp_v0;
     
     
-    register s32 var_v0;
+    long var_v0;
 
     
-    register u16 *var_a0_2;
+    u16 *var_a0_2;
     
-    u32 temp_v1;
+    register u32 temp_v1;
 
     temp_v0 = 0;
-__repair_literal = 0;
-
-    if (D_800F38EC > __repair_literal) {
+    if (D_800F38EC > 0) {
         __repair_phase_temp_v0 = 0;
 loop_2:
         if (*(&D_800F38F0 + __repair_phase_temp_v0) != arg0) {
             temp_v0 += 1;
             __repair_phase_temp_v0 += 0xC;
-            if (temp_v0 < D_800F38EC) {
+            if (D_800F38EC > temp_v0) {
                 goto loop_2;
             }
         }
     }
     var_v0 = 1;
-    if (temp_v0 == D_800F38EC) {
+    if ((int)temp_v0 == D_800F38EC) {
         var_a0_2 = arg0;
         if (temp_v0 < 8) {
             var_s0 = 0;
             if (*var_a0_2 != 0xFFFF) {
                 do {
                     var_a0_2 += 0x1C;
-                    ++var_s0;
+                    var_s0 += 1;
                 } while (*var_a0_2 != 0xFFFF);
             }
             func_8008C0D4();
             temp_v0 = D_800F38EC * 0xC;
             var_a0_2 = arg0;
             temp_v1 = var_s0 & 0xFFFF;
-            *(&D_800F38F0 + (u32)temp_v0) = var_a0_2;
+            *(&D_800F38F0 + temp_v0) = var_a0_2;
             D_800F38F8[D_800F38EC].f0 = var_s0;
             *(&D_800F38F4 + temp_v0) = arg1;
             __repair_phase___repair_phase_temp_v0 = 0;

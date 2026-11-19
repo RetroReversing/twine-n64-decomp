@@ -53,7 +53,7 @@ void func_800633D0(void *arg0) {
             }
             temp_a0 = M2C_FIELD(temp_s0, u16 *, 6);
             if ((temp_a0 != 0) && (D_800B2715 == 0)) {
-                do { func_80084338(temp_a0, arg0 + 0x24); } while (0);
+                func_80084338(temp_a0, arg0 + 0x24);
             }
             temp_a2 = M2C_FIELD(temp_s0, u8 *, 0xB);
             if (temp_a2 != 0) {

@@ -5,19 +5,19 @@ extern Slot_800C3928 D_800C3928[];
 extern s16 D_800C3CF4;
 
 s32 func_80006560(void) {
-    u32 var_a1;
-    s16 temp_v1;
-    s32 var_a3;
-    s16 var_v0;
     char *var_a0;
+    s16 temp_v1;
     s16 var_a2;
+    s32 var_v0;
+    s32 var_a1;
+    s32 var_a3;
 
     var_a3 = 0;
     var_a2 = 0;
     var_a1 = 0;
-    if (0 <= (short)D_800C3CF4) {
-        register var_a0 = &D_800C3CF4;
-        register var_v0 = D_800C3CF4;
+    if (D_800C3CF4 >= 0) {
+        var_a0 = &D_800C3CF4;
+        var_v0 = D_800C3CF4;
         do {
             temp_v1 = D_800C3928[var_v0].f0;
             var_a0 += 0xC;
@@ -26,8 +26,8 @@ s32 func_80006560(void) {
                 var_a3 = var_a1;
             }
             var_v0 = *(s16 *)var_a0;
-            ++var_a1;
-        } while (0 <= var_v0);
+            var_a1 += 1;
+        } while (var_v0 >= 0);
     }
     return var_a3;
 }

@@ -16,8 +16,6 @@ s32 func_80063C7C();
 extern char D_800C469C[];
 
 s32 func_800648FC(void *arg0, s32 arg1) {
-int __repair_literal;
-
     s16 temp_a1;
     s32 var_v1;
     s32 temp_s2;
@@ -31,14 +29,12 @@ int __repair_literal;
 
     temp_a0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE);
     temp_s2 = M2C_FIELD(arg0, s32 *, 0x6C);
-    temp_s1 = (D_800C469C) + ((temp_a0 * 0xE8));
+    temp_s1 = (temp_a0 * 0xE8) + D_800C469C;
     temp_s0 = M2C_FIELD(temp_s1, u8 *, 0x80);
     temp_v0 = func_80063C7C(temp_a0);
-    temp_t0 = (void *)(temp_s2); temp_t0 = (void *)((char *)temp_t0 + (s32)((temp_s0 * 2)));
+    temp_t0 = (char *)(temp_s2); temp_t0 += (s32)((temp_s0 * 2));
     temp_a1 = M2C_FIELD(temp_t0, s16 *, 0x1BC);
-__repair_literal = 0;
-
-    if (temp_a1 > __repair_literal) {
+    if (temp_a1 > 0) {
         temp_a0_2 = M2C_FIELD(temp_s1, u8 *, 0x83);
         var_v1 = M2C_FIELD(temp_s1, u8 *, 0x82) - M2C_FIELD((temp_a2 = temp_s2 + ((s32) (temp_v0 << 0x10) >> 0xD)), s8 *, 0x1FF);
         if ((s32) temp_a0_2 < var_v1) {

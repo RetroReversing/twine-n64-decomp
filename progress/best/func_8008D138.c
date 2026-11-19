@@ -9,9 +9,7 @@ extern char D_8010D724[];
 extern char D_8010D734[];
 extern char D_8010D738[];
 
-s32 func_8008D138(u32 arg0, u16 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9) {
-int __repair_literal;
-
+s32 func_8008D138(u32 arg0, u16 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9) {
     register unsigned long temp_a0;
     register s32 temp_a3;
     u16 sp46;
@@ -54,9 +52,7 @@ __repair_constant = -1;
     sp6F = arg9;
     temp_v1 = func_8009852C(arg0 >> 0x10, &sp30);
     sp4F = arg2;
-__repair_literal = 0;
-
-    if ((temp_v1 != NULL) && (var_s5 = 0, ((s32) sp30 > __repair_literal))) {
+    if ((temp_v1 != NULL) && (var_s5 = 0, ((s32) sp30 > 0))) {
         temp_s3 = arg5 & 0xFF;
         temp_fp = arg2 & 0x7F;
         temp_s4 = arg6 & 0xFF;

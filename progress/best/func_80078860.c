@@ -64,7 +64,7 @@ s32 func_80078860(u8 *arg0) {
                         *(s32 *)(temp_s1 + 0x18) = *(s32 *)(D_8010A500 + 0x24);
                         *(s32 *)(temp_s1 + 0x1C) = temp_a2;
                         *(s32 *)((*(u8 **)(arg0 + 0x6C)) + 0x20) = temp_a3;
-                        do { func_80077960(arg0, 0xD, temp_a2, temp_a3); } while (0);
+                        func_80077960(arg0, 0xD, temp_a2, temp_a3);
                         return 0;
                     }
                 }

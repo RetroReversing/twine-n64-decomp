@@ -22,8 +22,6 @@ extern f64 D_800D2DE0;
 extern void *D_8010A500;
 
 void func_80031A84(void *arg0) {
-void *__repair_cached_pointer = D_8010A500;
-
     void **__base_D_8010A500;
     f32 sp28;
     f32 sp2C;
@@ -37,7 +35,7 @@ void *__repair_cached_pointer = D_8010A500;
 
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x60);
     temp_s2 = M2C_FIELD(arg0, u16 **, 0x6C);
-    if ((temp_v1 & 0x3000) && (M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = arg0 + 0x24, (func_80045E34(temp_s3, (*(__base_D_8010A500 = &D_8010A500)) + 0x24) < 10.0f)) && (temp_a0 = M2C_FIELD(arg0, f32 *, 0x2C), sp28 = M2C_FIELD(arg0, f32 *, 0x24), sp2C = M2C_FIELD(arg0, f32 *, 0x28), sp30 = temp_a0, sp2C -= 1.0f, (func_800828D0((f32) func_80000A30((s32) (func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(__repair_cached_pointer, f32 *, 0x24), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(D_8010A500, f32 *, 0x2C), temp_a0) * 651.8986f), (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 500.0f)) && ((func_800158A4(&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+    if ((temp_v1 & 0x3000) && (M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = arg0 + 0x24, (func_80045E34(temp_s3, (*(__base_D_8010A500 = &D_8010A500)) + 0x24) < 10.0f)) && (temp_a0 = M2C_FIELD(arg0, f32 *, 0x2C), sp28 = M2C_FIELD(arg0, f32 *, 0x24), sp2C = M2C_FIELD(arg0, f32 *, 0x28), sp30 = temp_a0, sp2C -= 1.0f, (func_800828D0((f32) func_80000A30((s32) (func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(D_8010A500, f32 *, 0x24), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(D_8010A500, f32 *, 0x2C), temp_a0) * 651.8986f), (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 500.0f)) && ((func_800158A4(&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
         temp_a0_2 = *temp_s2;
         if ((f64) temp_a0_2 < D_800D2DE0) {
             if (M2C_FIELD(arg0, u16 *, 0x78) == 0x1B) {
@@ -45,7 +43,7 @@ void *__repair_cached_pointer = D_8010A500;
             }
         } else {
             if (M2C_FIELD(arg0, s16 *, 0x7C) == 0) {
-                do { func_80084338(0x10E, temp_s3); } while (0);
+                func_80084338(0x10E, temp_s3);
             }
             M2C_FIELD(arg0, s16 *, 0x7C) = 1;
         }

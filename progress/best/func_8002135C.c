@@ -32,14 +32,14 @@ typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float 
 void func_8002135C(void) {
 int __repair_literal;
 
-    s32 var_s0;
     s32 var_s1;
-    void *temp_v0_3;
     register void *temp_v0;
-    register s32 var_v0;
-    s32 temp_v0_2;
+    u32 var_v0;
+    u8 var_s0;
+    register s32 temp_v0_2;
+    void *temp_v0_3;
 
-    if ((D_800B7CEC) && (var_s0 = -1U, (D_80109698 != NULL))) {
+    if ((D_800B7CEC != 0) && (var_s0 = -1U, (D_80109698 != NULL))) {
         temp_v0 = func_8002A920(D_800B60E4, (*(s8 *)((char *)(D_800B60E4) + 0x18)));
         var_s1 = -1;
         if (temp_v0 != NULL) {
@@ -62,20 +62,20 @@ __repair_literal = 0;
         } else {
 block_9:
             var_v0 = var_s0 >> 0x1F;
-            if ((D_800B7CE8 != NULL) || ((D_80109D18 = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != (u32)NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = (u32)var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
+            if ((D_800B7CE8 != NULL) || ((D_80109D18 = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = (u32)var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
                 if (((unsigned)var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
                     func_80016718(D_800B7CE8);
                     return;
                 }
                 if (D_800B60E2 == 1) {
-                    do { func_80044670(D_800B7CE8, var_s0, var_s1); } while (0);
+                    func_80044670(D_800B7CE8, var_s0, var_s1);
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_24) = 0.14f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28) = -0.0315f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40) = -113.77778f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C) = 170.66667f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_44) = 0xC4EAAAAB;
-                    (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C) = 0.5f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58) &= ~0x400;
+                    (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C) = 0.5f;
                     (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54) = (f32) ((f64) ((1.0f / (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64)) * 0.09f) * D_800D2A98);
                 } else {
                     D_80109D18 = 1;

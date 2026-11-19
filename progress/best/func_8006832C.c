@@ -101,7 +101,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
         temp_fs0_5 = func_800829C8(sp38[0]);
         sp88[8] = temp_fs0_5 * func_800829C8(temp_fa0);
         func_80083A6C(sp88);
-        do { func_80045764(arg0, sp58); } while (0);
+        func_80045764(sp58, sp58);
         temp_ft1 = sp58[0] * 256.0f;
         temp_ft0 = sp58[1] * 256.0f;
         temp_fv0 = sp58[2] * 256.0f;

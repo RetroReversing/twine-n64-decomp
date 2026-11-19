@@ -134,10 +134,10 @@ block_16:
                 if (sp10[3] != 0) {
                     temp_a3_3 = (*(s32 *)((char *)(arg0) + 0x2C));
                     temp_s4 = sp10[1] & 0x3F & 0xFF;
-                    temp_s0_2 = (u8)(temp_s4 & 0x1F);
+                    temp_s0_3 = temp_s4 & 0x1F;
+                    func_80089F7C(temp_s1 + 0x30, temp_a3_3 + (((sp10[1] >> 6) * 0x28) + 0x100), ((u32) (((u32) (sp10[5] + temp_s0_3 + 0x1F) >> 5) + (temp_s4 >> 5) + 1) >> 1) * 0x28, temp_a3_3 + 0x100);
                     (*(u8 *)((char *)(temp_s1) + 0x3F)) = temp_s4;
-                    func_80089F7C(temp_s1 + 0x30, temp_a3_3 + (((sp10[1] >> 6) * 0x28) + 0x100), ((u32) (((u32) (sp10[5] + temp_s0_2 + 0x1F) >> 5) + (temp_s4 >> 5) + 1) >> 1) * 0x28, temp_a3_3 + 0x100);
-                    var_s4 = temp_s0_2;
+                    var_s4 = temp_s0_3;
                     (*(s8 *)((char *)(temp_s1) + 0x3D)) = (s8) ((u32) (var_s4 + sp10[5] + 0x1F) >> 5);
                 } else {
                     (*(s32 *)((char *)(temp_s1) + 0x30)) = 0;
@@ -145,7 +145,7 @@ block_16:
                 }
                 temp_a3_4 = (*(s32 *)((char *)(arg0) + 0x2C));
                 var_s3_2 = sp10[0] & 0x3F & 0xFF;
-                do { func_80089F7C(temp_s1 + 0x24, temp_a3_4 + ((((u32) sp10[0] >> 6) * 0x28) + 0x100), ((u32) (((u32) ((sp10[2] + 6) + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28, temp_a3_4 + 0x100); } while (0);
+                func_80089F7C(temp_s1 + 0x24, temp_a3_4 + ((((u32) sp10[0] >> 6) * 0x28) + 0x100), ((u32) (((u32) ((sp10[2] + 6) + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28, temp_a3_4 + 0x100);
                 (*(s32 *)((char *)(temp_s1) + 0x40)) = func_80089D20((*(s32 *)((char *)(arg0) + 0x2C)));
                 goto block_38;
             }
@@ -153,7 +153,7 @@ block_16:
             if (sp10[3] != 0) {
                 temp_a3_5 = (*(s32 *)((char *)(arg0) + 0x2C));
                 var_s4 = sp10[1] & 3 & 0xFF;
-                do { func_80089F7C(temp_s1 + 0x30, temp_a3_5 + ((sp10[1] & 0xFFFC) * 2), ((var_s4 + sp10[5] + 3) & 0xFFFC) * 2, temp_a3_5); } while (0);
+                func_80089F7C(temp_s1 + 0x30, temp_a3_5 + ((sp10[1] & 0xFFFC) * 2), ((var_s4 + sp10[5] + 3) & 0xFFFC) * 2, temp_a3_5);
                 (*(u8 *)((char *)(temp_s1) + 0x3F)) = var_s4;
                 (*(s16 *)((char *)(temp_s1) + 0x42)) = (s16) sp10[5];
             } else {
@@ -197,8 +197,8 @@ block_38:
                 (*(s32 *)((char *)(temp_s1) + 0x30)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x42)) = 0;
             } else {
-                var_s4 = sp10[1] & 3 & 0xFF;
                 (*(s32 *)((char *)(temp_s1) + 0x30)) = (s32) ((*(s32 *)((char *)(arg0) + 0x2C)) + ((sp10[1] & 0xFFFC) * 2));
+                var_s4 = sp10[1] & 3 & 0xFF;
                 (*(s16 *)((char *)(temp_s1) + 0x3A)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x38)) = (s16) (((var_s4 + sp10[5] + 3) & 0xFFFC) * 2);
                 (*(u8 *)((char *)(temp_s1) + 0x3F)) = var_s4;

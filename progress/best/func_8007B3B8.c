@@ -71,7 +71,7 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         break;
     }
     var_fs1 = temp_fs0 * var_fv0;
-    do { func_80002BD0(arg0, var_s1 & 0xFFFF); } while (0);
+    func_80002BD0(arg0, var_s1 & 0xFFFF);
     M2C_FIELD(arg0, s16 *, 0x7C) = 3;
     M2C_FIELD(temp_s5, s8 *, 0x7F) = 3;
     temp_fv1 = *arg2 - var_fs1;

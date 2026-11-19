@@ -14,19 +14,19 @@ typedef s32 M2C_UNK32;
 
 s32 func_80044538();
 extern u16 D_800BF680;
-extern char D_800C3CF8[];
+typedef struct { s32 f0; u8 pad[8]; } Slot_800C3CF8;
+extern Slot_800C3CF8 D_800C3CF8[];
 extern u16 *D_80102F40;
 
 typedef struct { unsigned char pad_0[5]; unsigned char field_5; unsigned short field_6; unsigned char pad_8[4]; unsigned short field_C; } __repair_record_D_80102F40;
 void func_8002B8AC(void) {
     D_80102F40 = &D_800BF680;
     if (*D_80102F40 != 0) {
-        __repair_rows: {
+        do {
             if (((__repair_record_D_80102F40*)D_80102F40)->field_6 & 1) {
-                func_80044538(*(s32 *)*(s32 *)(D_800C3CF8 + (((__repair_record_D_80102F40*)D_80102F40)->field_5 * 0xC)));
+                func_80044538(*(s32 *)D_800C3CF8[((__repair_record_D_80102F40*)D_80102F40)->field_5].f0);
             }
             D_80102F40 += 0xC;
-        }
-if (((__repair_record_D_80102F40*)D_80102F40)->field_C != 0) goto __repair_rows;
+        } while (((__repair_record_D_80102F40*)D_80102F40)->field_C != 0);
     }
 }

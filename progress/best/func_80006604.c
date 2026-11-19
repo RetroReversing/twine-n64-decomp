@@ -3,6 +3,6 @@
 void func_80006604(void *arg0, s32 arg1) {
     void *temp_a0;
 
+    (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x14)) & ~0xC) | (((-(arg1) & 3) | 2) * 4));
     temp_a0 = (*(void **)((char *)(arg0) + 0x68));
-    (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) (((*(s32 *)((char *)((unsigned short)temp_a0) + 0x14)) & ~0xC) | (((-(arg1) & 3) | 2) * 4));
 }

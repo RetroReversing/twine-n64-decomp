@@ -10,11 +10,11 @@ s32 func_800643D8();
 extern u8 D_801002A2;
 
 void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, u16 arg12, u16 arg13, s32 arg14, u16 arg15) {
-    u16 var_s0;
+    s16 var_v0;
     u32 temp_ret;
     s32 temp_v1;
     void *temp_s2;
-    s16 var_v0;
+    u16 var_s0;
     void *temp_v0;
 
     switch (D_801002A2) {                           /* switch 1 */
@@ -80,7 +80,7 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
             temp_ret = func_80045CC4();
             (*(s32 *)((char *)(temp_s2) + 0)) = (s32) (0x384 - (temp_ret % 90));
             func_80047AEC(arg0, temp_v0 + 0x24, temp_v0 + 0x30, (temp_ret / 90) * 3);
-            (*(s32 *)((char *)((unsigned short)temp_v0) + 0x5C)) |= 0x400;
+            (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x400;
             func_800643D8(temp_v0);
             return temp_v0;
         }

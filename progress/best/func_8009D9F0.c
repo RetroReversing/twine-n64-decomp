@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,10 +10,11 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce -g, tried by autopilot */
 
-M2C_UNK func_8009F1D4(s32, M2C_UNK);                /* extern */
+s32 func_8009F1D4();
 
-void func_8009D9F0(void *arg0, void *arg1, s32 arg2, M2C_UNK arg3) {
+void func_8009D9F0(void *arg0, void *arg1, s32 arg2, s32 arg3) {
 int *__repair_home2 = &arg2;
 
     s32 temp_t2;
@@ -36,6 +36,6 @@ int *__repair_home2 = &arg2;
     temp_t8 = M2C_FIELD(arg1, s16 *, 0xE) - 4;
     temp_t9 = temp_t8 << 0xA;
     M2C_FIELD(temp_v0_2, s16 *, 0xE) = (s16) (((s32) (((((((temp_t8 * 0x7400) << 6) + temp_t9) * 4) - temp_t9) * 4) + 0x040D6B40) >> 0xF) * 2);
-    do { func_8009F1D4((*__repair_home2), arg3); } while (0);
-    M2C_FIELD(arg0, s16 *, 0x188) = (s16) (M2C_FIELD(arg0, s16 *, 0x188) ^ 1);
+    func_8009F1D4(arg0, (*__repair_home2), arg3);
+    M2C_FIELD(arg0, s16 *, 0x188) ^= 1;
 }

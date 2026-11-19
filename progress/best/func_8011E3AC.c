@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 extern s32 D_801002C0;
 extern u8 D_801002A0;
 extern u8 D_8010A4FD;
@@ -65,7 +64,7 @@ void func_8011E3AC(void) {
     }
 after:
     for (i = 0; i < 9; i++) {
-        for (j = 0; __repair_inline(j, 4); j++) {
+        for (j = 0; j < 4; j++) {
             D_8011F2E8[i][j] = 0;
         }
     }

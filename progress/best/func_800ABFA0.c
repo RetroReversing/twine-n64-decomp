@@ -1,9 +1,9 @@
 /* Partial candidate from function #30064772363 in project #7; rechecked locally. */
 f64 func_800ABFA0(u32 arg0, u32 arg1) {
+    u32 hi;
+    u32 lo;
     u32 sign;
-    register unsigned exp;
-    unsigned int lo;
-    unsigned long hi;
+    s32 exp;
     u32 w[2];
 
     hi = arg0;
@@ -15,26 +15,25 @@ f64 func_800ABFA0(u32 arg0, u32 arg1) {
     }
     sign = 0;
     if (hi & 0x80000000u) {
-        register lo = -lo;
-        register hi = -hi - (lo);
+        lo = -lo;
+        hi = -hi - (lo != 0);
         sign = 0x80000000u;
     }
     exp = 0;
     if (hi & 0xFFE00000) {
-        __repair_rows: {
+        do {
             lo = (lo >> 1) | (hi << 31);
             hi = hi >> 1;
-            ++exp;
-        }
-if (hi & 0xFFE00000) goto __repair_rows;
+            exp++;
+        } while (hi & 0xFFE00000);
     } else {
         while (!(hi & 0x100000)) {
-            register hi = (hi << 1) | (lo >> 31);
-            register lo = lo << 1;
-            exp -= 1;
+            hi = (hi << 1) | (lo >> 31);
+            lo = lo << 1;
+            exp--;
         }
     }
+    w[0] = (hi & 0xFFFFF) | sign | ((exp + 0x433) << 20);
     w[1] = lo;
-    w[0] = (hi & 0xFFFFF) | sign | (((int)exp + 0x433) << 20);
     return *(f64 *)w;
 }

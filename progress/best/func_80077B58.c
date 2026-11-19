@@ -4,8 +4,8 @@ s32 func_800846A0();
 extern s16 D_800C9BA8;
 
 void func_80077B58(void *arg0) {
+    s32 temp_a1;
     void *temp_s0;
-    int temp_a1;
 
     temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
     temp_a1 = (*(s32 *)((char *)(temp_s0) + 0x88));
@@ -14,6 +14,6 @@ void func_80077B58(void *arg0) {
             func_800846A0(arg0, temp_a1);
             D_800C9BA8 = 0xF;
         }
-        (*(s32 *)((char *)((int)temp_s0) + 0x88)) &= (short)0xBFFFFFFF & 0xDFFFFFFF;
+        (*(s32 *)((char *)(temp_s0) + 0x88)) &= 0xBFFFFFFF & 0xDFFFFFFF;
     }
 }

@@ -40,10 +40,10 @@ loop_2:
             if (*(&D_8010D748 + temp_v1) & 2) {
                 var_a2 = *(&D_8010D779 + temp_v1);
             
-            do { func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF); } while (0);} else {
+            func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF);} else {
                 var_a2 = *(&D_8010D76F + temp_v1);
             
-            do { func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF); } while (0);}
+            func_80095A80(0x83, temp_s0, var_a2, arg1 & 0xFF);}
             var_a0 = *(&D_8010D734 + temp_s0 * 0x68);
             var_s1 = 0;
             if (var_a0 == -1) {

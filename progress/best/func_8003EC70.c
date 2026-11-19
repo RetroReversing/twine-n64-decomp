@@ -197,8 +197,8 @@ block_46:
                         D_800E19C4 = temp_v0_4;
                         D_800E19BC = D_800E19B8;
                         D_800E19B8 = temp_v0_4;
-                    }do{do{do{do{do{
-                    var_v0_3 = var_t4 + 1;}while(0);}while(0);}while(0);}while(0);}while(0);
+                    }
+                    var_v0_3 = var_t4 + 1;
                     break;
                 case 3:
                     var_v0_3 = var_t4 + 1;

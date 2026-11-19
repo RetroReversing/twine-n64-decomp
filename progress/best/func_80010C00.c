@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 extern s16 D_800E093A;
 extern u8 D_800E0790[];
 extern u32 D_800E0940[];
@@ -18,34 +17,34 @@ typedef struct { u32 v; } __attribute__((packed)) UW;
 
 s32 func_80010C00(void)
 {
-    register short idx;
+    s32 idx;
     
-    register s32 st;
-    unsigned int a1;
-    register u8 flag;
+    s32 st;
+    s32 a1;
+    u8 flag;
 
     idx = D_800E093A;
     func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
     func_800109CC();
-    if ((s32)D_800E093A != 0) return 0;
+    if (D_800E093A != 0) return 0;
     st = D_800BFC32;
     if (st == 0x20) goto cec;
-    if (__repair_inline(st, 0x21)) {
+    if (st < 0x21) {
         if (st == 1) goto fb4;
-        if (0 >= st) goto d110e4;
+        if (st <= 0) goto d110e4;
         if (st < 5) {
-            if (3 > st) goto d110e4;
+            if (st < 3) goto d110e4;
             goto fb4;
         }
         goto d110e4;
     }
-    if (st == 0x21 || (unsigned)st == 0x25 || st == 0x62) goto d38;
+    if (st == 0x21 || st == 0x25 || st == 0x62) goto d38;
     goto d110e4;
 
 cec:
     a1 = (s32)&D_801032A8;
     if (a1 == 0xB || a1 == 2) goto d18;
-    if (a1) goto l11374;
+    if (a1 != 0) goto l11374;
 d18:
     func_80011800(0xC, ENT(0), 0, 0, 0, 0, 0, 0);
     goto after_c;
@@ -54,7 +53,7 @@ d38:
     if (a1 == 0xA || a1 == 2) goto d64;
     if (a1 != 0) goto l11374;
 d64:
-    idx = (int)D_800E093A;
+    idx = D_800E093A;
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
 after_c:
     if (func_800109CC() == 0) goto l11434;
@@ -74,7 +73,7 @@ fb4:
     a1 = D_801032A8;
     if (a1 == 0xB) { D_800BFC32 = 0x62; return 0x62; }
     if (a1 != 2) goto d110e4;
-    idx = (int)D_800E093A;
+    idx = D_800E093A;
     func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() == 0) goto l113d8;
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
@@ -93,8 +92,8 @@ d110e4:
     for (a1 = 0; (u16)a1 < 0x20; a1++) {
         idx = D_800E093A;
         if (((u8 *)D_800E0940)[(u16)a1] != (ENT(idx) + 12)[(u16)a1]) {
-            CP32(D_800E0940, ENT(idx) + 12);
             flag = D_80102D60;
+            CP32(D_800E0940, ENT(idx) + 12);
             if (flag != 0) {
                 D_80102D60 = 0;
                 D_800BFC32 = 0;
@@ -108,8 +107,8 @@ d110e4:
 
 l11120:
     idx = D_800E093A;
-    CP32(D_800E0940, ENT(idx) + 12);
     D_80102D60 = 0;
+    CP32(D_800E0940, ENT(idx) + 12);
     D_800BFC32 = 0;
     return 0;
 
@@ -127,8 +126,8 @@ l113ec:
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() != 0) goto l11464;
 l11434:
-    D_800BFC32 = 0x10;
     idx = D_800E093A;
+    D_800BFC32 = 0x10;
     D_80109DC8[idx] = 1;
     return 0x10;
 l11464:
@@ -139,10 +138,10 @@ l11464:
     if (a1 == 0 || a1 == 0xB || a1 == 0xA) goto l114cc;
     goto l1159c;
 l114cc:
-    D_800BFC32 = 0x12;
     idx = D_800E093A;
-    CP32(D_800E0940, ENT(idx) + 12);
     D_80102D60 = 0;
+    CP32(D_800E0940, ENT(idx) + 12);
+    D_800BFC32 = 0x12;
     return 0x12;
 l11594:
     a1 = D_801032A8;

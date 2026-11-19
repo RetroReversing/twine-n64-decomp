@@ -13,29 +13,29 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
-f32 func_80045D2C(f32);                         /* extern */
-M2C_UNK func_80047B14(void *, f32, void *);     /* extern */
+f32 func_80045D2C(M2C_UNK);                         /* extern */
+M2C_UNK func_80047B14(void *, M2C_UNK, void *);     /* extern */
 
 void func_80063098(void *arg0) {
     f32 temp_fs0;
-    
+    s32 temp_v0;
     u8 temp_s1;
     void *temp_a1;
-    union { void * pointer; s32 value; } __repair_phase_storage;
+    void *temp_s0;
 
-    __repair_phase_storage.pointer = M2C_FIELD(arg0, void **, 0x6C);
-    M2C_FIELD(arg0, f32 *, 0x54) = (f32) (M2C_FIELD(arg0, f32 *, 0x54) + M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x14));
-    temp_fs0 = func_80045D2C(32.0f);
+    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
+    M2C_FIELD(arg0, f32 *, 0x54) = (f32) (M2C_FIELD(arg0, f32 *, 0x54) + M2C_FIELD(temp_s0, f32 *, 0x14));
+    temp_fs0 = func_80045D2C(0x42000000);
     temp_a1 = arg0 + 0x24;
-    M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - func_80045D2C(16.0f)));
-    func_800452AC(__repair_phase_storage.pointer, temp_a1, temp_a1);
-    M2C_FIELD(__repair_phase_storage.pointer, f32 *, 4) = (f32) (M2C_FIELD(__repair_phase_storage.pointer, f32 *, 4) - 0.0025520835f);
+    M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - func_80045D2C(0x41800000)));
+    func_800452AC(temp_s0, temp_a1, temp_a1);
+    M2C_FIELD(temp_s0, f32 *, 4) = (f32) (M2C_FIELD(temp_s0, f32 *, 4) - 0.0025520835f);
     temp_s1 = M2C_FIELD(arg0, u8 *, 0x82);
-    func_80047B14(__repair_phase_storage.pointer, 0.95f, __repair_phase_storage.pointer);
-    __repair_phase_storage.value = temp_s1 - M2C_FIELD(__repair_phase_storage.pointer, u8 *, 0x26);
-    if (__repair_phase_storage.value < 0) {
+    func_80047B14(temp_s0, 0x3F733333, temp_s0);
+    temp_v0 = temp_s1 - M2C_FIELD(temp_s0, u8 *, 0x26);
+    if (temp_v0 < 0) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
         return;
     }
-    M2C_FIELD(arg0, u8 *, 0x82) = (u8) __repair_phase_storage.value;
+    M2C_FIELD(arg0, u8 *, 0x82) = (u8) temp_v0;
 }

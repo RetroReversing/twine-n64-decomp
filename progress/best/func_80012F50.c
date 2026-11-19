@@ -5,7 +5,7 @@ s32 func_800104B8(s8 *, s8 *, s32);         /* extern */
 s32 func_800109CC();                                /* extern */
 s32 func_80010B60(s32);                             /* extern */
 s32 func_80010C00();                                /* extern */
-s32 func_80011800(s32, void *, s32, s32 *, s32, s32, s32, s32); /* extern */
+s32 func_80011800(s32, void *, s16, s32 *, s32, s32, s32, s32); /* extern */
 s32 func_800AB770(s8 *, s8 *);                      /* extern */
 extern s16 D_800BFC30;
 extern u16 D_800BFC32;
@@ -29,13 +29,13 @@ extern s8 D_80115308;
 
 u16 func_80012F50(void) {
     s32 *var_s6;
-    s32 var_s0_3;
+    s16 var_s0_3;
     
     s32 var_s0;
     
     s32 var_s1_2;
     
-    register unsigned var_s3;
+    unsigned var_s3;
     s32 var_s4_2;
 s32 __repair_phase_var_s4_2;
     s8 *var_s2;
@@ -45,7 +45,7 @@ s32 __repair_phase_var_s4_2;
     s8 *var_s7;
     s8 *var_v0;
     s8 *var_v0_2;
-    s32 temp_v1;
+    s8 temp_v1;
 
     D_800E093A = 0;
     D_800BFC30 = -1;
@@ -53,7 +53,7 @@ s32 __repair_phase_var_s4_2;
         return D_800BFC32;
     }
     func_80011800(7, (D_800E093A * 0x68) + D_800E0790, D_800E093A, NULL, 0, 0, 0, 0);
-    if ((func_800109CC() != 0) || (func_80011800(3, ((int)D_800E093A * 0x68) + D_800E0790, &D_800E096C, &D_800E0970, 0, 0, 0, 0), (func_800109CC() != 0)) || (func_80011800(4, (D_800E093A * 0x68) + (s32)D_800E0790, (s16) &D_800E0974, NULL, 0, 0, 0, 0), var_s0_3 = 0, (func_800109CC() != 0))) {
+    if ((func_800109CC() != 0) || (func_80011800(3, ((int)D_800E093A * 0x68) + D_800E0790, (s16) &D_800E096C, &D_800E0970, 0, 0, 0, 0), (func_800109CC() != 0)) || (func_80011800(4, (D_800E093A * 0x68) + D_800E0790, (s16) &D_800E0974, NULL, 0, 0, 0, 0), var_s0_3 = 0, (func_800109CC() != 0))) {
         goto block_6;
     }
     var_s7 = &D_80108408 + 0xA;
@@ -63,7 +63,7 @@ s32 __repair_phase_var_s4_2;
     var_s3 = 0;
     var_s6 = &D_80108408;
     for (;;) {
-        do { func_80011800(5, (D_800E093A * 0x68) + D_800E0790, var_s0_3, var_s6, 0, 0, 0, 0); } while (0);
+        func_80011800(5, (D_800E093A * 0x68) + D_800E0790, var_s0_3, var_s6, 0, 0, 0, 0);
         var_s0 = 0xF;
         if (func_800109CC() == 5) {
             *var_s4 = 0;
@@ -91,7 +91,7 @@ s32 __repair_phase_var_s4_2;
             break;
         }
         *var_s4 = 1;
-        do { func_800103B0(var_s1, var_s3 + ((s32 *)((s8 *)&D_80108408 + 0xE)), 0x10); } while (0);
+        func_800103B0(var_s1, var_s3 + ((s32 *)((s8 *)&D_80108408 + 0xE)), 0x10);
         func_800103B0(var_s2, var_s7, 4);
         var_s7 += 0x20;
 block_16:
@@ -101,7 +101,7 @@ block_16:
         var_s3 += 0x20;
         var_s0_3 += 1;
         var_s6 += 8;
-        if (var_s0_3 >= 0x10) {
+        if (var_s0_3 >= (unsigned)0x10) {
             if (D_800E097C) {
                 D_8010A3C5 = 0x41;
                 func_800104B8(&D_80115308, &D_80103030, 0x10);
@@ -112,27 +112,25 @@ block_16:
                     var_s2 = &D_80107B6A;
                     var_s1_2 = 0;
                     var_s0 = 0;
-                    for (;;) {
-                        if ((*((s32 *)((s8 *)&D_80107B68 + var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
-                            temp_v1 = *((s32 *)((s8 *)&D_80108412 + var_s1_2));
-                            if (temp_v1 == D_80103042) {
-                                var_s4_2 = 0;
-                                D_80103042 = temp_v1 + 1;
-                            } else {
-                                D_800BFC30 = var_s0_3;
-                                goto block_27;
-                            }
+loop_20:
+                    if ((*((s32 *)((s8 *)&D_80107B68 + var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
+                        temp_v1 = *((s32 *)((s8 *)&D_80108412 + var_s1_2));
+                        if (temp_v1 == D_80103042) {
+                            var_s4_2 = 0;
+                            D_80103042 = temp_v1 + 1;
                         } else {
-block_27:
-                            var_s2 += 0x18;
-                            var_s1_2 += 0x20;
-                            var_s0_3 += 1;
-                            var_s0 += 0x18;
-                            if (var_s0_3 < 0x10) {
-                                continue;
-                            }
+                            D_800BFC30 = var_s0_3;
+                            goto block_27;
                         }
-                        break;
+                    } else {
+block_27:
+                        var_s2 += 0x18;
+                        var_s1_2 += 0x20;
+                        var_s0_3 += 1;
+                        var_s0 += 0x18;
+                        if (var_s0_3 < 0x10) {
+                            goto loop_20;
+                        }
                     }
                     __repair_phase_var_s4_2 = 1;
                 } while (!(__repair_phase_var_s4_2 & 0xFFFF));

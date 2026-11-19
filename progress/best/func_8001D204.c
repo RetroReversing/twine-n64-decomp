@@ -77,11 +77,7 @@ block_21:
                 break;
             }
             temp_s0 = "%s";
-            do { /*__repair_pointer_balance*/if ((unsigned long)__base_D_801002A2 & 0x100) {
-func_80026004(temp_v0, temp_s0, func_80087100((*__base_D_801002A2) + 0x16D));
-} else {
-func_80026004(temp_v0, temp_s0, func_80087100((*__base_D_801002A2) + 0x16D));
-} } while (0);
+            func_80026004(temp_v0, temp_s0, func_80087100((*__base_D_801002A2) + 0x16D));
             func_80026004(temp_v0 + 0x28, temp_s0, func_80087100((*__base_D_801002A2) + 0x177));
             goto block_23;
         }

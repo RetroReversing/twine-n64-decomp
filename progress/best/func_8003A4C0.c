@@ -214,7 +214,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
             sp54 = var_s1 & 0xFFFF;
             sp4C = var_s5_2 << 0x10;
             var_v0_2 = temp_a0_4 >> 8;
-            __repair_rows: {
+            do {
                 var_t9 = 0;
                 if ((var_v0_2 & 0xF) > 0) {
                     temp_t6 = var_t8 & 0xFFFF;
@@ -300,8 +300,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                 temp_a0_5 = (u32) ((__repair_record_arg2*)arg2)->field_28;
                 var_s2 += 1;
                 var_v0_2 = temp_a0_5 >> 8;
-            }
-if ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF)) goto __repair_rows;
+            } while ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF));
         }
         temp_v0_6 = D_80115328;
         D_80115328 = temp_v0_6 + 8;

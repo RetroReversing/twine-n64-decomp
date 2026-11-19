@@ -29,7 +29,9 @@ f64 func_800AB330(f64 arg0) {
     if (arg0 >= 0.0) {
         var_fv0_2 = D_800D6FF0;
     }
-    temp_fv1 = (s32) ((arg0 / D_800D6FE0) + var_fv0_2); do { func_800AB030(arg0 - ((f64) temp_fv1 * D_800D6FF8), &sp10, &sp18); } while (0);
+    /*__repair_loop_weight*/do {
+    temp_fv1 = (s32) ((arg0 / D_800D6FE0) + var_fv0_2);
+    } while (0); func_800AB030(arg0 - ((f64) temp_fv1 * D_800D6FF8), &sp10, &sp18);
     var_fv0 = sp18;
     if (temp_fv1 & 1) {
         var_fv0 = -var_fv0;

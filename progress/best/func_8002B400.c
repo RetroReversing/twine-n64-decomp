@@ -17,7 +17,6 @@ extern M2C_UNK D_800BF5B0;
 extern M2C_UNK D_800E10C0;
 
 M2C_UNK *func_8002B400(f32 arg0, s32 arg1, s32 arg2) {
-    M2C_UNK *__base_D_800E10C0;
     f32 temp_fa0;
     f32 var_fa0;
 f32 __repair_var_fa0_1;
@@ -50,11 +49,6 @@ block_6:
     }
     temp_a0 = arg2 + (var_v1 * 0xC);
     temp_fa0 = __repair_var_fa0_1 - (f32) var_v1;
-    do { __base_D_800E10C0 = &D_800E10C0;
- /*__repair_pointer_balance*/if ((unsigned long)__base_D_800E10C0 & 0x100) {
-func_80046EB8((__repair_var_fa0_1 - (f32) var_v1), temp_a0, temp_a0 + 0xC, temp_a0 + 0x18, temp_a0 + 0x24, (__repair_var_fa0_1 - (f32) var_v1), __base_D_800E10C0);
-} else {
-func_80046EB8((__repair_var_fa0_1 - (f32) var_v1), temp_a0, temp_a0 + 0xC, temp_a0 + 0x18, temp_a0 + 0x24, (__repair_var_fa0_1 - (f32) var_v1), __base_D_800E10C0);
-} } while (0);
-    return __base_D_800E10C0;
+    func_80046EB8(temp_fa0, temp_a0, temp_a0 + 0xC, temp_a0 + 0x18, temp_a0 + 0x24, temp_fa0, &D_800E10C0);
+    return &D_800E10C0;
 }
