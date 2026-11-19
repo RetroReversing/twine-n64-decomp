@@ -1,133 +1,67 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
+typedef struct { u8 pad0[0xE]; s8 sE; u8 padF[5]; s32 f14; } Info299C;
+typedef struct { u8 pad0[0x68]; Info299C *info; } Obj299C;
 extern u8 D_800C470A[];
 extern s32 D_80102ED8;
 
-s32 func_8000299C(void *arg0, s32 arg1) {
-    s32 var_a1;
-    s32 var_a2;
-    s32 var_v0;
-    s32 var_a2_2;
-    void *temp_a0;
+s32 func_8000299C(Obj299C *o, s32 id) {
+    s32 other = 1;
+    u8 t;
 
-    var_a1 = arg1;
-    var_a2 = 1;
-    if ((M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x14) & 0x200000) && (D_80102ED8 == 0)) {
-        var_a2 = 0;
-        if (var_a1 != 0x153) {
-            if (var_a1 < 0x154) {
-                if (var_a1 < 0x126) {
-                    if (var_a1 < 0x124) {
-                        if (var_a1 != 7) {
-                            if (var_a1 < 8) {
-                                if (var_a1 == 2) {
-                                    var_a1 = 0x2FA;
-                                } else {
-                                    var_a2 = 1;
-                                }
-                            } else {
-                                var_v0 = 0x10B;
-                                if (var_a1 != 0x106) {
-                                    goto block_41;
-                                }
-                                goto block_45;
-                            }
-                        } else {
-                            goto block_46;
-                        }
-                    } else {
-                        goto block_45;
-                    }
-                } else if (var_a1 < 0x128) {
-                    var_a2 = 1;
-                } else if (var_a1 < 0x12A) {
-                    var_a1 = 0x2FC;
-                } else {
-                    var_v0 = 0x14D;
-                    goto block_41;
-                }
-            } else if (var_a1 != 0x2A9) {
-                if (var_a1 < 0x2AA) {
-                    if (var_a1 != 0x165) {
-                        if (var_a1 < 0x166) {
-                            if (var_a1 == 0x15F) {
-                                var_a1 = 0x2FA;
-                            } else {
-                                var_a2 = 1;
-                            }
-                        } else {
-                            switch (var_a1) {       /* irregular */
-                            case 0x20A:
-                                var_a1 = 0x20C;
-                                break;
-                            default:
-                                var_a2 = 1;
-                                break;
-                            case 0x209:
-                                var_a1 = 0x20B;
-                                break;
-                            }
-                        }
-                    } else {
-block_46:
-                        var_a1 = 0x2FB;
-                    }
-                } else if (var_a1 != 0x2EA) {
-                    if (var_a1 < 0x2EB) {
-                        if (var_a1 != 0x2E9) {
-                            var_a2 = 1;
-                        } else {
-                            var_a1 = 0x304;
-                        }
-                    } else {
-                        var_v0 = 0x46D;
-                        if (var_a1 != 0x2EB) {
-block_41:
-                            if (var_a1 == var_v0) {
-                                var_a1 = 0x2FC;
-                            } else {
-                                var_a2 = 1;
-                            }
-                        } else {
-                            var_a1 = 0x306;
-                        }
-                    }
-                } else {
-                    var_a1 = 0x305;
-                }
-            } else {
-                var_a1 = 0x302;
-            }
-        } else {
-block_45:
-            var_a1 = 0x2FC;
+    if ((o->info->f14 & 0x200000) && D_80102ED8 == 0) {
+        other = 0;
+        switch (id) {
+        case 0x2:
+        case 0x15F:
+            id = 0x2FA;
+            break;
+        case 0x106:
+        case 0x10B:
+        case 0x124:
+        case 0x125:
+        case 0x128:
+        case 0x129:
+        case 0x14D:
+        case 0x153:
+        case 0x46D:
+            id = 0x2FC;
+            break;
+        case 0x7:
+        case 0x165:
+            id = 0x2FB;
+            break;
+        case 0x2A9:
+            id = 0x302;
+            break;
+        case 0x209:
+            id = 0x20B;
+            break;
+        case 0x20A:
+            id = 0x20C;
+            break;
+        case 0x2E9:
+            id = 0x304;
+            break;
+        case 0x2EA:
+            id = 0x305;
+            break;
+        case 0x2EB:
+            id = 0x306;
+            break;
+        default:
+            other = 1;
+            break;
         }
     }
-    if (var_a2 != 0) {
-        temp_a0 = M2C_FIELD(arg0, void **, 0x68);
-        if (!(M2C_FIELD(temp_a0, s32 *, 0x14) & 0x20000)) {
-            var_a2_2 = *(D_800C470A + (M2C_FIELD(temp_a0, s8 *, 0xE) * 0xE8));
-            if ((u32) (var_a1 - 1) < 0x14CU) {
-                if (var_a2_2 == 5) {
-                    var_a2_2 = 2;
-                }
-                var_a1 = (var_a1 - ((var_a1 - 2) % 5)) + var_a2_2;
-            } else if ((u32) (var_a1 - 0x14C) < 0x68U) {
-                var_a1 = (var_a1 - ((var_a1 - 0x14D) % 6)) + var_a2_2;
+    if (other && !(o->info->f14 & 0x20000)) {
+        t = D_800C470A[o->info->sE * 0xE8];
+        if ((u32)(id - 1) < 0x14C) {
+            if (t == 5) {
+                t = 2;
             }
+            id = id - (id - 2) % 5 + t;
+        } else if ((u32)(id - 0x14C) < 0x68) {
+            id = id - (id - 0x14D) % 6 + t;
         }
     }
-    return var_a1;
+    return id;
 }

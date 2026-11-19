@@ -80,7 +80,7 @@ loop_6:
                     (*(s32 *)((char *)(D_800EDA8C) + 0xF74)) += ((temp_v0 >> 0x10) + (*(u32 *)((char *)(D_800EDA8C) + 0x11C)));
                 }
                 temp_s4 = func_8008FB20();
-                temp_s5 = func_80090464(var_a0);
+                temp_s5 = func_80090464();
                 func_8009010C();
                 func_800902B4();
                 func_8008FF80();

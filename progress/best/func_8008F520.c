@@ -302,15 +302,15 @@ loop_63:
                 var_a2_4 += 1;
                 goto block_70;
             }
-            if (*(s32 *)(D_800E5AC4 + var_v1_4) != var_a0) {
+            if (*(s32 *)(D_800E5AC4 + var_v1_4) == var_a0) {
+                var_a0 = -1;
+            } else {
                 var_a2_4 += 1;
 block_70:
                 var_v1_4 += 0xFF8;
                 if (var_a2_4 < 8U) {
                     goto loop_63;
                 }
-            } else {
-                var_a0 = -1;
             }
         } while (var_a0 == -1);
         *(s8 *)(D_800E5AC4 + (var_s5 * 0xFF8)) = var_a0;

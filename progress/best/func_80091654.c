@@ -21,12 +21,13 @@ extern char D_800E6AA4[];
 extern char D_800E6AB2[];
 extern char D_800E6AB4[];
 
-void func_80091654(s8 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a2_2;
     s32 temp_a3;
-    s32 temp_s0;
+    
     s32 var_a2;
     s32 var_v0;
+s32 __repair_phase_var_v0;
     s32 var_v1;
     s8 var_v1_2;
     u32 var_s0;
@@ -53,19 +54,17 @@ loop_1:
     }
     if (var_a2 != -1) {
         if (var_a2 >= 0) {
-            temp_s0 = var_a2 * 0xFF8;
-            func_8008EB80(arg0 & 0xFF, arg1 & 0xFFFF, *(D_800E6A88 + temp_s0), arg3 & 0xFF, arg2);
-            var_s0_2 = temp_s0 + D_800E5FEC;
+            temp_a2_2 = var_a2 * 0xFF8;
+            func_8008EB80(arg0 & 0xFF, arg1 & 0xFFFF, *(D_800E6A88 + temp_a2_2), arg3 & 0xFF, arg2);
+            var_s0_2 = temp_a2_2 + D_800E5FEC;
             temp_s2 = var_s0_2 + 0x40;
-loop_8:
+do {
             temp_a2 = *(u8 *)var_s0_2;
-            if (temp_a2 != *(D_800E6A88 + temp_s0)) {
+            if (temp_a2 != *(D_800E6A88 + temp_a2_2)) {
                 func_8008EB80(arg0 & 0xFF, arg1 & 0xFFFF, temp_a2, 0, 0);
             }
             var_s0_2 += 1;
-            if ((u32) var_s0_2 < (u32) temp_s2) {
-                goto loop_8;
-            }
+            } while ((u32) var_s0_2 < (u32) temp_s2);
         } else {
             temp_a2_2 = var_a2 & 0x7FFFFFFF;
             temp_a3 = arg3 & 0xF;
@@ -80,14 +79,14 @@ loop_8:
                 var_v0 = temp_a2_2 * 0xFF8;
                 *(D_800E6AA4 + var_v0) = arg0;
                 var_v1_2 = *(D_800E6AB2 + var_v0) | 8;
-block_26:
                 *(D_800E6AB2 + var_v0) = var_v1_2;
                 break;
             case 3:
-                var_v0 = temp_a2_2 * 0xFF8;
-                *(D_800E6AA4 + var_v0) = arg0;
-                var_v1_2 = *(D_800E6AB2 + var_v0) | 0x80;
-                goto block_26;
+                __repair_phase_var_v0 = temp_a2_2 * 0xFF8;
+                *(D_800E6AA4 + __repair_phase_var_v0) = arg0;
+                var_v1_2 = *(D_800E6AB2 + __repair_phase_var_v0) | 0x80;
+                *(D_800E6AB2 + __repair_phase_var_v0) = var_v1_2;
+                break;
             }
         }
     }
