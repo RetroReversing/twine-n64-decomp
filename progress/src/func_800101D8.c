@@ -33,6 +33,7 @@ extern s8 D_801002B1;
 extern s32 D_8010A500;
 
 void func_800101D8(void) {
+    s8 *__base_D_801002AE;
     s16 temp_a0;
     s16 temp_v0;
     s32 temp_v0_2;
@@ -49,13 +50,14 @@ void func_800101D8(void) {
             if (temp_v0 < M2C_FIELD(D_800B2710, s16 *, 0x2B92)) {
                 M2C_FIELD(D_800B2710, s16 *, 0x2B90) = (s16) (temp_v0 + 1);
             }
-            D_801002AE = 1;
+            __base_D_801002AE = &D_801002AE;
+            (*__base_D_801002AE) = 1;
             temp_v0_2 = D_800E0743 << 0x18;
             D_800E0743 -= 1;
             if (temp_v0_2 > 0) {
                 var_s0 = 1;
             } else {
-                D_801002AE = 0;
+                (*__base_D_801002AE) = 0;
                 D_801002AF = 0;
                 D_801002B0 = 0;
                 D_801002B1 = 0;
