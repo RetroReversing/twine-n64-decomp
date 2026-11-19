@@ -26,7 +26,7 @@ void func_80032630(void *arg0) {
         }
         temp_v1 = D_80115328;
         ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
-        D_80115328 = temp_v1 + 8;
+        D_80115328 = (s8 *) temp_v1 + 8;
         M2C_FIELD(temp_v1, s32 *, 4) = (s32) ((__repair_field_0 *)arg0)->value;
     }
 }
