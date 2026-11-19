@@ -22,12 +22,10 @@ void func_80072C7C(f32 arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
     f32 sp40[3];
     char sp50[0x28];
     char sp78[0x28];
-    M2C_UNK spA0;
+    u8 spA0[0x28];
     f32 temp_fs1;
     f32 temp_fs2;
     f32 temp_fv0;
-/* Inferred frame reservation; original purpose unknown. */
-char __repair_stack_padding[32];
 
     temp_fs2 = arg0 + 1.0f;
     sp40[0] = func_80045D2C(0.5f);
@@ -47,7 +45,7 @@ char __repair_stack_padding[32];
     if (temp_fs2 < D_800E1A34) {
         func_80045348(arg1, arg2, sp50);
         func_80045348(arg2, arg3, sp78);
-        func_80045348(arg3, arg1, &spA0);
+        func_80045348(arg3, arg1, spA0);
         func_80072C7C(temp_fs2, arg1, arg2, sp18, arg4, arg5);
         func_80072C7C(temp_fs2, arg2, arg3, sp18, arg4, arg5);
         func_80072C7C(temp_fs2, arg3, arg1, sp18, arg4, arg5);
