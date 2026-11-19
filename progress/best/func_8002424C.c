@@ -55,8 +55,8 @@ int __repair_constant = 3;
         (*(s16 *)((char *)(temp_s2) + 0)) = (s16) D_800BD68E;
         (*(s16 *)((char *)(temp_s2) + 0x24)) = (s16) D_800BD68E;do{
         temp_v0 = temp_a0 * 8;}while(0);
-        *(D_80109C18 + temp_v0) = 0;
-        *(D_80109C1C + temp_v0) = 0;
+        *(s32 *)(D_80109C18 + temp_v0) = 0;
+        *(s32 *)(D_80109C1C + temp_v0) = 0;
         if (!(func_8002D09C(temp_a0) & 0xFFFF)) {
             (*(s32 *)((char *)(temp_s2) + -8)) = 0x10;
         } else {
@@ -64,8 +64,8 @@ int __repair_constant = 3;
         }
         *(D_800BD5D0 - 0x34) = var_s1 + 0x4000;
         temp_s0 = (var_s1 & 0xFFFF) * 8;
-        *(D_80109C18 + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
-        *(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
+        *(s32 *)(D_80109C18 + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
+        *(s32 *)(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
         func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
         var_s1 += 1;
     } while ((u32) (var_s1 & 0xFFFF) < 0x10U);
@@ -90,7 +90,7 @@ int __repair_constant = 3;
         var_v0 = 2;
     }
     D_800BD558 = var_v0;
-    func_8002A9A8(D_80107EA8, 0);
+    do { func_8002A9A8(D_80107EA8, 0); } while (0);
     func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002AC04(D_80107EA8, 1);
     if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {

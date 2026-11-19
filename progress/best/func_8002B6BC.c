@@ -34,7 +34,7 @@ void *__repair_cached_pointer = D_800BF5BC;
 
             temp_s0 = func_8002B400(D_800BF5C4, 0xE, &D_800BF5CC);
             func_80016718(D_800BF5BC);
-            func_80016990(__repair_cached_pointer, M2C_FIELD(*(&D_80109688 + (D_800BF5CA * 4)), s32 *, 0xF4));
+            func_80016990(__repair_cached_pointer, M2C_FIELD(*(&D_80109688 + D_800BF5CA), s32 *, 0xF4));
             M2C_FIELD(D_800BF5BC, s32 *, 0x58) = (s32) (M2C_FIELD(D_800BF5BC, s32 *, 0x58) | 0x1000);
             M2C_FIELD(D_800BF5BC, f32 *, 0x54) = (f32) *temp_s0;
             switch (D_800BF5C8) {                   /* irregular */

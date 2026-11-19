@@ -37,9 +37,9 @@ M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 extern u8 D_800CEEB0;
 extern M2C_UNK D_800E0768;
 extern u16 D_800E0778;
-extern M2C_UNK D_800E077A;
+extern u8 D_800E077A[];
 extern M2C_UNK D_800E077B;
-extern M2C_UNK D_800E077C;
+extern u8 D_800E077C[];
 extern M2C_UNK D_800E0790;
 extern M2C_UNK D_800E0930;
 extern s16 D_800E093A;
@@ -98,8 +98,8 @@ void func_80011950(void) {
         var_s3 = 0;
         var_s1 = 0;
         do {
-            if ((*(&D_800E077C + var_s3) != 4) || (D_800CEEB0 == 2)) {
-                *(&D_8010D434 + var_s4) = (s16) (s8) *(&D_800E077A + var_s3);
+            if ((*(D_800E077C + var_s3) != 4) || (D_800CEEB0 == 2)) {
+                *(&D_8010D434 + var_s4) = (s16) (s8) *(D_800E077A + var_s3);
                 *(&D_8010D436 + var_s4) = (s16) (s8) *(&D_800E077B + var_s3);
                 if (*(&D_800E0930 + var_s1) != 0) {
                     if (*(&D_8010D434 + var_s4) < -0x1E) {

@@ -33,8 +33,8 @@ f64 func_800AACB0(f64 arg0) {
     u32 var_t1;
     void *temp_v0;
 
-    var_s0 = 0;
     var_s1 = 0;
+    var_s0 = 0;
     temp_ret = func_800ABE80(arg0 * D_800D6F70);
     var_t0 = temp_ret;
     var_t1 = (u32) (u64) temp_ret;

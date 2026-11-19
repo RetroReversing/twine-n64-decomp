@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 s32 func_8000A724();
 s32 func_8009C930();
 s32 func_8009CC3C();
-extern char D_800B1D90[];
-extern char D_800B1FE0[];
-extern char D_800B2230[];
+extern u8 D_800B1D90[];
+extern u8 D_800B1FE0[];
+extern u8 D_800B2230[];
 extern f64 D_800D2168;
 extern s32 D_801002EC;
 
-s32 func_8000A8B4(s32 arg0, f32 arg1, s32 arg2) {
+s32 func_8000A8B4(s32 arg0, f32 arg1, u8 arg2) {
     f32 temp_ft0;
     f32 temp_fv0;
     f32 temp_fv1;

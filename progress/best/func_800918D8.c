@@ -15,7 +15,8 @@ typedef s32 M2C_UNK32;
 extern u8 D_800CF540;
 extern M2C_UNK D_800E5AC4;
 extern M2C_UNK D_800E6A85;
-extern M2C_UNK D_800E6A88;
+typedef struct { u16 f0; u8 pad[4086]; } Slot_800E6A88;
+extern Slot_800E6A88 D_800E6A88[];
 
 u8 func_800918D8(s32 arg0) {
     s32 var_v1;
@@ -26,8 +27,9 @@ u8 func_800918D8(s32 arg0) {
     if (D_800CF540 != 0) {
         var_v1_2 = 0;
 loop_2:
-        if ((*(&D_800E6A85 + var_v1_2) != 0) || (*(&D_800E5AC4 + var_v1_2) != (arg0 & 0x7FFFFFFF))) {
-            var_a1 += 1;
+        if ((*((M2C_UNK *)((s8 *)&D_800E6A85 + var_v1_2)) != 0) || (*((M2C_UNK *)((s8 *)&D_800E5AC4 + var_v1_2)) != (arg0 & 0x7FFFFFFF))) {/*__repair_loop_weight*/__repair_rows: {do {do {
+            var_a1 += 1;} while (0);} while (0);}
+if (0) goto __repair_rows;
             var_v1_2 += 0xFF8;
             if (var_a1 >= 8U) {
                 var_v1 = -1;
@@ -38,7 +40,7 @@ loop_2:
             var_v1 = var_a1 | (arg0 & 0x80000000);
         }
         if (var_v1 != -1) {
-            return *(&D_800E6A88 + (var_v1 * 0xFF8));
+            return D_800E6A88[var_v1].f0;
         }
         goto block_9;
     }

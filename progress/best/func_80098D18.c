@@ -1,3 +1,4 @@
+static __inline__ u8 __repair_inline(u8 a) { return a; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 extern u8 D_801002EA;
@@ -91,7 +92,7 @@ loop_9:
                                     var_t3 += 1;
                                     if (!(var_t8 & 0xFF) || (var_v0_4 = var_t0_2 * 4, (*(u16 *)(D_8010D770 + temp_v1) == (arg3 & 0xFF)))) {
                                         if (!(*(u16 *)(D_8010D748 + temp_v1) & 2)) {
-                                            if ((var_t1 == -1U) || (var_v0_4 = var_t0_2 * 4, (((u32) *(D_8010D74C + temp_v1) < (u32) *(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
+                                            if ((var_t1 == -1U) || (var_v0_4 = var_t0_2 * 4, (((u32) *(s32 *)(D_8010D74C + temp_v1) < (u32) *(s32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                                 var_t1 = var_t0_2;
                                                 goto block_20;
                                             }
@@ -124,7 +125,6 @@ block_20:
 loop_27:
                     if ((unsigned short)var_v0_6 != 0) {
                         var_t0_3 = *(u16 *)(D_8010957D + (var_t2 & 0xFFFF));
-                        var_v0_7 = var_t2 * 4;
                         if (var_t0_3 != 0xFF) {
                             var_v0_8 = var_t0_3 * 2;
                             do {
@@ -134,11 +134,11 @@ loop_27:
                                     register var_v0_9 = var_t0_3 * 4;
                                     var_t3 += *(u16 *)(D_8010D7DE + temp_v1_2) == (arg2 & (short)0xFFFF);
                                 }
-                                var_t0_3 = *(u16 *)(D_80102CE1 + var_v0_9);
+                                var_t0_3 = __repair_inline(*(u16 *)(D_80102CE1 + var_v0_9));
                                 var_v0_8 = var_t0_3 * 2;
                             } while (var_t0_3 != 0xFF);
-                            var_v0_7 = var_t2 * 4;
                         }
+                        var_v0_7 = var_t2 * 4;
                         var_t2 = *(u16 *)(D_8010A51A + var_v0_7);
                         var_v0_6 = var_t3 < temp_t0;
                         if (var_t2 == 0xFFFF) {
@@ -173,7 +173,6 @@ block_37:
 loop_42:
                 if ((temp_a2 >= var_a1) & (~var_t1 == 0)) {
                     var_t0_4 = *(u16 *)(D_8010957D + var_a1);
-                    var_v0_10 = var_t2_2 * 4;
                     if (var_t0_4 != 0xFF) {
                         var_v0_11 = var_t0_4 * 2;
                         do {
@@ -181,7 +180,7 @@ loop_42:
                             if (*(u16 *)(D_8010D7E1 + temp_a1_2) == 0) {
                                 if ((temp_t0_2 == 0) || (var_v0_12 = var_t0_4 * 4, (*(u16 *)(D_8010D770 + temp_a1_2) == (arg3 & 0xFF)))) {
                                     if (!(*(u16 *)(D_8010D748 + temp_a1_2) & 2)) {
-                                        if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(D_8010D74C + temp_a1_2) < (u32) *(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
+                                        if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(s32 *)(D_8010D74C + temp_a1_2) < (u32) *(s32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                             var_t1 = var_t0_4;
                                             goto block_52;
                                         }
@@ -196,8 +195,8 @@ block_52:
                             var_t0_4 = *(u16 *)(D_80102CE1 + var_v0_12);
                             var_v0_11 = var_t0_4 * 2;
                         } while (var_t0_4 != 0xFF);
-                        var_v0_10 = var_t2_2 * 4;
                     }
+                    var_v0_10 = var_t2_2 * 4;
                     var_t2_2 = *(u16 *)(D_8010A51A + var_v0_10);
                     var_a1 = var_t2_2 & 0xFFFF;
                     if ((var_t2_2 & (short)0xFFFF) != 0xFFFF) {

@@ -27,7 +27,7 @@ void func_80083C98(void) {
     var_a0 = 0;
     var_v1 = 0;
     __repair_rows: {
-        *(&D_800CE354 + var_v1) = 0;
+        *((M2C_UNK *)((s8 *)&D_800CE354 + var_v1)) = 0;
         var_a0 += 1;
         var_v1 += 0xC;
     }

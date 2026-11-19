@@ -20,16 +20,20 @@ extern char D_800FD568[];
 extern s32 func_800986FC;
 
 s32 func_800985A8(s16 arg0) {
+int __repair_literal;
+
     s32 var_s0;
     s32 var_s1;
     s32 var_v0;
 
     D_800F38E0 = arg0;
     var_s1 = 0;
-    if (D_800FD560 > 0) {
+__repair_literal = 0;
+
+    if (D_800FD560 > __repair_literal) {
         var_s0 = 0;
 loop_2:
-        var_v0 = func_800956E0(&D_800F38E0, *(D_800FD568 + var_s0), *(D_800FD566 + var_s0), 0xC, &func_800986FC);
+        var_v0 = func_800956E0(&D_800F38E0, *(s32 *)(D_800FD568 + var_s0), *(u16 *)(D_800FD566 + var_s0), 0xC, &func_800986FC);
         var_s1 += 1;
         if (var_v0 == 0) {
             var_s0 += 8;

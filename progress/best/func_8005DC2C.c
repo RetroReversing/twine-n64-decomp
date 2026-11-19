@@ -10,13 +10,13 @@ extern char D_80109A60[];
 extern s8 D_80109B1E;
 
 void *func_8005DC2C(s32 arg0, s32 arg1, void *arg2, void *arg3) {
-    s16 var_v0;
+    register s16 var_v0;
     void *temp_s0;
     u16 temp_v0_2;
+    register u16 var_a2;
     u16 var_a1;
-    u32 var_v0_2;
     u8 temp_v1;
-    u16 var_a2;
+    unsigned var_v0_2;
     void *temp_v0;
 
     temp_v0 = func_80016410(0x50, arg0, arg1);
@@ -31,7 +31,7 @@ void *func_8005DC2C(s32 arg0, s32 arg1, void *arg2, void *arg3) {
 
             } else {
 block_11:
-                (*(s16 *)((char *)(temp_v0) + 0x78)) = var_v0;
+                (*(s16 *)((char *)((unsigned short)temp_v0) + 0x78)) = var_v0;
             }
             break;
         case 0x2F:
@@ -69,8 +69,8 @@ block_11:
         } else {
             register var_v0_2 = (*(s32 *)((char *)(temp_s0) + 0x4C)) & ~0x80;
         }
-        (*(s32 *)((char *)(temp_s0) + 0x4C)) = var_v0_2;
         *(D_80109A60 + (*(u16 *)((char *)(temp_s0) + 0x34))) = (s8) (*(u16 *)((char *)(arg2) + 0x32));
+        (*(s32 *)((char *)(temp_s0) + 0x4C)) = var_v0_2;
         (*(void **)((char *)(temp_s0) + 4)) = arg3;
         temp_v0_2 = (*(u16 *)((char *)(arg2) + 4));
         (*(u16 *)((char *)(temp_s0) + 0x44)) = temp_v0_2;
