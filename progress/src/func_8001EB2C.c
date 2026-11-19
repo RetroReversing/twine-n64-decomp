@@ -33,7 +33,7 @@ extern void *D_80109BB0;
 void func_8001EB2C(void) {
     s16 temp_a0;
     s32 temp_s0;
-    s32 var_s0;
+    u8 i;
     s32 var_s1;
 
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 0) {
@@ -43,31 +43,25 @@ void func_8001EB2C(void) {
     func_8002CC34();
     func_8002D224();
     if (D_80102ED8 == 0) {
-        if (func_8002D0BC(0xA3, 0) & 0xFFFF) {
-            goto block_9;
+        if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
+            goto fail;
         }
-        goto block_13;
-    }
-    var_s0 = 0;
-    if (D_801002B8 > 0) {
-loop_7:
-        var_s0 += 1;
-        if (func_8002D0BC(0xA3, var_s0 & 0xFF) & 0xFFFF) {
-            if ((var_s0 & 0xFF) >= D_801002B8) {
-                goto block_9;
+    } else {
+        for (i = 0; i < D_801002B8; i++) {
+            if (!(func_8002D0BC(0xA3, i) & 0xFFFF)) {
+                goto fail;
             }
-            goto loop_7;
         }
-block_13:
-        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
-        func_8000A894(0xEA);
-        return;
     }
-block_9:
     if ((D_80102F2C != NULL) && (temp_a0 = M2C_FIELD(D_80102F2C, s16 *, 0x7A), (temp_a0 != 0xF))) {
         if (temp_a0 != 0xE) {
             M2C_FIELD(D_80102F2C, s16 *, 0x7A) = 0xE;
         }
+        return;
+    fail:
+        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
+        func_8000A894(0xEA);
+        return;
     } else {
         var_s1 = 0;
         func_800070A4();
