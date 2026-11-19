@@ -19,19 +19,14 @@ extern char D_80109DC8[];
 
 void func_80013374(void) {
     s16 *temp_s1;
-    s32 var_a2;
-    s32 var_s0;
+    u16 var_s0;
 
-    var_s0 = 0;
-    var_a2 = 0 & 0xFFFF;
-    do {
-        temp_s1 = (var_a2 * 2) + D_80109DC8;
+    for (var_s0 = 0; var_s0 < 4; var_s0++) {
+        temp_s1 = (var_s0 * 2) + D_80109DC8;
         *temp_s1 = 0;
-        func_80011800(0xC, (var_a2 * 0x68) + D_800E0790, var_a2, 0, 0, 0, 0, 0);
+        func_80011800(0xC, (var_s0 * 0x68) + D_800E0790, var_s0, 0, 0, 0, 0, 0);
         if (func_800109CC() == 0) {
             *temp_s1 = 1;
-        }/*__repair_loop_weight*/do {
-        var_s0 += 1;} while (0);
-        var_a2 = var_s0 & 0xFFFF;
-    } while ((u32) (var_s0 & 0xFFFF) < 4U);
+        }
+    }
 }
