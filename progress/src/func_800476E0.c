@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800476E0(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4) {
+s32 func_800476E0(void *arg0, void *arg1, void *arg2, const void *arg3, f32 arg4) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fa1_2;
@@ -26,19 +26,19 @@ s32 func_800476E0(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4) {
     f32 var_fv1;
     s32 var_v0;
 
-    temp_fa1 = M2C_FIELD(arg3, f32 *, 0);
-    temp_fs1 = M2C_FIELD(arg2, f32 *, 0);
-    temp_ft3 = M2C_FIELD(arg3, f32 *, 4);
-    temp_fs0 = M2C_FIELD(arg2, f32 *, 4);
-    temp_ft2 = M2C_FIELD(arg3, f32 *, 8);
-    temp_ft5 = M2C_FIELD(arg2, f32 *, 8);
+    temp_fa1 = M2C_FIELD(arg3, const f32 *, 0);
+    temp_fs1 = M2C_FIELD(arg2, const f32 *, 0);
+    temp_ft3 = M2C_FIELD(arg3, const f32 *, 4);
+    temp_fs0 = M2C_FIELD(arg2, const f32 *, 4);
+    temp_ft2 = M2C_FIELD(arg3, const f32 *, 8);
+    temp_ft5 = M2C_FIELD(arg2, const f32 *, 8);
     temp_fa0 = (temp_fa1 * temp_fs1) + (temp_ft3 * temp_fs0) + (temp_ft2 * temp_ft5);
     var_v0 = 0;
     if (temp_fa0 != 0.0f) {
-        temp_ft4 = M2C_FIELD(arg1, f32 *, 0);
-        temp_fa1_2 = M2C_FIELD(arg1, f32 *, 4);
-        temp_ft3_2 = M2C_FIELD(arg1, f32 *, 8);
-        var_fv1 = -((temp_fa1 * temp_ft4) + (temp_ft3 * temp_fa1_2) + (temp_ft2 * temp_ft3_2) + M2C_FIELD(arg3, f32 *, 0xC)) / temp_fa0;
+        temp_ft4 = M2C_FIELD(arg1, const f32 *, 0);
+        temp_fa1_2 = M2C_FIELD(arg1, const f32 *, 4);
+        temp_ft3_2 = M2C_FIELD(arg1, const f32 *, 8);
+        var_fv1 = -((temp_fa1 * temp_ft4) + (temp_ft3 * temp_fa1_2) + (temp_ft2 * temp_ft3_2) + M2C_FIELD(arg3, const f32 *, 0xC)) / temp_fa0;
         if (var_fv1 < 0.0f) {
             var_fv1 = 0.0f;
         }
