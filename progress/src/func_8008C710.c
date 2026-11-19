@@ -17,7 +17,7 @@ M2C_UNK func_800A0220(void *, M2C_UNK);             /* extern */
 void func_8008C710(void *arg0, s32 arg1) {
     void *temp_a0;
 
-    temp_a0 = (arg1 * 2) + arg0;
+    temp_a0 = (char *)((arg1 * 2)); temp_a0 += (s32)(arg0);
     M2C_FIELD(temp_a0, u16 *, 0) = (u16) M2C_FIELD(arg0, u16 *, 0);
     M2C_FIELD(temp_a0, u16 *, 2) = (u16) M2C_FIELD(arg0, u16 *, 2);
     M2C_FIELD(temp_a0, u16 *, 4) = (u16) M2C_FIELD(arg0, u16 *, 4);
