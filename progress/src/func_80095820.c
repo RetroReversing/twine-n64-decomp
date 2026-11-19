@@ -1,3 +1,4 @@
+/* identical to func_800958F8 (matched), with its names changed by decompdecomp */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -15,7 +16,7 @@ typedef s32 M2C_UNK32;
 s32 func_8008BA98();
 s32 func_8008F2D4();
 s32 func_800926E8();
-s32 func_80092780(s32 arg0);
+s32 func_80092780(void);
 s32 func_80093220();
 s32 func_80095260();
 s32 func_80098644();
@@ -26,6 +27,7 @@ extern s8 D_80112DC0;
 extern u8 D_801176E8;
 
 s32 func_80095820(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
+    s32 __repair_arg0;
     s32 temp_v0;
 
     D_800CF540 = 0;
@@ -38,11 +40,12 @@ s32 func_80095820(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
     D_801005B0 = arg2;
     temp_v0 = func_8008BA98(&arg0, D_801176E8, arg4, arg5);
     if (temp_v0 == 0) {
-        func_80092780(arg0);
+        __repair_arg0 = arg0;
+        func_80092780();
         func_80098644();
         func_800926E8();
         D_80112DC0 = 0;
-        func_8008F2D4(arg0);
+        func_8008F2D4(__repair_arg0);
         func_80093220();
         func_80095260();
         D_800CF540 = 1;
