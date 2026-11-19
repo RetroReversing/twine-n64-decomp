@@ -28,6 +28,8 @@ void func_8008587C(void *arg0) {
     if (M2C_FIELD(temp_v1, u16 *, 0xC) & 8) {
         temp_v0 = M2C_FIELD(temp_v1, u8 *, 0x11);
         switch (temp_v0) {
+        case 1:
+        case 9:
         default:
             func_80084D90(arg0 + 0x24);
             return;
