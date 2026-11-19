@@ -35,9 +35,8 @@ void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 a
 
     var_s2 = 0;
     temp_fs2 = arg2 * 0.5f;
-    if (arg3 != 0) {
-        temp_fs1 = D_800D4120;
-        do {
+    for (var_s2 = 0; var_s2 < arg3; var_s2++) {
+        {
             temp_v0 = func_80016410(0x20, arg1, 0);
             if (temp_v0 != NULL) {
                 temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
@@ -47,29 +46,13 @@ void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 a
                 M2C_FIELD(temp_s0, f32 *, 4) = func_80045D8C(arg2, temp_fs2);
                 M2C_FIELD(temp_s0, f32 *, 8) = func_80045D8C(arg2, temp_fs2);
                 M2C_FIELD(temp_s0, f32 *, 0xC) = func_80045D8C(arg2, temp_fs2);
-                temp_v0_2 = func_80045CF8(0x100) - 0x80;
-                var_fv0 = (f64) temp_v0_2;
-                if (temp_v0_2 < 0) {
-                    var_fv0 += temp_fs1;
-                }
-                M2C_FIELD(temp_s0, f32 *, 0x10) = (f32) var_fv0;
-                temp_v0_3 = func_80045CF8(0x100) - 0x80;
-                var_fv0_2 = (f64) temp_v0_3;
-                if (temp_v0_3 < 0) {
-                    var_fv0_2 += temp_fs1;
-                }
-                M2C_FIELD(temp_s0, f32 *, 0x14) = (f32) var_fv0_2;
-                temp_v0_4 = func_80045CF8(0x100) - 0x80;
-                var_fv0_3 = (f64) temp_v0_4;
-                if (temp_v0_4 < 0) {
-                    var_fv0_3 += temp_fs1;
-                }
-                M2C_FIELD(temp_s0, f32 *, 0x18) = (f32) var_fv0_3;
+                M2C_FIELD(temp_s0, f32 *, 0x10) = (u32) (func_80045CF8(0x100) - 0x80);
+                M2C_FIELD(temp_s0, f32 *, 0x14) = (u32) (func_80045CF8(0x100) - 0x80);
+                M2C_FIELD(temp_s0, f32 *, 0x18) = (u32) (func_80045CF8(0x100) - 0x80);
                 M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 0x10000);
                 func_80044670(temp_v0, arg4, arg5);
                 func_80016990(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));
             }
-            var_s2 += 1;
-        } while (var_s2 < arg3);
+        }
     }
 }
