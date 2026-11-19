@@ -5,6 +5,7 @@ s32 func_8003E6EC(s32, void *, s32);        /* extern */
 s32 func_80044670(void *, u16, s16);            /* extern */
 extern s32 *D_800CA31C;
 
+typedef struct { unsigned char pad_0[92]; int field_5C; unsigned char pad_60[12]; void * field_6C; unsigned char pad_70[8]; short field_78; short field_7A; } __repair_record_temp_v0;
 void *func_8005AD00(s32 arg0, s32 arg1, void *arg2, s16 arg3) {
     s32 temp_v0_2;
     register void *temp_v0;
@@ -12,16 +13,16 @@ void *func_8005AD00(s32 arg0, s32 arg1, void *arg2, s16 arg3) {
 
     temp_v0 = func_80016410(8, arg0, arg1);
     if (temp_v0 != NULL) {
-        temp_a0 = (*(void **)((char *)(temp_v0) + 0x6C));
-        (*(s16 *)((char *)(temp_v0) + 0x78)) = arg3;
+        temp_a0 = (((__repair_record_temp_v0*)temp_v0)->field_6C);
+        (((__repair_record_temp_v0*)temp_v0)->field_78) = arg3;
         temp_v0_2 = ((*(s32 *)((char *)(temp_a0) + 0)) & 0xFFFFF) | (*(*(s16 **)((char *)(arg2) + 0x28)) << 0x14);
         (*(s32 *)((char *)(temp_a0) + 0)) = temp_v0_2;
-        (*(s32 *)((char *)(temp_a0) + 0)) = (s32) ((temp_v0_2 & 0xFFF0000F) | ((*(u16 *)((char *)(arg2) + 0)) * (s32)0x10));
-        (*(s8 *)((char *)(temp_a0) + 4)) = (s8) (*(u16 *)((char *)(arg2) + (unsigned)0x2C));
+        (*(s32 *)((char *)(temp_a0) + 0)) = (s32) ((temp_v0_2 & 0xFFF0000F) | ((*(u16 *)((char *)(arg2) + 0)) * 0x10));
+        (*(s8 *)((char *)(temp_a0) + 4)) = (s8) (*(u16 *)((char *)(arg2) + 0x2C));
         (*(s8 *)((char *)(temp_a0) + 5)) = (s8) (*(u16 *)((char *)(arg2) + 0x2E));
-        (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         func_80044670(temp_v0, (*(u16 *)((char *)(arg2) + 0)), *(*(s16 **)((char *)(arg2) + 0x28)));
-        (*(s32 *)((char *)(temp_v0) + 0x5C)) = (s32) ((*(s32 *)((char *)((s32)temp_v0) + 0x5C)) | 0x600);
+        (((__repair_record_temp_v0*)temp_v0)->field_7A) = 0;
+        (((__repair_record_temp_v0*)temp_v0)->field_5C) = (s32) ((((__repair_record_temp_v0*)temp_v0)->field_5C) | 0x600);
         func_8003E6EC(*D_800CA31C, temp_v0, 1);
     }
     return temp_v0;
