@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,12 +10,13 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce, tried by autopilot */
 
 extern s16 D_800E1A86;
 extern char D_8010D430[];
 
 void func_80082164(void) {
-    s32 *var_a0;
+    char *var_a0;
     char *var_v0;
     s32 var_v1;
     s32 var_v1_2;
@@ -25,7 +25,7 @@ void func_80082164(void) {
     var_v1 = 0;
     do {
         M2C_FIELD(var_a0, s16 *, 2) = 0;
-        *(D_8010D430 + var_v1) = 0;
+        *(s16 *)(D_8010D430 + var_v1) = 0;
         var_v1 += 8;
         var_a0 += 8;
     } while (var_v1 < 0x20);
