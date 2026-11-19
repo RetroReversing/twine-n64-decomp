@@ -24,7 +24,7 @@ void func_80048734(f32 arg0) {
     var_s0 = &D_80109688;
     do {
         temp_a0 = *var_s0;
-        var_s0 += 4;
+        var_s0 += 1;
         var_s1 += 1;
         func_800484F8(temp_a0, arg0);
     } while (var_s1 < 6U);
