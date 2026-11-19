@@ -16,12 +16,12 @@ M2C_UNK func_800148A4(M2C_UNK *);                   /* extern */
 
 s32 func_800149D4(s32 arg0) {
     union {
-        unsigned char bytes[56];
-        struct { unsigned char pad[16]; M2C_UNK value; } view_sp10;
-        struct { unsigned char pad[20]; s32 value; } view_sp14;
-        struct { unsigned char pad[24]; s32 value; } view_sp18;
-        struct { unsigned char pad[36]; s32 value; } view_sp24;
-        struct { unsigned char pad[44]; s32 value; } view_sp2C;
+        unsigned char bytes[32];
+        struct { M2C_UNK value; } view_sp10;
+        struct { unsigned char pad[4]; s32 value; } view_sp14;
+        struct { unsigned char pad[8]; s32 value; } view_sp18;
+        struct { unsigned char pad[20]; s32 value; } view_sp24;
+        struct { unsigned char pad[28]; s32 value; } view_sp2C;
     } m2c_initial_frame;
 
                  
