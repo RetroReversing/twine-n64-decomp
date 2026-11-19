@@ -21,11 +21,12 @@ extern s32 D_80100194;
 
 s32 func_8000B750(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 != 0) {
+        s32 one = 1;
         D_80100190 = arg0;
         D_8010018A = arg1;
         D_80100194 = arg2;
         D_8010018C = 0;
-        D_80100188 = 1;
+        D_80100188 = one;
         func_8000B5E0();
     }
     return 1;
