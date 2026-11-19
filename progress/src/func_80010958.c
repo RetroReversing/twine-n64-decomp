@@ -18,6 +18,7 @@ s32 func_80010958(u8 *arg0, s32 arg1) {
     u32 temp_a2;
     u32 var_a2;
     u32 var_t0;
+u32 __repair_phase_var_t0;
     u8 *var_a0;
     u8 var_a3;
 
@@ -42,8 +43,9 @@ s32 func_80010958(u8 *arg0, s32 arg1) {
             } while (var_t0 < 8U);
             var_a1 -= 1;
         } while (var_a1 != 0);
-        temp_a2 = ~var_a2;
-        ret = ((temp_a2 << 8) | ((temp_a2 >> 8) & 0xFF)) & 0xFFFF;
+        var_a2 = ~var_a2;
+        var_a2 = (var_a2 << 8) | ((var_a2 >> 8) & 0xFF);
+        ret = var_a2 & 0xFFFF;
     }
     return ret;
 }
