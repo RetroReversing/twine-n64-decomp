@@ -13,6 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_8003C710(void *arg0) {
+    f32 __repair_fzero = 0.0f;
+
     M2C_FIELD(arg0, s32 *, 0) = 0;
     M2C_FIELD(arg0, s32 *, 4) = 0;
     M2C_FIELD(arg0, s32 *, 8) = 0;
@@ -21,15 +23,15 @@ void func_8003C710(void *arg0) {
     M2C_FIELD(arg0, s32 *, 0x13C) = 0;
     M2C_FIELD(arg0, s32 *, 0xFC) = 0;
     M2C_FIELD(arg0, s32 *, 0x100) = 1;
-    M2C_FIELD(arg0, f32 *, 0x18) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x14) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x10) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x34) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x38) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x124) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0xC) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x120) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0x128) = 0.0f;
+    M2C_FIELD(arg0, f32 *, 0x18) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x14) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x10) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x34) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x38) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x124) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0xC) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x120) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0x128) = __repair_fzero;
     M2C_FIELD(arg0, f32 *, 0x3C) = 3.1415927f;
     M2C_FIELD(arg0, f32 *, 0x4C) = 1.0f;
     M2C_FIELD(arg0, f32 *, 0x12C) = 1.0f;
