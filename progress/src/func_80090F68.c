@@ -23,7 +23,7 @@ void func_80090F68(void) {
     var_s1 = 0;
     var_s0 = 0;
     do {
-        temp_a0 = *(D_800E5AC4 + var_s0);
+        temp_a0 = *(s32 *)(D_800E5AC4 + var_s0);
         var_s0 += 0xFF8;
         var_s1 += 1;
         func_80090CD4(temp_a0);
