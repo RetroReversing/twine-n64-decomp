@@ -3,6 +3,7 @@
 extern char D_800D1450[];
 
 s32 func_800746A8(s8 *arg0) {
+    u8 __repair_frame[24];
     s32 var_a2;
     
     char *var_a0;

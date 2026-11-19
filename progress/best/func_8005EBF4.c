@@ -87,15 +87,16 @@ void func_8005EBF4(void *arg0) {
             if (D_801002A0 == 8) {
                 temp_a0 = (*(u16 *)((char *)(temp_s1) + 0x28));
                 switch (temp_a0) {                  /* irregular */
-                case 24:
-                    var_v0 = D_801002A3 & 0xFD;
-                    goto block_34;
-                case 23:
-                    var_v0 = D_801002A3 & 0xFE;
-                    goto block_34;
                 case 25:
                     var_v0 = D_801002A3 & 0xFB;
-block_34:
+                    D_801002A3 = var_v0;
+                    break;
+                case 24:
+                    var_v0 = D_801002A3 & 0xFD;
+                    D_801002A3 = var_v0;
+                    break;
+                case 23:
+                    var_v0 = D_801002A3 & 0xFE;
                     D_801002A3 = var_v0;
                     break;
                 }

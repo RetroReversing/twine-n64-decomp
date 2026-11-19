@@ -26,16 +26,14 @@ void func_80073210(void *arg0, M2C_UNK arg1, M2C_UNK arg2, f32 arg3, f32 arg4, f
     s16 sp48;
     s16 sp4A;
     s16 sp4C;
-    f32 sp50;
-    f32 sp54;
-    f32 sp58;
+    f32 sp50[3];
     f64 var_fv1;
     s32 temp_fv0;
     s32 temp_fv0_2;
 
-    sp50 = arg3;
-    sp54 = arg4;
-    sp58 = arg5;
+    sp50[0] = arg3;
+    sp50[1] = arg4;
+    sp50[2] = arg5;
     var_fv1 = (f64) arg6;
     D_800E1A64 = (u32) M2C_FIELD(arg0, u32 *, 0x30) >> 0x14;
     if (arg6 < 0) {
@@ -51,5 +49,5 @@ void func_80073210(void *arg0, M2C_UNK arg1, M2C_UNK arg2, f32 arg3, f32 arg4, f
     sp48 = (s16) (s32) arg3;
     func_80082FE4(&sp48, sp18, temp_fv0, temp_fv0_2);
     D_800E1A68 = 0;
-    func_8003941C(arg0, arg1, arg2, &sp50, 0);
+    func_8003941C(arg0, arg1, arg2, sp50, 0);
 }

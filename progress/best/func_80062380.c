@@ -21,6 +21,7 @@ void func_80062380(void *arg0) {
     f64 temp_fv1;
     s32 temp_v1;
     s32 var_v0;
+
     u16 *temp_s1;
     u16 temp_v0;
     u8 temp_v0_2;
@@ -40,11 +41,10 @@ void func_80062380(void *arg0) {
         M2C_FIELD(arg0, u8 *, 0x82) = temp_v0_2;
         M2C_FIELD(arg0, f32 *, 0x54) = (f32) temp_fv1;
         if ((u32) (temp_v0_2 & 0xFF) < 8U) {
-            var_v0 = M2C_FIELD(arg0, s32 *, 0x60) | 1;
-            goto block_5;
+            temp_v1 = M2C_FIELD(arg0, s32 *, 0x60) | 1;
+            M2C_FIELD(arg0, s32 *, 0x60) = temp_v1;
         }
     } else {
-block_5:
         M2C_FIELD(arg0, s32 *, 0x60) = var_v0;
     }
 }

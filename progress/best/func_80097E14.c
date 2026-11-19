@@ -1,4 +1,16 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
 s32 func_8008C0D4();
 s32 func_8008C11C();
@@ -9,13 +21,15 @@ extern char D_800FD564[];
 s32 func_80097E14(s32 arg0) {
 int __repair_literal;
 
+    s32 __repair_store_0;
+    s32 __repair_store_1;
     s32 temp_v1;
     s32 var_a0;
-    void *var_a3;
+    s32 var_a2;
     s32 var_s0;
     s32 var_v0;
     s32 var_v1;
-    s32 var_a2;
+    void *var_a3;
     void *var_t0;
 
     var_a0 = arg0;
@@ -45,12 +59,14 @@ __repair_literal = 0;
             var_t0 = temp_v1 + D_800FD55C;
             var_a3 = temp_v1 + (D_800FD55C + 8);
             do {
-                (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a3) + 0));
-                var_t0 += 8;
-                (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));
+                __repair_store_0 = (s32) M2C_FIELD(var_a3, s32 *, 0);
+                __repair_store_1 = (s32) M2C_FIELD(var_a3, s32 *, 4);
+                M2C_FIELD(var_t0, s32 *, 0) = __repair_store_0;
+                M2C_FIELD(var_t0, s32 *, 4) = __repair_store_1;
+                var_t0 += 8;/*__repair_loop_weight*/do {
+                var_a2 += 1;} while (0);
                 var_a3 += 8;
-                ++var_a2;
-            } while (D_800FD560 > var_a2);
+            } while (var_a2 < D_800FD560);
         }
         D_800FD560 -= 1;
         func_8008C11C();

@@ -4,7 +4,7 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     s32 var_v0_2;
     s32 temp_a0;
     void *var_t0_2;
-    unsigned short temp_a0_2;
+    short temp_a0_2;
     u8 *var_t0;
     register unsigned var_v1;
     s32 var_v0;
@@ -20,47 +20,55 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
                 var_t0 += 4;
                 break;
             case 0:
-                var_t0_2 = var_t0 + 1;
+                var_t0_2 = (void *) ((1) + (s32) var_t0);
                 *arg1 += (*(u8 *)((char *)(var_t0) + 1));
                 var_v0 = (*(u8 *)((char *)(var_t0) + 1)) * 3;
                 *arg3 = 0;
-block_10:
-                var_t0 = var_t0_2 + (var_v0 + 1);
+                var_t0 = (void *) (((var_v0 + 1)) + (s32) var_t0_2);
                 break;
             case 1:
-                var_t0_2 = var_t0 + 1;
+                var_t0_2 = (void *) ((1) + (s32) var_t0);
                 *arg1 += (*(u8 *)((char *)(var_t0) + 1));
                 *arg3 = 1;
                 var_v0_2 = (*(u8 *)((char *)(var_t0) + 1)) * 3;
 block_9:
                 var_v0 = var_v0_2 * 2;
-                goto block_10;
+                var_t0 = (void *) (((var_v0 + 1)) + (s32) var_t0_2);
+                break;
             case 3:
-                var_t0_2 = var_t0 + 1;
+                var_t0_2 = (void *) ((1) + (s32) var_t0);
                 *arg1 += (*(u8 *)((char *)(var_t0) + 1));
                 var_v0 = (*(u8 *)((char *)(var_t0) + 1));
                 *arg3 = 3;
-                goto block_10;
+                var_t0 = (void *) (((var_v0 + 1)) + (s32) var_t0_2);
+                break;
             case 2:
-                var_t0_2 = var_t0 + 1;
+                var_t0_2 = (void *) ((1) + (s32) var_t0);
                 *arg1 += (*(u8 *)((char *)(var_t0) + 1));
                 var_v0_2 = (*(u8 *)((char *)(var_t0) + 1));
                 *arg3 = 2;
-                goto block_9;
+                {var_v0 = var_v0_2 * 2;
+                var_t0 = (void *) (((var_v0 + 1)) + (s32) var_t0_2);
+                break;}
             case 6:
                 var_t0 += 2;
             case 5:
-block_14:
                 temp_a0_2 = (*(u8 *)((char *)(var_t0) + 1));
-                var_t0 = var_t0 + 2 + (temp_a0_2 * 3);
+                var_t0 = (void *) ((2 + (temp_a0_2 * 3)) + (s32) var_t0);
                 *arg2 += (short)temp_a0_2;
                 break;
             case 7:
                 ++var_t0;
-                goto block_14;
+                temp_a0_2 = (*(u8 *)((char *)(var_t0) + 1));
+                var_t0 = (void *) ((2 + (temp_a0_2 * 3)) + (s32) var_t0);
+                *arg2 += (short)temp_a0_2;
+                break;
             case 8:
                 var_t0 += 3;
-                goto block_14;
+                temp_a0_2 = (*(u8 *)((char *)(var_t0) + 1));
+                var_t0 = (void *) ((2 + (temp_a0_2 * 3)) + (s32) var_t0);
+                *arg2 += (short)temp_a0_2;
+                break;
             case 4:
                 var_t0 += 4;
                 *arg2 += 1;

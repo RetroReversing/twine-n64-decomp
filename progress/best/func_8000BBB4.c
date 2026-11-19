@@ -3,26 +3,26 @@
 f32 __cosf();
 f32 __sinf(void);                                /* extern */
 
-void func_8000BBB4(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_8000BBB4(void *arg0, f32 arg1, f32 arg2, f32 arg3) {
     f32 __repair_fzero = 0.0f;
 
-    f32 temp_fa1;
+    register f32 temp_fa1;
     f32 temp_fs0;
-    f32 temp_fs1;
+    f32 temp_ft3;
     f32 temp_fs2;
     f32 temp_fs3;
     f32 temp_fs4;
     f32 temp_ft0;
-    register f32 temp_ft1;
+    f32 temp_ft1;
     f32 temp_ft2;
-    f32 temp_ft3;
+    f32 temp_fs1;
     f32 temp_fv0;
 
     temp_fs3 = __cosf(arg0);
+    temp_fs2 = __cosf(arg0);
     temp_fs4 = __sinf();
     temp_fs0 = __sinf();
-    temp_fs2 = __cosf(arg0);
-    temp_fs1 = __cosf(arg2);
+    temp_fs1 = __cosf(arg2, arg1);
     temp_fv0 = __sinf();
     temp_fa1 = temp_fs3 * temp_fs0;
     temp_ft1 = temp_fs2 * temp_fs4;

@@ -8,7 +8,7 @@ extern s32 D_800E0970;
 extern s32 D_800E0974;
 typedef struct { u16 f0; u8 pad[22]; } Slot_80107B68;
 extern Slot_80107B68 D_80107B68[];
-extern s32 D_80107B6A;
+extern u8 D_80107B6A[];
 extern s32 D_8010840C;
 extern s32 D_80108410;
 extern s32 D_80115308;
@@ -26,7 +26,7 @@ s32 __repair_phase_temp_a0;
     temp_a0 = 0;
     for (;;) {
         temp_v1 = var_v1 << 3;
-        if ((D_80107B68[(unsigned char)var_v1].f0 == 0) || (*((s32 *)((s8 *)&D_8010840C + temp_v1)) != 0x4E4F3745) || (*((u16 *)((s8 *)&D_80108410 + temp_v1)) != 0x3639) || (func_800AB770((__repair_phase_temp_a0 = var_v1 * 0x18) + &D_80107B6A, &D_80115308) == 0)) {
+        if ((D_80107B68[(unsigned char)var_v1].f0 == 0) || (*((s32 *)((s8 *)&D_8010840C + temp_v1)) != 0x4E4F3745) || (*((u16 *)((s8 *)&D_80108410 + temp_v1)) != 0x3639) || (func_800AB770((__repair_phase_temp_a0 = var_v1 * 0x18) + D_80107B6A, &D_80115308) == 0)) {
             temp_a0 += 1;
             var_v1 = temp_a0 & 0xFFFF;
             if ((u32) (temp_a0 & 0xFFFF) < 0x10U) {

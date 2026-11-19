@@ -18,50 +18,42 @@ s32 func_800723C0(f32 *, f32 *, f32 *, s32, s32);   /* extern */
 extern f32 D_800E1A34;
 
 void func_80072C7C(f32 arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5) {
-    f32 sp18;
-    f32 sp1C;
-    f32 sp20;
-    f32 sp24;
-    f32 sp28;
-    f32 sp2C;
-    f32 sp30;
-    f32 sp34;
-    f32 sp38;
-    f32 sp40;
-    f32 sp44;
-    f32 sp48;
-    M2C_UNK sp50;
-    M2C_UNK sp78;
+    f32 sp18[9];
+    f32 sp40[3];
+    char sp50[0x28];
+    char sp78[0x28];
     M2C_UNK spA0;
     f32 temp_fs1;
     f32 temp_fs2;
     f32 temp_fv0;
+/* Inferred frame reservation; original purpose unknown. */
+char __repair_stack_padding[32];
 
     temp_fs2 = arg0 + 1.0f;
-    sp40 = func_80045D2C(0.5f);
+    sp40[0] = func_80045D2C(0.5f);
     temp_fv0 = func_80045D2C(0.5f);
-    temp_fs1 = 1.0f - (sp40 + temp_fv0);
-    sp44 = temp_fv0;
-    sp48 = temp_fs1;
-    sp18 = (M2C_FIELD(arg1, f32 *, 0) * sp40) + (M2C_FIELD(arg2, f32 *, 0) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0) * temp_fs1);
-    sp1C = (M2C_FIELD(arg1, f32 *, 4) * sp40) + (M2C_FIELD(arg2, f32 *, 4) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 4) * temp_fs1);
-    sp20 = (M2C_FIELD(arg1, f32 *, 8) * sp40) + (M2C_FIELD(arg2, f32 *, 8) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 8) * temp_fs1);
-    sp24 = (M2C_FIELD(arg1, f32 *, 0xC) * sp40) + (M2C_FIELD(arg2, f32 *, 0xC) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0xC) * temp_fs1);
-    sp28 = (M2C_FIELD(arg1, f32 *, 0x10) * sp40) + (M2C_FIELD(arg2, f32 *, 0x10) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x10) * temp_fs1);
-    sp2C = (M2C_FIELD(arg1, f32 *, 0x14) * sp40) + (M2C_FIELD(arg2, f32 *, 0x14) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x14) * temp_fs1);
-    sp30 = (M2C_FIELD(arg1, f32 *, 0x18) * sp40) + (M2C_FIELD(arg2, f32 *, 0x18) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x18) * temp_fs1);
-    sp34 = (M2C_FIELD(arg1, f32 *, 0x1C) * sp40) + (M2C_FIELD(arg2, f32 *, 0x1C) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x1C) * temp_fs1);
-    sp38 = (M2C_FIELD(arg1, f32 *, 0x20) * sp40) + (M2C_FIELD(arg2, f32 *, 0x20) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x20) * temp_fs1);
+    temp_fs1 = 1.0f - (sp40[0] + temp_fv0);
+    sp40[1] = temp_fv0;
+    sp40[2] = temp_fs1;
+    sp18[0] = (M2C_FIELD(arg1, f32 *, 0) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0) * temp_fs1);
+    sp18[1] = (M2C_FIELD(arg1, f32 *, 4) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 4) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 4) * temp_fs1);
+    sp18[2] = (M2C_FIELD(arg1, f32 *, 8) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 8) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 8) * temp_fs1);
+    sp18[3] = (M2C_FIELD(arg1, f32 *, 0xC) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0xC) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0xC) * temp_fs1);
+    sp18[4] = (M2C_FIELD(arg1, f32 *, 0x10) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0x10) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x10) * temp_fs1);
+    sp18[5] = (M2C_FIELD(arg1, f32 *, 0x14) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0x14) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x14) * temp_fs1);
+    sp18[6] = (M2C_FIELD(arg1, f32 *, 0x18) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0x18) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x18) * temp_fs1);
+    sp18[7] = (M2C_FIELD(arg1, f32 *, 0x1C) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0x1C) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x1C) * temp_fs1);
+    sp18[8] = (M2C_FIELD(arg1, f32 *, 0x20) * sp40[0]) + (M2C_FIELD(arg2, f32 *, 0x20) * temp_fv0) + (M2C_FIELD(arg3, f32 *, 0x20) * temp_fs1);
     if (temp_fs2 < D_800E1A34) {
-        do { func_80045348(arg1, arg2, &sp50); } while (0);
-        func_80045348(arg2, arg3, &sp78);
+        func_80045348(arg1, arg2, sp50);
+        func_80045348(arg2, arg3, sp78);
         func_80045348(arg3, arg1, &spA0);
-        func_80072C7C(temp_fs2, arg1, arg2, &sp18, arg4, arg5);
-        func_80072C7C(temp_fs2, arg2, arg3, &sp18, arg4, arg5);
-        func_80072C7C(temp_fs2, arg3, arg1, &sp18, arg4, arg5);
+        func_80072C7C(temp_fs2, arg1, arg2, sp18, arg4, arg5);
+        func_80072C7C(temp_fs2, arg2, arg3, sp18, arg4, arg5);
+        func_80072C7C(temp_fs2, arg3, arg1, sp18, arg4, arg5);
         return;
     }
-    if ((func_800723C0(arg1, arg2, &sp18, arg4, arg5) != 0) && (func_800723C0(arg2, arg3, &sp18, arg4, arg5) != 0)) {
-        func_800723C0(arg3, arg1, &sp18, arg4, arg5);
+    if ((func_800723C0(arg1, arg2, sp18, arg4, arg5) != 0) && (func_800723C0(arg2, arg3, sp18, arg4, arg5) != 0)) {
+        func_800723C0(arg3, arg1, sp18, arg4, arg5);
     }
 }

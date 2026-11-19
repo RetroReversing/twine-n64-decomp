@@ -48,11 +48,11 @@ void func_8001BA84(void) {
     __base_D_800B5B14 = &D_800B5B14;
     if ((*__base_D_800B5B14) != NULL) {
         func_80002EF0((*__base_D_800B5B14));
-        M2C_FIELD((*__base_D_800B5B14), f32 *, 0x24) = 0.85f;
-        M2C_FIELD((*__base_D_800B5B14), f32 *, 0x28) = 0.25f;
-        M2C_FIELD((*__base_D_800B5B14), f32 *, 0x2C) = -3.0f;
-        M2C_FIELD((*__base_D_800B5B14), f32 *, 0x54) = 1.05f;
-        func_80002D30((*__base_D_800B5B14));
+        M2C_FIELD(D_800B5B14, f32 *, 0x24) = 0.85f;
+        M2C_FIELD(D_800B5B14, f32 *, 0x28) = 0.25f;
+        M2C_FIELD(D_800B5B14, f32 *, 0x2C) = -3.0f;
+        M2C_FIELD(D_800B5B14, f32 *, 0x54) = 1.05f;
+        func_80002D30((*__base_D_800B5B14), 0x14D);
         if (func_80029C08(D_8010A488, 2, 0) & 0xFFFF) {
             temp_v0 = func_8002A980(D_8010A488);
             if (temp_v0 != NULL) {
@@ -72,7 +72,7 @@ void func_8001BA84(void) {
                     D_80107ECC = 0;
                     func_8000237C((*__base_D_800B5B14), func_8002B9CC(func_8002B9FC(M2C_FIELD(((M2C_FIELD(temp_v0, u8 *, 8) * 4) + temp_v0_2), u8 *, 2))), 0, 0);
                     func_80002BD0((*__base_D_800B5B14), 0x14D);
-                    M2C_FIELD(M2C_FIELD((*__base_D_800B5B14), void **, 0x68), f32 *, 0x34) = 0.05f;
+                    M2C_FIELD(M2C_FIELD(D_800B5B14, void **, 0x68), f32 *, 0x34) = 0.05f;
                 }
             }
         }

@@ -85,6 +85,5 @@ void guPosition(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 
     __repair_frame.f40 = arg5;
     __repair_frame.f44 = arg6;
     __repair_frame.f48 = arg7;
-    __repair_frame.f4C = 1.0f;
-    func_800A37C0(temp_fa0, temp_fa1, &__repair_frame, arg0);
+    __repair_frame.f4C = 1.0f; func_800A37C0(temp_fa0, temp_fa1, &__repair_frame, arg0);
 }

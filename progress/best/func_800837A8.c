@@ -12,6 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { float field_0; float field_4; float field_8; float field_C; float field_10; float field_14; float field_18; float field_1C; float field_20; } __repair_record_arg0;
 s32 func_800837A8(void *arg0, void *arg1, void *arg2) {
     f32 sp4;
     f32 spC;
@@ -34,20 +35,17 @@ s32 func_800837A8(void *arg0, void *arg1, void *arg2) {
     f32 temp_v0;
     f32 temp_v1;
 
-    temp_fa0 = M2C_FIELD(arg0, f32 *, 0);
+    temp_fa0 = ((__repair_record_arg0*)arg0)->field_0;
     temp_ft1 = M2C_FIELD(arg1, f32 *, 0);
     temp_ft3 = M2C_FIELD(arg1, f32 *, 0xC);
-    temp_fs3 = M2C_FIELD(arg0, f32 *, 0x10);
     temp_fv0 = M2C_FIELD(arg1, f32 *, 4);
-    temp_ft0 = M2C_FIELD(arg0, f32 *, 0xC);
-    temp_fv1 = M2C_FIELD(arg0, f32 *, 0x18);
-    temp_v1 = M2C_FIELD(arg0, f32 *, 4);
-    temp_a3 = M2C_FIELD(arg0, f32 *, 8);
+    temp_v1 = ((__repair_record_arg0*)arg0)->field_4;
+    temp_a3 = ((__repair_record_arg0*)arg0)->field_8;
     temp_fs0 = M2C_FIELD(arg1, f32 *, 0x18);
-    temp_fs4 = M2C_FIELD(arg0, f32 *, 0x14);
-    temp_v0 = M2C_FIELD(arg0, f32 *, 0x20);
+    temp_fs4 = ((__repair_record_arg0*)arg0)->field_14;
+    temp_v0 = ((__repair_record_arg0*)arg0)->field_20;
     temp_fa1_2 = M2C_FIELD(arg1, f32 *, 0x1C);
-    temp_fs5 = M2C_FIELD(arg0, f32 *, 0x1C);
+    temp_fs5 = ((__repair_record_arg0*)arg0)->field_1C;
     sp4 = temp_fs5 * M2C_FIELD(arg1, f32 *, 0x10);
     temp_ft5 = M2C_FIELD(arg1, f32 *, 8);
     spC = temp_v0 * M2C_FIELD(arg1, f32 *, 0x1C);
@@ -55,7 +53,10 @@ s32 func_800837A8(void *arg0, void *arg1, void *arg2) {
     temp_ft3_2 = M2C_FIELD(arg1, f32 *, 0x20);
     temp_fa1 = temp_v0 * temp_ft3_2;
     M2C_FIELD(arg2, f32 *, 0) = (f32) ((temp_fa0 * temp_ft1) + (temp_v1 * temp_ft3) + (temp_a3 * temp_fs0));
+    temp_fs3 = ((__repair_record_arg0*)arg0)->field_10;
+    temp_ft0 = ((__repair_record_arg0*)arg0)->field_C;
     M2C_FIELD(arg2, f32 *, 0xC) = (f32) ((temp_ft0 * temp_ft1) + (temp_fs3 * temp_ft3) + (temp_fs4 * temp_fs0));
+    temp_fv1 = ((__repair_record_arg0*)arg0)->field_18;
     M2C_FIELD(arg2, f32 *, 0x18) = (f32) ((temp_fv1 * temp_ft1) + (temp_fs5 * temp_ft3) + (temp_v0 * temp_fs0));
     M2C_FIELD(arg2, f32 *, 4) = (f32) ((temp_fa0 * temp_fv0) + (temp_v1 * M2C_FIELD(arg1, f32 *, 0x10)) + (temp_a3 * temp_fa1_2));
     M2C_FIELD(arg2, f32 *, 0x10) = (f32) ((temp_ft0 * temp_fv0) + (temp_fs3 * M2C_FIELD(arg1, f32 *, 0x10)) + (temp_fs4 * temp_fa1_2));

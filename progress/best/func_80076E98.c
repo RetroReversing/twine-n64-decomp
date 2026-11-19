@@ -70,7 +70,6 @@ void func_80076E98(void *arg0) {
         
 block_19:
         func_80002CAC((var_s2 = 1, arg0), var_a1_2, var_a2);
-    case 11:
     default:
         var_v0 = var_s2;
         break;
@@ -112,7 +111,7 @@ block_17:
 block_18:
                 temp_v0_3 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
                 var_a1_2 = *((u16 *)((s8 *)&D_800C9A1C + temp_v0_3));
-                var_a2 = *((M2C_UNK *)((s8 *)&D_800C9A1E + temp_v0_3));
+                var_a2 = *((u16 *)((s8 *)&D_800C9A1E + temp_v0_3));
             } else {
                 goto block_17;
             }

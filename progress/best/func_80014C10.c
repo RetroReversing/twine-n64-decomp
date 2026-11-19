@@ -18,9 +18,7 @@ M2C_UNK func_80083A6C(void *, f32 *);               /* extern */
 extern f32 D_8010A2D0;
 
 s32 func_80014C10(void *arg0, f32 arg1, void *arg2, void *arg3) {
-    f32 sp10;
-    f32 sp14;
-    f32 sp18;
+    f32 sp10[3];
     f32 sp28;
     f32 temp_fs0;
     f32 temp_fs1;
@@ -28,22 +26,22 @@ s32 func_80014C10(void *arg0, f32 arg1, void *arg2, void *arg3) {
     f32 temp_fv1_2;
     s32 var_v0;
 
-    sp10 = M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg3, f32 *, 0x10);
-    sp14 = M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg3, f32 *, 0x14);
+    sp10[0] = M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg3, f32 *, 0x10);
+    sp10[1] = M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg3, f32 *, 0x14);
     temp_fs0 = arg1 * M2C_FIELD(arg3, f32 *, 0x4C);
-    sp18 = M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg3, f32 *, 0x18);
-    func_80083A6C(arg3 + 0x88, &sp10);
+    sp10[2] = M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg3, f32 *, 0x18);
+    func_80083A6C(arg3 + 0x88, sp10);
     var_v0 = 0;
-    if (!(D_8010A2D0 < (sp18 - temp_fs0)) && !((sp18 + temp_fs0) < 0.2f)) {
+    if (!(D_8010A2D0 < (sp10[2] - temp_fs0)) && !((sp10[2] + temp_fs0) < 0.2f)) {
         temp_fs1 = -temp_fs0;
         var_v0 = 0;
-        if (!(func_80014BD8(&sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x10) < temp_fs1)) {
+        if (!(func_80014BD8(sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x10) < temp_fs1)) {
             var_v0 = 0;
-            if (!(temp_fs0 < func_80014BD8(&sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x20))) {
+            if (!(temp_fs0 < func_80014BD8(sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x20))) {
                 var_v0 = 0;
-                if (!(temp_fs0 < func_80014BD8(&sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x30))) {
+                if (!(temp_fs0 < func_80014BD8(sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x30))) {
                     var_v0 = 0;
-                    if (!(func_80014BD8(&sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x40) < temp_fs1)) {
+                    if (!(func_80014BD8(sp10, M2C_FIELD(arg2, s32 *, 0x20) + 0x40) < temp_fs1)) {
                         var_v0 = 1;
                         if (temp_fs0 > 0.5f) {
                             temp_fv1 = (M2C_FIELD(arg3, f32 *, 0xA0) * M2C_FIELD(arg0, f32 *, 0)) + (M2C_FIELD(arg3, f32 *, 0xA4) * M2C_FIELD(arg0, f32 *, 4)) + (M2C_FIELD(arg3, f32 *, 0xA8) * M2C_FIELD(arg0, f32 *, 8));

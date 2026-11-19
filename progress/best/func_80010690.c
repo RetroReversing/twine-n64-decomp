@@ -32,14 +32,14 @@ void func_80010690(s32 arg0) {
     temp_a2 = arg0 & 0xFFFF;
     temp_s1 = temp_a2 * 0x68;
     var_a0 = temp_s1 + __base_D_800E0790;
-    if (osMotorInit(D_8010D298, temp_s1 + __base_D_800E0790, temp_a2) == 0) {
+    if (osMotorInit(arg0, D_8010D298) == 0) {
         var_s0 = 0;
-        __repair_rows: {
+        do { {
             __osMotorAccess(var_a0, 0);
             var_s0 += 1;
             var_a0 = temp_s1 + __base_D_800E0790;
         }
-if (var_s0 < 3) goto __repair_rows;
+} while (var_s0 < 3);
         temp_v0 = ((arg0 & 0xFFFF) * 2) + D_8010A3A0;
         *temp_v0 &= 0xFFFC;
         return;

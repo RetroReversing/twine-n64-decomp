@@ -12,7 +12,6 @@ void func_8011CEA0(void) {
     s32 temp_s2;
     u32 var_v1;
     s32 temp_a0;
-    void *var_a2;
 
     var_s1 = 0;
     if (0 < D_801002C0) {
@@ -23,12 +22,7 @@ void func_8011CEA0(void) {
     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
         temp_a0 = *(temp_s2 + ((__repair_i * 0x10) + &D_8011F338));
         if (temp_a0 != 0) {
-        if (2U > __repair_i) {
-        var_a2 = (&D_8011F160)[__repair_i];
-        } else {
-        var_a2 = (__repair_i * 0xC) + D_8011F280;
-        }
-        func_8011E95C(temp_a0, *(temp_s2 + &D_8010A500), var_a2, var_s1 & 0xFFFF);
+        func_8011E95C(temp_a0, *(temp_s2 + &D_8010A500), (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + D_8011F280), var_s1 & 0xFFFF);
         }
     }
 }

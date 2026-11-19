@@ -34,12 +34,12 @@ void func_8002424C(void) {
 int __repair_constant = 3;
 
     s16 *temp_s3;
-    int temp_a0;
+    s32 temp_a0;
     s32 temp_s0;
     s32 temp_v0;
     s32 var_s1;
     s32 temp_v1;
-    u16 var_v0;
+    s32 var_v0;
     void *temp_s2;
 
     func_8002CBD8();
@@ -53,9 +53,9 @@ int __repair_constant = 3;
     D_800BD550 = func_80015F74(D_800BD5D0 - 0x24);
     do {
         temp_a0 = var_s1 & 0xFFFF;
-        (((__repair_record_temp_s2*)temp_s2)->field_0) = (s16) D_800BD68E;
-        (((__repair_record_temp_s2*)temp_s2)->field_24) = (s16) D_800BD68E;do{
-        temp_v0 = temp_a0 * 8;}while(0);
+        ((__repair_record_temp_s2*)temp_s2)->field_0 = (s16) D_800BD68E;
+        ((__repair_record_temp_s2*)temp_s2)->field_24 = (s16) D_800BD68E;
+        temp_v0 = temp_a0 * 8;
         *(s32 *)(D_80109C18 + temp_v0) = 0;
         *(s32 *)(D_80109C1C + temp_v0) = 0;
         if (!(func_8002D09C(temp_a0) & 0xFFFF)) {
@@ -89,9 +89,9 @@ int __repair_constant = 3;
     } else {
         var_v0 = 2;
     }
+    do { func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1); } while (0);
     D_800BD558 = var_v0;
-    do { func_8002A9A8(D_80107EA8, 0); } while (0);
-    func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1);
+    func_8002A9A8(D_80107EA8, 0);
     func_8002AC04(D_80107EA8, 1);
     if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {
         func_8002A9A8(D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);

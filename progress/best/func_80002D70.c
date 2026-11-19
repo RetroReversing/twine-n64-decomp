@@ -7,8 +7,6 @@ extern s32 D_800AE684;
 extern void *D_800CA31C;
 
 s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
-void *__repair_cached_pointer = D_800CA31C;
-
     s32 var_a3;
     s32 var_v0_2;
     u16 temp_v1;
@@ -17,8 +15,8 @@ void *__repair_cached_pointer = D_800CA31C;
     var_a2 = 0;
     var_a3 = 0;
     for (;;) {
-        temp_v1 = *((s32 *)((s8 *)&D_800AE680 + var_a3));
-        if (((temp_v1 >> 9) != (*(s32 *)((char *)(__repair_cached_pointer) + 4))) || (((temp_v1 >> 1) & 0xFF) != arg1)) {
+        temp_v1 = *((u16 *)((s8 *)&D_800AE680 + var_a3));
+        if (((temp_v1 >> 9) != (*(s32 *)((char *)(D_800CA31C) + 4))) || (((temp_v1 >> 1) & 0xFF) != arg1)) {
             var_a2 += 1;
             var_a3 += 6;
             if (var_a2 >= 0x1BU) {
@@ -30,15 +28,15 @@ void *__repair_cached_pointer = D_800CA31C;
     }
     if ((*(s32 *)((char *)(arg0) + 0x60)) & 0x20) {
         var_v0_2 = var_a2 * 2;
-        if (!(((u16) *((s32 *)((s8 *)&D_800AE684 + var_a3)) >> 0xD) & 1)) {
+        if (!(((u16) *((u16 *)((s8 *)&D_800AE684 + var_a3)) >> 0xD) & 1)) {
             return 0;
         }
         goto block_10;
     }
-    if (!(((u16) *((s32 *)((s8 *)&D_800AE684 + var_a3)) >> 0xD) & 1)) {
+    if (!(((u16) *((u16 *)((s8 *)&D_800AE684 + var_a3)) >> 0xD) & 1)) {
         var_v0_2 = var_a2 * 2;
 block_10:
-        func_80002D30(arg0, *((s32 *)((s8 *)&D_800AE682 + ((var_v0_2 + var_a2) * 2))), var_a2, var_a3);
+        func_80002D30(arg0, *((u16 *)((s8 *)&D_800AE682 + ((var_v0_2 + var_a2) * 2))), var_a2, var_a3);
         (*(s32 *)((char *)(arg0) + 0x3C)) = (s32) (*(s32 *)((char *)(arg2) + 0));
         (*(s32 *)((char *)(arg0) + 0x44)) = (s32) (*(s32 *)((char *)(arg2) + 8));
         (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg2) + 4));
