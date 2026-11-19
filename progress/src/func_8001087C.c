@@ -19,17 +19,15 @@ extern M2C_UNK D_80109DC8;
 extern M2C_UNK D_8010A3A0;
 
 void func_8001087C(void) {
-    s32 temp_v1;
     s32 var_a0;
 
     var_a0 = 0;
     do {
-        temp_v1 = (var_a0 & 0xFFFF) * 2;
-        if (*(temp_v1 + &D_80109DC8) != 0) {
-            *(temp_v1 + &D_800E097E) = 0;
-            *(temp_v1 + &D_800E099E) = 0;
-            *(temp_v1 + &D_800E09A6) = 0;
-            *(temp_v1 + &D_8010A3A0) = 2;
+        if (((u16 *) &D_80109DC8)[(var_a0 & 0xFFFF)] != 0) {
+            ((u16 *) &D_800E097E)[(var_a0 & 0xFFFF)] = 0;
+            ((u16 *) &D_800E099E)[(var_a0 & 0xFFFF)] = 0;
+            ((u16 *) &D_800E09A6)[(var_a0 & 0xFFFF)] = 0;
+            ((u16 *) &D_8010A3A0)[(var_a0 & 0xFFFF)] = 2;
         }
         var_a0 += 1;
     } while ((u32) (var_a0 & 0xFFFF) < 4U);
