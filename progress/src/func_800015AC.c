@@ -16,7 +16,7 @@ s32 func_8004478C();
 extern char D_800C4706[];
 extern char D_800C4708[];
 
-void func_800015AC(void *arg0, s8 arg1) {
+void func_800015AC(void *arg0, s32 arg1) {
     s32 temp_v0;
 
     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) = arg1;
