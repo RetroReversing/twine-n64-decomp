@@ -26,15 +26,17 @@ void func_8000B690(void) {
     osCreateMesgQueue(&D_80113028, &D_801083E0, 8);
     osCreateMesgQueue(&D_80102CA0, &D_80112FD4, 1);
     M2C_FIELD(&D_80100188, u8 *, 0) = 0U;
-loop_1:
-    osRecvMesg(&D_80102CA0, 0, 1);
-    if (M2C_FIELD(&D_80100188, u8 *, 0) != 0) {
-        if (!(func_8000B5E0() & 0xFF)) {
-            M2C_FIELD(&D_80100188, u8 *, 0) = 0U;
-            osSendMesg(M2C_FIELD(&D_80100188, M2C_UNK **, 0xC), 0, 1);
+    for (;;) {
+        osRecvMesg(&D_80102CA0, 0, 1);
+        if (M2C_FIELD(&D_80100188, u8 *, 0) != 0) {
+            if (!(func_8000B5E0() & 0xFF)) {
+                M2C_FIELD(&D_80100188, u8 *, 0) = 0U;
+                osSendMesg(M2C_FIELD(&D_80100188, M2C_UNK **, 0xC), 0, 1);
+            }
+            continue;
         }
-        goto loop_1;
+        osSendMesg(&D_80113028, 0, 1);
+        continue;
+        break;
     }
-    osSendMesg(&D_80113028, 0, 1);
-    goto loop_1;
 }
