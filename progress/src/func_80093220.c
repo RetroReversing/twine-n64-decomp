@@ -16,11 +16,15 @@ extern char D_801096E8[];
 extern u8 D_801176E8;
 
 void func_80093220(void) {
+int __repair_literal;
+
     s32 var_a0;
     s32 var_v1;
 
     var_v1 = 0;
-    if ((s32) D_801176E8 > 0) {
+__repair_literal = 0;
+
+    if ((s32) D_801176E8 > __repair_literal) {
         var_a0 = 0;
         do {
             *(D_801096E8 + var_a0) = 0;
