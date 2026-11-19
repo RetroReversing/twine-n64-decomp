@@ -22,20 +22,13 @@ s32 func_8005EF30(void *arg0, s32 arg1) {
     var_a2 = 4;
     var_a0 = 0x3A0;
     var_v1 = M2C_FIELD(arg0, s32 *, 0x6C) + 0x20;
-loop_1:
-    if (M2C_FIELD(var_v1, u8 *, 0x1FC) == 0) {
+    do {
+        if ((M2C_FIELD(var_v1, u8 *, 0x1FC) != 0) && (*(D_800C471C + var_a0) == arg1)) {
+            return 1;
+        }
         var_a0 += 0xE8;
-        goto block_8;
-    }
-    if (*(D_800C471C + var_a0) != arg1) {
-        var_a0 += 0xE8;
-block_8:
         var_a2 += 1;
         var_v1 += 8;
-        if (var_a2 >= 0x21U) {
-            return 0;
-        }
-        goto loop_1;
-    }
-    return 1;
+    } while (var_a2 < 0x21U);
+    return 0;
 }
