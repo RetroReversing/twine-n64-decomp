@@ -27,7 +27,7 @@ void func_8002FAD8(void *arg0) {
 
     var_s0 = 0;
     do {
-        temp_s1 = ((var_s0 & 0xFFFF) * 4) + arg0;
+        temp_s1 = (void *) ((((var_s0 & 0xFFFF) * 4)) + (s32) arg0);
         temp_a0 = M2C_FIELD(temp_s1, s32 *, 4);
         var_s0 += 1;
         if (temp_a0 != 0) {
