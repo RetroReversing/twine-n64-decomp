@@ -20,9 +20,9 @@ void func_8011CEA0(void) {
 {
     u16 __repair_i;
     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
-        temp_a0 = *(temp_s2 + ((__repair_i * 0x10) + &D_8011F338));
+        { char *q = (__repair_i * 0x10) + (char *)&D_8011F338; temp_a0 = *(s32 *)(temp_s2 + (s32)q); }
         if (temp_a0 != 0) {
-        func_8011E95C(temp_a0, *(temp_s2 + &D_8010A500), (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + D_8011F280), var_s1 & 0xFFFF);
+        func_8011E95C(temp_a0, (&D_8010A500)[var_s1 & 0xFFFF], (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + D_8011F280), var_s1 & 0xFFFF);
         }
     }
 }
