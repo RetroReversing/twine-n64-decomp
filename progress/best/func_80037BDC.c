@@ -22,6 +22,7 @@ extern s32 D_80112E40;
 extern s32 *D_80115328;
 extern void *D_80117728;
 
+typedef struct { int value; } __repair_field_0;
 void func_80037BDC(void) {
     s32 *temp_a0;
 
@@ -31,9 +32,9 @@ void func_80037BDC(void) {
         func_80038EE8();
     }
     temp_a0 = D_80115328;
-    M2C_FIELD(D_8010A928, s32 *, 0) = 0xDF000000;
+    ((__repair_field_0 *)D_8010A928)->value = 0xDF000000;
     M2C_FIELD(D_8010A928, s32 *, 4) = 0;
-    M2C_FIELD(temp_a0, s32 *, 0) = 0xDE000000;
+    ((__repair_field_0 *)temp_a0)->value = 0xDE000000;
     D_801032A0 = -1;
     D_8010A924 = -1;
     D_80112E40 = -1;

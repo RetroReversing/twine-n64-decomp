@@ -13,11 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 f64 func_800AC0A0(f64 arg0, s32 *arg2) {
-    if (arg0 == 0.0) {
+    f64 ret;
+f64 __repair_ret_1;
+    if (arg0 != 0.0) {
+        *arg2 = ((M2C_BITWISE(u32, arg0) >> 0x14) & 0x7FF) - 0x3FE;
+        ret = ((M2C_BITWISE(s32, arg0) & 0x800FFFFF) | 0x3FE00000);
+    } else {
         *arg2 = 0;
-        return 0.0;
+        __repair_ret_1 = 0.0;
     }
-    *arg2 = ((M2C_BITWISE(u32, arg0) >> 0x14) & 0x7FF) - 0x3FE;
-    arg0 = (M2C_BITWISE(s32, arg0) & 0x800FFFFF) | 0x3FE00000;
-    return arg0;
+    return __repair_ret_1;
 }

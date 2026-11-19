@@ -21,14 +21,14 @@ s32 func_80018030(s32 arg0) {
         var_v0 = 1;
         if (temp_a0 >= 0x41U) {
             switch (temp_a0) {                      /* irregular */
+            default:
+                return 1;
             case 0x800:
                 return 2;
             case 0x840:
                 var_v0 = 3;
                 /* Duplicate return node #8. Try simplifying control flow for better match */
                 return var_v0;
-            default:
-                return 1;
             }
         } else {
             return var_v0;

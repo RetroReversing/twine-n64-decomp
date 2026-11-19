@@ -19,21 +19,25 @@ extern u8 D_801002D4;
 extern void *D_80109BB0;
 
 void func_8001E6C8(void) {
+int __repair_literal;
+
     M2C_UNK var_a0;
 
     func_80029068();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         if (D_801002D4 != 1) {
-            if ((s32) D_801002D4 >= 2) {
-                if (D_801002D4 == 2) {
-                    var_a0 = 0x2E3;
-                } else {
+__repair_literal = 2;
+
+            if ((s32) D_801002D4 >= __repair_literal) {
+                if (D_801002D4 != 2) {
                     var_a0 = 0x2E4;
+                } else {
+                    var_a0 = 0x2E3;
                 }
-            } else if (D_801002D4 == 0) {
-                var_a0 = 0xA;
-            } else {
+            } else if (D_801002D4 != 0) {
                 var_a0 = 0x2E4;
+            } else {
+                var_a0 = 0xA;
             }
         } else {
             var_a0 = 0x2E2;

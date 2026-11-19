@@ -10,7 +10,7 @@ extern u8 D_800C7CF6;
 extern s16 D_800C7D08;
 extern s16 D_800C7D2C;
 extern s16 D_800C7D50;
-extern s32 D_80109688;
+extern u8 D_80109688[];
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 void func_80070340(s32 arg0, void *arg1) {
@@ -27,7 +27,7 @@ void func_80070340(s32 arg0, void *arg1) {
     if (arg1 != NULL) {
         register temp_s2 = (*(s8 *)((char *)(arg1) + 0x182));
         if (!(arg0 & 0xFFFF)) {
-            temp_a0 = (temp_s2 * 4) + &D_80109688;
+            temp_a0 = (temp_s2 * 4) + D_80109688;
             (*(s8 *)((char *)(arg1) + 0x185)) = 0;
             temp_a1 = *temp_a0;
             ((__repair_field_100 *)temp_a1)->value = (s32) (((__repair_field_100 *)temp_a1)->value & ~7);
@@ -40,7 +40,7 @@ void func_80070340(s32 arg0, void *arg1) {
             (*(void **)((char *)(arg1) + 0x400)) = NULL;
             return;
         }
-        temp_s1 = (temp_s2 * 4) + &D_80109688;
+        temp_s1 = (temp_s2 * 4) + D_80109688;
         temp_a0_2 = *temp_s1;
         (*(s8 *)((char *)(arg1) + 0x185)) = 1;
         ((__repair_field_100 *)temp_a0_2)->value = (s32) (((__repair_field_100 *)temp_a0_2)->value & ~7);

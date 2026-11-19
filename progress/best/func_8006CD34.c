@@ -1,3 +1,15 @@
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 extern float D_800D461C;
@@ -55,7 +67,7 @@ f32 __repair_var_fv1_1;
     temp_s4 = (*(s32 *)((char *)(arg0) + 0x20));
     temp_s3 = (*(s8 *)((char *)(temp_s2) + 0x182));
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 0) {
-        func_80064370(arg0, temp_s3);
+        func_80064370(arg0, arg0);
         if ((*(s16 *)((char *)(arg0) + 0x7C)) == 5) {
             temp_s0 = (temp_s3 * 4) + D_80109688;
             (*(f32 *)((char *)(*temp_s0) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x3C));
@@ -92,7 +104,7 @@ f32 __repair_var_fv1_1;
                 (*(f32 *)((char *)(*temp_s0_2) + 0x130)) = __repair_var_fv1_1;
             }
             if ((u32) ((*(u16 *)((char *)(arg0) + 0x7A)) - 2) < 2U) {
-                (*(s32 *)((char *)(*(D_80109688 + (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4))) + 0x130)) = 0;
+                (*(s32 *)((char *)(*(s32 *)(D_80109688 + (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4))) + 0x130)) = 0;
             }
             temp_v1_2 = (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4) + D_80109688;
             temp_v0_4 = *temp_v1_2;
@@ -114,7 +126,7 @@ f32 __repair_var_fv1_1;
         (*(s32 *)((char *)(*temp_s0_3) + 0xF4)) = temp_s4;
     }
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 2) {
-        func_800643C8(arg0);
+        do { func_800643C8(arg0); } while (0);
         temp_v1_3 = (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4) + D_80109688;
         (*(f32 *)((char *)(*temp_v1_3) + 0x10)) = (f32) (*(f32 *)((char *)(arg0) + 0x24));
         (*(f32 *)((char *)(*temp_v1_3) + 0x18)) = (f32) (*(f32 *)((char *)(arg0) + 0x2C));

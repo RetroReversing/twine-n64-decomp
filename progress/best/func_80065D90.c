@@ -78,13 +78,13 @@ int __repair_literal;
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;
-    f32 temp_fv1_4;
+    f32 var_fs0;
     f32 temp_fv1_5;
     f32 temp_fv1_6;
     f32 temp_fv1_7;
     f32 temp_fv1_8;
     f32 temp_fv1_9;
-    f32 var_fs0;
+    f32 temp_fv1_4;
 f32 __repair_var_fs0_1;
     f32 var_fs0_2;
     f32 var_fs0_3;
@@ -121,7 +121,7 @@ f32 __repair_var_fs0_1;
     s32 var_condition_bit;
     s32 var_condition_bit_2;
     s32 var_v0_10;
-    s32 var_v0_11;
+    long var_v0_11;
     s32 var_v0_2;
     s32 var_v0_3;
     s32 var_v0_4;
@@ -321,7 +321,7 @@ block_30:
     if (temp_fs1 != 0.0f) {
         (*(f32 *)((char *)(temp_s1) + 0x40)) = (f32) (*(f32 *)((char *)(temp_s1) + 0x3C));
         (*(f32 *)((char *)((temp_s1 + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 8))) + 0x200)) = (f32) (*(f32 *)((char *)(temp_s1) + 0x3C));
-        if ((*(f32 *)((char *)(temp_s1) + 0x3C)) != temp_fs3) {
+        if ((*(f32 *)((char *)(temp_s1) + (short)0x3C)) != temp_fs3) {
             if (func_800819EC(temp_s3, 0x19) != 0) {
                 temp_a0_4 = (*(s32 *)((char *)(temp_s1) + 0xC));
                 if (temp_a0_4 == -1) {
@@ -561,7 +561,7 @@ block_107:
                     var_fs0_3 = -var_fs0_3;
                 }
                 var_fs0_3 *= 0.048f;
-                if (D_800E1A16 == 0) {
+                if (!D_800E1A16) {
                     var_fs0_3 *= 0.6f;
                 }
                 (*(f32 *)((char *)(temp_s1) + 0x34)) += var_fs0_3;
@@ -646,7 +646,7 @@ block_243:
     } else {
         var_v0_11 = 1;
         if (!(var_fs0_3 <= 0.0002f)) {
-            var_v0_11 = 0;
+            register var_v0_11 = 0;
         }
         var_v1_12 = 1;
         if (!(var_fs0_3 >= -0.0002f)) {

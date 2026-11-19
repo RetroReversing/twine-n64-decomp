@@ -20,8 +20,8 @@ s32 func_80081828(s32 arg0) {
     s32 var_v0;
     s32 var_v1;
 
-    var_v1 = 0;
     var_a1 = 0;
+    var_v1 = 0;
     temp_a0 = arg0 & 0xFF;
 loop_1:
     if (*(((var_v1 & 0xFF) * 2) + D_80103022) != 0) {

@@ -3,24 +3,24 @@
 extern s32 D_800C0784;
 
 void func_800448A4(void *arg0, s32 arg1, s32 arg2) {
-    void *temp_v0;
     s8 temp_v0_3;
+    void *temp_v0;
     register void *temp_a0;
     s16 temp_v0_2;
 
     if (arg2 >= 0) {
         temp_v0 = *(&D_800C0784 + arg2 * 0x4);
         if (temp_v0 != NULL) {
-            register temp_a0 = (*(s32 *)((char *)(temp_v0) + 0x18)) + (arg1 * 0xC);
+            register temp_a0 = (char *)((*(s32 *)((char *)(temp_v0) + 0x18))); temp_a0 += (s32)(((unsigned short)arg1 * 0xC));
             (*(s32 *)((char *)(arg0) + 8)) = (s32) (*(s32 *)((char *)(temp_a0) + 8));
             temp_v0_2 = (*(u16 *)((char *)(temp_a0) + 2)) + 1;
             (*(s16 *)((char *)(arg0) + 0x24)) = temp_v0_2;
             (*(s16 *)((char *)(arg0) + 0x26)) = temp_v0_2;
             temp_v0_3 = (*(u8 *)((char *)(temp_a0) + 5)) + 1;
-            (*(s8 *)((char *)(arg0) + 0x29)) = (s32)temp_v0_3;
             (*(s8 *)((char *)(arg0) + 0x28)) = (s32) (((s32) (*(s8 *)((char *)(arg0) + 0x28)) & ~3) | ((*(u8 *)((char *)(temp_a0) + 0)) & 3));
             (*(s8 *)((char *)(arg0) + 0x28)) = temp_v0_3;
-            (*(s32 *)((char *)(arg0) + 0xC)) = (s32) (*(s32 *)((char *)(((*(s32 *)((char *)(temp_v0) + 0x10)) + (arg1 * 8))) + 4));
+            (*(s8 *)((char *)(arg0) + 0x29)) = temp_v0_3;
+            (*(s32 *)((char *)((s32)arg0) + 0xC)) = (s32) (*(s32 *)((char *)(((*(s32 *)((char *)(temp_v0) + 0x10)) + (arg1 * 8))) + 4));
         }
     }
 }

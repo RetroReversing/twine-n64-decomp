@@ -42,7 +42,7 @@ void func_8011C580(void) {
                 var_v0 = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x1C;
             }
             M2C_FIELD(temp_s1, s32 *, 0x28) = var_v0;
-            func_8002B180(&D_8011F3AC, &D_8011F0E0);
+            do { func_8002B180(&D_8011F3AC, &D_8011F0E0); } while (0);
             M2C_FIELD(temp_s1, s16 *, 0x1C) = strlen(&D_8011F0E0);
         }
     }

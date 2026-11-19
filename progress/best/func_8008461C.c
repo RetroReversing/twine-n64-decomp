@@ -26,5 +26,5 @@ void func_8008461C(s32 arg0) {
 
     temp_s0 = arg0 + 0x24;
     temp_fs0 = func_80084270(temp_s0, &sp10);
-    func_8000AABC(func_8000A8B4(*(&D_800CE628 + (func_80045CF8(5) * 2)), temp_fs0, 0xFF), D_80109688[sp10], temp_s0, 0);
+    func_8000AABC(func_8000A8B4(*((M2C_UNK *)((s8 *)&D_800CE628 + (func_80045CF8(5) * 2))), temp_fs0, 0xFF), D_80109688[sp10], temp_s0, 0);
 }

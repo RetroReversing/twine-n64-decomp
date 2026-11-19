@@ -19,12 +19,16 @@ extern u8 D_801002F2;
 extern void *D_80109BB0;
 
 void func_80022450(void) {
+int __repair_literal;
+
     M2C_UNK var_a0;
 
     func_80029068();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         if (D_801002F2 != 1) {
-            if ((s32) D_801002F2 >= 2) {
+__repair_literal = 2;
+
+            if ((s32) D_801002F2 >= __repair_literal) {
                 var_a0 = 0x27;
                 if (D_801002F2 != 2) {
                     return;

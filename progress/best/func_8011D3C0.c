@@ -150,7 +150,7 @@ block_21:
                                     if (temp_s0 == 2) {
                                         temp_fv1 = ((2.0f * var_fs2) - 16.0f) + (f32) (s16) sp1E;
                                         if (temp_fv1 >= 2.1474836e9f) {
-                                            var_a2 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
+                                            var_a2 = (s32) (temp_fv1 - 2.1474836e9f); var_a2 = var_a2 | 0x80000000;
                                             var_fv1 = 2.0f * var_fs0;
                                         } else {
                                             var_a2 = (s32) temp_fv1;

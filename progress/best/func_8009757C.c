@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -19,7 +20,7 @@ extern char D_800F3954[];
 extern char D_800F3958[];
 extern char D_800F395C[];
 
-s32 func_8009757C(s16 arg0, s32 arg1) {
+s32 func_8009757C(u16 arg0, s32 arg1) {
     s32 temp_a0;
     s32 temp_s0;
     s32 temp_v0;
@@ -35,33 +36,33 @@ s32 func_8009757C(s16 arg0, s32 arg1) {
     func_8008C0D4();
     temp_a0 = D_800F3950;
     var_t1 = 0;
-    if (temp_a0 > 0) {
-        temp_a1 = arg0 & 0xFFFF;
+    if (__repair_inline(temp_a0, 0)) {
+        temp_a1 = arg0;
         var_v1 = 0;
 loop_2:
-        if ((u16) *(D_800F3958 + var_v1) < temp_a1) {
+        if ((u16) *(u16 *)(D_800F3958 + var_v1) < temp_a1) {
             var_t1 += 1;
             var_v1 += 8;
             if (var_t1 < temp_a0) {
                 goto loop_2;
             }
-        }
-        temp_s0 = var_t1 * 8;
+        }{ s32 __repair_value; __repair_value = var_t1 * 8; temp_s0 = __repair_value; }
         if (var_t1 < D_800F3950) {
-            if (*(D_800F3958 + temp_s0) != temp_a1) {
+            if (*(u16 *)(D_800F3958 + temp_s0) != temp_a1) {
                 var_a3 = D_800F3950 - 1;
                 if (D_800F3950 < 0x800) {
                     temp_v1 = var_a3 * 8;
                     if (var_a3 >= var_t1) {
                         var_t0 = temp_v1 + D_800F395C;
                         var_a2 = temp_v1 + (D_800F395C - 8);
-                        do {
+                        __repair_rows: {
                             M2C_FIELD(var_t0, s32 *, 0) = (s32) M2C_FIELD(var_a2, s32 *, 0);
                             M2C_FIELD(var_t0, s32 *, 4) = (s32) M2C_FIELD(var_a2, s32 *, 4);
                             var_t0 -= 8;
                             var_a3 -= 1;
                             var_a2 -= 8;
-                        } while (var_a3 >= var_t1);
+                        }
+if (var_a3 >= var_t1) goto __repair_rows;
                     }
                     var_v0 = D_800F3950 + 1;
                     goto block_15;
@@ -69,7 +70,7 @@ loop_2:
                 goto block_14;
             }
             func_8008C11C(temp_a0, temp_a1);
-            *(D_800F3958 + 2 + temp_s0) = *(D_800F3958 + 2 + temp_s0) + 1;
+            *(u16 *)(D_800F3958 + 2 + temp_s0) = *(u16 *)(D_800F3958 + 2 + temp_s0) + 1;
             return 0;
         }
         goto block_13;
@@ -84,9 +85,9 @@ block_14:
 block_15:
     D_800F3950 = var_v0;
     temp_v0 = var_t1 * 8;
-    *(D_800F3958 + temp_v0) = arg0;
-    *(D_800F3954 + temp_v0) = arg1;
-    *(D_800F3958 + 2 + temp_v0) = 1;
+    *(u16 *)(D_800F3958 + temp_v0) = arg0;
+    *(s32 *)(D_800F3954 + temp_v0) = arg1;
+    *(u16 *)(D_800F3958 + 2 + temp_v0) = 1;
     func_8008C11C(temp_a0);
     return 1;
 }

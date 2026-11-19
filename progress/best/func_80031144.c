@@ -34,19 +34,19 @@ M2C_UNK *func_80031144(s32 arg0, s16 arg1) {
             M2C_FIELD(&D_800E1600, s32 *, 0) = temp_v0;
             M2C_FIELD(&D_800E1600, s16 *, 4) = strlen(temp_v0);
             break;
+        case 3:
+            var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0x10);
+            goto block_14;
+        case 2:
+            var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0xC);
+            goto block_14;
         case 1:
             var_v0 = M2C_FIELD(D_800BFF08, u16 **, 8);
 block_14:
             if (var_v0 != NULL) {
-                func_80030818(&D_800E1600, func_80087100(*var_v0), (arg1 - 1) & 0xFFFF);
+                func_80030818(&D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
             }
             break;
-        case 2:
-            var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0xC);
-            goto block_14;
-        case 3:
-            var_v0 = M2C_FIELD(D_800BFF08, u16 **, 0x10);
-            goto block_14;
         }
     }
     return &D_800E1600;

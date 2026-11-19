@@ -16,6 +16,7 @@ f32 func_80046140();
 f32 func_80082A70();
 extern u8 D_800CA338;
 
+typedef struct { unsigned char pad_0[20]; int field_14; unsigned char pad_18[124]; short field_94; unsigned char pad_96[2]; short field_98; } __repair_record_temp_a2;
 s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     f32 temp_fs0;
     f32 temp_fs1;
@@ -49,7 +50,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     temp_s1 = temp_a2 + 0x14;
     if (arg1 != NULL) {
         var_ft1 = 0.2f;
-        M2C_FIELD(temp_a2, s32 *, 0x14) |= 0x180000;
+        ((__repair_record_temp_a2*)temp_a2)->field_14 |= 0x180000;
         if (D_800CA338 != 0) {
             var_ft1 = 0.0f;
         }
@@ -57,7 +58,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         temp_fs1 = M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0);
         temp_fs0 = M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(__repair_phase_storage.pointer, f32 *, 8);
         temp_fs2 = (M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0xAC)) + var_ft1;
-        var_a0_2 = (s32) ((f32) (s32) (func_80082A70(-temp_fs1, temp_fs0, D_800CA338) * 651.8986f) + M2C_FIELD(arg0, f32 *, 0x40)) & 0xFFF;
+        var_a0_2 = (s32) ((f32) (s32) (func_80082A70(-temp_fs1, temp_fs0) * 651.8986f) + M2C_FIELD(arg0, f32 *, 0x40)) & 0xFFF;
         if (var_a0_2 >= 0x800) {
             var_a0_2 -= 0x1000;
         }
@@ -69,7 +70,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         var_v1 = arg2 * 2;
     }
     temp_a2 = var_v1 + temp_s1;
-    __repair_phase_storage.value = (s32) ((var_a0_2 - M2C_FIELD(temp_a2, s16 *, 0x94)) * arg3) >> 7;
+    __repair_phase_storage.value = (s32) ((var_a0_2 - ((__repair_record_temp_a2*)temp_a2)->field_94) * arg3) >> 7;
     if (__repair_phase_storage.value < -0x40) {
         __repair_phase_storage.value = -0x40;
     } else if (__repair_phase_storage.value >= 0x41) {
@@ -101,7 +102,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
             M2C_FIELD(temp_v1_4, s16 *, 0x94) = temp_v1_3;
         }
     }
-    var_a0_2 = (s32) ((var_a1 - M2C_FIELD(temp_a2, s16 *, 0x98)) * arg3) >> 7;
+    var_a0_2 = (s32) ((var_a1 - ((__repair_record_temp_a2*)temp_a2)->field_98) * arg3) >> 7;
     if (var_a0_2 < -0x40) {
         var_a0_2 = -0x40;
     } else if (var_a0_2 >= 0x41) {

@@ -47,26 +47,26 @@ void func_800629E0(void *arg0, M2C_UNK arg1) {
     func_8000A830(var_a0, D_80109A58, 0xFF);
     temp_v1 = func_80045CF8(0x17D) % 6;
     switch (temp_v1) {
+    case 5:
+        var_s0 = 0xFF000000;
+        goto block_12;
+    case 4:
+        var_s0_2 = 0xFF00FF;
+        break;
+    case 3:
+        var_s0_2 = 0xFFFF00FF;
+        break;
+    case 2:
+        var_s0_2 = 0xFF0000FF;
+        break;
+    default:
+        var_s0_2 = -1;
+        break;
     case 0:
         var_s0 = 0xFF0000;
 block_12:
         var_s0_2 = var_s0 | 0xFFFF;
         break;
-    default:
-        var_s0_2 = -1;
-        break;
-    case 2:
-        var_s0_2 = 0xFF0000FF;
-        break;
-    case 3:
-        var_s0_2 = 0xFFFF00FF;
-        break;
-    case 4:
-        var_s0_2 = 0xFF00FF;
-        break;
-    case 5:
-        var_s0 = 0xFF000000;
-        goto block_12;
     }
     temp_v0 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, 0, func_80045CF8(2) + 0x17, 0xFB, 0x6B, var_s0_2, 4);
     M2C_FIELD(temp_v0, f32 *, 0x54) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x54) * 8.0f);
