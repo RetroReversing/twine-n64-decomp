@@ -20,7 +20,7 @@ s32 func_80067A24();
 extern char D_800C469C[];
 
 void func_80067AE8(void *arg0) {
-    s8 temp_s3;
+    s32 temp_s3;
     u16 temp_a1_2;
     u8 temp_a1;
     void *temp_s0;
