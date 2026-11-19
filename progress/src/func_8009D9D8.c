@@ -13,5 +13,5 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_8009D9D8(void *arg0) {
-    M2C_FIELD(arg0, s8 *, 0x11DD) = 4;
+    M2C_FIELD(arg0, u8 *, 0x11DD) = 4;
 }
