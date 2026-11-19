@@ -27,7 +27,7 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
         if (D_800CEEC0 != 0) {
             var_v1 = 0;
 loop_3:
-            if ((*(&D_800E2CC0 + var_v1) == 0) || (*(&D_800E2CE4 + var_v1) != arg0)) {
+            if ((*(u8 *)((u8 *)&D_800E2CC0 + (var_v1)) == 0) || (*(s32 *)((u8 *)&D_800E2CE4 + (var_v1)) != arg0)) {
                 ++var_a0;
                 var_v1 += 0x1228;
                 if (2U <= var_a0) {
@@ -36,16 +36,16 @@ loop_3:
                     goto loop_3;
                 }
             }
-            if (var_a0 != -1U) {
+            arg0 = var_a0;
+            if (arg0 != -1) {
                 osRecvMesg(&D_800E3F30, 0, 1);
-                temp_a0 = var_a0 * 0x1228;
-                if ((*(&D_800E2CC0 + temp_a0) & 0xFF) == 2) {
-                    temp_v0 = *(&D_800E2CDC + temp_a0);
+                if ((*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) & 0xFF) == 2) {
+                    temp_v0 = *(s32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228));
                     var_ft0 = (f64) temp_v0;
                     if (temp_v0 < 0) {
                         var_ft0 += D_800D66D8;
                     }
-                    temp_v0_2 = *(&D_800E2CC8 + temp_a0);
+                    temp_v0_2 = *(s32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                     var_fv1 = (f64) temp_v0_2;
                     if (0 > temp_v0_2) {
                         var_fv1 += D_800D66E0;
@@ -54,8 +54,8 @@ loop_3:
                 } else {
                     var_fs0 = 0.0f;
                 }
+                *arg1 = *(f32 *)((u8 *)&D_800E2CE0 + (arg0 * 0x1228));
                 osSendMesg(&D_800E3F30, 0, 0);
-                *arg1 = *(&D_800E2CE0 + (var_a0 * (unsigned)0x1228));
                 return var_fs0;
             }
             goto block_16;

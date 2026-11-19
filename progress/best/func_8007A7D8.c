@@ -20,42 +20,36 @@ f32 func_80082A70(f32, f32);                        /* extern */
 extern s32 D_80102ED8;
 
 s32 func_8007A7D8(void *arg0, void *arg1, s32 *arg2, f32 arg3) {
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fv0;
-    f32 var_fs0;
-    s32 temp_a0;
-    s32 temp_fv1;
-    s32 temp_fv1_2;
-    
+    f32 dx;
+    f32 dz;
+    f32 dy;
+    f32 h;
+    f32 lim;
+    s32 t;
+    s32 r;
 
-    temp_a0 = 0;
-    if (!(arg3 < func_80045E34(arg0 + 0x24))) {
-        temp_fs0 = M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x24);
-        temp_fs2 = M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x2C);
-        temp_fs1 = M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28);
-        temp_fv0 = func_80046140(temp_fs0, temp_fs2);
-        if (D_80102ED8 == 0) {
-            temp_fv1 = (s32) (func_80082A70(temp_fs1, temp_fv0) * 651.8986f);
-            temp_a0 = 0;
-            if (!(func_800828D0((f32) temp_fv1, temp_fv1) > 512.0f)) {
-                goto block_4;
-            }
-        } else {
-block_4:
-            temp_fv1_2 = (s32) (func_80082A70(temp_fs0, temp_fs2) * 651.8986f);
-            *arg2 = temp_fv1_2;
-            var_fs0 = 910.0f;
-            temp_a0 = func_80000A30(temp_fv1_2, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C));
-            if (D_80102ED8 != 0) {
-                var_fs0 = 682.0f;
-            }
-            
-            if (!(var_fs0 < func_800828D0((f32) temp_a0, temp_a0))) {
-                temp_a0 = 1;
-            } else { temp_a0=0; }
+    if (arg3 < func_80045E34(arg0 + 0x24)) {
+        return 0;
+    }
+    dx = M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x24);
+    dz = M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x2C);
+    dy = M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28);
+    h = func_80046140(dx, dz);
+    if (D_80102ED8 == 0) {
+        t = (s32) (func_80082A70(dy, h) * 651.8986f);
+        if (func_800828D0((f32) t, t) > 512.0f) {
+            return 0;
         }
     }
-    return temp_a0;
+    t = (s32) (func_80082A70(dx, dz) * 651.8986f);
+    *arg2 = t;
+    r = func_80000A30(t, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0x8C));
+    lim = 910.0f;
+    if (D_80102ED8 != 0) {
+        lim = 682.0f;
+    }
+    if (lim < func_800828D0((f32) r, r)) {
+        return 0;
+    }
+    return 1;
 }

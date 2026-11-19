@@ -8,7 +8,7 @@ extern u8 D_80109A60[];
 
 s32 func_8007835C(void *arg0) {
     int var_s3;
-    u16 temp_v1;
+    s32 temp_v1;
     void *temp_s0;
     void *var_s1;
 
@@ -16,8 +16,7 @@ s32 func_8007835C(void *arg0) {
     var_s3 = 0;
     if (var_s1 != NULL) {
         do {
-            temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78));
-            if ((temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E) && (*(D_80109A60 + (*(u16 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x34))) == 0)) {
+            if (((temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78))) < 0x61) && ((s32) temp_v1 >= 0x5E) && (*(D_80109A60 + (*(u16 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x34))) == 0)) {
                 temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
                 (*(s32 *)((char *)(temp_s0) + 0x88)) |= 0x02000000;
                 if ((func_8007BAF8(arg0, var_s1 + 0x24, 6, 0xB) << 0x18) != 0) {
@@ -28,9 +27,9 @@ s32 func_8007835C(void *arg0) {
                 } else {
                     var_s3 = 1;
                     (*(s32 *)((char *)(temp_s0) + 0x18)) = (s32) (*(s32 *)((char *)(var_s1) + (unsigned)0x24));
-                    (*(s32 *)((char *)((short)temp_s0) + 0x1C)) = (s32) (*(s32 *)((char *)(var_s1) + 0x28));
+                    (*(s32 *)((char *)(temp_s0) + 0x1C)) = (s32) (*(s32 *)((char *)(var_s1) + 0x28));
                     (*(s32 *)((char *)(temp_s0) + 0x20)) = (s32) (*(s32 *)((char *)(var_s1) + 0x2C));
-                    func_80077960(arg0);
+                    func_80077960(arg0, 0x87);
                     (*(f32 *)((char *)(temp_s0) + 0x38)) = func_800461D4(arg0 + 0x24, temp_s0 + 0x18);
                 }
             }

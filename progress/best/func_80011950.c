@@ -136,7 +136,7 @@ void func_80011950(void) {
                     if (*temp_a0_3 == 0) {
                         if (*(var_s1 + &D_8010A3A0) & 2) {
                             func_80010690(var_s5 & 0xFFFF);
-                            var_s6 += 8;
+                            var_s6 += 4;
                         } else {
                             goto block_30;
                         }
@@ -157,7 +157,7 @@ void func_80011950(void) {
                             *temp_a0_4 = temp_v1_2 + 0x100;
                             if (!(*(var_s1 + &D_8010A3A0) & 1)) {
                                 func_80010590(var_s5 & 0xFFFF);
-                                var_s6 += 8;
+                                var_s6 += 4;
                             } else {
                                 goto block_30;
                             }
@@ -173,7 +173,7 @@ void func_80011950(void) {
                 }
             } else {
 block_30:
-                var_s6 += 8;
+                var_s6 += 4;
             }
             var_s4 += 8;
             var_s2 += 6;
@@ -190,36 +190,44 @@ block_30:
             break;
         case 3:
             var_v0 = osPfsNumFiles(D_800E09B8, D_800E09BC, D_800E09C0);
-block_48:
             D_801032A8 = var_v0;
             break;
         case 4:
             var_v0 = osPfsFreeBlocks(D_800E09B8, D_800E09BC);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 5:
             var_v0 = osPfsFileState(D_800E09B8, D_800E09BC, D_800E09C0);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 6:
             var_v0 = osPfsDeleteFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 7:
             var_v0 = osPfsInitPak(&D_8010D298, D_800E09B8, D_800E09BC);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 8:
             var_v0 = osPfsRepairId(D_800E09B8);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 9:
             var_v0 = osPfsReadWriteFile(D_800E09B8, D_800E09BC, D_800E09C3, D_800E09C4, D_800E09C8, D_800E09CC);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 10:
             var_v0 = osPfsAllocateFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC, D_800E09D0);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 11:
             var_v0 = osPfsFindFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 12:
             var_v0 = osMotorInit(&D_8010D298, D_800E09B8, D_800E09BC);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         case 13:
             D_801032A8 = osContStartQuery(&D_8010D298);
             osRecvMesg(&D_8010D298, 0, 1);
@@ -227,7 +235,8 @@ block_48:
             break;
         case 14:
             var_v0 = osGbpakInit(&D_8010D298, (D_800E093A * 0x68) + D_800E0790, D_800E093A);
-            goto block_48;
+            D_801032A8 = var_v0;
+            break;
         }
         D_8010086A = 0;
         osContStartReadData(&D_8010D298);

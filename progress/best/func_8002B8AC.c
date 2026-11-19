@@ -20,7 +20,7 @@ extern u16 *D_80102F40;
 typedef struct { unsigned char pad_0[5]; unsigned char field_5; unsigned short field_6; unsigned char pad_8[4]; unsigned short field_C; } __repair_record_D_80102F40;
 void func_8002B8AC(void) {
     D_80102F40 = &D_800BF680;
-    if (D_800BF680 != 0) {
+    if (*D_80102F40 != 0) {
         __repair_rows: {
             if (((__repair_record_D_80102F40*)D_80102F40)->field_6 & 1) {
                 func_80044538(*(s32 *)*(s32 *)(D_800C3CF8 + (((__repair_record_D_80102F40*)D_80102F40)->field_5 * 0xC)));

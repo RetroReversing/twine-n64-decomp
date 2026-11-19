@@ -13,8 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
-int __repair_literal;
-
+    u8 __repair_frame[8];
     char *var_a3;
     char *var_t1;
     f32 temp_ft1;
@@ -27,9 +26,7 @@ int __repair_literal;
     var_t0 = 0;
     var_v1 = arg0 - 1;
     var_t2 = 0;
-__repair_literal = 0;
-
-    if (arg0 > __repair_literal) {
+    if (arg0 > 0) {
         var_a3 = arg2;
         var_t1 = arg1;
         do {
@@ -42,9 +39,8 @@ __repair_literal = 0;
                 }
             } else {
 block_8:
-                temp_ft2 = *(f32 *)var_t1;
                 temp_ft1 = *(f32 *)var_a3;
-                if (arg3 < ((((arg1[var_v1] - temp_ft2) * (arg4 - temp_ft1)) / (arg2[var_v1] - temp_ft1)) + temp_ft2)) {
+                if (arg3 < ((((arg1[var_v1] - (temp_ft2 = *(f32 *)var_t1)) * (arg4 - temp_ft1)) / (arg2[var_v1] - temp_ft1)) + temp_ft2)) {
                     var_t2 = var_t2 == 0;
                 }
             }

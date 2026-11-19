@@ -17,7 +17,7 @@ s32 func_80044D28();
 s32 func_80044D84();
 s32 func_80044FF0();
 s32 func_8004505C();
-s32 func_8004844C();
+s32 func_8004844C(s32, s32, s32, s32, f32, s32, s32);
 s32 func_80048794();
 void *func_80083E90();
 s32 memset();
@@ -40,7 +40,7 @@ extern s8 D_800E0758;
 extern char D_80100B60[];
 extern u8 D_80102EDE;
 extern u8 D_80102EE0;
-extern void *D_80109688;
+extern void *volatile D_80109688;
 extern void *D_80109690;
 extern u8 D_80109E68;
 extern u8 D_8010A4C1;
@@ -48,20 +48,20 @@ extern u8 D_8010A4C2;
 
 typedef struct { unsigned char pad_0[8]; int field_8; unsigned char pad_C[244]; int field_100; unsigned char pad_104[62]; signed char field_142; } __repair_record_D_80109688;
 s32 func_8000D000(void) {
+    s32 var_a2;
     s32 var_a0_2;
-    register s32 var_a2;
-    void *temp_v1_2;
-    s8 temp_s1;
+    s32 temp_v0_6;
+    s32 temp_s1;
     s8 var_a0;
-    u8 temp_v1_3;
-    u8 temp_v0_5;
     u8 temp_s0;
+    u8 temp_v0_5;
+    u8 temp_v1_3;
     void *temp_v0;
     void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
     void *temp_v1;
-    s32 temp_v0_6;
+    void *temp_v1_2;
     void *temp_v1_4;
 
     temp_s0 = D_80109E68;
@@ -153,13 +153,13 @@ s32 func_8000D000(void) {
     func_80001D80(1);
     temp_v1_4 = D_800B2718;
     if (temp_v1_4 != NULL) {
-        register temp_v0_6 = (*(s32 *)((char *)(temp_v1_4) + 0x60));
+        temp_v0_6 = (*(s32 *)((char *)(temp_v1_4) + 0x60));
         D_800B2718 = NULL;
         (*(s32 *)((char *)(temp_v1_4) + 0x60)) = (s32) (temp_v0_6 | 1);
     }
     func_800101D8();
-    ((__repair_record_D_80109688*)D_80109688)->field_142 = 7;
     ((__repair_record_D_80109688*)D_80109688)->field_100 |= 0x40;
+    ((__repair_record_D_80109688*)D_80109688)->field_142 = 7;
     ((__repair_record_D_80109688*)D_80109688)->field_100 |= 0x100;
     return 1;
 }

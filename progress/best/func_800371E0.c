@@ -21,20 +21,21 @@ extern s32 *D_80115328;
 extern void *D_80117728;
 
 typedef struct { unsigned char pad_0[24]; int field_18; void * field_1C; unsigned char pad_20[4]; float field_24; float field_28; float field_2C; int field_30; int field_34; int field_38; int field_3C; unsigned char pad_40[28]; unsigned int field_5C; } __repair_record_var_s1;
+typedef struct { int field_0; int field_4; } __repair_record_var_a0_2;
 void func_800371E0(void *arg0) {
-    union { s32 * pointer; u32 value; } __repair_phase_storage;
+    s32 temp_v1_2;
     s32 *var_a0_2;
     s32 temp_s0;
-    register s32 temp_v1_2;
-    s32 var_a0;
-    s32 var_a1;
-    register s32 var_s4;
-    s32 var_v1;
+    s32 *temp_v1;
     
+    s32 var_a1;
+    s32 var_s4;
+    s32 var_v1;
+    u32 temp_v0;
     void *var_s1;
 
-    var_s1 = D_801007BC;
     var_s4 = 0;
+    var_s1 = D_801007BC;
     if (var_s1 != NULL) {
         func_80034560();
         if (D_80112E40 != 0) {
@@ -42,70 +43,74 @@ void func_800371E0(void *arg0) {
             func_80038EE8();
         }
         if (D_8010A924 != 8) {
-            __repair_phase_storage.pointer = D_80115328;
+            temp_v1 = D_80115328;
             D_8010A924 = 8;
-            D_80115328 = __repair_phase_storage.pointer + 8;
-            (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = (int)0xDE000000;
-            (*(s32 **)((char *)(__repair_phase_storage.pointer) + 4)) = &D_800B1AC8;
+            D_80115328 = temp_v1 + 8;
+            (*(s32 *)((char *)(temp_v1) + 0)) = 0xDE000000;
+            (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 4) {
-            register D_801032A0 = 4;
             temp_v1_2 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 4;
             switch (temp_v1_2) {
 case 2:
             case 4:
                 var_a1 = 0xFC119823;
-                var_a0 = 0xFF32FF7F;
-                goto block_11;
+                temp_s0 = 0xFF32FF7F;
+                D_80115328 += 8;
+                (*(s32 *)((char *)(D_80115328) + 0)) = var_a1;
+                (*(s32 *)((char *)(D_80115328) + 4)) = temp_s0;
+                break;
             case 0: break;
                     /* irregular */
             case 1:
                 var_a1 = 0xFC121824;
-                var_a0 = 0xFF33FFFF;
-block_11:
                 D_80115328 += 8;
+                temp_s0 = 0xFF33FFFF;
                 (*(s32 *)((char *)(D_80115328) + 0)) = var_a1;
-                (*(s32 *)((char *)(D_80115328) + 4)) = var_a0;
+                (*(s32 *)((char *)(D_80115328) + 4)) = (s32)temp_s0;
                 break;
             }
         }
         if (var_s1 != NULL) {
-loop_14:
-            temp_s0 = ((__repair_record_var_s1*)var_s1)->field_18;
-            if (temp_s0 != var_s4) {
-                func_8003438C(temp_s0, arg0);
-                func_80034630(temp_s0, arg0);
-                var_s4 = temp_s0;
-            }
-            if (((u32) ((__repair_record_var_s1*)var_s1)->field_5C >> 0x17) & 3) {
-                __repair_phase_storage.value = D_80107EA0; ++__repair_phase_storage.value;
-                if ((u32) D_80107EA0 < (u32) D_800B1D84) {
-                    D_80107EA0 = __repair_phase_storage.value;
-                    D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (__repair_phase_storage.value << 6);
-                    if (((u32) ((__repair_record_var_s1*)var_s1)->field_5C >> 0x17) & 2) {
-                        func_800347B0(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_30, ((__repair_record_var_s1*)var_s1)->field_34, ((__repair_record_var_s1*)var_s1)->field_38, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
-                    } else {
-                        guTranslateF(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
+            for (;;) {
+                temp_s0 = ((__repair_record_var_s1*)var_s1)->field_18;
+                if (temp_s0 != var_s4) {
+                    func_8003438C(temp_s0, arg0);
+                    func_80034630(temp_s0, arg0);
+                    var_s4 = temp_s0;
+                }
+                if (((u32) ((__repair_record_var_s1*)var_s1)->field_5C >> 0x17) & 3) {
+                    temp_v0 = (s32)D_80107EA0; temp_v0 += 1;
+                    if (D_800B1D84 > D_80107EA0) {
+                        D_80107EA0 = temp_v0;
+                        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
+                        if (((u32) ((__repair_record_var_s1*)var_s1)->field_5C >> 0x17) & 2) {
+                            func_800347B0(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_30, ((__repair_record_var_s1*)var_s1)->field_34, ((__repair_record_var_s1*)var_s1)->field_38, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
+                        } else {
+                            guTranslateF(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
+                        }
+                        func_800A37C0(&D_80112F90, D_8010D538);
+                        var_a0_2 = D_80115328;
+                        var_v1 = D_8010D538 - 0x80000000;
+                        D_80115328 = var_a0_2 + 8;
+                        ((__repair_record_var_a0_2*)var_a0_2)->field_0 = 0xDA380003;
+                        goto block_23;
                     }
-                    do { func_800A37C0(&D_80112F90, D_8010D538); } while (0);
+                } else {
                     var_a0_2 = D_80115328;
-                    var_v1 = D_8010D538 - 0x80000000;
                     D_80115328 = var_a0_2 + 8;
-                    (*(s32 *)((char *)(var_a0_2) + 0)) = 0xDA380003;
-                    goto block_23;
-                }
-            } else {
-                register var_a0_2 = D_80115328;
-                D_80115328 = var_a0_2 + 8;
-                (*(s32 *)((char *)(var_a0_2) + 0)) = 0xDA380003;
-                var_v1 = (*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000;
+                    ((__repair_record_var_a0_2*)var_a0_2)->field_0 = 0xDA380003;
+                    var_v1 = (*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000;
 block_23:
-                (*(s32 *)((char *)(var_a0_2) + 4)) = var_v1;
-                func_80032630(((__repair_record_var_s1*)var_s1)->field_3C);
-                var_s1 = ((__repair_record_var_s1*)var_s1)->field_1C;
-                if (var_s1 != NULL) {
-                    goto loop_14;
+                    ((__repair_record_var_a0_2*)var_a0_2)->field_4 = var_v1;
+                    func_80032630(((__repair_record_var_s1*)var_s1)->field_3C);
+                    var_s1 = ((__repair_record_var_s1*)var_s1)->field_1C;
+                    if (var_s1 != NULL) {
+                        continue;
+                    }
                 }
+                break;
             }
         }
     }

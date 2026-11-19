@@ -30,7 +30,7 @@ s32 func_80096A70(void *arg0, void *arg1) {
     u32 var_v1_3;
     u8 temp_a0;
     u8 temp_a3;
-    u8 temp_v1;
+    s32 temp_v1;
     u8 temp_v1_2;
     void *var_s2;
 

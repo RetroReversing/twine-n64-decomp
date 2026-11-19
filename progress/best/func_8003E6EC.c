@@ -1,39 +1,20 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 s32 func_8003D64C(f32 *, void *);
 s32 func_8004886C(void *, f32 *, s32);
-s32 func_8004E6E4(M2C_UNK *, void *, f32 *, s32 *, M2C_UNK *, f32, s32, s32, s32);
-M2C_UNK func_80082FE4(s16 *, M2C_UNK *);
-M2C_UNK func_80083A6C(M2C_UNK *, f32 *);
-extern M2C_UNK D_800D2FC8;
-extern M2C_UNK D_800D2FD4;
-extern M2C_UNK func_8004DBD8;
+s32 func_8004E6E4(s32 *, void *, f32 *, s32 *, s32 *, f32, s32, s32, s32);
+s32 func_80082FE4(s16 *, s32 *);
+s32 func_80083A6C(s32 *, f32 *);
+extern s32 D_800D2FC8;
+extern s32 D_800D2FD4;
+extern s32 func_8004DBD8;
 
 s32 func_8003E6EC(void *arg0, void *arg1, u8 arg2) {
-    s16 sp28;
-    s16 sp2A;
-    s16 sp2C;
-    M2C_UNK sp30;
-    f32 sp60;
-    f32 sp64;
-    f32 sp68;
-    s32 sp70;
-    s32 sp74;
-    s32 sp78;
-    s32 sp80;
-    s32 sp84;
-    s32 sp88;
+    s32 *__base_D_800D2FC8;
+    s16 sp28[3];
+    u8 sp30[0x64];
+    s32 sp70[3];
+    f32 sp60[3];
+    s32 sp80[3];
     f32 sp90[3];
     f32 sp94;
     s32 spB0[18];
@@ -42,65 +23,64 @@ s32 func_8003E6EC(void *arg0, void *arg1, u8 arg2) {
     f32 temp_fv0;
     f32 var_fs0;
     f32 var_fs1;
-    f32 var_fv0;
     f32 var_fv1;
     void *temp_v0;
-    void *temp_v0_2;
+    register void *temp_v0_2;
     void *temp_v0_3;
-    void *temp_v0_4;
+    register void *temp_v0_4;
     void *temp_v0_5;
-    void *var_s1;
+    register void *var_s1;
     void *var_s3;
     void *var_s4;
 
     var_fs0 = 65536.0f;
     var_s3 = NULL;
-    temp_v0 = M2C_FIELD(arg1, void **, 0x70);
+    temp_v0 = (*(void **)((char *)(arg1) + 0x70));
     var_s4 = NULL;
     var_s1 = arg0;
     spA7 = arg2;
     var_fs1 = 65536.0f;
     if (temp_v0 != NULL) {
-        sp60 = (M2C_FIELD(temp_v0, f32 *, 0x18) + M2C_FIELD(temp_v0, f32 *, 0x1C)) * 0.5f;
-        temp_v0_2 = M2C_FIELD(arg1, void **, 0x70);
-        sp64 = (M2C_FIELD(temp_v0_2, f32 *, 0x20) + M2C_FIELD(temp_v0_2, f32 *, 0x24)) * 0.5f;
-        temp_v0_3 = M2C_FIELD(arg1, void **, 0x70);
-        sp68 = (M2C_FIELD(temp_v0_3, f32 *, 0x28) + M2C_FIELD(temp_v0_3, f32 *, 0x2C)) * 0.5f;
-        sp28 = (s16) (s32) M2C_FIELD(arg1, f32 *, 0x3C);
-        sp2A = (s16) (s32) M2C_FIELD(arg1, f32 *, 0x40);
-        sp2C = (s16) (s32) M2C_FIELD(arg1, f32 *, 0x44);
-        func_80082FE4(&sp28, &sp30);
-        func_80083A6C(&sp30, &sp60);
-        sp60 += M2C_FIELD(arg1, f32 *, 0x24);
-        sp64 += M2C_FIELD(arg1, f32 *, 0x28);
-        var_fv0 = sp68 + M2C_FIELD(arg1, f32 *, 0x2C);
+        sp60[0] = ((*(f32 *)((char *)(temp_v0) + 0x18)) + (*(f32 *)((char *)(temp_v0) + 0x1C))) * 0.5f;
+        temp_v0_2 = (*(void **)((char *)(arg1) + 0x70));
+        sp60[1] = ((*(f32 *)((char *)(temp_v0_2) + 0x20)) + (*(f32 *)((char *)(temp_v0_2) + 0x24))) * 0.5f;
+        temp_v0_3 = (*(void **)((char *)(arg1) + 0x70));
+        sp60[2] = ((*(f32 *)((char *)(temp_v0_3) + 0x28)) + (*(f32 *)((char *)(temp_v0_3) + 0x2C))) * 0.5f;
+        sp28[0] = (s16) (s32) (*(f32 *)((char *)(arg1) + 0x3C));
+        sp28[1] = (s16) (s32) (*(f32 *)((char *)(arg1) + 0x40));
+        sp28[2] = (s16) (s32) (*(f32 *)((char *)(arg1) + 0x44));
+        { func_80082FE4(sp28, sp30); }
+        do { func_80083A6C(sp30, sp60); } while (0);
+        sp60[0] += (*(f32 *)((char *)(arg1) + 0x24));
+        sp60[1] += (*(f32 *)((char *)(arg1) + 0x28));
+        sp60[2] = sp60[2] + (*(f32 *)((char *)(arg1) + 0x2C));
     } else {
-        sp60 = M2C_FIELD(arg1, f32 *, 0x24);
-        sp64 = M2C_FIELD(arg1, f32 *, 0x28);
-        var_fv0 = M2C_FIELD(arg1, f32 *, 0x2C);
+        sp60[0] = (*(f32 *)((char *)(arg1) + 0x24));
+        sp60[1] = (*(f32 *)((char *)(arg1) + 0x28));
+        sp60[2] = (*(f32 *)((char *)(arg1) + 0x2C));
     }
-    sp68 = var_fv0;
     if (var_s1 != NULL) {
-        spAC = &sp70;
+        spAC = sp70;
         do {
-            if ((M2C_FIELD(var_s1, u16 *, 0x58) == 0x46) && ((func_8004886C(var_s1 + 0x40, &sp60, M2C_FIELD(arg1, s32 *, 0x64)) << 0x18) != 0) && ((func_8003D64C(&sp60, var_s1) << 0x18) != 0)) {
-                sp70 = M2C_FIELD(&D_800D2FC8, s32 *, 0);
-                sp74 = M2C_FIELD(&D_800D2FC8, s32 *, 4);
-                sp78 = M2C_FIELD(&D_800D2FC8, s32 *, 8);
-                sp80 = M2C_FIELD(&D_800D2FD4, s32 *, 0);
-                sp84 = M2C_FIELD(&D_800D2FD4, s32 *, 4);
-                sp88 = M2C_FIELD(&D_800D2FD4, s32 *, 8);
-                temp_fv0 = M2C_FIELD(var_s1, f32 *, 0x4C);
+            if (((*(u16 *)((char *)(var_s1) + 0x58)) == 0x46) && ((func_8004886C(var_s1 + 0x40, sp60, (*(s32 *)((char *)(arg1) + 0x64))) << 0x18) != 0) && ((func_8003D64C(sp60, var_s1) << 0x18) != 0)) {
+                __base_D_800D2FC8 = &D_800D2FC8;
+                sp70[0] = (*(s32 *)((char *)(__base_D_800D2FC8) + 0));
+                sp70[1] = (*(s32 *)((char *)(__base_D_800D2FC8) + 4));
+                sp70[2] = (*(s32 *)((char *)(__base_D_800D2FC8) + 8));
+                sp80[0] = (*(s32 *)((char *)(&D_800D2FD4) + 0));
+                sp80[1] = (*(s32 *)((char *)(&D_800D2FD4) + 4));
+                sp80[2] = (*(s32 *)((char *)(&D_800D2FD4) + 8));
+                temp_fv0 = (*(f32 *)((char *)(var_s1) + 0x4C));
                 if (temp_fv0 < var_fs1) {
                     var_s4 = var_s1;
                     var_fs1 = temp_fv0;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, var_s1, &sp60, spAC, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
-                    var_fv1 = sp94 - sp64;
+                if ((func_8004E6E4(&func_8004DBD8, var_s1, sp60, spAC, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    var_fv1 = sp94 - sp60[1];
                     goto block_14;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, var_s1, &sp60, &sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
-                    var_fv1 = sp64 - sp94;
+                if ((func_8004E6E4(&func_8004DBD8, var_s1, sp60, sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    var_fv1 = sp60[1] - sp94;
 block_14:
                     if (var_fv1 < var_fs0) {
                         var_s3 = var_s1;
@@ -108,35 +88,35 @@ block_14:
                     }
                 }
             }
-            var_s1 = M2C_FIELD(var_s1, void **, 0x10);
+            var_s1 = (*(void **)((char *)(var_s1) + 0x10));
         } while (var_s1 != NULL);
     }
     if (var_s3 != NULL) {
-        temp_v0_4 = M2C_FIELD(var_s3, void **, 0);
+        temp_v0_4 = (*(void **)((char *)(var_s3) + 0));
         if (temp_v0_4 != NULL) {
-            M2C_FIELD(temp_v0_4, void **, 4) = arg1;
+            (*(void **)((char *)(temp_v0_4) + 4)) = arg1;
         }
-        M2C_FIELD(arg1, void **, 4) = var_s3;
-        M2C_FIELD(arg1, void **, 0) = (void *) M2C_FIELD(var_s3, void **, 0);
-        M2C_FIELD(var_s3, void **, 0) = arg1;
-        M2C_FIELD(var_s3, s32 *, 4) = 0;
-        M2C_FIELD(arg1, void **, 0x20) = var_s3;
+        (*(void **)((char *)(arg1) + 0)) = (void *) (*(void **)((char *)(var_s3) + 0));
+        (*(void **)((char *)(arg1) + 4)) = var_s3;
+        (*(void **)((char *)(var_s3) + 0)) = arg1;
+        (*(s32 *)((char *)(var_s3) + 4)) = 0;
+        (*(void **)((char *)(arg1) + 0x20)) = var_s3;
         return 1;
     }
     if (var_s4 != NULL) {
-        temp_v0_5 = M2C_FIELD(var_s4, void **, 0);
+        temp_v0_5 = (*(void **)((char *)(var_s4) + 0));
         if (temp_v0_5 != NULL) {
-            M2C_FIELD(temp_v0_5, void **, 4) = arg1;
+            (*(void **)((char *)(temp_v0_5) + 4)) = arg1;
         }
-        M2C_FIELD(arg1, void **, 4) = var_s4;
-        M2C_FIELD(arg1, void **, 0) = (void *) M2C_FIELD(var_s4, void **, 0);
-        M2C_FIELD(var_s4, void **, 0) = arg1;
-        M2C_FIELD(var_s4, s32 *, 4) = 0;
-        M2C_FIELD(arg1, void **, 0x20) = var_s4;
+        (*(void **)((char *)(arg1) + 0)) = (void *) (*(void **)((char *)(var_s4) + 0));
+        (*(void **)((char *)(arg1) + 4)) = var_s4;
+        (*(void **)((char *)(var_s4) + 0)) = arg1;
+        (*(s32 *)((char *)(var_s4) + 4)) = 0;
+        (*(void **)((char *)(arg1) + 0x20)) = var_s4;
         return 1;
     }
     if ((spA7 << 0x18) != 0) {
-        M2C_FIELD(arg1, s32 *, 0x60) = (s32) (M2C_FIELD(arg1, s32 *, 0x60) | 1);
+        (*(s32 *)((char *)(arg1) + 0x60)) = (s32) ((*(s32 *)((char *)(arg1) + 0x60)) | 1);
     }
     return 0;
 }

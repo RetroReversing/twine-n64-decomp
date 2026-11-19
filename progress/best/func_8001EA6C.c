@@ -16,16 +16,28 @@ s32 func_80022B60();
 extern s32 D_80102EBC;
 extern void *D_80109BB0;
 
-void func_8001EA6C(void *arg0, u8 arg1) {
-    void *temp_a2;
+typedef struct {
+    u8 pad0[0x10];
+    s32 x10;
+    u8 pad1[0xC];
+    u16 x20;
+    u16 x22;
+    u8 pad2[4];
+    unsigned hi : 24;
+    unsigned f : 6;
+    unsigned lo : 2;
+} Rec;
 
-    temp_a2 = (*(void **)((char *)(arg0) + 0));
+void func_8001EA6C(void *arg0, u8 arg1) {
+    Rec *temp_a2;
+
+    temp_a2 = *(Rec **) arg0;
     if (temp_a2 != NULL) {
-        (*(s32 *)((char *)(temp_a2) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a2) + 0x28)) & ~0xFC) | (-((arg1 & 0xFF) == 0) & 0x1C));
-        (*(u16 *)((char *)(temp_a2) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 4));
-        (*(u16 *)((char *)(temp_a2) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
-        (*(s32 *)((char *)(temp_a2) + 0x10)) = D_80102EBC;
-        (*(s32 *)((char *)(temp_a2) + 0x10)) = (s32) ((D_80102EBC & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30)));
-        func_80022B60(arg0);
+        temp_a2->f = -(arg1 == 0) & 7;
+        temp_a2->x20 = *(u16 *)((char *)(arg0) + 4);
+        temp_a2->x22 = *(u16 *)((char *)(arg0) + 6);
+        temp_a2->x10 = D_80102EBC;
+        temp_a2->x10 = (D_80102EBC & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
+        func_80022B60(0);
     }
 }

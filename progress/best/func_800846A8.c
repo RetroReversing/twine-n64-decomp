@@ -19,20 +19,20 @@ extern M2C_UNK D_800CE634;
 extern M2C_UNK D_800CE638;
 extern u32 D_80108F78;
 
-void func_800846A8(void *arg1) {
+void func_800846A8(s32 arg0, void *arg1) {
     M2C_UNK sp10;
     f32 temp_fs0;
-    u16 var_a0;
+    s32 var_a0;
 
     temp_fs0 = func_80084270(arg1 + 0x24, &sp10);
     switch (D_80108F78) {                           /* irregular */
     case 2:
         var_a0 = 0x179;
-        if (M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0x14) & 0x200000) {
+        if (arg0, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0x14) & 0x200000) {
 
         } else {
 block_14:
-            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE638 + (func_80045CF8(2) * 2)));
+            var_a0 = *((u16 *)((s8 *)&D_800CE638 + (func_80045CF8(2) * 2)));
         }
 block_15:
         func_8000A8B4(var_a0, temp_fs0, 0xFF);
@@ -40,7 +40,7 @@ block_15:
     case 34:
         var_a0 = 0x13E;
         if (!(M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0x14) & 0x200000)) {
-            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE634 + (func_80045CF8(2) * 2)));
+            var_a0 = *((u16 *)((s8 *)&D_800CE634 + (func_80045CF8(2) * 2)));
         }
         goto block_15;
     case 28:

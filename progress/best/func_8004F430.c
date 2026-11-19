@@ -11,8 +11,6 @@ extern void *D_80108F84;
 
 s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
     s32 var_v1_4;
-    f32 sp14;
-    f32 sp18;
     s32 sp20;
     f32 sp48;
     f32 sp4C;
@@ -53,16 +51,16 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
     int var_v1;
     s32 var_v1_2;
     s32 var_v1_3;
-    f32 sp10;
+    f32 sp10[3];
     void *temp_a0;
     void *temp_a0_2;
     void *temp_a0_3;
     f32 sp9C;
     void *var_s0;
 
-    sp10 = (((*(f32 *)((char *)(arg2) + 0)) * arg3)) + ((*(f32 *)((char *)(arg1) + 0)));
-    sp14 = (*(f32 *)((char *)(arg1) + 4)) + ((*(f32 *)((char *)(arg2) + 4)) * arg3);
-    sp18 = (((*(f32 *)((char *)(arg2) + 8)) * arg3)) + ((*(f32 *)((char *)(arg1) + 8)));
+    sp10[0] = (((*(f32 *)((char *)(arg2) + 0)) * arg3)) + ((*(f32 *)((char *)(arg1) + 0)));
+    sp10[1] = (*(f32 *)((char *)(arg1) + 4)) + ((*(f32 *)((char *)(arg2) + 4)) * arg3);
+    sp10[2] = (((*(f32 *)((char *)(arg2) + 8)) * arg3)) + ((*(f32 *)((char *)(arg1) + 8)));
     var_fs0 = D_800C0740;
     D_80108788 = 0;
     D_80108F84 = NULL;
@@ -74,29 +72,29 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
                     sp48 = (*(f32 *)((char *)(arg1) + 0));
                     sp4C = (*(f32 *)((char *)(arg1) + 4));
                     sp50 = (*(f32 *)((char *)(arg1) + 8));
-                    sp10 = sp10;
-                    sp5C = sp14;
-                    sp18 = sp18;
+                    sp10[0] = sp10[0];
+                    sp5C = sp10[1];
+                    sp10[2] = sp10[2];
                     if (((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 1) {
                         sp48 -= (*(f32 *)((char *)(var_s0) + 0x24));
                         sp4C -= (*(f32 *)((char *)(var_s0) + 0x28));
-                        sp10 -= (*(f32 *)((char *)(var_s0) + 0x24));
+                        sp10[0] -= (*(f32 *)((char *)(var_s0) + 0x24));
                         sp50 -= (*(f32 *)((char *)(var_s0) + 0x2C));
                         sp5C -= (*(f32 *)((char *)(var_s0) + 0x28));
-                        sp18 -= (*(f32 *)((char *)(var_s0) + 0x2C));
+                        sp10[2] -= (*(f32 *)((char *)(var_s0) + 0x2C));
                     }
                     if (((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 2) {
                         func_80047E4C(var_s0, 0, &sp20);
-                        func_80083B64(&sp20, &sp10);
+                        func_80083B64(&sp20, sp10);
                         func_80083B64(&sp20, &sp48);
                     }
-                    if ((func_80048A04((*(void **)((char *)(var_s0) + 0x3C)) + 0x18, &sp48, &sp10, 1.0f) << 0x18) != 0) {
-                        sp68 = sp48;
+                    if ((func_80048A04((*(void **)((char *)(var_s0) + 0x3C)) + 0x18, &sp48, sp10, 1.0f) << 0x18) != 0) {
                         sp6C = sp4C;
                         sp50 = sp50;
-                        sp78 = sp10;
+                        sp78 = sp10[0];
                         sp7C = sp5C;
-                        sp80 = sp18;
+                        sp80 = sp10[2];
+                        sp68 = sp48;
                         temp_ft1 = sp78 - sp68;
                         temp_ft0 = sp80 - sp50;
                         sp88 = temp_ft1;

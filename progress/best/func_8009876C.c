@@ -9,11 +9,13 @@ extern s32 D_8010D73C;
 
 void func_8009876C(void *arg0) {
     s32 **temp_v1_2;
-    s32 *temp_v0_2;
-    s32 temp_v0;
+
+    s32 * __repair_hoisted;
+    
+    s32 *temp_v0_3;
     s32 *temp_v1_3;
     s32 temp_a0;
-    s32 *temp_v0_3;
+    s32 temp_v0;
     s32 temp_v1;
 
     func_80099BC0();
@@ -33,21 +35,22 @@ void func_8009876C(void *arg0) {
                 *((s32 *)((s8 *)&D_8010D73C + ((*(u8 *)((char *)(arg0) + 0x13)) * 0x1A0))) = (*(s32 **)((char *)(arg0) + 0x18));
                 return;
             }
-            temp_v0_2 = (*(s32 **)((char *)(arg0) + 0x18));
-            temp_v1_2 = (*(s32 ***)((char *)(temp_v0_2) + 4));
+            __repair_hoisted = (*(s32 **)((char *)(arg0) + 0x18));
+            temp_v1_2 = (*(s32 ***)((char *)(__repair_hoisted) + 4));
             if (temp_v1_2 != NULL) {
-                *temp_v1_2 = (*(s32 **)((char *)(temp_v0_2) + 0));
+                *temp_v1_2 = (*(s32 **)((char *)(__repair_hoisted) + 0));
             } else {
-                D_800FDB74 = (*(s32 **)((char *)(temp_v0_2) + 0));
+                D_800FDB74 = (*(s32 **)((char *)(__repair_hoisted) + 0));
             }
             temp_v0_3 = (*(s32 **)((char *)(arg0) + 0x18));
             temp_v1_3 = (*(s32 **)((char *)(temp_v0_3) + 0));
             if (temp_v1_3 != NULL) {
                 (*(s32 ***)((char *)(temp_v1_3) + 4)) = (s32 **) (*(s32 ***)((char *)(temp_v0_3) + 4));
             }
+            __repair_hoisted = (*(s32 **)((char *)(arg0) + 0x18));
             (*(s32 **)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 0)) = D_800FDB78;
-            if ((short)D_800FDB78 != NULL) {
-                (*(s32 **)((char *)(D_800FDB78) + 4)) = (s32 *) (*(s32 **)((char *)(arg0) + 0x18));
+            if (D_800FDB78 != NULL) {
+                (*(s32 **)((char *)(D_800FDB78) + 4)) = (s32 *) __repair_hoisted;
             }
             (*(s32 ***)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 4)) = NULL;
             D_800FDB78 = (*(s32 **)((char *)(arg0) + 0x18));

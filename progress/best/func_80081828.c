@@ -15,23 +15,27 @@ typedef s32 M2C_UNK32;
 extern char D_80103022[];
 
 s32 func_80081828(s32 arg0) {
+    char *__base_D_80103022;
     s32 temp_a0;
     s32 var_a1;
     s32 var_v0;
     s32 var_v1;
 
-    var_a1 = 0;
     var_v1 = 0;
+    var_a1 = 0;
     temp_a0 = arg0 & 0xFF;
-loop_1:
-    if (*(((var_v1 & 0xFF) * 2) + D_80103022) != 0) {
-        var_a1 += 1;
-    }
-    if ((var_a1 & 0xFF) != (temp_a0 + 1)) {
-        var_v1 += 1;
-        if ((u32) (var_v1 & 0xFF) < 4U) {
-            goto loop_1;
+__base_D_80103022 = D_80103022;
+    for (;;) {
+        if (*(((var_v1 & 0xFF) * 2) + __base_D_80103022) != 0) {
+            var_a1 += 1;
         }
+        if ((var_a1 & 0xFF) != (temp_a0 + 1)) {
+            var_v1 += 1;
+            if ((u32) (var_v1 & 0xFF) < 4U) {
+                continue;
+            }
+        }
+        break;
     }
     var_v0 = 0;
     if (temp_a0 != 0) {

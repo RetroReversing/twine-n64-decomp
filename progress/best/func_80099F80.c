@@ -18,9 +18,11 @@ extern char D_8010D724[];
 extern char D_8010D734[];
 extern char D_8010D738[];
 
+typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 s32 func_80099F80(void *arg0, void *arg1) {
-    s32 temp_a1;
+    
     s32 temp_a2;
+s32 __repair_result_temp_a2;
     s32 temp_a2_2;
     s32 temp_v0;
     
@@ -28,11 +30,11 @@ s32 func_80099F80(void *arg0, void *arg1) {
     u32 temp_v1;
 
     temp_v1 = M2C_FIELD(arg1, u32 *, 0);
-    temp_a2 = M2C_FIELD(arg0, u16 *, 0x4E) + ((s32) (temp_v1 << 0x10) >> 0x18);
-    if (temp_a2 >= 0) {
+    __repair_result_temp_a2 = M2C_FIELD(arg0, u16 *, 0x4E) + ((s32) (temp_v1 << 0x10) >> 0x18);
+    if (__repair_result_temp_a2 >= 0) {
         var_v1 = 0x7F;
-        if (temp_a2 < 0x80) {
-            var_v1 = temp_a2;
+        if (__repair_result_temp_a2 < 0x80) {
+            var_v1 = __repair_result_temp_a2;
         }
     } else {
         var_v1 = 0;
@@ -45,16 +47,16 @@ s32 func_80099F80(void *arg0, void *arg1) {
     temp_a2_2 = func_8009C420(((temp_v1 >> 0x10) << 0x10) | (M2C_FIELD(arg1, u8 *, 5) << 8) | M2C_FIELD(arg1, u8 *, 4), M2C_FIELD(arg0, u16 *, 0xBA), temp_a2 & 0xFF, M2C_FIELD(arg0, u8 *, 0x31), (s32) M2C_FIELD(arg0, u8 *, 0x39), (s32) M2C_FIELD(arg0, u8 *, 0x4A), (s32) M2C_FIELD(arg0, u8 *, 0x4B), (s32) M2C_FIELD(arg1, u16 *, 6), (s32) M2C_FIELD(arg0, u8 *, 0x2F), 0, (s32) M2C_FIELD(arg0, u8 *, 0xBE));
     M2C_FIELD(arg0, s8 *, 0xBD) = 0;
     if (temp_a2_2 != -1) {
-        temp_a1 = (temp_a2_2 & 0xFF) * 0x1A0;
-        *(s32 *)(D_8010D738 + temp_a1) = M2C_FIELD(arg0, s32 *, 0x60);
-        temp_v0 = M2C_FIELD(arg0, s32 *, 0x10);
+        temp_a2 = (temp_a2_2 & 0xFF) * 0x1A0;
+        *(s32 *)(D_8010D738 + temp_a2) = M2C_FIELD(arg0, s32 *, 0x60);
+        temp_v0 = ((__repair_field_10 *)arg0)->value;
         if (temp_v0 != -1) {
-            *(s32 *)(D_8010D734 + temp_a1) = temp_v0;
+            *(s32 *)(D_8010D734 + temp_a2) = temp_v0;
             *(s32 *)(D_8010D738 + (M2C_FIELD(arg0, u8 *, 0x13) * 0x1A0)) = temp_a2_2;
         }
-        M2C_FIELD(arg0, s32 *, 0x10) = temp_a2_2;
+        ((__repair_field_10 *)arg0)->value = temp_a2_2;
         if (M2C_FIELD(arg0, u8 *, 0x4C) != 0) {
-            func_8008E8F0(temp_a1 + D_8010D724, arg0, temp_a2_2, -1);
+            func_8008E8F0(temp_a2 + D_8010D724, arg0, temp_a2_2, -1);
         }
     }
     return 0;

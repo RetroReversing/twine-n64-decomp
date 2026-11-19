@@ -42,18 +42,18 @@ void func_80007160(void) {
     u8 temp_v0;
     u8 var_v1;
 
-    osWritebackDCacheAll();
+    do { osWritebackDCacheAll(); } while (0);
     func_80008154();
-    func_800070FC(1);
+    do { func_800070FC(1); } while (0);
     D_80100C04 = 0;
-    D_8011740C = D_80100C04;
+    D_8011740C = (s32)&D_80100C04;
     func_800081C4(0);
     temp_v1 = D_8010A4B0 - 1;
     var_v0 = temp_v1 * 4;
     if (temp_v1 < 0) {
         var_v0 = (temp_v1 + D_8010A518) * 4;
     }
-    osViSwapBuffer(*(&D_80100304 + var_v0));
+    osViSwapBuffer(*((M2C_UNK *)((s8 *)&D_80100304 + var_v0)));
     temp_v0 = D_8010A4E8 != 0;
     var_v1 = temp_v0;
     if (D_8010A4EC != 0) {

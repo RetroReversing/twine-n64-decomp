@@ -80,19 +80,21 @@ blkX:
         goto block_36;
     }
     switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
-    case 3:
-        if (var_s2 != 0) {
-            if ((func_8007AEA4(arg0, &D_800C9C38, 4) << 0x18) == 0) {
-                goto block_42;
-            }
-        } else if ((func_8007AEA4(arg0, &D_800C9C18, 8) << 0x18) == 0) {
-            goto block_42;
-        }
-        break;
     case 1:
         var_a1 = &D_800C9C00;
         var_a2 = 6;
         goto block_47;
+    case 3:
+        if (var_s2 != 0) {
+            if ((func_8007AEA4(arg0, &D_800C9C38, 4) << 0x18) == 0) {
+                {
+    func_80002BD0(arg0, 0x14D);return;}
+            }
+        } else if ((func_8007AEA4(arg0, &D_800C9C18, 8) << 0x18) == 0) {
+            {
+    func_80002BD0(arg0, 0x14D);return;}
+        }
+        break;
     case 0:
         if (var_s2 != 0) {
             var_a1 = &D_800C9C60;

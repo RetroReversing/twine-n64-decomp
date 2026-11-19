@@ -17,7 +17,7 @@ s32 func_80030D40(u16, void *);                     /* extern */
 extern s32 D_800BFF04;
 extern u16 D_800E160A;
 
-s32 func_80031548(s16 arg0, s32 arg1, s32 arg2) {
+s32 func_80031548(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_a2;
     s32 temp_v0;
     s32 var_v0;

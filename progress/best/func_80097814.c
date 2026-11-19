@@ -14,10 +14,11 @@ int __repair_literal;
     s32 temp_v0;
     s16 var_s0;
 s32 __repair_phase_temp_v0;
+s32 __repair_phase___repair_phase_temp_v0;
     
     
-    s32 var_v0;
-s32 __repair_phase_var_v0;
+    register s32 var_v0;
+
     
     register u16 *var_a0_2;
     
@@ -29,7 +30,7 @@ __repair_literal = 0;
     if (D_800F38EC > __repair_literal) {
         __repair_phase_temp_v0 = 0;
 loop_2:
-        if (*(&D_800F38F0 + __repair_phase_temp_v0) != (short)arg0) {
+        if (*(&D_800F38F0 + __repair_phase_temp_v0) != arg0) {
             temp_v0 += 1;
             __repair_phase_temp_v0 += 0xC;
             if (temp_v0 < D_800F38EC) {
@@ -45,31 +46,31 @@ loop_2:
             if (*var_a0_2 != 0xFFFF) {
                 do {
                     var_a0_2 += 0x1C;
-                    var_s0 += 1;
+                    ++var_s0;
                 } while (*var_a0_2 != 0xFFFF);
             }
             func_8008C0D4();
-            var_a0_2 = arg0;
             temp_v0 = D_800F38EC * 0xC;
+            var_a0_2 = arg0;
             temp_v1 = var_s0 & 0xFFFF;
             *(&D_800F38F0 + (u32)temp_v0) = var_a0_2;
             D_800F38F8[D_800F38EC].f0 = var_s0;
             *(&D_800F38F4 + temp_v0) = arg1;
-            __repair_phase_temp_v0 = 0;
+            __repair_phase___repair_phase_temp_v0 = 0;
             if (temp_v1 != 0) {
                 do {
                     (*(s16 *)((char *)(var_a0_2) + 2)) = 0;
-                    __repair_phase_temp_v0 += 1;
+                    __repair_phase___repair_phase_temp_v0 += 1;
                     var_a0_2 += 0x1C;
-                } while ((u32) (__repair_phase_temp_v0 & 0xFFFF) < temp_v1);
+                } while ((u32) (__repair_phase___repair_phase_temp_v0 & 0xFFFF) < temp_v1);
             }
             D_800F38EC += 1;
-            func_8008C11C(var_a0_2, __repair_phase_temp_v0);
+            func_8008C11C(var_a0_2, __repair_phase___repair_phase_temp_v0);
             return 1;
         }
-        __repair_phase_var_v0 = 0;
+        __repair_phase_temp_v0 = 0;
         /* Duplicate return node #13. Try simplifying control flow for better match */
-        return __repair_phase_var_v0;
+        return __repair_phase_temp_v0;
     }
     return var_v0;
 }

@@ -46,6 +46,7 @@ extern s32 D_80112F8C;
 extern M2C_UNK func_800A71C0;
 
 void func_800A6908(void) {
+    s8 *__base_D_80000000;
     s32 sp10;
     s32 temp_a0;
     s32 temp_a1;
@@ -65,10 +66,11 @@ void func_800A6908(void) {
     do {
 
     } while (func_800A93A0(0x1FC007FC, sp10 | 8) != 0);
-    D_80000000 = M2C_FIELD(&func_800A71C0, s32 *, 0);
-    D_80000000 = M2C_FIELD(&func_800A71C0, s32 *, 4);
-    D_80000000 = M2C_FIELD(&func_800A71C0, s32 *, 8);
-    D_80000000 = M2C_FIELD(&func_800A71C0, s32 *, 0xC);
+    __base_D_80000000 = &D_80000000;
+    (*(&D_80000000)) = M2C_FIELD(&func_800A71C0, s32 *, 0);
+    (*__base_D_80000000) = M2C_FIELD(&func_800A71C0, s32 *, 4);
+    (*__base_D_80000000) = M2C_FIELD(&func_800A71C0, s32 *, 8);
+    (*__base_D_80000000) = M2C_FIELD(&func_800A71C0, s32 *, 0xC);
     M2C_FIELD((void *)0x80000080, s32 *, 0) = (s32) M2C_FIELD(&func_800A71C0, s32 *, 0);
     M2C_FIELD((void *)0x80000080, s32 *, 4) = (s32) M2C_FIELD(&func_800A71C0, s32 *, 4);
     M2C_FIELD((void *)0x80000080, s32 *, 8) = (s32) M2C_FIELD(&func_800A71C0, s32 *, 8);
@@ -107,11 +109,11 @@ void func_800A6908(void) {
         bzero(&D_8000031C, 0x40);
     }
     switch (D_80000300) {                           /* irregular */
-    case 0:
-        var_v0 = 0x02F5B2D2;
-        break;
     case 2:
         var_v0 = 0x02E6025C;
+        break;
+    case 0:
+        var_v0 = 0x02F5B2D2;
         break;
     default:
         var_v0 = 0x02E6D354;

@@ -8,16 +8,16 @@ extern char D_800E6A85[];
 extern char D_800E6AB4[];
 
 void func_80090CD4(s32 arg0) {
-    s32 *temp_v0_2;
     s32 *temp_v0;
+    s32 *temp_v0_2;
     s32 *var_v1_2;
     s32 *var_v1_3;
     s32 temp_v1;
     
     s32 var_a0_2;
     s32 var_v0;
-    unsigned long var_v0_2;
-    s32 var_v1;
+    s32 var_v0_2;
+    unsigned int var_v1;
     u32 var_a0;
     void *temp_a0;
     void *temp_s2;
@@ -26,20 +26,22 @@ void func_80090CD4(s32 arg0) {
 
     var_a0 = 0;
     var_v1 = 0;
-loop_1:
-    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != (arg0 & 0x7FFFFFFF))) {
-        var_a0 += 1;
-        var_v1 += 0xFF8;
-        if (var_a0 >= 8U) {
-            var_a0_2 = -1;
+    for (;;) {
+        if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != (arg0 & 0x7FFFFFFF))) {
+            var_a0 += 1;
+            var_v1 += 0xFF8;
+            if (var_a0 >= 8U) {
+                var_a0_2 = -1;
+            } else {
+                continue;
+            }
         } else {
-            goto loop_1;
+            var_a0_2 = var_a0 | (arg0 & 0x80000000);
         }
-    } else {
-        register var_a0_2 = var_a0 | (arg0 & 0x80000000);
+        break;
     }
     if (var_a0_2 != -1) {
-        if (0 <= var_a0_2) {
+        if (var_a0_2 >= 0) {
             temp_v1 = var_a0_2 * 0xFF8;
             var_v0 = var_a0_2 << 9;
             if (*(D_800E6A84 + temp_v1) != 0) {
@@ -57,14 +59,13 @@ loop_1:
                     var_s0_2 = (*(void **)((char *)(temp_s2) + 0xF7C));
                     var_v0_2 = var_a0_2 << 9;
                     if (var_s0_2 != NULL) {
-                        __repair_rows: {
-                            func_80099708((*(s32 *)((char *)(var_s0_2) + 8)));
+                        do {
                             var_s0_2 = (*(void **)((char *)(var_s0_2) + 0));
+                            func_80099708((*(s32 *)((char *)(var_s0_2) + 8)));
                             var_v0_2 = var_a0_2 << 9;
-                        }
-if (var_s0_2 != NULL) goto __repair_rows;
+                        } while (var_s0_2 != NULL);
                     }
-                    temp_a0 = ((var_v0_2 - var_a0_2) * 8) + D_800E5AC4;
+                    temp_a0 = (void *)(((var_v0_2 - var_a0_2) * 8)); temp_a0 = (void *)((char *)temp_a0 + (s32)(D_800E5AC4));
                     var_v1_2 = (*(s32 **)((char *)(temp_a0) + 0xF78));
                     if (var_v1_2 != NULL) {
                         if (*var_v1_2 != NULL) {
@@ -73,8 +74,10 @@ if (var_s0_2 != NULL) goto __repair_rows;
                             } while (*var_v1_2 != NULL);
                         }
                         if (D_800E5AC0 != NULL) {
-                            (*(s32 **)((char *)(D_800E5AC0) + 4)) = var_v1_2;
+s32 *__repair_cached_pointer = D_800E5AC0;
+
                             *var_v1_2 = D_800E5AC0;
+                            (*(s32 **)((char *)(__repair_cached_pointer) + 4)) = var_v1_2;
                         }
                         temp_v0 = (*(s32 **)((char *)(temp_a0) + 0xF78));
                         (*(s32 **)((char *)(temp_a0) + 0xF78)) = NULL;

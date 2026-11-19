@@ -27,7 +27,7 @@ u8 func_800918D8(s32 arg0) {
     if (D_800CF540 != 0) {
         var_v1_2 = 0;
 loop_2:
-        if ((*((M2C_UNK *)((s8 *)&D_800E6A85 + var_v1_2)) != 0) || (*((M2C_UNK *)((s8 *)&D_800E5AC4 + var_v1_2)) != (arg0 & 0x7FFFFFFF))) {/*__repair_loop_weight*/__repair_rows: {do {do {
+        if ((*((u8 *)((s8 *)&D_800E6A85 + var_v1_2)) != 0) || (*((M2C_UNK *)((s8 *)&D_800E5AC4 + var_v1_2)) != (arg0 & 0x7FFFFFFF))) {/*__repair_loop_weight*/__repair_rows: {do {do {
             var_a1 += 1;} while (0);} while (0);}
 if (0) goto __repair_rows;
             var_v1_2 += 0xFF8;

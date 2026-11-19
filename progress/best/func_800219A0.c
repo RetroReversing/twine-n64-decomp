@@ -27,11 +27,13 @@ extern s32 D_8010A4F8;
 s32 func_800219A0(s8 arg0) {
     s8 *__base_D_8010A4C0;
     s32 var_s0;
+    s32 t;
 
+    t = D_80108400;
     var_s0 = 1;
     __base_D_8010A4C0 = &D_8010A4C0;
     (*__base_D_8010A4C0) = arg0;
-    if ((D_80108400 == 0) && (arg0 & 0xFF)) {
+    if ((t == 0) && (arg0 & 0xFF)) {
         (*__base_D_8010A4C0) = 0;
         var_s0 = 0;
     }

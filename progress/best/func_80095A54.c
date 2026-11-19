@@ -16,5 +16,7 @@ extern u8 D_800CF540;
 extern M2C_UNK D_80103098;
 
 s32 func_80095A54(void) {
-    return -(D_800CF540 != 0) & (s32) &D_80103098;
+    M2C_UNK *__base_D_80103098;
+    __base_D_80103098 = &D_80103098;
+    return -(D_800CF540 != 0) & (s32) __base_D_80103098;
 }

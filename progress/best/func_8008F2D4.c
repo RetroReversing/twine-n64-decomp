@@ -55,9 +55,9 @@ extern s16 D_80112EDC;
 void func_8008F2D4(s32 arg0) {
     char *var_v0_2;
     s32 var_a1;
-    s32 var_a1_2;
+    
     s32 var_a1_3;
-    s32 var_a1_4;
+    
     s32 var_v0;
     s32 var_v1;
     s32 var_v1_2;
@@ -95,7 +95,7 @@ void func_8008F2D4(s32 arg0) {
         var_a1 += 1;
         var_v1 += 0x1A0;
     } while (var_a1 < 0x20);
-    var_a1_2 = 0;
+    var_a1 = 0;
     var_v1_2 = 0;
     do {
         *(s32 *)(D_80107ED4 + var_v1_2) = 0;
@@ -103,9 +103,9 @@ void func_8008F2D4(s32 arg0) {
         *(s32 *)(D_80107EE0 + var_v1_2) = 0;
         *(D_80107EE8 + var_v1_2) = 4;
         *(s32 *)(D_80107EEC + var_v1_2) = 0x7F0000;
-        var_a1_2 += 1;
+        var_a1 += 1;
         var_v1_2 += 0x28;
-    } while (var_a1_2 < 0x20);
+    } while (var_a1 < 0x20);
     D_801083C0 = 1;
     var_a1_3 = 7;
     var_v0 = 0x4B0;
@@ -118,12 +118,12 @@ void func_8008F2D4(s32 arg0) {
     D_80108244 = 0x7F0000;
     func_80098710(0x7F0000, var_a1_3);
     func_800993A4();
-    var_a1_4 = 0xF;
+    var_a1 = 0xF;
     var_v0_2 = &D_80112EDC;
     do {
         *(s16 *)var_v0_2 = 0;
-        var_a1_4 -= 1;
+        var_a1 -= 1;
         var_v0_2 -= 2;
-    } while (var_a1_4 >= 0);
+    } while (var_a1 >= 0);
     func_80099C40();
 }

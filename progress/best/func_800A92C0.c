@@ -5,10 +5,8 @@ s32 osVirtualToPhysical(s32);                   /* extern */
 extern s32 D_A4040000;
 
 s32 func_800A92C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    register s32 var_v0;
     s32 *var_v1;
 
-    var_v0 = -1;
     if (func_800A9250() == 0) {
         (*(volatile s32 *)0xa4040004) = arg1;
         *(volatile s32 *)0xA4040004 = osVirtualToPhysical(arg2);
@@ -17,8 +15,8 @@ s32 func_800A92C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         } else {
             var_v1 = (s32 *)0xA4040008;
         }
-        var_v0 = 0;
         *var_v1 = arg3 - 1;
+        return 0;
     }
-    return var_v0;
+    return -1;
 }

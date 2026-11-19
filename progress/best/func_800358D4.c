@@ -56,28 +56,28 @@ extern void *D_80117728;
 
 void func_800358D4(void *arg0) {
     union {
-        unsigned char bytes[272];
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
-        struct { unsigned char pad[44]; f32 value; } view_sp2C;
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[56]; s32 value; } view_sp38;
-        struct { unsigned char pad[60]; s32 value; } view_sp3C;
-        struct { unsigned char pad[64]; s32 value; } view_sp40;
-        struct { unsigned char pad[68]; s32 value; } view_sp44;
-        struct { unsigned char pad[72]; s32 value; } view_sp48;
-        struct { unsigned char pad[80]; M2C_UNK value; } view_sp50;
-        struct { unsigned char pad[96]; f32 value; } view_sp60;
-        struct { unsigned char pad[100]; f32 value; } view_sp64;
-        struct { unsigned char pad[104]; f32 value; } view_sp68;
-        struct { unsigned char pad[112]; f32 value; } view_sp70;
-        struct { unsigned char pad[128]; f32 value; } view_sp80;
-        struct { unsigned char pad[132]; f32 value; } view_sp84;
-        struct { unsigned char pad[136]; f32 value; } view_sp88;
-        struct { unsigned char pad[148]; f32 value; } view_sp94;
-        struct { unsigned char pad[159]; u8 value; } view_sp9F;
-        struct { unsigned char pad[167]; u8 value; } view_spA7;
-        struct { unsigned char pad[175]; u8 value; } view_spAF;
-        struct { unsigned char pad[180]; s32 value; } view_spB4;
+        unsigned char bytes[144];
+        struct { f32 value; } view_sp28;
+        struct { unsigned char pad[4]; f32 value; } view_sp2C;
+        struct { unsigned char pad[8]; f32 value; } view_sp30;
+        struct { unsigned char pad[16]; s32 value; } view_sp38;
+        struct { unsigned char pad[20]; s32 value; } view_sp3C;
+        struct { unsigned char pad[24]; s32 value; } view_sp40;
+        struct { unsigned char pad[28]; s32 value; } view_sp44;
+        struct { unsigned char pad[32]; s32 value; } view_sp48;
+        struct { unsigned char pad[40]; M2C_UNK value; } view_sp50;
+        struct { unsigned char pad[56]; f32 value; } view_sp60;
+        struct { unsigned char pad[60]; f32 value; } view_sp64;
+        struct { unsigned char pad[64]; f32 value; } view_sp68;
+        struct { unsigned char pad[72]; f32 value; } view_sp70;
+        struct { unsigned char pad[88]; f32 value; } view_sp80;
+        struct { unsigned char pad[92]; f32 value; } view_sp84;
+        struct { unsigned char pad[96]; f32 value; } view_sp88;
+        struct { unsigned char pad[108]; f32 value; } view_sp94;
+        struct { unsigned char pad[119]; u8 value; } view_sp9F;
+        struct { unsigned char pad[127]; u8 value; } view_spA7;
+        struct { unsigned char pad[135]; u8 value; } view_spAF;
+        struct { unsigned char pad[140]; s32 value; } view_spB4;
     } m2c_initial_frame;
 
              
@@ -176,7 +176,7 @@ loop_12:
             if (var_s3 != NULL) {
                 m2c_initial_frame.view_spB4.value = m2c_initial_frame.view_sp9F.value << 0x18;
 loop_14:
-                if ((((u32) M2C_FIELD(var_s3, u32 *, 0x58) >> 2) & 1) && ((temp_v0 = M2C_FIELD(var_s3, u8 *, 0x54), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*(&D_80109A60 + temp_v0) != M2C_FIELD(var_s3, u8 *, 0x55))) && ((func_80014C10(temp_s1, M2C_FIELD(var_s3, s32 *, 0x4C), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), func_80083A6C(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
+                if ((((u32) M2C_FIELD(var_s3, u32 *, 0x58) >> 2) & 1) && ((temp_v0 = M2C_FIELD(var_s3, u8 *, 0x54), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&D_80109A60 + temp_v0)) != M2C_FIELD(var_s3, u8 *, 0x55))) && ((func_80014C10(temp_s1, M2C_FIELD(var_s3, s32 *, 0x4C), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), func_80083A6C(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
                     if ((u32) D_80107EA0 < (u32) D_800B1D84) {
                         temp_v0_2 = D_80107EA0 + 1;
                         D_80107EA0 = temp_v0_2;
@@ -204,7 +204,7 @@ loop_14:
                             m2c_initial_frame.view_sp30.value *= temp_fv0_3;
                             func_800452E0(&m2c_initial_frame.view_sp60.value, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp70.value);
 loop_24:
-                            func_80047B14(&m2c_initial_frame.view_sp70.value, *(&D_800C0670 + var_s4), &m2c_initial_frame.view_sp80.value);
+                            func_80047B14(&m2c_initial_frame.view_sp70.value, *((M2C_UNK *)((s8 *)&D_800C0670 + var_s4)), &m2c_initial_frame.view_sp80.value);
                             func_800452AC(&m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp80.value, &m2c_initial_frame.view_sp80.value);
                             if (var_s1 == 0) {
                                 var_fs1 = func_80046140(m2c_initial_frame.view_sp80.value, m2c_initial_frame.view_sp84.value);
@@ -231,7 +231,7 @@ loop_24:
                             }
 block_35:
                             if (var_fs1 < 127.0f) {
-                                temp_fs0 = *(&D_800C0698 + var_s4);
+                                temp_fs0 = *((M2C_UNK *)((s8 *)&D_800C0698 + var_s4));
                                 if ((u32) D_80107EA0 < (u32) D_800B1D84) {
                                     temp_v0_3 = D_80107EA0 + 1;
                                     D_80107EA0 = temp_v0_3;
@@ -253,7 +253,7 @@ block_35:
                                     } else {
                                         var_v0 = ((s32) (0.0f - 2.1474836e9f) | 0x80000000) & 0xFF;
                                     }
-                                    M2C_FIELD(temp_a1_2, s32 *, 4) = (s32) ((*(&D_800C06D0 + var_s1) << 0x18) | (*(&D_800C06DC + var_s1) << 0x10) | (*(&D_800C06E8 + var_s1) << 8) | var_v0);
+                                    M2C_FIELD(temp_a1_2, s32 *, 4) = (s32) ((*((M2C_UNK *)((s8 *)&D_800C06D0 + var_s1)) << 0x18) | (*((M2C_UNK *)((s8 *)&D_800C06DC + var_s1)) << 0x10) | (*((M2C_UNK *)((s8 *)&D_800C06E8 + var_s1)) << 8) | var_v0);
                                     temp_a0 = M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], s32 **, 0x10);
                                     if ((*temp_a0 != 0) || (func_80043FA0(temp_a0, temp_a1_2), (*M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], s32 **, 0x10) != 0))) {
                                         temp_v1_5 = M2C_FIELD(&(&m2c_initial_frame.view_sp28.value)[*var_s2], void **, 0x10);

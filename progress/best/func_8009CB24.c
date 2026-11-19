@@ -54,7 +54,7 @@ loop_3:
                 }
             }
         }
-        func_8008C11C();
+        func_8008C11C(arg0);
     }
     return var_s2;
 }

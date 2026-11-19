@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A830(M2C_UNK, s16, M2C_UNK);       /* extern */
 s32 func_80045CF8(M2C_UNK);                         /* extern */
-f32 func_80045D2C(M2C_UNK);                         /* extern */
+f32 func_80045D2C(f32);                         /* extern */
 f32 func_80045D8C(M2C_UNK, f32);                /* extern */
 void *func_800617D8(s32, M2C_UNK, M2C_UNK, f32 *, f32, s32, s32, s32, s32, s32, s32); /* extern */
 extern f64 D_800D4298;
@@ -23,9 +23,7 @@ extern f64 D_800D42A8;
 extern s16 D_80109A58;
 
 void func_800629E0(void *arg0, M2C_UNK arg1) {
-    f32 sp30;
-    f32 sp34;
-    f32 sp38;
+    f32 sp30[3];
     M2C_UNK var_a0;
     f64 temp_ft0;
     s32 var_s0;
@@ -33,11 +31,11 @@ void func_800629E0(void *arg0, M2C_UNK arg1) {
     u32 temp_v1;
     void *temp_v0;
 
-    sp30 = func_80045D8C(0x3ECCCCCD, 0.2f);
-    sp34 = (f32) ((f64) func_80045D2C(0x40000000) + D_800D4298);
-    temp_ft0 = (f64) sp34;
+    sp30[0] = func_80045D8C(0x3ECCCCCD, 0.2f);
+    sp30[1] = (f32) ((f64) func_80045D2C(2.0f) + D_800D4298);
     var_a0 = 0x234;
-    sp38 = func_80045D8C(0x3ECCCCCD, 0.2f);
+    sp30[2] = func_80045D8C(0x3ECCCCCD, 0.2f);
+    temp_ft0 = (f64) sp30[1];
     if (D_800D42A0 < temp_ft0) {
         var_a0 = 0x235;
     }
@@ -49,7 +47,8 @@ void func_800629E0(void *arg0, M2C_UNK arg1) {
     switch (temp_v1) {
     case 5:
         var_s0 = 0xFF000000;
-        goto block_12;
+        var_s0_2 = var_s0 | 0xFFFF;
+        break;
     case 4:
         var_s0_2 = 0xFF00FF;
         break;
@@ -64,10 +63,9 @@ void func_800629E0(void *arg0, M2C_UNK arg1) {
         break;
     case 0:
         var_s0 = 0xFF0000;
-block_12:
         var_s0_2 = var_s0 | 0xFFFF;
         break;
     }
-    temp_v0 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, 0, func_80045CF8(2) + 0x17, 0xFB, 0x6B, var_s0_2, 4);
+    temp_v0 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, sp30, 1.0f, 0, func_80045CF8(2) + 0x17, 0xFB, 0x6B, var_s0_2, 4);
     M2C_FIELD(temp_v0, f32 *, 0x54) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x54) * 8.0f);
 }

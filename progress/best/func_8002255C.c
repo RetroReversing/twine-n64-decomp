@@ -8,11 +8,14 @@ extern u8 D_80102EDD;
 extern void *D_80109BB0;
 
 void func_8002255C(void *arg0, void *arg1) {
-    s32 var_v1;
+char *__repair_addr;
+
+    void **__base_D_80109BB0;
+    s32 var_a0;
     s32 var_v0_2;
     s32 var_v0_4;
     s32 var_v0_5;
-    s32 var_a0;
+    register s32 var_v1;
     s32 var_v1_2;
     u16 var_v0;
     u16 var_v0_3;
@@ -22,7 +25,7 @@ void func_8002255C(void *arg0, void *arg1) {
     union { void * pointer; unsigned int value; } __repair_phase_storage;
     void *temp_s0;
     void *temp_s2;
-    register void *temp_v1;
+    void *temp_v1;
     void *var_a1;
 
     var_a1 = arg1;
@@ -37,9 +40,11 @@ void func_8002255C(void *arg0, void *arg1) {
                 (*(u16 *)((char *)(temp_v1) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
                 var_v0 = (*(u16 *)((char *)(arg0) + 4)) + 0xD0;
                 break;
+__repair_addr = (char *)((char *)(var_a1) + 0x22);
+
             default:
+                (*(u16 *)(__repair_addr)) = (u16) ((*(u16 *)((char *)(arg0) + 6)) + (func_80018318((*(void **)((char *)(temp_s0) + 0))) * 0xB));
                 var_a1 = (*(void **)((char *)(temp_s0) + 4));
-                (*(u16 *)((char *)(var_a1) + 0x22)) = (u16) ((*(u16 *)((char *)(arg0) + 6)) + (func_80018318((*(void **)((char *)(temp_s0) + 0))) * 0xB));
                 {
                 var_v0 = (*(u16 *)((char *)(arg0) + 4));break;}
             case 0xFF:
@@ -57,11 +62,12 @@ block_9:
                 var_v0_2 = ((-(((s32) temp_s2 & 0xFF) == 0) & 7) | 2) * 4;
             }
             (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) = (s32) (var_v1 | var_v0_2);
-            if (D_80109BB0 != NULL) {
+            __base_D_80109BB0 = &D_80109BB0;
+            if ((*__base_D_80109BB0) != NULL) {
                 temp_a0_2 = (*(void **)((char *)(D_80109BB0) + 0x1C));
                 var_a1 = (void *)-0x100;
                 if (temp_a0_2 != NULL) {
-                    (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + (short)0x10)) = (s32) ((((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) & ~0xFF) | (*(u8 *)((char *)(temp_a0_2) + 0x13)));
+                    (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x10)) = (s32) ((((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) & ~0xFF) | (*(u8 *)((char *)(temp_a0_2) + 0x13)));
                 }
             }
         }
@@ -99,7 +105,7 @@ block_26:
         }
         var_a0 = 2;
         if (D_80102EDD != 0) {
-            register var_a0 = 0;
+            var_a0 = 0;
         }
         func_80022B60(var_a0, var_a1);
     }

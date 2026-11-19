@@ -16,8 +16,8 @@ void func_80024618(s32 arg0, u16 arg1, s32 arg2, u8 arg3) {
     }
     if ((D_800BD550 != NULL) && (D_800BD554 != NULL)) {
         (*(s32 *)((char *)(D_800BD550) + 0x28)) = (s32) (((*(s32 *)((char *)(D_800BD550) + 0x28)) & ~0xFC) | 0xC);
-        temp_v1 = (arg0 & 0xFFFF) & 0xFFF;
         (*(s32 *)((char *)(D_800BD554) + 0x28)) = (s32) (((*(s32 *)((char *)(D_800BD554) + 0x28)) & ~0xFC) | 0x1C);
+        temp_v1 = (arg0 & 0xFFFF) & 0xFFF;
         if (temp_v1 != 2) {
             if (3U > temp_v1) {
                 var_a1 = 0x1B;

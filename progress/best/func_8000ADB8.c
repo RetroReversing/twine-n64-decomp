@@ -23,7 +23,7 @@ extern M2C_UNK D_80108948;
 extern M2C_UNK D_80109C98;
 extern M2C_UNK D_80109E6C;
 extern M2C_UNK D_80112FD8;
-extern s32 D_8011740C;
+extern volatile s32 D_8011740C;
 
 void func_8000ADB8(void) {
     s32 temp_s2;
@@ -37,7 +37,7 @@ void func_8000ADB8(void) {
 loop_1:
     osRecvMesg(&D_80108948, 0, 1);
     osSendMesg(&D_80109C98, 0, 0);
-    D_8011740C += 1;
+    ++D_8011740C;
     if (var_s1 > 0) {
         var_s1 -= 1;
         goto loop_1;

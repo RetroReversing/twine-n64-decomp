@@ -34,19 +34,15 @@ void func_8011E95C(void *arg0, void *arg1, void *arg2, s32 arg3) {
     temp_fs2 = M2C_FIELD(arg1, f32 *, 0x24) - M2C_FIELD(arg2, f32 *, 0);
     temp_fs1 = M2C_FIELD(arg1, f32 *, 0x2C) - M2C_FIELD(arg2, f32 *, 8);
     var_fs0 = (func_80046140(temp_fs2, temp_fs1) / D_8011F0D0) * 20.0f;
-    M2C_FIELD(arg0, u16 *, 0x20) = (u16) *((M2C_UNK *)((s8 *)&D_8011F0F0 + ((arg3 & 0xFFFF) * 2)));
-    M2C_FIELD(arg0, u16 *, 0x22) = (u16) *((M2C_UNK *)((s8 *)&D_8011F0F8 + ((arg3 & 0xFFFF) * 2)));
+    M2C_FIELD(arg0, u16 *, 0x20) = (u16) *((u16 *)((s8 *)&D_8011F0F0 + ((arg3 & 0xFFFF) * 2)));
+    M2C_FIELD(arg0, u16 *, 0x22) = (u16) *((u16 *)((s8 *)&D_8011F0F8 + ((arg3 & 0xFFFF) * 2)));
     if ((f64) var_fs0 > 0.0) {
         if (var_fs0 > 20.0f) {
             var_fs0 = 20.0f;
         }
         temp_fs1_2 = (f32) func_80000A30((s32) (func_80082A70(temp_fs2, temp_fs1) * 651.8986f), (s32) M2C_FIELD(arg1, f32 *, 0x40));
         temp_fv1 = (f32) M2C_FIELD(arg0, u16 *, 0x20) + (-var_fs0 * func_800829A0(temp_fs1_2));
-        if (temp_fv1 < 2.1474836e9f) {
-            var_v1 = (s32) temp_fv1;
-        } else {
-            var_v1 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-        }
+        var_v1 = (u32) temp_fv1;
         M2C_FIELD(arg0, u16 *, 0x20) = (u16) var_v1;
         temp_fv1_2 = (f32) M2C_FIELD(arg0, u16 *, 0x22) + (var_fs0 * func_800829C8(temp_fs1_2));
         if (temp_fv1_2 >= 2.1474836e9f) {

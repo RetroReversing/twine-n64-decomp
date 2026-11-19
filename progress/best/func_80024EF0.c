@@ -18,6 +18,7 @@ s32 func_800AB950(s32, M2C_UNK *);                  /* extern */
 extern s16 D_800BFC30;
 extern M2C_UNK D_80107EA8;
 
+extern char D_800D2AC0[];
 s32 func_80024EF0(s32 arg0) {
 char *__repair_addr;
 
@@ -58,7 +59,7 @@ __repair_addr = (char *)(*temp_s0);
             }
             var_v0 = var_s1 & 0xFF;
             if (func_800AB950(M2C_FIELD(*temp_s0, s32 *, 0x18), func_80087100(0x3004)) == 0) {
-                if (func_800AB950(M2C_FIELD(*temp_s0, s32 *, 0x18), "TWINE") != 0) {
+                if (func_800AB950(M2C_FIELD(*temp_s0, s32 *, 0x18), D_800D2AC0) != 0) {
                     return var_s1 & 0xFF;
                 }
                 goto block_17;

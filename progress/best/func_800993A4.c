@@ -13,6 +13,7 @@ extern char D_8011738A[];
 extern u8 D_801176E8;
 
 void func_800993A4(void) {
+    u8 __repair_frame[8];
 int __repair_literal;
 
     s32 temp_v1;
@@ -31,7 +32,7 @@ int __repair_literal;
             (&D_80117388)[var_a0] = temp_v0;
             *(D_80117389 + var_a0) = var_v1;
             var_a0 = var_v1 * 4;
-            *(u16 *)(D_8011738A + (short)var_a0) = 1;
+            *(u16 *)(D_8011738A + var_a0) = 1;
         }
 if (var_v1 < (u8) D_801176E8) goto __repair_rows;
     }

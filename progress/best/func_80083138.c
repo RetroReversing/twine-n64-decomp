@@ -4,38 +4,38 @@ f32 __cosf(f32);                                    /* extern */
 f32 __sinf(f32);                                    /* extern */
 
 void func_80083138(void *arg0, void *arg1) {
-    f32 temp_fs4;
-    f32 temp_ft0;
+    register f32 temp_fs0;
+    register f32 temp_fs0_2;
     f32 temp_ft0_2;
-    f32 temp_fs0_2;
-    f32 temp_fv0;
+    f32 temp_ft0;
+    f32 temp_ft1;
     f32 temp_fs2;
     f32 temp_fv1_2;
     register f32 temp_fs1;
     f32 temp_fs0_3;
-    f32 temp_fs0;
-    f32 temp_ft1;
+    f32 temp_fs4;
+    f32 temp_fv0;
     f32 temp_ft2;
-    register f32 temp_fs3;
+    f32 temp_fv0_2;
     f32 temp_fs0_4;
     register f32 temp_fv1;
-    f32 temp_fv0_2;
+    register f32 temp_fs3;
 
     temp_fs0 = (f32) (*(s16 *)((char *)(arg0) + 0)) * 0.0015339808f;
     temp_fs4 = __cosf(temp_fs0);
-    temp_fs0_2 = (f32) (*(s16 *)((char *)(arg0) + 2)) * 0.0015339808f;
     temp_fs3 = __sinf(temp_fs0);
+    temp_fs0_2 = (f32) (*(s16 *)((char *)(arg0) + 2)) * 0.0015339808f;
     temp_fs2 = __cosf(temp_fs0_2);
-    temp_fs0_3 = (f32) (*(s16 *)((char *)(arg0) + 4)) * 0.0015339808f;
     temp_fs1 = __sinf(temp_fs0_2);
+    temp_fs0_3 = (f32) (*(s16 *)((char *)(arg0) + 4)) * 0.0015339808f;
     temp_fs0_4 = __cosf(temp_fs0_3);
     temp_fv0 = __sinf(temp_fs0_3);
     temp_ft0 = temp_fs0_4 * temp_fs1;
     temp_fv1 = temp_fv0 * temp_fs1;
-    temp_fv0_2 = temp_fv0 * temp_fs2;
-    temp_ft1 = temp_fv1 * temp_fs3;
     temp_ft2 = (temp_ft0 * temp_fs3) - (temp_fv0 * temp_fs4);
+    temp_fv0_2 = temp_fv0 * temp_fs2;
     temp_ft0_2 = (temp_ft0 * temp_fs4) + (temp_fv0 * temp_fs3);
+    temp_ft1 = temp_fv1 * temp_fs3;
     temp_fv1_2 = temp_fv1 * temp_fs4;
     (*(f32 *)((char *)(arg1) + 0x18)) = (f32) -temp_fs1;
     (*(f32 *)((char *)(arg1) + 0)) = (f32) (temp_fs0_4 * temp_fs2);

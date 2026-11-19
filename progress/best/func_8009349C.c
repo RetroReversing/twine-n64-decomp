@@ -29,13 +29,8 @@ extern M2C_UNK D_801096F8;
 extern M2C_UNK D_801096FC;
 extern s32 D_8010A514;
 
-s32 func_8009349C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, s32 arg8, s32 arg9) {
-    s32 sp18;
-    s32 sp1C;
-    s32 sp20;
-    s32 sp24;
-    s32 sp28;
-    s32 sp2C;
+s32 func_8009349C(u8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, s32 arg8, s32 arg9) {
+    s32 sp18[6];
     s8 sp30;
     u8 sp3F;
     f32 temp_fv1;
@@ -56,14 +51,14 @@ s32 func_8009349C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 a
             *(&D_801096E8 + temp_v0_2) = 1;
             *(&D_801096F8 + temp_v0_2) = 0;
             *(&D_801096FC + temp_v0_2) = arg9;
-            sp18 = arg3 | 0x400000;
-            sp1C = arg1;
-            sp20 = 0;
-            sp24 = arg2;
-            sp28 = 0;
-            sp2C = arg2;
+            sp18[0] = arg3 | 0x400000;
+            sp18[1] = arg1;
+            sp18[2] = 0;
+            sp18[3] = arg2;
+            sp18[4] = 0;
+            sp18[5] = arg2;
             sp30 = 0;
-            func_8008C1E4(temp_v0, &sp18, 1);
+            func_8008C1E4(temp_v0, sp18, 1);
             var_fv1 = (f64) arg3;
             if (arg3 < 0) {
                 var_fv1 += D_800D6840;

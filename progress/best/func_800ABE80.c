@@ -2,6 +2,7 @@
 s64 func_800ABE80(f64 arg0) {
 int __repair_literal;
 
+
     u32 lo;
     register u32 e;
     f64 d;
@@ -21,18 +22,18 @@ int __repair_literal;
     if (0x40 > e) {
         mh = (hi & 0xFFFFF) | 0x100000;
         if (e >= 0x34) {
-            s = (unsigned short)e - 0x34;
+            s = e - 0x34;
             if (s != 0) {
-                mh = (mh << (u32)s) | (lo >> (0x20 - s));do{do{do{
-                lo = lo << s;}while(0);}while(0);}while(0);
+                mh = (mh << (u32)s) | (lo >> (0x20 - s));do{do{do{lo = lo << s;}while(0);}while(0);}while(0);
             }
         } else {
-            r = 0x34 - (unsigned short)e;
+            r = 0x34 - e;
 __repair_literal = 0x20;
 
+
             if (r >= __repair_literal) {
-                register lo = mh >> (r - 0x20);
                 mh = 0;
+                lo = mh >> (r - 0x20);
             } else {
                 lo = (lo >> r) | (mh << (0x20 - r));
                 mh = mh >> r;

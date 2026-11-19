@@ -17,7 +17,7 @@ extern u8 D_8011508F[];
 
 void func_800698D8(void *arg0, s32 arg1, s32 arg2) {
     f32 temp_fv0;
-    s8 var_v1;
+    s32 var_v1;
     void *temp_s0;
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);

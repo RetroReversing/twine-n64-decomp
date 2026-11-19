@@ -4,9 +4,10 @@ u16 func_80018080(void *);                          /* extern */
 u8 func_800182CC(void *);                           /* extern */
 
 typedef struct { unsigned char pad[8]; void * value; } __repair_field_8;
+static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
+
 void func_80027A7C(void *arg0, void *arg1) {
-    unsigned int var_s2;
-    s16 var_v0_3;
+    int var_s2;
 s32 __repair_result_var_s2;
     u16 temp_a0;
     u16 temp_v1;
@@ -20,56 +21,57 @@ u8 __repair_result_var_s6;
     void *temp_v0;
 
     var_s2 = 0;
-    if ((arg0 != NULL) && (arg1 != NULL)) {
-        if ((*(u8 *)((char *)(arg1) + 0x1C)) & 0x80) {
-            temp_v0 = ((__repair_field_8 *)arg1)->value;
-            var_s5 = (*(u16 *)((char *)(temp_v0) + 0x26));
-            __repair_result_var_s6 = (*(u8 *)((char *)(temp_v0) + 0x29));
-        } else {
-            var_s5 = func_80018080(((__repair_field_8 *)arg1)->value);
-            var_s6 = func_800182CC(((__repair_field_8 *)arg1)->value);
-        }
-        var_v0 = var_s5;
-        if (0 != 0) {
-            if (*(u8 *)0x1C & 0x80) {
-                var_s3 = (*(u16 *)((char *)(*(u8 *)8) + 0x26));
+    if ((arg0 != NULL)) {
+        if ((arg1 != NULL)) {
+            if ((*(u8 *)((char *)(arg1) + 0x1C)) & 0x80) {
+                temp_v0 = ((__repair_field_8 *)arg1)->value;
+                var_s5 = (*(u16 *)((char *)(temp_v0) + 0x26));
+                __repair_result_var_s6 = (*(u8 *)((char *)(temp_v0) + 0x29));
             } else {
-                var_s3 = func_80018080(*(u8 *)8);
+                var_s5 = func_80018080(((__repair_field_8 *)arg1)->value);
+                var_s6 = func_800182CC(((__repair_field_8 *)arg1)->value);
             }
-            if ((*(u16 *)((char *)(arg1) + 0xC)) & 0x40) {
-                var_s2 = (*(u16 *)((char *)(*(u8 *)8) + 0x20)) - (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
-            } else {
-                __repair_result_var_s2 = (*(u16 *)((char *)(*(u8 *)8) + 0x20)) - ((*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20)) + var_s5);
-            }
-            var_v0 = var_s5 + (var_s3 & -((*(u8 *)0xC & 0x40) == 0));
-        }
-        temp_a0 = __repair_result_var_s2 + var_v0;
-        temp_v1 = (*(u16 *)((char *)(arg1) + 0xC));
-        (*(u16 *)((char *)((unsigned short)arg0) + (u32)0x26)) = temp_a0;
-        if (temp_v1 & 0x20) {
-            (*(u16 *)((char *)(arg0) + 0x20)) = (u16) ((*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20)) - ((u32) (temp_a0 & 0xFFFF) >> 1));
-        } else {
-            if (temp_v1 & 0x40) {
-                temp_v1 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
-                if (0 == 0) {
-                    var_s2 = temp_a0 & 0xFFFF;
-    var_v0_2 = temp_v1 - (var_s2);
+            var_v0 = var_s5;
+            if (0 != 0) {
+                if (*(u8 *)0x1C & 0x80) {
+                    var_s3 = (*(u16 *)((char *)(*(u8 *)8) + 0x26));
                 } else {
-                    var_v0_2 = temp_v1 - (var_s5 & 0xFFFF);
+                    var_s3 = func_80018080(*(u8 *)8);
                 }
-            } else {
-                var_v0_2 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
+                if ((*(u16 *)((char *)(arg1) + 0xC)) & 0x40) {
+                    var_s2 = (*(u16 *)((char *)(*(u8 *)8) + 0x20)) - (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
+                } else {
+                    __repair_result_var_s2 = (*(u16 *)((char *)(*(u8 *)8) + 0x20)) - ((*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20)) + var_s5);
+                }
+                var_v0 = var_s5 + (var_s3 & -((*(u8 *)0xC & 0x40) == 0));
             }
-            (*(u16 *)((char *)(arg0) + 0x20)) = var_v0_2;
+            temp_a0 = __repair_result_var_s2 + var_v0;
+            temp_v1 = (*(u16 *)((char *)(arg1) + 0xC));
+            (*(u16 *)((char *)(arg0) + 0x26)) = temp_a0;
+            if (temp_v1 & 0x20) {
+                (*(u16 *)((char *)(arg0) + 0x20)) = (u16) ((*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20)) - ((u32) (temp_a0 & 0xFFFF) >> 1));
+            } else {
+                if (temp_v1 & 0x40) {
+                    temp_v1 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
+                    if (0 == 0) {
+                        var_s2 = temp_a0 & 0xFFFF;
+        var_v0_2 = temp_v1 - (var_s2);
+                    } else {
+                        var_v0_2 = temp_v1 - (var_s5 & 0xFFFF);
+                    }
+                } else {
+                    var_v0_2 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x20));
+                }
+                (*(u16 *)((char *)(arg0) + 0x20)) = __repair_store_halfword(var_v0_2);
+            }
+            if ((*(u8 *)((char *)(arg1) + 0x1C)) & 0x80) {
+                (*(s16 *)((char *)(arg0) + 0x22)) = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x22)) - 2;
+            } else {
+                (*(s16 *)((char *)(arg0) + 0x22)) = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x22)) - 4;
+            }
+            (*(s8 *)((char *)(arg0) + 0x29)) = (s8) (var_s6 + 4);
+            (*(u16 *)((char *)(arg0) + 0x20)) = (u16) ((*(u16 *)((char *)(arg0) + 0x20)) - 2);
+            (*(u16 *)((char *)(arg0) + 0x26)) = (u16) ((*(u16 *)((char *)(arg0) + 0x26)) + 4);
         }
-        if ((*(u8 *)((char *)(arg1) + 0x1C)) & 0x80) {
-            var_v0_3 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x22)) - 2;
-        } else {
-            var_v0_3 = (*(u16 *)((char *)(((__repair_field_8 *)arg1)->value) + 0x22)) - 4;
-        }
-        (*(s16 *)((char *)((unsigned short)arg0) + 0x22)) = var_v0_3;
-        (*(s8 *)((char *)(arg0) + (s32)0x29)) = (s8) (var_s6 + 4);
-        (*(u16 *)((char *)(arg0) + 0x20)) = (u16) ((*(u16 *)((char *)(arg0) + 0x20)) - 2);
-        (*(u16 *)((char *)((unsigned short)arg0) + 0x26)) = (u16) ((*(u16 *)((char *)(arg0) + 0x26)) + 4);
     }
 }

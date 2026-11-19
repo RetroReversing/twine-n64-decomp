@@ -19,10 +19,11 @@ void func_8003F940(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a1;
     void *temp_t0;
 
+    arg2 &= 0xFFFF;
     temp_a0 = arg0 & 0xFFFF;
     temp_t0 = D_80115328;
     temp_a1 = arg1 & 0xFFFF;
     D_80115328 = temp_t0 + 8;
     M2C_FIELD(temp_t0, s32 *, 0) = (s32) ((((s32) ((f32) temp_a0 * 4.0f) & 0xFFF) << 0xC) | (((s32) ((f32) temp_a1 * 4.0f) & 0xFFF) | 0xED000000));
-    M2C_FIELD(temp_t0, s32 *, 4) = (s32) ((((s32) ((f32) (temp_a0 + (arg2 & 0xFFFF)) * 4.0f) & 0xFFF) << 0xC) | ((s32) ((f32) (temp_a1 + (arg3 & 0xFFFF)) * 4.0f) & 0xFFF));
+    M2C_FIELD(temp_t0, s32 *, 4) = (s32) ((((s32) ((f32) (temp_a0 + arg2) * 4.0f) & 0xFFF) << 0xC) | ((s32) ((f32) (temp_a1 + (arg3 & 0xFFFF)) * 4.0f) & 0xFFF));
 }

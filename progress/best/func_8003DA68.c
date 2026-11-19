@@ -16,14 +16,14 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     Vec3 sum;
     Vec4 r;
     Vec3 out;
-    Vec3 neg;
+    register Vec3 neg;
     Vec3 p1;
     Vec3 p2;
     void *b;
     void *pa;
     void *pb;
     u16 t0, t1, t2;
-    s32 vbase;
+    long vbase;
     s32 s1;
     f32 d1;
     s8 c1, c2;
@@ -49,7 +49,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
         t2 = *(u8 *)((u8 *)pb + 2);
     }
     vbase = *(s32 *)((u8 *)b + 0x34);
-    func_800458C0(&r, (void *)(vbase + t0 * 12), (void *)(vbase + t1 * 12), (void *)(vbase + t2 * 12));
+    func_800458C0(&r, (void *)((*(s32 *)((u8 *)b + 0x34)) + t0 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t1 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t2 * 12));
     arg3->x = r.x;
     arg3->y = r.y;
     arg3->z = r.z;
@@ -91,7 +91,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     if (F8(arg1, &sum, &p1) != 0) {
         s1 = D_80108F84;
         if (F8(arg1, &sum, &p2) != 0 && s1 == D_80108F84) {
-            if (s1 != (s32)arg1) goto NEGRET;
+            if (s1 != arg1) goto NEGRET;
             return 1;
         }
     }
@@ -102,7 +102,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     if (F8(arg2, &sum, &p1) != 0) {
         s1 = D_80108F84;
         if (F8(arg2, &sum, &p2) != 0 && s1 == D_80108F84) {
-            if (s1 != (s32)arg2) goto NEGRET;
+            if (s1 != arg2) goto NEGRET;
             return 1;
         }
     }
@@ -120,7 +120,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     }
     if (c1 != 0 && c2 == 0) return 1;
     if (c1 == 0 && c2 != 0) goto NEGRET;
-    if (c1 != 0 && c2 != 0) {
+    if ((unsigned)c1 != 0 && c2 != 0) {
         arg3->x = -arg3->x;
         arg3->y = -arg3->y;
         arg3->z = -arg3->z;
@@ -131,7 +131,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
         c1 = func_8003D64C(&sum, arg1);
         c2 = func_8003D64C(&sum, arg2);
         if (c1 != 0 && c2 == 0) return 1;
-        if (c1 == 0 && c2 == 0) goto NEGRET;
+        if ((int)c1 == 0 && c2 == 0) goto NEGRET;
     }
     if (F8(arg1, &pos, arg3) != 0) goto E364;
     if (F8(arg2, &pos, arg3) != 0) goto NEGRET;

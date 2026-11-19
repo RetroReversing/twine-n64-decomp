@@ -33,7 +33,7 @@ void func_800882D0(s32 arg0) {
     case 1:
         *(D_800E2CC0 + temp_s0) = 0;
         if (!(D_800E3F2C & 1)) {
-            D_80100180(*(D_800E2CD0 + temp_s0));
+            D_80100180(*(s32 *)(D_800E2CD0 + temp_s0));
             return;
         }
         return;

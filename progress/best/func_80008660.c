@@ -32,8 +32,10 @@ extern f32 D_80112FCC;
 
 void func_80008660(void *arg0) {
     void *temp_v0;
+    f32 k;
 
     temp_v0 = func_8000DA08();
+    k = 64.0f;
     D_80112F90 = M2C_FIELD(temp_v0, f32 *, 0);
     D_80112F94 = M2C_FIELD(temp_v0, f32 *, 0xC);
     D_80112F9C = 0;
@@ -46,8 +48,8 @@ void func_80008660(void *arg0) {
     D_80112FB4 = M2C_FIELD(temp_v0, f32 *, 0x14);
     D_80112FBC = 0;
     D_80112FB8 = M2C_FIELD(temp_v0, f32 *, 0x20);
-    D_80112FC0 = M2C_FIELD(arg0, f32 *, 0x24) * 64.0f;
-    D_80112FC4 = M2C_FIELD(arg0, f32 *, 0x28) * 64.0f;
+    D_80112FC0 = M2C_FIELD(arg0, f32 *, 0x24) * k;
+    D_80112FC4 = M2C_FIELD(arg0, f32 *, 0x28) * k;
     D_80112FCC = 1.0f;
-    D_80112FC8 = M2C_FIELD(arg0, f32 *, 0x2C) * 64.0f;
+    D_80112FC8 = M2C_FIELD(arg0, f32 *, 0x2C) * k;
 }

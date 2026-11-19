@@ -25,7 +25,7 @@ extern Node *D_800E425C;
 extern Node *D_800E4260;
 extern Node *D_800E4264;
 extern Ent *D_80103EB4;
-extern u16 D_80108F70;
+extern s16 D_80108F70;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 
@@ -38,7 +38,7 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
     Node *s7;
     Node *a0n;
     s32 *p;
-    Ent *e;
+    
     u32 a0;
     u32 a1;
     u32 a2;
@@ -65,6 +65,8 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
                 a1 = s0->len;
                 if (a1 != t0) {
                     if ((u16)(a0 + a1) < s4 + s2) {
+Ent *e;
+
                         if (s4 + s2 >= a0 + 0x600) {
                             s1 = t0 - a1;
                         } else {
@@ -114,8 +116,8 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
                 }
                 p = &sp10[(u16)s3];
                 p[2] = s2;
-                s2 = 0;
-                s3++;
+                s2 = 0;/*__repair_loop_weight*/do {
+                s3++;} while (0);
                 p[4] = s4;
                 p[0] = s0->data + (s4 - a1);
             }
@@ -156,6 +158,8 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
             s0->addr = s4 - s1_2;
             s0->tag = arg3;
             if (temp_v1_6 >= 0x601U) {
+Ent *e;
+
                 s0->len = 0x600;
                 D_80109BF8 += 0xC;
                 v0 = func_800CEEE0(D_80109BA0, D_80109BF8, arg2);
@@ -173,6 +177,8 @@ void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
                 p[4] = 0x600 - s1_2;
                 p[2] = s0->addr + s1_2;
             } else {
+Ent *e;
+
                 s0->len = (temp_v1_6 + 0xFF) & ~0xFF;
                 D_80109BF8 += 0xC;
                 v0 = func_800CEEE0(D_80109BA0, D_80109BF8, arg2);

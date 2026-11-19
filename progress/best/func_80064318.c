@@ -13,28 +13,19 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_80064318(void *arg0, s32 arg1) {
-    s32 temp_v1;
-    s32 var_v0;
-
-    temp_v1 = M2C_FIELD(arg0, s32 *, 0x58) & ~0xF0;
-    M2C_FIELD(arg0, s32 *, 0x58) = temp_v1;
-    switch (arg1) {                                 /* irregular */
-    case 2:
-        var_v0 = temp_v1 | 0x40;
-        goto block_8;
-    case 1:
-        var_v0 = temp_v1 | 0x20;
-        goto block_8;
+    M2C_FIELD(arg0, s32 *, 0x58) &= ~0xF0;
+    switch (arg1) {
     case 0:
-        var_v0 = temp_v1 | 0x10;
-        goto block_8;
-    default:
-        var_v0 = temp_v1 | 0x80;
-        if (arg1 != 3) {
-            return;
-        }
-block_8:
-        M2C_FIELD(arg0, s32 *, 0x58) = var_v0;
-        return;
+        M2C_FIELD(arg0, s32 *, 0x58) |= 0x10;
+        break;
+    case 1:
+        M2C_FIELD(arg0, s32 *, 0x58) |= 0x20;
+        break;
+    case 2:
+        M2C_FIELD(arg0, s32 *, 0x58) |= 0x40;
+        break;
+    case 3:
+        M2C_FIELD(arg0, s32 *, 0x58) |= 0x80;
+        break;
     }
 }

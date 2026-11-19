@@ -18,6 +18,8 @@ extern f32 D_80109BAC;
 extern f32 D_80109CBC;
 
 s32 func_8004E418(void *arg0, void *arg1, void *arg2) {
+    f32 __repair_fzero = 0.0f;
+
     f32 temp_ft1;
     f32 temp_ft2;
     f32 temp_ft3;
@@ -30,15 +32,15 @@ f32 __repair_var_fv0_1;
     temp_ft2 = (M2C_FIELD(arg0, f32 *, 4) - temp_ft3) * 0.125f;
     temp_ft1 = (M2C_FIELD(arg0, f32 *, 0x14) - M2C_FIELD(arg0, f32 *, 0x10)) * 0.125f;
     if (temp_ft2 == 0.0f) {
-        D_80109CBC = 0.0f;
-        D_80109BAC = 0.0f;
+        D_80109CBC = __repair_fzero;
+        D_80109BAC = __repair_fzero;
     } else {
         D_80109CBC = (M2C_FIELD(arg1, f32 *, 0) - temp_ft3) / temp_ft2;
         D_80109BAC = (M2C_FIELD(arg2, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0)) / temp_ft2;
     }
-    var_fv0 = 0.0f;
+    var_fv0 = __repair_fzero;
     if (temp_ft1 == 0.0f) {
-        D_80100780 = 0.0f;
+        D_80100780 = (0.0f);
     } else {
         __repair_var_fv0_1 = (M2C_FIELD(arg2, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x10)) / temp_ft1;
         D_80100780 = (M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x10)) / temp_ft1;
@@ -55,16 +57,16 @@ f32 __repair_var_fv0_1;
         D_80100160 = temp_fv1_2;
     }
     if (D_80109CBC < 0.0f) {
-        D_80109CBC = 0.0f;
+        D_80109CBC = (0.0f);
     }
     if (D_80109BAC < 0.0f) {
-        D_80109BAC = 0.0f;
+        D_80109BAC = (0.0f);
     }
     if (D_80100780 < 0.0f) {
-        D_80100780 = 0.0f;
+        D_80100780 = __repair_fzero;
     }
     if (D_80100160 < 0.0f) {
-        D_80100160 = 0.0f;
+        D_80100160 = __repair_fzero;
     }
     if (D_80109CBC > 7.0f) {
         D_80109CBC = 7.0f;

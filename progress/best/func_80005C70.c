@@ -16,10 +16,10 @@ s32 func_800055CC();
 s32 func_80005D04();
 
 void func_80005C70(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
-    s32 sp10;
-    s32 sp638;
+    u8 sp10[0x628];
+    u8 sp638[0x628];
 
-    func_800055CC(&sp10, arg5);
-    do { func_800055CC(&sp638, arg1, arg3, arg5); } while (0);
-    func_80005D04(arg0, &sp10, &sp638);
+    func_800055CC(sp10, arg5, arg2);
+    do { func_800055CC(sp638, arg1, arg3, arg5); } while (0);
+    func_80005D04(arg0, sp10, sp638);
 }

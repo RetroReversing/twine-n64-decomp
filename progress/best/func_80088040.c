@@ -20,20 +20,20 @@ extern s32 (*D_8010017C)(s32, s32);
 extern u8 D_8010086C;
 extern s32 func_80088F6C;
 
-s32 func_80088040(u32 arg0, s32 arg1, s8 arg2, s8 arg3, u8 arg4, u8 arg5, u8 arg6) {
-    s32 temp_a0;
+s32 func_80088040(u32 arg0, s32 arg1, s8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6) {
+    register s32 temp_a0;
+    unsigned int temp_v0;
     long temp_v0_2;
-    s32 var_s2;
     unsigned var_v1_2;
-    register void *temp_s1;
-    unsigned var_s0;
-    register unsigned int var_v1;
-    u32 temp_v0;
+    void *temp_s1;
+    unsigned long var_s0;
+    register int var_v1;
+    s32 var_s2;
 
     var_s0 = arg1;
     if (D_800CEEC0) {
         var_s2 = 0;
-        if (arg0 < D_800E3F20) {
+        if (D_800E3F20 > arg0) {
             var_v1 = 0;
 loop_3:
             if (*(D_800E2CC0 + var_v1) != 0) {
@@ -56,9 +56,9 @@ loop_3:
                     }
                     var_v1_2 = var_s0 * 8;
                 }
-                (*(s8 *)((char *)((int)temp_s1) + 0x1204)) = arg2;
-                (*(u8 *)((char *)(temp_s1) + 0x1202)) = (unsigned)arg4;
+                (*(s8 *)((char *)(temp_s1) + 0x1204)) = arg2;
                 (*(s8 *)((char *)(temp_s1) + 0x1201)) = arg3;
+                (*(u8 *)((char *)(temp_s1) + 0x1202)) = arg4;
                 (*(u8 *)((char *)(temp_s1) + 0x1203)) = arg5;
                 (*(u8 *)((char *)(temp_s1) + 0x1219)) = arg6;
                 (*(s32 *)((char *)(temp_s1) + 0x1208)) = var_s0;
@@ -76,11 +76,11 @@ loop_3:
                     osRecvMesg(D_800E3F30, 0, 1);
                     func_8009D510(temp_s1, (*(s32 *)((arg0 * 4) + D_800E3F1C) & 0xFFFFFF) + D_800E3F18, (*(s32 *)((char *)(temp_s1) + 0x1210)), (*(s32 *)((char *)(temp_s1) + 0x1214)), &func_80088F6C);
                     if (D_8010086C != 0) {
-                        (*(u8 *)((char *)(temp_s1) + 0x11DE)) = (u8) ((*(u8 *)((char *)(temp_s1) + (int)0x11DE)) * 2);
+                        (*(u8 *)((char *)(temp_s1) + 0x11DE)) = (u8) ((*(u8 *)((char *)(temp_s1) + 0x11DE)) * 2);
                     }
-                    (*(s32 *)((char *)(temp_s1) + 0x120C)) = -1;
                     (*(s8 *)((char *)(temp_s1) + 0x1200)) = 1;
-                    osSendMesg(D_800E3F30, 0);
+                    (*(s32 *)((char *)(temp_s1) + 0x120C)) = -1;
+                    do { osSendMesg(D_800E3F30, 0); } while (0);
                     return func_80087F60(var_s2);
                 }
                 goto block_18;

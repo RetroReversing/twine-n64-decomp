@@ -19,31 +19,31 @@ extern void *D_80115328;
 void func_80008750(void *arg0, s32 arg1, s32 arg2) {
 short __repair_constant = 8;
 
-    unsigned temp_v1_10;
+    register unsigned long temp_v1_10;
 s32 __repair_phase_temp_v1_10;
     
-    s32 temp_v1_8;
+    register u32 temp_v1_8;
     
-    u32 var_a0_2;
+    register s32 var_a0_2;
     
 s32 __repair_phase_var_a1;
     unsigned var_a1_2;
-    register int var_v1;
+    unsigned int var_v1;
     void *temp_v0;
     void *temp_v0_2;
     void *temp_v1;
-    register void *temp_v1_11;
+    void *temp_v1_11;
     register void *temp_v1_13;
-    void *temp_v1_14;
-    void *temp_v1_15;
+    register void *temp_v1_14;
+    register void *temp_v1_15;
     void *temp_v1_16;
-    void *temp_v1_17;
+    register void *temp_v1_17;
     void *temp_v1_18;
-    void *temp_v1_19;
+    register void *temp_v1_19;
     void *temp_v1_2;
-    void *temp_v1_3;
+    register void *temp_v1_3;
     void *temp_v1_4;
-    void *temp_v1_5;
+    register void *temp_v1_5;
     void *temp_v1_6;
     void *temp_v1_7;
     void *temp_v1_9;
@@ -67,8 +67,8 @@ block_10:
         break;
     case 8:                                         /* switch 1 */
         if (D_8010A92C != 2) {
-            temp_v1 = D_80115328;
             D_8010A92C = 2;
+            temp_v1 = D_80115328;
             D_80115328 = temp_v1 + 8;
             (*(s32 *)((char *)(temp_v1) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v1) + 4)) = 3;
@@ -103,14 +103,14 @@ block_9:
     case 2:                                         /* switch 2 */
         if ((arg2 << 0x18) != 0) {
             if (D_8010A924 != 3) {
-                register temp_v1_2 = D_80115328;
+                temp_v1_2 = D_80115328;
                 D_8010A924 = 3;
                 D_80115328 = temp_v1_2 + 8;
                 (*(s32 *)((char *)(temp_v1_2) + 0)) = 0xDE000000;
                 (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1A78;
             }
         } else if (D_8010A924) {
-            register D_8010A924 = 0;
+            D_8010A924 = 0;
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
                 temp_v1_3 = D_80115328;
                 D_80115328 = temp_v1_3 + 8;
@@ -129,11 +129,10 @@ block_9:
                 temp_v1_10 = 0xFF0FF37F;
                 var_a1_2 = 0xFC40FE03;
 block_92:
-                D_80115328 += (unsigned short)__repair_constant;
-                (*(s32 *)((char *)(D_80115328) + 4)) = temp_v1_10;
                 (*(s32 *)((char *)(D_80115328) + 0)) = var_a1_2;
+                D_80115328 += 8;
+                (*(s32 *)((char *)(D_80115328) + 4)) = (unsigned)temp_v1_10;
             } else {
-block_28:
                 temp_v1_5 = D_80115328;
                 D_80115328 = temp_v1_5 + 8;
                 (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xFC40FE03;
@@ -156,7 +155,11 @@ block_28:
         if (D_801032A0 != 1) {
             D_801032A0 = 1;
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
-                goto block_28;
+                temp_v1_5 = D_80115328;
+                D_80115328 = temp_v1_5 + 8;
+                (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xFC40FE03;
+                (*(s32 *)((char *)(temp_v1_5) + 4)) = -0xC88;
+                return;
             }
             var_a1_2 = 0xFC40FE03;
             temp_v1_10 = 0xFF0FF37F;
@@ -172,9 +175,11 @@ block_28:
             (*(s32 **)((char *)(temp_v1_7) + 4)) = &D_800B1BB8;
         }
         if (D_801032A0 != 3) {
-            D_801032A0 = 3;
             temp_v1_8 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
-            switch (temp_v1_8) {                    /* switch 3; irregular */
+            D_801032A0 = 3;
+            switch (temp_v1_8) {
+case 0: break;
+                    /* switch 3; irregular */
             case 1:                                 /* switch 3 */
                 var_a1_2 = 0xFC409681;
                 temp_v1_10 = 0x332DFEFF;
@@ -195,15 +200,15 @@ block_91:
     case 5:                                         /* switch 2 */
     case 6:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            register temp_v1_9 = D_80115328;
             D_8010A924 = __repair_constant;
+            temp_v1_9 = D_80115328;
             D_80115328 = temp_v1_9 + 8;
             (*(s32 *)((char *)(temp_v1_9) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_9) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 3) {
-            D_801032A0 = 3;
             __repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 3;
             switch (__repair_phase_temp_v1_10) {                   /* switch 4; irregular */
             case 1:                                 /* switch 4 */
                 var_a1_2 = 0xFC409681;
@@ -229,8 +234,8 @@ block_91:
             (*(s32 *)((char *)(temp_v1_11) + 0)) = 0xDE000000;
         }
         if (D_801032A0 != 3) {
-            D_801032A0 = 3;
             temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 3;
             switch (temp_v1_10) {                   /* switch 5; irregular */
             case 1:                                 /* switch 5 */
                 var_a1_2 = 0xFC409681;
@@ -249,7 +254,7 @@ block_91:
         break;
     case 10:                                        /* switch 2 */
         if (D_8010A924 != 9) {
-            register temp_v1_13 = D_80115328;
+            temp_v1_13 = D_80115328;
             D_8010A924 = 9;
             D_80115328 = temp_v1_13 + 8;
             (*(s32 *)((char *)(temp_v1_13) + 0)) = 0xDE000000;
@@ -257,8 +262,8 @@ block_91:
         }
         if (D_801032A0 != 6) {
             var_a1_2 = 0xFC40C203;
-            D_801032A0 = 6;
             temp_v1_10 = 0xFF0FFF7F;
+            D_801032A0 = 6;
             goto block_92;
         }
         break;
@@ -267,8 +272,8 @@ block_91:
             temp_v1_14 = D_80115328;
             D_8010A924 = 0xD;
             D_80115328 = temp_v1_14 + 8;
-            (*(s32 *)((char *)(temp_v1_14) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_14) + 4)) = &D_800B1B68;
+            (*(s32 *)((char *)(temp_v1_14) + 0)) = 0xDE000000;
         }
         if (D_801032A0 != 6) {
             var_a1_2 = 0xFC40C203;
@@ -295,13 +300,13 @@ block_91:
     case 7:                                         /* switch 2 */
         if (D_8010A924 != 8) {
             temp_v1_16 = D_80115328;
-            D_8010A924 = __repair_constant;
-            D_80115328 = temp_v1_16 + 8;
+            D_8010A924 = 8;
             (*(s32 *)((char *)(temp_v1_16) + 0)) = 0xDE000000;
+            D_80115328 = temp_v1_16 + 8;
             (*(s32 **)((char *)(temp_v1_16) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 6) {
-            register var_a1_2 = 0xFC40C203;
+            var_a1_2 = 0xFC40C203;
             D_801032A0 = 6;
             temp_v1_10 = 0xFF0FFF7F;
             goto block_92;
@@ -316,17 +321,17 @@ block_91:
             (*(s32 **)((char *)(temp_v1_17) + 4)) = &D_800B1AF0;
         }
         if (D_801032A0 != 4) {
-            D_801032A0 = 4;
             var_v1 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 4;
             if (var_v1 == 1) {
-                register var_a1_2 = 0xFC121824;
+                var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
                 goto block_92;
             }
 block_88:
-            if ((var_v1 == 2) || ((short)var_v1 == 4)) {
-                var_a0_2 = 0xFF320000;
+            if ((var_v1 == 2) || (var_v1 == 4)) {
                 var_a1_2 = 0xFC119823;
+                var_a0_2 = 0xFF320000;
                 goto block_91;
             }
         }
@@ -334,11 +339,11 @@ block_88:
     case 3:                                         /* switch 2 */
     case 4:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            register temp_v1_18 = D_80115328;
-            D_8010A924 = __repair_constant;
+            temp_v1_18 = D_80115328;
+            D_8010A924 = 8;
             D_80115328 = temp_v1_18 + 8;
-            (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_18) + 4)) = &D_800B1AC8;
+            (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;
         }
         if (D_801032A0 != 4) {
             D_801032A0 = 4;
@@ -354,7 +359,7 @@ block_88:
     case 8:                                         /* switch 2 */
         if (D_8010A924 != 8) {
             temp_v1_19 = D_80115328;
-            D_8010A924 = __repair_constant;
+            D_8010A924 = 8;
             D_80115328 = temp_v1_19 + 8;
             (*(s32 *)((char *)(temp_v1_19) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_19) + 4)) = &D_800B1AC8;

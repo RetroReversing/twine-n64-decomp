@@ -20,6 +20,8 @@ extern s32 D_800D9418;
 void func_800060B0(void *arg0, s16 arg1, s16 arg2) {
     void *temp_s0;
     void *temp_v1;
+    s32 a;
+    s32 f;
 
     temp_v1 = M2C_FIELD(arg0, void **, 0x68);
     temp_s0 = temp_v1 + 0x14;
@@ -28,9 +30,11 @@ void func_800060B0(void *arg0, s16 arg1, s16 arg2) {
     } else {
         M2C_FIELD(temp_v1, s16 *, 0x90) = (s16) D_800D9418;
     }
+    a = M2C_FIELD(temp_s0, s32 *, 0x40);
+    f = M2C_FIELD(temp_s0, s32 *, 0) & 1;
     M2C_FIELD(temp_s0, s16 *, 0x7E) = arg1;
     M2C_FIELD(temp_s0, s16 *, 0x80) = arg2;
-    func_800055CC(M2C_FIELD(temp_s0, s32 *, 0x40), M2C_FIELD(temp_v1, s32 *, 0x14) & 1);
+    func_800055CC(a, f);
     func_80084180(M2C_FIELD(temp_s0, s32 *, 0x44), M2C_FIELD(temp_s0, s32 *, 0x40), M2C_FIELD(temp_s0, s16 *, 0x92));
     func_80005F5C(arg0);
 }

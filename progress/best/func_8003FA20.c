@@ -27,5 +27,5 @@ void func_8003FA20(void) {
         *(s32 *)(D_800C0788 + var_v1) = 0;
         var_v1 += 0x10;
     } while (var_v1 < 0x1FC0U);
-    func_80032884(0x1FC0);
+    func_80032884();
 }

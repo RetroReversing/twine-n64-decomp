@@ -36,13 +36,14 @@ extern s16 D_800C7CC0;
 extern char D_801001A4[];
 extern s32 D_80102ED8;
 
+extern char D_800D42E0[];
+extern char D_800D42E8[];
 s32 func_80063998(void *arg0, s32 arg1) {
     s32 *var_a1_2;
     s32 var_a1;
     s16 temp_a0_3;
     s32 temp_a0_4;
     s32 temp_s0;
-    s32 var_v0;
     void *temp_a0;
     void *temp_a0_2;
     void *temp_s0_2;
@@ -56,9 +57,7 @@ s32 func_80063998(void *arg0, s32 arg1) {
     void *var_a3;
 
     temp_s3 = M2C_FIELD(arg0, void **, 0x6C);
-    var_v0 = 0;
     if (M2C_FIELD(arg0, f32 *, 0x74) <= 0.0f) {
-        var_v0 = 0;
         if (M2C_FIELD(arg0, u16 *, 0x78) == arg1) {
             func_80065684();
             temp_a0 = M2C_FIELD(temp_s3, void **, 0xBC);
@@ -108,7 +107,7 @@ void *var_a0;
                         temp_s1 = func_80087100(temp_a0_3 & 0xFFFF);
                         temp_s0_2 = func_80087100(0x1B1);
                         var_a0 = temp_s1;
-                        var_a1_2 = "%s%s";
+                        var_a1_2 = D_800D42E0;
                         var_a2 = temp_s0_2;
                         var_a3 = ((func_80022DBC((s8) M2C_FIELD(temp_s0, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                     
@@ -120,7 +119,7 @@ void *var_a0;
                         temp_s1_2 = func_80087100(temp_a0_3 & 0xFFFF);
                         temp_s0_3 = ((func_80022DBC((s8) M2C_FIELD(temp_s3, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                         var_a0 = temp_s1_2;
-                        var_a1_2 = "%s %s";
+                        var_a1_2 = D_800D42E8;
                         var_a2 = temp_s0_3;
                         var_a3 = func_80087100(0x1B2);
                     
@@ -131,13 +130,12 @@ void *var_a0;
                 M2C_FIELD(arg0, s32 *, 0x5C) &= ~0x200;
             }
             temp_a0_4 = M2C_FIELD(temp_s3, s32 *, 8);
-            var_v0 = 1;
             if (temp_a0_4 != -1) {
                 func_8000A270(temp_a0_4);
                 M2C_FIELD(temp_s3, s32 *, 8) = -1;
-                var_v0 = 1;
             }
+            return 1;
         }
     }
-    return var_v0;
+    return 0;
 }

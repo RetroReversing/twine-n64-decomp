@@ -20,7 +20,7 @@ extern s32 *D_800CA31C;
 extern f64 D_800D4990;
 extern void *D_80109688;
 
-void *func_80076708(s32 arg0, M2C_UNK arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, s32 arg6) {
+void *func_80076708(s32 arg0, M2C_UNK arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6) {
     f64 var_fv1;
     void *temp_s0;
     void *temp_v0;

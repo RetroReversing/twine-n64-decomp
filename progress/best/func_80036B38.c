@@ -31,7 +31,7 @@ void func_80036B38(s32 arg0) {
             ((__repair_field_58 *)temp_a0)->value = (s32) (((__repair_field_58 *)temp_a0)->value | 4);
             func_800090A4(temp_a0, arg0, D_800E1714, 0);
             var_s0 += 1;
-            var_s1 += 4;
+            var_s1 += 1;
         } while (var_s0 < (u8) D_800E1758);
     }
 }

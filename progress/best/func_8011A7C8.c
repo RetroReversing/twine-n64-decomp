@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 extern unsigned char D_801002A0;
 extern int D_801002B4;
@@ -20,8 +8,8 @@ extern s32 D_8011F3A8;
 
 void func_8011A7C8(void) {
     s16 temp_v0_5;
-    s16 var_a0;
-    s16 var_a0_2;
+    int var_a0;
+    int var_a0_2;
     s16 var_a0_3;
     s16 var_a0_4;
     s16 var_t0;
@@ -32,7 +20,7 @@ void func_8011A7C8(void) {
     s32 temp_a1;
     s32 temp_v0_2;
     s32 temp_v0_6;
-    s32 var_v0;
+    s16 var_v0;
     s32 var_v0_3;
     s32 var_v0_5;
     s32 var_v0_6;
@@ -46,9 +34,9 @@ void func_8011A7C8(void) {
 
     var_t0 = -1;
     if ((D_801002A0 == 8) && (var_a0 = 0, (D_801002B4 > 0))) {
-        var_v0 = 0 << 0x10;
+        var_v0 = 0;
 loop_3:
-        temp_a1 = var_v0 >> 0x10;
+        temp_a1 = var_v0;
         temp_v1 = (temp_a1 * 4) + D_80102CD0;
         temp_v0 = *temp_v1;
         if (temp_v0 == NULL) {
@@ -56,7 +44,7 @@ loop_3:
             goto block_16;
         }
         var_v0_2 = var_a0 + 1;
-        if (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0xB4), u8 *, 0x10) == 7) {
+        if ((*(u8 *)((char *)((*(void **)((char *)(temp_v0) + 0xB4))) + 0x10)) == 7) {
             var_t0 = var_a0;
             var_a0_2 = 0;
             if (D_801002B4 > 0) {
@@ -65,9 +53,9 @@ loop_3:
                     temp_v0_2 = var_v0_3 >> 0x10;
                     if ((temp_v0_2 != temp_a1) && (temp_v0_3 = *((temp_v0_2 * 4) + D_80102CD0), (temp_v0_3 != NULL))) {
                         var_v0_4 = var_a0_2 + 1;
-                        if (M2C_FIELD(M2C_FIELD(temp_v0_3, void **, 0xB4), u8 *, 0x11) == 0) {
-                            temp_v1_2 = M2C_FIELD(*temp_v1, void **, 0xB4);
-                            M2C_FIELD(temp_v1_2, u16 *, 0xC) += 1;
+                        if ((*(u8 *)((char *)((*(void **)((char *)(temp_v0_3) + 0xB4))) + 0x11)) == 0) {
+                            temp_v1_2 = (*(void **)((char *)(*temp_v1) + 0xB4));
+                            (*(u16 *)((char *)(temp_v1_2) + 0xC)) += 1;
                             goto block_13;
                         }
                     } else {
@@ -84,7 +72,7 @@ block_13:
         } else {
 block_16:
             var_a0 = var_v0_2;
-            var_v0 = var_a0 << 0x10;
+            var_v0 = var_a0;
             if (var_v0_2 >= D_801002B4) {
                 goto block_17;
             }
@@ -104,14 +92,14 @@ loop_21:
                 var_v0_7 = var_a0_3 + 1;
                 goto block_26;
             }
-            temp_v0_5 = M2C_FIELD(temp_v0_4, s16 *, 0x7A);
+            temp_v0_5 = (*(s16 *)((char *)(temp_v0_4) + 0x7A));
             var_v0_7 = var_a0_3 + 1;
             if ((temp_v0_5 < 2) & (temp_v0_5 != 6)) {
                 var_t0 = var_a0_3;
             } else {
 block_26:
-                var_a0_3 = var_v0_7;
                 var_v0_6 = var_a0_3 << 0x10;
+                var_a0_3 = var_v0_7;
                 if (var_v0_7 < D_801002B4) {
                     goto loop_21;
                 }
@@ -129,10 +117,10 @@ block_27:
                     temp_v1_3 = *((temp_v0_6 * 4) + D_8010A500);
                     var_v0_9 = var_a0_4 + 1;
                     if (temp_v1_3 != NULL) {
-                        if (M2C_FIELD(temp_v1_3, u16 *, 0x78) != 2) {
-                            M2C_FIELD(temp_v1_3, s16 *, 0x7A) = 6;
+                        if ((*(u16 *)((char *)(temp_v1_3) + 0x78)) == 2) {
+                            (*(s16 *)((char *)(temp_v1_3) + 0x7A)) = 2;
                         } else {
-                            M2C_FIELD(temp_v1_3, s16 *, 0x7A) = 2;
+                            (*(s16 *)((char *)(temp_v1_3) + 0x7A)) = 6;
                         }
                         goto block_35;
                     }
@@ -140,8 +128,8 @@ block_27:
 block_35:
                     var_v0_9 = var_a0_4 + 1;
                 }
-                var_a0_4 = var_v0_9;
                 var_v0_8 = var_a0_4 << 0x10;
+                var_a0_4 = var_v0_9;
             } while (var_v0_9 < D_801002B4);
         }
     }

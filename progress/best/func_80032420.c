@@ -33,9 +33,8 @@ void func_80032420(f32 *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     int var_v0;
     s32 var_a0;
     s32 var_a1;
-    s32 var_v0_2;
+    unsigned short var_v0_2;
 
-    var_s0 = arg0;
     guMtxIdentF();
     temp_fs0 = (f32) ((f64) arg2 * (D_800D2E00 / (f64) arg6)) * 0.5f;
     temp_fs0_2 = __cosf(temp_fs0);
@@ -43,6 +42,7 @@ void func_80032420(f32 *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     temp_fv1 = arg4 - arg5;
     temp_fs1 = temp_fs0_3 / arg3;
     var_a1 = 0;
+    var_s0 = arg0;
     M2C_FIELD(var_s0, s32 *, 0x3C) = 0;
     M2C_FIELD(var_s0, f32 *, 0x2C) = -1.0f;
     M2C_FIELD(var_s0, f32 *, 0x14) = temp_fs0_3;
@@ -65,11 +65,7 @@ do {
         var_v0 = 0xFFFF;
         if (!(temp_fv1_2 <= D_800D2E08)) {
             temp_fv1_3 = D_800D2E10 / temp_fv1_2;
-            if (D_800D2E18 <= temp_fv1_3) {
-                var_v0_2 = (s32) (temp_fv1_3 - D_800D2E18) | 0x80000000;
-            } else {
-                var_v0_2 = (s32) temp_fv1_3;
-            }
+            var_v0_2 = (u32) temp_fv1_3;
             *arg1 = (s16) var_v0_2;
             var_v0 = 1;
             if (!(var_v0_2 & 0xFFFF)) {

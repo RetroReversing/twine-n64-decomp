@@ -1,6 +1,6 @@
 typedef struct S {
     u8 pad0[4];
-    s32 tbl;
+    unsigned long tbl;
     f32 t;
     f32 f0C;
     f32 f10;
@@ -15,13 +15,13 @@ typedef struct S {
 } S;
 
 extern s32 func_8005916C(s32, f32, void *);
-extern s32 func_80059590(f32, f32, void *);
+extern s32 func_80059590(void *);
 
 s32 func_80059754(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     S *s;
     f32 fa0;
     f32 fa1;
-    s32 ret;
+    unsigned int ret;
     s32 n;
     f32 t;
     u8 tmp;
@@ -30,9 +30,9 @@ s32 func_80059754(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     fa0 = 0.0f;
     fa1 = 0.0f;
     s->t = s->t - 1.0f;
-    ret = 0;
     n = arg2;
-    if (n == 0) {
+    ret = 0;
+    if (!n) {
         n = 0xF0;
     }
     if (s->t <= 0.0f) {
@@ -48,7 +48,7 @@ s32 func_80059754(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 ret = 1;
             }
             func_8005916C(s->tbl + (s->cnt * 0x18), 1.0f, arg0);
-            if (arg3 != 0) {
+            if ((s32)arg3 != 0) {
                 s->f10 = -s->f10;
                 s->f14 = -s->f14;
                 s->f18 = -s->f18;
@@ -56,7 +56,7 @@ s32 func_80059754(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 s->f20 = -s->f20;
                 s->f24 = -s->f24;
             }
-            t = (f32) n;
+            t = (f32) (int)n;
             s->t = t;
             s->f0C = t;
             s->f10 = s->f10 * (1.5707964f / t);
@@ -67,6 +67,6 @@ s32 func_80059754(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
             s->f24 = s->f24 * (1.5707964f / s->t);
         }
     }
-    func_80059590(fa0, fa1, arg0);
+    func_80059590(arg0);
     return ret;
 }

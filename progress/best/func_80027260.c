@@ -29,12 +29,12 @@ void func_80027260(void *arg0) {
 
     if (!(*(s32 *)((u8 *)arg0 + 0x60) & 1)) {
         temp_v1 = *(void **)((u8 *)arg0 + 0x6C);
-        temp_a1 = *(s16 *)((u8 *)arg0 + 0x7A);
         D_800BD68F = *(u8 *)((u8 *)temp_v1 + 4);
         D_800BD691 = *(u8 *)((u8 *)temp_v1 + 5);
+        D_800BD68E = *(u8 *)((u8 *)temp_v1 + 6);
         D_80102F2C = arg0;
         D_80109BB0 = temp_v1;
-        D_800BD68E = *(u8 *)((u8 *)temp_v1 + 6);
+        temp_a1 = *(s16 *)((u8 *)arg0 + 0x7A);
         switch (temp_a1) {
         case 0:
             func_80027E00(temp_a1);

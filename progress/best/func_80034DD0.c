@@ -14,18 +14,21 @@ void func_80034DD0(void) {
     s32 *temp_a0;
     s32 *temp_a0_2;
     s32 temp_v0;
+    s32 *__base_D_801096A8;
+
+    __base_D_801096A8 = &D_801096A8;
 
     func_8003278C();
     temp_a0 = (*(s32 **)((char *)(D_80117728) + 0x74C));
     D_800E1758 = 0;
     D_80107EA0 = 0;
     D_8010D538 = temp_a0;
-    do { guMtxIdent(temp_a0); } while (0);
+    { guMtxIdent(temp_a0); }
     temp_v0 = D_80107EA0 + 1;
-    D_80107EA0 = temp_v0;
     temp_a0_2 = (*(s32 **)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
+    D_80107EA0 = temp_v0;
     D_8010D538 = temp_a0_2;
     guRotate(temp_a0_2, -180.0f, 0, 1.0f, 0.0f);
-    guMtxCatL(&D_801096A8, D_8010D538, D_8010D538);
-    guRotate(&D_801096A8, 180.0f, 0, 0.0f, 1.0f);
+    guMtxCatL(__base_D_801096A8, D_8010D538, D_8010D538);
+    guRotate(__base_D_801096A8, 180.0f, 0, 0.0f, 1.0f);
 }

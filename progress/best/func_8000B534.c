@@ -15,23 +15,24 @@ typedef s32 M2C_UNK32;
 extern u16 *D_80109A50;
 
 s32 func_8000B534(void) {
-    s32 temp_a0;
-    s32 var_a2;
-    u16 *var_v1;
-    void *temp_v1;
+    u16 *p;
+    s32 n;
+    s32 sum;
+    u8 *q;
+    u16 flags;
 
-    var_v1 = D_80109A50;
-    var_a2 = 0;
-    if (!(*var_v1 & 8)) {
-        do { {
-            temp_a0 = M2C_FIELD(var_v1, s32 *, 4);
-            temp_v1 = (char *)(var_v1); temp_v1 += (s32)(temp_a0);
-            if (M2C_FIELD(var_v1, u16 *, 0) & 2) {/*__repair_loop_weight*/
-                var_a2 += temp_a0;
+    p = D_80109A50;
+    sum = 0;
+    if (!(*p & 8)) {
+        do {
+            n = *(s32 *) ((u8 *) p + 4);
+            flags = *p;
+            q = (u8 *) p + n;
+            p = (u16 *) (q + 0x10);
+            if (flags & 2) {/*__repair_loop_weight*/do {
+                sum += n;} while (0);
             }
-            var_v1 = temp_v1 + 0x10;
-        }
-} while (!(M2C_FIELD(temp_v1, u16 *, 0x10) & 8));
+        } while (!(*(u16 *) (q + 0x10) & 8));
     }
-    return var_a2;
+    return sum;
 }

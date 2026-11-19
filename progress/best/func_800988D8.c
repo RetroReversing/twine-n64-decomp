@@ -35,21 +35,23 @@ u32 func_800988D8(void *arg0) {
     var_a2 = D_800FDB74;
     var_t0 = NULL;
     if (var_a2 != NULL) {
-loop_4:
-        temp_v1_2 = M2C_FIELD(var_a2, u32 *, 8);
-        if (var_a3 >= temp_v1_2) {
-            if (temp_v1_2 == var_a3) {
-                do {
-                    temp_v1_3 = D_800FD970;
-                    D_800FD970 = temp_v1_3 + 1;
-                } while (temp_v1_3 == -1U);
-                var_a3 = temp_v1_3;
+        for (;;) {
+            temp_v1_2 = M2C_FIELD(var_a2, u32 *, 8);
+            if (var_a3 >= temp_v1_2) {
+                if (temp_v1_2 == var_a3) {
+                    do {
+                        temp_v1_3 = D_800FD970;
+                        D_800FD970 = temp_v1_3 + 1;
+                    } while (temp_v1_3 == -1U);
+                    var_a3 = temp_v1_3;
+                }
+                var_t0 = var_a2;
+                var_a2 = M2C_FIELD(var_a2, M2C_UNK **, 0);
+                if (var_a2 != NULL) {
+                    continue;
+                }
             }
-            var_t0 = var_a2;
-            var_a2 = M2C_FIELD(var_a2, M2C_UNK **, 0);
-            if (var_a2 != NULL) {
-                goto loop_4;
-            }
+            break;
         }
     }
     temp_a1 = D_800FDB78;

@@ -29,21 +29,23 @@ void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
 
     var_s1 = arg2;
     temp_s0 = var_s1 & 0xFF;
-    memset(0, temp_s0);
+    memset(arg0, 0, temp_s0);
     temp_v0 = var_s1 & 0xFF;
     if (temp_s0 != 0) {
         var_v0_2 = temp_v0 + arg1;
-loop_2:
-        temp_v0 = var_s1 & 0xFF;
-        if (M2C_FIELD(var_v0_2, s8 *, -1) == 0x20) {
-            var_s1 -= 1;
+        for (;;) {
             temp_v0 = var_s1 & 0xFF;
-            var_v0_2 = temp_v0 + arg1;
-            if (temp_v0 == 0) {
+            if (M2C_FIELD(var_v0_2, s8 *, -1) == 0x20) {
+                var_s1 -= 1;
                 temp_v0 = var_s1 & 0xFF;
-            } else {
-                goto loop_2;
+                var_v0_2 = temp_v0 + arg1;
+                if (temp_v0 == 0) {
+                    temp_v0 = var_s1 & 0xFF;
+                } else {
+                    continue;
+                }
             }
+            break;
         }
     }
     var_a0 = arg0;
@@ -52,14 +54,16 @@ loop_2:
         temp_a2 = temp_v0 + var_a0;
         do {
             var_v1 = 0;
-loop_8:
-            var_v0_3 = var_v1 < 0x42U;
-            if (*(D_800B2750 + var_v1) != *(s8 *)var_a1) {
-                var_v1 += 1;
+            for (;;) {
                 var_v0_3 = var_v1 < 0x42U;
-                if (var_v0_3 != 0) {
-                    goto loop_8;
+                if (*(D_800B2750 + var_v1) != *(s8 *)var_a1) {
+                    var_v1 += 1;
+                    var_v0_3 = var_v1 < 0x42U;
+                    if (var_v0_3 != 0) {
+                        continue;
+                    }
                 }
+                break;
             }
             *(s8 *)var_a0 = var_v1 & -var_v0_3;
             var_a0 += 1;

@@ -38,7 +38,7 @@ void func_80036820(s32 arg0) {
                             if (temp_v1_2 & 0x101000) {
                                 temp_a0 = D_800E1758 & 0xFF;
                                 if (temp_a0 < 0x10U) {
-                                    *((temp_a0 * 4) + &D_800E1718) = var_s0;
+                                    (&D_800E1718)[temp_a0] = var_s0;
                                     ++D_800E1758;
                                 }
                             } else {

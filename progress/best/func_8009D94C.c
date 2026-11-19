@@ -13,6 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 u32 func_8009D94C(void *arg0, u32 arg1) {
+int __repair_literal;
+
     s32 temp_t7;
     s32 temp_v0;
     s32 temp_v1;
@@ -22,20 +24,22 @@ u32 func_8009D94C(void *arg0, u32 arg1) {
     if (M2C_FIELD(arg0, s8 *, 0x11DD) == 3) {
         temp_v0 = M2C_FIELD(arg0, s32 *, 0x11A8);
         temp_t7 = temp_v0 - arg1;
-        if (temp_v0 > 0) {
+__repair_literal = 0;
+
+        if (temp_v0 > __repair_literal) {
             M2C_FIELD(arg0, s32 *, 0x11A8) = temp_t7;
             if (temp_t7 <= 0) {
                 M2C_FIELD(arg0, s8 *, 0x11DD) = 4;
                 M2C_FIELD(arg0, s32 *, 0x11A8) = 0;
             }
         }
-        temp_v1 = M2C_FIELD(arg0, s32 *, 0x11D4);
-        temp_v0_2 = M2C_FIELD(arg0, s32 *, 0x11D8) - temp_v1;
+        __repair_literal = M2C_FIELD(arg0, s32 *, 0x11D4);
+        temp_v0_2 = M2C_FIELD(arg0, s32 *, 0x11D8) - __repair_literal;
         var_a2 = temp_v0_2;
         if (arg1 < temp_v0_2) {
             var_a2 = arg1;
         }
-        M2C_FIELD(arg0, s32 *, 0x11D4) = (s32) (temp_v1 + var_a2);
+        M2C_FIELD(arg0, s32 *, 0x11D4) = (s32) (__repair_literal + var_a2);
         return var_a2;
     }
     return 0U;

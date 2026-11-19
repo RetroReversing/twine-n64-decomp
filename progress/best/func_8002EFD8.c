@@ -34,8 +34,7 @@ void func_8002EFD8(void *arg0, M2C_UNK arg1) {
             var_a0 = 0;
         }
         temp_v1_2 = M2C_FIELD(arg0, void **, 0x2C);
-        temp_a0 = var_a0 & 0xFF;
-        M2C_FIELD(temp_v1_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_2, s32 *, 0x10) & ~0xFF) | temp_a0);
+        M2C_FIELD(temp_v1_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_2, s32 *, 0x10) & ~0xFF) | (temp_a0 = var_a0 & 0xFF));
         temp_v1_2 = M2C_FIELD(arg0, void **, 0x34);
         M2C_FIELD(temp_v1_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1_2, s32 *, 0x10) & ~0xFF) | temp_a0);
         return;

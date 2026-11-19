@@ -6,11 +6,11 @@ s32 func_80044670();
 extern s32 *D_800CA31C;
 
 void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 arg5, u16 arg6) {
-    s32 temp_fv0;
-    s32 temp_a0;
-    s16 var_v0;
-    u8 temp_v0_2;
+    register s32 temp_fv0;
+    long temp_a0;
     void *temp_s0;
+    u8 temp_v0_2;
+    s16 var_v0;
     void *temp_v0;
 
     temp_v0 = func_80016410(0x50, arg1);
@@ -32,17 +32,17 @@ void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 ar
         (*(u16 *)((char *)(temp_s0) + 0x3E)) = (u16) (*(u16 *)((char *)(arg3) + 0x36));
         (*(u16 *)((char *)(temp_s0) + 0x40)) = (u16) (*(u16 *)((char *)(arg3) + 0x38));
         (*(u16 *)((char *)(temp_s0) + 0x42)) = (u16) (*(u16 *)((char *)(arg3) + 0x40));
-        (*(s32 *)((char *)(temp_s0) + 8)) = 0;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
-        temp_fv0 = (*(s32 *)((char *)(temp_s0) + 8));
+        (*(s32 *)((char *)(temp_s0) + 8)) = 0;
         (*(void **)((char *)(temp_s0) + 4)) = arg4;
+        temp_fv0 = (*(s32 *)((char *)(temp_s0) + 8));
         (*(u16 *)((char *)(temp_s0) + 0x44)) = arg6;
-        (*(s8 *)((char *)(temp_s0) + 0x4B)) = 0;
         (*(s32 *)((char *)(temp_s0) + 0x4C)) = (s8) (arg5 - 1);
+        (*(s8 *)((char *)(temp_s0) + 0x4B)) = 0;
         (*(s8 *)((char *)(temp_s0) + 0x4A)) = arg0;
         (*(s32 *)((char *)(temp_s0) + 0x24)) = temp_fv0;
-        (*(s32 *)((char *)(temp_s0) + 0x20)) = temp_fv0;
         (*(s32 *)((char *)(temp_s0) + 0x1C)) = temp_fv0;
+        (*(s32 *)((char *)(temp_s0) + 0x20)) = temp_fv0;
         (*(s32 *)((char *)(temp_s0) + 0x18)) = temp_fv0;
         (*(s32 *)((char *)(temp_s0) + 0x14)) = temp_fv0;
         (*(s32 *)((char *)(temp_s0) + 0x10)) = temp_fv0;
@@ -59,8 +59,8 @@ void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 ar
         (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x2C));
         (*(f32 *)((char *)(temp_v0) + 0x48)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x3C));
         (*(f32 *)((char *)(temp_v0) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x40));
-        (*(f32 *)((char *)(temp_v0) + 0x50)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x44));
         (*(s8 *)((char *)(temp_s0) + 0x4D)) = 0;
+        (*(f32 *)((char *)(temp_v0) + 0x50)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x44));
         (*(s32 *)((char *)(temp_s0) + 0)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x600;
         (*(s32 *)((char *)(temp_v0) + 0x58)) |= 0x20000;

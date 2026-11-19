@@ -16,6 +16,7 @@ extern u32 D_80107ED0;
 extern void *D_80109EA0;
 
 void func_8003278C(void) {
+    u8 __repair_frame[8];
     u32 var_a1;
     u8 temp_v0;
     u8 temp_v0_2;
@@ -39,7 +40,7 @@ void func_8003278C(void) {
                 *M2C_FIELD(temp_a0, s32 **, 0) = M2C_FIELD(temp_a0, s32 *, 4) + (M2C_FIELD(temp_a0, u8 *, 8) * M2C_FIELD(temp_a0, u16 *, 0xC));
             }
             var_a1 += 1;
-            var_a2 += 4;
+            var_a2 += 1;
         } while (var_a1 < (u32) D_80107ED0);
     }
 }

@@ -3,37 +3,38 @@
 extern f32 D_800CA350[];
 
 void func_80082FE4(void *arg0, void *arg1) {
-    f32 temp_ft3;
+    register f32 temp_ft3;
     f32 temp_ft4;
     register f32 temp_fa1;
     f32 temp_fa0;
     s16 temp_v0;
     register f32 temp_fv0;
-    f32 temp_fv1;
+    register f32 temp_fv1;
     register f32 temp_ft0;
     f32 temp_ft1;
-    register s16 temp_a2;
+    register int temp_a2;
     
-s16 __repair_result_temp_v1;
+s32 __repair_result_temp_v1;
+s32 __repair_phase___repair_result_temp_v1;
 
     __repair_result_temp_v1 = (*(s16 *)((char *)(arg0) + 2));
     temp_a2 = (*(s16 *)((char *)(arg0) + 4));
+    temp_fa1 = D_800CA350[((unsigned)temp_a2 & 0xFFF)];
     temp_ft4 = D_800CA350[(__repair_result_temp_v1 & 0xFFF)];
-    temp_fa1 = D_800CA350[(temp_a2 & 0xFFF)];
     temp_ft3 = D_800CA350[((__repair_result_temp_v1 - 0x400) & 0xFFF)];
     temp_fa0 = temp_fa1 * temp_ft3;
     temp_fv0 = D_800CA350[((temp_a2 - 0x400) & 0xFFF)];
-    __repair_result_temp_v1 = (*(s16 *)((char *)(arg0) + 0));
+    __repair_phase___repair_result_temp_v1 = (*(s16 *)((char *)(arg0) + 0));
+    temp_ft1 = D_800CA350[((__repair_phase___repair_result_temp_v1 - 0x400) & 0xFFF)];
     temp_ft0 = temp_fv0 * temp_ft3;
-    temp_fv1 = D_800CA350[(__repair_result_temp_v1 & 0xFFF)];
-    temp_ft1 = D_800CA350[((__repair_result_temp_v1 - 0x400) & 0xFFF)];
+    temp_fv1 = D_800CA350[((u32)__repair_phase___repair_result_temp_v1 & 0xFFF)];
     (*(f32 *)((char *)(arg1) + 0x18)) = (f32) -temp_ft3;
     (*(f32 *)((char *)(arg1) + 0x20)) = (f32) (temp_ft4 * temp_fv1);
     (*(f32 *)((char *)(arg1) + 0x1C)) = (f32) (temp_ft4 * temp_ft1);
     (*(f32 *)((char *)(arg1) + 4)) = (f32) ((temp_fa0 * temp_ft1) - (temp_fv0 * temp_fv1));
     (*(f32 *)((char *)(arg1) + 0)) = (f32) (temp_fa1 * temp_ft4);
-    (*(f32 *)((char *)(arg1) + 8)) = (f32) ((temp_fa0 * temp_fv1) + (temp_fv0 * temp_ft1));
     (*(f32 *)((char *)(arg1) + 0xC)) = (f32) (temp_fv0 * temp_ft4);
+    (*(f32 *)((char *)(arg1) + 8)) = (f32) ((temp_fa0 * temp_fv1) + (temp_fv0 * temp_ft1));
     (*(f32 *)((char *)(arg1) + 0x10)) = (f32) ((temp_ft0 * temp_ft1) + (temp_fa1 * temp_fv1));
     (*(f32 *)((char *)(arg1) + 0x14)) = (f32) ((temp_ft0 * temp_fv1) - (temp_fa1 * temp_ft1));
 }

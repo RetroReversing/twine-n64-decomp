@@ -4,7 +4,7 @@ extern s16 D_800C9D42;
 extern u8 D_800CA310;
 extern u8 D_800CA338;
 extern u8 D_801002AE;
-extern s32 D_80102ED8;
+extern s8 D_80102ED8;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
@@ -21,7 +21,7 @@ void func_80016EE0(void);
 void func_80027260(void *);
 void func_8002B050(void *, s32);
 void func_8002EAC4(void *);
-void func_8004830C(void *);
+void func_8004830C(void);
 void func_80069DCC(void *);
 void func_8007BA98(void);
 void func_80117740(void);
@@ -42,7 +42,7 @@ void func_80016FCC(s8 arg0) {
     s32 s1;
     void *node;
     void *p;
-    void *q;
+    
     s16 t;
 
     D_80115319 = arg0;
@@ -99,9 +99,9 @@ void func_80016FCC(s8 arg0) {
             while (node != NULL) {
                 switch (*(u16 *)((u8 *)node + 0x78)) {
                 case 0x25: func_80027260(node); break;
+                default: func_8002EAC4(node); break;
                 case 0x4D:
                 case 0x2: func_80069DCC(node); break;
-                default: func_8002EAC4(node); break;
                 }
                 node = *(void **)((u8 *)node + 0x10);
             }
@@ -110,15 +110,15 @@ void func_80016FCC(s8 arg0) {
     }
     p = (void *)D_80109688;
     do {
-        q = D_80109688[s1];
+        p = D_80109688[s1];
         s1 += 1;
-        if (q != NULL && *(s32 *)((u8 *)q + 0xFC) == 0) {
-            func_8004830C(q);
+        if (p != NULL && *(s32 *)((u8 *)p + 0xFC) == 0) {
+            func_8004830C();
         }
     } while (s1 < 6);
     node = D_8010A410;
     while (node != NULL) {
-        q = *(void **)((u8 *)node + 0x10);
+        p = *(void **)((u8 *)node + 0x10);
         if (!(*(s32 *)((u8 *)node + 0x60) & 1)) {
             u16 ty = *(u16 *)((u8 *)node + 0x78);
             if (ty == 0x30 || ty == 0x50) {
@@ -149,7 +149,7 @@ L71:
                     }
                 }
             }
-            node = q;
+            node = p;
         } else {
             void *a = *(void **)((u8 *)node + 8);
             void *n;
@@ -161,7 +161,7 @@ L71:
                 } while (a != NULL);
             }
             func_80016740(node);
-            node = q;
+            node = p;
         }
     }
     if (D_80102ED8 != 0 && D_800CA310 != 0) {

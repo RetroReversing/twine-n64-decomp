@@ -15,7 +15,7 @@ M2C_UNK func_80002BD0(void *, s32);
 s32 func_8002BBA8(u8);
 f32 func_800461D4(void *, void *);
 M2C_UNK func_80077E00(void *);
-M2C_UNK func_8007AABC(void *, s32, M2C_UNK);
+M2C_UNK func_8007AABC(void *, s32, f32);
 f32 func_800828D0(f32);
 f32 func_800829A0(f32);
 f32 func_800829C8(f32);
@@ -28,6 +28,7 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
     f32 var_fs1;
     f32 var_fv0;
     f32 var_fv0_2;
+f32 __repair_var_fv0_2_1;
     s16 temp_v1;
     s32 var_s1;
     s32 var_v0_2;
@@ -48,6 +49,12 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         return 0.0f;
     }
     switch (arg3) {
+    case 0:
+    case 3:
+    default:
+        var_fv0 = 0.12061068f;
+        var_s1 = 7;
+        break;
     case 1:
         var_fv0 = 0.12061068f;
         var_s1 = 0x165;
@@ -64,15 +71,9 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         var_fv0 = 0.047853343f;
         var_s1 = 2;
         break;
-    case 0:
-    case 3:
-    default:
-        var_fv0 = 0.12061068f;
-        var_s1 = 7;
-        break;
     }
     var_fs1 = temp_fs0 * var_fv0;
-    func_80002BD0(arg0, var_s1 & 0xFFFF);
+    do { func_80002BD0(arg0, var_s1 & 0xFFFF); } while (0);
     M2C_FIELD(arg0, s16 *, 0x7C) = 3;
     M2C_FIELD(temp_s5, s8 *, 0x7F) = 3;
     temp_fv1 = *arg2 - var_fs1;
@@ -93,9 +94,9 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         if (var_v0_2 & var_v1) {
             var_fv0_2 = M2C_FIELD(arg0, f32 *, 0x40);
         } else {
-            var_fv0_2 = func_80082A70(temp_fa0, temp_fa1) * 651.8986f;
+            __repair_var_fv0_2_1 = func_80082A70(temp_fa0, temp_fa1) * 651.8986f;
         }
-        func_8007AABC(arg0, (s32) var_fv0_2, 0x3E4CCCCD);
+        func_8007AABC(arg0, (s32) __repair_var_fv0_2_1, 0.2f);
     }
     M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (var_fs1 * func_800829A0(M2C_FIELD(arg0, f32 *, 0x40))));
     M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (var_fs1 * func_800829C8(M2C_FIELD(arg0, f32 *, 0x40))));

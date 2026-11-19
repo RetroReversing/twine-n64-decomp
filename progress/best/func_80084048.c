@@ -5,7 +5,7 @@ extern s32 D_800E1A9C;
 extern s32 D_800E1AA0;
 extern Node *D_800E1AAC;
 extern Node *D_800E1AB0;
-void func_80083DBC(Node *, Node *, Node *, void *);
+void func_80083DBC(Node *);
 
 void func_80084048(void *arg0, s32 arg1) {
     Node *n;
@@ -17,8 +17,8 @@ void func_80084048(void *arg0, s32 arg1) {
 
     if (D_800E1A90 != 0) {
         if (arg0 != NULL) {
-            n = (Node *)((char *)arg0 - 12);
             *(&D_800CE354 + arg1 * 3) -= n->size;
+            n = (Node *)((char *)arg0 - 12);
             D_800E1A9C += n->size;
             D_800E1AA0 -= n->size;
             prev = n->b;
@@ -65,7 +65,7 @@ void func_80084048(void *arg0, s32 arg1) {
                     break;
                 }
             }
-            func_80083DBC(cur, nxt, n, arg0);
+            func_80083DBC(cur);
         }
     }
 }

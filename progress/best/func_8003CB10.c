@@ -13,8 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_800828D0();
-f32 func_80082908();
+f32 func_80082908(f32);
 
+typedef struct { unsigned char pad[52]; void * value; } __repair_field_34;
 void func_8003CB10(void *arg0, f32 *arg1, void *arg2, s32 arg3) {
 char *__repair_addr;
 
@@ -39,9 +40,8 @@ char *__repair_addr;
 
     var_a1 = arg1;
     var_a3 = arg3;
-    temp_s0 = var_a1;
-    if ((arg0 != NULL) && (temp_s0 != NULL)) {
-        temp_v0 = M2C_FIELD(arg0, f32 **, 0x34);
+    if ((arg0 != NULL) && ((temp_s0 = var_a1) != NULL)) {
+        temp_v0 = ((__repair_field_34 *)arg0)->value;
         temp_v1 = M2C_FIELD(arg0, u16 *, 0x42);
         var_fs0 = M2C_FIELD(temp_v0, f32 *, 0);
         var_fs3 = M2C_FIELD(temp_v0, f32 *, 4);
@@ -60,7 +60,7 @@ char *__repair_addr;
                 } else if (var_fs0 < temp_fv0) {
                     var_fs0 = temp_fv0;
                 }
-__repair_addr = (char *)((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)));
+__repair_addr = (char *)((var_a3 + ((__repair_field_34 *)arg0)->value));
 
                 temp_fv0_2 = M2C_FIELD(__repair_addr, f32 *, 4);
                 if (temp_fv0_2 < var_fs1) {
@@ -68,7 +68,7 @@ __repair_addr = (char *)((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)));
                 } else if (var_fs3 < temp_fv0_2) {
                     var_fs3 = temp_fv0_2;
                 }
-                temp_fv0_3 = M2C_FIELD((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)), f32 *, 8);
+                temp_fv0_3 = M2C_FIELD((var_a3 + ((__repair_field_34 *)arg0)->value), f32 *, 8);
                 if (temp_fv0_3 < var_fs5) {
                     var_fs5 = temp_fv0_3;
                 } else if (var_fs4 < temp_fv0_3) {
@@ -84,7 +84,7 @@ __repair_addr = (char *)((var_a3 + M2C_FIELD(arg0, f32 **, 0x34)));
         M2C_FIELD(arg2, f32 *, 0) = var_fa0;
         M2C_FIELD(arg2, f32 *, 8) = var_fs1;
         M2C_FIELD(arg2, f32 *, 0x10) = var_fs5;
-        var_fs2 = func_800828D0(arg0);
+        var_fs2 = func_800828D0(arg0, arg1);
         if (var_fs2 < func_800828D0(var_fs0)) {
             var_fs2 = var_fs0;
         }

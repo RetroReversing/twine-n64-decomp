@@ -16,19 +16,19 @@ void func_8006F974(void *arg0, void *arg1) {
     s32 sp28[3];
     f32 sp38[3];
     u8 sp48[0x10];
-    void *temp_s3;
+    f32 temp_fv1;
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fs2;
     f32 var_fs4;
     s32 temp_v1;
     s32 temp_v1_2;
-    u32 var_v0;
+    unsigned long var_v0;
     u16 temp_a0;
     u8 temp_a0_2;
     s32 temp_v1_3;
     void *temp_a1;
-    f32 temp_fv1;
+    void *temp_s3;
     void *temp_v0;
     void *var_s2;
 
@@ -92,8 +92,8 @@ block_7:
                                     sp38[2] = temp_fv1;
                                     if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), (func_800828D0() < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0() < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                         (*(f32 *)((char *)(arg0) + 0x11C)) = sp38[2];
-                                        (*(s32 *)((char *)(arg0) + 0x104)) = sp28[0];
                                         (*(s32 *)((char *)(arg0) + 0x10C)) = sp28[2];
+                                        (*(s32 *)((char *)(arg0) + 0x104)) = sp28[0];
                                         (*(f32 *)((char *)(arg0) + 0x108)) = sp28[1];
                                         (*(f32 *)((char *)(arg0) + 0x114)) = sp38[1];
                                         if (D_80108F78 != 0x19) {

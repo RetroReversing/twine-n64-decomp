@@ -7,8 +7,8 @@ void func_80030818(void *arg0, s8 *arg1, s32 arg2) {
     s8 temp_v1;
     s8 temp_v1_2;
 
-    var_a1 = arg1;
     var_t0 = 0;
+    var_a1 = arg1;
     var_a3 = var_a1;
     if (var_a1 != NULL) {
 loop_2:

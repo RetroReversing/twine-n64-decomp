@@ -21,7 +21,7 @@ void func_80067390(void *arg0) {
     temp_v0 = M2C_FIELD(arg0, void **, 0x68);
     M2C_FIELD(temp_v0, u8 *, 0xF) = (u8) M2C_FIELD(temp_v0, u8 *, 0xE);
     var_v0 = 1;
-    if (*(D_800C4736 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0x10) * 0xE8)) != 0) {
+    if (*(u16 *)(D_800C4736 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0x10) * 0xE8)) != 0) {
 
     } else {
         var_v0 = 3;

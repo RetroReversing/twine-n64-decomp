@@ -1,4 +1,4 @@
-f64 func_800AA798(f64);
+f64 func_800AA798(void);
 f64 func_800ABA40(s32, char *, s32, f64, f64, s32, s32);
 extern f64 D_800D6EF0;
 extern f64 D_800D6EF8;
@@ -18,7 +18,7 @@ f64 func_800AA8B0(f64 arg0, f64 arg1) {
         }
         return D_800D6EF0;
     }
-    temp = func_800AA798(arg0 / arg1);
+    temp = func_800AA798();
     if (arg1 > 0.0) {
         return temp;
     }

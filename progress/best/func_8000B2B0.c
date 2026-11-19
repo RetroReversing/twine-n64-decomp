@@ -18,7 +18,9 @@ extern s32 D_800DD7B4;
 extern char D_80109C00[];
 
 void func_8000B2B0(s32 arg0) {
-    D_800DD7B0 = 2;
+    s8 *__base_D_800DD7B0;
+    __base_D_800DD7B0 = &D_800DD7B0;
+    (*__base_D_800DD7B0) = 2;
     D_800DD7B4 = arg0;
-    osSendMesg(D_80109C00, &D_800DD7B0);
+    osSendMesg(D_80109C00, __base_D_800DD7B0, 1);
 }

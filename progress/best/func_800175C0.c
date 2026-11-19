@@ -5,40 +5,39 @@ f32 func_80045E34(void *, void *);                  /* extern */
 void func_800175C0(void **arg0, s32 arg1, s32 arg2, void *arg3, f32 arg4, s32 arg5) {
     
     s32 temp_v0_2;
-    unsigned int temp_v1_2;
+    s32 temp_v1_2;
     s32 var_v0;
     u16 temp_v0;
     u16 temp_v1;
     void **temp_s7;
-    void **var_s1;
     union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_v1_3;
     void *var_s0;
     void *var_s4;
 
-    var_s1 = arg0;
-    temp_s7 = var_s1;
-    if (var_s1 != NULL) {
-        var_s4 = (*(void **)((char *)((*(void **)((char *)(var_s1) + 0x20))) + 0x58));
+    temp_s7 = arg0;
+    if (arg0 != NULL) {
+        var_s4 = (*(void **)((char *)((*(void **)((char *)(arg0) + 0x20))) + 0x58));
         do {
-            var_s0 = *var_s1;
+            var_s0 = *arg0;
             if (var_s0 != NULL) {
                 do {
                     temp_v1 = (*(u16 *)((char *)(var_s0) + 0x78));
                     switch (temp_v1) {              /* irregular */
-                    case 0x0:
-                        break;
-                    default:
+                    case 1:
+                    case 2:
+                    case 3:
                     case 0xB:
+                    case 0x24:
                     case 0x3B:
                     case 0x4C:
-                    case 0x24:
                         if ((arg4 == 0.0f) || (func_80045E34(arg3, var_s0 + 0x24) < arg4)) {
                             temp_v0 = (*(u16 *)((char *)(var_s0) + 0x78));
-                            if ((((temp_v0 == 1) | (temp_v0 == 0x4C)) != 0) && (temp_v1_2 = (*(s32 *)((char *)(var_s0) + 0x60)), temp_v0_2 = (short)temp_v1_2 | arg2, ((temp_v1_2 & arg1) == 0))) {
+                            if (((temp_v0 == 1) || (temp_v0 == 0x4C)) && !((*(s32 *)((char *)(var_s0) + 0x60)) & arg1)) {
+                                temp_v0_2 = (*(s32 *)((char *)(var_s0) + 0x60)) | arg2;
                                 __repair_phase_storage.pointer = (*(void **)((char *)(var_s0) + 0x6C));
                                 (*(s32 *)((char *)(var_s0) + 0x60)) = temp_v0_2;
-                                if (var_s1 == temp_s7) {
+                                if (arg0 == temp_s7) {
                                     var_v0 = temp_v0_2 | 0x1000;
                                 } else {
                                     var_v0 = temp_v0_2 | 0x2000;
@@ -65,11 +64,11 @@ void func_800175C0(void **arg0, s32 arg1, s32 arg2, void *arg3, f32 arg4, s32 ar
                     var_s0 = (*(void **)((char *)(var_s0) + 0));
                 } while (var_s0 != NULL);
             }
-            var_s1 = NULL;
+            arg0 = NULL;
             if (var_s4 != NULL) {
-                var_s1 = (*(void ***)((char *)(var_s4) + 8));
+                arg0 = (*(void ***)((char *)(var_s4) + 8));
                 var_s4 = (*(void **)((char *)(var_s4) + 0));
             }
-        } while (var_s1 != NULL);
+        } while (arg0 != NULL);
     }
 }

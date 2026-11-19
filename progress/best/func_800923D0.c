@@ -24,14 +24,16 @@ extern s32 D_8010A514;
 typedef struct { void * field_0; unsigned char pad_4[4]; int field_8; } __repair_record_var_s0;
 typedef struct { unsigned char pad[292]; int value; } __repair_field_124;
 void func_800923D0(void) {
+char *__repair_addr;
+
     s32 temp_a0;
     s32 temp_s3;
     s32 temp_s4;
     s32 temp_s5;
-    s32 var_a0;
+    register s32 var_a0;
     s32 var_s2;
     u32 temp_lo;
-    u32 temp_v0;
+    unsigned long temp_v0;
     u32 temp_v1_2;
     u32 var_s7;
     char *var_s6;
@@ -53,7 +55,9 @@ void func_800923D0(void) {
                 D_800EDA84 = var_s7;
                 D_800EDA88 = func_8008EF18(*(D_800E6A88 + var_s2));
                 temp_a2 = D_800EDA8C;
-                if (((*(s32 *)((char *)(temp_a2) + 0xF68)) != 0) && ((*(u32 *)((char *)((*(void **)((char *)(temp_a2) + 0xF6C))) + 0)) != -1U)) {
+__repair_addr = (char *)((char *)((*(void **)((char *)(temp_a2) + 0xF6C))) + 0);
+
+                if (((*(s32 *)((char *)(temp_a2) + 0xF68)) != 0) && ((*(u32 *)(__repair_addr)) != -1U)) {
 loop_6:
                     temp_a1 = (*(void **)((char *)(temp_a2) + 0xF6C));
                     if ((u32) ((*(s32 *)((char *)(temp_a2) + 0xF74)) + (*(s32 *)((char *)(temp_a2) + 0x120))) >= (u32) (*(u32 *)((char *)(temp_a1) + 0))) {
@@ -84,8 +88,8 @@ loop_6:
                 func_8009010C();
                 func_800902B4();
                 func_8008FF80();
-                var_s0 = (*(void **)((char *)(D_800EDA8C) + 0xF7C));
                 temp_s3 = func_8008FFF8();
+                var_s0 = (*(void **)((char *)(D_800EDA8C) + 0xF7C));
                 if (var_s0 != NULL) {
                     do {
                         temp_s1 = (((__repair_record_var_s0*)var_s0)->field_0);

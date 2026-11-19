@@ -18,10 +18,10 @@ extern u16 *D_80102F40;
 typedef struct { unsigned short field_0; unsigned char pad_2[3]; unsigned char field_5; unsigned char pad_6[6]; unsigned short field_C; } __repair_record_D_80102F40;
 s32 func_8002B850(s32 arg0) {
     D_80102F40 = &D_800BF680;
-    if (D_800BF680 != 0) {
+    if (*D_80102F40 != 0) {
 loop_1:
         if (((__repair_record_D_80102F40*)D_80102F40)->field_5 != arg0) {
-            D_80102F40 += 0xC;
+            D_80102F40 += 6;
             if (((__repair_record_D_80102F40*)D_80102F40)->field_C != 0) {
                 goto loop_1;
             }

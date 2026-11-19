@@ -16,7 +16,7 @@ s32 func_8008C0D4();
 s32 func_8008C11C();
 extern u8 D_800CF540;
 extern char D_800E5AC4[];
-extern char D_800E6A85[];
+extern u8 D_800E6A85[];
 extern char D_800E6A86[];
 extern char D_800E6AB0[];
 extern char D_800E6AB2[];
@@ -35,7 +35,7 @@ void func_8009113C(s32 arg0, s16 arg1) {
         temp_a2 = arg0 & 0x7FFFFFFF;
         var_v1 = 0;
 loop_2:
-        if ((*(D_800E6A85 + var_v1) != 0) || (*(D_800E5AC4 + var_v1) != temp_a2)) {
+        if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != temp_a2)) {
             var_a0 += 1;
             var_v1 += 0xFF8;
             if (var_a0 >= 8U) {
@@ -53,7 +53,7 @@ loop_2:
             } else {
                 var_a1 &= 0x7FFFFFFF;
                 temp_v0 = var_a1 * 0xFF8;
-                *(D_800E6AB0 + temp_v0) = arg1;
+                *(s16 *)(D_800E6AB0 + temp_v0) = arg1;
                 *(D_800E6AB2 + temp_v0) = *(D_800E6AB2 + temp_v0) | 0x20;
             }
         }

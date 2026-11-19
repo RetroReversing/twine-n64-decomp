@@ -96,8 +96,7 @@ void func_8005E900(void *arg0) {
             if ((*(s16 *)((char *)(arg0) + 0x7A)) < 2) {
                 func_80085260(arg0 + 0x24, var_a1);
                 temp_fs0 = func_80045D2C((*(f32 *)((char *)(temp_s1) + 0x10)));
-                temp_fs1 = D_800D4198;
-                (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) ((f64) (*(f32 *)((char *)(temp_s1) + 0xC)) + ((f64) (temp_fs0 - func_80045D2C((*(f32 *)((char *)(temp_s1) + 0x10)))) * temp_fs1));
+                (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) ((f64) (*(f32 *)((char *)(temp_s1) + 0xC)) + ((f64) (temp_fs0 - func_80045D2C((*(f32 *)((char *)(temp_s1) + 0x10)))) * (temp_fs1 = D_800D4198)));
                 temp_fs0_2 = func_80045D2C((*(f32 *)((char *)(temp_s1) + 0x10)));
                 temp_fv0 = (f64) (*(f32 *)((char *)(temp_s1) + 0x14)) + ((f64) (temp_fs0_2 - func_80045D2C((*(f32 *)((char *)(temp_s1) + 0x14)))) * temp_fs1);
                 (*(f32 *)((char *)(temp_s1) + 0x10)) = (f32) ((f64) (*(f32 *)((char *)(temp_s1) + 0x10)) * D_800D41A0);

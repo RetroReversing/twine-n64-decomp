@@ -54,7 +54,22 @@ void func_80094F10(void) {
         do {
             temp_v1 = M2C_FIELD(var_s0, s32 *, 8);
             temp_s1 = M2C_FIELD(var_s0, void **, 0);
-            if (!(temp_v1 & 0x40000)) {
+            if (temp_v1 & 0x40000) {
+                if (temp_s1 != NULL) {
+                    M2C_FIELD(temp_s1, void ***, 4) = (void **) M2C_FIELD(var_s0, void ***, 4);
+                }
+                temp_v1_6 = M2C_FIELD(var_s0, void ***, 4);
+                if (temp_v1_6 != NULL) {
+                    *temp_v1_6 = M2C_FIELD(var_s0, void **, 0);
+                } else {
+                    D_80117708 = M2C_FIELD(var_s0, void **, 0);
+                }
+                temp_a0 = M2C_FIELD(var_s0, s32 *, 0x34);
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s0, u16 *, 0xA);
+                if (temp_a0 != -1) {
+                    func_8008EA58(temp_a0);
+                }
+            } else {
                 if (temp_v1 & 0x20001) {
                     func_800937D0(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
                 }
@@ -126,26 +141,8 @@ block_29:
 block_43:
                     M2C_FIELD(var_s0, s32 *, 8) = var_v0_2;
                 }
-                goto block_44;
             }
-            if (temp_s1 != NULL) {
-                M2C_FIELD(temp_s1, void ***, 4) = (void **) M2C_FIELD(var_s0, void ***, 4);
-            }
-            temp_v1_6 = M2C_FIELD(var_s0, void ***, 4);
-            if (temp_v1_6 != NULL) {
-                *temp_v1_6 = M2C_FIELD(var_s0, void **, 0);
-            } else {
-                D_80117708 = M2C_FIELD(var_s0, void **, 0);
-            }
-            temp_a0 = M2C_FIELD(var_s0, s32 *, 0x34);
-            M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s0, u16 *, 0xA);
-            if (temp_a0 != -1) {
-                var_s0 = temp_s1;
-                func_8008EA58(temp_a0);
-            } else {
-block_44:
-                var_s0 = temp_s1;
-            }
+            var_s0 = temp_s1;
         } while (var_s0 != NULL);
     }
     func_80094D3C();

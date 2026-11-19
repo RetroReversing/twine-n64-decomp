@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 extern s32 D_801002C0;
 extern u8 D_801002A0;
 extern u8 D_8010A4FD;
@@ -23,7 +24,7 @@ void func_8011D3C0(void);
 void func_8011E3AC(void) {
     u16 a0;
     u16 v1;
-    s32 i;
+    short i;
     s32 j;
 
     if (D_801002C0 == 1) {
@@ -64,12 +65,12 @@ void func_8011E3AC(void) {
     }
 after:
     for (i = 0; i < 9; i++) {
-        for (j = 0; j < 4; j++) {
+        for (j = 0; __repair_inline(j, 4); j++) {
             D_8011F2E8[i][j] = 0;
         }
     }
     for (i = 0; i < 6; i++) {
-        D_8011F3B8[i] = 0;
+        D_8011F3B8[(unsigned short)i] = 0;
     }
     switch (D_801002A0) {
     case 2:

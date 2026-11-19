@@ -15,8 +15,9 @@ typedef s32 M2C_UNK32;
 extern char D_80115094[];
 
 s32 func_80081AA4(s32 arg0, s32 arg1) {
-    char *__base_D_80115094;
     s16 __repair_sign;
+char *__repair_addr;
+
     s32 temp_a2;
     s32 temp_v1;
     s32 var_v0;
@@ -27,14 +28,13 @@ s32 func_80081AA4(s32 arg0, s32 arg1) {
     void *temp_t0;
 
     temp_a2 = arg0 * 0xA0;
-    __base_D_80115094 = D_80115094;
-    temp_t0 = temp_a2 + __base_D_80115094;
+    temp_t0 = temp_a2 + D_80115094;
     __repair_phase_storage.pointer = (arg1 * 2) + temp_t0;
     temp_v1_2 = M2C_FIELD(__repair_phase_storage.pointer, u8 *, 1);
     if (temp_v1_2 != 0) {
-        temp_v1 = *((temp_v1_2 * 4) + (__base_D_80115094 + 0x70) + temp_a2);
-        if (!(M2C_FIELD(__repair_phase_storage.pointer, u8 *, 0) & 0x40)) {do{
-            var_v0_2 = arg1 * 2;}while(0);
+        temp_v1 = *((temp_v1_2 * 4) + (D_80115094 + 0x70) + temp_a2);
+        if (!(M2C_FIELD(__repair_phase_storage.pointer, u8 *, 0) & 0x40)) {
+            var_v0_2 = arg1 * 2;
             if (temp_v1 > 0) {
                 return temp_v1;
             }
@@ -49,8 +49,10 @@ s32 func_80081AA4(s32 arg0, s32 arg1) {
     }
 block_5:
     var_v0_2 = arg1 * 2;
+__repair_addr = (char *)(var_v0_2 + temp_t0);
+
 block_6:
-    __repair_phase_storage.value = (u8)( *(s32 *)(var_v0_2 + temp_t0));
+    __repair_phase_storage.value = (u8)( *(s32 *)(__repair_addr));
     if (!(((u8)__repair_phase_storage.value) & 0x10)) {
         return 0;
     }
