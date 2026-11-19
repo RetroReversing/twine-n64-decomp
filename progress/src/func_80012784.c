@@ -20,7 +20,7 @@ s32 func_80012784(s32 arg0) {
 
     temp_a0 = arg0 & 0xFFFF;
     if ((temp_a0 >= 0x10U) || (var_v0 = 1, (*(u16 *)(D_80107B68 + (temp_a0 * 0x18)) == 0))) {
-        var_v0 = 0;
+        return 0;
     }
     return var_v0;
 }
