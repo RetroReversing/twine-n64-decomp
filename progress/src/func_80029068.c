@@ -65,9 +65,9 @@ block_14:
                     if (temp_a0_2 & 0x800) {
                         D_80102EC8 = *temp_v1_2;
                     } else if (temp_a0_2 & 0x1000) {
-                        D_80102ED0 = (f32) *temp_v1_2;
+                        D_80102ED0 = *(f32 *)temp_v1_2;
                     } else {
-                        D_80102ECC = (s32) *temp_v1_2;
+                        D_80102ECC = *(s32 *)temp_v1_2;
                     }
                 }
                 if ((func_80027CE0(0x1E) & 0xFF) && (M2C_FIELD(D_80109BB0, u8 *, 0x29) != 0)) {
