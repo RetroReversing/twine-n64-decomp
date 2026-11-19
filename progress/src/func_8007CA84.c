@@ -16,14 +16,13 @@ M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8007947C(void *);                      /* extern */
 
 void func_8007CA84(void *arg0) {
-    M2C_UNK var_a1;
     u8 temp_v0;
 
     temp_v0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x6C), u8 *, 0x82);
     switch (temp_v0) {
     default:
         func_8007947C(arg0);
-        var_a1 = 0x1B;
+        func_80077960(arg0, 0x1B);
         break;
     case 2:
     case 3:
@@ -36,8 +35,7 @@ void func_8007CA84(void *arg0) {
     case 37:
     case 41:
         func_8007947C(arg0);
-        var_a1 = 0x1D;
+        func_80077960(arg0, 0x1D);
         break;
     }
-    func_80077960(arg0, var_a1);
 }
