@@ -39,7 +39,8 @@ s32 func_8002AD60(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
             temp_v0 = func_80026A5C(temp_s0, D_80102EBC);
             M2C_FIELD(temp_s0, void **, 8) = temp_v0;
             if (temp_v0 != NULL) {
-                temp_v1 = (((u32) M2C_FIELD(temp_v0, u32 *, 0x28) >> 2) & 0x3F) - 3;
+                void *p = temp_v0;
+                temp_v1 = (((u32) M2C_FIELD(p, u32 *, 0x28) >> 2) & 0x3F) - 3;
                 if (temp_v1 >= 0) {
                     var_a0 = 7;
                     if (temp_v1 < 8) {
@@ -48,7 +49,7 @@ s32 func_8002AD60(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
                 } else {
                     var_a0 = 0;
                 }
-                M2C_FIELD(temp_v0, u32 *, 0x28) = (u32) ((M2C_FIELD(temp_v0, u32 *, 0x28) & ~0xFC) | ((var_a0 & 0x3F) * 4));
+                M2C_FIELD(p, u32 *, 0x28) = (u32) ((M2C_FIELD(p, u32 *, 0x28) & ~0xFC) | ((var_a0 & 0x3F) * 4));
             }
             var_s2 += 1;
         } while ((u32) (var_s2 & 0xFFFF) < (u8) M2C_FIELD(arg0, u8 *, 0xE));
