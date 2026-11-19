@@ -19,16 +19,16 @@ s32 func_8001E760(s32 arg0, s32 arg1) {
 
     temp_a0 = arg0 & 0xFFFF;
     switch (temp_a0) {                              /* irregular */
-    case 1:
-        var_v0_2 = arg1 + 0x25;
-block_6:
-        var_v0 = var_v0_2 & 0xFFFF;
-        break;
     default:
         var_v0_2 = arg1 + 0x4B;
         goto block_6;
     case 0:
         var_v0 = arg1 & 0xFFFF;
+        break;
+    case 1:
+        var_v0_2 = arg1 + 0x25;
+block_6:
+        var_v0 = var_v0_2 & 0xFFFF;
         break;
     }
     return var_v0 | 0xB000;
