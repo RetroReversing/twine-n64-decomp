@@ -9,35 +9,35 @@ extern u8 D_800CF540;
 extern s32 D_800EDCB0;
 extern s32 *D_80117708;
 
-typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
+typedef struct { s32 x, y, z; } V3_93FE8;
 s32 func_80093FE8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg5, u16 arg6, u8 arg7, u8 arg8) {
-    register s32 sp20;
+    f32 sp18;
     f32 sp1C;
-    register f32 sp18;
+    s32 sp20;
     s32 sp24;
     f32 sp28;
     s32 *var_s0;
-    unsigned int temp_v0;
+    s32 temp_v0;
+    s32 key;
+    s32 *head;
+    s32 fl;
 
     if (D_800CF540) {
+        key = arg6 | 0x80000000;
         func_8008C0D4();
         var_s0 = arg0;
         if (var_s0 == NULL) {
             var_s0 = &D_800EDCB0;
         }
-        (*(s32 *)((char *)(var_s0) + 0xC)) = (s32) (*(s32 *)((char *)(arg1) + 0));
-        (*(s32 *)((char *)(var_s0) + 0x10)) = (s32) (*(s32 *)((char *)(arg1) + 4));
-        ((__repair_field_8 *)var_s0)->value = arg5;
-        (*(s32 *)((char *)(var_s0) + 0x14)) = (s32) ((__repair_field_8 *)arg1)->value;
-        (*(s32 *)((char *)(var_s0) + 0x18)) = (s32) (*(s32 *)((char *)(arg2) + 0));
-        (*(s32 *)((char *)(var_s0) + 0x20)) = (s32) ((__repair_field_8 *)arg2)->value;
-        (*(s32 *)((char *)(var_s0) + 0x1C)) = (s32) (*(s32 *)((char *)(arg2) + 4));
+        (*(s32 *)((char *)(var_s0) + 8)) = arg5;
+        *(V3_93FE8 *)((char *)var_s0 + 0xC) = *(V3_93FE8 *)arg1;
+        *(V3_93FE8 *)((char *)var_s0 + 0x18) = *(V3_93FE8 *)arg2;
         (*(f32 *)((char *)(var_s0) + 0x24)) = arg3;
         (*(u16 *)((char *)(var_s0) + 0x3C)) = arg6;
         (*(f32 *)((char *)(var_s0) + 0x30)) = arg4;
-        (*(s32 *)((char *)(var_s0) + 0x38)) = (s32) (arg6 | 0x80000000);
-        (*(f32 *)((char *)(var_s0) + 0x28)) = (f32) ((f32) arg7 * 0.007874016f);
-        (*(f32 *)((char *)(var_s0) + 0x2C)) = (f32) ((f32) arg8 * 0.007874016f);
+        (*(s32 *)((char *)(var_s0) + 0x38)) = key;
+        (*(f32 *)((char *)(var_s0) + 0x28)) = (f32) arg7 * 0.007874016f;
+        (*(f32 *)((char *)(var_s0) + 0x2C)) = (f32) arg8 * 0.007874016f;
         if (arg0 == NULL) {
             func_800937D0(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
             if (sp18 != 0.0f) {
@@ -49,21 +49,20 @@ s32 func_80093FE8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
                     return (*(s32 *)((char *)(var_s0) + 0x34));
                 }
             }
-            goto block_10;
+        } else {
+            head = D_80117708;
+            (*(s32 *)((char *)(var_s0) + 0)) = (s32) head;
+            if (head != NULL) {
+                *(s32 **)((char *)head + 4) = var_s0;
+            }
+            fl = (*(s32 *)((char *)(var_s0) + 8));
+            (*(s32 *)((char *)(var_s0) + 0x34)) = -1;
+            (*(s32 *)((char *)(var_s0) + 4)) = 0;
+            D_80117708 = var_s0;
+            (*(s16 *)((char *)(var_s0) + 0x3E)) = 0;
+            (*(s32 *)((char *)(var_s0) + 8)) = fl | 0x30000;
         }
-        (*(s32 **)((char *)(var_s0) + 0)) = (s32 *) D_80117708;
-        if (D_80117708 != NULL) {
-            (*(s32 **)((char *)(D_80117708) + 4)) = var_s0;
-        }
-        (*(s32 *)((char *)(var_s0) + 0x34)) = -1;
-        (*(s32 *)((char *)(var_s0) + 4)) = 0;
-        D_80117708 = var_s0;
-        (*(s16 *)((char *)(var_s0) + 0x3E)) = 0;
-        ((__repair_field_8 *)var_s0)->value = (s32) (((__repair_field_8 *)var_s0)->value | 0x30000);
-block_10:
         func_8008C11C();
-        goto block_11;
     }
-block_11:
     return -1;
 }
