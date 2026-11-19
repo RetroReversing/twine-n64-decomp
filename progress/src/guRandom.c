@@ -14,9 +14,10 @@ typedef s32 M2C_UNK32;
 
 extern u32 D_800CFDF0;
 
-void guRandom(void) {
+u32 guRandom(void) {
     s32 temp_v1;
 
     temp_v1 = D_800CFDF0 * 4;
     D_800CFDF0 = (u32) ((temp_v1 + 2) * (temp_v1 + 3)) >> 2;
+    return D_800CFDF0;
 }
