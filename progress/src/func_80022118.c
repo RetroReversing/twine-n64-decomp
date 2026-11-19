@@ -46,6 +46,6 @@ void func_80022118(void) {
     *(D_8011508F + (D_800B7CF0 * 0xA0)) = D_80108960;
     *(D_8011508E + (D_800B7CF0 * 0xA0)) = D_80104310;
     D_801002AD = 0;
-    func_80022BB8(D_80104310);
+    func_80022BB8();
     cache_release_block();
 }
