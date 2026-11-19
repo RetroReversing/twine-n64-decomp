@@ -33,7 +33,7 @@ extern s32 D_8010A3C0;
 void func_80087D50(void) {
     f32 temp_fv1;
     s32 temp_v0;
-    s32 var_a1;
+    short var_a1;
     void *temp_s0;
 
     D_80102F30 = &D_80104320;
@@ -50,7 +50,7 @@ void func_80087D50(void) {
     M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(temp_v0);
     temp_fv1 = M2C_FIELD(D_80109688, f32 *, 0x60);
     if (temp_fv1 >= 2.1474836e9f) {
-        var_a1 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
+        var_a1 = (s32) (temp_fv1 - 2.1474836e9f); var_a1 = var_a1 | 0x80000000;
     } else {
         var_a1 = (s32) temp_fv1;
     }

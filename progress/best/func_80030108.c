@@ -14,7 +14,8 @@ typedef s32 M2C_UNK32;
 
 s32 func_80030108(void *arg0) {
     s32 temp_v0;
-    s32 temp_v0_2;
+s32 __repair_phase_temp_v0;
+    
     s32 temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
@@ -56,18 +57,19 @@ s32 func_80030108(void *arg0) {
                     var_v1 = 0x24;
                 }
             }
-            temp_v0 = (u16)((u16) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10));
-            temp_v0_2 = (temp_v0 & 0xFF) - 0x20;
-            if (temp_v0_2 >= 0) {
-                var_a0 = temp_v0 - 0x20;
-                if (temp_v0_2 >= 0x6C) {
+            __repair_phase_temp_v0 = (u16)((u16) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10));
+            temp_v0 = (__repair_phase_temp_v0 & 0xFF) - 0x20;
+            if (temp_v0 >= 0) {
+                var_a0 = __repair_phase_temp_v0 - 0x20;
+                if (temp_v0 >= 0x6C) {
                     var_a0 = 0x6B;
                 }
             } else {
                 var_a0 = 0;
             }
             temp_a1 = (u32) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10) >> 8;
-            temp_v0_3 = (temp_a1 & 0xFF) - 0x20;
+            var_v0 = temp_a1 & 0xFF;
+    temp_v0_3 = (var_v0) - 0x20;
             if (temp_v0_3 >= 0) {
                 var_a2 = temp_a1 - 0x20;
                 if (temp_v0_3 >= 0x61) {

@@ -16,6 +16,7 @@ void *func_80016410(M2C_UNK, s32, void *);          /* extern */
 M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
 extern s32 *D_800CA31C;
 
+typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
 void *func_8005AB98(s32 arg0, void *arg1, void *arg2, s32 arg3, u8 arg5) {
     void *temp_v0;
     void *temp_v1;
@@ -45,7 +46,7 @@ void *func_8005AB98(s32 arg0, void *arg1, void *arg2, s32 arg3, u8 arg5) {
             M2C_FIELD(temp_v0, u8 *, 0x7E) = (u8) M2C_FIELD(arg2, u8 *, 0x45);
             M2C_FIELD(temp_v0, f32 *, 0x64) = (f32) M2C_FIELD(arg2, f32 *, 0x14);
         }
-        M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) | 0x600);
+        ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);
         func_8003E6EC(*D_800CA31C, temp_v0, 0);
     }
     return temp_v0;

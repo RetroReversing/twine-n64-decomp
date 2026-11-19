@@ -59,7 +59,7 @@ s32 __repair_phase_sp1C;
     void *temp_a0_2;
     void *temp_a0_5;
     void *temp_a0_8;
-    void *temp_a1;
+    
     void *temp_a1_2;
     void *temp_a1_3;
     void *temp_s1;
@@ -71,14 +71,14 @@ s32 __repair_phase_sp1C;
     void *temp_v0;
     void *var_a1;
 
-    temp_a1 = ((*(u8 *)((char *)(arg0) + 1)) * 0xC) + arg2;
-    temp_v0_2 = (u8)((*(u8 *)((char *)(temp_a1) + 0)));
+    temp_a0_2 = ((*(u8 *)((char *)(arg0) + 1)) * 0xC) + arg2;
+    temp_v0_2 = (u8)((*(u8 *)((char *)(temp_a0_2) + 0)));
     sp17 = (u8) arg4;
     temp_s7 = -((temp_v0_2 & 2) != 0) & 3;
     temp_s6 = -((temp_v0_2 & 4) != 0) & 3;
-    if (((arg4 << 0x18) != 0) && ((*(u8 *)((char *)(temp_a1) + 6)) != 1)) {
+    if (((arg4 << 0x18) != 0) && ((*(u8 *)((char *)(temp_a0_2) + 6)) != 1)) {
         register D_80109A94 = 1;
-        func_800326BC(arg2 + ((*(u8 *)((char *)(arg0) + 1)) * 0xC), temp_a1);
+        func_800326BC(arg2 + ((*(u8 *)((char *)(arg0) + 1)) * 0xC), temp_a0_2);
     }
     temp_v0 = ((*(u8 *)((char *)(arg0) + 1)) * 0xC) + arg2;
     temp_s2 = (*(u16 *)((char *)(temp_v0) + 2)) + 1;

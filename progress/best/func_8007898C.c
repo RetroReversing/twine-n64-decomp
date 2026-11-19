@@ -75,7 +75,7 @@ int __repair_literal;
     if (!D_80115319) {
         temp_v1 = (*(u8 *)((char *)(temp_s1) + 0x82));
         if (((s32) temp_v1 < 0x15) && ((s32) temp_v1 >= 0x13) && ((*(u8 *)((char *)(temp_s1) + 0x81)) != 0)) {
-            var_a1 = 1;
+            register var_a1 = 1;
             if ((*(s32 *)((char *)(D_8010A500) + 0x20)) == (*(s32 *)((char *)(arg0) + 0x20))) {
                 if ((func_8007C094(arg0, D_8010A500 + 0x24) << 0x18) != 0) {
                     var_a1 = 0x46;
@@ -269,7 +269,7 @@ block_81:
                             temp_a3_6 = (*(s32 *)((char *)(temp_v0_8) + 0x28));
                             (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_8) + 0x24));
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a3_6;
-                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_v0_8) + 0x2C));
+                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)((s32)temp_v0_8) + 0x2C));
                             if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp54, temp_a3_6) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {
                                 func_80002BD0(arg0, 0x14D);
                                 var_a1 = 0xB;

@@ -38,6 +38,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
     f32 sp50;
     f32 sp58;
     f32 sp5C;
+f32 __repair_sp5C_1;
     f32 sp60;
     f32 sp68;
     f32 sp6C;
@@ -116,13 +117,13 @@ void func_8006832C(void *arg0, f32 *arg1) {
         spA4 = -(temp_fs0_4 * func_800829A0(sp38));
         temp_fs0_5 = func_800829C8(sp38);
         spA8 = temp_fs0_5 * func_800829C8(temp_fa0);
-        do { func_80083A6C(&sp88, &sp58); } while (0);
-        func_80045764(&sp58, &sp58);
+        { func_80083A6C(&sp88, &sp58); }
+        do { func_80045764(&sp58, &sp58); } while (0);
         temp_ft1 = sp58 * 256.0f;
         temp_ft0 = sp5C * 256.0f;
         temp_fv0 = sp60 * 256.0f;
         sp58 = temp_ft1;
-        sp5C = temp_ft0;
+        __repair_sp5C_1 = temp_ft0;
         sp60 = temp_fv0;
         sp58 = temp_ft1 + sp48;
         sp5C = temp_ft0 + sp4C;
@@ -171,8 +172,9 @@ void func_8006832C(void *arg0, f32 *arg1) {
         } else {
             register sp68 = sp58 - sp48;
             sp6C = sp5C - sp4C;
-            sp70 = sp60 - sp50;
-            func_80045764(&sp78, &sp68);
+            sp70 = sp60 - sp50;/*__repair_call_balance*/if(sp30){
+            func_80045764(&sp78, &sp68);}else{
+            func_80045764(&sp78, &sp68);}
             func_80046384(&sp38, sp68, sp6C, sp70);
             sp40 = 0;
             sp38 = -sp38;

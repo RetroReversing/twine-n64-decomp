@@ -30,7 +30,7 @@ void func_80005868(s16 *arg0, void *arg1, void *arg2, s32 arg3) {
         var_s5 = arg1;
         __repair_rows: {
             temp_v1 = (*(u32 *)((char *)(var_s5) + 0x14));
-            temp_s1 = &sp28 + ((*(s16 *)((char *)(var_s2) + 0)) * 0x30);
+            temp_s1 = (char *)((((*(s16 *)((char *)(var_s2) + 0)) * 0x30))); temp_s1 += (s32)((&sp28));
             sp20 = (temp_v1 >> 0x16) * 4;
             sp22 = (temp_v1 >> 0xA) & 0xFFE;
             sp24 = (temp_v1 * 2) & 0xFFE;

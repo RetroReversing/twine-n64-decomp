@@ -13,6 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
+int __repair_literal;
+
     char *var_a3;
     char *var_t1;
     f32 temp_ft1;
@@ -25,7 +27,9 @@ s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
     var_t0 = 0;
     var_v1 = arg0 - 1;
     var_t2 = 0;
-    if (arg0 > 0) {
+__repair_literal = 0;
+
+    if (arg0 > __repair_literal) {
         var_a3 = arg2;
         var_t1 = arg1;
         do {
