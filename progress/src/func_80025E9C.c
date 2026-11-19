@@ -20,9 +20,9 @@ extern char D_800D2AF0[];
 void func_80025E9C(void *arg0, s32 arg1, void *arg2, void *arg3, u16 arg4, u16 arg5) {
 
     func_80025F78(arg0, arg5);
-    func_80025F78((arg1 & 0xFFFF), arg5);
-    if ((arg1 & 0xFFFF) != 0) {
-        func_80026004((arg1 & 0xFFFF), D_800D2AF0, func_80087100(0x13));
+    func_80025F78(arg1, arg5);
+    if (arg1 != 0) {
+        func_80026004(arg1, D_800D2AF0, func_80087100(0x13));
     }
     if (((arg0 != NULL) & (arg2 != NULL)) && (arg3 != NULL)) {
         if (arg4 != 0) {
