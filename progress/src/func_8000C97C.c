@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800066A0(M2C_UNK);                     /* extern */
 M2C_UNK func_800066D4(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK func_80045130(u8);                          /* extern */
-M2C_UNK func_80048734(M2C_UNK);                     /* extern */
+M2C_UNK func_80048734(f32);                     /* extern */
 M2C_UNK func_80086424();                            /* extern */
 extern s8 D_800B2715;
 extern s8 D_800CA338;
@@ -29,7 +29,7 @@ void func_8000C97C(void) {
     D_80103EB0 = 1;
     D_800B2715 = 0;
     D_800CA338 = 0;
-    func_80048734(0x42700000);
+    func_80048734(60.0f);
     if (D_800E0742 == 0) {
         if (D_800E0745 == 0) {
             func_80045130(D_80102EE0);
