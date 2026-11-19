@@ -16,10 +16,12 @@ extern void *D_800BF5BC;
 extern void *D_800BF5C0;
 
 void func_8002B7F8(void) {
-    if (D_800BF5BC != NULL) {
+    void **__base_D_800BF5BC;
+    __base_D_800BF5BC = &D_800BF5BC;
+    if ((*__base_D_800BF5BC) != NULL) {
         M2C_FIELD(D_800BF5BC, s32 *, 0x60) = (s32) (M2C_FIELD(D_800BF5BC, s32 *, 0x60) | 1);
     }
-    D_800BF5BC = NULL;
+    (*__base_D_800BF5BC) = NULL;
     if (D_800BF5C0 != NULL) {
         M2C_FIELD(D_800BF5C0, s32 *, 0x60) = (s32) (M2C_FIELD(D_800BF5C0, s32 *, 0x60) | 1);
     }
