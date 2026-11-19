@@ -21,9 +21,11 @@ extern u8 D_80104311;
 extern void *D_80109BB0;
 
 void func_8001A968(void) {
+    u8 *__base_D_801002AD;
     do { func_80029068(); } while (0);
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        D_801001A0[D_801002AD].f0 = D_80104311 * 0xA;
-        func_80026004(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%d", D_801001A0[D_801002AD].f0);
+        __base_D_801002AD = &D_801002AD;
+        D_801001A0[(*__base_D_801002AD)].f0 = D_80104311 * 0xA;
+        func_80026004(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%d", D_801001A0[(*__base_D_801002AD)].f0);
     }
 }
