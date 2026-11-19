@@ -13,15 +13,15 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80045CC4();                                /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, M2C_UNK, void *, void *, s32, s32); /* extern */
+M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, void *, s32, s32); /* extern */
 M2C_UNK func_8005FBB8(void *);                      /* extern */
 s32 func_8005FD28(void *);                          /* extern */
 M2C_UNK func_80060968(void *);                      /* extern */
 M2C_UNK func_80060AA8(void *);                      /* extern */
-M2C_UNK func_800624A8(void *, void *, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK func_800624A8(void *, void *, f32, M2C_UNK); /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 M2C_UNK func_800643D8(void *);                      /* extern */
-M2C_UNK func_80073508(void *, M2C_UNK);             /* extern */
+M2C_UNK func_80073508(void *, f32);             /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
 
 void func_80060574(void *arg0) {
@@ -83,15 +83,16 @@ block_14:
             M2C_FIELD(arg0, f32 *, 0x28) = temp_fv1_2;
             if (M2C_FIELD(temp_s0, f32 *, 0x2C) < -10.0f) {
                 temp_s0_2 = arg0 + 0x24;
-                func_80054FEC(0, 0x437A0000, 0x40A00000, arg0, temp_s0_2, 0x20, 0);
-                func_800624A8(arg0, temp_s0_2, 0x3F800000, 1);
-                func_80073508(temp_s0_2, 0x3A83126F);
+                func_80054FEC(0, 250.0f, 5.0f, arg0, temp_s0_2, 0x20, 0);
+                func_800624A8(arg0, temp_s0_2, 1.0f, 1);
+                func_80073508(temp_s0_2, 0.001f);
                 func_800853D4(temp_s0_2);
                 M2C_FIELD(arg0, s16 *, 0x7A) = 4;
                 return;
             }
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;
-            goto block_14;
+            {
+            func_80060AA8(arg0);return;}
         }
         break;
     case 3:
@@ -99,9 +100,9 @@ block_14:
         if (temp_v1_2 & 2) {
             temp_s0_3 = arg0 + 0x24;
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1_2 & ~2);
-            func_80054FEC(0, 0x437A0000, 0x40A00000, arg0, temp_s0_3, 0x20, 0);
-            func_800624A8(arg0, temp_s0_3, 0x3F800000, 1);
-            func_80073508(temp_s0_3, 0x3A83126F);
+            func_80054FEC(0, 250.0f, 5.0f, arg0, temp_s0_3, 0x20, 0);
+            func_800624A8(arg0, temp_s0_3, 1.0f, 1);
+            func_80073508(temp_s0_3, 0.001f);
             func_800853D4(temp_s0_3);
             goto block_18;
         }

@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 memset();
-extern char D_800B2750[];
+extern u8 D_800B2750[];
 
 void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
     s32 temp_a2;
     s32 temp_s0;
     s32 temp_v0;
     s32 var_s1;
-    s32 var_v0;
+    
     s32 var_v0_3;
     char *var_a0;
     char *var_a1;
@@ -30,26 +30,26 @@ void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
     var_s1 = arg2;
     temp_s0 = var_s1 & 0xFF;
     memset(0, temp_s0);
-    var_v0 = var_s1 & 0xFF;
+    temp_v0 = var_s1 & 0xFF;
     if (temp_s0 != 0) {
-        var_v0_2 = var_v0 + arg1;
+        var_v0_2 = temp_v0 + arg1;
 loop_2:
-        var_v0 = var_s1 & 0xFF;
+        temp_v0 = var_s1 & 0xFF;
         if (M2C_FIELD(var_v0_2, s8 *, -1) == 0x20) {
             var_s1 -= 1;
             temp_v0 = var_s1 & 0xFF;
             var_v0_2 = temp_v0 + arg1;
             if (temp_v0 == 0) {
-                var_v0 = var_s1 & 0xFF;
+                temp_v0 = var_s1 & 0xFF;
             } else {
                 goto loop_2;
             }
         }
     }
     var_a0 = arg0;
-    if (var_v0 != 0) {
+    if (temp_v0 != 0) {
         var_a1 = arg1;
-        temp_a2 = var_v0 + var_a0;
+        temp_a2 = temp_v0 + var_a0;
         do {
             var_v1 = 0;
 loop_8:

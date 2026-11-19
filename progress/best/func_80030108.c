@@ -48,18 +48,18 @@ s32 func_80030108(void *arg0) {
         temp_v1_2 = (u32) M2C_FIELD(temp_v1, u32 *, 0x10) >> 0x18;
         if (M2C_FIELD(temp_v1, u8 *, 0x11) != 0) {
             temp_v0 = temp_v1_2 - 0x20;
-            if (temp_v0 >= 0) {
+            if (temp_v0 < 0) {
+                var_v1 = 0;
+            } else {
                 var_v1 = temp_v1_2 - 0x20;
                 if (temp_v0 >= 0x25) {
                     var_v1 = 0x24;
                 }
-            } else {
-                var_v1 = 0;
             }
-            temp_a0 = (u16) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10);
-            temp_v0_2 = (temp_a0 & 0xFF) - 0x20;
+            temp_v0 = (u16)((u16) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10));
+            temp_v0_2 = (temp_v0 & 0xFF) - 0x20;
             if (temp_v0_2 >= 0) {
-                var_a0 = temp_a0 - 0x20;
+                var_a0 = temp_v0 - 0x20;
                 if (temp_v0_2 >= 0x6C) {
                     var_a0 = 0x6B;
                 }

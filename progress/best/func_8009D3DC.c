@@ -16,7 +16,7 @@ s32 func_8008C0D4();
 s32 func_8008C11C();
 s32 func_800A0170();
 s32 osCreateMesgQueue();
-extern s8 D_800FDBB0;
+extern u8 D_800FDBB0;
 extern char D_800FDBB4[];
 extern char D_800FDBB8[];
 extern char D_800FDBBC[];
@@ -33,9 +33,9 @@ void func_8009D3DC(s32 arg0, s32 arg1, s32 arg2) {
         D_8011772C = &func_8009D100;
     }
     if ((u8) D_800FDBB0 < 4U) {
-        *(D_800FDBB4 + (D_800FDBB0 * 0xC)) = arg0;
-        *(D_800FDBB8 + (D_800FDBB0 * 0xC)) = arg1;
-        *(D_800FDBBC + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
+        *(s32 *)(D_800FDBB4 + (D_800FDBB0 * 0xC)) = arg0;
+        *(s32 *)(D_800FDBB8 + (D_800FDBB0 * 0xC)) = arg1;
+        *(s32 *)(D_800FDBBC + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
         D_800FDBB0 += 1;
         func_800A0170(arg0, arg2);
     }
