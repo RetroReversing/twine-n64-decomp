@@ -28,7 +28,6 @@ void func_80077ED8(void *arg0) {
     case 10:
         M2C_FIELD(temp_a2, s8 *, 0x7F) = 0;
         var_a1 = 0x66;
-block_7:
         func_80002BD0(arg0, var_a1, temp_a2);
         func_80077960(arg0, 0x35);
         return;
@@ -36,7 +35,9 @@ block_7:
     case 5:
         M2C_FIELD(temp_a2, s8 *, 0x7F) = 0;
         var_a1 = 0x25;
-        goto block_7;
+        func_80002BD0(arg0, var_a1, temp_a2);
+        func_80077960(arg0, 0x35);
+        return;
     case 0:
     case 3:
     case 4:
@@ -44,10 +45,13 @@ block_7:
         M2C_FIELD(temp_a2, s8 *, 0x7F) = 1;
         if (D_80117734 == 0) {
             var_a1 = 0x129;
-        } else {
+        
+        func_80002BD0(arg0, var_a1, temp_a2);} else {
             var_a1 = 0x14D;
-        }
-        goto block_7;
+        
+        func_80002BD0(arg0, var_a1, temp_a2);}
+        func_80077960(arg0, 0x35);
+        return;
     case 1:
         M2C_FIELD(arg0, s16 *, 0x7C) = 1;
         M2C_FIELD(temp_a2, s8 *, 0x7F) = 1;
