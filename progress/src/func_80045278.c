@@ -13,7 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_80045278(void *arg0) {
-    M2C_FIELD(arg0, f32 *, 8) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 4) = 0.0f;
-    M2C_FIELD(arg0, f32 *, 0) = 0.0f;
+    f32 __repair_fzero = 0.0f;
+
+    M2C_FIELD(arg0, f32 *, 8) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 4) = __repair_fzero;
+    M2C_FIELD(arg0, f32 *, 0) = __repair_fzero;
 }
