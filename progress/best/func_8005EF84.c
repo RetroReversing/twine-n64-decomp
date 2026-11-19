@@ -80,7 +80,7 @@ __repair_literal = 2;
             var_v0 = 0;
             if ((func_8005EF30(arg0, arg1, temp_a1) << 0x18) != 0) {
                 if (D_80102ED8 != 0) {
-                    var_v0_2 = func_80087100((*(u16 *)((char *)(temp_s3) + 0x28)) | 0x9000);
+                    var_v0_2 = func_80087100(arg0, (*(u16 *)((char *)(temp_s3) + 0x28)) | 0x9000);
                     var_a0 = 0xA2;
                 } else {
                     var_v0_2 = func_80087100((*(u16 *)((char *)(temp_s3) + 0x28)) | 0x9000);
@@ -158,11 +158,7 @@ block_28:
                 (*(u8 *)((char *)((temp_s1 + ((s32) (func_80063C7C((s16) (*(u16 *)((char *)(temp_s3) + 0x28))) << 0x10) >> 0xD))) + 0x1FF)) = temp_s0;
             } else {
                 temp_fv1_2 = (temp_fv1 * (f32) (*(u8 *)((char *)(temp_s5) + 0x82))) + 1.0f;
-                if (temp_fv1_2 < 2.1474836e9f) {
-                    var_s0 = (s32) temp_fv1_2;
-                    } else {
-                    var_s0 = (s32) (temp_fv1_2 - 2.1474836e9f); var_s0 = var_s0 | 0x80000000;
-                    }
+                var_s0 = (u32) temp_fv1_2;
 var_v1 = temp_s2 * 2;
 
                 temp_v1_6 = temp_s1 + var_v1;
@@ -180,11 +176,7 @@ var_v1 = temp_s2 * 2;
                 temp_v1_7 = (*(u8 *)((char *)(temp_s0_2) + 0x80));
                 if (temp_v1_7 != (*(u8 *)((char *)(temp_s5) + 0x80))) {
                     temp_fv1_3 = ((func_80045D2C(0x3F000000, temp_v0_4, temp_a1_2) + 0.5f) * (f32) (*(u8 *)((char *)(temp_s0_2) + 0x82))) + 1.0f;
-                    if (temp_fv1_3 < 2.1474836e9f) {
-                        var_s0 = (s32) temp_fv1_3;
-                    } else {
-                        var_s0 = (s32) (temp_fv1_3 - 2.1474836e9f); var_s0 = var_s0 | 0x80000000;
-                    }
+                    var_s0 = (u32) temp_fv1_3;
                     if (var_s6 != 0) {
                         (*(s8 *)((char *)((temp_s1 + ((s32) (func_80063C7C((s16) ((*(u16 *)((char *)(temp_s3) + 0x28)) + (s8) (u8) (*(s8 *)((char *)(temp_s5) + 4)))) << 0x10) >> 0xD))) + 0x1FF)) = (s8) var_s0;
                     } else {

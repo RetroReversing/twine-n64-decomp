@@ -20,19 +20,19 @@ extern s32 D_80100190;
 extern M2C_UNK D_80102CA0;
 
 s32 func_8000B5E0(void) {
-    u16 *__base_D_8010018C;
+    u16 *p;
     s32 ret;
     s32 temp_v0;
     void *temp_v1;
 
-    __base_D_8010018C = &D_8010018C;
-    temp_v0 = (*__base_D_8010018C) + 1;
-    if ((u16) (*__base_D_8010018C) >= (u16) D_8010018A) {
+    p = &D_8010018C;
+    if (*p >= D_8010018A) {
         ret = 0;
     } else {
-        (*__base_D_8010018C) = ((*__base_D_8010018C) + 1);
-        temp_v1 = (D_80100190) + (((((*__base_D_8010018C) + 1) & 0xFFFF) * 0xC));
-        osPiStartDma(&D_800DD7B8, 0, 0, M2C_FIELD(temp_v1, s32 *, -8), M2C_FIELD(temp_v1, s32 *, -4), M2C_FIELD((((*__base_D_8010018C) * 0xC) + D_80100190), s32 *, -0xC), &D_80102CA0);
+        temp_v0 = *p + 1;
+        *p = temp_v0;
+        temp_v1 = (void *)(D_80100190 + (temp_v0 & 0xFFFF) * 0xC);
+        osPiStartDma(&D_800DD7B8, 0, 0, M2C_FIELD(temp_v1, s32 *, -8), M2C_FIELD(temp_v1, s32 *, -4), M2C_FIELD(((D_8010018C * 0xC) + D_80100190), s32 *, -0xC), &D_80102CA0);
         ret = 1;
     }
     return ret;

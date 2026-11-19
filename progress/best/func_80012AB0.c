@@ -24,20 +24,21 @@ extern char D_80107B68[];
 extern char D_80108412[];
 extern char D_8010A3C5[];
 
-u16 func_80012AB0(s32 arg0) {
-    s32 temp_a0;
+u16 func_80012AB0(u16 arg0) {
+    s32 arg0;
+    u8 *p;
 
-    temp_a0 = arg0 & 0xFFFF;
     D_800BFC32 = 3;
-    D_800E0978 = temp_a0;
-    if (!(func_80012F50(arg0, temp_a0) & 0xFFFF)) {
+    D_800E0978 = arg0;
+    if (!(func_80012F50(arg0) & 0xFFFF)) {
         if (*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) != 0) {
             if (func_8001226C(D_800E0978) == 0) {
                 D_800BFC32 = 0x81;
                 return 0x81U;
             }
-            D_80103042 = *(D_80108412 + (D_800E0978 << 5));
-            func_800103B0(D_8010A3C5);
+            p = &D_80103042;
+            *p = *(D_80108412 + (D_800E0978 << 5));
+            func_800103B0(D_8010A3C5, p, 4);
             goto block_5;
         }
 block_5:
