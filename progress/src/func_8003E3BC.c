@@ -16,20 +16,14 @@ void *func_8003E3BC(s32 arg0, s32 arg1, void *arg2) {
     u32 temp_v1;
     void *temp_v0;
     void *var_a2;
-    void *var_v0;
 
     var_a2 = arg2;
-    var_v0 = NULL;
-    if (var_a2 != NULL) {
-loop_1:
+    while (var_a2 != NULL) {
         temp_v0 = M2C_FIELD(var_a2, void **, 0x3C);
-        if ((temp_v0 == NULL) || (temp_v1 = M2C_FIELD(temp_v0, u32 *, 0x30), (((temp_v1 >> 4) & 0xFFFF) != arg0)) || (var_v0 = var_a2, ((temp_v1 >> 0x14) != arg1))) {
-            var_a2 = M2C_FIELD(var_a2, void **, 0x10);
-            var_v0 = NULL;
-            if (var_a2 != NULL) {
-                goto loop_1;
-            }
+        if (!((temp_v0 == NULL) || (temp_v1 = M2C_FIELD(temp_v0, u32 *, 0x30), (((temp_v1 >> 4) & 0xFFFF) != arg0)) || (((temp_v1 >> 0x14) != arg1)))) {
+            return var_a2;
         }
+        var_a2 = M2C_FIELD(var_a2, void **, 0x10);
     }
-    return var_v0;
+    return NULL;
 }
