@@ -64,13 +64,8 @@ void func_8002D850(void) {
     D_8010A4F0 = 1;
     D_8010A4F4 = 0;
     D_8010A4F8 = 0;
-    var_s0 = 0;
     func_80007160();
-    var_a0 = 0 << 0x10;
-    do {
-        func_80081BC4(var_a0 >> 0x10, 2);
-        temp_v0 = var_s0 + 1;
-        var_s0 = temp_v0;
-        var_a0 = var_s0 << 0x10;
-    } while (temp_v0 < 4);
+    for (temp_v0 = 0; temp_v0 < 4; temp_v0++) {
+        func_80081BC4(temp_v0, 2);
+    }
 }
