@@ -29,7 +29,7 @@ s32 __repair_phase_var_v0;
     }
     var_v0 = 0;
     if (__repair_phase_var_v0 == temp_v1) {
-        var_v0 = M2C_FIELD(arg1, s8 *, 6) < M2C_FIELD(arg0, s8 *, 6);
+        var_v0 = M2C_FIELD(arg0, s8 *, 6) > M2C_FIELD(arg1, s8 *, 6);
     }
     /* Duplicate return node #5. Try simplifying control flow for better match */
     return var_v0;
