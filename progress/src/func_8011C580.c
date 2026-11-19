@@ -25,7 +25,6 @@ extern s16 D_8011F3B0;
 extern void *D_8011F3BC;
 
 void func_8011C580(void) {
-    s32 var_v0;
     void *temp_s1;
 
     if (D_80102EDD != 0) {
@@ -36,12 +35,11 @@ void func_8011C580(void) {
                     func_8000A894(0x123);
                 }
                 func_8002B050(&D_8011F3AC, -1);
-                var_v0 = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x14;
+                M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x14;
             } else {
                 func_8011AA04();
-                var_v0 = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x1C;
+                M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x1C;
             }
-            M2C_FIELD(temp_s1, s32 *, 0x28) = var_v0;
             do { func_8002B180(&D_8011F3AC, &D_8011F0E0); } while (0);
             M2C_FIELD(temp_s1, s16 *, 0x1C) = strlen(&D_8011F0E0);
         }
