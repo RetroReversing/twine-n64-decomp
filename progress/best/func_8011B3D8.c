@@ -8,33 +8,35 @@ int __repair_literal;
 
     s32 *temp_v1;
     s32 var_a1;
-    s32 var_v0;
+    register s32 var_v0;
     void *temp_v0;
 
     var_a1 = 0;
     if (D_801002B4 > 0) {
-        register var_v0 = 0 & 0xFFFF;
+        var_v0 = 0 & 0xFFFF;
 __repair_literal = 4;
 
-loop_2:
-        temp_v0 = *((var_v0 * __repair_literal) + &D_8010A500);
-        if (temp_v0 == NULL) {
-            ++var_a1;
-            goto block_12;
-        }
-        temp_v1 = (*(s32 **)((char *)(temp_v0) + 0x6C));
-        if (temp_v1 == NULL) {
-            var_a1 += 1;
-            goto block_12;
-        }
-        if ((arg0 & 0x1E000) != (*temp_v1 & 0x1E000)) {/*__repair_loop_weight*/do {
-            var_a1++;} while (0);
+        for (;;) {
+            temp_v0 = *((var_v0 * __repair_literal) + &D_8010A500);
+            if (temp_v0 == NULL) {
+                var_a1 += 1;
+                goto block_12;
+            }
+            temp_v1 = (*(s32 **)((char *)(temp_v0) + 0x6C));
+            if (temp_v1 == NULL) {
+                var_a1 += 1;
+                goto block_12;
+            }
+            if ((arg0 & 0x1E000) == (*temp_v1 & 0x1E000)) {
+                break;
+            }
+            do {
+            ++var_a1;} while (0);
 block_12:
-            var_v0 = var_a1 & 0xFFFF;
-            if (((unsigned short)var_a1 & 0xFFFF) >= D_801002B4) {
+            var_v0 = var_a1 & (short)0xFFFF;
+            if ((var_a1 & 0xFFFF) >= D_801002B4) {
                 goto block_13;
             }
-            goto loop_2;
         }
         return temp_v1;
     }

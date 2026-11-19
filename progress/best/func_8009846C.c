@@ -8,11 +8,13 @@ extern s32 D_800F3954;
 extern s32 func_800986DC;
 
 s32 func_8009846C(s16 arg0) {
-    s32 *temp_v0;
+    s16 *__base_D_800F38BC;
     s32 ret;
+    s32 *temp_v0;
 
-    register D_800F38BC = arg0;
-    temp_v0 = func_800956E0(&D_800F38BC - 4, &D_800F3954, D_800F3950, 8, &func_800986DC);
+    __base_D_800F38BC = &D_800F38BC;
+    (*__base_D_800F38BC) = arg0;
+    temp_v0 = func_800956E0((unsigned)__base_D_800F38BC - 4, &D_800F3954, D_800F3950, 8, &func_800986DC);
     D_800F38C0 = temp_v0;
     if (temp_v0 == NULL) {
         ret = 0;

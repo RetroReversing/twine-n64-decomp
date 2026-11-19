@@ -16,6 +16,7 @@ extern char D_800EE380[];
 extern char D_800EE400[];
 
 u8 func_800968E8(s32 arg0, s32 arg1) {
+    char *__base_D_800EE380;
 int __repair_literal;
 
     u8 ret;
@@ -27,7 +28,8 @@ int __repair_literal;
     } else {
 __repair_literal = 0x10;
 
-        ret = *((temp_v1 * __repair_literal) + D_800EE380 + (arg0 & 0xFF));
+        __base_D_800EE380 = D_800EE380;
+        ret = *((temp_v1 * __repair_literal) + __base_D_800EE380 + (arg0 & 0xFF));
     }
     return ret;
 }

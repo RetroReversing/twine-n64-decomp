@@ -20,13 +20,15 @@ s32 func_80097704(s32 arg0) {
     var_a1 = 0;
     if (0 < D_800F3950) {
         var_v1 = 0;
-loop_2:
-        if (*(u16 *)(D_800F3958 + (unsigned short)var_v1) != (arg0 & (short)0xFFFF)) {
-            var_v1 += 8;
-            var_a1 += 1;
-            if (var_a1 < D_800F3950) {
-                goto loop_2;
+        for (;;) {
+            if (*(u16 *)(D_800F3958 + (unsigned short)var_v1) != (arg0 & (short)0xFFFF)) {
+                var_v1 += 8;
+                var_a1 += 1;
+                if (var_a1 < D_800F3950) {
+                    continue;
+                }
             }
+            break;
         }
     }
     var_a3 = D_800F3950;

@@ -24,6 +24,8 @@ extern char D_800C9BF0[];
 extern char D_800C9BF4[];
 
 s32 func_8007AB60(void *arg0) {
+int __repair_literal;
+
     s32 *var_s1;
     s32 var_a0;
     s32 var_a1;
@@ -45,11 +47,11 @@ s32 func_8007AB60(void *arg0) {
             temp_v1 = M2C_FIELD(temp_a1, u8 *, 0x6E);
             switch (temp_v1) {                      /* switch 2; irregular */
             case 0:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             case 1:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             case 2:                                 /* switch 2 */
@@ -72,7 +74,9 @@ block_31:
         if (M2C_FIELD(arg0, s32 *, 0x58) & 4) {
             temp_v1_2 = M2C_FIELD(temp_a1, u8 *, 0x6E);
             if (temp_v1_2 != 1) {
-                if ((s32) temp_v1_2 >= 2) {
+__repair_literal = 2;
+
+                if ((s32) temp_v1_2 >= __repair_literal) {
                     if (temp_v1_2 != 2) {
                         return 0;
                     }
@@ -89,7 +93,7 @@ block_31:
                 if (temp_v1_2 != 0) {
                     return 0;
                 }
-                var_a1_2 = *(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2));
+                var_a1_2 = *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2));
                 goto block_31;
             }
         }

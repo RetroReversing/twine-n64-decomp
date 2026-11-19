@@ -13,6 +13,7 @@ extern char D_800EDE8C[];
 extern char D_800EDE90[];
 extern u8 D_800EE1F8;
 
+typedef struct { unsigned char pad[56]; int value; } __repair_field_38;
 s32 func_80094B48(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 int __repair_literal;
 
@@ -30,13 +31,15 @@ __repair_literal = 0;
 
     if (__repair_literal < D_800EDE74) {
         var_v1 = 0;
-loop_2:
-        if ((*(s32 *)((char *)(arg0) + 0x38)) != *((s32 *)((s8 *)D_800EDCF4 + var_v1))) {
-            var_a1 += 1;
-            var_v1 += 0xC;
-            if (D_800EDE74 > var_a1) {
-                goto loop_2;
+        for (;;) {
+            if ((((__repair_field_38 *)arg0)->value) != *((s32 *)((s8 *)D_800EDCF4 + var_v1))) {
+                var_a1 += 1;
+                var_v1 += 0xC;
+                if (D_800EDE74 > var_a1) {
+                    continue;
+                }
             }
+            break;
         }
     }
     if (var_a1 == D_800EDE74) {
@@ -45,7 +48,7 @@ loop_2:
             *((s32 *)((s8 *)D_800EDCF8 + temp_v0)) = 0;
             *((s32 *)((s8 *)D_800EDCFC + temp_v0)) = 0;
             D_800EDE74 += 1;
-            *((s32 *)((s8 *)D_800EDCF4 + temp_v0)) = (*(s32 *)((char *)(arg0) + 0x38));
+            *((s32 *)((s8 *)D_800EDCF4 + temp_v0)) = (((__repair_field_38 *)arg0)->value);
             goto block_7;
         }
         goto block_8;

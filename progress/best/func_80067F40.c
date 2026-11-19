@@ -26,6 +26,8 @@ extern s32 D_80102ED8;
 extern char D_80109688[];
 
 void func_80067F40(void *arg0, void *arg1) {
+    void * __repair_hoisted;
+
     f32 sp30;
     f32 sp34;
     f32 sp38;
@@ -65,11 +67,12 @@ void func_80067F40(void *arg0, void *arg1) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s0 = M2C_FIELD(temp_s1, s8 *, 0x182);
     temp_s2 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + D_800C469C;
+    __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
     if ((D_80102ED8 == 0) || (D_801002D4 != 0)) {
         if (M2C_FIELD(temp_s2, u8 *, 0x9E) != 0xFF) {
             M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), void **, 0x68), s32 *, 0x78) = func_8004478C(M2C_FIELD(temp_s2, s16 *, 0x48), M2C_FIELD(temp_s2, s16 *, 0x40));
         }
-        M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(temp_s2, s16 *, 0x4A), M2C_FIELD(temp_s2, s16 *, 0x40));
+        M2C_FIELD(__repair_hoisted, s32 *, 0x74) = func_8004478C(arg0, M2C_FIELD(temp_s2, s16 *, 0x4A), arg1, M2C_FIELD(temp_s2, s16 *, 0x40));
         if (M2C_FIELD(temp_s2, s32 *, 0x60) & 0xC00 & (arg1 != NULL)) {
             temp_s0_2 = (temp_s0 * 4) + D_80109688;
             temp_s1_2 = M2C_FIELD(temp_s1, void **, 0xA8);

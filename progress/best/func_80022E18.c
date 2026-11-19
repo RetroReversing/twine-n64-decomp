@@ -12,13 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80015F74(s16 *);                           /* extern */
-extern s16 D_800B7D1C;
+s32 func_80015F74(s32, s16 *);                           /* extern */
+extern s8 D_800B7D1C;
 extern s32 D_800B7D20;
 
-void func_80022E18(s32 arg0) {
+void func_80022E18(u8 arg0) {
+    s8 *__base_D_800B7D1C;
     if (D_800B7D20 == 0) {
-        D_800B7D1C = arg0 & 0xFF;
-        D_800B7D20 = func_80015F74(&D_800B7D1C - 0x20);
+        __base_D_800B7D1C = &D_800B7D1C;
+        (*__base_D_800B7D1C) = arg0 & 0xFF;
+        D_800B7D20 = func_80015F74(arg0, __base_D_800B7D1C - 0x20);
     }
 }

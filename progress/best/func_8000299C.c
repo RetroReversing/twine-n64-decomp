@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_800C470A[];
+extern u8 D_800C470A[];
 extern s32 D_80102ED8;
 
 s32 func_8000299C(void *arg0, s32 arg1) {
     s32 var_a1;
     s32 var_a2;
     s32 var_v0;
-    u8 var_a2_2;
+    s32 var_a2_2;
     void *temp_a0;
 
     var_a1 = arg1;

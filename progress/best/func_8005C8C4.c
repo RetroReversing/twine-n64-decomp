@@ -22,7 +22,7 @@ extern s32 D_80109688;
 void func_8005C8C4(void) {
     s32 var_a1;
     s32 var_v0;
-    u16 temp_a0;
+    s32 temp_a0;
 
     var_a1 = 0;
     if ((D_80108788 != NULL) && (temp_a0 = M2C_FIELD(D_80108788, u16 *, 0x78), (((s32) temp_a0 < 0x13) != 0))) {

@@ -19,19 +19,17 @@ void *func_80087100(s32);                           /* extern */
 extern M2C_UNK D_80115060;
 
 void func_80020EF4(void) {
-    s16 var_s0;
+    s32 var_s0;
     void *temp_v0;
 
     func_8002A700(&D_80115060);
     var_s0 = 1;
-loop_1:
-    if ((var_s0 & 0xFFFF) < ((func_80031028(0, 0) & 0xFFFF) + 1)) {
+    while ((var_s0 & 0xFFFF) < ((func_80031028(0, 0) & 0xFFFF) + 1)) {
         temp_v0 = func_80087100(func_8003137C(var_s0, 0) & 0xFFFF);
         var_s0 += 1;
         if (temp_v0 != NULL) {
             M2C_FIELD(temp_v0, s8 *, 0) = 6;
             M2C_FIELD(temp_v0, s8 *, 1) = 0x7D;
         }
-        goto loop_1;
     }
 }

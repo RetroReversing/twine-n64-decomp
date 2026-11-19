@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80024D78(s32);                         /* extern */
+M2C_UNK func_80024D78(void);                         /* extern */
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 void ***func_8002A920(M2C_UNK *, s8);               /* extern */
 s32 func_8002AF30(M2C_UNK *);                       /* extern */
@@ -27,6 +27,7 @@ extern M2C_UNK D_80107EA8;
 extern void *D_80109BB0;
 extern M2C_UNK D_8010A950;
 
+extern char D_800D2AC8[];
 s32 func_8002495C(s32 arg0, s8 arg1) {
     s32 temp_a0;
     
@@ -39,7 +40,7 @@ s32 func_8002495C(s32 arg0, s8 arg1) {
             if (temp_a0 != 0) {
                 return 2;
             }
-            func_8002CA90("TWINE.");
+            func_8002CA90(D_800D2AC8);
             if (func_8002CC14() & 0xFFFF) {
                 func_80026424(D_80102F2C, 0x18);
                 return 2;
@@ -72,7 +73,7 @@ s32 func_8002495C(s32 arg0, s8 arg1) {
                 /* Duplicate return node #24. Try simplifying control flow for better match */
                 return __repair_phase_storage.value;
             case 0x8000:
-                func_80024D78(temp_a0);
+                func_80024D78();
                 __repair_phase_storage.value = 2;
                 M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
                 /* Duplicate return node #24. Try simplifying control flow for better match */

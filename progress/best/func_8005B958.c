@@ -22,8 +22,9 @@ extern u8 D_801007D8;
 extern void *D_80108788;
 extern s32 D_80109688;
 
+extern char D_800D4110[];
 void func_8005B958(void) {
-    s32 sp30;
+    char sp30[0x100];
     s32 temp_a0_2;
 s32 __repair_phase_temp_a0_2;
     s32 temp_s0;
@@ -42,8 +43,8 @@ s32 __repair_phase_temp_a0_2;
                 D_80100300 += 1;
                 temp_s1 = func_80087100(0xF3, 0);
                 __repair_phase_temp_a0_2 = func_80087100(0xFF);
-                sprintf(&sp30, "%s %d %s %d %s", temp_s1, D_80100300, __repair_phase_temp_a0_2, (s32) D_801007D8, func_80087100(0xFD));
-                func_80073AF8(0, D_80109688, &sp30, -1, -1, 1, 0, 0, 3, 0, 0);
+                sprintf(sp30, D_800D4110, temp_s1, D_80100300, __repair_phase_temp_a0_2, (s32) D_801007D8, func_80087100(0xFD));
+                func_80073AF8(0, D_80109688, sp30, -1, -1, 1, 0, 0, 3, 0, 0);
                 M2C_FIELD(D_80108788, s16 *, 0x7A) = 1;
                 func_8000A894(0x111);
                 temp_a0_2 = 1;

@@ -54,8 +54,8 @@ s32 func_80088AC0(s32 arg0, s32 arg1) {
         D_800E3F14 = arg0;
         D_800E3F18 = D_80100178(arg1);
         D_800E3F1C = arg0 + 4;
-        D_800CEEC1 = 0;
         D_800E3F20 = *(s32 *)arg0;
+        D_800CEEC1 = 0;
         return 1;
     }
 block_9:

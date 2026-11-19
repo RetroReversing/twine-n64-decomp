@@ -21,11 +21,9 @@ void func_800378C0(void *arg0, void *arg1) {
     temp_s2 = ((__repair_record_arg0*)arg0)->field_18;
     if ((temp_s2) && (D_80107EA0 < D_800B1D84)) {
         temp_v0 = D_80107EA0 + 1;
-        D_80107EA0 = temp_v0;
-        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
-        func_800347B0(&D_80112F90, ((__repair_record_arg0*)arg0)->field_2C * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_30 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_34 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_20 * 64.0f, ((__repair_record_arg0*)arg0)->field_24 * 64.0f, ((__repair_record_arg0*)arg0)->field_28 * 64.0f);
+        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6); D_80107EA0 = temp_v0; func_800347B0(&D_80112F90, ((__repair_record_arg0*)arg0)->field_2C * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_30 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_34 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_20 * 64.0f, ((__repair_record_arg0*)arg0)->field_24 * 64.0f, ((__repair_record_arg0*)arg0)->field_28 * 64.0f);
         func_800347B0(&D_80109BB8, (*(f32 *)((char *)(arg1) + 0x3C)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x40)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x44)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x24)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x28)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x2C)) * 64.0f);
-        func_800A3840(&D_80112F90, &D_80109BB8, &D_80112F90);
+        do { func_800A3840(&D_80112F90, &D_80109BB8, &D_80112F90); } while (0);
         { func_800A37C0(&D_80112F90, D_8010D538); }
         temp_a1 = D_80115328;
         D_80115328 = temp_a1 + 8;

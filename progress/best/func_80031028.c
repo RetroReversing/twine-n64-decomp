@@ -32,8 +32,8 @@ u16 func_80031028(s32 arg0, s32 arg1) {
                 return 0U;
             }
             if (D_800BFF04 != 0) {
-                var_a1 = 0;
                 if ((arg1 & 0xFFFF) == 1) {
+                    var_a1 = 0;
                     var_a2 = 0;
                     if ((u32) temp_a0 < (u16) D_800E1608) {
                         var_v0_2 = 0 & 0xFFFF;

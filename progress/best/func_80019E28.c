@@ -6,9 +6,9 @@ extern u16 D_800BF688[];
 extern Pk8 D_800D2914;
 extern char D_800D290C[];
 extern char D_800D291C[];
-s32 func_8002BC28(s32);
-u16 *func_80087100(u16);
-void func_80026004(s32, char *, u16 *);
+s32 func_8002BC28();
+u16 *func_80087100();
+void func_80026004();
 s32 sprintf(char *, char *, ...);
 
 void func_80019E28(s32 arg0) {
@@ -23,7 +23,7 @@ void func_80019E28(s32 arg0) {
     if (D_801002AD < D_801002B8) {
         var_a0 = 0x15C;
         if (!(func_8002BC28(D_8010019C[D_801002AD * 6]) & 0xFF)) {
-            var_a0 = 0x15B;
+            register var_a0 = 0x15B;
         }
         var_a2 = func_80087100(var_a0);
     } else {
@@ -35,8 +35,8 @@ void func_80019E28(s32 arg0) {
             var_a0 = 0x15B;
         }
         temp_s1 = func_80087100(var_a0);
-        sprintf(sp10, D_800D291C, temp_s1, func_80087100(((u16 *)&sp30)[temp_s0]));
+        do { sprintf(sp10, D_800D291C, temp_s1, func_80087100(((u16 *)&sp30)[temp_s0])); } while (0);
         var_a2 = (u16 *)sp10;
     }
-    func_80026004(arg0, D_800D290C, var_a2);
+    func_80026004(arg0, D_800D290C);
 }

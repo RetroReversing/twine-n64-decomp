@@ -6,8 +6,9 @@ extern char D_148B400[];
 extern u16 *D_800C994C;
 extern s32 D_800C9958;
 
+typedef struct { unsigned char pad_0[2]; short field_2; int field_4; } __repair_record_var_s0;
 void func_8007539C(void) {
-    register s32 sp10;
+    u8 sp10[0x400];
     int sp410;
     char *var_s3;
     register s32 var_s1;
@@ -26,9 +27,9 @@ void func_8007539C(void) {
             var_s0 = temp_v1;
             var_s1 = *(s32 *)var_s3;
             __repair_rows: {
-                do{{ func_8000B9B8(&sp410, var_s1 + D_148B400, 4); }{ func_8000B9B8(&sp10, sp410 + D_148B400, 0x400); }}while(0);
-                (*(s16 *)((char *)(var_s0) + 2)) = strlen(&sp10);
-                (*(s32 *)((char *)(var_s0) + 4)) = sp410;
+                do{{ func_8000B9B8(&sp410, var_s1 + D_148B400, 4); }{ func_8000B9B8(sp10, sp410 + D_148B400, 0x400); }}while(0);
+                (((__repair_record_var_s0*)var_s0)->field_2) = strlen(sp10);
+                (((__repair_record_var_s0*)var_s0)->field_4) = sp410;
                 var_s0 += 8;
                 var_s1 += 4;
             }

@@ -16,6 +16,7 @@ extern char D_800F37E0[];
 extern s8 D_800F3860[];
 
 u8 func_80096970(s32 arg0, s32 arg1) {
+    char *__base_D_800F37E0;
     u8 ret;
 int __repair_literal;
 
@@ -26,7 +27,8 @@ int __repair_literal;
         ret = *(D_800F3860 + (arg0 & 0xFF));
     } else {
     __repair_literal = 0x10;
-        ret = *((temp_v1 * __repair_literal) + D_800F37E0 + (arg0 & 0xFF));
+        __base_D_800F37E0 = D_800F37E0;
+        ret = *((temp_v1 * __repair_literal) + __base_D_800F37E0 + (arg0 & 0xFF));
     }
     return ret;
 }

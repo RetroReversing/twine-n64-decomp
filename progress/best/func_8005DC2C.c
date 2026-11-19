@@ -21,7 +21,7 @@ void *func_8005DC2C(s32 arg0, s32 arg1, void *arg2, void *arg3) {
 
     temp_v0 = func_80016410(0x50, arg0, arg1);
     if (temp_v0 != NULL) {
-        temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
+        register temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
         (*(s32 *)((char *)(temp_s0) + 0x4C)) &= ~0x40;
         temp_v1 = (*(u8 *)((char *)((*(void **)((char *)(arg2) + 0x24))) + 0x1E));
         switch (temp_v1) {                          /* irregular */
@@ -67,7 +67,7 @@ block_11:
         if ((*(u16 *)((char *)(arg2) + 0x40)) == 0) {
             var_v0_2 = (*(s32 *)((char *)(temp_s0) + 0x4C)) | 0x80;
         } else {
-            register var_v0_2 = (*(s32 *)((char *)(temp_s0) + 0x4C)) & ~0x80;
+            var_v0_2 = (*(s32 *)((char *)(temp_s0) + 0x4C)) & ~0x80;
         }
         *(D_80109A60 + (*(u16 *)((char *)(temp_s0) + 0x34))) = (s8) (*(u16 *)((char *)(arg2) + 0x32));
         (*(s32 *)((char *)(temp_s0) + 0x4C)) = var_v0_2;
@@ -89,12 +89,12 @@ block_11:
             (*(f32 *)((char *)(temp_v0) + 0x44)) = (f32) ((f64) (*(f32 *)((char *)(arg3) + 0x14)) * D_800D4170);
         }
         (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x24));
-        (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x28));
         (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x2C));
+        (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x28));
         (*(f32 *)((char *)(temp_v0) + 0x48)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x3C));
         (*(f32 *)((char *)(temp_v0) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x40));
-        (*(f32 *)((char *)(temp_v0) + 0x50)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x44));
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
+        (*(f32 *)((char *)(temp_v0) + 0x50)) = (f32) (*(f32 *)((char *)(temp_v0) + 0x44));
         (*(s16 *)((char *)(temp_v0) + 0x7C)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x600;
         func_8003E6EC(*D_800CA31C, temp_v0, 1);

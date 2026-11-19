@@ -16,16 +16,16 @@ extern void **D_80109BB0;
 
 void func_80026E9C(s32 arg0) {
     s32 var_a1;
-    void *temp_a0;
     void *temp_a0_2;
-    void *temp_v0;
+    void *temp_a0;
+    
     void *temp_v1;
 
     if (D_80109BB0 != NULL) {
-        temp_v0 = M2C_FIELD(D_80109BB0, void **, 0x10);
-        if (temp_v0 != NULL) {
-            var_a1 = 0;
-            if (M2C_FIELD(temp_v0, u8 *, 5) != 0) {
+        temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x10);
+        if (temp_a0 != NULL) {
+            if (M2C_FIELD(temp_a0, u8 *, 5) != 0) {
+                var_a1 = 0;
                 do {
                     temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s32 *, 0) + ((var_a1 & 0xFF) * 0x28)), void **, 8);
                     if (temp_v1 != NULL) {

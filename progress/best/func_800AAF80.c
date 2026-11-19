@@ -36,7 +36,7 @@ f64 func_800AAF80(f64 arg0, s32 arg1, void *arg2) {
     if (var_a1 < 7) {
         __repair_rows: {
             var_a1 += 1;
-            *(s32 *)(arg2 + var_a1) = 0;
+            *(s8 *)(arg2 + var_a1) = 0;
         }
 if ((temp_v1_2 = var_a1) < 7) goto __repair_rows;
     }

@@ -28,12 +28,7 @@ void func_800637DC(void *arg0) {
     temp_v0 = M2C_FIELD(arg0, void **, 0x3EC);
     if (temp_v0 != NULL) {
         temp_ft0 = M2C_FIELD(arg0, f32 *, 0x34) * 23.0f;
-        temp_fv1 = (120.0f - temp_ft0) - 8.0f;
-        if (!(temp_fv1 >= 2.1474836e9f)) {
-            var_v1 = (s32) temp_fv1;
-        } else {
-            var_v1 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-        }
+        var_v1 = (u32) (temp_fv1 = (120.0f - temp_ft0) - 8.0f);
         temp_fv1_2 = (120.0f - temp_ft0) - 8.0f;
         M2C_FIELD(temp_v0, s16 *, 0x22) = (s16) var_v1;
         temp_a1 = M2C_FIELD(arg0, void **, 0x3F0);

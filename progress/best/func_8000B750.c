@@ -19,7 +19,7 @@ extern s16 D_8010018C;
 extern s32 D_80100190;
 extern s32 D_80100194;
 
-s32 func_8000B750(s32 arg0, s16 arg1, s32 arg2) {
+s32 func_8000B750(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 != 0) {
         D_80100190 = arg0;
         D_8010018A = arg1;

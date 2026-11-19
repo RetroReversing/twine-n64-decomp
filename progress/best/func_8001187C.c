@@ -22,8 +22,9 @@ extern s32 D_800E0968;
 extern s16 D_800E097C;
 extern M2C_UNK D_80103030;
 
+extern char D_800D24E0[];
 void func_8001187C(s32 arg0, s32 arg1, s32 arg2) {
-    M2C_UNK sp10;
+    char sp10[0x20];
     s32 temp_v0;
     s32 var_v0;
     s32 var_v0_2;
@@ -41,13 +42,13 @@ void func_8001187C(s32 arg0, s32 arg1, s32 arg2) {
         var_v0_2 += 0xFF;
     }
     D_800E0968 = var_v0_2 >> 8;
-    sprintf(&D_80103030, "%s", arg0);
+    sprintf(&D_80103030, D_800D24E0, arg0);
     D_800E097C = 0;
     temp_v0_2 = strchr(&D_80103030, 0x2E);
     if (temp_v0_2 != NULL) {
         *temp_v0_2 = 0;
         D_800E097C = 1;
     }
-    func_800104B8(&sp10, &D_80103030, 0x10);
-    func_800103B0(&D_80103030, &sp10, 0x10);
+    func_800104B8(sp10, &D_80103030, 0x10);
+    func_800103B0(&D_80103030, sp10, 0x10);
 }

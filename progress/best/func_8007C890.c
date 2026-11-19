@@ -18,7 +18,6 @@ s32 func_80077E00(void *);                          /* extern */
 M2C_UNK func_8007947C();                            /* extern */
 
 s32 func_8007C890(void *arg0, s32 arg1) {
-    s32 var_v0;
     s32 var_v0_2;
     void *temp_s1;
     void *temp_v0;
@@ -26,7 +25,6 @@ s32 func_8007C890(void *arg0, s32 arg1) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_s1, void **, 0x40);
     if (temp_v0 != NULL) {
-        var_v0 = 0;
         if ((u32) (M2C_FIELD(temp_v0, u16 *, 0x78) - 1) >= 2U) {
             func_8007947C();
             M2C_FIELD(temp_s1, void **, 0x40) = NULL;
@@ -46,7 +44,7 @@ block_5:
             }
         }
 block_7:
-        var_v0 = 1;
+        return 1;
     }
-    return var_v0;
+    return 0;
 }

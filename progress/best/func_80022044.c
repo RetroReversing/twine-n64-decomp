@@ -25,18 +25,19 @@ extern u8 D_801002AD;
 extern void *D_80109BB0;
 extern char D_8010A488[];
 
+extern char D_800D2AA0[];
 void func_80022044(void) {
     s32 temp_s0;
     u8 var_s1;
 
     func_80029068();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        var_s1 = *(D_80100198 + (D_801002AD * 0x18));
         temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28;
+        var_s1 = *(D_80100198 + (D_801002AD * 0x18));
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }
-        func_80026004(temp_s0, "%s", func_80087100((unsigned short)(var_s1 + 0x96)));
+        func_80026004(temp_s0, D_800D2AA0, func_80087100((unsigned short)(var_s1 + 0x96)));
         func_8002A700(D_8010A488);
         func_80021CA0(var_s1);
         func_8002AC04(D_8010A488, 1);

@@ -25,13 +25,15 @@ __repair_literal = 0;
     if (D_800FD560 > __repair_literal) {
         var_a0 &= 0xFFFF;
         var_v1 = 0;
-loop_2:
-        if (*(u16 *)(D_800FD564 + var_v1) != var_a0) {
-            var_s0 += 1;
-            var_v1 += 8;
-            if (var_s0 < D_800FD560) {
-                goto loop_2;
+        for (;;) {
+            if (*(u16 *)(D_800FD564 + var_v1) != var_a0) {
+                var_s0 += 1;
+                var_v1 += 8;
+                if (var_s0 < D_800FD560) {
+                    continue;
+                }
             }
+            break;
         }
     }
     var_v0 = 0;

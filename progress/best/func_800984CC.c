@@ -9,9 +9,11 @@ extern s32 func_800986DC;
 
 s32 func_800984CC(s16 arg0) {
     s32 *temp_v0;
+    s16 *__base_D_800F38C8;
 
-    register D_800F38C8 = arg0;
-    temp_v0 = func_800956E0(&D_800F38C8 - 4, &D_800F7958, D_800F7954, 8, &func_800986DC);
+    __base_D_800F38C8 = &D_800F38C8;
+    (*__base_D_800F38C8) = arg0;
+    temp_v0 = func_800956E0((s32)__base_D_800F38C8 - 4, &D_800F7958, D_800F7954, 8, &func_800986DC);
     D_800F38CC = temp_v0;
     if (temp_v0 == NULL) { goto __repair_guard_body; }
 return *temp_v0;

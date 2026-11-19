@@ -1,4 +1,16 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
 extern unsigned char D_800DD7A4;
 extern unsigned char D_800DD7A5;
@@ -10,7 +22,7 @@ s32 osSendMesg();
 s32 osSetEventMesg();
 s32 osSpTaskStartGo();
 u32 osSpTaskYielded();
-extern s8 D_800DD790;
+extern u8 D_800DD790[];
 extern s32 D_800DD798;
 extern s32 D_800DD79C;
 extern s32 D_800DD7A0;
@@ -24,16 +36,18 @@ extern char D_80112E60[];
 extern u8 D_80112FD0;
 
 void func_8000AECC(void) {
+    s8 *__base_D_800DD790;
     void *sp10;
     s32 temp_a0;
     s32 temp_a0_2;
-    unsigned long temp_v0;
-    u8 temp_v1;
+    u32 temp_v0;
+    s32 temp_v1;
 
-    D_800DD790 = 0x81;
+    __base_D_800DD790 = D_800DD790;
+    (*D_800DD790) = 0x81;
     osCreateMesgQueue(D_80109C00, D_80112E60, 8);
-    osSetEventMesg(4, D_80109C00, &D_800DD790);
-    osCreateMesgQueue(D_8010A3A8, D_8010A4AC);
+    osSetEventMesg(4, D_80109C00, __base_D_800DD790);
+    osCreateMesgQueue(D_8010A3A8, D_8010A4AC, 1);
     osCreateMesgQueue(D_8010A938, D_8010090C, 1);
     D_800DD798 = 0;
     D_800DD7A4 = 0U;
@@ -41,86 +55,88 @@ void func_8000AECC(void) {
     D_800E0710 = 0;
 loop_1:
     D_80112FD0 = 0;
-loop_2:
-    osRecvMesg(D_80109C00, &sp10, 1);
-    temp_v1 = (*(u8 *)((char *)(sp10) + 0));
-    if (temp_v1 == 2) {
-        if (D_800E0710 == 0) {
-            register D_800E0710 = 1;
-            if (D_80112FD0 == 0) {
-                D_800DD7A5 = 1U;
-                D_80112FD0 = 1;
-                func_800A2030((*(s32 *)((char *)(sp10) + 4)));
-                osSpTaskStartGo((*(s32 *)((char *)(sp10) + 4)));
-            } else {
-                func_800A2270(sp10);
-                D_800DD79C = (*(s32 *)((char *)(sp10) + 4));
+    for (;;) {
+        osRecvMesg(D_80109C00, &sp10, 1);
+        temp_v1 = M2C_FIELD(sp10, u8 *, 0);
+        if (temp_v1 == 2) {
+            if (D_800E0710 == 0) {
+                D_800E0710 = 1;
+                if (D_80112FD0 == 0) {
+                    D_800DD7A5 = 1U;
+                    D_80112FD0 = 1;
+                    func_800A2030(M2C_FIELD(sp10, s32 *, 4));
+                    osSpTaskStartGo(M2C_FIELD(sp10, s32 *, 4));
+                } else {
+                    func_800A2270(sp10);
+                    D_800DD79C = M2C_FIELD(sp10, s32 *, 4);
+                }
             }
+            continue;
         }
-        goto loop_2;
-    }
-    if (temp_v1 < 3) {
-        if (temp_v1 != 1) {
+        if ((s32) temp_v1 < 3) {
+            if (temp_v1 != 1) {
 
-        } else if ((!D_80112FD0) && (D_800E0710 == 0)) {
-            temp_a0 = (*(s32 *)((char *)(sp10) + 4));
-            D_800DD7A4 = 1U;
-            D_80112FD0 = 1;
-            D_800DD7A0 = temp_a0;
-            func_800A2030(temp_a0);
+            } else if ((D_80112FD0 == 0) && (D_800E0710 == 0)) {
+                temp_a0 = M2C_FIELD(sp10, s32 *, 4);
+                D_800DD7A4 = 1U;
+                D_80112FD0 = 1;
+                D_800DD7A0 = temp_a0;
+                func_800A2030(temp_a0);
+                osSpTaskStartGo(D_800DD7A0);
+            } else {
+                D_800DD798 = M2C_FIELD(sp10, s32 *, 4);
+            }
+            continue;
+        }
+        if (temp_v1 != 0x81) {
+            continue;
+        }
+        if (D_800DD79C != 0) {
+            do {
+                temp_v0 = osSpTaskYielded(D_800DD7A0);
+            } while (temp_v0 >= 2U);
+            func_800A2030(D_800DD79C);
+            osSpTaskStartGo(D_800DD79C);
+            D_800DD79C = 0;
+            if (temp_v0 == 0) {
+                D_800DD7A5 = 0U;
+            } else {
+                D_800DD7A5 = 2U;
+            }
+            continue;
+        }
+        if (D_800DD7A5 == 2) {
+            D_800E0710 = 0;
+            osSendMesg(D_8010A938, 0, 1);
+            func_800A2030(D_800DD7A0);
             osSpTaskStartGo(D_800DD7A0);
-        } else {
-            D_800DD798 = (*(s32 *)((char *)(sp10) + 4));
-        }
-        goto loop_2;
-    }
-    if (temp_v1 != 0x81) {
-        goto loop_2;
-    }
-    if (D_800DD79C != 0) {
-        do {
-            temp_v0 = osSpTaskYielded(D_800DD7A0);
-        } while (temp_v0 >= 2U);
-        func_800A2030(D_800DD79C);
-        osSpTaskStartGo(D_800DD79C);
-        D_800DD79C = 0;
-        if (temp_v0 == 0) {
             D_800DD7A5 = 0U;
+            continue;
+        }
+        if (D_800DD7A5 == 0) {
+            if (D_800DD7A4 != 0) {
+                D_800DD7A4 = 0U;
+                osSendMesg(D_8010A3A8, 0, 0);
+            }
+            if (D_800E0710 != 0) {
+                D_800E0710 = 0;
+                osSendMesg(D_8010A938, 0, 0);
+            }
         } else {
-            D_800DD7A5 = 2U;
-        }
-        goto loop_2;
-    }
-    if (D_800DD7A5 == 2) {
-        D_800E0710 = 0;
-        osSendMesg(D_8010A938, 0, 1);
-        func_800A2030(D_800DD7A0);
-        osSpTaskStartGo(D_800DD7A0);
-        D_800DD7A5 = 0U;
-        goto loop_2;
-    }
-    if (D_800DD7A5 == 0) {
-        if (D_800DD7A4 != 0) {
-            D_800DD7A4 = 0U;
-            osSendMesg(D_8010A3A8, 0, 0);
-        }
-        if (D_800E0710 != 0) {
             D_800E0710 = 0;
             osSendMesg(D_8010A938, 0, 0);
+            D_800DD7A5 = 0U;
         }
-    } else {
-        D_800E0710 = 0;
-        osSendMesg(D_8010A938, 0, 0);
-        D_800DD7A5 = 0U;
+        temp_a0_2 = D_800DD798;
+        if (temp_a0_2 == 0) {
+            goto loop_1;
+        }
+        D_800DD7A0 = temp_a0_2;
+        D_800DD798 = 0;
+        func_800A2030(temp_a0_2);
+        osSpTaskStartGo(D_800DD7A0);
+        D_800DD7A4 = 1U;
+        continue;
+        break;
     }
-    temp_a0_2 = D_800DD798;
-    if (temp_a0_2 == 0) {
-        goto loop_1;
-    }
-    D_800DD7A0 = temp_a0_2;
-    D_800DD798 = 0;
-    func_800A2030(temp_a0_2);
-    osSpTaskStartGo(D_800DD7A0);
-    D_800DD7A4 = 1U;
-    goto loop_2;
 }

@@ -87,7 +87,7 @@ block_12:
         var_a0_3 = 0;
         var_a1 = 0;
         do {
-            if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) == *(D_800C4486 + var_a1)) {
+            if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) == *(s16 *)(D_800C4486 + var_a1)) {
                 M2C_FIELD(temp_s1, u16 *, 0x174) = var_a0_3;
             }
             var_a0_3 += 1;

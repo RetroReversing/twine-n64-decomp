@@ -53,6 +53,8 @@ block_7:
         M2C_FIELD(temp_a2, s8 *, 0x7F) = 1;
         func_80002BD0(arg0, 0x124, temp_a2);
         /* fallthrough */
+    case 11:
+    case 12:
     default:
         return;
     }

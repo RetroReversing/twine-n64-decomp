@@ -10,31 +10,28 @@ extern s32 D_8011F338;
 void func_8011CEA0(void) {
     register s32 var_s1;
     s32 temp_s2;
-    s32 var_s0;
     u32 var_v1;
     s32 temp_a0;
     void *var_a2;
 
     var_s1 = 0;
     if (0 < D_801002C0) {
-        var_s0 = 0;
         do {
             temp_s2 = (var_s1 & 0xFFFF) * 4;
-            var_v1 = 0 & 0xFFFF;
-do {
-            temp_a0 = *(temp_s2 + ((var_v1 * 0x10) + &D_8011F338));
-            if (temp_a0 != 0) {
-                if (2U > var_v1) {
-                    var_a2 = *((var_v1 * 4) + &D_8011F160);
-                } else {
-                    var_a2 = (var_v1 * 0xC) + D_8011F280;
-                }
-                func_8011E95C(temp_a0, *(temp_s2 + &D_8010A500), var_a2, var_s1 & 0xFFFF);
-            }
-            var_v1 = var_s0 & 0xFFFF;
-            ++var_s0;
-            } while ((u32) (var_s0 & 0xFFFF) < 4U);
-            var_s0 = 0;
+{
+    u16 __repair_i;
+    for (__repair_i = 0; __repair_i < 4; __repair_i++) {
+        temp_a0 = *(temp_s2 + ((__repair_i * 0x10) + &D_8011F338));
+        if (temp_a0 != 0) {
+        if (2U > __repair_i) {
+        var_a2 = (&D_8011F160)[__repair_i];
+        } else {
+        var_a2 = (__repair_i * 0xC) + D_8011F280;
+        }
+        func_8011E95C(temp_a0, *(temp_s2 + &D_8010A500), var_a2, var_s1 & 0xFFFF);
+        }
+    }
+}
             ++var_s1;
         } while ((var_s1 & 0xFFFF) < D_801002C0);
     }

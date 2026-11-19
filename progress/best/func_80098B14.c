@@ -2,7 +2,7 @@
 
 s32 func_80098A18();
 extern char D_80102CE0[];
-extern char D_8010957D[];
+extern u8 D_8010957D[];
 extern u16 D_80109B1C;
 extern char D_8010A51A[];
 extern char D_8010A51C[];
@@ -15,13 +15,13 @@ s32 __repair_phase_temp_a2;
     
     register s32 temp_v0_3;
     
-    s32 temp_v1_2;
+    unsigned long temp_v1_2;
 s32 __repair_phase_temp_v1_2;
     
     u16 temp_a1;
     u16 var_a0;
     u16 var_s2;
-    unsigned temp_a0;
+    register unsigned temp_a0;
     long temp_a3;
     u32 var_v1;
     u8 temp_s4;
@@ -42,7 +42,7 @@ block_3:
         (*(u8 *)((char *)(__repair_phase_storage.pointer) + 0)) = 0xFF;
         temp_v0 = *(D_8010957D + __repair_phase_temp_a2);
         (*(u8 *)((char *)(__repair_phase_storage.pointer) + 1)) = temp_v0;
-        if ((temp_v0 & 0xFF) != 0xFF) {
+        if ((temp_v0 & (s32)0xFF) != 0xFF) {
             *(D_80102CE0 + (*(D_8010957D + __repair_phase_temp_a2) * 4)) = ((*(u8 *)((char *)(arg0) + 0x63)));
             temp_a2 = arg1 & 0xFF;
         } else {
@@ -56,15 +56,15 @@ block_3:
                     var_v1 = var_a0 & 0xFFFF;
 loop_8:
                     if (temp_a3 >= var_v1) {
-                        register var_s2 = var_a0;
+                        var_s2 = var_a0;
                         var_a0 = *(u16 *)(D_8010A51A + (var_v1 * 4));
                         var_v1 = var_a0 & 0xFFFF;
                         if (var_a0 != 0xFFFF) {
                             goto loop_8;
                         }
                     }
-                    *(u16 *)(D_8010A51A + ((var_s2 & 0xFFFF) * 4)) = temp_v1_2;
                     temp_v0_3 = (arg1 & 0xFF) * 4;
+                    *(u16 *)(D_8010A51A + ((var_s2 & 0xFFFF) * 4)) = temp_v1_2;
                     temp_a2 = var_a0 & 0xFFFF;
                     *(s16 *)(D_8010A51C + temp_v0_3) = var_s2;
                     *(u16 *)(D_8010A51A + temp_v0_3) = __repair_store_halfword(var_a0);

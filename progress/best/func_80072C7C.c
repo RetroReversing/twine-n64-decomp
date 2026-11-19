@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80045348(f32 *, f32 *, M2C_UNK *);     /* extern */
-f32 func_80045D2C(M2C_UNK);                         /* extern */
+f32 func_80045D2C(f32);                         /* extern */
 s32 func_800723C0(f32 *, f32 *, f32 *, s32, s32);   /* extern */
 extern f32 D_800E1A34;
 
@@ -38,8 +38,8 @@ void func_80072C7C(f32 arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
     f32 temp_fv0;
 
     temp_fs2 = arg0 + 1.0f;
-    sp40 = func_80045D2C(0x3F000000);
-    temp_fv0 = func_80045D2C(0x3F000000);
+    sp40 = func_80045D2C(0.5f);
+    temp_fv0 = func_80045D2C(0.5f);
     temp_fs1 = 1.0f - (sp40 + temp_fv0);
     sp44 = temp_fv0;
     sp48 = temp_fs1;

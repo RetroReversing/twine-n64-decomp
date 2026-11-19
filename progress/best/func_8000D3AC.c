@@ -26,8 +26,7 @@ void func_8000D3AC(s32 arg0, u32 arg1) {
     void *temp_v1_3;
     void *temp_v1_4;
 
-    temp_t0 = arg0 * 0xD4;
-    temp_a2 = (char *)(D_800B2710); temp_a2 += (s32)(temp_t0);
+    temp_a2 = (char *)(D_800B2710); temp_a2 += (s32)((temp_t0 = arg0 * 0xD4));
     temp_a3 = (*(void **)((char *)(temp_a2) + 0x68));
     (*(s16 *)((char *)(temp_a2) + 0x82)) = (s16) (arg1 >> 8);
     (*(s16 *)((char *)(temp_a2) + 0x80)) = 0;

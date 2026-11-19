@@ -18,6 +18,7 @@ extern u16 D_800E1608;
 extern u8 D_800E160A;
 
 s32 func_80030C7C(void) {
+    s32 *__base_D_800BFF04;
     s32 temp_v0;
     s32 var_a0;
     s32 var_v0;
@@ -37,31 +38,34 @@ s32 func_80030C7C(void) {
         if (D_800BFF10 != 9) {
 block_7:
             var_a0 = 0;
-            if (D_800BFF04 != 0) {
-loop_9:
-                temp_v1 = var_a0 & 0xFFFF;
-                if (temp_v1 < (u16) D_800E1608) {
-                    temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + D_800BFF04), u16 *, 2);
-                    if ((u16) D_800E160A >= (u32) (temp_v1_2 & 0xF000)) {
-                        temp_v0 = temp_v1_2 & 0xF;
-                        if (!(temp_v1_2 & 0x200)) {
-                            if (temp_v0 == 2) {
-                                return 0x9F;
+            __base_D_800BFF04 = &D_800BFF04;
+            if ((*__base_D_800BFF04) != 0) {
+                for (;;) {
+                    temp_v1 = var_a0 & 0xFFFF;
+                    if (temp_v1 < (u16) D_800E1608) {
+                        temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + (*__base_D_800BFF04)), u16 *, 2);
+                        if ((u16) D_800E160A >= (u32) (temp_v1_2 & 0xF000)) {
+                            temp_v0 = temp_v1_2 & 0xF;
+                            if (!(temp_v1_2 & 0x200)) {
+                                if (temp_v0 == 2) {
+                                    return 0x9F;
+                                }
+                                var_v0 = 0x9E;
+                                if (temp_v0 != 0) {
+                                    goto block_16;
+                                }
+                                /* Duplicate return node #18. Try simplifying control flow for better match */
+                                return var_v0;
                             }
-                            var_v0 = 0x9E;
-                            if (temp_v0 != 0) {
-                                goto block_16;
-                            }
-                            /* Duplicate return node #18. Try simplifying control flow for better match */
-                            return var_v0;
                         }
-                    }
 block_16:
-                    var_a0 += 1;
-                    if (D_800BFF04 == 0) {
-                        goto block_17;
+                        var_a0 += 1;
+                        if ((*__base_D_800BFF04) == 0) {
+                            goto block_17;
+                        }
+                        continue;
                     }
-                    goto loop_9;
+                    break;
                 }
                 goto block_17;
             }

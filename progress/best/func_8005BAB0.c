@@ -10,10 +10,11 @@ extern void *D_80108788;
 extern void *D_80109688;
 extern u8 D_8010A91C;
 
+extern char D_800D4110[];
 void func_8005BAB0(void) {
 int __repair_literal;
 
-    s32 sp30;
+    char sp30[0x100];
     char *var_s3;
     s32 temp_s1;
     s32 temp_s0;
@@ -34,9 +35,9 @@ __repair_literal = 4;
                     D_8010A91C += 1;
                     temp_s1 = func_80087100(0xFA, temp_a1);
                     temp_s0 = func_80087100(0xFF);
-                    sprintf(&sp30, "%s %d %s %d %s", temp_s1, D_8010A91C, temp_s0, (s32) D_80102F28, func_80087100(0xFE));
+                    sprintf(sp30, D_800D4110, temp_s1, D_8010A91C, temp_s0, (s32) D_80102F28, func_80087100(0xFE));
                     (*(s16 *)((char *)(D_80108788) + 0x7A)) = 1;
-                    func_80073AF8(0, D_80109688, &sp30, -1, -1, 1, 0, 0, 3, 0, 0);
+                    func_80073AF8(0, D_80109688, sp30, -1, -1, 1, 0, 0, 3, 0, 0);
                 }
                 var_s2++;
                 var_s3 += 4;

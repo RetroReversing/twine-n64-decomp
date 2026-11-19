@@ -43,6 +43,8 @@ block_4:
         M2C_FIELD(temp_v1, s8 *, 0x7F) = 0;
         M2C_FIELD(arg0, s16 *, 0x7C) = 0;
         return 1;
+    case 11:
+    case 12:
     default:
         return 0;
     }

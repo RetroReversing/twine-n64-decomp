@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_80046140(M2C_UNK, f32);                    /* extern */
-f32 func_80082A70(M2C_UNK, f32);                    /* extern */
+f32 func_80082A70(void);                    /* extern */
 
 void func_80046424(void *arg0, M2C_UNK arg1, M2C_UNK arg2, f32 arg3) {
     f32 temp_fv0;
 
-    M2C_FIELD(arg0, f32 *, 0) = (f32) (func_80082A70(arg2, func_80046140(arg1, arg3)) * 651.8986f);
-    temp_fv0 = func_80082A70(arg1, arg3) * 651.8986f;
+    M2C_FIELD(arg0, f32 *, 0) = (f32) (func_80082A70() * 651.8986f);
+    temp_fv0 = func_80082A70() * 651.8986f;
     M2C_FIELD(arg0, s32 *, 8) = 0;
     M2C_FIELD(arg0, f32 *, 4) = temp_fv0;
 }

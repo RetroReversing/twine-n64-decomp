@@ -18,21 +18,24 @@ extern M2C_UNK D_80109688;
 f32 func_80084270(s32 arg0, s16 *arg1) {
     f32 temp_fv0;
     f32 var_fs0;
-    s16 var_s0;
-    s16 var_v0;
+    int var_s0;
+    s32 var_v0;
     void *temp_a0;
+    M2C_UNK *__base_D_80109688;
+
+    __base_D_80109688 = &D_80109688;
 
     var_fs0 = 65536.0f;
     var_s0 = 0;
-    *arg1 = 0;
-    do {
-        temp_a0 = *(((s32) (var_s0 << 0x10) >> 0xE) + &D_80109688);
-        var_v0 = var_s0 + 1;
+    do {*arg1 = 0;}while(0);
+    __repair_rows: { {
+        temp_a0 = *(((s32) (var_s0 << 0x10) >> 0xE) + __base_D_80109688);do{
+        var_v0 = var_s0 + 1;}while(0);
         if (temp_a0 != NULL) {
             var_v0 = var_s0 + 1;
             if (!(M2C_FIELD(temp_a0, s32 *, 0x100) & 0x100)) {
-                temp_fv0 = func_80045E34(temp_a0 + 0x10, arg0);
-                var_v0 = var_s0 + 1;
+                temp_fv0 = func_80045E34(temp_a0 + 0x10, arg0);do{
+                var_v0 = var_s0; var_v0 += 1;}while(0);
                 if (temp_fv0 < var_fs0) {
                     var_fs0 = temp_fv0;
                     *arg1 = var_s0;
@@ -40,6 +43,8 @@ f32 func_80084270(s32 arg0, s16 *arg1) {
             }
         }
         var_s0 = var_v0;
-    } while (var_v0 < 6);
+    }
+}
+if (var_v0 < 6) goto __repair_rows;
     return var_fs0;
 }

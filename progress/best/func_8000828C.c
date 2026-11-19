@@ -34,8 +34,8 @@ void func_8000828C(void) {
     }
     D_800B1D80 = 0x190;
     D_800B1D7C = 0xBB8;
-    var_v0 = 0xE74;
     if (D_80108F78 == 0x24) {
+var_v0 = 0xE74;
 block_3:
         D_800B1D7C = var_v0;
     }

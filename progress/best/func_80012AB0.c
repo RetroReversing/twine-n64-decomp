@@ -30,7 +30,7 @@ u16 func_80012AB0(s32 arg0) {
     temp_a0 = arg0 & 0xFFFF;
     D_800BFC32 = 3;
     D_800E0978 = temp_a0;
-    if (!(func_80012F50(temp_a0) & 0xFFFF)) {
+    if (!(func_80012F50(arg0, temp_a0) & 0xFFFF)) {
         if (*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) != 0) {
             if (func_8001226C(D_800E0978) == 0) {
                 D_800BFC32 = 0x81;

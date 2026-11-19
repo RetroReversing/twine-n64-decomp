@@ -21,9 +21,9 @@ extern s32 D_801002B8;
 extern s32 D_80102ED8;
 extern char D_80109688[];
 
-void func_800720E8(void *arg0, u16 arg1) {
-    u8 var_v0;
-    s8 temp_a0;
+void func_800720E8(void *arg0, s32 arg1) {
+    s32 var_v0;
+    s32 temp_a0;
     f64 temp_fv1;
     s32 temp_fv0;
     void *temp_s0;

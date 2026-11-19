@@ -1,0 +1,150 @@
+extern s16 D_800E093A;
+extern u8 D_800E0790[];
+extern u32 D_800E0940[];
+extern s16 D_800BFC32;
+extern s32 D_801032A8;
+extern u8 D_80102D60;
+extern s16 D_80109DC8[];
+extern s32 func_80011800(s32, void *, s32, s32, s32, s32, s32, s32);
+extern s32 func_800109CC(void);
+extern s32 func_80010B60(s32);
+
+typedef struct { u32 v; } __attribute__((packed)) UW;
+#define ENT(i) ((u8 *)D_800E0790 + (i) * 104)
+#define CP32(d, s) { u32 *dd_ = (u32 *)(d); UW *ss_ = (UW *)(s); \
+    dd_[0] = ss_[0].v; dd_[1] = ss_[1].v; dd_[2] = ss_[2].v; dd_[3] = ss_[3].v; \
+    dd_[4] = ss_[4].v; dd_[5] = ss_[5].v; dd_[6] = ss_[6].v; dd_[7] = ss_[7].v; }
+
+s32 func_80010C00(void)
+{
+    s32 idx;
+    s32 x;
+    s32 st;
+    s32 a1;
+    u8 flag;
+
+    idx = D_800E093A;
+    func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+    func_800109CC();
+    if (D_800E093A != 0) return 0;
+    st = D_800BFC32;
+    if (st == 0x20) goto cec;
+    if (st < 0x21) {
+        if (st == 1) goto fb4;
+        if (st <= 0) goto d110e4;
+        if (st < 5) {
+            if (st < 3) goto d110e4;
+            goto fb4;
+        }
+        goto d110e4;
+    }
+    if (st == 0x21 || st == 0x25 || st == 0x62) goto d38;
+    goto d110e4;
+
+cec:
+    x = D_801032A8;
+    if (x == 0xB || x == 2) goto d18;
+    if (x != 0) goto l11374;
+d18:
+    func_80011800(0xC, ENT(0), 0, 0, 0, 0, 0, 0);
+    goto after_c;
+d38:
+    x = D_801032A8;
+    if (x == 0xA || x == 2) goto d64;
+    if (x != 0) goto l11374;
+d64:
+    idx = D_800E093A;
+    func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+after_c:
+    if (func_800109CC() == 0) goto l11434;
+    idx = D_800E093A;
+    func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() == 0) goto l113d8;
+    CP32(D_800E0940, ENT(idx) + 12);
+    func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() != 0) goto fa4;
+    D_80102D60 = 0;
+    CP32(D_800E0940, ENT(idx) + 12);
+fa4:
+    D_800BFC32 = 0x12;
+    return 0x12;
+
+fb4:
+    x = D_801032A8;
+    if (x == 0xB) { D_800BFC32 = 0x62; return 0x62; }
+    if (x != 2) goto d110e4;
+    idx = D_800E093A;
+    func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() == 0) goto l113d8;
+    func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() == 0) goto l11434;
+    func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+    func_800109CC();
+    x = D_801032A8;
+    if (x == 0 || x == 0xB || x == 0xA) goto l114cc;
+    goto d110e4;
+
+d110e4:
+    x = D_801032A8;
+    if (x != 0) goto l11374;
+    st = D_800BFC32;
+    if (st == 0x10 || st == 0x63 || st == 0xF) goto l11120;
+    for (a1 = 0; (u16)a1 < 0x20; a1++) {
+        idx = D_800E093A;
+        if (((u8 *)D_800E0940)[(u16)a1] != (ENT(idx) + 12)[(u16)a1]) {
+            flag = D_80102D60;
+            CP32(D_800E0940, ENT(idx) + 12);
+            if (flag == 0) {
+                D_800BFC32 = 0x12;
+            } else {
+                D_80102D60 = 0;
+                D_800BFC32 = 0;
+            }
+            return (u16)D_800BFC32;
+        }
+    }
+    goto l11374;
+
+l11120:
+    idx = D_800E093A;
+    D_80102D60 = 0;
+    CP32(D_800E0940, ENT(idx) + 12);
+    D_800BFC32 = 0;
+    return 0;
+
+l11374:
+    x = D_801032A8;
+    if (x != 2) goto l11594;
+    idx = D_800E093A;
+    func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() != 0) goto l113ec;
+l113d8:
+    D_800BFC32 = 0x63;
+    return 0x63;
+l113ec:
+    idx = D_800E093A;
+    func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+    if (func_800109CC() != 0) goto l11464;
+l11434:
+    idx = D_800E093A;
+    D_800BFC32 = 0x10;
+    D_80109DC8[idx] = 1;
+    return 0x10;
+l11464:
+    idx = D_800E093A;
+    func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+    func_800109CC();
+    x = D_801032A8;
+    if (x == 0 || x == 0xB || x == 0xA) goto l114cc;
+    goto l1159c;
+l114cc:
+    idx = D_800E093A;
+    D_80102D60 = 0;
+    CP32(D_800E0940, ENT(idx) + 12);
+    D_800BFC32 = 0x12;
+    return 0x12;
+l11594:
+    x = D_801032A8;
+l1159c:
+    return (u16)func_80010B60(x);
+}

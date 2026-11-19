@@ -11,7 +11,7 @@ void func_80082D24(void *arg0, void *arg1) {
     f32 temp_ft1;
     f32 temp_fa1;
     f32 temp_fv1;
-    s16 temp_v1;
+    s32 temp_v1;
     s16 temp_a3;
     s16 temp_a0;
 

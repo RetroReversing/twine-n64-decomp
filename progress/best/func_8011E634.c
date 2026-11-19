@@ -21,32 +21,35 @@ extern s16 D_8011F0EE;
 extern s32 D_8011F3A8;
 
 void func_8011E634(void) {
+    u32 *__base_D_801002B4;
+    u8 *__base_D_801002AE;
 int __repair_literal;
 
-    register unsigned long var_v0_2;
-    int var_s0;
-    s32 var_a0;
-    void *temp_s1_2;
-    u8 temp_v1;
     s16 var_v0;
-    register long temp_s1;
+    void *temp_s1_2;
+    s32 var_a0;
+    int var_s0;
+    unsigned long var_v0_2;
+    register s32 temp_v1;
+    s32 temp_s1;
 
     D_8011F0EE = 0x78;
     if (D_801002C0 >= 3) {
-        register var_v0 = 0xA0;
-        goto block_4;
-    }
-    var_v0 = 0x140;
-    if (D_8010A4FD == 1) {
-        D_8011F0EC = 0xA0;
-        D_8011F0EE = 0xF0;
-    } else {
-block_4:
+        var_v0 = 0xA0;
         D_8011F0EC = var_v0;
+    } else {
+        var_v0 = 0x140;
+        if (D_8010A4FD == 1) {
+            D_8011F0EC = 0xA0;
+            D_8011F0EE = 0xF0;
+        } else {
+            D_8011F0EC = var_v0;
+        }
     }
-    if (D_801002AE == 0) {
+    __base_D_801002AE = &D_801002AE;
+    if ((*__base_D_801002AE) == 0) {
         func_8011C674(-1);
-        if (D_801002AE == 0) {
+        if ((*__base_D_801002AE) == 0) {
             func_8011C580();
         }
     }
@@ -54,7 +57,7 @@ block_4:
     if ((s32) temp_v1 < 6) {
 __repair_literal = 2;
 
-        var_v0_2 = temp_v1 < __repair_literal;
+        var_v0_2 = (s32) temp_v1 < __repair_literal;
         if ((s32) temp_v1 >= 4) {
             func_8011C890();
             goto block_11;
@@ -75,16 +78,17 @@ block_11:
     func_8011DC18();
     if ((((D_80102ED8 != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = (u32)temp_s1, (0 >= temp_s1))) {
         if (temp_s1 == 0) {
-            register var_s0 = 0;
+            var_s0 = 0;
             func_8011E894();
-            temp_s1_2 = &D_801002B4 - 6;
-            if (temp_s1 < D_801002B4) {
+            __base_D_801002B4 = &D_801002B4;
+            temp_s1_2 = __base_D_801002B4 - 6;
+            if (temp_s1 < (*__base_D_801002B4)) {
                 var_a0 = 0 & 0xFF;
                 do {
                     var_s0 += 1;
                     (*(s8 *)((char *)(temp_s1_2) + 0)) = 1;
-                    func_80076168(var_a0);
                     var_a0 = var_s0 & 0xFF;
+                    func_80076168(var_a0);
                 } while ((var_s0 & 0xFFFF) < (*(s32 *)((char *)(temp_s1_2) + 6)));
             }
         } else {

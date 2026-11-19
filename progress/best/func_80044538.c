@@ -20,8 +20,8 @@ void func_80044538(s32 arg0) {
     var_a2 = 1;
     if (D_800C0784[arg0].f0 != 0) {
         temp_a3 = D_800C0788[arg0].f0;
-        var_a1 = 0;
         if (D_800C078C[arg0].f0 != 0) {
+            var_a1 = 0;
             var_v1 = temp_a3;
             do {
                 if ((*(s32 *)((char *)(var_v1) + 0)) != 0) {

@@ -3,7 +3,8 @@ static __inline__ u16 __repair_inline(u16 a) { return a; }
 
 s32 func_8000C860();
 extern void **D_800B2710;
-extern char D_800C3CF8[];
+typedef struct { s32 f0; u8 pad[8]; } Slot_800C3CF8;
+extern Slot_800C3CF8 D_800C3CF8[];
 extern u8 D_800C4708[];
 extern u16 D_800E0740;
 extern s16 D_80100B60;
@@ -16,6 +17,7 @@ void func_8000CD8C(void) {
     s32 var_s3;
     s32 var_s4;
     u16 var_a1;
+u16 __repair_result_var_a1;
     u32 temp_v1;
     void *temp_s1;
     void *var_s1;
@@ -37,8 +39,8 @@ void func_8000CD8C(void) {
             var_s4 = 0;
             break;
         case 0:
-            var_a1 = __repair_inline(*(*(u16 **)((char *)(var_s1) + 4)));
-            D_800E0740 = var_a1;
+            __repair_result_var_a1 = __repair_inline(*(*(u16 **)((char *)(var_s1) + 4)));
+            D_800E0740 = __repair_result_var_a1;
             /* fallthrough */
         case 9:
         case 10:
@@ -80,7 +82,7 @@ void func_8000CD8C(void) {
         case 11:
         case 12:
         case 13:
-            var_a1 = (u16) *(u16 *)*(s32 *)(D_800C3CF8 + ((*(u8 *)((char *)(temp_s1) + 3)) * 0xC));
+            var_a1 = (u16) *(u16 *)D_800C3CF8[*(u8 *)((char *)(temp_s1) + 3)].f0;
             var_s0 = 7;
             break;
         case 3:

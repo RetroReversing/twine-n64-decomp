@@ -18,6 +18,7 @@ s32 func_80087100(M2C_UNK);                         /* extern */
 extern void *D_80109BB0;
 extern u8 D_8010A4FD;
 
+extern char D_800D2AA0[];
 void func_800223E4(void) {
     M2C_UNK var_a0;
 
@@ -27,6 +28,6 @@ void func_800223E4(void) {
         if (D_8010A4FD != 0) {
             var_a0 = 0x68;
         }
-        func_80026004(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%s", func_80087100(var_a0));
+        func_80026004(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, D_800D2AA0, func_80087100(var_a0));
     }
 }

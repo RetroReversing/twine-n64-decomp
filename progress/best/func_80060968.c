@@ -9,6 +9,7 @@ s32 func_800643D8(void *);                      /* extern */
 f32 func_800828D0(f32);                             /* extern */
 extern s32 *D_800CA31C;
 
+typedef struct { unsigned char pad_0[4]; int field_4; float field_8; int field_C; } __repair_record_temp_v1;
 void func_80060968(void *arg0) {
     u32 sp30;
     f32 sp24;
@@ -21,15 +22,15 @@ void func_80060968(void *arg0) {
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     temp_v1 = ((func_80045CC4() & 1) * 0xC) + temp_s1;
-    (*(f32 *)((char *)(arg0) + 0x28)) = (f32) (*(f32 *)((char *)(temp_v1) + 8));
+    (*(f32 *)((char *)(arg0) + 0x28)) = (f32) (((__repair_record_temp_v1*)temp_v1)->field_8);
     (*(s32 *)((char *)(arg0) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_v1) + (unsigned short)0xC));
-    (*(s32 *)((char *)(arg0) + 0x24)) = (s32) (*(s32 *)((char *)(temp_v1) + 4));
-    temp_a1 = (*(f32 *)((char *)(temp_v1) + 8));
-    temp_a2 = (*(s32 *)((char *)(temp_v1) + 0xC));
-    sp20 = (*(s32 *)((char *)(temp_v1) + 4));
+    (*(s32 *)((char *)(arg0) + 0x24)) = (s32) (((__repair_record_temp_v1*)temp_v1)->field_4);
+    temp_a1 = (((__repair_record_temp_v1*)temp_v1)->field_8);
+    temp_a2 = (((__repair_record_temp_v1*)temp_v1)->field_C);
+    sp20 = (((__repair_record_temp_v1*)temp_v1)->field_4);
     sp24 = temp_a1;
     sp28 = temp_a2;
-    { func_80016718(arg0, ((*(f32 *)((char *)(temp_v1) + 8))), temp_a2); }
+    { func_80016718(arg0, ((((__repair_record_temp_v1*)temp_v1)->field_8)), temp_a2); }
     func_8003E6EC(*D_800CA31C, arg0, 1);
     func_80048F10((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, &sp20, &sp30, 250.0f, 0, 0, 0);
     (*(f32 *)((char *)(temp_s1) + 0x34)) = sp24;

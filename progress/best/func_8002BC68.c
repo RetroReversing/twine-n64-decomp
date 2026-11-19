@@ -101,6 +101,7 @@ block_12:
         *(u16 *)(D_800BF686 + var_v1) = (var_v0 & 0xFFFE) | var_s0;
         temp_v1_6 = func_8002B9FC(var_a0) * 0xC;
         *(u16 *)(D_800BF686 + temp_v1_6) = (*(u16 *)(D_800BF686 + temp_v1_6) & 0xFFFE) | var_s0;
+    case 0:
     default:
         *(D_80112F70 + (arg0 & 0xFF)) = arg1;
         break;

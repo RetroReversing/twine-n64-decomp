@@ -69,11 +69,7 @@ s32 func_8009349C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 a
                 var_fv1 += D_800D6840;
             }
             temp_fv1 = ((f32) var_fv1 / (f32) D_8010A514) * 4096.0f;
-            if (temp_fv1 < 2.1474836e9f) {
-                var_a1 = (s32) temp_fv1;
-            } else {
-                var_a1 = (s32) (temp_fv1 - 2.1474836e9f); var_a1 = var_a1 | 0x80000000;
-            }
+            var_a1 = (u32) temp_fv1;
             func_8008C4C0(temp_v0, var_a1 & 0xFFFF);
             func_8008C524(temp_v0, arg4 << 0x10, sp3F << 0x10, arg6 << 0x10, arg7 << 0x10);
             func_8008C43C(temp_v0);

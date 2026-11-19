@@ -20,9 +20,11 @@ M2C_UNK func_80085160(void *);                      /* extern */
 M2C_UNK func_800851E0(void *);                      /* extern */
 
 void func_80072F58(void *arg0) {
-    f32 sp10;
-    f32 sp14;
-    f32 sp18;
+    struct {
+        f32 f10;
+        f32 f14;
+        f32 f18;
+    } __repair_frame;
     f32 *temp_s1;
     s16 temp_v1;
     s32 temp_s0_2;
@@ -42,13 +44,14 @@ void func_80072F58(void *arg0) {
         temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
         switch (temp_v1) {                          /* irregular */
         case 0:
-            sp10 = M2C_FIELD(temp_s1, f32 *, 0) * 0.033333335f;
-            sp14 = M2C_FIELD(temp_s1, f32 *, 4) * 0.033333335f;
+            __repair_frame.f10 = M2C_FIELD(temp_s1, f32 *, 0) * 0.033333335f;
+            __repair_frame.f14 = M2C_FIELD(temp_s1, f32 *, 4) * 0.033333335f;
             temp_s0 = arg0 + 0x24;
-            sp18 = M2C_FIELD(temp_s1, f32 *, 8) * 0.033333335f;
-            func_800452AC(&sp10, temp_s0, temp_s0);
+            __repair_frame.f18 = M2C_FIELD(temp_s1, f32 *, 8) * 0.033333335f;
+            func_800452AC(&__repair_frame, temp_s0, temp_s0);
             temp_a1 = arg0 + 0x3C;
-            do { func_800452AC(temp_s1, temp_a1, temp_a1); } while (0);
+            __repair_rows: { func_800452AC(temp_s1, temp_a1, temp_a1); }
+if (0) goto __repair_rows;
             M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_s1, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x3C), f32 *, 0x20)) {
                 func_80016718(arg0);

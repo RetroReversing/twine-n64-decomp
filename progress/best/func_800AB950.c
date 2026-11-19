@@ -19,7 +19,7 @@ s8 *func_800AB950(s8 *arg0, s8 *arg1) {
     s8 *var_t0;
     s8 temp_a2;
     s8 temp_v0;
-    s8 temp_v1;
+    s32 temp_v1;
 
     var_a0 = arg0;
 loop_1:

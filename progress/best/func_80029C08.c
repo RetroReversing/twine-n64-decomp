@@ -101,7 +101,7 @@ block_9:
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
                 do { func_8002AAF4(arg0, temp_a1); } while (0);
             } else {
-                func_8002AB34(arg0, temp_a1);
+                do { func_8002AB34(arg0, temp_a1); } while (0);
             }
         } else if ((var_s0) && ((*(u8 *)((char *)(D_80109BB0) + 0x29)) != 0)) {
             var_a0_3 = 0xEB;
@@ -170,7 +170,8 @@ block_9:
                 }
                 temp_fv1_2 = (*(f32 *)((char *)(arg0) + 0x10)) * (f32) var_ft0_2;
                 if (temp_fv1_2 >= 2.1474836e9f) {
-                    var_v1 = (s32) (temp_fv1_2 - 2.1474836e9f); var_v1 = var_v1 | 0x80000000;
+                    var_v1 = (s32) (temp_fv1_2 - 2.1474836e9f);
+var_v1 = var_v1 | 0x80000000;
                 } else {
                     var_v1 = temp_fv1_2;
                 }

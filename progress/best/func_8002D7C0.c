@@ -24,7 +24,7 @@ void func_8002D7C0(void) {
             var_a3 = var_s0 - 3;
         
         sprintf(var_s1, "%s %d", var_a2, var_a3);}
-        var_s1 += 0x18;
+        var_s1 += 6;
         var_s0 += 1;
         var_a2 = var_s0 < 4U;
     } while (var_s0 < 0xBU);

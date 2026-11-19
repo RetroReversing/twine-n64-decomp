@@ -20,7 +20,7 @@ s32 func_8002E848(void *arg0, s32 arg1, u32 arg2) {
     s32 temp_v1;
     s32 var_t0;
     s8 temp_a1;
-    s8 temp_v0_2;
+    s32 temp_v0_2;
     u32 temp_v0;
     u8 *temp_a3;
 

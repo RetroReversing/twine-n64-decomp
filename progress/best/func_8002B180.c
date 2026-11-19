@@ -14,6 +14,8 @@ typedef s32 M2C_UNK32;
 
 s32 sprintf();
 
+extern char D_800D2CF0[];
+extern char D_800D2D00[];
 void func_8002B180(void *arg0, s8 *arg1) {
     s32 temp_t1;
 
@@ -24,9 +26,9 @@ void func_8002B180(void *arg0, s8 *arg1) {
         }
         temp_t1 = M2C_FIELD(arg0, s32 *, 0);
         if (temp_t1 >= 0x3C) {
-            sprintf(arg1, "%d:%02d:%02d", (s16) (M2C_FIELD(arg0, s32 *, 0) / 60), (s16) (M2C_FIELD(arg0, s32 *, 0) % 60), (s32) M2C_FIELD(arg0, s8 *, 6));
+            sprintf(arg1, D_800D2CF0, (s16) (M2C_FIELD(arg0, s32 *, 0) / 60), (s16) (M2C_FIELD(arg0, s32 *, 0) % 60), (s32) M2C_FIELD(arg0, s8 *, 6));
             return;
         }
-        sprintf(arg1, "%d:%02d", (s16) temp_t1, (s16) M2C_FIELD(arg0, s8 *, 6));
+        sprintf(arg1, D_800D2D00, (s16) temp_t1, (s16) M2C_FIELD(arg0, s8 *, 6));
     }
 }

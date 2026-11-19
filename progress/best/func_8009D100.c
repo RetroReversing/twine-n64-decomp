@@ -15,7 +15,7 @@ extern s32 D_80109BF8;
 
 typedef struct { int field_0; int field_4; int field_8; } __repair_record_temp_a1_2;
 void func_8009D100(void) {
-    u32 temp_a0;
+    unsigned short temp_a0;
     s32 temp_a1;
     s32 temp_v0;
     s32 var_s0;
@@ -31,8 +31,8 @@ void func_8009D100(void) {
                 temp_a1 = D_80109BF8 + 0xC;
                 D_80109BF8 = temp_a1;
                 temp_v0 = func_800CEEE0(D_80109BA0, temp_a1);
-                temp_a0 = (var_s0 & 0xFF) * 0xC;
                 temp_a1_2 = (D_80108F70 * 0xC) + D_80103EB4;
+                temp_a0 = (var_s0 & 0xFF) * 0xC;
                 ((__repair_record_temp_a1_2*)temp_a1_2)->field_4 = (s32) *(&D_800FDBB8 + (unsigned short)temp_a0);
                 var_s0 += 1;
                 D_80109BA0 = temp_v0;

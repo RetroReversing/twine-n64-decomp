@@ -16,15 +16,17 @@ M2C_UNK func_8005B5A8(void *, s32);                 /* extern */
 extern void *D_80108788;
 
 void func_8005C1D0(void) {
+    void *__repair_D_80108788;
     s32 var_a1;
     s32 var_v0;
 
     var_a1 = 0;
-    if (D_80108788 != NULL) {
+    __repair_D_80108788 = D_80108788;
+    if (__repair_D_80108788 != NULL) {
         var_v0 = 0;
-        if (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x58) {
+        if (M2C_FIELD(__repair_D_80108788, u16 *, 0x78) == 0x58) {
             var_a1 = 1;
-            M2C_FIELD(D_80108788, s32 *, 0x60) = (s32) (M2C_FIELD(D_80108788, s32 *, 0x60) | 0x08000000);
+            M2C_FIELD(__repair_D_80108788, s32 *, 0x60) = (s32) (M2C_FIELD(__repair_D_80108788, s32 *, 0x60) | 0x08000000);
             goto block_3;
         }
     } else {
@@ -32,6 +34,6 @@ block_3:
         var_v0 = var_a1;
     }
     if (var_v0 == 0) {
-        func_8005B5A8(D_80108788, var_a1);
+        func_8005B5A8(__repair_D_80108788, var_a1);
     }
 }

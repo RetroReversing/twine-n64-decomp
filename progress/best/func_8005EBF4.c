@@ -25,8 +25,8 @@ void func_8005EBF4(void *arg0) {
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     if ((*(u8 *)((char *)(temp_s1) + 0x2E)) != 0) {
         (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) ((*(f32 *)((char *)(arg0) + 0x3C)) - ((f32) func_80000A30(0x400, (s32) (*(f32 *)((char *)(arg0) + 0x3C))) * 0.1f));
-        temp_v0 = (*(s32 *)((char *)(arg0) + 0x60));
         (*(f32 *)((char *)(arg0) + 0x40)) = (f32) ((*(f32 *)((char *)(arg0) + 0x40)) - ((f32) func_80000A30(0, (s32) (*(f32 *)((char *)(arg0) + 0x40))) * 0.1f));
+        temp_v0 = (*(s32 *)((char *)(arg0) + 0x60));
         if (temp_v0 & 2) {
             (*(s32 *)((char *)(arg0) + 0x60)) = (s32) (temp_v0 & ~2);
             func_80045DB4(arg0 + 0x3C, 512.0f, 256.0f);
@@ -37,7 +37,7 @@ void func_8005EBF4(void *arg0) {
         }
     }
     temp_v1_2 = (*(s16 *)((char *)(arg0) + 0x7A));
-    if ((unsigned)temp_v1_2 >= 0) {
+    if (temp_v1_2 >= 0) {
         if (temp_v1_2 < 2) {
             temp_fv0_2 = (*(f32 *)((char *)(temp_s1) + 0x10)) - 0.32666668f;
             (*(f32 *)((char *)(temp_s1) + 0x10)) = temp_fv0_2;
@@ -46,7 +46,6 @@ void func_8005EBF4(void *arg0) {
             (*(f32 *)((char *)(arg0) + 0x2C)) = (f32) ((*(f32 *)((char *)(arg0) + 0x2C)) + (*(f32 *)((char *)(temp_s1) + 0x14)));
             (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) ((*(f32 *)((char *)(temp_s1) + 0xC)) * 0.75f);
             (*(f32 *)((char *)(temp_s1) + 0x14)) = (f32) ((*(f32 *)((char *)(temp_s1) + 0x14)) * 0.75f);
-block_11:
             func_8005E900(arg0);
         } else {
             if (temp_v1_2 != 2) {
@@ -58,7 +57,7 @@ block_11:
                     temp_fv0 = (*(f32 *)((char *)(temp_s1) + 0x10)) - 0.32666668f;
                     (*(f32 *)((char *)(temp_s1) + 0x10)) = temp_fv0;
                     (*(f32 *)((char *)(arg0) + 0x28)) = (f32) ((*(f32 *)((char *)(arg0) + 0x28)) + (temp_fv0 * 0.033333335f));
-                    goto block_11;
+                    func_8005E900(arg0);
                 }
             }
         }
@@ -75,13 +74,13 @@ block_11:
         temp_v0_2 = temp_v0 - 1;
         if (temp_v0 > 0) {
             (*(s32 *)((char *)(temp_s1) + 0x18)) = temp_v0_2;
-            if (temp_v0_2 == 0) {
+            if (!temp_v0_2) {
                 (*(s8 *)((char *)(arg0) + 0x7E)) = 0x10;
                 (*(u8 *)((char *)(arg0) + 0x82)) = 0xFFU;
             }
         } else {
             temp_v0_3 = (*(u8 *)((char *)(arg0) + 0x82));
-            if (temp_v0_3 != 0) {
+            if (temp_v0_3) {
                 (*(u8 *)((char *)(arg0) + 0x82)) = (u8) (temp_v0_3 - 1);
                 return;
             }

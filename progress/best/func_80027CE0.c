@@ -23,14 +23,15 @@ s32 func_80027CE0(s32 arg0) {
     if (D_800BD690 != 0) {
         var_s0 = 0;
         var_a0 = 0 & 0xFFFF;
-loop_2:
-        var_s0 += 1;
-        if (func_800818AC(var_a0, arg0) == 0) {
+        for (;;) {
+            var_s0 += 1;
+            if (func_800818AC(var_a0, arg0) != 0) {
+                break;
+            }
             var_a0 = var_s0 & 0xFFFF;
             if ((u32) (var_s0 & 0xFFFF) >= 4U) {
                 return 0;
             }
-            goto loop_2;
         }
         return 1;
     }

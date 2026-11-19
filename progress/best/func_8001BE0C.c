@@ -18,10 +18,12 @@ extern void *D_800B5B14;
 extern M2C_UNK D_8010A488;
 
 void func_8001BE0C(void) {
+    void **__base_D_800B5B14;
     func_8002A700(&D_8010A488);
     cache_release_block();
-    if (D_800B5B14 != NULL) {
-        M2C_FIELD(D_800B5B14, s32 *, 0x60) = (s32) (M2C_FIELD(D_800B5B14, s32 *, 0x60) | 1);
-        D_800B5B14 = NULL;
+    __base_D_800B5B14 = &D_800B5B14;
+    if ((*__base_D_800B5B14) != NULL) {
+        M2C_FIELD((*__base_D_800B5B14), s32 *, 0x60) = (s32) (M2C_FIELD((*__base_D_800B5B14), s32 *, 0x60) | 1);
+        (*__base_D_800B5B14) = NULL;
     }
 }

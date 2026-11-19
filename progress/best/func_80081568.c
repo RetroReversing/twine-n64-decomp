@@ -13,10 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8007AA40(void *, s32, s32 *, s32);         /* extern */
-M2C_UNK func_8007AABC(void *, s32, M2C_UNK);        /* extern */
+M2C_UNK func_8007AABC(void *, s32, f32);        /* extern */
 s32 func_8007C72C(void *arg0, void *, M2C_UNK);                 /* extern */
 extern void *D_8010A500;
 
+typedef struct { s32 w[3]; } __repair_words3;
 s32 func_80081568(void *arg0) {
     s32 sp10;
     s32 temp_a3;
@@ -28,13 +29,10 @@ s32 func_80081568(void *arg0) {
         temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
         var_v0 = 1;
         if ((func_8007C72C(arg0, D_8010A500, 0) << 0x18) == 0) {
-            temp_a3 = M2C_FIELD(D_8010A500, s32 *, 0x28);
-            M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(D_8010A500, s32 *, 0x24);
-            M2C_FIELD(temp_s1, s32 *, 0x1C) = temp_a3;
-            M2C_FIELD(temp_s1, s32 *, 0x20) = (s32) M2C_FIELD(D_8010A500, s32 *, 0x2C);
+            M2C_FIELD(temp_s1, __repair_words3 *, 0x18) = *(__repair_words3 *) ((s8 *) D_8010A500 + 0x24);
             var_v0 = 1;
-            if ((func_8007AA40(arg0, temp_s1 + 0x18, &sp10, temp_a3) << 0x18) == 0) {
-                func_8007AABC(arg0, sp10, 0x3DCCCCCD);
+            if ((func_8007AA40(arg0, temp_s1 + 0x18, &sp10, M2C_FIELD(temp_s1, s32 *, 0x1C)) << 0x18) == 0) {
+                do {/*__repair_call_balance*/if(var_v0){ do { func_8007AABC(arg0, sp10, 0.1f); } while (0);}else{ func_8007AABC(arg0, sp10, 0.1f);} } while (0);
                 var_v0 = 0;
             }
         }

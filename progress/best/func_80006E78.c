@@ -60,8 +60,8 @@ void func_80006E78(void) {
             M2C_FIELD(*var_a0, M2C_UNK **, 0x38) = &D_800DC740;
             M2C_FIELD(*var_a0, s32 *, 0x3C) = 0xC00;
         }
-        var_a0 += 4;
+        var_a0 += 1;
     } while (__repair_inline(var_a1, 3));
-    D_8010A4B0 = 0;
-    D_800DD780 = 0xFF;
+    (*(u16 *)&D_8010A4B0) = 0;
+    (*(u8 *)&D_800DD780) = 0xFF;
 }

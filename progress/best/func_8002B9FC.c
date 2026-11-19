@@ -16,12 +16,14 @@ extern u16 D_800BF680;
 extern u16 *D_80102F40;
 
 s32 func_8002B9FC(s32 arg0) {
+    u16 *__base_D_800BF680;
     s32 var_a2;
     u16 temp_v1;
 
-    D_80102F40 = &D_800BF680;
+    __base_D_800BF680 = &D_800BF680;
+    D_80102F40 = __base_D_800BF680;
     var_a2 = 0;
-    if (D_800BF680 != 0) {
+    if ((*__base_D_800BF680) != 0) {
 loop_1:
         if (M2C_FIELD(D_80102F40, u8 *, 5) != arg0) {
             temp_v1 = M2C_FIELD(D_80102F40, u16 *, 0xC);

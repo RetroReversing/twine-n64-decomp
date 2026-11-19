@@ -4,7 +4,7 @@ s32 func_800055CC();
 s32 func_80005F5C();
 extern s32 D_800D9418;
 
-void func_8000600C(void *arg0, s16 arg1, s16 arg2, s32 arg3) {
+void func_8000600C(void *arg0, s32 arg1, s16 arg2, s32 arg3) {
     void *temp_v1;
     void *temp_s0;
 

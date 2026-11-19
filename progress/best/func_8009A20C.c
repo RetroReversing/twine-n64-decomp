@@ -16,7 +16,7 @@ M2C_UNK func_8008C1E4(u8, u32 *, M2C_UNK);          /* extern */
 s32 func_8009835C(s32, s32 *);                      /* extern */
 extern s32 D_800FDB80;
 extern s32 D_800FDB84;
-extern u32 D_800FDB88;
+extern u8 D_800FDB88;
 extern u32 D_800FDB8C;
 
 typedef struct { int value; } __repair_field_0;
@@ -26,7 +26,7 @@ s32 func_8009A20C(void *arg0, void *arg1) {
     s32 temp_hi;
     
     s32 temp_v0;
-    u16 temp_v1_2;
+    s32 temp_v1_2;
     u32 temp_a0;
 u32 __repair_phase_temp_a0;
     u32 temp_v0_2;
@@ -36,26 +36,26 @@ u32 __repair_phase_temp_a0;
         temp_v1 = (u8) ((__repair_field_0 *)arg1)->value;
         switch (temp_v1) {                          /* irregular */
         case 0:
-            D_800FDB88 = M2C_FIELD(arg1, u32 *, 4);
+            (*(s32 *)&D_800FDB88) = M2C_FIELD(arg1, s32 *, 4);
             break;
         case 1:
-            temp_a0 = M2C_FIELD(arg1, u32 *, 4);
+            temp_a0 = M2C_FIELD(arg1, s32 *, 4);
             temp_v0 = 0x7F - M2C_FIELD(arg0, u16 *, 0x30);
             temp_hi = (temp_v0 * temp_a0) / 127;
-            D_800FDB88 = (u32) (temp_hi + ((u32) ((temp_v0 * temp_a0) - temp_hi) >> 1)) >> 6;
+            (*(s32 *)&D_800FDB88) = (u32) (temp_hi + ((u32) ((temp_v0 * temp_a0) - temp_hi) >> 1)) >> 6;
             break;
         case 2:
             temp_v1_2 = M2C_FIELD(arg0, u16 *, 0x30);
-            temp_a0 = M2C_FIELD(arg1, u32 *, 4);
+            temp_a0 = M2C_FIELD(arg1, s32 *, 4);
             temp_hi = (temp_v1_2 * temp_a0) / 127;
-            D_800FDB88 = (u32) (temp_hi + ((u32) ((temp_v1_2 * temp_a0) - temp_hi) >> 1)) >> 6;
+            (*(s32 *)&D_800FDB88) = (u32) (temp_hi + ((u32) ((temp_v1_2 * temp_a0) - temp_hi) >> 1)) >> 6;
             break;
         default:
-            D_800FDB88 = 0;
+            (*(s32 *)&D_800FDB88) = 0;
             break;
         }
-        if ((u32) D_800FDB88 >= (u32) D_800FDB8C) {
-            D_800FDB88 = D_800FDB8C - 1;
+        if ((u32) (*(s32 *)&D_800FDB88) >= (u32) (*(s32 *)&D_800FDB8C)) {
+            (*(s32 *)&D_800FDB88) = (*(s32 *)&D_800FDB8C) - 1;
         }
         if (!(((__repair_field_24 *)arg0)->value & 0x200)) {
             var_a2 = 1;

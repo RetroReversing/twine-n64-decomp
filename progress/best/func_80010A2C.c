@@ -14,26 +14,28 @@ extern s32 D_80108410;
 extern s32 D_80115308;
 
 s32 func_80010A2C(void) {
-    s16 var_s0;
-    register unsigned int temp_a0;
-    unsigned temp_v1;
     
-    register unsigned long var_v1;
+    s32 temp_a0;
+s32 __repair_phase_temp_a0;
+    s32 temp_v1;
+    
+    unsigned char var_v1;
 
-    var_s0 = 0;
-    D_800BFC30 = -1;
     var_v1 = 0 & 0xFFFF;
-loop_1:
-    temp_a0 = var_v1 * 0x18;
-    temp_v1 = var_v1 << 3;
-    if ((D_80107B68[(unsigned char)var_v1].f0 == 0) || (*(&D_8010840C + temp_v1) != (short)0x4E4F3745) || (*(&D_80108410 + temp_v1) != 0x3639) || (func_800AB770(temp_a0 + &D_80107B6A, &D_80115308) == 0)) {
-        var_s0 += 1;
-        var_v1 = var_s0 & 0xFFFF;
-        if ((u32) (var_s0 & 0xFFFF) < 0x10U) {
-            goto loop_1;
+    D_800BFC30 = -1;
+    temp_a0 = 0;
+    for (;;) {
+        temp_v1 = var_v1 << 3;
+        if ((D_80107B68[(unsigned char)var_v1].f0 == 0) || (*((s32 *)((s8 *)&D_8010840C + temp_v1)) != 0x4E4F3745) || (*((u16 *)((s8 *)&D_80108410 + temp_v1)) != 0x3639) || (func_800AB770((__repair_phase_temp_a0 = var_v1 * 0x18) + &D_80107B6A, &D_80115308) == 0)) {
+            temp_a0 += 1;
+            var_v1 = temp_a0 & 0xFFFF;
+            if ((u32) (temp_a0 & 0xFFFF) < 0x10U) {
+                continue;
+            }
+        } else {
+            D_800BFC30 = temp_a0;
         }
-    } else {
-        D_800BFC30 = var_s0;
+        break;
     }
     temp_a0 = 0;
     if (D_800BFC30 == -1) {

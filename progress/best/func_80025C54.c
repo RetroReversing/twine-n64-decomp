@@ -47,7 +47,7 @@ void func_80025C54(void) {
     case 4:
         ((__repair_record_D_80109BB0*)D_80109BB0)->field_2F = 1;
         D_800BD562 = 3U;
-        func_800294E4(temp_a0);
+        func_800294E4();
         ((__repair_record_D_80109BB0*)D_80109BB0)->field_2C = 1U;
         return;
     }

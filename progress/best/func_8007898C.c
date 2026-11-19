@@ -56,13 +56,13 @@ int __repair_literal;
     
     u8 temp_v1;
     u8 temp_v1_2;
-    void *temp_s1;
     void *temp_s2;
+    void *temp_s1;
     union { void * pointer; s32 value; } __repair_phase_storage;
-    void *temp_v0_10;
+    
     void *temp_v0_11;
     void *temp_v0_2;
-    void *temp_v0_3;
+    
     void *temp_v0_4;
     void *temp_v0_5;
     void *temp_v0_6;
@@ -177,10 +177,10 @@ block_40:
                 if ((*(s32 *)((char *)(temp_s1) + 0x88)) & 0x40000000) {
                     temp_v1_3 = (*(s32 *)((char *)(arg0) + 0x60));
                     if (temp_v1_3 & 0x1000) {
-                        temp_v0_3 = (*(void **)((char *)(temp_s1) + 0x40));
-                        __repair_phase_storage.value = (*(s32 *)((char *)(temp_v0_3) + 0x28));
-                        temp_a3_2 = (*(s32 *)((char *)(temp_v0_3) + 0x2C));
-                        (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x24));
+                        temp_s2 = (*(void **)((char *)(temp_s1) + 0x40));
+                        __repair_phase_storage.value = (*(s32 *)((char *)(temp_s2) + 0x28));
+                        temp_a3_2 = (*(s32 *)((char *)(temp_s2) + 0x2C));
+                        (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_s2) + 0x24));
                         (*(s32 *)((char *)(temp_s1) + 0x1C)) = __repair_phase_storage.value;
                         (*(s32 *)((char *)(temp_s1) + 0x20)) = temp_a3_2;
                         var_a1 = 1;
@@ -316,11 +316,11 @@ block_102:
                     if ((func_80045CF8(0x1E) != 0) || ((func_8007C214(arg0, (*(void **)((char *)(temp_s1) + 0x40))) << 0x18) == 0)) {
                         if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x10000) && ((func_8007C120(arg0, temp_s1 + 0x50, 0x40C00000) << 0x18) != 0)) {
                             func_80077A94(arg0);
-                            temp_v0_10 = (*(void **)((char *)(temp_s1) + 0x40));
-                            temp_a3_8 = (*(s32 *)((char *)(temp_v0_10) + 0x28));
-                            (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_v0_10) + 0x24));
+                            temp_s2 = (*(void **)((char *)(temp_s1) + 0x40));
+                            temp_a3_8 = (*(s32 *)((char *)(temp_s2) + 0x28));
+                            (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) (*(s32 *)((char *)(temp_s2) + 0x24));
                             (*(s32 *)((char *)(temp_s1) + 0x1C)) = temp_a3_8;
-                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_v0_10) + 0x2C));
+                            (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) (*(s32 *)((char *)(temp_s2) + 0x2C));
                             if (((func_8007AA40(arg0, temp_s1 + 0x18, &sp5C, temp_a3_8) << 0x18) == 0) && ((func_80077E00(arg0) << 0x18) != 0)) {
                                 func_80002BD0(arg0, 0x14D);
                                 var_a1 = 0xB;

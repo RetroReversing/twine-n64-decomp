@@ -24,6 +24,8 @@ void func_8002EAC4(void *arg0) {
 case 0: break;
                           /* irregular */
         case 0x38:
+            func_800304E0(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
+            return;
         case 0x37:
             func_800304E0(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
             return;

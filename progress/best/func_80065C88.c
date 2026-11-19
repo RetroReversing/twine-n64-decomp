@@ -47,7 +47,7 @@ void func_80065C88(void) {
                 var_s4 += 0xA0;
             }
             var_s2 += 1;
-            var_s3 += 4;
+            var_s3 += 1;
         } while (var_s2 < D_801002B8);
     }
 }

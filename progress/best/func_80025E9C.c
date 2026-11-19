@@ -16,17 +16,15 @@ s32 func_80025F78();
 s32 func_80026004();
 s32 func_80087100();
 
+extern char D_800D2AF0[];
 void func_80025E9C(void *arg0, s32 arg1, void *arg2, void *arg3, u16 arg4, u16 arg5) {
-    s32 var_v0;
 
     func_80025F78(arg0, arg5);
     func_80025F78((arg1 & 0xFFFF), arg5);
-    var_v0 = arg0 != NULL;
     if ((arg1 & 0xFFFF) != 0) {
-        func_80026004((arg1 & 0xFFFF), "%s", func_80087100(0x13));
-        var_v0 = arg0 != NULL;
+        func_80026004((arg1 & 0xFFFF), D_800D2AF0, func_80087100(0x13));
     }
-    if ((var_v0 & (arg2 != NULL)) && (arg3 != NULL)) {
+    if (((arg0 != NULL) & (arg2 != NULL)) && (arg3 != NULL)) {
         if (arg4 != 0) {
             M2C_FIELD(arg2, u8 *, 0x27) = (u8) M2C_FIELD(arg0, u8 *, 0x27);
             M2C_FIELD(arg3, u8 *, 0x26) = (u8) M2C_FIELD(arg0, u8 *, 0x26);

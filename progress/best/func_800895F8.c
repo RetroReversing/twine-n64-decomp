@@ -68,7 +68,7 @@ block_10:
 block_11:
         var_v0 = ((s32) var_fv0 | 0x80000000) & 0xFFFF;
     }
-    D_800E41F0 = var_a0 * (var_v0 + 1);
+    (*(u16 *)&D_800E41F0) = var_a0 * (var_v0 + 1);
     temp_lo = D_800E41F0 * 0x310;
     D_800E41F4 = 0x310;
     var_ft0_3 = (f64) temp_lo;
@@ -82,7 +82,7 @@ block_11:
         var_v1 = (s32) (temp_fv1 - 2.1474836e9f) | (s32) &D_8000003F;
     }
     D_800E41F4 = ((((u32) var_v1 >> 6) * 0x28) + 0xF) & 0xFFF0;
-    D_80103EB4 = D_8010017C(D_800E41F0 * 0x18, 0);
+    D_80103EB4 = D_8010017C((*(u16 *)&D_800E41F0) * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     D_800E4214 = 0;
     func_80089C10(D_800E41F0);

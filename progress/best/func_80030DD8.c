@@ -6,6 +6,7 @@ extern s32 D_800BFF10;
 extern u16 D_800E1608;
 
 void func_80030DD8(u16 arg0, s32 arg1, void *arg2, u16 arg3) {
+    void *__repair_D_800E1608;
     unsigned long temp_v0;
     unsigned int var_a1;
     s32 var_a1_2;
@@ -13,7 +14,7 @@ void func_80030DD8(u16 arg0, s32 arg1, void *arg2, u16 arg3) {
     s32 var_v0;
     s32 var_v0_2;
     int var_v1;
-    register u16 temp_s0;
+    register s32 temp_s0;
     u16 temp_v1_2;
     u16 var_a0;
     u16 var_a3;
@@ -53,14 +54,15 @@ if ((u32) (var_a1 & 0xFFFF) < var_a3) goto __repair_rows;
         D_800BFF10 = (s32) temp_s0;
         if (D_800BFF04 != 0) {
             var_a1_2 = 0;
-            if (D_800E1608 != 0) {
+            __repair_D_800E1608 = D_800E1608;
+            if (__repair_D_800E1608 != 0) {
                 var_v1 = 0 & 0xFFFF;
                 do {
                     temp_v1 = (var_v1 * 8) + D_800BFF04;
                     var_a1_2 += 1;
                     (*(u16 *)((char *)(temp_v1) + 2)) = (u16) (((*(u16 *)((char *)(temp_v1) + 2)) & (unsigned)0xFFF0) | 1);
                     var_v1 = var_a1_2 & 0xFFFF;
-                } while ((u32) (var_a1_2 & 0xFFFF) < (u16) D_800E1608);
+                } while ((u32) (var_a1_2 & 0xFFFF) < (u16) __repair_D_800E1608);
                 return;
             }
         }
@@ -68,8 +70,8 @@ if ((u32) (var_a1 & 0xFFFF) < var_a3) goto __repair_rows;
     case 4:
     case 9:
         var_a1_3 = 0;
-        if (D_800E1608 != 0) {
-            var_a3 = D_800E1608;
+        if (__repair_D_800E1608 != 0) {
+            var_a3 = __repair_D_800E1608;
             var_v0_2 = 0 & 0xFFFF;
             do {
                 temp_v1 = (var_v0_2 * 8) + D_800BFF04;

@@ -34,7 +34,7 @@ void func_800926E8(void) {
             *var_v1_2 = var_a1;
         }
         var_v1_2 = var_a1;
-        var_a1 = var_v1_2 + 0x18;
+        var_a1 = (s8 *) var_v1_2 + 0x18;
         var_a2 += 1;
         var_a0_2 += 0x18;
     } while (var_a2 < 0x100);

@@ -6,7 +6,7 @@ extern void *D_80117728;
 
 typedef struct { int field_0; int field_4; int field_8; int field_C; int field_10; void * field_14; int field_18; int field_1C; } __repair_record_temp_a0;
 void func_80038FA4(void) {
-    void *temp_a0;
+    register void *temp_a0;
 
     temp_a0 = D_80115328;
     ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xDA380007;
@@ -14,11 +14,11 @@ void func_80038FA4(void) {
     ((__repair_record_temp_a0*)temp_a0)->field_8 = 0xDA380005;
     ((__repair_record_temp_a0*)temp_a0)->field_10 = 0xDC080008;
     ((__repair_record_temp_a0*)temp_a0)->field_14 = (void *) (D_80117728 + ((D_800E1710 * 0x10) + 0x6E0));
+    ((__repair_record_temp_a0*)temp_a0)->field_C = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) + 0x80000040);
     D_80115328 = temp_a0 + 8;
-    ((__repair_record_temp_a0*)temp_a0)->field_C = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) + (short)0x80000040);
+    ((__repair_record_temp_a0*)temp_a0)->field_18 = 0xDB0E0000;
     D_80115328 = temp_a0 + 0x10;
-    ((__repair_record_temp_a0*)temp_a0)->field_18 = (unsigned short)0xDB0E0000;
+    ((__repair_record_temp_a0*)temp_a0)->field_1C = (s32) (*(u16 *)((char *)(((D_800E1710 * 2) + D_80117728)) + 0x740));
     D_80115328 = temp_a0 + 0x18;
     D_80115328 = temp_a0 + 0x20;
-    ((__repair_record_temp_a0*)temp_a0)->field_1C = (s32) (*(u16 *)((char *)(((D_800E1710 * 2) + D_80117728)) + 0x740));
 }

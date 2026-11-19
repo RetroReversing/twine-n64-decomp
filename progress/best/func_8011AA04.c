@@ -5,33 +5,35 @@ extern s32 D_801002B4;
 extern s32 D_8010A500;
 
 void func_8011AA04(void) {
-    s32 var_a2;
+    void *temp_v0;
     s32 var_v0;
     void *temp_a0;
-    void *temp_v0;
-    register void *temp_a1;
+    void *temp_a1;
+    s32 var_a2;
 
     var_a2 = 0;
     if (D_801002B4 > 0) {
         var_v0 = 0 & 0xFFFF;
-loop_2:
-        temp_a0 = *((var_v0 * 4) + &D_8010A500);
-        if (temp_a0 != NULL) {
-            temp_a1 = (*(void **)((char *)(temp_a0) + 0x6C));
-            if (temp_a1 != NULL) {
-                register temp_v0 = (*(void **)((char *)(temp_a1) + 0xB4));
-                if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x10)) == 7)) {
-                    func_8011AE4C(temp_a0, temp_a1, 0, 7);
-                    return;
+        for (;;) {
+            temp_a0 = (&D_8010A500)[var_v0];
+            if (temp_a0 != NULL) {
+                temp_a1 = (*(void **)((char *)(temp_a0) + 0x6C));
+                if (temp_a1 != NULL) {
+                    temp_v0 = (*(void **)((char *)(temp_a1) + 0xB4));
+                    if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x10)) == 7)) {
+                        func_8011AE4C(temp_a0, temp_a1, 0, 7);
+                        return;
+                    }
                 }
             }
-        }
-        ++var_a2;
-        var_v0 = var_a2 & 0xFFFF;
-        if ((var_a2 & (short)0xFFFF) >= D_801002B4) {
+            var_a2++;
+            var_v0 = var_a2 & 0xFFFF;
+            if ((var_a2 & (short)0xFFFF) >= D_801002B4) {
 
-        } else {
-            goto loop_2;
+            } else {
+                continue;
+            }
+            break;
         }
     }
 }

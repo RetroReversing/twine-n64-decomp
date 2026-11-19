@@ -19,7 +19,7 @@ M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 extern s32 *D_800CA31C;
 extern u8 D_801002A0;
-extern M2C_UNK D_8011ECF0;
+extern u8 D_8011ECF0[];
 extern M2C_UNK D_8011ED08;
 extern M2C_UNK D_8011F160;
 extern M2C_UNK D_8011F278;
@@ -77,7 +77,7 @@ __repair_literal = 2U;
             func_800643C8(temp_v0);
             temp_s0_2 = arg2;
             temp_s0_3 = temp_s0_2;
-            *(&D_8011F288 + temp_s0_3) = func_80015F74((temp_s0_2 * 0x24) + &D_8011ECF0);
+            *(&D_8011F288 + temp_s0_3) = func_80015F74((temp_s0_2 * 0x24) + D_8011ECF0);
             *(&D_8011F2B0 + temp_s0_3) = temp_v0;
             return temp_v0;
         }

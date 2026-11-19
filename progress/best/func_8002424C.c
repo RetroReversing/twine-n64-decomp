@@ -29,6 +29,7 @@ extern char D_8010D478[];
 extern s32 func_800240A4;
 extern s32 func_800241F8;
 
+typedef struct { short field_0; unsigned char pad_2[34]; short field_24; } __repair_record_temp_s2;
 void func_8002424C(void) {
 int __repair_constant = 3;
 
@@ -37,7 +38,7 @@ int __repair_constant = 3;
     s32 temp_s0;
     s32 temp_v0;
     s32 var_s1;
-    u16 temp_v1;
+    s32 temp_v1;
     u16 var_v0;
     void *temp_s2;
 
@@ -52,8 +53,8 @@ int __repair_constant = 3;
     D_800BD550 = func_80015F74(D_800BD5D0 - 0x24);
     do {
         temp_a0 = var_s1 & 0xFFFF;
-        (*(s16 *)((char *)(temp_s2) + 0)) = (s16) D_800BD68E;
-        (*(s16 *)((char *)(temp_s2) + 0x24)) = (s16) D_800BD68E;do{
+        (((__repair_record_temp_s2*)temp_s2)->field_0) = (s16) D_800BD68E;
+        (((__repair_record_temp_s2*)temp_s2)->field_24) = (s16) D_800BD68E;do{
         temp_v0 = temp_a0 * 8;}while(0);
         *(s32 *)(D_80109C18 + temp_v0) = 0;
         *(s32 *)(D_80109C1C + temp_v0) = 0;
@@ -63,8 +64,7 @@ int __repair_constant = 3;
             (*(s32 *)((char *)(temp_s2) + -8)) = 0xF;
         }
         *(D_800BD5D0 - 0x34) = var_s1 + 0x4000;
-        temp_s0 = (var_s1 & 0xFFFF) * 8;
-        *(s32 *)(D_80109C18 + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
+        *(s32 *)(D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8)) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
         *(s32 *)(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
         func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
         var_s1 += 1;

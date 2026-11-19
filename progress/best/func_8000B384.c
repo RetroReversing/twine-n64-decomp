@@ -29,11 +29,11 @@ u16 *func_8000B384(s32 arg0, s16 arg1) {
         }
         if (var_a0 != NULL) {
             __repair_phase_storage.value = (*(u32 *)((char *)(var_a0) + 4));
-            var_s1 = var_a0 + 0x10;
+            var_s1 = (void *) ((0x10) + (s32) var_a0);
             (*(u16 *)((char *)(var_a0) + 0)) = 2;
             (*(s16 *)((char *)(var_a0) + 2)) = arg1;
             if (temp_s0 != __repair_phase_storage.value) {
-                var_a1 = var_s1 + temp_s0;
+                var_a1 = (void *) ((temp_s0) + (s32) var_s1);
                 if ((u32) (__repair_phase_storage.value - temp_s0) >= 0x20U) {
                     (*(u16 *)((char *)(var_a1) + 0)) = 1;
                     (*(s32 *)((char *)(var_a1) + 4)) = (s32) (((*(u32 *)((char *)(var_a0) + 4)) - temp_s0) - 0x10);

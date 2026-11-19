@@ -3,7 +3,7 @@
 s32 func_80008750(void *, u8, s32);         /* extern */
 s32 func_80009DCC(void *, void *, void *, s32, s32); /* extern */
 s32 func_80014C10(void *, f32, void *, void *);     /* extern */
-s32 func_80033FB8(void *, s32);                 /* extern */
+s32 func_80033FB8(void *);                 /* extern */
 s32 func_8003438C(void *, void *);              /* extern */
 s32 func_80034560(void *);                      /* extern */
 s32 func_800378C0(void *, void *, void *);      /* extern */
@@ -13,6 +13,7 @@ extern s32 D_800E1714;
 extern void *D_80109DC4;
 extern s32 D_80112E40;
 
+typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]; void * field_1C; void * field_20; unsigned char pad_24[48]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; } __repair_record_var_s1;
 void func_8003660C(void *arg0) {
     void *temp_s0;
     void *temp_a0;
@@ -30,7 +31,7 @@ void func_8003660C(void *arg0) {
     var_s1 = D_80109DC4;
     if (var_s1 != NULL) {
         do {
-            temp_s0 = (*(void **)((char *)(var_s1) + 0x20));
+            temp_s0 = (((__repair_record_var_s1*)var_s1)->field_20);
             temp_a0 = (*(void **)((char *)(arg0) + 0xF4));
             if (temp_s0 == temp_a0) {
                 temp_a0 = temp_s0;
@@ -49,20 +50,20 @@ loop_6:
                     }
                 }
                 if (var_a1 == 0) {
-                    func_80033FB8(temp_s0, var_a1);
+                    func_80033FB8(arg0);
                     temp_a0 = temp_s0;
                 } else {
                     temp_a0 = (*(void **)((char *)(arg0) + 0xF4));
                 }
             }
             func_8003438C(temp_a0, arg0);
-            if ((func_80014C10(var_s1 + 0x24, (*(f32 *)((char *)(var_s1) + 0x64)) * (*(f32 *)((char *)(var_s1) + 0x54)), (*(void **)((char *)(arg0) + 0xF4)), arg0) << 0x18) != 0) {
-                (*(s32 *)((char *)(var_s1) + 0x58)) = (s32) ((*(s32 *)((char *)(var_s1) + 0x58)) | 4);
+            if ((func_80014C10(var_s1 + 0x24, (((__repair_record_var_s1*)var_s1)->field_64) * (((__repair_record_var_s1*)var_s1)->field_54), (*(void **)((char *)(arg0) + 0xF4)), arg0) << 0x18) != 0) {
+                (((__repair_record_var_s1*)var_s1)->field_58) = (s32) ((((__repair_record_var_s1*)var_s1)->field_58) | 4);
                 func_80009DCC(temp_s0, var_s1, arg0, D_800E1714, 0);
                 if (((u32) (*(u32 *)((char *)(temp_s0) + 0x58)) >> 2) & 0x200) {
                     func_80009DCC(temp_s0, var_s1, arg0, D_800E1714, 1);
                 }
-                temp_s0 = (*(void **)((char *)(var_s1) + 8));
+                temp_s0 = (((__repair_record_var_s1*)var_s1)->field_8);
                 if (temp_s0 != NULL) {
                     do {
                         if ((*(s8 *)((char *)(temp_s0) + 0x38)) == 0) {
@@ -84,8 +85,8 @@ loop_6:
                     }
                 }
             }
-            (*(s32 *)((char *)(var_s1) + 0x58)) = (s32) ((*(s32 *)((char *)(var_s1) + 0x58)) & ~0x800);
-            var_s1 = (*(void **)((char *)(var_s1) + 0x1C));
+            (((__repair_record_var_s1*)var_s1)->field_58) = (s32) ((((__repair_record_var_s1*)var_s1)->field_58) & ~0x800);
+            var_s1 = (((__repair_record_var_s1*)var_s1)->field_1C);
         } while (var_s1 != NULL);
     }
 }

@@ -22,6 +22,7 @@ extern u8 D_801002A2;
 extern void *D_80109BB0;
 
 void func_8001A434(void) {
+    u8 *__base_D_801002A2;
     M2C_UNK *temp_s1;
     s32 temp_s2;
 
@@ -33,7 +34,8 @@ void func_8001A434(void) {
         func_8001A4F4();
         M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 0;
         temp_s1 = "%s";
-        func_80026004(temp_s2, temp_s1, func_80087100(D_801002A2 + 0x16D));
-        func_80026004(temp_s2 + 0x28, temp_s1, func_80087100(D_801002A2 + 0x177));
+        __base_D_801002A2 = &D_801002A2;
+        func_80026004(temp_s2, temp_s1, func_80087100((*__base_D_801002A2) + 0x16D));
+        func_80026004(temp_s2 + 0x28, temp_s1, func_80087100((*__base_D_801002A2) + 0x177));
     }
 }

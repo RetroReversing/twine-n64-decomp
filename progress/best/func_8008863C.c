@@ -1,4 +1,16 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
 s32 func_8009349C();
 s32 func_80093758();
@@ -13,7 +25,7 @@ extern char D_800E1AC0[];
 extern char D_800E2C60[];
 extern u8 D_800E2CC0[];
 extern u8 D_800E2CC1[];
-extern u8 D_800E2CC2[];
+extern char D_800E2CC2[];
 extern char D_800E2CC3[];
 extern char D_800E2CC4[];
 extern char D_800E2CD4[];
@@ -30,18 +42,18 @@ void func_8008863C(void) {
 char *__repair_addr;
 
     f64 var_ft0;
-    char *var_s6;
+    s32 temp_v0;
     s32 temp_v1;
-    int temp_v1_2;
+    s32 temp_v1_2;
     s32 var_s0;
     s32 var_s7;
-    void *temp_s1;
-    register char *var_s3;
+    char *var_s2;
+    char *var_s3;
     char *var_s4;
     char *var_s5;
-    s32 temp_v0;
+    char *var_s6;
     u8 temp_v0_2;
-    char *var_s2;
+    void *temp_s1;
 
     if (D_800CEEC0 != 0) {
         osRecvMesg(D_800E3F30, 0, 1);
@@ -63,19 +75,20 @@ char *__repair_addr;
                             var_s2 += 0x1228;
                         } else {
                             if ((s8) *(u8 *)var_s5 == 2) {
-                                register temp_v1_2 = *(u8 *)var_s4;
+                                temp_v1_2 = *(u8 *)var_s4;
                                 var_ft0 = (f64) temp_v1_2;
                                 if (temp_v1_2 < 0) {
                                     var_ft0 += D_800D66D0;
                                 }
                                 *(s32 *)(D_800E2CDC + var_s0) = 0;
                                 *(D_800E2CC0 + var_s0) = 2;
-                                *(D_800E2CE0 + var_s0) = ((f32) *(u16 *)(D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
-                                { func_8009D9B8(temp_s1); }
+                                *(f32 *)(D_800E2CE0 + var_s0) = ((f32) *(u16 *)(D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
+                                __repair_rows: { func_8009D9B8(temp_s1); }
+if (0) goto __repair_rows;
 __repair_addr = (char *)(D_800E2CD4 + var_s0);
 
                                 temp_v0 = func_8009349C(*(D_800E2CC4 + var_s0), *(u8 *)var_s3, *(s32 *)(__repair_addr), *(u8 *)var_s4, (s32) *(D_800E2CC1 + var_s0), (s32) *(D_800E2CC2 + var_s0), (s32) *(D_800E2CC3 + var_s0), (s32) *(D_800E2CD9 + var_s0), &func_80088EE4, var_s7);
-                                (*(s32 *)((char *)(temp_s1) + 0x120C)) = temp_v0;
+                                M2C_FIELD(temp_s1, s32 *, 0x120C) = temp_v0;
                                 if (temp_v0 == -1) {
                                     func_8009D9D8(temp_s1);
                                     goto block_17;
@@ -100,7 +113,7 @@ block_17:
                                 func_80093758(*(u8 *)var_s6);
                                 do {*(u8 *)var_s6 = -1;}while(0);
                             }
-                            (*(s8 *)((char *)(temp_s1) + 0x1218)) = (s8) (*(u8 *)var_s2 - 1);
+                            M2C_FIELD(temp_s1, s8 *, 0x1218) = (s8) (*(u8 *)var_s2 - 1);
                             goto block_23;
                         }
                     }
@@ -115,12 +128,12 @@ block_17:
 block_23:
                 var_s2 += 0x1228;
             }
-            var_s3 += 0x1228;
             var_s6 += 0x1228;
+            var_s3 += 0x1228;
             var_s5 += 0x1228;
             var_s4 += 0x1228;
-            var_s0 += 0x1228;
             var_s7 += 1;
+            var_s0 += 0x1228;
         } while (var_s7 < 2);
         osSendMesg(D_800E3F30, 0, 0);
     }

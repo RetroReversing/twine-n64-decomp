@@ -19,20 +19,21 @@ s32 func_800707B4(s32 arg0, s32 arg1, s32 arg2) {
 
     var_a3 = 1;
     var_v0 = 1 & 0xFF;
-loop_1:
-    temp_v1 = M2C_FIELD(((var_v0 * 2) + arg0), u16 *, 0x138);
-    if ((temp_v1 & 0xFF) != (arg1 & 0xFF)) {
-        var_a3 += 1;
-        goto block_8;
-    }
-    if ((temp_v1 >> 8) != (arg2 & 0xFF)) {
+    for (;;) {
+        temp_v1 = M2C_FIELD(((var_v0 * 2) + arg0), u16 *, 0x138);
+        if ((temp_v1 & 0xFF) != (arg1 & 0xFF)) {
+            var_a3 += 1;
+            goto block_8;
+        }
+        if ((temp_v1 >> 8) == (arg2 & 0xFF)) {
+            break;
+        }
         var_a3 += 1;
 block_8:
         var_v0 = var_a3 & 0xFF;
         if ((u32) (var_a3 & 0xFF) >= 0x1EU) {
             return 0;
         }
-        goto loop_1;
     }
     return 1;
 }

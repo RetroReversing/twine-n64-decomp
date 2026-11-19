@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK func_8000AABC(s32, s32, s32, M2C_UNK);      /* extern */
 s32 func_80045CF8(M2C_UNK);                         /* extern */
-f32 func_80084270(u16 *);                           /* extern */
+f32 func_80084270(s32, u16 *);                           /* extern */
 extern M2C_UNK D_800CE5D0;
 extern M2C_UNK D_800CE5D8;
 extern M2C_UNK D_80109688;
@@ -25,12 +25,12 @@ void func_800843CC(s32 arg0, s32 arg1) {
     f32 temp_fs0;
     u16 var_a0;
 
-    temp_fs0 = func_80084270(&sp10);
+    temp_fs0 = func_80084270(arg0, &sp10);
     if ((arg1 << 0x18) != 0) {
-        var_a0 = *((M2C_UNK *)((s8 *)&D_800CE5D0 + (func_80045CF8(4) * 2)));
+        var_a0 = *((u16 *)((s8 *)&D_800CE5D0 + (func_80045CF8(4) * 2)));
     
     func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0, 0);} else {
-        var_a0 = *((M2C_UNK *)((s8 *)&D_800CE5D8 + (func_80045CF8(4) * 2)));
+        var_a0 = *((u16 *)((s8 *)&D_800CE5D8 + (func_80045CF8(4) * 2)));
     
     func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0, 0);}
 }

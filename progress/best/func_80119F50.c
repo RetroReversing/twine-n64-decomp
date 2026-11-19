@@ -39,7 +39,7 @@ block_7:
                 func_80119E60((u16) (*(s16 *)((char *)(arg0) + 0x7A)), (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(*var_s0) + 0x6C))) + 0xB4))) + 0x12)), arg0);
             }
             var_s2 += 1;
-            var_s0 += 4;
+            var_s0 += 1;
         } while (var_s2 < 4U);
         temp_a0_2 = (*(s16 *)((char *)(arg0) + 0x7C));
         if (temp_a0_2 < 2) {

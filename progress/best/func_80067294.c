@@ -17,6 +17,8 @@ extern char D_800C469C[];
 extern s32 D_80102ED8;
 
 void func_80067294(void *arg0, s32 arg1) {
+    void * __repair_hoisted;
+
 char *__repair_addr;
 
     s8 temp_v1;
@@ -67,9 +69,10 @@ __repair_addr = (char *)(M2C_FIELD(arg0, void **, 0x68));
     case 25:
     case 26:
     case 27:
+        __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
         if (!(*(u16 *)(D_800C469C + (M2C_FIELD(__repair_addr, s8 *, 0xE) * 0xE8)) & 0x8000)) {
             __repair_rows: {
-                M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) -= 1;
+                M2C_FIELD(__repair_hoisted, u8 *, 0xE) -= 1;
             }
 if (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 0x8000)) goto __repair_rows;
         }
@@ -77,6 +80,13 @@ if (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE
         func_80070CA4((s8) M2C_FIELD(arg0, void **, 0x68));
         M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xA8), s16 *, 0x7A) = 0xA;
         /* fallthrough */
+    case 0:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
     default:
         return;
     }

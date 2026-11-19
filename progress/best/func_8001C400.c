@@ -28,33 +28,35 @@ extern s32 func_8002255C;
 extern s32 func_800227EC;
 extern s32 func_8011A7C8;
 
+typedef struct { unsigned char pad[16]; void * value; } __repair_field_10;
+typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char pad_E[10]; short field_18; } __repair_record_temp_s1;
 void func_8001C400(void) {
-    unsigned int var_a1;
+    void *temp_s0;
     register void *temp_s4;
     unsigned long var_a0;
-    void *temp_s0;
+    unsigned long var_a1;
     void *temp_s1;
     void *temp_s2;
     void *temp_s3;
-    s32 temp_s0_2;
+    register int temp_s0_2;
     register void *var_a0_2;
 
     if ((*(u8 *)((char *)(&func_8011A7C8) + 0x3C)) != 0) {
         func_8003099C(D_800E0C60, D_800E0C61);
         func_80030C1C();
     } else {
-        D_800E0C60 = (u8) D_80100768;
+        D_800E0C60 = (u8) (short)D_80100768;
         D_800E0C61 = func_800316B8();
     }
     D_800BD690 = 0;
-    temp_s3 = func_800262A8((*(void **)((char *)(D_80109BB0) + 0x10)), 0xE);
-    temp_s0 = func_800262A8((*(void **)((char *)(D_80109BB0) + 0x10)), 0x4000);
-    temp_s4 = func_800262A8((*(void **)((char *)(D_80109BB0) + 0x10)), 0x4001);
-    temp_s1 = func_800262A8((*(void **)((char *)(D_80109BB0) + 0x10)), 0x55);
-    temp_s2 = func_800262A8((*(void **)((char *)(D_80109BB0) + 0x10)), 0xB);
+    temp_s3 = func_800262A8((((__repair_field_10 *)D_80109BB0)->value), 0xE);
+    temp_s0 = func_800262A8((((__repair_field_10 *)D_80109BB0)->value), 0x4000);
+    temp_s4 = func_800262A8((((__repair_field_10 *)D_80109BB0)->value), 0x4001);
+    temp_s1 = func_800262A8((((__repair_field_10 *)D_80109BB0)->value), 0x55);
+    temp_s2 = func_800262A8((((__repair_field_10 *)D_80109BB0)->value), 0xB);
     func_8002A644(D_80115060, D_80100870, 0x90, 0xA, 0x45, 0xB4, 0x4B, 0xB, 0, &func_8002255C, &func_800227EC);
     D_800BD9BA = 0x10;
-    if (((temp_s0 != NULL) & (temp_s3 != NULL)) && ((temp_s1 != NULL) & (temp_s2 != NULL)) && ((int)temp_s4 != NULL)) {
+    if (((temp_s0 != NULL) & (temp_s3 != (s32)NULL)) && ((temp_s1 != (short)NULL) & (temp_s2 != NULL)) && ((int)temp_s4 != NULL)) {
         D_800B5B24 = 0;
         D_800B5B26 = 1;
         func_80026004(temp_s0, "%s", func_80087100(func_80030C4C() & 0xFFFF));
@@ -65,20 +67,20 @@ void func_8001C400(void) {
         temp_s0_2 = func_80087100(var_a0);
         func_80026004(temp_s4, "%s : %s", temp_s0_2, func_80087100((func_800316B8() + 0x72) & 0xFFFF));
         if (temp_s1 != NULL) {
-            (*(u16 *)((char *)(temp_s1) + 0xC)) &= 0xFFF0;
+            (((__repair_record_temp_s1*)temp_s1)->field_C) &= 0xFFF0;
             if (func_80030D40() != 5) {
                 func_80025E9C(temp_s1, 0, temp_s2, temp_s3, 0, 9);
-                var_a0_2 = (*(void **)((char *)(D_80109BB0) + 0x10));
-                (*(s16 *)((char *)(temp_s1) + 0x18)) = 0x190;
+                (((__repair_record_temp_s1*)temp_s1)->field_18) = 0x190;
+                var_a0_2 = (((__repair_field_10 *)D_80109BB0)->value);
                 var_a1 = 0xE;
             } else {
                 D_80102F04 = 1;
                 func_80025D84(temp_s1, 0, temp_s2, temp_s3, 0x55, 0);
-                var_a0_2 = (*(void **)((char *)(D_80109BB0) + 0x10));
-                (*(s16 *)((char *)(temp_s1) + 0x18)) = 0xA0;
+                var_a0_2 = (((__repair_field_10 *)D_80109BB0)->value);
+                (((__repair_record_temp_s1*)temp_s1)->field_18) = 0xA0;
                 var_a1 = 0x55;
             }
-            (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = func_800263B8(var_a0_2, var_a1);
+            (*(s8 *)((char *)((((__repair_field_10 *)D_80109BB0)->value)) + 4)) = func_800263B8(var_a0_2, var_a1);
         }
     }
 }

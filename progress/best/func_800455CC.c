@@ -12,6 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg1;
 f32 func_800455CC(void *arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fa0;
     f32 temp_fa1;
@@ -26,12 +27,12 @@ f32 func_800455CC(void *arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
     f32 var_ft1;
 
-    temp_ft2 = M2C_FIELD(arg1, f32 *, 0);
     temp_fa1 = M2C_FIELD(arg2, f32 *, 0);
-    temp_ft5 = M2C_FIELD(arg1, f32 *, 4);
+    temp_ft5 = ((__repair_record_arg1*)arg1)->field_4;
+    temp_ft2 = ((__repair_record_arg1*)arg1)->field_0;
     temp_fv0 = temp_ft2 - temp_fa1;
     temp_fs2 = M2C_FIELD(arg2, f32 *, 4);
-    temp_ft4 = M2C_FIELD(arg1, f32 *, 8);
+    temp_ft4 = ((__repair_record_arg1*)arg1)->field_8;
     temp_fa0 = temp_ft5 - temp_fs2;
     temp_fs1 = M2C_FIELD(arg2, f32 *, 8);
     temp_ft3 = temp_ft4 - temp_fs1;

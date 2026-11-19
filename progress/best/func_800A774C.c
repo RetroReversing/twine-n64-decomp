@@ -28,7 +28,7 @@ void func_800A774C(s32 arg0) {
             r->unk14[idx] = *(s32 *)(base + arg0 + 4);
             r->unk8 = cnt + 1;
             if (*r->unk0 != 0) {
-                ret = func_800A798C(r);
+                ret = func_800A798C(arg0, r);
                 func_800A7944(D_800CFE78);
             }
         }

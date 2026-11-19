@@ -18,20 +18,18 @@ extern u16 D_80117386;
 
 void func_80044C04(s32 arg0) {
     char *var_a1;
-    u16 var_v1;
+    s32 var_v1;
 
     var_v1 = 0;
     var_a1 = &D_800C2E24;
     D_80108F78 = arg0;
     D_80117386 = 0;
-loop_1:
-    if (*(s16 *)var_a1 != arg0) {
+    while (*(s16 *)var_a1 != arg0) {
         var_v1 += 1;
         var_a1 += 2;
         if (var_v1 >= 0x20U) {
             return;
         }
-        goto loop_1;
     }
     D_80117386 = var_v1;
 }

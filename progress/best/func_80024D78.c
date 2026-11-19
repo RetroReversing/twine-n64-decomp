@@ -28,6 +28,7 @@ extern char D_800D2AD0[];
 extern char D_80107EA8[];
 extern void *D_80109BB0;
 
+extern char D_800D2AE0[];
 void func_80024D78(void) {
     s8 sp18;
     s8 sp19;
@@ -38,7 +39,7 @@ void func_80024D78(void) {
     s32 temp_s1;
     s32 temp_v0_3;
     s8 temp_v0_2;
-    s8 var_s3;
+    s32 var_s3;
     s8 var_v0;
     void **temp_v0;
     void *temp_s0_2;
@@ -59,9 +60,9 @@ void func_80024D78(void) {
                 if ((temp_v0_2 << 0x18) == 0) {
                     var_v0 = 0x20;
                 }
-                sp18 = var_v0;
                 temp_s1 = var_s3 & 0xFFFF;
                 temp_s0 = func_8002CB7C(temp_s1);
+                sp18 = var_v0;
                 sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0), s32 *, 0x18), D_800D2AD0, temp_s1 + 1, temp_s0, &sp18, func_8002CBB8(temp_s1) & 0xFFFF);
                 temp_s0_2 = M2C_FIELD(temp_s2, void **, 0);
                 M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s32 *, 0x18));
@@ -71,7 +72,7 @@ void func_80024D78(void) {
                 } else {
                     var_a1 = 0x10;
                 }
-                func_800448A4(M2C_FIELD(temp_s2, s32 *, 4));
+                func_800448A4(M2C_FIELD(temp_s2, s32 *, 4), 0x10, 0x24);
             }
         }
         var_s3 += 1;
@@ -79,6 +80,6 @@ void func_80024D78(void) {
     temp_v0_3 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4010);
     if (temp_v0_3 != 0) {
         temp_s0_3 = func_80087100(0x300E);
-        func_80026004(temp_v0_3, "%s:%d", temp_s0_3, func_8002D1F8() & 0xFFFF);
+        func_80026004(temp_v0_3, D_800D2AE0, temp_s0_3, func_8002D1F8() & 0xFFFF);
     }
 }

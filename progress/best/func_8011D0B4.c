@@ -21,10 +21,10 @@ extern s32 D_8010969C;
 extern char D_8011F010[];
 
 void func_8011D0B4(s32 arg0) {
-    s32 sp30;
+    char sp30[0x20];
     void *temp_s0;
 
     temp_s0 = ((func_80022DBC(arg0 & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
-    sprintf(&sp30, D_8011F010, temp_s0, func_80087100(0x28B));
-    func_80073AF8(0, D_8010969C, &sp30, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+    sprintf(sp30, D_8011F010, temp_s0, func_80087100(0x28B));
+    func_80073AF8(0, D_8010969C, sp30, -1, -1, 1, 0, 0, 6, 0, 0x3C);
 }

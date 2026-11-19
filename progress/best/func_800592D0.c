@@ -5,7 +5,7 @@ s32 func_8003E6EC();
 s32 func_80044670();
 extern s32 *D_800CA31C;
 
-void *func_800592D0(s8 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 arg5, u16 arg6) {
+void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 arg5, u16 arg6) {
     s32 temp_fv0;
     s32 temp_a0;
     s16 var_v0;
@@ -13,7 +13,7 @@ void *func_800592D0(s8 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 arg
     void *temp_s0;
     void *temp_v0;
 
-    temp_v0 = func_80016410(0x50);
+    temp_v0 = func_80016410(0x50, arg1);
     if (temp_v0 != NULL) {
         temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
         func_80044670(temp_v0, (*(u16 *)((char *)(arg3) + 0)), *(*(s16 **)((char *)(arg3) + 0x28)));

@@ -1,5 +1,5 @@
 /* Same-name source lead: guNormalize in V-RALLY-PAL; verified ROM source. Destination verification required. */
-f32 sqrtf(f32);
+f32 sqrtf(f32, f32 *);
 
 /* Scales the vector (x, y, z) in place to unit length. */
 void guNormalize(f32 *x, f32 *y, f32 *z) {
@@ -11,7 +11,7 @@ void guNormalize(f32 *x, f32 *y, f32 *z) {
     vx = *x;
     vy = *y;
     vz = *z;
-    inv_len = 1.0f / sqrtf((vx * vx) + (vy * vy) + (vz * vz));
+    inv_len = 1.0f / sqrtf((vx * vx) + (vy * vy) + (vz * vz), y);
     *x *= inv_len;
     *y *= inv_len;
     *z *= inv_len;

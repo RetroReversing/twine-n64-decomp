@@ -23,12 +23,12 @@ void func_80017EC0(void *arg0, f32 arg1, f32 arg2) {
                 }
                 if (((*(u16 *)((char *)(var_s0) + 0x78)) == 1) && ((*(s16 *)((char *)(var_s0) + 0x7A)) != 0x27)) {
                     temp_a0 = (*(void **)((char *)(var_s0) + 0x6C));
-                    (*(s32 *)((char *)(var_s0) + 0x60)) = (s32) ((*(s32 *)((char *)(var_s0) + 0x60)) | 0x40000000);
+                    (*(s32 *)((char *)(var_s0) + 0x60)) = (s32) ((*(s32 *)((char *)(var_s0) + (unsigned short)0x60)) | 0x40000000);
                     (*(s32 *)((char *)(temp_a0) + 0x88)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x88)) & 0xFFE1FFFF) | 0xE0000);
                     (*(s32 *)((char *)(temp_a0) + 0x50)) = (s32) (*(s32 *)((char *)(arg0) + 0x24));
                     (*(s32 *)((char *)(temp_a0) + 0x54)) = (s32) (*(s32 *)((char *)(arg0) + 0x28));
                     (*(s32 *)((char *)(temp_a0) + 0x64)) = 0;
-                    (*(s32 *)((char *)(temp_a0) + 0x58)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
+                    (*(s32 *)((char *)(temp_a0) + 0x58)) = (s32) (*(s32 *)((char *)((short)arg0) + 0x2C));
                     (*(f32 *)((char *)(temp_a0) + 0x60)) = arg2;
                 }
             }

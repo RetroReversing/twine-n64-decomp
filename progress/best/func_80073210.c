@@ -22,7 +22,7 @@ extern u32 D_800E1A64;
 extern s32 D_800E1A68;
 
 void func_80073210(void *arg0, M2C_UNK arg1, M2C_UNK arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
-    M2C_UNK sp18;
+    char sp18[0x30];
     s16 sp48;
     s16 sp4A;
     s16 sp4C;
@@ -45,11 +45,11 @@ void func_80073210(void *arg0, M2C_UNK arg1, M2C_UNK arg2, f32 arg3, f32 arg4, f
     temp_fv0_2 = (s32) arg5;
     D_800E1A34 = (f32) var_fv1;
     D_800E1A30 = arg7;
-    sp48 = (s16) (s32) arg3;
     sp4A = (s16) temp_fv0;
     sp4C = (s16) temp_fv0_2;
     D_800C7E6C = M2C_FIELD(arg0, u8 *, 0x44);
-    func_80082FE4(&sp48, &sp18, temp_fv0, temp_fv0_2);
+    sp48 = (s16) (s32) arg3;
+    func_80082FE4(&sp48, sp18, temp_fv0, temp_fv0_2);
     D_800E1A68 = 0;
     func_8003941C(arg0, arg1, arg2, &sp50, 0);
 }

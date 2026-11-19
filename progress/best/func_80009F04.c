@@ -32,10 +32,10 @@ extern s16 D_80108400;
 
 s32 func_80009F04(void) {
     s32 temp_s0;
-    int temp_s2;
+    unsigned int temp_s2;
 u16 __repair_narrow_temp_s2;
     s32 temp_s2_2;
-    s32 temp_s2_3;
+    unsigned long temp_s2_3;
     s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v0_3;
@@ -61,8 +61,8 @@ u16 __repair_narrow_temp_s2;
         var_s0 = 0;
         if (D_800B2480) {
             __repair_rows: {
-                __repair_narrow_temp_s2 = (u16)(*((s32 *)((s8 *)&D_800B2488 + var_s0)));
                 var_s0 += 0xC;
+                __repair_narrow_temp_s2 = (u16)(*((s32 *)((s8 *)&D_800B2488 + var_s0)));
                 temp_s2_3 = (u16)__repair_narrow_temp_s2;
 temp_s2 = (u16)temp_s2_3;
 func_80092A68(D_800E06FC, temp_s2, &D_14E2500, D_800E0704, D_800E0700);

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s8 func_8007C094(f32);                              /* extern */
+s8 func_8007C094(void *, f32);                              /* extern */
 extern f32 D_800C2E64;
 extern s16 D_80117386;
 
@@ -22,7 +22,7 @@ f32 __repair_var_fv0_1;
     f32 var_fv1;
     s32 temp_v1_2;
     s32 var_v0;
-    u8 temp_v1;
+    s32 temp_v1;
     void *temp_a2;
 
     temp_a2 = M2C_FIELD(arg0, void **, 0x6C);
@@ -32,9 +32,9 @@ block_4:
         var_fv1 = *(&D_800C2E64 + (D_80117386 * 4)) * arg2;
     } else {
         if ((temp_v1 & 0xFF) != 0xB) {
-            temp_v1_2 = M2C_FIELD(temp_a2, s32 *, 0x88);
-            if (!(temp_v1_2 & 0x40000000)) {
-                if (temp_v1_2 & 0x20000000) {
+            temp_v1 = M2C_FIELD(temp_a2, s32 *, 0x88);
+            if (!(temp_v1 & 0x40000000)) {
+                if (temp_v1 & 0x20000000) {
                     var_fv0 = 0.75f;
                     var_v0 = D_80117386 * 4;
                 } else {
@@ -50,5 +50,5 @@ block_4:
             goto block_4;
         }
     }
-    return func_8007C094(var_fv1);
+    return func_8007C094(arg0, var_fv1);
 }

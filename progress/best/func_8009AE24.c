@@ -44,7 +44,7 @@ s32 func_8009AE24(s32 arg0, void *arg1, s32 arg2) {
     }
     temp_v1_3 = M2C_FIELD(arg1, u32 *, 4);
     if ((u8) M2C_FIELD(arg1, u32 *, 0) != 0) {
-        var_a0 = func_80096E7C(arg0, temp_v1_3 & 0xFF);
+        var_a0 = func_80096E7C(arg0, arg1, temp_v1_3 & 0xFF);
     } else {
         temp_v1_5 = temp_v1_3 & 0x1F;
         temp_v0_2 = temp_v1_5 * 2;

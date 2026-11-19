@@ -27,31 +27,33 @@ void func_80016EE0(void) {
 
     if ((D_800CEEB0 == 0) && ((func_80006694() == 1) || (func_80006694() == 9)) && (D_80103EB0 != 0) && (var_s0 = 0, (D_800CA338 == 0))) {
         var_s1 = &D_8010A500;
-loop_6:
-        temp_v0 = *var_s1;
-        if (temp_v0 == NULL) {
-            var_s0 += 1;
-            goto block_19;
-        }
-        if (M2C_FIELD(temp_v0, u16 *, 0x78) != 2) {
-            var_s0 += 1;
-            goto block_19;
-        }
-        if (func_800819EC(var_s0, 0x15) == 0) {
-            var_s0 += 1;
-            goto block_19;
-        }
-        if ((u32) (M2C_FIELD(*var_s1, u16 *, 0x7A) - 2) >= 2U) {
-            func_80076168(var_s0 & 0xFF);
-        } else {
-            var_s0 += 1;
-block_19:
-            var_s1 += 4;
-            if (var_s0 >= 4U) {
-
-            } else {
-                goto loop_6;
+        for (;;) {
+            temp_v0 = *var_s1;
+            if (temp_v0 == NULL) {
+                var_s0 += 1;
+                goto block_19;
             }
+            if (M2C_FIELD(temp_v0, u16 *, 0x78) != 2) {
+                var_s0 += 1;
+                goto block_19;
+            }
+            if (func_800819EC(var_s0, 0x15) == 0) {
+                var_s0 += 1;
+                goto block_19;
+            }
+            if ((u32) (M2C_FIELD(*var_s1, u16 *, 0x7A) - 2) >= 2U) {
+                func_80076168(var_s0 & 0xFF);
+            } else {
+                var_s0 += 1;
+block_19:
+                var_s1 += 1;
+                if (var_s0 >= 4U) {
+
+                } else {
+                    continue;
+                }
+            }
+            break;
         }
     }
 }

@@ -6,25 +6,27 @@ extern u8 D_800E6A85[];
 extern s32 D_800E6A8A;
 
 u16 func_8009092C(s32 arg0) {
-    long var_v1_2;
-    u32 var_a1;
+    s32 var_v1_2;
     register s32 var_v1;
+    u32 var_a1;
 
     var_a1 = 0;
-    if (D_800CF540) {
+    if (D_800CF540 != 0) {
         var_v1_2 = 0;
-loop_2:
-        if ((*(D_800E6A85 + var_v1_2) != 0) || (*((s32 *)((s8 *)&D_800E5AC4 + var_v1_2)) != (arg0 & 0x7FFFFFFF))) {/*__repair_loop_weight*/do { {{do {
-            var_a1++;} while (0);}}
-} while (0);
-            var_v1_2 += 0xFF8;
-            if (8U <= var_a1) {
-                register var_v1 = -1;
-            } else {
-                goto loop_2;
-            }
-        } else {
-            register var_v1 = var_a1 | (arg0 & 0x7fffffff);
+        for (;;) {
+            if ((*(D_800E6A85 + var_v1_2) != 0) || (*((s32 *)((s8 *)&D_800E5AC4 + var_v1_2)) != (arg0 & 0x7FFFFFFF))) {/*__repair_loop_weight*/__repair_rows: {{do {
+                        var_a1 += 1;} while (0);}}
+            if (0) goto __repair_rows;
+                        var_v1_2 += 0xFF8;
+                        if (var_a1 >= 8U) {
+                            var_v1 = -1;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        var_v1 = var_a1 | (arg0 & 0x7fffffff);
+                    }
+            break;
         }
         if ((var_v1 != -1) && ((unsigned short)var_v1 >= 0)) {
             return *((s32 *)((s8 *)&D_800E6A8A + (var_v1 * 0xFF8)));

@@ -22,13 +22,13 @@ short __repair_constant = 8;
     unsigned temp_v1_10;
 s32 __repair_phase_temp_v1_10;
     
-    long temp_v1_8;
+    s32 temp_v1_8;
     
-    int var_a0_2;
+    u32 var_a0_2;
     
 s32 __repair_phase_var_a1;
-    int var_a1_2;
-    register unsigned long var_v1;
+    unsigned var_a1_2;
+    register int var_v1;
     void *temp_v0;
     void *temp_v0_2;
     void *temp_v1;
@@ -129,7 +129,7 @@ block_9:
                 temp_v1_10 = 0xFF0FF37F;
                 var_a1_2 = 0xFC40FE03;
 block_92:
-                D_80115328 += __repair_constant;
+                D_80115328 += (unsigned short)__repair_constant;
                 (*(s32 *)((char *)(D_80115328) + 4)) = temp_v1_10;
                 (*(s32 *)((char *)(D_80115328) + 0)) = var_a1_2;
             } else {
@@ -195,7 +195,7 @@ block_91:
     case 5:                                         /* switch 2 */
     case 6:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            temp_v1_9 = D_80115328;
+            register temp_v1_9 = D_80115328;
             D_8010A924 = __repair_constant;
             D_80115328 = temp_v1_9 + 8;
             (*(s32 *)((char *)(temp_v1_9) + 0)) = 0xDE000000;
@@ -228,7 +228,7 @@ block_91:
             (*(s32 **)((char *)(temp_v1_11) + 4)) = &D_800B1BB8;
             (*(s32 *)((char *)(temp_v1_11) + 0)) = 0xDE000000;
         }
-        if ((u32)D_801032A0 != 3) {
+        if (D_801032A0 != 3) {
             D_801032A0 = 3;
             temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             switch (temp_v1_10) {                   /* switch 5; irregular */
@@ -334,7 +334,7 @@ block_88:
     case 3:                                         /* switch 2 */
     case 4:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            temp_v1_18 = D_80115328;
+            register temp_v1_18 = D_80115328;
             D_8010A924 = __repair_constant;
             D_80115328 = temp_v1_18 + 8;
             (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;

@@ -4,7 +4,7 @@ s32 func_8004FF30();
 
 void func_8006F50C(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
     register f32 sp64;
-    unsigned long sp30;
+    u8 sp30[0x10];
     f32 sp50;
     f32 sp28;
     f32 sp68;
@@ -36,7 +36,7 @@ void func_8006F50C(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
     temp_fv0_3 = (*(f32 *)((char *)(arg1) + 0x2C));
     sp68 = temp_fv0_3;
     sp58 = temp_fv0_3;
-    if ((func_8004FF30(&sp50, &sp30, 0x3F400000, 0x10, arg2, arg3, 0) << 0x18) != 0) {
+    if ((func_8004FF30(arg0, arg1, &sp50, sp30, 0x3F400000, 0x10, arg2, arg3) << 0x18) != 0) {
         sp28 += sp58 - sp68;
         sp24 += sp54 - sp64;
         sp20 += sp50 - sp60;

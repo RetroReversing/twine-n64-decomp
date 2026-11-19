@@ -2,7 +2,7 @@
 
 void *func_80047B44(s32, void *, f32 *, s32);   /* extern */
 s32 func_8004AD30(s32, f32 *, s32 *, f32, s32, s32, s32, s32); /* extern */
-f32 func_8008292C(f32);                             /* extern */
+f32 func_8008292C(void);                             /* extern */
 f32 func_800829A0(f32, f32);                        /* extern */
 f32 func_800829C8(f32);                             /* extern */
 f32 func_80082A70(f32, s32);                    /* extern */
@@ -30,28 +30,28 @@ f32 __repair_value_1; } view_sp24;
              
                  
     f32 temp_a0;
-    f32 temp_fv0;
-    f32 var_fs0;
     f32 temp_fv1;
     f32 var_fv0;
+    register f32 temp_fv0;
+    f32 var_fs0;
 f32 __repair_var_fv0_1;
-    s32 var_a0;
+    long var_a0;
     void *temp_s3;
-    register void *temp_v0;
+    void *temp_v0;
 
     temp_s3 = (*(void **)((char *)(arg1) + 0x6C));
     var_fs0 = 0.0f;
     if (*((s32 *)((s8 *)&D_8011508C + ((*(s8 *)((char *)(temp_s3) + 0x182)) * 0xA0))) != 0) {
-        temp_a0 = (*(f32 *)((char *)(arg1) + 0x2C));
         m2c_initial_frame.view_sp20.value = (*(f32 *)((char *)(arg1) + 0x24));
+        temp_a0 = (*(f32 *)((char *)(arg1) + 0x2C));
         m2c_initial_frame.view_sp24.__repair_value_1 = (*(f32 *)((char *)(arg1) + 0x28));
         m2c_initial_frame.view_sp28.value = temp_a0;
         temp_fv1 = m2c_initial_frame.view_sp20.value + (func_800829A0((*(f32 *)((char *)(arg1) + 0x40)), temp_a0) * 1.5f);
         m2c_initial_frame.view_sp24.value += 0.5f;
         m2c_initial_frame.view_sp20.value = temp_fv1;
         m2c_initial_frame.view_sp28.value += func_800829C8((*(f32 *)((char *)(arg1) + 0x40))) * 1.5f;
-        temp_v0 = func_80047B44(arg0, arg1 + 0x24, &m2c_initial_frame.view_sp20.value, 0);
         var_a0 = arg0;
+        temp_v0 = func_80047B44(arg0, arg1 + 0x24, &m2c_initial_frame.view_sp20.value, 0);
         if (temp_v0 != NULL) {
             var_a0 = (*(s32 *)((char *)(temp_v0) + 8));
         }
@@ -63,7 +63,7 @@ f32 __repair_var_fv0_1;
             m2c_initial_frame.view_sp38.value = m2c_initial_frame.view_sp28.value;
             m2c_initial_frame.view_sp30.value += func_800829A0((*(f32 *)((char *)(arg1) + 0x40)), m2c_initial_frame.view_sp28.value);
             var_fs0 = temp_fv0 * 0.47746482f;
-            m2c_initial_frame.view_sp34.value += func_8008292C(temp_fv0);
+            m2c_initial_frame.view_sp34.value += func_8008292C();
             m2c_initial_frame.view_sp38.value += func_800829C8((*(f32 *)((char *)(arg1) + 0x40)));
             goto block_5;
         }
