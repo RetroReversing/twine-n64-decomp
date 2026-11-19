@@ -24,24 +24,20 @@ s32 func_800248B4(s32 arg0, s32 arg1) {
     s32 temp_a0;
 
     temp_a0 = arg0 & 0xFFFF;
-    if (temp_a0 != 0x2000) {
-        if (temp_a0 >= 0x2001) {
-            if (temp_a0 != 0x8000) {
-                return 1;
+    switch (temp_a0) {
+        case 0:
+            func_8002CA90("TWINE.");
+            return 0x2001;
+        case 0x2000:
+            func_8002CAEC(arg1 & 0xFF);
+            if (D_800BFC32 == 1) {
+                D_80102F04 = 1;
             }
+            func_80026424(D_80102F2C, 0x18);
+            return 0x8001;
+        case 0x8000:
             M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
             return 1;
-        }
-        if (temp_a0 != 0) {
-            return 1;
-        }
-        func_8002CA90("TWINE.");
-        return 0x2001;
     }
-    func_8002CAEC(arg1 & 0xFF);
-    if (D_800BFC32 == 1) {
-        D_80102F04 = 1;
-    }
-    func_80026424(D_80102F2C, 0x18);
-    return 0x8001;
+    return 1;
 }
