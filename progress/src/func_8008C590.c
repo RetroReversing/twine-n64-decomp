@@ -15,13 +15,9 @@ typedef s32 M2C_UNK32;
 extern s32 D_800E41DC;
 
 void func_8008C590(s32 arg0) {
-    s32 temp_a0;
-    u8 *temp_v1;
 
-    temp_a0 = arg0 * 0x68;
-    temp_v1 = (char *)((D_800E41DC)); temp_v1 += (s32)((temp_a0));
-    if (*temp_v1 != 0) {
-        *temp_v1 = 0;
-        M2C_FIELD((temp_a0 + D_800E41DC), s8 *, 0x61) = 1;
+    if (((u8 (*)[0x68]) D_800E41DC)[arg0][0x0] != 0) {
+        ((u8 (*)[0x68]) D_800E41DC)[arg0][0x0] = 0;
+        ((s8 (*)[0x68]) D_800E41DC)[arg0][0x61] = 1;
     }
 }
