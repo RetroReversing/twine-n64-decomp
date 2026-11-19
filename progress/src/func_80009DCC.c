@@ -23,7 +23,7 @@ extern s32 D_8010D538;
 extern void *D_80117728;
 
 typedef struct { unsigned char pad_0[84]; int field_54; int field_58; unsigned char pad_5C[20]; int field_70; unsigned char pad_74[10]; unsigned char field_7E; } __repair_record_arg1;
-void func_80009DCC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_80009DCC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s8 arg4) {
     s32 temp_s2;
     u32 temp_v0;
     u8 temp_a1;
@@ -38,8 +38,8 @@ void func_80009DCC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
             D_80107EA0 = temp_v0;
             if (((__repair_record_arg1*)arg1)->field_58 & 0x40000) {
                 func_80008660(arg1);
-            } else if ((arg4 << 0x18) != 0) {
-                do { func_800084C0(arg1, arg0); } while (0);
+            } else if (arg4 != 0) {
+                func_800084C0(arg1, arg0);
             } else {
                 func_80008434(arg1, ((__repair_record_arg1*)arg1)->field_54);
             }
