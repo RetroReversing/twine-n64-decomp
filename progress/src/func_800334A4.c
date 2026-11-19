@@ -22,33 +22,24 @@ void func_800334A4(void *arg0, s32 *arg1, u32 arg2, s32 arg3, s32 arg4, u8 arg5,
     void *temp_v1_3;
 
     temp_t3 = M2C_FIELD(((M2C_FIELD(arg0, u8 *, 1) * 8) + arg4), s32 *, 4);
-    if (arg2 == 9) {
-block_6:
-        if (*arg1 != 1) {
-            if (arg5 != 0) {
-                temp_v0 = D_8010A510;
-                D_8010A510 = temp_v0 + 8;
-                M2C_FIELD(temp_v0, s32 *, 0) = 0xE3001001;
-                M2C_FIELD(temp_v0, s32 *, 4) = 0;
-            } else {
-                *arg6 += 1;
-            }
-            *arg1 = 1;
+    switch (arg2) {
+    case 5:
+    case 6:
+    case 9:
+    case 15:
+    if (*arg1 != 1) {
+        if (arg5 != 0) {
+            temp_v0 = D_8010A510;
+            D_8010A510 = temp_v0 + 8;
+            M2C_FIELD(temp_v0, s32 *, 0) = 0xE3001001;
+            M2C_FIELD(temp_v0, s32 *, 4) = 0;
+        } else {
+            *arg6 += 1;
         }
-    } else {
-        if (arg2 < 0xAU) {
-            if (arg2 < 7U) {
-                if (arg2 < 5U) {
-                    goto block_11;
-                }
-                goto block_6;
-            }
-            goto block_11;
-        }
-        if (arg2 == 0xF) {
-            goto block_6;
-        }
-block_11:
+        *arg1 = 1;
+    }
+        break;
+    default:
         if (*arg1 != 2) {
             if (arg5 != 0) {
                 temp_v1 = D_8010A510;
@@ -60,7 +51,7 @@ block_11:
             }
             *arg1 = 2;
         }
-        if (*(s32 *)((M2C_FIELD(arg0, u8 *, 1) * 8) + arg4) == 0xFF) {
+        if (*(u8 *)((M2C_FIELD(arg0, u8 *, 1) * 8) + arg4) == 0xFF) {
             if (arg5 != 0) {
                 temp_v1_2 = D_8010A510;
                 D_8010A510 = temp_v1_2 + 8;
@@ -79,7 +70,7 @@ block_11:
                 *arg6 += 4;
             }
         }
-        if (*(s32 *)((M2C_FIELD(arg0, u8 *, 1) * 8) + arg4) == 0xF) {
+        if (*(u8 *)((M2C_FIELD(arg0, u8 *, 1) * 8) + arg4) == 0xF) {
             if (arg5 != 0) {
                 temp_v1_3 = D_8010A510;
                 D_8010A510 = temp_v1_3 + 8;
@@ -98,5 +89,6 @@ block_11:
             }
             *arg6 += 4;
         }
+        break;
     }
 }
