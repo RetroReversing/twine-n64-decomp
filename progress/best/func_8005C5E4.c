@@ -17,7 +17,7 @@ s32 func_800175C0();
 s32 func_8005B5A8();
 s32 func_8005C508();
 s32 func_8007092C();
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 
 void func_8005C5E4(s32 arg0) {
     s32 var_s0;

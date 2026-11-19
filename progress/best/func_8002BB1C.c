@@ -16,17 +16,23 @@ void *func_8002B850();                              /* extern */
 extern void *D_80102F40;
 
 s32 func_8002BB1C(void) {
+    s32 ret2;
+    s32 ret;
     f32 temp_fv1;
     void *temp_v0;
 
     temp_v0 = func_8002B850();
     D_80102F40 = temp_v0;
-    if (temp_v0 == NULL) {
-        return 0x64;
+    if (temp_v0 != NULL) {
+        temp_fv1 = (f32) (M2C_FIELD(temp_v0, u8 *, 4) * 0xA);
+        if (temp_fv1 >= 2.1474836e9f) {
+            ret = ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000) & 0xFF;
+        } else {
+            ret = (s32) temp_fv1 & 0xFF;
+        }
+        ret2 = ret;
+    } else {
+        ret2 = 0x64;
     }
-    temp_fv1 = (f32) (M2C_FIELD(temp_v0, u8 *, 4) * 0xA);
-    if (temp_fv1 >= 2.1474836e9f) {
-        return ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000) & 0xFF;
-    }
-    return (s32) temp_fv1 & 0xFF;
+    return ret2;
 }

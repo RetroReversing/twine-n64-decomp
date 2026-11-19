@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 s32 func_800160FC();
 s32 func_800162BC();
@@ -81,10 +69,10 @@ int __repair_literal;
     s32 var_a0_3;
     s32 var_a0_4;
     s32 var_a0_5;
-    s32 var_a0_6;
+    s32 var_a0_9;
     s32 var_a0_7;
     s32 var_a0_8;
-    s32 var_a0_9;
+    s32 var_a0_6;
     s32 var_a2;
     s32 var_a3;
     s32 var_s0;
@@ -99,19 +87,19 @@ int __repair_literal;
     u8 temp_v1;
     u8 temp_v1_2;
 
-    temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x78);
-    temp_s2 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x79);
-    var_s0 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x7A);
+    temp_s1 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x78);
+    temp_s2 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x79);
+    var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7A);
     if (var_s0 == 0) {
-        var_s0 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x13);
+        var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x13);
     }
-    temp_s7 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x7B);
-    sp34 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x7D);
-    temp_fp = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x7C);
-    temp_s6 = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x162);
-    sp3C = func_8002638C(M2C_FIELD(D_80109BB0, void **, 0x10), 0x7F);
+    temp_s7 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7B);
+    sp34 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7D);
+    temp_fp = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7C);
+    temp_s6 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x162);
+    sp3C = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7F);
     if (((temp_s1 != 0) & (temp_s2 != 0)) && ((var_s0 != 0) & (temp_s7 != 0)) && ((sp34 != 0) & (temp_fp != 0)) && ((sp3C != 0) & (temp_s6 != 0))) {
-        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s8 *, 4) = 1;
+        (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = 1;
         if (D_80102ED8 == 0) {
             D_801002AD = 0;
         }
@@ -177,9 +165,9 @@ __repair_literal = 2;
         temp_v1_2 = *(D_80100198 + (D_800B7CF0 * 0x18));
         if ((s32) temp_v1_2 >= 0) {
             var_a0_7 = temp_s6 - 0x28;
-            if ((s32) temp_v1_2 >= 2) {
+            if ((s32) (short)temp_v1_2 >= 2) {
                 if ((s32) temp_v1_2 < 6) {
-                    if ((s32) temp_v1_2 >= 4) {
+                    if (temp_v1_2 >= 4) {
                         var_a0_7 = temp_s6 - 0x28;
                         goto block_32;
                     }
@@ -189,7 +177,7 @@ __repair_literal = 2;
             }
 block_32:
             do { func_80025E9C(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD); } while (0);
-            if (M2C_FIELD(D_80109BB0, u8 *, 8) == 0xD) {
+            if ((*(u8 *)((char *)(D_80109BB0) + 8)) == 0xD) {
                 func_800274BC(0x100, 2);
             }
         } else {
@@ -213,9 +201,9 @@ block_36:
         if (D_80102ED8 != 0) {
             func_8002A644(D_8010A488, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &func_80022C04, &func_8001AC88);
             D_80102EB8 = func_8002D13C(0xA3);
-            func_80022A30(D_800BD68E, 0x25, 0x48, 0x32, 0x76);
             var_s0_2 = 0;
-            if (D_801002B8 > 0) {
+            func_80022A30(D_800BD68E, 0x25, 0x48, 0x32, 0x76);
+            if (0 < D_801002B8) {
                 do {
                     temp_s1_3 = var_s0_2 & 0xFFFF;
                     temp_v0_7 = func_800162BC(D_800BD68E);

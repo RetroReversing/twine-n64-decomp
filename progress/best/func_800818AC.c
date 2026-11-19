@@ -6,12 +6,12 @@ extern char D_80115094[];
 s32 func_800818AC(s32 arg0, s32 arg1) {
 char *__repair_addr;
 
-    register s32 temp_v1;
     int temp_a2;
+    register s32 temp_v1;
     
     s32 var_v0_2;
     u8 temp_v1_2;
-    u8 temp_v1_3;
+    register u8 temp_v1_3;
     union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_t0;
 
@@ -28,7 +28,7 @@ char *__repair_addr;
             }
             goto block_6;
         }
-        __repair_phase_storage.value = (unsigned short)temp_v1;
+        __repair_phase_storage.value = (short)temp_v1;
         if (temp_v1 >= 0) {
             goto block_5;
         }
@@ -37,13 +37,13 @@ char *__repair_addr;
     }
 block_5:
     var_v0_2 = arg1 * 2;
-__repair_addr = (char *)(var_v0_2 + (int)temp_t0);
+__repair_addr = (char *)(var_v0_2 + temp_t0);
 
 block_6:
     temp_v1_3 = __repair_inline(*(s32 *)(__repair_addr));
     if (!(temp_v1_3 & 1)) {
         return 0;
     }
-    __repair_phase_storage.value = (((temp_v1_3 & 0x20) != 0) * -0x10000) | (short)0x10000;
+    __repair_phase_storage.value = (((temp_v1_3 & 0x20) != 0) * -0x10000) | 0x10000;
     return __repair_phase_storage.value;
 }

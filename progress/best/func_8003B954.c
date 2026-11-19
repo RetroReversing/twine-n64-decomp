@@ -132,8 +132,8 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2) {
             var_v0_2 = (var_a2 / temp_v0_4) & 0xFFF;
         }
         temp_a0_3 = D_80115328;
-        (*(s32 *)((char *)(temp_v0) + 4)) = (s32) (((var_v1_2 & 0xFFF) << 0xC) | 0x07000000 | var_v0_2);
         ((__repair_field_0 *)temp_a0_3)->value = 0xE7000000;
+        (*(s32 *)((char *)(temp_v0) + 4)) = (s32) (((var_v1_2 & 0xFFF) << 0xC) | 0x07000000 | var_v0_2);
         (*(s32 *)((char *)(temp_a0_3) + 4)) = 0;
         (*(s32 *)((char *)(temp_a0_3) + 0x10)) = 0xF2000000;
         (*(s32 *)((char *)(temp_a0_3) + 0xC)) = 0xC0300;
@@ -158,7 +158,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2) {
                     var_s1 = ((var_s1 >> 4) + 1) * 0x10;
                     break;
                 case 1:
-                    var_s0 += 1;
+                    ++var_s0;
                     var_s1 = *(u16 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
                     break;
                 case 2:
@@ -264,7 +264,7 @@ loop_42:
                         var_a0_2 = temp_a0_8 + ((*(u8 *)((char *)(temp_v1_5) + 3)) * 2);
                     } else {
                         var_a2_2 = D_80115328;
-                        temp_a1_5 = arg0 + var_s1;
+                        var_a0_2 = arg0 + var_s1;
                         temp_a0_9 = arg1 + (var_s5 - temp_a0_7);
                         temp_v1_6 = temp_a3 + (*(void **)((char *)(temp_s4) + 8));
                         D_80115328 = var_a2_2 + 8;
@@ -273,9 +273,9 @@ loop_42:
                         (*(s32 *)((char *)(var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
                         D_80115328 = var_a2_2 + 0x18;
                         (*(s32 *)((char *)(var_a2_2) + 0x10)) = 0xF1000000;
-                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) ((((temp_a1_5 * 4) & 0xFFF) << 0xC) | ((temp_a0_9 * 4) & 0xFFF));
+                        (*(s32 *)((char *)(var_a2_2) + 4)) = (s32) ((((var_a0_2 * 4) & 0xFFF) << 0xC) | ((temp_a0_9 * 4) & 0xFFF));
+                        var_a1_2 = (((var_a0_2 + (*(u8 *)((char *)(temp_v1_6) + 2))) * 4) & 0xFFF) << 0xC;
                         (*(s32 *)((char *)(var_a2_2) + 0x14)) = 0x04000400;
-                        var_a1_2 = (((temp_a1_5 + (*(u8 *)((char *)(temp_v1_6) + 2))) * 4) & 0xFFF) << 0xC;
                         var_a0_2 = temp_a0_9 + (*(u8 *)((char *)(temp_v1_6) + 3));
                     }
                     *var_a2_2 = var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | 0xE4000000);

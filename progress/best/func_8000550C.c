@@ -25,7 +25,16 @@ f32 func_8000550C(void *arg0, s32 arg1, s32 arg2) {
 
     temp_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x14) & 0x200000;
     if (arg2 != 0x165) {
-        if (arg2 < 0x166) {
+        if (arg2 >= 0x166) {
+            var_a0 = 0;
+            if (arg2 != 0x16B) {
+                var_v0 = 0 == 0;
+            } else {
+                var_a0 = D_800D93D8;
+block_11:
+                var_v0 = var_a0 == 0;
+            }
+        } else {
             var_a0 = 0;
             if (arg2 != 0x15F) {
                 goto block_11;
@@ -35,15 +44,6 @@ f32 func_8000550C(void *arg0, s32 arg1, s32 arg2) {
             if (temp_v1 != 0) {
                 var_a0 = D_800D9404;
                 var_v0 = var_a0 == 0;
-            }
-        } else {
-            var_a0 = 0;
-            if (arg2 == 0x16B) {
-                var_a0 = D_800D93D8;
-block_11:
-                var_v0 = var_a0 == 0;
-            } else {
-                var_v0 = 0 == 0;
             }
         }
     } else {

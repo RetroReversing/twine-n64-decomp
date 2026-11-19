@@ -34,11 +34,11 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
     f32 temp_fv0;
     f32 sp18;
     f32 var_fv0;
-    long temp_s3;
-    unsigned long temp_v1;
+    unsigned temp_s3;
+    void *temp_v0;
     void *temp_s0;
     void *temp_s5;
-    void *temp_v0;
+    s32 temp_v1;
     void *temp_v0_2;
     void *temp_v0_3;
 
@@ -139,10 +139,10 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         temp_v0_2 = func_80047B44((*(s32 *)((char *)(temp_v0) + 0x20)), temp_v0 + 0x30, temp_s5, 0);
         if (temp_v0_2 != NULL) {
             temp_s3 = (*(s32 *)((char *)(temp_v0_2) + 8));
-            func_80016718(temp_v0);
             (*(s32 *)((char *)(temp_v0) + 0x20)) = temp_s3;
+            func_80016718(temp_v0);
             func_80016990(temp_v0, temp_s3);
-            (*(s32 *)((char *)(temp_v0) + 0x60)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x60)) | 0x400);
+            (*(s32 *)((char *)((unsigned short)temp_v0) + 0x60)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x60)) | 0x400);
             (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x24));
             (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x28));
             (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x2C));
@@ -162,7 +162,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
                 (*(void **)((char *)(temp_v0_3) + 0x18)) = temp_v0;
                 if ((*(void **)((char *)(temp_s0) + 0x30)) != NULL) {
                     func_80047F50(temp_v0, D_8010968C);
-                    (*(s32 *)((char *)(D_8010968C) + 0x28)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x10));
+                    (*(s32 *)((char *)(D_8010968C) + (unsigned)0x28)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x10));
                     (*(s32 *)((char *)(D_8010968C) + 0x2C)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x14));
                     (*(s32 *)((char *)(D_8010968C) + 0x30)) = (s32) (*(s32 *)((char *)(D_8010968C) + 0x18));
                     (*(s32 *)((char *)(D_8010968C) + 0xF4)) = (s32) (*(s32 *)((char *)(arg1) + 0x20));
@@ -170,7 +170,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
             }
             (*(s16 *)((char *)(temp_v0) + 0x78)) = 7;
         }
-        if ((*(u16 *)((char *)(arg2) + 0x52)) != 0) {
+        if ((*(u16 *)((char *)(arg2) + (int)0x52)) != 0) {
             (*(s8 *)((char *)(temp_s0) + 0x54)) = 0;
             (*(s8 *)((char *)((short)temp_s0) + 0x55)) = 0xFF;
             (*(s8 *)((char *)(temp_s0) + 0x53)) = 0;
@@ -191,7 +191,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         (*(s16 *)((char *)(temp_s0) + 0x36)) = 0x69;
         (*(f32 *)((char *)(temp_s0) + 0x20)) = var_fv0;
         if ((*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0x2C))) + 0x64)) & 0x8000) {
-            (*(s16 *)((char *)(temp_s0) + 0x36)) = 0x96;
+            (*(s16 *)((char *)(temp_s0) + (unsigned short)0x36)) = 0x96;
         }
     }
     return temp_v0;
