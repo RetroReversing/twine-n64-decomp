@@ -25,7 +25,7 @@ void *func_80016410();
 s32 func_80016990();
 s32 func_80044670();
 s32 func_800452AC();
-f32 func_80045D2C();
+f32 func_80045D2C(f32);
 s32 func_80047AEC();
 s32 func_80047B14();
 f32 func_800829A0(f32);
@@ -156,9 +156,9 @@ func_800452AC(&spC8, temp_s0, temp_s0);
 }
         func_800452AC(&spD8, temp_s0, temp_s0);
         func_800452AC(&spE8, temp_s0, temp_s0);
-        M2C_FIELD(temp_s7, f32 *, 0x10) = func_80045D2C(0x42800000);
-        M2C_FIELD(temp_s7, f32 *, 0x14) = func_80045D2C(0x42800000);
-        M2C_FIELD(temp_s7, f32 *, 0x18) = func_80045D2C(0x42800000);
+        M2C_FIELD(temp_s7, f32 *, 0x10) = func_80045D2C(64.0f);
+        M2C_FIELD(temp_s7, f32 *, 0x14) = func_80045D2C(64.0f);
+        M2C_FIELD(temp_s7, f32 *, 0x18) = func_80045D2C(64.0f);
         M2C_FIELD(temp_s7, f32 *, 4) += (M2C_FIELD(spFC, f32 *, 0x24) - M2C_FIELD(spFC, f32 *, 0x30));
         M2C_FIELD(temp_s7, f32 *, 8) += (M2C_FIELD(spFC, f32 *, 0x28) - M2C_FIELD(spFC, f32 *, 0x34));
         M2C_FIELD(temp_s7, f32 *, 0xC) += (M2C_FIELD(spFC, f32 *, 0x2C) - M2C_FIELD(spFC, f32 *, 0x38));
@@ -175,7 +175,7 @@ func_800452AC(&spC8, temp_s0, temp_s0);
         M2C_FIELD(temp_v0, f32 *, 0x3C) = (f32) -sp78[0];
         M2C_FIELD(temp_v0, f32 *, 0x40) = sp78[1];
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
-        M2C_FIELD(temp_v0, f32 *, 0x44) = sp78[2];
+        M2C_FIELD(temp_v0, s32 *, 0x44) = sp78[2];
         if (M2C_FIELD(sp104, u16 *, 2) == 0x14) {
             var_a1 = 0xE;
         
@@ -185,8 +185,8 @@ func_800452AC(&spC8, temp_s0, temp_s0);
         func_80044670(temp_v0, var_a1, 0x1B, sp104);}
         func_80016990(temp_v0, M2C_FIELD(spFC, s32 *, 0x20));
         M2C_FIELD(temp_v0, f32 *, 0x54) = 0.015625f;
-        M2C_FIELD(temp_s7, u16 *, 0x1C) = 0x1E;
-        M2C_FIELD(temp_s7, s32 *, 0) = (f32) (M2C_FIELD(spFC, f32 *, 0x28) - M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), f32 *, 0x38));
+        M2C_FIELD(temp_s7, s16 *, 0x1C) = 0x1E;
+        M2C_FIELD(temp_s7, f32 *, 0) = (f32) (M2C_FIELD(spFC, f32 *, 0x28) - M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), f32 *, 0x38));
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
     }
 }

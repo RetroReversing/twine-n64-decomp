@@ -110,8 +110,7 @@ void func_8008B25C(void) {
         }
         D_80108F70 = 0;
         D_80109BA0 = D_80103EB4 & ~0xF;
-        D_80109BF8 = D_80103EB4;
-        if (D_8011772C != NULL) {
+        D_80109BF8 = D_80103EB4; if (D_8011772C != NULL) {
             D_8011772C(D_8011772C);
         }
         var_v1 = D_800E424C;
@@ -161,7 +160,7 @@ block_23:
                         temp_a0 = (unsigned)var_s1 & 0xFFFF;
                         var_s1 += 0xC0;
                         var_s3 += 1;
-                        func_8008AECC(*((var_v0_2 * 4) + &D_800E4170), temp_a0);
+                        func_8008AECC((&D_800E4170)[var_v0_2], temp_a0);
                         if ((u32) (var_s0 & 0xFFFF) < temp_s2) {
                             continue;
                         }
@@ -192,7 +191,7 @@ block_32:
                             }
                             temp_a1_2 = var_s1 & 0xFFFF;
                             var_s1 += 0xC0;
-                            func_8008AECC(*((var_v0_4 * 4) + &D_800E4170), temp_a1_2);
+                            func_8008AECC((&D_800E4170)[var_v0_4], temp_a1_2);
                             var_s3 += 1;
                             if ((u32) (var_s0_2 & 0xFFFF) < (u16) D_800E41DA) {
                                 continue;
@@ -225,7 +224,7 @@ block_41:
                             temp_a1_3 = var_s1 & 0xFFFF;
                             var_s1 += 0xC0;
                             var_s3 += 1;
-                            func_8008AECC(*((var_v0_5 * 4) + &D_800E4170), temp_a1_3);
+                            func_8008AECC((&D_800E4170)[var_v0_5], temp_a1_3);
                             if ((u32) (var_s0 & 0xFFFF) < var_v0_3) {
                                 continue;
                             }

@@ -30,12 +30,12 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
     f32 spD0[3];
     f32 spE0[3];
     f32 spF0;
-    void *spFC;
+    s32 *sp104;
     f32 *sp10C;
     f32 *sp114;
     f32 *sp11C;
     f32 *sp124;
-    s32 *sp104;
+    void *spFC;
     register f32 *sp12C;
     s16 *sp134;
     
@@ -78,7 +78,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
     u32 var_s0_6;
     void **var_s5;
     void *temp_a0;
-    void *temp_a0_2;
+    
     void *temp_a0_3;
     
     void *temp_s1;
@@ -237,11 +237,11 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                                 if ((*(u16 *)((char *)(temp_s1) + 0x40)) != 0) {
                                     var_s2_2 = 0;
                                     do {
-                                        temp_a0_2 = (*(s32 *)((char *)(temp_s1) + 0x3C)) + var_s2_2;
+                                        temp_a0 = (*(s32 *)((char *)(temp_s1) + 0x3C)) + var_s2_2;
                                         temp_v1_8 = *(u16 *)((var_s0_4 * 2) + (*(s32 *)((char *)(temp_s1) + 0x38)));
                                         if ((temp_s4 & temp_v1_8) && (temp_s3_2 & temp_v1_8)) {
                                             temp_v1_9 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                            if ((func_8004D910(sp88, spE0, temp_v1_9 + ((*(u8 *)((char *)(temp_a0_2) + 0)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0_2) + 1)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0_2) + 2)) * 0xC), &spF0) & 0xFF) && (__repair_float_constant <= spF0) && (var_fs0 > spF0)) {
+                                            if ((func_8004D910(sp88, spE0, temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 1)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 2)) * 0xC), &spF0) & 0xFF) && (__repair_float_constant <= spF0) && (var_fs0 > spF0)) {
                                                 var_fs0 = spF0;
                                                 D_80108788 = NULL;
                                                 D_80108F84 = var_s5;

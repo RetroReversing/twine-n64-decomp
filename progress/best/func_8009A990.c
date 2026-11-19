@@ -1,6 +1,18 @@
-s32 func_80095638(s32, s32);
-void func_800968A4(u8, u8, u8);
-s32 func_80099CA8(void *, void *);
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+s32 func_80095638();
+void func_800968A4();
+s32 func_80099CA8();
 extern u8 D_801007D9[];
 extern u8 D_80100C7C[];
 
@@ -56,7 +68,7 @@ s32 func_8009A990(void *arg0, void *arg1) {
     if (p[7] != 0) {
 s32 __repair_branch_v_0;
 
-        __repair_branch_v_0 = func_80095638(a0, a1) & 0xFFFF;
+        __repair_branch_v_0 = func_80095638(a0) & 0xFFFF;
         a0 = (u32)__repair_branch_v_0 / 201;
         s4 = (s8)(__repair_branch_v_0 - a0 * 201 - 100);
     } else {

@@ -70,10 +70,10 @@ int __repair_literal;
     s32 var_a0_3;
     s32 var_a0_4;
     s32 var_a0_5;
-    s32 var_a0_9;
+    s32 var_a0_6;
     s32 var_a0_7;
     s32 var_a0_8;
-    s32 var_a0_6;
+    s32 var_a0_9;
     s32 var_a2;
     s32 var_a3;
     s32 var_s0;
@@ -86,10 +86,10 @@ int __repair_literal;
     u8 temp_v0_5;
     u8 temp_v0_6;
     u8 temp_v1;
-    short temp_v1_2;
+    s32 temp_v1_2;
 
-    temp_s1 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x78);
     temp_s2 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x79);
+    temp_s1 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x78);
     var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7A);
     if (var_s0 == 0) {
         var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x13);
@@ -166,9 +166,9 @@ __repair_literal = 2;
         temp_v1_2 = D_80100198[D_800B7CF0].f0;
         if ((s32) temp_v1_2 >= 0) {
             var_a0_7 = temp_s6 - 0x28;
-            if ((s32) (short)temp_v1_2 >= 2) {
+            if ((s32) temp_v1_2 >= 2) {
                 if ((s32) temp_v1_2 < 6) {
-                    if (temp_v1_2 >= 4) {
+                    if ((s32) temp_v1_2 >= 4) {
                         var_a0_7 = temp_s6 - 0x28;
                         goto block_32;
                     }
@@ -202,9 +202,9 @@ block_36:
         if (D_80102ED8 != 0) {
             func_8002A644(D_8010A488, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &func_80022C04, &func_8001AC88);
             D_80102EB8 = func_8002D13C(0xA3);
-            var_s0_2 = 0;
             func_80022A30(D_800BD68E, 0x25, 0x48, 0x32, 0x76);
-            if (0 < D_801002B8) {
+            var_s0_2 = 0;
+            if (D_801002B8 > 0) {
                 do {
                     temp_s1_3 = var_s0_2 & 0xFFFF;
                     temp_v0_7 = func_800162BC(D_800BD68E);

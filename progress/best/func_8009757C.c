@@ -19,10 +19,11 @@ extern char D_800F3954[];
 extern char D_800F3958[];
 extern char D_800F395C[];
 
-typedef struct { s32 w[2]; } __repair_words2;
 s32 func_8009757C(u16 arg0, s32 arg1) {
 int __repair_literal;
 
+    s32 __repair_store_0;
+    s32 __repair_store_1;
     s32 temp_a0;
     s32 temp_s0;
     s32 temp_v0;
@@ -61,7 +62,10 @@ loop_2:
                         var_t0 = temp_v1 + D_800F395C;
                         var_a2 = temp_v1 + (D_800F395C - 8);
                         do {
-                            M2C_FIELD(var_t0, __repair_words2 *, 0x0) = *(__repair_words2 *) ((s8 *) var_a2 + 0x0);
+                            __repair_store_0 = (s32) M2C_FIELD(var_a2, s32 *, 0);
+                            __repair_store_1 = (s32) M2C_FIELD(var_a2, s32 *, 4);
+                            M2C_FIELD(var_t0, s32 *, 0) = __repair_store_0;
+                            M2C_FIELD(var_t0, s32 *, 4) = __repair_store_1;
                             var_t0 -= 8;
                             var_a3 -= 1;
                             var_a2 -= 8;

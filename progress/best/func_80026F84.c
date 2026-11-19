@@ -3,7 +3,7 @@
 s32 func_8002CC74();                            /* extern */
 s8 func_8002D13C(s32);                          /* extern */
 s32 func_8002D240();                            /* extern */
-s8 func_80081828(u8, s32);                      /* extern */
+s8 func_80081828(u8);                      /* extern */
 extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern s32 D_800BD664;
@@ -92,7 +92,7 @@ void *__repair_cached_pointer = D_80109BB0;
     } else {
         D_800BD68F = 0;
     }
-    (*(u8 *)&D_800BD691) = func_80081828(D_800BD68F, 1);
+    (*(u8 *)&D_800BD691) = func_80081828(D_800BD68F);
     if (D_80102EDD != 0) {
         var_v0_2 = 4;
         if (D_80102ED8 == 0) {
