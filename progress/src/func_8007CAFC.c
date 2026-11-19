@@ -19,7 +19,7 @@ M2C_UNK func_80047B14(M2C_UNK *, f32, M2C_UNK *);   /* extern */
 extern f64 D_800D51E8;
 
 void func_8007CAFC(void *arg0) {
-    M2C_UNK sp10;
+    char sp10[0x10];
     M2C_UNK *temp_s1;
     M2C_UNK *temp_s2;
     f32 var_ft0;
@@ -29,10 +29,10 @@ void func_8007CAFC(void *arg0) {
     func_800452AC(temp_s1, temp_s2, temp_s2);
     func_80047B14(temp_s1, 0.95f, temp_s1);
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x22) {
-        func_800452E0(temp_s2, temp_s1 + 0x50, &sp10);
-        func_80045764(&sp10, &sp10);
-        func_80047B14(&sp10, 0.075f, &sp10);
-        func_800452AC(&sp10, temp_s1, temp_s1);
+        func_800452E0(temp_s2, (s8 *) temp_s1 + 0x50, sp10);
+        func_80045764(sp10, sp10);
+        func_80047B14(sp10, 0.075f, sp10);
+        func_800452AC(sp10, temp_s1, temp_s1);
         var_ft0 = func_80045764(temp_s1, temp_s1);
         if (D_800D51E8 < (f64) var_ft0) {
             var_ft0 = 0.075f;
