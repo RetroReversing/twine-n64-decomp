@@ -15,9 +15,12 @@ typedef s32 M2C_UNK32;
 s32 func_8002E848();
 
 s32 func_8002E98C(void *arg0, s32 arg1, s32 arg2) {
+    s32 ret;
     M2C_FIELD(arg0, s32 *, 8) += arg2;
     if (arg0 == NULL) {
-        return 0;
+        ret = 0;
+    } else {
+        ret = func_8002E848();
     }
-    return func_8002E848();
+    return ret;
 }
