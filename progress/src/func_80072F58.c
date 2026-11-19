@@ -50,20 +50,18 @@ void func_80072F58(void *arg0) {
             __repair_frame.f18 = M2C_FIELD(temp_s1, f32 *, 8) * 0.033333335f;
             func_800452AC(&__repair_frame, temp_s0, temp_s0);
             temp_a1 = arg0 + 0x3C;
-            __repair_rows: { func_800452AC(temp_s1, temp_a1, temp_a1); }
-if (0) goto __repair_rows;
+            func_800452AC(temp_s1, temp_a1, temp_a1);
             M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_s1, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x3C), f32 *, 0x20)) {
                 func_80016718(arg0);
                 temp_v0_2 = func_80045CF8(0x20);
-                if (temp_v0_2 >= 4U) {
-                    if (temp_v0_2 != 4) {
-
-                    } else {
-                        func_800851E0(temp_s0);
-                    }
-                } else {
+                switch (temp_v0_2) {
+                case 0: case 1: case 2: case 3:
                     func_80085160(temp_s0);
+                    break;
+                case 4:
+                    func_800851E0(temp_s0);
+                    break;
                 }
                 M2C_FIELD(arg0, s16 *, 0x7A) = 1;
                 return;
