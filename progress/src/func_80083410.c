@@ -19,8 +19,8 @@ void func_80083410(void *arg0, void *arg1) {
     f32 temp_ft1;
     f32 temp_fv0;
     f32 temp_fv1;
-    s16 temp_a0;
-    s16 temp_v1;
+    s32 temp_a0;
+    s32 temp_v1;
 
     temp_v1 = M2C_FIELD(arg0, s16 *, 0);
     temp_a0 = M2C_FIELD(arg0, s16 *, 4);
