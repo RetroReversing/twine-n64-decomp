@@ -9,6 +9,9 @@ extern float __cosf(float angle);
    The axis is normalised first; the result is written into mf. */
 void guRotateF(float mf[4][4], float angle, float x, float y, float z)
 {
+	float __repair_x_sine;
+	float __repair_y_sine;
+	float __repair_z_sine;
 	static float	dtor = 3.1415926 / 180.0;
 	float	sine;
 	float	cosine;
@@ -26,17 +29,20 @@ void guRotateF(float mf[4][4], float angle, float x, float y, float z)
 	guMtxIdentF(mf);
 
 	t = x * x;
-	mf[2][1] = bc - (x * sine);
+	__repair_x_sine = x * sine;
+	__repair_y_sine = y * sine;
+	__repair_z_sine = z * sine;
+	mf[2][1] = bc - __repair_x_sine;
 	mf[0][0] = t + cosine * (1 - t);
-	mf[1][2] = bc + (x * sine);
+	mf[1][2] = bc + __repair_x_sine;
 
 	t = y * y;
 	mf[1][1] = t + cosine * (1 - t);
-	mf[2][0] = ca + (y * sine);
-	mf[0][2] = ca - (y * sine);
+	mf[2][0] = ca + __repair_y_sine;
+	mf[0][2] = ca - __repair_y_sine;
 
 	t = z * z;
 	mf[2][2] = t + cosine * (1 - t);
-	mf[1][0] = ab - (z * sine);
-	mf[0][1] = ab + (z * sine);
+	mf[1][0] = ab - __repair_z_sine;
+	mf[0][1] = ab + __repair_z_sine;
 }
