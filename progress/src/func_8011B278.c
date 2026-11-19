@@ -21,7 +21,7 @@ extern u8 D_801002A1;
 extern s32 D_801002A8;
 extern s8 D_801002AE;
 
-void func_8011B278(void *arg0, s32 arg1) {
+void func_8011B278(void *arg0, u8 arg1) {
     void *temp_v0;
 
     temp_v0 = func_80083E90(0x14, 0x2C);
