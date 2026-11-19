@@ -48,12 +48,12 @@ s32 func_80096E7C(void *arg0, s32 arg1) {
     switch (temp_v1) {                              /* switch 2; irregular */
     case 0xA0:                                      /* switch 2 */
         var_v0_2 = M2C_FIELD(arg0, u16 *, 0x170) * 2;
-block_13:
         var_v0 = var_v0_2 + 0x2000;
         break;
     case 0xA1:                                      /* switch 2 */
         var_v0_2 = M2C_FIELD(arg0, u16 *, 0x17C) * 2;
-        goto block_13;
+        var_v0 = var_v0_2 + 0x2000;
+        break;
     default:                                        /* switch 2 */
         temp_a1 = M2C_FIELD(arg0, u8 *, 0x4A);
         
