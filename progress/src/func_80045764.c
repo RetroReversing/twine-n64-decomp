@@ -14,16 +14,16 @@ typedef s32 M2C_UNK32;
 
 f32 func_80082908(f32);                             /* extern */
 
-f32 func_80045764(void *arg0, void *arg1) {
+f32 func_80045764(void *arg0, const void *arg1) {
     f32 temp_fs0;
     f32 temp_fs1;
     f32 temp_fs2;
     f32 temp_ft1;
     f32 temp_fv0;
 
-    temp_fs2 = M2C_FIELD(arg1, f32 *, 0);
-    temp_fs1 = M2C_FIELD(arg1, f32 *, 4);
-    temp_fs0 = M2C_FIELD(arg1, f32 *, 8);
+    temp_fs2 = M2C_FIELD(arg1, const f32 *, 0);
+    temp_fs1 = M2C_FIELD(arg1, const f32 *, 4);
+    temp_fs0 = M2C_FIELD(arg1, const f32 *, 8);
     temp_ft1 = func_80082908((temp_fs2 * temp_fs2) + (temp_fs1 * temp_fs1) + (temp_fs0 * temp_fs0));
     if (arg0 != NULL) {
         if (temp_ft1 != 0.0f) {
