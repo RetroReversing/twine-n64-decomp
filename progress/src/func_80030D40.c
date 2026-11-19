@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s32 D_800BFF04;
 extern s32 D_800BFF10;
 extern u16 D_800E1608;
-extern u8 D_800E160A;
+extern u16 D_800E160A;
 
 s32 func_80030D40(void) {
     s32 temp_v0;
@@ -23,24 +23,26 @@ s32 func_80030D40(void) {
     s32 var_v0;
     u16 temp_v1_2;
     u32 temp_v1;
+    s32 p;
+
 
     var_v0 = 7;
-    if (D_800BFF04 != 0) {
+    p = D_800BFF04;
+    if (p != 0) {
         if ((D_800BFF10 == 7) || (var_a0 = 0, (D_800BFF10 == 9))) {
             return D_800BFF10;
         }
         for (;;) {
             temp_v1 = var_a0 & 0xFFFF;
             if (temp_v1 < (u16) D_800E1608) {
-                temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + D_800BFF04), u16 *, 2);
+                temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + p), u16 *, 2);
                 if ((u16) D_800E160A >= (u32) (temp_v1_2 & 0xF000)) {
-                    temp_v0 = temp_v1_2 & 0xF;
                     if (!(temp_v1_2 & 0x200)) {
-                        if (temp_v0 == 2) {
+                        if ((temp_v1_2 & 0xF) == 2) {
                             return 4;
                         }
                         var_v0 = 6;
-                        if (temp_v0 != 0) {
+                        if ((temp_v1_2 & 0xF) != 0) {
                             goto block_12;
                         }
                         /* Duplicate return node #14. Try simplifying control flow for better match */
@@ -49,7 +51,7 @@ s32 func_80030D40(void) {
                 }
 block_12:
                 var_a0 += 1;
-                if (D_800BFF04 == 0) {
+                if (p == 0) {
                     goto block_13;
                 }
                 continue;
