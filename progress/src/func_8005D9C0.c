@@ -21,7 +21,8 @@ extern s8 D_80109B1E;
 typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
 typedef struct { unsigned char pad_0[100]; float field_64; unsigned char pad_68[4]; void * field_6C; void * field_70; unsigned char pad_74[4]; short field_78; short field_7A; short field_7C; unsigned char field_7E; } __repair_record_temp_v0;
 void *func_8005D9C0(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
-    s16 var_v0;
+    s32 var_v0;
+s32 __repair_phase_var_v0;
     u8 temp_v1;
     void *temp_s1;
     void *temp_v0;
@@ -34,13 +35,13 @@ void *func_8005D9C0(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
         switch (temp_v1) {                          /* irregular */
         case 0x2E:
             var_v0 = 0x10;
-block_6:
             ((__repair_record_temp_v0*)temp_v0)->field_78 = var_v0;
             break;
         case 0x8F:
             D_80109B1E = 1;
-            var_v0 = 0x5E;
-            goto block_6;
+            __repair_phase_var_v0 = 0x5E;
+            ((__repair_record_temp_v0*)temp_v0)->field_78 = __repair_phase_var_v0;
+            break;
         }
         if (arg2 != NULL) {
             ((__repair_record_temp_v0*)temp_v0)->field_70 = arg2;
