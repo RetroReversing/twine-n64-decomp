@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80063590();                            /* extern */
 
-void func_800635BC(void *arg0, s16 arg1) {
+void func_800635BC(void *arg0, s32 arg1) {
     M2C_FIELD(arg0, s16 *, 0x7C) = arg1;
     if (arg1 == 0) {
         func_80063590();
