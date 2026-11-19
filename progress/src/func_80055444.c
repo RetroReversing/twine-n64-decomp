@@ -14,8 +14,8 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80044670(void *, s32, u32);            /* extern */
 M2C_UNK func_80054E30(s32);                         /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, f32, void *, s32, s32, s32); /* extern */
-M2C_UNK func_800624A8(void *, s32, M2C_UNK, M2C_UNK); /* extern */
+M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, s32, s32, s32); /* extern */
+M2C_UNK func_800624A8(void *, s32, f32, M2C_UNK); /* extern */
 
 void func_80055444(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     f32 temp_fv0;
@@ -33,8 +33,8 @@ void func_80055444(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                 func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
             }
             M2C_FIELD(arg0, s32 *, 0x5C) = (s32) ((M2C_FIELD(arg0, s32 *, 0x5C) & 0xFFCFFFFF) | 0x200);
-            func_800624A8(arg0, arg1, 0x3F000000, 1);
-            func_80054FEC(0, 0x437A0000, (2.0f * M2C_FIELD(arg0, f32 *, 0x64)) + 4.0f, arg0, arg1, 0x20, arg3);
+            func_800624A8(arg0, arg1, 0.5f, 1);
+            func_80054FEC(0, 250.0f, (2.0f * M2C_FIELD(arg0, f32 *, 0x64)) + 4.0f, arg0, arg1, 0x20, arg3);
         }
     }
 }
