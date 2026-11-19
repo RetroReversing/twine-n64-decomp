@@ -22,27 +22,23 @@ extern s16 D_800E093A;
 extern s32 D_801032A8;
 
 u16 func_800127D8(void) {
-    s32 temp_v1;
-
     D_800E093A = 0;
-    temp_v1 = func_80012F50() & 0xFFFF;
-    switch (temp_v1) {                              /* irregular */
+    switch (func_80012F50() & 0xFFFF) {
     case 0x62:
         D_800BFC32 = 0x25;
-block_7:
-    default:
-        return D_800BFC32;
+        break;
     case 0x20:
         func_80011800(8, (D_800E0938 * 0x68) + D_800E0790, 0, 0, 0, 0, 0, 0);
         func_800109CC();
         if (D_801032A8 == 0xA) {
             D_800BFC32 = 0x21;
-            return 0x21U;
+            return 0x21;
         }
         if ((func_80012F50() & 0xFFFF) == 0x12) {
             D_800BFC32 = 0x22;
-            return 0x22U;
+            return 0x22;
         }
-        goto block_7;
+        break;
     }
+    return D_800BFC32;
 }
