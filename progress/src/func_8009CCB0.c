@@ -18,8 +18,9 @@ s32 func_8009CCB0(s32 arg0) {
     s32 var_v0;
 
     var_v0 = arg0;
-    if (func_800989B8() == -1) {
-        var_v0 = -1;
+    if (func_800989B8() == -1) { goto __repair_guard_body; }
+return var_v0;
+__repair_guard_body: {
+        return -1;
     }
-    return var_v0;
 }
