@@ -14,8 +14,8 @@ typedef s32 M2C_UNK32;
 
 void *func_8004478C(s32, u32);                      /* extern */
 M2C_UNK func_80054E30(s32);                         /* extern */
-M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, f32, s32, s32, s32, s32); /* extern */
-M2C_UNK func_800624A8(s32, s32, M2C_UNK, M2C_UNK);  /* extern */
+M2C_UNK func_80054FEC(M2C_UNK, f32, f32, s32, s32, s32, s32); /* extern */
+M2C_UNK func_800624A8(s32, s32, f32, M2C_UNK);  /* extern */
 
 void func_800552E0(s32 arg0, void *arg1, s32 arg2, f32 arg3, s32 arg4) {
     f32 temp_fv0;
@@ -49,8 +49,8 @@ loop_4:
                 M2C_FIELD(arg1, void **, 0x3C) = func_8004478C(((temp_a1 >> 4) & 0xFFFF) + 1, temp_a1 >> 0x14);
             }
             M2C_FIELD(arg1, s32 *, 0x50) = (s32) ((M2C_FIELD(arg1, s32 *, 0x50) & 0xFFCFFFFF) | 0x200);
-            func_800624A8(arg0, arg2, 0x3F000000, 1);
-            func_80054FEC(0, 0x437A0000, (2.0f * M2C_FIELD(M2C_FIELD(arg1, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
+            func_800624A8(arg0, arg2, 0.5f, 1);
+            func_80054FEC(0, 250.0f, (2.0f * M2C_FIELD(M2C_FIELD(arg1, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
         }
     }
 }
