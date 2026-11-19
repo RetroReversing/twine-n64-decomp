@@ -25,21 +25,22 @@ s8 *func_800AB950(s8 *arg0, s8 *arg1) {
 loop_1:
     var_t0 = var_a0;
     var_a3 = arg1;
-loop_2:
-    temp_v0 = __repair_inline(*var_a3);
-    temp_a2 = temp_v0;
-    var_a3 += 1;
-    if (temp_v0 == 0) {
-        return var_a0;
-    }/*__repair_loop_weight*/do {
-    temp_v1 = *var_t0;} while (0);
-    var_t0 += 1;
-    if (temp_v1 != 0) {
+    for (;;) {
+        temp_v0 = __repair_inline(*var_a3);
+        temp_a2 = temp_v0;
+        var_a3 += 1;
+        if (temp_v0 == 0) {
+            return var_a0;
+        }
+        temp_v1 = *var_t0;
+        var_t0 += 1;
+        if (temp_v1 == 0) {
+            break;
+        }
         if (temp_v1 != temp_a2) {
             var_a0 += 1;
             goto loop_1;
         }
-        goto loop_2;
     }
     return NULL;
 }
