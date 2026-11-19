@@ -22,7 +22,7 @@ extern s16 D_800BD682;
 extern u8 D_800BF688[];
 extern char D_800C3CF8[];
 extern char D_8010019C[];
-extern char D_801001A3[];
+extern u8 D_801001A3[];
 extern u8 D_801002AD;
 extern s32 D_801002B8;
 extern s8 D_80107ECC;

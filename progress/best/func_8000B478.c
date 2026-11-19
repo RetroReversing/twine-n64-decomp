@@ -18,6 +18,7 @@ void func_8000B478(s32 arg0) {
     u16 *var_a1;
     u16 *var_t0;
     u16 var_a2;
+u16 __repair_result_var_a2;
     void *temp_v1;
 
     if ((arg0 != 0) && (var_a1 = D_80109A50, var_a2 = *var_a1, var_t0 = NULL, ((var_a2 & 8) == 0))) {
@@ -34,8 +35,8 @@ loop_3:
         } else {
             var_t0 = var_a1;
             var_a1 = temp_v1 + 0x10;
-            var_a2 = M2C_FIELD(temp_v1, u16 *, 0x10);
-            if (var_a2 & 8) {
+            __repair_result_var_a2 = M2C_FIELD(temp_v1, u16 *, 0x10);
+            if (__repair_result_var_a2 & 8) {
 
             } else {
                 goto loop_3;

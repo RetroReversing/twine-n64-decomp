@@ -1,16 +1,4 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
 s32 func_800068B4();
 s32 func_80006E30();
@@ -66,7 +54,7 @@ extern char D_8011FF40[];
 extern s32 func_800004BC;
 
 void func_80000570(void) {
-    s32 *var_a2;
+    char *var_a2;
     s16 temp_v1;
     s32 temp_a1_2;
     s32 temp_s1;
@@ -79,7 +67,7 @@ void func_80000570(void) {
     void *temp_a3;
     void *var_s1_2;
 
-    osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0, 0x7F);
+    osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0);
     osStartThread(D_800D8200);
     temp_v1 = func_800A67B0() > 0x7FFFFFU;
     D_80108400 = temp_v1;
@@ -149,11 +137,11 @@ block_14:
     D_80100964 = var_s2 + 2;
     D_80108F95 = var_s2 + 6;
     do {
-        temp_a1_2 = M2C_FIELD(var_s1_2, s32 *, 0xC);
-        M2C_FIELD(var_a2, s32 *, 0) = (s32) M2C_FIELD(var_s1_2, s32 *, 0);
-        M2C_FIELD(var_a2, s32 *, 4) = (s32) M2C_FIELD(var_s1_2, s32 *, 4);
-        M2C_FIELD(var_a2, s32 *, 8) = (s32) M2C_FIELD(var_s1_2, s32 *, 8);
-        M2C_FIELD(var_a2, s32 *, 0xC) = temp_a1_2;
+        temp_a1_2 = (*(s32 *)((char *)(var_s1_2) + 0xC));
+        (*(s32 *)((char *)(var_a2) + 0)) = (s32) (*(s32 *)((char *)(var_s1_2) + 0));
+        (*(s32 *)((char *)(var_a2) + 4)) = (s32) (*(s32 *)((char *)(var_s1_2) + 4));
+        (*(s32 *)((char *)(var_a2) + 0xC)) = temp_a1_2;
+        (*(s32 *)((char *)(var_a2) + 8)) = (s32) (*(s32 *)((char *)(var_s1_2) + 8));
         var_s1_2 += 0x10;
         var_a2 += 0x10;
     } while (var_s1_2 != temp_a3);
@@ -164,7 +152,7 @@ block_14:
     D_80109D04 = 0x500;
     D_80109CF8 = 0x2301FD;
     D_80109D0C = 0x2501FF;
-    func_80006E78(0x2301FD, temp_a1_2, var_a2, temp_a3);
+    do { func_80006E78(0x2301FD,  temp_a1_2); } while (0);
     osViSwapBuffer(D_80100304);
     func_80086DA0(1);
     func_80011FA4();

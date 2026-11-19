@@ -27,11 +27,11 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v0_4;
     s32 temp_v0_5;
     s32 var_a0;
-    s32 var_a0_2;
+    unsigned int var_a0_2;
     s32 var_a0_3;
     register long var_a2;
     s32 var_s1;
-    s32 var_s2;
+    unsigned var_s2;
     s32 var_s5;
     s32 var_s5_2;
     s32 var_s6;
@@ -52,7 +52,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     u16 temp_v1;
     u16 temp_v1_3;
     u32 temp_a0_3;
-    u32 temp_a0_4;
+    register u32 temp_a0_4;
     register u32 temp_a0_5;
     unsigned long var_t0;
     register u32 var_v0_2;
@@ -101,10 +101,10 @@ block_6:
         ((__repair_field_8 *)temp_v0)->value = 0xE3001001;
         (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x8000;
         (*(s32 *)((char *)(temp_v0) + 4)) = 0xFF2FFFFF;
-        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = 0xFD100000;
         var_t0 = 0x800;
         D_80115328 = temp_v0 + 8;
+        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
         D_80115328 = temp_v0 + 0x10;
         D_80115328 = temp_v0 + 0x18;
         D_80115328 = temp_v0 + 0x20;
@@ -156,7 +156,7 @@ block_6:
     temp_v1_4 = D_80115328;
     temp_a0_2 = var_t1 << 0x15;
     (*(s32 *)((char *)(temp_v1_4) + 0)) = (s32) (temp_a0_2 | 0xFD100000);
-    (*(s32 *)((char *)(temp_v1_4) + 0x10)) = 0xE6000000;
+    (*(s32 *)((char *)(temp_v1_4) + (u32)0x10)) = 0xE6000000;
     (*(s32 *)((char *)(temp_v1_4) + 0xC)) = 0x070C0300;
     var_a2 = 0x800;
     (*(s32 *)((char *)(temp_v1_4) + 0x18)) = 0xF3000000;
@@ -218,7 +218,7 @@ block_6:
                         temp_t0_2 = temp_a3 + 8;
                         D_80115328 = temp_t0_2;
                         temp_a1_5 = temp_t2 + (*(u16 *)((char *)(arg2) + 0x26));
-                        (*(s32 *)((char *)(temp_a3) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t2_2 >> 0x1F) & 0xFFC) << (unsigned)0xC) | ((var_t1_2 * 4) & ((s32) ~(s16) (var_t1_2 * 4) >> 0x1F) & 0xFFC));
+                        (*(s32 *)((char *)(temp_a3) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t2_2 >> 0x1F) & 0xFFC) << 0xC) | ((var_t1_2 * 4) & ((s32) ~(s16) (var_t1_2 * 4) >> 0x1F) & 0xFFC));
                         ((__repair_field_8 *)temp_a3)->value = 0xE1000000;
                         D_80115328 = temp_a3 + 0x10;
                         temp_a2 = var_t1_2 + ((*(u8 *)((char *)(arg2) + 0x29)) * 2);
@@ -274,7 +274,7 @@ block_6:
                     D_80115328 = temp_v1_5 + 8;
                     (*(s32 *)((char *)(temp_v1_5) + 4)) = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
                     (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xF1000000;
-                    ++var_t9;
+                    var_t9++;
                 } while ((var_t9 & 0xFFFF) < (((u32) (*(u8 *)((char *)(arg2) + 0x28)) >> 8) & 0xF));
             }
             temp_a0_5 = (u32) (*(u8 *)((char *)(arg2) + 0x28));

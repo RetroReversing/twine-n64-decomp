@@ -33,7 +33,7 @@ void func_80091324(s32 arg0) {
         temp_a2 = arg0 & 0x7FFFFFFF;
         var_v1 = 0;
 loop_2:
-        if ((*(D_800E6A85 + var_v1) != 0) || (*(D_800E5AC4 + var_v1) != temp_a2)) {
+        if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != temp_a2)) {
             var_a0 += 1;
             var_v1 += 0xFF8;
             if (var_a0 >= 8U) {

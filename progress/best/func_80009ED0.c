@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80045CF8(M2C_UNK);                         /* extern */
-extern M2C_UNK D_800B248A;
+extern u16 D_800B248A;
 
-u16 func_80009ED0(void) {
-    return *(&D_800B248A + (func_80045CF8(0xD) * 0xC));
+int func_80009ED0(void) {
+    return *(&D_800B248A + func_80045CF8(0xD) * 0x3);
 }

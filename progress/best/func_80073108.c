@@ -17,13 +17,14 @@ extern M2C_UNK D_800E1A38;
 extern f32 D_800E1A5C;
 extern f32 D_800E1A60;
 
+typedef struct { int field_0; int field_4; int field_8; } __repair_record_arg1;
 void func_80073108(s32 arg0, void *arg1, f32 arg2) {
     if (arg0 != 0) {
         func_800452E0(arg1, arg0, &D_800E1A38, arg1);
     } else {
-        M2C_FIELD(&D_800E1A38, s32 *, 0) = (s32) M2C_FIELD(arg1, s32 *, 0);
-        M2C_FIELD(&D_800E1A38, s32 *, 4) = (s32) M2C_FIELD(arg1, s32 *, 4);
-        M2C_FIELD(&D_800E1A38, s32 *, 8) = (s32) M2C_FIELD(arg1, s32 *, 8);
+        M2C_FIELD(&D_800E1A38, s32 *, 0) = (s32) ((__repair_record_arg1*)arg1)->field_0;
+        M2C_FIELD(&D_800E1A38, s32 *, 4) = (s32) ((__repair_record_arg1*)arg1)->field_4;
+        M2C_FIELD(&D_800E1A38, s32 *, 8) = (s32) ((__repair_record_arg1*)arg1)->field_8;
     }
     D_800E1A5C = arg2;
     D_800E1A60 = arg2 * 0.5f;

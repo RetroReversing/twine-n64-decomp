@@ -21,15 +21,15 @@ extern M2C_UNK func_8004DBD8;
 
 s32 func_8003EA68(void **arg0, void *arg1) {
     union {
-        unsigned char bytes[152];
-        struct { unsigned char pad[40]; s32 value; } view_sp28;
-        struct { unsigned char pad[44]; s32 value; } view_sp2C;
-        struct { unsigned char pad[48]; s32 value; } view_sp30;
-        struct { unsigned char pad[56]; s32 value; } view_sp38;
-        struct { unsigned char pad[60]; s32 value; } view_sp3C;
-        struct { unsigned char pad[64]; s32 value; } view_sp40;
-        struct { unsigned char pad[72]; M2C_UNK value; } view_sp48;
-        struct { unsigned char pad[76]; f32 value; } view_sp4C;
+        unsigned char bytes[48];
+        struct { s32 value; } view_sp28;
+        struct { unsigned char pad[4]; s32 value; } view_sp2C;
+        struct { unsigned char pad[8]; s32 value; } view_sp30;
+        struct { unsigned char pad[16]; s32 value; } view_sp38;
+        struct { unsigned char pad[20]; s32 value; } view_sp3C;
+        struct { unsigned char pad[24]; s32 value; } view_sp40;
+        struct { unsigned char pad[32]; M2C_UNK value; } view_sp48;
+        struct { unsigned char pad[36]; f32 value; } view_sp4C;
     } m2c_initial_frame;
 
              

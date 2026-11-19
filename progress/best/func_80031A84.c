@@ -42,7 +42,7 @@ void func_80031A84(void *arg0) {
             }
         } else {
             if (M2C_FIELD(arg0, s16 *, 0x7C) == 0) {
-                func_80084338(0x10E, temp_s3);
+                do { func_80084338(0x10E, temp_s3); } while (0);
             }
             M2C_FIELD(arg0, s16 *, 0x7C) = 1;
         }

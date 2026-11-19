@@ -18,7 +18,7 @@ extern s32 D_800BD644;
 extern s32 D_800BD64C;
 extern s32 D_800BD650;
 extern s32 D_800BD65C;
-extern char D_801001A1[];
+extern u8 D_801001A1[];
 extern u8 D_801002A1;
 extern void *D_80109BB0;
 
@@ -50,7 +50,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                     switch (temp_v1) {              /* switch 1; irregular */
                     case 0x0:                       /* switch 1 */
                         var_a1 = (s32) M2C_FIELD(temp_a2, void **, 0);
-                        var_v0 = D_800BD65C;
+                        var_v0 = (s32)&D_800BD65C;
                         break;
                     case 0x1:                       /* switch 1 */
                         var_a1 = (s32) M2C_FIELD(temp_a2, void **, 0);
@@ -83,7 +83,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                     switch (temp_v1_2) {            /* switch 2; irregular */
                     case 0x0:                       /* switch 2 */
                         var_a1 = (s32) M2C_FIELD(temp_a2, void **, 4);
-                        var_v0_3 = D_800BD65C;
+                        var_v0_3 = (s32)&D_800BD65C;
                         break;
                     case 0x1:                       /* switch 2 */
                         var_a1 = (s32) M2C_FIELD(temp_a2, void **, 4);

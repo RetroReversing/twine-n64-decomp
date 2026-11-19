@@ -18,13 +18,14 @@ s32 func_80048F10(s32, void *, M2C_UNK *, M2C_UNK *, f32, s32, s32, s32); /* ext
 extern s32 *D_800CA31C;
 extern s32 D_80103F00;
 
+typedef struct { float field_0; float field_4; } __repair_record_temp_s1;
 s32 func_80060C50(s32 arg0, void *arg1) {
     union {
-        unsigned char bytes[80];
-        struct { unsigned char pad[32]; M2C_UNK value; } view_sp20;
-        struct { unsigned char pad[36]; f32 value; } view_sp24;
-        struct { unsigned char pad[48]; M2C_UNK value; } view_sp30;
-        struct { unsigned char pad[52]; f32 value; } view_sp34;
+        unsigned char bytes[36];
+        struct { M2C_UNK value; } view_sp20;
+        struct { unsigned char pad[4]; f32 value; } view_sp24;
+        struct { unsigned char pad[16]; M2C_UNK value; } view_sp30;
+        struct { unsigned char pad[20]; f32 value; } view_sp34;
     } m2c_initial_frame;
 
                  
@@ -36,14 +37,14 @@ s32 func_80060C50(s32 arg0, void *arg1) {
     if (temp_v0 != NULL) {
         M2C_FIELD(temp_v0, s16 *, 0x7C) = (s16) (M2C_FIELD(arg1, u16 *, 0x2C) + 1);
         temp_s1 = M2C_FIELD(temp_v0, void **, 0x6C);
-        M2C_FIELD(temp_s1, f32 *, 0) = (f32) (((f32) M2C_FIELD(arg1, u16 *, 0x2E) * 0.1f) + 1.0f);
+        ((__repair_record_temp_s1*)temp_s1)->field_0 = (f32) (((f32) M2C_FIELD(arg1, u16 *, 0x2E) * 0.1f) + 1.0f);
         func_8003E6EC(*D_800CA31C, temp_v0, 1);
-        M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) - 150.0f);
+        ((__repair_record_temp_s1*)temp_s1)->field_4 = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) - 150.0f);
         if ((func_80048F10(M2C_FIELD(temp_v0, s32 *, 0x20), temp_v0 + 0x24, &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, 150.0f, 0, 0, 0) << 0x18) != 0) {
-            M2C_FIELD(temp_s1, f32 *, 4) = m2c_initial_frame.view_sp24.value;
+            ((__repair_record_temp_s1*)temp_s1)->field_4 = m2c_initial_frame.view_sp24.value;
         }
-        if ((D_80103F00 != 0) && (M2C_FIELD(temp_s1, f32 *, 4) < m2c_initial_frame.view_sp34.value)) {
-            M2C_FIELD(temp_s1, f32 *, 4) = m2c_initial_frame.view_sp34.value;
+        if ((D_80103F00 != 0) && (((__repair_record_temp_s1*)temp_s1)->field_4 < m2c_initial_frame.view_sp34.value)) {
+            ((__repair_record_temp_s1*)temp_s1)->field_4 = m2c_initial_frame.view_sp34.value;
         }
         M2C_FIELD(temp_v0, s16 *, 0x78) = 0x4A;
     }

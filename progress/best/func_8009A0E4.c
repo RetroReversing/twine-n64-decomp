@@ -22,7 +22,7 @@ s32 func_8009A0E4(void *arg0, u32 *arg1) {
     s32 temp_v1;
     s32 var_v0;
     u16 var_v1;
-    u16 var_v1_2;
+    
     u32 temp_a0;
     u8 temp_a1;
     u8 temp_v0_2;
@@ -39,14 +39,14 @@ s32 func_8009A0E4(void *arg0, u32 *arg1) {
     temp_v0 = (s16) M2C_FIELD(arg0, u16 *, 0x50);
     if (temp_v0 >= 0) {
         if ((u32) temp_v0 >= 0x80U) {
-            var_v1_2 = 0x7F;
+            var_v1 = 0x7F;
             goto block_9;
         }
         M2C_FIELD(arg0, u16 *, 0x50) = (u16) temp_v0;
     } else {
-        var_v1_2 = 0;
+        var_v1 = 0;
 block_9:
-        M2C_FIELD(arg0, u16 *, 0x50) = var_v1_2;
+        M2C_FIELD(arg0, u16 *, 0x50) = var_v1;
     }
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x60);
     M2C_FIELD(arg0, s8 *, 0xC0) = (s8) (u16) *arg1;

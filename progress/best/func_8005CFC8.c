@@ -2,7 +2,7 @@
 
 s32 func_8001751C(s32, u8, s32 *, s32);     /* extern */
 s32 func_80045CF8(s16);                             /* extern */
-s32 func_8005D070(s32, s32, s32 *, s32 *);  /* extern */
+s32 func_8005D070(s32,  s32);  /* extern */
 
 void func_8005CFC8(void *arg0) {
     s32 sp10;
@@ -15,7 +15,7 @@ void func_8005CFC8(void *arg0) {
         sp10 = (*(s32 *)((char *)(arg0) + 0x24));
         sp14 = (*(s32 *)((char *)(arg0) + 0x28));
         sp18 = (*(s32 *)((char *)(arg0) + 0x2C));
-        do { func_8005D070((*(s32 *)((char *)(arg0) + 0x20)), 1, &sp10, &sp10); } while (0);
+        do { func_8005D070((*(s32 *)((char *)(arg0) + 0x20)),  1); } while (0);
         func_8001751C((*(s32 *)((char *)(temp_v0) + 0)), (*(u8 *)((char *)(temp_v0) + 5)), &sp10, 0);
     }
     (*(s32 *)((char *)(arg0) + 0x60)) = 0;

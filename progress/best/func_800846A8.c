@@ -32,7 +32,7 @@ void func_800846A8(void *arg1) {
 
         } else {
 block_14:
-            var_a0 = *(&D_800CE638 + (func_80045CF8(2) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE638 + (func_80045CF8(2) * 2)));
         }
 block_15:
         func_8000A8B4(var_a0, temp_fs0, 0xFF);
@@ -40,7 +40,7 @@ block_15:
     case 34:
         var_a0 = 0x13E;
         if (!(M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0x14) & 0x200000)) {
-            var_a0 = *(&D_800CE634 + (func_80045CF8(2) * 2));
+            var_a0 = *((M2C_UNK *)((s8 *)&D_800CE634 + (func_80045CF8(2) * 2)));
         }
         goto block_15;
     case 28:
@@ -56,6 +56,7 @@ block_15:
         if (!(M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0x14) & 0x200000)) {
             goto block_14;
         }
-        goto block_15;
+        {
+        func_8000A8B4(var_a0, temp_fs0, 0xFF);return;}
     }
 }
