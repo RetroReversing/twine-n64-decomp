@@ -30,16 +30,16 @@ void func_8002CFE8(void) {
     D_801002B8 = func_8002D13C(0xA3) & 0xFFFF;
     D_801002C0 = func_8002D13C(0xA3) & 0xFFFF;
     switch (D_800BFC32) {                           /* irregular */
-    case 16:
-        var_v0 = 0xF;
-block_6:
-        D_800BFC32 = var_v0;
-        return;
     case 0:
         var_v0 = 0x94;
         if (D_80109DD0 != 0) {
             goto block_6;
         }
         break;
+    case 16:
+        var_v0 = 0xF;
+block_6:
+        D_800BFC32 = var_v0;
+        return;
     }
 }

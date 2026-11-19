@@ -64,7 +64,7 @@ loop_8:
         }
         temp_a2 = M2C_FIELD(arg0, void **, 0x68);
         temp_a1 = (s8) M2C_FIELD(temp_a2, u8 *, 0xF);
-        if (!(*(D_800C469C + (temp_a1 * 0xE8)) & 0x8000)) {
+        if (!(*(u16 *)(D_800C469C + (temp_a1 * 0xE8)) & 0x8000)) {
             goto loop_8;
         }
         M2C_FIELD(temp_a2, u8 *, 0xF) = (u8) (temp_a1 + M2C_FIELD((temp_s4 + (temp_a1 * 8)), u8 *, 0x1FE));
@@ -72,7 +72,7 @@ loop_8:
         if (M2C_FIELD(temp_s2, u8 *, 0x1FC) == 0) {
             goto loop_8;
         }
-        if ((arg1 != 0) && (*(D_800C469E + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xF) * 0xE8)) == 0x21)) {
+        if ((arg1 != 0) && (*(u16 *)(D_800C469E + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xF) * 0xE8)) == 0x21)) {
             goto loop_8;
         }
         temp_a1_2 = (s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xF);

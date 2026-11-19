@@ -61,6 +61,8 @@ extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
 void func_8001F9A4(void) {
+int __repair_literal;
+
     s32 sp34;
     s32 sp3C;
     s32 temp_a0;
@@ -138,7 +140,9 @@ void func_8001F9A4(void) {
         D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
         temp_v1 = *(D_80100198 + (D_800B7CF0 * 0x18));
         temp_a0 = var_s0 - 0x28;
-        if (((s32) temp_v1 < 2) && ((s32) temp_v1 >= 0)) {
+__repair_literal = 2;
+
+        if (((s32) temp_v1 < __repair_literal) && ((s32) temp_v1 >= 0)) {
             func_80025E9C(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 1, 0xD);
         } else {
             func_80025D84(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 0x7A, 1);
@@ -184,7 +188,7 @@ void func_8001F9A4(void) {
                 goto block_35;
             }
 block_32:
-            func_80025E9C(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD);
+            do { func_80025E9C(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD); } while (0);
             if (M2C_FIELD(D_80109BB0, u8 *, 8) == 0xD) {
                 func_800274BC(0x100, 2);
             }
@@ -221,11 +225,12 @@ block_36:
                         if (temp_s1_3 < 4U) {
                             var_a2 = func_80087100(0xAD);
                             var_a3 = temp_s1_3 + 1;
-                        } else {
+                        
+                        sprintf(temp_s2_2, "%s %d", var_a2, var_a3);} else {
                             var_a2 = func_80087100(0x158);
                             var_a3 = temp_s1_3 - 3;
-                        }
-                        sprintf(temp_s2_2, "%s %d", var_a2, var_a3);
+                        
+                        sprintf(temp_s2_2, "%s %d", var_a2, var_a3);}
                         func_800160FC(*(((var_s0_2 & 0xFFFF) * 4) + D_80102F48), temp_s2_2, 0x40);
                     }
                     func_8002A7CC(D_8010A488, *(((var_s0_2 & 0xFFFF) * 4) + D_80102F48), var_s0_2 & 0xFF, 1);

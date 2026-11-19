@@ -24,6 +24,7 @@ extern s32 D_80108788;
 extern s32 D_80108F78;
 extern void *D_80108F84;
 
+typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
 void func_800794C0(s32 arg0, void *arg1) {
     union {
         unsigned char bytes[168];
@@ -152,12 +153,12 @@ void func_800794C0(s32 arg0, void *arg1) {
         func_800617D8(M2C_FIELD(arg1, s32 *, 0x20), &m2c_initial_frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0x11) = 5U;
     }
-    temp_v1_7 = M2C_FIELD(temp_s2, s32 *, 0x88) & 0xFBFFFFFF;
-    M2C_FIELD(temp_s2, s32 *, 0x88) = temp_v1_7;
+    arg0 = ((__repair_field_88 *)temp_s2)->value & 0xFBFFFFFF;
+    ((__repair_field_88 *)temp_s2)->value = arg0;
     if (D_80108788 != 0) {
-        M2C_FIELD(temp_s2, s32 *, 0x88) = (s32) (temp_v1_7 | 0x04000000);
+        ((__repair_field_88 *)temp_s2)->value = (s32) (arg0 | 0x04000000);
     }
     if ((D_80108F84 != NULL) && (((u32) M2C_FIELD(D_80108F84, u32 *, 0x5C) >> 0x11) & 2)) {
-        M2C_FIELD(temp_s2, s32 *, 0x88) = (s32) (M2C_FIELD(temp_s2, s32 *, 0x88) | 0x04000000);
+        ((__repair_field_88 *)temp_s2)->value = (s32) (((__repair_field_88 *)temp_s2)->value | 0x04000000);
     }
 }

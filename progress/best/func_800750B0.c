@@ -14,15 +14,19 @@ typedef s32 M2C_UNK32;
 
 void *func_80016410();
 extern char D_800C7EE9[];
-extern u8 D_80102EE8;
+extern s8 D_80102EE8;
 
 void *func_800750B0(s32 arg0, s32 arg1, void *arg2) {
+int __repair_literal;
+
     u16 temp_v0_2;
     u16 temp_v1;
     void *temp_v0;
     void *var_v0;
+__repair_literal = 0;
 
-    if ((D_80102EE8 == 0) || ((s32) D_80102EE8 < 0) || ((s32) D_80102EE8 >= 3) || (temp_v1 = M2C_FIELD(arg2, u16 *, 0x2C), (temp_v1 == 9)) || (var_v0 = NULL, (temp_v1 == 0xD))) {
+
+    if ((D_80102EE8 == 0) || ((s32) D_80102EE8 < __repair_literal) || ((s32) D_80102EE8 >= 3) || (temp_v1 = M2C_FIELD(arg2, u16 *, 0x2C), (temp_v1 == 9)) || (var_v0 = NULL, (temp_v1 == 0xD))) {
         temp_v0 = func_80016410(0, arg0, 0);
         if (temp_v0 != NULL) {
             M2C_FIELD(temp_v0, s16 *, 0x78) = 0x6A;

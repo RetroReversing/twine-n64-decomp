@@ -10,12 +10,12 @@ extern f64 D_800D2F28;
 extern s32 D_8010A4E8;
 
 void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, u32 arg10, u32 arg11, u32 arg12, u32 arg13, f32 arg14, f32 arg15) {
-    s32 temp_a2_4;
+    s32 var_t8;
     unsigned long spC;
     u32 sp14;
     s32 sp1C;
     s32 temp_a1_4;
-    s32 sp2C;
+    s32 temp_v1_2;
     f32 temp_ft1;
     f32 temp_fv0;
     f32 var_fv0;
@@ -36,19 +36,19 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     s32 temp_a2;
     s32 temp_a2_2;
     void *temp_t0_13;
-    register s32 *sp4;
+    void *temp_t0_12;
     s32 temp_a1_3;
     register s32 temp_fv1;
     s32 temp_t3;
     s32 temp_t7;
     s32 temp_v1;
-    s32 temp_v1_2;
+    s32 sp2C;
     s32 var_a0;
     s32 temp_a1;
     s32 var_t1;
     void *temp_t0_9;
     s32 var_t6;
-    s32 var_t8;
+    s32 temp_a2_4;
     s32 var_v1;
     unsigned int temp_s0;
     register u32 temp_s1;
@@ -59,7 +59,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     void *temp_t0;
     void *temp_t0_10;
     void *temp_t0_11;
-    void *temp_t0_12;
+    register s32 *sp4;
     u32 var_a3;
     void *temp_t0_2;
     void *temp_t0_3;
@@ -81,7 +81,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
         var_ft0 += D_800D2EF8;
     }
     var_fv1 = (f64) arg4;
-    if (arg4 < 0) {
+    if (0 > arg4) {
         var_fv1 += D_800D2F00;
     }
     var_ft0_2 = (f64) arg7;
@@ -122,7 +122,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                     temp_t3 = temp_a1 & ((s32) ~temp_a1 >> 0x1F);
                     var_t2 = var_t4 + arg8;
                     temp_fv0 = (f32) ((f64) (f32) var_t4 + D_800D2F28);
-                    if (var_t2 > temp_s1) {
+                    if (temp_s1 < var_t2) {
                         var_t2 = temp_s1;
                     }
                     temp_a0 = var_t5 - 1;
@@ -164,8 +164,8 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
                         temp_a0_2 = ((var_t2 * 4) & 0xFFF) << 0xC;
                         temp_a3 = (var_a3 * 4) & 0xFFF;
                         var_t1_2 = var_t1 + 0x38;
-                        (*(s32 *)((char *)(var_t0) + 8)) = arg1;
                         (*(s32 *)((char *)(temp_t0) + -4)) = sp24;
+                        (*(s32 *)((char *)(var_t0) + 8)) = arg1;
                         temp_t0_7 = temp_t0 + 8;
                         (*(s32 *)((char *)(temp_t0_7) + -4)) = temp_v1;
                         (*(s32 *)((char *)(temp_t0) + 8)) = 0x07080200;

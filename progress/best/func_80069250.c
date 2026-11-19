@@ -97,7 +97,7 @@ void func_80069250(void *arg0) {
     void *temp_v0_3;
     void *temp_v0_4;
     void *temp_v0_5;
-    void *temp_v0_7;
+    
     void *temp_v1;
 
     temp_s3 = M2C_FIELD(arg0, void **, 0x6C);
@@ -121,7 +121,7 @@ void func_80069250(void *arg0) {
         temp_v0_3 = *temp_s5;
         sp50 = 1.0f;
         sp4C = ((M2C_FIELD(temp_v0_3, f32 *, 0x7C) * M2C_FIELD(temp_s3, f32 *, 0x28)) / M2C_FIELD(temp_v0_3, f32 *, 0x4C)) / M2C_FIELD(temp_v0_3, f32 *, 0x6C);
-        sp68 = func_800829C8(temp_fa0, temp_a0, temp_a1);
+        sp68 = func_800829C8(temp_fa0);
         temp_fs0 = func_800829A0(sp98);
         sp6C = -temp_fs0 * func_800829A0(temp_fa0);
         temp_fs0_2 = func_800829A0(temp_fa0);
@@ -197,17 +197,17 @@ void func_80069250(void *arg0) {
             M2C_FIELD(temp_s2, u8 *, 0x81) = 0xFF;
         }
         temp_v1 = M2C_FIELD(arg0, void **, 0x68);
-        if ((M2C_FIELD(temp_v1, u16 *, 0xC) & 1) && (*(D_800C46FC + (M2C_FIELD(temp_v1, s8 *, 0xE) * 0xE8)) & 8)) {
+        if ((M2C_FIELD(temp_v1, u16 *, 0xC) & 1) && (*(s32 *)(D_800C46FC + (M2C_FIELD(temp_v1, s8 *, 0xE) * 0xE8)) & 8)) {
             temp_v0_6 = spDC * 0xC;
-            *(D_80109A98 + temp_v0_6) = sp58;
-            *(D_80109A9C + temp_v0_6) = sp5C;
-            *(D_80109AA0 + temp_v0_6) = sp60;
+            *(s32 *)(D_80109A98 + temp_v0_6) = sp58;
+            *(s32 *)(D_80109A9C + temp_v0_6) = sp5C;
+            *(s32 *)(D_80109AA0 + temp_v0_6) = sp60;
         }
         if (M2C_FIELD(arg0, s16 *, 0x7C) == 5) {
-            temp_v0_7 = M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xBC), void **, 0x6C);
-            M2C_FIELD(temp_v0_7, f32 *, 0) = sp58;
-            M2C_FIELD(temp_v0_7, f32 *, 4) = sp5C;
-            M2C_FIELD(temp_v0_7, f32 *, 8) = sp60;
+            spD4 = M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xBC), void **, 0x6C);
+            M2C_FIELD(spD4, f32 *, 0) = sp58;
+            M2C_FIELD(spD4, f32 *, 4) = sp5C;
+            M2C_FIELD(spD4, f32 *, 8) = sp60;
         }
         if (M2C_FIELD(temp_fp, s32 *, 0x60) & 4) {
             temp_fv0_3 = (f32) ((f64) ((temp_fv0_2 * temp_fv0_2) / D_800C0740) + D_800D44F0);

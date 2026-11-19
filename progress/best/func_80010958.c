@@ -13,6 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80010958(u8 *arg0, s32 arg1) {
+    s32 ret;
     s32 var_a1;
     u32 temp_a2;
     u32 var_a2;
@@ -24,25 +25,25 @@ s32 func_80010958(u8 *arg0, s32 arg1) {
     var_a1 = arg1;
     var_a2 = 0xFFFF;
     if (var_a1 == 0) {
-        return 0;
-    }
+        ret = 0;
+    } else {
+        do {
+            var_t0 = 0;
+            var_a3 = *var_a0;
+            var_a0 += 1;
     do {
-        var_t0 = 0;
-        var_a3 = *var_a0;
-        var_a0 += 1;
-loop_3:
-        if ((var_a2 & 1) != (var_a3 & 1)) {
-            var_a2 = (var_a2 >> 1) ^ 0x8408;
-        } else {
-            var_a2 = var_a2 >> 1;
-        }
-        var_t0 += 1;
-        var_a3 = (u8) (var_a3 >> 1);
-        if (var_t0 < 8U) {
-            goto loop_3;
-        }
-        var_a1 -= 1;
-    } while (var_a1 != 0);
-    temp_a2 = ~var_a2;
-    return ((temp_a2 << 8) | ((temp_a2 >> 8) & 0xFF)) & 0xFFFF;
+            if ((var_a2 & 1) != (var_a3 & 1)) {
+                var_a2 = (var_a2 >> 1) ^ 0x8408;
+            } else {
+                var_a2 = var_a2 >> 1;
+            }
+            var_t0 += 1;
+            var_a3 = (u8) (var_a3 >> 1);
+            } while (var_t0 < 8U);
+            var_a1 -= 1;
+        } while (var_a1 != 0);
+        temp_a2 = ~var_a2;
+        ret = ((temp_a2 << 8) | ((temp_a2 >> 8) & 0xFF)) & 0xFFFF;
+    }
+    return ret;
 }

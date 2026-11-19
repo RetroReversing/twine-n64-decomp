@@ -25,7 +25,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
     u8 *var_v0_2;
     u8 var_v1;
     void *temp_v1;
-    void *temp_v1_2;
+    
     
     void *var_v1_2;
 
@@ -58,9 +58,9 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
     }
     temp_a2_2 = arg0 & 0xFF;
     if (temp_a2_2 < 0x40U) {
-        temp_v1_2 = ((arg1 & 0xFF) * 0x86) + D_800F2720 + (arg0 & 0x1F);
-        var_v1 = M2C_FIELD(temp_v1_2, u8 *, 0x20);
-        var_v0_3 = M2C_FIELD(temp_v1_2, u8 *, 0) << 7;
+        temp_v1 = ((arg1 & 0xFF) * 0x86) + D_800F2720 + (arg0 & 0x1F);
+        var_v1 = M2C_FIELD(temp_v1, u8 *, 0x20);
+        var_v0_3 = M2C_FIELD(temp_v1, u8 *, 0) << 7;
         goto block_19;
     }
     temp_a2 = arg1 & 0xFF;
