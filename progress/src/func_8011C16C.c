@@ -34,7 +34,7 @@ OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientati
         if (object != NULL) {
             register u32 idx = (u16)index;
             register void *timer;
-            func_80044670(object, 6, 0xF4);
+            do { func_80044670(object, 6, 0xF4); } while (0);
             D_8011F298[idx] = *position;
             timer = D_8011F140[idx];
             object->kind = 0x45;
