@@ -27,12 +27,14 @@ s32 func_8000A9CC(s32 arg0, s32 arg1, s32 arg2) {
         if (var_s1 >= 0x80) {
             var_s1 = 0x7F;
         }
-        if ((var_s1 <= 0) || (temp_v0 = func_8009CC3C(arg0 & 0xFFFF, arg2 & 0xFF, 0xFF), func_8009C930(temp_v0, var_s1 & 0xFF), (*(D_800B1D90 + arg0) == 0))) {
-            goto block_5;
-        }
-        func_8000A724(temp_v0);
-        return temp_v0;
+        if (var_s1 <= 0) goto block_5;
+        temp_v0 = func_8009CC3C(arg0 & 0xFFFF, arg2 & 0xFF, 0xFF);
+        func_8009C930(temp_v0, var_s1 & 0xFF);
+        if (*(D_800B1D90 + arg0) != 0) goto success;
     }
 block_5:
     return -1;
+success:
+    func_8000A724(temp_v0);
+    return temp_v0;
 }
