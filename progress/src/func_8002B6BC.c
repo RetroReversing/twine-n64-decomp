@@ -26,7 +26,7 @@ void func_8002B6BC(s32 arg0) {
         func_80016718(*pp);
         func_80016990(*pp, D_80109688[D_800BF5CA]->fF4);
         D_800BF5BC->flags |= 0x1000;
-        D_800BF5BC->f54 = *v;
+        do { D_800BF5BC->f54 = *v; } while (0);
         switch (D_800BF5C8) {
         case 0:
             D_800BF5C4 = D_800BF5C4 + 0.02f;

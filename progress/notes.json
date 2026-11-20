@@ -12360,14 +12360,6 @@
   "score_after": 2485
  },
  {
-  "function": "func_8002B6BC",
-  "text": "Verified 1265 baseline. Switch ordering, signedness, address local, assignment placement and scalar/table declarations did not improve; 19 mismatch rows, primarily control-flow branches and inserted/deleted instructions. Rework switch/return layout against full target assembly, particularly shared cleanup call.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795178302.663008,
-  "score_before": 1265,
-  "score_after": 1265
- },
- {
   "function": "func_8000BBB4",
   "text": "Baseline 85, only 17 floating-point register differences. Target assigns cosine and sine results to f20 and f22 opposite candidate; change lifetimes/allocation around last two calls and subsequent arithmetic. Six local variants did not improve.",
   "by": "codex-gpt-6.1-terra-3",
@@ -16461,14 +16453,6 @@
   "by": "codex-gpt-6.2-sol-5",
   "created_at": 1795182887.395282,
   "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "func_8002B6BC",
-  "text": "Saved score 60 at 3e425a71336564a5cacd, down from 1265. Pointer-object volatility reproduced the second D_800BF5BC load, and assigning D_800BF5C4 in each switch arm before the negated bound test/early return reproduced the shared float compare, store and branch. Only residual in saved candidate is f54 swc1 moves into the switch beqz delay slot, displacing assignment of 1 and changing branch displacement. Volatile f54 alone tied with a different two-row diff. Volatile mode alone/together, cached mode, and if/else rewrite failed. Try a may-alias raw offset store without field volatility, keeping switch and its tail.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795182891.240248,
-  "score_before": 1265,
   "score_after": 60
  },
  {
@@ -24832,14 +24816,6 @@
   "score_after": 280
  },
  {
-  "function": "func_8002B6BC",
-  "text": "Current revision b5cf9f231c5e929f7c80 rechecked at 450; historical saved best 60 is not comparable because header differs. Tried local repair families switch_layout, unsigned_switch, switch_case_order, symbol_address_local, byte_table_signedness, global_scalar_type across resumed batches. Best stayed 450; variants tied at 450 or worsened to 1030/1471. Move-on limit reached (10/6). Mismatch starts with null-arg beq target discrepancy (target 0x120 vs candidate 0x124), followed by 14 advisory rows. Candidate retained baseline. Potential next work: inspect target and candidate assembly around early guard and reconstruct shared return/control flow before switch experiments.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795188760.8915992,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_800AB880",
   "text": "Best candidate score 100 (98%, 50 instructions); function is optimized aligned string copy. Rebuilt a valid source by replacing pointer increments with integer-address arithmetic; matched the target except 20 register allocation differences. Tried three repair variants (loop weight, inline scalar, pointer cast), no improvement. Tried rewriting output cursor through dst plus saved return pointer; regressed to 365 due changed cursor/branch structure. Best saved candidate remains revision a50bb88bbca1692286b3. Main remaining issue: target uses a2 as output cursor and v1 as loaded word; candidate swaps those roles into v1 cursor and a2 word, otherwise instructions align. Explore declaration/lifetime structure to shape allocation.",
   "by": "codex-gpt-6-luna-10",
@@ -27416,14 +27392,6 @@
   "score_after": 85
  },
  {
-  "function": "func_8002B6BC",
-  "text": "Best candidate revision 798291d6617205e5164c, score 60. At 79 instructions, only three target rows differ: store to object offset 0x54 should precede the D_800BF5C8 switch load/branch by one instruction, which also changes a branch displacement. Tried switch layout/signedness/case order, symbol address local, byte table signedness, scalar type. Tried caching the object pointer locally; this worsened score to 1175 by changing null-check control flow and removing expected singleton reloads. Restored best and verified at score 60. Remaining work is statement sequencing/store lifetime around the switch.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795191510.2267342,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_800AB9B0",
   "text": "Best verified score 140 (94.1%), 24 target vs 23 candidate insns. Source is uppercase null-terminated string in place using ctype_toupper; candidate draft already close. Remaining control/register mismatch: target establishes s1=original and s0=s1 before loading, then branch delay copies shifted byte to a0; zero initial byte exits via beqz; loop condition uses shifted char in a0. Explicit duplicate start/cursor pointers and while loop changed branch structure and regressed to 425. Local repairs for signedness/declaration order/const/read staging did not improve.",
   "by": "codex-gpt-6-luna-22",
@@ -28838,14 +28806,6 @@
   "created_at": 1795193397.7130408,
   "score_before": 2485,
   "score_after": 2485
- },
- {
-  "function": "func_8002B6BC",
-  "text": "Best saved C scores 60 (79 insns); verified recheck unchanged. Tried baseline, reordered switch, explicit guard/if variants; results were 60, 710, 870, 430, 3570; no exact match. The strongest improvement over exploratory versions was guard `if (D_800BF5C8 != 0 && D_800BF5C8 != 1) return;` but still 430 and worse than saved best. Core remaining mismatch: target stores updated D_800BF5C4 before testing the FPU condition; baseline candidate tests prior to the store, causing one displaced swc1 and branch offset +1. Target assembly around switch shows shared store at .L8002B7CC, bc1f to epilogue; consider representing both cases with one shared write and shared condition path.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795193400.944524,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_8001F4B8",
@@ -31366,14 +31326,6 @@
   "created_at": 1795198108.3458939,
   "score_before": 140,
   "score_after": 140
- },
- {
-  "function": "func_8002B6BC",
-  "text": "Verified saved best score 60/316 and 79 instructions. Full rewrite reproduced score 60; remaining normalized differences: target stores sampled float to object before reading mode and has a likely annulled branch shape difference near mode dispatch (target branch at offset 0xb4; C fallthrough differs by one instruction). Attempted adding explicit invalid-mode guard before switch; regressed to score 430 due to extra comparison/branch. Restored saved best and tried explicit two-value mode guard, also score 430. Keep current best; next investigate control-flow placement of mode handling and branch delay slot around sampled-value store. No need to retune float constants yet.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198117.967339,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_8003438C",
@@ -34574,5 +34526,61 @@
   "created_at": 1795201851.441777,
   "score_before": 360,
   "score_after": 360
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Verified 1265 baseline. Switch ordering, signedness, address local, assignment placement and scalar/table declarations did not improve; 19 mismatch rows, primarily control-flow branches and inserted/deleted instructions. Rework switch/return layout against full target assembly, particularly shared cleanup call.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178302.663008,
+  "score_before": 1265,
+  "score_after": 1265
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Saved score 60 at 3e425a71336564a5cacd, down from 1265. Pointer-object volatility reproduced the second D_800BF5BC load, and assigning D_800BF5C4 in each switch arm before the negated bound test/early return reproduced the shared float compare, store and branch. Only residual in saved candidate is f54 swc1 moves into the switch beqz delay slot, displacing assignment of 1 and changing branch displacement. Volatile f54 alone tied with a different two-row diff. Volatile mode alone/together, cached mode, and if/else rewrite failed. Try a may-alias raw offset store without field volatility, keeping switch and its tail.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795182891.240248,
+  "score_before": 1265,
+  "score_after": 60
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Current revision b5cf9f231c5e929f7c80 rechecked at 450; historical saved best 60 is not comparable because header differs. Tried local repair families switch_layout, unsigned_switch, switch_case_order, symbol_address_local, byte_table_signedness, global_scalar_type across resumed batches. Best stayed 450; variants tied at 450 or worsened to 1030/1471. Move-on limit reached (10/6). Mismatch starts with null-arg beq target discrepancy (target 0x120 vs candidate 0x124), followed by 14 advisory rows. Candidate retained baseline. Potential next work: inspect target and candidate assembly around early guard and reconstruct shared return/control flow before switch experiments.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795188760.8915992,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Best candidate revision 798291d6617205e5164c, score 60. At 79 instructions, only three target rows differ: store to object offset 0x54 should precede the D_800BF5C8 switch load/branch by one instruction, which also changes a branch displacement. Tried switch layout/signedness/case order, symbol address local, byte table signedness, scalar type. Tried caching the object pointer locally; this worsened score to 1175 by changing null-check control flow and removing expected singleton reloads. Restored best and verified at score 60. Remaining work is statement sequencing/store lifetime around the switch.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795191510.2267342,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Best saved C scores 60 (79 insns); verified recheck unchanged. Tried baseline, reordered switch, explicit guard/if variants; results were 60, 710, 870, 430, 3570; no exact match. The strongest improvement over exploratory versions was guard `if (D_800BF5C8 != 0 && D_800BF5C8 != 1) return;` but still 430 and worse than saved best. Core remaining mismatch: target stores updated D_800BF5C4 before testing the FPU condition; baseline candidate tests prior to the store, causing one displaced swc1 and branch offset +1. Target assembly around switch shows shared store at .L8002B7CC, bc1f to epilogue; consider representing both cases with one shared write and shared condition path.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795193400.944524,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Verified saved best score 60/316 and 79 instructions. Full rewrite reproduced score 60; remaining normalized differences: target stores sampled float to object before reading mode and has a likely annulled branch shape difference near mode dispatch (target branch at offset 0xb4; C fallthrough differs by one instruction). Attempted adding explicit invalid-mode guard before switch; regressed to score 430 due to extra comparison/branch. Restored saved best and tried explicit two-value mode guard, also score 430. Keep current best; next investigate control-flow placement of mode handling and branch delay slot around sampled-value store. No need to retune float constants yet.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198117.967339,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8002B6BC",
+  "text": "Current rechecked baseline 1073; tried six independent local repairs (symbol_address_local, switch_case_order, switch_layout, unsigned_switch, byte_table_signedness, global_scalar_type); none improved it. Best direction left: inspect full assembly and rebuild structure, since target frame is 0x20 while candidate is 0x18 and target saves $ra at 0x18 with $s1 at 0x14; candidate saves $ra at 0x14. Main mismatches include global pointer load, switch and frame/register layout. Historical best 60 came from different source/build inputs and was not reproduced.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201155.163556,
+  "score_before": 60,
+  "score_after": 60
  }
 ]
