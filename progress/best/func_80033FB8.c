@@ -101,11 +101,11 @@ block_17:
         }
         if (temp_v1 & 0x20) {
             if ((u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x64) < 0x20U) {
-                temp_ret = guRandom(temp_a0);
+                temp_ret = guRandom();
                 temp_v0 = temp_ret;
                 temp_a0_2 = temp_ret / 30;
                 if (temp_v0 == (temp_a0_2 * 0x1E)) {
-                    var_v0_2 = guRandom((void *) temp_a0_2, MULT_HI(temp_v0, 0x88888889));
+                    var_v0_2 = guRandom();
                     temp_a0_3 = var_v0_2;
                     if (temp_a0_3 < 0) {
                         var_v0_2 = temp_a0_3 + 0x7F;
@@ -124,10 +124,10 @@ block_17:
                     if (temp_a0_5 < 0) {
                         var_v0_3 = temp_a0_5 + 0x7F;
                     }
-                    temp_v0_3 = (temp_a0_5 - ((var_v0_3 >> 7) << 7)) - 0x80;
-                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x64) = temp_v0_3;
-                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x65) = temp_v0_3;
-                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x66) = temp_v0_3;
+                    temp_a0_3 = (u8)((temp_a0_5 - ((var_v0_3 >> 7) << 7)) - 0x80);
+                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x64) = temp_a0_3;
+                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x65) = temp_a0_3;
+                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), u8 *, 0x66) = temp_a0_3;
                 }
             }
         } else {

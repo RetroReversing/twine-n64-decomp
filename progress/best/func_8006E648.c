@@ -61,6 +61,7 @@ void func_8006E648(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     f32 temp_ft0_4;
     f32 temp_ft1;
     f32 temp_ft2;
+    f32 model_height;
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_fv0_3;
@@ -124,12 +125,13 @@ update:
         temp_ft1 = M2C_FIELD(arg1, f32 *, 0x28);
         temp_ft2 = M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 4), f32 *, 0xAC) - temp_ft1;
         temp_a0 = M2C_FIELD(temp_v1_2, void **, 0);
+        model_height = (M2C_FIELD(temp_a0, f32 *, 0x1C) + M2C_FIELD(temp_a0, f32 *, 0x40));
         M2C_FIELD(temp_v1_2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_2, u16 *, 0xC) & 0xFFCF);
         temp_v1_3 = M2C_FIELD(arg1, void **, 0x68);
         M2C_FIELD(arg1, f32 *, 0x28) = (f32) (M2C_FIELD(arg1, f32 *, 0x28) + (M2C_FIELD(temp_s2, f32 *, 0xCC) * 0.033333335f));
         M2C_FIELD(temp_v1_3, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_3, u16 *, 0xC) | 0x80);
         vec30.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);
-        if ((func_800515D0(arg1, arg0, arg1 + 0x30, &vec30.words[0], &quad40[0], 0.55f, temp_ft1 - ((M2C_FIELD(temp_a0, f32 *, 0x1C) + M2C_FIELD(temp_a0, f32 *, 0x40)) * 0.5f), temp_ft2, arg2, arg3, arg4, arg5) << 0x18) != 0) {
+        if ((func_800515D0(arg1, arg0, arg1 + 0x30, &vec30.words[0], &quad40[0], 0.55f, temp_ft1 - (model_height * 0.5f), temp_ft2, arg2, arg3, arg4, arg5) << 0x18) != 0) {
             temp_v1_4 = M2C_FIELD(arg1, void **, 0x68);
             M2C_FIELD(temp_v1_4, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_4, u16 *, 0xC) | 0x10);
             temp_ft0 = M2C_FIELD(arg1, f32 *, 0x28);
@@ -228,15 +230,18 @@ block_35:
                 vecB0.words[1] += 2.0f;
             }
             M2C_FIELD(temp_s2_2, f32 *, 0xE4) = (f32) (M2C_FIELD(arg1, f32 *, 0x28) - 1.097105f);
-            quad40[0] = 0;
-            quad40[1] = 0x3F800000;
-            quad40[2] = 0;
+            ((f32 *)quad40)[0] = 0.0f;
+            ((f32 *)quad40)[1] = 1.0f;
+            ((f32 *)quad40)[2] = 0.0f;
             temp_fv0 = M2C_FIELD(temp_s2_2, f32 *, 0xCC) - 0.32666668f;
             M2C_FIELD(temp_s2_2, f32 *, 0xCC) = temp_fv0;
             temp_v1_6 = M2C_FIELD(arg1, void **, 0x68);
             M2C_FIELD(arg1, f32 *, 0x28) = (f32) (M2C_FIELD(arg1, f32 *, 0x28) + (temp_fv0 * 0.033333335f));
-            D_80103F00 = 0;
-            M2C_FIELD(temp_v1_6, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_6, u16 *, 0xC) & 0xFF77);
+            {
+                u16 flags = M2C_FIELD(temp_v1_6, u16 *, 0xC);
+                D_80103F00 = 0;
+                M2C_FIELD(temp_v1_6, u16 *, 0xC) = flags & 0xFF77;
+            }
             vec50.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);
             if (M2C_FIELD(arg1, s16 *, 0x7C) == 2) {
                 var_fv1_2 = 52.0f;
@@ -262,16 +267,18 @@ block_35:
             if (temp_a2 != NULL) {
                 M2C_FIELD(temp_a2, QuadWords *, 0x30) = *(QuadWords *)quad40;
             }
+            temp_v1_7 = D_80108788;
             M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8) = vec60.words[1];
-            if ((D_80108788 != NULL) && ((f64) M2C_FIELD(arg1, f32 *, 0x28) <= ((f64) (vec60.words[1] + temp_fs1) + D_800D4698))) {
-                M2C_FIELD(D_80108788, s32 *, 0x60) = (s32) (M2C_FIELD(D_80108788, s32 *, 0x60) | 0x200);
+            if ((temp_v1_7 != NULL) && ((f64) M2C_FIELD(arg1, f32 *, 0x28) <= ((f64) (vec60.words[1] + temp_fs1) + D_800D4698))) {
+                M2C_FIELD(temp_v1_7, s32 *, 0x60) = (s32) (M2C_FIELD(temp_v1_7, s32 *, 0x60) | 0x200);
             }
             temp_fv0_2 = vec60.words[1] + temp_fs1;
             temp_ft0_2 = M2C_FIELD(arg1, f32 *, 0x28);
             if (temp_ft0_2 <= temp_fv0_2) {
                 if (M2C_FIELD(arg1, s16 *, 0x7C) == 2) {
+                    var_fv0 = (temp_fv0_2 - temp_ft0_2) * 30.0f;
                     temp_fv0_3 = M2C_FIELD(temp_s2_2, f32 *, 0xCC);
-                    var_fv0 = (f32) ((f64) temp_fv0_3 + ((f64) (((temp_fv0_2 - temp_ft0_2) * 30.0f) - temp_fv0_3) * D_800D46A0));
+                    var_fv0 = (f32)((f64)(var_fv0 - temp_fv0_3) * D_800D46A0 + (f64)temp_fv0_3);
                 } else {
                     if (M2C_FIELD(temp_s2_2, f32 *, 0xCC) < -12.0f) {
                         M2C_FIELD(temp_s2_2, f32 *, 0xCC) = -12.0f;
@@ -303,9 +310,10 @@ block_35:
                 M2C_FIELD(arg1, f32 *, 0x2C) = (f32) (M2C_FIELD(arg1, f32 *, 0x2C) + vec90.words[2]);
                 temp_v1_9 = M2C_FIELD(arg1, void **, 0x68);
                 M2C_FIELD(arg1, f32 *, 0x40) = (f32) (M2C_FIELD(arg1, f32 *, 0x40) + vecA0.words[1]);
+                temp_a0 = D_80108F84;
                 M2C_FIELD(temp_v1_9, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_9, u16 *, 0xC) | 8);
-                if (D_80108F84 != NULL) {
-                    M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0x11) = (u8) M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), u8 *, 0x47);
+                if (temp_a0 != NULL) {
+                    M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0x11) = (u8) M2C_FIELD(M2C_FIELD(temp_a0, void **, 0x3C), u8 *, 0x47);
                     *arg7 = D_80108F84;
                     *arg6 = ((u32) M2C_FIELD(D_80108F84, u32 *, 0x5C) >> 0x11) & 0x3F;
                 }
@@ -324,9 +332,10 @@ block_35:
                     M2C_FIELD(arg1, Vec3 *, 0x24) = M2C_FIELD(arg1, Vec3 *, 0x30);
                 }
             }
+            var_v0 = D_80103F00;
             M2C_FIELD(temp_s2_2, f32 *, 0xE0) = (f32) M2C_FIELD(arg1, f32 *, 0x24);
             M2C_FIELD(temp_s2_2, f32 *, 0xE8) = (f32) M2C_FIELD(arg1, f32 *, 0x2C);
-            if ((D_80103F00 != 0) && (M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8) < vec70.words[1]) && (func_80045CF8(4) == 0)) {
+            if ((var_v0 != 0) && (vec70.words[1] > M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8)) && (func_80045CF8(4) == 0)) {
                 func_8008548C(&vec70.words[0]);
                 func_800617D8(M2C_FIELD(arg1, s32 *, 0x20), &vec70.words[0], 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
                 M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0x11) = 5U;
@@ -345,16 +354,21 @@ block_35:
                         func_80063998(arg1, 2);
                     }
                 }
-                if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u16 *, 0xC) & 8) && (var_s3 != NULL) && (M2C_FIELD(var_s3, u16 *, 0x78) == 0xB) && ((vecB0.words[1] - M2C_FIELD(arg1, f32 *, 0x28)) < 1.0f) && (M2C_FIELD(var_s3, f32 *, 0x28) < M2C_FIELD(var_s3, f32 *, 0x34))) {
+                if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u16 *, 0xC) & 8)) {
+                    if (var_s3 == NULL) {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+                if ((M2C_FIELD(var_s3, u16 *, 0x78) == 0xB) && ((vecB0.words[1] - M2C_FIELD(arg1, f32 *, 0x28)) < 1.0f) && (M2C_FIELD(var_s3, f32 *, 0x28) < M2C_FIELD(var_s3, f32 *, 0x34))) {
                     temp_v0_3 = M2C_FIELD(var_s3, void **, 0x70);
                     if (temp_v0_3 != NULL) {
                         temp_v1_12 = M2C_FIELD(temp_v0_3, s32 *, 0x30) & ~0xF;
                         if (temp_v1_12 == 0x100EA0) {
                             M2C_FIELD(arg1, s32 *, 0x60) = (s32) (M2C_FIELD(arg1, s32 *, 0x60) | 0x40000000);
                             M2C_FIELD(temp_s2_2, s32 *, 0x18C) = (s32) ((M2C_FIELD(temp_s2_2, s32 *, 0x18C) & 0xFFFF0FFF) | 0x7000);
-                            M2C_FIELD(temp_s2_2, f32 *, 0x1A0) = (f32) M2C_FIELD(arg1, f32 *, 0x24);
-                            M2C_FIELD(temp_s2_2, f32 *, 0x1A4) = (f32) M2C_FIELD(arg1, f32 *, 0x28);
-                            M2C_FIELD(temp_s2_2, f32 *, 0x1A8) = (f32) M2C_FIELD(arg1, f32 *, 0x2C);
+                            M2C_FIELD(temp_s2_2, Vec3 *, 0x1A0) = M2C_FIELD(arg1, Vec3 *, 0x24);
                             M2C_FIELD(temp_s2_2, f32 *, 0x1B0) = 5.0f;
                             M2C_FIELD(temp_s2_2, s32 *, 0x1B4) = 0;
                             M2C_FIELD(arg1, f32 *, 0x24) = (f32) (M2C_FIELD(arg1, f32 *, 0x24) + 0.01f);

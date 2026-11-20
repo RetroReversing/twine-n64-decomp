@@ -62,7 +62,7 @@ void func_800072B8(void) {
     temp_a2 = temp_v1 < (u32) D_80115324;
     D_80109DD8 = (temp_ret - D_80115320) - temp_a2;
     D_80109DDC = temp_v1 - D_80115324;
-    temp_ret_2 = osGetTime(D_80115320, D_80115324, temp_a2);
+    temp_ret_2 = osGetTime(D_80115320, D_80115324, temp_a2, 0);
     D_80115320 = temp_ret_2;
     D_80115324 = (u32) temp_ret_2;
     temp_a1 = D_80102CCC + D_80109DDC;
@@ -111,10 +111,10 @@ loop_9:
     temp_v1_2 = D_80108F8C * 2;
     temp_a2_2 = (u32) D_80102CCC < temp_v1_2;
     temp_a1_2 = D_80102CCC - temp_v1_2;
-    temp_a0 = (D_80102CC8 - ((D_80108F88 * 2) | ((u32) D_80108F8C >> 0x1F))) - temp_a2_2;
-    D_80102CC8 = temp_a0;
+    var_a0_2 = (D_80102CC8 - ((D_80108F88 * 2) | ((u32) D_80108F8C >> 0x1F))) - temp_a2_2;
+    D_80102CC8 = var_a0_2;
     D_80102CCC = temp_a1_2;
-    func_8008188C(temp_a0, temp_a1_2, temp_a2_2, (u32) var_a3_2);
+    func_8008188C(var_a0_2, temp_a1_2, temp_a2_2, (u32) var_a3_2);
     if (D_800CA338 != 1) {
         goto block_11;
     }
@@ -128,7 +128,7 @@ block_11:
     temp_lo = var_a1 * D_80108F8C;
     var_a0_2 = temp_v1_3 < (u32) D_8010A39C;
     temp_t0 = (temp_ret_4 - D_8010A398) - var_a0_2;
-    var_a2_2 = ((MULTU_HI(var_a1, D_80108F8C) + (var_a1 * D_80108F88) + (D_80108F8C * 0)) * 2) | (temp_lo >> 0x1F);
+    var_a2_2 = (((((u64) var_a1 * D_80108F8C) >> 32) + (var_a1 * D_80108F88) + (D_80108F8C * 0)) * 2) | (temp_lo >> 0x1F);
     var_a3_2 = temp_lo * 2;
     if ((s32) var_a2_2 < temp_t0) {
         goto block_17;

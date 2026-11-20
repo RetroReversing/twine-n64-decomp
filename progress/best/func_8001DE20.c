@@ -44,7 +44,7 @@ void func_8001DE20(void) {
     void *var_s3;
 
     D_800BD690 = 1;
-    temp_s4 = func_8002638C(D_800BD8EC);
+    temp_s4 = func_8002638C(D_800BD8EC, 0x1F);
     temp_s5 = func_8002638C(D_800BD8EC, 0x20);
     temp_s1 = func_8002638C(D_800BD8EC, 0x19);
     var_s3 = func_8002638C(D_800BD8EC, 0x1C);
@@ -60,7 +60,7 @@ void func_8001DE20(void) {
         if (D_8010A4FE == 0) {
             var_a0 = 0x1A;
         }
-        func_80026004(temp_s1, "%s", func_80087100(var_a0));
+        do { func_80026004(temp_s1, "%s", func_80087100(var_a0)); } while (0);
         temp_s2 = var_s3 - 0x28;
         if (D_80108400 != 0) {
             temp_s0 = temp_s4 - 0x28;

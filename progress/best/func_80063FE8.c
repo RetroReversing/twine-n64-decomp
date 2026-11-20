@@ -34,7 +34,7 @@ void func_80063FE8(void *arg0) {
     s16 var_s0_2;
     u16 var_s1;
     s16 var_s4;
-    s32 temp_v1;
+    u8 temp_v1;
     void *temp_s3;
 
     var_fs1 = -1.0f;

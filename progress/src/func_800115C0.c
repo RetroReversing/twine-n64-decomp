@@ -31,14 +31,19 @@ extern s32 D_801032A8;
 extern s16 D_80109DC8[];
 
 u16 func_800115C0(void) {
-    s32 temp_v1;
+    u16 temp_v1;
     u16 var_v0;
 
     temp_v1 = func_80010C00() & 0xFFFF;
-    switch (temp_v1) {                              /* irregular */
-    case 0x0:
-        /* fallthrough */
-    case 0x62:
+    if (temp_v1 == 0) {
+        goto start;
+    }
+    if (temp_v1 == 0x62) {
+        goto start;
+    }
+    return D_800BFC32;
+start:
+    {
         func_80011800(3, (D_800E093A * 0x68) + D_800E0790, D_800E096C, D_800E0970, 0, 0, 0, 0);
         if (func_800109CC() == 0) {
             if (D_800E093A == 0) {
@@ -58,13 +63,10 @@ u16 func_800115C0(void) {
         if (func_800109CC() == 0) {
             return 0x63U;
         }
-        var_v0 = 0x62;
-        if (D_801032A8 != 0xB) {
-            var_v0 = 0x10;
+        if (D_801032A8 == 0xB) {
+            return 0x62;
         }
-        return var_v0;
-    default:
-        return D_800BFC32;
+        return 0x10;
     }
 }
 

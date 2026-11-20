@@ -17,8 +17,8 @@ s32 func_80022DBC(s32);                             /* extern */
 M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
 extern s32 D_800BD654;
 extern s32 D_800BD678;
-extern M2C_UNK D_801001A1;
-extern M2C_UNK D_801001A2;
+extern u8 D_801001A1;
+extern u8 D_801001A2;
 extern u8 D_801002A1;
 extern s32 D_801002C0;
 extern M2C_UNK D_8011F338;
@@ -93,7 +93,7 @@ block_20:
                             } else {
                                 M2C_FIELD(temp_v0, s32 *, 0x10) = (s32) D_800BD654;
                             }
-                            *((var_a0 * 4) + (((var_s2 & 0xFFFF) * 0x10) + &D_8011F338)) = temp_v0;
+                            *(void **)((char *)&D_8011F338 + var_a0 * 4 + (var_s2 & 0xFFFF) * 0x10) = temp_v0;
                         }
 block_25:
                         var_s2 += 1;
@@ -104,11 +104,12 @@ block_25:
                 var_v0 = var_s3 & 0xFFFF;
 block_29:
                 var_v0_2 = 0 & 0xFFFF;
-                do {
-                    *((var_v0 * 4) + ((var_v0_2 * 0x10) + &D_8011F338)) = 0;
+                do { {
+                    *(s32 *)((char *)&D_8011F338 + var_v0 * 4 + var_v0_2 * 0x10) = 0;
                     var_s2 += 1;
                     var_v0_2 = var_s2 & 0xFFFF;
-                } while ((u32) (var_s2 & 0xFFFF) < 4U);
+                }
+} while ((u32) (var_s2 & 0xFFFF) < 4U);
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;

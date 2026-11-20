@@ -20,7 +20,7 @@ s32 func_8003E6EC();
 void *func_80047B44();
 s32 func_80073304();
 extern s32 *D_800CA31C;
-extern char D_80109A60[];
+extern unsigned char D_80109A60[];
 
 void func_80016A34(void *arg0) {
     s32 temp_s0;

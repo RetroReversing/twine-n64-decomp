@@ -26,6 +26,7 @@ extern void *D_8011F3CC;
 
 void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
 int __repair_literal;
+    volatile s64 __stack_pad;
 
     s32 var_a0;
     s32 var_s0;

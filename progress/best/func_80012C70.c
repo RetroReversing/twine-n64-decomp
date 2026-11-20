@@ -1,7 +1,7 @@
 s32 func_800109CC(); s32 func_80010A2C(); s32 func_80010B60(s32); s32 func_800115C0(s32); s32 func_80011800(s32,void*,s16,s32,s32,s32,s32,s32); s32 func_80012F50(); extern u16 D_800BFC32; extern u16 D_800E0768[]; extern u8 D_800E076A[],D_800E076B[]; extern s32 D_800E0790; extern s16 D_800E0938,D_800E093A,D_800E093C,D_800E093E; extern s32 D_80103022,D_801032A8,D_801083D4; extern u8 D_80108F75; extern s16 D_80109BA4; extern s32 D_80109DC8; extern s8 D_8010A3C5,D_8010A3C6,D_8010A3C7,D_8010A3C8;
 u16 func_80012C70(void){
 int __repair_literal;
-s16 *temp_a2; s16 temp_v0_2; unsigned int temp_a0; s32 temp_v0; register s32 var_s0; unsigned long temp_v1;
+s16 *temp_a2; s16 temp_v0_2; unsigned int temp_a0; s32 temp_v0; register s32 var_s0; unsigned long temp_v1; volatile long long reserve;
 var_s0=-1;D_8010A3C5=0;D_8010A3C6=0;D_8010A3C7=0;D_8010A3C8=0;D_800E093E=0;D_800E093A=0;D_800E093C=-1;D_800E093E=0;D_800E0938=-1;func_80011800(0xD,NULL,0,0,0,0,0,0);D_800E093A=0;func_800109CC();
 __repair_literal = 2;
 

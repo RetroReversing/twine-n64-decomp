@@ -7,12 +7,12 @@ typedef struct Mode {
     u32 unk0, unk4, width, burst, vsync, hsync, leap, hvideo, xscale, unk24;
     struct { u32 origin, yscale, vvideo, vburst, vintr; } f[2];
 } Mode;
-extern ViContext *viCurrent, *gViPending;
-extern s32 D_800A258C;
+extern ViContext *D_800D1154, *D_800D1150;
+extern s32 D_800CFEBC;
 extern volatile u32 D_A4400000;
 extern s32 osVirtualToPhysical(s32);
 
-#define VI_CONTROL  (*(volatile u32 *)0xA4400000)
+#define VI_CONTROL (*(volatile u32 *)0xA4400000)
 #define VI_CURRENT  (*(volatile u32 *)0xA4400010)
 #define VI_ORIGIN   (*(volatile u32 *)0xA4400004)
 #define VI_WIDTH    (*(volatile u32 *)0xA4400008)
@@ -35,9 +35,9 @@ void vi_apply_context(void) {
     ViContext *prev;
     ViContext *cur;
     Mode *mode;
-    s32 field, origin, hvideo, vvideo, ctrl;
+    s32 field, origin, hvideo, vvideo; u32 ctrl;
     u32 scaled;
-    cur = viCurrent;
+    cur = D_800D1154;
     field = VI_CURRENT & 1;
     mode = cur->mode;
     origin = osVirtualToPhysical(cur->buffer) + mode->f[field].origin;
@@ -49,7 +49,7 @@ void vi_apply_context(void) {
         cur->yscale = scaled | (mode->f[field].yscale & ~0xFFFu);
     } else cur->yscale = mode->f[field].yscale;
     hvideo = mode->hvideo;
-    vvideo = mode->f[field].vvideo - (D_800A258C << 16) + D_800A258C;
+    vvideo = mode->f[field].vvideo - (D_800CFEBC << 16) + D_800CFEBC;
     hvideo &= -((cur->flags & 0x20) == 0);
     if (cur->flags & 0x40) { cur->yscale = 0; origin = osVirtualToPhysical(cur->buffer); }
     if (cur->flags & 0x80) {
@@ -69,9 +69,9 @@ void vi_apply_context(void) {
     VI_X_SCALE = cur->xscale;
     VI_Y_SCALE = cur->yscale;
     ctrl = cur->control;
-    prev = gViPending;
-    gViPending = cur;
-    viCurrent = prev;
+    prev = D_800D1150;
+    D_800D1150 = cur;
+    D_800D1154 = prev;
     VI_CONTROL = ctrl;
     __builtin_memcpy(prev, cur, sizeof(ViContext));
 }

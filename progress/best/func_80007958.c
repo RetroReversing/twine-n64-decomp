@@ -58,6 +58,11 @@ extern FrameView *D_80109688[];
 extern FrameSlot *D_8010A2BC[];
 extern FrameCommand *D_80115328;
 
+static __inline__ f32 clamp_opacity(f32 value)
+{
+    return value < 0.0f ? 0.0f : value;
+}
+
 void func_80007958(void)
 {
     FrameSlot *slot = D_8010A2BC[D_8010A4B0];
@@ -92,14 +97,15 @@ void func_80007958(void)
     func_80034DD0();
 
     renderMode = &D_8010A4E4;
-    transitioning = 0;
     if (*renderMode == 0) {
         func_80034EFC();
     } else {
+        transitioning = 0;
+        i = 0;
         modeFlags = (u8 *)renderMode - 0x21;
-        D_80113022 = 0;
         entry = D_80109688;
-        for (i = 0; i < 6; i++, entry++) {
+        D_80113022 = 0;
+        do {
             buffer = D_80117728;
             segment1 = D_8010A928;
             segment2 = D_80109CB8;
@@ -116,12 +122,9 @@ void func_80007958(void)
             D_8010A920 = -1;
 
             if (view == NULL) {
-                continue;
+                goto next_view;
             }
-            opacity = view->opacity;
-            if (opacity < 0.0f) {
-                opacity = 0.0f;
-            }
+            opacity = clamp_opacity(view->opacity);
             view->alpha = (u32)(opacity * 255.0f);
             func_800344DC(view);
             if ((*entry)->flags & 0x40) {
@@ -157,13 +160,13 @@ void func_80007958(void)
                     layerEntry = entry;
                     func_80034560(*entry);
                     do {
-                        func_8003C228(*layerEntry, i, layer--);
-                    } while (layer >= 0);
+                        func_8003C228(*layerEntry, i, layer);
+                    } while (--layer >= 0);
                 }
             }
             mask = 1U << i;
             if (!(D_8010A4C1 & mask) && !(D_8010A4C2 & mask)) {
-                continue;
+                goto next_view;
             }
 
             view = *entry;
@@ -183,7 +186,10 @@ void func_80007958(void)
                 func_800075C4(255 - alpha, i, 0, 0, 0);
             }
             func_800389F0(*entry);
-        }
+        next_view:
+            i++;
+            entry++;
+        } while (i < 6);
     }
 
     func_80044410(0);
@@ -237,7 +243,7 @@ void func_80007958(void)
             }
             break;
         }
-        previous = D_800B1D72 + 1;
+        previous = (u16)D_800B1D72 + 1;
         D_80100C04 = D_8011740C;
         D_800B1D72 = previous;
     }

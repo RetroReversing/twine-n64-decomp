@@ -65,9 +65,9 @@ int __repair_literal;
                                             temp_a1_2 = temp_t0 + var_s5;
                                             (*(s32 *)((char *)(temp_a1_2) + 0x56C)) = 0;
                                             (*(s32 *)((char *)(temp_a1_2) + 0x568)) = 0;
-                    __repair_literal = 4;
+                    temp_v1_2 = 4;
 
-                                            temp_a2 = *(s32 *)((temp_a1 * __repair_literal) + ((*(s32 *)((char *)(temp_a0_2) + 4)) + temp_a0_2)) + temp_a0_2;
+                                            temp_a2 = *(s32 *)((temp_a1 * temp_v1_2) + ((*(s32 *)((char *)(temp_a0_2) + 4)) + temp_a0_2)) + temp_a0_2;
                                             (*(s32 *)((char *)(temp_a1_2) + 0x570)) = 0;
                                             (*(void **)((char *)(temp_a1_2) + 0x574)) = (void *) (temp_a2 + 0xC);
                                             __repair_phase_storage.value = (*(s32 *)((char *)(temp_a2) + 4));

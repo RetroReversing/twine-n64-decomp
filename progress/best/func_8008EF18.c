@@ -21,9 +21,14 @@ u32 func_8008EF18(s32 arg0) {
     u32 var_v0;
 
     temp_a1 = (arg0 & 0xFF) * 0x28;
-    var_v0 = 0;
-    if ((*((u8 *)((s8 *)&D_80107EE8 + temp_a1)) != 4) && (*((M2C_UNK *)((s8 *)&D_80107EE0 + temp_a1)) != 0)) {
-        var_v0 = (u32) *((M2C_UNK *)((s8 *)&D_80107EDC + temp_a1)) >> 0x1F;
+    var_v0 = *((u8 *)((s8 *)&D_80107EE8 + temp_a1));
+    if (var_v0 != 4) {
+        var_v0 = *((u32 *)((s8 *)&D_80107EE0 + temp_a1));
+        if (var_v0 != 0) {
+            var_v0 = *((u32 *)((s8 *)&D_80107EDC + temp_a1)) >> 31;
+        }
+    } else {
+        var_v0 = 0;
     }
     return var_v0;
 }

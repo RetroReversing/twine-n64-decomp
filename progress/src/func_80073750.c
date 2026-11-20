@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80048734(f32);
-s32 func_80073700();
+s8 func_80073700(s32, s32, s8 *);
 extern f32 D_800C0740;
 extern u8 D_801007CC;
 extern u8 D_801007CD;
@@ -46,8 +46,10 @@ void func_80073750(void *arg0) {
         }
         return;
     case 1:
-        if ((*(D_80109A60 + M2C_FIELD(temp_s1, u8 *, 0x10)) == M2C_FIELD(temp_s1, u8 *, 0x11)) && ((*(u8 *)&D_801007D5) == 0)) {
-            (*(u8 *)&D_801007D5) = 1;
+        if (*(D_80109A60 + M2C_FIELD(temp_s1, u8 *, 0x10)) == M2C_FIELD(temp_s1, u8 *, 0x11)) {
+            s8 *flag = &D_801007D5;
+            if (*flag != 0) break;
+            *flag = 1;
             M2C_FIELD(arg0, s16 *, 0x7A) = 2;
             return;
         }

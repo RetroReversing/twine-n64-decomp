@@ -16,6 +16,7 @@ s32 func_8003FA90(s32, s32, s32, f32, f32, f32, f32); /* extern */
 
 typedef struct { unsigned char pad[52]; int value; } __repair_field_34;
 void func_80040E5C(void *arg0) {
+    volatile long long frame_pad;
     s32 sp28;
     s32 sp2C;
     s32 sp30;
@@ -56,7 +57,7 @@ u16 __repair_result_var_v1;
             if (M2C_FIELD(arg0, u8 *, 0x48) & 4) {
                 temp_a0 = M2C_FIELD(arg0, s32 *, 0x3C) + var_t2;
                 var_s7 = ((__repair_field_34 *)arg0)->value + (M2C_FIELD(temp_a0, u16 *, 0) * 0xC);
-                __repair_result_var_v1 = M2C_FIELD(temp_a0, u16 *, 4);
+                var_v1 = M2C_FIELD(temp_a0, u16 *, 4);
                 var_v0 = M2C_FIELD(temp_a0, u16 *, 2) * 0xC;
             } else {
                 temp_a0 = M2C_FIELD(arg0, s32 *, 0x3C) + var_t3;

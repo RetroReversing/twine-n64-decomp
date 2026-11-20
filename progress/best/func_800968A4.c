@@ -21,8 +21,9 @@ void func_800968A4(s32 arg0, s32 arg1, s8 arg2) {
 
     temp_v1 = arg1 & 0xFF;
     if (temp_v1 != 0xFF) {
-        __base_D_800EE380 = D_800EE380;
-        *((temp_v1 * 0x10) + __base_D_800EE380 + (arg0 & 0xFF)) = arg2;
+        temp_v1 *= 0x10;
+        temp_v1 += (s32)D_800EE380;
+        ((char *)temp_v1)[(u8)arg0] = arg2;
         return;
     }
     *(D_800EE400 + (arg0 & 0xFF)) = arg2;

@@ -13,7 +13,7 @@ extern s32 D_800C4708;
 extern s32 D_80102ED8;
 extern s32 func_8004D910;
 
-void *func_8005F664(void *arg0, s32 arg2) {
+void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
     u8 sp28[0x10];
     f32 temp_fs0;
     register f32 temp_fs1;
@@ -22,9 +22,9 @@ void *func_8005F664(void *arg0, s32 arg2) {
     s32 var_v0;
     unsigned int var_v1;
     s32 var_s3;
-    void *temp_s2;
-    void *temp_s0;
     void *temp_v0;
+    void *temp_s0;
+    void *temp_s2;
     void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
@@ -32,17 +32,17 @@ void *func_8005F664(void *arg0, s32 arg2) {
 
     var_s3 = arg2;
     if ((var_s3 != 0) & (0x27U > var_s3)) {
-        var_v0 = var_s3 * 8;
         var_v1 = var_s3 * 0xE8;
-        if (!(*((s32 *)((s8 *)&D_800C469C + var_v1)) & 0x8000)) {
+        if (!(*((u16 *)((s8 *)&D_800C469C + var_v1)) & 0x8000)) {
             do {
                 var_v1 -= 0xE8;
                 var_s3 -= 1;
-            } while (!(*((s32 *)((s8 *)&D_800C469C + var_v1)) & 0x8000));
-            var_v0 = var_s3 * 8;
+            } while (!(*((u16 *)((s8 *)&D_800C469C + var_v1)) & 0x8000));
         }
-        if (*((s32 *)((s8 *)&D_800C4706 + ((((var_v0 - var_s3) * 4) + var_s3) * 8))) != -1) {
-            if (!((D_80102ED8 != 0) & (var_s3 == 0x26))) {
+        var_v0 = var_s3 * 8;
+        if (*((s16 *)((s8 *)&D_800C4706 + ((((var_v0 - var_s3) * 4) + var_s3) * 8))) != -1) {
+            if ((D_80102ED8 != 0) & (var_s3 == 0x26)) return NULL;
+            {
                 temp_v0 = func_80016410(0x34, 0, 0);
                 if (temp_v0 != NULL) {
                     (*(u8 *)((char *)(temp_v0) + 0x7F)) = (u8) (*(u8 *)((char *)(arg0) + 0x7F));
@@ -57,21 +57,15 @@ void *func_8005F664(void *arg0, s32 arg2) {
                     temp_s2 = (*(void **)((char *)(temp_v0) + 0x6C));
                     temp_fs2 = (*(f32 *)((char *)(temp_v1) + 0x7C)) - (*(f32 *)((char *)(temp_v0_3) + 0x7C));
                     func_80082A70(temp_fs1, temp_fs0);
-                    (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) (*(s32 *)((char *)(arg0) + 0x24));
-                    (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(arg0) + 0x28));
-                    (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
+                    { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x30) = *(Vec *)((char *)arg0 + 0x24); }
                     temp_s0 = arg0 + 0x24;
                     if ((func_8004E6E4(&func_8004D910, (*(s32 *)((char *)(arg0) + 0x20)), temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78, sp28, func_80045540(temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78), 0, 1, 0) << 0x18) != 0) {
-                        (*(s32 *)((char *)(temp_v0) + 0x24)) = (s32) (*(s32 *)((char *)(arg0) + 0x24));
-                        (*(s32 *)((char *)(temp_v0) + 0x2C)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
-                        (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (*(s32 *)((char *)(arg0) + 0x28));
+                        { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x24) = *(Vec *)((char *)arg0 + 0x24); }
                         (*(s32 *)((char *)(temp_s2) + 0xC)) = 0;
                     } else {
                         temp_v0_4 = (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0));
-                        (*(s32 *)((char *)(temp_v0) + 0x24)) = (s32) (*(s32 *)((char *)(temp_v0_4) + 0x78));
-                        (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (*(s32 *)((char *)(temp_v0_4) + 0x7C));
+                        { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x24) = *(Vec *)((char *)temp_v0_4 + 0x78); }
                         (*(s32 *)((char *)(temp_s2) + 0xC)) = 0;
-                        (*(s32 *)((char *)(temp_v0) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_v0_4) + 0x80));
                     }
                     (*(s32 *)((char *)(temp_s2) + 0x10)) = 0;
                     (*(s32 *)((char *)(temp_s2) + 0x14)) = 0;

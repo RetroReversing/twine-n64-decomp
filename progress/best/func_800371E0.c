@@ -45,7 +45,7 @@ void func_800371E0(void *arg0) {
         if (D_8010A924 != 8) {
             __repair_phase_storage.pointer = D_80115328;
             D_8010A924 = 8;
-            D_80115328 = __repair_phase_storage.pointer + 8;
+            D_80115328 = (s32 *)((s8 *)__repair_phase_storage.pointer + 8);
             (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(__repair_phase_storage.pointer) + 4)) = &D_800B1AC8;
         }

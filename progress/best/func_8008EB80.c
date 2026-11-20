@@ -14,10 +14,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_800957A8();
 extern char D_80107ED4[];
-extern s32 D_80107ED8;
+extern char D_80107ED8[];
 extern char D_80107EDC[];
 extern char D_80107EE0[];
 extern char D_80107EE4[];
+extern char D_80107EE0[];
+extern char D_80107EE8[];
+extern char D_80107EE9[];
 extern char D_80107EE8[];
 extern char D_80107EE9[];
 
@@ -58,8 +61,8 @@ void func_8008EB80(u8 arg0, s32 arg1, u8 arg2, s8 arg3, s32 arg4) {
                 *(s32 *)(D_80107EE4 + var_a0) = -1;
                 *(s32 *)(D_80107EDC + var_a0) = (s32) (*(s32 *)var_a1 - *(s32 *)(D_80107ED4 + var_a0)) / (s32) (var_s1 & 0xFFFF);
             }
-            var_a1 += 0x28;
-            var_a2 += 1;
+            var_a1 += 0x28;/*__repair_loop_weight*/do {do {do {
+            var_a2 += 1;} while (0);} while (0);} while (0);
             var_a0 += 0x28;
         } while (var_a2 < 0x20U);
         return;

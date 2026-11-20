@@ -51,7 +51,7 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
     if ((s32) D_8010D294 > 0) {
         var_v1 = 0;
         do {
-            if (*(D_80100310 + var_v1) == arg1) {
+            if (*(void **)(D_80100310 + var_v1) == arg1) {
                 var_a0 = 1;
             }
             var_s1 += 1;
@@ -59,9 +59,9 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
         } while (var_s1 < (s32) D_8010D294);
     }
     if (var_a0 == 0) {
-        temp_v1 = D_8010D294 * 8;
-        *(D_80100314 + temp_v1) = arg2;
-        *(D_80100310 + temp_v1) = arg1;
+        temp_v0 = D_8010D294 * 8;
+        *(D_80100314 + temp_v0) = arg2;
+        *(D_80100310 + temp_v0) = arg1;
         D_8010D294 += 1;
     }
     D_8010302C += 1;

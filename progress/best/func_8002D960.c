@@ -84,23 +84,18 @@ void func_8002D960(void) {
     s32 temp_s2;
     s32 var_s0;
     s32 var_s1;
-    s32 var_s1_2;
-    s32 var_s1_3;
-    s32 var_s1_4;
-    s32 var_s1_5;
-    s32 var_s1_6;
     s32 var_s3;
-    s32 var_s3_2;
     s32 var_s4;
     u32 temp_a0;
     u8 temp_v0;
 
-    u8 *tailBase = &D_801001A4;
+    u8 *tailBase;
     u8 *tail;
     u16 *input = &D_800E1112;
     if (*input++ == 0xF) {
         func_8002E918(&D_800E1310, input, 0, 0x1FB);
         var_s4 = 0;
+        tailBase = &D_801001A4;
         do {
             s32 first = func_8002E98C(&D_800E1310, 1, 1);
             temp_s1 = var_s4 & 0xFFFF;
@@ -115,14 +110,20 @@ void func_8002D960(void) {
             *(&D_80115091 + temp_s0) = func_8002E98C(&D_800E1310, 1, 4);
             *(&D_8011508E + temp_s0) = func_8002E98C(&D_800E1310, 1, 1);
             *(&D_8011508F + temp_s0) = func_8002E98C(&D_800E1310, 1, 1);
-            temp_s0_2 = temp_s1 * 0x18;
-            *(&D_80100198 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 4);
+            {
+                s32 value = func_8002E98C(&D_800E1310, 1, 4);
+                temp_s0_2 = temp_s1 * 0x18;
+                *(&D_80100198 + temp_s0_2) = value;
+            }
             *(s32 *)((u8 *)&D_8010019C + temp_s0_2) = func_8002E98C(&D_800E1310, 4, 0x10);
             *(&D_801001A0 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 8);
             *(&D_801001A1 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 1);
-            var_s1 = 0;
-            *(&D_801001A2 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 4);
-            tail = tailBase + temp_s0_2;
+            {
+                s32 value = func_8002E98C(&D_800E1310, 1, 4);
+                var_s1 = 0;
+                tail = temp_s0_2 + tailBase;
+                *(&D_801001A2 + temp_s0_2) = value;
+            }
 loop_3:
             tail[var_s1 & 0xFFFF] = func_8002E98C(&D_800E1310, 1, 8);
             var_s1 += 1;
@@ -131,7 +132,7 @@ loop_3:
                 goto loop_3;
             }
             if (temp_a0 < 4U) {
-                func_80081BC4(temp_a0, *(&D_80100198 + (temp_a0 * 0x18)));
+                func_80081BC4(temp_a0, ((volatile struct { u8 filler[0x198]; u8 value; } *)((u8 *)0x80100000 + (temp_a0 * 0x18)))->value);
             }
             var_s4 += 1;
         } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
@@ -167,7 +168,6 @@ loop_3:
         D_80102FD4 = var_v0;
         D_801002A8 = (s32) *(D_80117730 + D_80102FD4);
         D_80102EE0 = func_8002E98C(&D_800E1310, 1, 8);
-        var_s3 = 0;
         D_80102EE4 = func_8002E98C(&D_800E1310, 4, 0x20);
         D_80102EE8 = func_8002E98C(&D_800E1310, 1, 4);
         D_8010A4C0 = func_8002E98C(&D_800E1310, 1, 2);
@@ -180,57 +180,62 @@ loop_3:
         D_801002F1 = func_8002E98C(&D_800E1310, 1, 4);
         D_801002F2 = func_8002E98C(&D_800E1310, 1, 2);
         D_801002F3 = func_8002E98C(&D_800E1310, 1, 1);
-        var_s0 = 0 & 0xFFFF;
+        var_s4 = 0;
         do {
-            temp_s0_3 = var_s0 * 8;
+            temp_s0_3 = (var_s4 & 0xFFFF) * 8;
             func_8002B000(temp_s0_3 + (u8 *)&D_80117410, 0x1E);
             *(s32 *)((u8 *)&D_80117410 + temp_s0_3) = func_8002E98C(&D_800E1310, 4, 0xD);
-            var_s3 += 1;
-            *(&D_80117416 + temp_s0_3) = func_8002E98C(&D_800E1310, 1, 6);
-            var_s0 = var_s3 & 0xFFFF;
-        } while ((u32) (var_s3 & 0xFFFF) < 3U);
-        var_s1_2 = 0;
+            {
+                s32 value = func_8002E98C(&D_800E1310, 1, 6);
+                var_s4 += 1;
+                *(&D_80117416 + temp_s0_3) = value;
+            }
+        } while ((u32) (var_s4 & 0xFFFF) < 3U);
+        var_s1 = 0;
         do {
-            var_s3_2 = 0;
-            temp_s2 = (var_s1_2 & 0xFFFF) * 0x18;
+            var_s3 = 0;
+            temp_s2 = (var_s1 & 0xFFFF) * 0x18;
 loop_17:
-            temp_s0_4 = (var_s3_2 & 0xFFFF) * 8;
+            temp_s0_4 = (var_s3 & 0xFFFF) * 8;
             func_8002B000(temp_s2 + (temp_s0_4 + (u8 *)&D_80117428), 0x1E);
             temp_s0_5 = temp_s0_4 + temp_s2;
             *(s32 *)((u8 *)&D_80117428 + temp_s0_5) = func_8002E98C(&D_800E1310, 4, 4);
-            var_s3_2 += 1;
-            *(&D_8011742E + temp_s0_5) = func_8002E98C(&D_800E1310, 1, 6);
-            if ((u32) (var_s3_2 & 0xFFFF) < 3U) {
+            {
+                s32 value = func_8002E98C(&D_800E1310, 1, 6);
+                var_s3 += 1;
+                *(&D_8011742E + temp_s0_5) = value;
+            }
+            if ((u32) (var_s3 & 0xFFFF) < 3U) {
                 goto loop_17;
             }
-            *(&D_801176C8 + (var_s1_2 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 2);
-            var_s1_2 += 1;
-        } while ((u32) (var_s1_2 & 0xFFFF) < 0xEU);
-        var_s1_3 = 0;
+            *(&D_801176C8 + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 2);
+            var_s1 += 1;
+        } while ((u32) (var_s1 & 0xFFFF) < 0xEU);
+        var_s1 = 0;
         do {
             temp_v0 = func_8002E98C(&D_800E1310, 1, 1);
-            *(&D_80112F70 + (var_s1_3 & 0xFFFF)) = temp_v0;
+            *(&D_80112F70 + (var_s1 & 0xFFFF)) = temp_v0;
             temp_a1 = temp_v0 & 0xFF;
             if (temp_a1 != 0) {
-                func_8002BC68(var_s1_3 & 0xFF, temp_a1);
+                func_8002BC68(var_s1 & 0xFF, temp_a1);
             }
-            var_s1_3 += 1;
-        } while ((u32) (var_s1_3 & 0xFFFF) < 0xBU);
-        var_s1_4 = 0;
+            var_s1 += 1;
+        } while ((u32) (var_s1 & 0xFFFF) < 0xBU);
+        var_s1 = 0;
         do {
-            *(&D_80112F7B + (var_s1_4 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
-            var_s1_4 += 1;
-        } while ((u32) (var_s1_4 & 0xFFFF) < 4U);
-        var_s1_5 = 0;
+            *(&D_80112F7B + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+            var_s1 += 1;
+        } while ((u32) (var_s1 & 0xFFFF) < 4U);
+        var_s1 = 0;
         do {
-            *(&D_80112F7F + (var_s1_5 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
-            var_s1_5 += 1;
-        } while ((u32) (var_s1_5 & 0xFFFF) < 3U);
-        var_s1_6 = 0;
+            *(&D_80112F7F + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+            var_s1 += 1;
+        } while ((u32) (var_s1 & 0xFFFF) < 3U);
+        var_s1 = 0;
         do {
-            *(&D_80112F82 + (var_s1_6 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
-            var_s1_6 += 1;
-        } while ((u32) (var_s1_6 & 0xFFFF) < 3U);
+            *(&D_80112F82 + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+            var_s1 += 1;
+        } while ((u32) (var_s1 & 0xFFFF) < 3U);
         func_800219A0(D_8010A4C0);
         func_80048734(60.0f);
         func_8000A22C(D_801002F0);

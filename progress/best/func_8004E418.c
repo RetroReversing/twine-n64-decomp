@@ -18,12 +18,12 @@ s32 func_8004E418(void *arg0, void *arg1, void *arg2) {
     f32 var_fv0;
 f32 __repair_var_fv0_1;
 
+    temp_ft2 = (((__repair_record_arg0*)arg0)->field_4 - ((__repair_record_arg0*)arg0)->field_0) * 0.125f;
     temp_ft3 = ((__repair_record_arg0*)arg0)->field_0;
-    temp_ft2 = (((__repair_record_arg0*)arg0)->field_4 - temp_ft3) * 0.125f;
     temp_ft1 = (((__repair_record_arg0*)arg0)->field_14 - ((__repair_record_arg0*)arg0)->field_10) * 0.125f;
     if (temp_ft2 == 0.0f) {
-        D_80109CBC = __repair_fzero;
-        D_80109BAC = __repair_fzero;
+        D_80109CBC = 0.0f;
+        D_80109BAC = 0.0f;
     } else {
         D_80109CBC = ((*(f32 *)((char *)(arg1) + 0)) - temp_ft3) / temp_ft2;
         D_80109BAC = (((__repair_record_arg2*)arg2)->field_0 - ((__repair_record_arg0*)arg0)->field_0) / temp_ft2;
@@ -41,7 +41,7 @@ f32 __repair_var_fv0_1;
         D_80109CBC = D_80109BAC;
         D_80109BAC = temp_fv1;
     }
-    temp_fv1_2 = D_80100780;
+    temp_fv1_2 = *(volatile f32 *)&D_80100780;
     if (D_80100160 < temp_fv1_2) {
         D_80100780 = D_80100160;
         D_80100160 = temp_fv1_2;

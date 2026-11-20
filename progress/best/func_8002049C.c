@@ -49,7 +49,7 @@ void func_8002049C(void) {
     s32 temp_s5;
     s32 temp_v0_2;
     
-    s32 var_s1;
+    u16 var_s1;
     s32 var_s2;
     s8 var_v0;
     u16 *temp_a1;
@@ -74,7 +74,7 @@ void func_8002049C(void) {
                 *temp_v1 = 0;
             }
             temp_a1 = (void *)((D_800BD68F * 2)); temp_a1 = (void *)((char *)temp_a1 + (s32)(&D_800E0ECC));
-            temp_a0 = *((M2C_UNK *)((s8 *)&D_800C469E + (*temp_a1 * 0xE8)));
+            temp_a0 = *((u16 *)((s8 *)&D_800C469E + (*temp_a1 * 0xE8)));
             if ((temp_a0 & 0xFFFF) != 0x21) {
                 *temp_a1 = temp_a0;
             }
@@ -84,13 +84,13 @@ void func_8002049C(void) {
             do {
                 if (((M2C_FIELD((temp_s5 + (var_s1 * 8)), u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
                     temp_v0_2 = func_800162BC(D_800BD68E);
-                    __repair_phase_storage.pointer = (var_s1 * 4) + &D_80109D28;
+                    __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;
                     if (temp_v0_2 != 0) {
                         func_800160FC(*__repair_phase_storage.pointer, func_80087100((var_s2 | 0x6000) & 0xFFFF), 0x40);
                         func_8002A7CC(D_800B60E4, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
                     }
-                    if (var_s1 == *((D_800BD68F * 2) + &D_800E0ECC)) {
+                    if (var_s1 == *((u16 *)&D_800E0ECC + D_800BD68F)) {
                         var_s4 = func_8002A9A8(D_800B60E4, var_s3);
                     }
                     var_s3 += 1;
@@ -102,17 +102,17 @@ void func_8002049C(void) {
                 temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x62);
                 __repair_phase_storage.value = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
                 temp_s0_2 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x1E);
-                func_8002135C(*((M2C_UNK *)((s8 *)&D_800C46D8 + __repair_phase_storage.value)), *((M2C_UNK *)((s8 *)&D_800C46DA + __repair_phase_storage.value)));
+                func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + __repair_phase_storage.value)), *((s16 *)((s8 *)&D_800C46DA + __repair_phase_storage.value)));
                 if (temp_s1 != NULL) {
                     M2C_FIELD(temp_s1, s16 *, 0) = func_8001E760(0, M2C_FIELD(var_s4, u8 *, 8));
                     M2C_FIELD(temp_s1, s16 *, 0x28) = func_8001E760(1, M2C_FIELD(var_s4, u8 *, 8));
                 }
                 if (temp_s0_2 != NULL) {
-                    var_v0 = 0x90;
                     if (M2C_FIELD(var_s4, u8 *, 8) == 0x24) {
-                        var_v0 = 0x80;
+                        M2C_FIELD(temp_s0_2, u8 *, 0x1C) = 0x80;
+                    } else {
+                        M2C_FIELD(temp_s0_2, u8 *, 0x1C) = 0x90;
                     }
-                    M2C_FIELD(temp_s0_2, s8 *, 0x1C) = var_v0;
                 }
                 M2C_FIELD(D_80109BB0, s8 *, 0x30) = 0xFF;
             }

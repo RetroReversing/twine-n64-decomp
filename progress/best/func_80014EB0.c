@@ -28,8 +28,9 @@ void func_80014EB0(void *arg0, ClipBounds *arg1) {
     ClipBounds box;
     u8 spA7;
     s32 spAC;
-    s32 spD4;
+    volatile s32 spD4;
     volatile s32 spDC;
+    volatile s64 frameSpace[2];
     void *var_t0;
     f32 *scratch;
     void *var_s6;
@@ -177,8 +178,9 @@ nextHead:
                                     ((f32 *)var_t0)[20] = scratch[5];
                                     temp_s3 = func_8003F778(&D_800E0B18, var_t0, 3);
                                     if (temp_s3 > 0) {
-                                        for (i = 0; i < temp_s3; i++) {
-                                            f32 tmp = *(f32 *)((u8 *)&D_800E0B20 + i * 0x24);
+                                        s32 offset;
+                                        for (i = 0, offset = 0; i < temp_s3; offset += 0x24, i++) {
+                                            f32 tmp = *(f32 *)((u8 *)&D_800E0B20 + offset);
                                             f32 a = *(f32 *)((u8 *)D_8010D53C + 0x68) / tmp;
                                             f32 b = *(f32 *)((u8 *)D_8010D53C + 0x6C) / tmp;
                                             func_80045514(&D_800E0B18 + i * 9, a, b);
@@ -219,7 +221,7 @@ block_51:
                                 temp_a0 = *(void **)((u8 *)temp_a3 + 0x20);
                                 if (*(u16 *)((u8 *)temp_a0 + 0x60) != D_800B35B0) {
                                     *(u16 *)((u8 *)temp_a0 + 0x60) = D_800B35B0;
-                                    *(ClipBounds *)temp_a0 = box;
+                                    *(ClipBounds *)*(void **)((u8 *)temp_a3 + 0x20) = box;
                                     *(u16 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0x62) = (u16) D_800E0C38;
                                     sp10[spAC] = temp_a3;
                                     spAC += 1;
@@ -261,7 +263,7 @@ nextRegion:
                 void *n = sp10[i];
                 void *b = *(void **)((u8 *)n + 0x20);
                 box = *(ClipBounds *)b;
-                func_80014EB0(n, &box);
+                func_80014EB0(sp10[i], &box);
             }
         }
     }
