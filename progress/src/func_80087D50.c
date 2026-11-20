@@ -53,7 +53,7 @@ void func_80087D50(void) {
     ((__repair_record_D_801005AC*)D_801005AC)->field_22 = 0xB4;
     ((__repair_record_D_801005AC*)D_801005AC)->field_1E = 0x21;
     ((__repair_record_D_801005AC*)D_801005AC)->field_10 = 0xFFFF00FF;
-    do { func_8002CC74(0xFFFF00FF); } while (0);
+    do { func_8002CC74(); } while (0);
     func_8002D850();
     func_8007560C();
     D_800CEEB1 = 0;
