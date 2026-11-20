@@ -22,7 +22,7 @@ s32 __repair_phase_var_a2_2;
     u32 temp_lo_4;
     u32 var_a1;
     u32 var_a1_2;
-    u32 var_v1;
+    
     u32 var_v1_3;
 
     temp_a1 = ((u32) *arg1 >> 8) & 0xFFFF;
@@ -34,13 +34,13 @@ s32 __repair_phase_var_a2_2;
     } else {
         if (var_a1_2 < temp_a1) {
             temp_lo = (u32) ((s32)temp_a1 << 0xC) / var_a1_2;
-            var_v1 = 1;
+            temp_a1 = 1;
             var_a1 = 0;
             for (;;) {
-                if (((u32) (temp_lo >> 0xC) >> var_v1) != 0) {
-                    var_v1 = var_a1 + 1;
-                    var_a1 = var_v1;
-                    if (var_v1 < 0xBU) {
+                if (((u32) (temp_lo >> 0xC) >> temp_a1) != 0) {
+                    temp_a1 = var_a1 + 1;
+                    var_a1 = temp_a1;
+                    if (temp_a1 < 0xBU) {
                         continue;
                     }
                 }

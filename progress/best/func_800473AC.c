@@ -127,10 +127,15 @@ block_18:
                 var_v1_3 = 0;
             }
             var_condition_bit = 1;
-            if (!(var_v0_3 & var_v1_3)) {
+            if (var_v0_3 & var_v1_3) return 1;
+            {
+                f32 dx = (temp_ft1_3 * temp_ft4) / temp_ft2_2;
+                f32 dz = (temp_ft1_3 * temp_fa0) / temp_ft2_2;
+                f32 x = *(f32 *)arg0 + dx;
+                f32 z = *(f32 *)((char *)arg0 + 8) + dz;
+                *(f32 *)arg4 = x;
+                *(f32 *)((char *)arg4 + 8) = z;
                 var_condition_bit = 2;
-                (*(f32 *)((char *)(arg4) + 8)) = (f32) ((*(f32 *)((char *)(arg0) + 8)) + ((temp_ft1_3 * temp_fa0) / temp_ft2_2));
-                (*(f32 *)((char *)(arg4) + 0)) = (f32) ((*(f32 *)((char *)(arg0) + 0)) + ((temp_ft1_3 * temp_ft4) / temp_ft2_2));
             }
             /* Duplicate return node #47. Try simplifying control flow for better match */
             return var_condition_bit;

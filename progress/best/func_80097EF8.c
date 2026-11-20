@@ -24,9 +24,9 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
     s32 var_a2_2;
     u32 var_v0_2;
     s32 temp_v0;
-    u16 var_v0;
-    u16 var_a3;
-    u16 var_t1;
+    s32 var_v0;
+    s32 var_a3;
+    s32 var_t1;
     void *var_t0;
     s32 temp_v1;
     u32 var_a0;

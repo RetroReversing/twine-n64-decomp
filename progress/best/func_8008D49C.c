@@ -1,14 +1,16 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8008CEB0();
+s32 func_8008CEB0(s32, s32, s32);
 s32 func_8008D138();
-s32 func_80096970();
+u8 func_80096970(u8, u8);
 s32 func_800984CC();
 s32 func_8009C420();
 
 s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7, u8 arg8, s16 arg9) {
     s32 temp_s0;
+    s32 pad;
     u16 sp46;
+    u8 extra[8];
     u16 sp3E;
     u8 sp4F;
     s32 temp_a2;
@@ -43,6 +45,7 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
 
     sp3E = arg6;
     var_s4 = arg3;
+    (void)pad;
     temp_s6 = arg0 >> 0x10;
     sp46 = arg7;
     sp37 = arg2;
@@ -87,7 +90,7 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
     temp_v0_2 = func_800984CC(temp_s6);
     temp_a2 = arg1 & 0x7F;
     if (temp_v0_2 != 0) {
-        temp_a0 = (temp_a2 * 8) + temp_v0_2;
+        temp_a0 = (char *)temp_v0_2 + (temp_a2 * 8);
         var_v0 = -1;
         if ((*(u16 *)((char *)(temp_a0) + 0)) != 0xFFFF) {
             if ((*(u8 *)((char *)(temp_a0) + 3)) & 0x80) {

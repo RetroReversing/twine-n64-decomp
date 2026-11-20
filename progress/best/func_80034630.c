@@ -22,9 +22,9 @@ void func_80034630(void *arg0, void *arg1) {
     do { temp_ft1 = (*(f32 *)((char *)(arg1) + 0x64)); } while (0);
     do { temp_fv1 = (*(f32 *)((char *)(arg1) + 0x58)); } while (0);
     do { temp_v0 = (*(void **)((char *)(arg0) + 0x20)); } while (0);
-    do { temp_ft0 = (*(f32 *)((char *)(arg1) + 0x60)); } while (0);
+    { temp_ft0 = (*(f32 *)((char *)(arg1) + 0x60)); }
     do { temp_fv1 += temp_ft1; } while (0);
-    do { var_fa0 = (*(f32 *)((char *)(temp_v0) + 0)) + temp_ft0; } while (0);
+    { var_fa0 = (*(f32 *)((char *)(temp_v0) + 0)) + temp_ft0; }
     do { var_ft3 = (*(f32 *)((char *)(temp_v0) + 8)) + temp_ft1; } while (0);
     do { var_fa1 = (*(f32 *)((char *)(temp_v0) + 4)) + temp_ft0; } while (0);
     do { var_ft4 = (*(f32 *)((char *)(temp_v0) + 0xC)) + temp_ft1; } while (0);
@@ -35,16 +35,16 @@ void func_80034630(void *arg0, void *arg1) {
     temp_ft5 = (*(f32 *)((char *)(arg1) + 0x50)) + temp_ft0;
     temp_ft2 = (*(f32 *)((char *)(arg1) + 0x70));
     temp_ft5 += temp_ft2;
-    temp_ft2_2 = (*(f32 *)((char *)(arg1) + 0x54)) + temp_ft0;
+    temp_ft0 = (*(f32 *)((char *)(arg1) + 0x54)) + temp_ft0;
     temp_ft0_2 = (*(f32 *)((char *)(arg1) + 0x74));
     temp_fv1 += temp_ft0_2;
-    temp_ft2_2 -= temp_ft2;
+    temp_ft0 -= temp_ft2;
     temp_fv0 = ((*(f32 *)((char *)(arg1) + 0x5C)) + temp_ft1) - temp_ft0_2;
     if (var_fa0 < temp_ft5) {
         var_fa0 = temp_ft5;
     }
-    if (temp_ft2_2 < var_fa1) {
-        var_fa1 = temp_ft2_2;
+    if (temp_ft0 < var_fa1) {
+        var_fa1 = temp_ft0;
     }
     if (var_ft3 < temp_fv1) {
         var_ft3 = temp_fv1;

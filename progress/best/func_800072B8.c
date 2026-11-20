@@ -25,7 +25,7 @@ void func_800072B8(void) {
         if (D_800CA338 == 1) func_800101D8();
         func_80016FCC(count != 0);
         count++;
-        if (osGetTime() - D_8010A398 > count * D_80108F88 * 2) break;
+        if ((s64)(osGetTime() - D_8010A398) > count * D_80108F88 * 2) break;
         D_800B1D74++;
     }
     func_80017454();

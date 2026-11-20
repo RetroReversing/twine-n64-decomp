@@ -206,6 +206,7 @@ block_45:
                 case 6:
                     func_800334A4(var_s1, arg1, &sp20, arg4, arg6, arg7, (s32) (s8) arg8, arg10);
                     temp_s1 = var_s1 + 1;
+var_s1 = 0;
                     func_80032978(temp_s1, arg4, arg6, arg7, (s32) (s8) arg8, arg10);
                     var_s1 = temp_s1 + 1;
                 case 5:

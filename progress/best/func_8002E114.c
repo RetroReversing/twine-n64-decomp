@@ -60,13 +60,8 @@ void func_8002E114(void) {
     s32 temp_s0_3;
     s32 temp_s0_4;
     s32 temp_s1;
-    s32 var_s1;
-    s32 var_s1_2;
-    s32 var_s1_3;
     s32 var_s1_4;
     s32 var_s1_5;
-    s32 var_s2;
-    s32 var_s2_2;
     s32 var_s3;
     s32 var_s4;
     s8 temp_a1;
@@ -79,8 +74,8 @@ void func_8002E114(void) {
     func_8002E8F0(&D_800E1310, &D_800E1114, 0, 0x1FB);
     var_s4 = 0;
     do {
-        var_s1_5 = var_s4 & 0xFFFF;
         temp_s0 = var_s1_5 * 0xA0;
+        var_s1_5 = var_s4 & 0xFFFF;
         var_s3 = 0;
         func_8002E93C(&D_800E1310, *(&D_80115088 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115089 + temp_s0), 1, 1);
@@ -107,7 +102,6 @@ loop_2:
         }
         var_s4 += 1;
     } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
-    var_s2 = 0;
     do { func_8002E93C(&D_800E1310, D_801002A0, 1, 4); } while (0);
     do { func_8002E93C(&D_800E1310, D_801002A1, 1, 1); } while (0);
     do { func_8002E93C(&D_800E1310, D_801002A2, 1, 4); } while (0);
@@ -129,42 +123,46 @@ loop_2:
     func_8002E93C(&D_800E1310, D_801002F1, 1, 4);
     func_8002E93C(&D_800E1310, D_801002F2, 1, 2);
     func_8002E93C(&D_800E1310, D_801002F3, 1, 1);
-    do {
-        temp_s0_3 = (var_s2 & 0xFFFF) * 8;
-        temp_a1_2 = *(&D_80117410 + temp_s0_3);
-        var_s2 += 1;
-        func_8002E93C(&D_800E1310, (u8) temp_a1_2, 4, 0xD);
-        func_8002E93C(&D_800E1310, (u8) *(&D_80117416 + temp_s0_3), 1, 6);
-    } while ((u32) (var_s2 & 0xFFFF) < 3U);
-    var_s1 = 0;
-    do {
-        var_s2_2 = 0;
-loop_8:
-        temp_s0_4 = ((var_s2_2 & 0xFFFF) * 8) + ((var_s1 & 0xFFFF) * 0x18);
-        temp_a1_3 = *(&D_80117428 + temp_s0_4);
-        var_s2_2 += 1;
-        func_8002E93C(&D_800E1310, (u8) temp_a1_3, 4, 4);
-        func_8002E93C(&D_800E1310, (u8) *(&D_8011742E + temp_s0_4), 1, 6);
-        if ((u32) (var_s2_2 & 0xFFFF) < 3U) {
-            goto loop_8;
+    {
+        u16 __repair_i;
+        for (__repair_i = 0; __repair_i < 3; __repair_i++) {
+            temp_s0_3 = __repair_i * 8;
+            temp_a1_2 = *(&D_80117410 + temp_s0_3);
+            func_8002E93C(&D_800E1310, (u8) temp_a1_2, 4, 0xD);
+            func_8002E93C(&D_800E1310, (u8) *(&D_80117416 + temp_s0_3), 1, 6);
         }
-        temp_a1_4 = *(&D_801176C8 + (var_s1 & 0xFFFF));
-        var_s1 += 1;
-        func_8002E93C(&D_800E1310, temp_a1_4, 1, 2);
-    } while ((u32) (var_s1 & 0xFFFF) < 0xEU);
-    var_s1_2 = 0;
-    do {
-        temp_a1_5 = *(&D_80112F70 + (var_s1_2 & 0xFFFF));
-        var_s1_2 += 1;
-        func_8002E93C(&D_800E1310, temp_a1_5, 1, 1);
-    } while ((u32) (var_s1_2 & 0xFFFF) < 0xBU);
-    var_s1_3 = 0;
-    do {
-        var_s1_4 = (u32)var_s1_3 & 0xFFFF;
-    temp_a1_6 = *(&D_80112F7B + (var_s1_4));
-        var_s1_3 += 1;
-        func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
-    } while ((u32) (var_s1_3 & 0xFFFF) < 4U);
+    }
+    {
+        u16 __repair_i;
+        for (__repair_i = 0; __repair_i < 0xE; __repair_i++) {
+            {
+                u16 __repair_i;
+                for (__repair_i = 0; __repair_i < 3; __repair_i++) {
+                    temp_s0_4 = (__repair_i * 8) + (__repair_i * 0x18);
+                    temp_a1_3 = *(&D_80117428 + temp_s0_4);
+                    func_8002E93C(&D_800E1310, (u8) temp_a1_3, 4, 4);
+                    func_8002E93C(&D_800E1310, (u8) *(&D_8011742E + temp_s0_4), 1, 6);
+                }
+            }
+            temp_a1_4 = *(&D_801176C8 + __repair_i);
+            func_8002E93C(&D_800E1310, temp_a1_4, 1, 2);
+        }
+    }
+    {
+        u16 __repair_i;
+        for (__repair_i = 0; __repair_i < 0xB; __repair_i++) {
+            temp_a1_5 = *(&D_80112F70 + __repair_i);
+            func_8002E93C(&D_800E1310, temp_a1_5, 1, 1);
+        }
+    }
+    {
+        u16 __repair_i;
+        for (__repair_i = 0; __repair_i < 4; __repair_i++) {
+            var_s1_4 = (u32)__repair_i;
+            temp_a1_6 = *(&D_80112F7B + (var_s1_4));
+            func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
+        }
+    }
     var_s1_4 = 0;
     do {
         temp_a1_7 = *(&D_80112F7F + (var_s1_4 & 0xFFFF));
