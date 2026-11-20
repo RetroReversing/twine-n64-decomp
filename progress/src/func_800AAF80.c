@@ -18,7 +18,8 @@ f64 func_800AAF80(f64 x, U *p) {
     e += 12;
     i = e >> 3;
     p->b[i] &= 0xFF << (8 - (e & 7));
-    for (i++; i < 8; i++) {
+    while (i < 7) {
+        i++;
         p->b[i] = 0;
     }
     return x - p->d;
