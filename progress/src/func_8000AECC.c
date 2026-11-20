@@ -35,6 +35,7 @@ extern char D_8010A938[];
 extern char D_80112E60[];
 extern u8 D_80112FD0;
 
+typedef struct { unsigned char field_0; unsigned char pad_1[3]; int field_4; } __repair_record_sp10;
 void func_8000AECC(void) {
     s8 *__base_D_800DD790;
     void *sp10;
@@ -57,38 +58,37 @@ loop_1:
     D_80112FD0 = 0;
     for (;;) {
         osRecvMesg(D_80109C00, &sp10, 1);
-        temp_v1 = M2C_FIELD(sp10, u8 *, 0);
-        if (temp_v1 == 2) {
-            if (D_800E0710 == 0) {
-                D_800E0710 = 1;
-                if (D_80112FD0 == 0) {
-                    D_800DD7A5 = 1U;
-                    D_80112FD0 = 1;
-                    func_800A2030(M2C_FIELD(sp10, s32 *, 4));
-                    osSpTaskStartGo(M2C_FIELD(sp10, s32 *, 4));
-                } else {
-                    func_800A2270(sp10);
-                    D_800DD79C = M2C_FIELD(sp10, s32 *, 4);
-                }
-            }
-            continue;
-        }
-        if ((s32) temp_v1 < 3) {
-            if (temp_v1 != 1) {
-
-            } else if ((D_80112FD0 == 0) && (D_800E0710 == 0)) {
-                temp_a0 = M2C_FIELD(sp10, s32 *, 4);
+        temp_v1 = ((__repair_record_sp10*)sp10)->field_0;
+        switch (temp_v1) {
+        case 1:
+            if ((D_80112FD0 == 0) && (D_800E0710 == 0)) {
+                temp_a0 = ((__repair_record_sp10*)sp10)->field_4;
                 D_800DD7A4 = 1U;
                 D_80112FD0 = 1;
                 D_800DD7A0 = temp_a0;
                 func_800A2030(temp_a0);
                 osSpTaskStartGo(D_800DD7A0);
             } else {
-                D_800DD798 = M2C_FIELD(sp10, s32 *, 4);
+                D_800DD798 = ((__repair_record_sp10*)sp10)->field_4;
             }
             continue;
-        }
-        if (temp_v1 != 0x81) {
+        case 2:
+            if (D_800E0710 == 0) {
+                D_800E0710 = 1;
+                if (D_80112FD0 != 0) {
+                    func_800A2270(sp10);
+                    D_800DD79C = ((__repair_record_sp10*)sp10)->field_4;
+                } else {
+                    D_800DD7A5 = 1U;
+                    D_80112FD0 = 1;
+                    func_800A2030(((__repair_record_sp10*)sp10)->field_4);
+                    osSpTaskStartGo(((__repair_record_sp10*)sp10)->field_4);
+                }
+            }
+            continue;
+        case 0x81:
+            break;
+        default:
             continue;
         }
         if (D_800DD79C != 0) {
@@ -129,7 +129,8 @@ loop_1:
         }
         temp_a0_2 = D_800DD798;
         if (temp_a0_2 == 0) {
-            goto loop_1;
+            D_80112FD0 = 0;
+            continue;
         }
         D_800DD7A0 = temp_a0_2;
         D_800DD798 = 0;
