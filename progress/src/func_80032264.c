@@ -18,9 +18,11 @@ void func_80032264(void *arg0) {
         if (!(temp_v0 & 0xFF)) {
             temp_v0_2 = *(s16 *)((s8 *)arg0 + 0x7A) + 1;
             *(s16 *)((s8 *)arg0 + 0x7A) = temp_v0_2;
-            var_v0 = 0x78;
-            if (temp_v0_2 == 1) var_v0 = 5;
-            *(u8 *)((s8 *)temp_a1 + 2) = var_v0;
+            if (temp_v0_2 != 1) {
+                *(u8 *)((s8 *)temp_a1 + 2) = 0x78;
+            } else {
+                *(u8 *)((s8 *)temp_a1 + 2) = 5;
+            }
         }
         return;
     case 2:
@@ -35,7 +37,11 @@ void func_80032264(void *arg0) {
             *(u8 *)((s8 *)temp_a1 + 2) = 0;
             temp_v0_4 = (*(s16 *)((s8 *)arg0 + 0x7A) + 1) & 3;
             *(s16 *)((s8 *)arg0 + 0x7A) = temp_v0_4;
-            *(u8 *)((s8 *)temp_a1 + 2) = (temp_v0_4 != 3 ? 0x78 : 5);
+            if (temp_v0_4 == 3) {
+                *(u8 *)((s8 *)temp_a1 + 2) = 5;
+            } else {
+                *(u8 *)((s8 *)temp_a1 + 2) = 0x78;
+            }
         }
         break;
     }
