@@ -101,3 +101,6 @@ extern s32 D_800CEE50[18];
 s32 segmentPassesBoundsRejection(void *bounds, void *start, void *end, f32 yMargin);
 
 void func_800484F8(void *arg0, f32 arg1);
+
+/* Sprite rectangle setup; verified from exact-matched func_8004844C. */
+void func_8004844C(void *sprite, f32 x, f32 y, f32 width, f32 height, f32 scaleX, f32 scaleY);

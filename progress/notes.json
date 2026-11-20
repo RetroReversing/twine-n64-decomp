@@ -43896,14 +43896,6 @@
   "score_after": null
  },
  {
-  "function": "func_8004830C",
-  "text": "Rechecked best 1640. Local variants tested field layout, reversed float compare arms, address temporary, allocator call arity, checker call arity, assignment at use; none improved (batch interrupted on shared-file synchronization after two scored trials). Main mismatch starts with target saving arg0 in s0 and storing field F4 in s1; current source allocates different registers. Target's call sequence: existing field pointer loaded to s1, retained in a0 delay slot; on null calls func_8003D848(arg0+0x10), then writes result to F4; otherwise calls func_80047B44(field,arg0+0x28,arg0+0x10,0). Later target reloads F4 into a1, null-checks, calls func_8003D64C(arg0+0x10) while a1 persists. Rebuild with typed record and explicit saved base/pointer lifetimes.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795138708.004277,
-  "score_before": 1640,
-  "score_after": 1640
- },
- {
   "function": "func_8006201C",
   "text": "Baseline 1200, six local repair variants all equal or worse. Best revision afde475c406ebb250feb. Target and candidate differ primarily in register allocation/order from initial mismatch: target saves s3 and moves arg2 into s3, then stores s2 and uses a3 as shifted value; candidate has a different spill/live range for s2 and extra `sll a3,a3,16`. Continue by giving temp_a3 a concrete struct pointer type and correcting function prototypes/global data types from assembly; retain baseline source.",
   "by": "codex-gpt-6-luna-7",
@@ -44016,14 +44008,6 @@
   "score_after": null
  },
  {
-  "function": "func_8004830C",
-  "text": "Rechecked 1640 baseline; local repairs did not improve. Changing func_800484F8 prototype alone to void(void*,f32) worsens to 2000 because argument still uses integer load; investigate correctly typed field and vector copy together. Target copies vector with integer lw/sw; candidate uses float for middle component. Remaining 26 rows include prologue scheduling and two missing instructions.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795178632.425226,
-  "score_before": 1640,
-  "score_after": 1640
- },
- {
   "function": "func_80070B40",
   "text": "Rechecked baseline 875 (historical best 875). Six local repair variants: loop backedge, inferred layout, CFG lifetimes, signedness, declaration order, branch orientation; no source variant improved. Main differences are switch dispatch / branches: target beqz $v0 to 0x64, candidate to 0x70. Every variant also reports candidate jump table jtbl_800D4740 differs (candidate entry 0x80070BB0, ROM 0x80070BA4), indicating incorrect switch layout/target. Branch-orientation repair worsened to 1095. Keep baseline.",
   "by": "codex-gpt-6-luna-9",
@@ -44102,14 +44086,6 @@
   "created_at": 1795182969.028621,
   "score_before": 875,
   "score_after": 875
- },
- {
-  "function": "func_8004830C",
-  "text": "Improved 2545 to 1290 by using three-word struct assignments for both vector copies. Remaining mismatches include prologue scheduling, flag branch registers and floating comparison control flow. Correct prototype for func_800484F8 is void(void *, f32); candidate uses integer load which preserves same raw ABI but should be corrected semantically when tuning. Search_flags found no improvement.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795183041.224354,
-  "score_before": 670,
-  "score_after": 670
  },
  {
   "function": "func_8009A4E4",
@@ -44224,14 +44200,6 @@
   "score_after": 1200
  },
  {
-  "function": "func_8004830C",
-  "text": "Both compile_variants and a direct compile_and_diff retry now report gcc-2.7.2-kmc is not installed. Last verified best 1130 on 8276ae60490dbfbe7611. Shift then small mask restores srl/andi; volatile flag field improves compare path. Goto restore tied; nonvolatile flags and reversed float spelling worsened. Remaining differences are null restore branch likely, prologue save order, mask lifetimes, and FP register/delay-slot allocation. Test staged float operands and a null-first branch when the compiler is restored.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795193820.58001,
-  "score_before": 670,
-  "score_after": 670
- },
- {
   "function": "func_80097EF8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Compile unavailable: GCC 2.7.2 KMC toolchain missing in environment; compile_and_diff rejected before source compilation. No current score. Candidate had unresolved undeclared globals in its last recorded compiler check, though its brief lists externs in generated draft; exact target boundaries not reviewed due session/toolchain. Revisit after compiler restored, starting with get_candidate and full brief/assembly.",
   "by": "codex-gpt-6-luna-11",
@@ -44272,14 +44240,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8004830C",
-  "text": "Best verified score remained 725/1000 after local repair batch; no improvement at 9/6 compiles. Candidate\u2019s central mismatch is second null check: target loads field 0xF4 into $v0, uses beqz (not beql), then moves $v0 into $a0 in delay slot. Candidate instead uses $a0 and an annulled beql, while storing saved $s1 before this load. Tried target_call_arity, branch_orientation, const_read, comparison_sides, field_load_hoist, and guard_shape repairs; all were worse/equal. Next experiment should restructure the second check to force pointer reload into return register and delayed argument move (inspect full get_assembly around mismatch); do not repeat these six repairs.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795199961.470195,
-  "score_before": 670,
-  "score_after": 670
- },
- {
   "function": "func_8006201C",
   "text": "Could not improve the historical 810 candidate; current inputs rechecked a different draft at 1725. Corrected func_80044670 to its matched 3-argument prototype and removed the extraneous fourth argument; resulting code remained 1725. The first mismatch is the 0x6C pointer load allocated to $a0 rather than target $a3; downstream stores/order differ. Tried s8* versus void* for temp_a3 and declaration reorder, both produced identical assembly. address_temporary repairs also had no effect. Preserve saved historical best; next investigate register lifetime/variable types and argument positioning around temp_a3, then restore headers/input context if historical score comparability matters.",
   "by": "codex-gpt-6-luna-11",
@@ -44318,14 +44278,6 @@
   "created_at": 1795200442.528407,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8004830C",
-  "text": "Baseline 725 verified. Six branch, const, call arity, hoist, comparison and guard variants failed to improve. Remaining 14 rows center on null guard and reordered flag updates.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795201902.052001,
-  "score_before": 670,
-  "score_after": 670
  },
  {
   "function": "func_80070B40",
@@ -44576,14 +44528,6 @@
   "score_after": 1630
  },
  {
-  "function": "func_8004830C",
-  "text": "Explicit variant 5 verified exact, revision 465fa9641cabbd6bf9cf, case 25769806700. Claim then reopened and transferred, likely caller prototype review/persistence. Starting revision 9da494073f48140aaa67, add `void *body = temp_v0_2;` in the non-null block and use body for both dereferences. If checking prototype compatibility, matched callee func_800484F8 is void(void *, f32); pass field 0x84 as f32, then verify (second argument travels via a1).",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795209400.0261078,
-  "score_before": 670,
-  "score_after": 0
- },
- {
   "function": "func_80097EF8",
   "text": "Set start on empty-bucket path, avoiding uninitialized use and improving 5947 to 5220. Array indexing for copy loop and register/type qualifiers did not improve. Target copy loop accesses D_800F9568 with two words per record; key search and bucket addressing still differ.",
   "by": "codex-gpt-6.1-terra-4",
@@ -44598,14 +44542,6 @@
   "created_at": 1795209415.656393,
   "score_before": 1630,
   "score_after": 1615
- },
- {
-  "function": "func_8004830C",
-  "text": "Freshly verified candidate score 2495 after adopting prototype variant `void func_800484F8(void *, f32);`; header v943 now contains that exact declaration, and all matched users passed. Contrary to earlier handoff, converting the call's field 0x84 expression to f32 did not compile because function-local prototype conflicts with context declaration; keep the cast/source as s32 expression while using shared f32 prototype. Current first meaningful diff is field copies at offsets 0x14/0x2C: target performs raw lw/sw integer transfers for the float slot (`lw $v1,0x2c`; `sw $v1,0x14`; later reciprocal), candidate emits lwc1/swc1. Try modeling 0x10/0x14/0x18 and 0x28/0x2C/0x30 as packed three-word aggregate assignments (known accepted KMC pattern), leaving float field types only for actual comparison. Note prior historical exact score 0 exists, so verify persistence after context change/reopen.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795209496.352111,
-  "score_before": 0,
-  "score_after": 0
  },
  {
   "function": "func_80047068",
@@ -44694,5 +44630,78 @@
   "created_at": 1795210667.229383,
   "score_before": 29148,
   "score_after": 29112
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Rechecked best 1640. Local variants tested field layout, reversed float compare arms, address temporary, allocator call arity, checker call arity, assignment at use; none improved (batch interrupted on shared-file synchronization after two scored trials). Main mismatch starts with target saving arg0 in s0 and storing field F4 in s1; current source allocates different registers. Target's call sequence: existing field pointer loaded to s1, retained in a0 delay slot; on null calls func_8003D848(arg0+0x10), then writes result to F4; otherwise calls func_80047B44(field,arg0+0x28,arg0+0x10,0). Later target reloads F4 into a1, null-checks, calls func_8003D64C(arg0+0x10) while a1 persists. Rebuild with typed record and explicit saved base/pointer lifetimes.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795138708.004277,
+  "score_before": 1640,
+  "score_after": 1640
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Rechecked 1640 baseline; local repairs did not improve. Changing func_800484F8 prototype alone to void(void*,f32) worsens to 2000 because argument still uses integer load; investigate correctly typed field and vector copy together. Target copies vector with integer lw/sw; candidate uses float for middle component. Remaining 26 rows include prologue scheduling and two missing instructions.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795178632.425226,
+  "score_before": 1640,
+  "score_after": 1640
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Improved 2545 to 1290 by using three-word struct assignments for both vector copies. Remaining mismatches include prologue scheduling, flag branch registers and floating comparison control flow. Correct prototype for func_800484F8 is void(void *, f32); candidate uses integer load which preserves same raw ABI but should be corrected semantically when tuning. Search_flags found no improvement.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795183041.224354,
+  "score_before": 670,
+  "score_after": 670
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Both compile_variants and a direct compile_and_diff retry now report gcc-2.7.2-kmc is not installed. Last verified best 1130 on 8276ae60490dbfbe7611. Shift then small mask restores srl/andi; volatile flag field improves compare path. Goto restore tied; nonvolatile flags and reversed float spelling worsened. Remaining differences are null restore branch likely, prologue save order, mask lifetimes, and FP register/delay-slot allocation. Test staged float operands and a null-first branch when the compiler is restored.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795193820.58001,
+  "score_before": 670,
+  "score_after": 670
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Best verified score remained 725/1000 after local repair batch; no improvement at 9/6 compiles. Candidate\u2019s central mismatch is second null check: target loads field 0xF4 into $v0, uses beqz (not beql), then moves $v0 into $a0 in delay slot. Candidate instead uses $a0 and an annulled beql, while storing saved $s1 before this load. Tried target_call_arity, branch_orientation, const_read, comparison_sides, field_load_hoist, and guard_shape repairs; all were worse/equal. Next experiment should restructure the second check to force pointer reload into return register and delayed argument move (inspect full get_assembly around mismatch); do not repeat these six repairs.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795199961.470195,
+  "score_before": 670,
+  "score_after": 670
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Baseline 725 verified. Six branch, const, call arity, hoist, comparison and guard variants failed to improve. Remaining 14 rows center on null guard and reordered flag updates.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795201902.052001,
+  "score_before": 670,
+  "score_after": 670
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Explicit variant 5 verified exact, revision 465fa9641cabbd6bf9cf, case 25769806700. Claim then reopened and transferred, likely caller prototype review/persistence. Starting revision 9da494073f48140aaa67, add `void *body = temp_v0_2;` in the non-null block and use body for both dereferences. If checking prototype compatibility, matched callee func_800484F8 is void(void *, f32); pass field 0x84 as f32, then verify (second argument travels via a1).",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795209400.0261078,
+  "score_before": 670,
+  "score_after": 0
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Freshly verified candidate score 2495 after adopting prototype variant `void func_800484F8(void *, f32);`; header v943 now contains that exact declaration, and all matched users passed. Contrary to earlier handoff, converting the call's field 0x84 expression to f32 did not compile because function-local prototype conflicts with context declaration; keep the cast/source as s32 expression while using shared f32 prototype. Current first meaningful diff is field copies at offsets 0x14/0x2C: target performs raw lw/sw integer transfers for the float slot (`lw $v1,0x2c`; `sw $v1,0x14`; later reciprocal), candidate emits lwc1/swc1. Try modeling 0x10/0x14/0x18 and 0x28/0x2C/0x30 as packed three-word aggregate assignments (known accepted KMC pattern), leaving float field types only for actual comparison. Note prior historical exact score 0 exists, so verify persistence after context change/reopen.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795209496.352111,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_8004830C",
+  "text": "Verified at 80ad3343ee57b3a7a44c with void(void *, f32) for func_800484F8; uses typed three-word position copies, explicit stores per flag branch and bounds operand first in float comparison.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795210916.160318,
+  "score_before": 1100,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:25c26ef88a8c634fbec8d3db4f1d2adb97f8e1ca7071327bf1f7f95d96de0312"
  }
 ]
