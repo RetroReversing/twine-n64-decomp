@@ -82,9 +82,10 @@ s32 __repair_phase_var_v0_2;
                             goto block_28;
                         }
                         if (M2C_FIELD(var_s0, s32 *, 8) & 1) {
-                            if (!(func_80094B48(var_s0, sp18, sp20, sp24, sp28, sp1C) & 0xFF)) {
-                                goto block_29;
+                            if (func_80094B48(var_s0, sp18, sp20, sp24, sp28, sp1C) & 0xFF) {
+                                goto next;
                             }
+                            goto block_29;
                         } else {
                             temp_v0 = func_8008E3EC(M2C_FIELD(var_s0, u16 *, 0x3C), 0x7F, 0x40);
                             M2C_FIELD(var_s0, s32 *, 0x34) = temp_v0;
@@ -132,16 +133,18 @@ block_29:
                             temp_fv0 = M2C_FIELD(var_s0, f32 *, 0x40) + 0.3f;
                             M2C_FIELD(var_s0, f32 *, 0x40) = temp_fv0;
                             if (temp_fv0 >= 1.0f) {
-                                var_v0_2 = M2C_FIELD(var_s0, s32 *, 8) & 0xFFEFFFFF;
-                                M2C_FIELD(var_s0, s32 *, 8) = var_v0_2;
+                                M2C_FIELD(var_s0, s32 *, 8) &= 0xFFEFFFFF;
                             }
                         }
                     }
-                } else if (sp18 != 0.0f) {
-                    __repair_phase_var_v0_2 = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
-                    M2C_FIELD(var_s0, s32 *, 8) = __repair_phase_var_v0_2;
+                } else {
+                    if (sp18 == 0.0f) {
+                        goto next;
+                    }
+                    M2C_FIELD(var_s0, s32 *, 8) = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
                 }
             }
+next:
             var_s0 = temp_s1;
         } while (var_s0 != NULL);
     }
