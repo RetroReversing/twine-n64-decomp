@@ -4912,14 +4912,6 @@
   "score_after": 2320
  },
  {
-  "function": "func_8000B384",
-  "text": "Baseline 300 verified; loop backedge, record layout and pointer signedness produce identical code. Subsequent trials twice stopped because project progress changed during compilation, even after refreshing candidate. Remaining mismatch primarily s1/s2 allocation; target initializes return before preserving arg1.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795137787.5368881,
-  "score_before": 300,
-  "score_after": 300
- },
- {
   "function": "func_80017D24",
   "text": "Best score 1019, no improvement across the two repair batches. Tried signedness, declaration order, operand temporary, local widening, switch-case layout, unsigned switch and const reads. Candidate's largest mismatch is stack frame size 0x20 vs target 0x18, then operand/register/branch differences. Focus next on reducing live locals/spills and simplifying the case-0 clamp paths; target reads all three byte fields, updates a u16 counter, and stores three clamp results. Recheck argument types for func_80045E34 and global widths.",
   "by": "codex-gpt-6-luna-12",
@@ -11040,14 +11032,6 @@
   "score_after": 2884
  },
  {
-  "function": "func_8000B384",
-  "text": "Rechecked best score 300; same 61 instructions modulo registers/order. Explicit zero test and assigning aligned size back to arg0 before temp_s0 left assembly unchanged. Target allocates aligned size to s0, uses v0 for block next address; candidate uses v1 and a2. Prologue saves/initializes s1 before s2 in target, reversed in candidate. Explore variable lifetime and allocation, and validate apparent void(void) callee prototype before adopting.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795177689.44364,
-  "score_before": 300,
-  "score_after": 300
- },
- {
   "function": "stop_controller_rumble",
   "text": "Best 60. Rewrote motor access loop to compute the address directly as the call argument; score improved 120\u219260 and only two instruction reorder differences remained in index update. Tried pointer base assignments and changing D_8010A3A0 declaration to u16[]; these worsened current score. Saved best uses `extern char D_8010A3A0[]; temp_v0 = (arg0 * 2) + D_8010A3A0; *temp_v0 &= 0xFFFE;`. Remaining diff at score 60 is one sll shifted across the base address materialization (target andi, lui/addiu, sll; candidate andi, sll, lui/addiu). Inspect last_diff / try statement/declaration order around final index expression.",
   "by": "codex-gpt-6-luna-9",
@@ -14848,14 +14832,6 @@
   "score_after": 710
  },
  {
-  "function": "func_8000B384",
-  "text": "Verified 55\u219230 by loading flags in C before padded=arg0+0xF while target instruction order stayed fixed, then 30\u219225 by writing (s32)var_s1 + (u32)arg0. Saved revision 23b819a2713b01454ee7. Only target rows 30\u201334 remain: candidate uses v1 for header base and v0 for flags where target uses v0 and v1 respectively. Directly replacing the staged pointer with a single var_a1 computation and testing *var_a1 scored 250. Next try separating the loop pointer temporary from the union used for the later block size while preserving the +0x10 displacement.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795182457.693974,
-  "score_before": 55,
-  "score_after": 25
- },
- {
   "function": "func_8009C7C4",
   "text": "Rechecked candidate 0ee4e07f6265be29fd85 at score 820. Tried local repair families call_one_shot_scope, debug_statement_boundary, parameter_width, read_before_assign, goto_backward_loop, target_call_arity; none improved, with goto_backward_loop substantially worse and parameter-width ties. Main remaining issue is saved-register allocation: target saves $s1/$s2 near sp+0x14/0x18, candidate uses $s4/$s3 at sp+0x20/0x1c. Try simplifying/removing temporary locals and align variable lifetimes with original loop/call sequence; inspect mismatch assembly and helper signatures. No reusable global convention established.",
   "by": "codex-gpt-6-luna-19",
@@ -14934,14 +14910,6 @@
   "created_at": 1795182503.1725252,
   "score_before": 255,
   "score_after": 5
- },
- {
-  "function": "func_8000B384",
-  "text": "Reverified 25 (five register-only rows). Inferred record layout, both allocation declaration permutations, and spill declaration order reproduce the same five rows. Loop successor needs v0 for the intermediate address and v1 for the sentinel load/mask. Next try separating pointer/length phases without the union while explicitly staging the next-header flags. Also verify the post-loop call against the matched void(void) callee separately before combining changes.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795182504.644948,
-  "score_before": 25,
-  "score_after": 25
  },
  {
   "function": "func_8008C3D8",
@@ -20432,14 +20400,6 @@
   "score_after": 5
  },
  {
-  "function": "func_8000B384",
-  "text": "Verified 25 at 23b819a2713b01454ee7. Separating raw address from the union scored 225 as a pointer or 230 as u32 reused for size and address. Staging only the masked sentinel before the pointer update with the separate pointer scored 30. Staging unmasked sentinel in existing flags with the union scored 45. Remaining five rows swap v0/v1 for successor raw address and sentinel flag/mask. Next try retaining the union and using a distinct local for the masked sentinel, then verify callee type separately.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795185402.619015,
-  "score_before": 25,
-  "score_after": 25
- },
- {
   "function": "func_80063758",
   "text": "Score 60. Only neg.s is scheduled ahead of mtc1/cvt.s.w instead of after the conversion. Inlining the negation into the compare and result, reversing the equivalent comparison, or computing the negation earlier reproduced the same diff. -O1 and disabling either scheduling pass were worse. Preserve the existing >=0 arm order (reversing it produces bgezl instead of bltzl). Next hypothesis is a scoped lifetime/CFG around the conversion and lower clamp.",
   "by": "codex-gpt-6.2-sol-7",
@@ -22448,14 +22408,6 @@
   "score_after": 130
  },
  {
-  "function": "func_8000B384",
-  "text": "Verified best score 25: five register-only differences in loop next-header calculation (v0/v1 swapped). Correcting func_8000B35C to void(void) and calling without arguments retained score 25. Inferred record layout repair tied; loop weight scope worsened to 85. Next investigate lifetime or expression form of the next-block address and flags load.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795187187.717134,
-  "score_before": 25,
-  "score_after": 25
- },
- {
   "function": "func_8008EF18",
   "text": "Best 250. Initializing result before byte check produced 255 with register allocation mismatches; restore saved best and investigate branch/result register allocation. Judge calls stalled.",
   "by": "codex-gpt-6.1-terra-8",
@@ -23784,14 +23736,6 @@
   "score_after": 210
  },
  {
-  "function": "func_8000B384",
-  "text": "Verified best score 25: only v0/v1 allocation differs across five instructions in traversal loop. Inlining next pointer, staging size, swapping addition operands and assigning loop flags did not improve. Explore live ranges of the intermediate pointer and loaded flags.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795189058.200544,
-  "score_before": 25,
-  "score_after": 25
- },
- {
   "function": "func_8003438C",
   "text": "Improved 2485 to 2140 using u16 average locals in both branches and removing unused frame. Frame now matches. Cast removal and register qualifiers unchanged; signed first average worsens to 6037. Remaining target loads color scale globals in order D_80115318, D_80109A34, D_80109684, but directly reordering assignments worsened score due to early shifts. Investigate staging three products before shifts and analogous second branch.",
   "by": "codex-gpt-6.1-terra-2",
@@ -24902,14 +24846,6 @@
   "created_at": 1795190232.0148249,
   "score_before": 650,
   "score_after": 650
- },
- {
-  "function": "func_8000B384",
-  "text": "Current best score 25 (99.5%), 61 target and candidate instructions; only five GPR allocation differences remain in the next-header loop. Candidate revision 8f29177c08f565a795af matches the exact instruction stream except target uses v0 as the computed next-header address, then v1 for the header flags and branch; candidate uses v1 for address and v0 for flags. Ran automatic explicit_loop_backedge repair (score unchanged), then changed the loop's integer address sum to u8* pointer addition (score unchanged). A pointer-only declaration experiment failed before compile due unreplaced union references; restored saved candidate. Likely next: tune temp live ranges/declaration order or try debug flag variants; values/control flow are already right.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795190232.0391161,
-  "score_before": 25,
-  "score_after": 25
  },
  {
   "function": "func_800891A8",
@@ -26558,14 +26494,6 @@
   "created_at": 1795192348.5203588,
   "score_before": 350,
   "score_after": 350
- },
- {
-  "function": "func_8000B384",
-  "text": "Best remains score 25 (61 instructions), with a five-instruction register allocation discrepancy in the loop traversal: target computes end pointer into $v0, then loads/masks flags into $v1; candidate uses $v1 for end pointer and $v0 for flags. Tried record-layout, loop-scope, allocation bridge, declaration order, field record and inline scalar repairs; none improved. Next focus on preserving a separate loop-end pointer expression and flags temporary lifetime to make GCC choose v0/v1 in target order. Avoid edits to shared context; no reusable convention found.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795192352.506434,
-  "score_before": 25,
-  "score_after": 25
  },
  {
   "function": "guMtxF2L",
@@ -29248,14 +29176,6 @@
   "score_after": 25
  },
  {
-  "function": "func_8000B384",
-  "text": "Typed 16-byte Block trial 1107cae8cd01252c56bd scored 245 vs saved 25. Explicitly forwarding found/cur to B35C recovered a0/a1 allocation; guarded do/while recovered the initial flag reload and next flags at +16. Remaining extra instruction around loop pointer update and flag registers. Resume saved 25 and inspect its full diff before trialing separate loop flag temporaries.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197631.9109828,
-  "score_before": 25,
-  "score_after": 25
- },
- {
   "function": "func_8002E9D0",
   "text": "Best 130/61 instructions. First whole-source compile; signedness family variant (index s32) tied and produced no diff changes. Remaining six discrepancies are instruction order near initial 0x30 setup, move $s4,$v1 placement, and final subu/sltiu register destination. Further source-order/local lifetime experiments may help.",
   "by": "codex-gpt-6-luna-11",
@@ -30174,14 +30094,6 @@
   "created_at": 1795198690.7075672,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_8000B384",
-  "text": "Current baseline 25; local repairs (loop backedge, inferred record layout, signedness, declaration order, address temporary, constant local) preserved identical instructions. Changed var_a1 from u16* to s16*, also identical. Remaining five differences are register allocation around advancing to the next free block: target computes next address in v0 and loads header at 0x10(v0) into v1; candidate uses v1 as pointer and v0 for header. Accurate record types/layout and compiler lifetimes may resolve this. Best candidate retained.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198703.2271512,
-  "score_before": 25,
-  "score_after": 25
  },
  {
   "function": "func_8003278C",
@@ -34934,5 +34846,109 @@
   "created_at": 1795201834.26349,
   "score_before": 260,
   "score_after": 260
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Baseline 300 verified; loop backedge, record layout and pointer signedness produce identical code. Subsequent trials twice stopped because project progress changed during compilation, even after refreshing candidate. Remaining mismatch primarily s1/s2 allocation; target initializes return before preserving arg1.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795137787.5368881,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Rechecked best score 300; same 61 instructions modulo registers/order. Explicit zero test and assigning aligned size back to arg0 before temp_s0 left assembly unchanged. Target allocates aligned size to s0, uses v0 for block next address; candidate uses v1 and a2. Prologue saves/initializes s1 before s2 in target, reversed in candidate. Explore variable lifetime and allocation, and validate apparent void(void) callee prototype before adopting.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795177689.44364,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Verified 55\u219230 by loading flags in C before padded=arg0+0xF while target instruction order stayed fixed, then 30\u219225 by writing (s32)var_s1 + (u32)arg0. Saved revision 23b819a2713b01454ee7. Only target rows 30\u201334 remain: candidate uses v1 for header base and v0 for flags where target uses v0 and v1 respectively. Directly replacing the staged pointer with a single var_a1 computation and testing *var_a1 scored 250. Next try separating the loop pointer temporary from the union used for the later block size while preserving the +0x10 displacement.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795182457.693974,
+  "score_before": 55,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Reverified 25 (five register-only rows). Inferred record layout, both allocation declaration permutations, and spill declaration order reproduce the same five rows. Loop successor needs v0 for the intermediate address and v1 for the sentinel load/mask. Next try separating pointer/length phases without the union while explicitly staging the next-header flags. Also verify the post-loop call against the matched void(void) callee separately before combining changes.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795182504.644948,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Verified 25 at 23b819a2713b01454ee7. Separating raw address from the union scored 225 as a pointer or 230 as u32 reused for size and address. Staging only the masked sentinel before the pointer update with the separate pointer scored 30. Staging unmasked sentinel in existing flags with the union scored 45. Remaining five rows swap v0/v1 for successor raw address and sentinel flag/mask. Next try retaining the union and using a distinct local for the masked sentinel, then verify callee type separately.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795185402.619015,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Verified best score 25: five register-only differences in loop next-header calculation (v0/v1 swapped). Correcting func_8000B35C to void(void) and calling without arguments retained score 25. Inferred record layout repair tied; loop weight scope worsened to 85. Next investigate lifetime or expression form of the next-block address and flags load.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795187187.717134,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Verified best score 25: only v0/v1 allocation differs across five instructions in traversal loop. Inlining next pointer, staging size, swapping addition operands and assigning loop flags did not improve. Explore live ranges of the intermediate pointer and loaded flags.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795189058.200544,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Current best score 25 (99.5%), 61 target and candidate instructions; only five GPR allocation differences remain in the next-header loop. Candidate revision 8f29177c08f565a795af matches the exact instruction stream except target uses v0 as the computed next-header address, then v1 for the header flags and branch; candidate uses v1 for address and v0 for flags. Ran automatic explicit_loop_backedge repair (score unchanged), then changed the loop's integer address sum to u8* pointer addition (score unchanged). A pointer-only declaration experiment failed before compile due unreplaced union references; restored saved candidate. Likely next: tune temp live ranges/declaration order or try debug flag variants; values/control flow are already right.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795190232.0391161,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Best remains score 25 (61 instructions), with a five-instruction register allocation discrepancy in the loop traversal: target computes end pointer into $v0, then loads/masks flags into $v1; candidate uses $v1 for end pointer and $v0 for flags. Tried record-layout, loop-scope, allocation bridge, declaration order, field record and inline scalar repairs; none improved. Next focus on preserving a separate loop-end pointer expression and flags temporary lifetime to make GCC choose v0/v1 in target order. Avoid edits to shared context; no reusable convention found.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795192352.506434,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Typed 16-byte Block trial 1107cae8cd01252c56bd scored 245 vs saved 25. Explicitly forwarding found/cur to B35C recovered a0/a1 allocation; guarded do/while recovered the initial flag reload and next flags at +16. Remaining extra instruction around loop pointer update and flag registers. Resume saved 25 and inspect its full diff before trialing separate loop flag temporaries.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197631.9109828,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Current baseline 25; local repairs (loop backedge, inferred record layout, signedness, declaration order, address temporary, constant local) preserved identical instructions. Changed var_a1 from u16* to s16*, also identical. Remaining five differences are register allocation around advancing to the next free block: target computes next address in v0 and loads header at 0x10(v0) into v1; candidate uses v1 as pointer and v0 for header. Accurate record types/layout and compiler lifetimes may resolve this. Best candidate retained.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198703.2271512,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Current baseline score 25. Tried operand reorder, explicit loop backedge, inferred layout, read-before-assign, loop-weight scope, declaration-order repairs; none improve. Inferred layout compiled with pointer warnings. Five remaining register mismatches: target computes next pointer into $v0 then tests flag through $v1; candidate uses $v1 as pointer and $v0 for flag. Explore typed record pointer / temporary lifetimes to steer this allocation.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795200740.516264,
+  "score_before": 25,
+  "score_after": 25
+ },
+ {
+  "function": "func_8000B384",
+  "text": "Rechecked score 25; six local variants tied. Five register-only mismatches in loop traversal: target uses v0 for computed pointer and v1 for loaded flags, candidate swaps them.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795201811.046358,
+  "score_before": 25,
+  "score_after": 25
  }
 ]
