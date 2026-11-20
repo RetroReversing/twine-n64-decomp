@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 f32 func_80046140(f32);
-f32 func_80082A70();
+f32 func_80082A70(f32, f32);
 extern u8 D_800CA338;
 
 typedef struct { unsigned char pad_0[20]; int field_14; unsigned char pad_18[124]; short field_94; unsigned char pad_96[2]; short field_98; } __repair_record_temp_a2;
@@ -48,7 +48,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         temp_fs1 = (*(f32 *)((char *)(arg1) + 0)) - (*(f32 *)((char *)(temp_v0) + 0));
         temp_fs0 = (*(f32 *)((char *)(arg1) + 8)) - (*(f32 *)((char *)(temp_v0) + 8));
         temp_fs2 = ((*(f32 *)((char *)(arg1) + 4)) - (*(f32 *)((char *)(temp_v0) + 0xAC))) + var_ft1;
-        var_s0 = (s32) ((f32) (s32) (func_80082A70(-temp_fs1, (s32)temp_fs0) * 651.8986f) + (*(f32 *)((char *)(arg0) + 0x40))) & 0xFFF;
+        var_s0 = (s32) ((f32) (s32) (func_80082A70(-temp_fs1, temp_fs0) * 651.8986f) + (*(f32 *)((char *)(arg0) + 0x40))) & 0xFFF;
         if (var_s0 >= 0x800) {
             var_s0 -= 0x1000;
         }

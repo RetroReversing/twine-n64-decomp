@@ -24,11 +24,10 @@ void func_8003099C(u8 map, u8 level)
 {
     s32 tableIndex;
     s32 i;
-    s32 slot;
     u16 count;
     u16 flags;
     u16 newFlags;
-    u8 *offset;
+    u16 mapSize;
     MapEntry *entries;
     MapEntry *entry;
     s8 *line;
@@ -44,16 +43,17 @@ void func_8003099C(u8 map, u8 level)
             if (*(u16 *)((u8 *)&D_800C02DA + offset) == map) {
                 entries = *(MapEntry **)((u8 *)&D_800C02D4 + offset);
                 D_800BFF08 = D_800C02C0 + offset;
+                mapSize = *(u16 *)((u8 *)&D_800C02D8 + offset);
                 D_800BFF04 = entries;
                 count = *(u8 *)(&D_800C02DC + offset);
-                D_800BFF0C = *(u16 *)((u8 *)&D_800C02D8 + offset);
+                D_800BFF0C = mapSize;
                 D_800E160A = (u16)(level << 12);
                 D_800E1608 = count;
                 for (i = 0; (u16)i < count; ++i) {
                     if (entries == NULL) {
                         break;
                     }
-                    entry = &entries[(u16)i];
+                    entry = (MapEntry *)((u16)i * 8 + (u8 *)entries);
                     flags = entry->flags;
                     newFlags = flags & 0xFDF0;
                     entry->flags = newFlags;
@@ -61,17 +61,18 @@ void func_8003099C(u8 map, u8 level)
                         entry->flags = newFlags | 0x200;
                     }
                 }
-                slot = 0;
-                for (i = 0; (u16)i < D_800E1608; ++i) {
-                    entries = D_800BFF04;
-                    entry = &entries[(u16)i];
+                i = 0;
+                tableIndex = 0;
+                for (; (u16)i < D_800E1608; ++i) {
+                    MapEntry *base = D_800BFF04;
+                    entry = (MapEntry *)((u16)i * 8 + (u8 *)base);
                     entry->slot = -1;
-                    if (entries == NULL) {
+                    if (base == NULL) {
                         break;
                     }
                     flags = entry->flags;
                     if (!(flags & 0x200) && D_800E160A >= (flags & 0xF000)) {
-                        entry->slot = slot;
+                        entry->slot = tableIndex;
                         line = func_80087100(entry->first);
                         if (line != NULL) {
                             line[0] = 6;
@@ -79,12 +80,12 @@ void func_8003099C(u8 map, u8 level)
                             line[2] = ((u8 *)&D_800BFF04[(u16)i])[1] + 'A';
                         }
                         line = func_80087100(D_800BFF04[(u16)i].second);
-                        ++slot;
                         if (line != NULL) {
                             line[0] = 6;
                             line[1] = -1;
                             line[2] = ((u8 *)&D_800BFF04[(u16)i])[1] + 'A';
                         }
+                        ++tableIndex;
                     }
                 }
                 func_80030680();

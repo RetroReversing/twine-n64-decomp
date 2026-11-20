@@ -43,7 +43,7 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     }
     temp_v0 = func_8000182C(var_a0);
     var_v1 = (s16)((*(s16 *)((char *)(temp_v0) + 2)));
-    temp_s4 = *(D_800C3928 + ((var_v1 & 0x7FFF) * 8));
+    temp_s4 = *(s16 *)((char *)D_800C3928 + ((var_v1 & 0x7FFF) * 8));
     temp_s0 = var_v1 & 0x8000;
     var_v1 = temp_s4 << 0x10;
     if (temp_s0 != 0) {
@@ -68,7 +68,8 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     }
     temp_s0 = var_s5 * 6;
     var_s1 = 0;
-    func_8000B900(temp_s3, (((*(s32 *)((char *)(temp_v0) + 4)) + (((var_s5 * 3) + (temp_s4 * 2)) * (arg2 & -(arg2 < (u32) (*(s16 *)((char *)(temp_v0) + 0)))) * 2)) - temp_s0) + D_F8D70, temp_fp * 4);
+    temp_a0_2 = arg2 & -(arg2 < (u32) (*(s16 *)((char *)(temp_v0) + 0)));
+    func_8000B900(temp_s3, (((*(s32 *)((char *)(temp_v0) + 4)) + (((var_s5 * 3) + (temp_s4 * 2)) * temp_a0_2 * 2)) - temp_s0) + D_F8D70, temp_fp * 4);
     if (var_s5 > 0) {
         var_a0_2 = temp_s3;
         var_v1_2 = temp_s3 + temp_s0;
@@ -90,23 +91,9 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
             var_v0 = var_s6;
             do {
                 temp_v1 = *(u32 *)((var_v0 * 4) + temp_s3);
-                temp_v0_2 = temp_v1 >> 0x16;
-                var_fv0 = (f64) (temp_v0_2 * 4);
-                if (temp_v0_2 & 0x20000000) {
-                    var_fv0 += temp_fs0;
-                }
-                sp10[0] = (f32) var_fv0;
-                temp_v0_3 = (temp_v1 >> 0xA) & 0xFFE;
-                var_fv0_2 = (f64) temp_v0_3;
-                if (temp_v0_3 < 0) {
-                    var_fv0_2 += temp_fs0;
-                }
-                sp10[1] = (f32) var_fv0_2;
-                temp_v0_4 = (temp_v1 * 2) & 0xFFE;
-                var_fv0_3 = (f64) temp_v0_4;
-                if (temp_v0_4 < 0) {
-                    var_fv0_3 += temp_fs0;
-                }
+                sp10[0] = (f32)(f64)((temp_v1 >> 22) * 4U);
+                sp10[1] = (f32)(f64)((temp_v1 >> 10) & 0xFFEU);
+                var_fv0_3 = (f64)((temp_v1 * 2U) & 0xFFEU);
                 temp_a1 = temp_s3 + (var_s0 * 4);
                 var_s0 += 4;
                 var_s1_2 += 1;

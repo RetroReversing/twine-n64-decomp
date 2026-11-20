@@ -14,8 +14,8 @@ typedef s32 M2C_UNK32;
 
 s32 func_80022DBC();
 void *func_80087100();
-s32 sprintf();
-extern char D_800E1068[];
+s32 sprintf(char *, const char *, ...);
+extern s16 D_800E1068[];
 extern s16 D_800E107E;
 extern s16 D_800E1080;
 extern char D_801001A4[];
@@ -97,7 +97,7 @@ block_19:
         if (temp_v0_2 > 0) {
             do {
                 temp_v1 = func_80022DBC(var_s0_2 & 0xFFFF) & 0xFFFF;
-                temp_a0 = *((temp_v1 * 2) + D_800E1068);
+                temp_a0 = D_800E1068[temp_v1];
                 if (var_s1 < temp_a0) {
                     var_s1 = temp_a0;
                     var_s3 = temp_v1;
@@ -109,7 +109,7 @@ block_19:
         var_s0_3 = 0;
         if (temp_v0_2 > 0) {
             do {
-                temp_v0_3 = *(((func_80022DBC(var_s0_3 & 0xFFFF) & 0xFFFF) * 2) + D_800E1068);
+                temp_v0_3 = D_800E1068[func_80022DBC(var_s0_3 & 0xFFFF) & 0xFFFF];
                 var_s0_3 += 1;
                 var_s1_3 += temp_v0_3 == *((var_s3 * 2) + D_800E1068);
             } while (var_s0_3 < D_801002B4);

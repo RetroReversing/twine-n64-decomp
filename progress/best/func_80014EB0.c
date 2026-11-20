@@ -1,3 +1,5 @@
+typedef struct { f32 values[4]; } ClipBounds;
+
 extern s32 func_8003F778(f32 *, void *, s32);
 extern s32 func_8003F83C(f32 *, f32 *, s32);
 extern void func_8003F918(f32, f32, f32, f32);
@@ -15,20 +17,21 @@ extern s32 D_800E0C38;
 extern f32 D_800E0C3C;
 extern f32 D_800E09F8;
 extern f32 D_80102D68;
-extern f32 D_80102E68;
-extern f32 D_80103F10;
+extern f32 D_80102E68[];
+extern ClipBounds D_80103F10[];
 extern void *D_80109DC4;
 extern s32 D_80109E1C;
 extern void *D_8010D53C;
 
-void func_80014EB0(void *arg0, f32 *arg1) {
-    f32 box[4];
+void func_80014EB0(void *arg0, ClipBounds *arg1) {
+    void *sp10[32];
+    ClipBounds box;
     u8 spA7;
     s32 spAC;
     s32 spD4;
     s32 spDC;
-    void *sp10[16];
     void *var_t0;
+    f32 *scratch;
     void *var_s6;
     void *var_a1;
     void *var_a0;
@@ -50,12 +53,16 @@ void func_80014EB0(void *arg0, f32 *arg1) {
         var_a1 = *(void **)arg0;
         if (var_a1 != NULL) {
             do {
-                if ((*(s32 *)((u8 *)var_a1 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a1 + 0x58) & 0x800)) {
+                s32 flags = *(s32 *)((u8 *)var_a1 + 0x58);
+                if (!(flags & 0x20000))
+                    goto nextHead;
+                if (!(flags & 0x800)) {
                     temp_v1 = D_80109DC4;
-                    *(s32 *)((u8 *)var_a1 + 0x58) |= 0x800;
+                    *(s32 *)((u8 *)var_a1 + 0x58) = flags | 0x800;
                     D_80109DC4 = var_a1;
                     *(void **)((u8 *)var_a1 + 0x1C) = temp_v1;
                 }
+nextHead:
                 var_a1 = *(void **)var_a1;
             } while (var_a1 != NULL);
         }
@@ -66,24 +73,26 @@ void func_80014EB0(void *arg0, f32 *arg1) {
         var_s6 = *(void **)((u8 *)(*(void **)((u8 *)arg0 + 0x20)) + 0x58);
         if (D_80109E1C != 0x40) {
             ((void **)&D_80102D68)[D_80109E1C] = arg0;
-            ((f32 *)&D_80103F10)[D_80109E1C * 4] = arg1[0];
-            ((f32 *)&D_80103F10)[D_80109E1C * 4 + 1] = arg1[1];
-            ((f32 *)&D_80103F10)[D_80109E1C * 4 + 2] = arg1[2];
-            ((f32 *)&D_80103F10)[D_80109E1C * 4 + 3] = arg1[3];
+            D_80103F10[D_80109E1C] = *arg1;
             D_80109E1C += 1;
             if (var_s6 != NULL) {
+                scratch = D_80102E68;
                 var_t0 = &D_800E09F8;
                 do {
                     var_a0 = *(void **)(*(void **)((u8 *)var_s6 + 8));
                     if (var_a0 != NULL) {
                         do {
-                            if ((*(s32 *)((u8 *)var_a0 + 0x58) & 0x20000) && !(*(s32 *)((u8 *)var_a0 + 0x58) & 0x800)) {
+                            s32 flags = *(s32 *)((u8 *)var_a0 + 0x58);
+                            if (!(flags & 0x20000))
+                                goto nextChild;
+                            if (!(flags & 0x800)) {
                                 temp_v1 = D_80109DC4;
-                                *(s32 *)((u8 *)var_a0 + 0x58) |= 0x800;
+                                *(s32 *)((u8 *)var_a0 + 0x58) = flags | 0x800;
                                 D_80109DC4 = var_a0;
                                 *(void **)((u8 *)var_a0 + 0x1C) = temp_v1;
                             }
-                            var_a0 = *(void **)var_a0;
+    nextChild:
+                        var_a0 = *(void **)var_a0;
                         } while (var_a0 != NULL);
                     }
                     temp_ft0 = (*(f32 *)((u8 *)D_8010D53C + 0x10) * *(f32 *)((u8 *)var_s6 + 0xC)) + (*(f32 *)((u8 *)D_8010D53C + 0x14) * *(f32 *)((u8 *)var_s6 + 0x10)) + (*(f32 *)((u8 *)D_8010D53C + 0x18) * *(f32 *)((u8 *)var_s6 + 0x14)) + *(f32 *)((u8 *)var_s6 + 0x18);
@@ -106,17 +115,18 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                         }
                     }
                     if (doit) {
-                        box[0] = *(f32 *)((u8 *)D_8010D53C + 0x54);
-                        box[1] = *(f32 *)((u8 *)D_8010D53C + 0x50);
-                        box[2] = *(f32 *)((u8 *)D_8010D53C + 0x5C);
-                        box[3] = *(f32 *)((u8 *)D_8010D53C + 0x58);
+                        box.values[0] = *(f32 *)((u8 *)D_8010D53C + 0x54);
+                        box.values[1] = *(f32 *)((u8 *)D_8010D53C + 0x50);
+                        box.values[2] = *(f32 *)((u8 *)D_8010D53C + 0x5C);
+                        box.values[3] = *(f32 *)((u8 *)D_8010D53C + 0x58);
                         temp_s4 = *(void **)(*(void **)((u8 *)var_s6 + 4) + 0x3C);
                         var_s7 = 0;
                         if (D_800E0C3C < 0.4f) {
-                            box[0] = arg1[0];
-                            box[1] = arg1[1];
-                            box[2] = arg1[2];
-                            box[3] = arg1[3];
+                            box.values[0] = arg1->values[0];
+                            box.values[1] = arg1->values[1];
+                            box.values[2] = arg1->values[2];
+                            box.values[3] = arg1->values[3];
+                            goto block_51;
                         } else {
                             spA7 = 0;
                             if ((s32) *(u16 *)((u8 *)temp_s4 + 0x40) > 0) {
@@ -145,29 +155,29 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                                         var_v0 = var_a1_2 * 2;
                                     }
                                     temp_v1_4 = (f32 *)(*(s32 *)((u8 *)temp_s4 + 0x34) + (var_v0 + var_a1_2) * 4);
-                                    (&D_80102E68)[0] = temp_v1_4[0];
-                                    (&D_80102E68)[1] = temp_v1_4[1];
-                                    (&D_80102E68)[2] = temp_v1_4[2];
+                                    scratch[0] = temp_v1_4[0];
+                                    scratch[1] = temp_v1_4[1];
+                                    scratch[2] = temp_v1_4[2];
                                     func_80082BD0();
-                                    ((f32 *)var_t0)[0] = (&D_80102E68)[3];
-                                    ((f32 *)var_t0)[1] = (&D_80102E68)[4];
-                                    ((f32 *)var_t0)[2] = (&D_80102E68)[5];
+                                    ((f32 *)var_t0)[0] = scratch[3];
+                                    ((f32 *)var_t0)[1] = scratch[4];
+                                    ((f32 *)var_t0)[2] = scratch[5];
                                     temp_v1_4 = (f32 *)(*(s32 *)((u8 *)temp_s4 + 0x34) + var_s0 * 0xC);
-                                    (&D_80102E68)[0] = temp_v1_4[0];
-                                    (&D_80102E68)[1] = temp_v1_4[1];
-                                    (&D_80102E68)[2] = temp_v1_4[2];
+                                    scratch[0] = temp_v1_4[0];
+                                    scratch[1] = temp_v1_4[1];
+                                    scratch[2] = temp_v1_4[2];
                                     func_80082BD0();
-                                    ((f32 *)var_t0)[9] = (&D_80102E68)[3];
-                                    ((f32 *)var_t0)[10] = (&D_80102E68)[4];
-                                    ((f32 *)var_t0)[11] = (&D_80102E68)[5];
+                                    ((f32 *)var_t0)[9] = scratch[3];
+                                    ((f32 *)var_t0)[10] = scratch[4];
+                                    ((f32 *)var_t0)[11] = scratch[5];
                                     temp_v1_4 = (f32 *)(*(s32 *)((u8 *)temp_s4 + 0x34) + var_s1 * 0xC);
-                                    (&D_80102E68)[0] = temp_v1_4[0];
-                                    (&D_80102E68)[1] = temp_v1_4[1];
-                                    (&D_80102E68)[2] = temp_v1_4[2];
+                                    scratch[0] = temp_v1_4[0];
+                                    scratch[1] = temp_v1_4[1];
+                                    scratch[2] = temp_v1_4[2];
                                     func_80082BD0();
-                                    ((f32 *)var_t0)[18] = (&D_80102E68)[3];
-                                    ((f32 *)var_t0)[19] = (&D_80102E68)[4];
-                                    ((f32 *)var_t0)[20] = (&D_80102E68)[5];
+                                    ((f32 *)var_t0)[18] = scratch[3];
+                                    ((f32 *)var_t0)[19] = scratch[4];
+                                    ((f32 *)var_t0)[20] = scratch[5];
                                     temp_s3 = func_8003F778(&D_800E0B18, var_t0, 3);
                                     if (temp_s3 > 0) {
                                         for (i = 0; i < temp_s3; i++) {
@@ -176,15 +186,15 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                                             f32 b = *(f32 *)((u8 *)D_8010D53C + 0x6C) / tmp;
                                             func_80045514(&D_800E0B18 + i * 9, a, b);
                                         }
-                                        func_8003F918(arg1[0], arg1[2], arg1[1], arg1[3]);
+                                        func_8003F918(arg1->values[0], arg1->values[2], arg1->values[1], arg1->values[3]);
                                         temp_s3 = func_8003F83C(&D_800E0B18, &D_800E0B18, temp_s3);
                                         if (temp_s3 > 0) {
                                             for (j = 0; j < temp_s3; j++) {
                                                 f32 *p = &D_800E0B18 + j * 9;
-                                                if (p[0] < box[0]) box[0] = p[0];
-                                                if (p[0] > box[1]) box[1] = p[0];
-                                                if (p[1] < box[2]) box[2] = p[1];
-                                                if (box[3] < p[1]) box[3] = p[1];
+                                                if (p[0] < box.values[0]) box.values[0] = p[0];
+                                                if (p[0] > box.values[1]) box.values[1] = p[0];
+                                                if (p[1] < box.values[2]) box.values[2] = p[1];
+                                                if (box.values[3] < p[1]) box.values[3] = p[1];
                                             }
                                             spA7 = 1;
                                         }
@@ -200,7 +210,7 @@ void func_80014EB0(void *arg0, f32 *arg1) {
                         }
                         if (0) {
 block_51:
-                            if (((box[1] - box[0]) > 0.0f) && ((box[3] - box[2]) > 0.0f)) {
+                            if (((box.values[1] - box.values[0]) > 0.0f) && ((box.values[3] - box.values[2]) > 0.0f)) {
                                 f32 fv = D_800E0A00;
                                 temp_a3 = *(void **)((u8 *)var_s6 + 8);
                                 if (fv < D_800E0A24) fv = D_800E0A24;
@@ -212,29 +222,26 @@ block_51:
                                 temp_a0 = *(void **)((u8 *)temp_a3 + 0x20);
                                 if (*(u16 *)((u8 *)temp_a0 + 0x60) != D_800B35B0) {
                                     *(u16 *)((u8 *)temp_a0 + 0x60) = D_800B35B0;
-                                    *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0) = box[0];
-                                    *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 4) = box[1];
-                                    *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 8) = box[2];
-                                    *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0xC) = box[3];
+                                    *(ClipBounds *)temp_a0 = box;
                                     *(u16 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0x62) = (u16) D_800E0C38;
                                     sp10[spAC] = temp_a3;
                                     spAC += 1;
                                 } else {
                                     s32 changed = 0;
-                                    if (box[0] < *(f32 *)((u8 *)temp_a0 + 0)) {
-                                        *(f32 *)((u8 *)temp_a0 + 0) = box[0];
+                                    if (box.values[0] < *(f32 *)((u8 *)temp_a0 + 0)) {
+                                        *(f32 *)((u8 *)temp_a0 + 0) = box.values[0];
                                         changed = 1;
                                     }
-                                    if (box[2] < *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 8)) {
-                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 8) = box[2];
+                                    if (box.values[2] < *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 8)) {
+                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 8) = box.values[2];
                                         changed = 1;
                                     }
-                                    if (*(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 4) < box[1]) {
-                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 4) = box[1];
+                                    if (*(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 4) < box.values[1]) {
+                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 4) = box.values[1];
                                         changed = 1;
                                     }
-                                    if (*(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0xC) < box[3]) {
-                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0xC) = box[3];
+                                    if (*(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0xC) < box.values[3]) {
+                                        *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0xC) = box.values[3];
                                         changed = 1;
                                     }
                                     temp_a0 = *(void **)((u8 *)temp_a3 + 0x20);
@@ -255,12 +262,10 @@ block_51:
             for (i = 0; i < spAC; i++) {
                 void *n = sp10[i];
                 void *b = *(void **)((u8 *)n + 0x20);
-                box[0] = *(f32 *)((u8 *)b + 0);
-                box[1] = *(f32 *)((u8 *)b + 4);
-                box[2] = *(f32 *)((u8 *)b + 8);
-                box[3] = *(f32 *)((u8 *)b + 0xC);
-                func_80014EB0(n, box);
+                box = *(ClipBounds *)b;
+                func_80014EB0(n, &box);
             }
         }
     }
 }
+
