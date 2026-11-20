@@ -61,21 +61,22 @@ extern void *volatile D_80117728;
 typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
 typedef struct { int value; } __repair_field_0;
 void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
-    u8 sp20;
-    u8 sp21;
-    u8 sp22;
-    u8 sp23;
-    u8 sp24;
-    u8 sp25;
-    u8 sp26;
-    u8 sp27;
-    u8 sp28;
-    u8 sp29;
-    u8 sp2A;
-    u8 sp2B;
-    u8 sp2C;
-    u8 sp2D;
+    volatile u64 padding;
     u8 sp2E;
+    u8 sp2D;
+    u8 sp2C;
+    u8 sp2B;
+    u8 sp2A;
+    u8 sp29;
+    u8 sp28;
+    u8 sp27;
+    u8 sp26;
+    u8 sp25;
+    u8 sp24;
+    u8 sp23;
+    u8 sp22;
+    u8 sp21;
+    u8 sp20;
     f32 sp30[3];
     s32 *temp_a1_2;
     s32 *temp_a1_3;
@@ -226,7 +227,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                             var_v0 = sp28;
 block_21:
                             D_80113022 = var_v1;
-                            func_8000C34C(arg0, var_s4, arg1, (u32) var_a3, (u32) var_v0);
+                            func_8000C34C(arg0, var_s4, arg1, (u32) var_a3, (u32) sp27, (u32) var_v0);
                         }
                     }
                 }
@@ -283,6 +284,7 @@ block_21:
                 var_a1 = (u8) ((u32) (M2C_FIELD(arg0, u8 *, 0x80) * M2C_FIELD(temp_a1_4, u8 *, 0x65)) >> 8);
                 var_a3_2 = (u8) ((u32) (M2C_FIELD(arg0, u8 *, 0x81) * M2C_FIELD(temp_a1_4, u8 *, 0x66)) >> 8);
             }
+            temp_v1_8 = M2C_FIELD(arg1, s32 *, 0x100);
             temp_v1_8 = M2C_FIELD(arg1, s32 *, 0x100);
             if (temp_v1_8 & 2) {
                 temp_a1_5 = ((var_a3_2 + (var_a1 + var_a2)) / 3) & 0xFFFF;

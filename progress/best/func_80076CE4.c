@@ -16,6 +16,8 @@ void func_80076CE4(void *arg0) {
 
     r = 0;
     switch (s) {
+case 0: break;
+
     case 5:
         r = 2;
         break;

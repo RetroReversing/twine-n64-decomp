@@ -37,7 +37,7 @@ extern s16 D_800C7D98;
 extern s32 *D_800CA31C;
 extern s8 D_800E19F4;
 extern char D_8010019C[];
-extern char D_801001A0[];
+extern u8 D_801001A0[];
 extern char D_801001A3[];
 extern s32 D_801002B8;
 extern char D_80102CD0[];
@@ -49,7 +49,7 @@ extern char D_80109688[];
 extern char D_8010A500[];
 extern u8 D_80112F6D;
 
-void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
+void *func_80064A18(u16 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     s32 var_fv1;

@@ -11,9 +11,10 @@ void func_800814EC(void *arg0) {
     if (temp_v1 & 0x20000000) return;
     if ((*(s32 *)((char *)(temp_a1) + 0x68)) & 0x1000) {
         (*(s32 *)((char *)(arg0) + 0x60)) = (s32) (temp_v1 | 0x40000000);
-        { int x = *(s32 *)((char *)temp_a1 + 0x88); int y = *(s32 *)((char *)temp_a1 + 0x68);
-        *(s32 *)((char *)temp_a1 + 0x88) = (x & 0xFFE1FFFF) | 0x1C0000;
-        *(s32 *)((char *)temp_a1 + 0x68) = y | 0x1000; }
+        { register int x = *(s32 *)((char *)temp_a1 + 0x88); register int y = *(s32 *)((char *)temp_a1 + 0x68);
+        x &= 0xFFE1FFFF; x |= 0x1C0000;
+        *(s32 *)((char *)temp_a1 + 0x68) = y | 0x1000;
         (*(f32 *)((char *)(temp_a1) + 0x60)) = 500.0f;
+        *(s32 *)((char *)temp_a1 + 0x88) = x; }
     }
 }
