@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 __cosf(f32);                                    /* extern */
 f32 __sinf(f32);                                    /* extern */
 M2C_UNK func_8000A830(s16, s16, M2C_UNK);           /* extern */
-u32 func_80045CF8(M2C_UNK, ...);              /* extern */
+u32 func_80045CF8(s32);              /* extern */
 void *func_800617D8(s32, M2C_UNK, M2C_UNK, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80062450(void *, f32 *);               /* extern */
 typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
@@ -23,10 +23,11 @@ extern Words D_800D42C8;
 extern s16 D_80109A58;
 
 void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
-    f32 sp30;
-    f32 sp34;
-    f32 sp38;
-    Words sp40; volatile u32 pad[4];
+    f32 vec[3];
+#define sp30 vec[0]
+#define sp34 vec[1]
+#define sp38 vec[2]
+    Words sp40; volatile u32 pad[2];
     f32 temp_fs0;
     f32 temp_fs0_2;
     f32 temp_fs1;
@@ -41,7 +42,7 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     void *temp_v0_2;
 
     sp40 = D_800D42C8;
-    temp_v0 = func_80045CF8(0x30, &D_800D42C8);
+    temp_v0 = func_80045CF8(0x30);
     temp_a1 = temp_v0 >> 3;
     temp_a1_2 = temp_a1 & ((s32) ~(s16) temp_a1 >> 0x1F);
     var_a2 = temp_a1_2;
@@ -50,13 +51,14 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     if (temp_a1_2 >= 6) {
         var_a2 = 5;
     }
-    var_s1 = 0;
     func_8000A830(M2C_FIELD(((s8 *)&sp40 + (var_a2 * 2)), s16 *, 0), D_80109A58, 0xFF);
+    var_s1 = 0;
     if (temp_s3 != 0) {
+        f32 zero = 0.0f;
         do {
-            sp38 = 0.0f;
-            sp34 = 0.0f;
-            sp30 = 0.0f;
+            sp38 = zero;
+            sp34 = zero;
+            sp30 = zero;
             temp_fs2 = func_80045D2C(6.2831855f);
             temp_fs1 = func_80045D2C(6.2831855f);
             temp_fs0 = __sinf(temp_fs2) * arg2;
@@ -64,7 +66,7 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
             temp_fs0_2 = __cosf(temp_fs2) * arg2;
             sp38 = temp_fs0_2 * __cosf(temp_fs1);
             sp34 = __sinf(temp_fs1) * arg2;
-            temp_v0_2 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, temp_s4, 4);
+            temp_v0_2 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, func_80045CF8(2) + 0x17, 0xFB, 0x68, temp_s4, 4);
             func_80062450(temp_v0_2, &sp30);
             var_s1 += 1;
             M2C_FIELD(temp_v0_2, f32 *, 0x54) = (f32) (M2C_FIELD(temp_v0_2, f32 *, 0x54) * 16.0f);
