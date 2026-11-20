@@ -21,7 +21,7 @@ M2C_UNK func_800853D4(void *);                      /* extern */
 extern s8 D_800B2715;
 extern u8 D_80109A60[];
 
-void func_800633D0(void *arg0) {
+void func_800633D0(register void *arg0) {
     s16 temp_v0;
     u16 temp_a0;
     u16 temp_v1;
@@ -42,10 +42,10 @@ void func_800633D0(void *arg0) {
             if (M2C_FIELD(temp_s0, u8 *, 0xC) != 0) {
                 func_80054FEC(0, 0x437A0000, M2C_FIELD(temp_s0, f32 *, 0) * 10.0f, arg0, arg0 + 0x24, 0x20, 0);
             }
-            temp_s2 = arg0 + 0x24;
             if (M2C_FIELD(temp_s0, u8 *, 0xD) == 0) {
                 func_800624A8(arg0, arg0 + 0x24, M2C_FIELD(temp_s0, f32 *, 0), M2C_FIELD(temp_s0, u8 *, 0xA));
             } else {
+                temp_s2 = arg0 + 0x24;
                 func_80073508(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
                 if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (D_800B2715 == 0)) {
                     func_800853D4(temp_s2);
