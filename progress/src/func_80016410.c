@@ -22,10 +22,12 @@ extern char D_8010A400[];
 
 void *func_80016410(s32 arg0, s32 arg1, s32 arg2) {
     void *temp_v0;
+    void *r;
     void *p84;
 
-    temp_v0 = func_80083E90(arg0 + 0x84, 0xB);
-    if (temp_v0 != NULL) {
+    r = func_80083E90(arg0 + 0x84, 0xB);
+    if (r != NULL) {
+        temp_v0 = r;
         p84 = temp_v0 + 0x84;
         func_8001682C(temp_v0);
         if (arg1 == 0) {
