@@ -63,11 +63,12 @@ loop_6:
                         temp_v1 = (*(void **)((char *)(D_800EDA8C) + 0xF6C));
                         (*(void **)((char *)(D_800EDA8C) + 0xF6C)) = (void *) (temp_v1 + 8);
                         if ((*(s32 *)((char *)(temp_v1) + 8)) != -1) {
+                            temp_a2 = D_800EDA8C;
                             goto loop_6;
                         }
                     }
                 }
-                temp_lo = ((u32) ((((((__repair_field_124 *)D_800EDA8C)->value) * 0xC00) / 60) * ((s32) (D_801002D8 << 0x10) / (s32) D_8010A514)) >> 3) * (*(u16 *)((char *)(D_800EDA8C) + 0xFC2));
+                temp_lo = ((u32) ((((((__repair_field_124 *)D_800EDA8C)->value) * 0xC00U) / 60) * ((s32) (D_801002D8 << 0x10) / (s32) D_8010A514)) >> 3) * (*(u16 *)((char *)(D_800EDA8C) + 0xFC2));
                 var_a0 = (*(s32 *)((char *)(D_800EDA8C) + 0xF68));
                 temp_v1_2 = temp_lo >> 0x18;
                 (*(s32 *)((char *)(D_800EDA8C) + 0x118)) = (s32) ((temp_lo >> 8) & 0xFFFF);
@@ -79,8 +80,8 @@ loop_6:
                     (*(s32 *)((char *)(D_800EDA8C) + 0xF70)) = var_a0;
                     (*(s32 *)((char *)(D_800EDA8C) + 0xF74)) += ((temp_v0 >> 0x10) + (*(u32 *)((char *)(D_800EDA8C) + 0x11C)));
                 }
-                temp_s4 = func_8008FB20();
                 temp_s5 = func_80090464();
+                temp_s4 = func_8008FB20();
                 func_8009010C();
                 func_800902B4();
                 func_8008FF80();

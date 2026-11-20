@@ -30,3 +30,18 @@ typedef struct {
     u8 padB8[0xCA];
     s8 index;
 } TwineSlotEventActor;
+
+/* Field offsets verified in func_800969B4. */
+typedef struct {
+    s8 active;
+    u8 pad;
+    u8 code;
+    u8 bank;
+    u16 volume;
+    u8 rest[12];
+} TwineAudioChannel;
+
+typedef struct {
+    u8 pad[0xC2];
+    TwineAudioChannel channel[10];
+} TwineAudioChannelBank;

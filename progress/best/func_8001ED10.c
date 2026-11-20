@@ -90,7 +90,7 @@ void func_8001ED10(void) {
                 if (D_801002B4 > 0) {
                     var_s0 = 0 & 0xFFFF;
                     do {
-                        *((var_s0 * 2) + D_800BD680) = *(s32 *)*(D_800C3CF8 + (func_8002B9CC(*(s16 *)(D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC));
+                        *((var_s0 * 2) + D_800BD680) = *(s32 *)(D_800C3CF8 + (func_8002B9CC(*(s16 *)(D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC));
                         var_s1 += 1;
                         var_s0 = var_s1 & 0xFFFF;
                     } while ((var_s1 & 0xFFFF) < D_801002B4);

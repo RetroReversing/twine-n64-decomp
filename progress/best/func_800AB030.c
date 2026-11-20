@@ -6,7 +6,7 @@ extern char D_800D1250[];
 extern f64 D_800D6FA0;
 extern f64 D_800D6FA8;
 
-void func_800AB030(f64 arg0, f64 *arg1, f64 *arg2) {
+void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
     f64 temp_fs0;
     s32 temp_a0;
     
@@ -65,8 +65,8 @@ void func_800AB030(f64 arg0, f64 *arg1, f64 *arg2) {
                 }
                 var_v0_2 = var_s0 >> var_a1;
             }
-            var_s2 = var_s2 + var_v0_2 + (var_s3 < (u32) temp_a0);/*__repair_loop_weight*/do {do {do {
-            var_s3 += temp_a0;} while (0);} while (0);} while (0);
+            var_s2 = var_s2 + var_v0_2 + (var_s3 < (u32) temp_a0);
+            var_s3 += temp_a0;
             temp_v0 = (var_a1 * 8) + D_800D1250;
             var_s1 = (*(u32 *)((char *)(temp_v0) + 4));
             temp_a0 = var_a3 < var_s1;
@@ -107,6 +107,7 @@ void func_800AB030(f64 arg0, f64 *arg1, f64 *arg2) {
         var_s1 = var_t1;
         var_a1 += 1;
     } while (var_a1 < 0x34);
-    *arg1 = func_800ABFA0(var_s2, var_s3, var_a2) / (temp_fs0 = D_800D6FA8);
-    *arg2 = func_800ABFA0(var_s0, var_s1) / temp_fs0;
+    temp_fs0 = D_800D6FA8;
+    *arg2 = func_800ABFA0(var_s2, var_s3, var_a2) / temp_fs0;
+    *arg3 = func_800ABFA0(var_s0, var_s1) / temp_fs0;
 }

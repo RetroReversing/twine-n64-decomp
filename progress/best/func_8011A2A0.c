@@ -12,11 +12,11 @@ extern u16 D_8011F15C[];
 extern s32 D_8011F3A8;
 
 u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
-    s32 *__base_D_801002B4;
+    s32 *__base_D_801002B4 = &D_801002B4;
     u16 buf[2];
     void *q;
     s32 j;
-    long i;
+    u16 i;
     int s2;
     long a0;
     s32 th;

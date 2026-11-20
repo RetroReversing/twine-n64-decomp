@@ -37,7 +37,7 @@ s32 func_80048CC0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     u = (t.x * p.x) + (t.z * p.z);
     a = u < 0.0;
     b = det < u;
-    if (a | b) {
+    if (a || b) {
         return 0;
     }
     q.x = (t.y * e1.z) - (t.z * e1.y);

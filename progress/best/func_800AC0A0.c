@@ -4,7 +4,7 @@ void func_8008B1C0(void) { s32 i=0; E8B1C0 *e; if(i<D_800E41E4) { e=D_800E41DC; 
 s32 ctype_toupper(s32);
 u8 *func_800AB9B0(u8 *arg0) { u8 *p=arg0; while (*p) { *p=ctype_toupper((s8)*p); p++; } return arg0; }
 typedef union { f64 d; u32 w[2]; } Bits;
-f64 func_800AC0A0(f64 x, s32 *e) { Bits b; b.d=x; if (x==0.0) {*e=0; return 0.0;} *e=((b.w[0]>>20)&0x7ff)-0x3fe; b.w[0]=(b.w[0]&0x800fffff)|0x3fe00000; return b.d; }
+f64 func_800AC0A0(f64 x, s32 *e) { u32 *p = (u32 *)&x; if (x==0.0) {*e=0; return 0.0;} *e=((*p>>20)&0x7ff)-0x3fe; *p=(*p&0x800fffff)|0x3fe00000; return x; }
 extern u8 D_800CEEB0;
 void func_8001074C(s32,s32,s32);
 void func_80082834(s32 a,s32 b,s32 c) { if(!D_800CEEB0) func_8001074C(a&255,b&65535,((c*255)/100)&255); }

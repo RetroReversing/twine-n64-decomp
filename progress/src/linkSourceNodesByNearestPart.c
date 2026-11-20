@@ -17,9 +17,9 @@ f32 func_80045E34(f32 *, s32);                      /* extern */
 M2C_UNK func_80082FE4(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80083A6C(M2C_UNK *, f32 *);            /* extern */
 
-void func_8003D318(void *arg0, void *arg1) {
+void linkSourceNodesByNearestPart(void *arg0, void *arg1) {
     f32 sp10[3];
-    u8 sp20[0x38];
+    u8 sp20[0x30];
     s16 sp50[3];
     f32 temp_fv0;
     f32 var_fs0;

@@ -35,12 +35,13 @@ void func_80087380(void *arg0) {
     sp40[2] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x44));
     func_80082FE4(sp40, sp10);
     temp_fv0 = func_80045590(arg0 + 0x24, arg0 + 0x30);
+    var_fs0 = 3.6442475f;
     if (temp_fv0 != 0.0f) {
+        f32 quotient = temp_fv0 / var_fs0;
         var_fs1 = (f32) ((f64) temp_fv0 * D_800D66C0);
-        var_fs0 = (temp_fv0 / 3.6442475f) * 4096.0f;
+        var_fs0 = quotient * 4096.0f;
     } else {
-        var_fs0 = 0.0f;
-        var_fs1 = 0.0f;
+        var_fs1 = var_fs0 = 0.0f;
     }
     var_s6 = 0;
     var_s2 = &D_800CEE98;

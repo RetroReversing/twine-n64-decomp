@@ -12,7 +12,8 @@ extern void func_800A9240(u32);
 extern s32 func_800A9350(u32, u32 *);
 extern s32 func_800A93A0(u32, u32);
 extern void func_800A95C0(void);
-extern void func_800A9620(u32);
+extern void func_800A9620(void);
+extern u64 func_800ABE20(u64, u64);
 extern void func_800A71C0(void);
 extern ExceptionPreamble D_80000000;
 extern s32 D_80000300, D_8000030C;
@@ -36,7 +37,7 @@ void func_800A6908(void)
     while (func_800A9350(0x1FC007FC, &pif) != 0) {}
     while (func_800A93A0(0x1FC007FC, pif | 8) != 0) {}
 
-    D_80000000 = *(const ExceptionPreamble *)func_800A71C0;
+    *(ExceptionPreamble *)0x80000000 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000080 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000100 = *(const ExceptionPreamble *)func_800A71C0;
     *(ExceptionPreamble *)0x80000180 = *(const ExceptionPreamble *)func_800A71C0;
@@ -61,23 +62,19 @@ void func_800A6908(void)
     D_80100C10 = dom2Pulse;
     D_80100C0E = dom2Page;
     D_80100C0F = dom2Release;
-    func_800A9620(dom2Pulse);
+    func_800A9620();
     func_800A95C0();
 
-    D_800D1070 = D_800D1070 * 3 / 4;
+    D_800D1070 = func_800ABE20(D_800D1070 * 3, 4);
     if (D_8000030C == 0) {
         bzero(D_8000031C, 0x40);
     }
-    switch (D_80000300) {
-    case 0:
+    if (D_80000300 == 0) {
         clock = 0x02F5B2D2;
-        break;
-    case 2:
+    } else if (D_80000300 == 2) {
         clock = 0x02E6025C;
-        break;
-    default:
+    } else {
         clock = 0x02E6D354;
-        break;
     }
     D_800D1078 = clock;
     if (func_800A91E0() & 0x1000) {

@@ -26,11 +26,11 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     pos = (f32 *)(arg0 + 0x24);
     __repair_phase_storage.pointer = *(u8 **)(arg0 + 0x20);
     if (__repair_phase_storage.pointer != NULL) {
+        list = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x58);
         for (k = 0; k < 2; k++) {
             best[k] = NULL;
             bestd[k] = 65536.0f;
         }
-        list = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x58);
         do {
             node = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (node != NULL) {
@@ -42,7 +42,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                             break;
                         }
                     }
-                    if (2 > idx) {
+                    if ((u32)idx < 2U) {
                         if (!idx) {
                             bestd[1] = bestd[0];
                             best[1] = best[0];
@@ -74,12 +74,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                 func_80045824(sp30, sp30);
                 dot = sp30[0] * tf[7] + sp30[1] * tf[8] + sp30[2] * tf[9];
                 if (dot > 0.0f) {
-                    if (dot < 2147483648.0f) {
-                        iv = dot;
-                    } else {
-                        iv = (s32)(dot - 2147483648.0f) | 0x80000000;
-                    }
-                    v = (u32)iv & 0xFFFF;
+                    v = (u32)dot & 0xFFFF;
                     r += (v * t[0x28]) >> 8;
                     g += (v * t[0x29]) >> 8;
                     b += (v * t[0x2A]) >> 8;

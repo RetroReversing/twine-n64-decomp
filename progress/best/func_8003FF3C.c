@@ -18,7 +18,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2) {
     u8 *var_s3;
     s32 a2, a3, v1;
     s32 a2_2, a3_2, v1_2;
-    u32 sp10;
+    u32 sp10[3];
     long base;
     s32 tmp8;
     u16 t16, t16b, t16c;
