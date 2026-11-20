@@ -38,7 +38,7 @@ s32 func_80078860(u8 *arg0) {
                 case 44:
                     return 0;
                 default:
-                    switch (((u8 *)*(u8 **)(D_8010A500 + 0x68))[0xE]) {
+                    switch (((s8 *)*(u8 **)(D_8010A500 + 0x68))[0xE]) {
                     default:
                         func_8008461C(arg0);
                         func_80077960(arg0, 0x38, 0, 0);

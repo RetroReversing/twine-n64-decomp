@@ -55,10 +55,9 @@ block_5:
                     }
                 }
                 break;
-__repair_addr = (char *)((*(void **)((char *)(arg0) + 0x68)));
-
             case 0:
             case 3:
+                __repair_addr = (char *)((*(void **)((char *)(arg0) + 0x68)));
                 if ((*(s8 *)((char *)(__repair_addr) + 0xE)) == 0) {
                     var_s0 = func_80045CF8(2) + 0x2E9;
                 } else {

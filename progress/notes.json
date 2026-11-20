@@ -1360,28 +1360,12 @@
   "score_after": 2203
  },
  {
-  "function": "func_80078860",
-  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
-  "by": "restored",
-  "created_at": 1795049347.151763,
-  "score_before": 2145,
-  "score_after": 1990
- },
- {
   "function": "func_80084048",
   "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
   "by": "restored",
   "created_at": 1795049454.495337,
   "score_before": 2285,
   "score_after": 1805
- },
- {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "func_80019E28",
@@ -1480,28 +1464,12 @@
   "score_after": 2203
  },
  {
-  "function": "func_80078860",
-  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
-  "by": "restored",
-  "created_at": 1795049347.151763,
-  "score_before": 2145,
-  "score_after": 1990
- },
- {
   "function": "func_80084048",
   "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
   "by": "restored",
   "created_at": 1795049454.495337,
   "score_before": 2285,
   "score_after": 1805
- },
- {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "func_80019E28",
@@ -2472,28 +2440,12 @@
   "score_after": 2203
  },
  {
-  "function": "func_80078860",
-  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
-  "by": "permuter-25769804951",
-  "created_at": 1795049347.151763,
-  "score_before": 2145,
-  "score_after": 1990
- },
- {
   "function": "func_80084048",
   "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
   "by": "permuter-25769804951",
   "created_at": 1795049454.495337,
   "score_before": 2285,
   "score_after": 1805
- },
- {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "func_80019E28",
@@ -5152,14 +5104,6 @@
   "score_after": 2485
  },
  {
-  "function": "func_80005018",
-  "text": "Best source rechecked at 965 (historical best). Local repairs tested signedness, declaration_order, typed_temporary, constant_local; no improvement. The target's remaining instruction differences include pointer table loads emitted lw vs candidate lb, target lh vs lhu and one branch displacement; jump table data also differs around 0x800D1FA3-0x800D2008 due to altered case layout. Compiler mismatch warning resolved by using saved best declaration, but func_8000299C prototype ambiguity persists. Preserve saved best.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795138379.1621718,
-  "score_before": 600,
-  "score_after": 600
- },
- {
   "function": "func_8001F4B8",
   "text": "Rechecked baseline score 1044 (revision f56cd0e80551dde5e28f). Ran bounded local repairs; one variant failed from an undeclared local, another batch stopped after saved files changed. Tested an explicit (u16)arg0 index cast; score worsened to 1083. Target begins by masking arg0 to 16 bits and scaling by 4, then saves ra/s1/s0 in a 0x20 frame. Baseline still uses 0x18 frame and misses mask/scale. Next work should preserve arg1 in s1 across indirect callback and use a u16-indexed load in a source form that retains locals/stack pressure.",
   "by": "codex-gpt-6-luna-19",
@@ -5190,14 +5134,6 @@
   "created_at": 1795138422.982103,
   "score_before": 3063,
   "score_after": 3063
- },
- {
-  "function": "func_80001928",
-  "text": "Baseline was rechecked 2266. Local repair variant changed base D_800D9510 pointer u8* to s8*, yielding 2256 (best revision b70fe5f34ecb6e38702c); further six repair variants made no gains. Manual var_s4 s32->s16 worsened to 3838; restore saved best. Target sets up a 0x30 frame and saves s5/s4, then loads loop index D_800D94FA into s4; current saved candidate's first mismatch is stack/register setup. Remaining large differences in loop branch and cache miss path; examine assembly pages 40 onward. Move-on count exceeded function limit (11/6).",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795138429.036563,
-  "score_before": 2266,
-  "score_after": 2256
  },
  {
   "function": "func_8003FDE0",
@@ -5352,14 +5288,6 @@
   "score_after": 165
  },
  {
-  "function": "func_80017EC0",
-  "text": "Best current score 2006; remaining mismatch centered on prologue/frame: target saves ra at 0x24 and s4 at 0x20, candidate allocates 0x30 and lacks saved s4; branch targets too short by 0x0c/0x10. Rewrote second branch to load temp_a0 from node+0x6c before use, but score regressed to 2217 due to frame/register allocation. Restored best and tried loop-backedge, record layouts, field records, address temporaries, constants, passthrough args; no improvements. Correct operations in best assembly correspond largely, but temp_a0 is uninitialized in C best. Next investigate local lifetime/register pressure and source order to induce target's s4 save and 0x38 frame, then align stores.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795138526.522295,
-  "score_before": 1885,
-  "score_after": 1885
- },
- {
   "function": "func_80029768",
   "text": "Current baseline rechecked at score 1640 (revision 1f1619a55bd3493f1735). Ran three independent six-variant local-repair batches covering scalar storage reuse, inferred record layouts, call initialization, masked-value reuse, copy/register reuse, signedness, merge lifetimes, branch/call placement, operation scope, pointer/integer phase union, debug statement boundaries, and narrow widening. No variant improved; some layout proposals failed compilation and initialization/type-width variants worsened scores. Continue from the saved candidate. Remaining mismatch is broad: first mismatch is target lw $a1,0x18($v0) vs candidate lw $a2,0x18($v0), with register allocation and ordering diverging throughout. A fresh source-level rewrite based on better recovered record/type information is the useful next experiment.",
   "by": "codex-gpt-6-luna-6",
@@ -5390,22 +5318,6 @@
   "created_at": 1795138552.03633,
   "score_before": 2077,
   "score_after": 475
- },
- {
-  "function": "func_8003C94C",
-  "text": "Baseline 475 remains best. Reusing the computed address for the Z load worsened score to 565; signed offset, register qualifiers, and pointer increment variants did not improve it. Remaining differences include floating register allocation, prologue store order, and loop address construction. Investigate loop traversal using actual target assembly and struct-index form.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795138554.984063,
-  "score_before": 475,
-  "score_after": 475
- },
- {
-  "function": "func_80005868",
-  "text": "Initial full rewrite matched historical best 4901. Local repairs included explicit_loop_backedge: score improved to 3280 (best), then call_one_shot_scope / inferred_record_layout / call_initialization / branch_orientation / last_shift_reuse were tried independently; no further gain. Current best is the explicit labeled loop version (revision 41a0fa91ab7e07b2a568), freshly rechecked at 3280. Key diff is severe stack frame/register mismatch: target frame 0x980, candidate 0x970, and target saves s4/fp/s6 early. Continue from saved_best. Project changed during subsequent repair batch, so reads may be needed before next edit.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795138560.490619,
-  "score_before": 2143,
-  "score_after": 2143
  },
  {
   "function": "func_80099BC0",
@@ -5592,14 +5504,6 @@
   "score_after": 295
  },
  {
-  "function": "func_80076B30",
-  "text": "Rechecked saved candidate at score 721. Source-level rewrites/prototype additions reached 821 then returned to 721; six independent local repair trials did not improve. Main unresolved mismatch begins with frame size (-0x30 vs -0x20), causing save slots/branch destinations to diverge. Target switch references jtbl_800D49A0 while candidate uses local .rodata; fix table declaration/linkage and reduce live values/register pressure. Target case 0/3 reloads pointer from arg0+0x68 before byte read; candidate keeps it in $s3. Best starting revision f6351377443898ae8404.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795138775.6432362,
-  "score_before": 721,
-  "score_after": 721
- },
- {
   "function": "func_8006F50C",
   "text": "Current best score 3113, revision c0a5bec97afa0fc903d9. Tried the supplied m2c source, local families call_arity, assignment_at_use, inferred_record_layout, source_lines, read_before_assign, and address_temporary, plus removing several register qualifiers; no improvement. Target begins with 0x78-byte frame, saves s0/ra at 0x70/0x74, reads three fields as integer words and stores them at sp+0x40/44/48, then reloads sp+0x44 as float. Candidate instead emits floating loads, spills callee-saved FP registers, and uses a 0x60-byte frame. Draft also has read-before-initialized `temp_fv0_3` and questionable function-call arity. Best next experiment: model sp40 as union/raw s32 array and f32 view (with sp40[1] increment) to force integer word copies and later FP reloads; remove unnecessary register locals and inspect target full assembly.",
   "by": "codex-gpt-6-luna-22",
@@ -5774,14 +5678,6 @@
   "created_at": 1795138880.151416,
   "score_before": 1580,
   "score_after": 1580
- },
- {
-  "function": "func_8001D204",
-  "text": "Saved 478/117 vs 119, ef6ba529aff301cd903a. Full independent switch actions retain all three condition/call blocks and compiler merges only shared final store/recursive call. All substantive instructions align except target rematerializes &D_801002A2 into s1 in formatting tail while candidate shares s1 from the switch. Target uses s0 switch address/s0 format, s2 item and s3 item+0x28, saving fourth s register. Candidate uses s1 shared address, s0 item/format, s2 second and 0x20 frame. All direct globals, register/volatile index, volatile qualifiers on both switch and tail regressed or tied. Flag search on pre-duplication candidate did not match.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795138884.990436,
-  "score_before": 2848,
-  "score_after": 478
  },
  {
   "function": "func_80067CA8",
@@ -10278,5 +10174,149 @@
   "created_at": 1795138813.521845,
   "score_before": 3996,
   "score_after": 130
+ },
+ {
+  "function": "func_80078860",
+  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
+  "by": "restored",
+  "created_at": 1795049347.151763,
+  "score_before": 2145,
+  "score_after": 1990
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80078860",
+  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
+  "by": "restored",
+  "created_at": 1795049347.151763,
+  "score_before": 2145,
+  "score_after": 1990
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80078860",
+  "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
+  "by": "permuter-25769804951",
+  "created_at": 1795049347.151763,
+  "score_before": 2145,
+  "score_after": 1990
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80005018",
+  "text": "Best source rechecked at 965 (historical best). Local repairs tested signedness, declaration_order, typed_temporary, constant_local; no improvement. The target's remaining instruction differences include pointer table loads emitted lw vs candidate lb, target lh vs lhu and one branch displacement; jump table data also differs around 0x800D1FA3-0x800D2008 due to altered case layout. Compiler mismatch warning resolved by using saved best declaration, but func_8000299C prototype ambiguity persists. Preserve saved best.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795138379.1621718,
+  "score_before": 600,
+  "score_after": 600
+ },
+ {
+  "function": "func_80001928",
+  "text": "Baseline was rechecked 2266. Local repair variant changed base D_800D9510 pointer u8* to s8*, yielding 2256 (best revision b70fe5f34ecb6e38702c); further six repair variants made no gains. Manual var_s4 s32->s16 worsened to 3838; restore saved best. Target sets up a 0x30 frame and saves s5/s4, then loads loop index D_800D94FA into s4; current saved candidate's first mismatch is stack/register setup. Remaining large differences in loop branch and cache miss path; examine assembly pages 40 onward. Move-on count exceeded function limit (11/6).",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795138429.036563,
+  "score_before": 2266,
+  "score_after": 2256
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Best current score 2006; remaining mismatch centered on prologue/frame: target saves ra at 0x24 and s4 at 0x20, candidate allocates 0x30 and lacks saved s4; branch targets too short by 0x0c/0x10. Rewrote second branch to load temp_a0 from node+0x6c before use, but score regressed to 2217 due to frame/register allocation. Restored best and tried loop-backedge, record layouts, field records, address temporaries, constants, passthrough args; no improvements. Correct operations in best assembly correspond largely, but temp_a0 is uninitialized in C best. Next investigate local lifetime/register pressure and source order to induce target's s4 save and 0x38 frame, then align stores.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795138526.522295,
+  "score_before": 1885,
+  "score_after": 1885
+ },
+ {
+  "function": "func_8003C94C",
+  "text": "Baseline 475 remains best. Reusing the computed address for the Z load worsened score to 565; signed offset, register qualifiers, and pointer increment variants did not improve it. Remaining differences include floating register allocation, prologue store order, and loop address construction. Investigate loop traversal using actual target assembly and struct-index form.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795138554.984063,
+  "score_before": 475,
+  "score_after": 475
+ },
+ {
+  "function": "func_80005868",
+  "text": "Initial full rewrite matched historical best 4901. Local repairs included explicit_loop_backedge: score improved to 3280 (best), then call_one_shot_scope / inferred_record_layout / call_initialization / branch_orientation / last_shift_reuse were tried independently; no further gain. Current best is the explicit labeled loop version (revision 41a0fa91ab7e07b2a568), freshly rechecked at 3280. Key diff is severe stack frame/register mismatch: target frame 0x980, candidate 0x970, and target saves s4/fp/s6 early. Continue from saved_best. Project changed during subsequent repair batch, so reads may be needed before next edit.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795138560.490619,
+  "score_before": 2143,
+  "score_after": 2143
+ },
+ {
+  "function": "func_80076B30",
+  "text": "Rechecked saved candidate at score 721. Source-level rewrites/prototype additions reached 821 then returned to 721; six independent local repair trials did not improve. Main unresolved mismatch begins with frame size (-0x30 vs -0x20), causing save slots/branch destinations to diverge. Target switch references jtbl_800D49A0 while candidate uses local .rodata; fix table declaration/linkage and reduce live values/register pressure. Target case 0/3 reloads pointer from arg0+0x68 before byte read; candidate keeps it in $s3. Best starting revision f6351377443898ae8404.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795138775.6432362,
+  "score_before": 721,
+  "score_after": 721
+ },
+ {
+  "function": "func_8001D204",
+  "text": "Saved 478/117 vs 119, ef6ba529aff301cd903a. Full independent switch actions retain all three condition/call blocks and compiler merges only shared final store/recursive call. All substantive instructions align except target rematerializes &D_801002A2 into s1 in formatting tail while candidate shares s1 from the switch. Target uses s0 switch address/s0 format, s2 item and s3 item+0x28, saving fourth s register. Candidate uses s1 shared address, s0 item/format, s2 second and 0x20 frame. All direct globals, register/volatile index, volatile qualifiers on both switch and tail regressed or tied. Flag search on pre-duplication candidate did not match.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795138884.990436,
+  "score_before": 2848,
+  "score_after": 478
+ },
+ {
+  "function": "func_80005018",
+  "text": "Fixed initial call arguments and three table dereferences as char **, improving compiling baseline from 965 to 365. Remaining target lh versus lhu and subsequent andi cause one missing instruction and jump-table address shifts. Volatile signed load and u16 cast did not alter code; seek a signed use of the loaded value. Saved best revision f5b14595dad9e1a2e58e.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795178373.824012,
+  "score_before": 600,
+  "score_after": 365
+ },
+ {
+  "function": "func_80001928",
+  "text": "Best 1721 revision 238830bfc47e129d99b9. Corrected call arguments to (slot pointer, data address, shifted length), signed halfword table load and halfword sentinel store per assembly, plus early return in loop. Extra saved register and loop scheduling remain; target decrements var_a0 in branch delay slot and loads slot length before decrementing D_800D94F8. Reusing scalar temp_s1 improved register allocation. Replacing loop base reference with direct global worsened score.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795178383.239593,
+  "score_before": 2256,
+  "score_after": 1721
+ },
+ {
+  "function": "func_8003C94C",
+  "text": "Rechecked best score 175. Six local repairs tested: inferred output record, signed count, assignment at use, declaration order, allocation scheduling, and inline scalar; none improved. Remaining differences include prologue store order and floating-point register allocation. Further work should inspect full diff and loop/register lifetime structure; remaining local repair proposals are untested.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795178536.266009,
+  "score_before": 175,
+  "score_after": 175
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Current best score 1770 from source with persistent flag=0x40000000, mask=0xFFFF0FFF, one=1 locals and no cached node+0x6C pointer. Corrected the initial candidate's undefined temp_a0 use. This best matches much of the target but repeatedly reloads node+0x6C (10 extra lw v1) and moves prologue/frame/branches; target saves s1/s4/s3/s2/s0, fs1/fs0 in 0x38 frame, loads node+0x20 to v0 then first link to s0, and reuses object pointer per branch. Caching object pointer reduces instruction count but causes extra saved s5/frame 0x40; the cache source with outer obj scored 2028, branch-local/register-qualified cache also 2028. Explicit loop backedge, record layout, address temporary, constant local and const parameter repairs had no impact. Candidate saved best remains 1770. Try stage obj pointer in caller-saved temp without creating a live range across unrelated stores, and tune declarations for target frame. No reusable game-wide rule.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795178577.61081,
+  "score_before": 1885,
+  "score_after": 1770
+ },
+ {
+  "function": "func_80078860",
+  "text": "Best 1040: signed byte at global object offset 0xE corrected lb and improved 1240. Copying all three words through temp_s1 and caching first gave 1090, removes one instruction but shifts scheduling. Six local repairs on that variant did not improve. Remaining switch table layout, early return jumps and final copy/call scheduling differ.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178639.2288482,
+  "score_before": 1085,
+  "score_after": 1040
  }
 ]

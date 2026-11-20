@@ -46,7 +46,7 @@ char *__repair_addr;
                 } else if (var_ft2 < temp_fv0) {
                     var_ft2 = temp_fv0;
                 }
-__repair_addr = (char *)((var_a3 + (*(f32 **)((char *)(arg0) + 0x34))));
+__repair_addr = (char *)((var_a3 + (*(char **)((char *)(arg0) + 0x34))));
 
                 temp_fv0_2 = (*(f32 *)((char *)(__repair_addr) + 4));
                 if (var_fs4 > temp_fv0_2) {
@@ -54,7 +54,7 @@ __repair_addr = (char *)((var_a3 + (*(f32 **)((char *)(arg0) + 0x34))));
                 } else if (temp_fv0_2 > var_ft0) {
                     var_ft0 = temp_fv0_2;
                 }
-                temp_fv0_3 = (*(f32 *)((char *)((var_a3 + (*(f32 **)((char *)(arg0) + 0x34)))) + 8));
+                temp_fv0_3 = (*(f32 *)((char *)((var_a3 + (*(char **)((char *)(arg0) + 0x34)))) + 8));
                 if (var_fs5 > temp_fv0_3) {
                     var_fs5 = temp_fv0_3;
                 } else if (var_ft1 < temp_fv0_3) {
@@ -79,3 +79,4 @@ __repair_addr = (char *)((var_a3 + (*(f32 **)((char *)(arg0) + 0x34))));
         (*(f32 *)((char *)(temp_s0) + 8)) = (f32) (var_fs5 + (temp_fs0 * 0.5f));
     }
 }
+

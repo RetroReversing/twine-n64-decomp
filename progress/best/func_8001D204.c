@@ -9,11 +9,12 @@ extern int func_80087100(int);
 extern void func_80026004(void *, int, ...);
 
 void func_8001D204(void) {
+  int __repair_call_argument;
+    unsigned char *index;
     char *item;
     char *second;
-    unsigned char *index;
-    int name;
     const char *format;
+    int name;
 
     if (D_80109BB0[0x2F] == 0)
         func_80029068();
@@ -22,8 +23,8 @@ void func_8001D204(void) {
     item = (char *)func_8002638C((int)&D_800BDA68, 0x92);
     if (item == 0)
         return;
-    second = item + 0x28;
     index = &D_801002A2;
+    second = item + 0x28;
     switch (*index) {
     case 7:
         if (D_80112F82 == 0) {
@@ -57,7 +58,10 @@ void func_8001D204(void) {
         break;
     }
     index = &D_801002A2;
-    name = func_80087100(*index + 0x16D);
+    __repair_call_argument = *index + 0x16D;
+    do {
+      name = func_80087100(__repair_call_argument);
+    } while (0);
     format = D_800D2864;
     func_80026004(item, (int)format, name);
     func_80026004(second, (int)format, func_80087100(*index + 0x177));

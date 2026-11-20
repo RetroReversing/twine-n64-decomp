@@ -3,7 +3,7 @@
 s32 func_8000B900();
 typedef struct { u32 f0; u8 pad[4]; } Slot_800C3924;
 extern Slot_800C3924 D_800C3924[];
-typedef struct { u16 f0; u8 pad[6]; } Slot_800C3928;
+typedef struct { s16 f0; u8 pad[6]; } Slot_800C3928;
 extern Slot_800C3928 D_800C3928[];
 extern s16 D_800D94F8;
 extern s16 D_800D94FA;
@@ -34,7 +34,11 @@ var_s4 = D_800D94FA;
     var_a0 = (var_s4 * 0x640) + __base_D_800D9510;
     var_v1 = (var_s4 * 2) + D_800D9500;
 loop_1:
-    if (*(s16 *)var_v1 != arg0) {
+    if (*(s16 *)var_v1 == arg0) {
+        D_800D94FA = var_s4;
+        return var_a0;
+    }
+    {
         var_s4--;
         var_v1 -= 2;
         var_a0 -= 0x640;
@@ -43,24 +47,24 @@ loop_1:
             var_v1 = __repair_loop_constant + 0xE;
             var_s4 = 7;
         }
-        temp_v0 = arg0 * 8;
+        temp_s1 = arg0 * 8;
         if (var_s4 == temp_a3) {
             var_s4 = D_800D94F8 - 1;
             if (var_s4 < 0) {
                 var_s4 = __repair_constant;
             }
             temp_s0 = var_s4 * 0x640;
-            temp_s2 = temp_s0 + __base_D_800D9510;
+            temp_s2 = temp_s0 + D_800D9510;
             temp_s1 = D_800C3928[arg0].f0 << 5;
             D_800D94F8 = var_s4;
-            func_8000B900(arg0, temp_s2, D_800C3924[arg0].f0 + D_F8D70);
-            *(__base_D_800D9510 + (temp_s1 + temp_s0)) = -1;
-            D_800D94FA = var_s4;
+            func_8000B900(temp_s2, D_800C3924[arg0].f0 + D_F8D70, temp_s1);
+            *(s16 *)(D_800D9510 + (temp_s1 + temp_s0)) = -1;
             *(s16 *)(D_800D9500 + (var_s4 * 2)) = arg0;
+            D_800D94FA = var_s4;
             return temp_s2;
         }
         goto loop_1;
     }
-    D_800D94FA = var_s4;
-    return var_a0;
 }
+
+
