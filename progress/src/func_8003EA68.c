@@ -84,7 +84,7 @@ s32 func_8003EA68(void **arg0, void *arg1) {
         } while (var_s0 != NULL);
     }
     if (var_s2 == NULL) {
-        var_s2 = (void *) ((s32) var_s4 & -((s32) var_s4 != 0));
+        return (s32) var_s4 & -((s32) var_s4 != 0);
     }
     return (s32) var_s2;
 }
