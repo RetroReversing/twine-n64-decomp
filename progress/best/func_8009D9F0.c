@@ -27,7 +27,7 @@ int *__repair_home2 = &arg2;
     temp_v0 = arg0 + (M2C_FIELD(arg0, s16 *, 0x188) * 0x10);
     temp_v0_2 = temp_v0 + 0x168;
     M2C_FIELD(temp_v0, s16 *, 0x168) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 0) - 0x20) << 0xA) * factor) + 0x4000) >> 0xF) * 2);
-    M2C_FIELD(temp_v0_2, s16 *, 2) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 2) - 0x20) << 0xA) * factor) + 0x4000) >> 0xF) * 2);
+    M2C_FIELD(temp_v0_2, s16 *, 2) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 2) - 0x20) << 0xA) * 0x3333) + 0x4000) >> 0xF) * 2);
     M2C_FIELD(temp_v0_2, s16 *, 4) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 4) - 0x10) << 0xA) * factor) + 0xFCCD1000) >> 0xF) * 2);
     M2C_FIELD(temp_v0_2, s16 *, 6) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 6) - 0x10) << 0xA) * factor) + 0x04003C00) >> 0xF) * 2);
     M2C_FIELD(temp_v0_2, s16 *, 8) = (s16) (((s32) ((((M2C_FIELD(arg1, s16 *, 8) - 8) << 0xA) * 0x4B17) + 0xFFC91B1C) >> 0xF) * 2);
@@ -37,6 +37,6 @@ int *__repair_home2 = &arg2;
     temp_t8 = M2C_FIELD(arg1, s16 *, 0xE) - 4;
     temp_t9 = temp_t8 << 0xA;
     M2C_FIELD(temp_v0_2, s16 *, 0xE) = (s16) (((s32) (((((((temp_t8 * 0x7400) << 6) + temp_t9) * 4) - temp_t9) * 4) + 0x040D6B40) >> 0xF) * 2);
-    func_8009F1D4(arg0, (*__repair_home2), arg3);
+    do { func_8009F1D4(arg0, (*__repair_home2), arg3); } while (0);
     M2C_FIELD(arg0, s16 *, 0x188) ^= 1;
 }

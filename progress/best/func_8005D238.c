@@ -18,6 +18,11 @@ extern f64 D_800D4138;
 extern f64 D_800D4140;
 
 void func_8005D238(void *arg0) {
+    f32 __repair_store_0;
+    f32 __repair_store_1;
+    f32 __repair_store_2;
+    void * __repair_hoisted;
+
     f32 temp_ft0;
     f32 temp_fv1;
     void *temp_a1;
@@ -28,12 +33,13 @@ void func_8005D238(void *arg0) {
     temp_v1 = M2C_FIELD(arg0, void **, 0x20);
     M2C_FIELD(temp_s1, u16 *, 0x1C) = (u16) (M2C_FIELD(temp_s1, u16 *, 0x1C) - 1);
     M2C_FIELD(arg0, f32 *, 0x54) = (f32) ((f64) M2C_FIELD(arg0, f32 *, 0x54) + D_800D4138);
+    __repair_hoisted = M2C_FIELD(arg0, void **, 0x20);
     if (temp_v1 != NULL) {
         temp_fv1 = M2C_FIELD(arg0, f32 *, 0x28);
         temp_ft0 = M2C_FIELD(M2C_FIELD(temp_v1, void **, 0x20), f32 *, 0x5C);
         if (temp_ft0 < temp_fv1) {
             M2C_FIELD(arg0, f32 *, 0x28) = temp_ft0;
-            func_800617D8(M2C_FIELD(arg0, void **, 0x20), arg0 + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+            func_800617D8(__repair_hoisted, arg0 + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
             goto block_5;
         }
         if (((s16) M2C_FIELD(temp_s1, u16 *, 0x1C) <= 0) || (M2C_FIELD(M2C_FIELD(temp_v1, void **, 0x3C), f32 *, 0x24) < temp_fv1)) {
@@ -41,9 +47,12 @@ void func_8005D238(void *arg0) {
         }
         temp_a1 = arg0 + 0x24;
         do { func_800452AC(temp_s1 + 4, temp_a1, temp_a1); } while (0);
-        M2C_FIELD(temp_s1, f32 *, 4) = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 4) * D_800D4140);
-        M2C_FIELD(temp_s1, f32 *, 0xC) = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 0xC) * D_800D4140);
-        M2C_FIELD(temp_s1, f32 *, 8) = (f32) (M2C_FIELD(temp_s1, f32 *, 8) + ((M2C_FIELD(arg0, f32 *, 0x54) * 0.001f) + 0.0012760417f));
+        __repair_store_0 = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 4) * D_800D4140);
+        __repair_store_1 = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 0xC) * D_800D4140);
+        __repair_store_2 = (f32) (M2C_FIELD(temp_s1, f32 *, 8) + ((M2C_FIELD(arg0, f32 *, 0x54) * 0.001f) + 0.0012760417f));
+        M2C_FIELD(temp_s1, f32 *, 4) = __repair_store_0;
+        M2C_FIELD(temp_s1, f32 *, 0xC) = __repair_store_1;
+        M2C_FIELD(temp_s1, f32 *, 8) = __repair_store_2;
         M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 1);
         return;
     }

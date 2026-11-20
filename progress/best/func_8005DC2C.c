@@ -10,6 +10,7 @@ typedef struct { s32 w[3]; } __repair_words3;
 typedef struct { f32 v[3]; } __repair_vec3;
 typedef struct { unsigned char pad0[36]; s32 x,y,z; unsigned char pad30[12]; f32 a,b,c; unsigned char pad48[20]; s32 flags; unsigned char pad60[12]; void *sub; unsigned char pad70[8]; s16 t,u,v; } R;
 void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,void *arg3) {
+    s8 *__base_D_80109B1E;
  s16 var_v0; s32 temp_v1,var_a1; u16 var_a2,temp_v0_2; void *temp_s0,*temp_v0;
  temp_v0=func_80016410(0x50,arg0,arg1);
  if(temp_v0!=NULL) {
@@ -18,9 +19,9 @@ void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,void *arg3) {
   temp_v1=*(u8*)((char*)(*(void**)((char*)arg2+0x24))+0x1E);
   switch(temp_v1) {
   default: var_v0=0x11; if(temp_v1==0x2D) ((R*)temp_v0)->t=var_v0; break;
+  case 0x90: (*__base_D_80109B1E)=1; ((R*)temp_v0)->t=0x60; break;
+  case 0x8E: (*(__base_D_80109B1E = &D_80109B1E))=1; ((R*)temp_v0)->t=0x5F; break;
   case 0x2F: ((R*)temp_v0)->t=0x12; break;
-  case 0x8E: D_80109B1E=1; ((R*)temp_v0)->t=0x5F; break;
-  case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   }
   *(u16*)((char*)temp_s0+0x34)=*(u16*)((char*)arg2+0x2C);
   *(u16*)((char*)temp_s0+0x40)=*(u16*)((char*)arg2+0x2E);

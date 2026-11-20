@@ -31,7 +31,7 @@ s32 func_8003E6EC();
 s32 func_80044D28();
 void *func_80087100();
 s32 sprintf();
-extern void *D_800B5B14;
+extern void *volatile D_800B5B14;
 extern char D_800BD640[];
 extern u16 D_800BD680;
 extern s16 D_800BD682;
