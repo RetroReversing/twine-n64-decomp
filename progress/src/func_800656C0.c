@@ -66,8 +66,9 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     func_8003E6EC(*D_800CA31C, arg0, 0);
     (*(s32 *)((char *)(*((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(arg0) + 0x20));
     func_800480A0(arg0, *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4))));
-    temp_a2_2 = *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)));
-    (((__repair_record_temp_a2_2*)temp_a2_2)->field_28) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_10);
-    (((__repair_record_temp_a2_2*)temp_a2_2)->field_2C) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_14);
-    (((__repair_record_temp_a2_2*)temp_a2_2)->field_30) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_18);
+    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)D_80109688 + (*(s8 *)((char *)temp_s0 + 0x182) * 4));
+    (entry->field_28) = (s32) (entry->field_10);
+    (entry->field_2C) = (s32) (entry->field_14);
+    (entry->field_30) = (s32) (entry->field_18);
+    }
 }

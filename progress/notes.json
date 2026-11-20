@@ -6528,14 +6528,6 @@
   "score_after": 570
  },
  {
-  "function": "func_800656C0",
-  "text": "Corrected uninitialized temp_a2 by loading arg0+0x44 before storing +0x50 (score 2330); historical best 2230 is not yet rechecked. Tried early temp_s0 load and six local repairs with no improvement. Target initial sequence copies three-word aggregates; candidate interleaves scalar stores and preserves old +0x2c before overwrite, unlike target. Reconstruct vector aggregate assignments and check actual semantics against assembly; remaining s0/s1 allocation differs.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795138908.6101198,
-  "score_before": 1970,
-  "score_after": 1970
- },
- {
   "function": "func_8007C72C",
   "text": "Best score 1780, improved from 3210. Key repair: represent the local three-word vector as struct { s32 x; f32 y; s32 z; }; copying the table entry with struct assignment and then adjusting y produced grouped lw/sw plus lwc1/sub, closely matching target. Further local record/address/const repairs had equal score or stopped when project progress changed. Remaining assembly mismatch starts at prologue: target copies $a1 to $a3 and keeps $a0 in $s1, while candidate preserves it differently; branches consequently target wrong offsets. Target table access uses D_80109688[index] with pointer values. Candidate currently has correct 0x10/0x14/0x18 stride after struct copy. Next consider actual function prototype/register pressure and argument preservation, then branch/control flow.",
   "by": "codex-gpt-6-luna-12",
@@ -13520,14 +13512,6 @@
   "score_after": 93086
  },
  {
-  "function": "func_800656C0",
-  "text": "Improved verified best 2230 to 490 using five struct vec assignments, with temp_s0 loaded before them. This also fixes the previous candidate copying the old 0x44 value to 0x50. Remaining differences: constant 1 allocated in v1 instead of a3, float constant and halfword load ordering, and final table access registers. Explicit register local for 1 did not improve. Saved best is correct structured-copy version.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795179068.4361448,
-  "score_before": 1970,
-  "score_after": 490
- },
- {
   "function": "func_80097EF8",
   "text": "Session context limit: improved 3848 to 3573. Corrected truncated source pointer in backwards copy; reused count load; explicit goto loop and widening var_v0/var_a3 improved score. Candidate still differs substantially in loop structure and stack allocation (0x20 versus target 0x28); compare target branches and argument lifetimes, and verify call prototypes. Six recent local repairs failed before widening. Continue from revision 73b56f63bc941f248d51.",
   "by": "codex-gpt-6.1-terra-1",
@@ -17182,14 +17166,6 @@
   "created_at": 1795183057.098421,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_800656C0",
-  "text": "Best 490/512 bytes (96.1%), rechecked. Tried tying the constant 1 to temp_a3 for field 0x17F and D_800E1A16, then also using it as func_80070340's fourth argument; best remained 490. Local repair variants didn't improve. Target keeps value 1 in $a3 from the initial field store through global D_800E1A16 and into the call; candidate materializes it in $v1, with one extra instruction and different later scheduling. Other remaining diffs include lhu/mask registers around offset 0xC and pointer/table register allocation near D_80109688. Save baseline, then experiment with preserving one temp_a3 live across those stores/call and reorder the float 1.0 load before lhu.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795183059.195812,
-  "score_before": 490,
-  "score_after": 490
  },
  {
   "function": "func_8005D238",
@@ -30600,14 +30576,6 @@
   "score_after": 920
  },
  {
-  "function": "func_800656C0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Unable to verify historical score 490 or compile a register-local variant: gcc-2.7.2-kmc toolchain is unavailable. Recheck baseline and inspect diff once toolchain is restored.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795193810.6456041,
-  "score_before": 490,
-  "score_after": 490
- },
- {
   "function": "func_800070A4",
   "text": "[Released without compiling it once; notes not checked by a compile.] Claim compile unavailable: gcc-2.7.2-kmc toolchain not installed. Attempted required next signedness family; cached blocked toolchain failure. Existing historical score 140 candidate is plausible (u64 osGetTime, zero D_80109DD8, save time, zero D_80102CC8, store time at D_80115320), but assembly shows both halves explicitly and call has args 0,0. No current match evidence. Restore compiler availability and compile baseline before tuning.",
   "by": "codex-gpt-6-luna-13",
@@ -34054,5 +34022,37 @@
   "created_at": 1795193812.188962,
   "score_before": 625,
   "score_after": 625
+ },
+ {
+  "function": "func_800656C0",
+  "text": "Corrected uninitialized temp_a2 by loading arg0+0x44 before storing +0x50 (score 2330); historical best 2230 is not yet rechecked. Tried early temp_s0 load and six local repairs with no improvement. Target initial sequence copies three-word aggregates; candidate interleaves scalar stores and preserves old +0x2c before overwrite, unlike target. Reconstruct vector aggregate assignments and check actual semantics against assembly; remaining s0/s1 allocation differs.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795138908.6101198,
+  "score_before": 1970,
+  "score_after": 1970
+ },
+ {
+  "function": "func_800656C0",
+  "text": "Improved verified best 2230 to 490 using five struct vec assignments, with temp_s0 loaded before them. This also fixes the previous candidate copying the old 0x44 value to 0x50. Remaining differences: constant 1 allocated in v1 instead of a3, float constant and halfword load ordering, and final table access registers. Explicit register local for 1 did not improve. Saved best is correct structured-copy version.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795179068.4361448,
+  "score_before": 1970,
+  "score_after": 490
+ },
+ {
+  "function": "func_800656C0",
+  "text": "Best 490/512 bytes (96.1%), rechecked. Tried tying the constant 1 to temp_a3 for field 0x17F and D_800E1A16, then also using it as func_80070340's fourth argument; best remained 490. Local repair variants didn't improve. Target keeps value 1 in $a3 from the initial field store through global D_800E1A16 and into the call; candidate materializes it in $v1, with one extra instruction and different later scheduling. Other remaining diffs include lhu/mask registers around offset 0xC and pointer/table register allocation near D_80109688. Save baseline, then experiment with preserving one temp_a3 live across those stores/call and reorder the float 1.0 load before lhu.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795183059.195812,
+  "score_before": 490,
+  "score_after": 490
+ },
+ {
+  "function": "func_800656C0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Unable to verify historical score 490 or compile a register-local variant: gcc-2.7.2-kmc toolchain is unavailable. Recheck baseline and inspect diff once toolchain is restored.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795193810.6456041,
+  "score_before": 490,
+  "score_after": 490
  }
 ]
