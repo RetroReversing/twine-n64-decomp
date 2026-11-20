@@ -4728,14 +4728,6 @@
   "score_after": 165
  },
  {
-  "function": "func_80017EC0",
-  "text": "Best current score 2006; remaining mismatch centered on prologue/frame: target saves ra at 0x24 and s4 at 0x20, candidate allocates 0x30 and lacks saved s4; branch targets too short by 0x0c/0x10. Rewrote second branch to load temp_a0 from node+0x6c before use, but score regressed to 2217 due to frame/register allocation. Restored best and tried loop-backedge, record layouts, field records, address temporaries, constants, passthrough args; no improvements. Correct operations in best assembly correspond largely, but temp_a0 is uninitialized in C best. Next investigate local lifetime/register pressure and source order to induce target's s4 save and 0x38 frame, then align stores.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795138526.522295,
-  "score_before": 1885,
-  "score_after": 1885
- },
- {
   "function": "func_8002F560",
   "text": "Rechecked saved baseline 660. Replacing var_a1 = temp_v1_6 - 8 with temp_v0_5 worsened score to 1465. Six local variants (scalar reuse, return flag, loop backedge, inferred layout, branch orientation, masked reuse) failed to improve. Remaining differences start with register allocation at first load and include one missing and one extra instruction; investigate lifetime/order of first packed-word update against target.",
   "by": "codex-gpt-6.1-terra-1",
@@ -9264,14 +9256,6 @@
   "score_after": 656
  },
  {
-  "function": "func_80017EC0",
-  "text": "Current best score 1770 from source with persistent flag=0x40000000, mask=0xFFFF0FFF, one=1 locals and no cached node+0x6C pointer. Corrected the initial candidate's undefined temp_a0 use. This best matches much of the target but repeatedly reloads node+0x6C (10 extra lw v1) and moves prologue/frame/branches; target saves s1/s4/s3/s2/s0, fs1/fs0 in 0x38 frame, loads node+0x20 to v0 then first link to s0, and reuses object pointer per branch. Caching object pointer reduces instruction count but causes extra saved s5/frame 0x40; the cache source with outer obj scored 2028, branch-local/register-qualified cache also 2028. Explicit loop backedge, record layout, address temporary, constant local and const parameter repairs had no impact. Candidate saved best remains 1770. Try stage obj pointer in caller-saved temp without creating a live range across unrelated stores, and tune declarations for target frame. No reusable game-wide rule.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795178577.61081,
-  "score_before": 1885,
-  "score_after": 1770
- },
- {
   "function": "func_80073508",
   "text": "Best verified score 225 (75/75 instructions), candidate revision f7ece677cc8ec2057ee2. Only 6 diffs: five FPR allocation differences around computed temp_fv1 (target uses $fv1 then $f2; candidate uses $f0 throughout) and one branch opcode bne vs target beqz. Local repairs float_zero_local, assignment_at_use, global_scalar_type did not improve; float_zero_local notably regressed. Try separating subtraction and multiplication into explicit f32 locals to guide FPR allocation, and inspect final branch condition's exact compare polarity. Removed unused var_s0 to make existing extern globals compile.",
   "by": "codex-gpt-6-luna-17",
@@ -11694,14 +11678,6 @@
   "created_at": 1795182905.814571,
   "score_before": 3875,
   "score_after": 3865
- },
- {
-  "function": "func_80017EC0",
-  "text": "Improved 1770 to 200. Saved candidate stages three integer components and caches destination pointers. Remaining differences are store scheduling in both vector-copy blocks: target stores three words before float and zero; compiler schedules float and zero first. Volatile individual stores did not change scheduling. Explore typed destination structs or aliasing relationships.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795182906.885809,
-  "score_before": 1770,
-  "score_after": 200
  },
  {
   "function": "func_80048A04",
@@ -18728,14 +18704,6 @@
   "score_after": 1715
  },
  {
-  "function": "func_80017EC0",
-  "text": "Started from draft; baseline/current best score 200 after reordering arg2 relative to three-word field copies. Tried moving float stores before vector stores and staging vector loads, but score/diff stayed at 200. 89 instructions match largely; 12 differences are register/order around vector copies and float/zero stores (first target mismatch at instruction 46). Revisit source expression/aggregate struct assignment and register allocation; existing best candidate retained.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795191742.054923,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "func_80022C04",
   "text": "Reverified 625 at 99a9fe5ba205ddb882c6. The prefix through the color store matches except for the epilogue branch distance. The final mode arms need separate lw/addiu/and chains clearing 0xFC before evaluating arg1, then a shared OR/store. Candidate hoists the clear to the shared tail and folds the second arm into andi 0x1C / ori 0xC instead of andi 7 / ori 3 / sll 2. Explicit shared store (including signed narrow casts), unsigned shift, second-arm volatile field load and split retained-bit expressions failed to improve. Next test a 32-bit bitfield layout with six bits at positions 2\u20137 to see whether GCC emits the original insertion sequence.",
   "by": "codex-gpt-6.2-sol-6",
@@ -19600,14 +19568,6 @@
   "score_after": 1090
  },
  {
-  "function": "func_80017EC0",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795193408.448731,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "func_80018364",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-8",
@@ -19782,14 +19742,6 @@
   "created_at": 1795193622.814336,
   "score_before": 665,
   "score_after": 665
- },
- {
-  "function": "func_80017EC0",
-  "text": "Rechecked baseline 200: only two sets of vector stores scheduled after float/zero stores instead of before. Struct assignment for first vector caused extra saved register and frame, score 747. Volatile float/zero stores alone leave same 200. Explore aggregate layout/aliasing or scheduling flags to keep vector stores before subsequent fields.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795193625.95522,
-  "score_before": 200,
-  "score_after": 200
  },
  {
   "function": "func_8000BBB4",
@@ -31782,5 +31734,61 @@
   "created_at": 1795199701.859741,
   "score_before": 180,
   "score_after": 175
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Best current score 2006; remaining mismatch centered on prologue/frame: target saves ra at 0x24 and s4 at 0x20, candidate allocates 0x30 and lacks saved s4; branch targets too short by 0x0c/0x10. Rewrote second branch to load temp_a0 from node+0x6c before use, but score regressed to 2217 due to frame/register allocation. Restored best and tried loop-backedge, record layouts, field records, address temporaries, constants, passthrough args; no improvements. Correct operations in best assembly correspond largely, but temp_a0 is uninitialized in C best. Next investigate local lifetime/register pressure and source order to induce target's s4 save and 0x38 frame, then align stores.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795138526.522295,
+  "score_before": 1885,
+  "score_after": 1885
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Current best score 1770 from source with persistent flag=0x40000000, mask=0xFFFF0FFF, one=1 locals and no cached node+0x6C pointer. Corrected the initial candidate's undefined temp_a0 use. This best matches much of the target but repeatedly reloads node+0x6C (10 extra lw v1) and moves prologue/frame/branches; target saves s1/s4/s3/s2/s0, fs1/fs0 in 0x38 frame, loads node+0x20 to v0 then first link to s0, and reuses object pointer per branch. Caching object pointer reduces instruction count but causes extra saved s5/frame 0x40; the cache source with outer obj scored 2028, branch-local/register-qualified cache also 2028. Explicit loop backedge, record layout, address temporary, constant local and const parameter repairs had no impact. Candidate saved best remains 1770. Try stage obj pointer in caller-saved temp without creating a live range across unrelated stores, and tune declarations for target frame. No reusable game-wide rule.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795178577.61081,
+  "score_before": 1885,
+  "score_after": 1770
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Improved 1770 to 200. Saved candidate stages three integer components and caches destination pointers. Remaining differences are store scheduling in both vector-copy blocks: target stores three words before float and zero; compiler schedules float and zero first. Volatile individual stores did not change scheduling. Explore typed destination structs or aliasing relationships.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795182906.885809,
+  "score_before": 1770,
+  "score_after": 200
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Started from draft; baseline/current best score 200 after reordering arg2 relative to three-word field copies. Tried moving float stores before vector stores and staging vector loads, but score/diff stayed at 200. 89 instructions match largely; 12 differences are register/order around vector copies and float/zero stores (first target mismatch at instruction 46). Revisit source expression/aggregate struct assignment and register allocation; existing best candidate retained.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795191742.054923,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795193408.448731,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Rechecked baseline 200: only two sets of vector stores scheduled after float/zero stores instead of before. Struct assignment for first vector caused extra saved register and frame, score 747. Volatile float/zero stores alone leave same 200. Explore aggregate layout/aliasing or scheduling flags to keep vector stores before subsequent fields.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795193625.95522,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_80017EC0",
+  "text": "Best remains score 200, rechecked; all attempts 89 instructions, no better after six no-better compiles. Two reorder experiments (moving zero store before float store in each block) left score unchanged. Target\u2019s copies are ordered: copy arg0 words to destination first, then swc1 arg2, then sw zero tail. Candidate has float then zero before word copies. Exact C statement permutations did not change the compiler output, so use typed three-word struct assignment or explicit dependency staging to affect source schedule/register use while preserving target order. Target carries $s0 node, $s1 arg0, $s2 flag, $s3 mask, $s4 constant 1; uses node status comparisons and distance helper. Remaining 12 diff rows primarily stores reordered. Try local aggregate assignment per target\u2019s grouped three lw then three sw; existing game knowledge supports three-word struct assignment producing grouped loads/stores, applicable directly here. Recheck score before further tuning.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198247.522846,
+  "score_before": 200,
+  "score_after": 200
  }
 ]
