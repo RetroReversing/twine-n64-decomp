@@ -1,12 +1,53 @@
-s32 func_80002BD0(void *, void *, u16); u32 func_80045CF8(void *); s32 func_8007ADD0(void *);
-s32 func_8007AEA4(void *arg0, void *arg1, s32 arg2) {
- void *temp_fp; volatile s32 saved; volatile s32 pad[2]; unsigned temp_v0,var_s1,temp_s5,var_s3; u16 temp_a1; register void *var_s0;
- temp_fp=*(void **)((char *)arg0+0x6C); var_s3=0; saved=*(u8 *)((char *)arg1+arg2*4-4);
-loop_1: temp_v0=arg2-1; temp_s5=func_80045CF8((void *)saved);
- if(arg2-1!=0){var_s1=0;var_s0=arg1;
-loop_3: if(*(u8 *)((char *)var_s0+4)<temp_s5){var_s1++;goto block_9;}
- temp_a1=*(u16 *)((char *)var_s0+2); if(temp_a1!=0){++var_s1;
- if((func_8007ADD0(arg0)<<24)!=0){*(u8 *)((char *)temp_fp+0x7F)=*(u8 *)((char *)var_s0+1);func_80002BD0(arg0,arg1,*(u16 *)((char *)var_s0+2));return 1;}
-block_9: var_s0=(char *)var_s0+4;if(var_s1>=temp_v0)goto block_10;goto loop_3;} return 0;}
-block_10: var_s3++;if(var_s3>=3U)return 0;goto loop_1;
+typedef struct {
+    u8 weight;
+    u8 variant;
+    u16 id;
+} SelectionEntry;
+
+s32 func_80002BD0(void *, s32);
+u32 func_80045CF8(s32);
+s32 func_8007ADD0(void *, s32);
+
+s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count) {
+    u8 *details = *(u8 **)((u8 *)actor + 0x6C);
+    volatile s32 spare[2];
+    volatile s32 weight = entries[count - 1].weight;
+    u32 attempt = 0;
+    u32 index, threshold, limit;
+    u8 *entry;
+    u16 id;
+
+retry:
+    index = 0;
+    threshold = func_80045CF8(weight);
+    limit = count - 1;
+    if (!limit) {
+        ++attempt;
+        goto check_attempt;
+    }
+    entry = (u8 *)entries;
+scan:
+    if (entry[4] < threshold) {
+        index++;
+        goto advance;
+    }
+    id = *(u16 *)(entry + 2);
+    if (id == 0)
+        return 0;
+    if (((u32)func_8007ADD0(actor, id) << 24) == 0) {
+        index++;
+        goto advance;
+    }
+    details[0x7F] = entry[1];
+    func_80002BD0(actor, *(u16 *)(entry + 2));
+    return 1;
+advance:
+    entry += 4;
+    if (index < limit)
+        goto scan;
+    ++attempt;
+check_attempt:
+    if (attempt < 3)
+        goto retry;
+    return 0;
 }

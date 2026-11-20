@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80018318(void *);                          /* extern */
 M2C_UNK func_80022B60(M2C_UNK);                     /* extern */
-M2C_UNK func_80022E5C(u8);                          /* extern */
+void func_80022E5C(s32);                          /* extern */
 M2C_UNK func_80022E88(M2C_UNK);                     /* extern */
 M2C_UNK func_80022EB8(s32, s32, s32);               /* extern */
 extern s32 D_800BD64C;
@@ -44,12 +44,12 @@ void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
             func_80022B60(0);
             var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
             var_v0_2 = -((arg1 & 0xFF) == 0) & 0x1C;
-            ((__repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
+            ((volatile __repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
         } else {
             func_80022E88(3);
             func_80022B60(3);
-            var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
-            var_v0_2 = ((-((arg1 & 0xFF) == 0) & 7) | 3) * 4;
+            var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28; var_v1 &= ~0xFC;
+            var_v0_2 = ((-((arg1 & 0xFF) == 0) & 7) | 3); var_v0_2 <<= 2;
             ((__repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
         }
     }

@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
 
-s32 func_800645A4();
+s32 func_800645A4(s32);
 extern char D_800C469C[];
 extern char D_800C46A1[];
 extern char D_800C471E[];
@@ -24,8 +24,10 @@ void func_80064630(void *arg0) {
     var_s2 = 0;
     var_a0 = 0;
     var_s1 = temp_s5;
+    {
+    u8 *flag = &D_80112F6C;
     do {
-        if (D_80112F6C != 0) {
+        if (*flag != 0) {
             ((__repair_record_var_s1*)var_s1)->field_1BC = (u16) *(u16 *)(D_800C7C16 + var_a0);
         } else {
             ((__repair_record_var_s1*)var_s1)->field_1BC = 0U;
@@ -34,6 +36,7 @@ void func_80064630(void *arg0) {
         ++var_s2;
         var_a0 += 4;
     } while (var_s2 < 0x20U);
+    }
     var_s2 = 0;
     var_s3 = 0;
     var_s4 = 0;

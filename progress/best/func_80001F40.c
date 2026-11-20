@@ -12,7 +12,7 @@ short __repair_constant = 4;
 
     s32 unused[2];
     s16 **var_t1;
-    s16 temp_a1;
+    s32 temp_a1;
     s32 var_a3;
     u32 var_t2;
     s32 var_t3;
@@ -68,7 +68,7 @@ block_25:
 
             }
 block_26:
-            var_t2 += __repair_constant;
+            var_t2 += 4;
             var_a3 += 1;
             var_t1 += 1;
             if (*(s16 **)((char *)&D_800AE724 + var_t2) == 0) {

@@ -34,8 +34,9 @@ u32 func_800180D4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4) {
     void *temp_a1;
     void *temp_v0;
 
+    var_s0 = arg0;
     var_s5 = 0;
-    temp_v0 = func_80018510(arg0, arg3);
+    temp_v0 = func_80018510(arg3);
     var_s7 = arg4 & 0xFFFF;
     if (temp_v0 == NULL) {
         return 0U;
@@ -47,6 +48,9 @@ u32 func_800180D4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4) {
 loop_4:
         temp_a0 = *(u8 *)var_s0;
         switch (temp_a0) {
+        case 9:
+            var_s1 = ((var_s1 >> 5) + 1) << 5;
+            goto block_21;
         case 10:
             var_v0 = var_s1;
             if (var_s7 != 0) {
@@ -71,13 +75,13 @@ loop_4:
         case 4:
             var_s0 += 1;
             var_s4 += 1;
-            var_s7 = *(u8 *)var_s0 * 2;
+            var_s7 = *(s8 *)var_s0 * 2;
             goto block_21;
         default:
             *(u8 *)var_s0 = temp_a0;
             temp_s3 = temp_a0 & 0xFF;
             temp_s2 = temp_s3 - 0x21;
-            if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0) & 0xFFFF)) < var_s7) != 0))) {
+            if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0, var_s0) & 0xFFFF)) < var_s7) != 0))) {
                 temp_v1 = M2C_FIELD(temp_v0, s32 *, 0xC);
                 if (temp_v1 != 0) {
                     temp_a2 = temp_s2 * 8;
@@ -105,8 +109,6 @@ loop_4:
             }
             /* Duplicate return node #24. Try simplifying control flow for better match */
             return var_v0;
-        case 9:
-            var_s1 = ((var_s1 >> 5) + 1) << 5;
 block_21:
             var_s4 += 1;
             var_s0 += 1;
@@ -124,3 +126,4 @@ block_22:
         return var_v0;
     }
 }
+

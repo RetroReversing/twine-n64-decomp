@@ -8,6 +8,7 @@ extern u32 D_80100914;
 extern u8 D_80109A35;
 
 void func_80044410(s8 arg0) {
+    volatile s32 padding[4];
     s32 var_s2;
     u32 temp_v0_2;
     u32 var_s1;
