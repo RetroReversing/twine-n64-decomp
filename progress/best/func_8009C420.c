@@ -4,16 +4,16 @@ s32 func_800982B4(u32);
 void func_8009876C(void *);
 s32 func_800988D8(void *);
 void func_80098B14(void *, s32);
-u8 func_80098D18(s32, s32, s32, u32);
+s32 func_80098D18(s32, s32, s32, u32);
 extern u8 D_8010D724[];
 
-s32 func_8009C420(u32 arg0, s16 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9, u8 arg10) {
+s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9, u8 arg10) {
     s32 temp_v0;
     s32 var_s4;
     s32 var_v0;
     u32 temp_s5;
     u32 temp_s7;
-    u8 temp_v0_2;
+    s32 temp_v0_2;
     u8 *temp_s0;
     s16 temp_v0_3;
 
@@ -23,7 +23,7 @@ s32 func_8009C420(u32 arg0, s16 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
     temp_v0 = func_800982B4(arg0);
     if (temp_v0 != 0) {
         temp_v0_2 = func_80098D18(temp_s7 & 0xFF, arg0 & 0xFF, arg1 & 0xFFFF, (u32)(var_s4 & 0xFF) >> 7);
-        if (temp_v0_2 != -1U) {
+        if (temp_v0_2 != -1) {
             temp_s0 = D_8010D724 + temp_v0_2 * 0x1A0;
             func_8009876C(temp_s0);
             *(s32 *)(temp_s0 + 0x24) = (*(s32 *)(temp_s0 + 0x24) & 0x10) | 2;

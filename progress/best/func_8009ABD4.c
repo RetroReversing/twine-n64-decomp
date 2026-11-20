@@ -84,7 +84,7 @@ s32 func_8009ABD4(s32 arg0, void *arg1, s32 arg2) {
         }
         break;
     }
-    temp_v0_3 = (u32) M2C_FIELD(arg1, u8 *, 0);
+    temp_v0_3 = M2C_FIELD(arg1, u32 *, 0);
     temp_v1_6 = temp_v0_3 >> 0x10;
     if (temp_v0_4 < -0x8000) {
         var_a2 = -0x8000;

@@ -43,7 +43,7 @@ extern u32 D_800E3F30[6];
 extern void *(*D_8010017C)(s32, s32);
 extern u8 D_8010086C;
 
-s32 func_80088040(u32 file, u32 rate, s8 arg2, s8 arg3, u8 arg4, u8 arg5, u8 arg6)
+s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6)
 {
     s32 index;
     s32 offset;

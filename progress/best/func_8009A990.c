@@ -15,7 +15,7 @@ s32 func_8009A990(void *arg0, void *arg1) {
         a0=(s32)arg0; a1=(s32)arg1;
     } else {
         u16 t=*(u16 *)(obj+0x50);
-        s16 d;
+        s32 d;
         a1=t; a1+=p[0]; d=t-p[2]; a0=p[2];
         if (d>=0) { s1=0x7F; if(d<0x80)s1=d; } else s1=0;
         { s16 e=(s16)a1; if(e>=0){s0=0x7F;if(0x80>e)s0=e;}else s0=0; }

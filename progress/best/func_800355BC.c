@@ -43,7 +43,7 @@ void func_800355BC(void *arg0) {
                                 if (D_8010A924 != 8) {
                                     temp_v1 = D_80115328;
                                     D_8010A924 = 8;
-                                    D_80115328 = temp_v1 + 8;
+                                    D_80115328 = temp_v1 + 2;
                                     ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
                                     (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1AC8;
                                 }
@@ -53,7 +53,7 @@ void func_800355BC(void *arg0) {
                                     switch (temp_v1_2) {
 case 2:
                                         temp_a0 = D_80115328;
-                                        D_80115328 = temp_a0 + 8;
+                                        D_80115328 = temp_a0 + 2;
                                         ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
                                         (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
                                         break;
@@ -61,13 +61,13 @@ case 2:
  /* irregular */
                                     case 4:
                                         temp_a0 = D_80115328;
-                                        D_80115328 = temp_a0 + 8;
+                                        D_80115328 = temp_a0 + 2;
                                         ((__repair_field_0 *)temp_a0)->value = 0xFC119823;
                                         (*(s32 *)((char *)(temp_a0) + 4)) = 0xFF32FF7F;
                                         break;
                                     case 1:
                                         temp_v1_3 = D_80115328;
-                                        D_80115328 = temp_v1_3 + 8;
+                                        D_80115328 = temp_v1_3 + 2;
                                         ((__repair_field_0 *)temp_v1_3)->value = 0xFC121824;
                                         (*(s32 *)((char *)(temp_v1_3) + 4)) = 0xFF33FFFF;
                                         break;
@@ -76,7 +76,7 @@ case 2:
                                 temp_a0 = D_80115328;
                                 ((__repair_field_0 *)temp_a0)->value = 0xDA380003;
                                 var_s3 = 0;
-                                D_80115328 = temp_a0 + 8;
+                                D_80115328 = temp_a0 + 2;
                                 (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000);
                             }
                             func_8003438C(var_s2, arg0);

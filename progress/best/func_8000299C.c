@@ -5,7 +5,7 @@ extern s32 D_80102ED8;
 
 s32 func_8000299C(Obj299C *o, s32 id) {
     s32 other = 1;
-    u8 t;
+    s32 t;
 
     if ((o->info->f14 & 0x200000) && D_80102ED8 == 0) {
         other = 0;
@@ -15,7 +15,6 @@ s32 func_8000299C(Obj299C *o, s32 id) {
             id = 0x2FA;
             break;
         case 0x106:
-        case 0x10B:
         case 0x124:
         case 0x125:
         case 0x128:

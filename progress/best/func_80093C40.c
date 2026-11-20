@@ -12,7 +12,7 @@ void func_80093C40(void *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5)
     f32 temp_fv1_4;
     f32 temp_fv1_5;
     s32 temp_s0;
-    u32 var_v0;
+    
     u32 var_a1;
     u32 var_a1_2;
     register f32 temp_fv1;
@@ -25,8 +25,8 @@ void func_80093C40(void *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5)
     temp_s0 = (*(s32 *)((char *)(arg0) + 0x34));
     if ((*(s32 *)((char *)(arg0) + 8)) & 0x100000) {
         temp_fv1 = (*(f32 *)((char *)(arg0) + 0x40)) * arg1 * 127.0f;
-        var_v0 = (u32) temp_fv1 & 0xFF;
-        var_a1 = var_v0 >= 0x80U ? 0x7F : var_v0;
+        var_a1_3 = (u32) temp_fv1 & 0xFF;
+        var_a1 = var_a1_3 >= 0x80U ? 0x7F : var_a1_3;
     } else {
         temp_fv1_2 = arg1 * 127.0f;
         var_a1 = (u8) (u32) temp_fv1_2;
@@ -49,9 +49,9 @@ void func_80093C40(void *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5)
     func_8008E594(temp_s0, var_a1_3);
     temp_fv1_5 = arg5 * 8192.0f;
     var_v1_3 = (u32) temp_fv1_5;
-    var_v0 = (u32)var_v1_3 < 0x4000U;
+    var_a1_3 = (u32)var_v1_3 < 0x4000U;
     var_v0_2 = var_v1_3;
-    if (var_v0 == 0) {
+    if (var_a1_3 == 0) {
         var_v0_2 = 0x3FFF;
     }
     func_8008E680(temp_s0, var_v0_2 & 0xFFFF);
