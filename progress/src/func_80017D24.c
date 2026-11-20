@@ -38,7 +38,7 @@ void func_80017D24(void *arg0) {
                 }
                 M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
                 M2C_FIELD(arg0, u8 *, 0x80) = 0xFF;
-                M2C_FIELD(arg0, s8 *, 0x81) = 0xFF;
+                M2C_FIELD(arg0, u8 *, 0x81) = 0xFF;
                 return;
             }
             M2C_FIELD(arg0, u8 *, 0x81) = 0xFF;
@@ -51,7 +51,7 @@ void func_80017D24(void *arg0) {
     return;
 case_one:
         M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
-        M2C_FIELD(arg0, s8 *, 0x80) = 0xFF;
-        M2C_FIELD(arg0, s8 *, 0x81) = 0xFF;
+        M2C_FIELD(arg0, u8 *, 0x80) = 0xFF;
+        M2C_FIELD(arg0, u8 *, 0x81) = 0xFF;
         M2C_FIELD(arg0, s16 *, 0x7A) = 2;
 }
