@@ -2,7 +2,7 @@ extern f32 D_800CA350[];
 #define SINS(x) D_800CA350[(x) & 0xFFF]
 #define COSS(x) D_800CA350[((x) - 0x400) & 0xFFF]
 
-void func_80046204(f32 *arg0, f32 r, f32 y, f32 p) {
+void spherical_to_cartesian(f32 *arg0, f32 r, f32 y, f32 p) {
     s32 a = y * 651.8986206054688f;
     f32 pitch = p * 651.8986206054688f;
     f32 x0 = r * COSS(a);

@@ -21,7 +21,7 @@ void *func_80015DAC(s8);
 M2C_UNK func_800179E8(void *, void *, s32, s32);
 M2C_UNK func_800452E0(void *, void *, f32 *);
 f32 func_8004572C(f32 *);
-M2C_UNK func_80046204(f32 *, f32, f32, f32);
+M2C_UNK spherical_to_cartesian(f32 *, f32, f32, f32);
 M2C_UNK func_80047B14(void *, M2C_UNK, void *);
 M2C_UNK func_80047FB4(s32, s32);
 s32 func_8004BCC0(void *, void *, f32 *, M2C_UNK);
@@ -1418,7 +1418,7 @@ M2C_FIELD(temp_s1, f32 *, 0x5C) = -0.05f;
 } else if (temp_fv0_30 > 0.05f) {
 M2C_FIELD(temp_s1, f32 *, 0x5C) = 0.05f;
 }
-func_80046204(&sp20, M2C_FIELD(temp_s1, f32 *, 0x5C), M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f, (temp_fs4 * 0.0015339808f) - 1.5707964f);
+spherical_to_cartesian(&sp20, M2C_FIELD(temp_s1, f32 *, 0x5C), M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f, (temp_fs4 * 0.0015339808f) - 1.5707964f);
 temp_fv1_10 = M2C_FIELD(temp_s1, f32 *, 0x50);
 temp_fv0_31 = (((func_80081B44(temp_s4, 2, 3) * 0.05f) - temp_fv1_10) * 0.05f) + temp_fv1_10;
 M2C_FIELD(temp_s1, f32 *, 0x50) = temp_fv0_31;
@@ -1438,7 +1438,7 @@ M2C_FIELD(temp_s1, f32 *, 0x4C) = -0.15f;
 } else if (temp_fv1_11 > 0.15f) {
 M2C_FIELD(temp_s1, f32 *, 0x4C) = 0.15f;
 }
-func_80046204(&sp20, M2C_FIELD(temp_s1, f32 *, 0x4C), M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f, temp_fs4 * 0.0015339808f);
+spherical_to_cartesian(&sp20, M2C_FIELD(temp_s1, f32 *, 0x4C), M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f, temp_fs4 * 0.0015339808f);
 temp_v1_34 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_34, f32 *, 0x34) = 0.0f;
 var_s5 = temp_s5_2 + sp20;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800746A8(s8 *);                            /* extern */
+s32 textScanNextWordSpan(s8 *);                            /* extern */
 
 s32 func_80074788(s32 arg0, s32 arg1) {
     s32 temp_v0;
@@ -25,7 +25,7 @@ s32 func_80074788(s32 arg0, s32 arg1) {
     var_s2 = 0;
     for (;;) {
         temp_s1 = arg0 + (var_s0 + var_s2);
-        do { temp_v0 = func_800746A8(temp_s1); } while (0);do{do{do{
+        do { temp_v0 = textScanNextWordSpan(temp_s1); } while (0);do{do{do{
         temp_v1 = var_s0 + temp_v0;}while(0);}while(0);}while(0);
         if (temp_v0 == 0) {
             break;

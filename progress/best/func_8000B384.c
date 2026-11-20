@@ -20,8 +20,8 @@ u16 *func_8000B384(s32 arg0, s32 type) {
     if (arg0) {
         func_8000B334();
         var_a1 = D_80109A50;
-        padded = arg0 + 0xF;
         flags = *var_a1;
+        padded = arg0 + 0xF;
         arg0 = padded & ~0xF;
         var_a0 = NULL;
         if (!(flags & 8)) {
@@ -39,7 +39,7 @@ u16 *func_8000B384(s32 arg0, s32 type) {
             (*(u16 *)((char *)(var_a0) + 0)) = 2;
             (*(s16 *)((char *)(var_a0) + 2)) = arg1;
             if ((u32)arg0 != __repair_phase_storage.value) {
-                var_a1 = (void *) (((u32)arg0) + (s32) var_s1);
+                var_a1 = (void *) ((s32)var_s1 + (u32)arg0);
                 if ((u32) (__repair_phase_storage.value - (u32)arg0) >= 0x20U) {
                     (*(u16 *)((char *)(var_a1) + 0)) = 1;
                     (*(s32 *)((char *)(var_a1) + 4)) = (s32) (((*(u32 *)((char *)(var_a0) + 4)) - (u32)arg0) - 0x10);

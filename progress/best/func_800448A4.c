@@ -31,6 +31,7 @@ char *__repair_addr;
             temp_v0_2 = M2C_FIELD(temp_a0, u16 *, 2) + 1;
             M2C_FIELD(arg0, u16 *, 0x24) = temp_v0_2;
             M2C_FIELD(arg0, u16 *, 0x26) = temp_v0_2;
+            __repair_addr += arg1 * 8;
             temp_v0_3 = M2C_FIELD(temp_a0, u8 *, 5) + 1;
             M2C_FIELD(arg0, u8 *, 0x28) = temp_v0_3;
             M2C_FIELD(arg0, u8 *, 0x29) = temp_v0_3;

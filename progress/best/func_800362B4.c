@@ -107,10 +107,9 @@ void func_800362B4(RenderView *view) {
             func_800A3940(matrix, one, -1.0f, one);
             D_80112FC4 = y * scale;
             func_800A37C0(matrix, D_8010D538);
-            cmd = D_80115328;
-            cmd->w0 = 0xDA380003;
-            cmd->w1 = D_8010D538 - 0x80000000;
-            D_80115328 = cmd + 1;
+            D_80115328->w0 = 0xDA380003;
+            D_80115328->w1 = D_8010D538 - 0x80000000;
+            D_80115328++;
             func_80032630(node->detail);
         }
         } while ((node = node->next) != NULL);

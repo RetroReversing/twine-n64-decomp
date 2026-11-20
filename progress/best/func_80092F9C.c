@@ -20,6 +20,8 @@ extern s16 D_800EDAA0;
 extern char D_800EDAA4[];
 
 s32 func_80092F9C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+int __repair_literal;
+
     s32 temp_a3;
     s32 var_a2;
     s32 var_s0;
@@ -33,11 +35,13 @@ s32 func_80092F9C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     arg0 &= 0xFFFF;
     if (D_800CF540 != 0) {
         var_v1 = 0;
-        if (D_800EDAA0 > 0) {
+__repair_literal = 0;
+
+        if (D_800EDAA0 > __repair_literal) {
             temp_a3 = arg1 & 0xFFFF;
             var_a2 = 0;
 loop_3:
-            temp_a1 = *(D_800EDAA4 + var_a2);
+            temp_a1 = *(s32 *)(D_800EDAA4 + var_a2);
             if (M2C_FIELD(temp_a1, u16 *, 4) != arg0) {
                 var_v1 += 1;
                 var_a2 += 4;

@@ -25,16 +25,15 @@ char *__repair_addr;
     u16 temp_v0;
     void *temp_a3;
 
-    arg2 &= 0xFF;
-    arg1 &= 0xFF;
     var_t0 = 1;
+    arg1 &= 0xFF;
+    arg2 &= 0xFF;
     var_v0 = 1 & 0xFFFF;
     do {
-        temp_a3 = (void *)((var_t0 & 0xFFFF) * 2 + arg0);
-        temp_v0 = M2C_FIELD(temp_a3, u16 *, 0x138);
+        temp_v0 = M2C_FIELD((void *)((var_t0 & 0xFFFF) * 2 + arg0), u16 *, 0x138);
         temp_v1 = temp_v0 & 0xFF;
         if (temp_v1 == arg1 && (temp_v0 >> 8) == arg2) {
-            M2C_FIELD(temp_a3, u16 *, 0x138) = 0x100;
+            M2C_FIELD((void *)((var_t0 & 0xFFFF) * 2 + arg0), u16 *, 0x138) = 0x100;
             temp_v0_2 = D_800C4486[temp_v1].f0;
             if (temp_v0_2 != -1) {
                 M2C_FIELD(arg0 + temp_v0_2 * 8, s8 *, 0x1FC) = 0;

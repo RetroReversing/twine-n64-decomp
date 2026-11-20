@@ -64,3 +64,5 @@ typedef struct TwineProbeObject {
 } TwineProbeObject;
 
 s32 create_centered_sprite(s32 assetId, s32 frameIndex);
+
+void spherical_to_cartesian(f32 *out, f32 radius, f32 yaw, f32 pitch);

@@ -26,13 +26,7 @@ void func_80061CCC(void *arg0) {
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
-    if (temp_v0 != 0) {
-        if (*(D_80109A60 + temp_v0) != M2C_FIELD(temp_s0, u8 *, 5)) {
-            M2C_FIELD(arg0, s32 *, 0x70) = 0;
-            goto block_12;
-        }
-        goto block_4;
-    }
+    if ((temp_v0 != 0) && (*(D_80109A60 + temp_v0) != M2C_FIELD(temp_s0, u8 *, 5))) goto block_12;
 block_4:
     var_fv0 = 10.0f;
     if (M2C_FIELD(temp_s0, s8 *, 8) != 0) {
@@ -49,7 +43,7 @@ block_4:
     if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x7000) && (M2C_FIELD(temp_s0, s8 *, 8) != 0) && (func_80045CF8(0x1E) == 0)) {
         func_80061BE4(arg0);
         M2C_FIELD(arg0, s32 *, 0x60) = 0;
-        return;
+        goto block_12;
     }
 block_12:
     M2C_FIELD(arg0, s32 *, 0x60) = 0;

@@ -1,6 +1,6 @@
 extern u8 D_800D1450[];
 
-s32 func_800746A8(s8 *s) {
+s32 textScanNextWordSpan(s8 *s) {
     s32 i = 0;
     s32 n = 0;
     s8 c;
