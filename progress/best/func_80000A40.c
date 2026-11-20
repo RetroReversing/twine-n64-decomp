@@ -48,7 +48,7 @@ void func_80000A40(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 arg5) 
     f32 sp50[16];
     char sp90[0x30];
     s32 spC0;
-    s32 sp120;
+    s32 sp120[0x261];
     s16 spA50[3];
     s16 spA58[3];
 u16 __repair_result_spA5C;

@@ -23,6 +23,7 @@ extern s32 D_8010D2B4;
 
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 void func_800336FC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 *arg9, s32 *arg10) {
+    volatile s64 reserve[3];
     s32 sp20;
     void *sp24;
     s32 sp2C;

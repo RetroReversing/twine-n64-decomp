@@ -36,7 +36,7 @@ int __repair_literal;
     } else {
 block_4:
         var_s0_2 = 4;
-__repair_literal = 4;
+__repair_literal = var_s0_2;
 
         if ((D_801002BC + 4) > __repair_literal) {
             for (;;) {

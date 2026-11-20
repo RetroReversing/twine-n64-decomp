@@ -143,8 +143,8 @@ void func_80038000(void *arg0, s32 arg1) {
         if ((*(s32 *)((char *)(arg0) + 0x100)) & 8) {
             (*(s16 *)((char *)(temp_a1) + 0x300)) = (s16) (s32) ((f32) (*(s16 *)((char *)(temp_a1) + 0x300)) + ((f32) (*(&D_800C43A0 + (D_801007B8 & 0x7F)) + 0x80) * 0.078125f));
             (*(s16 *)((char *)(temp_a1) + 0x302)) = (s16) (s32) ((f32) (*(s16 *)((char *)(temp_a1) + 0x302)) + ((f32) (*(&D_800C43A0 + ((D_801007B8 + 0x2AB) & 0x7F)) + 0x80) * 0.0390625f));
-        }
-        temp_s3 = arg1 << 6;
+        }do{
+        temp_s3 = arg1 << 6;}while(0);
         temp_v1 = D_80117728 + temp_s0_2;
         (((__repair_record_temp_v1*)temp_v1)->field_308) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x60)) * 4.0f);
         temp_s1 = arg1 * 2;

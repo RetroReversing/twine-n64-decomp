@@ -19,6 +19,8 @@ extern s32 D_801002B4;
 extern M2C_UNK D_8010A500;
 
 s8 func_8005FD28(s32 arg0) {
+int __repair_literal;
+
     f64 temp_fs0;
     s32 var_s0;
     s32 var_v0;
@@ -27,24 +29,28 @@ s8 func_8005FD28(s32 arg0) {
     void *temp_a0;
 
     var_s0 = 0;
-    if (D_801002B4 > 0) {
+__repair_literal = 0;
+
+    if (D_801002B4 > __repair_literal) {
         temp_fs0 = D_800D41D8;
         var_v0 = 0 & 0xFFFF;
-loop_2:
-        temp_s1 = (var_v0 * 4) + &D_8010A500;
-        temp_a0 = *temp_s1;
-        if (temp_a0 != NULL) {
-            temp_v0 = M2C_FIELD(temp_a0, u16 *, 0x78);
-            if ((temp_v0 != 0x4D) && (temp_v0 != 0x61) && ((f64) func_80045E34(temp_a0 + 0x24, arg0 + 0x24) < temp_fs0)) {
-                return func_8005FE20(*temp_s1, arg0);
+        for (;;) {
+            temp_s1 = (var_v0 * 4) + &D_8010A500;
+            temp_a0 = *temp_s1;
+            if (temp_a0 != NULL) {
+                temp_v0 = M2C_FIELD(temp_a0, u16 *, 0x78);
+                if ((temp_v0 != 0x4D) && (temp_v0 != 0x61) && ((f64) func_80045E34(temp_a0 + 0x24, arg0 + 0x24) < temp_fs0)) {
+                    return func_8005FE20(*temp_s1, arg0);
+                }
             }
+            var_s0 += 1;
+            var_v0 = var_s0 & 0xFFFF;
+            if ((var_s0 & 0xFFFF) >= D_801002B4) {
+                goto block_8;
+            }
+            continue;
+            break;
         }
-        var_s0 += 1;
-        var_v0 = var_s0 & 0xFFFF;
-        if ((var_s0 & 0xFFFF) >= D_801002B4) {
-            goto block_8;
-        }
-        goto loop_2;
     }
 block_8:
     return 0;

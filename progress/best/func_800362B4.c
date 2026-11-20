@@ -49,9 +49,6 @@ extern RenderFrame *D_80117728;
 void func_800362B4(RenderView *view) {
     RenderNode *node = D_80107E9C;
     RenderCommand *cmd;
-    f32 one = 1.0f;
-    f32 scale = 64.0f;
-    f32 *matrix = D_80112F90;
 
     if (D_801032A0 != 1) {
         D_801032A0 = 1;
@@ -92,7 +89,12 @@ void func_800362B4(RenderView *view) {
         EMIT(0xDE000000, (u32)D_800B1A78);
     }
 
-    for (node = D_80107E9C; node != NULL; node = node->next) {
+    node = D_80107E9C;
+    if (node != NULL) {
+        f32 one = 1.0f;
+        f32 scale = 64.0f;
+        f32 *matrix = D_80112F90;
+        do {
         if ((node->flags >> 2) & 0x200) {
             f32 y = 2.0f * node->detail->height;
             if (D_80107EA0 >= D_800B1D84[0]) {
@@ -111,5 +113,7 @@ void func_800362B4(RenderView *view) {
             D_80115328 = cmd + 1;
             func_80032630(node->detail);
         }
+        } while ((node = node->next) != NULL);
     }
 }
+

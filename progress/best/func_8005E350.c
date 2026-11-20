@@ -35,7 +35,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     temp_s6 = M2C_FIELD(arg0, void **, 0x6C);
     func_80070664(temp_s6, arg1 & 0xFF, arg2 & 0xFF, 0);
     temp_s1 = arg1 & 0xFFFF;
-    temp_s0 = temp_s1 * 0x10;
+    temp_s0 = temp_s1 * 0x4;
     temp_v0 = *(&D_800C447C + temp_s0);
     var_s7 = -1;
     var_s4 = -1;

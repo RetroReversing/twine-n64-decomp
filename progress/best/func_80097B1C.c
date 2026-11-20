@@ -21,8 +21,6 @@ extern char D_800F38F0[];
 
 typedef struct { s32 w[3]; } __repair_words3;
 s32 func_80097B1C(s32 arg0) {
-int __repair_literal;
-
     s32 temp_v0_2;
     s32 var_a1;
     s32 var_a2;
@@ -75,9 +73,7 @@ loop_2:
             }
             temp_a1 = *var_s2;
             var_s0_2 = 0;
-__repair_literal = 0;
-
-            if (D_800F38EC > __repair_literal) {
+            if (D_800F38EC > 0) {
                 var_v1 = 0;
 loop_16:
                 if (*(u16 **)(D_800F38F0 + var_v1) != temp_a1) {

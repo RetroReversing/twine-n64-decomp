@@ -23,18 +23,19 @@ char *__repair_addr;
     void *temp_v0;
 
     if (arg2 >= 0) {
-        temp_v0 = *(&D_800C0784 + arg2 * 0x4);
+        temp_v0 = *(void **)((char *)&D_800C0784 + arg2 * 0x10);
         if (temp_v0 != NULL) {
+            __repair_addr = M2C_FIELD(temp_v0, void **, 0x10);
             temp_a0 = M2C_FIELD(temp_v0, s32 *, 0x18) + (arg1 * 0xC);
             M2C_FIELD(arg0, s32 *, 8) = (s32) M2C_FIELD(temp_a0, s32 *, 8);
             temp_v0_2 = M2C_FIELD(temp_a0, u16 *, 2) + 1;
             M2C_FIELD(arg0, u16 *, 0x24) = temp_v0_2;
             M2C_FIELD(arg0, u16 *, 0x26) = temp_v0_2;
             temp_v0_3 = M2C_FIELD(temp_a0, u8 *, 5) + 1;
-            M2C_FIELD(arg0, s32 *, 0x28) = temp_v0_3;
+            M2C_FIELD(arg0, u8 *, 0x28) = temp_v0_3;
             M2C_FIELD(arg0, u8 *, 0x29) = temp_v0_3;
             M2C_FIELD(arg0, s32 *, 0x28) = (s32) (((s32) M2C_FIELD(arg0, s32 *, 0x28) & ~3) | (M2C_FIELD(temp_a0, u8 *, 0) & 3));
-__repair_addr = (char *)((M2C_FIELD(temp_v0, s32 *, 0x10) + (arg1 * 8)));
+__repair_addr += arg1 * 8;
 
             M2C_FIELD(arg0, s32 *, 0xC) = (s32) M2C_FIELD(__repair_addr, s32 *, 4);
         }

@@ -18,7 +18,7 @@ extern void *D_80109688;
 
 void func_80044D28(s16 *arg0) {
     char *var_s0;
-    s16 temp_a1;
+    s32 temp_a1;
 
     var_s0 = arg0;
     if (*arg0 >= 0) {
@@ -26,7 +26,7 @@ void func_80044D28(s16 *arg0) {
             func_800422F4(*(s16 *)var_s0);
             temp_a1 = *(s16 *)var_s0;
             var_s0 += 2;
-            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8));
+            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), temp_a1, 1);
         } while (*(s16 *)var_s0 >= 0);
     }
 }

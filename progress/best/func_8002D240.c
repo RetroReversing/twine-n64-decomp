@@ -137,7 +137,7 @@ int __repair_phase_var_s2_2;
     D_80112F6D = 0;
     D_80112F6E = 0;
     D_80112F6F = 0;
-    memset(D_80112F68 + 0x13, 0, 4);
+    memset((char *)&D_80112F68 + 0x13, 0, 4);
     memset(D_80112F68 + 0x17, 0, 3);
     memset(D_80112F68 + 0x1A, 0, 3);
     memset(D_80112F68 + 8, 0, 0xB);

@@ -19,6 +19,7 @@ extern M2C_UNK D_800E177C;
 extern M2C_UNK D_800E1780;
 
 s32 func_8003F83C(void *arg0, void *arg1, s32 arg2) {
+    volatile long long pad[2];
     f32 temp_fv0;
     f32 temp_fv0_2;
     s32 temp_v0;

@@ -33,10 +33,10 @@ void func_8011C7B4(void) {
     if (D_801002C0 > 0) {
         var_s0 = 0 & 0xFFFF;
         do {
-            temp_v1 = *(D_801001A2 + var_s0 * 0x6);
+            temp_v1 = *(D_801001A2 + var_s0 * 0x18);
             if (temp_v1 != 0) {
                 __base_D_8011EE4C = &D_8011EE4C;
-                var_a0 = __base_D_8011EE4C - 0x20;
+                var_a0 = (s16 *)((s8 *)__base_D_8011EE4C - 0x20);
                 if ((s32) temp_v1 >= 4) {
                     var_v0 = var_s1 & 0xFFFF;
                     if (temp_v1 == 5) {

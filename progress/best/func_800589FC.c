@@ -149,11 +149,7 @@ void func_800589FC(void *arg0, void *arg1) {
         M2C_FIELD(temp_s7, f32 *, 4) = 0.0f;
         M2C_FIELD(temp_s7, f32 *, 8) = 0.0f;
         M2C_FIELD(temp_s7, f32 *, 0xC) = 0.0f;
-        /*__repair_pointer_balance*/if ((unsigned long)sp10C & 0x100) {
-func_800452AC(&spC8, temp_s0, temp_s0);
-} else {
-func_800452AC(&spC8, temp_s0, temp_s0);
-}
+        func_800452AC(&spC8, temp_s0, temp_s0);
         func_800452AC(&spD8, temp_s0, temp_s0);
         func_800452AC(&spE8, temp_s0, temp_s0);
         M2C_FIELD(temp_s7, f32 *, 0x10) = func_80045D2C(64.0f);

@@ -94,9 +94,9 @@ block_11:
                             if (D_801002EA != 0xFF) {
                                 ((__repair_record_temp_a0_2*)temp_a0_2)->field_1 = 0xFF;
                                 ((__repair_record_temp_a0_2*)temp_a0_2)->field_0 = (u8) D_80110DB0;
-__repair_literal = 4;
+temp_a0 = 4;
 
-                                *(D_80117389 + (D_80110DB0 * __repair_literal)) = (s8) __repair_phase_var_a1;
+                                *(D_80117389 + (D_80110DB0 * temp_a0)) = (s8) __repair_phase_var_a1;
                             } else {
                                 ((__repair_record_temp_a0_2*)temp_a0_2)->field_1 = 0xFF;
                                 ((__repair_record_temp_a0_2*)temp_a0_2)->field_0 = 0xFFU;

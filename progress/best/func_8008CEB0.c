@@ -36,7 +36,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     s32 var_s5;
     s32 var_s7;
     u16 temp_a1;
-    u32 var_s3;
+    s32 var_s3;
     u8 temp_a3;
     void *temp_s2;
     void *var_s0;
@@ -55,7 +55,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
-                    temp_s2 = var_s7 + (s8 *)&D_8010D724;
+                    temp_s2 = (s8 *)var_s0 - 0x24;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
                     temp_hi = temp_a2 / 100;
                     temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);

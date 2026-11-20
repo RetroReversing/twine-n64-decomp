@@ -68,7 +68,7 @@ u8 func_80011FA4(void) {
     D_8010D540 = 0;
     D_800E0960 = 0;
     D_800E093E = 0;
-    __repair_rows: {
+    do {
         *(s16 *)var_v1 = 0;
         *(s16 *)var_a0 = 0;
         *(s16 *)var_a1 = 0;
@@ -84,8 +84,7 @@ u8 func_80011FA4(void) {
         var_a0 += 2;
         var_t2 += 1;
         var_v1 += 2;
-    }
-if (var_t2 < 4) goto __repair_rows;
+    } while (var_t2 < 4);
     osCreateMesgQueue(D_8010D298, D_800E0760, 1, var_a3);
     osSetEventMesg(5, D_8010D298, 1);
     D_800E09B2 = osContInit(D_8010D298, &D_80108F75, D_800E0768);

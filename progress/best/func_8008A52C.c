@@ -9,7 +9,7 @@ s32 func_800CEEE0();
 extern f64 D_800D6760;
 extern f64 D_800D6768;
 extern f64 D_800D6770;
-extern s32 D_800E4218;
+extern u8 *D_800E4218;
 extern u16 *D_800E421C;
 extern s32 D_8010D378;
 extern s32 D_8010D42C;
@@ -60,14 +60,15 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     u8 var_s4;
     void *temp_s1;
 
-    temp_v1 = D_800E4218 + (*D_800E421C * 0xA10);
-    temp_s0_2 = (u16)(*temp_v1);
+    s32 old = D_8010D378;
+    temp_v1 = (u16 *)(D_800E4218 + (*D_800E421C * 0xA10));
+    temp_s0_2 = *temp_v1;
     temp_a1 = D_8010D42C + 0x50;
     D_8010D42C = temp_a1;
-    temp_s1 = temp_v1 + ((temp_s0_2 * 0x50) + 0x10);
-    D_8010D378 = func_800CEEE0(D_8010D378, temp_a1);
+    temp_s1 = (char *)temp_v1 + ((temp_s0_2 * 0x50) + 0x10);
+    D_8010D378 = func_800CEEE0(old, temp_a1);
     temp_s0 = (u32) (((*(u16 *)((char *)(arg0) + 4)) * 0xC0) + 0xFFF) >> 0xC;
-    temp_fv0 = func_8008CD54();
+    temp_fv0 = func_8008CD54(*(f64 *)((char *)arg0 + 8));
     temp_s0_2 = temp_s0 + 6;
     if (!(D_800D6760 <= temp_fv0)) {
         var_a1 = (s32) temp_fv0;
@@ -271,7 +272,7 @@ block_45:
         (*(s32 *)((char *)(temp_s1) + 0x1C)) = (s32) (((temp_fv1_8 << 0x10) - (*(s32 *)((char *)(temp_s1) + 0xC))) / 192);
     }
     (*(u16 *)((char *)(temp_s1) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 4));
-    temp_fv1_9 = ((*(f64 *)((char *)(arg0) + 8)) - func_8008CD54()) * D_800D6768;
+    temp_fv1_9 = ((*(f64 *)((char *)(arg0) + 8)) - func_8008CD54(*(f64 *)((char *)arg0 + 8))) * D_800D6768;
     if (D_800D6770 <= temp_fv1_9) {
         var_a0_2 = (s32) (temp_fv1_9 - D_800D6770) | 0x80000000;
         (*(s16 *)((char *)(temp_s1) + 0x20)) = var_a0_2;

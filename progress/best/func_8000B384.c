@@ -4,23 +4,29 @@ s32 func_8000B334();                            /* extern */
 s32 func_8000B35C(u16 *, u16 *);                /* extern */
 extern u16 *D_80109A50;
 
-u16 *func_8000B384(s32 arg0, s16 arg1) {
+u16 *func_8000B384(s32 arg0, s32 type) {
     u16 *var_a0;
     u16 *var_a1;
     u16 *var_s1;
-    u32 temp_s0;
     
     union { void * pointer; u32 value; } __repair_phase_storage;
 
+    s16 arg1;
+    u16 flags;
+    s32 padded;
+
     var_s1 = NULL;
+    arg1 = type;
     if (arg0) {
         func_8000B334();
         var_a1 = D_80109A50;
-        temp_s0 = (arg0 + 0xF) & ~0xF;
+        padded = arg0 + 0xF;
+        flags = *var_a1;
+        arg0 = padded & ~0xF;
         var_a0 = NULL;
-        if (!(*var_a1 & 8)) {
+        if (!(flags & 8)) {
             do {
-                if (((*(u16 *)((char *)(var_a1) + 0)) & 1) && ((u32) (*(u32 *)((char *)(var_a1) + 4)) >= temp_s0)) {
+                if (((*(u16 *)((char *)(var_a1) + 0)) & 1) && ((u32) (*(u32 *)((char *)(var_a1) + 4)) >= (u32)arg0)) {
                     var_a0 = var_a1;
                 }
                 __repair_phase_storage.pointer = (unsigned)var_a1 + (*(u32 *)((char *)(var_a1) + 4));
@@ -32,12 +38,12 @@ u16 *func_8000B384(s32 arg0, s16 arg1) {
             var_s1 = (void *) ((0x10) + (s32) var_a0);
             (*(u16 *)((char *)(var_a0) + 0)) = 2;
             (*(s16 *)((char *)(var_a0) + 2)) = arg1;
-            if (temp_s0 != __repair_phase_storage.value) {
-                var_a1 = (void *) ((temp_s0) + (s32) var_s1);
-                if ((u32) (__repair_phase_storage.value - temp_s0) >= 0x20U) {
+            if ((u32)arg0 != __repair_phase_storage.value) {
+                var_a1 = (void *) (((u32)arg0) + (s32) var_s1);
+                if ((u32) (__repair_phase_storage.value - (u32)arg0) >= 0x20U) {
                     (*(u16 *)((char *)(var_a1) + 0)) = 1;
-                    (*(s32 *)((char *)(var_a1) + 4)) = (s32) (((*(u32 *)((char *)(var_a0) + 4)) - temp_s0) - 0x10);
-                    (*(u32 *)((char *)(var_a0) + 4)) = temp_s0;
+                    (*(s32 *)((char *)(var_a1) + 4)) = (s32) (((*(u32 *)((char *)(var_a0) + 4)) - (u32)arg0) - 0x10);
+                    (*(u32 *)((char *)(var_a0) + 4)) = (u32)arg0;
                 }
             }
         }

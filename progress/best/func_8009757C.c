@@ -19,9 +19,7 @@ extern char D_800F3954[];
 extern char D_800F3958[];
 extern char D_800F395C[];
 
-s32 func_8009757C(u16 arg0, s32 arg1) {
-int __repair_literal;
-
+s32 func_8009757C(s16 arg0, s32 arg1) {
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 temp_a0;
@@ -39,10 +37,8 @@ int __repair_literal;
     func_8008C0D4();
     temp_a0 = D_800F3950;
     var_t1 = 0;
-__repair_literal = 0;
-
-    if (temp_a0 > __repair_literal) {
-        temp_a1 = arg0;
+    if (temp_a0 > 0) {
+        temp_a1 = arg0 & 0xFFFF;
         var_v1 = 0;
 loop_2:
         if ((u16) *(u16 *)(D_800F3958 + var_v1) < temp_a1) {
@@ -83,7 +79,7 @@ loop_2:
         goto block_13;
     }
 block_13:
-    var_v0 = D_800F3950; var_v0 += 1;
+    var_v0 = D_800F3950 + 1;
     if (D_800F3950 >= 0x800) {
 block_14:
         func_8008C11C(temp_a0);

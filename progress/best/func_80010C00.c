@@ -11,12 +11,12 @@ extern s32 func_800109CC(void);
 extern s32 func_80010B60(s32);
 
 typedef struct { u32 v; } __attribute__((packed)) UW;
-#define ENT(i) (base + (i) * 104)
+#define ENT(i) ((i) * 104 + D_800E0790)
 #define CP32(d, s) __builtin_memcpy((d), (s), 32)
 
 s32 func_80010C00(void)
 {
-    s16 idx;
+    s32 idx;
     u8 *base = D_800E0790;
     
     s32 st;
@@ -39,19 +39,23 @@ s32 func_80010C00(void)
     }
 
 cec:
-    a1 = D_801032A8;
-    if (a1 == 0xB || a1 == 2) goto d18;
-    if (a1 != 0) goto l11374;
+    {
+    s32 mode = D_801032A8;
+    if (mode == 0xB || mode == 2) goto d18;
+    if (mode != 0) goto l11374;
 d18:
     func_80011800(0xC, ENT(0), 0, 0, 0, 0, 0, 0);
     goto after_c;
+    }
 d38:
-    a1 = D_801032A8;
-    if (a1 == 0xA || a1 == 2) goto d64;
-    if (a1 != 0) goto l11374;
+    {
+    s32 mode = D_801032A8;
+    if (mode == 0xA || mode == 2) goto d64;
+    if (mode != 0) goto l11374;
 d64:
     idx = D_800E093A;
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
+    }
 after_c:
     if (func_800109CC() == 0) goto l11434;
     idx = D_800E093A;

@@ -27,13 +27,13 @@ void func_8005C24C(void) {
     char *var_s2;
     s32 temp_s0;
     s32 var_a2;
-    s32 var_v0;
+    
     u32 temp_a0;
     u32 var_s1;
 
     var_a2 = 0;
     if (D_80108788 != NULL) {
-        var_v0 = 0;
+        temp_s0 = 0;
         if (M2C_FIELD(D_80108788, void **, 0x70) != NULL) {
             var_s1 = 0;
             var_s2 = &D_800C4450;
@@ -43,7 +43,7 @@ void func_8005C24C(void) {
                 if ((((temp_a0 >> 4) & 0xFFFF) == *(s32 *)var_s2) && ((temp_a0 >> 0x14) == *(s32 *)(D_800C4458 + temp_s0)) && (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x12)) {
                     if (M2C_FIELD(D_80108788, s16 *, 0x7C) == 0) {
                         M2C_FIELD(D_80108788, s16 *, 0x7C) = 1;
-                        func_8000A894(0x110, D_80108788, var_a2);
+                        func_8000A894(0x110);
                         var_s2 += 4;
                         func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
@@ -63,9 +63,9 @@ block_9:
         }
     } else {
 block_11:
-        var_v0 = var_a2;
+        temp_s0 = var_a2;
     }
-    if (var_v0 == 0) {
+    if (temp_s0 == 0) {
         func_8005B5A8();
     }
 }

@@ -15,6 +15,7 @@ typedef s32 M2C_UNK32;
 f32 func_800828D0(f32);                             /* extern */
 
 void func_8002A1F0(void *arg0) {
+    volatile u64 stack_pad;
     s32 temp_lo;
     s16 temp_v0_2;
     s16 temp_v0_4;

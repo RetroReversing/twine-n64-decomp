@@ -27,7 +27,7 @@ u32 func_800180D4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4) {
     u32 var_s5;
     u32 var_s7;
     u32 var_v0;
-    union { u8 * pointer; s32 value; } __repair_phase_storage;
+    union { u8 * pointer; s32 value; } __repair_phase_storage; volatile u32 __frame_pad[2];
     char *var_s0;
     u8 temp_a0;
     u8 temp_v0_2;

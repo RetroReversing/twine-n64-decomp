@@ -23,7 +23,7 @@ extern u8 D_800CEEC0;
 extern f64 D_800D66D0;
 extern char D_800E1AC0[];
 extern char D_800E2C60[];
-extern char D_800E2CC0[];
+extern u8 D_800E2CC0[];
 extern char D_800E2CC1[];
 extern char D_800E2CC2[];
 extern char D_800E2CC3[];
@@ -83,8 +83,7 @@ char *__repair_addr;
                                 *(s32 *)(D_800E2CDC + var_s0) = 0;
                                 *(D_800E2CC0 + var_s0) = 2;
                                 *(D_800E2CE0 + var_s0) = ((f32) *(u16 *)(D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
-                                __repair_rows: { func_8009D9B8(temp_s1); }
-if (0) goto __repair_rows;
+                                do { func_8009D9B8(temp_s1); } while (0);
 __repair_addr = (char *)(D_800E2CD4 + var_s0);
 
                                 temp_v0 = func_8009349C(*(D_800E2CC4 + var_s0), *(u8 *)var_s3, *(s32 *)(__repair_addr), *(u8 *)var_s4, (s32) *(D_800E2CC1 + var_s0), (s32) *(D_800E2CC2 + var_s0), (s32) *(D_800E2CC3 + var_s0), (s32) *(D_800E2CD9 + var_s0), &func_80088EE4, var_s7);

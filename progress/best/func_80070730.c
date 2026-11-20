@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-typedef struct { u16 f0; u8 pad[14]; } Slot_800C4486;
+typedef struct { s16 f0; u8 pad[14]; } Slot_800C4486;
 extern Slot_800C4486 D_800C4486[];
 
 s32 func_80070730(s32 arg0, s32 arg1, s32 arg2) {
@@ -29,31 +29,19 @@ char *__repair_addr;
     arg1 &= 0xFF;
     var_t0 = 1;
     var_v0 = 1 & 0xFFFF;
-    for (;;) {
-        temp_a3 = (var_v0 * 2) + arg0;
+    do {
+        temp_a3 = (void *)((var_t0 & 0xFFFF) * 2 + arg0);
         temp_v0 = M2C_FIELD(temp_a3, u16 *, 0x138);
-        var_v0 = temp_v0 & 0xFF;
-        temp_v1 = var_v0;
-        if (temp_v1 != arg1) {
-            var_t0 += 1;
-            goto block_10;
+        temp_v1 = temp_v0 & 0xFF;
+        if (temp_v1 == arg1 && (temp_v0 >> 8) == arg2) {
+            M2C_FIELD(temp_a3, u16 *, 0x138) = 0x100;
+            temp_v0_2 = D_800C4486[temp_v1].f0;
+            if (temp_v0_2 != -1) {
+                M2C_FIELD(arg0 + temp_v0_2 * 8, s8 *, 0x1FC) = 0;
+            }
+            return 1;
         }
-        if ((temp_v0 >> 8) == arg2) {
-            break;
-        }
-        var_t0 += 1;
-block_10:
-        var_v0 = var_t0 & 0xFFFF;
-        if ((u32) (var_t0 & 0xFFFF) >= 0x1EU) {
-            return 0;
-        }
-    }
-    M2C_FIELD(temp_a3, u16 *, 0x138) = 0x100U;
-    temp_v0_2 = D_800C4486[(unsigned char)temp_v1].f0;
-    if (temp_v0_2 != -1) {
-__repair_addr = (char *)((arg0 + (temp_v0_2 * 8)));
-
-        M2C_FIELD(__repair_addr, s8 *, 0x1FC) = 0;
-    }
-    return 1;
+        var_t0++;
+    } while ((u16)var_t0 < 30);
+    return 0;
 }

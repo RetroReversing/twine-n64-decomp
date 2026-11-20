@@ -48,7 +48,9 @@ void func_80095EC4(s32 arg0, s32 arg1) {
 
     temp_a0 = arg1 & 0xFF;
     if (temp_a0 != 0xFF) {
-        var_v1 = ((arg0 & 0xFF) * 0x86) + ((temp_a0 * 0x860) + D_800EE420);
+        var_v1 = D_800EE420;
+        var_v1 += (temp_a0 * 0x860);
+        var_v1 += ((arg0 & 0xFF) * 0x86);
         temp_a0_2 = var_v1 + 0x86;
         do {
             *(s8 *)var_v1 = 0;

@@ -62,3 +62,5 @@ typedef struct TwineProbeObject {
     u8 pad50[8];
     u16 type;
 } TwineProbeObject;
+
+s32 create_centered_sprite(s32 assetId, s32 frameIndex);

@@ -35,6 +35,6 @@ __repair_literal = 0;
             }
             var_s1 += 1;
             var_s0 += 0x18;
-        } while (var_s1 < (s32) D_801176E8);
+        } while ((__repair_literal = var_s1) < (s32) D_801176E8);
     }
 }

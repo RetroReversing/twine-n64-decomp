@@ -21,6 +21,7 @@ extern void *D_80115328;
 typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 typedef struct { unsigned char pad_0[12]; int field_C; unsigned char pad_10[8]; int field_18; unsigned char pad_1C[2]; unsigned short field_1E; unsigned short field_20; unsigned short field_22; unsigned short field_24; unsigned short field_26; unsigned char field_28; unsigned char field_29; } __repair_record_arg2;
 void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
+    volatile u64 frame_pad;
     s32 sp44;
     s32 sp4C;
     s32 sp54;
