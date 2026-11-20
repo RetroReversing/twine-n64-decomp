@@ -63,13 +63,13 @@ u16 __repair_result_spA5C;
     void *spAAC;
     s32 *temp_s0;
     s32 *temp_s1;
-    s32 *var_a0_2;
+    
     char *var_a1;
     char *var_v1;
     f32 temp_fv1_2;
     f32 var_fv0;
     s16 *temp_v0_2;
-    char *var_s5;
+    
     s16 temp_v0_3;
     s16 temp_v0_4;
     s16 var_v0;
@@ -172,12 +172,12 @@ do {
             __repair_phase_var_s4 = 0;
             temp_v0_2 = func_80001928(M2C_FIELD(temp_s3, u8 *, 0x9E));
             if (*temp_v0_2 >= 0) {
-                var_s5 = temp_v0_2;
+                var_a1 = temp_v0_2;
                 var_s6 = 0;
                 spA9C = &sp120;
                 spAAC = spA6C;
                 do {
-                    temp_s1 = spA9C + (M2C_FIELD(var_s5, s16 *, 0) * 0x30);
+                    temp_s1 = spA9C + (M2C_FIELD(var_a1, s16 *, 0) * 0x30);
                     if (spA94 == 0) {
                         temp_v1_4 = *(u32 *)(((spA8C + __repair_phase_var_s4) * 4) + spA6C);
                         spA58[0] = (temp_v1_4 >> 0x16) * 4;
@@ -242,9 +242,9 @@ block_42:
                         }
                     }
                     if (spA7C == 0) {
-                        sp20[0] = M2C_FIELD(var_s5, f32 *, 4);
-                        sp20[1] = M2C_FIELD(var_s5, f32 *, 8);
-                        var_fv0 = M2C_FIELD(var_s5, f32 *, 0xC);
+                        sp20[0] = M2C_FIELD(var_a1, f32 *, 4);
+                        sp20[1] = M2C_FIELD(var_a1, f32 *, 8);
+                        var_fv0 = M2C_FIELD(var_a1, f32 *, 0xC);
                     } else {
                         sp20[0] = M2C_FIELD(spAAC, f32 *, 8);
                         sp20[1] = M2C_FIELD(spAAC, f32 *, 0xC);
@@ -256,14 +256,14 @@ block_42:
                         M2C_FIELD(temp_s1, f32 *, 0x28) = sp20[1];
                         M2C_FIELD(temp_s1, f32 *, 0x2C) = sp20[2];
                         if (M2C_FIELD(arg0, s32 *, 0x58) & 0x40000) {
-                            var_a0_2 = func_8000DA08(arg0);
+                            temp_s0 = func_8000DA08(arg0);
                         
-                        func_80083560(var_a0_2, temp_s1);} else {
-                            var_a0_2 = spA74;
+                        func_80083560(temp_s0, temp_s1);} else {
+                            temp_s0 = spA74;
                         
-                        func_80083560(var_a0_2, temp_s1);}
+                        func_80083560(temp_s0, temp_s1);}
                     } else {
-                        temp_s0 = spA9C + (M2C_FIELD(var_s5, s16 *, 2) * 0x30);
+                        temp_s0 = spA9C + (M2C_FIELD(var_a1, s16 *, 2) * 0x30);
                         func_800839F0(temp_s0, sp20, temp_s1 + 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x24) += M2C_FIELD(temp_s0, f32 *, 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x28) += M2C_FIELD(temp_s0, f32 *, 0x28);
@@ -287,9 +287,9 @@ block_42:
                         sp10[1] = (M2C_FIELD(temp_s1, f32 *, 0x28) - M2C_FIELD(arg0, f32 *, 0x28)) + temp_fv1_2 + temp_fv1_2;
                     } else {
                         sp10[1] = M2C_FIELD(temp_s1, f32 *, 0x28) + M2C_FIELD(arg0, f32 *, 0x28);
-                        sp20[0] = M2C_FIELD(var_s5, f32 *, 0x10);
-                        sp20[1] = M2C_FIELD(var_s5, f32 *, 0x14);
-                        sp20[2] = M2C_FIELD(var_s5, f32 *, 0x18);
+                        sp20[0] = M2C_FIELD(var_a1, f32 *, 0x10);
+                        sp20[1] = M2C_FIELD(var_a1, f32 *, 0x14);
+                        sp20[2] = M2C_FIELD(var_a1, f32 *, 0x18);
                         func_80083A6C(temp_s1, sp20);
                         *(f32 *)(var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)) = sp10[0];
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 4) = sp10[1];
@@ -373,11 +373,11 @@ block_42:
                             }
                         }
                     }
-                    var_s5 += 0x20;
+                    var_a1 += 0x20;
                     var_s6 += 0xC;
                     __repair_phase_var_s4 += 1;
                     spAAC += 0xC;
-                } while (*(s16 *)var_s5 >= 0);
+                } while (*(s16 *)var_a1 >= 0);
             }
             var_v1_2 = M2C_FIELD(temp_a0, s32 *, 0x14);
             if (var_v1_2 & 0x80000) {

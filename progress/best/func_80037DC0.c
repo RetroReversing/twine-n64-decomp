@@ -76,7 +76,7 @@ block_10:
         (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) (*(s32 *)((char *)(D_80117728) + 0x1B68));
         if ((s32)temp_a1 != 0) {
             D_80112E40 = 0;
-            emit_projection_viewport_commands(temp_a0, temp_a1, 0xFF);
+            emit_projection_viewport_commands(temp_a0, temp_a1);
         }
         ((__repair_field_0 *)D_8010A4B4)->value = 0xDF000000;
         (*(s32 *)((char *)(D_8010A4B4) + 4)) = 0;

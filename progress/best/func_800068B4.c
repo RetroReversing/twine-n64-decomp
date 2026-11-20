@@ -50,6 +50,8 @@ extern s32 D_8011740C;
 
 typedef struct { unsigned char pad_0[292]; float field_124; unsigned char pad_128[4]; float field_12C; } __repair_record_D_80109688;
 void func_800068B4(void) {
+int __repair_literal;
+
     M2C_UNK var_a0_2;
     f32 temp_fv1;
     f32 var_fv0;
@@ -93,7 +95,9 @@ block_10:
                     }
                 } else {
                     var_s0 = 0;
-                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > 0) && (D_801002AE == 0)) {
+__repair_literal = 0;
+
+                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > __repair_literal) && (D_801002AE == 0)) {
 loop_19:
                         var_s0 += 1;
                         if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
@@ -217,8 +221,7 @@ block_52:
         D_800DC739 = D_80103EB0;
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C;
-        if ((temp_fv1 <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {

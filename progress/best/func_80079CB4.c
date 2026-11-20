@@ -26,10 +26,11 @@ extern s32 func_80076CE4;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15) {
-    s32 __repair_store_0;
+    register s32 __repair_store_0;
     s32 var_s2;
     s32 __repair_store_2;
     s32 var_a0;
+s32 __repair_phase_var_a0;
     register s32 var_a1_2;
     s32 var_a1_3;
     int temp_s2;
@@ -37,7 +38,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
     s32 temp_v1_2;
     register u8 var_v0_2;
     int var_v1;
-    s32 var_s5;
+    
     s32 __repair_store_1;
     s32 var_v0_3;
     
@@ -94,9 +95,9 @@ s32 __repair_phase_var_a1;
                 if (D_80108F78 == 0x19) {
                     D_80117734 = 1;
                 }
-                var_s5 = 0x14D;
+                var_s2 = 0x14D;
                 if ((int)D_80117734 == 0) {
-                    var_s5 = 0x129;
+                    var_s2 = 0x129;
                 }
                 switch (arg8) {                     /* switch 1 */
                 case 39:                            /* switch 1 */
@@ -237,7 +238,6 @@ block_76:
                 case 28:                            /* switch 1 */
                     var_a0 = 1;
                     (*(u8 *)((char *)(temp_s0) + 0x85)) = 0U;
-block_51:
                     if (func_800312F4(var_a0, 0) == 1) {
                         (*(s32 *)((char *)(var_s1) + 0x60)) |= 1;
                     }
@@ -257,8 +257,12 @@ block_51:
                     break;
                 case 30:                            /* switch 1 */
                     (*(u8 *)((char *)(temp_s0) + 0x85)) = 0U;
-                    var_a0 = 2;
-                    goto block_51;
+                    __repair_phase_var_a0 = 2;
+                    if (func_800312F4(__repair_phase_var_a0, 0) == 1) {
+                        (*(s32 *)((char *)(var_s1) + 0x60)) |= 1;
+                    }
+                    (*(u8 *)((char *)(temp_s0) + 0x82)) = 0x15U;
+                    break;
                 case 18:                            /* switch 1 */
                     var_v0_2 = 0x17;
                     goto block_74;
@@ -281,7 +285,7 @@ block_51:
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = 0x1BU;
                     break;
                 case 27:                            /* switch 1 */
-                    var_s5 = 0x14D;
+                    var_s2 = 0x14D;
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = 0x1EU;
                     var_v0_3 = 0x800000;
                     goto block_75;
@@ -294,7 +298,7 @@ block_51:
                     var_v0_6 = 0x20;
 block_66:
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = var_v0_6;
-                    var_s5 = 0x14D;
+                    var_s2 = 0x14D;
                     break;
                 case 33:                            /* switch 1 */
                     var_v0_6 = 0x21;
@@ -330,8 +334,8 @@ block_66:
                 (*(s32 *)((char *)(var_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg1) + 4));
                 (*(s32 *)((char *)(var_s1) + 0x44)) = (s32) (*(s32 *)((char *)(arg1) + 8));
                 (*(s32 *)((char *)(var_s1) + 0x48)) = (s32) (*(s32 *)((char *)(var_s1) + 0x3C));
-                (*(s32 *)((char *)(var_s1) + 0x50)) = (s32) (*(s32 *)((char *)(var_s1) + 0x44));
                 (*(s32 *)((char *)(temp_s0) + 0)) = (s32) (*(s32 *)((char *)(var_s1) + 0x24));
+                (*(s32 *)((char *)(var_s1) + 0x50)) = (s32) (*(s32 *)((char *)(var_s1) + 0x44));
                 (*(s32 *)((char *)(var_s1) + 0x4C)) = (s32) (*(s32 *)((char *)(var_s1) + 0x40));
                 (*(s32 *)((char *)(temp_s0) + 4)) = (s32) (*(s32 *)((char *)(var_s1) + 0x28));
                 (*(s32 *)((char *)(temp_s0) + 8)) = (s32) (*(s32 *)((char *)(var_s1) + 0x2C));
@@ -346,18 +350,18 @@ block_66:
                 }
                 (*(s32 *)((char *)(var_s1) + 0x5C)) |= temp_v1_2;
                 (*(s32 *)((char *)(temp_s0) + 0x6C)) = 0;
-                if (var_s5 == 0x129) {
+                if (var_s2 == 0x129) {
                     (*(s16 *)((char *)(var_s1) + 0x7C)) = 1;
                     (*(s8 *)((char *)(temp_s0) + 0x7F)) = 1;
                     func_80002BD0(var_s1, 0x129);
-                } else if (var_s5 == 0x14D) {
+                } else if (var_s2 == 0x14D) {
                     (*(s16 *)((char *)(var_s1) + 0x7C)) = 0;
                     (*(s8 *)((char *)(temp_s0) + 0x7F)) = 0;
                     if ((*(u8 *)((char *)(temp_s0) + 0x82)) == 0x1E) {
                         (((__repair_field_88 *)temp_s0)->value) &= 0xBFFFFFFF;
                     }
                 }
-                func_80002BD0(var_s1, var_s5);
+                func_80002BD0(var_s1, var_s2);
                 (*(s16 *)((char *)(var_s1) + 0x7A)) = 0;
                 (*(s8 *)((char *)(temp_s0) + 0x7E)) = 0;
                 func_80077960(var_s1, 0);

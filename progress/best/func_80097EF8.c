@@ -88,7 +88,7 @@ block_11:
         if (var_a2_2 >= (s32) var_t1) {
             temp_v1_4 = var_a2_2 * 8;
             var_t0 = temp_v1_4 + D_800F9568;
-            var_a3 = (u16) (temp_v1_4 + (D_800F9568 - 8));
+            var_a3 = (s32) (temp_v1_4 + (D_800F9568 - 8));
             do {
                 (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a3) + 0));
                 (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));

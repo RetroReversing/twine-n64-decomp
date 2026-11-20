@@ -20,7 +20,7 @@ extern char D_800C4486[];
 void func_80070B40(void *arg0) {
     s32 var_a0_2;
     s32 temp_v1;
-    s32 var_a0;
+    s16 var_a0;
     s32 var_a1;
     s8 temp_v0;
     s32 var_a0_3;

@@ -9,16 +9,16 @@ void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out) {
     k=e * 2.0f;
     m=c-h;
     m=m+k;
-    m=m-j;
-    m=m*b;
     o=a*b;
+    m=m-j;
+    m=(int)m*b;
     q=d*1.5f;
     r=e*1.5f;
     s=g+q;
     s=s-r;
-    s=s+j;
-    s=s*o;
+    s=s+(int)j;
     *(s32 *)out=n;
+    s=(s32)s*o;
     *(f32 *)((char *)out+4)=d;
     *(f32 *)((char *)out+8)=s+m+((g+(e*0.5f))*a);
 }
