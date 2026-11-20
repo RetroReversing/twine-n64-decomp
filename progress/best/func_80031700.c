@@ -26,7 +26,7 @@ s32 __repair_result___repair_result_var_a2;
                 D_8010302C += 1;
                 var_a2 = func_800314E0((s16) arg0, 0);
                 __base_D_80109688 = &D_80109688;
-                func_80073AF8(0, (*__base_D_80109688), func_800313DC((s16) arg0), -1, -1, 0, 0, 0, 3, 0, 0);
+                func_80073AF8(0, D_80109688, func_800313DC((s16) arg0), -1, -1, 0, 0, 0, 3, 0, 0);
                 goto block_12;
             }
         } else {

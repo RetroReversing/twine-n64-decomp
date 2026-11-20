@@ -73,7 +73,7 @@ void func_80089384(u16 arg0, s32 arg1) {
         var_ft0_2 += D_800D66F8;
     }
     var_fv1 = (f32) var_ft0_2 * 0.00025f;
-    if (var_fv1 < 2.1474836e9f) {
+    if (var_fv1 <= 2.1474836e9f) {
 block_13:
         D_800E4216 = (s32) var_fv1 + 1;
     } else {

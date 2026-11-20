@@ -61,6 +61,9 @@ void func_800448A4(Object448 *object, s32 index, s32 bankIndex) {
     object->state.counts[0] = count;
     object->state.counts[1] = count;
     count = object->state.word;
-    object->state.word = (count & ~3U) | (entry->flags & 3U);
+    {
+        u32 flags = entry->flags;
+        object->state.word = (count & ~3U) | (flags & 3U);
+    }
     object->payload = payload->value;
 }

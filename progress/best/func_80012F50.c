@@ -29,7 +29,7 @@ extern s8 D_80115308;
 
 u16 func_80012F50(void) {
     s32 *var_s6;
-    s16 var_s0_3;
+    u16 var_s0_3;
     
     s32 var_s0;
     

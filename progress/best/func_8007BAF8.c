@@ -23,7 +23,7 @@ s32 func_80077960();
 s32 func_80077E00();
 s32 func_80083B64();
 extern void *D_80108F84;
-extern s32 func_8004DBD8;
+s32 func_8004DBD8();
 
 s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     s32 __repair_store_0;
@@ -138,7 +138,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                 var_s1_2 = 0;
                 temp_s4 = arg0 + 0x24;
                 var_s0_2 = sp98;
-                do {
+                __repair_rows: {
                     sp28[0] = M2C_FIELD(var_s0_2, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x24);
                     sp28[1] = M2C_FIELD(var_s0_2, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28);
                     sp28[2] = M2C_FIELD(var_s0_2, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x2C);
@@ -165,7 +165,8 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                     }
                     var_s1_2 += 1;
                     var_s0_2 += 0xC;
-                } while (var_s1_2 < 8);
+                }
+if (var_s1_2 < 8) goto __repair_rows;
                 if (var_s6 != -1) {
                     temp_a1 = var_s6 * 0xC;
                     temp_v0 = temp_a1 + sp28;

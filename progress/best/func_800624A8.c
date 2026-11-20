@@ -16,7 +16,7 @@ void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK func_80016990(void *, s32);                 /* extern */
 M2C_UNK func_80044670(void *, s16, M2C_UNK);        /* extern */
 M2C_UNK func_80045278(void *);                      /* extern */
-s16 func_80045CF8(M2C_UNK);                         /* extern */
+s32 func_80045CF8(M2C_UNK);                         /* extern */
 f32 func_80045D2C(f32);                             /* extern */
 f32 func_80045D8C(f32, f32);                        /* extern */
 M2C_UNK func_80045DB4(f32 *, f32, f32);             /* extern */
@@ -33,7 +33,7 @@ extern f64 D_800D4290;
 extern s32 D_80102ED8;
 
 void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
-    f32 sp30[3];
+    f32 sp30[7];
     f32 temp_fs0;
     f32 temp_fs1;
     f32 temp_fs2;
@@ -83,8 +83,8 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
             M2C_FIELD(__repair_phase_storage.pointer, u8 *, 0x81) = 0;
             temp_fv1 = (f64) (arg2 * 1.5f) + ((f64) func_80045D2C(arg2) * D_800D4270);
             M2C_FIELD(__repair_phase_storage.pointer, u16 *, 0x78) = 0x32;
-            M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x54) = (f32) temp_fv1;
-            M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x54) = arg2;
+            M2C_FIELD(__repair_phase_storage.pointer, volatile f32 *, 0x54) = (f32) temp_fv1;
+            M2C_FIELD(__repair_phase_storage.pointer, volatile f32 *, 0x54) = arg2;
             func_80016990(__repair_phase_storage.pointer, M2C_FIELD(arg0, s32 *, 0x20));
         }
         var_s1 += 1;
@@ -92,9 +92,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     __repair_phase_storage.value = 0;
     if (var_fp != 0) {
         temp_fs1_2 = (f64) arg2; temp_fs5 = temp_fs1_2 * D_800D4278; temp_fs4 = arg2 * 0.2f; do {
-            sp30[2] = 0.0f;
-            sp30[1] = 0.0f;
-            sp30[0] = 0.0f;
+            { register f32 zero = 0.0f; sp30[2] = zero; sp30[1] = zero; sp30[0] = zero; }
             func_80045DB4(sp30, (f32) temp_fs5, temp_fs4);
             if (sp30[1] < 0.0f) {
                 sp30[1] = -sp30[1];

@@ -29,6 +29,7 @@ s32 func_8002AC04();
 u8 func_8002D13C();
 s32 func_80087100();
 s32 sprintf();
+extern char D_800D285C[];
 extern char D_800D2864[];
 extern u8 D_800B7CF0;
 extern u8 D_800BD68E;
@@ -207,18 +208,18 @@ block_31:
             do {
                 temp_s0_2 = var_s1_2 & 0xFFFF;
                 temp_v0_8 = func_800162BC(D_800BD68E);
-                *((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
+                *(s32 *)((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
                 if (temp_v0_8 != 0) {
                     temp_s5 = func_80087100((var_s1_2 + 0x400D) & 0xFFFF);
                     if (temp_s0_2 < 4U) {
                         var_a2 = func_80087100(0xAD);
                         var_a3 = temp_s0_2 + 1;
                     
-                    sprintf(temp_s5, "%s %d", var_a2, var_a3);} else {
+                    sprintf(temp_s5, D_800D285C, var_a2, var_a3);} else {
                         var_a2 = func_80087100(0x158);
                         var_a3 = temp_s0_2 - 3;
                     
-                    sprintf(temp_s5, "%s %d", var_a2, var_a3);}
+                    sprintf(temp_s5, D_800D285C, var_a2, var_a3);}
                     func_800160FC(*(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), temp_s5, 0x40);
                 }
                 func_8002A7CC(D_8010A488, *(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);

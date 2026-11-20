@@ -37,7 +37,7 @@ extern char D_800D285C[];
 extern char D_800D2864[];
 void func_80018E38(void) {
     u8 sp10[0x10];
-    u8 sp20;
+    u8 sp20[16];
     s32 temp_v0;
     s32 temp_v1;
     s32 var_a2;
@@ -132,20 +132,20 @@ block_16:
             var_a2 = 0;
             if (M2C_FIELD(&func_8011AA9C, s8 *, 0x6C) != 0) {
                 for (;;) {
-                    sp20 = temp_v0_2;
+                    sp20[0] = temp_v0_2;
                     if (temp_v0_2 != 0) {
                         var_a1 = var_s0;
                         do {
-                            temp_v1_3 = &(&sp20)[var_a2];
+                            temp_v1_3 = &sp20[var_a2];
                             temp_v0_2 = *temp_v1_3;
                             var_a1 += 1;
                             var_a2 += 1;
                             *temp_v1_3 = temp_v0_2 - 1;
                             temp_v1_2 = *(s8 *)var_a1;
-                            (&sp20)[var_a2] = temp_v1_2;
+                            sp20[var_a2] = temp_v1_2;
                         } while (temp_v1_2 != 0);
                     }
-                    if (func_800AB950(sp10, &sp20, var_a2) != 0) {
+                    if (func_800AB950(sp10, sp20, var_a2) != 0) {
                         if ((u8) D_801002AD < 4U) {
                             var_a2_2 = func_80087100(0xAD);
                             var_a3 = D_801002AD + 1;

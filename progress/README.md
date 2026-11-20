@@ -1,8 +1,8 @@
 
 
 <!-- decompdecomp:progress:start -->
-- **Progress:** 1232 matching function(s), 619 best attempt(s)
-- **Completion:** 1,232 / 1,809 functions (68.1%). 86 set aside, excluded from completion.
+- **Progress:** 1237 matching function(s), 611 best attempt(s)
+- **Completion:** 1,237 / 1,809 functions (68.4%). 86 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 <!-- decompdecomp:visuals:start -->

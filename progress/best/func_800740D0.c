@@ -25,7 +25,7 @@ extern s16 D_800C7EA0;
 extern char D_800C7EA4[];
 extern char D_800C7EC4[];
 extern char D_800E1A70[];
-extern char D_80109A60[];
+extern u8 D_80109A60[];
 extern s32 D_80109B98;
 extern s32 D_8010A500;
 extern char D_8010D2C0[];
@@ -75,7 +75,7 @@ void func_800740D0(void *arg0) {
     case 0:
         if (*(s32 *)((M2C_FIELD(temp_s1, u8 *, 0x34) * 4) + ((M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C) + D_8010D380)) == M2C_FIELD(temp_s1, s32 *, 0x18)) {
             temp_s3 = M2C_FIELD(temp_s1, void **, 4);
-            if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && ((2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)) < func_80045590(temp_s1 + 8, D_8010A500 + 0x24))) {
+            if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && (func_80045590(temp_s1 + 8, D_8010A500 + 0x24) > (2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)))) {
                 var_s0 = func_80015DAC();
                 if (var_s0 != NULL) {
 do {
@@ -149,7 +149,7 @@ do {
         }
         temp_v0_4 = M2C_FIELD(temp_s1, u16 *, 0x30) - 1;
         M2C_FIELD(temp_s1, u16 *, 0x30) = temp_v0_4;
-        if (temp_v0_4 & 0x8000) {
+        if ((s16) temp_v0_4 < 0) {
             temp_a0_5 = M2C_FIELD(temp_s1, void **, 4);
             if (temp_a0_5 != NULL) {
                 temp_v0_5 = M2C_FIELD(temp_a0_5, s32 *, 0x10) + 0xF7FFF7F0;

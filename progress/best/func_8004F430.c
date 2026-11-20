@@ -68,7 +68,7 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
         var_s0 = (*(void **)((char *)(arg0) + 0x14));
         if (var_s0 != NULL) {
             do {
-                if (!(((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 0x10) && ((*(s32 *)((char *)(var_s0) + 0x50)) & 0x200) && ((func_8004886C(var_s0 + 0x40, arg1, arg2, arg3) << 0x18) != 0)) {
+                if (!(((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 0x10) && ((*(s32 *)((char *)(var_s0) + 0x50)) & 0x200) && ((((s32 (*)(void *, void *, f32))func_8004886C)(var_s0 + 0x40, arg1, arg3) << 0x18) != 0)) {
                     sp48 = (*(f32 *)((char *)(arg1) + 0));
                     sp4C = (*(f32 *)((char *)(arg1) + 4));
                     sp50 = (*(f32 *)((char *)(arg1) + 8));

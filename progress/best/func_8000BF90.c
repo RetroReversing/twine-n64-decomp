@@ -1,5 +1,5 @@
 void func_800455CC(void *a, void *b, void *c, void *d);
-void func_80045824(f32 *a, f32 *b);
+void normalizeVector3(f32 *a, f32 *b);
 f32 func_80045E34(void *a, u8 *, void *b);
 extern u8 D_801096A0;
 extern u8 D_80109A60[];
@@ -71,7 +71,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                 sp30[0] = ((f32 *)(arg0 + 0x24))[0] - tf[1];
                 sp30[1] = ((f32 *)(arg0 + 0x24))[1] - tf[2];
                 sp30[2] = ((f32 *)(arg0 + 0x24))[2] - tf[3];
-                func_80045824(sp30, sp30);
+                normalizeVector3(sp30, sp30);
                 dot = sp30[0] * tf[7] + sp30[1] * tf[8] + sp30[2] * tf[9];
                 if (dot > 0.0f) {
                     v = (u32)dot & 0xFFFF;

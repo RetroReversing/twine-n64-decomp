@@ -87,7 +87,7 @@ s32 func_80030108(void *arg0) {
             } else var_v0 = 0;
             temp_v0 = var_v0 & 0xFF;
             __repair_phase_temp_v0 = (temp_v0 << 0x18) | (temp_v0 << 0x10) | (temp_v0 << 8) | 0xFF;
-            (*(u8 *)((char *)((*(void **)((char *)(arg0) + 0x10))) + 0x10)) = __repair_phase_temp_v0;
+            (*(u32 *)((char *)((*(void **)((char *)(arg0) + 0x10))) + 0x10)) = __repair_phase_temp_v0;
             (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x14))) + 0x10)) = (int)__repair_phase_temp_v0;
             (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x18))) + 0x10)) = __repair_phase_temp_v0;
             (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x1C))) + 0x10)) = __repair_phase_temp_v0;

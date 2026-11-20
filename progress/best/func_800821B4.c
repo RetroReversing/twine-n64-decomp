@@ -4,7 +4,7 @@ s32 func_80011950();                            /* extern */
 s32 func_80081D50(s32 *, s32, u16, void *); /* extern */
 s32 func_800828D8(s16);                             /* extern */
 s32 func_800828EC(s32);                             /* extern */
-s32 func_80087A80();                            /* extern */
+                            /* extern */
 s32 func_80087B04();                            /* extern */
 s32 memset(s32 *, s32, s32);        /* extern */
 extern s32 D_800C9D70;
@@ -146,7 +146,7 @@ void func_800821B4(void) {
         *var_a0_2 = var_s0_4;
         var_s0_4 = (s16)(*var_s2);
         temp_v0_2 = func_800828EC(var_s0_4 & -(func_800828D8(var_s0_4) >= 0x21));
-        var_s2 += 8;
+        var_s2 += 4;
         if (temp_v0_2 != *(&D_80115124 + var_s1)) {
             *(&D_80115124 + var_s1) = temp_v0_2;
             *(&D_8011511C + var_s1) = temp_v0_2;

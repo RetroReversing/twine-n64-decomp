@@ -19,7 +19,7 @@ s32 func_80022E5C();
 s32 func_80022E88();
 s32 func_80022EB8();
 s32 func_80087100();
-s16 strlen();
+s32 strlen();
 extern s32 D_800BD64C;
 extern s32 D_800BD654;
 extern s32 D_800BD65C;
