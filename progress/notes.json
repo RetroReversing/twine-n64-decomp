@@ -21832,14 +21832,6 @@
   "score_after": 1370
  },
  {
-  "function": "func_8002E9D0",
-  "text": "Replaced undefined MULTU_HI expansion with unsigned remainder by 255, improving 3444 to 2884; candidate still differs in frame and branchless selection. Six loop/lifetime variations failed. Investigate original expression for selecting 0x32 or 0x37-combined value and reduce saved-register lifetimes.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795137803.43042,
-  "score_before": 3117,
-  "score_after": 2884
- },
- {
   "function": "func_8006D224",
   "text": "Best score 1140/192 bytes with machine draft's arithmetic, one instruction short of 48. Target starts lw v0 from nested +0x414 and branches null; current C keeps pointer in a2. Remaining divergence is registers/branch extents, primarily float clamp and int conversion. Assembly uses x2.55, compares against 2^31, truncates float with MIPS signed-conversion correction, then clamps unsigned value <256 to 255 and writes packed words at offsets 0x10/0x14. Simplified direct cast-and-clamp was much worse. Local repairs signedness/declaration-order were no improvement. Try explicit temporaries to keep nested pointer in v0 through the initial null branch and force a2 copy only at the later delayed branch.",
   "by": "codex-gpt-6-luna-9",
@@ -21904,14 +21896,6 @@
   "score_after": 4790
  },
  {
-  "function": "func_8002E9D0",
-  "text": "Rechecked baseline 2884. Six independent repairs tested: record layout and unsigned temp_v0 unchanged; scalar reuse, explicit loop backedge, masked reuse and merged lifetimes worsened. Target frame 0x30 versus candidate 0x38, with substantial control flow and register differences. Reconstruct loop and random digit selection against target assembly; retain unsigned remainder semantics.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795177656.770706,
-  "score_before": 2884,
-  "score_after": 2884
- },
- {
   "function": "func_8006D224",
   "text": "Rechecked inherited score 1140. Tried direct `(u32)value` conversion (score 1325) and explicit high-range branch with corrected initialization (score 1405); both worse. Keep inherited best, which has 32 differences and one fewer instruction. Target first loads output pointer into v0 and branches before using it, loads float into fv1, multiplies 2.55, then performs >=2^31 handling and both truncation paths with a shared clamp. Saved m2c C contains a suspicious uninitialized var_a0 in the high-range branch. Further work should correct semantics while matching target register/pointer lifetimes and branch fallthrough.",
   "by": "codex-gpt-6-luna-22",
@@ -21942,14 +21926,6 @@
   "created_at": 1795179204.1069582,
   "score_before": 5887,
   "score_after": 5887
- },
- {
-  "function": "func_8002E9D0",
-  "text": "Rechecked best score 2884. A natural rewrite using a u8* destination, u16 step, limit=count-3, modulo 255, and branchless character mapping scored 3564; restoring the saved best returned to 2884. Tried four local repair candidates (explicit loop backedge, pointer sum shape, assignment-at-use, CFG integer lifetimes); search stopped after project progress changed and found no better candidate. The best source currently saves 9 registers and uses a 0x38 frame versus target 0x30; target keeps arg0 in s2, arg1 in s5, loop seed in s1, fill byte in s3, loop limit in s4, divisor magic in s6. Next try restructuring lifetimes/declaration shape to reduce callee-saves and map these values to the target registers.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795182351.979501,
-  "score_before": 2884,
-  "score_after": 2884
  },
  {
   "function": "func_800362B4",
@@ -22024,28 +22000,12 @@
   "score_after": 4790
  },
  {
-  "function": "func_8002E9D0",
-  "text": "Lowered 2884 to 1235 under active GCC -O1. Use unsigned %255 and explicitly XOR 1 into `(remainder < 128U)` before negation, preserve the full-width induction and explicit u16 casts, initialize the cached bound inside the guarded loop arm, and write the initial three bytes in ascending order. This recovered the 0x30 frame and arithmetic. Batch timed out and reported claim lost after the improvement. Next try moving remainder and flag calculation after the index increment and two stores, retaining the original placement of the RNG call. Remaining prologue order and saved register assignments are distinct from the arithmetic problem.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795185487.1266282,
-  "score_before": 2884,
-  "score_after": 1235
- },
- {
   "function": "func_8006D224",
   "text": "Restored a compiling baseline via batch; direct f32-to-u32 cast reverified 630. Explicit <= 2^31 split with signed truncation and separate top-bit OR scored 1035, dropping two instructions and producing bc1f. With direct cast, target's bc1t delay slot needs the nested color pointer move v0\u2192a2; candidate has bc1tl with sub.s in slot and keeps pointer in a3. Compare compiler scheduling/debug profiles on the 630 source.",
   "by": "codex-gpt-6.2-sol-1",
   "created_at": 1795187462.153218,
   "score_before": 630,
   "score_after": 630
- },
- {
-  "function": "func_8002E9D0",
-  "text": "Best verified score 1755 (revision 0bb281f669f51f5ec082); expression recovers unsigned modulo 255 and output classification via ((value % 255) >> 7) ^ 1, giving 57 instructions. Also tried pointer staging, integer widths, loop-index casts and branch/expression variants; no match. Remaining mismatch primarily prologue/local allocation and control around target's sltiu $v0,$v0,0x80 and bnez backedge. Current experimental revision was worse; saved best retained.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795188287.179788,
-  "score_before": 1235,
-  "score_after": 1235
  },
  {
   "function": "func_8006D224",
@@ -22056,14 +22016,6 @@
   "score_after": 590
  },
  {
-  "function": "func_8002E9D0",
-  "text": "Saved 1755 source reverses '2'/'7' due to XOR after the remainder's bit 7, and lacks the loop's u16 induction narrowing. Corrected shift result alone scored 1855, with early increment 1795. Straight target sltiu/xor expression without narrowed induction scored 2964; full-width induction with explicit u16 checks and a cached inner limit scored 2884. Target needs 0x30 frame and a1=(u16)i across the backedge; preserve correct byte semantics in future trials. Project suggestion filed for matched RNG's void prototype because both calls consume returned v0.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795189371.659693,
-  "score_before": 1235,
-  "score_after": 1235
- },
- {
   "function": "func_8006D224",
   "text": "Current best 590, 48 instructions. Tried volatile color pointer and ternary clamp; volatile had no effect, ternary worsened to 1000, then restored baseline. Target's initial nested pointer loads into $v0, while candidate uses $a2; target also uses bc1t with a pointer move in delay slot, while candidate uses bc1tl. Remaining differences mostly register allocation and scheduling.",
   "by": "codex-gpt-6-luna-17",
@@ -22072,28 +22024,12 @@
   "score_after": 590
  },
  {
-  "function": "func_8002E9D0",
-  "text": "Saved baseline rechecked 1755. Target modulo byte mapping is `(((value % 255) < 128) ^ 1)` masked into 0x32/0x37; candidate's shift/XOR reverses the output. Tested threshold equivalent forms and narrowed u16 index forms, scores 2964\u20133564, all worse than saved baseline; do not treat lower machine score as valid semantic C. Target narrows the int induction index for address and loop-bound comparisons, uses quotient-by-255 magic, preserves a 0x30 constant, and has 0x30 frame. Existing simple loop structure gets a 0x38 frame and different register allocation. Next try retaining m2c arithmetic but repairing expression/index semantics via alternate local variable ordering, or recover original loop shape from assembly.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795190472.034979,
-  "score_before": 1235,
-  "score_after": 1235
- },
- {
   "function": "func_8006D224",
   "text": "Score 250 is the ordinary float to u32 cast. Target schedules integer sign-mask lui between mfc1 and or on the high arm; compiler emits it before trunc.w.s and leaves a nop after mfc1. Explicit threshold with high arm first flips bc1t to bc1f and drops shared compare delay-slot coverage (760). Next test GCC scheduling flags or put the low arm first using goto for the high arm. After conversion, red/blue allocation is swapped v0/v1.",
   "by": "codex-gpt-6.2-sol-5",
   "created_at": 1795191940.025414,
   "score_before": 250,
   "score_after": 250
- },
- {
-  "function": "func_8002E9D0",
-  "text": "Saved active-profile baseline 920 (da742122f78425b46988). Diagnostic trial 2cd074f4f987fe3a624e scores 60 with -O1 -fschedule-insns -fschedule-insns2: copy length after first store, execute `value %= 255U` before index increment and classify `value` after the two zero stores. Only residual is `move $s4,$v1` at the start of loop preheader, target after the divisor magic and zero digit setup. Same source under active unscheduled profile scores 1225. Recomputing end inside body or at condition changes registers and delay-slot reuse; explicit digit local regresses. Callee's v0 remains updated carryState and both calls use it; a prototype suggestion already exists.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795192733.8112938,
-  "score_before": 920,
-  "score_after": 920
  },
  {
   "function": "func_8007A7D8",
@@ -31630,5 +31566,77 @@
   "created_at": 1795197550.3911529,
   "score_before": 125,
   "score_after": 60
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Replaced undefined MULTU_HI expansion with unsigned remainder by 255, improving 3444 to 2884; candidate still differs in frame and branchless selection. Six loop/lifetime variations failed. Investigate original expression for selecting 0x32 or 0x37-combined value and reduce saved-register lifetimes.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795137803.43042,
+  "score_before": 3117,
+  "score_after": 2884
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Rechecked baseline 2884. Six independent repairs tested: record layout and unsigned temp_v0 unchanged; scalar reuse, explicit loop backedge, masked reuse and merged lifetimes worsened. Target frame 0x30 versus candidate 0x38, with substantial control flow and register differences. Reconstruct loop and random digit selection against target assembly; retain unsigned remainder semantics.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795177656.770706,
+  "score_before": 2884,
+  "score_after": 2884
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Rechecked best score 2884. A natural rewrite using a u8* destination, u16 step, limit=count-3, modulo 255, and branchless character mapping scored 3564; restoring the saved best returned to 2884. Tried four local repair candidates (explicit loop backedge, pointer sum shape, assignment-at-use, CFG integer lifetimes); search stopped after project progress changed and found no better candidate. The best source currently saves 9 registers and uses a 0x38 frame versus target 0x30; target keeps arg0 in s2, arg1 in s5, loop seed in s1, fill byte in s3, loop limit in s4, divisor magic in s6. Next try restructuring lifetimes/declaration shape to reduce callee-saves and map these values to the target registers.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795182351.979501,
+  "score_before": 2884,
+  "score_after": 2884
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Lowered 2884 to 1235 under active GCC -O1. Use unsigned %255 and explicitly XOR 1 into `(remainder < 128U)` before negation, preserve the full-width induction and explicit u16 casts, initialize the cached bound inside the guarded loop arm, and write the initial three bytes in ascending order. This recovered the 0x30 frame and arithmetic. Batch timed out and reported claim lost after the improvement. Next try moving remainder and flag calculation after the index increment and two stores, retaining the original placement of the RNG call. Remaining prologue order and saved register assignments are distinct from the arithmetic problem.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795185487.1266282,
+  "score_before": 2884,
+  "score_after": 1235
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Best verified score 1755 (revision 0bb281f669f51f5ec082); expression recovers unsigned modulo 255 and output classification via ((value % 255) >> 7) ^ 1, giving 57 instructions. Also tried pointer staging, integer widths, loop-index casts and branch/expression variants; no match. Remaining mismatch primarily prologue/local allocation and control around target's sltiu $v0,$v0,0x80 and bnez backedge. Current experimental revision was worse; saved best retained.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795188287.179788,
+  "score_before": 1235,
+  "score_after": 1235
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Saved 1755 source reverses '2'/'7' due to XOR after the remainder's bit 7, and lacks the loop's u16 induction narrowing. Corrected shift result alone scored 1855, with early increment 1795. Straight target sltiu/xor expression without narrowed induction scored 2964; full-width induction with explicit u16 checks and a cached inner limit scored 2884. Target needs 0x30 frame and a1=(u16)i across the backedge; preserve correct byte semantics in future trials. Project suggestion filed for matched RNG's void prototype because both calls consume returned v0.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795189371.659693,
+  "score_before": 1235,
+  "score_after": 1235
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Saved baseline rechecked 1755. Target modulo byte mapping is `(((value % 255) < 128) ^ 1)` masked into 0x32/0x37; candidate's shift/XOR reverses the output. Tested threshold equivalent forms and narrowed u16 index forms, scores 2964\u20133564, all worse than saved baseline; do not treat lower machine score as valid semantic C. Target narrows the int induction index for address and loop-bound comparisons, uses quotient-by-255 magic, preserves a 0x30 constant, and has 0x30 frame. Existing simple loop structure gets a 0x38 frame and different register allocation. Next try retaining m2c arithmetic but repairing expression/index semantics via alternate local variable ordering, or recover original loop shape from assembly.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795190472.034979,
+  "score_before": 1235,
+  "score_after": 1235
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Saved active-profile baseline 920 (da742122f78425b46988). Diagnostic trial 2cd074f4f987fe3a624e scores 60 with -O1 -fschedule-insns -fschedule-insns2: copy length after first store, execute `value %= 255U` before index increment and classify `value` after the two zero stores. Only residual is `move $s4,$v1` at the start of loop preheader, target after the divisor magic and zero digit setup. Same source under active unscheduled profile scores 1225. Recomputing end inside body or at condition changes registers and delay-slot reuse; explicit digit local regresses. Callee's v0 remains updated carryState and both calls use it; a prototype suggestion already exists.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795192733.8112938,
+  "score_before": 920,
+  "score_after": 920
+ },
+ {
+  "function": "func_8002E9D0",
+  "text": "Best 130/61 instructions. First whole-source compile; signedness family variant (index s32) tied and produced no diff changes. Remaining six discrepancies are instruction order near initial 0x30 setup, move $s4,$v1 placement, and final subu/sltiu register destination. Further source-order/local lifetime experiments may help.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795197637.282697,
+  "score_before": 130,
+  "score_after": 130
  }
 ]
