@@ -5176,14 +5176,6 @@
   "score_after": 375
  },
  {
-  "function": "func_800698D8",
-  "text": "Best score 350 (47/48 instructions). C logic and memory writes are close; remaining mismatch comes from passing the second top-level argument to func_800828D0 as float. Target starts mtc1 $a1,$f12 in delay slot for helper call; candidate C's direct call signature omits that conversion because helper is declared float func(void*, s32). Declaring top-level arg as float also omitted the transfer. A pointer pun via *(f32*)&arg1 spills to stack and scores worse. Use target observed thresholds: <=0.2 selects 1, >=0.8 selects 2; field offsets 0x17F, 0x182, 0x17E and D_8011508F stride 0xA0 match. Candidate best branch extent differs by 4 bytes (conditional exits at 0xac vs target 0xb0) as a consequence of missing one instruction. Try expressing arg1 as a float bit reinterpretation through a union or a callee wrapper-equivalent expression without stack spill, and tune float comparison expression for target FPR allocation.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795137866.671948,
-  "score_before": 350,
-  "score_after": 350
- },
- {
   "function": "func_80063098",
   "text": "Correct float prototypes and literal arguments improved 955 to 465. Remaining five rows are final subtraction and branch/store arrangement: target keeps result in v0 then moves s1, with unconditional jump after negative case; candidate computes in s1 and uses branch likely. Explicit early return and six local variants did not improve.",
   "by": "codex-gpt-6.1-terra-4",
@@ -12144,14 +12136,6 @@
   "score_after": 460
  },
  {
-  "function": "func_800698D8",
-  "text": "Best score 350. Changing arg1 from s32 to f32 worsened to 755; restoring s32 returned 350. Reversing threshold order worsened to 390 and swapped the generated float constants; original order is correct. Remaining mismatch starts with a missing mtc1 a1,f12, branch destinations 0xac vs target 0xb0, and FPU register ordering around comparisons. The existing draft uses O2 with -fno-schedule-insns.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795178052.025704,
-  "score_before": 350,
-  "score_after": 350
- },
- {
   "function": "func_80092F9C",
   "text": "Verified baseline 2895. Inferred record layout, variable reuse, unsigned zero, declaration order, u16 arg1 and shorter call did not improve. 49 mismatches include control flow and reordered prologue; revisit structure and actual parameter widths.",
   "by": "codex-gpt-6.1-terra-6",
@@ -15806,14 +15790,6 @@
   "created_at": 1795182425.147816,
   "score_before": 2600,
   "score_after": 2600
- },
- {
-  "function": "func_800698D8",
-  "text": "Reverified saved best 290. Six local variants (table signedness, layout, local signedness, const, nested guard, field width) did not improve. Remaining mismatch is float return register move/order and branch targets; investigate comparison expression and register allocation.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795182428.611279,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_80117AFC",
@@ -20096,14 +20072,6 @@
   "score_after": 375
  },
  {
-  "function": "func_800698D8",
-  "text": "Rechecked 290. Staging index before state write reproduces the target load/store ordering. Explicit goto gives same float compare sequence; initializing state in the else arm or reusing 0.2f temporary regressed. Remaining one excess instruction and allocation/scheduling: move f2,f0 belongs in first bc1f delay slot; move v1,zero belongs before the branch, after first comparison.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795184440.880998,
-  "score_before": 290,
-  "score_after": 290
- },
- {
   "function": "func_800820BC",
   "text": "Exact under existing profile plus -fno-schedule-insns, trial 6a35a8f28f8df3c3d01f. Submitted the checked function-only source/profile bundle. Automatic compiler changes are off, so the bundle awaits review.",
   "by": "codex-gpt-6.2-sol-4",
@@ -22752,14 +22720,6 @@
   "score_after": 3096
  },
  {
-  "function": "func_800698D8",
-  "text": "Started from current candidate score 290; one compile of recovered C and local repair batch (byte_table_signedness, inferred_record_layout, signedness) all remained 290. Remaining 11 diffs: target keeps returned float in $f0, loads 0.2 constant in $f2 then compares c.le.s $f0,$f2; candidate moves result to $f2 and constant to $f0, reversing compare operands. This induces extra delay/control-flow differences and branch target distances (+4 bytes). Hypothesis to test: reverse source compare expression to `0.2f >= result` to encourage target FP register placement. Claim changed during attempt; follow current candidate.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795185899.422747,
-  "score_before": 290,
-  "score_after": 290
- },
- {
   "function": "func_80035060",
   "text": "Trial d1d77977d70911b08ac3 scored 9200: volatile D_80115328, unprototyped osVirtualToPhysical, and remove extra arguments from its second call. Correcting D_80100304 pointer index from *4 to direct index produced target sll by 2 and same score (revision b6012e958fa741242fed). Candidate unexpectedly reverted between sequential calls; verify claim before proceeding.",
   "by": "codex-gpt-6.1-terra-8",
@@ -24392,14 +24352,6 @@
   "score_after": 115
  },
  {
-  "function": "func_800698D8",
-  "text": "Rechecked candidate score 290/48 instructions. Reversed comparison syntax and tried signedness/record/const/nested-guard/field-width local variants; no improvement. Main mismatch: an extra mov.s before the first threshold compare, then branch destinations four bytes later. Target compares callee result in f0 against constant f2, then moves f0 to f2; candidate copies f0 to f2 before comparison. Explore a source form that keeps the direct result live in f0 through the first compare.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795187437.311554,
-  "score_before": 290,
-  "score_after": 290
- },
- {
   "function": "func_80077C00",
   "text": "Reverified 180 with all 45 instructions; keep that baseline. Volatile pos.y via fifth or eighth argument comma expression scored 260 and 262. Target emits pos.y store, depth store, then zero argument stores with last zero in jal slot. Baseline emits the zero stores first, then depth, and puts pos.y in jal slot. Compare late scheduling options on the verified nonvolatile source.",
   "by": "codex-gpt-6.2-sol-1",
@@ -25134,14 +25086,6 @@
   "created_at": 1795188539.43538,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_800698D8",
-  "text": "Four source trials retained saved 290. Reusing arg1 or a false-arm float copy ties; embedding the helper call's assignment in the first comparison scores 688. Flag search ties at best (O1 and disabling the second scheduler each score 350). Remaining: target keeps result in f0 for the 0.2f compare and moves f0 into f2 in its bc1f delay slot, while baseline copies to f2 before that compare and uses f0 for 0.2f. A next source experiment is staging both thresholds as separate float locals with different lifetimes, while keeping floating comparisons ordered as <= on the low arm and >= on the high arm.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795188545.057612,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_8009D9F0",
@@ -26174,14 +26118,6 @@
   "created_at": 1795189627.2732632,
   "score_before": 786,
   "score_after": 0
- },
- {
-  "function": "func_800698D8",
-  "text": "Best score 290, 93.9%, 49 compiled vs 48 target. It differs mainly by an extra mov.s and shifted branch targets. Tested baseline source, reversed comparison operand order (no effect), and nested conditional expression (worse 470). One compile attempt had a #define parse error and was corrected. Saved best has plausible logic: call func_800828D0, classify values <=0.2 and >=0.8, update byte state and table-dependent field. Need shape FP register/delay-slot scheduling; target uses mov.s in a branch delay slot and compact control flow.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795189633.593876,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_80092F9C",
@@ -27262,14 +27198,6 @@
   "created_at": 1795190737.193225,
   "score_before": 190,
   "score_after": 0
- },
- {
-  "function": "func_800698D8",
-  "text": "Rechecked 290. Explicit shared check label and moving signed index read before band store yielded identical bytes. Separate local threshold values and typed-record early return regressed. Target first compare uses f0 for call result and f2 for 0.2f, then moves f0 to f2 in bc1f delay; compiler moves before materializing threshold and then compares f2 to f0. Focus on keeping the original return pseudo live for the first compare while preserving f2 separately on the high arm.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795190743.042887,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_8009DBE8",
@@ -28950,14 +28878,6 @@
   "created_at": 1795192654.069376,
   "score_before": 560,
   "score_after": 560
- },
- {
-  "function": "func_800698D8",
-  "text": "Typed object/state (state pointer +0x6C, mode +0x38, request/level/index +0x17E/+0x17F/+0x182) and 0xA0-stride byte table verified tie 290 when initializing level after the helper and using upper-arm copy. Initializing before call adds an s-register save; assigning low comparison directly scores 1805; zeroing only in else scores 470. Remaining: preserve helper f0 through low compare and get f2 copy into bc1f delay instead of before compare.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795192661.777926,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_8009C7C4",
@@ -31600,14 +31520,6 @@
   "score_after": 650
  },
  {
-  "function": "func_800698D8",
-  "text": "Restored candidate scores 465 and reproduces all 48 instructions except six FP register/order differences around float thresholds: target directly compares f0 to 0.2, moves f0 into f2 before the second threshold; candidate introduces mov.s f4,f0 and compares through f4. Added an unused f32 local and a copy assignment; both optimized away with identical instructions. Remaining work: express local float lifetime / comparison structure so compiler preserves f0/f2 assignments and threshold constant use; perhaps compare chained if/else variants.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197614.455488,
-  "score_before": 290,
-  "score_after": 290
- },
- {
   "function": "func_8003FCF4",
   "text": "Starting draft compiled at score 210/59 target instructions. Explicit reload near final flag tests worsened score to 220; local repair generated an extra reload and score 230. Best source keeps the loaded flags value in temp_a1 throughout. Remaining notable mismatch: target moves $a1 into $a0 before final mask tests at offset 0x84; candidate continues using a1 and branch targets differ. Target assembly pages 36-75 show final sequence; likely expression/source lifetime must make GCC copy the flags value into a0 around the 0x400 / 0x200 / 0x4000 / 0x8000 tests. Move-on threshold exceeded. Saved best score 210.",
   "by": "codex-gpt-6-luna-9",
@@ -32734,14 +32646,6 @@
   "created_at": 1795198734.037023,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_800698D8",
-  "text": "Best verified score 465/48 instructions. Recompiled supplied best draft after adding extern D_8011508F; exact same score. Tried explicit nested condition and inverted threshold condition: no improvement. Target returns func_800828D0 result in $f0, compares it to 0.2 in $f2, copies the result into $f2 in the branch delay slot, then compares 0.8 against that copy. Candidate inserts mov.s $f4,$f0 before the first compare and compares via $f4; second comparison also uses $f4. Remaining differences are six instructions around this FPR lifetime/order, plus one branch target and one register. Need find source/temporary lifetime that lets GCC schedule the copy into the first branch delay slot and preserve result in $f2.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795198735.6900601,
-  "score_before": 290,
-  "score_after": 290
  },
  {
   "function": "func_8000A5F4",
@@ -34470,5 +34374,101 @@
   "created_at": 1795198759.81841,
   "score_before": 1120,
   "score_after": 1120
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Best score 350 (47/48 instructions). C logic and memory writes are close; remaining mismatch comes from passing the second top-level argument to func_800828D0 as float. Target starts mtc1 $a1,$f12 in delay slot for helper call; candidate C's direct call signature omits that conversion because helper is declared float func(void*, s32). Declaring top-level arg as float also omitted the transfer. A pointer pun via *(f32*)&arg1 spills to stack and scores worse. Use target observed thresholds: <=0.2 selects 1, >=0.8 selects 2; field offsets 0x17F, 0x182, 0x17E and D_8011508F stride 0xA0 match. Candidate best branch extent differs by 4 bytes (conditional exits at 0xac vs target 0xb0) as a consequence of missing one instruction. Try expressing arg1 as a float bit reinterpretation through a union or a callee wrapper-equivalent expression without stack spill, and tune float comparison expression for target FPR allocation.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795137866.671948,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Best score 350. Changing arg1 from s32 to f32 worsened to 755; restoring s32 returned 350. Reversing threshold order worsened to 390 and swapped the generated float constants; original order is correct. Remaining mismatch starts with a missing mtc1 a1,f12, branch destinations 0xac vs target 0xb0, and FPU register ordering around comparisons. The existing draft uses O2 with -fno-schedule-insns.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795178052.025704,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Reverified saved best 290. Six local variants (table signedness, layout, local signedness, const, nested guard, field width) did not improve. Remaining mismatch is float return register move/order and branch targets; investigate comparison expression and register allocation.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795182428.611279,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Rechecked 290. Staging index before state write reproduces the target load/store ordering. Explicit goto gives same float compare sequence; initializing state in the else arm or reusing 0.2f temporary regressed. Remaining one excess instruction and allocation/scheduling: move f2,f0 belongs in first bc1f delay slot; move v1,zero belongs before the branch, after first comparison.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795184440.880998,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Started from current candidate score 290; one compile of recovered C and local repair batch (byte_table_signedness, inferred_record_layout, signedness) all remained 290. Remaining 11 diffs: target keeps returned float in $f0, loads 0.2 constant in $f2 then compares c.le.s $f0,$f2; candidate moves result to $f2 and constant to $f0, reversing compare operands. This induces extra delay/control-flow differences and branch target distances (+4 bytes). Hypothesis to test: reverse source compare expression to `0.2f >= result` to encourage target FP register placement. Claim changed during attempt; follow current candidate.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795185899.422747,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Rechecked candidate score 290/48 instructions. Reversed comparison syntax and tried signedness/record/const/nested-guard/field-width local variants; no improvement. Main mismatch: an extra mov.s before the first threshold compare, then branch destinations four bytes later. Target compares callee result in f0 against constant f2, then moves f0 to f2; candidate copies f0 to f2 before comparison. Explore a source form that keeps the direct result live in f0 through the first compare.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795187437.311554,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Four source trials retained saved 290. Reusing arg1 or a false-arm float copy ties; embedding the helper call's assignment in the first comparison scores 688. Flag search ties at best (O1 and disabling the second scheduler each score 350). Remaining: target keeps result in f0 for the 0.2f compare and moves f0 into f2 in its bc1f delay slot, while baseline copies to f2 before that compare and uses f0 for 0.2f. A next source experiment is staging both thresholds as separate float locals with different lifetimes, while keeping floating comparisons ordered as <= on the low arm and >= on the high arm.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795188545.057612,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Best score 290, 93.9%, 49 compiled vs 48 target. It differs mainly by an extra mov.s and shifted branch targets. Tested baseline source, reversed comparison operand order (no effect), and nested conditional expression (worse 470). One compile attempt had a #define parse error and was corrected. Saved best has plausible logic: call func_800828D0, classify values <=0.2 and >=0.8, update byte state and table-dependent field. Need shape FP register/delay-slot scheduling; target uses mov.s in a branch delay slot and compact control flow.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795189633.593876,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Rechecked 290. Explicit shared check label and moving signed index read before band store yielded identical bytes. Separate local threshold values and typed-record early return regressed. Target first compare uses f0 for call result and f2 for 0.2f, then moves f0 to f2 in bc1f delay; compiler moves before materializing threshold and then compares f2 to f0. Focus on keeping the original return pseudo live for the first compare while preserving f2 separately on the high arm.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795190743.042887,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Typed object/state (state pointer +0x6C, mode +0x38, request/level/index +0x17E/+0x17F/+0x182) and 0xA0-stride byte table verified tie 290 when initializing level after the helper and using upper-arm copy. Initializing before call adds an s-register save; assigning low comparison directly scores 1805; zeroing only in else scores 470. Remaining: preserve helper f0 through low compare and get f2 copy into bc1f delay instead of before compare.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795192661.777926,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Restored candidate scores 465 and reproduces all 48 instructions except six FP register/order differences around float thresholds: target directly compares f0 to 0.2, moves f0 into f2 before the second threshold; candidate introduces mov.s f4,f0 and compares through f4. Added an unused f32 local and a copy assignment; both optimized away with identical instructions. Remaining work: express local float lifetime / comparison structure so compiler preserves f0/f2 assignments and threshold constant use; perhaps compare chained if/else variants.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197614.455488,
+  "score_before": 290,
+  "score_after": 290
+ },
+ {
+  "function": "func_800698D8",
+  "text": "Best verified score 465/48 instructions. Recompiled supplied best draft after adding extern D_8011508F; exact same score. Tried explicit nested condition and inverted threshold condition: no improvement. Target returns func_800828D0 result in $f0, compares it to 0.2 in $f2, copies the result into $f2 in the branch delay slot, then compares 0.8 against that copy. Candidate inserts mov.s $f4,$f0 before the first compare and compares via $f4; second comparison also uses $f4. Remaining differences are six instructions around this FPR lifetime/order, plus one branch target and one register. Need find source/temporary lifetime that lets GCC schedule the copy into the first branch delay slot and preserve result in $f2.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795198735.6900601,
+  "score_before": 290,
+  "score_after": 290
  }
 ]
