@@ -38,17 +38,16 @@ loop_1:
     osRecvMesg(&D_80108948, 0, 1);
     osSendMesg(&D_80109C98, 0, 0);
     ++D_8011740C;
-    if (var_s1 > 0) {
-        var_s1 -= 1;
-        goto loop_1;
-    }
+    if (var_s1 > 0) goto decrement;
     if (D_800E0710 != 0) {
         goto loop_1;
     }
-    var_s1 = temp_s2;
-    if (D_800B2594 == NULL) {
-        goto loop_1;
+    if (D_800B2594 != NULL) {
+        D_800B2594();
     }
-    D_800B2594();
+    var_s1 = temp_s2;
+    goto loop_1;
+decrement:
+    var_s1--;
     goto loop_1;
 }
