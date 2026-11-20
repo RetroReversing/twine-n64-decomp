@@ -11,7 +11,7 @@ extern char D_800AE761[];
 extern s16 D_800C2852;
 extern u8 gPauseFlag;
 extern s32 gBorderSkipFlag;
-extern s32 D_80109D18;
+extern s32 gBootState;
 
 void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
     char *__base_D_800AE74A;
@@ -43,13 +43,13 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
         if ((gBorderSkipFlag) && (gPauseFlag == 0)) {
             m2c_initial_frame.view_sp14.value = -1;
         } else if (func_80001F40(m2c_initial_frame.view_unksp16.value, (s8)arg2, &m2c_initial_frame.view_sp10.value) != 0) {
-            if ((D_80109D18 != 0) || (((gBorderSkipFlag != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) gPauseFlag < 2U))) {
+            if ((gBootState != 0) || (((gBorderSkipFlag != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) gPauseFlag < 2U))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
             if (m2c_initial_frame.view_sp14.value >= 0) {
                 m2c_initial_frame.view_sp14.value = (s32) D_800C2852;
             }
-        } else if (D_80109D18) {
+        } else if (gBootState) {
             if ((((m2c_initial_frame.view_sp14.value == 0x1F8) | (m2c_initial_frame.view_sp14.value == 0x1EA)) & (temp_a1 = arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1E6) & (arg2 == 0x29)) || ((m2c_initial_frame.view_sp14.value == 0x1E7) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1F0) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1EB) & (arg2 == 0x27))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }

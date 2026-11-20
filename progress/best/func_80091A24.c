@@ -183,8 +183,8 @@ loop_1:
             var_a0_2 = 0;
             if ((*(u8 *)((char *)(arg0) + 0x26)) & 2) {
                 temp_a2_2 = (*(s32 *)((char *)(arg0) + 8));
-                var_v1_2 = 0;
                 temp_a1_2 = temp_a2_2 & 0x7FFFFFFF;
+                var_v1_2 = 0;
 loop_33:
                 if ((*(D_800E6A85 + var_v1_2) != 0) || (*(s32 *)(gSndEntities + var_v1_2) != temp_a1_2)) {
                     var_a0_2 += 1;

@@ -196,11 +196,11 @@ block_75:
         func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs3 = temp_fs2_2 + 160.0f;
         func_8004844C((*(void **)((char *)(gAimAxisTable) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_fs0_5 = 120.0f + temp_fs0_4;
-        func_8004844C((*(void **)((char *)(gAimAxisTable) + 8)), temp_fs2_2, temp_fs0_5, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_fs0_4 = 120.0f + temp_fs0_4;
+        func_8004844C((*(void **)((char *)(gAimAxisTable) + 8)), temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_s4 = (*(void **)((char *)(gAimAxisTable) + 0xC));
         var_a1 = temp_fs3;
-        var_a2 = temp_fs0_5;
+        var_a2 = temp_fs0_4;
         var_a3 = 160.0f;
         goto block_74;
     case 4:

@@ -3,20 +3,20 @@ typedef struct { u32 w0; u32 w1; } Cmd;
 s32 func_80096E7C();
 extern s16 D_80112E9E[];
 
-s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
+s32 func_8009AE24(Seq *s, register Cmd *c, u8 op) {
     s32 a;
     s32 b;
     u8 r;
     volatile u32 frame[2];
     u32 w;
     u32 v;
-    u32 __repair_v_1;
+    
 
     w = c->w0;
-    v = w >> 16;
     {
         s32 value;
-        u8 code = v;
+        u8 code = w >> 16;
+        v = w >> 16;
         if ((w >> 8) & 0xFF) {
             value = func_80096E7C(s, code & 0xFF);
         } else {
@@ -29,15 +29,15 @@ s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
         }
         a = value;
     }
-    __repair_v_1 = c->w1;
+    v = c->w1;
     if ((c->w0 >> 24) != 0) {
-        b = func_80096E7C(s, __repair_v_1 & 0xFF);
+        b = func_80096E7C(s, v & 0xFF);
     } else {
-        __repair_v_1 &= 0x1F;
-        if (__repair_v_1 < 16) {
-            b = s->regs[__repair_v_1];
+        v &= 0x1F;
+        if (v < 16) {
+            b = s->regs[v];
         } else {
-            b = D_80112E9E[__repair_v_1];
+            b = D_80112E9E[v];
         }
     }
     switch (op) {

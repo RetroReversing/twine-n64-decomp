@@ -18,7 +18,7 @@ M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
 s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
-s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
+s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
 M2C_UNK func_80073304(void *, void *, void **);     /* extern */
@@ -345,7 +345,7 @@ u16 __repair_result_var_v0;
                                                     temp_a1 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (temp_s2_3 * 6);
                                                     if ((sp18E & temp_a0) && (temp_s7 & temp_a0)) {
                                                         temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                        if ((func_80048CC0(&sp58, &spE0, temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 0) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 2) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 4) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
+                                                        if ((rayHitsTriangleXZ(&sp58, &spE0, temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 0) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 2) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 4) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
                                                             if (!(((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20)) {
                                                                 var_fs0 = spF0;
                                                                 var_s3_3 = temp_s2_3;
@@ -370,7 +370,7 @@ u16 __repair_result_var_v0;
                                                     temp_a1_2 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (temp_s2_4 * 3);
                                                     if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7)) {
                                                         temp_v1_8 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                        if ((func_80048CC0(&sp58, &spE0, temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 0) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 1) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 2) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
+                                                        if ((rayHitsTriangleXZ(&sp58, &spE0, temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 0) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 1) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 2) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
                                                             if (!(((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20)) {
                                                                 var_fs0 = spF0;
                                                                 var_s3_3 = temp_s2_4;

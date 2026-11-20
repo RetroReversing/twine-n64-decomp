@@ -17,7 +17,7 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 void func_80048734(f32);                     /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern void *D_80109BB0;
-extern u8 D_8010A4FE;
+extern u8 gOptionFlagA;
 
 extern char D_800D2AA0[];
 void func_80022368(void) {
@@ -25,7 +25,7 @@ void func_80022368(void) {
 
     updateActiveMenuState();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        if (D_8010A4FE == 0) var_a0 = func_80087100(0x1A);
+        if (gOptionFlagA == 0) var_a0 = func_80087100(0x1A);
         else var_a0 = func_80087100(0x1B);
         formatTextEntry(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, D_800D2AA0, var_a0);
         func_80048734(60.0f);

@@ -12,16 +12,16 @@ extern s16 D_800BF5CA;
 extern Def *gAimAxisTable[];
 
 Obj *func_8002B4D4(u8 kind, u16 mode) {
-    Obj *o;
+    register Obj *o;
+    register f32 scale;
     Obj *volatile *p;
-    f32 scale;
 
     p = &D_800BF5BC;
     if (*p != NULL) {
         return NULL;
     }
     *p = func_80016410(0, 0, 0);
-    D_800BF5CA = kind;
+    D_800BF5CA = (s32)kind;
     D_800BF5C4 = 0;
     switch (mode) {
     default:
@@ -38,8 +38,8 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         func_80044670(o, 1, 0x2A);
         D_800BF5BC->b7E = 1;
         D_800BF5BC->h78 = 0x56;
+        o = (unsigned)D_800BF5BC; o->flags = o->flags | 0x1000;
         D_800BF5BC->b82 = 0xFF;
-        o = D_800BF5BC; o->flags = o->flags | 0x1000;
         *(volatile f32 *)&D_800BF5BC->f24 = 0.015f;
         *(volatile f32 *)&D_800BF5BC->f28 = 0.02f;
         D_800BF5BC->f2C = 0.1f;
@@ -51,7 +51,7 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         func_80016990(*p, gAimAxisTable[kind]->wF4);
     }
     func_8002B6BC(*p);
-    D_800BF5C8 = mode;
+    D_800BF5C8 = (s32)mode;
     func_8002B6BC(*p);
     func_8002B6BC(*p);
     func_8002B6BC(*p);

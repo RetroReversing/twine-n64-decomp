@@ -1,7 +1,7 @@
 #define PTR(x, off) (*(void **)((u8 *)(x) + (off)))
 s16 func_8002B278();
 s32 func_8011A7C8();
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_801002A8;
 extern u8 D_801002AC;
 extern s32 D_801002B4;
@@ -26,7 +26,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     for (i = 0; (u32)i < 2; i++) {
         buf[i] = 0;
     }
-    switch ((u32)D_801002A0) {
+    switch ((u32)gSceneType) {
     case 6:
         if (D_801002A8 == 0) {
             D_801002AC = 0;

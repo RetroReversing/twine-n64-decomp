@@ -4,7 +4,7 @@ extern f64 D_800D3E10;
 
 typedef struct { f32 x, y, z; } Vec3f;
 
-s32 func_80048CC0(void *origin, void *rayDir, void *v0, void *v1, void *v2, f32 *outT) {
+/* Ray vs. triangle test in the XZ plane: returns 1 and writes the hit distance to *outT when the ray from origin hits triangle (v0, v1, v2). */ s32 rayHitsTriangleXZ(void *origin, void *rayDir, void *v0, void *v1, void *v2, f32 *outT) {
     register Vec3f edge1;
     Vec3f edge2;
     register Vec3f toOrigin;

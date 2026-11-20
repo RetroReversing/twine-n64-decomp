@@ -5,7 +5,7 @@ s32 func_80047E4C(void **, s32, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
 s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
-s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
+s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 unsigned char func_8004E418(s32, f32 *, f32 *);               /* extern */
 s32 func_80082D24(s16 *, f32 *);                /* extern */
@@ -312,7 +312,7 @@ block_17:
                                             temp_v1_9 = *(u16 *)(((var_s0_3 & 0xFFFF) * 2) + (*(s32 *)((char *)(temp_s1) + 0x38)));
                                             if ((temp_fp_2 & temp_v1_9) && (temp_s7 & temp_v1_9)) {
                                                 temp_v1_10 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                                if ((func_80048CC0(sp88, sp48, temp_v1_10 + (*var_s3_3 * 0xC), temp_v1_10 + ((*(u16 *)((char *)(var_s2_4) + -2)) * 0xC), temp_v1_10 + ((*(u16 *)((char *)(var_s2_4) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (spE0 < var_fs0)) {
+                                                if ((rayHitsTriangleXZ(sp88, sp48, temp_v1_10 + (*var_s3_3 * 0xC), temp_v1_10 + ((*(u16 *)((char *)(var_s2_4) + -2)) * 0xC), temp_v1_10 + ((*(u16 *)((char *)(var_s2_4) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (spE0 < var_fs0)) {
                                                     var_fs0 = spE0;
                                                 }
                                             }
@@ -331,7 +331,7 @@ block_17:
                                             temp_v1_11 = *(u16 *)((temp_s4_2 * 2) + (*(s32 *)((char *)(temp_s1) + 0x38)));
                                             if ((temp_fp_2 & temp_v1_11) && (temp_s7 & temp_v1_11)) {
                                                 temp_v1_12 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                                if ((func_80048CC0(sp88, sp48, temp_v1_12 + (*var_s3_4 * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + -1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (var_fs0 > spE0)) {
+                                                if ((rayHitsTriangleXZ(sp88, sp48, temp_v1_12 + (*var_s3_4 * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + -1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (var_fs0 > spE0)) {
                                                     var_fs0 = spE0;
                                                     var_s5 = temp_s4_2;
                                                 }

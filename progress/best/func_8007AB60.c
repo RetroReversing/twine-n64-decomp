@@ -31,7 +31,7 @@ s32 func_8007AB60(void *arg0) {
     u16 var_a1_2;
     u8 temp_v0;
     u8 temp_v1;
-    u8 temp_v1_2;
+    s32 temp_v1_2;
     void *temp_a1;
     void *temp_a2;
 

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 memset();
 extern u8 D_800B2750[];
 
-void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
+void saveDataEncodeName(s8 *arg0, s8 *arg1, s32 arg2) {
     s32 temp_a2;
     s32 temp_s0;
     s32 temp_v0;

@@ -29,7 +29,7 @@ extern u8 D_801001A0;
 extern u8 D_801001A1;
 extern u8 D_801001A2;
 extern u8 D_801001A4;
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002A1;
 extern u8 D_801002A2;
 extern u8 D_801002A4;
@@ -48,7 +48,7 @@ extern const u16 *volatile D_80102FD4;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
 extern u8 gBorderFlipFlag;
-extern u8 D_8010A4FE;
+extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 extern u8 D_80112F70;
 extern u8 D_80112F7B;
@@ -137,7 +137,7 @@ loop_3:
             var_s4 += 1;
         } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
         {
-            u8 *mode = &D_801002A0;
+            u8 *mode = &gSceneType;
             *mode = func_8002E98C(&D_800E1310, 1, 4);
             D_801002A1 = func_8002E98C(&D_800E1310, 1, 1);
             D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
@@ -173,7 +173,7 @@ loop_3:
         D_8010A4C0 = func_8002E98C(&D_800E1310, 1, 2);
         D_8010A4FC = func_8002E98C(&D_800E1310, 1, 6);
         gBorderFlipFlag = func_8002E98C(&D_800E1310, 1, 1);
-        D_8010A4FE = func_8002E98C(&D_800E1310, 1, 1);
+        gOptionFlagA = func_8002E98C(&D_800E1310, 1, 1);
         D_8010A4FF = func_8002E98C(&D_800E1310, 1, 2);
         D_801002EC = func_8002E98C(&D_800E1310, 4, 1);
         D_801002F0 = func_8002E98C(&D_800E1310, 1, 4);

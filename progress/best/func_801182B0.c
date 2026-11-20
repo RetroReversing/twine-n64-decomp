@@ -26,39 +26,27 @@ char *__repair_addr;
     u8 temp_v1_3;
     void *temp_a1;
 
-    if (M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), u8 *, 0x10) != 7) {
-        temp_a1 = M2C_FIELD(arg1, void **, 0x6C);
-        temp_v1 = M2C_FIELD(temp_a1, u16 *, 0x3C);
-        if (temp_v1 == 2) {
-            temp_v1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
-__repair_addr = (char *)((arg0 + (temp_v1_2 * 2)));
-
-            var_condition_bit = (f32) M2C_FIELD(__repair_addr, s16 *, 0x1BC) < ((f32) *(s16 *)(D_800C7C16 + (temp_v1_2 * 4)) * 0.5f);
-            goto block_9;
-        }
-        if (temp_v1 == 0) {
-            temp_v1_3 = *(D_800C471C + (M2C_FIELD(temp_a1, u16 *, 0x3E) * 0xE8));
-            var_condition_bit = (f32) M2C_FIELD((arg0 + (temp_v1_3 * 2)), s16 *, 0x1BC) < ((f32) *(s16 *)(D_800C7C16 + (temp_v1_3 * 4)) * 0.5f);
-            goto block_9;
-        }
-        temp_a1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
-        var_v0 = 0;
-        if ((s32) temp_a1_2 >= 0x17) {
-            var_v0 = 1;
-            if ((s32) temp_a1_2 >= 0x1A) {
-                var_v0 = 0;
-                if (temp_a1_2 == 0x1A) {
-                    var_condition_bit = M2C_FIELD(arg0, f32 *, 0x60) < 75.0f;
-block_9:
-                    var_v0 = 1;
-                    if (!var_condition_bit) {
-                        var_v0 = 0;
-                    }
-                }
-            }
-        }
-    } else {
-        var_v0 = 0;
+    if (M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), u8 *, 0x10) == 7) return 0;
+    temp_a1 = M2C_FIELD(arg1, void **, 0x6C);
+    temp_v1 = M2C_FIELD(temp_a1, u16 *, 0x3C);
+    if (temp_v1 == 2) {
+        f32 limit;
+        temp_v1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
+        limit = (f32)*(s16 *)(D_800C7C16 + temp_v1_2 * 4) * 0.5f;
+        var_condition_bit = (f32)M2C_FIELD(arg0 + temp_v1_2 * 2, s16 *, 0x1BC) < limit;
+        goto compare;
+    } else if (temp_v1 == 0) {
+        f32 limit;
+        temp_v1_3 = *(u8 *)(D_800C471C + M2C_FIELD(temp_a1, u16 *, 0x3E) * 0xE8);
+        limit = (f32)*(s16 *)(D_800C7C16 + temp_v1_3 * 4) * 0.5f;
+        var_condition_bit = (f32)M2C_FIELD(arg0 + temp_v1_3 * 2, s16 *, 0x1BC) < limit;
+        goto compare;
     }
-    return var_v0;
+    temp_a1_2 = M2C_FIELD(temp_a1, u16 *, 0x3E);
+    if (temp_a1_2 < 23) return 0;
+    if (temp_a1_2 < 26) return 1;
+    if (temp_a1_2 != 26) return 0;
+    var_condition_bit = M2C_FIELD(arg0, f32 *, 0x60) < 75.0f;
+compare:
+    return var_condition_bit ? 1 : 0;
 }

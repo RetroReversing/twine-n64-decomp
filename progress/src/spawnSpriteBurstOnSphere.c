@@ -22,7 +22,7 @@ typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
 extern Words D_800D42C8;
 extern s16 D_80109A58;
 
-/* Spawns a burst of sprites at random points on a sphere of radius arg2 around arg0, each with a random size and tint. */ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
+/* Spawns a burst of sprites at random points on a sphere of radius arg2 around arg0, each with a random size and tint. */ /* Spawns a burst of sprites at random points on a sphere of radius arg2 around arg0, each with a random size and tint. */ void spawnSpriteBurstOnSphere(void *arg0, M2C_UNK arg1, f32 arg2) {
     f32 vec[3];
 #define sp30 vec[0]
 #define sp34 vec[1]

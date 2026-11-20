@@ -52,20 +52,17 @@ void func_8005E900(void *arg0) {
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     temp_s2 = (*(void **)((char *)(arg0) + 0x20));
     if ((temp_v0 != NULL) && ((*(s32 *)((char *)(temp_v0) + 0x38)) != 0)) {
-        m2c_initial_frame.view_sp20.value = (*(f32 *)((char *)(arg0) + 0x24));
-        m2c_initial_frame.view_sp28.value = (*(f32 *)((char *)(arg0) + 0x2C));
-        m2c_initial_frame.view_sp24.value = (*(f32 *)((char *)(arg0) + 0x28));
-        if ((func_8004FF30((*(void **)((char *)(arg0) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, (*(f32 *)((char *)(arg0) + 0x64)) * (*(f32 *)((char *)(arg0) + 0x54)), 0, 0, 0, arg0) << 0x18) != 0) {
+        { f32 a = *(f32 *)((char *)arg0 + 0x64); f32 b = *(f32 *)((char *)arg0 + 0x54); temp_ft0 = a * b; }
+        { struct V { s32 x,y,z; }; *(struct V *)&m2c_initial_frame.view_sp20.value = *(struct V *)((char *)arg0 + 0x24); }
+        if ((func_8004FF30((*(void **)((char *)(arg0) + 0x20)), &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, temp_ft0, 0, 0, 0, arg0) << 0x18) != 0) {
             (*(f32 *)((char *)(arg0) + 0x24)) = m2c_initial_frame.view_sp20.value;
             (*(f32 *)((char *)(arg0) + 0x2C)) = m2c_initial_frame.view_sp28.value;
             if (m2c_initial_frame.view_sp24.value < (*(f32 *)((char *)(arg0) + 0x28))) {
                 (*(f32 *)((char *)(arg0) + 0x28)) = m2c_initial_frame.view_sp24.value;
             }
         }
-        m2c_initial_frame.view_sp20.value = (*(f32 *)((char *)(arg0) + 0x24));
-        m2c_initial_frame.view_sp28.value = (*(f32 *)((char *)(arg0) + 0x2C));
+        { struct V { s32 x,y,z; }; *(struct V *)&m2c_initial_frame.view_sp20.value = *(struct V *)((char *)arg0 + 0x24); }
         temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x3C))) + 0x20));
-        m2c_initial_frame.view_sp24.value = (*(f32 *)((char *)(arg0) + 0x28));
         if (m2c_initial_frame.view_sp24.value < temp_fv1) {
             m2c_initial_frame.view_sp24.value = temp_fv1;
         }

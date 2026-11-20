@@ -1,7 +1,7 @@
 extern void func_800103B0(u8 *dst, s8 *src, u8 len);
 extern s32 func_80010A2C(void);
 extern s32 func_8001226C(s32);
-extern s32 func_80012428(void);
+extern s32 saveDataRunSteps(void);
 extern u16 func_80012F50(void);
 extern u16 D_800BFC32;
 extern s32 D_800E0978;
@@ -30,7 +30,7 @@ u16 func_80012AB0(u16 arg0)
             D_800BFC32 = 0x30;
             return 0x30;
         }
-        if ((u16)func_80012428() == 0 && func_80012F50() == 0) {
+        if ((u16)saveDataRunSteps() == 0 && func_80012F50() == 0) {
             D_800BFC32 = 3;
             return 3;
         }

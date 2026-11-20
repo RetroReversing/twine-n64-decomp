@@ -16,7 +16,7 @@ s32 func_8011AE4C();
 s32 func_8011B3D8();
 s32 func_8011C338();
 s32 func_8011D0B4();
-extern s8 D_801002A0;
+extern s8 gSceneType;
 extern u8 D_801002A1;
 extern u8 D_801002D5;
 extern char D_8011F100[];
@@ -35,11 +35,11 @@ void func_8011AA9C(void *arg0) {
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s1 = func_8011B3D8(M2C_FIELD(temp_s0, s32 *, 4));
-    if (D_801002A0 != 7) {
-        if ((s32) D_801002A0 < 8) {
-            if ((s32) D_801002A0 < 4) {
+    if (gSceneType != 7) {
+        if ((s32) gSceneType < 8) {
+            if ((s32) gSceneType < 4) {
                 var_v0 = temp_s1 ^ (s32) temp_s0;
-                if ((s32) D_801002A0 >= 2) {
+                if ((s32) gSceneType >= 2) {
                     func_8011C338(arg0);
                     goto block_16;
                 }
@@ -50,7 +50,7 @@ block_16:
             goto block_17;
         }
         var_v0 = temp_s1 ^ (s32) temp_s0;
-        if (D_801002A0 == 8) {
+        if (gSceneType == 8) {
             if (M2C_FIELD(temp_s0, s32 *, 0x1B4) != 0x26) {
 
             } else if (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xB4), u8 *, 0x10) == 7) {

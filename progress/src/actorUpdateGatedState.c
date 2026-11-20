@@ -28,7 +28,7 @@ extern f64 D_800D4818;
 extern f64 D_800D4820;
 extern char D_8010019C[];
 extern char D_801001A0[];
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_801002B8;
 extern s32 gBorderSkipFlag;
 extern char gAimAxisTable[];
@@ -64,7 +64,7 @@ extern char gAimAxisTable[];
             }
             M2C_FIELD(aiBlock, u8 *, 0x199) = 1U;
         }
-        if (((D_801002A0 != 7) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) != 0)) && ((D_801002A0 != 8) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) == 0))) {
+        if (((gSceneType != 7) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) != 0)) && ((gSceneType != 8) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) == 0))) {
             func_80016314(M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), s32 *, 8));
             M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), s32 *, 8) = 0;
             func_800635B4(actor, 1);

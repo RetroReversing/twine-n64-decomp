@@ -18,7 +18,7 @@ M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 extern s32 *D_800CA31C;
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_8011ECF0[];
 extern M2C_UNK D_8011ED08;
 extern M2C_UNK D_8011F160;
@@ -36,7 +36,7 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
     s32 temp_v0_2;
     void *temp_v0;
 
-    __base_D_801002A0 = &D_801002A0;
+    __base_D_801002A0 = &gSceneType;
     if ((u32) ((*__base_D_801002A0) - 2) < 2U) {
         temp_v0 = func_80016410(0, arg0, arg1, arg1);
         temp_s0 = arg2;

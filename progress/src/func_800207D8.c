@@ -16,12 +16,12 @@ M2C_UNK func_8002175C();                            /* extern */
 M2C_UNK func_80022E5C(u8);                          /* extern */
 M2C_UNK func_8002A104(s32);                         /* extern */
 M2C_UNK func_8002ACB4(s32);                         /* extern */
-extern s32 D_800B60E4;
+extern s32 gMenuList;
 extern void *D_80109BB0;
 
 void func_800207D8(void) {
     func_80022E5C(M2C_FIELD(D_80109BB0, u8 *, 0x30));
     func_8002175C();
-    func_8002A104(D_800B60E4);
-    func_8002ACB4(D_800B60E4);
+    func_8002A104(gMenuList);
+    func_8002ACB4(gMenuList);
 }

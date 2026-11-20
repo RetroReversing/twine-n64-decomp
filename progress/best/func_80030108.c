@@ -24,17 +24,17 @@ s32 __repair_phase_var_v0;
     u8 temp_a0_2;
     u8 temp_a1_3;
     u8 temp_v1_3;
-    s32 temp_v1_4;
+    
     void *temp_a1_2;
     void *temp_a1_4;
     void *temp_v0_7;
-    void *temp_v1;
+    union { void * pointer; s32 value; } __repair_phase_storage;
 
-    temp_v1 = (*(void **)((char *)(arg0) + 4));
+    __repair_phase_storage.pointer = (*(void **)((char *)(arg0) + 4));
     var_t0 = 1;
-    if (temp_v1 != NULL) {
-        temp_v1_2 = (u32) (*(u32 *)((char *)(temp_v1) + 0x10)) >> 0x18;
-        if ((*(u8 *)((char *)(temp_v1) + 0x11)) != 0) {
+    if (__repair_phase_storage.pointer != NULL) {
+        temp_v1_2 = (u32) (*(u32 *)((char *)(__repair_phase_storage.pointer) + 0x10)) >> 0x18;
+        if ((*(u8 *)((char *)(__repair_phase_storage.pointer) + 0x11)) != 0) {
             temp_v0 = temp_v1_2 - 0x20;
             if (temp_v0 >= 0) {
                 var_v1 = temp_v1_2 - 0x20;
@@ -61,8 +61,8 @@ s32 __repair_phase_var_v0;
                 var_v1_2 = temp_v0_8 - 0x20;
                 if (temp_v0 >= 0x100) var_v1_2 = 0xFF;
             } else var_v1_2 = 0;
-            __repair_phase_temp_v0 = (u8)((*(u8 *)((char *)((*(void **)((char *)(arg0) + 0xC))) + 0x10)));
             temp_v0 = __repair_phase_temp_v0 - 0x20;
+            __repair_phase_temp_v0 = (u8)((*(u8 *)((char *)((*(void **)((char *)(arg0) + 0xC))) + 0x10)));
             if (temp_v0 >= 0) {
                 var_a0_2 = __repair_phase_temp_v0 - 0x20;
                 if (temp_v0 >= 0x100) var_a0_2 = 0xFF;
@@ -80,11 +80,11 @@ s32 __repair_phase_var_v0;
     }
     temp_v0_7 = (*(void **)((char *)(arg0) + 0x10));
     if (temp_v0_7 != NULL) {
-        temp_v1_4 = (*(u8 *)((char *)(temp_v0_7) + 0x10));
-        temp_v0_8 = temp_v1_4 - 0x20;
-        if (temp_v1_4 != 0) {
+        __repair_phase_storage.value = (*(u8 *)((char *)(temp_v0_7) + 0x10));
+        temp_v0_8 = __repair_phase_storage.value - 0x20;
+        if (__repair_phase_storage.value != 0) {
             if (temp_v0_8 >= 0) {
-                var_v0 = temp_v1_4 - 0x20;
+                var_v0 = __repair_phase_storage.value - 0x20;
                 if (temp_v0_8 >= 0x100) var_v0 = 0xFF;
             } else var_v0 = 0;
             temp_v0 = var_v0 & 0xFF;

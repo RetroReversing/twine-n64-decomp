@@ -5,7 +5,7 @@ extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 extern s32 func_801182B0(void *, void *);
 extern u32 D_8010019C[];
 extern s8 D_801001A1[];
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_801002B4;
 extern void *D_80102CD0[4];
 extern void *D_8010A410;
@@ -22,7 +22,7 @@ typedef struct { u8 pad[0x6C]; void *field6c; } ObjMain;
 typedef struct { u8 pad[0x74]; f32 dist; u8 pad2[0]; } ObjCandidate;
 
 void *func_801183F4(ObjMain *arg0, s32 arg1) {
-    ObjSub *sub;
+    register ObjSub *sub;
     s32 idx, row, kind, flags, n, i;
     s32 minframe, best1, best2;
     ObjCandidate *candidate;
@@ -46,7 +46,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         while(i<count) {
             p=((void **)0x80102CD0)[i];
             v=*(s32 *)((u8 *)p+0xb4);
-            if(v<best1) best1=v;
+            if(v<best1) best1=(unsigned)v;
             v=*(s16 *)((u8 *)v+0xc);
             i++;
         }
@@ -60,13 +60,13 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         v=*(u8 *)((u8 *)sub->field_b4+0x12);
         if(v==2) func_80045E34(arg0,(u8 *)candidate+0x24);
         else if(v==*(u8 *)((u8 *)*(void **)((u8 *)p+0x6c)+0x12)) func_80045E34(arg0,(u8 *)candidate+0x24);
-        scale=*(f32 *)((u8 *)flags);
         tmp=candidate->dist*scale;
+        scale=*(f32 *)((u8 *)flags);
         state=*(u8 *)((u8 *)sub->field_b4+0x12);
-        if(D_801002A0>=2 && D_801002A0<=3) {
+        if(gSceneType>=2 && gSceneType<=3) {
             if(D_8011F280[state] == D_8010A500[entry]) tmp*=0.33333334f;
         }
-        if(n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)D_8010A500[entry]+0x74));
+        if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)D_8010A500[entry]+0x74));
         if(n&2) {
             v=*(s16 *)((u8 *)((void **)D_80102CD0)[entry]+0xc);
             if(v<=0) v=1;
@@ -85,7 +85,7 @@ scan_select:
             v=*(s8 *)((u8 *)sub+0x182);
             v=((s32 *)0x80110000)[(v*4)/4-0x19de];
             j=func_800158A4((u8 *)v+0x10,(u8 *)candidate+0x24,*(void **)((u8 *)arg0+0x20),0,0,0x20000,0,1,0);
-            if(!j) continue;
+            if(j == 0) continue;
             if(tmp<0.0f) continue;
             best=candidate;
             selected=candidate;

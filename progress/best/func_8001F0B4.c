@@ -15,7 +15,7 @@ s32 func_8007089C(s32, s32, s32, s32 *); /* extern */
 s32 func_80087100(s32);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 extern u16 D_800B60E2;
-extern s32 D_800B60E4;
+extern s32 gMenuList;
 extern u8 D_800BD68F;
 extern s32 D_800C4478;
 extern s32 D_800C447A;
@@ -49,8 +49,8 @@ void func_8001F0B4(void) {
     updateActiveMenuState();
     (*(s8 *)((char *)(D_80109BB0) + 0x2C)) = 0;
     if ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0) {
-        if (func_80029C08(D_800B60E4, 2, 0) & 0xFFFF) {
-            temp_s2 = func_8002A980(D_800B60E4);
+        if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
+            temp_s2 = func_8002A980(gMenuList);
             if (*(&D_8010A500 + (D_800BD68F * 4)) != 0) {
                 switch (D_800B60E2) {               /* switch 1; irregular */
                 case 0:                             /* switch 1 */
@@ -92,7 +92,7 @@ void func_8001F0B4(void) {
             }
         } else {
 block_15:
-            temp_v0_2 = func_8002A980(D_800B60E4);
+            temp_v0_2 = func_8002A980(gMenuList);
             if ((temp_v0_2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
                 func_8000A894(0xE8);
                 switch (D_800B60E2) {               /* switch 2; irregular */

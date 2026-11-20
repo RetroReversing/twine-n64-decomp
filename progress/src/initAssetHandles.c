@@ -39,13 +39,13 @@ extern s32 D_800D9404;
 extern s32 D_800D9408;
 extern s32 D_800D940C;
 extern s32 D_800D9410;
-extern s32 D_80109D18;
+extern s32 gBootState;
 
-/* Resets the boot state, initialises the resource caches, flags table entries whose b field differs from D_800C39B0, and stores the handles for each asset id. */ void func_80001AFC(void) {
+/* Boot init: resets state, initialises resource caches, flags table rows whose b field differs from D_800C39B0, and stores the handle for each asset id. */ /* Resets the boot state, initialises the resource caches, flags table entries whose b field differs from D_800C39B0, and stores the handles for each asset id. */ void initAssetHandles(void) {
     s32 rec_index;
     s16 *threshold_ptr;
 
-    D_80109D18 = 0;
+    gBootState = 0;
     initResourceCaches();
     func_80001D80(0);
     for (rec_index = 0; D_800C3924[rec_index].a != 0; rec_index++) {

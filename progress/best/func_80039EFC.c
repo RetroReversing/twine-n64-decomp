@@ -109,7 +109,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
         temp_s0 = arg13 - 1;
         temp_t7 = (arg2 & 7) << 0x15;
         sp14 = (u32) arg4 >> 1;
-        do {
+        __repair_rows: {
             var_t4 = arg10;
             var_t6 = (s32) arg14;
             if (var_t4 < arg12) {
@@ -149,7 +149,7 @@ void *var_t0_2;
                         (*(s32 *)((char *)(temp_t0_2) + 8)) = 0;
                         temp_t0_4 = temp_t0_3 + 8;
                         (*(s32 *)((char *)(temp_t0_4) + -4)) = (s32) ((((temp_t3 * 2) & 0xFFF) << 0xC) | (temp_a1_2 | 0xF4000000));
-                        (*(s32 *)((char *)(temp_t0_3) + 8)) = (s32) ((((var_t2 * 2) & 0xFFF) << 0xC) | (temp_a2_3 | 0x07000000));
+                        (*(s32 *)((char *)(temp_t0_3) + 8)) = (s32) ((((temp_s1 * 2) & 0xFFF) << 0xC) | (temp_a2_3 | 0x07000000));
                         temp_t0_5 = temp_t0_4 + 8;
                         (*(s32 *)((char *)(temp_t0_5) + -4)) = 0xE7000000;
                         (*(s32 *)((char *)(temp_t0_4) + 8)) = 0;
@@ -234,7 +234,8 @@ void *var_t0_2;
             }
             var_t5 += arg9;
             var_t8 += sp2C;
-        } while (var_t5 < arg13);
+        }
+if (var_t5 < arg13) goto __repair_rows;
     }
     *sp4 = var_t1;
 }

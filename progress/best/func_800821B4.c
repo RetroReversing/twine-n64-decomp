@@ -48,8 +48,8 @@ void func_800821B4(void) {
     volatile u64 frame_pad;
     s32 sp2C;
     s32 sp16;
-    s32 *var_a0_2;
     unsigned sp24;
+    s32 *var_a0_2;
     
     s16 *var_s2;
     s32 temp_s0;
@@ -109,11 +109,11 @@ void func_800821B4(void) {
             var_s0 = temp_s0 - 4;
             var_v0 = (s32) ~var_s0 >> 0x1F;
         } else {
-            var_s0 = temp_s0 + 4;
             var_v0 = -(var_s0 < 1);
+            var_s0 = temp_s0 + 4;
         }
         var_s0_2 = ((var_s0 & var_v0) << 0x10) / 76;
-        if (var_s0_2 < 0xFFFF0000) {
+        if (0xFFFF0000 > var_s0_2) {
             var_s0_2 = -0x10000;
         } else if (var_s0_2 > 0x10000) {
             var_s0_2 = 0x10000;
@@ -188,7 +188,7 @@ void func_800821B4(void) {
                     default:                        /* switch 1 */
                         if (temp_a2 != 0) {
                             var_a0 = 1;
-                        } else if ((int)temp_a3 != 0) {
+                        } else if (temp_a3 != 0) {
                             var_a0 = 2;
                         } else if (temp_t0 != 0) {
                             var_a0 = 3;

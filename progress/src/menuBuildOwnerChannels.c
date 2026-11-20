@@ -16,7 +16,7 @@ s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 func_80070844(void *, s32);                     /* extern */
 s32 func_80087100(s32);                             /* extern */
 extern s16 D_800B60E2;
-extern s32 *D_800B60E4;
+extern s32 *gMenuList;
 extern s8 D_800B60EA;
 extern u8 D_800BD68E;
 extern u8 D_800BD68F;
@@ -30,7 +30,7 @@ extern s32 D_8010A500;
 extern s32 func_8001E898;
 extern s32 func_8001EAF0;
 
-/* Sets up the channel table and related UI objects for the current owner record. */ void func_8002085C(void) {
+/* Builds the channel table and related UI objects for the current owner record. */ /* Sets up the channel table and related UI objects for the current owner record. */ void menuBuildOwnerChannels(void) {
     unsigned long offset;
     register s32 *slot;
     s32 val;
@@ -46,7 +46,7 @@ extern s32 func_8001EAF0;
 
     D_800B60E2 = 1;
     D_800B60EA = 1;
-    D_800B60E4 = &D_801003E0;
+    gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
     owner = *(&D_8010A500 + D_800BD68F);
     found = (s32)NULL;
@@ -65,10 +65,10 @@ extern s32 func_8001EAF0;
                     *slot = handle;
                     if (handle) {
                         func_800160FC(*slot, func_80087100(val | 0x7000), 0x40);
-                        func_8002A7CC(D_800B60E4, *slot, val, func_80018318(*slot) & 0xFF);
+                        func_8002A7CC(gMenuList, *slot, val, func_80018318(*slot) & 0xFF);
                     }
                     if ((*(u16 *)((char *)(rec) + 0x174)) == idx) {
-                        found = func_8002A9A8(D_800B60E4, count);
+                        found = func_8002A9A8(gMenuList, count);
                     }
                     ++count;
                 }
@@ -85,7 +85,7 @@ extern s32 func_8001EAF0;
             }
             func_80022E18(D_800BD68E);
             func_80022AD8(D_800BD68E);
-            func_8002AC04(D_800B60E4, 1);
+            func_8002AC04(gMenuList, 1);
         }
     }
 }

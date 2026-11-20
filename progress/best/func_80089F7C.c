@@ -192,8 +192,8 @@ Ent *e;
                 p = &sp10[(u16)s3];
                 p[0] = s0->data + s1_2;
                 D_80109BA0 = v0;
-                D_80108F70 += 1;/*__repair_loop_weight*/do {
-                s3++;} while (0);
+                D_80108F70 += 1;
+                s3++;
                 p[2] = s2;
                 s2 = 0;
                 p[4] = s0->addr + s1_2;

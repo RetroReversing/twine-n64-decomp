@@ -1,5 +1,5 @@
 #define FLD(p,t,o) (*(t *)((u8 *)(p)+(o)))
-extern s16 D_800C3CF4[]; extern s16 D_800C3928[]; extern s16 D_800C392A[]; extern s16 *D_800C3CF8[]; extern u8 *D_800C3CFC[]; extern f32 D_800AE4D8; extern s16 *D_800AE4DC[]; extern s16 D_800AE53C[]; extern u8 D_800CA338; extern s32 D_80109D18;
+extern s16 D_800C3CF4[]; extern s16 D_800C3928[]; extern s16 D_800C392A[]; extern s16 *D_800C3CF8[]; extern u8 *D_800C3CFC[]; extern f32 D_800AE4D8; extern s16 *D_800AE4DC[]; extern s16 D_800AE53C[]; extern u8 D_800CA338; extern s32 gBootState;
 void *func_80083E90(void*, s32); void *memset(void*,s32,s32); f32 func_80082908(f32); void func_800060B0(void*,s32,s32); void func_80084180(s32*,s32*,s32); void *func_8002BC4C(void); s16 *func_80001928(s32); s32 func_8003FA78(s32); s32 func_80002098(void *a); s32 func_8004478C(s32,s32); s32 func_80045CF8(s32);
 s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
  unsigned int result=0, n, bytes, aligned, stride, size12, size4, i, j, val, id;
@@ -84,5 +84,5 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
   for(i=0,j=0;list[j]>=0;j++,i++) FLD(state,s32,0x58+i*4)=0;
  }
  result=1;
-done: D_80109D18=0; return result;
+done: gBootState=0; return result;
 }

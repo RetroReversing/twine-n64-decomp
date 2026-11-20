@@ -28,7 +28,7 @@ extern char D_800C469C[];
 extern char D_800C46A1[];
 extern char D_800C471C[];
 extern char D_800C7C16[];
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_8010302C;
 extern char gAimAxisTable[];
 extern void *D_8010A500;
@@ -80,7 +80,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     var_a1 = arg1;
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s2 = M2C_FIELD(var_a1, void **, 0x6C);
-    if (D_801002A0 == 8) {
+    if (gSceneType == 8) {
         temp_s3 = func_80045CF8(0x1E) / 10;
         var_s0 = 0;
         var_a1 = NULL;

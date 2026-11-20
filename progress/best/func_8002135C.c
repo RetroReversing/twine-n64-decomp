@@ -10,7 +10,7 @@ s32 func_80016990(void *, s32);                 /* extern */
 s32 func_8002A920(void *, s8);                      /* extern */
 s32 func_80044670(void *, int, u32);             /* extern */
 extern u16 D_800B60E2;
-extern void *D_800B60E4;
+extern void *gMenuList;
 extern void *D_800B7CE8;
 extern u8 D_800B7CEC;
 extern u8 D_800BD68F;
@@ -25,7 +25,7 @@ extern s32 D_800C4780;
 extern f64 D_800D2A98;
 extern void *D_80109698;
 extern void *D_80109BB0;
-extern s32 D_80109D18;
+extern s32 gBootState;
 extern s32 D_8010A500;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; signed char field_82; } __repair_record_D_800B7CE8;
@@ -39,9 +39,9 @@ void func_8002135C(void) {
 
     if (((u32)D_800B7CEC != 0) && (var_s0 = -1U, (D_80109698 != NULL))) {
         var_s1 = -1;
-        temp_v0 = func_8002A920(D_800B60E4, (*(s8 *)((char *)(D_800B60E4) + 0x18)));
+        temp_v0 = func_8002A920(gMenuList, (*(s8 *)((char *)(gMenuList) + 0x18)));
         if (temp_v0 != NULL) {
-            if (D_800B60E2 == 0) {
+            if (!D_800B60E2) {
                 var_s0 = *((u8 *)((s8 *)&D_800C473A + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
                 if ((s32) var_s0 < 0) {
                     var_s0 = -1U;
@@ -57,8 +57,8 @@ void func_8002135C(void) {
             }
         } else {
 block_9:
-            var_v0 = var_s0 >> 0x1F;
-            if ((D_800B7CE8 != (unsigned)NULL) || ((D_80109D18 = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
+            var_v0 = (int)var_s0 >> 0x1F;
+            if ((D_800B7CE8 != (unsigned)NULL) || ((gBootState = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
                 if ((var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
                     func_80016718(D_800B7CE8);
                     return;
@@ -74,7 +74,7 @@ block_9:
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.5f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) ((f64) ((1.0f / ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64) * 0.09f) * D_800D2A98);
                 } else {
-                    D_80109D18 = 1;
+                    gBootState = 1;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x400);
                     func_8000237C(D_800B7CE8, var_s0, 2, 0);
                     func_80002D30(D_800B7CE8, *((u16 *)((s8 *)&D_800C472E + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8))));

@@ -64,13 +64,13 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
   if(gExpansionPakPresent && !D_80107ECC) *(u8 *)(base+0x46)=0x80;
   else *(u8 *)(base+0x46)=0;
   if(!*(u8 *)(base+0x46)) D_80109A35=1;
-  func_8000B9B8(header,*(s32*)(p+0x24)+(s32)D_54D910,0x20);
+  do { func_8000B9B8(header,*(s32*)(p+0x24)+(s32)D_54D910,0x20); } while (0);
   *(s32*)records=(s32)header;
   if(!*(u8 *)(records+0x45)) {
    func_8000B9B8(buf1,*(s32*)header+(s32)D_54D910,*(u16*)(header+4)*12);
    func_8000B9B8(buf2,*(s32*)(header+8)+(s32)D_54D910,*(u16*)(header+0xC)*4);
-   func_8000B9B8(buf3,*(s32*)(header+0x10)+(s32)D_54D910,*(u16*)(header+0x14)*12);
    func_8000B9B8(buf4,*(s32*)(p+0x28)+(s32)D_54D910,*(u16*)(p+0x2C)*12);
+   func_8000B9B8(buf3,*(s32*)(header+0x10)+(s32)D_54D910,*(u16*)(header+0x14)*12);
    if(func_8001499C(buf4)) func_80014A0C((s32)buf5,(s32)buf4);
    else memcpy(buf5,buf4,*(u16*)(header+0x14)*12);
    if(func_8001499C(buf1)) func_80014A0C((s32)buf2,(s32)buf1);

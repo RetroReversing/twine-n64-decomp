@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s16 func_80045CF8(u32);                             /* extern */
 f32 func_80045E34(void *, s32);                     /* extern */
 M2C_UNK func_80063DB4(void *);                      /* extern */
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_801002B4;
 extern u32 D_801002E0;
 extern u8 D_80100BE0[];
@@ -39,7 +39,7 @@ void func_80063FE8(void *arg0) {
 
     var_fs1 = -1.0f;
     temp_s3 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_v1 = (u32) (D_801002A0 - 2) < 2U;
+    temp_v1 = (u32) (gSceneType - 2) < 2U;
     var_s4 = 0;
     if (temp_v1 == 0) {
 loop_1:

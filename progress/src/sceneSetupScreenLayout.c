@@ -1,5 +1,5 @@
 extern s32 gBorderMode;
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 gBorderFlipFlag;
 extern u16 D_8011ED40;
 extern u16 D_8011ED42;
@@ -21,7 +21,7 @@ void func_8011C430(void);
 void func_8011D3C0(void);
 
 /* Sets up the screen layout for the current border mode and clears the per-scene tables, then runs the scene's init. */
-void func_8011E3AC(void) {
+/* Sets the screen layout for the current border mode, clears scene tables and runs the scene's init. */ void sceneSetupScreenLayout(void) {
     u16 baseX, flipX;
     u16 i, j;
 
@@ -75,7 +75,7 @@ after:
     for (i = 0; i < 6; i++) {
         D_8011F3B8[(unsigned short)i] = 0;
     }
-    switch (D_801002A0) {
+    switch (gSceneType) {
     case 8:
         for (i = 0; i < 3; i++) {
             D_8011F3C4[i] = func_80015F74(D_8011ED54 + i * 36);

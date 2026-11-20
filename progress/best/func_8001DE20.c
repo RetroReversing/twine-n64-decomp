@@ -13,7 +13,7 @@ extern s16 gExpansionPakPresent;
 extern void *D_80109BB0;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
-extern u8 D_8010A4FE;
+extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 
 void func_8001DE20(void) {
@@ -42,7 +42,7 @@ s32 __repair_phase_var_a0;
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((D_8010A4FC * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
         var_a0 = 0x1B;
-        if (D_8010A4FE == 0) var_a0 = 0x1A;
+        if (gOptionFlagA == 0) var_a0 = 0x1A;
         formatTextEntry(temp_s1, D_800D2864, func_80087100(var_a0));
         temp_s2 = var_s3 - 0x28;
         if (gExpansionPakPresent != 0) {

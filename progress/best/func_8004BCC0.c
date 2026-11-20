@@ -7,7 +7,7 @@ s32 func_80047E4C();
 s32 func_800487F0();
 s32 Sphere_OverlapsPoint(s32);
 s32 func_800488D4();
-s32 func_80048CC0();
+s32 rayHitsTriangleXZ();
 s32 func_8004D910();
 s32 func_8004E418();
 s32 func_80082D24();
@@ -140,7 +140,7 @@ u32 __repair_phase_temp_v1;
     temp_v1_2 = *(u16 *)(((temp_v1) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
                                         if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2)) {
                                             temp_v1_3 = (*(s32 *)((char *)(temp_s2) + 0x34));
-                                            if ((func_80048CC0(sp38, sp90, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (spA0 >= __repair_float_constant) && (spA0 < var_fs0)) {
+                                            if ((rayHitsTriangleXZ(sp38, sp90, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (spA0 >= __repair_float_constant) && (spA0 < var_fs0)) {
                                                 var_fs0 = spA0;
                                                 D_80108788 = var_s1;
                                                 D_80108F84 = NULL;
@@ -160,7 +160,7 @@ u32 __repair_phase_temp_v1;
                                         temp_v1_4 = *(u16 *)(((var_s0_2 & 0xFFFF) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
                                         if ((temp_s7 & temp_v1_4) && (temp_s6 & temp_v1_4)) {
                                             temp_v1_5 = (*(s32 *)((char *)(temp_s2) + 0x34));
-                                            if ((func_80048CC0(sp38, sp90, temp_v1_5 + (*(u16 *)var_s4 * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + -1)) * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + 0)) * 0xC), sp12C) & 0xFF) && (spA4 >= __repair_float_constant) && (var_fs0 > spA4)) {
+                                            if ((rayHitsTriangleXZ(sp38, sp90, temp_v1_5 + (*(u16 *)var_s4 * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + -1)) * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + 0)) * 0xC), sp12C) & 0xFF) && (spA4 >= __repair_float_constant) && (var_fs0 > spA4)) {
                                                 var_fs0 = spA4;
                                                 D_80108788 = var_s1;
                                                 D_80108F84 = NULL;

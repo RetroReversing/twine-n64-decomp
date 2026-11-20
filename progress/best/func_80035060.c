@@ -28,6 +28,7 @@ void func_80035060(void *arg0) {
     s32 temp_s0_2;
     s32 temp_s3;
     s32 temp_s5;
+    s32 __repair_temp_s5_1;
     s32 temp_s6;
     s32 temp_s7;
     s32 temp_v1_2;
@@ -63,7 +64,7 @@ void func_80035060(void *arg0) {
     (*(s32 *)((char *)(temp_s1) + 8)) = 0xFE000000;
     temp_s7 = (s32) (temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x50)));
     temp_fp = (s32) (temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x58)));
-    temp_s5 = (s32) ((temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x54))) - 1.0f);
+    __repair_temp_s5_1 = (s32) ((temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x54))) - 1.0f);
     temp_s6 = (s32) ((temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x5C))) - 1.0f);
     temp_s0 = D_80115328;
     (*(s32 *)((char *)(temp_s1) + 0xC)) = osVirtualToPhysical(D_80109A54);
@@ -78,7 +79,7 @@ void func_80035060(void *arg0) {
     (*(s32 *)((char *)(temp_s0) + 0x14)) = osVirtualToPhysical(D_80109A54);
     temp_s1_2 = D_80115328;
     (*(s32 *)((char *)(temp_s1_2) + 4)) = 0xFFFCFFFC;
-    temp_s3 = ((temp_s5 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000);
+    temp_s3 = ((__repair_temp_s5_1 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000);
     temp_s0_2 = ((temp_s7 & 0x3FF) << 0xE) | ((temp_fp & 0x3FF) * 4);
     (*(s32 *)((char *)(temp_s1_2) + 0)) = 0xF7000000;
     (*(s32 *)((char *)(temp_s1_2) + 8)) = temp_s3;
@@ -156,7 +157,7 @@ block_26:
         }
         temp_a1_2 = D_80115328;
         D_80115328 = temp_a1_2 + 8;
-        (*(s32 *)((char *)(temp_a1_2) + 0)) = (s32) (((temp_s5 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000));
+        (*(s32 *)((char *)(temp_a1_2) + 0)) = (s32) (((__repair_temp_s5_1 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000));
         (*(s32 *)((char *)(temp_a1_2) + 4)) = (s32) (((temp_s7 & 0x3FF) << 0xE) | ((temp_fp & 0x3FF) * 4));
     }
 }

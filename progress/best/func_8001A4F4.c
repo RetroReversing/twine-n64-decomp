@@ -17,7 +17,7 @@ s32 func_8002638C(s32, M2C_UNK);                    /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s8 D_801002A1;
 extern void *D_80109BB0;
 extern u8 D_80112F7F;
@@ -41,7 +41,7 @@ void func_8001A4F4(void) {
         if (temp_v0 != 0) {
             D_801002A1 = 0;
             temp_s1 = temp_v0 + 0x28;
-            switch (D_801002A0) {
+            switch (gSceneType) {
             case 0:
                 formatTextEntry(temp_v0, "%s", func_80087100(0x81));
                 var_a0 = 0x8A;
@@ -67,13 +67,13 @@ void func_8001A4F4(void) {
                 if (D_80112F80 == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
-                        temp_s1 = D_801002A0; temp_s1 += 1;
+                        temp_s1 = gSceneType; temp_s1 += 1;
                     } else {
 block_12:
-                        temp_s1 = D_801002A0 - 1;
+                        temp_s1 = gSceneType - 1;
                     }
 block_13:
-                    D_801002A0 = temp_s1;
+                    gSceneType = temp_s1;
 block_25:
                     func_8001A4F4();
                 }
@@ -91,7 +91,7 @@ block_25:
                 if (D_80112F7F == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
-                        temp_s1 = D_801002A0 + 1;
+                        temp_s1 = gSceneType + 1;
                     } else {
                         goto block_12;
                     }
@@ -116,9 +116,9 @@ block_25:
                 if (D_80112F81 == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
-                        D_801002A0 = 0;
+                        gSceneType = 0;
                     } else {
-                        D_801002A0 -= 1;
+                        gSceneType -= 1;
                     }
                     {
                     func_8001A4F4();break;}

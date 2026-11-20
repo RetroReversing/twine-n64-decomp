@@ -16,7 +16,7 @@ s32 func_80022DBC();
 s32 func_8002B000();
 void *func_80083E90();
 extern char D_801001A1[];
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002A1;
 extern s32 D_801002A8;
 extern s8 D_801002AE;
@@ -33,7 +33,7 @@ void func_8011B278(void *arg0, u8 arg1) {
     M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), s8 *, 0x10) = 0;
     M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), s32 *, 8) = 0;
     M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), s8 *, 0x11) = 0;
-    if (D_801002A0 == 7) {
+    if (gSceneType == 7) {
         M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), s8 *, 0x11) = (s8) D_801002A8;
         M2C_FIELD(M2C_FIELD(arg0, void **, 0xB4), s16 *, 0xC) = (s16) D_801002A8;
     }

@@ -11,7 +11,7 @@ extern s32 D_801001A0;
 extern s32 D_801001A1;
 extern s32 D_801001A2;
 extern s32 D_801001A4;
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002A1;
 extern u8 D_801002A2;
 extern u8 D_801002A4;
@@ -29,7 +29,7 @@ extern u8 D_80102EE8;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
 extern u8 gBorderFlipFlag;
-extern u8 D_8010A4FE;
+extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 extern s8 D_80112F70;
 extern s8 D_80112F7B;
@@ -102,7 +102,7 @@ loop_2:
         }
         var_s4 += 1;
     } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
-    do { func_8002E93C(&D_800E1310, D_801002A0, 1, 4); } while (0);
+    do { func_8002E93C(&D_800E1310, gSceneType, 1, 4); } while (0);
     do { func_8002E93C(&D_800E1310, D_801002A1, 1, 1); } while (0);
     do { func_8002E93C(&D_800E1310, D_801002A2, 1, 4); } while (0);
     func_8002E93C(&D_800E1310, D_801002A4, 1, 8);
@@ -116,7 +116,7 @@ loop_2:
     func_8002E93C(&D_800E1310, D_8010A4C0, 1, 2);
     func_8002E93C(&D_800E1310, D_8010A4FC, 1, 6);
     func_8002E93C(&D_800E1310, gBorderFlipFlag, 1, 1);
-    func_8002E93C(&D_800E1310, D_8010A4FE, 1, 1);
+    func_8002E93C(&D_800E1310, gOptionFlagA, 1, 1);
     func_8002E93C(&D_800E1310, D_8010A4FF, 1, 2);
     func_8002E93C(&D_800E1310, (u8) D_801002EC, 4, 1);
     func_8002E93C(&D_800E1310, D_801002F0, 1, 4);

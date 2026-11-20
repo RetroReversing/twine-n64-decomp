@@ -3,7 +3,7 @@ typedef struct { u8 pad0[0x10]; MenuList1F5C4 *list; } MenuState1F5C4;
 extern MenuState1F5C4 *D_80109BB0;
 extern const char D_800D2A80[], D_800D2A84[];
 extern s16 gExpansionPakPresent;
-extern u8 D_8010A4C0, D_8010A4FE, D_8010A4FF;
+extern u8 D_8010A4C0, gOptionFlagA, D_8010A4FF;
 char *func_8002638C(MenuList1F5C4 *, s32);
 s8 func_800263B8(MenuList1F5C4 *, s32);
 void func_80025D84(void *, char *, void *, void *, u16, u16);
@@ -11,7 +11,7 @@ void func_80025E9C(void *, char *, void *, void *, u16, u16);
 void formatTextEntry(char *, const char *, ...);
 const char *func_80087100(s32);
 
-/* Rebuilds the three option rows of the menu list, choosing labels and selections based on Expansion Pak presence and saved option flags. */ void func_8001F5C4(void) {
+/* Rebuilds the three option rows of the menu list, choosing labels and selections from Expansion Pak presence and saved option flags. */ /* Rebuilds the three option rows of the menu list, choosing labels and selections based on Expansion Pak presence and saved option flags. */ void menuRefreshOptionRows(void) {
     char *a, *b, *c;
     char *baseA, *baseB, *baseC;
     s32 labelId;
@@ -23,7 +23,7 @@ const char *func_80087100(s32);
         c = func_8002638C(D_80109BB0->list, 3);
     if (((a != NULL) & (b != NULL)) && (c != NULL)) {
     labelId = 0x1B;
-    if (D_8010A4FE == 0) {
+    if (gOptionFlagA == 0) {
         formatTextEntry(b, D_800D2A80, func_80087100(0x1A));
     } else {
         formatTextEntry(b, D_800D2A80, func_80087100(labelId));

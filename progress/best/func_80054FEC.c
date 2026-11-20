@@ -9,7 +9,7 @@ s32 func_800851E0(void *arg0);                      /* extern */
 extern s32 gBorderSkipFlag;
 
 void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 arg5, s32 arg6) {
-  int __repair_integer_one;
+  s32 __repair_integer_one;
     f32 temp_fv0;
     f32 var_fv0;
     s32 temp_v1;
@@ -22,8 +22,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
 
     var_s3 = (*(void ***)((char *)(arg3) + 0x20));
     if (var_s3 != NULL) {
-        __repair_integer_one = 1;
-  var_s1 = (*(void **)((char *)(var_s3) + 0));
+        var_s1 = (*(void **)((char *)(var_s3) + 0));
         var_s6 = (*(void **)((char *)((*(void **)((char *)(var_s3) + 0x20))) + 0x58));
         if (arg0 != NULL) {
             func_800179E8(arg4, var_s3, 0x10000, (*(u8 *)((char *)(arg0) + 0x5E)));
@@ -31,6 +30,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
         do { func_80054E68(arg2 * 4.0f, arg3, arg4); } while (0);
         for (;;) {
             if (var_s1 != NULL) {
+                __repair_integer_one = 1;
                 do {
                     temp_v1 = (*(s32 *)((char *)(var_s1) + 0x60)) | 0x10000;
                     (*(s32 *)((char *)(var_s1) + 0x60)) = temp_v1;

@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80016718(void *);                      /* extern */
 extern void *D_800B7CE8;
-extern s32 D_80109D18;
+extern s32 gBootState;
 
 void func_800218EC(void) {
     s32 temp_v0;
     void *temp_v1;
 
-    D_80109D18 = 0;
+    gBootState = 0;
     if (D_800B7CE8 != NULL) {
         func_80016718(D_800B7CE8);
         temp_v1 = D_800B7CE8;

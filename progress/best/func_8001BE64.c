@@ -13,7 +13,7 @@ s32 func_80087100(s32);
 
 extern u8 D_800BD690;
 extern u8 D_800BD9A0[];
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002A1;
 extern u8 D_801002A4;
 extern s32 D_801002A8;
@@ -63,7 +63,7 @@ void func_8001BE64(void) {
     temp_s7 = findEntryById(D_800BD9A0, 0xC);
     D_801002F4 = func_80018BE0(D_801002C4);
     if (((temp_fp != (s32)NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL)) && ((var_s1 != NULL) & (temp_s3 != NULL)) && ((temp_s2 != NULL) & (temp_s7 != NULL))) {
-        switch (D_801002A0) {
+        switch (gSceneType) {
         case 5:
         case 6:
             var_v0 = 0x19;
@@ -99,7 +99,7 @@ void func_8001BE64(void) {
         D_80102FD4 = var_v1;
         *(u32 *)((u8 *)var_s1 - 0x14) = var_v0;
         var_v0_2 = 0xB1;
-        if ((unsigned)D_801002A0 == 7) {
+        if ((unsigned)gSceneType == 7) {
             var_v0_2 = 0x1AD;
         }
         temp_v1 = *(u32 *)((u8 *)var_s1 - 0x14);
@@ -152,11 +152,11 @@ void func_8001BE64(void) {
         } else {
             func_80025E9C((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 1, 0xD);
         }
-        if (D_801002A0 == 8) {
+        if (gSceneType == 8) {
             func_80025E9C((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, 1, 0xD);
             return;
         }
-        if (D_801002A0 == 7) {
+        if (gSceneType == 7) {
             var_v0_2 = 0x1AD;
         
         func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);} else {

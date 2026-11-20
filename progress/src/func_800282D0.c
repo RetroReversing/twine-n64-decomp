@@ -18,13 +18,13 @@ s32 func_8002FBC0(s32);                             /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 extern void *sActiveMenu;
 extern void *D_80109BB0;
-extern s32 D_80109D18;
+extern s32 gBootState;
 
 typedef struct { unsigned char pad[32]; int value; } __repair_field_20;
 void func_800282D0(void) {
     M2C_UNK (*temp_v0)();
 
-    D_80109D18 = 0;
+    gBootState = 0;
     if (((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 1) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 2)) {
         func_8002FBD4(((__repair_field_20 *)D_80109BB0)->value, 3);
     }

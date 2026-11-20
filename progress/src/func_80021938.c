@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
 extern void *D_800B7CE4;
 extern s8 D_800B7CEC;
-extern s32 D_80109D18;
+extern s32 gBootState;
 
 void func_80021938(void) {
     void *temp_a0;
@@ -29,6 +29,6 @@ void func_80021938(void) {
         func_80084048(D_800B7CE4, 0);
         D_800B7CE4 = NULL;
     }
-    D_80109D18 = 0;
+    gBootState = 0;
     D_800B7CEC = 0;
 }

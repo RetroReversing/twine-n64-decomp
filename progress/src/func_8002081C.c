@@ -16,13 +16,13 @@ M2C_UNK cache_release_block();                      /* extern */
 M2C_UNK func_800218EC();                            /* extern */
 M2C_UNK func_80022BB8();                            /* extern */
 M2C_UNK func_8002A700(s32);                         /* extern */
-extern s32 D_800B60E4;
+extern s32 gMenuList;
 extern s8 D_800B60EA;
 
 void func_8002081C(void) {
     cache_release_block();
     D_800B60EA = 0;
-    func_8002A700(D_800B60E4);
+    func_8002A700(gMenuList);
     func_800218EC();
     func_80022BB8();
 }

@@ -12,13 +12,13 @@ extern u8 D_801002A1;
 extern void *D_80109BB0;
 
 void func_80022F10(void *arg0, s32 arg1) {
-    s32 *__base_D_800BD644;
-    s32 *var_v0_2;
+    unsigned temp_t0;
     char *__base_D_800BD640;
+    s32 *var_v0_2;
     s32 *var_v0_4;
     register s32 *__base_D_800BD64C;
-    unsigned temp_t0;
-    unsigned var_a1;
+    s32 *__base_D_800BD644;
+    s32 var_a1;
     s32 var_v0;
     
     u8 temp_v1;
@@ -83,8 +83,8 @@ void func_80022F10(void *arg0, s32 arg1) {
                     temp_v1_2 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1_2) {            /* switch 2; irregular */
                     case 0x0:                       /* switch 2 */
-                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                         global_ptr = D_80109BB0;
+                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                         temp_t0 = D_800BD65C;
                         break;
                     case 0x1:                       /* switch 2 */

@@ -39,7 +39,7 @@ s32 func_80045DB4(void *, f32, f32);
 s8 func_8005E4C8(void *);
 s32 func_8005E900(void *);
 s32 func_800850E0(void *);
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002A3;
 extern s32 gBorderSkipFlag;
 
@@ -95,7 +95,7 @@ void objBounceUpdate(ObjEBF4 *obj) {
         } else if (obj->expireTimer != 0) {
             obj->expireTimer--;
         } else {
-            if (D_801002A0 == 8) {
+            if (gSceneType == 8) {
                 switch (sub->soundId) {
                 case 25:
                     D_801002A3 &= 0xFB;

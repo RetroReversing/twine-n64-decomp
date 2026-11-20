@@ -17,7 +17,7 @@ extern f32 D_800C0740;
 extern s32 gBorderMode;
 extern s32 gBorderSkipFlag;
 extern u8 gBorderFlipFlag;
-extern u8 D_8010A4FE;
+extern u8 gOptionFlagA;
 
 /* Sets the camera aspect ratio for the current border mode and recomputes its projection scale from the field of view. */ void cameraUpdateProjection(void *camera, f32 fovDegrees) {
     f32 projScale;
@@ -29,7 +29,7 @@ extern u8 D_8010A4FE;
         M2C_FIELD(cam, f32 *, 0x84) = fovDegrees;
         if ((M2C_FIELD(cam, f32 *, 0x78) != 0.0f) && (M2C_FIELD(cam, f32 *, 0x7C) != 0.0f)) {
             if ((gBorderSkipFlag == 0) || ((gBorderMode == 1))) {
-                if (D_8010A4FE == 0) {
+                if (gOptionFlagA == 0) {
                     M2C_FIELD(cam, f32 *, 0x80) = 1.3333334f;
                 } else {
                     goto block_18;
@@ -37,19 +37,19 @@ extern u8 D_8010A4FE;
             } else {
                 if (gBorderMode == 2) {
                     if (gBorderFlipFlag == 1) {
-                        if (D_8010A4FE == 0) {
+                        if (gOptionFlagA == 0) {
                             M2C_FIELD(cam, f32 *, 0x80) = 0.6666667f;
                         } else {
                             M2C_FIELD(cam, f32 *, 0x80) = 0.8888889f;
                         }
-                    } else if (D_8010A4FE == 0) {
+                    } else if (gOptionFlagA == 0) {
                         M2C_FIELD(cam, f32 *, 0x80) = 2.6666667f;
                     } else {
                         M2C_FIELD(cam, f32 *, 0x80) = 3.5555556f;
                     }
                 }
                 if (gBorderMode >= 3) {
-                    if (D_8010A4FE == 0) {
+                    if (gOptionFlagA == 0) {
                         M2C_FIELD(cam, f32 *, 0x80) = 1.3333334f;
                     } else {
 block_18:

@@ -19,7 +19,7 @@ M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_800779C4(void *);                      /* extern */
 M2C_UNK func_80077E94(void *);                      /* extern */
 s32 func_8007835C(void *);                          /* extern */
-M2C_UNK actorPlaySpeechLine(void *);                      /* extern */
+M2C_UNK func_8007B030(void *);                      /* extern */
 s32 func_8007BAF8(void *, void *, M2C_UNK, M2C_UNK); /* extern */
 s32 func_8007C214(void *, void *);                  /* extern */
 extern f64 D_800D5120;
@@ -68,7 +68,7 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                         var_fv1 = 0.0f;
                     }
                     if ((var_fv1 < 8.0f) && (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 8)) {
-                        actorPlaySpeechLine(arg0);
+                        func_8007B030(arg0);
                         var_a1 = 0x21;
                         {
                         func_80077960(arg0, var_a1);return 1;}

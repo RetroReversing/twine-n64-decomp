@@ -21,7 +21,7 @@ M2C_UNK func_8011CAE4();                            /* extern */
 M2C_UNK func_8011CEA0();                            /* extern */
 M2C_UNK func_8011DC18();                            /* extern */
 M2C_UNK func_8011E894();                            /* extern */
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u8 D_801002AC;
 extern u8 D_801002AE;
 extern s32 D_801002B4;
@@ -63,7 +63,7 @@ void func_8011E634(void) {
             func_8011C580();
         }
     }
-    temp_v1 = D_801002A0;
+    temp_v1 = gSceneType;
     if ((s32) temp_v1 < 6) {
         var_v0_2 = (s32) temp_v1 < 2;
         if ((s32) temp_v1 >= 4) {
@@ -72,7 +72,7 @@ void func_8011E634(void) {
         }
     } else {
 block_11:
-        temp_v1 = D_801002A0;
+        temp_v1 = gSceneType;
         var_v0_2 = temp_v1 < 2;
     }
     if (var_v0_2 == 0) {

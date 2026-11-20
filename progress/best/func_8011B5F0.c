@@ -10,7 +10,7 @@ s32 func_800643C8();
 s32 func_80073AF8();
 s32 func_80087100();
 s32 sprintf(char *, const char *, ...);
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern char D_80102EFC[];
 extern s32 gAimAxisTable[];
 extern s32 D_8010969C;
@@ -95,7 +95,7 @@ void func_8011B5F0(void *arg0) {
             (*(s32 *)((char *)(arg0) + 0x3C)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x3C));
             (*(f32 *)((char *)(arg0) + 0x40)) = (f32) (*(f32 *)((char *)(temp_v0_3) + 0x40));
             (*(s32 *)((char *)(arg0) + 0x44)) = temp_a1;
-            if (D_801002A0 != 3) {
+            if (gSceneType != 3) {
                 (*(f32 *)((char *)(arg0) + 0x40)) += 1024.0f;
             }
             func_80016718(arg0);
@@ -138,7 +138,7 @@ block_34:
                             if (*(D_8011F168 + temp_s3_2) == 0) {
                                 temp_s5 = func_80087100((-(temp_s3_2 != 0) & 0x6F) | 0x6E);
                                 var_a0_2 = 0x290;
-                                if (D_801002A0 == 2) {
+                                if (gSceneType == 2) {
                                     var_a0_2 = 0x28F;
                                 }
                                 temp_s0_4 = func_80087100(var_a0_2);
@@ -176,7 +176,7 @@ block_34:
                 temp_s3_3 = func_80087100((-(temp_s0 != 0) & 0x6F) | 0x6E);
                 temp_v0_5 = func_80087100(0x28E);
                 var_a0_3 = 0x290;
-                if (D_801002A0 == 2) {
+                if (gSceneType == 2) {
                     var_a0_3 = 0x28F;
                 }
                 temp_v0_7 = func_80087100(var_a0_3);
@@ -218,7 +218,7 @@ block_26:
         temp_s6_2 = func_80087100((var_a0 & 0x6F) | 0x6E);
         var_a0_4 = 0x290;
         temp_s3_4 = func_80087100((-(temp_s0 != 0) & 0x6F) | 0x6E);
-        if (D_801002A0 == 2) {
+        if (gSceneType == 2) {
             var_a0_4 = 0x28F;
         }
         var_a2_3 = 0xC;

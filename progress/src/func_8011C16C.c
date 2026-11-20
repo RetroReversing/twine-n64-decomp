@@ -18,7 +18,7 @@ extern void func_8002B000(void *, s32);
 extern void actorLinkToSurface(s32, OverlayObject *, s32);
 extern void func_80044670(OverlayObject *, s32, s32);
 extern s32 *D_800CA31C;
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern u32 D_8011F140[][2];
 extern u8 D_8011F168[];
 extern OverlayObject *D_8011F270[];
@@ -27,7 +27,7 @@ extern OverlayPosition D_8011F298[];
 
 OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientation, u32 index)
 {
-    register u8 *state = &D_801002A0;
+    register u8 *state = &gSceneType;
 
     if ((u32)(*state - 2) < 2U) {
         OverlayObject *object = func_80016410(0, position, orientation);

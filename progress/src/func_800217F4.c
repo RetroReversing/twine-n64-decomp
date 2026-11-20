@@ -18,7 +18,7 @@ extern void *D_800B7CE4;
 extern s8 D_800B7CEC;
 extern u8 D_800BD68F;
 extern void * volatile D_80109698;
-extern s32 D_80109D18;
+extern s32 gBootState;
 extern M2C_UNK D_8010A500;
 
 void func_800217F4(void) {
@@ -26,7 +26,7 @@ void func_800217F4(void) {
     void *temp_v0_2;
     void *p;
 
-    D_80109D18 = 1;
+    gBootState = 1;
     D_800B7CEC = 1;
     if ((*(&D_8010A500 + D_800BD68F) != 0) && (D_800B7CE4 == NULL)) {
         temp_v0 = func_80083E90(0x60, 0);

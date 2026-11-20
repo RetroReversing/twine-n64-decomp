@@ -19,7 +19,7 @@ s32 func_800643C8();
 s32 func_80073AF8();
 s32 func_80087100();
 s32 sprintf();
-extern u8 D_801002A0;
+extern u8 gSceneType;
 extern s32 D_8010969C;
 extern char D_8011F000[];
 extern char D_8011F140[];
@@ -55,7 +55,7 @@ void func_8011BF0C(void *arg0) {
     void *temp_v1_2;
     void *temp_v1_3;
 
-    if ((D_801002A0 != 3) || (*(D_8011F168 + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
+    if ((gSceneType != 3) || (*(D_8011F168 + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
         temp_s4 = M2C_FIELD(arg0, u8 *, 0x7B) ^ 1;
         temp_s0 = temp_s4 & 0xFF;
         temp_s1 = temp_s0 * 4;
