@@ -1,31 +1,30 @@
 u8 *func_800AB880(u8 *dst, u8 *src) {
     u8 *out = dst;
     u32 word;
-    u8 ch;
 
     if ((((u32)src - (u32)dst) & 3) == 0)
         goto check_alignment;
 
-    ch = *src;
-    *out = ch;
+    word = *src;
+    *out = word;
     src++;
     out++;
-    if (ch == 0)
+    if (word == 0)
         goto done;
     do {
-        ch = *src;
-        *out = ch;
+        word = *src;
+        *out = word;
         src++;
         out++;
-    } while (ch != 0);
+    } while (word != 0);
     goto done;
 
     do {
-        ch = *src;
-        *out = ch;
+        word = *src;
+        *out = word;
         src++;
         out++;
-        if (ch == 0)
+        if (word == 0)
             goto done;
 check_alignment:
         ;

@@ -28,7 +28,7 @@ extern s32 D_800E41D4;
 extern s8 D_800E41D8;
 extern s32 (*D_8010017C)(M2C_UNK, M2C_UNK);
 extern s8 D_8010086C;
-extern M2C_UNK func_80088FB0;
+extern M2C_UNK audioSilenceThread;
 
 s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
     s32 temp_v0;
@@ -40,15 +40,15 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
     func_8008C08C();
     D_8010086C = (arg3 >> 0x14) & 1;
     *message = 1;
-    osCreateMesgQueue(&D_800E4144, &D_800E415C, 4);
-    osSetEventMesg(6, (M2C_UNK *)((u32)&D_800E415C - 0x18), message);
+    osCreateMesgQueue((M2C_UNK *)((u32)&D_800E41D4 - 0x90), &D_800E415C, 4);
+    osSetEventMesg(6, &D_800E4144, message);
     temp_v0 = osAiSetFrequency(*arg0);
     D_800E41D4 = temp_v0;
     *arg0 = temp_v0;
     temp_v0_2 = D_8010017C(0x400, 0x80);
     D_800E4140 = temp_v0_2;
-    osCreateThread(&D_800E3F90, 0, &func_80088FB0, 0, temp_v0_2 + 0x400, 0x7A);
-    osStartThread(&D_800E3F90);
+    osCreateThread(&D_800E3F90, 0, &audioSilenceThread, 0, temp_v0_2 + 0x400, 0x7A);
+    osStartThread((M2C_UNK *)((u32)&D_800E41D8 - 0x248));
     var_v0 = 2;
     if (!(arg3 & 0x10000)) {
         var_v0 = 3;
@@ -57,7 +57,7 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
             if (!(arg3 & 0x40000)) {
                 var_v0 = 0;
                 if (!(arg3 & 0x80000)) {
-                    var_v0++;
+                    var_v0 = 1;
                 }
             }
         }

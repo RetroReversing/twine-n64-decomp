@@ -64,11 +64,10 @@ u32 func_800988D8(void *arg0) {
         }
         if (var_t0 == NULL) {
             D_800FDB74 = temp_a1;
-            M2C_FIELD(temp_a1, M2C_UNK **, 4) = var_t0;
         } else {
             *var_t0 = temp_a1;
-            M2C_FIELD(temp_a1, M2C_UNK **, 4) = var_t0;
         }
+        M2C_FIELD(temp_a1, M2C_UNK **, 4) = var_t0;
         M2C_FIELD(temp_a1, M2C_UNK **, 0) = var_a2;
         if (var_a2 != NULL) {
             M2C_FIELD(var_a2, M2C_UNK **, 4) = temp_a1;

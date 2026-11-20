@@ -37,8 +37,9 @@ s32 func_8002FFAC(void *arg0) {
     temp_v0 = M2C_FIELD(arg0, void **, 4);
     var_t0 = 1;
     if (temp_v0 != NULL) {
-        temp_v1 = (u32) M2C_FIELD(temp_v0, u32 *, 0x10) >> 0x18;
+        temp_v1 = M2C_FIELD(temp_v0, u32 *, 0x10);
         if (M2C_FIELD(temp_v0, u8 *, 0x11) != 0x6B) {
+            temp_v1 >>= 24;
             temp_v0_2 = temp_v1 + 0x10;
             if (__repair_inline(temp_v0_2, 0)) {
                 var_v1 = 0;

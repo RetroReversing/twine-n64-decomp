@@ -152,7 +152,7 @@ loop_1:
     if (var_t4 < 0) {
         temp_t2 = var_s4;
         var_s4 = *var_s1;
-        var_s1 += 4;
+        var_s1 += 1;
         var_a2 = (var_t2 + (temp_t2 << (var_t4 + 1))) & 1;
         var_t2_2 = temp_t2 >> -var_t4;
         var_t4 += 0x20;
@@ -167,7 +167,7 @@ loop_1:
         } else {
             temp_t2_2 = var_s4;
             var_s4 = *var_s1;
-            var_s1 += 4;
+            var_s1 += 1;
             var_t1 = (var_t2_2 + (temp_t2_2 << (var_t4 + 0xF))) & 0x7FFF;
             var_t2_2 = temp_t2_2 >> -var_t4;
             var_t4 += 0x20;
@@ -180,7 +180,7 @@ loop_1:
                 if (var_t4 < 0) {
                     temp_t2_3 = var_s4;
                     var_s4 = *var_s1;
-                    var_s1 += 4;
+                    var_s1 += 1;
                     var_a2_2 = (var_t2_2 + (temp_t2_3 << (var_t4 + 8))) & 0xFF;
                     var_t2_2 = temp_t2_3 >> -var_t4;
                     var_t4 += 0x20;
@@ -212,7 +212,7 @@ loop_17:
     if (var_t4 < 0) {
         temp_t2_4 = var_s4;
         var_s4 = *var_s1;
-        var_s1 += 4;
+        var_s1 += 1;
         var_a2_3 = (var_t2_2 + (temp_t2_4 << (var_t4 + 9))) & 0x1FF;
         var_t2_2 = temp_t2_4 >> -var_t4;
         var_t4 += 0x20;
@@ -225,7 +225,7 @@ loop_17:
         do {
             *var_v1 = 0;
             var_a3 += 1;
-            var_v1 += 4;
+            var_v1 += 1;
         } while (var_a3 < 0x21U);
         var_a3_2 = 0;
         var_a0 = &D_800B283C;
@@ -235,7 +235,7 @@ loop_17:
             if (var_t4 < 0) {
                 temp_t2_5 = var_s4;
                 var_s4 = *var_s1;
-                var_s1 += 4;
+                var_s1 += 1;
                 var_a2_4 = (var_t2_2 + (temp_t2_5 << (var_t4 + 1))) & 1;
                 var_t2_2 = temp_t2_5 >> -var_t4;
                 var_t4 += 0x20;
@@ -248,7 +248,7 @@ loop_17:
                     sp1C = var_t2_2;
                     temp_t2_6 = var_s4;
                     var_s4 = *var_s1;
-                    var_s1 += 4;
+                    var_s1 += 1;
                     sp1C = (sp1C + (temp_t2_6 << (var_t4 + 4))) & 0xF;
                     var_t2_2 = temp_t2_6 >> -var_t4;
                     var_t4 += 0x20;
@@ -261,7 +261,7 @@ loop_17:
             temp_v1 = &(&D_80112EE0)[sp1C];
             var_a3_2 += 1;
             *temp_v1 += 1;
-            var_a0 += 4;
+            var_a0 += 1;
         } while (var_a3_2 < var_a2_3);
         D_80112EE0 = 0;
         var_t3 = 0;
@@ -274,11 +274,11 @@ loop_17:
                 do {
                     if (*var_a0_2 == var_a3_3) {
                         *var_v1_2 = var_a1;
-                        var_v1_2 += 4;
+                        var_v1_2 += 1;
                         var_t3 += 1;
                     }
                     var_a1 += 1;
-                    var_a0_2 += 4;
+                    var_a0_2 += 1;
                 } while (var_a1 < var_a2_3);
             }
             var_a3_3 += 1;
@@ -292,13 +292,13 @@ loop_17:
                 var_v1_3 = &(&D_800B283C)[var_t3_2];
                 do {
                     *var_v1_3 = var_t1_3;
-                    var_v1_3 += 4;
+                    var_v1_3 += 1;
                     var_a3_4 += 1;
                     var_t3_2 += 1;
                 } while ((u32) *var_a0_3 >= var_a3_4);
             }
             var_t1_3 += 1;
-            var_a0_3 += 4;
+            var_a0_3 += 1;
         } while (var_t1_3 < 0x10U);
         (&D_800B283C)[var_t3_2] = 0;
         var_t1_4 = D_800B283C;
@@ -322,10 +322,10 @@ loop_51:
                         if (var_a1_2 != 1) {
                             goto loop_51;
                         }
-                        var_t0 += 4;
-                        var_a2_5 += 4;
+                        var_t0 += 1;
+                        var_a2_5 += 1;
                         var_t6 += 4;
-                        var_t5 += 4;
+                        var_t5 += 1;
                         var_t3_3 += 1;
                     } while (*var_t0 == var_t1_4);
                 }
@@ -363,14 +363,14 @@ loop_62:
                             goto loop_62;
                         }
                         var_a3_6 += 1;
-                        var_a1_3 += 4;
-                        var_a0_4 += 4;
+                        var_a1_3 += 1;
+                        var_a0_4 += 1;
                         var_t3_4 += 1;
                     } while ((u32) *(var_t7 + &D_80112EE0) >= var_a3_6);
                 }
                 var_t7 += 4;
                 var_t1_5 += 1;
-                var_t6_2 += 4;
+                var_t6_2 += 1;
             } while (var_t1_5 < var_s3);
         }
         temp_s2 = var_t3_4;
@@ -389,14 +389,14 @@ loop_62:
                         if ((u8) (&D_80108FA0)[temp_v1_3] < temp_a1) {
                             (&D_80108FA0)[temp_v1_3] = (u8) temp_a1;
                         }
-                        var_t0_2 += 4;
-                        var_a0_5 += 4;
+                        var_t0_2 += 1;
+                        var_a0_5 += 1;
                         var_t3_4 += 1;
                     } while ((u32) *(var_t5_2 + &D_80112EE0) >= var_a3_7);
                 }
                 var_t5_2 += 4;
                 var_t1_5 += 1;
-                var_t6_3 += 4;
+                var_t6_3 += 1;
             } while (var_t1_5 < 0x10U);
         }
         var_a2_7 = 0;
@@ -449,15 +449,15 @@ loop_86:
                                 goto loop_86;
                             }
                             var_a3_9 += 1;
-                            var_t8 += 4;
-                            var_t7_2 += 4;
-                            var_t5_3 += 4;
+                            var_t8 += 1;
+                            var_t7_2 += 1;
+                            var_t5_3 += 1;
                             var_t3_5 += 1;
                         } while ((u32) *(var_t9 + &D_80112EE0) >= var_a3_9);
                     }
                     var_t9 += 4;
                     var_t1_6 += 1;
-                    var_s2 += 4;
+                    var_s2 += 1;
                 } while (var_t1_6 < 0x10U);
             }
             goto block_89;
@@ -485,7 +485,7 @@ loop_92:
         if (var_t4 < 0) {
             temp_t2_7 = var_s4;
             var_s4 = *var_s1;
-            var_s1 += 4;
+            var_s1 += 1;
             var_t2_2 = temp_t2_7 >> -var_t4;
             var_t4 += 0x20;
         }
@@ -503,7 +503,7 @@ loop_92:
                 if (var_t4 < 0) {
                     temp_t2_8 = var_s4;
                     var_s4 = *var_s1;
-                    var_s1 += 4;
+                    var_s1 += 1;
                     var_a2_8 = (var_t2_2 + (temp_t2_8 << (var_t4 + temp_v1_6))) & ((1 << temp_v1_6) - 1);
                     var_t2_2 = temp_t2_8 >> -var_t4;
                     var_t4 += 0x20;
@@ -529,7 +529,7 @@ loop_92:
             if (var_t4 < 0) {
                 temp_t2_9 = var_s4;
                 var_s4 = *var_s1;
-                var_s1 += 4;
+                var_s1 += 1;
                 var_t2_2 = temp_t2_9 >> -var_t4;
                 var_t4 += 0x20;
             }
@@ -541,7 +541,7 @@ loop_92:
                 if (var_t4 < 0) {
                     temp_t2_10 = var_s4;
                     var_s4 = *var_s1;
-                    var_s1 += 4;
+                    var_s1 += 1;
                     var_a2_9 = (var_t2_2 + (temp_t2_10 << (var_t4 + temp_v1_7))) & ((1 << temp_v1_7) - 1);
                     var_t2_2 = temp_t2_10 >> -var_t4;
                     var_t4 += 0x20;
@@ -579,7 +579,7 @@ block_124:
         if (var_t4_2 < 0) {
             temp_t2_11 = var_s4;
             var_s4 = *var_s1;
-            var_s1 += 4;
+            var_s1 += 1;
             var_a2_10 = (var_t2_2 + (temp_t2_11 << (var_t4_2 + 1))) & 1;
             var_t2 = temp_t2_11 >> -var_t4_2;
             var_t4_2 += 0x20;

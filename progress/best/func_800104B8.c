@@ -28,30 +28,16 @@ void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
     void *var_v0_2;
 
     var_s1 = arg2;
-    temp_s0 = var_s1 & 0xFF;
+    temp_s0 = (u8)var_s1;
     memset(arg0, 0, temp_s0);
-    temp_v0 = var_s1 & 0xFF;
-    if (temp_s0 != 0) {
-        var_v0_2 = temp_v0 + arg1;
-        for (;;) {
-            temp_v0 = var_s1 & 0xFF;
-            if (M2C_FIELD(var_v0_2, s8 *, -1) == 0x20) {
-                var_s1 -= 1;
-                temp_v0 = var_s1 & 0xFF;
-                var_v0_2 = temp_v0 + arg1;
-                if (temp_v0 == 0) {
-                    temp_v0 = var_s1 & 0xFF;
-                } else {
-                    continue;
-                }
-            }
-            break;
-        }
+    while ((u8)var_s1 != 0 && arg1[(u8)var_s1 - 1] == ' ') {
+        --var_s1;
     }
+    temp_v0 = (u8)var_s1;
     var_a0 = arg0;
     if (temp_v0 != 0) {
         var_a1 = arg1;
-        temp_a2 = temp_v0 + var_a0;
+        temp_a2 = temp_v0 + (s32)var_a0;
         do {
             var_v1 = 0;
             for (;;) {
@@ -65,7 +51,8 @@ void func_800104B8(s8 *arg0, s8 *arg1, s32 arg2) {
                 }
                 break;
             }
-            *(s8 *)var_a0 = var_v1 & -var_v0_3;
+            var_v1 &= -var_v0_3;
+            *var_a0 = var_v1;
             var_a0 += 1;
             var_a1 += 1;
         } while ((s32) var_a0 < temp_a2);

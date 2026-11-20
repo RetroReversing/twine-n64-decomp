@@ -2,7 +2,7 @@
 
 s32 func_80000A30(s32, s32);                        /* extern */
 s32 func_800452E0(void *, void *, f32 *);       /* extern */
-f32 func_80046140(f32, f32);                        /* extern */
+f32 approximate_hypot2(f32, f32);                        /* extern */
 f32 func_80082A70(f32, f32);                        /* extern */
 extern f64 D_800D27B0;
 
@@ -30,7 +30,7 @@ void func_8001880C(void *arg0) {
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     func_800452E0(temp_s1, arg0 + 0x24, &m2c_initial_frame.view_sp20.value);
-    var_fv0 = func_80046140(m2c_initial_frame.view_sp20.value, m2c_initial_frame.view_sp28.value);
+    var_fv0 = approximate_hypot2(m2c_initial_frame.view_sp20.value, m2c_initial_frame.view_sp28.value);
     if (var_fv0 < 4.0f) {
         var_fv0 = 4.0f;
     }

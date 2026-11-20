@@ -24,7 +24,7 @@ s32 func_80083BE0();
 s32 func_80083C34(u32, u8);
 s32 func_80083C8C();
 s32 func_80086DA0();
-u32 func_800A67B0();
+u32 osGetMemSize();
 void osCreateThread(void *, s32, void (*)(void *), void *, void *, s32);
 s32 osStartThread();
 s32 osViBlack();
@@ -83,7 +83,7 @@ void func_80000570(void) {
 
     osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0, 0x7F);
     osStartThread(D_800D8200);
-    temp_v1 = func_800A67B0() > 0x7FFFFFU;
+    temp_v1 = osGetMemSize() > 0x7FFFFFU;
     D_80108400 = temp_v1;
     if (temp_v1 != 0) {
         func_80083BE0(D_8011FF40, 0x80800000);

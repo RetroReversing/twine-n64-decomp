@@ -10,7 +10,7 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-f64 func_800AA798();
+f64 atan();
 f64 func_800ABA40(s32, s32, s32, s32, f32);
 extern f64 D_800D6EF0;
 extern f64 D_800D6EF8;
@@ -30,7 +30,7 @@ f64 func_800AA8B0(f64 arg0, f64 arg1) {
         }
         return D_800D6EF0;
     }
-    temp = func_800AA798(arg0 / arg1);
+    temp = atan(arg0 / arg1);
     if (arg1 > 0.0) {
         return temp;
     }

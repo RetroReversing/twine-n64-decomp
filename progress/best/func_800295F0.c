@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(M2C_UNK, void *);             /* extern */
-M2C_UNK func_80026004(void *, M2C_UNK *, s16);      /* extern */
-s16 func_80087100(M2C_UNK);                         /* extern */
+M2C_UNK func_8000A894(M2C_UNK);             /* extern */
+M2C_UNK func_80026004(void *, char *, ...);      /* extern */
+s32 func_80087100(M2C_UNK);                         /* extern */
 extern void *D_80109BB0;
 
 void func_800295F0(s32 arg0) {
@@ -32,20 +32,19 @@ void func_800295F0(s32 arg0) {
 
     temp_a1 = M2C_FIELD(D_80109BB0, void **, 0x18);
     temp_s1 = *M2C_FIELD(temp_a1, u8 **, 0x10);
-    temp_s3 = *M2C_FIELD(D_80109BB0, s32 **, 0x10) + ((M2C_FIELD(D_80109BB0, u8 *, 8) * 0x28) + 0x28);
+    temp_s3 = (char *)*M2C_FIELD(D_80109BB0, s32 **, 0x10) + (((M2C_FIELD(D_80109BB0, u8 *, 8) * 5) * 8) + 0x28);
     if (M2C_FIELD(temp_a1, u16 *, 0xC) & 0x400) {
         temp_v0 = M2C_FIELD(temp_a1, u32 *, 0x14);
-        var_s2 = temp_v0;
         var_s0 = temp_v0 >> 0x10;
-    
-    func_8000A894(0xE8, temp_a1);} else {
+        var_s2 = temp_v0;
+    } else {
         var_s2 = 1;
         var_s0 = 0;
-    
-    func_8000A894(0xE8, temp_a1);}
-    temp_v0_2 = temp_s1 + arg0;
-    var_s1 = temp_v0_2;
-    if ((var_s2 & 0xFFFF) < temp_v0_2) {
+    }
+    func_8000A894(0xE8);do{
+    var_s1 = temp_s1 + arg0;}while(0);
+    temp_v0_2 = var_s1;
+    if ((s32)(var_s2 & 0xFFFF) < temp_v0_2) {
         var_s1 = (s16) var_s0;
     } else if (temp_v0_2 < (s32) var_s0) {
         var_s1 = (s16) var_s2;
@@ -54,16 +53,13 @@ void func_800295F0(s32 arg0) {
     *M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s8 **, 0x10) = (s8) var_s1;
     if (M2C_FIELD(M2C_FIELD(temp_s3, void **, 8), s32 *, 0x18) != 0) {
         if (M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), u16 *, 0xC) & 0x400) {
-            var_a1 = "%d";
-            var_a2 = var_s1;
+            func_80026004(temp_s3, "%d", var_s1);
         } else {
             var_a0 = 0xA;
             if ((var_s1 << 0x10) != 0) {
                 var_a0 = 9;
             }
-            var_a1 = "%s";
-            var_a2 = func_80087100(var_a0);
+            func_80026004(temp_s3, "%s", func_80087100(var_a0));
         }
-        func_80026004(temp_s3, var_a1, var_a2);
     }
 }

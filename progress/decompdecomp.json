@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795185199.398531,
- "revision": 13484,
+ "saved_at": 1795193521.36721,
+ "revision": 13583,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -447,7 +447,7 @@
   },
   "701336:2148181912": {
    "vram": 2148181912,
-   "function": "func_800AA798",
+   "function": "atan",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -1877,12 +1877,11 @@
     "-mgp32",
     "-mfp32",
     "-O1"
-   ],
-   "timeout": 20
+   ]
   },
   "9092:2147489668": {
    "vram": 2147489668,
-   "function": "func_80001784",
+   "function": "initResourceCaches",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -2253,7 +2252,7 @@
   },
   "152088:2147632664": {
    "vram": 2147632664,
-   "function": "func_80024618",
+   "function": "updatePairedSpriteState",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -3177,7 +3176,7 @@
   },
   "684976:2148165552": {
    "vram": 2148165552,
-   "function": "func_800A67B0",
+   "function": "osGetMemSize",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -3960,7 +3959,20 @@
   "When a call follows entry without writing all argument registers, inspect the callee prototype and pass through incoming arguments explicitly. An unprototyped call that omits them can appear nearly identical while relying on unintended register contents.",
   "When a loop's invariant field load and cached global count are scheduled in the wrong order relative to an index initialization, explicitly load both into locals before initializing the index and use the cached count in the loop condition.",
   "For GCC 2.7.2 KMC, when a shared early return belongs between a null check and a copy, explicitly branch to the return label from the first guard and branch over the return to the copy on the non-null path. Returning directly at that label can avoid an extra result-register move.",
-  "For GCC 2.7.2 KMC, signed 16-bit locals used as boolean flags can cause register-to-register moves before branch tests, filling delay slots where int locals branch directly and unsigned byte locals emit masking instructions."
+  "For GCC 2.7.2 KMC, signed 16-bit locals used as boolean flags can cause register-to-register moves before branch tests, filling delay slots where int locals branch directly and unsigned byte locals emit masking instructions.",
+  "For GCC 2.7.2 KMC, declare prototypes for callees taking float arguments: unprototyped calls promote float to double and can introduce conversion and double-store instructions.",
+  "GCC 2.7.2 KMC can lower a volatile signed halfword read widened to s32 as lhu followed by sll/sra. If the target uses lh and volatility was introduced only to hold source order, test a nonvolatile load with the first scheduling pass disabled.",
+  "For KMC GCC 2.7.2 functions already close at -O1 but with an interleaved target prologue or mismatched branch delay slots, test -O1 with both -fschedule-insns and -fschedule-insns2 before changing the C or switching to -O2. The two scheduling passes can matter together.",
+  "When the target copies a three-word vector using consecutive integer loads and stores from one base, a three-word C struct assignment can generate the aggregate copy; separate mixed float and integer field assignments may generate different loads and address setup.",
+  "With GCC 2.7.2 KMC, debug flag -g can prevent loads from filling unconditional jump delay slots; test omitting -g when otherwise identical code has loads before jumps and extra nops.",
+  "GCC 2.7.2 KMC can reserve stack space for an unused local array, even with optimization enabled. When a frame is eight bytes short and the saved-register set and outgoing argument stores match, a two-word local array can test for this compiler behavior without emitting extra memory traffic.",
+  "When a computed floating-point value is both stored and scaled for a second store, stage the scaled result in a local before either store to encourage the compiler to retain separate FP registers and schedule the multiplication earlier.",
+  "For GCC 2.7.2 KMC, copying a three-word record with a struct assignment can produce grouped word loads followed by grouped word stores; individual field assignments may interleave loads and stores.",
+  "In KMC GCC 2.7.2, an unused volatile local array can reserve frame space without emitting any loads or stores. Use this as a diagnostic to isolate a stack-frame discrepancy while looking for the original local or build setting.",
+  "When the target reloads a pointer field immediately before a store but GCC reuses a previously loaded value, a volatile-qualified pointer-field read at that use can recover the reload. Confirm the target's repeated load and aliasing before applying it.",
+  "For GCC 2.7.2 KMC, indexing an array of records can produce a %hi(symbol) plus scaled index followed by a load or store using %lo(symbol); manually adding the scaled offset to a scalar symbol may instead materialize the full address first.",
+  "When a default switch-like path sets an index to zero before a shared scaling operation, routing zero through the same scaling expression as the other cases can place the shift in the default jump delay slot under GCC 2.7.2 KMC.",
+  "For KMC GCC 2.7.2 at -O1, try expressing a byte stride as an odd factor multiplied first, then a power-of-two factor, when the target's final scaling instruction is a shift. A single literal stride can expand into a differently ordered shift/add sequence."
  ],
  "claim_order": "",
  "priority": [],
@@ -4829,8 +4841,7 @@
   "local_source_25769805761": "common_local_source_25769805761.h",
   "local_source_25769805767": "common_local_source_25769805767.h",
   "local_source_25769805768": "common_local_source_25769805768.h",
-  "local_source_25769805772": "common_local_source_25769805772.h",
-  "main": "common_main.h"
+  "local_source_25769805772": "common_local_source_25769805772.h"
  },
  "functions": {
   "main": {
@@ -4840,8 +4851,8 @@
   },
   "func_800004BC": {
    "vram": 2147484860,
-   "best_score": 120,
-   "best_by": "codex-gpt-6-luna-20"
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
   },
   "func_80000570": {
    "vram": 2147485040,
@@ -4893,20 +4904,15 @@
    "matched_by": "codex-gpt-6-luna-13",
    "readable": false
   },
-  "func_80001784": {
-   "vram": 2147489668,
-   "best_score": 105,
-   "best_by": "codex-gpt-6.2-sol-2"
-  },
   "func_8000182C": {
    "vram": 2147489836,
-   "best_score": 1440,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80001928": {
    "vram": 2147490088,
-   "best_score": 1706,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 776,
+   "best_by": "codex-gpt-6.2-sol-7"
   },
   "func_80001A80": {
    "vram": 2147490432,
@@ -4940,8 +4946,8 @@
   },
   "func_80001F40": {
    "vram": 2147491648,
-   "best_score": 2697,
-   "best_by": "codex-gpt-6-luna-9"
+   "best_score": 2695,
+   "best_by": "codex-gpt-6-luna-7"
   },
   "func_80002098": {
    "vram": 2147491992,
@@ -4990,8 +4996,8 @@
   },
   "func_80002D70": {
    "vram": 2147495280,
-   "best_score": 395,
-   "best_by": "codex-gpt-6.2-sol-2"
+   "best_score": 205,
+   "best_by": "codex-gpt-6.2-sol-7"
   },
   "func_80002E80": {
    "vram": 2147495552,
@@ -5142,11 +5148,6 @@
    "vram": 2147510044,
    "matched_by": "codex-gpt-6.2-sol-8",
    "readable": false
-  },
-  "func_800067C8": {
-   "vram": 2147510216,
-   "best_score": 180,
-   "best_by": "permuter-25769804005"
   },
   "func_800068B4": {
    "vram": 2147510452,
@@ -5335,8 +5336,8 @@
   },
   "func_8000A4F4": {
    "vram": 2147525876,
-   "best_score": 460,
-   "best_by": "codex-gpt-6.1-terra-5"
+   "best_score": 400,
+   "best_by": "codex-gpt-6.2-sol-1"
   },
   "func_8000A580": {
    "vram": 2147526016,
@@ -5405,8 +5406,8 @@
   },
   "func_8000AC74": {
    "vram": 2147527796,
-   "best_score": 20,
-   "best_by": "permuter-25769804057"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_8000AD5C": {
    "vram": 2147528028,
@@ -5550,8 +5551,8 @@
   },
   "func_8000BE00": {
    "vram": 2147532288,
-   "best_score": 840,
-   "best_by": "codex-gpt-6.1-terra-1"
+   "best_score": 55,
+   "best_by": "codex-gpt-6-luna-11"
   },
   "func_8000BF90": {
    "vram": 2147532688,
@@ -5618,15 +5619,10 @@
    "matched_by": "permuter-25769804099",
    "readable": false
   },
-  "func_8000CCE4": {
-   "vram": 2147536100,
-   "best_score": 290,
-   "best_by": "codex-gpt-6.2-sol-7"
-  },
   "func_8000CD8C": {
    "vram": 2147536268,
-   "best_score": 1374,
-   "best_by": "codex-gpt-6.1-terra-6"
+   "best_score": 50,
+   "best_by": "codex-gpt-6.2-sol-8"
   },
   "func_8000CF14": {
    "vram": 2147536660,
@@ -5645,8 +5641,8 @@
   },
   "func_8000D59C": {
    "vram": 2147538332,
-   "best_score": 3070,
-   "best_by": "permuter-25769804105"
+   "best_score": 145,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_8000D6A0": {
    "vram": 2147538592,
@@ -5690,8 +5686,8 @@
   },
   "func_800104B8": {
    "vram": 2147550392,
-   "best_score": 615,
-   "best_by": "permuter-25769804115"
+   "best_score": 30,
+   "best_by": "codex-gpt-6.2-sol-4"
   },
   "func_80010590": {
    "vram": 2147550608,
@@ -5785,8 +5781,8 @@
   },
   "func_80011FA4": {
    "vram": 2147557284,
-   "best_score": 255,
-   "best_by": "codex-gpt-6.1-terra-3"
+   "matched_by": "codex-gpt-6-luna-17",
+   "readable": false
   },
   "func_8001212C": {
    "vram": 2147557676,
@@ -5888,11 +5884,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_800134D0": {
-   "vram": 2147562704,
-   "best_score": 25251,
-   "best_by": "codex-gpt-6-luna-11"
-  },
   "func_80013F74": {
    "vram": 2147565428,
    "best_score": 37140,
@@ -5955,8 +5946,8 @@
   },
   "func_800156F4": {
    "vram": 2147571444,
-   "best_score": 3865,
-   "best_by": "codex-gpt-6.1-terra-5"
+   "best_score": 475,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_800158A4": {
    "vram": 2147571876,
@@ -6035,8 +6026,8 @@
   },
   "func_80016160": {
    "vram": 2147574112,
-   "best_score": 980,
-   "best_by": "permuter-25769804184"
+   "best_score": 235,
+   "best_by": "codex-gpt-6.1-terra-3"
   },
   "func_800162BC": {
    "vram": 2147574460,
@@ -6260,8 +6251,8 @@
   },
   "func_80018364": {
    "vram": 2147582820,
-   "best_score": 340,
-   "best_by": "permuter-25769804229"
+   "best_score": 80,
+   "best_by": "codex-gpt-6.2-sol-2"
   },
   "func_800184AC": {
    "vram": 2147583148,
@@ -6340,8 +6331,8 @@
   },
   "func_80019A3C": {
    "vram": 2147588668,
-   "best_score": 1920,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 280,
+   "best_by": "codex-gpt-6-luna-20"
   },
   "func_80019B34": {
    "vram": 2147588916,
@@ -6355,8 +6346,8 @@
   },
   "func_80019E28": {
    "vram": 2147589672,
-   "best_score": 1490,
-   "best_by": "permuter-25769804248"
+   "best_score": 270,
+   "best_by": "codex-gpt-6.1-terra-8"
   },
   "func_80019F7C": {
    "vram": 2147590012,
@@ -6405,13 +6396,8 @@
   },
   "func_8001ACCC": {
    "vram": 2147593420,
-   "best_score": 95,
-   "best_by": "codex-gpt-6-luna-20"
-  },
-  "func_8001ADE8": {
-   "vram": 2147593704,
-   "best_score": 9177,
-   "best_by": "codex-gpt-6.1-terra-8"
+   "best_score": 85,
+   "best_by": "codex-gpt-6-luna-22"
   },
   "func_8001B6F0": {
    "vram": 2147596016,
@@ -6508,11 +6494,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8001D738": {
-   "vram": 2147604280,
-   "best_score": 3496,
-   "best_by": "codex-gpt-6.1-terra-2"
-  },
   "func_8001DE20": {
    "vram": 2147606048,
    "best_score": 4231,
@@ -6545,8 +6526,8 @@
   },
   "func_8001E4A0": {
    "vram": 2147607712,
-   "best_score": 2750,
-   "best_by": "codex-gpt-6.1-terra-7"
+   "best_score": 1070,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_8001E5BC": {
    "vram": 2147607996,
@@ -6650,8 +6631,8 @@
   },
   "func_8001F4B8": {
    "vram": 2147611832,
-   "best_score": 1044,
-   "best_by": "codex-gpt-6-luna-19"
+   "best_score": 165,
+   "best_by": "codex-gpt-6.2-sol-4"
   },
   "func_8001F5C4": {
    "vram": 2147612100,
@@ -6723,11 +6704,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8002135C": {
-   "vram": 2147619676,
-   "best_score": 6226,
-   "best_by": "codex-gpt-6-luna-7"
-  },
   "func_8002175C": {
    "vram": 2147620700,
    "matched_by": "autopilot",
@@ -6735,8 +6711,8 @@
   },
   "func_800217F4": {
    "vram": 2147620852,
-   "best_score": 20,
-   "best_by": "you"
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
   },
   "func_800218EC": {
    "vram": 2147621100,
@@ -6747,11 +6723,6 @@
    "vram": 2147621176,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_800219A0": {
-   "vram": 2147621280,
-   "best_score": 410,
-   "best_by": "permuter-25769804327"
   },
   "func_80021A6C": {
    "vram": 2147621484,
@@ -6865,8 +6836,8 @@
   },
   "func_80022C04": {
    "vram": 2147625988,
-   "best_score": 805,
-   "best_by": "permuter-25769804350"
+   "best_score": 625,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_80022D60": {
    "vram": 2147626336,
@@ -6973,11 +6944,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_80024618": {
-   "vram": 2147632664,
-   "best_score": 555,
-   "best_by": "permuter-25769804372"
-  },
   "func_800247A8": {
    "vram": 2147633064,
    "matched_by": "autopilot",
@@ -7010,8 +6976,8 @@
   },
   "func_80024EF0": {
    "vram": 2147634928,
-   "best_score": 500,
-   "best_by": "codex-gpt-6.1-terra-1"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_8002502C": {
    "vram": 2147635244,
@@ -7090,8 +7056,8 @@
   },
   "func_800265AC": {
    "vram": 2147640748,
-   "best_score": 3030,
-   "best_by": "permuter-25769804395"
+   "best_score": 3025,
+   "best_by": "codex-gpt-6-luna-18"
   },
   "func_800266DC": {
    "vram": 2147641052,
@@ -7111,11 +7077,6 @@
   "func_80026A5C": {
    "vram": 2147641948,
    "best_score": 645,
-   "best_by": "you"
-  },
-  "func_80026D40": {
-   "vram": 2147642688,
-   "best_score": 35,
    "best_by": "you"
   },
   "func_80026E9C": {
@@ -7165,13 +7126,13 @@
   },
   "func_800278AC": {
    "vram": 2147645612,
-   "best_score": 595,
-   "best_by": "codex-gpt-6.2-sol-2"
+   "best_score": 260,
+   "best_by": "codex-gpt-6.2-sol-7"
   },
   "func_80027970": {
    "vram": 2147645808,
-   "best_score": 15,
-   "best_by": "codex-gpt-6-luna-22"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80027A7C": {
    "vram": 2147646076,
@@ -7315,8 +7276,8 @@
   },
   "func_800295F0": {
    "vram": 2147653104,
-   "best_score": 2375,
-   "best_by": "permuter-25769804440"
+   "best_score": 620,
+   "best_by": "codex-gpt-6.1-terra-7"
   },
   "func_80029768": {
    "vram": 2147653480,
@@ -7360,8 +7321,8 @@
   },
   "func_8002A7CC": {
    "vram": 2147657676,
-   "best_score": 1090,
-   "best_by": "permuter-25769804449"
+   "best_score": 260,
+   "best_by": "codex-gpt-6.2-sol-2"
   },
   "func_8002A920": {
    "vram": 2147658016,
@@ -7375,8 +7336,8 @@
   },
   "func_8002A9A8": {
    "vram": 2147658152,
-   "best_score": 1080,
-   "best_by": "permuter-25769804452"
+   "best_score": 150,
+   "best_by": "codex-gpt-6.2-sol-5"
   },
   "func_8002AAD4": {
    "vram": 2147658452,
@@ -7450,8 +7411,8 @@
   },
   "func_8002B050": {
    "vram": 2147659856,
-   "best_score": 1715,
-   "best_by": "codex-gpt-6.1-terra-5"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_8002B150": {
    "vram": 2147660112,
@@ -7683,11 +7644,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8002D240": {
-   "vram": 2147668544,
-   "best_score": 4605,
-   "best_by": "codex-gpt-6-luna-10"
-  },
   "func_8002D7C0": {
    "vram": 2147669952,
    "matched_by": "autopilot",
@@ -7702,11 +7658,6 @@
    "vram": 2147670368,
    "best_score": 470,
    "best_by": "codex-gpt-6.2-sol-5"
-  },
-  "func_8002E114": {
-   "vram": 2147672340,
-   "best_score": 14255,
-   "best_by": "codex-gpt-6-luna-17"
   },
   "func_8002E7A0": {
    "vram": 2147674016,
@@ -7742,11 +7693,6 @@
    "vram": 2147674560,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_8002E9D0": {
-   "vram": 2147674576,
-   "best_score": 2884,
-   "best_by": "codex-gpt-6.1-terra-8"
   },
   "func_8002EAC4": {
    "vram": 2147674820,
@@ -7790,8 +7736,8 @@
   },
   "func_8002F560": {
    "vram": 2147677536,
-   "best_score": 660,
-   "best_by": "permuter-25769804535"
+   "best_score": 20,
+   "best_by": "codex-gpt-6.2-sol-3"
   },
   "func_8002F718": {
    "vram": 2147677976,
@@ -7825,8 +7771,8 @@
   },
   "func_8002FFAC": {
    "vram": 2147680172,
-   "best_score": 1715,
-   "best_by": "restored"
+   "best_score": 1470,
+   "best_by": "codex-gpt-6.1-terra-8"
   },
   "func_80030108": {
    "vram": 2147680520,
@@ -7925,8 +7871,8 @@
   },
   "func_80031144": {
    "vram": 2147684676,
-   "best_score": 650,
-   "best_by": "permuter-25769804562"
+   "best_score": 105,
+   "best_by": "codex-gpt-6.2-sol-5"
   },
   "func_80031250": {
    "vram": 2147684944,
@@ -8010,8 +7956,8 @@
   },
   "func_80032264": {
    "vram": 2147689060,
-   "best_score": 755,
-   "best_by": "codex-gpt-6-luna-10"
+   "best_score": 385,
+   "best_by": "codex-gpt-6.1-terra-3"
   },
   "func_8003239C": {
    "vram": 2147689372,
@@ -8020,8 +7966,8 @@
   },
   "func_80032420": {
    "vram": 2147689504,
-   "best_score": 455,
-   "best_by": "permuter-25769804581"
+   "best_score": 445,
+   "best_by": "codex-gpt-6-luna-9"
   },
   "func_800325E4": {
    "vram": 2147689956,
@@ -8090,8 +8036,8 @@
   },
   "func_8003438C": {
    "vram": 2147697548,
-   "best_score": 2485,
-   "best_by": "permuter-25769804595"
+   "best_score": 2140,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_800344DC": {
    "vram": 2147697884,
@@ -8105,13 +8051,13 @@
   },
   "func_80034630": {
    "vram": 2147698224,
-   "best_score": 1510,
-   "best_by": "codex-gpt-6-luna-20"
+   "best_score": 1310,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_800347B0": {
    "vram": 2147698608,
-   "best_score": 515,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 190,
+   "best_by": "codex-gpt-6.1-terra-6"
   },
   "func_80034928": {
    "vram": 2147698984,
@@ -8135,13 +8081,8 @@
   },
   "func_80034EFC": {
    "vram": 2147700476,
-   "best_score": 2665,
-   "best_by": "permuter-25769804604"
-  },
-  "func_80035060": {
-   "vram": 2147700832,
-   "best_score": 9965,
-   "best_by": "codex-gpt-6-luna-19"
+   "best_score": 2580,
+   "best_by": "codex-gpt-6.1-terra-1"
   },
   "func_800355BC": {
    "vram": 2147702204,
@@ -8162,11 +8103,6 @@
    "vram": 2147702868,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_800358D4": {
-   "vram": 2147702996,
-   "best_score": 9602,
-   "best_by": "codex-gpt-6-luna-9"
   },
   "func_80036108": {
    "vram": 2147705096,
@@ -8215,8 +8151,8 @@
   },
   "func_80037788": {
    "vram": 2147710856,
-   "best_score": 485,
-   "best_by": "codex-gpt-6.2-sol-1"
+   "best_score": 385,
+   "best_by": "codex-gpt-6-luna-19"
   },
   "func_800378C0": {
    "vram": 2147711168,
@@ -8243,11 +8179,6 @@
    "best_score": 2565,
    "best_by": "codex-gpt-6.1-terra-4"
   },
-  "func_80038000": {
-   "vram": 2147713024,
-   "best_score": 20180,
-   "best_by": "codex-gpt-6.1-terra-1"
-  },
   "func_800389F0": {
    "vram": 2147715568,
    "best_score": 7700,
@@ -8260,8 +8191,8 @@
   },
   "func_80038FA4": {
    "vram": 2147717028,
-   "best_score": 615,
-   "best_by": "codex-gpt-6.2-sol-5"
+   "best_score": 580,
+   "best_by": "codex-gpt-6.2-sol-1"
   },
   "func_80039068": {
    "vram": 2147717224,
@@ -8270,8 +8201,8 @@
   },
   "func_80039128": {
    "vram": 2147717416,
-   "best_score": 1535,
-   "best_by": "codex-gpt-6-luna-19"
+   "best_score": 60,
+   "best_by": "codex-gpt-6-luna-13"
   },
   "emit_matrices_viewport_and_persp_norm": {
    "vram": 2147717796,
@@ -8300,23 +8231,13 @@
   },
   "func_80039EFC": {
    "vram": 2147720956,
-   "best_score": 21034,
-   "best_by": "codex-gpt-6-luna-7"
+   "best_score": 20599,
+   "best_by": "codex-gpt-6-luna-17"
   },
   "func_8003A4C0": {
    "vram": 2147722432,
    "best_score": 20085,
    "best_by": "codex-gpt-6-luna-20"
-  },
-  "func_8003AF20": {
-   "vram": 2147725088,
-   "best_score": 20545,
-   "best_by": "codex-gpt-6-luna-9"
-  },
-  "func_8003B954": {
-   "vram": 2147727700,
-   "best_score": 19405,
-   "best_by": "permuter-25769804640"
   },
   "func_8003C228": {
    "vram": 2147729960,
@@ -8435,8 +8356,8 @@
   },
   "func_8003E6EC": {
    "vram": 2147739372,
-   "best_score": 50,
-   "best_by": "codex-gpt-6.1-terra-2"
+   "best_score": 30,
+   "best_by": "codex-gpt-6.2-sol-1"
   },
   "func_8003EA68": {
    "vram": 2147740264,
@@ -8590,8 +8511,8 @@
   },
   "func_800448A4": {
    "vram": 2147764388,
-   "best_score": 215,
-   "best_by": "codex-gpt-6.2-sol-5"
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
   },
   "func_8004493C": {
    "vram": 2147764540,
@@ -8765,8 +8686,8 @@
   },
   "func_80045CC4": {
    "vram": 2147769540,
-   "best_score": 5,
-   "best_by": "permuter-25769804731"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80045CF8": {
    "vram": 2147769592,
@@ -8802,11 +8723,6 @@
    "vram": 2147770452,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_80046140": {
-   "vram": 2147770688,
-   "best_score": 777,
-   "best_by": "permuter-25769804739"
   },
   "func_800461D4": {
    "vram": 2147770836,
@@ -8855,8 +8771,8 @@
   },
   "func_800468E4": {
    "vram": 2147772644,
-   "best_score": 1471,
-   "best_by": "permuter-25769804749"
+   "best_score": 792,
+   "best_by": "codex-gpt-6.1-terra-3"
   },
   "func_800469C0": {
    "vram": 2147772864,
@@ -9037,11 +8953,6 @@
    "vram": 2147790128,
    "best_score": 30159,
    "best_by": "codex-gpt-6.1-terra-2"
-  },
-  "func_8004BCC0": {
-   "vram": 2147794112,
-   "best_score": 5664,
-   "best_by": "codex-gpt-6.1-terra-6"
   },
   "func_8004C750": {
    "vram": 2147796816,
@@ -9285,8 +9196,8 @@
   },
   "func_8005B6B8": {
    "vram": 2147858104,
-   "best_score": 180,
-   "best_by": "permuter-25769804837"
+   "best_score": 60,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_8005B79C": {
    "vram": 2147858332,
@@ -9330,8 +9241,8 @@
   },
   "func_8005B880": {
    "vram": 2147858560,
-   "best_score": 480,
-   "best_by": "permuter-25769804846"
+   "matched_by": "codex-gpt-6.2-sol-3",
+   "readable": false
   },
   "func_8005B958": {
    "vram": 2147858776,
@@ -9630,13 +9541,8 @@
   },
   "func_8005FD28": {
    "vram": 2147876136,
-   "best_score": 2291,
-   "best_by": "codex-gpt-6.1-terra-4"
-  },
-  "func_8005FE20": {
-   "vram": 2147876384,
-   "best_score": 6042,
-   "best_by": "permuter-25769804907"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_80060574": {
    "vram": 2147878260,
@@ -9645,8 +9551,8 @@
   },
   "func_80060890": {
    "vram": 2147879056,
-   "best_score": 1170,
-   "best_by": "codex-gpt-6-luna-20"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_80060968": {
    "vram": 2147879272,
@@ -9845,8 +9751,8 @@
   },
   "func_80063C7C": {
    "vram": 2147892348,
-   "best_score": 345,
-   "best_by": "codex-gpt-6.2-sol-1"
+   "best_score": 35,
+   "best_by": "codex-gpt-6-luna-22"
   },
   "func_80063CFC": {
    "vram": 2147892476,
@@ -9855,8 +9761,8 @@
   },
   "func_80063D38": {
    "vram": 2147892536,
-   "best_score": 5,
-   "best_by": "codex-gpt-6.2-sol-1"
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
   },
   "func_80063DB4": {
    "vram": 2147892660,
@@ -9950,8 +9856,8 @@
   },
   "func_80064A18": {
    "vram": 2147895832,
-   "best_score": 8873,
-   "best_by": "codex-gpt-6-luna-19"
+   "best_score": 8673,
+   "best_by": "codex-gpt-6-luna-22"
   },
   "func_80065684": {
    "vram": 2147899012,
@@ -10000,8 +9906,8 @@
   },
   "func_80065D90": {
    "vram": 2147900816,
-   "best_score": 22875,
-   "best_by": "permuter-25769804980"
+   "best_score": 22775,
+   "best_by": "codex-gpt-6-luna-13"
   },
   "func_800671E0": {
    "vram": 2147906016,
@@ -10063,11 +9969,6 @@
    "best_score": 5835,
    "best_by": "permuter-25769804992"
   },
-  "func_8006899C": {
-   "vram": 2147912092,
-   "best_score": 9861,
-   "best_by": "codex-gpt-6-luna-18"
-  },
   "func_80069250": {
    "vram": 2147914320,
    "best_score": 14237,
@@ -10110,8 +10011,8 @@
   },
   "func_8006D224": {
    "vram": 2147930660,
-   "best_score": 775,
-   "best_by": "codex-gpt-6.2-sol-2"
+   "best_score": 250,
+   "best_by": "codex-gpt-6.2-sol-5"
   },
   "func_8006D2E4": {
    "vram": 2147930852,
@@ -10195,8 +10096,8 @@
   },
   "func_80070730": {
    "vram": 2147944240,
-   "best_score": 5,
-   "best_by": "codex-gpt-6-luna-17"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_800707B4": {
    "vram": 2147944372,
@@ -10295,8 +10196,8 @@
   },
   "func_80073400": {
    "vram": 2147955712,
-   "best_score": 375,
-   "best_by": "permuter-25769805039"
+   "best_score": 360,
+   "best_by": "codex-gpt-6.2-sol-8"
   },
   "func_800734B8": {
    "vram": 2147955896,
@@ -10310,8 +10211,8 @@
   },
   "func_80073634": {
    "vram": 2147956276,
-   "best_score": 30,
-   "best_by": "permuter-25769805042"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_80073700": {
    "vram": 2147956480,
@@ -10385,8 +10286,8 @@
   },
   "func_80074FD4": {
    "vram": 2147962836,
-   "best_score": 1055,
-   "best_by": "codex-gpt-6.1-terra-1"
+   "best_score": 300,
+   "best_by": "codex-gpt-6.2-sol-3"
   },
   "func_800750B0": {
    "vram": 2147963056,
@@ -10400,13 +10301,13 @@
   },
   "func_8007539C": {
    "vram": 2147963804,
-   "best_score": 670,
-   "best_by": "restored"
+   "best_score": 478,
+   "best_by": "codex-gpt-6-luna-11"
   },
   "func_80075490": {
    "vram": 2147964048,
-   "best_score": 2170,
-   "best_by": "permuter-25769805061"
+   "best_score": 270,
+   "best_by": "codex-gpt-6.2-sol-8"
   },
   "func_80075570": {
    "vram": 2147964272,
@@ -10560,8 +10461,8 @@
   },
   "func_80078274": {
    "vram": 2147975796,
-   "best_score": 120,
-   "best_by": "codex-gpt-6-luna-13"
+   "matched_by": "codex-gpt-6.1-terra-8",
+   "readable": false
   },
   "func_8007835C": {
    "vram": 2147976028,
@@ -10577,11 +10478,6 @@
    "vram": 2147977312,
    "best_score": 1040,
    "best_by": "codex-gpt-6.1-terra-1"
-  },
-  "func_8007898C": {
-   "vram": 2147977612,
-   "best_score": 31505,
-   "best_by": "permuter-25769805096"
   },
   "func_8007947C": {
    "vram": 2147980412,
@@ -10688,11 +10584,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8007BAF8": {
-   "vram": 2147990264,
-   "best_score": 7312,
-   "best_by": "codex-gpt-6-luna-21"
-  },
   "func_8007C094": {
    "vram": 2147991700,
    "matched_by": "autopilot",
@@ -10745,8 +10636,8 @@
   },
   "func_80081134": {
    "vram": 2148012340,
-   "best_score": 60,
-   "best_by": "codex-gpt-6.2-sol-6"
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
   },
   "func_80081268": {
    "vram": 2148012648,
@@ -10990,8 +10881,8 @@
   },
   "func_80083138": {
    "vram": 2148020536,
-   "best_score": 475,
-   "best_by": "permuter-25769805179"
+   "best_score": 50,
+   "best_by": "codex-gpt-6.2-sol-2"
   },
   "func_800832BC": {
    "vram": 2148020924,
@@ -11085,13 +10976,13 @@
   },
   "func_80083E90": {
    "vram": 2148023952,
-   "best_score": 3400,
-   "best_by": "permuter-25769805198"
+   "best_score": 115,
+   "best_by": "codex-gpt-6.2-sol-3"
   },
   "func_80084048": {
    "vram": 2148024392,
-   "best_score": 1440,
-   "best_by": "permuter-25769805199"
+   "best_score": 350,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_80084180": {
    "vram": 2148024704,
@@ -11125,8 +11016,8 @@
   },
   "func_8008447C": {
    "vram": 2148025468,
-   "best_score": 560,
-   "best_by": "permuter-25769805206"
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
   },
   "func_8008461C": {
    "vram": 2148025884,
@@ -11140,8 +11031,8 @@
   },
   "func_800846A8": {
    "vram": 2148026024,
-   "best_score": 960,
-   "best_by": "permuter-25769805209"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_800847D4": {
    "vram": 2148026324,
@@ -11350,8 +11241,8 @@
   },
   "func_800862BC": {
    "vram": 2148033212,
-   "best_score": 65,
-   "best_by": "permuter-25769805251"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80086424": {
    "vram": 2148033572,
@@ -11365,8 +11256,8 @@
   },
   "func_80086C10": {
    "vram": 2148035600,
-   "best_score": 2750,
-   "best_by": "permuter-25769805254"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_80086DA0": {
    "vram": 2148036000,
@@ -11402,11 +11293,6 @@
    "vram": 2148039296,
    "matched_by": "codex-gpt-6.2-sol-5",
    "readable": false
-  },
-  "func_80087B04": {
-   "vram": 2148039428,
-   "best_score": 955,
-   "best_by": "permuter-25769805262"
   },
   "func_80087C9C": {
    "vram": 2148039836,
@@ -11455,8 +11341,8 @@
   },
   "func_800884F8": {
    "vram": 2148041976,
-   "best_score": 786,
-   "best_by": "permuter-25769805272"
+   "matched_by": "codex-gpt-6.2-sol-4",
+   "readable": false
   },
   "func_8008863C": {
    "vram": 2148042300,
@@ -11485,8 +11371,8 @@
   },
   "func_80088DE0": {
    "vram": 2148044256,
-   "best_score": 970,
-   "best_by": "codex-gpt-6.1-terra-5"
+   "best_score": 595,
+   "best_by": "codex-gpt-6-luna-13"
   },
   "func_80088EE4": {
    "vram": 2148044516,
@@ -11497,11 +11383,6 @@
    "vram": 2148044652,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_80088FB0": {
-   "vram": 2148044720,
-   "best_score": 3491,
-   "best_by": "permuter-25769805281"
   },
   "func_800891A8": {
    "vram": 2148045224,
@@ -11522,11 +11403,6 @@
    "vram": 2148046928,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_80089890": {
-   "vram": 2148046992,
-   "best_score": 530,
-   "best_by": "codex-gpt-6.1-terra-6"
   },
   "func_80089A24": {
    "vram": 2148047396,
@@ -11553,11 +11429,6 @@
    "best_score": 7486,
    "best_by": "codex-gpt-6.1-terra-3"
   },
-  "func_8008A52C": {
-   "vram": 2148050220,
-   "best_score": 15023,
-   "best_by": "codex-gpt-6.1-terra-7"
-  },
   "func_8008AECC": {
    "vram": 2148052684,
    "best_score": 186,
@@ -11580,8 +11451,8 @@
   },
   "func_8008BA98": {
    "vram": 2148055704,
-   "best_score": 1177,
-   "best_by": "codex-gpt-6.2-sol-4"
+   "best_score": 180,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_8008BBFC": {
    "vram": 2148056060,
@@ -11635,8 +11506,8 @@
   },
   "func_8008C1E4": {
    "vram": 2148057572,
-   "best_score": 895,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_8008C380": {
    "vram": 2148057984,
@@ -11808,11 +11679,6 @@
    "best_score": 5026,
    "best_by": "codex-gpt-6.1-terra-6"
   },
-  "func_8008D838": {
-   "vram": 2148063288,
-   "best_score": 7875,
-   "best_by": "codex-gpt-6.1-terra-3"
-  },
   "func_8008E374": {
    "vram": 2148066164,
    "matched_by": "autopilot",
@@ -11823,25 +11689,20 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8008E4A8": {
-   "vram": 2148066472,
-   "best_score": 510,
-   "best_by": "codex-gpt-6.1-terra-8"
-  },
   "func_8008E594": {
    "vram": 2148066708,
-   "best_score": 30,
-   "best_by": "codex-gpt-6.2-sol-8"
+   "matched_by": "codex-gpt-6.2-sol-4",
+   "readable": false
   },
   "func_8008E680": {
    "vram": 2148066944,
-   "best_score": 1155,
-   "best_by": "codex-gpt-6.2-sol-2"
+   "best_score": 420,
+   "best_by": "codex-gpt-6.2-sol-3"
   },
   "func_8008E7B8": {
    "vram": 2148067256,
-   "best_score": 952,
-   "best_by": "codex-gpt-6.1-terra-1"
+   "best_score": 285,
+   "best_by": "codex-gpt-6-luna-19"
   },
   "func_8008E8F0": {
    "vram": 2148067568,
@@ -11850,8 +11711,8 @@
   },
   "func_8008E96C": {
    "vram": 2148067692,
-   "best_score": 30,
-   "best_by": "codex-gpt-6.2-sol-5"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_8008EA58": {
    "vram": 2148067928,
@@ -11870,8 +11731,8 @@
   },
   "func_8008EF18": {
    "vram": 2148069144,
-   "best_score": 250,
-   "best_by": "codex-gpt-6.2-sol-2"
+   "best_score": 55,
+   "best_by": "codex-gpt-6-luna-9"
   },
   "func_8008EF6C": {
    "vram": 2148069228,
@@ -11905,8 +11766,8 @@
   },
   "func_8008FFF8": {
    "vram": 2148073464,
-   "best_score": 475,
-   "best_by": "permuter-25769805362"
+   "matched_by": "codex-gpt-6.1-terra-8",
+   "readable": false
   },
   "func_8009010C": {
    "vram": 2148073740,
@@ -11915,18 +11776,13 @@
   },
   "func_800902B4": {
    "vram": 2148074164,
-   "best_score": 30,
-   "best_by": "you"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80090464": {
    "vram": 2148074596,
    "best_score": 4940,
    "best_by": "permuter-25769805365"
-  },
-  "func_800907D0": {
-   "vram": 2148075472,
-   "best_score": 40,
-   "best_by": "you"
   },
   "func_8009092C": {
    "vram": 2148075820,
@@ -12095,8 +11951,8 @@
   },
   "func_80092F9C": {
    "vram": 2148085660,
-   "best_score": 2895,
-   "best_by": "codex-gpt-6-luna-18"
+   "best_score": 295,
+   "best_by": "codex-gpt-6.1-terra-8"
   },
   "func_800930F4": {
    "vram": 2148086004,
@@ -12110,8 +11966,8 @@
   },
   "func_80093268": {
    "vram": 2148086376,
-   "best_score": 1193,
-   "best_by": "codex-gpt-6.1-terra-3"
+   "best_score": 1050,
+   "best_by": "codex-gpt-6.1-terra-6"
   },
   "func_80093410": {
    "vram": 2148086800,
@@ -12235,8 +12091,8 @@
   },
   "func_8009532C": {
    "vram": 2148094764,
-   "best_score": 1365,
-   "best_by": "codex-gpt-6.2-sol-4"
+   "best_score": 1260,
+   "best_by": "codex-gpt-6-luna-22"
   },
   "func_80095374": {
    "vram": 2148094836,
@@ -12350,8 +12206,8 @@
   },
   "func_800968A4": {
    "vram": 2148100260,
-   "best_score": 10,
-   "best_by": "codex-gpt-6.2-sol-7"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_800968E8": {
    "vram": 2148100328,
@@ -12440,8 +12296,8 @@
   },
   "func_80097020": {
    "vram": 2148102176,
-   "best_score": 1450,
-   "best_by": "codex-gpt-6-luna-21"
+   "matched_by": "codex-gpt-6-luna-20",
+   "readable": false
   },
   "func_80097194": {
    "vram": 2148102548,
@@ -12450,8 +12306,8 @@
   },
   "func_800972A4": {
    "vram": 2148102820,
-   "best_score": 4170,
-   "best_by": "codex-gpt-6-luna-15"
+   "best_score": 125,
+   "best_by": "codex-gpt-6.1-terra-3"
   },
   "func_80097454": {
    "vram": 2148103252,
@@ -12460,8 +12316,8 @@
   },
   "func_8009757C": {
    "vram": 2148103548,
-   "best_score": 1122,
-   "best_by": "permuter-25769805473"
+   "matched_by": "codex-gpt-6.2-sol-4",
+   "readable": false
   },
   "func_80097704": {
    "vram": 2148103940,
@@ -12470,8 +12326,8 @@
   },
   "func_80097814": {
    "vram": 2148104212,
-   "best_score": 190,
-   "best_by": "you"
+   "matched_by": "codex-gpt-6.2-sol-4",
+   "readable": false
   },
   "func_8009794C": {
    "vram": 2148104524,
@@ -12485,13 +12341,13 @@
   },
   "func_80097B1C": {
    "vram": 2148104988,
-   "best_score": 1665,
-   "best_by": "codex-gpt-6-luna-17"
+   "best_score": 150,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_80097D0C": {
    "vram": 2148105484,
-   "best_score": 595,
-   "best_by": "codex-gpt-6.1-terra-1"
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": false
   },
   "func_80097E14": {
    "vram": 2148105748,
@@ -12505,8 +12361,8 @@
   },
   "func_8009811C": {
    "vram": 2148106524,
-   "best_score": 3154,
-   "best_by": "permuter-25769805482"
+   "best_score": 1944,
+   "best_by": "codex-gpt-6.1-terra-1"
   },
   "func_800982B4": {
    "vram": 2148106932,
@@ -12527,11 +12383,6 @@
    "vram": 2148107468,
    "best_score": 120,
    "best_by": "permuter-25769805486"
-  },
-  "func_8009852C": {
-   "vram": 2148107564,
-   "best_score": 120,
-   "best_by": "codex-gpt-6-luna-14"
   },
   "func_800985A8": {
    "vram": 2148107688,
@@ -12575,18 +12426,18 @@
   },
   "func_8009876C": {
    "vram": 2148108140,
-   "best_score": 150,
-   "best_by": "codex-gpt-6-luna-9"
+   "matched_by": "codex-gpt-6.1-terra-8",
+   "readable": false
   },
   "func_800988D8": {
    "vram": 2148108504,
-   "best_score": 225,
-   "best_by": "permuter-25769805497"
+   "best_score": 220,
+   "best_by": "codex-gpt-6.1-terra-1"
   },
   "func_800989B8": {
    "vram": 2148108728,
-   "best_score": 220,
-   "best_by": "codex-gpt-6.1-terra-7"
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
   },
   "func_80098A18": {
    "vram": 2148108824,
@@ -12610,8 +12461,8 @@
   },
   "func_800993A4": {
    "vram": 2148111268,
-   "best_score": 727,
-   "best_by": "codex-gpt-6-luna-11"
+   "best_score": 200,
+   "best_by": "codex-gpt-6.2-sol-4"
   },
   "func_800994B4": {
    "vram": 2148111540,
@@ -12630,13 +12481,13 @@
   },
   "func_8009991C": {
    "vram": 2148112668,
-   "best_score": 515,
-   "best_by": "codex-gpt-6-luna-19"
+   "best_score": 120,
+   "best_by": "codex-gpt-6.1-terra-4"
   },
   "func_80099AF0": {
    "vram": 2148113136,
-   "best_score": 255,
-   "best_by": "permuter-25769805508"
+   "best_score": 215,
+   "best_by": "codex-gpt-6-luna-19"
   },
   "func_80099B64": {
    "vram": 2148113252,
@@ -12655,8 +12506,8 @@
   },
   "func_80099CA8": {
    "vram": 2148113576,
-   "best_score": 2430,
-   "best_by": "permuter-25769805512"
+   "best_score": 140,
+   "best_by": "codex-gpt-6.2-sol-7"
   },
   "func_80099E40": {
    "vram": 2148113984,
@@ -12665,8 +12516,8 @@
   },
   "func_80099F80": {
    "vram": 2148114304,
-   "best_score": 1741,
-   "best_by": "permuter-25769805514"
+   "best_score": 60,
+   "best_by": "codex-gpt-6.2-sol-1"
   },
   "func_8009A0E4": {
    "vram": 2148114660,
@@ -12680,8 +12531,8 @@
   },
   "func_8009A39C": {
    "vram": 2148115356,
-   "best_score": 1568,
-   "best_by": "permuter-25769805517"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_8009A4E4": {
    "vram": 2148115684,
@@ -12690,8 +12541,8 @@
   },
   "func_8009A70C": {
    "vram": 2148116236,
-   "best_score": 540,
-   "best_by": "codex-gpt-6.2-sol-8"
+   "best_score": 535,
+   "best_by": "codex-gpt-6.2-sol-2"
   },
   "func_8009A804": {
    "vram": 2148116484,
@@ -12710,8 +12561,8 @@
   },
   "func_8009AE24": {
    "vram": 2148118052,
-   "best_score": 1446,
-   "best_by": "codex-gpt-6.2-sol-1"
+   "best_score": 1205,
+   "best_by": "codex-gpt-6.1-terra-7"
   },
   "func_8009AF94": {
    "vram": 2148118420,
@@ -12725,13 +12576,13 @@
   },
   "func_8009C660": {
    "vram": 2148124256,
-   "best_score": 1590,
-   "best_by": "permuter-25769805526"
+   "best_score": 200,
+   "best_by": "codex-gpt-6.2-sol-8"
   },
   "func_8009C7C4": {
    "vram": 2148124612,
-   "best_score": 820,
-   "best_by": "permuter-25769805527"
+   "best_score": 110,
+   "best_by": "codex-gpt-6.2-sol-7"
   },
   "func_8009C8DC": {
    "vram": 2148124892,
@@ -12765,8 +12616,8 @@
   },
   "func_8009CB24": {
    "vram": 2148125476,
-   "best_score": 820,
-   "best_by": "permuter-25769805534"
+   "best_score": 681,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_8009CC3C": {
    "vram": 2148125756,
@@ -12845,8 +12696,8 @@
   },
   "func_8009D100": {
    "vram": 2148126976,
-   "best_score": 60,
-   "best_by": "restored"
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
   },
   "func_8009D228": {
    "vram": 2148127272,
@@ -12862,11 +12713,6 @@
    "vram": 2148127364,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_8009D3DC": {
-   "vram": 2148127708,
-   "best_score": 585,
-   "best_by": "permuter-25769805554"
   },
   "func_8009D510": {
    "vram": 2148128016,
@@ -12895,8 +12741,8 @@
   },
   "func_8009D9F0": {
    "vram": 2148129264,
-   "best_score": 8875,
-   "best_by": "permuter-25769805560"
+   "best_score": 6587,
+   "best_by": "codex-gpt-6.1-terra-1"
   },
   "func_8009DBE8": {
    "vram": 2148129768,
@@ -13413,11 +13259,6 @@
    "matched_by": "codex-gpt-6.1-terra-8",
    "readable": false
   },
-  "func_800A67B0": {
-   "vram": 2148165552,
-   "best_score": 250,
-   "best_by": "codex-gpt-6.2-sol-6"
-  },
   "func_800A6850": {
    "vram": 2148165712,
    "matched_by": "autopilot",
@@ -13505,8 +13346,8 @@
   },
   "func_800A7EC0": {
    "vram": 2148171456,
-   "best_score": 110,
-   "best_by": "codex-gpt-6-luna-13"
+   "matched_by": "codex-gpt-6.1-terra-6",
+   "readable": false
   },
   "ai_fifo_full": {
    "vram": 2148171824,
@@ -13567,11 +13408,6 @@
    "vram": 2148176528,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_800A92C0": {
-   "vram": 2148176576,
-   "best_score": 440,
-   "best_by": "codex-gpt-6.2-sol-8"
   },
   "func_800A9350": {
    "vram": 2148176720,
@@ -13678,11 +13514,6 @@
    "best_score": 60,
    "best_by": "codex-gpt-6.1-terra-3"
   },
-  "func_800AA798": {
-   "vram": 2148181912,
-   "best_score": 25,
-   "best_by": "codex-gpt-6.1-terra-6"
-  },
   "func_800AA8B0": {
    "vram": 2148182192,
    "best_score": 3148,
@@ -13695,8 +13526,8 @@
   },
   "func_800AAB20": {
    "vram": 2148182816,
-   "best_score": 4995,
-   "best_by": "permuter-25769805755"
+   "best_score": 970,
+   "best_by": "codex-gpt-6-luna-20"
   },
   "func_800AACB0": {
    "vram": 2148183216,
@@ -13765,8 +13596,8 @@
   },
   "func_800AB880": {
    "vram": 2148186240,
-   "best_score": 100,
-   "best_by": "codex-gpt-6.2-sol-3"
+   "best_score": 45,
+   "best_by": "codex-gpt-6.2-sol-2"
   },
   "func_800AB950": {
    "vram": 2148186448,
@@ -13840,8 +13671,8 @@
   },
   "func_80117AFC": {
    "vram": 2148629244,
-   "best_score": 1302,
-   "best_by": "permuter-25769803809"
+   "best_score": 130,
+   "best_by": "codex-gpt-6.1-terra-8"
   },
   "func_80117BF4": {
    "vram": 2148629492,
@@ -13963,11 +13794,6 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8011B5F0": {
-   "vram": 2148644336,
-   "best_score": 24359,
-   "best_by": "codex-gpt-6.1-terra-6"
-  },
   "func_8011BD1C": {
    "vram": 2148646172,
    "best_score": 140,
@@ -14007,11 +13833,6 @@
    "vram": 2148648564,
    "matched_by": "autopilot",
    "readable": false
-  },
-  "func_8011C7B4": {
-   "vram": 2148648884,
-   "best_score": 1145,
-   "best_by": "codex-gpt-6-luna-9"
   },
   "func_8011C890": {
    "vram": 2148649104,
@@ -14092,6 +13913,161 @@
    "vram": 2148657500,
    "matched_by": "codex-gpt-6.1-terra-3",
    "readable": false
+  },
+  "func_8008E4A8": {
+   "vram": 2148066472,
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
+  },
+  "func_800067C8": {
+   "vram": 2147510216,
+   "matched_by": "codex-gpt-6.2-sol-2",
+   "readable": false
+  },
+  "func_8008A52C": {
+   "vram": 2148050220,
+   "best_score": 23346,
+   "best_by": "codex-gpt-6-luna-10"
+  },
+  "func_8001D738": {
+   "vram": 2147604280,
+   "best_score": 2896,
+   "best_by": "codex-gpt-6.1-terra-5"
+  },
+  "func_8002E114": {
+   "vram": 2147672340,
+   "best_score": 14040,
+   "best_by": "codex-gpt-6-luna-18"
+  },
+  "func_8004BCC0": {
+   "vram": 2147794112,
+   "best_score": 9399,
+   "best_by": "codex-gpt-6.1-terra-1"
+  },
+  "func_8007898C": {
+   "vram": 2147977612,
+   "best_score": 37515,
+   "best_by": "codex-gpt-6.1-terra-5"
+  },
+  "initResourceCaches": {
+   "vram": 2147489668,
+   "matched_by": "codex-gpt-6.2-sol-1",
+   "readable": false
+  },
+  "func_80035060": {
+   "vram": 2147700832,
+   "best_score": 7865,
+   "best_by": "codex-gpt-6.1-terra-3"
+  },
+  "updatePairedSpriteState": {
+   "vram": 2147632664,
+   "matched_by": "codex-gpt-6.2-sol-3",
+   "readable": false
+  },
+  "func_800134D0": {
+   "vram": 2147562704,
+   "best_score": 24706,
+   "best_by": "codex-gpt-6-luna-7"
+  },
+  "func_800219A0": {
+   "vram": 2147621280,
+   "best_score": 410,
+   "best_by": "codex-gpt-6.2-sol-4"
+  },
+  "func_8001ADE8": {
+   "vram": 2147593704,
+   "best_score": 9080,
+   "best_by": "codex-gpt-6.1-terra-4"
+  },
+  "osGetMemSize": {
+   "vram": 2148165552,
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
+  },
+  "func_8002E9D0": {
+   "vram": 2147674576,
+   "best_score": 920,
+   "best_by": "codex-gpt-6.2-sol-5"
+  },
+  "audioSilenceThread": {
+   "vram": 2148044720,
+   "best_score": 50,
+   "best_by": "codex-gpt-6.2-sol-4"
+  },
+  "updateDemoPlayback": {
+   "vram": 2148039428,
+   "matched_by": "codex-gpt-6.2-sol-3",
+   "readable": false
+  },
+  "func_8000CCE4": {
+   "vram": 2147536100,
+   "best_score": 280,
+   "best_by": "restored"
+  },
+  "create_player_state_objects": {
+   "vram": 2148648884,
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
+  },
+  "atan": {
+   "vram": 2148181912,
+   "matched_by": "codex-gpt-6.2-sol-3",
+   "readable": false
+  },
+  "reset_timed_sequence": {
+   "vram": 2148075472,
+   "matched_by": "codex-gpt-6.2-sol-5",
+   "readable": false
+  },
+  "enqueue_buffer_request": {
+   "vram": 2148127708,
+   "matched_by": "codex-gpt-6.2-sol-5",
+   "readable": false
+  },
+  "func_8008D838": {
+   "vram": 2148063288,
+   "best_score": 16865,
+   "best_by": "codex-gpt-6-luna-20"
+  },
+  "approximate_hypot2": {
+   "vram": 2147770688,
+   "matched_by": "codex-gpt-6.2-sol-8",
+   "readable": false
+  },
+  "func_800A92C0": {
+   "vram": 2148176576,
+   "best_score": 252,
+   "best_by": "codex-gpt-6-luna-18"
+  },
+  "update_audio_envelope": {
+   "vram": 2148046992,
+   "matched_by": "codex-gpt-6.2-sol-5",
+   "readable": false
+  },
+  "func_8009852C": {
+   "vram": 2148107564,
+   "best_score": 35,
+   "best_by": "codex-gpt-6.2-sol-8"
+  },
+  "func_8007BAF8": {
+   "vram": 2147990264,
+   "best_score": 5960,
+   "best_by": "codex-gpt-6.1-terra-6"
+  },
+  "func_80038000": {
+   "vram": 2147713024,
+   "best_score": 22907,
+   "best_by": "codex-gpt-6.1-terra-7"
+  },
+  "switchActiveItemSet": {
+   "vram": 2147642688,
+   "matched_by": "codex-gpt-6.2-sol-3",
+   "readable": false
+  },
+  "func_8002135C": {
+   "vram": 2147619676,
+   "best_score": 2230,
+   "best_by": "codex-gpt-6-luna-9"
   }
  },
  "function_headers": {
@@ -15027,12 +15003,6 @@
    "name": "func_800016F4",
    "vram": 2147489524,
    "size": 144,
-   "status": "open"
-  },
-  {
-   "name": "func_80001784",
-   "vram": 2147489668,
-   "size": 168,
    "status": "open"
   },
   {
@@ -17538,12 +17508,6 @@
    "status": "open"
   },
   {
-   "name": "func_80024618",
-   "vram": 2147632664,
-   "size": 400,
-   "status": "open"
-  },
-  {
    "name": "func_800247A8",
    "vram": 2147633064,
    "size": 268,
@@ -17703,12 +17667,6 @@
    "name": "func_80026A5C",
    "vram": 2147641948,
    "size": 740,
-   "status": "open"
-  },
-  {
-   "name": "func_80026D40",
-   "vram": 2147642688,
-   "size": 348,
    "status": "open"
   },
   {
@@ -19737,12 +19695,6 @@
    "name": "func_80046054",
    "vram": 2147770452,
    "size": 236,
-   "status": "open"
-  },
-  {
-   "name": "func_80046140",
-   "vram": 2147770688,
-   "size": 148,
    "status": "open"
   },
   {
@@ -22878,12 +22830,6 @@
    "status": "open"
   },
   {
-   "name": "func_80087B04",
-   "vram": 2148039428,
-   "size": 408,
-   "status": "open"
-  },
-  {
    "name": "func_80087C9C",
    "vram": 2148039836,
    "size": 64,
@@ -22992,12 +22938,6 @@
    "status": "open"
   },
   {
-   "name": "func_80088FB0",
-   "vram": 2148044720,
-   "size": 504,
-   "status": "open"
-  },
-  {
    "name": "func_800891A8",
    "vram": 2148045224,
    "size": 476,
@@ -23019,12 +22959,6 @@
    "name": "func_80089850",
    "vram": 2148046928,
    "size": 64,
-   "status": "open"
-  },
-  {
-   "name": "func_80089890",
-   "vram": 2148046992,
-   "size": 404,
    "status": "open"
   },
   {
@@ -23499,12 +23433,6 @@
    "name": "func_80090464",
    "vram": 2148074596,
    "size": 876,
-   "status": "open"
-  },
-  {
-   "name": "func_800907D0",
-   "vram": 2148075472,
-   "size": 348,
    "status": "open"
   },
   {
@@ -24630,12 +24558,6 @@
    "status": "open"
   },
   {
-   "name": "func_8009D3DC",
-   "vram": 2148127708,
-   "size": 300,
-   "status": "open"
-  },
-  {
    "name": "func_8009D510",
    "vram": 2148128016,
    "size": 196,
@@ -24693,7 +24615,7 @@
    "name": "func_8009EE60",
    "vram": 2148134496,
    "size": 236,
-   "status": "open"
+   "status": "asm"
   },
   {
    "name": "func_8009EF4C",
@@ -25428,12 +25350,6 @@
    "status": "open"
   },
   {
-   "name": "func_800A67B0",
-   "vram": 2148165552,
-   "size": 160,
-   "status": "open"
-  },
-  {
    "name": "func_800A6850",
    "vram": 2148165712,
    "size": 184,
@@ -25815,12 +25731,6 @@
    "name": "func_800AA5E0",
    "vram": 2148181472,
    "size": 440,
-   "status": "open"
-  },
-  {
-   "name": "func_800AA798",
-   "vram": 2148181912,
-   "size": 280,
    "status": "open"
   },
   {
@@ -26232,12 +26142,6 @@
    "status": "open"
   },
   {
-   "name": "func_8011C7B4",
-   "vram": 2148648884,
-   "size": 220,
-   "status": "open"
-  },
-  {
    "name": "func_8011C890",
    "vram": 2148649104,
    "size": 200,
@@ -26331,6 +26235,78 @@
    "name": "func_8011E95C",
    "vram": 2148657500,
    "size": 516,
+   "status": "open"
+  },
+  {
+   "name": "initResourceCaches",
+   "vram": 2147489668,
+   "size": 168,
+   "status": "open"
+  },
+  {
+   "name": "updatePairedSpriteState",
+   "vram": 2147632664,
+   "size": 400,
+   "status": "open"
+  },
+  {
+   "name": "switchActiveItemSet",
+   "vram": 2147642688,
+   "size": 348,
+   "status": "open"
+  },
+  {
+   "name": "approximate_hypot2",
+   "vram": 2147770688,
+   "size": 148,
+   "status": "open"
+  },
+  {
+   "name": "updateDemoPlayback",
+   "vram": 2148039428,
+   "size": 408,
+   "status": "open"
+  },
+  {
+   "name": "audioSilenceThread",
+   "vram": 2148044720,
+   "size": 504,
+   "status": "open"
+  },
+  {
+   "name": "update_audio_envelope",
+   "vram": 2148046992,
+   "size": 404,
+   "status": "open"
+  },
+  {
+   "name": "reset_timed_sequence",
+   "vram": 2148075472,
+   "size": 348,
+   "status": "open"
+  },
+  {
+   "name": "enqueue_buffer_request",
+   "vram": 2148127708,
+   "size": 300,
+   "status": "open"
+  },
+  {
+   "name": "osGetMemSize",
+   "vram": 2148165552,
+   "size": 160,
+   "status": "open"
+  },
+  {
+   "name": "atan",
+   "vram": 2148181912,
+   "size": 280,
+   "status": "open"
+  },
+  {
+   "name": "create_player_state_objects",
+   "vram": 2148648884,
+   "size": 220,
    "status": "open"
   }
  ],
@@ -27221,6 +27197,78 @@
    "name": "ctype_toupper",
    "address": 2148186640,
    "size": 36,
+   "kind": "func"
+  },
+  {
+   "name": "initResourceCaches",
+   "address": 2147489668,
+   "size": 168,
+   "kind": "func"
+  },
+  {
+   "name": "updatePairedSpriteState",
+   "address": 2147632664,
+   "size": 400,
+   "kind": "func"
+  },
+  {
+   "name": "switchActiveItemSet",
+   "address": 2147642688,
+   "size": 348,
+   "kind": "func"
+  },
+  {
+   "name": "approximate_hypot2",
+   "address": 2147770688,
+   "size": 148,
+   "kind": "func"
+  },
+  {
+   "name": "updateDemoPlayback",
+   "address": 2148039428,
+   "size": 408,
+   "kind": "func"
+  },
+  {
+   "name": "audioSilenceThread",
+   "address": 2148044720,
+   "size": 504,
+   "kind": "func"
+  },
+  {
+   "name": "update_audio_envelope",
+   "address": 2148046992,
+   "size": 404,
+   "kind": "func"
+  },
+  {
+   "name": "reset_timed_sequence",
+   "address": 2148075472,
+   "size": 348,
+   "kind": "func"
+  },
+  {
+   "name": "enqueue_buffer_request",
+   "address": 2148127708,
+   "size": 300,
+   "kind": "func"
+  },
+  {
+   "name": "osGetMemSize",
+   "address": 2148165552,
+   "size": 160,
+   "kind": "func"
+  },
+  {
+   "name": "atan",
+   "address": 2148181912,
+   "size": 280,
+   "kind": "func"
+  },
+  {
+   "name": "create_player_state_objects",
+   "address": 2148648884,
+   "size": 220,
    "kind": "func"
   }
  ],
@@ -28793,6 +28841,317 @@
    "name": "func_800AC110",
    "vram": 2148188432,
    "asm_code": "uses coprocessor 0 (the system's: mfc0, mtc0, rfe, eret): no C compiler emits it"
+  },
+  {
+   "name": "func_8009EE60",
+   "vram": 2148134496,
+   "not_c": {
+    "codex-gpt-6.2-sol-5": {
+     "model": "codex-gpt-6.2-sol",
+     "why": "Confirmed full target ends in jr $ra / nop at 0x8009EF44. At entry the routine saves $ra in $at, uses bltzal $zero to put PC+8 in $ra without transferring control, computes an indexed table base from that link, and restores $ra directly. Explicit use of reserved $at plus manual load-delay scheduling confirms handwritten assembly.",
+     "t": 1795183345.3164768
+    },
+    "codex-gpt-6.2-sol-2": {
+     "model": "codex-gpt-6.2-sol",
+     "why": "Confirmed extent: jr $ra at 0x8009EF44 with nop at 0x8009EF48, then 8 table bytes c7 d7 e3 e7 f1 f3 f5 f7 at 0x8009EF4C, next real entry 0x8009EF54. At 0x8009EE70 the always-false bltzal $zero sets $ra = 0x8009EE78 without jumping. The preceding move saves $ra in $at; addiu $t7,$ra,0xD4 reaches precisely the adjacent table and restores $ra from $at. This PC acquisition with manual link save/restore in reserved $at, repeated general use of $at, and explicit load-delay scheduling identify hand-written assembly.",
+     "t": 1795184487.7357109
+    },
+    "codex-gpt-6.2-sol-8": {
+     "model": "codex-gpt-6.2-sol",
+     "why": "Verified handwritten MIPS independently against paged target and boundary evidence. At 0x8009EE70 the always-false bltzal $zero sets $ra to 0x8009EE78. The code saves/restores the caller link in reserved $at and adds 0xD4 to the new link to index the eight-byte table at 0x8009EF4C. The extent ends at 0x8009EF4C after jr $ra and its nop delay slot; the next real directly called entry is 0x8009EF54. No extent change for this function.",
+     "t": 1795185666.743215
+    },
+    "codex-gpt-6.2-sol-7": {
+     "model": "codex-gpt-6.2-sol",
+     "why": "Handwritten MIPS. The always-false BLTZAL at 0x8009EE70 obtains 0x8009EE78 in $ra after saving the caller link in reserved $at. The routine forms the signed byte-table address at 0x8009EF4C via addiu $t7,$ra,0xD4, restores the caller link, and uses $at as scratch. Verified jr $ra / nop at 0x8009EF44/48 and separate next entry at 0x8009EF54.",
+     "t": 1795186649.4383512
+    },
+    "codex-gpt-6.2-sol-1": {
+     "model": "codex-gpt-6.2-sol",
+     "why": "Verified full target has jr $ra at 0x8009EF44 and delay-slot nop at 0x8009EF48. At 0x8009EE70, never-taken bltzal $zero writes PC+8 (0x8009EE78) into $ra while saved caller link lives in reserved $at; the code adds 0xD4 to reach adjacent lookup data at 0x8009EF4C, then restores $ra. That explicit link handling, pervasive reserved $at scratch and load delay nops demonstrate handwritten assembly. The separate 8-byte apparent function is packed lookup data.",
+     "t": 1795188704.088404
+    },
+    "codex-gpt-6.1-terra-6": {
+     "model": "codex-gpt-6.1-terra",
+     "why": "Target uses hand-written position-independent PC acquisition: saves $ra in $at, executes bltzal $zero (never taken but sets $ra), computes a table address from $ra+0xD4, then restores $ra from $at. GCC C cannot express this instruction sequence. Candidate scored 4575.",
+     "t": 1795189665.458996
+    }
+   },
+   "asm_code": "6 agents (codex-gpt-6.1-terra, codex-gpt-6.2-sol) found no C makes it: Target uses hand-written position-independent PC acquisition: saves $ra in $at, executes bltzal $zero (never taken but sets $ra), computes a table address from $ra+0xD4, then restores $ra from $at. GCC C cannot express this instruction sequence. Candidate scored 4575."
   }
- ]
+ ],
+ "knowledge_evidence": {
+  "GCC 2.7.2 KMC can lower a volatile signed halfword read widened to s32 as lhu followed by sll/sra. If the target uses lh and volatility was introduced only to hold source order, test a nonvolatile load with the first scheduling pass disabled.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-3",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-3",
+     "value": "func_800820BC: volatile signed-halfword source scores 400 with lhu/sll/sra; nonvolatile source scores 485 on active flags and emits the signed load earlier. Verified compiler diagnostic 6a35a8f28f8df3c3d01f is byte-identical with -fno-schedule-insns added."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "In func_80082E84, replacing three nonvolatile signed halfword reads with volatile s16 reads widened to 32-bit introduced lhu plus sll/sra instead of the target lh, worsening 1345 to 2085. The scheduling-pass suggestion was not tested."
+    }
+   ]
+  },
+  "For KMC GCC 2.7.2 functions already close at -O1 but with an interleaved target prologue or mismatched branch delay slots, test -O1 with both -fschedule-insns and -fschedule-insns2 before changing the C or switching to -O2. The two scheduling passes can matter together.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "func_800219A0 identical source: ordinary -O1 410; -O1 -fschedule-insns 450; -O1 -fschedule-insns2 270; -O1 with both scheduler flags score 0; -O2 1480. Both flags reproduce interleaved prologue and post-branch word store."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "func_8000D59C at -O1: enabling both -fschedule-insns and -fschedule-insns2 reduced score from 1165 to 235, with identical source, addressing interleaved prologue scheduling."
+    }
+   ]
+  },
+  "When the target copies a three-word vector using consecutive integer loads and stores from one base, a three-word C struct assignment can generate the aggregate copy; separate mixed float and integer field assignments may generate different loads and address setup.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-1",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-1",
+     "value": "In func_8004BCC0, replacing three mixed component assignments with a three-s32 struct assignment recovered the target's consecutive loads and improved the verified score from 11017 to 9863."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "In my func_80097B1C compile (revision 4a9c3a536930b69d8720), assigning a three-word EntryGroup struct directly produces the exact target six-instruction copy shape: lw at +0/+4/+8 into v0/v1/a0, followed by sw of those same registers at +0/+4/+8. Earlier saved candidate using a three-word raw aggregate showed the same instruction shape."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "In func_800972A4, a 12-byte TableEntry assignment (three s32 words) produces the same three lw followed by three sw as the ROM in the backward copy loop. The remaining copy-loop differences are address scheduling and allocation."
+    }
+   ]
+  },
+  "With GCC 2.7.2 KMC, debug flag -g can prevent loads from filling unconditional jump delay slots; test omitting -g when otherwise identical code has loads before jumps and extra nops.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-1",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-7",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-1",
+     "value": "func_80031028 scores 600 under its -g profile and matches byte-for-byte with the same flags and source after removing -g."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-7",
+     "value": "On func_8001E4A0, identical C at revision 682435cc25f8d9196302 scores 2255 with the range's -g3 and 955 without debug flags. Omitting -g3 restores all three target switch-arm lbu instructions to their unconditional jump delay slots; trial fb7ae772f86aaad77101."
+    }
+   ]
+  },
+  "GCC 2.7.2 KMC can reserve stack space for an unused local array, even with optimization enabled. When a frame is eight bytes short and the saved-register set and outgoing argument stores match, a two-word local array can test for this compiler behavior without emitting extra memory traffic.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-1",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-6",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-1",
+     "value": "In func_80099F80, an unused nonvolatile u32[2] changed the frame from 0x38 to 0x40 and made all six stack differences disappear, with the same 89 instruction count."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-6",
+     "value": "In func_80093268 adding unused s32[2] grew the frame from 0x30 to the target 0x38, aligning saved-register offsets and improving score 1193 to 1050."
+    }
+   ]
+  },
+  "When a computed floating-point value is both stored and scaled for a second store, stage the scaled result in a local before either store to encourage the compiler to retain separate FP registers and schedule the multiplication earlier.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "func_80032264: staging each scaled result before its source store improved the verified score from 755 to 505, then 385."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "Controlled reversion on func_80032264, same source except branch-local float products moved from a staged local before the source store to the destination store expression. Verified baseline 385; direct stores 755. Staged version matches the mul.s in fv1 before swc1 fv0 in both cases."
+    }
+   ]
+  },
+  "For GCC 2.7.2 KMC, copying a three-word record with a struct assignment can produce grouped word loads followed by grouped word stores; individual field assignments may interleave loads and stores.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "In func_8000D59C at -O1, replacing three individual word copies with a three-field struct assignment reproduced the target's grouped load/store shape and improved the score from 2955 to 2735."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-4",
+     "value": "func_800972A4 verified score 325 baseline uses a 12-byte struct assignment in the shift loop. The emitted three lw followed by three sw match the target copy sequence independently of pointer register allocation."
+    }
+   ]
+  },
+  "In KMC GCC 2.7.2, an unused volatile local array can reserve frame space without emitting any loads or stores. Use this as a diagnostic to isolate a stack-frame discrepancy while looking for the original local or build setting.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-7",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-7",
+     "value": "func_80097D0C revision 3a0a673c84efb951a867: adding only an unused volatile s32[4] to revision 0408622d41bb833e4721 changed frame 0x20 to 0x30, resolved all 10 stack diffs, and scored 385 vs 395 with identical instructions otherwise."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "func_800972A4: replacing an unused nonvolatile local with unused volatile s64 reserved eight frame bytes with no load/store instructions, restoring target 0x28-byte frame; score 143 to 140."
+    }
+   ]
+  },
+  "When the target reloads a pointer field immediately before a store but GCC reuses a previously loaded value, a volatile-qualified pointer-field read at that use can recover the reload. Confirm the target's repeated load and aliasing before applying it.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-8",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-3",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-8",
+     "value": "func_8009876C matched after qualifying the second read of arg0+0x18 as volatile, restoring the missing lw before the linked-list pointer store."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-3",
+     "value": "func_80087B04 rechecked 530 \u2192 150 by using a cached volatile reload of D_80109698 after the first float store; the target's pointer and float reloads, comparison, decrement/store and branch-likely delay slot are all reproduced. The cast-based reload still materializes the low relocation separately."
+    }
+   ]
+  },
+  "For GCC 2.7.2 KMC, indexing an array of records can produce a %hi(symbol) plus scaled index followed by a load or store using %lo(symbol); manually adding the scaled offset to a scalar symbol may instead materialize the full address first.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-8",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-3",
+     "value": "func_80084048: replacing scalar D_800CE354 pointer arithmetic with a 12-byte record array produced the target indexed relocation pattern and improved valid candidate score from 1680 to 1095."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-8",
+     "value": "func_8000CD8C score fell from 1429 to 205 by changing the same typed-cursor candidate from flat halfword and pointer tables with explicit strides to arrays of 232-byte and 12-byte records. Both table accesses changed from hoisted full addresses to per-access %hi/offset/%lo; frame went from 0x38 to expected 0x30."
+    }
+   ]
+  },
+  "When a default switch-like path sets an index to zero before a shared scaling operation, routing zero through the same scaling expression as the other cases can place the shift in the default jump delay slot under GCC 2.7.2 KMC.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-7",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-8",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-7",
+     "value": "func_80075490: changing the default path from assigning the scaled offset directly to assigning zero to the index and branching to the shared scale removed the target's missing sll in the jump delay slot; score 480 to 280."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-8",
+     "value": "In my func_80075490 variant against 18c33278f60ac9cf0749, setting the default byte offset directly to zero and skipping the shift worsened verified score 270 \u2192 470, introducing exactly one displayed difference. Routing default index zero through the common scale matches the default jump delay slot."
+    }
+   ]
+  },
+  "For KMC GCC 2.7.2 at -O1, try expressing a byte stride as an odd factor multiplied first, then a power-of-two factor, when the target's final scaling instruction is a shift. A single literal stride can expand into a differently ordered shift/add sequence.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-5",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-7",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-5",
+     "value": "func_80063C7C note records 185\u219235 with (index * 29) * 8 for a 232-byte stride. Independently judged the factored form with a narrower link local: both index calculations had the target's opcode sequence (sll/subu/sll/addu/sll); the remaining differences were register choices and the deliberately changed link assignment."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-7",
+     "value": "func_800295F0: expressing the byte stride as (index * 5) * 8 + 0x28 reproduced the target shift/add order and improved score 1395 to 715 under GCC 2.7.2 KMC."
+    }
+   ]
+  }
+ }
 }

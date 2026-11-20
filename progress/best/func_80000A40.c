@@ -19,7 +19,7 @@ s16 *func_80001928();
 s32 func_8000628C();
 s32 *func_8000DA08();
 s32 func_80043FA0();
-f32 func_80046140();
+f32 approximate_hypot2();
 s32 func_800468E4();
 f32 func_80082A70();
 s32 func_80083410();
@@ -274,7 +274,7 @@ block_49:
                             sp30[1] = 1.0f;
                             func_800839F0(temp_s1, sp30, sp40);
                             M2C_FIELD(temp_s3, s16 *, 0x78) = (s16) (s32) (func_80082A70(sp40[0], sp40[2]) * 651.8986f);
-                            M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (func_80082A70(sp40[0], func_80046140(sp40[0], sp40[2])) * 651.8986f);
+                            M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (func_80082A70(sp40[0], approximate_hypot2(sp40[0], sp40[2])) * 651.8986f);
                         }
                     }
                     sp10[0] = M2C_FIELD(temp_s1, f32 *, 0x24) + M2C_FIELD(arg0, f32 *, 0x24);

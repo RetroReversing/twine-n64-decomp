@@ -16,19 +16,18 @@ extern f32 D_8010D370;
 extern s32 D_8010D450;
 
 void func_80073400(void) {
-    f32 __repair_fzero = 0.0f;
-
-int __repair_constant;
-
+    f32 __repair_fzero;
+    int __repair_constant;
     (*(s8 *)((char *)(&D_801007CF) + -1)) = 0;
-__repair_constant = 0xFF;
-    (*(s8 *)((char *)(&D_801007CF) + -2)) = 0;
+    __repair_fzero = 0.0f;
+    __repair_constant = 0xFF;
     (*(s8 *)((char *)(&D_801007CF) + -3)) = 0;
+    (*(s8 *)((char *)(&D_801007CF) + -2)) = 0;
+    (*(s8 *)((char *)(&D_801007CF) + 2)) = 0;
     (*(s8 *)((char *)(&D_801007CF) + 1)) = 0;
     (*(s8 *)((char *)(&D_801007CF) + 0)) = 0;
-    (*(s8 *)((char *)(&D_801007CF) + 4)) = __repair_constant;
-    (*(s8 *)((char *)(&D_801007CF) + 2)) = 0;
     (*(s8 *)((char *)(&D_801007CF) + 3)) = __repair_constant;
+    (*(s8 *)((char *)(&D_801007CF) + 4)) = __repair_constant;
     (*(s8 *)((char *)(&D_801007CF) + 5)) = __repair_constant;
     D_80100774 = 0xEB;
     (*(u8 *)&D_80100776) = 0x78;

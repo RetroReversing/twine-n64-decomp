@@ -9,8 +9,9 @@ void func_80032264(void *arg0) {
     switch (temp_v1) {
     case 0:
         temp_fv0 = *(f32 *)((s8 *)arg0 + 0x40) + 3.0f;
+        { f32 t = temp_fv0 * 0.0015339808f;
         *(f32 *)((s8 *)arg0 + 0x40) = temp_fv0;
-        *(f32 *)((s8 *)D_8010968C + 0x38) = temp_fv0 * 0.0015339808f;
+        *(f32 *)((s8 *)D_8010968C + 0x38) = t; }
     case 1:
         temp_v0 = *(u8 *)((s8 *)temp_a1 + 2) - 1;
         *(u8 *)((s8 *)temp_a1 + 2) = temp_v0;
@@ -24,8 +25,9 @@ void func_80032264(void *arg0) {
         return;
     case 2:
         temp_fv0_2 = *(f32 *)((s8 *)arg0 + 0x40) + -3.0f;
+        { f32 t = temp_fv0_2 * 0.0015339808f;
         *(f32 *)((s8 *)arg0 + 0x40) = temp_fv0_2;
-        *(f32 *)((s8 *)D_8010968C + 0x38) = temp_fv0_2 * 0.0015339808f;
+        *(f32 *)((s8 *)D_8010968C + 0x38) = t; }
     case 3:
         temp_v0_3 = *(u8 *)((s8 *)temp_a1 + 2) - 1;
         *(u8 *)((s8 *)temp_a1 + 2) = temp_v0_3;

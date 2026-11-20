@@ -16,35 +16,26 @@ void func_8000D59C(s32 arg0, u32 arg1) {
     void *temp_v0_2;
     void *temp_v0_3;
 
+    { f32 **base = D_800B2710;
     temp_v1 = arg0 * 0xD4;
-    temp_a3 = D_800B2710 + temp_v1;
+    temp_a3 = (char *)base + temp_v1; }
     (*(s16 *)((char *)(temp_a3) + 0x80)) = 0;
     (*(s16 *)((char *)(temp_a3) + 0x82)) = (s16) (arg1 >> 8);
-    temp_a0 = *D_800B2710;
-    *D_800B2710 = temp_a0 + 4;
+    { f32 **base = D_800B2710;
+    temp_a0 = *base;
+    *base = temp_a0 + 1;
     sp0[0] = *temp_a0;
-    temp_a0_2 = *D_800B2710;
-    *D_800B2710 = temp_a0_2 + 4;
+    temp_a0_2 = *base;
+    *base = temp_a0_2 + 1;
     sp0[1] = *temp_a0_2;
-    temp_a0_3 = *D_800B2710;
-    *D_800B2710 = temp_a0_3 + 4;
-    sp0[2] = -*temp_a0_3;
-    __repair_store_0 = (s32) (*(s32 *)((char *)(temp_a3) + 0x20));
-    __repair_store_1 = (s32) (*(s32 *)((char *)(temp_a3) + 0x24));
-    __repair_store_2 = (s32) (*(s32 *)((char *)(temp_a3) + 0x28));
-    (*(s32 *)((char *)(temp_a3) + 0x38)) = __repair_store_0;
-    (*(s32 *)((char *)(temp_a3) + 0x3C)) = __repair_store_1;
-    (*(s32 *)((char *)(temp_a3) + 0x40)) = __repair_store_2;
+    temp_a0_3 = *base;
+    *base = temp_a0_3 + 1;
+    sp0[2] = -*temp_a0_3; }
+    { typedef struct { s32 x,y,z; } Vec; *(Vec *)((char *)temp_a3 + 0x38) = *(Vec *)((char *)temp_a3 + 0x20); }
     temp_v0 = (void *)(D_800B2710); temp_v0 = (void *)((char *)temp_v0 + (s32)(temp_v1));
-    (*(s32 *)((char *)(temp_v0) + 0x20)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x2C));
-    (*(s32 *)((char *)(temp_v0) + 0x24)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x30));
-    (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x34));
+    { typedef struct { s32 x,y,z; } Vec; *(Vec *)((char *)temp_v0 + 0x20) = *(Vec *)((char *)temp_v0 + 0x2C); }
     temp_v0_2 = (void *)(D_800B2710); temp_v0_2 = (void *)((char *)temp_v0_2 + (s32)(temp_v1));
-    (*(s32 *)((char *)(temp_v0_2) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_v0_2) + 0x44));
-    (*(s32 *)((char *)(temp_v0_2) + 0x30)) = (s32) (*(s32 *)((char *)(temp_v0_2) + 0x48));
-    temp_v0_3 = D_800B2710 + temp_v1;
-    (*(s32 *)((char *)(temp_v0_2) + 0x34)) = (s32) (*(s32 *)((char *)(temp_v0_2) + 0x4C));
-    (*(f32 *)((char *)(temp_v0_3) + 0x44)) = sp0[0];
-    (*(f32 *)((char *)(temp_v0_3) + 0x48)) = sp0[1];
-    (*(f32 *)((char *)(temp_v0_3) + 0x4C)) = sp0[2];
+    { typedef struct { s32 x,y,z; } Vec; *(Vec *)((char *)temp_v0_2 + 0x2C) = *(Vec *)((char *)temp_v0_2 + 0x44); }
+    temp_v0_3 = (char *)D_800B2710 + temp_v1;
+    { typedef struct { f32 x,y,z; } Vec; *(Vec *)((char *)temp_v0_3 + 0x44) = *(Vec *)sp0; }
 }

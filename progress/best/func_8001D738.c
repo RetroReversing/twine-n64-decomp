@@ -220,9 +220,9 @@ block_31:
                         var_a3 = temp_s0_2 - 3;
                     
                     sprintf(temp_s5, D_800D285C, var_a2, var_a3);}
-                    func_800160FC(*(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), temp_s5, 0x40);
+                    func_800160FC(*(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), temp_s5, 0x40);
                 }
-                func_8002A7CC(D_8010A488, *(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
+                func_8002A7CC(D_8010A488, *(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
                 var_s1_2 += 1;
             } while ((u32) (var_s1_2 & 0xFFFF) < (u8) D_80102EB8);
         }

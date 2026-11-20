@@ -70,9 +70,10 @@ s32 func_8003E6EC(void *arg0, void *arg1, u8 arg2) {
         sp60[2] = M2C_FIELD(arg1, f32 *, 0x2C);
     }
     if (var_s1 != NULL) {
+        f32 *point = sp60;
         spAC = sp70;
         do {
-            if ((M2C_FIELD(var_s1, u16 *, 0x58) == 0x46) && ((func_8004886C(var_s1 + 0x40, sp60, M2C_FIELD(arg1, f32 *, 0x64)) << 0x18) != 0) && ((func_8003D64C(sp60, var_s1) << 0x18) != 0)) {
+            if ((M2C_FIELD(var_s1, u16 *, 0x58) == 0x46) && ((func_8004886C(var_s1 + 0x40, point, M2C_FIELD(arg1, f32 *, 0x64)) << 0x18) != 0) && ((func_8003D64C(point, var_s1) << 0x18) != 0)) {
                 __builtin_memcpy(sp70, &D_800D2FC8, 12);
                 __builtin_memcpy(sp80, &D_800D2FD4, 12);
                 temp_fv0 = M2C_FIELD(var_s1, f32 *, 0x4C);
@@ -80,11 +81,11 @@ s32 func_8003E6EC(void *arg0, void *arg1, u8 arg2) {
                     var_s4 = var_s1;
                     var_fs1 = temp_fv0;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, var_s1, sp60, spAC, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((func_8004E6E4(&func_8004DBD8, var_s1, point, spAC, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     var_fv1 = sp90[1] - sp60[1];
                     goto block_14;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, var_s1, sp60, sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((func_8004E6E4(&func_8004DBD8, var_s1, point, sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     var_fv1 = sp60[1] - sp90[1];
 block_14:
                     if (var_fv1 < var_fs0) {

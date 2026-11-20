@@ -17,7 +17,7 @@ s32 func_8002BB1C(u8);                              /* extern */
 s32 func_8004478C(s16, s16);                        /* extern */
 s32 func_80045CF8(u16);                             /* extern */
 f32 func_80045D8C(f32, f32);                        /* extern */
-f32 func_80046140(f32, f32);                        /* extern */
+f32 approximate_hypot2(f32, f32);                        /* extern */
 M2C_UNK func_80055B5C(M2C_UNK, void *, void *, void *, f32 *, s32, s32); /* extern */
 M2C_UNK func_8007947C();                 /* extern */
 f32 func_80082A70(f32, f32);                        /* extern */
@@ -87,7 +87,7 @@ block_9:
             temp_fs1 = sp20 - M2C_FIELD(temp_v0_4, f32 *, 0x78);
             temp_fs2 = sp28 - M2C_FIELD(temp_v0_4, f32 *, 0x80);
             temp_fs0 = sp24 - M2C_FIELD(temp_v0_4, f32 *, 0x7C);
-            sp30 = -(func_80082A70(temp_fs0, func_80046140(temp_fs1, temp_fs2)) * 651.8986f);
+            sp30 = -(func_80082A70(temp_fs0, approximate_hypot2(temp_fs1, temp_fs2)) * 651.8986f);
             temp_fv0 = func_80082A70(temp_fs1, temp_fs2) * 651.8986f;
             sp38 = 0;
             sp34 = (f32) (s32) temp_fv0;

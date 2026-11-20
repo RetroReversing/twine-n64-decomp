@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-f32 func_80046140(f32, f32);
+f32 approximate_hypot2(f32, f32);
 f32 func_80082A70(f32, f32);
 extern u8 D_800CA338;
 
@@ -54,7 +54,7 @@ s16 func_8000628C(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         if (var_s0 >= 0x800) {
             var_s0 -= 0x1000;
         }
-        var_a1 = (s32) (func_80082A70(temp_fs2, func_80046140(temp_fs1, temp_fs0)) * scale);
+        var_a1 = (s32) (func_80082A70(temp_fs2, approximate_hypot2(temp_fs1, temp_fs0)) * scale);
         var_v1 = arg2 * 2;
     } else {
         var_s0 = 0;

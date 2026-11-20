@@ -24,7 +24,7 @@ s32 func_80077E00();
 s32 func_80077ED8();
 void *func_8007847C();
 s32 func_80078860();
-s32 func_8007A7D8();
+s32 func_8007A7D8(void *, void *, void *, f32);
 s32 func_8007AA40();
 s32 func_8007AB18();
 s32 func_8007B030();

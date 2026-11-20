@@ -27,7 +27,7 @@ s32 func_80077C00();
 s8 func_80081828();
 s32 func_8011ACAC();
 s32 func_8011B278();
-extern char D_800BF688[];
+extern u8 D_800BF688[];
 extern u8 D_800C471C[];
 extern char D_800C471E[];
 extern s32 D_800C7C98;

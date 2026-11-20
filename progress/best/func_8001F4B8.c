@@ -1,2 +1,75 @@
-void *func_800262A8(s32, s32); s32 func_800278AC(s32,s32,u16); extern u8 D_800B60EA; extern s32 D_800C4480; extern s32 D_80102EBC; extern void *D_80102F2C; extern void *D_80109BB0; extern s32 D_8010A500;
-s32 func_8001F4B8(s32 arg0,s32 arg1){s32 (*cb)(s32); s32 a; void *p; a=*((s32*)&D_8010A500+arg0); if(!a)return 0; cb=*(s32 (**)(s32))((char*)&D_800C4480+((arg1&255)*16)); if(cb)cb(a); if(*((u8*)((char*)D_80109BB0+0x2c))==0 && D_800B60EA==1){if(arg1==0x13)return func_800278AC(10,D_80102EBC,*((u16*)((char*)D_80102F2C+0x7a))); if(*((void**)((char*)D_80109BB0+0x18))){p=func_800262A8(*((s32*)((char*)D_80109BB0+0xc)),14); *((u8*)((char*)D_80109BB0+0x2c))=1; *((void**)((char*)D_80109BB0+0x18))=p; (*(void (**)(void*))((char*)p+4))(D_80109BB0);}} return arg1&255;}
+typedef struct ActionState ActionState;
+
+typedef struct {
+    void (*unused)(ActionState *);
+    void (*enter)(ActionState *);
+} ActionHandler;
+
+struct ActionState {
+    u8 pad0[0xC];
+    s32 object;
+    u8 pad10[8];
+    ActionHandler *handler;
+    u8 pad1C[0x10];
+    u8 entered;
+};
+
+typedef struct {
+    void (*invoke)(s32);
+    u8 pad4[0xC];
+} ActionEntry;
+
+typedef struct {
+    u8 pad0[0x7A];
+    u16 field7A;
+} ActionOptions;
+
+ActionHandler *func_800262A8(s32, s32);
+s32 func_800278AC(s32, s32, u16);
+extern u8 D_800B60EA;
+extern ActionEntry D_800C4480[];
+extern s32 D_80102EBC;
+extern ActionOptions *D_80102F2C;
+extern ActionState *D_80109BB0;
+extern s32 D_8010A500[];
+
+s32 func_8001F4B8(u16 slot, s32 action)
+{
+    s32 object = D_8010A500[slot];
+    s32 index;
+    void (*invoke)(s32);
+    ActionState *state;
+    ActionHandler *handler;
+    ActionState *callbackState;
+
+    if (object == 0) {
+        return 0;
+    }
+
+    index = (u8)action;
+    invoke = D_800C4480[index].invoke;
+    if (invoke != 0) {
+        invoke(object);
+    }
+
+    state = D_80109BB0;
+    if (state->entered != 0) {
+        return (u8)action;
+    }
+    if (D_800B60EA != 1) {
+        return (u8)action;
+    }
+    if (index == 0x13) {
+        func_800278AC(10, D_80102EBC, D_80102F2C->field7A);
+        return (u8)action;
+    }
+    if (state->handler != 0) {
+        handler = func_800262A8(state->object, 14);
+        state = D_80109BB0;
+        state->entered = 1;
+        callbackState = D_80109BB0;
+        state->handler = handler;
+        callbackState->handler->enter(state);
+    }
+    return (u8)action;
+}

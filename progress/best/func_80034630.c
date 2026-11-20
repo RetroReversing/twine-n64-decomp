@@ -32,16 +32,19 @@ void func_80034630(void *arg0, void *arg1) {
     void *temp_v0;
 
     temp_ft1 = M2C_FIELD(arg1, f32 *, 0x64);
+    temp_fv1 = M2C_FIELD(arg1, f32 *, 0x58) + temp_ft1;
     temp_v0 = M2C_FIELD(arg0, void **, 0x20);
     temp_ft0 = M2C_FIELD(arg1, f32 *, 0x60);
-    var_fa0 = (M2C_FIELD(temp_v0, f32 *, 0) + temp_ft0) - 8.0f;
-    var_ft3 = (M2C_FIELD(temp_v0, f32 *, 8) + temp_ft1) - 8.0f;
-    var_fa1 = M2C_FIELD(temp_v0, f32 *, 4) + temp_ft0 + 8.0f;
+    var_fa0 = M2C_FIELD(temp_v0, f32 *, 0) + temp_ft0;
+    var_ft3 = M2C_FIELD(temp_v0, f32 *, 8) + temp_ft1;
+    var_fa1 = M2C_FIELD(temp_v0, f32 *, 4) + temp_ft0;
+    var_fa0 -= 8.0f;
+    var_ft3 -= 8.0f;
+    var_fa1 += 8.0f;
     var_ft4 = M2C_FIELD(temp_v0, f32 *, 0xC) + temp_ft1 + 8.0f;
     temp_ft2 = M2C_FIELD(arg1, f32 *, 0x70);
     temp_ft5 = M2C_FIELD(arg1, f32 *, 0x50) + temp_ft0 + temp_ft2;
     temp_ft0_2 = M2C_FIELD(arg1, f32 *, 0x74);
-    temp_fv1 = M2C_FIELD(arg1, f32 *, 0x58) + temp_ft1;
     temp_fv1 += temp_ft0_2;
     temp_ft2_2 = (M2C_FIELD(arg1, f32 *, 0x54) + temp_ft0) - temp_ft2;
     temp_fv0 = (M2C_FIELD(arg1, f32 *, 0x5C) + temp_ft1) - temp_ft0_2;

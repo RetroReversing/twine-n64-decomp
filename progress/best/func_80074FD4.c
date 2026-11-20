@@ -1,27 +1,44 @@
-#define F(p,t,o) (*(t *)((char *)(p)+(o)))
-s32 strlen(s8 *);
-s32 func_80087100(s32);
-void func_80074FD4(void *arg0) {
- void *p = F(F(arg0,void *,0x6c),void *,4);
- s32 v = F(p,u8,0x13);
- s32 n = v;
- switch (F(arg0,s16,0x7a)) {
- case 0:
-  n = v + 8;
-  if (n >= 256) { F(arg0,s16,0x7a)=1; n=255; }
-  break;
- case 1:
-  n = v - 8;
-  if (n < 0) {
-   F(arg0,s16,0x7a)=0;
-   n=0;
-   if (F(p,s32,0x18) == ((s32 (*)(s32))func_80087100)(0xf8))
-    F(p,s32,0x18)=((s32 (*)(s32))func_80087100)(0x2ab);
-   else F(p,s32,0x18)=((s32 (*)(s32))func_80087100)(0xf8);
-   F(p,s16,0x1c)=strlen((s8 *)F(p,s32,0x18));
-  }
-  break;
- }
- v=(s16)n;
- F(p,s32,0x10)=(v<<16)|(v<<8)|0xff000000|v;
+typedef union { u32 word; u8 bytes[4]; } TextColor;
+typedef struct { u8 pad[16]; TextColor color; u32 other; char *volatile string; s16 length; } Text;
+typedef struct { u32 pad; Text *text; } Widget;
+typedef struct { u8 pad[0x6c]; Widget *widget; u8 rest[0xa]; s16 phase; } Panel;
+extern char *func_80087100(s32);
+extern u32 strlen(const char *);
+
+void func_80074FD4(Panel *arg0) {
+    u32 carrier = (u32)arg0;
+    Text *text = ((Panel *)carrier)->widget->text;
+    s32 intensity = text->color.bytes[3];
+    s16 next = intensity;
+    s32 adjusted;
+    s32 id;
+    char *first;
+    switch (((Panel *)carrier)->phase) {
+    case 0:
+        adjusted = intensity + 8;
+        next = adjusted;
+        if (adjusted >= 256) {
+            ((Panel *)carrier)->phase = 1;
+            next = 255;
+        }
+        break;
+    case 1:
+        adjusted = intensity - 8;
+        next = adjusted;
+        if (adjusted < 0) {
+            ((Panel *)carrier)->phase = 0;
+            first = func_80087100(0xf8);
+            next = 0;
+            id = 0xf8;
+            if (text->string == first)
+                id = 0x2ab;
+            text->string = func_80087100(id);
+            text->length = strlen(text->string);
+        }
+        break;
+    }
+    {
+        u32 shade = (carrier = (s32)next);
+        text->color.word = (((0xff000000 | (shade << 8)) | (shade << 16)) | shade);
+    }
 }

@@ -10,6 +10,7 @@ s32 func_80001F40(s16 arg0, s8 arg1, s32 *arg2) {
     s16 **__base_D_800AE724;
 short __repair_constant = 4;
 
+    s32 unused[2];
     s16 **var_t1;
     s16 temp_a1;
     s32 var_a3;

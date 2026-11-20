@@ -48,50 +48,55 @@ s32 __repair_phase_temp_v1_4;
 
     temp_v0 = M2C_FIELD(arg0, void **, 0x2C);
     temp_a0 = M2C_FIELD(temp_v0, s32 *, 0x10);
-    temp_a0_4 = temp_a0 & 0xFF;
-    temp_v1 = temp_a0_4;
+    temp_v1 = temp_a0 & 0xFF;
     var_t0 = 1;
     if (temp_v1 != 0) {
         var_t0 = 0;
-        __repair_phase_temp_v1_2 = temp_v1 - 0x10;
-        temp_a0_2 = temp_a0 & ~0xFF;
-        if (__repair_phase_temp_v1_2 >= 0) {
-            var_v0 = temp_a0_2 | __repair_phase_temp_v1_2;
-            if (__repair_phase_temp_v1_2 >= 0x100) {
-                var_v0 = temp_a0_2 | 0xFF;
+        temp_a1 = temp_v0;
+        temp_a0 &= ~0xFF;
+        temp_v1 -= 0x10;
+        if (temp_v1 >= 0) {
+            if (temp_v1 < 0x100) {
+                var_v0 = temp_a0 | temp_v1;
+            } else {
+                var_v0 = temp_a0 | 0xFF;
             }
         } else {
-            var_v0 = temp_a0_2;
+            var_v0 = temp_a0;
         }
-        M2C_FIELD(temp_v0, s32 *, 0x10) = var_v0;
+        M2C_FIELD(temp_a1, s32 *, 0x10) = var_v0;
         temp_a1 = M2C_FIELD(arg0, void **, 0x3C);
-        temp_a0 = M2C_FIELD(temp_a1, s32 *, 0x10);
-        temp_a0_3 = temp_a0 & ~0xFF;
-        temp_a0_4 = temp_a0 & 0xFF;
-    temp_v0_3 = temp_a0_4;
-    temp_v1 = (temp_v0_3) - 0x10;
+        {
+        s32 raw = M2C_FIELD(temp_a1, s32 *, 0x10);
+        temp_a0 = raw & ~0xFF;
+        temp_v1 = (raw & 0xFF) - 0x10;
+        }
         if (temp_v1 >= 0) {
-            var_v0_2 = temp_a0_3 | temp_v1;
-            if (temp_v1 >= 0x100) {
-                var_v0_2 = temp_a0_3 | 0xFF;
+            if (temp_v1 < 0x100) {
+                var_v0 = temp_a0 | temp_v1;
+            } else {
+                var_v0 = temp_a0 | 0xFF;
             }
         } else {
-            var_v0_2 = temp_a0_3;
+            var_v0 = temp_a0;
         }
-        M2C_FIELD(temp_a1, s32 *, 0x10) = var_v0_2;
-        temp_a1_2 = M2C_FIELD(arg0, void **, 0);
-        temp_v0_3 = M2C_FIELD(temp_a1_2, s32 *, 0x10);
-        temp_a0_4 = temp_v0_3 & ~0xFF;
-        temp_v1 = (temp_v0_3 & 0xFF) - 0x10;
+        M2C_FIELD(temp_a1, s32 *, 0x10) = var_v0;
+        temp_a1 = M2C_FIELD(arg0, void **, 0);
+        {
+        s32 raw = M2C_FIELD(temp_a1, s32 *, 0x10);
+        temp_a0 = raw & ~0xFF;
+        temp_v1 = (raw & 0xFF) - 0x10;
+        }
         if (temp_v1 >= 0) {
-            var_v0_2 = temp_a0_4 | temp_v1;
-            if (temp_v1 >= 0x100) {
-                var_v0_2 = temp_a0_4 | 0xFF;
+            if (temp_v1 < 0x100) {
+                var_v0 = temp_a0 | temp_v1;
+            } else {
+                var_v0 = temp_a0 | 0xFF;
             }
         } else {
-            var_v0_2 = temp_a0_4;
+            var_v0 = temp_a0;
         }
-        M2C_FIELD(temp_a1_2, s32 *, 0x10) = var_v0_2;
+        M2C_FIELD(temp_a1, s32 *, 0x10) = var_v0;
         temp_v1_5 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x30), u8 *, 0x7F);
         temp_v0_4 = temp_v1_5 - 0x10;
         if (temp_v0_4 >= 0) {

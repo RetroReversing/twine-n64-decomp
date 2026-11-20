@@ -17,8 +17,8 @@ s32 func_8003D6FC();
 f32 func_80045764();
 f32 func_800461D4();
 s32 func_80047E4C();
-s32 func_8004E6E4();
-s32 func_8004F430();
+s32 func_8004E6E4(void *, s32, void *, void *, s32, f32, s32, s32, s32);
+s32 func_8004F430(s32, void *, void *, f32);
 s32 func_80077960();
 s32 func_80077E00();
 s32 func_80083B64();
@@ -31,8 +31,8 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     s32 __repair_store_2;
     f32 sp28[3];
     f32 sp38[3];
-    s32 sp48;
-    s32 sp70;
+    s32 sp48[8];
+    s32 sp70[8];
     f32 sp98[24];
     s32 spFC;
     s32 sp104;
@@ -71,7 +71,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     void *temp_v0;
     void *temp_v0_2;
 
-    spFC = arg2;
+
     sp104 = arg3;
     temp_fp = M2C_FIELD(arg0, void **, 0x6C);
     temp_s5 = M2C_FIELD(arg0, s32 *, 0x20);
@@ -169,7 +169,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
 if (var_s1_2 < 8) goto __repair_rows;
                 if (var_s6 != -1) {
                     temp_a1 = var_s6 * 0xC;
-                    temp_v0 = temp_a1 + sp28;
+                    temp_v0 = (s8 *)sp28 + temp_a1;
                     temp_a2 = M2C_FIELD(temp_v0, s32 *, 0x78);
                     M2C_FIELD(temp_fp, s32 *, 0x18) = (s32) M2C_FIELD(temp_v0, s32 *, 0x70);
                     M2C_FIELD(temp_fp, s32 *, 0x1C) = (s32) M2C_FIELD(temp_v0, s32 *, 0x74);

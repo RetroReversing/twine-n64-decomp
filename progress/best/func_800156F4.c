@@ -1,37 +1,103 @@
-typedef s32 M2C_UNK;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+typedef struct {
+    f32 minX, maxX, minY, maxY;
+} Bounds156;
+
+typedef struct {
+    Bounds156 bounds;
+    u8 pad10[0x44];
+    f32 depth;
+    u8 pad58[8];
+    u16 stamp;
+} EntryData156;
+
+typedef struct Entry156 {
+    u8 pad0[0x1C];
+    struct Entry156 *next;
+    EntryData156 *data;
+} Entry156;
+
 extern u16 D_800B35B0;
-extern void *D_80102D68;
-extern M2C_UNK D_80103F10;
-extern void *D_80107E9C;
+extern Entry156 *D_80102D68[];
+extern Bounds156 D_80103F10[];
+extern Entry156 *D_80107E9C;
 extern u32 D_80109E1C;
+
 void func_800156F4(void) {
-u8 __repair_frame[8]; M2C_UNK *var_a3; f32 temp_fv1,temp_fv1_2,temp_fv1_3,temp_fv1_4; s16 temp_v0; u32 var_t0; void **var_t1; void *temp_a2,*temp_v0_2,*temp_v0_3,*temp_v0_4,*temp_v1,*var_a0,*var_a1;
-temp_v0=D_800B35B0+1; D_800B35B0=temp_v0; var_t0=0;
-if(D_80109E1C!=0) { var_a3=&D_80103F10; var_t1=&D_80102D68;
-do { temp_a2=*var_t1; temp_v1=M2C_FIELD(temp_a2,void **,0x20);
-if(!(M2C_FIELD(temp_v1,u16 *,0x60)!=(temp_v0&0xFFFF))) {
-temp_fv1=M2C_FIELD(var_a3,f32 *,0); if(temp_fv1<M2C_FIELD(temp_v1,f32 *,0)) M2C_FIELD(temp_v1,f32 *,0)=temp_fv1;
-temp_v0_2=M2C_FIELD(temp_a2,void **,0x20); temp_fv1_2=M2C_FIELD(var_a3,f32 *,8); if(temp_fv1_2<M2C_FIELD(temp_v0_2,f32 *,8)) M2C_FIELD(temp_v0_2,f32 *,8)=temp_fv1_2;
-temp_v0_3=M2C_FIELD(temp_a2,void **,0x20); temp_fv1_3=M2C_FIELD(var_a3,f32 *,4); if(M2C_FIELD(temp_v0_3,f32 *,4)<temp_fv1_3) M2C_FIELD(temp_v0_3,f32 *,4)=temp_fv1_3;
-temp_v0_4=M2C_FIELD(temp_a2,void **,0x20); temp_fv1_4=M2C_FIELD(var_a3,f32 *,0xC); if(M2C_FIELD(temp_v0_4,f32 *,0xC)<temp_fv1_4) M2C_FIELD(temp_v0_4,f32 *,0xC)=temp_fv1_4;
-block_24: var_a3+=4;
-} else { M2C_FIELD(temp_v1,u16 *,0x60)=temp_v0;
-M2C_FIELD(M2C_FIELD(temp_a2,void **,0x20),f32 *,0)=(f32)M2C_FIELD(var_a3,f32 *,0);
-M2C_FIELD(M2C_FIELD(temp_a2,void **,0x20),f32 *,8)=(f32)M2C_FIELD(var_a3,f32 *,8);
-M2C_FIELD(M2C_FIELD(temp_a2,void **,0x20),f32 *,4)=(f32)M2C_FIELD(var_a3,f32 *,4);
-M2C_FIELD(M2C_FIELD(temp_a2,void **,0x20),f32 *,0xC)=(f32)M2C_FIELD(var_a3,f32 *,0xC);
-var_a0=D_80107E9C; var_a1=NULL;
-if(var_a0==NULL) { M2C_FIELD(temp_a2,void **,0x1C)=NULL; D_80107E9C=temp_a2; var_a3+=4; } else {
-loop_17: if(!(M2C_FIELD(M2C_FIELD(temp_a2,void **,0x20),f32 *,0x54)<M2C_FIELD(M2C_FIELD(var_a0,void **,0x20),f32 *,0x54))) {
-var_a1=var_a0; var_a0=M2C_FIELD(var_a1,void **,0x1C);
-if(var_a0==NULL) { M2C_FIELD(var_a1,void **,0x1C)=temp_a2; M2C_FIELD(temp_a2,void **,0x1C)=NULL; goto block_24; } goto loop_17; }
-M2C_FIELD(temp_a2,void **,0x1C)=var_a0;
-if(var_a1!=NULL) { M2C_FIELD(var_a1,void **,0x1C)=temp_a2; goto block_24; }
-D_80107E9C=temp_a2; var_a3+=4;
-}
-}/*__repair_loop_weight*/do {
-var_t0+=1;} while (0); var_t1+=4;
-} while(var_t0<(u32)D_80109E1C);
-}
+    u8 frame[8];
+    u32 count;
+    u32 i;
+    s32 stamp;
+    Bounds156 *bounds;
+    Entry156 **entries;
+    Entry156 *entry;
+    Entry156 *current;
+    Entry156 *previous;
+    EntryData156 *data;
+    EntryData156 *minYData;
+    EntryData156 *maxXData;
+    EntryData156 *maxYData;
+    f32 value;
+
+    stamp = D_800B35B0 + 1;
+    D_800B35B0 = stamp;
+    count = D_80109E1C;
+    i = 0;
+    if (count != 0) {
+        bounds = D_80103F10;
+        entries = D_80102D68;
+        do {
+            entry = *entries;
+            data = entry->data;
+            if (data->stamp != (u16)stamp) {
+                data->stamp = stamp;
+                entry->data->bounds.minX = bounds->minX;
+                entry->data->bounds.minY = bounds->minY;
+                entry->data->bounds.maxX = bounds->maxX;
+                entry->data->bounds.maxY = bounds->maxY;
+            } else {
+                value = bounds->minX;
+                if (value < data->bounds.minX) data->bounds.minX = value;
+                minYData = entry->data;
+                value = bounds->minY;
+                if (value < minYData->bounds.minY) minYData->bounds.minY = value;
+                maxXData = entry->data;
+                value = bounds->maxX;
+                if (maxXData->bounds.maxX < value) maxXData->bounds.maxX = value;
+                maxYData = entry->data;
+                value = bounds->maxY;
+                if (maxYData->bounds.maxY < value) maxYData->bounds.maxY = value;
+                goto advance;
+            }
+
+            current = D_80107E9C;
+            previous = NULL;
+            if (current == NULL) {
+                entry->next = NULL;
+                ++bounds;
+                D_80107E9C = entry;
+                goto nextEntry;
+            } else {
+                do {
+                    if (entry->data->depth < current->data->depth) {
+                        entry->next = current;
+                        if (previous == NULL) {
+                            D_80107E9C = entry;
+                            goto advance;
+                        }
+                        previous->next = entry;
+                        goto advance;
+                    }
+                    previous = current;
+                    current = previous->next;
+                } while (current != NULL);
+                previous->next = entry;
+                entry->next = NULL;
+            }
+advance:
+            ++bounds;
+nextEntry:
+            ++i;
+            ++entries;
+        } while (i < count);
+    }
 }

@@ -172,7 +172,8 @@ loop_8:
     } while ((u32) (var_s1_2 & 0xFFFF) < 0xBU);
     var_s1_3 = 0;
     do {
-        temp_a1_6 = *(&D_80112F7B + (var_s1_3 & 0xFFFF));
+        var_s1_4 = var_s1_3 & 0xFFFF;
+    temp_a1_6 = *(&D_80112F7B + (var_s1_4));
         var_s1_3 += 1;
         func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
     } while ((u32) (var_s1_3 & 0xFFFF) < 4U);

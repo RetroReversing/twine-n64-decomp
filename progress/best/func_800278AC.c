@@ -32,12 +32,14 @@ s32 __repair_operand;
     M2C_FIELD(D_80109BB0, u16 *, 0x14) = arg0;
     M2C_FIELD(D_80109BB0, u16 *, 0x16) = temp_v0;
     if (temp_v1 != 0) {
-        D_800E1090 = (temp_v1 * 0x14 - 0x14) + M2C_FIELD(D_80109BB0, s32 *, 0xC);
-        var_v1 = arg0 & 0xFFFF;
+        s32 scaled = (temp_v1 << 2) + temp_v1;
+        s32 base = M2C_FIELD(D_80109BB0, s32 *, 0xC);
+        scaled = (scaled << 2) - 0x14;
+        D_800E1090 = base + scaled;
     } else {
         D_800E1090 = 0;
-        var_v1 = arg0 & 0xFFFF;
     }
+    var_v1 = arg0 & 0xFFFF;
     { s32 one = 1;
     D_800E1094 = arg1;
     D_800BD68A = arg2;

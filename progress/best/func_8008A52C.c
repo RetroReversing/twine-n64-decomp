@@ -55,9 +55,9 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     u8 temp_s4_2;
     u8 temp_v1_3;
     u8 temp_v1_4;
-    u8 var_s3;
+    s32 var_s3;
     u8 var_s3_2;
-    u8 var_s4;
+    s32 var_s4;
     void *temp_s1;
 
     s32 old = D_8010D378;

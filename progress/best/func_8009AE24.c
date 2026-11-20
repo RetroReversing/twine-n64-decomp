@@ -7,23 +7,29 @@ s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
     s32 a;
     s32 b;
     u8 r;
+    volatile u32 frame[2];
     u32 w;
     u32 v;
 
     w = c->w0;
     v = w >> 16;
-    if ((w >> 8) & 0xFF) {
-        a = func_80096E7C(s, v & 0xFF);
-    } else {
-        v &= 0x1F;
-        if (v < 16) {
-            a = s->regs[v];
+    {
+        s32 value;
+        u8 code = v;
+        if ((w >> 8) & 0xFF) {
+            value = func_80096E7C(s, code & 0xFF);
         } else {
-            a = D_80112E9E[v];
+            v &= 0x1F;
+            if (v < 16) {
+                value = s->regs[v];
+            } else {
+                value = D_80112E9E[v];
+            }
         }
+        a = value;
     }
     v = c->w1;
-    if (*(u8 *)c != 0) {
+    if ((c->w0 >> 24) != 0) {
         b = func_80096E7C(s, v & 0xFF);
     } else {
         v &= 0x1F;

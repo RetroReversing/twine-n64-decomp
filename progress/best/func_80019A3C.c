@@ -1,59 +1,54 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-
-extern int D_801002B8;
-extern int D_801002BC;
-typedef struct { u8 f0; u8 pad[23]; } Slot_801001A1;
+extern s32 D_801002B8[];
+extern s32 D_801002BC;
+typedef struct { u8 id; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
 
 s32 func_80019A3C(void) {
-    int *__base_D_801002B8;
-    s32 var_a0;
-    s32 var_a0_2;
-    s32 var_a3;
-    s32 var_v0;
-    s32 var_t0;
-    s32 var_v0_2;
-var_t0 = 0;
-var_a3 = 0;
-loop_1:
-    var_a0 = 0;
-    __base_D_801002B8 = &D_801002B8;
-    if (0 < (*__base_D_801002B8)) {
-        var_v0 = 0 & 0xFFFF;
-        for (;;) {
-            if (D_801001A1[(unsigned char)var_v0].f0 == (var_a3 & 0xFFFF)) {
-                var_t0 = 1;
-            } else {
-                ++var_a0;
-                var_v0 = var_a0 & 0xFFFF;
-                if ((var_a0 & 0xFFFF) < (*(&D_801002B8))) {
-                    continue;
-                }
-            }
-            break;
-        }
-    }
-    var_a0_2 = 0;
-    if (D_801002BC > 0) {
-        var_v0_2 = 0 & 0xFFFF;
-loop_9:
-        var_a0_2 += 1;
-        if (D_801001A1[var_v0_2 + 4].f0 != (var_a3 & (short)0xFFFF)) {
-            var_v0_2 = var_a0_2 & 0xFFFF;
-            if ((var_a0_2 & 0xFFFF) < D_801002BC) {
-                goto loop_9;
+    s32 id, idx, zero, found, firstPresent, count, key;
+    volatile s32 *base, *first;
+    u32 firstCount;
+    id = 0;
+    first = D_801002B8;
+    base = first + 1;
+    firstCount = *first;
+    zero = 0;
+    firstPresent = (s16)(zero < firstCount);
+    found = 0;
+outer:
+    idx = 0;
+    if (firstPresent) {
+        key = (u16)id;
+        count = D_801002B8[0];
+first_loop:
+        if (D_801001A1[(u16)idx].id != key) {
+            ++idx;
+            if ((u16)idx < count) {
+                goto first_loop;
             }
         } else {
-            var_t0 = 1;
+            found = 1;
         }
     }
-    if (var_t0 & 0xFFFF) {
-        ++var_a3;
-        var_t0 = 0;
-        if ((u32) (var_a3 & 0xFFFF) >= 2U) {
-            return 1;
+second_scan:
+    idx = 0;
+    if (zero < *base) {
+        key = (u16)id;
+        count = D_801002BC;
+second_loop:
+        if (D_801001A1[(u16)(idx++) + 4].id == key) goto set_found;
+        if ((u16)idx < count) {
+            goto second_loop;
         }
-        goto loop_1;
     }
+check:
+    if ((u16)found != 0) goto next_id;
     return 0;
+set_found:
+    found = 1;
+    goto check;
+next_id:
+    ++id;
+    found = 0;
+    if ((u16)id < 2) goto outer;
+    return 1;
 }

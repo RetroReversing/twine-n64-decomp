@@ -27,6 +27,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
     register f32 spA0;
     f32 spA4;
     char spA8[0x28];
+    u8 stack_pad[0x18];
     f32 spD0[3];
     f32 spE0[3];
     f32 spF0;

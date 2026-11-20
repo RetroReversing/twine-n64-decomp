@@ -26,7 +26,7 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     s32 var_a0;
     s32 var_a1;
     s32 var_a1_2;
-    s32 var_v1;
+    
     s32 var_v1_2;
     u8 *var_a2;
 
@@ -41,12 +41,12 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
         var_a1_2 = 0;
         if (D_801002C0 > 0) {
             var_a2 = &D_8010A4C1;
-            var_v1 = 1 << 0;
+            var_a1 = 1 << 0;
             do {
                 var_a0 = D_801002C0;
                 var_a1_2 += 1;
-                M2C_FIELD(&D_8010A4C1, u8 *, 0) |= var_v1;
-                var_v1 = 1 << var_a1_2;
+                M2C_FIELD(&D_8010A4C1, u8 *, 0) |= var_a1;
+                var_a1 = 1 << var_a1_2;
             } while ((var_a1_2 & 0xFFFF) < var_a0);
             var_a3 = &D_801002C0;
         }

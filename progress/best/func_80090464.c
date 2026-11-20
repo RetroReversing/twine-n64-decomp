@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_800907D0();
+s32 reset_timed_sequence();
 s32 func_80095A80();
 extern u8 D_800EDA87;
 extern void *D_800EDA8C;
@@ -128,7 +128,7 @@ int __repair_literal;
                                         (*(s32 *)((char *)(var_a0) + 0x134)) = (s32) (*(s32 *)((char *)((*(void **)((char *)(temp_t0) + 0x10C))) + 0x14));
                                         if (var_s4 & 0xFF) {
                                             var_s4 = 0;
-                                            func_800907D0((*(s32 *)((char *)((*(void **)((char *)(temp_t0) + 0x10C))) + 0x14)), temp_a1, temp_v1_2);
+                                            reset_timed_sequence((*(s32 *)((char *)((*(void **)((char *)(temp_t0) + 0x10C))) + 0x14)), temp_a1, temp_v1_2);
                                             (*(u16 *)((char *)(D_800EDA8C) + 0xFC6)) += 1;
                                         }
 block_29:

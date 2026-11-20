@@ -23,7 +23,7 @@ extern s32 D_8010D748;
 extern u8 D_8010D770[];
 extern u8 D_80110DB0;
 extern char D_80117388[];
-extern char D_80117389[];
+extern struct { char value; char pad[3]; } D_80117389[];
 extern u8 D_801176E8;
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
@@ -62,7 +62,7 @@ __repair_literal = 0;
                         if (D_801002EA != 0xFF) {
                             ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
                             ((__repair_record_temp_a0*)temp_a0)->field_0 = (u8) D_80110DB0;
-                            *(char *)(D_8010D748 + (D_80110DB0 * 4)) = temp_a1;
+                            D_80117389[D_80110DB0].value = temp_a1;
                         } else {
                             ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
                             ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xFFU;

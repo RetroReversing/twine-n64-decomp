@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void func_80022B60(s32);                     /* extern */
 u16 func_80023EC0(u16, s32, void *, void *);        /* extern */
-M2C_UNK func_80024618(s32, u16, u8, s32);           /* extern */
+M2C_UNK updatePairedSpriteState(s32, u16, u8, s32);           /* extern */
 extern u16 D_800BD558;
 extern u8 D_800BD55A;
 extern s32 D_800BD644;
@@ -63,7 +63,7 @@ void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
         if ((var_v0 != 0) && (D_800BD55A != 0)) {
             temp_v0 = func_80023EC0(D_800BD558, var_a1, (void *) var_a2, temp_a3);
             D_800BD558 = temp_v0;
-            func_80024618(temp_v0 & 0xFFFF, M2C_FIELD(arg0, u16 *, 4), M2C_FIELD(arg0, u8 *, 7), temp_t0 & 0xFF);
+            updatePairedSpriteState(temp_v0 & 0xFFFF, M2C_FIELD(arg0, u16 *, 4), M2C_FIELD(arg0, u8 *, 7), temp_t0 & 0xFF);
         }
         func_80022B60(3);
     }

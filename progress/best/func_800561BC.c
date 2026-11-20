@@ -30,7 +30,7 @@ M2C_UNK func_80045764(f32 *, f32 *);                /* extern */
 s32 func_80045CF8();               /* extern */
 f32 func_80045D2C();                        /* extern */
 f32 func_80046054(f32, f32, f32);                   /* extern */
-f32 func_80046140(f32, f32);                        /* extern */
+f32 approximate_hypot2(f32, f32);                        /* extern */
 M2C_UNK func_80046424(void *, f32, f32, f32);       /* extern */
 M2C_UNK func_80047E4C(); /* extern */
 s32 func_80048F10(void *, f32 *, s32, M2C_UNK, f32, s32, s32, s32); /* extern */
@@ -981,7 +981,7 @@ block_263:
                         temp_fs5 = *(&D_80109A9C + temp_v0_19) - M2C_FIELD(arg0, f32 *, 0x28);
                         temp_fs3 = *(&D_80109AA0 + temp_v0_19) - M2C_FIELD(arg0, f32 *, 0x2C);
                         if (M2C_FIELD(arg0, s16 *, 0x7C) == 0) {
-                            temp_fs0 = func_80046140(temp_fs4, temp_fs3);
+                            temp_fs0 = approximate_hypot2(temp_fs4, temp_fs3);
                             temp_fs2 = func_80082A70(temp_fs4, temp_fs3) * 651.8986f;
                             temp_fs0_2 = -(func_80082A70(temp_fs5, temp_fs0) * 651.8986f);
                             M2C_FIELD(arg0, f32 *, 0x40) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) - ((f32) func_80000A30((s32) temp_fs2, (s32) M2C_FIELD(arg0, f32 *, 0x40)) * 0.1f));

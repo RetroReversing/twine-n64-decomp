@@ -108,7 +108,7 @@ s32 __repair_result_var_v0_3;
     var_s5 = &D_8010D724;
     var_s6 = 0;
     if ((s32) D_801176E8 > 0) {
-        var_s1 = D_8010D724 + 0xC2;
+        var_s1 = (char *)&D_8010D724 + 0xC2;
         do {
             if (*(s32 *)var_s5 != 0) {
                 func_8009AF94(var_s5);

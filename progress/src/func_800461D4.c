@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80046140(f32, f32);                    /* extern */
+M2C_UNK approximate_hypot2(f32, f32);                    /* extern */
 
 void func_800461D4(void *arg0, void *arg1) {
-    func_80046140(M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg1, f32 *, 0), M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg1, f32 *, 8));
+    approximate_hypot2(M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg1, f32 *, 0), M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg1, f32 *, 8));
 }

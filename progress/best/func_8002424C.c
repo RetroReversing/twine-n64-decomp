@@ -3,7 +3,7 @@
 s32 func_80015F74();
 s32 func_80022A30();
 s32 func_80022AD8();
-s32 func_80024618();
+s32 updatePairedSpriteState();
 s32 func_80024D78();
 s32 func_80024EF0();
 s32 func_8002A644();
@@ -91,7 +91,7 @@ int __repair_constant = 3;
     }
     D_800BD558 = var_v0;
     func_8002A9A8(D_80107EA8, 0);
-    func_80024618(D_800BD558, D_800B81A8, D_800B81AB, 1);
+    updatePairedSpriteState(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002AC04(D_80107EA8, 1);
     if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {
         func_8002A9A8(D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);

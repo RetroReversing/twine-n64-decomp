@@ -1,75 +1,93 @@
-extern u8 D_800CE354;
-extern u8 D_800CE358;
-extern s32 D_800CE570;
+typedef struct HeapBlock {
+    struct HeapBlock *prev;
+    struct HeapBlock *next;
+    volatile u32 size;
+} HeapBlock;
+
+typedef struct {
+    volatile u32 used;
+    u8 alignment;
+    char pad[3];
+    const char *name;
+} HeapTag;
+
+extern HeapTag D_800CE354[];
+extern volatile u32 D_800CE570;
 extern s8 D_800E1A90;
-extern s32 D_800E1A9C;
-extern s32 D_800E1AA0;
-extern u8 *D_800E1AAC;
-extern u8 *D_800E1AB0;
-extern s32 D_80102CB8;
-extern u32 D_80109A90;
+extern volatile u32 D_800E1A9C;
+extern volatile u32 D_800E1AA0;
+extern HeapBlock *D_800E1AAC;
+extern HeapBlock *volatile D_800E1AB0;
+extern volatile u32 D_80102CB8;
+extern volatile u32 D_80109A90;
 
-#define AT(T, sym, off) (*(T *)((u8 *)&(sym) + (off)))
-
-s32 func_80083E90(s32 arg0, s32 arg1) {
-    u8 *a;
-    u8 *b;
-    s32 align;
-    s32 t;
-    u32 blk;
-u32 __repair_phase_blk;
-    s32 r2;
-    s32 nv;
-
+s32 func_80083E90(s32 size, s32 tag) {
     if (D_800E1A90 == 0) {
-        t = arg1 * 12;
-        align = AT(u8, D_800CE358, t) - 1;
-        if (arg1 == 0x2D) {
-            s32 v = D_80102CB8 - arg0;
-            s32 r = v - (v & align);
-            s32 d = D_80102CB8 - r;
-            D_80102CB8 = r;
-            D_800CE570 += d;
-            return r;
+        s32 mask = D_800CE354[tag].alignment - 1;
+        s32 inverse = ~mask;
+        if (tag == 45) {
+            u32 old = D_80102CB8;
+            u32 end = old - size;
+            u32 used;
+            end -= end & mask;
+            used = D_800CE570;
+            old -= end;
+            D_80102CB8 = end;
+            D_800CE570 = used + old;
+            return end;
+        } else {
+            u32 old = D_80109A90;
+            u32 used = D_800CE354[tag].used;
+            u32 start = (old + mask) & inverse;
+            u32 end = start + size;
+            D_80109A90 = end;
+            D_800CE354[tag].used = used + (end - old);
+            return start;
         }
-        blk = D_80109A90;
-        r2 = (blk + align) & ~align;
-        nv = r2 + arg0;
-        D_80109A90 = nv;
-        AT(u32, D_800CE354, t) = AT(u32, D_800CE354, t) + (nv - blk);
-        return r2;
-    }
-    if (arg0 != 0) {
-        a = D_800E1AAC;
-        if (a != NULL) {
-            s32 base = arg1 * 12;
-loop:
-            __repair_phase_blk = *(u32 *)(a + 8);
-            b = a + __repair_phase_blk;
-            if (__repair_phase_blk >= (u32)(arg0 + 0x18)) {
-                s32 off = ((s32)b - arg0) & (AT(u8, D_800CE358, base) - 1);
-                if (__repair_phase_blk >= (u32)(arg0 + 0x18 + off)) {
-                    s32 p = arg0 + off;
-                    u8 *n = b - (p + 12);
-                    AT(u32, D_800CE354, base) = AT(u32, D_800CE354, base) + 12 + p;
-                    D_800E1A9C = (D_800E1A9C - 12) - p;
-                    D_800E1AA0 = (12 + p) + (D_800E1AA0);
-                    *(u32 *)(a + 8) = (u32)((*(u32 *)(a + 8) - 12) - p);
-                    *(void **)n = NULL;
-                    *(u32 *)(n + 8) = (u32)(p + 12);
-                    *(u8 **)(n + 4) = D_800E1AB0;
-                    if (D_800E1AB0 != NULL) {
-                        *(u8 **)D_800E1AB0 = n;
+    } else if (size != 0) {
+        HeapBlock *block = D_800E1AAC;
+        u32 minimum = size + 24;
+        if (block != NULL) {
+            do {
+                u32 available = block->size;
+                u8 *end = (u8 *)block + available;
+                if (available >= minimum) {
+                    u32 mask = D_800CE354[tag].alignment - 1;
+                    HeapBlock *newBlock = (HeapBlock *)((u32)end - size);
+                    u32 extra = (u32)newBlock & mask;
+                    if (available >= minimum + extra) {
+                        u32 tagUsed;
+                        u32 heapUsed;
+                        u32 heapFree;
+                        u32 blockFree;
+                        HeapBlock *head;
+                        size += extra;
+                        available = size + 12;
+                        tagUsed = D_800CE354[tag].used;
+                        newBlock = (HeapBlock *)((u32)end - available);
+                        heapFree = D_800E1A9C;
+                        tagUsed += 12;
+                        D_800CE354[tag].used = tagUsed + size;
+                        heapUsed = D_800E1AA0;
+                        heapFree -= 12;
+                        D_800E1A9C = heapFree - size;
+                        blockFree = block->size;
+                        heapUsed += 12;
+                        D_800E1AA0 = heapUsed + size;
+                        head = D_800E1AB0;
+                        blockFree -= 12;
+                        block->size = blockFree - size;
+                        newBlock->prev = NULL;
+                        newBlock->size = available;
+                        newBlock->next = head;
+                        if (head)
+                            head->prev = newBlock;
+                        D_800E1AB0 = newBlock;
+                        return (s32)(newBlock + 1);
                     }
-                    D_800E1AB0 = n;
-                    return (s32)(n + 12);
                 }
-            }
-            a = *(u8 **)(a + 4);
-            if (a == NULL) {
-                return 0;
-            }
-            goto loop;
+                block = block->next;
+            } while (block != NULL);
         }
     }
     return 0;

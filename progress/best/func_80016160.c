@@ -42,9 +42,9 @@ void func_80016160(void *arg0, void *arg1) {
             } else {
                 temp_a2 = M2C_FIELD(arg1, s32 *, 0x1C);
                 if (temp_a2 >= 0) {
-                    func_800448A4(arg0, M2C_FIELD(arg1, s32 *, 0x18));
+                    func_800448A4(arg0, M2C_FIELD(arg1, s32 *, 0x18), temp_a2);
                 } else {
-                    M2C_FIELD(arg0, s32 *, 0x18) = func_80087100(3U, temp_a2);
+                    M2C_FIELD(arg0, s32 *, 0x18) = func_80087100(3U);
                     M2C_FIELD(arg0, s16 *, 0x1C) = 0;
                 }
             }
@@ -57,18 +57,15 @@ void func_80016160(void *arg0, void *arg1) {
             M2C_FIELD(arg0, u16 *, 0x26) = var_v0;
             var_v0_2 = M2C_FIELD(arg1, u8 *, 0x12);
             if (var_v0_2 == 0) {
-                var_v0_2 = (u8) M2C_FIELD(arg0, s32 *, 0x28);
+                var_v0_2 = M2C_FIELD(arg0, u8 *, 0x28);
             }
             M2C_FIELD(arg0, u8 *, 0x29) = var_v0_2;
-            temp_v1 = (u32) M2C_FIELD(arg1, u16 *, 0x10);
-            if (!(temp_v1 & 0xF0)) {
-                temp_a2 = 1;
-            } else {
-                temp_a2 = (temp_v1 >> 4) & 0xF;
-            }
+            temp_v1 = M2C_FIELD(arg1, u32 *, 0x10);
+            temp_a2 = 1;
+            if (temp_v1 & 0xF0) temp_a2 = (temp_v1 >> 4) & 0xF;
             temp_a0_2 = (M2C_FIELD(arg0, s32 *, 0x28) & 0xFFFF0FFF) | ((temp_a2 & 0xF) << 0xC);
             M2C_FIELD(arg0, s32 *, 0x28) = temp_a0_2;
-            temp_v0_2 = (s32) M2C_FIELD(arg1, u16 *, 0x10) & 0xF;
+            temp_v0_2 = M2C_FIELD(arg1, u32 *, 0x10) & 0xF;
             var_v1_2 = 1;
             if (temp_v0_2 != 0) {
                 var_v1_2 = temp_v0_2;

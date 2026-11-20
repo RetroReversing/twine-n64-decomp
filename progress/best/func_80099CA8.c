@@ -14,16 +14,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_8008C1B0(u8);                              /* extern */
 s32 func_80095638();                                /* extern */
-M2C_UNK func_800957A8(u32 *);                       /* extern */
-M2C_UNK func_800957B8(u32 *, void *);               /* extern */
 
 s32 func_80099CA8(void *arg0, void *arg1) {
     u32 sp10;
-    s32 temp_v0_2;
+    u8 direct;
     s32 temp_v1;
     s32 var_v0;
     s32 var_v0_2;
-    s32 var_v0_4;
     u16 temp_v0;
     u32 temp_a0;
     u32 var_v0_3;
@@ -31,6 +28,7 @@ s32 func_80099CA8(void *arg0, void *arg1) {
     temp_v0 = M2C_FIELD(arg1, u16 *, 4);
     sp10 = (u32) temp_v0;
     if (temp_v0 != 0) {
+        temp_v1 = -5;
         if (((u32) M2C_FIELD(arg1, u32 *, 0) >> 8) & 1) {
             temp_v1 = M2C_FIELD(arg0, s32 *, 0x24);
             if (!(temp_v1 & 8)) {
@@ -40,46 +38,50 @@ s32 func_80099CA8(void *arg0, void *arg1) {
             /* Duplicate return node #23. Try simplifying control flow for better match */
             return 0;
         }
-        var_v0 = M2C_FIELD(arg0, s32 *, 0x24) & ~4;
+        var_v0 = M2C_FIELD(arg0, s32 *, 0x24) & temp_v1;
 block_5:
         M2C_FIELD(arg0, s32 *, 0x24) = var_v0;
-        if ((u8) M2C_FIELD(arg1, u32 *, 0) & 1) {
-            if ((M2C_FIELD(arg0, s32 *, 0x24) & 0x20) || (func_8008C1B0(M2C_FIELD(arg0, u8 *, 0x63)) & 0xFF)) {
-                var_v0_2 = M2C_FIELD(arg0, s32 *, 0x24) | 0x100000;
+        temp_v1 = 0xFFEFFFFF;
+        if (M2C_FIELD(arg1, u8 *, 0) & 1) {
+            if ((M2C_FIELD(arg0, volatile s32 *, 0x24) & 0x20) || (func_8008C1B0(M2C_FIELD(arg0, u8 *, 0x63)) & 0xFF)) {
+                var_v0_2 = M2C_FIELD(arg0, s32 *, 0x24);
+                temp_v1 = 0x100000;
+                var_v0_2 |= temp_v1;
                 goto block_10;
             }
-            goto block_22;
+            return 0;
         }
-        var_v0_2 = M2C_FIELD(arg0, s32 *, 0x24) & 0xFFEFFFFF;
+        var_v0_2 = M2C_FIELD(arg0, volatile s32 *, 0x24) & temp_v1;
 block_10:
         M2C_FIELD(arg0, s32 *, 0x24) = var_v0_2;
-        if ((u16) M2C_FIELD(arg1, u32 *, 0) & 1) {
+        if (M2C_FIELD(arg1, u16 *, 0) & 1) {
             sp10 = (u32) (func_80095638() & 0xFFFF) % sp10;
         }
-        var_v0_3 = -1U;
-        if (sp10 == 0xFFFF) {
-block_20:
-            M2C_FIELD(arg0, u32 *, 0x9C) = var_v0_3;
-        } else {
-            temp_v0_2 = ((u32) M2C_FIELD(arg1, u16 *, 4) >> 8) & 1;
-            if (temp_v0_2 & 0xFF) {
+        if (sp10 != 0xFFFF) {
+            if ((direct = (M2C_FIELD(arg1, volatile u32 *, 4) >> 8) & 1) != 0) {
                 func_800957A8(&sp10);
-                var_v0_4 = temp_v0_2 & 0xFF;
             } else {
-                func_800957B8(&sp10, arg0);
-                var_v0_4 = temp_v0_2 & 0xFF;
+                func_800957B8(&sp10, (s32) arg0);
             }
-            if (var_v0_4 != 0) {
-                var_v0_3 = M2C_FIELD(arg0, u32 *, 0xA4) + sp10;
-                goto block_20;
-            }
-            temp_a0 = M2C_FIELD(arg0, u32 *, 0xA0) + sp10;
-            M2C_FIELD(arg0, u32 *, 0x9C) = temp_a0;
-            if ((u32) M2C_FIELD(arg0, u32 *, 0xA4) >= temp_a0) {
-                M2C_FIELD(arg0, u32 *, 0xA0) = temp_a0;
-                M2C_FIELD(arg0, u32 *, 0x9C) = 0U;
+            if (!direct) goto relative;
+            var_v0_3 = M2C_FIELD(arg0, u32 *, 0xA4) + sp10;
+            M2C_FIELD(arg0, u32 *, 0x9C) = var_v0_3;
+            goto done;
+relative:
+            {
+                u32 limit;
+                temp_a0 = M2C_FIELD(arg0, u32 *, 0xA0) + sp10;
+                limit = M2C_FIELD(arg0, u32 *, 0xA4);
+                M2C_FIELD(arg0, u32 *, 0x9C) = temp_a0;
+                if (limit >= temp_a0) {
+                    M2C_FIELD(arg0, u32 *, 0xA0) = temp_a0;
+                    M2C_FIELD(arg0, u32 *, 0x9C) = 0U;
+                }
+                goto done;
             }
         }
+        M2C_FIELD(arg0, u32 *, 0x9C) = -1U;
+done:
         return M2C_FIELD(arg0, u32 *, 0x9C) != 0;
     }
 block_22:

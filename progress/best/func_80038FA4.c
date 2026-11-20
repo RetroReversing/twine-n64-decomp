@@ -25,7 +25,7 @@ void func_80038FA4(void) {
     cmd[2].w1 = (u32)(frame + ((index << 4) + 0x6E0));
     cmd[3].w0 = 0xDB0E0000;
     cmd[1].w1 = matrixBase + matrixOffset;
-    value = *(u16 *)(frame + (index << 1) + 0x740);
+    value = ((u16 *)(frame + 0x740))[index];
     D_80115328 = cmd + 1;
     D_80115328 = cmd + 2;
     D_80115328 = cmd + 3;

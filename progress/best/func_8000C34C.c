@@ -3,7 +3,7 @@
 s32 func_8000BB50(void *, f32, f32, f32, f32);
 s32 func_80043FA0();
 void *func_80044818();
-f32 func_80046140(f32, f32, s32);
+f32 approximate_hypot2(f32, f32, s32);
 f32 func_8008292C(f32);
 f32 func_80082968(f32);
 f32 func_80082A70(f32, f32);
@@ -142,7 +142,7 @@ s32 __repair_phase_var_s1;
                     temp_fs0 = (*(f32 *)((char *)(temp_v1_7) + 8)) - (*(f32 *)((char *)(var_s2) + 8));
                     temp_s0_2 = func_80044818((*(s32 *)((char *)(temp_s0) + 4)), 0x2A);
                     temp_fv1_2 = func_80082A70(temp_fs1, temp_fs0);
-                    temp_fs0_2 = func_80046140(temp_fs1, temp_fs0, temp_a0);
+                    temp_fs0_2 = approximate_hypot2(temp_fs1, temp_fs0, temp_a0);
                     if (((u32) D_80107EA0 < (u32) D_800B1D84) && ((temp_v0 = D_80107EA0 + 1, D_80107EA0 = temp_v0, D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6), func_8000BB50(&D_80112F90, (*(f32 *)((char *)(var_s2) + 0)) * 64.0f, (*(f32 *)((char *)(var_s2) + 4)) * 64.0f, (*(f32 *)((char *)(var_s2) + 8)) * 64.0f, temp_fv1_2), D_80112F90 *= temp_fs0_2, D_80112FA0 *= temp_fs0_2, D_80112FB0 *= temp_fs0_2, D_80112F98 *= temp_fs0_2, D_80112FA8 *= temp_fs0_2, D_80112FB8 *= temp_fs0_2, guMtxF2L(&D_80112F90, D_8010D538), temp_a0_2 = D_8010A928, D_8010A928 = (unsigned)temp_a0_2 + 8, ((__repair_field_0 *)temp_a0_2)->value = 0xDA380003, (*(s32 *)((char *)(temp_a0_2) + 4)) = (s32) (D_8010D538 - (unsigned)0x80000000), (*(s32 *)((char *)(temp_a0_2) + 8)) = 0xFA000000, (*(s32 *)((char *)(temp_a0_2) + 0xC)) = (s32) ((((*(u8 *)((char *)(arg0) + 0x82)) * 2) / 3) & 0xFF), D_8010A928 = (s8 *) temp_a0_2 + 0x10, (((__repair_field_0 *)temp_s0_2)->value != 0)) || (func_80043FA0(temp_s0_2, 0xDA380003), (((__repair_field_0 *)temp_s0_2)->value != 0)))) {
                         if (!((*(u8 *)((char *)(temp_s0_2) + 0x46)) & 0x80)) {
                             (*(u8 *)((char *)(temp_s0_2) + 0x46)) = (u8) D_800C2B40;

@@ -44,12 +44,13 @@ void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
             func_80022B60(0);
             var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
             var_v0_2 = -((arg1 & 0xFF) == 0) & 0x1C;
+            ((__repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
         } else {
             func_80022E88(3);
             func_80022B60(3);
             var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC;
             var_v0_2 = ((-((arg1 & 0xFF) == 0) & 7) | 3) * 4;
+            ((__repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
         }
-        ((__repair_record_temp_s1*)temp_s1)->field_28 = (s32) (var_v1 | var_v0_2);
     }
 }

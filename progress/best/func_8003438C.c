@@ -9,9 +9,9 @@ extern u8 D_80115318;
 extern void *D_80115328;
 
 void func_8003438C(void *arg0, void *arg1) {
-    u8 __repair_frame[16];
+
     s32 temp_v1;
-s32 __repair_phase_temp_v1;
+u16 __repair_phase_temp_v1;
     
     u8 var_a3;
     s32 var_a0;
@@ -20,7 +20,7 @@ s32 __repair_phase_temp_v1;
     u8 var_a2;
     void *temp_v0;
     void *temp_a0;
-    register unsigned temp_v1_5;
+    u16 temp_v1_5;
     void *temp_v1_2;
     void *temp_v1_4;
 

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80024618(s32, u16, u8, M2C_UNK);       /* extern */
+M2C_UNK updatePairedSpriteState(s32, u16, u8, M2C_UNK);       /* extern */
 s32 func_80024EF0(u16);                             /* extern */
 s8 func_800263B8(s32, M2C_UNK);                     /* extern */
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
@@ -33,14 +33,14 @@ void func_800247A8(void) {
     M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
     temp_v0 = M2C_FIELD(D_80109BB0, void **, 0x18);
     D_800BD55A = 0;
-    func_80024618(D_800BD558, M2C_FIELD(temp_v0, u16 *, 0x18), M2C_FIELD(temp_v0, u8 *, 0x1B), 1);
+    updatePairedSpriteState(D_800BD558, M2C_FIELD(temp_v0, u16 *, 0x18), M2C_FIELD(temp_v0, u8 *, 0x1B), 1);
     func_80029068();
     if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) && (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0)) {
         if (func_8002CC14() & 0xFFFF) {
             func_80026424(D_80102F2C, 0x18);
         }
         temp_v0_2 = M2C_FIELD(D_80109BB0, void **, 0x18);
-        func_80024618(M2C_FIELD(temp_v0_2, s32 *, 0x14), M2C_FIELD(temp_v0_2, u16 *, 0x18), M2C_FIELD(temp_v0_2, u8 *, 0x1B), 1);
+        updatePairedSpriteState(M2C_FIELD(temp_v0_2, s32 *, 0x14), M2C_FIELD(temp_v0_2, u16 *, 0x18), M2C_FIELD(temp_v0_2, u8 *, 0x1B), 1);
         func_8002A9A8(&D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);
         M2C_FIELD(D_80109BB0, s8 *, 8) = func_800263B8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 3);
         M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;

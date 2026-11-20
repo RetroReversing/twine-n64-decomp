@@ -8,9 +8,9 @@ s32 func_800A92C0(s32 direction, u32 spAddress, s32 dramAddress, u32 size) {
     *(volatile u32 *)0xA4040000 = spAddress;
     *(volatile u32 *)0xA4040004 = osVirtualToPhysical(dramAddress);
     switch (direction) {
-        case 0: length = (volatile u32 *)0xA404000C; break;
-        case 1: length = (volatile u32 *)0xA4040008; break;
         default: length = (volatile u32 *)0xA4040008; break;
+        case 1: length = (volatile u32 *)0xA4040008; break;
+        case 0: length = (volatile u32 *)0xA404000C; break;
     }
     *length = size - 1;
     return 0;

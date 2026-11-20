@@ -12,15 +12,16 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
-s32 func_8008C7C0();
+void func_8008C0D4(s32, u16 *);
+void func_8008C11C(void);
+void func_8008C7C0(void *, s32);
 extern char D_800F38E4[];
 extern s32 D_800F38EC;
 extern char D_800F38F0[];
 
 typedef struct { s32 w[3]; } __repair_words3;
 s32 func_80097B1C(s32 arg0) {
+    s32 unused[4];
     s32 temp_v0_2;
     s32 var_a1;
     s32 var_a2;
@@ -38,23 +39,27 @@ s32 func_80097B1C(s32 arg0) {
     void *var_s0;
     void *var_t0;
 
-    arg0 &= 0xFFFF;
     var_a1 = 0;
     var_s3 = 0;
     if (D_800F38EC != 0) {
-        var_s2 = D_800F38E4 + 0xC;
+        s32 count;
+        char *base;
+        s32 wanted = (u16)arg0;
+        base = D_800F38E4;
+        var_s2 = (u16 **)(base + 0xC);
 loop_2:
-        var_s1 = *var_s2;
+        var_s1 = (char *)*var_s2;
         var_a0 = *(u16 *)var_s1;
         var_s4 = 0;
-        if ((var_a0 & 0xFFFF) != 0xFFFF) {
+        if ((u16)var_a0 != 0xFFFF) {
             var_s0 = var_s1 + 2;
             do {
-                if (var_a0 == arg0) {
+                if (var_a0 == wanted) {
                     temp_v0 = M2C_FIELD(var_s0, u16 *, 0) - 1;
                     M2C_FIELD(var_s0, u16 *, 0) = temp_v0;
-                    var_a1 = 1;
-                    if (!(temp_v0 & 0xFFFF)) {
+                    if (temp_v0 & 0xFFFF) {
+                        var_a1 = 1;
+                    } else {
                         func_8008C7C0(var_s1 + 0xC, M2C_FIELD(var_s0, s32 *, 2));
                         var_a1 = 1;
                     }
@@ -69,28 +74,29 @@ loop_2:
         }
         if (var_a1 & 0xFF) {
             if (var_s4 & 0xFF) {
-                return 1;
+                goto success;
             }
+            count = D_800F38EC;
             temp_a1 = *var_s2;
             var_s0_2 = 0;
-            if (D_800F38EC > 0) {
+            if (count > 0) {
                 var_v1 = 0;
 loop_16:
                 if (*(u16 **)(D_800F38F0 + var_v1) != temp_a1) {
                     var_s0_2 += 1;
                     var_v1 += 0xC;
-                    if (var_s0_2 < D_800F38EC) {
+                    if (var_s0_2 < count) {
                         goto loop_16;
                     }
                 }
             }
             var_v0 = 1;
             if (var_s0_2 != D_800F38EC) {
-                func_8008C0D4(D_800F38EC, temp_a1);
+                func_8008C0D4(count, temp_a1);
                 var_a2 = var_s0_2 + 1;
                 if (var_a2 < D_800F38EC) {
                     temp_v0_2 = var_a2 * 0xC;
-                    var_t0 = temp_v0_2 + D_800F38E4;
+                    var_t0 = (void *)((u32)temp_v0_2 + (u32)base);
                     var_a3 = temp_v0_2 + D_800F38F0;
                     do {
                         M2C_FIELD(var_t0, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) var_a3 + 0x0);
@@ -101,10 +107,9 @@ loop_16:
                 }
                 D_800F38EC -= 1;
                 func_8008C11C();
-                return 1;
             }
-            /* Duplicate return node #25. Try simplifying control flow for better match */
-            return var_v0;
+success:
+            return 1;
         }
         var_s3 += 1;
         var_s2 += 3;
@@ -117,3 +122,4 @@ block_24:
     var_v0 = 0;
     return var_v0;
 }
+

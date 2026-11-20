@@ -23,7 +23,7 @@ extern u8 D_80112F7E;
 
 void func_8001E4A0(void) {
     u32 temp_ret;
-    s32 var_a0;
+    u16 var_a0;
     u32 var_v1;
     u8 var_v0;
 
@@ -31,33 +31,29 @@ void func_8001E4A0(void) {
         temp_ret = func_80045CC4();
         var_a0 = (temp_ret % 13) + 0xE;
         var_v1 = var_a0 & 0xFFFF;
-        if (var_v1 < 0xEU) {
-            var_a0 = 0xE;
-            goto block_8;
-        }
-        if (var_v1 >= 0x1CU) {
-            var_a0 = 0x1B;
-block_8:
-            var_v1 = var_a0 & 0xFFFF;
-        }
-        switch (var_v1) {                           /* irregular */
+        var_a0 = var_v1 < 14 ? 14 : var_v1 >= 28 ? 27 : var_a0;
+        var_v1 = var_a0 & 0xFFFF;
+choose:
+        switch ((s32)var_v1) {
         case 27:
             var_v0 = D_80112F7E;
-block_19:
-            if (var_v0 == 0) {
-                var_a0 -= 1;
-            }
             break;
         case 22:
             var_v0 = D_80112F7D;
-            goto block_19;
+            break;
         case 20:
             var_v0 = D_80112F7C;
-            goto block_19;
+            break;
         case 17:
             var_v0 = D_80112F7B;
-            goto block_19;
+            break;
+        default:
+            goto use;
         }
+        if (var_v0 == 0) {
+            var_a0--;
+        }
+use:
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14) = (s32) (((func_800260A0(var_a0 & 0xFFFF) & 0xFFFF) << 8) | 0xC);
     }
     func_8001E5BC();

@@ -57,7 +57,7 @@ extern char D_80100408[];
 extern s32 D_80102EBC;
 extern s32 D_80102EC0;
 extern s32 D_80102EC4;
-extern char D_80102F48[];
+extern s32 D_80102F48[];
 extern s8 D_80104311;
 extern s8 D_80107ECC;
 extern void *D_80109BB0;
@@ -105,8 +105,8 @@ s32 __repair_phase_var_a0;
     D_800BD690 = 1;
     temp_fp = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x70);
     temp_s7 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x65);
-    temp_s5 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x6A);
     temp_s6 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x64);
+    temp_s5 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x6A);
     sp34 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
@@ -197,8 +197,8 @@ s32 __repair_phase_var_a0;
             }
             (*(u8 *)((char *)(D_80109BB0) + 8)) = 1U;
             (*(void **)((char *)(D_80109BB0) + 0x18)) = (void *) (temp_s7 - 0x28);
-            temp_a1 = (*(void **)((char *)(temp_v0_3) + 8));
             temp_v0_3 = (*(void **)((char *)(D_80109BB0) + 0x18));
+            temp_a1 = (*(void **)((char *)(temp_v0_3) + 8));
             if (temp_a1 != NULL) {
                 temp_v0_4 = (*(u16 *)((char *)(temp_v0_3) + 0xC)) & 0xF;
                 if (temp_v0_4) {

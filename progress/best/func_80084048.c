@@ -1,11 +1,11 @@
 typedef struct Node { struct Node *a; struct Node *b; s32 size; } Node;
-extern s32 D_800CE354;
+extern struct { s32 value; s32 pad[2]; } D_800CE354[];
 extern s8 D_800E1A90;
 extern s32 D_800E1A9C;
 extern s32 D_800E1AA0;
 extern Node *D_800E1AAC;
 extern Node *D_800E1AB0;
-void coalesce_adjacent_free_blocks(Node *);
+void coalesce_adjacent_free_blocks();
 
 void func_80084048(void *arg0, s32 arg1) {
     Node *n;
@@ -17,8 +17,8 @@ void func_80084048(void *arg0, s32 arg1) {
 
     if (D_800E1A90 != 0) {
         if (arg0 != NULL) {
-            *(&D_800CE354 + arg1 * 3) -= n->size;
             n = (Node *)((char *)arg0 - 12);
+            D_800CE354[arg1].value -= n->size;
             D_800E1A9C += n->size;
             D_800E1AA0 -= n->size;
             prev = n->b;
@@ -30,7 +30,7 @@ void func_80084048(void *arg0, s32 arg1) {
                 next->b = prev;
             }
             if (n == D_800E1AB0) {
-                D_800E1AB0 = prev;
+                D_800E1AB0 = ((volatile Node *)n)->b;
             }
             n->a = NULL;
             n->b = NULL;
@@ -54,7 +54,7 @@ void func_80084048(void *arg0, s32 arg1) {
                         }
                         break;
                     }
-                    if (!((cur < n) & (n < nxt))) {
+                    if (((cur < n) & (n < nxt)) != 1) {
                         cur = nxt;
                         continue;
                     }

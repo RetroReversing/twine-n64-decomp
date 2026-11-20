@@ -13,7 +13,7 @@ static __inline__ void fill_s32(s32 value, u32 i, s32 *out, u32 count, s16 *read
     *write = 0;
     do { *out++ = value; ++i; } while (i < count);
 }
-void func_80001784(void) {
+void initResourceCaches(void) {
     fill_s16(0x7fff, 0, D_800D942C, 6, &D_800D942A, &D_800D9428);
     fill_s16(0x7fff, 0, D_800D9500, 8, &D_800D94FA, &D_800D94F8);
     fill_s32(0x7fffffff, 0, D_800DC718, 6, &D_800DC712, &D_800DC710);

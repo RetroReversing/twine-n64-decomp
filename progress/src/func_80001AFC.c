@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80001784();
+s32 initResourceCaches();
 s32 func_80001D80();
 s32 func_80005158();
 typedef struct { s32 a; s16 b; s16 c; } Rec;
@@ -46,7 +46,7 @@ void func_80001AFC(void) {
     s16 *g;
 
     D_80109D18 = 0;
-    func_80001784();
+    initResourceCaches();
     func_80001D80(0);
     for (i = 0; D_800C3924[i].a != 0; i++) {
         g = &D_800C39B0;

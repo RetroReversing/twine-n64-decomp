@@ -165,12 +165,11 @@ f32 __repair_var_fs0_1;
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     temp_v1 = (*(s16 *)((char *)(arg0) + 0x7C));
-    temp_s3 = (*(s8 *)((char *)(temp_s1) + 0x182));
     if ((temp_v1 == 2) || (temp_v1 == 5)) {
         temp_v0 = (*(void **)((char *)(arg0) + 0x68));
         (*(u16 *)((char *)(temp_v0) + 0xC)) |= 1;
         (*(f32 *)((char *)(temp_s1) + 0x40)) = 1.0f;
-    } else if (*(u16 *)(D_8011508A + (temp_s3 * 0xA0)) == 0) {
+    } else if (((temp_s3 = (*(s8 *)((char *)(temp_s1) + 0x182))), *(u16 *)(D_8011508A + (temp_s3 * 0xA0)) == 0)) {
         temp_v1_2 = (*(void **)((char *)(arg0) + 0x68));
         (*(u16 *)((char *)(temp_v1_2) + 0xC)) &= 0xFFFE;
         if (func_800818AC(temp_s3, 0x18) != 0) {
@@ -201,12 +200,12 @@ f32 __repair_var_fs0_1;
     if (func_800819EC(temp_s3, 0x10) != 0) {
         if ((*(s16 *)((char *)((*(void **)((char *)(temp_s1) + 0xA8))) + 0x7A)) == 0) {
             temp_a2 = (*(void **)((char *)(arg0) + 0x68));
-            temp_v0_2 = (*(s8 *)((char *)(temp_a2) + 0xE));
-            temp_a3 = temp_v0_2 * 8;
-            temp_a1_2 = temp_v0_2 * 0xE8;
-            temp_v1_4 = __repair_inline(*(u16 *)(D_800C46A0 + temp_a1_2));
+            temp_ft0 = (s8)((*(s8 *)((char *)(temp_a2) + 0xE)));
+            temp_a3 = temp_ft0 * 8;
+            var_a1 = temp_ft0 * 0xE8;
+            temp_v1_4 = __repair_inline(*(u16 *)(D_800C46A0 + var_a1));
             if (temp_v1_4) {
-                (*(s8 *)((char *)(temp_a2) + 0xE)) = (s8) (temp_v0_2 + temp_v1_4);
+                (*(s8 *)((char *)(temp_a2) + 0xE)) = (s8) (temp_ft0 + temp_v1_4);
                 temp_v1_5 = (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE));
                 var_a0 = 0;
                 if (!(*(u16 *)(D_800C469C + (temp_v1_5 * 0xE8)) & 0x8000)) {
@@ -232,7 +231,7 @@ f32 __repair_var_fs0_1;
                     func_8000A894(0x11D);
                 }
             } else {
-                temp_a1_4 = temp_a1_2 + D_800C469C;
+                temp_a1_4 = var_a1 + D_800C469C;
                 temp_v1_7 = temp_s1 + temp_a3;
                 if ((*(u8 *)((char *)(temp_a1_4) + 0x2A)) != 1) {
                     (*(u8 *)((char *)(temp_v1_7) + 0x1FD)) += 1;

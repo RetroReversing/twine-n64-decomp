@@ -8,7 +8,7 @@ extern Slot_800C3928 D_800C3928[];
 extern s16 D_800D94F8;
 extern s16 D_800D94FA;
 extern char D_800D9500[];
-extern u8 D_800D9510[];
+extern u16 D_800D9510[];
 extern char D_F8D70[];
 
 void *func_80001928(s32 arg0) {
@@ -30,7 +30,7 @@ int __repair_constant = 7;
     __repair_loop_constant = D_800D9500;
 var_s4 = D_800D94FA;
     temp_a3 = var_s4;
-    __base_D_800D9510 = D_800D9510;
+    __base_D_800D9510 = (s8 *)D_800D9510;
     var_a0 = (void *)((var_s4 * 0x640)); var_a0 = (void *)((char *)var_a0 + (s32)(__base_D_800D9510));
     var_v1 = (var_s4 * 2) + D_800D9500;
 loop_1:
@@ -39,26 +39,28 @@ loop_1:
         return var_a0;
     }
     {
+        var_a0 -= 0x640;
         var_s4--;
         var_v1 -= 2;
-        var_a0 -= 0x640;
         if (0 > var_s4) {
             var_a0 = __base_D_800D9510 + 0x2BC0;
             var_v1 = __repair_loop_constant + 0xE;
             var_s4 = 7;
         }
-        temp_s1 = arg0 * 8;
         if (var_s4 == temp_a3) {
-            var_s4 = D_800D94F8 - 1;
-            if (var_s4 < 0) {
-                var_s4 = __repair_constant;
+            s32 indexBytes;
+            var_s4 = D_800D94F8;
+            temp_s1 = D_800C3928[arg0].f0;
+            if (--var_s4 < 0) {
+                var_s4 = 7;
             }
-            temp_s0 = var_s4 * 0x640;
-            temp_s2 = temp_s0 + D_800D9510;
-            temp_s1 = D_800C3928[arg0].f0 << 5;
+            indexBytes = var_s4 * 2;
+            temp_s0 = (((indexBytes + var_s4) * 8) + var_s4) * 64;
+            temp_s2 = (u8 *)D_800D9510 + temp_s0;
+            temp_v0 = D_800C3924[arg0].f0;
             D_800D94F8 = var_s4;
-            func_8000B900(temp_s2, D_800C3924[arg0].f0 + D_F8D70, temp_s1);
-            *(s16 *)(D_800D9510 + (temp_s1 + temp_s0)) = -1;
+            func_8000B900(temp_s2, temp_v0 + D_F8D70, temp_s1 * 32);
+            *(s16 *)((temp_s1 * 32 + temp_s0) + (u8 *)D_800D9510) = -1;
             *(s16 *)(D_800D9500 + (var_s4 * 2)) = arg0;
             D_800D94FA = var_s4;
             return temp_s2;
@@ -66,5 +68,6 @@ loop_1:
         goto loop_1;
     }
 }
+
 
 

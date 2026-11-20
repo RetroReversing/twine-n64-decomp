@@ -5,7 +5,7 @@ s32 func_80081D50(s32 *, s32, u16, void *); /* extern */
 s32 func_800828D8(s16);                             /* extern */
 s32 func_800828EC(s32);                             /* extern */
                             /* extern */
-s32 func_80087B04();                            /* extern */
+s32 updateDemoPlayback();                            /* extern */
 s32 memset(s32 *, s32, s32);        /* extern */
 extern s32 D_800C9D70;
 extern s32 D_800C9DF8;
@@ -97,7 +97,7 @@ void func_800821B4(void) {
         func_80087A80();
     }
     if (D_800CEEB0 == 2) {
-        func_80087B04();
+        updateDemoPlayback();
     }
     var_s2 = &D_8010D436;
     var_s4 = 0;

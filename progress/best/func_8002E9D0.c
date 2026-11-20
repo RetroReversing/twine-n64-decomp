@@ -1,47 +1,27 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O1, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-s32 func_80045CC4();                                /* extern */
-
-void func_8002E9D0(void *arg0, s32 arg1) {
-    s32 temp_v0;
-    s32 temp_v1;
-    s32 var_a1;
-    s32 var_s1;
-    s32 var_v0;
-    u32 temp_hi;
-    void *temp_s0;
-
-    M2C_FIELD(arg0, s8 *, 0) = 0x30;
-    M2C_FIELD(arg0, s8 *, 1) = 0x30;
-    M2C_FIELD(arg0, s8 *, 2) = 0x30;
-    var_s1 = func_80045CC4() & 1;
-    var_a1 = var_s1 & 0xFFFF;
-    temp_v1 = (arg1 & 0xFFFF) - 3;
-    var_v0 = arg1 & 0xFFFF;
-    if (var_a1 < temp_v1) {
+extern u32 func_80045CC4(void);
+void func_8002E9D0(u8 *buffer, u32 length)
+{
+    u32 index;
+    u32 offset;
+    s32 limit;
+    buffer[0] = '0';
+    buffer[1] = '0';
+    buffer[2] = '0';
+    index = func_80045CC4() & 1;
+    offset = (u16)index;
+    if ((s32)offset < (s32)(u16)length - 3) {
+        limit = (s32)(u16)length - 3;
         do {
-            temp_s0 = arg0 + var_a1;
-            temp_v0 = func_80045CC4();
-            temp_hi = (u32) temp_v0 % 255;
-            var_s1 += 3;
-            var_a1 = var_s1 & 0xFFFF;
-            M2C_FIELD(temp_s0, s8 *, 1) = 0x30;
-            M2C_FIELD(temp_s0, s8 *, 2) = 0x30;
-            M2C_FIELD(temp_s0, s8 *, 0) = (s8) ((-(temp_hi >= 0x80U) & 0x37) | 0x32);
-            var_v0 = arg1 & 0xFFFF;
-        } while (var_a1 < temp_v1);
+            u8 *entry = buffer + offset;
+            u32 random = func_80045CC4();
+            u32 remainder = random % 255U;
+            s32 flag = (remainder < 128U) ^ 1;
+            index += 3;
+            offset = (u16)index;
+            entry[1] = '0';
+            entry[2] = '0';
+            entry[0] = ((-flag) & 0x37) | 0x32;
+        } while ((s32)offset < limit);
     }
-    M2C_FIELD((var_v0 + arg0), s8 *, -1) = 0;
+    buffer[(u16)length - 1] = 0;
 }

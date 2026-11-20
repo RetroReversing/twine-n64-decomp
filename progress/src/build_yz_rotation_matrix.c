@@ -45,7 +45,7 @@ f64 func_800AB330(f64 x) {
 }
 
 extern char D_A00FFFFC[], D_A0400000[];
-u32 func_800A67B0(void) {
+u32 osGetMemSize(void) {
     u32 off = 0x400000;
     u32 upper = 0;
     do {

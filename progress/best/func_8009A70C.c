@@ -3,7 +3,7 @@ extern u8 *func_8009846C(u16);
 s32 func_8009A70C(LevelState *state, u8 *settings) {
     u32 sum, level, index;
     s32 base, scale, delta;
-    u16 curve;
+    s16 curve;
     u8 *samples;
     if (settings[6] == 0) {
         scale = settings[2];
@@ -16,9 +16,17 @@ s32 func_8009A70C(LevelState *state, u8 *settings) {
     sum = state->level + ((u32)settings[1] << 16);
     state->level = sum;
     if (sum > 0x7f0000) state->level = 0x7f0000;
-    curve = (settings[7] << 8) | settings[0];
-    level = state->level;
-    if (curve != 0) {
+    {
+        u32 high = settings[7];
+        u32 low = settings[0];
+        level = state->level;
+        curve = low | (high << 8);
+    }
+    if (curve == 0) {
+        state->level = level;
+        return 0;
+    }
+    {
         s32 frac;
         samples = func_8009846C(curve);
         index = level >> 16;

@@ -15,7 +15,7 @@ extern u32 D_8011F040[];
 s32 func_80015F74(void *);
 void func_8011C4D8(void);
 void func_8011C958(void);
-void func_8011C7B4(void);
+void create_player_state_objects(void);
 void func_8011CC3C(void);
 void func_8011C430(void);
 void func_8011D3C0(void);
@@ -47,7 +47,7 @@ after:
     switch(D_801002A0) {
       case 8: for(i=0;i<3;i++) D_8011F3C4[i]=func_80015F74(D_8011ED54+i*36); func_8011C4D8(); break;
       case 6: func_8011C958(); break;
-      case 4: case 5: func_8011C7B4(); break;
+      case 4: case 5: create_player_state_objects(); break;
       case 2: case 3: func_8011CC3C(); break;
       case 7: break;
     }

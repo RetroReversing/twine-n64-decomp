@@ -39,7 +39,7 @@ s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern u32 D_800B1D84;
 extern u16 D_800B35B0;
 extern f32 D_800C0740;
-extern s32 D_800C43A0;
+extern s8 D_800C43A0;
 extern s32 D_800E1710;
 extern s32 D_800E1714;
 extern s32 D_801007B8;
@@ -206,7 +206,7 @@ loop_15:
                     goto loop_15;
                 }
                 var_a1 += 1;
-                var_s0 += 0x10;
+                var_s0 += 1;
             } while (var_a1 < 4U);
             guMtxF2L(&D_80109BB8, D_80117728 + ((arg1 << 6) + 0x180));
             func_80014E30(arg0);

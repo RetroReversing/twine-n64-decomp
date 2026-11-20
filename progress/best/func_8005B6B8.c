@@ -25,9 +25,15 @@ void func_8005B6B8(void *arg0, u16 arg1) {
 
     temp_v0 = func_80016410(0x34, arg0 + 0x24, arg0 + 0x3C);
     if (temp_v0 != NULL) {
+        f32 height;
+        f32 offsetHeight;
+        f32 one;
         temp_v0_2 = M2C_FIELD(temp_v0, void **, 0x6C);
+        height = M2C_FIELD(temp_v0, f32 *, 0x28);
+        one = 1.0f;
         M2C_FIELD(temp_v0, s16 *, 0x78) = 0x24;
         M2C_FIELD(temp_v0_2, s16 *, 0x26) = 1;
+        offsetHeight = height - one;
         M2C_FIELD(temp_v0_2, s16 *, 0x28) = arg1;
         M2C_FIELD(temp_v0_2, s16 *, 0x2A) = 0;
         M2C_FIELD(temp_v0_2, s32 *, 0xC) = 0;
@@ -37,7 +43,7 @@ void func_8005B6B8(void *arg0, u16 arg1) {
         M2C_FIELD(temp_v0_2, s16 *, 0x30) = 5;
         M2C_FIELD(temp_v0_2, s8 *, 0x2D) = 0;
         M2C_FIELD(temp_v0_2, s8 *, 0x2F) = 0;
-        M2C_FIELD(temp_v0_2, f32 *, 0x1C) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) - 1.0f);
+        M2C_FIELD(temp_v0_2, f32 *, 0x1C) = offsetHeight;
         temp_v0_3 = arg1 * 0x10;
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
         func_80044670(temp_v0, *((s16 *)((s8 *)&D_800C4478 + temp_v0_3)), *((s16 *)((s8 *)&D_800C447A + temp_v0_3)));
