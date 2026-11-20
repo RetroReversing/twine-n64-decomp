@@ -119,7 +119,7 @@ s32 func_8000D000(void) {
     } while (0x38 > var_a2);
     D_800E0748 = 0;
     D_800E074C = 0;
-    func_8000CD8C(var_a0_2, 1, var_a2, -1);
+    func_8000CD8C(var_a0_2);
     D_800CA338 = 1;
     if (temp_s1 == 0) {
         func_80044D84(D_800E0740);

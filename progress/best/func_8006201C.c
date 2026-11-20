@@ -10,7 +10,7 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
     void *temp_v0;
     register void *temp_a3;
 
-    temp_v0 = func_80016410(0x30, arg0, 0, arg3);
+    temp_v0 = func_80016410(0x30, arg0, 0);
     if (temp_v0 != NULL) {
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x5B;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;

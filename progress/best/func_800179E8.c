@@ -1,5 +1,17 @@
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-s32 func_8001792C(void *, s32, s32, s32);
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+s32 func_8001792C();
 extern u16 D_800B35B0;
 
 void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
@@ -48,8 +60,9 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                 temp_s1 = M2C_FIELD(var_s0, void **, 8);
                 temp_t0 = M2C_FIELD(temp_s1, void **, 0x20);
                 if (M2C_FIELD(temp_t0, u16 *, 0x60) != D_800B35B0) {
-                    M2C_FIELD(temp_t0, u16 *, 0x60) = (u16) D_800B35B0;
-                    func_8001792C(temp_s1, 2, var_s4 | 0x2000, sp214);
+                    M2C_FIELD(temp_t0, u16 *, 0x60) = (u16) D_800B35B0;/*__repair_call_balance*/if(var_s6){
+                    func_8001792C(temp_s1, 2, var_s4 | 0x2000, sp214);}else{
+                    func_8001792C(temp_s1, 2, var_s4 | 0x2000, sp214);}
                     *var_s2 = temp_s1;
                     var_s2 += 1;
                     var_s6 += 1;
@@ -74,7 +87,7 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                         temp_t0_2 = M2C_FIELD(temp_s1_2, void **, 0x20);
                         if (M2C_FIELD(temp_t0_2, u16 *, 0x60) != D_800B35B0) {
                             M2C_FIELD(temp_t0_2, u16 *, 0x60) = (u16) D_800B35B0;
-                            func_8001792C(temp_s1_2, 2, var_s4 | 0x4000, sp214);
+                            func_8001792C(temp_s1_2, 2, var_s4 | 0x4000);
                             *var_s2_2 = temp_s1_2;
                             var_s2_2 += 1;
                             var_s6 += 1;
@@ -100,7 +113,7 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                         temp_a0 = M2C_FIELD(temp_s1_3, void **, 0x20);
                         if (M2C_FIELD(temp_a0, u16 *, 0x60) != D_800B35B0) {
                             M2C_FIELD(temp_a0, u16 *, 0x60) = (u16) D_800B35B0;
-                            func_8001792C(temp_s1_3, 2, var_s4 | 0x8000, sp214);
+                            func_8001792C(temp_s1_3, 2, var_s4 | 0x8000);
                         }
                         var_s0_3 = M2C_FIELD(var_s0_3, void **, 0);
                     } while (var_s0_3 != NULL);

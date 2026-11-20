@@ -191,14 +191,14 @@ do {
                             spA58[0] = M2C_FIELD(temp_s3, u16 *, 0x94) - M2C_FIELD(temp_s3, u16 *, 0x96);
                             __repair_result_spA5C = M2C_FIELD(temp_s3, u16 *, 0x98) - M2C_FIELD(temp_s3, u16 *, 0x9A);
                             func_80083410(spA58, sp90);
-                            goto block_30;
-                        }
-                        if (var_s4 == 7) {
-                            spA58[1] = -(s16) M2C_FIELD(temp_s3, u16 *, 0x96);
-                            spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x9A);
-                            build_yz_rotation_matrix(spA58, sp90);
-block_30:
                             func_80083560(sp90, temp_s1);
+                        } else {
+                            if (var_s4 == 7) {
+                                spA58[1] = -(s16) M2C_FIELD(temp_s3, u16 *, 0x96);
+                                spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x9A);
+                                build_yz_rotation_matrix(spA58, sp90);
+                                func_80083560(sp90, temp_s1);
+                            }
                         }
                     }
                     if ((var_fp != NULL) && (D_80102ED8 != 0)) {
@@ -222,7 +222,8 @@ block_30:
 block_42:
                                     spA58[2] = var_v0_2;
                                 }
-                                goto block_49;
+                                build_yz_rotation_matrix(spA58, sp90);
+                                func_80083560(sp90, temp_s1);
                             }
                         } else if (((var_s4 == 0xB) | (var_s4 == 8)) != 0) {
                             temp_v0_3 = M2C_FIELD(var_fp, s16 *, 0x17C);
@@ -234,7 +235,6 @@ block_42:
                                 }
                                 spA58[1] = 0;
                                 spA58[2] = (u16) M2C_FIELD(var_fp, s16 *, 0x17C);
-block_49:
                                 build_yz_rotation_matrix(spA58, sp90);
                                 func_80083560(sp90, temp_s1);
                             }
@@ -268,13 +268,15 @@ block_49:
                         M2C_FIELD(temp_s1, f32 *, 0x28) += M2C_FIELD(temp_s0, f32 *, 0x28);
                         M2C_FIELD(temp_s1, f32 *, 0x2C) += M2C_FIELD(temp_s0, f32 *, 0x2C);
                         func_80083560(temp_s0, temp_s1);
-                        if ((spA84 != 0) && (var_s4 == 0xE)) {
-                            sp30[0] = 0.0f;
-                            sp30[2] = 0;
-                            sp30[1] = 1.0f;
-                            func_800839F0(temp_s1, sp30, sp40);
-                            M2C_FIELD(temp_s3, s16 *, 0x78) = (s16) (s32) (func_80082A70(sp40[0], sp40[2]) * 651.8986f);
-                            M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (func_80082A70(sp40[0], approximate_hypot2(sp40[0], sp40[2])) * 651.8986f);
+                        if ((spA84 != 0)) {
+                            if ((var_s4 == 0xE)) {
+                                sp30[0] = 0.0f;
+                                sp30[2] = 0;
+                                sp30[1] = 1.0f;
+                                func_800839F0(temp_s1, sp30, sp40);
+                                M2C_FIELD(temp_s3, s16 *, 0x78) = (s16) (s32) (func_80082A70(sp40[0], sp40[2]) * 651.8986f);
+                                M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (func_80082A70(sp40[0], approximate_hypot2(sp40[0], sp40[2])) * 651.8986f);
+                            }
                         }
                     }
                     sp10[0] = M2C_FIELD(temp_s1, f32 *, 0x24) + M2C_FIELD(arg0, f32 *, 0x24);
@@ -305,8 +307,8 @@ block_49:
                         sp50[2] = M2C_FIELD(temp_s1, f32 *, 0x18) * 0.015625f;
                         sp50[6] = M2C_FIELD(temp_s1, f32 *, 0x1C) * 0.015625f;
                         temp_v0_5 = D_80107EA0 + 1;
-                        D_80107EA0 = temp_v0_5;
                         temp_s1_2 = M2C_FIELD(D_80117728, s32 *, 0x74C) + (temp_v0_5 << 6);
+                        D_80107EA0 = temp_v0_5;
                         sp50[12] = sp10[0] * 64.0f;
                         sp50[13] = sp10[1] * 64.0f;
                         sp50[14] = sp10[2] * 64.0f;

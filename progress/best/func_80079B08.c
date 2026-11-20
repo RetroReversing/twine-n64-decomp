@@ -17,6 +17,8 @@ s32 func_800515D0(void *, s32, void *, s32 *, M2C_UNK *, f32, f32, f32, s32, s32
 typedef struct { unsigned char pad_0[36]; int field_24; float field_28; int field_2C; unsigned char pad_30[56]; void * field_68; } __repair_record_arg1;
 struct vec3 { s32 x, y, z; };
 s32 func_80079B08(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
+char *__repair_addr;
+
     s32 sp30[3];
     char sp40[0x10];
     s32 sp50;
@@ -30,12 +32,14 @@ s32 func_80079B08(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
     *arg2 = 0;
     *arg3 = 0;
     temp_v1 = ((__repair_record_arg1*)arg1)->field_68;
-    temp_ft1 = ((__repair_record_arg1*)arg1)->field_28;
     temp_a0 = M2C_FIELD(temp_v1, void **, 0);
-    M2C_FIELD(temp_v1, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1, u16 *, 0xC) & 0xFFCF);
-    if ((func_800515D0(arg1, arg0, arg1 + 0x30, sp30, sp40, 0.55f, temp_ft1 - ((M2C_FIELD(temp_a0, f32 *, 0x1C) + M2C_FIELD(temp_a0, f32 *, 0x40)) * 0.5f), M2C_FIELD(M2C_FIELD(temp_v1, void **, 4), f32 *, 0xAC) - temp_ft1, arg4, arg2, &sp50, arg3) << 0x18) != 0) {
+    M2C_FIELD(temp_v1, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1, const u16 *, 0xC) & 0xFFCF);
+    temp_ft1 = ((__repair_record_arg1*)arg1)->field_28;
+__repair_addr = (char *)(M2C_FIELD(temp_v1, void **, 4));
+
+    if ((func_800515D0(arg1, arg0, arg1 + 0x30, sp30, sp40, 0.55f, temp_ft1 - ((M2C_FIELD(temp_a0, const f32 *, 0x1C) + M2C_FIELD(temp_a0, const f32 *, 0x40)) * 0.5f), M2C_FIELD(__repair_addr, const f32 *, 0xAC) - temp_ft1, arg4, arg2, &sp50, arg3) << 0x18) != 0) {
         temp_v1_2 = ((__repair_record_arg1*)arg1)->field_68;
-        M2C_FIELD(temp_v1_2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_2, u16 *, 0xC) | 0x10);
+        M2C_FIELD(temp_v1_2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_2, const u16 *, 0xC) | 0x10);
         ((__repair_record_arg1*)arg1)->field_24 = sp30[0];
         ((__repair_record_arg1*)arg1)->field_28 = sp30[1];
         ((__repair_record_arg1*)arg1)->field_2C = sp30[2];
