@@ -4208,14 +4208,6 @@
   "score_after": 210
  },
  {
-  "function": "func_800A92C0",
-  "text": "Best 505 uses separate volatile stores to 0xA404000C/08; target selects address before shared store, but constant-pointer selection produced branchless arithmetic. Target first MMIO store is D_A4040000 and second is 0xA4040004. Remaining branch shape and s2/s3 allocation differ. Tested pointer selection, goto, separate stores, and early length calculation.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795137435.141769,
-  "score_before": 767,
-  "score_after": 505
- },
- {
   "function": "func_8003C7E8",
   "text": "Current best 430/30 instructions; m2c-shaped source rechecked. Three trials: first source scores 430, reordered mask statements scores 555, volatile chained-mask variant scores 1305; move-on threshold reached. The masks are at +0x58 (0xFFFF0003) and +0x5C (0x7FFFFF then 0xFF81FFFF). GCC combines adjacent nonvolatile AND masks to 0x0001FFFF, unlike target's two separate AND instructions; volatile access caused reload/store noise and worse code. Remaining target sequence loads both fields, constructs all three constants, then masks and stores. Try modeling named struct members/volatile source with separate intermediate temporaries or preserve independent mask operations while minimizing forced memory traffic.",
   "by": "codex-gpt-6-luna-7",
@@ -9872,14 +9864,6 @@
   "score_after": 225
  },
  {
-  "function": "func_800A92C0",
-  "text": "Verified saved best 455. Tried selecting the final hardware register pointer before one common store, including goto and initialized pointer variants; GCC folds selection into arithmetic and scores 790\u2013940. Target branches to select address and uses one shared store; further control-flow or compiler exploration needed.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795176865.564477,
-  "score_before": 455,
-  "score_after": 455
- },
- {
   "function": "func_80097A40",
   "text": "Rechecked and retained best score 740. Tried original m2c loop candidate, volatile u16 key (score 1866), then signed s32 key and an early-return sentinel variant; latter returned to identical 740 instruction output. Main unresolved target difference begins after lhu key: target emits ori -1, andi key, beq masked key; compiler omits redundant andi from direct u16 load. Remaining diffs include branch distances and call argument/stack ordering. Likely need alternate source representation that forces 16-bit truncation in a distinct register without volatile spill.",
   "by": "codex-gpt-6-luna-9",
@@ -13072,14 +13056,6 @@
   "score_after": 565
  },
  {
-  "function": "func_800A92C0",
-  "text": "Current baseline rechecked at 455. Tried guard inversion; no change. Remaining mismatch begins in prologue save allocation: target saves a0 in s2 at sp+0x18 while candidate uses s3 at sp+0x1c; remaining differences likely register allocation/liveness and call setup. Continue from revision 382401e1425868dd2588.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795182082.439142,
-  "score_before": 455,
-  "score_after": 455
- },
- {
   "function": "func_8009CDA4",
   "text": "Rechecked saved best score 628 and compiled it. One condition rewrite `func_8008C1DC() != 0` worsened to 728; restoring the original `& 0xFF` condition returned to 628. Remaining main differences: target frame is 0x28 vs candidate 0x20 (all saved-register offsets shifted by 8), target uses branch-likely `bnel` after the helper, and target loop uses `blez` with initialization in delay slot. Focus on inducing the target outgoing-call frame and branch-likely shape while preserving the helper result byte mask.",
   "by": "codex-gpt-6-luna-18",
@@ -15504,14 +15480,6 @@
   "score_after": 1596
  },
  {
-  "function": "func_800A92C0",
-  "text": "Best 455 rechecked. Separate volatile stores score 455; reversed arms 475; selection of a constant pointer before shared store introduces mask synthesis (940/990). Target shares the high-half address and final store via branches. Also needs direction in s2, length in s3, and the first MMIO high-half before the argument move to osVirtualToPhysical.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795183363.200999,
-  "score_before": 455,
-  "score_after": 455
- },
- {
   "function": "func_80082BD0",
   "text": "Preserved 1110 baseline. Source interleaving with += makes KMC fold much more of the &D_80102E74 indexing into absolute loads and worsens to 2660. Target retains returned pointer as base for -0xC and 0x1C\u20130x38, while loading 0xE6C/0xE70 and the first four coefficients plus 0xEA4 as separate symbols. Explore an explicitly sized array/object covering the pointer-based fields and an address escape via natural aliasing before FP schedule tuning.",
   "by": "codex-gpt-6.2-sol-4",
@@ -17280,14 +17248,6 @@
   "score_after": 3150
  },
  {
-  "function": "func_800A92C0",
-  "text": "Best 455 retained. Selecting common length register with ternary, if/else or explicit goto gives branchless address selection under current GCC; target actually branches, shares the A404 high half and issues one write after the join. Named first MMIO register uses at, whereas literal address retains v0 and schedules store in the call delay slot. Try changing only the branch register selection with explicit 8/12 low offsets or compare compiler profiles.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184415.025364,
-  "score_before": 455,
-  "score_after": 455
- },
- {
   "function": "func_800223E4",
   "text": "Best 75 rechecked, including corrected variadic prototype. Target moves return from func_80087100 into a2 before reloading D_80109BB0 through v0; current scheduler loads pointer through v1 and moves a2 later. Volatile pointer and volatile field variants tied; O1 and -fno-schedule-insns2 both worse. Next try altering the lookup-result lifetime around a genuinely typed object pointer and inspecting matched callers for its true return signature.",
   "by": "codex-gpt-6.2-sol-4",
@@ -18582,14 +18542,6 @@
   "created_at": 1795185151.93076,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_800A92C0",
-  "text": "Best 440 (f9f222edf4c8ff8e393f). Three-case switch with explicit duplicate nonzero arm recovers a branch and exact 35-instruction size. Its bnez delay slot has ori 8 with the common lui before it, and fallthrough has ori 0xc. Target has common lui in bnez delay slot, j with ori 0xc, and target arm ori 8. Two-case switch/goto folds to branchless masks; default-first and normalized switch worsen. Literal first MMIO address matches register/scheduling, named extern caused at and moved a0 setup. Next isolate delay-slot behavior with alternate control-flow/assembler profiles while retaining switch shape.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795185152.326001,
-  "score_before": 455,
-  "score_after": 440
  },
  {
   "function": "func_80018E38",
@@ -20528,14 +20480,6 @@
   "score_after": 280
  },
  {
-  "function": "func_800A92C0",
-  "text": "Best 440 rev 28e918ae6e8c1a38004e, 35/35 instructions. Merging the duplicate switch arm scored 940 (branchless), using -1 duplicate arm scored 1015, a shared MMIO base pointer scored 1312 (s4 spill and different DRAM store). Keep independent literals for initial stores. Target length-register selector has `bnez s2` with high-half lui in delay slot, `j` with ori 0xc in delay slot and taken arm `ori 8`, then one shared store. Best instead materializes part of the base earlier. Test a different branch layout while retaining both constants and a single size write. First store's symbolic %lo vs literal zero is a rendering difference to verify by raw bytes.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795186806.750785,
-  "score_before": 252,
-  "score_after": 252
- },
- {
   "function": "func_8009846C",
   "text": "Current rechecked baseline score 35. Submitted the saved candidate; score remains 35 with only register allocation differences. Target assigns D_800F38BC to v0 and func_800986DC to v1; candidate has those reversed. Attempted local repair search (symbol address staging, declaration order, signedness, initializer placement, narrow widening, assignment at use); the first variant failed to compile from declaration-order placement, no source patch retained. Next try stage the callback address before the volatile global store, or reorder declaration/lifetime to swap v0/v1 allocation.",
   "by": "codex-gpt-6-luna-19",
@@ -21622,14 +21566,6 @@
   "created_at": 1795188617.988728,
   "score_before": 500,
   "score_after": 500
- },
- {
-  "function": "func_800A92C0",
-  "text": "Supplied draft scored 440 (35 target/35 candidate instructions). It writes MMIO through integer constant pointers, producing raw 0xA404 immediates; target uses `%hi/%lo(D_A4040000)` relocation and emits the store at the symbol offset. The switch also differs: target uses a branch plus jump layout, while candidate materializes both 0xA4040008 and 0xA404000C addresses. Tried a no-op patch (no score/diff change). Next try symbolic MMIO globals for the register block and restructure the switch to use the target's shared default path. Current best remains the historical 440 candidate.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795188619.3333929,
-  "score_before": 252,
-  "score_after": 252
  },
  {
   "function": "func_80082908",
@@ -22824,14 +22760,6 @@
   "score_after": 350
  },
  {
-  "function": "func_800A92C0",
-  "text": "Saved 440 (35 instructions) still closest rechecked. Literal first MMIO address retains v0 and call delay-slot store; symbol extern uses at and changes argument setup. Shared low-offset switch scores 645 with non-likely bnez but uses addiu 8/0xc and a final OR. Duplicated case with extra selector scores 499; merging branch arms or goto folds to mask synthesis at 940+. Remaining target pattern is bnez with common lui in delay slot, j with ori 0xc in delay slot, taken ori 8, and shared size write. Move-on reached.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795190029.693354,
-  "score_before": 252,
-  "score_after": 252
- },
- {
   "function": "func_80098710",
   "text": "Best score 130 (94.3%, target 23 vs candidate 22 instructions); remaining differences are two branch offsets and one missing move: target computes D_800FD974 in v0 then moves to a1, candidate loads it directly to a1. Tried adding an intermediate register pointer; optimizer removed the move and score remained 130. Candidate constructs/links the 0x200-byte pointer chain and initializes associated globals. Preserve the saved O1 candidate; try changing the address pointer's type/alias or use of the base to retain the move.",
   "by": "codex-gpt-6-luna-10",
@@ -23640,14 +23568,6 @@
   "score_after": 75
  },
  {
-  "function": "func_800A92C0",
-  "text": "Starting rechecked score 440. switch_layout variant moves case 0 after case 1, improving to 252 and preserved as best. Other tested unsigned_switch and case-order variants scored 440 or 452; a test adding two-word unused array retained 252. Best candidate has correct switch dispatch improvement but frame is 0x40 vs target 0x28, with saved register stores shifted. Inspect full diff for other target-only operation (brief flags one non-NOP missing) and try frame/local-lifetime tuning. Target compile profile includes -fno-schedule-insns.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795191029.370548,
-  "score_before": 252,
-  "score_after": 252
- },
- {
   "function": "func_8009A70C",
   "text": "Verified baseline 535. Target first mismatch is andi a0,v1,0xffff followed by branch-likely with level store in delay slot; candidate branches directly and stores on separate path. Changing curve to u16 scored 540, unsigned frac and explicit casts scored 535. Investigate preserving narrowing at condition and shared return/store control flow without changing the fixed-point interpolation. Target byte loads and arithmetic corroborate current candidate.",
   "by": "codex-gpt-6.1-terra-2",
@@ -24134,14 +24054,6 @@
   "created_at": 1795191920.132822,
   "score_before": 515,
   "score_after": 190
- },
- {
-  "function": "func_800A92C0",
-  "text": "Saved 252, 35/35 instructions. Full baseline diff confirms frame 0x40 vs 0x28, and beqz vs bnez with the 8 and C OR arms reversed. Numeric 0xA4040000 uses the right v0 and jal delay slot; the disassembly-only relocation notation is not evidence of a byte mismatch. Named first store and explicit goto variants scored 830, explicit low-bit selection 790, Boolean-normalized switch 372. Look for a branch form that prevents if-conversion without triggering the switch frame overhead, such as a function-local compiler switch-expansion flag trial.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191920.791984,
-  "score_before": 252,
-  "score_after": 252
  },
  {
   "function": "func_8000CA3C",
@@ -24982,14 +24894,6 @@
   "created_at": 1795192963.1308851,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_800A92C0",
-  "text": "Best score 252/280 under this function's address-specific GCC -O2 -fno-schedule-insns profile. Target operation is a PI DMA setup: call busy check, write SP/physical DRAM addresses to A4040000/4, select A4040008 for any nonzero direction or A404000C for zero, then write size-1. Existing switch candidate matches semantics but uses a 0x40 frame instead of target 0x28 and has direction register/branch issues. Direct if stores worsened score to 455; symbol-based D_A4040000[] addressing worsened to 1357. Keep saved_best. Remaining investigation should focus on eliminating stack spills/extra frame and expressing direction selection to match the target's bnez/j/ori address construction.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795192984.219012,
-  "score_before": 252,
-  "score_after": 252
  },
  {
   "function": "func_80117AFC",
@@ -31606,5 +31510,101 @@
   "created_at": 1795192680.213461,
   "score_before": 110,
   "score_after": 110
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best 505 uses separate volatile stores to 0xA404000C/08; target selects address before shared store, but constant-pointer selection produced branchless arithmetic. Target first MMIO store is D_A4040000 and second is 0xA4040004. Remaining branch shape and s2/s3 allocation differ. Tested pointer selection, goto, separate stores, and early length calculation.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795137435.141769,
+  "score_before": 767,
+  "score_after": 505
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Verified saved best 455. Tried selecting the final hardware register pointer before one common store, including goto and initialized pointer variants; GCC folds selection into arithmetic and scores 790\u2013940. Target branches to select address and uses one shared store; further control-flow or compiler exploration needed.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795176865.564477,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Current baseline rechecked at 455. Tried guard inversion; no change. Remaining mismatch begins in prologue save allocation: target saves a0 in s2 at sp+0x18 while candidate uses s3 at sp+0x1c; remaining differences likely register allocation/liveness and call setup. Continue from revision 382401e1425868dd2588.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795182082.439142,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best 455 rechecked. Separate volatile stores score 455; reversed arms 475; selection of a constant pointer before shared store introduces mask synthesis (940/990). Target shares the high-half address and final store via branches. Also needs direction in s2, length in s3, and the first MMIO high-half before the argument move to osVirtualToPhysical.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795183363.200999,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best 455 retained. Selecting common length register with ternary, if/else or explicit goto gives branchless address selection under current GCC; target actually branches, shares the A404 high half and issues one write after the join. Named first MMIO register uses at, whereas literal address retains v0 and schedules store in the call delay slot. Try changing only the branch register selection with explicit 8/12 low offsets or compare compiler profiles.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184415.025364,
+  "score_before": 455,
+  "score_after": 455
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best 440 (f9f222edf4c8ff8e393f). Three-case switch with explicit duplicate nonzero arm recovers a branch and exact 35-instruction size. Its bnez delay slot has ori 8 with the common lui before it, and fallthrough has ori 0xc. Target has common lui in bnez delay slot, j with ori 0xc, and target arm ori 8. Two-case switch/goto folds to branchless masks; default-first and normalized switch worsen. Literal first MMIO address matches register/scheduling, named extern caused at and moved a0 setup. Next isolate delay-slot behavior with alternate control-flow/assembler profiles while retaining switch shape.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795185152.326001,
+  "score_before": 455,
+  "score_after": 440
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best 440 rev 28e918ae6e8c1a38004e, 35/35 instructions. Merging the duplicate switch arm scored 940 (branchless), using -1 duplicate arm scored 1015, a shared MMIO base pointer scored 1312 (s4 spill and different DRAM store). Keep independent literals for initial stores. Target length-register selector has `bnez s2` with high-half lui in delay slot, `j` with ori 0xc in delay slot and taken arm `ori 8`, then one shared store. Best instead materializes part of the base earlier. Test a different branch layout while retaining both constants and a single size write. First store's symbolic %lo vs literal zero is a rendering difference to verify by raw bytes.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795186806.750785,
+  "score_before": 252,
+  "score_after": 252
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Supplied draft scored 440 (35 target/35 candidate instructions). It writes MMIO through integer constant pointers, producing raw 0xA404 immediates; target uses `%hi/%lo(D_A4040000)` relocation and emits the store at the symbol offset. The switch also differs: target uses a branch plus jump layout, while candidate materializes both 0xA4040008 and 0xA404000C addresses. Tried a no-op patch (no score/diff change). Next try symbolic MMIO globals for the register block and restructure the switch to use the target's shared default path. Current best remains the historical 440 candidate.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795188619.3333929,
+  "score_before": 252,
+  "score_after": 252
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Saved 440 (35 instructions) still closest rechecked. Literal first MMIO address retains v0 and call delay-slot store; symbol extern uses at and changes argument setup. Shared low-offset switch scores 645 with non-likely bnez but uses addiu 8/0xc and a final OR. Duplicated case with extra selector scores 499; merging branch arms or goto folds to mask synthesis at 940+. Remaining target pattern is bnez with common lui in delay slot, j with ori 0xc in delay slot, taken ori 8, and shared size write. Move-on reached.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795190029.693354,
+  "score_before": 252,
+  "score_after": 252
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Starting rechecked score 440. switch_layout variant moves case 0 after case 1, improving to 252 and preserved as best. Other tested unsigned_switch and case-order variants scored 440 or 452; a test adding two-word unused array retained 252. Best candidate has correct switch dispatch improvement but frame is 0x40 vs target 0x28, with saved register stores shifted. Inspect full diff for other target-only operation (brief flags one non-NOP missing) and try frame/local-lifetime tuning. Target compile profile includes -fno-schedule-insns.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795191029.370548,
+  "score_before": 252,
+  "score_after": 252
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Saved 252, 35/35 instructions. Full baseline diff confirms frame 0x40 vs 0x28, and beqz vs bnez with the 8 and C OR arms reversed. Numeric 0xA4040000 uses the right v0 and jal delay slot; the disassembly-only relocation notation is not evidence of a byte mismatch. Named first store and explicit goto variants scored 830, explicit low-bit selection 790, Boolean-normalized switch 372. Look for a branch form that prevents if-conversion without triggering the switch frame overhead, such as a function-local compiler switch-expansion flag trial.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191920.791984,
+  "score_before": 252,
+  "score_after": 252
+ },
+ {
+  "function": "func_800A92C0",
+  "text": "Best score 252/280 under this function's address-specific GCC -O2 -fno-schedule-insns profile. Target operation is a PI DMA setup: call busy check, write SP/physical DRAM addresses to A4040000/4, select A4040008 for any nonzero direction or A404000C for zero, then write size-1. Existing switch candidate matches semantics but uses a 0x40 frame instead of target 0x28 and has direction register/branch issues. Direct if stores worsened score to 455; symbol-based D_A4040000[] addressing worsened to 1357. Keep saved_best. Remaining investigation should focus on eliminating stack spills/extra frame and expressing direction selection to match the target's bnez/j/ori address construction.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795192984.219012,
+  "score_before": 252,
+  "score_after": 252
  }
 ]
