@@ -89,3 +89,5 @@ typedef s32 (*TwineDisplayUpdateCallback)(u32, u32, u32, u32, void *);
 void mat3_mul(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]);
 
 void func_80085160(void *);
+
+s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
