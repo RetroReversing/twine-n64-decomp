@@ -14,7 +14,7 @@ s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
     u8 ch;
 
     if (func_8009835C(e->w0 >> 8, &D_800FDB80) != 0) {
-        return 0;
+        goto __shared_return_0;
     }
     switch (*(u8 *)e) {
     case 0:
@@ -37,11 +37,15 @@ s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
     ch = v->b63;
     if (!(v->f24 & 0x200)) {
         func_8008C1E4(ch, p - 2, 1);
-    } else {
+    
+v->f5C = D_800FDB80;
+} else {
         func_8008C1E4(ch, p - 2, 0);
-    }
-    v->f5C = D_800FDB80;
+    
+v->f5C = D_800FDB80;
+}
     v->f24 |= 0x20;
     v->f58 = D_800FDB84;
+    __shared_return_0:
     return 0;
 }
