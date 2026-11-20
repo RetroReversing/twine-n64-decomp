@@ -43,7 +43,7 @@ s32 func_80060C50(s32 arg0, void *arg1) {
         if ((func_80048F10(M2C_FIELD(temp_v0, s32 *, 0x20), temp_v0 + 0x24, &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, 150.0f, 0, 0, 0) << 0x18) != 0) {
             ((__repair_record_temp_s1*)temp_s1)->field_4 = m2c_initial_frame.view_sp24.value;
         }
-        if ((D_80103F00 != 0) && (((__repair_record_temp_s1*)temp_s1)->field_4 < m2c_initial_frame.view_sp34.value)) {
+        if ((D_80103F00 != 0) && (m2c_initial_frame.view_sp34.value > ((__repair_record_temp_s1*)temp_s1)->field_4)) {
             ((__repair_record_temp_s1*)temp_s1)->field_4 = m2c_initial_frame.view_sp34.value;
         }
         M2C_FIELD(temp_v0, s16 *, 0x78) = 0x4A;
