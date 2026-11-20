@@ -12,6 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { u8 pad[8]; void *x; u8 padC[0x1C]; } E26;
 extern void **D_80109BB0;
 
 void func_80026E9C(s32 arg0) {
@@ -24,7 +25,8 @@ void func_80026E9C(s32 arg0) {
     if (D_80109BB0 != NULL) {
         if (M2C_FIELD(D_80109BB0, void **, 0x10) != NULL) {
             for (i = 0; i < M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 *, 5); i++) {
-                temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s32 *, 0) + (i * 0x28)), void **, 8);
+                s32 off = i * 0x28;
+                temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 **, 0) + off), void **, 8);
                 if (temp_v1 != NULL) {
                     M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
                 }
