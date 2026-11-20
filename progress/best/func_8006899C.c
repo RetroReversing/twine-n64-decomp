@@ -35,8 +35,8 @@ void func_8006899C(void *arg0, u8 arg1) {
     s16 temp_v0_8;
     s16 temp_v0_9;
     s16 temp_v1_4;
-    s32 temp_a0;
     s32 temp_a0_2;
+    unsigned temp_a0;
     s32 temp_a0_3;
     s32 temp_a0_4;
     s32 temp_v0_6;
@@ -90,13 +90,22 @@ void func_8006899C(void *arg0, u8 arg1) {
                                     temp_a1 = (*(void **)((char *)(var_s1) + 0x6C));
                                     temp_v0_2 = (*(u8 *)((char *)(temp_a1) + 0x4A));
                                     var_a0 = 1;
-                                    switch ((u32)temp_v0_2) {
+                                    switch (temp_v0_2) {
                                     case 4:
+                                        var_a0 = 1 & -((*(u16 *)((char *)(temp_a1) + 0x34)) == 0);
+                                        break;
                                     case 5:
+                                        var_a0 = 1 & -((*(u16 *)((char *)(temp_a1) + 0x34)) == 0);
+                                        break;
                                     case 16:
+                                        var_a0 = 1 & -((*(u16 *)((char *)(temp_a1) + 0x34)) == 0);
+                                        break;
                                     case 17:
                                         var_a0 = 1 & -((*(u16 *)((char *)(temp_a1) + 0x34)) == 0);
                                         break;
+                                    case 18:
+                                    case 19:
+                                    case 20:
                                     default:
                                         var_a0 = 0;
                                         break;

@@ -43,7 +43,9 @@ char *__repair_addr;
 __repair_addr = (char *)((char *)(var_a1) + 0x22);
 
             default:
-                (*(u16 *)(__repair_addr)) = (u16) ((*(u16 *)((char *)(arg0) + 6)) + (func_80018318((*(void **)((char *)(temp_s0) + 0))) * 0xB));
+                { s32 n = func_80018318((*(void **)((char *)(temp_s0) + 0)));
+                void *dst = *(void **)((char *)temp_s0 + 4);
+                *(u16 *)((char *)dst + 0x22) = *(u16 *)((char *)arg0 + 6) + n * 0xB; }
                 var_a1 = (*(void **)((char *)(temp_s0) + 4));
                 {
                 var_v0 = (*(u16 *)((char *)(arg0) + 4));break;}
@@ -56,11 +58,12 @@ block_9:
             (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x20)) = var_v0;
             if (D_80102EDD != 0) {
                 var_v1 = (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) & ~0xFC;
-                var_v0_2 = -(((s32) temp_s2 & 0xFF) == 0) & 0x1C;
+                var_v0_2 = -(((s32) temp_s2 & 0xFF) == 0) & 7;
             } else {
                 var_v1 = (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) & ~0xFC;
-                var_v0_2 = ((-(((s32) temp_s2 & 0xFF) == 0) & 7) | 2) * 4;
+                var_v0_2 = ((-(((s32) temp_s2 & 0xFF) == 0) & 7) | 2);
             }
+            var_v0_2 <<= 2;
             (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) = (s32) (var_v1 | var_v0_2);
             __base_D_80109BB0 = &D_80109BB0;
             if ((*__base_D_80109BB0) != NULL) {

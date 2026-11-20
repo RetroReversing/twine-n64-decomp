@@ -9,8 +9,7 @@ void func_80095B08(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     temp_t0 = arg0 & 0xFF;
     if (temp_t0 < 0x40U) {
         if (arg2 != 0xFF) {
-            __base_D_800EE420 = D_800EE420;
-            var_v0 = (void *)(__base_D_800EE420); var_v0 = (void *)((char *)var_v0 + (s32)(arg2 * 0x860 + (arg1 & 0xFF) * 0x86));
+            var_v0 = (void *)(D_800EE420); var_v0 = (void *)((char *)var_v0 + (s32)(arg2 * 0x860 + (arg1 & 0xFF) * 0x86));
         } else {
             var_v0 = (void *)(D_800F2720); var_v0 = (void *)((char *)var_v0 + (s32)((arg1 & 0xFF) * 0x86));
         }

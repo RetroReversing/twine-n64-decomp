@@ -108,27 +108,29 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
         } while (actor != NULL);
         }
     }
-    if (best == NULL) return NULL;
-    {
-        u16 type;
-        D_80108788 = best;
-        *result = bestPoint;
-        if (update != 0) {
-            type = best->type;
-            if ((type == 1) | (type == 0x4C)) {
-                WORD(best->extra, 0x88) = (WORD(best->extra, 0x88) & 0xFFE1FFFF) |
-                    (((u8)D_800C42B0[bestPart][0] & 0xF) << 17);
-            }
-            type = best->type;
-            if (((type == 2) | (type == 0x4D)) || type == 3) {
-                void *extra = best->extra;
-                u32 flags = WORD(extra, 0x18C);
-                s32 id = D_800C42B0[bestPart][0];
-                WORD(extra, 4) = mask;
-                WORD(extra, 0x18C) = (flags & 0xFFFF0FFF) |
-                    ((id & 0xF) << 12);
+    if (best != NULL) {
+        {
+            u16 type;
+            D_80108788 = best;
+            *result = bestPoint;
+            if (update != 0) {
+                type = best->type;
+                if ((type == 1) | (type == 0x4C)) {
+                    WORD(best->extra, 0x88) = (WORD(best->extra, 0x88) & 0xFFE1FFFF) |
+                        (((u8)D_800C42B0[bestPart][0] & 0xF) << 17);
+                }
+                type = best->type;
+                if (((type == 2) | (type == 0x4D)) || type == 3) {
+                    void *extra = best->extra;
+                    u32 flags = WORD(extra, 0x18C);
+                    s32 id = D_800C42B0[bestPart][0];
+                    WORD(extra, 4) = mask;
+                    WORD(extra, 0x18C) = (flags & 0xFFFF0FFF) |
+                        ((id & 0xF) << 12);
+                }
             }
         }
+        return best;
     }
-    return best;
+    return NULL;
 }

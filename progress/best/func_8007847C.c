@@ -24,7 +24,7 @@ void *func_8007847C(void *arg0) {
     f32 sp14;
     s32 temp_s6;
     s32 var_s3;
-    
+    s32 var_v0_2;
     s32 var_v0_3;
     s32 var_v1_3;
     u16 temp_t0;
@@ -42,7 +42,7 @@ void *func_8007847C(void *arg0) {
     void *var_s4;
     void *var_v0;
     void *var_v1;
-    union { void * pointer; s32 value; } __repair_phase_storage;
+    void *var_v1_2;
 
     temp_s5 = M2C_FIELD(arg0, void **, 0x6C);
     sp10 = NULL;
@@ -67,12 +67,12 @@ void *func_8007847C(void *arg0) {
         return var_v0;
     }
     if (temp_v1 == 0x1F) {
-        __repair_phase_storage.pointer = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0);
-        if (__repair_phase_storage.pointer != NULL) {
+        var_v1_2 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0);
+        if (var_v1_2 != NULL) {
             for (;;) {
-                if ((M2C_FIELD(__repair_phase_storage.pointer, u16 *, 0x78) != 1) || (var_v0 = __repair_phase_storage.pointer, ((M2C_FIELD(M2C_FIELD(__repair_phase_storage.pointer, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x800000))) {
-                    __repair_phase_storage.pointer = M2C_FIELD(__repair_phase_storage.pointer, void **, 0);
-                    if (__repair_phase_storage.pointer == NULL) {
+                if ((M2C_FIELD(var_v1_2, u16 *, 0x78) != 1) || (var_v0 = var_v1_2, ((M2C_FIELD(M2C_FIELD(var_v1_2, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x800000))) {
+                    var_v1_2 = M2C_FIELD(var_v1_2, void **, 0);
+                    if (var_v1_2 == NULL) {
                         return NULL;
                     }
                     continue;
@@ -115,8 +115,8 @@ void *func_8007847C(void *arg0) {
                                     var_s3 = 1;
                                     M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x2000);
                                 }
-                                __repair_phase_storage.value = var_s2 != NULL;
-                                if (__repair_phase_storage.value & (var_s3 ^ 1)) {
+                                var_v0_2 = var_s2 != NULL;
+                                if (var_v0_2 & (var_s3 ^ 1)) {
                                     do {
                                         { {
                                                                     if (M2C_FIELD(var_s2, u16 *, 0x26) & 0x2000) {

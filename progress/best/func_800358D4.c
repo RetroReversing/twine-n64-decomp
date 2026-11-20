@@ -181,9 +181,9 @@ block_10:
                                 func_80032630((*(s32 *)((char *)(var_s3) + 0x3C)), temp_a1);
                                 if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 2) && (m2c_initial_frame.view_sp38.value = func_8004478C(1, 0x18A), m2c_initial_frame.view_sp3C.value = func_8004478C(2, 0x18A), m2c_initial_frame.view_sp40.value = func_8004478C(3, 0x18A), m2c_initial_frame.view_sp44.value = func_8004478C(4, 0x18A), m2c_initial_frame.view_sp48.value = func_8004478C(5, 0x18A), ((func_800158A4(arg0 + 0x10, temp_s1, (*(s32 *)((char *)(arg0) + 0xF4)), &m2c_initial_frame.view_sp50.value, 0, 0, 0, 1, 0) << 0x18) != 0)) && (temp_fv0_2 = func_80046140(m2c_initial_frame.view_sp28.value, m2c_initial_frame.view_sp2C.value), var_fs1 = temp_fv0_2, (temp_fv0_2 < 127.0f))) {
                                     temp_fv0_3 = 25.0f / m2c_initial_frame.view_sp30.value;
+                                    var_s4 = 0;
                                     var_s2 = &D_800C06C4;
                                     var_s1 = 0;
-                                    var_s4 = 0;
                                     m2c_initial_frame.view_sp60.value = 0.0f;
                                     m2c_initial_frame.view_sp64.value = 0.0f;
                                     m2c_initial_frame.view_sp68.value = 25.0f;

@@ -67,15 +67,15 @@ extern s32 func_80022C04;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_8001ADE8(void) {
-    s32 *temp_s0_3;
     long sp34;
+    s32 *temp_s0_3;
     
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     unsigned int temp_a0;
     s32 temp_a0_2;
 
     
-    s32 temp_v0;
+    register s32 temp_v0;
     register s32 temp_v0_4;
     register s32 temp_v1;
     unsigned long var_a0;
@@ -247,8 +247,8 @@ s32 __repair_phase_var_a0;
             (*(u8 *)((char *)(D_800B5B14) + 0x7F)) = 0xFF;
             (*(u8 *)((char *)(D_800B5B14) + 0x80)) = 0xFF;
             (*(f32 *)((char *)(D_800B5B14) + 0x24)) = 1.25f;
-            (*(u8 *)((char *)(D_800B5B14) + 0x81)) = 0xFF;
             (*(f32 *)((char *)(D_800B5B14) + 0x28)) = 0.15f;
+            (*(u8 *)((char *)(D_800B5B14) + 0x81)) = 0xFF;
             func_8003E6EC(*D_800CA31C, D_800B5B14, 1);
             (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
             func_8002B8AC();

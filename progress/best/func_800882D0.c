@@ -13,9 +13,10 @@ void func_800882D0(s32 arg0) {
   return;
  case 2:
   osRecvMesg(D_800E3F30, 0, 1);
+  do {} while (0);
   func_8009D9D8(D_800E1AC0 + off);
-  osSendMesg(D_800E3F30, 0);
-  D_800E2CC0[off] = 3;
-  D_800E2CD8[off] = 4;
+  osSendMesg((char *)&D_800E3F2C + 4, 0, 0);
+  D_800E2CC0[arg0 * 0x1228] = 3;
+  D_800E2CD8[arg0 * 0x1228] = 4;
  }
 }

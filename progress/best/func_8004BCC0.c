@@ -135,7 +135,7 @@ u32 __repair_phase_temp_v1;
                                 if (temp_s3 < (u16) (*(u16 *)((char *)(temp_s2) + 0x40))) {
                                     var_s0 = 0;
                                     var_s3 = var_s4 + 4;
-                                    __repair_rows: {
+                                    do {
                                         temp_v1 = var_s0 & 0xFFFF;
     temp_v1_2 = *(u16 *)(((temp_v1) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
                                         if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2)) {
@@ -149,8 +149,7 @@ u32 __repair_phase_temp_v1;
                                         var_s3 += 6;
                                         var_s4 += 6;
                                         var_s0 += 1;
-                                    }
-if ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s2) + 0x40))) goto __repair_rows;
+                                    } while ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s2) + 0x40)));
                                 }
                             } else {
                                 var_s0_2 = 0;

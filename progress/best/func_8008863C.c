@@ -24,12 +24,14 @@ typedef struct Obj {
 extern u8 D_800CEEC0;
 extern f64 D_800D66D0;
 extern u8 D_800E1AC0;
+extern volatile u8 D_800E2CC0[];
 extern s32 D_800E3F30;
 extern s32 D_800E3F2C;
 extern void (*D_80100180)(s32);
 extern s32 func_80088EE4;
 
 void func_8008863C(void) {
+    volatile u64 stack_pad[1];
     Obj *o;
     s32 i;
     f64 tmp;
@@ -40,9 +42,9 @@ void func_8008863C(void) {
         osRecvMesg(&D_800E3F30, 0, 1);
         for (i = 0; i < 2; i++) {
             o = (Obj *) ((u8 *) &D_800E1AC0 + i * 0x1228);
-            if (o->status != 0) {
+            if (D_800E2CC0[i] != 0) {
                 func_8009D5D4(o);
-                t = o->status & 0xFF;
+                t = D_800E2CC0[i];
                 if (t == 1) {
                     if ((s8) o->f11DD == 2) {
                         t = o->d4;
@@ -51,7 +53,7 @@ void func_8008863C(void) {
                             tmp += D_800D66D0;
                         }
                         o->dc = 0;
-                        o->status = 2;
+                        D_800E2CC0[i] = 2;
                         o->e0 = ((f32) o->f11A0 * 160.0f) / (f32) tmp;
                         func_8009D9B8(o);
                         ret = func_8009349C(o->c4, o->p10, o->d4, o->d4, o->c1, o->c2, o->c3, o->d9, (s32) &func_80088EE4, i);
@@ -66,7 +68,7 @@ void func_8008863C(void) {
                     }
                 } else if (t == 2) {
                     if ((s8) o->f11DD == 4) {
-                        o->status = 3;
+                        D_800E2CC0[i] = 3;
                         o->cmd = 4;
                     }
                 } else if (t == 3) {

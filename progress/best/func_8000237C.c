@@ -1,105 +1,88 @@
-#define FLD(p, t, o) (*(t *)((u8 *)(p) + (o)))
-
-s16 *func_80001928(s32);
-s32 func_80002098(s32 *, s32 *, s32, void *);
-s32 func_800060B0(void *, s32, s32);
-void *func_8002BC4C(s32);
-s32 func_8003FA78(s16);
-s32 func_8004478C(s32, s32);
-s32 func_80045CF8(s32);
-f32 func_80082908(s32, s32);
-void *func_80083E90(void *, s32, s32);
-s32 func_80084180(void *, s32, s16);
-void *memset(void *, s32, s32, s32);
-extern f32 D_800AE4D8;
-extern s16 *D_800AE4DC[];
-extern s16 D_800AE53C[];
-extern s16 D_800C3928[];
-extern s16 D_800C392A[];
-extern s16 D_800C3CF4[];
-extern s16 *D_800C3CF8[];
-extern s16 *D_800C3CFC[];
-extern u8 D_800CA338;
-extern s32 D_80109D18;
-
-s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    int sp10;
-    s32 sp14;
-    unsigned int sp1C;
-    unsigned int sp24;
-    s32 sp2C;
-    s32 temp_s1;
-    register s32 temp_s2;
-    s32 temp_s3;
-    s32 temp_s5;
-    s32 temp_s7;
-    unsigned int var_s2;
-    register s32 var_a1;
-    s32 var_s0;
-    s32 var_s1;
-    s16 temp_s5_2;
-    s16 *temp_s1_2;
-    void *base;
-    void *p;
-    void *sub;
-    
-    f32 fv;
-
-    sp1C = arg1;
-    sp2C = 0;
-    if (arg0 == NULL) {
-        goto done;
-    }
-    sp24 = D_800C3CF4[arg1 * 6];
-    sp24 = D_800C3928[sp24 * 4];
-    sub = FLD(arg0, void *, 0x68);
-    p = (u8 *)sub + 0x14;
-    if (sub == NULL) {
-        if (arg2 == 1) {
-            var_s2 = (sp24 + sp24 * 4 + 5) * 4;
-        } else if (arg2 == 2) {
-            var_s2 = (sp24 * 3 + sp24 + 2) * 4;
-        } else if (arg2 != 3) {
-            var_s2 = (sp24 + 5) * 4;
-        } else {
-            var_s2 = (sp24 * 3 + sp24 + 2 + sp24 * 4) * 4;
-        }
-        temp_s3 = ((unsigned)var_s2 + 7) & ~7;
-        base = func_80083E90(arg0, temp_s3 + 0xB8 + temp_s3 + var_s2 + (temp_s7 = sp24 * 4) + (temp_s5 = sp24 * 12) + temp_s5, 0x21);
-        if (base == NULL) {
-            goto done;
-        }
-        FLD(arg0, void *, 0x68) = base;
-        memset(base, arg1, 0, 0xB8);
-        sub = FLD(arg0, void *, 0x68);
-        p = (u8 *)base + 0xB8;
-        FLD(sub, void *, 0x54) = p;
-        p = (u8 *)p + temp_s3;
-        FLD(sub, void *, 0x58) = p;
-        p = (u8 *)p + temp_s3;
-        p = (u8 *)p + var_s2;
-        FLD(sub, void *, 0x5C) = p;
-        FLD(sub, s32, 0x14) = arg2;
-        FLD(sub, s16, 0xA6) = var_s2;
-        p = (u8 *)p + temp_s7;
-        FLD(sub, void *, 0x6C) = p;
-        FLD(base, void *, 0) = p;
-        p = (u8 *)base + 0x14;
-        FLD(base, void *, 4) = (u8 *)p + temp_s5;
-    }
-    FLD(p, s8, 0x9F) = sp24;
-    if (sp24 > 0) {
-        s32 i;
-        for (i = 0; i < sp24; ++i) {
-            void *d0 = FLD(p, void *, 0x54);
-            void *d1 = FLD(p, void *, 0x58);
-            f32 value = FLD(arg0, f32, 0x24 + i * 4);
-            FLD(d0, f32, i * 4) = value;
-            FLD(d1, f32, i * 4) = value;
-        }
-    }
-    sp2C = 1;
-done:
-    D_80109D18 = 0;
-    return sp2C;
+#define FLD(p,t,o) (*(t *)((u8 *)(p)+(o)))
+extern s16 D_800C3CF4[]; extern s16 D_800C3928[]; extern s16 D_800C392A[]; extern s16 *D_800C3CF8[]; extern u8 *D_800C3CFC[]; extern f32 D_800AE4D8; extern s16 *D_800AE4DC[]; extern s16 D_800AE53C[]; extern u8 D_800CA338; extern s32 D_80109D18;
+void *func_80083E90(void*,s32,s32); void *memset(void*,s32,s32); f32 func_80082908(f32); void func_800060B0(void*,s32,s32); void func_80084180(s32*,s32*,s32); void *func_8002BC4C(void); s16 *func_80001928(s32); s32 func_8003FA78(s32); s32 func_80002098(s32*,s32*,s32,void*); s32 func_8004478C(s32,s32); s32 func_80045CF8(s32);
+s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
+ s32 result=0, n, bytes, aligned, stride, size12, size4, i, j, val, id;
+ s32 tmp, valid; void *base; void *obj; void *state; s16 *list; s16 *q; f32 f;
+ if(!a) goto done;
+ n=D_800C3CF4[index*3];
+ bytes=D_800C3928[n*4];
+ obj=FLD(a,void*,0x68);
+ state=(u8*)obj+0x14;
+ if(!obj) {
+  if(mode==1) bytes=(bytes+bytes*4+5)*4;
+  else if(mode==2) bytes=(bytes*3+bytes+2)*4;
+  else if(mode!=3) bytes=(bytes+5)*4;
+  else bytes=(bytes*3+bytes+2+bytes*4)*4;
+  aligned=(bytes+7)&~7;
+  size4=n*4; size12=n*12;
+  base=func_80083E90(a,aligned+0xB8+aligned+bytes+size4+size12+size12,0x21);
+  if(!base) goto done;
+  FLD(a,void*,0x68)=base;
+  memset(base,0,0xB8);
+  obj=FLD(a,void*,0x68);
+  tmp=(s32)base+0xB8; FLD(obj,void*,0x54)=(void*)tmp;
+  tmp+=aligned; FLD(obj,void*,0x58)=(void*)tmp;
+  tmp+=aligned; FLD(obj,void*,0x5C)=(void*)tmp;
+  tmp+=bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
+  FLD(obj,void*,0x6C)=(void*)(tmp+size4);
+  FLD(base,void*,0)=(void*)(tmp+size4);
+  FLD(base,void*,4)=(void*)((s32)base+0x14+size12);
+ }
+ FLD(state,s8,0x9F)=n;
+ for(i=0;i<n;i++){
+  f=FLD(a,f32,0x24+i*4);
+  FLD(FLD(obj,void*,0),f32,i*4)=f;
+  FLD(FLD(obj,void*,4),f32,i*4)=f;
+ }
+ f=func_80082908(3.0f);
+ FLD(a,f32,0x64)=f;
+ FLD(state,s32,0xC)=0;
+ FLD(state,s16,0x8E)=-1; FLD(state,s16,0x8C)=0;
+ FLD(state,s16,0x82)=-1; FLD(state,s16,0x84)=-1; FLD(state,s16,0x86)=-1;
+ FLD(state,u8,0xA0)=0;
+ FLD(state,s32,0x1C)=0; FLD(state,s32,0x4C)=0; FLD(state,s32,0x54)=0; FLD(state,s32,0x20)=0;
+ FLD(state,f32,4)=1.0f; FLD(state,f32,8)=0.125f;
+ f=FLD(state,f32,0xC);
+ FLD(state,f32,0x14)=f; FLD(state,f32,0x10)=f; FLD(state,f32,0x18)=f;
+ FLD(state,f32,0x6C)=1.0f; FLD(state,f32,0x70)=1.0f; FLD(state,f32,0x74)=1.0f;
+ for(i=0;i<4;i++) FLD(state,s16,0x94+i*2)=0;
+ val=(s16)FLD(a,f32,0x40); FLD(state,s16,0x78)=val; FLD(state,s16,0x7A)=0;
+ FLD(state,u32,0)= (FLD(state,u32,0)&3)|0x8010;
+ if(D_800C392A[index*4]) {
+  for(i=0;i<(FLD(state,s16,0x92)>>2);i++) FLD((void*)FLD(state,void*,0x40),s32,i*4)=0;
+ } else func_800060B0(a,0x71,0);
+ func_80084180((s32*)FLD(state,void*,0x44),(s32*)FLD(state,void*,0x40),FLD(state,s16,0x92));
+ func_80084180((s32*)FLD(state,void*,0x48),(s32*)FLD(state,void*,0x40),FLD(state,s16,0x92));
+ f=FLD((void*)FLD(state,void*,0x44),f32,0xC);
+ FLD(state,f32,0x24)=f; FLD(state,s32,0x28)=0; FLD(state,s32,0x2C)=0; FLD(state,s32,0x30)=0;
+ FLD(state,u8,0x9D)=((u8*)&index)[0]; FLD(state,u8,0x9E)=((u8*)&bytes)[0];
+ obj=func_8002BC4C();
+ if(FLD(obj,u16,6)&0x40) FLD(state,u32,0)|=0x200000;
+ list=func_80001928(index);
+ id=*(D_800C3CF8[index*3]);
+ valid=func_8003FA78(id); if(valid) {
+  for(i=0,j=0;list[j]>=0;j++,i++) {
+   val=D_800C3CFC[index*3][j];
+   if(func_80002098(&tmp,&bytes,j,a),tmp!=-1) FLD(state,u32,0x58+i*4)=func_8004478C(bytes,0);
+   else FLD(state,u32,0x58+i*4)=0;
+  }
+ } else { for(i=0,j=0;list[j]>=0;j++,i++) FLD(state,u32,0x58+i*4)=0; }
+ if(opt && id>=0x2B && id<0x89) {
+  for(i=0;i<16;i++) {
+   if(!D_800AE4DC[i]) {result=1; goto done;}
+   if(*D_800AE4DC[i]!=id) continue;
+   q=&D_800AE53C[i*3];
+   j=1;
+   while(q[0]==14){q+=3;j++;}
+   if(opt<0) j=func_80045CF8(j+1);
+   if(!j) {result=1;goto done;}
+   val=func_8004478C(q[-2],id); FLD(state,s32,0x38)=val;
+   for(;q[0]>=0;q+=3) if(q[-2]==val) FLD(state,s32,0x58+q[0]*4)=func_8004478C(q[0],id);
+  }
+ } else if(!valid) {
+  for(i=0,j=0;list[j]>=0;j++,i++) FLD(state,s32,0x58+i*4)=0;
+ }
+ result=1;
+done: D_80109D18=0; return result;
 }

@@ -1,3 +1,6 @@
+static __inline__ u16 __repair_inline(u16 a) { return a; }
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+
 s32 func_8008C0D4();
 s32 func_8008C11C();
 extern s32 D_800F8D5C;
@@ -9,67 +12,102 @@ extern char D_800F9564[];
 extern char D_800F9566[];
 extern char D_800F9568[];
 
-s32 func_80097EF8(s16 arg0, s32 arg1) {
-    u32 key;
-    u32 bucket;
-    s32 boff;
-    s32 i;
-    s32 cnt;
-    s32 start;
-    s32 pos;
-    s32 n;
-    s32 j;
+s32 func_80097EF8(u16 arg0, s32 arg1) {
+    volatile long long __frame_gap;
+    char *var_a1;
+    unsigned int temp_a1;
+    unsigned temp_t2;
+    s32 temp_v1_2;
+    s32 temp_v1_4;
+    s32 var_a0_2;
+    s32 var_a2;
+    s32 var_a2_2;
+    u32 var_v0_2;
+    s32 temp_v0;
+    s32 var_v0;
+    s32 var_a3;
+    s32 var_t1;
+    void *var_t0;
+    s32 temp_v1;
+    u32 var_a0;
+    u16 temp_v1_3;
 
     func_8008C0D4();
-    key = arg0 & 0xFFFF;
-    bucket = key >> 6;
-    boff = bucket * 4;
-    cnt = *(u16 *)(D_800F8D60 + boff);
-    if (cnt == 0) {
-        pos = D_800F8D5E & 0xFFFF;
-        *(u16 *)(D_800F8D62 + boff) = D_800F8D5E;
-        goto insert;
+    var_a0 = arg0;
+    temp_t2 = var_a0 >> 6;
+    temp_v1 = temp_t2 * 4;
+    do { temp_v0 = __repair_inline(*(u16 *)(D_800F8D60 + (temp_t2 * 4))); } while (0);
+    if (temp_v0 == 0) {
+        var_t1 = D_800F8D5E & 0xFFFF;
+        *(u16 *)(D_800F8D62 + temp_v1) = D_800F8D5E;
+        var_a3 = var_t1;
+        goto block_11;
     }
-    start = *(u16 *)(D_800F8D62 + boff);
-    i = 0;
-    while (*(u16 *)(D_800F9564 + (start + i) * 8) < key) {
-        i++;
-        if (i >= cnt) {
-            pos = start + i;
-            goto check;
-        }
-    }
-    pos = start + i;
-check:
-    if (i < *(u16 *)(D_800F8D60 + boff)) {
-        if (*(u16 *)(D_800F9564 + pos * 8) == key) {
-            *(u16 *)(D_800F9566 + pos * 8) += 1;
-            func_8008C11C((s32) key);
-            return 0;
-        }
-    }
-insert:
-    n = 0;
-    if (D_800F8D5C < 0x800) {
-        for (j = 0; j < 0x800; j += 4) {
-            u16 s = *(u16 *)(D_800F8D62 + j);
-            if (start < s) {
-                *(u16 *)(D_800F8D60 + j + 2) = s + 1;
+    var_a3 = *(u16 *)(D_800F8D62 + (temp_t2 * 4));
+    var_a2 = 0;
+    if (temp_v0 != 0) {
+        var_v0 = var_a3;
+loop_4:
+        var_v0_2 = temp_t2 * 4;
+        if ((u16) *(u16 *)(D_800F9564 + (var_v0 * 8)) < var_a0) {
+            ++var_a2;
+            var_v0 = var_a3 + var_a2;
+            if (var_a2 >= (s32) temp_v0) {
+                var_v0_2 = temp_t2 * 4;
+            } else {
+                goto loop_4;
             }
         }
-        n = D_800F8D5C - 1;
-        for (; n >= pos; n--) {
-            *(s32 *)(D_800F9568 + n * 8) = *(s32 *)(D_800F9568 + (n - 1) * 8);
-            *(s32 *)(D_800F9568 + n * 8 + 4) = *(s32 *)(D_800F9568 + (n - 1) * 8 + 4);
+        var_t1 = var_a3 + var_a2;
+        if (var_a2 < (s32) *(u16 *)(D_800F8D60 + var_v0_2)) {
+            temp_v1_2 = var_t1 * 8;
+            if (*(u16 *)(D_800F9564 + temp_v1_2) == var_a0) {
+                *(u16 *)(D_800F9566 + temp_v1_2) = *(u16 *)(D_800F9566 + temp_v1_2) + 1;
+                goto block_21;
+            }
+            goto block_11;
         }
-        *(u16 *)(D_800F9564 + pos * 8) = arg0;
-        *(u16 *)(D_800F9566 + pos * 8) = 1;
-        *(s32 *)(D_800F9560 + pos * 8) = arg1;
-        *(u16 *)(D_800F8D60 + boff) += 1;
-        D_800F8D5C += 1;
-        func_8008C11C(pos * 8, boff, n, (void *) 0);
+        goto block_10;
+    }
+block_10:
+    var_t1 = var_a3 + var_a2;
+block_11:
+    var_a0 = 0;
+    if (D_800F8D5C < 0x800) {
+        var_a1 = D_800F8D60;
+        do {
+            temp_v1_3 = *(u16 *)(D_800F8D62 + var_a0);
+            if ((s32) var_a3 < (s32) temp_v1_3) {
+                (*(s16 *)((char *)(var_a1) + 2)) = (s16) (temp_v1_3 + 1);
+            }
+            var_a0 += 4;
+            var_a1 += 4;
+        } while ((s32) var_a0 < 0x800);
+        var_a2_2 = D_800F8D5C - 1;
+        var_a0_2 = var_t1 * 8;
+        if (var_a2_2 >= (s32) var_t1) {
+            temp_v1_4 = var_a2_2 * 8;
+            var_t0 = temp_v1_4 + D_800F9568;
+            var_a3 = (u16) (temp_v1_4 + (D_800F9568 - 8));
+            do {
+                (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a3) + 0));
+                (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));
+                var_t0 -= 8;
+                var_a3 -= 8;
+                var_a2_2 -= 1;
+            } while (var_a2_2 >= (s32) var_t1);
+            var_a0_2 = var_t1 * 8;
+        }
+        var_v0_2 = temp_t2 * 4;
+        *(u16 *)(D_800F9564 + var_a0_2) = arg0;
+        *(u16 *)(D_800F9566 + var_a0_2) = 1;
+        *(s32 *)(D_800F9560 + var_a0_2) = arg1;
+        *(u16 *)(D_800F8D60 + var_v0_2) = *(u16 *)(D_800F8D60 + var_v0_2) + 1;
+        func_8008C11C(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
+        ++D_800F8D5C;
         return 1;
     }
-    func_8008C11C((s32) key);
+block_21:
+    func_8008C11C(var_a0);
     return 0;
 }

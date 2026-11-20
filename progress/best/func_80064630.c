@@ -26,7 +26,7 @@ void func_80064630(void *arg0) {
     var_s1 = temp_s5;
     {
     u8 *flag = &D_80112F6C;
-    __repair_rows: {
+    do {
         if (*flag != 0) {
             ((__repair_record_var_s1*)var_s1)->field_1BC = (u16) *(u16 *)(D_800C7C16 + var_a0);
         } else {
@@ -35,8 +35,7 @@ void func_80064630(void *arg0) {
         var_s1 += 2;
         ++var_s2;
         var_a0 += 4;
-    }
-if (var_s2 < 0x20U) goto __repair_rows;
+    } while (var_s2 < 0x20U);
     }
     var_s2 = 0;
     var_s3 = 0;
@@ -54,11 +53,11 @@ if (var_s2 < 0x20U) goto __repair_rows;
         if (!(*(u16 *)(D_800C469C + var_s3) & 0x8000)) {
             (*(s8 *)((char *)((temp_s5 + var_s4)) + 0x1FC)) = 0;
         }
-        temp_s0 = (void *)(temp_s5); temp_s0 = (void *)((char *)temp_s0 + (s32)(var_s4));
+        temp_s0 = temp_s5 + var_s4;
         var_s4 += 8;
         var_s1 += 8;
-        temp_a0 = var_s2;/*__repair_loop_weight*/do {do {do {
-        ++var_s2;} while (0);} while (0);} while (0);
+        temp_a0 = var_s2;
+        ++var_s2;
         (*(s8 *)((char *)(temp_s0) + 0x1FD)) = 0;
         (*(s8 *)((char *)(temp_s0) + 0x1FE)) = 0;
         (*(f32 *)((char *)(temp_s0) + 0x200)) = (f32) (func_800645A4(temp_a0) & 0xFF);

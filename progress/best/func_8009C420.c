@@ -10,24 +10,24 @@ extern u8 D_8010D724[];
 s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9, u8 arg10) {
     s32 temp_v0;
     s32 var_s4;
+    u32 temp_s7;
+    int temp_v0_2;
     s32 var_v0;
     u32 temp_s5;
-    u32 temp_s7;
-    s32 temp_v0_2;
     u8 *temp_s0;
     s16 temp_v0_3;
 
     var_s4 = arg2;
     temp_s7 = arg0 >> 8;
-    temp_s5 = arg0 >> 0x10;
+    temp_s5 = (u32)arg0 >> 0x10;
     temp_v0 = func_800982B4(arg0);
     if (temp_v0 != 0) {
         temp_v0_2 = func_80098D18(temp_s7 & 0xFF, arg0 & 0xFF, arg1 & 0xFFFF, (u32)(var_s4 & 0xFF) >> 7);
         if (temp_v0_2 != -1) {
             temp_s0 = D_8010D724 + temp_v0_2 * 0x1A0;
+            var_v0 = arg2 & 0x80;
             func_8009876C(temp_s0);
             *(s32 *)(temp_s0 + 0x24) = (*(s32 *)(temp_s0 + 0x24) & 0x10) | 2;
-            var_v0 = arg2 & 0x80;
             if (func_8008C1B0(temp_v0_2) & 0xFF) {
                 *(s32 *)(temp_s0 + 0x24) |= 1;
                 var_v0 = arg2 & 0x80;
@@ -58,8 +58,8 @@ s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
             *(u8 *)(temp_s0 + 0x53) = arg4;
             *(s32 *)(temp_s0 + 0x10) = -1;
             *(s32 *)(temp_s0 + 0x14) = -1;
-            *(s32 *)(temp_s0 + 8) = 0;
             *(u8 *)(temp_s0 + 0x56) = arg8 & 0xFF;
+            *(s32 *)(temp_s0 + 8) = 0;
             *(u8 *)(temp_s0 + 0xBF) = arg10;
             *(s32 *)(temp_s0 + 0x60) = ((arg0 >> 0x10) << 0x10) | ((var_s4 & 0xFF) << 8) | temp_v0_2;
             do { func_80098B14(temp_s0, temp_s7 & 0xFF); } while (0);

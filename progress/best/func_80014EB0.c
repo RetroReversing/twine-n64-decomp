@@ -26,7 +26,7 @@ extern void *D_8010D53C;
 void func_80014EB0(void *arg0, ClipBounds *arg1) {
     void *sp10[32];
     ClipBounds box;
-    u8 spA7;
+    s8 spA7;
     s32 spAC;
     volatile s32 spD4;
     volatile s32 spDC;

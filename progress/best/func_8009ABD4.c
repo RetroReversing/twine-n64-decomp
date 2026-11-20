@@ -55,7 +55,7 @@ s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
         }
         break;
     }
-    w = arg1[0];
+    w = *(u32 *)arg1;
     if (s0 < -0x8000) {
         a2 = -0x8000;
     } else {

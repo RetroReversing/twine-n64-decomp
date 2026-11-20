@@ -218,7 +218,7 @@ case 1:                 /* switch 1 */
                                 (*(s32 *)((char *)(temp_v1_10) + 4)) = -0xC88;
                             } else {
                                 temp_v1_11 = D_80115328;
-                                D_80115328 = temp_v1_11 + 8;
+                                D_80115328 = (s8 *) temp_v1_11 + 8;
                                 ((__repair_field_0 *)temp_v1_11)->value = 0xFC40FE03;
                                 (*(s32 *)((char *)(temp_v1_11) + 4)) = 0xFF0FF37F;
                             }

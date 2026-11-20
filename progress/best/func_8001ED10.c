@@ -40,6 +40,9 @@ void func_8001ED10(void) {
     s32 i;
     u8 b;
     s16 t;
+    s32 *__base_D_800C3CF8;
+
+    __base_D_800C3CF8 = &D_800C3CF8;
 
     D_80102EDD = 1;
     if (D_80102EEC == 0) {
@@ -74,7 +77,7 @@ void func_8001ED10(void) {
                         r = func_80022DBC(i & 0xFFFF);
                         r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
                         *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
-                            **(u16 **)((char *)&D_800C3CF8 + r * 12);
+                            **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
                         i++;
                     } while ((i & 0xFFFF) < D_801002B4);
                 }

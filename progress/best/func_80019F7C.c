@@ -49,7 +49,7 @@ void func_80019F7C(void) {
     temp_s0 = (*(void **)((char *)(D_80109BB0) + 0x18));
     do { func_80029068(); } while (0);
     var_s1 = *(*(s32 **)((char *)(temp_s0) + 0x10));
-    temp_s3 = temp_s0 + 0x28;
+    temp_s3 = (void *)(temp_s0); temp_s3 = (void *)((char *)temp_s3 + (s32)(0x28));
     if (((*(u8 *)((char *)(D_80109BB0) + 0x2D)) != 0) && ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0)) {
         D_801001A3[D_801002AD].f0 = 0;
         if (func_80027CE0(0x20) & 0xFF) {

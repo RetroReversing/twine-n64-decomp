@@ -111,7 +111,7 @@ s32 __repair_phase_var_s4;
     if (M2C_FIELD(temp_a0, s16 *, 0x92) >= 0) {
         temp_v1 = M2C_FIELD(temp_a0, s32 *, 0x14) & 3;
         spA7C = 0;
-        switch (temp_v1) {                          /* irregular */
+        switch ((u32)temp_v1) {                          /* irregular */
         default:
         case 0:
             spA8C = 5;

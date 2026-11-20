@@ -2,12 +2,13 @@
 s32 func_8003D64C(void *, void *);
 s32 func_80047E4C(void *, s32, s32 *);
 s32 func_8004886C(void *, void *, void *, f32);
-s32 func_80048A04(s32, f32 *, f32 *, f32);
+s32 segmentPassesBoundsRejection(s32, f32 *, f32 *, f32);
 s32 func_80083B64(s32 *, f32 *);
 extern f32 D_800C0740;
 extern s32 D_80108788;
 extern void *D_80108F84;
 typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg2;
+typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg1;
 s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
     s32 var_v1_4; s32 sp20; f32 sp48[3]; f32 reserve[14]; f32 sp90; f32 sp68[3]; f32 sp78[3];
     register f32 sp88; register f32 sp8C; f32 sp58[3]; f32 sp98[3];
@@ -15,16 +16,16 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
     register f32 temp_ft1; f32 temp_ft1_2,temp_ft2,temp_fv1,temp_fv1_2,temp_fv1_3,temp_fv1_4;
     f32 var_fs0,var_ft2; s32 var_v0,var_v0_2,var_v0_3,var_v0_4,var_v0_5; int var_v1;
     s32 var_v1_2,var_v1_3; f32 sp10[3]; register void *temp_a0; void *temp_a0_2,*temp_a0_3,*var_s0;
-    sp10[0]=(*(f32 *)((char *)arg1+0))+(((__repair_record_arg2*)arg2)->field_0*arg3);
-    sp10[1]=(*(f32 *)((char *)arg1+4))+(((__repair_record_arg2*)arg2)->field_4*arg3);
-    sp10[2]=(*(f32 *)((char *)arg1+8))+(((__repair_record_arg2*)arg2)->field_8*arg3);
+    sp10[0]=(((__repair_record_arg1*)arg1)->field_0)+(((__repair_record_arg2*)arg2)->field_0*arg3);
+    sp10[1]=(((__repair_record_arg1*)arg1)->field_4)+(((__repair_record_arg2*)arg2)->field_4*arg3);
+    sp10[2]=(((__repair_record_arg1*)arg1)->field_8)+(((__repair_record_arg2*)arg2)->field_8*arg3);
     var_fs0=D_800C0740; D_80108788=0; D_80108F84=NULL;
     if ((func_8003D64C(arg1,arg0)<<24)!=0) {
       var_s0=*(void **)((char *)arg0+0x14);
       if(var_s0!=NULL) do {
         if (!(((u32)*(u32 *)((char *)var_s0+0x5C)>>23)&0x10) && (*(s32 *)((char *)var_s0+0x50)&0x200) &&
           ((((s32 (*)(void *,void *,f32))func_8004886C)(var_s0+0x40,arg1,arg3)<<24)!=0)) {
-          sp48[0]=*(f32 *)((char *)arg1+0); sp48[1]=*(f32 *)((char *)arg1+4); sp48[2]=*(f32 *)((char *)arg1+8);
+          sp48[0]=((__repair_record_arg1*)arg1)->field_0; sp48[1]=((__repair_record_arg1*)arg1)->field_4; sp48[2]=((__repair_record_arg1*)arg1)->field_8;
           sp58[0]=sp10[0]; sp58[1]=sp10[1]; sp58[2]=sp10[2];
           if (((u32)*(u32 *)((char *)var_s0+0x5C)>>23)&1) {
             sp48[0]-=*(f32 *)((char *)var_s0+0x24); sp10[0]-=*(f32 *)((char *)var_s0+0x24);
@@ -34,7 +35,7 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
           if (((u32)*(u32 *)((char *)var_s0+0x5C)>>23)&2) {
             func_80047E4C(var_s0,0,&sp20); func_80083B64(&sp20,sp10); func_80083B64(&sp20,sp48);
           }
-          if ((func_80048A04((*(void **)((char *)var_s0+0x3C))+0x18,sp48,sp10,1.0f)<<24)!=0) {
+          if ((segmentPassesBoundsRejection((*(void **)((char *)var_s0+0x3C))+0x18,sp48,sp10,1.0f)<<24)!=0) {
             sp68[1]=sp48[1]; sp78[0]=sp10[0]; sp48[2]=sp48[2]; sp78[1]=sp58[1]; sp78[2]=sp10[2]; sp68[0]=sp48[0];
             temp_ft1=sp78[0]-sp68[0]; temp_ft0=sp78[2]-sp48[2]; sp88=temp_ft1; sp8C=sp78[1]-sp68[1]; sp90=temp_ft0;
             temp_a0=*(void **)((char *)var_s0+0x3C);
@@ -52,7 +53,7 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
             var_v0_5=1;if(!(temp_ft0_4>0.0f))var_v0_5=0;var_v1_4=1;if(!(var_ft2>temp_ft0_4))var_v1_4=0;
             if(var_v0_5&var_v1_4){temp_fv1_4=sp68[0]+sp88*temp_ft0_4;if((*(f32 *)((char *)temp_a0_4+0x18)<temp_fv1_4)&&(temp_fv1_4<*(f32 *)((char *)temp_a0_4+0x1C)))var_ft2=temp_ft0_4;}
             temp_ft2=var_ft2*arg3;
-            if(temp_ft2<var_fs0){var_fs0=temp_ft2;sp98[0]=*(f32 *)((char *)arg1+0)+(((__repair_record_arg2*)arg2)->field_0*temp_ft2);sp98[1]=*(f32 *)((char *)arg1+4)+(((__repair_record_arg2*)arg2)->field_4*var_fs0);D_80108F84=var_s0;sp98[2]=*(f32 *)((char *)arg1+8)+(((__repair_record_arg2*)arg2)->field_8*var_fs0);}
+            if(temp_ft2<var_fs0){var_fs0=temp_ft2;sp98[0]=((__repair_record_arg1*)arg1)->field_0+(((__repair_record_arg2*)arg2)->field_0*temp_ft2);sp98[1]=((__repair_record_arg1*)arg1)->field_4+(((__repair_record_arg2*)arg2)->field_4*var_fs0);D_80108F84=var_s0;sp98[2]=((__repair_record_arg1*)arg1)->field_8+(((__repair_record_arg2*)arg2)->field_8*var_fs0);}
           }
         }
         var_s0=*(void **)((char *)var_s0+0x14);

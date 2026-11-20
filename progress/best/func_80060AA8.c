@@ -52,7 +52,15 @@ block_29:
                 return;
             case 2:
                 temp_v0 = M2C_FIELD(temp_s1, u16 *, 0x3C);
-                if (temp_v0 != 0) {
+                if (temp_v0 == 0) {
+                    var_a1 = 8;
+                } else if (temp_v0 == temp_v1) {
+                    var_a1 = 4;
+                } else {
+                    var_a1 = 6;
+                }
+                /* removed original arms */
+                if (0) {
                     var_a1 = 4;
                     if (temp_v0 != temp_v1) {
                         var_a1 = 6;

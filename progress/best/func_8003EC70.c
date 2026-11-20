@@ -258,12 +258,12 @@ block_46:
                                         var_a3 += 0x10;
                                         var_a2 += 4;
                                     } while (var_a2 != temp_t0);
-                                    *var_a3 = *var_a2;/*__repair_loop_weight*/do {do {do {
-                                    var_t1++;} while (0);} while (0);} while (0);
+                                    *var_a3 = *var_a2;
+                                    var_t1++;
                                 }
-                                temp_a3 = var_t3;
-                                temp_v0 = temp_a3 + 1;
-                                var_v0_5 = temp_a3;
+                                temp_a1 = var_t3;
+                                temp_v0 = temp_a1 + 1;
+                                var_v0_5 = temp_a1;
                                 var_t3 = temp_v0;
                             } while (temp_v0 < var_t2);
                         }

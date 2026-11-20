@@ -40,10 +40,9 @@ s32 __repair_phase_var_a0;
     }
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((D_8010A4FC * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
-        if ((int)D_8010A4FE == 0) var_a0 = 0x1A;
-        __repair_phase_var_a0 = 0x1B;
-        { __repair_rows: { func_80026004(temp_s1, "%s", func_80087100(__repair_phase_var_a0)); }
-if (0) goto __repair_rows; }
+        var_a0 = 0x1B;
+        if (D_8010A4FE == 0) var_a0 = 0x1A;
+        func_80026004(temp_s1, "%s", func_80087100(var_a0));
         temp_s2 = var_s3 - 0x28;
         if (D_80108400 != 0) {
             temp_s0 = temp_s4 - 0x28;

@@ -40,7 +40,7 @@ void func_80037A7C(s32 arg0) {
             var_s4 = (var_s0 != NULL || var_s2 == var_s2);
             if (var_s0 != NULL) {
                 var_v0 = var_s4;
-                __repair_rows: {
+                do {
                     if (var_v0 != 0) {
                         func_80034630(var_s3, arg0);
                         func_8003438C(var_s3, arg0);
@@ -50,8 +50,7 @@ void func_80037A7C(s32 arg0) {
                     func_80037788(var_s0, arg0);
                     var_s0 = M2C_FIELD(var_s0, void **, 8);
                     var_v0 = var_s4;
-                }
-if (var_s0 != NULL) goto __repair_rows;
+                } while (var_s0 != NULL);
             }
             if (var_s2 != NULL) {
                 do {
@@ -59,7 +58,7 @@ if (var_s0 != NULL) goto __repair_rows;
                         var_s0 = M2C_FIELD(var_s2, void **, 8);
                         var_v0 = var_s4;
                         if (var_s0 != NULL) {
-                            __repair_rows_: {
+                            do {
                                 if (var_v0 != 0) {
                                     func_80034630(var_s3, arg0);
                                     func_8003438C(var_s3, arg0);
@@ -69,8 +68,7 @@ if (var_s0 != NULL) goto __repair_rows;
                                 func_800378C0(var_s0, var_s2, arg0);
                                 var_s0 = M2C_FIELD(var_s0, void **, 8);
                                 var_v0 = var_s4;
-                            }
-if (var_s0 != NULL) goto __repair_rows_;
+                            } while (var_s0 != NULL);
                         }
                     }
                     var_s2 = M2C_FIELD(var_s2, void **, 0);

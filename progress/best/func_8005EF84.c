@@ -22,8 +22,6 @@ extern s32 D_8010302C;
 extern char D_80109688[];
 
 s32 func_8005EF84(void *arg0, void *arg1) {
-int __repair_literal;
-
     u8 sp30[0x80];
     u8 spB0[0x98];
     s32 *var_v0_2;
@@ -74,11 +72,9 @@ s32 __repair_phase_var_v0;
     case 2:                                         /* switch 1 */
         temp_a1 = (*(u16 *)((char *)(temp_s3) + 0x28));
         var_v0 = 0;
-__repair_literal = 2;
 
 
-
-        if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * __repair_literal))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_a1 * 4))) {
+        if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * 2))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_a1 * 4))) {
             var_v0 = 0;
             if ((func_8005EF30(arg0) << 0x18) != 0) {
                 if (D_80102ED8 != 0) {

@@ -137,16 +137,15 @@ block_16:
                     sp20[0] = temp_v0_2;
                     if (temp_v0_2 != 0) {
                         var_a1 = var_s0;
-                        __repair_rows: {
+                        do {
                             temp_v1_3 = &sp20[var_a2];
                             temp_v0_2 = *temp_v1_3;
-                            var_a1 += 1;/*__repair_loop_weight*/do {
-                            var_a2 += 1;} while (0);
+                            var_a1 += 1;
+                            var_a2 += 1;
                             *temp_v1_3 = temp_v0_2 - 1;
                             temp_v1_2 = *(s8 *)var_a1;
                             sp20[var_a2] = temp_v1_2;
-                        }
-if (temp_v1_2 != 0) goto __repair_rows;
+                        } while (temp_v1_2 != 0);
                     }
                     if (func_800AB950(sp10, sp20, var_a2) != 0) {
                         if ((u8) (*__base_D_801002AD) < 4U) {

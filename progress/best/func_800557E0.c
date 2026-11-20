@@ -19,11 +19,9 @@ M2C_UNK func_800556DC(void *, void *, f32 *, void *); /* extern */
 M2C_UNK func_80073304(void *, void *, void *);      /* extern */
 extern u16 D_800B35B0;
 
-void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
-int __repair_literal;
-
+void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
     union {
-        unsigned char bytes[64];
+        unsigned char bytes[72];
         struct { f32 value; } view_sp18;
         struct { unsigned char pad[4]; f32 value; } view_sp1C;
         struct { unsigned char pad[8]; f32 value; } view_sp20;
@@ -46,12 +44,11 @@ int __repair_literal;
              
              
              
-    f32 sp1C, sp20;
     f32 temp_fs0;
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s1;
-    
+    s32 var_s1_2;
     s32 var_s3;
     s32 var_s3_2;
     void *temp_s2;
@@ -74,9 +71,7 @@ loop_3:
               if (temp_s2 != NULL) {
                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
                     var_s1 = 0;
-__repair_literal = 0;
-
-                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > __repair_literal) {
+                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
                         var_s3 = 0;
 loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
@@ -93,7 +88,7 @@ loop_8:
                     }
                     goto block_26;
                 }
-                var_s1 = 0;
+                var_s1_2 = 0;
                 if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
                     var_s3_2 = 0;
 loop_15:
@@ -112,9 +107,9 @@ block_18:
                         *arg6 = var_s0;
                         return M2C_FIELD(var_s0, void **, 8);
                     }
-                    var_s1 += 1;
+                    var_s1_2 += 1;
                     var_s3_2 += 3;
-                    if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                    if (var_s1_2 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
                         goto block_26;
                     }
                     goto loop_15;

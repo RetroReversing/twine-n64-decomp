@@ -50,7 +50,11 @@ void func_80035060(void *arg0) {
         return;
     }
     temp_fv1 = (*(const f32 *)((char *)(arg0) + 0x60));
+    temp_s7 = (s32) (temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x50)));
+    temp_s5 = (s32) ((temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x54))) - 1.0f);
     temp_fv0 = (*(const f32 *)((char *)(arg0) + 0x64));
+    temp_fp = (s32) (temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x58)));
+    temp_s6 = (s32) ((temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x5C))) - 1.0f);
     temp_s1 = D_80115328;
     D_80115328 = temp_s1 + 8;
     D_80115328 = temp_s1 + 0x10;

@@ -31,11 +31,11 @@ extern s32 func_800241F8;
 
 typedef struct { short field_0; unsigned char pad_2[34]; short field_24; } __repair_record_temp_s2;
 void func_8002424C(void) {
-int __repair_constant = 3;
+int __repair_constant;
 
     register s16 *temp_s3;
     u32 temp_a0;
-    unsigned long temp_s0;
+    u32 temp_s0;
     register s32 temp_v0;
     register int var_s1;
     s32 temp_v1;

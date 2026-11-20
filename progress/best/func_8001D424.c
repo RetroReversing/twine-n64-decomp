@@ -44,7 +44,7 @@ void func_8001D424(void) {
     temp_v1 = *(&D_800B60A8 + D_800B60A6);
     switch (temp_v1) {                              /* irregular */
     case 30:
-        if (((temp_s0 & 0xFF) | (temp_s1 & 0xFF)) == 0) {
+        if ((((temp_s0 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) {
             var_a0 = 0x1E;
             if (!(temp_s2 & 0xFF)) {
                 goto block_21;
@@ -52,12 +52,12 @@ void func_8001D424(void) {
         }
         goto block_20;
     case 31:
-        if ((((temp_s0 & 0xFF) | (temp_s2 & 0xFF)) != 0) || (var_a0 = 0x1F, ((temp_s3 & 0xFF) != 0))) {
+        if (((((temp_s0 & 0xFF) != 0) | ((temp_s2 & 0xFF) != 0)) != 0) || (var_a0 = 0x1F, ((temp_s3 & 0xFF) != 0))) {
             goto block_20;
         }
         goto block_21;
     case 32:
-        if ((((temp_s0 & 0xFF) | (temp_s1 & 0xFF)) == 0) && (var_a0 = 0x20, ((temp_s3 & 0xFF) == 0))) {
+        if (((((temp_s0 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) && (var_a0 = 0x20, ((temp_s3 & 0xFF) == 0))) {
 block_21:
             if (func_80027C60(var_a0) & 0xFF) {
                 func_8000A894(0xED);
@@ -70,7 +70,7 @@ block_20:
         }
         break;
     case 33:
-        if (((temp_s2 & 0xFF) | (temp_s1 & 0xFF)) == 0) {
+        if ((((temp_s2 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) {
             var_a0 = 0x21;
             if (!(temp_s3 & 0xFF)) {
                 goto block_21;

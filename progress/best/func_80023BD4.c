@@ -27,8 +27,6 @@ extern s32 D_801002B4;
 extern void *D_80102CD0;
 
 void *func_80023BD4(void) {
-int __repair_literal;
-
     s32 var_a0;
     s32 temp_a0;
     s16 temp_v0_3;
@@ -58,8 +56,8 @@ int __repair_literal;
             var_a0 = 0x6E;
             goto block_6;
         }
+        var_a0 = 0x6F;
         if (D_800E107E < D_800E1080) {
-var_a0 = 0x6F;
 block_6:
             temp_s0 = func_80087100(var_a0);
             var_v0 = func_80087100(0xEE);
@@ -73,9 +71,7 @@ block_6:
     if (D_801002A0 == 8) {
         var_s1_2 = 0;
         var_s0 = 0;
-__repair_literal = 0;
-
-        if (D_801002B4 > __repair_literal) {
+        if (D_801002B4 > 0) {
             var_s2 = &D_80102CD0;
             do {
                 temp_v0 = *var_s2;
@@ -98,8 +94,8 @@ __repair_literal = 0;
     } else {
 block_19:
         temp_v0_2 = D_801002B4;
+        var_s0_2 = 0;
         if (temp_v0_2 > 0) {
-            var_s0_2 = 0;
             do {
                 temp_v1 = func_80022DBC(var_s0_2 & 0xFFFF) & 0xFFFF;
                 temp_a0 = D_800E1068[temp_v1];

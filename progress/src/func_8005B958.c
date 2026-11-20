@@ -23,22 +23,22 @@ static inline s32 check_5B958(void) {
     s32 m1;
 
     if (D_80108788 == NULL) {
-        return r;
+        goto out;
     }
     sub = D_80108788->sub;
     if (sub == NULL) {
-        return r;
+        goto out;
     }
     m1 = -1;
     if (D_80108788->w78 != 0x5A0000) {
-        return r;
+        goto out;
     }
     v = sub->w30;
     if ((v & 0xFFFF0) != 0x670) {
-        return r;
+        goto out;
     }
     if ((v & 0xFFF00000) != 0x02600000) {
-        return r;
+        goto out;
     }
     D_80100300++;
     a = func_80087100(0xF3);
@@ -48,7 +48,8 @@ static inline s32 check_5B958(void) {
     *(s16 *)((u8 *)D_80108788 + 0x7A) = 1;
     func_8000A894(0x111);
     r = 1;
-    return r;
+out:
+    return (s16)r;
 }
 
 void func_8005B958(void) {

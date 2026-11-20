@@ -28,7 +28,8 @@ extern char D_80109688[];
 
 typedef struct { void * field_0; unsigned char pad_4[36]; int field_28; void * field_2C; void * field_30; void * field_34; void * field_38; void * field_3C; short field_40; short field_42; short field_44; } __repair_record_temp_s1;
 void *func_8002EBB8(s32 arg0) {
-    s16 *__base_D_800BFCE0;
+    s16 *__base_D_800BFD04;
+    
     s16 *__base_D_800BFCBC;
     char *__base_D_800BFD08;
     s32 __repair_store_0;
@@ -82,7 +83,7 @@ void *func_8002EBB8(s32 arg0) {
     __base_D_800BFD08 = D_800BFD08;
     var_a2 = (void *) ((((D_800BFC92 & 1) * 0x24)) + (s32) __base_D_800BFD08);
     temp_t0 = (void *) ((0x20) + (s32) var_a2);
-    __repair_rows: {
+    do { {
         __repair_store_0 = (*(s32 *)((char *)(var_a2) + 0));
         __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 4));
         __repair_store_2 = (s32) (*(s32 *)((char *)(var_a2) + 8));
@@ -94,7 +95,7 @@ void *func_8002EBB8(s32 arg0) {
         var_a2 += 0x10;
         var_a3 += 0x10;
     }
-if (var_a2 != temp_t0) goto __repair_rows;
+} while (var_a2 != temp_t0);
     *(s32 *)var_a3 = *(s32 *)var_a2;
     D_800BFD94 = arg0;
     D_800BFDB8 = arg0;
@@ -106,8 +107,9 @@ if (var_a2 != temp_t0) goto __repair_rows;
         var_a1 -= 0x20;
     }
     (((__repair_record_temp_s1*)temp_s1)->field_2C) = func_80015F74(var_a1, var_a1, var_a2, var_a3);
-    var_a1 = (char *)&D_800BFD04;
-    D_800BFD04 = arg0;
+    __base_D_800BFD04 = &D_800BFD04;
+    var_a1 = (char *)__base_D_800BFD04;
+    (*__base_D_800BFD04) = arg0;
     temp_v0_2 = func_80015F74(var_a1 - 0x20);
     (((__repair_record_temp_s1*)temp_s1)->field_34) = temp_v0_2;
     temp_a0 = (*(s32 *)((char *)(temp_v0_2) + 8));
@@ -167,9 +169,9 @@ if (var_a2 != temp_t0) goto __repair_rows;
         temp_s0 = arg0 & 0xFFFF;
         func_80064318((((__repair_record_temp_s1*)temp_s1)->field_30), temp_s0);
         func_80016990((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(D_80109688 + (temp_s0 * 4))) + 0xF4)));
-        __base_D_800BFCE0 = &D_800BFCE0;
-        (*__base_D_800BFCE0) = arg0;
-        (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFCE0 - 0x20);
+        __base_D_800BFD04 = &D_800BFCE0;
+        (*__base_D_800BFD04) = arg0;
+        (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFD04 - 0x20);
         func_8002B000(D_800E1584, 0x1E);
     }
     return temp_v0;

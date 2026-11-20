@@ -121,7 +121,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
             pos[2] -= M2C_FIELD(D_80108F84, f32 *, 0x2C);
             func_80083B64(sp70, &pos[0]);
             var_fs2 = 65536.0f;
-            if (((func_8003D6FC(&pos[0], D_80108F84) << 0x18) == 0) || (sp104 == 0)) {
+            if (((func_8003D6FC(&pos[0], D_80108F84) << 0x18) == 0) || (arg3 == 0)) {
                 var_s1 = 0;
                 var_s0 = &points[0];
                 do {
@@ -190,7 +190,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                     goto block_25;
                 }
                 var_v0 = 0;
-                if (sp104 != 0) {
+                if (arg3 != 0) {
                     temp_a2_3 = M2C_FIELD(temp_fp, void **, 0x40);
                     var_v0 = 1;
                     if (temp_a2_3 != NULL) {
@@ -211,7 +211,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                 return var_v0;
             }
 block_24:
-            var_a1 = sp104;
+            var_a1 = arg3;
 block_25:
             func_80077960(arg0, var_a1);
 block_26:

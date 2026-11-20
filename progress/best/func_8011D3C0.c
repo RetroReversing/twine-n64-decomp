@@ -92,10 +92,10 @@ char *__repair_addr;
                 var_fs2 = 80.0f;
             }
         }
-    } else if (D_8010A4FD != 1) {
-        var_fs0 = 60.0f;
-    } else {
+    } else if (D_8010A4FD == 1) {
         var_fs2 = 80.0f;
+    } else {
+        var_fs0 = 60.0f;
     }
     var_fp = 0;
     func_8011CFB0();

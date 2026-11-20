@@ -1,48 +1,27 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-f64 func_800AACB0(f64);                             /* extern */
-f64 func_800ABA40(M2C_UNK, M2C_UNK *, f32, f64);    /* extern */
-f64 func_800AC0A0(M2C_UNK, s32 *);                  /* extern */
+extern char D_800D6F80[];
 extern f64 D_800D6F88;
 extern f64 D_800D6F90;
+f64 func_800ABA40(s32, char *, f64, f64, f64);
+f64 func_800AC0A0(f64, s32 *);
+f64 func_800AACB0(f64);
 
-f64 func_800AADA0(f64 arg0, f32 arg1) {
-    s32 sp20;                                       /* compiler-managed */
-    s32 sp24;
+f64 func_800AADA0(f64 arg0) {
     s32 sp28;
-    M2C_UNK var_a0;
-    f64 temp_fv0;
-    f64 temp_fv0_2;
+    volatile f64 r;
+    volatile union { f64 d; u32 w[2]; } u;
+    f64 t;
 
     if (arg0 < 0.0) {
-        var_a0 = 1;
-        goto block_4;
+        return func_800ABA40(1, D_800D6F80, arg0, 0.0, 0.0);
     }
-    var_a0 = 3;
     if (arg0 == 0.0) {
-        sp20 = 0xFFF00000;
-        sp24 = 0;
-block_4:
-        return func_800ABA40(var_a0, "log", arg1, arg0);
+        u.w[0] = 0xFFF00000;
+        u.w[1] = 0;
+        return func_800ABA40(3, D_800D6F80, arg0, 0.0, u.d);
     }
     if (arg0 != D_800D6F88) {
-        temp_fv0_2 = func_800AACB0(func_800AC0A0(3, &sp28));
-        sp20 = temp_fv0_2;
-        temp_fv0 = (temp_fv0_2) + (((f64) sp28 * D_800D6F90));
-        sp20 = temp_fv0;
-        return temp_fv0;
+        t = func_800AACB0(func_800AC0A0(arg0, &sp28));
+        return (f64)sp28 * D_800D6F90 + t;
     }
     return 0.0;
 }

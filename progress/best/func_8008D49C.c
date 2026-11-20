@@ -128,7 +128,8 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
                 var_a0_4 = 0xFF;
             }
             temp_v1_3 = *(u16 *)((temp_a2 * 8) + temp_v0_2);
-            temp_s0_4 = temp_s3 & 0xFF;
+            temp_s3_2 = temp_s3 & 0xFF;
+    temp_s0_4 = temp_s3_2;
     temp_s3_2 = (temp_s0_4) | (var_a0_4 << 8) | (temp_v1_3 << 0x10);
             if (!(temp_v1_3 & 0xC000)) {
                 temp_s0_4 = arg4 & 0xFF;

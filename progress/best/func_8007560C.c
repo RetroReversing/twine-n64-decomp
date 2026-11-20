@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 extern unsigned char D_8010A4C3;
-s32 func_8004844C();
+void func_8004844C(void *, f32, f32, f32, f32, f32, f32);
 s32 func_80048794();
 s32 func_800820B0();
 extern s32 D_80000300;
@@ -67,7 +67,7 @@ short __repair_constant = 0x100;
     if (0 < 0) {
         var_fv1 += D_800D48B0;
     }
-    { do { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, (f32) var_fv1, (f32) (f64) 0); } while (0); }
+    { do { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1, (f32) (f64) 0); } while (0); }
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xEF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xEF;
     (*(s32 *)((char *)(D_80109698) + 0x100)) |= __repair_constant;
@@ -78,7 +78,7 @@ short __repair_constant = 0x100;
     if (0 < 0) {
         var_fv1_2 += D_800D48B8;
     }
-    func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, (f32) var_fv1_2, (f32) (f64) 0);
+    func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1_2, (f32) (f64) 0);
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xDF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xDF;
     D_8010A4C2 |= 0x20;
@@ -94,7 +94,7 @@ short __repair_constant = 0x100;
         if (0 < 0) {
             var_fv1_3 += D_800D48C8;
         }
-        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 320.0f, (f32) var_fv1_3);
+        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1_3, 0.0f);
         var_a0 = 1;
         goto block_75;
     }
@@ -114,7 +114,7 @@ short __repair_constant = 0x100;
                 if (0 < 0) {
                     var_fv0 += temp_fs0;
                 }
-                do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv0); } while (0);
+                do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, 0.0f, (f32) var_fv0); } while (0);
                 if (D_801002C0 <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
                     if ((D_801002C0 == 3) & (var_s0 == 3)) {
@@ -160,7 +160,7 @@ short __repair_constant = 0x100;
             var_a2 = 120.0f + temp_fs0_3;
         }
 block_74:
-        func_8004844C(temp_s4, var_a1, var_a2, var_a3);
+        func_8004844C(temp_s4, var_a1, var_a2, var_a3, D_8010A4FD == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);
@@ -226,7 +226,7 @@ block_75:
         if (0 < 0) {
             var_fv1_4 += D_800D48E0;
         }
-        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv1_4);
+        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, (f32) var_fv1_4, 0.0f);
         break;
     }
     (*(s32 *)((char *)(((__repair_field_0 *)D_80109688)->value) + 0x100)) |= 0x40;

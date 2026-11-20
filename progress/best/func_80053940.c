@@ -256,7 +256,8 @@ block_21:
                                     if (temp_s3 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                                         var_s3 = var_s6 + 4;
                                         do {
-                                            temp_v1_3 = *(u16 *)(((var_s4 & 0xFFFF) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
+                                            var_s4_2 = var_s4 & 0xFFFF;
+    temp_v1_3 = *(u16 *)(((var_s4_2) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                             if ((sp12E & temp_v1_3) && (sp136 & temp_v1_3)) {
                                                 temp_v1_4 = M2C_FIELD(temp_s1, s32 *, 0x34);
                                                 func_800458C0(sp13C, temp_v1_4 + (*var_s6 * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, 0) * 0xC));

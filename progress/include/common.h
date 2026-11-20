@@ -89,10 +89,18 @@ typedef s32 (*TwineDisplayUpdateCallback)(u32, u32, u32, u32, void *);
 
 void mat3_mul(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]);
 
-void func_80085160(void *);
+void func_80085160(f32 *);
 
 s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
 
 extern f64 D_800D66C0;
 extern f32 D_800CEE98[6];
 extern s32 D_800CEE50[18];
+
+/* Bounds face rejection for a segment, with a separate Y margin. */
+s32 segmentPassesBoundsRejection(void *bounds, void *start, void *end, f32 yMargin);
+
+void func_800484F8(void *arg0, f32 arg1);
+
+/* Sprite rectangle setup; verified from exact-matched func_8004844C. */
+void func_8004844C(void *sprite, f32 x, f32 y, f32 width, f32 height, f32 scaleX, f32 scaleY);

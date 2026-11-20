@@ -12,48 +12,50 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_8000A4F4(s32);                             /* extern */
-f32 func_80045E34(void *, s32);                     /* extern */
-M2C_UNK func_80074820(s32, s32, M2C_UNK, M2C_UNK, f32, s32); /* extern */
-s32 func_80087100(u16);                             /* extern */
+f32 func_8000A4F4();
+f32 func_80045E34();
+s32 func_80074820(s32, s32, s32, s32, f32, s32);
+s32 func_80087100();
 extern s32 D_800C7EE4;
-extern M2C_UNK D_80100310;
-extern M2C_UNK D_80100314;
+extern char D_80100310[];
+extern char D_80100314[];
 extern void *D_80100B20;
 extern s32 D_8010302C;
 extern s32 D_80109688;
-extern s32 D_8010A500;
+extern char *D_8010A500;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
 
-typedef struct { s32 w[3]; } __repair_words3;
-void func_80074C34(void *arg0, void *arg1, s8 arg2) {
-    volatile s32 frame_pad[2];
+void func_80074C34(void *arg0, void *arg1, s32 arg2) {
+    s32 __repair_store_0;
+    s32 __repair_store_1;
+    s32 __repair_store_2;
     f32 temp_fv0;
     f32 var_fs0;
     s32 temp_v0;
     s32 temp_v1;
-    s32 temp_v1_2;
+    
     s32 var_a0;
     s32 var_s1;
     s32 var_s1_2;
     s32 var_v1;
     void **temp_s7;
     void **var_s2;
-    void *temp_s0;
+    union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_v0_2;
     void *var_s4;
     void *var_v0;
 
     var_a0 = 0;
     if (arg0 != NULL) {
-        M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x10000000);
+        M2C_FIELD(arg0, s32 *, 0x60) |= 0x10000000;
     }
+    temp_v1 = D_8010D294;
     var_s1 = 0;
-    if ((s32) D_8010D294 > 0) {
+    if (temp_v1 > 0) {
         var_v1 = 0;
         do {
-            if (*(&D_80100310 + var_v1) == arg1) {
+            if (*(void **)(D_80100310 + var_v1) == arg1) {
                 var_a0 = 1;
             }
             var_s1 += 1;
@@ -61,16 +63,16 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
         } while (var_s1 < (s32) D_8010D294);
     }
     if (var_a0 == 0) {
-        temp_v1 = D_8010D294 * 8;
-        *(&D_80100314 + temp_v1) = arg2;
-        *(&D_80100310 + temp_v1) = arg1;
+        temp_v0 = D_8010D294 * 8;
+        *(D_80100314 + temp_v0) = arg2;
+        *(void **)(D_80100310 + temp_v0) = arg1;
         D_8010D294 += 1;
     }
     D_8010302C += 1;
     var_s4 = arg1;
     if (arg2 != 0) {
-        temp_s7 = &D_80100B20 - 4;
-        __repair_rows: {
+        temp_s7 = &D_80100B20 - 1;
+        do {
             var_fs0 = 5.0f;
             if (M2C_FIELD(var_s4, u16 *, 6) == 0x237) {
                 var_fs0 = 0.0f;
@@ -87,32 +89,35 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
                     do {
                         temp_v0_2 = *var_s2;
                         if (temp_v0_2 != NULL) {
-                            temp_s0 = M2C_FIELD(temp_v0_2, void **, 0x6C);
+                            __repair_phase_storage.pointer = M2C_FIELD(temp_v0_2, void **, 0x6C);
                             if (arg0 != NULL) {
-                                M2C_FIELD(temp_s0, void **, 0x2C) = arg0;
-                                M2C_FIELD(temp_s0, __repair_words3 *, 0x8) = *(__repair_words3 *) ((s8 *) arg0 + 0x24);
-                                temp_fv0 = func_80045E34(temp_s0 + 8, D_8010A500 + 0x24);
-                                M2C_FIELD(temp_s0, f32 *, 0x28) = temp_fv0;
+                                M2C_FIELD(__repair_phase_storage.pointer, void **, 0x2C) = arg0;
+                                __repair_store_0 = (s32) M2C_FIELD(arg0, s32 *, 0x24);
+                                __repair_store_1 = (s32) M2C_FIELD(arg0, s32 *, 0x28);
+                                __repair_store_2 = (s32) M2C_FIELD(arg0, s32 *, 0x2C);
+                                M2C_FIELD(__repair_phase_storage.pointer, s32 *, 8) = __repair_store_0;
+                                M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0xC) = __repair_store_1;
+                                M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0x10) = __repair_store_2;
+                                temp_fv0 = func_80045E34(__repair_phase_storage.pointer + 8, D_8010A500 + 0x24);
+                                M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x28) = temp_fv0;
                                 if (temp_fv0 < 4.0f) {
-                                    M2C_FIELD(temp_s0, f32 *, 0x28) = 4.0f;
+                                    M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x28) = 4.0f;
                                 }
                             }
                         }
-                        temp_v1_2 = M2C_FIELD(var_s4, s32 *, 0);
-                        if (temp_v1_2 & 0x80000000) {
-                            var_v0 = D_80100B20;
-                        } else {
+                        __repair_phase_storage.value = M2C_FIELD(var_s4, s32 *, 0);
+                        if (__repair_phase_storage.value & 0x80000000) {
+                            var_v0 = D_80100B20; } else {
                             var_v0 = temp_s7[D_80112EBC];
                         }
-                        M2C_FIELD(M2C_FIELD(var_v0, void **, 0x6C), s32 *, 0x24) = temp_v1_2;
+                        M2C_FIELD(M2C_FIELD(var_v0, void **, 0x6C), s32 *, 0x24) = __repair_phase_storage.value;
                         M2C_FIELD(M2C_FIELD(temp_s7[D_80112EBC], void **, 0x6C), s8 *, 0x32) = (s8) M2C_FIELD(var_s4, u16 *, 4);
                         var_s1_2 += 1;
-                        var_s2 += 4;
+                        var_s2 += 1;
                     } while (var_s1_2 < D_80112EBC);
                 }
             }
             var_s4 += 8;
-        }
-if ((u32) var_s4 < (u32) ((arg2 * 8) + arg1)) goto __repair_rows;
+        } while ((u32) var_s4 < (u32) ((arg2 * 8) + arg1));
     }
 }
