@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80017EC0(s32, f32, s32);
+s32 func_80017EC0(void *, f32, f32);
 s32 func_80044670();
 s32 func_80045CF8();
 s32 func_80061BE4();
 extern u8 D_80109A60[];
 
 void func_80061CCC(void *arg0) {
-    s32 var_fv0;
+    f32 var_fv0;
     u8 temp_v0;
     u8 temp_v0_2;
     void *temp_s0;
@@ -34,9 +34,9 @@ void func_80061CCC(void *arg0) {
         goto block_4;
     }
 block_4:
-    var_fv0 = 0x41200000;
+    var_fv0 = 10.0f;
     if (M2C_FIELD(temp_s0, s8 *, 8) != 0) {
-        var_fv0 = 0x43480000;
+        var_fv0 = 200.0f;
     }
     func_80017EC0(arg0, 2.0f, var_fv0);
     temp_v0_2 = M2C_FIELD(temp_s0, u8 *, 6) + 1;

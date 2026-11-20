@@ -1,11 +1,11 @@
 typedef struct { u32 base; u32 pc; u8 pad[0x178]; s16 regs[16]; } Seq;
 typedef struct { u32 w0; u32 w1; } Cmd;
-s16 func_80096E7C(Seq *, u32);
+s32 func_80096E7C();
 extern s16 D_80112E9E[];
 
 s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
-    s16 a;
-    s16 b;
+    s32 a;
+    s32 b;
     u8 r;
     u32 w;
     u32 v;
@@ -35,10 +35,10 @@ s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
     }
     switch (op) {
     case 0:
-        r = a == b;
+        r = (s16)a == (s16)b;
         break;
     case 1:
-        r = a < b;
+        r = (s16)a < (s16)b;
         break;
     }
     if (((u8 *)c)[6] != 0) {

@@ -10,6 +10,7 @@ void *func_8000182C(s32 arg0) {
 int __repair_constant = 5;
 
     s16 *var_v1;
+    s16 *table_base = D_800D942C;
     u8 *cache_base = D_800D9438;
     s32 temp_a1;
     s32 var_s1;
@@ -18,7 +19,7 @@ int __repair_constant = 5;
 
     var_s1 = D_800D942A;
     temp_a1 = var_s1;
-    var_v1 = &D_800D942C[var_s1];
+    var_v1 = table_base + var_s1;
 loop_1:
     if (*var_v1 != arg0) {
         var_s1 -= 1;

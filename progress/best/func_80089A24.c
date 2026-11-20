@@ -13,7 +13,6 @@ extern f64 D_800D6758;
 void func_80089A24(void *arg0, s32 arg1) {
     register f64 temp_fa0;
     f64 temp_fs1;
-    register f64 temp_fs1_2;
     f64 temp_ft0;
     f64 temp_ft0_2;
     s32 temp_v0_5;
@@ -27,7 +26,7 @@ void func_80089A24(void *arg0, s32 arg1) {
     s32 temp_a1;
     s32 temp_v0;
     s32 temp_v0_2;
-    unsigned temp_v0_3;
+    s32 temp_v0_3;
     s32 temp_v0_4;
     f64 temp_fv0;
     s32 temp_v0_6;
@@ -43,7 +42,7 @@ void func_80089A24(void *arg0, s32 arg1) {
         if (temp_v0 < 0) {
             var_fs0 += D_800D6728;
         }
-        if (func_8008CD54() <= var_fs0) {
+        if (func_8008CD54(*(f64 *)((char *)arg0 + 8)) <= var_fs0) {
             temp_v1_2 = (*(s32 *)((char *)(arg0) + 0x38));
             temp_v0_2 = (*(s32 *)((char *)(arg0) + 0x34)); temp_v0_2 += temp_v1_2;
             var_fv1 = (f64) temp_v0_2;
@@ -52,28 +51,30 @@ void func_80089A24(void *arg0, s32 arg1) {
             }
             temp_ft0 = (*(f64 *)((char *)(arg0) + 8));
             temp_fv0 = temp_ft0 + temp_fs1;
-            if (!(temp_fv0 < var_fv1)) {
+            if (temp_fv0 < var_fv1) {
+                (*(f64 *)((char *)(arg0) + 8)) = temp_fv0;
+                return;
+            } else {
                 var_fv1_2 = (f64) temp_v1_2;
-                temp_fs1_2 = temp_fs1 - (var_fv1 - temp_ft0);
+                temp_fs1 = temp_fs1 - (var_fv1 - temp_ft0);
                 if (temp_v1_2 < 0) {
                     var_fv1_2 += D_800D6738;
                 }
+                temp_ft0_2 = func_8008CD54(temp_fs1 / var_fv1_2);
                 temp_v0_3 = (*(s32 *)((char *)(arg0) + 0x38));
-                var_fv1_3 = (f64) temp_v0_3;
-                temp_ft0_2 = func_8008CD54();
+                var_fv1_3 = (f64) (s32)temp_v0_3;
                 if (0 > temp_v0_3) {
                     var_fv1_3 += D_800D6740;
                 }
+                temp_fs1 -= temp_ft0_2 * var_fv1_3;
                 temp_v0_4 = (*(s32 *)((char *)(arg0) + 0x34));
                 var_fv1_4 = (f64) temp_v0_4;
                 if (temp_v0_4 < 0) {
                     var_fv1_4 += D_800D6748;
                 }
-                (*(f64 *)((char *)(arg0) + 8)) = (f64) (var_fv1_4 + (temp_fs1_2 - (temp_ft0_2 * var_fv1_3)));
+                (*(f64 *)((char *)(arg0) + 8)) = (f64) (var_fv1_4 + (temp_fs1 - (temp_ft0_2 * var_fv1_3)));
                 return;
             }
-            (*(f64 *)((char *)(arg0) + 8)) = temp_fv0;
-            return;
         }
         goto block_19;
     }
@@ -95,3 +96,5 @@ block_19:
     }
     (*(f64 *)((char *)(arg0) + 8)) = temp_fa0;
 }
+
+

@@ -17,7 +17,7 @@ s32 func_80094B48(const void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 int __repair_literal;
 
     s32 *var_a1_2;
-    u8 __repair_frame[8];
+
     register unsigned int temp_v0;
     unsigned temp_a0;
     s32 temp_v0_2;
@@ -80,11 +80,11 @@ loop_11:
     }
     temp_v1 = D_800EE1F8 * 0x1C;
     *((s32 *)((s8 *)D_800EDE90 + temp_v1)) = arg0;
-    *((s32 *)((s8 *)D_800EDE8C + temp_v1)) = arg5;
-    *((s32 *)((s8 *)D_800EDE80 + temp_v1)) = arg2;
+    *((f32 *)((s8 *)D_800EDE8C + temp_v1)) = arg5;
+    *((f32 *)((s8 *)D_800EDE80 + temp_v1)) = arg2;
     D_800EE1F8 += 1;
-    *((s32 *)((s8 *)D_800EDE84 + temp_v1)) = arg3;
-    *((s32 *)((s8 *)D_800EDE88 + temp_v1)) = arg4;
-    *((s32 *)((s8 *)D_800EDE7C + temp_v1)) = arg1;
+    *((f32 *)((s8 *)D_800EDE84 + temp_v1)) = arg3;
+    *((f32 *)((s8 *)D_800EDE88 + temp_v1)) = arg4;
+    *((f32 *)((s8 *)D_800EDE7C + temp_v1)) = arg1;
     return 1;
 }
