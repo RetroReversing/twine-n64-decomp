@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_8009D9B8(void *arg0) {
-    if (M2C_FIELD(arg0, s8 *, 0x11DD) == 2) {
+    if (M2C_FIELD(arg0, const s8 *, 0x11DD) == 2) {
         M2C_FIELD(arg0, s8 *, 0x11DD) = 3;
     }
 }
