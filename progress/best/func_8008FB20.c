@@ -68,12 +68,12 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                     temp_a3 = (*(u8 *)((char *)(temp_v0) + 2));
                     temp_t1_2 = (u8)((*(u8 *)((char *)(var_a2) + 0x58C)));
                     temp_t1 = (*(u8 *)((char *)(temp_v0) + 3));
-                    if ((temp_a3 == 0xFF) & (temp_t1 == 0xFF)) {
+                    if (temp_a3 == 0xFF && temp_t1 == 0xFF) {
                         (*(void **)((char *)(var_a2) + 0x574)) = NULL;
                     } else {
                         temp_v1 = (temp_a3 >> 7) & 1;
                         var_s4 = 4;
-                        if (temp_v1 & (temp_t1 == 0)) {
+                        if ((temp_a3 & 0x80) && temp_t1 == 0) {
                             temp_a0 = temp_a3 & 0x7F;
                             temp_a0_3 = temp_t1_2 & 0xFF;
     temp_a1_2 = temp_a0_3;

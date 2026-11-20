@@ -32,6 +32,7 @@ extern char D_8010D2C0[];
 extern char D_8010D380[];
 
 void func_800740D0(void *arg0) {
+    volatile long long stack_pad;
     s32 temp_v1;
     s16 var_v0;
     s32 *temp_v1_8;
@@ -72,7 +73,7 @@ void func_800740D0(void *arg0) {
     M2C_FIELD(arg0, f32 *, 0x40) += M2C_FIELD(temp_s1, f32 *, 0x14);
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (*((M2C_FIELD(temp_s1, u8 *, 0x34) * 4) + ((M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C) + D_8010D380)) == M2C_FIELD(temp_s1, s32 *, 0x18)) {
+        if (*(s32 *)((M2C_FIELD(temp_s1, u8 *, 0x34) * 4) + ((M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C) + D_8010D380)) == M2C_FIELD(temp_s1, s32 *, 0x18)) {
             temp_s3 = M2C_FIELD(temp_s1, void **, 4);
             if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && ((2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)) < func_80045590(temp_s1 + 8, D_8010A500 + 0x24))) {
                 var_s0 = func_80015DAC();

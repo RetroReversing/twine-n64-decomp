@@ -99,33 +99,17 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         D_80115328 = temp_a0_2;
         temp_fv1_3 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58 + 2.0f;
         D_80115328 = temp_v1_2 + 0x58;
-        if (!(temp_fv1_3 >= 2.1474836e9f)) {
-            var_t8 = (s32) temp_fv1_3 & 0x3FF;
-        } else {
-            var_t8 = ((s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000) & 0x3FF;
-        }
+        var_t8 = (u32) temp_fv1_3 & 0x3FF;
         M2C_FIELD(temp_v1_2, s32 *, 0x50) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_t8 * 4) | 0xF6000000));
         temp_fv1_4 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58;
-        if (temp_fv1_4 >= 2.1474836e9f) {
-            var_v0_3 = ((s32) (temp_fv1_4 - 2.1474836e9f) | 0x80000000) & 0x3FF;
-        } else {
-            var_v0_3 = (s32) temp_fv1_4 & 0x3FF;
-        }
+        var_v0_3 = (u32) temp_fv1_4 & 0x3FF;
         ((__repair_field_4 *)temp_a0_2)->value = (s32) (var_v0_3 * 4);
         temp_v1_3 = D_80115328;
         temp_fv1_5 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C;
         D_80115328 = temp_v1_3 + 8;
-        if (!(temp_fv1_5 >= 2.1474836e9f)) {
-            M2C_FIELD(temp_v1_3, s32 *, 0) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | (((s32) temp_fv1_5 & 0x3FF * 4) | 0xF6000000));
-        } else {
-            M2C_FIELD(temp_v1_3, s32 *, 0) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((((s32) (temp_fv1_5 - 2.1474836e9f) | 0x80000000) & 0x3FF * 4) | 0xF6000000));
-        }
+        M2C_FIELD(temp_v1_3, s32 *, 0) = ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((((u32) temp_fv1_5 & 0x3FF) * 4) | 0xF6000000));
         temp_fv1_6 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 2.0f;
-        if (temp_fv1_6 >= 2.1474836e9f) {
-            var_v0_5 = ((s32) (temp_fv1_6 - 2.1474836e9f) | 0x80000000) & 0x3FF;
-        } else {
-            var_v0_5 = (s32) temp_fv1_6 & 0x3FF;
-        }
+        var_v0_5 = (u32) temp_fv1_6 & 0x3FF;
         ((__repair_field_4 *)temp_v1_3)->value = (s32) (var_v0_5 * 4);
     }
 }

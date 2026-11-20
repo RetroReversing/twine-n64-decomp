@@ -253,7 +253,7 @@ block_41:
         temp_a2 = *D_800E421C;
         if (temp_a2 != 0) {
             D_800E3F50 = 2;
-            D_800E3F5C = &D_800AC1E0 - &func_800AC110;
+            D_800E3F5C = (s32)&D_800AC1E0 - (s32)&func_800AC110;
             D_800E3F60 = &D_800AD570;
             D_800E3F64 = 0x1000;
             D_800E3F68 = &D_800D1B30;

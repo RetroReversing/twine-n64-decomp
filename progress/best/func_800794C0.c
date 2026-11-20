@@ -34,7 +34,7 @@ void func_800794C0(s32 arg0, void *arg1) {
         struct { unsigned char pad[68]; f32 value; } view_sp74;
         struct { unsigned char pad[72]; f32 value; } view_sp78;
         struct { unsigned char pad[80]; s32 value; } view_sp80;
-        struct { unsigned char pad[84]; s32 value; } view_sp84;
+        struct { unsigned char pad[84]; f32 value; } view_sp84;
         struct { unsigned char pad[88]; s32 value; } view_sp88;
         struct { unsigned char pad[92]; s32 value; } view_sp8C;
     } m2c_initial_frame;
@@ -74,20 +74,16 @@ void func_800794C0(s32 arg0, void *arg1) {
     m2c_initial_frame.view_sp60_vec.value = D_800D4E74;
     temp_fs0 = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x38));
     m2c_initial_frame.view_sp80.value = 0;
-    m2c_initial_frame.view_sp84.value = 0x3F800000;
+    m2c_initial_frame.view_sp84.value = 1.0f;
     m2c_initial_frame.view_sp88.value = 0;
     temp_v1 = (*(s16 *)((char *)(arg1) + 0x7A));
     D_80103046 += 1;
     if ((0x38 > temp_v1) && (0x36 <= ((*(s16 *)((char *)(arg1) + 0x7A))))) {
-        m2c_initial_frame.view_sp70.value = (*(f32 *)((char *)(arg1) + 0x24));
-        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
-        m2c_initial_frame.view_sp78.value = (*(f32 *)((char *)(arg1) + 0x2C));
+        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24);
         var_ft0 = 42.0f;
         m2c_initial_frame.view_sp74.value += 1.0f;
     } else {
-        m2c_initial_frame.view_sp70.value = (*(f32 *)((char *)(arg1) + 0x24));
-        m2c_initial_frame.view_sp74.value = (*(f32 *)((char *)(arg1) + 0x28));
-        m2c_initial_frame.view_sp78.value = (*(f32 *)((char *)(arg1) + 0x2C));
+        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24);
         var_ft0 = 41.0f;
     }
     temp_fv0 = (*(f32 *)((char *)(temp_s2) + 0x48)) - 0.32666668f;
@@ -102,10 +98,7 @@ void func_800794C0(s32 arg0, void *arg1) {
     }
     temp_a2 = (*(void **)((char *)(temp_s2) + 0x6C));
     if (temp_a2 != NULL) {
-        (*(s32 *)((char *)(temp_a2) + 0x34)) = m2c_initial_frame.view_sp84.value;
-        (*(s32 *)((char *)(temp_a2) + 0x30)) = m2c_initial_frame.view_sp80.value;
-        (*(s32 *)((char *)(temp_a2) + 0x38)) = m2c_initial_frame.view_sp88.value;
-        (*(s32 *)((char *)(temp_a2) + 0x3C)) = m2c_initial_frame.view_sp8C.value;
+        { typedef struct { s32 a, b, c, d; } Vec4; *(Vec4 *)((char *)temp_a2 + 0x30) = *(Vec4 *)&m2c_initial_frame.view_sp80.value; }
     }
     (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8)) = m2c_initial_frame.view_sp34.value;
     __repair_phase_storage.pointer = (*(void **)((char *)(arg1) + 0x68));
