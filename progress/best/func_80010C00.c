@@ -11,9 +11,7 @@ extern s32 func_80010B60(s32);
 
 typedef struct { u32 v; } __attribute__((packed)) UW;
 #define ENT(i) ((u8 *)D_800E0790 + (i) * 104)
-#define CP32(d, s) { u32 *dd_ = (u32 *)(d); UW *ss_ = (UW *)(s); \
-    dd_[0] = ss_[0].v; dd_[1] = ss_[1].v; dd_[2] = ss_[2].v; dd_[3] = ss_[3].v; \
-    dd_[4] = ss_[4].v; dd_[5] = ss_[5].v; dd_[6] = ss_[6].v; dd_[7] = ss_[7].v; }
+#define CP32(d, s) __builtin_memcpy((d), (s), 32)
 
 s32 func_80010C00(void)
 {
@@ -42,7 +40,7 @@ s32 func_80010C00(void)
     goto d110e4;
 
 cec:
-    a1 = (s32)&D_801032A8;
+    a1 = D_801032A8;
     if (a1 == 0xB || a1 == 2) goto d18;
     if (a1 != 0) goto l11374;
 d18:

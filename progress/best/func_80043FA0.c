@@ -7,7 +7,7 @@ s32 func_8000B9B8(void *, void *, s32);
 void func_800134C0(void);
 void func_800134C8(void);
 s32 func_8001499C(s32 *);
-u16 func_800149D4(void *);
+s32 func_800149D4(void *);
 s32 func_80014A0C(s32 *, s32 *);
 s32 func_800328B8(void *, s32 *);
 s32 func_800336FC(s32 *, s32 *, s32 *, s32 *, s32, f32, s32, s32, s32, s32 *, s32 *);
@@ -39,10 +39,10 @@ void func_80043FA0(void *arg0) {
     
     s32 temp_s6_2;
     s32 temp_v0_2;
-    u16 temp_v0;
-    u16 temp_v0_4;
-    u16 temp_v0_5;
-    u16 temp_v0_6;
+    s32 temp_v0;
+    s32 temp_v0_4;
+    s32 temp_v0_5;
+    s32 temp_v0_6;
     u8 *temp_v0_8;
 
     var_s5 = NULL;
@@ -55,9 +55,8 @@ void func_80043FA0(void *arg0) {
         }
         func_800134C0();
         func_8000B9B8(sp30, D_54D910 + FLD(arg0, s32, 4), 0x20);
-        __repair_phase_storage.pointer = FLD(arg0, s32 *, 0x34);
-        if (__repair_phase_storage.pointer != NULL) {
-            sp8C = __repair_phase_storage.pointer;
+        sp8C = FLD(arg0, s32 *, 0x34);
+        if (sp8C != NULL) {
             goto block_10;
         }
         var_s5 = func_80083E90(FLD(sp30, u16, 4) * 0x18, 0x2D);
@@ -68,7 +67,7 @@ void func_80043FA0(void *arg0) {
                 sp8C = var_s5;
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), FLD(sp30, u16, 4) * 0xC);
             } else {
-                sp8C = var_s5 + (FLD(sp30, u16, 4) * 0xC);
+                sp8C = (s32 *)((u8 *)var_s5 + (FLD(sp30, u16, 4) * 0xC));
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), temp_v0);
                 func_8001499C(var_s5);
                 func_80014A0C(sp8C, var_s5);
@@ -127,7 +126,7 @@ block_21:
                     func_800336FC(var_s2, sp8C, var_fp, var_s3, (s32) FLD(arg0, u8, 0x45), var_fs0, __repair_phase_storage.value, temp_s6_2, 0, &sp70, &sp74);
                     temp_v0_9 = func_80083E90((sp70 * 0x10) + (sp74 * 8), 0x2E);
                     if (temp_v0_9 != NULL) {
-                        func_800328B8(temp_v0_9 + (sp74 * 8), temp_v0_9);
+                        func_800328B8((u8 *)temp_v0_9 + (sp74 * 8), temp_v0_9);
                         FLD(arg0, s32 *, 0) = temp_v0_9;
                         func_800336FC(var_s2, sp8C, var_fp, var_s3, (s32) FLD(arg0, u8, 0x45), var_fs0, __repair_phase_storage.value, temp_s6_2, 1, NULL, NULL);
                         if (D_80109A94 != 0) {

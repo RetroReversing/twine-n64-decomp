@@ -101,10 +101,10 @@ block_12:
         *(u16 *)(D_800BF686 + var_v1) = (var_v0 & 0xFFFE) | var_s0;
         temp_v1_6 = func_8002B9FC(var_a0) * 0xC;
         *(u16 *)(D_800BF686 + temp_v1_6) = (*(u16 *)(D_800BF686 + temp_v1_6) & 0xFFFE) | var_s0;
+        goto done;
     case 0:
     default:
-        *(D_80112F70 + (arg0 & 0xFF)) = arg1;
-        break;
+        goto done;
     case 2:
         temp_v1_7 = func_8002B9FC(0x59) * 0xC;
         var_s0 = arg1 & 1;
@@ -268,4 +268,6 @@ block_12:
         var_a0 = 0x4E;
         goto block_12;
     }
+done:
+    *(D_80112F70 + (arg0 & 0xFF)) = arg1;
 }

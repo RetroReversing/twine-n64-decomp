@@ -22,7 +22,8 @@ void func_8009692C(s32 arg0, s32 arg1, s8 arg2) {
     temp_v1 = arg1 & 0xFF;
     if (temp_v1 != 0xFF) {
         __base_D_800F37E0 = D_800F37E0;
-        *((temp_v1 * 0x10) + __base_D_800F37E0 + (arg0 & 0xFF)) = arg2;
+        __base_D_800F37E0 += temp_v1 * 0x10;
+        __base_D_800F37E0[arg0 & 0xFF] = arg2;
         return;
     }
     *(D_800F3860 + (arg0 & 0xFF)) = arg2;

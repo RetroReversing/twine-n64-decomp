@@ -74,21 +74,23 @@ void func_80117784(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     D_8011F074 = temp_v1;
     M2C_FIELD(temp_v1, s32 *, 0xC) = 0;
     if (0 == 0) {
-loop_8:
-        var_v0 = D_8011F074;
-        var_fv1 = 999999.0f;
-        var_s1 = NULL;
-        if (var_v0 != NULL) {
-            do {
-                temp_fv0 = M2C_FIELD(var_v0, f32 *, 0xC);
-                if (temp_fv0 < var_fv1) {
-                    var_s1 = var_v0;
-                    var_fv1 = temp_fv0;
-                }
-                var_v0 = M2C_FIELD(var_v0, void **, 4);
-            } while (var_v0 != NULL);
-        }
-        if (var_s1 != NULL) {
+        for (;;) {
+            var_v0 = D_8011F074;
+            var_fv1 = 999999.0f;
+            var_s1 = NULL;
+            if (var_v0 != NULL) {
+                do {
+                    temp_fv0 = M2C_FIELD(var_v0, f32 *, 0xC);
+                    if (temp_fv0 < var_fv1) {
+                        var_s1 = var_v0;
+                        var_fv1 = temp_fv0;
+                    }
+                    var_v0 = M2C_FIELD(var_v0, void **, 4);
+                } while (var_v0 != NULL);
+            }
+            if (var_s1 == NULL) {
+                break;
+            }
             var_s2_2 = 0;
             if (var_s1 == (D_8011F068 + (arg1 * 0x58))) {
                 var_s6 = 1;
@@ -111,7 +113,6 @@ loop_8:
             if (var_s6 != 0) {
                 goto block_22;
             }
-            goto loop_8;
         }
         temp_v0_3 = arg0 * 0x58;
         temp_v1_2 = M2C_FIELD((temp_v0_3 + D_8011F068), void **, 0x10);

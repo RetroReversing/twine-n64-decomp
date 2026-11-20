@@ -32,7 +32,7 @@ void func_8007B030(void *arg0) {
     f32 var_fv1;
     void *temp_s1;
     s32 temp_a1;
-    s32 var_s2;
+    s16 var_s2;
     s32 v;
 
     temp_s1 = *(void **)((s8 *)arg0 + 0x6C);
@@ -92,9 +92,8 @@ blkX:
             var_a2 = 5;
         }
         goto block_47;
-    __base_D_800C9C00 = &D_800C9C00;
     case 1:
-        var_a1 = __base_D_800C9C00;
+        var_a1 = &D_800C9C00;
         var_a2 = 6;
         goto block_47;
     case 3:
@@ -159,9 +158,6 @@ blkY:
         var_a2 = 3;
         goto block_47;
     }
-    return;
-block_36:
-    func_8007AFB0(arg0);
     return;
 block_42:
     func_80002BD0(arg0, 0x14D);

@@ -12,8 +12,8 @@ extern s32 *D_800E19B8;
 extern s32 *D_800E19BC;
 extern s32 *D_800E19C0;
 extern s32 *D_800E19C4;
-extern u16 D_800E19C8;
-extern u16 D_800E19CA;
+extern s16 D_800E19C8;
+extern s16 D_800E19CA;
 extern u16 D_800E19CC;
 extern u16 D_800E19CE;
 
