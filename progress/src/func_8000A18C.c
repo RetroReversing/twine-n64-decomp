@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8009CF18(s32, M2C_UNK, M2C_UNK, u32);  /* extern */
+void func_8009CF18(s32, s32, s32);  /* extern */
 
 void func_8000A18C(s32 arg0) {
-    func_8009CF18(((arg0 * 0x7F) / 10) & 0xFF, 0, 1, MULTU_HI((arg0 * 0x7F), 0xCCCCCCCD));
+    func_8009CF18((((u32)arg0 * 0x7FU) / 10U) & 0xFF, 0, 1);
 }
