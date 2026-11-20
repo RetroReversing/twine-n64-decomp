@@ -10336,22 +10336,6 @@
   "score_after": 17166
  },
  {
-  "function": "func_8011E3AC",
-  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054036.755857,
-  "score_before": 7858,
-  "score_after": 7858
- },
- {
-  "function": "func_8011E3AC",
-  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.\n\nCORRECTION: the release note's score (7858 at revision 392a0afaa0e690a96b44) and frame/register details were not re-measured in this session. Re-measure with get_candidate and compile_and_diff before relying on them. Treat the frame-size and loop-index suggestions as unverified hypotheses.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054036.755857,
-  "score_before": 7858,
-  "score_after": 7858
- },
- {
   "function": "func_800158A4",
   "text": "Not attempted in compiles. Draft does not compile: sp2C/sp30/sp3C/sp40/sp7C/sp80 undeclared (they are f32 locals of the sp28/sp38/sp78 block; declare sp28..sp40 and sp78..sp80 as one f32 array or separate fields). Control flow has a switch(var_s0) whose case 1/2/default labels sit inside if/else blocks (goto-style jump into else branch); the case-0 label is inside the else of `if (M2C_FIELD(var_s1,u16*,0x58)==0x46)`. Rewrite as explicit if/else with a plain loop and a switch-free structure, then compare. Calls: func_80045764, func_8004E6E4, func_80045540, func_8004F990, func_80047B44; writes D_800B35B0 (u16 counter, +=1 on entry).",
   "by": "permuter-25769805351",
@@ -10454,5 +10438,45 @@
   "created_at": 1795054186.6252859,
   "score_before": 16152,
   "score_after": 4114
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054036.755857,
+  "score_before": 7858,
+  "score_after": 7858
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.\n\nCORRECTION: the release note's score (7858 at revision 392a0afaa0e690a96b44) and frame/register details were not re-measured in this session. Re-measure with get_candidate and compile_and_diff before relying on them. Treat the frame-size and loop-index suggestions as unverified hypotheses.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054036.755857,
+  "score_before": 7858,
+  "score_after": 7858
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Best verified score 950 (94.1%, target 162 instructions; candidate 160), current saved candidate revision 0305a6ce87ccfdc4a449. Key fixes from inherited source: make both nested clear-loop counters u16 (signed-short outer + s32 inner yielded 4255; both u16 yields 950), and retain dense switch cases 2\u20138 to induce the dispatch table. Four-case switch omitted 6\u20138 scored 2575. Remaining differences are concentrated in the earlier mode-selection branches (target beq $a3,$v1 at row 38 and shared jumps; candidate bne plus extra jump) and jump-table addressing: target loads existing D_8011F040 while compiler emits local .rodata table. Reversing the mode condition experimentally regressed to 2690; switching on (D_801002A0 - 2) retained same 950 diff. Target table values reside at D_8011F040 and map cases 2\u20138 to function-relative labels. Session handoff occurred during compile_variants, so no additional variants completed.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795179436.516829,
+  "score_before": 6705,
+  "score_after": 950
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Baseline score 950 (current recheck). Local variants for signedness, declaration order, array index width, irregular cases and switch layout did not improve. Most differing instructions occur in switch tail; target has beq $a3,$v1 to 0xb4 after three halfword stores, while candidate branches opposite and emits an extra jump. Several trials warned generated code referenced .rodata+0 where target has no code address; investigate switch/jump-table lowering.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795179486.364007,
+  "score_before": 950,
+  "score_after": 950
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Claim transferred during work. Baseline score 950; attempted a shared temporary and common store for D_8011F0EC, score 960. Target checks mode 1 then 2 with branches to separate blocks; next try explicit labels in target order, with shared store after the mode 2 special block.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795179495.501715,
+  "score_before": 950,
+  "score_after": 950
  }
 ]
