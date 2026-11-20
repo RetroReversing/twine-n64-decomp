@@ -1,4 +1,4 @@
-/* identical to func_80039820 in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to func_80039820 in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 typedef struct RspTask {
     u32 type;
     u32 flags;

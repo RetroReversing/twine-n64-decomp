@@ -1,4 +1,4 @@
-/* identical to __sinf in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to __sinf in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* identical to __sinf in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 /* identical to __sinf in V-RALLY (matched), with its names changed by decompdecomp */
  
@@ -3276,7 +3276,7 @@ extern void guMtxXFML(Mtx *m, float x, float y, float z,
 		      float *ox, float *oy, float *oz);
 
  
-extern void guNormalize(float *x, float *y, float *z);
+extern void D_800CA570(float *x, float *y, float *z);
 
  
 void guPosLight(PositionalLight *pl, Light *l,

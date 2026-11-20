@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_80045E34(s32, void *);                     /* extern */
-extern void *D_80109688;
+extern void *D_80109688[];
 extern u8 D_8010A4C1;
 
 void func_80073508(s32 arg0, f32 arg1) {
@@ -25,29 +25,25 @@ void func_80073508(s32 arg0, f32 arg1) {
     void *temp_v0_2;
     void *temp_v0_3;
 
-    var_s1 = 0;
-    var_s0 = &D_80109688;
-    do {
-        temp_a1 = *var_s0;
+    for (var_s1 = 0; var_s1 < 4U; var_s1++) {
+        temp_a1 = D_80109688[var_s1];
         if (temp_a1 != NULL) {
             temp_fv1 = (100.0f - func_80045E34(arg0, temp_a1 + 0x10)) * arg1;
             if (temp_fv1 > 0.0f) {
-                M2C_FIELD(*var_s0, f32 *, 0x120) = temp_fv1;
+                M2C_FIELD(D_80109688[var_s1], f32 *, 0x120) = temp_fv1;
             }
-            if (D_8010A4C1 & (1 << var_s1)) {
-                temp_v0 = *var_s0;
+            if ((D_8010A4C1 & (1U << var_s1)) == (1U << var_s1)) {
+                temp_v0 = D_80109688[var_s1];
                 M2C_FIELD(temp_v0, f32 *, 0x124) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x124) + (2.0f * temp_fv1));
             }
-            temp_v0_2 = *var_s0;
+            temp_v0_2 = D_80109688[var_s1];
             if (M2C_FIELD(temp_v0_2, f32 *, 0x124) > 1.0f) {
                 M2C_FIELD(temp_v0_2, f32 *, 0x124) = 1.0f;
             }
-            temp_v0_3 = *var_s0;
+            temp_v0_3 = D_80109688[var_s1];
             if (M2C_FIELD(temp_v0_3, f32 *, 0x124) < 0.0f) {
                 M2C_FIELD(temp_v0_3, f32 *, 0x124) = 0.0f;
             }
         }
-        var_s1 += 1;
-        var_s0 += 4;
-    } while (var_s1 < 4U);
+    }
 }

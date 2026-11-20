@@ -31,7 +31,7 @@ void func_800285D4(void) {
     void *temp_a2;
     void *temp_v0;
 
-    if (!(func_80027848(0x2D) & 0xFF)) {
+    if (!(func_80027848(45) & 0xFF)) {
         M2C_FIELD(D_80109BB0, s8 *, 0x29) = 0;
         if (D_80109BB0 != NULL) {
             temp_v0 = M2C_FIELD(D_80109BB0, void **, 0x10);
@@ -46,7 +46,7 @@ void func_800285D4(void) {
         if (M2C_FIELD(D_80109BB0, void **, 0x10) != NULL) {
             temp_a2 = M2C_FIELD(D_80109BB0, void **, 0x18);
             if (temp_a2 != NULL) {
-                M2C_FIELD(temp_a2, s32 *, 0x24) = M2C_UNALIGNED32(D_801002E6);
+                M2C_FIELD(temp_a2, u32 *, 0x24) = *(volatile u32 *)D_801002E6;
             }
         }
         func_80026D40(D_800E1090, D_800E1094 & ~0xFF);

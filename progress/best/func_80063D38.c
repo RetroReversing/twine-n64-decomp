@@ -16,12 +16,16 @@ s32 func_80063CFC();
 extern u8 D_800C471C[];
 
 s32 func_80063D38(s32 arg0, s16 arg1) {
+char *__repair_addr;
+
     s32 temp_s0;
     s32 var_v0;
 
     temp_s0 = arg1 * 0xE8;
     var_v0 = 1;
-    if (M2C_FIELD((arg0 + (*(D_800C471C + temp_s0) * 2)), s16 *, 0x1BC) == 0) {
+__repair_addr = (char *)((arg0 + (*(D_800C471C + temp_s0) * 2)));
+
+    if (M2C_FIELD(__repair_addr, s16 *, 0x1BC) == 0) {
         var_v0 = 1;
         if ((func_80063CFC(arg0, arg1) << 0x10) == 0) {
             var_v0 = *(D_800C471C + temp_s0) == 0;

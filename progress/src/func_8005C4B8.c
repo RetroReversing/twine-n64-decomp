@@ -1,3 +1,5 @@
+/* adapted from similar verified C in func_802B19DC in Shadowman (matched), with its names changed by decompdecomp */
+/* adapted from similar verified C in func_8005C4B8 in TWINE (matched), with its names changed by decompdecomp */
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES

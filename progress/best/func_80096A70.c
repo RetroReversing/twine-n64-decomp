@@ -40,11 +40,12 @@ s32 func_80096A70(void *arg0, void *arg1) {
         var_s2 = arg1;
         do {
             temp_a3 = M2C_FIELD(var_s2, u8 *, 0);
-            var_a0_2 = temp_a3 & 0xFF;
-    temp_a0 = var_a0_2;
-            var_v1 = temp_a3 & 0xFF;
-            if ((((temp_a0 == 0x80) | (temp_a0 == 1)) != 0) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA) | (temp_a0 == 0xA0)) != 0)) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA1) | (temp_a0 == 0x83)) != 0)) || (temp_a0 == 0x84)) {
-                switch (var_v1) {                   /* switch 1; irregular */
+            temp_a0 = temp_a3;
+            if (((temp_a0 == 0x80) | (temp_a0 == 1)) ||
+                ((temp_a0 == 0xA) | (temp_a0 == 0xA0)) ||
+                ((temp_a0 == 0xA1) | (temp_a0 == 0x83)) ||
+                temp_a0 == 0x84) {
+                switch (temp_a3) {
                 case 0xA0:                          /* switch 1 */
                     var_a0 = M2C_FIELD(arg0, s16 *, 0x170) * 2;
                     break;
@@ -64,70 +65,56 @@ s32 func_80096A70(void *arg0, void *arg1) {
                         var_a0 = temp_a0_2;
                     }
                 }
-                temp_v1 = M2C_FIELD(var_s2, u8 *, 1);
-                if (temp_v1 != 1) {
-                    if ((s32) temp_v1 < 2) {
-                        if (temp_v1 == 0) {
-                            var_s1 = var_a0;
-                            goto block_33;
-                        }
-                        var_s0 = var_s1 + 0x2000;
-                    } else if (temp_v1 != 2) {
-                        var_s0 = var_s1 + 0x2000;
-                    } else {
-                        var_s1_2 = (s32) ((var_s0 - 0x2000) * var_a0) >> 0xD;
-                        if (var_s1_2 < -0x2000) {
-                            temp_a0_2 = -0x2000;
-                        } else {
-                            var_v0 = var_s1_2 < 0x2000;
-                            goto block_30;
-                        }
-                        goto block_32;
+                switch (M2C_FIELD(var_s2, u8 *, 1)) {
+                case 0:
+                    var_s1 = var_a0;
+                    break;
+                case 1:
+                    var_s1 = var_s0 + (var_a0 - 0x2000);
+                    if (var_s1 >= -0x2000) {
+                        goto upper_bound;
                     }
-                } else {
-                    var_s1_2 = var_s0 + (var_a0 - 0x2000);
-                    var_v0 = var_s1_2 < 0x2000;
-                    if (var_s1_2 < -0x2000) {
-                        temp_a0_2 = -0x2000;
+                    var_s1_2 = -0x2000;
+                    goto apply_bound;
+                case 2:
+                    var_s1 = ((var_s0 - 0x2000) * var_a0) >> 13;
+                    if (var_s1 < -0x2000) {
+                        var_s1_2 = -0x2000;
                     } else {
-block_30:
-                        temp_a0_2 = 0x1FFF;
-                        if (var_v0 != 0) {
-                            temp_a0_2 = var_s1_2;
+                    upper_bound:
+                        var_s1_2 = 0x1FFF;
+                        if (var_s1 < 0x2000) {
+                            var_s1_2 = var_s1;
                         }
                     }
-block_32:
-                    var_s1 = temp_a0_2;
-block_33:
-                    var_s0 = var_s1 + 0x2000;
+                apply_bound:
+                    var_s1 = var_s1_2;
+                    break;
                 }
+                var_s0 = var_s1 + 0x2000;
             } else {
-                var_a0_2 = (s32) ((func_80096460(temp_a0, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B), temp_a3) & 0xFFFF) * M2C_FIELD(var_s2, s16 *, 2)) >> 8;
+                u32 capped;
+                var_a0_2 = (s32) ((func_80096460(temp_a0, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) & 0xFFFF) * M2C_FIELD(var_s2, s16 *, 2)) >> 8;
                 if (var_a0_2 >= 0x4000) {
                     var_a0_2 = 0x3FFF;
                 }
-                temp_v1_2 = M2C_FIELD(var_s2, u8 *, 1);
-                switch (temp_v1_2) {                /* switch 2; irregular */
-                case 0:                             /* switch 2 */
+                switch (M2C_FIELD(var_s2, u8 *, 1)) {
+                case 0:
                     var_s0 = var_a0_2;
                     break;
-                default:                            /* switch 2 */
-                    var_v1_3 = 0x3FFF;
-                    if (temp_v1_2 != 2) {
-
-                    } else {
-                        var_s0_2 = (u32) (var_s0 * var_a0_2) >> 0xE;
-block_46:
-                        if (var_s0_2 < 0x4000U) {
-                            var_v1_3 = var_s0_2;
-                        }
-                        var_s0 = (s32) var_v1_3;
+                case 1:
+                    var_s0 += var_a0_2;
+                    capped = 0x3FFF;
+                    goto cap;
+                case 2:
+                    var_s0 = (u32)(var_s0 * var_a0_2) >> 14;
+                    capped = 0x3FFF;
+                cap:
+                    if ((u32)var_s0 < 0x4000) {
+                        capped = var_s0;
                     }
+                    var_s0 = capped;
                     break;
-                case 1:                             /* switch 2 */
-                    var_s0_2 = var_s0 + var_a0_2;
-                    var_v1_3 = 0x3FFF;
-                    goto block_46;
                 }
             }
             var_s4 += 1;

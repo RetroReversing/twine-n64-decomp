@@ -26,6 +26,7 @@ extern char D_80117388[];
 extern char D_80117389[];
 extern u8 D_801176E8;
 
+typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
 void func_8009991C(s32 arg0) {
     char *var_s1;
     char *var_s4;
@@ -52,15 +53,15 @@ void func_8009991C(s32 arg0) {
                     M2C_FIELD(temp_s0, s32 *, 0) = 0;
                     M2C_FIELD(temp_s0, s8 *, 0x2E) = 0;
                     temp_a0 = (temp_a1 * 4) + D_80117388;
-                    if (M2C_FIELD(temp_a0, u16 *, 2) == 0) {
-                        M2C_FIELD(temp_a0, u16 *, 2) = 1U;
+                    if (((__repair_record_temp_a0*)temp_a0)->field_2 == 0) {
+                        ((__repair_record_temp_a0*)temp_a0)->field_2 = 1U;
                         if (D_801002EA != 0xFF) {
-                            M2C_FIELD(temp_a0, u8 *, 1) = 0xFF;
-                            M2C_FIELD(temp_a0, u8 *, 0) = (u8) D_80110DB0;
+                            ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
+                            ((__repair_record_temp_a0*)temp_a0)->field_0 = (u8) D_80110DB0;
                             *(D_80117389 + (D_80110DB0 * 4)) = temp_a1;
                         } else {
-                            M2C_FIELD(temp_a0, u8 *, 1) = 0xFF;
-                            M2C_FIELD(temp_a0, u8 *, 0) = 0xFFU;
+                            ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
+                            ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xFFU;
                             D_801002EA = temp_a1;
                         }
                         D_80110DB0 = temp_a1;

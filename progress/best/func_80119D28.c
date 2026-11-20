@@ -24,7 +24,7 @@ void func_80119D28(void *arg0) {
                 temp_v0 = (*(void **)((char *)(*var_s1) + 0x6C));
                 if (temp_v0 != NULL) {
                     temp_a1 = (*(void **)((char *)(temp_v0) + 0xB4));
-                    if ((temp_a1 != NULL) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x54))) && ((s16) (*(u16 *)((char *)(arg0) + 0x7C)) == (((*(u16 *)((char *)(arg0) + 0x7C)) / 150) * 0x96))) {
+                    if ((temp_a1 != NULL) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x54))) && ((s16) (*(u16 *)((char *)(arg0) + 0x7C)) == (((u32)*(s16 *)((char *)arg0 + 0x7C) / 150U) * 150U))) {
                         (*(u16 *)((char *)(temp_a1) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_a1) + 0xC)) + 1);
                     }
                 }

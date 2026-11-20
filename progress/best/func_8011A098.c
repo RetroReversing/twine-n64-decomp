@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-void *func_80016410(s32, void *, s32);      /* extern */
+void *func_80016410(s32, s32, s32);      /* extern */
 s32 func_8002B000(s32 *, s32);          /* extern */
 s32 func_8003E6EC(s32, void *, s32);        /* extern */
 s32 func_80044670(void *, s32, s32);    /* extern */
@@ -31,14 +31,16 @@ void *func_8011A098(void *arg0, s32 arg1, s32 arg2) {
         if (temp_v0 != NULL) {
             temp_v1 = temp_s3 & 0xFFFF;
             D_8011F150[temp_v1] = temp_v0;
-            if (temp_v1) {
-                if (temp_v1 != 1) {
-                    func_80044670(temp_v0, 5, 0xF4);
-                } else {
+            switch (temp_v1) {
+                case 0:
+                    func_80044670(temp_v0, 3, 0xF4);
+                    break;
+                case 1:
                     func_80044670(temp_v0, 4, 0xF4);
-                }
-            } else {
-                func_80044670(temp_v0, 3, 0xF4);
+                    break;
+                default:
+                    func_80044670(temp_v0, 5, 0xF4);
+                    break;
             }
             ((__repair_record_temp_v0*)temp_v0)->field_7A = temp_s3;
             ((__repair_record_temp_v0*)temp_v0)->field_7C = 2;

@@ -59,7 +59,7 @@ char *__branch___base_D_80109688;
             return;
         }
         M2C_FIELD(arg1, s8 *, 0x185) = 1;
-        temp_s1 = (temp_s2 * 4) + __base_D_80109688;
+        temp_s1 = (temp_s2 * 4) + D_80109688;
         temp_a0_2 = *temp_s1;
         ((__repair_field_100 *)temp_a0_2)->value = (s32) (((__repair_field_100 *)temp_a0_2)->value & ~7);
         temp_v1_2 = *temp_s1;
@@ -67,15 +67,11 @@ char *__branch___base_D_80109688;
         __base_D_800C7CE4 = &D_800C7CE4;
         (*__base_D_800C7CE4) = (s16) temp_s2;
         if (M2C_FIELD(arg1, void **, 0x3FC) == NULL) {
-            M2C_FIELD(arg1, void **, 0x3FC) = func_80015F74(__base_D_800C7CE4 - 0x20);
+            M2C_FIELD(arg1, void **, 0x3FC) = func_80015F74(__base_D_800C7CE4 - 0x10);
         }
         temp_fv1 = (M2C_FIELD(*temp_s1, f32 *, 0x78) - 32.0f) + 12.0f;
         temp_a0_3 = M2C_FIELD(arg1, void **, 0x3FC);
-        if (temp_fv1 >= 2.1474836e9f) {
-            M2C_FIELD(temp_a0_3, s16 *, 0x20) = (s16) ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000);
-        } else {
-            M2C_FIELD(temp_a0_3, s16 *, 0x20) = (s16) (s32) temp_fv1;
-        }
+        M2C_FIELD(temp_a0_3, s16 *, 0x20) = (u32) temp_fv1;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s16 *, 0x22) = 0x25;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s8 *, 0x29) = 7;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0x3FC), s32 *, 0x10) = 0xFF0055;
@@ -83,7 +79,7 @@ char *__branch___base_D_80109688;
         (*__base_D_800C7D08) = (s16) temp_s2;
         D_800C7CF6 = 0xA6;
         if (M2C_FIELD(arg1, void **, 0x400) == NULL) {
-            M2C_FIELD(arg1, void **, 0x400) = func_80015F74(__base_D_800C7D08 - 0x20);
+            M2C_FIELD(arg1, void **, 0x400) = func_80015F74(__base_D_800C7D08 - 0x10);
         }
         D_800C7D2C = (s16) temp_s2;
         D_800C7D50 = (s16) temp_s2;

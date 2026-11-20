@@ -4,7 +4,7 @@ void *func_800162BC(u8);                            /* extern */
 s32 func_80016314(void *);                      /* extern */
 s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 func_80087100(u16, void *);                     /* extern */
-s16 strlen(s32);                                    /* extern */
+s32 strlen(s8 *);                                    /* extern */
 extern u8 D_800BD68E;
 extern void *D_80109BB0;
 
@@ -42,14 +42,22 @@ void func_800266DC(void *arg0) {
         if ((*(s16 *)((char *)(arg0) + 0x10)) >= 0) {
             temp_v0_2 = func_800162BC(D_800BD68E);
             (*(s32 *)((char *)(temp_v0_2) + 0x10)) = (s32) (*(s32 *)((char *)(arg0) + 8));
-            (*(s32 *)((char *)(temp_v0_2) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0_2) + 0x28)) & ~0xFC) | 0x14);
-            (*(s32 *)((char *)(temp_v0_2) + 0x14)) = (s32) (*(s32 *)((char *)(arg0) + 0xC));
+            temp_a2 = (*(s32 *)((char *)(temp_v0_2) + 0x28));
+            temp_a0_2 = (*(s32 *)((char *)(arg0) + 0xC));
+            temp_a2 &= ~0xFC;
+            temp_a2 |= 0x14;
+            (*(s32 *)((char *)(temp_v0_2) + 0x28)) = temp_a2;
+            (*(s32 *)((char *)(temp_v0_2) + 0x14)) = temp_a0_2;
             (*(u16 *)((char *)(temp_v0_2) + 0x1E)) = (u16) (*(u16 *)((char *)(arg0) + 2));
-            temp_a2 = (u32) (*(s16 *)((char *)(arg0) + 0x10));
+            temp_a2 = (u32) (*(s32 *)((char *)(arg0) + 0x10));
             func_800448A4(temp_v0_2, temp_a2 >> 0x10, temp_a2 & 0xFF);
-            (*(u16 *)((char *)(temp_v0_2) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 4));
-            (*(void **)((char *)(D_80109BB0) + 0x24)) = temp_v0_2;
-            (*(u16 *)((char *)(temp_v0_2) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
+            {
+                u16 x = (*(u16 *)((char *)(arg0) + 4));
+                void *p = D_80109BB0;
+                (*(u16 *)((char *)(temp_v0_2) + 0x20)) = x;
+                (*(u16 *)((char *)(temp_v0_2) + 0x22)) = (*(u16 *)((char *)(arg0) + 6));
+                (*(void **)((char *)(p) + 0x24)) = temp_v0_2;
+            }
         }
     }
 }

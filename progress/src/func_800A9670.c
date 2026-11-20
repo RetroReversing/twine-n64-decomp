@@ -1,4 +1,4 @@
-/* identical to func_8003F210 in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to func_8003F210 in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 typedef struct { s32 unk0; s32 unk4; } R8;
 typedef struct { s16 unk0; s16 pad2; s32 pad4; R8 *unk8; s32 unkC; } V;
 extern s32 D_80000300;

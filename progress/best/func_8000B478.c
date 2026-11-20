@@ -22,7 +22,7 @@ void func_8000B478(s32 arg0) {
 
     if ((arg0 != 0) && (var_a1 = D_80109A50, var_a2 = *var_a1, var_t0 = NULL, ((var_a2 & 8) == 0))) {
 loop_3:
-        temp_v1 = var_a1 + M2C_FIELD(var_a1, s32 *, 4);
+        temp_v1 = (char *)var_a1 + M2C_FIELD(var_a1, s32 *, 4);
         if ((var_a2 & 2) && ((arg0 - 0x10) == var_a1)) {
             M2C_FIELD(var_a1, u16 *, 0) = 1;
             if (M2C_FIELD(temp_v1, u16 *, 0x10) & 1) {

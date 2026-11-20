@@ -25,7 +25,7 @@ void func_800156F4(void) {
     f32 temp_fv1_2;
     f32 temp_fv1_3;
     f32 temp_fv1_4;
-    u16 temp_v0;
+    s16 temp_v0;
     u32 var_t0;
     void **var_t1;
     void *temp_a2;

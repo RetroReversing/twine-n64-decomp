@@ -27,7 +27,7 @@ s32 func_80078114(void **arg0, void *arg1, void **arg2, f32 *arg3) {
     var_s4 = 0;
     if (var_s0 != NULL) {
         do {
-            if ((M2C_FIELD(var_s0, u16 *, 0x78) == 1) && (var_s0 != arg1) && (M2C_FIELD(var_s0, s32 *, 0x20) != 0) && (((temp_v1 = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), s32 *, 0x88) & 0x01E00000, (temp_v1 == 0x400000)) && ((M2C_FIELD(temp_s2, s32 *, 0x88) & 0x01E00000) == 0x200000)) || ((temp_v1 == 0x200000) && ((M2C_FIELD(temp_s2, s32 *, 0x88) & 0x01E00000) == 0x400000))) && ((func_800828D0(M2C_FIELD(arg1, f32 *, 0x28) - M2C_FIELD(var_s0, f32 *, 0x28)) < 1.0f) || (M2C_FIELD(arg1, s32 *, 0x20) == M2C_FIELD(var_s0, s32 *, 0x20)))) {
+            if ((var_s0 != arg1) && (M2C_FIELD(var_s0, u16 *, 0x78) == 1) && (M2C_FIELD(var_s0, s32 *, 0x20) != 0) && (((temp_v1 = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), s32 *, 0x88) & 0x01E00000, (temp_v1 == 0x400000)) && ((M2C_FIELD(temp_s2, s32 *, 0x88) & 0x01E00000) == 0x200000)) || ((temp_v1 == 0x200000) && ((M2C_FIELD(temp_s2, s32 *, 0x88) & 0x01E00000) == 0x400000))) && ((func_800828D0(M2C_FIELD(arg1, f32 *, 0x28) - M2C_FIELD(var_s0, f32 *, 0x28)) < 1.0f) || (M2C_FIELD(arg1, s32 *, 0x20) == M2C_FIELD(var_s0, s32 *, 0x20)))) {
                 temp_fv0 = func_80045E34(arg1 + 0x24, var_s0 + 0x24);
                 if (temp_fv0 < *arg3) {
                     var_s4 = 1;

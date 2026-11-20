@@ -1,3 +1,4 @@
+/* identical to __osPackReadData in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* identical to __osPackReadData in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 extern char D_800FF6D0[];
 extern u8 D_801083DC;

@@ -5,12 +5,14 @@ extern u32 D_801096F4;
 extern u32 D_801096F8;
 extern u32 D_801096FC;
 extern u8 D_801176E8;
-u32 func_8008C6CC(s32);
+s32 func_8008C6CC(s32);
 void func_8008C6F4(s32, s32);
 
-#define AT(T, sym, off) (*(T *)((u8 *)&(sym) + (off)))
+#define AT(T, sym, off) (*(volatile T *)((u8 *)&(sym) + (off)))
 
 void func_80093268(void) {
+int __repair_literal;
+
     s32 var_s3;
     s32 var_s0;
     u32 *var_s2;
@@ -22,11 +24,13 @@ void func_80093268(void) {
     s32 var_a1;
 
     var_s3 = 0;
-    if ((s32) D_801176E8 > 0) {
+__repair_literal = 0;
+
+    if ((s32) D_801176E8 > __repair_literal) {
         var_s2 = &D_801096F8;
         var_s0 = 0;
         do {
-            if (AT(u8, D_801096E8, var_s0) == 1) {
+            if ((*(u8 *)((u8 *)&D_801096E8 + var_s0)) == 1) {
                 temp_v0 = func_8008C6CC(var_s3);
                 temp_t0 = *var_s2;
                 if (temp_t0 != temp_v0) {

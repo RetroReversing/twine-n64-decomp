@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8001E5BC();                            /* extern */
-s32 func_800260A0(s32, u32);                        /* extern */
+s32 func_800260A0(s32);                        /* extern */
 s32 func_80045CC4();                                /* extern */
 extern void *D_80109BB0;
 extern u8 D_80112F7B;
@@ -22,7 +22,7 @@ extern u8 D_80112F7D;
 extern u8 D_80112F7E;
 
 void func_8001E4A0(void) {
-    s32 temp_ret;
+    u32 temp_ret;
     s32 var_a0;
     u32 var_v1;
     u8 var_v0;
@@ -58,7 +58,7 @@ block_19:
             var_v0 = D_80112F7B;
             goto block_19;
         }
-        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14) = (s32) (((func_800260A0(var_a0 & 0xFFFF, MULTU_HI(temp_ret, 0x4EC4EC4F)) & 0xFFFF) << 8) | 0xC);
+        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14) = (s32) (((func_800260A0(var_a0 & 0xFFFF) & 0xFFFF) << 8) | 0xC);
     }
     func_8001E5BC();
 }

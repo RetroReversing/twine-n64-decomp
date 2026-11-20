@@ -1,3 +1,4 @@
+/* identical to func_8002A0E8 in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -12,7 +13,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
+M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
 extern M2C_UNK D_800E426C;
 
 void func_8008C160(void) {

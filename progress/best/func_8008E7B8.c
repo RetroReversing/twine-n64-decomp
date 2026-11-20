@@ -16,24 +16,24 @@ s32 func_80095A80();
 s32 func_800989B8();
 extern char D_8010D734[];
 extern char D_8010D748[];
-extern char D_8010D76F[];
-extern char D_8010D779[];
+extern unsigned char D_8010D76F[];
+extern unsigned char D_8010D779[];
 extern char D_8010D784[];
 
 s32 func_8008E7B8(s32 arg0, s32 arg1) {
     s32 temp_s1;
     s32 temp_s2;
     s32 var_s0;
-    s32 var_s0_2;
+#define var_s0_2 var_s0
     s32 var_v0;
     s32 var_v1;
     u32 temp_s4;
-    u8 var_a2;
 
     var_s0 = -1;
     var_v1 = func_800989B8();
     if (var_v1 != -1) {
         temp_s4 = (u32) (arg1 & 0xFFFF) >> 7;
+        arg1 &= 0x7f;
 loop_2:
         temp_s2 = var_v1 & 0xFF;
         temp_s1 = temp_s2 * 0x1A0;
@@ -42,13 +42,12 @@ loop_2:
             if (*(s32 *)(D_8010D748 + temp_s1) & 2) {
                 var_s0_2 = temp_s2 & 0xFF;
                 func_80095A80(0x80, var_s0_2, *(D_8010D779 + temp_s1), temp_s4 & 0xFF);
-                var_a2 = *(D_8010D779 + temp_s1);
+                func_80095A80(0x81, var_s0_2, *(D_8010D779 + temp_s1), arg1 & 0x7F & 0xFF);
             } else {
                 var_s0_2 = temp_s2 & 0xFF;
                 func_80095A80(0x80, var_s0_2, *(D_8010D76F + temp_s1), temp_s4 & 0xFF);
-                var_a2 = *(D_8010D76F + temp_s1);
+                func_80095A80(0x81, var_s0_2, *(D_8010D76F + temp_s1), arg1 & 0x7F & 0xFF);
             }
-            func_80095A80(0x81, var_s0_2, var_a2, arg1 & 0x7F & 0xFF);
             var_v1 = *(s32 *)(D_8010D734 + (temp_s2 * 0x1A0));
             var_s0 = 0;
             if (var_v1 == -1) {
@@ -60,5 +59,5 @@ loop_2:
 block_7:
         var_v0 = var_s0;
     }
-    return var_s0;
+    return var_v0;
 }

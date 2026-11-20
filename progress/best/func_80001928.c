@@ -12,7 +12,7 @@ extern u8 D_800D9510[];
 extern char D_F8D70[];
 
 void *func_80001928(s32 arg0) {
-    u8 *__base_D_800D9510;
+    s8 *__base_D_800D9510;
 char * __repair_loop_constant;
 
 int __repair_constant = 7;

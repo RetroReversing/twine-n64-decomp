@@ -24,8 +24,8 @@ void func_80039128(void *arg0, f32 arg1) {
     (((__repair_record_temp_a0*)temp_a0)->field_0) = 0xDA380007;
     if (D_800B1D84 > D_80107EA0) {
         temp_v0 = D_80107EA0 + 1;
-        D_80107EA0 = temp_v0;
         temp_s0 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
+        D_80107EA0 = temp_v0;
         func_8000BBB4(&D_80112F90, (((__repair_record_arg0*)arg0)->field_48) + 3.1415927f, -((((__repair_record_arg0*)arg0)->field_44) + 3.1415927f + arg1), (((__repair_record_arg0*)arg0)->field_40));
         { func_800A37C0(&D_80112F90, temp_s0); }
         temp_v1 = D_80115328;

@@ -1,4 +1,4 @@
-/* identical to osYieldThread in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to osYieldThread in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* identical to osYieldThread in V-RALLY-PAL (matched), with its names changed by decompdecomp */
 /* identical to osYieldThread in V-RALLY (matched), with its names changed by decompdecomp */
 /* identical to func_80095C90 in V-RALLY (matched), with its names changed by decompdecomp */

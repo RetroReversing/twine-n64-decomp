@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 __sinf(f32);                                    /* extern */
 
-void func_80046BD4(f32 arg0, void *arg1, void *arg2, void *arg3) {
+void func_80046BD4(f32 arg0, const void *arg1, const void *arg2, void *arg3) {
     f32 __repair_store_0;
     f32 __repair_store_1;
     f32 __repair_store_2;
@@ -29,7 +29,7 @@ void func_80046BD4(f32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 var_ft2;
     s32 var_s3;
 
-    var_ft2 = (M2C_FIELD(arg1, f32 *, 0) * M2C_FIELD(arg2, f32 *, 0)) + (M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg2, f32 *, 4)) + (M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg2, f32 *, 8)) + (M2C_FIELD(arg1, f32 *, 0xC) * M2C_FIELD(arg2, f32 *, 0xC));
+    var_ft2 = (M2C_FIELD(arg1, const f32 *, 0) * M2C_FIELD(arg2, const f32 *, 0)) + (M2C_FIELD(arg1, const f32 *, 4) * M2C_FIELD(arg2, const f32 *, 4)) + (M2C_FIELD(arg1, const f32 *, 8) * M2C_FIELD(arg2, const f32 *, 8)) + (M2C_FIELD(arg1, const f32 *, 0xC) * M2C_FIELD(arg2, const f32 *, 0xC));
     var_s3 = 0;
     if (var_ft2 < 0.0f) {
         var_s3 = 1;
@@ -50,10 +50,10 @@ void func_80046BD4(f32 arg0, void *arg1, void *arg2, void *arg3) {
     if (var_s3 != 0) {
         var_fs2 = -var_fs2;
     }
-    __repair_store_0 = (f32) ((var_fs2 * M2C_FIELD(arg1, f32 *, 0)) + (var_fs3 * M2C_FIELD(arg2, f32 *, 0)));
-    __repair_store_1 = (f32) ((var_fs2 * M2C_FIELD(arg1, f32 *, 4)) + (var_fs3 * M2C_FIELD(arg2, f32 *, 4)));
-    __repair_store_2 = (f32) ((var_fs2 * M2C_FIELD(arg1, f32 *, 8)) + (var_fs3 * M2C_FIELD(arg2, f32 *, 8)));
-    __repair_store_3 = (f32) ((var_fs2 * M2C_FIELD(arg1, f32 *, 0xC)) + (var_fs3 * M2C_FIELD(arg2, f32 *, 0xC)));
+    __repair_store_0 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 0)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 0)));
+    __repair_store_1 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 4)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 4)));
+    __repair_store_2 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 8)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 8)));
+    __repair_store_3 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 0xC)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 0xC)));
     M2C_FIELD(arg3, f32 *, 0) = __repair_store_0;
     M2C_FIELD(arg3, f32 *, 4) = __repair_store_1;
     M2C_FIELD(arg3, f32 *, 8) = __repair_store_2;

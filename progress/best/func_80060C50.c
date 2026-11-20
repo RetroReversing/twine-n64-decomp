@@ -21,7 +21,7 @@ extern s32 D_80103F00;
 typedef struct { float field_0; float field_4; } __repair_record_temp_s1;
 s32 func_80060C50(s32 arg0, void *arg1) {
     union {
-        unsigned char bytes[36];
+        unsigned char bytes[32];
         struct { M2C_UNK value; } view_sp20;
         struct { unsigned char pad[4]; f32 value; } view_sp24;
         struct { unsigned char pad[16]; M2C_UNK value; } view_sp30;

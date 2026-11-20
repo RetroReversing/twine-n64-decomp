@@ -48,16 +48,16 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     sp1F = arg2;
     if (D_801176E8 != 0) {
         temp_fp = arg0 & 0xFF;
-        var_s0 = &D_8010D724 + 0x24;
+        var_s0 = (s8 *)&D_8010D724 + 0x24;
         var_s7 = 0;
-        do {
+        __repair_rows: {
             if ((M2C_FIELD(var_s0, s32 *, 0x3C) != -1) && (M2C_FIELD(var_s0, u8 *, 0x26) == sp17) && (M2C_FIELD(var_s0, u8 *, 0x27) == sp1F)) {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
-                    temp_s2 = var_s7 + &D_8010D724;
+                    temp_s2 = var_s7 + (s8 *)&D_8010D724;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
-                    temp_hi = MULT_HI(temp_a2, 0x51EB851F);
+                    temp_hi = temp_a2 / 100;
                     temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);
                     var_s1 = var_s6;
                     M2C_FIELD(var_s0, s16 *, 0x2A) = temp_fp;
@@ -75,7 +75,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s4;
                         var_s4 = func_800988D8(temp_s2);
                     } else {
-                        *(&D_8010D734 + ((var_s5 & 0xFF) * 0x1A0)) = M2C_FIELD(var_s1, s32 *, 0x60);
+                        *((M2C_UNK *)((s8 *)&D_8010D734 + ((var_s5 & 0xFF) * 0x1A0))) = M2C_FIELD(var_s1, s32 *, 0x60);
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s5;
                     }
                     var_s5 = M2C_FIELD(var_s1, s32 *, 0x60);
@@ -84,8 +84,9 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             var_s7 += 0x1A0;
             var_s3 += 1;
             var_s0 += 0x1A0;
-            var_s6 += 0x1A0;
-        } while (var_s3 < (u8) D_801176E8);
+            var_s6 += 104;
+        }
+if (var_s3 < (u8) D_801176E8) goto __repair_rows;
     }
     if (var_s4 != -1) {
         func_80099B64(var_s1);

@@ -41,7 +41,8 @@ void func_80034630(void *arg0, void *arg1) {
     temp_ft2 = M2C_FIELD(arg1, f32 *, 0x70);
     temp_ft5 = M2C_FIELD(arg1, f32 *, 0x50) + temp_ft0 + temp_ft2;
     temp_ft0_2 = M2C_FIELD(arg1, f32 *, 0x74);
-    temp_fv1 = M2C_FIELD(arg1, f32 *, 0x58) + temp_ft1 + temp_ft0_2;
+    temp_fv1 = M2C_FIELD(arg1, f32 *, 0x58) + temp_ft1;
+    temp_fv1 += temp_ft0_2;
     temp_ft2_2 = (M2C_FIELD(arg1, f32 *, 0x54) + temp_ft0) - temp_ft2;
     temp_fv0 = (M2C_FIELD(arg1, f32 *, 0x5C) + temp_ft1) - temp_ft0_2;
     if (var_fa0 < temp_ft5) {

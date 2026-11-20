@@ -25,25 +25,29 @@ extern s32 D_8011F3C8;
 extern s32 D_8011F3CC;
 
 void func_8011C958(void) {
+int __repair_literal;
+
     s32 var_a0;
     s32 var_s1;
     s32 var_s3;
     s32 var_v0;
-    s32 var_v0_2;
+    
     u8 temp_v1;
     void *temp_v0;
 
     D_8011F3C4 = func_80015F74(&D_8011EDC0);
-    D_8011F3C8 = func_80015F74(&D_8011EDC0 + 0x24);
-    D_8011F3CC = func_80015F74(&D_8011EDC0 + 0x48);
+    D_8011F3C8 = func_80015F74(&D_8011EDC0 + 0x9);
+    D_8011F3CC = func_80015F74(&D_8011EDC0 + 0x12);
     var_s3 = 0;
     if (D_801002C0 > 0) {
         var_a0 = 0 & 0xFFFF;
         do {
-            temp_v1 = *(&D_801001A2 + (var_a0 * 0x18));
+            temp_v1 = *(&D_801001A2 + var_a0 * 0x6);
             if (temp_v1 != 0) {
                 var_s1 = 0;
-                if ((s32) temp_v1 >= 4) {
+__repair_literal = 4;
+
+                if ((s32) temp_v1 >= __repair_literal) {
                     var_v0 = var_s3 & 0xFFFF;
                     if (temp_v1 == 5) {
                         var_s1 = 0;
@@ -67,12 +71,13 @@ loop_7:
                 var_s1 = 0;
                 var_v0 = var_s3 & 0xFFFF;
 block_12:
-                var_v0_2 = 0 & 0xFFFF;
-                do {
-                    *((var_v0 * 4) + ((var_v0_2 * 0x10) + &D_8011F338)) = 0;
+                var_a0 = 0 & 0xFFFF;
+                __repair_rows: {
+                    *((var_v0 * 4) + ((var_a0 * 0x10) + &D_8011F338)) = 0;
                     var_s1 += 1;
-                    var_v0_2 = var_s1 & 0xFFFF;
-                } while ((u32) (var_s1 & 0xFFFF) < 3U);
+                    var_a0 = var_s1 & 0xFFFF;
+                }
+if ((u32) (var_s1 & 0xFFFF) < 3U) goto __repair_rows;
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;

@@ -1,4 +1,4 @@
-/* identical to viMgrMain in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to viMgrMain in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 extern u16 D_800FEE40; extern u32 D_80102F34,D_801002F8; extern u64 D_80108790;
 void *func_800A9780(void); void vi_apply_context(void); u32 func_800A91F0(void); void __osTimerInterrupt(void); void osRecvMesg(s32,void*,s32);void osSendMesg(s32,s32,s32);
 #define F(p,t,o) (*(t*)((u8*)(p)+(o)))

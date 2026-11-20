@@ -19,6 +19,7 @@ extern char D_800F38E4[];
 extern s32 D_800F38EC;
 extern char D_800F38F0[];
 
+typedef struct { s32 w[3]; } __repair_words3;
 s32 func_80097B1C(s32 arg0) {
     s32 temp_v0_2;
     s32 var_a1;
@@ -75,7 +76,7 @@ loop_2:
             if (D_800F38EC > 0) {
                 var_v1 = 0;
 loop_16:
-                if (*(D_800F38F0 + var_v1) != temp_a1) {
+                if (*(u16 **)(D_800F38F0 + var_v1) != temp_a1) {
                     var_s0_2 += 1;
                     var_v1 += 0xC;
                     if (var_s0_2 < D_800F38EC) {
@@ -92,9 +93,7 @@ loop_16:
                     var_t0 = temp_v0_2 + D_800F38E4;
                     var_a3 = temp_v0_2 + D_800F38F0;
                     do {
-                        M2C_FIELD(var_t0, s32 *, 0) = (s32) M2C_FIELD(var_a3, s32 *, 0);
-                        M2C_FIELD(var_t0, s32 *, 4) = (s32) M2C_FIELD(var_a3, s32 *, 4);
-                        M2C_FIELD(var_t0, s32 *, 8) = (s32) M2C_FIELD(var_a3, s32 *, 8);
+                        M2C_FIELD(var_t0, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) var_a3 + 0x0);
                         var_t0 += 0xC;
                         var_a2 += 1;
                         var_a3 += 0xC;
@@ -108,7 +107,7 @@ loop_16:
             return var_v0;
         }
         var_s3 += 1;
-        var_s2 += 0xC;
+        var_s2 += 3;
         if (var_s3 >= (u32) D_800F38EC) {
             goto block_24;
         }

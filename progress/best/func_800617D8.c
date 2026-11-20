@@ -12,6 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+typedef struct { f32 x, y, z; } Point3;
+
 void *func_80016410();
 s32 func_80016990();
 s32 func_8003E6EC();
@@ -19,11 +21,8 @@ s32 func_80044670();
 s32 func_80045278();
 extern s32 *D_800CA31C;
 
-void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, void *arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, u32 arg9, u32 arg10) {
-    s32 __repair_store_0;
-    s32 __repair_store_1;
-    s32 __repair_store_2;
-    void *temp_s1;
+void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, u32 arg9, u32 arg10) {
+    Point3 *temp_s1;
     void *temp_v0;
 
     if (arg0 == 0) {
@@ -31,16 +30,11 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, void *arg3, f32 arg4, f32 arg5
     }
     temp_v0 = func_80016410(0x2C);
     if (temp_v0 != NULL) {
-        temp_s1 = M2C_FIELD(temp_v0, void **, 0x6C);
+        temp_s1 = M2C_FIELD(temp_v0, Point3 **, 0x6C);
         if (arg3 == NULL) {
             func_80045278(temp_s1);
         } else {
-            __repair_store_0 = (s32) M2C_FIELD(arg3, s32 *, 0);
-            __repair_store_1 = (s32) M2C_FIELD(arg3, s32 *, 4);
-            __repair_store_2 = (s32) M2C_FIELD(arg3, s32 *, 8);
-            M2C_FIELD(temp_s1, s32 *, 0) = __repair_store_0;
-            M2C_FIELD(temp_s1, s32 *, 4) = __repair_store_1;
-            M2C_FIELD(temp_s1, s32 *, 8) = __repair_store_2;
+            *temp_s1 = *arg3;
         }
         M2C_FIELD(temp_v0, s16 *, 0x78) = (s16) arg8;
         M2C_FIELD(temp_v0, f32 *, 0x54) = arg4;
@@ -64,3 +58,4 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, void *arg3, f32 arg4, f32 arg5
 block_9:
     return temp_v0;
 }
+

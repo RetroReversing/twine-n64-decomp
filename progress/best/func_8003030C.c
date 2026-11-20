@@ -1,68 +1,98 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+typedef struct {
+    u8 pad[8];
+    u32 flags;
+    u8 pad2[20];
+    u16 textId;
+    u16 pad3;
+} TextSetup;
 
-s32 func_80015F74();
-void *func_80016410();
-s32 func_80064318();
-extern u8 D_800BFDE8;
-extern s16 D_800BFE00;
-extern s8 D_800BFE0C;
-extern s16 D_800BFE24;
-extern char D_800BFE28[];
-extern char D_800BFE48[];
-extern char D_800BFEB8[];
-extern char D_800BFED8[];
+typedef struct {
+    s32 unk0;
+    void *left;
+    void *middle;
+    void *right;
+    void *options[4];
+    void *extra[2];
+} MenuText;
+
+typedef struct {
+    u8 pad[0x6C];
+    MenuText *text;
+    u8 pad2[8];
+    s16 kind;
+    s16 state;
+} MenuObject;
+
+extern void *func_80016410(s32, s32, s32);
+extern void func_80064318(void *, u32);
+extern void *func_80015F74();
+extern TextSetup D_800BFE28[];
+extern TextSetup D_800BFEB8[];
+extern u16 D_800BFE48[];
+extern u16 D_800BFED8[];
+extern u16 D_800BFE24, D_800BFE00;
+extern u32 D_800BFE0C, D_800BFDE8;
 extern s32 D_80102ED8;
 
-void *func_8003030C(s16 arg0) {
-    void *temp_s0_2;
-    unsigned temp_v0_3;
-    s32 var_s0;
-    register s32 temp_v0_2;
-    s32 var_s1_2;
-    s32 var_s1;
-    void *temp_s0;
-    s32 var_s0_2;
-    void *temp_s2;
-    void *temp_v0;
+void *func_8003030C(u16 textId)
+{
+    MenuObject *obj;
+    MenuText *text;
+    s32 i;
+    s32 index;
+    s32 offset;
+    struct Mode { unsigned mode : 3; unsigned rest : 29; } *flags;
+    void *entry;
+    volatile s32 *state;
+    s32 variant;
 
-    temp_v0 = func_80016410(0x28, 0, 0);
-    if (temp_v0 == NULL) {
+    obj = func_80016410(0x28, 0, 0);
+    if (obj == NULL)
         return NULL;
-    }
-    (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x37;
-    (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
-    func_80064318(temp_v0, arg0 & 0xFFFF);
-    temp_s2 = (*(void **)((char *)(temp_v0) + 0x6C));
-    var_s1 = 0;
-    (*(s32 *)((char *)(temp_s2) + 4)) = 0;
-    (*(s32 *)((char *)(temp_s2) + 8)) = 0;
-    (*(s32 *)((char *)(temp_s2) + (short)0xC)) = 0;
-    var_s0 = 0 & 0xFFFF;
+    obj->kind = 0x37;
+    obj->state = 0;
+    func_80064318(obj, textId);
+    text = obj->text;
+    i = 0;
+    text->left = NULL;
+    text->middle = NULL;
+    text->right = NULL;
     do {
-        temp_v0_2 = var_s0 * 0x24;
-        temp_s0 = (char *)(((int)var_s0 * 4)); temp_s0 += (s32)(temp_s2);
-        (*(s32 *)((char *)(temp_s0) + 0x10)) = 0;
-        *(u16 *)(D_800BFE48 + temp_v0_2) = arg0;
-        (*(s32 *)((char *)(temp_s0) + 0x10)) = func_80015F74(temp_v0_2 + D_800BFE28);
-        ++var_s1;
-        var_s0 = var_s1 & 0xFFFF;
-    } while ((u32) (var_s1 & 0xFFFF) < 4U);
-    var_s1_2 = 0;
-    var_s0_2 = 0 & 0xFFFF;
+        index = (u16)i;
+        offset = index * 36;
+        index *= 4;
+        index += (u32)text;
+        ((MenuText *)index)->options[0] = NULL;
+        *(u16 *)((char *)D_800BFE48 + offset) = textId;
+        entry = func_80015F74((char *)D_800BFE28 + offset);
+        ++i;
+        ((MenuText *)index)->options[0] = entry;
+    } while ((u16)i < 4U);
+    i = 0;
     do {
-        temp_v0_2 = var_s0_2 * 0x24;
-        temp_s0_2 = (char *)((var_s0_2 * 4)); temp_s0_2 += (s32)(temp_s2);
-        (*(s32 *)((char *)(temp_s0_2) + 0x20)) = 0;
-        *(u16 *)(D_800BFED8 + temp_v0_2) = arg0;
-        (*(s32 *)((char *)(temp_s0_2) + 0x20)) = func_80015F74(temp_v0_2 + D_800BFEB8);
-        var_s1_2 += 1;
-        var_s0_2 = var_s1_2 & 0xFFFF;
-    } while ((u32) (var_s1_2 & 0xFFFF) < 2U);
-    D_800BFE24 = arg0;
-    D_800BFE0C = (D_800BFE0C & 0x1FFFFFFF) | (((-(D_80102ED8 == 0) & 5) | 4) << 0x1D);
-    (*(s32 *)((char *)(temp_s2) + 0xC)) = func_80015F74(&D_800BFE0C - 8, &D_800BFE0C);
-    D_800BFE00 = arg0;
-    D_800BFDE8 = (D_800BFDE8 & 0x1FFFFFFF) | (((-(D_80102ED8 == 0) & 5) | 4) << 0x1D);
-    (*(s32 *)((char *)(temp_s2) + 4)) = func_80015F74(&D_800BFDE8 - 8, &D_800BFDE8);
-    return temp_v0;
+        index = (u16)i;
+        offset = index * 36;
+        index *= 4;
+        index += (u32)text;
+        ((MenuText *)index)->extra[0] = NULL;
+        *(u16 *)((char *)D_800BFED8 + offset) = textId;
+        entry = func_80015F74((char *)D_800BFEB8 + offset);
+        ++i;
+        ((MenuText *)index)->extra[0] = entry;
+    } while ((u16)i < 2U);
+
+    flags = (struct Mode *)&D_800BFE0C;
+    state = &D_80102ED8;
+    variant = *state;
+    entry = (u32 *)flags - 2;
+    D_800BFE24 = textId;
+    flags->mode = variant == 0 ? 5 : 4;
+    text->right = func_80015F74(entry, flags);
+    flags = (struct Mode *)&D_800BFDE8;
+    variant = *state;
+    entry = (u32 *)flags - 2;
+    D_800BFE00 = textId;
+    flags->mode = variant == 0 ? 5 : 4;
+    text->left = func_80015F74(entry, flags);
+    return obj;
 }

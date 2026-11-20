@@ -1,4 +1,4 @@
-/* identical to osSetThreadPri in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to osSetThreadPri in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* adapted from similar verified C in osSetThreadPri in V-RALLY-PAL (matched), with its names changed by decompdecomp */
 s32 func_800A783C();
 s32 func_800A7944();

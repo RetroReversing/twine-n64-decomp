@@ -37,7 +37,7 @@ void func_8002085C(void) {
     s32 temp_s3;
     s32 temp_v0;
     s16 var_s4;
-    s32 var_s2;
+    unsigned int var_s2;
     u8 temp_s1_2;
     void *temp_s5;
     void *temp_a0;
@@ -72,12 +72,12 @@ void func_8002085C(void) {
                     }
                     ++var_s4;
                 }
-                var_s2++;
+                var_s2 += 1;
             } while ((u32) (var_s2 & 0xFFFF) < 0x1EU);
             if (var_s6 != NULL) {
+                temp_s0_2 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
                 temp_s1_2 = (*(u8 *)((char *)(var_s6) + 8));
                 temp_v1 = temp_s1_2 * 0x4;
-                temp_s0_2 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
                 func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
                 if (temp_s0_2 != NULL) {
                     (*(s16 *)((char *)(temp_s0_2) + 0x28)) = func_8001E760(2, temp_s1_2);

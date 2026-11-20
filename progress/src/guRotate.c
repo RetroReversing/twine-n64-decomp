@@ -1,4 +1,4 @@
-/* identical to guRotate in PENNY RACERS (matched), with its names changed by decompdecomp */
+/* identical to guRotate in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
 /* identical to guRotate in V-RALLY-PAL (matched), with its names changed by decompdecomp */
 f32 __cosf(f32);
 typedef struct { f32 m[4][4]; } Mtx;

@@ -1,5 +1,21 @@
-/* identical to order_post_wakeup in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
-extern char D_800D7F70[];
-void osSendMesg(char *a, int b, int c);
-/* Posts a zero-valued blocking message to the order state's message queue. */
-void func_8000B35C(void) { osSendMesg(D_800D7F70 + 0x87A8, 0, 0); }
+/* identical to func_8003F4D0 in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
+extern M2C_UNK D_800E0718;
+
+void func_8000B35C(void) {
+    osSendMesg(&D_800E0718, 0, 0);
+}

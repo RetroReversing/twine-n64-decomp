@@ -1,17 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
 s32 func_80084048();
 typedef struct { u32 f0; u8 pad[12]; } Slot_800C0784;
 extern Slot_800C0784 D_800C0784[];
@@ -19,15 +6,11 @@ typedef struct { u32 f0; u8 pad[12]; } Slot_800C0788;
 extern Slot_800C0788 D_800C0788[];
 typedef struct { u32 f0; u8 pad[12]; } Slot_800C078C;
 extern Slot_800C078C D_800C078C[];
-
 void func_80044538(s32 arg0) {
-    s32 temp_s0;
-    s32 temp_v1;
-    s32 var_a2;
+    s32 temp_s0, temp_v1, var_a2;
+    volatile u64 stack_pad;
     u32 var_a1;
-    void *temp_a3;
-    void *var_v1;
-
+    void *temp_a3, *var_v1;
     temp_v1 = arg0 * 0x10;
     var_a2 = 1;
     if (D_800C0784[arg0].f0 != 0) {
@@ -37,9 +20,8 @@ void func_80044538(s32 arg0) {
             var_v1 = temp_a3;
             do {
                 if (M2C_FIELD(var_v1, s32 *, 0) != 0) {
-                    if ((u8) M2C_FIELD(var_v1, u8 *, 0x46) >= 5U) {
+                    if ((u8) M2C_FIELD(var_v1, u8 *, 0x46) >= 5U)
                         M2C_FIELD(var_v1, u8 *, 0x46) = 4U;
-                    }
                     var_a2 = 0;
                 }
                 var_a1 += 1;

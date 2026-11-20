@@ -27,7 +27,7 @@ s32 func_8009A4E4(void *arg0, u32 *arg1) {
     temp_a1 = ((u32) *arg1 >> 8) & 0xFFFF;
     temp_a2 = (*(u32 *)((char *)(arg0) + 0x5C));
     var_a1_2 = temp_a2 & 0xFFFFFF;
-    if (var_a1_2 == temp_a1) {
+    if (temp_a1 == var_a1_2) {
         (*(s16 *)((char *)(arg0) + 0x50)) = (s16) (temp_a2 >> 0x18);
         (*(s8 *)((char *)(arg0) + 0xC0)) = 0;
     } else {
