@@ -1,5 +1,5 @@
 extern s16 D_80109A58;
-extern u8 D_800D42C8[];
+extern struct { u32 a,b,c; } D_800D42C8;
 u32 func_80045CF8();
 f32 func_80045D2C(f32);
 void *func_800617D8(s32, s32, s32, f32 *, f32, f32, s32, s32, s32, s32, s32);
@@ -9,10 +9,12 @@ f32 __sinf(f32);
 f32 __cosf(f32);
 
 void func_80062CD8(u8 *arg0, s32 arg1, f32 arg2) {
+    volatile u64 framepad[1];
     f32 __repair_fzero = 0.0f;
+    volatile u32 spare[2];
 
     s16 tb[6] = { 0x22e, 0x22f, 0x230, 0x231, 0x232, 0x22d };
-    f32 vec[3];
+    f32 vec[3]; volatile u32 junk[2];
     u32 t;
     s32 idx;
     void *obj;

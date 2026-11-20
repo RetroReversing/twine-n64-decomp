@@ -26,7 +26,7 @@ void func_8003099C(u8 map, u8 level)
     short i;
     u16 count;
     u16 flags;
-    u16 newFlags;
+    s32 newFlags;
     u16 mapSize;
     MapEntry *entries;
     MapEntry *entry;
@@ -57,7 +57,7 @@ void func_8003099C(u8 map, u8 level)
                     flags = entry->flags;
                     newFlags = flags & 0xFDF0;
                     entry->flags = newFlags;
-                    if (flags & 0x400) {
+                    if (newFlags & 0x400) {
                         entry->flags = newFlags | 0x200;
                     }
                 }

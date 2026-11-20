@@ -46,6 +46,7 @@ int __repair_literal;
     void *var_s4;
     
 
+    volatile s32 frame_pad[4];
     var_a0 = 0;
     if (arg0 != NULL) {
         M2C_FIELD(arg0, s32 *, 0x60) |= 0x10000000;
@@ -72,7 +73,7 @@ int __repair_literal;
     var_s4 = arg1;
     if (arg2 != 0) {
         temp_s7 = &D_80100B20 - 1;
-        do {
+        __repair_rows: {
             var_fs0 = 5.0f;
             if (M2C_FIELD(var_s4, u16 *, 6) == 0x237) {
                 var_fs0 = 0.0f;
@@ -115,6 +116,7 @@ __repair_literal = 0;
                 }
             }
             var_s4 += 8;
-        } while ((u32) var_s4 < (u32) ((arg2 * 8) + arg1));
+        }
+if ((u32) var_s4 < (u32) ((arg2 * 8) + arg1)) goto __repair_rows;
     }
 }

@@ -17,13 +17,13 @@ char *__repair_addr;
 
     u8 *__base_D_801001A1;
     s32 var_a0;
-    s32 var_s2;
+    u16 var_s2;
     s32 var_s3;
     s32 var_v0;
     s32 var_v0_2;
     u32 temp_s0_2;
     u8 temp_s0;
-    u8 temp_v1;
+    s32 temp_v1;
     u8 temp_v1_2;
     u8 temp_v1_3;
     void *temp_v0;

@@ -31,7 +31,7 @@ void func_80005310(AnimObject *obj) {
     count = frames->count;
     index = (s32)((time * (f32)count) / *(volatile f32 *)&frames->period);
     times = frames->times;
-    p = index + times;
+    p = (f32 *)(index * 4 + (s32)times);
     if (time < *p) {
     scanBack:
         next = index + 1;
@@ -45,7 +45,7 @@ void func_80005310(AnimObject *obj) {
         }
     } else {
         index++;
-        p = index + times;
+        p = (f32 *)(index * 4 + (s32)times);
         next = index + 1;
         if (*p <= time) {
             do {
@@ -57,7 +57,7 @@ void func_80005310(AnimObject *obj) {
     }
     next = next < count ? next : 0;
 
-    p = index + times;
+    p = (f32 *)(index * 4 + (s32)times);
     denominator = *p;
     numerator = time;
     if (index > 0) {

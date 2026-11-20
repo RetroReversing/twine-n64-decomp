@@ -13,13 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000A894();
-s32 func_80063D38();
+s32 func_80063D38(s32 state, s16 index);
 s32 func_80084338();
 extern char D_800C469C[];
 extern char D_800C469E[];
 
 void func_8007092C(void *arg0, s32 arg1) {
     s16 temp_v1;
+    volatile u32 frame_pad[4];
     s16 var_s6;
     s32 temp_a1;
     s8 temp_a1_2;
@@ -84,7 +85,7 @@ loop_8:
                     goto loop_8;
                 }
             }
-        } else if ((func_80063D38(temp_s4, temp_a1_2) << 0x18) == 0) {
+        } else if ((func_80063D38((s32)temp_s4, temp_a1_2) << 0x18) == 0) {
             if ((M2C_FIELD(temp_s2, u8 *, 0x1FE) != 0) && ((func_80063D38(temp_s4, temp_a1) << 0x18) != 0)) {
                 M2C_FIELD(temp_s2, u8 *, 0x1FE) = 0U;
                 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xF) = (u8) temp_a1;

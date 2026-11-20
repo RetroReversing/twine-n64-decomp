@@ -75,7 +75,7 @@ void func_800449A0(void) {
     char *var_v1_3;
     u32 var_a1;
     u32 var_a2;
-    u32 var_a2_2;
+    
     
 
     func_80083D04(0);
@@ -90,13 +90,13 @@ void func_800449A0(void) {
         var_a2 += 1;
         var_v1 += 4;
     } while (var_a2 < 6U);
-    var_a2_2 = 0;
+    var_a2 = 0;
     var_v1_2 = &D_8010A500;
     do {
         *(s32 *)var_v1_2 = 0;
-        var_a2_2 += 1;
+        var_a2 += 1;
         var_v1_2 += 4;
-    } while (var_a2_2 < 4U);
+    } while (var_a2 < 4U);
     var_a2 = 0;
     var_t0 = &D_8010D2C0;
     var_a3 = &D_8010D380;
