@@ -89,10 +89,10 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
                         D_800E1578 = var_a0_4;
                         var_a0_3 = (u8)(*(u8 *)(temp_s0 + (var_a0_4 + temp_lo)));
                         __base_D_800E157C = &D_800E157C;
-                        temp_v1_2 = var_a0_3 + *(s32 *)(temp_s0 + (var_a0_4 + __repair_phase_storage.value));
+                        temp_v1_2 = var_a0_3 + *(u8 *)(temp_s0 + (var_a0_4 + __repair_phase_storage.value));
                         (*__base_D_800E157C) = var_a0_3;
                         (*__base_D_800E157C) = temp_v1_2;
-                        temp_v1_3 = temp_v1_2 + *(s32 *)(temp_s0 + (D_800E1564 + temp_lo));
+                        temp_v1_3 = temp_v1_2 + *(u8 *)(temp_s0 + (D_800E1564 + temp_lo));
                         (*__base_D_800E157C) = temp_v1_3;
                         temp_v1_4 = temp_v1_3 + *(s32 *)(temp_s0 + (D_800E1564 + __repair_phase_storage.value));
                         temp_fv1 = (f32) temp_v1_4 * 0.24691357f;

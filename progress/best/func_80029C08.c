@@ -87,9 +87,11 @@ s32 __repair_phase_temp_s0;
             var_s0 = (__repair_phase_temp_s0 | func_80027CE0(0x1F)) & 0xFF;
             break;
         }
-        if (!((var_s3 != NULL) & (var_s4 != NULL))) {
-            goto block_12;
+        if ((var_s3 != NULL) & (var_s4 != NULL)) {
+            goto block_13;
         }
+        goto block_12;
+block_13:
         if (((u32)var_s1 != 0) && ((*(u8 *)((char *)(D_80109BB0) + 0x29)) != 0)) {
             var_a0_2 = 0xEB;
             if (func_8002AB54(arg0) & 0xFF) {

@@ -2,7 +2,7 @@
 
 s32 func_8008D49C(s32, s32, s32, s32);          /* extern */
 s32 func_80091A24(void *, s32, s32, u8);    /* extern */
-s32 func_80095A80(s32, u8, u8, s32);            /* extern */
+void func_80095A80(u8, u8, u8, u8);            /* extern */
 extern void *D_800E5AC0;
 extern u8 D_800EDA87;
 extern u8 D_800EDA88;
@@ -12,6 +12,7 @@ typedef struct { void * value; } __repair_field_0;
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 s32 func_8008FB20(void) {
 char *__repair_addr;
+    volatile u64 stack_pad[3];
 
     s32 temp_a0;
     s32 temp_a0_4;

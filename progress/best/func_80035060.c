@@ -64,16 +64,16 @@ void func_80035060(void *arg0) {
     }
     temp_fv1 = M2C_FIELD(arg0, f32 *, 0x60);
     temp_fv0 = M2C_FIELD(arg0, f32 *, 0x64);
+    temp_s7 = (s32) (temp_fv1 + M2C_FIELD(arg0, f32 *, 0x50));
+    temp_fp = (s32) (temp_fv0 + M2C_FIELD(arg0, f32 *, 0x58));
+    temp_s5 = (s32) ((temp_fv1 + M2C_FIELD(arg0, f32 *, 0x54)) - 1.0f);
+    temp_s6 = (s32) ((temp_fv0 + M2C_FIELD(arg0, f32 *, 0x5C)) - 1.0f);
     temp_s1 = D_80115328;
     D_80115328 = temp_s1 + 8;
     ((__repair_record_temp_s1*)temp_s1)->field_0 = 0xE7000000;
     D_80115328 = temp_s1 + 0x10;
     ((__repair_record_temp_s1*)temp_s1)->field_4 = 0;
     ((__repair_record_temp_s1*)temp_s1)->field_8 = 0xFE000000;
-    temp_s7 = (s32) (temp_fv1 + M2C_FIELD(arg0, f32 *, 0x50));
-    temp_fp = (s32) (temp_fv0 + M2C_FIELD(arg0, f32 *, 0x58));
-    temp_s5 = (s32) ((temp_fv1 + M2C_FIELD(arg0, f32 *, 0x54)) - 1.0f);
-    temp_s6 = (s32) ((temp_fv0 + M2C_FIELD(arg0, f32 *, 0x5C)) - 1.0f);
     temp_s0 = D_80115328;
     ((__repair_record_temp_s1*)temp_s1)->field_C = osVirtualToPhysical(D_80109A54);
     D_80115328 = temp_s0 + 8;

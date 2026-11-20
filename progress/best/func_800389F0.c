@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800344DC();                            /* extern */
 extern s16 D_80108F80;
 extern s16 D_8010D6F8;
-extern void *D_80115328;
+extern void * volatile D_80115328;
 
 typedef struct { unsigned char pad_0[88]; float field_58; float field_5C; unsigned char pad_60[4]; float field_64; unsigned char pad_68[152]; int field_100; } __repair_record_arg0;
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
-void func_800389F0(void *arg0) {
+void func_800389F0(__repair_record_arg0 *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;

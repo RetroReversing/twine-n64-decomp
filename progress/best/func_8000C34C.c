@@ -28,12 +28,16 @@ extern f32 D_80112FB0;
 extern f32 D_80112FB8;
 extern void *D_80117728;
 
+extern void *D_80117728;
+extern f32 D_80112F90, D_80112F98, D_80112FA0, D_80112FA8, D_80112FB0, D_80112FB8;
+extern u8 D_800C2B40;
+
 typedef struct { int value; } __repair_field_0;
 void func_8000C34C(void *arg0, void *arg1) {
     char sp18[0xC];
     char *var_s2;
     char *var_a0_2;
-    char sp24[0x24C];
+    char sp24[0x244];
     int var_a0;
     
     f32 temp_fs0;

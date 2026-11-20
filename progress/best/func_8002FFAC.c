@@ -87,7 +87,7 @@ s32 func_8002FFAC(void *arg0) {
             }
             var_v1_2 = var_v1_2 & 0xFF;
             temp_v0_7 = (var_v1_2 << 0x18) | (var_v1_2 << 0x10) | ((var_v1_2 <<= 8)) | 0xFF;
-            M2C_FIELD(M2C_FIELD(arg0, void **, 0x10), u8 *, 0x10) = temp_v0_7;
+            M2C_FIELD(M2C_FIELD(arg0, void **, 0x10), s32 *, 0x10) = temp_v0_7;
             M2C_FIELD(M2C_FIELD(arg0, void **, 0x14), s32 *, 0x10) = temp_v0_7;
             M2C_FIELD(M2C_FIELD(arg0, void **, 0x18), s32 *, 0x10) = temp_v0_7;
             var_t0 = 0;

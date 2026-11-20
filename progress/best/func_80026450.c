@@ -52,7 +52,7 @@ void func_80026450(void) {
             __base_D_800BD68E = &D_800BD68E;
             D_8010A4C2 |= 1 << (*__base_D_800BD68E);
         } else {
-            temp_v1 = 1 << (*__base_D_800BD68E);
+            temp_v1 = 1 << D_800BD68E;
             D_8010A4C2 |= temp_v1;
             (*__base_D_8010A4C1) |= temp_v1;
         }

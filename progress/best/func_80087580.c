@@ -2,20 +2,21 @@
 
 void *func_80016410();
 s32 func_80044670();
-s32 func_80076340();
+s32 func_80076340(s32, s32, f32);
 s32 func_80087380();
 extern u8 D_800B21CF;
 extern u8 D_800B241F;
 
 typedef struct { int value; } __repair_field_0;
+typedef struct { s32 x,y,z; } Vec3;
 void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
+    void *temp_s0;
+    void *temp_v0;
+    void *var_s2;
+    s32 var_s4;
+    void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
-    void *temp_v0_2;
-    register void *temp_v0;
-    register void *var_s2;
-    register s32 var_s4;
-    void *temp_s0;
 
     temp_v0 = func_80016410(0x4C, 0, 0);
     if (temp_v0 != NULL) {
@@ -33,33 +34,18 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
             (*(s16 *)((char *)(temp_s0) + 0x28)) = (s16) arg4;
             (*(s16 *)((char *)(temp_s0) + 0x2A)) = 0;
             (*(s32 *)((char *)(temp_s0) + 0x20)) = 0;
-            temp_v0_2 = (*(void **)((char *)(temp_s0) + 0x1C));
-            (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) ((__repair_field_0 *)temp_v0_2)->value;
             (*(f32 *)((char *)(temp_s0) + 0x24)) = 0.01f;
-            func_80076340(temp_s0 + 0x1C, 1, 0x40066666);
-            (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_v0_2) + 4));
-            (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_v0_2) + 8));
-            (*(s32 *)((char *)(temp_v0) + 0x24)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x30));
-            (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x34));
-            (*(s32 *)((char *)(temp_v0) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x38));
-            temp_v0_3 = (*(void **)((char *)(temp_s0) + 0x1C));
-            (*(s32 *)((char *)(temp_v0) + 0x48)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0xC));
-            (*(s32 *)((char *)(temp_v0) + 0x4C)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x10));
-            (*(s32 *)((char *)(temp_v0) + 0x50)) = (s32) (*(s32 *)((char *)(temp_v0_3) + 0x14));
+            func_80076340(temp_s0 + 0x1C, 1, 2.1f);
+            temp_v0_2 = (*(void **)((char *)(temp_s0) + 0x1C));
+            *(Vec3 *)(temp_v0 + 0x30) = *(Vec3 *)temp_v0_2;
+            *(Vec3 *)(temp_v0 + 0x24) = *(Vec3 *)(temp_v0 + 0x30);
+            *(Vec3 *)(temp_v0 + 0x48) = *(Vec3 *)(temp_v0_2 + 0xC);
         } else {
-            (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) ((__repair_field_0 *)arg0)->value;
-            (*(s32 *)((char *)(temp_v0) + 0x38)) = (s32) (*(s32 *)((char *)(arg0) + 8));
-            (*(s32 *)((char *)(temp_v0) + 0x34)) = (s32) (*(s32 *)((char *)(arg0) + 4));
-            (*(s32 *)((char *)(temp_v0) + 0x24)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x30));
-            (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x34));
-            (*(s32 *)((char *)(temp_v0) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x38));
-            (*(s32 *)((char *)(temp_v0) + 0x48)) = (s32) ((__repair_field_0 *)arg1)->value;
-            (*(s32 *)((char *)(temp_v0) + 0x4C)) = (s32) (*(s32 *)((char *)(arg1) + 4));
-            (*(s32 *)((char *)(temp_v0) + 0x50)) = (s32) (*(s32 *)((char *)(arg1) + 8));
+            *(Vec3 *)(temp_v0 + 0x30) = *(Vec3 *)arg0;
+            *(Vec3 *)(temp_v0 + 0x24) = *(Vec3 *)(temp_v0 + 0x30);
+            *(Vec3 *)(temp_v0 + 0x48) = *(Vec3 *)arg1;
         }
-        (*(s32 *)((char *)(temp_v0) + 0x40)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x4C));
-        (*(s32 *)((char *)(temp_v0) + 0x44)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x50));
-        (*(s32 *)((char *)(temp_v0) + 0x3C)) = (s32) (*(s32 *)((char *)(temp_v0) + 0x48));
+        *(Vec3 *)(temp_v0 + 0x3C) = *(Vec3 *)(temp_v0 + 0x48);
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x3B;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         var_s4 = 0;
@@ -72,7 +58,7 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
             temp_v0_4 = func_80016410(0, 0, 0);
             (*(void **)((char *)(var_s2) + 0x2C)) = temp_v0_4;
             if (temp_v0_4 != NULL) {
-                (*(void **)((char *)(temp_v0_4) + 0x18)) = (int)temp_v0;
+                (*(void **)((char *)(temp_v0_4) + 0x18)) = temp_v0;
                 (*(s16 *)((char *)(temp_v0_4) + 0x78)) = 0x30;
                 (*(s32 *)((char *)(temp_v0_4) + 0x5C)) |= 0x600;
                 func_80044670(temp_v0_4, 3U, *(*(s16 **)((char *)(arg2) + 0x28)));
@@ -95,3 +81,4 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
     }
     return temp_v0;
 }
+

@@ -4,7 +4,8 @@ s32 func_80045CF8(s32);                         /* extern */
 s32 func_8004C750(s32, f32 *, f32 *, s32 *, f32, f32 *, f32 *, s32 *); /* extern */
 s32 func_800617D8(s32, s32 *, s32, s32, f32, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_8008548C(s32 *);                   /* extern */
-extern s32 D_800D4E74;
+typedef struct { u32 x, y, z; } Vec3u32;
+extern Vec3u32 D_800D4E74;
 extern f64 D_800D4E80;
 extern u16 D_80103046;
 extern s32 D_80103F00;
@@ -22,9 +23,11 @@ void func_800794C0(s32 arg0, void *arg1) {
         struct { unsigned char pad[16]; s32 value; } view_sp40;
         struct { unsigned char pad[20]; f32 value; } view_sp44;
         struct { unsigned char pad[32]; f32 value; } view_sp50;
+        struct { unsigned char pad[32]; Vec3u32 value; } view_sp50_vec;
         struct { unsigned char pad[36]; f32 value; } view_sp54;
         struct { unsigned char pad[40]; f32 value; } view_sp58;
         struct { unsigned char pad[48]; f32 value; } view_sp60;
+        struct { unsigned char pad[48]; Vec3u32 value; } view_sp60_vec;
         struct { unsigned char pad[52]; f32 value; } view_sp64;
         struct { unsigned char pad[56]; f32 value; } view_sp68;
         struct { unsigned char pad[64]; f32 value; } view_sp70;
@@ -67,12 +70,8 @@ void func_800794C0(s32 arg0, void *arg1) {
     void *temp_v1_6;
 
     temp_s2 = (*(void **)((char *)(arg1) + 0x6C));
-    m2c_initial_frame.view_sp54.value = (*(f32 *)((char *)(&D_800D4E74) + 4));
-    m2c_initial_frame.view_sp50.value = (*(f32 *)((char *)(&D_800D4E74) + 0));
-    m2c_initial_frame.view_sp58.value = (*(f32 *)((char *)(&D_800D4E74) + 8));
-    m2c_initial_frame.view_sp60.value = (*(f32 *)((char *)(&D_800D4E74) + 0));
-    m2c_initial_frame.view_sp64.value = (*(f32 *)((char *)(&D_800D4E74) + 4));
-    m2c_initial_frame.view_sp68.value = (*(f32 *)((char *)(&D_800D4E74) + 8));
+    m2c_initial_frame.view_sp50_vec.value = D_800D4E74;
+    m2c_initial_frame.view_sp60_vec.value = D_800D4E74;
     temp_fs0 = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x38));
     m2c_initial_frame.view_sp80.value = 0;
     m2c_initial_frame.view_sp84.value = 0x3F800000;

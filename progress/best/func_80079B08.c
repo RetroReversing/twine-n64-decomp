@@ -15,6 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800515D0(void *, s32, void *, s32 *, M2C_UNK *, f32, f32, f32, s32, s32 *, s32 *, s32 *); /* extern */
 
 typedef struct { unsigned char pad_0[36]; int field_24; float field_28; int field_2C; unsigned char pad_30[56]; void * field_68; } __repair_record_arg1;
+struct vec3 { s32 x, y, z; };
 s32 func_80079B08(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
     s32 sp30[3];
     char sp40[0x10];
@@ -24,9 +25,7 @@ s32 func_80079B08(s32 arg0, void *arg1, s32 *arg2, s32 *arg3, s32 arg4) {
     void *temp_v1;
     void *temp_v1_2;
 
-    sp30[0] = ((__repair_record_arg1*)arg1)->field_24;
-    sp30[1] = ((__repair_record_arg1*)arg1)->field_28;
-    sp30[2] = ((__repair_record_arg1*)arg1)->field_2C;
+    *(struct vec3 *)sp30 = *(struct vec3 *)((char *)arg1 + 0x24);
     sp50 = 0;
     *arg2 = 0;
     *arg3 = 0;

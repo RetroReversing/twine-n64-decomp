@@ -3,7 +3,7 @@
 s32 func_800957A8();
 extern unsigned char D_80107EE8[];
 extern char D_80107EEC[];
-extern s32 D_80107EF0;
+extern char D_80107EF0[];
 extern char D_80107EF4[];
 extern char D_80107EF8[];
 

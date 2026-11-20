@@ -12,36 +12,36 @@ s32 func_80085690(void *);                      /* extern */
 s32 func_80085710(void *);                      /* extern */
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C470A;
 extern Slot_800C470A D_800C470A[];
-extern s32 D_800C9A58;
+extern u16 D_800C9A58;
 extern u8 D_800C9A5C[];
-extern s32 D_800C9A68;
-extern s32 D_800C9A70;
-extern s32 D_800C9A7C;
-extern s32 D_800C9A88;
-extern s32 D_800C9A94;
-extern s32 D_800C9AA0;
-extern s32 D_800C9AAC;
-extern s32 D_800C9AB8;
-extern s32 D_800C9AC4;
-extern s32 D_800C9AD0;
-extern s32 D_800C9ADC;
-extern s32 D_800C9AE8;
-extern s32 D_800C9AF4;
-extern s32 D_800C9B00;
-extern s32 D_800C9B0C;
-extern s32 D_800C9B18;
-extern s32 D_800C9B24;
-extern s32 D_800C9B30;
-extern s32 D_800C9B38;
-extern s32 D_800C9B4C;
-extern s32 D_800C9B64;
-extern s32 D_800C9B6C;
-extern s32 D_800C9B70;
-extern s32 D_800C9B74;
-extern s32 D_800C9B78;
-extern s32 D_800C9B7C;
-extern s32 D_800C9B80;
-extern s32 D_800C9B88;
+extern u16 D_800C9A68;
+extern u16 D_800C9A70;
+extern u16 D_800C9A7C;
+extern u16 D_800C9A88;
+extern u16 D_800C9A94;
+extern u16 D_800C9AA0;
+extern u16 D_800C9AAC;
+extern u16 D_800C9AB8;
+extern u16 D_800C9AC4;
+extern u16 D_800C9AD0;
+extern u16 D_800C9ADC;
+extern u16 D_800C9AE8;
+extern u16 D_800C9AF4;
+extern u16 D_800C9B00;
+extern u16 D_800C9B0C;
+extern u16 D_800C9B18;
+extern u16 D_800C9B24;
+extern u16 D_800C9B30;
+extern u16 D_800C9B38;
+extern u16 D_800C9B4C;
+extern u16 D_800C9B64;
+extern u16 D_800C9B6C;
+extern u16 D_800C9B70;
+extern u16 D_800C9B74;
+extern u16 D_800C9B78;
+extern u16 D_800C9B7C;
+extern u16 D_800C9B80;
+extern u16 D_800C9B88;
 
 void func_800770E4(void *arg0) {
     s32 *var_s0_2;
@@ -140,12 +140,12 @@ block_90:
             }
             break;
         case 22:                                    /* switch 2 */
-            func_80002BD0(arg0, *(&D_800C9A58 + (func_80045CF8(1) * 2)));
+            func_80002BD0(arg0, *(&D_800C9A58 + func_80045CF8(1)));
             var_a1 = 0x4B;
             goto block_90;
         case 7:                                     /* switch 2 */
             func_80085710(arg0 + 0x24);
-            var_a1_2 = *(D_800C9A5C + (func_80045CF8(6) * 2));
+            var_a1_2 = *(D_800C9A5C + (func_80045CF8(6)));
 block_61:
             func_80002BD0(arg0, var_a1_2);
             goto block_71;
@@ -153,7 +153,7 @@ block_61:
         case 8:                                     /* switch 2 */
         case 18:                                    /* switch 2 */
             func_80085610(arg0 + 0x24);
-            var_a1_2 = *(&D_800C9A68 + (func_80045CF8(3) * 2));
+            var_a1_2 = *(&D_800C9A68 + (func_80045CF8(3)));
             goto block_61;
         case 4:                                     /* switch 2 */
             func_80085690(arg0 + 0x24);
@@ -203,28 +203,28 @@ block_61:
             case 3:                                 /* switch 4 */
                 switch (temp_a0_2) {                /* switch 5 */
                 case 0:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A70 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9A70 + (func_80045CF8(5)));
                     goto block_61;
                 case 1:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A7C + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9A7C + (func_80045CF8(5)));
                     goto block_61;
                 case 2:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A88 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9A88 + (func_80045CF8(5)));
                     goto block_61;
                 case 3:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A94 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9A94 + (func_80045CF8(5)));
                     goto block_61;
                 case 4:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AA0 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AA0 + (func_80045CF8(5)));
                     goto block_61;
                 case 5:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AAC + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AAC + (func_80045CF8(5)));
                     goto block_61;
                 case 6:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AB8 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AB8 + (func_80045CF8(5)));
                     goto block_61;
                 case 7:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AC4 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AC4 + (func_80045CF8(5)));
                     goto block_61;
                 }
                 goto block_71;
@@ -232,34 +232,34 @@ block_61:
             case 8:                                 /* switch 4 */
                 switch (temp_a0_2) {                /* switch 6 */
                 case 0:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AD0 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AD0 + (func_80045CF8(5)));
                     goto block_61;
                 case 1:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9ADC + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9ADC + (func_80045CF8(5)));
                     goto block_61;
                 case 2:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AE8 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AE8 + (func_80045CF8(5)));
                     goto block_61;
                 case 3:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AF4 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9AF4 + (func_80045CF8(5)));
                     goto block_61;
                 case 4:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B00 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9B00 + (func_80045CF8(5)));
                     goto block_61;
                 case 5:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B0C + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9B0C + (func_80045CF8(5)));
                     goto block_61;
                 case 6:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B18 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9B18 + (func_80045CF8(5)));
                     goto block_61;
                 case 7:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B24 + (func_80045CF8(5) * 2));
+                    var_a1_2 = *(&D_800C9B24 + (func_80045CF8(5)));
                     goto block_61;
                 }
                 goto block_71;
             default:                                /* switch 4 */
                 if (var_s0 == 0xE) {
-                    var_a1_2 = *(&D_800C9B30 + (func_80045CF8(4) * 2));
+                    var_a1_2 = *(&D_800C9B30 + (func_80045CF8(4)));
                     goto block_61;
                 }
                 switch (temp_a0_2) {                /* switch 7 */
@@ -279,28 +279,28 @@ block_61:
                         var_a0_2 = 0xB;
                         break;
                     }
-                    var_a1_2 = *((func_80045CF8(var_a0_2) * 2) + var_s0_2);
+                    var_a1_2 = *((func_80045CF8(var_a0_2)) + var_s0_2);
                     goto block_61;
                 case 1:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B64 + (func_80045CF8(3) * 2));
+                    var_a1_2 = *(&D_800C9B64 + (func_80045CF8(3)));
                     goto block_61;
                 case 2:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B6C + (func_80045CF8(1) * 2));
+                    var_a1_2 = *(&D_800C9B6C + (func_80045CF8(1)));
                     goto block_61;
                 case 3:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B70 + (func_80045CF8(1) * 2));
+                    var_a1_2 = *(&D_800C9B70 + (func_80045CF8(1)));
                     goto block_61;
                 case 4:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B74 + (func_80045CF8(2) * 2));
+                    var_a1_2 = *(&D_800C9B74 + (func_80045CF8(2)));
                     goto block_61;
                 case 5:                             /* switch 7 */
-                    func_80002BD0(arg0, *(&D_800C9B78 + (func_80045CF8(1) * 2)));
+                    func_80002BD0(arg0, *(&D_800C9B78 + (func_80045CF8(1))));
                     /* fallthrough */
                 case 6:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B7C + (func_80045CF8(1) * 2));
+                    var_a1_2 = *(&D_800C9B7C + (func_80045CF8(1)));
                     goto block_61;
                 case 7:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B80 + (func_80045CF8(3) * 2));
+                    var_a1_2 = *(&D_800C9B80 + (func_80045CF8(3)));
                     goto block_61;
                 }
                 goto block_71;
@@ -316,7 +316,7 @@ block_61:
                     var_a1 = 0x16;
                     goto block_90;
                 case 0x217:                         /* switch 9 */
-                    func_80002BD0(arg0, *(&D_800C9B88 + (func_80045CF8(5) * 2)));
+                    func_80002BD0(arg0, *(&D_800C9B88 + (func_80045CF8(5))));
                     var_a1 = 0x16;
                     goto block_90;
                 }
@@ -326,8 +326,8 @@ block_61:
         }
         break;
     case 2:                                         /* switch 1 */
-        var_fv0 = (*(f32 *)((char *)(temp_v0_2) + 0x1A0));
         temp_v0_2 = (*(void **)((char *)(arg0) + 0x6C));
+        var_fv0 = (*(f32 *)((char *)(temp_v0_2) + 0x1A0));
         var_fv1_2 = (*(f32 *)((char *)(temp_v0_2) + 0x1A8));
         var_v1_2 = (*(u32 *)((char *)(temp_v0_2) + 0x18C));
         var_s2 = 0;
@@ -342,3 +342,4 @@ block_8:
         goto block_9;
     }
 }
+
