@@ -15,11 +15,11 @@ s32 strlen(s8 *);
 extern TextPageSet *D_800BFF08;
 extern TextLine30818 D_800E1600;
 
-TextLine30818 *func_80031144(s32 kind, s32 line)
+TextLine30818 *func_80031144(u16 kind, s32 line)
 {
     TextLine30818 *out = &D_800E1600;
     u16 *page;
-    s32 lineIndex;
+    u16 lineIndex;
 
     out->text = func_80087100(3);
     D_800E1600.length = 0;
@@ -33,19 +33,19 @@ TextLine30818 *func_80031144(s32 kind, s32 line)
         case 1:
             page = D_800BFF08->pages[0];
             if (page != NULL) {
-                text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
+                text_get_line_span(out, func_80087100(*page), lineIndex);
             }
             break;
         case 2:
             page = D_800BFF08->pages[1];
             if (page != NULL) {
-                text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
+                text_get_line_span(out, func_80087100(*page), lineIndex);
             }
             break;
         case 3:
             page = D_800BFF08->pages[2];
             if (page != NULL) {
-                text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
+                text_get_line_span(out, func_80087100(*page), lineIndex);
             }
             break;
         }
