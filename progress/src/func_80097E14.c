@@ -48,7 +48,6 @@ s32 func_80097E14(s32 arg0) {
             break;
         }
     }
-    var_v0 = 0;
     if (var_s0 != D_800FD560) {
         func_8008C0D4();
         var_a2 = var_s0 + 1;
@@ -65,7 +64,7 @@ s32 func_80097E14(s32 arg0) {
         }
         D_800FD560 -= 1;
         func_8008C11C();
-        var_v0 = 1;
+        return 1;
     }
-    return var_v0;
+    return 0;
 }
