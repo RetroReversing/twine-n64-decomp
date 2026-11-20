@@ -33,11 +33,11 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     f32 temp_fa1_2;
 
     temp_fs5 = (*(f32 *)((char *)(arg3) + 0)) - (*(f32 *)((char *)(arg2) + 0));
-    temp_fs2 = (*(f32 *)((char *)(arg3) + 4)) - (*(f32 *)((char *)(arg2) + 4));
     sp0[0] = temp_fs5;
-    temp_fs0 = (*(f32 *)((char *)(arg3) + 8)) - (*(f32 *)((char *)(arg2) + 8));
+    temp_fs2 = (*(f32 *)((char *)(arg3) + 4)) - (*(f32 *)((char *)(arg2) + 4));
     sp0[1] = temp_fs2;
     temp_fv1 = (*(f32 *)((char *)(arg4) + 0)) - (*(f32 *)((char *)(arg2) + 0));
+    temp_fs0 = (*(f32 *)((char *)(arg3) + 8)) - (*(f32 *)((char *)(arg2) + 8));
     sp0[2] = temp_fs0;
     sp10[0] = temp_fv1;
     temp_fv1_2 = (*(f32 *)((char *)(arg4) + 4)) - (*(f32 *)((char *)(arg2) + 4));
@@ -52,7 +52,7 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     sp30[0] = ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2));
     sp30[1] = temp_ft2;
     sp10[2] = temp_fv1_3;
-    temp_ft5 = (((temp_fs5 * ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2))))) + (((temp_fs2 * temp_ft2) + (temp_fs0 * ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1)))));
+    temp_ft5 = ((((temp_fs2 * temp_ft2) + (temp_fs0 * ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1)))))) + ((((temp_fs5 * ((temp_t4 * temp_fv1_3) - (temp_fs4 * temp_fv1_2))))));
     sp30[2] = ((temp_t3 * temp_fv1_2) - (temp_t4 * temp_fv1));
     if (!(temp_ft5 < 1e-10f)) {
         temp_ft4 = (*(f32 *)((char *)(arg0) + 0)) - (*(f32 *)((char *)(arg2) + 0));
@@ -74,15 +74,15 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
             return 0;
         }
         temp_ft2_3 = (temp_ft2_2 * temp_fs5) - (temp_ft4 * temp_fs0);
-        temp_fa0_2 = (temp_fa0 * temp_fs0) - (temp_ft2_2 * temp_fs2);
+        temp_ft2_2 = (temp_fa0 * temp_fs0) - (temp_ft2_2 * temp_fs2);
         temp_ft3_2 = (temp_ft4 * temp_fs2) - (temp_fa0 * temp_fs5);
-        sp40[0] = temp_fa0_2;
-        temp_fv1_4 = (((temp_t3 * temp_fa0_2))) + (((temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2)));
+        sp40[0] = temp_ft2_2;
+        temp_fv1_4 = (((temp_t3 * temp_ft2_2))) + (((temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2)));
         sp40[1] = temp_ft2_3;
         sp40[2] = temp_ft3_2;
         if (!((f64) temp_fv1_4 < 0.0)) {
             if (!(temp_ft5 < (temp_fa1_2 + temp_fv1_4))) {
-                *arg5 = ((temp_fv1 * temp_fa0_2) + (temp_fv1_2 * temp_ft2_3) + (temp_fv1_3 * temp_ft3_2)) * (f32) (D_800D3E40 / (f64) temp_ft5);
+                *arg5 = ((temp_fv1 * temp_ft2_2) + (temp_fv1_2 * temp_ft2_3) + (temp_fv1_3 * temp_ft3_2)) * (f32) (D_800D3E40 / (f64) temp_ft5);
                 return 1;
             }
             goto block_12;

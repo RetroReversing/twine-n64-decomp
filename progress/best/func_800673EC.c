@@ -188,7 +188,7 @@ block_48:
         func_80001678(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)));
         temp_a1 = (*(u16 *)((char *)(var_s4) + 0x98));
         if (temp_a1 != 0) {
-            func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1);
+            do { func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1); } while (0);
             temp_v1 = 4;
             goto block_48;
         }

@@ -27,19 +27,20 @@ extern u8 D_80102EDE;
 extern char D_80109688[];
 
 void *func_8002EBB8(s32 arg0) {
+    char *__base_D_800BFD08;
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 __repair_store_2;
     s32 __repair_store_3;
     s16 *var_a1;
     char *var_a2;
-    char *var_a3;
+    void *temp_a1;
     s32 temp_a0;
     s32 temp_a0_2;
     s32 temp_s0;
     int temp_v1;
     s32 temp_v1_2;
-    void *temp_a1;
+    char *var_a3;
     
     void *temp_a1_3;
     void *temp_s1;
@@ -58,7 +59,7 @@ void *func_8002EBB8(s32 arg0) {
     (*(s16 *)((char *)(temp_v0) + 0x7A)) = (s16) ((D_80102EDE != 0) * 4);
     func_8000A310();
     func_8000A5D0(0xC);
-    func_80064318(temp_v0, arg0 & 0xFFFF);
+    do { func_80064318(temp_v0, arg0 & 0xFFFF); } while (0);
     temp_s1 = (*(void **)((char *)(temp_v0) + 0x6C));
     (*(void **)((char *)(temp_s1) + 0)) = NULL;
     (*(void **)((char *)(temp_s1) + 0x30)) = NULL;
@@ -74,20 +75,22 @@ void *func_8002EBB8(s32 arg0) {
     (*(void **)((char *)(temp_s1) + 0x3C)) = func_80015F74((s16 *)((char *)&D_800BFDDC - 0x20));
     var_a3 = &D_800BFD74;
     D_800BFD70 = arg0;
-    var_a2 = ((D_800BFC92 & 1) * 0x24) + D_800BFD08;
-    temp_t0 = var_a2 + 0x20;
-    do {
-        __repair_store_0 = (*(s32 *)((char *)(var_a2) + 0));
+    __base_D_800BFD08 = D_800BFD08;
+    var_a2 = (void *) ((((D_800BFC92 & 1) * 0x24)) + (s32) __base_D_800BFD08);
+    temp_t0 = (void *) ((0x20) + (s32) var_a2);
+    __repair_rows: {
+        temp_a0_2 = (*(s32 *)((char *)(var_a2) + 0));
         __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 4));
         __repair_store_2 = (s32) (*(s32 *)((char *)(var_a2) + 8));
         __repair_store_3 = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
-        (*(s32 *)((char *)(var_a3) + 0)) = __repair_store_0;
+        (*(s32 *)((char *)(var_a3) + 0)) = temp_a0_2;
         (*(s32 *)((char *)(var_a3) + 4)) = __repair_store_1;
         (*(s32 *)((char *)(var_a3) + 8)) = __repair_store_2;
         (*(s32 *)((char *)(var_a3) + 0xC)) = __repair_store_3;
         var_a2 += 0x10;
         var_a3 += 0x10;
-    } while (var_a2 != temp_t0);
+    }
+if (var_a2 != temp_t0) goto __repair_rows;
     *(s32 *)var_a3 = *(s32 *)var_a2;
     D_800BFD94 = arg0;
     D_800BFDB8 = arg0;
@@ -109,7 +112,7 @@ void *func_8002EBB8(s32 arg0) {
         for (__repair_i = 0; __repair_i < 9; __repair_i++) {
             temp_v0_2 = func_800162BC(arg0 & 0xFFFF);
             temp_a0_2 = __repair_i;
-            var_a2_2 = (temp_a0_2 * 4) + temp_s1;
+            var_a2_2 = (void *) (((temp_a0_2 * 4)) + (s32) temp_s1);
             (*(void **)((char *)(var_a2_2) + 4)) = temp_v0_2;
             if (temp_v0_2 != NULL) {
             (*(void **)((char *)(temp_v0_2) + 0x18)) = (void *) ((temp_a0_2 * 0xC) + D_800E1590);
@@ -129,7 +132,7 @@ void *func_8002EBB8(s32 arg0) {
             }
             var_a2_2 = (void *) __repair_i;
             temp_v1_2 = (s32) var_a2_2 * 4;
-            temp_a1_3 = temp_v1_2 + temp_s1;
+            temp_a1_3 = (void *) ((temp_v1_2) + (s32) temp_s1);
             (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x1E)) = 0x40;
             (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x20)) = 0xF0;
             (*(s16 *)((char *)((*(void **)((char *)(temp_a1_3) + 4))) + 0x22)) = (s16) (((s32) (temp_v1_2 + var_a2_2) * 2) + 0x28);

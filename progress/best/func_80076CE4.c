@@ -1,6 +1,6 @@
 #define F(p, T, off) (*(T *)((u8 *)(p) + (off)))
 typedef struct { s32 w[3]; } W3;
-void func_800015AC(void *, s32, void *, s32);
+void func_800015AC(void *, s32);
 void func_80002BD0(void *, s32);
 void func_80076C80(void *);
 void func_80077960(void *, s32);
@@ -64,7 +64,7 @@ case 0: r = 0; break;
             obj = F(st, void *, 0x40);
             F(st, s32, 0x88) |= 0x40000000;
             F(st, W3, 0x18) = F(obj, W3, 0x24);
-            func_800015AC(arg0, 4, obj, F(obj, s32, 0x2C));
+            func_800015AC(arg0, 4);
             F(st, u8, 0x82) = 0;
             if ((s8)func_80077E00(arg0)) {
                 func_80002BD0(arg0, 0x14D);

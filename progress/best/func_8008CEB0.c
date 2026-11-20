@@ -22,6 +22,7 @@ extern M2C_UNK D_8010D734;
 extern u8 D_801176E8;
 
 s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
+    M2C_UNK *__base_D_8010D724;
     u8 sp17;
     u8 sp1F;
     M2C_UNK *var_s1;
@@ -42,20 +43,21 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     void *var_s0;
 
     var_s4 = -1;
-    var_s6 = &D_8010D724;
+    __base_D_8010D724 = &D_8010D724;
+    var_s6 = __base_D_8010D724;
     var_s3 = 0;
     sp17 = arg1;
     sp1F = arg2;
     if (D_801176E8 != 0) {
         temp_fp = arg0 & 0xFF;
-        var_s0 = (s8 *)&D_8010D724 + 0x24;
+        var_s0 = (s8 *)__base_D_8010D724 + 0x24;
         var_s7 = 0;
-        do { {
+        __repair_rows: { {
             if ((M2C_FIELD(var_s0, s32 *, 0x3C) != -1) && (M2C_FIELD(var_s0, u8 *, 0x26) == sp17) && (M2C_FIELD(var_s0, u8 *, 0x27) == sp1F)) {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
-                    temp_s2 = var_s7 + (s8 *)&D_8010D724;
+                    temp_s2 = var_s7 + (s8 *)__base_D_8010D724;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
                     temp_hi = temp_a2 / 100;
                     temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);
@@ -67,7 +69,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                     temp_a2_2 = temp_a2 >> 0x1F;
                     M2C_FIELD(var_s0, u16 *, 0x2C) = (u16) (temp_fp + (M2C_FIELD(var_s0, u8 *, 0x2D) - temp_a3));
                     M2C_FIELD(var_s0, s32 *, 0) = (s32) (M2C_FIELD(var_s0, s32 *, 0) | 0x80800);
-                    temp_a1_2 = (temp_a1 << 0x10) + temp_hi;
+                    temp_a1_2 = (temp_a1 << 0x10); temp_a1_2 += temp_hi;
                     M2C_FIELD(var_s0, s32 *, 0x70) = temp_a1_2;
                     func_8009876C(temp_s2, temp_a1_2, temp_a2_2, temp_a3);
                     if (var_s4 == -1) {
@@ -86,7 +88,8 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
             var_s0 += 0x1A0;
             var_s6 += 104;
         }
-} while (var_s3 < (u8) D_801176E8);
+}
+if (var_s3 < (u8) D_801176E8) goto __repair_rows;
     }
     if (var_s4 != -1) {
         func_80099B64(var_s1);

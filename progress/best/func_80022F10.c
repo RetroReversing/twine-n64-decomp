@@ -50,11 +50,6 @@ void func_80022F10(void *arg0, s32 arg1) {
                         var_v0 = D_800BD650;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         break;
-                    case 0xFF:                      /* switch 1 */
-                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
-                        global_ptr = D_80109BB0;
-                        var_v0 = D_800BD644;
-                        break;
                     default:                        /* switch 1 */
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         __base_D_800BD640 = D_800BD640;
@@ -64,6 +59,11 @@ void func_80022F10(void *arg0, s32 arg1) {
                         }
                         global_ptr = D_80109BB0;
                         var_v0 = *var_v0_2;
+                        break;
+                    case 0xFF:                      /* switch 1 */
+                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
+                        global_ptr = D_80109BB0;
+                        var_v0 = D_800BD644;
                         break;
                     }
                 } else {
@@ -108,7 +108,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                     }
                 } else {
                     global_ptr = D_80109BB0;
-                        temp_t0 = D_800BD64C;
+                        temp_t0 = (s32)&D_800BD64C;
                     var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                 }
                 (*(s32 *)((char *)(var_a1) + 0x10)) = (s32) ((temp_t0 & ~0xFF) | (*(u8 *)((char *)(global_ptr) + 0x30)));
