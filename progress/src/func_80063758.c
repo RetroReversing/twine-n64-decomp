@@ -26,7 +26,9 @@ f32 func_80063758(f32 arg0, f32 arg1, f32 arg2) {
         } else {
             var_v0 = temp_v0 - 1;
         }
-        var_fv1 = (f32) (var_v0 >> 1);
+        do {
+            var_fv1 = (f32) (var_v0 >> 1);
+        } while (0);
         temp_fv0 = -arg2;
         if (var_fv1 < temp_fv0) {
             var_fv1 = temp_fv0;
