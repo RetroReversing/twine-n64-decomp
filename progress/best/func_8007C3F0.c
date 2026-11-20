@@ -25,9 +25,8 @@ extern f64 D_800D5120;
 extern u8 D_80109B1E;
 
 s32 func_8007C3F0(void *arg0, s32 arg1) {
-    f32 sp14;
+    f32 sp14[2];
     f32 reserve[2];
-    f32 sp18;
     M2C_UNK var_a1;
     f32 temp_ft0;
     f32 temp_ft0_2;
@@ -39,7 +38,7 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
     s16 temp_v1_2;
     s32 temp_v0;
     s32 var_v0;
-    u8 temp_v1;
+    s32 temp_v1;
     void *temp_s1;
     void *temp_s2;
 
@@ -70,7 +69,8 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                     if ((var_fv1 < 8.0f) && (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 8)) {
                         func_8007B030(arg0);
                         var_a1 = 0x21;
-                        goto block_26;
+                        {
+                        func_80077960(arg0, var_a1);return 1;}
                     }
                     temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x7C);
                     if ((temp_v1_2 >= 0) && ((temp_v1_2 < 2) || (temp_v1_2 == 3))) {
@@ -79,19 +79,20 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                         if (temp_v0 < 0) {
                             var_ft0 += D_800D5120;
                         }
-                        sp14 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x28) - M2C_FIELD(arg0, f32 *, 0x28);
+                        sp14[0] = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x28) - M2C_FIELD(arg0, f32 *, 0x28);
                         temp_ft0_3 = (f32) var_ft0 + 0.25f;
-                        sp18 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x2C) - M2C_FIELD(arg0, f32 *, 0x2C);
+                        sp14[1] = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x2C) - M2C_FIELD(arg0, f32 *, 0x2C);
                         M2C_FIELD(temp_s1, f32 *, 0x18) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + ((M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x24) - M2C_FIELD(arg0, f32 *, 0x24)) * temp_ft0_3));
-                        M2C_FIELD(temp_s1, f32 *, 0x1C) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (sp14 * temp_ft0_3));
-                        M2C_FIELD(temp_s1, f32 *, 0x20) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (sp18 * temp_ft0_3));
+                        M2C_FIELD(temp_s1, f32 *, 0x1C) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (sp14[0] * temp_ft0_3));
+                        M2C_FIELD(temp_s1, f32 *, 0x20) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (sp14[1] * temp_ft0_3));
                         if (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), s32 *, 0x20) == M2C_FIELD(arg0, s32 *, 0x20)) {
                             temp_s2 = temp_s1 + 0x18;
                             var_v0 = 1;
                             if ((func_8007BAF8(arg0, temp_s2, 6, 0xB) << 0x18) == 0) {
                                 M2C_FIELD(temp_s1, f32 *, 0x38) = func_800461D4(arg0 + 0x24, temp_s2);
                                 var_a1 = 0x1E;
-                                goto block_26;
+                                {
+                        func_80077960(arg0, var_a1);return 1;}
                             }
                             /* Duplicate return node #29. Try simplifying control flow for better match */
                             return var_v0;

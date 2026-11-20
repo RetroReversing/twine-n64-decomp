@@ -30,7 +30,7 @@ extern char D_800C471C[];
 extern char D_800C7C16[];
 extern u8 D_801002A0;
 extern s32 D_8010302C;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 extern void *D_8010A500;
 
 extern char D_800D41E0[];
@@ -133,7 +133,7 @@ block_15:
                     __repair_phase_storage.pointer = func_80087100(temp_a0 | 0x9000, var_a1);
                     sprintf(&sp30, D_800D41E0, __repair_phase_storage.pointer, func_80087100(0x16A));
                     D_8010302C += 1;
-                    func_80073AF8(0, *(s32 *)(D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+                    func_80073AF8(0, *(s32 *)(gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                     temp_v0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                     switch (temp_v0_3) {
                     case 3:
@@ -194,7 +194,7 @@ block_15:
         temp_s3_2 = M2C_FIELD(temp_s4, u8 *, 0x80);
         if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + __repair_phase_storage.value)) {
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
@@ -210,7 +210,7 @@ block_15:
             temp_s0_3 = func_80087100(temp_s3_2 | 0x9000, D_800C469C);
             sprintf(&sp30, jtbl_800D41E8, temp_s0_3, func_80087100(0x16A));
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
             if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
                 func_8000A894(0xD8U);
@@ -266,7 +266,7 @@ block_45:
     }
     func_80070664(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
     D_8010302C += 1;
-    func_80073AF8(0, *(s32 *)(D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
+    func_80073AF8(0, *(s32 *)(gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
         var_a0_3 = *(u16 *)(D_800C4484 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
 block_63:

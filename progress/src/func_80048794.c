@@ -2,12 +2,12 @@
 
 s32 func_8003C78C();                                /* extern */
 void *func_8003C934(s32, s32);                  /* extern */
-extern s32 D_80109688[];
+extern s32 gAimAxisTable[];
 
 void func_80048794(s32 arg0, s32 arg1) {
     void *temp_v0;
 
     temp_v0 = func_8003C934(func_8003C78C(), arg1);
-    D_80109688[arg0] = temp_v0;
+    gAimAxisTable[arg0] = temp_v0;
     (*(s16 *)((char *)(temp_v0) + 0x140)) = arg0;
 }

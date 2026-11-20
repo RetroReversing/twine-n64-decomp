@@ -16,7 +16,7 @@ extern s32 D_800E1A10;
 extern s16 D_800E1A14;
 extern s8 D_800E1A16;
 extern s8 D_80100B18;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 
 typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char pad_E[2]; int field_10; int field_14; int field_18; unsigned char pad_1C[12]; int field_28; int field_2C; int field_30; } __repair_record_temp_a2_2;
 void func_800656C0(void *arg0, void *arg1, void *arg2) {
@@ -64,9 +64,9 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     (*(f32 *)((char *)(temp_s0) + 0x98)) = 0.55f;
     func_80016718(arg0);
     func_8003E6EC(*D_800CA31C, arg0, 0);
-    (*(s32 *)((char *)(*((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(arg0) + 0x20));
-    func_800480A0(arg0, *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4))));
-    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)D_80109688 + (*(s8 *)((char *)temp_s0 + 0x182) * 4));
+    (*(s32 *)((char *)(*((s32 *)((s8 *)gAimAxisTable + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(arg0) + 0x20));
+    func_800480A0(arg0, *((s32 *)((s8 *)gAimAxisTable + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4))));
+    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)gAimAxisTable + (*(s8 *)((char *)temp_s0 + 0x182) * 4));
     (entry->field_28) = (s32) (entry->field_10);
     (entry->field_2C) = (s32) (entry->field_14);
     (entry->field_30) = (s32) (entry->field_18);

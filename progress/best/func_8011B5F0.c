@@ -12,7 +12,7 @@ s32 func_80087100();
 s32 sprintf(char *, const char *, ...);
 extern u8 D_801002A0;
 extern char D_80102EFC[];
-extern s32 D_80109688[];
+extern s32 gAimAxisTable[];
 extern s32 D_8010969C;
 extern void *D_8010A500[];
 extern s16 D_8011ED10[];
@@ -241,7 +241,7 @@ block_26:
         temp_a0_5 = *temp_s7;
         temp_s0_9 = temp_s0 * 0x24;
         (*(s32 *)((char *)(temp_a0_5) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0_5) + 0x28)) & ~0xFC) | 0x10);
-        func_80016624(*temp_s7, *((*(D_8011ED10 + temp_s0_9) * 4) + D_80109688), *(((*(s8 *)((char *)(temp_s4) + 0x182)) * 4) + D_80109688));
+        func_80016624(*temp_s7, *((*(D_8011ED10 + temp_s0_9) * 4) + gAimAxisTable), *(((*(s8 *)((char *)(temp_s4) + 0x182)) * 4) + gAimAxisTable));
         *(D_8011ED10 + temp_s0_9) = (s16) (s8) (u8) (*(s8 *)((char *)(temp_s4) + 0x182));
     }
 }

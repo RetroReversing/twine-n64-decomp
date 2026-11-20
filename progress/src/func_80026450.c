@@ -1,6 +1,6 @@
 typedef struct { u32 a, b, c, d; } FourWords;
 extern u8 D_800BD68E, D_800BD68F, D_80102EDD, D_801007D2, D_801007D3, D_801007D4, D_8010A4C1[], D_8010A4C2;
-extern u16 D_80102ED8;
+extern u16 gUpdateGateWord;
 extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
 void func_8000A368(void);
@@ -20,7 +20,7 @@ void func_80026450(void) {
         D_801007D2 = -1;
         D_801007D3 = -1;
         D_801007D4 = -1;
-        if ((*(s32 *)&D_80102ED8) != 0) {
+        if ((*(s32 *)&gUpdateGateWord) != 0) {
             D_8010A4C2 |= 1 << D_800BD68E;
         } else {
             mask = 1 << D_800BD68E;

@@ -12,20 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800E1A98;
-extern s32 D_80100918;
-extern s32 D_8010D368;
+void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
 
-s32 func_80083C34(s32 arg0, s32 arg1) {
-    s32 temp_v0;
-    s32 var_v1;
+void Contact_PushFront(s32 arg0) {
+    void *temp_v0;
 
-    if ((arg1 << 0x18) != 0) {
-        var_v1 = D_80100918;
-        D_80100918 = var_v1 + arg0;
-    } else {
-        var_v1 = D_8010D368 -= arg0;
-    }
-    D_800E1A98 += arg0;
-    return var_v1;
+    temp_v0 = func_80083E90(0x2C, 0x15);
+    M2C_FIELD(temp_v0, s32 *, 0) = arg0;
+    M2C_FIELD(temp_v0, s32 *, 8) = 0;
+    M2C_FIELD(temp_v0, s16 *, 0x26) = 0;
+    M2C_FIELD(temp_v0, s32 *, 0x1C) = 0;
 }

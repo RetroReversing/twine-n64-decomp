@@ -28,9 +28,9 @@ char *__repair_addr;
     void *temp_v1;
     void *var_a1;
 
-    var_a1 = arg1;
+    temp_s2 = arg1;
     temp_s0 = (*(void **)((char *)(arg0) + 0));
-    temp_s2 = var_a1;
+    var_a1 = arg1;
     if (temp_s0 != NULL) {
         temp_v1 = (*(void **)((char *)(temp_s0) + 4));
         if (temp_v1 != NULL) {
@@ -42,6 +42,11 @@ char *__repair_addr;
                 break;
 __repair_addr = (char *)((char *)(var_a1) + 0x22);
 
+            case 0xFF:
+                (*(u16 *)((char *)(temp_v1) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
+block_9:
+                var_v0 = (*(u16 *)((char *)(arg0) + 4));
+                break;
             default:
                 { s32 n = func_80018318((*(void **)((char *)(temp_s0) + 0)));
                 void *dst = *(void **)((char *)temp_s0 + 4);
@@ -49,11 +54,6 @@ __repair_addr = (char *)((char *)(var_a1) + 0x22);
                 var_a1 = (*(void **)((char *)(temp_s0) + 4));
                 {
                 var_v0 = (*(u16 *)((char *)(arg0) + 4));break;}
-            case 0xFF:
-                (*(u16 *)((char *)(temp_v1) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
-block_9:
-                var_v0 = (*(u16 *)((char *)(arg0) + 4));
-                break;
             }
             (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x20)) = var_v0;
             if (D_80102EDD != 0) {

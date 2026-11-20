@@ -22,6 +22,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     register u32 var_s3;
     u8 temp_a3;
     void *temp_s2, *var_s0;
+    volatile u32 frame_pad[2];
     var_s4 = -1;
     __base_D_8010D724 = &D_8010D724;
     var_s6 = __base_D_8010D724;

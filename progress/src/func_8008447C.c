@@ -22,7 +22,7 @@ extern M2C_UNK D_800CE5FC;
 extern M2C_UNK D_800CE60C;
 extern M2C_UNK D_800CE614;
 extern u32 D_80108F78;
-extern M2C_UNK D_80109688;
+extern M2C_UNK gAimAxisTable;
 
 void func_8008447C(void *arg0) {
     u16 sp10;
@@ -78,6 +78,6 @@ block_15:
         }
         break;
     }
-    func_8000AABC(var_s0, *((M2C_UNK *)((s8 *)&D_80109688 + (sp10 * 4))), arg0 + 0x24, 0);
+    func_8000AABC(var_s0, *((M2C_UNK *)((s8 *)&gAimAxisTable + (sp10 * 4))), arg0 + 0x24, 0);
 }
 

@@ -18,7 +18,8 @@ s32 func_800448A4();
 extern s32 D_800BD654;
 extern s32 D_800BD678;
 extern u8 D_801001A1;
-extern u8 D_801001A2;
+typedef struct { u8 f0; u8 pad[23]; } Slot_801001A2;
+extern Slot_801001A2 D_801001A2[];
 extern u8 D_801002A1;
 extern s32 D_801002C0;
 extern char D_8011F338[];
@@ -32,7 +33,7 @@ void func_8011CC3C(void) {
     s32 var_v0_2;
     u32 temp_s0_2;
     u8 temp_s0;
-    u8 temp_v1;
+    s32 temp_v1;
     u8 temp_v1_2;
     u8 temp_v1_3;
     void *temp_v0;
@@ -41,7 +42,7 @@ void func_8011CC3C(void) {
     if (D_801002C0 > 0) {
         var_a0 = 0 & 0xFFFF;
         do {
-            temp_v1 = *(u8 *)(D_801001A2 + (var_a0 * 0x18));
+            temp_v1 = D_801001A2[(unsigned char)var_a0].f0;
             if (temp_v1 != 0) {
                 var_s2 = 0;
                 if ((s32) temp_v1 >= 4) {
@@ -105,14 +106,15 @@ block_25:
                 var_s2 = 0;
                 var_v0 = var_s3 & 0xFFFF;
 block_29:
-                var_v0_2 = 0 & 0xFFFF;
-                do { { {
-                    *(s32 *)((char *)D_8011F338 + var_v0 * 4 + var_v0_2 * 0x10) = 0;
-                    var_s2 += 1;
-                    var_v0_2 = var_s2 & 0xFFFF;
+                {
+                    u16 __repair_i;
+                    for (__repair_i = 0; __repair_i < 4; __repair_i++) {
+                        { {
+                        *(s32 *)((char *)D_8011F338 + var_v0 * 4 + __repair_i * 0x10) = 0;
+                        }
+                        }
+                    }
                 }
-}
-} while ((u32) (var_s2 & 0xFFFF) < 4U);
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;

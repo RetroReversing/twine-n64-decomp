@@ -1,8 +1,9 @@
 void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     u8 *p = arg0;
     s32 raw;
+s32 __repair_phase_raw;
     u32 opcode;
-    s32 size;
+    
     s32 count;
 
     *arg1 = 0;
@@ -18,32 +19,32 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
             case 0:
                 *arg1 = p[1] + *arg1;
                 p++;
-                size = *p;
+                raw = *p;
                 *arg3 = 0;
-                size *= 3;
+                raw *= 3;
                 goto skip;
             case 1:
                 *arg1 = p[1] + *arg1;
                 p++;
-                size = *p;
+                raw = *p;
                 *arg3 = 1;
-                size *= 3;
+                raw *= 3;
                 goto double_size;
             case 3:
                 *arg1 = p[1] + *arg1;
                 p++;
-                size = *p;
+                raw = *p;
                 *arg3 = 3;
                 goto skip;
             case 2:
-                *arg1 = p[1] + *arg1;
+                *arg1 = (*arg1) + (p[1]);
                 p++;
-                size = *p;
+                raw = *p;
                 *arg3 = 2;
             double_size:
-                size *= 2;
+                raw *= 2;
             skip:
-                p += size + 1;
+                p += raw + 1;
                 break;
             case 6:
                 p += 2;
@@ -69,8 +70,8 @@ void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
                 p += 2;
                 break;
             }
-            raw = *p;
-            opcode = raw & 255;
-        } while (raw != 12);
+            __repair_phase_raw = *p;
+            opcode = __repair_phase_raw & 255;
+        } while (__repair_phase_raw != 12);
     }
 }

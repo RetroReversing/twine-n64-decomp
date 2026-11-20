@@ -12,9 +12,9 @@ extern s32 D_800C7EDC;
 extern f64 D_800D4860;
 extern f64 D_800D4868;
 extern s32 D_801002C0;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern s32 D_8010302C;
-extern s32 D_80109688;
+extern s32 gAimAxisTable;
 extern void *D_8010969C;
 extern u8 D_8010A4FD;
 extern s32 D_8010A500;
@@ -67,7 +67,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         var_s0 = " ";
     }
     sp13C = sp114;
-    if (D_80102ED8) {
+    if (gUpdateGateWord) {
         temp_v0 = (*(s16 *)((char *)(sp114) + 0x140));
         if (D_801002C0 > temp_v0) {
             goto block_10;
@@ -77,7 +77,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         }
         goto block_10;
     }
-    if (D_80109688 == sp13C) {
+    if (gAimAxisTable == sp13C) {
         sp114 = D_8010969C;
     }
 block_10:
@@ -216,7 +216,7 @@ block_51:
             (*(s8 *)((char *)(temp_s1) + 0x135)) = 0;
             var_a1 = 0xA0;
             var_a0 = 0x78;
-            if (D_80102ED8 != 0) {
+            if (gUpdateGateWord != 0) {
                 if (D_801002C0 != 2) {
                     if ((2 <= D_801002C0)) {
                         if ((5 > D_801002C0)) {
@@ -231,7 +231,7 @@ block_44:
                     var_a0 = 0x3C;
                 }
                 var_s4 = 0x16;
-                if ((u32)D_80102ED8 != 0) {
+                if ((u32)gUpdateGateWord != 0) {
                     var_s2 = (var_a0 * 2) - 0x18;
                     var_s5 = 0x840;
                     func_800AB9B0(sp10, var_a1);

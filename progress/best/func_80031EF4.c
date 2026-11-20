@@ -23,7 +23,7 @@ M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
 extern s32 *D_800CA31C;
 extern f64 D_800D2DE8;
 extern f64 D_800D2DF0;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern void *D_8010968C;
 extern u8 D_8010A4C1;
 extern u8 D_8010A4C2;
@@ -43,7 +43,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
     s32 var_s0;
     s32 var_s2;
 
-    if (D_80102ED8 == 0) {
+    if (gUpdateGateWord == 0) {
         __base_D_8010968C = &D_8010968C;
         if ((*__base_D_8010968C) != NULL) {
             func_80084048((*__base_D_8010968C), 0xE);

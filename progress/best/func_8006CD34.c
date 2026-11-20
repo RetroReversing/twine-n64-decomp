@@ -17,7 +17,7 @@ extern f32 D_800C9D4C;
 extern f64 D_800D4628;
 extern f64 D_800D4630;
 extern u8 D_800E1A16;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_8006CD34(void *arg0) {
@@ -55,7 +55,7 @@ f32 __repair_var_fv1_1;
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 0) {
         func_80064370(arg0, temp_s3);
         if ((*(s16 *)((char *)(arg0) + 0x7C)) == 5) {
-            temp_s0 = (temp_s3 * 4) + D_80109688;
+            temp_s0 = (temp_s3 * 4) + gAimAxisTable;
             (*(f32 *)((char *)(*temp_s0) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x3C));
             func_800480A0(arg0, *temp_s0);
             temp_v1 = *temp_s0;
@@ -69,7 +69,7 @@ f32 __repair_var_fv1_1;
                 var_fv0_2 = 0.0f;
             }
             temp_ft0 = (*(f32 *)((char *)(temp_s2) + 0x98));
-            temp_s0_2 = (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4) + D_80109688;
+            temp_s0_2 = (((*(s8 *)((char *)(temp_s2) + 0x182))) * 4) + gAimAxisTable;
             (*(f32 *)((char *)(temp_s2) + 0x98)) = (f32) (((var_fv0_2 - temp_ft0) * 0.1f) + temp_ft0);
             (*(f32 *)((char *)(*temp_s0_2) + 0x4C)) = (f32) (*(f32 *)((char *)(temp_s2) + 0x3C));
             func_800480A0(arg0, *temp_s0_2);
@@ -88,9 +88,9 @@ f32 __repair_var_fv1_1;
                 (*(f32 *)((char *)(*temp_s0_2) + 0x130)) = __repair_var_fv1_1;
             }
             if ((u32) ((*(u16 *)((char *)(arg0) + 0x7A)) - 2) < 2U) {
-                (*(s32 *)((char *)(*(s32 *)(D_80109688 + (temp_s3 * 4))) + 0x130)) = 0;
+                (*(s32 *)((char *)(*(s32 *)(gAimAxisTable + (temp_s3 * 4))) + 0x130)) = 0;
             }
-            temp_v1_2 = (temp_s3 * 4) + D_80109688;
+            temp_v1_2 = (temp_s3 * 4) + gAimAxisTable;
             temp_v0_4 = *temp_v1_2;
             (*(f32 *)((char *)(temp_v0_4) + 0x14)) -= (*(f32 *)((char *)(temp_v0_4) + 0x130));
             var_v0 = *temp_v1_2;
@@ -101,7 +101,7 @@ f32 __repair_var_fv1_1;
     }
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 1) {
         func_800643C8(arg0);
-        temp_s0_3 = (temp_s3 * 4) + D_80109688;
+        temp_s0_3 = (temp_s3 * 4) + gAimAxisTable;
         func_80048224(arg0 + 0x24, arg0 + 0x3C, *temp_s0_3, 1.0f, 10.0f);
         func_800481E8(arg0,  *temp_s0_3);
         func_80048124(arg0, *temp_s0_3);
@@ -111,7 +111,7 @@ f32 __repair_var_fv1_1;
     }
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 2) {
         func_800643C8(arg0);
-        temp_v1_3 = (temp_s3 * 4) + D_80109688;
+        temp_v1_3 = (temp_s3 * 4) + gAimAxisTable;
         (*(f32 *)((char *)(*temp_v1_3) + 0x10)) = (f32) (*(f32 *)((char *)(arg0) + 0x24));
         (*(f32 *)((char *)(*temp_v1_3) + 0x18)) = (f32) (*(f32 *)((char *)(arg0) + 0x2C));
         (*(f32 *)((char *)(*temp_v1_3) + 0x14)) = (f32) ((f64) (*(f32 *)((char *)(arg0) + 0x28)) + D_800D4630 + (f64) D_800C9D4C);
@@ -128,7 +128,19 @@ f32 __repair_var_fv1_1;
             sp18[0] = (*__base_D_800D461C);
             sp18[1] = D_800D4620;
             sp18[2] = D_800D4624;
-            do { func_800643C8(arg0, __base_D_800D461C); } while (0);
+            do { /*__repair_pointer_balance*/if ((unsigned long)__base_D_800D461C & 0x10000) {
+if ((unsigned long)__base_D_800D461C & 0x100) {
+func_800643C8(arg0, __base_D_800D461C);
+} else {
+func_800643C8(arg0, __base_D_800D461C);
+}
+} else {
+if ((unsigned long)__base_D_800D461C & 0x100) {
+func_800643C8(arg0, __base_D_800D461C);
+} else {
+func_800643C8(arg0, __base_D_800D461C);
+}
+} } while (0);
             sp58[0] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x3C));
             sp58[1] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x40));
             sp58[2] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x44));
@@ -136,7 +148,7 @@ f32 __repair_var_fv1_1;
             do { func_80083A6C(sp28, sp18); } while (0);
             sp18[0] += (*(f32 *)((char *)(temp_s2_2) + 0x24));
             sp18[1] += (*(f32 *)((char *)(temp_s2_2) + 0x28));
-            temp_s0_4 = (temp_s3 * 4) + D_80109688;
+            temp_s0_4 = (temp_s3 * 4) + gAimAxisTable;
             sp18[2] += (*(f32 *)((char *)(temp_s2_2) + 0x2C));
             func_80045290(arg0, sp18, *temp_s0_4 + 0x10);
             (*(f32 *)((char *)(*temp_s0_4) + 0x34)) = (f32) ((*(f32 *)((char *)(temp_s2_2) + 0x3C)) * 0.0015339808f);

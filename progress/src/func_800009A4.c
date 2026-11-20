@@ -19,11 +19,11 @@ M2C_UNK osStartThread(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800D7050;
 extern M2C_UNK D_80102CA0;
 extern M2C_UNK D_8010D548;
-extern M2C_UNK func_80000570;
+extern M2C_UNK initSystem;
 
 void func_800009A4(s32 arg0) {
     osCreateViManager(0xFE);
-    osCreateThread(&D_8010D548, 2, &func_80000570, arg0, &D_80102CA0, 0xA);
+    osCreateThread(&D_8010D548, 2, &initSystem, arg0, &D_80102CA0, 0xA);
     osStartThread(&D_8010D548);
     osSetThreadPri(&D_800D7050, 0);
 loop_1:

@@ -19,7 +19,7 @@ s32 osCreateThread();
 s32 osStartThread();
 extern char D_800B2598[];
 extern char D_80107CE8[];
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern char D_80108798[];
 extern char D_80115040[];
 extern char D_80117330[];
@@ -30,7 +30,7 @@ s32 func_8000B828(s32 arg0) {
     s32 var_a1;
 
     var_a1 = 0x4B000;
-    if (D_80108400 != 0) {
+    if (gExpansionPakPresent != 0) {
         var_a1 = 0xAA000;
     }
     func_8000B580(arg0, var_a1);

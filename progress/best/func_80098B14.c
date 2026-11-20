@@ -6,44 +6,50 @@ extern u16 D_8010A51C[];
 s32 func_80098A18();
 
 void func_80098B14(u8 *arg0, u8 arg1) {
+int __repair_literal;
+
     u8 temp_s4;
-    u8 *temp_s0;
+    union { u8 * pointer; u32 value; } __repair_phase_storage;
     u8 v;
     u16 a0;
     u16 s2;
-    u32 a3;
+    
     u32 v1;
     u8 t;
 
     temp_s4 = arg0[0x63];
-    temp_s0 = D_80102CE0 + temp_s4 * 4;
-    if (*(u16 *)(temp_s0 + 2) == 1) {
+    __repair_phase_storage.pointer = D_80102CE0 + temp_s4 * 4;
+    if (*(u16 *)(__repair_phase_storage.pointer + 2) == 1) {
         if (arg0[0x2E] != arg1) {
             func_80098A18();
             goto block_3;
         }
     } else {
 block_3:
-        *(u16 *)(temp_s0 + 2) = 1;
-        temp_s0[0] = 0xFF;
+        *(u16 *)(__repair_phase_storage.pointer + 2) = 1;
+        __repair_phase_storage.pointer[0] = 0xFF;
         t = D_8010957D[arg1];
-        temp_s0[1] = t;
+        __repair_phase_storage.pointer[1] = t;
         if (t != 0xFF) {
-            D_80102CE0[D_8010957D[arg1] * 4] = temp_s4;
+__repair_literal = 4;
+
+            D_80102CE0[D_8010957D[arg1] * __repair_literal] = (arg0[0x63]);
             v = arg1;
         } else {
             u16 a1 = arg1;
             if (D_80109B1C != 0xFFFF) {
-                a3 = a1;
-                if (a3 >= D_80109B1C) {
+                __repair_phase_storage.value = a1;
+                if (__repair_phase_storage.value >= D_80109B1C) {
                     a0 = D_80109B1C;
                     v1 = a0;
-loop_8:
-                    if (a3 >= v1) {
-                        s2 = a0;
-                        a0 = D_8010A51A[v1 * 2];
-                        v1 = a0;
-                        if (a0 != 0xFFFF) goto loop_8;
+                    for (;;) {
+                        if (__repair_phase_storage.value >= v1) {
+                            s2 = a0;
+                            a0 = D_8010A51A[v1 * 2];
+                            v1 = a0;
+                            if (a0 != 0xFFFF) continue;
+                        }
+                        break;
                     }
                     D_8010A51A[s2 * 2] = a1;
                     D_8010A51C[arg1 * 2] = s2;

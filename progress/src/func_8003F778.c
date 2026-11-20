@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003F328();
-extern void *D_800E1770;
-extern char D_800E1778[];
+s32 clip_verts_z_planes();
+extern void *clip_result_verts;
+extern char clip_buffer_a[];
 extern char D_800E177C[];
 extern char D_800E1780[];
 
@@ -36,7 +36,7 @@ char __repair_stack_padding[16];
     if (arg2 > 0) {
         var_v1 = 0;
         do {
-            *(f32 *)(D_800E1778 + var_v1) = M2C_FIELD(var_a1, f32 *, 0);
+            *(f32 *)(clip_buffer_a + var_v1) = M2C_FIELD(var_a1, f32 *, 0);
             var_a3 += 1;
             *(f32 *)(D_800E177C + var_v1) = M2C_FIELD(var_a1, f32 *, 4);
             temp_fv0 = M2C_FIELD(var_a1, f32 *, 8);
@@ -45,11 +45,11 @@ char __repair_stack_padding[16];
             var_v1 += 0x24;
         } while (var_a3 < arg2);
     }
-    temp_v0 = func_8003F328(arg2, var_a1);
+    temp_v0 = clip_verts_z_planes(arg2, var_a1);
     var_a3 = 0;
     if (temp_v0 > 0) {
         var_a0 = arg0;
-        var_v1_2 = D_800E1770;
+        var_v1_2 = clip_result_verts;
         do {
             M2C_FIELD(var_a0, f32 *, 0) = (f32) M2C_FIELD(var_v1_2, f32 *, 0);
             var_a3 += 1;

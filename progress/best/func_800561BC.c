@@ -25,7 +25,7 @@ s32 func_8003D64C(void *, void *);                  /* extern */
 M2C_UNK func_80044670(void *, s16, s16);            /* extern */
 M2C_UNK func_80044710(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_80045290(f32 *, f32 *);                /* extern */
-f32 func_80045540(f32 *, f32 *);                    /* extern */
+f32 Vec3_DistanceSq(f32 *, f32 *);                    /* extern */
 M2C_UNK func_80045764(f32 *, f32 *);                /* extern */
 s32 func_80045CF8();               /* extern */
 f32 func_80045D2C();                        /* extern */
@@ -85,7 +85,7 @@ extern f64 D_800D3FD0;
 extern f64 D_800D3FD8;
 extern f64 D_800D3FE0;
 extern s8 D_80100B18;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern void *D_80102FD8;
 extern s8 D_80103EB0;
 extern void *D_80108788;
@@ -311,7 +311,7 @@ block_29:
         D_80108788 = NULL;
         var_fp = func_800557E0(0, 0, sp174, arg0 + 0x24, &sp30, &sp50, &sp80);
         if (var_fp != NULL) {
-            var_fs1 = func_80045540(temp_s2 + 0xC, &sp50);
+            var_fs1 = Vec3_DistanceSq(temp_s2 + 0xC, &sp50);
             if ((M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x60) & 0x8000) && (M2C_FIELD(sp80, u16 *, 0x26) & 0x1000)) {
                 sp30 = sp50;
                 sp34 = sp54;
@@ -326,7 +326,7 @@ block_29:
             }
         }
         if ((func_8004E6E4(&func_8004D910, sp174, arg0 + 0x24, temp_s2, &sp40, var_fs0, &sp70, M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), M2C_UNK (**)(void *, f32 *, f32 *), 0xD4) != NULL, 0) << 0x18) != 0) {
-            temp_fv0 = func_80045540(temp_s2 + 0xC, &sp40);
+            temp_fv0 = Vec3_DistanceSq(temp_s2 + 0xC, &sp40);
             if (temp_fv0 < var_fs1) {
                 var_s6 = 1;
                 var_fs1 = temp_fv0;
@@ -340,7 +340,7 @@ block_29:
         }
         temp_v0 = func_8004F990(sp174, arg0 + 0x24, &sp30, M2C_FIELD(temp_s2, s32 *, 0x24), &sp60, 1, (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x60) & 0x2000) != 0, 0);
         if (temp_v0 != NULL) {
-            temp_fv0_2 = func_80045540(temp_s2 + 0xC, &sp60);
+            temp_fv0_2 = Vec3_DistanceSq(temp_s2 + 0xC, &sp60);
             var_v1 = 1;
             if (!(temp_fv0_2 < var_fs1)) {
                 var_v1 = 0;
@@ -493,7 +493,7 @@ loop_95:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = 0;
                             goto block_262;
                         }
-                        if (D_80102ED8 == 0) {
+                        if (gUpdateGateWord == 0) {
                             func_800617D8(M2C_FIELD(arg0, void **, 0x20), &sp40, arg0 + 0x3C, 0, 0.1f, 1.025f, 0x19, 0xFB, 0x17, 0x80, 0x8080800C);
                             if (D_80108F84 != NULL) {
                                 sp98 = -sp70;
@@ -742,7 +742,7 @@ block_138:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = (s32) (M2C_FIELD(D_80108F84, s32 *, 0x50) & ~0x20);
                         }
                     }
-                    if ((var_s4_2 != -1) && (D_80102ED8 == 0) && ((D_80108788 != NULL) || (D_80108F84 != NULL))) {
+                    if ((var_s4_2 != -1) && (gUpdateGateWord == 0) && ((D_80108788 != NULL) || (D_80108F84 != NULL))) {
                         temp_v0_13 = func_800166A0();
                         if (temp_v0_13 != NULL) {
                             M2C_FIELD(temp_v0_13, s32 *, 0x1C) = 0;
@@ -805,7 +805,7 @@ block_138:
                     M2C_FIELD(temp_s2, f32 *, 8) = (f32) (spB8 - (temp_ft0_3 * spD8));
                     if (D_80108F84 != NULL) {
                         var_s0_4 = 4;
-                        if (D_80102ED8 != 0) {
+                        if (gUpdateGateWord != 0) {
                             var_s1 = 3e-45f;
                             var_s4_3 = 1e-45f;
                         } else {
@@ -837,7 +837,7 @@ block_138:
                         }
                     } else {
                         var_s0_5 = 4;
-                        if (D_80102ED8 != 0) {
+                        if (gUpdateGateWord != 0) {
                             var_s1_2 = 3e-45f;
                             var_s4_4 = 1e-45f;
                         } else {
@@ -1022,7 +1022,7 @@ block_263:
                         sp30 += M2C_FIELD(temp_s2, f32 *, 0) * 0.01f;
                         sp34 += M2C_FIELD(temp_s2, f32 *, 4) * 0.01f;
                         sp38 += M2C_FIELD(temp_s2, f32 *, 8) * 0.01f;
-                        func_80045540(temp_s4, &sp30);
+                        Vec3_DistanceSq(temp_s4, &sp30);
                         func_80016718(arg0);
                         func_80016990(arg0, temp_v0_20);
                         M2C_FIELD(arg0, void **, 0x20) = temp_v0_20;

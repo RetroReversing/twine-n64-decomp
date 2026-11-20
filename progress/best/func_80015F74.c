@@ -41,7 +41,7 @@ void func_800165E0(TextNode15F74 *, s32);
 void func_800448A4(TextNode15F74 *, const char *, s32);
 const char *func_80087100(u16);
 unsigned int strlen(const char *);
-extern s32 D_80109688[];
+extern s32 gAimAxisTable[];
 
 TextNode15F74 *func_80015F74(TextArgs15F74 *args)
 {
@@ -104,7 +104,7 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
     node->flags.word = (flags & ~0xF00) | (lines << 8);
     index = args->index;
     if (index >= 0) {
-        func_800165E0(node, D_80109688[index]);
+        func_800165E0(node, gAimAxisTable[index]);
     }
     return node;
 }

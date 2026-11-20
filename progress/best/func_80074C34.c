@@ -21,7 +21,7 @@ extern char D_80100310[];
 extern char D_80100314[];
 extern void *D_80100B20;
 extern s32 D_8010302C;
-extern s32 D_80109688;
+extern s32 gAimAxisTable;
 extern char *D_8010A500;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
@@ -81,7 +81,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
             if (temp_v0 & 0x80000000) {
                 var_fs0 = func_8000A4F4(temp_v0 & 0xFFFFFF);
             }
-            func_80074820(D_80109688, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);
+            func_80074820(gAimAxisTable, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);
             if (D_80112EBC != 0) {
                 var_s1_2 = 0;
                 if (D_80112EBC > 0) {

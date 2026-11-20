@@ -41,7 +41,7 @@ s32 func_8005E900(void *);
 s32 func_800850E0(void *);
 extern u8 D_801002A0;
 extern u8 D_801002A3;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 
 void func_8005EBF4(ObjEBF4 *arg0) {
     SubEBF4 *s = arg0->sub;
@@ -85,7 +85,7 @@ void func_8005EBF4(ObjEBF4 *arg0) {
             s->h30 = 0;
         }
     }
-    if (s->b2E != 0 && (s->h26 == 0 || D_80102ED8 != 0)) {
+    if (s->b2E != 0 && (s->h26 == 0 || gUpdateGateWord != 0)) {
         if (s->w18 > 0) {
             if (--s->w18 == 0) {
                 arg0->b7E = 0x10;

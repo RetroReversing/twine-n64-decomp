@@ -16,7 +16,7 @@ M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
 M2C_UNK func_800635BC(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80065684(void *);                      /* extern */
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 
 s32 func_80069A90(void *arg0) {
     f32 temp_ft0;
@@ -30,7 +30,7 @@ s32 func_80069A90(void *arg0) {
         temp_v0 = M2C_FIELD(arg0, void **, 0x68);
         M2C_FIELD(temp_v0, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v0, u16 *, 0xC) | 0x200);
         var_fs0 = 0.5f;
-        if ((D_80102ED8 == 0) && (M2C_FIELD(arg0, s16 *, 0x7A) != 2)) {
+        if ((gUpdateGateWord == 0) && (M2C_FIELD(arg0, s16 *, 0x7A) != 2)) {
             func_8000A894(0x1A8);
             func_800635BC(arg0, 4);
             M2C_FIELD(temp_s1, s8 *, 0x186) = 0xA;

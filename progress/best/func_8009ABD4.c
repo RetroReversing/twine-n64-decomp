@@ -7,6 +7,7 @@ s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
     u8 v1;
     u32 w;
     u32 idx;
+u32 __repair_phase_idx;
 
     w = *(u32 *)(arg1 + 4);
     if (arg1[0] != 0) {
@@ -66,11 +67,11 @@ s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
         func_80096F44(arg0, (w >> 16) & 0xFF, (s16)a2);
         return 0;
     }
-    idx = (w >> 16) & 0x1F;
-    if (idx < 0x10U) {
-        *(s16 *)((s8 *)arg0 + idx * 2 + 0x180) = (s16)a2;
+    __repair_phase_idx = (w >> 16) & 0x1F;
+    if (__repair_phase_idx < 0x10U) {
+        *(s16 *)((s8 *)arg0 + __repair_phase_idx * 2 + 0x180) = (s16)a2;
     } else {
-        *(s16 *)(D_80112E9E + idx * 2) = (s16)a2;
+        *(s16 *)(D_80112E9E + __repair_phase_idx * 2) = (s16)a2;
     }
     return 0;
 }

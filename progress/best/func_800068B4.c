@@ -39,12 +39,12 @@ extern s8 D_801002AC;
 extern u8 D_801002AE;
 extern M2C_UNK D_801002B8;
 extern s8 D_80102EB9;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern u8 D_80102EDD;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern u8 D_80103EB0;
-extern void *D_80109688;
+extern void *gAimAxisTable;
 extern s32 D_8010A4E4;
 extern s32 D_8011740C;
 
@@ -66,7 +66,7 @@ s32 __repair_phase_var_a0;
         func_80026F84(0);
         do { func_800450F0(); } while (0);
         var_a0 = 0x12;
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
+        ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 0.0f;
 block_63:
         func_800066A0(var_a0);
     default:
@@ -89,7 +89,7 @@ block_10:
         if (D_80102EEC == 0) {
             func_8002CC34(4);
             if ((D_800CEEB0 == 0) && (D_80102EDD != 0)) {
-                if (D_80102ED8 == 0) {
+                if (gUpdateGateWord == 0) {
                     if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
                         goto block_15;
                     }
@@ -123,9 +123,9 @@ block_39:
         }
         goto block_63;
     case 18:
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + 0.06666667f);
-        if (((__repair_record_D_80109688*)D_80109688)->field_12C > 1.0f) {
-            ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
+        ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = (f32) (((__repair_record_D_80109688*)gAimAxisTable)->field_12C + 0.06666667f);
+        if (((__repair_record_D_80109688*)gAimAxisTable)->field_12C > 1.0f) {
+            ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 1.0f;
             var_v0 = 1;
             goto block_9;
         }
@@ -133,10 +133,10 @@ block_39:
     case 2:
     case 10:
         if (D_801002AE == 0) {
-            ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C - 0.033333335f);
+            ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = (f32) (((__repair_record_D_80109688*)gAimAxisTable)->field_12C - 0.033333335f);
             D_80103EB0 = 0;
-            if (((__repair_record_D_80109688*)D_80109688)->field_12C < 0.0f) {
-                ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
+            if (((__repair_record_D_80109688*)gAimAxisTable)->field_12C < 0.0f) {
+                ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 0.0f;
                 func_8000A310();
                 if (D_800B19F0 != 2) {
                     var_a0_2 = 4;
@@ -159,10 +159,10 @@ block_37:
     case 3:
     case 11:
         if (D_801002AE == 0) {
-            ((__repair_record_D_80109688*)D_80109688)->field_124 = (f32) (((__repair_record_D_80109688*)D_80109688)->field_124 + 0.13333334f);
+            ((__repair_record_D_80109688*)gAimAxisTable)->field_124 = (f32) (((__repair_record_D_80109688*)gAimAxisTable)->field_124 + 0.13333334f);
             D_80103EB0 = 0;
-            if (((__repair_record_D_80109688*)D_80109688)->field_124 > 1.0f) {
-                ((__repair_record_D_80109688*)D_80109688)->field_124 = 1.0f;
+            if (((__repair_record_D_80109688*)gAimAxisTable)->field_124 > 1.0f) {
+                ((__repair_record_D_80109688*)gAimAxisTable)->field_124 = 1.0f;
                 if (D_800B19F0 != 3) {
                     var_a0 = 0xA;
                     if (D_800B19F0 == 0xB) {
@@ -179,7 +179,7 @@ block_37:
         func_800067C8();
         if (D_80102EDF == 0x24) {
             D_80102EDD = 0;
-            D_80102ED8 = 0;
+            gUpdateGateWord = 0;
             D_80102EB9 = 0xC;
         } else {
             D_801002AC = 0;
@@ -190,7 +190,7 @@ block_37:
     case 15:
         func_800761B8();
         var_a0 = 0x12;
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
+        ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 0.0f;
         goto block_63;
     case 5:
         func_800067C8();
@@ -220,12 +220,12 @@ block_52:
         D_800B19F0 = 0xE;
         D_800DC739 = D_80103EB0;
     case 14:
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = (f32) (((__repair_record_D_80109688*)gAimAxisTable)->field_12C + D_800DC734);
+        if (((temp_fv1 = ((__repair_record_D_80109688*)gAimAxisTable)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
-                ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
+                ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {
-                ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
+                ((__repair_record_D_80109688*)gAimAxisTable)->field_12C = 1.0f;
             }
             D_800DC730 -= 1;
             if (D_800DC730 <= 0) {

@@ -150,8 +150,8 @@ block_13:
         break;
     case 0x19:
         temp_v1_2 = (*(u32 *)((char *)(arg1) + 0x5C));
-        (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v0_3 = temp_v1_2 & 0xFF81FFFF;
+        (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v1 = ((temp_v1_2 >> 0x11) & 0x3F) | 4;
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
         return;
@@ -175,8 +175,8 @@ block_33:
         (*(s32 *)((char *)(arg1) + 0x58)) = (s32) (var_v1_2 | (var_v0_4 * 4));
     case 0x42:
 block_35:
-        temp_v0_13 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x46;
+        temp_v0_13 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((temp_v0_13 & 0xFF81FFFF) | ((((temp_v0_13 >> 0x11) & 0x3F) | 4) << 0x11));
         (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
         (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
@@ -185,8 +185,8 @@ block_35:
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
         ((__repair_field_2C *)arg1)->value = 0;
         if ((*(u16 *)((char *)(arg0) + 0x38)) == 1) {
-            var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
             (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
+            var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
             return;
         }
         break;
@@ -195,7 +195,7 @@ block_35:
         var_v1_4 = temp_v0_14 & 0xFFFF0003;
         var_v0_5 = ((temp_v0_14 >> 2) & 0x3FFF) | 0x200;
 block_27:
-        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) (var_v1_4 | (var_v0_5 * 4));
+        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((s32)var_v1_4 | (var_v0_5 * 4));
     case 0x46:
 block_29:
         temp_v0_15 = (*(u32 *)((char *)(arg1) + 0x5C));
@@ -265,7 +265,7 @@ block_29:
         ((__repair_field_2C *)arg1)->value = 0;
         if ((*(u16 *)((char *)(arg0) + 0x38)) == 1) {
             var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
-            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
+            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
             return;
         }
         break;

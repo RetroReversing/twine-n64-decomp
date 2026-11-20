@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000168C(s32);                         /* extern */
 M2C_UNK func_80002D30(void *, s32);                 /* extern */
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 
 void func_80067A24(void *arg0, s32 arg1) {
     s32 var_s0;
 
     var_s0 = arg1;
     if (var_s0 != 0) {
-        if (D_80102ED8 != 0) {
+        if (gUpdateGateWord != 0) {
             var_s0 += 1;
             func_8000168C(M2C_FIELD(arg0, s32 *, 0x18));
         }

@@ -25,7 +25,7 @@ M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_800452AC(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_800452E0(void *, void *, M2C_UNK *);   /* extern */
-f32 func_80045540(f32 *, void *);                   /* extern */
+f32 Vec3_DistanceSq(f32 *, void *);                   /* extern */
 M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
 f32 func_80045764(M2C_UNK *, M2C_UNK *);            /* extern */
 s32 func_80045CC4();                                /* extern */
@@ -71,10 +71,10 @@ extern s32 D_801002B8;
 extern s32 D_801002C0;
 extern u8 D_801002D5;
 extern u8 D_80100B18;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern u8 D_80102EE8;
 extern s32 D_80108F78;
-extern M2C_UNK D_80109688;
+extern M2C_UNK gAimAxisTable;
 extern u8 D_80109A73;
 extern u8 D_8010A4FD;
 extern s32 D_80112F68;
@@ -161,7 +161,7 @@ void func_8006D2E4(void *arg0) {
     sp3C = 0;
     sp30 = 0;
     temp_s5 = M2C_FIELD(arg0, s32 *, 0x20);
-    if ((D_80102ED8 != 0) && (D_801002A1 != 0) && (D_801002D5 == 0)) {
+    if ((gUpdateGateWord != 0) && (D_801002A1 != 0) && (D_801002D5 == 0)) {
         temp_v0 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 0x1B8));
         if ((temp_v0 != NULL) && ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), u8 *, 0x12) == M2C_FIELD(M2C_FIELD(temp_v0, void **, 0xB4), u8 *, 0x12)) & ((s32) temp_s3 != (s32) temp_v0))) {
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & ~0x62);
@@ -187,7 +187,7 @@ void func_8006D2E4(void *arg0) {
                 M2C_FIELD(temp_s3, u32 *, 0x18C) = (u32) ((M2C_FIELD(temp_s3, u32 *, 0x18C) & 0xFFFF0FFF) | 0x7000);
             }
             if (M2C_FIELD(arg0, s32 *, 0x60) & 2) {
-                if (D_80102ED8 != 0) {
+                if (gUpdateGateWord != 0) {
                     temp_v0_3 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 4));
                     if (temp_v0_3 != NULL) {
                         temp_a0 = M2C_FIELD(temp_v0_3, s8 *, 0x182);
@@ -347,10 +347,10 @@ block_95:
                             temp_v0_7 = temp_s1 * 8;
                             M2C_FIELD(temp_v0_6, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v0_6, s32 *, 0x28) & ~0xFC) | 0x10);
                             func_800448A4(temp_v0_6, *(s32 *)(&D_800C7DC8 + temp_v0_7), 0x1B);
-                            func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&D_80109688 + (temp_s4 * 4)));
+                            func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&gAimAxisTable + (temp_s4 * 4)));
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;
-                            if (D_80102ED8 != 0) {
+                            if (gUpdateGateWord != 0) {
                                 if (D_801002C0 != 2) {
                                     var_v0_2 = temp_s1 * 8;
                                     if (D_801002C0 >= 2) {
@@ -531,7 +531,7 @@ block_153:
                 if (((temp_v0_14 != 3) & (temp_v0_14 != 1)) && (M2C_FIELD(temp_s3, s8 *, 0x188) == 0)) {
                     temp_s0_3 = arg0 + 0x24;
                     func_800455CC(&sp48, temp_s3 + 0xEC, temp_s3 + 0xF8, temp_s0_3);
-                    if (func_80045540(&sp48, temp_s0_3) < 0.8f) {
+                    if (Vec3_DistanceSq(&sp48, temp_s0_3) < 0.8f) {
                         temp_fa0_2 = func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - sp48, M2C_FIELD(arg0, f32 *, 0x2C) - sp50) * 651.8986f;
                         temp_fv1_3 = (f32) ((s32) (((s32) M2C_FIELD(arg0, f32 *, 0x40) - (s32) temp_fa0_2) << 0x14) >> 0x14);
                         D_800E19F8 = temp_fa0_2;
@@ -569,7 +569,7 @@ block_153:
             }
         }
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & 0xBDFFFF9D);
-        M2C_FIELD(*(&D_80109688 + (temp_s4 * 4)), s32 *, 0xFC) = (s32) M2C_FIELD(temp_s3, u8 *, 0x184);
+        M2C_FIELD(*(&gAimAxisTable + (temp_s4 * 4)), s32 *, 0xFC) = (s32) M2C_FIELD(temp_s3, u8 *, 0x184);
         M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 1);
         func_8006CD34(arg0);
         M2C_FIELD(temp_s3, s32 *, 4) = 0;

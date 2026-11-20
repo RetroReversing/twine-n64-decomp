@@ -20,8 +20,8 @@ s32 func_80008258();
 s32 func_80009F04();
 s32 func_8000B828();
 s32 func_80011FA4();
-s32 func_80083BE0();
-s32 func_80083C34(u32, u8);
+s32 heapInit();
+s32 heapAlloc(u32, u8);
 s32 func_80083C8C();
 s32 func_80086DA0();
 u32 osGetMemSize();
@@ -37,14 +37,14 @@ extern char D_14CD630[];
 extern s32 D_80000300;
 extern s32 D_800CE800;
 extern char D_800CFF60[];
-extern s32 D_800D03EC;
+extern s32 gViFrameRateConst;
 extern char D_800D8200[];
 extern char D_800D93B0[];
 extern s32 D_80100304;
 extern s32 D_80100308;
 extern s32 D_8010030C;
 extern s8 D_80100964;
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern u32 D_80108F7C;
 extern s8 D_80108F95;
 extern s32 D_80109A54;
@@ -63,11 +63,11 @@ extern s32 D_8010A2C4;
 extern s16 D_8010A518;
 extern s16 D_80117384;
 extern char D_8011FF40[];
-extern void func_800004BC(void *);
+extern void mainThreadEntry(void *);
 extern char D_014A8380[], D_014BA940[];
 
 typedef struct { s32 w[4]; } __repair_words4;
-void func_80000570(void) {
+void initSystem(void) {
     char *var_a2;
     s16 temp_v1;
     s32 tvType;
@@ -81,29 +81,29 @@ void func_80000570(void) {
     void *temp_a3;
     void *var_s1_2;
 
-    osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0, 0x7F);
+    osCreateThread(D_800D8200, 3, &mainThreadEntry, 0, D_800D93B0, 0x7F);
     osStartThread(D_800D8200);
     temp_v1 = osGetMemSize() > 0x7FFFFFU;
-    D_80108400 = temp_v1;
+    gExpansionPakPresent = temp_v1;
     if (temp_v1 != 0) {
-        func_80083BE0(D_8011FF40, 0x80800000);
-        D_80109A54 = func_80083C34(0x4B000U, 1);
-        D_80100304 = func_80083C34(0x4B000U, 0);
-        D_80100308 = func_80083C34(0x4B000U, 0);
-        D_8010030C = func_80083C34(0x4B000U, 0);
-        D_8010A2BC = func_80083C34(0x1CB8U, 1);
-        D_8010A2C0 = func_80083C34(0x1CB8U, 1);
-        D_8010A2C4 = func_80083C34(0x1CB8U, 1);
+        heapInit(D_8011FF40, 0x80800000);
+        D_80109A54 = heapAlloc(0x4B000U, 1);
+        D_80100304 = heapAlloc(0x4B000U, 0);
+        D_80100308 = heapAlloc(0x4B000U, 0);
+        D_8010030C = heapAlloc(0x4B000U, 0);
+        D_8010A2BC = heapAlloc(0x1CB8U, 1);
+        D_8010A2C0 = heapAlloc(0x1CB8U, 1);
+        D_8010A2C4 = heapAlloc(0x1CB8U, 1);
         D_8010A518 = 3;
         D_80109B9C = 2;
     } else {
-        func_80083BE0(D_8011FF40, 0x80400000);
-        D_80109A54 = func_80083C34(0x25800U, 1);
-        D_80100304 = func_80083C34(0x25800U, 0);
-        D_80100308 = func_80083C34(0x25800U, 0);
-        D_8010A2BC = func_80083C34(0x1CB8U, 1);
-        D_8010A2C0 = func_80083C34(0x1CB8U, 1);
-        D_8010A2C4 = func_80083C34(0x1CB8U, 1);
+        heapInit(D_8011FF40, 0x80400000);
+        D_80109A54 = heapAlloc(0x25800U, 1);
+        D_80100304 = heapAlloc(0x25800U, 0);
+        D_80100308 = heapAlloc(0x25800U, 0);
+        D_8010A2BC = heapAlloc(0x1CB8U, 1);
+        D_8010A2C0 = heapAlloc(0x1CB8U, 1);
+        D_8010A2C4 = heapAlloc(0x1CB8U, 1);
         D_8010A518 = 2;
         D_80109B9C = 0;
     }
@@ -123,12 +123,12 @@ void func_80000570(void) {
     }
     temp_a0_2 = D_80108F7C + 0x80;
     D_80108F7C = temp_a0_2;
-    D_800CE800 = func_80083C34(temp_a0_2, 1);
+    D_800CE800 = heapAlloc(temp_a0_2, 1);
     func_80006E30();
     func_8000B828(func_80083C8C());
-    func_80083C34(func_80009F04() + 0x400, 1);
+    heapAlloc(func_80009F04() + 0x400, 1);
     tvType = D_80000300;
-    D_800D03EC = 0x3BB;
+    gViFrameRateConst = 0x3BB;
     D_80117384 = (u32) (tvType - 1) < 2U;
     if (tvType == 0) goto pal;
     var_s2 = 0;

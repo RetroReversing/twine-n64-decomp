@@ -4,7 +4,7 @@ typedef struct { u8 pad[0x10]; VtBCA8 *vt; } SysBCA8;
 typedef struct { u8 pad[8]; u8 b8; } ResBCA8;
 extern ObjBCA8 *volatile D_800B5B14;
 extern u8 D_801002AD;
-extern s32 D_80109688;
+extern s32 gAimAxisTable;
 extern SysBCA8 *D_80109BB0;
 extern u8 D_8010A488[];
 void func_8002ACB4(void *);
@@ -31,7 +31,7 @@ void func_8001BCA8(void) {
         D_800B5B14->f28 = 0.15f;
         D_800B5B14->f2C = -3.0f;
         D_800B5B14->f54 = 1.05f;
-        pq = &D_80109688;
+        pq = &gAimAxisTable;
         func_8000628C(*pp, *pq + 0x10, 1, 0x80);
         o = *pp;
         func_8000628C(o, *pq + 0x10, 0, 0x800);

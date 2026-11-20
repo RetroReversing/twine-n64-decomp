@@ -73,7 +73,7 @@ extern s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
 extern s32 __osPfsSelectBank(OSPfs *pfs, u8 bank);
 extern void bzero(void *, int);
 
-s32 osPfsChecker(OSPfs* pfs) {
+/* Checks the pak file system: validates each directory entry's inode chain, wipes broken entries, then rebuilds the inode tables and updates the status flag. */ s32 osPfsChecker(OSPfs* pfs) {
     int idx;
     s32 ret;
     __OSInodeUnit page;
@@ -82,12 +82,12 @@ s32 osPfsChecker(OSPfs* pfs) {
     __OSDir tmp_dir;
     __OSInodeUnit file_next_node[16];
     __OSInodeCache cache;
-    int fixed = 0;
+    int fixed_count = 0;
     u8 bank;
-    u8 oldbank = 254;
-    s32 diff;
-    s32 expected;
-    int keep;
+    u8 last_bank = 254;
+    s32 chain_diff;
+    s32 expected_chain;
+    int keep_count;
 
     ret = __osCheckId(pfs);
     if (ret == 2) {
@@ -106,10 +106,10 @@ s32 osPfsChecker(OSPfs* pfs) {
 
         if (tmp_dir.company_code != 0 || tmp_dir.game_code != 0) {
             if (tmp_dir.company_code == 0 || tmp_dir.game_code == 0) {
-                diff = -1;
+                chain_diff = -1;
             } else {
                 page = tmp_dir.start_page;
-                expected = diff = 0;
+                expected_chain = chain_diff = 0;
                 bank = 255;
 
                 while (page.ipage >= pfs->inode_start_page
@@ -119,9 +119,9 @@ s32 osPfsChecker(OSPfs* pfs) {
                     if (bank != page.inode_t.bank) {
                         bank = page.inode_t.bank;
 
-                        if (oldbank != bank) {
+                        if (last_bank != bank) {
                             ret = __osPfsRWInode(pfs, &tmp_inode, 0, bank);
-                            oldbank = bank;
+                            last_bank = bank;
                         }
 
                         if (ret != 0 && ret != 3) {
@@ -129,16 +129,16 @@ s32 osPfsChecker(OSPfs* pfs) {
                         }
                     }
 
-                    if ((diff = corrupted(pfs, page, &cache) - expected) != 0) {
+                    if ((chain_diff = corrupted(pfs, page, &cache) - expected_chain) != 0) {
                         break;
                     }
 
-                    expected = 1;
+                    expected_chain = 1;
                     page = tmp_inode.inode_page[page.inode_t.page];
                 }
             }
 
-            if (diff != 0 || page.ipage != 1) {
+            if (chain_diff != 0 || page.ipage != 1) {
                 /* chain is broken: wipe the directory entry and write it back */
                 bzero(&tmp_dir, sizeof(__OSDir));
 
@@ -148,7 +148,7 @@ s32 osPfsChecker(OSPfs* pfs) {
                 }
                 ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + idx, (u8*)&tmp_dir, 0);
                 if (ret != 0) return ret;
-                fixed++;
+                fixed_count++;
             }
         }
     }
@@ -171,9 +171,9 @@ s32 osPfsChecker(OSPfs* pfs) {
             return ret;
         }
 
-        keep = (bank > 0) ? 1 : pfs->inode_start_page;
+        keep_count = (bank > 0) ? 1 : pfs->inode_start_page;
 
-        for (idx = 0; idx < keep; idx++) {
+        for (idx = 0; idx < keep_count; idx++) {
             checked_inode.inode_page[idx].ipage = tmp_inode.inode_page[idx].ipage;
         }
         for (; idx < 128; idx++) {
@@ -183,15 +183,15 @@ s32 osPfsChecker(OSPfs* pfs) {
         for (idx = 0; idx < pfs->dir_size; idx++) {
             while (file_next_node[idx].inode_t.bank == bank &&
                    file_next_node[idx].ipage >= (u16)pfs->inode_start_page) {
-                u8 pg = file_next_node[idx].inode_t.page;
-                file_next_node[idx] = checked_inode.inode_page[pg] = tmp_inode.inode_page[pg];
+                u8 page_index = file_next_node[idx].inode_t.page;
+                file_next_node[idx] = checked_inode.inode_page[page_index] = tmp_inode.inode_page[page_index];
             }
         }
         ret = __osPfsRWInode(pfs, &checked_inode, 1, bank);
         if (ret != 0) return ret;
     }
 
-    if (fixed) {
+    if (fixed_count) {
         pfs->status |= 0x2;
     } else {
         pfs->status &= ~0x2;

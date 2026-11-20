@@ -26,7 +26,7 @@ typedef union {
     } room;
 } RayScratch;
 
-f32 func_80045540(void *, void *);              /* extern */
+f32 Vec3_DistanceSq(void *, void *);              /* extern */
 s32 func_800455CC(void *, void *, void *, void *); /* extern */
 void func_800458C0(void *, s32, s32, s32);        /* extern */
 s32 func_80045CF8(s32);                         /* extern */
@@ -177,7 +177,7 @@ s32 __repair_phase_var_a2;
                             }
                             temp_s0 = var_s3 + 0x24;
                             func_800455CC(sp11C, spF4, &end.x, temp_s0);
-                            temp_fv0 = func_80045540(temp_s0, sp11C);
+                            temp_fv0 = Vec3_DistanceSq(temp_s0, sp11C);
                             work.distance8 = temp_fv0;
                             if (temp_fv0 < var_fs0) {
                                 work.scratch.object.trans = *(RayVec *)spF4;
@@ -298,7 +298,7 @@ s32 __repair_phase_var_a2;
                     if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (func_80045CF8(2) != 0) || (sp107 != 0))) {
                         temp_s0_3 = (void **)((u8 *)var_s7 + 0x40);
                         func_800455CC(sp164, spF4, &end.x, temp_s0_3);
-                        temp_fv0_2 = func_80045540(temp_s0_3, sp164);
+                        temp_fv0_2 = Vec3_DistanceSq(temp_s0_3, sp164);
                         work.distance8 = temp_fv0_2;
                         if (temp_fv0_2 < M2C_FIELD(var_s7, f32 *, 0x4C)) {
                             work.plane.vector = *(RayVec *)spF4;

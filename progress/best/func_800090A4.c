@@ -126,7 +126,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
     u8 temp_v1_6;
     
     s32 var_a1;
-    u8 var_a2;
+    int var_a2;
     u8 var_a3;
     u8 var_a3_2;
     u8 var_v0;

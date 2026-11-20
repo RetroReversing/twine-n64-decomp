@@ -18,6 +18,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     u8 *temp_s0;
     s32 temp_v0;
     s32 temp_v0_2;
+s32 __repair_phase_temp_v0_2;
     s32 temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
@@ -29,7 +30,8 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     s32 var_a0_4;
     s32 var_v0;
     s32 var_v1;
-    s32 var_v1_2;
+s32 __repair_phase_var_v1;
+    
     s8 *var_a0;
     u16 *temp_s2;
     s32 var_a1;
@@ -99,22 +101,18 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
                         temp_lo = D_800E1574 * D_800E156C;
                         temp_lo_2 = D_800E1568 * D_800E156C;
                         D_800E1578 = var_a0_4;
-                        temp_v0_2 = (u8)(*(temp_s0 + (var_a0_4 + temp_lo)));
-                        (*(s32 *)((char *)(&D_800E157C) + 0)) = (s32) temp_v0_2;
-                        temp_v1_2 = temp_v0_2 + *(temp_s0 + (var_a0_4 + temp_lo_2));
+                        __repair_phase_temp_v0_2 = (u8)(*(temp_s0 + (var_a0_4 + temp_lo)));
+                        (*(s32 *)((char *)(&D_800E157C) + 0)) = (s32) __repair_phase_temp_v0_2;
+                        temp_v1_2 = __repair_phase_temp_v0_2 + *(temp_s0 + (var_a0_4 + temp_lo_2));
                         (*(s32 *)((char *)(&D_800E157C) + 0)) = temp_v1_2;
                         temp_v1_3 = temp_v1_2 + *(temp_s0 + (D_800E1564 + temp_lo));
                         (*(s32 *)((char *)(&D_800E157C) + 0)) = temp_v1_3;
                         temp_v1_4 = temp_v1_3 + *(temp_s0 + (D_800E1564 + temp_lo_2));
                         temp_fv1 = (f32) temp_v1_4 * 0.24691357f;
                         (*(s32 *)((char *)(&D_800E157C) + 0)) = temp_v1_4;
-                        if (!(temp_fv1 >= 2.1474836e9f)) {
-                            var_v1_2 = (s32) temp_fv1;
-                        } else {
-                            var_v1_2 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-                        }
-                        var_v1 = var_v1_2 & 0xFF;
-    temp_v1_5 = var_v1;
+                        var_v1 = (u32) temp_fv1;
+                        __repair_phase_var_v1 = var_v1 & 0xFF;
+    temp_v1_5 = __repair_phase_var_v1;
                         (*(s32 *)((char *)(&D_800E157C) + 4)) = temp_v1_5;
                         *(temp_s0 + (D_800E1564 + (D_800E1568 * D_800E156C))) = (s8) temp_v1_5;
                         temp_v0_5 = D_800E1564 + 1;

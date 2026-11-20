@@ -95,9 +95,9 @@ Ent *e;
                 a1 = s0->addr;
                 if (s4 < a1) {
                     p = &sp10[(u16)s3];
-                    p[0] = s0->data;
                     p[4] = s0->addr;
-                    s3++;
+                    p[0] = s0->data;
+                    s3 += 1;
                     s2 -= (s2 - (a1 - s4));
                     p[2] = s2;
                     s0 = s7;

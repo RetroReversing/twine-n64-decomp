@@ -16,8 +16,8 @@ extern Slot_801001A2 D_801001A2[];
 extern u8 D_801002A1;
 extern s32 D_801002B4;
 extern s32 D_801002C0;
-extern u8 D_801002D4;
-extern s32 D_80109688;
+extern u8 gPauseFlag;
+extern s32 gAimAxisTable;
 extern u8 D_8010A4FD;
 extern s32 D_8010A500;
 extern s32 D_8011F018;
@@ -103,7 +103,7 @@ char *__repair_addr;
     if (D_801002C0 > 0) {
         do {
             temp_v1 = var_a0 * 4;
-            if (*(s32 *)((char *)&D_80109688 + temp_v1) != 0) {
+            if (*(s32 *)((char *)&gAimAxisTable + temp_v1) != 0) {
 __repair_addr = (char *)((char *)&D_8010A500 + temp_v1);
 
                 temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));
@@ -135,7 +135,7 @@ block_21:
                     temp_s0 = var_v0_2 >> 0x10;
                     temp_s1 = (temp_s0 * 4) + temp_s5;
                     (*(void **)((char *)(temp_s1) + 0x418)) = NULL;
-                    if ((D_801002D4 == 0) || (var_v0_3 = var_s3 + 1, (temp_s0 != 1))) {
+                    if ((gPauseFlag == 0) || (var_v0_3 = var_s3 + 1, (temp_s0 != 1))) {
                         temp_v0 = func_800162BC((*(s8 *)((char *)(temp_s5) + 0x182)));
                         (*(void **)((char *)(temp_s1) + 0x418)) = temp_v0;
                         if (temp_v0 != NULL) {

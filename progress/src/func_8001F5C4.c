@@ -2,7 +2,7 @@ typedef struct { u8 pad0[4]; s8 selection; } MenuList1F5C4;
 typedef struct { u8 pad0[0x10]; MenuList1F5C4 *list; } MenuState1F5C4;
 extern MenuState1F5C4 *D_80109BB0;
 extern const char D_800D2A80[], D_800D2A84[];
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern u8 D_8010A4C0, D_8010A4FE, D_8010A4FF;
 char *func_8002638C(MenuList1F5C4 *, s32);
 s8 func_800263B8(MenuList1F5C4 *, s32);
@@ -28,7 +28,7 @@ void func_8001F5C4(void) {
     } else {
         func_80026004(b, D_800D2A80, func_80087100(message));
     }
-    if (D_80108400 != 0) {
+    if (gExpansionPakPresent != 0) {
         u16 enable = 1;
         baseC = c - 0x28;
         baseB = b - 0x28;

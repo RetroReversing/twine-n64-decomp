@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_80109688[];
+extern s32 gAimAxisTable[];
 extern s32 D_8010A4E8;
 
 void func_80067E94(void *arg0) {
@@ -34,7 +34,7 @@ void func_80067E94(void *arg0) {
         if (D_8010A4E8 != 0) {
             var_v1 = 1;
         }
-        temp_v0 = D_80109688[idx];
+        temp_v0 = gAimAxisTable[idx];
         temp_ft1 = M2C_FIELD(temp_v0, f32 *, 0x78);
         temp_ft0 = M2C_FIELD(temp_v0, f32 *, 0x7C);
         __repair_store_0 = (s16) (-((u16) M2C_FIELD(temp_a2, u16 *, 0x24) >> 1) + (s32) ((temp_ft1 * M2C_FIELD(temp_a1, f32 *, 0x24)) + temp_ft1));

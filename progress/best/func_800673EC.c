@@ -21,8 +21,8 @@ f32 func_8008292C(f32);                             /* extern */
 f32 func_80082968(f32);                             /* extern */
 extern s32 D_800C469C;
 extern s32 D_800C46FC;
-extern s32 D_80102ED8;
-extern s32 D_80109688;
+extern s32 gUpdateGateWord;
+extern s32 gAimAxisTable;
 
 void func_800673EC(void *arg0, void *arg1) {
     s32 *__base_D_800C469C;
@@ -74,7 +74,7 @@ void func_800673EC(void *arg0, void *arg1) {
  temp_s1 = (void *)((char *)temp_s1 + (s32)(__base_D_800C469C));
     temp_v1 = (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A));
     var_s4 = (void *)(((*(s8 *)((char *)(temp_a0) + 0x10)) * 0xE8)); var_s4 = (void *)((char *)var_s4 + (s32)(__base_D_800C469C));
-    temp_s5 = D_80102ED8 != 0;
+    temp_s5 = gUpdateGateWord != 0;
     switch (temp_v1) {
     case 0:
     default:
@@ -155,10 +155,10 @@ block_48:
         temp_v1_5 = (*(void **)((char *)(temp_s2) + 0xA8));
         if ((*(s32 *)((char *)((*(void **)((char *)(temp_v1_5) + 0x68))) + 0x14)) & 0x10) {
             if ((*(s16 *)((char *)(temp_v1_5) + 0x7A)) == 0xB) {
-                if (D_80102ED8 == 0) {
+                if (gUpdateGateWord == 0) {
                     temp_v0 = func_8005F664(arg0, 0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
                     if (temp_v0 != NULL) {
-                        temp_s0_2 = (temp_s0 * 4) + &D_80109688;
+                        temp_s0_2 = (temp_s0 * 4) + &gAimAxisTable;
                         temp_s1_2 = (*(void **)((char *)(temp_v0) + 0x6C));
                         temp_fs1 = func_8008292C((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
                         temp_fs2 = func_80082968((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
@@ -244,7 +244,7 @@ block_41:
     sp10[1] = (*(f32 *)((char *)(temp_v0_2) + 0xA4));
     sp10[2] = (*(f32 *)((char *)(temp_v0_2) + 0xA8));
     if (temp_s5 == 0) {
-        temp_fv1 = (*(f32 *)((char *)(*((s32 *)((s8 *)&D_80109688 + ((*(s8 *)((char *)(temp_s2) + 0x182)) * 4)))) + 0x130));
+        temp_fv1 = (*(f32 *)((char *)(*((s32 *)((s8 *)&gAimAxisTable + ((*(s8 *)((char *)(temp_s2) + 0x182)) * 4)))) + 0x130));
         if (temp_fv1 > 0.0f) {
             temp_ft2 = temp_fv1 * 2.5f;
             temp_ft1 = 1.0f - temp_ft2;

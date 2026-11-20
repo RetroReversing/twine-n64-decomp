@@ -20,7 +20,7 @@ extern f64 D_800D3E60;
 extern Actor *D_80108788;
 extern s32 D_80108F78, D_80108F84;
 
-f32 func_80045540(Vec *, Vec *);
+f32 Vec3_DistanceSq(Vec *, Vec *);
 void func_800455CC(Vec *, Vec *, Vec *, Vec *);
 f32 func_80045764(Vec *, Vec *);
 f32 func_80045E34(Vec *, Vec *);
@@ -84,7 +84,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
                             b.y -= y;
                             b.z -= z;
                             if ((func_80047998(&hit, &other, start, &direction, &a, &axis, length, axisLength) << 24) &&
-                                func_80045540(&hit, &other) < radius) {
+                                Vec3_DistanceSq(&hit, &other) < radius) {
                                 *result = hit;
                                 found = part;
                                 break;

@@ -26,7 +26,7 @@ extern u8 D_801002AC;
 extern u8 D_801002AE;
 extern s32 D_801002B4;
 extern s32 D_801002C0;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern u8 D_8010A4FD;
 extern s16 D_8011F0EC;
 extern s16 D_8011F0EE;
@@ -85,7 +85,7 @@ block_11:
         }
     }
     func_8011DC18();
-    if ((((D_80102ED8 != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
+    if ((((gUpdateGateWord != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
         if (temp_s1 == 0) {
             var_s0 = 0;
             func_8011E894();

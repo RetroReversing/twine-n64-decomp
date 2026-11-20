@@ -31,7 +31,7 @@ extern s8 D_80108F94;
 extern s8 D_801093A0;
 extern s8 D_8010957C;
 extern s8 D_80109684;
-extern s32 D_80109688;
+extern s32 gAimAxisTable;
 extern s8 D_80109A34;
 extern s8 D_80109A35;
 extern s8 D_80109B1E;
@@ -72,7 +72,7 @@ void func_800449A0(void) {
     func_80064250();
     func_80073400();
     var_a2 = 0;
-    var_v1 = &D_80109688;
+    var_v1 = &gAimAxisTable;
     do {
         *(s32 *)var_v1 = 0;
         ++var_a2;

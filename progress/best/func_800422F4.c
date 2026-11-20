@@ -25,9 +25,11 @@ extern M2C_UNK D_800C0784;
 extern M2C_UNK D_800C3CF8;
 extern M2C_UNK D_800C447A;
 extern M2C_UNK D_800C46DC;
-extern void *D_80109688;
+extern void *gAimAxisTable;
 
 void func_800422F4(s32 arg0) {
+int __repair_literal;
+
     M2C_UNK sp10;
     M2C_UNK *temp_v0;
     M2C_UNK *temp_v0_2;
@@ -51,7 +53,7 @@ void func_800422F4(s32 arg0) {
     u16 temp_v1_3;
 
     temp_s6 = func_80083E24();
-    temp_s0 = *(&D_800C0780 + (arg0 * 0x10));
+    temp_s0 = *(&D_800C0780 + arg0 * 0x4);
     temp_v0 = func_80083E90(0x30, 0x2D);
     func_8000B9B8(temp_v0, temp_s0 + &D_54D910, 0x30);
     temp_s2 = M2C_FIELD(temp_v0, s32 *, 4);
@@ -62,63 +64,66 @@ void func_800422F4(s32 arg0) {
         do {
             temp_a1 = *M2C_FIELD(var_s0, s16 **, 0x28);
             if (temp_a1 != arg0) {
-                if (*(&D_800C0784 + (temp_a1 * 0x10)) == 0) {
-                    func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), temp_a1, 0);
+                if (*(&D_800C0784 + temp_a1 * 0x4) == 0) {
+                    func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), temp_a1, 0);
                 }
             }
             func_8000B9B8(&sp10, M2C_FIELD(var_s0, s32 *, 0x24) + &D_54D910, 0x20);
             if ((s32) M2C_FIELD(&sp10, u8 *, 0x1E) >= 0xD) {
                 if ((s32) M2C_FIELD(&sp10, u8 *, 0x1E) >= 0x12) {
-                    if (((s32) sp2E < 0x27) && ((s32) sp2E >= 0x23)) {
-                        temp_v1 = M2C_FIELD(var_s0, u16 *, 0x2C);
-                        if (temp_v1 != 0) {
-                            temp_a1_2 = *(&D_800C46DC + (temp_v1 * 0xE8));
-                            if ((temp_a1_2 != -1) && (*(s32 *) ((temp_a1_2 * 0x10) + (char *)&D_800C0784) == 0)) {
-                                func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), temp_a1_2, 1);
+                    if (((s32) sp2E < 0x27)) {
+                        if (((s32) sp2E >= 0x23)) {
+                            temp_v1 = M2C_FIELD(var_s0, u16 *, 0x2C);
+                            if (temp_v1 != 0) {
+                                temp_a1_2 = *(&D_800C46DC + temp_v1 * 0x3a);
+__repair_literal = 0x10;
+
+                                if ((temp_a1_2 != -1) && (*(s32 *) ((temp_a1_2 * __repair_literal) + (char *)&D_800C0784) == 0)) {
+                                    func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), temp_a1_2, 1);
+                                }
                             }
-                        }
-                        temp_v1_2 = M2C_FIELD(var_s0, u16 *, 0x30);
-                        if (temp_v1_2 != 0) {
-                            temp_a1_3 = *(s16 *) ((temp_v1_2 * 0xE8) + (char *)&D_800C46DC);
-                            if ((temp_a1_3 != -1) && (*(&D_800C0784 + (temp_a1_3 * 0x10)) == 0)) {
-                                func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), temp_a1_3, 1);
+                            temp_v1_2 = M2C_FIELD(var_s0, u16 *, 0x30);
+                            if (temp_v1_2 != 0) {
+                                temp_a1_3 = *(s16 *) ((temp_v1_2 * 0xE8) + (char *)&D_800C46DC);
+                                if ((temp_a1_3 != -1) && (*(&D_800C0784 + temp_a1_3 * 0x4) == 0)) {
+                                    func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), temp_a1_3, 1);
+                                }
                             }
-                        }
-                        temp_v0_3 = M2C_FIELD(var_s0, u16 *, 0x34);
-                        if (temp_v0_3 != 0) {
-                            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), *(&D_800C447A + (temp_v0_3 * 0x10)), 1);
-                        }
-                        temp_v0_4 = M2C_FIELD(var_s0, u16 *, 0x36);
-                        if (temp_v0_4 != 0) {
-                            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), *(s32 *) ((temp_v0_4 * 0x10) + (char *)&D_800C447A), 1);
-                        }
-                        temp_v0_5 = M2C_FIELD(var_s0, u16 *, 0x38);
-                        if (temp_v0_5 != 0) {
-                            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), *(&D_800C447A + (temp_v0_5 * 0x10)), 1);
-                        }
-                        temp_v0_6 = M2C_FIELD(var_s0, u16 *, 0x3A);
-                        if (temp_v0_6 != 0) {
-                            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), *(&D_800C447A + (temp_v0_6 * 0x10)), 1);
-                        }
-                        temp_v0_7 = M2C_FIELD(var_s0, s32 *, 0x3C);
-                        if (temp_v0_7 != 0) {
-                            var_a1 = *(&D_800C447A + (temp_v0_7 * 0x10));
-                            var_a0 = M2C_FIELD(D_80109688, s32 *, 8);
-                            goto block_34;
+                            temp_v0_3 = M2C_FIELD(var_s0, u16 *, 0x34);
+                            if (temp_v0_3 != 0) {
+                                func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), *(&D_800C447A + temp_v0_3 * 0x4), 1);
+                            }
+                            temp_v0_4 = M2C_FIELD(var_s0, u16 *, 0x36);
+                            if (temp_v0_4 != 0) {
+                                func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), *(s32 *) ((temp_v0_4 * 0x10) + (char *)&D_800C447A), 1);
+                            }
+                            temp_v0_5 = M2C_FIELD(var_s0, u16 *, 0x38);
+                            if (temp_v0_5 != 0) {
+                                func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), *(&D_800C447A + temp_v0_5 * 0x4), 1);
+                            }
+                            temp_v0_6 = M2C_FIELD(var_s0, u16 *, 0x3A);
+                            if (temp_v0_6 != 0) {
+                                func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), *(&D_800C447A + temp_v0_6 * 0x4), 1);
+                            }
+                            temp_v0_7 = M2C_FIELD(var_s0, s32 *, 0x3C);
+                            if (temp_v0_7 != 0) {
+                                var_a1 = *(&D_800C447A + temp_v0_7 * 0x4);
+                                var_a0 = M2C_FIELD(gAimAxisTable, s32 *, 8);
+                                func_800426B8(var_a0, var_a1, 1);
+                            }
                         }
                     }
                 } else {
                     temp_v1_3 = M2C_FIELD(var_s0, u16 *, 0x3A);
                     if (temp_v1_3 != 0) {
-                        temp_a1_4 = *(&D_800C46DC + (temp_v1_3 * 0xE8));
-                        if ((temp_a1_4 != -1) && (*(&D_800C0784 + (temp_a1_4 * 0x10)) == 0)) {
-                            func_800426B8(M2C_FIELD(D_80109688, s32 *, 8), temp_a1_4, 1);
+                        temp_a1_4 = *(&D_800C46DC + temp_v1_3 * 0x3a);
+                        if ((temp_a1_4 != -1) && (*(&D_800C0784 + temp_a1_4 * 0x4) == 0)) {
+                            func_800426B8(M2C_FIELD(gAimAxisTable, s32 *, 8), temp_a1_4, 1);
                         }
                     }
                     var_a1 = *(s32 *) ((M2C_FIELD(var_s0, u16 *, 0x38) * 0xC) + (char *)&D_800C3CF8);
-                    if (*(&D_800C0784 + (var_a1 * 0x10)) == 0) {
-                        var_a0 = M2C_FIELD(D_80109688, s32 *, 8);
-block_34:
+                    if (*(&D_800C0784 + var_a1 * 0x4) == 0) {
+                        var_a0 = M2C_FIELD(gAimAxisTable, s32 *, 8);
                         func_800426B8(var_a0, var_a1, 1);
                     }
                 }

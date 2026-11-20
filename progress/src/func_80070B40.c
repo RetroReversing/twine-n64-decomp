@@ -72,7 +72,10 @@ void func_80070B40(void *arg0) {
                     func_8000A894(var_a0_2);break;}
             }
 block_10:
-            if (M2C_FIELD((temp_s1 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 8)), u8 *, 0x1FC) != 0) {
+            {
+            char *slot = temp_s1;
+            slot += M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 8;
+            if (M2C_FIELD(slot, u8 *, 0x1FC) != 0) {
                 var_a0_2 = 0x118;
                 if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
                     func_80084338(0x118, arg0 + 0x24);
@@ -84,6 +87,7 @@ block_12:
                 continue;
             }
             break;
+            }
         }
         func_80065BC4(arg0);
         M2C_FIELD(temp_s1, u16 *, 0x174) = 0U;

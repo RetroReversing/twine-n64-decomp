@@ -43,6 +43,14 @@ void func_8001D424(void) {
     }
     temp_v1 = *(&D_800B60A8 + D_800B60A6);
     switch (temp_v1) {                              /* irregular */
+    case 33:
+        if ((((temp_s2 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) {
+            var_a0 = 0x21;
+            if (!(temp_s3 & 0xFF)) {
+                goto block_21;
+            }
+        }
+        goto block_20;
     case 30:
         if ((((temp_s0 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) {
             var_a0 = 0x1E;
@@ -69,14 +77,6 @@ block_20:
             func_8000A894(0xED);
         }
         break;
-    case 33:
-        if ((((temp_s2 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) == 0) {
-            var_a0 = 0x21;
-            if (!(temp_s3 & 0xFF)) {
-                goto block_21;
-            }
-        }
-        goto block_20;
     }
     if (D_800B60A6 == 5) {
         func_8000A894(0xE8);

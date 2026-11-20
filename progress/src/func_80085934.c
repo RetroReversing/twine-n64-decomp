@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A8B4(M2C_UNK, f32, M2C_UNK);           /* extern */
 M2C_UNK func_8000AABC(s32, s32, M2C_UNK, M2C_UNK);  /* extern */
 f32 func_80084270(M2C_UNK, u16 *);                  /* extern */
-extern u32 D_80109688[];
+extern u32 gAimAxisTable[];
 
 void func_80085934(void *arg0, M2C_UNK arg1) {
     u16 sp10;
@@ -53,5 +53,5 @@ void func_80085934(void *arg0, M2C_UNK arg1) {
         var_a0 = 0x44;
         break;
     }
-    func_8000AABC(func_8000A8B4(var_a0, temp_fv0, 0xFF), D_80109688[sp10], arg1, 0);
+    func_8000AABC(func_8000A8B4(var_a0, temp_fv0, 0xFF), gAimAxisTable[sp10], arg1, 0);
 }

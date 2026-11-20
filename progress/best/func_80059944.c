@@ -17,7 +17,7 @@ s32 func_80087100(u16);                             /* extern */
 extern f32 D_800C43A0;
 extern s32 *D_800CA31C;
 extern u8 D_800CA338;
-extern s32 D_80109688;
+extern s32 gAimAxisTable;
 extern u8 D_80109A60;
 extern void *D_80109CB4;
 
@@ -248,7 +248,7 @@ block_66:
         if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x100800) == 0x800) {
             var_a2 = func_80087100((*(u16 *)((char *)(temp_s0) + 0x48)));
 block_85:
-            func_80073AF8(0, D_80109688, var_a2, -1, 0, 0, 0, 0x3C);
+            func_80073AF8(0, gAimAxisTable, var_a2, -1, 0, 0, 0, 0x3C);
             func_80084338(9U, arg0 + 0x24);
         }
         break;

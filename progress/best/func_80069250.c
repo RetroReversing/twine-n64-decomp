@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800158A4();
-f32 func_80045540();
+f32 Vec3_DistanceSq();
 s32 func_80045764();
 s32 func_80046384(s32, f32, f32, f32);
 s32 func_80064318();
@@ -27,9 +27,9 @@ extern char D_800C469C[];
 extern char D_800C46FC[];
 extern f64 D_800D44F0;
 extern f64 D_800D44F8;
-extern u8 D_801002D4;
-extern s32 D_80102ED8;
-extern char D_80109688[];
+extern u8 gPauseFlag;
+extern s32 gUpdateGateWord;
+extern char gAimAxisTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
 extern char D_80109AA0[];
@@ -91,7 +91,7 @@ f32 __repair_sp4C_1;
     do { func_800643D8(temp_s4); } while (0);
     func_800643D8(temp_s2);
     __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
-    if ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xA8), s16 *, 0x7A) == 0) && ((temp_t0 = M2C_FIELD(temp_s3, s8 *, 0x182), spDC = (s32) temp_t0, temp_s5 = (temp_t0 * 4) + D_80109688, sp28[0] = M2C_FIELD(*temp_s5, f32 *, 0x34), temp_fp = (M2C_FIELD(__repair_hoisted, s8 *, 0xE) * 0xE8) + D_800C469C, sp28[2] = 0, sp28[1] = M2C_FIELD(*temp_s5, f32 *, 0x38), var_v0 = temp_s4 != NULL, ((M2C_FIELD(temp_fp, s32 *, 0x60) & 0xC) != 0)) || (var_v0 = temp_s4 != NULL, (M2C_FIELD(arg0, s16 *, 0x7C) == 5))) && (var_v0 & (temp_s2 != NULL))) {
+    if ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xA8), s16 *, 0x7A) == 0) && ((temp_t0 = M2C_FIELD(temp_s3, s8 *, 0x182), spDC = (s32) temp_t0, temp_s5 = (temp_t0 * 4) + gAimAxisTable, sp28[0] = M2C_FIELD(*temp_s5, f32 *, 0x34), temp_fp = (M2C_FIELD(__repair_hoisted, s8 *, 0xE) * 0xE8) + D_800C469C, sp28[2] = 0, sp28[1] = M2C_FIELD(*temp_s5, f32 *, 0x38), var_v0 = temp_s4 != NULL, ((M2C_FIELD(temp_fp, s32 *, 0x60) & 0xC) != 0)) || (var_v0 = temp_s4 != NULL, (M2C_FIELD(arg0, s16 *, 0x7C) == 5))) && (var_v0 & (temp_s2 != NULL))) {
         temp_v0 = *temp_s5;
         temp_a0 = M2C_FIELD(temp_v0, f32 *, 0x14);
         temp_a1 = M2C_FIELD(temp_v0, f32 *, 0x18);
@@ -151,10 +151,10 @@ f32 __repair_sp4C_1;
         spB0[1] = -spB0[1];
         spB0[0] = -spB0[0];
         func_80083A6C(sp68, spB0, temp_a2);
-        spB0[0] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + D_80109688), f32 *, 0x10);
-        spB0[1] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + D_80109688), f32 *, 0x14);
-        spB0[2] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + D_80109688), f32 *, 0x18);
-        temp_fv0_2 = func_80045540(spB0, sp58);
+        spB0[0] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + gAimAxisTable), f32 *, 0x10);
+        spB0[1] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + gAimAxisTable), f32 *, 0x14);
+        spB0[2] += M2C_FIELD(*((M2C_FIELD(temp_s3, s8 *, 0x182) * 4) + gAimAxisTable), f32 *, 0x18);
+        temp_fv0_2 = Vec3_DistanceSq(spB0, sp58);
         M2C_FIELD(temp_s4, f32 *, 0x54) = temp_fv0_2;
         M2C_FIELD(temp_s4, f32 *, 0x24) = spB0[0];
         M2C_FIELD(temp_s4, f32 *, 0x28) = spB0[1];
@@ -201,8 +201,8 @@ f32 __repair_sp4C_1;
             if (D_800D44F8 < (f64) temp_fv0_3) {
                 M2C_FIELD(temp_s2, f32 *, 0x54) = 4.0f;
             }
-            if (D_80102ED8 != 0) {
-                if (D_801002D4 != 0) {
+            if (gUpdateGateWord != 0) {
+                if (gPauseFlag != 0) {
                     do { func_800643C8(temp_s4); } while (0);
                 }
             } else {

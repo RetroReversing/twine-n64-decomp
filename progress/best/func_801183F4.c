@@ -1,10 +1,10 @@
 extern s32 func_80022DBC(s32);
 extern f32 func_80045E34(void *, void *);
-extern s32 func_8007A9CC(void *, void *, void *, u32);
+extern s32 func_8007A9CC(void *, s32, s32 *, f32);
 extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 extern s32 func_801182B0(void *, void *);
 extern u32 D_8010019C[];
-extern u8 D_801001A1[];
+extern s8 D_801001A1[];
 extern u8 D_801002A0;
 extern s32 D_801002B4;
 extern void *D_80102CD0[4];
@@ -18,7 +18,7 @@ extern u8 D_8011F168[];
 extern u8 D_8011F169;
 
 typedef struct { u8 pad[0xB4]; void *field_b4; } ObjSub;
-typedef struct { u8 pad[0x68]; void *field68; } ObjMain;
+typedef struct { u8 pad[0x6C]; void *field6c; } ObjMain;
 typedef struct { u8 pad[0x74]; f32 dist; u8 pad2[0]; } ObjCandidate;
 
 void *func_801183F4(ObjMain *arg0, s32 arg1) {
@@ -30,31 +30,31 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     f32 limit1, limit2, scale, tmp;
     s32 state, pass, count, entry, v, j;
     volatile s32 __frame_pad[2];
+    volatile s8 __saved_arg1 = (s8)arg1;
 
-    sub = (ObjSub *)arg0->field68;
+    sub = (ObjSub *)arg0->field6c;
     idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
     row = D_8010019C[idx * 6];
     kind = D_800BF688[row * 6] & 3;
     flags = D_8011ECB0[kind];
     idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
     row = D_8010019C[idx * 6];
-    n = D_800BF688[row * 6 + 3];
+    n = ((u8 *)D_800BF688)[row * 12 + 3];
     best = 0; fallback = 0; selected = 0; best1=0x270f;
     if (n & 2) {
         count=D_801002B4; i=0;
         while(i<count) {
             p=((void **)0x80102CD0)[i];
             v=*(s32 *)((u8 *)p+0xb4);
-            v=*(s16 *)((u8 *)v+0xc);
             if(v<best1) best1=v;
+            v=*(s16 *)((u8 *)v+0xc);
             i++;
         }
     }
     if(best1<=0) best1=1;
     i=0;
     for(entry=0;entry<4;entry++) {
-        candidate=D_8010A500[entry];
-        if(!candidate || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
+        if(!(candidate = D_8010A500[entry]) || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
         p=*(void **)((u8 *)candidate+0x6c);
         if(*(u16 *)((u8 *)candidate+0x78)==0x4d || *(u16 *)((u8 *)candidate+0x78)==0x61) continue;
         v=*(u8 *)((u8 *)sub->field_b4+0x12);

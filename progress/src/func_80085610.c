@@ -18,12 +18,12 @@ M2C_UNK func_8000AABC(s32, s32, s32, M2C_UNK);      /* extern */
 s32 func_80045CF8(M2C_UNK);                         /* extern */
 f32 func_80084270(s32, u16 *);                           /* extern */
 extern u8 D_800CE794[];
-extern s32 D_80109688[];
+extern s32 gAimAxisTable[];
 
 void func_80085610(s32 arg0) {
     u16 sp10;
     f32 temp_fs0;
 
     temp_fs0 = func_80084270(arg0, &sp10);
-    func_8000AABC(func_8000A8B4(*(u16 *)(D_800CE794 + (func_80045CF8(1) * 2)), temp_fs0, 0xFF), D_80109688[sp10], arg0, 0);
+    func_8000AABC(func_8000A8B4(*(u16 *)(D_800CE794 + (func_80045CF8(1) * 2)), temp_fs0, 0xFF), gAimAxisTable[sp10], arg0, 0);
 }

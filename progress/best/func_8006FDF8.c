@@ -7,8 +7,8 @@ extern u16 D_800C7E08;
 typedef struct { s16 x[4]; } __attribute__((packed, aligned(2))) Quad;
 extern Quad D_800D46E4, D_800D46EC;
 extern s32 D_801002C0;
-extern s32 D_80102ED8;
-extern s32 D_80109688;
+extern s32 gUpdateGateWord;
+extern s32 gAimAxisTable;
 extern u8 D_8010A4FD;
 
 void func_8006FDF8(void *arg0, s32 arg1) {
@@ -16,7 +16,7 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     s32 sp24;
     s32 sp2C;
     s32 *var_s3;
-    s32 var_a0;
+    
     s32 var_s6;
     register s32 var_s7;
     s32 var_v1;
@@ -25,7 +25,7 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     unsigned long var_s1_2;
     u32 var_s2;
     
-    void *temp_a0;
+    union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_a0_2;
     void *temp_s0;
     void *temp_v0;
@@ -42,7 +42,7 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     var_s7 = 0xA0;
     var_s6 = 0x78;
     sp2C = (s32) (*(s8 *)((char *)(arg0) + 0x182));
-    if (D_80102ED8 != 0) {
+    if (gUpdateGateWord != 0) {
         if (D_801002C0 != 2) {
             var_s2 = 0;
             if ((D_801002C0 >= 2)) {
@@ -81,7 +81,7 @@ block_8:
             (*(s16 *)((char *)(temp_s0) + 0x26)) = var_s7;
             (*(u16 *)((char *)(temp_s0) + 0x22)) = (u16) (*(u16 *)((char *)(var_s3) + 8));
             (*(s8 *)((char *)(temp_s0) + 0x29)) = (s8) var_s6;
-            func_800165E0(temp_s0, (&D_80109688)[sp2C]);
+            func_800165E0(temp_s0, (&gAimAxisTable)[sp2C]);
             (*(u16 *)((char *)(temp_s0) + 0x1E)) = (u16) *var_s4;
         }
         var_s4 += 2;
@@ -89,7 +89,7 @@ block_8:
         ++var_s2;
         var_s1 += 4;
     } while (var_s2 < 4U);
-    if (D_80102ED8 == 0) {
+    if (gUpdateGateWord == 0) {
         if (sp24 == 5) {
             var_s0 = arg0;
             var_s1_2 = 0;
@@ -98,9 +98,9 @@ block_8:
                     (*(void **)((char *)(var_s0) + 0x3E4)) = func_80015F0C();
                 }
                 (*(s32 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x10)) = 0xFF008F;
-                temp_a0 = (*(void **)((char *)(var_s0) + 0x3E4));
-                (*(s32 *)((char *)(temp_a0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x28)) & ~0xFC) | 0x10);
-                func_800165E0((*(void **)((char *)(var_s0) + 0x3E4)), (&D_80109688)[sp2C]);
+                __repair_phase_storage.pointer = (*(void **)((char *)(var_s0) + 0x3E4));
+                (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) = (s32) (((*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) & ~0xFC) | 0x10);
+                func_800165E0((*(void **)((char *)(var_s0) + 0x3E4)), (&gAimAxisTable)[sp2C]);
                 (*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x1E)) = 2U;
                 if (var_s1_2 < 0x18U) {
                     switch (var_s1_2 / 4) {
@@ -158,10 +158,10 @@ block_8:
                 (*(s32 *)((char *)((*(void **)((char *)(var_s0_2) + 0x3E4))) + 0x10)) = 0xFF7F;
                 temp_v1_3 = (*(void **)((char *)(var_s0_2) + 0x3E4));
                 (*(s32 *)((char *)(temp_v1_3) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v1_3) + 0x28)) & ~0xFC) | 0x10);
-                func_800165E0((*(void **)((char *)(var_s0_2) + 0x3E4)), (&D_80109688)[sp2C]);
-                var_a0 = 0x50;
+                func_800165E0((*(void **)((char *)(var_s0_2) + 0x3E4)), (&gAimAxisTable)[sp2C]);
+                __repair_phase_storage.value = 0x50;
                 if (var_s2 >= 2U) {
-                    var_a0 = (var_s7 * 2) - 0x70;
+                    __repair_phase_storage.value = (var_s7 * 2) - 0x70;
                     var_s1_3 = 0x80;
                 }
                 var_v1 = 0x37;
@@ -169,7 +169,7 @@ block_8:
                     var_v1 = (var_s6 * 2) - 0x57;
                     var_s1_3 |= 0x100;
                 }
-                (*(s16 *)((char *)((*(void **)((char *)(var_s0_2) + 0x3E4))) + 0x20)) = var_a0;
+                (*(s16 *)((char *)((*(void **)((char *)(var_s0_2) + 0x3E4))) + 0x20)) = __repair_phase_storage.value;
                 (*(s16 *)((char *)((*(void **)((char *)(var_s0_2) + 0x3E4))) + 0x22)) = var_v1;
                 (*(s16 *)((char *)((*(void **)((char *)(var_s0_2) + 0x3E4))) + 0x1E)) = (s16) (var_s1_3 | 2);
                 temp_a0_2 = (*(void **)((char *)(var_s0_2) + 0x3E4));

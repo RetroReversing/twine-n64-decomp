@@ -16,7 +16,7 @@ s32 func_8008CDC0();
 s32 func_8008EB80();
 s32 func_8008F2A4();
 s32 func_80095A80();
-s32 func_80095EC4();
+s32 audio_slot_reset();
 extern char D_800E5AC4[];
 extern u8 D_800E6A85[];
 extern s32 D_800EDA90;
@@ -224,7 +224,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
         M2C_FIELD(temp_s2, s32 *, 0xF7C) = 0;
         var_a0_7 = 0 & 0xFF;
         do {
-            func_80095EC4(var_a0_7, var_s5 & 0xFF, 0x7F);
+            audio_slot_reset(var_a0_7, var_s5 & 0xFF);
             var_s1_5 += 1;
             var_a0_7 = var_s1_5 & 0xFF;
         } while (var_s1_5 < 0x10);

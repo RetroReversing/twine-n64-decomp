@@ -28,7 +28,7 @@ extern u8 D_80100198[];
 extern u8 D_801002AD;
 extern s32 D_801002B8;
 extern u8 D_80102EB8;
-extern M2C_UNK D_80102ED8;
+extern M2C_UNK gUpdateGateWord;
 extern u8 D_80102EDD;
 extern M2C_UNK D_80102F48[];
 extern void *D_80109BB0;
@@ -71,7 +71,7 @@ void func_80021CA0(void) {
                     var_v1 += 1;
                     if (temp_v0_2 == 1) {
                         var_a0 = 0x58;
-                        if ((M2C_FIELD(&D_80102ED8, s32 *, 0) == 0) && (M2C_FIELD(&D_80102ED8, u8 *, 5) != 0)) {
+                        if ((M2C_FIELD(&gUpdateGateWord, s32 *, 0) == 0) && (M2C_FIELD(&gUpdateGateWord, u8 *, 5) != 0)) {
                             var_a0 = 0x35;
                         }
                         *var_v1 = var_a0;
@@ -99,9 +99,9 @@ void func_80021CA0(void) {
             var_a3 = 0x33;
         
         func_80022A30(D_800BD68E, 0x19, 0x30, var_a3, 0x50);}
-        if ((D_80102EDD == 0) || (M2C_FIELD(&D_80102ED8, s32 *, 0) != 0)) {
+        if ((D_80102EDD == 0) || (M2C_FIELD(&gUpdateGateWord, s32 *, 0) != 0)) {
             D_80102EB8 = func_8002D13C(0xA3);
-            if (M2C_FIELD(&D_80102ED8, s32 *, 0) != 0) {
+            if (M2C_FIELD(&gUpdateGateWord, s32 *, 0) != 0) {
                 D_80102EB8 = (u8) D_801002B8;
             }
             if (D_80102EB8 == 0) {

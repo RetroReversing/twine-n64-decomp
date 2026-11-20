@@ -15,7 +15,8 @@ s32 func_80063D38();
 s32 func_80084338();
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C469C;
 extern Slot_800C469C D_800C469C[];
-extern s32 D_800C469E;
+typedef struct { u8 f0; u8 pad[231]; } Slot_800C469E;
+extern Slot_800C469E D_800C469E[];
 
 void func_8007092C(void *arg0, s8 arg1) {
     register s32 var_s6 = 0;
@@ -69,7 +70,7 @@ void func_8007092C(void *arg0, s8 arg1) {
             if (temp_s2[0x1FC] == 0) {
                 continue;
             }
-            if (arg1 != 0 && *(u8 *)(D_800C469E + ((s8)(*(u8 **)((u8 *)arg0 + 0x68))[0xF] * 0xE8)) == 0x21) {
+            if (arg1 != 0 && D_800C469E[(s8)(*(u8 **)((u8 *)arg0 + 0x68))[0xF]].f0 == 0x21) {
                 continue;
             }
             temp_a1_2 = (s8)(*(u8 **)((u8 *)arg0 + 0x68))[0xF];
@@ -81,7 +82,7 @@ void func_8007092C(void *arg0, s8 arg1) {
                     }
                 }
             } else if ((func_80063D38(temp_s4, temp_a1_2, temp_a2) << 0x18) == 0) {
-                if (temp_s2[0x1FE] != 0 && (func_80063D38(temp_s4, temp_a1, temp_a2) << 0x18) != 0) {
+                if (temp_s2[0x1FE] != 0 && (func_80063D38(temp_s4, temp_a1) << 0x18) != 0) {
                     temp_s2[0x1FE] = 0;
                     (*(u8 **)((u8 *)arg0 + 0x68))[0xF] = temp_a1;
                 } else {

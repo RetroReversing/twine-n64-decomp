@@ -85,10 +85,10 @@ extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
 extern u8 D_801002AE;
 extern s32 D_801002B8;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
-extern M2C_UNK D_80109688;
+extern M2C_UNK gAimAxisTable;
 extern u8 D_8010A4C2;
 extern M2C_UNK D_8011508B;
 void func_80069DCC(void *arg0) {
@@ -457,7 +457,7 @@ case 41:
 func_8007092C(arg0, 0);
 break;
 }
-if ((D_80102ED8 != 0) && (D_801002B8 < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
+if ((gUpdateGateWord != 0) && (D_801002B8 < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
 M2C_FIELD(arg0, s16 *, 0x78) = 3;
 M2C_FIELD(arg0, s16 *, 0x7A) = 0;
 }
@@ -649,7 +649,7 @@ M2C_FIELD(temp_s1, f32 *, 0xCC) = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 0xCC) +
 temp_v1_18 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_18, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_18, u16 *, 0xC) & 0xFFCB);
 func_8000A894(0xFF, 4);
-if (D_80102ED8 != 0) {
+if (gUpdateGateWord != 0) {
 temp_fv0_4 = M2C_FIELD(temp_s1, f32 *, 0x4C);
 if ((temp_fv0_4 <= 0.0002f) && (temp_fv0_4 >= -0.0002f)) {
 temp_fv0_5 = M2C_FIELD(temp_s1, f32 *, 0x50);
@@ -873,7 +873,7 @@ break;
 }
 func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
 }
-func_80047FB4(*(&D_80109688 + (temp_s4 * 4)), *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
+func_80047FB4(*(&gAimAxisTable + (temp_s4 * 4)), *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
 func_80069250(arg0);
 break;
 case 6:
@@ -1328,7 +1328,7 @@ M2C_FIELD(temp_v1_33, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_33, u8 *, 0xE);
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u16 *, 0x134);
 D_8010A4C2 |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
-temp_v0_10 = *(&D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
+temp_v0_10 = *(&gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
 M2C_FIELD(arg0, f32 *, 0x30) = (f32) M2C_FIELD(arg0, f32 *, 0x24);
 M2C_FIELD(arg0, f32 *, 0x34) = (f32) M2C_FIELD(arg0, f32 *, 0x28);
 M2C_FIELD(arg0, f32 *, 0x38) = (f32) M2C_FIELD(arg0, f32 *, 0x2C);
@@ -1338,7 +1338,7 @@ M2C_FIELD(temp_v0_10, f32 *, 0x18) = (f32) M2C_FIELD(arg0, f32 *, 0x38);
 M2C_FIELD(temp_v0_10, f32 *, 0x28) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x10);
 M2C_FIELD(temp_v0_10, f32 *, 0x2C) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x14);
 M2C_FIELD(temp_v0_10, f32 *, 0x30) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x18);
-M2C_FIELD(*(&D_80109688 + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
+M2C_FIELD(*(&gAimAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
 func_80081D20(temp_s4, 0x12);
 return;
 }

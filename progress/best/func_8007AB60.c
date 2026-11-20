@@ -24,7 +24,7 @@ extern char D_800C9BF0[];
 extern char D_800C9BF4[];
 
 s32 func_8007AB60(void *arg0) {
-    s32 *var_s1;
+    u16 *var_s1;
     s32 var_a0;
     s32 var_a1;
     s16 temp_a0;
@@ -44,16 +44,12 @@ s32 func_8007AB60(void *arg0) {
         if (M2C_FIELD(temp_a2, s32 *, 0x88) & 0x40000000) {
             temp_v1 = M2C_FIELD(temp_a1, u8 *, 0x6E);
             switch (temp_v1) {                      /* switch 2; irregular */
-            case 0:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
-                var_a1 = 0x81;
-                break;
             case 1:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             case 2:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BF4 + (func_80045CF8(5, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BF4 + (func_80045CF8(5, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             default:                                /* switch 2 */
@@ -61,6 +57,10 @@ s32 func_8007AB60(void *arg0) {
 block_31:
                 func_80002BD0(arg0, var_a1_2);
                 var_a1 = 4;
+                break;
+            case 0:                                 /* switch 2 */
+                func_80002BD0(arg0, *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                var_a1 = 0x81;
                 break;
             }
             func_80077960(arg0, var_a1);
@@ -89,7 +89,7 @@ block_31:
                 if (temp_v1_2 != 0) {
                     return 0;
                 }
-                var_a1_2 = *(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2));
+                var_a1_2 = *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2));
                 goto block_31;
             }
         }

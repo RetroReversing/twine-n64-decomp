@@ -7,21 +7,24 @@ f64 func_800AACB0(f64);
 
 f64 func_800AADA0(f64 arg0) {
     s32 sp28;
-    volatile f64 r;
+    f64 zero;
     volatile union { f64 d; u32 w[2]; } u;
     f64 t;
 
-    if (arg0 < 0.0) {
-        return func_800ABA40(1, D_800D6F80, arg0, 0.0, 0.0);
+    zero = 0.0;
+    if (arg0 < zero) {
+        return func_800ABA40(1, D_800D6F80, arg0, zero, zero);
     }
-    if (arg0 == 0.0) {
+    if (arg0 == zero) {
         u.w[0] = 0xFFF00000;
         u.w[1] = 0;
-        return func_800ABA40(3, D_800D6F80, arg0, 0.0, u.d);
+        return func_800ABA40(3, D_800D6F80, arg0, zero, u.d);
     }
     if (arg0 != D_800D6F88) {
         t = func_800AACB0(func_800AC0A0(arg0, &sp28));
-        return (f64)sp28 * D_800D6F90 + t;
+        t = (f64)sp28 * D_800D6F90 + t;
+        u.d = t;
+        return t;
     }
-    return 0.0;
+    return zero;
 }

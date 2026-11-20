@@ -4,7 +4,7 @@ s32 func_80083E90(s32, s32);
 extern s32 D_800B1D7C;
 extern s32 D_800B1D80;
 extern s32 D_800B1D84;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern s32 D_80108F78;
 extern Ctx828C *D_8010A2BC[];
 extern u16 D_8010A518;
@@ -12,7 +12,7 @@ extern u16 D_8010A518;
 void func_8000828C(void) {
     u32 i;
 
-    if (D_80102ED8 != 0) {
+    if (gUpdateGateWord != 0) {
         D_800B1D80 = 0x640;
         D_800B1D7C = 0x1388;
     } else {

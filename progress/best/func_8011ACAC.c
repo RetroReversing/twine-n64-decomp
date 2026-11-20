@@ -1,4 +1,4 @@
-extern void *D_80102ED8;
+extern void *gUpdateGateWord;
 extern u8 D_801002A2;
 extern u8 D_800C469C[];
 extern u8 D_800C447C[];
@@ -15,7 +15,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
     u32 v;
     void (*fn)(void *);
 
-    if (D_80102ED8 == NULL) {
+    if (gUpdateGateWord == NULL) {
         return;
     }
     switch (D_801002A2) {

@@ -25,7 +25,7 @@ extern s8 D_800EE1F8;
 extern s8 D_800EE37C;
 extern void *D_80117708;
 
-void func_80094F10(void) {
+void UpdateSlotList(void) {
     f32 sp18;
     f32 sp1C;
     s32 sp20;

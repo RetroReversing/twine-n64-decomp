@@ -9,8 +9,8 @@ extern char D_800AE75A[];
 extern s8 D_800AE760;
 extern char D_800AE761[];
 extern s16 D_800C2852;
-extern u8 D_801002D4;
-extern s32 D_80102ED8;
+extern u8 gPauseFlag;
+extern s32 gUpdateGateWord;
 extern s32 D_80109D18;
 
 void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
@@ -40,10 +40,10 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
     m2c_initial_frame.view_sp18.value = *arg1;
     m2c_initial_frame.view_sp10.value = -1;
     if ((u32) (temp_v0 - 0x1DF) < 0x1CU) {
-        if ((D_80102ED8) && (D_801002D4 == 0)) {
+        if ((gUpdateGateWord) && (gPauseFlag == 0)) {
             m2c_initial_frame.view_sp14.value = -1;
         } else if (func_80001F40(m2c_initial_frame.view_unksp16.value, (s8)arg2, &m2c_initial_frame.view_sp10.value) != 0) {
-            if ((D_80109D18 != 0) || (((D_80102ED8 != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) D_801002D4 < 2U))) {
+            if ((D_80109D18 != 0) || (((gUpdateGateWord != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) gPauseFlag < 2U))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
             if (m2c_initial_frame.view_sp14.value >= 0) {
@@ -53,7 +53,7 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
             if ((((m2c_initial_frame.view_sp14.value == 0x1F8) | (m2c_initial_frame.view_sp14.value == 0x1EA)) & (temp_a1 = arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1E6) & (arg2 == 0x29)) || ((m2c_initial_frame.view_sp14.value == 0x1E7) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1F0) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1EB) & (arg2 == 0x27))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
-        } else if ((D_80102ED8 != 0) && ((u8) D_801002D4 < 3U)) {
+        } else if ((gUpdateGateWord != 0) && ((u8) gPauseFlag < 3U)) {
             func_80001EB8(&m2c_initial_frame.view_sp14.value, &m2c_initial_frame.view_sp18.value);
         }
         temp_a3 = (*(void **)((char *)(arg3) + 0x18));

@@ -14,7 +14,7 @@ extern s32 D_80108F78;
 extern void *D_80108F84;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
-void func_800794C0(s32 arg0, void *arg1) {
+void func_800794C0(s32 arg0, void *actor) {
     union {
         unsigned char bytes[96];
         struct { f32 value; } view_sp30;
@@ -37,7 +37,7 @@ void func_800794C0(s32 arg0, void *arg1) {
         struct { unsigned char pad[84]; f32 value; } view_sp84;
         struct { unsigned char pad[88]; s32 value; } view_sp88;
         struct { unsigned char pad[92]; s32 value; } view_sp8C;
-    } m2c_initial_frame;
+    } frame;
 
              
              
@@ -56,90 +56,90 @@ void func_800794C0(s32 arg0, void *arg1) {
                    
              
     union { void * pointer; s32 value; } __repair_phase_storage;
-    void *temp_v1_2;
+    void *body;
     f32 temp_fv1;
-    f32 var_ft0;
-    s32 temp_v1;
+    f32 zOffset;
+    s32 state;
     
     s32 temp_v1_7;
     void *temp_a2;
-    void *temp_s2;
+    void *motion;
     f32 temp_fv0;
-    f32 temp_fs0;
+    f32 probeRadius;
     void *temp_v1_5;
     void *temp_v1_6;
 
-    temp_s2 = (*(void **)((char *)(arg1) + 0x6C));
-    m2c_initial_frame.view_sp50_vec.value = D_800D4E74;
-    m2c_initial_frame.view_sp60_vec.value = D_800D4E74;
-    temp_fs0 = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x38)); m2c_initial_frame.view_sp80.value = 0; m2c_initial_frame.view_sp84.value = 1.0f;
-    m2c_initial_frame.view_sp88.value = 0;
-    temp_v1 = (*(s16 *)((char *)(arg1) + 0x7A));
+    motion = (*(void **)((char *)(actor) + 0x6C));
+    frame.view_sp50_vec.value = D_800D4E74;
+    frame.view_sp60_vec.value = D_800D4E74;
+    probeRadius = (*(f32 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0x38)); frame.view_sp80.value = 0; frame.view_sp84.value = 1.0f;
+    frame.view_sp88.value = 0;
+    state = (*(s16 *)((char *)(actor) + 0x7A));
     D_80103046 += 1;
-    if (temp_v1 >= 0x38) goto first_else;
-    if (temp_v1 < 0x36) goto first_else;
+    if (state >= 0x38) goto first_else;
+    if (state < 0x36) goto first_else;
     {
-        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24);
-        var_ft0 = 42.0f;
-        m2c_initial_frame.view_sp74.value += 1.0f;
+        *(Vec3u32 *)&frame.view_sp70.value = *(Vec3u32 *)((char *)actor + 0x24);
+        zOffset = 42.0f;
+        frame.view_sp74.value += 1.0f;
     } goto first_done;
     first_else: {
-        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24); var_ft0 = 41.0f; } first_done: temp_fv0 = (*(f32 *)((char *)(temp_s2) + 0x48)) - 0.32666668f;
-    (*(f32 *)((char *)(temp_s2) + 0x48)) = temp_fv0;
-    (*(f32 *)((char *)(arg1) + 0x28)) = (f32) ((*(f32 *)((char *)(arg1) + 0x28)) + (temp_fv0 * 0.033333335f));
-    if ((func_8004C750(arg0, &m2c_initial_frame.view_sp70.value, &m2c_initial_frame.view_sp30.value, &m2c_initial_frame.view_sp40.value, temp_fs0 + var_ft0, &m2c_initial_frame.view_sp50.value, &m2c_initial_frame.view_sp60.value, &m2c_initial_frame.view_sp80.value) << 0x18) == 0) {
-        temp_v1_2 = (*(void **)((char *)(arg1) + 0x68));
-        (*(u16 *)((char *)(temp_v1_2) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_2) + 0xC)) & 0xFF77);
-        m2c_initial_frame.view_sp30.value = (*(f32 *)((char *)(arg1) + 0x24));
-        m2c_initial_frame.view_sp34.value = (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8));
-        m2c_initial_frame.view_sp38.value = (*(f32 *)((char *)(arg1) + 0x2C));
+        *(Vec3u32 *)&frame.view_sp70.value = *(Vec3u32 *)((char *)actor + 0x24); zOffset = 41.0f; } first_done: temp_fv0 = (*(f32 *)((char *)(motion) + 0x48)) - 0.32666668f;
+    (*(f32 *)((char *)(motion) + 0x48)) = temp_fv0;
+    (*(f32 *)((char *)(actor) + 0x28)) = (f32) ((*(f32 *)((char *)(actor) + 0x28)) + (temp_fv0 * 0.033333335f));
+    if ((func_8004C750(arg0, &frame.view_sp70.value, &frame.view_sp30.value, &frame.view_sp40.value, probeRadius + zOffset, &frame.view_sp50.value, &frame.view_sp60.value, &frame.view_sp80.value) << 0x18) == 0) {
+        body = (*(void **)((char *)(actor) + 0x68));
+        (*(u16 *)((char *)(body) + 0xC)) = (u16) ((*(u16 *)((char *)(body) + 0xC)) & 0xFF77);
+        frame.view_sp30.value = (*(f32 *)((char *)(actor) + 0x24));
+        frame.view_sp34.value = (*(f32 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 8));
+        frame.view_sp38.value = (*(f32 *)((char *)(actor) + 0x2C));
     }
-    temp_a2 = (*(void **)((char *)(temp_s2) + 0x6C));
+    temp_a2 = (*(void **)((char *)(motion) + 0x6C));
     if (temp_a2 != NULL) {
-        { typedef struct { s32 a, b, c, d; } Vec4; *(Vec4 *)((char *)temp_a2 + 0x30) = *(Vec4 *)&m2c_initial_frame.view_sp80.value; }
+        { typedef struct { s32 a, b, c, d; } Vec4; *(Vec4 *)((char *)temp_a2 + 0x30) = *(Vec4 *)&frame.view_sp80.value; }
     }
-    (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8)) = m2c_initial_frame.view_sp34.value;
-    __repair_phase_storage.pointer = (*(void **)((char *)(arg1) + 0x68));
-    (*(f32 *)((char *)(arg1) + 0x28)) = (f32) ((*(f32 *)((char *)(arg1) + 0x28)) + m2c_initial_frame.view_sp54.value);
+    (*(f32 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 8)) = frame.view_sp34.value;
+    __repair_phase_storage.pointer = (*(void **)((char *)(actor) + 0x68));
+    (*(f32 *)((char *)(actor) + 0x28)) = (f32) ((*(f32 *)((char *)(actor) + 0x28)) + frame.view_sp54.value);
     (*(u16 *)((char *)(__repair_phase_storage.pointer) + 0xC)) = (u16) ((*(u16 *)((char *)(__repair_phase_storage.pointer) + 0xC)) | 0x80);
-    if ((*(f32 *)((char *)(arg1) + 0x28)) <= (m2c_initial_frame.view_sp34.value + temp_fs0)) {
-        if ((D_80108F78 != 0x19) && ((*(f32 *)((char *)(temp_s2) + 0x48)) < -12.0f)) {
-            (*(f32 *)((char *)(arg1) + 0x74)) = -1.0f;
+    if ((*(f32 *)((char *)(actor) + 0x28)) <= (frame.view_sp34.value + probeRadius)) {
+        if ((D_80108F78 != 0x19) && ((*(f32 *)((char *)(motion) + 0x48)) < -12.0f)) {
+            (*(f32 *)((char *)(actor) + 0x74)) = -1.0f;
         }
-        __repair_phase_storage.value = (*(s16 *)((char *)(arg1) + 0x7A));
+        __repair_phase_storage.value = (*(s16 *)((char *)(actor) + 0x7A));
         if (__repair_phase_storage.value >= 0x38) goto second_else;
         if (__repair_phase_storage.value < 0x36) goto second_else;
-        temp_fv1 = (*(f32 *)((char *)(temp_s2) + 0x48));
-        (*(f32 *)((char *)(temp_s2) + 0x48)) = (f32) ((f64) temp_fv1 + ((f64) ((((m2c_initial_frame.view_sp34.value + temp_fs0) - (*(f32 *)((char *)(arg1) + 0x28))) * 30.0f) - temp_fv1) * D_800D4E80));
+        temp_fv1 = (*(f32 *)((char *)(motion) + 0x48));
+        (*(f32 *)((char *)(motion) + 0x48)) = (f32) ((f64) temp_fv1 + ((f64) ((((frame.view_sp34.value + probeRadius) - (*(f32 *)((char *)(actor) + 0x28))) * 30.0f) - temp_fv1) * D_800D4E80));
         goto second_done;
         second_else:
-        (*(f32 *)((char *)(temp_s2) + 0x48)) = 0.0f;
+        (*(f32 *)((char *)(motion) + 0x48)) = 0.0f;
         second_done:;
-        (*(f32 *)((char *)(arg1) + 0x28)) = (f32) (m2c_initial_frame.view_sp34.value + temp_fs0);
-        (*(f32 *)((char *)(arg1) + 0x24)) = (f32) ((*(f32 *)((char *)(arg1) + 0x24)) + m2c_initial_frame.view_sp50.value);
-        (*(f32 *)((char *)(arg1) + 0x2C)) = (f32) ((*(f32 *)((char *)(arg1) + 0x2C)) + m2c_initial_frame.view_sp58.value);
-        temp_v1_5 = (*(void **)((char *)(arg1) + 0x68));
-        (*(f32 *)((char *)(arg1) + 0x40)) = (f32) ((*(f32 *)((char *)(arg1) + 0x40)) + m2c_initial_frame.view_sp64.value);
+        (*(f32 *)((char *)(actor) + 0x28)) = (f32) (frame.view_sp34.value + probeRadius);
+        (*(f32 *)((char *)(actor) + 0x24)) = (f32) ((*(f32 *)((char *)(actor) + 0x24)) + frame.view_sp50.value);
+        (*(f32 *)((char *)(actor) + 0x2C)) = (f32) ((*(f32 *)((char *)(actor) + 0x2C)) + frame.view_sp58.value);
+        temp_v1_5 = (*(void **)((char *)(actor) + 0x68));
+        (*(f32 *)((char *)(actor) + 0x40)) = (f32) ((*(f32 *)((char *)(actor) + 0x40)) + frame.view_sp64.value);
         temp_v1_6 = D_80108F84;
         (*(u16 *)((char *)(temp_v1_5) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_5) + (u32)0xC)) | 8);
         if (temp_v1_6 != NULL) {
-            (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = (u8) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
+            (*(u8 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0x11)) = (u8) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
         }
     } else {
-        temp_v1_5 = (*(void **)((char *)(arg1) + 0x68));
+        temp_v1_5 = (*(void **)((char *)(actor) + 0x68));
         (*(u16 *)((char *)(temp_v1_5) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_5) + 0xC)) & 0xFFF7);
     }
-    if ((D_80103F00 != 0) && (m2c_initial_frame.view_sp44.value > (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8))) && (func_80045CF8(4) == 0)) {
-        func_8008548C(&m2c_initial_frame.view_sp40.value);
-        func_800617D8((*(s32 *)((char *)(arg1) + 0x20)), &m2c_initial_frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
-        (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = 5U;
+    if ((D_80103F00 != 0) && (frame.view_sp44.value > (*(f32 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 8))) && (func_80045CF8(4) == 0)) {
+        func_8008548C(&frame.view_sp40.value);
+        func_800617D8((*(s32 *)((char *)(actor) + 0x20)), &frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
+        (*(u8 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0x11)) = 5U;
     }
-    temp_v1_7 = ((__repair_field_88 *)temp_s2)->value & 0xFBFFFFFF;
-    ((__repair_field_88 *)temp_s2)->value = temp_v1_7;
+    temp_v1_7 = ((__repair_field_88 *)motion)->value & 0xFBFFFFFF;
+    ((__repair_field_88 *)motion)->value = temp_v1_7;
     if (D_80108788 != 0) {
-        ((__repair_field_88 *)temp_s2)->value = (s32) (temp_v1_7 | 0x04000000);
+        ((__repair_field_88 *)motion)->value = (s32) (temp_v1_7 | 0x04000000);
     }
     if ((D_80108F84 != NULL) && (((u32) (*(u32 *)((char *)(D_80108F84) + 0x5C)) >> 0x11) & 2)) {
-        ((__repair_field_88 *)temp_s2)->value = (s32) (((__repair_field_88 *)temp_s2)->value | 0x04000000);
+        ((__repair_field_88 *)motion)->value = (s32) (((__repair_field_88 *)motion)->value | 0x04000000);
     }
 }

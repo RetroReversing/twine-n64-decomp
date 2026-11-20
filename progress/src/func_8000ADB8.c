@@ -18,7 +18,7 @@ M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK osViSetEvent(M2C_UNK *, M2C_UNK, M2C_UNK);  /* extern */
 extern M2C_UNK (*D_800B2594)();
 extern u8 D_800E0710;
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern M2C_UNK D_80108948;
 extern M2C_UNK D_80109C98;
 extern M2C_UNK D_80109E6C;
@@ -30,7 +30,7 @@ void func_8000ADB8(void) {
     s32 var_s1;
 
     var_s1 = 0;
-    temp_s2 = D_80108400 != 0;
+    temp_s2 = gExpansionPakPresent != 0;
     osCreateMesgQueue(&D_80108948, &D_80109E6C, 1);
     osViSetEvent(&D_80108948, 0, 1);
     osCreateMesgQueue(&D_80109C98, &D_80112FD8, 1);

@@ -10,7 +10,7 @@ typedef struct TwineMover76B30 {
 } TwineMover76B30;
 
 s32 func_80002BD0(void *, s32);
-f32 func_80045540(void *, void *);
+f32 Vec3_DistanceSq(void *, void *);
 s32 func_80045CF8(s32);
 s32 func_80077960(void *, s32);
 s32 func_80077A94(void *);
@@ -52,7 +52,7 @@ block5:
         case 12:
             break;
         case 1:
-            dist = func_80045540(s2 + 0x50, arg0->pos);
+            dist = Vec3_DistanceSq(s2 + 0x50, arg0->pos);
             if (dist < 5.0f) {
                 var_s0 = 0x14D;
             } else {

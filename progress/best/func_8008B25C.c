@@ -8,7 +8,7 @@ s32 func_8008E374();                            /* extern */
 s32 func_800923D0();                            /* extern */
 s32 func_80093268();                            /* extern */
 s32 func_80093410();                            /* extern */
-s32 func_80094F10();                            /* extern */
+s32 UpdateSlotList();                            /* extern */
 s32 func_8009F640();                                /* extern */
 s32 func_8009F6B0(s32);                         /* extern */
 s32 func_800A0220(s16 *, s32, u16);             /* extern */
@@ -72,7 +72,7 @@ void func_8008B25C(void) {
     s32 temp_v0_8;
     s32 var_s1;
     s32 var_s3;
-    s32 var_v0_2;
+    unsigned int var_v0_2;
     s32 var_v0_4;
     int var_v0_5;
     u16 *temp_a0_2;
@@ -84,8 +84,8 @@ void func_8008B25C(void) {
     u16 temp_v0_6;
     u16 var_s0;
     register u16 var_s0_2;
-    u16 var_v0;
-    unsigned long temp_s2;
+    register u16 var_v0;
+    u32 temp_s2;
     u32 var_v0_3;
     register void *var_v1;
 
@@ -101,7 +101,7 @@ void func_8008B25C(void) {
     temp_s4 = var_v0 - 1;
     func_8009F6B0(temp_a0);
     if (D_800CF540 != 0) {
-        func_80094F10();
+        UpdateSlotList();
     }
     if (D_800E4268 != 0xFFFF) {
         if (D_800E4214 != 0) {
@@ -149,8 +149,8 @@ void func_8008B25C(void) {
                             var_v0_2 = temp_v0_2 & 0xFFFF;
                             if (temp_v0_3 == 0) {
                                 D_800E41E8 = D_800E41EC;
-                                func_8008E374();
                                 func_800923D0();
+                                func_8008E374();
                                 goto block_23;
                             }
                         } else {

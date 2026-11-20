@@ -1,5 +1,5 @@
 s32 func_8008C1B0(s32);
-s32 func_80095EC4(s32, s32);
+s32 audio_slot_reset(s32, s32);
 s32 func_800982B4(u32);
 void func_8009876C(void *);
 s32 func_800988D8(void *);
@@ -36,7 +36,7 @@ s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
             if (var_v0 != 0) {
                 var_s4 = arg2 & 0x7F;
                 *(s8 *)(temp_s0 + 0x4C) = 1;
-                func_80095EC4(temp_v0_2 & 0xFF, 0xFF);
+                audio_slot_reset(temp_v0_2 & 0xFF, 0xFF);
                 *(u8 *)(temp_s0 + 0x54) = temp_v0_2;
                 *(u8 *)(temp_s0 + 0x55) = 0xFF;
             } else {

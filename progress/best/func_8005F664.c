@@ -3,14 +3,14 @@
 void *func_80016410(s32, s32, s32);     /* extern */
 s32 func_80016990(void *, s32);                 /* extern */
 s32 func_80044670(void *, s16, s16);            /* extern */
-f32 func_80045540(void *, void *);                  /* extern */
+f32 Vec3_DistanceSq(void *, void *);                  /* extern */
 s32 func_800462C4(void *, f32, f32, f32);       /* extern */
 s32 func_8004E6E4(s32 *, s32, void *, void *, s32 *, f32, s32, s32, s32); /* extern */
 s32 func_80082A70(f32, f32);                    /* extern */
 extern s32 D_800C469C;
 extern s32 D_800C4706;
 extern s32 D_800C4708;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern s32 func_8004D910;
 
 void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
@@ -41,7 +41,7 @@ void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
         }
         var_v0 = var_s3 * 8;
         if (*((s16 *)((s8 *)&D_800C4706 + ((((var_v0 - var_s3) * 4) + var_s3) * 8))) != -1) {
-            if ((D_80102ED8 != 0) & (var_s3 == 0x26)) return NULL;
+            if ((gUpdateGateWord != 0) & (var_s3 == 0x26)) return NULL;
             {
                 temp_v0 = func_80016410(0x34, 0, 0);
                 if (temp_v0 != NULL) {
@@ -59,7 +59,7 @@ void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
                     func_80082A70(temp_fs1, temp_fs0);
                     { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x30) = *(Vec *)((char *)arg0 + 0x24); }
                     temp_s0 = arg0 + 0x24;
-                    if ((func_8004E6E4(&func_8004D910, (*(s32 *)((char *)(arg0) + 0x20)), temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78, sp28, func_80045540(temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78), 0, 1, 0) << 0x18) != 0) {
+                    if ((func_8004E6E4(&func_8004D910, (*(s32 *)((char *)(arg0) + 0x20)), temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78, sp28, Vec3_DistanceSq(temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78), 0, 1, 0) << 0x18) != 0) {
                         { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x24) = *(Vec *)((char *)arg0 + 0x24); }
                         (*(s32 *)((char *)(temp_s2) + 0xC)) = 0;
                     } else {

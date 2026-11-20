@@ -20,7 +20,7 @@ typedef struct {
     u8 pad104[0x3e];
     s8 state;
 } SpriteState;
-extern SpriteState *volatile D_80109688;
+extern SpriteState *volatile gAimAxisTable;
 extern s32 D_8010A4E4;
 
 void func_800067C8(void) {
@@ -44,8 +44,8 @@ void func_800067C8(void) {
     func_80044FF0();
     func_8004505C();
     create_centered_sprite(0xF, 0);
-    D_80109688->flags &= ~0x40;
-    D_80109688->state = 0;
+    gAimAxisTable->flags &= ~0x40;
+    gAimAxisTable->state = 0;
     D_801002AE = 0;
     D_801002AF = 0;
     D_801002B0 = 0;

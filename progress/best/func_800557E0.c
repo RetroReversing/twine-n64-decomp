@@ -19,7 +19,9 @@ M2C_UNK func_800556DC(void *, void *, f32 *, void *); /* extern */
 M2C_UNK func_80073304(void *, void *, void *);      /* extern */
 extern u16 D_800B35B0;
 
-void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
+void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
+int __repair_literal;
+
     union {
         unsigned char bytes[72];
         struct { f32 value; } view_sp18;
@@ -71,7 +73,9 @@ loop_3:
               if (temp_s2 != NULL) {
                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
                     var_s1 = 0;
-                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
+__repair_literal = 0;
+
+                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > __repair_literal) {
                         var_s3 = 0;
 loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);

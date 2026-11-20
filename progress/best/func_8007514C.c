@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800312F4();
-f32 func_80045540();
+f32 Vec3_DistanceSq();
 s32 func_800707B4();
 s32 func_80074C34();
 extern s32 D_800C7EE4;
@@ -55,7 +55,7 @@ case 0: case 3: goto block_12;
 block_12:
                     var_v0 = var_s0;
 block_13:
-                    if ((var_s0 != 0) || (func_80045540(arg0 + 0x24, D_8010A500 + 0x24) < threshold)) {
+                    if ((var_s0 != 0) || (Vec3_DistanceSq(arg0 + 0x24, D_8010A500 + 0x24) < threshold)) {
                         temp_v0 = *(D_80115091 + (M2C_FIELD(temp_s2, s8 *, 0x182) * 0xA0));
                         switch (temp_v0) {          /* switch 2 */
                         case 2: case 4: case 6:

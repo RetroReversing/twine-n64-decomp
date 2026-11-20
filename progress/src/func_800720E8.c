@@ -30,8 +30,8 @@ extern char D_8010019C[];
 extern char D_801001A0[];
 extern u8 D_801002A0;
 extern s32 D_801002B8;
-extern s32 D_80102ED8;
-extern char D_80109688[];
+extern s32 gUpdateGateWord;
+extern char gAimAxisTable[];
 
 void func_800720E8(void *arg0, s32 arg1) {
     s32 temp_fv0;
@@ -47,9 +47,9 @@ void func_800720E8(void *arg0, s32 arg1) {
     if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x200) {
         M2C_FIELD(arg0, u16 *, 0x7C) = 0xA;
     }
-    if (D_80102ED8 == 0) {
+    if (gUpdateGateWord == 0) {
         if (M2C_FIELD(arg0, u16 *, 0x78) == 0x4D) {
-            temp_v0 = *((s32 *)((s8 *)D_80109688 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 4)));
+            temp_v0 = *((s32 *)((s8 *)gAimAxisTable + (M2C_FIELD(temp_s0, s8 *, 0x182) * 4)));
             temp_fv1 = (f64) M2C_FIELD(temp_v0, f32 *, 0x12C);
             if (D_800D4818 < temp_fv1) {
                 M2C_FIELD(temp_v0, f32 *, 0x12C) = (f32) (temp_fv1 * D_800D4820);

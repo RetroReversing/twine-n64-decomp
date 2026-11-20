@@ -5,14 +5,14 @@ typedef struct { u8 pad[0xA8]; Tgt *tgt; } Own;
 typedef struct { u8 pad[0x68]; Sub *sub; Own *own; } Obj;
 void func_80070CA4();
 extern Ent D_800C469C[];
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 
 void func_80067294(Obj *o, s32 arg1) {
     Own *own = o->own;
     s32 mode;
 
     mode = 0x18;
-    if (D_80102ED8 != 0) {
+    if (gUpdateGateWord != 0) {
         mode = 0x21;
     }
     switch (o->sub->kind) {

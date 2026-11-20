@@ -48,7 +48,7 @@ extern void osViSetYScale(f32);
 extern volatile s8 D_800AE4B0;
 extern s32 D_800D93B0, D_80112E80;
 
-void func_800004BC(void)
+void mainThreadEntry(void)
 {
     osCreateMesgQueue(&D_80112E80, &D_800D93B0, 1);
     osSetEventMesg(14, &D_80112E80, 0);

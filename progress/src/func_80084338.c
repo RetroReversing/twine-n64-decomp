@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A8B4(s32, f32, M2C_UNK);               /* extern */
 M2C_UNK func_8000AABC(s32, s32, s32, M2C_UNK);      /* extern */
 f32 func_80084270(s32, u16 *);                      /* extern */
-extern u32 D_80109688[];
+extern u32 gAimAxisTable[];
 extern s32 D_8010A500;
 
 s32 func_80084338(s32 arg0, s32 arg1) {
@@ -29,7 +29,7 @@ s32 func_80084338(s32 arg0, s32 arg1) {
     }
     temp_s0 = func_8000A8B4(temp_s0_2, func_80084270(arg1, &sp10), 0xFF);
     if (arg1 != (D_8010A500 + 0x24)) {
-        func_8000AABC(temp_s0, D_80109688[sp10], arg1, 0);
+        func_8000AABC(temp_s0, gAimAxisTable[sp10], arg1, 0);
     }
     return temp_s0;
 }

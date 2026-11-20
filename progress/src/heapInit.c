@@ -18,7 +18,7 @@ extern s32 D_800E1A98;
 extern s32 D_80100918;
 extern s32 D_8010D368;
 
-void func_80083BE0(s32 arg0, s32 arg1) {
+void heapInit(s32 arg0, s32 arg1) {
     s32 temp_a0;
     s32 temp_a2;
 

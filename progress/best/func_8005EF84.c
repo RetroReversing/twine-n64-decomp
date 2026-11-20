@@ -1,3 +1,4 @@
+static __inline__ s16 __repair_inline(s16 a) { return a; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_8000A894();
@@ -17,10 +18,11 @@ extern char D_800C46A1[];
 extern char D_800C7C14[];
 extern char D_800C7C16[];
 extern u8 D_801002A0;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern s32 D_8010302C;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 
+typedef struct { unsigned char pad[108]; void * value; } __repair_field_6C;
 s32 func_8005EF84(void *arg0, void *arg1) {
     u8 sp30[0x80];
     u8 spB0[0x98];
@@ -33,6 +35,7 @@ s32 func_8005EF84(void *arg0, void *arg1) {
     f32 temp_fv1_3;
     s16 temp_v0_2;
     s16 temp_v0_4;
+s16 __repair_result_temp_v0_4;
     
     s32 temp_v0_3;
     s32 var_a0;
@@ -65,9 +68,9 @@ s32 __repair_phase_var_v0;
     void *temp_v1_6;
     void *temp_v1_8;
 
-    temp_s3 = (*(void **)((char *)(arg1) + 0x6C));
+    temp_s3 = (((__repair_field_6C *)arg1)->value);
     temp_v1 = (*(u16 *)((char *)(temp_s3) + 0x26));
-    temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
+    temp_s1 = (((__repair_field_6C *)arg0)->value);
     switch (temp_v1) {                              /* switch 1; irregular */
     case 2:                                         /* switch 1 */
         temp_a1 = (*(u16 *)((char *)(temp_s3) + 0x28));
@@ -77,7 +80,7 @@ s32 __repair_phase_var_v0;
         if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * 2))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_a1 * 4))) {
             var_v0 = 0;
             if ((func_8005EF30(arg0) << 0x18) != 0) {
-                if (D_80102ED8 != 0) {
+                if (gUpdateGateWord != 0) {
                     var_v0_2 = func_80087100(arg0, (*(u16 *)((char *)(temp_s3) + 0x28)) | 0x9000);
                     var_a0 = 0xA2;
                 
@@ -87,7 +90,7 @@ s32 __repair_phase_var_v0;
                 
                 sprintf(sp30, "%s %s", var_v0_2, func_80087100(var_a0));}
                 D_8010302C += 1;
-                func_80073AF8(0, *(s32 *)(D_80109688 + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+                func_80073AF8(0, *(s32 *)(gAimAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                 temp_v1_2 = (*(u16 *)((char *)(temp_s3) + 0x28));
                 (*(u16 *)((char *)(temp_v1_3) + 0x1BC)) += *(s16 *)(D_800C7C14 + (temp_v1_2 * 4));
                 temp_v1_3 = temp_s1 + (temp_v1_2 * 2);
@@ -117,7 +120,7 @@ block_66:
         var_s6 = 0;
         if ((u8) (*(u8 *)((char *)((temp_s1 + (temp_v1_4 * 8))) + 0x1FC)) < (u8) *(D_800C46A1 + temp_v0_3)) {
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(D_80109688 + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), func_80087100((*(u16 *)((char *)(temp_s3) + 0x28)) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gAimAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), func_80087100((*(u16 *)((char *)(temp_s3) + 0x28)) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_5 = temp_s1 + ((*(u16 *)((char *)(temp_s3) + 0x28)) * 8);
             (*(u8 *)((char *)(temp_v1_5) + 0x1FC)) += 1;
             var_s6 = 1;
@@ -131,7 +134,7 @@ block_66:
         }
         __repair_phase_var_v0 = 1;
         if ((*(s16 *)((char *)((temp_s1 + (temp_s2 * 2))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_s2 * 4))) {
-            if (D_80102ED8 != 0) {
+            if (gUpdateGateWord != 0) {
                 var_v0_3 = func_80087100(temp_s2 | 0x9000, D_800C469C);
                 var_a0_3 = 0x16A;
             
@@ -141,7 +144,7 @@ block_66:
             
             sprintf(spB0, "%s %s", var_v0_3, func_80087100(var_a0_3));}
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(D_80109688 + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), spB0, -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gAimAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), spB0, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_2 = 0xD8;
             if ((*(u16 *)((char *)(arg0) + 0x78)) == 3) {
 block_26:
@@ -164,9 +167,9 @@ var_v1 = temp_s2 * 2;
                 (*(u16 *)((char *)(temp_v1_6) + 0x1BC)) += var_s0;
             }
             temp_a1_2 = temp_s1 + (temp_s2 * 2);
-            temp_v0_4 = *(s16 *)(D_800C7C16 + (temp_s2 * 4));
-            if (temp_v0_4 < (*(s16 *)((char *)(temp_a1_2) + 0x1BC))) {
-                (*(s16 *)((char *)(temp_a1_2) + 0x1BC)) = temp_v0_4;
+            __repair_result_temp_v0_4 = __repair_inline(*(s16 *)(D_800C7C16 + (temp_s2 * 4)));
+            if (__repair_result_temp_v0_4 < (*(s16 *)((char *)(temp_a1_2) + 0x1BC))) {
+                (*(s16 *)((char *)(temp_a1_2) + 0x1BC)) = __repair_result_temp_v0_4;
                 return 0;
             }
             temp_v0_5 = (*(s8 *)((char *)(temp_s5) + 4));
@@ -195,7 +198,7 @@ var_v1 = temp_s2 * 2;
         return __repair_phase_var_v0;
     case 1:                                         /* switch 1 */
         func_8005E350(arg0, (*(u16 *)((char *)(temp_s3) + 0x28)), 1);
-        if ((D_80102ED8 != 0) && (D_801002A0 == 8)) {
+        if ((gUpdateGateWord != 0) && (D_801002A0 == 8)) {
             temp_v1_9 = (*(u16 *)((char *)(temp_s3) + 0x28));
             switch (temp_v1_9) {                    /* switch 2; irregular */
             case 23:                                /* switch 2 */

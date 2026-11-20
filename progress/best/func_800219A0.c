@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80007160();                            /* extern */
 M2C_UNK func_80026450();                            /* extern */
 M2C_UNK func_8007560C();                            /* extern */
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern s8 D_8010A4C0;
 extern M2C_UNK D_8010A4E4;
 extern s32 D_8010A4E8;
@@ -32,7 +32,7 @@ s32 func_800219A0(s8 arg0) {
 
     var_s0 = 1;
     __base_D_8010A4C0 = &D_8010A4C0;
-    t = D_80108400;
+    t = gExpansionPakPresent;
     (*__base_D_8010A4C0) = arg0;
     if ((t == 0) && (arg0 & 0xFF)) {
         (*__base_D_8010A4C0) = 0;

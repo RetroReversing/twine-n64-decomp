@@ -90,27 +90,27 @@ typedef struct {
 /* Device manager thread: takes PI requests off the command queue. 64DD (type 2) block
    transfers run here, with retries and the access-queue handshake; everything else goes
    through the dma/edma hooks of the device manager. Replies go to each request's queue. */
-void __osDevMgrMain(void* args) {
-    OSIoMesg* iomsg;
-    OSMesg evt;
-    OSMesg dummy;
-    s32 ret;
-    OSDevMgr* dm;
+/* Device manager thread: services PI requests from the command queue, running 64DD block transfers with retries and DMA/EDMA requests through the device hooks. */ void __osDevMgrMain(void* arg) {
+    OSIoMesg* io_msg;
+    OSMesg event_msg;
+    OSMesg acs_msg;
+    s32 result;
+    OSDevMgr* devmgr;
     s32 retry_read = 0;
 
-    dm = (OSDevMgr*)args;
-    iomsg = 0;
-    ret = 0;
+    devmgr = (OSDevMgr*)arg;
+    io_msg = 0;
+    result = 0;
 
     while (1) {
-        osRecvMesg(dm->cmdQueue, (OSMesg)&iomsg, 1);
+        osRecvMesg(devmgr->cmdQueue, (OSMesg)&io_msg, 1);
 
-        if (iomsg->piHandle != 0 && iomsg->piHandle->type == 2 &&
-            (iomsg->piHandle->transferInfo.cmdType == 0 ||
-             iomsg->piHandle->transferInfo.cmdType == 1)) {
+        if (io_msg->piHandle != 0 && io_msg->piHandle->type == 2 &&
+            (io_msg->piHandle->transferInfo.cmdType == 0 ||
+             io_msg->piHandle->transferInfo.cmdType == 1)) {
             __OSBlockInfo* blockInfo;
             __OSTranxInfo* info;
-            info = &iomsg->piHandle->transferInfo;
+            info = &io_msg->piHandle->transferInfo;
             blockInfo = &info->block[info->blockNum];
             info->sectorNum = -1;
 
@@ -118,29 +118,29 @@ void __osDevMgrMain(void* args) {
                 blockInfo->dramAddr = (void*)((u32)blockInfo->dramAddr - blockInfo->sectorSize);
             }
 
-            if (info->transferMode == 2 && iomsg->piHandle->transferInfo.cmdType == 0) {
+            if (info->transferMode == 2 && io_msg->piHandle->transferInfo.cmdType == 0) {
                 retry_read = 1;
             } else {
                 retry_read = 0;
             }
 
-            osRecvMesg(dm->acsQueue, &dummy, 1);
+            osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
             __osResetGlobalIntMask(LEO_INTR_MASK);
-            func_800A7EC0(iomsg->piHandle, LEO_BM_CTL_REG, (info->bmCtlShadow | LEO_BM_CTL_FAST));
+            func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, (info->bmCtlShadow | LEO_BM_CTL_FAST));
 
         readblock1:
-            osRecvMesg(dm->evtQueue, &evt, 1);
-            info = &iomsg->piHandle->transferInfo;
+            osRecvMesg(devmgr->evtQueue, &event_msg, 1);
+            info = &io_msg->piHandle->transferInfo;
             blockInfo = &info->block[info->blockNum];
 
             if (blockInfo->errStatus == LEO_ERR_SECTOR_SKIP) {
                 u32 piStat;
-                func_800A7EC0(iomsg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_RESET);
-                func_800A7EC0(iomsg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow);
-                func_800A7D50(iomsg->piHandle, LEO_STATUS_REG, &piStat);
+                func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_RESET);
+                func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow);
+                func_800A7D50(io_msg->piHandle, LEO_STATUS_REG, &piStat);
 
                 if (piStat & LEO_BM_STAT_BUSY) {
-                    func_800A7EC0(iomsg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_STOP);
+                    func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_STOP);
                 }
 
                 blockInfo->errStatus = 4;
@@ -148,48 +148,48 @@ void __osDevMgrMain(void* args) {
                 __osSetGlobalIntMask(LEO_INTR_MASK | 0x00000800);
             }
 
-            osSendMesg(iomsg->hdr.retQueue, iomsg, 0);
+            osSendMesg(io_msg->hdr.retQueue, io_msg, 0);
 
-            if (retry_read == 1 && iomsg->piHandle->transferInfo.block[0].errStatus == 0) {
+            if (retry_read == 1 && io_msg->piHandle->transferInfo.block[0].errStatus == 0) {
                 retry_read = 0;
                 goto readblock1;
             }
 
-            osSendMesg(dm->acsQueue, 0, 0);
-            if (iomsg->piHandle->transferInfo.blockNum == 1) {
+            osSendMesg(devmgr->acsQueue, 0, 0);
+            if (io_msg->piHandle->transferInfo.blockNum == 1) {
                 osYieldThread();
             }
         } else {
-            switch (iomsg->hdr.type) {
+            switch (io_msg->hdr.type) {
                 case OS_MESG_TYPE_DMAREAD:
-                    osRecvMesg(dm->acsQueue, &dummy, 1);
-                    ret = dm->dma(0, iomsg->devAddr, iomsg->dramAddr, iomsg->size);
+                    osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
+                    result = devmgr->dma(0, io_msg->devAddr, io_msg->dramAddr, io_msg->size);
                     break;
                 case OS_MESG_TYPE_DMAWRITE:
-                    osRecvMesg(dm->acsQueue, &dummy, 1);
-                    ret = dm->dma(1, iomsg->devAddr, iomsg->dramAddr, iomsg->size);
+                    osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
+                    result = devmgr->dma(1, io_msg->devAddr, io_msg->dramAddr, io_msg->size);
                     break;
                 case OS_MESG_TYPE_EDMAREAD:
-                    osRecvMesg(dm->acsQueue, &dummy, 1);
-                    ret = dm->edma(iomsg->piHandle, 0, iomsg->devAddr, iomsg->dramAddr, iomsg->size);
+                    osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
+                    result = devmgr->edma(io_msg->piHandle, 0, io_msg->devAddr, io_msg->dramAddr, io_msg->size);
                     break;
                 case OS_MESG_TYPE_EDMAWRITE:
-                    osRecvMesg(dm->acsQueue, &dummy, 1);
-                    ret = dm->edma(iomsg->piHandle, 1, iomsg->devAddr, iomsg->dramAddr, iomsg->size);
+                    osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
+                    result = devmgr->edma(io_msg->piHandle, 1, io_msg->devAddr, io_msg->dramAddr, io_msg->size);
                     break;
                 case OS_MESG_TYPE_LOOPBACK:
-                    osSendMesg(iomsg->hdr.retQueue, iomsg, 0);
-                    ret = -1;
+                    osSendMesg(io_msg->hdr.retQueue, io_msg, 0);
+                    result = -1;
                     break;
                 default:
-                    ret = -1;
+                    result = -1;
                     break;
             }
 
-            if (ret == 0) {
-                osRecvMesg(dm->evtQueue, &evt, 1);
-                osSendMesg(iomsg->hdr.retQueue, iomsg, 0);
-                osSendMesg(dm->acsQueue, 0, 0);
+            if (result == 0) {
+                osRecvMesg(devmgr->evtQueue, &event_msg, 1);
+                osSendMesg(io_msg->hdr.retQueue, io_msg, 0);
+                osSendMesg(devmgr->acsQueue, 0, 0);
             }
         }
     }

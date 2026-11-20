@@ -8,7 +8,7 @@ extern s16 D_800B5B28;
 extern s8 D_800BD690;
 extern char D_800BD8EC[];
 extern char D_800D2A74[];
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern void *D_80109BB0;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
@@ -44,7 +44,7 @@ s32 __repair_phase_var_a0;
         if (D_8010A4FE == 0) var_a0 = 0x1A;
         func_80026004(temp_s1, "%s", func_80087100(var_a0));
         temp_s2 = var_s3 - 0x28;
-        if (D_80108400 != 0) {
+        if (gExpansionPakPresent != 0) {
             temp_s0 = temp_s4 - 0x28;
             (*(s16 *)((char *)(var_s3) + -0x28)) = 3;
             func_80025E9C(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);

@@ -9,7 +9,7 @@ extern void *D_800B2710;
 extern s8 D_800B2715;
 extern s8 D_800E0742;
 extern u8 D_800E0746;
-extern void *D_80109688;
+extern void *gAimAxisTable;
 extern void *D_80109690;
 extern u8 D_8010A4C1;
 extern u8 D_8010A4C2;
@@ -36,7 +36,7 @@ void func_8000CA3C(void) {
         *p |= 1;
     }
     D_8010A4C2 |= 1;
-    *(s32 *)((char *)D_80109688 + 0x100) &= ~0x100;
+    *(s32 *)((char *)gAimAxisTable + 0x100) &= ~0x100;
     func_80001D80(0);
     D_800B2710 = NULL;
     if (temp_s1 == 0x26 && D_8010A500) {

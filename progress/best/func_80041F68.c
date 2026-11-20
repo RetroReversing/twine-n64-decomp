@@ -12,8 +12,8 @@ extern s32 D_54D910;
 extern u8 D_8010A4FC;
 
 void func_80041F68(void *arg0) {
-    s32 sp14;
     u16 *sp1C;
+    s32 sp14;
     u16 *temp_fp;
     u16 *temp_s4;
     u16 *var_s2;

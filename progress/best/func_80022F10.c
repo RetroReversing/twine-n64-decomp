@@ -41,14 +41,14 @@ void func_80022F10(void *arg0, s32 arg1) {
                     temp_v1 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1) {              /* switch 1; irregular */
                     case 0x0:                       /* switch 1 */
-                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         global_ptr = D_80109BB0;
+                        var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         var_v0 = D_800BD65C;
                         break;
                     case 0x1:                       /* switch 1 */
                         global_ptr = D_80109BB0;
-                        var_v0 = D_800BD650;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
+                        var_v0 = D_800BD650;
                         break;
                     default:                        /* switch 1 */
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));

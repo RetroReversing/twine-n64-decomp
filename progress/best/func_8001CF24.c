@@ -44,8 +44,7 @@ void func_8001CF24(void *arg0, s32 arg1, s32 arg2) { /* baseline */
         M2C_FIELD(temp_v1, u16 *, 0x20) = (u16) M2C_FIELD(arg0, u16 *, 4);
         M2C_FIELD(M2C_FIELD(temp_s1, void **, 0), u16 *, 0x22) = (u16) M2C_FIELD(arg0, u16 *, 6);
         temp_a1 = M2C_FIELD(temp_s1, void **, 0);
-        palette = (arg1 & 0xFF) ? 3 : 7;
-        M2C_FIELD(temp_a1, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a1, s32 *, 0x28) & ~0xFC) | (palette * 4));
+        M2C_FIELD(temp_a1, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a1, s32 *, 0x28) & ~0xFC) | ((palette = (arg1 & 0xFF) ? 3 : 7) * 4));
         func_80022E88(3, temp_a1);
         func_80022E5C(M2C_FIELD(D_80109BB0, u8 *, 0x30));
         if (arg2 & 0xFF) {

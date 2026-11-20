@@ -2,7 +2,7 @@
 
 s32 func_8000A270();
 s32 func_800158A4();
-f32 func_80045540();
+f32 Vec3_DistanceSq();
 s32 func_80045764();
 s32 func_80046384(void *, f32, f32, f32);
 s32 func_80055B5C();
@@ -10,7 +10,7 @@ s32 func_800589FC();
 s32 func_80064370();
 s32 func_800643EC();
 s32 func_80067A7C();
-s32 func_80067F40();
+s32 UpdateActorTargetEffect();
 f32 func_800829A0(f32);
 f32 func_800829C8(f32);
 s32 func_80083A6C();
@@ -18,9 +18,9 @@ extern char D_800C46FC[];
 extern f32 D_800C683C;
 extern s16 D_800C6858;
 extern u16 D_800C68BA;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern void *D_80108788;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
 extern char D_80109AA0[];
@@ -65,7 +65,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
 
     temp_s2 = (*(void **)((char *)(arg0) + 0x6C));
     temp_s7 = (*(s8 *)((char *)(temp_s2) + 0x182));
-    __base_D_80109688 = D_80109688;
+    __base_D_80109688 = gAimAxisTable;
     temp_s4 = (temp_s7 * 4) + __base_D_80109688;
     sp28[0] = (*(f32 *)((char *)(*temp_s4) + 0x34));
     sp28[2] = 0;
@@ -119,7 +119,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
         }
         if ((func_800158A4(sp48, sp58, (*(s32 *)((char *)(*temp_s4) + 0xF4)), sp68, 0, 0, (*(s32 *)((char *)(temp_s2) + 0)), 0, 0) << 0x18) == 0) {
             if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) == 0x21) && (D_80108788 != NULL) && ((*(s16 *)((char *)(D_80108788) + 0x7A)) == 0x72)) {
-                if (func_80045540(sp48, sp68) < D_800C683C) {
+                if (Vec3_DistanceSq(sp48, sp68) < D_800C683C) {
                     temp_a0_2 = (*(s32 *)((char *)(temp_s2) + 8));
                     if (temp_a0_2 != -1) {
                         func_8000A270(temp_a0_2);
@@ -130,7 +130,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
                     func_80067A7C(temp_s2, (*(void **)((char *)(temp_s2) + 0xA8)), D_800C68BA);
                 }
             }
-            func_80067F40(arg0, sp68);
+            UpdateActorTargetEffect(arg0, sp68);
             sp68[0] -= sp48[0];
             sp68[1] -= sp48[1];
             sp68[2] -= sp48[2];
@@ -174,9 +174,9 @@ void func_8006832C(void *arg0, f32 *arg1) {
                     var_s0_2 += 1;
                 } while (var_s0_2 < (u8) (*(u8 *)((char *)(var_s1) + 0x14)));
             }
-            func_80067F40(arg0, sp58);
+            UpdateActorTargetEffect(arg0, sp58);
         }
-        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (D_80102ED8 == 0)) {
+        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gUpdateGateWord == 0)) {
             func_800589FC(arg0, (*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 4)) + ((*(u16 *)((char *)(var_s1) + 0x90)) * 0xC));
         }
         (*(f32 *)((char *)(temp_s2) + 0x70)) -= (*(f32 *)((char *)(var_s1) + 0x88));

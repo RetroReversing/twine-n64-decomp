@@ -33,8 +33,8 @@ f32 func_8006F358(s32 arg0, void *arg1) {
         }
         r = func_8004AD30(a0, &v1.x, &out.i, 4.0f, 0, 0, 0, 0xE);
         if ((r << 24) != 0) {
-            v2 = v1;
             t = func_80082A70(out.f - *(f32 *)((char *)s3 + 0xE4), 1.5f);
+            v2 = v1;
             v2.x += func_800829A0(*(f32 *)((char *)arg1 + 0x40));
             v2.y += func_8008292C(t);
             v2.z += func_800829C8(*(f32 *)((char *)arg1 + 0x40));

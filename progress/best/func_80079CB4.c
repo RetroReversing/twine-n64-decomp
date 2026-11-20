@@ -26,7 +26,7 @@ extern s32 func_80076CE4;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15) {
-    register s32 __repair_store_0;
+    s32 __repair_store_0;
     s32 var_s2;
     s32 __repair_store_2;
     s32 var_a0;
@@ -296,13 +296,14 @@ block_76:
                     break;
                 case 32:                            /* switch 1 */
                     var_v0_6 = 0x20;
-block_66:
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = var_v0_6;
                     var_s2 = 0x14D;
                     break;
                 case 33:                            /* switch 1 */
                     var_v0_6 = 0x21;
-                    goto block_66;
+                    (*(u8 *)((char *)(temp_s0) + 0x82)) = var_v0_6;
+                    var_s2 = 0x14D;
+                    break;
                 case 40:                            /* switch 1 */
                     __repair_phase_var_a1 = arg3 & 0xFF;
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = (int)var_v0_4;
@@ -331,8 +332,8 @@ block_66:
                 (*(s32 *)((char *)(var_s1) + 0x34)) = (s32) (*(s32 *)((char *)(var_s1) + 0x28));
                 (*(s32 *)((char *)(var_s1) + 0x3C)) = (s32) (*(s32 *)((char *)(arg1) + 0));
                 (*(s32 *)((char *)(var_s1) + 0x38)) = (s32) (*(s32 *)((char *)(var_s1) + 0x2C));
-                (*(s32 *)((char *)(var_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg1) + 4));
                 (*(s32 *)((char *)(var_s1) + 0x44)) = (s32) (*(s32 *)((char *)(arg1) + 8));
+                (*(s32 *)((char *)(var_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg1) + 4));
                 (*(s32 *)((char *)(var_s1) + 0x48)) = (s32) (*(s32 *)((char *)(var_s1) + 0x3C));
                 (*(s32 *)((char *)(temp_s0) + 0)) = (s32) (*(s32 *)((char *)(var_s1) + 0x24));
                 (*(s32 *)((char *)(var_s1) + 0x50)) = (s32) (*(s32 *)((char *)(var_s1) + 0x44));

@@ -19,7 +19,7 @@ extern u8 D_801002A4;
 extern s32 D_801002A8;
 extern s32 D_801002B8;
 extern s32 D_801002C4;
-extern u8 D_801002D4;
+extern u8 gPauseFlag;
 extern u8 D_801002D5;
 extern s32 D_801002F4;
 extern u8 D_80102EE8;
@@ -135,7 +135,7 @@ void func_8001BE64(void) {
             var_a0 = 9;
         }
         func_80026004(temp_s4, D_800D2864, func_80087100(var_a0));
-        switch (D_801002D4) {
+        switch (gPauseFlag) {
         case 0: var_v0_4 = func_80087100(0xA); break;
         case 1: var_v0_4 = func_80087100(0x2E2); break;
         case 2: var_v0_4 = func_80087100(0x2E3); break;

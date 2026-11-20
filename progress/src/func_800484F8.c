@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 func_800829EC(f32);                     /* extern */
 extern f32 D_800C0740;
 extern s32 D_801002C0;
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern u8 D_8010A4FD;
 extern u8 D_8010A4FE;
 
@@ -28,7 +28,7 @@ void func_800484F8(void *arg0, f32 arg1) {
     if (temp_s0 != NULL) {
         M2C_FIELD(temp_s0, f32 *, 0x84) = arg1;
         if ((M2C_FIELD(temp_s0, f32 *, 0x78) != 0.0f) && (M2C_FIELD(temp_s0, f32 *, 0x7C) != 0.0f)) {
-            if ((D_80102ED8 == 0) || ((D_801002C0 == 1))) {
+            if ((gUpdateGateWord == 0) || ((D_801002C0 == 1))) {
                 if (D_8010A4FE == 0) {
                     M2C_FIELD(temp_s0, f32 *, 0x80) = 1.3333334f;
                 } else {

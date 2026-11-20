@@ -4,11 +4,11 @@ extern s16 D_800C9D42;
 extern u8 D_800CA310;
 extern u8 D_800CA338;
 extern u8 D_801002AE;
-extern s8 D_80102ED8;
+extern s8 gUpdateGateWord;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
-extern void *D_80109688[];
+extern void *gAimAxisTable[];
 extern void *D_8010A410;
 extern void *D_8010A500;
 extern s8 D_80115319;
@@ -108,9 +108,9 @@ void func_80016FCC(s8 arg0) {
             s1 = 0;
         }
     }
-    p = (void *)D_80109688;
+    p = (void *)gAimAxisTable;
     do {
-        p = D_80109688[s1];
+        p = gAimAxisTable[s1];
         s1 += 1;
         if (p != NULL && *(s32 *)((u8 *)p + 0xFC) == 0) {
             func_8004830C();
@@ -136,7 +136,7 @@ void func_80016FCC(s8 arg0) {
                         } else {
 L71:
                             {
-                                void *t0 = D_80109688[*(s8 *)((u8 *)*(void **)((u8 *)node + 0x18) + 0x6C) + 0x182 - 0x182];
+                                void *t0 = gAimAxisTable[*(s8 *)((u8 *)*(void **)((u8 *)node + 0x18) + 0x6C) + 0x182 - 0x182];
                                 (void)t0;
                             }
                         }
@@ -164,7 +164,7 @@ L71:
             node = p;
         }
     }
-    if (D_80102ED8 != 0 && D_800CA310 != 0) {
+    if (gUpdateGateWord != 0 && D_800CA310 != 0) {
         func_8011E634();
     }
 }

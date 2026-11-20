@@ -34,7 +34,7 @@ extern u8 D_801002A1;
 extern u8 D_801002A2;
 extern u8 D_801002A4;
 extern s32 D_801002A8;
-extern u8 D_801002D4;
+extern u8 gPauseFlag;
 extern u8 D_801002D5;
 extern s32 D_801002EC;
 extern u8 D_801002F0;
@@ -142,7 +142,7 @@ loop_3:
             D_801002A1 = func_8002E98C(&D_800E1310, 1, 1);
             D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
             D_801002A4 = func_8002E98C(&D_800E1310, 1, 8);
-            D_801002D4 = func_8002E98C(&D_800E1310, 1, 4);
+            gPauseFlag = func_8002E98C(&D_800E1310, 1, 4);
             D_801002D5 = func_8002E98C(&D_800E1310, 1, 1);
             D_80117730 = func_8002E98C(&D_800E1310, 4, 0x20);
             func_8002B000(mode + 0x24, 0x1E);

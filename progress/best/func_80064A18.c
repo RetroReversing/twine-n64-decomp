@@ -41,11 +41,11 @@ extern u8 D_801001A0[];
 extern char D_801001A3[];
 extern s32 D_801002B8;
 extern char D_80102CD0[];
-extern s32 D_80102ED8;
+extern s32 gUpdateGateWord;
 extern u8 D_80102EE8;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
-extern char D_80109688[];
+extern char gAimAxisTable[];
 extern char D_8010A500[];
 extern u8 D_80112F6D;
 
@@ -121,7 +121,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     volatile s64 stack_pad;
 
     sp14 = arg2;
-    if ((D_80102ED8 != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == D_80102EE8))) {
+    if ((gUpdateGateWord != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == D_80102EE8))) {
         temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;
@@ -148,7 +148,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(temp_s3) + 0x24)) = 0;
             (*(s32 *)((char *)(temp_s3) + 0x28)) = 0;
             (*(f32 *)((char *)(temp_s3) + 0x9C)) = 3.1415927f;
-            if (D_80102ED8) {
+            if (gUpdateGateWord) {
                 func_8011B278(temp_s3, temp_s1);
             } else {
                 (*(s32 *)((char *)(temp_s3) + 0xB4)) = 0;
@@ -208,7 +208,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(void **)((char *)(temp_s3) + 0x408)) = func_80015F74(temp_s0_2);
             (*(void **)((char *)(temp_s3) + 0x478)) = func_80015F74(__repair_phase_storage.pointer);
             (*(void **)((char *)(temp_s3) + 0x47C)) = func_80015F74(__repair_phase_storage.pointer);
-            if (D_80102ED8 != 0) {
+            if (gUpdateGateWord != 0) {
                 temp_v1 = (*(void **)((char *)(temp_s3) + 0x478));
                 (*(void **)((char *)(temp_s3) + 0x480)) = func_80015F74(temp_s0_2);
                 (*(u16 *)((char *)(temp_v1) + 0x26)) = (u16) ((u16) (*(u16 *)((char *)(temp_v1) + 0x26)) >> 1);
@@ -294,7 +294,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)((*(void **)((char *)(temp_s3) + 0x408))) + 0x10)) = 0;
             func_8007080C(temp_s3);
             func_800649E4(temp_s4);
-            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + D_80109688;
+            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + gAimAxisTable;
             (*(f32 *)((char *)(*temp_v1_17) + 0x4C)) = 1.0f;
             temp_v0_7 = *temp_v1_17;
             temp_fv0 = (*(f32 *)((char *)(arg1) + 0));
@@ -314,7 +314,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(*temp_v1_17) + 0x130)) = 0;
             func_80001D80(0);
             var_fv1 = arg0 & 0xFFFF;
-            if (D_80102ED8) {
+            if (gUpdateGateWord) {
                 __repair_phase_storage.value = func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18)));
                 var_a3 = *(D_801001A3 + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18));
                 var_a1 = __repair_phase_storage.value;
@@ -357,7 +357,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             temp_v1_18 = (*(u8 *)((char *)(temp_v0_10) + 0xE));
             (*(u8 *)((char *)(temp_v0_10) + 0xF)) = temp_v1_18;
             (*(u8 *)((char *)(temp_v0_10) + 0x10)) = temp_v1_18;
-            if (D_80102ED8 == 0) {
+            if (gUpdateGateWord == 0) {
                 temp_a0 = (*(u16 *)((char *)(arg3) + 0x2C));
                 temp_s1_3 = (*(u16 *)((char *)(arg3) + 0x30));
                 temp_s0 = (u16)((*(u16 *)((char *)(arg3) + 0x32)));
@@ -427,7 +427,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                 break;
             }
             (*(s32 *)((char *)(temp_s4) + 0x58)) |= 0x2400;
-            temp_a0_2 = ((s16) arg0 * 4) + D_80109688;
+            temp_a0_2 = ((s16) arg0 * 4) + gAimAxisTable;
             (*(s32 *)((char *)(temp_s4) + 0x5C)) |= 0x600;
             temp_a1_3 = *temp_a0_2;
             (*(s32 *)((char *)(temp_a1_3) + 0x100)) &= ~7;
@@ -440,7 +440,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s8 *)((char *)(temp_s4) + 0x7E)) = 1;
             (*(s32 *)((char *)(temp_s3) + 0x60)) = 0;
             (*(s32 *)((char *)(temp_s3) + 0x64)) = 0;
-            if (D_80102ED8 != 0) {
+            if (gUpdateGateWord != 0) {
                 if ((s16) arg0 < D_801002B8) {
                     (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) *(D_801001A0 + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18));
                 } else {
@@ -453,13 +453,13 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(u8 *)((char *)(temp_s3) + 0x18D)) = 0x80;
             (*(s8 *)((char *)(temp_s3) + 0x18C)) = 0;
             (*(f32 *)((char *)(temp_s3) + 0x68)) = (f32) (*(f32 *)((char *)(temp_s4) + 0x74));
-            if (D_80102ED8 != 0) {
+            if (gUpdateGateWord != 0) {
                 func_8011ACAC(temp_s4, temp_s3, arg0 & 0xFF);
             }
             (*(s8 *)((char *)(temp_s3) + 0x17E)) = 3;
             (*(f32 *)((char *)((*(void **)((char *)(temp_s4) + 0x68))) + 8)) = (f32) ((*(f32 *)((char *)(temp_s4) + 0x28)) - 2.0f);
         }
-        if (D_80102ED8 != 0) {
+        if (gUpdateGateWord != 0) {
             var_fv0 = 0x41200000;
             var_fv1 = 0x41800000;
             goto block_65;

@@ -107,7 +107,7 @@ typedef s32 M2C_UNK32;
 
 void *memset(void *, int, unsigned int);
 extern void *D_80100304;
-extern s16 D_80108400;
+extern s16 gExpansionPakPresent;
 extern u16 D_8010A518;
 
 void func_800081C4(s32 arg0) {
@@ -118,7 +118,7 @@ void func_800081C4(s32 arg0) {
 char __repair_stack_padding[8];
 
     var_s2 = 0x25800;
-    if (D_80108400 != 0) {
+    if (gExpansionPakPresent != 0) {
         var_s2 = 0x4B000;
     }
     var_s0 = 0;
