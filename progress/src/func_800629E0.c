@@ -14,8 +14,8 @@ void func_800629E0(void *arg0,s32 arg1) {
  if(temp_ft0>D_800D42A0)var_a0=0x235;
  if(temp_ft0<D_800D42A8)var_a0=0x233;
  func_8000A830(var_a0,D_80109A58,0xFF);
- temp_v1=func_80045CF8(0x17D)%6;
- switch(temp_v1){
+ temp_v1=func_80045CF8(0x17D);
+ switch(temp_v1%=6){
  case 0:var_s0=0xFF0000;var_s0_2=var_s0|0xFFFF;break;
  default:var_s0_2=-1;break;
  case 2:var_s0_2=0xFF0000FF;break;
