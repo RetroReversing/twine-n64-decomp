@@ -4880,14 +4880,6 @@
   "score_after": 1440
  },
  {
-  "function": "func_80038FA4",
-  "text": "Best 1440 retained. Tried explicit local copies of globals (3615), moving field_18 before field_C (1855), and three local repairs without improvement. Target retains four intermediate display-list pointer stores and schedules constants and loads early; investigate aliasing and original display-list macro structure.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795137660.9739451,
-  "score_before": 1440,
-  "score_after": 1440
- },
- {
   "function": "func_80044968",
   "text": "Current baseline 230. Six independent repairs tried (signed result, named zero, offset expression, const read, base temporary, assignment-at-use); none improved. Diff shows target initializes result in $v0 on delay slot after bltz, then computes table offset in $v1; candidate reverses those registers. Next attempt should restructure into early return for negative index and null entry, then return field directly, aiming for result register $v0 live across lookup. Pointer type warning from current draft indicates D_800C0784 should be declared as pointer table.",
   "by": "codex-gpt-6-luna-11",
@@ -11360,14 +11352,6 @@
   "score_after": 40
  },
  {
-  "function": "func_80038FA4",
-  "text": "Rechecked saved candidate at 1440. Volatile command pointer scored 1675; automatic constant-local, unsigned global, and address-temporary variants all tied 1440. Target loads command constants early and differs in scheduling/registers; reconstruct command emission order and address arithmetic from full assembly.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795177500.333303,
-  "score_before": 1440,
-  "score_after": 1440
- },
- {
   "function": "func_80025F78",
   "text": "Best verified candidate rechecks at score 5 with 35/35 instructions; only mismatch is OR operand ordering (`or $v1,$v0,$a1` target vs `$v1,$a1,$v0` candidate). Reversing C expression operands had no effect. Changing arg1 from u16 to s32 regressed to 210, though it revealed target preserves a3 copy of incoming a1 for later andi; saved-best source should be continued. No other function-specific corrections needed.",
   "by": "codex-gpt-6-luna-13",
@@ -15344,14 +15328,6 @@
   "score_after": 1715
  },
  {
-  "function": "func_80038FA4",
-  "text": "Saved rewrite 7e13e009085392729ba4 at 685: model the four commands as two-word records, stage the 0x74C load, write the four volatile head values after the halfword load and before the final data store. Diagnostic trial 9f4e236017bcfbd760ea of identical C under -G0 -mips3 -mgp32 -mfp32 -O2 (remove per-function -fno-schedule-insns) scores 50, all 49 instructions in target order. Only $a1/$a2 are swapped between index and frame. Reversing declarations, explicit register storage, u32 index, array indexing, splitting the first offset and changing index doubling tied 50; volatile global loads or rescheduling the matrix-base load worsened. Project rejected a flag suggestion because it requires an exact diagnostic match. Continue allocation work under plain O2 and resubmit the profile once exact.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795182335.104426,
-  "score_before": 1440,
-  "score_after": 685
- },
- {
   "function": "create_centered_sprite",
   "text": "Exact match at revision 7162142c1f57d583f586. Three volatile post-call reads at 0x28/0x26/0x29 preserve their order and registers. Split the first read and &= ~0xFC into separate statements to schedule the mask before the dimension arithmetic while leaving the flags write in the jump delay slot. Fields 0x20/0x22 are centered signed coordinates within a 320 \u00d7 240 viewport.",
   "by": "codex-gpt-6.2-sol-8",
@@ -18934,14 +18910,6 @@
   "created_at": 1795184056.928066,
   "score_before": 4790,
   "score_after": 4790
- },
- {
-  "function": "func_80038FA4",
-  "text": "Improved 685\u2192615 under current flags by computing the projection byte offset in a local before acquiring frame; first two command constants now both appear early. No further gain with early matrix load, reversed command constant locals, late projection byte offset, or separate physical bias local. Plain -O2 still gives diagnostic 50, all 49 instructions in order and frame/index in opposite a registers. Same diagnostic score with projection offset local, staged final index, volatile frame fields, -g and -g3. Prioritize finding the register swap under plain -O2.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795184058.059677,
-  "score_before": 685,
-  "score_after": 615
  },
  {
   "function": "func_80045CC4",
@@ -23752,14 +23720,6 @@
   "score_after": 21640
  },
  {
-  "function": "func_80038FA4",
-  "text": "First compile rechecked inherited best at 580. Three subsequent experiments (reordering declarations/statement lifetimes, making globals volatile, and incrementing the command pointer between global pointer updates) scored 925, 1250, and 835; move-on threshold reached 4/4. Best candidate remains inherited 580. Underlying operations and 49-instruction extent agree, with persistent register allocation and instruction-order differences. In particular target preloads projection into v0, modelview into a3, command pointer into a0, index into a1, constant into t0, frame pointer into a2; the inherited source allocates these differently. Try typed command pointer/prototype or restructuring individual command writes to shape register pressure while preserving target's final delayed store.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795187081.599635,
-  "score_before": 580,
-  "score_after": 580
- },
- {
   "function": "func_8009DF60",
   "text": "Rechecked saved best 60625. Reconstructed sp60 as 52 halfwords and spC8/spD0/spD8/spE0 as four-halfword arrays; score tied, frame became 0xb8 versus target 0xf8. Correcting loop end to sp60+52 and volatile sp60 emitted identical instructions. Explicit backedge scored 70665; two-argument bzero 61335; scalar and copy reuse unchanged. Target has 960 instructions versus 751: reconstruct the repeated bit-reading paths and contiguous stack objects, then compare target's unoptimized index shifts and branches. Local repair discovery has many untried proposals; do not repeat these trials.",
   "by": "codex-gpt-6.1-terra-4",
@@ -25168,14 +25128,6 @@
   "score_after": 150
  },
  {
-  "function": "func_80038FA4",
-  "text": "Best candidate score 580/49 instructions (88.1%); no match. Rechecked candidate then tested statement reordering with command pointer increments and alternate local high/base constants; latter two regressed substantially (1775 and 2095). Core target stores four display commands and updates D_80115328 after each, but exact order/regalloc differs: target starts constants in v0/a3, global command pointer load into a0, index into a1, then high constant t0, frame pointer a2; baseline instead starts constants/registers and global loads in wrong order. Preserve best candidate from historical agent and experiment with typed command fields/pointer increment forms and exact progressive pointer writes.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795188996.419341,
-  "score_before": 580,
-  "score_after": 580
- },
- {
   "function": "func_800A3840",
   "text": "Best remains score 1367, revision 0842122d3d709ad544e9. Tested the two available local repairs (assignment_at_use did not compile; dead_pointer_clear left score unchanged), replacing the union with a struct (compile error due existing .words references), and replacing the explicit 15-word copy with a loop (score worsened to 4885). Main mismatch is frame/register pressure: target uses a 0x40 frame and stores matrix floats to stack, then copies 15 words; best source reserves 0x48 and saves s0. Further work should restore saved best and reshape temporary matrix/copy to eliminate saved s0 while preserving target's explicit stack-word copy pattern.",
   "by": "codex-gpt-6-luna-22",
@@ -26310,14 +26262,6 @@
   "created_at": 1795190100.914762,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80038FA4",
-  "text": "Verified revision 6af8d66d9c34c7a20bee score 580 with 49 target and candidate instructions. Type/declaration changes and moving matrixBase read did not alter output. Fifteen mismatches include reordered loads of D_80115328 and D_800E1710 and register allocation; inspect exact address expressions and statement scheduling.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795190104.001769,
-  "score_before": 580,
-  "score_after": 580
  },
  {
   "function": "func_80093268",
@@ -28102,14 +28046,6 @@
   "created_at": 1795192231.7443058,
   "score_before": 190,
   "score_after": 190
- },
- {
-  "function": "func_80038FA4",
-  "text": "Baseline rechecked 580. Global index unsigned, matrixBase signed, declaration order, and early matrixBase read did not change assembly. Remaining mismatches concentrate in initial global loads, projection constant register and scheduling of matrixOffset; target loads display pointer before index and materializes offset before frame load. Investigate different expression/lifetime structure; best saved.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795192256.977964,
-  "score_before": 580,
-  "score_after": 580
  },
  {
   "function": "func_800882D0",
@@ -31606,5 +31542,69 @@
   "created_at": 1795193146.6745548,
   "score_before": 600,
   "score_after": 600
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Best 1440 retained. Tried explicit local copies of globals (3615), moving field_18 before field_C (1855), and three local repairs without improvement. Target retains four intermediate display-list pointer stores and schedules constants and loads early; investigate aliasing and original display-list macro structure.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795137660.9739451,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Rechecked saved candidate at 1440. Volatile command pointer scored 1675; automatic constant-local, unsigned global, and address-temporary variants all tied 1440. Target loads command constants early and differs in scheduling/registers; reconstruct command emission order and address arithmetic from full assembly.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795177500.333303,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Saved rewrite 7e13e009085392729ba4 at 685: model the four commands as two-word records, stage the 0x74C load, write the four volatile head values after the halfword load and before the final data store. Diagnostic trial 9f4e236017bcfbd760ea of identical C under -G0 -mips3 -mgp32 -mfp32 -O2 (remove per-function -fno-schedule-insns) scores 50, all 49 instructions in target order. Only $a1/$a2 are swapped between index and frame. Reversing declarations, explicit register storage, u32 index, array indexing, splitting the first offset and changing index doubling tied 50; volatile global loads or rescheduling the matrix-base load worsened. Project rejected a flag suggestion because it requires an exact diagnostic match. Continue allocation work under plain O2 and resubmit the profile once exact.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795182335.104426,
+  "score_before": 1440,
+  "score_after": 685
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Improved 685\u2192615 under current flags by computing the projection byte offset in a local before acquiring frame; first two command constants now both appear early. No further gain with early matrix load, reversed command constant locals, late projection byte offset, or separate physical bias local. Plain -O2 still gives diagnostic 50, all 49 instructions in order and frame/index in opposite a registers. Same diagnostic score with projection offset local, staged final index, volatile frame fields, -g and -g3. Prioritize finding the register swap under plain -O2.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795184058.059677,
+  "score_before": 685,
+  "score_after": 615
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "First compile rechecked inherited best at 580. Three subsequent experiments (reordering declarations/statement lifetimes, making globals volatile, and incrementing the command pointer between global pointer updates) scored 925, 1250, and 835; move-on threshold reached 4/4. Best candidate remains inherited 580. Underlying operations and 49-instruction extent agree, with persistent register allocation and instruction-order differences. In particular target preloads projection into v0, modelview into a3, command pointer into a0, index into a1, constant into t0, frame pointer into a2; the inherited source allocates these differently. Try typed command pointer/prototype or restructuring individual command writes to shape register pressure while preserving target's final delayed store.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795187081.599635,
+  "score_before": 580,
+  "score_after": 580
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Best candidate score 580/49 instructions (88.1%); no match. Rechecked candidate then tested statement reordering with command pointer increments and alternate local high/base constants; latter two regressed substantially (1775 and 2095). Core target stores four display commands and updates D_80115328 after each, but exact order/regalloc differs: target starts constants in v0/a3, global command pointer load into a0, index into a1, then high constant t0, frame pointer a2; baseline instead starts constants/registers and global loads in wrong order. Preserve best candidate from historical agent and experiment with typed command fields/pointer increment forms and exact progressive pointer writes.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795188996.419341,
+  "score_before": 580,
+  "score_after": 580
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Verified revision 6af8d66d9c34c7a20bee score 580 with 49 target and candidate instructions. Type/declaration changes and moving matrixBase read did not alter output. Fifteen mismatches include reordered loads of D_80115328 and D_800E1710 and register allocation; inspect exact address expressions and statement scheduling.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795190104.001769,
+  "score_before": 580,
+  "score_after": 580
+ },
+ {
+  "function": "func_80038FA4",
+  "text": "Baseline rechecked 580. Global index unsigned, matrixBase signed, declaration order, and early matrixBase read did not change assembly. Remaining mismatches concentrate in initial global loads, projection constant register and scheduling of matrixOffset; target loads display pointer before index and materializes offset before frame load. Investigate different expression/lifetime structure; best saved.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795192256.977964,
+  "score_before": 580,
+  "score_after": 580
  }
 ]
