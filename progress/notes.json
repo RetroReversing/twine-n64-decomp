@@ -5360,14 +5360,6 @@
   "score_after": 310
  },
  {
-  "function": "func_8005BAB0",
-  "text": "Current candidate rechecked at score 1133. Two local-repair batches (12 variants) did not improve; explicit s32* change to var_s3 scored worse at 1143. Main differences: frame -0x150 vs target -0x148 and an extra saved $s5; target keeps only s0-s4. Preserve target's global-table addressing: s3 points at D_800C4428, and second comparison uses D_800C4434 indexed by s2<<2. Remaining candidate expression `(D_800C4434-12)+(var_s2*4)` is suspicious pointer arithmetic and should be rewritten as indexed s32 elements, but the attempted isolated change didn't run due progress changed.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795138917.830264,
-  "score_before": 1020,
-  "score_after": 1020
- },
- {
   "function": "func_80119D28",
   "text": "Improved 656 to 360 by unsigned division of sign-extended s16. Remaining nine differences are solely prologue scheduling: s1 address initialization and s3/s4 save/load order. Reordering source initialization did not change generated instructions. Investigate compiler scheduling or source form that changes constant hoisting.",
   "by": "codex-gpt-6.1-terra-5",
@@ -11782,14 +11774,6 @@
   "created_at": 1795178754.3860009,
   "score_before": 325,
   "score_after": 325
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Rechecked baseline 1133; word load for second lookup improved to 943, though saved candidate uses D_800C4434-12 and target assembly identifies D_800C4434 itself. Correcting base scored 948. Compiler hoists second table base into s5, causing extra saved register and frame size; target forms high-half base inside loop. Try an offset-bearing struct or restructure control flow to prevent hoisting. Pointer-relative lookup and signed index did not improve.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795178846.4136078,
-  "score_before": 1020,
-  "score_after": 943
  },
  {
   "function": "func_80079928",
@@ -28704,14 +28688,6 @@
   "score_after": 315
  },
  {
-  "function": "func_8005BAB0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Compiler became unavailable (gcc-2.7.2-kmc reported not installed), preventing further trials. Target loads the second lookup from D_800C4434 + 4*index; saved candidate instead subtracts 12, incorrectly reading D_800C4428. Next replace *(s32 *)((D_800C4434-12) + (var_s2 * 4)) with *(s32 *)(D_800C4434 + (var_s2 * 4)) and compile.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795193783.943391,
-  "score_before": 943,
-  "score_after": 943
- },
- {
   "function": "func_8007C214",
   "text": "[Released without compiling it once; notes not checked by a compile.] Unable to verify or tune candidate: gcc-2.7.2-kmc toolchain became unavailable during this session. Recheck saved baseline and resume once compiler is installed in decompdecomp.",
   "by": "codex-gpt-6.1-terra-5",
@@ -32120,14 +32096,6 @@
   "score_after": 4452
  },
  {
-  "function": "func_8005BAB0",
-  "text": "Rechecked baseline 1263. Initial candidate compilation failed from undeclared globals; a corrected pointer/global representation reached 1565, then an explicit state-pointer local worsened to 2073. Restored saved_best. Three local variants (symbol address local, signedness, declaration order) plus one more signedness variation did not improve. Target begins by loading D_80109688 as a pointer before adjusting fields +0x100/+0x142; candidate currently has 0x150 frame vs target 0x148 and extra saved ra at +0x148, plus 32 instruction mismatches. Next, tune frame/local lifetimes and map D_80109688 correctly as pointer-to-struct; best candidate remains 1263, revision 7e09ba2889802aa2f529.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200092.4593332,
-  "score_before": 943,
-  "score_after": 943
- },
- {
   "function": "func_80061938",
   "text": "Best score 870, same as rechecked baseline. Local inferred record layout, signedness, address temporary, constant local, switch layout, and const read variations did not improve (signed u32 d and adding explicit case 0 made it worse). Main mismatches are switch branch layout/targets and floating constants' FPR allocation; function has one extra instruction. Target checks cases via compare/branch; candidate switch structure produced different jump/case layout. Keep candidate and experiment with switch case ordering/explicit comparisons only after inspecting all target pages.",
   "by": "codex-gpt-6-luna-13",
@@ -34334,14 +34302,6 @@
   "created_at": 1795201966.757039,
   "score_before": 490,
   "score_after": 490
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Best historical source score 1263, current recompile attempts at 1463 and 1473; restored saved best. Attempts declared globals/loop/table more explicitly but produced larger frame, wrong loop cursor/registers and extra instructions. No match.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795201968.367883,
-  "score_before": 943,
-  "score_after": 943
  },
  {
   "function": "func_80099CA8",
@@ -37312,14 +37272,6 @@
   "score_after": 3022
  },
  {
-  "function": "func_8005BAB0",
-  "text": "Best revision bcca29f696d00c824598, score 1235, improved from first corrected compile 1263 by making var_s3 = &D_800C4428 + var_s2 after increment; this removed ~14 mismatch sites. Tested frame arrays 0xF8, 0x104, 0x108 and returning to 0x100: only 0x100 retains score 1235; others 1249. Tested explicit byte offset var_s2<<2: same mismatch. Remaining key mismatch is loop/index formulation: target increments s2 by 1 in branch delay slots and computes s3 +=4 in loop backedge delay slot; it scales s2 by 4 for D_800C4434 lookup. Current code increments s2++ after body and calculates var_s3 from D_800C4428 + var_s2, which compiles to repeated reloc loads. Untested next step: use separate base pointer locals initialized once (s3 = &D_800C4428; table pointer = D_800C4434 - 12), explicit for loop with index increment in the two target-equivalent points and array indexed by s2*4, then study loop branch/delay slot matching. Frame/ra/saved register offsets remain exactly target with 0x100 buffer.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795204327.621695,
-  "score_before": 943,
-  "score_after": 943
- },
- {
   "function": "func_80037C84",
   "text": "Score 60 on candidate 6e5cd7c2382dd05c4e8c. Only diff: scheduling of addiu $a2,$a2,8; target places it after addiu $v1/sw v1->D_80109CB8, ours hoists it above. Tried: reorder temp_a2 vs D_80109CB8 increment; direct D_80115328+=8 passing D_80115328; early temp_a2 load (score 100). Next idea: separate temp pointer for the D_80109CB8 block.",
   "by": "api-claude-haiku-5-5-3",
@@ -38382,14 +38334,6 @@
   "created_at": 1795205317.3204129,
   "score_before": 530,
   "score_after": 530
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Current candidate recheck score 1949. Corrected func_80087100 prototype to variadic, restoring compilable code, but linker complains .rodata+0 and sprintf pointer warnings; don't tune instructions until resolving format string/linkage. Major frame mismatch: target 0x148, current 0x58, likely target has 0x100 byte local buffer passed to sprintf and func_80073AF8. Candidate declared sp30 as s32; model buffer as char[0x100] while preserving call argument order. Target loads D_80109688 pointer, uses fields offsets 0x100/0x142.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795205330.9176152,
-  "score_before": 943,
-  "score_after": 943
  },
  {
   "function": "func_800458C0",
@@ -39534,14 +39478,6 @@
   "created_at": 1795206343.358709,
   "score_before": 350,
   "score_after": 350
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Not matched. Tried a rewrite with char buf[0x100] (score 1954) and buf[0xF8] (1952); saved_best 1949 remains best. Remaining: frame is 0x148 in target vs ours 0x140-0x150 range; target saves s0-s4 and ra with the 0x100 local buffer offset; the linker warns that our code refers to .rodata+0 (string literal for sprintf format) where the ROM has no address, so the format string/rodata reference must be resolved before instruction tuning. Also func_80087100 prototype is variadic-ish in these attempts; a fixed prototype may be needed. Next step: fix the format-string reference (e.g. use a string the linker can place, or check D_ symbol for the format) and re-check the frame.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795206343.683635,
-  "score_before": 943,
-  "score_after": 943
  },
  {
   "function": "func_80031EF4",
@@ -41126,14 +41062,6 @@
   "created_at": 1795207871.774152,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Not matched. Best 1192 (rev 0abd36b3aed093e41e28). Changes that helped: local char buf[0x100] (not s32), extern char D_800D4110[] declared inside function for the format string (fixes .rodata linker error), calls: func_80087100(0xFA,a1) result discarded, s1=f(0xFF), s0=f(0xFE), sprintf(buf,fmt,s1,A91C,s0,F28,s0), indexing &D_800C4428+var_s2 for the table compare (1795->1192). Remaining diffs: target re-loads D_80109688 global after the first |=0x40 store (lui/lw twice) while ours CSEs it; target keeps constant 1 in s4 across the loop (sh s4 / sw s4 arg) and saves s4 so frame saves are 6 regs; ours saves 5. Tried: adding dummy global self-assign and asm(\"\") (asm rejected). Next: find a way to force reload of D_80109688 (e.g. separate statements through a different pointer type) and an s4=1 live variable for the 0x7A store and 0x14 arg.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795207880.672352,
-  "score_before": 943,
-  "score_after": 943
  },
  {
   "function": "func_80087380",
@@ -43296,14 +43224,6 @@
   "score_after": 660
  },
  {
-  "function": "func_8005BAB0",
-  "text": "Not matched. Saved best remains 1192 (rev 0abd36b3aed093e41e28). Pointer-walk table compare (s32* var_s3 += 1) scored 1795, worse. Call args verified: sprintf(buf,fmt,s1,D_8010A91C,s0,D_80102F28,s0), func_80087100(0xFA,temp_a1). Remaining: target reloads D_80109688 after the first |=0x40 store; candidate CSEs it. Next idea: read D_80109688 through a second pointer for the 0x142 byte store.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795209388.798647,
-  "score_before": 943,
-  "score_after": 943
- },
- {
   "function": "func_8008EB80",
   "text": "Saved best 22045 rechecked; score remains extremely poor (target 230 instructions vs candidate 154). Local constant_local trial worsened to 22485. Three independent source edits (unused stack local, equivalent zero test, explicit 0xFF mask spelling) all yielded 22045. No semantic structure recovered; target begins with frame -0x38 and unusually loads stack arg at 0x48 into s5, then sets up s1/s2/s3/s4 argument locals and dispatches arg2-0xFA through a 6-entry jump table jtbl_800D6810. Candidate lacks that jump-table topology, uses merged loops instead of separate per-case scans. Next: model arg2 dispatch as `switch ((arg2 & 0xff) - 0xfa)` with all six explicit cases and separate loops/updates; consult table symbols and complete assembly around each case. Also investigate declaration/layout: global arrays indexed in target via relocation and base plus scaled record offsets, current C symbol/index arithmetic resolves wrong address at mismatch row 58 (target 0x80107ED8, candidate 0x80107EE4).",
   "by": "codex-gpt-6-luna-17",
@@ -45222,14 +45142,6 @@
   "created_at": 1795210696.733286,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Not matched. Best stays 1192 (rev 0abd36b3aed093e41e28). Tried this session: buf[0x104] -> 1194; extra unused-ish local 'one=1' (kept 1192, s4 not forced); using 'one' in the s16 store at +0x7A -> 1612 (hoists it early, bad). Target keeps an extra saved reg s4 (=1, set before loop setup), frame 0x148 with sw ra at 0x144; candidate uses s0-s3. Target reloads D_80109688 after the first |=0x40 store (candidate CSEs). Untested idea: make the value that needs s4 live only across the func_80073AF8 call region (e.g. a value used after the loop) rather than in the store; or read D_80109688 via a separate pointer var for the 0x142 store.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795210702.8779159,
-  "score_before": 943,
-  "score_after": 943
  },
  {
   "function": "func_80013F74",
@@ -47242,15 +47154,6 @@
   "score_before": 12085,
   "score_after": 12085,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:136dc6a8bbeef1919c6d32495c24f9d3360e8552c712cdd72a350489ba995c2d"
- },
- {
-  "function": "func_8005BAB0",
-  "text": "Still unmatched; best remains 1192 (rev 0abd36b3aed093e41e28 per prior notes). This session: do{}while(var_s2 != 3) scored 1390 (worse); adding a local 'one=1' mid-block is a parse error in this C dialect (declaration after statement); (s16)1 cast and (void)0 no change (1192). Target's first instruction loads gAimAxisTable into $v1 while candidate uses $v0; frame 0x148 needs an extra saved reg (s4=1). Next step: try declaring 's32 one = 1;' at top of the function body with the loop using it as the loop-counter increment, or reading D_80109688 via a second pointer as the prior note suggested.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795213112.797786,
-  "score_before": 1390,
-  "score_after": 1192,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:354d75e710f6da22cbfd6d940ba5ffbcb5d568bcff0a8076d77f7302b57cf1a8"
  },
  {
   "function": "func_800223E4",
@@ -49270,5 +49173,102 @@
   "score_before": 120,
   "score_after": 120,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5cfebe991a086619b905d8bcf47d915658ca4591cd729eedc8153d6698317c31"
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Current candidate rechecked at score 1133. Two local-repair batches (12 variants) did not improve; explicit s32* change to var_s3 scored worse at 1143. Main differences: frame -0x150 vs target -0x148 and an extra saved $s5; target keeps only s0-s4. Preserve target's global-table addressing: s3 points at D_800C4428, and second comparison uses D_800C4434 indexed by s2<<2. Remaining candidate expression `(D_800C4434-12)+(var_s2*4)` is suspicious pointer arithmetic and should be rewritten as indexed s32 elements, but the attempted isolated change didn't run due progress changed.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795138917.830264,
+  "score_before": 1020,
+  "score_after": 1020
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Rechecked baseline 1133; word load for second lookup improved to 943, though saved candidate uses D_800C4434-12 and target assembly identifies D_800C4434 itself. Correcting base scored 948. Compiler hoists second table base into s5, causing extra saved register and frame size; target forms high-half base inside loop. Try an offset-bearing struct or restructure control flow to prevent hoisting. Pointer-relative lookup and signed index did not improve.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795178846.4136078,
+  "score_before": 1020,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Compiler became unavailable (gcc-2.7.2-kmc reported not installed), preventing further trials. Target loads the second lookup from D_800C4434 + 4*index; saved candidate instead subtracts 12, incorrectly reading D_800C4428. Next replace *(s32 *)((D_800C4434-12) + (var_s2 * 4)) with *(s32 *)(D_800C4434 + (var_s2 * 4)) and compile.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795193783.943391,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Rechecked baseline 1263. Initial candidate compilation failed from undeclared globals; a corrected pointer/global representation reached 1565, then an explicit state-pointer local worsened to 2073. Restored saved_best. Three local variants (symbol address local, signedness, declaration order) plus one more signedness variation did not improve. Target begins by loading D_80109688 as a pointer before adjusting fields +0x100/+0x142; candidate currently has 0x150 frame vs target 0x148 and extra saved ra at +0x148, plus 32 instruction mismatches. Next, tune frame/local lifetimes and map D_80109688 correctly as pointer-to-struct; best candidate remains 1263, revision 7e09ba2889802aa2f529.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200092.4593332,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Best historical source score 1263, current recompile attempts at 1463 and 1473; restored saved best. Attempts declared globals/loop/table more explicitly but produced larger frame, wrong loop cursor/registers and extra instructions. No match.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795201968.367883,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Best revision bcca29f696d00c824598, score 1235, improved from first corrected compile 1263 by making var_s3 = &D_800C4428 + var_s2 after increment; this removed ~14 mismatch sites. Tested frame arrays 0xF8, 0x104, 0x108 and returning to 0x100: only 0x100 retains score 1235; others 1249. Tested explicit byte offset var_s2<<2: same mismatch. Remaining key mismatch is loop/index formulation: target increments s2 by 1 in branch delay slots and computes s3 +=4 in loop backedge delay slot; it scales s2 by 4 for D_800C4434 lookup. Current code increments s2++ after body and calculates var_s3 from D_800C4428 + var_s2, which compiles to repeated reloc loads. Untested next step: use separate base pointer locals initialized once (s3 = &D_800C4428; table pointer = D_800C4434 - 12), explicit for loop with index increment in the two target-equivalent points and array indexed by s2*4, then study loop branch/delay slot matching. Frame/ra/saved register offsets remain exactly target with 0x100 buffer.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795204327.621695,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Current candidate recheck score 1949. Corrected func_80087100 prototype to variadic, restoring compilable code, but linker complains .rodata+0 and sprintf pointer warnings; don't tune instructions until resolving format string/linkage. Major frame mismatch: target 0x148, current 0x58, likely target has 0x100 byte local buffer passed to sprintf and func_80073AF8. Candidate declared sp30 as s32; model buffer as char[0x100] while preserving call argument order. Target loads D_80109688 pointer, uses fields offsets 0x100/0x142.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795205330.9176152,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Not matched. Tried a rewrite with char buf[0x100] (score 1954) and buf[0xF8] (1952); saved_best 1949 remains best. Remaining: frame is 0x148 in target vs ours 0x140-0x150 range; target saves s0-s4 and ra with the 0x100 local buffer offset; the linker warns that our code refers to .rodata+0 (string literal for sprintf format) where the ROM has no address, so the format string/rodata reference must be resolved before instruction tuning. Also func_80087100 prototype is variadic-ish in these attempts; a fixed prototype may be needed. Next step: fix the format-string reference (e.g. use a string the linker can place, or check D_ symbol for the format) and re-check the frame.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795206343.683635,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Not matched. Best 1192 (rev 0abd36b3aed093e41e28). Changes that helped: local char buf[0x100] (not s32), extern char D_800D4110[] declared inside function for the format string (fixes .rodata linker error), calls: func_80087100(0xFA,a1) result discarded, s1=f(0xFF), s0=f(0xFE), sprintf(buf,fmt,s1,A91C,s0,F28,s0), indexing &D_800C4428+var_s2 for the table compare (1795->1192). Remaining diffs: target re-loads D_80109688 global after the first |=0x40 store (lui/lw twice) while ours CSEs it; target keeps constant 1 in s4 across the loop (sh s4 / sw s4 arg) and saves s4 so frame saves are 6 regs; ours saves 5. Tried: adding dummy global self-assign and asm(\"\") (asm rejected). Next: find a way to force reload of D_80109688 (e.g. separate statements through a different pointer type) and an s4=1 live variable for the 0x7A store and 0x14 arg.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795207880.672352,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Not matched. Saved best remains 1192 (rev 0abd36b3aed093e41e28). Pointer-walk table compare (s32* var_s3 += 1) scored 1795, worse. Call args verified: sprintf(buf,fmt,s1,D_8010A91C,s0,D_80102F28,s0), func_80087100(0xFA,temp_a1). Remaining: target reloads D_80109688 after the first |=0x40 store; candidate CSEs it. Next idea: read D_80109688 through a second pointer for the 0x142 byte store.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795209388.798647,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Not matched. Best stays 1192 (rev 0abd36b3aed093e41e28). Tried this session: buf[0x104] -> 1194; extra unused-ish local 'one=1' (kept 1192, s4 not forced); using 'one' in the s16 store at +0x7A -> 1612 (hoists it early, bad). Target keeps an extra saved reg s4 (=1, set before loop setup), frame 0x148 with sw ra at 0x144; candidate uses s0-s3. Target reloads D_80109688 after the first |=0x40 store (candidate CSEs). Untested idea: make the value that needs s4 live only across the func_80073AF8 call region (e.g. a value used after the loop) rather than in the store; or read D_80109688 via a separate pointer var for the 0x142 store.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795210702.8779159,
+  "score_before": 943,
+  "score_after": 943
+ },
+ {
+  "function": "func_8005BAB0",
+  "text": "Still unmatched; best remains 1192 (rev 0abd36b3aed093e41e28 per prior notes). This session: do{}while(var_s2 != 3) scored 1390 (worse); adding a local 'one=1' mid-block is a parse error in this C dialect (declaration after statement); (s16)1 cast and (void)0 no change (1192). Target's first instruction loads gAimAxisTable into $v1 while candidate uses $v0; frame 0x148 needs an extra saved reg (s4=1). Next step: try declaring 's32 one = 1;' at top of the function body with the loop using it as the loop-counter increment, or reading D_80109688 via a second pointer as the prior note suggested.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795213112.797786,
+  "score_before": 1390,
+  "score_after": 1192,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:354d75e710f6da22cbfd6d940ba5ffbcb5d568bcff0a8076d77f7302b57cf1a8"
  }
 ]
