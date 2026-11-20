@@ -4128,14 +4128,6 @@
   "score_after": 320
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Improved from 2875 to 1535 with a union { f64 d; u64 u; } bit reinterpretation, extracting exponent from u64 and rebuilding result bits. This fixes the broad operation shape; remaining diff centers on preserving original f64 argument via stack (target starts sdc1 $fa0,0($sp), then integer loads from that slot for IEEE high word) and double compare branch delay scheduling. Avoid split float scalar mask approach, which introduced helper calls and rodata.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795136735.158373,
-  "score_before": 2875,
-  "score_after": 1535
- },
- {
   "function": "func_80081CC0",
   "text": "Best score 200/16 instructions from pointer arithmetic with store expression before call: temp=arg0*0xA0; *(s16 *)(D_80115092+temp)=-1; func_80081BC4(arg0, *(s16 *)(D_80115092+temp)); use old-style no-prototype declaration to pass only two args (a2 remains untouched). Differences are ordering/register staging: target loads halfword to a1 before initializing -1 and store; target uses a1 base for load, at base for store. Separating load into signed s16 local produced score 460 because compiler emitted lhu plus sll/sra; original expression produced desired lh. Typed three-argument callee declaration errors (two args too few); old style declaration necessary.",
   "by": "codex-gpt-6-luna-10",
@@ -5830,14 +5822,6 @@
   "created_at": 1795138447.333994,
   "score_before": 140,
   "score_after": 140
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Current baseline score 1535; ran all three available local repairs (guard shape variants and zero-store scope), none improved. Candidate uses f64/u64 union and exponent/mantissa bit operations, but target begins with a stack sdc1 and differs materially in FP register/control-flow setup. Next: inspect full target assembly from entry; identify whether target uses f64 stack spills for the return path and rewrite using explicit high/low 32-bit words or split exponent operations. Historical notes are only a starting point.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795138447.660411,
-  "score_before": 1535,
-  "score_after": 1535
  },
  {
   "function": "func_80027970",
@@ -7712,14 +7696,6 @@
   "score_after": 7230
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Improved 1035 to 170 using pointer alias to argument x rather than union copy. Remaining target stores argument to stack first and has an extra nop; compiler schedules store in FP compare delay. Volatile pointer unchanged, volatile argument adds reload and jumps. Explore scheduling flags/source.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795164227.644073,
-  "score_before": 1035,
-  "score_after": 170
- },
- {
   "function": "func_8000BF90",
   "text": "Session context limit: improved saved 5040 to 4020. Replacing manual float-to-unsigned conversion with (u32)dot improved 490; moving list load ahead of best-array initialization improved 390; unsigned comparison for idx improved 140. Remaining 89 rows include initialization/loop structure and saved-register allocation. Next investigate target's initial beqz after initialization and inner best-list insertion; current do-while omits that extra null check.",
   "by": "codex-gpt-6.1-terra-7",
@@ -8430,14 +8406,6 @@
   "created_at": 1795165473.963965,
   "score_before": 505,
   "score_after": 180
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Byte match with -O1 or -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted checked function-only -O1 suggestion, automatic application is off. C reads/writes the high word through a u32 pointer to the double argument. Unmodified -O2 and -fno-schedule-insns alone score 170 by moving the home-slot store.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795165482.565282,
-  "score_before": 170,
-  "score_after": 170
  },
  {
   "function": "func_8008EB80",
@@ -13912,14 +13880,6 @@
   "score_after": 45
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Verified score 170. Zero-return, mask, arithmetic and branch orientation variants did not improve. Three remaining diff rows include early sdc1 scheduling and branch target; explore forcing the input double spill before comparison.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795181953.4896169,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_8002BC68",
   "text": "Rechecked saved candidate: score 1380. Recompiled unchanged candidate (1380), then tried separating case 0 with `case 0: return;` (still 1380; table entry moved from target 0x8002CA78 to 0x8002CA80, so this was worse). Function already had 50 prior attempts; remaining mismatches are primarily switch control-flow/table target (target case-0 table entry is func+0xE10 while out-of-range branch targets func+0xE00) plus many order/register cascades. `try_local_repairs` found no untried applicable repairs. Next useful experiment: model the zero case as a distinct epilogue path that skips the final D_80112F70 store, while allowing out-of-range default to store it; determine why a direct return adds an extra jump/offset. Keep the existing best candidate as baseline.",
   "by": "codex-gpt-6-luna-18",
@@ -15896,14 +15856,6 @@
   "score_after": 455
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Rechecked baseline 170. Five independent local repair variants produced 170 unchanged, two control-flow guard variants worsened, and one compile error. Remaining target differences are in zero-return path: target has sdc1 $f12,($sp), candidate begins mtc1 zeros, plus branch target/order. Existing candidate uses u32 pointer alias to alter IEEE bits.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795182800.8799,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_80002D70",
   "text": "Best 395 at 67f03de3fc81eeb76853, improved from 540. Three-word struct assignment exactly matches the post-call lw/lw/lw/sw/sw/sw. Main remaining difference is the target loop top move a0,a3; global key occupies t0 while best keeps the key in a0. Keeping the copied offset live into first flag check moves key into t0, but GCC schedules the copy in a plain bne delay slot, removing the target's bnel/increment. Split increment branches on that variant scored 630. A two-argument func_80002D30 declaration and call (callee chain uses a0/a1) tied 395; use it when making the next structural variant. Try restructuring the loop-exit and offset-copy lifetime together.",
   "by": "codex-gpt-6.2-sol-2",
@@ -17848,14 +17800,6 @@
   "score_after": 10
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Verified byte-exact with -O1 and with -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted a checked function-only -O1 bundle using frexp-style exponent extraction and mantissa reset. Automatic profile application is off. Default -O2 places the incoming double spill in a compare hazard slot and changes the branch offset.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795183836.2358882,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_800473AC",
   "text": "Baseline 980; local record, scalar reuse, branch inversion, signedness and declaration-order trials did not improve. Reordering initial float loads and register qualifier emitted identical instructions. Remaining differences are predominantly FPU register allocation, plus branch shape around determinant checks; inspect control flow and float live ranges.",
   "by": "codex-gpt-6.1-terra-7",
@@ -19504,14 +19448,6 @@
   "score_after": 1410
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Verified a standalone frexp implementation reaches score 0 with KMC -O1 and also with -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted function-only compiler bundle with -O1. Default -O2 moves the incoming double's sdc1 into the floating point hazard spacing, eliminating one nop and shifting the return address.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184696.468357,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_8002A104",
   "text": "Matched with typed entry, voice and scale, preserving direct entry->voice in both the clamp comparison and store. Adopted the matched local callee declaration. Field and type names remain provisional.",
   "by": "codex-gpt-6.2-sol-6",
@@ -20086,14 +20022,6 @@
   "created_at": 1795184949.958124,
   "score_before": 4004,
   "score_after": 4004
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Verified historical score 170 with the standalone parameter-address version and early zero return. Only real residual is the entry sdc1 of x scheduled after c.eq.d rather than before zero setup. Moving it before the compare would expose the extra coprocessor hazard nop and account for the branch displacement. Inverting the condition and using a result local worsened to 580. Test whether available scheduler options can place the parameter home spill at entry without changing the remaining sequence.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795184950.079367,
-  "score_before": 170,
-  "score_after": 170
  },
  {
   "function": "func_8001A434",
@@ -21680,14 +21608,6 @@
   "score_after": 805
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Verified exact under KMC -O1 and -O2 -fno-schedule-insns -fno-schedule-insns2; submitted a byte-verified function-only compiler bundle for -O1, pending application. Default -O2 baseline 170 solely from stack-home store scheduling.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795186008.675203,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_80098710",
   "text": "Current -O1 rechecked at 130. Only missing instruction is the entry move a1,v0 after materializing D_800FD974 in v0; both branch target differences are consequential. Explicit base local with Link array and computing prev via base changed loop addressing and scheduling (560); != loop limit changed compare and registers (565); pointer difference folded to zero (130). Keep byte-offset traversal and focus on preserving a separate entry pointer materialization.",
   "by": "codex-gpt-6.2-sol-1",
@@ -22744,14 +22664,6 @@
   "score_after": 150
  },
  {
-  "function": "func_800AC0A0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Existing checked function-only KMC -O1 suggestion yields all 96 ROM bytes and awaits application. KMC -O2 with both instruction schedulers disabled was also verified exact. Under current -O2 the parameter home store is scheduled into the floating compare hazard window, accounting for the remaining score 170.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795186970.380276,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_800A97A0",
   "text": "Verified complete 27-instruction body ending jr/nop. This is consistent with hand-written SDK guMtxL2F: t0\u2013t7 advance through each unpacking intermediate without register reuse, t8 and t9 hold the end and mask, each conversion uses a fresh ascending FPR triple with explicit mtc1 hazard nops, and a0/a1 update directly with output increment in the backedge delay slot. The saved score-705 C is a semantic reference.",
   "by": "codex-gpt-6.2-sol-5",
@@ -23696,14 +23608,6 @@
   "score_after": 185
  },
  {
-  "function": "func_800AC0A0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Existing checked KMC -O1 function-only suggestion is byte-exact. KMC -O2 with both schedulers disabled was independently exact. Active profile scores 170 by moving the argument home store into the FP comparison hazard window. Pending profile application is the remaining action. No redundant compile or suggestion.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795188407.928077,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_80083138",
   "text": "Saved score 50, revision 10d1485d4624d283562b. Keep its trig-call prefix: using one common angle with a named scale added a sixth FP save and scored 492. Splitting matrix products, sums and stores to follow target recovered the 97-insn structure. Remaining rows 49/51/53/55 reorder the independent initial multiplications: target places szsy last in that cluster; candidate places it first. Target assigns szcx, m01, m11 to f10, f8, f6, versus candidate f6, f10, f8 (remaining rows 67/71/72/78/83/85). Moving only szsy later tied; moving m11 earlier or interleaving m01/m11 with cross products scored 80; fusing m01 and m11 calculate/add expressions scored 355. Try changing first-use priority by placing matrix column computations with their output assignments or varying register hints only on cross products while preserving the verified trig-call prefix.",
   "by": "codex-gpt-6.2-sol-2",
@@ -24304,14 +24208,6 @@
   "score_after": 35
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Rechecked score 170 at O2; search_flags found exact match at O1 and at O2 with both scheduling passes disabled. Submitted verified function-only O1 bundle with source; apply it to save match.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795189161.996033,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "func_80070664",
   "text": "Verified 940, retaining 26e4d3828f4ef2d929db. Contrary to prior notes, last_diff shows candidate does allocate 16 bytes, but moves the stack adjustment into the null branch delay slot where target copies raw arg1 to t0. Volatile frame[16] tied, volatile frame[1] was 941. Keeping int loop state with explicit s16 compare scored 1130; widening next temp scored 1035. Next focus on distinct raw-byte argument lifetime and forcing separate index/shift temporaries, not on adding a frame.",
   "by": "codex-gpt-6.2-sol-5",
@@ -24494,14 +24390,6 @@
   "created_at": 1795189388.3521411,
   "score_before": 705,
   "score_after": 705
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Ordinary O2 batch compile reverified score 170: the parameter home sdc1 occupies the compare hazard slot and shortens the branch. Historical exact KMC -O1 function-only bundle and independent exact O2 with both scheduler passes disabled are already submitted and await profile application, so a duplicate suggestion or flags search would not advance the claim.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795189398.580781,
-  "score_before": 170,
-  "score_after": 170
  },
  {
   "function": "func_80063758",
@@ -25254,14 +25142,6 @@
   "created_at": 1795190120.629015,
   "score_before": 230,
   "score_after": 230
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Baseline score 170/24 instructions with only 3 target mismatches (entry stack spill/order and branch target) per advisory. Volatile union local regressed to 570 and adds stack adjustment; restore saved_best. Target prologue spills $fa0 to outgoing stack slot then compares against zero; seek source shape that makes incoming double addressable at ($sp) without allocating local frame. Remaining baseline differences appear minor instruction order/branch-layout.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795190126.685317,
-  "score_before": 170,
-  "score_after": 170
  },
  {
   "function": "func_800A798C",
@@ -26336,14 +26216,6 @@
   "score_after": 1365
  },
  {
-  "function": "func_800AC0A0",
-  "text": "Verified exact trial a8f81020f15e61252779 with single-function C at -O1. Submitted function-only compiler bundle; automatic application is off. Existing -O2 and -O1 -fschedule-insns2 reproduce the wrong FP branch shape.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191424.858028,
-  "score_before": 170,
-  "score_after": 170
- },
- {
   "function": "updateDemoPlayback",
   "text": "Matched with direct volatile qualification of D_80109698, a cached pointer for the clamp, and a volatile float read. The cast-based volatile pointer reload produced an extra low-relocation addiu.",
   "by": "codex-gpt-6.2-sol-3",
@@ -27166,14 +27038,6 @@
   "created_at": 1795192477.030011,
   "score_before": 1455,
   "score_after": 620
- },
- {
-  "function": "func_800AC0A0",
-  "text": "Best score 170/240 (92.9%) at the saved candidate. Target behavior is fully represented; remaining mismatch is three instruction ordering/control-flow details at entry: target spills f12 to stack before zero compare, has an extra nop before branch-likely, and branch target is correspondingly later. Tested unchanged baseline, volatile f64 parameter (worse, score 325), and volatile u32 pointer to x (same score 170). Candidate score 170 uses ordinary u32* to the parameter; resume from saved_best. No reusable knowledge emerged.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795192486.1375968,
-  "score_before": 170,
-  "score_after": 170
  },
  {
   "function": "func_80082BD0",
@@ -31606,5 +31470,141 @@
   "created_at": 1795194091.974546,
   "score_before": 3073,
   "score_after": 3073
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Improved from 2875 to 1535 with a union { f64 d; u64 u; } bit reinterpretation, extracting exponent from u64 and rebuilding result bits. This fixes the broad operation shape; remaining diff centers on preserving original f64 argument via stack (target starts sdc1 $fa0,0($sp), then integer loads from that slot for IEEE high word) and double compare branch delay scheduling. Avoid split float scalar mask approach, which introduced helper calls and rodata.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795136735.158373,
+  "score_before": 2875,
+  "score_after": 1535
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Current baseline score 1535; ran all three available local repairs (guard shape variants and zero-store scope), none improved. Candidate uses f64/u64 union and exponent/mantissa bit operations, but target begins with a stack sdc1 and differs materially in FP register/control-flow setup. Next: inspect full target assembly from entry; identify whether target uses f64 stack spills for the return path and rewrite using explicit high/low 32-bit words or split exponent operations. Historical notes are only a starting point.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795138447.660411,
+  "score_before": 1535,
+  "score_after": 1535
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Improved 1035 to 170 using pointer alias to argument x rather than union copy. Remaining target stores argument to stack first and has an extra nop; compiler schedules store in FP compare delay. Volatile pointer unchanged, volatile argument adds reload and jumps. Explore scheduling flags/source.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795164227.644073,
+  "score_before": 1035,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Byte match with -O1 or -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted checked function-only -O1 suggestion, automatic application is off. C reads/writes the high word through a u32 pointer to the double argument. Unmodified -O2 and -fno-schedule-insns alone score 170 by moving the home-slot store.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795165482.565282,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified score 170. Zero-return, mask, arithmetic and branch orientation variants did not improve. Three remaining diff rows include early sdc1 scheduling and branch target; explore forcing the input double spill before comparison.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795181953.4896169,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Rechecked baseline 170. Five independent local repair variants produced 170 unchanged, two control-flow guard variants worsened, and one compile error. Remaining target differences are in zero-return path: target has sdc1 $f12,($sp), candidate begins mtc1 zeros, plus branch target/order. Existing candidate uses u32 pointer alias to alter IEEE bits.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795182800.8799,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified byte-exact with -O1 and with -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted a checked function-only -O1 bundle using frexp-style exponent extraction and mantissa reset. Automatic profile application is off. Default -O2 places the incoming double spill in a compare hazard slot and changes the branch offset.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795183836.2358882,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified a standalone frexp implementation reaches score 0 with KMC -O1 and also with -O2 -fno-schedule-insns -fno-schedule-insns2. Submitted function-only compiler bundle with -O1. Default -O2 moves the incoming double's sdc1 into the floating point hazard spacing, eliminating one nop and shifting the return address.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184696.468357,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified historical score 170 with the standalone parameter-address version and early zero return. Only real residual is the entry sdc1 of x scheduled after c.eq.d rather than before zero setup. Moving it before the compare would expose the extra coprocessor hazard nop and account for the branch displacement. Inverting the condition and using a result local worsened to 580. Test whether available scheduler options can place the parameter home spill at entry without changing the remaining sequence.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795184950.079367,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified exact under KMC -O1 and -O2 -fno-schedule-insns -fno-schedule-insns2; submitted a byte-verified function-only compiler bundle for -O1, pending application. Default -O2 baseline 170 solely from stack-home store scheduling.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795186008.675203,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Existing checked function-only KMC -O1 suggestion yields all 96 ROM bytes and awaits application. KMC -O2 with both instruction schedulers disabled was also verified exact. Under current -O2 the parameter home store is scheduled into the floating compare hazard window, accounting for the remaining score 170.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795186970.380276,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Existing checked KMC -O1 function-only suggestion is byte-exact. KMC -O2 with both schedulers disabled was independently exact. Active profile scores 170 by moving the argument home store into the FP comparison hazard window. Pending profile application is the remaining action. No redundant compile or suggestion.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795188407.928077,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Rechecked score 170 at O2; search_flags found exact match at O1 and at O2 with both scheduling passes disabled. Submitted verified function-only O1 bundle with source; apply it to save match.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795189161.996033,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Ordinary O2 batch compile reverified score 170: the parameter home sdc1 occupies the compare hazard slot and shortens the branch. Historical exact KMC -O1 function-only bundle and independent exact O2 with both scheduler passes disabled are already submitted and await profile application, so a duplicate suggestion or flags search would not advance the claim.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795189398.580781,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Baseline score 170/24 instructions with only 3 target mismatches (entry stack spill/order and branch target) per advisory. Volatile union local regressed to 570 and adds stack adjustment; restore saved_best. Target prologue spills $fa0 to outgoing stack slot then compares against zero; seek source shape that makes incoming double addressable at ($sp) without allocating local frame. Remaining baseline differences appear minor instruction order/branch-layout.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795190126.685317,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Verified exact trial a8f81020f15e61252779 with single-function C at -O1. Submitted function-only compiler bundle; automatic application is off. Existing -O2 and -O1 -fschedule-insns2 reproduce the wrong FP branch shape.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191424.858028,
+  "score_before": 170,
+  "score_after": 170
+ },
+ {
+  "function": "func_800AC0A0",
+  "text": "Best score 170/240 (92.9%) at the saved candidate. Target behavior is fully represented; remaining mismatch is three instruction ordering/control-flow details at entry: target spills f12 to stack before zero compare, has an extra nop before branch-likely, and branch target is correspondingly later. Tested unchanged baseline, volatile f64 parameter (worse, score 325), and volatile u32 pointer to x (same score 170). Candidate score 170 uses ordinary u32* to the parameter; resume from saved_best. No reusable knowledge emerged.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795192486.1375968,
+  "score_before": 170,
+  "score_after": 170
  }
 ]
