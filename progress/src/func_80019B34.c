@@ -4,7 +4,7 @@ extern u8 D_801002A1;
 extern s32 D_801002B8, D_801002BC;
 u8 func_8002BC28(s32);
 s32 func_80019B34(s32 arg0) {
-    u16 i;
+    u16 i = 0;
     s32 count;
     s32 value;
     s32 index = (u16)arg0 * 24;
