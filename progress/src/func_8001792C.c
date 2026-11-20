@@ -16,15 +16,11 @@ void func_8001792C(void **arg0, s32 arg1, s32 arg2, void *arg3) {
                 temp_v1 = (*(u16 *)((char *)(var_t0) + 0x78));
                 if ((((temp_v1 == 1) | (temp_v1 == 0x4C)) != 0) && !(temp_a0 & arg1)) {
                     temp_v0 = (*(void **)((char *)(var_t0) + 0x6C));
-                    (*(s32 *)((char *)(temp_v0) + 0x50)) = (s32) (*(s32 *)((char *)(arg3) + 0));
-                    (*(s32 *)((char *)(temp_v0) + 0x54)) = (s32) (*(s32 *)((char *)(arg3) + 4));
-                    (*(s32 *)((char *)(temp_v0) + 0x58)) = (s32) (*(s32 *)((char *)(arg3) + 8));
+                    { struct V { s32 x,y,z; }; *(struct V *)((char *)temp_v0 + 0x50) = *(struct V *)arg3; }
                 }
                 if (((u32) ((*(u16 *)((char *)(var_t0) + 0x78)) - 2) < 2U) && !((*(s32 *)((char *)(var_t0) + 0x60)) & arg1)) {
                     temp_v0_2 = (*(void **)((char *)(var_t0) + 0x6C));
-                    (*(s32 *)((char *)(temp_v0_2) + 0x1A0)) = (s32) (*(s32 *)((char *)(arg3) + 0));
-                    (*(s32 *)((char *)(temp_v0_2) + 0x1A8)) = (s32) (*(s32 *)((char *)(arg3) + 8));
-                    (*(s32 *)((char *)(temp_v0_2) + 0x1A4)) = (s32) (*(s32 *)((char *)(arg3) + 4));
+                    { struct V { s32 x,y,z; }; *(struct V *)((char *)temp_v0_2 + 0x1A0) = *(struct V *)arg3; }
                 }
                 var_t0 = (*(void **)((char *)(var_t0) + 0));
             } while (var_t0 != NULL);
