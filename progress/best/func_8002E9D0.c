@@ -34,12 +34,12 @@ void func_8002E9D0(void *arg0, s32 arg1) {
         do {
             temp_s0 = arg0 + var_a1;
             temp_v0 = func_80045CC4();
-            temp_hi = MULTU_HI(temp_v0, 0x80808081);
+            temp_hi = (u32) temp_v0 % 255;
             var_s1 += 3;
             var_a1 = var_s1 & 0xFFFF;
             M2C_FIELD(temp_s0, s8 *, 1) = 0x30;
             M2C_FIELD(temp_s0, s8 *, 2) = 0x30;
-            M2C_FIELD(temp_s0, s8 *, 0) = (s8) ((-((u32) (temp_v0 - ((temp_hi >> 7) * 0xFF)) >= 0x80U) & 0x37) | 0x32);
+            M2C_FIELD(temp_s0, s8 *, 0) = (s8) ((-(temp_hi >= 0x80U) & 0x37) | 0x32);
             var_v0 = arg1 & 0xFFFF;
         } while (var_a1 < temp_v1);
     }

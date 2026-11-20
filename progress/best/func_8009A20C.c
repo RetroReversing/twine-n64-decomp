@@ -21,7 +21,7 @@ s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
         D_800FDB88 = e->w4;
         break;
     case 1:
-        D_800FDB88 = (u32)(e->w4 * (0x7F - v->h30)) / 127;
+        { s32 h = v->h30; s32 w = e->w4; D_800FDB88 = (u32)((0x7F - h) * w) / 127; }
         break;
     case 2:
         D_800FDB88 = (u32)(v->h30 * e->w4) / 127;

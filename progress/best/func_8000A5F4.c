@@ -28,6 +28,7 @@ extern s32 D_801002EC;
 
 s32 func_8000A5F4(s32 arg0) {
     char *__base_D_800B248A;
+    s32 *ptr;
     s32 temp_a1;
     s32 temp_s0;
     s32 var_s2;
@@ -40,18 +41,19 @@ s32 func_8000A5F4(s32 arg0) {
     var_v1 = 0;
 loop_4:
     var_v0 = -1;
-    if (*(D_800B2480 + var_v1) != 0) {
-        var_v1 += 0xC;
+    if (*(u32 *)(D_800B2480 + var_v1) != 0) {
         if (*(u16 *)((__base_D_800B248A = D_800B248A) + var_v1) != arg0) {
+            var_v1 += 0xC;
             var_s2 += 1;
             goto loop_4;
         }
         func_8000A580();
+        ptr = &D_800E070C;
         temp_s0 = var_s2 * 0xC;
-        temp_a1 = *(D_800B2480 + temp_s0);
+        temp_a1 = *(u32 *)(D_800B2480 + temp_s0);
         D_800E06B0 = arg0;
-        func_8000B900(D_800E070C, temp_a1, D_800B2484[var_s2].f0 - temp_a1);
-        var_v0 = func_800930F4(arg0, D_800B2488[var_s2].f0,  *(u16 *)(__base_D_800B248A + temp_s0));
+        func_8000B900(*ptr, temp_a1, D_800B2484[var_s2].f0 - temp_a1);
+        var_v0 = func_800930F4(D_800B2488[var_s2].f0, *(u16 *)(D_800B248A + temp_s0), *ptr, 0);
         D_800E0708 = var_v0;
     }
 }

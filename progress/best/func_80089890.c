@@ -23,7 +23,7 @@ void func_80089890(void *arg0, s32 arg1, s8 *arg2) {
     s32 temp_v0;
     u8 temp_v1;
 
-    arg1 &= 0xFFFF;
+    arg1 = (((u32)((u16)arg1 * 0x7D00) / D_800E41D4) << 11);
     if ((M2C_FIELD(arg0, u8 *, 1) == 0) && (M2C_FIELD(arg0, u8 *, 0x5C) != 3)) {
         M2C_FIELD(arg0, u8 *, 0x5C) = 3U;
         M2C_FIELD(arg0, f32 *, 0x54) = 0.0f;
@@ -32,7 +32,7 @@ void func_80089890(void *arg0, s32 arg1, s8 *arg2) {
         M2C_FIELD(arg0, u16 *, 0x48) = (u16) M2C_FIELD(arg0, u16 *, 0x28);
         goto block_17;
     }
-    if ((u16) M2C_FIELD(arg0, s32 *, 0x50) >= (u16) M2C_FIELD(arg0, u16 *, 0x48)) {
+    if ((M2C_FIELD(arg0, u32 *, 0x50) >> 16) >= (u16) M2C_FIELD(arg0, u16 *, 0x48)) {
         temp_v1 = M2C_FIELD(arg0, u8 *, 0x5C);
         switch (temp_v1) {                          /* irregular */
         case 3:
@@ -66,7 +66,7 @@ block_18:
         } else {
             var_ft0_2 = 1.0f;
         }
-        __repair_store_0 = (s32) (M2C_FIELD(arg0, s32 *, 0x50) + (((u32) (arg1 * 0x7D00) / (u32) D_800E41D4) << 0xB));
+        __repair_store_0 = (s32) (M2C_FIELD(arg0, s32 *, 0x50) + arg1);
         __repair_store_1 = (f32) (((M2C_FIELD(arg0, f32 *, 0x54) - M2C_FIELD(arg0, f32 *, 0x58)) * var_ft0_2) + M2C_FIELD(arg0, f32 *, 0x58));
         M2C_FIELD(arg0, s32 *, 0x50) = __repair_store_0;
         M2C_FIELD(arg0, f32 *, 0x4C) = __repair_store_1;

@@ -51,7 +51,7 @@ __repair_literal = 0;
             temp_v0 = D_800FD560 * 8;
             *(u16 *)(D_800FD564 + (unsigned)temp_v0) = var_v1_2;
             *(u16 *)(D_800FD566 + temp_v0) = temp_s2;
-            *(u16 *)(D_800FD568 + temp_v0) = var_s0;
+            *(void **)(D_800FD568 + temp_v0) = var_s0;
             __repair_phase_var_v1_2 = 0;
             __repair_phase_temp_a2 = temp_s2 & 0xFFFF;
             if (__repair_inline(__repair_phase_temp_a2, 0)) {

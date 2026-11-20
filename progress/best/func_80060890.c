@@ -54,7 +54,7 @@ void func_80060890(void *arg0, void *arg1, s32 arg2, void *arg3) {
     }
     var_a3 = var_t0;
     for (;;) {
-        temp_v1_2 = var_t0 & 0xFFFF;
+        temp_v1_2 = var_a3 & 0xFFFF;
         if (temp_v1_2 >= 3U) {
             break;
         }

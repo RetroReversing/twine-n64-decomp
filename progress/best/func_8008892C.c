@@ -40,17 +40,7 @@ loop_3:
             if (arg0 != -1) {
                 osRecvMesg(&D_800E3F30, 0, 1);
                 if ((*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) & 0xFF) == 2) {
-                    temp_v0 = *(s32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228));
-                    var_ft0 = (f64) temp_v0;
-                    if (temp_v0 < 0) {
-                        var_ft0 += D_800D66D8;
-                    }
-                    temp_v0_2 = *(s32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
-                    var_fv1 = (f64) temp_v0_2;
-                    if (0 > temp_v0_2) {
-                        var_fv1 += D_800D66E0;
-                    }
-                    var_fs0 = (f32) var_ft0 / (f32) var_fv1;
+                    var_fs0 = (f32)*(u32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228)) / (f32)*(u32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                 } else {
                     var_fs0 = 0.0f;
                 }

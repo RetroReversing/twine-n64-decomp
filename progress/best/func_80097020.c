@@ -38,7 +38,7 @@ s32 func_80097020(s16 arg0, s32 arg1) {
         temp_a1 = arg0 & 0xFFFF;
         var_v1 = 0;
 loop_2:
-        if ((u16) *(D_800F795C + var_v1) < temp_a1) {
+        if ((u16) *(u16 *)(D_800F795C + var_v1) < temp_a1) {
             var_t1 += 1;
             var_v1 += 8;
             if (var_t1 < var_a0) {
