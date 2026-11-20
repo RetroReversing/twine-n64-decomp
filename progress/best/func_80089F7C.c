@@ -51,10 +51,10 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3) {
     u32 s1_2;
     
 
-    s2 = arg2;
     s4 = arg1;
     s0 = D_800E4260;
     s3 = 0;
+    s2 = arg2;
     sp2C = s4 + s2;
     sp34 = s4 - 0x600;
     if (s0 != NULL) {

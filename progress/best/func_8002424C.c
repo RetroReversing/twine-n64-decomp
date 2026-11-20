@@ -90,7 +90,7 @@ int __repair_constant = 3;
         var_v0 = 2;
     }
     D_800BD558 = var_v0;
-    func_8002A9A8(D_80107EA8, 0);
+    do { func_8002A9A8(D_80107EA8, 0); } while (0);
     updatePairedSpriteState(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002AC04(D_80107EA8, 1);
     if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {

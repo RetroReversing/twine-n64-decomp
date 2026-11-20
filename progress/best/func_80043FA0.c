@@ -34,7 +34,7 @@ void func_80043FA0(void *arg0) {
         func_800134C0();
         func_8000B9B8(sp30, D_54D910 + FLD(arg0, s32, 4), 0x20);
         sp8C = FLD(arg0, s32 *, 0x34);
-        if (sp8C != NULL) goto block_10;
+        if (sp8C != (u32)NULL) goto block_10;
         var_s5 = func_80083E90(FLD(sp30, u16, 4) * 0x18, 0x2D);
         if (var_s5 != NULL) {
             func_8000B9B8(sp50, D_54D910 + FLD(sp30, s32, 0), 0x20);
@@ -43,14 +43,14 @@ void func_80043FA0(void *arg0) {
                 sp8C = var_s5;
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), FLD(sp30, u16, 4) * 0xC);
             } else {
-                sp8C = (s32 *)((u8 *)var_s5 + FLD(sp30, u16, 4) * 0xC);
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), temp_v0);
-                func_8001499C(var_s5);
+                sp8C = (s32 *)((u8 *)var_s5 + FLD(sp30, u16, 4) * 0xC);
+                do { func_8001499C(var_s5); } while (0);
                 func_80014A0C(sp8C, var_s5);
             }
 block_10:
             temp_v0_2 = FLD(sp30, u16, 0x0C) * 4;
-            temp_v0_3 = func_80083E90(FLD(sp30, u16, 0x0A) * 8 + temp_v0_2 + temp_v0_2 + FLD(sp30, u16, 0x0E), 0x2D);
+            temp_v0_3 = func_80083E90(FLD(sp30, u16, 0x0A) * 8 + temp_v0_2 + temp_v0_2 + FLD((int)sp30, u16, 0x0E), 0x2D);
             if (temp_v0_3 != NULL) {
                 var_s7 = temp_v0_3;
                 temp_t0 = &var_s7[FLD(sp30, u16, 0x0A)];

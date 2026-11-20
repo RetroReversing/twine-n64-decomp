@@ -22,7 +22,7 @@ extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern M2C_UNK D_800BD8C4;
 extern s32 D_80102EBC;
-extern void *D_80102F2C;
+extern void *volatile D_80102F2C;
 extern void *D_80109BB0;
 
 void func_80028A7C(void) {
@@ -114,51 +114,64 @@ block_24:
                     switch (temp_v0_6) {
                     case 1:
                         var_a0_2 = 2;
-block_44:
                         func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
                         break;
                     case 2:
                         var_a0_2 = 3;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 3:
                         var_a0_2 = 4;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 4:
                         var_a0_2 = 5;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 5:
                         var_a0_2 = 6;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 6:
                         var_a0_2 = 7;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 7:
                         var_a0_2 = 8;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 8:
                         var_a0_2 = 9;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 9:
                         var_a0_2 = 0xA;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 10:
                         var_a0_2 = 0xB;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 11:
                         var_a0_2 = 0xC;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 12:
                         var_a0_2 = 0xD;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 13:
                         var_a0_2 = 0xE;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 14:
                         var_a0_2 = 0xF;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 15:
                         var_a0_2 = 0x10;
-                        goto block_44;
+                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        break;
                     case 16:
                         func_80030644(M2C_FIELD(D_80109BB0, s32 *, 0x20), 0xFF);
                         M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BD8C4;

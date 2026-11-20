@@ -44,6 +44,7 @@ extern u16 D_800C9B80;
 extern u16 D_800C9B88;
 
 void func_800770E4(void *arg0) {
+    u16 *__base_D_800C9A58;
     s32 *var_s0_2;
     unsigned int var_a1;
     f32 var_fs0;
@@ -139,8 +140,9 @@ block_90:
                 func_80077960(arg0, var_a1);
             }
             break;
+        __base_D_800C9A58 = &D_800C9A58;
         case 22:                                    /* switch 2 */
-            func_80002BD0(arg0, *(&D_800C9A58 + func_80045CF8(1)));
+            func_80002BD0(arg0, *(__base_D_800C9A58 + func_80045CF8(1)));
             var_a1 = 0x4B;
             goto block_90;
         case 7:                                     /* switch 2 */

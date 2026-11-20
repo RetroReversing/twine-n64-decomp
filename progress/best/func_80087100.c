@@ -4,10 +4,10 @@ void *func_80087100(s32 id, s32 base) {
  u16 index = id & 0xfff;
  s32 *p;
  switch (id & 0xf000) {
- case 0: if (index < 0x2ea && D_800CE804) { p = (s32 *)D_800CE804 + index; return (void *)(D_800CE800 + *p); } break;
- case 0x1000: if (index < 0x92 && D_800CE808) { p = (s32 *)D_800CE808 + index; return (void *)(D_800CE800 + *p); } break;
- case 0x2000: if (index < 0x2c && D_800CE80C) { p = (s32 *)D_800CE80C + index; return (void *)(D_800CE800 + *p); } break;
- case 0x3000: if (index < 0x25 && D_800CE810) { p = (s32 *)D_800CE810 + index; return (void *)(D_800CE800 + *p); } break;
+ case 0: if (index < 0x2ea && D_800CE804) { p = (s32 *)(index * 4 + (int)D_800CE804); return (void *)(D_800CE800 + *p); } break;
+ case 0x1000: if (index < 0x92 && D_800CE808) { p = (s32 *)(index * 4 + (int)D_800CE808); return (void *)(D_800CE800 + *p); } break;
+ case 0x2000: if (index < 0x2c && D_800CE80C) { p = (s32 *)(index * 4 + (int)D_800CE80C); return (void *)(D_800CE800 + *p); } break;
+ case 0x3000: if (index < 0x25 && D_800CE810) { p = (s32 *)(index * 4 + (int)D_800CE810); return (void *)(D_800CE800 + *p); } break;
  case 0x4000: if (index < 0x23) return D_8010A960 + index * 0x12c; break;
  case 0x6000: if (index < 0x38) { base = D_800CE814; goto common; } break;
  case 0x7000: if (index < 0x1e) { base = D_800CE81C; goto common; } break;
