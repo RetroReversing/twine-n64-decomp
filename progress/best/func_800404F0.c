@@ -152,7 +152,6 @@ block_13:
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v0_3 = temp_v1_2 & 0xFF81FFFF;
         var_v1 = ((temp_v1_2 >> 0x11) & 0x3F) | 4;
-block_43:
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
         return;
     case 0x68:
@@ -178,16 +177,14 @@ block_35:
         temp_v0_13 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x46;
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((temp_v0_13 & 0xFF81FFFF) | ((((temp_v0_13 >> 0x11) & 0x3F) | 4) << 0x11));
-block_37:
-        D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
+        D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
         (*(f32 *)((char *)(arg1) + 0x28)) = 0;
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
         ((__repair_field_2C *)arg1)->value = 0;
         if ((*(u16 *)((char *)(arg0) + 0x38)) == 1) {
             var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
-block_39:
             (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
             return;
         }
@@ -213,7 +210,8 @@ block_29:
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
         if ((*(u16 *)((char *)(arg0) + (short)0x38)) == 1) {
             var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
-            goto block_39;
+            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
+            return;
         }
         break;
     case 0x49:
@@ -229,7 +227,7 @@ block_29:
         var_v0_5 = ((temp_v0_18 >> 2) & 0x3FFF) | 0x10;
         goto block_27;
     case 0x47:
-        func_800404D8(arg1);
+        do { func_800404D8(arg1); } while (0);
         temp_v0_19 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
         __repair_phase_storage.pointer = (*(void **)((char *)(arg1) + 0x20));
         (*(s32 *)((char *)(arg1) + 0x58)) = (s32) (((s32)temp_v0_19 & 0xFFFF0003) | ((((temp_v0_19 >> 2) & 0x3FFF) | 0x20) * 4));
@@ -258,25 +256,39 @@ block_29:
     case 0x22:
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x46;
         (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x20))) + 0x5C)) = 65536.0f;
-        goto block_37;
+        D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
+        (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
+        (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
+        (*(f32 *)((char *)(arg1) + 0x28)) = 0;
+        (*(f32 *)((char *)(arg1) + 0x24)) = 0;
+        ((__repair_field_2C *)arg1)->value = 0;
+        if ((*(u16 *)((char *)(arg0) + 0x38)) == 1) {
+            var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
+            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
+            return;
+        }
+        break;
     case 0x21:
         temp_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v0_3 = (int)temp_v1_3 & 0xFF81FFFF;
         var_v1 = ((temp_v1_3 >> 0x11) & 0x3F) | 1;
-        goto block_43;
+        (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+        return;
     case 0x3C:
         temp_v1_4 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v0_3 = temp_v1_4 & 0xFF81FFFF;
         var_v1 = ((temp_v1_4 >> 0x11) & 0x3F) | 2;
-        goto block_43;
+        (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+        return;
     case 0x3D:
         temp_v1_5 = (*(u32 *)((char *)(arg1) + 0x5C));
         var_v0_3 = temp_v1_5 & 0xFF81FFFF;
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
         var_v1 = ((temp_v1_5 >> 0x11) & 0x3F) | 8;
-        goto block_43;
+        (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+        return;
     case 0x1E:
     case 0x1F:
     case 0x84:

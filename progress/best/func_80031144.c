@@ -32,13 +32,18 @@ TextLine30818 *func_80031144(s32 kind, s32 line)
             break;
         case 1:
             page = D_800BFF08->pages[0];
-            goto readPage;
+            if (page != NULL) {
+                text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
+            }
+            break;
         case 2:
             page = D_800BFF08->pages[1];
-            goto readPage;
+            if (page != NULL) {
+                text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
+            }
+            break;
         case 3:
             page = D_800BFF08->pages[2];
-        readPage:
             if (page != NULL) {
                 text_get_line_span(out, func_80087100(*page), (u16)lineIndex);
             }

@@ -1,17 +1,17 @@
 void func_80095A80(u8,u8,u8,u8);
-s32 func_800989B8(s32);
+s32 func_800989B8(void);
 extern char D_8010D734[], D_8010D748[], D_8010D784[];
 extern unsigned char D_8010D76F[], D_8010D779[];
 s32 func_8008E680(s32 arg0, s32 arg1) {
     s32 index, result = -1, ret, handle;
     u32 high, low;
-    handle = func_800989B8(arg0);
+    handle = func_800989B8();
     if (handle != -1) {
         high = (u32)(arg1 & 0xffff) >> 7;
         low = arg1 & 0x7f;
     again:
-        index = handle;
         arg1 = (u8)index * 0x1a0;
+        index = handle;
         if (*(s32 *)(D_8010D784 + arg1) != handle) goto done;
         if (*(s32 *)(D_8010D748 + arg1) & 2) {
             result = (u8)index;

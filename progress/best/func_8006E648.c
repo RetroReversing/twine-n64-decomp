@@ -165,7 +165,11 @@ update:
             }
         }
         func_8006E584(arg1);
-        if (D_80103EB0 != 0) {
+        if (D_80103EB0 == 0) {
+block_34:
+block_35:
+            var_v0 = (u32) M2C_FIELD(arg1, s16 *, 0x7C) < 0xBU;
+        } else {
             temp_v1_5 = M2C_FIELD(arg1, s16 *, 0x7C);
             var_v0 = (u32) temp_v1_5 < 0xBU;
             if (temp_v1_5 != 5) {
@@ -199,10 +203,6 @@ update:
                     goto block_35;
                 }
             }
-        } else {
-block_34:
-block_35:
-            var_v0 = (u32) M2C_FIELD(arg1, s16 *, 0x7C) < 0xBU;
         }
         switch (M2C_FIELD(arg1, s16 *, 0x7C)) {
         case 1:

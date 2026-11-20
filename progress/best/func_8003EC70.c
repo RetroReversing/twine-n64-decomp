@@ -32,11 +32,11 @@ s32 func_8003EC70(s32 arg0) {
     f32 temp_fv1_4;
     register f32 var_ft1;
     s32 temp_a1;
-    register s16 temp_v0;
+    register s32 temp_v0;
     s16 temp_v1_2;
     s16 temp_v1_5;
     s16 temp_v1_6;
-    s16 temp_v1_7;
+    s32 temp_v1_7;
     s16 var_a1;
     s16 var_a1_2;
     register s16 var_a1_3;
@@ -115,91 +115,6 @@ s32 func_8003EC70(s32 arg0) {
             do {
                 temp_v1 = var_v0_2;
                 switch (temp_v1) {                  /* irregular */
-                default:
-                    if ((s16) D_800E19C8 != 0) {
-                        var_ft1 = D_800C075C;
-                        var_a0_2 = sp;
-                        D_800E19C0 = D_800E19B8;
-                        var_a1 = (int)var_t2;
-                        if ((var_t2 << 0x10) > 0) {
-                            do {
-                                var_v0_4 = 1;
-                                if (!((*(f32 *)((char *)(D_800E19C0) + 4)) < var_ft1)) {
-                                    var_v0_4 = 0;
-                                }
-                                temp_v1_2 = var_a1 - 1;
-                                *var_a0_2 = var_v0_4;
-                                var_a1 = temp_v1_2;
-                                D_800E19C0 += 0x24;
-                                ++var_a0_2;
-                            } while ((temp_v1_2 << 0x10) > 0);
-                            var_t1 = 0;
-                        } else {
-block_45:
-                            var_t1 = 0;
-                        }
-block_46:
-                        var_t3 = 0;
-                        if (var_t2 > 0) {
-                            var_v0_5 = (var_t2 - 1);
-                            do {
-                                temp_a3 = var_v0_5;
-                                if (*(sp + temp_a3) != *(sp + var_t3)) {
-                                    if (((var_t4 == 2) | (var_t4 == 4)) != 0) {
-                                        temp_a0 = (var_t1 * 0x24) + D_800E19BC;
-                                        temp_v1_3 = (var_t3 * 0x24) + D_800E19B8;
-                                        (*(f32 *)((char *)(temp_a0) + 4)) = var_ft1;
-                                        temp_ft0 = (*(f32 *)((char *)(temp_v1_3) + 4));
-                                        temp_v0_2 = (temp_a3 * 0x24) + D_800E19B8;
-                                        temp_ft0 = (var_ft1 - temp_ft0) / ((*(f32 *)((char *)(temp_v0_2) + 4)) - temp_ft0);
-                                        temp_fv1 = (*(f32 *)((char *)(temp_v1_3) + 0));
-                                        (*(f32 *)((char *)(temp_a0) + 0)) = (f32) (temp_fv1 + (((*(f32 *)((char *)(temp_v0_2) + 0)) - temp_fv1) * temp_ft0));
-                                        temp_fv1_2 = (*(f32 *)((char *)(temp_v1_3) + 8));
-                                        (*(f32 *)((char *)(temp_a0) + 8)) = (f32) (temp_fv1_2 + (((*(f32 *)((char *)(temp_v0_2) + 8)) - temp_fv1_2) * temp_ft0));
-                                    }
-                                    if (((var_t4 == 3) | (var_t4 == 5)) != 0) {
-                                        temp_a0_2 = (var_t1 * 0x24) + D_800E19BC;
-                                        (*(f32 *)((char *)(temp_a0_2) + 0)) = var_ft1;
-                                        temp_v1_4 = (var_t3 * 0x24) + D_800E19B8;
-                                        temp_ft0_3 = (*(f32 *)((char *)(temp_v1_4) + 0));
-                                        temp_v0_3 = (temp_a3 * 0x24) + D_800E19B8;
-                                        temp_ft0_3 = (var_ft1 - temp_ft0_3) / ((*(f32 *)((char *)(temp_v0_3) + 0)) - temp_ft0_3);
-                                        temp_fv1_3 = (*(f32 *)((char *)(temp_v1_4) + 4));
-                                        (*(f32 *)((char *)(temp_a0_2) + 4)) = (f32) (temp_fv1_3 + (((*(f32 *)((char *)(temp_v0_3) + 4)) - temp_fv1_3) * temp_ft0_3));
-                                        temp_fv1_4 = (*(f32 *)((char *)(temp_v1_4) + 8));
-                                        (*(f32 *)((char *)(temp_a0_2) + 8)) = (f32) (temp_fv1_4 + (((*(f32 *)((char *)(temp_v0_3) + 8)) - temp_fv1_4) * temp_ft0_3));
-                                    }
-                                    var_t1 += 1;
-                                }
-                                if (*(sp + var_t3) == 0) {
-                                    var_a3 = (var_t1 * 0x24) + D_800E19BC;
-                                    var_a2 = (var_t3 * 0x24) + D_800E19B8;
-                                    temp_t0 = (s8 *) var_a2 + 0x20;
-                                    do {
-                                        (*(s32 *)((char *)(var_a3) + 0)) = (*(s32 *)((char *)(var_a2) + 0));
-                                        (*(s32 *)((char *)(var_a3) + 4)) = (s32) (*(s32 *)((char *)(var_a2) + 4));
-                                        (*(s32 *)((char *)(var_a3) + 8)) = (s32) (*(s32 *)((char *)(var_a2) + 8));
-                                        (*(s32 *)((char *)(var_a3) + 0xC)) = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
-                                        var_a3 += 0x10;
-                                        var_a2 += 4;
-                                    } while (var_a2 != temp_t0);
-                                    *var_a3 = *var_a2;
-                                    var_t1++;
-                                }
-                                temp_a1 = var_t3;
-                                temp_v0 = temp_a1 + 1;
-                                var_v0_5 = temp_a1;
-                                var_t3 = temp_v0;
-                            } while (temp_v0 < var_t2);
-                        }
-                        temp_v0_4 = D_800E19BC;
-                        var_t2 = var_t1;
-                        D_800E19C4 = temp_v0_4;
-                        D_800E19BC = D_800E19B8;
-                        D_800E19B8 = temp_v0_4;
-                    }
-                    var_v0_3 = var_t4 + 1;
-                    break;
                 case 3:
                     var_v0_3 = var_t4 + 1;
                     if ((s16) D_800E19CA != 0) {
@@ -274,6 +189,91 @@ block_46:
                         }
                         goto block_45;
                     }
+                    break;
+                default:
+                    if ((s16) D_800E19C8 != 0) {
+                        var_ft1 = D_800C075C;
+                        var_a0_2 = sp;
+                        D_800E19C0 = D_800E19B8;
+                        var_a1 = (int)var_t2;
+                        if ((var_t2 << 0x10) > 0) {
+                            do {
+                                var_v0_4 = 1;
+                                if (!((*(f32 *)((char *)(D_800E19C0) + 4)) < var_ft1)) {
+                                    var_v0_4 = 0;
+                                }
+                                temp_v1_2 = var_a1 - 1;
+                                *var_a0_2 = var_v0_4;
+                                var_a1 = temp_v1_2;
+                                D_800E19C0 += 0x24;
+                                ++var_a0_2;
+                            } while ((temp_v1_2 << 0x10) > 0);
+                            var_t1 = 0;
+                        } else {
+block_45:
+                            var_t1 = 0;
+                        }
+block_46:
+                        var_t3 = 0;
+                        if (var_t2 > 0) {
+                            var_v0_5 = (var_t2 - 1);
+                            do {
+                                temp_a3 = var_v0_5;
+                                if (*(sp + temp_a3) != *(sp + var_t3)) {
+                                    if (((var_t4 == 2) | (var_t4 == 4)) != 0) {
+                                        temp_a0 = (var_t1 * 0x24) + D_800E19BC;
+                                        temp_v1_3 = (var_t3 * 0x24) + D_800E19B8;
+                                        (*(f32 *)((char *)(temp_a0) + 4)) = var_ft1;
+                                        temp_ft0 = (*(f32 *)((char *)(temp_v1_3) + 4));
+                                        temp_v0_2 = (temp_a3 * 0x24) + D_800E19B8;
+                                        temp_ft0 = (var_ft1 - temp_ft0) / ((*(f32 *)((char *)(temp_v0_2) + 4)) - temp_ft0);
+                                        temp_fv1 = (*(f32 *)((char *)(temp_v1_3) + 0));
+                                        (*(f32 *)((char *)(temp_a0) + 0)) = (f32) (temp_fv1 + (((*(f32 *)((char *)(temp_v0_2) + 0)) - temp_fv1) * temp_ft0));
+                                        temp_fv1_2 = (*(f32 *)((char *)(temp_v1_3) + 8));
+                                        (*(f32 *)((char *)(temp_a0) + 8)) = (f32) (temp_fv1_2 + (((*(f32 *)((char *)(temp_v0_2) + 8)) - temp_fv1_2) * temp_ft0));
+                                    }
+                                    if (((var_t4 == 3) | (var_t4 == 5)) != 0) {
+                                        temp_a0_2 = (var_t1 * 0x24) + D_800E19BC;
+                                        (*(f32 *)((char *)(temp_a0_2) + 0)) = var_ft1;
+                                        temp_v1_4 = (var_t3 * 0x24) + D_800E19B8;
+                                        temp_ft0_3 = (*(f32 *)((char *)(temp_v1_4) + 0));
+                                        temp_v0_3 = (temp_a3 * 0x24) + D_800E19B8;
+                                        temp_ft0_3 = (var_ft1 - temp_ft0_3) / ((*(f32 *)((char *)(temp_v0_3) + 0)) - temp_ft0_3);
+                                        temp_fv1_3 = (*(f32 *)((char *)(temp_v1_4) + 4));
+                                        (*(f32 *)((char *)(temp_a0_2) + 4)) = (f32) (temp_fv1_3 + (((*(f32 *)((char *)(temp_v0_3) + 4)) - temp_fv1_3) * temp_ft0_3));
+                                        temp_fv1_4 = (*(f32 *)((char *)(temp_v1_4) + 8));
+                                        (*(f32 *)((char *)(temp_a0_2) + 8)) = (f32) (temp_fv1_4 + (((*(f32 *)((char *)(temp_v0_3) + 8)) - temp_fv1_4) * temp_ft0_3));
+                                    }
+                                    var_t1 += 1;
+                                }
+                                if (*(sp + var_t3) == 0) {
+                                    var_a3 = (var_t1 * 0x24) + D_800E19BC;
+                                    var_a2 = (var_t3 * 0x24) + D_800E19B8;
+                                    temp_t0 = (s8 *) var_a2 + 0x20;
+                                    do {
+                                        (*(s32 *)((char *)(var_a3) + 0)) = (*(s32 *)((char *)(var_a2) + 0));
+                                        (*(s32 *)((char *)(var_a3) + 4)) = (s32) (*(s32 *)((char *)(var_a2) + 4));
+                                        (*(s32 *)((char *)(var_a3) + 8)) = (s32) (*(s32 *)((char *)(var_a2) + 8));
+                                        (*(s32 *)((char *)(var_a3) + 0xC)) = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
+                                        var_a3 += 0x10;
+                                        var_a2 += 4;
+                                    } while (var_a2 != temp_t0);
+                                    *var_a3 = *var_a2;/*__repair_loop_weight*/do {do {do {
+                                    var_t1++;} while (0);} while (0);} while (0);
+                                }
+                                temp_a3 = var_t3;
+                                temp_v0 = temp_a3 + 1;
+                                var_v0_5 = temp_a3;
+                                var_t3 = temp_v0;
+                            } while (temp_v0 < var_t2);
+                        }
+                        temp_v0_4 = D_800E19BC;
+                        var_t2 = var_t1;
+                        D_800E19C4 = temp_v0_4;
+                        D_800E19BC = D_800E19B8;
+                        D_800E19B8 = temp_v0_4;
+                    }
+                    var_v0_3 = var_t4 + 1;
                     break;
                 }
                 var_t4 = var_v0_3;

@@ -33,6 +33,7 @@ extern s16 D_8011F0EE;
 extern s32 D_8011F3A8;
 
 void func_8011E634(void) {
+    u32 *__base_D_801002B4;
     u8 *__base_D_801002AE;
     s16 var_v0;
     s32 temp_s1;
@@ -87,8 +88,9 @@ block_11:
         if (temp_s1 == 0) {
             var_s0 = 0;
             func_8011E894();
-            temp_s1_2 = &D_801002B4 - 6;
-            if (temp_s1 < D_801002B4) {
+            __base_D_801002B4 = &D_801002B4;
+            temp_s1_2 = __base_D_801002B4 - 6;
+            if (temp_s1 < (*__base_D_801002B4)) {
                 var_a0 = 0 & 0xFF;
                 do {
                     M2C_FIELD(temp_s1_2, s8 *, 0) = 1;

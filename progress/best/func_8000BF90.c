@@ -35,8 +35,8 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
             node = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (node != NULL) {
                 if (node[0x2B] == 0 || D_80109A60[node[0x2B]] != 0) {
-                    func_800455CC(sp20, node + 4, node + 0x10, pos);
-                    f = func_80045E34(pos, arg1, sp20);
+                    func_800455CC(sp20, node + 4, node + 0x10, ((f32 *)(arg0 + 0x24)));
+                    f = func_80045E34(((f32 *)(arg0 + 0x24)), arg1, sp20);
                     for (idx = 0; idx < 2; idx++) {
                         if (f > 0.0f && f < bestd[idx]) {
                             break;

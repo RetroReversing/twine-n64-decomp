@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80011950();                            /* extern */
-s32 func_80081D50(s32 *, s32, u16, void *); /* extern */
+s32 func_80081D50(s32 *, s32, int, void *); /* extern */
 s32 func_800828D8(s16);                             /* extern */
 s32 func_800828EC(s32);                             /* extern */
                             /* extern */
@@ -47,15 +47,15 @@ extern s32 D_80115124;
 void func_800821B4(void) {
     volatile u64 frame_pad;
     s32 sp2C;
-    u16 sp16;
+    s32 sp16;
     s32 *var_a0_2;
     unsigned sp24;
     
     s16 *var_s2;
-    s16 temp_s0;
-    s16 temp_s0_2;
-    s16 temp_s0_3;
-    s16 temp_s0_4;
+    s32 temp_s0;
+    s32 temp_s0_2;
+    s32 temp_s0_3;
+    s32 temp_s0_4;
     int var_a0;
     
     s32 temp_a2;
@@ -85,9 +85,9 @@ void func_800821B4(void) {
     register s32 var_s3_2;
     s32 var_s6;
     s32 var_s2_2;
-    u16 var_t8;
-    u8 temp_fp;
-    register u8 temp_v1;
+    s32 var_t8;
+    s32 temp_fp;
+    register s32 temp_v1;
     void *temp_s1;
     register void *temp_s5;
 

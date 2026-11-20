@@ -38,7 +38,7 @@ void func_8000CA3C(void) {
     }
     D_8010A4C2 |= 1;
     (*(s32 *)((char *)(D_80109688) + 0x100)) &= ~0x100;
-    func_80001D80(0, D_80109688);
+    func_80001D80(0);
     D_800B2710 = NULL;
     var_v0 = temp_s1 ^ 0x20;
     if (temp_s1 == 0x26) {
