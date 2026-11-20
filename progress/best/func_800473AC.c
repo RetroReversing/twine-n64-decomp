@@ -93,10 +93,7 @@ block_18:
                 }
                 var_condition_bit = temp_ft1_3 < temp_ft2_2;
             }
-            var_v1 = 1;
-            if (var_condition_bit == 0) {
-                var_v1 = 0;
-            }
+            var_v1 = var_condition_bit;
             if ((var_v0_2 | var_v1) != 0) {
                 return 0;
             }

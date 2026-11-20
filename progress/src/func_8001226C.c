@@ -37,7 +37,10 @@ s32 func_8001226C(s32 arg0) {
         if (D_800E097C != 0) return 1;
         __base_D_80107B6A = D_80107B6A;
         if (func_800AB770(temp_s0 + __base_D_80107B6A, D_80103030) != 0) goto fail;
-        if (func_800AB770(temp_s0 + (__base_D_80107B6A + 0x11), D_800D2520) != 0) goto fail;
+        {
+            u8 *extension = __base_D_80107B6A + 0x11;
+            if (func_800AB770(&extension[temp_s0], D_800D2520) != 0) goto fail;
+        }
         return 1;
 fail:
         return 0;

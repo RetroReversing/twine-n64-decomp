@@ -30,7 +30,7 @@ extern s32 D_801002B8;
 extern u8 D_80102EB8;
 extern M2C_UNK D_80102ED8;
 extern u8 D_80102EDD;
-extern M2C_UNK D_80102F48;
+extern M2C_UNK D_80102F48[];
 extern void *D_80109BB0;
 extern M2C_UNK D_8010A488;
 
@@ -112,7 +112,7 @@ void func_80021CA0(void) {
                 do {
                     temp_s1_3 = var_s0 & 0xFFFF;
                     temp_v0_3 = func_800162BC(D_800BD68E);
-                    (&D_80102F48)[temp_s1_3] = temp_v0_3;
+                    D_80102F48[temp_s1_3] = temp_v0_3;
                     if (temp_v0_3 != 0) {
                         temp_s2 = func_80087100((var_s0 + 0x4008) & 0xFFFF);
                         if (temp_s1_3 < 4U) {
@@ -124,9 +124,9 @@ void func_80021CA0(void) {
                             var_a3_2 = temp_s1_3 - 3;
                         
                         sprintf(temp_s2, "%s %d", var_a2, var_a3_2);}
-                        func_800160FC(*(((var_s0 & 0xFFFF) * 4) + &D_80102F48), temp_s2, 0x40);
+                        func_800160FC(D_80102F48[var_s0 & 0xFFFF], temp_s2, 0x40);
                     }
-                    func_8002A7CC(&D_8010A488, *(((var_s0 & 0xFFFF) * 4) + &D_80102F48), var_s0 & 0xFF, 1);
+                    func_8002A7CC(&D_8010A488, D_80102F48[var_s0 & 0xFFFF], var_s0 & 0xFF, 1);
                     var_s0 += 1;
                 } while ((u32) (var_s0 & 0xFFFF) < (u8) D_80102EB8);
             }

@@ -77,7 +77,7 @@ void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 block_12:
                         temp_v0 = (*(u8 *)((char *)(temp_a1) + 6));
                         if (temp_v0 != 0) {
-                            var_s1 = *((s32 *)((s8 *)D_80112E98 + (temp_v0 * 4)));
+                            var_s1 = *((s32 *)((s8 *)&D_80112E98 + (temp_v0 * 4)));
                             var_v0_3 = var_s4 & 0xFFFF;
                         } else {
                             var_s1 = (arg2 & temp_v1) | temp_a2;

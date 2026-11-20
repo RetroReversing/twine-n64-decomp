@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80034560(s32);                         /* extern */
-extern M2C_UNK D_80109688;
+extern void *D_80109688[];
 extern void *D_80115328;
 
 void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
@@ -35,7 +35,7 @@ void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
     void *temp_v0_3;
     void *temp_v0_4;
 
-    temp_v0 = *(&D_80109688 + (arg1 * 4));
+    temp_v0 = D_80109688[arg1];
     temp_fv1 = M2C_FIELD(temp_v0, f32 *, 0x60) + M2C_FIELD(temp_v0, f32 *, 0x50);
     if (!(temp_fv1 >= 2.1474836e9f)) {
         var_s3 = (s32) temp_fv1;
@@ -44,7 +44,7 @@ void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
         var_s3 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
         var_v0 = arg1 * 4;
     }
-    temp_v0_2 = *(&D_80109688 + var_v0);
+    temp_v0_2 = D_80109688[arg1];
     temp_fv1_2 = M2C_FIELD(temp_v0_2, f32 *, 0x64) + M2C_FIELD(temp_v0_2, f32 *, 0x58);
     if (temp_fv1_2 < 2.1474836e9f) {
         var_s2 = (s32) temp_fv1_2;
@@ -53,7 +53,7 @@ void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
         var_s2 = (s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000;
         var_v0_2 = arg1 * 4;
     }
-    temp_v0_3 = *(&D_80109688 + var_v0_2);
+    temp_v0_3 = D_80109688[arg1];
     temp_fv1_3 = (M2C_FIELD(temp_v0_3, f32 *, 0x60) + M2C_FIELD(temp_v0_3, f32 *, 0x54)) - 1.0f;
     if (temp_fv1_3 < 2.1474836e9f) {
         var_s1 = (s32) temp_fv1_3;
@@ -62,7 +62,7 @@ void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
         var_s1 = (s32) (temp_fv1_3 - 2.1474836e9f) | 0x80000000;
         var_v0_3 = arg1 * 4;
     }
-    temp_v0_4 = *(&D_80109688 + var_v0_3);
+    temp_v0_4 = D_80109688[arg1];
     temp_fv1_4 = (M2C_FIELD(temp_v0_4, f32 *, 0x64) + M2C_FIELD(temp_v0_4, f32 *, 0x5C)) - 1.0f;
     if (temp_fv1_4 < 2.1474836e9f) {
         var_s0 = (s32) temp_fv1_4;
@@ -71,7 +71,7 @@ void func_800075C4(s8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
         var_s0 = (s32) (temp_fv1_4 - 2.1474836e9f) | 0x80000000;
         var_v0_4 = arg1 * 4;
     }
-    func_80034560(*(&D_80109688 + var_v0_4));
+    func_80034560(D_80109688[arg1]);
     temp_a0 = D_80115328;
     D_80115328 = temp_a0 + 8;
     D_80115328 = temp_a0 + 0x10;

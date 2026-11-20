@@ -8,7 +8,7 @@ s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
 s32 emit_projection_viewport_commands();                            /* extern */
 s32 func_80039364(void *);                      /* extern */
 s32 func_80043FA0(void *);                      /* extern */
-s32 func_800A37C0(s32 *, s32);              /* extern */
+s32 guMtxF2L(s32 *, s32);              /* extern */
 s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern s32 D_800B1A00;
 extern s32 D_800B1B18;
@@ -134,7 +134,7 @@ block_26:
                         } else {
                             guTranslateF(&D_80112F90, ((__repair_record_var_s0*)var_s0)->field_24 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_28 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_2C * 64.0f);
                         }
-                        func_800A37C0(&D_80112F90, D_8010D538);
+                        guMtxF2L(&D_80112F90, D_8010D538);
                         var_a0 = D_80115328;
                         D_80115328 = var_a0 + 8;
                         var_v1 = D_8010D538 - 0x80000000;

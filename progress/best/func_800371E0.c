@@ -6,7 +6,7 @@ s32 func_80034560();                            /* extern */
 s32 func_80034630(s32, void *);                 /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
 s32 emit_projection_viewport_commands();                            /* extern */
-s32 func_800A37C0(s32 *, s32);              /* extern */
+s32 guMtxF2L(s32 *, s32);              /* extern */
 s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern s32 D_800B1AC8;
 extern u32 D_800B1D84;
@@ -90,7 +90,7 @@ case 2:
                         } else {
                             guTranslateF(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
                         }
-                        func_800A37C0(&D_80112F90, D_8010D538);
+                        guMtxF2L(&D_80112F90, D_8010D538);
                         var_a0_2 = D_80115328;
                         var_v1 = D_8010D538 - 0x80000000;
                         D_80115328 = (s8 *) var_a0_2 + 8;

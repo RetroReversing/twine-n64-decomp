@@ -13,7 +13,7 @@ extern s16 D_80112EBC;
 typedef struct { unsigned char pad_0[20]; float field_14; unsigned char pad_18[24]; short field_30; } __repair_record_temp_v0_5;
 void func_80074820(s32 arg0, s8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     char sp30[0x200];
-    s8 sp230;
+    s8 sp230[0x210];
     f32 var_fv1;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_s0;
@@ -40,7 +40,7 @@ s8 __repair_result_var_v0;
     void *temp_v0_5;
 
     var_s0 = arg1;
-    sp230 = 0;
+    sp230[0] = 0;
     var_a0 = *var_s0;
     if ((s8) *var_s0 != 0) {
         var_t0 = sp30;
@@ -83,17 +83,17 @@ block_14:
             }
             *var_t0 = 0;
             func_80074788(sp30, arg2);
-            if (sp230 != 0) {
-                func_800AB6C0(&sp230, &D_800D4870);
+            if (sp230[0] != 0) {
+                func_800AB6C0(sp230, &D_800D4870);
             }
-            func_800AB6C0(&sp230, sp30);
+            func_800AB6C0(sp230, sp30);
             var_a0 = (u8) *var_s0;
             var_t0 = sp30;
         } while (*var_s0 != 0);
     }
     D_80112EBC = 0;
-    var_s1 = &sp230;
-    if (sp230 != 0) {
+    var_s1 = sp230;
+    if (sp230[0] != 0) {
         __repair_result_var_v0 = __repair_inline(*var_s1);
         temp_v0_3 = 0;
         do {

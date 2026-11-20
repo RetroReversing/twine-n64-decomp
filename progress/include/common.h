@@ -74,3 +74,5 @@ void func_80027FF4(void);
 void func_80087A80(void);
 
 void func_8008C3D8(s32 index, u16 *data);
+
+void func_800081C4(s32 fill);

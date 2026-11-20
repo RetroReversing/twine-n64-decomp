@@ -2,7 +2,7 @@
 
 s32 func_80032630(s32, void *, s32);        /* extern */
 s32 func_800347B0(s32 *, f32, f32, f32, f32, f32, f32); /* extern */
-s32 func_800A37C0(s32 *, s32);              /* extern */
+s32 guMtxF2L(s32 *, s32);              /* extern */
 extern u32 D_800B1D84;
 extern u32 D_80107EA0;
 extern s32 D_8010D538;
@@ -29,7 +29,7 @@ char *__repair_addr;
         temp_v0 = used + 1;
         D_80107EA0 = temp_v0;
         D_8010D538 = base + (temp_v0 << 6); func_800347B0(&D_80112F90, (((__repair_record_arg0*)arg0)->field_2C) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_30) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_34) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_20) * 64.0f, (((__repair_record_arg0*)arg0)->field_24) * 64.0f, (((__repair_record_arg0*)arg0)->field_28) * 64.0f);
-        func_800A37C0(&D_80112F90, D_8010D538);
+        guMtxF2L(&D_80112F90, D_8010D538);
         {
             u32 opcode = 0xDA380003;
             u32 address;

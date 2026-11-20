@@ -14,7 +14,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     f32 temp_fv1;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_lo;
-    s32 temp_s0;
+    s8 *temp_s0;
     s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v0_3;
@@ -31,7 +31,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     s32 var_v1_2;
     s8 *var_a0;
     register u16 *temp_s2;
-    u16 *var_a1;
+    s32 var_a1;
     s32 var_a0_2;
     u8 temp_v1;
 

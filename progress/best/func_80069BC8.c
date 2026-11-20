@@ -19,7 +19,7 @@ void func_80069BC8(void *arg0) {
     s16 temp_v0_2;
     s32 temp_a0;
     u8 temp_v0;
-    void *temp_s1;
+    register void *temp_s1;
     void *temp_s2;
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
@@ -52,18 +52,17 @@ void func_80069BC8(void *arg0) {
         }
     }
     if (D_800E1A16 == 0) {
-        switch (D_80102EE8) {                       /* irregular */
+        switch (D_80102EE8) {
         case 1:
-            var_fv1 = D_800D4508;
+            D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4508);
             break;
         case 2:
-            var_fv1 = D_800D4510;
+            D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4510);
             break;
         default:
-            var_fv1 = D_800D4500;
+            D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4500);
             break;
         }
-        D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - var_fv1);
         if (D_800E1A14 <= 0) {
             D_800E1A14 = 0;
             ((__repair_field_60 *)arg0)->value = (s32) (((__repair_field_60 *)arg0)->value | 0x02000000);

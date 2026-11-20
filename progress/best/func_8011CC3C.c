@@ -24,6 +24,9 @@ extern s32 D_801002C0;
 extern M2C_UNK D_8011F338;
 
 void func_8011CC3C(void) {
+int __repair_literal;
+
+    u8 *__base_D_801001A1;
     s32 var_a0;
     s32 var_s2;
     s32 var_s3;
@@ -43,7 +46,9 @@ void func_8011CC3C(void) {
             temp_v1 = *(&D_801001A2 + (var_a0 * 0x18));
             if (temp_v1 != 0) {
                 var_s2 = 0;
-                if ((s32) temp_v1 >= 4) {
+__repair_literal = 4;
+
+                if ((s32) temp_v1 >= __repair_literal) {
                     var_v0 = var_s3 & 0xFFFF;
                     if (temp_v1 == 5) {
                         var_s2 = 0;
@@ -54,7 +59,8 @@ void func_8011CC3C(void) {
 block_6:
                 do {
                     if ((temp_v1 == 2) && (D_801002A1 == 1)) {
-                        temp_v1_2 = *(&D_801001A1 + ((func_80022DBC(var_s3 & 0xFFFF) & 0xFFFF) * 0x18));
+                        __base_D_801001A1 = &D_801001A1;
+                        temp_v1_2 = *(__base_D_801001A1 + ((func_80022DBC(var_s3 & 0xFFFF) & 0xFFFF) * 0x18));
                         if (!(var_s2 & 1)) {
                             if (temp_v1_2 == 1) {
                                 goto block_14;
@@ -68,7 +74,7 @@ block_6:
                     }
 block_14:
                     if ((temp_v1 == 3) && (temp_s0 = D_801002A1, (temp_s0 == 1))) {
-                        temp_v1_3 = *(&D_801001A1 + ((func_80022DBC(var_s3 & 0xFFFF) & 0xFFFF) * 0x18));
+                        temp_v1_3 = *(__base_D_801001A1 + ((func_80022DBC(var_s3 & 0xFFFF) & 0xFFFF) * 0x18));
                         if (var_s2 & 1) {
                             if (temp_v1_3 == 0) {
                                 var_s2 += 1;
@@ -104,12 +110,13 @@ block_25:
                 var_v0 = var_s3 & 0xFFFF;
 block_29:
                 var_v0_2 = 0 & 0xFFFF;
-                do { {
+                __repair_rows: { {
                     *(s32 *)((char *)&D_8011F338 + var_v0 * 4 + var_v0_2 * 0x10) = 0;
                     var_s2 += 1;
                     var_v0_2 = var_s2 & 0xFFFF;
                 }
-} while ((u32) (var_s2 & 0xFFFF) < 4U);
+}
+if ((u32) (var_s2 & 0xFFFF) < 4U) goto __repair_rows;
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;

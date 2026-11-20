@@ -5,7 +5,7 @@ s32 func_8003438C(void *, void *);              /* extern */
 s32 func_80034630(void *, void *);              /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
 s32 emit_projection_viewport_commands(s32, s32);            /* extern */
-s32 func_800A37C0(s32 *, s32);              /* extern */
+s32 guMtxF2L(s32 *, s32);              /* extern */
 extern s32 D_800B1A78;
 extern u32 D_800B1D84;
 extern s32 D_801032A0;
@@ -85,7 +85,7 @@ loop_12:
                         D_80112F94 = -D_80112F94;
                         D_80112FA4 = -D_80112FA4;
                         D_80112FB4 = -D_80112FB4;
-                        func_800A37C0(matrix, D_8010D538);
+                        guMtxF2L(matrix, D_8010D538);
                         ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
                         (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (D_8010D538 - 0x80000000);
                         D_80115328 += 8;

@@ -66,19 +66,19 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
             }
             var_a2 = arg1 & 0xFF;
             var_a1 = var_a0 >> 0x10;
-            return func_8008D138(var_a0, var_a1, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp4F);
+            return func_8008D138(var_a0, var_a1, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, (s32) sp4F);
         }
         temp_s0_2 = arg4 & 0xFF;
         if (temp_v1 != 0) {
             return -1;
         }
-        if ((temp_s0_2 == 0xFF) || (temp_s1 = arg5 & 0xFF, ((func_80096970(temp_s0_2, arg1, arg2, temp_s1) & 0xFF) == 0)) || (temp_v0 = func_8008CEB0(arg1 & 0x7F, temp_s0_2, temp_s1), var_v0 = temp_v0, (temp_v0 == -1))) {
+        if ((temp_s0_2 == 0xFF) || (temp_s1 = arg5 & 0xFF, ((func_80096970(temp_s0_2, temp_s1) & 0xFF) == 0)) || (temp_v0 = func_8008CEB0(arg1 & 0x7F, temp_s0_2, temp_s1), var_v0 = temp_v0, (temp_v0 == -1))) {
             var_v0 = -1;
             if (-1 == -1) {
                 var_a0_2 = temp_s3;
                 temp_s3_2 = var_a0_2 >> 0x10;
                 var_a0_3 = arg1 & 0xFF;
-                return func_8009C420(var_a0_2, temp_s3_2, var_a0_3, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, 1, (s32) sp4F);
+                return func_8009C420(var_a0_2, temp_s3_2, var_a0_3, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, 1, (s32) sp4F);
             }
         }
         /* Duplicate return node #43. Try simplifying control flow for better match */
@@ -120,13 +120,13 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
     temp_s3_2 = (temp_s0_3) | (var_a0_4 << 8) | (temp_v1_3 << 0x10);
             if (!(temp_v1_3 & 0xC000)) {
                 temp_s0_3 = arg4 & 0xFF;
-                if ((temp_s0_3 == 0xFF) || (temp_s2 = arg5 & 0xFF, ((func_80096970(temp_s0_3, temp_s2, temp_a2) & 0xFF) == 0)) || (temp_v0_3 = func_8008CEB0(var_a0_3 & 0x7F, temp_s0_3, temp_s2), var_v0 = temp_v0_3, (temp_v0_3 == -1))) {
+                if ((temp_s0_3 == 0xFF) || (temp_s2 = arg5 & 0xFF, ((func_80096970(temp_s0_3, temp_s2) & 0xFF) == 0)) || (temp_v0_3 = func_8008CEB0(var_a0_3 & 0x7F, temp_s0_3, temp_s2), var_v0 = temp_v0_3, (temp_v0_3 == -1))) {
                     var_v0 = -1;
                     if (-1 == -1) {
                         var_a0_2 = temp_s3_2;
                         var_a1_2 = temp_s6;
                         var_a2_2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
-                        return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, 1, (s32) sp4F);
+                        return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, 1, (s32) sp4F);
                     }
                 }
                 /* Duplicate return node #43. Try simplifying control flow for better match */
@@ -135,7 +135,7 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
             var_a0 = temp_s3_2;
             var_a1 = temp_s6;
             var_a2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
-            return func_8008D138(var_a0, var_a1, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp4F);
+            return func_8008D138(var_a0, var_a1, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, (s32) sp4F);
         }
         /* Duplicate return node #43. Try simplifying control flow for better match */
         return var_v0;

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80043FA0(void *);                      /* extern */
-M2C_UNK func_800A37C0(M2C_UNK *, s32);              /* extern */
+M2C_UNK guMtxF2L(M2C_UNK *, s32);              /* extern */
 extern u8 D_800C2B40;
 extern s32 D_8010D538;
 extern M2C_UNK D_80112F90;
@@ -24,7 +24,7 @@ typedef struct { int value; } __repair_field_0;
 void func_80008598(void *arg0) {
     void *temp_v1;
 
-    func_800A37C0(&D_80112F90, D_8010D538);
+    guMtxF2L(&D_80112F90, D_8010D538);
     ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
     M2C_FIELD(D_80115328, s32 *, 4) = (s32) (D_8010D538 - 0x80000000);
     D_80115328 += 8;

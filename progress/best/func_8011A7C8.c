@@ -21,7 +21,7 @@ extern s32 D_8011F3A8;
 typedef struct { unsigned char pad_0[120]; unsigned short field_78; short field_7A; } __repair_record_temp_v1_3;
 void func_8011A7C8(void) {
     s16 temp_v0_5;
-    s16 var_a0;
+    u16 var_a0;
     s16 var_a0_2;
     s16 var_a0_3;
     s16 var_a0_4;

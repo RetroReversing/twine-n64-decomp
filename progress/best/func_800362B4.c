@@ -31,7 +31,7 @@ extern void func_80032630(void *);
 extern void func_8003438C(RenderNode *, RenderView *);
 extern void func_80034630(RenderNode *, RenderView *);
 extern void emit_projection_viewport_commands(void);
-extern void func_800A37C0(f32 *, u32);
+extern void guMtxF2L(f32 *, u32);
 extern void func_800A3940(f32 *, f32, f32, f32);
 extern void guMtxIdentF(f32 *);
 extern RenderCommand D_800B1A00[], D_800B1A78[], D_800B1B18[];
@@ -106,7 +106,7 @@ void func_800362B4(RenderView *view) {
             guMtxIdentF(matrix);
             func_800A3940(matrix, one, -1.0f, one);
             D_80112FC4 = y * scale;
-            func_800A37C0(matrix, D_8010D538);
+            guMtxF2L(matrix, D_8010D538);
             D_80115328->w0 = 0xDA380003;
             D_80115328->w1 = D_8010D538 - 0x80000000;
             D_80115328++;

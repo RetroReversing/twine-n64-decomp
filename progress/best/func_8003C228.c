@@ -6,7 +6,7 @@ s32 func_800399D0(void *arg0);
 s32 func_8003A4C0();
 s32 func_8003AF20();
 s32 func_8003B954();
-s32 func_8003F940();
+s32 SetScissorRect();
 extern s8 D_800C0738;
 extern s8 D_800E176C;
 extern s32 D_8010A4D8;
@@ -58,7 +58,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                         var_a1 *= 2;
                         var_a3 *= 2;
                     }
-                    func_8003F940((*(u16 *)((char *)(var_s0) + 0x20)), var_a1 & 0xFFFF, (*(u16 *)((char *)(var_s0) + 0x24)));
+                    SetScissorRect((*(u16 *)((char *)(var_s0) + 0x20)), var_a1 & 0xFFFF, (*(u16 *)((char *)(var_s0) + 0x24)));
                 } else if (temp_v1 & 0x2000) {
                     func_80034560(arg0);
                 } else if ((u32) (temp_s1 & 0xFF) >= 5U) {

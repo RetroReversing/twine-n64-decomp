@@ -33,7 +33,7 @@ s32 func_8006F90C(void *);                      /* extern */
 s32 func_80082C8C(void *);                      /* extern */
 s32 func_80082CFC(void *);                      /* extern */
 s32 func_800839F0(void *, void *, void *);      /* extern */
-s32 func_800A37C0(f32 *, void *);               /* extern */
+s32 guMtxF2L(f32 *, void *);               /* extern */
 s32 func_800A3840(s32 *, s32 *, f32 *); /* extern */
 s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern u32 D_800B1D84;
@@ -208,7 +208,7 @@ loop_15:
                 var_a1 += 1;
                 var_s0 += 0x10;
             } while (var_a1 < 4U);
-            func_800A37C0(&D_80109BB8, D_80117728 + ((arg1 << 6) + 0x180));
+            guMtxF2L(&D_80109BB8, D_80117728 + ((arg1 << 6) + 0x180));
             func_80014E30(arg0);
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
                 func_80014EB0(temp_s7, &sp20);

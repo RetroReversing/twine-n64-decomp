@@ -27,7 +27,7 @@ s32 func_800834B8();
 s32 func_80083560();
 s32 func_800839F0();
 s32 func_80083A6C();
-s32 func_800A37C0();
+s32 guMtxF2L();
 extern u32 D_800B1D84;
 extern u8 D_800C2B40;
 extern char D_800C392A[];
@@ -311,7 +311,7 @@ block_49:
                         sp50[13] = sp10[1] * 64.0f;
                         sp50[14] = sp10[2] * 64.0f;
                         sp50[10] = M2C_FIELD(temp_s1, f32 *, 0x20) * 0.015625f;
-                        func_800A37C0(sp50, temp_s1_2);
+                        guMtxF2L(sp50, temp_s1_2);
                         ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
                         M2C_FIELD(D_80115328, s32 *, 4) = (s32) (temp_s1_2 - 0x80000000);
                         temp_v0_6 = *(s32 *)((var_s4 * 4) + M2C_FIELD(temp_s3, s32 *, 0x58));

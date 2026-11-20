@@ -42,8 +42,8 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                     (*(f32 *)((char *)(temp_s1) + 0x18)) = (f32) (temp_ft0 + ((temp_ft0 - (*(f32 *)((char *)(arg0) + 0x24))) * 0.5f) + func_80045D8C(2.0f, 1.0f));
                     temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s1) + 0x40))) + 0x28));
                     (*(f32 *)((char *)(temp_s1) + 0x1C)) = (f32) (temp_fv1 + ((temp_fv1 - (*(f32 *)((char *)(arg0) + 0x28))) * 0.5f));
-                    (*(f32 *)((char *)(temp_s1) + 0x20)) = (f32) (temp_ft0_2 + ((temp_ft0_2 - (*(f32 *)((char *)(arg0) + 0x2C))) * 0.5f) + func_80045D8C(2.0f, 1.0f));
                     temp_ft0_2 = (*(f32 *)((char *)((*(void **)((char *)(temp_s1) + 0x40))) + 0x2C));
+                    (*(f32 *)((char *)(temp_s1) + 0x20)) = (f32) (temp_ft0_2 + ((temp_ft0_2 - (*(f32 *)((char *)(arg0) + 0x2C))) * 0.5f) + func_80045D8C(2.0f, 1.0f));
                     temp_fv0 = func_800461D4(arg0 + 0x24, temp_s1 + 0x18);
                     (*(f32 *)((char *)(temp_s1) + 0x38)) = temp_fv0;
                     if (temp_fv0 > 5.0f) {

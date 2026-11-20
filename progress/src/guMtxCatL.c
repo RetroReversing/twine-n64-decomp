@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800A37C0(M2C_UNK *, M2C_UNK);          /* extern */
+M2C_UNK guMtxF2L(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_800A3840(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_800A97A0(M2C_UNK *, s32);              /* extern */
 
@@ -24,5 +24,5 @@ void guMtxCatL(s32 arg0, s32 arg1, M2C_UNK arg2) {
     func_800A97A0(sp10, arg0);
     func_800A97A0(sp50, arg1);
     func_800A3840(sp10, sp50, sp90);
-    func_800A37C0(sp90, arg2);
+    guMtxF2L(sp90, arg2);
 }
