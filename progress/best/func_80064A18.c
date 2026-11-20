@@ -58,15 +58,15 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0_3;
     void *sp14;
     union { s16 * pointer; s32 value; } __repair_phase_storage;
-    s16 temp_a1;
+    s32 temp_a1;
     s16 temp_a1_2;
     s16 temp_v0;
     s16 temp_v0_2;
     s16 temp_v1_10;
     s16 temp_v1_11;
     s16 var_s2;
-    s16 var_v1;
-    s16 var_v1_2;
+    s32 var_v1;
+    s32 var_v1_2;
     s32 temp_s0;
     
     
@@ -466,8 +466,8 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         }
         if (D_80102EE8 != 1) {
             if ((2 > D_80102EE8) || (var_v0 = temp_s4, (D_80102EE8 != 2))) {
-                var_fv0 = 0x41400000;
                 var_fv1 = 0x41900000;
+                var_fv0 = 0x41400000;
                 goto block_65;
             }
             D_800C7C98 = 0;

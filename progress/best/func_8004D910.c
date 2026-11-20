@@ -77,7 +77,7 @@ s32 func_8004D910(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
         temp_ft2_2 = (temp_fa0 * temp_fs0) - (temp_ft2_2 * temp_fs2);
         temp_ft3_2 = (temp_ft4 * temp_fs2) - (temp_fa0 * temp_fs5);
         sp40[0] = temp_ft2_2;
-        temp_fv1_4 = (((temp_t3 * temp_ft2_2))) + (((temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2)));
+        temp_fv1_4 = ((((temp_t4 * temp_ft2_3) + (temp_fs4 * temp_ft3_2)))) + ((((temp_t3 * temp_ft2_2))));
         sp40[1] = temp_ft2_3;
         sp40[2] = temp_ft3_2;
         if (!((f64) temp_fv1_4 < 0.0)) {
