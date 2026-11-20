@@ -40,7 +40,9 @@ s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
             } else {
 block_8:
                 temp_ft1 = *(f32 *)var_a3;
-                if (arg3 < ((((arg1[var_v1] - (temp_ft2 = *(f32 *)var_t1)) * (arg4 - temp_ft1)) / (arg2[var_v1] - temp_ft1)) + temp_ft2)) {
+                temp_fv1 = arg1[var_v1];
+                temp_ft2 = *(f32 *)var_t1;
+                if (arg3 < ((((temp_fv1 - temp_ft2) * (arg4 - temp_ft1)) / (arg2[var_v1] - temp_ft1)) + temp_ft2)) {
                     var_t2 = var_t2 == 0;
                 }
             }
