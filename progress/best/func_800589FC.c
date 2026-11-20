@@ -36,13 +36,12 @@ extern char D_800C469C[];
 extern char D_80109688[];
 
 void func_800589FC(void *arg0, void *arg1) {
+    char *__base_D_800C469C;
     f32 sp10[9];
     char sp40[0x30];
     s16 sp70[3];
     f32 sp78[3];
-    f32 sp88;
-    f32 sp8C;
-    f32 sp90;
+    f32 sp88[3];
     f32 sp98;
     s32 sp9C;
     s32 spA0;
@@ -68,7 +67,7 @@ void func_800589FC(void *arg0, void *arg1) {
     f32 temp_fs0_6;
     s8 temp_s2;
     void **temp_a1;
-    void **temp_v1;
+    
     void *temp_a0;
     void *temp_s1;
     void *temp_s7;
@@ -90,13 +89,14 @@ void func_800589FC(void *arg0, void *arg1) {
         spB8 = D_800D4000;
         spBC = D_800D4004;
         spC0 = D_800D4008;
-        sp88 = M2C_FIELD(arg1, s32 *, 0);
-        sp8C = M2C_FIELD(arg1, f32 *, 4);
-        sp90 = M2C_FIELD(arg1, f32 *, 8);
+        sp88[0] = M2C_FIELD(arg1, s32 *, 0);
+        sp88[1] = M2C_FIELD(arg1, f32 *, 4);
+        sp88[2] = M2C_FIELD(arg1, f32 *, 8);
         M2C_FIELD(temp_v0, void **, 0x18) = spFC;
         temp_a1 = (var_a1 * 4) + D_80109688;
         temp_a0 = *temp_a1;
-        sp104 = (M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), s8 *, 0xE) * 0xE8) + D_800C469C;
+        __base_D_800C469C = D_800C469C;
+        sp104 = (M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), s8 *, 0xE) * 0xE8) + __base_D_800C469C;
         if (temp_a0 == NULL) {
             sp78[0] = 0.0f;
             sp78[1] = 0.0f;
@@ -119,16 +119,16 @@ void func_800589FC(void *arg0, void *arg1) {
         sp10[7] = -(temp_fs0_4 * func_800829A0(sp78[0]));
         temp_fs0_5 = func_800829C8();
         temp_fs0_6 = temp_fs0_5 * func_800829C8();
-        sp8C = -sp8C;
-        sp88 = -sp88;
+        sp88[1] = -sp88[1];
+        sp88[0] = -sp88[0];
         sp10[8] = temp_fs0_6;
-        func_80083A6C(sp10, &sp88);
-        temp_v1 = (var_a1 * 4) + D_80109688;
-        temp_v0_2 = *temp_v1;
+        func_80083A6C(sp10, sp88);
+        temp_a1 = (var_a1 * 4) + D_80109688;
+        temp_v0_2 = *temp_a1;
         if (temp_v0_2 != NULL) {
-            sp88 += M2C_FIELD(temp_v0_2, f32 *, 0x10);
-            sp8C += M2C_FIELD(*temp_v1, f32 *, 0x14);
-            sp90 += M2C_FIELD(*temp_v1, f32 *, 0x18);
+            sp88[0] += M2C_FIELD(temp_v0_2, f32 *, 0x10);
+            sp88[1] += M2C_FIELD(*temp_a1, f32 *, 0x14);
+            sp88[2] += M2C_FIELD(*temp_a1, f32 *, 0x18);
         }
         M2C_FIELD(temp_v0, s16 *, 0x78) = 0x27;
         sp70[0] = (s16) (s32) M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), f32 *, 0x3C);
@@ -161,13 +161,13 @@ void func_800589FC(void *arg0, void *arg1) {
         func_80047B14(&sp98, M2C_FIELD(sp104, s32 *, 0xB8), &spC8, sp104);
         func_80047B14(&spA8, M2C_FIELD(sp104, s32 *, 0xBC), &spD8, sp104);
         func_80047B14(sp10C, M2C_FIELD(sp104, s32 *, 0xC0), &spE8, sp104);
-        func_800452AC(&spC8, &sp88, &sp88);
-        func_800452AC(&spD8, &sp88, &sp88);
-        func_800452AC(&spE8, &sp88, &sp88);
-        func_80047AEC(&sp88, temp_v0 + 0x24, temp_v0 + 0x30);
-        func_800452AC(&sp88, &sp98, &sp98);
-        func_800452AC(&sp88, &spA8, &spA8);
-        func_800452AC(&sp88, sp10C, sp10C);
+        func_800452AC(&spC8, sp88, sp88);
+        func_800452AC(&spD8, sp88, sp88);
+        func_800452AC(&spE8, sp88, sp88);
+        do { func_80047AEC(sp88, temp_v0 + 0x24, temp_v0 + 0x30); } while (0);
+        func_800452AC(sp88, &sp98, &sp98);
+        func_800452AC(sp88, &spA8, &spA8);
+        func_800452AC(sp88, sp10C, sp10C);
         M2C_FIELD(temp_v0, f32 *, 0x3C) = (f32) -sp78[0];
         M2C_FIELD(temp_v0, f32 *, 0x40) = sp78[1];
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;

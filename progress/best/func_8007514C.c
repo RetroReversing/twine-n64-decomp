@@ -76,7 +76,7 @@ block_13:
                             if (*(s32 *)((temp_a0 = var_a0 * 4) + ((((__repair_record_arg0*)arg0)->field_7C * 0xC) + __base_D_800C7EEC)) >= 0) {
                                 D_800C7EE4 = 1;
                             }
-                            func_80074C34(0, *(s32 *)(temp_a0 + ((((__repair_record_arg0*)arg0)->field_7C * 0xC) + __base_D_800C7EEC)));
+                            func_80074C34(0, *(s32 *)(temp_a0 + ((((__repair_record_arg0*)arg0)->field_7C * 0xC) + __base_D_800C7EEC)), 1);
                             D_800C7EE4 = 2;
                         }
                         ((__repair_record_arg0*)arg0)->field_60 |= 1;

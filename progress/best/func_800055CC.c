@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G8 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 void *func_8000182C();
@@ -45,9 +44,9 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     temp_v0 = func_8000182C(var_a0);
     var_v1 = (s16)((*(s16 *)((char *)(temp_v0) + 2)));
     temp_s4 = *(s16 *)((char *)D_800C3928 + ((var_v1 & 0x7FFF) * 8));
-    temp_s0 = var_v1 & 0x8000;
+    var_s1_2 = var_v1 & 0x8000;
     var_v1 = temp_s4 << 0x10;
-    if (temp_s0 != 0) {
+    if (var_s1_2 != 0) {
         var_s6 = temp_s4 * 3;
         if (arg3 != 0) {
             var_v1 |= 3;
@@ -64,16 +63,17 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     temp_s3 = (s8 *)arg0 + 8;
     var_s5 = 1;
     temp_fp = var_s6 + temp_s4;
-    if (temp_s0 != 0) {
+    if (var_s1_2 != 0) {
         var_s5 = temp_s4;
-    }{ s32 __repair_value; __repair_value = var_s5 * 6; temp_s0 = __repair_value; }
+    }
+    temp_s0 = var_s5 * 6;
     var_s1 = 0;
     temp_a0_2 = arg2 & -(arg2 < (u32) (*(s16 *)((char *)(temp_v0) + 0)));
     func_8000B900(temp_s3, (((*(s32 *)((char *)(temp_v0) + 4)) + (((var_s5 * 3) + (temp_s4 * 2)) * temp_a0_2 * 2)) - temp_s0) + D_F8D70, temp_fp * 4);
-    if (__repair_inline(var_s5, 0)) {
+    if (var_s5 > 0) {
         var_a0_2 = temp_s3;
         var_v1_2 = temp_s3 + temp_s0;
-        __repair_rows: {
+        do {
             (*(f32 *)((char *)(var_a0_2) + 0)) = (f32) (((f32) (*(u16 *)((char *)(var_v1_2) + 0)) * (*(f32 *)((char *)(temp_v0) + 8))) + (*(f32 *)((char *)(temp_v0) + 0x14)));
             (*(f32 *)((char *)(var_a0_2) + 4)) = (f32) (((f32) (*(u16 *)((char *)(var_v1_2) + 2)) * (*(f32 *)((char *)(temp_v0) + 0xC))) + (*(f32 *)((char *)(temp_v0) + 0x18)));
             temp_fv1 = ((f32) (*(u16 *)((char *)(var_v1_2) + 4)) * (*(f32 *)((char *)(temp_v0) + 0x10))) + (*(f32 *)((char *)(temp_v0) + 0x1C));
@@ -81,14 +81,13 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
             var_v1_2 += 6;
             (*(f32 *)((char *)(var_a0_2) + 8)) = temp_fv1;
             var_a0_2 += 0xC;
-        }
-if (var_s1 < var_s5) goto __repair_rows;
+        } while (var_s1 < var_s5);
     }
     if (arg3 != 0) {
         var_s1_2 = 0;
         if (temp_s4 > 0) {
             temp_fs0 = D_800D2008;
-            var_s0 = temp_fp;
+            var_s0 = (var_s6 + temp_s4);
             var_v0 = var_s6;
             do {
                 temp_v1 = *(u32 *)((var_v0 * 4) + temp_s3);

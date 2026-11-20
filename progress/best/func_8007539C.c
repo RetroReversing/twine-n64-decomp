@@ -8,10 +8,12 @@ s16 func_800A1080(void *);
 void func_8007539C(void) {
     u8 buf[0x400];
     s32 off;
-    volatile u64 reserve;
     u32 i;
     E7539C *e;
     s32 src;
+    u8 *__base_D_148B400;
+
+    __base_D_148B400 = D_148B400;
 
     off = 0;
     for (i = 0; i < 3; i++) {
@@ -22,13 +24,13 @@ void func_8007539C(void) {
             s32 q = src;
             __repair_rows: {
                 func_8000B9B8(&off, D_148B400 + q, 4);
-                func_8000B9B8(buf, D_148B400 + off, 0x400);
+                func_8000B9B8(buf, __base_D_148B400 + off, 0x400);
                 p->len = func_800A1080(buf);
                 p->off = off;
                 p++;
                 q += 4;
             }
-            if (p->key != 0xFFFF) goto __repair_rows;
+if (p->key != 0xFFFF) goto __repair_rows;
         }
     }
 }

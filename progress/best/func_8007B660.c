@@ -105,11 +105,11 @@ block_9:
                 }
             } else if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x1B) {
                 switch (D_80102EE8) {               /* switch 2; irregular */
-                default:                            /* switch 2 */
-                    var_fs1 = 75.0f;
-                    break;
                 case 2:                             /* switch 2 */
                     var_fs1 = 56.25f;
+                    break;
+                default:                            /* switch 2 */
+                    var_fs1 = 75.0f;
                     break;
                 }
             } else {
@@ -133,8 +133,8 @@ block_9:
             if ((M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000) == 0x400000) {
                 var_s2 = 0xA0000;
             }
-            var_s0 = 0;
             if (M2C_FIELD(temp_s3, u8 *, 0x14) != 0) {
+                var_s0 = 0;
                 do {
                     temp_v0_5 = M2C_FIELD(arg0, void **, 0x68);
                     func_80055B5C(-1, arg0, (M2C_FIELD(temp_v0_5, s8 *, 0xE) * 0xE8) + &D_800C469C, M2C_FIELD(temp_v0_5, void **, 4) + 0x78, &sp30, 0, var_s2);

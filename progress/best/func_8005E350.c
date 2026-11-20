@@ -40,7 +40,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     var_s7 = -1;
     var_s4 = -1;
     if (temp_v0 != NULL) {
-        temp_v0(arg0);
+        do { temp_v0(arg0); } while (0);
     }
     D_8010302C += 1;
     if (!((temp_s1 == 0x1A) & ((arg2 & 0xFFFF) == 1))) {
@@ -49,7 +49,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     }
     func_80073AF8(0, D_80109688[M2C_FIELD(temp_s6, s8 *, 0x182)], func_80087100((arg1 | 0x7000) & 0xFFFF), var_s7, (s32) var_s4, 1, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-        func_80084338(*(&D_800C4484 + temp_s0), arg0 + 0x24);
+        do { func_80084338(*(&D_800C4484 + temp_s0), arg0 + 0x24); } while (0);
         return;
     }
     func_8000A894(*(&D_800C4484 + temp_s0));
