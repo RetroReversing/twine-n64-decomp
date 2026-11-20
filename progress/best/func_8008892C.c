@@ -39,7 +39,7 @@ loop_3:
             arg0 = var_a0;
             if (arg0 != -1) {
                 osRecvMesg(&D_800E3F30, 0, 1);
-                if ((*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) & 0xFF) == 2) {
+                if ((u8)(*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) << 1) == 4) {
                     var_fs0 = (f32)*(u32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228)) / (f32)*(u32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                 } else {
                     var_fs0 = 0.0f;

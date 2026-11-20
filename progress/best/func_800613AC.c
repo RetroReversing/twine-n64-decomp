@@ -1,5 +1,5 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-void *func_80016410(void *, s32, s32, s32);
+void *func_80016410(void *, s32, s32);
 void func_80016990(void *, void *);
 extern u8 D_800B2022;
 extern u8 D_800B2272;
@@ -7,7 +7,7 @@ typedef struct { s32 w[3]; } __repair_words3;
 void func_800613AC(void *arg0, s32 arg1, void *arg2, s32 arg3) {
     void *temp_a2;
     void *temp_v0;
-    temp_v0 = func_80016410(arg0, 0x48, arg1, 0);
+    temp_v0 = func_80016410(arg0, 0x48, arg1);
     if (temp_v0 != NULL) {
         temp_a2 = M2C_FIELD(temp_v0, void **, 0x6C);
         M2C_FIELD(temp_a2, s32 *, 0x18) = 0;

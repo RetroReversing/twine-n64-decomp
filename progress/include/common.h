@@ -21,3 +21,12 @@ typedef int s32_bool;
 #define TRUE 1
 #define FALSE 0
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+
+/* Observed in the exact-matched slot update at 0x8011B460. */
+typedef struct { u8 pad0[0x10]; u8 flags; } TwineSlotEventState;
+typedef struct {
+    u8 pad0[0xB4];
+    TwineSlotEventState *event;
+    u8 padB8[0xCA];
+    s8 index;
+} TwineSlotEventActor;

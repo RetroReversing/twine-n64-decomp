@@ -1,7 +1,7 @@
 typedef struct { s32 a, b, c; } T9D100;
 s32 func_800CEEE0(s32, s32);
 s32 osSendMesg(void *, s32, s32);
-extern u8 D_800FDBB0;
+extern volatile u8 D_800FDBB0;
 extern T9D100 D_800FDBB4[];
 extern u8 D_800FDBE4;
 extern char D_800FDBE8[];

@@ -6,7 +6,7 @@ extern char D_800D1250[];
 extern f64 D_800D6FA0;
 extern f64 D_800D6FA8;
 
-void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
+void func_800AB030(f64 arg0, f64 *arg1, f64 *arg2) {
     f64 temp_fs0;
     s32 temp_a0;
     
@@ -107,6 +107,6 @@ void func_800AB030(f64 arg0, s32 arg1, f64 *arg2, f64 *arg3) {
         var_s1 = var_t1;
         var_a1 += 1;
     } while (var_a1 < 0x34);
-    *arg2 = func_800ABFA0(var_s2, var_s3, var_a2) / (temp_fs0 = D_800D6FA8);
-    *arg3 = func_800ABFA0(var_s0, var_s1) / temp_fs0;
+    *arg1 = func_800ABFA0(var_s2, var_s3, var_a2) / (temp_fs0 = D_800D6FA8);
+    *arg2 = func_800ABFA0(var_s0, var_s1) / temp_fs0;
 }

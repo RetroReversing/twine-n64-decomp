@@ -34,6 +34,8 @@ s32 func_80096A70(void *arg0, void *arg1) {
     u8 temp_v1_2;
     void *var_s2;
 
+    volatile u64 scratch;
+
     var_s4 = 0;
     var_s0 = 0;
     if (M2C_FIELD(arg1, u8 *, 0x10) != 0) {

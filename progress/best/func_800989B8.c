@@ -29,7 +29,7 @@ s32 func_800989B8(u32 arg0) {
                     var_v0 = var_v1;
                 } else {
                     var_v0 = NULL;
-                    if (arg0 >= temp_v0) {
+                    if (!(arg0 < temp_v0)) {
                         var_v1 = M2C_FIELD(var_v1, void **, 0);
                         if (var_v1 != NULL) {
                             continue;
@@ -39,10 +39,10 @@ s32 func_800989B8(u32 arg0) {
                 break;
             }
         }
-        if (var_v0 == NULL) {
-            return -1;
+        if (var_v0 != NULL) {
+            return M2C_FIELD(var_v0, s32 *, 0xC);
         }
-        return M2C_FIELD(var_v0, s32 *, 0xC);
+        return -1;
     }
     return -1;
 }
