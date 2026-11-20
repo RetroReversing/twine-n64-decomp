@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern f64 D_800D6800;
 extern f64 D_800D6808;
 
-f64 truncToU32Float(f64 arg0) {
+f64 func_8008CD54(f64 arg0) {
     f64 var_fv1;
     s32 var_v1;
 
