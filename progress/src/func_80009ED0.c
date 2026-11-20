@@ -16,5 +16,5 @@ s32 func_80045CF8(M2C_UNK);                         /* extern */
 extern u16 D_800B248A;
 
 int func_80009ED0(void) {
-    return *(&D_800B248A + func_80045CF8(0xD) * 0x3);
+    return *(u16 *)((u8 *)&D_800B248A + func_80045CF8(0xD) * 0xC);
 }
