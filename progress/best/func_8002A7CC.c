@@ -34,10 +34,11 @@ void *func_8002A7CC(void *arg0, s32 arg1, s8 arg2, s8 arg3) {
             *(s32 *)(temp_t1 + (u32)base) = arg1;
             M2C_FIELD((temp_t1 + M2C_FIELD(arg0, u32 *, 0)), s8 *, 8) = arg2;
             M2C_FIELD((temp_t1 + M2C_FIELD(arg0, u32 *, 0)), u16 *, 4) = (u16) M2C_FIELD(arg0, u16 *, 0x16);
-            var_a1_2 = M2C_FIELD(arg0, void **, 0);
-            temp_a2 = (void *) ((temp_t1) + (s32) var_a1_2);
+            temp_a2 = M2C_FIELD(arg0, void **, 0);
+            var_a1_2 = temp_a2;
+            temp_a2 = (void *) ((temp_t1) + (s32) temp_a2);
             if (temp_t0 != 0) {
-                var_a1_2 += (temp_t0 - 1) * 0xC;
+                var_a1_2 = (s8 *)var_a1_2 + (temp_t0 - 1) * 0xC;
             }
             M2C_FIELD(temp_a2, s16 *, 6) = (s16) (M2C_FIELD(var_a1_2, u16 *, 6) + M2C_FIELD(arg0, u8 *, 0x21));
             M2C_FIELD((temp_t1 + M2C_FIELD(arg0, u32 *, 0)), s8 *, 9) = arg3;

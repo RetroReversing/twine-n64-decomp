@@ -19,7 +19,7 @@ void func_800389F0(__repair_record_arg0 *arg0) {
     
     
     s32 var_v0_5;
-    register void *temp_a0;
+    void *temp_a0;
     void *temp_a0_2;
     void *temp_v0;
     void *temp_v1;
@@ -30,8 +30,8 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         func_800344DC();
         temp_v0 = D_80115328;
         (*(s32 *)((char *)(temp_v0) + 0)) = 0xE7000000;
-        ((__repair_field_4 *)temp_v0)->value = 0;
         (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x300000;
+        ((__repair_field_4 *)temp_v0)->value = 0;
         (*(s32 *)((char *)(temp_v0) + 8)) = 0xE3000A01;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = 0xE200001C;
         (*(s32 *)((char *)(temp_v0) + 0x18)) = 0xF7000000;
@@ -62,8 +62,8 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         (*(s32 *)((char *)(temp_v1_2) + 0x14)) = 0xFFFDF6FB;
         (*(s32 *)((char *)(temp_v1_2) + 0x18)) = 0xE200001C;
         (*(s32 *)((char *)(temp_v1_2) + 0x1C)) = 0x5040C0;
-        (*(s32 *)((char *)(temp_v1_2) + 0x2C)) = 0;
         (*(s32 *)((char *)(temp_v1_2) + 0x28)) = 0xD9C0F9FA;
+        (*(s32 *)((char *)(temp_v1_2) + 0x2C)) = 0;
         (*(s32 *)((char *)(temp_v1_2) + 0x30)) = 0xD9FFFFFF;
         (*(s32 *)((char *)(temp_v1_2) + 0x34)) = 0x200004;
         (*(s32 *)((char *)(temp_v1_2) + 0x38)) = 0xE7000000;

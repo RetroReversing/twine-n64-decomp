@@ -24,6 +24,7 @@ void func_800347B0(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     temp_fs0 = __sinf(arg3);
     temp_fv0 = __cosf(arg3);
     temp_ft0 = temp_fs4 * temp_fs1;
+    temp_ft1 = temp_fs3 * temp_fs1;
     temp_fa1 = temp_fv0 * temp_fs3;
     (*(f32 *)((char *)(arg0) + 0x2C)) = __repair_fzero;
     (*(f32 *)((char *)(arg0) + 0x1C)) = __repair_fzero;

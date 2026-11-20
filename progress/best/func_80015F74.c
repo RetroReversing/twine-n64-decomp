@@ -92,10 +92,9 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
 
     spacing = args->options.word;
     if ((spacing & 0xF0) == 0) {
-        spacing = 1;
-    } else {
-        spacing = (spacing >> 4) & 0xF;
+        spacing = 16;
     }
+    spacing = (spacing >> 4) & 0xF;
     flags = (node->flags.word & 0xFFFF0FFF) | ((spacing & 0xF) << 12);
     node->flags.word = flags;
     lines = args->options.word & 0xF;

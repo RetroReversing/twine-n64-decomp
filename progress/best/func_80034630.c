@@ -57,7 +57,7 @@ void func_80034630(void *arg0, void *arg1) {
         D_80115328 = temp_a1 + 8;
         { u32 x = ((s32)(var_fa0 * 4.0f) & 0xFFF) << 12;
           u32 y = (s32)(var_ft3 * 4.0f) & 0xFFF;
-          *(u32 *)temp_a1 = (0xED000000 | y) | x; }
+          *(u32 *)temp_a1 = (0xED000000 | x) | y; }
         (*(s32 *)((char *)(temp_a1) + 4)) = (s32) ((((s32) (var_fa1 * 4.0f) & 0xFFF) << 0xC) | ((s32) (var_ft4 * 4.0f) & 0xFFF));
     }
 }
