@@ -17,6 +17,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     register u8 *p;
     u32 *var_s6;
     u8 sp147;
+    volatile u64 pad;
 
     sp147 = 0;
     var_s1 = 0;

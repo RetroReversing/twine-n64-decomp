@@ -37,7 +37,7 @@ extern u16 D_800E0EE0, D_800E0EE2, D_800E0EE4;
 extern volatile u16 D_800E0EE6;
 void func_80022AD8(s32 id) {
     volatile TwineCachedObject *obj;
-    u16 x, y, z, color;
+    u16 x, y, z; u8 color;
     u32 flags;
     if (!D_800B7CF4) {
         D_800B7CF4 = func_800162BC(id & 0xff);

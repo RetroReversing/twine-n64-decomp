@@ -1,67 +1,134 @@
-f32 func_80045540(s32 *, void *);
-s32 func_800455CC(f32 *, void *, f32 *, void *);
-f32 func_80045764(f32 *, f32 *);
-f32 func_80045E34(void *, void *);
-s32 func_80047998(f32, f32, s32 *, void *, void *, f32 *, f32 *, f32 *, f32, f32);
-extern s32 D_800C42B0;
-extern s8 D_800C42B1;
-extern s8 D_800C42B2;
-extern f32 D_800C42B4;
-extern s32 D_800D3E50;
+typedef struct { f32 x, y, z; } Vec;
+typedef struct Actor Actor;
+struct Actor {
+    Actor *next;
+    u8 pad04[0x20];
+    Vec pos;
+    u8 pad30[0x28];
+    u32 active, mask, state;
+    u8 pad64[4];
+    Vec **points;
+    void *extra;
+    u8 pad70[8];
+    u16 type;
+};
+#define WORD(p, o) (*(u32 *)((u8 *)(p) + (o)))
+extern s8 D_800C42B0[14][8], D_800C42B1[14][8], D_800C42B2[14][8];
+extern f32 D_800C42B4[14][2];
+extern Vec D_800D3E50;
 extern f64 D_800D3E60;
-extern void *D_80108788;
-extern f32 D_80108F78;
-extern s32 D_80108F84;
+extern Actor *D_80108788;
+extern s32 D_80108F78, D_80108F84;
 
-void *func_8004F990(void **arg0, void *arg1, f32 *arg2, s32 arg3, void *arg4, u8 arg5, u8 arg6, s32 arg7) {
-    f32 sp50[3];
-    f32 sp20[3];
-    f32 sp60[3];
-    f32 sp70[3];
-    f32 sp30[3];
-    s32 sp40[3];
-    s32 sp80[3];
-    s32 sp90;
-    register void *var_s6;
-    s32 spC4;
-    f32 var_fs2;
-    void *var_s0;
-    s32 i;
-    s32 var_s1;
-    s32 var_s2;
-    s32 var_s3;
-    f32 var_fs1;
-f32 __repair_var_fs1_1;
-    f32 temp_fs0;
-    f32 temp_fv1;
-    f32 temp_ft0;
-    f32 temp_fv0_2;
-    f32 d;
-    f32 temp_fv0_4;
+f32 func_80045540(Vec *, Vec *);
+void func_800455CC(Vec *, Vec *, Vec *, Vec *);
+f32 func_80045764(Vec *, Vec *);
+f32 func_80045E34(Vec *, Vec *);
+s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
 
-    var_s6 = NULL;
-    var_fs2 = 65536.0f;
-    spC4 = 0;
-    sp20[0] = arg2[0] - ((f32 *)arg1)[0];
-    sp20[1] = arg2[1] - ((f32 *)arg1)[1];
-    sp20[2] = arg2[2] - ((f32 *)arg1)[2];
-    func_80045764(sp20, sp20);
+Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, u8 update, u8 mark, Actor *skip)
+{
+    Vec direction, axis, bestPoint, closest, a, b, hit, other;
+    Actor *best, *actor;
+    f32 bestDistance, length, scale, dx, dy, dz, radius, factor, x, y, z, axisLength, distance;
+    u32 bestPart, found, part;
+
+    bestPoint = D_800D3E50;
+    direction.x = end->x - start->x;
+    direction.y = end->y - start->y;
+    best = NULL;
+    bestDistance = 65536.0f;
+    bestPart = 0;
+    direction.z = end->z - start->z;
+    length = func_80045764(&direction, &direction);
     D_80108F84 = 0;
     D_80108788 = NULL;
-    if (arg0 != NULL) {
-        var_s0 = *arg0;
-        while (var_s0 != NULL) {
-            if ((var_s0 != (void *)arg7) && (((s32 *)var_s0)[0x58 / 4] & 0x400)) {
-                s32 f5c = ((s32 *)var_s0)[0x5C / 4];
-                if ((f5c & 0x400) && (f5c & arg3)) {
-                    var_fs1 = 1.5f;
-                    if ((D_80108F78 == 0x19) && (*(u16 *)((u8 *)var_s0 + 0x78) == 1)) {
-                        __repair_var_fs1_1 = 2.5f;
+    if (list != NULL) {
+        f32 maxSquared = 4.0f;
+        actor = *list;
+        if (actor != NULL) {
+        do {
+            if (actor != skip && (actor->active & 0x400) &&
+                (actor->mask & 0x400) && (actor->mask & mask)) {
+                scale = 1.5f;
+                if (D_80108F78 == 0x19 && actor->type == 1)
+                    scale = 2.5f;
+                func_800455CC(&closest, start, end, &actor->pos);
+                dx = closest.x - actor->pos.x;
+                dy = closest.y - actor->pos.y;
+                dz = closest.z - actor->pos.z;
+                found = -1;
+                if (dx * dx + dy * dy + dz * dz < maxSquared) {
+                    for (part = 0; part < 14; part++) {
+                        if (D_800C42B0[part][0] != -1) {
+                            s32 index = D_800C42B1[part][0];
+                            if (index == *(s8 *)((s32)(part * 8) + (s32)D_800C42B2))
+                                a = actor->points[0][index];
+                            else
+                                a = actor->points[1][index];
+                            b = actor->points[1][D_800C42B2[part][0]];
+                            axis.x = b.x - a.x;
+                            axis.y = b.y - a.y;
+                            axis.z = b.z - a.z;
+                            axisLength = func_80045764(&axis, &axis);
+                            radius = D_800C42B4[part][0] * scale;
+                            factor = (f32)((f64)radius * D_800D3E60);
+                            x = axis.x * factor;
+                            y = axis.y * factor;
+                            axisLength -= radius;
+                            z = axis.z * factor;
+                            a.x += x;
+                            a.y += y;
+                            a.z += z;
+                            b.x -= x;
+                            b.y -= y;
+                            b.z -= z;
+                            if ((func_80047998(&hit, &other, start, &direction, &a, &axis, length, axisLength) << 24) &&
+                                func_80045540(&hit, &other) < radius) {
+                                *result = hit;
+                                found = part;
+                                break;
+                            }
+                        }
+                    }
+                    if (found != (u32)-1) {
+                        distance = func_80045E34(start, result);
+                        if (distance < bestDistance) {
+                            best = actor;
+                            bestPart = found;
+                            bestPoint = *result;
+                            bestDistance = distance;
+                        }
+                    } else if ((update != 0) & (mark != 0)) {
+                        actor->state |= 4;
                     }
                 }
             }
-            var_s0 = *(void **)var_s0;
+            actor = actor->next;
+        } while (actor != NULL);
         }
     }
-    return var_s6;
+    if (best == NULL) return NULL;
+    {
+        u16 type;
+        D_80108788 = best;
+        *result = bestPoint;
+        if (update != 0) {
+            type = best->type;
+            if ((type == 1) | (type == 0x4C)) {
+                WORD(best->extra, 0x88) = (WORD(best->extra, 0x88) & 0xFFE1FFFF) |
+                    (((u8)D_800C42B0[bestPart][0] & 0xF) << 17);
+            }
+            type = best->type;
+            if (((type == 2) | (type == 0x4D)) || type == 3) {
+                void *extra = best->extra;
+                u32 flags = WORD(extra, 0x18C);
+                s32 id = D_800C42B0[bestPart][0];
+                WORD(extra, 4) = mask;
+                WORD(extra, 0x18C) = (flags & 0xFFFF0FFF) |
+                    ((id & 0xF) << 12);
+            }
+        }
+    }
+    return best;
 }

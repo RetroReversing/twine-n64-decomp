@@ -37,9 +37,9 @@ s32 __repair_phase_temp_v0_7;
     temp_v0 = M2C_FIELD(arg0, void **, 4);
     var_t0 = 1;
     if (temp_v0 != NULL) {
-        temp_v1 = (u32) M2C_FIELD(temp_v0, u32 *, 0x10) >> 0x18;
+        temp_v1 = *(u32 *)((s8 *)temp_v0 + 0x10);
         if (M2C_FIELD(temp_v0, u8 *, 0x11) != 0x6B) {
-            temp_v0_2 = temp_v1; temp_v0_2 += 0x10;
+            temp_v0_2 = (temp_v1 >> 24) + 0x10;
             if (temp_v0_2 >= 0) {
                 var_v1 = temp_v1 + 0x10;
                 if (temp_v0_2 >= 0x25) {
@@ -49,7 +49,8 @@ s32 __repair_phase_temp_v0_7;
                 var_v1 = 0;
             }
             temp_v0_7 = M2C_FIELD(M2C_FIELD(arg0, void **, 4), u16 *, 0x10);
-            temp_a0_2 = temp_v0_7 & 0xFF;
+            temp_v0_3 = temp_v0_7 & 0xFF;
+    temp_a0_2 = temp_v0_3;
     temp_v0_3 = (temp_a0_2) + 0x10;
             if (temp_v0_3 >= 0) {
                 temp_v0_2 = temp_v0_7 + 0x10;

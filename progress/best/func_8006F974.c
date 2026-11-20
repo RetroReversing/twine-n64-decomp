@@ -64,8 +64,8 @@ block_7:
     block_16:
                     if ((var_s2 == NULL) || (temp_v1_2 = ((u32) (*(u32 *)((char *)(var_s2) + 0x88)) >> 0x15) & 0xF, (temp_v1_2 == 1)) || (temp_v1_2 == 4)) {
                         if (D_80102ED8 != 0) {
-                            if (((u32) ((((__repair_record_arg1*)arg1)->field_78) - 2) < 2U) && (temp_a0_2 = (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s3) + 0x6C))) + 0xB4))) + 0x12)), (temp_a0_2 != 2))) {
-                                if (temp_a0_2 != (*(u8 *)((char *)((*(void **)((char *)((((__repair_record_arg1*)arg1)->field_6C)) + 0xB4))) + 0x12))) {
+                            if (((u32) ((((__repair_record_arg1*)arg1)->field_78) - 2) < 2U) && (temp_a0_2 = (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s3) + 0x6C))) + 0xB4))) + 0x12)), (temp_v0 = (((__repair_record_arg1*)arg1)->field_6C), (temp_a0_2 != 2)))) {
+                                if (temp_a0_2 != (*(u8 *)((char *)((*(void **)((char *)(temp_v0) + 0xB4))) + 0x12))) {
                                     goto block_29;
                                 }
                             } else {
