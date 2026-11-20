@@ -46,9 +46,13 @@ void func_80091428(s32 arg0, s32 arg1, s32 arg2) {
             D_800E5AC4[arg0].w114 = arg2;
         } else {
             arg0 &= 0x7FFFFFFF;
-            D_800E5AC4[arg0].wFE4 = arg1;
-            D_800E5AC4[arg0].wFE8 = arg2;
-            D_800E5AC4[arg0].flags |= 0x10;
+            {
+                s32 off = arg0 * sizeof(EntSnd);
+                u8 flags = *((u8 *)&D_800E5AC4[0].flags + off);
+                *(s32 *)((u8 *)&D_800E5AC4[0].wFE4 + off) = arg1;
+                *(s32 *)((u8 *)&D_800E5AC4[0].wFE8 + off) = arg2;
+                *((u8 *)&D_800E5AC4[0].flags + off) = flags | 0x10;
+            }
         }
     }
 }
