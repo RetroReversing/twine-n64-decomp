@@ -10,12 +10,13 @@ extern s32 func_800109CC(void);
 extern s32 func_80010B60(s32);
 
 typedef struct { u32 v; } __attribute__((packed)) UW;
-#define ENT(i) ((u8 *)D_800E0790 + (i) * 104)
+#define ENT(i) (base + (i) * 104)
 #define CP32(d, s) __builtin_memcpy((d), (s), 32)
 
 s32 func_80010C00(void)
 {
     s16 idx;
+    u8 *base = D_800E0790;
     
     s32 st;
     s32 a1;

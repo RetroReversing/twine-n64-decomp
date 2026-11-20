@@ -64,7 +64,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3) {
             if (s0->tag == arg3 && (a0 = s0->addr, a0 < sp2C) && sp34 < a0) {
                 a1 = s0->len;
                 if (a1 != t0) {
-                    if ((u16)(a0 + a1) < s4 + s2) {
+                    if (a0 + a1 < s4 + s2) {
 Ent *e;
 
                         if (s4 + s2 >= a0 + 0x600) {

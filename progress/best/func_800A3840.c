@@ -7,7 +7,10 @@ void func_800A3840(f32 *a0, f32 *a1, f32 *a2) {
     do {
         f32 *pb = a1;
         do {
-            last = pa[0] * pb[0] + pa[1] * pb[4] + pa[2] * pb[8] + pa[3] * pb[12];
+            last = pa[0] * pb[0];
+            last += pa[1] * pb[4];
+            last += pa[2] * pb[8];
+            last += pa[3] * pb[12];
             *pt = last;
             pb += 1;
             pt += 1;

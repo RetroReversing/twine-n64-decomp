@@ -20,7 +20,9 @@ extern char D_800FD564[];
 
 typedef struct { s32 w[2]; } __repair_words2;
 s32 func_80097E14(s32 arg0) {
+    volatile u64 unused;
     s32 temp_v1;
+    s32 scanCount;
     s32 var_a0;
     s32 var_a2;
     s32 var_s0;
@@ -29,16 +31,17 @@ s32 func_80097E14(s32 arg0) {
     void *var_a3;
     void *var_t0;
 
+    scanCount = D_800FD560;
     var_a0 = arg0;
     var_s0 = 0;
-    if (D_800FD560 > 0) {
+    if (scanCount > 0) {
         var_a0 &= 0xFFFF;
         var_v1 = 0;
         for (;;) {
             if (*(u16 *)(D_800FD564 + var_v1) != var_a0) {
                 var_s0 += 1;
                 var_v1 += 8;
-                if (var_s0 < D_800FD560) {
+                if (var_s0 < scanCount) {
                     continue;
                 }
             }
@@ -47,7 +50,7 @@ s32 func_80097E14(s32 arg0) {
     }
     var_v0 = 0;
     if (var_s0 != D_800FD560) {
-        func_8008C0D4(var_a0, D_800FD560);
+        func_8008C0D4();
         var_a2 = var_s0 + 1;
         temp_v1 = var_a2 * 8;
         if (var_a2 < D_800FD560) {

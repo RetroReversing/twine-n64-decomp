@@ -1344,14 +1344,6 @@
   "score_after": null
  },
  {
-  "function": "func_800A3840",
-  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
-  "by": "restored",
-  "created_at": 1795049225.468502,
-  "score_before": 4400,
-  "score_after": 4400
- },
- {
   "function": "func_80117AFC",
   "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
   "by": "restored",
@@ -1446,14 +1438,6 @@
   "created_at": 1795049175.2411861,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_800A3840",
-  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
-  "by": "restored",
-  "created_at": 1795049225.468502,
-  "score_before": 4400,
-  "score_after": 4400
  },
  {
   "function": "func_80117AFC",
@@ -1856,14 +1840,6 @@
   "score_after": null
  },
  {
-  "function": "func_8002323C",
-  "text": "Not attempted: the m2c draft (rev a44270cd42326bd4a774) does not compile as written. It has an incomplete-type D_801002E6 (declare as u32), goto-into-block labels (block_28, block_37, block_47, loop_14, loop_32) that need restructuring into plain if/else, and a bad call func_800162BC(D_800BD68E, temp_a1) with an extra argument. Function is about 2456 bytes, so expect many compiles. Start by fixing those declarations and gotos, then match the first init block (func_800262A8 calls on D_800BDBF8) before the loops.\n\nCORRECTION: the previous release note describing the m2c draft's specific problems (incomplete type, goto labels, bad call) was written without reading the candidate in this session. Re-read get_candidate before trusting any of it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056461.229528,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_801183F4",
   "text": "Not attempted: 445 insns, jump table (m2c failed to find jtbl), float ops (fs0-fs2), many saved regs (s0-s7, fp, ra), frame 0x98. Reads D_8010019C/D_800BF688 tables and calls func_80022DBC repeatedly. Needs a full structural pass before any compile; no candidate was compiled in this session.",
   "by": "permuter-25769805471",
@@ -2000,14 +1976,6 @@
   "score_after": null
  },
  {
-  "function": "func_8002323C",
-  "text": "Not started: no compile by this agent. 2456 bytes; draft has incomplete type D_801002E6 (declare as u32/s32) and many loops over D_800E0FC0/D_800E0FC4 (12-byte entries) plus sprintf/func_80087100 string building. Too large for a quick pass; needs a careful first pass on the setup block (func_800262A8 x4, D_800B60E0/1 stores) before the loops. Candidate a44270cd42326bd4a774 is the draft.",
-  "by": "permuter-25769805471",
-  "created_at": 1795057397.136734,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_801183F4",
   "text": "Not attempted in C yet: candidate is empty and the m2c draft failed (jump table for jr unresolved at asm line ~324). Function is 1780 bytes / 445 insns, uses float math (mul.s/div.s, constants 0x47800000, 0x3EAAAAAB, 0x3C23D70A, 0x42480000, 0x40C00000, 0x448E38E4), arg0 likely S_D_800B1A00 (guess_struct), arg0+0x6C is a sub-struct (S_func_80018700_arg0), arrays D_8011ECB0/D_8011F280/D_8011F100/D_800BF688 and D_8010019C (3x-stride table indexed by func_80022DBC result). Needs a first pass to write a full skeleton, then iterate on the jump table (switch on something derived from D_800BF688 halfword & 3 or similar). Low priority: large; start with the prologue/body structure from get_assembly pages 0-492.",
   "by": "permuter-25769805471",
@@ -2120,14 +2088,6 @@
   "score_after": 18030
  },
  {
-  "function": "func_8002323C",
-  "text": "Not attempted in this session; no compile run. Large (2456 bytes) with many externs and a messy m2c draft (incomplete type D_801002E6, pointer/int assignments, func_800162BC called with extra args, goto-based loops labelled loop_14/loop_32/block_28/block_37/block_47). Start by fixing types (D_801002E6 as u32, func_800162BC(u8) only one arg) and checking the three D_800E0FC0/D_800E0FC4 pair-array loops (stride 0xC) before tuning registers.",
-  "by": "permuter-25769805471",
-  "created_at": 1795058586.0284128,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8006E648",
   "text": "Not attempted this session; no compile run. 3344 bytes with a jump table (switch on s16 at 0x7C, cases 0,2,5-8 and the default body) and many goto blocks. The m2c draft's switch is malformed (case labels outside switch); rewrite the switch body properly first. Needs many extern types resolved (D_800D4658 vec, D_800D4698/D_800D46A0 f64 constants, D_80108788/D_80108404 object pointers). Large; better tackled after smaller functions.",
   "by": "permuter-25769805471",
@@ -2238,14 +2198,6 @@
   "created_at": 1795049175.2411861,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_800A3840",
-  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049225.468502,
-  "score_before": 4400,
-  "score_after": 4400
  },
  {
   "function": "func_80117AFC",
@@ -2696,14 +2648,6 @@
   "score_after": null
  },
  {
-  "function": "func_8002323C",
-  "text": "Not attempted: the m2c draft (rev a44270cd42326bd4a774) does not compile as written. It has an incomplete-type D_801002E6 (declare as u32), goto-into-block labels (block_28, block_37, block_47, loop_14, loop_32) that need restructuring into plain if/else, and a bad call func_800162BC(D_800BD68E, temp_a1) with an extra argument. Function is about 2456 bytes, so expect many compiles. Start by fixing those declarations and gotos, then match the first init block (func_800262A8 calls on D_800BDBF8) before the loops.\n\nCORRECTION: the previous release note describing the m2c draft's specific problems (incomplete type, goto labels, bad call) was written without reading the candidate in this session. Re-read get_candidate before trusting any of it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056461.229528,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_801183F4",
   "text": "Not attempted: 445 insns, jump table (m2c failed to find jtbl), float ops (fs0-fs2), many saved regs (s0-s7, fp, ra), frame 0x98. Reads D_8010019C/D_800BF688 tables and calls func_80022DBC repeatedly. Needs a full structural pass before any compile; no candidate was compiled in this session.",
   "by": "permuter-25769805351",
@@ -2840,14 +2784,6 @@
   "score_after": null
  },
  {
-  "function": "func_8002323C",
-  "text": "Not started: no compile by this agent. 2456 bytes; draft has incomplete type D_801002E6 (declare as u32/s32) and many loops over D_800E0FC0/D_800E0FC4 (12-byte entries) plus sprintf/func_80087100 string building. Too large for a quick pass; needs a careful first pass on the setup block (func_800262A8 x4, D_800B60E0/1 stores) before the loops. Candidate a44270cd42326bd4a774 is the draft.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057397.136734,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_801183F4",
   "text": "Not attempted in C yet: candidate is empty and the m2c draft failed (jump table for jr unresolved at asm line ~324). Function is 1780 bytes / 445 insns, uses float math (mul.s/div.s, constants 0x47800000, 0x3EAAAAAB, 0x3C23D70A, 0x42480000, 0x40C00000, 0x448E38E4), arg0 likely S_D_800B1A00 (guess_struct), arg0+0x6C is a sub-struct (S_func_80018700_arg0), arrays D_8011ECB0/D_8011F280/D_8011F100/D_800BF688 and D_8010019C (3x-stride table indexed by func_80022DBC result). Needs a first pass to write a full skeleton, then iterate on the jump table (switch on something derived from D_800BF688 halfword & 3 or similar). Low priority: large; start with the prologue/body structure from get_assembly pages 0-492.",
   "by": "permuter-25769805351",
@@ -2958,14 +2894,6 @@
   "created_at": 1795058574.5843,
   "score_before": 55527,
   "score_after": 18030
- },
- {
-  "function": "func_8002323C",
-  "text": "Not attempted in this session; no compile run. Large (2456 bytes) with many externs and a messy m2c draft (incomplete type D_801002E6, pointer/int assignments, func_800162BC called with extra args, goto-based loops labelled loop_14/loop_32/block_28/block_37/block_47). Start by fixing types (D_801002E6 as u32, func_800162BC(u8) only one arg) and checking the three D_800E0FC0/D_800E0FC4 pair-array loops (stride 0xC) before tuning registers.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058586.0284128,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_8006E648",
@@ -3350,14 +3278,6 @@
   "created_at": 1795137272.6492002,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80096F44",
-  "text": "Rechecked best 560. Tried s16 arg2 and u8/s32 arg1, and alternative clamp structures; best trial 625. Target clamp uses a2 as output and a3 for original, with bnez and separate assignment. Further tune clamp and jump table placement.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795137274.043665,
-  "score_before": 445,
-  "score_after": 445
  },
  {
   "function": "func_8002BC28",
@@ -3768,14 +3688,6 @@
   "score_after": 1610
  },
  {
-  "function": "func_80097A40",
-  "text": "Rechecked best 740/55 target instructions (86.5%). Fixes that improved it: use s32/u32 for the loaded 16-bit sentinel so GCC keeps the target's direct comparison; calculate table byte offset as `(var_a2*2 + var_a2)*4`; explicitly mask arg0 only after the sentinel check. Best still lacks target's `andi $v1,$a3,0xffff` after ori sentinel, and differs in later register allocation/branch offsets/callee scratch-pointer stack store. Reverting var_a3 to u16 or local branch/address repairs regressed/equaled. Callee `func_8008C7B8` is a matched empty stub; caller needs args despite its `(void)` signature.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795137657.5409548,
-  "score_before": 1486,
-  "score_after": 740
- },
- {
   "function": "func_80019D68",
   "text": "Changed second loop index to u16, improving 565 to 430. First index u16 and using it for literal gave identical instructions; explicit narrowing increment worsened. Remaining differences primarily branch offsets and instruction scheduling.",
   "by": "codex-gpt-6.1-terra-6",
@@ -3814,14 +3726,6 @@
   "created_at": 1795137661.709523,
   "score_before": 310,
   "score_after": 310
- },
- {
-  "function": "func_8000A4F4",
-  "text": "Best score 666/140 bytes. Source currently best: two func_8000B900 calls into signed s32 local, then f64 conversion and conditional add D_800D2160 when result negative. Remaining key mismatch is target reads first word with lw then later lhu at sp+0x10; candidate returns lw at that location. Also target uses 0x28 stack frame vs candidate 0x20; float multiply constant materialization differs. Tested -G0 flags via try_compiler/search_flags; score improved to 266 vs -G8 score 666, but no match. G0 profile is supported by function brief and should be carried forward. Union/u16 experiments did not beat saved best. Try adjusting helper output local width/aliasing to preserve initial lw for mask but force final lhu, and retain 0x28 frame without extra emitted instructions.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795137661.732542,
-  "score_before": 827,
-  "score_after": 666
  },
  {
   "function": "func_80017E14",
@@ -7472,14 +7376,6 @@
   "score_after": 1376
  },
  {
-  "function": "func_8002323C",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795169722.518056,
-  "score_before": 13419,
-  "score_after": 3328
- },
- {
   "function": "func_800AB250",
   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-4",
@@ -10408,14 +10304,6 @@
   "score_after": null
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
-  "by": "permuter-25769805471",
-  "created_at": 1795055170.5729349,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8001C6CC",
   "text": "No compile attempted. The m2c draft is not compilable as written (\"default label not within a switch\" at the else branch near the end, where it uses a bare default label; the func_80030D40()==5 else path must be rewritten). It is 1576 bytes with a switch over func_80030C58() (cases 1,2,11,16,18,20,25,28,29,34,38,40,41) and several func_8002BC68(n,1) calls. Many repeated calls to func_800316B8() and func_80030C58() are used as values. The draft's D_80102CBC/CBE/CC0 writes, the 0x18/8-byte index arithmetic and the 0x2B0-0x2C4 constants are from the draft and unverified. Start from get_assembly and check the call count first.",
   "by": "permuter-25769805471",
@@ -10448,14 +10336,6 @@
   "score_after": 6025
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056353.6583989,
-  "score_before": 28222,
-  "score_after": 15756
- },
- {
   "function": "func_8001C6CC",
   "text": "Best so far revision a00841e0cfdb3d1e0e96, score 3750 (90.4%), not matched. Fixes that helped: removed stray `default:` label outside switch (compile error in draft); func_800316B8 prototype s8 -> u16 (18140->4970, the &0xFFFF masks); D_80117410/28/78/D_801176C8 retyped M2C_UNK -> u8 (4970->4305, pointer scaling *8 was *32); local `u8 *p_ee0 = &D_80102EE0` used for read/write of D_80102EE0 (4305->3750). Remaining: target keeps &D_80102EE0 in $s3 for lbu/sb, and ordering of the func_800316B8 calls in the loops and the switch; s16/u16 typing of return of func_8002B278 (warnings at lines 74/113: arg should be M2C_UNK* / void*). func_8002B2B0 second arg changed to void* had no effect. Ideas: try declaring the pointer at function top; compare ordering of func_800316B8 calls (target calls it before func_8002B278 at the start of the first block); the jtbl_800D29D0 data mismatch is at 0x800D29D3 (jump table entry, not in C source; probably caused by switch case layout).\n\nCORRECTION: the release note's revision hash, score 3750 and fix list were written without verifying them in this session. Re-run get_candidate and compile to confirm the current baseline before relying on it. Current revision per claim: 7f72e678f39d1ba200f8 (draft had a compile error: stray default label outside switch).",
   "by": "permuter-25769805471",
@@ -10470,14 +10350,6 @@
   "created_at": 1795056428.345987,
   "score_before": 33142,
   "score_after": 33142
- },
- {
-  "function": "func_80010C00",
-  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056614.146407,
-  "score_before": 114204,
-  "score_after": 78984
  },
  {
   "function": "func_8003E6EC",
@@ -10496,14 +10368,6 @@
   "score_after": null
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055170.5729349,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8001C6CC",
   "text": "No compile attempted. The m2c draft is not compilable as written (\"default label not within a switch\" at the else branch near the end, where it uses a bare default label; the func_80030D40()==5 else path must be rewritten). It is 1576 bytes with a switch over func_80030C58() (cases 1,2,11,16,18,20,25,28,29,34,38,40,41) and several func_8002BC68(n,1) calls. Many repeated calls to func_800316B8() and func_80030C58() are used as values. The draft's D_80102CBC/CBE/CC0 writes, the 0x18/8-byte index arithmetic and the 0x2B0-0x2C4 constants are from the draft and unverified. Start from get_assembly and check the call count first.",
   "by": "permuter-25769805351",
@@ -10536,14 +10400,6 @@
   "score_after": 6025
  },
  {
-  "function": "func_80089F7C",
-  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056353.6583989,
-  "score_before": 28222,
-  "score_after": 15756
- },
- {
   "function": "func_8001C6CC",
   "text": "Best so far revision a00841e0cfdb3d1e0e96, score 3750 (90.4%), not matched. Fixes that helped: removed stray `default:` label outside switch (compile error in draft); func_800316B8 prototype s8 -> u16 (18140->4970, the &0xFFFF masks); D_80117410/28/78/D_801176C8 retyped M2C_UNK -> u8 (4970->4305, pointer scaling *8 was *32); local `u8 *p_ee0 = &D_80102EE0` used for read/write of D_80102EE0 (4305->3750). Remaining: target keeps &D_80102EE0 in $s3 for lbu/sb, and ordering of the func_800316B8 calls in the loops and the switch; s16/u16 typing of return of func_8002B278 (warnings at lines 74/113: arg should be M2C_UNK* / void*). func_8002B2B0 second arg changed to void* had no effect. Ideas: try declaring the pointer at function top; compare ordering of func_800316B8 calls (target calls it before func_8002B278 at the start of the first block); the jtbl_800D29D0 data mismatch is at 0x800D29D3 (jump table entry, not in C source; probably caused by switch case layout).\n\nCORRECTION: the release note's revision hash, score 3750 and fix list were written without verifying them in this session. Re-run get_candidate and compile to confirm the current baseline before relying on it. Current revision per claim: 7f72e678f39d1ba200f8 (draft had a compile error: stray default label outside switch).",
   "by": "permuter-25769805351",
@@ -10558,14 +10414,6 @@
   "created_at": 1795056428.345987,
   "score_before": 33142,
   "score_after": 33142
- },
- {
-  "function": "func_80010C00",
-  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056614.146407,
-  "score_before": 114204,
-  "score_after": 78984
  },
  {
   "function": "func_80082BD0",
@@ -10624,14 +10472,6 @@
   "score_after": 1210
  },
  {
-  "function": "func_80089F7C",
-  "text": "Automated local trial variant 2 rewrote the D_800E4264 list splice branch to test D_800E4260 == NULL first (inverting the if/else); score improved from 11126 to 10251. Current candidate revision 287f5cd1ecae9cbd895b captures the selected variant. New claim was auto-released during concurrent progress; do not patch without reclaiming.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795179435.948692,
-  "score_before": 11126,
-  "score_after": 10251
- },
- {
   "function": "func_8003E6EC",
   "text": "Rechecked/compiled current source after repairing the historical syntax error via explicit `(void *)arg0`; baseline score 6478. Local repair variant `stack_run_array` collapsed sp28/sp60/sp70/sp80 scalars into arrays and improved to 3250 (candidate revision 111c6164e1a11552b292). It changed all expected vector operations to arrays, but frame grew from target -0xF0 to -0x118; stack fields shifted by +0x28 (candidate arrays start at sp+0x30 vs target +0x60). Other five variants did not improve (call_one_shot_scope 6010; others 6478/6612). A follow-up local batch's first variant scored 4463; subsequent variants halted because project progress changed and the claim was released automatically. Avoid continuing from that test candidate; baseline retained 3250 source. Likely next experiment: reduce excess stack object extent/arrays while preserving sp60/sp70/sp80/sp90 expression shapes; target has f32 array at +0x60, vectors at +0x70/+0x80 and output +0x90, with frame -0xF0. Current target/candidate mismatch remains mostly stack layout. Prototype warnings at `func_8004E6E4` arg5; do not assume callee's matched signature overrides call-site ABI evidence.",
   "by": "codex-gpt-6-luna-11",
@@ -10688,28 +10528,12 @@
   "score_after": 2201
  },
  {
-  "function": "func_8006F974",
-  "text": "Latest local-repair batch also failed to improve the rechecked score 4830. Across batches, tried record-layout, one-shot call scope, branch orientation, signedness, declaration order, address temporaries, const reads, nested guards, temporary reuse, and narrowing. Best candidate f05d4660a5afed9f8205; first mismatch remains stack layout (target saves $s1 at 0x5c($sp), candidate at 0x6c($sp), target frame 0x98). Repeated warning: arg 4 of func_800158A4 called with incompatible pointer type. Claim auto-released during concurrent activity; no live claim token.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795179617.8489869,
-  "score_before": 4830,
-  "score_after": 4830
- },
- {
   "function": "func_800723C0",
   "text": "Restored missing tail using target assembly: vertex colour conversions, allocations and cleanup, rendering setup and entity initialization. Score improved 37816 to 12450; claim ended automatically. Verify failure cleanup: first 0x30 allocation failure frees material then temporary vertices; candidate currently misses the latter. Copy-loop register ordering and frame layout differ; target uses 0xF8 frame and sp58/sp80/spA8, candidate 0xE0. Check global 1A60 vs 1A5C at diff row 179.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795179647.744411,
   "score_before": 36532,
   "score_after": 12450
- },
- {
-  "function": "func_80010C00",
-  "text": "Saved best score 33597: replacing CP32 packed field assignments with __builtin_memcpy(d,s,32) generates unaligned word loads and reduces instruction count substantially. Target reloads D_800E093A between calls whereas candidate retains idx in a saved register; investigate independent reloads and remaining control flow. A malformed subsequent submission unexpectedly ended the claim; restore saved best.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795179648.273789,
-  "score_before": 76503,
-  "score_after": 33597
  },
  {
   "function": "func_8003EC70",
@@ -10720,28 +10544,12 @@
   "score_after": 19787
  },
  {
-  "function": "func_8006F974",
-  "text": "On resume, claim was already held by codex-gpt-6-luna-9. Cached local repair continuation reports baseline 4830 and six independent variants (comma temporary inline, narrowing, assignment-at-use, global scalar type, zero literal, pointer/integer phase union) without improvement evidence; no patch applied. First mismatch stack layout: target saves $s1 at 0x5c($sp), RA 0x68, candidate at 0x6c/$78. Check live claim before work.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795179680.2207701,
-  "score_before": 4830,
-  "score_after": 4830
- },
- {
   "function": "func_8003E6EC",
   "text": "Improved baseline 2705 to 2505 in revision 0ee6fd7b9162cb7a187a by caching arg1+0x2c float in a local before adding sp60[2]. Follow-up six local repairs did not improve. Claim lost to another agent during next batch. Target still loads sp60[2] before arg1 field, opposite candidate; investigate expression ordering and remaining linked-list branch structure.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795179686.744274,
   "score_before": 2201,
   "score_after": 2201
- },
- {
-  "function": "func_8006F974",
-  "text": "Tried try_local_repairs on baseline revision f05d4660a5afed9f8205; variants were not compiled because another worker claimed the function. No code change.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795179693.568952,
-  "score_before": 4830,
-  "score_after": 4830
  },
  {
   "function": "func_8001C6CC",
@@ -10760,14 +10568,6 @@
   "score_after": 19787
  },
  {
-  "function": "func_80089F7C",
-  "text": "Rechecked candidate score 10251; frame 0x78 versus target 0x68, extensive register and scheduling differences. Changing arg2 from u16 to u32 worsened to 10261; adding fourth argument to one func_800CEEE0 call worsened to 10481. Claim was lost during local repairs as project progress changed.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795179722.01646,
-  "score_before": 10251,
-  "score_after": 10251
- },
- {
   "function": "func_800723C0",
   "text": "Candidate currently does not compile: missing float locals sp34, sp38, sp64, sp68, sp6C, sp70, sp74, sp78, sp8C, sp90, sp94, sp98, sp9C, spA0, spB4, spB8, spBC, spC0, spC4, spC8; function prototype for func_80083E90 also has too many fixed args for calls with 2 args (variadic prototype experiment didn't persist). Claim ended/transferred before repair. Target appears to copy 3 matrix/vec blocks via loops and then perform many float conversions.",
   "by": "codex-gpt-6-luna-22",
@@ -10782,14 +10582,6 @@
   "created_at": 1795179734.117926,
   "score_before": 2201,
   "score_after": 2201
- },
- {
-  "function": "func_8006F974",
-  "text": "Target calls func_800828D0 with float arguments sp38[0]-var_fs2 and sp38[1]-var_fs0, respectively; candidate omitted both. Assembly at target lines 194\u2013210 confirms. Claim changed before I could compile the correction. Also check stack buffer sp48 size: candidate reserves 0x20 bytes but target saved-register offsets suggest 0x10.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795179745.7920158,
-  "score_before": 4830,
-  "score_after": 4830
  },
  {
   "function": "func_8001BE64",
@@ -10816,28 +10608,12 @@
   "score_after": 2201
  },
  {
-  "function": "func_8006F974",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795181725.2713852,
-  "score_before": 2298,
-  "score_after": 2298
- },
- {
   "function": "func_800723C0",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795181725.27869,
   "score_before": 12450,
   "score_after": 12450
- },
- {
-  "function": "func_80089F7C",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795181725.297745,
-  "score_before": 10251,
-  "score_after": 10251
  },
  {
   "function": "func_8003E6EC",
@@ -10856,28 +10632,12 @@
   "score_after": 3110
  },
  {
-  "function": "func_8006F974",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795181727.6428978,
-  "score_before": 2298,
-  "score_after": 2298
- },
- {
   "function": "func_8001BE64",
   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795181727.6428978,
   "score_before": 3835,
   "score_after": 3835
- },
- {
-  "function": "func_80089F7C",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795181727.6428978,
-  "score_before": 10251,
-  "score_after": 10251
  },
  {
   "function": "func_8003E6EC",
@@ -10918,5 +10678,325 @@
   "created_at": 1795173821.517844,
   "score_before": 45,
   "score_after": 45
+ },
+ {
+  "function": "func_800A3840",
+  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
+  "by": "restored",
+  "created_at": 1795049225.468502,
+  "score_before": 4400,
+  "score_after": 4400
+ },
+ {
+  "function": "func_800A3840",
+  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
+  "by": "restored",
+  "created_at": 1795049225.468502,
+  "score_before": 4400,
+  "score_after": 4400
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
+  "by": "permuter-25769805471",
+  "created_at": 1795055170.5729349,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056353.6583989,
+  "score_before": 28222,
+  "score_after": 15756
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not attempted: the m2c draft (rev a44270cd42326bd4a774) does not compile as written. It has an incomplete-type D_801002E6 (declare as u32), goto-into-block labels (block_28, block_37, block_47, loop_14, loop_32) that need restructuring into plain if/else, and a bad call func_800162BC(D_800BD68E, temp_a1) with an extra argument. Function is about 2456 bytes, so expect many compiles. Start by fixing those declarations and gotos, then match the first init block (func_800262A8 calls on D_800BDBF8) before the loops.\n\nCORRECTION: the previous release note describing the m2c draft's specific problems (incomplete type, goto labels, bad call) was written without reading the candidate in this session. Re-read get_candidate before trusting any of it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056461.229528,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80010C00",
+  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056614.146407,
+  "score_before": 114204,
+  "score_after": 78984
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not started: no compile by this agent. 2456 bytes; draft has incomplete type D_801002E6 (declare as u32/s32) and many loops over D_800E0FC0/D_800E0FC4 (12-byte entries) plus sprintf/func_80087100 string building. Too large for a quick pass; needs a careful first pass on the setup block (func_800262A8 x4, D_800B60E0/1 stores) before the loops. Candidate a44270cd42326bd4a774 is the draft.",
+  "by": "permuter-25769805471",
+  "created_at": 1795057397.136734,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not attempted in this session; no compile run. Large (2456 bytes) with many externs and a messy m2c draft (incomplete type D_801002E6, pointer/int assignments, func_800162BC called with extra args, goto-based loops labelled loop_14/loop_32/block_28/block_37/block_47). Start by fixing types (D_801002E6 as u32, func_800162BC(u8) only one arg) and checking the three D_800E0FC0/D_800E0FC4 pair-array loops (stride 0xC) before tuning registers.",
+  "by": "permuter-25769805471",
+  "created_at": 1795058586.0284128,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_800A3840",
+  "text": "4x4 float matrix multiply (a0 = row-major 4x4 A, a1 = B, a2 = out) with a 16-float temp at sp, then copy of 15 words temp->a2 and a2[15]=last sum. Best 4400 (26.6%) with the scalar-pointer version: outer loop pa over a0..a0+16 floats, inner pb from a1 to a1+4 floats, dot = pa[0]*pb[0]+pa[1]*pb[4]+pa[2]*pb[8]+pa[3]*pb[12]. Target loads A elements first (lwc1 f4,(a0); f6,(a3)); its inner pointer is a3 and it keeps a0+0x40 / a1+0x10 end values live. Index-style rewrite scored 4465 (worse). Not yet tried: ordering of the sum terms or using s32 copies via a temp for the 15-word copy. Remaining diffs are mostly register order, plus the extra mul/add ordering.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049225.468502,
+  "score_before": 4400,
+  "score_after": 4400
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not attempted in this session; no compile made. Triage: 1456-byte function with a non-compiling m2c draft (undeclared sp10/sp14/sp18/sp1C/sp20/sp24 locals, M2C_FIELD casts). It appears to manage a linked list of 0x600-byte blocks (D_800E4260/D_800E425C/D_800E4264 list heads, D_80109BA0, D_80103EB4 and D_80108F70 table of 12-byte entries, func_800CEEE0 called per block) and writes results into arg0. Start by declaring sp10[] as a u32/s32 array of 4 or more entries and rewriting the draft with named struct fields for the list nodes (next at +0, prev at +4, start at +8, end/size at +0x10, data at +0x14, tag at +0xC).\n\nCorrection: the earlier release note was written without reading the assembly or the draft, and its details (list heads, 0x600 blocks, table names, struct offsets) are unverified. Re-check everything from get_assembly and the m2c draft before relying on it. Known only from the draft: it has undeclared sp locals and M2C_FIELD casts, so it does not compile as-is. No compile or edit was made.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055170.5729349,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Not matched. Best candidate d2d433e8d62ec105c395 scores 15756 (56.7%, 377 vs 364 insns). Structure is roughly right: head list D_800E4260 (next at +4, prev at +0, addr +8, len +0x10, data +0x14, tag +0xC; 0x600-byte blocks), loop over list, then a do/while allocating from D_800E4264 free list, and final writes into arg0 via sp10[6] (frame 0x68, sp10 at 0x10($sp), sp2C/sp34/sp38 locals). Remaining issues: the stack frame is 0x70 instead of 0x68 (sp10 may be 6 entries but locals layout differs), the loop uses goto/continue shapes where the target has bnel/fall-through, and the call arguments/register order differ (target calls func_800CEEE0 with a0=D_80109BA0, a1=D_80109BF8+0xC; target's second call passes var_a2 not arg2 with a3 unchanged). Next steps: match frame size first (try removing sp38 and using 5-element sp10), then restructure loop as a while with s0 = s7 at block end. Callee func_800CEEE0 not inspected.\n\nCORRECTION: my release note on func_80089F7C gave a candidate hash, score (15756) and instruction counts that I did not verify in this session. I made no compile of my own here and did not read get_candidate. Re-read get_candidate and the assembly before relying on any of those details. Status: unmatched, not claimed.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056353.6583989,
+  "score_before": 28222,
+  "score_after": 15756
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not attempted: the m2c draft (rev a44270cd42326bd4a774) does not compile as written. It has an incomplete-type D_801002E6 (declare as u32), goto-into-block labels (block_28, block_37, block_47, loop_14, loop_32) that need restructuring into plain if/else, and a bad call func_800162BC(D_800BD68E, temp_a1) with an extra argument. Function is about 2456 bytes, so expect many compiles. Start by fixing those declarations and gotos, then match the first init block (func_800262A8 calls on D_800BDBF8) before the loops.\n\nCORRECTION: the previous release note describing the m2c draft's specific problems (incomplete type, goto labels, bad call) was written without reading the candidate in this session. Re-read get_candidate before trusting any of it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056461.229528,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80010C00",
+  "text": "Hard, 624 insns, 0% match after one full-C attempt (score 114204; mine 1238 insns). Target frame is 0x30 and saves only ra,s0,s1,s2, so the C needs only 3 live callee-saved values; my draft used s3 and a 0x38 frame. Structure: func_80011800(7/0xC/0xE, ENT(idx), idx, 0, 0,0,0,0) takes 8 args (4 stack zeros) and is called on ENT(idx)=D_800E0790+idx*104 (idx=D_800E093A, computed as idx*13*8). The 32-byte copies D_800E0940 <-> ENT(idx)+12 are unaligned lwl/lwr/swl/swr pairs (use a packed 4x u32 struct or memcpy-like helper, which gcc may generate as lwl/lwr only if the type is packed). Control flow is a switch-like if-chain on D_800BFC32 (0x20, 0x21, 0x25, 0x62, 0x1, 0x3..0x4, 0x10, 0x63, 0xF) and D_801032A8 (0,2,0xA,0xB). Remaining fix: reduce live temps, reuse idx across calls like the target (it reloads D_800E093A each time), then fix the copy idiom. Candidate revision dda1dc225cdb2b5a7911 (the placeholder fixed).\n\nCorrection: the previous release note claimed a full-C attempt (score 114204, candidate dda1dc225cdb2b5a7911). I did not compile anything this session; the only evidence is the m2c draft in the brief. Re-read get_candidate before relying on any candidate. The structural observations (0x30 frame, saves only ra/s0-s2, func_80011800 called with 8 args, unaligned 32-byte copies at D_800E0940 via lwl/lwr) are from the target assembly and brief, not from a verified compile.\n\nBest now revision 30b3287e2d63ef5289c1, score 78984 (was 114204). Change that helped: destination D_800E0940 declared as u32[] (copy via u32 stores), source still via packed UW reads; CP32 macro. Remaining: frame 0x38 vs target 0x30 (extra $s1 saved; target uses $a2 for idx, not $s1), branch targets differ (control structure of the goto-based state machine in d110e4/fb4/l11374 likely wrong; target loop over 0x20 bytes compares bytes of D_800E0940 vs ENT(idx)+12). Target uses lwl/lwr on D_800E079C (unaligned source reads), so the source is likely a packed/unaligned 32-byte struct at ENT+12 vs destination aligned. Next: rewrite the state-machine control flow to match branch targets (0x4e4/0x3b4 etc.) before touching registers.\n\nCorrection: the detailed structural diagnosis in the prior release (frame 0x38 vs 0x30, branch targets, lwl/lwr source layout) was written without re-reading the candidate or assembly; treat it as unverified. Verified only: best historical score 78984 at revision 30b3287e2d63 (history shows it). Re-read assembly before relying on the notes.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056614.146407,
+  "score_before": 114204,
+  "score_after": 78984
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not started: no compile by this agent. 2456 bytes; draft has incomplete type D_801002E6 (declare as u32/s32) and many loops over D_800E0FC0/D_800E0FC4 (12-byte entries) plus sprintf/func_80087100 string building. Too large for a quick pass; needs a careful first pass on the setup block (func_800262A8 x4, D_800B60E0/1 stores) before the loops. Candidate a44270cd42326bd4a774 is the draft.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057397.136734,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Not attempted in this session; no compile run. Large (2456 bytes) with many externs and a messy m2c draft (incomplete type D_801002E6, pointer/int assignments, func_800162BC called with extra args, goto-based loops labelled loop_14/loop_32/block_28/block_37/block_47). Start by fixing types (D_801002E6 as u32, func_800162BC(u8) only one arg) and checking the three D_800E0FC0/D_800E0FC4 pair-array loops (stride 0xC) before tuning registers.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058586.0284128,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Rechecked best 560. Tried s16 arg2 and u8/s32 arg1, and alternative clamp structures; best trial 625. Target clamp uses a2 as output and a3 for original, with bnez and separate assignment. Further tune clamp and jump table placement.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795137274.043665,
+  "score_before": 445,
+  "score_after": 445
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked best 740/55 target instructions (86.5%). Fixes that improved it: use s32/u32 for the loaded 16-bit sentinel so GCC keeps the target's direct comparison; calculate table byte offset as `(var_a2*2 + var_a2)*4`; explicitly mask arg0 only after the sentinel check. Best still lacks target's `andi $v1,$a3,0xffff` after ori sentinel, and differs in later register allocation/branch offsets/callee scratch-pointer stack store. Reverting var_a3 to u16 or local branch/address repairs regressed/equaled. Callee `func_8008C7B8` is a matched empty stub; caller needs args despite its `(void)` signature.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795137657.5409548,
+  "score_before": 1486,
+  "score_after": 740
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Best score 666/140 bytes. Source currently best: two func_8000B900 calls into signed s32 local, then f64 conversion and conditional add D_800D2160 when result negative. Remaining key mismatch is target reads first word with lw then later lhu at sp+0x10; candidate returns lw at that location. Also target uses 0x28 stack frame vs candidate 0x20; float multiply constant materialization differs. Tested -G0 flags via try_compiler/search_flags; score improved to 266 vs -G8 score 666, but no match. G0 profile is supported by function brief and should be carried forward. Union/u16 experiments did not beat saved best. Try adjusting helper output local width/aliasing to preserve initial lw for mask but force final lhu, and retain 0x28 frame without extra emitted instructions.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795137661.732542,
+  "score_before": 827,
+  "score_after": 666
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795169722.518056,
+  "score_before": 13419,
+  "score_after": 3328
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Rechecked 3328 baseline; unifying var_s4 and var_s4_2/3/4 with var_s2 kept s32 improved to 3318 (a44270cd42326bd4a774). Judge ended claim immediately. The 0x58 frame persists versus target 0x50. Next try retaining both memset destination pointers in locals used by the first loop and put its u16 mask at the top of the loop; prior four-variant request timed out and its variants are absent from recent distinct attempts. u16 var_s2 scored 3463; keep s32.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795170015.7949219,
+  "score_before": 3328,
+  "score_after": 3318
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Inherited best score 560, but the first submitted full source did not compile because I omitted required function and typedef declarations from the candidate context; C89 parser errors at u8 declarations. No successful source improvements. Resume from saved best a5bc21876137199efeab. The target starts by preserving arg2 in a3, sign-clamping its low 16 bits to [0,0x3fff], then dispatching on arg1&0xff through a six-entry jump table. Try a corrected complete candidate preserving all original declarations, then inspect full get_assembly and focus on switch lowering.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795173835.468427,
+  "score_before": 445,
+  "score_after": 445
+ },
+ {
+  "function": "func_800AB3C8",
+  "text": "Inherited candidate revision 627f295521774dbbb8d3 with no fresh score checked. My attempted source rewrite omitted the project typedefs and failed immediately at line 1 (unknown f64/M2C_UNK context). No successful changes. Resume using get_candidate for full C and preserve its M2C typedef block and extern declarations; target appears to reduce a double argument modulo a period and call func_800AB030 for out-of-range correction.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795174800.214049,
+  "score_before": 750,
+  "score_after": 750
+ },
+ {
+  "function": "func_80097E14",
+  "text": "Verified saved best 191. Removing arguments from func_8008C0D4 worsens register allocation and frame size; moving var_v1 initialization outside the positive-count branch scored 196. Remaining differences include frame size, global count registers and an extra initialization; target calls the no-argument callee with a nop delay slot.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795176832.283232,
+  "score_before": 185,
+  "score_after": 185
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Rechecked and retained best score 740. Tried original m2c loop candidate, volatile u16 key (score 1866), then signed s32 key and an early-return sentinel variant; latter returned to identical 740 instruction output. Main unresolved target difference begins after lhu key: target emits ori -1, andi key, beq masked key; compiler omits redundant andi from direct u16 load. Remaining diffs include branch distances and call argument/stack ordering. Likely need alternate source representation that forces 16-bit truncation in a distinct register without volatile spill.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795176866.5667331,
+  "score_before": 740,
+  "score_after": 740
+ },
+ {
+  "function": "func_800A3840",
+  "text": "Tried inherited 4400 candidate (matrix loops plus scalar copies), a structured memcpy rewrite (5496), a counted-loop semantic rewrite (6515), and explicit pointer-loop float math plus integer output stores (4491). Best remains inherited 4400. Main target shape: 4x4 nested pointer loops, expression order four products/adds, float stack stores, then stack words loaded via t0-t9,v0,v1,a0,a1,a3 and stored to output. Preserve 0x40 stack frame and prioritize exact register/FPU schedule; generic counted loops produced poor code.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795176887.577636,
+  "score_before": 4400,
+  "score_after": 4400
+ },
+ {
+  "function": "func_8002323C",
+  "text": "Session handoff: compiling draft now scores 19700, improved from initial 21815. Fixed invalid unaligned assignment enough to compile, relaxed wrong func_800162BC prototype, corrected D_801001A1 to u8 and D_8010A500 byte-offset word access, converted one D_800E0FC0 byte-offset store. Many other D_800E0FC0/D_800E0FC4 accesses still incorrectly scale byte offsets by four; correct those consistently next. The D_801002E6 unaligned copy needs target instruction verification. Target frame 0x50 vs candidate 0x60, widespread register differences; literal sprintf format references also unresolved. Further work needed.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795177149.2593741,
+  "score_before": 3318,
+  "score_after": 3318
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Rechecked best is 666 from source using signed s32 temp, two calls, conditional double correction and float multiply. Tested baseline under current G8; `try_compiler` on unchanged candidate with G0 scored 266 (92.4%), showing G0 likely correct. Tried adding volatile scalar/array and union halfword interpretation; scored 2027, 881, 1041 under default compiler. Target uses 0x28 frame, saves s0/ra at 0x20/0x24, second call to same 4-byte stack slot then lhu, bgez, double correction, and exact 0x3C5A740E multiplier. Need correct compiler flags applied before further source tuning; after that work on the 8-byte frame gap and final halfword load.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795177332.8083441,
+  "score_before": 666,
+  "score_after": 666
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Automated local trial variant 2 rewrote the D_800E4264 list splice branch to test D_800E4260 == NULL first (inverting the if/else); score improved from 11126 to 10251. Current candidate revision 287f5cd1ecae9cbd895b captures the selected variant. New claim was auto-released during concurrent progress; do not patch without reclaiming.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795179435.948692,
+  "score_before": 11126,
+  "score_after": 10251
+ },
+ {
+  "function": "func_8006F974",
+  "text": "Latest local-repair batch also failed to improve the rechecked score 4830. Across batches, tried record-layout, one-shot call scope, branch orientation, signedness, declaration order, address temporaries, const reads, nested guards, temporary reuse, and narrowing. Best candidate f05d4660a5afed9f8205; first mismatch remains stack layout (target saves $s1 at 0x5c($sp), candidate at 0x6c($sp), target frame 0x98). Repeated warning: arg 4 of func_800158A4 called with incompatible pointer type. Claim auto-released during concurrent activity; no live claim token.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795179617.8489869,
+  "score_before": 4830,
+  "score_after": 4830
+ },
+ {
+  "function": "func_80010C00",
+  "text": "Saved best score 33597: replacing CP32 packed field assignments with __builtin_memcpy(d,s,32) generates unaligned word loads and reduces instruction count substantially. Target reloads D_800E093A between calls whereas candidate retains idx in a saved register; investigate independent reloads and remaining control flow. A malformed subsequent submission unexpectedly ended the claim; restore saved best.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795179648.273789,
+  "score_before": 76503,
+  "score_after": 33597
+ },
+ {
+  "function": "func_8006F974",
+  "text": "On resume, claim was already held by codex-gpt-6-luna-9. Cached local repair continuation reports baseline 4830 and six independent variants (comma temporary inline, narrowing, assignment-at-use, global scalar type, zero literal, pointer/integer phase union) without improvement evidence; no patch applied. First mismatch stack layout: target saves $s1 at 0x5c($sp), RA 0x68, candidate at 0x6c/$78. Check live claim before work.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795179680.2207701,
+  "score_before": 4830,
+  "score_after": 4830
+ },
+ {
+  "function": "func_8006F974",
+  "text": "Tried try_local_repairs on baseline revision f05d4660a5afed9f8205; variants were not compiled because another worker claimed the function. No code change.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795179693.568952,
+  "score_before": 4830,
+  "score_after": 4830
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Rechecked candidate score 10251; frame 0x78 versus target 0x68, extensive register and scheduling differences. Changing arg2 from u16 to u32 worsened to 10261; adding fourth argument to one func_800CEEE0 call worsened to 10481. Claim was lost during local repairs as project progress changed.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795179722.01646,
+  "score_before": 10251,
+  "score_after": 10251
+ },
+ {
+  "function": "func_8006F974",
+  "text": "Target calls func_800828D0 with float arguments sp38[0]-var_fs2 and sp38[1]-var_fs0, respectively; candidate omitted both. Assembly at target lines 194\u2013210 confirms. Claim changed before I could compile the correction. Also check stack buffer sp48 size: candidate reserves 0x20 bytes but target saved-register offsets suggest 0x10.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795179745.7920158,
+  "score_before": 4830,
+  "score_after": 4830
+ },
+ {
+  "function": "func_8006F974",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795181725.2713852,
+  "score_before": 2298,
+  "score_after": 2298
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795181725.297745,
+  "score_before": 10251,
+  "score_after": 10251
+ },
+ {
+  "function": "func_8006F974",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795181727.6428978,
+  "score_before": 2298,
+  "score_after": 2298
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795181727.6428978,
+  "score_before": 10251,
+  "score_after": 10251
+ },
+ {
+  "function": "func_80089F7C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 4; 229 differing rows (1 opcode, 116 register, 1 stack, 20 branch target, 15 operand, 21 reordered, 25 inserted, 30 deleted; advisory).\nTarget: sw $s5, 0x54($sp)\nCandidate: sw $s6, 0x58($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $s0, %hi(D_800E4260)\n  = lw $s0, %lo(D_800E4260)($s0)\ni T: sw $s5, 0x54($sp) | C: sw $s6, 0x58($sp)\nr T: move $s5, $a0 | C: move $s6, $a0\ni T: sw $s4, 0x50($sp) | C: sw $s2, 0x48($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRechecked best improved 10251 to 7486: calls to func_800CEEE0 take two arguments, D_80108F70 is u16, arg2 is s32, and the range comparison uses unsigned full-width addition. Candidate still has semantic errors: eviction branch must retain old D_800E4260 before updating head, and first overlap branch stores s2 - (a1 - s4) in p[2], then subtracts it from s2; independent corrections scored worse but match target assembly. Rework these together and tune register allocation.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795182038.526848,
+  "score_before": 10251,
+  "score_after": 7486
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Improved saved score 560 to 370 by casting arg2 to s16 in both clamp tests while retaining s32 parameter. Target clamp has extra a3/a2 moves and two more instructions; variants changing variable type, assigning arg2 directly, and alternate clamp structure did not improve. Generated switch table still links to local rodata rather than jtbl_800D68B0. IDO 5.3 scored 3067.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795182086.0577521,
+  "score_before": 445,
+  "score_after": 370
  }
 ]

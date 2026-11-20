@@ -21,9 +21,9 @@ void func_80096F44(void *arg0, s32 arg1, s32 arg2) {
     s32 var_v1;
     u8 temp_a1;
 
-    if (arg2 >= 0) {
+    if ((s16)arg2 >= 0) {
         var_a2 = arg2;
-        if (arg2 >= 0x4000) {
+        if ((s16)arg2 >= 0x4000) {
             var_a2 = 0x3FFF;
         }
     } else {
