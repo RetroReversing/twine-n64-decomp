@@ -59,8 +59,8 @@ char *__branch___base_D_80109688;
             return;
         }
         M2C_FIELD(arg1, s8 *, 0x185) = 1;
+        temp_a0_2 = *((void **)(D_80109688 + (temp_s2 * 4)));
         temp_s1 = (temp_s2 * 4) + D_80109688;
-        temp_a0_2 = *temp_s1;
         ((__repair_field_100 *)temp_a0_2)->value = (s32) (((__repair_field_100 *)temp_a0_2)->value & ~7);
         temp_v1_2 = *temp_s1;
         ((__repair_field_100 *)temp_v1_2)->value = (s32) (((__repair_field_100 *)temp_v1_2)->value | 2);
