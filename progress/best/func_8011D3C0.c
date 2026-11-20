@@ -32,6 +32,8 @@ extern s32 D_8011F3E0;
 extern s32 D_8011F3E8;
 
 void func_8011D3C0(void) {
+char *__repair_addr;
+
     s32 var_a2;
     
     union { s32 * pointer; s32 value; } __repair_phase_storage;
@@ -102,7 +104,9 @@ void func_8011D3C0(void) {
         do {
             temp_v1 = var_a0 * 4;
             if (*(s32 *)((char *)&D_80109688 + temp_v1) != 0) {
-                temp_s5 = (*(void **)((char *)(*(s32 *)((char *)&D_8010A500 + temp_v1)) + 0x6C));
+__repair_addr = (char *)((char *)&D_8010A500 + temp_v1);
+
+                temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));
                 if (D_801002C0 != 2) {
                     if ((D_801002C0 < 3) || (D_801002C0 >= 5)) {
                         sp26 = 4;

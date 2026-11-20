@@ -51,6 +51,7 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8001ED10(void) {
+    M2C_UNK *__base_D_800BD680;
     s16 temp_a0;
     s32 var_a0;
     s32 var_s0;
@@ -72,12 +73,10 @@ void func_8001ED10(void) {
             D_801176E2 = 0;
             D_801176E4 = 0;
             D_80102EB9 = 0xB;
-            var_a0 = 0 & 0xFFFF;
             do {
-                func_80011938(var_a0, 0);
-                var_s1 += 1;
-                var_a0 = var_s1 & 0xFFFF;
-            } while ((u32) (var_s1 & 0xFFFF) < 4U);
+                func_80011938(var_s1 & 0xFFFF, 0);
+                var_s1++;
+            } while ((u32)(var_s1 & 0xFFFF) < 4U);
             func_8002B000(&D_80102EFC, 0x1E);
             if (D_80102ED8 != 0) {
                 D_801002AC = 0;
@@ -89,13 +88,15 @@ void func_8001ED10(void) {
                 var_s1_2 = 0;
                 if (D_801002B4 > 0) {
                     var_s0 = 0 & 0xFFFF;
-                    do {
-                        *((var_s0 * 2) + &D_800BD680) = *((M2C_UNK *)((s8 *)&D_800C3CF8 + (func_8002B9CC(*(&D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC)));
-                        var_s1_2 += 1;
+                    __repair_rows: {
+                        __base_D_800BD680 = &D_800BD680;
+                        *(u16 *)((char *)__base_D_800BD680 + var_s0 * 2) = **(u16 **)((char *)&D_800C3CF8 + func_8002B9CC(*(s32 *)((char *)&D_8010019C + (func_80022DBC(var_s0) & 0xFFFF) * 0x18)) * 0xC);/*__repair_loop_weight*/do {
+                        var_s1_2 += 1;} while (0);
                         var_s0 = var_s1_2 & 0xFFFF;
-                    } while ((var_s1_2 & 0xFFFF) < D_801002B4);
+                    }
+if ((var_s1_2 & 0xFFFF) < D_801002B4) goto __repair_rows;
                 }
-                *(&D_800BD680 + ((var_s1_2 & 0xFFFF) * 2)) = -1;
+                *(s16 *)((char *)__base_D_800BD680 + ((var_s1_2 & 0xFFFF) * 2)) = -1;
                 var_a0_2 = D_801002A4;
             } else {
                 var_a0_2 = D_80102EE0;
