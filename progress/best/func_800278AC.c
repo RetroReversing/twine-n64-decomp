@@ -38,12 +38,14 @@ s32 __repair_operand;
         D_800E1090 = 0;
         var_v1 = arg0 & 0xFFFF;
     }
+    { s32 one = 1;
     D_800E1094 = arg1;
     D_800BD68A = arg2;
-    if (var_v1 == 1) {
+    if (var_v1 == one) {
         D_80102EDC = 1;
     } else {
         D_80102EDC = 0;
+    }
     }
     { void *p = D_80102F2C; void *q = D_80109BB0;
     M2C_FIELD(p, s16 *, 0x7A) = 0x14;

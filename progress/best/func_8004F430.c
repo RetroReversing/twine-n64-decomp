@@ -72,9 +72,9 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
                     sp48 = (*(f32 *)((char *)(arg1) + 0));
                     sp4C = (*(f32 *)((char *)(arg1) + 4));
                     sp50 = (*(f32 *)((char *)(arg1) + 8));
-                    sp10[0] = sp10[0];
+                    sp58 = sp10[0];
                     sp5C = sp10[1];
-                    sp10[2] = sp10[2];
+                    sp60 = sp10[2];
                     if (((u32) (*(u32 *)((char *)(var_s0) + 0x5C)) >> 0x17) & 1) {
                         sp48 -= (*(f32 *)((char *)(var_s0) + 0x24));
                         sp4C -= (*(f32 *)((char *)(var_s0) + 0x28));

@@ -11,13 +11,14 @@ void func_80038FA4(void) {
     u32 modelview = 0xDA380005;
     DisplayCommand *cmd = D_80115328;
     s32 index = D_800E1710;
+    s32 matrixIndex = (index << 6) + 0x560;
     u8 *frame = D_80117728;
     u32 matrixOffset = 0x80000040;
     u32 matrixBase;
     u16 value;
 
     cmd[0].w0 = projection;
-    cmd[0].w1 = (u32)(frame + ((index << 6) + 0x560)) - 0x80000000;
+    cmd[0].w1 = (u32)(frame + matrixIndex) - 0x80000000;
     cmd[1].w0 = modelview;
     matrixBase = *(u32 *)(frame + 0x74C);
     cmd[2].w0 = 0xDC080008;

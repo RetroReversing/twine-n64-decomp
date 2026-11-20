@@ -25,13 +25,18 @@ void func_80021A6C(void) {
     s32 temp_s0;
     u8 *p;
     s32 v;
+    s32 base;
+    void *ctx;
 
     func_80029068();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        temp_s0 = M2C_FIELD(D_80109BB0, s32 *, 0x18);
-        p = (u8 *)&D_8010A4C0;
-        temp_s0 += 0x28;
-        if ((func_800219A0(*p) & 0xFF) == 0 || (v = *p) == 0) {
+    ctx = D_80109BB0;
+    if (M2C_FIELD(ctx, u8 *, 0x2D) != 0) {
+        s32 available;
+        base = M2C_FIELD(ctx, s32 *, 0x18);
+        p = &D_8010A4C0;
+        available = func_800219A0(*p);
+        temp_s0 = base + 0x28;
+        if ((available & 0xFF) == 0 || (v = *p) == 0) {
             var_a0 = 0x16;
         } else if (v == 1) {
             var_a0 = 0x17;

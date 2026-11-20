@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 extern signed char D_801002AE;
-extern int D_80112F68;
+extern char D_80112F68[];
 extern signed char D_80112F70;
 extern signed char D_801002D4;
 extern signed char D_801002D5;
@@ -132,7 +132,7 @@ int __repair_phase_var_s2_2;
     D_801002B0 = 0;
     D_801002B1 = 0;
     D_80102EEC = 0;
-    D_80112F68 = 0;
+    *(s32 *)D_80112F68 = 0;
     D_80112F6C = 0;
     D_80112F6D = 0;
     D_80112F6E = 0;
@@ -173,9 +173,9 @@ int __repair_phase_var_s2_2;
     D_8010A4FD = 0;
     D_8010A4FF = D_80109B9C == 0;
     func_80007160();
-    func_8002B000(D_801002AE + 0x16, 0x1E);
+    func_8002B000((&D_801002AE) + 0x16, 0x1E);
     (*(s8 *)((char *)(&D_801002AE) + -0xE)) = 0;
-    func_8002B000(D_801002AE + 0x1E, 0x1E);
+    func_8002B000((&D_801002AE) + 0x1E, 0x1E);
     (*(s8 *)((char *)(&D_801002AE) + -0xD)) = 0;
     D_801002D4 = 1;
     D_801002D5 = 0;

@@ -12,24 +12,61 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80063CFC();
+extern char D_800EE380[];
+extern char D_800EE400[];
+
+void func_800968A4(s32 arg0, s32 arg1, s8 arg2) {
+    s32 temp_v1;
+
+    temp_v1 = arg1 & 0xFF;
+    if (temp_v1 != 0xFF) {
+        temp_v1 *= 0x10;
+        temp_v1 += (s32)D_800EE380;
+        {
+            register s32 column = (u8)arg0;
+            *(char *)(temp_v1 + column) = arg2;
+        }
+        return;
+    }
+    *(D_800EE400 + (arg0 & 0xFF)) = arg2;
+}
+
+s32 func_80000A30(s32, s32);
+void func_8007AABC(void *arg0, s32 arg1, f32 arg2) {
+    f32 *field = (f32 *)((u8 *)arg0 + 0x40);
+    register f32 term = func_80000A30((s32)*field, arg1) * arg2;
+    f32 value = *(volatile f32 *)field;
+    value = term + value;
+    *field = value;
+}
+
 extern u8 D_800C471C[];
+s32 func_80063CFC(s32, s16);
+s32 func_80063D38(s32 state, s16 index) {
+    s32 offset = index * 0xE8;
+    s32 result;
+    if (*(s16 *)(state + D_800C471C[offset] * 2 + 0x1BC) != 0
+        || (s16)func_80063CFC(state, index) != 0) {
+        result = 1;
+    } else {
+        result = D_800C471C[offset] == 0;
+    }
+    return result;
+}
 
-s32 func_80063D38(s32 arg0, s16 arg1) {
-char *__repair_addr;
-
-    s32 temp_s0;
-    s32 var_v0;
-
-    temp_s0 = arg1 * 0xE8;
-    var_v0 = 1;
-__repair_addr = (char *)((arg0 + (*(D_800C471C + temp_s0) * 2)));
-
-    if (M2C_FIELD(__repair_addr, s16 *, 0x1BC) == 0) {
-        var_v0 = 1;
-        if ((func_80063CFC(arg0, arg1) << 0x10) == 0) {
-            var_v0 = *(D_800C471C + temp_s0) == 0;
+extern u8 D_800C471C[];
+extern volatile s8 D_800C46A0[];
+extern u8 D_800C469E[];
+s16 func_80063C7C(s32 arg0) {
+    register s32 index = (s16)arg0;
+    s32 offset = index * 0xE8;
+    s8 present = D_800C46A0[offset];
+    s32 next = *(volatile u16 *)(D_800C469E + offset);
+    if (present != 0) {
+        s32 nextOffset = (s16)next * 0xE8;
+        if (D_800C471C[offset] == D_800C471C[nextOffset]) {
+            arg0 = next;
         }
     }
-    return var_v0;
+    return (s16)arg0;
 }

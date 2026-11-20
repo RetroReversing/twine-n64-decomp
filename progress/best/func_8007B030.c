@@ -49,10 +49,10 @@ void func_8007B030(void *arg0) {
     if (*(s32 *)((s8 *)temp_s1 + 0x88) & 0x04000000) {
         switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
         case 3:
-            if ((func_8007AEA4(arg0, &D_800C9CC0, 2) << 0x18) != 0) {
-                break;
+            if ((func_8007AEA4(arg0, &D_800C9CC0, 2) << 0x18) == 0) {
+                func_80002BD0(arg0, 0x14D);
             }
-            goto block_42;
+            return;
         case 1:
             var_a1 = &D_800C9CB8;
             var_a2 = 2;
@@ -80,16 +80,6 @@ blkX:
     func_8007AFB0(arg0);return;}
     }
     switch (*(s16 *)((s8 *)arg0 + 0x7C)) {
-    case 2:
-        if (var_s2 != 0) {
-            func_8007AEA4(arg0, &D_800C9C9C, 2);
-        } else {
-            func_8007AEA4(arg0, &D_800C9CA4, 5);
-        }
-        return;
-    case 1:
-        func_8007AEA4(arg0, &D_800C9C00, 6);
-        return;
     case 3:
         if (var_s2 != 0) {
             if ((func_8007AEA4(arg0, &D_800C9C38, 4) << 0x18) == 0) {
@@ -101,6 +91,9 @@ blkX:
     func_80002BD0(arg0, 0x14D);return;}
         }
         break;
+    case 1:
+        func_8007AEA4(arg0, &D_800C9C00, 6);
+        return;
     case 0:
         if (var_s2 != 0) {
             func_8007AEA4(arg0, &D_800C9C60, 4);
@@ -114,7 +107,14 @@ blkX:
         } else {
             func_8007AEA4(arg0, &D_800C9C70, 9);
         }
+        return;    case 2:
+        if (var_s2 != 0) {
+            func_8007AEA4(arg0, &D_800C9C9C, 2);
+        } else {
+            func_8007AEA4(arg0, &D_800C9CA4, 5);
+        }
         return;
+
     }
     return;
 blkY:
@@ -127,13 +127,10 @@ blkY:
         func_8007AEA4(arg0, &D_800C9CF8, 4);
         return;
     case 3:
-        if ((func_8007AEA4(arg0, &D_800C9CE8, 4) << 0x18) != 0) {
-            return;
+        if ((func_8007AEA4(arg0, &D_800C9CE8, 4) << 0x18) == 0 && (func_80077E00(arg0) << 0x18) != 0) {
+            func_80002BD0(arg0, 0x14D);
         }
-        if ((func_80077E00(arg0) << 0x18) == 0) {
-            return;
-        }
-        goto block_42;
+        return;
     case 0:
         func_8007AEA4(arg0, &D_800C9D08, 4);
         return;

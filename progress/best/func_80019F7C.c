@@ -69,11 +69,11 @@ void func_80019F7C(void) {
             func_8000237C(D_800B5B14, func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
             func_80002BD0(D_800B5B14, 0x14D);
             (*(f32 *)((char *)((*(void **)((char *)(D_800B5B14) + 0x68))) + 0x34)) = 0.05f;
-            var_a1 = 0x327;
-            if (!(func_8002BC28(*(s32 *)(D_8010019C + (D_801002AD * 0x18))) & 0xFF)) {
-                var_a1 = 0x2A9;
+            if (func_8002BC28(*(s32 *)(D_8010019C + (D_801002AD * 0x18))) & 0xFF) {
+                func_80002D30(D_800B5B14, 0x327);
+            } else {
+                func_80002D30(D_800B5B14, 0x2A9);
             }
-            func_80002D30(D_800B5B14, var_a1);
             goto block_11;
         }
     } else {

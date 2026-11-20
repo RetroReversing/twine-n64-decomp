@@ -86,7 +86,7 @@ f32 __repair_sp0_1;
         temp_ft0 = M2C_FIELD(temp_v0_3, f32 *, 0x18);
         if (temp_fv0 <= temp_ft0) {
             __repair_operand = M2C_FIELD(arg1, f32 *, 8);
-            temp_fv1_5 = ((sp0[2] * ((temp_ft0 - temp_fv0) / sp0[0]))) + (__repair_operand);
+            temp_fv1_5 = (((temp_ft0 - temp_fv0) / sp0[0]) * sp0[2]) + (__repair_operand);
             if ((M2C_FIELD(temp_v0_3, f32 *, 0x28) < temp_fv1_5) && (temp_fv1_5 < M2C_FIELD(temp_v0_3, f32 *, 0x2C))) {
                 var_v1 = 1;
                 M2C_FIELD(arg1, f32 *, 0) = temp_ft0;
