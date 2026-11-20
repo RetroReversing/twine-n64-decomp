@@ -92,7 +92,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         if (func_80045CF8(0x32) >= 0x1AU) {
             (*(s32 *)((char *)(temp_s0) + 0x24)) = (s32) ((*(s32 *)((char *)(temp_s0) + 0x24)) & 0xFFF7FFFF);
         }
-        func_80045290(arg3, temp_s0 + 0xC);
+        do { func_80045290(arg3, temp_s0 + 0xC); } while (0);
         { register f32 zero = 0.0f;
         (*(f32 *)((char *)(temp_v0) + 0x44)) = zero;
         (*(f32 *)((char *)(temp_v0) + 0x50)) = zero; }

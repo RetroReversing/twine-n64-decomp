@@ -23,7 +23,7 @@ s32 func_8007659C();
 s32 func_80084048();
 extern s32 D_800CA31C;
 extern u32 D_801002E0;
-extern char D_80100BE0[];
+extern u8 D_80100BE0[];
 extern s8 D_80103EB0;
 extern char D_80108608[];
 extern void *D_80109690;
@@ -61,16 +61,18 @@ block_24:
                     var_a2 = (0x3C) + (temp_s0);
                     var_v1 = 0;
                     if (D_801002E0 != 0) {
-loop_16:
-                        if (*(D_80100BE0 + var_v1) == M2C_FIELD(temp_s1, u8 *, 0)) {
-                            temp_v0 = var_v1 * 0xC;
-                            var_a3 = temp_v0 + D_80110B28;
-                            var_a2 = temp_v0 + D_80108608;
-                        } else {
-                            var_v1 += 1;
-                            if (var_v1 < (u32) D_801002E0) {
-                                goto loop_16;
+                        for (;;) {
+                            if (*(D_80100BE0 + var_v1) == M2C_FIELD(temp_s1, u8 *, 0)) {
+                                temp_v0 = var_v1 * 0xC;
+                                var_a3 = temp_v0 + D_80110B28;
+                                var_a2 = temp_v0 + D_80108608;
+                            } else {
+                                var_v1 += 1;
+                                if (var_v1 < (u32) D_801002E0) {
+                                    continue;
+                                }
                             }
+                            break;
                         }
                     }
                     func_800656C0(temp_s0, var_a3, var_a2);

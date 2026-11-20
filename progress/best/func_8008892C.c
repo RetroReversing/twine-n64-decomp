@@ -36,8 +36,8 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
                 ++var_a0;
                 var_v1 += 0x1228;
             } while (var_a0 < 2U);
-            var_a0 = -1U;
             arg0 = var_a0;
+            var_a0 = -1U;
 found:
             if (arg0 != -1) {
                 osRecvMesg(&D_800E3F30, 0, 1);

@@ -210,11 +210,7 @@ block_63:
                 sprintf(temp_s0_2, &D_8011F018);
                 (*(s16 *)((char *)(temp_v0) + 0x1C)) = 1;
                 D_8011F3D0[(unsigned short)temp_s0] = temp_v0;
-                if (var_fs2 >= 2.1474836e9f) {
-                    var_a0_3 = (s32) (var_fs2 - 2.1474836e9f); var_a0_3 = var_a0_3 | 0x80000000;
-                } else {
-                    var_a0_3 = (s32) var_fs2;
-                }
+                var_a0_3 = (u32) var_fs2;
                 if (!(var_fs0 >= 2.1474836e9f)) {
                     var_a1_2 = (s32) var_fs0;
 var_a1_2 = var_a1_2 & 0xFFFF;
