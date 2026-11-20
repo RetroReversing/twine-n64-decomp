@@ -53,11 +53,10 @@ void func_80027FF4(void) {
             M2C_FIELD(D_80109BB0, s16 *, 0x32) = 0;
             func_800278AC(1U, D_80102EBC & ~0xFF, 0x16U);
             func_8002778C();
-        } else {
-            if (var_a0 == 0) {
-                var_a0 = 1;
-            }
+        } else if (var_a0 != 0) {
             func_800278AC(var_a0, D_80102EBC & ~0xFF, M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+        } else {
+            func_800278AC(1, D_80102EBC & ~0xFF, M2C_FIELD(D_80102F2C, u16 *, 0x7A));
         }
     }
 }
