@@ -5704,14 +5704,6 @@
   "score_after": 1665
  },
  {
-  "function": "func_8001E4A0",
-  "text": "Improved 4741 to 2750 by unsigned random result and removing bogus MULTU_HI second argument from func_800260A0. Six further local trials did not improve. Rework clamp and switch: target uses branch-likely and signed switch comparisons; candidate has extra jumps and sltiu booleanization. Verify case-address mapping.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795138288.998423,
-  "score_before": 4741,
-  "score_after": 2750
- },
- {
   "function": "func_8008B1C0",
   "text": "Improved candidate from 1480 to 1260. Return-guard rewrite (`if (count <= 0) return;`) then moving counter init after guard improved to 1420. Adding a volatile s64 frame-reserve improved further to 1260; keep revision da089df057f3f43c982c. Six local variants from that baseline did not improve; best remains 1260. Persistent mismatch: target allocates 8-byte frame before `blez count`, while current early guard branches before stack adjustment; target also uses separate count in $a3, data pointer in $a0/$a2, and double-to-int then sw word. Candidate still emits beqz/beql control and swc1 in advisory diff. Next inspect type/loop structure to force signed count early exit after frame setup and ensure integer store from mfc1. Four-compile move-on criterion reached.",
   "by": "codex-gpt-6-luna-7",
@@ -12704,14 +12696,6 @@
   "score_after": 10
  },
  {
-  "function": "func_8001E4A0",
-  "text": "Baseline recovered and verified at score 2750. Local repair batch over masked_value_reuse, scalar_storage_reuse, inferred_record_layout, debug_statement_boundary, cfg_integer_lifetimes, signedness produced no better score. Also tried explicit if-chain instead of switch (3640). Best source remains saved candidate c32dc4e3fa460556d558; mismatch spans early global condition branch target and clamp/switch control flow. Full target shows clamp expects paired likely branches with assignments in delay slots; switch dispatch is sequential 20/17/22/27 and shares a branch-likely zero check before func_800260A0.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795178342.444621,
-  "score_before": 2750,
-  "score_after": 2750
- },
- {
   "function": "func_80007160",
   "text": "Verified baseline 190; six signedness, declaration, branch orientation, width, address and widening trials did not improve. Eight mismatch rows are mostly instruction scheduling around volatile D_80100C04, D_8011740C and func_800081C4; inspect exact target call delay slot and experiment with call argument/store ordering.",
   "by": "codex-gpt-6.1-terra-1",
@@ -16398,14 +16382,6 @@
   "created_at": 1795182610.8242922,
   "score_before": 2485,
   "score_after": 2485
- },
- {
-  "function": "func_8001E4A0",
-  "text": "Baseline verified 2750 revision c32dc4e3fa460556d558; six trials of scalar lifetimes, record layout, mask reuse and signedness did not improve. Main issue is clamp control flow: target uses bnel with delay-slot assignment while candidate adds a jump; reconstruct that block and switch arrangement.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182616.7208169,
-  "score_before": 2750,
-  "score_after": 2750
  },
  {
   "function": "func_8009D9B8",
@@ -25856,14 +25832,6 @@
   "score_after": 150
  },
  {
-  "function": "func_8001E4A0",
-  "text": "Byte-identical C verified by try_compiler and a function-only compiler suggestion. Automatic compiler changes are off. The suggestion contains the exact source and -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce; apply it to save. -g3 adds jump delay nops in three byte-load arms. The nested conditional clamp assignment and u16 selection matched both clamp branch-likely slots and the final decrement.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795189139.086586,
-  "score_before": 2255,
-  "score_after": 1290
- },
- {
   "function": "func_800184AC",
   "text": "Rechecked best 35 (98.6%) contains all target instructions but seven register allocation differences around returning func_80018510 pointer and subsequent clamp/multiply. Reordered multiplication and tried passthrough-argument/address-temp local repairs plus signed local width; all yielded same fingerprint. Target needs returned pointer in a0 while decrement/clamp stays v1/a1, candidate uses v1/s0/a0. Continue via different local lifetime/declaration layout; don't repeat the tried variants.",
   "by": "codex-gpt-6-luna-7",
@@ -27960,14 +27928,6 @@
   "score_after": 600
  },
  {
-  "function": "func_8001E4A0",
-  "text": "Verified best 1290. Explicit shared clamp goto scored 1750; else-if clamp 1650; conditional recalculation 1410; assigning var_v1 in each clamp 1905. Changing decrement spelling or callee parameter to u32 generated identical code. Target shares clamp branch and switch case loads with jumps in delay slots; investigate source shape and scheduling.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795191281.981387,
-  "score_before": 1290,
-  "score_after": 1290
- },
- {
   "function": "func_8000A8B4",
   "text": "Verified best 470 with six control-flow differences around shared -1 return: target initial guard branches to return between table test and call, then nonzero table branches over return to call. Explicit goto and return label there nevertheless produced identical candidate assembly; local storage reuse and goto-leaf variants also unchanged. Rewriting float comparison as arg1 < threshold worsened and changes NaN semantics. Explore compiler flags or an alternate CFG that preserves the target branch orientation.",
   "by": "codex-gpt-6.1-terra-1",
@@ -29606,14 +29566,6 @@
   "created_at": 1795193204.072164,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8001E4A0",
-  "text": "Reproduced the previously reported byte-identical KMC build independently. The saved score-1070 nested clamp source matches under -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce; the effective -g3 adds the switch-arm delay-slot differences. Re-submitted the checked function-only compiler bundle. Automatic compiler changes are disabled; bundle requires application to record the match. No further source tuning under the active debug profile is needed to establish the byte match.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795193210.071441,
-  "score_before": 1290,
-  "score_after": 1070
  },
  {
   "function": "func_8007AABC",
@@ -31606,5 +31558,53 @@
   "created_at": 1795192637.228821,
   "score_before": 60,
   "score_after": 60
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Improved 4741 to 2750 by unsigned random result and removing bogus MULTU_HI second argument from func_800260A0. Six further local trials did not improve. Rework clamp and switch: target uses branch-likely and signed switch comparisons; candidate has extra jumps and sltiu booleanization. Verify case-address mapping.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795138288.998423,
+  "score_before": 4741,
+  "score_after": 2750
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Baseline recovered and verified at score 2750. Local repair batch over masked_value_reuse, scalar_storage_reuse, inferred_record_layout, debug_statement_boundary, cfg_integer_lifetimes, signedness produced no better score. Also tried explicit if-chain instead of switch (3640). Best source remains saved candidate c32dc4e3fa460556d558; mismatch spans early global condition branch target and clamp/switch control flow. Full target shows clamp expects paired likely branches with assignments in delay slots; switch dispatch is sequential 20/17/22/27 and shares a branch-likely zero check before func_800260A0.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795178342.444621,
+  "score_before": 2750,
+  "score_after": 2750
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Baseline verified 2750 revision c32dc4e3fa460556d558; six trials of scalar lifetimes, record layout, mask reuse and signedness did not improve. Main issue is clamp control flow: target uses bnel with delay-slot assignment while candidate adds a jump; reconstruct that block and switch arrangement.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182616.7208169,
+  "score_before": 2750,
+  "score_after": 2750
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Byte-identical C verified by try_compiler and a function-only compiler suggestion. Automatic compiler changes are off. The suggestion contains the exact source and -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce; apply it to save. -g3 adds jump delay nops in three byte-load arms. The nested conditional clamp assignment and u16 selection matched both clamp branch-likely slots and the final decrement.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795189139.086586,
+  "score_before": 2255,
+  "score_after": 1290
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Verified best 1290. Explicit shared clamp goto scored 1750; else-if clamp 1650; conditional recalculation 1410; assigning var_v1 in each clamp 1905. Changing decrement spelling or callee parameter to u32 generated identical code. Target shares clamp branch and switch case loads with jumps in delay slots; investigate source shape and scheduling.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795191281.981387,
+  "score_before": 1290,
+  "score_after": 1290
+ },
+ {
+  "function": "func_8001E4A0",
+  "text": "Reproduced the previously reported byte-identical KMC build independently. The saved score-1070 nested clamp source matches under -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce; the effective -g3 adds the switch-arm delay-slot differences. Re-submitted the checked function-only compiler bundle. Automatic compiler changes are disabled; bundle requires application to record the match. No further source tuning under the active debug profile is needed to establish the byte match.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795193210.071441,
+  "score_before": 1290,
+  "score_after": 1070
  }
 ]
