@@ -76,3 +76,6 @@ void func_80087A80(void);
 void func_8008C3D8(s32 index, u16 *data);
 
 void func_800081C4(s32 fill);
+
+f32 func_80045D2C(f32 scale);
+f32 func_80045D8C(f32 scale, f32 offset);
