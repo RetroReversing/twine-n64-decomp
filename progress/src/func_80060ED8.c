@@ -20,7 +20,7 @@ void func_80060ED8(void *arg0) {
     f32 temp_fv1_2;
     f32 temp_fv1_3;
     s32 var_v0;
-    s32 var_v1;
+    s16 var_v1;
     void *temp_s1;
     void *temp_v0;
 
@@ -40,16 +40,14 @@ void func_80060ED8(void *arg0) {
     }
     if (temp_s1 != NULL) {
         temp_fv1_3 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x20), f32 *, 0x5C);
-        var_v0 = var_v1;
         if (M2C_FIELD(arg0, f32 *, 0x28) < temp_fv1_3) {
             M2C_FIELD(arg0, f32 *, 0x28) = temp_fv1_3;
-            goto block_7;
+            var_v1 = 1;
         }
     } else {
-block_7:
-        var_v0 = 1;
+        var_v1 = 1;
     }
-    if (var_v0 != 0) {
+    if (var_v1 != 0) {
         func_800617D8(M2C_FIELD(arg0, void **, 0x20), arg0 + 0x24, 0, 0, 0.25f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
     }
