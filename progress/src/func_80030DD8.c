@@ -2,9 +2,10 @@ extern s32 func_80030D40(void);
 extern s32 D_800BFF04, D_800BFF10;
 extern u16 D_800E1608;
 void func_80030DD8(s32 arg0) {
+    u16 i;
     switch (arg0) {
     case 8: {
-        u16 i, x, count;
+        u16 x, count;
         s32 base;
         u16 *p;
         count = D_800E1608;
@@ -24,7 +25,6 @@ void func_80030DD8(s32 arg0) {
         break;
     }
     case 5: {
-        u16 i;
         s32 base;
         u16 *p;
         base = D_800BFF04;
@@ -45,23 +45,23 @@ void func_80030DD8(s32 arg0) {
     }
     case 4:
     case 9: {
-        u16 j, x, count;
+        u16 x, count;
         s32 base;
         u16 *p;
         count = D_800E1608;
-        j = 0;
+        i = 0;
         if (count) {
         base = D_800BFF04;
         do {
-            p = (u16 *)(j * 8 + base + 2);
+            p = (u16 *)(i * 8 + base + 2);
             x = *p;
             if ((x & 15) != 0) goto nonzero;
             if ((x & 0xF0) == 0) goto skip;
 nonzero:
             if ((x & 15) != 1) *p = (x & 0xFFF0) | 2;
 skip:;
-            j++;
-        } while (j < count);
+            i++;
+        } while (i < count);
         }
         D_800BFF10 = func_80030D40();
     }
