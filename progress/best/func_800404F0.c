@@ -124,8 +124,8 @@ block_13:
     case 0x9C:
         temp_v0_8 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
-        var_a0 = (temp_v0_8 & 0xFF81FFFF) | ((((temp_v0_8 >> 0x11) & 0x3F) | 4) << 0x11);
         var_v0_2 = 0x10000000;
+        var_a0 = (temp_v0_8 & 0xFF81FFFF) | ((((temp_v0_8 >> 0x11) & 0x3F) | 4) << 0x11);
         goto block_13;
     case 0x8C:
         (*(s32 *)((char *)(arg1) + 0x50)) |= 0x01000000;
@@ -212,7 +212,7 @@ block_29:
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
         if ((*(u16 *)((char *)(arg0) + (short)0x38)) == 1) {
             var_v1_3 = (*(u32 *)((char *)(arg1) + 0x5C)) & 0x7FFFFF;
-            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((unsigned)var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
+            (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v1_3 | ((((*(u32 *)((char *)(arg1) + 0x5C)) >> 0x17) | 8) << 0x17));
             return;
         }
         break;

@@ -40,7 +40,7 @@ void func_800673EC(void *arg0, void *arg1) {
     long temp_a0_3;
     s32 temp_s5;
     s32 var_v0;
-    s8 temp_s0;
+    s32 temp_s0;
     
     s8 temp_v1_6;
     s8 temp_v1_7;

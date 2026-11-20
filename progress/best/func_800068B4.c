@@ -221,7 +221,8 @@ block_52:
         D_800DC739 = D_80103EB0;
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C;
+        if ((temp_fv1 <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {

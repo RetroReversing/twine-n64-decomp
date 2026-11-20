@@ -72,22 +72,22 @@ s32 func_80092DD4(void) {
             } while ((u32) var_s0_3 >= (u32) temp_s1_2);
         }
         temp_v0_2 = (void *)(((__repair_record_temp_s2*)temp_s2)->field_10); temp_v0_2 = (void *)((char *)temp_v0_2 + (s32)(temp_s2));
+        temp_v0_2 = (char *)temp_v0_2 + 8;
         var_s0_4 = temp_v0_2;
-        var_s0_4 += 8;
         while ((var_a0_2 = *(u16 *)var_s0_4) != 0xFFFF) {
             var_s0_4 += 2;
             func_80097704(var_a0_2);
         }
         temp_v0_3 = (void *) ((((__repair_record_temp_s2*)temp_s2)->field_14) + (s32) temp_s2);
+        temp_v0_3 = (char *)temp_v0_3 + 8;
         var_s0_5 = temp_v0_3;
-        var_s0_5 += 8;
         while ((var_a0_3 = *(u16 *)var_s0_5) != 0xFFFF) {
             var_s0_5 += 2;
             func_80097194(var_a0_3);
         }
         temp_v0_4 = (void *) ((((__repair_record_temp_s2*)temp_s2)->field_18) + (s32) temp_s2);
+        temp_v0_4 = (char *)temp_v0_4 + 8;
         var_s0_6 = temp_v0_4;
-        var_s0_6 += 8;
         while ((var_a0_4 = *(u16 *)var_s0_6) != 0xFFFF) {
             var_s0_6 += 2;
             func_80097454(var_a0_4);

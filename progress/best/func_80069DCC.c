@@ -47,7 +47,7 @@ f32 func_8006F358(void *, void *);
 M2C_UNK func_80070340(M2C_UNK, void *);
 M2C_UNK func_8007092C(void *, M2C_UNK);
 M2C_UNK func_80070F34(void *);
-M2C_UNK func_800720E8(void *, M2C_UNK);
+M2C_UNK actorUpdateGatedState(void *, M2C_UNK);
 s32 func_800818AC(s32, M2C_UNK);
 s32 func_8008194C(s32, M2C_UNK);
 s32 func_800819EC(s32, M2C_UNK);
@@ -348,7 +348,7 @@ if (M2C_FIELD(temp_s1, u8 *, 0x5A8) != 3) {
 M2C_FIELD(arg0, s32 *, 0x60) = 0;
 return;
 }
-func_800720E8(arg0, 2);
+actorUpdateGatedState(arg0, 2);
 goto block_11;
 }
 block_11:
@@ -421,7 +421,7 @@ if (temp_v1_15 != 1) {
 if (temp_v1_15 >= 2) {
 if (temp_v1_15 < 4) {
 if (M2C_FIELD(temp_s1, u8 *, 0x5A8) == 3) {
-func_800720E8(arg0, 2);
+actorUpdateGatedState(arg0, 2);
 }
 }
 } else if (temp_v1_15 == 0) {
