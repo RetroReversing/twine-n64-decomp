@@ -23,6 +23,7 @@ int __repair_literal;
     f32 sp18[3];
     f32 sp28[3];
     f32 sp38;
+    volatile u64 __frame_reserve;
     f32 temp_fs1;
     f64 temp_fs0;
     s32 temp_v1;

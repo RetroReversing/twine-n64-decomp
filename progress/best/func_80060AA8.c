@@ -16,9 +16,10 @@ M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
 
 void func_80060AA8(void *arg0) {
     M2C_UNK var_a1;
+    M2C_UNK var_a1_2;
+    M2C_UNK var_a1_3;
     f32 var_fv0;
-f32 __repair_var_fv0_2;
-    s32 temp_v1;
+    s16 temp_v1;
     u16 temp_v0;
     u16 temp_v1_2;
     u16 temp_v1_3;
@@ -37,16 +38,14 @@ f32 __repair_var_fv0_2;
                 /* fallthrough */
             case 1:
                 temp_v1_2 = M2C_FIELD(temp_s1, u16 *, 0x3C);
-                switch (temp_v1_2) {
-                default:
-                    var_a1 = 5;
-                    break;
-                case 0:
+                if (temp_v1_2 != 0) {
+                    if (temp_v1_2 != 2) {
+                        var_a1 = 5;
+                    } else {
+                        var_a1 = 3;
+                    }
+                } else {
                     var_a1 = 7;
-                    break;
-                case 2:
-                    var_a1 = 3;
-                    break;
                 }
 block_29:
                 func_80044670(arg0, var_a1, 0x141);
@@ -67,13 +66,14 @@ block_29:
                 temp_v1_3 = M2C_FIELD(temp_s1, u16 *, 0x3C);
                 if (temp_v1_3 != 0) {
                     if (temp_v1_3 != 2) {
-                        func_80044670(arg0, 1, 0x149);
+                        var_a1_2 = 1;
                     } else {
-                        func_80044670(arg0, 0, 0x149);
+                        var_a1_2 = 0;
                     }
                 } else {
-                    func_80044670(arg0, 2, 0x149);
+                    var_a1_2 = 2;
                 }
+                func_80044670(arg0, var_a1_2, 0x149);
                 temp_v0_2 = M2C_FIELD(arg0, void **, 0x70);
                 M2C_FIELD(arg0, f32 *, 0x54) = 0.015625f;
                 if (temp_v0_2 != NULL) {
@@ -87,15 +87,16 @@ block_29:
             temp_v1_4 = M2C_FIELD(temp_s1, u16 *, 0x3C);
             if (temp_v1_4 != 0) {
                 if (temp_v1_4 != 2) {
-                    func_80044670(arg0, 1, 0x149);
+                    var_a1_3 = 1;
                 } else {
-                    func_80044670(arg0, 0, 0x149);
+                    var_a1_3 = 0;
                 }
             } else {
-                func_80044670(arg0, 2, 0x149);
+                var_a1_3 = 2;
             }
+            func_80044670(arg0, var_a1_3, 0x149);
             M2C_FIELD(arg0, f32 *, 0x54) = 0.015625f;
-            __repair_var_fv0_2 = M2C_FIELD(temp_s1, f32 *, 0x34) - M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x20);
+            var_fv0 = M2C_FIELD(temp_s1, f32 *, 0x34) - M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x20);
 block_38:
             M2C_FIELD(arg0, f32 *, 0x28) = var_fv0;
         }

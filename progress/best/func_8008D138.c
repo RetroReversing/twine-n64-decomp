@@ -35,7 +35,7 @@ int __repair_literal;
     s32 var_t0;
     s32 var_v0;
     s32 var_v0_2;
-    int var_v1;
+    
     
     u16 temp_v0;
     unsigned int temp_fp;
@@ -78,14 +78,14 @@ loop_3:
                 if (!(temp_v1_2 & 0x80)) {
                     temp_t0 = sp57 + (temp_v1_2 - 0x40);
                     if (temp_t0 >= 0) {
-                        var_v1 = 0x7F;
+                        __repair_literal = 0x7F;
                         if (temp_t0 < 0x80) {
-                            var_v1 = temp_t0;
+                            __repair_literal = temp_t0;
                         }
                     } else {
-                        var_v1 = 0;
+                        __repair_literal = 0;
                     }
-                    var_t0 = var_v1;
+                    var_t0 = __repair_literal;
                 }
                 temp_a1 = ((sp3C >> 8) & 0xFF) + (*(s16 *)((char *)(var_s1) + 6));
                 if (temp_a1 < 0x100) {

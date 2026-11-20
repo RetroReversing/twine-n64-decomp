@@ -1,0 +1,16 @@
+extern u8 D_800BDC70[];
+extern u8 D_800BDD10[];
+extern u8 D_800BDE78[];
+extern u8 D_800BDFB8[];
+extern u8 D_800BE0F8[];
+extern u8 D_800BE260[];
+extern u8 D_800BE3F0[];
+extern u8 D_800BE5A8[];
+extern u8 D_800BE710[];
+extern u8 D_800BE8F0[];
+extern u8 D_800BEAA8[];
+extern u8 D_800BECD8[];
+extern u8 D_800BEF08[];
+extern u8 D_800BEFF8[];
+extern u8 D_800BF00C[];
+struct { void *f_000; u8 f_004; u8 f_005; u16 f_006; s32 f_008; s32 f_00C; s32 f_010; } D_800BF458[16] = { { &D_800BDC70, 0, 4, 1, 0, 0, 0 }, { &D_800BDD10, 0, 9, 1, 0, 0, 0 }, { &D_800BDE78, 0, 8, 1, 0, 0, 0 }, { &D_800BDFB8, 0, 8, 1, 0, 0, 0 }, { &D_800BE0F8, 0, 9, 1, 0, 0, 0 }, { &D_800BE260, 0, 10, 1, 0, 0, 0 }, { &D_800BE3F0, 0, 11, 1, 0, 0, 0 }, { &D_800BE5A8, 0, 9, 1, 0, 0, 0 }, { &D_800BE710, 0, 12, 1, 0, 0, 0 }, { &D_800BE8F0, 0, 11, 1, 0, 0, 0 }, { &D_800BEAA8, 0, 14, 1, 0, 0, 0 }, { &D_800BECD8, 0, 14, 1, 0, 0, 0 }, { &D_800BEF08, 0, 6, 1, 0, 0, 0 }, { &D_800BEFF8, 0, 12, 1, 0, 0, 0 }, { (u8 *)&D_800BF00C + 0x1CC, 0, 10, 1, 0, 0, 0 }, { (u8 *)&D_800BF00C + 0x35C, 0, 6, 1, 0, 0, 0 } };

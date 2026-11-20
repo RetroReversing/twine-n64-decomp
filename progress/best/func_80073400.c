@@ -17,8 +17,8 @@ extern s32 D_8010D450;
 
 void func_80073400(void) {
     f32 __repair_fzero;
-    int __repair_constant;
-    volatile u8 *state = (volatile u8 *)&D_801007CF;
+    unsigned char __repair_constant;
+    volatile u8 *state = (volatile u8 *)((u32)&D_801007CF + D_801003D8 - D_801003D8);
     (*(state + -1)) = 0;
     __repair_fzero = 0.0f;
     (*(state + -3)) = 0;

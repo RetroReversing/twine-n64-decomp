@@ -97,20 +97,20 @@ extern s16 D_801176E4;
 
 void func_8002D240(void) {
     s8 *base_801002AE;
-    register int temp_s0;
-    s32 *temp_s0_2;
-    unsigned int temp_s1;
     unsigned int temp_v0;
+    s32 *temp_s0_2;
+    s32 temp_v1_2;
+    unsigned int temp_s1;
     unsigned temp_s1_2;
     unsigned temp_s3;
     unsigned int temp_v1;
-    s32 temp_v1_2;
+    register int temp_s0;
     
-    s32 var_s2;
+    long var_s2;
     int var_s2_2;
 int __repair_phase_var_s2_2;
-    u32 var_s5;
-    unsigned long var_s5_2;
+    int var_s5;
+    register unsigned long var_s5_2;
     register u16 temp_a2;
     u32 var_s0;
 
@@ -180,12 +180,12 @@ int __repair_phase_var_s2_2;
     func_8002B000((&D_801002AE) + 0x1E, 0x1E);
     (*(s8 *)((char *)(&D_801002AE) + -0xD)) = 0;
     D_801002D4 = 1;
-    D_801002D5 = 0;
     (*(s8 *)((char *)(&D_801002AE) + -0xC)) = 0;
-    (*(s8 *)((char *)(&D_801002AE) + -(short)0xA)) = 0x18;
+    D_801002D5 = 0;
+    (*(s8 *)((char *)(&D_801002AE) + -0xA)) = 0x18;
+    D_801002B4 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     (*(s8 *)((char *)(&D_801002AE) + -2)) = 0;
     (*(s32 *)((char *)(&D_801002AE) + -6)) = 0;
-    D_801002B4 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     D_801002BC = 0;
     D_801002B8 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     D_801002C0 = (s32) (func_8002D13C(0xA3) & 0xFFFF);
@@ -196,7 +196,7 @@ int __repair_phase_var_s2_2;
         if ((int)temp_s1 != 0) {
             func_80081BC4(var_s0, 2);
         }
-        temp_v1 = var_s0 * 0x18;
+        temp_v1 = (s32)var_s0 * 0x18;
         *(D_80100198 + temp_v1) = 2;
         *(D_801001A0 + temp_v1) = (s32)0x64;
         temp_s3 = var_s5 & 1;
@@ -243,7 +243,7 @@ block_8:
     var_s5_2 = 0;
     do {
         __repair_phase_var_s2_2 = 0;
-        var_s2 = var_s5_2 & 0xFFFF;
+        var_s2 = (s32)var_s5_2 & 0xFFFF;
         temp_s3 = var_s2 * 0x18;
 loop_14:
         temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF;
@@ -251,7 +251,7 @@ loop_14:
         func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
         temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
         func_8002B000(temp_s0_2, 0x1E);
-        temp_a2 = *((temp_s1_2 * 2) + ((var_s2 * 6) + D_800BFC38));
+        temp_a2 = *((temp_s1_2 * 2) + (((unsigned)var_s2 * 6) + D_800BFC38));
         func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);
         __repair_phase_var_s2_2 += 1;
         if ((u32) (__repair_phase_var_s2_2 & 0xFFFF) < 3U) {

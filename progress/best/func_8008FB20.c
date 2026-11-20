@@ -27,7 +27,7 @@ char *__repair_addr;
     s32 var_s6;
     s32 var_s7;
     s32 var_v0_2;
-    s32 var_v1;
+    long var_v1;
     u32 temp_s1;
     u8 temp_a0_2;
     s32 temp_a0_3;
@@ -61,8 +61,7 @@ char *__repair_addr;
 __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
 
             for (;;) {
-                temp_s1 = (*(u16 *)((char *)(__repair_addr) + 0)) + (*(u32 *)((char *)(var_a2) + 0x570));
-                if ((u32) ((*(s32 *)((char *)(var_a2) + 0x56C)) + (*(s32 *)((char *)(temp_t0) + 0x120))) >= temp_s1) {
+                if ((u32) ((*(s32 *)((char *)(var_a2) + 0x56C)) + (*(s32 *)((char *)(temp_t0) + 0x120))) >= (temp_s1 = (*(u16 *)((char *)(__repair_addr) + 0)) + (*(u32 *)((char *)(var_a2) + 0x570)))) {
                     temp_v0 = (*(void **)((char *)(var_a2) + 0x574));
                     (*(u32 *)((char *)(var_a2) + 0x570)) = temp_s1;
                     temp_a3 = (*(u8 *)((char *)(temp_v0) + 2));
@@ -133,8 +132,8 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                                 if (temp_v0_4 != NULL) {
                                                     ((__repair_field_4 *)temp_v0_4)->value = 0;
                                                 }
-                                                (*(void ***)((char *)(temp_t0_3) + 4)) = NULL;
                                                 temp_v0_5 = (*(void **)((char *)(D_800EDA8C) + 0xF78));
+                                                (*(void ***)((char *)(temp_t0_3) + 4)) = NULL;
                                                 ((__repair_field_0 *)temp_t0_3)->value = temp_v0_5;
                                                 if (temp_v0_5 != NULL) {
                                                     (*(void **)((char *)((*(void **)((char *)(D_800EDA8C) + 0xF78))) + 4)) = temp_t0_3;

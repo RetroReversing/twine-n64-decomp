@@ -68,8 +68,8 @@ void func_800A97A0(f32 *out, u32 *in) {
         s32 y = (a << 16) | (b & 0xFFFFu);
         f32 first = (f32)x * scale;
         f32 second = (f32)y * scale;
-        out[0] = first;
         out[1] = second;
+        out[0] = first;
         in++;
         out += 2;
     } while (in != end);

@@ -39,8 +39,7 @@ void func_80046BD4(f32 arg0, const void *arg1, const void *arg2, void *arg3) {
     var_fs3 = arg0;
     if ((1.0f - var_ft2) > 0.01f) {
         temp_ft0 = var_ft2 * var_ft2;
-        temp_ft1 = temp_ft0 * var_ft2;
-        temp_fs0 = ((1.5708f - (var_ft2 * 1.01744f)) - (__repair_inline(temp_ft1))) - (temp_ft0 * temp_ft1 * 0.32649f);
+        temp_fs0 = ((1.5708f - (var_ft2 * 1.01744f)) - (__repair_inline((temp_ft1 = temp_ft0 * var_ft2)))) - (temp_ft0 * temp_ft1 * 0.32649f);
         temp_fs2 = 1.0f / __sinf(temp_fs0);
         temp_fs1 = temp_fs0 * var_fs3;
         var_fs3 = __sinf(temp_fs1) * temp_fs2;

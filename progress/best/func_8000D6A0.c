@@ -53,9 +53,9 @@ s32 __repair_phase_temp_s1;
         sp20[0] += (*(f32 *)((char *)(temp_a0) + 0x24));
         sp20[2] += (*(f32 *)((char *)(temp_a0) + 0x2C));
         sp20[1] += (*(f32 *)((char *)(temp_a0) + 0x28));
-        (*(f32 *)((char *)(temp_s3) + 0x24)) = sp20[0];
-        (*(f32 *)((char *)(temp_s3) + 0x28)) = sp20[1];
-        (*(f32 *)((char *)(temp_s3) + 0x2C)) = sp20[2];
+        (*(u32 *)((char *)(temp_s3) + 0x24)) = (*(u32 *)(&sp20[0]));
+        (*(u32 *)((char *)(temp_s3) + 0x28)) = (*(u32 *)(&sp20[1]));
+        (*(u32 *)((char *)(temp_s3) + 0x2C)) = (*(u32 *)(&sp20[2]));
         temp_v0_3 = (*(void **)((char *)(temp_s3) + 0x70));
         if ((temp_v0_3 != NULL) && ((temp_v0_4 = (*(u32 *)((char *)(temp_v0_3) + 0x30)), temp_a0_2 = (temp_v0_4 >> 4) & 0xFFFF, temp_a1 = temp_v0_4 >> 0x14, (((temp_a1 == 0x11C) & (temp_a0_2 == 0x1A)) != 0)) || ((temp_a1 == 0x98) & (temp_a0_2 == 3)) || ((temp_a1 == 0xB1) & (temp_a0_2 == 2)))) {
             var_fv0 = func_80045E34(temp_s3 + 0x24, temp_s3 + 0x30);

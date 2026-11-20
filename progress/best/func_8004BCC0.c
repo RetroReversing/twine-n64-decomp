@@ -135,9 +135,9 @@ u32 __repair_phase_temp_v1;
                                 if (temp_s3 < (u16) (*(u16 *)((char *)(temp_s2) + 0x40))) {
                                     var_s0 = 0;
                                     var_s3 = var_s4 + 4;
-                                    do {
-                                        __repair_phase_temp_v1 = var_s0 & 0xFFFF;
-    temp_v1_2 = *(u16 *)(((__repair_phase_temp_v1) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
+                                    __repair_rows: {
+                                        temp_v1 = var_s0 & 0xFFFF;
+    temp_v1_2 = *(u16 *)(((temp_v1) * 2) + (*(s32 *)((char *)(temp_s2) + 0x38)));
                                         if ((temp_s7 & temp_v1_2) && (temp_s6 & temp_v1_2)) {
                                             temp_v1_3 = (*(s32 *)((char *)(temp_s2) + 0x34));
                                             if ((func_80048CC0(sp38, sp90, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (spA0 >= __repair_float_constant) && (spA0 < var_fs0)) {
@@ -149,7 +149,8 @@ u32 __repair_phase_temp_v1;
                                         var_s3 += 6;
                                         var_s4 += 6;
                                         var_s0 += 1;
-                                    } while ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s2) + 0x40)));
+                                    }
+if ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s2) + 0x40))) goto __repair_rows;
                                 }
                             } else {
                                 var_s0_2 = 0;
@@ -208,8 +209,8 @@ u32 __repair_phase_temp_v1;
                         temp_s3_2 = temp_v0_2 & 0xFF00;
                         if (!(((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) || (func_80083B64(spA8, (s16 *) sp114), ((((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) == 0))) {
                             if ((*(u8 *)((char *)(temp_s1) + 0x48)) & 4) {
-                                var_s0_3 = 0;
                                 if ((*(u16 *)((char *)(temp_s1) + 0x40)) != 0) {
+                                    var_s0_3 = 0;
                                     var_s2 = 0;
                                     do {
                                         temp_a0 = (*(s32 *)((char *)(temp_s1) + 0x3C)) + var_s2;

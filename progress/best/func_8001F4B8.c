@@ -35,7 +35,6 @@ extern s32 D_8010A500[];
 
 s32 func_8001F4B8(u16 slot, s32 action)
 {
-    ActionState **__base_D_80109BB0;
     s32 object = D_8010A500[slot];
     s32 index;
     void (*invoke)(s32);
@@ -53,8 +52,7 @@ s32 func_8001F4B8(u16 slot, s32 action)
         invoke(object);
     }
 
-    __base_D_80109BB0 = &D_80109BB0;
-    state = (*__base_D_80109BB0);
+    state = D_80109BB0;
     if (state->entered != 0) {
         return (u8)action;
     }
@@ -62,18 +60,14 @@ s32 func_8001F4B8(u16 slot, s32 action)
         return (u8)action;
     }
     if (index == 0x13) {
-        /*__repair_pointer_balance*/if ((unsigned long)__base_D_80109BB0 & 0x100) {
-func_800278AC(10, D_80102EBC, D_80102F2C->field7A);
-} else {
-func_800278AC(10, D_80102EBC, D_80102F2C->field7A);
-}
+        func_800278AC(10, D_80102EBC, D_80102F2C->field7A);
         return (u8)action;
     }
     if (state->handler != 0) {
         handler = func_800262A8(state->object, 14);
-        state = (*__base_D_80109BB0);
+        state = D_80109BB0;
         state->entered = 1;
-        callbackState = (*__base_D_80109BB0);
+        callbackState = D_80109BB0;
         state->handler = handler;
         callbackState->handler->enter(state);
     }

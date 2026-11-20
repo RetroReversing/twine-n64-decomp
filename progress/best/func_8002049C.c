@@ -44,8 +44,6 @@ extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
 
 void func_8002049C(void) {
-char *__repair_addr;
-
     s16 var_s3;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_s5;
@@ -63,7 +61,7 @@ char *__repair_addr;
     void *var_s4;
 
     D_800B60E4 = &D_801003E0;
-    (*(u16 *)&D_800B60E2) = 0;
+    D_800B60E2 = 0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
     temp_v0 = *((M2C_UNK *)((s8 *)&D_8010A500 + (D_800BD68F * 4)));
     var_s4 = NULL;
@@ -84,9 +82,7 @@ char *__repair_addr;
             var_s3 = 0;
             var_s1 = 0 & 0xFFFF;
             do {
-__repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
-
-                if (((M2C_FIELD(__repair_addr, u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
+                if (((M2C_FIELD((temp_s5 + (var_s1 * 8)), u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
                     temp_v0_2 = func_800162BC(D_800BD68E);
                     __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;
@@ -109,7 +105,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                 func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + __repair_phase_storage.value)), *((s16 *)((s8 *)&D_800C46DA + __repair_phase_storage.value)));
                 if (temp_s1 != NULL) {
                     M2C_FIELD(temp_s1, s16 *, 0) = func_8001E760(0, M2C_FIELD(var_s4, u8 *, 8));
-                    M2C_FIELD(temp_s1, u16 *, 0x28) = func_8001E760(1, M2C_FIELD(var_s4, u8 *, 8));
+                    M2C_FIELD(temp_s1, s16 *, 0x28) = func_8001E760(1, M2C_FIELD(var_s4, u8 *, 8));
                 }
                 if (temp_s0_2 != NULL) {
                     if (M2C_FIELD(var_s4, u8 *, 8) == 0x24) {
@@ -118,7 +114,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                         M2C_FIELD(temp_s0_2, u8 *, 0x1C) = 0x90;
                     }
                 }
-                M2C_FIELD(D_80109BB0, u8 *, 0x30) = 0xFF;
+                M2C_FIELD(D_80109BB0, s8 *, 0x30) = 0xFF;
             }
             func_80022E18(D_800BD68E);
             func_80022AD8(D_800BD68E);

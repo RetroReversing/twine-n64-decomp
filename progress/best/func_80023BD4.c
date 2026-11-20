@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -66,7 +65,7 @@ block_6:
             var_v0 = func_80087100(0xEE);
             var_a2 = temp_s0;
             {
-        sprintf(temp_s5, D_800D2AB4, var_a2, var_v0);return temp_s5;}
+        sprintf(temp_s5, D_800D2AB4, var_a2);return temp_s5;}
         }
         goto block_7;
     }
@@ -99,24 +98,25 @@ __repair_literal = 0;
     } else {
 block_19:
         temp_v0_2 = D_801002B4;
-        var_s0_2 = 0;
-        if (__repair_inline(0, temp_v0_2)) {
+        if (temp_v0_2 > 0) {
+            var_s0_2 = 0;
             do {
                 temp_v1 = func_80022DBC(var_s0_2 & 0xFFFF) & 0xFFFF;
                 temp_a0 = D_800E1068[temp_v1];
                 if (var_s1 < temp_a0) {
-var_s3 = temp_v1; var_s1 = temp_a0;
+                    var_s1 = temp_a0;
+                    var_s3 = temp_v1;
                 }
                 var_s0_2 += 1;
             } while (var_s0_2 < D_801002B4);
         }
         var_s1_3 = -1;
         var_s0_3 = 0;
-        if (__repair_inline(0, temp_v0_2)) {
+        if (temp_v0_2 > 0) {
             do {
-                temp_v1 = (s16)(D_800E1068[func_80022DBC(var_s0_3 & 0xFFFF) & 0xFFFF]);
+                temp_v0_3 = D_800E1068[func_80022DBC(var_s0_3 & 0xFFFF) & 0xFFFF];
                 var_s0_3 += 1;
-                var_s1_3 += temp_v1 == *((var_s3 * 2) + D_800E1068);
+                var_s1_3 += temp_v0_3 == *((var_s3 * 2) + D_800E1068);
             } while (var_s0_3 < D_801002B4);
         }
     }

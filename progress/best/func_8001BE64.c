@@ -34,7 +34,7 @@ void func_8001BE64(void) {
     void *temp_fp;
     s16 var_v0_2;
     void *temp_s2;
-    void *temp_s5;
+    register void *temp_s5;
     void *temp_s7;
     s32 *__base_D_801002A8;
     register void *temp_s4;
@@ -43,15 +43,15 @@ void func_8001BE64(void) {
     s32 var_v0;
     void *temp_s6;
     int temp_s0_v = 0;
-    int var_v0_3;
+    unsigned var_v0_3;
     register unsigned long var_v0_4;
     int var_a0;
     s32 *temp_s0;
     u32 temp_v1;
 
     D_800BD690 = 1;
-    temp_fp = func_800262A8(D_800BD9A0, 0x5B);
     temp_s6 = func_800262A8(D_800BD9A0, 0x5C);
+    temp_fp = func_800262A8(D_800BD9A0, 0x5B);
     temp_s2 = func_8002638C(D_800BD9A0, 0xE7);
     temp_s5 = func_8002638C(D_800BD9A0, 0x66);
     var_s1 = func_8002638C(D_800BD9A0, 0xB1);
@@ -126,7 +126,7 @@ void func_8001BE64(void) {
             func_80026004(var_s1, D_800D2864, var_v0_4);
         }
         var_a0 = 0x67;
-        if ((int)D_8010A4FD != 0) {
+        if (D_8010A4FD != 0) {
             var_a0 = 0x68;
         }
         func_80026004(temp_s5, D_800D2864, func_80087100(var_a0));

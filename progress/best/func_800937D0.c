@@ -22,8 +22,10 @@ extern f64 D_800D6870;
 extern void *D_80108F90;
 
 void func_800937D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, f32 *arg5) {
+    f32 __repair_fzero = 0.0f;
+
     union {
-        unsigned char bytes[32];
+        unsigned char bytes[64];
         struct { f32 value; } view_sp30;
         struct { unsigned char pad[4]; f32 value; } view_sp34;
         struct { unsigned char pad[8]; f32 value; } view_sp38;
@@ -64,19 +66,19 @@ void func_800937D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, f32 *
     s32 var_s2;
     void *var_s0;
 
-    *arg1 = 0.0f;
+    *arg1 = __repair_fzero;
     *arg2 = 1.0f;
     var_s0 = D_80108F90;
     var_s2 = 0;
-    m2c_initial_frame.view_sp48.value = 0.0f;
-    m2c_initial_frame.view_sp44.value = 0.0f;
-    m2c_initial_frame.view_sp40.value = 0.0f;
+    m2c_initial_frame.view_sp48.value = __repair_fzero;
+    m2c_initial_frame.view_sp44.value = __repair_fzero;
+    m2c_initial_frame.view_sp40.value = __repair_fzero;
     if (var_s0 != NULL) {
         do {
             temp_ft0 = M2C_FIELD(arg0, f32 *, 0xC) - M2C_FIELD(var_s0, f32 *, 0xC);
             temp_fv1 = M2C_FIELD(arg0, f32 *, 0x10) - M2C_FIELD(var_s0, f32 *, 0x10);
             temp_fv0 = M2C_FIELD(arg0, f32 *, 0x14) - M2C_FIELD(var_s0, f32 *, 0x14);
-            temp_fa0 = sqrtf((temp_ft0 * temp_ft0) + (temp_fv1 * temp_fv1) + (temp_fv0 * temp_fv0));
+            temp_fa0 = __builtin_sqrt((temp_ft0 * temp_ft0) + (temp_fv1 * temp_fv1) + (temp_fv0 * temp_fv0));
             temp_fv0_2 = M2C_FIELD(arg0, f32 *, 0x24);
             if (temp_fa0 <= temp_fv0_2) {
                 temp_fv1_2 = temp_fa0 / temp_fv0_2;

@@ -17,7 +17,7 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
     f32 scale;
 
     p = &D_800BF5BC;
-    if (*p != (s32)NULL) {
+    if (*p != NULL) {
         return NULL;
     }
     *p = func_80016410(0, 0, 0);
@@ -40,12 +40,12 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         D_800BF5BC->h78 = 0x56;
         D_800BF5BC->b82 = 0xFF;
         D_800BF5BC->flags |= 0x1000;
-        D_800BF5BC->f24 = 0.015f;
-        D_800BF5BC->f28 = 0.02f;
+        *(volatile f32 *)&D_800BF5BC->f24 = 0.015f;
+        *(volatile f32 *)&D_800BF5BC->f28 = 0.02f;
         D_800BF5BC->f2C = 0.1f;
         D_800BF5BC->w3C = 0;
         D_800BF5BC->w40 = 0;
-        D_800BF5BC->f44 = 0.1f;
+        *(volatile f32 *)&D_800BF5BC->f44 = 0.1f;
         D_800BF5BC->f54 = scale;
         func_80064318(*p, kind);
         func_80016990(*p, D_80109688[kind]->wF4);

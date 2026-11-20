@@ -26,7 +26,8 @@ extern void *D_8011F3CC;
 
 void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
 s32 __repair_literal;
-    volatile s64 __stack_pad;
+    struct __arg_copy { s32 a, b, c; } __src_copy;
+    volatile struct __arg_copy __stack_copy;
 
     s32 var_a0;
     s32 var_s0;
@@ -34,6 +35,9 @@ s32 __repair_literal;
     void *temp_v0;
     void *temp_v0_2;
 
+    __stack_copy.a = M2C_FIELD(arg0, s32 *, 0x24);
+    __stack_copy.b = M2C_FIELD(arg0, s32 *, 0x28);
+    __stack_copy.c = M2C_FIELD(arg0, s32 *, 0x2C);
     if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) == 7) {
         func_8002B150(arg0, &D_8011F3AC, 0, 0);
         if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x26) {

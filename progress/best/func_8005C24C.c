@@ -56,9 +56,8 @@ void func_8005C24C(void) {
                 } else {
 block_9:
                     var_s2 += 4;
-                }/*__repair_loop_weight*/__repair_rows: {do {do {
-                var_s1 += 1;} while (0);} while (0);}
-if (0) goto __repair_rows;
+                }
+                var_s1 += 1;
             } while (var_s1 < 2U);
             goto block_11;
         }

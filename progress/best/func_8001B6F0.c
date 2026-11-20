@@ -46,7 +46,7 @@ void func_8001B6F0(void) {
     s32 temp_s4;
     s32 temp_v0_2;
     unsigned var_s1;
-    u16 temp_v1_2;
+    s32 temp_v1_2;
     u32 temp_s0;
     void *temp_s2;
     void *temp_v0;
@@ -68,7 +68,7 @@ void func_8001B6F0(void) {
         (*(f32 *)((char *)(D_800B5B14) + 0x28)) = 0.25f;
         (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
         var_s1 = 0;
-        func_8003E6EC(*D_800CA31C);
+        func_8003E6EC(*D_800CA31C, D_800B5B14);
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(D_800BD68E, 0x30, 0x30, 0x6E, 0xF);
         temp_s2 = func_800316C8();

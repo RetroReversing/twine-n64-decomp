@@ -188,12 +188,11 @@ int __repair_constant = 0xFF;
         ((__repair_field_0 *)D_80115328)->value = 0xDC080008;
         ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x6E0));
         D_80115328 += 8;
-        __repair_rows: { func_800325E4(D_80117728 + (temp_s3 + 0x560), D_80117728 + (temp_s1 + 0x740), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 0.64f, 64.0f, 1.0f); }
-if (0) goto __repair_rows;
-        var_a1 = D_80107EA0 + 1;
+        do { func_800325E4(D_80117728 + (temp_s3 + 0x560), D_80117728 + (temp_s1 + 0x740), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 0.64f, 64.0f, 1.0f); } while (0);
+        temp_v0 = D_80107EA0 + 1;
         if ((u32) D_80107EA0 < (u32) D_800B1D84) {
-            D_80107EA0 = var_a1;
-            D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (var_a1 << 6);
+            D_80107EA0 = temp_v0;
+            D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6);
             func_8000BBB4(&D_80112F90, (*(f32 *)((char *)(arg0) + 0x48)) + 3.1415927f, -((*(f32 *)((char *)(arg0) + 0x44)) + 3.1415927f), (*(s32 *)((char *)(arg0) + 0x40)));
             guTranslateF(&D_80109E28, -(*(f32 *)((char *)(arg0) + 0x1C)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x20)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x24)) * 64.0f);
             var_s0 = &D_80109BB8;

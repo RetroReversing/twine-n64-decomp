@@ -26,8 +26,6 @@ extern char D_80109688[];
 
 typedef struct { unsigned char pad_0[32]; void * field_20; unsigned char pad_24[68]; void * field_68; void * field_6C; unsigned char pad_70[8]; unsigned short field_78; } __repair_record_arg0;
 void func_8006899C(void *arg0, u8 arg1) {
-int __repair_literal;
-
     s32 sp28;
     s32 sp2C;
     u8 sp37;
@@ -85,9 +83,7 @@ int __repair_literal;
                     do {
                         temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78));
                         if ((s32) temp_v1 < 0x13) {
-__repair_literal = 0x10;
-
-                            if ((s32) temp_v1 < __repair_literal) {
+                            if ((s32) temp_v1 < 0x10) {
                                 if (temp_v1 != 0xB) {
 
                                 } else {
@@ -101,9 +97,6 @@ __repair_literal = 0x10;
                                     case 17:
                                         var_a0 = 1 & -((*(u16 *)((char *)(temp_a1) + 0x34)) == 0);
                                         break;
-                                    case 18:
-                                    case 19:
-                                    case 20:
                                     default:
                                         var_a0 = 0;
                                         break;
@@ -127,16 +120,14 @@ __repair_literal = 0x10;
                             } else {
                                 goto block_10;
                             }
-                        } else if (((s32) temp_v1 < 0x61)) {
-                            if (((s32) temp_v1 >= 0x5E)) {
-    block_10:
-                                if (((*(s32 *)((char *)(var_s1) + 0x20)) == ((__repair_record_arg0*)arg0)->field_20) && ((*(s32 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x2C)) & 0x800)) {
-                                    temp_s0_2 = var_s1 + 0x24;
-                                    if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 0x44800000) << 0x18) != 0) && (func_80045E34(temp_s0_2, arg0 + 0x24) < 1.5f)) {
-    block_28:
-                                        var_s6 = 0;
-                                        (*(s32 *)((char *)(var_s1) + 0x60)) |= 0x800;
-                                    }
+                        } else if (((s32) temp_v1 < 0x61) && ((s32) temp_v1 >= 0x5E)) {
+block_10:
+                            if (((*(s32 *)((char *)(var_s1) + 0x20)) == ((__repair_record_arg0*)arg0)->field_20) && ((*(s32 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x2C)) & 0x800)) {
+                                temp_s0_2 = var_s1 + 0x24;
+                                if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 0x44800000) << 0x18) != 0) && (func_80045E34(temp_s0_2, arg0 + 0x24) < 1.5f)) {
+block_28:
+                                    var_s6 = 0;
+                                    (*(s32 *)((char *)(var_s1) + 0x60)) |= 0x800;
                                 }
                             }
                         }

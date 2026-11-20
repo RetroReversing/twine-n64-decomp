@@ -42,11 +42,12 @@ int __repair_constant = 2;
 
 int __repair_literal;
 
-    unsigned long var_a0_2;
+    s32 var_a0_2;
     f32 temp_fv1;
     f32 var_fv0;
-    s32 var_s0;
-    u8 var_a0;
+    long var_s0;
+    s32 var_a0;
+s32 __repair_phase_var_a0;
     u8 var_v0;
     
 
@@ -61,12 +62,12 @@ block_63:
     default:
         return;
     case 8:
-        D_800DC730 = D_8011740C;
         D_800B19F0 = 9;
+        D_800DC730 = D_8011740C;
         /* fallthrough */
     case 9:
         if (D_801002AE == 0) {
-            var_v0 = 2;
+            var_v0 = __repair_constant;
             if ((D_8011740C - D_800DC730) >= 0x1C3) {
 block_9:
                 D_800B19F0 = var_v0;
@@ -77,8 +78,8 @@ block_10:
         var_a0 = 4;
         if (D_80102EEC == 0) {
             func_8002CC34(4);
-            if ((!D_800CEEB0) && (D_80102EDD != 0)) {
-                if (!D_80102ED8) {
+            if ((D_800CEEB0 == 0) && (D_80102EDD != 0)) {
+                if (D_80102ED8 == 0) {
                     if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
                         goto block_15;
                     }
@@ -114,8 +115,8 @@ block_39:
     case 18:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + 0.06666667f);
         if (((__repair_record_D_80109688*)D_80109688)->field_12C > 1.0f) {
-            var_v0 = 1;
             ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
+            var_v0 = 1;
             goto block_9;
         }
         goto block_10;
@@ -155,11 +156,11 @@ block_37:
                 if (D_800B19F0 != 3) {
                     var_a0 = 0xA;
                     if (D_800B19F0 == 0xB) {
-                        D_800B19F0 = (s32)var_a0;
+                        D_800B19F0 = var_a0;
                     }
                 } else {
-                    var_a0 = (s32)__repair_constant;
-                    D_800B19F0 = var_a0;
+                    __repair_phase_var_a0 = __repair_constant;
+                    D_800B19F0 = __repair_phase_var_a0;
                 }
             }
         }
@@ -178,8 +179,8 @@ block_37:
         return;
     case 15:
         func_800761B8();
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
         var_a0 = 0x12;
+        ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
         goto block_63;
     case 5:
         func_800067C8();
@@ -193,7 +194,7 @@ block_37:
         func_800072B8();
         func_80007958();
         var_a0 = 4;
-        if (D_80102EEC) {
+        if (D_80102EEC != 0) {
             D_800CA338 = 0;
             goto block_63;
         }
@@ -211,7 +212,7 @@ block_52:
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
         temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C;
-        if (((int)temp_fv1 <= 0.0f) || ((int)temp_fv1 >= 1.0f)) {
+        if ((temp_fv1 <= 0.0f) || ((int)temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {

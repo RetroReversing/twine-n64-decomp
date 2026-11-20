@@ -29,6 +29,7 @@ void func_80041F68(void *arg0) {
     u32 i;
     u8 *p;
     u32 n;
+    volatile u64 frame_gap;
 
     sp14 = func_80083E24();
     sp1C = func_80083E90(*(u32 *)((u8 *)arg0 + 0x14) * 8, 0x18);

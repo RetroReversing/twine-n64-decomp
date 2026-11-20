@@ -128,7 +128,19 @@ f32 __repair_var_fv1_1;
             sp18[0] = (*__base_D_800D461C);
             sp18[1] = D_800D4620;
             sp18[2] = D_800D4624;
-            do { func_800643C8(arg0, __base_D_800D461C); } while (0);
+            do { /*__repair_pointer_balance*/if ((unsigned long)__base_D_800D461C & 0x10000) {
+if ((unsigned long)__base_D_800D461C & 0x100) {
+func_800643C8(arg0, __base_D_800D461C);
+} else {
+func_800643C8(arg0, __base_D_800D461C);
+}
+} else {
+if ((unsigned long)__base_D_800D461C & 0x100) {
+func_800643C8(arg0, __base_D_800D461C);
+} else {
+func_800643C8(arg0, __base_D_800D461C);
+}
+} } while (0);
             sp58[0] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x3C));
             sp58[1] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x40));
             sp58[2] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x44));

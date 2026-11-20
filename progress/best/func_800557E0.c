@@ -23,7 +23,7 @@ void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void 
 int __repair_literal;
 
     union {
-        unsigned char bytes[72];
+        unsigned char bytes[64];
         struct { f32 value; } view_sp18;
         struct { unsigned char pad[4]; f32 value; } view_sp1C;
         struct { unsigned char pad[8]; f32 value; } view_sp20;
@@ -46,6 +46,7 @@ int __repair_literal;
              
              
              
+    f32 sp1C, sp20;
     f32 temp_fs0;
     s32 temp_v1;
     s32 temp_v1_2;

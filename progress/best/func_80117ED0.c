@@ -29,9 +29,9 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     sel = (t16 >> 2) & 7;
     switch (sel) {
     case 1:
-    default: *(f32 *)(s1 + 0x80) = 0.0738f; s2 = 0x15F; break;
-    case 2: *(f32 *)(s1 + 0x80) = 0.14912f; s2 = 0x165; break;
-    case 3: *(f32 *)(s1 + 0x80) = 0.16f; s2 = 0x171; break;
+    default: *(f32 *)(s1 + 0x80) = 0.074f; s2 = 0x15F; break;
+    case 2: *(f32 *)(s1 + 0x80) = 0.149f; s2 = 0x165; break;
+    case 3: *(f32 *)(s1 + 0x80) = 0.16000001f; s2 = 0x171; break;
     case 4: *(f32 *)(s1 + 0x80) = 0.2f; s2 = 0x171; break;
     case 5: *(f32 *)(s1 + 0x80) = 0.23f; s2 = 0x171; break;
     }
@@ -46,7 +46,7 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         if (dx == 0.0f && dz == 0.0f) {
             fv = *(f32 *)(arg0 + 0x40);
         } else {
-            fv = func_80082A70(dx, dz) * 650.9f;
+            fv = func_80082A70(dx, dz) * 651.8986f;
         }
         func_8007AABC(arg0, (s32)fv, 0.2f);
         return;
@@ -57,7 +57,7 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         fv = *(f32 *)(arg0 + 0x40);
     
     func_8007AABC(arg0, fv, 0.2f);} else {
-        fv = func_80082A70(dx, dz) * 650.9f;
+        fv = func_80082A70(dx, dz) * 651.8986f;
     
     func_8007AABC(arg0, fv, 0.2f);}
     if (arg2[0] != 0.0f) {

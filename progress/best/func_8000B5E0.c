@@ -23,7 +23,7 @@ s32 func_8000B5E0(void) {
         u32 reread;
         DmaEntry *base;
         next = (*p = next);
-        entry = D_80100190 + next;
+        entry = (DmaEntry *)((u32)(next * sizeof(DmaEntry)) + (u32)D_80100190);
         ram = *(volatile s32 *)&entry[-1].ram;
         reread = *(volatile u16 *)p;
         base = D_80100190;

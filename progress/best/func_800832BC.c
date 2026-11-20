@@ -3,6 +3,7 @@
 extern f32 D_800CA350[];
 
 void func_800832BC(void *arg0, void *arg1) {
+    f32 __repair_temp_fa1_temp_ft3;
     f32 __repair_temp_fv0_temp_ft3;
     s32 temp_v0;
     f32 temp_fa0;
@@ -12,6 +13,7 @@ void func_800832BC(void *arg0, void *arg1) {
     register f32 temp_fa1;
     register f32 temp_ft4;
     s32 temp_a2;
+s32 __repair_phase_temp_a2;
     s32 __repair_temp_a2_1;
     register f32 temp_fv1;
 
@@ -26,17 +28,18 @@ void func_800832BC(void *arg0, void *arg1) {
     temp_fa0 = temp_fa1 * temp_ft3;
     temp_fv0 = D_800CA350[((temp_a2 - 0x400) & 0xFFF)];
     temp_ft0 = temp_fv0 * temp_ft3;
-    __repair_temp_a2_1 = (*(s16 *)((char *)(arg0) + 0));
-    temp_fv1 = D_800CA350[(__repair_temp_a2_1 & 0xFFF)];
-    temp_ft1 = D_800CA350[((__repair_temp_a2_1 - 0x400) & 0xFFF)];
+    __repair_phase_temp_a2 = (*(s16 *)((char *)(arg0) + 0));
+    temp_fv1 = D_800CA350[(__repair_phase_temp_a2 & 0xFFF)];
+    temp_ft1 = D_800CA350[((__repair_phase_temp_a2 - 0x400) & 0xFFF)];
     (*(f32 *)((char *)(arg1) + 0x18)) = (f32) -temp_ft3;
     (*(f32 *)((char *)(arg1) + 0)) = (f32) (temp_fa1 * temp_ft4);
+    __repair_temp_fa1_temp_ft3 = temp_fa1 * temp_ft3;
     (*(f32 *)((char *)(arg1) + 0x20)) = (f32) (temp_ft4 * temp_fv1);
     (*(f32 *)((char *)(arg1) + 0x1C)) = (f32) (temp_ft4 * temp_ft1);
-    (*(f32 *)((char *)(arg1) + 4)) = (f32) ((temp_fa0 * temp_ft1) - (temp_fv0 * temp_fv1));
+    (*(f32 *)((char *)(arg1) + 4)) = (f32) ((__repair_temp_fa1_temp_ft3 * temp_ft1) - (temp_fv0 * temp_fv1));
     __repair_temp_fv0_temp_ft3 = temp_fv0 * temp_ft3;
     (*(f32 *)((char *)(arg1) + 0xC)) = (f32) (temp_fv0 * temp_ft4);
-    (*(f32 *)((char *)(arg1) + 8)) = (f32) ((temp_fa0 * temp_fv1) + (temp_fv0 * temp_ft1));
+    (*(f32 *)((char *)(arg1) + 8)) = (f32) ((__repair_temp_fa1_temp_ft3 * temp_fv1) + (temp_fv0 * temp_ft1));
     (*(f32 *)((char *)(arg1) + 0x10)) = (f32) ((__repair_temp_fv0_temp_ft3 * temp_ft1) + (temp_fa1 * temp_fv1));
     (*(f32 *)((char *)(arg1) + 0x14)) = (f32) ((__repair_temp_fv0_temp_ft3 * temp_fv1) - (temp_fa1 * temp_ft1));
 }

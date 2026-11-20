@@ -12,6 +12,8 @@ extern f64 D_800D4160;
 typedef struct { unsigned char pad_0[4]; float field_4; float field_8; float field_C; unsigned char pad_10[12]; short field_1C; } __repair_record_temp_s0;
 typedef struct { unsigned char pad_0[32]; void * field_20; float field_24; float field_28; float field_2C; unsigned char pad_30[36]; float field_54; unsigned char pad_58[8]; int field_60; unsigned char pad_64[8]; void * field_6C; unsigned char pad_70[16]; unsigned char field_80; unsigned char field_81; } __repair_record_arg0;
 void func_8005D62C(void *arg0) {
+char *__repair_addr;
+
     void *temp_s2;
     s16 temp_v0;
     void *temp_s0_2;
@@ -36,8 +38,10 @@ void func_8005D62C(void *arg0) {
     }
     (((__repair_record_arg0*)arg0)->field_60) |= 1;
     return;
+__repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20);
+
     alive:
-        temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20));
+        temp_fv1 = (*(f32 *)(__repair_addr));
         if ((((__repair_record_arg0*)arg0)->field_28) < temp_fv1) {
             (((__repair_record_temp_s0*)temp_s0)->field_4) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_4) * (func_80045D2C(0.9f) - 0.45f));
             (((__repair_record_temp_s0*)temp_s0)->field_8) = (f32) ((f64) (((__repair_record_temp_s0*)temp_s0)->field_8) * D_800D4150);

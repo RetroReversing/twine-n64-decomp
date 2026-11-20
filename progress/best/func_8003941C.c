@@ -9,14 +9,14 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     u8 spF0[6];
     f32 spF8[12];
     s16 sp128[3];
-    unsigned long sp14C;
-    u32 *var_s7;
-    s32 var_s1;
-    register f32 *ent;
     long var_s2;
+    u8 sp147;
+    unsigned long sp14C;
+    register f32 *ent;
+    s32 var_s1;
     register u8 *p;
     u32 *var_s6;
-    u8 sp147;
+    u32 *var_s7;
     volatile u64 pad;
 
     sp147 = 0;
@@ -26,11 +26,11 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
         if (arg3 != NULL) {
             sp128[0] = (s16)arg3[0];
             sp128[1] = (s16)arg3[1];
-            sp128[2] = (s16)(s32)arg3[2];
+            sp128[2] = (s16)arg3[2];
             func_80082FE4(sp128, spF8);
         }
-        var_s7 = var_s6 + 1;
         sp14C = (s8)arg4;
+        var_s7 = var_s6 + 1;
         do {
             switch (var_s6[0] & 0xFF000000) {
             case 0x1000000:
@@ -91,7 +91,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                         func_80083A6C(spF8, ent);
                     }
                     var_s2 += 1;
-                    if (arg2 != NULL) {
+                    if (arg2 != (unsigned)NULL) {
                         ent[0] = ent[0] + arg2[0];
                         ent[2] = ent[2] + arg2[2];
                         ent[1] = ent[1] + arg2[1];

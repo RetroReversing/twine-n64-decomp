@@ -35,7 +35,7 @@ extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
 extern s8 D_801002AD;
-extern s32 D_801002B4;
+extern volatile s32 D_801002B4;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
 extern s32 D_801002CC;
@@ -54,11 +54,11 @@ extern void *D_80109BB0;
 extern s32 D_8010A4E4;
 
 void func_80019690(void) {
-void *__repair_cached_pointer = D_80102F2C;
+void *__repair_cached_pointer;
 
     s16 temp_v1_2;
     s32 temp_s0;
-    s32 var_s0;
+    u16 var_s0;
     s32 var_s0_2;
     s32 var_s1;
     s32 var_s1_2;
@@ -80,7 +80,7 @@ void *__repair_cached_pointer = D_80102F2C;
         func_8000A894(0xEA);
         return;
     }
-    if ((D_80102F2C != NULL) && (temp_v1_2 = M2C_FIELD(__repair_cached_pointer, s16 *, 0x7A), (temp_v1_2 != 0xF))) {
+    if (((__repair_cached_pointer = D_80102F2C) != NULL) && (temp_v1_2 = M2C_FIELD(__repair_cached_pointer, s16 *, 0x7A), (temp_v1_2 != 0xF))) {
         if (temp_v1_2 != 0xE) {
             M2C_FIELD(D_80102F2C, s16 *, 0x7A) = 0xE;
             D_800BFC32 = 0x60;
@@ -104,12 +104,14 @@ void *__repair_cached_pointer = D_80102F2C;
             var_s1 = 0;
             if (D_801002B4 > 0) {
                 var_s0 = 0 & 0xFFFF;
+                { register s16 *rows = (s16 *)D_800BD680;
                 __repair_rows: {
-                    *((var_s0 * 2) + D_800BD680) = *(s32 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC));
+                    rows[var_s0] = **(u16 **)(D_800C3CF8 + (func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC));
                     var_s1 += 1;
                     var_s0 = var_s1 & 0xFFFF;
                 }
 if ((var_s1 & 0xFFFF) < D_801002B4) goto __repair_rows;
+                }
             }
             *(s16 *)(D_800BD680 + ((var_s1 & 0xFFFF) * 2)) = -1;
             var_s1_2 = 0;
