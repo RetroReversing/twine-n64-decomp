@@ -4,12 +4,13 @@ void *func_80016410(s32, s32, s32);     /* extern */
 s32 func_80016990(void *, s32);                 /* extern */
 s32 func_80044670(void *, s32, s32);        /* extern */
 f32 func_80045764(s32, void *);                 /* extern */
-s32 func_80045CF8(s32);                         /* extern */
+u32 func_80045CF8(s32);                         /* extern */
 f32 func_80045D2C(f32);                             /* extern */
 s32 func_80046424(void *, f32, f32, f32);       /* extern */
 s32 func_80047B14(void *, f32, void *);     /* extern */
 
 void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
+    volatile unsigned long long pad;
     void *temp_s0;
     void *temp_s1;
     f32 temp_fs1;

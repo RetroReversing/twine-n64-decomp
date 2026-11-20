@@ -29,7 +29,7 @@ void func_80014EB0(void *arg0, ClipBounds *arg1) {
     u8 spA7;
     s32 spAC;
     s32 spD4;
-    s32 spDC;
+    volatile s32 spDC;
     void *var_t0;
     f32 *scratch;
     void *var_s6;
@@ -44,7 +44,6 @@ void func_80014EB0(void *arg0, ClipBounds *arg1) {
     s32 var_s7;
     s32 i;
     s32 j;
-    s32 doit;
     f32 temp_ft0;
 
     spAC = 0;
@@ -69,7 +68,9 @@ nextHead:
     }
     temp_v0 = D_800E09F0 + 1;
     D_800E09F0 = temp_v0;
-    if (temp_v0 < 0x40 && arg0 != NULL) {
+    if (temp_v0 >= 0x40)
+        return;
+    if (arg0 != NULL) {
         var_s6 = *(void **)((u8 *)(*(void **)((u8 *)arg0 + 0x20)) + 0x58);
         if (D_80109E1C != 0x40) {
             ((void **)&D_80102D68)[D_80109E1C] = arg0;
@@ -97,8 +98,8 @@ nextHead:
                     }
                     temp_ft0 = (*(f32 *)((u8 *)D_8010D53C + 0x10) * *(f32 *)((u8 *)var_s6 + 0xC)) + (*(f32 *)((u8 *)D_8010D53C + 0x14) * *(f32 *)((u8 *)var_s6 + 0x10)) + (*(f32 *)((u8 *)D_8010D53C + 0x18) * *(f32 *)((u8 *)var_s6 + 0x14)) + *(f32 *)((u8 *)var_s6 + 0x18);
                     D_800E0C3C = temp_ft0;
-                    doit = 0;
-                    if (temp_ft0 > -0.2f) {
+                    if (!(temp_ft0 > -0.2f))
+                        goto nextRegion;
                         temp_a0 = *(void **)((u8 *)var_s6 + 0x1C);
                         if (temp_a0 != NULL) {
                             if (!(*(s32 *)((u8 *)temp_a0 + 0x58) & 0x800)) {
@@ -107,14 +108,10 @@ nextHead:
                                 D_80109DC4 = temp_a0;
                                 *(void **)((u8 *)temp_a0 + 0x1C) = temp_v1;
                             }
-                            if (*(s16 *)((u8 *)temp_a0 + 0x7A) != 0) {
-                                doit = 1;
-                            }
-                        } else {
-                            doit = 1;
+                            if (*(s16 *)((u8 *)temp_a0 + 0x7A) == 0)
+                                goto nextRegion;
                         }
-                    }
-                    if (doit) {
+                    {
                         box.values[0] = *(f32 *)((u8 *)D_8010D53C + 0x54);
                         box.values[1] = *(f32 *)((u8 *)D_8010D53C + 0x50);
                         box.values[2] = *(f32 *)((u8 *)D_8010D53C + 0x5C);
@@ -256,6 +253,7 @@ block_51:
                             }
                         }
                     }
+nextRegion:
                     var_s6 = *(void **)var_s6;
                 } while (var_s6 != NULL);
             }

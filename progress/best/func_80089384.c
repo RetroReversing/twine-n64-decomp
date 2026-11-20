@@ -46,8 +46,8 @@ void func_80089384(u16 arg0, s32 arg1) {
     D_800E41E0 = temp_v0;
     D_800E41DC = temp_v0;
     D_800E41E6 = 0;
+    var_a1 = 0;
     if (D_800E41E4 != 0) {
-        var_a1 = 0;
         do {
             temp_v1 = (var_a1 & 0xFFFF) * 0x68;
             *(s8 *)(temp_v1 + D_800E41E0) = 0;

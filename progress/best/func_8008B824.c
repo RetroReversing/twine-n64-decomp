@@ -19,7 +19,7 @@ D_800E4215=0; temp_s0=var_s0&0xffff;
 func_80089384(temp_s0,*arg0);
 func_800895F8(temp_s0,*arg0,arg3&0xff);
 temp_v0=*arg0; temp_a2=arg2&0xffff;
-if(temp_a2!=0){u32 q=(u32)(temp_v0*temp_a2)/1000U;D_800E4230=0;temp_a2_2=(((q>>6)/3U)*0xC0)+0xC0;D_800E423C=temp_a2_2;D_800E4238=D_8010017C(temp_a2_2*2,0,temp_a2_2);}else{D_800E4238=0;}
+if(temp_a2!=0){u32 q=(u32)(temp_v0*temp_a2)/1000U;D_800E4230=0;temp_a2_2=((q/192U)*0xC0)+0xC0;D_800E423C=temp_a2_2;D_800E4238=D_8010017C(temp_a2_2*2,0,temp_a2_2);}else{D_800E4238=0;}
 (*(u16 *)&D_800E4268)=0xffff;D_8011772C=0;D_8010D428=0;D_8010016C(&func_8008B25C);
 temp_v0=*arg0;var_ft0=(f64)temp_v0;if(temp_v0<0)var_ft0+=D_800D6798;
 temp_fv1=((f32)var_ft0*0.016666668f*0.0052083335f)+0.5f;

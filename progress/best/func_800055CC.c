@@ -16,7 +16,7 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     f64 var_fv0_3;
     s16 temp_a0;
     int temp_s4;
-    s16 var_s5;
+    s32 var_s5;
     s32 temp_a0_2;
     s32 temp_fp;
     s32 temp_s0;
@@ -60,7 +60,7 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
         }
     }
     *arg0 = var_v1;
-    temp_s3 = arg0 + 8;
+    temp_s3 = (s8 *)arg0 + 8;
     var_s5 = 1;
     temp_fp = var_s6 + temp_s4;
     if (temp_s0 != 0) {

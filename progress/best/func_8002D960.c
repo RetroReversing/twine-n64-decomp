@@ -135,31 +135,34 @@ loop_3:
             }
             var_s4 += 1;
         } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
-        D_801002A0 = func_8002E98C(&D_800E1310, 1, 4);
-        D_801002A1 = func_8002E98C(&D_800E1310, 1, 1);
-        D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
-        D_801002A4 = func_8002E98C(&D_800E1310, 1, 8);
-        D_801002D4 = func_8002E98C(&D_800E1310, 1, 4);
-        D_801002D5 = func_8002E98C(&D_800E1310, 1, 1);
-        D_80117730 = func_8002E98C(&D_800E1310, 4, 0x20);
-        func_8002B000((u8 *)&D_801002A0 + 0x24, 0x1E);
-        M2C_FIELD(&D_801002A0, s32 *, 0x24) = func_8002E98C(&D_800E1310, 4, 0x20);
-        switch (M2C_FIELD(&D_801002A0, u8 *, 0)) {
-        case 5:
-        case 6:
-            var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x1C4);
-            break;
-        case 2:
-        case 3:
-        case 4:
-            var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x198);
-            break;
-        case 7:
-            var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x1F8);
-            break;
-        default:
-            var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x180);
-            break;
+        {
+            u8 *mode = &D_801002A0;
+            *mode = func_8002E98C(&D_800E1310, 1, 4);
+            D_801002A1 = func_8002E98C(&D_800E1310, 1, 1);
+            D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
+            D_801002A4 = func_8002E98C(&D_800E1310, 1, 8);
+            D_801002D4 = func_8002E98C(&D_800E1310, 1, 4);
+            D_801002D5 = func_8002E98C(&D_800E1310, 1, 1);
+            D_80117730 = func_8002E98C(&D_800E1310, 4, 0x20);
+            func_8002B000(mode + 0x24, 0x1E);
+            *(s32 *)(mode + 0x24) = func_8002E98C(&D_800E1310, 4, 0x20);
+            switch (*mode) {
+            case 5:
+            case 6:
+                var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x1C4);
+                break;
+            case 2:
+            case 3:
+            case 4:
+                var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x198);
+                break;
+            case 7:
+                var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x1F8);
+                break;
+            default:
+                var_v0 = (const u16 *)((const u8 *)func_8011AA9C + 0x180);
+                break;
+            }
         }
         D_80102FD4 = var_v0;
         D_801002A8 = (s32) *(D_80117730 + D_80102FD4);
