@@ -22,8 +22,8 @@ extern s8 D_80100768;
 
 void func_8003099C(u8 map, u8 level)
 {
-    s32 tableIndex;
-    s32 i;
+    short tableIndex;
+    short i;
     u16 count;
     u16 flags;
     u16 newFlags;

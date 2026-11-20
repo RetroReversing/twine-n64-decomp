@@ -81,12 +81,12 @@ loop_4:
             *(u8 *)var_s0 = temp_a0;
             temp_s3 = temp_a0 & 0xFF;
             temp_s2 = temp_s3 - 0x21;
-            if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0, var_s0) & 0xFFFF)) < var_s7) != 0))) {
+            if ((var_s7 == 0) || (var_v0 = var_s5, (((u32) (var_s5 + (func_80018578(temp_v0) & 0xFFFF)) < var_s7) != 0))) {
                 temp_v1 = M2C_FIELD(temp_v0, s32 *, 0xC);
                 if (temp_v1 != 0) {
                     temp_a2 = temp_s2 * 8;
-                    var_a0 = 0;
                     if (M2C_FIELD((temp_a2 + temp_v1), u8 *, 4) != 0) {
+                        var_a0 = 0;
                         for (;;) {
                             temp_a1 = temp_a2 + temp_v1;
                             __repair_phase_storage.pointer = (var_a0 * 2) + M2C_FIELD(temp_a1, s32 *, 0);

@@ -23,6 +23,8 @@ extern s32 D_800EDA90;
 extern char D_80102FDC[];
 
 s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
+int __repair_literal;
+
     char *var_a1_3;
     s32 temp_a0;
     s32 temp_a0_2;
@@ -159,7 +161,9 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
             }
             if (M2C_FIELD(arg4, s32 *, 0) & 8) {
                 var_s1_2 = 0;
-                if ((s32) M2C_FIELD(arg4, u8 *, 0x12) > 0) {
+__repair_literal = 0;
+
+                if ((s32) M2C_FIELD(arg4, u8 *, 0x12) > __repair_literal) {
                     do {
                         temp_a0 = var_s1_2 * 2;
                         temp_v1 = temp_a0 + M2C_FIELD(arg4, s32 *, 0x14);

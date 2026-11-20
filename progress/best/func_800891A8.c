@@ -35,14 +35,16 @@ void func_800891A8(S891A8 *arg0) {
     u32 i;
 
     if (D_800E4238 != NULL) {
+        /*__repair_loop_weight*/do {
         rate = arg0->rate * D_800E41D4 / 1000;
-        size = (rate / 192) * 192 + 192;
+        } while (0);
+        rate = (rate / 192) * 192 + 192;
         d = D_8010017C(0x48, 0);
-        bytes = size * 2;
+        bytes = rate * 2;
         d->buf = D_800E4238;
         func_800A0FA0(D_800E4238, bytes);
         func_800A0220(d->buf, bytes);
-        d->size = size;
+        d->size = rate;
         d->pan = arg0->pan << 8;
         d->count = arg0->count;
         for (i = 0; i < arg0->count; i++) {

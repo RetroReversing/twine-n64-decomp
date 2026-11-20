@@ -28,7 +28,7 @@ s32 __repair_phase_temp_v1;
     s8 *temp_a1;
     s8 *var_s1;
     s8 *var_t0;
-    register s8 temp_v0;
+    register s32 temp_v0;
     s8 temp_v0_2;
     s8 var_v0;
 s8 __repair_result_var_v0;

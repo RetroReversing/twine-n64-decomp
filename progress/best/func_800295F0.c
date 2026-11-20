@@ -20,7 +20,7 @@ extern void *D_80109BB0;
 void func_800295F0(s32 arg0) {
     M2C_UNK *var_a1;
     M2C_UNK var_a0;
-    s16 temp_v0_2;
+    s32 temp_v0_2;
     s16 var_a2;
     s16 var_s1;
     u32 temp_v0;
@@ -31,7 +31,7 @@ void func_800295F0(s32 arg0) {
     void *temp_s3;
 
     temp_a1 = M2C_FIELD(D_80109BB0, void **, 0x18);
-    temp_s1 = *M2C_FIELD(temp_a1, u8 **, 0x10);
+    temp_v0_2 = (u8)(*M2C_FIELD(temp_a1, u8 **, 0x10));
     temp_s3 = (char *)*M2C_FIELD(D_80109BB0, s32 **, 0x10) + (((M2C_FIELD(D_80109BB0, u8 *, 8) * 5) * 8) + 0x28);
     if (M2C_FIELD(temp_a1, u16 *, 0xC) & 0x400) {
         temp_v0 = M2C_FIELD(temp_a1, u32 *, 0x14);
@@ -41,8 +41,9 @@ void func_800295F0(s32 arg0) {
         var_s2 = 1;
         var_s0 = 0;
     }
-    func_8000A894(0xE8);do{
-    var_s1 = temp_s1 + arg0;}while(0);
+    func_8000A894(0xE8);__repair_rows: {
+    var_s1 = temp_v0_2 + arg0;}
+if (0) goto __repair_rows;
     temp_v0_2 = var_s1;
     if ((s32)(var_s2 & 0xFFFF) < temp_v0_2) {
         var_s1 = (s16) var_s0;
