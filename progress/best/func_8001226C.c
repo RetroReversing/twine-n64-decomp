@@ -30,27 +30,17 @@ s32 func_8001226C(s32 arg0) {
 
 
     temp_s0 = arg0 * 0x18;
-    temp_a0 = arg0 << 3;
+    temp_a0 = arg0 << 5;
     if (D_80107B68[arg0].f0 != 0) {
-        var_v0 = 0;
-        if (*(s32 *)(D_8010840C + temp_a0) == 0x4E4F3745) {
-            var_v0 = 0;
-            if (*(u16 *)(D_80108410 + temp_a0) == 0x3639) {
-                var_v0 = 1;
-                if (D_800E097C == 0) {
-                    var_v0 = 0;
-                    __base_D_80107B6A = D_80107B6A;
-                    if (func_800AB770(temp_s0 + __base_D_80107B6A, D_80103030) == 0) {
-                        var_v0 = 0;
-                        if (func_800AB770(temp_s0 + (__base_D_80107B6A + 0x11), D_800D2520) == 0) {
-                            return 1;
-                        }
-                    }
-                }
-            }
-        }
-        /* Duplicate return node #8. Try simplifying control flow for better match */
-        return var_v0;
+        if (*(s32 *)(D_8010840C + temp_a0) != 0x4E4F3745) goto fail;
+        if (*(u16 *)(D_80108410 + temp_a0) != 0x3639) goto fail;
+        if (D_800E097C != 0) return 1;
+        __base_D_80107B6A = D_80107B6A;
+        if (func_800AB770(temp_s0 + __base_D_80107B6A, D_80103030) != 0) goto fail;
+        if (func_800AB770(temp_s0 + (__base_D_80107B6A + 0x11), D_800D2520) != 0) goto fail;
+        return 1;
+fail:
+        return 0;
     }
     temp_s0 = 0;
     return temp_s0;

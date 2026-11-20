@@ -33,9 +33,9 @@ extern void *D_80108788;
 s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11) {
     f32 sp18[3];
     f32 sp28[3];
-    u8 sp38[0x18];
+    u8 sp38[0x10];
     u8 sp50[0x18];
-    u8 sp68[0x34];
+    u8 sp68[0x18];
     f32 sp78[3];
     f32 sp88[3];
     s16 sp98[2];

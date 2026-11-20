@@ -26,11 +26,9 @@ void func_800105F8(u16 arg0) {
     var_s0 = 0;
     temp_s1 = arg0 * 0x68;
     __base_D_800E0790 = D_800E0790;
-    var_a0 = (void *) ((temp_s1) + (s32) __base_D_800E0790);
     do {
-        __osMotorAccess(var_a0, 0);
+        __osMotorAccess((void *) ((temp_s1) + (s32) __base_D_800E0790), 0);
         var_s0 += 1;
-        var_a0 = (void *) ((temp_s1) + (s32) __base_D_800E0790);
     } while (var_s0 < 3);
     temp_v0 = (arg0 * 2) + D_8010A3A0;
     *temp_v0 &= 0xFFFE;

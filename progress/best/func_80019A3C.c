@@ -2,7 +2,7 @@
 
 extern int D_801002B8;
 extern int D_801002BC;
-typedef struct { u16 f0; u8 pad[22]; } Slot_801001A1;
+typedef struct { u8 f0; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
 
 s32 func_80019A3C(void) {

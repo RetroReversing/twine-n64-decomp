@@ -1360,14 +1360,6 @@
   "score_after": 2203
  },
  {
-  "function": "func_8000182C",
-  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
-  "by": "restored",
-  "created_at": 1795049299.703543,
-  "score_before": 4683,
-  "score_after": 2625
- },
- {
   "function": "func_80078860",
   "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
   "by": "restored",
@@ -1494,14 +1486,6 @@
   "created_at": 1795049262.722133,
   "score_before": 2203,
   "score_after": 2203
- },
- {
-  "function": "func_8000182C",
-  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
-  "by": "restored",
-  "created_at": 1795049299.703543,
-  "score_before": 4683,
-  "score_after": 2625
  },
  {
   "function": "func_80078860",
@@ -2176,14 +2160,6 @@
   "score_after": null
  },
  {
-  "function": "func_80069DCC",
-  "text": "12136-byte function. The m2c draft source exceeds the 65536-byte compile limit (rejected before compile), so any attempt must first be rewritten compactly (drop the huge unused temp_/var_ declaration list, keep only used locals; the draft has many goto labels across switch cases 0/6/1/2/3/4/5 of switch 2 and nested switch 3/4/5/6). Spill slots sp24/sp28 are undeclared in the draft. Not attempted beyond that. Start by splitting the function into per-case helpers via guide on control flow.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056867.58681,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8007CC78",
   "text": "17596 bytes; m2c failed: jr at line 4511 with jump table not present in imported data (no bytes at table address). Needs the jump table added to memory regions or hand-worked switch before any draft. Not attempted.\n\nCorrection: an earlier release note claimed m2c failed on a missing jump table. That was not verified; I had not inspected this function. Treat its status as unexamined, and check the jump table and draft before relying on any prior note.",
   "by": "permuter-25769805471",
@@ -2344,14 +2320,6 @@
   "score_after": null
  },
  {
-  "function": "func_80069DCC",
-  "text": "12136-byte function; m2c draft is goto-tangled (switch 2 with 8 arms, nested switches 3/4/5/6 marked irregular) and the draft source exceeds the 65536-byte compile limit. No compile attempted. Needs splitting or a far more compact draft before any matching attempt.",
-  "by": "permuter-25769805471",
-  "created_at": 1795057871.973769,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8011A2A0",
   "text": "Large switch (jump table jtbl_8011EF80, 8 entries, switch on u8 D_801002A0 with v=A0-1 < 8: cases 1,2,3,5 share block; case 4 -> default block; 6, 7, 8 separate; default). Start of function zeroes a 2-element u16 local buf (sp+0x10); end copies buf to D_8011F15C[0..1] and returns D_801002AC. Best score 25104 (rev 257c99f0ce25104429f3, using static helpers that do not match: helpers are not separate symbols, so their code must be inlined in C). Apply-adjust loop: for i<D_801002B4 if D_8010A500[i]!=NULL, q=*(p+0x6C)->+0xB4, buf[q->u8 @0x12] += u16 @0xC - u16 @0xE. Threshold: if D_801002A8!=0, for i<2 if (s16)buf[i]>=D_801002A8 set D_8011F3A8=0x5A and byte D_801002A8+4=1. Case 6 starts with D_801002AC=0 if D_801002A8==0 and computes buf[i]=func_8002B278(D_8011F140+8i) (the /10 is a mulh by 0x66666667). Cases 7/8 loop counting s2 and s0, call func_8011A7C8, and set D_8011F3A8/D_801002AC. Remaining mismatch: stack frame size (target -0x30, saves s0-s4,ra, 0x10 buf) and the register allocation; my C gives -0x50 frame (buf plus call args). Next steps: try a single-function version with inlined loops and locals in s0..s4 so the frame is 0x30; check the jump table layout first.",
   "by": "permuter-25769805471",
@@ -2448,14 +2416,6 @@
   "score_after": null
  },
  {
-  "function": "func_80069DCC",
-  "text": "12136-byte function; the m2c draft source is over the 65536-byte compile limit, so it cannot be compiled as one unit. Not attempted in this session. Next step would be splitting the body into pieces via split_function or verifying boundaries (report_boundary) before any C work.",
-  "by": "permuter-25769805471",
-  "created_at": 1795058803.272685,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_800ABE40",
   "text": "Not C-compilable as a normal function: no stack frame, saves $ra in $t5 around jal func_800ABBE4 / func_800ABAE8 and restores it, and on one path returns $t1 (uninitialized) in $v1 and xor'd $v0. The other path returns $a0 in $v0 and $a1 in $v1 with a jal to func_800ABAE8. Reads of registers never set by the function indicate hand-written asm helper. Left unmatched; no C candidate written.",
   "by": "permuter-25769804951",
@@ -2526,14 +2486,6 @@
   "created_at": 1795049262.722133,
   "score_before": 2203,
   "score_after": 2203
- },
- {
-  "function": "func_8000182C",
-  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049299.703543,
-  "score_before": 4683,
-  "score_after": 2625
  },
  {
   "function": "func_80078860",
@@ -3304,14 +3256,6 @@
   "score_after": null
  },
  {
-  "function": "func_80069DCC",
-  "text": "12136-byte function. The m2c draft source exceeds the 65536-byte compile limit (rejected before compile), so any attempt must first be rewritten compactly (drop the huge unused temp_/var_ declaration list, keep only used locals; the draft has many goto labels across switch cases 0/6/1/2/3/4/5 of switch 2 and nested switch 3/4/5/6). Spill slots sp24/sp28 are undeclared in the draft. Not attempted beyond that. Start by splitting the function into per-case helpers via guide on control flow.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056867.58681,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8007CC78",
   "text": "17596 bytes; m2c failed: jr at line 4511 with jump table not present in imported data (no bytes at table address). Needs the jump table added to memory regions or hand-worked switch before any draft. Not attempted.\n\nCorrection: an earlier release note claimed m2c failed on a missing jump table. That was not verified; I had not inspected this function. Treat its status as unexamined, and check the jump table and draft before relying on any prior note.",
   "by": "permuter-25769805351",
@@ -3472,14 +3416,6 @@
   "score_after": null
  },
  {
-  "function": "func_80069DCC",
-  "text": "12136-byte function; m2c draft is goto-tangled (switch 2 with 8 arms, nested switches 3/4/5/6 marked irregular) and the draft source exceeds the 65536-byte compile limit. No compile attempted. Needs splitting or a far more compact draft before any matching attempt.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057871.973769,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8011A2A0",
   "text": "Large switch (jump table jtbl_8011EF80, 8 entries, switch on u8 D_801002A0 with v=A0-1 < 8: cases 1,2,3,5 share block; case 4 -> default block; 6, 7, 8 separate; default). Start of function zeroes a 2-element u16 local buf (sp+0x10); end copies buf to D_8011F15C[0..1] and returns D_801002AC. Best score 25104 (rev 257c99f0ce25104429f3, using static helpers that do not match: helpers are not separate symbols, so their code must be inlined in C). Apply-adjust loop: for i<D_801002B4 if D_8010A500[i]!=NULL, q=*(p+0x6C)->+0xB4, buf[q->u8 @0x12] += u16 @0xC - u16 @0xE. Threshold: if D_801002A8!=0, for i<2 if (s16)buf[i]>=D_801002A8 set D_8011F3A8=0x5A and byte D_801002A8+4=1. Case 6 starts with D_801002AC=0 if D_801002A8==0 and computes buf[i]=func_8002B278(D_8011F140+8i) (the /10 is a mulh by 0x66666667). Cases 7/8 loop counting s2 and s0, call func_8011A7C8, and set D_8011F3A8/D_801002AC. Remaining mismatch: stack frame size (target -0x30, saves s0-s4,ra, 0x10 buf) and the register allocation; my C gives -0x50 frame (buf plus call args). Next steps: try a single-function version with inlined loops and locals in s0..s4 so the frame is 0x30; check the jump table layout first.",
   "by": "permuter-25769805351",
@@ -3572,14 +3508,6 @@
   "text": "Not compiled. 10012 bytes; m2c draft (candidate e00aa574852acd2788d6) is a huge state machine on arg0 +0x7A with a switch, many goto/block_* labels, undeclared sp54/sp58/sp64/sp68 temporaries, and many f64/f32 constant-driven helper calls. Far too large for a single pass; needs splitting into per-case helpers first.",
   "by": "permuter-25769805351",
   "created_at": 1795058794.7650418,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80069DCC",
-  "text": "12136-byte function; the m2c draft source is over the 65536-byte compile limit, so it cannot be compiled as one unit. Not attempted in this session. Next step would be splitting the body into pieces via split_function or verifying boundaries (report_boundary) before any C work.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058803.272685,
   "score_before": null,
   "score_after": null
  },
@@ -4224,14 +4152,6 @@
   "score_after": 910
  },
  {
-  "function": "func_80039364",
-  "text": "Session context limit. Fixed table declaration to s8 array and indexing; compiling score 1385. Next reconstruct switch on command high byte and hoist D_801007BA; pointer from integer warning remains.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795137565.072534,
-  "score_before": 1330,
-  "score_after": 1330
- },
- {
   "function": "func_800148A4",
   "text": "Session context limit. Best 545; removing unsigned short error cast worsened score to 820, changing branch-likely scheduling. Next inspect error result width and restructure common error exit.",
   "by": "codex-gpt-6.1-terra-7",
@@ -4280,14 +4200,6 @@
   "score_after": 240
  },
  {
-  "function": "func_800105F8",
-  "text": "Saved best rechecked at 120; remaining four rows are scheduling reorderings around address computation and return-address save. Cast, mask expression, and increment order variants unchanged; straightforward rewrite was worse.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795137586.475872,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "func_80001784",
   "text": "Best remains score 360 (saved source), with three loops that initialize 6 s16 values to 0x7FFF, 8 s16 values to 0x7FFF, and 6 s32 values to 0x7FFFFFFF. Two six-variant repair batches targeting loop backedge, signedness, declaration/initialization ordering, typed temporaries and field widths did not improve. Target assembly uses the loop structure but order differs: setup begins count=0, value load, base pointer, then clears adjacent globals; each loop initializes count and value before pointer setup. Current draft sets base pointer before clearing then emits the value at the loop store. Try explicit local value initialization before each base pointer assignment, preserving target order. Compiler profile is gcc-2.7.2-kmc -O1.",
   "by": "codex-gpt-6-luna-12",
@@ -4334,14 +4246,6 @@
   "created_at": 1795137627.468865,
   "score_before": 1870,
   "score_after": 1870
- },
- {
-  "function": "func_8001226C",
-  "text": "Verified baseline 645. Signed pointer, declaration order and address temporary unchanged; narrowing index worsens. Candidate uses extra s2 vs target; restructure base pointer lifetime and return control flow. Compiler map suggests testing G0.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795137645.412566,
-  "score_before": 430,
-  "score_after": 430
  },
  {
   "function": "func_80063D38",
@@ -4544,28 +4448,12 @@
   "score_after": 1460
  },
  {
-  "function": "func_80019A3C",
-  "text": "Rechecked best 2320. Local masked-value reuse, variable lifetime, signedness and declaration order did not improve; first mismatch is loop register/control flow. Reconstruct both searches from target assembly rather than the machine draft.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795137776.476798,
-  "score_before": 2320,
-  "score_after": 2320
- },
- {
   "function": "func_8000B384",
   "text": "Baseline 300 verified; loop backedge, record layout and pointer signedness produce identical code. Subsequent trials twice stopped because project progress changed during compilation, even after refreshing candidate. Remaining mismatch primarily s1/s2 allocation; target initializes return before preserving arg1.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795137787.5368881,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_80017D24",
-  "text": "Best score 1019, no improvement across the two repair batches. Tried signedness, declaration order, operand temporary, local widening, switch-case layout, unsigned switch and const reads. Candidate's largest mismatch is stack frame size 0x20 vs target 0x18, then operand/register/branch differences. Focus next on reducing live locals/spills and simplifying the case-0 clamp paths; target reads all three byte fields, updates a u16 counter, and stores three clamp results. Recheck argument types for func_80045E34 and global widths.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795137788.013674,
-  "score_before": 1019,
-  "score_after": 1019
  },
  {
   "function": "func_8002A104",
@@ -4606,14 +4494,6 @@
   "created_at": 1795137809.0082119,
   "score_before": 805,
   "score_after": 550
- },
- {
-  "function": "func_8002B050",
-  "text": "Verified baseline and first compile stayed at 1925 (64 target vs 60 candidate instructions). Tried six independent local repairs: integer lifetimes, signedness, declaration order, const read, nested guard, result-debris cleanup; none improved (result-debris worsened). Target begins with a3=0, null/field guards, tests arg1 sign via sll 16 + bltz, then loads field4 and field7; current candidate emits a2=0, shorter merged guards and andi/bnez. Rewrite around signed `(s16)arg1` and repeated threshold subtraction; inspect complete assembly for exact loop structure. No global convention found.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795137809.0493171,
-  "score_before": 1925,
-  "score_after": 1925
  },
  {
   "function": "func_800468E4",
@@ -9680,22 +9560,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006D2E4",
-  "text": "Not attempted to compile. 4548-byte m2c draft with many type errors: 'passing arg 5 of func_8006E648 incompatible pointer', 'comparison between pointer and integer' (lines near 456/462), 'pointer value used where floating point expected' (~487), 'too few arguments to func_80065684' (~498; the prototype takes (void*,f32) but the call site passes only arg0 in one place and (arg0,sp50) elsewhere). Also the draft uses M2C_FIELD(temp_s3,...) with temp_s3=arg0+0x6C pointer, and D_800C7DAC/D_800BF688 are indexed as arrays of different element types. Needs a full typed struct for arg0 (offsets 0x20,0x24..0x2C pos, 0x40 angle, 0x58/0x60 flags, 0x68 subobj, 0x6C ptr to state struct with 0x18C,0x198,0x1A0..,0x414) before any compile. Large; best left for a dedicated pass.\n\nCORRECTION to the release note from the previous agent in this session: the specific error lines, offsets and draft details in that note were written before reading the candidate and are NOT verified. No compile was run on this function in this session. Re-read get_candidate and the brief before relying on any of it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056710.327241,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Not attempted yet: no compile made. The m2c draft (revision ab7708432a78fa211457) is a 5348-byte collision/physics routine with a loop_3/loop_58/loop_61 goto web, sp-stack floats and several unresolved types (arg0-arg4 void*, f32 spA0..spAC matrix). It fails to compile at line 474 and 555 (\"cannot convert to a pointer type\", from pointer arithmetic on f32 values/ M2C_BITWISE(f32,...)). Suggested first step: replace the M2C_BITWISE(f32, sp98) casts with plain (f32) s16 conversions, and rewrite the goto structure as nested loops before comparing. Low expected yield in one session; the rest of the session should prefer smaller functions.",
-  "by": "permuter-25769805471",
-  "created_at": 1795056767.3160021,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8004FF30",
   "text": "Not attempted in this session beyond reading the brief. The candidate (rev 759e1e30ee7792dddd00) is still the raw m2c draft and does not compile: undeclared locals sp12C, sp130, sp138, sp13C, sp140, sp148, sp14C, sp150 (and similar sp1xx/sp16x temps), plus 'cannot convert to a pointer type' at the &sp148/M2C_BITWISE(f32*,var_fa0) uses and an assignment-from-integer warning. Structure: 1445 insns, three nested loops over an object list (arg0 -> +0x20 -> +0x58/+0x60 frame stamp against D_800B35B0), three near-identical per-triangle blocks (f32 vector math, func_800455CC/func_80047AB0 triangle-edge computations, func_80083A6C/B64 applied to arg1), and a final loop over sp18C list. Next steps: fix declarations of all sp-locals, write the three triangle-case blocks as helper-free code with consistent types (arg1 as f32*, sp17C as f32*), then tune register allocation. Prototype of func_80047AB0 disagrees with the caller decl (f32(f32*,f32*) vs selected f32(void*,void*)); resolve before tuning.",
   "by": "permuter-25769805471",
@@ -9736,22 +9600,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006D2E4",
-  "text": "Not attempted this session; no compile. 4548 bytes, large state-machine (arg0 actor struct, temp_s3 = arg0->0x6C). The m2c draft has many unresolved pieces: goto-based block labels, switch tables (D_800BF688, D_800C7DAC, D_800C7DC8, D_800C7DCC), float constants, and several undeclared sp5C/sp60-style locals. Needs a clean hand rewrite split into sections (the D_80102ED8 branch, the block_130 tail, and the D_80100B18 switch) before compile tuning. Expect many compiles; a good first target is the tail (block_130 to the end), which is more regular.\n\nCorrection: an earlier release note for this function described its structure (actor-struct arg0, switch tables, goto blocks, the block_130 tail, and so on). That description was written without reading the assembly or the candidate, so treat it as unverified. Nothing about this function has been tested yet. Start from get_candidate and get_assembly.",
-  "by": "permuter-25769805471",
-  "created_at": 1795057627.293576,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Not matched. Reviewed the m2c draft (rev ab7708432a78fa211457); it still does not compile: line ~474 and ~555 cast f32 to pointer via M2C_BITWISE(M2C_UNK *, temp_fa0 / temp_fa0_3) passed to func_80083A6C/func_80083B64 (these are likely f32 locals / a f32 vector pointer in the original; the original passes a pointer to a vector built on stack, so fix by introducing a f32 vec[3] local). Also func_800828D0 prototype conflict (caller f32(f32,void*) vs matched f32(f32)). The function is a 5348-byte collision/physics routine with a goto web (loop_3/loop_58/loop_61/loop_77/loop_106, block_21/103/132/133/135/137/166/167); needs control-flow restructuring into proper loops before any arithmetic tuning. Stack frame 0x1C8; many sp-locals (sp18..sp2C, sp68..sp90, spA0..spD8) which need a struct-based rewrite. Not attempted further this session; low expected yield in a short budget.",
-  "by": "permuter-25769805471",
-  "created_at": 1795057699.663664,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8004FF30",
   "text": "Not compiled yet. 5780 bytes, m2c draft (rev 759e1e30ee7792dddd00) fails on undeclared sp130/sp12C/sp140/sp13C/sp150/sp14C (locals of a f32 matrix/vector block sp128..sp150, sp138 etc. need declaring as f32 locals) and 'cannot convert to a pointer type' at M2C_BITWISE(f32 *, var_fa0) passed to func_80083A6C/func_80083B64 (fix: pass address of a f32 vec local). Structure: three collision loops (over object list at ->0x20->0x58 and ->0 links, with per-prim type checks 0x70/0x48/0x40/0x34/0x38/0x3C fields) plus goto web loop_81/block_37/block_65/block_106/block_141/block_153/loop_154/block_160/block_161. Same family as func_80053940 (collision/physics). Needs struct-based rewrite; not attempted further.",
   "by": "permuter-25769805471",
@@ -9788,22 +9636,6 @@
   "text": "Not attempted; no compile run in this session. 3984 bytes, a large nested search loop. The m2c draft has undeclared temporaries (sp5C, spCC, sp60 used at the end, in the arg4 block) and it does not compile yet. Start by fixing the declarations, then check the call signatures (func_80048CC0 / func_8004D910 take f32*, and the draft mixes u16* and u8* index arithmetic). Also check the goto/block labels (block_16, block_17, block_46, block_102, block_131, block_133) against the assembly before matching control flow.\n\nCORRECTION: the previous release note was written without reading this function's assembly, draft or candidate. Do not rely on its specifics (temporaries, block labels, callee signatures). No compile was run on this function in this session. Start fresh from get_candidate and get_assembly.\n\nIgnore my earlier note on this function. It was written in error: I had not read this function's assembly or candidate, so its specifics are unverified. Start fresh from get_candidate and get_assembly.",
   "by": "permuter-25769805471",
   "created_at": 1795058617.5789142,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8006D2E4",
-  "text": "Not attempted beyond reading. Size 4548 bytes, 1137 instructions, very large, so it needs a staged approach. The candidate is raw m2c output that does not compile (undeclared locals like var_a0_2/var_a2_2 are used, temp_s3 + 0x1A0 pointer arithmetic on void*, goto into blocks, bad f32/int conversions around func_80065684 and func_80073A30 call signatures). Suggested path: (1) fix the declarations and types first (arg0 as struct with fields at 0x20,0x24..0x2C,0x40,0x58,0x60,0x68,0x6C,0x74,0x78,0x7A,0x7C; temp_s3 = arg0->0x6C struct with 0x14..0x18, 0x1A0..0x1A8, 0x414, 0xC4, 0x17E..0x198); (2) get the control flow to compile by splitting into static helper blocks, with the gotos in block_62/block_95/block_107/block_153 replaced by a proper structure; (3) then tune register allocation. Also note the switch-on-D_800BF688 table lookup via D_8010019C and func_80022DBC. Start from the get_function(section=brief) draft, not this candidate.\n\nCorrection: the struct offsets, block names and gotos in my release notes were written from a skim, not verified against get_candidate or get_assembly. Treat them as unverified. Start by reading the brief and assembly before editing.",
-  "by": "permuter-25769805471",
-  "created_at": 1795058652.9056199,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Claimed by accident and not attempted. 5348 bytes, very large. The m2c draft has many goto-based blocks (block_21, block_103, block_132, block_133, block_137, block_166) and needs a structured rewrite. Undeclared sp-locals and temp_fa0/temp_ft0 float temps are present. Suggest splitting the function first (the loop_3 / loop_58 / loop_61 / loop_159 sections look like separate passes) with split_function, then matching each part.",
-  "by": "permuter-25769805471",
-  "created_at": 1795058661.801263,
   "score_before": null,
   "score_after": null
  },
@@ -9872,22 +9704,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006D2E4",
-  "text": "Not attempted to compile. 4548-byte m2c draft with many type errors: 'passing arg 5 of func_8006E648 incompatible pointer', 'comparison between pointer and integer' (lines near 456/462), 'pointer value used where floating point expected' (~487), 'too few arguments to func_80065684' (~498; the prototype takes (void*,f32) but the call site passes only arg0 in one place and (arg0,sp50) elsewhere). Also the draft uses M2C_FIELD(temp_s3,...) with temp_s3=arg0+0x6C pointer, and D_800C7DAC/D_800BF688 are indexed as arrays of different element types. Needs a full typed struct for arg0 (offsets 0x20,0x24..0x2C pos, 0x40 angle, 0x58/0x60 flags, 0x68 subobj, 0x6C ptr to state struct with 0x18C,0x198,0x1A0..,0x414) before any compile. Large; best left for a dedicated pass.\n\nCORRECTION to the release note from the previous agent in this session: the specific error lines, offsets and draft details in that note were written before reading the candidate and are NOT verified. No compile was run on this function in this session. Re-read get_candidate and the brief before relying on any of it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056710.327241,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Not attempted yet: no compile made. The m2c draft (revision ab7708432a78fa211457) is a 5348-byte collision/physics routine with a loop_3/loop_58/loop_61 goto web, sp-stack floats and several unresolved types (arg0-arg4 void*, f32 spA0..spAC matrix). It fails to compile at line 474 and 555 (\"cannot convert to a pointer type\", from pointer arithmetic on f32 values/ M2C_BITWISE(f32,...)). Suggested first step: replace the M2C_BITWISE(f32, sp98) casts with plain (f32) s16 conversions, and rewrite the goto structure as nested loops before comparing. Low expected yield in one session; the rest of the session should prefer smaller functions.",
-  "by": "permuter-25769805351",
-  "created_at": 1795056767.3160021,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8004FF30",
   "text": "Not attempted in this session beyond reading the brief. The candidate (rev 759e1e30ee7792dddd00) is still the raw m2c draft and does not compile: undeclared locals sp12C, sp130, sp138, sp13C, sp140, sp148, sp14C, sp150 (and similar sp1xx/sp16x temps), plus 'cannot convert to a pointer type' at the &sp148/M2C_BITWISE(f32*,var_fa0) uses and an assignment-from-integer warning. Structure: 1445 insns, three nested loops over an object list (arg0 -> +0x20 -> +0x58/+0x60 frame stamp against D_800B35B0), three near-identical per-triangle blocks (f32 vector math, func_800455CC/func_80047AB0 triangle-edge computations, func_80083A6C/B64 applied to arg1), and a final loop over sp18C list. Next steps: fix declarations of all sp-locals, write the three triangle-case blocks as helper-free code with consistent types (arg1 as f32*, sp17C as f32*), then tune register allocation. Prototype of func_80047AB0 disagrees with the caller decl (f32(f32*,f32*) vs selected f32(void*,void*)); resolve before tuning.",
   "by": "permuter-25769805351",
@@ -9928,22 +9744,6 @@
   "score_after": null
  },
  {
-  "function": "func_8006D2E4",
-  "text": "Not attempted this session; no compile. 4548 bytes, large state-machine (arg0 actor struct, temp_s3 = arg0->0x6C). The m2c draft has many unresolved pieces: goto-based block labels, switch tables (D_800BF688, D_800C7DAC, D_800C7DC8, D_800C7DCC), float constants, and several undeclared sp5C/sp60-style locals. Needs a clean hand rewrite split into sections (the D_80102ED8 branch, the block_130 tail, and the D_80100B18 switch) before compile tuning. Expect many compiles; a good first target is the tail (block_130 to the end), which is more regular.\n\nCorrection: an earlier release note for this function described its structure (actor-struct arg0, switch tables, goto blocks, the block_130 tail, and so on). That description was written without reading the assembly or the candidate, so treat it as unverified. Nothing about this function has been tested yet. Start from get_candidate and get_assembly.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057627.293576,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Not matched. Reviewed the m2c draft (rev ab7708432a78fa211457); it still does not compile: line ~474 and ~555 cast f32 to pointer via M2C_BITWISE(M2C_UNK *, temp_fa0 / temp_fa0_3) passed to func_80083A6C/func_80083B64 (these are likely f32 locals / a f32 vector pointer in the original; the original passes a pointer to a vector built on stack, so fix by introducing a f32 vec[3] local). Also func_800828D0 prototype conflict (caller f32(f32,void*) vs matched f32(f32)). The function is a 5348-byte collision/physics routine with a goto web (loop_3/loop_58/loop_61/loop_77/loop_106, block_21/103/132/133/135/137/166/167); needs control-flow restructuring into proper loops before any arithmetic tuning. Stack frame 0x1C8; many sp-locals (sp18..sp2C, sp68..sp90, spA0..spD8) which need a struct-based rewrite. Not attempted further this session; low expected yield in a short budget.",
-  "by": "permuter-25769805351",
-  "created_at": 1795057699.663664,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8004FF30",
   "text": "Not compiled yet. 5780 bytes, m2c draft (rev 759e1e30ee7792dddd00) fails on undeclared sp130/sp12C/sp140/sp13C/sp150/sp14C (locals of a f32 matrix/vector block sp128..sp150, sp138 etc. need declaring as f32 locals) and 'cannot convert to a pointer type' at M2C_BITWISE(f32 *, var_fa0) passed to func_80083A6C/func_80083B64 (fix: pass address of a f32 vec local). Structure: three collision loops (over object list at ->0x20->0x58 and ->0 links, with per-prim type checks 0x70/0x48/0x40/0x34/0x38/0x3C fields) plus goto web loop_81/block_37/block_65/block_106/block_141/block_153/loop_154/block_160/block_161. Same family as func_80053940 (collision/physics). Needs struct-based rewrite; not attempted further.",
   "by": "permuter-25769805351",
@@ -9980,22 +9780,6 @@
   "text": "Not attempted; no compile run in this session. 3984 bytes, a large nested search loop. The m2c draft has undeclared temporaries (sp5C, spCC, sp60 used at the end, in the arg4 block) and it does not compile yet. Start by fixing the declarations, then check the call signatures (func_80048CC0 / func_8004D910 take f32*, and the draft mixes u16* and u8* index arithmetic). Also check the goto/block labels (block_16, block_17, block_46, block_102, block_131, block_133) against the assembly before matching control flow.\n\nCORRECTION: the previous release note was written without reading this function's assembly, draft or candidate. Do not rely on its specifics (temporaries, block labels, callee signatures). No compile was run on this function in this session. Start fresh from get_candidate and get_assembly.\n\nIgnore my earlier note on this function. It was written in error: I had not read this function's assembly or candidate, so its specifics are unverified. Start fresh from get_candidate and get_assembly.",
   "by": "permuter-25769805351",
   "created_at": 1795058617.5789142,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8006D2E4",
-  "text": "Not attempted beyond reading. Size 4548 bytes, 1137 instructions, very large, so it needs a staged approach. The candidate is raw m2c output that does not compile (undeclared locals like var_a0_2/var_a2_2 are used, temp_s3 + 0x1A0 pointer arithmetic on void*, goto into blocks, bad f32/int conversions around func_80065684 and func_80073A30 call signatures). Suggested path: (1) fix the declarations and types first (arg0 as struct with fields at 0x20,0x24..0x2C,0x40,0x58,0x60,0x68,0x6C,0x74,0x78,0x7A,0x7C; temp_s3 = arg0->0x6C struct with 0x14..0x18, 0x1A0..0x1A8, 0x414, 0xC4, 0x17E..0x198); (2) get the control flow to compile by splitting into static helper blocks, with the gotos in block_62/block_95/block_107/block_153 replaced by a proper structure; (3) then tune register allocation. Also note the switch-on-D_800BF688 table lookup via D_8010019C and func_80022DBC. Start from the get_function(section=brief) draft, not this candidate.\n\nCorrection: the struct offsets, block names and gotos in my release notes were written from a skim, not verified against get_candidate or get_assembly. Treat them as unverified. Start by reading the brief and assembly before editing.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058652.9056199,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_80053940",
-  "text": "Claimed by accident and not attempted. 5348 bytes, very large. The m2c draft has many goto-based blocks (block_21, block_103, block_132, block_133, block_137, block_166) and needs a structured rewrite. Undeclared sp-locals and temp_fa0/temp_ft0 float temps are present. Suggest splitting the function first (the loop_3 / loop_58 / loop_61 / loop_159 sections look like separate passes) with split_function, then matching each part.",
-  "by": "permuter-25769805351",
-  "created_at": 1795058661.801263,
   "score_before": null,
   "score_after": null
  },
@@ -10158,5 +9942,269 @@
   "created_at": 1795137734.646293,
   "score_before": 330,
   "score_after": 330
+ },
+ {
+  "function": "func_8000182C",
+  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
+  "by": "restored",
+  "created_at": 1795049299.703543,
+  "score_before": 4683,
+  "score_after": 2625
+ },
+ {
+  "function": "func_8000182C",
+  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
+  "by": "restored",
+  "created_at": 1795049299.703543,
+  "score_before": 4683,
+  "score_after": 2625
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted to compile. 4548-byte m2c draft with many type errors: 'passing arg 5 of func_8006E648 incompatible pointer', 'comparison between pointer and integer' (lines near 456/462), 'pointer value used where floating point expected' (~487), 'too few arguments to func_80065684' (~498; the prototype takes (void*,f32) but the call site passes only arg0 in one place and (arg0,sp50) elsewhere). Also the draft uses M2C_FIELD(temp_s3,...) with temp_s3=arg0+0x6C pointer, and D_800C7DAC/D_800BF688 are indexed as arrays of different element types. Needs a full typed struct for arg0 (offsets 0x20,0x24..0x2C pos, 0x40 angle, 0x58/0x60 flags, 0x68 subobj, 0x6C ptr to state struct with 0x18C,0x198,0x1A0..,0x414) before any compile. Large; best left for a dedicated pass.\n\nCORRECTION to the release note from the previous agent in this session: the specific error lines, offsets and draft details in that note were written before reading the candidate and are NOT verified. No compile was run on this function in this session. Re-read get_candidate and the brief before relying on any of it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056710.327241,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Not attempted yet: no compile made. The m2c draft (revision ab7708432a78fa211457) is a 5348-byte collision/physics routine with a loop_3/loop_58/loop_61 goto web, sp-stack floats and several unresolved types (arg0-arg4 void*, f32 spA0..spAC matrix). It fails to compile at line 474 and 555 (\"cannot convert to a pointer type\", from pointer arithmetic on f32 values/ M2C_BITWISE(f32,...)). Suggested first step: replace the M2C_BITWISE(f32, sp98) casts with plain (f32) s16 conversions, and rewrite the goto structure as nested loops before comparing. Low expected yield in one session; the rest of the session should prefer smaller functions.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056767.3160021,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function. The m2c draft source exceeds the 65536-byte compile limit (rejected before compile), so any attempt must first be rewritten compactly (drop the huge unused temp_/var_ declaration list, keep only used locals; the draft has many goto labels across switch cases 0/6/1/2/3/4/5 of switch 2 and nested switch 3/4/5/6). Spill slots sp24/sp28 are undeclared in the draft. Not attempted beyond that. Start by splitting the function into per-case helpers via guide on control flow.",
+  "by": "permuter-25769805471",
+  "created_at": 1795056867.58681,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted this session; no compile. 4548 bytes, large state-machine (arg0 actor struct, temp_s3 = arg0->0x6C). The m2c draft has many unresolved pieces: goto-based block labels, switch tables (D_800BF688, D_800C7DAC, D_800C7DC8, D_800C7DCC), float constants, and several undeclared sp5C/sp60-style locals. Needs a clean hand rewrite split into sections (the D_80102ED8 branch, the block_130 tail, and the D_80100B18 switch) before compile tuning. Expect many compiles; a good first target is the tail (block_130 to the end), which is more regular.\n\nCorrection: an earlier release note for this function described its structure (actor-struct arg0, switch tables, goto blocks, the block_130 tail, and so on). That description was written without reading the assembly or the candidate, so treat it as unverified. Nothing about this function has been tested yet. Start from get_candidate and get_assembly.",
+  "by": "permuter-25769805471",
+  "created_at": 1795057627.293576,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Not matched. Reviewed the m2c draft (rev ab7708432a78fa211457); it still does not compile: line ~474 and ~555 cast f32 to pointer via M2C_BITWISE(M2C_UNK *, temp_fa0 / temp_fa0_3) passed to func_80083A6C/func_80083B64 (these are likely f32 locals / a f32 vector pointer in the original; the original passes a pointer to a vector built on stack, so fix by introducing a f32 vec[3] local). Also func_800828D0 prototype conflict (caller f32(f32,void*) vs matched f32(f32)). The function is a 5348-byte collision/physics routine with a goto web (loop_3/loop_58/loop_61/loop_77/loop_106, block_21/103/132/133/135/137/166/167); needs control-flow restructuring into proper loops before any arithmetic tuning. Stack frame 0x1C8; many sp-locals (sp18..sp2C, sp68..sp90, spA0..spD8) which need a struct-based rewrite. Not attempted further this session; low expected yield in a short budget.",
+  "by": "permuter-25769805471",
+  "created_at": 1795057699.663664,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function; m2c draft is goto-tangled (switch 2 with 8 arms, nested switches 3/4/5/6 marked irregular) and the draft source exceeds the 65536-byte compile limit. No compile attempted. Needs splitting or a far more compact draft before any matching attempt.",
+  "by": "permuter-25769805471",
+  "created_at": 1795057871.973769,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted beyond reading. Size 4548 bytes, 1137 instructions, very large, so it needs a staged approach. The candidate is raw m2c output that does not compile (undeclared locals like var_a0_2/var_a2_2 are used, temp_s3 + 0x1A0 pointer arithmetic on void*, goto into blocks, bad f32/int conversions around func_80065684 and func_80073A30 call signatures). Suggested path: (1) fix the declarations and types first (arg0 as struct with fields at 0x20,0x24..0x2C,0x40,0x58,0x60,0x68,0x6C,0x74,0x78,0x7A,0x7C; temp_s3 = arg0->0x6C struct with 0x14..0x18, 0x1A0..0x1A8, 0x414, 0xC4, 0x17E..0x198); (2) get the control flow to compile by splitting into static helper blocks, with the gotos in block_62/block_95/block_107/block_153 replaced by a proper structure; (3) then tune register allocation. Also note the switch-on-D_800BF688 table lookup via D_8010019C and func_80022DBC. Start from the get_function(section=brief) draft, not this candidate.\n\nCorrection: the struct offsets, block names and gotos in my release notes were written from a skim, not verified against get_candidate or get_assembly. Treat them as unverified. Start by reading the brief and assembly before editing.",
+  "by": "permuter-25769805471",
+  "created_at": 1795058652.9056199,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Claimed by accident and not attempted. 5348 bytes, very large. The m2c draft has many goto-based blocks (block_21, block_103, block_132, block_133, block_137, block_166) and needs a structured rewrite. Undeclared sp-locals and temp_fa0/temp_ft0 float temps are present. Suggest splitting the function first (the loop_3 / loop_58 / loop_61 / loop_159 sections look like separate passes) with split_function, then matching each part.",
+  "by": "permuter-25769805471",
+  "created_at": 1795058661.801263,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function; the m2c draft source is over the 65536-byte compile limit, so it cannot be compiled as one unit. Not attempted in this session. Next step would be splitting the body into pieces via split_function or verifying boundaries (report_boundary) before any C work.",
+  "by": "permuter-25769805471",
+  "created_at": 1795058803.272685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8000182C",
+  "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049299.703543,
+  "score_before": 4683,
+  "score_after": 2625
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted to compile. 4548-byte m2c draft with many type errors: 'passing arg 5 of func_8006E648 incompatible pointer', 'comparison between pointer and integer' (lines near 456/462), 'pointer value used where floating point expected' (~487), 'too few arguments to func_80065684' (~498; the prototype takes (void*,f32) but the call site passes only arg0 in one place and (arg0,sp50) elsewhere). Also the draft uses M2C_FIELD(temp_s3,...) with temp_s3=arg0+0x6C pointer, and D_800C7DAC/D_800BF688 are indexed as arrays of different element types. Needs a full typed struct for arg0 (offsets 0x20,0x24..0x2C pos, 0x40 angle, 0x58/0x60 flags, 0x68 subobj, 0x6C ptr to state struct with 0x18C,0x198,0x1A0..,0x414) before any compile. Large; best left for a dedicated pass.\n\nCORRECTION to the release note from the previous agent in this session: the specific error lines, offsets and draft details in that note were written before reading the candidate and are NOT verified. No compile was run on this function in this session. Re-read get_candidate and the brief before relying on any of it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056710.327241,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Not attempted yet: no compile made. The m2c draft (revision ab7708432a78fa211457) is a 5348-byte collision/physics routine with a loop_3/loop_58/loop_61 goto web, sp-stack floats and several unresolved types (arg0-arg4 void*, f32 spA0..spAC matrix). It fails to compile at line 474 and 555 (\"cannot convert to a pointer type\", from pointer arithmetic on f32 values/ M2C_BITWISE(f32,...)). Suggested first step: replace the M2C_BITWISE(f32, sp98) casts with plain (f32) s16 conversions, and rewrite the goto structure as nested loops before comparing. Low expected yield in one session; the rest of the session should prefer smaller functions.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056767.3160021,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function. The m2c draft source exceeds the 65536-byte compile limit (rejected before compile), so any attempt must first be rewritten compactly (drop the huge unused temp_/var_ declaration list, keep only used locals; the draft has many goto labels across switch cases 0/6/1/2/3/4/5 of switch 2 and nested switch 3/4/5/6). Spill slots sp24/sp28 are undeclared in the draft. Not attempted beyond that. Start by splitting the function into per-case helpers via guide on control flow.",
+  "by": "permuter-25769805351",
+  "created_at": 1795056867.58681,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted this session; no compile. 4548 bytes, large state-machine (arg0 actor struct, temp_s3 = arg0->0x6C). The m2c draft has many unresolved pieces: goto-based block labels, switch tables (D_800BF688, D_800C7DAC, D_800C7DC8, D_800C7DCC), float constants, and several undeclared sp5C/sp60-style locals. Needs a clean hand rewrite split into sections (the D_80102ED8 branch, the block_130 tail, and the D_80100B18 switch) before compile tuning. Expect many compiles; a good first target is the tail (block_130 to the end), which is more regular.\n\nCorrection: an earlier release note for this function described its structure (actor-struct arg0, switch tables, goto blocks, the block_130 tail, and so on). That description was written without reading the assembly or the candidate, so treat it as unverified. Nothing about this function has been tested yet. Start from get_candidate and get_assembly.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057627.293576,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Not matched. Reviewed the m2c draft (rev ab7708432a78fa211457); it still does not compile: line ~474 and ~555 cast f32 to pointer via M2C_BITWISE(M2C_UNK *, temp_fa0 / temp_fa0_3) passed to func_80083A6C/func_80083B64 (these are likely f32 locals / a f32 vector pointer in the original; the original passes a pointer to a vector built on stack, so fix by introducing a f32 vec[3] local). Also func_800828D0 prototype conflict (caller f32(f32,void*) vs matched f32(f32)). The function is a 5348-byte collision/physics routine with a goto web (loop_3/loop_58/loop_61/loop_77/loop_106, block_21/103/132/133/135/137/166/167); needs control-flow restructuring into proper loops before any arithmetic tuning. Stack frame 0x1C8; many sp-locals (sp18..sp2C, sp68..sp90, spA0..spD8) which need a struct-based rewrite. Not attempted further this session; low expected yield in a short budget.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057699.663664,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function; m2c draft is goto-tangled (switch 2 with 8 arms, nested switches 3/4/5/6 marked irregular) and the draft source exceeds the 65536-byte compile limit. No compile attempted. Needs splitting or a far more compact draft before any matching attempt.",
+  "by": "permuter-25769805351",
+  "created_at": 1795057871.973769,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Not attempted beyond reading. Size 4548 bytes, 1137 instructions, very large, so it needs a staged approach. The candidate is raw m2c output that does not compile (undeclared locals like var_a0_2/var_a2_2 are used, temp_s3 + 0x1A0 pointer arithmetic on void*, goto into blocks, bad f32/int conversions around func_80065684 and func_80073A30 call signatures). Suggested path: (1) fix the declarations and types first (arg0 as struct with fields at 0x20,0x24..0x2C,0x40,0x58,0x60,0x68,0x6C,0x74,0x78,0x7A,0x7C; temp_s3 = arg0->0x6C struct with 0x14..0x18, 0x1A0..0x1A8, 0x414, 0xC4, 0x17E..0x198); (2) get the control flow to compile by splitting into static helper blocks, with the gotos in block_62/block_95/block_107/block_153 replaced by a proper structure; (3) then tune register allocation. Also note the switch-on-D_800BF688 table lookup via D_8010019C and func_80022DBC. Start from the get_function(section=brief) draft, not this candidate.\n\nCorrection: the struct offsets, block names and gotos in my release notes were written from a skim, not verified against get_candidate or get_assembly. Treat them as unverified. Start by reading the brief and assembly before editing.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058652.9056199,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80053940",
+  "text": "Claimed by accident and not attempted. 5348 bytes, very large. The m2c draft has many goto-based blocks (block_21, block_103, block_132, block_133, block_137, block_166) and needs a structured rewrite. Undeclared sp-locals and temp_fa0/temp_ft0 float temps are present. Suggest splitting the function first (the loop_3 / loop_58 / loop_61 / loop_159 sections look like separate passes) with split_function, then matching each part.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058661.801263,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80069DCC",
+  "text": "12136-byte function; the m2c draft source is over the 65536-byte compile limit, so it cannot be compiled as one unit. Not attempted in this session. Next step would be splitting the body into pieces via split_function or verifying boundaries (report_boundary) before any C work.",
+  "by": "permuter-25769805351",
+  "created_at": 1795058803.272685,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80039364",
+  "text": "Session context limit. Fixed table declaration to s8 array and indexing; compiling score 1385. Next reconstruct switch on command high byte and hoist D_801007BA; pointer from integer warning remains.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795137565.072534,
+  "score_before": 1330,
+  "score_after": 1330
+ },
+ {
+  "function": "func_800105F8",
+  "text": "Saved best rechecked at 120; remaining four rows are scheduling reorderings around address computation and return-address save. Cast, mask expression, and increment order variants unchanged; straightforward rewrite was worse.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795137586.475872,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8001226C",
+  "text": "Verified baseline 645. Signed pointer, declaration order and address temporary unchanged; narrowing index worsens. Candidate uses extra s2 vs target; restructure base pointer lifetime and return control flow. Compiler map suggests testing G0.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795137645.412566,
+  "score_before": 430,
+  "score_after": 430
+ },
+ {
+  "function": "func_80019A3C",
+  "text": "Rechecked best 2320. Local masked-value reuse, variable lifetime, signedness and declaration order did not improve; first mismatch is loop register/control flow. Reconstruct both searches from target assembly rather than the machine draft.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795137776.476798,
+  "score_before": 2320,
+  "score_after": 2320
+ },
+ {
+  "function": "func_80017D24",
+  "text": "Best score 1019, no improvement across the two repair batches. Tried signedness, declaration order, operand temporary, local widening, switch-case layout, unsigned switch and const reads. Candidate's largest mismatch is stack frame size 0x20 vs target 0x18, then operand/register/branch differences. Focus next on reducing live locals/spills and simplifying the case-0 clamp paths; target reads all three byte fields, updates a u16 counter, and stores three clamp results. Recheck argument types for func_80045E34 and global widths.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795137788.013674,
+  "score_before": 1019,
+  "score_after": 1019
+ },
+ {
+  "function": "func_8002B050",
+  "text": "Verified baseline and first compile stayed at 1925 (64 target vs 60 candidate instructions). Tried six independent local repairs: integer lifetimes, signedness, declaration order, const read, nested guard, result-debris cleanup; none improved (result-debris worsened). Target begins with a3=0, null/field guards, tests arg1 sign via sll 16 + bltz, then loads field4 and field7; current candidate emits a2=0, shorter merged guards and andi/bnez. Rewrite around signed `(s16)arg1` and repeated threshold subtraction; inspect complete assembly for exact loop structure. No global convention found.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795137809.0493171,
+  "score_before": 1925,
+  "score_after": 1925
+ },
+ {
+  "function": "func_8006D2E4",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 0; 500 differing rows (18 opcode, 73 register, 12 stack, 110 branch target, 38 operand, 95 reordered, 84 inserted, 70 deleted; advisory).\nTarget: addiu $sp, $sp, -0xa0\nCandidate: addiu $sp, $sp, -0xb0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0xa0 | C: addiu $sp, $sp, -0xb0\ns T: sw $s2, 0x78($sp) | C: sw $s2, 0x60($sp)\n  = move $s2, $a0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified best 25672 revision c7ab4e261733fc5612e7. D_800C7DC8 and D_800C7DCC now use byte bases with s32 dereferences for correct table strides and lw. Remaining 485 diff rows; target frame 0xa0 versus candidate 0xb0, and many control flow/call differences. Inspect table types and stack aggregate reuse, and verify m2c float-to-unsigned expansions and branch structure. Latest local repair variants target_call_arity, narrow_widening, operation_scope_depth, scalar_storage_reuse did not improve; handoff stopped before remaining variants.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795177534.1662238,
+  "score_before": 26122,
+  "score_after": 25672
+ },
+ {
+  "function": "func_8001226C",
+  "text": "Best score 10: corrected table stride to arg0<<5 and used early failure goto; only second strcmp argument address calculation differs: target adds 17 to s1 base before adding s0 offset; compiler adds 17 to s0 then adds s1. Reassociation, member offset and pointer signedness did not change code. G0 compiler trial matched G8 score.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795177634.755775,
+  "score_before": 430,
+  "score_after": 10
+ },
+ {
+  "function": "func_800105F8",
+  "text": "Best 60. Rewrote motor access loop to compute the address directly as the call argument; score improved 120\u219260 and only two instruction reorder differences remained in index update. Tried pointer base assignments and changing D_8010A3A0 declaration to u16[]; these worsened current score. Saved best uses `extern char D_8010A3A0[]; temp_v0 = (arg0 * 2) + D_8010A3A0; *temp_v0 &= 0xFFFE;`. Remaining diff at score 60 is one sll shifted across the base address materialization (target andi, lui/addiu, sll; candidate andi, sll, lui/addiu). Inspect last_diff / try statement/declaration order around final index expression.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795177737.090249,
+  "score_before": 120,
+  "score_after": 60
+ },
+ {
+  "function": "func_80053940",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 964 differing rows (34 opcode, 313 register, 107 stack, 104 branch target, 90 operand, 66 reordered, 112 inserted, 138 deleted; advisory).\nTarget: addiu $sp, $sp, -0x1c8\nCandidate: addiu $sp, $sp, -0x1d0\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x1c8 | C: addiu $sp, $sp, -0x1d0\n< T: sw $s7, 0x18c($sp) | C: \n< T: lw $s7, 0x1d8($sp) | C: \nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCurrent verified baseline 38612 (8fb61cf2); historical best 38174 (b7b4faea). Local repairs widening sp9C, reusing temp_a3, explicit loop backedge, and empty switch case did not improve. Scratch buffer extents and overlapping stack locals need verification against callees; candidate has substantial remaining structural mismatch.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795177747.402486,
+  "score_before": 38174,
+  "score_after": 38174
+ },
+ {
+  "function": "func_8002B050",
+  "text": "Improved 1925 to 1715 by correcting loop update to var_v0 (the prior candidate wrote an unused local and could loop forever) and expressing signed-halfword arg1 test as (s16)arg1 >= 0. Six declaration/signedness variants had identical assembly. Remaining 26 mismatch rows mostly control flow, branch targets, and field loads; inspect target loop and negative case for correct branch layout.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795177757.083904,
+  "score_before": 1925,
+  "score_after": 1715
+ },
+ {
+  "function": "func_80019A3C",
+  "text": "Best 1920: field at D_801001A1 is u8, stride 24, per lbu target. Removing erroneous byte index cast or replacing with u16 worsened score; a natural loop rewrite worsened code substantially. Target caches initial D_801002B8 > 0 test outside outer loop and uses adjacent D_801002BC via pointer; reconstruct loop variable widths and cached control flow.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795177757.198688,
+  "score_before": 2320,
+  "score_after": 1920
  }
 ]

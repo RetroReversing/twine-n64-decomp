@@ -18,14 +18,14 @@ extern s32 D_8010A500;
 
 void func_80017D24(void *arg0) {
     s32 temp_v1;
-    s8 var_v0;
+    u8 var_v0;
     u16 temp_v0;
 
     temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
-    switch (temp_v1) {                              /* irregular */
-    case 0:
+    if (temp_v1 == 1) goto case_one;
+    if (temp_v1 >= 2) return;
+    if (temp_v1 == 0) {
         if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(arg0, s32 *, 0x58) & 4)) {
-            var_v0 = 0xFF;
             if (func_80045E34(arg0 + 0x24, D_8010A500 + 0x24) < 4.0f) {
                 temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) + 1;
                 M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
@@ -41,17 +41,17 @@ void func_80017D24(void *arg0) {
                 M2C_FIELD(arg0, s8 *, 0x81) = 0xFF;
                 return;
             }
-            M2C_FIELD(arg0, s8 *, 0x81) = var_v0;
-            M2C_FIELD(arg0, s8 *, 0x80) = var_v0;
-            M2C_FIELD(arg0, s8 *, 0x7F) = var_v0;
+            M2C_FIELD(arg0, u8 *, 0x81) = 0xFF;
+            M2C_FIELD(arg0, u8 *, 0x80) = 0xFF;
+            M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
             return;
         }
         return;
-    case 1:
+    }
+    return;
+case_one:
         M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
         M2C_FIELD(arg0, s8 *, 0x80) = 0xFF;
         M2C_FIELD(arg0, s8 *, 0x81) = 0xFF;
         M2C_FIELD(arg0, s16 *, 0x7A) = 2;
-        break;
-    }
 }

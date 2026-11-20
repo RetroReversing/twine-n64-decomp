@@ -13,13 +13,13 @@ u16 __repair_result_var_v0;
     var_a3 = 0;
     var_v1 = 0;
     if ((arg0 != NULL) && (((__repair_record_arg0*)arg0)->field_7 != 0)) {
-        if (!(arg1 & 0x8000)) {
+        if ((s16)arg1 >= 0) {
             var_v0 = ((__repair_record_arg0*)arg0)->field_4 + arg1;
             for (;;) {
                 ((__repair_record_arg0*)arg0)->field_4 = var_v0;
                 if ((s16) var_v0 >= (s32) ((__repair_record_arg0*)arg0)->field_7) {
                     var_a3 += 1;
-                    __repair_result_var_v0 = ((__repair_record_arg0*)arg0)->field_4 - (s32) ((__repair_record_arg0*)arg0)->field_7;
+                    var_v0 = ((__repair_record_arg0*)arg0)->field_4 - (s32) ((__repair_record_arg0*)arg0)->field_7;
                     continue;
                 }
                 break;

@@ -55,7 +55,7 @@ void *func_8011B3D8(s32);                           /* extern */
 extern M2C_UNK D_800BF688;
 extern M2C_UNK D_800C7DAC;
 extern s8 D_800C7DC8;
-extern M2C_UNK D_800C7DCC;
+extern s8 D_800C7DCC;
 extern f64 D_800D4650;
 extern s8 D_800E19F4;
 extern f32 D_800E19F8;
@@ -346,7 +346,7 @@ block_95:
                             temp_s1 = (func_80000A30((s32) (func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(temp_s3, f32 *, 0x1A0), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(temp_s3, f32 *, 0x1A8)) * 651.8986f), (s32) (M2C_FIELD(arg0, f32 *, 0x40) + 256.0f)) >> 9) & 7;
                             temp_v0_7 = temp_s1 * 8;
                             M2C_FIELD(temp_v0_6, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v0_6, s32 *, 0x28) & ~0xFC) | 0x10);
-                            func_800448A4(temp_v0_6, *(&D_800C7DC8 + temp_v0_7), 0x1B);
+                            func_800448A4(temp_v0_6, *(s32 *)(&D_800C7DC8 + temp_v0_7), 0x1B);
                             func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&D_80109688 + (temp_s4 * 4)));
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;
@@ -377,7 +377,7 @@ block_108:
                             M2C_FIELD(temp_v0_6, s16 *, 0x22) = 0;
                             M2C_FIELD(temp_v0_6, s16 *, 0x26) = var_a1;
                             M2C_FIELD(temp_v0_6, s8 *, 0x29) = var_a0_3;
-                            M2C_FIELD(temp_v0_6, s16 *, 0x1E) = (s16) (*(&D_800C7DCC + var_v0_2) | 0x4402);
+                            M2C_FIELD(temp_v0_6, s16 *, 0x1E) = (s16) (*(s32 *)(&D_800C7DCC + var_v0_2) | 0x4402);
                         }
                     }
                     func_8006D224(arg0);
