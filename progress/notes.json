@@ -1352,14 +1352,6 @@
   "score_after": 4400
  },
  {
-  "function": "func_80117AFC",
-  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
-  "by": "restored",
-  "created_at": 1795049262.722133,
-  "score_before": 2203,
-  "score_after": 2203
- },
- {
   "function": "func_8000182C",
   "text": "Best 2625 (~58%), revision f06817c0d3c7129d5eac: 6-entry s16 ring of D_800D942C indexed backwards from D_800D942A, search for arg0 (now s32 arg). Key learnings: s16 locals (var_s1) cost sll/sra pairs; use s32 locals (2830 from 4683). Keep &D_800D942C[i] and &D_800D9438[i<<5] style (array decls) rather than pointer arithmetic. Remaining diff: target spills s1 at 0x14($sp) and sets up a2=&D_800D9438 and a0=&D_800D942C before the loop; frame is -0x20 (mine -0x28 probably from one extra s16 temp). Not tried: making D_800D9438 declared as s32/struct and a fixed 0x20 stride pointer; loop-var order rewrite; also try removing the sp_unused local. Variants changing temp_a1/var_s1_2 types and the func arg made no further gain.",
   "by": "restored",
@@ -1486,14 +1478,6 @@
   "created_at": 1795049225.468502,
   "score_before": 4400,
   "score_after": 4400
- },
- {
-  "function": "func_80117AFC",
-  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
-  "by": "restored",
-  "created_at": 1795049262.722133,
-  "score_before": 2203,
-  "score_after": 2203
  },
  {
   "function": "func_8000182C",
@@ -2710,14 +2694,6 @@
   "created_at": 1795049225.468502,
   "score_before": 4400,
   "score_after": 4400
- },
- {
-  "function": "func_80117AFC",
-  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
-  "by": "permuter-25769804951",
-  "created_at": 1795049262.722133,
-  "score_before": 2203,
-  "score_after": 2203
  },
  {
   "function": "func_8000182C",
@@ -11984,14 +11960,6 @@
   "score_after": 10
  },
  {
-  "function": "func_80117AFC",
-  "text": "Compiling candidate scores 1302; explicit pointer prototype leaves instructions unchanged and warns about second arg. Explicit loop backedge, inferred arg0 record, unsigned frame word all unchanged. Target holds frame address in s4 and uses 0x48 frame vs candidate 0x40; explore aggregate copy and lifetime forcing frame address across loop; verify func_80045E34 prototype.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795177934.877829,
-  "score_before": 1302,
-  "score_after": 1302
- },
- {
   "function": "func_80070730",
   "text": "Verified best 1865. Six local variants for masked-value reuse, register reuse, signedness, declaration order, address sum, and width did not improve. Remaining 33 diff rows largely loop structure and register allocation; reconstruct the loop from target assembly, including target's initial t0=1 and invariant constants.",
   "by": "codex-gpt-6.1-terra-8",
@@ -15790,14 +15758,6 @@
   "created_at": 1795182425.147816,
   "score_before": 2600,
   "score_after": 2600
- },
- {
-  "function": "func_80117AFC",
-  "text": "Rechecked baseline 1302. Tried local repair families explicit_loop_backedge, inferred_record_layout, signedness, address_temporary, constant_local; all five compiling variants stayed 1302; read_before_assign variant failed because the generated patch referenced undeclared var_s3. Target prologue allocates 0x48 bytes and saves fs0 at sp+0x40; candidate allocates 0x40 and saves at +0x38. Candidate uses frame at +0x10, so likely missing an 8-byte live/spill local or type/loop lifetime causing stack layout. Continue with next function.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795182431.054399,
-  "score_before": 1302,
-  "score_after": 1302
  },
  {
   "function": "func_80084048",
@@ -24448,14 +24408,6 @@
   "score_after": 22615
  },
  {
-  "function": "func_80117AFC",
-  "text": "Started from best saved candidate (score 1302) and recompiled; score remains 1302. Corrected func_80045E34 prototype from (void*,void*) to (void*,s32), no instruction change. Added a frame address local, also optimized away. address_temporary family ran first two variants within its 60s cap; both produced identical instructions and score 1302. Target requires 0x48-byte frame and saves s0-s4 plus fs0; current output uses 0x40 frame, only s0-s3/fs0. Target reads D_8011F06C as `lui 0x80120000; lw -0xF94`, while C external symbol emits `%hi/%lo`; likely symbol expression/declaration or address materialization differs. Target's frame pointer is sp+0x10 in s4; caller supplies second arg as 32-bit loaded field. No verified improvement or reusable convention found.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795187614.3649092,
-  "score_before": 1302,
-  "score_after": 1302
- },
- {
   "function": "func_8005CDDC",
   "text": "Best 105 preserves all 37 instructions. Const source loads tied; explicit scale and compound float updates scored 415, losing the hazard nop while keeping the wrong frame position. Target adjusts sp after lh and uses f2 for its velocity products, f0 for destinations. Compare alternate prologue scheduling profiles and first product lifetime against the saved 105 source.",
   "by": "codex-gpt-6.2-sol-8",
@@ -25792,14 +25744,6 @@
   "score_after": 5
  },
  {
-  "function": "func_80117AFC",
-  "text": "Best remains 1302. Tested explicit prototype `f32 func_80045E34(void *, void *)` and explicit pointer conversion for the second argument; score worsened to 1512. Adding volatile stack padding to force the target's 0x48 frame worsened to 1443. Remaining major gap: target saves fs0 plus s0-s4 in a 0x48 frame, while candidate uses a 0x40 frame and different register allocation; target also accesses D_8011F06C via lui 0x8012/lw -0xF94 and has different branch structure. Restore saved_best as starting point.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795189335.541024,
-  "score_before": 1302,
-  "score_after": 1302
- },
- {
   "function": "func_8009852C",
   "text": "Best remains 35; seven differences swap v0/v1 for key and comparator addresses. Reordering local declarations and automatic repairs did not alter code. Flags search did not improve; investigate address lifetime and expression staging.",
   "by": "codex-gpt-6.1-terra-1",
@@ -27046,14 +26990,6 @@
   "created_at": 1795190553.2161422,
   "score_before": 150,
   "score_after": 150
- },
- {
-  "function": "func_80117AFC",
-  "text": "Unmatched; best verified score 1161/62 instructions after preserving `framep=&frame` in a persistent pointer local. Prior best was 1302; direct inline `&frame` scored 1650, volatile framep scored 1571. Proper callee prototype is `f32 func_80045E34(void*,s32)`. Target holds arg0 in s2, loop offset s1, index s0, best index s3, and frame address s4, with 0x48 stack frame; current best still uses a 0x40 frame and differs in stack/register assignment and global count relocation. Local repair families explicit_loop_backedge, inferred_record_layout, address_temporary scored equal 1161. Next experiment: preserve pointer local and force arg0/loop/index/best values live across helper call, perhaps use explicit struct pointer base and cached index locals to coax s0-s4. Further check whether count reference should use the u32 alias at 0x8012006C instead of D_8011F06C.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795190578.1841578,
-  "score_before": 1302,
-  "score_after": 1161
  },
  {
   "function": "func_80088DE0",
@@ -29150,14 +29086,6 @@
   "created_at": 1795192984.219012,
   "score_before": 252,
   "score_after": 252
- },
- {
-  "function": "func_80117AFC",
-  "text": "Improved score 1161 to 130: aggregate-copy frame, declare i/besti before off, reserve two stack words after frame, and initialize frame pointer inside nonempty guard. Remaining six rows involve prologue save/initialization scheduling. Alternate declaration orders and delayed besti initialization worsened. Reserved array is diagnostic; identify original local if possible.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795192993.6558652,
-  "score_before": 1161,
-  "score_after": 130
  },
  {
   "function": "func_80083138",
@@ -31656,14 +31584,6 @@
   "score_after": 130
  },
  {
-  "function": "func_80117AFC",
-  "text": "Current best 130 (97.9%, 62 instructions); its initial candidate was already this close. Preserved frame copy, volatile reserve, float minimum 65536.0 and loop form. Attempts changing callee signature to matched definition, void/object pointers, const qualifier, and volatile D_8011F06C did not change output. Remaining differences cluster around early prologue save/register ordering and accesses to global D_8011F06C: candidate relocates it as %hi(D_8011F06C), target uses lui 0x8012/lw -0xF94 (same address but encoding), and branch displacement differs by one. Move-on threshold passed. Explore data symbol declaration/alias exact address plus saved local declaration order if revisiting.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795197716.695959,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_80088DE0",
   "text": "Candidate compiles at score 15/65, only 3 register differences. Tried volatile unused local, two-word local array, and do-while rewrite; no improvement (do-while tied with different layout). Target initializes loop output registers as $a0=0 then $v1=0; candidate swaps them at first initialization and later uses $v1 where target uses $a0. Investigate declaration order or loop/index formulation to influence allocation.",
   "by": "codex-gpt-6-luna-11",
@@ -32718,14 +32638,6 @@
   "created_at": 1795198809.849805,
   "score_before": 710,
   "score_after": 710
- },
- {
-  "function": "func_80117AFC",
-  "text": "Rechecked saved candidate scores 130 (97.9%, 62 instructions). Trial with corrected callee prototype/void* second argument stayed 130; source forcing a constant address for the global regressed badly. Another loop source/layout trial was also worse. Target reads D_8011F06C via lui 0x8012/lw -0xF94; candidate uses relocation. Need reproduce this absolute-global access and recover target prologue/scheduling. No match.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198813.7951539,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8008E680",
@@ -34470,5 +34382,93 @@
   "created_at": 1795198735.6900601,
   "score_before": 290,
   "score_after": 290
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
+  "by": "restored",
+  "created_at": 1795049262.722133,
+  "score_before": 2203,
+  "score_after": 2203
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
+  "by": "restored",
+  "created_at": 1795049262.722133,
+  "score_before": 2203,
+  "score_after": 2203
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
+  "by": "permuter-25769804951",
+  "created_at": 1795049262.722133,
+  "score_before": 2203,
+  "score_after": 2203
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Compiling candidate scores 1302; explicit pointer prototype leaves instructions unchanged and warns about second arg. Explicit loop backedge, inferred arg0 record, unsigned frame word all unchanged. Target holds frame address in s4 and uses 0x48 frame vs candidate 0x40; explore aggregate copy and lifetime forcing frame address across loop; verify func_80045E34 prototype.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795177934.877829,
+  "score_before": 1302,
+  "score_after": 1302
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Rechecked baseline 1302. Tried local repair families explicit_loop_backedge, inferred_record_layout, signedness, address_temporary, constant_local; all five compiling variants stayed 1302; read_before_assign variant failed because the generated patch referenced undeclared var_s3. Target prologue allocates 0x48 bytes and saves fs0 at sp+0x40; candidate allocates 0x40 and saves at +0x38. Candidate uses frame at +0x10, so likely missing an 8-byte live/spill local or type/loop lifetime causing stack layout. Continue with next function.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795182431.054399,
+  "score_before": 1302,
+  "score_after": 1302
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Started from best saved candidate (score 1302) and recompiled; score remains 1302. Corrected func_80045E34 prototype from (void*,void*) to (void*,s32), no instruction change. Added a frame address local, also optimized away. address_temporary family ran first two variants within its 60s cap; both produced identical instructions and score 1302. Target requires 0x48-byte frame and saves s0-s4 plus fs0; current output uses 0x40 frame, only s0-s3/fs0. Target reads D_8011F06C as `lui 0x80120000; lw -0xF94`, while C external symbol emits `%hi/%lo`; likely symbol expression/declaration or address materialization differs. Target's frame pointer is sp+0x10 in s4; caller supplies second arg as 32-bit loaded field. No verified improvement or reusable convention found.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795187614.3649092,
+  "score_before": 1302,
+  "score_after": 1302
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Best remains 1302. Tested explicit prototype `f32 func_80045E34(void *, void *)` and explicit pointer conversion for the second argument; score worsened to 1512. Adding volatile stack padding to force the target's 0x48 frame worsened to 1443. Remaining major gap: target saves fs0 plus s0-s4 in a 0x48 frame, while candidate uses a 0x40 frame and different register allocation; target also accesses D_8011F06C via lui 0x8012/lw -0xF94 and has different branch structure. Restore saved_best as starting point.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795189335.541024,
+  "score_before": 1302,
+  "score_after": 1302
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Unmatched; best verified score 1161/62 instructions after preserving `framep=&frame` in a persistent pointer local. Prior best was 1302; direct inline `&frame` scored 1650, volatile framep scored 1571. Proper callee prototype is `f32 func_80045E34(void*,s32)`. Target holds arg0 in s2, loop offset s1, index s0, best index s3, and frame address s4, with 0x48 stack frame; current best still uses a 0x40 frame and differs in stack/register assignment and global count relocation. Local repair families explicit_loop_backedge, inferred_record_layout, address_temporary scored equal 1161. Next experiment: preserve pointer local and force arg0/loop/index/best values live across helper call, perhaps use explicit struct pointer base and cached index locals to coax s0-s4. Further check whether count reference should use the u32 alias at 0x8012006C instead of D_8011F06C.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795190578.1841578,
+  "score_before": 1302,
+  "score_after": 1161
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Improved score 1161 to 130: aggregate-copy frame, declare i/besti before off, reserve two stack words after frame, and initialize frame pointer inside nonempty guard. Remaining six rows involve prologue save/initialization scheduling. Alternate declaration orders and delayed besti initialization worsened. Reserved array is diagnostic; identify original local if possible.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795192993.6558652,
+  "score_before": 1161,
+  "score_after": 130
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Current best 130 (97.9%, 62 instructions); its initial candidate was already this close. Preserved frame copy, volatile reserve, float minimum 65536.0 and loop form. Attempts changing callee signature to matched definition, void/object pointers, const qualifier, and volatile D_8011F06C did not change output. Remaining differences cluster around early prologue save/register ordering and accesses to global D_8011F06C: candidate relocates it as %hi(D_8011F06C), target uses lui 0x8012/lw -0xF94 (same address but encoding), and branch displacement differs by one. Move-on threshold passed. Explore data symbol declaration/alias exact address plus saved local declaration order if revisiting.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197716.695959,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80117AFC",
+  "text": "Rechecked saved candidate scores 130 (97.9%, 62 instructions). Trial with corrected callee prototype/void* second argument stayed 130; source forcing a constant address for the global regressed badly. Another loop source/layout trial was also worse. Target reads D_8011F06C via lui 0x8012/lw -0xF94; candidate uses relocation. Need reproduce this absolute-global access and recover target prologue/scheduling. No match.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198813.7951539,
+  "score_before": 130,
+  "score_after": 130
  }
 ]
