@@ -209,7 +209,8 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                         if (M2C_FIELD(temp_s1, u16 *, 0x40) != 0) {
                                             var_s2 = (u8 *)var_s4 + 4;
                                             do {
-                                                temp_s5 = var_s0 & 0xFFFF;
+                                                var_s0_2 = var_s0 & 0xFFFF;
+    temp_s5 = var_s0_2;
                                                 temp_v1_3 = M2C_FIELD(temp_s1, u16 **, 0x38)[temp_s5];
                                                 if ((temp_v1_3 & sp146) && (temp_v1_3 & sp14E)) {
                                                     u32 firstVertex = *var_s4;

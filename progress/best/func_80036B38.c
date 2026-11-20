@@ -22,6 +22,7 @@ void func_80036B38(s32 arg0) {
     u32 var_s0;
     void **var_s1;
     void *temp_a0;
+    volatile s64 stack_pad;
 
     var_s0 = 0;
     if (D_800E1758 != 0) {

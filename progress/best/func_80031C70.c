@@ -101,8 +101,8 @@ block_33:
         }
         temp_v0_5 = M2C_FIELD(arg0, s16 *, 0x7C);
         if (temp_v0_5 > 0) {
-            temp_v0_6 = temp_v0_5 + 1;
             if (M2C_FIELD(arg0, u16 *, 0x78) == 0x1B) {
+                temp_v0_6 = temp_v0_5 + 1;
                 M2C_FIELD(arg0, s16 *, 0x7C) = temp_v0_6;
                 if (temp_v0_6 >= 0x385) {
                     M2C_FIELD(arg0, s16 *, 0x7C) = 0;

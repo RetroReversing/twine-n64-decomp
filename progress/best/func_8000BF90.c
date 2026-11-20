@@ -17,21 +17,21 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     f32 *tf;
     f32 f;
     s32 idx;
-    register s32 iv;
+    u32 iv;
     register u8 *node;
     u32 r, g, b, v;
     
-    unsigned int k;
+    register unsigned int k;
 
     pos = (f32 *)(arg0 + 0x24);
     __repair_phase_storage.pointer = *(u8 **)(arg0 + 0x20);
     if (__repair_phase_storage.pointer != NULL) {
         list = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x58);
-        for (k = 0; k < 2; k++) {
-            best[k] = NULL;
-            bestd[k] = 65536.0f;
+        for (idx = 0; (u32)idx < 2; idx++) {
+            best[idx] = NULL;
+            bestd[idx] = 65536.0f;
         }
-        do {
+        while (__repair_phase_storage.pointer != NULL) {
             node = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (node != NULL) {
                 if (node[0x2B] == 0 || D_80109A60[node[0x2B]] != 0) {
@@ -43,9 +43,9 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                         }
                     }
                     if ((u32)idx < 2U) {
-                        if (!idx) {
-                            bestd[1] = bestd[0];
-                            best[1] = best[0];
+                        for (iv = 1; iv > idx; iv--) {
+                            bestd[iv] = bestd[iv - 1];
+                            best[iv] = best[iv - 1];
                         }
                         best[idx] = node;
                         bestd[idx] = f;
@@ -59,7 +59,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
             } else {
                 __repair_phase_storage.pointer = NULL;
             }
-        } while (__repair_phase_storage.pointer != NULL);
+        }
 
         r = 0;
         g = 0;
@@ -70,7 +70,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                 tf = (f32 *)t;
                 sp30[0] = ((f32 *)(arg0 + 0x24))[0] - tf[1];
                 sp30[1] = ((f32 *)(arg0 + 0x24))[1] - tf[2];
-                sp30[2] = pos[2] - tf[3];
+                sp30[2] = ((f32 *)(arg0 + 0x24))[2] - tf[3];
                 func_80045824(sp30, sp30);
                 dot = sp30[0] * tf[7] + sp30[1] * tf[8] + sp30[2] * tf[9];
                 if (dot > 0.0f) {

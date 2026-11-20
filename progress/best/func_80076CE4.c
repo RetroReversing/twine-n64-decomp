@@ -14,9 +14,9 @@ void func_80076CE4(void *arg0) {
     s32 a1;
     void *obj;
 
-    r = 0;
     switch (s) {
-case 0: break;
+    default: r = 0; break;
+case 0: r = 0; break;
 
     case 5:
         r = 2;
