@@ -22,12 +22,13 @@ void func_80008750(void *arg0, s32 arg1, s32 arg2) {
     register unsigned long temp_v1_10;
 
 s32 __repair_phase___repair_phase_temp_v1_10;
+s32 __repair_phase___repair_phase___repair_phase_temp_v1_10;
     
     register u32 temp_v1_8;
     
     
     
-s32 __repair_phase_var_a1;
+
     unsigned var_a1_2;
     unsigned int var_v1;
     void *temp_v0;
@@ -93,9 +94,9 @@ block_9:
             (*(s32 *)((char *)(temp_v0_2) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0_2) + 4)) = 0;
         }
-        {__repair_phase_var_a1 = 2;
+        {__repair_phase___repair_phase_temp_v1_10 = 2;
         {
-        func_80034928(arg0, __repair_phase_var_a1);break;}}
+        func_80034928(arg0, __repair_phase___repair_phase_temp_v1_10);break;}}
     }
     switch (arg1) {                                 /* switch 2 */
     case 1:                                         /* switch 2 */
@@ -206,9 +207,9 @@ block_91:
             (*(s32 **)((char *)(temp_v1_9) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 3) {
-            __repair_phase___repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            __repair_phase___repair_phase___repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
-            switch (__repair_phase___repair_phase_temp_v1_10) {                   /* switch 4; irregular */
+            switch (__repair_phase___repair_phase___repair_phase_temp_v1_10) {                   /* switch 4; irregular */
             case 1:                                 /* switch 4 */
                 temp_v1_10 = 0x332DFEFF;
                 var_a1_2 = 0xFC409681;

@@ -4,15 +4,15 @@ typedef struct { u8 id; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
 
 s32 func_80019A3C(void) {
-    s32 id, idx, zero, found, firstPresent, count, key;
     volatile s32 *base, *first;
-    u32 firstCount;
+    s32 id, idx, zero, found, firstPresent, count, key;
+    long firstCount;
     id = 0;
     first = D_801002B8;
     base = first + 1;
     firstCount = *first;
-    zero = 0;
     firstPresent = (s16)(zero < firstCount);
+    zero = 0;
     found = 0;
 outer:
     idx = 0;
@@ -21,7 +21,7 @@ outer:
         count = D_801002B8[0];
 first_loop:
         if (D_801001A1[(u16)idx].id != key) {
-            ++idx;
+            idx++;
             if ((u16)idx < count) {
                 goto first_loop;
             }
@@ -33,7 +33,7 @@ second_scan:
     idx = 0;
     if (zero < *base) {
         key = (u16)id;
-        count = D_801002BC;
+        count = (u32)D_801002BC;
 second_loop:
         if (D_801001A1[(u16)(idx++) + 4].id == key) goto set_found;
         if ((u16)idx < count) {
@@ -47,7 +47,7 @@ set_found:
     found = 1;
     goto check;
 next_id:
-    ++id;
+    id++;
     found = 0;
     if ((u16)id < 2) goto outer;
     return 1;

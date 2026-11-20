@@ -175,7 +175,7 @@ int __repair_phase_var_s2_2;
     D_8010A4FD = 0;
     D_8010A4FF = D_80109B9C == 0;
     func_80007160();
-    func_8002B000((&D_801002AE) + 0x16, 0x1E);
+    do { func_8002B000((&D_801002AE) + 0x16, 0x1E); } while (0);
     (*(s8 *)((char *)(&D_801002AE) + -0xE)) = 0;
     func_8002B000((&D_801002AE) + 0x1E, 0x1E);
     (*(s8 *)((char *)(&D_801002AE) + -0xD)) = 0;

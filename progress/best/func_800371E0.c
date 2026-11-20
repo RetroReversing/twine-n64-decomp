@@ -90,7 +90,7 @@ case 2:
                         } else {
                             guTranslateF(&D_80112F90, ((__repair_record_var_s1*)var_s1)->field_24 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_28 * 64.0f, ((__repair_record_var_s1*)var_s1)->field_2C * 64.0f);
                         }
-                        guMtxF2L(&D_80112F90, D_8010D538);
+                        do { guMtxF2L(&D_80112F90, D_8010D538); } while (0);
                         var_a0_2 = D_80115328;
                         var_v1 = D_8010D538 - 0x80000000;
                         D_80115328 = (s8 *) var_a0_2 + 8;

@@ -53,14 +53,14 @@ void func_80069BC8(void *arg0) {
     }
     if (D_800E1A16 == 0) {
         switch (D_80102EE8) {
+        default:
+            D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4500);
+            break;
         case 1:
             D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4508);
             break;
         case 2:
             D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4510);
-            break;
-        default:
-            D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4500);
             break;
         }
         if (D_800E1A14 <= 0) {
