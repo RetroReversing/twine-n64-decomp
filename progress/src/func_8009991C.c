@@ -42,33 +42,35 @@ int __repair_literal;
 __repair_literal = 0;
 
     if ((s32) D_801176E8 > __repair_literal) {
+        int mask = -4;
+        int sentinel = 255;
         var_s1 = &D_8010D748;
         var_s4 = (char *)&D_8010D748 - 0x24;
         var_s3 = 0;
         do {
             if (*(s32 *)var_s4 != 0) {
-                if (!(arg0 & 0xFF) || (*(D_8010D770 + var_s3) == 0)) {
+                if (!(arg0 & 0xff) || (*(D_8010D770 + var_s3) == 0)) {
                     temp_s0 = var_s3 + D_8010D724;
                     func_8009876C(temp_s0);
                     M2C_FIELD(temp_s0, s32 *, 0x28) = 0;
-                    M2C_FIELD(temp_s0, s32 *, 0x24) &= ~3;
+                    M2C_FIELD(temp_s0, s32 *, 0x24) &= mask;
                     func_80098A18(temp_s0);
-                    temp_a1 = M2C_FIELD(temp_s0, u8 *, 0x63);
+                    __repair_literal = (u8)(M2C_FIELD(temp_s0, u8 *, 0x63));
                     M2C_FIELD(temp_s0, s32 *, 0) = 0;
                     M2C_FIELD(temp_s0, s8 *, 0x2E) = 0;
-                    temp_a0 = (temp_a1 * 4) + D_80117388;
+                    temp_a0 = (__repair_literal * 4) + D_80117388;
                     if (((__repair_record_temp_a0*)temp_a0)->field_2 == 0) {
                         ((__repair_record_temp_a0*)temp_a0)->field_2 = 1U;
-                        if (D_801002EA != 0xFF) {
-                            ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
+                        if (D_801002EA != sentinel) {
+                            ((__repair_record_temp_a0*)temp_a0)->field_1 = sentinel;
                             ((__repair_record_temp_a0*)temp_a0)->field_0 = (u8) D_80110DB0;
-                            D_80117389[D_80110DB0].value = temp_a1;
+                            D_80117389[D_80110DB0].value = __repair_literal;
                         } else {
-                            ((__repair_record_temp_a0*)temp_a0)->field_1 = 0xFF;
-                            ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xFFU;
-                            D_801002EA = temp_a1;
+                            ((__repair_record_temp_a0*)temp_a0)->field_1 = sentinel;
+                            ((__repair_record_temp_a0*)temp_a0)->field_0 = sentinel;
+                            D_801002EA = __repair_literal;
                         }
-                        D_80110DB0 = temp_a1;
+                        D_80110DB0 = __repair_literal;
                         if (M2C_FIELD(temp_s0, u8 *, 0x4C) != 0) {
                             D_8010A930 -= 1;
                         } else {
@@ -77,7 +79,7 @@ __repair_literal = 0;
                     }
                     M2C_FIELD(temp_s0, s32 *, 0x60) = -1;
                     *(s32 *)var_s4 = 0;
-                    *(s32 *)var_s1 &= ~3;
+                    *(s32 *)var_s1 &= mask;
                     goto block_13;
                 }
             } else {
@@ -91,3 +93,4 @@ block_13:
         } while (var_s2 < (s32) D_801176E8);
     }
 }
+
