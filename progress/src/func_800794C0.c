@@ -126,8 +126,8 @@ void func_800794C0(s32 arg0, void *arg1) {
             (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = (u8) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
         }
     } else {
-        temp_v1_6 = (*(void **)((char *)(arg1) + 0x68));
-        (*(u16 *)((char *)(temp_v1_6) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_6) + 0xC)) & 0xFFF7);
+        temp_v1_5 = (*(void **)((char *)(arg1) + 0x68));
+        (*(u16 *)((char *)(temp_v1_5) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_5) + 0xC)) & 0xFFF7);
     }
     if ((D_80103F00 != 0) && (m2c_initial_frame.view_sp44.value > (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8))) && (func_80045CF8(4) == 0)) {
         func_8008548C(&m2c_initial_frame.view_sp40.value);
