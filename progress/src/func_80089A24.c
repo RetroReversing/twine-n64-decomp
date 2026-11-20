@@ -72,7 +72,7 @@ void func_80089A24(void *arg0, s32 arg1) {
                 if (temp_v0_4 < 0) {
                     var_fv1_4 += D_800D6748;
                 }
-                (*(f64 *)((char *)(arg0) + 8)) = (f64) (var_fv1_4 + (temp_fs1 - (temp_ft0_2 * var_fv1_3)));
+                (*(f64 *)((char *)(arg0) + 8)) = (f64) (var_fv1_4 + temp_fs1);
                 return;
             }
         }
@@ -80,7 +80,7 @@ void func_80089A24(void *arg0, s32 arg1) {
     }
 block_19:
     temp_v0_5 = (*(s32 *)((char *)(arg0) + 0x30));
-    var_fv1_5 = (f64) (u32)temp_v0_5;
+    var_fv1_5 = (f64) temp_v0_5;
     temp_fa0 = (*(f64 *)((char *)(arg0) + 8)) + temp_fs1;
     if (0 > temp_v0_5) {
         var_fv1_5 += D_800D6750;
