@@ -4560,14 +4560,6 @@
   "score_after": 505
  },
  {
-  "function": "func_8003C7E8",
-  "text": "Current best 430/30 instructions; m2c-shaped source rechecked. Three trials: first source scores 430, reordered mask statements scores 555, volatile chained-mask variant scores 1305; move-on threshold reached. The masks are at +0x58 (0xFFFF0003) and +0x5C (0x7FFFFF then 0xFF81FFFF). GCC combines adjacent nonvolatile AND masks to 0x0001FFFF, unlike target's two separate AND instructions; volatile access caused reload/store noise and worse code. Remaining target sequence loads both fields, constructs all three constants, then masks and stores. Try modeling named struct members/volatile source with separate intermediate temporaries or preserve independent mask operations while minimizing forced memory traffic.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795137442.285007,
-  "score_before": 430,
-  "score_after": 430
- },
- {
   "function": "func_80026314",
   "text": "Tried local repairs inferred_record_layout, signedness, declaration_order, branch_orientation, operand_temporary, parameter_width against revision ac164d048ca7182af341. Scores unchanged at 565 except inverted branch orientation worsened to 1270. Target early exit jumps to +0x70 while candidate +0x74; next inspect assembly/control-flow alignment at entry and loop. Best source retained.",
   "by": "codex-gpt-6-luna-6",
@@ -11416,14 +11408,6 @@
   "score_after": 360
  },
  {
-  "function": "func_8003C7E8",
-  "text": "Best score 430, baseline verified. Tried six local repair variants (field-record typing, address staging, const-read qualification, inline zero, declaration adjustments), no improvement; then split the 0x5C mask into sequential field updates, which regressed to 675. Saved best remains original. Target keeps masks as separate values: 0x7FFFFF and 0xFF81FFFF, and applies both ANDs to the 0x5C value; candidate folds their combined expression to 0x1FFFF and has altered load/store ordering and register allocation. Also target masks 0x58 by 0xFFFF0003. Need preserve separate operations without introducing extra memory accesses.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795177130.168715,
-  "score_before": 430,
-  "score_after": 430
- },
- {
   "function": "create_centered_sprite",
   "text": "Baseline/best 535, no improvement in 4/4. Candidate has matching 43-instruction shape but register/order differences around initialization and post-call operations. Target stores field +0x1E before call, puts -1 store at +0x10 in jal delay slot, then reads +0x28 and performs X center (+0x20) before Y center (+0x22), writing masked flags to +0x28 in final jump delay slot. Tried moving +0x1E earlier and changing coordinate order; variants scored 775, 555, 595, so retain saved best. Likely need C struct/argument typing or controlled temps to influence allocation and delay-slot store.",
   "by": "codex-gpt-6-luna-11",
@@ -15400,14 +15384,6 @@
   "score_after": 800
  },
  {
-  "function": "func_8003C7E8",
-  "text": "Current score improved from 430 to 90. Key repair: load both words at offsets 0x5C then 0x58 into locals before any stores, then apply masks in separate statements; this prevents constant-folding and reproduces both distinct mask operations. Current remaining diffs are only 6 register allocations and the relative order of the two initial loads. Remaining declaration-order/type variants gave 90 or worse (125); target allocates $a2 for 0x007fffff and $a3 for 0xff81ffff, while current allocation is reversed. Move-on threshold reached.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795182184.708044,
-  "score_before": 430,
-  "score_after": 90
- },
- {
   "function": "func_800067C8",
   "text": "Rechecked baseline 180/59; six local repair variants (loop form, call initialization, signedness, declaration order, field width, symbol address local) produced five ties and one regression to 803. Remaining six differing instructions center on calls to func_8000671C and argument setup for func_80044D84/func_80044DE4; note func_80044D84 source evidence says void(s32), while candidate declaration incorrectly returns s32. Validate call signatures and argument setup before allocator searches.",
   "by": "codex-gpt-6-luna-20",
@@ -18077,6 +18053,38 @@
   "by": "codex-gpt-6.2-sol-5",
   "created_at": 1795183399.55772,
   "score_before": 395,
+  "score_after": 0
+ },
+ {
+  "function": "func_8003C7E8",
+  "text": "Current best 430/30 instructions; m2c-shaped source rechecked. Three trials: first source scores 430, reordered mask statements scores 555, volatile chained-mask variant scores 1305; move-on threshold reached. The masks are at +0x58 (0xFFFF0003) and +0x5C (0x7FFFFF then 0xFF81FFFF). GCC combines adjacent nonvolatile AND masks to 0x0001FFFF, unlike target's two separate AND instructions; volatile access caused reload/store noise and worse code. Remaining target sequence loads both fields, constructs all three constants, then masks and stores. Try modeling named struct members/volatile source with separate intermediate temporaries or preserve independent mask operations while minimizing forced memory traffic.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795137442.285007,
+  "score_before": 430,
+  "score_after": 430
+ },
+ {
+  "function": "func_8003C7E8",
+  "text": "Best score 430, baseline verified. Tried six local repair variants (field-record typing, address staging, const-read qualification, inline zero, declaration adjustments), no improvement; then split the 0x5C mask into sequential field updates, which regressed to 675. Saved best remains original. Target keeps masks as separate values: 0x7FFFFF and 0xFF81FFFF, and applies both ANDs to the 0x5C value; candidate folds their combined expression to 0x1FFFF and has altered load/store ordering and register allocation. Also target masks 0x58 by 0xFFFF0003. Need preserve separate operations without introducing extra memory accesses.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795177130.168715,
+  "score_before": 430,
+  "score_after": 430
+ },
+ {
+  "function": "func_8003C7E8",
+  "text": "Current score improved from 430 to 90. Key repair: load both words at offsets 0x5C then 0x58 into locals before any stores, then apply masks in separate statements; this prevents constant-folding and reproduces both distinct mask operations. Current remaining diffs are only 6 register allocations and the relative order of the two initial loads. Remaining declaration-order/type variants gave 90 or worse (125); target allocates $a2 for 0x007fffff and $a3 for 0xff81ffff, while current allocation is reversed. Move-on threshold reached.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795182184.708044,
+  "score_before": 430,
+  "score_after": 90
+ },
+ {
+  "function": "func_8003C7E8",
+  "text": "Exact standalone recheck confirmed. Partial initializer record layout: f32 components at 0x24\u20130x38. MSB-first 0x58 word has field widths 16/14/2; 0x5C has 9/6/17. The initializer clears the 14-bit field and the 9- and 6-bit fields respectively. The inferred S_D_800B1A00 includes unrelated records and does not establish a common full layout.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795183502.9514291,
+  "score_before": 90,
   "score_after": 0
  }
 ]
