@@ -28064,14 +28064,6 @@
   "score_after": 430
  },
  {
-  "function": "func_8007539C",
-  "text": "Reconstructed 0x400-byte buffer, 8-byte entries, and 4-byte pointer-array strides from assembly; score improved 2748 to 1195. Remaining differences include loop strength-reduced pointer increments, saved-register allocation and address initialization order. Declaration and initialization ordering tests mostly unchanged; try an explicit 8-byte entry struct and indexed loops.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795163935.163976,
-  "score_before": 479,
-  "score_after": 479
- },
- {
   "function": "func_800613AC",
   "text": "Compiled full m2c draft at score 1525/71 instructions. Current source has 0xFF assigned via signed s8 at offset 0x45, but target uses addiu v0,zero,0xff (zero-extended immediate); try changing only that field access to u8. Also output flagged pointer from integer on D_800B byte values cast to float; inspect if those are actually float/global type mismatches. Compile baseline no improvements yet.",
   "by": "codex-gpt-6-luna-16",
@@ -28232,14 +28224,6 @@
   "score_after": 1860
  },
  {
-  "function": "func_8007539C",
-  "text": "Rechecked revision 10520dc80789a9371b87 at 479. Six local repairs (signedness, declaration order, index width, loop form, symbol base and assignment position) did not improve it. Remaining mismatch includes target frame 0x440 versus 0x438, register and operand differences; investigate stack reservation and loop register allocation. Further untried local repair families remain.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795173798.6728141,
-  "score_before": 479,
-  "score_after": 479
- },
- {
   "function": "func_800993A4",
   "text": "Tried local repairs from f9306d5bc9dc91cc92c1; redundant_loop_guard (unconditional for) improved rechecked 857 to 727 but leaves 16 differing rows. Other tested variants: constant_local/address_temporary/field_width stayed 857; explicit_loop_backedge worsened to 1052; global_pointer_local did not compile. Current best variant 3 revision 559856bd915d6c193a7e. Diff starts with stack allocation target -8 vs candidate -0x10 and branch target mismatch. Further inspect assembly and reduce locals/frame while retaining unconditional loop.",
   "by": "codex-gpt-6-luna-11",
@@ -28278,14 +28262,6 @@
   "created_at": 1795182366.084368,
   "score_before": 727,
   "score_after": 727
- },
- {
-  "function": "func_8007539C",
-  "text": "Current saved score 670 rechecked, with target frame 0x440 now correct (older 479 note used other inputs). Typed DMA prototype and strlen return kept 670. Three explicit iterator rewrites scored 2435, 2875 and 795 (closest: outer do/while, separate count and pointers, cached inner len/offset). Remaining structural issues: remove extra outer byte induction, get a separately materialized inner 0xFFFF sentinel, preserve current inner entry pointer until the stores so they use +2/+4 instead of -2/0. Test the inner carried pointer independently before reworking outer induction.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795182440.8384252,
-  "score_before": 479,
-  "score_after": 479
  },
  {
   "function": "func_800613AC",
@@ -28392,28 +28368,12 @@
   "score_after": 10883
  },
  {
-  "function": "func_8007539C",
-  "text": "Verified baseline 670; converting inner do/while to explicit goto improved to 479, saved revision f32e0173255a981116e4. Target loads 0xffff twice into s7 and s5, whereas candidate reuses one register; missing register explains 0x440 versus 0x438 frame and much of remaining diff. Restoring structured backedge scored 670; unsigned off had no effect; unused volatile register terminator scored 552 and displaced off. Next seek plausible source that keeps separate loop sentinel values in separate saved registers.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795187521.252363,
-  "score_before": 479,
-  "score_after": 479
- },
- {
   "function": "func_800993A4",
   "text": "Verified score 200: the only normalized instruction mismatch is first-loop backedge bnel versus target bnez. Both have sll $a0,$v1,2 in the delay slot. Saved C reproduces stack frame, endpoint, other loops. Explicit pre-backedge byte-offset update with guarded do/while worsened to 1860; later-loop goto and address temporary also regressed. Standard search_flags including -g3 tied baseline. Next investigate how GCC's delay-slot pass chooses annulment when the shift is taken-path-only; seek a source shape that schedules the shift from before the branch, while retaining the verified reload and register layout.",
   "by": "codex-gpt-6.2-sol-4",
   "created_at": 1795188027.61901,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_8007539C",
-  "text": "Recovered historical 479 candidate, rechecked baseline. Local repair variants (structured backedge, index-width, goto loop shape, dead-copy/source scheduling and scope/allocation variants) did not improve; some produce 670/1254. A u32 buffer substitution had no effect. Current strongest C remains saved 479. Target uses frame 0x440, s4 outer index, s3 source array, s2 record pointer, s5 sentinel; source currently gets these allocations shifted and loses matching stack/prologue. Next agent should restore saved best and work on declaration/control-flow structure and register allocation, especially preserving outer count in s4 and sentinel in s5.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795189360.95989,
-  "score_before": 479,
-  "score_after": 479
  },
  {
   "function": "func_800993A4",
@@ -28424,28 +28384,12 @@
   "score_after": 200
  },
  {
-  "function": "func_8007539C",
-  "text": "Verified saved candidate score 479, then adding an unused volatile u64 local after the 0x400 byte buffer improved to 478 by matching frame size 0x440. Attempted moving reserve before buffer (870) and reducing buffer to 0x3f8 (479); current best remains 478 with buffer at sp+0x418 vs target sp+0x410. Other differences are register assignment/saves and branch destinations (s6 vs target s7 sentinel), plus 3 missing instructions. Keep volatile reserve placement and score 478; consider using a different live local/declaration ordering to preserve the 0x410 buffer address while allocating s7 and shifting saved-register slots.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795190615.9582021,
-  "score_before": 479,
-  "score_after": 478
- },
- {
   "function": "func_800993A4",
   "text": "Verified best score 200 differs only in first loop backedge opcode: target bnez, candidate bnel, with same delay-slot shift. Guarded do-while produced identical assembly; explicit backedge in second loop, temporary address, 16-bit index and frame changes worsened. Flag search found no improvement. Investigate first loop control flow or compiler configuration to force ordinary branch with the same delay slot.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795190721.82079,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_8007539C",
-  "text": "Current rechecked baseline 478, historical same. Two local repair batches tried symbol_address_local, signedness, backward-loop forms, assignment-at-use, byte signedness; no improvement. Key mismatch is stack layout: frame -0x440, target saves s4 at 0x428 and s7 at 0x434, current s4 0x430/s6 0x438, with other save/register offsets displaced. Candidate reserves volatile u64 plus 0x400 buffer; inspect actual stack save set/local layout and declarations to identify missing 8-byte slot or register lifetime. Keep saved_best as baseline; signed off type and loop rewrite worsened.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795192573.349636,
-  "score_before": 478,
-  "score_after": 478
  },
  {
   "function": "func_800993A4",
@@ -31646,5 +31590,69 @@
   "created_at": 1795197685.10846,
   "score_before": 250,
   "score_after": 250
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Reconstructed 0x400-byte buffer, 8-byte entries, and 4-byte pointer-array strides from assembly; score improved 2748 to 1195. Remaining differences include loop strength-reduced pointer increments, saved-register allocation and address initialization order. Declaration and initialization ordering tests mostly unchanged; try an explicit 8-byte entry struct and indexed loops.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795163935.163976,
+  "score_before": 479,
+  "score_after": 479
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Rechecked revision 10520dc80789a9371b87 at 479. Six local repairs (signedness, declaration order, index width, loop form, symbol base and assignment position) did not improve it. Remaining mismatch includes target frame 0x440 versus 0x438, register and operand differences; investigate stack reservation and loop register allocation. Further untried local repair families remain.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795173798.6728141,
+  "score_before": 479,
+  "score_after": 479
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Current saved score 670 rechecked, with target frame 0x440 now correct (older 479 note used other inputs). Typed DMA prototype and strlen return kept 670. Three explicit iterator rewrites scored 2435, 2875 and 795 (closest: outer do/while, separate count and pointers, cached inner len/offset). Remaining structural issues: remove extra outer byte induction, get a separately materialized inner 0xFFFF sentinel, preserve current inner entry pointer until the stores so they use +2/+4 instead of -2/0. Test the inner carried pointer independently before reworking outer induction.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795182440.8384252,
+  "score_before": 479,
+  "score_after": 479
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Verified baseline 670; converting inner do/while to explicit goto improved to 479, saved revision f32e0173255a981116e4. Target loads 0xffff twice into s7 and s5, whereas candidate reuses one register; missing register explains 0x440 versus 0x438 frame and much of remaining diff. Restoring structured backedge scored 670; unsigned off had no effect; unused volatile register terminator scored 552 and displaced off. Next seek plausible source that keeps separate loop sentinel values in separate saved registers.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795187521.252363,
+  "score_before": 479,
+  "score_after": 479
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Recovered historical 479 candidate, rechecked baseline. Local repair variants (structured backedge, index-width, goto loop shape, dead-copy/source scheduling and scope/allocation variants) did not improve; some produce 670/1254. A u32 buffer substitution had no effect. Current strongest C remains saved 479. Target uses frame 0x440, s4 outer index, s3 source array, s2 record pointer, s5 sentinel; source currently gets these allocations shifted and loses matching stack/prologue. Next agent should restore saved best and work on declaration/control-flow structure and register allocation, especially preserving outer count in s4 and sentinel in s5.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795189360.95989,
+  "score_before": 479,
+  "score_after": 479
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Verified saved candidate score 479, then adding an unused volatile u64 local after the 0x400 byte buffer improved to 478 by matching frame size 0x440. Attempted moving reserve before buffer (870) and reducing buffer to 0x3f8 (479); current best remains 478 with buffer at sp+0x418 vs target sp+0x410. Other differences are register assignment/saves and branch destinations (s6 vs target s7 sentinel), plus 3 missing instructions. Keep volatile reserve placement and score 478; consider using a different live local/declaration ordering to preserve the 0x410 buffer address while allocating s7 and shifting saved-register slots.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795190615.9582021,
+  "score_before": 479,
+  "score_after": 478
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Current rechecked baseline 478, historical same. Two local repair batches tried symbol_address_local, signedness, backward-loop forms, assignment-at-use, byte signedness; no improvement. Key mismatch is stack layout: frame -0x440, target saves s4 at 0x428 and s7 at 0x434, current s4 0x430/s6 0x438, with other save/register offsets displaced. Candidate reserves volatile u64 plus 0x400 buffer; inspect actual stack save set/local layout and declarations to identify missing 8-byte slot or register lifetime. Keep saved_best as baseline; signed off type and loop rewrite worsened.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795192573.349636,
+  "score_before": 478,
+  "score_after": 478
+ },
+ {
+  "function": "func_8007539C",
+  "text": "Current saved source score rechecked at 470; correct-prototype rewrite and follow-up source permutation both generated score 1589 (worse), with identical mismatch assembly. Signedness local repair also unchanged. Preserve saved revision 5c68a90182c9e70249b3. Target uses 0x440 frame, local off at sp+0x410, scratch buf at sp+0x10, and two copy calls through func_8000B9B8 ABI (u8 *dst, s32 source offset, u32 len); second copy source is off + D_0148B400. It uses strlen on scratch buffer, not func_800A1080. Best candidate uses wrong callee signature and wrong helper; update it in a focused patch while retaining pointer base and struct-field traversal. Target inner record stride is 8, src offset +4 each entry, outer arrays +4. A corrected full rewrite matched only 73.9% under current scoring and disturbed frame/register allocation.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795197732.742406,
+  "score_before": 470,
+  "score_after": 470
  }
 ]
