@@ -27,22 +27,10 @@ s32 func_8003090C(s32 arg0) {
         if (temp_v0 >= (s32) D_800E1608) {
             return -1;
         }
-        var_a0 = 0;
-        if (D_800E1608 != 0) {
-            var_v0 = 0;
-            for (;;) {
-                temp_v1 = var_v0;
-                temp_v0_2 = var_a0 + 1;
-                if (*(s32 *)((temp_v1 * 8) + D_800BFF04) == (arg0 - 1)) {
-                    break;
-                }
-                var_a0 = temp_v0_2;
-                var_v0 = var_a0;
-                if (temp_v0_2 >= (s32) D_800E1608) {
-                    goto block_8;
-                }
+        for (var_a0 = 0; var_a0 < (s32) D_800E1608; var_a0++) {
+            if (*(s16 *)((var_a0 * 8) + D_800BFF04) == temp_v0) {
+                return var_a0;
             }
-            return temp_v1;
         }
         goto block_8;
     }
