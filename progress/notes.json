@@ -10184,14 +10184,6 @@
   "score_after": 1990
  },
  {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
- },
- {
   "function": "func_80078860",
   "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
   "by": "restored",
@@ -10200,28 +10192,12 @@
   "score_after": 1990
  },
  {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
- },
- {
   "function": "func_80078860",
   "text": "Best 1990 (73.4%), revision 59f25f6387585379e0df. Structure: if (arg0->0x60 & 0x3000) { if (func_8007C094(arg0, D_8010A500+0x24, 0x40000000) << 24) { if ((temp_s1->0x88 & 0x41E00000)==0x200000) { switch(temp_s1[0x82]) {cases 3,15,35,39,40 -> func_800779C4(arg0), return 0; cases 4..20,43,44 -> return 0; default: switch(D_8010A500->0x68 [0xE]) {15 cases -> func_80077A94(arg0), copy D_8010A500 +0x24/+0x28/+0x2C to temp_s1 +0x18/1C/20, func_80077960(arg0,0xD,a2,a3), return 0; default: func_8008461C(arg0), func_80077960(arg0,0x38,0,0), return 1}}}} return 0. Key fact: func_8007C094 takes THREE args (arg0, D_8010A500+0x24, 0x40000000). Remaining diffs: '&& move $v0,$zero' ordering and lui $a2 placement in the first call setup, and the jump-table block layout (second switch is lb of byte at offset 0xE, the target uses lbu/lb differently). Jump tables jtbl_800D4CE8 and jtbl_800D4D90 are the switch targets; mismatch likely from the switch case split and default placement. Variants adding r=0 / != 0 test / extra break all no better.\n\nCorrection to release notes: verified only that best historical score is 1990 (revision 59f25f638758; the func_8007C094 3-arg prototype fix is in it). The '73.4%' figure and the specific per-instruction diff descriptions in the earlier release note were NOT verified this session; re-read the diff with compile_and_diff before relying on them. The 'd7094a2c716b' variant (!= 0 vs << 0x18 on the call) also scored 1990; 4d81af0bad3f scored 2090 (worse).",
   "by": "permuter-25769804951",
   "created_at": 1795049347.151763,
   "score_before": 2145,
   "score_after": 1990
- },
- {
-  "function": "func_80045B58",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "func_80005018",
@@ -10318,5 +10294,29 @@
   "created_at": 1795178639.2288482,
   "score_before": 1085,
   "score_after": 1040
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "func_80045B58",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
  }
 ]
