@@ -3936,14 +3936,6 @@
   "score_after": 310
  },
  {
-  "function": "func_80017E14",
-  "text": "Best score remains 450. Local variants testing record layout, signed/unsigned temporaries, declaration order, operand temporaries, split integer lifetimes and const reads did not improve it. Target first loads all three bytes at offsets 0x7F\u20130x81 before arithmetic; candidate interleaves loads and arithmetic, producing 13 mismatches, mostly register allocation. Next restructure to load all three bytes into separate u8 locals at function entry, then perform each clamped addition and stores in target order. Profile gcc-2.7.2-kmc -O1.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795137662.476607,
-  "score_before": 450,
-  "score_after": 450
- },
- {
   "function": "func_8003278C",
   "text": "Best 35 has identical operations and frame; loop index and pointer registers a1/a2 are swapped. Initializing pointer before the guard yields correct registers but moves pointer initialization before guard and stack adjustment; swapping declarations or increment order does not change allocation. Explore lifetime staging while keeping pointer init inside guard.",
   "by": "codex-gpt-6.1-terra-3",
@@ -7398,14 +7390,6 @@
   "created_at": 1795171367.748802,
   "score_before": 5220,
   "score_after": 5220
- },
- {
-  "function": "func_80017E14",
-  "text": "Baseline 450; target loads all three bytes at entry while candidate interleaves loads with arithmetic. Introducing ordinary byte locals and using them did not affect assembly. Try a struct or grouped load strategy and register allocation.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795171371.093794,
-  "score_before": 450,
-  "score_after": 450
  },
  {
   "function": "func_800937D0",
@@ -11088,14 +11072,6 @@
   "score_after": 1440
  },
  {
-  "function": "func_80017E14",
-  "text": "Rechecked baseline score 450. One attempted preload of all three source bytes before arithmetic regressed to 1895 (a0 pointer gets copied and control flow diverges); restored saved best. Declaration reorderings were unchanged at 450; processing channels 2 and 3 in reverse gave 475. Move-on reached. Remaining mismatch is chiefly register allocation/order: target preloads bytes into $v1/$t0/$t1, while candidate uses $v1/$v0/$v0 and schedules arithmetic differently.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795182293.8691251,
-  "score_before": 450,
-  "score_after": 450
- },
- {
   "function": "func_800184AC",
   "text": "Current verified score 35 with seven register differences only. Target moves second call result into a0, computes scale-1 in v1 and selects scale in a1. Candidate uses v1/s0/a0 respectively. Declaration reordering, explicit else clamp, and duplicating scale-1 expression leave instructions unchanged. Try reusing formal arg0 as record storage, declaring all locals before the assignment (C89).",
   "by": "codex-gpt-6.2-sol-7",
@@ -13120,14 +13096,6 @@
   "score_after": 2986
  },
  {
-  "function": "func_80017E14",
-  "text": "Typed three-byte record and three s16 delta parameters produce all 43 target instructions in target order, score 95 with 19 register differences. Separating declarations produced identical code. Using s32 or u8 for the working channels worsened it. To continue, preserve s16 delta masks and comparisons, but split the incoming channel temporaries from final output locals and try allocation/lifetime ordering.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795183656.780261,
-  "score_before": 450,
-  "score_after": 95
- },
- {
   "function": "func_8008EB80",
   "text": "[Released without compiling it once; notes not checked by a compile.] Claimed a sibling of func_8008EF6C. The supplied draft is an m2c source with the same globals/table layout and loop structure, but it contains duplicate extern declarations and a synthetic nested do/while repair fragment in the 0xFF case. No compile was run this turn. Start by cleaning those generated artifacts and compiling with the supplied externs; likely reusable layout discoveries should be checked against the sibling's actual matched output before sharing.",
   "by": "codex-gpt-6-luna-9",
@@ -14648,14 +14616,6 @@
   "score_after": 895
  },
  {
-  "function": "func_80017E14",
-  "text": "Best score 75, down from 95 by declaring b,g,r separately before the original-order loads. Every opcode, offset and delay slot matches. Remaining mismatches: r in t1 vs v1, b in v1 vs t1, and the green/blue masked sums do not stay in their original a2/a3. Ordinary s32 or u8 color locals regressed; signed-halfword casts with full-width deltas gave 185. Forward and g,r,b declaration orders and combining the green mask assignment did not improve. Next try tying masked sum use to the original incoming delta through a separate maximum-clamp temporary.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184885.452468,
-  "score_before": 95,
-  "score_after": 75
- },
- {
   "function": "func_800004BC",
   "text": "Verified score 120 with corrected void func_800081C4 declaration (now from shared header). Assignment inside argument and ordinary store tie; volatile flag store worsens to 340. Target materializes a0=0 before the flag value/address and writes sb in jal delay slot; candidate writes sb before jal and puts a0=0 in delay slot. Next try an alternate scheduler profile on candidate b8008b2b37cdfe979020 and retain the verified call and loop order.",
   "by": "codex-gpt-6.2-sol-2",
@@ -15918,14 +15878,6 @@
   "created_at": 1795186191.046219,
   "score_before": 6739,
   "score_after": 6739
- },
- {
-  "function": "func_80017E14",
-  "text": "Rechecked score 75, all 15 differences are registers. register locals and r,b,g declaration order are identical; testing color output locals instead of s16 deltas for the upper clamp scored 490; initializers plus unused output declarations scored 95. Next split preload values from final outputs and preserve distinct signed delta tests. Target uses v1/t0/t1 for all three channel bytes, retains a2/a3 for masked deltas.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795186203.538217,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_8009852C",
@@ -17720,14 +17672,6 @@
   "score_after": 350
  },
  {
-  "function": "func_80017E14",
-  "text": "Best verified score 75 (98.2%, 43 instructions), remaining 15 differences are register allocation only. Tried bounded shared-store constant, target constant, narrowing/widening, member-store replay families; all regressed or matched baseline. Keep baseline; investigate declaration order or parameter/callee register pressure to move red/green/blue locals from t-registers into target v-registers.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795188976.634068,
-  "score_before": 75,
-  "score_after": 75
- },
- {
   "function": "func_8009846C",
   "text": "Verified 35 with the null/non-null result local intact. Typed callback and early direct returns worsened to 445 by changing the null branch and inserting a copy. Explicit typed key cast, sequencing the volatile store in the first arg, and staging callback address before the store all tie at 35. Only v0/v1 are swapped between D_800F38BC and func_800986DC. Next compare source-unit allocator/compiler settings, keeping the null tail.",
   "by": "codex-gpt-6.2-sol-8",
@@ -18206,14 +18150,6 @@
   "created_at": 1795189664.11577,
   "score_before": 460,
   "score_after": 285
- },
- {
-  "function": "func_80017E14",
-  "text": "Baseline 75 rechecked before context revision advanced. All differences are register allocation: red/blue source v1 and t1 swap, and green/blue narrowed argument temporaries miss desired a2/a3. Register declarations in r,g,b order scored 95, adding unused byte locals tied 75, moving g=dg after the blue mask scored 270, and adding explicit high-clamp else assignments changed branch-likely shape and scored 1490. Preserve native signed 16-bit deltas and the current clamp body.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795189664.129289,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_8009EE60",
@@ -19192,14 +19128,6 @@
   "score_after": 50
  },
  {
-  "function": "func_80017E14",
-  "text": "Rechecked saved best at 75; current equivalent source scores 95 with register allocation differences only. Move-on budget exhausted. Investigate local ordering or register allocation from saved best.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795191022.677056,
-  "score_before": 75,
-  "score_after": 75
- },
- {
   "function": "func_8009A70C",
   "text": "Verified baseline 535. Target first mismatch is andi a0,v1,0xffff followed by branch-likely with level store in delay slot; candidate branches directly and stores on separate path. Changing curve to u16 scored 540, unsigned frac and explicit casts scored 535. Investigate preserving narrowing at condition and shared return/store control flow without changing the fixed-point interpolation. Target byte loads and arithmetic corroborate current candidate.",
   "by": "codex-gpt-6.1-terra-2",
@@ -19606,14 +19534,6 @@
   "created_at": 1795191863.697196,
   "score_before": 115,
   "score_after": 115
- },
- {
-  "function": "func_80017E14",
-  "text": "Score 75 matches all 43 opcodes and control flow. Target red, green, blue allocate as v1,t0,t1. Best candidate uses t1,t0,v1 and splits the masked green and blue temporaries away from a2/a3. Reversing the short local declarations scores 95. Next try separate masked short temporaries for green/blue with explicit cast on the later comparisons, preserving the red chain.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795191926.233001,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_8007AABC",
@@ -20062,14 +19982,6 @@
   "created_at": 1795192597.024998,
   "score_before": 130,
   "score_after": 130
- },
- {
-  "function": "func_80017E14",
-  "text": "Best rechecked 75 with 43/43 instructions; only 15 register rows differ. Starting with b,g,r declaration ordering, tested g,b,r: 95 and identical output to earlier 95. Avoid more isolated declaration permutations without checking prior variants; next consider replacing reused argument/channel pseudos with separate load and clamp locals while keeping the exact shifts and store ordering.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795192616.1857479,
-  "score_before": 75,
-  "score_after": 75
  },
  {
   "function": "func_80063758",
@@ -31606,5 +31518,93 @@
   "created_at": 1795194023.802353,
   "score_before": 7466,
   "score_after": 7466
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Best score remains 450. Local variants testing record layout, signed/unsigned temporaries, declaration order, operand temporaries, split integer lifetimes and const reads did not improve it. Target first loads all three bytes at offsets 0x7F\u20130x81 before arithmetic; candidate interleaves loads and arithmetic, producing 13 mismatches, mostly register allocation. Next restructure to load all three bytes into separate u8 locals at function entry, then perform each clamped addition and stores in target order. Profile gcc-2.7.2-kmc -O1.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795137662.476607,
+  "score_before": 450,
+  "score_after": 450
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Baseline 450; target loads all three bytes at entry while candidate interleaves loads with arithmetic. Introducing ordinary byte locals and using them did not affect assembly. Try a struct or grouped load strategy and register allocation.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795171371.093794,
+  "score_before": 450,
+  "score_after": 450
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Rechecked baseline score 450. One attempted preload of all three source bytes before arithmetic regressed to 1895 (a0 pointer gets copied and control flow diverges); restored saved best. Declaration reorderings were unchanged at 450; processing channels 2 and 3 in reverse gave 475. Move-on reached. Remaining mismatch is chiefly register allocation/order: target preloads bytes into $v1/$t0/$t1, while candidate uses $v1/$v0/$v0 and schedules arithmetic differently.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795182293.8691251,
+  "score_before": 450,
+  "score_after": 450
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Typed three-byte record and three s16 delta parameters produce all 43 target instructions in target order, score 95 with 19 register differences. Separating declarations produced identical code. Using s32 or u8 for the working channels worsened it. To continue, preserve s16 delta masks and comparisons, but split the incoming channel temporaries from final output locals and try allocation/lifetime ordering.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795183656.780261,
+  "score_before": 450,
+  "score_after": 95
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Best score 75, down from 95 by declaring b,g,r separately before the original-order loads. Every opcode, offset and delay slot matches. Remaining mismatches: r in t1 vs v1, b in v1 vs t1, and the green/blue masked sums do not stay in their original a2/a3. Ordinary s32 or u8 color locals regressed; signed-halfword casts with full-width deltas gave 185. Forward and g,r,b declaration orders and combining the green mask assignment did not improve. Next try tying masked sum use to the original incoming delta through a separate maximum-clamp temporary.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184885.452468,
+  "score_before": 95,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Rechecked score 75, all 15 differences are registers. register locals and r,b,g declaration order are identical; testing color output locals instead of s16 deltas for the upper clamp scored 490; initializers plus unused output declarations scored 95. Next split preload values from final outputs and preserve distinct signed delta tests. Target uses v1/t0/t1 for all three channel bytes, retains a2/a3 for masked deltas.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795186203.538217,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Best verified score 75 (98.2%, 43 instructions), remaining 15 differences are register allocation only. Tried bounded shared-store constant, target constant, narrowing/widening, member-store replay families; all regressed or matched baseline. Keep baseline; investigate declaration order or parameter/callee register pressure to move red/green/blue locals from t-registers into target v-registers.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795188976.634068,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Baseline 75 rechecked before context revision advanced. All differences are register allocation: red/blue source v1 and t1 swap, and green/blue narrowed argument temporaries miss desired a2/a3. Register declarations in r,g,b order scored 95, adding unused byte locals tied 75, moving g=dg after the blue mask scored 270, and adding explicit high-clamp else assignments changed branch-likely shape and scored 1490. Preserve native signed 16-bit deltas and the current clamp body.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795189664.129289,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Rechecked saved best at 75; current equivalent source scores 95 with register allocation differences only. Move-on budget exhausted. Investigate local ordering or register allocation from saved best.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795191022.677056,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Score 75 matches all 43 opcodes and control flow. Target red, green, blue allocate as v1,t0,t1. Best candidate uses t1,t0,v1 and splits the masked green and blue temporaries away from a2/a3. Reversing the short local declarations scores 95. Next try separate masked short temporaries for green/blue with explicit cast on the later comparisons, preserving the red chain.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795191926.233001,
+  "score_before": 75,
+  "score_after": 75
+ },
+ {
+  "function": "func_80017E14",
+  "text": "Best rechecked 75 with 43/43 instructions; only 15 register rows differ. Starting with b,g,r declaration ordering, tested g,b,r: 95 and identical output to earlier 95. Avoid more isolated declaration permutations without checking prior variants; next consider replacing reused argument/channel pseudos with separate load and clamp locals while keeping the exact shifts and store ordering.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795192616.1857479,
+  "score_before": 75,
+  "score_after": 75
  }
 ]
