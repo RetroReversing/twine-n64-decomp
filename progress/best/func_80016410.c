@@ -27,7 +27,7 @@ void *func_80016410(s32 arg0, s32 arg1, s32 arg2) {
     temp_v0 = func_80083E90(arg0 + 0x84, 0xB);
     if (temp_v0 != NULL) {
         p84 = temp_v0 + 0x84;
-        func_8001682C(temp_v0, arg1);
+        func_8001682C(temp_v0);
         if (arg1 == 0) {
             func_80045278(temp_v0 + 0x24);
             func_80045278(temp_v0 + 0x30);

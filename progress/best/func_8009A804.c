@@ -41,7 +41,7 @@ s32 func_8009A804(VoiceA804 *v, NoteA804 *n, s32 arg2) {
             hi = pitch >> 16;
             lo = pitch & 0xFFFF;
             if (hi < 0x7F) {
-                p = tbl + hi;
+                p = (void *) ((hi) + (s32) tbl);
                 { u32 d = (p[1] - p[0]) * lo; out = (p[0] << 16) + d; }
             } else {
                 out = tbl[hi] << 16;

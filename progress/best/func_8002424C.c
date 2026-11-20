@@ -64,8 +64,7 @@ int __repair_constant = 3;
             (*(s32 *)((char *)(temp_s2) + -8)) = 0xF;
         }
         *(D_800BD5D0 - 0x34) = var_s1 + 0x4000;
-        temp_s0 = (var_s1 & 0xFFFF) * 8;
-        *(s32 *)(D_80109C18 + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
+        *(s32 *)(D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8)) = func_80015F74((D_800BD5D0 - 0x34) - 0x14);
         *(s32 *)(D_80109C1C + temp_s0) = func_80015F74((D_800BD5D0 - 0x34) - 0x38);
         func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
         ++var_s1;

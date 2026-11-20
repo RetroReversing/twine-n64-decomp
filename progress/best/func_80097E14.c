@@ -20,8 +20,6 @@ extern char D_800FD564[];
 
 typedef struct { s32 w[2]; } __repair_words2;
 s32 func_80097E14(s32 arg0) {
-int __repair_literal;
-
     s32 temp_v1;
     s32 var_a0;
     s32 var_a2;
@@ -33,9 +31,7 @@ int __repair_literal;
 
     var_a0 = arg0;
     var_s0 = 0;
-__repair_literal = 0;
-
-    if (D_800FD560 > __repair_literal) {
+    if (D_800FD560 > 0) {
         var_a0 &= 0xFFFF;
         var_v1 = 0;
         for (;;) {
