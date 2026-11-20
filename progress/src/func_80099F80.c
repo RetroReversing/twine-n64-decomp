@@ -12,7 +12,7 @@ s32 func_80099F80(void *state, void *command)
     s32 level = FIELD(state, u16, 0x4E) + ((s32)(word << 16) >> 24);
     u32 key, middle, low;
     s32 clamped;
-    u16 flags;
+    s32 flags;
     u8 bank, channel;
     s32 result, previous;
     s32 offset;
