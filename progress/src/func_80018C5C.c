@@ -38,9 +38,12 @@ void func_80018C5C(void *arg0, void *arg1) {
         } else {
             var_v0 = 0x10001;
         }
+        {
+        s32 *minimum = &D_801002B8;
         M2C_FIELD(arg0, s32 *, 0x14) = var_v0;
-        if (((s32) D_80102EB8 < D_801002B8) && (D_80102EB8 != 0)) {
-            D_801002B8 = (s32) D_80102EB8;
+        if (((s32) D_80102EB8 < *minimum) && (D_80102EB8 != 0)) {
+            *minimum = (s32) D_80102EB8;
+        }
         }
         if ((D_801002B8 == 1) && (D_801002BC == 0)) {
             D_801002BC = D_801002B8;
