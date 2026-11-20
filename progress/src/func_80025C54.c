@@ -20,15 +20,15 @@ s32 func_8002CBF4();
 extern char D_800BD560[];
 extern s8 D_80102EDC;
 extern s32 sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 typedef struct { unsigned char pad_0[20]; unsigned short field_14; unsigned char pad_16[22]; unsigned char field_2C; unsigned char pad_2D[1]; unsigned char field_2E; signed char field_2F; } __repair_record_D_80109BB0;
 void func_80025C54(void) {
     u16 temp_a0;
 
-    if ((((__repair_record_D_80109BB0*)D_80109BB0)->field_2C == 0) || (((__repair_record_D_80109BB0*)D_80109BB0)->field_2E != 0)) {
+    if ((((__repair_record_D_80109BB0*)gMenuState)->field_2C == 0) || (((__repair_record_D_80109BB0*)gMenuState)->field_2E != 0)) {
         D_800BD562 = 3U;
-        D_80102EDC = ((__repair_record_D_80109BB0*)D_80109BB0)->field_14 == 1;
+        D_80102EDC = ((__repair_record_D_80109BB0*)gMenuState)->field_14 == 1;
         updateActiveMenuState();
         return;
     }
@@ -41,14 +41,14 @@ void func_80025C54(void) {
             return;
         }
         D_800BD562 = 3U;
-        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2C = 0U;
+        ((__repair_record_D_80109BB0*)gMenuState)->field_2C = 0U;
         func_80026424(sActiveMenu, 0x18);
         return;
     case 4:
-        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2F = 1;
+        ((__repair_record_D_80109BB0*)gMenuState)->field_2F = 1;
         D_800BD562 = 3U;
         func_800294E4();
-        ((__repair_record_D_80109BB0*)D_80109BB0)->field_2C = 1U;
+        ((__repair_record_D_80109BB0*)gMenuState)->field_2C = 1U;
         return;
     }
 }

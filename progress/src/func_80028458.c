@@ -21,21 +21,21 @@ extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
 extern s32 gBorderSkipFlag;
 extern void *sActiveMenu;
-extern void *volatile gAimAxisTable;
-extern void *D_80109BB0;
+extern void *volatile gTrackAxisTable;
+extern void *gMenuState;
 
 void func_80028458(void) {
-    if (gAimAxisTable != NULL) {
-        M2C_FIELD(gAimAxisTable, f32 *, 0x12C) = 1.0f;
+    if (gTrackAxisTable != NULL) {
+        M2C_FIELD(gTrackAxisTable, f32 *, 0x12C) = 1.0f;
     }
     D_800BD690 = 0;
     func_800217F4();
     if (gBorderSkipFlag == 0) {
-        M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BDB1C;
+        M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BDB1C;
     } else {
-        M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BDBF8;
+        M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BDBF8;
     }
-    func_800269B4(D_80109BB0 + 0x1C, 3, 0x2A);
+    func_800269B4(gMenuState + 0x1C, 3, 0x2A);
     func_80011938(0, 1);
     func_80011938(1, 1);
     func_80011938(2, 1);

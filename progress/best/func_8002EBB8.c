@@ -24,7 +24,7 @@ extern s16 D_800BFDDC;
 extern char D_800E1584[];
 extern char D_800E1590[];
 extern u8 D_80102EDE;
-extern char gAimAxisTable[];
+extern char gTrackAxisTable[];
 
 typedef struct { void * field_0; unsigned char pad_4[36]; int field_28; void * field_2C; void * field_30; void * field_34; void * field_38; void * field_3C; short field_40; short field_42; short field_44; } __repair_record_temp_s1;
 void *func_8002EBB8(s32 arg0) {
@@ -168,7 +168,7 @@ void *func_8002EBB8(s32 arg0) {
         func_80044670((((__repair_record_temp_s1*)temp_s1)->field_30), 2, 0x24);
         temp_s0 = arg0 & 0xFFFF;
         func_80064318((((__repair_record_temp_s1*)temp_s1)->field_30), temp_s0);
-        func_80016990((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(gAimAxisTable + (temp_s0 * 4))) + 0xF4)));
+        func_80016990((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(gTrackAxisTable + (temp_s0 * 4))) + 0xF4)));
         __base_D_800BFD04 = &D_800BFCE0;
         (*__base_D_800BFD04) = arg0;
         (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFD04 - 0x20);

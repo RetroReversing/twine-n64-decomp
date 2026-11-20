@@ -27,17 +27,17 @@ M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
 void *func_8002A9A8(M2C_UNK *, s16);                /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s32 func_80087100(s32);                             /* extern */
-extern s16 D_800B60E2;
+extern s16 gMenuMode;
 extern M2C_UNK *D_800B60E4;
 extern u8 D_800BD68E;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern M2C_UNK D_800C469E;
 extern M2C_UNK D_800C46D8;
 extern M2C_UNK D_800C46DA;
 extern M2C_UNK D_800E0ECC;
 extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern M2C_UNK D_80109D28;
 extern M2C_UNK D_8010A500;
 extern M2C_UNK func_8001E898;
@@ -61,19 +61,19 @@ void menuRefreshSlot(void) {
     void *var_s4;
 
     D_800B60E4 = &D_801003E0;
-    (*(u16 *)&D_800B60E2) = 0;
+    (*(u16 *)&gMenuMode) = 0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_v0 = *((M2C_UNK *)((s8 *)&D_8010A500 + (D_800BD68F * 4)));
+    temp_v0 = *((M2C_UNK *)((s8 *)&D_8010A500 + (gMenuSlot * 4)));
     var_s4 = NULL;
     if (temp_v0 != NULL) {
         temp_s5 = M2C_FIELD(temp_v0, s32 *, 0x6C);
         if (temp_s5 != 0) {
             func_80022A30(D_800BD68E, 0x20, 0x42, 0x72, 0x50);
-            temp_v1 = (void *)((D_800BD68F * 2)); temp_v1 = (void *)((char *)temp_v1 + (s32)(&D_800E0ECC));
+            temp_v1 = (void *)((gMenuSlot * 2)); temp_v1 = (void *)((char *)temp_v1 + (s32)(&D_800E0ECC));
             if ((u16) *temp_v1 >= 0x28U) {
                 *temp_v1 = 0;
             }
-            temp_a1 = (void *)((D_800BD68F * 2)); temp_a1 = (void *)((char *)temp_a1 + (s32)(&D_800E0ECC));
+            temp_a1 = (void *)((gMenuSlot * 2)); temp_a1 = (void *)((char *)temp_a1 + (s32)(&D_800E0ECC));
             temp_a0 = *((u16 *)((s8 *)&D_800C469E + (*temp_a1 * 0xE8)));
             if ((temp_a0 & 0xFFFF) != 0x21) {
                 *temp_a1 = temp_a0;
@@ -92,7 +92,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                         func_800160FC(*__repair_phase_storage.pointer, func_80087100((var_s2 | 0x6000) & 0xFFFF), 0x40);
                         func_8002A7CC(D_800B60E4, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
                     }
-                    if (var_s1 == *((u16 *)&D_800E0ECC + D_800BD68F)) {
+                    if (var_s1 == *((u16 *)&D_800E0ECC + gMenuSlot)) {
                         var_s4 = func_8002A9A8(D_800B60E4, var_s3);
                     }
                     var_s3 += 1;
@@ -101,8 +101,8 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
             } while ((u32) (var_s2 & 0xFFFF) < 0x25U);
             if (var_s4 != NULL) {
                 s32 offset;
-                temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x62);
-                temp_s0_2 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x1E);
+                temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
+                temp_s0_2 = func_800262A8(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
                 offset = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
                 func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + offset)), *((s16 *)((s8 *)&D_800C46DA + offset)));
                 if (temp_s1 != NULL) {
@@ -116,7 +116,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                         M2C_FIELD(temp_s0_2, u8 *, 0x1C) = 0x90;
                     }
                 }
-                M2C_FIELD(D_80109BB0, u8 *, 0x30) = 0xFF;
+                M2C_FIELD(gMenuState, u8 *, 0x30) = 0xFF;
             }
             func_80022E18(D_800BD68E);
             func_80022AD8(D_800BD68E);

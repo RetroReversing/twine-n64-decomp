@@ -20,14 +20,14 @@ M2C_UNK func_80044FF0();                            /* extern */
 M2C_UNK func_8004505C();                            /* extern */
 M2C_UNK sceneSetupScreenLayout();                            /* extern */
 extern s32 gBorderSkipFlag;
-extern void *gAimAxisTable;
+extern void *gTrackAxisTable;
 
 void func_80045080(s32 arg0) {
     func_80044BE4();
     func_80044D84(arg0);
     func_80044DE4(arg0);
     func_80044FF0();
-    func_80042CFC(M2C_FIELD(gAimAxisTable, s32 *, 8), arg0);
+    func_80042CFC(M2C_FIELD(gTrackAxisTable, s32 *, 8), arg0);
     func_8004505C();
     if (gBorderSkipFlag != 0) {
         sceneSetupScreenLayout();

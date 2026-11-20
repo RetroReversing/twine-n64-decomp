@@ -17,7 +17,7 @@ M2C_UNK func_80027D60(u16);                         /* extern */
 s32 func_8002FBC0(s32);                             /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern s32 gBootState;
 
 typedef struct { unsigned char pad[32]; int value; } __repair_field_20;
@@ -25,15 +25,15 @@ void func_800282D0(void) {
     M2C_UNK (*temp_v0)();
 
     gBootState = 0;
-    if (((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 1) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) != 2)) {
-        func_8002FBD4(((__repair_field_20 *)D_80109BB0)->value, 3);
+    if (((func_8002FBC0(((__repair_field_20 *)gMenuState)->value) & 0xFFFF) != 1) && ((func_8002FBC0(((__repair_field_20 *)gMenuState)->value) & 0xFFFF) != 2)) {
+        func_8002FBD4(((__repair_field_20 *)gMenuState)->value, 3);
     }
-    M2C_FIELD(D_80109BB0, s8 *, 0x29) = 0;
-    temp_v0 = M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 0x10);
+    M2C_FIELD(gMenuState, s8 *, 0x29) = 0;
+    temp_v0 = M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), M2C_UNK (**)(), 0x10);
     if (temp_v0 != NULL) {
         temp_v0();
     }
-    if ((func_80027848(0x20) & 0xFF) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) == 2)) {
+    if ((func_80027848(0x20) & 0xFF) && ((func_8002FBC0(((__repair_field_20 *)gMenuState)->value) & 0xFFFF) == 2)) {
         func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     }
 }

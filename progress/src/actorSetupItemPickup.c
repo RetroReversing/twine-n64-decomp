@@ -19,7 +19,7 @@ extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
 extern char D_800C3CF8[];
 extern s8 D_80107ECC;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern char D_8010A488[];
 extern char D_800D2864[];
 
@@ -45,7 +45,7 @@ void actorSetupItemPickup(void) {
         if (func_80029C08(D_8010A488, 2, 0) & 0xFFFF) {
             pickupEntry = func_8002A980(D_8010A488);
             if (pickupEntry != NULL) {
-                msgBuffer = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4000);
+                msgBuffer = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x4000);
                 itemTable = func_800316C8();
                 if (itemTable != 0) {
                     if (msgBuffer) {

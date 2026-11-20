@@ -10,7 +10,7 @@ s32 sprintf(char *, const char *, ...);
 extern u8 D_80100300;
 extern u8 D_801007D8;
 extern Obj5B958 *gPlayerActor;
-extern s32 gAimAxisTable;
+extern s32 gTrackAxisTable;
 extern char D_800D4110[];
 
 static inline s32 check_5B958(void) {
@@ -44,7 +44,7 @@ static inline s32 check_5B958(void) {
     a = func_80087100(0xF3);
     b = func_80087100(0xFF);
     sprintf(buf, D_800D4110, a, D_80100300, b, D_801007D8, func_80087100(0xFD));
-    func_80073AF8(0, gAimAxisTable, buf, m1, m1, 1, 0, 0, 3, 0, 0);
+    func_80073AF8(0, gTrackAxisTable, buf, m1, m1, 1, 0, 0, 3, 0, 0);
     *(s16 *)((u8 *)gPlayerActor + 0x7A) = 1;
     func_8000A894(0x111);
     r = 1;

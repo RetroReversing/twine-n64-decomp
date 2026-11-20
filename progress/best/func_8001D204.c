@@ -1,5 +1,5 @@
 extern unsigned char D_801002A2, D_80112F82, D_80112F83, D_80112F84;
-extern unsigned char *D_80109BB0;
+extern unsigned char *gMenuState;
 extern int D_800BDA68;
 extern const char D_800D2864[];
 extern void updateActiveMenuState(void);
@@ -16,9 +16,9 @@ void func_8001D204(void) {
     const char *format;
     int name;
 
-    if (D_80109BB0[0x2F] == 0)
+    if (gMenuState[0x2F] == 0)
         updateActiveMenuState();
-    if (D_80109BB0[0x2D] == 0)
+    if (gMenuState[0x2D] == 0)
         goto clear;
     item = (char *)func_8002638C((int)&D_800BDA68, 0x92);
     if (item == 0)
@@ -28,7 +28,7 @@ void func_8001D204(void) {
     switch (*index) {
     case 7:
         if (D_80112F82 == 0) {
-            D_80109BB0[0x2F] = 1;
+            gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
                 ++*index;
             else
@@ -38,7 +38,7 @@ void func_8001D204(void) {
         break;
     case 8:
         if (D_80112F83 == 0) {
-            D_80109BB0[0x2F] = 1;
+            gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
                 ++*index;
             else
@@ -48,7 +48,7 @@ void func_8001D204(void) {
         break;
     case 9:
         if (D_80112F84 == 0) {
-            D_80109BB0[0x2F] = 1;
+            gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
                 *index = 0;
             else
@@ -66,5 +66,5 @@ void func_8001D204(void) {
     formatTextEntry(item, (int)format, name);
     formatTextEntry(second, (int)format, func_80087100(*index + 0x177));
 clear:
-    D_80109BB0[0x2F] = 0;
+    gMenuState[0x2F] = 0;
 }

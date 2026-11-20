@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 void func_80022B60(s32);
 u16 func_80023EC0(u16, s32, void *, void *);
 M2C_UNK updatePairedSpriteState(s32, u16, u8, s32);
-extern u16 D_800BD558; extern u8 D_800BD55A; extern s32 D_800BD644; extern s32 D_800BD648; extern void *D_80109BB0;
+extern u16 D_800BD558; extern u8 D_800BD55A; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gMenuState;
 void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
  s32 temp_s1; s32 temp_t0; s32 temp_v1; s32 var_a1; s32 var_a2; s32 var_v0; u16 temp_v0; void *temp_a0; void *temp_a0_2; void *temp_a3;
  var_a1=arg1; var_a2=arg2; temp_a3=M2C_FIELD(arg0,void **,0); temp_t0=var_a1; arg1=var_a2;
@@ -30,8 +30,8 @@ void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
     temp_a0_2=M2C_FIELD(temp_a3,void **,0);
     M2C_FIELD(temp_a0_2,s32 *,0x28)=(M2C_FIELD(temp_a0_2,s32 *,0x28)&~0xFC)|temp_v1;
     var_a2=(s32)M2C_FIELD(temp_a3,void **,4); var_a1=-0x100;
-    M2C_FIELD(var_a2,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(D_80109BB0,u8 *,0x30);
-    M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(D_80109BB0,u8 *,0x30);
+    M2C_FIELD(var_a2,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
     M2C_FIELD(M2C_FIELD(temp_a3,void **,4),u16 *,0x22)=M2C_FIELD(arg0,u16 *,6);
     M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s16 *,0x22)=M2C_FIELD(arg0,u16 *,6)+8;
     M2C_FIELD(M2C_FIELD(temp_a3,void **,4),u16 *,0x20)=M2C_FIELD(arg0,u16 *,4);

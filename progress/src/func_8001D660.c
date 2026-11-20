@@ -16,15 +16,15 @@ M2C_UNK func_80018C5C(s32, s32);                    /* extern */
 M2C_UNK func_8001BE64();                            /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001D660(void) {
     s32 temp_s0;
 
     updateActiveMenuState();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
-        temp_s0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x5B);
-        func_80018C5C(temp_s0, findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x5C));
+    if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
+        temp_s0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5B);
+        func_80018C5C(temp_s0, findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5C));
         func_8001BE64();
     }
 }

@@ -25,13 +25,15 @@ extern s16 D_800C7EA0;
 extern char D_800C7EA4[];
 extern char D_800C7EC4[];
 extern char D_800E1A70[];
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 extern s32 D_80109B98;
 extern s32 D_8010A500;
 extern char D_8010D380[];
 extern char D_8010D2C0[];
 
 void func_800740D0(void *arg0) {
+s32 __repair_argument;
+
     s16 *__base_D_800C7EA0;
     char *__base_D_8010D380;
     char *__base_D_8010D2C0;
@@ -76,10 +78,12 @@ void func_800740D0(void *arg0) {
     temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
     M2C_FIELD(arg0, f32 *, 0x40) += M2C_FIELD(temp_s1, f32 *, 0x14);
     switch (temp_v1) {
-    case 0:
-        __base_D_8010D380 = D_8010D380;
-        temp_v0_7 = ((M2C_FIELD(temp_s1, u8 *, 0x33) * 7) << 2) + (s32)__base_D_8010D380;
-        if (*(s32 *)(temp_v0_7 + (M2C_FIELD(temp_s1, u8 *, 0x34) * 4)) == M2C_FIELD(temp_s1, s32 *, 0x18)) {
+    case 0: {
+        char *row = ((M2C_FIELD(temp_s1, u8 *, 0x33) * 7) << 2) + D_8010D380;
+        s32 *cell = (s32 *)(row + (M2C_FIELD(temp_s1, u8 *, 0x34) * 4));
+        temp_v0_7 = *cell;
+    }
+        if (temp_v0_7 == M2C_FIELD(temp_s1, s32 *, 0x18)) {
             temp_s3 = M2C_FIELD(temp_s1, void **, 4);
             if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && (func_80045590(temp_s1 + 8, D_8010A500 + 0x24) > (2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)))) {
                 var_s0 = func_80015DAC();
@@ -93,7 +97,7 @@ do {
                         temp_v1_2 = M2C_FIELD(temp_s1, s32 *, 0x24);
                         if ((temp_v1_2 != 0) && !(temp_v1_2 & 0x80000000)) {
                             temp_v1_3 = temp_v1_2 & 0xFF;
-                            *(gActorDoneFlags + temp_v1_3) = *(gActorDoneFlags + temp_v1_3) ^ 1;
+                            *(gTrackDoneFlags + temp_v1_3) = *(gTrackDoneFlags + temp_v1_3) ^ 1;
                         }
                         M2C_FIELD(var_s0, s16 *, 0x7A) = 8;
                     }
@@ -166,7 +170,7 @@ do {
                     if (temp_v1_5 != 0) {
                         temp_v1_6 = temp_v1_5 & 0xFF;
                         if (temp_v1_5 >= 0) {
-                            *(gActorDoneFlags + temp_v1_6) = *(gActorDoneFlags + temp_v1_6) ^ 1;
+                            *(gTrackDoneFlags + temp_v1_6) = *(gTrackDoneFlags + temp_v1_6) ^ 1;
                         }
                     }
                     M2C_FIELD(arg0, s16 *, 0x7A) = 8;
@@ -194,8 +198,9 @@ do {
         if (temp_a1_2 != 0) {
             temp_v0_7 = M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C;
             __base_D_8010D380 = D_8010D380;
-            __base_D_8010D2C0 = D_8010D2C0;
-            if (*(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D380)) == *(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D2C0))) {
+            __repair_argument = *(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D380)) == *(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D2C0));
+__base_D_8010D2C0 = D_8010D2C0;
+            if (__repair_argument) {
                 temp_a0_6 = *(s32 *)(D_800E1A70 + temp_a1_3);
                 __base_D_800C7EA4 = D_800E1A70;
                 if (temp_a0_6 != NULL) {

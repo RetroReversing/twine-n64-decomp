@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 approxDistance();
 s8 func_8005EF84();
 extern f64 D_800D4190;
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 extern void *D_8010A500;
 
 s8 func_8005E4C8(void *arg0) {
@@ -28,7 +28,7 @@ s8 func_8005E4C8(void *arg0) {
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_s1, u16 *, 0x24);
-    if ((temp_v0 != 0) && (*(gActorDoneFlags + temp_v0) == 0)) {
+    if ((temp_v0 != 0) && (*(gTrackDoneFlags + temp_v0) == 0)) {
         return 0;
     }
     i = 0;

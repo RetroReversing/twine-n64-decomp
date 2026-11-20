@@ -4,7 +4,7 @@ typedef struct { u8 pad0[0x10]; s32 f10; } Sys4D78;
 extern s32 D_80107EA8;
 extern char D_800D2AD0[];
 extern char D_800D2AE0[];
-extern Sys4D78 *D_80109BB0;
+extern Sys4D78 *gMenuState;
 Item4D78 **func_8002A920(s32 *, s8);
 s8 func_8002CB98(u16);
 s32 func_8002CB7C(u16);
@@ -57,7 +57,7 @@ void func_80024D78(void) {
             func_800448A4(it->f4, 0x10, 0x24);
         }
     }
-    p = findEntryById(D_80109BB0->f10, 0x4010);
+    p = findEntryById(gMenuState->f10, 0x4010);
     if (p != 0) {
         n = func_80087100(0x300E);
         formatTextEntry(p, D_800D2AE0, n, func_8002D1F8());

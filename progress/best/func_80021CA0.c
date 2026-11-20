@@ -31,7 +31,7 @@ extern u8 D_80102EB8;
 extern M2C_UNK gBorderSkipFlag;
 extern u8 D_80102EDD;
 extern M2C_UNK D_80102F48[];
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern M2C_UNK D_8010A488;
 
 void func_80021CA0(void) {
@@ -53,7 +53,7 @@ void func_80021CA0(void) {
     void *temp_s1_2;
     void *temp_v0;
 
-    temp_v0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
+    temp_v0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x4000);
     temp_s1 = temp_v0 + 0x28;
     if (temp_v0 != NULL) {
         temp_a0 = *(D_80100198 + D_801002AD * 0x6) + 0x185;

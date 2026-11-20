@@ -32,7 +32,7 @@ extern s32 gBorderSkipFlag;
 extern char D_80102F48[];
 extern u8 D_80104310;
 extern u8 D_80108960;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern u8 D_80109E20;
 extern u8 D_8010A394;
 extern char D_8010A488[];
@@ -86,19 +86,19 @@ void func_8001F9A4(void) {
     u8 temp_v1;
     s32 temp_v1_2;
 
-    temp_s2 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x79);
-    temp_s1 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x78);
-    var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7A);
+    temp_s2 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x79);
+    temp_s1 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x78);
+    var_s0 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7A);
     if (var_s0 == 0) {
-        var_s0 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x13);
+        var_s0 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x13);
     }
-    temp_s7 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7B);
-    sp34 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7D);
-    temp_fp = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7C);
-    temp_s6 = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x162);
-    sp3C = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7F);
+    temp_s7 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7B);
+    sp34 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7D);
+    temp_fp = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7C);
+    temp_s6 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x162);
+    sp3C = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7F);
     if (((temp_s1 != 0) & (temp_s2 != 0)) && ((var_s0 != 0) & (temp_s7 != 0)) && ((sp34 != 0) & (temp_fp != 0)) && ((sp3C != 0) & (temp_s6 != 0))) {
-        (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = 1;
+        (*(s8 *)((char *)((*(void **)((char *)(gMenuState) + 0x10))) + 4)) = 1;
         if (gBorderSkipFlag == 0) {
             D_801002AD = 0;
         }
@@ -174,7 +174,7 @@ void func_8001F9A4(void) {
             }
 block_32:
             { func_80025E9C(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 1, 0xD); }
-            if ((*(u8 *)((char *)(D_80109BB0) + 8)) == 0xD) {
+            if ((*(u8 *)((char *)(gMenuState) + 8)) == 0xD) {
                 func_800274BC(0x100, 2);
             }
         } else {

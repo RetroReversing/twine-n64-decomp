@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void **D_80109BB0;
+extern void **gMenuState;
 
 void func_80026868(s16 arg0) {
     f32 temp_fv1;
@@ -26,7 +26,7 @@ void func_80026868(s16 arg0) {
     void *temp_a0_3;
     void *temp_a1;
 
-    temp_a1 = M2C_FIELD(D_80109BB0, void **, 0x24);
+    temp_a1 = M2C_FIELD(gMenuState, void **, 0x24);
     if (temp_a1 != NULL) {
         temp_a3 = M2C_FIELD(temp_a1, s32 *, 0x10);
         lo = temp_a3;
@@ -35,11 +35,11 @@ void func_80026868(s16 arg0) {
             M2C_FIELD(temp_a1, s32 *, 0x10) = (s32) ((temp_a3 & ~0xFF) | (lo + 8));
         }
         if (temp_fv1 < 30.0f) {
-            temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x24);
+            temp_a0 = M2C_FIELD(gMenuState, void **, 0x24);
             M2C_FIELD(temp_a0, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0, s32 *, 0x10) & ~0xFF) | (lo - 8));
         }
     }
-    temp_a0_2 = M2C_FIELD(D_80109BB0, void **, 0);
+    temp_a0_2 = M2C_FIELD(gMenuState, void **, 0);
     if (temp_a0_2 != NULL) {
         temp_a1_2 = M2C_FIELD(temp_a0_2, s32 *, 0x10);
         lo = temp_a1_2;
@@ -48,7 +48,7 @@ void func_80026868(s16 arg0) {
             M2C_FIELD(temp_a0_2, s32 *, 0x10) = (s32) ((temp_a1_2 & ~0xFF) | (lo + 8));
         }
         if (temp_fv1_2 < 30.0f) {
-            temp_a0_3 = M2C_FIELD(D_80109BB0, void **, 0);
+            temp_a0_3 = M2C_FIELD(gMenuState, void **, 0);
             M2C_FIELD(temp_a0_3, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0_3, s32 *, 0x10) & ~0xFF) | (lo - 8));
         }
     }

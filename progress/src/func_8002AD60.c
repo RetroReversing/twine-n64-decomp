@@ -17,7 +17,7 @@ void *func_80026A5C(void *, s32);                   /* extern */
 extern s32 D_800BD660;
 extern s32 D_800BF5A0;
 extern s32 D_80102EBC;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 s32 func_8002AD60(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
     s32 temp_v1;
@@ -57,7 +57,7 @@ s32 func_8002AD60(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
     func_800269B4(arg0 + 8, 3, 0x2A);
     temp_a1 = M2C_FIELD(arg0, void **, 8);
     if (temp_a1 != NULL) {
-        M2C_FIELD(temp_a1, s32 *, 0x10) = (s32) ((D_800BD660 & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
+        M2C_FIELD(temp_a1, s32 *, 0x10) = (s32) ((D_800BD660 & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
         temp_a0 = M2C_FIELD(arg0, void **, 8);
         M2C_FIELD(temp_a0, s32 *, 0x28) = (s32) (M2C_FIELD(temp_a0, s32 *, 0x28) & ~0xFC);
     }

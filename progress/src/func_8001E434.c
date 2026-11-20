@@ -16,14 +16,14 @@ M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
 M2C_UNK func_80029448();                            /* extern */
 s32 func_80087100(u16);                             /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001E434(void) {
     s32 temp_v0;
 
-    temp_v0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
+    temp_v0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x4000);
     if (temp_v0 != 0) {
-        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(D_80109BB0, u16 **, 0x18)));
+        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(gMenuState, u16 **, 0x18)));
     }
     func_80029448();
 }

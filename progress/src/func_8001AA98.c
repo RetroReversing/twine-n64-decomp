@@ -7,7 +7,7 @@ s32 updateActiveMenuState();
 s32 func_80087100();
 extern char D_801001A2[];
 extern u8 D_801002AD;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001AA98(void) {
     s32 var_a0;
@@ -16,8 +16,8 @@ void func_8001AA98(void) {
     s32 temp_s1;
 
     updateActiveMenuState();
-    if ((*(u8 *)((char *)(D_80109BB0) + 0x2D)) != 0) {
-        temp_s0 = (*(s32 *)((char *)(D_80109BB0) + 0x18)) + 0x28;
+    if ((*(u8 *)((char *)(gMenuState) + 0x2D)) != 0) {
+        temp_s0 = (*(s32 *)((char *)(gMenuState) + 0x18)) + 0x28;
         temp_s1 = __repair_inline(*(D_801001A2 + (D_801002AD * 0x18)));
         temp_v1 = temp_s1 & 0xFFFF;
         switch (temp_v1) {

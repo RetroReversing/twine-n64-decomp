@@ -19,7 +19,7 @@ void initResourceCaches(void) {
     fill_s32(0x7fffffff, 0, D_800DC718, 6, &D_800DC712, &D_800DC710);
 }
 typedef struct { u8 pad[0x2D]; u8 flag2D; u8 pad2E; u8 flag2F; } MenuState;
-extern MenuState *D_80109BB0;
+extern MenuState *gMenuState;
 extern u8 D_800BD690, D_801002A2, D_800BDA68[];
 extern char D_800D2864[];
 void func_8001A4F4(void);
@@ -34,10 +34,10 @@ void func_8001A434(void) {
         u8 *index;
         char *text;
         char *format;
-        D_80109BB0->flag2F = 1;
-        D_80109BB0->flag2D = 1;
+        gMenuState->flag2F = 1;
+        gMenuState->flag2D = 1;
         func_8001A4F4();
-        D_80109BB0->flag2F = 0;
+        gMenuState->flag2F = 0;
         index = &D_801002A2;
         text = func_80087100(*index + 0x16D);
         format = D_800D2864;

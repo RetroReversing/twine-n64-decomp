@@ -30,7 +30,7 @@ extern u8 D_800B60EA;
 extern ActionEntry D_800C4480[];
 extern s32 D_80102EBC;
 extern ActionOptions *sActiveMenu;
-extern ActionState *D_80109BB0;
+extern ActionState *gMenuState;
 extern s32 D_8010A500[];
 
 s32 func_8001F4B8(u16 slot, s32 action)
@@ -52,7 +52,7 @@ s32 func_8001F4B8(u16 slot, s32 action)
         invoke(object);
     }
 
-    state = D_80109BB0;
+    state = gMenuState;
     if (state->entered != 0) {
         return (u8)action;
     }
@@ -65,9 +65,9 @@ s32 func_8001F4B8(u16 slot, s32 action)
     }
     if (state->handler != 0) {
         handler = findEntryById(state->object, 14);
-        state = D_80109BB0;
+        state = gMenuState;
         state->entered = 1;
-        callbackState = D_80109BB0;
+        callbackState = gMenuState;
         state->handler = handler;
         callbackState->handler->enter(state);
     }

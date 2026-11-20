@@ -22,7 +22,7 @@ extern u8 D_800C7CF6;
 extern s16 D_800C7D08;
 extern s16 D_800C7D2C;
 extern s16 D_800C7D50;
-extern char gAimAxisTable[];
+extern char gTrackAxisTable[];
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 void func_80070340(s32 arg0, void *arg1) {
@@ -44,7 +44,7 @@ void func_80070340(s32 arg0, void *arg1) {
         if (!(arg0 & 0xFFFF)) {
 char *__branch___base_D_80109688;
 
-            __branch___base_D_80109688 = gAimAxisTable;
+            __branch___base_D_80109688 = gTrackAxisTable;
             temp_a0 = (temp_s2 * 4) + __branch___base_D_80109688;
             M2C_FIELD(arg1, s8 *, 0x185) = 0;
             temp_a1 = *temp_a0;
@@ -59,8 +59,8 @@ char *__branch___base_D_80109688;
             return;
         }
         M2C_FIELD(arg1, s8 *, 0x185) = 1;
-        temp_a0_2 = *((void **)(gAimAxisTable + (temp_s2 * 4)));
-        temp_s1 = (temp_s2 * 4) + gAimAxisTable;
+        temp_a0_2 = *((void **)(gTrackAxisTable + (temp_s2 * 4)));
+        temp_s1 = (temp_s2 * 4) + gTrackAxisTable;
         ((__repair_field_100 *)temp_a0_2)->value = (s32) (((__repair_field_100 *)temp_a0_2)->value & ~7);
         temp_v1_2 = *temp_s1;
         ((__repair_field_100 *)temp_v1_2)->value = (s32) (((__repair_field_100 *)temp_v1_2)->value | 2);

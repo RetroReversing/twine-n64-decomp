@@ -27,30 +27,30 @@ extern s32 D_80102EBC;
 extern u8 D_80102EDD;
 extern u8 D_80102EDE;
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_80027FF4(void) {
     s32 var_a0;
 
-    if (M2C_FIELD(D_80109BB0, s32 *, 0x20) == 0) {
+    if (M2C_FIELD(gMenuState, s32 *, 0x20) == 0) {
         if (D_80102EDD == 0) {
-            M2C_FIELD(D_80109BB0, s32 *, 0x20) = func_8002EBB8(D_800BD68E);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8002EBB8(D_800BD68E);
         } else {
-            M2C_FIELD(D_80109BB0, s32 *, 0x20) = func_8003030C(D_800BD68E);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8003030C(D_800BD68E);
         }
     }
     func_80026450();
     func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
-    if (M2C_FIELD(D_80109BB0, s32 *, 0x10) == 0) {
+    if (M2C_FIELD(gMenuState, s32 *, 0x10) == 0) {
         var_a0 = D_80102EDE;
         if (var_a0 == 31) {
-            M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BF458;
+            M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BF458;
             func_80081D20(0, 0x2A);
             func_80081D20(0, 0x24);
             func_80081D20(0, 0x23);
-            func_800269B4(D_80109BB0 + 0x1C, 0x26, 0x24);
-            func_8002FBD4(M2C_FIELD(D_80109BB0, s32 *, 0x20), 9);
-            M2C_FIELD(D_80109BB0, s16 *, 0x32) = 0;
+            func_800269B4(gMenuState + 0x1C, 0x26, 0x24);
+            func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 9);
+            M2C_FIELD(gMenuState, s16 *, 0x32) = 0;
             func_800278AC(1U, D_80102EBC & ~0xFF, 0x16U);
             func_8002778C();
         } else if (var_a0 != 0) {

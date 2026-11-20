@@ -2,7 +2,7 @@
 
 s32 func_80002EF0(void *);                      /* extern */
 s32 func_800645A4(u32);                             /* extern */
-s32 func_80067CA8(void *);                      /* extern */
+s32 updateSwayMotion(void *);                      /* extern */
 s32 func_80070870(void *);                      /* extern */
 
 void func_80064780(void *arg0) {
@@ -42,6 +42,6 @@ if (0x21U > var_s1) goto __repair_rows;
     (*(s8 *)((char *)(temp_v0) + 0xF)) = 0;
     func_80070870(arg0);
     (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) = 0;
-    func_80067CA8(arg0);
+    updateSwayMotion(arg0);
     func_80002EF0((*(void **)((char *)(temp_s2) + 0xA8)));
 }

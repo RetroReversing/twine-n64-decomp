@@ -46,7 +46,7 @@ extern char D_80115088[];
 extern char D_8011508A[];
 extern char D_8011508B[];
 extern char D_80115090[];
-extern s32 gAimAxisTable;
+extern s32 gTrackAxisTable;
 extern s32 gBorderMode;
 extern s32 gBorderSkipFlag;
 
@@ -350,7 +350,7 @@ block_80:
     }
     if (!(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 1)) {
         if (*(D_80115090 + (temp_s3 * 0xA0)) != 0) {
-            if ((M2C_FIELD(temp_s1, void **, 0x410) != NULL) || (temp_v0_4 = func_80015F0C(), M2C_FIELD(temp_s1, void **, 0x410) = temp_v0_4, func_800165E0(temp_v0_4, *(&gAimAxisTable + (temp_s3 * 4))), (M2C_FIELD(temp_s1, void **, 0x410) != NULL))) {
+            if ((M2C_FIELD(temp_s1, void **, 0x410) != NULL) || (temp_v0_4 = func_80015F0C(), M2C_FIELD(temp_s1, void **, 0x410) = temp_v0_4, func_800165E0(temp_v0_4, *(&gTrackAxisTable + (temp_s3 * 4))), (M2C_FIELD(temp_s1, void **, 0x410) != NULL))) {
                 temp_v1_9 = M2C_FIELD(temp_s1, u8 *, 0x185);
                 temp_s0 = M2C_FIELD(temp_s1, void **, 0x410);
                 switch (temp_v1_9) {                /* switch 1; irregular */
@@ -373,7 +373,7 @@ block_80:
             func_80016314(M2C_FIELD(temp_s1, void **, 0x410));
             M2C_FIELD(temp_s1, void **, 0x410) = NULL;
         }
-    } else if ((M2C_FIELD(temp_s1, void **, 0x410) != NULL) || (temp_v0_5 = func_80015F0C(), M2C_FIELD(temp_s1, void **, 0x410) = temp_v0_5, func_800165E0(temp_v0_5, *(&gAimAxisTable + (temp_s3 * 4))), (M2C_FIELD(temp_s1, void **, 0x410) != NULL))) {
+    } else if ((M2C_FIELD(temp_s1, void **, 0x410) != NULL) || (temp_v0_5 = func_80015F0C(), M2C_FIELD(temp_s1, void **, 0x410) = temp_v0_5, func_800165E0(temp_v0_5, *(&gTrackAxisTable + (temp_s3 * 4))), (M2C_FIELD(temp_s1, void **, 0x410) != NULL))) {
         temp_v1_10 = M2C_FIELD(temp_s1, u8 *, 0x185);
         temp_s0_2 = M2C_FIELD(temp_s1, void **, 0x410);
         switch (temp_v1_10) {                       /* switch 2; irregular */

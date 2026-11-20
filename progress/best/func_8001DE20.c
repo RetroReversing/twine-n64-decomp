@@ -10,7 +10,7 @@ extern char D_800BD8EC[];
 extern char D_800D2A74[];
 extern char D_800D2864[];
 extern s16 gExpansionPakPresent;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
 extern u8 gOptionFlagA;
@@ -51,8 +51,8 @@ s32 __repair_phase_var_a0;
             func_80025E9C(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);
             formatTextEntry(var_s3, D_800D2A74);
             func_80025D84(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
-            temp_s2 = (*(void **)((char *)(D_80109BB0) + 0x10));
-            (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x1F);
+            temp_s2 = (*(void **)((char *)(gMenuState) + 0x10));
+            (*(s8 *)((char *)((*(void **)((char *)(gMenuState) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x1F);
         } else {
             (*(s16 *)((char *)(var_s3) + -0x28)) = 0x1C;
             func_80025D84(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C);
@@ -60,8 +60,8 @@ s32 __repair_phase_var_a0;
             if (D_8010A4FF != 0) var_a0 = 0x1D;
             { formatTextEntry(var_s3, "%s", func_80087100(var_a0)); }
             func_80025E9C(temp_s4 - 0x28, temp_s4, var_s3 - 0x28, temp_s5 - 0x28, 1, 0xD);
-            temp_s2 = (*(void **)((char *)(D_80109BB0) + 0x10));
-            (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x20);
+            temp_s2 = (*(void **)((char *)(gMenuState) + 0x10));
+            (*(s8 *)((char *)((*(void **)((char *)(gMenuState) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x20);
         }
         if (D_8010A4C0 == 1) var_a0_4 = 0x17;
         else var_a0_4 = 0x16;

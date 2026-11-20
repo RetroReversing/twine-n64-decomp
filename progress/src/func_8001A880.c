@@ -20,14 +20,14 @@ s32 func_8002B278(u32 *);                           /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern u32 D_801002C4;
 extern u32 D_801002F4;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001A880(void) {
     s32 var_v0_2;
     u32 var_v0;
 
     updateActiveMenuState();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
+    if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
         switch (D_801002F4) {
         case 0:
         case 1:
@@ -58,9 +58,9 @@ void func_8001A880(void) {
         if ((func_8002B278(&D_801002C4) << 0x10) == 0) {
             var_v0_2 = func_80087100(0x5F);
         
-        formatTextEntry(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, D_800D2864, var_v0_2);} else {
+        formatTextEntry(M2C_FIELD(gMenuState, s32 *, 0x18) + 0x28, D_800D2864, var_v0_2);} else {
             var_v0_2 = func_8002B248(&D_801002C4);
         
-        formatTextEntry(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, D_800D2864, var_v0_2);}
+        formatTextEntry(M2C_FIELD(gMenuState, s32 *, 0x18) + 0x28, D_800D2864, var_v0_2);}
     }
 }

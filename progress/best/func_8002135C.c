@@ -9,11 +9,11 @@ s32 func_80016718(void *);                      /* extern */
 s32 func_80016990(void *, s32);                 /* extern */
 s32 func_8002A920(void *, s8);                      /* extern */
 s32 func_80044670(void *, int, u32);             /* extern */
-extern u16 D_800B60E2;
+extern u16 gMenuMode;
 extern void *gMenuList;
 extern void *D_800B7CE8;
 extern u8 D_800B7CEC;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern s32 D_800C4478;
 extern s32 D_800C447A;
 extern s32 D_800C472E;
@@ -24,7 +24,7 @@ extern f32 D_800C477C;
 extern s32 D_800C4780;
 extern f64 D_800D2A98;
 extern void *D_80109698;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern s32 gBootState;
 extern s32 D_8010A500;
 
@@ -41,7 +41,7 @@ void func_8002135C(void) {
         var_s1 = -1;
         temp_v0 = func_8002A920(gMenuList, (*(s8 *)((char *)(gMenuList) + 0x18)));
         if (temp_v0 != NULL) {
-            if (!D_800B60E2) {
+            if (!gMenuMode) {
                 var_s0 = *((u8 *)((s8 *)&D_800C473A + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
                 if ((s32) var_s0 < 0) {
                     var_s0 = -1U;
@@ -49,7 +49,7 @@ void func_8002135C(void) {
                 var_s1 = 1;
                 goto block_9;
             }
-            if (*((s32 *)((s8 *)&D_8010A500 + (D_800BD68F * 4))) != 0) {
+            if (*((s32 *)((s8 *)&D_8010A500 + (gMenuSlot * 4))) != 0) {
                 temp_v0_2 = (*(u8 *)((char *)(temp_v0) + 8)) * 0x10;
                 var_s0 = *((s16 *)((s8 *)&D_800C4478 + temp_v0_2));
                 var_s1 = *((s16 *)((s8 *)&D_800C447A + temp_v0_2));
@@ -63,7 +63,7 @@ block_9:
                     func_80016718(D_800B7CE8);
                     return;
                 }
-                if (D_800B60E2 == 1) {
+                if (gMenuMode == 1) {
                     do { func_80044670(D_800B7CE8, var_s0, var_s1); } while (0);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_24 = 0.14f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = -0.0315f;
@@ -93,7 +93,7 @@ block_9:
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x1100);
                 func_80016718(D_800B7CE8);
                 func_80016990(D_800B7CE8, (*(s32 *)((char *)(D_80109698) + 0xF4)));
-                (*(s8 *)((char *)(D_80109BB0) + 0x30)) = 0xFF;
+                (*(s8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
             }
         }
     }

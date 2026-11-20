@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK cameraUpdateProjection(s32, f32);                    /* extern */
-extern s32 gAimAxisTable;
+extern s32 gTrackAxisTable;
 
 void func_80048734(f32 arg0) {
     s32 *var_s0;
@@ -21,7 +21,7 @@ void func_80048734(f32 arg0) {
     u32 var_s1;
 
     var_s1 = 0;
-    var_s0 = &gAimAxisTable;
+    var_s0 = &gTrackAxisTable;
     do {
         temp_a0 = *var_s0;
         var_s0 += 1;

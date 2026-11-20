@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 s16 strlen();                                       /* extern */
 extern s32 sActiveMenu;
-extern void **D_80109BB0;
+extern void **gMenuState;
 
 void *func_80027408(s32 arg0, s32 arg1, s16 arg2, u8 arg3) {
     void *p;
 
     p = NULL;
     if (sActiveMenu != 0) {
-        p = *D_80109BB0;
+        p = *gMenuState;
         if (p == NULL) {
             return NULL;
         }

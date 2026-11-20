@@ -16,7 +16,7 @@ s32 func_80029C08(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
 void *func_8002A980(M2C_UNK *);                     /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
 extern u8 D_801002AD;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern M2C_UNK D_8010A488;
 
 void func_80021FA8(void) {
@@ -30,8 +30,8 @@ void func_80021FA8(void) {
         if (temp_v0 != NULL) {
             var_s1 = M2C_FIELD(temp_v0, u8 *, 8);
         }
-        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 0xC)();
+        M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), M2C_UNK (**)(), 0xC)();
         D_801002AD = var_s1;
-        M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), M2C_UNK (**)(), 8)();
+        M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), M2C_UNK (**)(), 8)();
     }
 }

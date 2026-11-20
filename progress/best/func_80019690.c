@@ -37,7 +37,7 @@ extern u8 D_80102EE8;
 extern s32 D_80102EF0;
 extern char D_80102EFC[];
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern s32 D_8010A4E4;
 
 void func_80019690(void) {
@@ -47,18 +47,18 @@ void func_80019690(void) {
     unsigned k;
     register s32 sw;
 
-    p = (*(void **)((char *)(D_80109BB0) + 0x18));
+    p = (*(void **)((char *)(gMenuState) + 0x18));
     (*(u8 *)((char *)(p) + 0x1C)) |= 0x10;
     if (func_80027C60(0x23) & 0xFF) {
-        (*(u8 *)((char *)(D_80109BB0) + 0x2C)) = 1;
-        (*(s8 *)((char *)(D_80109BB0) + 0x2F)) = 1;
+        (*(u8 *)((char *)(gMenuState) + 0x2C)) = 1;
+        (*(s8 *)((char *)(gMenuState) + 0x2F)) = 1;
     }
-    if ((*(u8 *)((char *)(D_80109BB0) + 0x2C)) == 0) {
+    if ((*(u8 *)((char *)(gMenuState) + 0x2C)) == 0) {
         updateActiveMenuState();
         return;
     }
-    if ((*(s32 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x18))) + 0x14)) != 0 && D_801002B4 < 2) {
-        (*(u8 *)((char *)(D_80109BB0) + 0x2C)) = 0;
+    if ((*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0x18))) + 0x14)) != 0 && D_801002B4 < 2) {
+        (*(u8 *)((char *)(gMenuState) + 0x2C)) = 0;
         func_8000A894(0xEA);
         return;
     }
@@ -72,7 +72,7 @@ void func_80019690(void) {
     } else {
         func_8003099C(D_80102EE0, D_80102EE8);
         D_80102EDD = 1;
-        p = (*(void **)((char *)(D_80109BB0) + 0x18));
+        p = (*(void **)((char *)(gMenuState) + 0x18));
         if ((*(s32 *)((char *)(p) + 0x10)) != 0) {
             gBorderSkipFlag = (*(s32 *)((char *)(p) + 0x14));
         }

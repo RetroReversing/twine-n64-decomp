@@ -2,7 +2,7 @@
 
 s32 func_80016314(s32);                         /* extern */
 s32 func_80026A5C(void *, s32);                 /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void switchActiveItemSet(void *arg0, s32 arg1) {
 s32 __repair_operand;
@@ -20,14 +20,14 @@ s32 __repair_operand;
     void *temp_v0;
     void *var_a0;
 
-    temp_v0 = (*(void **)((char *)(D_80109BB0) + 0x10));
+    temp_v0 = (*(void **)((char *)(gMenuState) + 0x10));
     var_s1 = 0;
     if (temp_v0 != NULL) {
         temp_v0_2 = (*(s32 (**)())((char *)(temp_v0) + 0xC));
         if (temp_v0_2 != NULL) {
             temp_v0_2();
         }
-        var_a0 = D_80109BB0;
+        var_a0 = gMenuState;
         if ((*(u8 *)((char *)((*(void **)((char *)(var_a0) + 0x10))) + 5)) != 0) {
             do {
                 temp_s0 = (*(s32 *)((char *)((*(void **)((char *)(var_a0) + 0x10))) + 0)) + ((unsigned)var_s1 * 0x28);
@@ -36,13 +36,13 @@ s32 __repair_operand;
                     func_80016314(temp_a0);
                     (*(s32 *)((char *)(temp_s0) + 8)) = 0;
                 }
-                var_a0 = D_80109BB0;
+                var_a0 = gMenuState;
                 temp_v1 = var_s1 + 1;
                 var_s1 = temp_v1;
             } while (temp_v1 < (s32) (*(u8 *)((char *)((*(void **)((char *)(var_a0) + 0x10))) + 5)));
         }
     }
-    (*(void **)((char *)(D_80109BB0) + 0x10)) = arg0;
+    (*(void **)((char *)(gMenuState) + 0x10)) = arg0;
     if (arg0 != NULL) {
         temp_v0_3 = (*(void (**)(void))((char *)(arg0) + 8));
         if (temp_v0_3 != NULL) {

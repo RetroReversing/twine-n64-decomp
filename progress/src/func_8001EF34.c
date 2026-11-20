@@ -18,7 +18,7 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 extern u8 D_800B60E0;
 extern s16 gSaveStatus;
 extern s32 sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001EF34(void) {
     if (D_800B60E0 != 0) {
@@ -26,7 +26,7 @@ void func_8001EF34(void) {
         return;
     }
     updateActiveMenuState();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 1) {
+    if (M2C_FIELD(gMenuState, u8 *, 0x2C) == 1) {
         gSaveStatus = 0x108;
         func_80026424(sActiveMenu, 0x18);
     }

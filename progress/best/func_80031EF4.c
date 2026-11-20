@@ -46,25 +46,11 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
     if (gBorderSkipFlag == 0) {
         __base_D_8010968C = &D_8010968C;
         if ((*__base_D_8010968C) != NULL) {
-            /*__repair_pointer_balance*/if ((unsigned long)__base_D_8010968C & 0x10000) {
-if ((unsigned long)__base_D_8010968C & 0x100) {
-func_80084048((*__base_D_8010968C), 0xE);
-} else {
-func_80084048((*__base_D_8010968C), 0xE);
-}
-} else {
-if ((unsigned long)__base_D_8010968C & 0x100) {
-func_80084048((*__base_D_8010968C), 0xE);
-} else {
-func_80084048((*__base_D_8010968C), 0xE);
-}
-}
+            func_80084048((*__base_D_8010968C), 0xE);
             (*__base_D_8010968C) = NULL;
         }
         temp_v0 = func_80016410(8, 0, 0);
         if (temp_v0 != NULL) {
-void *__repair_cached_pointer = D_8010968C;
-
             sp24 = M2C_FIELD(temp_v0, void **, 0x6C);
             func_80048794(1, D_800CA31C);
             
@@ -83,7 +69,7 @@ void *__repair_cached_pointer = D_8010968C;
                 var_ft0 += D_800D2DF0;
             }
             func_8004844C((*__base_D_8010968C), (f32) (f64) 0xE6, (f32) var_fv1, (f32) (f64) 0x78, (f32) var_ft0, 0, 0);
-            M2C_FIELD(__repair_cached_pointer, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 0x100);
+            M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 0x100);
             M2C_FIELD(D_8010968C, __repair_words3 *, 0x10) = *(__repair_words3 *) ((s8 *) arg0 + 0x0);
             D_8010A4C3 |= 2;
             D_8010A4C2 |= 2;

@@ -16,7 +16,7 @@ s32 func_80017EC0(void *, f32, f32);
 s32 func_80044670();
 s32 func_80045CF8();
 s32 func_80061BE4();
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 
 void func_80061CCC(void *arg0) {
     f32 var_fv0;
@@ -26,7 +26,7 @@ void func_80061CCC(void *arg0) {
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
-    if ((temp_v0 != 0) && (*(gActorDoneFlags + temp_v0) != M2C_FIELD(temp_s0, u8 *, 5))) {
+    if ((temp_v0 != 0) && (*(gTrackDoneFlags + temp_v0) != M2C_FIELD(temp_s0, u8 *, 5))) {
         goto mismatch;
     }
 block_4:

@@ -12,7 +12,7 @@ s32 func_8002A9A8(s32 *, s32);          /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 func_80087100(u16);                             /* extern */
 s32 sprintf(s32, s32 *, s32);               /* extern */
-extern s16 D_800B60E2;
+extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern u16 D_800B60E8;
 extern u8 D_800BD68E;
@@ -34,7 +34,7 @@ extern s32 func_8001EAF0;
     u16 entry_index;
     u16 group_entry;
 
-    D_800B60E2 = 3;
+    gMenuMode = 3;
     gMenuList = &D_800E0C70;
     func_8002A644(&D_800E0C70, &D_800E0C98, 0x1A4, 0xB, 0x2D, 0xB4, 0x4C, 0xB, 0, &func_8001EA6C, &func_8001EAF0);
     D_800B60E8 = 0;

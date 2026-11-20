@@ -5,7 +5,7 @@ s32 func_80022B60(s32, void *);             /* extern */
 extern s32 D_800BD64C;
 extern s32 D_800BD660;
 extern u8 D_80102EDD;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8002255C(void *arg0, void *arg1) {
 char *__repair_addr;
@@ -65,12 +65,12 @@ block_9:
             }
             var_v0_2 <<= 2;
             (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) = (s32) (var_v1 | var_v0_2);
-            __base_D_80109BB0 = &D_80109BB0;
+            __base_D_80109BB0 = &gMenuState;
             if ((*__base_D_80109BB0) != NULL) {
-                temp_a0_2 = (*(void **)((char *)(D_80109BB0) + 0x1C));
+                temp_a0_2 = (*(void **)((char *)(gMenuState) + 0x1C));
                 var_a1 = (void *)-0x100;
                 if (temp_a0_2 != NULL) {
-                    (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x10)) = (s32) ((((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) & ~0xFF) | (*(u8 *)((char *)(temp_a0_2) + 0x13)));
+                    (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x10)) = (s32) ((((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30))) & ~0xFF) | (*(u8 *)((char *)(temp_a0_2) + 0x13)));
                 }
             }
         }
@@ -100,10 +100,10 @@ block_9:
             if (((u8)__repair_phase_storage.value) == 0x81) {
                 var_v0_5 = D_800BD660;
 block_26:
-                (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (s32) ((((var_v0_5 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) & ~0xFF) | (*(u8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x1C))) + 0x13)));
+                (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (s32) ((((var_v0_5 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30))) & ~0xFF) | (*(u8 *)((char *)((*(void **)((char *)(gMenuState) + 0x1C))) + 0x13)));
             } else {
                 var_a1 = (*(void **)((char *)(temp_s0) + 0));
-                (*(s32 *)((char *)(var_a1) + 0x10)) = (s32) ((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30)));
+                (*(s32 *)((char *)(var_a1) + 0x10)) = (s32) ((D_800BD64C & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             }
         }
         var_a0 = 2;

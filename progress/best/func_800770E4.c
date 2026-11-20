@@ -45,7 +45,7 @@ extern u16 D_800C9B88;
 
 void func_800770E4(void *arg0) {
     u16 *__base_D_800C9A58;
-    s32 *var_s0_2;
+    u16 *var_s0_2;
     unsigned int var_a1;
     f32 var_fs0;
     f32 var_fs1;
@@ -55,7 +55,7 @@ void func_800770E4(void *arg0) {
     s16 temp_v1_4;
     s32 var_s3;
     void *temp_s0;
-    u32 var_a0;
+    s32 var_a0;
     long var_a0_2;
     unsigned int var_s0;
     u16 temp_v1;

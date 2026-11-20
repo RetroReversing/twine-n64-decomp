@@ -19,7 +19,7 @@ extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 D_801002F2;
 extern u8 D_801002F3;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001F824(void) {
     M2C_UNK var_a0;
@@ -29,10 +29,10 @@ void func_8001F824(void) {
     void *temp_s2;
     void *temp_s3;
 
-    temp_s0 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x24);
-    temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x22);
-    temp_s2 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x23);
-    temp_s3 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x199);
+    temp_s0 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x24);
+    temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x22);
+    temp_s2 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x23);
+    temp_s3 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x199);
     if (((temp_s0 != NULL) & (temp_s1 != NULL)) && ((temp_s2 != NULL) & (temp_s3 != NULL))) {
         switch (D_801002F2) {                       /* irregular */
         case 0:

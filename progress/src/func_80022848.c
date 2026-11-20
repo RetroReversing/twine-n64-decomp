@@ -19,21 +19,21 @@ s32 func_80027C60(M2C_UNK);                         /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(u16);                             /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_80022848(void) {
     s32 temp_v0;
 
     if ((func_80027CE0(0x20) & 0xFF) || (func_80027CE0(0x21) & 0xFF) || (func_80027CE0(0x1E) & 0xFF) || (func_80027CE0(0x1F) & 0xFF) || (func_80027CE0(0x24) & 0xFF)) {
-        M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
+        M2C_FIELD(gMenuState, s8 *, 0x2C) = 0;
     }
-    temp_v0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
+    temp_v0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x4000);
     if (temp_v0 != 0) {
-        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(D_80109BB0, u16 **, 0x18)));
+        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(gMenuState, u16 **, 0x18)));
     }
     updateActiveMenuState();
     if (func_80027C60(0x2A) & 0xFF) {
         func_8000A894(0xEA);
-        M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 1;
+        M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;
     }
 }

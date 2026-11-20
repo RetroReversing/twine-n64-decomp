@@ -239,7 +239,7 @@ block_51:
                             (*(s32 *)((char *)(temp_a0_3) + 0)) = (s32) (((((*(u8 *)((char *)(var_s1) + 0)) * 2) & 0xFF) << 0x10) | (((*(u8 *)((char *)(var_s1) + 1)) << 9) & 0xFE00) | (((*(u8 *)((char *)(var_s1) + 2)) * 2) & 0xFF) | 0x05000000);
                             ((__repair_field_4 *)temp_a0_3)->value = 0;
                         } else {
-                            *++arg10;
+                            (*arg10)++;
                         }
                         var_s1 += 3;
                     }

@@ -28,8 +28,8 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     func_80084048((s32)data, 0x2D);
     if (!special && fp->extra_offset) {
         extra = func_80083E90(fp->extra_count * 28, 0x2D);
-        func_8000B9B8(extra, (s32)(D_54D910 + fp->extra_offset), fp->extra_count * 28);
         func_80084048((s32)extra, 0x2D);
+        func_8000B9B8(extra, (s32)(D_54D910 + fp->extra_offset), fp->extra_count * 28);
     }
     func_80083E44(saved);
 }

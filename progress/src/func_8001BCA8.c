@@ -4,8 +4,8 @@ typedef struct { u8 pad[0x10]; VtBCA8 *vt; } SysBCA8;
 typedef struct { u8 pad[8]; u8 b8; } ResBCA8;
 extern ObjBCA8 *volatile gPickupActor;
 extern u8 D_801002AD;
-extern s32 gAimAxisTable;
-extern SysBCA8 *D_80109BB0;
+extern s32 gTrackAxisTable;
+extern SysBCA8 *gMenuState;
 extern u8 D_8010A488[];
 void func_8002ACB4(void *);
 void func_80002EF0(ObjBCA8 *);
@@ -31,7 +31,7 @@ void func_8001BCA8(void) {
         gPickupActor->f28 = 0.15f;
         gPickupActor->f2C = -3.0f;
         gPickupActor->f54 = 1.05f;
-        pq = &gAimAxisTable;
+        pq = &gTrackAxisTable;
         func_8000628C(*pp, *pq + 0x10, 1, 0x80);
         o = *pp;
         func_8000628C(o, *pq + 0x10, 0, 0x800);
@@ -42,8 +42,8 @@ void func_8001BCA8(void) {
             if (r != NULL) {
                 saved = r->b8;
             }
-            D_80109BB0->vt->fC();
-            sys = D_80109BB0;
+            gMenuState->vt->fC();
+            sys = gMenuState;
             *ps = saved;
             sys->vt->f8();
         }

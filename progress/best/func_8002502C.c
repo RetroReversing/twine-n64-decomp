@@ -52,7 +52,7 @@ extern u16 D_80100910;
 extern s32 D_80102EBC;
 extern s8 D_80102EDC;
 extern s8 D_80102F04;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern s16 D_80109DD0;
 extern char D_8010A950[];
 
@@ -115,7 +115,7 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         D_800BD55C = 0U;
                         func_800277E4(-(((u16) D_800BD68C >= 0xAU) & (D_800BD68C != 0x13)) & 0xFF);
                         var_v0 = 0xFF;
-                        if ((*(u16 *)((char *)(D_80109BB0) + 0x14)) == 0x19) {
+                        if ((*(u16 *)((char *)(gMenuState) + 0x14)) == 0x19) {
                             func_800277E4(0xFF);
                             return 0xFF;
                         }
@@ -218,7 +218,7 @@ block_95:
                         }
                         goto block_183;
                     case 0x60:                      /* switch 3 */
-                        func_80030644((*(s32 *)((char *)(D_80109BB0) + 0x20)), 0x80);
+                        func_80030644((*(s32 *)((char *)(gMenuState) + 0x20)), 0x80);
                         var_a1_2 = D_800B9F40;
                         var_a2 = 3;
                         goto block_95;
@@ -306,7 +306,7 @@ block_96:
                                 switch (temp_s0) {  /* switch 4; irregular */
                                 case 15:            /* switch 4 */
                                     if (D_80100910 != 2) {
-                                        temp_s0_2 = (*(void **)((char *)(D_80109BB0) + 0));
+                                        temp_s0_2 = (*(void **)((char *)(gMenuState) + 0));
                                         temp_a0 = (*(s32 *)((char *)(temp_s0_2) + 0x18));
                                         D_800BD68C = 2;
                                         if (temp_a0 != 0) {
@@ -321,7 +321,7 @@ block_184:
                                 case 16:            /* switch 4 */
                                     var_v0 = 0xFF;
                                     if (D_800BFC34 != 0) {
-                                        temp_v1 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
+                                        temp_v1 = (*(u16 *)((char *)(gMenuState) + 0x14));
                                         func_8002778C();
                                         gSaveStatus = 0;
                                         if (temp_v1 != 0x19) {
@@ -399,7 +399,7 @@ block_134:
                             var_v0 = 0xFF;
                             if (D_800BFC34 != 0) {
                                 func_8002778C();
-                                temp_v1_2 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
+                                temp_v1_2 = (*(u16 *)((char *)(gMenuState) + 0x14));
                                 gSaveStatus = 0;
                                 if (temp_v1_2 != 0x19) {
                                     var_a0 = 1;
@@ -489,7 +489,7 @@ block_163:
                         var_v0 = 0xFF;
                         if (D_800BFC34 != 0) {
                             func_8002778C();
-                            temp_v1_3 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
+                            temp_v1_3 = (*(u16 *)((char *)(gMenuState) + 0x14));
                             gSaveStatus = 0;
                             if (temp_v1_3 != 0x19) {
                                 var_a0 = 1;

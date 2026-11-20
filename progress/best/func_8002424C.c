@@ -22,7 +22,7 @@ extern char D_800BD5D0[];
 extern u8 D_800BD68E;
 extern s8 D_800BD690;
 extern char D_80107EA8[];
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern char D_80109C18[];
 extern char D_80109C1C[];
 extern char D_8010D478[];
@@ -73,7 +73,7 @@ int __repair_constant;
     D_800BD55A = 0;
     D_800BD558 = 1;
     func_80022AD8(D_800BD68E);
-    temp_v1 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
+    temp_v1 = (*(u16 *)((char *)(gMenuState) + 0x14));
     if (temp_v1 != 0x1A) {
         if ((s32) temp_v1 < 0x1B) {
             var_v0 = __repair_constant;
@@ -93,8 +93,8 @@ int __repair_constant;
     do { func_8002A9A8(D_80107EA8, 0); } while (0);
     updatePairedSpriteState(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002AC04(D_80107EA8, 1);
-    if ((u32) ((*(u16 *)((char *)(D_80109BB0) + 0x14)) - 0x19) < 2U) {
+    if ((u32) ((*(u16 *)((char *)(gMenuState) + 0x14)) - 0x19) < 2U) {
         func_8002A9A8(D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);
     }
-    (*(s8 *)((char *)(D_80109BB0) + 0x2C)) = 0;
+    (*(s8 *)((char *)(gMenuState) + 0x2C)) = 0;
 }

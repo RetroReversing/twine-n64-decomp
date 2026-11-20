@@ -16,26 +16,26 @@ void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_80026F84(s32);                         /* extern */
 M2C_UNK hiscore_refresh_all();                      /* extern */
 extern u8 D_800BD68E;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern u8 D_800BD691;
 extern s8 D_801002AE;
 extern u8 D_80102EB9;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_800271A4(u8 arg0) {
     void *temp_s0;
     void *temp_v0;
 
     hiscore_refresh_all();
-    if (D_80109BB0 == NULL) {
+    if (gMenuState == NULL) {
         temp_v0 = func_80016410(0x34, 0, 0);
-        D_800BD68F = arg0;
+        gMenuSlot = arg0;
         if (temp_v0 != NULL) {
             temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
-            D_80109BB0 = temp_s0;
+            gMenuState = temp_s0;
             func_80026F84(arg0 & 0xFF);
             D_801002AE = 1;
-            M2C_FIELD(temp_s0, u8 *, 4) = (u8) D_800BD68F;
+            M2C_FIELD(temp_s0, u8 *, 4) = (u8) gMenuSlot;
             M2C_FIELD(temp_s0, u8 *, 5) = (u8) D_800BD691;
             M2C_FIELD(temp_s0, u8 *, 6) = (u8) D_800BD68E;
             M2C_FIELD(temp_v0, s16 *, 0x78) = 0x25;

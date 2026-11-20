@@ -19,7 +19,7 @@ extern u8 D_800E1584[];
 extern u32 D_80102EBC;
 extern u8 D_80102EDC, D_80102EDE;
 extern MenuData *sActiveMenu;
-extern MenuObject *D_80109BB0;
+extern MenuObject *gMenuState;
 
 void func_8002F068(void *unused, void *arg1)
 {
@@ -59,7 +59,7 @@ void func_8002F068(void *unused, void *arg1)
         }
     } else {
         D_800BFC94 = 0;
-        D_80109BB0->display = D_800BD8C4;
+        gMenuState->display = D_800BD8C4;
         func_800278AC(1, D_80102EBC & ~255, sActiveMenu->value);
         func_80027408(func_80087100(3), 0x40, 0xA0, 0xCC);
         func_8002B150(D_800E1584, 0, 0);

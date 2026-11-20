@@ -11,7 +11,7 @@ s32 func_800AB950(s32, s32);
 extern s16 gSaveStatus;
 extern s32 sActiveMenu;
 extern u8 D_80107EA8;
-extern u8 *D_80109BB0;
+extern u8 *gMenuState;
 extern u8 D_8010A950;
 extern char D_800D2AC8[];
 
@@ -54,7 +54,7 @@ s32 func_8002495C(u16 arg0, u8 arg1) {
         return 0x8002;
     case 0x8000:
         func_80024D78();
-        D_80109BB0[0x2C] = 0;
+        gMenuState[0x2C] = 0;
         return 2;
     default:
         return 2;

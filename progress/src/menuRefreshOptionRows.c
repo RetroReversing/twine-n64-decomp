@@ -1,6 +1,6 @@
 typedef struct { u8 pad0[4]; s8 selection; } MenuList1F5C4;
 typedef struct { u8 pad0[0x10]; MenuList1F5C4 *list; } MenuState1F5C4;
-extern MenuState1F5C4 *D_80109BB0;
+extern MenuState1F5C4 *gMenuState;
 extern const char D_800D2A80[], D_800D2A84[];
 extern s16 gExpansionPakPresent;
 extern u8 D_8010A4C0, gOptionFlagA, D_8010A4FF;
@@ -16,11 +16,11 @@ const char *func_80087100(s32);
     char *baseA, *baseB, *baseC;
     s32 labelId;
 
-    a = func_8002638C(D_80109BB0->list, 0x1F);
-    b = func_8002638C(D_80109BB0->list, 0x19);
-    c = func_8002638C(D_80109BB0->list, 0x1C);
+    a = func_8002638C(gMenuState->list, 0x1F);
+    b = func_8002638C(gMenuState->list, 0x19);
+    c = func_8002638C(gMenuState->list, 0x1C);
     if (c == NULL)
-        c = func_8002638C(D_80109BB0->list, 3);
+        c = func_8002638C(gMenuState->list, 3);
     if (((a != NULL) & (b != NULL)) && (c != NULL)) {
     labelId = 0x1B;
     if (gOptionFlagA == 0) {
@@ -37,7 +37,7 @@ const char *func_80087100(s32);
         func_80025E9C(baseC, c, baseB, baseA, enabled, 9);
         formatTextEntry(c, D_800D2A84);
         func_80025D84(baseA, a, baseC, baseB, 0x1F, enabled);
-        D_80109BB0->list->selection = func_800263B8(D_80109BB0->list, 0x1F);
+        gMenuState->list->selection = func_800263B8(gMenuState->list, 0x1F);
     } else {
         *(s16 *)(c - 0x28) = 0x1C;
         func_80025D84(c - 0x28, c, b - 0x28, a - 0x28, 0x1C, 1);
@@ -47,7 +47,7 @@ const char *func_80087100(s32);
             formatTextEntry(c, D_800D2A80, func_80087100(0x1B3));
         }
         func_80025E9C(a - 0x28, a, c - 0x28, b - 0x28, 1, 0xD);
-        D_80109BB0->list->selection = func_800263B8(D_80109BB0->list, 0x19);
+        gMenuState->list->selection = func_800263B8(gMenuState->list, 0x19);
     }
 
     if (D_8010A4C0 == 0) {

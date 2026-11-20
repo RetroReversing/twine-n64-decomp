@@ -13,7 +13,7 @@ extern s32 D_800E1760;
 extern u32 D_800E1764;
 extern u16 D_800E1766;
 extern s32 D_800E1768;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern s32 gHiResScreen;
 extern s32 *D_80115328;
 
@@ -194,7 +194,7 @@ s32 __repair_result_var_v1_3;
                 case 7:
                     var_s0 += 1;
                     if (D_800C0738 == 0) {
-                        temp_t2_2 = (*(((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
+                        temp_t2_2 = (*(((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30));
                         temp_a1_2 = D_80115328;
                         D_80115328 = temp_a1_2 + 8;
                         ((__repair_field_0 *)temp_a1_2)->value = 0xFA000000;

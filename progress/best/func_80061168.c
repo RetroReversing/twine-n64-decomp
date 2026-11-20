@@ -5,7 +5,7 @@ s32 func_80045CF8(s32);
 s32 func_80061578(void *, s32 *);
 s32 func_80082FE4(s16 *, void *);
 s32 rotateVec3ByMat3(void *, s32 *);
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 
 void func_80061168(void *arg0) {
     s32 sp10[3];
@@ -39,7 +39,7 @@ void func_80061168(void *arg0) {
             break;
         case 1:
             t = *(u8 *)((char *)s2 + 0x22);
-            if ((!t) || (gActorDoneFlags[t] != 0)) {
+            if ((!t) || (gTrackDoneFlags[t] != 0)) {
                 if (func_80045CF8((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
                     sp58[0] = *(s32 *)((char *)arg0 + 0x24);
                     sp58[1] = *(s32 *)((char *)arg0 + 0x28);

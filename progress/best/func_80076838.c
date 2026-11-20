@@ -27,7 +27,7 @@ extern u8 D_80100BE0[];
 extern s8 D_80103EB0;
 extern char D_80108608[];
 extern void *D_80109690;
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 extern u8 D_8010A4C1;
 extern u8 D_8010A4C2;
 extern s32 D_8010A500;
@@ -48,7 +48,7 @@ void func_80076838(void *arg0) {
     temp_s1 = ((__repair_record_arg0*)arg0)->field_6C;
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (*(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
+        if (*(gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
             if (D_80103EB0 == 0) {
                 var_v0 = ((__repair_record_arg0*)arg0)->field_60 | 1;
 block_24:
@@ -103,13 +103,13 @@ block_24:
         M2C_FIELD(temp_s1, f32 *, 8) += M2C_FIELD(temp_s1, f32 *, 0xC);
         func_8007659C(arg0, temp_s1 + 4);
         func_80047F50(arg0, D_80109690);
-        if ((*(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
+        if ((*(gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
             ((__repair_record_arg0*)arg0)->field_7A = 3;
             return;
         }
         break;
     case 3:
-        *(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
+        *(gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
         D_8010A4C1 |= 1;
         D_8010A4C2 |= 1;
         func_80084048(D_80109690, 0xE, &D_8010A4C1);

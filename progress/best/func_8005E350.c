@@ -19,7 +19,7 @@ s32 func_80087100(s32);
 typedef struct { s16 field0; s16 field2; M2C_UNK (*callback)(void *); u8 pad8[4]; u16 fieldC; u8 padE[2]; } EventEntry;
 extern EventEntry D_800C4478[];
 extern s32 D_8010302C;
-extern s32 gAimAxisTable[];
+extern s32 gTrackAxisTable[];
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
     s16 var_s4, var_s7;
@@ -37,7 +37,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
       var_s7=D_800C4478[temp_s1].field0;
       var_s4=D_800C4478[temp_s1].field2;
     }
-    func_80073AF8(0,gAimAxisTable[(s8)M2C_FIELD(temp_s6,s8*,0x182)],func_80087100((arg1|0x7000)&0xFFFF),var_s7,(s32)var_s4,1,0,0,0,0,0);
+    func_80073AF8(0,gTrackAxisTable[(s8)M2C_FIELD(temp_s6,s8*,0x182)],func_80087100((arg1|0x7000)&0xFFFF),var_s7,(s32)var_s4,1,0,0,0,0,0);
     if(M2C_FIELD(arg0,u16*,0x78)==3) {
       do { func_80084338(D_800C4478[temp_s1].fieldC,arg0+0x24); } while (0);
       return;

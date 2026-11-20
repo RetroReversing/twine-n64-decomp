@@ -20,7 +20,7 @@ M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, 
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern s32 D_8010302C;
 extern void *gPlayerActor;
-extern s8 gAimAxisTable;
+extern s8 gTrackAxisTable;
 extern void *D_8010A500;
 
 void func_8005BDA8(void) {
@@ -38,7 +38,7 @@ void func_8005BDA8(void) {
                     func_8000A894(0x12C);
                     M2C_FIELD(temp_s0, s32 *, 0x60) = (s32) (M2C_FIELD(temp_s0, s32 *, 0x60) | 0x08000000);
                 } else {
-                    func_80073AF8(0, (*(s32 *)&gAimAxisTable), func_80087100(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
+                    func_80073AF8(0, (*(s32 *)&gTrackAxisTable), func_80087100(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
         }
@@ -50,7 +50,7 @@ void func_8005BDA8(void) {
             func_80070664(temp_s1, 0xD, 1, 0);
             D_8010302C += 1;
             func_8000A894(0x12B);
-            func_80073AF8(0, (*(s32 *)&gAimAxisTable), func_80087100(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
+            func_80073AF8(0, (*(s32 *)&gTrackAxisTable), func_80087100(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
         }
     }
 }

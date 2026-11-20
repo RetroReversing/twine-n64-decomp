@@ -15,16 +15,16 @@ void *func_8002A9A8(s32 *, s16);                /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 func_80070844(void *, s32);                     /* extern */
 s32 func_80087100(s32);                             /* extern */
-extern s16 D_800B60E2;
+extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern s8 D_800B60EA;
 extern u8 D_800BD68E;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern s16 D_800C4478;
 extern s16 D_800C447A;
 extern s32 D_801003E0;
 extern s32 D_801093A8;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern u8 D_80109D28[];
 extern s32 D_8010A500;
 extern s32 func_8001E898;
@@ -44,11 +44,11 @@ extern s32 func_8001EAF0;
     void *widget;
     void *found;
 
-    D_800B60E2 = 1;
+    gMenuMode = 1;
     D_800B60EA = 1;
     gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    owner = *(&D_8010A500 + D_800BD68F);
+    owner = *(&D_8010A500 + gMenuSlot);
     found = (s32)NULL;
     if (owner != NULL) {
         rec = (*(void **)((char *)(owner) + 0x6C));
@@ -75,7 +75,7 @@ extern s32 func_8001EAF0;
                 i += 1;
             } while ((u32) (i & 0xFFFF) < 0x1EU);
             if (found != NULL) {
-                widget = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
+                widget = func_80026314((*(s32 *)((char *)(gMenuState) + 0x10)), 0xA6, 2);
                 kind = (*(u8 *)((char *)(found) + 8));
                 offset = kind * 0x8;
                 func_8002135C(*(&D_800C4478 + offset), *(&D_800C447A + offset));

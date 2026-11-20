@@ -15,54 +15,54 @@ typedef s32 M2C_UNK32;
 
 f32 __sinf(f32);                                    /* extern */
 
-void quatSlerp(f32 arg0, const void *arg1, const void *arg2, void *arg3) {
-    f32 __repair_store_0;
-    f32 __repair_store_1;
-    f32 __repair_store_2;
-    f32 __repair_store_3;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 var_fs2;
-    f32 var_fs3;
-    f32 var_ft2;
-    s32 var_s3;
+/* Spherical linear interpolation of two unit quaternions into out, flipping sign when the dot product is negative. */ void quatSlerp(f32 t, const void *from, const void *to, void *out) {
+    f32 blend0;
+    f32 blend1;
+    f32 blend2;
+    f32 blend3;
+    f32 theta;
+    f32 thetaT;
+    f32 invSinTheta;
+    f32 dotSq;
+    f32 thetaT2;
+    f32 fromWeight;
+    f32 toWeight;
+    f32 dot;
+    s32 negate;
 
-    var_ft2 = (M2C_FIELD(arg1, const f32 *, 0) * M2C_FIELD(arg2, const f32 *, 0)) + (M2C_FIELD(arg1, const f32 *, 4) * M2C_FIELD(arg2, const f32 *, 4)) + (M2C_FIELD(arg1, const f32 *, 8) * M2C_FIELD(arg2, const f32 *, 8)) + (M2C_FIELD(arg1, const f32 *, 0xC) * M2C_FIELD(arg2, const f32 *, 0xC));
-    var_s3 = 0;
-    if (var_ft2 < 0.0f) {
-        var_s3 = 1;
-        var_ft2 = -var_ft2;
+    dot = (M2C_FIELD(from, const f32 *, 0) * M2C_FIELD(to, const f32 *, 0)) + (M2C_FIELD(from, const f32 *, 4) * M2C_FIELD(to, const f32 *, 4)) + (M2C_FIELD(from, const f32 *, 8) * M2C_FIELD(to, const f32 *, 8)) + (M2C_FIELD(from, const f32 *, 0xC) * M2C_FIELD(to, const f32 *, 0xC));
+    negate = 0;
+    if (dot < 0.0f) {
+        negate = 1;
+        dot = -dot;
     }
-    var_fs3 = arg0;
-    if ((1.0f - var_ft2) > 0.01f) {
-        temp_ft0 = var_ft2 * var_ft2;
+    toWeight = t;
+    if ((1.0f - dot) > 0.01f) {
+        dotSq = dot * dot;
         {
-        f32 linear = var_ft2 * 1.01744f;
-        f32 cubic = temp_ft0 * var_ft2;
-        f32 quintic = temp_ft0 * cubic;
+        f32 linear = dot * 1.01744f;
+        f32 cubic = dotSq * dot;
+        f32 quintic = dotSq * cubic;
         cubic *= 0.0207019f;
         quintic *= 0.32649f;
-        temp_fs0 = 1.5708f - linear - cubic - quintic;
+        theta = 1.5708f - linear - cubic - quintic;
         }
-        temp_fs2 = 1.0f / __sinf(temp_fs0);
-        temp_fs1 = temp_fs0 * var_fs3;
-        var_fs3 = __sinf(temp_fs1) * temp_fs2;
-        var_fs2 = __sinf(temp_fs0 - temp_fs1) * temp_fs2;
+        invSinTheta = 1.0f / __sinf(theta);
+        thetaT = theta * toWeight;
+        toWeight = __sinf(thetaT) * invSinTheta;
+        fromWeight = __sinf(theta - thetaT) * invSinTheta;
     } else {
-        var_fs2 = 1.0f - var_fs3;
+        fromWeight = 1.0f - toWeight;
     }
-    if (var_s3 != 0) {
-        var_fs2 = -var_fs2;
+    if (negate != 0) {
+        fromWeight = -fromWeight;
     }
-    __repair_store_0 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 0)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 0)));
-    __repair_store_1 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 4)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 4)));
-    __repair_store_2 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 8)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 8)));
-    __repair_store_3 = (f32) ((var_fs2 * M2C_FIELD(arg1, const f32 *, 0xC)) + (var_fs3 * M2C_FIELD(arg2, const f32 *, 0xC)));
-    M2C_FIELD(arg3, f32 *, 0) = __repair_store_0;
-    M2C_FIELD(arg3, f32 *, 4) = __repair_store_1;
-    M2C_FIELD(arg3, f32 *, 8) = __repair_store_2;
-    M2C_FIELD(arg3, f32 *, 0xC) = __repair_store_3;
+    blend0 = (f32) ((fromWeight * M2C_FIELD(from, const f32 *, 0)) + (toWeight * M2C_FIELD(to, const f32 *, 0)));
+    blend1 = (f32) ((fromWeight * M2C_FIELD(from, const f32 *, 4)) + (toWeight * M2C_FIELD(to, const f32 *, 4)));
+    blend2 = (f32) ((fromWeight * M2C_FIELD(from, const f32 *, 8)) + (toWeight * M2C_FIELD(to, const f32 *, 8)));
+    blend3 = (f32) ((fromWeight * M2C_FIELD(from, const f32 *, 0xC)) + (toWeight * M2C_FIELD(to, const f32 *, 0xC)));
+    M2C_FIELD(out, f32 *, 0) = blend0;
+    M2C_FIELD(out, f32 *, 4) = blend1;
+    M2C_FIELD(out, f32 *, 8) = blend2;
+    M2C_FIELD(out, f32 *, 0xC) = blend3;
 }

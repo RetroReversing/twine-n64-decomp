@@ -17,7 +17,7 @@ extern u8 gSaveKeyRelaxed;
 extern s32 D_801002B4;
 extern s32 gBorderMode;
 extern u8 gPauseFlag;
-extern s32 gAimAxisTable;
+extern s32 gTrackAxisTable;
 extern u8 gBorderFlipFlag;
 extern s32 D_8010A500;
 extern s32 D_8011F018;
@@ -103,7 +103,7 @@ char *__repair_addr;
     if (gBorderMode > 0) {
         do {
             temp_v1 = var_a0 * 4;
-            if (*(s32 *)((char *)&gAimAxisTable + temp_v1) != 0) {
+            if (*(s32 *)((char *)&gTrackAxisTable + temp_v1) != 0) {
 __repair_addr = (char *)((char *)&D_8010A500 + temp_v1);
 
                 temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));

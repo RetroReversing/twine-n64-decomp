@@ -15,18 +15,18 @@ typedef s32 M2C_UNK32;
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern u8 D_8010D2B1;
 
 void func_800222FC(void) {
     M2C_UNK var_a0;
 
     updateActiveMenuState();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
+    if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
         var_a0 = 0x12;
         if (D_8010D2B1 == 0) {
             var_a0 = 0x11;
         }
-        formatTextEntry(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%s", func_80087100(var_a0));
+        formatTextEntry(M2C_FIELD(gMenuState, s32 *, 0x18) + 0x28, "%s", func_80087100(var_a0));
     }
 }

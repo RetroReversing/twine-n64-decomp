@@ -19,7 +19,7 @@ s32 func_80087100(s32);                             /* extern */
 extern s8 D_800BD690;
 extern M2C_UNK D_800BDA68;
 extern u8 D_801002A2;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001A434(void) {
     u8 *__base_D_801002A2;
@@ -29,10 +29,10 @@ void func_8001A434(void) {
     temp_s2 = func_8002638C(&D_800BDA68, 0x92);
     D_800BD690 = 1;
     if (temp_s2 != 0) {
-        M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 1;
-        M2C_FIELD(D_80109BB0, s8 *, 0x2D) = 1;
+        M2C_FIELD(gMenuState, s8 *, 0x2F) = 1;
+        M2C_FIELD(gMenuState, s8 *, 0x2D) = 1;
         func_8001A4F4();
-        M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 0;
+        M2C_FIELD(gMenuState, s8 *, 0x2F) = 0;
         temp_s1 = "%s";
         __base_D_801002A2 = &D_801002A2;
         formatTextEntry(temp_s2, temp_s1, func_80087100((*__base_D_801002A2) + 0x16D));

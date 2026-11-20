@@ -20,10 +20,10 @@ s32 func_80044670();
 u16 func_80045CF8();
 s32 func_8007659C();
 s32 func_80085E30();
-s32 func_80085E78();
+s32 updateActorTrackingState();
 extern s16 D_800C2942;
 extern s32 *gProbeObjectList;
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 
 /* Two-state actor update. State 0 waits until its spawn group's done flag is set, then starts
  * state 1, which animates, spawns a child every 8 frames, and sets the done flag near the end. */
@@ -41,7 +41,7 @@ void actorUpdateStateMachine(void *actor) {
     switch (state) {                              /* irregular */
     case 0:
         doneFlagIndex = M2C_FIELD(record, u8 *, 0x2E);
-        if ((doneFlagIndex == 0) || (*(gActorDoneFlags + doneFlagIndex) != 0)) {
+        if ((doneFlagIndex == 0) || (*(gTrackDoneFlags + doneFlagIndex) != 0)) {
             M2C_FIELD(actor, s16 *, 0x7A) = 1;
         }
         if (M2C_FIELD(actor, s16 *, 0x7A) == 1) {
@@ -74,7 +74,7 @@ void actorUpdateStateMachine(void *actor) {
             }
         }
         subRecord = record + 0x10;
-        func_80085E78(actor, subRecord);
+        updateActorTrackingState(actor, subRecord);
         M2C_FIELD(record, f32 *, 4) += M2C_FIELD(record, f32 *, 8);
         applyNearbyActorImpact(actor, 1.0f, 5.0f);
         func_8007659C(actor, record);
@@ -82,7 +82,7 @@ void actorUpdateStateMachine(void *actor) {
         M2C_FIELD(actor, s32 *, 0x40) = 0;
         M2C_FIELD(actor, f32 *, 0x44) = 2048.0f;
         if (M2C_FIELD(record, s16 *, 0xE) >= (M2C_FIELD(record, s16 *, 0xC) - 4)) {
-            *(gActorDoneFlags + M2C_FIELD(record, u8 *, 0x2F)) = 1;
+            *(gTrackDoneFlags + M2C_FIELD(record, u8 *, 0x2F)) = 1;
             func_80085E30(subRecord);
             M2C_FIELD(actor, s32 *, 0x60) |= 1;
         }

@@ -23,14 +23,14 @@ void func_80022B60(s32);
 void func_80022E5C(s32);
 void func_80022E88(s32);
 void func_80022EB8(u16, u8, u8);
-extern u16 D_800B60E2;
+extern u16 gMenuMode;
 extern u32 D_800BD660;
 extern u32 D_800BD664;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern u16 D_800E0ECC[];
 extern u16 D_800E0ED4[];
 extern u32 D_80102EBC;
-extern OpacityState *D_80109BB0;
+extern OpacityState *gMenuState;
 
 void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
     u8 *__base_D_800BD68F;
@@ -43,36 +43,36 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
         object->y = entry->position.y;
         object->size = 0x40;
         func_80022B60(0);
-        object->color = (D_80102EBC & ~0xFF) | D_80109BB0->alpha;
+        object->color = (D_80102EBC & ~0xFF) | gMenuState->alpha;
         func_80022E88(0);
-        func_80022E5C(D_80109BB0->alpha);
-        switch (D_800B60E2) {
+        func_80022E5C(gMenuState->alpha);
+        switch (gMenuMode) {
         case 0:
             if (!draw) {
-                __base_D_800BD68F = &D_800BD68F;
+                __base_D_800BD68F = &gMenuSlot;
                 selected = D_800E0ECC[(*__base_D_800BD68F)];
                 if (selected == entry->id) {
-                    object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
+                    object->color = (D_800BD660 & ~0xFF) | gMenuState->alpha;
                 }
                 break;
             }
             func_80022EB8(entry->x - 2, entry->position.bytes.low - 4,
                           (func_80018318(object) * 12) & 0xFC);
-            object->color = (D_800BD664 & ~0xFF) | D_80109BB0->alpha;
+            object->color = (D_800BD664 & ~0xFF) | gMenuState->alpha;
             break;
         case 1:
             if (draw) {
                 func_80022EB8(entry->x - 2, entry->position.bytes.low - 4,
                               (func_80018318(object) * 12) & 0xFC);
-                object->color = (D_800BD664 & ~0xFF) | D_80109BB0->alpha;
+                object->color = (D_800BD664 & ~0xFF) | gMenuState->alpha;
                 break;
             }
-            selected = D_800E0ED4[D_800BD68F];
+            selected = D_800E0ED4[gMenuSlot];
             if ((unsigned)selected == entry->id) {
-                object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
+                object->color = (D_800BD660 & ~0xFF) | gMenuState->alpha;
             }
             break;
         }
-        object->color = (object->color & ~0xFF) | D_80109BB0->alpha;
+        object->color = (object->color & ~0xFF) | gMenuState->alpha;
     }
 }

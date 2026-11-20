@@ -20,7 +20,7 @@ extern s16 D_800C6858;
 extern u16 D_800C68BA;
 extern s32 gBorderSkipFlag;
 extern void *gPlayerActor;
-extern char gAimAxisTable[];
+extern char gTrackAxisTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
 extern char D_80109AA0[];
@@ -65,7 +65,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
 
     temp_s2 = (*(void **)((char *)(arg0) + 0x6C));
     temp_s7 = (*(s8 *)((char *)(temp_s2) + 0x182));
-    __base_D_80109688 = gAimAxisTable;
+    __base_D_80109688 = gTrackAxisTable;
     temp_s4 = (temp_s7 * 4) + __base_D_80109688;
     sp28[0] = (*(f32 *)((char *)(*temp_s4) + 0x34));
     sp28[2] = 0;

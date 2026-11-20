@@ -2,7 +2,7 @@
 
 s32 func_80022B60();
 extern s32 D_80102EBC;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 typedef struct {
     u8 pad0[0x10];
@@ -28,7 +28,7 @@ void func_8001EA6C(void *arg0, u8 arg1) {
         temp_a2->x22 = *(u16 *)((char *)(arg0) + 6);
         temp_a2->f = -(arg1 == 0) & 7;
         temp_a2->x10 = (*__base_D_80102EBC);
-        temp_a2->x10 = ((*__base_D_80102EBC) & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
+        temp_a2->x10 = ((*__base_D_80102EBC) & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30));
         func_80022B60(0);
     }
 }

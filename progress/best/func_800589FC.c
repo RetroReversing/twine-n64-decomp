@@ -33,7 +33,7 @@ f32 cosAngle();
 s32 func_80082FE4();
 s32 rotateVec3ByMat3();
 extern char D_800C469C[];
-extern char gAimAxisTable[];
+extern char gTrackAxisTable[];
 
 void func_800589FC(void *arg0, void *arg1) {
     char *__base_D_800C469C;
@@ -89,7 +89,7 @@ void func_800589FC(void *arg0, void *arg1) {
         repair_stack_record.sp88[1] = M2C_FIELD(arg1, f32 *, 4);
         repair_stack_record.sp88[2] = M2C_FIELD(arg1, f32 *, 8);
         M2C_FIELD(temp_v0, void **, 0x18) = spFC;
-        temp_a1 = (var_a1 * 4) + gAimAxisTable;
+        temp_a1 = (var_a1 * 4) + gTrackAxisTable;
         temp_a0 = *temp_a1;
         __base_D_800C469C = D_800C469C;
         sp104 = (M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), s8 *, 0xE) * 0xE8) + __base_D_800C469C;
@@ -119,7 +119,7 @@ void func_800589FC(void *arg0, void *arg1) {
         repair_stack_record.sp88[0] = -repair_stack_record.sp88[0];
         repair_stack_record.sp10[8] = temp_fs0_6;
         rotateVec3ByMat3(repair_stack_record.sp10, repair_stack_record.sp88);
-        temp_a1 = (var_a1 * 4) + gAimAxisTable;
+        temp_a1 = (var_a1 * 4) + gTrackAxisTable;
         temp_v0_2 = *temp_a1;
         if (temp_v0_2 != NULL) {
             repair_stack_record.sp88[0] += M2C_FIELD(temp_v0_2, f32 *, 0x10);

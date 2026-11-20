@@ -14,18 +14,18 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_800294E4(s8 *);                        /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_80029448(void) {
     s8 *temp_a0;
     void *temp_v1;
     void *temp_v1_2;
 
-    temp_v1 = M2C_FIELD(D_80109BB0, void **, 0x18);
+    temp_v1 = M2C_FIELD(gMenuState, void **, 0x18);
     M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
     updateActiveMenuState();
-    if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) && (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0)) {
-        temp_v1_2 = M2C_FIELD(D_80109BB0, void **, 0x18);
+    if ((M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0)) {
+        temp_v1_2 = M2C_FIELD(gMenuState, void **, 0x18);
         temp_a0 = M2C_FIELD(temp_v1_2, s8 **, 0x10);
         if (temp_a0 != NULL) {
             if (M2C_FIELD(temp_v1_2, u16 *, 0xC) & 0x800) {
@@ -34,7 +34,7 @@ void func_80029448(void) {
                 *(s32 *) temp_a0 = M2C_FIELD(temp_v1_2, u8 *, 0x16);
             }
         }
-        M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 1;
+        M2C_FIELD(gMenuState, s8 *, 0x2F) = 1;
         func_800294E4(temp_a0);
     }
 }

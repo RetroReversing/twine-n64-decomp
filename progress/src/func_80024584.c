@@ -17,17 +17,17 @@ M2C_UNK func_8002ACB4(M2C_UNK *, void *);           /* extern */
 extern void *D_800BD550;
 extern void *D_800BD554;
 extern M2C_UNK D_80107EA8;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_80024584(void) {
     void *__repair_D_800BD554;
     func_8002A104(&D_80107EA8);
     if (D_800BD550 != NULL) {
-        M2C_FIELD(D_800BD550, s32 *, 0x10) = (s32) ((M2C_FIELD(D_800BD550, s32 *, 0x10) & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
+        M2C_FIELD(D_800BD550, s32 *, 0x10) = (s32) ((M2C_FIELD(D_800BD550, s32 *, 0x10) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
     }
     __repair_D_800BD554 = D_800BD554;
     if (__repair_D_800BD554 != NULL) {
-        M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) = (s32) ((M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
+        M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) = (s32) ((M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
     }
     func_8002ACB4(&D_80107EA8, __repair_D_800BD554);
 }

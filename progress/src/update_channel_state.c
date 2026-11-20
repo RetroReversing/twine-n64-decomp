@@ -26,7 +26,7 @@ extern u8 D_801007D3;
 extern u8 D_801007D4;
 extern s8 D_801007D5;
 extern u8 D_801096A0;
-extern u8 gActorDoneFlags[];
+extern u8 gTrackDoneFlags[];
 
 /* Advances one channel's state machine: waits for the stored byte pair to match, then applies per-channel level deltas. */ void update_channel_state(void *ctrl) {
     u8 *level_ptr;
@@ -40,13 +40,13 @@ extern u8 gActorDoneFlags[];
     rec = M2C_FIELD(ctrl, void **, 0x6C);
     switch (state) {                              /* irregular */
     case 0:
-        if (*(gActorDoneFlags + M2C_FIELD(rec, u8 *, 0x10)) != M2C_FIELD(rec, u8 *, 0x11)) {
+        if (*(gTrackDoneFlags + M2C_FIELD(rec, u8 *, 0x10)) != M2C_FIELD(rec, u8 *, 0x11)) {
             M2C_FIELD(ctrl, s16 *, 0x7A) = 1;
             return;
         }
         return;
     case 1:
-        if (*(gActorDoneFlags + M2C_FIELD(rec, u8 *, 0x10)) == M2C_FIELD(rec, u8 *, 0x11)) {
+        if (*(gTrackDoneFlags + M2C_FIELD(rec, u8 *, 0x10)) == M2C_FIELD(rec, u8 *, 0x11)) {
             s8 *flag = &D_801007D5;
             if (*flag != 0) break;
             *flag = 1;

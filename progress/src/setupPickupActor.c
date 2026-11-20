@@ -34,7 +34,7 @@ extern s32 *gProbeObjectList;
 extern char D_80100408[];
 extern char D_80102F48[];
 extern s8 gSharedItemBusy;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern char D_8010A488[];
 extern s32 func_8001AC88;
 extern s32 func_80022C04;
@@ -54,7 +54,7 @@ extern char D_800D2864[];
 
     __base_D_80102F48 = D_80102F48;
 
-    entryText = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4000);
+    entryText = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x4000);
     {
         void *volatile *pickup = &gPickupActor;
         if (*(void **)pickup == NULL) {

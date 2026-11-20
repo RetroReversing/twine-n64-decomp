@@ -24,7 +24,7 @@ extern M2C_UNK D_800BD854;
 extern u8 D_800BD855;
 extern s32 D_80102EC0;
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001D424(void) {
     M2C_UNK var_a0;
@@ -85,6 +85,6 @@ block_20:
         M2C_FIELD(sActiveMenu, s16 *, 0x7C) = 0x78;
         func_800278AC(1, D_80102EC0 & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         func_8002778C();
-        M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
+        M2C_FIELD(gMenuState, s8 *, 0x2C) = 0;
     }
 }

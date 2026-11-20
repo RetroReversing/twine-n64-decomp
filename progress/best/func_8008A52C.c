@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80089890();
-s32 func_80089A24();
+s32 advanceLoopPosition();
 s32 func_80089D20();
 s32 func_80089F7C();
 f64 func_8008CD54();
@@ -287,6 +287,6 @@ block_38:
     (*(s16 *)((char *)(temp_s1) + 0x4C)) = (s16) (var_a0_2 + ((*(u16 *)((char *)(arg0) + 4)) * 0x10 * sp10[4]));
     temp_v0 = (*D_800E421C * 0xA10) + D_800E4218;
     *temp_v0 += 1;
-    func_80089A24(arg0, 0xC0);
+    advanceLoopPosition(arg0, 0xC0);
     (*(u8 *)((char *)(arg0) + 0)) = sp28;
 }

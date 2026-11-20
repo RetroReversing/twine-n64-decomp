@@ -3,7 +3,7 @@ s32 func_8000AABC(s32, s32, s32, s32);
 u32 func_80045CF8(s32);
 f32 func_80084270(s32, s16 *);
 extern u16 D_800CE5D0[], D_800CE5D8[];
-extern s32 gAimAxisTable[];
+extern s32 gTrackAxisTable[];
 
 void func_800843CC(s32 object, u32 variant) {
     s16 index;
@@ -16,7 +16,7 @@ void func_800843CC(s32 object, u32 variant) {
         item = D_800CE5D8[func_80045CF8(4)];
     }
     result = func_8000A8B4(item, factor, 255);
-    func_8000AABC(result, gAimAxisTable[*(volatile u16 *)&index], object, 0);
+    func_8000AABC(result, gTrackAxisTable[*(volatile u16 *)&index], object, 0);
 }
 
 extern f32 D_80102E6C, D_80102E70, D_80102E74, D_80102E78;

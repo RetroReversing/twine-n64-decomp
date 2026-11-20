@@ -1,5 +1,5 @@
 typedef struct { u32 a, b, c, d; } FourWords;
-extern u8 D_800BD68E, D_800BD68F, D_80102EDD, D_801007D2, D_801007D3, D_801007D4, D_8010A4C1[], D_8010A4C2;
+extern u8 D_800BD68E, gMenuSlot, D_80102EDD, D_801007D2, D_801007D3, D_801007D4, D_8010A4C1[], D_8010A4C2;
 extern u16 gBorderSkipFlag;
 extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
@@ -30,5 +30,5 @@ void func_80026450(void) {
     }
     if (D_80102EDD != 0) func_8000A368();
     else func_8000A3AC();
-    if (D_80102EDD != 0) func_8001E7A4(D_800BD68F);
+    if (D_80102EDD != 0) func_8001E7A4(gMenuSlot);
 }

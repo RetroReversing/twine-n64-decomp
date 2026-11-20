@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 typedef struct { u8 pad[8]; void *x; u8 padC[0x1C]; } E26;
-extern void **D_80109BB0;
+extern void **gMenuState;
 
 void func_80026E9C(s32 arg0) {
     u8 i;
@@ -22,21 +22,21 @@ void func_80026E9C(s32 arg0) {
     
     void *temp_v1;
 
-    if (D_80109BB0 != NULL) {
-        if (M2C_FIELD(D_80109BB0, void **, 0x10) != NULL) {
-            for (i = 0; i < M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 *, 5); i++) {
+    if (gMenuState != NULL) {
+        if (M2C_FIELD(gMenuState, void **, 0x10) != NULL) {
+            for (i = 0; i < M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u8 *, 5); i++) {
                 s32 off = i * 0x28;
-                temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u8 **, 0) + off), void **, 8);
+                temp_v1 = M2C_FIELD((M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u8 **, 0) + off), void **, 8);
                 if (temp_v1 != NULL) {
                     M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_v1, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
                 }
             }
         }
-        temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x1C);
+        temp_a0 = M2C_FIELD(gMenuState, void **, 0x1C);
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
         }
-        temp_a0_2 = M2C_FIELD(D_80109BB0, void **, 0);
+        temp_a0_2 = M2C_FIELD(gMenuState, void **, 0);
         if (temp_a0_2 != NULL) {
             M2C_FIELD(temp_a0_2, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0_2, s32 *, 0x10) & ~0xFF) | (arg0 & 0xFF));
         }

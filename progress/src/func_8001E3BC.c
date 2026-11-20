@@ -18,14 +18,14 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002D7C0();                            /* extern */
 M2C_UNK func_80086DA0(u16);                         /* extern */
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001E3BC(void) {
     updateActiveMenuState();
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) {
-        func_80086DA0(M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), u16 *, 0x16));
+    if (M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) {
+        func_80086DA0(M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), u16 *, 0x16));
         func_8002D7C0();
-        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
+        M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
         func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         func_800278AC(0, 0, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     }

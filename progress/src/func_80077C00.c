@@ -28,7 +28,7 @@ s32 func_800819EC(s32 arg0, s32 arg1) {
 }
 
 typedef struct { s32 pad[2]; s32 id; } Group44D;
-extern Group44D *gAimAxisTable;
+extern Group44D *gTrackAxisTable;
 extern void func_800422F4(s16);
 extern void func_800426B8(s32, s16, s32);
 void func_80044D28(s16 *arg0) {
@@ -38,7 +38,7 @@ void func_80044D28(s16 *arg0) {
             s16 id;
             s32 group;
             func_800422F4(*entry);
-            group = gAimAxisTable->id;
+            group = gTrackAxisTable->id;
             id = *entry++;
             func_800426B8(group, id, 1);
         } while (*entry >= 0);

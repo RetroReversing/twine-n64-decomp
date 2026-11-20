@@ -18,7 +18,7 @@ extern s32 D_800E1090;
 extern s32 D_800E1094;
 extern s8 D_80102EDC;
 extern void *sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_800278AC(u16 arg0, s32 arg1, s16 arg2) {
 s32 __repair_operand;
@@ -27,13 +27,13 @@ s32 __repair_operand;
     s32 var_v1;
     u16 temp_v0;
 
-    temp_v0 = M2C_FIELD(D_80109BB0, u16 *, 0x14);
+    temp_v0 = M2C_FIELD(gMenuState, u16 *, 0x14);
     temp_v1 = arg0 & 0xFFFF;
-    M2C_FIELD(D_80109BB0, u16 *, 0x14) = arg0;
-    M2C_FIELD(D_80109BB0, u16 *, 0x16) = temp_v0;
+    M2C_FIELD(gMenuState, u16 *, 0x14) = arg0;
+    M2C_FIELD(gMenuState, u16 *, 0x16) = temp_v0;
     if (temp_v1 != 0) {
         s32 scaled = ((temp_v1 << 2) + temp_v1) << 2;
-        s32 base = M2C_FIELD(D_80109BB0, s32 *, 0xC);
+        s32 base = M2C_FIELD(gMenuState, s32 *, 0xC);
         scaled = scaled - 0x14;
         D_800E1090 = base + scaled;
     } else {
@@ -49,7 +49,7 @@ s32 __repair_operand;
         D_80102EDC = 0;
     }
     }
-    { void *p = sActiveMenu; void *q = D_80109BB0;
+    { void *p = sActiveMenu; void *q = gMenuState;
     M2C_FIELD(p, s16 *, 0x7A) = 0x14;
     M2C_FIELD(q, s16 *, 0x32) = 0; }
     func_80027408(0, 0, 0, 0);

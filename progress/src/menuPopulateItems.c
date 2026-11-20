@@ -12,11 +12,11 @@ s32 func_8002AC04();
 s32 func_8002ACB4();
 void *func_80087100();
 s32 sprintf();
-extern s16 D_800B60E2;
+extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern s16 D_800B60E8;
 extern u8 D_800BD68E;
-extern u8 D_800BD68F;
+extern u8 gMenuSlot;
 extern char D_800BDBD0[];
 extern char D_800CE92C[];
 extern char D_800CE984[];
@@ -40,7 +40,7 @@ void menuPopulateItems(void) {
     s32 *slotPtr;
     u32 itemCount;
 
-    D_800B60E2 = 3;
+    gMenuMode = 3;
     gMenuList = D_800E0C70;
     func_8002A644(D_800E0C70, D_800E0C98, 0x1A4, 0xB, 0x2D, 0xB4, 0x4C, 0xB, 0, &func_8001EA6C, &func_8001EAF0);
     D_800B60E8 = 0;
@@ -48,7 +48,7 @@ void menuPopulateItems(void) {
     if (textHandle) {
         { func_80022A30(D_800BD68E, 0x2D, 0x46, 0xDC, 0x7F); }
         itemTable = NULL;
-        formatTextEntry(textHandle, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (D_800BD68F * 2)) | 0x7000));
+        formatTextEntry(textHandle, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (gMenuSlot * 2)) | 0x7000));
         itemCount = 0;
         switch (D_80102EE8) {                       /* irregular */
         case 0:

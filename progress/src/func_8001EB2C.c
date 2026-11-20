@@ -28,7 +28,7 @@ extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern void *sActiveMenu;
 extern s32 D_80108F78;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_8001EB2C(void) {
     s16 temp_a0;
@@ -36,7 +36,7 @@ void func_8001EB2C(void) {
     u8 i;
     s32 var_s1;
 
-    if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 0) {
+    if (M2C_FIELD(gMenuState, u8 *, 0x2C) == 0) {
         updateActiveMenuState();
         return;
     }
@@ -59,7 +59,7 @@ void func_8001EB2C(void) {
         }
         return;
     fail:
-        M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
+        M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
         func_8000A894(0xEA);
         return;
     } else {

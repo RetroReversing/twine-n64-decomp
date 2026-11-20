@@ -40,7 +40,7 @@ extern s8 D_800E0758;
 extern char D_80100B60[];
 extern u8 D_80102EDE;
 extern u8 D_80102EE0;
-extern void *volatile gAimAxisTable;
+extern void *volatile gTrackAxisTable;
 extern void *D_80109690;
 extern u8 D_80109E68;
 extern u8 D_8010A4C1;
@@ -125,7 +125,7 @@ s32 func_8000D000(void) {
         func_80044D84(D_800E0740);
         func_80044D28(D_80100B60);
         func_80044FF0();
-        func_80042CFC(((__repair_record_D_80109688*)gAimAxisTable)->field_8, D_800E0740);
+        func_80042CFC(((__repair_record_D_80109688*)gTrackAxisTable)->field_8, D_800E0740);
         func_8004505C();
     } else {
         func_80044D28(D_80100B60);
@@ -157,9 +157,9 @@ s32 func_8000D000(void) {
         D_800B2718 = NULL;
         (*(s32 *)((char *)(temp_v1_4) + 0x60)) = (s32) (temp_v0_6 | 1);
     }
-    ((__repair_record_D_80109688*)gAimAxisTable)->field_100 |= 0x40;
+    ((__repair_record_D_80109688*)gTrackAxisTable)->field_100 |= 0x40;
     func_800101D8();
-    ((__repair_record_D_80109688*)gAimAxisTable)->field_142 = 7;
-    ((__repair_record_D_80109688*)gAimAxisTable)->field_100 |= 0x100;
+    ((__repair_record_D_80109688*)gTrackAxisTable)->field_142 = 7;
+    ((__repair_record_D_80109688*)gTrackAxisTable)->field_100 |= 0x100;
     return 1;
 }

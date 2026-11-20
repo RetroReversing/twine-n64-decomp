@@ -6,10 +6,10 @@ void func_800315E0(s16);
 void func_80073AF8(s32,s32,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_80074F04(void);
 s32 func_80087100(s32);
-extern s32 D_8010302C, gAimAxisTable;
+extern s32 D_8010302C, gTrackAxisTable;
 void func_80031700(u32 arg0) {
  s16 n;
- register s32 *p = &gAimAxisTable;
+ register s32 *p = &gTrackAxisTable;
  if (!arg0) return;
  if (arg0 < 10) {
   n = arg0;

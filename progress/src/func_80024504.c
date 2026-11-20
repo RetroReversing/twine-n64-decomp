@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8002424C();                            /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_80024504(void) {
     func_8002424C();
-    M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u16 *, 6) = (u16) M2C_FIELD(D_80109BB0, u16 *, 0x16);
+    M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6) = (u16) M2C_FIELD(gMenuState, u16 *, 0x16);
 }

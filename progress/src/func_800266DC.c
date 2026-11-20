@@ -6,7 +6,7 @@ s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 func_80087100(u16, void *);                     /* extern */
 s32 strlen(s8 *);                                    /* extern */
 extern u8 D_800BD68E;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 void func_800266DC(void *arg0) {
     u32 packed;
@@ -18,28 +18,28 @@ void func_800266DC(void *arg0) {
     void *temp_v0;
     void *temp_v0_2;
 
-    temp_a0 = (*(void **)((char *)(D_80109BB0) + 0x24));
+    temp_a0 = (*(void **)((char *)(gMenuState) + 0x24));
     if (temp_a0 != NULL) {
         func_80016314(temp_a0);
     }
-    (*(void **)((char *)(D_80109BB0) + 0x24)) = NULL;
+    (*(void **)((char *)(gMenuState) + 0x24)) = NULL;
     if (arg0 != NULL) {
-        if (((*(void **)((char *)(D_80109BB0) + 0)) != NULL) || (temp_v0 = func_800162BC(D_800BD68E), (*(void **)((char *)(D_80109BB0) + 0)) = temp_v0, (temp_v0 != NULL))) {
-            (*(u16 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x1E)) = (u16) (*(u16 *)((char *)(arg0) + 2));
-            temp_a1 = (*(void **)((char *)(D_80109BB0) + 0));
+        if (((*(void **)((char *)(gMenuState) + 0)) != NULL) || (temp_v0 = func_800162BC(D_800BD68E), (*(void **)((char *)(gMenuState) + 0)) = temp_v0, (temp_v0 != NULL))) {
+            (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x1E)) = (u16) (*(u16 *)((char *)(arg0) + 2));
+            temp_a1 = (*(void **)((char *)(gMenuState) + 0));
             (*(s32 *)((char *)(temp_a1) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a1) + 0x28)) & ~0xFC) | 0xC);
-            (*(u16 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x16));
-            (*(u16 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
-            (*(s32 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x10)) = -0x100;
-            (*(s32 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x18)) = func_80087100((*(u16 *)((char *)(arg0) + 0x14)), temp_a1);
-            (*(s16 *)((char *)((*(void **)((char *)(D_80109BB0) + 0))) + 0x1C)) = 0;
-            temp_s0 = (*(void **)((char *)(D_80109BB0) + 0));
+            (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x16));
+            (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
+            (*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x10)) = -0x100;
+            (*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x18)) = func_80087100((*(u16 *)((char *)(arg0) + 0x14)), temp_a1);
+            (*(s16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x1C)) = 0;
+            temp_s0 = (*(void **)((char *)(gMenuState) + 0));
             temp_a0_2 = (*(s32 *)((char *)(temp_s0) + 0x18));
             if (temp_a0_2) {
                 (*(s16 *)((char *)(temp_s0) + 0x1C)) = strlen(temp_a0_2);
             }
         }
-        (*(void **)((char *)(D_80109BB0) + 0x24)) = NULL;
+        (*(void **)((char *)(gMenuState) + 0x24)) = NULL;
         if ((*(s16 *)((char *)(arg0) + 0x10)) >= 0) {
             temp_v0_2 = func_800162BC(D_800BD68E);
             (*(s32 *)((char *)(temp_v0_2) + 0x10)) = (s32) (*(s32 *)((char *)(arg0) + 8));
@@ -54,7 +54,7 @@ void func_800266DC(void *arg0) {
             func_800448A4(temp_v0_2, packed >> 0x10, packed & 0xFF);
             {
                 u16 x = (*(u16 *)((char *)(arg0) + 4));
-                void *p = D_80109BB0;
+                void *p = gMenuState;
                 (*(u16 *)((char *)(temp_v0_2) + 0x20)) = x;
                 (*(u16 *)((char *)(temp_v0_2) + 0x22)) = (*(u16 *)((char *)(arg0) + 6));
                 (*(void **)((char *)(p) + 0x24)) = temp_v0_2;

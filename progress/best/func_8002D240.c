@@ -109,7 +109,8 @@ void func_8002D240(void) {
     long var_s2;
     int var_s2_2;
 int __repair_phase_var_s2_2;
-    int var_s5;
+int __repair_phase___repair_phase_var_s2_2;
+    
     register unsigned long var_s5_2;
     register u16 temp_a2;
     u32 var_s0;
@@ -150,7 +151,7 @@ int __repair_phase_var_s2_2;
     D_801002F2 = 0;
     D_801002F0 = 0xA;
     func_8000A22C(0xA);
-    var_s5 = 0;
+    __repair_phase_var_s2_2 = 0;
     func_8000A18C(D_801002F1);
     D_8010A4C2 = 0x1F;
     D_8010A4C0 = 0;
@@ -199,7 +200,7 @@ int __repair_phase_var_s2_2;
         temp_v1 = (s32)var_s0 * 0x18;
         *(D_80100198 + temp_v1) = 2;
         *(D_801001A0 + temp_v1) = (s32)0x64;
-        temp_s3 = var_s5 & 1;
+        temp_s3 = __repair_phase_var_s2_2 & 1;
         *(D_801001A2 + temp_v1) = 1;
         *(D_801001A3 + temp_v1) = 0;
         if (temp_s1) {
@@ -211,14 +212,14 @@ int __repair_phase_var_s2_2;
         if (temp_s3) {
 block_7:
             *(D_801001A1 + temp_v1) = 1;
-            var_s5 += 1;
+            __repair_phase_var_s2_2 += 1;
         } else {
 block_8:
             *(D_801001A1 + temp_v1) = 0;
-            ++var_s5;
+            ++__repair_phase_var_s2_2;
         }
-        var_s0 = var_s5 & 0xFFFF;
-    } while ((u32) ((temp_s1 = (short)var_s5) & 0xFFFF) < 0xBU);
+        var_s0 = __repair_phase_var_s2_2 & 0xFFFF;
+    } while ((u32) ((temp_s1 = (short)__repair_phase_var_s2_2) & 0xFFFF) < 0xBU);
     var_s2 = 0;
     func_8002D7C0();
     gSaveSlotInfo = func_8002B9FC(0x11);
@@ -236,8 +237,8 @@ block_8:
     do {
         func_8002B000((temp_s1_2 * 8) + D_80117410, 0x1E);
         var_s2 += 1;
-        __repair_phase_var_s2_2 = var_s2 & 0xFFFF;
-    var_s2_2 = __repair_phase_var_s2_2;
+        __repair_phase___repair_phase_var_s2_2 = var_s2 & 0xFFFF;
+    var_s2_2 = __repair_phase___repair_phase_var_s2_2;
     temp_s1_2 = var_s2_2;
     } while ((u32) ((var_s2_2 = var_s2) & (short)0xFFFF) < (unsigned)2U);
     var_s5_2 = 0;

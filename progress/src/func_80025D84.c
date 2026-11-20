@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80025F78(s32, M2C_UNK);                /* extern */
 s8 func_800263B8(s32, s32);                         /* extern */
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[4]; int field_18; } __repair_record_D_80109BB0;
 void func_80025D84(s32 arg0, s32 arg1, void *arg2, void *arg3, u16 arg4, u16 arg5) {
@@ -22,17 +22,17 @@ void func_80025D84(s32 arg0, s32 arg1, void *arg2, void *arg3, u16 arg4, u16 arg
 
     func_80025F78(arg0, 0);
     func_80025F78(arg1, 0);
-    if (arg0 == ((__repair_record_D_80109BB0*)D_80109BB0)->field_18) {
+    if (arg0 == ((__repair_record_D_80109BB0*)gMenuState)->field_18) {
         func_80025F78(arg0, 9);
     }
     if (((arg0 != 0) & (arg2 != NULL)) && (arg3 != NULL)) {
         temp_s0 = arg4 & 0xFFFF;
         if (arg5 != 0) {
-            M2C_FIELD(arg2, s8 *, 0x27) = func_800263B8(((__repair_record_D_80109BB0*)D_80109BB0)->field_10, temp_s0);
-            M2C_FIELD(arg3, s8 *, 0x26) = func_800263B8(((__repair_record_D_80109BB0*)D_80109BB0)->field_10, temp_s0);
+            M2C_FIELD(arg2, s8 *, 0x27) = func_800263B8(((__repair_record_D_80109BB0*)gMenuState)->field_10, temp_s0);
+            M2C_FIELD(arg3, s8 *, 0x26) = func_800263B8(((__repair_record_D_80109BB0*)gMenuState)->field_10, temp_s0);
             return;
         }
-        M2C_FIELD(arg2, s8 *, 0x25) = func_800263B8(((__repair_record_D_80109BB0*)D_80109BB0)->field_10, temp_s0);
-        M2C_FIELD(arg3, s8 *, 0x24) = func_800263B8(((__repair_record_D_80109BB0*)D_80109BB0)->field_10, temp_s0);
+        M2C_FIELD(arg2, s8 *, 0x25) = func_800263B8(((__repair_record_D_80109BB0*)gMenuState)->field_10, temp_s0);
+        M2C_FIELD(arg3, s8 *, 0x24) = func_800263B8(((__repair_record_D_80109BB0*)gMenuState)->field_10, temp_s0);
     }
 }

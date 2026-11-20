@@ -18,7 +18,7 @@ M2C_UNK func_8002CAEC(s32);                         /* extern */
 extern s16 gSaveStatus;
 extern s8 D_80102F04;
 extern s32 sActiveMenu;
-extern void *D_80109BB0;
+extern void *gMenuState;
 
 s32 func_800248B4(s32 arg0, s32 arg1) {
     s32 temp_a0;
@@ -36,7 +36,7 @@ s32 func_800248B4(s32 arg0, s32 arg1) {
             func_80026424(sActiveMenu, 0x18);
             return 0x8001;
         case 0x8000:
-            M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
+            M2C_FIELD(gMenuState, s8 *, 0x2C) = 0;
             return 1;
     }
     return 1;

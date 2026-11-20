@@ -32,8 +32,8 @@ s32 func_80015D40(u8);
 s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32);
 s32 func_8007659C(void *, void *);
 s32 func_80085E30(void *);
-s32 func_80085E78(void *, void *);
-extern u8 gActorDoneFlags[];
+s32 updateActorTrackingState(void *, void *);
+extern u8 gTrackDoneFlags[];
 
 void func_8005B214(Obj5B214 *arg0) {
     s16 state = arg0->state;
@@ -45,7 +45,7 @@ void func_8005B214(Obj5B214 *arg0) {
     case 0:
         v = s->b30;
         if (v != 0) {
-            v = gActorDoneFlags[v];
+            v = gTrackDoneFlags[v];
         } else {
             if (arg0->w60 & func_80015D40(s->b31)) {
                 arg0->state = 1;
@@ -58,7 +58,7 @@ void func_8005B214(Obj5B214 *arg0) {
         break;
     case 1:
         if (s->h14 != 0) {
-            func_80085E78(arg0, s);
+            updateActorTrackingState(arg0, s);
         }
         s->f20 += s->f2C;
         func_8007659C(arg0, s->vec1C);

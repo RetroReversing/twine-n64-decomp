@@ -69,7 +69,7 @@ M2C_UNK func_800853D4(f32 *);                       /* extern */
 M2C_UNK func_8008548C(f32 *, u32);                  /* extern */
 M2C_UNK func_80085D90(f32 *, s32);                  /* extern */
 M2C_UNK func_80085E30(void *);                      /* extern */
-M2C_UNK func_80085E78(void *, f32 *);               /* extern */
+M2C_UNK updateActorTrackingState(void *, f32 *);               /* extern */
 extern u16 D_800B35B0;
 extern M2C_UNK D_800D3F54;
 extern f64 D_800D3F60;
@@ -971,7 +971,7 @@ block_263:
                 M2C_FIELD(arg0, s16 *, 0x7A) = 2;
             } else {
                 if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), u16 *, 0x52) != 0) {
-                    func_80085E78(arg0, temp_s2 + 0x3C);
+                    updateActorTrackingState(arg0, temp_s2 + 0x3C);
                 }
                 if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x60) & 8) {
                     temp_v1_16 = M2C_FIELD(temp_s2, s16 *, 0x34);

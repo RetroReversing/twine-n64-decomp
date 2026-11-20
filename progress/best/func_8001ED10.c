@@ -59,8 +59,8 @@ void func_8001ED10(void) {
             D_80102EB9 = 0xB;
             i = 0;
             do {
-                func_80011938(i & 0xFFFF, 0);/*__repair_loop_weight*/do {
-                i++;} while (0);
+                func_80011938(i & 0xFFFF, 0);
+                i++;
             } while ((u32)(i & 0xFFFF) < 4U);
             func_8002B000(&D_80102EFC, 0x1E);
             if (D_80102ED8 != 0) {

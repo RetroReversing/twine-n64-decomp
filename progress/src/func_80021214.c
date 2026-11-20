@@ -23,7 +23,7 @@ extern char D_80100198[];
 extern u8 D_801002AD;
 extern char D_80100408[];
 extern s32 gBorderSkipFlag;
-extern void *D_80109BB0;
+extern void *gMenuState;
 extern char D_8010A488[];
 extern s32 func_8001AC88;
 extern s32 func_80022C04;
@@ -36,7 +36,7 @@ void func_80021214(void) {
     u8 var_s1;
     void *temp_v0;
 
-    temp_v0 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x7E);
+    temp_v0 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x7E);
     if (temp_v0 != NULL) {
         __base_D_801002AD = &D_801002AD;
         temp_v1 = (*__base_D_801002AD) * 0x18;
