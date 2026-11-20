@@ -97,12 +97,9 @@ void func_8002BC68(s32 arg0, s8 arg1) {
         var_v1 = func_8002B9FC(0x60) * 0xC;
         var_v0 = *(u16 *)(D_800BF686 + var_v1);
         var_a0 = 0x10;
-block_12:
-        *(u16 *)(D_800BF686 + var_v1) = (var_v0 & 0xFFFE) | var_s0;
-        temp_v1_6 = func_8002B9FC(var_a0) * 0xC;
-        *(u16 *)(D_800BF686 + temp_v1_6) = (*(u16 *)(D_800BF686 + temp_v1_6) & 0xFFFE) | var_s0;
-        goto done;
+        goto block_12;
     case 0:
+        return;
     default:
         goto done;
     case 2:
@@ -266,7 +263,10 @@ block_12:
         var_v1 = func_8002B9FC(0x43) * 0xC;
         var_v0 = *(u16 *)(D_800BF686 + var_v1);
         var_a0 = 0x4E;
-        goto block_12;
+block_12:
+        *(u16 *)(D_800BF686 + var_v1) = (var_v0 & 0xFFFE) | var_s0;
+        temp_v1_6 = func_8002B9FC(var_a0) * 0xC;
+        *(u16 *)(D_800BF686 + temp_v1_6) = (*(u16 *)(D_800BF686 + temp_v1_6) & 0xFFFE) | var_s0;
     }
 done:
     *(D_80112F70 + (arg0 & 0xFF)) = arg1;

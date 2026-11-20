@@ -25,7 +25,7 @@ extern u8 D_80117734;
 extern s32 func_80076CE4;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
-void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15) {
+void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14, s32 arg15) {
     s32 __repair_store_0;
     s32 var_s2;
     s32 __repair_store_2;

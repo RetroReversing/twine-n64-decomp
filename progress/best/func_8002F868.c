@@ -21,7 +21,7 @@ s32 func_8002EFD8();
 s32 func_8002F068();
 s32 func_8002F240();
 s32 func_8002F2EC();
-s32 func_8002F37C();
+s32 updateObjectFade();
 s32 func_8002F560();
 s32 func_8002F718();
 s32 func_8002FBD4();
@@ -59,7 +59,7 @@ void func_8002F868(void *arg0, void *arg1) {
         func_8002F2EC(arg0, arg1);
         return;
     case 6:
-        if (func_8002F37C(arg0) & 0xFF) {
+        if (updateObjectFade(arg0) & 0xFF) {
             func_8002FBD4(arg1, 4);
         } else {
         default:
@@ -67,7 +67,7 @@ void func_8002F868(void *arg0, void *arg1) {
         func_8002F2EC(arg0, arg1);
         return;
     case 4:
-        func_8002F37C(arg0);
+        updateObjectFade(arg0);
         if (D_80102EDC != 0) {
             func_8002B050(D_800E1584, 1);
         }
@@ -111,7 +111,7 @@ void func_8002F868(void *arg0, void *arg1) {
         func_8002F2EC(arg0, arg1);
         return;
     case 9:
-        func_8002F37C(arg0);
+        updateObjectFade(arg0);
 block_19:
         func_8002B150(D_800E1584, 0, 0);
         func_8002F2EC(arg0, arg1);
