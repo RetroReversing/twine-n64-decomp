@@ -4008,14 +4008,6 @@
   "score_after": 125
  },
  {
-  "function": "func_80082908",
-  "text": "Tried explicit sqrtf declaration, __builtin_sqrtf with !(arg0 <= 0), and positive-condition return. All emitted helper-call/prologue patterns or wrong compare/branch; target is a 9-instruction leaf with c.le.s $f12,$f0, bc1fl and sqrt.s in the delay slot. Need establish the right intrinsic/inline sqrt facility or source form to emit a raw sqrt.s instruction.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795136655.4664462,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_80081D20",
   "text": "Best verified score 45/12 instructions. Exact semantics and instruction set match; remaining differences are register allocation/order. Tried direct pointer arithmetic and staged arg0*0xA0/base pointer, plus u8/s8 data declarations and local repairs; no improvement. Target stages arg0 index in v0, then base address in v1, then arg1 scaling and byte update. Current compiler allocation consistently uses v1 for scaled index and v0 for base. Further declaration/expression restructuring needed.",
   "by": "codex-gpt-6-luna-10",
@@ -5350,14 +5342,6 @@
   "created_at": 1795137959.2654028,
   "score_before": 620,
   "score_after": 620
- },
- {
-  "function": "func_80082908",
-  "text": "Baseline 1120 rechecked, still 1120. Tried conditional ternary, split scalar lifetime, float-zero local, and __builtin_sqrtf; no change. Target is 9 instructions: mtc1 zero, c.le.s input/zero, then bc1fl with sqrt.s in delay slot and return. Current C sqrtf calls unresolved lib function and emits stack frame. Need a pure-C expression/compiler builtin that lowers to MIPS sqrt.s; project compiler intrinsics may be relevant.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795137960.6811688,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800846A8",
@@ -7432,14 +7416,6 @@
   "score_after": null
  },
  {
-  "function": "func_80082908",
-  "text": "Inherited baseline rechecked at score 1120. Ran 3 available local repairs: split scalar lifetime worsened to 1420; ternary and float-zero-local stayed 1120. Tested explicit double sqrt cast; score 1560, so target is direct sqrt.s with a floating branch sequence, not a helper call. Current mismatch note: target 9 instructions, candidate 20; target bc1fl and sqrt.s, candidate call/conversions/frame. Consider declaring/using a compiler builtin or math operation that lowers directly to sqrt.s, then shape the <=0 branch to bc1fl.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795163944.203496,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_800895F8",
   "text": "Current verified baseline score 3747 (150 target instructions); no exact match. Exhausted 8-compile move-on budget after trying local repairs (cfg integer lifetimes, signedness, declaration order, branch orientation, source-line boundary, address temporary) and manual float conversion/condition rewrites; best score stayed 3747. Start from saved_best revision d8e8b1492de5dfd801e6. Main mismatches: frame is -0x28 vs target -0x20; target saves s0 at +0x10, s1 at +0x14, ra at +0x18. Floating compare/conversion area produces c.lt.s $f2,$f0 / bc1f rather than target c.le.s $f0,$f2 / bc1tl, with duplicated conversion branches and differing FPR allocations. A u32 cast for the first conversion was worse (4322); equivalent reversed/negated comparisons did not match. Matched callee evidence: func_80089C10(s32), func_80089E64(u16), osCreateMesgQueue(void*,s32,s32); candidate's old unprototyped declarations remain in best source. Remaining work: reconstruct FP compare/branch structure and reduce extra stack/local live ranges; inspect full assembly around each conversion.",
   "by": "codex-gpt-6-luna-17",
@@ -8566,14 +8542,6 @@
   "created_at": 1795165412.01018,
   "score_before": 405,
   "score_after": 405
- },
- {
-  "function": "func_80082908",
-  "text": "Exact standalone match verified with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math: initialize result to 0.0f and assign sqrtf(x) under !(x <= 0.0f). Function-only compiler bundle submitted and awaits application. Current flags emit guarded sqrtf fallback even with a correct prototype; no reason to tune scheduling against that fallback.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795165428.065471,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800848EC",
@@ -12272,14 +12240,6 @@
   "score_after": 1235
  },
  {
-  "function": "func_80082908",
-  "text": "Baseline 1120 verified. Tried cached local repairs: split_scalar_lifetime scored 1420; conditional_ternary and float_zero_local tied baseline. Additional __builtin_sqrtf version scored 1320 and diagnosed wrong comparison/opcode (c.lt.s vs target c.le.s), stack frame and unknown sqrtf symbol; do not retain this worse candidate. Target is leaf: mtc1 $zero,$f0; c.le.s $f12,$f0; bc1fl with sqrt.s in delay slot; jr ra. Next: recover saved_best, express <= condition and seek compiler builtin/intrinsic spelling that emits sqrt.s in branch delay, not libm sqrtf.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795178096.0349061,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8008BA98",
   "text": "Rechecked score 1745; tried six local repair families and exact-matched osCreateMesgQueue prototype, no improvement. Main diffs are argument/register scheduling around queue and event setup; target holds arg3 in s1 and uses s0 for D_800E416C, while candidate assigns D_800E4144 to s0 and generates extra moves. Correct queue prototype alone was byte-neutral. Continue from saved best; inspect exact call signatures and source statement ordering for the event/queue setup.",
   "by": "codex-gpt-6-luna-17",
@@ -14448,14 +14408,6 @@
   "score_after": 12450
  },
  {
-  "function": "func_80082908",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795181725.286585,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_80089F7C",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6.1-terra-6",
@@ -14552,14 +14504,6 @@
   "score_after": 10251
  },
  {
-  "function": "func_80082908",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795181727.6428978,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8003E6EC",
   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
   "by": "codex-gpt-6-luna-17",
@@ -14574,14 +14518,6 @@
   "created_at": 1795181727.6428978,
   "score_before": 12450,
   "score_after": 12450
- },
- {
-  "function": "func_80082908",
-  "text": "Verified baseline 1120. Explicit sqrt builtin, double sqrt and branch variants did not improve; GCC inserts a library call instead of target sqrt.s in bc1fl delay slot. Flag search did not improve, IDO and SN trials also failed. Investigate compiler intrinsic or distinct compiler profile that emits direct sqrt.s without errno fallback.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795181896.861957,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800ABAB4",
@@ -15960,14 +15896,6 @@
   "score_after": 25
  },
  {
-  "function": "func_80082908",
-  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: ConnectError: [Errno 61] Connection refused); its attempts are kept.",
-  "by": "api-qwen3.8-27b-1",
-  "created_at": 1795182460.190999,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8009C7C4",
   "text": "Rechecked candidate 0ee4e07f6265be29fd85 at score 820. Tried local repair families call_one_shot_scope, debug_statement_boundary, parameter_width, read_before_assign, goto_backward_loop, target_call_arity; none improved, with goto_backward_loop substantially worse and parameter-width ties. Main remaining issue is saved-register allocation: target saves $s1/$s2 near sp+0x14/0x18, candidate uses $s4/$s3 at sp+0x20/0x1c. Try simplifying/removing temporary locals and align variable lifetimes with original loop/call sequence; inspect mismatch assembly and helper signatures. No reusable global convention established.",
   "by": "codex-gpt-6-luna-19",
@@ -16310,14 +16238,6 @@
   "created_at": 1795182591.964927,
   "score_before": 1430,
   "score_after": 1430
- },
- {
-  "function": "func_80082908",
-  "text": "Three attempts all scored 1120/0%: sqrtf and __builtin_sqrtf are treated as unresolved external calls; changing to direct returns did not alter code. Target is a leaf function using `c.le.s $fa0,$fv0`, branch-likely with `sqrt.s` in the delay slot, then return. Need find a C pattern/compiler builtin that lowers to sqrt.s plus bc1fl; do not guess or rename sqrtf without relocation evidence. Move-on reached.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795182592.006376,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_8009A804",
@@ -18392,14 +18312,6 @@
   "score_after": 825
  },
  {
-  "function": "func_80082908",
-  "text": "Byte-exact diagnostic trial 9346a676228d8c56241a with GCC 2.7.2 KMC plus -ffast-math and typed sqrtf. Function-only compiler bundle submitted and checked; automatic compiler changes are off, so application requires review. Baseline inserts NaN fallback.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795183604.811868,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8008EF6C",
   "text": "Submitted full source with declarations and established/rechecked 3175 (84.5%, 98 displayed differences), improving historical 4145. Dominant mismatch is control flow and register allocation; target has five loop cases with shared per-state updates, while the C switch/gotos produce branch offsets off by one and wrong delay-slot operations. One notable target-only operation is lui $a1,%hi(D_80107EF0); target stores s32 at D_80107EF4 while one draft arm currently stores through a byte pointer. Candidate warnings: pointer assignment incompatibilities. Next inspect assembly around first loop-case mismatch and fix array/table declarations and shared loop structure.",
   "by": "codex-gpt-6-luna-9",
@@ -20384,14 +20296,6 @@
   "score_after": 180
  },
  {
-  "function": "func_80082908",
-  "text": "Ordinary GCC profile rechecked at 1120 with typed sqrtf; compiler emits sqrt.s plus NaN check and libm fallback. Adding only -ffast-math reverified byte-exact (trial caf862b382c3fafa1639). Exact function-only bundle was already submitted by previous agents and awaits review. Apply that profile through review before repeating source permutations.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795184524.07812,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8001D738",
   "text": "Rechecked baseline score 3496 at revision 7afde83e1e5fc3410df5. Ran two independent local repair batches (11 compiles total); no improvement, move-on threshold reached. Best candidate retained. Main mismatch is stack layout: target frame 0x58, candidate 0x60; inspect live ranges/locals and revisit large stack allocation, then align subsequent scheduling.",
   "by": "codex-gpt-6-luna-20",
@@ -21150,14 +21054,6 @@
   "created_at": 1795184880.977288,
   "score_before": 705,
   "score_after": 705
- },
- {
-  "function": "func_80082908",
-  "text": "Submitted reverified function-only exact bundle with KMC -O2 -ffast-math. Default flags emit a NaN/errno fallback call after sqrt.s. Explicit f32 sqrtf prototype and !(x <= 0.0f) guard under -ffast-math reproduce target bc1fl and delay-slot sqrt.s.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184884.996453,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_80019690",
@@ -22336,14 +22232,6 @@
   "score_after": 4305
  },
  {
-  "function": "func_80082908",
-  "text": "Baseline 1120; ternary, float-zero local and lifetime variants did not improve. Target uses inline sqrt.s and branch likely; current sqrtf call generates stack frame and call. Investigate compiler intrinsic/flags with correct prototype.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795185497.710359,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_80064A18",
   "text": "Resumed at revision ef16f11c4a2a5c3c8a01, rechecked baseline 8673. Ran six independent local repair variants (table_read_width, debug_statement_boundary, switch_layout, branch_orientation, signedness, declaration_order); none improved (scores 8873/8673/8698/9643/8673/8673). Main issue remains register/stack allocation: target prologue saves fp at 0x40(sp), candidate saves s0 at 0x20(sp), with widespread register mismatches. Keep candidate; next useful direction is restructure function locals/prototype and early control flow to reproduce target's saved-register set, possibly inspect get_assembly mismatch and callee widths.",
   "by": "codex-gpt-6-luna-22",
@@ -22502,14 +22390,6 @@
   "created_at": 1795185666.742145,
   "score_before": 4485,
   "score_after": 4485
- },
- {
-  "function": "func_80082908",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Source with explicit f32 sqrtf and !(x <= 0.0f) has an existing verified byte-exact function-only compiler trial caf862b382c3fafa1639 under -ffast-math. Existing bundle is pending review; regular profile inserts a NaN/errno fallback and remains at 1120. Applying the verified compiler bundle is the dependency; no duplicate bundle or source trial needed.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795185667.912579,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800AB3C8",
@@ -23888,14 +23768,6 @@
   "score_after": 9896
  },
  {
-  "function": "func_80082908",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Existing notes identify byte-exact diagnostic trial caf862b382c3fafa1639 with the typed sqrtf and KMC -ffast-math. Compiler bundle is pending review. The ordinary profile's generated NaN/errno fallback is the remaining dependency. Apply that verified function-level bundle before rejudging; this session did not repeat the existing trial.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795186643.9859562,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8009EE60",
   "text": "Handwritten MIPS. The always-false BLTZAL at 0x8009EE70 obtains 0x8009EE78 in $ra after saving the caller link in reserved $at. The routine forms the signed byte-table address at 0x8009EF4C via addiu $t7,$ra,0xD4, restores the caller link, and uses $at as scratch. Verified jr $ra / nop at 0x8009EF44/48 and separate next entry at 0x8009EF54.",
   "by": "codex-gpt-6.2-sol-7",
@@ -24166,14 +24038,6 @@
   "created_at": 1795186995.63363,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_80082908",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Current candidate is verified at 1120. The documented function-level compiler trial caf862b382c3fafa1639 is byte-exact with typed sqrtf and -ffast-math. The pending bundle resolves the extra NaN/errno fallback from the current profile; no duplicate trial or submission.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795187008.0774589,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_80039068",
@@ -25336,14 +25200,6 @@
   "score_after": 252
  },
  {
-  "function": "func_80082908",
-  "text": "Baseline score 1120 (0%), 9 target instructions vs 17 emitted. Target is `mtc1 zero,$fv0; nop; c.le.s $fa0,$fv0; nop; nop; bc1fl skip; sqrt.s $fv0,$fa0` in branch delay; jr ra; nop. Candidate uses conditional sqrt and `sqrtf`/`__builtin_sqrtf`, both still produce a call, stack frame, and wrong branch; same score. `#include <math.h>` is explicitly rejected by the compile service (system includes forbidden). Remaining avenue: determine supported way in this project's GCC 2.7.2 environment to express inline sqrt instruction in pure C / compiler intrinsic, and restructure condition so sqrt occupies bc1fl delay slot. No verified match.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795188648.6682072,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_80099F80",
   "text": "Improved verified 631 to 60; all 89 target instructions present. Only remaining mismatch: andi a2,a2,0xff is scheduled just after lbu 0x2F instead of after lbu 0xBE, preceding jal func_8009C420. Preserve explicit packed key stages with distinct low/key locals, index*12 plus intervening state load then (scaled+index)*32, nested linked flag local, and the two-word local array that reproduces 0x40 frame. Typed u8 third arg + cast, volatile final load, and staging either the last or last three arguments made no improvement. Next avenue: compare final scheduling flags (especially scheduler clock/dependency options) on the current exact-except-order shape or test a dependency-preserving argument expression; avoid staging last arguments alone, which destabilizes other positions. Cleaned scoped flag without dead branch and typed third argument was separately verified at equal score 60 (revision 32e76cf49e774690a6ed).",
   "by": "codex-gpt-6.2-sol-1",
@@ -26400,14 +26256,6 @@
   "score_after": 60
  },
  {
-  "function": "func_80082908",
-  "text": "Verified score 1120: target uses inline sqrt.s and branch-likely; candidate emits sqrtf call and stack frame. Ternary and zero local identical; split lifetime worse. Investigate compiler intrinsic or profile.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795189717.467645,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_800ABAB4",
   "text": "Verified best 825; u64-by-u64 multiply scored 985 and emitted signed cross-products in a different order. Target is 64-bit multiply helper using multu partial products; explore explicit word decomposition or compiler profile. Stopping early for session handoff.",
   "by": "codex-gpt-6.1-terra-4",
@@ -26694,14 +26542,6 @@
   "created_at": 1795190000.974315,
   "score_before": 120,
   "score_after": 120
- },
- {
-  "function": "func_80082908",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Exact KMC -ffast-math trial caf862b382c3fafa1639 and the corresponding function-only bundle are already recorded. Typed sqrtf with the negated <= comparison fills the bc1fl delay slot under those flags; ordinary flags add fallback machinery. Pending compiler-profile application remains.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795190001.6521301,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800AB250",
@@ -27504,14 +27344,6 @@
   "score_after": 170
  },
  {
-  "function": "func_80082908",
-  "text": "Rechecked baseline 1120. Remaining repair families split-scalar, ternary and float-zero all tied/regressed; __builtin_sqrtf rewrite also tied and produced 17 instructions. Target is only 9 instructions: mtc1 zero, c.le.s arg0, bc1fl with sqrt.s in delay slot, jr. Candidate implicit sqrtf attempts call unknown symbol and create stack frame. Likely needs compiler-recognized sqrt builtin/name/prototype; no score improvement after 3 no-better compiles.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795190805.3100579,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_80084048",
   "text": "Corrected invalid uninitialized n in prior best. Changed D_800CE354 to 12-byte record array for indexed relocation, and boolean test to == 0; valid score improved 1680 to 765. Remaining a2/a3 allocation, target reload of n->b for D_800E1AB0 and loop branch differences. Reordering locals, comparison operands or prev/next assignments generated identical code; reversing global updates regressed.",
   "by": "codex-gpt-6.1-terra-3",
@@ -28118,14 +27950,6 @@
   "created_at": 1795191466.886261,
   "score_before": 1610,
   "score_after": 140
- },
- {
-  "function": "func_80082908",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Previously verified trial caf862b382c3fafa1639 uses typed sqrtf, !(x <= 0.0f) and KMC -ffast-math. The existing exact compiler bundle is pending. Prior ordinary-profile trials emitted a call/fallback; left the existing submission for review.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191478.568814,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_80018364",
@@ -29920,14 +29744,6 @@
   "score_after": 180
  },
  {
-  "function": "func_80082908",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795193408.8974972,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_8009532C",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6-luna-22",
@@ -30006,14 +29822,6 @@
   "created_at": 1795193444.283711,
   "score_before": 776,
   "score_after": 776
- },
- {
-  "function": "func_80082908",
-  "text": "Target is 12 instructions: mtc1 zero, c.le.s, then bc1fl with sqrt.s in branch delay slot. Candidate conditional plus sqrtf and both __builtin_sqrtf/__builtin_sqrt compile to external unresolved calls; neither lowers to MIPS sqrt.s. No matching pure C expression established. Likely needs compiler intrinsic/configuration investigation; saved best score 1120 is nonmatching and all attempts had a call.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795193586.616592,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_8001BCA8",
@@ -31608,14 +31416,6 @@
   "score_after": 1367
  },
  {
-  "function": "func_80082908",
-  "text": "3/3 no improvement. Target is 9 instructions: zero FPR, ordered c.le.s(arg0,0), then bc1fl with sqrt.s in delay slot, jr/nop. Draft C with sqrtf or __builtin_sqrtf generated a 17-instruction call/frame sequence and score 1120; replacing !<= with > worsened to 1320 and used c.lt.s. Target likely needs a specific intrinsic/math setting or explicit expression that allows sqrt.s delay-slot generation; target has no sqrtf call relocation, so don't chase guessed address. Function genuinely ends at jr ra.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795197446.059398,
-  "score_before": 1120,
-  "score_after": 1120
- },
- {
   "function": "func_800AB880",
   "text": "The saved historical score 45 source was rechecked under current header/compiler and is now 565, so current baseline is 565. Target is optimized strcpy with alignment-aware byte prefix and 4-byte zero detection. A first compile of supplied source scored 565; it matches operation count but register allocation differs beginning at byte load: target uses $v0 and stores immediately before incrementing source, candidate uses $v1 and increments before store. Saved best score 45 appears profile/header-stale. Reordering declarations, register qualifiers and equivalent expression formatting all kept score 565. Need reshape byte-copy loops to use `*out++ = *src++` or store-before-advance and inspect full target assembly, while preserving early exits and word copy. No match.",
   "by": "codex-gpt-6-luna-17",
@@ -32958,14 +32758,6 @@
   "created_at": 1795198755.4319308,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_80082908",
-  "text": "Target is a 9-instruction leaf: zero FPR, compare arg<=0, return zero via branch-likely with `sqrt.s` in delay slot only when positive. All three compiled trials scored 1120 and emitted a 17-instruction body with frame/call to unresolved `sqrtf`; `__builtin_sqrtf` and conditional-expression rewrites compiled identically. Need express the compiler's inline MIPS sqrt.s operation directly through an available pure-C builtin/toolchain pattern (without a call), and preserve the branch-likely delay-slot scheduling. No known callee relocation: target has no call.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795198759.81841,
-  "score_before": 1120,
-  "score_after": 1120
  },
  {
   "function": "func_800468E4",
@@ -34470,5 +34262,213 @@
   "created_at": 1795198486.644106,
   "score_before": 820,
   "score_after": 820
+ },
+ {
+  "function": "func_80082908",
+  "text": "Tried explicit sqrtf declaration, __builtin_sqrtf with !(arg0 <= 0), and positive-condition return. All emitted helper-call/prologue patterns or wrong compare/branch; target is a 9-instruction leaf with c.le.s $f12,$f0, bc1fl and sqrt.s in the delay slot. Need establish the right intrinsic/inline sqrt facility or source form to emit a raw sqrt.s instruction.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795136655.4664462,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Baseline 1120 rechecked, still 1120. Tried conditional ternary, split scalar lifetime, float-zero local, and __builtin_sqrtf; no change. Target is 9 instructions: mtc1 zero, c.le.s input/zero, then bc1fl with sqrt.s in delay slot and return. Current C sqrtf calls unresolved lib function and emits stack frame. Need a pure-C expression/compiler builtin that lowers to MIPS sqrt.s; project compiler intrinsics may be relevant.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795137960.6811688,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Inherited baseline rechecked at score 1120. Ran 3 available local repairs: split scalar lifetime worsened to 1420; ternary and float-zero-local stayed 1120. Tested explicit double sqrt cast; score 1560, so target is direct sqrt.s with a floating branch sequence, not a helper call. Current mismatch note: target 9 instructions, candidate 20; target bc1fl and sqrt.s, candidate call/conversions/frame. Consider declaring/using a compiler builtin or math operation that lowers directly to sqrt.s, then shape the <=0 branch to bc1fl.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795163944.203496,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Exact standalone match verified with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math: initialize result to 0.0f and assign sqrtf(x) under !(x <= 0.0f). Function-only compiler bundle submitted and awaits application. Current flags emit guarded sqrtf fallback even with a correct prototype; no reason to tune scheduling against that fallback.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795165428.065471,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Baseline 1120 verified. Tried cached local repairs: split_scalar_lifetime scored 1420; conditional_ternary and float_zero_local tied baseline. Additional __builtin_sqrtf version scored 1320 and diagnosed wrong comparison/opcode (c.lt.s vs target c.le.s), stack frame and unknown sqrtf symbol; do not retain this worse candidate. Target is leaf: mtc1 $zero,$f0; c.le.s $f12,$f0; bc1fl with sqrt.s in delay slot; jr ra. Next: recover saved_best, express <= condition and seek compiler builtin/intrinsic spelling that emits sqrt.s in branch delay, not libm sqrtf.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795178096.0349061,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795181725.286585,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795181727.6428978,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Verified baseline 1120. Explicit sqrt builtin, double sqrt and branch variants did not improve; GCC inserts a library call instead of target sqrt.s in bc1fl delay slot. Flag search did not improve, IDO and SN trials also failed. Investigate compiler intrinsic or distinct compiler profile that emits direct sqrt.s without errno fallback.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795181896.861957,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Released because its agent stopped (it failed 5 times in a row, each soon after it started: ConnectError: [Errno 61] Connection refused); its attempts are kept.",
+  "by": "api-qwen3.8-27b-1",
+  "created_at": 1795182460.190999,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Three attempts all scored 1120/0%: sqrtf and __builtin_sqrtf are treated as unresolved external calls; changing to direct returns did not alter code. Target is a leaf function using `c.le.s $fa0,$fv0`, branch-likely with `sqrt.s` in the delay slot, then return. Need find a C pattern/compiler builtin that lowers to sqrt.s plus bc1fl; do not guess or rename sqrtf without relocation evidence. Move-on reached.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795182592.006376,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Byte-exact diagnostic trial 9346a676228d8c56241a with GCC 2.7.2 KMC plus -ffast-math and typed sqrtf. Function-only compiler bundle submitted and checked; automatic compiler changes are off, so application requires review. Baseline inserts NaN fallback.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795183604.811868,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Ordinary GCC profile rechecked at 1120 with typed sqrtf; compiler emits sqrt.s plus NaN check and libm fallback. Adding only -ffast-math reverified byte-exact (trial caf862b382c3fafa1639). Exact function-only bundle was already submitted by previous agents and awaits review. Apply that profile through review before repeating source permutations.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795184524.07812,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Submitted reverified function-only exact bundle with KMC -O2 -ffast-math. Default flags emit a NaN/errno fallback call after sqrt.s. Explicit f32 sqrtf prototype and !(x <= 0.0f) guard under -ffast-math reproduce target bc1fl and delay-slot sqrt.s.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184884.996453,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Baseline 1120; ternary, float-zero local and lifetime variants did not improve. Target uses inline sqrt.s and branch likely; current sqrtf call generates stack frame and call. Investigate compiler intrinsic/flags with correct prototype.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795185497.710359,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Source with explicit f32 sqrtf and !(x <= 0.0f) has an existing verified byte-exact function-only compiler trial caf862b382c3fafa1639 under -ffast-math. Existing bundle is pending review; regular profile inserts a NaN/errno fallback and remains at 1120. Applying the verified compiler bundle is the dependency; no duplicate bundle or source trial needed.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795185667.912579,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Existing notes identify byte-exact diagnostic trial caf862b382c3fafa1639 with the typed sqrtf and KMC -ffast-math. Compiler bundle is pending review. The ordinary profile's generated NaN/errno fallback is the remaining dependency. Apply that verified function-level bundle before rejudging; this session did not repeat the existing trial.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795186643.9859562,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Current candidate is verified at 1120. The documented function-level compiler trial caf862b382c3fafa1639 is byte-exact with typed sqrtf and -ffast-math. The pending bundle resolves the extra NaN/errno fallback from the current profile; no duplicate trial or submission.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795187008.0774589,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Baseline score 1120 (0%), 9 target instructions vs 17 emitted. Target is `mtc1 zero,$fv0; nop; c.le.s $fa0,$fv0; nop; nop; bc1fl skip; sqrt.s $fv0,$fa0` in branch delay; jr ra; nop. Candidate uses conditional sqrt and `sqrtf`/`__builtin_sqrtf`, both still produce a call, stack frame, and wrong branch; same score. `#include <math.h>` is explicitly rejected by the compile service (system includes forbidden). Remaining avenue: determine supported way in this project's GCC 2.7.2 environment to express inline sqrt instruction in pure C / compiler intrinsic, and restructure condition so sqrt occupies bc1fl delay slot. No verified match.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795188648.6682072,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Verified score 1120: target uses inline sqrt.s and branch-likely; candidate emits sqrtf call and stack frame. Ternary and zero local identical; split lifetime worse. Investigate compiler intrinsic or profile.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795189717.467645,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Exact KMC -ffast-math trial caf862b382c3fafa1639 and the corresponding function-only bundle are already recorded. Typed sqrtf with the negated <= comparison fills the bc1fl delay slot under those flags; ordinary flags add fallback machinery. Pending compiler-profile application remains.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795190001.6521301,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Rechecked baseline 1120. Remaining repair families split-scalar, ternary and float-zero all tied/regressed; __builtin_sqrtf rewrite also tied and produced 17 instructions. Target is only 9 instructions: mtc1 zero, c.le.s arg0, bc1fl with sqrt.s in delay slot, jr. Candidate implicit sqrtf attempts call unknown symbol and create stack frame. Likely needs compiler-recognized sqrt builtin/name/prototype; no score improvement after 3 no-better compiles.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795190805.3100579,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Previously verified trial caf862b382c3fafa1639 uses typed sqrtf, !(x <= 0.0f) and KMC -ffast-math. The existing exact compiler bundle is pending. Prior ordinary-profile trials emitted a call/fallback; left the existing submission for review.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191478.568814,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795193408.8974972,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Target is 12 instructions: mtc1 zero, c.le.s, then bc1fl with sqrt.s in branch delay slot. Candidate conditional plus sqrtf and both __builtin_sqrtf/__builtin_sqrt compile to external unresolved calls; neither lowers to MIPS sqrt.s. No matching pure C expression established. Likely needs compiler intrinsic/configuration investigation; saved best score 1120 is nonmatching and all attempts had a call.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795193586.616592,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "3/3 no improvement. Target is 9 instructions: zero FPR, ordered c.le.s(arg0,0), then bc1fl with sqrt.s in delay slot, jr/nop. Draft C with sqrtf or __builtin_sqrtf generated a 17-instruction call/frame sequence and score 1120; replacing !<= with > worsened to 1320 and used c.lt.s. Target likely needs a specific intrinsic/math setting or explicit expression that allows sqrt.s delay-slot generation; target has no sqrtf call relocation, so don't chase guessed address. Function genuinely ends at jr ra.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795197446.059398,
+  "score_before": 1120,
+  "score_after": 1120
+ },
+ {
+  "function": "func_80082908",
+  "text": "Target is a 9-instruction leaf: zero FPR, compare arg<=0, return zero via branch-likely with `sqrt.s` in delay slot only when positive. All three compiled trials scored 1120 and emitted a 17-instruction body with frame/call to unresolved `sqrtf`; `__builtin_sqrtf` and conditional-expression rewrites compiled identically. Need express the compiler's inline MIPS sqrt.s operation directly through an available pure-C builtin/toolchain pattern (without a call), and preserve the branch-likely delay-slot scheduling. No known callee relocation: target has no call.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795198759.81841,
+  "score_before": 1120,
+  "score_after": 1120
  }
 ]
