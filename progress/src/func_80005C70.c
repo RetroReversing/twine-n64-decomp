@@ -13,13 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800055CC();
-s32 func_80005D04();
+s32 func_80005D04(s32, void *, void *, f32);
 
 void func_80005C70(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     u8 sp10[0x628];
     u8 sp638[0x628];
 
-    func_800055CC(sp10, arg5, arg2);
-    do { func_800055CC(sp638, arg1, arg3, arg5); } while (0);
-    func_80005D04(arg0, sp10, sp638);
+    func_800055CC(sp10, arg1, arg2, arg5);
+    __repair_rows: { func_800055CC(sp638, arg1, arg3, arg5); }
+if (0) goto __repair_rows;
+    func_80005D04(arg0, sp10, sp638, arg4);
 }
