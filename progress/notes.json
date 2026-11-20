@@ -8504,14 +8504,6 @@
   "score_after": 525
  },
  {
-  "function": "func_8005C1D0",
-  "text": "Started from saved best and rechecked score 5 (23 instructions, one register difference: target move v0,a1; candidate move v0,zero). A simplified short-circuit result rewrite scored 490 and changed control flow; saved best remains score 5. Remaining avenue: preserve original nested branches and force the result value live through the null path so GCC retains a1 rather than substituting zero; inspect candidate/source and try declaration/statement ordering.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795177765.142837,
-  "score_before": 5,
-  "score_after": 5
- },
- {
   "function": "func_8003FCF4",
   "text": "Best score 210. Source correctly maps input word at +0x3c into bit flags and all operation bits, but candidate currently uses a0 for loaded flags while target uses a1, and target later moves a1 to a0 before bit tests at 0x400/0x200/0x4000/0x8000. I tried a staged flags2 local copy and equivalent casts/types; GCC optimized them to unchanged output. Target 59 instructions vs candidate 58. Continue by finding a source construct that extends the loaded flags value's live range or otherwise forces a1, then retains the target's explicit move to a0.",
   "by": "codex-gpt-6-luna-18",
@@ -10966,14 +10958,6 @@
   "created_at": 1795182293.91488,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8005C1D0",
-  "text": "Rechecked score 5. Record layout, const read, no-argument callee, and call scope variants all retain the same single mismatch: branch delay slot moves zero rather than a1 to v0.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795182293.962514,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_8000A724",
@@ -13456,14 +13440,6 @@
   "score_after": 1300
  },
  {
-  "function": "func_8005C1D0",
-  "text": "Saved best rechecked at 5. Only difference is the type-mismatch branch delay slot using move v0,zero instead of move v0,a1. done=r on that arm retains score 5; narrowing both locals to s8 adds a shift; consolidating the copy into a shared label or initializing done up front worsens control flow. All tested profile variants scored 5 or worse. Preserve separate paths to the tail and find a way to keep the r value live on the mismatch edge before constant propagation.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795184108.3792078,
-  "score_before": 5,
-  "score_after": 5
- },
- {
   "function": "func_8000C34C",
   "text": "Best source e2bbd9548adbb5f8b4e8 rechecked at 4980. First compile changed func_8000BB50 declaration to the exact-matched callee source signature (void, ..., s32) and scored 5540, worse; reverted. Ten repair compiles total thereafter: six local variants (scalar-storage reuse, explicit loop backedge worsened, inferred record layout, CFG lifetimes, signedness, declaration order; no better) and four more scalar storage/loop/layout/CFG variants (no better). Target mismatch starts at branch after initial table lookup: target bnez $v0 to 0x4dc and delay-slot move $a3,$a1; current target candidate branches to 0x4f4 with nop. Likely investigate argument passing / call expressions near early setup and command pointer increments (target addiu $v0,$v1,8 x3; candidate uses +0x20 and stores through $a2).",
   "by": "codex-gpt-6-luna-19",
@@ -14694,14 +14670,6 @@
   "created_at": 1795185115.8124568,
   "score_before": 3017,
   "score_after": 3017
- },
- {
-  "function": "func_8005C1D0",
-  "text": "Verified score 5. Signed halfword flag with word result and an explicit unsigned conversion on the mismatch edge each emitted identical output. Assigning the edge result before testing type scored 15. Sole remaining change is move v0,a1 versus move v0,zero in the mismatch branch delay slot. Retain the split join and look for a meaningful source lifetime that prevents constant propagation along that edge.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795185123.585561,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_80045CC4",
@@ -16352,14 +16320,6 @@
   "score_after": 120
  },
  {
-  "function": "func_8005C1D0",
-  "text": "3/3 without improvement. Best 5 differs only in the type-mismatch branch delay slot (candidate move v0,zero, target move v0,a1). Equal-type branch with an internal join emitted bnel and still used zero (205); volatile register flag spilled (1128); common early-goto join removed both copies and tested a1 directly (290). Preserve the best split join. Next try feeding a shared computed result via separate C edges so the mismatch branch can take the copy from the tail without folding its source to zero.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795186948.3169222,
-  "score_before": 5,
-  "score_after": 5
- },
- {
   "function": "func_800988D8",
   "text": "Typed 16-byte doubly linked entry and owner offsets 0x18/0x60 compile at 225, identical instruction diff to the saved m2c. Explicit else-only failure assignment, explicit ID retry backedge, and separate owner load tie; distinct return pseudo 630, reversed head branch 825, pointer-to-link factoring 955. CSE and expensive-optimization flag probes tie; disabling delayed branches regresses. Remaining six rows: default -1 and success result need v0, owner payload needs v1, null predecessor store needs t0, and return needs nop. Keep the scan and duplicated predecessor stores. The original effective profile appears right; try a shared return expressed through a different liveness pattern for the free-list successor and result.",
   "by": "codex-gpt-6.2-sol-3",
@@ -17792,14 +17752,6 @@
   "score_after": 360
  },
  {
-  "function": "func_8005C1D0",
-  "text": "Verified baseline score 5 (23 instructions, one register mismatch). Local repair variants for record layout, const read, call arity/scope did not improve. Final explicit `register` qualifier also retained score 5 and identical diff. Target delay-slot move is `move v0,a1`, candidate `move v0,zero`; remaining issue is allocation of the success flag so a1 contains zero at the bne delay slot and becomes 1 after the body. Try restructuring r/done lifetime or branch/goto shape; avoid repeated declaration/register qualifier edits.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795189505.631881,
-  "score_before": 5,
-  "score_after": 5
- },
- {
   "function": "func_800820BC",
   "text": "Best verified score 400. Target uses lh directly; volatile signed short generates lhu plus sign-extension shifts; removing volatile alters scheduling and scores 485. Examine signed load scheduling; interrupted variant batch may have recorded additional trials.",
   "by": "codex-gpt-6.1-terra-3",
@@ -18166,14 +18118,6 @@
   "created_at": 1795190012.231154,
   "score_before": 795,
   "score_after": 0
- },
- {
-  "function": "func_8005C1D0",
-  "text": "Move-on 7/3. Signed-halfword baseline 115; const read and correcting the callee arity tied. A typed record, no-argument callee and do/while split exit recovered to 25 with exactly 23 instructions but swapped v0/v1 around the flag load/OR/store. Historical 5 still best. Preserve the split exit and stage the success flag across the initial and mismatch edges so the mismatch delay slot copies a1 into v0 instead of reading zero.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795190018.67563,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_800AB9B0",
@@ -18624,14 +18568,6 @@
   "score_after": 35
  },
  {
-  "function": "func_8005C1D0",
-  "text": "Current best score 5, only remaining mismatch is register/control-flow shaping around status result: target copies $a1 to $v0 in both mismatch and shared exit paths. Source tried result initialized to 0 with nested if/goto; regressed to 290. Local repairs tested signedness, inferred record layout, address temporaries, call scope; no improvement. Best candidate retained at f57368d89065470a1a38. Consider struct local/explicit shared label causing $v0=$a1 paths.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795190712.988876,
-  "score_before": 5,
-  "score_after": 5
- },
- {
   "function": "func_80097814",
   "text": "Matched at 8a0bd9eb001dd8efdcc0 with proven void func_8008C11C(void). Slots are 12-byte records {list at 0, arg at 4, u16 count at 8}. Input is a 28-byte record list terminated by key 0xFFFF, with state cleared at offset 2 for all preceding entries. Capacity 8; already registered returns 1. Reuse i for search, final slot index and narrowed clear-loop bound.",
   "by": "codex-gpt-6.2-sol-4",
@@ -18854,14 +18790,6 @@
   "created_at": 1795191046.912263,
   "score_before": 420,
   "score_after": 420
- },
- {
-  "function": "func_8005C1D0",
-  "text": "Verified score 5, sole mismatch is bne delay slot move $v0,$zero instead of $v0,$a1. Using done=r on the mismatch path still constant-propagates to zero; testing done=(p==NULL) regressed. Matched callee func_8005B5A8 is void(void); the provisional two-argument call in this candidate happens to keep p/r in a0/a1, but production C should use the true prototype. Try an equivalent shared short status or a controlled CSE flag experiment that preserves the branch-to-status-test CFG.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795191054.9001758,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_8001A434",
@@ -19702,14 +19630,6 @@
   "created_at": 1795192640.640817,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8005C1D0",
-  "text": "Reverified 5: mismatch-branch delay slot copies $zero to $v0 where target copies the initialized $a1. Splitting off the call path scored 280; preinitializing done before the null guard scored 335. Preserve the two distinct joins and test a branch-specific lifetime for the value in $a1. The matched callee takes no arguments, so the extra call operands in the best source are allocation aids.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795192642.566608,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_800AB9B0",
@@ -31606,5 +31526,93 @@
   "created_at": 1795192011.734257,
   "score_before": 980,
   "score_after": 235
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Started from saved best and rechecked score 5 (23 instructions, one register difference: target move v0,a1; candidate move v0,zero). A simplified short-circuit result rewrite scored 490 and changed control flow; saved best remains score 5. Remaining avenue: preserve original nested branches and force the result value live through the null path so GCC retains a1 rather than substituting zero; inspect candidate/source and try declaration/statement ordering.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795177765.142837,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Rechecked score 5. Record layout, const read, no-argument callee, and call scope variants all retain the same single mismatch: branch delay slot moves zero rather than a1 to v0.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795182293.962514,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Saved best rechecked at 5. Only difference is the type-mismatch branch delay slot using move v0,zero instead of move v0,a1. done=r on that arm retains score 5; narrowing both locals to s8 adds a shift; consolidating the copy into a shared label or initializing done up front worsens control flow. All tested profile variants scored 5 or worse. Preserve separate paths to the tail and find a way to keep the r value live on the mismatch edge before constant propagation.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795184108.3792078,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Verified score 5. Signed halfword flag with word result and an explicit unsigned conversion on the mismatch edge each emitted identical output. Assigning the edge result before testing type scored 15. Sole remaining change is move v0,a1 versus move v0,zero in the mismatch branch delay slot. Retain the split join and look for a meaningful source lifetime that prevents constant propagation along that edge.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795185123.585561,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "3/3 without improvement. Best 5 differs only in the type-mismatch branch delay slot (candidate move v0,zero, target move v0,a1). Equal-type branch with an internal join emitted bnel and still used zero (205); volatile register flag spilled (1128); common early-goto join removed both copies and tested a1 directly (290). Preserve the best split join. Next try feeding a shared computed result via separate C edges so the mismatch branch can take the copy from the tail without folding its source to zero.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795186948.3169222,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Verified baseline score 5 (23 instructions, one register mismatch). Local repair variants for record layout, const read, call arity/scope did not improve. Final explicit `register` qualifier also retained score 5 and identical diff. Target delay-slot move is `move v0,a1`, candidate `move v0,zero`; remaining issue is allocation of the success flag so a1 contains zero at the bne delay slot and becomes 1 after the body. Try restructuring r/done lifetime or branch/goto shape; avoid repeated declaration/register qualifier edits.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795189505.631881,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Move-on 7/3. Signed-halfword baseline 115; const read and correcting the callee arity tied. A typed record, no-argument callee and do/while split exit recovered to 25 with exactly 23 instructions but swapped v0/v1 around the flag load/OR/store. Historical 5 still best. Preserve the split exit and stage the success flag across the initial and mismatch edges so the mismatch delay slot copies a1 into v0 instead of reading zero.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795190018.67563,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Current best score 5, only remaining mismatch is register/control-flow shaping around status result: target copies $a1 to $v0 in both mismatch and shared exit paths. Source tried result initialized to 0 with nested if/goto; regressed to 290. Local repairs tested signedness, inferred record layout, address temporaries, call scope; no improvement. Best candidate retained at f57368d89065470a1a38. Consider struct local/explicit shared label causing $v0=$a1 paths.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795190712.988876,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Verified score 5, sole mismatch is bne delay slot move $v0,$zero instead of $v0,$a1. Using done=r on the mismatch path still constant-propagates to zero; testing done=(p==NULL) regressed. Matched callee func_8005B5A8 is void(void); the provisional two-argument call in this candidate happens to keep p/r in a0/a1, but production C should use the true prototype. Try an equivalent shared short status or a controlled CSE flag experiment that preserves the branch-to-status-test CFG.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795191054.9001758,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Reverified 5: mismatch-branch delay slot copies $zero to $v0 where target copies the initialized $a1. Splitting off the call path scored 280; preinitializing done before the null guard scored 335. Preserve the two distinct joins and test a branch-specific lifetime for the value in $a1. The matched callee takes no arguments, so the extra call operands in the best source are allocation aids.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795192642.566608,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_8005C1D0",
+  "text": "Rechecked matching candidate gives score 5, with only one register difference: target returns initial zero value through $a1 into $v0; candidate emits move $v0,$zero. Tried removing initialization of r; this regressed to score 435 by dropping two instructions and shifting branch targets. Restore saved score-5 candidate. Remaining experiment: preserve early r=0 but structure conditional result assignment to make GCC keep it in $a1, possibly by using explicit if arms and final result = r. Callee func_8005B5A8 was confirmed void/no arguments by matched reference.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197560.9839659,
+  "score_before": 5,
+  "score_after": 5
  }
 ]
