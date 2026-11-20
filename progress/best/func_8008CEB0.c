@@ -23,6 +23,7 @@ extern u8 D_801176E8;
 
 s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     M2C_UNK *__base_D_8010D724;
+    volatile u32 frame_pad[2];
     u8 sp17;
     u8 sp1F;
     M2C_UNK *var_s1;

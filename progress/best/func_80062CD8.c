@@ -18,16 +18,15 @@ M2C_UNK func_8000A830(s16, s16, M2C_UNK);           /* extern */
 u32 func_80045CF8(M2C_UNK, ...);              /* extern */
 void *func_800617D8(s32, M2C_UNK, M2C_UNK, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80062450(void *, f32 *);               /* extern */
-extern M2C_UNK D_800D42C8;
+typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
+extern Words D_800D42C8;
 extern s16 D_80109A58;
 
 void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     f32 sp30;
     f32 sp34;
     f32 sp38;
-    M2C_UNK sp40;
-    M2C_UNK sp44;
-    M2C_UNK sp48;
+    Words sp40; volatile u32 pad[4];
     f32 temp_fs0;
     f32 temp_fs0_2;
     f32 temp_fs1;
@@ -41,9 +40,7 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     u32 var_s1;
     void *temp_v0_2;
 
-    sp40 = M2C_UNALIGNED32(M2C_FIELD(&D_800D42C8, M2C_UNK *, 0));
-    sp44 = M2C_UNALIGNED32(M2C_FIELD(&D_800D42C8, M2C_UNK *, 4));
-    sp48 = M2C_UNALIGNED32(M2C_FIELD(&D_800D42C8, M2C_UNK *, 8));
+    sp40 = D_800D42C8;
     temp_v0 = func_80045CF8(0x30, &D_800D42C8);
     temp_a1 = temp_v0 >> 3;
     temp_a1_2 = temp_a1 & ((s32) ~(s16) temp_a1 >> 0x1F);

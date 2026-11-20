@@ -88,6 +88,16 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
         FLD(base, void *, 4) = (u8 *)p + temp_s5;
     }
     FLD(p, s8, 0x9F) = sp24;
+    if (sp24 > 0) {
+        s32 i;
+        for (i = 0; i < sp24; ++i) {
+            void *d0 = FLD(p, void *, 0x54);
+            void *d1 = FLD(p, void *, 0x58);
+            f32 value = FLD(arg0, f32, 0x24 + i * 4);
+            FLD(d0, f32, i * 4) = value;
+            FLD(d1, f32, i * 4) = value;
+        }
+    }
     sp2C = 1;
 done:
     D_80109D18 = 0;

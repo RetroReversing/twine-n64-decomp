@@ -6,7 +6,7 @@ typedef struct {
     u16 x;
     u16 y;
     char pad24[4];
-    u32 flags;
+    unsigned int flags;
 } TextObject;
 
 typedef struct {
@@ -37,10 +37,10 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
     TextObject *object = entry->object;
     register u16 selected;
 
-    if (object != NULL) {
-        object->y = entry->position.y;
-        object->x = entry->x;
+    if (object != (u32)NULL) {
         object->flags = (object->flags & ~0xFC) | (-(dim == 0) & 0x1C);
+        object->x = entry->x;
+        object->y = entry->position.y;
         object->size = 0x40;
         func_80022B60(0);
         object->color = (D_80102EBC & ~0xFF) | D_80109BB0->alpha;
@@ -68,7 +68,7 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
                 break;
             }
             selected = D_800E0ED4[D_800BD68F];
-            if (selected == entry->id) {
+            if ((unsigned)selected == entry->id) {
                 object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
             }
             break;

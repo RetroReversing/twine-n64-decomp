@@ -175,8 +175,8 @@ s32 __repair_result_var_v1_3;
                     /* fallthrough */
                 case 3:
                     var_s0 += 1;
-                    D_800E1760 = 0;
                     D_800E1764 = *(u32 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
+                    D_800E1760 = 0;
                     break;
                 case 6:
                     var_s0 += 1;
@@ -195,8 +195,8 @@ s32 __repair_result_var_v1_3;
                     var_s0 += 1;
                     if (D_800C0738 == 0) {
                         temp_a1_2 = D_80115328;
-                        D_80115328 = temp_a1_2 + 8;
                         temp_t2_2 = (*(((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
+                        D_80115328 = temp_a1_2 + 8;
                         ((__repair_field_0 *)temp_a1_2)->value = 0xFA000000;
                         ((__repair_field_4 *)temp_a1_2)->value = (s32) (((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000) | (temp_t2_2 & 0xFF00) | (temp_t2_2 & 0xFF));
                     }
@@ -258,10 +258,10 @@ s32 __repair_result_var_v1_3;
                         __repair_phase_storage.value = arg1 + ((var_s5 - temp_a0_2) * 2);
                         temp_v1_5 = temp_a3 + (*(void **)((char *)(temp_s4) + 8));
                         D_80115328 = var_a2_2 + 8;
-                        D_80115328 = var_a2_2 + 0x10;
+                        D_80115328 = (s8 *) var_a2_2 + 0x10;
                         (*(s32 *)((char *)(var_a2_2) + 8)) = 0xE1000000;
                         (*(s32 *)((char *)(var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
-                        D_80115328 = var_a2_2 + 0x18;
+                        D_80115328 = (s8 *) var_a2_2 + 0x18;
                         (*(s32 *)((char *)(var_a2_2) + 0x10)) = 0xF1000000;
                         ((__repair_field_4 *)var_a2_2)->value = (s32) (((((arg0 + var_s1) * 4) & 0xFFF) << 0xC) | ((__repair_phase_storage.value * 4) & 0xFFF));
                         (*(s32 *)((char *)(var_a2_2) + 0x14)) = 0x04000200;

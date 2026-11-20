@@ -34,10 +34,10 @@ extern u8 D_800C2B40;
 
 typedef struct { int value; } __repair_field_0;
 void func_8000C34C(void *arg0, void *arg1) {
-    char sp18[0xC];
+    char sp18[0x258];
     char *var_s2;
     char *var_a0_2;
-    char sp24[0x244];
+    char *sp24 = sp18 + 12;
     int var_a0;
     
     f32 temp_fs0;
@@ -79,7 +79,7 @@ s32 __repair_phase_var_s1;
             if (D_8010A924 != 0xE) {
                 __repair_phase_storage.pointer = D_8010A928;
                 D_8010A924 = 0xE;
-                D_8010A928 = __repair_phase_storage.pointer + 8;
+                D_8010A928 = __repair_phase_storage.pointer + 2;
                 ((__repair_field_0 *)__repair_phase_storage.pointer)->value = 0xDE000000;
                 (*(s32 **)((char *)(__repair_phase_storage.pointer) + 4)) = D_800B1D48;
             }
@@ -100,7 +100,7 @@ s32 __repair_phase_var_s1;
             temp_v1_4 = D_8010A928;
             var_a0 = 0xFFFDFE38;
             D_801032A0 = 7;
-            D_8010A928 = temp_v1_4 + 8;
+            D_8010A928 = temp_v1_4 + 2;
             ((__repair_field_0 *)temp_v1_4)->value = 0xFCFF97FF;
             (*(s32 *)((char *)(temp_v1_4) + 4)) = 0xFFFDFE38;
         }
@@ -151,7 +151,7 @@ if (__repair_phase_var_a1_2 < temp_s6) goto __repair_rows;
                         }
                         temp_v1_8 = D_8010A928;
                         ((__repair_field_0 *)temp_v1_8)->value = 0xDE000000;
-                        D_8010A928 = temp_v1_8 + 8;
+                        D_8010A928 = temp_v1_8 + 2;
                         (*(s32 *)((char *)(temp_v1_8) + 4)) = (s32) ((__repair_field_0 *)temp_s0_2)->value;
                     }
                 }

@@ -10,28 +10,28 @@ typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 void func_800389F0(__repair_record_arg0 *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
-    s32 var_v0;
-    f32 temp_fv1_4;
-    f32 temp_fv1_5;
-    f32 temp_fv1_6;
-    s32 var_t8;
+    u32 var_v0;
     register f32 temp_fv1_3;
+    f32 temp_fv1_5;
+    register f32 temp_fv1_6;
+    u32 var_t8;
+    f32 temp_fv1_4;
     
     
-    s32 var_v0_5;
-    void *temp_a0;
+    unsigned long var_v0_5;
+    register void *temp_a0;
     void *temp_a0_2;
     void *temp_v0;
     void *temp_v1;
     void *temp_v1_2;
-    void *temp_v1_3;
+    register void *temp_v1_3;
 
     if (((__repair_record_arg0*)arg0)->field_100 & 0x10) {
         func_800344DC();
         temp_v0 = D_80115328;
         (*(s32 *)((char *)(temp_v0) + 0)) = 0xE7000000;
-        (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x300000;
         ((__repair_field_4 *)temp_v0)->value = 0;
+        (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x300000;
         (*(s32 *)((char *)(temp_v0) + 8)) = 0xE3000A01;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = 0xE200001C;
         (*(s32 *)((char *)(temp_v0) + 0x18)) = 0xF7000000;
@@ -39,17 +39,17 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         (*(s32 *)((char *)(temp_v0) + 0x1C)) = 0;
         D_80115328 = temp_v0 + 8;
         D_80115328 = temp_v0 + 0x10;
-        D_80115328 = temp_v0 + 0x18;
         temp_v1 = temp_v0 + 0x20;
+        D_80115328 = temp_v0 + 0x18;
         D_80115328 = temp_v1;
         D_80115328 = temp_v0 + 0x28;
         (*(s32 *)((char *)(temp_v0) + 0x20)) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | (((var_v0 = (u32) (temp_fv1 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58)) * 4) | 0xF6000000));
         ((__repair_field_4 *)temp_v1)->value = 0;
         temp_a0 = D_80115328;
-        (*(s32 *)((char *)(temp_a0) + 0)) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | (((((int)D_80108F80 - 1) & 0x3FF) * 4) | 0xF6000000));
+        (*(s32 *)((char *)(temp_a0) + 0)) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | ((((D_80108F80 - 1) & 0x3FF) * 4) | 0xF6000000));
         temp_fv1_2 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 1.0f;
         D_80115328 = temp_a0 + 8;
-        var_t8 = (u32) temp_fv1_2;
+        var_t8 = temp_fv1_2;
         temp_v1_2 = D_80115328;
         ((__repair_field_4 *)temp_a0)->value = (s32) ((var_t8 & 0x3FF) * 4);
         (*(s32 *)((char *)(temp_v1_2) + 0x20)) = 0xFA000000;
@@ -82,16 +82,16 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         D_80115328 = temp_v1_2 + 0x40;
         temp_a0_2 = temp_v1_2 + 0x50;
         D_80115328 = temp_v1_2 + 0x48;
+        D_80115328 = temp_v1_2 + 0x58;
         D_80115328 = temp_a0_2;
         temp_fv1_3 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58 + 2.0f;
-        D_80115328 = temp_v1_2 + 0x58;
-        var_t8 = (u32) temp_fv1_3 & 0x3FF;
+        var_t8 = (u32) (int)temp_fv1_3 & 0x3FF;
         (*(s32 *)((char *)(temp_v1_2) + 0x50)) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_t8 * 4) | 0xF6000000));
         temp_fv1_4 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58;
         var_v0 = (u32) temp_fv1_4 & 0x3FF;
         ((__repair_field_4 *)temp_a0_2)->value = (s32) (var_v0 * 4);
-        temp_v1_3 = D_80115328;
         temp_fv1_5 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C;
+        temp_v1_3 = D_80115328;
         D_80115328 = temp_v1_3 + 8;
         (*(s32 *)((char *)(temp_v1_3) + 0)) = ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((((u32) temp_fv1_5 & 0x3FF) * 4) | 0xF6000000));
         temp_fv1_6 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 2.0f;

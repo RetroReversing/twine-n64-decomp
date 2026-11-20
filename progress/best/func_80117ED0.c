@@ -15,13 +15,13 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     register f32 __repair_fzero = 0.0f;
 
     u8 *s1;
-    f32 fv, fs0, fs1, fs2, t, dx, dz;
+    f32 fv, fs0, fs1, fs2, t, dx, dz, initial_dist;
     s32 s2, sel, k;
     u16 x, t16;
     s1 = *(u8 **)(arg0 + 0x6C);
-    fv = func_800461D4(arg0 + 0x24, arg1);
-    if (fv < arg2[0]) {
-        arg2[0] = fv;
+    initial_dist = func_800461D4(arg0 + 0x24, arg1);
+    if (initial_dist < arg2[0]) {
+        arg2[0] = initial_dist;
     }
     x = func_80022DBC(arg0) & 0xFFFF;
     k = *(u32 *)(D_8010019C + x * 24);

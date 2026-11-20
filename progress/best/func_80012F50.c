@@ -18,7 +18,7 @@ extern u16 D_800E097C;
 extern s8 D_80103030;
 extern s8 D_80103042;
 extern s32 D_801032A8;
-extern s32 D_80107B68;
+extern u16 D_80107B68;
 extern s8 D_80107B6A;
 extern s32 D_80108408;
 extern s32 D_8010840C;
@@ -114,8 +114,8 @@ block_16:
                     var_s1_2 = 0;
                     __repair_phase_var_s0 = 0;
 loop_20:
-                    if ((*((s32 *)((s8 *)&D_80107B68 + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
-                        temp_v1 = *((s32 *)((s8 *)&D_80108412 + var_s1_2));
+                    if ((*((u16 *)((u8 *)&D_80107B68 + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
+                        temp_v1 = *((s8 *)((s8 *)&D_80108412 + var_s1_2));
                         if (temp_v1 == D_80103042) {
                             var_s0 = 0;
                             D_80103042 = temp_v1 + 1;

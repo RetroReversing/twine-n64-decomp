@@ -1,31 +1,33 @@
-extern u8 *D_800B2710;
-typedef struct { f32 x, y, z; } TwineV3;
-#define NEXT_F(dst) do { f32 *c_ = *(f32 **)base; *(f32 **)base = c_ + 1; dst = *c_; } while (0)
-void func_8000D3AC(s32 arg0, u32 arg1) {
-    u8 *base;
-    u8 *obj;
-    u32 off;
-    void *a3;
+typedef struct { f32 x,y,z; } TwineV3;
+typedef struct {
+    f32 *stream;
+    u8 pad04[0x1C];
+    TwineV3 vector20, vector2C, vector38, vector44;
+    u8 pad50[0x18];
+    void *linked;
+    u8 pad6C[0x14];
+    s16 state, parameter;
+    u8 pad84[0x50];
+} StreamRecord;
+extern StreamRecord *D_800B2710;
+#define READ_VECTOR(field) do { \
+    StreamRecord *records = D_800B2710; \
+    v.x = *records->stream++; \
+    v.y = *records->stream++; \
+    v.z = -*records->stream++; \
+    records[index].field = v; \
+} while (0)
+void func_8000D3AC(s32 index, u32 parameter) {
+    StreamRecord *obj = &D_800B2710[index];
+    void *linked = obj->linked;
     TwineV3 v;
-    base = D_800B2710;
-    off = (u32)((arg0 * 53) << 2);
-    obj = base + off;
-    a3 = *(void **)(obj + 0x68);
-    *(s16 *)(obj + 0x80) = 0;
-    *(s16 *)(obj + 0x82) = (s16)(arg1 >> 8);
-    if (a3 != NULL) {
-        *(TwineV3 *)((u8 *)a3 + 0x24) = *(TwineV3 *)(obj + 0x2C);
+    obj->state = 0;
+    obj->parameter = (s16)(parameter >> 8);
+    if (linked != NULL) {
+        *(TwineV3 *)((u8 *)linked + 0x24) = obj->vector2C;
     }
-    base = D_800B2710;
-    NEXT_F(v.x); NEXT_F(v.y); NEXT_F(v.z); v.z = -v.z;
-    *(TwineV3 *)(base + off + 0x38) = v;
-    base = D_800B2710;
-    NEXT_F(v.x); NEXT_F(v.y); NEXT_F(v.z); v.z = -v.z;
-    *(TwineV3 *)(base + off + 0x20) = v;
-    base = D_800B2710;
-    NEXT_F(v.x); NEXT_F(v.y); NEXT_F(v.z); v.z = -v.z;
-    *(TwineV3 *)(base + off + 0x2C) = v;
-    base = D_800B2710;
-    NEXT_F(v.x); NEXT_F(v.y); NEXT_F(v.z); v.z = -v.z;
-    *(TwineV3 *)(base + off + 0x44) = v;
+    READ_VECTOR(vector38);
+    READ_VECTOR(vector20);
+    READ_VECTOR(vector2C);
+    READ_VECTOR(vector44);
 }

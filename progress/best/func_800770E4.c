@@ -62,7 +62,7 @@ void func_800770E4(void *arg0) {
     u16 var_a1_2;
     s32 var_v1;
     unsigned temp_a0_2;
-    u16 var_v0;
+    
     u32 var_v1_2;
     u8 temp_v1_2;
     u8 temp_v1_3;
@@ -85,7 +85,7 @@ void func_800770E4(void *arg0) {
             var_v1_2 = (*(u32 *)((char *)(temp_v0_3) + 0x18C));
             var_s2 = 0;
             (*(s32 *)((char *)(temp_v0_3) + 0xCC)) = 0;
-            var_v0 = 0x61;
+            var_a1_2 = 0x61;
             goto block_8;
         }
         break;
@@ -147,7 +147,7 @@ block_90:
             goto block_90;
         case 7:                                     /* switch 2 */
             func_80085710(arg0 + 0x24);
-            var_a1_2 = *(D_800C9A5C + (func_80045CF8(6)));
+            var_a1_2 = *(u16 *)(D_800C9A5C + (func_80045CF8(6)));
 block_61:
             func_80002BD0(arg0, var_a1_2);
             goto block_71;
@@ -335,10 +335,10 @@ block_61:
         var_s2 = 0;
         var_s3 = 0;
         (*(s32 *)((char *)(temp_v0_2) + 0xCC)) = 0;
-        var_v0 = 0x4D;
+        var_a1_2 = 0x4D;
 block_8:
         var_fs1 = var_fv0 - (*(f32 *)((char *)(arg0) + 0x24));
-        (*(u16 *)((char *)(arg0) + 0x78)) = var_v0;
+        (*(u16 *)((char *)(arg0) + 0x78)) = var_a1_2;
         var_s0 = (var_v1_2 >> 0xC) & 0xF;
         var_fs0 = var_fv1_2 - (*(f32 *)((char *)(arg0) + 0x2C));
         goto block_9;

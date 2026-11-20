@@ -69,10 +69,13 @@ void func_800349B4(void *arg0) {
     (*(s32 *)((char *)(temp_a3) + 4)) = (s32) (((*(u8 *)((char *)(arg0) + 0x143)) << 0x18) | ((*(u8 *)((char *)(arg0) + 0x144)) << 0x10) | ((*(u8 *)((char *)(arg0) + 0x145)) << 8) | (*(u8 *)((char *)(arg0) + 0x146)));
     temp_v1 = (*(s32 *)((char *)(arg0) + 0x100));
     if (temp_v1 & 2) {
-        var_s2 = 0;
+        var_s2 = D_801007CF;
+        var_s1 = D_801007D0;
+        var_s3 = D_801007D1;
         (*(s32 *)((char *)(temp_a3) + 8)) = 0xDB080000;
         D_80115328 = temp_a3 + 0x10;
-        var_s1 = (D_801007CF + D_801007D0 + D_801007D1) / 3;
+        var_s1 = (var_s2 + var_s1 + var_s3) / 3;
+        var_s2 = 0;
         (*(s32 *)((char *)(temp_a3) + 0xC)) = (s32) (((D_801007CD + 0x7530) << 0x10) | ((D_801007CE - 0x7530) & 0xFFFF));
     } else if (temp_v1 & 4) {
         var_s2 = 0;

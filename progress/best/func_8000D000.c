@@ -56,11 +56,11 @@ s32 func_8000D000(void) {
     u8 temp_s0;
     u8 temp_v0_5;
     u8 temp_v1_3;
-    void *temp_v0;
+    void *temp_v1;
     void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
-    void *temp_v1;
+    void *temp_v0;
     void *temp_v1_2;
     void *temp_v1_4;
 
@@ -87,8 +87,8 @@ s32 func_8000D000(void) {
     (*(void **)((char *)(D_800B2710) + 4)) = temp_v0_2;
     (*(void **)((char *)(D_800B2710) + 0)) = temp_v0_2;
     func_8000B9B8((*(void **)((char *)(D_800B2710) + 4)), *(s32 *)(D_800B2640 + (temp_s0 * 4)) + D_54D910, 0x8000);
-    var_a2 = 0;
     var_a0_2 = 0;
+    var_a2 = 0;
     do {
         temp_v0_3 = D_800B2710 + var_a0_2;
         (*(s8 *)((char *)(temp_v0_3) + 0x9A)) = 0;
@@ -104,24 +104,24 @@ s32 func_8000D000(void) {
         (*(s16 *)((char *)(temp_v0_3) + 0x8E)) = 1;
         (*(f32 *)((char *)(temp_v0_3) + 0x74)) = 255.0f;
         (*(f32 *)((char *)(temp_v0_3) + 0x78)) = 255.0f;
-        (*(s16 *)((char *)(temp_v0_3) + 0x90)) = -1;
         temp_v1 = D_800B2710 + var_a0_2;
-        (*(u8 *)((char *)(temp_v1) + 0x99)) = 0xFF;
+        (*(s16 *)((char *)(temp_v0_3) + 0x90)) = -1;
         (*(f32 *)((char *)(temp_v1) + 0x38)) = 999.0f;
+        (*(u8 *)((char *)(temp_v1) + 0x99)) = 0xFF;
         temp_v0_4 = D_800B2710 + var_a0_2;
         (*(u8 *)((char *)(temp_v0_4) + 0x98)) = 0xFF;
-        var_a2 += 1;
+        ++var_a2;
         temp_v1_2 = D_800B2710 + var_a0_2;
         (*(s32 *)((char *)(temp_v0_4) + 0x7C)) = -1;
         var_a0_2 += 0xD4;
         (*(s16 *)((char *)(temp_v1_2) + 0x96)) = 0;
         (*(s16 *)((char *)(temp_v1_2) + 0xE0)) = 0;
-    } while (0x38 > var_a2);
+    } while (var_a2 < 0x38);
     D_800E0748 = 0;
     D_800E074C = 0;
     func_8000CD8C(var_a0_2);
     D_800CA338 = 1;
-    if (temp_s1 == 0) {
+    if (!temp_s1) {
         func_80044D84(D_800E0740);
         func_80044D28(D_80100B60);
         func_80044FF0();
@@ -157,8 +157,8 @@ s32 func_8000D000(void) {
         D_800B2718 = NULL;
         (*(s32 *)((char *)(temp_v1_4) + 0x60)) = (s32) (temp_v0_6 | 1);
     }
-    func_800101D8();
     ((__repair_record_D_80109688*)D_80109688)->field_100 |= 0x40;
+    func_800101D8();
     ((__repair_record_D_80109688*)D_80109688)->field_142 = 7;
     ((__repair_record_D_80109688*)D_80109688)->field_100 |= 0x100;
     return 1;

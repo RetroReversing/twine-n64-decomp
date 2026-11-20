@@ -67,8 +67,8 @@ u8 __repair_result_var_v0_4;
 
     var_s1 = arg0;
     sp2C = arg3;
-    sp20 = -1;
     D_80109A94 = 0;
+    sp20 = -1;
     sp24 = D_8010A510;
     temp_a0 = __repair_inline(*(u8 *)var_s1);
     sp37 = (u8) arg8;

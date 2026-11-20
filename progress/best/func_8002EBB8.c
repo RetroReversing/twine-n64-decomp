@@ -35,7 +35,7 @@ void *func_8002EBB8(s32 arg0) {
     s32 __repair_store_1;
     s32 __repair_store_2;
     s32 __repair_store_3;
-    s16 *var_a1;
+    char *var_a1;
     char *var_a2;
     char *var_a3;
     s32 temp_a0;
@@ -74,8 +74,9 @@ void *func_8002EBB8(s32 arg0) {
     (((__repair_record_temp_s1*)temp_s1)->field_42) = 0;
     (((__repair_record_temp_s1*)temp_s1)->field_38) = NULL;
     (((__repair_record_temp_s1*)temp_s1)->field_3C) = NULL;
+    var_a1 = (char *)&D_800BFDDC;
     D_800BFDDC = arg0;
-    (((__repair_record_temp_s1*)temp_s1)->field_3C) = func_80015F74(&D_800BFDDC - 0x20);
+    (((__repair_record_temp_s1*)temp_s1)->field_3C) = func_80015F74(var_a1 - 0x20);
     var_a3 = &D_800BFD74;
     D_800BFD70 = arg0;
     __base_D_800BFD08 = D_800BFD08;
@@ -98,13 +99,16 @@ if (var_a2 != temp_t0) goto __repair_rows;
     D_800BFD94 = arg0;
     D_800BFDB8 = arg0;
     D_800BFC92 += 1;
-    var_a1 = &D_800BFD94 - 0x20;
+    var_a1 = (char *)&D_800BFD94;
     if (D_80102EDE != 0) {
-        var_a1 = D_800BFD94 + 4;
+        var_a1 += 4;
+    } else {
+        var_a1 -= 0x20;
     }
     (((__repair_record_temp_s1*)temp_s1)->field_2C) = func_80015F74(var_a1, var_a1, var_a2, var_a3);
+    var_a1 = (char *)&D_800BFD04;
     D_800BFD04 = arg0;
-    temp_v0_2 = func_80015F74(&D_800BFD04 - 0x20);
+    temp_v0_2 = func_80015F74(var_a1 - 0x20);
     (((__repair_record_temp_s1*)temp_s1)->field_34) = temp_v0_2;
     temp_a0 = (*(s32 *)((char *)(temp_v0_2) + 8));
     if (temp_a0 != 0) {
@@ -145,7 +149,7 @@ if (var_a2 != temp_t0) goto __repair_rows;
     }
     __base_D_800BFCBC = &D_800BFCBC;
     (*__base_D_800BFCBC) = (s32)arg0;
-    (((__repair_record_temp_s1*)temp_s1)->field_0) = func_80015F74(__base_D_800BFCBC - 0x20);
+    (((__repair_record_temp_s1*)temp_s1)->field_0) = func_80015F74((char *)__base_D_800BFCBC - 0x20);
     temp_v0_4 = func_80016410(0, 0, 0);
     (((__repair_record_temp_s1*)temp_s1)->field_30) = temp_v0_4;
     if (temp_v0_4 != NULL) {
@@ -165,7 +169,7 @@ if (var_a2 != temp_t0) goto __repair_rows;
         func_80016990((((__repair_record_temp_s1*)temp_s1)->field_30), (*(s32 *)((char *)(*(s32 *)(D_80109688 + (temp_s0 * 4))) + 0xF4)));
         __base_D_800BFCE0 = &D_800BFCE0;
         (*__base_D_800BFCE0) = arg0;
-        (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74(__base_D_800BFCE0 - 0x20);
+        (((__repair_record_temp_s1*)temp_s1)->field_38) = func_80015F74((char *)__base_D_800BFCE0 - 0x20);
         func_8002B000(D_800E1584, 0x1E);
     }
     return temp_v0;

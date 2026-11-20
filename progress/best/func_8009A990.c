@@ -8,6 +8,7 @@ s32 func_8009A990(void *arg0, void *arg1) {
     u8 *obj = arg0;
     u32 s0, s1;
     s32 v, a0, s4, a1, word, v1_2, res;
+    volatile u64 reserve;
     if (p[6] == 0) {
         u32 w = *(u32 *)p;
         s1 = w >> 8; s0 = w >> 24;

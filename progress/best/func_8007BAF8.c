@@ -72,7 +72,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     void *temp_v0;
     void *temp_v0_2;
 
-    spFC = arg2;
+    
     sp104 = arg3;
     temp_fp = M2C_FIELD(arg0, void **, 0x6C);
     temp_s5 = M2C_FIELD(arg0, s32 *, 0x20);
@@ -114,9 +114,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
             points[17] = temp_fv0_7;
             points[14] = temp_fv0_7;
             func_80047E4C(D_80108F84, sp48, sp70);
-            pos[0] = M2C_FIELD(arg1, f32 *, 0);
-            pos[1] = M2C_FIELD(arg1, f32 *, 4);
-            pos[2] = M2C_FIELD(arg1, f32 *, 8);
+            *(Vec3 *)pos = *(Vec3 *)arg1;
             pos[0] -= M2C_FIELD(D_80108F84, f32 *, 0x24);
             pos[1] -= M2C_FIELD(D_80108F84, f32 *, 0x28);
             var_fs1 = 65536.0f;
@@ -175,7 +173,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                     M2C_FIELD(temp_fp, s32 *, 0x1C) = M2C_FIELD(temp_v0, s32 *, 0x74);
                     M2C_FIELD(temp_fp, s32 *, 0x20) = temp_a2;
                     temp_fv0_11 = func_800461D4(arg0 + 0x24, &points[var_s6 * 3], temp_a2);
-                    var_a1 = spFC;
+                    var_a1 = arg2;
                     M2C_FIELD(temp_fp, f32 *, 0x38) = temp_fv0_11;
                     M2C_FIELD(temp_fp, f32 *, 0x34) = temp_fv0_11;
                     goto block_25;

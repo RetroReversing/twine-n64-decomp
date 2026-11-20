@@ -257,11 +257,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 temp_s5 = M2C_FIELD(__repair_hoisted, s32 *, 0x18);
                 if ((s32) M2C_FIELD(__repair_hoisted, u16 *, 4) > 0) {
                     var_s0 = 0;
-                    do {
+                    __repair_rows: {
                         func_800452AC(&D_800E19E0, M2C_FIELD(((__repair_field_24 *)arg1)->value, s32 *, 0) + var_s0, ((__repair_field_34 *)temp_s4)->value + var_s0);
                         var_s1 += 1;
                         var_s0 += 0xC;
-                    } while (var_s1 < (s32) M2C_FIELD(((__repair_field_24 *)arg1)->value, u16 *, 4));
+                    }
+if (var_s1 < (s32) M2C_FIELD(((__repair_field_24 *)arg1)->value, u16 *, 4)) goto __repair_rows;
                 }
                 do { func_8003FF3C(temp_s4, temp_s5, temp_v0_10); } while (0);
                 M2C_FIELD(*arg0, void **, 0x3C) = (void *) (temp_s7 + (M2C_FIELD(arg1, u16 *, 0) * 0x4C));
@@ -311,7 +312,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 var_a2 = temp_s4;
                 temp_a3_5 = var_a2 + 0x40;
                 var_t0 = (M2C_FIELD(arg1, u16 *, 0) * 0x4C) + temp_s7;
-                do {
+                __repair_rows_: {
                     __repair_store_0 = (s32) M2C_FIELD(var_a2, s32 *, 0);
                     __repair_store_1 = (s32) M2C_FIELD(var_a2, s32 *, 4);
                     __repair_store_2 = (s32) M2C_FIELD(var_a2, s32 *, 8);
@@ -322,7 +323,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                     M2C_FIELD(var_t0, s32 *, 0xC) = __repair_store_3;
                     var_a2 += 0x10;
                     var_t0 += 0x10;
-                } while (var_a2 != temp_a3_5);
+                }
+if (var_a2 != temp_a3_5) goto __repair_rows_;
                 M2C_FIELD(var_t0, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) var_a2 + 0x0);
                 return;
             }

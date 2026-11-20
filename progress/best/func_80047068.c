@@ -1,5 +1,5 @@
 void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out) {
-    f32 a,b,c,d,e,f,g,h,j,k,m,o,q,r,s;
+    f32 a,b,c,d,e,f,g,h,j,k,m,o,q,r,s; volatile f64 reserve[6];
     a=1.0f/(f32)n;
     b=a*a;
     c=p0[0]; d=p1[0]; e=p2[0]; f=p3[0];
