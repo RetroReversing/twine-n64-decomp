@@ -45,10 +45,6 @@ void func_8011E95C(void *arg0, void *arg1, void *arg2, s32 arg3) {
         var_v1 = (u32) temp_fv1;
         M2C_FIELD(arg0, u16 *, 0x20) = (u16) var_v1;
         temp_fv1_2 = (f32) M2C_FIELD(arg0, u16 *, 0x22) + (var_fs0 * func_800829C8(temp_fs1_2));
-        if (temp_fv1_2 >= 2.1474836e9f) {
-            M2C_FIELD(arg0, u16 *, 0x22) = (u16) ((s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000);
-        } else {
-            M2C_FIELD(arg0, u16 *, 0x22) = (u16) (s32) temp_fv1_2;
-        }
+        M2C_FIELD(arg0, u16 *, 0x22) = (u32) temp_fv1_2;
     }
 }
