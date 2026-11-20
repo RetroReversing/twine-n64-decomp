@@ -70,8 +70,8 @@ block_25:
 block_26:
             var_t2 += __repair_constant;
             var_a3 += 1;
-            var_t1 += 4;
-            if (*((*(&D_800AE724)) + var_t2) == 0) {
+            var_t1 += 1;
+            if (*(s16 **)((char *)&D_800AE724 + var_t2) == 0) {
                 goto block_27;
             }
             continue;

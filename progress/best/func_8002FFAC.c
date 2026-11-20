@@ -49,7 +49,7 @@ s32 func_8002FFAC(void *arg0) {
                     var_v1 = 0x24;
                 }
             }
-            temp_v0_7 = (u16)((u16) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10));
+            temp_v0_7 = M2C_FIELD(M2C_FIELD(arg0, void **, 4), u16 *, 0x10);
             temp_v0_3 = (temp_v0_7 & 0xFF) + 0x10;
             if (temp_v0_3 >= 0) {{ s32 __repair_value; __repair_value = temp_v0_7 + 0x10; var_a0 = __repair_value; }
                 if (temp_v0_3 >= 0x6C) {
