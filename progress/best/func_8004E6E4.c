@@ -209,7 +209,8 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                         if (M2C_FIELD(temp_s1, u16 *, 0x40) != 0) {
                                             var_s2 = (u8 *)var_s4 + 4;
                                             do {
-                                                var_s0_2 = var_s0 & 0xFFFF;
+                                                var_s0_3 = var_s0 & 0xFFFF;
+    var_s0_2 = var_s0_3;
     var_s4_3 = var_s0_2;
                                                 temp_v1_3 = M2C_FIELD(temp_s1, u16 **, 0x38)[var_s4_3];
                                                 if ((temp_v1_3 & sp146) && (temp_v1_3 & sp14E)) {
@@ -364,7 +365,8 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                                 } else {
                                                     goto block_95;
                                                 }
-                                                goto block_96;
+                                                func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2_2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
+                                                *arg6 = work.roomPlane;
                                             }
                                         }
                                     } else {
@@ -405,7 +407,6 @@ block_95:
                                                     var_a2_2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
                                                     var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
                                                 }
-block_96:
                                                 func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2_2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
                                             }

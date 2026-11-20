@@ -3,10 +3,10 @@ f32 __sinf(f32);
 
 void func_80083138(const s16 *angles, f32 *matrix) {
     register f32 temp_fs0;
-    register f32 temp_fs0_2;
+    register f32 temp_ft1;
     f32 temp_ft0_2;
     f32 temp_ft0;
-    register f32 temp_ft1;
+    register f32 temp_fs0_2;
     f32 temp_fs2;
     f32 temp_fv1_2;
     f32 temp_fs0_4;
@@ -32,8 +32,8 @@ void func_80083138(const s16 *angles, f32 *matrix) {
     temp_fs0_4 = __cosf(temp_fs0_3);
     temp_fv0 = __sinf(temp_fs0_3);
     czsy = temp_fs0_4 * temp_fs1;
-    czcy = temp_fs0_4 * temp_fs2;
     szcx = temp_fv0 * temp_fs4;
+    czcy = temp_fs0_4 * temp_fs2;
     szsx = temp_fv0 * temp_fs3;
     szsy = temp_fv0 * temp_fs1;
     szcy = temp_fv0 * temp_fs2;
@@ -49,8 +49,8 @@ void func_80083138(const s16 *angles, f32 *matrix) {
     m02 += szsx;
     m12 = szsy * temp_fs4;
     matrix[6] = temp_fs1;
-    matrix[0] = czcy;
     m11 += czcx;
+    matrix[0] = czcy;
     matrix[3] = szcy;
     matrix[7] = cysx;
     matrix[8] = cycx;

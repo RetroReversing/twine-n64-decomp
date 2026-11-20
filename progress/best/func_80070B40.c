@@ -78,7 +78,7 @@ block_10:
                     func_80084338(0x118, arg0 + 0x24);
                 } else {
 block_12:
-                    func_8000A894(var_a0_2, 0x28, 3);
+                    func_8000A894(var_a0_2);
                 }
             } else {
                 continue;

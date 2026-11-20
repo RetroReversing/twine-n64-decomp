@@ -159,9 +159,10 @@ void func_80007958(void)
                     layer = 4;
                     layerEntry = entry;
                     func_80034560(*entry);
-                    do {
+                    __repair_rows: {
                         func_8003C228(*layerEntry, i, layer);
-                    } while (--layer >= 0);
+                    }
+if (--layer >= 0) goto __repair_rows;
                 }
             }
             mask = 1U << i;
@@ -194,13 +195,13 @@ void func_80007958(void)
 
     func_80044410(0);
     cmd = D_80115328++;
-    commandBytes = ((u32)cmd - 0x30) - (u32)slot;
+    transitioning = ((u32)cmd - 0x30) - (u32)slot;
     cmd->w0 = 0xE9000000;
     cmd->w1 = 0;
     cmd = D_80115328++;
     cmd->w0 = 0xDF000000;
     cmd->w1 = 0;
-    func_800A0220(slot->buffer, commandBytes);
+    func_800A0220(slot->buffer, transitioning);
     func_800A0220(slot->buffer, ((u32)D_8010A928 - 0x798) - (u32)slot);
     func_800A0220(slot->buffer, ((u32)D_80109CB8 - 0x16A0) - (u32)slot);
     func_800A0220(slot->buffer, ((u32)D_801002FC - 0x1AA8) - (u32)slot);

@@ -8,8 +8,8 @@ s32 func_8009C420();
 
 s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7, u8 arg8, s16 arg9) {
     s32 temp_s0;
-    u16 sp3E;
     u16 sp46;
+    u16 sp3E;
     u8 sp4F;
     s32 temp_a2;
     u8 sp37;

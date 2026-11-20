@@ -9,8 +9,8 @@ extern void *func_8004D910;
 s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
  f32 p[3], d[3], q[3], r[3], out[3]; s32 mode=0; void *obj=arg2; f32 limit=65536.0f; f32 v;
  D_800B35B0++;
- p[0]=((f32*)arg0)[0];p[1]=((f32*)arg0)[1];p[2]=((f32*)arg0)[2];
  d[0]=((f32*)arg1)[0];d[1]=((f32*)arg1)[1];d[2]=((f32*)arg1)[2]; q[0]=0.0f;
+ p[0]=((f32*)arg0)[0];p[1]=((f32*)arg0)[1];p[2]=((f32*)arg0)[2];
  if(!obj){((f32*)arg3)[0]=p[0];((f32*)arg3)[1]=p[1];((f32*)arg3)[2]=p[2];__shared_return_0:
     return 0;}
  for (;;) {
@@ -25,7 +25,7 @@ s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32
    goto __shared_return_0;
   }
   obj=func_80047B44(obj,p,d,out);
-  if(!obj)return 1;
+  if(obj == 0)return 1;
   p[0]=out[0];p[1]=out[1];p[2]=out[2];
   obj=FIELD(obj,void*,8);
   if(!obj)return 1;
