@@ -4240,14 +4240,6 @@
   "score_after": 280
  },
  {
-  "function": "func_80075490",
-  "text": "Best 2170/55 instructions from supplied draft; all attempts left substantial register/control-flow differences. Verified target semantics: store arg1 globally; call func_800870F4 and select table 0/1/2 for statuses other than 2/5, 2, 5; table pointers refer to u16 records of 8 bytes ending at 0xFFFF; compare record key to arg1; on match call func_8000B9B8(arg0, D_0148B400 + *(s32*)(record+4), *(u16*)(record+2)); then zero arg0[length]. Supplied draft incorrectly passed status as call length and used that as output end; correcting to record length improved operation understanding but worsened score to 2385. Typed table and switch-style status logic scored 3040. Remaining work: preserve original nested branch layout, correct record length, and achieve target register allocation ($s1=arg1, $s2=arg0, $s0=record length).",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795137928.9569201,
-  "score_before": 2170,
-  "score_after": 2170
- },
- {
   "function": "func_80061BE4",
   "text": "Verified baseline 1761. Reworked both local values as 3-element arrays; one variant improved to 1490, then float-typed helper arguments improved further to 1304 (target 58 vs candidate 48 at first baseline; best variant mismatch remains early stack/register-save layout and call argument differences). Tried local repair batches: inferred-record layout/const-read did not help; float-zero-local improved to 1490; float_argument_bits best 1304; do-while and single-use inline were not improvements. Best candidate 1304 saved. Remaining work: inspect diff for best variant and match exact helper prototypes/array initialization plus target's saved $s2/$s1 and frame 0x60.",
   "by": "codex-gpt-6-luna-6",
@@ -8640,14 +8632,6 @@
   "score_after": 215
  },
  {
-  "function": "func_80075490",
-  "text": "Rechecked best is 2170, 35 mismatches. Six local repair variants (record layout, signedness, declaration order, branch orientation, address temporary, constant local) produced no improvement. First observed mismatch is register allocation: target holds func_800870F4() & 0xffff in v1 for comparisons; candidate uses s0. Further differences likely follow from types/lifetimes and the directory table pointer currently inferred as u16* from an s32-sized load. No matching reusable convention established.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795177868.042185,
-  "score_before": 2170,
-  "score_after": 2170
- },
- {
   "function": "func_8005B880",
   "text": "Baseline 480 (53 vs 54 instructions). Explicit loop backedge worsened to 635; assigning var_v0 from var_t1 and register hints for temp_v1/var_v0 did not change assembly. Target keeps D_80108788 in t3 inside loop and moves result via v0, whereas candidate reuses a1 and v1; reconstruct lifetimes/control flow to recover missing move and delay slot. Remaining generated local repairs were not run due batch time limit.",
   "by": "codex-gpt-6.1-terra-5",
@@ -11150,14 +11134,6 @@
   "created_at": 1795182346.9409611,
   "score_before": 120,
   "score_after": 120
- },
- {
-  "function": "func_80075490",
-  "text": "Best score 2170 retained. First baseline compile is 55 target vs 53 candidate; correct callee prototypes were tried with no score change. D_800C994C is a pointer table (addresses 0x800C7FB4, 0x800C883C, 0x800C90C4), but candidate pointer arithmetic remains malformed; declare/express as pointer array/index. Main loop differences include target retaining table entry in v1, comparing sentinel and key with that register, and loading length from +2 into s0 before calling func_8000B9B8. Current candidate has branch/instruction order and register mismatches around selector and search loop. Crucial compiler warning: func_8000B9B8 arg2 is declared s32, but candidate passes D_148B400 plus byte offset while symbol is char[] (pointer), causing pointer-to-integer warning; represent address symbol with address-compatible integer or byte-base cast to form integer address. No match.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795182350.458177,
-  "score_before": 2170,
-  "score_after": 2170
  },
  {
   "function": "func_80060890",
@@ -16704,14 +16680,6 @@
   "score_after": 0
  },
  {
-  "function": "func_80075490",
-  "text": "Baseline historical score 2170. Trial e41a016b14d7fa0a8c44 corrected copy length to u16 at entry+2 before call and uses it for terminator, as target assembly requires; scored 2385 due to control flow/register differences. Restore that compiling revision and restructure language selection and loop; target keeps length in s0 across call. Judge latency exceeded 30 seconds per attempt.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795187316.051934,
-  "score_before": 2170,
-  "score_after": 2170
- },
- {
   "function": "func_8005B880",
   "text": "Current/best score 480 (91.1%), one instruction short of target. Corrected full candidate and verified. Trying temp_v1 as u16 regressed to 870 due unsigned slti; restored the signed 32-bit temp holding zero-extended u16. Replacing first and then second `var_v0=0` with `var_v0=var_t1` retained 480; the final edit had no instruction effect. Target uses v1 for lhu/slti and uses `move v0,t1` in two early-exit branch delay slots; candidate uses a2 for that field and has shorter branch displacements by four bytes. Remaining register/order mismatches include the long loop bnel structure. Candidate has incompatible pointer warnings around byte pointer globals.",
   "by": "codex-gpt-6-luna-17",
@@ -17896,14 +17864,6 @@
   "score_after": 140
  },
  {
-  "function": "func_80075490",
-  "text": "Improved 2170 to 480 by correcting copy length to record halfword +2, initializing length to zero for no match, and laying out the found block before the scan. Remaining 8 differences: target shift in default jump delay, normal beq instead of beql in loop, sentinel register and swapped addition operands. Explicit goto scan loop worsened to 655; alternate pointer addition and constant zero scaling were optimized identically.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795189429.8076532,
-  "score_before": 2170,
-  "score_after": 480
- },
- {
   "function": "func_8000B5E0",
   "text": "Best candidate score 145 (96.7%, 44 instructions) with 19 register/order differences. Rechecked exact candidate; source uses DmaEntry layout and explicit volatile loads matching the observed accesses. Local single-use inline variants did not improve; making counter pointer volatile regressed to 2269 and expanded stack frame. Target keeps counter pointer in a1, while candidate uses a0; target later uses a1 for a second table base while candidate swaps table-base/index registers. Explore data pointer alias/type and declaration lifetimes around the DMA call. Retain saved revision d7284d3a97b9a6767650.",
   "by": "codex-gpt-6-luna-10",
@@ -18774,14 +18734,6 @@
   "created_at": 1795190684.480951,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_80075490",
-  "text": "Improved saved best 480 to 280 by routing default index zero through shared scale. Remaining: two reversed addu operands, sentinel register/order and beql instead of beq in scan. Callee prototypes and explicit outer guard did not change score; restructuring loop to while with sentinel exit worsened to 1145. Explore loop control or compiler scheduling against saved best.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795190685.865479,
-  "score_before": 480,
-  "score_after": 280
  },
  {
   "function": "func_800968A4",
@@ -20030,14 +19982,6 @@
   "created_at": 1795192818.415404,
   "score_before": 820,
   "score_after": 820
- },
- {
-  "function": "func_80075490",
-  "text": "Best score 270 at 18c33278f60ac9cf0749. Widen length local to s32 while retaining lhu at entry+2 to fix both terminator addition operand orders. Clean typed 8-byte record plus directory array and matched prototypes compiles to the same displayed diff at 76b9bb1d453a29c64646; start from that revision for readable source. Remaining five differences are all in scan: target loads sentinel into a1 before pointer copy into v1; candidate loads into a0 after copy, then emits beql instead of beq for found with a0 output argument delay slot. Explicit outer guard and unused staged output had no effect. MIPS1 and O1+both scheduling passes were worse; -mno-branch-likely unsupported. Next try finding a source form that forces the output argument setup in the predecessor block or a selective scheduling/jump profile.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795192819.1471171,
-  "score_before": 280,
-  "score_after": 270
  },
  {
   "function": "func_8009A0E4",
@@ -31606,5 +31550,61 @@
   "created_at": 1795192722.641095,
   "score_before": 681,
   "score_after": 681
+ },
+ {
+  "function": "func_80075490",
+  "text": "Best 2170/55 instructions from supplied draft; all attempts left substantial register/control-flow differences. Verified target semantics: store arg1 globally; call func_800870F4 and select table 0/1/2 for statuses other than 2/5, 2, 5; table pointers refer to u16 records of 8 bytes ending at 0xFFFF; compare record key to arg1; on match call func_8000B9B8(arg0, D_0148B400 + *(s32*)(record+4), *(u16*)(record+2)); then zero arg0[length]. Supplied draft incorrectly passed status as call length and used that as output end; correcting to record length improved operation understanding but worsened score to 2385. Typed table and switch-style status logic scored 3040. Remaining work: preserve original nested branch layout, correct record length, and achieve target register allocation ($s1=arg1, $s2=arg0, $s0=record length).",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795137928.9569201,
+  "score_before": 2170,
+  "score_after": 2170
+ },
+ {
+  "function": "func_80075490",
+  "text": "Rechecked best is 2170, 35 mismatches. Six local repair variants (record layout, signedness, declaration order, branch orientation, address temporary, constant local) produced no improvement. First observed mismatch is register allocation: target holds func_800870F4() & 0xffff in v1 for comparisons; candidate uses s0. Further differences likely follow from types/lifetimes and the directory table pointer currently inferred as u16* from an s32-sized load. No matching reusable convention established.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795177868.042185,
+  "score_before": 2170,
+  "score_after": 2170
+ },
+ {
+  "function": "func_80075490",
+  "text": "Best score 2170 retained. First baseline compile is 55 target vs 53 candidate; correct callee prototypes were tried with no score change. D_800C994C is a pointer table (addresses 0x800C7FB4, 0x800C883C, 0x800C90C4), but candidate pointer arithmetic remains malformed; declare/express as pointer array/index. Main loop differences include target retaining table entry in v1, comparing sentinel and key with that register, and loading length from +2 into s0 before calling func_8000B9B8. Current candidate has branch/instruction order and register mismatches around selector and search loop. Crucial compiler warning: func_8000B9B8 arg2 is declared s32, but candidate passes D_148B400 plus byte offset while symbol is char[] (pointer), causing pointer-to-integer warning; represent address symbol with address-compatible integer or byte-base cast to form integer address. No match.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795182350.458177,
+  "score_before": 2170,
+  "score_after": 2170
+ },
+ {
+  "function": "func_80075490",
+  "text": "Baseline historical score 2170. Trial e41a016b14d7fa0a8c44 corrected copy length to u16 at entry+2 before call and uses it for terminator, as target assembly requires; scored 2385 due to control flow/register differences. Restore that compiling revision and restructure language selection and loop; target keeps length in s0 across call. Judge latency exceeded 30 seconds per attempt.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795187316.051934,
+  "score_before": 2170,
+  "score_after": 2170
+ },
+ {
+  "function": "func_80075490",
+  "text": "Improved 2170 to 480 by correcting copy length to record halfword +2, initializing length to zero for no match, and laying out the found block before the scan. Remaining 8 differences: target shift in default jump delay, normal beq instead of beql in loop, sentinel register and swapped addition operands. Explicit goto scan loop worsened to 655; alternate pointer addition and constant zero scaling were optimized identically.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795189429.8076532,
+  "score_before": 2170,
+  "score_after": 480
+ },
+ {
+  "function": "func_80075490",
+  "text": "Improved saved best 480 to 280 by routing default index zero through shared scale. Remaining: two reversed addu operands, sentinel register/order and beql instead of beq in scan. Callee prototypes and explicit outer guard did not change score; restructuring loop to while with sentinel exit worsened to 1145. Explore loop control or compiler scheduling against saved best.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795190685.865479,
+  "score_before": 480,
+  "score_after": 280
+ },
+ {
+  "function": "func_80075490",
+  "text": "Best score 270 at 18c33278f60ac9cf0749. Widen length local to s32 while retaining lhu at entry+2 to fix both terminator addition operand orders. Clean typed 8-byte record plus directory array and matched prototypes compiles to the same displayed diff at 76b9bb1d453a29c64646; start from that revision for readable source. Remaining five differences are all in scan: target loads sentinel into a1 before pointer copy into v1; candidate loads into a0 after copy, then emits beql instead of beq for found with a0 output argument delay slot. Explicit outer guard and unused staged output had no effect. MIPS1 and O1+both scheduling passes were worse; -mno-branch-likely unsupported. Next try finding a source form that forces the output argument setup in the predecessor block or a selective scheduling/jump profile.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795192819.1471171,
+  "score_before": 280,
+  "score_after": 270
  }
 ]

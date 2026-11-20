@@ -15,7 +15,8 @@ void func_80075490(s8 *arg0, s32 arg1) {
     register s8 *var_v0_3;
     s32 temp_s0;
 
-    D_800C7EDC = arg1;
+    s32 id = arg1;
+    D_800C7EDC = id;
     temp_v1 = func_800870F4() & 0xFFFF;
     if (temp_v1 == 2) goto one;
     if (temp_v1 == 5) goto two;
@@ -36,11 +37,13 @@ scan:
     temp_a0 = *(s32 *)(D_800C994C + var_v0);
     temp_s0 = 0;
     if (*temp_a0 != 0xFFFF) {
+        unsigned sentinel = 0xFFFF;
         var_v1 = (char *)temp_a0;
         do {
+            var_v0_3 = arg0;
             if (*(u16 *)var_v1 == arg1) goto found;
             var_v1 += 8;
-        } while (*(u16 *)var_v1 != 0xFFFF);
+        } while (*(u16 *)var_v1 != sentinel);
     }
 done:
     *(arg0 + temp_s0) = 0;
