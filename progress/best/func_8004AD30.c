@@ -162,7 +162,12 @@ s32 func_8004AD30(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, voi
                             if ((M2C_FIELD(var_s1, void **, 0x70) != NULL) && !(M2C_FIELD(var_s1, s32 *, 0x58) & 0x400) && (M2C_FIELD(var_s1, s32 *, 0x5C) & 0x200)) {
                                 temp_v1 = M2C_FIELD(var_s1, u16 *, 0x78);
                                 if (temp_v1 != 0x3B) {
-                                    if ((s32) temp_v1 < 0x3C) {
+                                    if ((s32) temp_v1 >= 0x3C) {
+                                        var_s2 = 1;
+                                        if (temp_v1 == 0x3F) {
+                                            goto block_17;
+                                        }
+                                    } else {
                                         var_s2 = 1;
                                         if (temp_v1 != 0xB) {
 
@@ -171,11 +176,6 @@ s32 func_8004AD30(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, voi
                                             if (((s32) temp_v1_2 >= 0xE) || (var_s2 = 1, (((s32) temp_v1_2 < 0xA) != 0))) {
                                                 goto block_16;
                                             }
-                                        }
-                                    } else {
-                                        var_s2 = 1;
-                                        if (temp_v1 == 0x3F) {
-                                            goto block_17;
                                         }
                                     }
                                 } else {
@@ -232,7 +232,7 @@ block_17:
                                                     }
                                                     var_s2_2 += 6;
                                                     var_s0 += 1;
-                                                    var_s3 += 6;
+                                                    var_s3 += 3;
                                                 } while ((u32) (var_s0 & 0xFFFF) < (u16) M2C_FIELD(temp_s4, u16 *, 0x40));
                                             }
                                         } else {
@@ -330,7 +330,7 @@ block_17:
                                             }
                                             var_s2_4 += 6;
                                             var_s0_3 += 1;
-                                            var_s3_3 += 6;
+                                            var_s3_3 += 3;
                                         } while ((u32) (var_s0_3 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                     }
                                 } else {
@@ -375,7 +375,7 @@ block_17:
                                             }
                                             var_s2_6 += 6;
                                             var_s0_5 += 1;
-                                            var_s3_5 += 6;
+                                            var_s3_5 += 3;
                                         } while ((u32) (var_s0_5 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                     }
                                 } else {

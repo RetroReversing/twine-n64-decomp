@@ -39,8 +39,7 @@ void func_80087D50(void) {
 
     D_80102F30 = D_80104320;
     D_800CEEB0 = 2;
-    D_80102CC8 = 0;
-    D_80102CCC = 0;
+    *(unsigned long long *)&D_80102CC8 = 0;
     D_80109CB0 = 0;
     D_8010A3C0 = -1;
     func_80045CA0();

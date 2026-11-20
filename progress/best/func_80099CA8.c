@@ -21,8 +21,7 @@ s32 func_80099CA8(Voice99CA8 *v, Note99CA8 *n) {
         v->flags = flags;
         if (((u16 *)&n->flags)[0] & 1) delay = (u16)func_80095638() % delay;
         if (delay != 0xffff) {
-            relative = (*(volatile u32 *)&n->value.word >> 8) & 1;
-            if (relative) func_800957A8(&delay);
+            if ((relative = (*(volatile u32 *)&n->value.word >> 8) & 1)) func_800957A8(&delay);
             else func_800957B8(&delay, v);
             if (relative) pending = v->limit + delay;
             else {

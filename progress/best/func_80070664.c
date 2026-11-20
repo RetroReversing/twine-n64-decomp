@@ -1,30 +1,31 @@
-extern s16 D_800C4486[];
-s32 func_80070664(s32 arg0, u8 arg1, s32 arg2) {
-int __repair_literal;
-
- u8 frame[16]; s16 temp_v0,temp_v1; int var_a1; s32 temp_a1,temp_a3,var_v0; u32 temp_a3_2;
- if (arg0 != 0) {
- temp_a3=arg1 & 255;
- if ((((u32)((arg1-0x17)&255)<2U)|(temp_a3==0x19))==0) {
- var_a1=1; var_v0=1<<16;
-loop:
- temp_v0=var_a1+1;
- if (*(u8 *)((var_v0>>15)+arg0+0x139)!=temp_a3) {
- var_a1=temp_v0; var_v0=var_a1<<16;
- if (temp_v0>=30) {
- temp_a3_2=arg1&255; temp_v1=*(s16 *)((char *)D_800C4486+temp_a3_2*16);
-__repair_literal = 8;
-
- if (temp_v1!=-1) *(s8 *)(arg0+temp_v1*__repair_literal+0x1fc)=1;
- temp_a1=arg1&255;
- if (temp_a3_2<31) { *(s16 *)(temp_a1*2+arg0+0x138)=temp_a1|((arg2&255)<<8); goto done; }
- return 0;
- }
- goto loop;
- }
-done: return 1;
- }
- return 0;
- }
- return 0;
+typedef struct { s16 index; u8 pad[14]; } ActionRecord706;
+extern ActionRecord706 D_800C4486[];
+s32 func_80070664(u8 *object, u8 action, s32 value) {
+    u8 frame[16];
+    s16 i;
+    s16 index;
+    u8 id;
+    if (object != 0) {
+        id = action;
+        if (((u8)(action - 23) < 2) | (id == 25)) {
+            return 0;
+        }
+        i = 1;
+        do {
+            if (object[0x139 + i * 2] == id) {
+                goto found;
+            }
+            i++;
+        } while (i < 30);
+        index = D_800C4486[action].index;
+        if (index != -1) {
+            object[0x1fc + index * 8] = 1;
+        }
+        if (action < 31) {
+            *(u16 *)(object + 0x138 + action * 2) = action | (value << 8);
+found:
+            return 1;
+        }
+    }
+    return 0;
 }

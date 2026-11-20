@@ -38,7 +38,7 @@ void func_80074FD4(Panel *arg0) {
         break;
     }
     {
-        u32 shade = (carrier = (s32)next);
+        u32 shade = (s32)next;
         text->color.word = (((0xff000000 | (shade << 8)) | (shade << 16)) | shade);
     }
 }
