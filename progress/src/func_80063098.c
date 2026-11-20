@@ -11,5 +11,7 @@ void func_80063098(void *arg0) {
  F(p,f32,4)-=0.0025520835f;
  a=F(arg0,u8,0x82); func_80047B14(p,0.95f,p);
  n=a-F(p,u8,0x26);
- if(n<0) F(arg0,s32,0x60)|=1; else F(arg0,u8,0x82)=n;
+ a=n;
+ if(n<0) { F(arg0,s32,0x60)|=1; return; }
+ F(arg0,u8,0x82)=a;
 }
