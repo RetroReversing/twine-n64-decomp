@@ -13,7 +13,7 @@ void *temp_v0_2;
 temp_v0_2=M2C_FIELD(D_80109BB0,void **,0x10);temp_v1=M2C_FIELD(temp_v0_2,u8 *,4);{ u8 *entries=M2C_FIELD(temp_v0_2,u8 **,0); u16 id=*(u16 *)(entries+(temp_v1*5)*8); s32 name=func_80087100(id); func_80026004(temp_s0,D_800D2864,name); }}var_a2=0;if(temp_v0!=0){
 void *temp_v0_2;
 temp_v0_2=temp_v0+0xC;__repair_rows: {
-    {temp_a1=var_a2&0xFFFF;M2C_FIELD(temp_v0_2,u16 *,0)&=0xFFF0;var_v1=&func_80022848;if(*(D_80112F7B+temp_a1)!=0)var_v1=&func_8001E5BC;M2C_FIELD(temp_v0_2,s32 **,-8)=var_v1;temp_v1=M2C_FIELD(temp_v0_2,u16 *,0);var_v0=temp_v1|1;if(*(D_80112F7B+temp_a1)==0)var_v0=temp_v1|5;M2C_FIELD(temp_v0_2,u16 *,0)=var_v0;var_a2++;temp_v0_2+=0x28;}
+    {temp_a1=var_a2&0xFFFF;M2C_FIELD(temp_v0_2,u16 *,0)&=0xFFF0;var_v1=&func_80022848;if(*(D_80112F7B+temp_a1)!=0)var_v1=&func_8001E5BC;M2C_FIELD(temp_v0_2,s32 **,-8)=var_v1;{ u8 enabled=((volatile u8 *)D_80112F7B)[temp_a1]; temp_v1=M2C_FIELD(temp_v0_2,u16 *,0); var_v0=enabled ? temp_v1|1 : temp_v1|5; }M2C_FIELD(temp_v0_2,u16 *,0)=var_v0;var_a2++;temp_v0_2+=0x28;}
 }
 if ((u32)(var_a2&0xFFFF)<4U) goto __repair_rows;
 }}
