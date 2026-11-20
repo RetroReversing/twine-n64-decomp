@@ -42,8 +42,9 @@ scanned:
         volatile s64 padding;
         TableEntry *base = D_800F8168;
         s32 shift = j * 12;
-        dst = (TableEntry *)((u8 *)base + shift);
-        src = (TableEntry *)((u8 *)(base - 1) + shift);
+        dst = &base[j];
+        --base;
+        src = &base[j];
         do {
             *dst = *src;
             dst--;
@@ -68,12 +69,14 @@ fail:
     func_8008C11C();
     return 0;
 insert:
-    D_800F8158 = newCount;
-    off = i * 12;
-    *(u16 *)((u8 *)&D_800F8160 + off) = key;
-    *(const void **)((u8 *)&D_800F815C + off) = value;
-    *(u16 *)((u8 *)&D_800F8162 + off) = extra;
-    *(u16 *)((u8 *)&D_800F8164 + off) = 1;
+    do { D_800F8158 = newCount; } while (0);
+    {
+    s32 insertOffset = i * 12;
+    *(u16 *)((u8 *)&D_800F8160 + insertOffset) = key;
+    *(const void **)((u8 *)&D_800F815C + insertOffset) = value;
+    *(u16 *)((u8 *)&D_800F8162 + insertOffset) = extra;
+    *(u16 *)((u8 *)&D_800F8164 + insertOffset) = 1;
+    }
     func_8008C11C();
     return 1;
 }
