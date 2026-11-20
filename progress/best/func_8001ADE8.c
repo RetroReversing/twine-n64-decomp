@@ -17,7 +17,7 @@ s32 func_80025F78();
 s32 formatTextEntry();
 s32 findEntryById();
 void *func_8002638C();
-s32 func_80027A7C();
+s32 layoutTextBox();
 s32 func_8002A644();
 s32 func_8002A7CC();
 s32 func_8002A9A8();
@@ -210,7 +210,7 @@ s32 __repair_phase_var_a0;
                 }
                 ((__repair_field_10 *)temp_a1)->value = (s32) ((temp_a0_2 & ~0xFF) | __repair_phase_storage.value);
             }
-            func_80027A7C((*(s32 *)((char *)(gMenuState) + 0x1C)), (*(void **)((char *)(gMenuState) + 0x18)), 0);
+            layoutTextBox((*(s32 *)((char *)(gMenuState) + 0x1C)), (*(void **)((char *)(gMenuState) + 0x18)), 0);
         }
         temp_a0_3 = temp_s6 - 0x28;
         if (gSaveSlotCount < (s32) D_801002AD) {

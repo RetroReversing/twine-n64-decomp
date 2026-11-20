@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8000A894(s32);                         /* extern */
 M2C_UNK func_800274BC(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK func_800278AC(u16, s32, u16);               /* extern */
-M2C_UNK func_80027A7C(s32, void *, M2C_UNK);        /* extern */
+M2C_UNK layoutTextBox(s32, void *, M2C_UNK);        /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK func_80029000(s32);                         /* extern */
@@ -40,7 +40,7 @@ extern void *gMenuState;
     void *cur_entry_b;
     void *cur_entry;
 
-    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((func_80027A7C(M2C_FIELD(gMenuState, s32 *, 0x1C), M2C_FIELD(gMenuState, void **, 0x18), 0), M2C_FIELD(gMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(gMenuState, s32 *, 0x1C)), func_80029AC8(gMenuState + 0x2A, gMenuState + 0x28, gMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
+    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gMenuState, s32 *, 0x1C), M2C_FIELD(gMenuState, void **, 0x18), 0), M2C_FIELD(gMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(gMenuState, s32 *, 0x1C)), func_80029AC8(gMenuState + 0x2A, gMenuState + 0x28, gMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
         if (func_80027C60(0x24) & 0xFF) {
             if (M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;

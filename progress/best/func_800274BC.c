@@ -8,7 +8,7 @@ extern s32 D_80102EC0;
 extern s32 D_80102EC4;
 extern void *sActiveMenu;
 void func_8000A894(s32);
-s32 func_80027A7C(s32, void *, s32);
+s32 layoutTextBox(s32, void *, s32);
 void func_800274BC(s32 arg0, u8 arg1, void *arg2, void *arg3) {
 u8 *__base_D_801002E6;
 u8 *s0,*s2,*a2,*p; void *a3; volatile u32 frame[2];
@@ -24,6 +24,6 @@ a0=FLD(gMenuState,8,u8);if(FLD(gMenuState,7,u8)!=a0)FLD(gMenuState,7,u8)=a0;FLD(
 fl=FLD(s0,0xC,u16);i=fl&0xF;if(i!=0){val=D_800BD640[i];bb=FLD(gMenuState,0x30,u8);}else{if(fl&0x80){val=D_80102EBC;bb=FLD(FLD(s0,8,u8 *),0x13,u8);}else{val=D_80102EC4;bb=FLD(FLD(s0,8,u8 *),0x13,u8);}}
 FLD(FLD(s0,8,u8 *),0x10,u32)=(val&~0xFF)|bb;FLD(gMenuState,8,u8)=s1;p=FLD(s2,0,u8 *)+(s1&0xFF)*40;FLD(gMenuState,0x18,u8 *)=p;
 if(FLD(p,8,u8 *)!=NULL){fl=FLD(p,0xC,u16);__repair_phase_i=fl&0xF;if(__repair_phase_i!=0){val=D_800BD640[__repair_phase_i];bb=FLD(gMenuState,0x30,u8);}else{val=D_80102EC0;bb=FLD(FLD(p,8,u8 *),0x13,u8);}FLD(FLD(p,8,u8 *),0x10,u32)=(val&~0xFF)|bb;}
-func_80027A7C(FLD(gMenuState,0x1C,s32),p,0);
+layoutTextBox(FLD(gMenuState,0x1C,s32),p,0);
 cleanup:return;
 }

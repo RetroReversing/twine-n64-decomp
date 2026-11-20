@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A894();
 s32 formatTextEntry();
 s32 func_8002638C();
-s32 func_80027A7C();
+s32 layoutTextBox();
 s32 func_80027C60();
 s32 func_80027CE0();
 s32 func_80029000();
@@ -127,7 +127,7 @@ block_16:
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x27) * 0x28));
             }
             var_s0 = (void *)(&func_8011AA9C); var_s0 = (void *)((char *)var_s0 + (s32)(0x6C));
-            func_80027A7C(M2C_FIELD(D_800BF5A0, s32 *, 8), M2C_FIELD(D_800BF5A0, void **, 4), 0);
+            layoutTextBox(M2C_FIELD(D_800BF5A0, s32 *, 8), M2C_FIELD(D_800BF5A0, void **, 4), 0);
             func_800AB880(sp10, temp_s1);
             func_800AB9B0(sp10);
             temp_v0_2 = (u8) M2C_FIELD(&func_8011AA9C, s8 *, 0x6C);
