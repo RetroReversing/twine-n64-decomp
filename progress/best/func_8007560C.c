@@ -14,7 +14,7 @@ extern f64 D_800D48E0;
 extern s32 D_801002B4;
 extern s32 gBorderMode;
 extern s32 gBorderSkipFlag;
-extern char gTrackAxisTable[];
+extern char gTrackMarkerTable[];
 extern void *D_80109698;
 extern void *D_8010969C;
 extern u8 D_8010A4C2;
@@ -85,7 +85,7 @@ f32 __repair_var_a1_1;
     D_8010A4C2 |= 0x20;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
     if (gBorderSkipFlag == 0) {
-        if (((__repair_field_0 *)gTrackAxisTable)->value == NULL) {
+        if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }
         if (0 < 0) {
@@ -95,7 +95,7 @@ f32 __repair_var_a1_1;
         if (0 < 0) {
             var_fv1_3 += D_800D48C8;
         }
-        func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1_3, 0.0f);
+        func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1_3, 0.0f);
         var_a0 = 1;
         goto block_75;
     }
@@ -138,7 +138,7 @@ f32 __repair_var_a1_1;
     }
     switch (gBorderMode) {                           /* irregular */
     case 1:
-        if (((__repair_field_0 *)gTrackAxisTable)->value == NULL) {
+        if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }
         if (0 < 0) {
@@ -148,26 +148,26 @@ f32 __repair_var_a1_1;
         if (0 < 0) {
             var_fv1_4 += D_800D48E0;
         }
-        func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, (f32) var_fv1_4, 0.0f);
+        func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, (f32) var_fv1_4, 0.0f);
         break;
     case 2:
-        if (((__repair_field_0 *)gTrackAxisTable)->value == NULL) {
+        if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 4)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 4)) == NULL) {
             func_80048794(1, gProbeObjectList);
         }
         if (gBorderFlipFlag != 1) {
             temp_fs0_3 = 120.0f * 0.5f;
-            func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, 160.0f, temp_fs0_3, (temp_fs2 = 160.0f + 160.0f), 120.0f, 1.0f, 1.0f);
-            temp_s4 = (*(void **)((char *)(gTrackAxisTable) + 4));
+            func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, 160.0f, temp_fs0_3, (temp_fs2 = 160.0f + 160.0f), 120.0f, 1.0f, 1.0f);
+            temp_s4 = (*(void **)((char *)(gTrackMarkerTable) + 4));
             var_a1 = 160.0f;
             var_a3 = temp_fs2;
             var_a2 = 120.0f + temp_fs0_3;
         } else {
             temp_fs0_2 = 160.0f * 0.5f;
-            temp_s4 = (*(void **)((char *)(gTrackAxisTable) + 4));
-            do { func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f); } while (0);
+            temp_s4 = (*(void **)((char *)(gTrackMarkerTable) + 4));
+            do { func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f); } while (0);
             var_a2 = 120.0f;
             __repair_var_a1_1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;
@@ -179,56 +179,56 @@ block_75:
         func_800820B0(var_a0);
         break;
     case 3:
-        if (((__repair_field_0 *)gTrackAxisTable)->value == NULL) {
+        if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 4)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 4)) == NULL) {
             func_80048794(1, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 8)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 8)) == NULL) {
             func_80048794(2, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 0xC)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 0xC)) == NULL) {
             func_80048794(3, gProbeObjectList);
         }
         temp_fs2_2 = 160.0f * 0.5f;
         temp_fs0_4 = 120.0f * 0.5f;
-        func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs3 = temp_fs2_2 + 160.0f;
-        func_8004844C((*(void **)((char *)(gTrackAxisTable) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C((*(void **)((char *)(gTrackMarkerTable) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs0_4 = 120.0f + temp_fs0_4;
-        func_8004844C((*(void **)((char *)(gTrackAxisTable) + 8)), temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_s4 = (*(void **)((char *)(gTrackAxisTable) + 0xC));
+        func_8004844C((*(void **)((char *)(gTrackMarkerTable) + 8)), temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_s4 = (*(void **)((char *)(gTrackMarkerTable) + 0xC));
         var_a1 = temp_fs3;
         var_a2 = temp_fs0_4;
         var_a3 = 160.0f;
         goto block_74;
     case 4:
-        if (((__repair_field_0 *)gTrackAxisTable)->value == NULL) {
+        if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 4)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 4)) == NULL) {
             func_80048794(1, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 8)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 8)) == NULL) {
             func_80048794(2, gProbeObjectList);
         }
-        if ((*(void **)((char *)(gTrackAxisTable) + 0xC)) == NULL) {
+        if ((*(void **)((char *)(gTrackMarkerTable) + 0xC)) == NULL) {
             func_80048794(3, gProbeObjectList);
         }
         temp_fs2_3 = 160.0f * 0.5f;
         temp_fs4 = 120.0f * 0.5f;
         temp_fs1 = 120.0f * 0.5f;
-        func_8004844C(((__repair_field_0 *)gTrackAxisTable)->value, temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(((__repair_field_0 *)gTrackMarkerTable)->value, temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs3_2 = temp_fs2_3 + 160.0f;
-        func_8004844C((*(void **)((char *)(gTrackAxisTable) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
-        func_8004844C((*(void **)((char *)(gTrackAxisTable) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_s4 = (*(void **)((char *)(gTrackAxisTable) + 0xC));
+        func_8004844C((*(void **)((char *)(gTrackMarkerTable) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C((*(void **)((char *)(gTrackMarkerTable) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_s4 = (*(void **)((char *)(gTrackMarkerTable) + 0xC));
         var_a1 = temp_fs3_2;
         var_a2 = 120.0f + temp_fs1;
         var_a3 = 160.0f;
         goto block_74;
     }
-    (*(s32 *)((char *)(((__repair_field_0 *)gTrackAxisTable)->value) + 0x100)) |= 0x40;
-    (*(s8 *)((char *)(((__repair_field_0 *)gTrackAxisTable)->value) + 0x142)) = 4;
+    (*(s32 *)((char *)(((__repair_field_0 *)gTrackMarkerTable)->value) + 0x100)) |= 0x40;
+    (*(s8 *)((char *)(((__repair_field_0 *)gTrackMarkerTable)->value) + 0x142)) = 4;
 }

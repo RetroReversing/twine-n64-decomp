@@ -4,7 +4,7 @@ extern f32 D_800C0740;
 extern s32 D_800C46AC;
 extern f32 D_800C7C9C;
 extern s32 D_80108F78;
-extern s32 gTrackAxisTable;
+extern s32 gTrackMarkerTable;
 extern s32 D_80115089;
 
 void func_8006591C(void *arg0) {
@@ -29,7 +29,7 @@ f32 __repair___repair_var_ft2_2_1;
         var_fv1 = D_800C0740;
     }
     if (*((u8 *)((s8 *)&D_80115089 + (temp_a2 * 0xA0))) != 0) {
-        temp_v0 = *((s32 *)((s8 *)&gTrackAxisTable + (((*(s8 *)((char *)(temp_a1) + 0x182))) * 4)));
+        temp_v0 = *((s32 *)((s8 *)&gTrackMarkerTable + (((*(s8 *)((char *)(temp_a1) + 0x182))) * 4)));
         if ((*(f32 *)((char *)(temp_v0) + 0x11C)) != var_fv1) {
             var_fv0 = -(*(f32 *)((char *)(temp_v0) + 0x114)) / (*(f32 *)((char *)(temp_v0) + 0x7C));
             var_ft0 = (*(f32 *)((char *)(temp_v0) + 0x110)) / (*(f32 *)((char *)(temp_v0) + 0x78));

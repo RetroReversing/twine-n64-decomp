@@ -9,7 +9,7 @@ extern void *D_80115328;
 typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 typedef struct { unsigned char pad_0[12]; int field_C; unsigned char pad_10[14]; unsigned short field_1E; unsigned short field_20; unsigned short field_22; unsigned short field_24; unsigned short field_26; unsigned char field_28; unsigned char field_29; } __repair_record_arg2;
 void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
-    volatile u64 __stack_pad;
+
     s32 sp44;
     s32 sp4C;
     s32 sp54;
@@ -142,9 +142,9 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     } else {
         var_s5 = 0x400;
     }
-    temp_a1_2 = ((__repair_record_arg2*)arg2)->field_24;
-    var_s6 = (s32) (0x400 * temp_a1_2) / (s32) ((__repair_record_arg2*)arg2)->field_26; var_s5_2 = (s32) (var_s5 * ((__repair_record_arg2*)arg2)->field_28) / (s32) ((__repair_record_arg2*)arg2)->field_29;
-    var_s1 = temp_a1_2 << 5;
+    temp_t2 = (u16)(((__repair_record_arg2*)arg2)->field_24);
+    var_s6 = (s32) (0x400 * temp_t2) / (s32) ((__repair_record_arg2*)arg2)->field_26; var_s5_2 = (s32) (var_s5 * ((__repair_record_arg2*)arg2)->field_28) / (s32) ((__repair_record_arg2*)arg2)->field_29;
+    var_s1 = temp_t2 << 5;
     if (((__repair_record_arg2*)arg2)->field_1E & 0x80) {
         var_s6 = ~var_s6;
     } else {
@@ -201,7 +201,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
         sp54 = var_s1 & 0xFFFF;
         sp4C = var_s5_2 << 0x10;
         var_v0_2 = temp_a0_4 >> 8;
-        do {
+        __repair_rows: {
             if ((var_v0_2 & 0xF) > 0) {
                 var_t9 = 0;
                 temp_t6 = var_t8 & 0xFFFF;
@@ -287,7 +287,8 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
             temp_a0_5 = (u32) ((__repair_record_arg2*)arg2)->field_28;
             var_s2 += 1;
             var_v0_2 = temp_a0_5 >> 8;
-        } while ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF));
+        }
+if ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF)) goto __repair_rows;
     }
     temp_v0_6 = D_80115328;
     D_80115328 = temp_v0_6 + 8;

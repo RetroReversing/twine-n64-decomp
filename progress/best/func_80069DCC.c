@@ -44,7 +44,7 @@ M2C_UNK func_80069BC8(void *);
 M2C_UNK func_8006D2E4(void *);
 M2C_UNK func_8006E648(void *, void *, M2C_UNK, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *);
 f32 func_8006F358(void *, void *);
-M2C_UNK func_80070340(M2C_UNK, void *);
+M2C_UNK setTrackMarkerActive(M2C_UNK, void *);
 M2C_UNK func_8007092C(void *, M2C_UNK);
 M2C_UNK func_80070F34(void *);
 M2C_UNK actorUpdateGatedState(void *, M2C_UNK);
@@ -88,7 +88,7 @@ extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
-extern M2C_UNK gTrackAxisTable;
+extern M2C_UNK gTrackMarkerTable;
 extern u8 D_8010A4C2;
 extern M2C_UNK D_8011508B;
 void func_80069DCC(void *arg0) {
@@ -363,7 +363,7 @@ if (M2C_FIELD(temp_s1, u8 *, 0x185) == 1) {
 temp_v1_2 = M2C_FIELD(temp_s1, u16 *, 0x520);
 if (temp_v1_2 < 2U) {
 func_8000A894(0x58);
-func_80070340(0, temp_s1);
+setTrackMarkerActive(0, temp_s1);
 } else {
 M2C_FIELD(temp_s1, u16 *, 0x520) = (u16) (temp_v1_2 - 1);
 func_800637DC(temp_s1);
@@ -873,7 +873,7 @@ break;
 }
 func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
 }
-func_80047FB4(*(&gTrackAxisTable + (temp_s4 * 4)), *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
+func_80047FB4(*(&gTrackMarkerTable + (temp_s4 * 4)), *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
 func_80069250(arg0);
 break;
 case 6:
@@ -1328,7 +1328,7 @@ M2C_FIELD(temp_v1_33, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_33, u8 *, 0xE);
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u16 *, 0x134);
 D_8010A4C2 |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
-temp_v0_10 = *(&gTrackAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
+temp_v0_10 = *(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
 M2C_FIELD(arg0, f32 *, 0x30) = (f32) M2C_FIELD(arg0, f32 *, 0x24);
 M2C_FIELD(arg0, f32 *, 0x34) = (f32) M2C_FIELD(arg0, f32 *, 0x28);
 M2C_FIELD(arg0, f32 *, 0x38) = (f32) M2C_FIELD(arg0, f32 *, 0x2C);
@@ -1338,7 +1338,7 @@ M2C_FIELD(temp_v0_10, f32 *, 0x18) = (f32) M2C_FIELD(arg0, f32 *, 0x38);
 M2C_FIELD(temp_v0_10, f32 *, 0x28) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x10);
 M2C_FIELD(temp_v0_10, f32 *, 0x2C) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x14);
 M2C_FIELD(temp_v0_10, f32 *, 0x30) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x18);
-M2C_FIELD(*(&gTrackAxisTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
+M2C_FIELD(*(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
 func_80081D20(temp_s4, 0x12);
 return;
 }

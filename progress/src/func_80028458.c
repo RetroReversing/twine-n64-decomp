@@ -21,12 +21,12 @@ extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
 extern s32 gBorderSkipFlag;
 extern void *sActiveMenu;
-extern void *volatile gTrackAxisTable;
+extern void *volatile gTrackMarkerTable;
 extern void *gMenuState;
 
 void func_80028458(void) {
-    if (gTrackAxisTable != NULL) {
-        M2C_FIELD(gTrackAxisTable, f32 *, 0x12C) = 1.0f;
+    if (gTrackMarkerTable != NULL) {
+        M2C_FIELD(gTrackMarkerTable, f32 *, 0x12C) = 1.0f;
     }
     D_800BD690 = 0;
     func_800217F4();

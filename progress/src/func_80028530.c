@@ -19,12 +19,12 @@ M2C_UNK func_800269B4(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 extern M2C_UNK D_800BD7E4;
 extern void *sActiveMenu;
-extern void *volatile gTrackAxisTable;
+extern void *volatile gTrackMarkerTable;
 extern s32 gMenuState;
 
 void func_80028530(void) {
-    if (gTrackAxisTable != NULL) {
-        M2C_FIELD(gTrackAxisTable, f32 *, 0x12C) = 1.0f;
+    if (gTrackMarkerTable != NULL) {
+        M2C_FIELD(gTrackMarkerTable, f32 *, 0x12C) = 1.0f;
     }
     func_8000A29C();
     func_800266DC(&D_800BD7E4);

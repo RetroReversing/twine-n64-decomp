@@ -19,7 +19,7 @@ extern f64 D_800D6858;
 extern f64 D_800D6860;
 extern f64 D_800D6868;
 extern f64 D_800D6870;
-extern void *D_80108F90;
+extern void *gWorkerListHead;
 
 void func_800937D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, f32 *arg5) {
     f32 __repair_fzero = 0.0f;
@@ -68,7 +68,7 @@ void func_800937D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, f32 *
 
     *arg1 = __repair_fzero;
     *arg2 = 1.0f;
-    var_s0 = D_80108F90;
+    var_s0 = gWorkerListHead;
     var_s2 = 0;
     m2c_initial_frame.view_sp48.value = __repair_fzero;
     m2c_initial_frame.view_sp44.value = __repair_fzero;

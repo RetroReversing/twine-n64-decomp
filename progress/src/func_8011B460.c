@@ -4,7 +4,7 @@ typedef struct { u8 pad0[0x10]; u8 flags; } EventState;
 typedef struct { u8 pad0[0xB4]; EventState *event; u8 padB8[0xCA]; s8 index; } EventActor;
 void func_8000A894(s32);
 void func_80016624(Node *, Node *, void *);
-extern Node *gTrackAxisTable[];
+extern Node *gTrackMarkerTable[];
 extern s16 D_8011ED74, D_8011ED98, D_8011EDBC;
 extern NodeEntry *D_8011F3C4, *D_8011F3C8, *D_8011F3CC;
 
@@ -18,21 +18,21 @@ void func_8011B460(EventActor *actor, u16 slot) {
     case 1:
         previous = &D_8011ED74;
         actor->event->flags |= 1;
-        func_80016624(&D_8011F3C4->node, gTrackAxisTable[*previous], gTrackAxisTable[actor->index]);
+        func_80016624(&D_8011F3C4->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
         entry = D_8011F3C4;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     case 2:
         previous = &D_8011ED98;
         actor->event->flags |= 2;
-        func_80016624(&D_8011F3C8->node, gTrackAxisTable[*previous], gTrackAxisTable[actor->index]);
+        func_80016624(&D_8011F3C8->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
         entry = D_8011F3C8;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     default:
         previous = &D_8011EDBC;
         actor->event->flags |= 4;
-        func_80016624(&D_8011F3CC->node, gTrackAxisTable[*previous], gTrackAxisTable[actor->index]);
+        func_80016624(&D_8011F3CC->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
         entry = D_8011F3CC;
         indexBits = (u32)(u8)actor->index << 24;
         break;

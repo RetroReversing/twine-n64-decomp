@@ -11,16 +11,20 @@ s32 func_80099CA8(Voice99CA8 *v, Note99CA8 *n) {
         if ((n->flags >> 8) & 1) {
             flags = v->flags;
             if (flags & 8) return 0;
-            flags |= 4;
-        } else flags = v->flags & ~4;
-        v->flags = flags;
+            v->flags = flags | 4;
+        } else {
+            v->flags = v->flags & ~4;
+        }
         if (((u8 *)&n->flags)[0] & 1) {
             if (!(*(volatile u32 *)&v->flags & 0x20) && !(u8)func_8008C1B0(v->index)) return 0;
-            flags = v->flags | 0x100000;
-        } else flags = v->flags & ~0x100000;
-        v->flags = flags;
+            v->flags = v->flags | 0x100000;
+        } else {
+            v->flags = v->flags & ~0x100000;
+        }
         if (((u16 *)&n->flags)[0] & 1) delay = (u16)func_80095638() % delay;
-        if (delay != 0xffff) {
+        if (delay == 0xffff) {
+            pending = -1;
+        } else {
             if ((relative = (*(volatile u32 *)&n->value.word >> 8) & 1)) func_800957A8(&delay);
             else func_800957B8(&delay, v);
             if (relative) pending = v->limit + delay;
@@ -30,7 +34,7 @@ s32 func_80099CA8(Voice99CA8 *v, Note99CA8 *n) {
                 if (v->limit >= pending) { v->current = pending; v->pending = 0; }
                 return v->pending != 0;
             }
-        } else pending = -1;
+        }
         v->pending = pending;
         return v->pending != 0;
     }

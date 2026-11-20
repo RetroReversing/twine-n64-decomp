@@ -4,7 +4,7 @@ s32 func_8000AABC(s32, s32, s32, s32);
 u32 func_80045CF8(s32);
 f32 func_80084270(s32, s16 *);
 extern u16 D_800CE6E8[], D_800CE6F0[];
-extern s32 gTrackAxisTable[];
+extern s32 gTrackMarkerTable[];
 
 void func_80084CD8(s32 object, u32 variant) {
     s16 index;
@@ -19,7 +19,7 @@ void func_80084CD8(s32 object, u32 variant) {
         item = D_800CE6F0[func_80045CF8(3)];
     
     result = func_8000A8B4(item, factor, 255);}
-    entry = gTrackAxisTable + (u16)index;
+    entry = gTrackMarkerTable + (u16)index;
     func_8000AABC(result, *entry, object, 0);
 }
 

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80070340(M2C_UNK, void *);             /* extern */
+M2C_UNK setTrackMarkerActive(M2C_UNK, void *);             /* extern */
 M2C_UNK func_800705AC(M2C_UNK, void *);             /* extern */
 
 void func_8005B548(void *arg0) {
@@ -20,7 +20,7 @@ void func_8005B548(void *arg0) {
     void *temp_v1;
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
-    func_80070340(0, temp_s1);
+    setTrackMarkerActive(0, temp_s1);
     func_800705AC(0, temp_s1);
     temp_v1 = M2C_FIELD(arg0, void **, 0x68);
     if (M2C_FIELD(temp_v1, s8 *, 0xF) >= 0x27) {

@@ -35,7 +35,7 @@ extern u16 D_800CE6C8;
 extern u16 D_800CE6CC;
 extern u16 D_800CE6D0;
 extern u16 D_800CE6D8;
-extern M2C_UNK gTrackAxisTable;
+extern M2C_UNK gTrackMarkerTable;
 
 void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     u16 sp10;
@@ -225,5 +225,5 @@ block_40:
         }
         break;
     }
-    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&gTrackAxisTable + sp10), arg0 + 0x24, 0);
+    func_8000AABC(func_8000A8B4(var_a0, temp_fs0, 0xFF), *(&gTrackMarkerTable + sp10), arg0 + 0x24, 0);
 }

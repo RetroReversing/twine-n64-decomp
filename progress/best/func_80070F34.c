@@ -45,7 +45,7 @@ extern f64 D_800D4810;
 extern s32 gBorderMode;
 extern u8 gPauseFlag;
 extern s32 gBorderSkipFlag;
-extern M2C_UNK gTrackAxisTable;
+extern M2C_UNK gTrackMarkerTable;
 extern u8 gBorderFlipFlag;
 extern M2C_UNK D_8011508D;
 
@@ -482,7 +482,7 @@ block_10:
             M2C_FIELD(temp_s2, void **, 0x514) = temp_v0_11;
             if (temp_v0_11 != NULL) {
                 func_80016600(temp_v0_11);
-                func_800165E0(M2C_FIELD(temp_s2, void **, 0x514), *((M2C_UNK *)((s8 *)&gTrackAxisTable + (M2C_FIELD(temp_s2, s8 *, 0x182) * 4))));
+                func_800165E0(M2C_FIELD(temp_s2, void **, 0x514), *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (M2C_FIELD(temp_s2, s8 *, 0x182) * 4))));
                 M2C_FIELD(temp_v0_11, s32 *, 0xC) = 0;
                 M2C_FIELD(temp_v0_11, s32 *, 0x28) = (s32) (((M2C_FIELD(temp_v0_11, s32 *, 0x28) & ~0xFC) | 0x1C) & ~3);
                 temp_v0_12 = func_80083E90(0x1000, 0x1A);

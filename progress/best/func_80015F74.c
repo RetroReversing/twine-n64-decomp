@@ -41,7 +41,7 @@ void func_800165E0(TextNode15F74 *, s32);
 void func_800448A4(TextNode15F74 *, const char *, s32);
 const char *func_80087100(u16);
 unsigned int strlen(const char *);
-extern s32 gTrackAxisTable[];
+extern s32 gTrackMarkerTable[];
 
 TextNode15F74 *func_80015F74(TextArgs15F74 *args)
 {
@@ -104,7 +104,7 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
     node->flags.word = (flags & ~0xF00) | (lines << 8);
     index = args->index;
     if (index >= 0) {
-        func_800165E0(node, gTrackAxisTable[index]);
+        func_800165E0(node, gTrackMarkerTable[index]);
     }
     return node;
 }

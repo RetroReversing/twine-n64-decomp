@@ -54,7 +54,7 @@ extern void *D_80100304[];
 extern u32 D_80109C98[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
 extern s32 D_80100C04, D_8011740C, gRenderMode;
-extern FrameView *gTrackAxisTable[];
+extern FrameView *gTrackMarkerTable[];
 extern FrameSlot *D_8010A2BC[];
 extern FrameCommand *D_80115328;
 
@@ -103,7 +103,7 @@ void func_80007958(void)
         transitioning = 0;
         modeFlags = (u8 *)renderMode - 0x21;
         i = 0;
-        entry = gTrackAxisTable;
+        entry = gTrackMarkerTable;
         D_80113022 = 0;
         do {
             buffer = D_80117728;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80016314(s32);                         /* extern */
 
-void func_8006FD70(void *arg0) {
+void freeTrackSpriteSlots(void *arg0) {
     s32 temp_a0;
     s32 temp_a0_2;
     u32 var_s1;

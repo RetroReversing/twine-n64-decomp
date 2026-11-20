@@ -3,7 +3,7 @@
 extern f64 D_800D4480;
 extern f64 D_800D4488;
 extern f64 D_800D4490;
-extern char gTrackAxisTable[];
+extern char gTrackMarkerTable[];
 
 void func_80067BB8(void *arg0) {
     f32 sp0[3];
@@ -12,7 +12,7 @@ void func_80067BB8(void *arg0) {
     register void *temp_v0;
 
     temp_a0 = (*(void **)((char *)(arg0) + 0x6C));
-    temp_v1 = ((*(s8 *)((char *)(temp_a0) + 0x182)) * 4) + gTrackAxisTable;
+    temp_v1 = ((*(s8 *)((char *)(temp_a0) + 0x182)) * 4) + gTrackMarkerTable;
     sp0[0] = (*(f32 *)((char *)(*temp_v1) + 0x34));
     sp0[1] = (*(f32 *)((char *)(*temp_v1) + 0x38));
     sp0[2] = 0;

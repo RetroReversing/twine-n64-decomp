@@ -20,7 +20,7 @@ typedef struct {
     u8 pad104[0x3e];
     s8 state;
 } SpriteState;
-extern SpriteState *volatile gTrackAxisTable;
+extern SpriteState *volatile gTrackMarkerTable;
 extern s32 D_8010A4E4;
 
 void func_800067C8(void) {
@@ -44,8 +44,8 @@ void func_800067C8(void) {
     func_80044FF0();
     func_8004505C();
     create_centered_sprite(0xF, 0);
-    gTrackAxisTable->flags &= ~0x40;
-    gTrackAxisTable->state = 0;
+    gTrackMarkerTable->flags &= ~0x40;
+    gTrackMarkerTable->state = 0;
     D_801002AE = 0;
     D_801002AF = 0;
     D_801002B0 = 0;

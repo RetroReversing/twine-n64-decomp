@@ -9,7 +9,7 @@ extern Obj *volatile D_800BF5BC;
 extern s32 D_800BF5C4;
 extern s16 D_800BF5C8;
 extern s16 D_800BF5CA;
-extern Def *gTrackAxisTable[];
+extern Def *gTrackMarkerTable[];
 
 Obj *func_8002B4D4(u8 kind, u16 mode) {
     register Obj *o;
@@ -48,7 +48,7 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         *(volatile f32 *)&D_800BF5BC->f44 = 0.1f;
         D_800BF5BC->f54 = scale;
         func_80064318(*p, kind);
-        func_80016990(*p, gTrackAxisTable[kind]->wF4);
+        func_80016990(*p, gTrackMarkerTable[kind]->wF4);
     }
     func_8002B6BC(*p);
     D_800BF5C8 = (s32)mode;

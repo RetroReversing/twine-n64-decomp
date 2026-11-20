@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 extern u8 gWorkerActive;
-extern void *D_80108F90;
+extern void *gWorkerListHead;
 
 s32 func_80094934(void *arg0) {
     void **temp_v1_2;
@@ -31,7 +31,7 @@ s32 func_80094934(void *arg0) {
         if (temp_v1_2 != NULL) {
             *temp_v1_2 = M2C_FIELD(arg0, void **, 0);
         } else {
-            D_80108F90 = M2C_FIELD(arg0, void **, 0);
+            gWorkerListHead = M2C_FIELD(arg0, void **, 0);
         }
         func_8008C11C();
         return 1;

@@ -1,5 +1,5 @@
 typedef struct { s32 x; f32 y; s32 z; } Vec3s;
-s32 func_8000628C(void *,Vec3s *,s32,s32); s32 func_800828D8(s32); extern s8 D_80100900; extern Vec3s *gTrackAxisTable[];
+s32 func_8000628C(void *,Vec3s *,s32,s32); s32 func_800828D8(s32); extern s8 D_80100900; extern Vec3s *gTrackMarkerTable[];
 s32 func_8007C72C(void *arg0,void *arg1,void *arg2) {
  Vec3s sp10; register s32 var_s0; u16 temp_v0; Vec3s *temp_v0_2;
  if(D_80100900!=0) goto block_6;
@@ -7,7 +7,7 @@ s32 func_8007C72C(void *arg0,void *arg1,void *arg2) {
   if(arg1!=NULL) {
    temp_v0=*(u16 *)((char *)arg1+0x78);
    if((temp_v0==2)|(temp_v0==0x4d)) {
-    temp_v0_2=gTrackAxisTable[*(s8 *)((char *)(*(void **)((char *)arg1+0x6c))+0x182)];
+    temp_v0_2=gTrackMarkerTable[*(s8 *)((char *)(*(void **)((char *)arg1+0x6c))+0x182)];
     sp10=*(Vec3s *)((char *)temp_v0_2 + 0x10); sp10.y-=0.1f;
    } else {
     sp10=*(Vec3s *)((char *)arg1+0x24); sp10.y+=0.5f;

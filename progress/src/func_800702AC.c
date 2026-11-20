@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
 M2C_UNK func_80044410(M2C_UNK);                /* extern */
-M2C_UNK func_80070340(M2C_UNK, void *);             /* extern */
+M2C_UNK setTrackMarkerActive(M2C_UNK, void *);             /* extern */
 
 void func_800702AC(void *arg0) {
     M2C_UNK var_a0;
@@ -35,5 +35,5 @@ void func_800702AC(void *arg0) {
         func_8000A894(0x57);
         var_a0 = 1;
     }
-    func_80070340(var_a0, arg0);
+    setTrackMarkerActive(var_a0, arg0);
 }

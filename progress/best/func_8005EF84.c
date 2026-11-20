@@ -20,7 +20,7 @@ extern char D_800C7C16[];
 extern u8 gSceneType;
 extern s32 gBorderSkipFlag;
 extern s32 D_8010302C;
-extern char gTrackAxisTable[];
+extern char gTrackMarkerTable[];
 
 typedef struct { unsigned char pad[108]; void * value; } __repair_field_6C;
 typedef struct { unsigned char pad_0[38]; unsigned short field_26; unsigned short field_28; unsigned short field_2A; } __repair_record_temp_s3;
@@ -91,7 +91,7 @@ s32 __repair_phase_var_v0;
                 
                 sprintf(sp30, "%s %s", __repair_phase_storage.pointer, func_80087100(var_a0));}
                 D_8010302C += 1;
-                func_80073AF8(0, *(s32 *)(gTrackAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+                func_80073AF8(0, *(s32 *)(gTrackMarkerTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                 temp_v1_2 = (((__repair_record_temp_s3*)temp_s3)->field_28);
                 (*(u16 *)((char *)(temp_v1_3) + 0x1BC)) += *(s16 *)(D_800C7C14 + (temp_v1_2 * 4));
                 temp_v1_3 = temp_s1 + (temp_v1_2 * 2);
@@ -121,7 +121,7 @@ block_66:
         __repair_phase_storage.value = 0;
         if ((u8) (*(u8 *)((char *)((temp_s1 + (temp_v1_4 * 8))) + 0x1FC)) < (u8) *(D_800C46A1 + temp_v0_3)) {
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(gTrackAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), func_80087100((((__repair_record_temp_s3*)temp_s3)->field_28) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), func_80087100((((__repair_record_temp_s3*)temp_s3)->field_28) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_5 = temp_s1 + ((((__repair_record_temp_s3*)temp_s3)->field_28) * 8);
             (*(u8 *)((char *)(temp_v1_5) + 0x1FC)) += 1;
             __repair_phase_storage.value = 1;
@@ -145,7 +145,7 @@ block_66:
             
             sprintf(spB0, "%s %s", var_v0_3, func_80087100(var_a0_3));}
             D_8010302C += 1;
-            func_80073AF8(0, *(s32 *)(gTrackAxisTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), spB0, -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + ((*(s8 *)((char *)(temp_s1) + 0x182)) * 4)), spB0, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_2 = 0xD8;
             if ((*(u16 *)((char *)(arg0) + 0x78)) == 3) {
 block_26:

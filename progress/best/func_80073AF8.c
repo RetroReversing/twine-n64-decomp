@@ -14,7 +14,7 @@ extern f64 D_800D4868;
 extern s32 gBorderMode;
 extern s32 gBorderSkipFlag;
 extern s32 D_8010302C;
-extern s32 gTrackAxisTable;
+extern s32 gTrackMarkerTable;
 extern void *D_8010969C;
 extern u8 gBorderFlipFlag;
 extern s32 D_8010A500;
@@ -77,7 +77,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         }
         goto block_10;
     }
-    if (gTrackAxisTable == sp13C) {
+    if (gTrackMarkerTable == sp13C) {
         sp114 = D_8010969C;
     }
 block_10:

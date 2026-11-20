@@ -45,7 +45,7 @@ extern s32 gBorderSkipFlag;
 extern u8 D_80102EE8;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
-extern char gTrackAxisTable[];
+extern char gTrackMarkerTable[];
 extern char D_8010A500[];
 extern u8 D_80112F6D;
 
@@ -294,7 +294,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)((*(void **)((char *)(temp_s3) + 0x408))) + 0x10)) = 0;
             func_8007080C(temp_s3);
             func_800649E4(temp_s4);
-            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + gTrackAxisTable;
+            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + gTrackMarkerTable;
             (*(f32 *)((char *)(*temp_v1_17) + 0x4C)) = 1.0f;
             temp_v0_7 = *temp_v1_17;
             temp_fv0 = (*(f32 *)((char *)(arg1) + 0));
@@ -427,7 +427,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                 break;
             }
             (*(s32 *)((char *)(temp_s4) + 0x58)) |= 0x2400;
-            temp_a0_2 = ((s16) arg0 * 4) + gTrackAxisTable;
+            temp_a0_2 = ((s16) arg0 * 4) + gTrackMarkerTable;
             (*(s32 *)((char *)(temp_s4) + 0x5C)) |= 0x600;
             temp_a1_3 = *temp_a0_2;
             (*(s32 *)((char *)(temp_a1_3) + 0x100)) &= ~7;

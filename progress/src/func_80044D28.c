@@ -4,7 +4,7 @@ typedef struct {
     s32 pad[2];
     volatile s32 value;
 } IdTable;
-extern IdTable *gTrackAxisTable;
+extern IdTable *gTrackMarkerTable;
 void func_80044D28(s16 *input) {
     if (*input >= 0) {
         s16 *p = input;
@@ -14,7 +14,7 @@ void func_80044D28(s16 *input) {
             s32 value;
 
             func_800422F4(*p);
-            state = gTrackAxisTable;
+            state = gTrackMarkerTable;
             id = *p;
             value = state->value;
             p++;

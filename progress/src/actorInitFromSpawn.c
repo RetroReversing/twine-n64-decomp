@@ -8,7 +8,7 @@ s32 func_800635B4();
 s32 func_800635BC();
 s32 func_80065684();
 s32 func_800656B0();
-s32 func_80070340();
+s32 setTrackMarkerActive();
 s32 func_800705AC();
 extern s32 *gProbeObjectList;
 extern s8 D_800E1A0C;
@@ -16,7 +16,7 @@ extern s32 D_800E1A10;
 extern s16 D_800E1A14;
 extern s8 D_800E1A16;
 extern s8 D_80100B18;
-extern char gTrackAxisTable[];
+extern char gTrackMarkerTable[];
 
 typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char pad_E[2]; int field_10; int field_14; int field_18; unsigned char pad_1C[12]; int field_28; int field_2C; int field_30; } __repair_record_temp_a2_2;
 
@@ -61,14 +61,14 @@ void actorInitFromSpawn(void *actor, void *spawnPos, void *spawnVel) {
     (*(s8 *)((char *)(state) + 0x196)) = 0;
     D_800E1A10 = 0;
     (*(s8 *)((char *)(state) + 0x180)) = 0;
-    func_80070340(0, state);
+    setTrackMarkerActive(0, state);
     func_800705AC(0, state);
     (*(f32 *)((char *)(state) + 0x98)) = 0.55f;
     func_80016718(actor);
     actorLinkToSurface(*gProbeObjectList, actor, 0);
-    (*(s32 *)((char *)(*((s32 *)((s8 *)gTrackAxisTable + ((*(s8 *)((char *)(state) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(actor) + 0x20));
-    func_800480A0(actor, *((s32 *)((s8 *)gTrackAxisTable + ((*(s8 *)((char *)(state) + 0x182)) * 4))));
-    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)gTrackAxisTable + (*(s8 *)((char *)state + 0x182) * 4));
+    (*(s32 *)((char *)(*((s32 *)((s8 *)gTrackMarkerTable + ((*(s8 *)((char *)(state) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(actor) + 0x20));
+    func_800480A0(actor, *((s32 *)((s8 *)gTrackMarkerTable + ((*(s8 *)((char *)(state) + 0x182)) * 4))));
+    { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)gTrackMarkerTable + (*(s8 *)((char *)state + 0x182) * 4));
     (entry->field_28) = (s32) (entry->field_10);
     (entry->field_2C) = (s32) (entry->field_14);
     (entry->field_30) = (s32) (entry->field_18);
