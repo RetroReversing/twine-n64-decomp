@@ -1,0 +1,1 @@
+s32 func_8002A920(void *arg0, s8 arg1) { s32 ret; s8 var_a2; var_a2 = arg1; if (arg0 == NULL) return 0; else { if (arg1 < 0) var_a2 = *(u8 *)((char *)arg0 + 0x19) - 1; { s32 count = *(volatile u8 *)((char *)arg0 + 0x19); s32 selected = (s8)var_a2; s32 base = *(s32 *)arg0; u32 mask = -(selected < count); s8 index = mask & var_a2; ret = base + index * 12; } } return ret; }
