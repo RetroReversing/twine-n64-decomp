@@ -6056,14 +6056,6 @@
   "score_after": 721
  },
  {
-  "function": "func_8006F50C",
-  "text": "Current best score 3113, revision c0a5bec97afa0fc903d9. Tried the supplied m2c source, local families call_arity, assignment_at_use, inferred_record_layout, source_lines, read_before_assign, and address_temporary, plus removing several register qualifiers; no improvement. Target begins with 0x78-byte frame, saves s0/ra at 0x70/0x74, reads three fields as integer words and stores them at sp+0x40/44/48, then reloads sp+0x44 as float. Candidate instead emits floating loads, spills callee-saved FP registers, and uses a 0x60-byte frame. Draft also has read-before-initialized `temp_fv0_3` and questionable function-call arity. Best next experiment: model sp40 as union/raw s32 array and f32 view (with sp40[1] increment) to force integer word copies and later FP reloads; remove unnecessary register locals and inspect target full assembly.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795138776.2416818,
-  "score_before": 3113,
-  "score_after": 3113
- },
- {
   "function": "func_80073508",
   "text": "Concurrent claim changed during trials. Rechecked baseline 835; explicit goto loop worsened to 2566, changing var_s1 signedness retained identical assembly. Target initializes s3=1 early, candidate does not.",
   "by": "codex-gpt-6.1-terra-8",
@@ -12374,14 +12366,6 @@
   "created_at": 1795178572.400848,
   "score_before": 270,
   "score_after": 270
- },
- {
-  "function": "func_8006F50C",
-  "text": "Rechecked baseline 3113. Six local repair variants (inferred layout, source lines, address temporary, call arity, read-before-assign, float prototype); none improved. Target stack frame is 0x78 and saves s0/ra at 0x70/0x74; candidate frame is 0x60 with saves at 0x58/0x5c. Callee prototype experiment failed because argument 3 was incorrectly typed f32. Candidate draft also contains suspicious use of temp_fv0_3 before initialization in sp50[2]; inspect target dataflow and callee signature.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795178576.7289479,
-  "score_before": 3113,
-  "score_after": 3113
  },
  {
   "function": "func_80044410",
@@ -28904,14 +28888,6 @@
   "score_after": 640
  },
  {
-  "function": "func_8006F50C",
-  "text": "Restored historical m2c candidate (d43de84c686857f0a0ec), which rechecked at score 3113; original draft structure still has clear mismatch: target stack is 0x78 with argument fields loaded as integer words to 0x40/44/48, while compiler output uses 0x58 frame, FPR saves and float stores. Tried simplified semantic vectors/delta arrays; score 3447 and added .rodata reference, then restored original style, score 3113. Current repair/local search was blocked before building because gcc-2.7.2-kmc is reported not installed. Remaining work: rebuild toolchain availability, reconstruct target temporary layout/source around the 0x40/44/48 initial record and 0x50/60 vectors; then pursue locals/order. Exact assembly observed: target uses uninitialized/spilled or explicitly staged values at 0x20-0x28, 0x30 scratch, 0x40-48 initial coordinates, 0x50-58 query vector and 0x60-68 original vector. No match.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795193741.010415,
-  "score_before": 3113,
-  "score_after": 3113
- },
- {
   "function": "func_800180D4",
   "text": "Improved 2895 to 2405: corrected func_80018510(arg3), func_80018578(font, current string), moved case 9 before case 10, and signed the control-byte load. Target narrows scaled byte to u16; attempted next patch var_s7 = (u16)(*(s8 *)var_s0 * 2), but compiler became unavailable before it ran. Remaining major issues: register allocation, switch table base and loop control. Please test that cast and compare full target assembly. Compiler tool reported gcc-2.7.2-kmc is not installed.",
   "by": "codex-gpt-6.1-terra-4",
@@ -32280,14 +32256,6 @@
   "score_after": 640
  },
  {
-  "function": "func_8006F50C",
-  "text": "Tried current candidate local repairs (const_read and five single_use_inline variants), all stayed at 2174. Inspected target entry and tried raw word-backed vector locals; score worsened to 2490. Target begins with frame 0x78, saves s0/ra at 0x70/0x74, object in a1, integer word loads from object+0x24/+0x28/+0x2c into sp+0x40/+0x44/+0x48, then float adjustment at sp+0x44; best remains historical score 1218 revision cfc67b07647a4e68e29a (unverified for current inputs). Best next step: restore saved_best and model the initial vector as integer words with float overlay at 0x40, plus separate query vector and original vector at 0x50 and 0x60; inspect stack geometry and remaining assembly before further edits. Current experimental revision 18300959d911e7575966 scores 2490.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199999.890232,
-  "score_before": 1218,
-  "score_after": 1218
- },
- {
   "function": "func_8005E350",
   "text": "Current best score 2035 rechecked. Applied six independent local repairs: explicit_loop_backedge, inferred_record_layout, signedness, declaration_order, constant_local, parameter_width; none improved, one-shot callback loop form worsened. Main mismatch begins after matching s2=a0: target saves a1 in s5 at sp+0x44, then s0 at sp+0x30, candidate allocates different s-registers/stack. Source has pointer-from-integer warning around callback table lookup; match callee func_80084338 signature s32(s32,s32), inspect actual function pointer table types and assembly further. Candidate's arithmetic/data logic is a useful baseline; remaining work primarily register lifetime and callback/table data declarations.",
   "by": "codex-gpt-6-luna-17",
@@ -34414,14 +34382,6 @@
   "created_at": 1795201913.798312,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8006F50C",
-  "text": "Claim permits six compiles, but this session explored 5 compile calls including errors; best remains 1218/74 instructions. Isolated rewrite matched insn count but stack layout differs: target preserves original position as integer words in stack slots 0x40/44/48, current draft uses volatile Vec3f slots differently, resulting lwc1 at entry instead of lw and shifts temps. Tried replacing volatile struct with f32 array and u32 array; u32 array worsened and both errors were corrected/abandoned. Candidate baseline cfc67b07647a4e68e29a. Next test a volatile union of f32[3]/u32[3] for `current`, with word copies to force lw/sw to stack and independent float member update.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795201914.4174259,
-  "score_before": 1218,
-  "score_after": 1218
  },
  {
   "function": "func_80093268",
@@ -37352,14 +37312,6 @@
   "score_after": 1440
  },
  {
-  "function": "func_8006F50C",
-  "text": "Best verified candidate reached score 21 (historical baseline 1218) by copying three vector words through Words3 integer fields. Rechecked baseline was 1218; best revision is 6f7dbb57994bd6308972. Explored volatile pointer, 64-bit/local padding, arrays/extra locals, and assignment vs +=; poorer candidates 1896/874/35/27, no score below 21. Remaining mismatch at best is stack layout only (3 stack slots in head copy at 0x40, 0x44, 0x48 vs candidate 0x20,0x24,0x28); equivalent stack/frame layout experiments moved to score 27 or worse. Continue from revision 6f7dbb57994bd6308972.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795204389.003963,
-  "score_before": 1218,
-  "score_after": 21
- },
- {
   "function": "func_80096A70",
   "text": "Baseline rechecked score 1717, 163 target instructions; my identical source confirmed 1717 with 166 instructions. Main errors remain prologue register allocation/frame (candidate uses s6/fp where target uses s5; +4 stack frame alignment offset) and loop structure. Target retains arg1 in s5 and pointer iteration in s2; candidate's var_s2/var_s4 allocation differs. Loop iteration increments pointer in branch delay; my do-while emits explicit addiu and branch shifted. Handler body and clamp math are broadly close, no exact match. No code experiment improved the score; start from current candidate revision 77d4287b564ef3c8d03e, consider simplifying loop condition to pointer/count reload pattern and use more accurately typed record structures; preserve original operation and case logic.",
   "by": "codex-gpt-6-luna-15",
@@ -38582,14 +38534,6 @@
   "created_at": 1795205516.722155,
   "score_before": 220,
   "score_after": 220
- },
- {
-  "function": "func_8006F50C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Best verified candidate is revision 6f7dbb57994bd6308972 (score 21; rechecked baseline 1218). Current revision 937639fb4d8c5a5c4446 is the raw m2c draft (score 6187). Remaining mismatch at best is stack layout only: target keeps head-copy values as integer lw/sw words in slots 0x40/0x44/0x48 and lwc1 later, while the candidate uses volatile Vec3f slots giving an lwc1 at entry. Tried: volatile pointer, 64-bit/local padding, f32 and u32 arrays, +=, Words3 integer-field copy. Untested: copy head as three u32 locals (lw/sw) before float use, keeping sp44 += 1.0f after the copy.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795205517.449836,
-  "score_before": 21,
-  "score_after": 21
  },
  {
   "function": "func_800AB330",
@@ -43078,5 +43022,61 @@
   "created_at": 1795204830.7555149,
   "score_before": 700,
   "score_after": 700
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Current best score 3113, revision c0a5bec97afa0fc903d9. Tried the supplied m2c source, local families call_arity, assignment_at_use, inferred_record_layout, source_lines, read_before_assign, and address_temporary, plus removing several register qualifiers; no improvement. Target begins with 0x78-byte frame, saves s0/ra at 0x70/0x74, reads three fields as integer words and stores them at sp+0x40/44/48, then reloads sp+0x44 as float. Candidate instead emits floating loads, spills callee-saved FP registers, and uses a 0x60-byte frame. Draft also has read-before-initialized `temp_fv0_3` and questionable function-call arity. Best next experiment: model sp40 as union/raw s32 array and f32 view (with sp40[1] increment) to force integer word copies and later FP reloads; remove unnecessary register locals and inspect target full assembly.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795138776.2416818,
+  "score_before": 3113,
+  "score_after": 3113
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Rechecked baseline 3113. Six local repair variants (inferred layout, source lines, address temporary, call arity, read-before-assign, float prototype); none improved. Target stack frame is 0x78 and saves s0/ra at 0x70/0x74; candidate frame is 0x60 with saves at 0x58/0x5c. Callee prototype experiment failed because argument 3 was incorrectly typed f32. Candidate draft also contains suspicious use of temp_fv0_3 before initialization in sp50[2]; inspect target dataflow and callee signature.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795178576.7289479,
+  "score_before": 3113,
+  "score_after": 3113
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Restored historical m2c candidate (d43de84c686857f0a0ec), which rechecked at score 3113; original draft structure still has clear mismatch: target stack is 0x78 with argument fields loaded as integer words to 0x40/44/48, while compiler output uses 0x58 frame, FPR saves and float stores. Tried simplified semantic vectors/delta arrays; score 3447 and added .rodata reference, then restored original style, score 3113. Current repair/local search was blocked before building because gcc-2.7.2-kmc is reported not installed. Remaining work: rebuild toolchain availability, reconstruct target temporary layout/source around the 0x40/44/48 initial record and 0x50/60 vectors; then pursue locals/order. Exact assembly observed: target uses uninitialized/spilled or explicitly staged values at 0x20-0x28, 0x30 scratch, 0x40-48 initial coordinates, 0x50-58 query vector and 0x60-68 original vector. No match.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795193741.010415,
+  "score_before": 3113,
+  "score_after": 3113
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Tried current candidate local repairs (const_read and five single_use_inline variants), all stayed at 2174. Inspected target entry and tried raw word-backed vector locals; score worsened to 2490. Target begins with frame 0x78, saves s0/ra at 0x70/0x74, object in a1, integer word loads from object+0x24/+0x28/+0x2c into sp+0x40/+0x44/+0x48, then float adjustment at sp+0x44; best remains historical score 1218 revision cfc67b07647a4e68e29a (unverified for current inputs). Best next step: restore saved_best and model the initial vector as integer words with float overlay at 0x40, plus separate query vector and original vector at 0x50 and 0x60; inspect stack geometry and remaining assembly before further edits. Current experimental revision 18300959d911e7575966 scores 2490.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199999.890232,
+  "score_before": 1218,
+  "score_after": 1218
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Claim permits six compiles, but this session explored 5 compile calls including errors; best remains 1218/74 instructions. Isolated rewrite matched insn count but stack layout differs: target preserves original position as integer words in stack slots 0x40/44/48, current draft uses volatile Vec3f slots differently, resulting lwc1 at entry instead of lw and shifts temps. Tried replacing volatile struct with f32 array and u32 array; u32 array worsened and both errors were corrected/abandoned. Candidate baseline cfc67b07647a4e68e29a. Next test a volatile union of f32[3]/u32[3] for `current`, with word copies to force lw/sw to stack and independent float member update.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795201914.4174259,
+  "score_before": 1218,
+  "score_after": 1218
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "Best verified candidate reached score 21 (historical baseline 1218) by copying three vector words through Words3 integer fields. Rechecked baseline was 1218; best revision is 6f7dbb57994bd6308972. Explored volatile pointer, 64-bit/local padding, arrays/extra locals, and assignment vs +=; poorer candidates 1896/874/35/27, no score below 21. Remaining mismatch at best is stack layout only (3 stack slots in head copy at 0x40, 0x44, 0x48 vs candidate 0x20,0x24,0x28); equivalent stack/frame layout experiments moved to score 27 or worse. Continue from revision 6f7dbb57994bd6308972.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795204389.003963,
+  "score_before": 1218,
+  "score_after": 21
+ },
+ {
+  "function": "func_8006F50C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Best verified candidate is revision 6f7dbb57994bd6308972 (score 21; rechecked baseline 1218). Current revision 937639fb4d8c5a5c4446 is the raw m2c draft (score 6187). Remaining mismatch at best is stack layout only: target keeps head-copy values as integer lw/sw words in slots 0x40/0x44/0x48 and lwc1 later, while the candidate uses volatile Vec3f slots giving an lwc1 at entry. Tried: volatile pointer, 64-bit/local padding, f32 and u32 arrays, +=, Words3 integer-field copy. Untested: copy head as three u32 locals (lw/sw) before float use, keeping sp44 += 1.0f after the copy.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795205517.449836,
+  "score_before": 21,
+  "score_after": 21
  }
 ]
