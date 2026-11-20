@@ -137,7 +137,8 @@ blkY:
     case 10:
         var_a1 = &D_800C9D18;
         var_a2 = 3;
-        goto block_47;
+        {
+    func_8007AEA4(arg0, var_a1, var_a2);return;}
     case 2:
         func_8007AEA4(arg0, &D_800C9D24, 3);
         return;

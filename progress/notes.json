@@ -1656,14 +1656,6 @@
   "score_after": 1566
  },
  {
-  "function": "func_8007B030",
-  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054555.742037,
-  "score_before": 7275,
-  "score_after": 6020
- },
- {
   "function": "func_80041F68",
   "text": "Best verified: revision 21773081728c4f0554d1, score 4427 (80.4%). Written with raw *(u32*)((u8*)arg0+off) accesses and three for-loops for the post-processing passes. Diffs: target frame is addiu $sp,-0x68 (ours -0x60), so the target has one more 8-byte local/saved slot, e.g. extra saved register or the 'sz' temp kept live across the nibble-swap loop. Target also keeps arg0 fields reloaded (lw $s0,0x2c($s3) extra in ours). Untried: make the nibble loop use the end pointer computed once, and split the 0x1C loop bodies differently so var_s5/var_s7 stay in s5/s7. Note the m2c draft's 'temp_v1_4 + temp_a3' comparison is unsigned (u32 cast), keep that.",
   "by": "permuter-25769805471",
@@ -2542,14 +2534,6 @@
   "created_at": 1795054374.565994,
   "score_before": 2660,
   "score_after": 1566
- },
- {
-  "function": "func_8007B030",
-  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054555.742037,
-  "score_before": 7275,
-  "score_after": 6020
  },
  {
   "function": "func_80041F68",
@@ -10424,14 +10408,6 @@
   "score_after": 950
  },
  {
-  "function": "func_8007B030",
-  "text": "Best verified current score 4490 (saved best) from narrowing local var_s2 from s32 to s16. Starting candidate was 4718; direct case-1 table pointer replacement and removing unused block_36 did not help (the former alone gave 4725). Other no-effect edits: var_s2 s8, var_a2 u32, func_8007AEA4 s8 return, temp_a1 pointer. Changing v to u8 worsened to 4890 by emitting sltiu instead of target slti; restored best should retain s32 v. Current residual mismatch centers on switch control-flow: target repeats move a0 and branches to shared call blocks; C goto block_47 merges paths differently. Target first flag branch beqz offset differs, two low-byte call return checks need sll v0,24, and target jtbl_800D5070 entry differs by +4. Candidate state was automatically ended after last compile; no exact match.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795179459.2537951,
-  "score_before": 4718,
-  "score_after": 4490
- },
- {
   "function": "func_8000AECC",
   "text": "Typed record access at offsets 0 and 4 improved saved candidate to score 130 (revision dea7d34da455e5d57793). Remaining mismatch: four reordered instructions and one branch target; first is initialization of s2=2 and s1=1. Local repair batch on this revision was stopped because another agent acquired claim; those variants were not tested.",
   "by": "codex-gpt-6.1-terra-7",
@@ -10446,14 +10422,6 @@
   "created_at": 1795179463.413219,
   "score_before": 12060,
   "score_after": 12060
- },
- {
-  "function": "func_8007B030",
-  "text": "Verified baseline 4490. Twelve independent local repairs did not improve; layout casts, signedness and declaration order had no effect; branch orientation and lifetime changes worsened. Remaining mismatches primarily branch targets and switch control flow, including generated jump tables; compare target blocks and replace switches with explicit branching where appropriate.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795179481.1404731,
-  "score_before": 4490,
-  "score_after": 4490
  },
  {
   "function": "func_8004F430",
@@ -14222,14 +14190,6 @@
   "created_at": 1795184191.902339,
   "score_before": 12428,
   "score_after": 12428
- },
- {
-  "function": "func_8007B030",
-  "text": "Saved best score 60, 226 instructions. Reordered the middle switch cases to 3,1,0,10,2 and made calls in the branches direct. Sole mismatch: final case 2's move a0,s0 occurs after the D_800C9D24 address materialization instead of before it. Direct call, local pointer, and shared block forms did not fix scheduling. Try other source scheduling or flags.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795184194.551306,
-  "score_before": 4490,
-  "score_after": 60
  },
  {
   "function": "func_80035060",
@@ -31606,5 +31566,45 @@
   "created_at": 1795193750.574403,
   "score_before": 85,
   "score_after": 85
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054555.742037,
+  "score_before": 7275,
+  "score_after": 6020
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054555.742037,
+  "score_before": 7275,
+  "score_after": 6020
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Best verified current score 4490 (saved best) from narrowing local var_s2 from s32 to s16. Starting candidate was 4718; direct case-1 table pointer replacement and removing unused block_36 did not help (the former alone gave 4725). Other no-effect edits: var_s2 s8, var_a2 u32, func_8007AEA4 s8 return, temp_a1 pointer. Changing v to u8 worsened to 4890 by emitting sltiu instead of target slti; restored best should retain s32 v. Current residual mismatch centers on switch control-flow: target repeats move a0 and branches to shared call blocks; C goto block_47 merges paths differently. Target first flag branch beqz offset differs, two low-byte call return checks need sll v0,24, and target jtbl_800D5070 entry differs by +4. Candidate state was automatically ended after last compile; no exact match.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795179459.2537951,
+  "score_before": 4718,
+  "score_after": 4490
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Verified baseline 4490. Twelve independent local repairs did not improve; layout casts, signedness and declaration order had no effect; branch orientation and lifetime changes worsened. Remaining mismatches primarily branch targets and switch control flow, including generated jump tables; compare target blocks and replace switches with explicit branching where appropriate.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795179481.1404731,
+  "score_before": 4490,
+  "score_after": 4490
+ },
+ {
+  "function": "func_8007B030",
+  "text": "Saved best score 60, 226 instructions. Reordered the middle switch cases to 3,1,0,10,2 and made calls in the branches direct. Sole mismatch: final case 2's move a0,s0 occurs after the D_800C9D24 address materialization instead of before it. Direct call, local pointer, and shared block forms did not fix scheduling. Try other source scheduling or flags.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795184194.551306,
+  "score_before": 4490,
+  "score_after": 60
  }
 ]
