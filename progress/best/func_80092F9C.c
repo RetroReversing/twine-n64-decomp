@@ -15,8 +15,8 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
     if (*(u16 *)(p+6)) return -1;
     c=p+(*(s32 *)(p+0x24)+8);
     n=*(u16 *)c;
-    b=p+(*(s32 *)(p+0x20)+8);
     a=p+(*(s32 *)(p+0x1c)+8);
+    b=p+(*(s32 *)(p+0x20)+8);
     while(n!=0xffff) {
      if(n==sub) {
       if(flag) result=func_8008F520(a,b,c,arg2,arg3);

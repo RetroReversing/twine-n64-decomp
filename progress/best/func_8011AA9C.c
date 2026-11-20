@@ -22,6 +22,7 @@ extern u8 D_801002D5;
 extern char D_8011F100[];
 
 void func_8011AA9C(void *arg0) {
+    char *__base_D_8011F100;
     s32 temp_s1;
     s32 var_v0;
     void *temp_a0;
@@ -92,11 +93,12 @@ block_17:
     }
     if (temp_s0 != NULL) {
         if (temp_s1 != 0) {
-            *(s16 *)(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = (s16) (s8) M2C_FIELD(temp_s1, u8 *, 0x182);
+            __base_D_8011F100 = D_8011F100;
+            *(s16 *)(__base_D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = (s16) (s8) M2C_FIELD(temp_s1, u8 *, 0x182);
             M2C_FIELD(temp_s0, s32 *, 4) = 0;
             return;
         }
-        *(s16 *)(D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = -1;
+        *(s16 *)(__base_D_8011F100 + (M2C_FIELD(temp_s0, s8 *, 0x182) * 2)) = -1;
         M2C_FIELD(temp_s0, s32 *, 4) = 0;
     }
 }

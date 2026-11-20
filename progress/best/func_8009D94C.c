@@ -21,26 +21,29 @@ void func_8008C5DC(s32 index) {
 }
 
 u32 func_8009D94C(u8 *state, u32 step) {
+    u32 ret;
     s32 remaining;
     u32 progress;
     u32 delta;
 
     if ((s8)state[0x11dd] != 3) {
-        return 0;
-    }
-    remaining = FIELD(state, s32, 0x11a8);
-    if (remaining > 0) {
-        remaining = (u32)remaining - step;
-        FIELD(state, s32, 0x11a8) = remaining;
-        if (remaining <= 0) {
-            state[0x11dd] = 4;
-            FIELD(state, s32, 0x11a8) = 0;
+        ret = 0;
+    } else {
+        remaining = FIELD(state, s32, 0x11a8);
+        if (remaining > 0) {
+            remaining = (u32)remaining - step;
+            FIELD(state, s32, 0x11a8) = remaining;
+            if (remaining <= 0) {
+                state[0x11dd] = 4;
+                FIELD(state, s32, 0x11a8) = 0;
+            }
         }
+        progress = FIELD(state, u32, 0x11d4);
+        delta = FIELD(state, u32, 0x11d8) - progress;
+        delta = step < delta ? step : delta;
+        FIELD(state, u32, 0x11d4) = progress + delta;
+        ret = delta;
     }
-    progress = FIELD(state, u32, 0x11d4);
-    delta = FIELD(state, u32, 0x11d8) - progress;
-    delta = step < delta ? step : delta;
-    FIELD(state, u32, 0x11d4) = progress + delta;
     return delta;
 }
 

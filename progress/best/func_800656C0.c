@@ -18,6 +18,7 @@ extern s8 D_800E1A16;
 extern s8 D_80100B18;
 extern char D_80109688[];
 
+typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char pad_E[2]; int field_10; int field_14; int field_18; unsigned char pad_1C[12]; int field_28; int field_2C; int field_30; } __repair_record_temp_a2_2;
 void func_800656C0(void *arg0, void *arg1, void *arg2) {
     unsigned temp_a2;
     void *temp_a2_2;
@@ -53,12 +54,12 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     temp_a2_2 = (*(void **)((char *)(arg0) + 0x68));
     D_800E1A14 = 0x546;
     D_800E1A16 = 1;
-    (*(u16 *)((char *)(temp_a2_2) + 0xC)) &= 0xFDFF;
+    (((__repair_record_temp_a2_2*)temp_a2_2)->field_C) &= 0xFDFF;
     (*(f32 *)((char *)(temp_s0) + 0x94)) = 1.0f;
     (*(s8 *)((char *)(temp_s0) + 0x196)) = 0;
     D_800E1A10 = 0;
     (*(s8 *)((char *)(temp_s0) + 0x180)) = 0;
-    func_80070340(0, temp_s0, temp_a2_2, 1);
+    func_80070340(0, temp_s0);
     func_800705AC(0, temp_s0);
     (*(f32 *)((char *)(temp_s0) + 0x98)) = 0.55f;
     func_80016718(arg0);
@@ -66,7 +67,7 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     (*(s32 *)((char *)(*((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(arg0) + 0x20));
     func_800480A0(arg0, *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4))));
     temp_a2_2 = *((s32 *)((s8 *)D_80109688 + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)));
-    (*(s32 *)((char *)(temp_a2_2) + 0x28)) = (s32) (*(s32 *)((char *)(temp_a2_2) + 0x10));
-    (*(s32 *)((char *)(temp_a2_2) + 0x2C)) = (s32) (*(s32 *)((char *)(temp_a2_2) + 0x14));
-    (*(s32 *)((char *)(temp_a2_2) + 0x30)) = (s32) (*(s32 *)((char *)(temp_a2_2) + 0x18));
+    (((__repair_record_temp_a2_2*)temp_a2_2)->field_28) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_10);
+    (((__repair_record_temp_a2_2*)temp_a2_2)->field_2C) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_14);
+    (((__repair_record_temp_a2_2*)temp_a2_2)->field_30) = (s32) (((__repair_record_temp_a2_2*)temp_a2_2)->field_18);
 }

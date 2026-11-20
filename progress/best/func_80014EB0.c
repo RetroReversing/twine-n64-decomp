@@ -193,7 +193,7 @@ nextHead:
                                                 if (p[0] < box.values[0]) box.values[0] = p[0];
                                                 if (p[0] > box.values[1]) box.values[1] = p[0];
                                                 if (p[1] < box.values[2]) box.values[2] = p[1];
-                                                if (box.values[3] < p[1]) box.values[3] = p[1];
+                                                if (p[1] > box.values[3]) box.values[3] = p[1];
                                             }
                                             spA7 = 1;
                                         }

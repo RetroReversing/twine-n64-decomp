@@ -54,9 +54,9 @@ loop_1:
             if (--var_s4 < 0) {
                 var_s4 = 7;
             }
-            indexBytes = var_s4 * 2;
-            temp_s0 = (((indexBytes + var_s4) * 8) + var_s4) * 64;
-            temp_s2 = (u8 *)D_800D9510 + temp_s0;
+            indexBytes = var_s4 * 2;do{
+            temp_s0 = (((indexBytes + var_s4) * 8) + var_s4) * 64;}while(0);
+            temp_s2 = (void *)((u8 *)D_800D9510); temp_s2 = (void *)((char *)temp_s2 + (s32)(temp_s0));
             temp_v0 = D_800C3924[arg0].f0;
             D_800D94F8 = var_s4;
             func_8000B900(temp_s2, temp_v0 + D_F8D70, temp_s1 * 32);

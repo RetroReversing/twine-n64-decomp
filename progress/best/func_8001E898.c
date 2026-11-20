@@ -33,12 +33,13 @@ extern u32 D_80102EBC;
 extern OpacityState *D_80109BB0;
 
 void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
+    u8 *__base_D_800BD68F;
     TextObject *object = entry->object;
-    u16 selected;
+    register u16 selected;
 
     if (object != NULL) {
-        object->x = entry->x;
         object->y = entry->position.y;
+        object->x = entry->x;
         object->flags = (object->flags & ~0xFC) | (-(dim == 0) & 0x1C);
         object->size = 0x40;
         func_80022B60(0);
@@ -48,20 +49,25 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
         switch (D_800B60E2) {
         case 0:
             if (!draw) {
-                selected = D_800E0ECC[D_800BD68F];
-                goto check;
+                __base_D_800BD68F = &D_800BD68F;
+                selected = D_800E0ECC[(*__base_D_800BD68F)];
+                if (selected == entry->id) {
+                    object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
+                }
+                break;
             }
-        render:
             func_80022EB8(entry->x - 2, entry->position.bytes.low - 4,
                           (func_80018318(object) * 12) & 0xFC);
             object->color = (D_800BD664 & ~0xFF) | D_80109BB0->alpha;
             break;
         case 1:
             if (draw) {
-                goto render;
+                func_80022EB8(entry->x - 2, entry->position.bytes.low - 4,
+                              (func_80018318(object) * 12) & 0xFC);
+                object->color = (D_800BD664 & ~0xFF) | D_80109BB0->alpha;
+                break;
             }
-            selected = D_800E0ED4[D_800BD68F];
-        check:
+            selected = D_800E0ED4[(*__base_D_800BD68F)];
             if (selected == entry->id) {
                 object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
             }

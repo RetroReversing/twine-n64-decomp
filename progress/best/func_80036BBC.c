@@ -69,7 +69,7 @@ void func_80036BBC(void *arg0) {
         D_8010A924 = 0;
         if (((__repair_field_100 *)arg0)->value & 3) {
             temp_v1 = D_80115328;
-            D_80115328 = temp_v1 + 8;
+            D_80115328 = (s8 *) temp_v1 + 8;
             ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
             (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1A00;
         } else {
@@ -127,8 +127,8 @@ block_26:
                 if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 3) {
                     temp_v1_7 = D_80107EA0 + 1;
                     if ((u32) D_80107EA0 < (u32) D_800B1D84) {
-                        D_80107EA0 = temp_v1_7;
                         D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v1_7 << 6);
+                        D_80107EA0 = temp_v1_7;
                         if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 2) {
                             func_800347B0(&D_80112F90, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_28 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_2C * 64.0f);
                         } else {
@@ -144,8 +144,8 @@ block_26:
                 } else {
                     var_a0 = D_80115328;
                     ((__repair_field_0 *)var_a0)->value = 0xDA380003;
-                    D_80115328 = var_a0 + 8;
                     var_v1 = (*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000;
+                    D_80115328 = var_a0 + 8;
 block_34:
                     (*(s32 *)((char *)(var_a0) + 4)) = var_v1;
                     if (((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0x400) {
@@ -158,8 +158,8 @@ case 1:                 /* switch 1 */
                                 var_v0 = D_80115328;
                                 D_80115328 = var_v0 + 8;
                                 var_v1_2 = __base_D_800B1D20;
-                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
                                 (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
+                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
                                 break;
                             case 0: break;
     /* switch 1; irregular */
@@ -176,18 +176,18 @@ case 1:                 /* switch 1 */
                             D_801032A0 = 4;
                             temp_v1_9 = ((__repair_field_100 *)arg0)->value & 7;
                             switch (temp_v1_9) {    /* switch 2; irregular */
-                            case 1:                 /* switch 2 */
-                                var_a1 = 0xFC121824;
-                                D_80115328 += 8;
-                                var_a0_2 = 0xFF33FFFF;
-                                ((__repair_field_0 *)D_80115328)->value = var_a1;
-                                (*(s32 *)((char *)(D_80115328) + 4)) = var_a0_2;
-                                break;
                             case 2:                 /* switch 2 */
                             case 4:                 /* switch 2 */
                                 var_a1 = 0xFC119823;
                                 var_a0_2 = 0xFF32FF7F;
                                 D_80115328 += 8;
+                                ((__repair_field_0 *)D_80115328)->value = var_a1;
+                                (*(s32 *)((char *)(D_80115328) + 4)) = var_a0_2;
+                                break;
+                            case 1:                 /* switch 2 */
+                                var_a1 = 0xFC121824;
+                                D_80115328 += 8;
+                                var_a0_2 = 0xFF33FFFF;
                                 ((__repair_field_0 *)D_80115328)->value = var_a1;
                                 (*(s32 *)((char *)(D_80115328) + 4)) = var_a0_2;
                                 break;
@@ -213,7 +213,7 @@ case 1:                 /* switch 1 */
                             D_801032A0 = 1;
                             if (((__repair_field_100 *)arg0)->value & 3) {
                                 temp_v1_10 = D_80115328;
-                                D_80115328 = temp_v1_10 + 8;
+                                D_80115328 = (s8 *) temp_v1_10 + 8;
                                 ((__repair_field_0 *)temp_v1_10)->value = 0xFC40FE03;
                                 (*(s32 *)((char *)(temp_v1_10) + 4)) = -0xC88;
                             } else {

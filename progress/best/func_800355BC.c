@@ -82,7 +82,7 @@ case 2:
                             func_8003438C(var_s2, arg0);
                             var_s0 = 0;
                         }
-                        func_80032630((*(s32 *)((char *)(temp_s4) + 0x3C)));
+                        do { func_80032630((*(s32 *)((char *)(temp_s4) + 0x3C))); } while (0);
                     }
                     var_s1 = ((__repair_field_0 *)var_s1)->value;
                 } while (var_s1 != NULL);

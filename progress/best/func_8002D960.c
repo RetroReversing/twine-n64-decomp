@@ -121,7 +121,7 @@ void func_8002D960(void) {
             {
                 s32 value = func_8002E98C(&D_800E1310, 1, 4);
                 var_s1 = 0;
-                tail = temp_s0_2 + tailBase;
+                tail = (void *) ((temp_s0_2) + (s32) tailBase);
                 *(&D_801001A2 + temp_s0_2) = value;
             }
 loop_3:
