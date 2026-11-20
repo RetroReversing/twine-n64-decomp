@@ -2,7 +2,7 @@ extern void *gBorderSkipFlag;
 extern u8 D_801002A2;
 extern u8 D_800C469C[];
 extern u8 D_800C447C[];
-void func_80070664(void *a, s32 b, s32 c, s32 d);
+void setActionSlot(void *a, s32 b, s32 c, s32 d);
 s32 func_80063C7C(s32 a, s32 b);
 void func_8007089C(void *a, s32 b, s32 c);
 
@@ -24,7 +24,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
         break;
     case 1:
         s0 = 5;
-        func_80070664(a1, 0x15, 1, -1);
+        setActionSlot(a1, 0x15, 1, -1);
         break;
     case 2:
         s0 = 6;

@@ -21,7 +21,7 @@ s32 func_80064630();
 s32 func_800649E4();
 s32 func_800671E0();
 s32 func_80067AE8();
-s32 func_80070664();
+s32 setActionSlot();
 s32 func_8007080C();
 s32 func_80077C00();
 s8 func_80081828();
@@ -385,15 +385,15 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                     }
                     (*(s8 *)((char *)(temp_s3) + 0x30F)) = var_v1_3;
                 }
-                func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x35)), 1, 1);
-                func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x37)), 1, 1);
-                func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x39)), 1, 1);
-                func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x3B)), 1, 1);
-                func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x3F)), 1, 1);
+                setActionSlot(temp_s3, (*(u8 *)((char *)(arg3) + 0x35)), 1, 1);
+                setActionSlot(temp_s3, (*(u8 *)((char *)(arg3) + 0x37)), 1, 1);
+                setActionSlot(temp_s3, (*(u8 *)((char *)(arg3) + 0x39)), 1, 1);
+                setActionSlot(temp_s3, (*(u8 *)((char *)(arg3) + 0x3B)), 1, 1);
+                setActionSlot(temp_s3, (*(u8 *)((char *)(arg3) + 0x3F)), 1, 1);
                 if (D_80112F6D != 0) {
                     var_s0 = 0;
                     do {
-                        func_80070664(temp_s3, var_s0 & 0xFF, 1, 0);
+                        setActionSlot(temp_s3, var_s0 & 0xFF, 1, 0);
                         var_s0 += 1;
                     } while (var_s0 < 0x1EU);
                 }

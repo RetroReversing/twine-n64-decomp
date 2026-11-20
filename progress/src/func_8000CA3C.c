@@ -5,7 +5,7 @@ void func_8000CF14(s32 arg0);
 void func_8000DBBC(s32 arg0);
 void func_80064780(s32 arg0);
 void func_80084048(void *arg0, s32 arg1);
-extern void *D_800B2710;
+extern void *gObjectTable;
 extern s8 D_800B2715;
 extern s8 D_800E0742;
 extern u8 D_800E0746;
@@ -22,13 +22,13 @@ void func_8000CA3C(void) {
     s32 var_v0;
     register long var_v0_2;
 
-    temp_s1 = *(s16 *)((char *)D_800B2710 + 0x10);
+    temp_s1 = *(s16 *)((char *)gObjectTable + 0x10);
     if (D_800E0742 != 0) {
         base = &D_80109690;
         func_80084048(*base, 0xE);
         *base = NULL;
-        func_80084048(*(void **)((char *)D_800B2710 + 4), 0x33);
-        func_80084048(D_800B2710, 0x33);
+        func_80084048(*(void **)((char *)gObjectTable + 4), 0x33);
+        func_80084048(gObjectTable, 0x33);
         func_8000CF14(1);
     }
     {
@@ -38,7 +38,7 @@ void func_8000CA3C(void) {
     D_8010A4C2 |= 1;
     *(s32 *)((char *)gTrackMarkerTable + 0x100) &= ~0x100;
     func_80001D80(0);
-    D_800B2710 = NULL;
+    gObjectTable = NULL;
     if (temp_s1 == 0x26 && D_8010A500) {
         func_80064780(D_8010A500);
     }

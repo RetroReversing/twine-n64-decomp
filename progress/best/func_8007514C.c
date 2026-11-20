@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_800312F4();
 f32 Vec3_DistanceSq();
-s32 func_800707B4();
+s32 findActionSlot();
 s32 func_80074C34();
 extern s32 D_800C7EE4;
 extern char D_800C7EE8[];
@@ -48,7 +48,7 @@ void func_8007514C(void *arg0) {
 case 0: case 3: goto block_12;
                           /* switch 1 */
         case 1:                                     /* switch 1 */
-            if ((func_800707B4(temp_s2, 2, 1) << 0x18) != 0) {
+            if ((findActionSlot(temp_s2, 2, 1) << 0x18) != 0) {
                 var_s0 = 1;
                 if (M2C_FIELD(&func_801188B4, s8 *, 0x9F) != 0) {
                 default:                            /* switch 1 */

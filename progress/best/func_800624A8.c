@@ -12,7 +12,7 @@ s32 func_800617D8(s32, s32, void *, f32 *, f32, f32, s32, s32, s32, s32, s32); /
 s32 func_80062450(s32, f32 *);                  /* extern */
 s32 func_80073508(s32, f32);                    /* extern */
 s32 func_800853D4(s32);                         /* extern */
-extern s8 D_800B2715;
+extern s8 gTransitionPhase;
 extern f64 D_800D4270;
 extern f64 D_800D4278;
 extern f64 D_800D4280;
@@ -46,7 +46,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     }
     func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, arg0 + 0x3C, NULL, 0.75f, 1.05f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x7F7F8110);
     func_80073508(arg1, arg2 * 0.001f);
-    if ((arg3 & 0xFF) && (D_800B2715 == 0)) {
+    if ((arg3 & 0xFF) && (gTransitionPhase == 0)) {
         func_800853D4(arg1);
     }
     var_s1 = 0;

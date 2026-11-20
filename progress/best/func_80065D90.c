@@ -29,7 +29,7 @@ s32 func_80065B68();
 s32 func_80065BC4();
 s32 func_800702AC();
 s32 func_80070528();
-s32 func_800707B4();
+s32 findActionSlot();
 s32 func_8007092C();
 s32 func_80070B40();
 s32 func_80070CA4();
@@ -256,11 +256,11 @@ block_30:
             }
         }
     }
-    if ((func_800707B4(temp_s1, 0x15, 1) << 0x18) != 0) {
+    if ((findActionSlot(temp_s1, 0x15, 1) << 0x18) != 0) {
         if (func_800819EC((s32) temp_s3, 0x11) != 0) {
             func_800702AC(temp_s1);
         }
-    } else if (((func_800707B4(temp_s1, 0x1B, 1) << 0x18) != 0) && (func_800819EC((s32) temp_s3, 0x11) != 0)) {
+    } else if (((findActionSlot(temp_s1, 0x1B, 1) << 0x18) != 0) && (func_800819EC((s32) temp_s3, 0x11) != 0)) {
         func_80070528(temp_s1);
     }
     temp_v1_8 = M2C_FIELD(arg0, s16 *, 0x7C);

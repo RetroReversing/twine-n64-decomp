@@ -18,7 +18,7 @@ M2C_UNK func_800624A8(void *, void *, f32, u8);     /* extern */
 M2C_UNK func_80073508(void *, f32);                 /* extern */
 M2C_UNK func_80084338(u16, void *);                 /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
-extern s8 D_800B2715;
+extern s8 gTransitionPhase;
 extern u8 gTrackDoneFlags[];
 
 void func_800633D0(register void *arg0) {
@@ -47,12 +47,12 @@ void func_800633D0(register void *arg0) {
             } else {
                 temp_s2 = arg0 + 0x24;
                 func_80073508(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
-                if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (D_800B2715 == 0)) {
+                if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (gTransitionPhase == 0)) {
                     func_800853D4(temp_s2);
                 }
             }
             temp_a0 = M2C_FIELD(temp_s0, u16 *, 6);
-            if ((temp_a0 != 0) && (D_800B2715 == 0)) {
+            if ((temp_a0 != 0) && (gTransitionPhase == 0)) {
                 func_80084338(temp_a0, arg0 + 0x24);
             }
             temp_a2 = M2C_FIELD(temp_s0, u8 *, 0xB);

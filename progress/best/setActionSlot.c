@@ -1,6 +1,6 @@
 typedef struct { s16 index; u8 pad[14]; } ActionRecord706;
 extern ActionRecord706 D_800C4486[];
-s32 func_80070664(u8 *object, u8 action, s32 value) {
+s32 setActionSlot(u8 *object, u8 action, s32 value) {
     u8 frame[16];
     s16 i;
     s16 index;

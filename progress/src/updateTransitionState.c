@@ -23,7 +23,7 @@ M2C_UNK func_8002B7F8();                            /* extern */
 M2C_UNK func_80063998(s32, M2C_UNK);                /* extern */
 s32 func_800819EC(M2C_UNK, M2C_UNK);                /* extern */
 extern void *D_800B2710;
-extern s8 D_800B2714;
+extern s8 gTransitionEnabled;
 extern s8 D_800B2715;
 extern u8 D_800E0743;
 extern s8 D_801002AE;
@@ -32,7 +32,7 @@ extern s8 D_801002B0;
 extern s8 D_801002B1;
 extern s32 D_8010A500;
 
-void func_800101D8(void) {
+void updateTransitionState(void) {
     s8 *__base_D_801002AE;
     s16 temp_a0;
     s16 temp_v0;
@@ -43,7 +43,7 @@ void func_800101D8(void) {
     void *var_a0;
 
     var_s0 = 0;
-    if ((D_800B2714 != 0) && (M2C_FIELD(D_800B2710, s16 *, 0x12) != 0)) {
+    if ((gTransitionEnabled != 0) && (M2C_FIELD(D_800B2710, s16 *, 0x12) != 0)) {
         if (D_800B2715 != 0) {
             func_8000CC38(0x34);
             temp_v0 = M2C_FIELD(D_800B2710, s16 *, 0x2B90);

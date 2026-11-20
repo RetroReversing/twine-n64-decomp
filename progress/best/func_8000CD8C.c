@@ -1,5 +1,5 @@
 s32 func_8000C860();
-extern s32 **D_800B2710;
+extern s32 **gObjectTable;
 extern struct CommandRef {
     s16 *id;
     char padding[8];
@@ -19,7 +19,7 @@ void func_8000CD8C(void) {
 
     out = D_80100B60;
     D_800E0740 = -1;
-    cursor = *D_800B2710;
+    cursor = *gObjectTable;
 
     do {
         s32 id = -1;

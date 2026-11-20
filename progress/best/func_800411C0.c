@@ -107,10 +107,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     void *var_a2;
     void *var_t0;
 
+    s16 *tableIndex = *(s16 **)((char *)arg1 + 0x28);
+
     sp30 = 1;
     sp34 = 1;
+    temp_s7 = *(s32 *)(D_800C0788 + (*tableIndex * 0x10));
     temp_a0 = (*(u16 *)((char *)(arg1) + 0));
-    temp_s7 = *(s32 *)(D_800C0788 + (*(*(s16 **)((char *)(arg1) + 0x28)) * 0x10));
     temp_v0 = (temp_a0 * 0x4C) + temp_s7;
     (*(s32 *)((char *)(temp_v0) + 0x30)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x30)) & 0xFFF0000F) | (temp_a0 * 0x10));
     temp_v0_2 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
@@ -164,9 +166,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     case 0x9D:                                      /* switch 1 */
     case 0x9E:                                      /* switch 1 */
     case 0xC8:                                      /* switch 1 */
-        __repair_hoisted = ((__repair_field_24 *)arg1)->value;
         if ((arg2 << 0x18) != 0) {
-            temp_v0_3 = (*(u8 *)((char *)(__repair_hoisted) + 0x1E));
+            temp_v0_3 = (*(u8 *)((char *)(((__repair_field_24 *)arg1)->value) + 0x1E));
             switch (temp_v0_3) {                    /* switch 2 */
             case 0x22:                              /* switch 2 */
             case 0x42:                              /* switch 2 */
@@ -296,22 +297,10 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                     }
                 }
                 func_800410E8(*arg0);
-                var_a2 = temp_s4;
-                temp_a3_5 = var_a2 + 0x40;
-                var_t0 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
-                do {
-                    __repair_store_0 = (s32) (*(s32 *)((char *)(var_a2) + 0));
-                    __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 4));
-                    __repair_store_2 = (s32) (*(s32 *)((char *)(var_a2) + 8));
-                    __repair_store_3 = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
-                    (*(s32 *)((char *)(var_t0) + 0)) = __repair_store_0;
-                    (*(s32 *)((char *)(var_t0) + 4)) = __repair_store_1;
-                    (*(s32 *)((char *)(var_t0) + 8)) = __repair_store_2;
-                    (*(s32 *)((char *)(var_t0) + 0xC)) = __repair_store_3;
-                    var_a2 += 0x10;
-                    var_t0 += 0x10;
-                } while (var_a2 != temp_a3_5);
-                (*(__repair_words3 *)((char *)(var_t0) + 0x0)) = *(__repair_words3 *) ((s8 *) var_a2 + 0x0);
+                {
+                    typedef struct { s32 words[19]; } MeshRecord;
+                    *(MeshRecord *)(((u16 *)arg1)[0] * 0x4C + temp_s7) = *(MeshRecord *)temp_s4;
+                }
                 return;
             }
             temp_v0_14 = *arg0;

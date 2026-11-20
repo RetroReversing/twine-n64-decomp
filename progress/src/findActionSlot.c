@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800707B4(s32 arg0, s32 arg1, s32 arg2) {
+s32 findActionSlot(s32 arg0, s32 arg1, s32 arg2) {
     u8 var_a3;
     u16 temp_v1;
 

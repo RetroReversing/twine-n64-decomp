@@ -9,16 +9,16 @@ typedef struct {
     s16 state, parameter;
     u8 pad84[0x50];
 } StreamRecord;
-extern StreamRecord *D_800B2710;
+extern StreamRecord *gObjectTable;
 #define READ_VECTOR(field) do { \
-    StreamRecord *records = D_800B2710; \
+    StreamRecord *records = gObjectTable; \
     v.x = *records->stream++; \
     v.y = *records->stream++; \
     v.z = -*records->stream++; \
     records[index].field = v; \
 } while (0)
 void func_8000D3AC(s32 index, u32 parameter) {
-    StreamRecord *base = D_800B2710;
+    StreamRecord *base = gObjectTable;
     StreamRecord *obj = (StreamRecord *)((s32)base + index * 0xD4);
     void *linked = obj->linked;
     TwineV3 v;

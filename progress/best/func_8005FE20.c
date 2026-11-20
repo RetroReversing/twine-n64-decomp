@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A894();
 u32 func_80045CF8();
 s32 func_80063C7C();
-s32 func_80070664();
+s32 setActionSlot();
 s32 func_80073AF8();
 s32 func_80084338();
 s32 *func_80087100();
@@ -264,7 +264,7 @@ block_45:
     if (temp_v0_10 != NULL) {
         temp_v0_10(arg0, var_a1);
     }
-    func_80070664(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
+    setActionSlot(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
     D_8010302C += 1;
     func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {

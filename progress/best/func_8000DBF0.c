@@ -5,9 +5,9 @@ typedef struct {
     u8 pad10[2];
     s16 status;
 } InterpreterState;
-extern InterpreterState *D_800B2710;
+extern InterpreterState *gObjectTable;
 s32 func_8000DBF0(s32 arg0) {
-    InterpreterState *state = D_800B2710;
+    InterpreterState *state = gObjectTable;
     unsigned int count = state->count;
     s32 opcode;
     volatile s32 frame_flag = 1;

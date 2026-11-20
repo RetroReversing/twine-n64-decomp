@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
 M2C_UNK func_80070664(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK func_80070730(s32, M2C_UNK, M2C_UNK);       /* extern */
-s32 func_800707B4(s32, M2C_UNK, M2C_UNK);           /* extern */
+s32 findActionSlot(s32, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern s32 D_8010302C;
@@ -23,31 +23,31 @@ extern void *gPlayerActor;
 extern s8 gTrackMarkerTable;
 extern void *D_8010A500;
 
-void func_8005BDA8(void) {
-    s32 temp_s1;
-    u16 temp_v0;
-    s32 temp_v1;
-    void *temp_s0;
+/* Plays cue sounds and sets message flags based on the player's state and action slots */ void updatePlayerMessages(void) {
+    s32 actionTable;
+    u16 playerStateNow;
+    s32 playerState;
+    void *player;
 
-    temp_s0 = gPlayerActor;
-    temp_s1 = M2C_FIELD(D_8010A500, s32 *, 0x6C);
-    if ((temp_s0 != NULL) && (temp_v1 = M2C_FIELD(temp_s0, u16 *, 0x78), (((s32) temp_v1 < 0x13) != 0))) {
-        if ((s32) temp_v1 >= 0x11) {
-            if (M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
-                if ((func_800707B4(temp_s1, 0xD, 1) << 0x18) != 0) {
+    player = gPlayerActor;
+    actionTable = M2C_FIELD(D_8010A500, s32 *, 0x6C);
+    if ((player != NULL) && (playerState = M2C_FIELD(player, u16 *, 0x78), (((s32) playerState < 0x13) != 0))) {
+        if ((s32) playerState >= 0x11) {
+            if (M2C_FIELD(M2C_FIELD(player, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
+                if ((findActionSlot(actionTable, 0xD, 1) << 0x18) != 0) {
                     func_8000A894(0x12C);
-                    M2C_FIELD(temp_s0, s32 *, 0x60) = (s32) (M2C_FIELD(temp_s0, s32 *, 0x60) | 0x08000000);
+                    M2C_FIELD(player, s32 *, 0x60) = (s32) (M2C_FIELD(player, s32 *, 0x60) | 0x08000000);
                 } else {
                     func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), func_80087100(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
         }
     }
-    if (((func_800707B4(temp_s1, 0xC, 1) << 0x18) != 0) && (gPlayerActor != NULL)) {
-        temp_v0 = M2C_FIELD(gPlayerActor, u16 *, 0x78);
-        if ((((temp_v0 == 1) | (temp_v0 == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 0x1D)) {
-            func_80070730(temp_s1, 0xC, 1);
-            func_80070664(temp_s1, 0xD, 1, 0);
+    if (((findActionSlot(actionTable, 0xC, 1) << 0x18) != 0) && (gPlayerActor != NULL)) {
+        playerStateNow = M2C_FIELD(gPlayerActor, u16 *, 0x78);
+        if ((((playerStateNow == 1) | (playerStateNow == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 0x1D)) {
+            func_80070730(actionTable, 0xC, 1);
+            func_80070664(actionTable, 0xD, 1, 0);
             D_8010302C += 1;
             func_8000A894(0x12B);
             func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), func_80087100(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);

@@ -30,7 +30,7 @@ M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
 f32 func_80045764(M2C_UNK *, M2C_UNK *);            /* extern */
 s32 func_80045CC4();                                /* extern */
 s32 func_80045CF8(s32);                             /* extern */
-f32 func_80045D2C(M2C_UNK);                         /* extern */
+
 M2C_UNK func_80047B14(M2C_UNK *, f32, M2C_UNK *);   /* extern */
 M2C_UNK func_800635BC(void *, M2C_UNK);             /* extern */
 M2C_UNK func_800635E0(void *, f32);                 /* extern */
@@ -80,6 +80,7 @@ extern u8 gBorderFlipFlag;
 extern s32 D_80112F68;
 
 typedef struct { unsigned char pad_0[96]; int field_60; unsigned char pad_64[12]; void * field_70; } __repair_record_sp38;
+typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_8006D2E4(void *arg0) {
     char sp20[0x10];
     s32 sp30;
@@ -321,9 +322,7 @@ block_62:
                 }
             }
             var_condition_bit = var_fs0 > 0.0f;
-            M2C_FIELD(temp_s3, f32 *, 0x1A0) = (f32) M2C_FIELD(arg0, f32 *, 0x24);
-            M2C_FIELD(temp_s3, f32 *, 0x1A4) = (f32) M2C_FIELD(arg0, f32 *, 0x28);
-            M2C_FIELD(temp_s3, f32 *, 0x1A8) = (f32) M2C_FIELD(arg0, f32 *, 0x2C);
+            (*(__repair_vec3 *) ((s8 *) (temp_s3) + 0x1A0)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x24));
             if ((var_fs0 > 0.0f) && (M2C_FIELD(arg0, u16 *, 0x78) == 2)) {
                 var_a2_2 = (s32) (var_fs0 * 40.0f);
                 if (var_a2_2 <= 0) {
@@ -491,9 +490,7 @@ block_153:
             case 0:                                 /* switch 3 */
                 if (M2C_FIELD(temp_s3, s8 *, 0x19C) != 0) {
                     temp_v0_11 = M2C_FIELD(temp_s3, void **, 0xC4);
-                    M2C_FIELD(temp_v0_11, f32 *, 0x24) = (f32) M2C_FIELD(temp_s3, f32 *, 0xEC);
-                    M2C_FIELD(temp_v0_11, f32 *, 0x28) = (f32) M2C_FIELD(temp_s3, f32 *, 0xF0);
-                    M2C_FIELD(temp_v0_11, f32 *, 0x2C) = (f32) M2C_FIELD(temp_s3, f32 *, 0xF4);
+                    (*(__repair_vec3 *) ((s8 *) (temp_v0_11) + 0x24)) = (*(__repair_vec3 *) ((s8 *) (temp_s3) + 0xEC));
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), f32 *, 0x3C) = -1024.0f;
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), s32 *, 0x40) = 0;
                     M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xC4), s32 *, 0x44) = 0;

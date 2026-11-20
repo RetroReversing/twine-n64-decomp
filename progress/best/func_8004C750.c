@@ -192,7 +192,7 @@ u16 __repair_result_var_v0;
             sp144 = sp13C;
             if (var_a0 != NULL) {
                 sp16C = &spB0;
-                do {
+                __repair_rows: {
                     var_s1 = *var_a0;
                     if (var_s1 != NULL) {
                         sp174 = &spB4;
@@ -295,7 +295,8 @@ u16 __repair_result_var_v0;
                         var_a0 = M2C_FIELD(sp144, void ***, 8);
                         sp144 = M2C_FIELD(sp144, void **, 0);
                     }
-                } while (var_a0 != NULL);
+                }
+if (var_a0 != NULL) goto __repair_rows;
             }
             if (var_s6 != NULL) {
                 sp17C = &sp98;
