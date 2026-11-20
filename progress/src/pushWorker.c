@@ -15,49 +15,49 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_80095374(void *, void *, void *);      /* extern */
-M2C_UNK invertAffineTransform(void *, f32 *);               /* extern */
-extern u8 gWorkerActive;
-extern void *gWorkerListHead;
+M2C_UNK func_800953D8(void *, f32 *);               /* extern */
+extern u8 D_800CF540;
+extern void *D_80108F90;
 
 typedef struct { s32 x, y, z; } Vec3w;
-/* Pushes a worker onto the active worker list and fills its position, origin, transform and intensity; returns 0 when workers are disabled. */ s32 pushWorker(void *worker, void *posA, void *posB, void *posC, void *origin, f32 originX, f32 originY, f32 originZ, s32 flags, u8 intensity) {
-    f32 mtx[12];
-    void *prevHead;
+s32 func_8009474C(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, u8 arg9) {
+    f32 m[12];
+    void *head;
 
-    if (gWorkerActive != 0) {
+    if (D_800CF540 != 0) {
         func_8008C0D4();
-        prevHead = gWorkerListHead;
-        M2C_FIELD(worker, void **, 0) = prevHead;
-        if (prevHead != NULL) {
-            M2C_FIELD(prevHead, void **, 4) = worker;
+        head = D_80108F90;
+        M2C_FIELD(arg0, void **, 0) = head;
+        if (head != NULL) {
+            M2C_FIELD(head, void **, 4) = arg0;
         }
-        M2C_FIELD(worker, s32 *, 4) = 0;
-        gWorkerListHead = worker;
-        *(Vec3w *)((char *)worker + 0xC) = *(Vec3w *)posA;
-        *(Vec3w *)((char *)worker + 0x18) = *(Vec3w *)posB;
-        *(Vec3w *)((char *)worker + 0x24) = *(Vec3w *)posC;
-        M2C_FIELD(worker, f32 *, 0x3C) = (f32) -M2C_FIELD(origin, f32 *, 0);
-        M2C_FIELD(worker, f32 *, 0x40) = (f32) -M2C_FIELD(origin, f32 *, 4);
-        M2C_FIELD(worker, f32 *, 0x44) = (f32) -M2C_FIELD(origin, f32 *, 8);
-        M2C_FIELD(worker, f32 *, 0x78) = originX;
-        M2C_FIELD(worker, f32 *, 0x7C) = originY;
-        M2C_FIELD(worker, f32 *, 0x80) = originZ;
-        func_80095374(worker + 0x30, worker + 0x3C, worker + 0x24);
-        mtx[0] = M2C_FIELD(worker, f32 *, 0x30);
-        mtx[3] = M2C_FIELD(worker, f32 *, 0x34);
-        mtx[6] = M2C_FIELD(worker, f32 *, 0x38);
-        mtx[1] = M2C_FIELD(worker, f32 *, 0x3C);
-        mtx[4] = M2C_FIELD(worker, f32 *, 0x40);
-        mtx[7] = M2C_FIELD(worker, f32 *, 0x44);
-        mtx[2] = M2C_FIELD(worker, f32 *, 0x24);
-        mtx[5] = M2C_FIELD(worker, f32 *, 0x28);
-        mtx[8] = M2C_FIELD(worker, f32 *, 0x2C);
-        mtx[9] = M2C_FIELD(worker, f32 *, 0xC);
-        mtx[10] = M2C_FIELD(worker, f32 *, 0x10);
-        mtx[11] = M2C_FIELD(worker, f32 *, 0x14);
-        invertAffineTransform(worker + 0x48, mtx);
-        M2C_FIELD(worker, s32 *, 8) = flags;
-        M2C_FIELD(worker, f32 *, 0x84) = (f32) ((f32) intensity * 0.007874016f);
+        M2C_FIELD(arg0, s32 *, 4) = 0;
+        D_80108F90 = arg0;
+        *(Vec3w *)((char *)arg0 + 0xC) = *(Vec3w *)arg1;
+        *(Vec3w *)((char *)arg0 + 0x18) = *(Vec3w *)arg2;
+        *(Vec3w *)((char *)arg0 + 0x24) = *(Vec3w *)arg3;
+        M2C_FIELD(arg0, f32 *, 0x3C) = (f32) -M2C_FIELD(arg4, f32 *, 0);
+        M2C_FIELD(arg0, f32 *, 0x40) = (f32) -M2C_FIELD(arg4, f32 *, 4);
+        M2C_FIELD(arg0, f32 *, 0x44) = (f32) -M2C_FIELD(arg4, f32 *, 8);
+        M2C_FIELD(arg0, f32 *, 0x78) = arg5;
+        M2C_FIELD(arg0, f32 *, 0x7C) = arg6;
+        M2C_FIELD(arg0, f32 *, 0x80) = arg7;
+        func_80095374(arg0 + 0x30, arg0 + 0x3C, arg0 + 0x24);
+        m[0] = M2C_FIELD(arg0, f32 *, 0x30);
+        m[3] = M2C_FIELD(arg0, f32 *, 0x34);
+        m[6] = M2C_FIELD(arg0, f32 *, 0x38);
+        m[1] = M2C_FIELD(arg0, f32 *, 0x3C);
+        m[4] = M2C_FIELD(arg0, f32 *, 0x40);
+        m[7] = M2C_FIELD(arg0, f32 *, 0x44);
+        m[2] = M2C_FIELD(arg0, f32 *, 0x24);
+        m[5] = M2C_FIELD(arg0, f32 *, 0x28);
+        m[8] = M2C_FIELD(arg0, f32 *, 0x2C);
+        m[9] = M2C_FIELD(arg0, f32 *, 0xC);
+        m[10] = M2C_FIELD(arg0, f32 *, 0x10);
+        m[11] = M2C_FIELD(arg0, f32 *, 0x14);
+        func_800953D8(arg0 + 0x48, m);
+        M2C_FIELD(arg0, s32 *, 8) = arg8;
+        M2C_FIELD(arg0, f32 *, 0x84) = (f32) ((f32) arg9 * 0.007874016f);
         func_8008C11C();
         return 1;
     }
