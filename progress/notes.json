@@ -4896,14 +4896,6 @@
   "score_after": 310
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Best score 666/140 bytes. Source currently best: two func_8000B900 calls into signed s32 local, then f64 conversion and conditional add D_800D2160 when result negative. Remaining key mismatch is target reads first word with lw then later lhu at sp+0x10; candidate returns lw at that location. Also target uses 0x28 stack frame vs candidate 0x20; float multiply constant materialization differs. Tested -G0 flags via try_compiler/search_flags; score improved to 266 vs -G8 score 666, but no match. G0 profile is supported by function brief and should be carried forward. Union/u16 experiments did not beat saved best. Try adjusting helper output local width/aliasing to preserve initial lw for mask but force final lhu, and retain 0x28 frame without extra emitted instructions.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795137661.732542,
-  "score_before": 827,
-  "score_after": 666
- },
- {
   "function": "func_80017E14",
   "text": "Best score remains 450. Local variants testing record layout, signed/unsigned temporaries, declaration order, operand temporaries, split integer lifetimes and const reads did not improve it. Target first loads all three bytes at offsets 0x7F\u20130x81 before arithmetic; candidate interleaves loads and arithmetic, producing 13 mismatches, mostly register allocation. Next restructure to load all three bytes into separate u8 locals at function entry, then perform each clamped addition and stores in target order. Profile gcc-2.7.2-kmc -O1.",
   "by": "codex-gpt-6-luna-12",
@@ -11208,14 +11200,6 @@
   "score_after": 30
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Rechecked best is 666 from source using signed s32 temp, two calls, conditional double correction and float multiply. Tested baseline under current G8; `try_compiler` on unchanged candidate with G0 scored 266 (92.4%), showing G0 likely correct. Tried adding volatile scalar/array and union halfword interpretation; scored 2027, 881, 1041 under default compiler. Target uses 0x28 frame, saves s0/ra at 0x20/0x24, second call to same 4-byte stack slot then lhu, bgez, double correction, and exact 0x3C5A740E multiplier. Need correct compiler flags applied before further source tuning; after that work on the 8-byte frame gap and final halfword load.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795177332.8083441,
-  "score_before": 666,
-  "score_after": 666
- },
- {
   "function": "func_80022368",
   "text": "Historical best remains 1095. Tried compiling source with explicit declarations; first attempt failed due missing M2C_UNK. Second compile scored 1320 and exposed wrong interpretation of D_80109BB0: target loads a pointer from the global at 0x80109BB0 then reads offsets 0x2d and 0x18 from that pointed-to object. Restore saved_best and model D_80109BB0 as a pointer global (volatile/access width may matter); current experiment treated its storage as an 8-byte array and formed absolute symbol+offset accesses. Remaining scope/branch structure and call arguments need tuning.",
   "by": "codex-gpt-6-luna-7",
@@ -15264,14 +15248,6 @@
   "score_after": 675
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Improved 666 to 460 using 3-word local buffer and u16 load promoted to s32. G0 trial on revision 3511a8a0a08dc3a23270 scored 60: only first stack load scheduled after mask constant rather than before. G8 has unresolved gp literal. Explicit cached or volatile index did not change order; investigate scheduling with G0 and suggest profile if matched.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795182315.0653288,
-  "score_before": 666,
-  "score_after": 460
- },
- {
   "function": "func_8001C6CC",
   "text": "Current verified best is score 2960 (92.4%), 394 instructions; current trial source uses u16 temp_v0 for the switch selector, s32 func_800260A0(u32), and an inner u8 *p_ee0. The u16 selector improved from the prior 3100 candidate; s32 selector scored 3160. Tried changing func_80030C58 return declaration from u8 to s32 (score 3110), func_800261A4 arg to u32 (no change), declaration/scope and register qualifier for p_ee0 (no change), direct global refs (worse 3645), moving first func_800316B8 call into a local assignment (no change), and local repairs (no improvements). Remaining diff begins at row 18: target holds D_80102EE0 in $s3 while candidate uses $s1; target table base is $s1 while candidate uses a different register. Candidate switch table still links as .rodata+0 instead of jtbl_800D29D0; first table pointer target is func_8001C6CC+0x488, candidate +0x490. The table bytes decode as switch selector minus one, range 0x29; active slots align with case values (case 1 slot 0, case 2 slot 1, case 11 slot 10, case 16 slot 15). Continue by investigating register/lifetime scheduling and exact jump table placement/mapping.",
   "by": "codex-gpt-6-luna-11",
@@ -17856,14 +17832,6 @@
   "score_after": 5051
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Exact G0 diagnostic trial 948cf2da09ede75251b0 retrieved and submitted as a verified function-only compiler bundle. Automatic changes are off. Apply that pending bundle; its source stages the stack word read and &= 0xFFFFFF before the second call.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795183555.752783,
-  "score_before": 460,
-  "score_after": 460
- },
- {
   "function": "func_80040E5C",
   "text": "Current baseline remains 3255. Ran signedness experiments on sp28 and sp2C (equal); local repairs across signedness, declaration_order, source_lines, const_read, read_before_assign, stack_run_array. No improvement; const_read scored much worse, stack_run_array worsened and other variants were equal or failed compile. Main mismatch is allocation: target saves arg0 in s3 at sp+0x4c; baseline uses s2 at sp+0x48 and target inner counters t1/t2 while baseline assigns different registers. Struct guess S_D_800B1A00 is broad/noisy; do not add it globally based on this. Start next work from saved candidate revision 5a8a3ed0602f204798f8. Carefully reconstruct candidate modifications; previous manual rewrite failed due to parenthesis and pointer type issues.",
   "by": "codex-gpt-6-luna-18",
@@ -19928,14 +19896,6 @@
   "score_after": 190
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Retrieved exact diagnostic trial 948cf2da09ede75251b0, score 0 with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2. The same function-only source/profile bundle is already pending. Current G8 emits unresolved R_MIPS_LITERAL for the multiply constant. The batch also gives spurious trailing functions in this G8 member's rendered diff; use the existing verified standalone G0 trial.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795184545.7211661,
-  "score_before": 460,
-  "score_after": 460
- },
- {
   "function": "func_80040E5C",
   "text": "Rechecked best candidate at 3255 (80%, 161/163 instructions). Local repair trials covered signedness, declaration order, source line boundaries, const reads, read-before-assign, and stack-run arrays; one stack array worsened, others unchanged. A u32 loop index also had no effect. Move-on at 9/8. Major remaining mismatch begins with compiler assigning arg0 to $s2 where target uses $s3; branches differ (blez vs beqz), and pointer arithmetic/indirect record fields have warnings. Candidate saved at revision 22fc6a0f91349e8b3644.",
   "by": "codex-gpt-6-luna-11",
@@ -21350,14 +21310,6 @@
   "created_at": 1795185214.725467,
   "score_before": 20,
   "score_after": 20
- },
- {
-  "function": "func_8000A4F4",
-  "text": "Exact -G0 compiler/source bundle submitted and verified (trial dd5ff9352f50bac6fde9). Applying the pending suggestion rechecks and saves it. Current -G8 generates a GP-relative float literal. Separate the DMA offset word load and 24-bit compound mask to get target scheduling.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795185215.580561,
-  "score_before": 460,
-  "score_after": 460
  },
  {
   "function": "func_80022AD8",
@@ -23296,14 +23248,6 @@
   "score_after": 545
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Improved default-profile best 460\u2192400 with staged offset load/compound mask. All differences are now the -G8 unresolved R_MIPS_LITERAL for the final multiplier. Diagnostic cb297e699eaf4ddc544b verified this exact C at -G0 score 0; function-only compiler bundle reverified, pending application because automatic compiler changes are off. The staged offset fix is reusable knowledge proposal #25769839509.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795186643.923829,
-  "score_before": 460,
-  "score_after": 400
- },
- {
   "function": "func_800ABE20",
   "text": "Recompiled both-u64 dispatcher with current compiler. It produces a frame and jal (1220), in contrast to the target's two six-instruction sibling dispatch paths. The pending GCC 4.4.0-n64 exact-build suggestion already carries the verified source and profile. Apply that function-only suggestion.",
   "by": "codex-gpt-6.2-sol-8",
@@ -24600,14 +24544,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8000A4F4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Pending exact -G0 bundle already verifies both ROM DMA reads and final conversion (trial dd5ff9352f50bac6fde9). Current -G8 retains GP-relative unresolved float literal; no further source tuning before profile application.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795188515.858172,
-  "score_before": 400,
-  "score_after": 400
- },
- {
   "function": "audioSilenceThread",
   "text": "Compiled a simplified version and verified score 3491 (72.2%), matching saved baseline. Additional local repairs explicit_loop_backedge and switch_layout generated identical instructions/scores. Experimental attempt to declare D_800E4170 as an incomplete array failed; reverted successfully. One source issue worth revisiting: pointer arithmetic in candidate uses `&D_800E4170 + 4` and increments pointers by 4, which scales by s32 and appears to generate 16-byte steps, while target loop uses `addiu ...,4` byte strides; fix with a complete array/object type and correct indexing rather than incomplete declaration. Target assembly also uses compact 0x30 stack frame, and current candidate has extra RA/S4 saves, 0x2c RA slot. Remaining diffs include table-base loop, register allocation, and branch/loop shapes. Best candidate retained at 3491.",
   "by": "codex-gpt-6-luna-13",
@@ -25712,14 +25648,6 @@
   "score_after": 825
  },
  {
-  "function": "func_8000A4F4",
-  "text": "Cannot improve under the currently claimed -G8 profile: linker reports the target $gp is unavailable and the candidate omits the target's literal-load sequence. Exact same C has already been verified byte-for-byte with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, and a function-only compiler suggestion has been submitted to apply that verified profile. No source tuning is warranted before that profile change.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795189746.857506,
-  "score_before": 400,
-  "score_after": 400
- },
- {
   "function": "func_8009DBE8",
   "text": "Saved/current best score 1304 (58 target vs 55 candidate instructions). Typed s16* locals and pointer increments produced identical assembly to the saved best. Local type/object/scope repair trials also did not change output. Main mismatch starts at register saves: target saves fp/s7/s6 around sp+0x38..0x30 and uses s6=sp+0x44; candidate saves ra/fp/s7 at top of 0x98 frame and places temp at sp+0x60. Need redesign stack/local declarations and preserve target's register allocation/call setup. Compiler optimizes char/s32/u32 temp type changes away.",
   "by": "codex-gpt-6-luna-13",
@@ -26718,14 +26646,6 @@
   "created_at": 1795190763.846685,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8000A4F4",
-  "text": "Saved best matches exactly using gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2; submitted function-specific compiler suggestion. Current -G8 produces unresolved GP-relative literal. Apply suggestion to save match.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795190776.7174232,
-  "score_before": 400,
-  "score_after": 400
  },
  {
   "function": "func_8005B880",
@@ -28014,14 +27934,6 @@
   "created_at": 1795192373.0176032,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8000A4F4",
-  "text": "Rechecked score 400 with current -G8 due to unresolved literal relocation. Exact saved C matches under -G0; function-specific compiler suggestion submitted and awaits application.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795192374.795841,
-  "score_before": 400,
-  "score_after": 400
  },
  {
   "function": "func_8002AB6C",
@@ -31606,5 +31518,93 @@
   "created_at": 1795193642.390805,
   "score_before": 180,
   "score_after": 180
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Best score 666/140 bytes. Source currently best: two func_8000B900 calls into signed s32 local, then f64 conversion and conditional add D_800D2160 when result negative. Remaining key mismatch is target reads first word with lw then later lhu at sp+0x10; candidate returns lw at that location. Also target uses 0x28 stack frame vs candidate 0x20; float multiply constant materialization differs. Tested -G0 flags via try_compiler/search_flags; score improved to 266 vs -G8 score 666, but no match. G0 profile is supported by function brief and should be carried forward. Union/u16 experiments did not beat saved best. Try adjusting helper output local width/aliasing to preserve initial lw for mask but force final lhu, and retain 0x28 frame without extra emitted instructions.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795137661.732542,
+  "score_before": 827,
+  "score_after": 666
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Rechecked best is 666 from source using signed s32 temp, two calls, conditional double correction and float multiply. Tested baseline under current G8; `try_compiler` on unchanged candidate with G0 scored 266 (92.4%), showing G0 likely correct. Tried adding volatile scalar/array and union halfword interpretation; scored 2027, 881, 1041 under default compiler. Target uses 0x28 frame, saves s0/ra at 0x20/0x24, second call to same 4-byte stack slot then lhu, bgez, double correction, and exact 0x3C5A740E multiplier. Need correct compiler flags applied before further source tuning; after that work on the 8-byte frame gap and final halfword load.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795177332.8083441,
+  "score_before": 666,
+  "score_after": 666
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Improved 666 to 460 using 3-word local buffer and u16 load promoted to s32. G0 trial on revision 3511a8a0a08dc3a23270 scored 60: only first stack load scheduled after mask constant rather than before. G8 has unresolved gp literal. Explicit cached or volatile index did not change order; investigate scheduling with G0 and suggest profile if matched.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795182315.0653288,
+  "score_before": 666,
+  "score_after": 460
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Exact G0 diagnostic trial 948cf2da09ede75251b0 retrieved and submitted as a verified function-only compiler bundle. Automatic changes are off. Apply that pending bundle; its source stages the stack word read and &= 0xFFFFFF before the second call.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795183555.752783,
+  "score_before": 460,
+  "score_after": 460
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Retrieved exact diagnostic trial 948cf2da09ede75251b0, score 0 with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2. The same function-only source/profile bundle is already pending. Current G8 emits unresolved R_MIPS_LITERAL for the multiply constant. The batch also gives spurious trailing functions in this G8 member's rendered diff; use the existing verified standalone G0 trial.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795184545.7211661,
+  "score_before": 460,
+  "score_after": 460
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Exact -G0 compiler/source bundle submitted and verified (trial dd5ff9352f50bac6fde9). Applying the pending suggestion rechecks and saves it. Current -G8 generates a GP-relative float literal. Separate the DMA offset word load and 24-bit compound mask to get target scheduling.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795185215.580561,
+  "score_before": 460,
+  "score_after": 460
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Improved default-profile best 460\u2192400 with staged offset load/compound mask. All differences are now the -G8 unresolved R_MIPS_LITERAL for the final multiplier. Diagnostic cb297e699eaf4ddc544b verified this exact C at -G0 score 0; function-only compiler bundle reverified, pending application because automatic compiler changes are off. The staged offset fix is reusable knowledge proposal #25769839509.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795186643.923829,
+  "score_before": 460,
+  "score_after": 400
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Pending exact -G0 bundle already verifies both ROM DMA reads and final conversion (trial dd5ff9352f50bac6fde9). Current -G8 retains GP-relative unresolved float literal; no further source tuning before profile application.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795188515.858172,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Cannot improve under the currently claimed -G8 profile: linker reports the target $gp is unavailable and the candidate omits the target's literal-load sequence. Exact same C has already been verified byte-for-byte with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, and a function-only compiler suggestion has been submitted to apply that verified profile. No source tuning is warranted before that profile change.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795189746.857506,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Saved best matches exactly using gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2; submitted function-specific compiler suggestion. Current -G8 produces unresolved GP-relative literal. Apply suggestion to save match.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795190776.7174232,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "func_8000A4F4",
+  "text": "Rechecked score 400 with current -G8 due to unresolved literal relocation. Exact saved C matches under -G0; function-specific compiler suggestion submitted and awaits application.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795192374.795841,
+  "score_before": 400,
+  "score_after": 400
  }
 ]
