@@ -8,7 +8,7 @@ void func_8002CB2C(u8);
 u16 func_8002CC14();
 s32 func_80087100(s32);
 s32 func_800AB950(s32, s32);
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s32 sActiveMenu;
 extern u8 D_80107EA8;
 extern u8 *D_80109BB0;
@@ -40,7 +40,7 @@ s32 func_8002495C(u16 arg0, u8 arg1) {
         if (func_800AB950((*p)->key, func_80087100(0x3004)) != 0) {
             return 0x2002;
         }
-        D_800BFC32 = 0x10E;
+        gSaveStatus = 0x10E;
         func_80026424(sActiveMenu, 0x18);
         return 0x4002;
     case 0x4000:

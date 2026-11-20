@@ -18,7 +18,7 @@ s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern u8 gSceneType;
-extern s8 D_801002A1;
+extern s8 gSaveKeyRelaxed;
 extern void *D_80109BB0;
 extern u8 D_80112F7F;
 extern u8 D_80112F80;
@@ -39,7 +39,7 @@ void func_8001A4F4(void) {
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         temp_v0 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x5D);
         if (temp_v0 != 0) {
-            D_801002A1 = 0;
+            gSaveKeyRelaxed = 0;
             temp_s1 = temp_v0 + 0x28;
             switch (gSceneType) {
             case 0:
@@ -48,19 +48,19 @@ void func_8001A4F4(void) {
                 formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 1:
-                D_801002A1 = 1;
+                gSaveKeyRelaxed = 1;
                 formatTextEntry(temp_v0, "%s", func_80087100(0x82));
                 var_a0 = 0x8B;
                 {
                 formatTextEntry(temp_s1, "%s", func_80087100(var_a0));break;}
             case 2:
-                D_801002A1 = 1;
+                gSaveKeyRelaxed = 1;
                 formatTextEntry(temp_v0, "%s", func_80087100(0x84));
                 var_a0 = 0x8D;
                 formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 3:
-                D_801002A1 = 1;
+                gSaveKeyRelaxed = 1;
                 temp_s0 = "%s";
                 formatTextEntry(temp_v0, temp_s0, func_80087100(0x85));
                 formatTextEntry(temp_s1, temp_s0, func_80087100(0x8E));
@@ -84,7 +84,7 @@ block_25:
                 formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 5:
-                D_801002A1 = 1;
+                gSaveKeyRelaxed = 1;
                 temp_s0_2 = "%s";
                 formatTextEntry(temp_v0, temp_s0_2, func_80087100(0x182));
                 formatTextEntry(temp_s1, temp_s0_2, func_80087100(0x183));
@@ -99,7 +99,7 @@ block_25:
                 }
                 break;
             case 6:
-                D_801002A1 = 1;
+                gSaveKeyRelaxed = 1;
                 formatTextEntry(temp_v0, "%s", func_80087100(0x87));
                 var_a0 = 0x90;
                 formatTextEntry(temp_s1, "%s", func_80087100(var_a0));

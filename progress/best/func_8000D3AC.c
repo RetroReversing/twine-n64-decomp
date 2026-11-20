@@ -18,7 +18,8 @@ extern StreamRecord *D_800B2710;
     records[index].field = v; \
 } while (0)
 void func_8000D3AC(s32 index, u32 parameter) {
-    StreamRecord *obj = &D_800B2710[index];
+    StreamRecord *base = D_800B2710;
+    StreamRecord *obj = (StreamRecord *)((s32)base + index * 0xD4);
     void *linked = obj->linked;
     TwineV3 v;
     obj->state = 0;

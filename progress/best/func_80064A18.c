@@ -36,10 +36,10 @@ extern s16 D_800C7D74;
 extern s16 D_800C7D98;
 extern s32 *D_800CA31C;
 extern s8 D_800E19F4;
-extern char D_8010019C[];
+extern char gSaveSlotInfo[];
 extern u8 D_801001A0[];
 extern char D_801001A3[];
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern char D_80102CD0[];
 extern s32 gBorderSkipFlag;
 extern u8 D_80102EE8;
@@ -315,7 +315,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             func_80001D80(0);
             var_fv1 = arg0 & 0xFFFF;
             if (gBorderSkipFlag) {
-                __repair_phase_storage.value = func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18)));
+                __repair_phase_storage.value = func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18)));
                 var_a3 = *(D_801001A3 + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18));
                 var_a1 = __repair_phase_storage.value;
             } else {
@@ -441,10 +441,10 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(temp_s3) + 0x60)) = 0;
             (*(s32 *)((char *)(temp_s3) + 0x64)) = 0;
             if (gBorderSkipFlag != 0) {
-                if ((s16) arg0 < D_801002B8) {
+                if ((s16) arg0 < gSaveSlotCount) {
                     (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) *(D_801001A0 + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18));
                 } else {
-                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) (*(D_800BF688 + (*(s32 *)(D_8010019C + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18)) * 0xC)) * 5);
+                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) (*(D_800BF688 + (*(s32 *)(gSaveSlotInfo + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18)) * 0xC)) * 5);
                 }
             } else {
                 (*(f32 *)((char *)(temp_s4) + 0x74)) = 100.0f;

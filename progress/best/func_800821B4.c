@@ -122,11 +122,11 @@ void func_800821B4(void) {
         *(&D_80115110 + (int)var_s1) = var_s0_2 - *(&D_80115108 + var_s1);
         var_s0_2 = (s16)(*(&D_8010D434 + var_s4));
         temp_v0 = func_800828EC(var_s0_2 & -(func_800828D8((s32)var_s0_2) >= 0x21));
-        if (temp_v0 != *(&D_80115120 + (s32)var_s1)) {
+        if (temp_v0 == *(&D_80115120 + (s32)var_s1)) {
+            *(&D_80115118 + var_s1) = 0;
+        } else {
             *(&D_80115120 + var_s1) = temp_v0;
             *(&D_80115118 + var_s1) = temp_v0;
-        } else {
-            *(&D_80115118 + var_s1) = 0;
         }
         temp_s0_3 = *var_s2;
         if (temp_s0_3 < 0) {

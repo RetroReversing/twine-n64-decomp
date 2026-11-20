@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 __osMotorAccess();
-extern char D_800E0790[];
+extern char gSaveSlotTable[];
 extern char D_8010A3A0[];
 
 void stop_controller_rumble(u16 arg0) {
@@ -25,7 +25,7 @@ void stop_controller_rumble(u16 arg0) {
 
     var_s0 = 0;
     temp_s1 = arg0 * 0x68;
-    __base_D_800E0790 = D_800E0790;
+    __base_D_800E0790 = gSaveSlotTable;
     do {
         __osMotorAccess((void *) ((temp_s1) + (s32) __base_D_800E0790), 0);
         var_s0 += 1;

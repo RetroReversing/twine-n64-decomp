@@ -9,7 +9,7 @@ s32 func_8008C7C8();
 s32 func_8008CBD0();
 s32 func_8008CC38();
 s32 func_80090A4C();
-s32 func_80090CD4();
+s32 sndStopEntity();
 s32 func_80091428();
 s16 func_80095664();
 s32 func_8009692C();
@@ -384,7 +384,7 @@ block_56:
                 *(s32 *)(D_80107ED4 + var_s0_5) = *(s32 *)(D_80107ED8 + var_s0_5);
                 switch (temp_v1_12) {               /* irregular */
                 case 1:
-                    func_80090CD4(*(s32 *)(D_80107EE4 + var_s0_5));
+                    sndStopEntity(*(s32 *)(D_80107EE4 + var_s0_5));
                     break;
                 case 2:
                     func_80090A4C(*(s32 *)(D_80107EE4 + var_s0_5));

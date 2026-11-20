@@ -46,7 +46,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v1_2;
     s32 var_a0_2;
     s32 var_a1;
-    s32 var_a1_2;
+    register s32 var_a1_2;
     s32 var_a2;
     s32 var_s7;
     
@@ -59,7 +59,7 @@ s32 __repair_result_var_v1_3;
     u16 temp_a0_6;
     u16 temp_a1;
     u16 temp_t0;
-    s32 var_s1;
+    unsigned long var_s1;
     s32 var_s5;
     u32 temp_t2;
     u32 temp_t2_2;
@@ -125,7 +125,7 @@ s32 __repair_result_var_v1_3;
             var_v1_2 = 0x7FF;
         }
         var_a1 = temp_a0_2;
-        if (temp_a0_2 < 0) {
+        if (0 > temp_a0_2) {
             var_a1 = temp_t0 + 0x10;
         }
         temp_v0_4 = var_a1 >> 4;
@@ -134,8 +134,8 @@ s32 __repair_result_var_v1_3;
         } else {
             var_a1 = (var_a2 / temp_v0_4) & 0xFFF;
         }
-        __repair_phase_storage.pointer = D_80115328;
         ((__repair_field_4 *)temp_v0)->value = (s32) (((var_v1_2 & 0xFFF) << 0xC) | 0x07000000 | var_a1);
+        __repair_phase_storage.pointer = D_80115328;
         ((__repair_field_0 *)__repair_phase_storage.pointer)->value = 0xE7000000;
         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 4)) = 0;
         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x10)) = 0xF2000000;
@@ -183,7 +183,7 @@ s32 __repair_result_var_v1_3;
                     break;
                 case 5:
                     var_s0 += 1;
-                    if (D_800C0738 == 0) {
+                    if (!D_800C0738) {
                         __repair_phase_storage.pointer = D_80115328;
                         temp_t2 = *((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) * 4) + D_800BD640);
                         D_80115328 = __repair_phase_storage.pointer + 8;
@@ -194,8 +194,8 @@ s32 __repair_result_var_v1_3;
                 case 7:
                     var_s0 += 1;
                     if (D_800C0738 == 0) {
-                        temp_a1_2 = D_80115328;
                         temp_t2_2 = (*(((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30));
+                        temp_a1_2 = D_80115328;
                         D_80115328 = temp_a1_2 + 8;
                         ((__repair_field_0 *)temp_a1_2)->value = 0xFA000000;
                         ((__repair_field_4 *)temp_a1_2)->value = (s32) (((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000) | (temp_t2_2 & 0xFF00) | (temp_t2_2 & 0xFF));

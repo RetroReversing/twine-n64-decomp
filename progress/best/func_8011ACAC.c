@@ -7,7 +7,7 @@ s32 func_80063C7C(s32 a, s32 b);
 void func_8007089C(void *a, s32 b, s32 c);
 
 void func_8011ACAC(void *a0, u8 *a1) {
-    u16 s0 = 0;
+    s16 s0 = 0;
     u16 s2 = 0;
     u8 *s1;
     u8 *p;
@@ -55,13 +55,18 @@ void func_8011ACAC(void *a0, u8 *a1) {
         s2 = 0x1A;
         break;
     }
-    s1 = D_800C469C + s0 * 232;
-    p = a1 + (*(u16 *)(s1 + 2) << 3);
-    p[0x1FE] = s0 - *(u16 *)(s1 + 2);
-    p[0x1FC] = 1;
-    ret = func_80063C7C(s0, s0 - *(u16 *)(s1 + 2));
-    p = a1 + ((s16)ret * 8);
-    p[0x1FF] = s1[0x82];
+    s1 = D_800C469C + (u16)s0 * 232;
+    {
+        s32 first = *(u16 *)(s1 + 2);
+        s32 one = 1;
+        s32 id = s0;
+        do { p = a1 + (first << 3); } while (0);
+        first = s0 - first;
+        p[0x1FC] = one;
+        p[0x1FE] = first;
+        ret = func_80063C7C(id, first);
+    }
+    a1[(s16)ret * 8 + 0x1FF] = s1[0x82];
     if (D_801002A2 != 3) {
         *(u16 *)(a1 + (s1[0x80] << 1) + 0x1BC) = s1[0x82] << 1;
     }
@@ -73,3 +78,4 @@ void func_8011ACAC(void *a0, u8 *a1) {
     }
     func_8007089C(a0, 0, s0);
 }
+

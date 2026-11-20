@@ -86,22 +86,22 @@ void func_80022AD8(u8 index) {
     obj->state.color = color;
 }
 
-extern s32 D_801002B8, D_801002BC;
-extern s32 func_80019B34(s32);
+extern s32 gSaveSlotCount, gSaveExtraSlotCount;
+extern s32 saveSlotKeyCheck(s32);
 s32 func_80019D68(void) {
     u16 i = 0;
-    if (D_801002B8 > 0) {
+    if (gSaveSlotCount > 0) {
         do {
-            if ((u16)func_80019B34(i) != 0x159) return 0;
+            if ((u16)saveSlotKeyCheck(i) != 0x159) return 0;
             i++;
-        } while (i < D_801002B8);
+        } while (i < gSaveSlotCount);
     }
     i = 4;
-    if (D_801002BC + 4 > 4) {
+    if (gSaveExtraSlotCount + 4 > 4) {
         do {
-            if ((u16)func_80019B34(i) != 0x159) return 0;
+            if ((u16)saveSlotKeyCheck(i) != 0x159) return 0;
             i++;
-        } while (i < D_801002BC + 4);
+        } while (i < gSaveExtraSlotCount + 4);
     }
     return 1;
 }

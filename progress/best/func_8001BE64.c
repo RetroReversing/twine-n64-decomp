@@ -14,10 +14,10 @@ s32 func_80087100(s32);
 extern u8 D_800BD690;
 extern u8 D_800BD9A0[];
 extern u8 gSceneType;
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern u8 D_801002A4;
 extern s32 D_801002A8;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern s32 D_801002C4;
 extern u8 gPauseFlag;
 extern u8 D_801002D5;
@@ -142,12 +142,12 @@ void func_8001BE64(void) {
         default: var_v0_4 = func_80087100(0x2E4); break;
         }
         formatTextEntry(temp_s2, D_800D2864, var_v0_4);
-        if (D_801002A1 != 0) {
+        if (gSaveKeyRelaxed != 0) {
             func_80025D84((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 0x16C, 1);
         } else {
             func_80025E9C((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 1, 0xD);
         }
-        if (D_801002B8 == 2) {
+        if (gSaveSlotCount == 2) {
             func_80025D84((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 0x66, 1);
         } else {
             func_80025E9C((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 1, 0xD);

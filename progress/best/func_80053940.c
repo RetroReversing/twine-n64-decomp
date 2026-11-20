@@ -28,7 +28,7 @@ M2C_UNK func_80083B64();     /* extern */
 extern u16 D_800B35B0;
 extern f64 D_800D3EC0;
 extern void *D_80108404;
-extern void *D_80108788;
+extern void *gPlayerActor;
 
 s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8, s32 *arg9, void **arg10, void **arg11) {
     f32 sp18[3];
@@ -153,7 +153,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     spE4 = arg0;
     spF7 = 0;
     sp104 = NULL;
-    D_80108788 = NULL;
+    gPlayerActor = NULL;
     D_80108404 = NULL;
     spEC = arg2;
     spFC = var_s0;
@@ -289,7 +289,7 @@ block_21:
                                                         func_80083A6C(sp68, sp68, sp18);
                                                         M2C_FIELD(arg3, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + sp18[0]);
                                                         M2C_FIELD(arg3, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + sp18[1]);
-                                                        D_80108788 = var_s0_2;
+                                                        gPlayerActor = var_s0_2;
                                                         sp104 = var_s2;
                                                         spF7 = 1;
                                                         M2C_FIELD(arg3, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + sp18[2]);
@@ -339,7 +339,7 @@ block_21:
                                                         func_80083A6C(sp68, sp68, sp18);
                                                         M2C_FIELD(arg3, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + sp18[0]);
                                                         M2C_FIELD(arg3, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + sp18[1]);
-                                                        D_80108788 = var_s0_2;
+                                                        gPlayerActor = var_s0_2;
                                                         sp104 = var_s2;
                                                         spF7 = 1;
                                                         M2C_FIELD(arg3, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + sp18[2]);
@@ -594,12 +594,12 @@ block_135:
         goto loop_58;
     }
 block_137:
-    if (D_80108788 != NULL) {
+    if (gPlayerActor != NULL) {
         if (arg9 != NULL) {
-            temp_v1_15 = M2C_FIELD(D_80108788, u16 *, 0x78);
+            temp_v1_15 = M2C_FIELD(gPlayerActor, u16 *, 0x78);
             switch (temp_v1_15) {                   /* irregular */
             case 0xB:
-                if ((u32) (M2C_FIELD(M2C_FIELD(D_80108788, void **, 0x6C), u8 *, 0x4A) - 4) < 2U) {
+                if ((u32) (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x4A) - 4) < 2U) {
                     *arg9 = 0x10;
                 }
                 break;
@@ -612,16 +612,16 @@ block_137:
             }
         }
         if (arg11 != NULL) {
-            *arg11 = D_80108788;
+            *arg11 = gPlayerActor;
         }
-        temp_v1_16 = M2C_FIELD(D_80108788, s32 *, 0x60) | arg8;
-        M2C_FIELD(D_80108788, s32 *, 0x60) = temp_v1_16;
+        temp_v1_16 = M2C_FIELD(gPlayerActor, s32 *, 0x60) | arg8;
+        M2C_FIELD(gPlayerActor, s32 *, 0x60) = temp_v1_16;
         if (sp104 == spFC) {
             var_v0_4 = temp_v1_16 | 8;
         } else {
             var_v0_4 = temp_v1_16 & ~8;
         }
-        M2C_FIELD(D_80108788, s32 *, 0x60) = var_v0_4;
+        M2C_FIELD(gPlayerActor, s32 *, 0x60) = var_v0_4;
     }
     if (var_fp != NULL) {
 loop_159:

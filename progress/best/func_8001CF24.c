@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80018318();
-s32 func_80019B34();
+s32 saveSlotKeyCheck();
 s32 func_80022B60();
 s32 func_80022E5C();
 s32 func_80022E88();
@@ -58,7 +58,7 @@ int __repair_literal;
             M2C_FIELD(var_a1, s32 *, 0x10) = (s32) ((D_800BD64C & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
         }
         if (M2C_FIELD(temp_s1, void **, 4) != NULL) {
-            M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x18) = func_80087100(func_80019B34(M2C_FIELD(arg0, u8 *, 8), var_a1) & 0xFFFF);
+            M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x18) = func_80087100(saveSlotKeyCheck(M2C_FIELD(arg0, u8 *, 8), var_a1) & 0xFFFF);
             temp_s0 = M2C_FIELD(temp_s1, void **, 4);
             M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s32 *, 0x18));
             M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s16 *, 0x20) = (s16) (M2C_FIELD(arg0, u16 *, 4) + 0x7E);

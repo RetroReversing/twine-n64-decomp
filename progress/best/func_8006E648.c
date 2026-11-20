@@ -33,7 +33,7 @@ extern f64 D_800D46A0;
 extern s8 D_80103EB0;
 extern s32 D_80103F00;
 extern void *D_80108404;
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern s32 D_80108F78;
 extern void *D_80108F84;
 
@@ -140,13 +140,13 @@ update:
             if ((vec30.words[1] < temp_ft0) && ((vec30.words[1] + 0.05f) < temp_ft0)) {
                 temp_v0 = M2C_FIELD(arg1, void **, 0x68);
                 M2C_FIELD(temp_v0, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v0, u16 *, 0xC) | 0x20);
-                if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (D_80108788 != NULL)) {
+                if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (gPlayerActor != NULL)) {
                     vec50.words[0] = M2C_FIELD(arg1, f32 *, 0x24) - M2C_FIELD(arg1, f32 *, 0x30);
                     vec50.words[1] = M2C_FIELD(arg1, f32 *, 0x28) - M2C_FIELD(arg1, f32 *, 0x34);
                     vec50.words[2] = M2C_FIELD(arg1, f32 *, 0x2C) - M2C_FIELD(arg1, f32 *, 0x38);
-                    vec60.words[0] = M2C_FIELD(D_80108788, f32 *, 0x24) - M2C_FIELD(D_80108788, f32 *, 0x30);
-                    vec60.words[1] = M2C_FIELD(D_80108788, f32 *, 0x28) - M2C_FIELD(D_80108788, f32 *, 0x34);
-                    vec60.words[2] = M2C_FIELD(D_80108788, f32 *, 0x2C) - M2C_FIELD(D_80108788, f32 *, 0x38);
+                    vec60.words[0] = M2C_FIELD(gPlayerActor, f32 *, 0x24) - M2C_FIELD(gPlayerActor, f32 *, 0x30);
+                    vec60.words[1] = M2C_FIELD(gPlayerActor, f32 *, 0x28) - M2C_FIELD(gPlayerActor, f32 *, 0x34);
+                    vec60.words[2] = M2C_FIELD(gPlayerActor, f32 *, 0x2C) - M2C_FIELD(gPlayerActor, f32 *, 0x38);
                     func_800452E0(&vec50.words[0], &vec60.words[0], &vec70.words[0]);
                     if (func_8004572C(&vec70.words[0]) > 2.0f) {
                         M2C_FIELD(arg1, f32 *, 0x74) = -1.0f;
@@ -224,7 +224,7 @@ block_35:
             vec90.xyz = M2C_FIELD(&D_800D4658, Vec3 *, 0);
             vecA0.xyz = M2C_FIELD(&D_800D4658, Vec3 *, 0);
             if ((func_8004BCC0(arg0, arg1 + 0x24, &vecB0.words[0], 2.0f) << 0x18) != 0) {
-                var_s3 = D_80108788;
+                var_s3 = gPlayerActor;
             } else {
                 vecB0.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);
                 vecB0.words[1] += 2.0f;
@@ -255,7 +255,7 @@ block_35:
                 vec60.words[1] = M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8);
                 vec60.words[2] = M2C_FIELD(arg1, f32 *, 0x2C);
             }
-            if (D_80108788 != NULL) {
+            if (gPlayerActor != NULL) {
                 temp_v1_7 = M2C_FIELD(arg1, void **, 0x68);
                 M2C_FIELD(temp_v1_7, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_7, u16 *, 0xC) | 0x100);
             }
@@ -267,7 +267,7 @@ block_35:
             if (temp_a2 != NULL) {
                 M2C_FIELD(temp_a2, QuadWords *, 0x30) = *(QuadWords *)quad40;
             }
-            temp_v1_7 = D_80108788;
+            temp_v1_7 = gPlayerActor;
             M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8) = vec60.words[1];
             if ((temp_v1_7 != NULL) && ((f64) M2C_FIELD(arg1, f32 *, 0x28) <= ((f64) (vec60.words[1] + temp_fs1) + D_800D4698))) {
                 M2C_FIELD(temp_v1_7, s32 *, 0x60) = (s32) (M2C_FIELD(temp_v1_7, s32 *, 0x60) | 0x200);
@@ -346,7 +346,7 @@ block_35:
                     if (D_80108F84 != NULL) {
                         var_a0 = (u8) M2C_FIELD(D_80108F84, u8 *, 0x51) >> 7;
                     }
-                    if ((D_80108788 != NULL) && (M2C_FIELD(D_80108788, s32 *, 0x5C) & 0x800000)) {
+                    if ((gPlayerActor != NULL) && (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x800000)) {
                         var_a0 = 1;
                     }
                     if ((var_a0 << 0x18) != 0) {

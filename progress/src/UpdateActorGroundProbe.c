@@ -9,7 +9,7 @@ extern Vec3u32 D_800D4E74;
 extern f64 D_800D4E80;
 extern u16 D_80103046;
 extern s32 D_80103F00;
-extern s32 D_80108788;
+extern s32 gPlayerActor;
 extern s32 D_80108F78;
 extern void *D_80108F84;
 
@@ -136,7 +136,7 @@ typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
     }
     temp_v1_7 = ((__repair_field_88 *)motion)->value & 0xFBFFFFFF;
     ((__repair_field_88 *)motion)->value = temp_v1_7;
-    if (D_80108788 != 0) {
+    if (gPlayerActor != 0) {
         ((__repair_field_88 *)motion)->value = (s32) (temp_v1_7 | 0x04000000);
     }
     if ((D_80108F84 != NULL) && (((u32) (*(u32 *)((char *)(D_80108F84) + 0x5C)) >> 0x11) & 2)) {

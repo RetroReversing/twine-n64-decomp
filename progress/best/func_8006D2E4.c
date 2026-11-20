@@ -65,9 +65,9 @@ extern s32 D_800E1A04;
 extern s32 D_800E1A08;
 extern u8 D_800E1A16;
 extern s32 D_800E1A24;
-extern M2C_UNK D_8010019C;
-extern u8 D_801002A1;
-extern s32 D_801002B8;
+extern M2C_UNK gSaveSlotInfo;
+extern u8 gSaveKeyRelaxed;
+extern s32 gSaveSlotCount;
 extern s32 gBorderMode;
 extern u8 D_801002D5;
 extern u8 D_80100B18;
@@ -161,7 +161,7 @@ void func_8006D2E4(void *arg0) {
     sp3C = 0;
     sp30 = 0;
     temp_s5 = M2C_FIELD(arg0, s32 *, 0x20);
-    if ((gBorderSkipFlag != 0) && (D_801002A1 != 0) && (D_801002D5 == 0)) {
+    if ((gBorderSkipFlag != 0) && (gSaveKeyRelaxed != 0) && (D_801002D5 == 0)) {
         temp_v0 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 0x1B8));
         if ((temp_v0 != NULL) && ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), u8 *, 0x12) == M2C_FIELD(M2C_FIELD(temp_v0, void **, 0xB4), u8 *, 0x12)) & ((s32) temp_s3 != (s32) temp_v0))) {
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & ~0x62);
@@ -191,8 +191,8 @@ void func_8006D2E4(void *arg0) {
                     temp_v0_3 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 4));
                     if (temp_v0_3 != NULL) {
                         temp_a0 = M2C_FIELD(temp_v0_3, s8 *, 0x182);
-                        if (temp_a0 >= D_801002B8) {
-                            temp_v0_4 = ((u16) *(&D_800BF688 + (*(&D_8010019C + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)) * 0xC)) >> 5) & 7;
+                        if (temp_a0 >= gSaveSlotCount) {
+                            temp_v0_4 = ((u16) *(&D_800BF688 + (*(&gSaveSlotInfo + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)) * 0xC)) >> 5) & 7;
                             switch (temp_v0_4) {    /* switch 1 */
                             default:                /* switch 1 */
                                 var_s0 = 1;

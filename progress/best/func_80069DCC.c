@@ -84,7 +84,7 @@ extern s32 D_800E1A24;
 extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
 extern u8 D_801002AE;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
@@ -457,7 +457,7 @@ case 41:
 func_8007092C(arg0, 0);
 break;
 }
-if ((gBorderSkipFlag != 0) && (D_801002B8 < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
+if ((gBorderSkipFlag != 0) && (gSaveSlotCount < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
 M2C_FIELD(arg0, s16 *, 0x78) = 3;
 M2C_FIELD(arg0, s16 *, 0x7A) = 0;
 }

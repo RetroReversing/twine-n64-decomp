@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80090CD4();
+s32 sndStopEntity();
 extern char gSndEntities[];
 
 void func_80090F68(void) {
@@ -26,6 +26,6 @@ void func_80090F68(void) {
         temp_a0 = *(s32 *)(gSndEntities + var_s0);
         var_s0 += 0xFF8;
         var_s1 += 1;
-        func_80090CD4(temp_a0);
+        sndStopEntity(temp_a0);
     } while (var_s1 < 8U);
 }

@@ -45,9 +45,9 @@ extern char D_800BD320[];
 extern s16 D_800BD560;
 extern u16 D_800BD68C;
 extern s8 D_800BD690;
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s16 D_800BFC34;
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern u16 D_80100910;
 extern s32 D_80102EBC;
 extern s8 D_80102EDC;
@@ -246,7 +246,7 @@ block_95:
                     case 0x10C:                     /* switch 3 */
                         D_800BD690 = 1;
                         var_a2 = 0xC;
-                        if (D_801002A1 == 1) {
+                        if (gSaveKeyRelaxed == 1) {
                             var_a1_2 = D_800BCF60;
                         } else {
                             var_a1_2 = D_800BD140;
@@ -319,7 +319,7 @@ block_184:
                                     if (D_800BFC34 != 0) {
                                         temp_v1 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
                                         func_8002778C();
-                                        D_800BFC32 = 0;
+                                        gSaveStatus = 0;
                                         if (temp_v1 != 0x19) {
                                             var_a0 = 1;
                                             if (temp_v1 != 0x1A) {
@@ -396,7 +396,7 @@ block_134:
                             if (D_800BFC34 != 0) {
                                 func_8002778C();
                                 temp_v1_2 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
-                                D_800BFC32 = 0;
+                                gSaveStatus = 0;
                                 if (temp_v1_2 != 0x19) {
                                     var_a0 = 1;
                                     if (temp_v1_2 != 0x1A) {
@@ -486,7 +486,7 @@ block_163:
                         if (D_800BFC34 != 0) {
                             func_8002778C();
                             temp_v1_3 = (*(u16 *)((char *)(D_80109BB0) + 0x14));
-                            D_800BFC32 = 0;
+                            gSaveStatus = 0;
                             if (temp_v1_3 != 0x19) {
                                 var_a0 = 1;
                                 if (temp_v1_3 != 0x1A) {

@@ -2,7 +2,7 @@ typedef struct { u8 pad[0x24]; volatile f32 f24; volatile f32 f28; volatile f32 
 typedef struct { u8 pad[8]; void (*f8)(void); void (*fC)(void); } VtBCA8;
 typedef struct { u8 pad[0x10]; VtBCA8 *vt; } SysBCA8;
 typedef struct { u8 pad[8]; u8 b8; } ResBCA8;
-extern ObjBCA8 *volatile D_800B5B14;
+extern ObjBCA8 *volatile gPickupActor;
 extern u8 D_801002AD;
 extern s32 gAimAxisTable;
 extern SysBCA8 *D_80109BB0;
@@ -23,14 +23,14 @@ void func_8001BCA8(void) {
     u8 *ps;
 
     func_8002ACB4(D_8010A488);
-    pp = &D_800B5B14;
+    pp = &gPickupActor;
     o = *pp;
     if (o != NULL) {
         func_80002EF0(o);
-        D_800B5B14->f24 = 1.25f;
-        D_800B5B14->f28 = 0.15f;
-        D_800B5B14->f2C = -3.0f;
-        D_800B5B14->f54 = 1.05f;
+        gPickupActor->f24 = 1.25f;
+        gPickupActor->f28 = 0.15f;
+        gPickupActor->f2C = -3.0f;
+        gPickupActor->f54 = 1.05f;
         pq = &gAimAxisTable;
         func_8000628C(*pp, *pq + 0x10, 1, 0x80);
         o = *pp;

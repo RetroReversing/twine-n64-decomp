@@ -19,7 +19,7 @@ s32 func_800707B4(s32, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern s32 D_8010302C;
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern s8 gAimAxisTable;
 extern void *D_8010A500;
 
@@ -29,7 +29,7 @@ void func_8005BDA8(void) {
     s32 temp_v1;
     void *temp_s0;
 
-    temp_s0 = D_80108788;
+    temp_s0 = gPlayerActor;
     temp_s1 = M2C_FIELD(D_8010A500, s32 *, 0x6C);
     if ((temp_s0 != NULL) && (temp_v1 = M2C_FIELD(temp_s0, u16 *, 0x78), (((s32) temp_v1 < 0x13) != 0))) {
         if ((s32) temp_v1 >= 0x11) {
@@ -43,9 +43,9 @@ void func_8005BDA8(void) {
             }
         }
     }
-    if (((func_800707B4(temp_s1, 0xC, 1) << 0x18) != 0) && (D_80108788 != NULL)) {
-        temp_v0 = M2C_FIELD(D_80108788, u16 *, 0x78);
-        if ((((temp_v0 == 1) | (temp_v0 == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(D_80108788, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(D_80108788, s16 *, 0x7A) == 0x1D)) {
+    if (((func_800707B4(temp_s1, 0xC, 1) << 0x18) != 0) && (gPlayerActor != NULL)) {
+        temp_v0 = M2C_FIELD(gPlayerActor, u16 *, 0x78);
+        if ((((temp_v0 == 1) | (temp_v0 == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 0x1D)) {
             func_80070730(temp_s1, 0xC, 1);
             func_80070664(temp_s1, 0xD, 1, 0);
             D_8010302C += 1;

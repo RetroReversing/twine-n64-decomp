@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 M2C_UNK func_8002CA90(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002CAEC(s32);                         /* extern */
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s8 D_80102F04;
 extern s32 sActiveMenu;
 extern void *D_80109BB0;
@@ -30,7 +30,7 @@ s32 func_800248B4(s32 arg0, s32 arg1) {
             return 0x2001;
         case 0x2000:
             func_8002CAEC(arg1 & 0xFF);
-            if (D_800BFC32 == 1) {
+            if (gSaveStatus == 1) {
                 D_80102F04 = 1;
             }
             func_80026424(sActiveMenu, 0x18);

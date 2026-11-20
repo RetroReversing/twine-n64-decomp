@@ -14,15 +14,15 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80011950();                            /* extern */
 extern u16 D_800B2792;
-extern u16 D_8010086A;
-extern s32 D_801032A8;
+extern u16 gSaveCmdPending;
+extern s32 gSaveCmdResult;
 
-s32 func_800109CC(void) {
+s32 saveWaitCommand(void) {
     u16 temp_v0;
 
     D_800B2792 = 0;
 loop_1:
-    if (D_8010086A != 0) {
+    if (gSaveCmdPending != 0) {
         func_80011950();
         temp_v0 = D_800B2792 + 1;
         D_800B2792 = temp_v0;
@@ -30,5 +30,5 @@ loop_1:
             goto loop_1;
         }
     }
-    return D_801032A8;
+    return gSaveCmdResult;
 }

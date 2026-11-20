@@ -3,7 +3,7 @@ void func_80026424(s32, s32);
 s32 func_8002AF30(void *);
 void func_8002CB5C(u8);
 u16 func_8002CC14();
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s32 sActiveMenu;
 extern u8 *D_80109BB0;
 extern u8 D_8010A950;
@@ -16,7 +16,7 @@ s32 func_80024AD0(u16 arg0, u8 arg1) {
             func_80026424(sActiveMenu, 0x18);
             return 3;
         }
-        D_800BFC32 = 0x10D;
+        gSaveStatus = 0x10D;
         func_80026424(sActiveMenu, 0x18);
         return 0x4003;
     case 0x4000:

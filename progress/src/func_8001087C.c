@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern M2C_UNK D_800E097E;
 extern M2C_UNK D_800E099E;
 extern M2C_UNK D_800E09A6;
-extern M2C_UNK D_80109DC8;
+extern M2C_UNK gSaveSlotValid;
 extern M2C_UNK D_8010A3A0;
 
 void func_8001087C(void) {
@@ -23,7 +23,7 @@ void func_8001087C(void) {
 
     var_a0 = 0;
     do {
-        if (((u16 *) &D_80109DC8)[(var_a0 & 0xFFFF)] != 0) {
+        if (((u16 *) &gSaveSlotValid)[(var_a0 & 0xFFFF)] != 0) {
             ((u16 *) &D_800E097E)[(var_a0 & 0xFFFF)] = 0;
             ((u16 *) &D_800E099E)[(var_a0 & 0xFFFF)] = 0;
             ((u16 *) &D_800E09A6)[(var_a0 & 0xFFFF)] = 0;

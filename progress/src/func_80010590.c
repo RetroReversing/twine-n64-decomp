@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 __osMotorAccess();
-extern char D_800E0790[];
+extern char gSaveSlotTable[];
 extern char D_8010A3A0[];
 
 void func_80010590(s32 arg0) {
@@ -21,7 +21,7 @@ void func_80010590(s32 arg0) {
     u16 *temp_v1;
 
     temp_a0 = arg0 & 0xFFFF;
-    if (__osMotorAccess((temp_a0 * 0x68) + D_800E0790, 1) == 0) {
+    if (__osMotorAccess((temp_a0 * 0x68) + gSaveSlotTable, 1) == 0) {
         temp_v1 = (temp_a0 * 2) + D_8010A3A0;
         *temp_v1 |= 3;
     }

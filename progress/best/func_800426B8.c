@@ -1,7 +1,7 @@
 extern u8 D_54D910[];
 extern s32 D_800C0780[], D_800C0784[], D_800C0788[], D_800C078C[];
 extern f32 D_800E19E0, D_800E19E4, D_800E19E8;
-extern u8 D_80107ECC, D_80109A35;
+extern u8 gSharedItemBusy, D_80109A35;
 extern s32 gExpansionPakPresent;
 extern s32 func_80083E24(void), func_80083E90(s32,s32);
 extern void func_80083E44(s32), func_80084048(s32,s32);
@@ -61,7 +61,7 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
   ix0=*(u16*)p;
   base=(s32)*slot + ix0*76;
   *(s32 *)(base+4)=*(s32*)p;
-  if(gExpansionPakPresent && !D_80107ECC) *(u8 *)(base+0x46)=0x80;
+  if(gExpansionPakPresent && !gSharedItemBusy) *(u8 *)(base+0x46)=0x80;
   else *(u8 *)(base+0x46)=0;
   if(!*(u8 *)(base+0x46)) D_80109A35=1;
   do { func_8000B9B8(header,*(s32*)(p+0x24)+(s32)D_54D910,0x20); } while (0);

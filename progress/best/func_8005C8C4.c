@@ -5,11 +5,11 @@ void func_8000A894(s32, s32);
 void func_8005B5A8(void);
 void func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80087100(s32);
-extern Obj5C8C4 *D_80108788;
+extern Obj5C8C4 *gPlayerActor;
 extern s32 gAimAxisTable;
 
 static inline s32 check_5C8C4(void) {
-    Obj5C8C4 *p = D_80108788;
+    Obj5C8C4 *p = gPlayerActor;
     s32 r = 0;
     s32 v;
     Sub5C8C4 *sub;

@@ -12,12 +12,12 @@ s32 func_8002B9CC();
 s32 func_8003099C();
 s32 func_80045130();
 s32 func_80081CC0();
-extern char D_800BD680[];
+extern char gSharedItemId[];
 extern s8 D_800BD690;
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern char D_800C3CF8[];
 extern s8 D_800CA338;
-extern char D_8010019C[];
+extern char gSaveSlotInfo[];
 extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
@@ -65,7 +65,7 @@ void func_80019690(void) {
     if (sActiveMenu != NULL && (*(s16 *)((char *)(sActiveMenu) + 0x7A)) != 0xF) {
         if ((*(s16 *)((char *)(sActiveMenu) + 0x7A)) != 0xE) {
             (*(s16 *)((char *)(sActiveMenu) + 0x7A)) = 0xE;
-            D_800BFC32 = 0x60;
+            gSaveStatus = 0x60;
             func_80026424(sActiveMenu, 0x18);
             D_800BD690 = 0;
         }
@@ -87,11 +87,11 @@ void func_80019690(void) {
             if (D_801002B4 > 0) {
                 do {
                     __base_D_800C3CF8 = D_800C3CF8;
-                    *(s16 *)(D_800BD680 + ((i & 0xFFFF) * 2)) = **(u16 **)(__base_D_800C3CF8 + (func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(i & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC));
+                    *(s16 *)(gSharedItemId + ((i & 0xFFFF) * 2)) = **(u16 **)(__base_D_800C3CF8 + (func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((func_80022DBC(i & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC));
                     i++;
                 } while ((i & 0xFFFF) < D_801002B4);
             }
-            *(s16 *)(D_800BD680 + ((i & 0xFFFF) * 2)) = -1;
+            *(s16 *)(gSharedItemId + ((i & 0xFFFF) * 2)) = -1;
             k = 0;
         } else {
             D_80102EF0 = 1;

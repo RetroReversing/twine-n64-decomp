@@ -5,7 +5,7 @@ extern u8 gSceneType;
 extern s32 D_801002A8;
 extern u8 D_801002AC;
 extern s32 D_801002B4;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern void *D_8010A500[];
 extern u8 D_8011F140[];
 extern u16 D_8011F15C[];
@@ -79,13 +79,13 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
         for (j = 0; j < (*__base_D_801002B4); j++) {
             p = D_8010A500[j];
             if (p != NULL && ((*(u8 *)((u8 *)PTR(PTR(p, 0x6C), 0xB4) + 0x11) == 0) == 0)) {
-                s0 += j < D_801002B8;
+                s0 += j < gSaveSlotCount;
                 s2 += 1;
             }
         }
-        if (s0 >= D_801002B8) {
+        if (s0 >= gSaveSlotCount) {
             func_8011A7C8();
-            if (D_801002B8 <= s0) {
+            if (gSaveSlotCount <= s0) {
                 D_8011F3A8 = 0x5A;
                 D_801002AC = 1;
                 break;

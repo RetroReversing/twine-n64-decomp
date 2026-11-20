@@ -2,22 +2,22 @@
 
 s32 func_800103B0(s8 *, s8 *, s32);         /* extern */
 s32 saveDataEncodeName(s8 *, s8 *, s32);         /* extern */
-s32 func_800109CC();                                /* extern */
+s32 saveWaitCommand();                                /* extern */
 s32 func_80010B60(s32);                             /* extern */
-s32 func_80010C00();                                /* extern */
-s32 func_80011800(u16, s32, s32, s32, s32, s32, s32, s32); /* extern */
+s32 saveRefreshStatus();                                /* extern */
+s32 saveSubmitCommand(u16, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800AB770(s8 *, s8 *);                      /* extern */
 extern s16 D_800BFC30;
-extern u16 D_800BFC32;
-extern u8 D_800E0790[];
-extern s16 D_800E093A;
+extern u16 gSaveStatus;
+extern u8 gSaveSlotTable[];
+extern s16 gSaveSlot;
 extern s32 D_800E096C;
 extern s32 D_800E0970;
 extern s32 D_800E0974;
 extern u16 D_800E097C;
 extern s8 D_80103030;
 extern s8 D_80103042;
-extern s32 D_801032A8;
+extern s32 gSaveCmdResult;
 extern u16 D_80107B68;
 extern s8 D_80107B6A;
 extern s32 D_80108408;
@@ -48,13 +48,13 @@ s32 __repair_phase_var_s4_2;
     s8 *var_v0_2;
     s32 temp_v1;
 
-    D_800E093A = 0;
+    gSaveSlot = 0;
     D_800BFC30 = -1;
-    if (func_80010C00() & 0xFFFF) {
-        return D_800BFC32;
+    if (saveRefreshStatus() & 0xFFFF) {
+        return gSaveStatus;
     }
-    func_80011800(7, (D_800E093A * 0x68) + D_800E0790, D_800E093A, NULL, 0, 0, 0, 0);
-    if ((func_800109CC() != 0) || (func_80011800(3, ((int)D_800E093A * 0x68) + D_800E0790, (s32) &D_800E096C, &D_800E0970, 0, 0, 0, 0), (func_800109CC() != 0)) || (func_80011800(4, (D_800E093A * 0x68) + (int)D_800E0790, (s32) &D_800E0974, NULL, 0, 0, 0, 0), var_s0_3 = 0, (func_800109CC() != 0))) {
+    saveSubmitCommand(7, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveSlot, NULL, 0, 0, 0, 0);
+    if ((saveWaitCommand() != 0) || (saveSubmitCommand(3, ((int)gSaveSlot * 0x68) + gSaveSlotTable, (s32) &D_800E096C, &D_800E0970, 0, 0, 0, 0), (saveWaitCommand() != 0)) || (saveSubmitCommand(4, (gSaveSlot * 0x68) + (int)gSaveSlotTable, (s32) &D_800E0974, NULL, 0, 0, 0, 0), var_s0_3 = 0, (saveWaitCommand() != 0))) {
         goto block_6;
     }
     var_s7 = &D_80108408 + 0xA;
@@ -64,9 +64,9 @@ s32 __repair_phase_var_s4_2;
     var_s3 = 0;
     var_s6 = &D_80108408;
     for (;;) {
-        do { func_80011800(5, (D_800E093A * 0x68) + D_800E0790, var_s0_3, var_s6, 0, 0, 0, 0); } while (0);
+        do { saveSubmitCommand(5, (gSaveSlot * 0x68) + gSaveSlotTable, var_s0_3, var_s6, 0, 0, 0, 0); } while (0);
         var_s0 = 0xF;
-        if (func_800109CC() == 5) {
+        if (saveWaitCommand() == 5) {
             *var_s4 = 0;
             var_v0 = var_s1 + 0xF;
             do {
@@ -84,11 +84,11 @@ s32 __repair_phase_var_s4_2;
             } while (var_s0 >= 0);
             (*(s8 *)((char *)(var_s2) + 4)) = 0;
             *((s32 *)((s8 *)&D_80108408 + var_s3)) = 0;
-            D_801032A8 = 0;
+            gSaveCmdResult = 0;
             var_s7 += 0x20;
             goto block_16;
         }
-        if (D_801032A8) {
+        if (gSaveCmdResult) {
             break;
         }
         *var_s4 = 1;
@@ -136,10 +136,10 @@ block_27:
                 } while (!(var_s0 & 0xFFFF));
                 func_800103B0(&D_8010A3C5, &D_80103042, 4);
             }
-            D_800BFC32 = 0;
+            gSaveStatus = 0;
             return 0U;
         }
     }
 block_6:
-    return func_80010B60(D_801032A8) & 0xFFFF;
+    return func_80010B60(gSaveCmdResult) & 0xFFFF;
 }

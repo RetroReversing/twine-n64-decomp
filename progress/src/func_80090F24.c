@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
-M2C_UNK func_80090CD4(s32);                         /* extern */
+M2C_UNK sndStopEntity(s32);                         /* extern */
 extern u8 D_800CF540;
 
 void func_80090F24(s32 arg0) {
     if (D_800CF540 != 0) {
         func_8008C0D4();
-        func_80090CD4(arg0);
+        sndStopEntity(arg0);
         func_8008C11C();
     }
 }

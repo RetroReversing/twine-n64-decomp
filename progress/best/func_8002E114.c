@@ -6,13 +6,13 @@ s32 func_8002E9C0(s32 *);                   /* extern */
 extern s32 D_800E1114;
 extern s32 D_800E1310;
 extern s32 D_80100198;
-extern s32 D_8010019C;
+extern s32 gSaveSlotInfo;
 extern s32 D_801001A0;
 extern s32 D_801001A1;
 extern s32 D_801001A2;
 extern s32 D_801001A4;
 extern u8 gSceneType;
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern u8 D_801002A2;
 extern u8 D_801002A4;
 extern s32 D_801002C4;
@@ -89,7 +89,7 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *(&D_8011508F + temp_s0), 1, 1);
         temp_s0_2 = var_s1_5 * 6;
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_80100198 + temp_s0_2)), 1, 4);
-        func_8002E93C(&D_800E1310, (u8) *((s32 *)((s8 *)&D_8010019C + temp_s0_2)), 4, 0x10);
+        func_8002E93C(&D_800E1310, (u8) *((s32 *)((s8 *)&gSaveSlotInfo + temp_s0_2)), 4, 0x10);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A2 + temp_s0_2)), 1, 4);
@@ -103,7 +103,7 @@ loop_2:
         var_s4 += 1;
     } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
     do { func_8002E93C(&D_800E1310, gSceneType, 1, 4); } while (0);
-    do { func_8002E93C(&D_800E1310, D_801002A1, 1, 1); } while (0);
+    do { func_8002E93C(&D_800E1310, gSaveKeyRelaxed, 1, 1); } while (0);
     do { func_8002E93C(&D_800E1310, D_801002A2, 1, 4); } while (0);
     func_8002E93C(&D_800E1310, D_801002A4, 1, 8);
     func_8002E93C(&D_800E1310, D_801002D5, 1, 1);

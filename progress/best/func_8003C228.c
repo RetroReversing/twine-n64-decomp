@@ -19,7 +19,7 @@ typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 typedef struct { unsigned char pad[20]; int value; } __repair_field_14;
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
-    int sp14;
+    unsigned sp14;
     u8 sp1F;
     s32 temp_s7;
     f32 temp_fs1;
@@ -73,7 +73,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                     }
                     if (var_v0) {
                         if ((*(u16 *)((char *)(var_s0) + 0x1E)) & 0x400) {
-                            if (!D_800E176C) {
+                            if (D_800E176C == 0) {
                                 temp_v1_2 = D_80115328;
                                 D_800E176C = 1;
                                 D_80115328 = temp_v1_2 + 8;
@@ -126,14 +126,14 @@ void *temp_a0;
                                     (((__repair_field_10 *)temp_a3_2)->value) = 0xFC119623;
                                     (((__repair_field_14 *)temp_a3_2)->value) = 0xFF2FFFFF;
                                     D_80115328 = temp_a3_2 + 0x20;
-                                    (*(s32 *)((char *)(temp_a3_2) + 0x1C)) = 0x8000;
                                     (*(s32 *)((char *)(temp_a3_2) + 0x18)) = 0xE3001001;
+                                    (*(s32 *)((char *)(temp_a3_2) + 0x1C)) = 0x8000;
                                     func_8003AF20((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0, temp_a3_2);
                                 } else {
                                     func_8003A4C0((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0, temp_a3_2);
                                 }
                             }
-                            (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & (unsigned)0xFF));
+                            (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & 0xFF));
                             (((__repair_field_8 *)D_80115328)->value) = 0xFB000000;
                             ((__repair_field_0 *)D_80115328)->value = 0xFA000000;
                             (*(s32 *)((char *)(D_80115328) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));

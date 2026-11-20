@@ -163,8 +163,8 @@ loop_2:
         } else {
             var_a1_4 = var_a1_3 >> 1;
         }
-        var_a2_5 = var_a2_4 - 1;
-        var_t2_2 = var_t2 + 4;
+        var_a2_5 = var_a2_4 - 1;do{do{do{
+        var_t2_2 = var_t2 + 4;}while(0);}while(0);}while(0);
         if (var_a2_5 < 0) {
             temp_a1_5 = var_t1;
             var_t1 = *(u32 *)var_t0;

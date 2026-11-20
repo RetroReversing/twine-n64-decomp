@@ -26,29 +26,29 @@ s32 func_8002ACB4();
 s32 func_8002B8AC();
 s32 func_8002B9CC();
 void *func_8002BA6C();
-s32 func_8002BC28();
+s32 getKeyEntryFlag();
 s32 actorLinkToSurface();
 s32 func_80044D28();
 void *func_80087100();
 s32 sprintf();
-extern void *volatile D_800B5B14;
+extern void *volatile gPickupActor;
 extern char D_800BD640[];
-extern u16 D_800BD680;
-extern s16 D_800BD682;
+extern u16 gSharedItemId;
+extern s16 gSharedItemArg;
 extern u8 D_800BD68E;
 extern s8 D_800BD690;
 extern u8 D_800BF688[];
 extern char D_800C3CF8[];
 extern s32 *D_800CA31C;
 typedef struct { s32 f0; u8 pad[20]; } Slot_8010019C;
-extern Slot_8010019C D_8010019C[];
+extern Slot_8010019C gSaveSlotInfo[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
 extern char D_801001A2[];
 extern char D_801001A3[];
 extern u8 D_801002AD;
 extern s32 D_801002B4;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern s8 D_801002E6;
 extern s8 D_801002E7;
 extern s8 D_801002E8;
@@ -59,7 +59,7 @@ extern s32 D_80102EC0;
 extern s32 D_80102EC4;
 extern s32 D_80102F48[];
 extern s8 D_80104311;
-extern s8 D_80107ECC;
+extern s8 gSharedItemBusy;
 extern void *D_80109BB0;
 extern char D_8010A488[];
 extern s32 func_8001AC88;
@@ -143,7 +143,7 @@ s32 __repair_phase_var_a0;
         func_8002AC04(D_8010A488, 1);
         func_8002ACB4(D_8010A488);
         temp_s0_3 = "%s";
-        formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(D_8010019C[D_801002AD].f0));
+        formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(gSaveSlotInfo[D_801002AD].f0));
         (*(void **)((char *)(temp_fp) + -0x18)) = (void *) (((u32)D_801002AD * 0x18) + (&D_801002AD - 0x111));
         func_80019E28(sp34);
         temp_s0_4 = &D_801002AD - 0x109;
@@ -213,7 +213,7 @@ s32 __repair_phase_var_a0;
             func_80027A7C((*(s32 *)((char *)(D_80109BB0) + 0x1C)), (*(void **)((char *)(D_80109BB0) + 0x18)), 0);
         }
         temp_a0_3 = temp_s6 - 0x28;
-        if (D_801002B8 < (s32) D_801002AD) {
+        if (gSaveSlotCount < (s32) D_801002AD) {
             (*(s8 *)((char *)(temp_s7) + -1)) = 7;
             (*(s8 *)((char *)(temp_fp) + -2)) = 1;
             D_801002E8 = 7;
@@ -224,7 +224,7 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s6, 0xD);
             func_80025F78(temp_s5 - 0x28, 0xD);
             func_80025F78(temp_s5, 0xD);
-            formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (D_8010019C[D_801002AD].f0 * 0xC)) * 5));
+            formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (gSaveSlotInfo[D_801002AD].f0 * 0xC)) * 5));
             formatTextEntry(temp_s5, "%s", func_80087100(0x13));
         } else {
             (*(s8 *)((char *)(temp_s7) + -1)) = 3;
@@ -238,34 +238,34 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s5 - 0x28, 0);
             func_80025F78(temp_s5, 0);
         }
-        if ((D_800B5B14 != NULL) || (temp_v0_5 = func_80016410(0, 0, 0), D_800B5B14 = temp_v0_5, (temp_v0_5 != NULL))) {
-            (*(s16 *)((char *)(D_800B5B14) + 0x78)) = 0x1F;
-            (*(s32 *)((char *)(D_800B5B14) + 0x58)) |= 0x400;
-            (*(s8 *)((char *)(D_800B5B14) + 0x7E)) = 1;
-            (*(f32 *)((char *)(D_800B5B14) + 0x54)) = 1.05f;
-            (*(s16 *)((char *)(D_800B5B14) + 0x7A)) = 0;
-            (*(u8 *)((char *)(D_800B5B14) + 0x7F)) = 0xFF;
-            (*(u8 *)((char *)(D_800B5B14) + 0x80)) = 0xFF;
-            (*(f32 *)((char *)(D_800B5B14) + 0x24)) = 1.25f;
-            (*(f32 *)((char *)(D_800B5B14) + 0x28)) = 0.15f;
-            (*(u8 *)((char *)(D_800B5B14) + 0x81)) = 0xFF;
-            actorLinkToSurface(*D_800CA31C, D_800B5B14, 1);
-            (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
+        if ((gPickupActor != NULL) || (temp_v0_5 = func_80016410(0, 0, 0), gPickupActor = temp_v0_5, (temp_v0_5 != NULL))) {
+            (*(s16 *)((char *)(gPickupActor) + 0x78)) = 0x1F;
+            (*(s32 *)((char *)(gPickupActor) + 0x58)) |= 0x400;
+            (*(s8 *)((char *)(gPickupActor) + 0x7E)) = 1;
+            (*(f32 *)((char *)(gPickupActor) + 0x54)) = 1.05f;
+            (*(s16 *)((char *)(gPickupActor) + 0x7A)) = 0;
+            (*(u8 *)((char *)(gPickupActor) + 0x7F)) = 0xFF;
+            (*(u8 *)((char *)(gPickupActor) + 0x80)) = 0xFF;
+            (*(f32 *)((char *)(gPickupActor) + 0x24)) = 1.25f;
+            (*(f32 *)((char *)(gPickupActor) + 0x28)) = 0.15f;
+            (*(u8 *)((char *)(gPickupActor) + 0x81)) = 0xFF;
+            actorLinkToSurface(*D_800CA31C, gPickupActor, 1);
+            (*(f32 *)((char *)(gPickupActor) + 0x2C)) = -3.0f;
             func_8002B8AC();
-            temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(D_8010019C[D_801002AD].f0) * 0xC));
-            D_800BD682 = -1;
-            D_80107ECC = 1;
-            D_800BD680 = temp_v1_4;
-            func_80044D28(&D_800BD680);
-            D_80107ECC = 0;
-            func_8000237C(D_800B5B14, func_8002B9CC(D_8010019C[D_801002AD].f0), 0, *(u16 *)(D_801001A3 + (D_801002AD * 0x18)));
-            func_80002BD0(D_800B5B14, 0x14D);
-            (*(f32 *)((char *)((*(void **)((char *)(D_800B5B14) + 0x68))) + 0x34)) = 0.05f;
+            temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(gSaveSlotInfo[D_801002AD].f0) * 0xC));
+            gSharedItemArg = -1;
+            gSharedItemBusy = 1;
+            gSharedItemId = temp_v1_4;
+            func_80044D28(&gSharedItemId);
+            gSharedItemBusy = 0;
+            func_8000237C(gPickupActor, func_8002B9CC(gSaveSlotInfo[D_801002AD].f0), 0, *(u16 *)(D_801001A3 + (D_801002AD * 0x18)));
+            func_80002BD0(gPickupActor, 0x14D);
+            (*(f32 *)((char *)((*(void **)((char *)(gPickupActor) + 0x68))) + 0x34)) = 0.05f;
             temp_a0_2 = 0x327;
-            if (!(func_8002BC28(D_8010019C[D_801002AD].f0) & 0xFF)) {
+            if (!(getKeyEntryFlag(gSaveSlotInfo[D_801002AD].f0) & 0xFF)) {
                 temp_a0_2 = 0x2A9;
             }
-            func_80002D30(D_800B5B14, temp_a0_2);
+            func_80002D30(gPickupActor, temp_a0_2);
         }
     }
 }

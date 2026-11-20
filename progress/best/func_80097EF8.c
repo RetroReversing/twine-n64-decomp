@@ -7,7 +7,8 @@ extern s32 D_800F8D5C;
 extern u16 D_800F8D5E;
 extern char D_800F8D60[];
 extern char D_800F8D62[];
-extern char D_800F9560[];
+typedef struct { s32 f0; u8 pad[4]; } Slot_800F9560;
+extern Slot_800F9560 D_800F9560[];
 extern char D_800F9564[];
 extern char D_800F9566[];
 extern char D_800F9568[];
@@ -19,16 +20,16 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
     unsigned temp_t2;
     s32 temp_v1_2;
     s32 temp_v1_4;
-    s32 var_a0_2;
+    s32 temp_v1;
     s32 var_a2;
-    s32 var_a2_2;
+    register s32 var_a2_2;
     u32 var_v0_2;
     s32 temp_v0;
     s32 var_v0;
     s32 var_a3;
     s32 var_t1;
     void *var_t0;
-    s32 temp_v1;
+    s32 var_a0_2;
     u32 var_a0;
     u16 temp_v1_3;
 
@@ -45,7 +46,7 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
     }
     var_a3 = *(u16 *)(D_800F8D62 + (temp_t2 * 4));
     var_a2 = 0;
-    if (temp_v0 != 0) {
+    if (temp_v0) {
         var_v0 = var_a3;
 loop_4:
         var_v0_2 = temp_t2 * 4;
@@ -53,7 +54,7 @@ loop_4:
             ++var_a2;
             var_v0 = var_a3 + var_a2;
             if (var_a2 >= (s32) temp_v0) {
-                var_v0_2 = temp_t2 * 4;
+                var_v0_2 = (u32)temp_t2 * 4;
             } else {
                 goto loop_4;
             }
@@ -101,10 +102,10 @@ block_11:
         var_v0_2 = temp_t2 * 4;
         *(u16 *)(D_800F9564 + var_a0_2) = arg0;
         *(u16 *)(D_800F9566 + var_a0_2) = 1;
-        *(s32 *)(D_800F9560 + var_a0_2) = arg1;
+        D_800F9560[var_t1].f0 = arg1;
         *(u16 *)(D_800F8D60 + var_v0_2) = *(u16 *)(D_800F8D60 + var_v0_2) + 1;
-        func_8008C11C(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
         ++D_800F8D5C;
+        func_8008C11C(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
         return 1;
     }
 block_21:

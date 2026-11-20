@@ -17,7 +17,7 @@ extern s8 D_800C42B0[14][8], D_800C42B1[14][8], D_800C42B2[14][8];
 extern f32 D_800C42B4[14][2];
 extern Vec D_800D3E50;
 extern f64 D_800D3E60;
-extern Actor *D_80108788;
+extern Actor *gPlayerActor;
 extern s32 D_80108F78, D_80108F84;
 
 f32 Vec3_DistanceSq(Vec *, Vec *);
@@ -42,7 +42,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
     direction.z = end->z - start->z;
     length = func_80045764(&direction, &direction);
     D_80108F84 = 0;
-    D_80108788 = NULL;
+    gPlayerActor = NULL;
     if (list != NULL) {
         f32 maxSquared = 4.0f;
         actor = *list;
@@ -111,7 +111,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
     if (best != NULL) {
         {
             u16 type;
-            D_80108788 = best;
+            gPlayerActor = best;
             *result = bestPoint;
             if (update != 0) {
                 type = best->type;

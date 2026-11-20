@@ -4,7 +4,7 @@ typedef struct {
 
 typedef struct {
     u8 pad000[0x100];
-    u32 flags;
+    unsigned int flags;
     u8 pad104[0x20];
     f32 overlay;
     u8 pad128[4];
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
     u8 pad00[0x30];
     FrameCommand *commands;
-    s32 commandBytes;
+    long commandBytes;
     u8 pad38[8];
     u8 buffer[0x750];
     FrameCommand *start;
@@ -66,7 +66,7 @@ static __inline__ f32 clamp_opacity(f32 value)
 void func_80007958(void)
 {
     FrameSlot *slot = D_8010A2BC[D_8010A4B0];
-    FrameCommand *start = slot->start;
+    register FrameCommand *start = slot->start;
     s32 *renderMode;
     u8 *buffer, *segment1, *segment2, *segment3, *segment4;
     s32 commandBytes;
@@ -77,7 +77,7 @@ void func_80007958(void)
     u64 stamp;
     FrameCommand *cmd;
     u32 i, mask, alpha;
-    s32 transitioning;
+    register s32 transitioning;
     s32 layer, previous, token;
     f32 opacity;
     u8 *modeFlags;
@@ -101,8 +101,8 @@ void func_80007958(void)
         func_80034EFC();
     } else {
         transitioning = 0;
-        i = 0;
         modeFlags = (u8 *)renderMode - 0x21;
+        i = 0;
         entry = gAimAxisTable;
         D_80113022 = 0;
         do {
@@ -142,7 +142,7 @@ void func_80007958(void)
                 if (modeFlags[-1] & mask) {
                     cmd = D_80115328;
                     cmd->w0 = 0xDE000000;
-                    cmd->w1 = (u32)D_800B1BE0;
+                    cmd->w1 = D_800B1BE0;
                     view = *entry;
                     D_80115328 = cmd + 1;
                     func_8003C228(view, i, 5);
@@ -187,8 +187,8 @@ void func_80007958(void)
             }
             func_800389F0(*entry);
         next_view:
-            i++;
-            entry++;
+            i += 1;
+            entry += 1;
         } while (i < 6);
     }
 
@@ -212,7 +212,7 @@ void func_80007958(void)
     if (D_800B1D70 != D_800B1D72) {
         func_8000B260();
         osRecvMesg(D_8010A2A0, NULL, 1);
-        previous = D_8010A4B0 - 1;
+        previous = (u32)D_8010A4B0 - 1;
         if (previous < 0) {
             previous += D_8010A518;
         }
@@ -230,7 +230,7 @@ void func_80007958(void)
             func_8009F6B0(token);
             break;
         case 0:
-            while (osRecvMesg(D_80109C98, NULL, 0) == 0) {
+            while (osRecvMesg((s32)D_80109C98, NULL, 0) == 0) {
             }
             while (D_8011740C < D_80100C04 + 1) {
                 osRecvMesg(D_80109C98, NULL, 1);
@@ -244,7 +244,7 @@ void func_80007958(void)
             break;
         }
         previous = (u16)D_800B1D72 + 1;
-        D_80100C04 = D_8011740C;
+        D_80100C04 = (s32)D_8011740C;
         D_800B1D72 = previous;
     }
     if (!D_800AE4B0) {
@@ -253,7 +253,7 @@ void func_80007958(void)
         func_8000B224(submittedSlot);
         D_800B1D70++;
         D_8010A4B0++;
-        if (D_8010A4B0 >= D_8010A518) {
+        if (D_8010A518 <= D_8010A4B0) {
             D_8010A4B0 = 0;
         }
     }

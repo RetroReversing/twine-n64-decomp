@@ -72,10 +72,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8005B5A8(void *, s32);                 /* extern */
-extern void *D_80108788;
+extern void *gPlayerActor;
 
 void func_8005C1D0(void) {
-    void *p = D_80108788; s32 r = 0; s32 done;
+    void *p = gPlayerActor; s32 r = 0; s32 done;
     if (p != NULL) { if (M2C_FIELD(p, u16 *, 0x78) != 0x58) { goto skip; } r = 1; M2C_FIELD(p, s32 *, 0x60) |= 0x08000000; }
 skip:
     done = r;

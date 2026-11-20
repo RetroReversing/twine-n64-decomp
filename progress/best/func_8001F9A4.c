@@ -23,7 +23,7 @@ extern u8 D_800BD68E;
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
 extern Slot_80100198 D_80100198[];
 extern u8 D_801002AD;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
@@ -200,7 +200,7 @@ block_36:
             D_80102EB8 = func_8002D13C(0xA3);
             func_80022A30(D_800BD68E, 0x25, 0x48, 0x32, 0x76);
             var_s0_2 = 0;
-            if (D_801002B8 > 0) {
+            if (gSaveSlotCount > 0) {
                 do {
                     temp_s1_3 = var_s0_2 & 0xFFFF;
                     temp_v0_7 = func_800162BC(D_800BD68E);
@@ -220,7 +220,7 @@ block_36:
                     }
                     func_8002A7CC(D_8010A488, *(((var_s0_2 & 0xFFFF) * 4) + D_80102F48), var_s0_2 & 0xFF, 1);
                     var_s0_2 += 1;
-                } while ((var_s0_2 & 0xFFFF) < D_801002B8);
+                } while ((var_s0_2 & 0xFFFF) < gSaveSlotCount);
             }
             func_80022E18(D_800BD68E);
             func_80022AD8(D_800BD68E);

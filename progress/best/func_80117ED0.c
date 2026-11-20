@@ -1,4 +1,4 @@
-extern u8 D_8010019C[];
+extern u8 gSaveSlotInfo[];
 extern u8 D_800BF688[];
 extern u8 D_8011EE68[];
 extern u8 D_8011EE70[];
@@ -22,7 +22,7 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         arg2[0] = initial_dist;
     }
     x = func_80022DBC((u16)*(s8 *)(s1 + 0x182)) & 0xFFFF;
-    k = *(u32 *)(D_8010019C + x * 24);
+    k = *(u32 *)(gSaveSlotInfo + x * 24);
     t16 = *(u16 *)(D_800BF688 + k * 12);
     sel = (t16 >> 2) & 7;
     switch (sel) {

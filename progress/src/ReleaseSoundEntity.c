@@ -40,7 +40,7 @@ static inline s32 find_snd(s32 id) {
 }
 
 extern SndNode *gFreeSndNodeList;
-void func_80099708(s32);
+void sndStopNode(s32);
 
 /* Releases a sound entity slot: deactivates it, stops its two playing lists, and moves those lists onto the free list. */ void ReleaseSoundEntity(s32 entity_id) {
     SndNode *node;
@@ -57,10 +57,10 @@ void func_80099708(s32);
             ent = &gSndEntities[entity_id];
             gSndEntities[entity_id].active = 0;
             for (node = ent->listF78; node != NULL; node = node->next) {
-                func_80099708(node->h);
+                sndStopNode(node->h);
             }
             for (node = ent->listF7C; node != NULL; node = node->next) {
-                func_80099708(node->h);
+                sndStopNode(node->h);
             }
             ent_ptr = &gSndEntities[entity_id];
             tail = ent_ptr->listF78;

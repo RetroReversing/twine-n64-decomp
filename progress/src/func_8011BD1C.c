@@ -62,13 +62,18 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
             } else {
                 *(&D_8011ED08 + temp_s0 * 0x9) = 0x14;
                 func_80044670(temp_v0, 1, 0xF4);
-                if (temp_s0 == 0) {
-                    M2C_FIELD(temp_v0, u8 *, 0x81) = 0xB4;
-                } else {
-                    M2C_FIELD(temp_v0, u8 *, 0x7F) = 0xB4;
+                {
+                    u8 intensity = 0xB4;
+                    if (temp_s0 != 0) goto alternate;
+                    M2C_FIELD(temp_v0, u8 *, 0x81) = intensity;
+                    goto common;
+                alternate:
+                    M2C_FIELD(temp_v0, u8 *, 0x7F) = intensity;
+                common:
+                    M2C_FIELD(temp_v0, volatile u8 *, 0x80) = intensity;
                 }
-                M2C_FIELD(temp_v0, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) + 0.76f);
-                M2C_FIELD(temp_v0, f32 *, 0x34) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x34) + 0.76f);
+                M2C_FIELD(temp_v0, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0, volatile f32 *, 0x28) + 0.76f);
+                M2C_FIELD(temp_v0, f32 *, 0x34) = (f32) (M2C_FIELD(temp_v0, volatile f32 *, 0x34) + 0.76f);
             }
             actorLinkToSurface(*D_800CA31C, temp_v0, 1);
             func_800643C8(temp_v0);

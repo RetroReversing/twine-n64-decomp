@@ -28,7 +28,7 @@ extern char D_80117388[];
 extern char D_80117389[];
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0_2;
-s32 func_80099708(u32 arg0) {
+s32 sndStopNode(u32 arg0) {
 int __repair_literal;
 
     

@@ -86,9 +86,9 @@ extern f64 D_800D3FD8;
 extern f64 D_800D3FE0;
 extern s8 D_80100B18;
 extern s32 gBorderSkipFlag;
-extern void *D_80102FD8;
+extern void *gTrackedActor;
 extern s8 D_80103EB0;
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern void *D_80108F84;
 extern void *D_8010968C;
 extern M2C_UNK D_80109A98;
@@ -308,7 +308,7 @@ block_29:
         sp17C = NULL;
         sp184 = NULL;
         D_80108F84 = NULL;
-        D_80108788 = NULL;
+        gPlayerActor = NULL;
         var_fp = func_800557E0(0, 0, sp174, arg0 + 0x24, &sp30, &sp50, &sp80);
         if (var_fp != NULL) {
             var_fs1 = Vec3_DistanceSq(temp_s2 + 0xC, &sp50);
@@ -322,7 +322,7 @@ block_29:
                 var_s4 = sp17C;
                 var_s6 = 1;
                 D_80108F84 = NULL;
-                D_80108788 = NULL;
+                gPlayerActor = NULL;
             }
         }
         if ((Ray_CastObjects(&func_8004D910, sp174, arg0 + 0x24, temp_s2, &sp40, var_fs0, &sp70, M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), M2C_UNK (**)(void *, f32 *, f32 *), 0xD4) != NULL, 0) << 0x18) != 0) {
@@ -335,7 +335,7 @@ block_29:
                 sp34 = sp44;
                 sp38 = sp48;
                 var_fp = NULL;
-                sp17C = D_80108788;
+                sp17C = gPlayerActor;
             }
         }
         temp_v0 = func_8004F990(sp174, arg0 + 0x24, &sp30, M2C_FIELD(temp_s2, s32 *, 0x24), &sp60, 1, (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x60) & 0x2000) != 0, 0);
@@ -349,7 +349,7 @@ block_29:
                 var_s6 = 2;
                 var_fs1 = temp_fv0_2;
                 var_s7 = temp_v0;
-                var_s5 = D_80108788;
+                var_s5 = gPlayerActor;
                 sp30 = sp60;
                 sp34 = sp64;
                 sp38 = sp68;
@@ -381,12 +381,12 @@ block_29:
         }
         if (var_fp != NULL) {
             D_80108F84 = NULL;
-            D_80108788 = NULL;
+            gPlayerActor = NULL;
         } else if ((var_s6 == 1) || (var_s6 != 2)) {
             D_80108F84 = var_s4;
-            D_80108788 = sp17C;
+            gPlayerActor = sp17C;
         } else {
-            D_80108788 = var_s5;
+            gPlayerActor = var_s5;
             sp70 = 0.0f;
             sp74 = 0.0f;
             sp78 = 0.0f;
@@ -394,14 +394,14 @@ block_29:
             D_80108F84 = sp184;
         }
         temp_v0_2 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), M2C_UNK (**)(void *, f32 *, f32 *), 0xD4);
-        D_80102FD8 = var_s7;
+        gTrackedActor = var_s7;
         if ((temp_v0_2 != NULL) && (var_s6 != 0)) {
             temp_v0_2(arg0, &sp70, &sp30);
             goto block_71;
         }
         if (var_s6 == 1) {
-            if ((D_80108788 != NULL) && ((temp_v1_3 = M2C_FIELD(D_80108788, s32 *, 0x60) | M2C_FIELD(temp_s2, s32 *, 0x28), M2C_FIELD(D_80108788, s32 *, 0x60) = temp_v1_3, temp_a0_3 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64), var_v0 = temp_v1_3 | 0x40, ((temp_a0_3 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_3 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_3 & 0x800) != 0)) || (var_v0 = temp_v1_3 | 0x20, ((temp_a0_3 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_3 & 1) != 0)))) {
-                M2C_FIELD(D_80108788, s32 *, 0x60) = var_v0;
+            if ((gPlayerActor != NULL) && ((temp_v1_3 = M2C_FIELD(gPlayerActor, s32 *, 0x60) | M2C_FIELD(temp_s2, s32 *, 0x28), M2C_FIELD(gPlayerActor, s32 *, 0x60) = temp_v1_3, temp_a0_3 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64), var_v0 = temp_v1_3 | 0x40, ((temp_a0_3 & 0x200) != 0)) || (var_v0 = temp_v1_3 | 0x80, ((temp_a0_3 & 0x400) != 0)) || (var_v0 = temp_v1_3 | 0x100, ((temp_a0_3 & 0x800) != 0)) || (var_v0 = temp_v1_3 | 0x20, ((temp_a0_3 & 2) != 0)) || (var_v0 = temp_v1_3 | 2, ((temp_a0_3 & 1) != 0)))) {
+                M2C_FIELD(gPlayerActor, s32 *, 0x60) = var_v0;
             }
             if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64) & 0x20) {
                 func_80084338(0x116, &sp40);
@@ -451,9 +451,9 @@ block_73:
                     sp90 = (f32) var_fv1_3;
                     if (var_s6 == 1) {
                         func_800175C0(sp174, 2, 0x20000, &sp40, 0, var_s6);
-                        if (D_80108788 != NULL) {
-                            if ((M2C_FIELD(D_80108788, u16 *, 0x78) == 0x67) && (M2C_FIELD(temp_s2, u16 *, 0x58) == 2)) {
-                                temp_v1_4 = M2C_FIELD(D_80108788, void **, 0x6C);
+                        if (gPlayerActor != NULL) {
+                            if ((M2C_FIELD(gPlayerActor, u16 *, 0x78) == 0x67) && (M2C_FIELD(temp_s2, u16 *, 0x58) == 2)) {
+                                temp_v1_4 = M2C_FIELD(gPlayerActor, void **, 0x6C);
                                 M2C_FIELD(temp_v1_4, f32 *, 0x9C) = (f32) M2C_FIELD(temp_s2, f32 *, 0xC);
                                 M2C_FIELD(temp_v1_4, f32 *, 0xA0) = (f32) M2C_FIELD(temp_s2, f32 *, 0x10);
                                 M2C_FIELD(temp_v1_4, f32 *, 0xA4) = (f32) M2C_FIELD(temp_s2, f32 *, 0x14);
@@ -461,11 +461,11 @@ block_73:
                                 M2C_FIELD(temp_v1_4, s32 *, 0xB0) = (s32) M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), u8 *, 1);
                                 M2C_FIELD(temp_v1_4, s32 *, 0xB4) = (s32) M2C_FIELD(temp_s2, s32 *, 0x24);
                             }
-                            if ((M2C_FIELD(D_80108788, s32 *, 0x5C) & 2) && (func_80045CF8(6e-45f) == 0)) {
-                                M2C_FIELD(D_80108788, s32 *, 0x60) = (s32) (M2C_FIELD(D_80108788, s32 *, 0x60) | 1);
-                                if (M2C_FIELD(D_80108788, void **, 0x70) != NULL) {
-                                    func_80073108(D_80108788 + 0x24, &sp40, 0x40A00000);
-                                    func_80073210(M2C_FIELD(D_80108788, void **, 0x70), sp174, D_80108788 + 0x24, M2C_FIELD(D_80108788, f32 *, 0x3C), M2C_FIELD(D_80108788, f32 *, 0x40), M2C_FIELD(D_80108788, f32 *, 0x44), 1, 1);
+                            if ((M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 2) && (func_80045CF8(6e-45f) == 0)) {
+                                M2C_FIELD(gPlayerActor, s32 *, 0x60) = (s32) (M2C_FIELD(gPlayerActor, s32 *, 0x60) | 1);
+                                if (M2C_FIELD(gPlayerActor, void **, 0x70) != NULL) {
+                                    func_80073108(gPlayerActor + 0x24, &sp40, 0x40A00000);
+                                    func_80073210(M2C_FIELD(gPlayerActor, void **, 0x70), sp174, gPlayerActor + 0x24, M2C_FIELD(gPlayerActor, f32 *, 0x3C), M2C_FIELD(gPlayerActor, f32 *, 0x40), M2C_FIELD(gPlayerActor, f32 *, 0x44), 1, 1);
                                     func_800851E0(&sp40);
                                     goto block_263;
                                 }
@@ -544,8 +544,8 @@ block_107:
                         goto block_131;
                     }
                     if (var_s6 == 1) {
-                        if ((D_80108788 != NULL) && (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x67) && (M2C_FIELD(temp_s2, u16 *, 0x58) == 2)) {
-                            temp_v1_7 = M2C_FIELD(D_80108788, void **, 0x6C);
+                        if ((gPlayerActor != NULL) && (M2C_FIELD(gPlayerActor, u16 *, 0x78) == 0x67) && (M2C_FIELD(temp_s2, u16 *, 0x58) == 2)) {
+                            temp_v1_7 = M2C_FIELD(gPlayerActor, void **, 0x6C);
                             M2C_FIELD(temp_v1_7, f32 *, 0x9C) = (f32) M2C_FIELD(temp_s2, f32 *, 0xC);
                             M2C_FIELD(temp_v1_7, f32 *, 0xA0) = (f32) M2C_FIELD(temp_s2, f32 *, 0x10);
                             M2C_FIELD(temp_v1_7, f32 *, 0xA4) = (f32) M2C_FIELD(temp_s2, f32 *, 0x14);
@@ -673,8 +673,8 @@ block_138:
                     if (D_80108F84 != NULL) {
                         sp18C = (s32) M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), u8 *, 0x47);
                     }
-                    if (D_80108788 != NULL) {
-                        sp18C = (s32) M2C_FIELD(M2C_FIELD(D_80108788, void **, 0x70), u8 *, 0x47);
+                    if (gPlayerActor != NULL) {
+                        sp18C = (s32) M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x70), u8 *, 0x47);
                     }
                     func_80085D90(&sp40, sp18C);
                     temp_a1_2 = sp18C - 1;
@@ -742,7 +742,7 @@ block_138:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = (s32) (M2C_FIELD(D_80108F84, s32 *, 0x50) & ~0x20);
                         }
                     }
-                    if ((var_s4_2 != -1) && (gBorderSkipFlag == 0) && ((D_80108788 != NULL) || (D_80108F84 != NULL))) {
+                    if ((var_s4_2 != -1) && (gBorderSkipFlag == 0) && ((gPlayerActor != NULL) || (D_80108F84 != NULL))) {
                         temp_v0_13 = func_800166A0();
                         if (temp_v0_13 != NULL) {
                             M2C_FIELD(temp_v0_13, s32 *, 0x1C) = 0;
@@ -768,20 +768,20 @@ block_138:
                                 M2C_FIELD(temp_v0_13, f32 *, 0x30) = temp_fv0_5;
                                 func_800169EC(temp_v0_13, M2C_FIELD(arg0, void **, 0x20));
                             }
-                            if (D_80108788 != NULL) {
+                            if (gPlayerActor != NULL) {
                                 M2C_FIELD(temp_v0_13, f32 *, 0x2C) = (f32) -(func_80082A70(sp74, func_80082908((sp70 * sp70) + (sp78 * sp78))) * 651.8986f);
                                 temp_fv0_6 = func_80082A70(sp70, sp78) * 651.8986f;
                                 M2C_FIELD(temp_v0_13, s32 *, 0x34) = 0;
                                 M2C_FIELD(temp_v0_13, f32 *, 0x30) = temp_fv0_6;
-                                spE0 = (s16) (s32) -M2C_FIELD(D_80108788, f32 *, 0x3C);
-                                spE2 = (s16) (s32) -M2C_FIELD(D_80108788, f32 *, 0x40);
-                                spE4 = (s16) (s32) -M2C_FIELD(D_80108788, f32 *, 0x44);
+                                spE0 = (s16) (s32) -M2C_FIELD(gPlayerActor, f32 *, 0x3C);
+                                spE2 = (s16) (s32) -M2C_FIELD(gPlayerActor, f32 *, 0x40);
+                                spE4 = (s16) (s32) -M2C_FIELD(gPlayerActor, f32 *, 0x44);
                                 func_80082D24(&spE0, &sp140);
-                                M2C_FIELD(temp_v0_13, f32 *, 0x20) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x20) - M2C_FIELD(D_80108788, f32 *, 0x24));
-                                M2C_FIELD(temp_v0_13, f32 *, 0x24) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x24) - M2C_FIELD(D_80108788, f32 *, 0x28));
-                                M2C_FIELD(temp_v0_13, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x28) - M2C_FIELD(D_80108788, f32 *, 0x2C));
+                                M2C_FIELD(temp_v0_13, f32 *, 0x20) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x20) - M2C_FIELD(gPlayerActor, f32 *, 0x24));
+                                M2C_FIELD(temp_v0_13, f32 *, 0x24) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x24) - M2C_FIELD(gPlayerActor, f32 *, 0x28));
+                                M2C_FIELD(temp_v0_13, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x28) - M2C_FIELD(gPlayerActor, f32 *, 0x2C));
                                 func_80083A6C(&sp140, temp_v0_13 + 0x20);
-                                func_80016A10(temp_v0_13, D_80108788);
+                                func_80016A10(temp_v0_13, gPlayerActor);
                             }
                         }
                     }
@@ -845,23 +845,23 @@ block_138:
                             var_s1_2 = 8e-45f;
                             var_s4_4 = 4e-45f;
                         }
-                        if (D_80108788 != NULL) {
-                            if (M2C_FIELD(D_80108788, s32 *, 0x5C) & 4) {
+                        if (gPlayerActor != NULL) {
+                            if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 4) {
                                 func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, var_s0_5 + func_80045CF8(temp_fa0, 0x3C23D70A, var_s0_5));
                             }
-                            if (M2C_FIELD(D_80108788, s32 *, 0x5C) & 1) {
+                            if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 1) {
                                 func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_4), 0x13, 0x1B);
                             }
-                            if (M2C_FIELD(D_80108788, s32 *, 0x5C) & 8) {
+                            if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 8) {
                                 func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1_2), 0x15, 0x1B);
                             }
-                            if (M2C_FIELD(D_80108788, s32 *, 0x5C) & 0x10) {
+                            if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x10) {
                                 func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1_2), 0x14, 0x1B);
                                 if (func_80045CF8(6e-45f) == 0) {
                                     func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, func_80045CF8(3e-45f) + 2);
                                 }
                             }
-                            if (M2C_FIELD(D_80108788, s32 *, 0x5C) & 0x40) {
+                            if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x40) {
                                 func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_4), 0x12, 0x1B);
                                 if (func_80045CF8(2.2e-44f) == 0) {
 block_225:

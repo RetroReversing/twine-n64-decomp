@@ -24,7 +24,7 @@ M2C_UNK func_8002D224();                            /* extern */
 M2C_UNK func_80081CC0(s32);                         /* extern */
 M2C_UNK func_80081D00(s32);                         /* extern */
 extern s8 D_801002AE;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern void *sActiveMenu;
 extern s32 D_80108F78;
@@ -47,7 +47,7 @@ void func_8001EB2C(void) {
             goto fail;
         }
     } else {
-        for (i = 0; i < D_801002B8; i++) {
+        for (i = 0; i < gSaveSlotCount; i++) {
             if (!(func_8002D0BC(0xA3, i) & 0xFFFF)) {
                 goto fail;
             }

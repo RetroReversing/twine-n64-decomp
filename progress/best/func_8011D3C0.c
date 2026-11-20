@@ -13,7 +13,7 @@ extern s32 D_800BD66C;
 extern s32 D_800BD678;
 typedef struct { u16 f0; u8 pad[22]; } Slot_801001A2;
 extern Slot_801001A2 D_801001A2[];
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern s32 D_801002B4;
 extern s32 gBorderMode;
 extern u8 gPauseFlag;
@@ -250,10 +250,10 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                             var_v0_4 = 0 & 0xFFFF;
                             do {
                                 temp_s0_5 = (*(void **)((char *)((&D_8010A500)[var_v0_4]) + 0x6C));
-                                if ((temp_s3 != var_v0_4) && (temp_s6 != 5) && ((D_801002A1 != 1) || (((temp_s6 != 2) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) == (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12)))) && ((temp_s6 != 3) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) != (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12))))))) {
+                                if ((temp_s3 != var_v0_4) && (temp_s6 != 5) && ((gSaveKeyRelaxed != 1) || (((temp_s6 != 2) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) == (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12)))) && ((temp_s6 != 3) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) != (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12))))))) {
                                     temp_v0 = func_800162BC(var_fp & 0xFFFF);
                                     if (temp_v0 != NULL) {
-                                        if (D_801002A1) {
+                                        if (gSaveKeyRelaxed) {
                                             if ((*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12)) == 0) {
                                                 (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) D_800BD678;
                                             } else {

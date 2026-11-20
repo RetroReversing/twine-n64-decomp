@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80063998(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8006D224(void *);                      /* extern */
 M2C_UNK func_800848EC(void *, M2C_UNK, M2C_UNK);    /* extern */
-extern void *D_80108788;
+extern void *gPlayerActor;
 
 void func_8006E584(void *arg0) {
     M2C_UNK var_a2;
     void *temp_v1;
 
-    if (((u32) (M2C_FIELD(arg0, u16 *, 0x78) - 2) < 2U) && (D_80108788 != NULL) && (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x2A) && (M2C_FIELD(D_80108788, s16 *, 0x7A) == 1)) {
+    if (((u32) (M2C_FIELD(arg0, u16 *, 0x78) - 2) < 2U) && (gPlayerActor != NULL) && (M2C_FIELD(gPlayerActor, u16 *, 0x78) == 0x2A) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 1)) {
         temp_v1 = M2C_FIELD(arg0, void **, 0x6C);
         M2C_FIELD(arg0, f32 *, 0x74) = -1.0f;
         M2C_FIELD(temp_v1, s32 *, 0x1B4) = 0;

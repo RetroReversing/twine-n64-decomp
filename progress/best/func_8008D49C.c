@@ -18,7 +18,7 @@ s32 func_80096970();
 s32 func_800984CC();
 s32 func_8009C420();
 
-s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7, u8 arg8, s16 arg9) {
+s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7, u8 arg8, s32 arg9) {
     u8 sp37;
     u16 sp3E;
     u16 sp46;
@@ -29,7 +29,7 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
     s32 temp_s0_3;
     
     s32 temp_s1;
-    s32 temp_s1_2;
+    
     s32 temp_s2;
     s32 temp_v0;
     s32 temp_v0_2;
@@ -59,7 +59,7 @@ s32 __repair_phase_var_v0;
     temp_s6 = arg0 >> 0x10;
     sp46 = arg7;
     sp37 = arg2;
-    temp_s0 = ((arg0 >> 8) & 0xFF) + arg9;
+    temp_s0 = ((arg0 >> 8) & 0xFF) + (s16)arg9;
     sp4F = arg8;
     if (temp_s0 >= 0) {
         var_v1 = 0xFF;
@@ -116,9 +116,9 @@ s32 __repair_phase_var_v0;
                     }
                 }
             }
-            temp_s1_2 = (arg1 & 0x7F) + M2C_FIELD(((temp_a2 * 8) + temp_v0_2), s8 *, 2);
-            if (temp_s1_2 < 0x80) {
-                var_a0_3 = temp_s1_2 & ((s32) ~temp_s1_2 >> 0x1F);
+            temp_v1_2 = (arg1 & 0x7F) + M2C_FIELD(((temp_a2 * 8) + temp_v0_2), s8 *, 2);
+            if (temp_v1_2 < 0x80) {
+                var_a0_3 = temp_v1_2 & ((s32) ~temp_v1_2 >> 0x1F);
             } else {
                 var_a0_3 = 0x7F;
             }
@@ -141,7 +141,7 @@ s32 __repair_phase_var_v0;
                         var_a1_2 = temp_s6;
                         var_a2_2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
 block_38:
-                        return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, 1, (s32) sp4F);
+                        return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, 1, (s32) sp4F);
                     }
                 }
                 /* Duplicate return node #43. Try simplifying control flow for better match */
@@ -151,7 +151,7 @@ block_38:
             var_a1 = temp_s6;
             var_a2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
 block_41:
-            return func_8008D138(var_a0, temp_s6, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp4F);
+            return func_8008D138(var_a0, temp_s6, var_a2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, (s32) sp4F);
         }
         /* Duplicate return node #43. Try simplifying control flow for better match */
         return var_v0;

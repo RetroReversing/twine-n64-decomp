@@ -158,16 +158,15 @@ short __repair_constant = 0x100;
         }
         if (gBorderFlipFlag != 1) {
             temp_fs0_3 = 120.0f * 0.5f;
-            temp_fs2 = 160.0f + 160.0f;
-            func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, 160.0f, temp_fs0_3, temp_fs2, 120.0f, 1.0f, 1.0f);
+            func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, 160.0f, temp_fs0_3, (temp_fs2 = 160.0f + 160.0f), 120.0f, 1.0f, 1.0f);
             temp_s4 = (*(void **)((char *)(gAimAxisTable) + 4));
             var_a1 = 160.0f;
             var_a3 = temp_fs2;
             var_a2 = 120.0f + temp_fs0_3;
         } else {
             temp_fs0_2 = 160.0f * 0.5f;
-            func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
             temp_s4 = (*(void **)((char *)(gAimAxisTable) + 4));
+            func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
             var_a2 = 120.0f;
             var_a1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;

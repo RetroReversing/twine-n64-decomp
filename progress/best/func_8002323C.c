@@ -49,7 +49,7 @@ extern s16 D_800E107E;
 extern s16 D_800E1080;
 extern M2C_UNK D_801001A1;
 extern M2C_UNK D_801001A4;
-extern M2C_UNK D_801002A1;
+extern M2C_UNK gSaveKeyRelaxed;
 extern u8 D_801002AC;
 extern s32 D_801002B4;
 typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
@@ -154,7 +154,7 @@ void func_8002323C(void) {
         }
         var_s4 = 0;
         do {
-            volatile u8 *mode = (u8 *)&D_801002A1;
+            volatile u8 *mode = (u8 *)&gSaveKeyRelaxed;
             if (mode[0] == 0) {
                 break;
             }
@@ -178,7 +178,7 @@ void func_8002323C(void) {
             }
         }
         var_s4 = 0;
-        temp_v0_2 = M2C_FIELD(&D_801002A1, u8 *, 0);
+        temp_v0_2 = M2C_FIELD(&gSaveKeyRelaxed, u8 *, 0);
         if (temp_v0_2 != 0) {
             var_s2 = 1;
             D_800E0FC0 = func_800162BC(D_800BD68E);

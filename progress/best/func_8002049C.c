@@ -28,7 +28,7 @@ void *func_8002A9A8(M2C_UNK *, s16);                /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s32 func_80087100(s32);                             /* extern */
 extern s16 D_800B60E2;
-extern M2C_UNK *gMenuList;
+extern M2C_UNK *D_800B60E4;
 extern u8 D_800BD68E;
 extern u8 D_800BD68F;
 extern M2C_UNK D_800C469E;
@@ -62,7 +62,7 @@ char *__repair_addr;
     void *temp_v0;
     void *var_s4;
 
-    gMenuList = &D_801003E0;
+    D_800B60E4 = &D_801003E0;
     (*(u16 *)&D_800B60E2) = 0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
     temp_v0 = *((M2C_UNK *)((s8 *)&D_8010A500 + (D_800BD68F * 4)));
@@ -92,10 +92,10 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                     *__repair_phase_storage.pointer = temp_v0_2;
                     if (temp_v0_2 != 0) {
                         func_800160FC(*__repair_phase_storage.pointer, func_80087100((var_s2 | 0x6000) & 0xFFFF), 0x40);
-                        func_8002A7CC(gMenuList, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
+                        func_8002A7CC(D_800B60E4, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
                     }
                     if (var_s1 == *((u16 *)&D_800E0ECC + D_800BD68F)) {
-                        var_s4 = func_8002A9A8(gMenuList, var_s3);
+                        var_s4 = func_8002A9A8(D_800B60E4, var_s3);
                     }
                     var_s3 += 1;
                 }
@@ -122,7 +122,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
             }
             func_80022E18(D_800BD68E);
             func_80022AD8(D_800BD68E);
-            func_8002AC04(gMenuList, 1);
+            func_8002AC04(D_800B60E4, 1);
         }
     }
 }

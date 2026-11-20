@@ -14,16 +14,16 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK cache_release_block();                      /* extern */
 M2C_UNK func_8002A700(M2C_UNK *);                   /* extern */
-extern void *D_800B5B14;
+extern void *gPickupActor;
 extern M2C_UNK D_8010A488;
 
 void func_8001BE0C(void) {
     void **__base_D_800B5B14;
     func_8002A700(&D_8010A488);
     cache_release_block();
-    __base_D_800B5B14 = &D_800B5B14;
+    __base_D_800B5B14 = &gPickupActor;
     if ((*__base_D_800B5B14) != NULL) {
-        M2C_FIELD(D_800B5B14, s32 *, 0x60) = (s32) (M2C_FIELD(D_800B5B14, s32 *, 0x60) | 1);
+        M2C_FIELD(gPickupActor, s32 *, 0x60) = (s32) (M2C_FIELD(gPickupActor, s32 *, 0x60) | 1);
         (*__base_D_800B5B14) = NULL;
     }
 }

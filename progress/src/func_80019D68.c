@@ -55,15 +55,15 @@ void func_80022AD8(s32 id) {
     *(u8 *)&obj->flags = color;
 }
 
-s32 func_80019B34(s32);
-extern s32 D_801002B8, D_801002BC;
+s32 saveSlotKeyCheck(s32);
+extern s32 gSaveSlotCount, gSaveExtraSlotCount;
 s32 func_80019D68(void) {
     u16 i;
-    for (i = 0; i < D_801002B8; ++i) {
-        if ((u16)func_80019B34(i) != 0x159) return 0;
+    for (i = 0; i < gSaveSlotCount; ++i) {
+        if ((u16)saveSlotKeyCheck(i) != 0x159) return 0;
     }
-    for (i = 4; i < D_801002BC + 4; ++i) {
-        if ((u16)func_80019B34(i) != 0x159) return 0;
+    for (i = 4; i < gSaveExtraSlotCount + 4; ++i) {
+        if ((u16)saveSlotKeyCheck(i) != 0x159) return 0;
     }
     return 1;
 }
@@ -83,10 +83,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8005B5A8(void *, s32);                 /* extern */
-extern void *D_80108788;
+extern void *gPlayerActor;
 
 void func_8005C1D0(void) {
-    void *p = D_80108788; s32 r = 0; s32 done;
+    void *p = gPlayerActor; s32 r = 0; s32 done;
     if (p != NULL) { if (M2C_FIELD(p, u16 *, 0x78) != 0x58) { done = r; goto out; } r = 1; M2C_FIELD(p, s32 *, 0x60) |= 0x08000000; }
     done = r;
 out:

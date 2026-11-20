@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK D_80103022;
 extern M2C_UNK D_801083D4;
-extern M2C_UNK D_80109DC8;
+extern M2C_UNK gSaveSlotValid;
 
 u16 func_8002D0BC(s32 arg0, s32 arg1) {
     s32 temp_a0;
@@ -22,7 +22,7 @@ u16 func_8002D0BC(s32 arg0, s32 arg1) {
     temp_a0 = arg0 & 0xFFFF;
     switch (temp_a0) {
     case 0xA5:
-        return *((u16 *)((s8 *)&D_80109DC8 + ((arg1 & 0xFFFF) * 2)));
+        return *((u16 *)((s8 *)&gSaveSlotValid + ((arg1 & 0xFFFF) * 2)));
     case 0xA6:
         return *((u16 *)((s8 *)&D_801083D4 + ((arg1 & 0xFFFF) * 2)));
     case 0xA3:

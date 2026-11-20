@@ -40,6 +40,7 @@ extern void *D_80115328;
 extern void *D_80117728;
 
 typedef struct { int value; } __repair_field_0;
+typedef struct { unsigned char pad[100]; void * value; } __repair_field_64;
 void func_80000A40(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 arg5) {
     f32 sp10[3];
     f32 sp20[3];
@@ -361,8 +362,8 @@ block_42:
                             }
                         }
                         if (__repair_phase_var_s4 == 0x25) {
-                            temp_s0_4 = M2C_FIELD(temp_s3, void **, 0x64);
-                            if ((temp_s0_4 != NULL) && ((M2C_FIELD(temp_s3, void **, 0x64) = NULL, ((__repair_field_0 *)D_801002FC)->value = 0xDA380003, M2C_FIELD(D_801002FC, s32 *, 4) = (s32) (temp_s1_2 - 0x80000000), D_801002FC += 8, (((__repair_field_0 *)temp_s0_4)->value != 0)) || (func_80043FA0(temp_s0_4), (((__repair_field_0 *)temp_s0_4)->value != 0)))) {
+                            temp_s0_4 = ((__repair_field_64 *)temp_s3)->value;
+                            if ((temp_s0_4 != NULL) && ((((__repair_field_64 *)temp_s3)->value = NULL, ((__repair_field_0 *)D_801002FC)->value = 0xDA380003, M2C_FIELD(D_801002FC, s32 *, 4) = (s32) (temp_s1_2 - 0x80000000), D_801002FC += 8, (((__repair_field_0 *)temp_s0_4)->value != 0)) || (func_80043FA0(temp_s0_4), (((__repair_field_0 *)temp_s0_4)->value != 0)))) {
                                 if (!(M2C_FIELD(temp_s0_4, u8 *, 0x46) & 0x80)) {
                                     M2C_FIELD(temp_s0_4, u8 *, 0x46) = (u8) D_800C2B40;
                                 }

@@ -13,7 +13,7 @@ s32 func_8004E418();
 s32 func_80082D24();
 s32 func_80083A6C();
 s32 func_80083B64();
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern void **D_80108F84;
 
 typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg1;
@@ -95,7 +95,7 @@ u32 __repair_phase_temp_v1;
         sp28[0] = (((__repair_record_arg1*)arg1)->field_0);
         var_s1 = *var_s5;
         sp28[1] = (((__repair_record_arg1*)arg1)->field_4) + var_fs0;
-        D_80108788 = NULL;
+        gPlayerActor = NULL;
         D_80108F84 = NULL;
         sp28[2] = (((__repair_record_arg1*)arg1)->field_8);
         if (var_s1 != NULL) {
@@ -142,7 +142,7 @@ u32 __repair_phase_temp_v1;
                                             temp_v1_3 = (*(s32 *)((char *)(temp_s2) + 0x34));
                                             if ((rayHitsTriangleXZ(sp38, sp90, temp_v1_3 + (*(u16 *)var_s4 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC), sp124) & 0xFF) && (spA0 >= __repair_float_constant) && (spA0 < var_fs0)) {
                                                 var_fs0 = spA0;
-                                                D_80108788 = var_s1;
+                                                gPlayerActor = var_s1;
                                                 D_80108F84 = NULL;
                                             }
                                         }
@@ -162,7 +162,7 @@ u32 __repair_phase_temp_v1;
                                             temp_v1_5 = (*(s32 *)((char *)(temp_s2) + 0x34));
                                             if ((rayHitsTriangleXZ(sp38, sp90, temp_v1_5 + (*(u16 *)var_s4 * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + -1)) * 0xC), temp_v1_5 + ((*(u8 *)((char *)(var_s3_2) + 0)) * 0xC), sp12C) & 0xFF) && (spA4 >= __repair_float_constant) && (var_fs0 > spA4)) {
                                                 var_fs0 = spA4;
-                                                D_80108788 = var_s1;
+                                                gPlayerActor = var_s1;
                                                 D_80108F84 = NULL;
                                             }
                                         }
@@ -218,7 +218,7 @@ u32 __repair_phase_temp_v1;
                                             temp_v1_7 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                             if ((func_8004D910(sp88, spE0, temp_v1_7 + ((*(u16 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_7 + ((*(u16 *)((char *)(temp_a0) + 2)) * 0xC), temp_v1_7 + ((*(u16 *)((char *)(temp_a0) + 4)) * 0xC), &spF0) & 0xFF) && (spF0 >= __repair_float_constant) && (spF0 < var_fs0)) {
                                                 var_fs0 = spF0;
-                                                D_80108788 = NULL;
+                                                gPlayerActor = NULL;
                                                 D_80108F84 = var_s5;
                                             }
                                         }
@@ -237,7 +237,7 @@ u32 __repair_phase_temp_v1;
                                             temp_v1_9 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                             if ((func_8004D910(sp88, spE0, temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 1)) * 0xC), temp_v1_9 + ((*(u8 *)((char *)(temp_a0) + 2)) * 0xC), &spF0) & 0xFF) && (__repair_float_constant <= spF0) && (var_fs0 > spF0)) {
                                                 var_fs0 = spF0;
-                                                D_80108788 = NULL;
+                                                gPlayerActor = NULL;
                                                 D_80108F84 = var_s5;
                                             }
                                         }
@@ -257,7 +257,7 @@ u32 __repair_phase_temp_v1;
                                         temp_v1_11 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                         if ((func_8004D910(sp88, spE0, temp_v1_11 + ((*(u16 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_11 + ((*(u16 *)((char *)(temp_a0) + 2)) * 0xC), temp_v1_11 + ((*(u16 *)((char *)(temp_a0) + 4)) * 0xC), &spF0) & 0xFF) && (__repair_float_constant <= spF0) && (spF0 < var_fs0)) {
                                             var_fs0 = spF0;
-                                            D_80108788 = NULL;
+                                            gPlayerActor = NULL;
                                             D_80108F84 = var_s5;
                                         }
                                     }
@@ -276,7 +276,7 @@ u32 __repair_phase_temp_v1;
                                         temp_v1_13 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                         if ((func_8004D910(sp88, spE0, temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 0)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 1)) * 0xC), temp_v1_13 + ((*(u8 *)((char *)(temp_a0) + 2)) * 0xC), &spF0) & 0xFF) && (spF0 >= __repair_float_constant) && (spF0 < var_fs0)) {
                                             var_fs0 = spF0;
-                                            D_80108788 = NULL;
+                                            gPlayerActor = NULL;
                                             D_80108F84 = var_s5;
                                         }
                                     }

@@ -14,19 +14,19 @@ typedef s32 M2C_UNK32;
 
 s32 saveDataEncodeName();
 s16 func_80010958();
-s32 func_800109CC();
+s32 saveWaitCommand();
 s32 func_80010B60();
-s32 func_80011800();
+s32 saveSubmitCommand();
 s32 func_8001233C();
-extern s16 D_800BFC32;
-extern char D_800E0790[];
-extern s16 D_800E093A;
+extern s16 gSaveStatus;
+extern char gSaveSlotTable[];
+extern s16 gSaveSlot;
 extern s32 *D_800E0960;
 extern s16 *D_800E0964;
 extern s32 D_800E0978;
 extern char D_80103030[];
 extern s32 D_80103042;
-extern s32 D_801032A8;
+extern s32 gSaveCmdResult;
 extern char D_80107B68[];
 extern char D_8010840C[];
 extern char D_80108410[];
@@ -34,24 +34,24 @@ extern char D_80108416[];
 extern char D_8010A3C5[];
 extern s32 D_80115308;
 
-/* Runs the staged save/load step sequence, checking status after each step; returns the final status. */ /* Runs the staged save/load step sequence (calls 0x6, 0xA, 0x9, 0xB via func_80011800), checking func_800109CC after each step; returns the final status. */ s32 saveDataRunSteps(void) {
+/* Runs the staged save/load step sequence, checking status after each step; returns the final status. */ /* Runs the staged save/load step sequence (calls 0x6, 0xA, 0x9, 0xB via saveSubmitCommand), checking saveWaitCommand after each step; returns the final status. */ s32 saveDataRunSteps(void) {
     s32 block_offset;
 
-    D_800BFC32 = 0;
+    gSaveStatus = 0;
     saveDataEncodeName(&D_80115308, D_80103030, 0x10);
     saveDataEncodeName(&D_80103042, D_8010A3C5, 4);
-    if ((*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) == 0) || (block_offset = D_800E0978 << 5, func_80011800(6, (D_800E093A * 0x68) + D_800E0790, *(u16 *)(D_80108410 + block_offset), *(s32 *)(D_8010840C + block_offset), block_offset + D_80108416, block_offset + (D_80108416 - 4), NULL, NULL), (func_800109CC() == 0))) {
-        func_80011800(0xA, (D_800E093A * 0x68) + D_800E0790, 0x3639U, 0x4E4F3745, &D_80115308, &D_80103042, D_800E0960, &D_800E0978);
-        if (func_800109CC() == 0) {
+    if ((*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) == 0) || (block_offset = D_800E0978 << 5, saveSubmitCommand(6, (gSaveSlot * 0x68) + gSaveSlotTable, *(u16 *)(D_80108410 + block_offset), *(s32 *)(D_8010840C + block_offset), block_offset + D_80108416, block_offset + (D_80108416 - 4), NULL, NULL), (saveWaitCommand() == 0))) {
+        saveSubmitCommand(0xA, (gSaveSlot * 0x68) + gSaveSlotTable, 0x3639U, 0x4E4F3745, &D_80115308, &D_80103042, D_800E0960, &D_800E0978);
+        if (saveWaitCommand() == 0) {
             *D_800E0964 = func_80010958((s8 *) D_800E0964 + 2, (s8 *)D_800E0960 - 2);
-            func_80011800(9, (D_800E093A * 0x68) + D_800E0790, D_800E0978, 1, NULL, D_800E0960, D_800E0964, NULL);
-            if (func_800109CC() == 0) {
-                func_80011800(0xB, (D_800E093A * 0x68) + D_800E0790, 0x3639U, 0x4E4F3745, &D_80115308, &D_80103042, &D_800E0978, NULL);
-                if (func_800109CC() == 0) {
+            saveSubmitCommand(9, (gSaveSlot * 0x68) + gSaveSlotTable, D_800E0978, 1, NULL, D_800E0960, D_800E0964, NULL);
+            if (saveWaitCommand() == 0) {
+                saveSubmitCommand(0xB, (gSaveSlot * 0x68) + gSaveSlotTable, 0x3639U, 0x4E4F3745, &D_80115308, &D_80103042, &D_800E0978, NULL);
+                if (saveWaitCommand() == 0) {
                     return func_8001233C() & 0xFFFF;
                 }
             }
         }
     }
-    return func_80010B60(D_801032A8) & 0xFFFF;
+    return func_80010B60(gSaveCmdResult) & 0xFFFF;
 }

@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK D_800E097E;
 extern M2C_UNK D_800E0986;
-extern M2C_UNK D_80109DC8;
+extern M2C_UNK gSaveSlotValid;
 
 void func_800108FC(void) {
     s32 var_a1;
 
     var_a1 = 0;
     do {
-        if (((u16 *) &D_80109DC8)[(var_a1 & 0xFFFF)] != 0) {
+        if (((u16 *) &gSaveSlotValid)[(var_a1 & 0xFFFF)] != 0) {
             ((u16 *) &D_800E097E)[(var_a1 & 0xFFFF)] = ((u16 *) &D_800E0986)[(var_a1 & 0xFFFF)];
         }
         var_a1 += 1;

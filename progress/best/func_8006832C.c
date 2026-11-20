@@ -19,7 +19,7 @@ extern f32 D_800C683C;
 extern s16 D_800C6858;
 extern u16 D_800C68BA;
 extern s32 gBorderSkipFlag;
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern char gAimAxisTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
@@ -118,7 +118,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
             *(s32 *)(D_80109AA0 + temp_v0_4) = sp58[2];
         }
         if ((func_800158A4(sp48, sp58, (*(s32 *)((char *)(*temp_s4) + 0xF4)), sp68, 0, 0, (*(s32 *)((char *)(temp_s2) + 0)), 0, 0) << 0x18) == 0) {
-            if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) == 0x21) && (D_80108788 != NULL) && ((*(s16 *)((char *)(D_80108788) + 0x7A)) == 0x72)) {
+            if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) == 0x21) && (gPlayerActor != NULL) && ((*(s16 *)((char *)(gPlayerActor) + 0x7A)) == 0x72)) {
                 if (Vec3_DistanceSq(sp48, sp68) < D_800C683C) {
                     temp_a0_2 = (*(s32 *)((char *)(temp_s2) + 8));
                     if (temp_a0_2 != -1) {

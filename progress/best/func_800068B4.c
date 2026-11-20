@@ -37,7 +37,7 @@ extern u8 D_800DC738;
 extern u8 D_800DC739;
 extern s8 D_801002AC;
 extern u8 D_801002AE;
-extern M2C_UNK D_801002B8;
+extern M2C_UNK gSaveSlotCount;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
 extern u8 D_80102EDD;
@@ -97,12 +97,12 @@ block_10:
                     var_s0 = 0;
 __repair_literal = 0;
 
-                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > __repair_literal) && (D_801002AE == 0)) {
+                    if ((M2C_FIELD(&gSaveSlotCount, s32 *, 0) > __repair_literal) && (D_801002AE == 0)) {
 loop_19:
                         var_s0 += 1;
                         if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
-                            if (var_s0 < M2C_FIELD(&D_801002B8, s32 *, 0)) {
-                                if (M2C_FIELD(&D_801002B8, u8 *, -0xA) != 0) {
+                            if (var_s0 < M2C_FIELD(&gSaveSlotCount, s32 *, 0)) {
+                                if (M2C_FIELD(&gSaveSlotCount, u8 *, -0xA) != 0) {
 
                                 } else {
                                     goto loop_19;

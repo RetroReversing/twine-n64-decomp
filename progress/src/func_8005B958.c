@@ -9,7 +9,7 @@ s32 func_80087100(s32);
 s32 sprintf(char *, const char *, ...);
 extern u8 D_80100300;
 extern u8 D_801007D8;
-extern Obj5B958 *D_80108788;
+extern Obj5B958 *gPlayerActor;
 extern s32 gAimAxisTable;
 extern char D_800D4110[];
 
@@ -22,15 +22,15 @@ static inline s32 check_5B958(void) {
     Sub5B958 *sub;
     s32 m1;
 
-    if (D_80108788 == NULL) {
+    if (gPlayerActor == NULL) {
         goto out;
     }
-    sub = D_80108788->sub;
+    sub = gPlayerActor->sub;
     if (sub == NULL) {
         goto out;
     }
     m1 = -1;
-    if (D_80108788->w78 != 0x5A0000) {
+    if (gPlayerActor->w78 != 0x5A0000) {
         goto out;
     }
     v = sub->w30;
@@ -45,7 +45,7 @@ static inline s32 check_5B958(void) {
     b = func_80087100(0xFF);
     sprintf(buf, D_800D4110, a, D_80100300, b, D_801007D8, func_80087100(0xFD));
     func_80073AF8(0, gAimAxisTable, buf, m1, m1, 1, 0, 0, 3, 0, 0);
-    *(s16 *)((u8 *)D_80108788 + 0x7A) = 1;
+    *(s16 *)((u8 *)gPlayerActor + 0x7A) = 1;
     func_8000A894(0x111);
     r = 1;
 out:

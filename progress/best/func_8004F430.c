@@ -5,7 +5,7 @@ s32 Sphere_OverlapsPoint(void *, void *, void *, f32);
 s32 segmentPassesBoundsRejection(s32, f32 *, f32 *, f32);
 s32 func_80083B64(s32 *, f32 *);
 extern f32 D_800C0740;
-extern s32 D_80108788;
+extern s32 gPlayerActor;
 extern void *D_80108F84;
 typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg2;
 typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg1;
@@ -19,7 +19,7 @@ s32 func_8004F430(void *arg0, void *arg1, void *arg2, f32 arg3) {
     sp10[0]=(((__repair_record_arg1*)arg1)->field_0)+(((__repair_record_arg2*)arg2)->field_0*arg3);
     sp10[1]=(((__repair_record_arg1*)arg1)->field_4)+(((__repair_record_arg2*)arg2)->field_4*arg3);
     sp10[2]=(((__repair_record_arg1*)arg1)->field_8)+(((__repair_record_arg2*)arg2)->field_8*arg3);
-    var_fs0=D_800C0740; D_80108788=0; D_80108F84=NULL;
+    var_fs0=D_800C0740; gPlayerActor=0; D_80108F84=NULL;
     if ((Probe_BoundsContainPoint(arg1,arg0)<<24)!=0) {
       var_s0=*(void **)((char *)arg0+0x14);
       if(var_s0!=NULL) do {

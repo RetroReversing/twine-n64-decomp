@@ -22,7 +22,7 @@ extern s8 D_801032AC;
 extern s8 D_80103EB1;
 extern s8 D_80107B60;
 extern s32 D_80107E9C;
-extern s8 D_80107ECC;
+extern s8 gSharedItemBusy;
 extern s8 D_80107ECD;
 extern s8 D_80107ECE;
 extern s8 D_80107ECF;
@@ -146,7 +146,7 @@ loop_6:
     (*(u8 *)&D_80117734) = 0;
     (*(u8 *)&D_8010A2B8) = 0;
     (*(u8 *)&D_8010D2B0) = 0;
-    (*(u8 *)&D_80107ECC) = 0;
+    (*(u8 *)&gSharedItemBusy) = 0;
     (*(u8 *)&D_80109A35) = 0;
     D_80109CB4 = 0;
 }

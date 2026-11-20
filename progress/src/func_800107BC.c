@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK D_800E097E;
 extern M2C_UNK D_800E099E;
-extern M2C_UNK D_80109DC8;
+extern M2C_UNK gSaveSlotValid;
 extern M2C_UNK D_8010A3A0;
 
 void func_800107BC(s32 arg0) {
     u32 temp_a0;
 
     temp_a0 = arg0 & 0xFFFF;
-    if ((temp_a0 < 4U) && (((u16 *) &D_80109DC8)[temp_a0] != 0)) {
+    if ((temp_a0 < 4U) && (((u16 *) &gSaveSlotValid)[temp_a0] != 0)) {
         ((s16 *) &D_800E097E)[temp_a0] = 0;
         ((s16 *) &D_800E099E)[temp_a0] = 0;
         ((s16 *) &D_8010A3A0)[temp_a0] = 2;

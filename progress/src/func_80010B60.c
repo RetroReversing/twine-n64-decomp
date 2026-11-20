@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u16 D_800BFC32;
+extern u16 gSaveStatus;
 extern s16 D_800E0938;
-extern u16 D_800E093A;
+extern u16 gSaveSlot;
 
 u16 func_80010B60(u32 arg0) {
     u16 var_v0;
@@ -23,40 +23,40 @@ u16 func_80010B60(u32 arg0) {
     D_800E0938 = -1U;
     switch (arg0) {
     case 0:
-        D_800BFC32 = 0;
+        gSaveStatus = 0;
         break;
     case 7:
     case 8:
         var_v0 = 0x30;
-        D_800BFC32 = var_v0;
+        gSaveStatus = var_v0;
         break;
     case 4:
         var_v0 = 0x15;
-        D_800BFC32 = var_v0;
+        gSaveStatus = var_v0;
         break;
     case 11:
         var_v0_2 = 0x62;
-        D_800BFC32 = var_v0_2;
-        D_800E0938 = D_800E093A;
+        gSaveStatus = var_v0_2;
+        D_800E0938 = gSaveSlot;
         break;
     case 1:
         var_v0 = 0x10;
-        D_800BFC32 = var_v0;
+        gSaveStatus = var_v0;
         break;
     case 2:
         var_v0 = 0x12;
-        D_800BFC32 = var_v0;
+        gSaveStatus = var_v0;
         break;
     case 3:
     case 6:
     case 10:
-        D_800BFC32 = (0x20);
-        D_800E0938 = D_800E093A;
+        gSaveStatus = (0x20);
+        D_800E0938 = gSaveSlot;
         break;
     default:
         var_v0 = 0x11;
-        D_800BFC32 = var_v0;
+        gSaveStatus = var_v0;
         break;
     }
-    return D_800BFC32;
+    return gSaveStatus;
 }

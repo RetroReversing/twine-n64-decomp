@@ -12,33 +12,33 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800109CC();
-s32 func_80011800();
+s32 saveWaitCommand();
+s32 saveSubmitCommand();
 s32 func_80012F50();
-extern u16 D_800BFC32;
-extern char D_800E0790[];
+extern u16 gSaveStatus;
+extern char gSaveSlotTable[];
 extern s16 D_800E0938;
-extern s16 D_800E093A;
-extern s32 D_801032A8;
+extern s16 gSaveSlot;
+extern s32 gSaveCmdResult;
 
 u16 func_800127D8(void) {
-    D_800E093A = 0;
+    gSaveSlot = 0;
     switch (func_80012F50() & 0xFFFF) {
     case 0x62:
-        D_800BFC32 = 0x25;
+        gSaveStatus = 0x25;
         break;
     case 0x20:
-        func_80011800(8, (D_800E0938 * 0x68) + D_800E0790, 0, 0, 0, 0, 0, 0);
-        func_800109CC();
-        if (D_801032A8 == 0xA) {
-            D_800BFC32 = 0x21;
+        saveSubmitCommand(8, (D_800E0938 * 0x68) + gSaveSlotTable, 0, 0, 0, 0, 0, 0);
+        saveWaitCommand();
+        if (gSaveCmdResult == 0xA) {
+            gSaveStatus = 0x21;
             return 0x21;
         }
         if ((func_80012F50() & 0xFFFF) == 0x12) {
-            D_800BFC32 = 0x22;
+            gSaveStatus = 0x22;
             return 0x22;
         }
         break;
     }
-    return D_800BFC32;
+    return gSaveStatus;
 }

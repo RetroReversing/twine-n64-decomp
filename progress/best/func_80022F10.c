@@ -8,7 +8,7 @@ extern s32 D_800BD650;
 extern s32 D_800BD65C;
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern void *D_80109BB0;
 
 void func_80022F10(void *arg0, s32 arg1) {
@@ -38,7 +38,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                 (*(s32 *)((char *)(temp_a0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0) + 0x28)) & ~0xFC) | (((-((temp_t0 & 0xFF) == 0) & 7) | 1) * 4));
                 (*(u16 *)((char *)((*(void **)((char *)(temp_a2) + 0))) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 4));
                 (*(u16 *)((char *)((*(void **)((char *)(temp_a2) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
-                if (D_801002A1 != 0) {
+                if (gSaveKeyRelaxed != 0) {
                     temp_v1 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1) {              /* switch 1; irregular */
                     case 0xFF:                      /* switch 1 */
@@ -79,7 +79,7 @@ void func_80022F10(void *arg0, s32 arg1) {
             temp_a0_2 = (*(void **)((char *)(temp_a2) + 4));
             if (temp_a0_2 != NULL) {
                 (*(s32 *)((char *)(temp_a0_2) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a0_2) + 0x28)) & ~0xFC) | (((-((temp_t0 & 0xFF) == 0) & 7) | 1) * 4));
-                if (D_801002A1 != 0) {
+                if (gSaveKeyRelaxed != 0) {
                     temp_v1_2 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1_2) {            /* switch 2; irregular */
                     case 0x0:                       /* switch 2 */

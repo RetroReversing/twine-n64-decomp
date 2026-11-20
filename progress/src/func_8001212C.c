@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80010A2C();
 s32 func_80012C70();
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s16 D_800E09B2;
 extern u16 D_80103022;
 extern u16 D_80109BA4;
@@ -28,10 +28,10 @@ u16 func_8001212C(void) {
     char *var_v1;
     u16 temp_v0;
 
-    D_800BFC32 = 0;
+    gSaveStatus = 0;
     if (D_800E09B2 == 0) {
         if (D_80117384 == 0) {
-            D_800BFC32 = 0x41;
+            gSaveStatus = 0x41;
             return 0x41U;
         }
         func_80012C70();
@@ -49,26 +49,26 @@ u16 func_8001212C(void) {
         goto block_10;
     }
 block_9:
-    D_800BFC32 = 0x40;
+    gSaveStatus = 0x40;
     return 0x40U;
 block_10:
         {
-            if ((D_800BFC32 == 0x30) && (D_80109DD0 == 1)) {
-                D_800BFC32 = 0;
+            if ((gSaveStatus == 0x30) && (D_80109DD0 == 1)) {
+                gSaveStatus = 0;
             }
-            if (D_800BFC32 != 0) {
-                return D_800BFC32 & 0xFFFF;
+            if (gSaveStatus != 0) {
+                return gSaveStatus & 0xFFFF;
             }
             if (D_80109BA4 == 1) {
                 if ((func_80010A2C(var_a0, var_a1) & 0xFFFF) && (D_80109DD0 == 0)) {
-                    D_800BFC32 = 0x30;
+                    gSaveStatus = 0x30;
                     return 0x30U;
                 }
                 goto block_20;
             }
-            D_800BFC32 = 0xF;
+            gSaveStatus = 0xF;
 block_20:
-            return (u16) D_800BFC32;
+            return (u16) gSaveStatus;
         }
 }
 

@@ -29,7 +29,7 @@ extern u8 gActorFlagTable[];
 extern s32 D_80109B98;
 extern s32 D_8010A500;
 extern char D_8010D380[];
-extern char D_8010D2C0[];
+extern char D_8010D380[];
 
 void func_800740D0(void *arg0) {
     s16 *__base_D_800C7EA0;
@@ -191,7 +191,7 @@ do {
         temp_a1_3 = temp_a1_2 * 4;
         if (temp_a1_2 != 0) {
             temp_v0_7 = M2C_FIELD(temp_s1, u8 *, 0x33) * 0x1C;
-            __base_D_8010D2C0 = D_8010D2C0;
+            __base_D_8010D2C0 = D_8010D380;
             if (*(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D380)) == *(s32 *)(temp_a1_3 + (temp_v0_7 + __base_D_8010D2C0))) {
                 temp_a0_6 = *(s32 *)(D_800E1A70 + temp_a1_3);
                 if (temp_a0_6 != NULL) {

@@ -14,19 +14,19 @@ s32 func_8002B8AC();
 s32 func_8002B930();
 s32 func_8002B9CC();
 s32 func_8002BA6C();
-s32 func_8002BC28();
+s32 getKeyEntryFlag();
 s32 func_80044D28();
-extern void *D_800B5B14;
-extern u16 D_800BD680;
-extern s16 D_800BD682;
+extern void *gPickupActor;
+extern u16 gSharedItemId;
+extern s16 gSharedItemArg;
 extern u8 D_800BF688[];
 extern char D_800C3CF8[];
-extern char D_8010019C[];
+extern char gSaveSlotInfo[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A3;
 extern Slot_801001A3 D_801001A3[];
 extern u8 D_801002AD;
-extern s32 D_801002B8;
-extern s8 D_80107ECC;
+extern s32 gSaveSlotCount;
+extern s8 gSharedItemBusy;
 extern void *D_80109BB0;
 
 extern char D_800D2864[];
@@ -59,19 +59,19 @@ void func_80019F7C(void) {
             var_s1 = func_8002B930(var_s1, 1);
         }
         *(*(s32 **)((char *)(temp_s0) + 0x10)) = var_s1;
-        __base_D_800B5B14 = &D_800B5B14;
+        __base_D_800B5B14 = &gPickupActor;
         if ((*__base_D_800B5B14) != NULL) {
             func_8002B8AC();
             temp_v1 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
-            D_800BD682 = -1;
-            D_80107ECC = 1;
-            D_800BD680 = temp_v1;
-            func_80044D28(&D_800BD680);
-            D_80107ECC = 0;
+            gSharedItemArg = -1;
+            gSharedItemBusy = 1;
+            gSharedItemId = temp_v1;
+            func_80044D28(&gSharedItemId);
+            gSharedItemBusy = 0;
             func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
             func_80002BD0((*__base_D_800B5B14), 0x14D);
             (*(f32 *)((char *)((*(void **)((char *)((*__base_D_800B5B14)) + 0x68))) + 0x34)) = 0.05f;
-            if (func_8002BC28(*(s32 *)(D_8010019C + (D_801002AD * 0x18))) & 0xFF) {
+            if (getKeyEntryFlag(*(s32 *)(gSaveSlotInfo + (D_801002AD * 0x18))) & 0xFF) {
                 func_80002D30((*__base_D_800B5B14), 0x327);
             } else {
                 func_80002D30((*__base_D_800B5B14), 0x2A9);
@@ -101,11 +101,11 @@ block_11:
             if ((*__base_D_800B5B14) != NULL) {
                 func_8002B8AC();
                 temp_v1_3 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
-                D_800BD682 = -1;
-                D_80107ECC = 1;
-                D_800BD680 = temp_v1_3;
-                func_80044D28(&D_800BD680);
-                D_80107ECC = 0;
+                gSharedItemArg = -1;
+                gSharedItemBusy = 1;
+                gSharedItemId = temp_v1_3;
+                func_80044D28(&gSharedItemId);
+                gSharedItemBusy = 0;
                 func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
                 func_80002BD0((*__base_D_800B5B14), 0x14D);
                 (*(f32 *)((char *)((*(void **)((char *)((*__base_D_800B5B14)) + 0x68))) + 0x34)) = 0.05f;
@@ -119,9 +119,9 @@ block_21:
             if (temp_s4 != NULL) {
                 func_80019E28(temp_s4);
             }
-            if (D_801002AD > D_801002B8) {
+            if (D_801002AD > gSaveSlotCount) {
                 temp_s4 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4004);
-formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(D_8010019C + (D_801002AD * 0x18)) * 0xC)) * 5);
+formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(gSaveSlotInfo + (D_801002AD * 0x18)) * 0xC)) * 5);
             }
         }
     }

@@ -1,5 +1,5 @@
-extern s32 D_801002B8[];
-extern s32 D_801002BC;
+extern s32 gSaveSlotCount[];
+extern s32 gSaveExtraSlotCount;
 typedef struct { u8 id; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
 
@@ -8,7 +8,7 @@ s32 func_80019A3C(void) {
     s32 id, idx, zero, found, firstPresent, count, key;
     long firstCount;
     id = 0;
-    first = D_801002B8;
+    first = gSaveSlotCount;
     base = first + 1;
     firstCount = *first;
     firstPresent = (s16)(zero < firstCount);
@@ -18,7 +18,7 @@ outer:
     idx = 0;
     if (firstPresent) {
         key = (u16)id;
-        count = D_801002B8[0];
+        count = gSaveSlotCount[0];
 first_loop:
         if (D_801001A1[(u16)idx].id != key) {
             idx++;
@@ -33,7 +33,7 @@ second_scan:
     idx = 0;
     if (zero < *base) {
         key = (u16)id;
-        count = (u32)D_801002BC;
+        count = (u32)gSaveExtraSlotCount;
 second_loop:
         if (D_801001A1[(u16)(idx++) + 4].id == key) goto set_found;
         if ((u16)idx < count) {

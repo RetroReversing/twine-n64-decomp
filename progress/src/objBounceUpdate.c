@@ -37,7 +37,7 @@ typedef struct {
 s32 func_80000A30(s32, s32);
 s32 func_80045DB4(void *, f32, f32);
 s8 func_8005E4C8(void *);
-s32 func_8005E900(void *);
+s32 objUpdateGroundContact(void *);
 s32 func_800850E0(void *);
 extern u8 gSceneType;
 extern u8 D_801002A3;
@@ -68,14 +68,14 @@ void objBounceUpdate(ObjEBF4 *obj) {
         obj->posZ += sub->velZ;
         sub->velX *= 0.75f;
         sub->velZ *= 0.75f;
-        func_8005E900(obj);
+        objUpdateGroundContact(obj);
         break;
     case 2:
         if (sub->soundPending == 0 && (obj->flags & 0x01000000)) {
             obj->flags &= ~0x01000000;
             sub->velY -= 0.32666668f;
             obj->posY += sub->velY * 0.033333335f;
-            func_8005E900(obj);
+            objUpdateGroundContact(obj);
         }
         break;
     }

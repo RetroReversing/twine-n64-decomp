@@ -26,7 +26,7 @@ s16 strlen(s8 *);                                   /* extern */
 extern u8 D_800BD68E;
 extern u8 D_80100198[];
 extern u8 D_801002AD;
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 extern u8 D_80102EB8;
 extern M2C_UNK gBorderSkipFlag;
 extern u8 D_80102EDD;
@@ -102,7 +102,7 @@ void func_80021CA0(void) {
         if ((D_80102EDD == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
             D_80102EB8 = func_8002D13C(0xA3);
             if (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0) {
-                D_80102EB8 = (u8) D_801002B8;
+                D_80102EB8 = (u8) gSaveSlotCount;
             }
             if (D_80102EB8 == 0) {
                 D_80102EB8 = 1;

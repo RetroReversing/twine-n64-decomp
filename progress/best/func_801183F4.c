@@ -3,7 +3,7 @@ extern f32 func_80045E34(void *, void *);
 extern s32 func_8007A9CC(void *, s32, s32 *, f32);
 extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 extern s32 func_801182B0(void *, void *);
-extern u32 D_8010019C[];
+extern u32 gSaveSlotInfo[];
 extern s8 D_801001A1[];
 extern u8 gSceneType;
 extern s32 D_801002B4;
@@ -34,11 +34,11 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
 
     sub = (ObjSub *)arg0->field6c;
     idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
-    row = D_8010019C[idx * 6];
+    row = gSaveSlotInfo[idx * 6];
     kind = D_800BF688[row * 6] & 3;
     flags = D_8011ECB0[kind];
     idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
-    row = D_8010019C[idx * 6];
+    row = gSaveSlotInfo[idx * 6];
     n = ((u8 *)D_800BF688)[row * 12 + 3];
     best = 0; fallback = 0; selected = 0; best1=0x270f;
     if (n & 2) {

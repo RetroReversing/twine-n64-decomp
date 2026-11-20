@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 extern s32 sActiveMenu;
 extern void *D_80109BB0;
 
 void func_80022D60(void) {
     updateActiveMenuState();
     if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) && (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0)) {
-        D_800BFC32 = (s16) M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14);
+        gSaveStatus = (s16) M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s32 *, 0x14);
         func_80026424(sActiveMenu, 0x18);
     }
 }

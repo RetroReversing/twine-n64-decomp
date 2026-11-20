@@ -17,7 +17,7 @@ s32 func_8011B3D8();
 s32 func_8011C338();
 s32 func_8011D0B4();
 extern s8 gSceneType;
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern u8 D_801002D5;
 extern char D_8011F100[];
 
@@ -65,7 +65,7 @@ block_17:
                 temp_v1_2 = M2C_FIELD(temp_s0, void **, 0xB4);
                 M2C_FIELD(temp_v1_2, u16 *, 0xE) += 1;
             } else if (temp_s1 != 0) {
-                if (D_801002A1 != 0) {
+                if (gSaveKeyRelaxed != 0) {
                     temp_a0 = M2C_FIELD(temp_s1, void **, 0xB4);
                     if (M2C_FIELD(temp_a0, u8 *, 0x12) == M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xB4), u8 *, 0x12)) {
                         if (D_801002D5 != 0) {

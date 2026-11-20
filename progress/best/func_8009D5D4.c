@@ -66,20 +66,21 @@ u32 __repair_result_var_s1;
     var_v1 = __repair_phase_temp_v1_3 - (*(s32 *)((char *)(arg0) + 0x11D4));
     var_a0 = ((__repair_field_19C *)arg0)->value - 0xA0;
     if ((var_v1 < var_a0) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_v0_3 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_v0_3 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_v0_3 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (0 < var_s3)) {
-        do {
+        __repair_rows: {
             func_8009DF60(arg0, (*(s32 *)((char *)(arg0) + 0x198)) + (((u32) (__repair_phase_temp_v1_3 % ((__repair_field_19C *)arg0)->value) >> 2) * 8));
             temp_t1 = (*(u16 *)((char *)(arg0) + 0x11A0)) - 1;
-            (*(u32 *)((char *)(arg0) + 0x11D8)) = (u32) ((*(u32 *)((char *)(arg0) + 0x11D8)) + 0xA0);
             (*(s32 *)((char *)(arg0) + 0x11CC)) = (s32) (((u32) (*(u32 *)((char *)(arg0) + 0x11C8)) >> 3) & ~3);
+            (*(u32 *)((char *)(arg0) + 0x11D8)) = (u32) ((*(u32 *)((char *)(arg0) + 0x11D8)) + 0xA0);
             (*(u16 *)((char *)(arg0) + 0x11A0)) = __repair_store_halfword(temp_t1);
             if (!(temp_t1 & 0xFFFF)) {
                 (*(u32 *)((char *)(arg0) + 0x11A8)) = (u32) ((__repair_field_19C *)arg0)->value;
             }
             var_s3 -= 1;
             var_s1 = (*(u32 *)((char *)(arg0) + 0x11D8));
-            var_v1 = var_s1 - (*(s32 *)((char *)(arg0) + 0x11D4));
+            var_v1 = (unsigned)var_s1 - (*(s32 *)((char *)(arg0) + 0x11D4));
             var_a0 = ((__repair_field_19C *)arg0)->value - 0xA0;
-        } while ((var_a0 > var_v1) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_v0_4 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_v0_4 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_v0_4 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (var_s3 > 0));
+        }
+if ((var_a0 > var_v1) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_v0_4 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_v0_4 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_v0_4 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (var_s3 > 0)) goto __repair_rows;
     }
     temp_v0_5 = (*(s8 *)((char *)(arg0) + 0x11DD));
     if (((temp_v0_5 == 3) || (((*(s8 *)((char *)(arg0) + 0x11DD))) == 4)) && ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) <= 0) && (var_a0 > var_v1) && (var_s3 > 0)) {

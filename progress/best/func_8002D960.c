@@ -24,13 +24,13 @@ M2C_UNK func_80081BC4(u32, u8);                     /* extern */
 extern u16 D_800E1112;
 extern M2C_UNK D_800E1310;
 extern u8 D_80100198;
-extern M2C_UNK D_8010019C;
+extern M2C_UNK gSaveSlotInfo;
 extern u8 D_801001A0;
 extern u8 D_801001A1;
 extern u8 D_801001A2;
 extern u8 D_801001A4;
 extern u8 gSceneType;
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern u8 D_801002A2;
 extern u8 D_801002A4;
 extern s32 D_801002A8;
@@ -115,7 +115,7 @@ void func_8002D960(void) {
                 temp_s0_2 = temp_s1 * 0x18;
                 *(&D_80100198 + temp_s0_2) = value;
             }
-            *(s32 *)((u8 *)&D_8010019C + temp_s0_2) = func_8002E98C(&D_800E1310, 4, 0x10);
+            *(s32 *)((u8 *)&gSaveSlotInfo + temp_s0_2) = func_8002E98C(&D_800E1310, 4, 0x10);
             *(&D_801001A0 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 8);
             *(&D_801001A1 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 1);
             {
@@ -139,7 +139,7 @@ loop_3:
         {
             u8 *mode = &gSceneType;
             *mode = func_8002E98C(&D_800E1310, 1, 4);
-            D_801002A1 = func_8002E98C(&D_800E1310, 1, 1);
+            gSaveKeyRelaxed = func_8002E98C(&D_800E1310, 1, 1);
             D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
             D_801002A4 = func_8002E98C(&D_800E1310, 1, 8);
             gPauseFlag = func_8002E98C(&D_800E1310, 1, 4);

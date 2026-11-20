@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
 u8 func_8002D13C(M2C_UNK);                          /* extern */
 extern s32 D_801002B4;
-extern s32 D_801002B8;
-extern s32 D_801002BC;
+extern s32 gSaveSlotCount;
+extern s32 gSaveExtraSlotCount;
 extern s32 gBorderMode;
 extern u8 D_80102EB8;
 
@@ -39,36 +39,36 @@ void func_80018C5C(void *arg0, void *arg1) {
             var_v0 = 0x10001;
         }
         {
-        s32 *minimum = &D_801002B8;
+        s32 *minimum = &gSaveSlotCount;
         M2C_FIELD(arg0, s32 *, 0x14) = var_v0;
         if (((s32) D_80102EB8 < *minimum) && (D_80102EB8 != 0)) {
             *minimum = (s32) D_80102EB8;
         }
         }
-        if ((D_801002B8 == 1) && (D_801002BC == 0)) {
-            D_801002BC = D_801002B8;
+        if ((gSaveSlotCount == 1) && (gSaveExtraSlotCount == 0)) {
+            gSaveExtraSlotCount = gSaveSlotCount;
         }
-        temp_v0_2 = D_801002B8 + D_801002BC;
+        temp_v0_2 = gSaveSlotCount + gSaveExtraSlotCount;
         __base_D_801002B4 = &D_801002B4;
         (*__base_D_801002B4) = temp_v0_2;
         if (temp_v0_2 >= 5) {
-            D_801002BC = 4 - D_801002B8;
+            gSaveExtraSlotCount = 4 - gSaveSlotCount;
             (*__base_D_801002B4) = 4;
         }
-        gBorderMode = D_801002B8;
-        if (D_801002B8 == 0) {
+        gBorderMode = gSaveSlotCount;
+        if (gSaveSlotCount == 0) {
             gBorderMode = (*__base_D_801002B4);
         }
         if (gBorderMode >= 5) {
             gBorderMode = 4;
         }
-        if (D_801002B8 == 1) {
+        if (gSaveSlotCount == 1) {
             M2C_FIELD(arg1, s32 *, 0x14) = 0x10003;
         } else {
-            M2C_FIELD(arg1, s32 *, 0x14) = 4 - D_801002B8;
+            M2C_FIELD(arg1, s32 *, 0x14) = 4 - gSaveSlotCount;
         }
         temp_s0 = D_800D2858;
-        formatTextEntry(arg0 + 0x28, temp_s0, D_801002B8);
-        formatTextEntry(arg1 + 0x28, temp_s0, D_801002BC);
+        formatTextEntry(arg0 + 0x28, temp_s0, gSaveSlotCount);
+        formatTextEntry(arg1 + 0x28, temp_s0, gSaveExtraSlotCount);
     }
 }

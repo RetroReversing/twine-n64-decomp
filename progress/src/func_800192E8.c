@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80019690();                            /* extern */
 s32 func_80019D68();                                /* extern */
 M2C_UNK func_800294E4(void *);                      /* extern */
-extern u8 D_801002A1;
+extern u8 gSaveKeyRelaxed;
 extern void *D_80109BB0;
 
 void func_800192E8(void) {
@@ -27,7 +27,7 @@ void func_800192E8(void) {
     M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
     M2C_FIELD(D_80109BB0, s8 *, 0x2F) = 1;
     M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 1;
-    if (D_801002A1 != 0) {
+    if (gSaveKeyRelaxed != 0) {
         var_a0 = M2C_FIELD(D_80109BB0, void **, 0x18);
         var_v0 = (M2C_FIELD(var_a0, s32 *, 0x14) & ~0xFF) | 0x17;
         goto block_5;

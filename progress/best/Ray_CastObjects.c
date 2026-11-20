@@ -38,7 +38,7 @@ u16 func_8004E418(void *, void *, void *);            /* extern */
 void func_80082D24(void *, void *);            /* extern */
 void func_80083A6C(void *, void *);            /* extern */
 void func_80083B64(void *, void *);                /* extern */
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern void **D_80108F84;
 
 s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, f32 *arg2, f32 *arg3, void *arg4, f32 arg5, RayPlane *arg6, u8 arg7, void *arg8) {
@@ -152,7 +152,7 @@ s32 __repair_phase_var_a2;
     end.z = M2C_FIELD(spF4, f32 *, 8) + (M2C_FIELD(spFC, f32 *, 8) * var_fs1);
     sp10C = var_s7;
     sp114 = M2C_FIELD(M2C_FIELD(var_s7, void **, 0x20), void **, 0x58);
-    D_80108788 = NULL;
+    gPlayerActor = NULL;
     D_80108F84 = NULL;
     if (var_s7 != NULL) {
         sp11C = &nearest;
@@ -262,7 +262,7 @@ s32 __repair_phase_var_a2;
                                             var_v0_2 = (u16) M2C_FIELD(temp_v1_8, u8 *, 2);
                                         
                                         func_800458C0(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (__repair_phase_var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));}
-                                        D_80108788 = var_s3;
+                                        gPlayerActor = var_s3;
                                         D_80108F84 = NULL;
                                         if (arg6 != NULL) {
                                             *arg6 = work.plane.plane;
@@ -356,7 +356,7 @@ s32 __repair_phase_var_a2;
                                             } while ((u16) ++var_s0_3 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
                                         }
                                         if (var_s4_3 != -1) {
-                                            D_80108788 = NULL;
+                                            gPlayerActor = NULL;
                                             D_80108F84 = var_s7;
                                             if (arg6 != NULL) {
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
@@ -397,7 +397,7 @@ s32 __repair_phase_var_a2;
                                             } while ((u16) ++var_s0_4 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
                                         }
                                         if (var_s4_3 != -1) {
-                                            D_80108788 = NULL;
+                                            gPlayerActor = NULL;
                                             D_80108F84 = var_s7;
                                             if (arg6 != NULL) {
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {

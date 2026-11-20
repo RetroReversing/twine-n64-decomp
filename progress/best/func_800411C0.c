@@ -38,7 +38,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     s8 sp34;
     long sp38;
     s32 sp3C;
-    s32 sp40;
+    unsigned sp40;
     s32 sp44;
     s32 sp48;
     s32 sp4C;
@@ -54,9 +54,9 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     register s32 *temp_v1_8;
     s32 temp_a1_3;
     s32 temp_a1_4;
-    s32 temp_a2;
+    register s32 temp_a2;
     s32 temp_a2_2;
-    s32 temp_a2_3;
+    register s32 temp_a2_3;
     s32 temp_a3_2;
     s32 temp_s1;
     s32 temp_s1_2;
@@ -78,7 +78,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     u16 temp_v1_4;
     u32 temp_v1;
     u8 temp_v0_15;
-    u8 temp_v0_3;
+    register u8 temp_v0_3;
     u8 temp_v0_4;
     u8 var_v0;
     u8 var_v0_2;
@@ -223,8 +223,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
             temp_a3 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
             if ((*(u8 *)((char *)(temp_a3) + 0x45)) == 0) {
                 func_8003FDE0((*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0x18)), &sp38, &sp3C, &sp40);
-                (*(u16 *)((char *)(temp_s4) + 0x40)) = (u16) sp3C;
                 (*(u16 *)((char *)(temp_s4) + 0x42)) = (u16) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4));
+                (*(u16 *)((char *)(temp_s4) + 0x40)) = (u16) sp3C;
                 (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = 1;
                 ((__repair_field_34 *)temp_s4)->value = func_80083E90((*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)) * 0xC, 2);
                 if ((u32) (sp40 - 1) < 2U) {
@@ -247,7 +247,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                     var_s0 = 0;
                     do {
                         func_800452AC(&D_800E19E0, (*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0)) + var_s0, ((__repair_field_34 *)temp_s4)->value + var_s0);
-                        ++var_s1;
+                        var_s1++;
                         var_s0 += 0xC;
                     } while (var_s1 < (s32) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)));
                 }
@@ -434,7 +434,7 @@ block_37:
                     var_s0_3 = 0;
                     do {
                         func_80045290((*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0)) + var_s0_3, ((__repair_field_34 *)temp_s4_2)->value + var_s0_3);
-                        var_s1_2 += 1;
+                        ++var_s1_2;
                         var_s0_3 += 0xC;
                     } while (var_s1_2 < (s32) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)));
                 }
@@ -449,7 +449,7 @@ block_37:
                 temp_v1_6 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
                 (*(u8 *)((char *)(temp_v1_6) + 0x48)) |= 0x10;
             }
-            (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = (s8) (int)sp30;
+            (*(s8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x45)) = (s8) sp30;
             if ((*(u8 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x46)) & 0x80) {
                 temp_v0_17 = *(s32 *)(D_800C0784 + (*(*(s16 **)((char *)(arg1) + 0x28)) * 0x10));
                 if (temp_v0_17 != NULL) {

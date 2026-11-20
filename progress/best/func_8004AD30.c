@@ -14,7 +14,7 @@ s32 func_800839F0(s32 *, f32 *, f32 *);     /* extern */
 s32 func_80083A6C(f32 *, f32 *);                /* extern */
 s32 func_80083B64(f32 *, s16 *);                /* extern */
 extern s32 D_800D3E18;
-extern void *D_80108788;
+extern void *gPlayerActor;
 extern void **D_80108F84;
 
 s32 func_8004AD30(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7) {
@@ -122,7 +122,7 @@ s32 func_8004AD30(void **arg0, void *arg1, void *arg2, f32 arg3, void *arg4, voi
     sp12C = arg0;
     sp134 = arg1;
     sp13C = arg2;
-    D_80108788 = NULL;
+    gPlayerActor = NULL;
     D_80108F84 = NULL;
     var_fs0 = arg3;
     if (sp12C != NULL) {
@@ -247,7 +247,7 @@ block_17:
                                             }
                                         }
                                         if (var_s7 != -1) {
-                                            D_80108788 = var_s1;
+                                            gPlayerActor = var_s1;
                                             D_80108F84 = NULL;
                                             sp18[1] = sp38[1] - var_fs0;
                                         }
@@ -342,7 +342,7 @@ block_17:
                                         } while ((u32) (var_s0_4 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s1) + 0x40)));
                                     }
                                     if (var_s5 != -1) {
-                                        D_80108788 = NULL;
+                                        gPlayerActor = NULL;
                                         D_80108F84 = var_s6;
                                     }
                                 }
@@ -391,7 +391,7 @@ block_17:
                                     }
                                 }
                                 if (var_s5 != -1) {
-                                    D_80108788 = NULL;
+                                    gPlayerActor = NULL;
                                     D_80108F84 = var_s6;
                                 }
                             }
@@ -413,7 +413,7 @@ block_17:
                     }
                     if (var_v0 & var_v1) {
                         var_fs0 = temp_fv1;
-                        D_80108788 = NULL;
+                        gPlayerActor = NULL;
                         D_80108F84 = NULL;
                     }
                 }
@@ -431,7 +431,7 @@ block_17:
             (*(f32 *)((char *)(sp13C) + 8)) = sp28[2];
             goto block_133;
         }
-        if (D_80108788 == NULL) {
+        if (gPlayerActor == NULL) {
             if (arg4 != NULL) {
                 (*(f32 *)((char *)(arg4) + 0)) = 0.0f;
                 (*(f32 *)((char *)(arg4) + 4)) = 0.0f;
@@ -449,10 +449,10 @@ block_133:
             /* Duplicate return node #134. Try simplifying control flow for better match */
             goto __shared_return_1;
         }
-        spA8[0] = (*(f32 *)((char *)(D_80108788) + 0x3C)) - (*(f32 *)((char *)(D_80108788) + 0x48));
-        spA8[1] = (*(f32 *)((char *)(D_80108788) + 0x40)) - (*(f32 *)((char *)(D_80108788) + 0x4C));
-        spA8[2] = (*(f32 *)((char *)(D_80108788) + 0x44)) - (*(f32 *)((char *)(D_80108788) + 0x50));
-        (*(s32 *)((char *)(D_80108788) + 0x60)) = (s32) ((*(s32 *)((char *)(D_80108788) + 0x60)) | arg6);
+        spA8[0] = (*(f32 *)((char *)(gPlayerActor) + 0x3C)) - (*(f32 *)((char *)(gPlayerActor) + 0x48));
+        spA8[1] = (*(f32 *)((char *)(gPlayerActor) + 0x40)) - (*(f32 *)((char *)(gPlayerActor) + 0x4C));
+        spA8[2] = (*(f32 *)((char *)(gPlayerActor) + 0x44)) - (*(f32 *)((char *)(gPlayerActor) + 0x50));
+        (*(s32 *)((char *)(gPlayerActor) + 0x60)) = (s32) ((*(s32 *)((char *)(gPlayerActor) + 0x60)) | arg6);
         (*(f32 *)((char *)(sp13C) + 0)) = (f32) (*(f32 *)((char *)(sp134) + 0));
         (*(f32 *)((char *)(sp13C) + 4)) = (f32) ((*(f32 *)((char *)(sp134) + 4)) - var_fs0);
         (*(f32 *)((char *)(sp13C) + 8)) = (f32) (*(f32 *)((char *)(sp134) + 8));
@@ -460,21 +460,21 @@ block_133:
             spB8[0] = sp18[0];
             spB8[1] = sp18[1];
             spB8[2] = sp18[2];
-            sp68[0] = (s16) (s32) (*(f32 *)((char *)(D_80108788) + 0x3C));
-            sp68[1] = (s16) (s32) (*(f32 *)((char *)(D_80108788) + 0x40));
-            sp68[2] = (s16) (s32) (*(f32 *)((char *)(D_80108788) + 0x44));
+            sp68[0] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x3C));
+            sp68[1] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x40));
+            sp68[2] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x44));
             func_80082FE4(sp68, &spE8);
             func_800839F0(&spE8, spB8, spC8);
-            sp68[0] = (s16) (s32) ((*(f32 *)((char *)(D_80108788) + 0x3C)) + spA8[0]);
-            sp68[1] = (s16) (s32) ((*(f32 *)((char *)(D_80108788) + 0x40)) + spA8[1]);
-            sp68[2] = (s16) (s32) ((*(f32 *)((char *)(D_80108788) + 0x44)) + spA8[2]);
+            sp68[0] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x3C)) + spA8[0]);
+            sp68[1] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x40)) + spA8[1]);
+            sp68[2] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x44)) + spA8[2]);
             func_80082FE4(sp68, &spE8);
             func_800839F0(&spE8, spB8, sp58);
-            temp_ft1 = (*(f32 *)((char *)(D_80108788) + 0x24)) - (*(f32 *)((char *)(D_80108788) + 0x30));
+            temp_ft1 = (*(f32 *)((char *)(gPlayerActor) + 0x24)) - (*(f32 *)((char *)(gPlayerActor) + 0x30));
             sp70[0] = temp_ft1;
-            temp_fv0 = (*(f32 *)((char *)(D_80108788) + 0x28)) - (*(f32 *)((char *)(D_80108788) + 0x34));
+            temp_fv0 = (*(f32 *)((char *)(gPlayerActor) + 0x28)) - (*(f32 *)((char *)(gPlayerActor) + 0x34));
             sp70[1] = temp_fv0;
-            sp70[2] = (*(f32 *)((char *)(D_80108788) + 0x2C)) - (*(f32 *)((char *)(D_80108788) + 0x38));
+            sp70[2] = (*(f32 *)((char *)(gPlayerActor) + 0x2C)) - (*(f32 *)((char *)(gPlayerActor) + 0x38));
             (*(f32 *)((char *)(arg4) + 0)) = (f32) (temp_ft1 + (sp58[0] - spC8[0]));
             (*(f32 *)((char *)(arg4) + 4)) = (f32) (temp_fv0 + (sp58[1] - spC8[1]));
             (*(f32 *)((char *)(arg4) + 8)) = (f32) (sp70[2] + (sp58[2] - spD0[0]));

@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s16 D_800BFC32;
+extern s16 gSaveStatus;
 
 s16 func_8002D218(void) {
-    return D_800BFC32;
+    return gSaveStatus;
 }

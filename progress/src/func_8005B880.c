@@ -1,9 +1,9 @@
 s32 func_8005B5A8();
-extern s32 D_800C4420,D_800C4424; extern void *D_80108788;
+extern s32 D_800C4420,D_800C4424; extern void *gPlayerActor;
 void func_8005B880(u32 arg0, void *arg1,s32 *arg2,s32 *arg3) {
  char *var_a2; char *var_a3; s32 var_t0,var_t1=0,var_v0; s32 temp_v1; u32 var_a0=arg0; void *var_a1=arg1;
- if(D_80108788==0) goto fallback;
- var_a1=D_80108788;
+ if(gPlayerActor==0) goto fallback;
+ var_a1=gPlayerActor;
  temp_v1=*(u16 *)((char *)var_a1+0x78);
  if(temp_v1>=0x13) goto fallback;
  if(temp_v1<0x11) goto fallback;

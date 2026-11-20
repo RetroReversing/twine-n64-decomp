@@ -43,14 +43,13 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_ft0;
-    long temp_s0_2;
+    s32 temp_s0_2;
 
     s = arg0; d = sp58.w;
-    __repair_rows: {
+    do {
         d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
         s += 4; d += 4;
-    }
-if (s != arg0 + 8) goto __repair_rows;
+    } while (s != arg0 + 8);
     d[0] = s[0];
     s = arg1; d = sp80.w;
     do {
@@ -110,8 +109,8 @@ if (s != arg0 + 8) goto __repair_rows;
             *(s16 *) ((u8 *) temp_v0_2 + 0x42) = 3;
             *(s32 *) ((u8 *) temp_v0_2 + 0x34) = 0;
             *(s16 *) ((u8 *) temp_v0_2 + 0x40) = 1;
-            temp_v0_2 = (u8 *) temp_v0_3 + 0xC;
             temp_v0_3 = func_80083E90(0x3C, 0x2D, dst, src);
+            temp_v0_2 = (u8 *) temp_v0_3 + 0xC;
             temp_s3 = (u8 *) temp_v0_3 + 0x30;
             if (temp_v0_3 == NULL) {
                 func_80084048(*(void **) ((u8 *) temp_v0 + 0x70), 0x16);
@@ -141,7 +140,19 @@ if (s != arg0 + 8) goto __repair_rows;
             temp_v0_4 = func_80083E90(0x30, 0x2D);
             ((__repair_record_temp_s0*)temp_s0)->field_18 = temp_v0_4;
             if (temp_v0_4 == NULL) {
-                func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
+                /*__repair_pointer_balance*/if ((unsigned long)__base_D_800E1A38 & 0x10000) {
+if ((unsigned long)__base_D_800E1A38 & 0x100) {
+func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
+} else {
+func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
+}
+} else {
+if ((unsigned long)__base_D_800E1A38 & 0x100) {
+func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
+} else {
+func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
+}
+}
                 func_80084048(temp_v0_3, 0x2D);
                 goto block_71;
             }
