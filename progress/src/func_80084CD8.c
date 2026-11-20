@@ -13,10 +13,10 @@ void func_80084CD8(s32 object, u32 variant) {
     s32 result;
     s32 *entry;
     if (variant << 24) {
-        item = D_800CE6E8[func_80045CF8(4)];
+        item = D_800CE6E8[func_80045CF8(3)];
     
     result = func_8000A8B4(item, factor, 255);} else {
-        item = D_800CE6F0[func_80045CF8(4)];
+        item = D_800CE6F0[func_80045CF8(3)];
     
     result = func_8000A8B4(item, factor, 255);}
     entry = D_80109688 + (u16)index;
