@@ -1,6 +1,6 @@
 static __inline__ s32 __repair_inline(s32 a) { return a; }
 extern u8 gActorDoneFlags[];
-void func_80031A84(void *arg0);
+void updateActorProximityTrigger(void *arg0);
 s32 func_800179E8(void *a, s32 b, s32 c, s32 d);
 s32 func_800624A8(void *a, void *b, s32 c, s32 d);
 s32 func_80084338(s32 a, void *b);
@@ -46,7 +46,7 @@ void UpdateSwitchedActorState(void *actor) {
                     script[2] = 0x50;
                 }
             }
-            func_80031A84(actor);
+            updateActorProximityTrigger(actor);
             break;
         case 2:
             if (*(u16 *)script == 0) {
@@ -67,7 +67,7 @@ void UpdateSwitchedActorState(void *actor) {
                     script[2] = 0x50;
                 }
             }
-            func_80031A84(actor);
+            updateActorProximityTrigger(actor);
             break;
         }
         timer = *(s16 *)((u8 *)actor + 0x7C);

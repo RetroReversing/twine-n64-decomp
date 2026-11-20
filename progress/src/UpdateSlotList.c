@@ -17,11 +17,11 @@ M2C_UNK func_8008EA58(s32);                         /* extern */
 M2C_UNK func_800937D0(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 M2C_UNK func_80093C40(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK func_800949B4(void *, f32);                 /* extern */
-s32 func_80094B48(void *, f32, s32, s32, f32, f32); /* extern */
+s32 soundQueueInsert(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK func_80094D3C();                            /* extern */
 s32 func_8009CCB0(s32);                             /* extern */
-extern s8 D_800EDE74;
-extern s8 D_800EE1F8;
+extern s8 sSoundGroupCount;
+extern s8 sSoundQueueCount;
 extern s8 D_800EE37C;
 extern void *gActiveSoundList;
 
@@ -46,8 +46,8 @@ extern void *gActiveSoundList;
     void *slot;
 
     slot = gActiveSoundList;
-    D_800EDE74 = 0;
-    D_800EE1F8 = 0;
+    sSoundGroupCount = 0;
+    sSoundQueueCount = 0;
     D_800EE37C = 0;
     if (slot != NULL) {
         do {
@@ -80,7 +80,7 @@ extern void *gActiveSoundList;
                             goto block_28;
                         }
                         if (M2C_FIELD(slot, s32 *, 8) & 1) {
-                            if (func_80094B48(slot, sp18, sp20, sp24, sp28, sp1C) & 0xFF) {
+                            if (soundQueueInsert(slot, sp18, sp20, sp24, sp28, sp1C) & 0xFF) {
                                 goto next;
                             }
                             goto block_29;

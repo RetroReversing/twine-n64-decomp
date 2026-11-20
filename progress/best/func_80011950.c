@@ -38,10 +38,10 @@ extern u8 D_800CEEB0;
 extern M2C_UNK D_800E0768;
 extern u16 D_800E0778;
 extern u8 D_800E077A[];
-extern M2C_UNK D_800E077B;
+extern s8 D_800E077B;
 extern u8 D_800E077C[];
 extern u8 gSaveSlotTable[];
-extern M2C_UNK D_800E0930;
+extern u16 D_800E0930;
 extern s16 gSaveSlot;
 extern M2C_UNK D_800E097E;
 extern M2C_UNK D_800E098E;
@@ -66,15 +66,15 @@ extern M2C_UNK D_8010A3A0;
 extern M2C_UNK D_8010D298;
 extern u16 D_8010D430;
 extern M2C_UNK D_8010D432;
-extern M2C_UNK D_8010D434;
-extern M2C_UNK D_8010D436;
+extern s16 D_8010D434;
+extern s16 D_8010D436;
 
 void func_80011950(void) {
     s32 var_s1;
     s32 var_s3;
     s32 var_s4;
     s32 var_s5;
-    s32 var_v0;
+    
     u16 *temp_a0_3;
     u16 *temp_a0_4;
     u16 *temp_s0;
@@ -176,7 +176,7 @@ block_30:
                 var_s6 += 4;
             }
             var_s4 += 8;
-            var_s2 += 6;
+            var_s2 += 3;
             var_s3 += 6;
             var_s5 += 1;
             var_s1 += 2;
@@ -189,44 +189,44 @@ block_30:
             osEepromLongWrite(&D_8010D298, D_800E09BB, D_800E09BC, D_800E09C0);
             break;
         case 3:
-            var_v0 = osPfsNumFiles(D_800E09B8, D_800E09BC, D_800E09C0);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsNumFiles(D_800E09B8, D_800E09BC, D_800E09C0);
+            gSaveCmdResult = var_s1;
             break;
         case 4:
-            var_v0 = osPfsFreeBlocks(D_800E09B8, D_800E09BC);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsFreeBlocks(D_800E09B8, D_800E09BC);
+            gSaveCmdResult = var_s1;
             break;
         case 5:
-            var_v0 = osPfsFileState(D_800E09B8, D_800E09BC, D_800E09C0);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsFileState(D_800E09B8, D_800E09BC, D_800E09C0);
+            gSaveCmdResult = var_s1;
             break;
         case 6:
-            var_v0 = osPfsDeleteFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsDeleteFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8);
+            gSaveCmdResult = var_s1;
             break;
         case 7:
-            var_v0 = osPfsInitPak(&D_8010D298, D_800E09B8, D_800E09BC);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsInitPak(&D_8010D298, D_800E09B8, D_800E09BC);
+            gSaveCmdResult = var_s1;
             break;
         case 8:
-            var_v0 = osPfsRepairId(D_800E09B8);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsRepairId(D_800E09B8);
+            gSaveCmdResult = var_s1;
             break;
         case 9:
-            var_v0 = osPfsReadWriteFile(D_800E09B8, D_800E09BC, D_800E09C3, D_800E09C4, D_800E09C8, D_800E09CC);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsReadWriteFile(D_800E09B8, D_800E09BC, D_800E09C3, D_800E09C4, D_800E09C8, D_800E09CC);
+            gSaveCmdResult = var_s1;
             break;
         case 10:
-            var_v0 = osPfsAllocateFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC, D_800E09D0);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsAllocateFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC, D_800E09D0);
+            gSaveCmdResult = var_s1;
             break;
         case 11:
-            var_v0 = osPfsFindFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC);
-            gSaveCmdResult = var_v0;
+            var_s1 = osPfsFindFile(D_800E09B8, D_800E09BE, D_800E09C0, D_800E09C4, D_800E09C8, D_800E09CC);
+            gSaveCmdResult = var_s1;
             break;
         case 12:
-            var_v0 = osMotorInit(&D_8010D298, D_800E09B8, D_800E09BC);
-            gSaveCmdResult = var_v0;
+            var_s1 = osMotorInit(&D_8010D298, D_800E09B8, D_800E09BC);
+            gSaveCmdResult = var_s1;
             break;
         case 13:
             gSaveCmdResult = osContStartQuery(&D_8010D298);
@@ -234,8 +234,8 @@ block_30:
             osContGetQuery(&D_800E0768);
             break;
         case 14:
-            var_v0 = osGbpakInit(&D_8010D298, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveSlot);
-            gSaveCmdResult = var_v0;
+            var_s1 = osGbpakInit(&D_8010D298, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveSlot);
+            gSaveCmdResult = var_s1;
             break;
         }
         gSaveCmdPending = 0;

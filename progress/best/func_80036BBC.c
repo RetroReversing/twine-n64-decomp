@@ -57,7 +57,7 @@ void func_80036BBC(void *arg0) {
     void *var_s2;
     s32 *__base_D_800B1D20;
 
-    __base_D_800B1D20 = &D_800B1D20;
+    
 
     var_s2 = D_80107E9C;
     D_801007BC = NULL;
@@ -74,7 +74,7 @@ void func_80036BBC(void *arg0) {
             (*(s32 **)((char *)(temp_v1) + 4)) = &D_800B1A00;
         } else {
             temp_v1_2 = D_80115328;
-            D_80115328 = temp_v1_2 + 8;
+            D_80115328 = (s8 *) temp_v1_2 + 8;
             ((__repair_field_0 *)temp_v1_2)->value = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1B18;
         }
@@ -83,12 +83,12 @@ void func_80036BBC(void *arg0) {
         D_801032A0 = 1;
         if (((__repair_field_100 *)arg0)->value & 3) {
             temp_v1_3 = D_80115328;
-            D_80115328 = temp_v1_3 + 8;
+            D_80115328 = (s8 *) temp_v1_3 + 8;
             ((__repair_field_0 *)temp_v1_3)->value = 0xFC40FE03;
             (*(s32 *)((char *)(temp_v1_3) + 4)) = -0xC88;
         } else {
             __repair_phase_storage.pointer = D_80115328;
-            D_80115328 = __repair_phase_storage.pointer + 8;
+            D_80115328 = (s8 *) __repair_phase_storage.pointer + 8;
             ((__repair_field_0 *)__repair_phase_storage.pointer)->value = 0xFC40FE03;
             (*(s32 *)((char *)(__repair_phase_storage.pointer) + 4)) = 0xFF0FF37F;
         }
@@ -136,7 +136,7 @@ block_26:
                         }
                         guMtxF2L(&D_80112F90, D_8010D538);
                         var_a0 = D_80115328;
-                        D_80115328 = var_a0 + 8;
+                        D_80115328 = (s8 *) var_a0 + 8;
                         var_v1 = D_8010D538 - 0x80000000;
                         ((__repair_field_0 *)var_a0)->value = 0xDA380003;
                         goto block_34;
@@ -145,7 +145,7 @@ block_26:
                     var_a0 = D_80115328;
                     ((__repair_field_0 *)var_a0)->value = 0xDA380003;
                     var_v1 = (*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000;
-                    D_80115328 = var_a0 + 8;
+                    D_80115328 = (s8 *) var_a0 + 8;
 block_34:
                     (*(s32 *)((char *)(var_a0) + 4)) = var_v1;
                     if (((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0x400) {
@@ -156,7 +156,7 @@ block_34:
 case 1:                 /* switch 1 */
                             case 4:                 /* switch 1 */
                                 var_v0 = D_80115328;
-                                D_80115328 = var_v0 + 8;
+                                D_80115328 = (s8 *) var_v0 + 8;
                                 var_v1_2 = __base_D_800B1D20;
                                 (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
                                 ((__repair_field_0 *)var_v0)->value = 0xDE000000;
@@ -164,7 +164,7 @@ case 1:                 /* switch 1 */
                             case 0: break;
     /* switch 1; irregular */
                             case 2:                 /* switch 1 */
-                                D_80115328 = var_v0 + 8;
+                                D_80115328 = (s8 *) var_v0 + 8;
                                 var_v0 = D_80115328;
                                 var_v1_2 = &D_800B1D48;
                                 ((__repair_field_0 *)var_v0)->value = 0xDE000000;
@@ -197,13 +197,13 @@ case 1:                 /* switch 1 */
                         if (D_8010A924 != 0) {
                             D_8010A924 = 0;
                             if (((__repair_field_100 *)arg0)->value & 3) {
-                                D_80115328 = var_v0_2 + 8;
+                                D_80115328 = (s8 *) var_v0_2 + 8;
                                 var_v0_2 = D_80115328;
                                 var_v1_3 = &D_800B1A00;
                                 ((__repair_field_0 *)var_v0_2)->value = 0xDE000000;
                             } else {
                                 var_v0_2 = D_80115328;
-                                D_80115328 = var_v0_2 + 8;
+                                D_80115328 = (s8 *) var_v0_2 + 8;
                                 var_v1_3 = &D_800B1B18;
                                 ((__repair_field_0 *)var_v0_2)->value = 0xDE000000;
                             }

@@ -7,14 +7,14 @@ s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
     u8 v1;
     u32 w, selector, mode;
 u32 __repair_phase_w;
-    u32 idx;
+    
 u32 __repair_phase_idx;
 
     w = *(u32 *)(arg1 + 4);
     if (arg1[0] != 0) {
         s1 = func_80096E7C(arg0, w & 0xFF);
     } else {
-        __repair_phase_w = w & 0x1F;
+        __repair_phase_w &= 0x1F;
         if (__repair_phase_w < 0x10U) {
             s1 = *(s16 *)((s8 *)arg0 + __repair_phase_w * 2 + 0x180);
         } else {
@@ -31,11 +31,11 @@ u32 __repair_phase_idx;
         if (mode & 0xFF) {
             a0 = func_80096E7C(arg0, selector & 0xFF);
         } else {
-            idx = selector & 0x1F;
-            if (idx < 0x10U) {
-                a0 = *(s16 *)((s8 *)arg0 + idx * 2 + 0x180);
+            __repair_phase_w = selector & 0x1F;
+            if (__repair_phase_w < 0x10U) {
+                a0 = *(s16 *)((s8 *)arg0 + __repair_phase_w * 2 + 0x180);
             } else {
-                a0 = *(s16 *)(D_80112E9E + idx * 2);
+                a0 = *(s16 *)(D_80112E9E + __repair_phase_w * 2);
             }
         }
         v1 = arg2 & 0xFF;

@@ -14,11 +14,11 @@ extern s8 *D_800E19C0;
 extern s8 *D_800E19C4;
 extern s16 D_800E19C8;
 extern s16 D_800E19CA;
-extern u16 D_800E19CC;
-extern u16 D_800E19CE;
+extern s16 D_800E19CC;
+extern s16 D_800E19CE;
 
 s32 func_8003EC70(s32 arg0) {
-    u8 __repair_frame[16];
+    
     s32 *temp_v0_4;
     f32 temp_ft0;
     f32 temp_ft0_2;
@@ -45,7 +45,7 @@ s32 func_8003EC70(s32 arg0) {
     register s32 var_t2;
     s32 var_t3;
     register s16 var_t4;
-    unsigned int var_v1;
+    s32 var_v1;
     s16 var_v0_3;
     s32 *var_a2;
     s32 *var_a3;
@@ -70,7 +70,7 @@ s32 func_8003EC70(s32 arg0) {
     register void *temp_v0_3;
     void *temp_v1_3;
     register void *temp_v1_4;
-    u8 sp[4];
+    u8 sp[16];
 
     var_t2 = arg0;
     D_800E19CE = 0;

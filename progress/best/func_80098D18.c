@@ -22,8 +22,10 @@ extern char D_80117389[];
 extern char D_8011738A[];
 extern u8 D_801176E8;
 
-int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
+int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a0;
+s32 __repair_phase_temp_a0;
+s32 __repair_phase___repair_phase_temp_a0;
     
     s32 temp_t0;
     s32 var_t8;
@@ -49,9 +51,9 @@ int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     u32 temp_a1;
     u32 temp_a2;
     register u32 var_a1;
-    u32 var_t0;
+    register u32 var_t0;
     u8 temp_t0_3;
-    u8 temp_t0_4;
+    
     s32 var_t0_2;
     u8 var_t0_3;
     u8 var_t0_4;
@@ -121,7 +123,7 @@ block_20:
             }
             temp_t0 = arg1 & 0xFF;
             if (var_t3 < temp_t0) {
-                var_v0_5 = arg1 & 0xFF;
+                __repair_phase_temp_a0 = arg1 & 0xFF;
                 if ((var_t2 & 0xFFFF) != 0xFFFF) {
                     var_v0_6 = (unsigned)var_t3 < temp_t0;
                     for (;;) {
@@ -137,8 +139,8 @@ block_20:
                                         var_t3 += *(u16 *)(D_8010D7DE + temp_v1_2) == arg2;
                                     }
                                     var_v0_9 = var_t0_3 * 4;
-                                    var_t0_3 = *(D_80102CE1 + var_v0_9);
                                     var_v0_8 = var_t0_3 * 2;
+                                    var_t0_3 = *(D_80102CE1 + var_v0_9);
                                 } while (var_t0_3 != 0xFF);
                                 var_v0_7 = var_t2 * 4;
                             }
@@ -155,7 +157,7 @@ block_20:
                     goto block_58;
                 }
 block_36:
-                if (var_t3 < var_v0_5) {
+                if (var_t3 < __repair_phase_temp_a0) {
                     goto block_37;
                 }
                 goto block_59;
@@ -184,7 +186,7 @@ block_37:
                             do {
                                 temp_a0 = (((var_v0_11 + var_t0_4) * 4) + var_t0_4) << 5;
                                 if (*(D_8010D7E1 + temp_a0) == 0) {
-                                    if ((var_t8 == 0) || (var_v0_12 = var_t0_4 * 4, (*(D_8010D770 + temp_a0) == (arg3 & 0xFF)))) {
+                                    if ((!var_t8) || (var_v0_12 = var_t0_4 * 4, (*(D_8010D770 + temp_a0) == (arg3 & 0xFF)))) {
                                         if (!(*(u32 *)(D_8010D748 + temp_a0) & 2)) {
                                             if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(u32 *)(D_8010D74C + temp_a0) < (u32) *(u32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                                 var_t1 = var_t0_4;
@@ -216,19 +218,19 @@ block_57:
                 if ((u32) (arg0 & 0xFF) >= (u8) *(D_8010D752 + (var_t1 * 0x1A0))) {
 block_58:
 block_59:
-                    temp_a0 = var_t1 * 4;
+                    __repair_phase___repair_phase_temp_a0 = var_t1 * 4;
                     if (var_t1 != -1U) {
-                        if (*(u16 *)(D_8011738A + temp_a0) == 1) {
-                            temp_a0_2 = temp_a0 + D_80117388;
+                        if (*(u16 *)(D_8011738A + __repair_phase___repair_phase_temp_a0) == 1) {
+                            temp_a0_2 = __repair_phase___repair_phase_temp_a0 + D_80117388;
                             temp_t0_3 = (*(u8 *)((char *)(temp_a0_2) + 0));
                             if (temp_t0_3 != 0xFF) {
                                 *(D_80117389 + (temp_t0_3 * 4)) = (*(u8 *)((char *)(temp_a0_2) + 1));
                             } else {
                                 D_801002EA = (*(u8 *)((char *)(temp_a0_2) + 1));
                             }
-                            temp_t0_4 = (*(u8 *)((char *)(temp_a0_2) + 1));
-                            if (temp_t0_4 != 0xFF) {
-                                *(D_80117388 + (temp_t0_4 * 4)) = (*(u8 *)((char *)(temp_a0_2) + 0));
+                            temp_t0_3 = (*(u8 *)((char *)(temp_a0_2) + 1));
+                            if (temp_t0_3 != 0xFF) {
+                                *(D_80117388 + (temp_t0_3 * 4)) = (*(u8 *)((char *)(temp_a0_2) + 0));
                             }
                             if (var_t1 != D_80110DB0) {
                                 (*(s16 *)((char *)(temp_a0_2) + 2)) = 0;

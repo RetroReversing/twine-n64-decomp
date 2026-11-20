@@ -92,7 +92,7 @@ u32 __repair_phase_temp_s3_2;
                 var_a0_2 = temp_s3;
                 var_a1_2 = var_a0_2 >> 0x10;
                 var_a2_2 = arg1 & 0xFF;
-                goto block_38;
+                return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, 1, (s32) sp4F);
             }
         }
         /* Duplicate return node #43. Try simplifying control flow for better match */
@@ -141,7 +141,6 @@ u32 __repair_phase_temp_s3_2;
                         var_a0_2 = __repair_phase_temp_s3_2;
                         var_a1_2 = temp_s6;
                         var_a2_2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
-block_38:
                         return func_8009C420(var_a0_2, var_a1_2, var_a2_2, sp37, var_s4 & 0xFF, (s32) arg4, (s32) arg5, (s32) sp3E, (s32) sp46, 1, (s32) sp4F);
                     }
                 }

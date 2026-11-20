@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern f64 D_800D2EF0;
-extern s32 gHiResScreen;
+extern s32 D_8010A4E8;
 
 void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, s32 arg7, u32 arg8, u32 arg9, u32 arg10, u32 arg11, f32 arg12, f32 arg13) {
     s32 spC;
@@ -87,12 +87,10 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, 
             var_t4 = arg8;
             var_t5 = (s32) arg12;
             if (var_t4 < arg10) {
-                var_t0 = var_t1 - 4;
+                var_t0 = (void *)(var_t1 - 4);
                 sp1C = temp_t8 | (((sp14 - 1) & 0xFFF) | 0xFD080000);
                 sp24 = temp_t8 | (((arg4 - 1) & 0xFFF) | 0xFD080000);
-                temp_ft1 = (f32) ((f64) (f32) var_t6 + D_800D2EF0);__repair_rows_: {
-                temp_t9 = var_t7 + (arg11 - var_t6);}
-if (0) goto __repair_rows_;
+                temp_ft1 = (f32) ((f64) (f32) var_t6 + D_800D2EF0);temp_t9 = var_t7 + (arg11 - var_t6);
                 do {
                     temp_a0 = var_t4 - 1;
                     temp_t3 = temp_a0 & ((s32) ~temp_a0 >> 0x1F);
@@ -179,7 +177,7 @@ if (0) goto __repair_rows_;
                     temp_a0_3 = var_a0 * 4;
                     temp_v1_3 = var_v1 * 4;
                     temp_a1_4 = var_t5 * 4;
-                    if (gHiResScreen != 0) {
+                    if (D_8010A4E8 != 0) {
                         temp_t0_12 = var_t0_2 + 8;
                         var_fv1 = temp_fv0 * 32.0f;
                         M2C_FIELD(temp_t0_12, s32 *, -4) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | (((temp_v1_3 * 2) & 0xFFF) | 0xE4000000));

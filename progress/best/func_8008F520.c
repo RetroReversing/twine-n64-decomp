@@ -23,6 +23,7 @@ extern s32 D_800EDA90;
 extern char D_80102FDC[];
 
 s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
+    volatile s32 scratch[4];
     char *var_a1_3;
     s32 temp_a0;
     s32 temp_a0_2;

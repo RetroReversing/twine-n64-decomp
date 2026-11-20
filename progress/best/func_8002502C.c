@@ -133,18 +133,21 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         var_a1_2 = D_800BA5D0;
                         var_a2 = 0xC;
                         var_a3 = 1;
-                        goto block_96;
+                        {
+                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 4:                         /* switch 2 */
                         func_800277E4(0xFF);
                         var_a1_2 = D_800BAB98;
                         var_a2 = 0xC;
                         var_a3 = 1;
-                        goto block_96;
+                        {
+                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 34:                        /* switch 2 */
                         var_a1_2 = D_800BAFF8;
                         var_a2 = 0xC;
                         var_a3 = 1;
-                        goto block_96;
+                        {
+                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 15:                        /* switch 2 */
                         var_a1_2 = D_800B93B0;
                         var_a2 = 0xE;
@@ -154,11 +157,12 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         if ((((u16) D_800BD68C < 0xAU) | (D_800BD68C == 0x13)) != 0) {
                             D_800BD560 = 0xF;
                             var_a1_3 = D_800B93B0;
-                        } else {
+                        
+                        func_8002AD60(D_8010A950, var_a1_3, var_a2_2, 0);} else {
                             var_a1_3 = D_800B91D0;
                             var_a2_2 = 0xC;
-                        }
-                        func_8002AD60(D_8010A950, var_a1_3, var_a2_2, 0);
+                        
+                        func_8002AD60(D_8010A950, var_a1_3, var_a2_2, 0);}
                         D_800BD55E = 3U;
                         return 2;
                     case 48:                        /* switch 2 */

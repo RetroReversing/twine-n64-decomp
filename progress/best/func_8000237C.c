@@ -21,12 +21,12 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
   FLD(a,void*,0x68)=base;
   memset(base,0,0xB8);
   obj=FLD(a,void*,0x68);
-  tmp=base+0xB8; FLD(obj,void*,0x54)=(void*)tmp;
+  tmp=(s32)((u8 *)base+0xB8); FLD(obj,void*,0x54)=(void*)tmp;
   tmp+=aligned; FLD(obj,void*,0x58)=(void*)tmp;
-  tmp+=bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
   tmp+=aligned; FLD(obj,void*,0x5C)=(void*)tmp;
+  tmp+=bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
+  FLD(obj,void*,0x6C)=(void*)tmp;
   FLD(base,void*,0)=(void*)(tmp+size4);
-  FLD(obj,void*,0x6C)=(void*)(tmp+size4);
   FLD(base,void*,4)=(void*)((s32)base+0x14+size12);
  }
  FLD(state,s8,0x9F)=n;

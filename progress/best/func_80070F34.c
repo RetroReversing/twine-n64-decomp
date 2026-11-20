@@ -207,18 +207,10 @@ block_10:
                 M2C_FIELD(var_s1, void **, 0x418) = temp_v0_2;
                 if (temp_v0_2 != NULL) {
                     temp_fv1 = (2.0f * var_fs2) + (f32) *((s16 *)((s8 *)&D_800C7E10 + var_s0));
-                    if (!(temp_fv1 >= 2.1474836e9f)) {
-                        var_a2 = (s32) temp_fv1;
-                    } else {
-                        var_a2 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-                    }
-                    temp_fv1_2 = (2.0f * var_fs1) + (f32) *((M2C_UNK *)((s8 *)&D_800C7E12 + var_s0));
-                    if (!(temp_fv1_2 >= 2.1474836e9f)) {
-                        var_a3 = (s32) temp_fv1_2;
-                    } else {
-                        var_a3 = (s32) (temp_fv1_2 - 2.1474836e9f) | 0x80000000;
-                    }
-                    func_80070ECC(M2C_FIELD(var_s1, void **, 0x418), temp_s2 + var_s5, var_a2 & 0xFFFF, var_a3 & 0xFFFF, (s32) *((M2C_UNK *)((s8 *)&D_800C7E18 + var_s0)), *((M2C_UNK *)((s8 *)&D_800C7E14 + var_s0)));
+                    var_a2 = (u32) temp_fv1;
+                    temp_fv1_2 = (2.0f * var_fs1) + (f32) *((s16 *)((s8 *)&D_800C7E12 + var_s0));
+                    var_a3 = (u32) temp_fv1_2;
+                    func_80070ECC(M2C_FIELD(var_s1, void **, 0x418), temp_s2 + var_s5, var_a2 & 0xFFFF, var_a3 & 0xFFFF, (s32) *((u16 *)((s8 *)&D_800C7E18 + var_s0)), *((M2C_UNK *)((s8 *)&D_800C7E14 + var_s0)));
                 }
             }
             var_s0 += 0xC;

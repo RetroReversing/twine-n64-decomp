@@ -29,6 +29,8 @@ extern void *D_80109BB0;
 extern s32 D_8010A500;
 
 void func_8001F0B4(void) {
+int __repair_literal;
+
     s32 temp_v0;
     s32 temp_v1;
     u16 temp_a2;
@@ -51,7 +53,7 @@ void func_8001F0B4(void) {
     if ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             temp_s2 = func_8002A980(gMenuList);
-            if (*(&D_8010A500 + (D_800BD68F * 4)) != 0) {
+            if (((s32 *)&D_8010A500)[D_800BD68F] != 0) {
                 switch (D_800B60E2) {               /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     temp_s1 = func_8002638C((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x62);
@@ -80,7 +82,7 @@ void func_8001F0B4(void) {
                 case 1:                             /* switch 1 */
                     temp_s0_3 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
                     temp_v1 = (*(u8 *)((char *)(temp_s2) + 8)) * 0x10;
-                    func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
+                    func_8002135C(*(s16 *)((char *)&D_800C4478 + temp_v1), *(s16 *)((char *)&D_800C447A + temp_v1));
                     if (temp_s0_3 != NULL) {
                         (*(s32 *)((char *)((*(void **)((char *)(temp_s0_3) + 0x30))) + 0x18)) = func_80087100(func_8001E760(2, (*(u8 *)((char *)(temp_s2) + 8))) & 0xFFFF);
                         temp_s0_4 = (*(void **)((char *)(temp_s0_3) + 0x30));
@@ -98,13 +100,15 @@ block_15:
                 switch (D_800B60E2) {               /* switch 2; irregular */
                 case 0:                             /* switch 2 */
                     temp_a1 = (*(u8 *)((char *)(temp_v0_2) + 8));
-                    *(&D_800E0ECC + (D_800BD68F * 2)) = (s16) temp_a1;
-                    temp_a0_2 = (*(void **)((char *)(*(&D_8010A500 + (D_800BD68F * 4))) + 0x6C));
+                    ((s16 *)&D_800E0ECC)[D_800BD68F] = (s16) temp_a1;
+                    temp_a0_2 = (*(void **)((char *)(((s32 *)&D_8010A500)[D_800BD68F]) + 0x6C));
                     if (D_800C469E[temp_a1 & 0xFFFF].f0 == 0x21) {
                         (*(s8 *)((char *)(temp_a0_2) + 0x306)) = (s8) (temp_a1 - 0x21);
                     }
-                    temp_a2 = *((D_800BD68F * 2) + &D_800E0ECC);
-                    func_8007089C((&D_8010A500)[D_800BD68F], 0, (temp_a2 + (*(u8 *)((char *)((temp_a0_2 + (temp_a2 * 8))) + 0x1FE))) & 0xFFFF, &D_8010A500);
+                    temp_a2 = ((u16 *)&D_800E0ECC)[D_800BD68F];
+__repair_literal = 8;
+
+                    func_8007089C((&D_8010A500)[D_800BD68F], 0, (temp_a2 + (*(u8 *)((char *)((temp_a0_2 + (temp_a2 * __repair_literal))) + 0x1FE))) & 0xFFFF, &D_8010A500);
                     if ((*(void **)((char *)(D_80109BB0) + 0x18)) != NULL) {
                         temp_v0_3 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0xC)), 0xE);
                         (*(s8 *)((char *)(D_80109BB0) + 0x2C)) = 1;
@@ -115,7 +119,7 @@ block_15:
                     break;
                 case 1:                             /* switch 2 */
                     temp_v1_2 = (*(u8 *)((char *)(temp_v0_2) + 8));
-                    *(&D_800E0ED4 + (D_800BD68F * 2)) = (s16) temp_v1_2;
+                    ((s16 *)&D_800E0ED4)[D_800BD68F] = (s16) temp_v1_2;
                     func_8001F4B8(D_800BD68F, temp_v1_2);
                     break;
                 case 2:

@@ -8,7 +8,7 @@ s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 s32 func_80045CF8(s32);                         /* extern */
 s32 func_80059120(s8, void *);                  /* extern */
 s32 func_80059658(void *, s32);                 /* extern */
-s32 func_80059754(void *, s32, u16, s8);        /* extern */
+s32 advanceMotionPath(void *, s32, u16, s8);        /* extern */
 s32 func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80084338(u16, void *);                     /* extern */
 s32 func_80085E78(void *, s32);                 /* extern */
@@ -144,10 +144,10 @@ block_17:
         temp_v1_3 = (*(s16 *)((char *)(arg0) + 0x7A));
         switch (temp_v1_3) {                        /* switch 3; irregular */
         case 0:                                     /* switch 3 */
-            var_v0 = func_80059754(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0);
+            var_v0 = advanceMotionPath(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0);
             goto block_257;
         case 1:                                     /* switch 3 */
-            temp_v0_4 = func_80059754(arg0, -1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0);
+            temp_v0_4 = advanceMotionPath(arg0, -1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0);
             goto block_17;
         }
         break;
@@ -238,7 +238,7 @@ block_66:
             func_80059120((*(s8 *)((char *)(temp_s0) + 0x4B)), arg0);
             /* fallthrough */
         case 1:                                     /* switch 6 */
-            if (func_80059754(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
+            if (advanceMotionPath(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 0;
             }
             break;
@@ -310,7 +310,7 @@ block_227:
         case 1:                                     /* switch 7 */
             temp_fs0 = (f32) (s16) (*(u16 *)((char *)(temp_s0) + 0x46));
             markObjectsNearPos((*(s32 *)((char *)(arg0) + 0x20)), 0, 0x01000000, arg0 + 0x24, (*(f32 *)((char *)((*(void **)((char *)(arg0) + 0x70))) + 0x14)) + 1.0f, 0);
-            if (func_80059754(arg0, 1, (u16) (s32) temp_fs0, (*(s8 *)((char *)(temp_s0) + 0x4D))) != 0) {
+            if (advanceMotionPath(arg0, 1, (u16) (s32) temp_fs0, (*(s8 *)((char *)(temp_s0) + 0x4D))) != 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
             }
             break;
@@ -374,7 +374,7 @@ block_233:
         case 5:                                     /* switch 7 */
             temp_fs0_2 = (f32) (s16) (*(u16 *)((char *)(temp_s0) + 0x46));
             markObjectsNearPos((*(s32 *)((char *)(arg0) + 0x20)), 0, 0x01000000, arg0 + 0x24, (*(f32 *)((char *)((*(void **)((char *)(arg0) + 0x70))) + 0x14)) + 1.0f, 0);
-            if (func_80059754(arg0, -1, (u16) (s32) temp_fs0_2, 0) != 0) {
+            if (advanceMotionPath(arg0, -1, (u16) (s32) temp_fs0_2, 0) != 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 6;
             }
             break;
@@ -602,7 +602,7 @@ block_186:
             break;
         case 3:                                     /* switch 9 */
             markObjectsNearPos((*(s32 *)((char *)(arg0) + 0x20)), 0, 0x01000000, arg0 + 0x24, (*(f32 *)((char *)((*(void **)((char *)(arg0) + 0x70))) + 0x14)) + 1.0f, 0);
-            if (func_80059754(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
+            if (advanceMotionPath(arg0, 1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 4;
             }
             break;
@@ -648,7 +648,7 @@ block_186:
             goto block_220;
         case 8:                                     /* switch 9 */
             markObjectsNearPos((*(s32 *)((char *)(arg0) + 0x20)), 0, 0x01000000, arg0 + 0x24, (*(f32 *)((char *)((*(void **)((char *)(arg0) + 0x70))) + 0x14)) + 1.0f, 0);
-            if (func_80059754(arg0, -1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
+            if (advanceMotionPath(arg0, -1, (*(u16 *)((char *)(temp_s0) + 0x44)), 0) != 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 9;
             }
             break;

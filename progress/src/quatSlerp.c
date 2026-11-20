@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 
 f32 __sinf(f32);                                    /* extern */
 
-void func_80046BD4(f32 arg0, const void *arg1, const void *arg2, void *arg3) {
+void quatSlerp(f32 arg0, const void *arg1, const void *arg2, void *arg3) {
     f32 __repair_store_0;
     f32 __repair_store_1;
     f32 __repair_store_2;

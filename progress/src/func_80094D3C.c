@@ -2,9 +2,9 @@
 
 s32 func_8008E3EC(u16, s32, s32);           /* extern */
 s32 func_80093C40(void *, f32, s32, s32, f32, f32); /* extern */
-extern s32 D_800EDCF8;
-extern s32 D_800EDCFC;
-extern u8 D_800EDE74;
+extern s32 sSoundGroupQueueHeads;
+extern s32 sSoundGroupAux;
+extern u8 sSoundGroupCount;
 
 void func_80094D3C(void) {
 
@@ -22,14 +22,14 @@ void func_80094D3C(void) {
     void *var_s1;
 
     var_s4 = 0;
-    if (var_s4 < (s32) D_800EDE74) {
+    if (var_s4 < (s32) sSoundGroupCount) {
         var_s3 = 0;
         do {
-            var_s1 = *((s32 *)((s8 *)&D_800EDCF8 + var_s3));
+            var_s1 = *((s32 *)((s8 *)&sSoundGroupQueueHeads + var_s3));
             if (var_s1 != NULL) {
                 var_s2 = var_s3;
                 do {
-                    temp_v0 = *((s32 *)((s8 *)&D_800EDCFC + var_s2));
+                    temp_v0 = *((s32 *)((s8 *)&sSoundGroupAux + var_s2));
                     if (temp_v0 != NULL) {
                         temp_fv1 = (*(f32 *)((char *)(var_s1) + 4)) - (*(f32 *)((char *)(temp_v0) + 4));
                         if (!(temp_fv1 <= 0.08f)) {
@@ -64,9 +64,9 @@ block_10:
                             (*(s32 *)((char *)(temp_s0) + 8)) = temp_v1_2;
                             do { func_80093C40(temp_s0, (*(f32 *)((char *)(var_s1) + 4)), (*(s32 *)((char *)(var_s1) + 8)), (*(s32 *)((char *)(var_s1) + 0xC)), (*(f32 *)((char *)(var_s1) + 0x10)), (*(f32 *)((char *)(var_s1) + 0x14))); } while (0);
                             (*(s32 *)((char *)(temp_s0) + 8)) = (s32) ((*(s32 *)((char *)(temp_s0) + 8)) & 0xFFFDFFFF);
-                            temp_v0_4 = *((s32 *)((s8 *)&D_800EDCFC + var_s2));
+                            temp_v0_4 = *((s32 *)((s8 *)&sSoundGroupAux + var_s2));
                             if (temp_v0_4 != NULL) {
-                                *((s32 *)((s8 *)&D_800EDCFC + var_s2)) = *temp_v0_4;
+                                *((s32 *)((s8 *)&sSoundGroupAux + var_s2)) = *temp_v0_4;
                             }
                         }
                     }
@@ -75,6 +75,6 @@ block_10:
             }
             var_s4 += 1;
             var_s3 += 0xC;
-        } while (var_s4 < (s32) D_800EDE74);
+        } while (var_s4 < (s32) sSoundGroupCount);
     }
 }

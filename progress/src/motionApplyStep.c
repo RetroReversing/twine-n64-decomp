@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 angleDelta12(s32, s32);                        /* extern */
 
-void func_8005916C(void *arg0, f32 arg1, void *arg2) {
+void motionApplyStep(void *arg0, f32 arg1, void *arg2) {
     f32 sp10[3];
     f32 temp_fv0;
     f32 var_fs0;

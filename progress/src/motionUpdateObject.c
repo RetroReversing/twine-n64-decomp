@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 func_8008292C(f32);                             /* extern */
 
-void func_80059590(void *arg0) {
+void motionUpdateObject(void *arg0) {
     f32 temp_fv0;
     void *temp_s1;
 

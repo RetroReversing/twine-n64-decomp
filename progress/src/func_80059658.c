@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8005916C(s32, f32, void *, s32);       /* extern */
+M2C_UNK motionApplyStep(s32, f32, void *, s32);       /* extern */
 M2C_UNK func_80059528(void *);                      /* extern */
 
 s32 func_80059658(void *arg0, u32 arg1) {
@@ -41,7 +41,7 @@ s32 func_80059658(void *arg0, u32 arg1) {
                 M2C_FIELD(temp_a2, u8 *, 0x4B) = (u8) temp_v0_2;
                 var_s0 = 1;
             }
-            func_8005916C(temp_a3 + ((s8) M2C_FIELD(temp_a2, u8 *, 0x4B) * 0x18), (f32) M2C_FIELD(temp_a2, u16 *, 0x44), arg0, temp_a3);
+            motionApplyStep(temp_a3 + ((s8) M2C_FIELD(temp_a2, u8 *, 0x4B) * 0x18), (f32) M2C_FIELD(temp_a2, u16 *, 0x44), arg0, temp_a3);
         }
         func_80059528(arg0);
     }

@@ -76,7 +76,7 @@ void *func_8002EBB8(s32 arg0) {
     (((__repair_record_temp_s1*)temp_s1)->field_38) = NULL;
     (((__repair_record_temp_s1*)temp_s1)->field_3C) = NULL;
     var_a1 = (char *)&D_800BFDDC;
-    D_800BFDDC = arg0;
+    *(s16 *)var_a1 = arg0;
     (((__repair_record_temp_s1*)temp_s1)->field_3C) = func_80015F74(var_a1 - 0x20);
     var_a3 = &D_800BFD74;
     D_800BFD70 = arg0;

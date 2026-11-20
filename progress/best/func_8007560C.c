@@ -167,7 +167,7 @@ f32 __repair_var_a1_1;
         } else {
             temp_fs0_2 = 160.0f * 0.5f;
             temp_s4 = (*(void **)((char *)(gAimAxisTable) + 4));
-            func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
+            do { func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f); } while (0);
             var_a2 = 120.0f;
             __repair_var_a1_1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;

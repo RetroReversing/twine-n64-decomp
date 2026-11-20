@@ -17,12 +17,13 @@ s32 __repair_phase_raw;
                 p += 4;
                 break;
             case 0:
-                *arg1 = p[1] + *arg1;
+                *arg1 = (*arg1) + (p[1]);
                 p++;
                 raw = *p;
                 *arg3 = 0;
                 raw *= 3;
-                goto skip;
+                p += raw + 1;
+                break;
             case 1:
                 *arg1 = p[1] + *arg1;
                 p++;
@@ -31,11 +32,12 @@ s32 __repair_phase_raw;
                 raw *= 3;
                 goto double_size;
             case 3:
-                *arg1 = p[1] + *arg1;
+                *arg1 = (*arg1) + (p[1]);
                 p++;
                 raw = *p;
                 *arg3 = 3;
-                goto skip;
+                p += raw + 1;
+                break;
             case 2:
                 *arg1 = (*arg1) + (p[1]);
                 p++;
@@ -43,7 +45,6 @@ s32 __repair_phase_raw;
                 *arg3 = 2;
             double_size:
                 raw *= 2;
-            skip:
                 p += raw + 1;
                 break;
             case 6:
