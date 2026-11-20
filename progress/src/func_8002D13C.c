@@ -6,7 +6,11 @@ u16 func_8002D13C(u16 kind) {
     u16 n = 0;
     u16 i;
 
-    for (i = 0; i < 4; i++) {
+    i = n;
+    while (i < 4) {
+        break;
+    }
+    for (i = n; i < 4; i++) {
         switch (kind) {
         case 0xA5:
             if (D_80109DC8[i] != 0) {
