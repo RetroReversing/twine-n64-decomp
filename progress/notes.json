@@ -5936,14 +5936,6 @@
   "score_after": 1140
  },
  {
-  "function": "func_80027A7C",
-  "text": "Rechecked baseline 5007, no local-repair variant improved it. Candidate is materially corrupted by dead `if (0 != 0)` branch, uninitialized `__repair_result_var_s2`/`__repair_result_var_s6`, and invalid `*(u8*)8` expressions. Main mismatch begins at call/arguments: target saves s1/s0 and moves arg0 into s1; candidate doesn't. Rebuild from target assembly and correct field/object types, especially arg1+0x8 value pointer, flags at +0x1C and fields +0x20/+0x22/+0x26/+0x29. Existing m2c draft cannot be trusted as-is.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795138647.363002,
-  "score_before": 5007,
-  "score_after": 5007
- },
- {
   "function": "func_80079B08",
   "text": "Rechecked baseline score 3280. Ran six independent local-repair variants (inferred_record_layout, signedness, address_temporary, const_read, stack_argument_record, assignment_at_use); none improved, move-on at 6/6. First target instruction is move s0,a1 while compiled candidate omits it; 60 instruction differences including substantial inserted/deleted/reordered code. Continue with assembly and call signature/argument ordering; check matching direct callee func_800515D0 prototype. No repair variants improved.",
   "by": "codex-gpt-6-luna-13",
@@ -12376,14 +12368,6 @@
   "score_after": 577
  },
  {
-  "function": "func_80027A7C",
-  "text": "Rechecked current candidate at 5007; six local-repair variants (scalar reuse, inferred record layout, masked-value reuse, integer lifetimes, signedness, declaration order) all remained 5007. Candidate is materially broken: dead if(0 != 0), uninitialized result locals, invalid *(u8*)8 expressions. Target is 138 instructions with prologue saving s1/s0/s3/s2/s4/s6/s5 and clearly treats arg0 as output pointer, arg1 as wrapper whose +8 field is object, flags at +0x1C, +0xC flags; target also uses s4 as a separate object pointer. Rebuild source from target rather than tune corrupted draft. Guess structs and recover s4 source before tuning. Correct callee prototypes are s32 func_80018080(void*) and s32 func_800182CC(void*), not u16/u8.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795178558.517766,
-  "score_before": 5007,
-  "score_after": 5007
- },
- {
   "function": "func_800556DC",
   "text": "Best 270 (95.8%), target and candidate both 65 instructions. Tried baseline, substituting sp10/sp18 into func_80046140 (regressed), removing volatile stack float locals (large regression), then restoring baseline and explicit (s32)arg1 for func_80085160 (same 270). Three remaining mismatches are localized to float staging/call order: target rows 28/30/31 are swc1 $f12,0x10($sp), swc1 $f0,0x14($sp), lwc1 $f14,8($s0); candidate duplicates swc1 $f12 and orders lwc1 earlier. Preserve volatile float staging. Need reshape intermediate expression evaluation to store f0 before loading third vector component.",
   "by": "codex-gpt-6-luna-18",
@@ -16046,14 +16030,6 @@
   "created_at": 1795182830.418624,
   "score_before": 20,
   "score_after": 20
- },
- {
-  "function": "func_80027A7C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Current saved candidate has already been rechecked at 5007 but is semantically suspect: dead if(0 != 0), uninitialized __repair_result_var_s2 and incorrect var_s6 assignment; I recorded a candidate issue for that revision. Target assembly reviewed in full. Its frame saves s0\u2013s6, initializes s3/s2/s4 to zero, stores args in s0/s1, then implements an optional s4-driven adjustment before output fields. Candidate's false branch and invalid *(u8*)8 expressions are not faithful. Rebuild from assembly with typed wrapper structs; do not optimize this draft until its branch sources and locals are reconstructed.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795182840.3524868,
-  "score_before": 5007,
-  "score_after": 5007
  },
  {
   "function": "func_80005868",
@@ -28920,14 +28896,6 @@
   "score_after": 2155
  },
  {
-  "function": "func_80027A7C",
-  "text": "Saved and rechecked score 1490/121; local repair pass exhausted at 6/6 without improvement. Compiler is gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce -g3. Candidate uses an invented TextStyle27 *previous initialized to NULL; target assembly initializes $s3/$s2/$s4 to zero and branches around previous logic when $s4 is null, so represent these initialized locals/pointers and narrowing faithfully. Remaining diff starts with branch destinations (target exits at +0x1bc versus current +0x1b4), one move $s3,$v0 versus andi, then cascaded branch/layout/regalloc. First diffs include unexpected initial branch offsets; exact boundaries require getting later target pages. Local statement-boundary, call-scope and split-call repairs were neutral; split result worsened.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795193723.5144022,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
   "function": "func_8005B958",
   "text": "Baseline rechecked at 640. Six signedness, declaration order, table type and call-scope trials produced identical code. Remaining 13 rows start with target initializing $a1 to zero before saved-register stores; inspect inline check return variable allocation and branch exits against full diff.",
   "by": "codex-gpt-6.1-terra-1",
@@ -32152,14 +32120,6 @@
   "score_after": 267
  },
  {
-  "function": "func_80027A7C",
-  "text": "Best current score 700 at revision 0db8f805bbbbe641a0ea (94.2%). Baseline candidate was 1490. First changing the previous-width conditional from `if(previous==0) x-=width; else x-=measured;` to the inverted spelling improved 1290\u21921100 and produced the target's `beql $s4,$zero` orientation. Corrected `measured` from u16 to s32 based on exact-matched callee return types; this improved 1100\u2192700 and matches the target's untruncated return value. Tried making local `width` s32 (score 900, worse), reverted to best u16 width. Tried explicit u16/u32 casts around width>>1; both produced identical assembly to best. No local repair families remained. Remaining mismatch is mostly register assignment and two to four instruction short branches. Target uses `addu $a0,$s2,$v0; sh $a0,0x26($s1)`, then reads align flags into v1; candidate computes into v1, moves to a2, then loads flags into a1. Target's centered branch explicitly masks `$a0` to 16 bits and uses `srl`; candidate has same semantics but different operand registers/order. Other residual differences: branch offsets and arithmetic/subtraction register order in the previous-null path, plus end writes reordered. Untested next experiment: keep `width` u16 in best and stage the expression into a separate s32 `width_full = dx + (measured + combined); width = width_full; out->width = width_full;` then use `width_full` for alignment, checking whether GCC emits the target's `$a0` addition/store and separate low-16 mask.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795199807.137084,
-  "score_before": 1260,
-  "score_after": 700
- },
- {
   "function": "func_800613AC",
   "text": "Best score 5 (single register mismatch at call setup: target emits addiu a0,zero,0x48; candidate emits addiu a1,zero,0x48). Typed allocator prototype `void *func_80016410(void *, s32, s32);` fixed the prior no-prototype argument-register cascade after a temporary arg1 substitution had scored 325. Reverted to zero third argument; function remains score 5. Need alter call/prototype or argument staging to place size 0x48 in a0 while preserving subsequent args and all later instructions.",
   "by": "codex-gpt-6-luna-11",
@@ -33982,14 +33942,6 @@
   "created_at": 1795201776.830774,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80027A7C",
-  "text": "Rechecked inherited score 700 and tried supplying a third previous-style argument, but the candidate retained its local `previous=0` declaration and compiled to the unchanged 700 output; it was not a meaningful ABI fix. Main unresolved issue: assembly has a live `$s4` from arg2 (loaded in prologue), while saved C declares previous null. Next investigate actual prototype/arg2 and field offsets from callers; rebuild C using a distinct incoming previous pointer so the target branches at 0x80027AF8 and 0x80027BB0 are represented. Inherited output differs around the branch target/width calculation near instructions 64+, including target `addu $a0,$s2,$v0`, `sh $a0,0x26($s1)` and logical-width handling; branch exits at 0x80027C38. No context header changes.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795201777.766189,
-  "score_before": 700,
-  "score_after": 700
  },
  {
   "function": "func_8009846C",
@@ -37854,14 +37806,6 @@
   "created_at": 1795204829.340684,
   "score_before": 380,
   "score_after": 380
- },
- {
-  "function": "func_80027A7C",
-  "text": "Best remains 700 (saved candidate 0db8f805bbbbe641a0ea). Target has 121 insns vs ours 119; first diff is the epilogue branch target (0x1bc vs 0x1b4), i.e. 2 missing instructions. Tried: out->width=width=... rewrite (no change, 700). Tried single-expression u16-cast x computation in align&0x40 branch: worse (810); target uses beql with andi $a0 (u16 width) in delay slot and subu from box->x, plus separate sh $v1 store. Next untested idea: split that branch into two statements with u16 casts (if(previous) x=box->x-(u16)measured; else x=box->x-width) to get beql with andi in delay slot.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795204830.7555149,
-  "score_before": 700,
-  "score_after": 700
  },
  {
   "function": "func_8002255C",
@@ -43078,5 +43022,61 @@
   "created_at": 1795204741.429031,
   "score_before": 145,
   "score_after": 145
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Rechecked baseline 5007, no local-repair variant improved it. Candidate is materially corrupted by dead `if (0 != 0)` branch, uninitialized `__repair_result_var_s2`/`__repair_result_var_s6`, and invalid `*(u8*)8` expressions. Main mismatch begins at call/arguments: target saves s1/s0 and moves arg0 into s1; candidate doesn't. Rebuild from target assembly and correct field/object types, especially arg1+0x8 value pointer, flags at +0x1C and fields +0x20/+0x22/+0x26/+0x29. Existing m2c draft cannot be trusted as-is.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795138647.363002,
+  "score_before": 5007,
+  "score_after": 5007
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Rechecked current candidate at 5007; six local-repair variants (scalar reuse, inferred record layout, masked-value reuse, integer lifetimes, signedness, declaration order) all remained 5007. Candidate is materially broken: dead if(0 != 0), uninitialized result locals, invalid *(u8*)8 expressions. Target is 138 instructions with prologue saving s1/s0/s3/s2/s4/s6/s5 and clearly treats arg0 as output pointer, arg1 as wrapper whose +8 field is object, flags at +0x1C, +0xC flags; target also uses s4 as a separate object pointer. Rebuild source from target rather than tune corrupted draft. Guess structs and recover s4 source before tuning. Correct callee prototypes are s32 func_80018080(void*) and s32 func_800182CC(void*), not u16/u8.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795178558.517766,
+  "score_before": 5007,
+  "score_after": 5007
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Current saved candidate has already been rechecked at 5007 but is semantically suspect: dead if(0 != 0), uninitialized __repair_result_var_s2 and incorrect var_s6 assignment; I recorded a candidate issue for that revision. Target assembly reviewed in full. Its frame saves s0\u2013s6, initializes s3/s2/s4 to zero, stores args in s0/s1, then implements an optional s4-driven adjustment before output fields. Candidate's false branch and invalid *(u8*)8 expressions are not faithful. Rebuild from assembly with typed wrapper structs; do not optimize this draft until its branch sources and locals are reconstructed.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795182840.3524868,
+  "score_before": 5007,
+  "score_after": 5007
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Saved and rechecked score 1490/121; local repair pass exhausted at 6/6 without improvement. Compiler is gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -fno-strength-reduce -g3. Candidate uses an invented TextStyle27 *previous initialized to NULL; target assembly initializes $s3/$s2/$s4 to zero and branches around previous logic when $s4 is null, so represent these initialized locals/pointers and narrowing faithfully. Remaining diff starts with branch destinations (target exits at +0x1bc versus current +0x1b4), one move $s3,$v0 versus andi, then cascaded branch/layout/regalloc. First diffs include unexpected initial branch offsets; exact boundaries require getting later target pages. Local statement-boundary, call-scope and split-call repairs were neutral; split result worsened.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795193723.5144022,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Best current score 700 at revision 0db8f805bbbbe641a0ea (94.2%). Baseline candidate was 1490. First changing the previous-width conditional from `if(previous==0) x-=width; else x-=measured;` to the inverted spelling improved 1290\u21921100 and produced the target's `beql $s4,$zero` orientation. Corrected `measured` from u16 to s32 based on exact-matched callee return types; this improved 1100\u2192700 and matches the target's untruncated return value. Tried making local `width` s32 (score 900, worse), reverted to best u16 width. Tried explicit u16/u32 casts around width>>1; both produced identical assembly to best. No local repair families remained. Remaining mismatch is mostly register assignment and two to four instruction short branches. Target uses `addu $a0,$s2,$v0; sh $a0,0x26($s1)`, then reads align flags into v1; candidate computes into v1, moves to a2, then loads flags into a1. Target's centered branch explicitly masks `$a0` to 16 bits and uses `srl`; candidate has same semantics but different operand registers/order. Other residual differences: branch offsets and arithmetic/subtraction register order in the previous-null path, plus end writes reordered. Untested next experiment: keep `width` u16 in best and stage the expression into a separate s32 `width_full = dx + (measured + combined); width = width_full; out->width = width_full;` then use `width_full` for alignment, checking whether GCC emits the target's `$a0` addition/store and separate low-16 mask.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795199807.137084,
+  "score_before": 1260,
+  "score_after": 700
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Rechecked inherited score 700 and tried supplying a third previous-style argument, but the candidate retained its local `previous=0` declaration and compiled to the unchanged 700 output; it was not a meaningful ABI fix. Main unresolved issue: assembly has a live `$s4` from arg2 (loaded in prologue), while saved C declares previous null. Next investigate actual prototype/arg2 and field offsets from callers; rebuild C using a distinct incoming previous pointer so the target branches at 0x80027AF8 and 0x80027BB0 are represented. Inherited output differs around the branch target/width calculation near instructions 64+, including target `addu $a0,$s2,$v0`, `sh $a0,0x26($s1)` and logical-width handling; branch exits at 0x80027C38. No context header changes.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795201777.766189,
+  "score_before": 700,
+  "score_after": 700
+ },
+ {
+  "function": "func_80027A7C",
+  "text": "Best remains 700 (saved candidate 0db8f805bbbbe641a0ea). Target has 121 insns vs ours 119; first diff is the epilogue branch target (0x1bc vs 0x1b4), i.e. 2 missing instructions. Tried: out->width=width=... rewrite (no change, 700). Tried single-expression u16-cast x computation in align&0x40 branch: worse (810); target uses beql with andi $a0 (u16 width) in delay slot and subu from box->x, plus separate sh $v1 store. Next untested idea: split that branch into two statements with u16 casts (if(previous) x=box->x-(u16)measured; else x=box->x-width) to get beql with andi in delay slot.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795204830.7555149,
+  "score_before": 700,
+  "score_after": 700
  }
 ]
