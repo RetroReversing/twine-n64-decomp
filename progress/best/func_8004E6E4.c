@@ -197,7 +197,8 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                 if (((u32)func_800488D4(temp_s0_2, sp124, sp12C) << 24) != 0) {
                                     work.scratch.object.direction = *(RayVec *)spFC;
                                     temp_v0 = func_8004E418(temp_s0_2, sp124, sp12C) & 0xFFFF;
-                                    sp146 = temp_v0 & 0xFF;
+                                    var_s0 = temp_v0 & 0xFF;
+    sp146 = var_s0;
                                     sp14E = temp_v0 & 0xFF00;
                                     func_80083A6C(sp134, sp13C);
                                     temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
@@ -358,12 +359,15 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                             D_80108F84 = var_s7;
                                             if (arg6 != NULL) {
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
-                                                    temp_v1_13 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6);
-                                                    var_a2_2 = M2C_FIELD(temp_v1_13, u16 *, 2) * 3;
-                                                    var_v0_3 = M2C_FIELD(temp_v1_13, u16 *, 4);
-                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_13, u16 *, 0) * 0xC);
+                                                    
+                                                    var_a2_2 = M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 2) * 3;
+                                                    var_v0_3 = M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 4);
+                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD((M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 6)), u16 *, 0) * 0xC);
                                                 } else {
-                                                    goto block_95;
+                                                    temp_v1_17 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 3);
+                                                    var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_17, u8 *, 0) * 0xC);
+                                                    var_a2_2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
+                                                    var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
                                                 }
                                                 func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2_2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
@@ -401,7 +405,6 @@ s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, 
                                                     var_v0_3 = M2C_FIELD(temp_v1_16, u16 *, 4);
                                                     var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_16, u16 *, 0) * 0xC);
                                                 } else {
-block_95:
                                                     temp_v1_17 = M2C_FIELD(temp_s2, u8 **, 0x3C) + (var_s4_3 * 3);
                                                     var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_17, u8 *, 0) * 0xC);
                                                     var_a2_2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;

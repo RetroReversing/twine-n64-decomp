@@ -12,10 +12,10 @@ void func_80034EFC(void) {
     register Gfx34EFC *base = D_80115328;
     Gfx34EFC *cmd;
     s32 width, height, size;
+    register long cycle;
     s32 buffer, tag;
-    u32 cycle;
-    unsigned int render = 0xE200001C;
-    register u32 modes = 0x0F0A4000;
+    s32 render = 0xE200001C;
+    u32 modes = 0x0F0A4000;
     cycle = 0xE3000A01;
 
     D_80115328 = base + 1;
@@ -23,15 +23,15 @@ void func_80034EFC(void) {
     D_80115328 = base + 2;
     base[1].w1 = 0x300000;
     D_80115328 = base + 3;
-    width = D_8010D6F8 - 1;
-    base[1].w0 = cycle;
     height = D_80108F80 - 1;
+    width = (int)D_8010D6F8 - 1;
+    base[1].w0 = cycle;
     base[0].w1 = 0;
+    base[2].w1 = modes;
     size = 2;
     base[2].w0 = render;
-    base[2].w1 = modes;
     if (*(volatile s32 *)&D_8010A4EC) {
-        size = (-(!D_8010A4E8) & 3) | 2;
+        size = (-(D_8010A4E8 == 0) & 3) | 2;
     }
 
     tag = 0xFF000000;
@@ -44,6 +44,6 @@ void func_80034EFC(void) {
     cmd[0].w0 = 0xF7000000;
     D_80115328 = cmd + 2;
     cmd[0].w1 = 0;
-    cmd[1].w0 = ((((int)height & 0x3FF) << 2) | 0xF6000000u) | ((width & 0x3FF) << 14);
+    cmd[1].w0 = (((height & 0x3FF) << 2) | 0xF6000000u) | ((width & 0x3FF) << 14);
     cmd[1].w1 = 0;
 }

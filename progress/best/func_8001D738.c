@@ -64,6 +64,8 @@ extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
 void func_8001D738(void) {
+int __repair_literal;
+
     s32 temp_a0;
     s32 temp_s0;
     s32 temp_s2;
@@ -132,7 +134,9 @@ void func_8001D738(void) {
         D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
         temp_v1_2 = D_80100198[D_800B7CF0].f0;
         temp_a0 = var_s1 - 0x28;
-        if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= 0)) {
+__repair_literal = 0;
+
+        if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= __repair_literal)) {
             func_80025E9C(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
         } else {
             func_80025D84(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 0x7A, 1);

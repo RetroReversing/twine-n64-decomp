@@ -17,7 +17,8 @@ extern u8 D_8010A4FF;
 
 void func_8001DE20(void) {
     s32 var_a0;
-    s32 var_a0_3;
+s32 __repair_phase_var_a0;
+    
     s32 var_a0_4;
     s32 var_v0;
     void *temp_s0;
@@ -40,8 +41,9 @@ void func_8001DE20(void) {
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((D_8010A4FC * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
         if (D_8010A4FE == 0) var_a0 = 0x1A;
-        var_a0 = 0x1B;
-        { do { func_80026004(temp_s1, "%s", func_80087100(var_a0)); } while (0); }
+        __repair_phase_var_a0 = 0x1B;
+        { __repair_rows: { func_80026004(temp_s1, "%s", func_80087100(__repair_phase_var_a0)); }
+if (0) goto __repair_rows; }
         temp_s2 = var_s3 - 0x28;
         if (D_80108400 != 0) {
             temp_s0 = temp_s4 - 0x28;
@@ -54,9 +56,9 @@ void func_8001DE20(void) {
         } else {
             (*(s16 *)((char *)(var_s3) + -0x28)) = 0x1C;
             func_80025D84(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C, 1);
-            var_a0_3 = 0x1B3;
-            if (D_8010A4FF != 0) var_a0_3 = 0x1D;
-            func_80026004(var_s3, "%s", func_80087100(var_a0_3));
+            var_a0 = 0x1B3;
+            if (D_8010A4FF != 0) var_a0 = 0x1D;
+            func_80026004(var_s3, "%s", func_80087100(var_a0));
             func_80025E9C(temp_s4 - 0x28, temp_s4, var_s3 - 0x28, temp_s5 - 0x28, 1, 0xD);
             temp_s2 = (*(void **)((char *)(D_80109BB0) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x20);

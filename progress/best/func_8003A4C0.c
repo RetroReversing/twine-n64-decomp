@@ -144,10 +144,10 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
         if (var_t2 < (u32) (temp_v1 * temp_a1)) {
             temp_v1_3 = ((__repair_record_arg2*)arg2)->field_26;
             if ((temp_v1_3 == temp_v1) && (((__repair_record_arg2*)arg2)->field_29 == temp_a1)) {
-                func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + sp44), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
+                func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
                 return;
             }
-            func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + sp44), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
+            func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
             return;
         }
         if (D_8010A4E8 != 0) {
@@ -221,7 +221,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
     temp_s4 = temp_t6;
                     temp_t6 = sp4C >> 0x10;
                     do {
-                        temp_t2 = ((__repair_record_arg2*)arg2)->field_20 + sp44 + (((__repair_record_arg2*)arg2)->field_26 * var_s2);
+                        temp_t2 = ((__repair_record_arg2*)arg2)->field_20 + arg0 + (((__repair_record_arg2*)arg2)->field_26 * var_s2);
                         temp_t0 = ((__repair_record_arg2*)arg2)->field_22 + (((__repair_record_arg2*)arg2)->field_29 * var_t9);
                         if (D_8010A4E8 != 0) {
                             if (((__repair_record_arg2*)arg2)->field_1E & 4) {

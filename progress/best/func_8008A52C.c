@@ -78,7 +78,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     temp_a3_2 = (*(volatile u32 *)((char *)(arg0) + 0x38));
     temp_a0 = (*(volatile u32 *)((char *)(arg0) + 0x34)) + (*(u32 *)((char *)(arg0) + 0x38));
     sp28 = 2;
-    if ((temp_a3_2 != 0) && ((var_v0 = temp_a0 < (u32) var_a1, ((*(u8 *)((char *)(arg0) + 1)) != 0)) || (var_v0 = temp_a0 < (u32) var_a1, ((*(s32 *)((char *)(arg0) + 0x3C)) == 0))) && (var_v0 == 0)) {
+    if ((((*(volatile u32 *)((char *)(arg0) + 0x38))) != 0) && ((var_v0 = temp_a0 < (u32) var_a1, ((*(u8 *)((char *)(arg0) + 1)) != 0)) || (var_v0 = temp_a0 < (u32) var_a1, ((*(s32 *)((char *)(arg0) + 0x3C)) == 0))) && (var_v0 == 0)) {
         var_s6 = 0;
         if (temp_a0 < (u32) (var_a1 + temp_s0_2)) {
             temp_v1_2 = (*(u32 *)((char *)(arg0) + 0x34));
@@ -166,7 +166,9 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
             temp_a3_6 = (*(s32 *)((char *)(arg0) + 0x2C));
             var_s3 = sp10[0] & 3 & 0xFF;
             func_80089F7C(temp_s1 + 0x24, temp_a3_6 + ((sp10[0] & 0xFFFC) * 2), ((var_s3 + sp10[4] + 3) & 0xFFFC) * 2, temp_a3_6);
-            goto block_45;
+            (*(s8 *)((char *)(temp_s1) + 0x3C)) = 0;
+            (*(u8 *)((char *)(temp_s1) + 0x3E)) = var_s3;
+            (*(s32 *)((char *)(temp_s1) + 0x40)) = (s16) sp10[4];
         }
     } else {
         temp_v1_4 = (*(u8 *)((char *)(arg0) + 0x5D));
@@ -211,7 +213,6 @@ block_38:
             var_s3 = sp10[0] & 3 & 0xFF;
             (*(s16 *)((char *)(temp_s1) + 0x2E)) = 0;
             (*(s16 *)((char *)(temp_s1) + 0x2C)) = (s16) (((var_s3 + sp10[4] + 3) & 0xFFFC) * 2);
-block_45:
             (*(s8 *)((char *)(temp_s1) + 0x3C)) = 0;
             (*(u8 *)((char *)(temp_s1) + 0x3E)) = var_s3;
             (*(s32 *)((char *)(temp_s1) + 0x40)) = (s16) sp10[4];
