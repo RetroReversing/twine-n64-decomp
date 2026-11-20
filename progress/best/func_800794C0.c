@@ -84,11 +84,7 @@ void func_800794C0(s32 arg0, void *arg1) {
         m2c_initial_frame.view_sp74.value += 1.0f;
     } goto first_done;
     first_else: {
-        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24);
-        var_ft0 = 41.0f;
-    }
-    first_done:
-    temp_fv0 = (*(f32 *)((char *)(temp_s2) + 0x48)) - 0.32666668f;
+        *(Vec3u32 *)&m2c_initial_frame.view_sp70.value = *(Vec3u32 *)((char *)arg1 + 0x24); var_ft0 = 41.0f; } first_done: temp_fv0 = (*(f32 *)((char *)(temp_s2) + 0x48)) - 0.32666668f;
     (*(f32 *)((char *)(temp_s2) + 0x48)) = temp_fv0;
     (*(f32 *)((char *)(arg1) + 0x28)) = (f32) ((*(f32 *)((char *)(arg1) + 0x28)) + (temp_fv0 * 0.033333335f));
     if ((func_8004C750(arg0, &m2c_initial_frame.view_sp70.value, &m2c_initial_frame.view_sp30.value, &m2c_initial_frame.view_sp40.value, temp_fs0 + var_ft0, &m2c_initial_frame.view_sp50.value, &m2c_initial_frame.view_sp60.value, &m2c_initial_frame.view_sp80.value) << 0x18) == 0) {
@@ -124,24 +120,24 @@ void func_800794C0(s32 arg0, void *arg1) {
         (*(f32 *)((char *)(arg1) + 0x2C)) = (f32) ((*(f32 *)((char *)(arg1) + 0x2C)) + m2c_initial_frame.view_sp58.value);
         temp_v1_5 = (*(void **)((char *)(arg1) + 0x68));
         (*(f32 *)((char *)(arg1) + 0x40)) = (f32) ((*(f32 *)((char *)(arg1) + 0x40)) + m2c_initial_frame.view_sp64.value);
-        temp_a2 = D_80108F84;
+        temp_v1_6 = D_80108F84;
         (*(u16 *)((char *)(temp_v1_5) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_5) + (u32)0xC)) | 8);
-        if (temp_a2 != NULL) {
+        if (temp_v1_6 != NULL) {
             (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = (u8) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
         }
     } else {
         temp_v1_6 = (*(void **)((char *)(arg1) + 0x68));
         (*(u16 *)((char *)(temp_v1_6) + 0xC)) = (u16) ((*(u16 *)((char *)(temp_v1_6) + 0xC)) & 0xFFF7);
     }
-    if ((D_80103F00 != 0) && ((*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8)) < m2c_initial_frame.view_sp44.value) && (func_80045CF8(4) == 0)) {
+    if ((D_80103F00 != 0) && (m2c_initial_frame.view_sp44.value > (*(f32 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 8))) && (func_80045CF8(4) == 0)) {
         func_8008548C(&m2c_initial_frame.view_sp40.value);
         func_800617D8((*(s32 *)((char *)(arg1) + 0x20)), &m2c_initial_frame.view_sp40.value, 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x8080, 0x80808008);
         (*(u8 *)((char *)((*(void **)((char *)(arg1) + 0x68))) + 0x11)) = 5U;
     }
-    arg0 = ((__repair_field_88 *)temp_s2)->value & 0xFBFFFFFF;
-    ((__repair_field_88 *)temp_s2)->value = arg0;
+    temp_v1_7 = ((__repair_field_88 *)temp_s2)->value & 0xFBFFFFFF;
+    ((__repair_field_88 *)temp_s2)->value = temp_v1_7;
     if (D_80108788 != 0) {
-        ((__repair_field_88 *)temp_s2)->value = (s32) (arg0 | 0x04000000);
+        ((__repair_field_88 *)temp_s2)->value = (s32) (temp_v1_7 | 0x04000000);
     }
     if ((D_80108F84 != NULL) && (((u32) (*(u32 *)((char *)(D_80108F84) + 0x5C)) >> 0x11) & 2)) {
         ((__repair_field_88 *)temp_s2)->value = (s32) (((__repair_field_88 *)temp_s2)->value | 0x04000000);

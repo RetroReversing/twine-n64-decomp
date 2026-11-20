@@ -1,8 +1,8 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 extern float D_800D3E24;
-extern int D_800D3E28;
-extern int D_800D3E2C;
+extern float D_800D3E28;
+extern float D_800D3E2C;
 s32 func_80047E4C();
 s32 func_800487F0();
 s32 func_8004886C(s32);
@@ -122,9 +122,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                         temp_s0 = temp_s2 + 0x18;
                         func_80083A6C(sp104, sp114);
                         if ((func_800488D4(temp_s0, sp10C, sp114) << 0x18) != 0) {
-                            sp90[0] = D_800D3E24;
-                            sp90[1] = D_800D3E28;
-                            sp90[2] = D_800D3E2C;
+                            *(__repair_record_arg1 *)sp90 = *(__repair_record_arg1 *)&D_800D3E24;
                             temp_v0 = func_8004E418(temp_s0, sp10C, sp114) & 0xFFFF;
                             temp_s7 = temp_v0 & 0xFF;
                             temp_s6 = temp_v0 & 0xFF00;
@@ -185,18 +183,14 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
             do {
                 if (((*(s32 *)((char *)(var_s5) + 0x50)) & 0x200) && ((func_8004886C((s8 *) var_s5 + 0x40) << 0x18) != 0)) {
                     temp_s1 = (*(void **)((char *)(var_s5) + 0x3C));
-                    sp88[0] = (((__repair_record_arg1*)arg1)->field_0);
-                    sp88[2] = (((__repair_record_arg1*)arg1)->field_4);
-                    sp90[0] = (((__repair_record_arg1*)arg1)->field_8);
-                    spD0[0] = sp28[0];
-                    spD0[1] = sp28[1];
-                    spD0[2] = sp28[2];
+                    *(__repair_record_arg1 *)sp88 = *(__repair_record_arg1 *)arg1;
+                    *(__repair_record_arg1 *)spD0 = *(__repair_record_arg1 *)sp28;
                     if (((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 1) {
-                        sp88[0] -= (*(f32 *)((char *)(var_s5) + 0x24));
-                        sp88[2] -= (*(f32 *)((char *)(var_s5) + 0x28));
+                        ((f32 *)sp88)[0] -= (*(f32 *)((char *)(var_s5) + 0x24));
+                        ((f32 *)sp88)[1] -= (*(f32 *)((char *)(var_s5) + 0x28));
                         spD0[0] -= (*(f32 *)((char *)(var_s5) + 0x24));
                         spD0[1] -= (*(f32 *)((char *)(var_s5) + 0x28));
-                        sp90[0] -= (*(f32 *)((char *)(var_s5) + 0x2C));
+                        ((f32 *)sp88)[2] -= (*(f32 *)((char *)(var_s5) + 0x2C));
                         spD0[2] -= (*(f32 *)((char *)(var_s5) + 0x2C));
                     }
                     if (((u32) (*(u32 *)((char *)(var_s5) + 0x5C)) >> 0x17) & 2) {
@@ -206,9 +200,7 @@ s32 func_8004BCC0(void **arg0, void *arg1, void *arg2, f32 arg3) { float __repai
                     }
                     temp_s0_2 = temp_s1 + 0x18;
                     if ((func_800488D4(temp_s0_2, (f32 *) sp134, sp10C) << 0x18) != 0) {
-                        spE0[0] = D_800D3E24;
-                        spE0[1] = D_800D3E28;
-                        spE0[2] = D_800D3E2C;
+                        *(__repair_record_arg1 *)spE0 = *(__repair_record_arg1 *)&D_800D3E24;
                         temp_v0_2 = func_8004E418(temp_s0_2, (f32 *) sp134, sp10C);
                         temp_s4 = temp_v0_2 & 0xFF;
                         temp_s3_2 = temp_v0_2 & 0xFF00;

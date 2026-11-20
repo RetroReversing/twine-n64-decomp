@@ -49,12 +49,10 @@ s32 __repair_phase_var_a1;
     void *temp_v1_7;
     void *temp_v1_9;
 
-    switch (arg1) {
-case 0: break;
-                                 /* switch 1 */
+    switch (arg1 - 1) {
+case 0:                                         /* switch 1 */                                         /* switch 1 */
     case 1:                                         /* switch 1 */
-    case 2:                                         /* switch 1 */
-    case 14:                                        /* switch 1 */
+    case 13:                                        /* switch 1 */
         if (D_8010A92C != 1) {
             temp_v0 = D_80115328;
             D_8010A92C = 1;
@@ -66,7 +64,7 @@ case 0: break;
 block_10:
         func_80034928(arg0, __repair_phase___repair_phase_temp_v1_10);
         break;
-    case 8:                                         /* switch 1 */
+    case 7:                                         /* switch 1 */
         if (D_8010A92C != 2) {
             D_8010A92C = 2;
             temp_v1 = D_80115328;
@@ -77,17 +75,17 @@ block_10:
 block_9:
         __repair_phase___repair_phase_temp_v1_10 = 2;
         goto block_10;
+    case 2:                                         /* switch 1 */
     case 3:                                         /* switch 1 */
     case 4:                                         /* switch 1 */
     case 5:                                         /* switch 1 */
     case 6:                                         /* switch 1 */
-    case 7:                                         /* switch 1 */
-    case 9:                                         /* switch 1 */
-    case 10:                                        /* switch 1 */
+    case 8:                                         /* switch 1 */
+    case 9:                                        /* switch 1 */
+    case 11:                                        /* switch 1 */
     case 12:                                        /* switch 1 */
-    case 13:                                        /* switch 1 */
+    case 14:                                        /* switch 1 */
     case 15:                                        /* switch 1 */
-    case 16:                                        /* switch 1 */
         if (D_8010A92C != 1) {
             temp_v0_2 = D_80115328;
             D_8010A92C = 1;

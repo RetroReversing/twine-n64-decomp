@@ -28,7 +28,7 @@ s8 func_80081828();
 s32 func_8011ACAC();
 s32 func_8011B278();
 extern char D_800BF688[];
-extern char D_800C471C[];
+extern u8 D_800C471C[];
 extern char D_800C471E[];
 extern s32 D_800C7C98;
 extern s32 D_800C7C9C;
@@ -49,7 +49,7 @@ extern char D_80109688[];
 extern char D_8010A500[];
 extern u8 D_80112F6D;
 
-void *func_80064A18(u8 arg0, void *arg1, void *arg2, void *arg3) {
+void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     s32 var_fv1;
@@ -118,10 +118,11 @@ void *func_80064A18(u8 arg0, void *arg1, void *arg2, void *arg3) {
     void *temp_v1_8;
     void *temp_v1_9;
     void *var_v0;
+    volatile s64 stack_pad;
 
     sp14 = arg2;
     if ((D_80102ED8 != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == D_80102EE8))) {
-        temp_s4 = func_800164F8(0x5AC, arg1);
+        temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;
         *(s32 *)(D_8010A500 + temp_s0) = temp_s4; if (temp_s4 != NULL) {

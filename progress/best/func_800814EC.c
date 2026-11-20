@@ -6,10 +6,14 @@ void func_800814EC(void *arg0) {
 
     temp_v1 = (*(s32 *)((char *)(arg0) + 0x60));
     temp_a1 = (*(void **)((char *)(arg0) + 0x6C));
-    if (!(temp_v1 & 0x40) && (temp_v1 & 0x22) && !(temp_v1 & 0x20000000) && ((*(s32 *)((char *)(temp_a1) + 0x68)) & 0x1000)) {
+    if (temp_v1 & 0x40) return;
+    if (!(temp_v1 & 0x22)) return;
+    if (temp_v1 & 0x20000000) return;
+    if ((*(s32 *)((char *)(temp_a1) + 0x68)) & 0x1000) {
         (*(s32 *)((char *)(arg0) + 0x60)) = (s32) (temp_v1 | 0x40000000);
-        (*(s32 *)((char *)(temp_a1) + 0x88)) = (s32) (((*(s32 *)((char *)(temp_a1) + 0x88)) & 0xFFE1FFFF) | 0x1C0000);
-        (*(s32 *)((char *)(temp_a1) + 0x68)) = (s32) ((*(s32 *)((char *)(temp_a1) + 0x68)) | 0x1000);
+        { int x = *(s32 *)((char *)temp_a1 + 0x88); int y = *(s32 *)((char *)temp_a1 + 0x68);
+        *(s32 *)((char *)temp_a1 + 0x88) = (x & 0xFFE1FFFF) | 0x1C0000;
+        *(s32 *)((char *)temp_a1 + 0x68) = y | 0x1000; }
         (*(f32 *)((char *)(temp_a1) + 0x60)) = 500.0f;
     }
 }

@@ -21,7 +21,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     s32 var_v1_4;
     u32 temp_v0_10;
     u32 temp_v0_11;
-    s32 temp_v0_12;
+    u32 temp_v0_12;
     u32 temp_v0_13;
     unsigned long temp_v0_14;
     u32 temp_v0_15;
@@ -72,9 +72,9 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
         (*(s32 *)((char *)(arg1) + 0x50)) &= ~0x400;
         return;
     case 0x40:
-        temp_v0_2 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x18;
-        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_2 & 0xFFFF0003) | (((((int)temp_v0_2 >> 2) & 0x3FFF) | 4) * 4));
+        temp_v0_2 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
+        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_2 & 0xFFFF0003) | ((((temp_v0_2 >> 2) & 0x3FFF) | 4) * 4));
         temp_v1 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((temp_v1 & 0x7FFFFF) | (((temp_v1 >> 0x17) | 0x20) << 0x17));
         (*(s32 *)((char *)(arg1) + 0x50)) &= ~0x400;
@@ -311,7 +311,7 @@ block_29:
             }
         } else {
             temp_v1_6 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
-            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v1_6 & 0xFFFF0003) | ((((temp_v1_6 >> 2) & 0x3FFF) | 0x2000) * 4));
+            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v1_6 & 0xFFFF0003) | (((((u32)temp_v1_6 >> 2) & 0x3FFF) | 0x2000) * 4));
             var_v0_6 = 0x88;
         }
         (*(s16 *)((char *)(arg1) + 0x58)) = var_v0_6;

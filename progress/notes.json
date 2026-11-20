@@ -4080,14 +4080,6 @@
   "score_after": 120
  },
  {
-  "function": "func_800ABAB4",
-  "text": "Target is 4-argument 32-bit multiply cross-term helper, not ordinary u64 a*b. Target computes multu a1*a2 -> low t0; multu a0*a3 -> low v1; sums them; multu a0*a2 -> high v0; returns v0+t0. Plain u64 multiplication scored 985/13 instructions; manual decomposition with u32/u64 expressions scored worse (1480,1880). Need model exact signature/arithmetic and compiler lowering; likely specialized fixed-point/matrix multiplication fragment.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795136707.154579,
-  "score_before": 985,
-  "score_after": 985
- },
- {
   "function": "func_80099B64",
   "text": "Tried m2c candidate and two direct offset-array rewrites. Candidate score best historical 205; direct rewrite scored 535. Main remaining shape mismatch: target preserves value in a1, loads FF into a3, uses longer branch-to-return paths, and forms D_801007D9 address into v1 then stores through computed v0. Need recover best baseline and tune local types/expressions to match register allocation and branch layout.",
   "by": "codex-gpt-6-luna-9",
@@ -4230,14 +4222,6 @@
   "created_at": 1795136847.90065,
   "score_before": 210,
   "score_after": 210
- },
- {
-  "function": "func_800814EC",
-  "text": "Saved best revision 1cbe8880b6007a3b890e rechecks at 505. Tried six independent local repairs (inferred layout, signedness, address temp, const read, assignment-at-use, single-use inline), all tied. One direct source reorder (write 0x68, float 0x60, then masked 0x88) worsened to 590; restored baseline remains best. Target final block loads 0x88 into a0, builds mask in v0, loads 0x68 into v1, materializes 500.0f, then performs and/or, sets/stores 0x68, stores float, and stores 0x88 last. Baseline differs heavily in register allocation/order at this block (candidate begins with lw v0,0x68 where target begins lw a0,0x88). Need a different temp/declaration/source shape to make the 0x88 expression compile first and reuse a0/v0/v1.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795136865.536198,
-  "score_before": 505,
-  "score_after": 505
  },
  {
   "function": "func_8008C5DC",
@@ -7408,14 +7392,6 @@
   "score_after": 450
  },
  {
-  "function": "func_800ABAB4",
-  "text": "Best 885 is u64 multiplication; target uses low words in a0/a2 unlike compiler's u64 argument ordering. Explicit four-u32 partial products, shift/add and union output scored 2180, 2015, 1640; compiler uses signed mult for low-word partial products and adds extra instructions. Investigate alternate compiler/ABI and original helper provenance.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795163911.3521972,
-  "score_before": 985,
-  "score_after": 885
- },
- {
   "function": "func_800A798C",
   "text": "Score 10: target uses t9 for second load/store while compiler uses v1. Explicit register local and pointer cast did not change emitted instructions. Investigate compiler profile or source construct inducing t9.",
   "by": "codex-gpt-6.1-terra-4",
@@ -9990,5 +9966,77 @@
   "created_at": 1795172901.86464,
   "score_before": 9372,
   "score_after": 9177
+ },
+ {
+  "function": "func_800ABAB4",
+  "text": "Target is 4-argument 32-bit multiply cross-term helper, not ordinary u64 a*b. Target computes multu a1*a2 -> low t0; multu a0*a3 -> low v1; sums them; multu a0*a2 -> high v0; returns v0+t0. Plain u64 multiplication scored 985/13 instructions; manual decomposition with u32/u64 expressions scored worse (1480,1880). Need model exact signature/arithmetic and compiler lowering; likely specialized fixed-point/matrix multiplication fragment.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795136707.154579,
+  "score_before": 985,
+  "score_after": 985
+ },
+ {
+  "function": "func_800814EC",
+  "text": "Saved best revision 1cbe8880b6007a3b890e rechecks at 505. Tried six independent local repairs (inferred layout, signedness, address temp, const read, assignment-at-use, single-use inline), all tied. One direct source reorder (write 0x68, float 0x60, then masked 0x88) worsened to 590; restored baseline remains best. Target final block loads 0x88 into a0, builds mask in v0, loads 0x68 into v1, materializes 500.0f, then performs and/or, sets/stores 0x68, stores float, and stores 0x88 last. Baseline differs heavily in register allocation/order at this block (candidate begins with lw v0,0x68 where target begins lw a0,0x88). Need a different temp/declaration/source shape to make the 0x88 expression compile first and reuse a0/v0/v1.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795136865.536198,
+  "score_before": 505,
+  "score_after": 505
+ },
+ {
+  "function": "func_800ABAB4",
+  "text": "Best 885 is u64 multiplication; target uses low words in a0/a2 unlike compiler's u64 argument ordering. Explicit four-u32 partial products, shift/add and union output scored 2180, 2015, 1640; compiler uses signed mult for low-word partial products and adds extra instructions. Investigate alternate compiler/ABI and original helper provenance.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795163911.3521972,
+  "score_before": 985,
+  "score_after": 885
+ },
+ {
+  "function": "func_80091A24",
+  "text": "Best current score 8810 (85%); unsigned D_800E6A85 declaration improved 10220\u21928820 by changing seven lb to lbu. Adding volatile s64 reserve[2] after the stack locals improved slightly to 8810 and frame now aligns at 0x50; keep that. Remaining large differences include loop control/branch targets (beq target 0x148 vs 0x80, several beql/bnez variations), register allocation, and missing 19 instructions. Next inspect common slot lookup loop and compiler form rather than spending more on generic frame padding. Candidate's pointer-to-integer warning at line ~134 remains from draft.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795172921.215443,
+  "score_before": 10224,
+  "score_after": 8810
+ },
+ {
+  "function": "func_800404F0",
+  "text": "Session context limit approaching. Best verified score 24035, revision 22542ede04f0d46395c4. Corrected 0x58 accesses: direct field assignments use sh, packed bit updates use lw/sw; corrected vector source/destination types to f32 and unsigned shifts. Case 0x15 uninitialized temp was reordered. Remaining differences are widespread switch case control flow/register scheduling, 581 vs 603 instructions. Inspect target per case, especially float vector zero stores and 0x5c packed updates. try_local_repairs timed out without trials.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795173211.2458,
+  "score_before": 31363,
+  "score_after": 24035
+ },
+ {
+  "function": "func_80008750",
+  "text": "Best verified candidate now 17295, revision c70e4128ad7f3a92592b. Target entry uses `v1=arg1-1; sltiu v0,v1,16;` then jump table jtbl_800D2098. Saved-best source switch rewrite to switch(arg1-1) with cases shifted was submitted but tool timed out after 180s; inspect current candidate before further edits. Prior naive rewrite only changed switch expression and regressed/missed bounds; preserve explicit default/out-of-range behavior. Current mismatch still broad CFG.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795173370.720233,
+  "score_before": 17550,
+  "score_after": 17295
+ },
+ {
+  "function": "func_8008D838",
+  "text": "Rechecked saved revision 87ebf5173278f1a8ff55 at 9175. Local loop backedge variant tied; scalar reuse scored 9225. The saved candidate assigns var_v0_3 on one branch but stores uninitialized __repair_result_var_v0_3; correcting that assignment scored 9400 and changes frame/register allocation. A following s16-to-s32 edit to the first D_80107ED4 access changed a target lh to lw and scored 9595. Restore saved best and reconstruct this conditional and the table field widths from assembly. A subsequent local repairs call failed to return after over two minutes and was terminated; session time is exhausted.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795173421.633487,
+  "score_before": 9090,
+  "score_after": 8460
+ },
+ {
+  "function": "func_80008750",
+  "text": "Rechecked saved candidate c70e4128ad7f3a92592b: score 17295. Cached local repair variant (inferred two-word record at first E2 command) tied at 17295; remaining batch was capped at 60s. Historical attempted switch(arg1-1) rewrite with shifted cases improved 17305 to 17295; last target mismatch near row 39 is branch for D_8010A92C == 2 targeting 0x110, while C branch lands at 0x88. Continue by inspecting get_assembly(focus=\"mismatch\") and reconsider first switch dispatch/control-flow layout (especially common call block and case 7 path). Do not repeat cached local repairs or previous broad case shifting; score currently tied and switch reconstruction is incomplete.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795173693.446302,
+  "score_before": 17295,
+  "score_after": 17295
+ },
+ {
+  "function": "func_800ABAB4",
+  "text": "Tried u64 and s64 multiplication; both produced 16 instructions and score 985. u32 inputs with u64 cast improved to score 825/6 instructions, but removed the needed cross-products. Target explicitly multiplies arg halves a1*a2, a0*a3, and a0*a2, then combines low/high terms. Need model the 64-bit arguments as two 32-bit halves (likely a struct or split expression) to force these exact operations and register inputs.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795173693.4535758,
+  "score_before": 885,
+  "score_after": 825
  }
 ]

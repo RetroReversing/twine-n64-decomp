@@ -226,7 +226,7 @@ block_5:
                     var_s0_2 = temp_a1 + (((*(s8 *)((char *)(var_s1) + -2)) << 0x10) / 100);
                     if ((*(s32 *)((char *)(var_s1) + -0x9E)) & 0x40010) {
                         if ((*(u8 *)((char *)(var_s1) + -0x78)) != 0xFF) {
-                            var_v1 = func_80096D5C(var_s5, temp_a1, 0x40010) & 0xFFFF;
+                            var_v1 = func_80096D5C(var_s5) & 0xFFFF;
                             (*(u16 *)((char *)(var_s1) + -0xA)) = var_v1;
                             goto block_56;
                         }
