@@ -130,19 +130,17 @@ void func_80000570(void) {
     tvType = D_80000300;
     D_800D03EC = 0x3BB;
     D_80117384 = (u32) (tvType - 1) < 2U;
-    if (tvType != 0) {
-        var_s2 = 0;
-        if (tvType != 2) {
-            var_s1 = 0 * 4;
-        } else {
-            var_s2 = 0x1C;
-            goto block_14;
-        }
-    } else {
-        var_s2 = 0xE;
-block_14:
-        var_s1 = var_s2 * 4;
-    }
+    if (tvType == 0) goto pal;
+    var_s2 = 0;
+    if (tvType == 2) goto mpal;
+    goto scale;
+pal:
+    var_s2 = 0xE;
+    goto scale;
+mpal:
+    var_s2 = 0x1C;
+scale:
+    var_s1 = var_s2 * 4;
     temp_s1 = (var_s1 + var_s2) * 0x10;
     osViSetMode(temp_s1 + D_800CFF60);
     osViBlack(1);
