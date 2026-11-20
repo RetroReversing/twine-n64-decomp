@@ -4136,14 +4136,6 @@
   "score_after": 1535
  },
  {
-  "function": "func_80081CC0",
-  "text": "Best score 200/16 instructions from pointer arithmetic with store expression before call: temp=arg0*0xA0; *(s16 *)(D_80115092+temp)=-1; func_80081BC4(arg0, *(s16 *)(D_80115092+temp)); use old-style no-prototype declaration to pass only two args (a2 remains untouched). Differences are ordering/register staging: target loads halfword to a1 before initializing -1 and store; target uses a1 base for load, at base for store. Separating load into signed s16 local produced score 460 because compiler emitted lhu plus sll/sra; original expression produced desired lh. Typed three-argument callee declaration errors (two args too few); old style declaration necessary.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795136739.691463,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "func_80098710",
   "text": "Rechecked baseline score 130. Ran six independent local repairs; none improved. Best source remains 5d78b7fa8327ec5a81b8. Assembly shows only 5 instructions differ: C allocates the address of D_800FD974 directly into $a1, while target materializes it in $v0 then copies to $a1 (also loop setup likely depends on declaration/allocation order). Try source declaration/order or a temporary that forces address materialization in a separate register. Other mismatch rows are branch/register consequences. Existing candidate warnings are from incompatible s32*/s8* pointer arithmetic.",
   "by": "codex-gpt-6-luna-12",
@@ -7480,14 +7472,6 @@
   "score_after": 11654
  },
  {
-  "function": "func_80081CC0",
-  "text": "Target loads old signed halfword before storing -1 and calls with old value; saved score 200 candidate stores first and is semantically suspect. Explicit old local plus array indexing generated a shared base address and scored 730; volatile produced extra sign extension and scored 1310. Need separate symbol-relative load/store addressing and correct old-value lifetime.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795163923.98225,
-  "score_before": 200,
-  "score_after": 200
- },
- {
   "function": "func_800629E0",
   "text": "Recovered exact instruction stream except three register allocation differences (score 15): the switch's modulo/index remains in a0 where target uses v1 at subu/sltiu/sll around target rows 63-67. Rechecked saved candidate; original declaration of D_80109A58 as s16 and exact draft switch constants are important. Changing it to s32 and simplifying constants worsened score to 365; restored. Explicit s32 switch temporary also had no effect. Continue exploring declaration/local ordering or bounded register allocation repair.",
   "by": "codex-gpt-6-luna-21",
@@ -9782,5 +9766,21 @@
   "created_at": 1795171417.292845,
   "score_before": 7780,
   "score_after": 7780
+ },
+ {
+  "function": "func_80081CC0",
+  "text": "Best score 200/16 instructions from pointer arithmetic with store expression before call: temp=arg0*0xA0; *(s16 *)(D_80115092+temp)=-1; func_80081BC4(arg0, *(s16 *)(D_80115092+temp)); use old-style no-prototype declaration to pass only two args (a2 remains untouched). Differences are ordering/register staging: target loads halfword to a1 before initializing -1 and store; target uses a1 base for load, at base for store. Separating load into signed s16 local produced score 460 because compiler emitted lhu plus sll/sra; original expression produced desired lh. Typed three-argument callee declaration errors (two args too few); old style declaration necessary.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795136739.691463,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_80081CC0",
+  "text": "Target loads old signed halfword before storing -1 and calls with old value; saved score 200 candidate stores first and is semantically suspect. Explicit old local plus array indexing generated a shared base address and scored 730; volatile produced extra sign extension and scored 1310. Need separate symbol-relative load/store addressing and correct old-value lifetime.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795163923.98225,
+  "score_before": 200,
+  "score_after": 200
  }
 ]
