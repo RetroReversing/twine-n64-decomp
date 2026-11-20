@@ -12,10 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 
 void func_8002A1F0(void *arg0) {
     volatile u64 stack_pad;
+    s32 old_scroll;
     s32 temp_lo;
     s16 temp_v0_2;
     s16 temp_v0_4;
@@ -58,8 +59,8 @@ void func_8002A1F0(void *arg0) {
     u8 temp_v1_5;
     u8 temp_v1_7;
     u8 var_a0;
-    u8 var_a1;
-    u8 var_s1_4;
+    s16 var_a1;
+    s16 var_s1_4;
     u8 var_v0_2;
     u8 var_v1;
     void *temp_a0_4;
@@ -67,6 +68,7 @@ void func_8002A1F0(void *arg0) {
     var_a1 = 0;
     if ((arg0 != NULL) && (M2C_FIELD(arg0, M2C_UNK (**)(void *, M2C_UNK, s32, u16), 4) != NULL)) {
         temp_v0 = M2C_FIELD(arg0, u8 *, 0x18);
+        old_scroll = M2C_FIELD(arg0, u8 *, 0x1D);
         var_s1 = 0;
         if (temp_v0 != 0) {
             do {
@@ -168,7 +170,7 @@ void func_8002A1F0(void *arg0) {
         var_s1_5 = 0;
         var_s2 = 0;
         temp_s3 = M2C_FIELD(arg0, u8 *, 0x1D) * M2C_FIELD(arg0, u8 *, 0x21);
-        M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + ((M2C_FIELD(arg0, u8 *, 0x1D) - (s16) M2C_FIELD(arg0, u8 *, 0x1D)) * M2C_FIELD(arg0, u8 *, 0x21)));
+        M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + ((M2C_FIELD(arg0, u8 *, 0x1D) - old_scroll) * M2C_FIELD(arg0, u8 *, 0x21)));
         if (M2C_FIELD(arg0, u8 *, 0x19) != 0) {
             var_v0_3 = 0 << 0x10;
             do {
@@ -193,7 +195,7 @@ void func_8002A1F0(void *arg0) {
                 var_v0_3 = var_s1_5 << 0x10;
             } while (var_v0_4 < (s32) M2C_FIELD(arg0, u8 *, 0x19));
         }
-        if (!(func_800828D0((f32) (s16) M2C_FIELD(arg0, u16 *, 0x14)) > 2.0f)) {
+        if (!(absFloat((f32) (s16) M2C_FIELD(arg0, u16 *, 0x14)) > 2.0f)) {
             M2C_FIELD(arg0, u16 *, 0x14) = 0U;
             return;
         }

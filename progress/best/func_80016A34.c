@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_80016718();
 s32 func_80016990();
-s32 func_800175C0();
+s32 markObjectsNearPos();
 s32 Probe_BoundsContainPoint();
 s32 actorLinkToSurface();
 void *func_80047B44();
 s32 func_80073304();
-extern s32 *D_800CA31C;
-extern unsigned char gActorFlagTable[];
+extern s32 *gProbeObjectList;
+extern unsigned char gActorDoneFlags[];
 
 void func_80016A34(void *arg0) {
     s32 temp_s0;
@@ -36,13 +36,13 @@ void func_80016A34(void *arg0) {
     temp_v0 = func_80047B44(M2C_FIELD(arg0, s32 *, 0x20), arg0 + 0x30, temp_s2, 0);
     if (temp_v0 != NULL) {
         if (M2C_FIELD(temp_v0, u16 *, 0x26) & 0x1000) {
-            func_800175C0(M2C_FIELD(arg0, s32 *, 0x20), 2, 0x20000, temp_s2, 0, 1);
+            markObjectsNearPos(M2C_FIELD(arg0, s32 *, 0x20), 2, 0x20000, temp_s2, 0, 1);
             func_80073304(temp_v0, temp_s2, M2C_FIELD(arg0, s32 *, 0x20));
         }
-        if ((M2C_FIELD(arg0, u16 *, 0x78) == 2) && ((temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x29), (temp_v0_2 == 0)) || (*(gActorFlagTable + temp_v0_2) != 0))) {
+        if ((M2C_FIELD(arg0, u16 *, 0x78) == 2) && ((temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x29), (temp_v0_2 == 0)) || (*(gActorDoneFlags + temp_v0_2) != 0))) {
             temp_v1 = M2C_FIELD(temp_v0, u8 *, 0x28);
             if (temp_v1 != 0) {
-                *(gActorFlagTable + temp_v1) = 1;
+                *(gActorDoneFlags + temp_v1) = 1;
             }
         }
         temp_s0 = M2C_FIELD(temp_v0, s32 *, 8);
@@ -66,7 +66,7 @@ void func_80016A34(void *arg0) {
         if ((s32) temp_v1_3 < 8) {
             switch ((s32) temp_v1_3) {              /* switch 1; irregular */
             case 0:                                 /* switch 1 */
-                if ((actorLinkToSurface(*D_800CA31C, arg0, 0) << 0x18) == 0) {
+                if ((actorLinkToSurface(*gProbeObjectList, arg0, 0) << 0x18) == 0) {
                     goto block_38;
                 }
                 goto block_36;
@@ -74,7 +74,7 @@ void func_80016A34(void *arg0) {
         } else {
             switch (temp_v1_3) {                    /* switch 2; irregular */
             case 0x24:                              /* switch 2 */
-                if ((actorLinkToSurface(*D_800CA31C, arg0, 0) << 0x18) == 0) {
+                if ((actorLinkToSurface(*gProbeObjectList, arg0, 0) << 0x18) == 0) {
                     M2C_FIELD(arg0, s32 *, 0x24) = (s32) M2C_FIELD(arg0, s32 *, 0x30);
                     M2C_FIELD(arg0, s32 *, 0x28) = (s32) M2C_FIELD(arg0, s32 *, 0x34);
                     M2C_FIELD(arg0, s32 *, 0x2C) = (s32) M2C_FIELD(arg0, s32 *, 0x38);
@@ -103,7 +103,7 @@ block_38:
                     func_80016990(arg0, temp_s0_2);break;}
                 }
 block_39:
-                actorLinkToSurface(*D_800CA31C, arg0, 0);
+                actorLinkToSurface(*gProbeObjectList, arg0, 0);
                 break;
             case 0x4C:                              /* switch 2 */
             case 1:                                 /* switch 1 */
@@ -118,7 +118,7 @@ block_39:
                     do { func_80016990(arg0, temp_s0_2); } while (0);break;}
                 }
 block_34:
-                if ((actorLinkToSurface(*D_800CA31C, arg0, 0) << 0x18) == 0) {
+                if ((actorLinkToSurface(*gProbeObjectList, arg0, 0) << 0x18) == 0) {
                     func_80016990(arg0, temp_s0_2);
                 }
                 goto block_36;

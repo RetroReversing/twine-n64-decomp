@@ -23,7 +23,7 @@ extern s32 D_80108F78, D_80108F84;
 f32 Vec3_DistanceSq(Vec *, Vec *);
 void func_800455CC(Vec *, Vec *, Vec *, Vec *);
 f32 func_80045764(Vec *, Vec *);
-f32 func_80045E34(Vec *, Vec *);
+f32 approxDistance(Vec *, Vec *);
 s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
 
 Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, u8 update, u8 mark, Actor *skip)
@@ -92,7 +92,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
                         }
                     }
                     if (found != (u32)-1) {
-                        distance = func_80045E34(start, result);
+                        distance = approxDistance(start, result);
                         if (distance < bestDistance) {
                             best = actor;
                             bestPart = found;

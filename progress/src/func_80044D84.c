@@ -18,13 +18,13 @@ M2C_UNK func_80044C04();                            /* extern */
 M2C_UNK func_80044C4C(s32);                         /* extern */
 M2C_UNK func_80044D28(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800C2BDC;
-extern void *D_800CA31C;
+extern void *gProbeObjectList;
 
 void func_80044D84(s32 arg0) {
     func_80044C04();
     func_80026F84(0);
     func_8003FA20();
-    M2C_FIELD(D_800CA31C, s32 *, 4) = arg0;
+    M2C_FIELD(gProbeObjectList, s32 *, 4) = arg0;
     func_80044C4C(arg0);
     if (arg0 != 0xF) {
         func_80044D28(&D_800C2BDC);

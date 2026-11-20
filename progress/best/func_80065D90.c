@@ -35,7 +35,7 @@ s32 func_80070B40();
 s32 func_80070CA4();
 s32 func_800818AC();
 f32 func_80081B44();
-f32 func_800828D0();
+f32 absFloat();
 extern char D_800C469C[];
 extern char D_800C46A0[];
 extern char D_800C46FC[];
@@ -419,7 +419,7 @@ block_107:
             temp_fv0_3 = M2C_FIELD(temp_s1, f32 *, 0x1C);
             temp_fa0 = (temp_fs0_2 - temp_fv0_3) + temp_fv0_3;
             M2C_FIELD(temp_s1, f32 *, 0x1C) = temp_fa0;
-            if (func_800828D0(temp_fa0) < 0.01f) {
+            if (absFloat(temp_fa0) < 0.01f) {
                 M2C_FIELD(temp_s1, f32 *, 0x1C) = 0.0f;
             }
         } else {
@@ -443,7 +443,7 @@ block_107:
             temp_fv0_6 = M2C_FIELD(temp_s1, f32 *, 0x20);
             temp_fa0_2 = (temp_fs1_2 - temp_fv0_6) + temp_fv0_6;
             M2C_FIELD(temp_s1, f32 *, 0x20) = temp_fa0_2;
-            if (func_800828D0(temp_fa0_2) < 0.01f) {
+            if (absFloat(temp_fa0_2) < 0.01f) {
                 M2C_FIELD(temp_s1, f32 *, 0x20) = 0.0f;
             }
         } else {
@@ -483,7 +483,7 @@ block_107:
             temp_fv1_4 = M2C_FIELD(temp_s1, f32 *, 0x2C);
             temp_fa0_3 = ((temp_fs1_3 - temp_fv1_4) * 0.48f) + temp_fv1_4;
             M2C_FIELD(temp_s1, f32 *, 0x2C) = temp_fa0_3;
-            if (func_800828D0(temp_fa0_3) < 0.01f) {
+            if (absFloat(temp_fa0_3) < 0.01f) {
                 M2C_FIELD(temp_s1, f32 *, 0x2C) = 0.0f;
             }
         } else {
@@ -508,7 +508,7 @@ block_107:
             temp_fv1_5 = M2C_FIELD(temp_s1, f32 *, 0x30);
             temp_fa0_4 = ((temp_fs0_3 - temp_fv1_5) * 0.42000002f) + temp_fv1_5;
             M2C_FIELD(temp_s1, f32 *, 0x30) = temp_fa0_4;
-            if (func_800828D0(temp_fa0_4) < 0.01f) {
+            if (absFloat(temp_fa0_4) < 0.01f) {
                 M2C_FIELD(temp_s1, f32 *, 0x30) = 0.0f;
             }
         } else {

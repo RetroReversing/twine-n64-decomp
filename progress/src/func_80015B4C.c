@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_80109DC4;
+extern void *gObjectList;
 
 typedef struct { void * field_0; unsigned char pad_4[24]; void * field_1C; unsigned char pad_20[56]; int field_58; } __repair_record_var_a0;
 void func_80015B4C(void **arg0) {
@@ -25,9 +25,9 @@ void func_80015B4C(void **arg0) {
         if (var_a0 != NULL) {
             do {
                 if (((temp_a1 = ((__repair_record_var_a0*)var_a0)->field_58) & 0x20000) && !(temp_a1 & 0x800)) {
-                    temp_v1 = D_80109DC4;
+                    temp_v1 = gObjectList;
                     ((__repair_record_var_a0*)var_a0)->field_58 = (s32) (temp_a1 | 0x800);
-                    D_80109DC4 = var_a0;
+                    gObjectList = var_a0;
                     ((__repair_record_var_a0*)var_a0)->field_1C = temp_v1;
                 }
                 var_a0 = ((__repair_record_var_a0*)var_a0)->field_0;

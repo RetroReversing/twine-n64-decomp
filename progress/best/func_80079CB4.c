@@ -15,11 +15,11 @@ s32 func_80077960();
 s32 func_800779C4();
 s32 func_80077C00();
 s32 func_8007C93C();
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern u8 D_800CA338;
 extern u16 D_80108F72;
 extern s32 D_80108F78;
-extern char gActorFlagTable[];
+extern char gActorDoneFlags[];
 extern u16 D_80113020;
 extern u8 D_80117734;
 extern s32 func_80076CE4;
@@ -89,7 +89,7 @@ s32 __repair_phase_var_a1;
                 (*(s32 *)((char *)(var_s1) + 0x58)) |= 0x2400;
                 (*(u8 *)((char *)(temp_s0) + 0x82)) = arg12;
                 (((__repair_field_88 *)temp_s0)->value) = (s32) (((((__repair_field_88 *)temp_s0)->value) & 0xFE1FFFFF) | 0x200000);
-                (*(u8 *)((char *)(temp_s0) + 0x85)) = (u8) *(gActorFlagTable + (*(u8 *)((char *)(temp_s0) + 0x84)));
+                (*(u8 *)((char *)(temp_s0) + 0x85)) = (u8) *(gActorDoneFlags + (*(u8 *)((char *)(temp_s0) + 0x84)));
                 (*(s16 *)((char *)(temp_s0) + 0x76)) = 0;
                 (*(s16 *)((char *)(temp_s0) + 0x74)) = 0;
                 if (D_80108F78 == 0x19) {
@@ -381,7 +381,7 @@ block_76:
                     func_80077960(var_s1, 0x27);
                     return var_s1;
                 }
-                actorLinkToSurface(*D_800CA31C, var_s1, 1);
+                actorLinkToSurface(*gProbeObjectList, var_s1, 1);
                 func_80077960(var_s1, 0x26);
                 temp_v0_2 = (*(u8 *)((char *)(temp_s0) + 0x82));
                 var_s2 = 1;

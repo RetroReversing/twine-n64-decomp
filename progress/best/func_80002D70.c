@@ -4,7 +4,7 @@ s32 func_80002D30(void *,  u16);       /* extern */
 extern s32 D_800AE680;
 extern s32 D_800AE682;
 extern s32 D_800AE684;
-extern void *D_800CA31C;
+extern void *gProbeObjectList;
 
 typedef struct { s32 x, y, z; } PositionWords;
 
@@ -20,7 +20,7 @@ s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
     for (;;) {
         offset = var_a3;
         temp_v1 = *((u16 *)((s8 *)&D_800AE680 + offset));
-        if (((temp_v1 >> 9) != (*(s32 *)((char *)(D_800CA31C) + 4))) || (((temp_v1 >> 1) & 0xFF) != arg1)) {
+        if (((temp_v1 >> 9) != (*(s32 *)((char *)(gProbeObjectList) + 4))) || (((temp_v1 >> 1) & 0xFF) != arg1)) {
             var_a2 += 1;
             var_a3 = offset + 6;
             if (var_a2 >= 0x1BU) {

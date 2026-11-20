@@ -34,7 +34,7 @@ typedef struct {
     u8 expireTimer;
 } ObjEBF4;
 
-s32 func_80000A30(s32, s32);
+s32 angleDelta12(s32, s32);
 s32 func_80045DB4(void *, f32, f32);
 s8 func_8005E4C8(void *);
 s32 objUpdateGroundContact(void *);
@@ -48,8 +48,8 @@ void objBounceUpdate(ObjEBF4 *obj) {
     SubEBF4 *sub = obj->sub;
 
     if (sub->active != 0) {
-        obj->squashX -= func_80000A30(0x400, (s32)obj->squashX) * 0.1f;
-        obj->squashZ -= func_80000A30(0, (s32)obj->squashZ) * 0.1f;
+        obj->squashX -= angleDelta12(0x400, (s32)obj->squashX) * 0.1f;
+        obj->squashZ -= angleDelta12(0, (s32)obj->squashZ) * 0.1f;
         if (obj->flags & 2) {
             obj->flags &= ~2;
             func_80045DB4(&obj->squashX, 512.0f, 256.0f);

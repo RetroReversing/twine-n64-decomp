@@ -15,17 +15,17 @@ typedef s32 M2C_UNK32;
 s32 func_8008C0D4();
 s32 func_8008C11C();
 s32 func_8009959C();
-extern u8 D_800CF540;
-extern u8 D_801096E8[];
+extern u8 gWorkerActive;
+extern u8 gVoiceTable[];
 
 void func_80093758(s32 arg0) {
     s32 temp_a0;
 
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C0D4();
         temp_a0 = arg0 * 0x18;
-        if (*(D_801096E8 + temp_a0) == 1) {
-            *(D_801096E8 + temp_a0) = 0;
+        if (*(gVoiceTable + temp_a0) == 1) {
+            *(gVoiceTable + temp_a0) = 0;
             func_8009959C(arg0);
         }
         func_8008C11C();

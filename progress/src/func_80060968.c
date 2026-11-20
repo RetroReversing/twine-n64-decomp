@@ -7,8 +7,8 @@ s32 func_80045CC4(void);
 s32 func_80048F10(s32, Vec3_60968 *, Vec3_60968 *, Vec3_60968 *, f32, s32, s32, s32);
 s32 func_80060AA8(Obj60968 *);
 s32 func_800643D8(Obj60968 *);
-f32 func_800828D0(f32);
-extern s32 *D_800CA31C;
+f32 absFloat(f32);
+extern s32 *gProbeObjectList;
 
 void func_80060968(Obj60968 *arg0) {
     Sub60968 *sub = arg0->sub;
@@ -20,10 +20,10 @@ void func_80060968(Obj60968 *arg0) {
     arg0->pos = e->v[0];
     v = e->v[0];
     func_80016718(arg0);
-    actorLinkToSurface(*D_800CA31C, arg0, 1);
+    actorLinkToSurface(*gProbeObjectList, arg0, 1);
     func_80048F10(arg0->f20, &arg0->pos, &v, &out, 250.0f, 0, 0, 0);
     sub->f34 = v.y;
-    if (func_800828D0(v.y - arg0->pos.y) > 1.0f) {
+    if (absFloat(v.y - arg0->pos.y) > 1.0f) {
         arg0->f7A = 0;
         arg0->f78 = 0x28;
         arg0->f58 |= 1;

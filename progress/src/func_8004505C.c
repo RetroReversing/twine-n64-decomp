@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80015E30(s32);                         /* extern */
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 void func_8004505C(void) {
-    func_80015E30(*D_800CA31C);
+    func_80015E30(*gProbeObjectList);
 }

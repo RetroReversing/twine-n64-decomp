@@ -82,8 +82,8 @@ char *__repair_addr;
             }
             var_s2 = 0;
             var_s3 = 0;
-            var_s1 = 0 & 0xFFFF;
             do {
+                var_s1 = var_s2 & 0xFFFF;
 __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
 
                 if (((M2C_FIELD(__repair_addr, u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
@@ -100,13 +100,13 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                     var_s3 += 1;
                 }
                 var_s2 += 1;
-                var_s1 = var_s2 & 0xFFFF;
             } while ((u32) (var_s2 & 0xFFFF) < 0x25U);
             if (var_s4 != NULL) {
+                s32 offset;
                 temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x62);
-                __repair_phase_storage.value = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
                 temp_s0_2 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x1E);
-                func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + __repair_phase_storage.value)), *((s16 *)((s8 *)&D_800C46DA + __repair_phase_storage.value)));
+                offset = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
+                func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + offset)), *((s16 *)((s8 *)&D_800C46DA + offset)));
                 if (temp_s1 != NULL) {
                     M2C_FIELD(temp_s1, s16 *, 0) = func_8001E760(0, M2C_FIELD(var_s4, u8 *, 8));
                     M2C_FIELD(temp_s1, u16 *, 0x28) = func_8001E760(1, M2C_FIELD(var_s4, u8 *, 8));

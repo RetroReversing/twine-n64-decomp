@@ -10,7 +10,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 void *func_8005D3D0(s32,u8);
 M2C_UNK func_800617D8(s32,M2C_UNK,M2C_UNK,M2C_UNK,f32,f32,s32,s32,s32,s32,s32);
 M2C_UNK func_80084338(s32,s32);
-extern void *gTrackedActor; extern void *gPlayerActor; extern s32 D_80108F78; extern u8 gActorFlagTable[]; extern void *D_8010A500;
+extern void *gTrackedActor; extern void *gPlayerActor; extern s32 D_80108F78; extern u8 gActorDoneFlags[]; extern void *D_8010A500;
 typedef struct { s32 w[3]; } __repair_words3;
 /* Per-frame update for an actor: refreshes the player-linked state and, when the
  * tracked object gTrackedActor is active, copies its link data and clamps its position. */
@@ -20,7 +20,7 @@ typedef struct { s32 w[3]; } __repair_words3;
  if(gPlayerActor!=NULL) {
   temp_v1=M2C_FIELD(gPlayerActor,u16 *,0x78); var_s0=temp_v1==0x60; if(temp_v1==0x5f)var_s0=1; if(temp_v1==0x5e)var_s0=1;
   if(temp_v1==0x12) if(M2C_FIELD(M2C_FIELD(gPlayerActor,void **,0x6c),s32 *,0x2c)&2) { temp_v0=M2C_FIELD(gPlayerActor,u16 *,0x7c)+1; M2C_FIELD(gPlayerActor,u16 *,0x7c)=temp_v0; if((s16)temp_v0==5) { M2C_FIELD(gPlayerActor,u16 *,0x7c)=6; M2C_FIELD(gPlayerActor,s32 *,0x60)|=2; func_80084338(0x117,(s32)arg2); } }
-  if(var_s0) { if(D_80108F78==0x1d) { temp_v0_2=M2C_FIELD(M2C_FIELD(gPlayerActor,void **,0x6c),u16 *,0x34); if(temp_v0_2!=0) *(gActorFlagTable+temp_v0_2)=0; } M2C_FIELD(gPlayerActor,u16 *,0x78)=0x5a; func_8005D3D0(arg2,0xF); }
+  if(var_s0) { if(D_80108F78==0x1d) { temp_v0_2=M2C_FIELD(M2C_FIELD(gPlayerActor,void **,0x6c),u16 *,0x34); if(temp_v0_2!=0) *(gActorDoneFlags+temp_v0_2)=0; } M2C_FIELD(gPlayerActor,u16 *,0x78)=0x5a; func_8005D3D0(arg2,0xF); }
  }
  { void *obj;
  if((gTrackedActor!=NULL)&&(M2C_FIELD(gTrackedActor,u16 *,0x78)==1)&&(M2C_FIELD(gTrackedActor,s16 *,0x7a)!=0x2d)) {

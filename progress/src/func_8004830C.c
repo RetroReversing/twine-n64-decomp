@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 Probe_BoundsContainPoint(void *, void *);                  /* extern */
-void *func_8003D848(void *);                        /* extern */
+void *probeFindNearestObject(void *);                        /* extern */
 void *func_80047B44(void *, void *, void *, M2C_UNK); /* extern */
 
 extern void cameraUpdateProjection(void *, f32);
@@ -27,7 +27,7 @@ void func_8004830C(void *arg0) {
 
     temp_s1 = M2C_FIELD(arg0, void **, 0xF4);
     if (temp_s1 == NULL) {
-        M2C_FIELD(arg0, void **, 0xF4) = func_8003D848(arg0 + 0x10);
+        M2C_FIELD(arg0, void **, 0xF4) = probeFindNearestObject(arg0 + 0x10);
     } else {
         temp_v0 = func_80047B44(temp_s1, arg0 + 0x28, arg0 + 0x10, 0);
         if (temp_v0 != NULL) {

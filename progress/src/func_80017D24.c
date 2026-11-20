@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80045E34(void *, s32);                     /* extern */
+f32 approxDistance(void *, s32);                     /* extern */
 extern u8 D_80102EE8;
 extern s32 D_8010A500;
 
@@ -26,7 +26,7 @@ void func_80017D24(void *arg0) {
     if (temp_v1 >= 2) return;
     if (temp_v1 == 0) {
         if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(arg0, s32 *, 0x58) & 4)) {
-            if (func_80045E34(arg0 + 0x24, D_8010A500 + 0x24) < 4.0f) {
+            if (approxDistance(arg0 + 0x24, D_8010A500 + 0x24) < 4.0f) {
                 temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) + 1;
                 M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
                 if (!(temp_v0 & 0x10)) {

@@ -29,7 +29,7 @@ static inline s32 find_snd(s32 id) {
 
 void func_8008C0D4(void);
 void func_8008C11C(void);
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 static inline void set_snd_9113C(s32 arg0, s16 arg1) {
     arg0 = find_snd(arg0);
@@ -45,7 +45,7 @@ static inline void set_snd_9113C(s32 arg0, s16 arg1) {
 }
 
 void func_8009113C(s32 arg0, s16 arg1) {
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C0D4();
         set_snd_9113C(arg0, arg1);
         func_8008C11C();

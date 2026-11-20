@@ -14,8 +14,8 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80008750(void *, u8, M2C_UNK);         /* extern */
 M2C_UNK func_80032630(void *);                      /* extern */
-M2C_UNK func_8003438C(s32, void *);                 /* extern */
-M2C_UNK func_80034560(void *);                      /* extern */
+M2C_UNK emitPrimColor(s32, void *);                 /* extern */
+M2C_UNK emitScissorFromWindow(void *);                      /* extern */
 M2C_UNK func_80039128(void *, s32);                 /* extern */
 extern M2C_UNK D_800B1AA0;
 extern void *D_801003D8;
@@ -24,7 +24,7 @@ extern s32 D_80109CC0;
 extern s32 D_8010A924;
 extern s32 D_8010D370;
 extern void *D_8010D450;
-extern s32 D_80112E40;
+extern s32 gRenderMode;
 extern void *D_80115328;
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
@@ -41,8 +41,8 @@ void func_80036108(void *arg0) {
     if (!(temp_v1 & 4) && (D_8010D450 != NULL)) {
         temp_s2 = D_8010D450;
         if (!(temp_v1 & 0x20)) {
-            func_8003438C(M2C_FIELD(arg0, s32 *, 0xF4), arg0);
-            func_80034560(arg0);
+            emitPrimColor(M2C_FIELD(arg0, s32 *, 0xF4), arg0);
+            emitScissorFromWindow(arg0);
             if (D_8010A924 != 2) {
                 temp_v1_2 = D_80115328;
                 D_8010A924 = 2;
@@ -64,8 +64,8 @@ void func_80036108(void *arg0) {
                     M2C_FIELD(temp_v1_4, s32 *, 4) = 0xFF0FF37F;
                 }
             }
-            if (D_80112E40 != 3) {
-                D_80112E40 = 3;
+            if (gRenderMode != 3) {
+                gRenderMode = 3;
                 func_80039128(arg0, D_8010D370);
             }
             func_80032630(temp_s2);
@@ -75,7 +75,7 @@ void func_80036108(void *arg0) {
                 if (temp_a1 != 1) {
                     func_80008750(arg0, temp_a1, 0);
                 }
-                D_80112E40 = 3;
+                gRenderMode = 3;
                 func_80039128(arg0, D_80109CC0);
                 func_80032630(temp_s2);
             }

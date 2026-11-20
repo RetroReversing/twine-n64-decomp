@@ -27,7 +27,7 @@ extern void *D_800B2710;
 extern s8 D_800B2714;
 extern s8 D_800B2715;
 extern void *D_800B2718;
-extern s32 D_800CA31C;
+extern s32 gProbeObjectList;
 extern s8 D_800CA338;
 extern s16 D_800E0740;
 extern s8 D_800E0742;
@@ -131,7 +131,7 @@ s32 func_8000D000(void) {
         func_80044D28(D_80100B60);
         func_8000CF14(0);
     }
-    func_80048794(2, D_800CA31C);
+    func_80048794(2, gProbeObjectList);
     func_8003C710(D_80109690);
     func_8004844C(D_80109690, 0x43200000, 0x42F00000, 0x43A00000, 180.0f, 0, 0);
     (*(s32 *)((char *)(D_80109690) + 0x100)) |= 0x10;

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8008C5DC();
 s32 func_8009876C();
 s32 func_80098A18();
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern void *D_800FDB74;
 extern u8 D_801002EA;
 extern u8 D_8010A930;
@@ -45,7 +45,7 @@ s32 __repair_phase_var_a1;
     void *var_v1;
 
     var_a2 = -1;
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         if (arg0 == -1U) {
             goto block_11;
         }

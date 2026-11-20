@@ -8,9 +8,9 @@ void func_8002B000(void *, s32);
 s32 func_8002B9CC(s32);
 void func_8003099C(u8, u8);
 void func_80045130(u8);
-extern s16 gSharedItemId;
+extern s16 D_800BD680;
 extern s32 D_800C3CF8;
-extern s32 gSaveSlotInfo;
+extern s32 D_8010019C;
 extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
@@ -75,14 +75,14 @@ void func_8001ED10(void) {
                     __repair_rows: {
                         s32 r;
                         r = func_80022DBC(i & 0xFFFF);
-                        r = func_8002B9CC(*(s32 *)((char *)&gSaveSlotInfo + (r & 0xFFFF) * 0x18));
-                        *(u16 *)((char *)&gSharedItemId + ((i & 0xFFFF) << 1)) =
+                        r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
+                        *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
                             **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
                         i++;
                     }
 if ((i & 0xFFFF) < D_801002B4) goto __repair_rows;
                 }
-                *(s16 *)((char *)&gSharedItemId + ((i & 0xFFFF) << 1)) = -1;
+                *(s16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) = -1;
                 b = D_801002A4;
             } else {
                 b = D_80102EE0;

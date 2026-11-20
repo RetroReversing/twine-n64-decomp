@@ -17,7 +17,7 @@ void *func_80016410(M2C_UNK, s32, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 M2C_UNK func_80044670(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern u8 gSceneType;
 extern u8 D_8011ECF0[];
 extern M2C_UNK D_8011ED08;
@@ -75,7 +75,7 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
                 M2C_FIELD(temp_v0, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0, volatile f32 *, 0x28) + 0.76f);
                 M2C_FIELD(temp_v0, f32 *, 0x34) = (f32) (M2C_FIELD(temp_v0, volatile f32 *, 0x34) + 0.76f);
             }
-            actorLinkToSurface(*D_800CA31C, temp_v0, 1);
+            actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
             func_800643C8(temp_v0);
             temp_s0_2 = arg2;
             temp_s0_3 = temp_s0_2;

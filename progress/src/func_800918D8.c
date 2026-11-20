@@ -36,12 +36,12 @@ static inline s32 find_snd(s32 id) {
 
 void func_8008C0D4(void);
 void func_8008C11C(void);
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 s32 func_800918D8(s32 arg0) {
     s32 idx;
 
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         idx = find_snd(arg0);
         if (idx != -1) {
             return gSndEntities[idx].bFC4;

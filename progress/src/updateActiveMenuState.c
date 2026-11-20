@@ -21,7 +21,7 @@ s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK func_80029000(s32);                         /* extern */
 M2C_UNK func_800295F0(M2C_UNK);                     /* extern */
 M2C_UNK func_80029768(M2C_UNK);                     /* extern */
-M2C_UNK func_800298D0(M2C_UNK);                     /* extern */
+M2C_UNK adjustMenuSliderValue(M2C_UNK);                     /* extern */
 M2C_UNK func_80029AC8(void *, void *, void *);      /* extern */
 extern s32 D_80102EBC;
 extern u8 D_80102EC8;
@@ -90,7 +90,7 @@ block_14:
                         if (flags_b & 0x800) {
                             func_800295F0(1);
                         } else if (flags_b & 0x1000) {
-                            func_800298D0(1);
+                            adjustMenuSliderValue(1);
                         } else {
                             func_80029768(1);
                         }
@@ -102,7 +102,7 @@ block_14:
                             return;
                         }
                         if (flags_c & 0x1000) {
-                            func_800298D0(-1);
+                            adjustMenuSliderValue(-1);
                             return;
                         }
                         func_80029768(-1);

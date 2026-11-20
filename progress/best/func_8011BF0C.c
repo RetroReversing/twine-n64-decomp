@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000A894();
 s32 func_8002B150();
-f32 func_80045E34();
+f32 approxDistance();
 s32 func_800643C8();
 s32 func_80073AF8();
 s32 func_80087100();
@@ -60,7 +60,7 @@ void func_8011BF0C(void *arg0) {
         temp_s0 = temp_s4 & 0xFF;
         temp_s1 = temp_s0 * 4;
         temp_a0 = *(s32 *)(D_8011F2B0 + temp_s1);
-        if ((temp_a0 != 0) && (func_80045E34(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
+        if ((temp_a0 != 0) && (approxDistance(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
             if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
                 temp_s1_2 = func_80087100((-(temp_s0 == 0) & 0x6F) | 0x6E);
                 temp_v0 = func_80087100(0x28D);

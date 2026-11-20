@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);                        /* extern */
+s32 angleDelta12(s32, s32);                        /* extern */
 
 void func_8005916C(void *arg0, f32 arg1, void *arg2) {
     f32 sp10[3];
@@ -30,9 +30,9 @@ void func_8005916C(void *arg0, f32 arg1, void *arg2) {
     sp10[2] = M2C_FIELD(arg0, f32 *, 0x14) * 0.0027777778f; M2C_FIELD(temp_s1, f32 *, 0x10) = (f32) ((M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg2, f32 *, 0x24)) / var_fs0);
     M2C_FIELD(temp_s1, f32 *, 0x14) = (f32) ((M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg2, f32 *, 0x28)) / var_fs0);
     M2C_FIELD(temp_s1, f32 *, 0x18) = (f32) ((M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg2, f32 *, 0x2C)) / var_fs0);
-    M2C_FIELD(temp_s1, f32 *, 0x1C) = (f32) ((f32) func_80000A30((s32) M2C_FIELD(arg2, f32 *, 0x3C), (s32) sp10[0]) / var_fs0);
-    M2C_FIELD(temp_s1, f32 *, 0x20) = (f32) ((f32) func_80000A30((s32) M2C_FIELD(arg2, f32 *, 0x40), (s32) sp10[1]) / var_fs0);
-    temp_fv0 = (f32) func_80000A30((s32) M2C_FIELD(arg2, f32 *, 0x44), (s32) sp10[2]) / var_fs0;
+    M2C_FIELD(temp_s1, f32 *, 0x1C) = (f32) ((f32) angleDelta12((s32) M2C_FIELD(arg2, f32 *, 0x3C), (s32) sp10[0]) / var_fs0);
+    M2C_FIELD(temp_s1, f32 *, 0x20) = (f32) ((f32) angleDelta12((s32) M2C_FIELD(arg2, f32 *, 0x40), (s32) sp10[1]) / var_fs0);
+    temp_fv0 = (f32) angleDelta12((s32) M2C_FIELD(arg2, f32 *, 0x44), (s32) sp10[2]) / var_fs0;
     M2C_FIELD(temp_s1, f32 *, 0xC) = var_fs0;
     M2C_FIELD(temp_s1, f32 *, 8) = var_fs0;
     M2C_FIELD(temp_s1, f32 *, 0x24) = temp_fv0;

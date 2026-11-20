@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-f32 func_80045E34(void *, void *);                  /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
 extern void *D_8010A500;
 
 void func_80119D28(void *arg0) {
@@ -20,7 +20,7 @@ void func_80119D28(void *arg0) {
         if (temp_a0 != NULL) {
             temp_v1 = (*(u16 *)((char *)(temp_a0) + 0x7A));
             if (((u32) (temp_v1 - 2) >= 2U) && ((s16) temp_v1 != 6) && ((*(s32 *)((char *)(temp_a0) + 0x20)) == (*(s32 *)((char *)(arg0) + 0x20)))) {
-                temp_fv1 = func_80045E34(temp_a0 + 0x24, arg0 + 0x24);
+                temp_fv1 = approxDistance(temp_a0 + 0x24, arg0 + 0x24);
                 temp_v0 = (*(void **)((char *)(*var_s1) + 0x6C));
                 if (temp_v0 != NULL) {
                     temp_a1 = (*(void **)((char *)(temp_v0) + 0xB4));

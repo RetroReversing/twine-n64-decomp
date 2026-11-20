@@ -1,5 +1,5 @@
 typedef struct { u32 x, y, z; } Vec;
-f32 func_80045E34(void *, void *);
+f32 approxDistance(void *, void *);
 void applyNearbyActorImpact(void *arg0, f32 arg1, f32 arg2) {
     void *node;
     u32 flag, mask, one;
@@ -7,7 +7,7 @@ void applyNearbyActorImpact(void *arg0, f32 arg1, f32 arg2) {
     if (node != 0) {
     flag = 0x40000000; mask = 0xFFFF0FFF; one = 1;
     do {
-        if (*(void **)((char *)node + 0x20) == *(void **)((char *)arg0 + 0x20) && func_80045E34((char *)arg0 + 0x24, (char *)node + 0x24) < arg1) {
+        if (*(void **)((char *)node + 0x20) == *(void **)((char *)arg0 + 0x20) && approxDistance((char *)arg0 + 0x24, (char *)node + 0x24) < arg1) {
             if ((u32)(*(u16 *)((char *)node + 0x78) - 2) < 2) {
                 char *dest = *(char **)((char *)node + 0x6C);
                 *(u32 *)((char *)node + 0x60) |= flag;

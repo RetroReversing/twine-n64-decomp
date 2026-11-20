@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80082A70(f32, f32);                        /* extern */
+f32 approximateAtan2(f32, f32);                        /* extern */
 
 void func_8000AA64(void *arg0, void *arg1, s32 *arg2) {
-    *arg2 = (s32) (func_80082A70(M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x10), M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x18)) * 651.8986f);
+    *arg2 = (s32) (approximateAtan2(M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(arg0, f32 *, 0x10), M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x18)) * 651.8986f);
 }

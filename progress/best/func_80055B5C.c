@@ -12,8 +12,8 @@ f32 func_80045D8C(f32, f32);                        /* extern */
 void *func_80047B44(s32, void *, void *, s32);  /* extern */
 s32 func_80047F50(void *, void *);              /* extern */
 s32 func_80073304(void *, void *, s32);         /* extern */
-f32 func_800829A0(f32);                             /* extern */
-f32 func_800829C8(f32);                             /* extern */
+f32 sinAngle(f32);                             /* extern */
+f32 cosAngle(f32);                             /* extern */
 extern u8 D_800B1FE0[];
 extern s32 D_800B2230;
 extern s32 gBorderSkipFlag;
@@ -102,11 +102,11 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
             (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) ((*(f32 *)((char *)(temp_v0) + 0x3C)) + func_80045D8C(temp_fs1, temp_fs0));
             temp_fa0 = (*(f32 *)((char *)(temp_v0) + 0x40)) + func_80045D8C(temp_fs1, temp_fs0);
             (*(f32 *)((char *)(temp_v0) + 0x40)) = temp_fa0;
-            temp_fs1_2 = func_800829A0(temp_fa0);
-            temp_fs2 = func_800829C8((*(f32 *)((char *)(temp_v0) + 0x40)));
-            temp_fs0_2 = func_800829A0((*(f32 *)((char *)(temp_v0) + 0x3C)));
-            (*(f32 *)((char *)(temp_s0) + 0)) = (f32) (func_800829C8((*(f32 *)((char *)(temp_v0) + 0x3C))) * temp_fs1_2);
-            temp_fv0 = func_800829C8((*(f32 *)((char *)(temp_v0) + 0x3C))) * temp_fs2;
+            temp_fs1_2 = sinAngle(temp_fa0);
+            temp_fs2 = cosAngle((*(f32 *)((char *)(temp_v0) + 0x40)));
+            temp_fs0_2 = sinAngle((*(f32 *)((char *)(temp_v0) + 0x3C)));
+            (*(f32 *)((char *)(temp_s0) + 0)) = (f32) (cosAngle((*(f32 *)((char *)(temp_v0) + 0x3C))) * temp_fs1_2);
+            temp_fv0 = cosAngle((*(f32 *)((char *)(temp_v0) + 0x3C))) * temp_fs2;
             (*(f32 *)((char *)(temp_s0) + 4)) = (f32) -temp_fs0_2;
             (*(f32 *)((char *)(temp_s0) + 8)) = temp_fv0;
         } else {

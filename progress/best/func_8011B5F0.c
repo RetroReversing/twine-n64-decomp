@@ -4,7 +4,7 @@ s32 func_80016624();
 s32 func_80016718();
 s32 func_80016990();
 s16 func_8002B278();
-f32 func_80045E34();
+f32 approxDistance();
 s32 func_80064370();
 s32 func_800643C8();
 s32 func_80073AF8();
@@ -118,7 +118,7 @@ loop_6:
             var_s5 += 1;
             goto block_34;
         }
-        if (!(func_80045E34(temp_a0_2 + 0x24, arg0 + 0x24) < 2.0f)) {
+        if (!(approxDistance(temp_a0_2 + 0x24, arg0 + 0x24) < 2.0f)) {
             ++var_s5;
             goto block_34;
         }

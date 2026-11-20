@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80089850();                            /* extern */
 M2C_UNK osYieldThread();                            /* extern */
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern u16 D_800E41DA;
 extern s32 D_800E41E0;
 extern volatile u8 D_800E4214;
@@ -36,7 +36,7 @@ extern s32 D_80103EB4;
 extern M2C_UNK func_8008B25C;
 
 void func_8008BEC4(void) {
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         D_800E426A = D_800E41DA;
         do {
 

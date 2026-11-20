@@ -28,7 +28,7 @@ typedef struct {
 
 extern void func_80014A40(RenderNode *, RenderView *);
 extern void func_80032630(void *);
-extern void func_8003438C(RenderNode *, RenderView *);
+extern void emitPrimColor(RenderNode *, RenderView *);
 extern void func_80034630(RenderNode *, RenderView *);
 extern void emit_projection_viewport_commands(void);
 extern void guMtxF2L(f32 *, u32);
@@ -36,7 +36,7 @@ extern void func_800A3940(f32 *, f32, f32, f32);
 extern void guMtxIdentF(f32 *);
 extern RenderCommand D_800B1A00[], D_800B1A78[], D_800B1B18[];
 extern u32 D_800B1D84[3];
-extern s32 D_801032A0, D_8010A924, D_80112E40;
+extern s32 D_801032A0, D_8010A924, gRenderMode;
 extern RenderNode *D_80107E9C;
 extern u32 D_80107EA0, D_8010D538;
 extern f32 D_80112F90[16];
@@ -58,8 +58,8 @@ void func_800362B4(RenderView *view) {
             EMIT(0xFC40FE03, 0xFF0FF37F);
         }
     }
-    if (D_80112E40) {
-        D_80112E40 = 0;
+    if (gRenderMode) {
+        gRenderMode = 0;
         emit_projection_viewport_commands();
     }
     if (D_8010A924 != 0) {
@@ -78,7 +78,7 @@ void func_800362B4(RenderView *view) {
 
     for (; node != NULL; node = node->next) {
         func_80014A40(node, view);
-        func_8003438C(node, view);
+        emitPrimColor(node, view);
         func_80034630(node, view);
         if (node->detail != NULL) {
             func_80032630(node->detail);
@@ -100,7 +100,7 @@ void func_800362B4(RenderView *view) {
             if (D_80107EA0 >= D_800B1D84[0]) {
                 break;
             }
-            func_8003438C(node, view);
+            emitPrimColor(node, view);
             func_80034630(node, view);
             D_8010D538 = D_80117728->matrices + (++D_80107EA0 << 6);
             guMtxIdentF(matrix);

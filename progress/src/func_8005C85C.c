@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800175C0(s32, M2C_UNK, M2C_UNK, void *, f32, s32); /* extern */
+M2C_UNK markObjectsNearPos(s32, M2C_UNK, M2C_UNK, void *, f32, s32); /* extern */
 
 void func_8005C85C(void *arg0) {
-    func_800175C0(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x800, arg0 + 0x24, 3.0f, 1);
+    markObjectsNearPos(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x800, arg0 + 0x24, 3.0f, 1);
 }

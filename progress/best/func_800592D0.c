@@ -3,7 +3,7 @@
 void *func_80016410();
 s32 actorLinkToSurface();
 s32 func_80044670();
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 typedef struct { s32 w[3]; } __repair_words3;
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -95,7 +95,7 @@ void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s8 arg
             break;
         }
         (*(s16 *)((char *)(temp_s0) + 0x48)) = var_v0;
-        actorLinkToSurface(*D_800CA31C, temp_v0, 0);
+        actorLinkToSurface(*gProbeObjectList, temp_v0, 0);
     }
     return temp_v0;
 }

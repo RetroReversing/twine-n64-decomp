@@ -33,7 +33,7 @@ extern void func_800344DC(FrameView *);
 extern void func_80035060(FrameView *);
 extern void func_8003C228(FrameView *, u32, s32);
 extern void func_80038000(FrameView *, u32);
-extern void func_80034560(FrameView *);
+extern void emitScissorFromWindow(FrameView *);
 extern void func_800075C4(u8, u32, u8, u8, u8);
 extern void func_800389F0(FrameView *);
 extern void func_80044410(s32);
@@ -53,7 +53,7 @@ extern u8 *D_80117728, *D_8010A928, *D_80109CB8, *D_801002FC, *D_8010A4B4;
 extern void *D_80100304[];
 extern u32 D_80109C98[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
-extern s32 D_80100C04, D_8011740C, D_80112E40;
+extern s32 D_80100C04, D_8011740C, gRenderMode;
 extern FrameView *gAimAxisTable[];
 extern FrameSlot *D_8010A2BC[];
 extern FrameCommand *D_80115328;
@@ -118,7 +118,7 @@ void func_80007958(void)
             view = *entry;
             D_801032A0 = -1;
             D_8010A924 = -1;
-            D_80112E40 = -1;
+            gRenderMode = -1;
             D_8010A920 = -1;
 
             if (view == NULL) {
@@ -158,7 +158,7 @@ void func_80007958(void)
                 if (modeFlags[-1] & mask) {
                     layer = 4;
                     layerEntry = entry;
-                    func_80034560(*entry);
+                    emitScissorFromWindow(*entry);
                     do {
                         func_8003C228(*layerEntry, i, layer);
                     } while (--layer >= 0);

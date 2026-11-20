@@ -25,7 +25,7 @@ extern s16 D_800C7EA0;
 extern char D_800C7EA4[];
 extern char D_800C7EC4[];
 extern char D_800E1A70[];
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 extern s32 D_80109B98;
 extern s32 D_8010A500;
 extern char D_8010D380[];
@@ -92,7 +92,7 @@ do {
                         temp_v1_2 = M2C_FIELD(temp_s1, s32 *, 0x24);
                         if ((temp_v1_2 != 0) && !(temp_v1_2 & 0x80000000)) {
                             temp_v1_3 = temp_v1_2 & 0xFF;
-                            *(gActorFlagTable + temp_v1_3) = *(gActorFlagTable + temp_v1_3) ^ 1;
+                            *(gActorDoneFlags + temp_v1_3) = *(gActorDoneFlags + temp_v1_3) ^ 1;
                         }
                         M2C_FIELD(var_s0, s16 *, 0x7A) = 8;
                     }
@@ -165,7 +165,7 @@ do {
                     if (temp_v1_5 != 0) {
                         temp_v1_6 = temp_v1_5 & 0xFF;
                         if (temp_v1_5 >= 0) {
-                            *(gActorFlagTable + temp_v1_6) = *(gActorFlagTable + temp_v1_6) ^ 1;
+                            *(gActorDoneFlags + temp_v1_6) = *(gActorDoneFlags + temp_v1_6) ^ 1;
                         }
                     }
                     M2C_FIELD(arg0, s16 *, 0x7A) = 8;

@@ -3,10 +3,10 @@ typedef struct { u8 pad0[0x34]; BoundVertex *vertices; u8 pad38[0xA]; u16 count;
 typedef struct { f32 x, y, z, radius; } BoundSphere;
 typedef struct { f32 minX, maxX, minY, maxY, minZ, maxZ; } BoundBox;
 
-f32 func_800828D0(f32);
+f32 absFloat(f32);
 f32 func_80082908(f32);
 
-void compute_mesh_bounds(BoundMesh *mesh, BoundSphere *sphere, BoundBox *box) {
+/* Computes the axis-aligned bounding box of a mesh's vertices, then a bounding sphere centred at the origin. */ void computeMeshBounds(BoundMesh *mesh, BoundSphere *sphere, BoundBox *box) {
     BoundVertex *first, *vertex, *end;
     u16 count;
     s32 offset;
@@ -57,14 +57,14 @@ void compute_mesh_bounds(BoundMesh *mesh, BoundSphere *sphere, BoundBox *box) {
         box->minX = minX;
         box->minY = minY;
         box->minZ = minZ;
-        extentX = func_800828D0(minX);
-        if (extentX < func_800828D0(maxX))
+        extentX = absFloat(minX);
+        if (extentX < absFloat(maxX))
             extentX = maxX;
-        extentY = func_800828D0(minY);
-        if (extentY < func_800828D0(maxY))
+        extentY = absFloat(minY);
+        if (extentY < absFloat(maxY))
             extentY = maxY;
-        extentZ = func_800828D0(minZ);
-        if (extentZ < func_800828D0(maxZ))
+        extentZ = absFloat(minZ);
+        if (extentZ < absFloat(maxZ))
             extentZ = maxZ;
         sphere->radius = func_80082908(extentX * extentX + extentY * extentY + extentZ * extentZ);
         sphere->x = 0.0f;

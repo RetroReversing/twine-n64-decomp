@@ -5,10 +5,10 @@ extern u8 D_8011EE70[];
 f32 func_800461D4(void *, f32 *);
 u16 func_80022DBC(u16);
 void func_80002BD0(void *, s32);
-f32 func_80082A70(f32, f32);
-f32 func_800829A0(f32);
-f32 func_800829C8(f32);
-void func_800828D0(f32);
+f32 approximateAtan2(f32, f32);
+f32 sinAngle(f32);
+f32 cosAngle(f32);
+void absFloat(f32);
 void func_8007AABC(void *, s32, f32);
 
 void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
@@ -44,7 +44,7 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         if (dx == 0.0f && dz == 0.0f) {
             fv = *(f32 *)(arg0 + 0x40);
         } else {
-            fv = func_80082A70(dx, dz) * 651.8986f;
+            fv = approximateAtan2(dx, dz) * 651.8986f;
         }
         func_8007AABC(arg0, (s32)fv, 0.2f);
         return;
@@ -54,7 +54,7 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     if (dx == 0.0f && dz == 0.0f) {
         fv = *(f32 *)(arg0 + 0x40);
     } else {
-        fv = func_80082A70(dx, dz) * 651.8986f;
+        fv = approximateAtan2(dx, dz) * 651.8986f;
     }
     func_8007AABC(arg0, fv, 0.2f);
     if (arg2[0] != 0.0f) {
@@ -74,10 +74,10 @@ void func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         s2 = 0x1A8;
     }
     func_80002BD0(arg0, s2);
-    fv = fs0 * func_800829A0(fs1);
+    fv = fs0 * sinAngle(fs1);
     *(f32 *)(arg0 + 0x24) = *(f32 *)(arg0 + 0x24) + fv;
-    fv = fs0 * func_800829C8(fs1);
+    fv = fs0 * cosAngle(fs1);
     *(f32 *)(arg0 + 0x2C) = *(f32 *)(arg0 + 0x2C) + fv;
     *(f32 *)(*(u8 **)(arg0 + 0x68) + 0x34) = fs0;
-    func_800828D0(fs2);
+    absFloat(fs2);
 }

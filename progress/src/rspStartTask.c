@@ -28,48 +28,48 @@ s32 rsp_set_pc_if_halted(u32);
 s32 func_800A92C0(s32, u32, void *, u32);
 s32 func_800A9250(void);
 
-void rspStartTask(RspTask *arg0) {
-    RspTask *p;
+/* Copies the RSP task into the global work block, converts its pointers to physical addresses and boots the RSP. */ void rspStartTask(RspTask *arg0) {
+    RspTask *task;
 
-    p = &D_800FEDF0;
-    func_800A81E0(arg0, p, 0x40);
-    if (p->ucode) {
-        p->ucode = osVirtualToPhysical((void *)p->ucode);
+    task = &D_800FEDF0;
+    func_800A81E0(arg0, task, 0x40);
+    if (task->ucode) {
+        task->ucode = osVirtualToPhysical((void *)task->ucode);
     }
-    if (p->data) {
-        p->data = osVirtualToPhysical((void *)p->data);
+    if (task->data) {
+        task->data = osVirtualToPhysical((void *)task->data);
     }
-    if (p->stack) {
-        p->stack = osVirtualToPhysical((void *)p->stack);
+    if (task->stack) {
+        task->stack = osVirtualToPhysical((void *)task->stack);
     }
-    if (p->output) {
-        p->output = osVirtualToPhysical((void *)p->output);
+    if (task->output) {
+        task->output = osVirtualToPhysical((void *)task->output);
     }
-    if (p->outputSize) {
-        p->outputSize = osVirtualToPhysical((void *)p->outputSize);
+    if (task->outputSize) {
+        task->outputSize = osVirtualToPhysical((void *)task->outputSize);
     }
-    if (p->input) {
-        p->input = osVirtualToPhysical((void *)p->input);
+    if (task->input) {
+        task->input = osVirtualToPhysical((void *)task->input);
     }
-    if (p->yield) {
-        p->yield = osVirtualToPhysical((void *)p->yield);
+    if (task->yield) {
+        task->yield = osVirtualToPhysical((void *)task->yield);
     }
-    if (p->flags & 1) {
-        p->data = p->yield;
-        p->dataSize = p->yieldSize;
+    if (task->flags & 1) {
+        task->data = task->yield;
+        task->dataSize = task->yieldSize;
         arg0->flags &= ~1;
-        if (p->flags & 4) {
-            p->ucode = *(u32 *)((arg0->yield + 0xBFC) | 0xA0000000);
+        if (task->flags & 4) {
+            task->ucode = *(u32 *)((arg0->yield + 0xBFC) | 0xA0000000);
         }
     }
-    func_800A0220(p, 0x40);
+    func_800A0220(task, 0x40);
     func_800A9280(0x2B00);
     do {
     } while (rsp_set_pc_if_halted(0x04001000) == -1);
     do {
-    } while (func_800A92C0(1, 0x04000FC0, p, 0x40) == -1);
+    } while (func_800A92C0(1, 0x04000FC0, task, 0x40) == -1);
     do {
     } while (func_800A9250() != 0);
     do {
-    } while (func_800A92C0(1, 0x04001000, (void *)p->boot, p->bootSize) == -1);
+    } while (func_800A92C0(1, 0x04001000, (void *)task->boot, task->bootSize) == -1);
 }

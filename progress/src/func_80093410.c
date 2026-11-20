@@ -1,12 +1,12 @@
 typedef struct { u8 active; u8 pad[7]; void *arg; s32 id; u8 tail[8]; } Record93410;
-extern Record93410 D_801096E8[];
+extern Record93410 gVoiceTable[];
 extern u8 D_801176E8;
 void func_8008C710(void *, s32);
 void func_80093410(void) {
     s32 i;
     for (i = 0; i < D_801176E8; i++) {
-        if (D_801096E8[i].active == 1)
-            func_8008C710(D_801096E8[i].arg, D_801096E8[i].id);
+        if (gVoiceTable[i].active == 1)
+            func_8008C710(gVoiceTable[i].arg, gVoiceTable[i].id);
     }
 }
 

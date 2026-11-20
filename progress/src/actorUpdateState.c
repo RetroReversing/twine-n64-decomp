@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80015D40();
-s32 func_800175C0();
+s32 markObjectsNearPos();
 s32 actorLinkToSurface();
 void func_8007659C(void *, void *);
 s32 func_80085E30();
 s32 func_80085E78();
 s32 func_80087380();
-extern s32 *D_800CA31C;
-extern u8 gActorFlagTable[];
+extern s32 *gProbeObjectList;
+extern u8 gActorDoneFlags[];
 
 typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]; int field_58; unsigned char pad_5C[4]; int field_60; unsigned char pad_64[8]; void * field_6C; unsigned char pad_70[10]; short field_7A; unsigned short field_7C; } __repair_record_arg0;
 /* Runs one frame of the actor's state machine: 0 waits for its trigger flags, 1 counts a timer, 2 advances the active motion; 3 is the finished state. */ void actorUpdateState(void *arg0) {
@@ -39,17 +39,17 @@ typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]
     case 0:
         triggerFlag = M2C_FIELD(cfg, u8 *, 0x44);
         if (triggerFlag != 0) {
-            if (*(gActorFlagTable + triggerFlag) == M2C_FIELD(cfg, u8 *, 0x45)) {
+            if (*(gActorDoneFlags + triggerFlag) == M2C_FIELD(cfg, u8 *, 0x45)) {
                 gateFlag = M2C_FIELD(cfg, u8 *, 0x46);
-                if ((gateFlag != 0) && (*(gActorFlagTable + gateFlag) == M2C_FIELD(cfg, u8 *, 0x47))) {
+                if ((gateFlag != 0) && (*(gActorDoneFlags + gateFlag) == M2C_FIELD(cfg, u8 *, 0x47))) {
                     ((__repair_record_arg0*)arg0)->field_7A = 1;
-                    actorLinkToSurface(*D_800CA31C, arg0, 1);
+                    actorLinkToSurface(*gProbeObjectList, arg0, 1);
                     return;
                 }
             }
             return;
         }
-        actorLinkToSurface(*D_800CA31C, arg0, 1);
+        actorLinkToSurface(*gProbeObjectList, arg0, 1);
         if (M2C_FIELD(cfg, s32 *, 0x1C) == 0) {
             func_80087380(arg0);
             ((__repair_record_arg0*)arg0)->field_7A = 3;
@@ -76,7 +76,7 @@ block_22:
     case 2:
         endFlag = M2C_FIELD(cfg, u8 *, 0x4B);
         if (endFlag != 0) {
-            *(gActorFlagTable + endFlag) = 1;
+            *(gActorDoneFlags + endFlag) = 1;
         }
         M2C_FIELD(cfg, f32 *, 0x20) += 0.033333335f;
         func_80085E78(arg0, cfg);
@@ -84,14 +84,14 @@ block_22:
         if (M2C_FIELD(cfg, s16 *, 0x2A) == M2C_FIELD(cfg, u8 *, 0x48)) {
             doneFlag = M2C_FIELD(cfg, u8 *, 0x49);
             if (doneFlag != 0) {
-                *(gActorFlagTable + doneFlag) = 1;
+                *(gActorDoneFlags + doneFlag) = 1;
             }
         }
         if (M2C_FIELD(cfg, s16 *, 0x2A) == (M2C_FIELD(cfg, s16 *, 0x28) - 4)) {
             func_80085E30(cfg);
             ((__repair_record_arg0*)arg0)->field_7A = 3;
         }
-        func_800175C0(((__repair_record_arg0*)arg0)->field_20, 0, 0x01200000, arg0 + 0x24, 0, 0);
+        markObjectsNearPos(((__repair_record_arg0*)arg0)->field_20, 0, 0x01200000, arg0 + 0x24, 0, 0);
         ((__repair_record_arg0*)arg0)->field_58 |= 1;
         func_80087380(arg0);
         break;

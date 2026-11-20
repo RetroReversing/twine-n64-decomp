@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);                        /* extern */
+s32 angleDelta12(s32, s32);                        /* extern */
 s32 func_800158A4(f32 *, void *, s32, M2C_UNK *, s32, s32, s32, s32, s32); /* extern */
-f32 func_80045E34(void *, void *);                  /* extern */
-f32 func_800828D0(f32);                             /* extern */
-f32 func_80082A70(f32, f32);                   /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
+f32 absFloat(f32);                             /* extern */
+f32 approximateAtan2(f32, f32);                   /* extern */
 M2C_UNK func_80084338(M2C_UNK, void *);             /* extern */
 extern f64 D_800D2DE0;
 extern void *D_8010A500;
@@ -33,7 +33,7 @@ void func_80031A84(void *arg0) {
 
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x60);
     temp_s2 = M2C_FIELD(arg0, u16 **, 0x6C);
-    if ((temp_v1 & 0x3000) && (M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = arg0 + 0x24, (func_80045E34(temp_s3, (*(__base_D_8010A500 = &D_8010A500)) + 0x24) < 10.0f)) && (x = M2C_FIELD(arg0, f32 *, 0x24), temp_a0 = M2C_FIELD(arg0, f32 *, 0x2C), z = temp_a0, px = M2C_FIELD(D_8010A500, f32 *, 0x24), pz = M2C_FIELD(D_8010A500, f32 *, 0x2C), sp28 = M2C_FIELD(arg0, struct Vec *, 0x24), (func_800828D0((f32) func_80000A30((s32) (func_80082A70(x - px, (*(f32 *)&sp28.y -= 1.0f, z - pz)) * 651.8986f), (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 500.0f)) && ((func_800158A4((f32 *)&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+    if ((temp_v1 & 0x3000) && (M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = arg0 + 0x24, (approxDistance(temp_s3, (*(__base_D_8010A500 = &D_8010A500)) + 0x24) < 10.0f)) && (x = M2C_FIELD(arg0, f32 *, 0x24), temp_a0 = M2C_FIELD(arg0, f32 *, 0x2C), z = temp_a0, px = M2C_FIELD(D_8010A500, f32 *, 0x24), pz = M2C_FIELD(D_8010A500, f32 *, 0x2C), sp28 = M2C_FIELD(arg0, struct Vec *, 0x24), (absFloat((f32) angleDelta12((s32) (approximateAtan2(x - px, (*(f32 *)&sp28.y -= 1.0f, z - pz)) * 651.8986f), (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 500.0f)) && ((func_800158A4((f32 *)&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
         temp_a0_2 = *temp_s2;
         if ((f64) temp_a0_2 < D_800D2DE0) {
             if (M2C_FIELD(arg0, u16 *, 0x78) == 0x1B) {

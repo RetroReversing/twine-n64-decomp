@@ -2,13 +2,13 @@ typedef struct { u8 pad[0x38]; s32 value; u8 pad3c[0x142]; s8 pending, mode; u8 
 typedef struct { u8 pad[0x6c]; State698 *state; } Object698;
 typedef struct { u8 enabled; u8 pad[0x9f]; } ModeEntry698;
 extern ModeEntry698 D_8011508F[];
-extern f32 func_800828D0(f32);
+extern f32 absFloat(f32);
 void func_800698D8(Object698 *object, f32 amount, s32 value) {
     State698 *state = object->state;
     s32 mode;
     s32 index;
     state->value = value;
-    amount = func_800828D0(amount);
+    amount = absFloat(amount);
     mode = 0;
     if (amount <= 0.2f) {
         mode = 1;

@@ -1,5 +1,5 @@
 static __inline__ s32 __repair_inline(s32 a) { return a; }
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 void func_80031A84(void *arg0);
 s32 func_800179E8(void *a, s32 b, s32 c, s32 d);
 s32 func_800624A8(void *a, void *b, s32 c, s32 d);
@@ -21,11 +21,11 @@ void UpdateSwitchedActorState(void *actor) {
         func_800624A8(actor, (u8 *)actor + 0x24, 0x3DCCCCCD, 1);
         func_800179E8((u8 *)actor + 0x24, *(s32 *)((u8 *)actor + 0x20), 0x10000, 2);
         *(s32 *)((u8 *)actor + 0x60) |= 1;
-        if (script[4] != 0 && script[5] == gActorFlagTable[script[4]] && script[6] != 0) {
-            gActorFlagTable[script[6]] = 1;
+        if (script[4] != 0 && script[5] == gActorDoneFlags[script[4]] && script[6] != 0) {
+            gActorDoneFlags[script[6]] = 1;
         }
     }
-    if (script[4] == 0 || script[5] == gActorFlagTable[script[4]]) {
+    if (script[4] == 0 || script[5] == gActorDoneFlags[script[4]]) {
         phase = *(s16 *)((u8 *)actor + 0x7A);
         switch (phase) {
         case 0:
@@ -79,12 +79,12 @@ void UpdateSwitchedActorState(void *actor) {
                 }
             }
             if (script[3] != 0) {
-                gActorFlagTable[script[3]] = 1;
+                gActorDoneFlags[script[3]] = 1;
             }
             return;
         }
     }
     if (script[3] != 0) {
-        gActorFlagTable[script[3]] = 0;
+        gActorDoneFlags[script[3]] = 0;
     }
 }

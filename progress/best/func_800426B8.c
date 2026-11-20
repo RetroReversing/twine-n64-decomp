@@ -17,7 +17,7 @@ typedef struct { u16 index; u16 slot; u8 pad4[0x20]; s32 file; u8 pad2C[0x18]; }
 void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
     f32 __repair_fzero = 0.0f;
 
- unsigned long off=arg1<<4, id, n, i, j, maxA=0,maxB=0,maxC=0,maxD=0,maxE=0;
+ unsigned int off=arg1<<4, id, n, i, j, maxA=0,maxB=0,maxC=0,maxD=0,maxE=0;
  u8 *obj,*records,*p,*q,*buf1,*buf2,*buf3,*buf4,*buf5,*buf6,*buf7,*buf8;
  u8 header[0x20]; s32 *slot; s32 bytes;
  if (D_800C0784[arg1]) return;
@@ -29,7 +29,7 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
  D_800C0788[arg1]=(s32)records;
  memset(records,0,n*0x4C);
  func_8000B9B8(obj,D_800C0780[arg1]+(s32)D_54D910,0x30);
- D_800C0784[arg1]=(s32)obj;
+ D_800C0784[arg1]=obj;
  n=*(s32 *)(obj+4);
  p=(u8*)func_80083E90(n*0x44,0x2D);
  func_8000B9B8(p,*(s32*)obj+(s32)D_54D910,n*0x44);
@@ -50,7 +50,7 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
  buf4=(u8*)func_80083E90(bytes,0x2D);
  bytes=maxB*4; buf5=(u8*)func_80083E90(bytes,0x2D);
  buf6=(u8*)func_80083E90(bytes,0x2D);
- bytes=maxC*4; buf7=(u8*)func_80083E90(bytes,0x2D);
+ bytes=(int)maxC*4; buf7=(u8*)func_80083E90(bytes,0x2D);
  buf8=(u8*)func_80083E90(bytes,0x2D);
  for(i=0;i<n;i++,p+=0x44,records+=0x4C) {
   Header426 *h;
@@ -58,8 +58,8 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
   u16 ix0;
   rid=*(s16 *)(p+0x24+4);
   slot=(s32 *)(D_800C0788+rid*4);
-  ix0=*(u16*)p;
   base=(s32)*slot + ix0*76;
+  ix0=*(u16*)p;
   *(s32 *)(base+4)=*(s32*)p;
   if(gExpansionPakPresent && !gSharedItemBusy) *(u8 *)(base+0x46)=0x80;
   else *(u8 *)(base+0x46)=0;
@@ -90,5 +90,5 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
  func_80084048((s32)buf3,0x2D); func_80084048((s32)buf4,0x2D);
  func_80084048((s32)buf5,0x2D); func_80084048((s32)buf6,0x2D);
  func_80084048((s32)buf7,0x2D); func_80084048((s32)buf8,0x2D);
- func_800134C8(); func_80084048((s32)p,0x2D); func_80083E44(id);
+ func_800134C8(); func_80084048(p,0x2D); func_80083E44(id);
 }

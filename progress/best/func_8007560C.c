@@ -5,7 +5,7 @@ void func_8004844C(void *, f32, f32, f32, f32, f32, f32);
 s32 func_80048794();
 s32 func_800820B0();
 extern s32 D_80000300;
-extern s32 D_800CA31C;
+extern s32 gProbeObjectList;
 extern f64 D_800D48B0;
 extern f64 D_800D48B8;
 extern f64 D_800D48C8;
@@ -38,6 +38,7 @@ short __repair_constant = 0x100;
     f32 temp_fs3_2;
     f32 temp_fs4;
     f32 var_a1;
+f32 __repair_var_a1_1;
     f32 var_a2;
     f32 var_a3;
     register f64 temp_fs0;
@@ -61,7 +62,7 @@ short __repair_constant = 0x100;
 
     }
     if (D_80109698 == NULL) {
-        func_80048794(4, D_800CA31C);
+        func_80048794(4, gProbeObjectList);
     }
     var_fv1 = (f64) 0;
     if (0 < 0) {
@@ -72,7 +73,7 @@ short __repair_constant = 0x100;
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xEF;
     (*(s32 *)((char *)(D_80109698) + 0x100)) |= __repair_constant;
     if (D_8010969C == (int)NULL) {
-        func_80048794(5, D_800CA31C);
+        func_80048794(5, gProbeObjectList);
     }
     var_fv1_2 = (f64) 0;
     if (0 < 0) {
@@ -85,7 +86,7 @@ short __repair_constant = 0x100;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
     if (gBorderSkipFlag == 0) {
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
-            func_80048794(0, D_800CA31C);
+            func_80048794(0, gProbeObjectList);
         }
         if (0 < 0) {
 
@@ -106,7 +107,7 @@ short __repair_constant = 0x100;
         var_s1 = &D_80109698 - 0x10;
         do {
             if (*var_s1 == NULL) {
-                func_80048794(var_s0, D_800CA31C);
+                func_80048794(var_s0, gProbeObjectList);
                 if (0 < 0) {
 
                 }
@@ -138,7 +139,7 @@ short __repair_constant = 0x100;
     switch (gBorderMode) {                           /* irregular */
     case 1:
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
-            func_80048794(0, D_800CA31C);
+            func_80048794(0, gProbeObjectList);
         }
         if (0 < 0) {
 
@@ -151,10 +152,10 @@ short __repair_constant = 0x100;
         break;
     case 2:
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
-            func_80048794(0, D_800CA31C);
+            func_80048794(0, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 4)) == NULL) {
-            func_80048794(1, D_800CA31C);
+            func_80048794(1, gProbeObjectList);
         }
         if (gBorderFlipFlag != 1) {
             temp_fs0_3 = 120.0f * 0.5f;
@@ -168,27 +169,27 @@ short __repair_constant = 0x100;
             temp_s4 = (*(void **)((char *)(gAimAxisTable) + 4));
             func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
             var_a2 = 120.0f;
-            var_a1 = 160.0f + temp_fs0_2;
+            __repair_var_a1_1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;
         }
 block_74:
-        func_8004844C(temp_s4, var_a1, var_a2, var_a3, gBorderFlipFlag == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
+        func_8004844C(temp_s4, __repair_var_a1_1, var_a2, var_a3, gBorderFlipFlag == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);
         break;
     case 3:
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
-            func_80048794(0, D_800CA31C);
+            func_80048794(0, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 4)) == NULL) {
-            func_80048794(1, D_800CA31C);
+            func_80048794(1, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 8)) == NULL) {
-            func_80048794(2, D_800CA31C);
+            func_80048794(2, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 0xC)) == NULL) {
-            func_80048794(3, D_800CA31C);
+            func_80048794(3, gProbeObjectList);
         }
         temp_fs2_2 = 160.0f * 0.5f;
         temp_fs0_4 = 120.0f * 0.5f;
@@ -204,16 +205,16 @@ block_75:
         goto block_74;
     case 4:
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
-            func_80048794(0, D_800CA31C);
+            func_80048794(0, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 4)) == NULL) {
-            func_80048794(1, D_800CA31C);
+            func_80048794(1, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 8)) == NULL) {
-            func_80048794(2, D_800CA31C);
+            func_80048794(2, gProbeObjectList);
         }
         if ((*(void **)((char *)(gAimAxisTable) + 0xC)) == NULL) {
-            func_80048794(3, D_800CA31C);
+            func_80048794(3, gProbeObjectList);
         }
         temp_fs2_3 = 160.0f * 0.5f;
         temp_fs4 = 120.0f * 0.5f;

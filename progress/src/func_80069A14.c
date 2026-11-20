@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800828D0();                                /* extern */
+f32 absFloat();                                /* extern */
 
 f32 func_80069A14(f32 arg0) {
     f32 var_fv0;
 
     var_fv0 = 0.0f;
-    if (func_800828D0() >= 0.75f) {
+    if (absFloat() >= 0.75f) {
         var_fv0 = -1.0f;
         if (arg0 > 0.0f) {
             var_fv0 = 1.0f;

@@ -6,7 +6,7 @@ s32 func_80044670();
 s32 func_80076340();
 extern u8 D_800B1FE0[];
 extern u8 D_800B2230[];
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 typedef struct { unsigned char pad[76]; int value; } __repair_field_4C;
 void *func_8005AFE8(void *arg0, void *arg1, s32 arg2) {
@@ -62,7 +62,7 @@ void *func_8005AFE8(void *arg0, void *arg1, s32 arg2) {
         }
         (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x600;
         (*(s32 *)((char *)(temp_v0) + 0x58)) |= 0x20000;
-        actorLinkToSurface(*D_800CA31C, temp_v0, 0);
+        actorLinkToSurface(*gProbeObjectList, temp_v0, 0);
     }
     return temp_v0;
 }

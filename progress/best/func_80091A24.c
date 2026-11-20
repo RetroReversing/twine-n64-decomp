@@ -7,7 +7,7 @@ s32 func_80091518();
 s32 func_80091654();
 s32 func_80092F9C();
 s32 func_800930F4();
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern char gSndEntities[];
 extern char D_800E5BD4[];
 extern char D_800E5BD8[];
@@ -148,7 +148,7 @@ loop_1:
         } else if (temp_v0_2) {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2 = ((__repair_field_0 *)arg0)->value;
-            if (D_800CF540 != 0) {
+            if (gWorkerActive != 0) {
                 func_8008C0D4(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2;
@@ -159,7 +159,7 @@ loop_1:
         } else if (temp_v1 & 0x40) {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2_2 = ((__repair_field_0 *)arg0)->value;
-            if (D_800CF540 != 0) {
+            if (gWorkerActive != 0) {
                 func_8008C0D4(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2_2;
@@ -170,7 +170,7 @@ loop_1:
         } else {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2_3 = ((__repair_field_0 *)arg0)->value;
-            if (D_800CF540 != 0) {
+            if (gWorkerActive != 0) {
                 func_8008C0D4(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2_3;
@@ -290,7 +290,7 @@ loop_40:
                         temp_s3 = (*(u8 *)((char *)(arg0) + 0x18));
                         temp_s1_4 = (*(u16 *)((char *)(arg0) + 0xC));
                         temp_s2_4 = (*(s32 *)((char *)(arg0) + 8));
-                        if (D_800CF540 != 0) {
+                        if (gWorkerActive != 0) {
                             func_8008C0D4();
                             func_80091654(temp_s3, temp_s1_4, temp_s2_4, 0);
                             func_8008C11C();
@@ -301,7 +301,7 @@ loop_40:
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x20) {
                             temp_s1_5 = (*(s32 *)((char *)(arg0) + 8));
                             temp_s2_5 = (*(u16 *)((char *)(arg0) + 0x24));
-                            if (D_800CF540 != 0) {
+                            if (gWorkerActive != 0) {
                                 func_8008C0D4();
                                 var_a0_6 = 0;
                                 temp_a2_3 = temp_s1_5 & 0x7FFFFFFF;

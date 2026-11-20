@@ -64,8 +64,8 @@ void func_8001F0B4(void) {
                         temp_s0_2 = (*(void **)((char *)(temp_s1) + 0x30));
                         (*(s16 *)((char *)(temp_s0_2) + 0x1C)) = strlen((*(s32 *)((char *)(temp_s0_2) + 0x18)));
                     }
-                    temp_v0 = (*(u8 *)((char *)(temp_s2) + 8)) * 0xE8;
-                    func_8002135C(*(&D_800C46D8 + temp_v0), *(&D_800C46DA + temp_v0));
+                    temp_v0 = (*(u8 *)((char *)(temp_s2) + 8)) * 29 * 8;
+                    func_8002135C(*(s16 *)((char *)&D_800C46D8 + temp_v0), *(s16 *)((char *)&D_800C46DA + temp_v0));
                     if (temp_s3 != NULL) {
                         temp_a0 = (*(void **)((char *)(temp_s3) + 8));
                         if (temp_a0 != NULL) {

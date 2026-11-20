@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);
+s32 angleDelta12(s32, s32);
 M2C_UNK func_8000AA64(void *, M2C_UNK, s32 *);
 M2C_UNK func_8009C9F8(s32, s32);
 M2C_UNK func_8009CA5C(s32, s32);
@@ -34,7 +34,7 @@ void func_8000AABC(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
     var_fs0 = arg3;
     if (D_801002EC != 0) if (arg0 != -1) {
         func_8000AA64(arg1, arg2, &sp10);
-        var_v0 = func_80000A30(sp10, (s32) (M2C_FIELD(arg1, f32 *, 0x38) * 651.8986f)) * 0x7F;
+        var_v0 = angleDelta12(sp10, (s32) (M2C_FIELD(arg1, f32 *, 0x38) * 651.8986f)) * 0x7F;
         if (var_v0 < 0) var_v0 += 0x7FF;
         var_v1 = var_v0 >> 0xB;
         temp_a1 = var_v1;

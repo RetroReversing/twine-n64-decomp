@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s16 func_80045CF8(u32);                             /* extern */
-f32 func_80045E34(void *, s32);                     /* extern */
+f32 approxDistance(void *, s32);                     /* extern */
 M2C_UNK func_80063DB4(void *);                      /* extern */
 extern u8 gSceneType;
 extern s32 D_801002B4;
@@ -47,7 +47,7 @@ loop_1:
         temp_s1 = func_80045CF8(D_801002E0);
         if (D_801002B4 > 0) {
             for (;;) {
-                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(func_80045E34(((temp_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&D_8010A500)[var_s0] + 0x24) < 3.0f)) {
+                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&D_8010A500)[var_s0] + 0x24) < 3.0f)) {
                     temp_v0 = var_s0 + 1;
                     var_s0 = temp_v0;
                     if (temp_v0 < D_801002B4) {
@@ -70,7 +70,7 @@ loop_1:
                     if (D_801002B4 > 0) {
                         do {
                             if (var_s0_2 != M2C_FIELD(temp_s3, s8 *, 0x182)) {
-                                temp_fv0 = func_80045E34(((var_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&D_8010A500)[var_s0_2] + 0x24);
+                                temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&D_8010A500)[var_s0_2] + 0x24);
                                 if (temp_fv0 < var_fs0) {
                                     var_fs0 = temp_fv0;
                                 }

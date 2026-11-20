@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32 arg0, s32 arg1) {
-    return (s32) ((arg1 - arg0) << 0x14) >> 0x14;
+f32 planeDotPoint(void *arg0, void *arg1) {
+    return (M2C_FIELD(arg1, f32 *, 0) * M2C_FIELD(arg0, f32 *, 0)) + (M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg0, f32 *, 4)) + (M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg0, f32 *, 8)) + M2C_FIELD(arg1, f32 *, 0xC);
 }

@@ -137,7 +137,19 @@ block_48:
     case 1:
     case 10:
         func_80065C70(arg0);
-        func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+        /*__repair_pointer_balance*/if ((unsigned long)__base_D_800C469C & 0x10000) {
+if ((unsigned long)__base_D_800C469C & 0x100) {
+func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+} else {
+func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+}
+} else {
+if ((unsigned long)__base_D_800C469C & 0x100) {
+func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+} else {
+func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+}
+}
         func_80001660(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
         temp_a0_4 = (*(void **)((char *)(temp_s2) + 0xA8));
         var_v1 = (*(s16 *)((char *)(temp_a0_4) + 0x7A));

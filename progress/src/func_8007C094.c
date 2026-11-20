@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80045E34(void *, void *);                  /* extern */
-f32 func_800828D0(f32);                             /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
+f32 absFloat(f32);                             /* extern */
 
 s32 func_8007C094(void *arg0, void *arg1, f32 arg2) {
     s32 var_v0;
 
-    if (!(func_800828D0(M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28)) < 2.0f) || (var_v0 = 1, !(func_80045E34(arg1, arg0 + 0x24) < arg2))) {
+    if (!(absFloat(M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28)) < 2.0f) || (var_v0 = 1, !(approxDistance(arg1, arg0 + 0x24) < arg2))) {
         return 0;
     }
     return var_v0;

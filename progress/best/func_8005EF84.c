@@ -203,7 +203,6 @@ var_v1 = temp_s2 * 2;
             switch (temp_v1_9) {                    /* switch 2; irregular */
             case 23:                                /* switch 2 */
                 var_a1 = 1;
-block_63:
                 func_8011B460(temp_s1, var_a1);
                 if ((*(u8 *)((char *)((*(void **)((char *)(temp_s1) + 0xB4))) + 0x10)) == 7) {
                     func_8011B0FC(temp_s1);
@@ -211,10 +210,18 @@ block_63:
                 break;
             case 24:                                /* switch 2 */
                 var_a1 = 2;
-                goto block_63;
+                func_8011B460(temp_s1, var_a1);
+                if ((*(u8 *)((char *)((*(void **)((char *)(temp_s1) + 0xB4))) + 0x10)) == 7) {
+                    func_8011B0FC(temp_s1);
+                }
+                break;
             case 25:                                /* switch 2 */
                 var_a1 = 4;
-                goto block_63;
+                func_8011B460(temp_s1, var_a1);
+                if ((*(u8 *)((char *)((*(void **)((char *)(temp_s1) + 0xB4))) + 0x10)) == 7) {
+                    func_8011B0FC(temp_s1);
+                }
+                break;
             }
         }
         (*(s32 *)((char *)(arg1) + 0x60)) |= 1;

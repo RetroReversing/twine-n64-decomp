@@ -26,7 +26,7 @@ typedef struct {
 
 extern SpawnObject *func_80016410(s32 kind, s32 arg, SpawnParams *position);
 extern void actorLinkToSurface(s32 arg, SpawnObject *object, s32 mode);
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 SpawnObject *func_8005AB98(s32 arg0, SpawnParams *position, SpawnOwner *owner,
                           u8 axes, s32 arg4, u8 mode)
@@ -57,7 +57,7 @@ SpawnObject *func_8005AB98(s32 arg0, SpawnParams *position, SpawnOwner *owner,
             object->scale = owner->scale;
         }
         object->flags |= 0x600;
-        actorLinkToSurface(*D_800CA31C, object, 0);
+        actorLinkToSurface(*gProbeObjectList, object, 0);
     }
     return object;
 }

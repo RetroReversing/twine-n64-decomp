@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern s16 D_80109A58;
 
 typedef struct { unsigned char pad_0[116]; float field_74; short field_78; unsigned char pad_7A[2]; short field_7C; } __repair_record_temp_s0;
@@ -27,7 +27,7 @@ void *func_80062BC4(s32 arg0, u16 arg1) {
         ((__repair_record_temp_s0*)temp_s0)->field_78 = 0x6C;
         ((__repair_record_temp_s0*)temp_s0)->field_7C = 0;
         ((__repair_record_temp_s0*)temp_s0)->field_74 = (f32) (arg1 & 0xFFFF);
-        actorLinkToSurface(*D_800CA31C, temp_s0, 1);
+        actorLinkToSurface(*gProbeObjectList, temp_s0, 1);
     }
     return temp_s0;
 }

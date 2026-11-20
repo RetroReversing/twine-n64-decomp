@@ -29,11 +29,11 @@ typedef struct {
 } Obj5B214;
 
 s32 func_80015D40(u8);
-s32 func_800175C0(s32, s32, s32, void *, f32, s32);
+s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32);
 s32 func_8007659C(void *, void *);
 s32 func_80085E30(void *);
 s32 func_80085E78(void *, void *);
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 
 void func_8005B214(Obj5B214 *arg0) {
     s16 state = arg0->state;
@@ -45,7 +45,7 @@ void func_8005B214(Obj5B214 *arg0) {
     case 0:
         v = s->b30;
         if (v != 0) {
-            v = gActorFlagTable[v];
+            v = gActorDoneFlags[v];
         } else {
             if (arg0->w60 & func_80015D40(s->b31)) {
                 arg0->state = 1;
@@ -62,7 +62,7 @@ void func_8005B214(Obj5B214 *arg0) {
         }
         s->f20 += s->f2C;
         func_8007659C(arg0, s->vec1C);
-        func_800175C0(arg0->w20, 0, 0x01000000, arg0->pos24, *(f32 *)(arg0->w70 + 0x14) + 1.0f, state);
+        markObjectsNearPos(arg0->w20, 0, 0x01000000, arg0->pos24, *(f32 *)(arg0->w70 + 0x14) + 1.0f, state);
         if (s->h2A == s->h28 - 4) {
             if (s->b32 == state) {
                 s->h2A = 0;

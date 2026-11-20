@@ -1,4 +1,4 @@
-void *func_80016410(s32,s32,s32); s32 func_8002B000(s32*,s32); s32 actorLinkToSurface(s32,void*,s32); s32 func_80044670(void*,s32,s32); s32 func_80119E60(s32,s32,void*); extern s32 *D_800CA31C; extern u8 gSceneType; extern s32 D_8011F118,D_8011F11C,D_8011F120; extern u8 D_8011F140[]; extern s32 D_8011F150[];
+void *func_80016410(s32,s32,s32); s32 func_8002B000(s32*,s32); s32 actorLinkToSurface(s32,void*,s32); s32 func_80044670(void*,s32,s32); s32 func_80119E60(s32,s32,void*); extern s32 *gProbeObjectList; extern u8 gSceneType; extern s32 D_8011F118,D_8011F11C,D_8011F120; extern u8 D_8011F140[]; extern s32 D_8011F150[];
 typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
 typedef struct { unsigned char pad_0[84]; float field_54; unsigned char pad_58[20]; void *field_6C; unsigned char pad_70[8]; short field_78,field_7A,field_7C; } __repair_record_temp_v0;
 typedef struct { unsigned char pad_0[84]; float field_54; unsigned char pad_58[32]; short field_78; short field_7A; short field_7C; } __repair_record_temp_v0_2;
@@ -8,8 +8,8 @@ void *func_8011A098(void *arg0,s32 arg1,s32 arg2){
  if(temp_v0!=NULL){temp_v1=temp_s3&0xFFFF;D_8011F150[temp_v1]=(s32)temp_v0;
  switch(temp_v1){case 0:func_80044670(temp_v0,3,0xF4);break;case 1:func_80044670(temp_v0,4,0xF4);break;default:func_80044670(temp_v0,5,0xF4);break;}
  ((__repair_record_temp_v0*)temp_v0)->field_7A=temp_s3;((__repair_record_temp_v0*)temp_v0)->field_7C=2;((__repair_record_temp_v0*)temp_v0)->field_78=0x41;((__repair_record_temp_v0*)temp_v0)->field_54=1.0f;((__repair_field_5C*)temp_v0)->value &= ~0x200;
- actorLinkToSurface(*D_800CA31C,temp_v0,1);temp_v0_2=func_80016410(0,(s32)arg0,arg1);
- if(temp_v0_2!=NULL){func_80044670(temp_v0_2,2,0xF4);((__repair_record_temp_v0_2*)temp_v0_2)->field_7A=temp_s3;temp_s0=temp_s3&0xFFFF;((__repair_record_temp_v0_2*)temp_v0_2)->field_7C=2;((__repair_field_5C*)temp_v0_2)->value &= ~0x200;func_80119E60(temp_s0,2,temp_v0);do{do{do{temp_v0_3=temp_s0*12;}while(0);}while(0);}while(0);{s32 x,y,z;x=*(s32*)((char*)arg0+0);y=*(s32*)((char*)arg0+4);z=*(s32*)((char*)arg0+8);*(s32*)((char*)&D_8011F118+temp_v0_3)=x;*(s32*)((char*)&D_8011F11C+temp_v0_3)=y;*(s32*)((char*)&D_8011F120+temp_v0_3)=z;}((__repair_record_temp_v0*)temp_v0)->field_6C=temp_v0_2;((__repair_record_temp_v0_2*)temp_v0_2)->field_78=0x1F;((__repair_record_temp_v0_2*)temp_v0_2)->field_54=1.0f;actorLinkToSurface(*D_800CA31C,temp_v0_2,1);}
+ actorLinkToSurface(*gProbeObjectList,temp_v0,1);temp_v0_2=func_80016410(0,(s32)arg0,arg1);
+ if(temp_v0_2!=NULL){func_80044670(temp_v0_2,2,0xF4);((__repair_record_temp_v0_2*)temp_v0_2)->field_7A=temp_s3;temp_s0=temp_s3&0xFFFF;((__repair_record_temp_v0_2*)temp_v0_2)->field_7C=2;((__repair_field_5C*)temp_v0_2)->value &= ~0x200;func_80119E60(temp_s0,2,temp_v0);do{do{do{temp_v0_3=temp_s0*12;}while(0);}while(0);}while(0);{s32 x,y,z;x=*(s32*)((char*)arg0+0);y=*(s32*)((char*)arg0+4);z=*(s32*)((char*)arg0+8);*(s32*)((char*)&D_8011F118+temp_v0_3)=x;*(s32*)((char*)&D_8011F11C+temp_v0_3)=y;*(s32*)((char*)&D_8011F120+temp_v0_3)=z;}((__repair_record_temp_v0*)temp_v0)->field_6C=temp_v0_2;((__repair_record_temp_v0_2*)temp_v0_2)->field_78=0x1F;((__repair_record_temp_v0_2*)temp_v0_2)->field_54=1.0f;actorLinkToSurface(*gProbeObjectList,temp_v0_2,1);}
  return temp_v0;}}
  return NULL;
 }

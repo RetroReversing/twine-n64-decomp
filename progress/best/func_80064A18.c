@@ -34,7 +34,7 @@ extern s32 D_800C7C98;
 extern s32 D_800C7C9C;
 extern s16 D_800C7D74;
 extern s16 D_800C7D98;
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern s8 D_800E19F4;
 extern char gSaveSlotInfo[];
 extern u8 D_801001A0[];
@@ -177,7 +177,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(temp_s4) + 0x44)) = 0;
             (*(f32 *)((char *)(temp_s4) + 0x40)) = (f32) (*(f32 *)((char *)(sp14) + 4));
             var_v1 = 0;
-            actorLinkToSurface(*D_800CA31C, temp_s4, 0);
+            actorLinkToSurface(*gProbeObjectList, temp_s4, 0);
             (*(s8 *)((char *)(temp_s3) + 0x184)) = 0;
             (*(s8 *)((char *)(temp_s3) + 0x185)) = 0;
             (*(s32 *)((char *)(temp_s3) + 0x410)) = 0;

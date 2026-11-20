@@ -2,7 +2,7 @@
 
 s32 func_800673EC(void *, f32 *);               /* extern */
 void func_80067BB8(void *, f32 *);               /* extern */
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 f32 func_8008292C(f32);                             /* extern */
 f32 func_80082968(f32);                             /* extern */
 extern f64 D_800D4498;
@@ -24,7 +24,7 @@ void func_80067CA8(void *arg0) {
     sp10[1] = 0.0f;
     sp10[2] = 0.0f;
     sp10[0] = (*(f32 *)((char *)(temp_s0) + 0x50)) * 0.15f;
-    if (D_800D4498 < (f64) func_800828D0((*(f32 *)((char *)(temp_s0) + 0x48)))) {
+    if (D_800D4498 < (f64) absFloat((*(f32 *)((char *)(temp_s0) + 0x48)))) {
         var_fs0 = (*(f32 *)((char *)(temp_s0) + 0x48)) * 0.0012077295f;
     }
     temp_v0 = (*(void **)((char *)(temp_s0) + 0xB8));
@@ -36,7 +36,7 @@ void func_80067CA8(void *arg0) {
     }
     speed = 0.01f;
     sp10[0] += func_8008292C(*(f32 *)((char *)temp_s0 + 0x6C)) * speed;
-    sp10[1] += func_800828D0(func_80082968(*(f32 *)((char *)temp_s0 + 0x6C))) * speed;
+    sp10[1] += absFloat(func_80082968(*(f32 *)((char *)temp_s0 + 0x6C))) * speed;
     sp10[2] += (*(f32 *)((char *)(temp_s0) + 0x70));
     decay = D_800D44A0;
     wobble = 0.001f;

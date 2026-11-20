@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80034560();
+s32 emitScissorFromWindow();
 s32 func_80034928();
 s32 func_80039068();
 extern char D_800B1CD0[];
@@ -20,7 +20,7 @@ extern s32 D_801032A0;
 extern void *D_80109CB8;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
-extern s32 D_80112E40;
+extern s32 gRenderMode;
 extern void *D_80115328;
 extern void *D_80117728;
 
@@ -30,9 +30,9 @@ void func_80037C84(s32 arg0) {
     void *temp_v1;
     void *temp_v1_2;
 
-    func_80034560(arg0);
-    if (D_80112E40 != 2) {
-        D_80112E40 = 2;
+    emitScissorFromWindow(arg0);
+    if (gRenderMode != 2) {
+        gRenderMode = 2;
         func_80039068(arg0);
     }
     if (D_8010A924 != 6) {

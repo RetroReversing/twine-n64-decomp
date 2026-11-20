@@ -1,4 +1,4 @@
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern s16 D_800EDAA0;
 extern char *D_800EDAA4[];
 void func_8008C0D4(void);
@@ -8,7 +8,7 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
  s32 i, result;
  char *p, *a, *b, *c;
  u16 n;
- if (D_800CF540) {
+ if (gWorkerActive) {
   { s32 offset=0; for (i=0; i<D_800EDAA0; i++, offset+=4) {
    p=*(char **)((char *)D_800EDAA4+offset);
    if (*(u16 *)(p+4)==id) {

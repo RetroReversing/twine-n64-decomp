@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);                        /* extern */
+s32 angleDelta12(s32, s32);                        /* extern */
 M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80002D30(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
@@ -42,10 +42,10 @@ M2C_UNK func_8006E648(s32, void *, s32, s32 *, void **, void **, s32 *, s32 *); 
 M2C_UNK func_80070730(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_80073A30(void *);                      /* extern */
 M2C_UNK func_80082834(s8, M2C_UNK, s32);            /* extern */
-f32 func_800828D0(f32, f32);                        /* extern */
-f32 func_800829A0(f32);                             /* extern */
-f32 func_800829C8(f32);                             /* extern */
-f32 func_80082A70(f32, f32);                        /* extern */
+f32 absFloat(f32, f32);                        /* extern */
+f32 sinAngle(f32);                             /* extern */
+f32 cosAngle(f32);                             /* extern */
+f32 approximateAtan2(f32, f32);                        /* extern */
 M2C_UNK func_800843CC(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800848EC(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_80084CD8(void *, M2C_UNK, M2C_UNK);    /* extern */
@@ -343,7 +343,7 @@ block_95:
                         temp_v0_6 = func_80015F0C();
                         M2C_FIELD(temp_s3, void **, 0x414) = temp_v0_6;
                         if (temp_v0_6 != NULL) {
-                            temp_s1 = (func_80000A30((s32) (func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(temp_s3, f32 *, 0x1A0), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(temp_s3, f32 *, 0x1A8)) * 651.8986f), (s32) (M2C_FIELD(arg0, f32 *, 0x40) + 256.0f)) >> 9) & 7;
+                            temp_s1 = (angleDelta12((s32) (approximateAtan2(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(temp_s3, f32 *, 0x1A0), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(temp_s3, f32 *, 0x1A8)) * 651.8986f), (s32) (M2C_FIELD(arg0, f32 *, 0x40) + 256.0f)) >> 9) & 7;
                             temp_v0_7 = temp_s1 * 8;
                             M2C_FIELD(temp_v0_6, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v0_6, s32 *, 0x28) & ~0xFC) | 0x10);
                             func_800448A4(temp_v0_6, *(s32 *)(&D_800C7DC8 + temp_v0_7), 0x1B);
@@ -446,7 +446,7 @@ block_130:
             }
             if ((sp34 != NULL) && (sp30 & 1)) {
                 temp_v0_10 = M2C_FIELD(arg0, s16 *, 0x7C);
-                if (((temp_v0_10 != 1) & (temp_v0_10 != 3)) && (M2C_FIELD(temp_s3, u8 *, 0x186) == 0) && ((f32) func_80000A30((s32) M2C_FIELD(arg0, f32 *, 0x40), (s32) (M2C_FIELD(sp34, f32 *, 0x34) * 651.8986f)) < 0.0f)) {
+                if (((temp_v0_10 != 1) & (temp_v0_10 != 3)) && (M2C_FIELD(temp_s3, u8 *, 0x186) == 0) && ((f32) angleDelta12((s32) M2C_FIELD(arg0, f32 *, 0x40), (s32) (M2C_FIELD(sp34, f32 *, 0x34) * 651.8986f)) < 0.0f)) {
                     M2C_FIELD(temp_s3, f32 *, 0x14) = (f32) (M2C_FIELD(sp34, f32 *, 0x44) + M2C_FIELD(sp34, f32 *, 0x4C) + -1.1f);
                     M2C_FIELD(temp_s3, f32 *, 0x18) = (f32) ((M2C_FIELD(sp34, f32 *, 0x44) - M2C_FIELD(sp34, f32 *, 0x4C)) + 0.9f);
                     temp_fa0 = (M2C_FIELD(sp34, f32 *, 0x34) * 651.8986f) + 1024.0f;
@@ -454,8 +454,8 @@ block_130:
                     sp58 = M2C_FIELD(sp34, f32 *, 0x24);
                     sp5C = M2C_FIELD(arg0, f32 *, 0x28);
                     sp60 = M2C_FIELD(sp34, f32 *, 0x2C);
-                    sp58 -= func_800829A0(temp_fa0) * 0.43f;
-                    sp60 -= func_800829C8(temp_fa0) * 0.43f;
+                    sp58 -= sinAngle(temp_fa0) * 0.43f;
+                    sp60 -= cosAngle(temp_fa0) * 0.43f;
                     if (!(M2C_FIELD(temp_s3, f32 *, 0x14) < sp5C) && !(sp5C < M2C_FIELD(temp_s3, f32 *, 0x18))) {
                         M2C_FIELD(arg0, f32 *, 0x24) = sp58;
                         M2C_FIELD(arg0, f32 *, 0x28) = sp5C;
@@ -464,12 +464,12 @@ block_130:
                         M2C_FIELD(arg0, f32 *, 0x44) = 0.0f;
                         M2C_FIELD(arg0, f32 *, 0x40) = sp4C;
                         M2C_FIELD(temp_s3, f32 *, 0x90) = (f32) M2C_FIELD(arg0, f32 *, 0x40);
-                        if (func_800828D0(M2C_FIELD(arg0, f32 *, 0x28) - M2C_FIELD(temp_s3, f32 *, 0x18), sp60) < 0.15f) {
+                        if (absFloat(M2C_FIELD(arg0, f32 *, 0x28) - M2C_FIELD(temp_s3, f32 *, 0x18), sp60) < 0.15f) {
                             var_a1_2 = 0x296;
                             goto block_153;
                         }
                         var_a1_2 = 0x297;
-                        if (func_800828D0(M2C_FIELD(arg0, f32 *, 0x28) - M2C_FIELD(temp_s3, f32 *, 0x14), 0.0f) < 0.15f) {
+                        if (absFloat(M2C_FIELD(arg0, f32 *, 0x28) - M2C_FIELD(temp_s3, f32 *, 0x14), 0.0f) < 0.15f) {
 block_153:
                             func_80002BD0(arg0, var_a1_2);
                             temp_v1_4 = M2C_FIELD(arg0, void **, 0x68);
@@ -532,7 +532,7 @@ block_153:
                     temp_s0_3 = arg0 + 0x24;
                     func_800455CC(&sp48, temp_s3 + 0xEC, temp_s3 + 0xF8, temp_s0_3);
                     if (Vec3_DistanceSq(&sp48, temp_s0_3) < 0.8f) {
-                        temp_fa0_2 = func_80082A70(M2C_FIELD(arg0, f32 *, 0x24) - sp48, M2C_FIELD(arg0, f32 *, 0x2C) - sp50) * 651.8986f;
+                        temp_fa0_2 = approximateAtan2(M2C_FIELD(arg0, f32 *, 0x24) - sp48, M2C_FIELD(arg0, f32 *, 0x2C) - sp50) * 651.8986f;
                         temp_fv1_3 = (f32) ((s32) (((s32) M2C_FIELD(arg0, f32 *, 0x40) - (s32) temp_fa0_2) << 0x14) >> 0x14);
                         D_800E19F8 = temp_fa0_2;
                         var_v0_3 = 1;
@@ -545,8 +545,8 @@ block_153:
                         }
                         if ((var_v0_3 | var_v1) != 0) {
                             M2C_FIELD(arg0, f32 *, 0x40) = (f32) (temp_fa0_2 + 2048.0f);
-                            sp48 = M2C_FIELD(temp_s3, f32 *, 0xEC) + (func_800829A0(temp_fa0_2) * 0.22500001f);
-                            sp50 = M2C_FIELD(temp_s3, f32 *, 0xF4) + (func_800829C8(D_800E19F8) * 0.22500001f);
+                            sp48 = M2C_FIELD(temp_s3, f32 *, 0xEC) + (sinAngle(temp_fa0_2) * 0.22500001f);
+                            sp50 = M2C_FIELD(temp_s3, f32 *, 0xF4) + (cosAngle(D_800E19F8) * 0.22500001f);
                             M2C_FIELD(arg0, f32 *, 0x24) = sp48;
                             M2C_FIELD(arg0, f32 *, 0x28) = sp4C;
                             M2C_FIELD(arg0, f32 *, 0x2C) = sp50;

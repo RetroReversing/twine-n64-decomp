@@ -40,9 +40,9 @@ s32 __repair_phase_var_s2;
     s32 var_s3;
     void *temp_a3;
 
-    var_s2 = 0;
-    var_s1 = 0;
     var_s3 = 0;
+    var_s1 = 0;
+    var_s2 = 0;
     if ((*(s32 *)((char *)(arg0) + 0x100)) & 1) {
         (*(u8 *)((char *)(arg0) + 0x145)) = 0U;
         (*(u8 *)((char *)(arg0) + 0x144)) = 0U;

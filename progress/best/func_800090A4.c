@@ -12,7 +12,7 @@ s32 emit_projection_viewport_commands();
 s32 func_80038FA4();
 s32 func_80039068();
 s32 func_8006F974();
-s32 func_80083A6C();
+s32 rotateVec3ByMat3();
 s32 guPositionF(void *, s32, s32, f32, f32, f32, f32, f32);
 extern char D_800B1A50[];
 extern u32 D_800B1D84;
@@ -34,7 +34,7 @@ extern s32 D_8010A92C;
 extern u8 D_8010D36C;
 extern u8 D_8010D374;
 extern s32 D_8010D538;
-extern s32 D_80112E40;
+extern s32 gRenderMode;
 extern f32 D_80112F90;
 extern f32 D_80112F94;
 extern f32 D_80112F98;
@@ -146,12 +146,12 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
         temp_v1_3 = ((__repair_field_58 *)arg0)->value;
         if (temp_v1_3 & 0x400) {
             if (temp_v1_3 & 0x1000) {
-                if (D_80112E40 != 1) {
-                    D_80112E40 = 1;
+                if (gRenderMode != 1) {
+                    gRenderMode = 1;
                     func_80038FA4(arg1);
                 }
-            } else if (D_80112E40) {
-                D_80112E40 = 0;
+            } else if (gRenderMode) {
+                gRenderMode = 0;
                 emit_projection_viewport_commands();
             }
             temp_v1_4 = (*(s32 *)((char *)(arg1) + 0x100));
@@ -303,8 +303,8 @@ block_43:
                 (*(s32 *)((char *)(var_a0_2) + 4)) = var_v0_2;
             }
             if (((__repair_field_58 *)arg0)->value & 0x1000) {
-                if (D_80112E40 != 1) {
-                    D_80112E40 = 1;
+                if (gRenderMode != 1) {
+                    gRenderMode = 1;
                     func_80038FA4(arg1, var_a1, var_a2, (s32 *) var_a3_2);
                 }
                 temp_v0_7 = (*(s32 *)&D_80107EA0) + 1;
@@ -354,8 +354,8 @@ block_43:
                     case 0:
                     case 1:
                     default:
-                        if (D_80112E40 != 0) {
-                            D_80112E40 = 0;
+                        if (gRenderMode != 0) {
+                            gRenderMode = 0;
                             emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
                         }
                         temp_v1_11 = ((__repair_field_58 *)arg0)->value;
@@ -376,14 +376,14 @@ block_43:
                     case 4:
                     case 6:
                     case 9:
-                        if (D_80112E40 != 2) {
-                            D_80112E40 = 2;
+                        if (gRenderMode != 2) {
+                            gRenderMode = 2;
                             func_80039068(arg1);
                         }
                         sp30[0] = (*(f32 *)((char *)(arg0) + 0x24)) - (*(f32 *)((char *)(arg1) + 0x10));
                         sp30[1] = (*(f32 *)((char *)(arg0) + 0x28)) - (*(f32 *)((char *)(arg1) + 0x14));
                         sp30[2] = (*(f32 *)((char *)(arg0) + 0x2C)) - (*(f32 *)((char *)(arg1) + 0x18));
-                        func_80083A6C(arg1 + 0xB8, sp30);
+                        rotateVec3ByMat3(arg1 + 0xB8, sp30);
                         guPositionF(&D_80112F90, 0, 0, (*(f32 *)((char *)(arg0) + 0x44)) * 0.087890625f, (*(f32 *)((char *)(arg0) + 0x54)), sp30[0] * 64.0f, sp30[1] * 64.0f, sp30[2] * 64.0f);
                         break;
                     }

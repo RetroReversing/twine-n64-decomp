@@ -11,7 +11,7 @@ s32 rayHitsTriangleXZ();
 s32 func_8004D910();
 s32 func_8004E418();
 s32 func_80082D24();
-s32 func_80083A6C();
+s32 rotateVec3ByMat3();
 s32 func_80083B64();
 extern void *gPlayerActor;
 extern void **D_80108F84;
@@ -120,15 +120,15 @@ u32 __repair_phase_temp_v1;
                         sp48[0] = sp28[0] - (*(f32 *)((char *)(var_s1) + 0x24));
                         sp48[1] = sp28[1] - (*(f32 *)((char *)(var_s1) + 0x28));
                         sp48[2] = sp28[2] - (*(f32 *)((char *)(var_s1) + 0x2C));
-                        func_80083A6C(sp104, sp10C);
+                        rotateVec3ByMat3(sp104, sp10C);
                         temp_s0 = temp_s2 + 0x18;
-                        func_80083A6C(sp104, sp114);
+                        rotateVec3ByMat3(sp104, sp114);
                         if ((func_800488D4(temp_s0, sp10C, sp114) << 0x18) != 0) {
                             *(__repair_record_arg1 *)sp90 = *(__repair_record_arg1 *)&D_800D3E24;
                             temp_v0 = func_8004E418(temp_s0, sp10C, sp114) & 0xFFFF;
                             temp_s7 = temp_v0 & 0xFF;
                             temp_s6 = temp_v0 & 0xFF00;
-                            func_80083A6C(sp104, sp11C);
+                            rotateVec3ByMat3(sp104, sp11C);
                             temp_v1 = (*(u8 *)((char *)(temp_s2) + 0x48)) & 4;
                             if (temp_v1) {
                                 var_s4 = (*(u16 **)((char *)(temp_s2) + 0x3C));

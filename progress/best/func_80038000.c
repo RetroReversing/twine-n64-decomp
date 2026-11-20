@@ -6,7 +6,7 @@ s32 func_80014EB0(s32, f32 *);                  /* extern */
 s32 func_800156F4();                            /* extern */
 s32 func_80015BA8(void *, s32, f32 *);          /* extern */
 s32 func_800325E4(void *, void *, s32, s32, f32, f32, f32); /* extern */
-s32 func_80033FB8(void *);                      /* extern */
+s32 updateObjectColor(void *);                      /* extern */
 s32 func_80034928(void *, s32);                 /* extern */
 s32 func_800349B4(void *);                      /* extern */
 s32 func_80034EAC(s32);                             /* extern */
@@ -16,7 +16,7 @@ s32 func_80035854(void *, f32, f32);            /* extern */
 s32 func_800358D4(void *);                      /* extern */
 s32 func_80036108(void *);                      /* extern */
 s32 func_800362B4(void *);                      /* extern */
-s32 func_8003660C(void *);                      /* extern */
+s32 renderObjectList(void *);                      /* extern */
 s32 func_80036820(void *);                      /* extern */
 s32 func_800369B8(void *);                      /* extern */
 s32 func_80036B38(void *);                      /* extern */
@@ -46,9 +46,9 @@ extern s32 D_801007B8;
 extern void *D_80107E9C;
 extern u32 D_80107EA0;
 extern f32 D_80109BB8;
-extern s32 D_80109DC4;
+extern s32 gObjectList;
 extern s32 D_80109E28;
-extern f32 D_8010A2D0;
+extern f32 gCullFarDistance;
 extern s32 D_8010A4D8;
 extern u8 D_8010D2B0;
 extern s32 D_8010D538;
@@ -93,12 +93,12 @@ int __repair_constant = 0xFF;
 
     temp_fs3 = (*(f32 *)((char *)(arg0) + 0x4C));
     if ((*(s32 *)((char *)(arg0) + 0x100)) & 4) {
-        D_8010A2D0 = 15.0f;
+        gCullFarDistance = 15.0f;
         if (D_8010D2B0 != 0) {
-            D_8010A2D0 = 7.5f;
+            gCullFarDistance = 7.5f;
         }
     } else {
-        D_8010A2D0 = D_800C0740;
+        gCullFarDistance = D_800C0740;
         (*(f32 *)((char *)(arg0) + 0x148)) = 2.0f;
     }
     (*(f32 *)((char *)(arg0) + 0x1C)) = (f32) (*(f32 *)((char *)(arg0) + 0x10));
@@ -122,7 +122,7 @@ int __repair_constant = 0xFF;
     D_800E1714 = func_80034EAC(arg1);
     D_800E1710 = arg1;
     D_80107E9C = NULL;
-    D_80109DC4 = 0;
+    gObjectList = 0;
     D_800B35B0 += 1;
     if (((__repair_field_F4 *)arg0)->value != 0) {
         sp20 = (*(f32 *)((char *)(arg0) + 0x50));
@@ -157,7 +157,7 @@ int __repair_constant = 0xFF;
         ((__repair_field_0 *)D_80115328)->value = 0xDC080008;
         ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x300));
         D_80115328 += 8;
-        func_800325E4(D_80117728 + temp_s3, D_80117728 + (temp_s1 + 0x360), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 12.8f, D_8010A2D0 * 64.0f, 1.0f);
+        func_800325E4(D_80117728 + temp_s3, D_80117728 + (temp_s1 + 0x360), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 12.8f, gCullFarDistance * 64.0f, 1.0f);
         temp_a1_2 = D_80117728 + temp_s0_2;
         (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)(arg0) + 0x50)))));
         (*(s16 *)((char *)(temp_a1_2) + 0x4F4)) = 0x2EF;
@@ -175,7 +175,7 @@ int __repair_constant = 0xFF;
         ((__repair_field_0 *)D_80115328)->value = 0xDC080008;
         ((__repair_field_4 *)D_80115328)->value = (void *) (D_80117728 + (temp_s0_2 + 0x4F0));
         D_80115328 += 8;
-        func_800325E4(D_80117728 + (temp_s3 + 0x370), D_80117728 + (temp_s1 + 0x550), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 12.8f, D_8010A2D0 * 64.0f, 1.0f);
+        func_800325E4(D_80117728 + (temp_s3 + 0x370), D_80117728 + (temp_s1 + 0x550), ((__repair_field_84 *)arg0)->value, (((__repair_field_80 *)arg0)->value), 12.8f, gCullFarDistance * 64.0f, 1.0f);
         temp_v1_3 = D_80117728 + temp_s0_2;
         (*(s16 *)((char *)(temp_v1_3) + 0x6E0)) = (s16) (s32) (2.0f * (((*(f32 *)((char *)(arg0) + 0x4C))) * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)(arg0) + 0x50)))));
         (*(s16 *)((char *)(temp_v1_3) + 0x6E4)) = __repair_constant;
@@ -228,7 +228,7 @@ loop_15:
             var_s0_2 = D_80107E9C;
             if (var_s0_2 != NULL) {
                 do {
-                    func_80033FB8(var_s0_2);
+                    updateObjectColor(var_s0_2);
                     var_s0_2 = (*(void **)((char *)(var_s0_2) + 0x1C));
                 } while (var_s0_2 != NULL);
             }
@@ -243,7 +243,7 @@ loop_15:
             func_80034928(arg0, D_8010A4D8);
             func_80036820(arg0);
             func_80034928(arg0, D_8010A4D8);
-            func_8003660C(arg0);
+            renderObjectList(arg0);
             func_80034928(arg0, D_8010A4D8);
             func_800371E0(arg0);
             func_80034928(arg0, D_8010A4D8);

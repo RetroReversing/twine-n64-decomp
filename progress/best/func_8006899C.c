@@ -2,9 +2,9 @@
 
 s32 func_8000A270();
 s32 func_8000A894();
-s32 func_800175C0();
+s32 markObjectsNearPos();
 f32 func_80045590();
-f32 func_80045E34();
+f32 approxDistance();
 s32 func_800643EC();
 s32 func_80064860();
 s32 func_800648FC();
@@ -112,7 +112,7 @@ void func_8006899C(void *arg0, u8 arg1) {
                                     }
                                     if ((var_a0 << 0x18) != 0) {
                                         temp_s0 = var_s1 + 0x24;
-                                        if (((func_8007A9CC(arg0, temp_s0, &sp28) << 0x18) != 0) && (func_80045E34(temp_s0, temp_s7) < 3.0f) && (func_80045590(temp_s0, temp_s7) < 2.0f)) {
+                                        if (((func_8007A9CC(arg0, temp_s0, &sp28) << 0x18) != 0) && (approxDistance(temp_s0, temp_s7) < 3.0f) && (func_80045590(temp_s0, temp_s7) < 2.0f)) {
                                             temp_v0_3 = (*(s16 *)((char *)(var_s1) + 0x7A));
                                             if (((temp_v0_3 == 0) | (temp_v0_3 == 4)) != 0) {
                                                 if (((__repair_record_arg0*)arg0)->field_20 == (*(s32 *)((char *)(var_s1) + 0x20))) {
@@ -120,7 +120,7 @@ void func_8006899C(void *arg0, u8 arg1) {
                                                 } else {
                                                     (*(s32 *)((char *)(var_s1) + 0x60)) = (*(s32 *)((char *)(var_s1) + 0x60)) & ~8;
                                                 }
-                                                func_800175C0((*(s32 *)((char *)(var_s1) + 0x20)), 2, 0x20000, var_s1 + 0x24, 0, 1);
+                                                markObjectsNearPos((*(s32 *)((char *)(var_s1) + 0x20)), 2, 0x20000, var_s1 + 0x24, 0, 1);
                                                 goto block_28;
                                             }
                                         }
@@ -133,7 +133,7 @@ void func_8006899C(void *arg0, u8 arg1) {
 block_10:
                             if (((*(s32 *)((char *)(var_s1) + 0x20)) == ((__repair_record_arg0*)arg0)->field_20) && ((*(s32 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x2C)) & 0x800)) {
                                 temp_s0_2 = var_s1 + 0x24;
-                                if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 0x44800000) << 0x18) != 0) && (func_80045E34(temp_s0_2, arg0 + 0x24) < 1.5f)) {
+                                if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 0x44800000) << 0x18) != 0) && (approxDistance(temp_s0_2, arg0 + 0x24) < 1.5f)) {
 block_28:
                                     var_s6 = 0;
                                     (*(s32 *)((char *)(var_s1) + 0x60)) |= 0x800;

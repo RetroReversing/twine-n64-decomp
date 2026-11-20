@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8008C66C();                            /* extern */
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 void func_8009D030(void) {
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C66C();
     }
 }

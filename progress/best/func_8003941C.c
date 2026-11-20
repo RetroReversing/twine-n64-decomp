@@ -2,7 +2,7 @@ void func_80043FA0(void);
 void func_800723C0(f32 *, f32 *, f32 *, void **, s32);
 void subdivideTriangle(f32, f32 *, f32 *, f32 *, void **, s32);
 void func_80082FE4(s16 *, f32 *);
-void func_80083A6C(f32 *, f32 *);
+void rotateVec3ByMat3(f32 *, f32 *);
 
 void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     f32 sp18[54];
@@ -54,7 +54,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                     ent[8] = (f32)p[0xF];
                     ent[7] = (f32)p[0xE];
                     if (arg3 != NULL) {
-                        func_80083A6C(spF8, ent);
+                        rotateVec3ByMat3(spF8, ent);
                     }
                     var_s2 += 1;
                     if (arg2 != NULL) {
@@ -88,7 +88,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                     ent[7] = (f32)p[0xE];
                     ent[8] = (f32)p[0xF];
                     if (arg3 != (unsigned)NULL) {
-                        func_80083A6C(spF8, ent);
+                        rotateVec3ByMat3(spF8, ent);
                     }
                     var_s2 += 1;
                     if (arg2 != (unsigned)NULL) {

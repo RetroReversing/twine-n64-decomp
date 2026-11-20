@@ -36,7 +36,7 @@ static inline s32 find_snd(s32 id) {
 
 void func_8008C0D4(void);
 void func_8008C11C(void);
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 void func_80091428(s32 arg0, s32 arg1, s32 arg2) {
     arg0 = find_snd(arg0);

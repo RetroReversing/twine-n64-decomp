@@ -36,17 +36,17 @@ void func_8000CCE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         *(u8 *)(*(char * volatile *)(obj + 0x68) + 0xB1), arg2, -(kind == 0x33) & 3, 0, arg3, 0);
 }
 
-extern void func_80034560(void *);
+extern void emitScissorFromWindow(void *);
 extern void emit_projection_viewport_commands(void);
-extern s32 D_801032A0, D_8010A920, D_8010A924, D_80112E40;
+extern s32 D_801032A0, D_8010A920, D_8010A924, gRenderMode;
 extern u32 *D_8010A928, *D_80115328;
 extern u8 *D_80117728;
 void func_80037BDC(void *window) {
     u32 *head, *list, address;
     u8 *state;
-    func_80034560(window);
-    if (D_80112E40 != 0) {
-        D_80112E40 = 0;
+    emitScissorFromWindow(window);
+    if (gRenderMode != 0) {
+        gRenderMode = 0;
         emit_projection_viewport_commands();
     }
     head = D_8010A928;
@@ -58,7 +58,7 @@ void func_80037BDC(void *window) {
     address = *(u32 *)(state + 0x1658);
     D_801032A0 = -1;
     D_8010A924 = -1;
-    D_80112E40 = -1;
+    gRenderMode = -1;
     D_8010A920 = -1;
     D_8010A928 = head + 2;
     D_80115328 = list + 2;

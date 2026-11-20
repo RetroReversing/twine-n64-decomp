@@ -23,9 +23,9 @@ s32 func_8009CCB0(s32);                             /* extern */
 extern s8 D_800EDE74;
 extern s8 D_800EE1F8;
 extern s8 D_800EE37C;
-extern void *gSlotListHead;
+extern void *gActiveSoundList;
 
-/* Walks the slot list at gSlotListHead, updating each slot's state flags and fades; unlinks and releases slots that finished. */ void UpdateSlotList(void) {
+/* Walks the slot list at gActiveSoundList, updating each slot's state flags and fades; unlinks and releases slots that finished. */ void UpdateSlotList(void) {
     f32 sp18;
     f32 sp1C;
     s32 sp20;
@@ -45,7 +45,7 @@ extern void *gSlotListHead;
     void *next_slot;
     void *slot;
 
-    slot = gSlotListHead;
+    slot = gActiveSoundList;
     D_800EDE74 = 0;
     D_800EE1F8 = 0;
     D_800EE37C = 0;
@@ -61,7 +61,7 @@ extern void *gSlotListHead;
                 if (temp_v1_6 != NULL) {
                     *temp_v1_6 = M2C_FIELD(slot, void **, 0);
                 } else {
-                    gSlotListHead = M2C_FIELD(slot, void **, 0);
+                    gActiveSoundList = M2C_FIELD(slot, void **, 0);
                 }
                 temp_a0 = M2C_FIELD(slot, s32 *, 0x34);
                 M2C_FIELD(slot, s32 *, 8) = (s32) M2C_FIELD(slot, u16 *, 0xA);

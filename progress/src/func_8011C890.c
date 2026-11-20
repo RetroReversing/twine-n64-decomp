@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8011E95C(void *, void *, M2C_UNK *, s32); /* extern */
+M2C_UNK actorSteerTowardTarget(void *, void *, M2C_UNK *, s32); /* extern */
 extern s32 gBorderMode;
 extern M2C_UNK D_8010A500;
 extern M2C_UNK D_8011F108;
@@ -28,7 +28,7 @@ void func_8011C890(void) {
         if ((temp_a1 != NULL) && (M2C_FIELD(temp_a1, s32 *, 0x6C) != 0)) {
             temp_s0 = ((void **) &D_8011F338)[i];
             if (temp_s0 != NULL) {
-                func_8011E95C(temp_s0, temp_a1, &D_8011F108, i);
+                actorSteerTowardTarget(temp_s0, temp_a1, &D_8011F108, i);
                 M2C_FIELD(temp_s0, u16 *, 0x20) -= 4;
                 M2C_FIELD(temp_s0, u16 *, 0x22) -= 4;
             }

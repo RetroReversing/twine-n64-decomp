@@ -11,10 +11,10 @@ s32 func_80043FA0(s32 *, void *);               /* extern */
 s32 func_8004478C(s32, s32);                /* extern */
 s32 func_800452AC(f32 *, f32 *, f32 *);         /* extern */
 s32 func_800452E0(f32 *, f32 *, f32 *);         /* extern */
-f32 func_80045E34(void *, void *);                  /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
 f32 func_80046140(f32, f32);                        /* extern */
 s32 func_80047B14(f32 *, s32, f32 *);           /* extern */
-s32 func_80083A6C(void *, f32 *);               /* extern */
+s32 rotateVec3ByMat3(void *, f32 *);               /* extern */
 s32 guMtxF2L(s32 *, s32);              /* extern */
 s32 func_800A3840(s32 *, s32 *, s32 *); /* extern */
 s32 func_800A3940(s32 *, f32, f32, f32);    /* extern */
@@ -31,13 +31,13 @@ extern u8 D_800C2B40;
 extern s32 D_801032A0;
 extern void *D_80107E9C;
 extern u32 D_80107EA0;
-extern s32 gActorFlagTable;
+extern s32 gActorDoneFlags;
 extern s32 D_80109BB8;
 extern void *D_80109CB8;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
-extern s32 D_80112E40;
+extern s32 gRenderMode;
 extern s32 D_80112F90;
 extern void *D_80115328;
 extern void *volatile D_80117728;
@@ -120,8 +120,8 @@ void func_800358D4(void *arg0) {
     void *var_s3;
 
     var_fp = D_80107E9C;
-    if (D_80112E40 != 2) {
-        D_80112E40 = 2;
+    if (gRenderMode != 2) {
+        gRenderMode = 2;
         func_80039068();
     }
     var_a0 = 7;
@@ -164,7 +164,7 @@ block_10:
                 if (var_s3 != NULL) {
                     m2c_initial_frame.view_spB4.value = m2c_initial_frame.view_sp9F.value << 0x18;
                     for (;;) {
-                        if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 1) && ((temp_v0 = (*(u8 *)((char *)(var_s3) + 0x54)), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&gActorFlagTable + temp_v0)) != (*(u8 *)((char *)(var_s3) + 0x55)))) && ((IsSphereVisible(temp_s1, (*(s32 *)((char *)(var_s3) + 0x4C)), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), func_80083A6C(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
+                        if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 1) && ((temp_v0 = (*(u8 *)((char *)(var_s3) + 0x54)), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&gActorDoneFlags + temp_v0)) != (*(u8 *)((char *)(var_s3) + 0x55)))) && ((IsSphereVisible(temp_s1, (*(s32 *)((char *)(var_s3) + 0x4C)), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), rotateVec3ByMat3(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
                             if ((u32) (*(s32 *)&D_80107EA0) < (u32) (*(s32 *)&D_800B1D84)) {
                                 temp_v0_2 = (*(s32 *)&D_80107EA0) + 1;
                                 (*(s32 *)&D_80107EA0) = temp_v0_2;
@@ -198,7 +198,7 @@ block_10:
                                             var_fs1 = func_80046140(m2c_initial_frame.view_sp80.value, m2c_initial_frame.view_sp84.value);
                                             var_fs0 = (16.0f - var_fs1) * 0.03125f;
                                             if ((*(s32 *)((char *)(arg0) + 0x100)) & 2) {
-                                                temp_fv0_4 = func_80045E34(arg0 + 0x10, var_s3 + 0x24) * 0.125f;
+                                                temp_fv0_4 = approxDistance(arg0 + 0x10, var_s3 + 0x24) * 0.125f;
                                                 if (temp_fv0_4 > 1.0f) {
                                                     var_fs0 /= temp_fv0_4;
                                                 }

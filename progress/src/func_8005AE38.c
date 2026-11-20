@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80044670();
 s32 func_80045CF8();
-extern char gActorFlagTable[];
+extern char gActorDoneFlags[];
 
 void func_8005AE38(void *arg0) {
     s16 temp_v1;
@@ -38,7 +38,7 @@ void func_8005AE38(void *arg0) {
         if (func_80045CF8(0x3C) == 0) {
             temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v0 != 0) {
-                *(gActorFlagTable + temp_v0) = 0;
+                *(gActorDoneFlags + temp_v0) = 0;
             }
             temp_a2 = M2C_FIELD(temp_s0, u32 *, 0);
             func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
@@ -49,7 +49,7 @@ void func_8005AE38(void *arg0) {
         if (func_80045CF8(7) == 0) {
             temp_v1_2 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v1_2 != 0) {
-                *(gActorFlagTable + temp_v1_2) = 1;
+                *(gActorDoneFlags + temp_v1_2) = 1;
             }
             temp_a2_2 = M2C_FIELD(temp_s0, u32 *, 0);
             func_80044670(arg0, (temp_a2_2 >> 4) & 0xFFFF, temp_a2_2 >> 0x14);
@@ -61,7 +61,7 @@ void func_8005AE38(void *arg0) {
         if (func_80045CF8(7) != 0) {
             temp_v0_2 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v0_2 != 0) {
-                *(gActorFlagTable + temp_v0_2) = 0;
+                *(gActorDoneFlags + temp_v0_2) = 0;
             }
             temp_a2_3 = M2C_FIELD(temp_s0, u32 *, 0);
             func_80044670(arg0, ((temp_a2_3 >> 4) & 0xFFFF) + 1, temp_a2_3 >> 0x14);
@@ -75,7 +75,7 @@ void func_8005AE38(void *arg0) {
     case 3:
         temp_v1_3 = M2C_FIELD(temp_s0, u8 *, 4);
         if (temp_v1_3 != 0) {
-            *(gActorFlagTable + temp_v1_3) = 1;
+            *(gActorDoneFlags + temp_v1_3) = 1;
         }
         temp_a2_4 = M2C_FIELD(temp_s0, u32 *, 0);
         func_80044670(arg0, (temp_a2_4 >> 4) & 0xFFFF, temp_a2_4 >> 0x14);

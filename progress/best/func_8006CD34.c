@@ -12,7 +12,7 @@ s32 func_80048224(s32, s32, s32, f32, f32);
 s32 func_80064370();
 s32 func_800643C8();
 s32 func_80082FE4();
-s32 func_80083A6C();
+s32 rotateVec3ByMat3();
 extern f32 D_800C9D4C;
 extern f64 D_800D4628;
 extern f64 D_800D4630;
@@ -128,24 +128,12 @@ f32 __repair_var_fv1_1;
             sp18[0] = (*__base_D_800D461C);
             sp18[1] = D_800D4620;
             sp18[2] = D_800D4624;
-            do { /*__repair_pointer_balance*/if ((unsigned long)__base_D_800D461C & 0x10000) {
-if ((unsigned long)__base_D_800D461C & 0x100) {
-func_800643C8(arg0, __base_D_800D461C);
-} else {
-func_800643C8(arg0, __base_D_800D461C);
-}
-} else {
-if ((unsigned long)__base_D_800D461C & 0x100) {
-func_800643C8(arg0, __base_D_800D461C);
-} else {
-func_800643C8(arg0, __base_D_800D461C);
-}
-} } while (0);
+            do { func_800643C8(arg0, __base_D_800D461C); } while (0);
             sp58[0] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x3C));
             sp58[1] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x40));
             sp58[2] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x44));
             func_80082FE4(sp58, sp28);
-            do { func_80083A6C(sp28, sp18); } while (0);
+            do { rotateVec3ByMat3(sp28, sp18); } while (0);
             sp18[0] += (*(f32 *)((char *)(temp_s2_2) + 0x24));
             sp18[1] += (*(f32 *)((char *)(temp_s2_2) + 0x28));
             temp_s0_4 = (temp_s3 * 4) + D_80109688;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80082A70(f32 arg0, f32 arg1) {
+f32 approximateAtan2(f32 arg0, f32 arg1) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 var_ft0;

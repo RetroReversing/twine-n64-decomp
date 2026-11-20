@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_80095374(void *, void *, void *);      /* extern */
-M2C_UNK func_800953D8(void *, f32 *);               /* extern */
-extern u8 D_800CF540;
+M2C_UNK invertAffineTransform(void *, f32 *);               /* extern */
+extern u8 gWorkerActive;
 extern void *D_80108F90;
 
 typedef struct { s32 x, y, z; } Vec3w;
@@ -24,7 +24,7 @@ s32 func_8009474C(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     f32 m[12];
     void *head;
 
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C0D4();
         head = D_80108F90;
         M2C_FIELD(arg0, void **, 0) = head;
@@ -55,7 +55,7 @@ s32 func_8009474C(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
         m[9] = M2C_FIELD(arg0, f32 *, 0xC);
         m[10] = M2C_FIELD(arg0, f32 *, 0x10);
         m[11] = M2C_FIELD(arg0, f32 *, 0x14);
-        func_800953D8(arg0 + 0x48, m);
+        invertAffineTransform(arg0 + 0x48, m);
         M2C_FIELD(arg0, s32 *, 8) = arg8;
         M2C_FIELD(arg0, f32 *, 0x84) = (f32) ((f32) arg9 * 0.007874016f);
         func_8008C11C();

@@ -33,7 +33,7 @@ s32 func_8008D49C(u32 arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u16 a
     s32 temp_s2;
     s32 temp_v0;
     s32 temp_v0_2;
-    s32 temp_v0_3;
+    
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_a0_3;
@@ -47,6 +47,7 @@ s32 __repair_phase_var_v0;
     u16 temp_v1_3;
     u32 temp_s3;
     u32 temp_s3_2;
+u32 __repair_phase_temp_s3_2;
     u32 temp_s6;
     u32 var_a0;
     u32 var_a0_2;
@@ -131,13 +132,13 @@ s32 __repair_phase_var_v0;
             temp_v1_3 = *(u16 *)((temp_a2 * 8) + temp_v0_2);
             temp_s3_2 = temp_s3 & 0xFF;
     temp_s0_3 = temp_s3_2;
-    temp_s3_2 = (temp_s0_3) | (var_a0_4 << 8) | (temp_v1_3 << 0x10);
+    __repair_phase_temp_s3_2 = (temp_s0_3) | (var_a0_4 << 8) | (temp_v1_3 << 0x10);
             if (!(temp_v1_3 & 0xC000)) {
                 temp_s0_3 = arg4 & 0xFF;
-                if ((temp_s0_3 == 0xFF) || (temp_s2 = arg5 & 0xFF, ((func_80096970(temp_s0_3, temp_s2, temp_a2) & 0xFF) == 0)) || (temp_v0_3 = func_8008CEB0(var_a0_3 & 0x7F, temp_s0_3, temp_s2), var_v0 = temp_v0_3, (temp_v0_3 == -1))) {
+                if ((temp_s0_3 == 0xFF) || (temp_s2 = arg5 & 0xFF, ((func_80096970(temp_s0_3, temp_s2, temp_a2) & 0xFF) == 0)) || (temp_v0_2 = func_8008CEB0(var_a0_3 & 0x7F, temp_s0_3, temp_s2), var_v0 = temp_v0_2, (temp_v0_2 == -1))) {
                     var_v0 = -1;
                     if (-1 == -1) {
-                        var_a0_2 = temp_s3_2;
+                        var_a0_2 = __repair_phase_temp_s3_2;
                         var_a1_2 = temp_s6;
                         var_a2_2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
 block_38:
@@ -147,7 +148,7 @@ block_38:
                 /* Duplicate return node #43. Try simplifying control flow for better match */
                 return var_v0;
             }
-            var_a0 = temp_s3_2;
+            var_a0 = __repair_phase_temp_s3_2;
             var_a1 = temp_s6;
             var_a2 = (var_a0_3 | (arg1 & 0x80)) & 0xFF;
 block_41:

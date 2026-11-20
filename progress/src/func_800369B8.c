@@ -2,8 +2,8 @@
 
 s32 func_800090A4(void *, s32, s32, s32);   /* extern */
 s32 IsSphereVisible(void *, f32, void *, s32);        /* extern */
-s32 func_8003438C(void *, s32);                 /* extern */
-s32 func_80034560();                            /* extern */
+s32 emitPrimColor(void *, s32);                 /* extern */
+s32 emitScissorFromWindow();                            /* extern */
 extern s32 D_800E1714;
 extern s32 D_800E1718;
 extern u8 D_800E1758;
@@ -19,11 +19,11 @@ void func_800369B8(s32 arg0) {
     void *var_s1;
 
     var_s1 = D_80107E9C;
-    func_80034560();
+    emitScissorFromWindow();
     if (var_s1 != NULL) {
         do {
             var_s0 = (*(void **)((char *)(var_s1) + 0));
-            func_8003438C(var_s1, arg0);
+            emitPrimColor(var_s1, arg0);
             if (var_s0 != NULL) {
                 do {
                     temp_v0 = (*(u8 *)((char *)(var_s0) + 0x7E));

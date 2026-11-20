@@ -1,5 +1,5 @@
 extern s32 func_80022DBC(s32);
-extern f32 func_80045E34(void *, void *);
+extern f32 approxDistance(void *, void *);
 extern s32 func_8007A9CC(void *, s32, s32 *, f32);
 extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 extern s32 func_801182B0(void *, void *);
@@ -58,8 +58,8 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         p=*(void **)((u8 *)candidate+0x6c);
         if(*(u16 *)((u8 *)candidate+0x78)==0x4d || *(u16 *)((u8 *)candidate+0x78)==0x61) continue;
         v=*(u8 *)((u8 *)sub->field_b4+0x12);
-        if(v==2) func_80045E34(arg0,(u8 *)candidate+0x24);
-        else if(v==*(u8 *)((u8 *)*(void **)((u8 *)p+0x6c)+0x12)) func_80045E34(arg0,(u8 *)candidate+0x24);
+        if(v==2) approxDistance(arg0,(u8 *)candidate+0x24);
+        else if(v==*(u8 *)((u8 *)*(void **)((u8 *)p+0x6c)+0x12)) approxDistance(arg0,(u8 *)candidate+0x24);
         tmp=candidate->dist*scale;
         scale=*(f32 *)((u8 *)flags);
         state=*(u8 *)((u8 *)sub->field_b4+0x12);

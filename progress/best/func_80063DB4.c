@@ -2,7 +2,7 @@ typedef struct { s32 x,y,z; } Vec;
 #define V(p,o) (*(Vec *)((s8 *)(p)+(o)))
 #define P(p,o) (*(void **)((s8 *)(p)+(o)))
 #define B(p,o) (*(s8 *)((s8 *)(p)+(o)))
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern s32 D_801002E0, D_80102F3C;
 extern Vec D_80108608[], D_80110B28[];
 extern void *gAimAxisTable[];
@@ -23,7 +23,7 @@ i=0; {void *p=P(a,0x68); if(B(p,0xb3)>0){off=0;do{
 i++;off+=12;
 }while(i<B(P(a,0x68),0xb3));}}
 V(a,0x3c)=D_80108608[D_80102F3C]; V(a,0x48)=V(a,0x3c);
-actorLinkToSurface(*D_800CA31C,a,0);
+actorLinkToSurface(*gProbeObjectList,a,0);
 n=++D_80102F3C;if(n==D_801002E0)D_80102F3C=0;
 *(s32 *)((s8 *)gAimAxisTable[B(s,0x182)]+0xf4)=*(s32 *)((s8 *)a+0x20);
 func_800635B4(a,0);

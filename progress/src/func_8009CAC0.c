@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 s32 func_8008E4A8(s32, s32);                        /* extern */
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 s32 func_8009CAC0(s32 arg0, u8 arg1) {
     s32 var_s0;
 
     var_s0 = -1;
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C0D4();
         var_s0 = func_8008E4A8(arg0, arg1 & 0xFF);
         func_8008C11C();

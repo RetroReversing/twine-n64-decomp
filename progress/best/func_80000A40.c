@@ -21,12 +21,12 @@ s32 *func_8000DA08();
 s32 func_80043FA0();
 f32 approximate_hypot2();
 s32 func_800468E4();
-f32 func_80082A70();
+f32 approximateAtan2();
 s32 func_80083410();
 s32 build_yz_rotation_matrix();
 s32 MatMul3x3InPlace();
 s32 func_800839F0();
-s32 func_80083A6C();
+s32 rotateVec3ByMat3();
 s32 guMtxF2L();
 extern u32 D_800B1D84;
 extern u8 D_800C2B40;
@@ -276,8 +276,8 @@ block_42:
                                 sp30[2] = 0;
                                 sp30[1] = 1.0f;
                                 func_800839F0(temp_s1, sp30, sp40);
-                                M2C_FIELD(temp_s3, s16 *, 0x78) = (s16) (s32) (func_80082A70(sp40[0], sp40[2]) * 651.8986f);
-                                M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (func_80082A70(sp40[0], approximate_hypot2(sp40[0], sp40[2])) * 651.8986f);
+                                M2C_FIELD(temp_s3, s16 *, 0x78) = (s16) (s32) (approximateAtan2(sp40[0], sp40[2]) * 651.8986f);
+                                M2C_FIELD(temp_s3, s16 *, 0x7A) = (s16) (s32) (approximateAtan2(sp40[0], approximate_hypot2(sp40[0], sp40[2])) * 651.8986f);
                             }
                         }
                     }
@@ -291,7 +291,7 @@ block_42:
                         sp20[0] = M2C_FIELD(var_a1, f32 *, 0x10);
                         sp20[1] = M2C_FIELD(var_a1, f32 *, 0x14);
                         sp20[2] = M2C_FIELD(var_a1, f32 *, 0x18);
-                        func_80083A6C(temp_s1, sp20);
+                        rotateVec3ByMat3(temp_s1, sp20);
                         *(f32 *)(var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)) = sp10[0];
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 4) = sp10[1];
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0)), f32 *, 8) = sp10[2];

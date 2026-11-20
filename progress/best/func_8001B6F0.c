@@ -30,7 +30,7 @@ extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
 extern u8 D_800BD68E;
 extern char D_800C3CF8[];
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern char D_80100408[];
 extern char D_80102F48[];
 extern s8 gSharedItemBusy;
@@ -52,10 +52,16 @@ void func_8001B6F0(void) {
     void *temp_v0;
     char *__base_D_80102F48;
 
-    __base_D_80102F48 = (s32)D_80102F48;
+    __base_D_80102F48 = D_80102F48;
 
     temp_s4 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4000);
-    if ((gPickupActor != NULL) || (temp_v0 = func_80016410(0, 0, 0), gPickupActor = temp_v0, (temp_v0 != NULL))) {
+    {
+        void *volatile *pickup = &gPickupActor;
+        if (*pickup == NULL) {
+            temp_v0 = func_80016410(0, 0, 0);
+            *pickup = temp_v0;
+            if (temp_v0 == NULL) return;
+        }
         (*(s16 *)((char *)(gPickupActor) + 0x78)) = 0x1F;
         (*(s32 *)((char *)(gPickupActor) + 0x58)) |= 0x400;
         (*(s8 *)((char *)(gPickupActor) + 0x7E)) = 1;
@@ -67,8 +73,8 @@ void func_8001B6F0(void) {
         (*(f32 *)((char *)(gPickupActor) + 0x24)) = 0.85f;
         (*(f32 *)((char *)(gPickupActor) + 0x28)) = 0.25f;
         (*(f32 *)((char *)(gPickupActor) + 0x2C)) = -3.0f;
+        actorLinkToSurface(*gProbeObjectList, *pickup, 1);
         var_s1 = 0;
-        actorLinkToSurface(*D_800CA31C, gPickupActor);
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(D_800BD68E, 0x30, 0x30, 0x6E, 0xF);
         temp_s2 = func_800316C8();
@@ -107,3 +113,4 @@ void func_8001B6F0(void) {
         (*(f32 *)((char *)((*(void **)((char *)(gPickupActor) + 0x68))) + 0x34)) = 0.05f;
     }
 }
+

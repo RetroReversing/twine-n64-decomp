@@ -1,9 +1,9 @@
 void *func_80047B44(s32, void *, f32 *, s32);
 s32 func_8004AD30(s32, f32 *, s32 *, f32, s32, s32, s32, s32);
 f32 func_8008292C(f32);
-f32 func_800829A0(f32);
-f32 func_800829C8(f32);
-f32 func_80082A70(f32, f32);
+f32 sinAngle(f32);
+f32 cosAngle(f32);
+f32 approximateAtan2(f32, f32);
 extern u8 D_8011508C;
 
 struct Vec3 { f32 x; f32 y; f32 z; };
@@ -23,20 +23,20 @@ f32 func_8006F358(s32 arg0, void *arg1) {
     res = 0.0f;
     if (*((u8 *)((s8 *)&D_8011508C + (*(s8 *)((char *)s3 + 0x182)) * 0xA0)) != 0) {
         v1 = *(struct Vec3 *)((char *)arg1 + 0x24);
-        v1.x = v1.x + func_800829A0(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
+        v1.x = v1.x + sinAngle(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
         v1.y += 0.5f;
-        v1.z += func_800829C8(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
+        v1.z += cosAngle(*(f32 *)((char *)arg1 + 0x40)) * 1.5f;
         p = func_80047B44(arg0, (char *)arg1 + 0x24, &v1.x, 0);
         if (p != NULL) {
             arg0 = *(s32 *)((char *)p + 8);
         }
         r = func_8004AD30(arg0, &v1.x, &out.i, 4.0f, 0, 0, 0, 0xE);
         if ((r << 24) != 0) {
-            res = func_80082A70(out.f - *(f32 *)((char *)s3 + 0xE4), 1.5f);
+            res = approximateAtan2(out.f - *(f32 *)((char *)s3 + 0xE4), 1.5f);
             v2 = v1;
-            v2.x += func_800829A0(*(f32 *)((char *)arg1 + 0x40));
+            v2.x += sinAngle(*(f32 *)((char *)arg1 + 0x40));
             v2.y += func_8008292C(res);
-            v2.z += func_800829C8(*(f32 *)((char *)arg1 + 0x40));
+            v2.z += cosAngle(*(f32 *)((char *)arg1 + 0x40));
             res *= 0.47746482f;
         }
     }

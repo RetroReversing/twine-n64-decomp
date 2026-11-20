@@ -1,7 +1,7 @@
 typedef struct { u8 pad0[0x120]; f32 f120; f32 f124; } Func80073508Obj;
 extern Func80073508Obj *gAimAxisTable[];
 extern u8 D_8010A4C1;
-f32 func_80045E34(s32, void *);
+f32 approxDistance(s32, void *);
 
 void func_80073508(s32 arg0, f32 arg1) {
     u32 i;
@@ -11,7 +11,7 @@ void func_80073508(s32 arg0, f32 arg1) {
     for (i = 0; i < 4; i++) {
         obj = gAimAxisTable[i];
         if (obj != NULL) {
-            t = (100.0f - func_80045E34(arg0, (u8 *)obj + 0x10));
+            t = (100.0f - approxDistance(arg0, (u8 *)obj + 0x10));
             t = t * arg1;
             if (t > 0.0f) {
                 gAimAxisTable[i]->f120 = t;

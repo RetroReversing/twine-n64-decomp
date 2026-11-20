@@ -2,7 +2,7 @@
 
 void *func_80016410(s32, s32, s32);         /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 void *func_800632AC(s32 arg0, void *arg1, s16 arg2) {
     void *temp_v0;
@@ -34,7 +34,7 @@ void *func_800632AC(s32 arg0, void *arg1, s16 arg2) {
         } else {
             (*(s8 *)((char *)(temp_a0) + 0xD)) = 0;
         }
-        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
     }
     return temp_v0;
 }

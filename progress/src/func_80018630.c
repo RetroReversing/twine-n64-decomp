@@ -17,7 +17,7 @@ M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 M2C_UNK func_80044670(void *, u16, s16);            /* extern */
 M2C_UNK func_80045278(void *);                 /* extern */
 extern s32 **D_800CA31C_dummy;
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 typedef struct { s32 w[3]; } __repair_words3;
 void *func_80018630(s32 arg0, void *arg1, void *arg2) {
@@ -36,7 +36,7 @@ void *func_80018630(s32 arg0, void *arg1, void *arg2) {
         M2C_FIELD(temp_a0, s32 *, 0x18) = -1;
         func_80045278(temp_a0);
         func_80044670(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
-        { s32 *p = D_800CA31C;
+        { s32 *p = gProbeObjectList;
         M2C_FIELD(temp_v0, s32 *, 0x5C) |= 0x200;
         actorLinkToSurface(*p, temp_v0, 1); }
     }

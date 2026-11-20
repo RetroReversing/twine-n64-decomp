@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80089850();                            /* extern */
 M2C_UNK osSendMesg(M2C_UNK *, s8 *, M2C_UNK);       /* extern */
 M2C_UNK osYieldThread();                            /* extern */
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern s32 D_800E4140;
-extern M2C_UNK D_800E4144;
+extern M2C_UNK gWorkerMsgQueue;
 extern s32 D_800E4170;
 extern u16 D_800E41DA;
 extern s32 D_800E41E0;
@@ -39,10 +39,10 @@ extern M2C_UNK (*D_80100180)(s32);
 extern s32 D_80103EB4;
 extern M2C_UNK func_8008B25C;
 
-void func_8008BCB0(void) {
-    u8 sp10;
+/* Stops the worker thread: flushes pending work, then sends a 0xFF quit message on its queue. */ void stopWorkerThread(void) {
+    u8 quitMsg;
 
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         D_800E426A = D_800E41DA;
         do {
 
@@ -73,8 +73,8 @@ void func_8008BCB0(void) {
         D_80100180(D_800E4224);
         D_80100180(D_800E41E0);
         D_80100180(D_800E422C);
-        sp10 = 0xFF;
-        osSendMesg(&D_800E4144, &sp10, 1);
+        quitMsg = 0xFF;
+        osSendMesg(&gWorkerMsgQueue, &quitMsg, 1);
         D_80100180(D_800E4170);
         D_80100180(D_800E4140);
     }

@@ -27,7 +27,7 @@ s32 func_800819EC(s32 bank, s32 slot) {
     return ((u32)-(s32)((flags & 0x20) != 0) << 16) | 0x10000;
 }
 
-extern void func_800AB030(f64, f64 *, f64 *);
+extern void cordicSinCos(f64, f64 *, f64 *);
 extern f64 D_800D6FE0, D_800D6FE8, D_800D6FF0, D_800D6FF8;
 
 f64 func_800AB330(f64 x) {
@@ -38,7 +38,7 @@ f64 func_800AB330(f64 x) {
     if (x >= 0.0)
         bias = D_800D6FF0;
     n = (s32)(turns + bias);
-    func_800AB030(x - (f64)n * D_800D6FF8, &sine, &cosine);
+    cordicSinCos(x - (f64)n * D_800D6FF8, &sine, &cosine);
     if (n & 1)
         cosine = -cosine;
     return cosine;

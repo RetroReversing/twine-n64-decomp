@@ -14,7 +14,7 @@ s32 func_800A92C0(s32 direction, s32 spAddress, s32 dramAddress, s32 length) {
 
 s32 func_8008C1B0(s32);
 unsigned int func_8008C1DC(void);
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern s8 D_80112DC0;
 extern u8 D_801176E8;
 
@@ -25,7 +25,7 @@ s32 func_8009CDA4(void) {
     s32 result;
     s64 checkState;
     s64 *checkStatePtr = &checkState;
-    if (D_800CF540 == 0) goto done;
+    if (gWorkerActive == 0) goto done;
     D_80112DC0 = 1;
     if ((u8)func_8008C1DC() == 0) {
         if ((count = D_801176E8) > 0) {
@@ -53,8 +53,8 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) 0
 #endif
-void func_800AB030(f64, f64 *, f64 *); extern f64 D_800D6FE0,D_800D6FE8,D_800D6FF0,D_800D6FF8;
-f64 func_800AB330(f64 arg0) { f64 sp10; f64 sp18; f64 ratio; f64 bias; f64 r; s32 n; ratio=arg0/D_800D6FE0; bias=D_800D6FE8; if(arg0>=0.0) bias=D_800D6FF0; n=(s32)(ratio+bias); do { func_800AB030(arg0-((f64)n*D_800D6FF8),&sp10,&sp18); } while (0); r=sp18; if(n&1) r=-r; return r; }
+void cordicSinCos(f64, f64 *, f64 *); extern f64 D_800D6FE0,D_800D6FE8,D_800D6FF0,D_800D6FF8;
+f64 func_800AB330(f64 arg0) { f64 sp10; f64 sp18; f64 ratio; f64 bias; f64 r; s32 n; ratio=arg0/D_800D6FE0; bias=D_800D6FE8; if(arg0>=0.0) bias=D_800D6FF0; n=(s32)(ratio+bias); do { cordicSinCos(arg0-((f64)n*D_800D6FF8),&sp10,&sp18); } while (0); r=sp18; if(n&1) r=-r; return r; }
 
 void func_80011938(s32, s16);
 void func_80081758(s32);

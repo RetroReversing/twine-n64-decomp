@@ -21,7 +21,7 @@ M2C_UNK osSetEventMesg(M2C_UNK, M2C_UNK *, s8 *);   /* extern */
 M2C_UNK osStartThread(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800E3F90;
 extern s32 D_800E4140;
-extern M2C_UNK D_800E4144;
+extern M2C_UNK gWorkerMsgQueue;
 extern M2C_UNK D_800E415C;
 extern s8 D_800E416C;
 extern s32 D_800E41D4;
@@ -41,7 +41,7 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
     D_8010086C = (arg3 >> 0x14) & 1;
     *message = 1;
     osCreateMesgQueue((M2C_UNK *)((u32)&D_800E41D4 - 0x90), &D_800E415C, 4);
-    osSetEventMesg(6, &D_800E4144, message);
+    osSetEventMesg(6, &gWorkerMsgQueue, message);
     temp_v0 = osAiSetFrequency(*arg0);
     D_800E41D4 = temp_v0;
     *arg0 = temp_v0;

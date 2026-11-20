@@ -22,7 +22,7 @@ extern s16 D_800E107E;
 extern s16 D_800E1080;
 extern char D_801001A4[];
 extern u8 D_801002A0;
-extern u8 gSaveKeyRelaxed;
+extern u8 D_801002A1;
 extern u8 D_801002AC;
 extern s32 D_801002B4;
 extern void *D_80102CD0;
@@ -52,13 +52,13 @@ void *func_80023BD4(void) {
     }
     var_s1 = -0x270F;
     temp_s5 = func_80087100(0x4000);
-    if (gSaveKeyRelaxed != 0) {
+    if (D_801002A1 != 0) {
         if (D_800E107E > D_800E1080) {
             var_a0 = 0x6E;
             goto block_6;
         }
-        var_a0 = 0x6F;
         if (D_800E107E < D_800E1080) {
+var_a0 = 0x6F;
 block_6:
             temp_s0 = func_80087100(var_a0);
             var_v0 = func_80087100(0xEE);

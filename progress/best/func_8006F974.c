@@ -15,20 +15,22 @@ typedef s32 M2C_UNK32;
 s32 func_800158A4(void *, s32, s32, M2C_UNK *, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80045514(f32 *, f32, f32);             /* extern */
 s32 func_8008194C(s8, M2C_UNK);                     /* extern */
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 M2C_UNK func_800839F0(void *, M2C_UNK32 *, f32 *);  /* extern */
 extern f32 D_800C7C98;
 extern s32 gBorderSkipFlag;
 extern s32 D_80108F78;
 
 void func_8006F974(void *arg0, void *arg1) {
-    M2C_UNK32 sp28;
-    f32 sp2C;
-    M2C_UNK32 sp30;
-    f32 sp38;
-    f32 sp3C;
-    f32 sp40;
-    M2C_UNK sp48;
+    union { f32 f[3]; M2C_UNK32 w[3]; } in;
+#define sp28 in.w[0]
+#define sp2C in.f[1]
+#define sp30 in.w[2]
+    f32 out[3];
+#define sp38 out[0]
+#define sp3C out[1]
+#define sp40 out[2]
+    M2C_UNK sp48; volatile u32 padding[2];
     f32 temp_fv1;
     f32 var_fs0;
     f32 var_fs1;
@@ -46,7 +48,7 @@ void func_8006F974(void *arg0, void *arg1) {
     void *var_s2;
 
     temp_v1 = M2C_FIELD(arg1, s32 *, 0x58);
-    if ((temp_v1 & 0x400) && !(temp_v1 & 0x1000) && (temp_s3 = M2C_FIELD(arg0, void **, 0x138), (temp_s3 != NULL))) {
+    if ((temp_v1 & 0x400) && !(M2C_FIELD(arg1, s32 *, 0x58) & 0x1000) && (temp_s3 = M2C_FIELD(arg0, void **, 0x138), (temp_s3 != NULL))) {
         var_fs4 = 2.0f;
         var_fs1 = 1.0f;
         temp_a1 = M2C_FIELD(temp_s3, void **, 0x6C);
@@ -99,12 +101,11 @@ block_29:
                                 sp2C = (M2C_FIELD(temp_v0, f32 *, 0x58) + M2C_FIELD(temp_v0, f32 *, 0xAC)) * 0.5f;
                                 sp30 = M2C_FIELD(arg1, M2C_UNK32 *, 0x2C);
                                 func_800839F0(arg0 + 0x88, &sp28, &sp38);
-                                __asm__dummy();
                                 sp38 += M2C_FIELD(arg0, f32 *, 0xAC);
                                 sp3C += M2C_FIELD(arg0, f32 *, 0xB0);
                                 temp_fv1 = sp40 + M2C_FIELD(arg0, f32 *, 0xB4);
                                 sp40 = temp_fv1;
-                                if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (func_800828D0(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (func_800828D0(sp3C - var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(sp3C - var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                     M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
                                     M2C_FIELD(arg0, M2C_UNK32 *, 0x104) = sp28;
                                     M2C_FIELD(arg0, f32 *, 0x108) = sp2C;

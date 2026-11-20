@@ -2,7 +2,7 @@
 
 s32 IsSphereVisible(void *, s32, void *, void *);     /* extern */
 s32 func_80032630(void *);                      /* extern */
-s32 func_8003438C(void *, void *);              /* extern */
+s32 emitPrimColor(void *, void *);              /* extern */
 s32 func_80034630(void *, void *);              /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
 s32 emit_projection_viewport_commands();                            /* extern */
@@ -22,7 +22,7 @@ extern void *D_80107E9C;
 extern u32 D_80107EA0;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
-extern s32 D_80112E40;
+extern s32 gRenderMode;
 extern s32 D_80112F90;
 extern s32 *D_80115328;
 extern void *D_80117728;
@@ -61,8 +61,8 @@ void func_80036BBC(void *arg0) {
 
     var_s2 = D_80107E9C;
     D_801007BC = NULL;
-    if (D_80112E40 != 0) {
-        D_80112E40 = 0;
+    if (gRenderMode != 0) {
+        gRenderMode = 0;
         emit_projection_viewport_commands();
     }
     if (D_8010A924 != 0) {
@@ -97,7 +97,7 @@ void func_80036BBC(void *arg0) {
 loop_12:
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
         func_80034630(var_s2, arg0);
-        func_8003438C(var_s2, arg0);
+        emitPrimColor(var_s2, arg0);
         if (var_s0 != NULL) {
 loop_13:
             temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;

@@ -2,9 +2,9 @@
 
 struct Copy16 { s32 a, b, c, d; };
 s32 func_80015B4C();
-f32 func_80045E34();
+f32 approxDistance();
 extern u16 D_800B35B0;
-extern void **D_800CA31C;
+extern void **gProbeObjectList;
 extern void *D_80107E9C;
 
 void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
@@ -22,12 +22,12 @@ void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
     D_80107E9C = arg1;
     *(struct Copy16 *)temp_v0 = *(struct Copy16 *)arg2;
     temp_a1 = D_800B35B0;
-    var_s0 = *D_800CA31C;
+    var_s0 = *gProbeObjectList;
     D_800B35B0 = temp_a1 + 1;
     func_80015B4C(arg1);
     if (var_s0 != NULL) {
         do {
-            if ((var_s0 != arg1) && ((*(void **)((char *)(var_s0) + 0x20)) != NULL) && ((func_80045E34(arg0, var_s0 + 0x40) - (*(f32 *)((char *)(var_s0) + 0x4C))) < 15.0f) && ((*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) != D_800B35B0)) {
+            if ((var_s0 != arg1) && ((*(void **)((char *)(var_s0) + 0x20)) != NULL) && ((approxDistance(arg0, var_s0 + 0x40) - (*(f32 *)((char *)(var_s0) + 0x4C))) < 15.0f) && ((*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) != D_800B35B0)) {
                 temp_v0_2 = D_80107E9C;
                 temp_v1 = (*(void * volatile *)((char *)(var_s0) + 0x20));
                 D_80107E9C = var_s0;

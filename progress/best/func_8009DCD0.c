@@ -16,6 +16,7 @@ M2C_UNK func_8009DBE8(s32, s16 *, M2C_UNK *, s16 *, M2C_UNK *, M2C_UNK *, M2C_UN
 
 s32 func_8009DCD0(s32 arg0, void *arg1, s32 arg2) {
     M2C_UNK sp48;
+    volatile M2C_UNK stack_reserve[40];
     M2C_UNK spB0;
     s16 spB8;
     M2C_UNK spC0;
@@ -38,6 +39,7 @@ s32 func_8009DCD0(s32 arg0, void *arg1, s32 arg2) {
     void *var_v0;
 
     var_v0 = arg1;
+    sp48 = 0;
     spD0 = (((s32) M2C_FIELD(arg1, u8 *, 1) >> 6) & 3) | ((M2C_FIELD(arg1, u8 *, 0) & 0xF) * 4);
     var_a3 = &spC8;
     spD2 = M2C_FIELD(arg1, u8 *, 1) & 0x3F;
@@ -51,7 +53,7 @@ s32 func_8009DCD0(s32 arg0, void *arg1, s32 arg2) {
     spDA = (((s32) M2C_FIELD(arg1, u8 *, 4) >> 6) & 3) | ((M2C_FIELD(arg1, u8 *, 3) & 3) * 4);
     spDC = ((s32) M2C_FIELD(arg1, u8 *, 4) >> 3) & 7;
     spDE = M2C_FIELD(arg1, u8 *, 4) & 7;
-    __repair_rows: {
+    __repair_rows: { /* keep loop target stable */
         var_v1 += 0x1A;
         var_a3 += 2;
         M2C_FIELD(var_a3, s16 *, -2) = (s16) (((s32) M2C_FIELD(var_v0, u8 *, 5) >> 1) & 0x7F);

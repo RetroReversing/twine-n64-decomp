@@ -5,7 +5,8 @@ extern s8 D_80112E9E[];
 s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
     s32 s1, s0, a2, a0;
     u8 v1;
-    u32 w;
+    u32 w, selector, mode;
+u32 __repair_phase_w;
     u32 idx;
 u32 __repair_phase_idx;
 
@@ -13,11 +14,11 @@ u32 __repair_phase_idx;
     if (arg1[0] != 0) {
         s1 = func_80096E7C(arg0, w & 0xFF);
     } else {
-        idx = w & 0x1F;
-        if (idx < 0x10U) {
-            s1 = *(s16 *)((s8 *)arg0 + idx * 2 + 0x180);
+        __repair_phase_w = w & 0x1F;
+        if (__repair_phase_w < 0x10U) {
+            s1 = *(s16 *)((s8 *)arg0 + __repair_phase_w * 2 + 0x180);
         } else {
-            s1 = *(s16 *)(D_80112E9E + idx * 2);
+            s1 = *(s16 *)(D_80112E9E + __repair_phase_w * 2);
         }
     }
     v1 = arg2 & 0xFF;
@@ -25,10 +26,12 @@ u32 __repair_phase_idx;
         a0 = *(u32 *)(arg1 + 4) >> 8;
     } else {
         w = *(u32 *)(arg1 + 4);
-        if ((w >> 8) & 0xFF) {
-            a0 = func_80096E7C(arg0, (w >> 16) & 0xFF);
+        mode = w >> 8;
+        selector = w >> 16;
+        if (mode & 0xFF) {
+            a0 = func_80096E7C(arg0, selector & 0xFF);
         } else {
-            idx = (w >> 16) & 0x1F;
+            idx = selector & 0x1F;
             if (idx < 0x10U) {
                 a0 = *(s16 *)((s8 *)arg0 + idx * 2 + 0x180);
             } else {
@@ -57,17 +60,19 @@ u32 __repair_phase_idx;
         break;
     }
     w = *(u32 *)arg1;
+    mode = w >> 8;
+    selector = w >> 16;
     if (s0 < -0x8000) {
         a2 = -0x8000;
     } else {
         a2 = 0x7FFF;
         if (s0 <= 0x7FFF) a2 = s0;
     }
-    if ((w >> 8) & 0xFF) {
-        func_80096F44(arg0, (w >> 16) & 0xFF, (s16)a2);
+    if (mode & 0xFF) {
+        func_80096F44(arg0, selector & 0xFF, (s16)a2);
         return 0;
     }
-    __repair_phase_idx = (w >> 16) & 0x1F;
+    __repair_phase_idx = selector & 0x1F;
     if (__repair_phase_idx < 0x10U) {
         *(s16 *)((s8 *)arg0 + __repair_phase_idx * 2 + 0x180) = (s16)a2;
     } else {

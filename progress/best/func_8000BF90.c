@@ -1,8 +1,8 @@
 void func_800455CC(void *a, void *b, void *c, void *d);
 void normalizeVector3(f32 *a, f32 *b);
-f32 func_80045E34(void *a, void *b);
+f32 approxDistance(void *a, void *b);
 extern u8 D_801096A0;
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 
 void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     void *best[2];
@@ -32,9 +32,9 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
         while (__repair_phase_storage.pointer != NULL) {
             node = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (node != NULL) {
-                if (node[0x2B] == 0 || gActorFlagTable[node[0x2B]] != 0) {
+                if (node[0x2B] == 0 || gActorDoneFlags[node[0x2B]] != 0) {
                     func_800455CC(sp20, node + 4, node + 0x10, ((f32 *)(arg0 + 0x24)));
-                    f = func_80045E34(((f32 *)(arg0 + 0x24)), sp20);
+                    f = approxDistance(((f32 *)(arg0 + 0x24)), sp20);
                     for (idx = 0; idx < 2; idx++) {
                         if (f > 0.0f && f < bestd[idx]) break;
                     }

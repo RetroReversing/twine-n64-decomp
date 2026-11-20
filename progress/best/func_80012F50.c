@@ -109,8 +109,8 @@ block_16:
                 saveDataEncodeName(&D_80103042, &D_8010A3C5, 4);
                 var_s0 = 1;
                 do {
-                    var_s0_3 = 0;
                     var_s2 = &D_80107B6A;
+                    var_s0_3 = 0;
                     var_s1_2 = 0;
                     __repair_phase_var_s0 = 0;
 loop_20:

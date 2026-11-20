@@ -2,7 +2,7 @@ extern void bzero(void *, s32);
 extern s32 func_800A00D0(s32, s32);
 extern void func_800A0220(s32, s32);
 extern s32 osRecvMesg(void *, u8 **, s32);
-extern u8 D_800E4144[24];
+extern u8 gWorkerMsgQueue[24];
 extern s32 D_800E4170[24];
 extern volatile u8 D_800E41D0;
 extern u32 D_800E41D4;
@@ -44,7 +44,7 @@ void audioSilenceThread(void) {
     D_800E41D0 = 0;
     func_800A00D0(D_800E4170[0], 0x300);
     do {
-        osRecvMesg(D_800E4144, &message, 1);
+        osRecvMesg(gWorkerMsgQueue, &message, 1);
         if (!D_800E41D8) {
             switch (*message) {
             case 1:

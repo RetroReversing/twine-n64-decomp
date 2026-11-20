@@ -2,9 +2,9 @@ s32 func_80015D40(s32);
 void *func_80016410(s32,s32,s32);
 s32 actorLinkToSurface(void *,void *,u8);
 void func_80044670(void *,s32,s32);
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 extern f64 D_800D4170;
-extern u8 gActorFlagTable[19];
+extern u8 gActorDoneFlags[19];
 extern s8 D_80109B1E;
 typedef struct { unsigned char pad0[36]; s32 x,y,z; unsigned char pad30[12]; f32 a,b,c; unsigned char pad48[20]; s32 flags; unsigned char pad60[12]; void *sub; unsigned char pad70[8]; s16 t,u,v; } R;
 void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,s32 arg3) {
@@ -30,11 +30,11 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   *(u16*)((char*)temp_s0+0x3C)=*(u16*)arg2;
   *(u16*)((char*)temp_s0+0x3E)=**(u16**)((char*)arg2+0x28);
   *(s16*)((char*)temp_s0+0x42)=0;
-  if(*(u16*)((char*)temp_s0+0x3A)==1) { var_a2=*(u16*)((char*)temp_s0+0x3E); var_a1=*(u16*)((char*)temp_s0+0x3C); var_a1+=gActorFlagTable[*(u16*)((char*)temp_s0+0x34)]; }
+  if(*(u16*)((char*)temp_s0+0x3A)==1) { var_a2=*(u16*)((char*)temp_s0+0x3E); var_a1=*(u16*)((char*)temp_s0+0x3C); var_a1+=gActorDoneFlags[*(u16*)((char*)temp_s0+0x34)]; }
   else { var_a1=*(u16*)arg2; var_a2=**(s16**)((char*)arg2+0x28); }
   func_80044670(temp_v0,var_a1,var_a2);
   if(*(u16*)((char*)arg2+0x40)==0) *(s32*)((char*)temp_s0+0x4C)|=0x80; else *(s32*)((char*)temp_s0+0x4C)&=~0x80;
-  gActorFlagTable[*(u16*)((char*)temp_s0+0x34)]=(s8)*(u16*)((char*)arg2+0x32);
+  gActorDoneFlags[*(u16*)((char*)temp_s0+0x34)]=(s8)*(u16*)((char*)arg2+0x32);
   *(void**)((char*)temp_s0+4)=arg3;
   temp_v0_2=*(u16*)((char*)arg2+4); *(u16*)((char*)temp_s0+0x44)=temp_v0_2; if(!temp_v0_2) *(u16*)((char*)temp_s0+0x44)=0x3C;
   *(s8*)((char*)temp_s0+0x4B)=0;
@@ -44,7 +44,7 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   *(s32*)((char*)temp_v0+0x30)=*(s32*)((char*)temp_v0+0x24); *(s32*)((char*)temp_v0+0x34)=*(s32*)((char*)temp_v0+0x28); *(s32*)((char*)temp_v0+0x38)=*(s32*)((char*)temp_v0+0x2C);
   *(f32*)((char*)temp_v0+0x48)=*(f32*)((char*)temp_v0+0x3C); *(f32*)((char*)temp_v0+0x4C)=*(f32*)((char*)temp_v0+0x40); *(f32*)((char*)temp_v0+0x50)=*(f32*)((char*)temp_v0+0x44);
   ((R*)temp_v0)->u=0; ((R*)temp_v0)->v=0; ((R*)temp_v0)->flags|=0x600;
-  actorLinkToSurface(*D_800CA31C,temp_v0,1);
+  actorLinkToSurface(*gProbeObjectList,temp_v0,1);
  }
  return temp_v0;
 }

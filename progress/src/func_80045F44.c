@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 
 f32 func_80045F44(void *arg0, void *arg1) {
     f32 temp_fv0;
@@ -22,9 +22,9 @@ f32 func_80045F44(void *arg0, void *arg1) {
     f32 var_fs1;
     f32 var_ft1;
 
-    var_fs1 = func_800828D0(M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg1, f32 *, 0));
-    var_fs0 = func_800828D0(M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg1, f32 *, 4));
-    var_ft1 = func_800828D0(M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg1, f32 *, 8));
+    var_fs1 = absFloat(M2C_FIELD(arg0, f32 *, 0) - M2C_FIELD(arg1, f32 *, 0));
+    var_fs0 = absFloat(M2C_FIELD(arg0, f32 *, 4) - M2C_FIELD(arg1, f32 *, 4));
+    var_ft1 = absFloat(M2C_FIELD(arg0, f32 *, 8) - M2C_FIELD(arg1, f32 *, 8));
     if (var_fs1 < var_fs0) {
         temp_fv0 = var_fs1;
         var_fs1 = var_fs0;

@@ -11,7 +11,7 @@ unsigned char func_8004E418(s32, f32 *, f32 *);               /* extern */
 s32 func_80082D24(s16 *, f32 *);                /* extern */
 s32 func_80082FE4(s16 *, s32 *);            /* extern */
 s32 func_800839F0(s32 *, f32 *, f32 *);     /* extern */
-s32 func_80083A6C(f32 *, f32 *);                /* extern */
+s32 rotateVec3ByMat3(f32 *, f32 *);                /* extern */
 s32 func_80083B64(f32 *, s16 *);                /* extern */
 extern s32 D_800D3E18;
 extern void *gPlayerActor;
@@ -183,9 +183,9 @@ block_17:
                                     sp48[0] = sp28[0] - (*(f32 *)((char *)(var_s1) + 0x24));
                                     sp48[1] = sp28[1] - (*(f32 *)((char *)(var_s1) + 0x28));
                                     sp48[2] = sp28[2] - (*(f32 *)((char *)(var_s1) + 0x2C));
-                                    func_80083A6C(sp154, sp15C);
+                                    rotateVec3ByMat3(sp154, sp15C);
                                     temp_s0 = temp_s4 + 0x18;
-                                    func_80083A6C(sp154, sp164);
+                                    rotateVec3ByMat3(sp154, sp164);
                                     if ((func_800488D4(temp_s0, sp15C, sp164) << 0x18) != 0) {
                                         __base_D_800D3E18 = &D_800D3E18;
                                         sp90[0] = (*(f32 *)((char *)(__base_D_800D3E18) + 0));
@@ -194,7 +194,7 @@ block_17:
                                         temp_v0 = func_8004E418(temp_s0, sp15C, sp164) & 0xFFFF;
                                         temp_t2 = temp_v0 & 0xFF;
                                         temp_fp = temp_v0 & 0xFF00;
-                                        func_80083A6C(sp154, sp16C);
+                                        rotateVec3ByMat3(sp154, sp16C);
                                         sp1A0 = temp_t2;
                                         sp18[0] = sp38[0];
                                         sp18[2] = sp38[2];

@@ -11,6 +11,8 @@ extern s32 D_800E157C;
 extern s32 D_800E1580;
 
 void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
+int __repair_literal;
+
     f32 temp_fv1;
     s32 *temp_s1;
     
@@ -84,7 +86,9 @@ s32 __repair_phase_var_v1;
                 }
                 D_800E1574 = var_v0;
                 D_800E1564 = 0;
-                if (D_800E156C > 0) {
+__repair_literal = 0;
+
+                if (D_800E156C > __repair_literal) {
                     do {
                         if (((s32) D_800E156C >> 1) < D_800E1564) {
                             var_v1 = D_800E1564 - 1;

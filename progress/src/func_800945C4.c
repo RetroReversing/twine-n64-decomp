@@ -1,13 +1,13 @@
 s32 func_8008C0D4(void);
 s32 func_8008C11C(void);
 void func_80095374(void *, void *, void *);
-s32 func_800953D8(void *, f32 *);
-extern u8 D_800CF540;
+s32 invertAffineTransform(void *, f32 *);
+extern u8 gWorkerActive;
 typedef struct { s32 x,y,z; } Vec3s;
 s32 func_800945C4(void *out, Vec3s *v1, Vec3s *v2, Vec3s *v3, f32 *neg, u8 scale) {
     s32 ret;
     f32 m[12];
-    if (!D_800CF540) {
+    if (!gWorkerActive) {
         ret = 0;
     } else {
         func_8008C0D4();
@@ -30,7 +30,7 @@ s32 func_800945C4(void *out, Vec3s *v1, Vec3s *v2, Vec3s *v3, f32 *neg, u8 scale
         m[9] = *(f32 *)((s8 *)out + 0xC);
         m[10] = *(f32 *)((s8 *)out + 0x10);
         m[11] = *(f32 *)((s8 *)out + 0x14);
-        func_800953D8((s8 *)out + 0x48, m);
+        invertAffineTransform((s8 *)out + 0x48, m);
         *(f32 *)((s8 *)out + 0x84) = scale * 0.007874016f;
         func_8008C11C();
         ret = 1;

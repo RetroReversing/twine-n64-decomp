@@ -16,13 +16,13 @@ M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_8008F2A4(s32, M2C_UNK);                /* extern */
 void *func_800985A8(s32);                           /* extern */
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 void func_8009CE34(u16 arg0, u8 arg1) {
     s32 temp_a0;
     void *temp_v0;
 
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         func_8008C0D4();
         temp_v0 = func_800985A8(arg0 & 0xFFFF);
         temp_a0 = arg1;

@@ -19,7 +19,7 @@ extern f32 D_800E09F8;
 extern f32 D_80102D68;
 extern f32 D_80102E68[];
 extern ClipBounds D_80103F10[];
-extern void *D_80109DC4;
+extern void *gObjectList;
 extern s32 D_80109E1C;
 extern void *D_8010D53C;
 
@@ -57,9 +57,9 @@ void func_80014EB0(void *arg0, ClipBounds *arg1) {
                 if (!(flags & 0x20000))
                     goto nextHead;
                 if (!(flags & 0x800)) {
-                    temp_v1 = D_80109DC4;
+                    temp_v1 = gObjectList;
                     *(s32 *)((u8 *)var_a1 + 0x58) = flags | 0x800;
-                    D_80109DC4 = var_a1;
+                    gObjectList = var_a1;
                     *(void **)((u8 *)var_a1 + 0x1C) = temp_v1;
                 }
 nextHead:
@@ -88,9 +88,9 @@ nextHead:
                             if (!(flags & 0x20000))
                                 goto nextChild;
                             if (!(flags & 0x800)) {
-                                temp_v1 = D_80109DC4;
+                                temp_v1 = gObjectList;
                                 *(s32 *)((u8 *)var_a0 + 0x58) = flags | 0x800;
-                                D_80109DC4 = var_a0;
+                                gObjectList = var_a0;
                                 *(void **)((u8 *)var_a0 + 0x1C) = temp_v1;
                             }
     nextChild:
@@ -104,9 +104,9 @@ nextHead:
                         temp_a0 = *(void **)((u8 *)var_s6 + 0x1C);
                         if (temp_a0 != NULL) {
                             if (!(*(s32 *)((u8 *)temp_a0 + 0x58) & 0x800)) {
-                                temp_v1 = D_80109DC4;
+                                temp_v1 = gObjectList;
                                 *(s32 *)((u8 *)temp_a0 + 0x58) |= 0x800;
-                                D_80109DC4 = temp_a0;
+                                gObjectList = temp_a0;
                                 *(void **)((u8 *)temp_a0 + 0x1C) = temp_v1;
                             }
                             if (*(s16 *)((u8 *)temp_a0 + 0x7A) == 0)

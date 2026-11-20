@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80015DAC();                              /* extern */
-f32 func_80045E34(void *, void *);                  /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
 M2C_UNK func_80047AEC(void *, void *, void *);      /* extern */
 
 void func_8005B42C(void *arg0) {
@@ -32,7 +32,7 @@ void func_8005B42C(void *arg0) {
         if (var_s0 != NULL) {
             do {
                 if (M2C_FIELD(var_s0, u16 *, 0x78) != 0x50) {
-                    temp_fv0 = func_80045E34(var_s0 + 0x24, arg0 + 0x24);
+                    temp_fv0 = approxDistance(var_s0 + 0x24, arg0 + 0x24);
                     if (temp_fv0 < var_fs0) {
                         var_fs0 = temp_fv0;
                         var_s2 = var_s0;

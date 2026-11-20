@@ -29,10 +29,10 @@ static inline s32 find_snd(s32 id) {
     return -1;
 }
 
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 s32 func_8009092C(s32 arg0) {
-    if (D_800CF540 != 0) {
+    if (gWorkerActive != 0) {
         arg0 = find_snd(arg0);
         if (arg0 != -1) {
             if (arg0 >= 0) {

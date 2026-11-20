@@ -24,7 +24,7 @@ extern u8 D_801176E8;
 
 int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     s32 temp_a0;
-    s32 temp_a1_2;
+    
     s32 temp_t0;
     s32 var_t8;
     s32 temp_v1;
@@ -52,7 +52,7 @@ int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     u32 var_t0;
     u8 temp_t0_3;
     u8 temp_t0_4;
-    u8 var_t0_2;
+    s32 var_t0_2;
     u8 var_t0_3;
     u8 var_t0_4;
     s32 var_t1;
@@ -126,8 +126,8 @@ block_20:
                     var_v0_6 = (unsigned)var_t3 < temp_t0;
                     for (;;) {
                         if (var_v0_6) {
-                            var_v0_7 = var_t2 & 0xFFFF;
-    var_t0_3 = *(D_8010957D + (var_v0_7));
+                            temp_a0 = var_t2 & 0xFFFF;
+    var_t0_3 = *(D_8010957D + (temp_a0));
                             var_v0_7 = var_t2 * 4;
                             if (var_t0_3 != 0xFF) {
                                 var_v0_8 = var_t0_3 * 2;
@@ -182,11 +182,11 @@ block_37:
                         if (var_t0_4 != 0xFF) {
                             var_v0_11 = var_t0_4 * 2;
                             do {
-                                temp_a1_2 = (((var_v0_11 + var_t0_4) * 4) + var_t0_4) << 5;
-                                if (*(D_8010D7E1 + temp_a1_2) == 0) {
-                                    if ((var_t8 == 0) || (var_v0_12 = var_t0_4 * 4, (*(D_8010D770 + temp_a1_2) == (arg3 & 0xFF)))) {
-                                        if (!(*(u32 *)(D_8010D748 + temp_a1_2) & 2)) {
-                                            if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(u32 *)(D_8010D74C + temp_a1_2) < (u32) *(u32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
+                                temp_a0 = (((var_v0_11 + var_t0_4) * 4) + var_t0_4) << 5;
+                                if (*(D_8010D7E1 + temp_a0) == 0) {
+                                    if ((var_t8 == 0) || (var_v0_12 = var_t0_4 * 4, (*(D_8010D770 + temp_a0) == (arg3 & 0xFF)))) {
+                                        if (!(*(u32 *)(D_8010D748 + temp_a0) & 2)) {
+                                            if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(u32 *)(D_8010D74C + temp_a0) < (u32) *(u32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                                 var_t1 = var_t0_4;
                                                 var_v0_12 = var_t0_4 * 4;
                                             }

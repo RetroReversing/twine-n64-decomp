@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_800828D0(f32);
+f32 absFloat(f32);
 f32 func_80082908(f32);
 
 void func_8003CD18(s32 arg0, void *arg1, void *arg2, void *arg3) {
@@ -69,16 +69,16 @@ void func_8003CD18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         M2C_FIELD(arg3, f32 *, 0) = var_fa0;
         M2C_FIELD(arg3, f32 *, 8) = var_fs1;
         M2C_FIELD(arg3, f32 *, 0x10) = var_fs5;
-        var_fs3 = func_800828D0(var_fa0);
-        if (var_fs3 < func_800828D0(var_fs0)) {
+        var_fs3 = absFloat(var_fa0);
+        if (var_fs3 < absFloat(var_fs0)) {
             var_fs3 = var_fs0;
         }
-        var_fs1_2 = func_800828D0(var_fs1);
-        if (var_fs1_2 < func_800828D0(var_fs2)) {
+        var_fs1_2 = absFloat(var_fs1);
+        if (var_fs1_2 < absFloat(var_fs2)) {
             var_fs1_2 = var_fs2;
         }
-        var_fs0_2 = func_800828D0(var_fs5);
-        if (var_fs0_2 < func_800828D0(var_fs4)) {
+        var_fs0_2 = absFloat(var_fs5);
+        if (var_fs0_2 < absFloat(var_fs4)) {
             var_fs0_2 = var_fs4;
         }
         M2C_FIELD(arg2, f32 *, 0xC) = func_80082908((var_fs3 * var_fs3) + (var_fs1_2 * var_fs1_2) + (var_fs0_2 * var_fs0_2));

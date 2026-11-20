@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_80034560();
+s32 emitScissorFromWindow();
 s32 func_80034928();
 s32 func_800399D0(void *arg0);
 s32 func_8003A4C0();
@@ -30,7 +30,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
     u16 var_a1;
     u32 temp_s1;
     u32 temp_s2;
-    u8 var_a3;
+    u32 var_a3;
     void *var_s0;
     s32 var_v0;
     u16 temp_v1;
@@ -55,14 +55,14 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                 temp_s2 = (((__repair_field_14 *)var_s0)->value);
                 if (temp_v1 & 0x1000) {
                     var_a1 = (*(u16 *)((char *)(var_s0) + 0x22));
-                    var_a3 = (u8) ((__repair_field_28 *)var_s0)->value;
+                    var_a3 = *(u8 *)((char *)var_s0 + 0x28);
                     if (gHiResScreen) {
                         var_a1 *= 2;
                         var_a3 *= 2;
                     }
-                    SetScissorRect((*(u16 *)((char *)(var_s0) + 0x20)), var_a1 & 0xFFFF, (*(u16 *)((char *)(var_s0) + 0x24)));
+                    SetScissorRect((*(u16 *)((char *)(var_s0) + 0x20)), var_a1 & 0xFFFF, (*(u16 *)((char *)(var_s0) + 0x24)), var_a3);
                 } else if (temp_v1 & 0x2000) {
-                    func_80034560(arg0);
+                    emitScissorFromWindow(arg0);
                 } else if ((u32) (temp_s1 & 0xFF) >= 5U) {
                     var_v0 = temp_s1 & 0xFF;
                     if (sp1F == 1) {

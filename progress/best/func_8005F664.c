@@ -6,7 +6,7 @@ s32 func_80044670(void *, s16, s16);            /* extern */
 f32 Vec3_DistanceSq(void *, void *);                  /* extern */
 s32 func_800462C4(void *, f32, f32, f32);       /* extern */
 s32 Ray_CastObjects(s32 *, s32, void *, void *, s32 *, f32, s32, s32, s32); /* extern */
-s32 func_80082A70(f32, f32);                    /* extern */
+s32 approximateAtan2(f32, f32);                    /* extern */
 extern s32 D_800C469C;
 extern s32 D_800C4706;
 extern s32 D_800C4708;
@@ -56,7 +56,7 @@ void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
                     temp_fs0 = (*(f32 *)((char *)(temp_v1) + 0x80)) - (*(f32 *)((char *)(temp_v0_3) + 0x80));
                     temp_s2 = (*(void **)((char *)(temp_v0) + 0x6C));
                     temp_fs2 = (*(f32 *)((char *)(temp_v1) + 0x7C)) - (*(f32 *)((char *)(temp_v0_3) + 0x7C));
-                    func_80082A70(temp_fs1, temp_fs0);
+                    approximateAtan2(temp_fs1, temp_fs0);
                     { typedef struct { s32 x, y, z; } Vec; *(Vec *)((char *)temp_v0 + 0x30) = *(Vec *)((char *)arg0 + 0x24); }
                     temp_s0 = arg0 + 0x24;
                     if ((Ray_CastObjects(&func_8004D910, (*(s32 *)((char *)(arg0) + 0x20)), temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78, sp28, Vec3_DistanceSq(temp_s0, (*(void **)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)) + 0x78), 0, 1, 0) << 0x18) != 0) {

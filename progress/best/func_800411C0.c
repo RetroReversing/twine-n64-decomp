@@ -4,7 +4,7 @@ s32 func_800328B8();
 s32 func_800336FC(s32, s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
 void *func_8003C860();
 s32 func_8003C94C();
-s32 compute_mesh_bounds();
+s32 computeMeshBounds();
 s32 func_8003CD18();
 s32 func_8003FCF4();
 s32 func_8003FDE0();
@@ -439,7 +439,7 @@ block_37:
                     } while (var_s1_2 < (s32) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)));
                 }
                 func_8003FF3C(temp_s4_2, (*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0x18)), (*(s32 *)((char *)(temp_s4_2) + 0x38)));
-                compute_mesh_bounds(temp_s4_2, temp_s4_2 + 8, temp_s4_2 + 0x18);
+                computeMeshBounds(temp_s4_2, temp_s4_2 + 8, temp_s4_2 + 0x18);
                 func_80040E5C(temp_s4_2);
             } else {
                 temp_v0_16 = ((__repair_field_24 *)arg1)->value;

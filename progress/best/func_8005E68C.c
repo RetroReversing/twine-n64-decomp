@@ -7,7 +7,7 @@ extern s16 D_800C4478;
 extern s16 D_800C447A;
 extern s16 D_800C4706;
 extern s16 D_800C4708;
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 typedef struct { unsigned char pad_0[12]; int field_C; int field_10; int field_14; unsigned char pad_18[4]; float field_1C; unsigned char pad_20[4]; unsigned short field_24; unsigned short field_26; unsigned short field_28; unsigned short field_2A; unsigned char pad_2C[1]; signed char field_2D; signed char field_2E; signed char field_2F; short field_30; } __repair_record_temp_s0;
 void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, s32 arg10, u16 arg11, s32 arg12, u8 arg13) {
@@ -64,7 +64,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
             ((__repair_record_temp_s0*)temp_s0)->field_28 = arg5;
             ((__repair_record_temp_s0*)temp_s0)->field_2A = sp26;
             ((__repair_record_temp_s0*)temp_s0)->field_30 = 0;
-            actorLinkToSurface(*D_800CA31C, temp_v0, 1);
+            actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
             *(s32 *)((u8 *)temp_v0 + 0x5C) = *(s32 *)((u8 *)temp_v0 + 0x5C) | 0x400;
             *(f32 *)((u8 *)temp_v0 + 0x54) = 0.015625f;
             ((__repair_record_temp_s0*)temp_s0)->field_1C = *(f32 *)((u8 *)temp_v0 + 0x28) - 1.0f;

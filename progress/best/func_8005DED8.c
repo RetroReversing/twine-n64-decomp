@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800175C0(s32, s32, s32, s32, f32, s32);
+s32 markObjectsNearPos(s32, s32, s32, s32, f32, s32);
 s32 func_80044670();
-f32 func_80045E34();
+f32 approxDistance();
 s32 func_80059658();
 s32 func_80084338();
 extern u8 D_80102EE8;
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 extern s32 D_8010A500;
 
 void func_8005DED8(void *arg0) {
@@ -39,7 +39,7 @@ short __repair_constant = 0xFF;
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     if (M2C_FIELD(temp_s1, u16 *, 0x3A) == 1) {
-        temp_v1 = *(gActorFlagTable + M2C_FIELD(temp_s1, u16 *, 0x34));
+        temp_v1 = *(gActorDoneFlags + M2C_FIELD(temp_s1, u16 *, 0x34));
         if (temp_v1 < 2U) {
             func_80044670(arg0, M2C_FIELD(temp_s1, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s1, u16 *, 0x3E));
         }
@@ -47,7 +47,7 @@ short __repair_constant = 0xFF;
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x100000) {
         M2C_FIELD(arg0, s32 *, 0x60) = 0;
     }
-    if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(temp_s1, s32 *, 0x4C) & 0x80) && (M2C_FIELD(arg0, s32 *, 0x58) & 4) && (func_80045E34(arg0, arg0 + 0x24, D_8010A500 + 0x24) < 4.0f)) {
+    if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(temp_s1, s32 *, 0x4C) & 0x80) && (M2C_FIELD(arg0, s32 *, 0x58) & 4) && (approxDistance(arg0, arg0 + 0x24, D_8010A500 + 0x24) < 4.0f)) {
         var_v0 = 0xFF;
         if (M2C_FIELD(temp_s1, s32 *, 0x2C) & 0x08000802) {
             temp_v0 = M2C_FIELD(temp_s1, u16 *, 0x42) + 1;
@@ -69,10 +69,10 @@ block_14:
     temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x7A);
     switch (temp_v1_2) {
     case 0:
-        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_2 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_2 == 0)) || (*(gActorFlagTable + temp_v0_2) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
+        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_2 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_2 == 0)) || (*(gActorDoneFlags + temp_v0_2) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
             temp_v1_3 = M2C_FIELD(temp_s1, u16 *, 0x34);
             if (temp_v1_3 != 0) {
-                *(gActorFlagTable + temp_v1_3) = *(gActorFlagTable + temp_v1_3) ^ 1;
+                *(gActorDoneFlags + temp_v1_3) = *(gActorDoneFlags + temp_v1_3) ^ 1;
             }
             temp_a0 = M2C_FIELD(temp_s1, u16 *, 0x40);
             if (temp_a0 != 0) {
@@ -88,7 +88,7 @@ block_14:
         break;
     case 2:
         if (M2C_FIELD(temp_s1, s32 *, 4) != 0) {
-            func_800175C0(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x01000000, arg0 + 0x24, M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x14) + 1.0f, 0);
+            markObjectsNearPos(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x01000000, arg0 + 0x24, M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x14) + 1.0f, 0);
             if ((func_80059658(arg0, 1) << 0x18) != 0) {
                 M2C_FIELD(temp_s1, f32 *, 8) = 1.0f;
                 M2C_FIELD(arg0, s16 *, 0x7A) = 3;
@@ -98,7 +98,7 @@ block_14:
         }
         break;
     case 3:
-        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_3 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_3 == 0)) || (*(gActorFlagTable + temp_v0_3) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
+        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_3 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_3 == 0)) || (*(gActorDoneFlags + temp_v0_3) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
             temp_v1_4 = M2C_FIELD(arg0, u16 *, 0x78);
             if ((temp_v1_4 != 0x12)) {
                 if ((temp_v1_4 != 0x60)) {
@@ -106,7 +106,7 @@ block_14:
                         M2C_FIELD(arg0, s16 *, 0x7A) = 4;
                     }
                     temp_v1_5 = M2C_FIELD(temp_s1, u16 *, 0x34);
-                    *(gActorFlagTable + temp_v1_5) = *(gActorFlagTable + temp_v1_5) ^ 1;
+                    *(gActorDoneFlags + temp_v1_5) = *(gActorDoneFlags + temp_v1_5) ^ 1;
                     temp_a0_2 = M2C_FIELD(temp_s1, u16 *, 0x40);
                     if (temp_a0_2 != 0) {
                         func_80084338(temp_a0_2, arg0 + 0x24);
@@ -122,7 +122,7 @@ block_14:
         break;
     case 5:
         if (M2C_FIELD(temp_s1, s32 *, 4) != 0) {
-            func_800175C0(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x01000000, arg0 + 0x24, M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x14) + 1.0f, 0);
+            markObjectsNearPos(M2C_FIELD(arg0, s32 *, 0x20), 0, 0x01000000, arg0 + 0x24, M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x14) + 1.0f, 0);
             if ((func_80059658(arg0, -1) << 0x18) != 0) {
                 M2C_FIELD(temp_s1, f32 *, 8) = 1.0f;
                 goto block_45;

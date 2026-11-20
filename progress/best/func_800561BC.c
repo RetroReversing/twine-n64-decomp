@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);                        /* extern */
+s32 angleDelta12(s32, s32);                        /* extern */
 void *func_800166A0();                              /* extern */
 M2C_UNK func_80016718(void *);                      /* extern */
 M2C_UNK func_80016990(void *, void *);              /* extern */
 M2C_UNK func_800169EC(void *, void *);              /* extern */
 M2C_UNK func_80016A10(void *, void *);              /* extern */
-M2C_UNK func_800175C0(void *, M2C_UNK, M2C_UNK, f32 *, s32, s32); /* extern */
+M2C_UNK markObjectsNearPos(void *, M2C_UNK, M2C_UNK, f32 *, s32, s32); /* extern */
 M2C_UNK func_80031EF4(f32 *, f32 *, M2C_UNK);       /* extern */
 M2C_UNK func_80032220(s32);                         /* extern */
 s32 Probe_BoundsContainPoint(void *, void *);                  /* extern */
@@ -53,11 +53,11 @@ M2C_UNK func_80073108(void *, f32 *, M2C_UNK);      /* extern */
 M2C_UNK func_80073210(void *, void *, void *, f32, f32, f32, s32, s32); /* extern */
 M2C_UNK func_80073508(f32 *, M2C_UNK);              /* extern */
 f32 func_80082908(f32);                             /* extern */
-f32 func_800829A0(f32);                             /* extern */
-f32 func_800829C8(f32);                             /* extern */
-f32 func_80082A70(f32, f32);                        /* extern */
+f32 sinAngle(f32);                             /* extern */
+f32 cosAngle(f32);                             /* extern */
+f32 approximateAtan2(f32, f32);                        /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
-M2C_UNK func_80083A6C(M2C_UNK *, void *);           /* extern */
+M2C_UNK rotateVec3ByMat3(M2C_UNK *, void *);           /* extern */
 M2C_UNK func_80083AE8(f32 *, f32 *, f32 *);         /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *);                /* extern */
 M2C_UNK func_80084338(M2C_UNK, f32 *);              /* extern */
@@ -450,7 +450,7 @@ block_73:
                     }
                     sp90 = (f32) var_fv1_3;
                     if (var_s6 == 1) {
-                        func_800175C0(sp174, 2, 0x20000, &sp40, 0, var_s6);
+                        markObjectsNearPos(sp174, 2, 0x20000, &sp40, 0, var_s6);
                         if (gPlayerActor != NULL) {
                             if ((M2C_FIELD(gPlayerActor, u16 *, 0x78) == 0x67) && (M2C_FIELD(temp_s2, u16 *, 0x58) == 2)) {
                                 temp_v1_4 = M2C_FIELD(gPlayerActor, void **, 0x6C);
@@ -507,8 +507,8 @@ loop_95:
                                     spAC = sp9C;
                                     spB0 = spA0;
                                 }
-                                spB8 = -(func_80082A70(spAC, func_80082908((spA8 * spA8) + (spB0 * spB0))) * 651.8986f);
-                                temp_fv0_3 = func_80082A70(spA8, spB0) * 651.8986f;
+                                spB8 = -(approximateAtan2(spAC, func_80082908((spA8 * spA8) + (spB0 * spB0))) * 651.8986f);
+                                temp_fv0_3 = approximateAtan2(spA8, spB0) * 651.8986f;
                                 spC0 = 0.0f;
                                 spBC = temp_fv0_3;
                                 func_800617D8(M2C_FIELD(arg0, void **, 0x20), &sp40, &spB8, 0, 3.0f, 1.25f, 7, 0x1B, 0x22, 0xFFA00AC0, 0x8080803C);
@@ -762,15 +762,15 @@ block_138:
                                     spD4 = spB4;
                                     spD8 = spB8;
                                 }
-                                M2C_FIELD(temp_v0_13, f32 *, 0x2C) = (f32) -(func_80082A70(spD4, func_80082908((spD0 * spD0) + (spD8 * spD8))) * 651.8986f);
-                                temp_fv0_5 = func_80082A70(spD0, spD8) * 651.8986f;
+                                M2C_FIELD(temp_v0_13, f32 *, 0x2C) = (f32) -(approximateAtan2(spD4, func_80082908((spD0 * spD0) + (spD8 * spD8))) * 651.8986f);
+                                temp_fv0_5 = approximateAtan2(spD0, spD8) * 651.8986f;
                                 M2C_FIELD(temp_v0_13, s32 *, 0x34) = 0;
                                 M2C_FIELD(temp_v0_13, f32 *, 0x30) = temp_fv0_5;
                                 func_800169EC(temp_v0_13, M2C_FIELD(arg0, void **, 0x20));
                             }
                             if (gPlayerActor != NULL) {
-                                M2C_FIELD(temp_v0_13, f32 *, 0x2C) = (f32) -(func_80082A70(sp74, func_80082908((sp70 * sp70) + (sp78 * sp78))) * 651.8986f);
-                                temp_fv0_6 = func_80082A70(sp70, sp78) * 651.8986f;
+                                M2C_FIELD(temp_v0_13, f32 *, 0x2C) = (f32) -(approximateAtan2(sp74, func_80082908((sp70 * sp70) + (sp78 * sp78))) * 651.8986f);
+                                temp_fv0_6 = approximateAtan2(sp70, sp78) * 651.8986f;
                                 M2C_FIELD(temp_v0_13, s32 *, 0x34) = 0;
                                 M2C_FIELD(temp_v0_13, f32 *, 0x30) = temp_fv0_6;
                                 spE0 = (s16) (s32) -M2C_FIELD(gPlayerActor, f32 *, 0x3C);
@@ -780,7 +780,7 @@ block_138:
                                 M2C_FIELD(temp_v0_13, f32 *, 0x20) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x20) - M2C_FIELD(gPlayerActor, f32 *, 0x24));
                                 M2C_FIELD(temp_v0_13, f32 *, 0x24) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x24) - M2C_FIELD(gPlayerActor, f32 *, 0x28));
                                 M2C_FIELD(temp_v0_13, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0_13, f32 *, 0x28) - M2C_FIELD(gPlayerActor, f32 *, 0x2C));
-                                func_80083A6C(&sp140, temp_v0_13 + 0x20);
+                                rotateVec3ByMat3(&sp140, temp_v0_13 + 0x20);
                                 func_80016A10(temp_v0_13, gPlayerActor);
                             }
                         }
@@ -982,15 +982,15 @@ block_263:
                         temp_fs3 = *(&D_80109AA0 + temp_v0_19) - M2C_FIELD(arg0, f32 *, 0x2C);
                         if (M2C_FIELD(arg0, s16 *, 0x7C) == 0) {
                             temp_fs0 = approximate_hypot2(temp_fs4, temp_fs3);
-                            temp_fs2 = func_80082A70(temp_fs4, temp_fs3) * 651.8986f;
-                            temp_fs0_2 = -(func_80082A70(temp_fs5, temp_fs0) * 651.8986f);
-                            M2C_FIELD(arg0, f32 *, 0x40) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) - ((f32) func_80000A30((s32) temp_fs2, (s32) M2C_FIELD(arg0, f32 *, 0x40)) * 0.1f));
-                            M2C_FIELD(arg0, f32 *, 0x3C) = (f32) (M2C_FIELD(arg0, f32 *, 0x3C) - ((f32) func_80000A30((s32) temp_fs0_2, (s32) M2C_FIELD(arg0, f32 *, 0x3C)) * 0.1f));
-                            temp_fs1 = func_800829A0(M2C_FIELD(arg0, f32 *, 0x40));
-                            temp_fs2_2 = func_800829C8(M2C_FIELD(arg0, f32 *, 0x40));
-                            temp_fs0_3 = func_800829A0(M2C_FIELD(arg0, f32 *, 0x3C));
-                            M2C_FIELD(temp_s2, f32 *, 0) = func_800829C8(M2C_FIELD(arg0, f32 *, 0x3C)) * temp_fs1;
-                            temp_fv0_7 = func_800829C8(M2C_FIELD(arg0, f32 *, 0x3C)) * temp_fs2_2;
+                            temp_fs2 = approximateAtan2(temp_fs4, temp_fs3) * 651.8986f;
+                            temp_fs0_2 = -(approximateAtan2(temp_fs5, temp_fs0) * 651.8986f);
+                            M2C_FIELD(arg0, f32 *, 0x40) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) - ((f32) angleDelta12((s32) temp_fs2, (s32) M2C_FIELD(arg0, f32 *, 0x40)) * 0.1f));
+                            M2C_FIELD(arg0, f32 *, 0x3C) = (f32) (M2C_FIELD(arg0, f32 *, 0x3C) - ((f32) angleDelta12((s32) temp_fs0_2, (s32) M2C_FIELD(arg0, f32 *, 0x3C)) * 0.1f));
+                            temp_fs1 = sinAngle(M2C_FIELD(arg0, f32 *, 0x40));
+                            temp_fs2_2 = cosAngle(M2C_FIELD(arg0, f32 *, 0x40));
+                            temp_fs0_3 = sinAngle(M2C_FIELD(arg0, f32 *, 0x3C));
+                            M2C_FIELD(temp_s2, f32 *, 0) = cosAngle(M2C_FIELD(arg0, f32 *, 0x3C)) * temp_fs1;
+                            temp_fv0_7 = cosAngle(M2C_FIELD(arg0, f32 *, 0x3C)) * temp_fs2_2;
                             M2C_FIELD(temp_s2, f32 *, 4) = (f32) -temp_fs0_3;
                             M2C_FIELD(temp_s2, f32 *, 8) = temp_fv0_7;
                             if (func_80046054(temp_fs4, temp_fs5, temp_fs3) < 2.0f) {

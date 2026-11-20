@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_80082908(f32);                             /* extern */
-f32 func_80082A70(f32, f32);                        /* extern */
+f32 approximateAtan2(f32, f32);                        /* extern */
 
 void func_800464B8(void *arg0, f32 arg1, f32 arg2, f32 arg3) {
-    M2C_FIELD(arg0, f32 *, 0) = func_80082A70(arg2, func_80082908((arg1 * arg1) + (arg3 * arg3)));
-    M2C_FIELD(arg0, f32 *, 4) = func_80082A70(arg1, arg3);
+    M2C_FIELD(arg0, f32 *, 0) = approximateAtan2(arg2, func_80082908((arg1 * arg1) + (arg3 * arg3)));
+    M2C_FIELD(arg0, f32 *, 4) = approximateAtan2(arg1, arg3);
     M2C_FIELD(arg0, s32 *, 8) = 0;
 }

@@ -51,7 +51,7 @@ void func_8002F868(void *arg0, void *arg1) {
     temp_v1 = M2C_FIELD(arg1, const s16 *, 0x7A);
     switch (temp_v1) {
     case 0:
-        func_8002EFD8(arg0);
+        func_8002EFD8(arg0, arg1);
         func_8002F2EC(arg0, arg1);
         return;
     case 5:
@@ -60,7 +60,7 @@ void func_8002F868(void *arg0, void *arg1) {
         return;
     case 6:
         if (func_8002F37C(arg0) & 0xFF) {
-            func_8002FBD4(arg0, arg1, 4);
+            func_8002FBD4(arg1, 4);
         } else {
         default:
         }
@@ -72,8 +72,7 @@ void func_8002F868(void *arg0, void *arg1) {
             func_8002B050(D_800E1584, 1);
         }
         if (func_80081730() & 0xFFFF) {
-block_19:
-            func_8002B150(D_800E1584, 0, 0);
+            goto block_19;
         }
         {
         func_8002F2EC(arg0, arg1);return;}
@@ -113,7 +112,10 @@ block_19:
         return;
     case 9:
         func_8002F37C(arg0);
-        goto block_19;
+block_19:
+        func_8002B150(D_800E1584, 0, 0);
+        func_8002F2EC(arg0, arg1);
+        return;
     case 11:
         if (func_8002F560(arg0) & 0xFF) {
             func_8002B02C(D_80102EFC);
@@ -127,3 +129,4 @@ block_19:
         return;
     }
 }
+

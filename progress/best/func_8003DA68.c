@@ -1,7 +1,7 @@
 typedef struct { f32 x, y, z; } Vec3;
 typedef struct { f32 x, y, z, w; } Vec4;
-extern Vec3 D_800D2FB0;
-extern Vec3 D_800D2FBC;
+extern Vec3 gProbeDirDown;
+extern Vec3 gProbeDirAlt;
 extern void *D_80108F84;
 extern s32 Ray_TriangleIntersect;
 s32 Ray_CastObjects(void *, void *, Vec3 *, Vec3 *, Vec3 *, f32, s32, s32, s32);
@@ -78,8 +78,8 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
         if (cellA < cellB) FLIP_RETURN();
         goto E364;
     }
-    p1 = D_800D2FB0;
-    p2 = D_800D2FBC;
+    p1 = gProbeDirDown;
+    p2 = gProbeDirAlt;
     arg3->x = r.x;
     arg3->y = r.y;
     arg3->z = r.z;

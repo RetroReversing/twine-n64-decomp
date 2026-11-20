@@ -18,7 +18,7 @@ s32 func_80022DBC();
 s32 func_800635B4();
 s32 func_80063FE8();
 s32 func_80064630();
-s32 func_800656C0();
+s32 actorInitFromSpawn();
 s32 func_80069A90();
 s32 func_8007080C();
 s32 func_8011ACAC();
@@ -88,7 +88,7 @@ extern char gAimAxisTable[];
                 M2C_FIELD(aiBlock, f32 *, 0x34) = zeroF;
                 M2C_FIELD(aiBlock, f32 *, 0x40) = 1.0f;
                 M2C_FIELD(aiBlock, f32 *, 0x3C) = 1.0f;
-                func_800656C0(actor, actor + 0x24, actor + 0x3C);
+                actorInitFromSpawn(actor, actor + 0x24, actor + 0x3C);
                 M2C_FIELD(actor, u16 *, 0x7C) = 0;
             } else {
                 func_800635B4(actor, 0);

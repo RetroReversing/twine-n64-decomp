@@ -3,7 +3,7 @@
 void *func_80016410(s32, s32, s32);         /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 s32 func_80044670(void *, u16, s16);            /* extern */
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 typedef struct { unsigned char pad_0[92]; int field_5C; unsigned char pad_60[12]; void * field_6C; unsigned char pad_70[8]; short field_78; short field_7A; } __repair_record_temp_v0;
 void *func_8005AD00(s32 arg0, s32 arg1, void *arg2, s16 arg3) {
@@ -23,7 +23,7 @@ void *func_8005AD00(s32 arg0, s32 arg1, void *arg2, s16 arg3) {
         func_80044670(temp_v0, (*(u16 *)((char *)(arg2) + 0)), *(*(s16 **)((char *)(arg2) + 0x28)));
         (((__repair_record_temp_v0*)temp_v0)->field_7A) = 0;
         (((__repair_record_temp_v0*)temp_v0)->field_5C) = (s32) ((((__repair_record_temp_v0*)temp_v0)->field_5C) | 0x600);
-        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
     }
     return temp_v0;
 }

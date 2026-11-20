@@ -2,7 +2,7 @@
 
 s32 func_8008C0D4();                            /* extern */
 void func_8008C11C(void);
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 
 typedef struct { f32 x, y, z; } Vec3;
 typedef struct { u8 pad[0xC]; Vec3 a; Vec3 b; u8 pad2[4]; f32 w; f32 m; } Obj;
@@ -10,7 +10,7 @@ typedef struct { u8 pad[0xC]; Vec3 a; Vec3 b; u8 pad2[4]; f32 w; f32 m; } Obj;
 s32 func_80093EF0(Obj *arg0, Vec3 *arg1, Vec3 *arg2, s32 arg3) {
     f32 v;
 
-    if (D_800CF540) {
+    if (gWorkerActive) {
         func_8008C0D4();
         v = (f32) (arg3 & 0xFF) * 0.007874016f;
         arg0->a = *arg1;

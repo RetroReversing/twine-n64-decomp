@@ -17,17 +17,17 @@ s32 func_8003C710();
 s32 func_80047F50();
 s32 func_8004844C(s32, s32, s32, s32, f32, s32, s32);
 s32 func_80048794();
-s32 func_800656C0();
+s32 actorInitFromSpawn();
 s32 func_800658C0();
 s32 func_8007659C();
 s32 func_80084048();
-extern s32 D_800CA31C;
+extern s32 gProbeObjectList;
 extern u32 D_801002E0;
 extern u8 D_80100BE0[];
 extern s8 D_80103EB0;
 extern char D_80108608[];
 extern void *D_80109690;
-extern u8 gActorFlagTable[];
+extern u8 gActorDoneFlags[];
 extern u8 D_8010A4C1;
 extern u8 D_8010A4C2;
 extern s32 D_8010A500;
@@ -48,7 +48,7 @@ void func_80076838(void *arg0) {
     temp_s1 = ((__repair_record_arg0*)arg0)->field_6C;
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (*(gActorFlagTable + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
+        if (*(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
             if (D_80103EB0 == 0) {
                 var_v0 = ((__repair_record_arg0*)arg0)->field_60 | 1;
 block_24:
@@ -75,7 +75,7 @@ block_24:
                             break;
                         }
                     }
-                    func_800656C0(temp_s0, var_a3, var_a2);
+                    actorInitFromSpawn(temp_s0, var_a3, var_a2);
                     func_80001D80(1);
                     ((__repair_record_arg0*)arg0)->field_7A = 1;
                     return;
@@ -86,7 +86,7 @@ block_24:
         }
         break;
     case 1:
-        func_80048794(2, D_800CA31C);
+        func_80048794(2, gProbeObjectList);
         func_8003C710(D_80109690);
         func_8004844C(D_80109690, 0x43200000, 0x42F00000, 0x43A00000, 180.0f, 0, 0);
         func_80047F50(arg0, D_80109690);
@@ -103,13 +103,13 @@ block_24:
         M2C_FIELD(temp_s1, f32 *, 8) += M2C_FIELD(temp_s1, f32 *, 0xC);
         func_8007659C(arg0, temp_s1 + 4);
         func_80047F50(arg0, D_80109690);
-        if ((*(gActorFlagTable + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
+        if ((*(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
             ((__repair_record_arg0*)arg0)->field_7A = 3;
             return;
         }
         break;
     case 3:
-        *(gActorFlagTable + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
+        *(gActorDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
         D_8010A4C1 |= 1;
         D_8010A4C2 |= 1;
         func_80084048(D_80109690, 0xE, &D_8010A4C1);

@@ -36,7 +36,7 @@ s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004DEE0(void *, void *, void *);           /* extern */
 u16 func_8004E418(void *, void *, void *);            /* extern */
 void func_80082D24(void *, void *);            /* extern */
-void func_80083A6C(void *, void *);            /* extern */
+void rotateVec3ByMat3(void *, void *);            /* extern */
 void func_80083B64(void *, void *);                /* extern */
 extern void *gPlayerActor;
 extern void **D_80108F84;
@@ -192,16 +192,16 @@ s32 __repair_phase_var_a2;
                                 work.scratch.object.endLocal.x -= M2C_FIELD(var_s3, f32 *, 0x24);
                                 work.scratch.object.endLocal.y -= M2C_FIELD(var_s3, f32 *, 0x28);
                                 work.scratch.object.endLocal.z -= M2C_FIELD(var_s3, f32 *, 0x2C);
-                                func_80083A6C(sp134, sp124);
+                                rotateVec3ByMat3(sp134, sp124);
                                 temp_s0_2 = temp_s1 + 0x18;
-                                func_80083A6C(sp134, sp12C);
+                                rotateVec3ByMat3(sp134, sp12C);
                                 if (((u32)func_800488D4(temp_s0_2, sp124, sp12C) << 24) != 0) {
                                     work.scratch.object.direction = *(RayVec *)spFC;
                                     temp_v0 = func_8004E418(temp_s0_2, sp124, sp12C) & 0xFFFF;
                                     var_s0 = temp_v0 & 0xFF;
     sp146 = var_s0;
                                     sp14E = temp_v0 & 0xFF00;
-                                    func_80083A6C(sp134, sp13C);
+                                    rotateVec3ByMat3(sp134, sp13C);
                                     temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
                                     var_fp = spEC;
                                     var_s6 = -1;

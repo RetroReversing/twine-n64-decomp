@@ -3,7 +3,7 @@ typedef struct {
     u16 type;
 } NearbyObject;
 
-f32 func_80045E34(void *, void *);
+f32 approxDistance(void *, void *);
 s8 func_8005FE20(NearbyObject *, void *);
 extern f64 D_800D41D8;
 extern s32 D_801002B4;
@@ -23,7 +23,7 @@ s8 func_8005FD28(void *object) {
                 u16 type = other->type;
                 if (type == excludedA) goto next;
                 if (type == excludedB) goto next;
-                if ((f64)func_80045E34((u8 *)other + 0x24, (u8 *)object + 0x24) < distance) {
+                if ((f64)approxDistance((u8 *)other + 0x24, (u8 *)object + 0x24) < distance) {
                     return func_8005FE20(*slot, object);
                 }
             }

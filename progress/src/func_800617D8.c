@@ -19,7 +19,7 @@ s32 func_80016990();
 s32 actorLinkToSurface();
 s32 func_80044670();
 s32 func_80045278();
-extern s32 *D_800CA31C;
+extern s32 *gProbeObjectList;
 
 void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, u32 arg9, u32 arg10) {
     Point3 *temp_s1;
@@ -52,7 +52,7 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 ar
             func_80016990(temp_v0, arg0);
             return temp_v0;
         }
-        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*gProbeObjectList, temp_v0, 1);
         goto block_9;
     }
 block_9:

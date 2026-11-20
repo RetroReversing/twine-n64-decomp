@@ -7,7 +7,7 @@ s32 func_80073400();
 s32 func_8007560C();
 s32 func_80083C98();
 s32 func_80083D04();
-extern s32 D_800CA31C;
+extern s32 gProbeObjectList;
 extern s8 D_801002E4;
 extern s8 D_801002E5;
 extern s8 D_80100300;
@@ -106,7 +106,7 @@ loop_6:
         var_a3 += 28;
     } while (6U > var_a2);
     D_8010302C = 0;
-    D_800CA31C = func_8003C7C4(var_a0, var_a1, var_a2, var_a3);
+    gProbeObjectList = func_8003C7C4(var_a0, var_a1, var_a2, var_a3);
     func_8007560C();
     (*(u8 *)&D_801032AC) = 0xA0;
     (*(u8 *)&D_8010D374) = 0x60;

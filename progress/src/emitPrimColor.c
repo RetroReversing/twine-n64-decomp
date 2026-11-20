@@ -6,7 +6,7 @@ extern u8 D_8010D2B8;
 extern u8 D_80115318;
 extern void *D_80115328;
 
-void func_8003438C(void *arg0, void *arg1) {
+void emitPrimColor(void *arg0, void *arg1) {
     s32 flags;
     s32 a1, a2, a3;
     u16 avg;

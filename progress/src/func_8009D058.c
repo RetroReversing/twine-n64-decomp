@@ -6,5 +6,5 @@ s32 func_80045CF8(s32);
 s32 func_8000A8B4(u32,s32,s32);
 extern u16 D_800CE774[];
 void func_80085454(void) { func_8000A8B4(D_800CE774[func_80045CF8(4)],0,0xFF); }
-s32 func_8008C0D4(void); s32 func_8008C688(void); s32 func_8008C11C(void); extern u8 D_800CF540;
-void func_8009D058(void) { if(D_800CF540) { func_8008C0D4(); func_8008C688(); func_8008C11C(); } }
+s32 func_8008C0D4(void); s32 func_8008C688(void); s32 func_8008C11C(void); extern u8 gWorkerActive;
+void func_8009D058(void) { if(gWorkerActive) { func_8008C0D4(); func_8008C688(); func_8008C11C(); } }

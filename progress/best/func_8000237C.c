@@ -2,11 +2,11 @@
 extern s16 D_800C3CF4[]; extern s16 D_800C3928[]; extern s16 D_800C392A[]; extern s16 *D_800C3CF8[]; extern u8 *D_800C3CFC[]; extern f32 D_800AE4D8; extern s16 *D_800AE4DC[]; extern s16 D_800AE53C[]; extern u8 D_800CA338; extern s32 gBootState;
 void *func_80083E90(void*, s32); void *memset(void*,s32,s32); f32 func_80082908(f32); void func_800060B0(void*,s32,s32); void func_80084180(s32*,s32*,s32); void *func_8002BC4C(void); s16 *func_80001928(s32); s32 func_8003FA78(s32); s32 func_80002098(void *a); s32 func_8004478C(s32,s32); s32 func_80045CF8(s32);
 s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
- unsigned int result=0, n, bytes, aligned, stride, size12, size4, i, j, val, id;
+ u32 result=0, n, bytes, aligned, stride, size12, size4, i, j, val, id;
  s32 tmp, valid; void *base; void *obj; void *state; s16 *list;  f32 f;
  if(!a) goto done;
- n=D_800C3CF4[index*3];
  bytes=D_800C3928[n*4];
+ n=D_800C3CF4[index*3];
  obj=FLD(a,void*,0x68);
  state=(u8*)obj+0x14;
  if(obj == 0) {
@@ -23,7 +23,7 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
   obj=FLD(a,void*,0x68);
   tmp=base+0xB8; FLD(obj,void*,0x54)=(void*)tmp;
   tmp+=aligned; FLD(obj,void*,0x58)=(void*)tmp;
-  tmp+=(s32)bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
+  tmp+=bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
   tmp+=aligned; FLD(obj,void*,0x5C)=(void*)tmp;
   FLD(base,void*,0)=(void*)(tmp+size4);
   FLD(obj,void*,0x6C)=(void*)(tmp+size4);
@@ -74,7 +74,7 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
    if(*D_800AE4DC[i]!=id) continue;
    list=&D_800AE53C[i*3];
    j=1;
-   while(list[0]==14){list+=3;j++;}
+   while(list[0]==14){list+=3;j += 1;}
    if(opt<0) j=func_80045CF8(j+1);
    if(j == 0) {result=1;goto done;}
    val=func_8004478C(list[-2],id); FLD(state,s32,0x38)=val;

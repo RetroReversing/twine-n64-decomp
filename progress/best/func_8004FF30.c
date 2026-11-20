@@ -24,7 +24,7 @@ M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK func_800832BC(s16 *, f32 *);                /* extern */
-M2C_UNK func_80083A6C();         /* extern */
+M2C_UNK rotateVec3ByMat3();         /* extern */
 M2C_UNK func_80083B64();         /* extern */
 extern u16 D_800B35B0;
 extern f64 D_800D3E70;
@@ -255,7 +255,7 @@ loop_3:
                             sp18 -= M2C_FIELD(var_s4, f32 *, 0x24);
                             sp1C -= M2C_FIELD(var_s4, f32 *, 0x28);
                             sp20 -= M2C_FIELD(var_s4, f32 *, 0x2C);
-                            func_80083A6C(sp1AC, sp19C);
+                            rotateVec3ByMat3(sp1AC, sp19C);
                             sp88 = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x3C);
                             sp8A = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x40);
                             sp8C = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x44);
@@ -353,7 +353,7 @@ loop_3:
                                                 sp20 += temp_fv0_3;
                                                 sp1C += temp_fv1;
 block_37:
-                                                func_80083A6C((f32 *)0, &sp58, &spE0);
+                                                rotateVec3ByMat3((f32 *)0, &sp58, &spE0);
                                                 M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + spE0);
                                                 M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + spE4);
                                                 M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + spE8);
@@ -458,7 +458,7 @@ block_37:
                                                 sp20 += temp_fv0_6;
                                                 sp1C += temp_fv1_2;
 block_65:
-                                                func_80083A6C((f32 *)0, &sp58, &spF0);
+                                                rotateVec3ByMat3((f32 *)0, &sp58, &spF0);
                                                 M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + spF0);
                                                 M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + spF4);
                                                 M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + spF8);

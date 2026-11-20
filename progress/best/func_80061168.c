@@ -4,8 +4,8 @@ void applyNearbyActorImpact(void *, f32, f32);
 s32 func_80045CF8(s32);
 s32 func_80061578(void *, s32 *);
 s32 func_80082FE4(s16 *, void *);
-s32 func_80083A6C(void *, s32 *);
-extern u8 gActorFlagTable[];
+s32 rotateVec3ByMat3(void *, s32 *);
+extern u8 gActorDoneFlags[];
 
 void func_80061168(void *arg0) {
     s32 sp10[3];
@@ -31,7 +31,7 @@ void func_80061168(void *arg0) {
             sp50[1] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x40));
             sp50[2] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x44));
             func_80082FE4(sp50, sp20);
-            func_80083A6C(sp20, sp10);
+            rotateVec3ByMat3(sp20, sp10);
             *(f32 *)((char *)s2 + 0) = *(f32 *)&sp10[0];
             *(f32 *)((char *)s2 + 4) = *(f32 *)&sp10[1];
             *(f32 *)((char *)s2 + 8) = *(f32 *)&sp10[2];
@@ -39,7 +39,7 @@ void func_80061168(void *arg0) {
             break;
         case 1:
             t = *(u8 *)((char *)s2 + 0x22);
-            if ((!t) || (gActorFlagTable[t] != 0)) {
+            if ((!t) || (gActorDoneFlags[t] != 0)) {
                 if (func_80045CF8((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
                     sp58[0] = *(s32 *)((char *)arg0 + 0x24);
                     sp58[1] = *(s32 *)((char *)arg0 + 0x28);

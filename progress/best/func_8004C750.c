@@ -22,11 +22,11 @@ s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
 M2C_UNK func_80073304(void *, void *, void **);     /* extern */
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80082FE4(f32 *, M2C_UNK *);            /* extern */
 M2C_UNK func_800839F0(M2C_UNK *, f32 *, f32 *);     /* extern */
-M2C_UNK func_80083A6C(M2C_UNK *, f32 *);            /* extern */
+M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);            /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *);                /* extern */
 extern M2C_UNK D_800D3E30;
 extern void **D_80103F00;
@@ -211,9 +211,9 @@ u16 __repair_result_var_v0;
                                     sp58 = sp28 - M2C_FIELD(var_s1, f32 *, 0x24);
                                     sp5C = sp2C - M2C_FIELD(var_s1, f32 *, 0x28);
                                     sp60 = sp30 - M2C_FIELD(var_s1, f32 *, 0x2C);
-                                    func_80083A6C(sp14C, sp154);
+                                    rotateVec3ByMat3(sp14C, sp154);
                                     temp_s0 = temp_s4 + 0x18;
-                                    func_80083A6C(sp14C, sp15C);
+                                    rotateVec3ByMat3(sp14C, sp15C);
                                     if ((func_800488D4(temp_s0, sp154, sp15C) << 0x18) != 0) {
                                         spA0 = M2C_FIELD(&D_800D3E30, f32 *, 0);
                                         spA4 = M2C_FIELD(&D_800D3E30, s32 *, 4);
@@ -223,7 +223,7 @@ u16 __repair_result_var_v0;
                                         temp_t2 = temp_v0 & 0xFF00;
                                         sp198 = temp_t2;
                                         sp19C = temp_t3;
-                                        func_80083A6C(sp14C, sp164);
+                                        rotateVec3ByMat3(sp14C, sp164);
                                         sp18 = sp48;
                                         sp20 = sp50;
                                         var_t2 = temp_t2;
@@ -505,7 +505,7 @@ block_115:
                             gPlayerActor = NULL;
                             D_80108F84 = NULL;
                             var_fs0 = temp_fv1_2;
-                            if (func_800828D0(M2C_FIELD(temp_v0_3, f32 *, 0x10)) < 0.5f) {
+                            if (absFloat(M2C_FIELD(temp_v0_3, f32 *, 0x10)) < 0.5f) {
                                 func_80073304(temp_v0_3, arg1, sp124);
                             }
                         }

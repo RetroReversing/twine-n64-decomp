@@ -2,7 +2,7 @@
 
 s32 func_800452AC();
 s32 func_80082FE4();
-s32 func_80083A6C();
+s32 rotateVec3ByMat3();
 
 void func_80041114(void *arg0) {
     f32 sp10[12];
@@ -12,6 +12,6 @@ void func_80041114(void *arg0) {
     sp40[1] = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x34)) * 651.8986f);
     sp40[2] = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x38)) * 651.8986f);
     func_80082FE4(sp40, sp10);
-    func_80083A6C(sp10, (char *) arg0 + 0x40);
+    rotateVec3ByMat3(sp10, (char *) arg0 + 0x40);
     func_800452AC((char *) arg0 + 0x24, (char *) arg0 + 0x40, (char *) arg0 + 0x40);
 }

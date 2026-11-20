@@ -18,7 +18,7 @@ s32 func_80097704();
 s32 func_80097B1C();
 s32 func_80097E14();
 s32 func_8009811C();
-extern u8 D_800CF540;
+extern u8 gWorkerActive;
 extern s16 D_800EDAA0;
 extern char D_800EDAA4[];
 
@@ -45,7 +45,7 @@ s32 func_80092DD4(void) {
     void *temp_v0_3;
     void *temp_v0_4;
 
-    if ((D_800CF540 != 0) && (D_800EDAA0 != 0)) {
+    if ((gWorkerActive != 0) && (D_800EDAA0 != 0)) {
         temp_v1 = D_800EDAA0 - 1;
         temp_s2 = *((s32 *)((s8 *)D_800EDAA4 + ((s32) (temp_v1 << 0x10) >> 0xE)));
         D_800EDAA0 = temp_v1;

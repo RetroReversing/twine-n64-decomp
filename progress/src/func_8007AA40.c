@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80000A30(s32, s32);                        /* extern */
+s32 angleDelta12(s32, s32);                        /* extern */
 M2C_UNK func_8007A974();                            /* extern */
-f32 func_800828D0(f32);                             /* extern */
+f32 absFloat(f32);                             /* extern */
 
 s32 func_8007AA40(void *arg0, s32 arg1, s32 *arg2) {
     func_8007A974(arg0, arg1, arg2);
-    if (func_800828D0((f32) func_80000A30(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f) {
+    if (absFloat((f32) angleDelta12(*arg2, (s32) M2C_FIELD(arg0, f32 *, 0x40))) < 113.0f) {
         return 1;
     }
     return 0;

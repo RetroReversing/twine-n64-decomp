@@ -98,7 +98,7 @@ block_11:
             }
         }
         if (((*(u8 *)((char *)(D_80109BB0) + 0x2D)) != 0) && ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0)) {
-            if ((*__base_D_800B5B14) != NULL) {
+            if (gPickupActor != NULL) {
                 func_8002B8AC();
                 temp_v1_3 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
                 gSharedItemArg = -1;
