@@ -14,7 +14,7 @@ void func_80036820(s32 arg0) {
     f32 var_fv1;
     u32 temp_a0;
     s32 temp_v1_2;
-    u8 temp_v1;
+    s32 temp_v1;
     void *temp_v0;
     void *var_s0;
     void *var_s1;
@@ -28,11 +28,11 @@ void func_80036820(s32 arg0) {
                 func_8003438C(var_s1, arg0);
                 do {
                     temp_v1 = (*(u8 *)((char *)(var_s0) + 0x7E));
-                    switch (temp_v1) {              /* irregular */
-                    case 0:
-                        break;
-                    default:
-                    case 14:
+                    if (temp_v1 == 0) goto next;
+                    if (temp_v1 < 3) goto process;
+                    if (temp_v1 != 14) goto next;
+process:
+                    {
                         temp_v1_2 = ((__repair_field_58 *)var_s0)->value;
                         if (!(temp_v1_2 & 0x20000)) {
                             if (temp_v1_2 & 0x101000) {
@@ -57,8 +57,8 @@ void func_80036820(s32 arg0) {
                                 }
                             }
                         }
-                        break;
                     }
+next:
                     var_s0 = (*(void **)((char *)(var_s0) + 0));
                 } while (var_s0 != NULL);
             }
@@ -66,3 +66,4 @@ void func_80036820(s32 arg0) {
         } while (var_s1 != NULL);
     }
 }
+
