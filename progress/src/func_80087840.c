@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_80015D40();
 s32 func_800175C0();
 s32 func_8003E6EC();
-s32 func_8007659C();
+void func_8007659C(void *, void *);
 s32 func_80085E30();
 s32 func_80085E78();
 s32 func_80087380();
@@ -60,15 +60,13 @@ void func_80087840(void *arg0) {
     case 1:
         temp_a0 = M2C_FIELD(temp_s0, u8 *, 0x4A);
         if (temp_a0 != 0) {
-            if (!(((__repair_record_arg0*)arg0)->field_60 & func_80015D40(temp_a0))) {
-                ((__repair_record_arg0*)arg0)->field_7C = 0U;
-                return;
-            }
+            if (((__repair_record_arg0*)arg0)->field_60 & func_80015D40(temp_a0)) {
             temp_v1_2 = ((__repair_record_arg0*)arg0)->field_7C + 1;
             ((__repair_record_arg0*)arg0)->field_7C = (u16) temp_v1_2;
             if ((f32) temp_v1_2 > 150.0f) {
                 goto block_22;
             }
+            } else { ((__repair_record_arg0*)arg0)->field_7C = 0U; }
         } else {
 block_22:
             ((__repair_record_arg0*)arg0)->field_7A = 2;

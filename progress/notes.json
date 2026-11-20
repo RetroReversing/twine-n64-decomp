@@ -6504,14 +6504,6 @@
   "score_after": 625
  },
  {
-  "function": "func_80087840",
-  "text": "Tested wider temp_v1_2 (615), integer comparison (1725), swapped initial loads and equivalent expressions (560). Baseline 560 has two extra instructions and branch-offset cascades. Claim was lost during batch after project inputs changed; inspect current state before continuing.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795139037.291732,
-  "score_before": 560,
-  "score_after": 560
- },
- {
   "function": "func_80119AF4",
   "text": "Rechecked inherited 675; sign-corrected D_800C469E.f0 from u16 to s16 improved to 635 (then constant-local family with 8 -> named local improved to 630). Current selected candidate is independent variant 2, score 630, still not exact. Target first difference is lbu 0x182 followed sll/sra sign conversion; source casts tend to compile as lb and omit shifts. Other principal remaining differences are loop branch layout and pointer-vs-integer declarations in table indexing. Avoid signed temp_s0 family (score 985).",
   "by": "codex-gpt-6-luna-10",
@@ -7486,14 +7478,6 @@
   "created_at": 1795164129.373645,
   "score_before": 1300,
   "score_after": 1300
- },
- {
-  "function": "func_80087840",
-  "text": "Baseline score rechecked at 560. Tried all 8 repair variants covering inferred record layout, integer lifetimes, signedness, declaration order, branch orientation, and call arity; none improved (branch orientation and one signedness change worsened). Diff concentrates on switch exits and all target destinations being 8 bytes earlier than candidate, beginning at the switch dispatch; candidate emits two additional instruction words before common epilogue. Review switch structure in the opening cases and compare target/candidate around offsets 0x228\u20130x230 before further tuning.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795164137.023544,
-  "score_before": 560,
-  "score_after": 560
  },
  {
   "function": "func_80099B64",
@@ -13304,14 +13288,6 @@
   "score_after": 230
  },
  {
-  "function": "func_80087840",
-  "text": "Recovered historical candidate had an extra trailing brace and did not compile. Removed it and got a fresh score of 560/143 target instructions vs 145 candidate; saved compiling revision a66472dbe108aef7d9e4. Main mismatch begins in state dispatch: target uses slti on state and a beql delay-slot constant, while C switch emits a different branch layout. A subsequent patch replacing switch with if was incomplete and failed compilation; last_compiling revision 63539ae26b4378e1572b is valid old switch source with an unsigned-short cast on one table index, but unverified. Resume from compiling revision a66472dbe108aef7d9e4 or its equivalent and test a complete explicit if/goto dispatch to reproduce state 1, state <2, state 0 routing.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795179144.344434,
-  "score_before": 560,
-  "score_after": 560
- },
- {
   "function": "func_8008AECC",
   "text": "Session context limit: best verified score 186, 189 instructions. Reloading D_800E41DC after the byte store, sharing the q+0x54 store across branches, and loading the end pointer before updating D_800E4234 brought 1326 to 186. Remaining target stack frame is 0x38 vs 0x30 (saved registers shifted 8 bytes), plus register/order differences in loop address calculation and q selection. Investigate legitimate eight-byte stack allocation or original call interface and compare last_diff; avoid adding arbitrary stores.",
   "by": "codex-gpt-6.1-terra-3",
@@ -17222,14 +17198,6 @@
   "created_at": 1795183335.264687,
   "score_before": 1181,
   "score_after": 1181
- },
- {
-  "function": "func_80087840",
-  "text": "Fresh full translation-unit compile rechecked the prior best at 560/96%. Restored the candidate\u2019s supporting typedefs, prototypes, and externs; score remains 560. The dominant discrepancy is dispatch/control flow: target begins with beql on the slti result and funnels default paths to 0x228; this C switch emits an extra 8-byte dispatch and branches to 0x230. Other mismatches largely cascade from that layout. Best next experiment: replace switch with structured if/else matching signed state == 1, <2, ==2 and shared exit, then compare branch layout. Current claim showed 3/8 move-on compiles.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795183336.170642,
-  "score_before": 560,
-  "score_after": 560
  },
  {
   "function": "func_8003099C",
@@ -30128,14 +30096,6 @@
   "score_after": 129
  },
  {
-  "function": "func_80087840",
-  "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795193975.777241,
-  "score_before": 560,
-  "score_after": 560
- },
- {
   "function": "func_80037DC0",
   "text": "[Released without compiling it once; notes not checked by a compile.] KMC compiler is missing; ordinary patch failed before code generation. GCC 2.8.1 PM builds the draft but scores 3605. Restore KMC then verify the existing draft and check the first func_80034928 call's third argument and the color-byte initialization.",
   "by": "codex-gpt-6.2-sol-6",
@@ -30232,28 +30192,12 @@
   "score_after": 4050
  },
  {
-  "function": "func_80087840",
-  "text": "Ordinary compile_patch could not start because gcc-2.7.2-kmc is missing. Release was refused because the failed invocation did not count as a compile, so this claim is still held. Once the compiler is installed, rejudge revision cdebd59f2d520011f46a and compare switch dispatch, the state-1 signed halfword timer, and state-2 call scheduling with target assembly.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795194006.787312,
-  "score_before": 560,
-  "score_after": 560
- },
- {
   "function": "func_80009F04",
   "text": "[Released without compiling it once; notes not checked by a compile.] Judge reports gcc-2.7.2-kmc is not installed; no current score. Assembly lines 20\u201352 hold each ROM start in s0 across allocation and reuse the 0x0FFFFFFF mask in s1. Stage start and size before allocation and reuse a local mask. Draft also uses the table's first value as a pointer; model the table as 12-byte records with a nonzero word at +0 and a u16 ID at +8. Correct return to var_v0 for the failure path; proposed first exact patch attached.",
   "by": "codex-gpt-6.2-sol-2",
   "created_at": 1795194009.874231,
   "score_before": 1684,
   "score_after": 1684
- },
- {
-  "function": "func_80087840",
-  "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795194011.914749,
-  "score_before": 560,
-  "score_after": 560
  },
  {
   "function": "func_800287DC",
@@ -30294,14 +30238,6 @@
   "created_at": 1795194026.1596549,
   "score_before": 145,
   "score_after": 145
- },
- {
-  "function": "func_80087840",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Recheck of revision cdebd59f2d520011f46a blocked before compilation: gcc-2.7.2-kmc is missing. Once installed, rejudge this revision and inspect the switch lowering and the signed halfword conversion before tuning registers.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795194026.8698912,
-  "score_before": 560,
-  "score_after": 560
  },
  {
   "function": "func_8008F2D4",
@@ -33024,14 +32960,6 @@
   "score_after": 440
  },
  {
-  "function": "func_80087840",
-  "text": "Candidate revision cdebd59f2d520011f46a rechecked at 560. Nine independent local repairs (record layout, cfg lifetimes, signedness, declaration order, branch orientation, call arity and repeated variants) did not improve it; signedness and branch-orientation changes worsened the score. Diff's first mismatches are control-flow targets: candidate has jumps to +0x230 where target jumps to +0x228, causing later target at +0x160 vs candidate +0x168. Target dispatch starts with state==1 check and slti delay slot, then state>=2 branch-likely; cases 0/2 explicit. Candidate draft uses switch with irregular comment. Rewrite switch dispatch as explicit comparisons/if-else or switch on the stored field directly, then inspect full remaining branch-target diff. No confirmed reusable convention.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795200347.2981188,
-  "score_before": 560,
-  "score_after": 560
- },
- {
   "function": "func_8009A4E4",
   "text": "Only current C scored 1995; rewrite of saved m2c draft failed at first because D_800CFD60 was undeclared, then compiled after fix. Six repairs on current revision: operation_scope_depth 1995; goto_backward_loop 2790; sum_shape 1995; scalar_storage_reuse 2005; explicit_loop_backedge 2055; inferred_record_layout 1995. First target mismatch register assignment: target `andi $a1,$v0,0xffff; and $a0,$a2,$v1; sltu $v0,$a0,$a1`; current has $a0/$a1 reversed. Target uses a0 divisor and a1 numerator in first path, then loop variable setup with srl $a2,$a0,12; current computes different temporary/register ordering and adds branches. Target table is adjacent u16 entries, pointer begins D_800CFD60+0x16 and decrements by 2; current index arithmetic miscompiles as +2 and shifted offsets. Baseline should be rebuilt from saved m2c with current header before more work.",
   "by": "codex-gpt-6-luna-13",
@@ -34582,5 +34510,77 @@
   "created_at": 1795201155.163556,
   "score_before": 60,
   "score_after": 60
+ },
+ {
+  "function": "func_80087840",
+  "text": "Tested wider temp_v1_2 (615), integer comparison (1725), swapped initial loads and equivalent expressions (560). Baseline 560 has two extra instructions and branch-offset cascades. Claim was lost during batch after project inputs changed; inspect current state before continuing.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795139037.291732,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Baseline score rechecked at 560. Tried all 8 repair variants covering inferred record layout, integer lifetimes, signedness, declaration order, branch orientation, and call arity; none improved (branch orientation and one signedness change worsened). Diff concentrates on switch exits and all target destinations being 8 bytes earlier than candidate, beginning at the switch dispatch; candidate emits two additional instruction words before common epilogue. Review switch structure in the opening cases and compare target/candidate around offsets 0x228\u20130x230 before further tuning.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795164137.023544,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Recovered historical candidate had an extra trailing brace and did not compile. Removed it and got a fresh score of 560/143 target instructions vs 145 candidate; saved compiling revision a66472dbe108aef7d9e4. Main mismatch begins in state dispatch: target uses slti on state and a beql delay-slot constant, while C switch emits a different branch layout. A subsequent patch replacing switch with if was incomplete and failed compilation; last_compiling revision 63539ae26b4378e1572b is valid old switch source with an unsigned-short cast on one table index, but unverified. Resume from compiling revision a66472dbe108aef7d9e4 or its equivalent and test a complete explicit if/goto dispatch to reproduce state 1, state <2, state 0 routing.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795179144.344434,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Fresh full translation-unit compile rechecked the prior best at 560/96%. Restored the candidate\u2019s supporting typedefs, prototypes, and externs; score remains 560. The dominant discrepancy is dispatch/control flow: target begins with beql on the slti result and funnels default paths to 0x228; this C switch emits an extra 8-byte dispatch and branches to 0x230. Other mismatches largely cascade from that layout. Best next experiment: replace switch with structured if/else matching signed state == 1, <2, ==2 and shared exit, then compare branch layout. Current claim showed 3/8 move-on compiles.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795183336.170642,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795193975.777241,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Ordinary compile_patch could not start because gcc-2.7.2-kmc is missing. Release was refused because the failed invocation did not count as a compile, so this claim is still held. Once the compiler is installed, rejudge revision cdebd59f2d520011f46a and compare switch dispatch, the state-1 signed halfword timer, and state-2 call scheduling with target assembly.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795194006.787312,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795194011.914749,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Recheck of revision cdebd59f2d520011f46a blocked before compilation: gcc-2.7.2-kmc is missing. Once installed, rejudge this revision and inspect the switch lowering and the signed halfword conversion before tuning registers.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795194026.8698912,
+  "score_before": 560,
+  "score_after": 560
+ },
+ {
+  "function": "func_80087840",
+  "text": "Candidate revision cdebd59f2d520011f46a rechecked at 560. Nine independent local repairs (record layout, cfg lifetimes, signedness, declaration order, branch orientation, call arity and repeated variants) did not improve it; signedness and branch-orientation changes worsened the score. Diff's first mismatches are control-flow targets: candidate has jumps to +0x230 where target jumps to +0x228, causing later target at +0x160 vs candidate +0x168. Target dispatch starts with state==1 check and slti delay slot, then state>=2 branch-likely; cases 0/2 explicit. Candidate draft uses switch with irregular comment. Rewrite switch dispatch as explicit comparisons/if-else or switch on the stored field directly, then inspect full remaining branch-target diff. No confirmed reusable convention.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795200347.2981188,
+  "score_before": 560,
+  "score_after": 560
  }
 ]
