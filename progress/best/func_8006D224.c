@@ -58,9 +58,7 @@ void func_8006D224(Outer6D *obj) {
         red >>= 1;
         value |= blue;
         blue >>= 1;
-        red |= alpha;
-        red |= blue;
         colors->color = value;
-        colors->halfColor = red;
+        colors->halfColor = (blue | alpha) | red;
     }
 }

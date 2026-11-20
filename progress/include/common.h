@@ -85,3 +85,5 @@ s32 func_800819EC(s32 bank, s32 index);
 extern char D_800D2D44[];
 
 typedef s32 (*TwineDisplayUpdateCallback)(u32, u32, u32, u32, void *);
+
+void mat3_mul(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]);

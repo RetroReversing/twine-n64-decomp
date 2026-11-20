@@ -13,6 +13,7 @@ extern char D_800F9566[];
 extern char D_800F9568[];
 
 s32 func_80097EF8(u16 arg0, s32 arg1) {
+    volatile long long __frame_gap;
     char *var_a1;
     unsigned int temp_a1;
     unsigned temp_t2;

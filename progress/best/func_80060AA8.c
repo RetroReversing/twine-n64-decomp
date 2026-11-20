@@ -97,7 +97,7 @@ block_29:
             M2C_FIELD(arg0, f32 *, 0x54) = 0.015625f;
             __repair_var_fv0_2 = M2C_FIELD(temp_s1, f32 *, 0x34) - M2C_FIELD(M2C_FIELD(arg0, void **, 0x70), f32 *, 0x20);
 block_38:
-            M2C_FIELD(arg0, f32 *, 0x28) = __repair_var_fv0_2;
+            M2C_FIELD(arg0, f32 *, 0x28) = var_fv0;
         }
     }
 }

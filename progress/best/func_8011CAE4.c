@@ -38,12 +38,12 @@ void func_8011CAE4(void) {
     if (D_801002C0 > 0) {
         do {
             temp_s5 = var_s3 & 0xFFFF;
-            temp_s4 = temp_s5 * 4;
+            temp_s4 = temp_s5;
 {
     u16 __repair_i;
     for (__repair_i = 0; __repair_i < 3; __repair_i++) {
         __base_D_8011F338 = &D_8011F338;
-        temp_s0 = *(temp_s4 + ((__repair_i * 0x10) + __base_D_8011F338));
+        temp_s0 = (void *)*(temp_s4 + ((__repair_i * 4) + __base_D_8011F338));
         if (temp_s0 != NULL) {
         func_8011E95C(temp_s0, ((u32 *) &D_8010A500)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);
         temp_v1 = M2C_FIELD((&D_8011F150)[__repair_i], s16 *, 0x7C);

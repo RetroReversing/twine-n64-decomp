@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795200381.440491,
- "revision": 14784,
+ "saved_at": 1795200484.204403,
+ "revision": 14800,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1589,83 +1589,18 @@
     "-fno-schedule-insns"
    ]
   },
-  "116904:2147597480": {
-   "toolchain": "gcc-2.7.2-kmc",
+  "707104:2148187680": {
+   "vram": 2148187680,
+   "function": "func_800ABE20",
+   "toolchain": "gcc-4.4.0-n64",
    "flags": [
+    "-O2",
     "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_8001BCA8",
-   "vram": 2147597480
-  },
-  "104540:2147585116": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_80018C5C",
-   "vram": 2147585116
-  },
-  "494868:2147975444": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_80078114",
-   "vram": 2147975444
-  },
-  "462656:2147943232": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_80070340",
-   "vram": 2147943232
-  },
-  "418496:2147899072": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_800656C0",
-   "vram": 2147899072
-  },
-  "541608:2148022184": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_800837A8",
-   "vram": 2148022184
+    "-march=vr4300",
+    "-mabi=32",
+    "-mno-abicalls",
+    "-fno-pic"
+   ]
   }
  },
  "instructions": "",
@@ -1703,7 +1638,8 @@
   "When the target reloads a pointer field immediately before a store but GCC reuses a previously loaded value, a volatile-qualified pointer-field read at that use can recover the reload. Confirm the target's repeated load and aliasing before applying it.",
   "For GCC 2.7.2 KMC, indexing an array of records can produce a %hi(symbol) plus scaled index followed by a load or store using %lo(symbol); manually adding the scaled offset to a scalar symbol may instead materialize the full address first.",
   "When a default switch-like path sets an index to zero before a shared scaling operation, routing zero through the same scaling expression as the other cases can place the shift in the default jump delay slot under GCC 2.7.2 KMC.",
-  "For KMC GCC 2.7.2 at -O1, try expressing a byte stride as an odd factor multiplied first, then a power-of-two factor, when the target's final scaling instruction is a shift. A single literal stride can expand into a differently ordered shift/add sequence."
+  "For KMC GCC 2.7.2 at -O1, try expressing a byte stride as an odd factor multiplied first, then a power-of-two factor, when the target's final scaling instruction is a shift. A single literal stride can expand into a differently ordered shift/add sequence.",
+  "For KMC GCC 2.7.2 -O2, wrapping an initial scalar load in a do { ... } while (0) can change loop/control-flow lowering and register allocation in string-copy style code; test a narrow scoped block when the target's first byte-copy path has the right operations but later loop branches/registers differ."
  ],
  "knowledge_evidence": {
   "For KMC GCC 2.7.2, use unsigned C division when the MIPS target uses an unsigned multiply-high sequence. For division by 10, a u32 numerator can produce multu with 0xCCCCCCCD followed by mfhi and a logical shift by 3. A signed numerator selects a different constant and sign correction.": {
@@ -2277,6 +2213,28 @@
     {
      "by": "codex-gpt-6.1-terra-7",
      "value": "func_800295F0: expressing the byte stride as (index * 5) * 8 + 0x28 reproduced the target shift/add order and improved score 1395 to 715 under GCC 2.7.2 KMC."
+    }
+   ]
+  },
+  "For KMC GCC 2.7.2 -O2, wrapping an initial scalar load in a do { ... } while (0) can change loop/control-flow lowering and register allocation in string-copy style code; test a narrow scoped block when the target's first byte-copy path has the right operations but later loop branches/registers differ.": {
+   "model": [
+    {
+     "by": "codex-gpt-6-luna-7",
+     "value": "gpt-6-luna"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6-luna-7",
+     "value": "func_800AB880 improved from score 565 to 165 by wrapping only the initial byte load in do { word = *src; } while (0); then using a separate u8 temporary improved further to 155. Not yet a match, so this is a tested search lead."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "On func_80034630, scoping just the first nine initial float loads and translated bounds in separate do { ... } while (0) statements reduced the verified score from 880 to 280, preserving the target prefix instruction order and avoiding a callee-saved FPR spill. Scoping all arithmetic was worse (800). This independently demonstrates that narrow scopes change legacy KMC GCC -O2 lowering and register allocation."
     }
    ]
   }
@@ -3154,7 +3112,7 @@
   "local_source_25769805767": "common_local_source_25769805767.h",
   "local_source_25769805768": "common_local_source_25769805768.h",
   "local_source_25769805772": "common_local_source_25769805772.h",
-  "main": "common_main.h"
+  "local_source_25769805778": "common_local_source_25769805778.h"
  },
  "functions": {
   "main": {
@@ -5639,8 +5597,8 @@
   },
   "func_800295F0": {
    "vram": 2147653104,
-   "best_score": 400,
-   "best_by": "permuter-25769804440"
+   "best_score": 180,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_80029768": {
    "vram": 2147653480,
@@ -6429,8 +6387,8 @@
   },
   "func_80034630": {
    "vram": 2147698224,
-   "best_score": 1190,
-   "best_by": "permuter-25769804598"
+   "best_score": 200,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_800347B0": {
    "vram": 2147698608,
@@ -7344,8 +7302,8 @@
   },
   "func_80048A04": {
    "vram": 2147781124,
-   "best_score": 495,
-   "best_by": "permuter-25769804782"
+   "best_score": 280,
+   "best_by": "codex-gpt-6-luna-7"
   },
   "func_80048B40": {
    "vram": 2147781440,
@@ -7849,8 +7807,8 @@
   },
   "func_8005D444": {
    "vram": 2147865668,
-   "best_score": 430,
-   "best_by": "permuter-25769804885"
+   "best_score": 400,
+   "best_by": "codex-gpt-6-luna-9"
   },
   "func_8005D62C": {
    "vram": 2147866156,
@@ -7979,8 +7937,8 @@
   },
   "func_80060AA8": {
    "vram": 2147879592,
-   "best_score": 4562,
-   "best_by": "permuter-25769804911"
+   "best_score": 4452,
+   "best_by": "codex-gpt-6-luna-11"
   },
   "func_80060C50": {
    "vram": 2147880016,
@@ -8429,8 +8387,8 @@
   },
   "func_8006D224": {
    "vram": 2147930660,
-   "best_score": 60,
-   "best_by": "codex-gpt-6.2-sol-5"
+   "best_score": 45,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_8006D2E4": {
    "vram": 2147930852,
@@ -8459,7 +8417,7 @@
   },
   "func_8006F50C": {
    "vram": 2147939596,
-   "best_score": 1256,
+   "best_score": 1218,
    "best_by": "codex-gpt-6-luna-17"
   },
   "func_8006F634": {
@@ -9332,7 +9290,7 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_800837A8": {
+  "mat3_mul": {
    "vram": 2148022184,
    "matched_by": "codex-gpt-6.2-sol-6",
    "readable": false
@@ -10819,8 +10777,8 @@
   },
   "func_80097EF8": {
    "vram": 2148105976,
-   "best_score": 3473,
-   "best_by": "permuter-25769805481"
+   "best_score": 3465,
+   "best_by": "codex-gpt-6-luna-7"
   },
   "func_8009811C": {
    "vram": 2148106524,
@@ -11024,8 +10982,8 @@
   },
   "func_8009ABD4": {
    "vram": 2148117460,
-   "best_score": 2735,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 2725,
+   "best_by": "codex-gpt-6-luna-9"
   },
   "func_8009AE24": {
    "vram": 2148118052,
@@ -12124,8 +12082,8 @@
   },
   "func_800ABE20": {
    "vram": 2148187680,
-   "best_score": 820,
-   "best_by": "autopilot"
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
   },
   "func_800ABE80": {
    "vram": 2148187776,
@@ -12344,8 +12302,8 @@
   },
   "func_8011CAE4": {
    "vram": 2148649700,
-   "best_score": 530,
-   "best_by": "permuter-25769803928"
+   "best_score": 135,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_8011CC3C": {
    "vram": 2148650044,
@@ -13271,6 +13229,7 @@
   "func_800AB6C0": "local_source_25769805767",
   "func_800AB770": "local_source_25769805768",
   "ctype_toupper": "local_source_25769805772",
+  "func_800ABE20": "local_source_25769805778",
   "func_80117EC8": "local_source_25769803832",
   "func_80119C2C": "local_source_25769803891",
   "func_80119E60": "local_source_25769803900",
@@ -20734,7 +20693,7 @@
    "status": "open"
   },
   {
-   "name": "func_800837A8",
+   "name": "mat3_mul",
    "vram": 2148022184,
    "size": 584,
    "status": "open"
@@ -24813,6 +24772,12 @@
    "name": "build_yz_rotation_matrix",
    "address": 2148021432,
    "size": 168,
+   "kind": "func"
+  },
+  {
+   "name": "mat3_mul",
+   "address": 2148022184,
+   "size": 584,
    "kind": "func"
   },
   {

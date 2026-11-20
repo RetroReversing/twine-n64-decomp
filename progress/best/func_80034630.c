@@ -19,22 +19,26 @@ void func_80034630(void *arg0, void *arg1) {
     void *temp_a1;
     void *temp_v0;
 
-    temp_fv1 = (*(f32 *)((char *)(arg1) + 0x58)) + temp_ft1;
-    temp_ft1 = (*(f32 *)((char *)(arg1) + 0x64));
-    temp_v0 = (*(void **)((char *)(arg0) + 0x20));
-    temp_ft0 = (*(f32 *)((char *)(arg1) + 0x60));
-    var_fa0 = (*(f32 *)((char *)(temp_v0) + 0)) + temp_ft0;
-    var_ft3 = (*(f32 *)((char *)(temp_v0) + 8)) + temp_ft1;
-    var_fa1 = (*(f32 *)((char *)(temp_v0) + 4)) + temp_ft0;
+    do { temp_ft1 = (*(f32 *)((char *)(arg1) + 0x64)); } while (0);
+    do { temp_fv1 = (*(f32 *)((char *)(arg1) + 0x58)); } while (0);
+    do { temp_v0 = (*(void **)((char *)(arg0) + 0x20)); } while (0);
+    do { temp_ft0 = (*(f32 *)((char *)(arg1) + 0x60)); } while (0);
+    do { temp_fv1 += temp_ft1; } while (0);
+    do { var_fa0 = (*(f32 *)((char *)(temp_v0) + 0)) + temp_ft0; } while (0);
+    do { var_ft3 = (*(f32 *)((char *)(temp_v0) + 8)) + temp_ft1; } while (0);
+    do { var_fa1 = (*(f32 *)((char *)(temp_v0) + 4)) + temp_ft0; } while (0);
+    do { var_ft4 = (*(f32 *)((char *)(temp_v0) + 0xC)) + temp_ft1; } while (0);
     var_fa0 -= 8.0f;
     var_ft3 -= 8.0f;
     var_fa1 += 8.0f;
-    var_ft4 = (*(f32 *)((char *)(temp_v0) + 0xC)) + temp_ft1 + 8.0f;
+    var_ft4 += 8.0f;
+    temp_ft5 = (*(f32 *)((char *)(arg1) + 0x50)) + temp_ft0;
     temp_ft2 = (*(f32 *)((char *)(arg1) + 0x70));
-    temp_ft5 = (*(f32 *)((char *)(arg1) + 0x50)) + temp_ft0 + temp_ft2;
+    temp_ft5 += temp_ft2;
+    temp_ft2_2 = (*(f32 *)((char *)(arg1) + 0x54)) + temp_ft0;
     temp_ft0_2 = (*(f32 *)((char *)(arg1) + 0x74));
     temp_fv1 += temp_ft0_2;
-    temp_ft2_2 = ((*(f32 *)((char *)(arg1) + 0x54)) + temp_ft0) - temp_ft2;
+    temp_ft2_2 -= temp_ft2;
     temp_fv0 = ((*(f32 *)((char *)(arg1) + 0x5C)) + temp_ft1) - temp_ft0_2;
     if (var_fa0 < temp_ft5) {
         var_fa0 = temp_ft5;
@@ -51,7 +55,10 @@ void func_80034630(void *arg0, void *arg1) {
     if (D_8010A4D4 != 0) {
         temp_a1 = D_80115328;
         D_80115328 = temp_a1 + 8;
-        (*(s32 *)((char *)(temp_a1) + 0)) = (s32) ((((s32) (var_fa0 * 4.0f) & 0xFFF) << 0xC) | (((s32) (var_ft3 * 4.0f) & 0xFFF) | 0xED000000));
+        { u32 x = ((s32)(var_fa0 * 4.0f) & 0xFFF) << 12;
+          u32 y = (s32)(var_ft3 * 4.0f) & 0xFFF;
+          *(u32 *)temp_a1 = (0xED000000 | y) | x; }
         (*(s32 *)((char *)(temp_a1) + 4)) = (s32) ((((s32) (var_fa1 * 4.0f) & 0xFFF) << 0xC) | ((s32) (var_ft4 * 4.0f) & 0xFFF));
     }
 }
+

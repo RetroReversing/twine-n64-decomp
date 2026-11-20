@@ -1,4 +1,4 @@
-void func_800837A8(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]) {
+void mat3_mul(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]) {
     f32 p000 = a[0][0] * b[0][0];
     f32 p010 = a[0][1] * b[1][0];
     f32 p020 = a[0][2] * b[2][0];
