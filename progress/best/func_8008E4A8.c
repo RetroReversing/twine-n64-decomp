@@ -20,7 +20,7 @@ extern M2C_UNK D_8010D76F;
 extern M2C_UNK D_8010D779;
 extern M2C_UNK D_8010D784;
 
-s32 func_8008E4A8(s32 arg1) {
+s32 func_8008E4A8(s32 arg0, s32 arg1) {
     s32 temp_s0;
     s32 temp_v1;
     s32 var_a0;
@@ -44,7 +44,7 @@ loop_2:
                 var_a2 = *(&D_8010D76F + temp_v1);
             
             func_80095A80(0xA, temp_s0, var_a2, arg1 & 0xFF);}
-            var_a0 = *(&D_8010D734 + temp_s0 * 0x68);
+            __repair_result_var_a0 = *(&D_8010D734 + temp_s0 * 0x68);
             var_s1 = 0;
             if (var_a0 == -1) {
                 var_v0 = 0;

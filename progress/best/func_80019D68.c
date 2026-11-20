@@ -20,7 +20,7 @@ s32 func_80019D68(void) {
 int __repair_literal;
 
     s32 var_s0;
-    s32 var_s0_2;
+    u16 var_s0_2;
 
     var_s0 = 0;
     if (D_801002B8 > 0) {
