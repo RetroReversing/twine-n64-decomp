@@ -1752,14 +1752,6 @@
   "score_after": null
  },
  {
-  "function": "func_8003F328",
-  "text": "Not compiled yet. 1104 bytes (276 insns), returns s16, takes s16 arg0 count. Works on f32 array D_800E1780 (stride 0x24, field at +8 compared to 0.2f and D_800C0740), counts two classes into D_800E19D0/D19D2, then a two-pass partition/merge loop over two buffers D_800E19B8/D_800E19BC (stride 0x24, 0x20-byte struct copy) with a sp[] byte flag array and f32 interpolation (+0 and +4 fields). Machine draft has undeclared 'sp' (stack byte array, need local u8 sp[N]) and pointer-type mismatches; needs a clean rewrite with sp as local array. Large; start with the counting loop and the flag loops.\n\nCORRECTION: the previous release note for this function was written without reading its code or assembly. Its content (struct layout, loops, stride, data symbols) is unverified and may be wrong. Re-read get_assembly and the candidate before relying on it. No compile was made by the agent who wrote it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054762.8240268,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_80043FA0",
   "text": "Best = revision aa9cdbeb2f1009da567b, score 3742 (86.8%). Pattern: m2c struct-less stack reads (sp3C/sp44 etc.) must be replaced by FLD(sp30, u16, off) on a u8 sp30[0x20] local header buffer; sp30 at offset 0 (n=u16@4, off1=s32@0, cnt1=u16@0xC, cnt2=u16@0xA, cnt3=u16@0xE, off2=s32@8, off3=s32@0xC, off4=s32@0x10) and sp50[0x20] for func_800149D4 probes. Frame is still 0xd0 vs target 0xc0, so the locals layout differs: target saves s0-s7/fp/ra at 0x90-0xb4 and has the 0x20 sp50 buffer lower in frame. Swapping sp30/sp50 declaration order gave 5274 (worse, reverted). Remaining diffs: stack slot assignment of sp30/sp50/sp70/sp74, and a missing 'addu a1,a1,s1' (target has it after the first func_8000B9B8 when temp_v0 branch). Untried: making sp70/sp74 a u32 sp70[2] array, and reordering the 'temp_v0' branch (target calls func_8000B9B8 before func_8001499C in the nonzero case). Also check the 'sp34*0x18' size computed from FLD(sp30,u16,4).",
   "by": "permuter-25769805471",
@@ -1942,14 +1934,6 @@
   "created_at": 1795055839.647259,
   "score_before": 22794,
   "score_after": 2670
- },
- {
-  "function": "func_8003F328",
-  "text": "Tried one whole-function rewrite (rev 08c7fbf76207bdb1dd4e): it scored 22095, same as the baseline, and it is a placeholder, not the real logic. Target is 276 insns: it makes a 2-pass partition/merge over a 0x24-byte entry array at D_800E1780 (f32 field at +8 compared to 0.2f and to D_800C0740), with a u8 flag array on the stack and a 0x10-stride copy loop writing into D_800E19BC/D_800E19B8 (ping-pong swap, final D_800E1770 = D_800E19B8). Diff shows target uses lui D_800E1780 with per-entry index math (x*0x24 = (x*8+x)*4). Next step: write the real two-pass loop with entries as struct of 0x24 bytes (f32 x,y at +0/+4, f32 v at +8, 8 words more), use sp as u8[16]-ish flag array, and keep the (s16) truncation on counts. Not started in earnest; move on.",
-  "by": "permuter-25769805471",
-  "created_at": 1795055864.106289,
-  "score_before": 22095,
-  "score_after": 22095
  },
  {
   "function": "func_80007958",
@@ -3016,14 +3000,6 @@
   "score_after": null
  },
  {
-  "function": "func_8003F328",
-  "text": "Not compiled yet. 1104 bytes (276 insns), returns s16, takes s16 arg0 count. Works on f32 array D_800E1780 (stride 0x24, field at +8 compared to 0.2f and D_800C0740), counts two classes into D_800E19D0/D19D2, then a two-pass partition/merge loop over two buffers D_800E19B8/D_800E19BC (stride 0x24, 0x20-byte struct copy) with a sp[] byte flag array and f32 interpolation (+0 and +4 fields). Machine draft has undeclared 'sp' (stack byte array, need local u8 sp[N]) and pointer-type mismatches; needs a clean rewrite with sp as local array. Large; start with the counting loop and the flag loops.\n\nCORRECTION: the previous release note for this function was written without reading its code or assembly. Its content (struct layout, loops, stride, data symbols) is unverified and may be wrong. Re-read get_assembly and the candidate before relying on it. No compile was made by the agent who wrote it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054762.8240268,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_80043FA0",
   "text": "Best = revision aa9cdbeb2f1009da567b, score 3742 (86.8%). Pattern: m2c struct-less stack reads (sp3C/sp44 etc.) must be replaced by FLD(sp30, u16, off) on a u8 sp30[0x20] local header buffer; sp30 at offset 0 (n=u16@4, off1=s32@0, cnt1=u16@0xC, cnt2=u16@0xA, cnt3=u16@0xE, off2=s32@8, off3=s32@0xC, off4=s32@0x10) and sp50[0x20] for func_800149D4 probes. Frame is still 0xd0 vs target 0xc0, so the locals layout differs: target saves s0-s7/fp/ra at 0x90-0xb4 and has the 0x20 sp50 buffer lower in frame. Swapping sp30/sp50 declaration order gave 5274 (worse, reverted). Remaining diffs: stack slot assignment of sp30/sp50/sp70/sp74, and a missing 'addu a1,a1,s1' (target has it after the first func_8000B9B8 when temp_v0 branch). Untried: making sp70/sp74 a u32 sp70[2] array, and reordering the 'temp_v0' branch (target calls func_8000B9B8 before func_8001499C in the nonzero case). Also check the 'sp34*0x18' size computed from FLD(sp30,u16,4).",
   "by": "permuter-25769805351",
@@ -3206,14 +3182,6 @@
   "created_at": 1795055839.647259,
   "score_before": 22794,
   "score_after": 2670
- },
- {
-  "function": "func_8003F328",
-  "text": "Tried one whole-function rewrite (rev 08c7fbf76207bdb1dd4e): it scored 22095, same as the baseline, and it is a placeholder, not the real logic. Target is 276 insns: it makes a 2-pass partition/merge over a 0x24-byte entry array at D_800E1780 (f32 field at +8 compared to 0.2f and to D_800C0740), with a u8 flag array on the stack and a 0x10-stride copy loop writing into D_800E19BC/D_800E19B8 (ping-pong swap, final D_800E1770 = D_800E19B8). Diff shows target uses lui D_800E1780 with per-entry index math (x*0x24 = (x*8+x)*4). Next step: write the real two-pass loop with entries as struct of 0x24 bytes (f32 x,y at +0/+4, f32 v at +8, 8 words more), use sp as u8[16]-ish flag array, and keep the (s16) truncation on counts. Not started in earnest; move on.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055864.106289,
-  "score_before": 22095,
-  "score_after": 22095
  },
  {
   "function": "func_80007958",
@@ -13022,14 +12990,6 @@
   "created_at": 1795179386.56576,
   "score_before": 9760,
   "score_after": 9760
- },
- {
-  "function": "func_8003F328",
-  "text": "Candidate is an incomplete stub: 89 versus 276 instructions. Casting arg0 to s16 worsened score; target retains full s32 argument. Local branch, loop, signedness and lifetime variants did not improve. Reconstruct the missing sorting/copying body from machine draft and target assembly; draft failed due undeclared sp, while best compilable source omits that body.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795179397.911671,
-  "score_before": 19775,
-  "score_after": 19775
  },
  {
   "function": "func_80117ED0",
@@ -34894,5 +34854,45 @@
   "created_at": 1795203590.783206,
   "score_before": 945,
   "score_after": 745
+ },
+ {
+  "function": "func_8003F328",
+  "text": "Not compiled yet. 1104 bytes (276 insns), returns s16, takes s16 arg0 count. Works on f32 array D_800E1780 (stride 0x24, field at +8 compared to 0.2f and D_800C0740), counts two classes into D_800E19D0/D19D2, then a two-pass partition/merge loop over two buffers D_800E19B8/D_800E19BC (stride 0x24, 0x20-byte struct copy) with a sp[] byte flag array and f32 interpolation (+0 and +4 fields). Machine draft has undeclared 'sp' (stack byte array, need local u8 sp[N]) and pointer-type mismatches; needs a clean rewrite with sp as local array. Large; start with the counting loop and the flag loops.\n\nCORRECTION: the previous release note for this function was written without reading its code or assembly. Its content (struct layout, loops, stride, data symbols) is unverified and may be wrong. Re-read get_assembly and the candidate before relying on it. No compile was made by the agent who wrote it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054762.8240268,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8003F328",
+  "text": "Tried one whole-function rewrite (rev 08c7fbf76207bdb1dd4e): it scored 22095, same as the baseline, and it is a placeholder, not the real logic. Target is 276 insns: it makes a 2-pass partition/merge over a 0x24-byte entry array at D_800E1780 (f32 field at +8 compared to 0.2f and to D_800C0740), with a u8 flag array on the stack and a 0x10-stride copy loop writing into D_800E19BC/D_800E19B8 (ping-pong swap, final D_800E1770 = D_800E19B8). Diff shows target uses lui D_800E1780 with per-entry index math (x*0x24 = (x*8+x)*4). Next step: write the real two-pass loop with entries as struct of 0x24 bytes (f32 x,y at +0/+4, f32 v at +8, 8 words more), use sp as u8[16]-ish flag array, and keep the (s16) truncation on counts. Not started in earnest; move on.",
+  "by": "permuter-25769805471",
+  "created_at": 1795055864.106289,
+  "score_before": 22095,
+  "score_after": 22095
+ },
+ {
+  "function": "func_8003F328",
+  "text": "Not compiled yet. 1104 bytes (276 insns), returns s16, takes s16 arg0 count. Works on f32 array D_800E1780 (stride 0x24, field at +8 compared to 0.2f and D_800C0740), counts two classes into D_800E19D0/D19D2, then a two-pass partition/merge loop over two buffers D_800E19B8/D_800E19BC (stride 0x24, 0x20-byte struct copy) with a sp[] byte flag array and f32 interpolation (+0 and +4 fields). Machine draft has undeclared 'sp' (stack byte array, need local u8 sp[N]) and pointer-type mismatches; needs a clean rewrite with sp as local array. Large; start with the counting loop and the flag loops.\n\nCORRECTION: the previous release note for this function was written without reading its code or assembly. Its content (struct layout, loops, stride, data symbols) is unverified and may be wrong. Re-read get_assembly and the candidate before relying on it. No compile was made by the agent who wrote it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054762.8240268,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8003F328",
+  "text": "Tried one whole-function rewrite (rev 08c7fbf76207bdb1dd4e): it scored 22095, same as the baseline, and it is a placeholder, not the real logic. Target is 276 insns: it makes a 2-pass partition/merge over a 0x24-byte entry array at D_800E1780 (f32 field at +8 compared to 0.2f and to D_800C0740), with a u8 flag array on the stack and a 0x10-stride copy loop writing into D_800E19BC/D_800E19B8 (ping-pong swap, final D_800E1770 = D_800E19B8). Diff shows target uses lui D_800E1780 with per-entry index math (x*0x24 = (x*8+x)*4). Next step: write the real two-pass loop with entries as struct of 0x24 bytes (f32 x,y at +0/+4, f32 v at +8, 8 words more), use sp as u8[16]-ish flag array, and keep the (s16) truncation on counts. Not started in earnest; move on.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055864.106289,
+  "score_before": 22095,
+  "score_after": 22095
+ },
+ {
+  "function": "func_8003F328",
+  "text": "Candidate is an incomplete stub: 89 versus 276 instructions. Casting arg0 to s16 worsened score; target retains full s32 argument. Local branch, loop, signedness and lifetime variants did not improve. Reconstruct the missing sorting/copying body from machine draft and target assembly; draft failed due undeclared sp, while best compilable source omits that body.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795179397.911671,
+  "score_before": 19775,
+  "score_after": 19775
  }
 ]
