@@ -6,15 +6,15 @@ s32 func_80017490(u32 arg0, u32 arg1, u32 arg2) {
     s32 ret;
 
     switch (D_80102EE8) {
-    case 1:
-        chance = arg1;
-        break;
     case 2:
         chance = arg2;
         break;
     case 0:
     default:
         chance = arg0;
+        break;
+    case 1:
+        chance = arg1;
         break;
     }
     if (arg0 == 0 && arg1 == 0 && arg2 == 0) {
