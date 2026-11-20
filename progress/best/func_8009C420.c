@@ -62,7 +62,7 @@ s32 func_8009C420(u32 arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
             *(u8 *)(temp_s0 + 0x56) = arg8 & 0xFF;
             *(u8 *)(temp_s0 + 0xBF) = arg10;
             *(s32 *)(temp_s0 + 0x60) = ((arg0 >> 0x10) << 0x10) | ((var_s4 & 0xFF) << 8) | temp_v0_2;
-            func_80098B14(temp_s0, temp_s7 & 0xFF);
+            do { func_80098B14(temp_s0, temp_s7 & 0xFF); } while (0);
             if (arg9 != 0) {
                 return func_800988D8(temp_s0);
             }

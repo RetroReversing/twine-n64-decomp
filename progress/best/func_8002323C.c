@@ -239,41 +239,39 @@ void func_8002323C(void) {
             func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6), temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_6), 1, 1);
             if (D_801002B4 > 0) {
-loop_32:
-                temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
-                temp_s5_2 = temp_s1 * 0x18;
-                if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
-                        temp_v0_10 = func_800162BC(D_800BD68E);
-                        {
-                            u8 channel = D_800BD68E;
-                            temp_a1_2 = var_s2 & 0xFFFF;
-                            temp_s0_7 = temp_a1_2 * 0xC;
+                do {
+                    temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
+                    temp_s5_2 = temp_s1 * 0x18;
+                    if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
+                            temp_v0_10 = func_800162BC(D_800BD68E);
+                            {
+                                u8 channel = D_800BD68E;
+                                temp_a1_2 = var_s2 & 0xFFFF;
+                                temp_s0_7 = temp_a1_2 * 0xC;
 
-                            M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7) = temp_v0_10;
-                            temp_v0_9 = func_800162BC(channel);
-                        }
-                        temp_a0_5 = M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7);
-                        M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7) = temp_v0_9;
-                        if (temp_a0_5 == 0) goto cleanup5;
-                        if (temp_v0_9 != 0) goto success5;
-                        cleanup5:
-                            func_80016314(temp_a0_5);
-                            func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
-                            goto next5;
-                        success5:
-                            temp_v0_4 = func_80087100((var_s2 + 0x400B) & 0xFFFF);
-                            temp_a0_6 = temp_v0_4;
-                            sprintf(temp_a0_6, D_800D2AB0, (&D_800E1068)[temp_s1]);
-                            var_s2 += 1;
-                            func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7), temp_s5_2 + (u8 *)&D_801001A4, 0x40);
-                            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7), temp_v0_4, 0x240);
-                            func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_7), 1, 1);
-                        next5:;
-                }
-                var_s4 += 1;
-                if ((var_s4 & 0xFFFF) < D_801002B4) {
-                    goto loop_32;
-                }
+                                M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7) = temp_v0_10;
+                                temp_v0_9 = func_800162BC(channel);
+                            }
+                            temp_a0_5 = M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7);
+                            M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7) = temp_v0_9;
+                            if (temp_a0_5 == 0) goto cleanup5;
+                            if (temp_v0_9 != 0) goto success5;
+cleanup5:
+                                func_80016314(temp_a0_5);
+                                func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
+                                goto next5;
+success5:
+                                temp_v0_4 = func_80087100((var_s2 + 0x400B) & 0xFFFF);
+                                temp_a0_6 = temp_v0_4;
+                                sprintf(temp_a0_6, D_800D2AB0, (&D_800E1068)[temp_s1]);
+                                var_s2 += 1;
+                                func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7), temp_s5_2 + (u8 *)&D_801001A4, 0x40);
+                                func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7), temp_v0_4, 0x240);
+                                func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_7), 1, 1);
+                            next5:;
+                    }
+                    var_s4 += 1;
+                } while ((var_s4 & 0xFFFF) < D_801002B4);
             }
         } else {
             if (temp_v0_2 < D_801002B4) {

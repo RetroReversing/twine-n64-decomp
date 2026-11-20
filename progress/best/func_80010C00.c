@@ -62,7 +62,7 @@ after_c:
     func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() == 0) goto l113d8;
     {
-        u8 *payload = base + 12;
+        u8 *payload = D_800E0790 + 12;
         u32 *backup = D_800E0940;
         s32 copyIdx = D_800E093A;
         CP32(backup, payload + copyIdx * 104);

@@ -8,7 +8,7 @@ s32 func_80045CF8(s32);                             /* extern */
 s32 func_80077960(void *, s32);             /* extern */
 f32 func_80082A70(f32, f32);                        /* extern */
 s32 func_80085610(void *);                      /* extern */
-s32 func_80085690(void *);                      /* extern */
+s32 func_80085690(void *, s32);                      /* extern */
 s32 func_80085710(void *);                      /* extern */
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C470A;
 extern Slot_800C470A D_800C470A[];
@@ -156,7 +156,7 @@ block_61:
             var_a1_2 = *(&D_800C9A68 + (func_80045CF8(3)));
             goto block_61;
         case 4:                                     /* switch 2 */
-            func_80085690(arg0 + 0x24);
+            func_80085690(arg0 + 0x24, D_800C9A68);
             func_80002BD0(arg0, func_80045CF8(4) + 0x2BC);
             goto block_71;
         default:                                    /* switch 2 */

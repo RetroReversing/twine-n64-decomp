@@ -27,7 +27,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     u32 temp_v0_15;
     u32 temp_v0_16;
     u32 temp_v0_17;
-    unsigned int temp_v0_18;
+    register s32 temp_v0_18;
     unsigned temp_v0_19;
     u32 temp_v0_20;
     u32 temp_v0_21;
@@ -44,7 +44,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     u32 temp_v0_4;
     int temp_v0_5;
     register unsigned long temp_v0_6;
-    u32 temp_v0_7;
+    register u32 temp_v0_7;
     u32 temp_v0_8;
     u32 temp_v0_9;
     register u32 temp_v1;
@@ -178,8 +178,8 @@ block_35:
         (*(s16 *)((char *)(arg1) + 0x58)) = 0x46;
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((temp_v0_13 & 0xFF81FFFF) | ((((temp_v0_13 >> 0x11) & 0x3F) | 4) << 0x11));
         (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
-        D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
+        D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)((char *)(arg1) + 0x28)) = 0;
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
         ((__repair_field_2C *)arg1)->value = 0;
@@ -301,7 +301,7 @@ block_29:
             temp_v0_23 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
             (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_23 & 0xFFFF0003) | ((((temp_v0_23 >> 2) & 0x3FFF) | 0x2000) * 4));
             var_v0_6 = 0x84;
-        } else if (temp_v1_6 < 0x85) {
+        } else if (0x85 > temp_v1_6) {
             if (temp_v1_6 != 0x1E) {
                 var_v0_6 = 0x1E;
             } else {
@@ -310,7 +310,7 @@ block_29:
                 var_v0_6 = 0x1E;
             }
         } else if (temp_v1_6 != 0x88) {
-            if (temp_v1_6 >= 0x89) {
+            if (0x89 <= temp_v1_6) {
                 var_v0_6 = 0x88;
                 if (temp_v1_6 != 0x89) {
                     var_v0_6 = 0x1E;
@@ -359,8 +359,8 @@ block_29:
         *arg2 = 1;
         D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
-        (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
         (*(f32 *)((char *)(arg1) + 0x24)) = 0;
+        (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
         (*(f32 *)((char *)(arg1) + 0x28)) = 0;
         ((__repair_field_2C *)arg1)->value = 0;
         (*(s8 *)((char *)((*(void **)((char *)(arg1) + 0x3C))) + 0x47)) = (s8) (*(u16 *)((char *)(arg0) + 0x2C));

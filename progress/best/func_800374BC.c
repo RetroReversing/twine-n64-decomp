@@ -28,7 +28,7 @@ void func_800374BC(void *arg0, s32 arg1) {
     f32 temp_fv0;
     register s32 var_a0;
     
-    void *temp_v0;
+    
     
     union { void * pointer; u32 value; } __repair_phase_storage;
     void *temp_v1_3;
@@ -41,6 +41,8 @@ void func_800374BC(void *arg0, s32 arg1) {
     var_s1 = D_80107E9C;
     var_a0 = 3;
     if (D_8010A924 != 3) {
+void *temp_v0;
+
         temp_v0 = D_80115328;
         D_8010A924 = 3;
         D_80115328 = temp_v0 + 8;
@@ -73,32 +75,36 @@ void func_800374BC(void *arg0, s32 arg1) {
         scale = 64.0f;
         for (;;) {
             if ((((u32) (*(u32 *)((char *)(var_s1) + 0x58)) >> 2) & 0x200) && (var_s0 = (*(void **)((char *)(var_s1) + 0x14)), func_8003438C(var_s1, arg0), func_80034630(var_s1, arg0), (var_s0 != NULL))) {
-loop_12:
-                temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;
-                if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0xD)) {
-                    temp_fv0 = (*(f32 *)((char *)((*(void **)((char *)(var_s1) + 0x3C))) + 0x20));
-                    temp_fv0 = (temp_fv0 - (((__repair_record_var_s0*)var_s0)->field_28 - temp_fv0)) * scale;
-                    if (D_80107EA0 < (u32) D_800B1D84) {
-                        __repair_phase_storage.value = D_80107EA0;
-                        D_80107EA0 = __repair_phase_storage.value + 1;
-                        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (D_80107EA0 << 6); func_800347B0(matrix, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * scale, (temp_fv0 - (((__repair_record_var_s0*)var_s0)->field_28 - temp_fv0)) * scale, ((__repair_record_var_s0*)var_s0)->field_2C * scale);
-                        D_80112F94 = -D_80112F94;
-                        D_80112FA4 = -D_80112FA4;
-                        D_80112FB4 = -D_80112FB4;
-                        guMtxF2L(matrix, D_8010D538);
-                        ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
-                        (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (D_8010D538 - 0x80000000);
-                        D_80115328 += 8;
-                        func_80032630(((__repair_record_var_s0*)var_s0)->field_3C);
-                        goto block_17;
-                    }
-                } else {
+void *temp_v0;
+
+                for (;;) {
+                    temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;
+                    if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0xD)) {
+                        temp_fv0 = (*(f32 *)((char *)((*(void **)((char *)(var_s1) + 0x3C))) + 0x20));
+                        temp_fv0 = (temp_fv0 - (((__repair_record_var_s0*)var_s0)->field_28 - temp_fv0)) * scale;
+                        if (D_80107EA0 < (u32) D_800B1D84) {
+                            __repair_phase_storage.value = D_80107EA0;
+                            D_80107EA0 = __repair_phase_storage.value + 1;
+                            D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (D_80107EA0 << 6); func_800347B0(matrix, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * scale, (temp_fv0 - (((__repair_record_var_s0*)var_s0)->field_28 - temp_fv0)) * scale, ((__repair_record_var_s0*)var_s0)->field_2C * scale);
+                            D_80112F94 = -D_80112F94;
+                            D_80112FA4 = -D_80112FA4;
+                            D_80112FB4 = -D_80112FB4;
+                            guMtxF2L(matrix, D_8010D538);
+                            ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
+                            (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (D_8010D538 - 0x80000000);
+                            D_80115328 += 8;
+                            func_80032630(((__repair_record_var_s0*)var_s0)->field_3C);
+                            goto block_17;
+                        }
+                    } else {
 block_17:
-                    var_s0 = ((__repair_record_var_s0*)var_s0)->field_14;
-                    if (var_s0 == (u32)NULL) {
-                        goto block_18;
+                        var_s0 = ((__repair_record_var_s0*)var_s0)->field_14;
+                        if (var_s0 == (u32)NULL) {
+                            goto block_18;
+                        }
+                        continue;
                     }
-                    goto loop_12;
+                    break;
                 }
             } else {
 block_18:
