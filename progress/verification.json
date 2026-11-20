@@ -112946,6 +112946,91 @@
    "vram": 2148181088,
    "unit": "main",
    "mode": "rom"
+  },
+  "func_800070A4": {
+   "format": 1,
+   "verdict": "exact",
+   "abi": {
+    "arch": "mips",
+    "big_endian": true,
+    "gp": 0,
+    "platform": "n64",
+    "rom_sha1": "d347159808f0374a93cf44cfb6135d8f56279f7b"
+   },
+   "symbols_sha256": "c2cc99a9c5f9faaec9fa83944c0362b39ee4261c8fc1186c48cc4f5978149bcb",
+   "recorded_at": 1795195853.540187,
+   "attempt_id": 25769879437,
+   "source_sha256": "2cb8c92e0caf2a4e42d084a2b58ebdd1f2672ee0ba9c7ec3b470eb27a5d01dfa",
+   "header_sha256": "4ae09610b5761831030b66d8142f868d15fcf880548fbaa084f77e1fcad1b398",
+   "context_version": 923,
+   "compiler": {
+    "toolchain": "gcc-2.7.2-kmc",
+    "flags": [
+     "-G0",
+     "-mips3",
+     "-mgp32",
+     "-mfp32",
+     "-O2"
+    ],
+    "timeout": 20
+   },
+   "compiler_identity": {
+    "toolchain": "gcc-2.7.2-kmc",
+    "registry_sha256": "026375ea53729911b8696bf22d865f456ada3f5f0f046cf526de08e2657cbf40",
+    "install_sha256": "c6bac03886ec74260ab0f44614df86e236f46917e31a7f8acfe28e021e13db98",
+    "executables": {
+     "gcc": "d5040a0455ea435101eb64d23cfc41cd8111c733a6945128d8f25fa6cddac814",
+     "cc1": "8bb09e09f15e44b8fe27c4d232770d999d18c927a07378bfc90f391a5f57ba1f",
+     "as": "4bf2c8fa4d91917186280914f53f3f28c44b49e7507298ed9f22a6e1fbbf0c21"
+    }
+   },
+   "settings": {
+    "mode": "rom",
+    "platform": "n64",
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2"
+     ],
+     "timeout": 20
+    },
+    "settings_source": "compile invocation snapshot",
+    "gp": 0,
+    "big_endian": true,
+    "rom": {
+     "sha1": "d347159808f0374a93cf44cfb6135d8f56279f7b",
+     "game_code": "NO7E",
+     "region": "North America",
+     "byte_order": "z64"
+    },
+    "effective_command": [
+     "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+     "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+     "-c",
+     "-G0",
+     "-mips3",
+     "-mgp32",
+     "-mfp32",
+     "-O2",
+     "-I{include}",
+     "{src}",
+     "-o",
+     "{obj}"
+    ],
+    "language": "c",
+    "context_unit": "",
+    "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
+    "context_sha256": "4ae09610b5761831030b66d8142f868d15fcf880548fbaa084f77e1fcad1b398"
+   },
+   "target_sha256": "7bbc041e077563f046a1f3e4b722e82e28b8a3ec58e1f15fa0d4f3c1d4492f57",
+   "relocations_sha256": "04267491f18464903ab1bad5bc958b4ac6cde0acb71d1d73e78de45daddc2967",
+   "vram": 2147512484,
+   "unit": "main",
+   "mode": "rom"
   }
  },
  "sources": {
@@ -114230,7 +114315,8 @@
   "f22bade97ad3d8ea9d7f17b9783b8e1b24870b4d6f8acfa345bccdd0b920fa02": "s32 func_8009C420(u32, s32, s32, u8, u8, u8, u8, u16, u16, u8, u8);\nvoid func_8008E8F0(s32, s32);\nextern u8 D_8010D724[];\nextern s32 D_8010D734[];\nextern s32 D_8010D738[];\n\n#define FIELD(base, type, offset) (*(type *)((u8 *)(base) + (offset)))\n\ns32 func_80099F80(void *state, void *command)\n{\n    u32 word = FIELD(command, u32, 0);\n    s32 level = FIELD(state, u16, 0x4E) + ((s32)(word << 16) >> 24);\n    u32 key, middle, low;\n    s32 clamped;\n    s32 flags;\n    u8 bank, channel;\n    s32 result, previous;\n    s32 offset;\n    u32 commandWords[2];\n\n    word >>= 16;\n    middle = FIELD(command, u8, 5);\n    word <<= 16;\n    low = FIELD(command, u8, 4);\n    middle <<= 8;\n    word |= middle;\n    key = word | low;\n\n    if (level >= 0) {\n        clamped = 127;\n        if (level < 128) {\n            clamped = level;\n        }\n    } else {\n        clamped = 0;\n    }\n\n    level = clamped;\n    if (FIELD(state, u8, 0x4C)) {\n        level |= 0x80;\n    }\n\n    flags = FIELD(state, u16, 0xBA);\n    bank = FIELD(state, u8, 0x31);\n    channel = FIELD(state, u8, 0x39);\n    FIELD(state, u8, 0xBD) = 1;\n    result = func_8009C420(key, flags, level & 0xFF, bank, channel,\n                           FIELD(state, u8, 0x4A), FIELD(state, u8, 0x4B),\n                           FIELD(command, u16, 6), FIELD(state, u8, 0x2F),\n                           0, FIELD(state, u8, 0xBE));\n    FIELD(state, u8, 0xBD) = 0;\n    if (result != -1) {\n        s32 index = result & 0xFF;\n        s32 scaled = index * 12;\n        s32 data = FIELD(state, s32, 0x60);\n        offset = (scaled + index) * 32;\n        FIELD(D_8010D738, s32, offset) = data;\n        previous = FIELD(state, s32, 0x10);\n        if (previous != -1) {\n            FIELD(D_8010D734, s32, offset) = previous;\n            FIELD(D_8010D738, s32, FIELD(state, u8, 0x13) * 0x1A0) = result;\n        }\n        {\n            u8 linked = FIELD(state, u8, 0x4C);\n            FIELD(state, s32, 0x10) = result;\n            if (linked) {\n                func_8008E8F0((s32)(D_8010D724 + offset), (s32)state);\n            }\n        }\n        if (0) {\n            func_8008E8F0((s32)(D_8010D724 + offset), (s32)state);\n        }\n    }\n\n    return 0;\n}\n",
   "c667030c905984e6a39347c85dafd9ab8de8c86cc7c8c59295ca5488f956be2c": "extern void func_8008C0D4(void);\nextern void func_8008C11C(void);\nextern s32 func_800989B8(s32);\nextern void func_80095A80(u8, u8, u8, u8);\nextern u8 D_800CF540;\nextern s32 D_8010D734, D_8010D748, D_8010D784;\nextern u8 D_8010D76F, D_8010D779;\n\ns32 func_8009C7C4(s32 arg0, s32 arg1) {\n    register s32 index;\n    s32 offset, handle, result, end, parameter;\n    handle = arg0;\n    result = -1;\n    parameter = arg1;\n    if (D_800CF540 != 0) {\n        func_8008C0D4();\n        handle = func_800989B8(handle);\n        if (handle == result) goto unlock;\n        end = -1;\nagain:        {\n            index = handle & 0xFF;\n            offset = index * 0x1A0;\n            if (*(s32 *)((s8 *)&D_8010D784 + offset) != handle) goto unlock;\n            if (*(s32 *)((s8 *)&D_8010D748 + offset) & 2) {\n                do { func_80095A80(0x5B, index, *(&D_8010D779 + offset), parameter); } while (0);\n            } else {\n                func_80095A80(0x5B, index, *(&D_8010D76F + index * 0x1A0), parameter);\n            }\n            handle = *(s32 *)((s8 *)&D_8010D734 + index * 0x1A0);\n            result = 0;\n            if (handle != end) goto again;\n        }\nunlock:\n        func_8008C11C();\n    }\n    return result;\n}\n",
   "44fa8e1e99dbc3cd6e467c9913799a8dbad723b17a02b74203bab3ac9224e7ba": "s32 func_800A9250(void);\ns32 osVirtualToPhysical(s32);\n\ns32 func_800A92C0(s32 direction, u32 spAddress, s32 dramAddress, u32 size) {\n    volatile u32 *length;\n    if (func_800A9250())\n        return -1;\n    *(volatile u32 *)0xA4040000 = spAddress;\n    *(volatile u32 *)0xA4040004 = osVirtualToPhysical(dramAddress);\n    switch (direction) {\n        case 1: length = (volatile u32 *)0xA4040008; break;\n        case 0: length = (volatile u32 *)0xA404000C; break;\n    default: length = (volatile u32 *)0xA4040008; break;\n        }\n    *length = size - 1;\n    return 0;\n}\n",
-  "d94d67f6018916f8028aabe48f11c5ac407d646be1fad3f3bad389ab89592016": "double sqrt(double);\ndouble func_800AA8B0(double, double);\ndouble func_800ABA40(int, char *, double, double, double);\nextern double D_800D6E88, D_800D6E90, D_800D6E98;\nextern char D_800D6E80[];\ndouble func_800AA460(double x) {\n    int a = x > D_800D6E88;\n    int b = x < D_800D6E90;\n    if (a | b)\n        return func_800ABA40(1, D_800D6E80, x, 0.0, 0.0);\n    return func_800AA8B0(x, sqrt(D_800D6E98 - x * x));\n}"
+  "d94d67f6018916f8028aabe48f11c5ac407d646be1fad3f3bad389ab89592016": "double sqrt(double);\ndouble func_800AA8B0(double, double);\ndouble func_800ABA40(int, char *, double, double, double);\nextern double D_800D6E88, D_800D6E90, D_800D6E98;\nextern char D_800D6E80[];\ndouble func_800AA460(double x) {\n    int a = x > D_800D6E88;\n    int b = x < D_800D6E90;\n    if (a | b)\n        return func_800ABA40(1, D_800D6E80, x, 0.0, 0.0);\n    return func_800AA8B0(x, sqrt(D_800D6E98 - x * x));\n}",
+  "2cb8c92e0caf2a4e42d084a2b58ebdd1f2672ee0ba9c7ec3b470eb27a5d01dfa": "u64 osGetTime(void);\nextern u64 D_80102CC8;\nextern u64 D_80109DD8;\nextern u64 D_80115320;\n\nvoid func_800070A4(void) {\n    u64 t;\n    D_80109DD8 = 0;\n    t = osGetTime();\n    D_80115320 = t;\n    D_80102CC8 = 0;\n}\n"
  },
  "headers": {
   "4ae09610b5761831030b66d8142f868d15fcf880548fbaa084f77e1fcad1b398": "/* context.h for TWINE: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\n/* Observed in the exact-matched slot update at 0x8011B460. */\ntypedef struct { u8 pad0[0x10]; u8 flags; } TwineSlotEventState;\ntypedef struct {\n    u8 pad0[0xB4];\n    TwineSlotEventState *event;\n    u8 padB8[0xCA];\n    s8 index;\n} TwineSlotEventActor;\n\n/* Field offsets verified in func_800969B4. */\ntypedef struct {\n    s8 active;\n    u8 pad;\n    u8 code;\n    u8 bank;\n    u16 volume;\n    u8 rest[12];\n} TwineAudioChannel;\n\ntypedef struct {\n    u8 pad[0xC2];\n    TwineAudioChannel channel[10];\n} TwineAudioChannelBank;\n\n/* Fields used by the type-0x46 object query at 0x8003D848. */\ntypedef struct { f32 x, y, z; } TwineProbeVector;\ntypedef struct {\n    u8 pad0[0x18];\n    f32 minX, maxX, minY, maxY, minZ, maxZ;\n} TwineProbeBounds;\ntypedef struct TwineProbeObject {\n    u8 pad0[0x10];\n    struct TwineProbeObject *next;\n    u8 pad14[0x28];\n    TwineProbeBounds *bounds;\n    u8 pad40[0xC];\n    f32 distance;\n    u8 pad50[8];\n    u16 type;\n} TwineProbeObject;\n\ns32 create_centered_sprite(s32 assetId, s32 frameIndex);\n\nvoid spherical_to_cartesian(f32 *out, f32 radius, f32 yaw, f32 pitch);\n\ns32 func_80094B48(void *object, f32 sortKey, f32 value0, f32 value1, f32 value2, f32 value3);\n\nvoid func_80027FF4(void);\n\nvoid func_80087A80(void);\n\nvoid func_8008C3D8(s32 index, u16 *data);\n\nvoid func_800081C4(s32 fill);\n\nf32 func_80045D2C(f32 scale);\nf32 func_80045D8C(f32 scale, f32 offset);\n\ns32 func_800819EC(s32 bank, s32 index);\n\nextern char D_800D2D44[];\n",

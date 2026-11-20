@@ -5032,14 +5032,6 @@
   "score_after": 810
  },
  {
-  "function": "func_800070A4",
-  "text": "Current baseline score 140; ran all three local repair variants (signed local, osGetTime arity 2, returned global), no improvement. Target calls osGetTime with a0=a1=0 and stores the returned v0/v1 into D_80115320/24, with two adjacent globals zeroed. Candidate currently models the return as u64 but compiler omits argument zeroing and arranges the stack save differently. Next: inspect fresh diff and try explicit s32 high/low word stores or a prototype returning a two-word aggregate; then test source ordering for the two zeroed globals.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795138447.333994,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_80027970",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 3; 18 differing rows (8 register, 1 stack, 5 branch target, 2 operand, 2 inserted; advisory).\nTarget: \nCandidate: sw $ra, 0x1c($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(D_80109BB0)($v0)\n  = addiu $sp, $sp, -0x20\n> T:  | C: sw $ra, 0x1c($sp)\nr T: sw $ra, 0x18($sp) | C: sw $s2, 0x18($sp)\n  = sw $s1, 0x14($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
   "by": "codex-gpt-6-luna-18",
@@ -6528,14 +6520,6 @@
   "score_after": 1300
  },
  {
-  "function": "func_800070A4",
-  "text": "Retain saved 140-point `u64` candidate. Source ordering zero first global, save osGetTime immediately, zero second global compiled to 950, as did explicit local zero and volatile u64 globals. Target's a0/a1 zeros are live into the two halves of each u64 store; its osGetTime call itself does not require arguments. Next compare the saved candidate's raw instruction order, especially late RA save and scheduling of the return stores relative to materializing the second zero pair.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795164108.905741,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_80098B14",
   "text": "Reverified score 1780 from the saved source. Making D_8010957D volatile produced identical output; the original already reloads it on the nonempty path. The main remaining structure difference is loop entry: target initializes the 0xFFFF sentinel once, copies head into a0 and enters at the comparison, but the goto candidate regenerates the sentinel on the backedge and places the prior-node move before the compare. The intended next experiment was a do/while with a break on orderedGroup < (u16)current, previous=current only on the traversal path, and a named u32 sentinel. It did not run because the claim was lost and the revision reset.",
   "by": "codex-gpt-6.2-sol-5",
@@ -7568,14 +7552,6 @@
   "score_after": 470
  },
  {
-  "function": "func_800070A4",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795169722.518056,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_80021A6C",
   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-6",
@@ -7854,14 +7830,6 @@
   "created_at": 1795170426.6495628,
   "score_before": 8503,
   "score_after": 8503
- },
- {
-  "function": "func_800070A4",
-  "text": "Best 140: u64 globals and osGetTime, but stores of returned time and second zero occur in opposite order and RA save scheduling differs. Reordering source stores and volatile u64 casts worsened code. Investigate scheduling and declarations.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795170429.1558778,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_800937D0",
@@ -12032,14 +12000,6 @@
   "score_after": 845
  },
  {
-  "function": "func_800070A4",
-  "text": "Verified historical 140 candidate keeps explicit u64 time temporary, clears D_80102CC8 before committing the saved return. Direct D_80115320 = osGetTime() before clearing D_80102CC8 scores 950: target materializes the second zero pair before storing the return, then stores the zero pair. Remaining issue is O1 scheduling of RA save and stores, not the u64 types.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795182126.25513,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_800081C4",
   "text": "Score 35; seven register mismatches swap s0/s1 for counter and pointer. Loop backedge, signedness and declaration ordering did not improve.",
   "by": "codex-gpt-6.1-terra-6",
@@ -14208,14 +14168,6 @@
   "score_after": 1110
  },
  {
-  "function": "func_800070A4",
-  "text": "Score 140 preserved with u64 zero/return stores and zero assignment before saving time. Putting the time store first in C scores 950, even though the scheduler then emits the correct post-call store order. Remaining prologue RA save and post-call store scheduling. Inspect effective compiler scheduler options or comparable O1 prologues before further statement reorders.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795183376.9656372,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "decodeButtonMask840",
   "text": "Plain unsigned switch emits the same length (20 instructions) but selects 0x800 as pivot and scores 430. Inherited 300 handles 0x40 first but lacks target tail layout. Target partitions at 0x41, keeps default result 1 in two delay slots and sends cases 0x40, 0x800, 0x840 to separate tail blocks in that order. A shared exit with explicit case labels could preserve these jumps.",
   "by": "codex-gpt-6.2-sol-4",
@@ -15808,14 +15760,6 @@
   "score_after": 60
  },
  {
-  "function": "func_800070A4",
-  "text": "Compiler suggestion verified byte-exact with GCC 2.7.2 KMC -O2 using reset D_80109DD8, assign D_80115320=osGetTime(), reset D_80102CC8. Automatic compiler changes are off. Current -O1 fails the prologue scheduling and store order.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795184397.697217,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_80082BD0",
   "text": "Current -O2 reproduces all FP operations, ordering and registers in the staged nine-product candidate. Only base-relative memory operations fail: GCC folds constant out offsets to direct relocations and delays &D_80102E74 to the store. Array declaration equivalent, register pointer/volatile data worse, -O1 worse. Explore original unit object layout declarations or backend address-splitting flags while retaining the staged arithmetic.",
   "by": "codex-gpt-6.2-sol-7",
@@ -17040,14 +16984,6 @@
   "score_after": 3371
  },
  {
-  "function": "func_800070A4",
-  "text": "Prior notes already record an exact GCC 2.7.2 KMC -O2 diagnostic build and a pending compiler suggestion. This claim's effective -O1 still scores 950 for that C, including with an explicit time temporary and a separate 64-bit elapsed temporary. Retain the saved 140-point O1 anchor; the exact diagnostic source clears D_80109DD8, stores osGetTime() into D_80115320, and clears D_80102CC8.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795185163.75455,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_8002135C",
   "text": "Claim ended automatically after first patch. Changing draft var_s0 from u8 to s16 scored 6561; historical 5166 was under previous inputs and no saved best was available. Correct byte-stride table indexing and float table loads remain essential; see earlier notes.",
   "by": "codex-gpt-6.1-terra-7",
@@ -18124,14 +18060,6 @@
   "text": "Rechecked 140 with a 23-instruction explicit goto loop and volatile next-byte read. That qualifier fixes the bottom lbu destination versus the unqualified goto version (150). The first missing operation is the pre-load s0=s1 copy; the generated move sits in the initial guard delay slot in place of a0=v0. Qualifying only the initial byte read instead gave 220, and separate first/carried values gave 150. -g and -O2 debug were worse; disabling either scheduling pass at -O1 tied the unqualified goto. Explore preheader allocation and delay-slot placement together.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795186136.2053702,
-  "score_before": 140,
-  "score_after": 140
- },
- {
-  "function": "func_800070A4",
-  "text": "Rechecked O1 best at 140. Volatile return store scored 360, zero local with natural store order 950, comma-expression staging tied 140. Remaining RA-save placement and postcall store scheduling are covered by an existing verified O2 compiler suggestion awaiting approval; use that source if profile is applied.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795186156.7565272,
   "score_before": 140,
   "score_after": 140
  },
@@ -19872,14 +19800,6 @@
   "score_after": 1120
  },
  {
-  "function": "func_800070A4",
-  "text": "Reverified 140 at this range\u2019s -O1 profile. Signed local and returning stored time are identical; passing zeros to osGetTime worsens to 730. Remaining shape is prologue RA store placement and time pair stored ahead of the second zero pair. Keep osGetTime(void); next hypothesis is independent volatile 64-bit lvalues to make source order explicit, followed by comparing range flags.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795188670.085747,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_800A798C",
   "text": "Best score 10, four instructions. The typed s32** rewrite and local assignment/single-use variants all leave the exact same two register mismatches: target loads the pointed-to word into t9 and stores t9; candidate uses v1. Source semantics already match; further work should explore register allocation via pointer-width/type and temporary lifetime. No reusable game-wide rule established.",
   "by": "codex-gpt-6-luna-19",
@@ -20856,14 +20776,6 @@
   "score_after": 0
  },
  {
-  "function": "func_800070A4",
-  "text": "Recompiled inherited candidate unchanged; score 950 vs saved historical best 140. Diff reports code shape broadly right but globals resolve to unexpected addresses: target references 0x80109DD8 then 0x80115320; current symbols map these in an order inconsistent with this source. Restore saved_best and inspect assembly/data symbol identities; try local signedness and call-arity repairs only after resolving globals.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795189855.4359329,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_8009A804",
   "text": "Shared context changed during claim: saved best now conflicts with func_800957A8/B8 prototypes. Revision 15f5fdab0d7e091f7e17 compiles against v916, score 190; corrected declarations/calls and pointer arithmetic. Missing andi 0xffff after packed ID OR, plus three register differences. Loading whole word for second byte produces mask but wrong lw; signed-byte cast did not produce mask. Investigate intermediate types and expression lifetime.",
   "by": "codex-gpt-6.1-terra-8",
@@ -21664,14 +21576,6 @@
   "score_after": 330
  },
  {
-  "function": "func_800070A4",
-  "text": "Verified best 140. Swapping final stores worsened score to 950; explicit 64-bit zero and register temporary did not alter baseline assembly. Target schedules time stores before zero stores despite source ordering and saves RA later; investigate scheduling/profile.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795190828.071386,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_800989B8",
   "text": "Rechecked saved best score 200. Repair batch branch_orientation variants scored 740 and 200; signedness was unchanged. Attempted to invert the inner branch using a wrong source anchor; scored 560 and worsened control-flow layout. Remaining single mismatch at baseline is bnez $v0,target vs bnel $v0,$zero,candidate, likely requires expressing branch structure/control flow while preserving target's delay-slot move and subsequent linked-list traversal. Keep saved_best.",
   "by": "codex-gpt-6-luna-18",
@@ -22256,14 +22160,6 @@
   "score_after": 115
  },
  {
-  "function": "func_800070A4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] The saved O1 source rechecks at 140. An existing verified O2 compiler bundle obtains byte equality with clear D_80109DD8, store osGetTime in D_80115320, then clear D_80102CC8. Profile application remains pending.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191905.880552,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "func_800347B0",
   "text": "Improved 515 to 190 using float/int union for offset 4 multiplication store, reproducing mfc1/sw. Remaining 24 differences are multiplication scheduling/register allocation and operand ordering. Removing register qualifiers from sp14 and fs0/fs2/fs4, reversing temp_ft1 multiplication or swapping unused initial temporary assignments did not improve. Next try staging products in target assembly order and changing use order of intermediates while preserving the union store.",
   "by": "codex-gpt-6.1-terra-6",
@@ -22846,14 +22742,6 @@
   "created_at": 1795192642.566608,
   "score_before": 5,
   "score_after": 5
- },
- {
-  "function": "func_800070A4",
-  "text": "Saved best 140, 22 instructions. Target sequence after osGetTime stores returned u64 to D_80115320 then clears D_80102CC8; baseline emits clear before time store. Attempted swapping source order, which worsened substantially (950); volatile globals recovered score 140 but not the order. Remaining mismatch includes prologue ra store scheduling and swapping these global stores; target raw addresses confirm intended target order. Better solution may use volatile/split u32 stores or aliasing to control memory ordering.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795192644.731652,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_800AB9B0",
@@ -23966,14 +23854,6 @@
   "created_at": 1795193810.6456041,
   "score_before": 490,
   "score_after": 490
- },
- {
-  "function": "func_800070A4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Claim compile unavailable: gcc-2.7.2-kmc toolchain not installed. Attempted required next signedness family; cached blocked toolchain failure. Existing historical score 140 candidate is plausible (u64 osGetTime, zero D_80109DD8, save time, zero D_80102CC8, store time at D_80115320), but assembly shows both halves explicitly and call has args 0,0. No current match evidence. Restore compiler availability and compile baseline before tuning.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795193812.178617,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_80070340",
@@ -31606,5 +31486,125 @@
   "created_at": 1795193801.6526132,
   "score_before": 3066,
   "score_after": 3066
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Current baseline score 140; ran all three local repair variants (signed local, osGetTime arity 2, returned global), no improvement. Target calls osGetTime with a0=a1=0 and stores the returned v0/v1 into D_80115320/24, with two adjacent globals zeroed. Candidate currently models the return as u64 but compiler omits argument zeroing and arranges the stack save differently. Next: inspect fresh diff and try explicit s32 high/low word stores or a prototype returning a two-word aggregate; then test source ordering for the two zeroed globals.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795138447.333994,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Retain saved 140-point `u64` candidate. Source ordering zero first global, save osGetTime immediately, zero second global compiled to 950, as did explicit local zero and volatile u64 globals. Target's a0/a1 zeros are live into the two halves of each u64 store; its osGetTime call itself does not require arguments. Next compare the saved candidate's raw instruction order, especially late RA save and scheduling of the return stores relative to materializing the second zero pair.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795164108.905741,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795169722.518056,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Best 140: u64 globals and osGetTime, but stores of returned time and second zero occur in opposite order and RA save scheduling differs. Reordering source stores and volatile u64 casts worsened code. Investigate scheduling and declarations.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795170429.1558778,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Verified historical 140 candidate keeps explicit u64 time temporary, clears D_80102CC8 before committing the saved return. Direct D_80115320 = osGetTime() before clearing D_80102CC8 scores 950: target materializes the second zero pair before storing the return, then stores the zero pair. Remaining issue is O1 scheduling of RA save and stores, not the u64 types.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795182126.25513,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Score 140 preserved with u64 zero/return stores and zero assignment before saving time. Putting the time store first in C scores 950, even though the scheduler then emits the correct post-call store order. Remaining prologue RA save and post-call store scheduling. Inspect effective compiler scheduler options or comparable O1 prologues before further statement reorders.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795183376.9656372,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Compiler suggestion verified byte-exact with GCC 2.7.2 KMC -O2 using reset D_80109DD8, assign D_80115320=osGetTime(), reset D_80102CC8. Automatic compiler changes are off. Current -O1 fails the prologue scheduling and store order.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795184397.697217,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Prior notes already record an exact GCC 2.7.2 KMC -O2 diagnostic build and a pending compiler suggestion. This claim's effective -O1 still scores 950 for that C, including with an explicit time temporary and a separate 64-bit elapsed temporary. Retain the saved 140-point O1 anchor; the exact diagnostic source clears D_80109DD8, stores osGetTime() into D_80115320, and clears D_80102CC8.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795185163.75455,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Rechecked O1 best at 140. Volatile return store scored 360, zero local with natural store order 950, comma-expression staging tied 140. Remaining RA-save placement and postcall store scheduling are covered by an existing verified O2 compiler suggestion awaiting approval; use that source if profile is applied.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795186156.7565272,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Reverified 140 at this range\u2019s -O1 profile. Signed local and returning stored time are identical; passing zeros to osGetTime worsens to 730. Remaining shape is prologue RA store placement and time pair stored ahead of the second zero pair. Keep osGetTime(void); next hypothesis is independent volatile 64-bit lvalues to make source order explicit, followed by comparing range flags.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795188670.085747,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Recompiled inherited candidate unchanged; score 950 vs saved historical best 140. Diff reports code shape broadly right but globals resolve to unexpected addresses: target references 0x80109DD8 then 0x80115320; current symbols map these in an order inconsistent with this source. Restore saved_best and inspect assembly/data symbol identities; try local signedness and call-arity repairs only after resolving globals.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795189855.4359329,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Verified best 140. Swapping final stores worsened score to 950; explicit 64-bit zero and register temporary did not alter baseline assembly. Target schedules time stores before zero stores despite source ordering and saves RA later; investigate scheduling/profile.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795190828.071386,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] The saved O1 source rechecks at 140. An existing verified O2 compiler bundle obtains byte equality with clear D_80109DD8, store osGetTime in D_80115320, then clear D_80102CC8. Profile application remains pending.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191905.880552,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "Saved best 140, 22 instructions. Target sequence after osGetTime stores returned u64 to D_80115320 then clears D_80102CC8; baseline emits clear before time store. Attempted swapping source order, which worsened substantially (950); volatile globals recovered score 140 but not the order. Remaining mismatch includes prologue ra store scheduling and swapping these global stores; target raw addresses confirm intended target order. Better solution may use volatile/split u32 stores or aliasing to control memory ordering.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795192644.731652,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_800070A4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Claim compile unavailable: gcc-2.7.2-kmc toolchain not installed. Attempted required next signedness family; cached blocked toolchain failure. Existing historical score 140 candidate is plausible (u64 osGetTime, zero D_80109DD8, save time, zero D_80102CC8, store time at D_80115320), but assembly shows both halves explicitly and call has args 0,0. No current match evidence. Restore compiler availability and compile baseline before tuning.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795193812.178617,
+  "score_before": 140,
+  "score_after": 140
  }
 ]
