@@ -18,8 +18,8 @@ void func_800355BC(void *arg0) {
     s32 *temp_v1_3;
     
     unsigned int temp_v1_2;
-    s32 var_s0;
-    s32 var_s3;
+    s16 var_s0;
+    s16 var_s3;
     void *temp_s4;
     void *var_s1;
     void *var_s2;

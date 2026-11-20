@@ -21,13 +21,20 @@ void func_80096F44(void *arg0, s32 arg1, s32 arg2) {
     s32 var_v1;
     u8 temp_a1;
 
-    if ((s16)arg2 >= 0) {
-        var_a2 = arg2;
-        if ((s16)arg2 >= 0x4000) {
-            var_a2 = 0x3FFF;
+    {
+        s32 original = arg2;
+        s32 narrowed;
+        arg2 = (s32)((u32)arg2 << 16);
+        narrowed = arg2 >> 16;
+        if (narrowed >= 0) {
+            arg2 = original;
+            if (narrowed >= 0x4000) {
+                arg2 = 0x3FFF;
+            }
+        } else {
+            arg2 = 0;
         }
-    } else {
-        var_a2 = 0;
+        var_a2 = arg2;
     }
     temp_v0 = arg1 & 0xFF;
     var_v1 = arg1;

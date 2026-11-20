@@ -31,29 +31,22 @@ check_alignment:
         ;
     } while ((u32)out & 3);
 
-    do {
-        word = *(u32 *)src;
-        src += 4;
-        if ((word & 0xFF000000U) != 0)
-            goto second;
+word_copy:
+    word = *(u32 *)src;
+    src += 4;
+    if (!(word & 0xFF000000U)) {
         *out = 0;
-        goto done;
-second:
-        if ((word & 0x00FF0000U) != 0)
-            goto third;
+    } else if (!(word & 0xFF0000U)) {
         *(u16 *)out = word >> 16;
-        goto done;
-third:
-        if ((word & 0x0000FF00U) == 0)
-            goto three_bytes;
+    } else if (word & 0xFF00U) {
         *(u32 *)out = word;
         out += 4;
-    } while (word & 0xFF);
-    goto done;
-
-three_bytes:
-    *(u16 *)out = word >> 16;
-    out[2] = 0;
+        if (word & 0xFFU)
+            goto word_copy;
+    } else {
+        *(u16 *)out = word >> 16;
+        out[2] = 0;
+    }
 done:
     return dst;
 }

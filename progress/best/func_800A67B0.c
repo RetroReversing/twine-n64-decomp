@@ -4,8 +4,8 @@ u32 func_800A67B0(void) {
     volatile s32 *p;
     s32 a, b;
     u32 off;
+    p = (volatile s32 *)0xa0400000;
     off = 0x400000;
-    p = &D_A0400000;
     for (;;) {
         a = *p;
         b = *(volatile s32 *)(D_A00FFFFC + off);

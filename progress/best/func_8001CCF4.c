@@ -15,7 +15,6 @@ extern s32 D_80102EBC;
 extern void *D_80109BB0;
 
 void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
-    long var_v0_3;
     s32 flags;
     void *temp_a1;
     void *temp_s0;
@@ -30,6 +29,7 @@ void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
         (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
         temp_a1 = (*(void **)((char *)(temp_s0) + 0));
         (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (arg2 & 0xFF) ? (s32) ((D_800BD660 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) : (s32) (D_80102EBC);
+        temp_a1 = *(void * volatile *)temp_s0;
         flags = (u8)arg1 == 0;
         flags = -flags;
         flags &= 7;

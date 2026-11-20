@@ -29,12 +29,15 @@ f64 func_800AB3C8(f64 arg0) {
     s32 var_v1;
 
     f64 q = arg0 / D_800D7000;
+    f64 zero = 0.0;
 
     var_fv0 = D_800D7008;
-    if (arg0 >= 0.0) {
-        var_fv0 = D_800D7010;
-    }
-    temp_fa0 = arg0 - ((f64) (s32) (q + var_fv0) * D_800D7018);
+    if (!(zero <= arg0))
+        goto reduce;
+    var_fv0 = D_800D7010;
+reduce:
+    var_v1 = (s32)(q + var_fv0);
+    temp_fa0 = arg0 - (f64)var_v1 * D_800D7018;
     var_v0 = 1;
     if (!(temp_fa0 < D_800D7020)) {
         var_v0 = 0;
