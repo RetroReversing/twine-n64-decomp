@@ -7312,14 +7312,6 @@
   "score_after": 4156
  },
  {
-  "function": "func_80085E78",
-  "text": "Rechecked saved candidate and corrected func_8000A8B4's second parameter from s32 to f32, improving 1170 to 620 by matching target's mtc1/mfc1 float argument setup. A temporary address-typed intermediate around the returned ID then improved to 570 and matched move/store ordering better. Current best is that 570 candidate (revision 85b8493e6921cf44a7c9); later experiment changing second switch's state local regressed to 1040, and declaration-sharing experiment failed to compile because temp_v0_4 remained referenced. Remaining differences are chiefly FPR/register allocation, some branch destinations and state/index registers; see last_diff around rows 58, 112 onward. Revisit from saved_best and try deliberate local reuse/order around the second calculation and switch state.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795165462.3402398,
-  "score_before": 1170,
-  "score_after": 570
- },
- {
   "function": "func_8011AE4C",
   "text": "Best candidate d696f6bf31c7e4e54023, score 2170/172 instructions. Added unused volatile s64 local to prior best; this improved 2171 to 2170 and matched target frame size 0x30 (saved best source retains this). Try-local-repairs batches (two) tested explicit backedge, record-layout, masked reuse, lifetimes, signedness, declaration order, branch orientation, const, volatile reload and early-base variants; none beat 2170. Making one `if (var_s0 & 0xFF)` into `if (var_s0 != 0)` regressed to 2495; explicit register qualifiers on all three args returned to 2170 without new improvement. Replacing `~0xFC` with `0xFFFFFF03` also had no instruction effect. Remaining mismatch starts at prologue: target stores s0=arg0 at 0x20, s2=arg1 at 0x28, ra at 0x2c, s1=arg2 at 0x24, then loads arg0 words +0x24/+28/+2c into outgoing stack slots; current candidate's save/register allocation differs and subsequent branch offsets are often 0x14 early. Compiler warning `assignment makes pointer from integer` occurs in loop around D_8010A500, suggesting table symbol type is wrong. Explore actual pointer-table declaration and source shape for outgoing 3-word vector.",
   "by": "codex-gpt-6-luna-16",
@@ -16896,14 +16888,6 @@
   "score_after": 410
  },
  {
-  "function": "func_80085E78",
-  "text": "Session capacity handoff. Verified best 300/224 instructions: staging the arg1+0x10 float load before flag checks and using it later improved 570 to 300. Remaining differences are FPU register assignment for the two staged loads and scheduling the sp18 lhu before stores at two calls. Swapping load source order scored 310 and retained reversed FPU register allocation. Best candidate saved.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795183705.0349922,
-  "score_before": 570,
-  "score_after": 300
- },
- {
   "function": "func_800362B4",
   "text": "[Released without compiling it once; notes not checked by a compile.] The supplied complete candidate includes extern declarations for every symbol named in the previous compiler error; that error appears stale from an earlier candidate, but I did not run a fresh compile. No edits or score changes. Next step is compile the supplied complete candidate as-is to establish a current baseline, then inspect whether raw pointer/global types or command-buffer scheduling dominate.",
   "by": "codex-gpt-6-luna-9",
@@ -19182,14 +19166,6 @@
   "created_at": 1795184709.569535,
   "score_before": 805,
   "score_after": 805
- },
- {
-  "function": "func_80085E78",
-  "text": "Current best remains score 300, 224 target/candidate instructions. Rechecked candidate and repair batch (constant local, symbol address local, inferred record layout, call scope, branch orientation, address temp) did not improve. Tried changing func_8000A8B4 second parameter from f32 to s32; score regressed to 1090, then reverted and restored score 300. Remaining mismatches are primarily register allocation/order: target holds returned u16 at 0x18(sp) in v1 before calls, candidate loads it later; float fields +0xC/+0x10 are swapped across f2/f6 and subsequent subtractions. Corrected prototype was a bad direction. Further tune declarations/types/statement order to target register lifetimes.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795184726.469194,
-  "score_before": 300,
-  "score_after": 300
  },
  {
   "function": "func_8011A7C8",
@@ -35800,14 +35776,6 @@
   "score_after": 13918
  },
  {
-  "function": "func_80085E78",
-  "text": "Starting candidate had undeclared globals and bogus pointer expressions. Rewrote with D_80109688 as an array of pointers and D_80109A60 as byte table; current score 310, 12 remaining rows, same instruction count. Local repairs (goto_shared_tail, call_one_shot_scope, branch_orientation, inferred_record_layout, address_temporary, pointer_cast_inline) found no better result. Remaining differences mostly register/order: stack-local selector must live in v1 rather than v0; float loads at arg1 offsets 0xc/0x10 are reversed, then downstream arithmetic registers swap. Best saved candidate current revision d36dd791386b09b1bd09. Try narrowing local scope/types and reorder float temporaries to produce target scheduling.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795202641.110237,
-  "score_before": 300,
-  "score_after": 300
- },
- {
   "function": "func_800AB3C8",
   "text": "Rechecked supplied best at score 680, 53 instructions. Tried sign-bias branch inversion, moving division declaration, removing register hints; no score improvement. Candidate and target largely same operations, but first sequence target loads D_800D7000 then divides before zero compare; candidate hoists zero initialization ahead and uses different FP regs. Subsequent constants appear shifted in diagnostic relocation advice (check actual addresses/constants). Remaining mismatch mainly 14 reordered and four register differences. Next: tune declaration/statement order to force early division before zero setup and inspect constant symbols against raw assembly.",
   "by": "codex-gpt-6-luna-19",
@@ -39352,14 +39320,6 @@
   "score_after": 200
  },
  {
-  "function": "func_80085E78",
-  "text": "Saved best rechecked 310. Exploratory array-typed candidate also rechecked 310; no improvement. Repair runner and compile_and_diff errored twice. No new compiler trial; next agent can inspect current saved best and retry tool service.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795206081.960341,
-  "score_before": 300,
-  "score_after": 300
- },
- {
   "function": "func_800AB250",
   "text": "Stalled at 945 (saved_best 27a3cb430bcb94905316). This session tried: `0.0 <= arg0` (1725 worse), ternary for var_fv0_2 (1345), inverted/alternative compares on FD0/FD8 (1345/945), `(temp_fv1 & 1) != 0` (945 unchanged). Mismatch row 0: candidate hoists mtc1 $zero before the stack adjust, target does addiu sp/sw ra then div.d before any zero move. Untested idea: make the division result a separate statement ordering (q computed after the sign test) or keep sp10/sp18 declared inside the if-block to change frame/s0 allocation.",
   "by": "api-claude-haiku-5-5-8",
@@ -41598,14 +41558,6 @@
   "created_at": 1795208217.833833,
   "score_before": 410,
   "score_after": 410
- },
- {
-  "function": "func_80085E78",
-  "text": "Tried prototype corrections on the saved best (0e8df17999ef6dfa4936): func_8000A270 -> void(s32), func_8000A8B4 -> s32(s32,f32,u8), func_8000A9CC -> s32(s32,s32,s32). Score unchanged at 310, 12 mismatch rows (6 register, 2 operand, 3 reordered, 1 inserted). First diff is target 'lhu $v1, 0x18($sp)' near the call to func_8000A8B4 that the candidate lacks, so the stack-local selector/ordering in the first block is the remaining issue. Prior agents' local repairs also stalled at 310. Next step if retried: restructure the case 0 block so the lhu of the u16 sp18 selector is reloaded after the func_8000A8B4 call, and check whether sp18 should be a separate local vs. the u16 passed by pointer.\nPrototype-only corrections (func_8000A270 void, func_8000A8B4 s32(s32,f32,u8), func_8000A9CC s32(s32,s32,s32)).\nNo change: score 310, same 12 rows.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208237.91903,
-  "score_before": 300,
-  "score_after": 300
  },
  {
   "function": "func_80040E5C",
@@ -44014,14 +43966,6 @@
   "created_at": 1795209865.590233,
   "score_before": 780,
   "score_after": 780
- },
- {
-  "function": "func_80085E78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 310 (12 mismatch rows: 6 register, 2 operand, 3 reordered, 1 inserted) after 27 local repairs and 3 explicit patches; prototype fixes for callees (func_8000A270 void(s32), func_8000A8B4 s32(u16,f32,u8), func_8000A9CC s32(u16,s32,u8)) changed nothing. Target first block re-reads sp18 via lhu $v1,0x18($sp) near the func_8000A8B4 call, which the candidate does not reproduce. Saved candidate is messy (goto/block_7 hacks); a clean rewrite of the two branches (arg1 nonnull vs else path) with sp18 kept as a u16 local may help.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795209877.483635,
-  "score_before": 300,
-  "score_after": 300
  },
  {
   "function": "func_8008C870",
@@ -50768,14 +50712,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:977bf39d118faea1219c78dda03036d0018d00dfb45f5d3a520ffad9a5524a84"
  },
  {
-  "function": "func_80085E78",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 310 (rechecked, revision 17dad778593400403e6a; 12 mismatch rows: 6 register, 2 operand, 3 reordered, 1 inserted). Control flow and float math roughly match the target, but the target re-reads sp18 via lhu $v0,0x18($sp) after func_80084270 and the candidate's register/ordering around the gAimAxisTable lookups and the 65536.0f/127.0f branches differ. Prior attempts: 27 local repairs (best 300 on an earlier revision), prototype changes to callees func_8000A270/func_8000A8B4/func_8000A9CC, no improvement. Next step: rewrite the first branch (the sp18 == 0xF path) with the 65536.0f assignment as a separate if/else per the target layout, and check the second branch's case 0 store order against mismatch:1.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795215752.648387,
-  "score_before": 300,
-  "score_after": 300
- },
- {
   "function": "func_8002A1F0",
   "text": "Recovered initial 0x1d scroll value for subsequent delta; changing var_a1 and var_s1_4 to s16 improved rechecked 6280 to 5220. Widening first loop indices worsened; changing var_a0 or var_v0_2 to s16 was unchanged. Removing redundant s16 index cast unchanged.",
   "by": "codex-gpt-6.1-terra-4",
@@ -52339,5 +52275,69 @@
   "score_before": 115444,
   "score_after": 113012,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:23845c50c75437a6cc9f9752566a058d86186d40d1a083aa48e2482c0edd8109"
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Rechecked saved candidate and corrected func_8000A8B4's second parameter from s32 to f32, improving 1170 to 620 by matching target's mtc1/mfc1 float argument setup. A temporary address-typed intermediate around the returned ID then improved to 570 and matched move/store ordering better. Current best is that 570 candidate (revision 85b8493e6921cf44a7c9); later experiment changing second switch's state local regressed to 1040, and declaration-sharing experiment failed to compile because temp_v0_4 remained referenced. Remaining differences are chiefly FPR/register allocation, some branch destinations and state/index registers; see last_diff around rows 58, 112 onward. Revisit from saved_best and try deliberate local reuse/order around the second calculation and switch state.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795165462.3402398,
+  "score_before": 1170,
+  "score_after": 570
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Session capacity handoff. Verified best 300/224 instructions: staging the arg1+0x10 float load before flag checks and using it later improved 570 to 300. Remaining differences are FPU register assignment for the two staged loads and scheduling the sp18 lhu before stores at two calls. Swapping load source order scored 310 and retained reversed FPU register allocation. Best candidate saved.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795183705.0349922,
+  "score_before": 570,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Current best remains score 300, 224 target/candidate instructions. Rechecked candidate and repair batch (constant local, symbol address local, inferred record layout, call scope, branch orientation, address temp) did not improve. Tried changing func_8000A8B4 second parameter from f32 to s32; score regressed to 1090, then reverted and restored score 300. Remaining mismatches are primarily register allocation/order: target holds returned u16 at 0x18(sp) in v1 before calls, candidate loads it later; float fields +0xC/+0x10 are swapped across f2/f6 and subsequent subtractions. Corrected prototype was a bad direction. Further tune declarations/types/statement order to target register lifetimes.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795184726.469194,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Starting candidate had undeclared globals and bogus pointer expressions. Rewrote with D_80109688 as an array of pointers and D_80109A60 as byte table; current score 310, 12 remaining rows, same instruction count. Local repairs (goto_shared_tail, call_one_shot_scope, branch_orientation, inferred_record_layout, address_temporary, pointer_cast_inline) found no better result. Remaining differences mostly register/order: stack-local selector must live in v1 rather than v0; float loads at arg1 offsets 0xc/0x10 are reversed, then downstream arithmetic registers swap. Best saved candidate current revision d36dd791386b09b1bd09. Try narrowing local scope/types and reorder float temporaries to produce target scheduling.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795202641.110237,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Saved best rechecked 310. Exploratory array-typed candidate also rechecked 310; no improvement. Repair runner and compile_and_diff errored twice. No new compiler trial; next agent can inspect current saved best and retry tool service.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795206081.960341,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "Tried prototype corrections on the saved best (0e8df17999ef6dfa4936): func_8000A270 -> void(s32), func_8000A8B4 -> s32(s32,f32,u8), func_8000A9CC -> s32(s32,s32,s32). Score unchanged at 310, 12 mismatch rows (6 register, 2 operand, 3 reordered, 1 inserted). First diff is target 'lhu $v1, 0x18($sp)' near the call to func_8000A8B4 that the candidate lacks, so the stack-local selector/ordering in the first block is the remaining issue. Prior agents' local repairs also stalled at 310. Next step if retried: restructure the case 0 block so the lhu of the u16 sp18 selector is reloaded after the func_8000A8B4 call, and check whether sp18 should be a separate local vs. the u16 passed by pointer.\nPrototype-only corrections (func_8000A270 void, func_8000A8B4 s32(s32,f32,u8), func_8000A9CC s32(s32,s32,s32)).\nNo change: score 310, same 12 rows.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208237.91903,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 310 (12 mismatch rows: 6 register, 2 operand, 3 reordered, 1 inserted) after 27 local repairs and 3 explicit patches; prototype fixes for callees (func_8000A270 void(s32), func_8000A8B4 s32(u16,f32,u8), func_8000A9CC s32(u16,s32,u8)) changed nothing. Target first block re-reads sp18 via lhu $v1,0x18($sp) near the func_8000A8B4 call, which the candidate does not reproduce. Saved candidate is messy (goto/block_7 hacks); a clean rewrite of the two branches (arg1 nonnull vs else path) with sp18 kept as a u16 local may help.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795209877.483635,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
+  "function": "func_80085E78",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 310 (rechecked, revision 17dad778593400403e6a; 12 mismatch rows: 6 register, 2 operand, 3 reordered, 1 inserted). Control flow and float math roughly match the target, but the target re-reads sp18 via lhu $v0,0x18($sp) after func_80084270 and the candidate's register/ordering around the gAimAxisTable lookups and the 65536.0f/127.0f branches differ. Prior attempts: 27 local repairs (best 300 on an earlier revision), prototype changes to callees func_8000A270/func_8000A8B4/func_8000A9CC, no improvement. Next step: rewrite the first branch (the sp18 == 0xF path) with the 65536.0f assignment as a separate if/else per the target layout, and check the second branch's case 0 store order against mismatch:1.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795215752.648387,
+  "score_before": 300,
+  "score_after": 300
  }
 ]
