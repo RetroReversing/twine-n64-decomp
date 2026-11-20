@@ -9,7 +9,8 @@ extern u8 D_800BD68E;
 extern void *D_80109BB0;
 
 void func_800266DC(void *arg0) {
-    unsigned temp_a2;
+    u32 packed;
+    s32 flags;
     s32 temp_a0_2;
     void *temp_a0;
     void *temp_a1;
@@ -42,15 +43,15 @@ void func_800266DC(void *arg0) {
         if ((*(s16 *)((char *)(arg0) + 0x10)) >= 0) {
             temp_v0_2 = func_800162BC(D_800BD68E);
             (*(s32 *)((char *)(temp_v0_2) + 0x10)) = (s32) (*(s32 *)((char *)(arg0) + 8));
-            temp_a2 = (*(s32 *)((char *)(temp_v0_2) + 0x28));
+            flags = (*(s32 *)((char *)(temp_v0_2) + 0x28));
             temp_a0_2 = (*(s32 *)((char *)(arg0) + 0xC));
-            temp_a2 &= ~0xFC;
-            temp_a2 |= 0x14;
-            (*(s32 *)((char *)(temp_v0_2) + 0x28)) = temp_a2;
+            flags &= ~0xFC;
+            flags |= 0x14;
+            (*(s32 *)((char *)(temp_v0_2) + 0x28)) = flags;
             (*(s32 *)((char *)(temp_v0_2) + 0x14)) = temp_a0_2;
             (*(u16 *)((char *)(temp_v0_2) + 0x1E)) = (u16) (*(u16 *)((char *)(arg0) + 2));
-            temp_a2 = (u32) (*(s32 *)((char *)(arg0) + 0x10));
-            func_800448A4(temp_v0_2, temp_a2 >> 0x10, temp_a2 & 0xFF);
+            packed = (u32) (*(s32 *)((char *)(arg0) + 0x10));
+            func_800448A4(temp_v0_2, packed >> 0x10, packed & 0xFF);
             {
                 u16 x = (*(u16 *)((char *)(arg0) + 4));
                 void *p = D_80109BB0;

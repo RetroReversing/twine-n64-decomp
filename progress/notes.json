@@ -6024,14 +6024,6 @@
   "score_after": 1995
  },
  {
-  "function": "func_800266DC",
-  "text": "Improved 705 to 20: use full word at arg0+0x10 for packed call arguments, stage flags and final halfword/global loads. Best has four register differences: flags at +0x28 uses a2 instead of v1. Separate local flags changed scheduling and worsened score; register qualifier did not help. Explore allocation/lifetime of flags while retaining load order.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795138743.4551501,
-  "score_before": 705,
-  "score_after": 20
- },
- {
   "function": "func_80048A04",
   "text": "Best rechecked candidate score 325; original candidate uses a 6-float record at arg0 offsets 0..0x14 and tests arg1/arg2 bounds against those values plus arg3. A manual rewrite scored 340 and was worse. Automatic repair batch (inferred_record_layout, branch_orientation, signedness, const_read, comma_temporary_inline) found no better candidate. Remaining diff is 21 instructions, mainly branch orientation/targets and operand order; first target code compares arg1 then arg0 using FPU regs f0/f2, whereas manual rewrite swapped load order and produced bc1f target offset 8 vs candidate 7. Resume saved best and test branch orientations/split conditions with exact target comparison sequence.",
   "by": "codex-gpt-6-luna-10",
@@ -12416,14 +12408,6 @@
   "score_after": 2702
  },
  {
-  "function": "func_800266DC",
-  "text": "Rechecked 7b732935847422e7f940 at 20. Six local variants all tied. Four register differences in field 0x28 mask/update: target uses v1, candidate a2. Try separating the temporary used for this update from temp_a2 reused for func_800448A4 arguments, and compare allocation.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795178396.72836,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "func_80011FA4",
   "text": "Verified baseline 255. Six local signedness, declaration, temporary, literal, call arity and result trials did not improve. Eight rows differ, starting with target loading constant 2 into t3 earlier than candidate; inspect loop setup and scheduling, plus remaining branch/operand differences.",
   "by": "codex-gpt-6.1-terra-4",
@@ -16142,14 +16126,6 @@
   "created_at": 1795182817.751876,
   "score_before": 210,
   "score_after": 0
- },
- {
-  "function": "func_800266DC",
-  "text": "Best candidate score 20 (99.7%), 99 target/candidate instructions. Rechecked baseline; only four register differences remain in flag update at offset 0x28: target uses $v1 for lw/and/ori/sw, candidate uses $a2. Local repair families paired_integer_lifetimes, split_integer_phase, inferred_record_layout, single_field_record, callee_parameter_width, signedness all tied/worsened. Tried changing temp_a2 unsigned to s32 and removing its field-update temporary; both worsened substantially. Restore saved best 7b732935847422e7f940. Remaining issue appears solely register allocation/lifetimes around the second object flags update.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795182820.101565,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "func_8002F068",
@@ -23408,14 +23384,6 @@
   "score_after": 57983
  },
  {
-  "function": "func_800266DC",
-  "text": "Reverified saved revision 7b732935847422e7f940 at score 20: only $a2 vs $v1 for offset 0x28 flags load/AND/OR/store in the second allocation path. Splitting flags from the packed call operand alone gave 230 and delayed the flags load. Explicitly staging arg+8 and flags before the store recovered exact order at 35, but swapped v0/v1 throughout that window. Reusing the staged arg+8 local as the mask moved the mask too early and gave 230. Next try keeping staged loads and reusing the flags local in a separate earlier block to alter allocation, or a compatible typed bitfield expression.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795187116.174208,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "func_800A798C",
   "text": "Four-instruction libultra scheduler __osPopThread. The complete body ends with a queue-head store in the JR delay slot. It uses the adjacent handwritten scheduler's $t9 scratch convention even though $v1 is free. The typed C queue pop reproduces the instruction sequence but allocates $v1; previous GCC, IDO and SN64 profile trials corroborate assembly origin.",
   "by": "codex-gpt-6.2-sol-8",
@@ -27398,14 +27366,6 @@
   "created_at": 1795192011.734257,
   "score_before": 980,
   "score_after": 235
- },
- {
-  "function": "func_800266DC",
-  "text": "Best remains verified score 20 (99 instructions) with only four register substitutions at the final flag update: target carries the load/and/or/store through $v1, baseline uses $a2. Local layout/pointer/declaration variants did not improve; paired pointer reuse worsened to 465. Tested a separate s32 temporary for the bitfield result; it scored 230 and reorders the constant mask and pointer field load. Restore saved best before continuing. Next experiment: make only the first bitfield temp narrower (e.g. unsigned char/volatile or a distinct named local) and control the lifetime/order so the initial flags load naturally gets $v1 while the immediate mask remains $v0; recheck after header changes. No reusable convention established.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795192015.125291,
-  "score_before": 20,
-  "score_after": 20
  },
  {
   "function": "func_800ABAB4",
@@ -31912,14 +31872,6 @@
   "score_after": 440
  },
  {
-  "function": "func_800266DC",
-  "text": "Saved best at revision 7b732935847422e7f940, score 20; exact function 105 target instructions, only four register differences remain. At target rows 72\u201379 the flags update must load into $v1, preserve it while loading/storing the x field, then apply mask and OR before writing back. Candidate instead keeps the flag value in $a2; reordering to load flags into a local first worsened score to 290 and disturbed rows 70\u201379. Try declaration types/temporary lifetimes/local aliasing to encourage $v1 specifically; avoid the tested reorder. Automatic inferred_record_layout, signedness, address_temporary, constant_local, callee_parameter_width, const_read changes produced identical instructions. Candidate contains imperfect strlen prototype/cast warnings, but current output still matches all else.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199271.235012,
-  "score_before": 20,
-  "score_after": 20
- },
- {
   "function": "func_8002A9A8",
   "text": "Verified score 150. Only actual missing instruction is the redundant inner beqz on the already loaded count, before the index=0 delay slot; the other five differences are shifted branch targets. Direct nested if/goto and equivalent casts fold away. Natural for/while produce a near but differently scheduled loop (210); try preserving that natural rotation while arranging the count load/use and pointer setup. Full-width index without narrowing is much worse.",
   "by": "codex-gpt-6.2-sol-6",
@@ -34630,5 +34582,61 @@
   "created_at": 1795202150.475273,
   "score_before": 740,
   "score_after": 490
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Improved 705 to 20: use full word at arg0+0x10 for packed call arguments, stage flags and final halfword/global loads. Best has four register differences: flags at +0x28 uses a2 instead of v1. Separate local flags changed scheduling and worsened score; register qualifier did not help. Explore allocation/lifetime of flags while retaining load order.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795138743.4551501,
+  "score_before": 705,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Rechecked 7b732935847422e7f940 at 20. Six local variants all tied. Four register differences in field 0x28 mask/update: target uses v1, candidate a2. Try separating the temporary used for this update from temp_a2 reused for func_800448A4 arguments, and compare allocation.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795178396.72836,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Best candidate score 20 (99.7%), 99 target/candidate instructions. Rechecked baseline; only four register differences remain in flag update at offset 0x28: target uses $v1 for lw/and/ori/sw, candidate uses $a2. Local repair families paired_integer_lifetimes, split_integer_phase, inferred_record_layout, single_field_record, callee_parameter_width, signedness all tied/worsened. Tried changing temp_a2 unsigned to s32 and removing its field-update temporary; both worsened substantially. Restore saved best 7b732935847422e7f940. Remaining issue appears solely register allocation/lifetimes around the second object flags update.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795182820.101565,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Reverified saved revision 7b732935847422e7f940 at score 20: only $a2 vs $v1 for offset 0x28 flags load/AND/OR/store in the second allocation path. Splitting flags from the packed call operand alone gave 230 and delayed the flags load. Explicitly staging arg+8 and flags before the store recovered exact order at 35, but swapped v0/v1 throughout that window. Reusing the staged arg+8 local as the mask moved the mask too early and gave 230. Next try keeping staged loads and reusing the flags local in a separate earlier block to alter allocation, or a compatible typed bitfield expression.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795187116.174208,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Best remains verified score 20 (99 instructions) with only four register substitutions at the final flag update: target carries the load/and/or/store through $v1, baseline uses $a2. Local layout/pointer/declaration variants did not improve; paired pointer reuse worsened to 465. Tested a separate s32 temporary for the bitfield result; it scored 230 and reorders the constant mask and pointer field load. Restore saved best before continuing. Next experiment: make only the first bitfield temp narrower (e.g. unsigned char/volatile or a distinct named local) and control the lifetime/order so the initial flags load naturally gets $v1 while the immediate mask remains $v0; recheck after header changes. No reusable convention established.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795192015.125291,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Saved best at revision 7b732935847422e7f940, score 20; exact function 105 target instructions, only four register differences remain. At target rows 72\u201379 the flags update must load into $v1, preserve it while loading/storing the x field, then apply mask and OR before writing back. Candidate instead keeps the flag value in $a2; reordering to load flags into a local first worsened score to 290 and disturbed rows 70\u201379. Try declaration types/temporary lifetimes/local aliasing to encourage $v1 specifically; avoid the tested reorder. Automatic inferred_record_layout, signedness, address_temporary, constant_local, callee_parameter_width, const_read changes produced identical instructions. Candidate contains imperfect strlen prototype/cast warnings, but current output still matches all else.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199271.235012,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800266DC",
+  "text": "Best score 20, 99 instructions; only four register-allocation mismatches are in the second object setup flags update (target uses v1 for load/and/or/store; candidate uses a2/v0). A rewrite using direct read/modify/write expression retained score but changed compiler temporary allocation to v0; extra local register declaration did not compile. Try constraining lifetime and use of temp_a2 or moving adjacent field assignments to retain v1. Existing function has a warning-prone strlen prototype, but behavior/instruction sequence otherwise matches.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201267.630924,
+  "score_before": 20,
+  "score_after": 20
  }
 ]
