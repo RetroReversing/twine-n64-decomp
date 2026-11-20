@@ -41,8 +41,6 @@ void func_80094F10(void) {
     s32 temp_v1_4;
     s32 temp_v1_5;
     s32 var_v0;
-    s32 var_v0_2;
-s32 __repair_phase_var_v0_2;
     void **temp_v1_6;
     void *temp_s1;
     void *var_s0;
@@ -104,9 +102,10 @@ s32 __repair_phase_var_v0_2;
                         M2C_FIELD(var_s0, s32 *, 0x34) = temp_v0_2;
                         if (temp_v0_2 == -1) {
                             temp_v1_4 = M2C_FIELD(var_s0, s32 *, 8);
-                            var_v0 = temp_v1_4 | 0x20000;
                             if (!(temp_v1_4 & 2)) {
                                 var_v0 = temp_v1_4 | 0x40000;
+                            } else {
+                                var_v0 = temp_v1_4 | 0x20000;
                             }
 block_28:
                             M2C_FIELD(var_s0, s32 *, 8) = var_v0;
