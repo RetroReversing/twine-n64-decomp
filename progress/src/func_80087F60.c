@@ -29,12 +29,15 @@ s32 __repair_phase___repair_phase_temp_a0;
     for (;;) {
 s32 __block___repair_phase_temp_a0;
 u32 __block_var_v1;
+s32 cache;
 
         __block_var_v1 = 0;
 loop_2:
+        ;
+        cache = D_800E3F10;
         __block___repair_phase_temp_a0 = 0;
         for (;;) {
-            if ((*((__base_D_800E2CC0 = D_800E2CC0) + __block___repair_phase_temp_a0) == 0) || (__block_var_v1 == arg0) || (*(s32 *)(D_800E2CE4 + __block___repair_phase_temp_a0) != D_800E3F10)) {
+            if ((*((__base_D_800E2CC0 = D_800E2CC0) + __block___repair_phase_temp_a0) == 0) || (__block_var_v1 == arg0) || (*(s32 *)(D_800E2CE4 + __block___repair_phase_temp_a0) != cache)) {
                 __block_var_v1 += 1;
                 __block___repair_phase_temp_a0 += 0x1228;
                 if (__block_var_v1 < 2U) {
