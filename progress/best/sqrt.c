@@ -17,7 +17,7 @@ extern f64 D_800D7038;
 extern f64 D_800D7040;
 
 extern char D_800D7030[];
-f64 func_800AB4A0(f64 arg0, f32 arg1) {
+f64 sqrt(f64 arg0, f32 arg1) {
     f64 ret;
     f32 temp_fv0;
     f32 temp_fv0_2;

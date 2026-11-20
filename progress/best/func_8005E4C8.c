@@ -31,8 +31,10 @@ s8 func_8005E4C8(void *arg0) {
     if ((temp_v0 != 0) && (*(D_80109A60 + temp_v0) == 0)) {
         return 0;
     }
+    i = 0;
     temp_fs0 = D_800D4190;
-    for (i = 0, p = (void **) &D_8010A500; i < 4; i++, p++) {
+    for (; i < 4; i++) {
+        p = (void **) &D_8010A500 + i;
         e = *p;
         if (e == NULL) {
             continue;

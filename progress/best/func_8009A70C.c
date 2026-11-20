@@ -33,7 +33,7 @@ s32 func_8009A70C(void *arg0, void *arg1) {
                 temp_v0_3 = (*(u8 *)((char *)(temp_v0_2) + 0));
     var_s0 = ((((*(u8 *)((char *)(temp_v0_2) + 1)) - temp_v0_3) * (temp_v0))) + ((temp_v0_3 << 0x10));
             } else {
-                var_s0 = *(u32 *)(temp_v0 + temp_v1_2) << 0x10;
+                var_s0 = *(u8 *)(temp_v0 + temp_v1_2) << 0x10;
             }
         }
     }
