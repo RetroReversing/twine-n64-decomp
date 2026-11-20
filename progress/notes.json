@@ -5864,14 +5864,6 @@
   "score_after": 20
  },
  {
-  "function": "func_80073508",
-  "text": "Corrected pointer step from +=4 to ++ to match target 4-byte stride. Comparing masked value to its single-bit mask forces sllv and reduces 1127 to 835, but generates bne rather than target beqz. Null-path loop restructuring did not change instructions. Target has an extra increment in branch-likely delay slot; investigate loop form and generating shifted mask while testing nonzero.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795138764.804673,
-  "score_before": 1137,
-  "score_after": 835
- },
- {
   "function": "func_80070B40",
   "text": "Verified baseline 875; six independent loop, record, lifetime, signedness, declaration and branch orientation variants did not improve it. Target differs in switch/jump-table destinations and 20 instruction rows; first branch target is 0x64 versus candidate 0x70. Restructure switch case/default layout and the wraparound loop before tuning registers, then verify linked jtbl_800D4740.",
   "by": "codex-gpt-6.1-terra-4",
@@ -5894,14 +5886,6 @@
   "created_at": 1795138775.6432362,
   "score_before": 721,
   "score_after": 721
- },
- {
-  "function": "func_80073508",
-  "text": "Concurrent claim changed during trials. Rechecked baseline 835; explicit goto loop worsened to 2566, changing var_s1 signedness retained identical assembly. Target initializes s3=1 early, candidate does not.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138782.3694668,
-  "score_before": 835,
-  "score_after": 835
  },
  {
   "function": "func_80044410",
@@ -5990,14 +5974,6 @@
   "created_at": 1795138834.488529,
   "score_before": 3097,
   "score_after": 3097
- },
- {
-  "function": "func_80073508",
-  "text": "Rechecked baseline 835. Address, const, passthrough call, symbol local, zero local, assignment-at-use and signed shift variants did not improve. Target retains constant 1 in s3 and uses beqz for mask test; candidate uses bne on two shifted expressions and does not retain the constant. Next experiment introduce a long-lived integer one local and express mask test as nonzero, inspecting target branch semantics.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795138835.662549,
-  "score_before": 835,
-  "score_after": 835
  },
  {
   "function": "func_80060AA8",
@@ -11974,14 +11950,6 @@
   "created_at": 1795178591.656066,
   "score_before": 2768,
   "score_after": 2768
- },
- {
-  "function": "func_80073508",
-  "text": "Best verified score 225 (75/75 instructions), candidate revision f7ece677cc8ec2057ee2. Only 6 diffs: five FPR allocation differences around computed temp_fv1 (target uses $fv1 then $f2; candidate uses $f0 throughout) and one branch opcode bne vs target beqz. Local repairs float_zero_local, assignment_at_use, global_scalar_type did not improve; float_zero_local notably regressed. Try separating subtraction and multiplication into explicit f32 locals to guide FPR allocation, and inspect final branch condition's exact compare polarity. Removed unused var_s0 to make existing extern globals compile.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178602.6355488,
-  "score_before": 225,
-  "score_after": 225
  },
  {
   "function": "func_8004830C",
@@ -27120,14 +27088,6 @@
   "score_after": 270
  },
  {
-  "function": "func_80073508",
-  "text": "Verified 225, 75 instructions. Residual f2 vs f0 through subtraction, multiply, comparison and store, plus bne vs beqz on the mask. Loop-invariant u32 one=1 and nonzero mask test scored 295; adding explicit distance temporary and splitting subtract/multiply plus in-place doubling scored 270, including with u8 mask cast. Bare nonzero literal mask with staged subtract/multiply, reversed product, or in-place doubling scored 812\u20131348. Keep saved 225. Next inspect the 270 variant's actual mask and FPR diff separately or test compiler combine/reload flags on the saved source.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795193711.061261,
-  "score_before": 225,
-  "score_after": 225
- },
- {
   "function": "func_80098710",
   "text": "Fresh score 130 from m2c-style linked-list initialization (current candidate revision 80c18bd74dbd7c82982e); tried casting initial &D_800FD974 through s8*, no change. Remaining diff: target materializes address in v0 then moves to a1; our candidate uses a1 directly. Branch targets differ by 4 bytes at bnel and bnez because target has one extra move. Historical local-repair searches already exhausted extensively; investigate loop/variable lifetime or explicit initial address temporary.",
   "by": "codex-gpt-6-luna-7",
@@ -29934,14 +29894,6 @@
   "created_at": 1795199834.273182,
   "score_before": 640,
   "score_after": 640
- },
- {
-  "function": "func_80073508",
-  "text": "Candidate baseline compiles at score 225 (97.0%), 75 instructions. Mismatches: FP temporary allocated $f0 instead of target $f2 through sub/mul/compare/store/add, and branch target emits bne $v0,$v1 instead of beqz $v0. Tried inserting a local after calculating temp_fv1 but declaration syntax failed under this C dialect; no assembly trial. Continue from saved best, consider arranging reuse of temp_fv1 as both computed and accumulated value to shift FPR assignment, and restructure mask test to directly test bit with conditional.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795199852.339355,
-  "score_before": 225,
-  "score_after": 225
  },
  {
   "function": "func_8005C6F8",
@@ -35230,5 +35182,61 @@
   "created_at": 1795201801.108638,
   "score_before": 5,
   "score_after": 5
+ },
+ {
+  "function": "func_80073508",
+  "text": "Corrected pointer step from +=4 to ++ to match target 4-byte stride. Comparing masked value to its single-bit mask forces sllv and reduces 1127 to 835, but generates bne rather than target beqz. Null-path loop restructuring did not change instructions. Target has an extra increment in branch-likely delay slot; investigate loop form and generating shifted mask while testing nonzero.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795138764.804673,
+  "score_before": 1137,
+  "score_after": 835
+ },
+ {
+  "function": "func_80073508",
+  "text": "Concurrent claim changed during trials. Rechecked baseline 835; explicit goto loop worsened to 2566, changing var_s1 signedness retained identical assembly. Target initializes s3=1 early, candidate does not.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138782.3694668,
+  "score_before": 835,
+  "score_after": 835
+ },
+ {
+  "function": "func_80073508",
+  "text": "Rechecked baseline 835. Address, const, passthrough call, symbol local, zero local, assignment-at-use and signed shift variants did not improve. Target retains constant 1 in s3 and uses beqz for mask test; candidate uses bne on two shifted expressions and does not retain the constant. Next experiment introduce a long-lived integer one local and express mask test as nonzero, inspecting target branch semantics.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795138835.662549,
+  "score_before": 835,
+  "score_after": 835
+ },
+ {
+  "function": "func_80073508",
+  "text": "Best verified score 225 (75/75 instructions), candidate revision f7ece677cc8ec2057ee2. Only 6 diffs: five FPR allocation differences around computed temp_fv1 (target uses $fv1 then $f2; candidate uses $f0 throughout) and one branch opcode bne vs target beqz. Local repairs float_zero_local, assignment_at_use, global_scalar_type did not improve; float_zero_local notably regressed. Try separating subtraction and multiplication into explicit f32 locals to guide FPR allocation, and inspect final branch condition's exact compare polarity. Removed unused var_s0 to make existing extern globals compile.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178602.6355488,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_80073508",
+  "text": "Verified 225, 75 instructions. Residual f2 vs f0 through subtraction, multiply, comparison and store, plus bne vs beqz on the mask. Loop-invariant u32 one=1 and nonzero mask test scored 295; adding explicit distance temporary and splitting subtract/multiply plus in-place doubling scored 270, including with u8 mask cast. Bare nonzero literal mask with staged subtract/multiply, reversed product, or in-place doubling scored 812\u20131348. Keep saved 225. Next inspect the 270 variant's actual mask and FPR diff separately or test compiler combine/reload flags on the saved source.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795193711.061261,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_80073508",
+  "text": "Candidate baseline compiles at score 225 (97.0%), 75 instructions. Mismatches: FP temporary allocated $f0 instead of target $f2 through sub/mul/compare/store/add, and branch target emits bne $v0,$v1 instead of beqz $v0. Tried inserting a local after calculating temp_fv1 but declaration syntax failed under this C dialect; no assembly trial. Continue from saved best, consider arranging reuse of temp_fv1 as both computed and accumulated value to shift FPR assignment, and restructure mask test to directly test bit with conditional.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795199852.339355,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "func_80073508",
+  "text": "Baseline 225 verified. Six local type, const, zero, assignment and declaration variants did not improve; zero local and signed global worsened. Six differing rows include floating register for post-call subtraction and one opcode.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795201888.924921,
+  "score_before": 225,
+  "score_after": 225
  }
 ]
