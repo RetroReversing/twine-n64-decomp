@@ -4200,14 +4200,6 @@
   "score_after": 1055
  },
  {
-  "function": "func_8000A5F4",
-  "text": "Improved 995 to 250 by correcting word loads, lookup offset, callee arguments, and holding &D_800E070C across both calls initialized after first call. Best candidate omits explicit return and needs correction: target returns -1 on empty entry and call result otherwise. Explicit return caused register changes (300); try control-flow variants. Remaining diff includes load order for D_800B2484/2480.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795137902.3579571,
-  "score_before": 995,
-  "score_after": 250
- },
- {
   "function": "func_80088DE0",
   "text": "Corrected outer polling loop to reset index before each scan and test completed index afterwards, improving 4126 to 1815. Current GCC peels first iteration and assigns index s0 instead of target a0. Six local variants failed to improve. Try a separate loop index lifetime and do-while structure to avoid peeling; target compares completed count to a1=2.",
   "by": "codex-gpt-6.1-terra-4",
@@ -8512,14 +8504,6 @@
   "score_after": 35
  },
  {
-  "function": "func_8000A5F4",
-  "text": "Best 250 with 7 differing instructions. Repairs to signedness, declaration order, address temporaries and array index width did not help; a rewrite into a conventional while loop degraded to 2630. Target's loop condition has beqz table pointer with delay-slot addiu v0,-1, then compares table's u16 ID against saved arg in s3 and increments byte offset by 0xC plus index. Restore saved_best and preserve the original loop/goto structure; focus on result initialization/lifetime so -1 remains in target's delay slot.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795177834.786376,
-  "score_before": 250,
-  "score_after": 250
- },
- {
   "function": "func_800448A4",
   "text": "Best verified score 1490 (38 target instructions, 36 candidate). Six local repair variants across unknown-symbol offsets, scalar reuse, inferred layout, signedness, declaration order and const reads did not improve. Tried explicit array/byte pointer types for global table and record offsets; regressed slightly to 1500 and exposed scale errors (target index is arg2<<4; candidate used <<2). Remaining main issues: target copies arg0 to a3, tests null of loaded table pointer, addresses D_800C0784 with arg2*16, loads nested pointers, uses byte stores at arg0+0x28. Candidate's types/offsets are wrong and it stores a word there. Rebuild with exact byte strides and u8 field at offset 0x28.",
   "by": "codex-gpt-6-luna-19",
@@ -10798,14 +10782,6 @@
   "created_at": 1795182215.849847,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_8000A5F4",
-  "text": "Verified best 250; six local repairs (scalar storage reuse, CFG integer lifetimes, signedness, declaration order, address temporary, array index width) no improvement; scores 933, 250x4, 670. Remaining seven differences begin at fallback result: target materializes -1 before empty-slot branch, best candidate has nop there, and no return after loop is currently modeled. Investigate control flow/partial exit and return preservation; compile warning says control reaches end of non-void function.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795182216.322348,
-  "score_before": 250,
-  "score_after": 250
  },
  {
   "function": "parse_edl_header",
@@ -16512,14 +16488,6 @@
   "score_after": 280
  },
  {
-  "function": "func_8000A5F4",
-  "text": "Current baseline revision e71bcca11ffdd23cba0d rechecked at score 250; historical best also 250. Existing candidate has forward loop with var_s2 index not initialized on entry. Automatic local repairs batch against this revision tried array_index_width (score 670) and goto_backward_loop (1413), then hit 60s cap; no improvement. Move-on limit is 6/6. First target mismatch is addiu $v0,$zero,-1 where candidate emits nop, immediately before loading D_800B248A and comparing its halfword. Revisit by restructuring the lookup so -1 is explicitly initialized on the path where D_800B2480 entry is zero, while preserving target's table-load order; remaining independent local families include call_one_shot_scope, dead_pointer_clear, spill_declaration_order, balanced_pointer_calls. No shared reusable convention established.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795187365.225832,
-  "score_before": 250,
-  "score_after": 250
- },
- {
   "function": "func_8008D838",
   "text": "Rechecked baseline 17690, then local repairs found a better switch-layout variant at 16865 (revision 06959e86737589febf31); kept that candidate. Subsequent bounded local-repair batches tested masked-value reuse, CFG lifetimes, signedness, declaration order, goto/shared-tail, loop backedge, call arity, and scalar reuse; none beat 16865. Current mismatch starts at prologue register allocation: target preserves D_8010D724 in $s5 while candidate assigns it to $s4, and the full diff remains extensive. Continue by inspecting mismatch windows and manually reshaping pointer/lifetime declarations to reproduce target register allocation; avoid already-tried local repair variants.",
   "by": "codex-gpt-6-luna-20",
@@ -17440,14 +17408,6 @@
   "score_after": 705
  },
  {
-  "function": "func_8000A5F4",
-  "text": "Rechecked revision b6402d9ab47766f7ab2d at score 250. Six local repair trials (scalar reuse, scheduling, integer lifetimes, signedness, declaration order, address temporary) did not improve; seven mismatch rows remain, beginning with target -1 initialization in the null-branch delay slot versus nop. Investigate control flow and remaining register/operand differences.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795189082.6200802,
-  "score_before": 250,
-  "score_after": 250
- },
- {
   "function": "func_80018364",
   "text": "Rechecked score 80, revision b6c2d9d513b06e89afea. Only loop-entry order differs: candidate copies s4 to s0 just before the two table-address instructions; target does it immediately after them. The candidate then computes s6 correctly. The linker leaves .rodata+0 unresolved in this ordering. Moving cursor assignment before the guard resolves the table symbol but shifts table destination addresses and scores 235. Computed goto with exact 32-entry mapping scored 752/932; bottom-tested for and redundant dispatch label tied, explicit cursor-derived end scored 140. Move-on budget reached. Try index-based induction to test whether strength reduction hoists the jump-table base before pointer setup.",
   "by": "codex-gpt-6.2-sol-2",
@@ -18214,14 +18174,6 @@
   "created_at": 1795190256.416557,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8000A5F4",
-  "text": "Recovered the historical best source (250) and added the missing return var_v0; current recheck scored 300 with 66 vs target 64 instructions. Local repairs tried scalar reuse, combined scheduling, CFG lifetimes, signedness, declaration order, address temporary; scores 1127/300/887, no improvement. Target-vs-current remaining mismatch is primarily loop CFG/registers: target initializes $v1=0 and keeps result sentinel in $v0, then advances $v1 by 0xC; candidate allocates loop offset in $a0, causing +8-byte branch destination and wrong ABI register flow. Keep original best 250 candidate (historical; header differs) available.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795190260.453221,
-  "score_before": 250,
-  "score_after": 250
  },
  {
   "function": "func_800224E4",
@@ -19542,14 +19494,6 @@
   "created_at": 1795192619.9184299,
   "score_before": 300,
   "score_after": 300
- },
- {
-  "function": "func_8000A5F4",
-  "text": "Rechecked baseline score 250, 64 instructions, revision b6402d9ab47766f7ab2d; retained current score 250 revision b2c78963ef93c3a9c55b. Tried explicit return var_v0 (score 300), parameter staging (250 unchanged), early return on empty slot (730), then restored baseline condition (250). Best mismatch: target emits addiu v0,-1 in j delay slot to the loop-exit return path, while candidate has nop; target call setup loads D_800B2484 into a2 before D_800B2480 into a1, candidate opposite. Next try source that sets/returns -1 on empty-slot exit without altering the matched loop branches; stage D_800B2484 field read before D_800B2480 base read to force desired load order. Existing candidate leaves missing return at end.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795192628.230282,
-  "score_before": 250,
-  "score_after": 250
  },
  {
   "function": "func_800588D8",
@@ -31638,5 +31582,69 @@
   "created_at": 1795197637.282697,
   "score_before": 130,
   "score_after": 130
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Improved 995 to 250 by correcting word loads, lookup offset, callee arguments, and holding &D_800E070C across both calls initialized after first call. Best candidate omits explicit return and needs correction: target returns -1 on empty entry and call result otherwise. Explicit return caused register changes (300); try control-flow variants. Remaining diff includes load order for D_800B2484/2480.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795137902.3579571,
+  "score_before": 995,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Best 250 with 7 differing instructions. Repairs to signedness, declaration order, address temporaries and array index width did not help; a rewrite into a conventional while loop degraded to 2630. Target's loop condition has beqz table pointer with delay-slot addiu v0,-1, then compares table's u16 ID against saved arg in s3 and increments byte offset by 0xC plus index. Restore saved_best and preserve the original loop/goto structure; focus on result initialization/lifetime so -1 remains in target's delay slot.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795177834.786376,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Verified best 250; six local repairs (scalar storage reuse, CFG integer lifetimes, signedness, declaration order, address temporary, array index width) no improvement; scores 933, 250x4, 670. Remaining seven differences begin at fallback result: target materializes -1 before empty-slot branch, best candidate has nop there, and no return after loop is currently modeled. Investigate control flow/partial exit and return preservation; compile warning says control reaches end of non-void function.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795182216.322348,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Current baseline revision e71bcca11ffdd23cba0d rechecked at score 250; historical best also 250. Existing candidate has forward loop with var_s2 index not initialized on entry. Automatic local repairs batch against this revision tried array_index_width (score 670) and goto_backward_loop (1413), then hit 60s cap; no improvement. Move-on limit is 6/6. First target mismatch is addiu $v0,$zero,-1 where candidate emits nop, immediately before loading D_800B248A and comparing its halfword. Revisit by restructuring the lookup so -1 is explicitly initialized on the path where D_800B2480 entry is zero, while preserving target's table-load order; remaining independent local families include call_one_shot_scope, dead_pointer_clear, spill_declaration_order, balanced_pointer_calls. No shared reusable convention established.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795187365.225832,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Rechecked revision b6402d9ab47766f7ab2d at score 250. Six local repair trials (scalar reuse, scheduling, integer lifetimes, signedness, declaration order, address temporary) did not improve; seven mismatch rows remain, beginning with target -1 initialization in the null-branch delay slot versus nop. Investigate control flow and remaining register/operand differences.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795189082.6200802,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Recovered the historical best source (250) and added the missing return var_v0; current recheck scored 300 with 66 vs target 64 instructions. Local repairs tried scalar reuse, combined scheduling, CFG lifetimes, signedness, declaration order, address temporary; scores 1127/300/887, no improvement. Target-vs-current remaining mismatch is primarily loop CFG/registers: target initializes $v1=0 and keeps result sentinel in $v0, then advances $v1 by 0xC; candidate allocates loop offset in $a0, causing +8-byte branch destination and wrong ABI register flow. Keep original best 250 candidate (historical; header differs) available.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795190260.453221,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Rechecked baseline score 250, 64 instructions, revision b6402d9ab47766f7ab2d; retained current score 250 revision b2c78963ef93c3a9c55b. Tried explicit return var_v0 (score 300), parameter staging (250 unchanged), early return on empty slot (730), then restored baseline condition (250). Best mismatch: target emits addiu v0,-1 in j delay slot to the loop-exit return path, while candidate has nop; target call setup loads D_800B2484 into a2 before D_800B2480 into a1, candidate opposite. Next try source that sets/returns -1 on empty-slot exit without altering the matched loop branches; stage D_800B2484 field read before D_800B2480 base read to force desired load order. Existing candidate leaves missing return at end.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795192628.230282,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8000A5F4",
+  "text": "Current best score 250 (64 instructions) after changing the two leading guards to separate early returns: `if (D_801002EC == 0) return -1; var_s2=0; if (arg0 == D_800E06B0) return -1;`. This closely matches the target control flow and is materially better than the initial combined guard. Remaining mismatch begins at loop top: target has `addiu $v0,-1` in delay slot of jump to loop exit; candidate emits nop. Other differences include post-call table address/load order; target computes index as (s2*3)*4, and uses correct symbols/argument regs. Current move-on threshold 7/6 reached. Saved best is candidate b6402..., edited version 631754a900c7433920a4.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197685.10846,
+  "score_before": 250,
+  "score_after": 250
  }
 ]
