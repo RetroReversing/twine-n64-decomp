@@ -57,5 +57,5 @@ void func_8007C93C(Actor7C93C *actor) {
     if (setFlag) {
         data->flags |= 0x40000000;
     }
-    func_80077960(actor, state);
+    do { func_80077960(actor, state); } while (0);
 }
