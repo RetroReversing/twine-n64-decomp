@@ -12,7 +12,7 @@ extern M2C_UNK D_800E1328,D_800E1368,D_800E14B0,D_800E1500,D_80100198,D_80102EB8
 void func_8002CC74(void) {
  M2C_UNK *end,*var_a2,*var_a2_2,*var_a2_3,*var_a3,*var_a3_3; s32 temp_v1,var_t0; void *temp_v0,*temp_v1_2,*var_a3_2;
  var_a3=&D_800E1328;var_a2=&D_8010A4C0;end=var_a2+0x10;do{*(Four *)var_a3=*(Four *)var_a2;var_a2+=4;var_a3+=4;}while(var_a2!=end);
- {typedef struct {s32 x[2];} Two; *(Two *)&D_800E1368 = *(Two *)&D_801002EC;}
+ {typedef struct {s32 first,second;} Pair; *(Pair *)&D_800E1368=*(Pair *)&D_801002EC;}
  var_a3_2=(void *)&D_800E1368;var_a3_2=(void *)((char *)var_a3_2+8);var_a2_2=&D_80100198;end=var_a2_2+0x50;
  do{*(Four *)var_a3_2=*(Four *)var_a2_2;var_a2_2+=4;var_a3_2+=0x10;}while(var_a2_2!=end);
  var_a3_3=&D_800E14B0;var_a2_3=&D_80102EB8;end=var_a2_3+0x14;do{*(Four *)var_a3_3=*(Four *)var_a2_3;var_a2_3+=4;var_a3_3+=4;}while(var_a2_3!=end);
