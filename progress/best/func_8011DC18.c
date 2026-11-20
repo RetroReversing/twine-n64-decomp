@@ -11,7 +11,7 @@ extern s32 D_800BD660;
 extern u8 D_800C469C[];
 typedef struct { u16 f0; u8 pad[22]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
-extern s32 D_801001A2;
+extern u8 D_801001A2[];
 extern u8 D_801002A0;
 extern s32 D_801002B4;
 extern s32 D_801002C0;
@@ -43,8 +43,9 @@ void func_8011DC18(void) {
     s32 temp_s2;
     s32 temp_s6;
     s32 temp_v1_6;
-    s32 var_s0;
+    
     s32 var_s2;
+s32 __repair_phase_var_s2;
     s32 var_s5;
     s32 var_v0;
     s32 var_v0_3;
@@ -85,21 +86,21 @@ void func_8011DC18(void) {
                 if (temp_s3 != NULL) {
                     temp_a1 = (*(void **)((char *)(temp_s3) + 0xB4));
                     if ((*(u8 *)((char *)(temp_a1) + 0x12)) == 2) {
-                        var_s0 = var_s5 & 0xFFFF;
+                        var_a1 = var_s5 & 0xFFFF;
                         sprintf((var_a3 * 0xC) + &D_8011F378, &D_8011F01C, (*(u16 *)((char *)(temp_a1) + 0xC)) - (*(u16 *)((char *)(temp_a1) + 0xE)), var_a3);
                     } else {
                         u8 values[2]; values[0] = 12; values[1] = 5;
                         temp_v1 = (*(void **)((char *)(temp_s3) + 0xB4));
-                        var_s0 = var_s5 & 0xFFFF;
+                        var_a1 = var_s5 & 0xFFFF;
                         sprintf((var_a3 * 0xC) + &D_8011F378, &D_8011F020, (*(u16 *)((char *)(temp_v1) + 0xC)) - (*(u16 *)((char *)(temp_v1) + 0xE)), 5, (s32) values[(*(u8 *)((char *)(temp_v1) + 0x12))], (s32) *((s16 *)&D_8011F15C + (*(u8 *)((char *)((*(void **)((char *)(temp_s3) + 0xB4))) + 0x12))));
                     }
-                    temp_s2 = var_s0 * 4;
+                    temp_s2 = var_a1 * 4;
                     temp_s1 = *(&D_8011F3D0 + temp_s2);
                     if (temp_s1 != NULL) {
-                        (*(s16 *)((char *)(temp_s1) + 0x1C)) = strlen((var_s0 * 0xC) + &D_8011F378);
+                        (*(s16 *)((char *)(temp_s1) + 0x1C)) = strlen((var_a1 * 0xC) + &D_8011F378);
                     }
                     temp_a2 = temp_s2 + &D_8011F3E8;
-                    if ((*temp_a2 != NULL) && (temp_a1_2 = (var_s0 * 2) + &D_8011F3E0, temp_v0_2 = *temp_a1_2, (temp_v0_2 > 0))) {
+                    if ((*temp_a2 != NULL) && (temp_a1_2 = (var_a1 * 2) + &D_8011F3E0, temp_v0_2 = *temp_a1_2, (temp_v0_2 > 0))) {
                         *temp_a1_2 = temp_v0_2 - 1;
                         if ((*(f32 *)((char *)(*(temp_s2 + &D_8010A500)) + 0x74)) <= 0.0f) {
                             *temp_a1_2 = 0;
@@ -152,13 +153,12 @@ block_17:
                         (*(s16 *)((char *)(temp_a0_3) + 0x26)) = (s16) (s32) temp_fv1_2;
                     }
                     temp_v1_7 = (*(void **)((char *)(temp_s3) + 0x478));
-                    var_v0_3 = var_s1 << 0x10;
                     if ((*(u16 *)((char *)(temp_v1_7) + 0x26)) == 0) {
                         if ((*(f32 *)((char *)(*(((var_s5 & 0xFFFF) * 4) + &D_8010A500)) + 0x74)) > 0.0f) {
                             (*(u16 *)((char *)(temp_v1_7) + 0x26)) = 1U;
                         }
-                        var_v0_3 = var_s1 << 0x10;
                     }
+                    var_v0_3 = var_s1 << 0x10;
                     temp_a0_4 = var_v0_3 >> 0x10;
                     if (temp_a0_4 != 0) {
                         sprintf((*(s8 **)((char *)((*(void **)((char *)(temp_s3) + 0x418))) + 0x18)), &D_8011F02C, (*(s8 *)((char *)((temp_s3 + ((s32) (func_80063C7C(temp_a0_4) << 0x10) >> 0xD))) + 0x1FF)), (*(s16 *)((char *)((temp_s3 + (var_s2 * 2))) + 0x1BC)));
@@ -176,8 +176,8 @@ block_17:
                     temp_s0_4 = (*(void **)((char *)(temp_s3) + 0x420));
                     temp_a3 = var_s5 & 0xFFFF;
                     (*(s16 *)((char *)(temp_s0_4) + 0x1C)) = strlen((*(s8 **)((char *)(temp_s0_4) + 0x18)));
-                    if (*(&D_801001A2 + (temp_a3 * 0x18)) != 0) {
-                        var_s2 = 0;
+                    if (*(D_801001A2 + (temp_a3 * 0x18)) != 0) {
+                        __repair_phase_var_s2 = 0;
                         if (D_801002B4 > 0) {
                             temp_s6 = temp_a3 * 4;
                             var_v1 = 0 & 0xFFFF;
@@ -193,7 +193,7 @@ block_17:
                                             } else {
                                                 (*(s32 *)((char *)(temp_s1_2) + 0x28)) = ((*(s32 *)((char *)(temp_s1_2) + 0x28)) & ~0xFC) | 0x1C;
                                             }
-                                            temp_s0_5 = ((var_s2 & 0xFFFF) * 4) + &D_8010A500;
+                                            temp_s0_5 = ((__repair_phase_var_s2 & 0xFFFF) * 4) + &D_8010A500;
                                             func_8011E95C(temp_s1_2, *temp_s4, *temp_s0_5 + 0x24, temp_a3);
                                             temp_ft0 = (*(f32 *)((char *)(*temp_s0_5) + 0x28));
                                             temp_fv1_3 = (*(f32 *)((char *)(*temp_s4) + 0x28));
@@ -207,7 +207,7 @@ block_17:
                                             }
                                             func_800448A4(temp_s1_2, var_a1, 0x1B);
                                             if (D_801002A0 == 8) {
-                                                if ((*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(*(((var_s2 & 0xFFFF) * 4) + &D_8010A500)) + 0x6C))) + 0xB4))) + 0x10)) != 0) {
+                                                if ((*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(*(((__repair_phase_var_s2 & 0xFFFF) * 4) + &D_8010A500)) + 0x6C))) + 0xB4))) + 0x10)) != 0) {
                                                     (*(s32 *)((char *)(temp_s1_2) + 0x10)) = (s32) D_800BD660;
                                                 } else {
                                                     (*(s32 *)((char *)(temp_s1_2) + 0x10)) = (s32) D_800BD644;
@@ -216,9 +216,9 @@ block_17:
                                         }
                                     }
                                 }
-                                var_s2 += 1;
-                                var_v1 = var_s2 & 0xFFFF;
-                            } while ((var_s2 & 0xFFFF) < D_801002B4);
+                                __repair_phase_var_s2 += 1;
+                                var_v1 = __repair_phase_var_s2 & 0xFFFF;
+                            } while ((__repair_phase_var_s2 & 0xFFFF) < D_801002B4);
                         }
                     }
                 }

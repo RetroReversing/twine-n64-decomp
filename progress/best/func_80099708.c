@@ -74,7 +74,6 @@ s32 __repair_phase_var_a1;
 block_11:
             var_a1 = -1;
         }
-        __repair_phase_storage.value = -1;
         if (var_a1 != -1) {
             do {
                 temp_s1 = var_a1 & 0xFF;

@@ -1,4 +1,4 @@
-extern volatile s32 D_800E41DC;
+extern s32 D_800E41DC;
 extern u16 D_800E41E4;
 extern u16 D_800E4216;
 extern s32 D_800E4218;
@@ -21,6 +21,7 @@ char *__repair_addr;
     s32 t;
     s32 a0v;
     s32 a1v;
+    volatile s64 reserve;
 
     s1 = arg0;
     a1v = arg1;

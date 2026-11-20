@@ -1,7 +1,7 @@
 extern s32 D_800CE800, D_800CE804, D_800CE808, D_800CE80C, D_800CE810, D_800CE814, D_800CE818, D_800CE81C, D_800CE820, D_800CE824, D_800CE828, D_800CE82C;
 extern char D_8010A960[];
 void *func_80087100(s32 id, s32 base) {
- u16 index = id & 0xfff;
+ u16 index = (u16)(id & 0xffff);
  s32 *p;
  switch (id & 0xf000) {
  case 0: if (index < 0x2ea && D_800CE804) { p = (s32 *)(index * 4 + (int)D_800CE804); return (void *)(D_800CE800 + *p); } break;

@@ -1,5 +1,5 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-s16 func_80096E7C(void *, s32); void func_80096F44(void *, s32, s32); extern char D_80112E9E[];
+s32 func_80096E7C(void *, s32); void func_80096F44(void *, s32, s32); extern char D_80112E9E[];
 s32 func_8009ABD4(s32 arg0, void *arg1, s32 arg2) {
  s16 var_s1; s32 temp_v0,temp_v0_2,temp_v0_4; short var_a2; u32 temp_v0_3,temp_v1,temp_v1_3,temp_v1_6,var_a0,var_v1;
  temp_v1=*(volatile u32 *)((s8 *)arg1+4);

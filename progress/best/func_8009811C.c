@@ -34,13 +34,16 @@ s32 func_8009811C(s32 arg0)
             refs--;
             D_800F9566[index].value = refs;
             if (refs == 0) {
+                TableEntry *prev = base - 1;
                 i = index+1;
                 if (i < D_800F8D5C) {
-                    dst = (base - 1) + i;
+                    dst = prev + i;
                     src = base + i;
                     do {
-                        *dst++ = *src++;
+                        *dst = *src;
+                        dst++;
                         i++;
+                        src++;
                     } while (i < D_800F8D5C);
                 }
                 p = D_800F8D60;

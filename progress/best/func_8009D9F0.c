@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 s32 func_8009F1D4();
 
 void func_8009D9F0(void *arg0, void *arg1, s32 arg2, s32 arg3) {
-int *__repair_home2 = &arg2;
+volatile long long reserve_gap; int *__repair_home2 = &arg2;
 
-    s32 factor = 0x3333;
+    u32 factor = 0x3333;
     s32 temp_t2;
     s32 temp_t8;
     s32 temp_t9;

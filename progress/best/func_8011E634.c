@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80076168(s32);                         /* extern */
-s32 func_8011A2A0();                                /* extern */
+s32 func_8011A2A0(void);                                /* extern */
 M2C_UNK func_8011C580();                            /* extern */
 M2C_UNK func_8011C674(M2C_UNK);                     /* extern */
 M2C_UNK func_8011C890();                            /* extern */
@@ -24,7 +24,7 @@ M2C_UNK func_8011E894();                            /* extern */
 extern u8 D_801002A0;
 extern u8 D_801002AC;
 extern u8 D_801002AE;
-extern u32 D_801002B4;
+extern s32 D_801002B4;
 extern s32 D_801002C0;
 extern s32 D_80102ED8;
 extern u8 D_8010A4FD;
@@ -72,7 +72,8 @@ void func_8011E634(void) {
         }
     } else {
 block_11:
-        var_v0_2 = (s32) D_801002A0 < 2;
+        temp_v1 = D_801002A0;
+        var_v0_2 = temp_v1 < 2;
     }
     if (var_v0_2 == 0) {
         if ((s32) temp_v1 >= 4) {
@@ -89,7 +90,7 @@ block_11:
             var_s0 = 0;
             func_8011E894();
             __base_D_801002B4 = &D_801002B4;
-            temp_s1_2 = __base_D_801002B4 - 6;
+            temp_s1_2 = (s8 *)__base_D_801002B4 - 6;
             if (temp_s1 < (*__base_D_801002B4)) {
                 var_a0 = 0 & 0xFF;
                 do {
