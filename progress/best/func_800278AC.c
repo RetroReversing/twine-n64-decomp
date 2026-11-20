@@ -21,6 +21,8 @@ extern void *D_80102F2C;
 extern void *D_80109BB0;
 
 void func_800278AC(u16 arg0, s32 arg1, s16 arg2) {
+s32 __repair_operand;
+
     s32 temp_v1;
     s32 var_v1;
     u16 temp_v0;
@@ -30,7 +32,7 @@ void func_800278AC(u16 arg0, s32 arg1, s16 arg2) {
     M2C_FIELD(D_80109BB0, u16 *, 0x14) = arg0;
     M2C_FIELD(D_80109BB0, u16 *, 0x16) = temp_v0;
     if (temp_v1 != 0) {
-        D_800E1090 = M2C_FIELD(D_80109BB0, s32 *, 0xC) + ((temp_v1 * 0x14) - 0x14);
+        D_800E1090 = (temp_v1 * 0x14 - 0x14) + M2C_FIELD(D_80109BB0, s32 *, 0xC);
         var_v1 = arg0 & 0xFFFF;
     } else {
         D_800E1090 = 0;
@@ -43,7 +45,8 @@ void func_800278AC(u16 arg0, s32 arg1, s16 arg2) {
     } else {
         D_80102EDC = 0;
     }
-    M2C_FIELD(D_80102F2C, s16 *, 0x7A) = 0x14;
-    M2C_FIELD(D_80109BB0, s16 *, 0x32) = 0;
+    { void *p = D_80102F2C; void *q = D_80109BB0;
+    M2C_FIELD(p, s16 *, 0x7A) = 0x14;
+    M2C_FIELD(q, s16 *, 0x32) = 0; }
     func_80027408(0, 0, 0, 0);
 }

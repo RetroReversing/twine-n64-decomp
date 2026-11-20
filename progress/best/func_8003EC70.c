@@ -42,9 +42,9 @@ s32 func_8003EC70(s32 arg0) {
     register s16 var_a1_3;
     s16 var_a1_4;
     s16 var_t1;
-    s32 var_t2;
-    s16 var_t3;
-    s16 var_t4;
+    register s32 var_t2;
+    s32 var_t3;
+    register s16 var_t4;
     unsigned int var_v1;
     s16 var_v0_3;
     s32 *var_a2;
@@ -70,7 +70,7 @@ s32 func_8003EC70(s32 arg0) {
     register void *temp_v0_3;
     void *temp_v1_3;
     register void *temp_v1_4;
-    u8 sp[1];
+    u8 sp[4];
 
     var_t2 = arg0;
     D_800E19CE = 0;

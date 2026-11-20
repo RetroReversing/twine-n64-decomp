@@ -14,18 +14,18 @@ typedef s32 M2C_UNK32;
 
 s32 func_800068B4();
 s32 func_80006E30();
-s32 func_80006E78();
+void func_80006E78(void);
 s32 func_80006FB4();
 s32 func_80008258();
 s32 func_80009F04();
 s32 func_8000B828();
 s32 func_80011FA4();
 s32 func_80083BE0();
-s32 func_80083C34();
+s32 func_80083C34(u32, u8);
 s32 func_80083C8C();
 s32 func_80086DA0();
 u32 func_800A67B0();
-s32 osCreateThread();
+void osCreateThread(void *, s32, void (*)(void *), void *, void *, s32);
 s32 osStartThread();
 s32 osViBlack();
 s32 osViSetMode();
@@ -63,13 +63,14 @@ extern s32 D_8010A2C4;
 extern s16 D_8010A518;
 extern s16 D_80117384;
 extern char D_8011FF40[];
-extern s32 func_800004BC;
+extern void func_800004BC(void *);
+extern char D_014A8380[], D_014BA940[];
 
 typedef struct { s32 w[4]; } __repair_words4;
 void func_80000570(void) {
     char *var_a2;
     s16 temp_v1;
-    s32 temp_a1_2;
+    s32 tvType;
     s32 temp_s1;
     s32 var_s1;
     s32 var_s2;
@@ -80,7 +81,7 @@ void func_80000570(void) {
     void *temp_a3;
     void *var_s1_2;
 
-    osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0);
+    osCreateThread(D_800D8200, 3, &func_800004BC, 0, D_800D93B0, 0x7F);
     osStartThread(D_800D8200);
     temp_v1 = func_800A67B0() > 0x7FFFFFU;
     D_80108400 = temp_v1;
@@ -109,8 +110,8 @@ void func_80000570(void) {
     func_80008258();
     D_80108F7C = 1;
     temp_a2 = D_14A8380 - D_14977A0;
-    temp_a0 = D_14BA940 - D_14A8380;
-    temp_a1 = D_14CD630 - D_14BA940;
+    temp_a0 = D_14BA940 - D_014A8380;
+    temp_a1 = D_14CD630 - D_014BA940;
     if ((temp_a0 < temp_a2) & (temp_a1 < temp_a2)) {
         D_80108F7C = temp_a2;
     }
@@ -122,15 +123,16 @@ void func_80000570(void) {
     }
     temp_a0_2 = D_80108F7C + 0x80;
     D_80108F7C = temp_a0_2;
-    D_800CE800 = func_80083C34(temp_a0_2, 1, temp_a2);
+    D_800CE800 = func_80083C34(temp_a0_2, 1);
     func_80006E30();
     func_8000B828(func_80083C8C());
     func_80083C34(func_80009F04() + 0x400, 1);
+    tvType = D_80000300;
     D_800D03EC = 0x3BB;
-    D_80117384 = (u32) (D_80000300 - 1) < 2U;
-    if (D_80000300 != 0) {
+    D_80117384 = (u32) (tvType - 1) < 2U;
+    if (tvType != 0) {
         var_s2 = 0;
-        if (D_80000300 != 2) {
+        if (tvType != 2) {
             var_s1 = 0 * 4;
         } else {
             var_s2 = 0x1C;
@@ -161,7 +163,7 @@ block_14:
     D_80109D04 = 0x500;
     D_80109CF8 = 0x2301FD;
     D_80109D0C = 0x2501FF;
-    func_80006E78(0x2301FD,  M2C_FIELD(var_a2, s32 *, 0xC));
+    func_80006E78();
     osViSwapBuffer(D_80100304);
     func_80086DA0(1);
     func_80011FA4();
@@ -170,3 +172,4 @@ loop_18:
     func_800068B4();
     goto loop_18;
 }
+

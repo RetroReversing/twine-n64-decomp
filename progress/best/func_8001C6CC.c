@@ -55,7 +55,7 @@ void func_8001C6CC(void) {
     s32 var_s2;
     s32 var_s2_2;
     u32 temp_s0_3;
-    u8 temp_v0;
+    u16 temp_v0;
     void *temp_s0_2;
 
     D_80102CBC = 0;

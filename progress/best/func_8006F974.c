@@ -18,6 +18,7 @@ void func_8006F974(void *arg0, void *arg1) {
     f32 sp38[3];
     u8 sp48[0x10];
     register f32 temp_fv1;
+    f32 temp_fv2;
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fs2;
@@ -91,19 +92,15 @@ block_7:
                                     sp38[1] += (*(f32 *)((char *)(arg0) + 0xB0));
                                     temp_fv1 = sp38[2] + (*(f32 *)((char *)(arg0) + 0xB4));
                                     sp38[2] = temp_fv1;
-                                    if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), (func_800828D0(sp38[0] - var_fs2) < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0(sp38[1] - var_fs0) < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                    if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), ((temp_fv2 = sp38[1] - var_fs0, func_800828D0(sp38[0] - var_fs2)) < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0(temp_fv2) < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                         (*(f32 *)((char *)(arg0) + 0x11C)) = sp38[2];
                                         *(__vec3_words *)((char *)arg0 + 0x104) = *(__vec3_words *)&sp28[0];
                                         (*(f32 *)((char *)(arg0) + 0x114)) = sp38[1];
-                                        if (D_80108F78 != 0x19) {
-                                            if (!(sp38[2] < D_800C7C98)) {
-                                                (*(f32 *)((char *)(arg0) + 0x110)) = (0.0f);
-                                                return;
-                                            }
-                                            goto block_38;
+                                        if ((D_80108F78 == 0x19) || (sp38[2] < D_800C7C98)) {
+                                            (*(f32 *)((char *)(arg0) + 0x110)) = sp38[0];
+                                        } else {
+                                            (*(f32 *)((char *)(arg0) + 0x110)) = 0.0f;
                                         }
-    block_38:
-                                        (*(f32 *)((char *)(arg0) + 0x110)) = sp38[0];
                                     }
                                 }
                             }

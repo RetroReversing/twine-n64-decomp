@@ -25,7 +25,7 @@ loop_1:
         var_s1 -= 1;
         var_v1 -= 1;
         if (0 > var_s1) {
-            var_s1 = __repair_constant;
+            var_s1 = 5;
             var_v1 = &D_800D942C[5];
         }
         if (var_s1 == temp_a1) {
@@ -35,7 +35,7 @@ loop_1:
             }
             D_800D9428 = var_s1;
             temp_s0 = cache_base + (var_s1 << 5);
-            func_8000B900(temp_s0, &D_F8D70 + D_00437E38 + (arg0 << 5), 0x20);
+            func_8000B900(temp_s0, &D_F8D70 + (u32)&D_00437E38 + (arg0 << 5), 0x20);
             D_800D942C[var_s1] = arg0;
             D_800D942A = var_s1;
             return temp_s0;

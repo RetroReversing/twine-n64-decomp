@@ -1,5 +1,6 @@
 extern s16 D_800E093A;
 extern u8 D_800E0790[];
+extern u8 D_800E079C[];
 extern u32 D_800E0940[];
 extern s16 D_800BFC32;
 extern s32 D_801032A8;
@@ -26,21 +27,16 @@ s32 func_80010C00(void)
     func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
     func_800109CC();
     if (D_800E093A != 0) return 0;
-    if (D_800BFC32 == 0x20) goto cec;
-    if (D_800BFC32 < 0x21) {
-        if (D_800BFC32 == 1) goto fb4;
-        if (D_800BFC32 <= 0) goto d110e4;
-        if (D_800BFC32 < 5) {
-            if (D_800BFC32 < 3) goto d110e4;
-            goto fb4;
-        }
-        goto d110e4;
+    switch (D_800BFC32) {
+    case 0x20: goto cec;
+    case 0x21:
+    case 0x25:
+    case 0x62: goto d38;
+    case 1:
+    case 3:
+    case 4: goto fb4;
+    default: goto d110e4;
     }
-    if (D_800BFC32 == 0x25) goto d38;
-    if (D_800BFC32 >= 0x26) goto cec;
-    if (D_800BFC32 == 0x21) goto d38;
-    if (D_800BFC32 == 0x62) goto d38;
-    goto d110e4;
 
 cec:
     a1 = D_801032A8;
@@ -61,11 +57,18 @@ after_c:
     idx = D_800E093A;
     func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() == 0) goto l113d8;
-    CP32(D_800E0940, ENT(idx) + 12);
-    func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
-    if (func_800109CC() != 0) goto fa4;
-    CP32(D_800E0940, ENT(idx) + 12);
-    D_80102D60 = 0;
+    {
+        u8 *payload = base + 12;
+        u32 *backup = D_800E0940;
+        s32 copyIdx = D_800E093A;
+        CP32(backup, payload + copyIdx * 104);
+        idx = *(volatile s16 *)&D_800E093A;
+        func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
+        if (func_800109CC() != 0) goto fa4;
+        idx = D_800E093A;
+        D_80102D60 = 0;
+        CP32(backup, payload + idx * 104);
+    }
 fa4:
     D_800BFC32 = 0x12;
     return 0x12;
@@ -77,8 +80,10 @@ fb4:
     idx = D_800E093A;
     func_80011800(0xE, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() == 0) goto l113d8;
+    idx = D_800E093A;
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() == 0) goto l11434;
+    idx = D_800E093A;
     func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
     func_800109CC();
     a1 = D_801032A8;
@@ -86,32 +91,31 @@ fb4:
     goto d110e4;
 
 d110e4:
-    a1 = D_801032A8;
-    if (a1 != 0) goto l11374;
+    if (D_801032A8 != 0) goto l11374;
     st = D_800BFC32;
-    if (st == 0x10 || st == 0x63 || st == 0xF) goto l11120;
-    for (a1 = 0; (u16)a1 < 0x20; a1++) {
+    if (st == 0x10 || st == 0x63 || st == 0xF) {
         idx = D_800E093A;
-        if (((u8 *)D_800E0940)[(u16)a1] != (ENT(idx) + 12)[(u16)a1]) {
-            flag = D_80102D60;
-            CP32(D_800E0940, ENT(idx) + 12);
-            if (flag != 0) {
-                D_80102D60 = 0;
-                D_800BFC32 = 0;
-            } else {
-                D_800BFC32 = 0x12;
-            }
-            return (u16)D_800BFC32;
-        }
+        D_80102D60 = 0;
+        CP32(D_800E0940, D_800E079C + idx * 104);
+        D_800BFC32 = 0;
+        return 0;
     }
-    goto l11374;
-
-l11120:
-    idx = D_800E093A;
-    D_80102D60 = 0;
-    CP32(D_800E0940, ENT(idx) + 12);
-    D_800BFC32 = 0;
-    return 0;
+    a1 = 0;
+    do {
+        u8 *payload = D_800E079C + D_800E093A * 104;
+        if (((u8 *)D_800E0940)[(u16)a1] == payload[(u16)a1]) goto equal;
+        flag = D_80102D60;
+        CP32(D_800E0940, payload);
+        if (flag != 0) {
+            D_80102D60 = 0;
+            D_800BFC32 = 0;
+        } else {
+            D_800BFC32 = 0x12;
+        }
+        return (u16)D_800BFC32;
+equal:
+        a1++;
+    } while ((u16)a1 < 0x20);
 
 l11374:
     a1 = D_801032A8;
@@ -127,10 +131,12 @@ l113ec:
     func_80011800(0xC, ENT(idx), idx, 0, 0, 0, 0, 0);
     if (func_800109CC() != 0) goto l11464;
 l11434:
-    idx = D_800E093A;
-    D_800BFC32 = 0x10;
-    D_80109DC8[idx] = 1;
-    return 0x10;
+    {
+        s32 entryIndex = D_800E093A;
+        D_800BFC32 = 0x10;
+        D_80109DC8[entryIndex] = 1;
+        return 0x10;
+    }
 l11464:
     idx = D_800E093A;
     func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
@@ -139,13 +145,16 @@ l11464:
     if (a1 == 0 || a1 == 0xB || a1 == 0xA) goto l114cc;
     goto l1159c;
 l114cc:
-    idx = D_800E093A;
-    D_80102D60 = 0;
-    CP32(D_800E0940, ENT(idx) + 12);
-    D_800BFC32 = 0x12;
-    return 0x12;
+    {
+        s32 entryIndex = D_800E093A;
+        u8 *payloadBase = base + 12;
+        D_80102D60 = 0;
+        CP32(D_800E0940, entryIndex * 104 + payloadBase);
+        D_800BFC32 = 0x12;
+        return 0x12;
+    }
 l11594:
-    a1 = D_801032A8;
+    a1 = *(volatile s32 *)&D_801032A8;
 l1159c:
     return (u16)func_80010B60(a1);
 }

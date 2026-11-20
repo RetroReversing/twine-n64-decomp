@@ -74,17 +74,13 @@ void func_8002323C(void) {
     s32 temp_s0_6;
     s32 temp_s0_7;
     s32 temp_s1;
-    s32 temp_s1_4;
-    s32 temp_s1_5;
     s32 temp_s3_2;
     s32 temp_s5;
     s32 temp_s5_2;
     s32 temp_v0_10;
     s32 temp_v0_2;
     s32 temp_v0_3;
-    s32 temp_v0_5;
     s32 temp_v0_6;
-    s32 temp_v0_8;
     s32 temp_v0_9;
     s32 var_s0_3;
     s32 var_s0_4;
@@ -94,18 +90,14 @@ void func_8002323C(void) {
     s32 temp_v0;
     s32 var_s0_2;
     void *temp_a0;
+    void *temp_v0_4;
     void *temp_a0_4;
     void *temp_a0_6;
     void *temp_s0;
     void *temp_s0_2;
-    void *temp_s1_2;
-    void *temp_s1_3;
     void *temp_s2;
     void *temp_s3;
     void *temp_s4;
-    void *temp_v0_11;
-    void *temp_v0_4;
-    void *temp_v0_7;
     void *var_s0;
 
     temp_s2 = func_800262A8(&D_800BDBF8, 0x53);
@@ -135,8 +127,11 @@ void func_8002323C(void) {
         temp_a2 = *M2C_FIELD(D_80109BB0, s32 **, 0x10);
         D_801002E6 = M2C_FIELD((u8 *)temp_a2 + (u16)var_s0_2 * 0x28, UnalignedWord *, 0x24);
         func_80026004(temp_s4, &D_800D2AAC);
-        memset(&D_800E107E, 0, 4);
-        memset(&D_800E1068, 0, 0x16);
+        {
+        s16 *totals = &D_800E107E;
+        s16 *scores = &D_800E1068;
+        memset(totals, 0, 4);
+        memset(scores, 0, 0x16);
         var_s4 = 0;
         if (D_801002B4 > 0) {
             do {
@@ -147,14 +142,15 @@ void func_8002323C(void) {
                     temp_s0_2 = M2C_FIELD(temp_s0, void **, 0x6C);
                     if (temp_s0_2 != NULL) {
                         temp_a0 = M2C_FIELD(temp_s0_2, void **, 0xB4);
-                        (&D_800E1068)[temp_s1 & 0xFFFF] = M2C_FIELD(temp_a0, u16 *, 0xC) - M2C_FIELD(temp_a0, u16 *, 0xE);
+                        scores[temp_s1 & 0xFFFF] = M2C_FIELD(temp_a0, u16 *, 0xC) - M2C_FIELD(temp_a0, u16 *, 0xE);
                     }
                 }
                 temp_v0_2 = temp_s1 & 0xFFFF;
-                temp_a0_2 = &(&D_800E107E)[*((u8 *)&D_801001A1 + (temp_v0_2 * 0x18))];
-                *temp_a0_2 = (u16) *temp_a0_2 + (u16) (&D_800E1068)[temp_v0_2];
+                temp_a0_2 = &totals[*((u8 *)&D_801001A1 + (temp_v0_2 * 0x18))];
+                *temp_a0_2 = (u16) *temp_a0_2 + (u16) scores[temp_v0_2];
                 var_s4 += 1;
             } while ((var_s4 & 0xFFFF) < D_801002B4);
+        }
         }
         var_s4 = 0;
         do {
@@ -194,8 +190,8 @@ void func_8002323C(void) {
             func_8002A7CC(&D_800E0EF0, &D_800E0FC0, 0, 1);
             if (D_801002B4 > 0) {
                 do {
-                    temp_v0_5 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
-                    temp_s5 = temp_v0_5 * 0x18;
+                    temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
+                    temp_s5 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5) == 0) {
                         temp_v0_10 = func_800162BC(D_800BD68E);
                         {
@@ -215,12 +211,12 @@ void func_8002323C(void) {
                             func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5));
                             goto next3;
                         success3:
-                            temp_s1_2 = func_80087100((var_s2 + 0x4003) & 0xFFFF);
-                            temp_a0_4 = temp_s1_2;
-                            sprintf(temp_a0_4, D_800D2AB0, (&D_800E1068)[temp_v0_5]);
+                            temp_v0_4 = func_80087100((var_s2 + 0x4003) & 0xFFFF);
+                            temp_a0_4 = temp_v0_4;
+                            sprintf(temp_a0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
                             var_s2 += 1;
                             func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_5), temp_s5 + (u8 *)&D_801001A4, 0x40);
-                            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5), temp_s1_2, 0x240);
+                            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5), temp_v0_4, 0x240);
                             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_5), 0, 1);
                         next3:;
                     }
@@ -237,15 +233,15 @@ void func_8002323C(void) {
                 temp_v0_10 = func_800162BC(channel);
                 M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6) = temp_v0_10;
             }
-            temp_v0_7 = func_80087100(0x4002);
-            sprintf(temp_v0_7, D_800D2AB0, D_800E1080);
+            temp_v0_4 = func_80087100(0x4002);
+            sprintf(temp_v0_4, D_800D2AB0, D_800E1080);
             func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6), func_80087100(0x6F), 0x40);
-            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6), temp_v0_7, 0x240);
+            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6), temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_6), 1, 1);
             if (D_801002B4 > 0) {
 loop_32:
-                temp_v0_8 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
-                temp_s5_2 = temp_v0_8 * 0x18;
+                temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
+                temp_s5_2 = temp_s1 * 0x18;
                 if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
                         temp_v0_10 = func_800162BC(D_800BD68E);
                         {
@@ -265,12 +261,12 @@ loop_32:
                             func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
                             goto next5;
                         success5:
-                            temp_s1_3 = func_80087100((var_s2 + 0x400B) & 0xFFFF);
-                            temp_a0_6 = temp_s1_3;
-                            sprintf(temp_a0_6, D_800D2AB0, (&D_800E1068)[temp_v0_8]);
+                            temp_v0_4 = func_80087100((var_s2 + 0x400B) & 0xFFFF);
+                            temp_a0_6 = temp_v0_4;
+                            sprintf(temp_a0_6, D_800D2AB0, (&D_800E1068)[temp_s1]);
                             var_s2 += 1;
                             func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7), temp_s5_2 + (u8 *)&D_801001A4, 0x40);
-                            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7), temp_s1_3, 0x240);
+                            func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7), temp_v0_4, 0x240);
                             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_7), 1, 1);
                         next5:;
                 }
@@ -283,7 +279,7 @@ loop_32:
             if (temp_v0_2 < D_801002B4) {
                 do {
                     var_s0_4 = (u16)var_s4;
-                    temp_s1_4 = func_80022DBC(var_s0_4);
+                    temp_s1 = func_80022DBC(var_s0_4);
                     temp_v0_10 = func_800162BC(D_800BD68E);
                     {
                         u8 channel = D_800BD68E;
@@ -300,11 +296,11 @@ loop_32:
                         func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2));
                         goto next7;
                     success7:
-                        temp_v0_11 = func_80087100((var_s4 + 0x4003) & 0xFFFF);
-                        temp_s1_5 = temp_s1_4 & 0xFFFF;
-                        sprintf(temp_v0_11, D_800D2AB0, (&D_800E1068)[temp_s1_5]);
-                        func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2), (temp_s1_5 * 0x18) + (u8 *)&D_801001A4, 0x40);
-                        func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2), temp_v0_11, 0x240);
+                        temp_v0_4 = func_80087100((var_s4 + 0x4003) & 0xFFFF);
+                        temp_s1 = temp_s1 & 0xFFFF;
+                        sprintf(temp_v0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
+                        func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2), (temp_s1 * 0x18) + (u8 *)&D_801001A4, 0x40);
+                        func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2), temp_v0_4, 0x240);
                         func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s3_2), (var_s4 + 1) & 0xFF, 1);
                     next7:;
                     var_s4 += 1;
