@@ -4848,14 +4848,6 @@
   "score_after": 430
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Best current score 1656. Two local repair batches did not improve it; changing byte signedness/constness, global scalar declarations, local ordering, record layout and pointer block scope did not help. Remaining focus is structural addressing and registers: target computes arg0*0x35 from D_800B2710 using a sequence of multiply-add/shift operations, then loads two nested pointers through $v1/$t0 before calling func_80079CB4. Candidate reaches equivalent logic but computes address with different register and stack layout; inspect the full target and formulate nested pointer temporaries to induce target allocation.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795137649.473998,
-  "score_before": 1656,
-  "score_after": 1656
- },
- {
   "function": "func_80063D38",
   "text": "Address temporary improved verified score 577 to 572. Call arity, signedness and declaration order did not improve; target frame is 0x18 versus candidate 0x20, with register/control-flow differences. Investigate lifetime across call and restructure to avoid saved registers.",
   "by": "codex-gpt-6.1-terra-8",
@@ -11608,14 +11600,6 @@
   "score_after": 75440
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Verified inherited score 1656, then direct pointer rewrite improved best to 1611 (41 vs 42 instructions). Local repairs tried call one-shot scope, assignment-at-use, signedness, declaration order, widening, and single-use inline; none beat 1611. Current best source uses global pointer D_800B2710, indexed record offset arg0*0xD4, object field +0x68, nested state +0x68, byte at +0xB1, plus direct 16-argument helper call. Remaining diff begins with address-add operand order/registers, nested pointer loads and call stack setup; target emits two loads through object at +0x68, first reading byte, then reloads for second byte. Target conditional computes XOR 0x33 then sltiu/negu/andi; current source compiles to branch-based equality. Further work should match address and nested load lifetimes, and express conditional in bitwise form `-(x == 0x33) & 3` or `((x ^ 0x33)==0)` while controlling argument stack placement.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795177427.8540642,
-  "score_before": 1656,
-  "score_after": 1611
- },
- {
   "function": "func_8003090C",
   "text": "Exact match achieved by preserving s16 semantics for the indexed key and comparing the loaded s16 to the narrowed `temp_v0` (arg0 - 1), then rewriting the search as a straightforward bounded for loop: `for (var_a0 = 0; var_a0 < (s32) D_800E1608; var_a0++) if (*(s16 *)((var_a0 * 8) + D_800BFF04) == temp_v0) return var_a0;`. Prior branch-heavy for(;;) draft with separate var_v0/temp_v0_2 scored 2075; simple bounded loop with the above types/layout produced byte-identical 36 instructions.",
   "by": "codex-gpt-6-luna-9",
@@ -15216,14 +15200,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Score 1611; assignment-at-use, signedness and declaration order tied; call scope worsened. Reconstruct 16-argument call and stack scheduling from target.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795182127.170654,
-  "score_before": 1611,
-  "score_after": 1611
- },
- {
   "function": "func_80025F78",
   "text": "Score 5: only OR operand order differs (target or v1,v0,a1; compiler emits or v1,a1,v0). Reversing source operands gives identical code; widening temporary or using addition worsens. Investigate staged operands or compiler profile.",
   "by": "codex-gpt-6.1-terra-4",
@@ -18760,14 +18736,6 @@
   "score_after": 3560
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Improved 1611 to 1411 (8a7fca34ec3e5b1481f9). Object's +0x68 pointer must be loaded twice; first +0xB1 byte drives special=3 for 0x33, second supplies stack arg at +0x28 in jal slot. Unsigned inline XOR restores xori, but KMC turns all tested negated, multiplied, shifted and complemented Boolean masks into a branch. Flags sweep did not improve. Next try a nested expression or alternate known compiler profile that retains setcc/negate/and before tuning t0/v1 allocation.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795183735.506022,
-  "score_before": 1611,
-  "score_after": 1411
- },
- {
   "function": "func_8011A7C8",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 0; 135 differing rows (16 opcode, 35 register, 13 branch target, 7 operand, 14 reordered, 22 inserted, 28 deleted; advisory).\nTarget: lui $a1, %hi(D_801002A0)\nCandidate: lui $v1, %hi(D_801002A0)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lui $a1, %hi(D_801002A0) | C: lui $v1, %hi(D_801002A0)\n< T: addiu $a1, $a1, %lo(D_801002A0) | C: \ni T: lbu $v1, ($a1) | C: lbu $v1, %lo(D_801002A0)($v1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nLocal trials improved 9160 to 8875 (revision f2cd472c1a8e9fa4a8e4): struct field access, reversed branch, corrected scaled pointer indexing. Low-progress handoff released claim automatically. Still 133 diff rows and pointer conversion warnings; reconstruct loops and declare D_80102CD0/D_8010A500 as pointer arrays before tuning.",
   "by": "codex-gpt-6.1-terra-1",
@@ -21526,14 +21494,6 @@
   "created_at": 1795184983.199285,
   "score_before": 120,
   "score_after": 120
- },
- {
-  "function": "func_8000CCE4",
-  "text": "Improved 1411 to 290 via a static inline unsigned-negation helper, which restores xori/sltiu/negu/andi. Typed record version ties. Remaining v0/v1 base-add pair and scheduling: a0 address is too early, a1 is placed where a0 should be, and second lbu is between sltiu and negu. Explicit destination/kind staging, constant staging and pointer helper did not improve.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795184983.7414012,
-  "score_before": 1411,
-  "score_after": 290
  },
  {
   "function": "func_8001ADE8",
@@ -24488,14 +24448,6 @@
   "score_after": 0
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Verified baseline 280. Making second byte read volatile and moving both address assignments into call arguments produced identical machine code. Caching the second volatile pointer before the outgoing call scored 671 and moved its load too early. Target computes both position and rotation after the second pointer load, then consumes its byte before xori/sltiu; baseline computes position before the stack constants and sinks the byte read between sltiu and negu. Preserve the two loads and inline negate while investigating why outgoing argument expansion hoists position.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795187219.0184808,
-  "score_before": 280,
-  "score_after": 280
- },
- {
   "function": "func_8000AC74",
   "text": "Current verified baseline remains score 20. Tried two local-repair batches; no improvement through 7/4 compiles. C control flow and arithmetic are close, with remaining four register-allocation mismatches at div.s/mul.s: target keeps quotient and square in $f2 while candidate uses $f0. Tried inline scalar, shared/duplicate return, float zero local, symbol address staging, assignment-at-use, byte-table signedness and global scalar signedness; none improved. Next investigate temporary/value lifetime and statement ordering around the division so GCC allocates quotient into $f2.",
   "by": "codex-gpt-6-luna-11",
@@ -25952,14 +25904,6 @@
   "score_after": 80
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Best score 280 (42 instructions; 6 instruction differences). Rechecked saved source and exact baseline. Explicit repeated constant local had no effect. Hoisting second state pointer to local regressed score to 816 and changed stack frame, so saved best should be retained. Remaining diff is call argument scheduling: target emits constant 100 and stack stores before preparing register arguments obj+0x24/0x3c; current emits first pointer address early. Assembly at mismatch shows target's second state pointer load after stack stores. Try staging call expressions or argument-order manipulation.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795189120.2284129,
-  "score_before": 280,
-  "score_after": 280
- },
- {
   "function": "func_8003F83C",
   "text": "Best remains score 650, 53 vs 55 instructions. Tried correcting callee declaration/call to no-argument; this worsened to 750 because target call appears to use incoming a0=count and advanced a1 pointer. Restored the two-argument prototype/call. Still mismatches loop-bound register placement/branch targets and two explicit 1.0f setup sequences (target lui/mtc1; candidate emits unresolved local nops). The target's profile from brief is -G8 -fno-strength-reduce; candidate comments used -G0, so inspect compiler profile if needed.",
   "by": "codex-gpt-6-luna-20",
@@ -27272,14 +27216,6 @@
   "score_after": 825
  },
  {
-  "function": "func_8000CCE4",
-  "text": "Local repair batch was submitted but the judge did not return after several minutes; results unknown. Recheck current candidate and recorded trials before continuing; saved best remains available.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795190360.684146,
-  "score_before": 280,
-  "score_after": 280
- },
- {
   "function": "guMtxF2L",
   "text": "Confirmed the complete 25 instructions end with jr/nop. The loop assigns t0\u2013t7 in strict instruction order even after earlier values die, reserves t8/t9 for bound/mask, and converts the two elements through six distinct FPRs while updating both incoming argument registers directly. This allocation and scheduling pattern, alongside prior KMC/IDO/SN trials and standard SDK callers, identifies a handwritten routine. The historical score-805 draft truncates the end pointer and is invalid. The typed pointer checkpoint preserves the eight pairs and is the usable C reference.",
   "by": "codex-gpt-6.2-sol-5",
@@ -28174,14 +28110,6 @@
   "created_at": 1795191335.675623,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_8000CCE4",
-  "text": "Current profile rechecked at 280. Trial 33f888c2d9404d6bffc7 was byte-exact at GCC 2.7.2 KMC -G0 -mips3 -mgp32 -mfp32 -O2, removing -fno-schedule-insns. Submitted verified function-only bundle; automatic application is off. Apply the bundle to save the match.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795191342.182047,
-  "score_before": 280,
-  "score_after": 280
  },
  {
   "function": "func_80031144",
@@ -29406,14 +29334,6 @@
   "created_at": 1795192733.8112938,
   "score_before": 920,
   "score_after": 920
- },
- {
-  "function": "func_8000CCE4",
-  "text": "Baseline 280. Object signedness, declaration order, assignment at use and integer-cast pointer arguments all produced identical assembly. Six differences are argument scheduling: target loads 100 before setting a0, unlike candidate. Explore call argument setup/lifetimes; saved best retained.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795192740.18391,
-  "score_before": 280,
-  "score_after": 280
  },
  {
   "function": "func_80022290",
@@ -31606,5 +31526,85 @@
   "created_at": 1795194091.974546,
   "score_before": 4160,
   "score_after": 4160
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Best current score 1656. Two local repair batches did not improve it; changing byte signedness/constness, global scalar declarations, local ordering, record layout and pointer block scope did not help. Remaining focus is structural addressing and registers: target computes arg0*0x35 from D_800B2710 using a sequence of multiply-add/shift operations, then loads two nested pointers through $v1/$t0 before calling func_80079CB4. Candidate reaches equivalent logic but computes address with different register and stack layout; inspect the full target and formulate nested pointer temporaries to induce target allocation.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795137649.473998,
+  "score_before": 1656,
+  "score_after": 1656
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Verified inherited score 1656, then direct pointer rewrite improved best to 1611 (41 vs 42 instructions). Local repairs tried call one-shot scope, assignment-at-use, signedness, declaration order, widening, and single-use inline; none beat 1611. Current best source uses global pointer D_800B2710, indexed record offset arg0*0xD4, object field +0x68, nested state +0x68, byte at +0xB1, plus direct 16-argument helper call. Remaining diff begins with address-add operand order/registers, nested pointer loads and call stack setup; target emits two loads through object at +0x68, first reading byte, then reloads for second byte. Target conditional computes XOR 0x33 then sltiu/negu/andi; current source compiles to branch-based equality. Further work should match address and nested load lifetimes, and express conditional in bitwise form `-(x == 0x33) & 3` or `((x ^ 0x33)==0)` while controlling argument stack placement.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795177427.8540642,
+  "score_before": 1656,
+  "score_after": 1611
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Score 1611; assignment-at-use, signedness and declaration order tied; call scope worsened. Reconstruct 16-argument call and stack scheduling from target.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795182127.170654,
+  "score_before": 1611,
+  "score_after": 1611
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Improved 1611 to 1411 (8a7fca34ec3e5b1481f9). Object's +0x68 pointer must be loaded twice; first +0xB1 byte drives special=3 for 0x33, second supplies stack arg at +0x28 in jal slot. Unsigned inline XOR restores xori, but KMC turns all tested negated, multiplied, shifted and complemented Boolean masks into a branch. Flags sweep did not improve. Next try a nested expression or alternate known compiler profile that retains setcc/negate/and before tuning t0/v1 allocation.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795183735.506022,
+  "score_before": 1611,
+  "score_after": 1411
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Improved 1411 to 290 via a static inline unsigned-negation helper, which restores xori/sltiu/negu/andi. Typed record version ties. Remaining v0/v1 base-add pair and scheduling: a0 address is too early, a1 is placed where a0 should be, and second lbu is between sltiu and negu. Explicit destination/kind staging, constant staging and pointer helper did not improve.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795184983.7414012,
+  "score_before": 1411,
+  "score_after": 290
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Verified baseline 280. Making second byte read volatile and moving both address assignments into call arguments produced identical machine code. Caching the second volatile pointer before the outgoing call scored 671 and moved its load too early. Target computes both position and rotation after the second pointer load, then consumes its byte before xori/sltiu; baseline computes position before the stack constants and sinks the byte read between sltiu and negu. Preserve the two loads and inline negate while investigating why outgoing argument expansion hoists position.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795187219.0184808,
+  "score_before": 280,
+  "score_after": 280
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Best score 280 (42 instructions; 6 instruction differences). Rechecked saved source and exact baseline. Explicit repeated constant local had no effect. Hoisting second state pointer to local regressed score to 816 and changed stack frame, so saved best should be retained. Remaining diff is call argument scheduling: target emits constant 100 and stack stores before preparing register arguments obj+0x24/0x3c; current emits first pointer address early. Assembly at mismatch shows target's second state pointer load after stack stores. Try staging call expressions or argument-order manipulation.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795189120.2284129,
+  "score_before": 280,
+  "score_after": 280
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Local repair batch was submitted but the judge did not return after several minutes; results unknown. Recheck current candidate and recorded trials before continuing; saved best remains available.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795190360.684146,
+  "score_before": 280,
+  "score_after": 280
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Current profile rechecked at 280. Trial 33f888c2d9404d6bffc7 was byte-exact at GCC 2.7.2 KMC -G0 -mips3 -mgp32 -mfp32 -O2, removing -fno-schedule-insns. Submitted verified function-only bundle; automatic application is off. Apply the bundle to save the match.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795191342.182047,
+  "score_before": 280,
+  "score_after": 280
+ },
+ {
+  "function": "func_8000CCE4",
+  "text": "Baseline 280. Object signedness, declaration order, assignment at use and integer-cast pointer arguments all produced identical assembly. Six differences are argument scheduling: target loads 100 before setting a0, unlike candidate. Explore call argument setup/lifetimes; saved best retained.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795192740.18391,
+  "score_before": 280,
+  "score_after": 280
  }
 ]
