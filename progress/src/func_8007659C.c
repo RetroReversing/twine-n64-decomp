@@ -23,7 +23,7 @@ void func_8007659C(void *arg0, void *arg1) {
     } m2c_initial_frame;
 
              
-    s16 temp_v1;
+    s32 temp_v1;
     s32 temp_a2;
     s32 temp_a3;
     s32 temp_a3_2;
@@ -33,20 +33,25 @@ void func_8007659C(void *arg0, void *arg1) {
     s32 temp_s3;
     s32 temp_t0;
     s32 temp_v0;
+    register s32 m0, m1, m2, m3;
 
     if (M2C_FIELD(arg1, f32 *, 4) > 1.0f) {
         M2C_FIELD(arg1, u16 *, 0xE) = (u16) (M2C_FIELD(arg1, u16 *, 0xE) + 1);
         M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) - 1.0f);
     }
-    temp_v1 = (s16) M2C_FIELD(arg1, u16 *, 0xE);
-    temp_a3 = M2C_FIELD(arg1, s32 *, 0);
+    temp_v1 = M2C_FIELD(arg1, s16 *, 0xE);
+    temp_a3 = M2C_FIELD(arg1, volatile s32 *, 0);
     temp_v0 = temp_v1 - 1;
     temp_a2 = temp_v1 + 1;
     temp_t0 = temp_v1 + 2;
-    temp_s2 = (temp_v0 & ((s32) ~temp_v0 >> 0x1F)) * 0x18;
-    temp_s1 = (temp_v1 & ((s32) ~temp_v1 >> 0x1F)) * 0x18;
-    temp_s0 = (temp_a2 & ((s32) ~temp_a2 >> 0x1F)) * 0x18;
-    temp_s3 = (temp_t0 & ((s32) ~temp_t0 >> 0x1F)) * 0x18;
+    m0 = -(temp_v0 >= 0);
+    m1 = -(temp_v1 >= 0);
+    m2 = -(temp_a2 >= 0);
+    m3 = -(temp_t0 >= 0);
+    temp_s2 = (temp_v0 & m0) * 24;
+    temp_s1 = (temp_v1 & m1) * 24;
+    temp_s0 = (temp_a2 & m2) * 24;
+    temp_s3 = (temp_t0 & m3) * 24;
     func_80046EB8(temp_a3 + temp_s2, temp_a3 + temp_s1, temp_a3 + temp_s0, temp_a3 + temp_s3, M2C_FIELD(arg1, f32 *, 4), arg0 + 0x24);
     temp_a3_2 = M2C_FIELD(arg1, s32 *, 0);
     func_80046EB8(temp_a3_2 + temp_s2 + 0xC, temp_a3_2 + temp_s1 + 0xC, temp_a3_2 + temp_s0 + 0xC, temp_a3_2 + temp_s3 + 0xC, M2C_FIELD(arg1, f32 *, 4), &m2c_initial_frame.view_sp18.value);
