@@ -28,7 +28,7 @@ void *func_800617D8(s32 arg0, s32 arg1, s32 arg2, Point3 *arg3, f32 arg4, f32 ar
     if (arg0 == 0) {
         return NULL;
     }
-    temp_v0 = func_80016410(0x2C);
+    temp_v0 = func_80016410(0x2C, arg1, arg2);
     if (temp_v0 != NULL) {
         temp_s1 = M2C_FIELD(temp_v0, Point3 **, 0x6C);
         if (arg3 == NULL) {
