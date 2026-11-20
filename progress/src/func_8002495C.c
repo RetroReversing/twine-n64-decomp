@@ -1,0 +1,62 @@
+typedef struct { u8 pad[0x18]; s32 key; } Rec;
+void func_80024D78(void);
+void func_80026424(s32, s32);
+Rec ***func_8002A920(void *, s8);
+s32 func_8002AF30(void *);
+void func_8002CA90(void *);
+void func_8002CB2C(u8);
+u16 func_8002CC14();
+s32 func_80087100(s32);
+s32 func_800AB950(s32, s32);
+extern s16 D_800BFC32;
+extern s32 D_80102F2C;
+extern u8 D_80107EA8;
+extern u8 *D_80109BB0;
+extern u8 D_8010A950;
+extern char D_800D2AC8[];
+
+s32 func_8002495C(u16 arg0, u8 arg1) {
+    Rec ***pp;
+    Rec **p;
+
+    switch (arg0) {
+    case 0:
+        func_8002CA90(D_800D2AC8);
+        if (func_8002CC14()) {
+            func_80026424(D_80102F2C, 0x18);
+            return 2;
+        }
+        pp = func_8002A920(&D_80107EA8, arg1);
+        if (pp == NULL) {
+            return 0x8002;
+        }
+        p = *pp;
+        if (p == NULL) {
+            return 0x8002;
+        }
+        if ((*p)->key == 0) {
+            return 0x8002;
+        }
+        if (func_800AB950((*p)->key, func_80087100(0x3004)) != 0) {
+            return 0x2002;
+        }
+        D_800BFC32 = 0x10E;
+        func_80026424(D_80102F2C, 0x18);
+        return 0x4002;
+    case 0x4000:
+        if ((u8)func_8002AF30(&D_8010A950) == 1) {
+            return 0x2002;
+        }
+        return 0x8002;
+    case 0x2000:
+        func_8002CB2C(arg1);
+        func_80026424(D_80102F2C, 0x18);
+        return 0x8002;
+    case 0x8000:
+        func_80024D78();
+        D_80109BB0[0x2C] = 0;
+        return 2;
+    default:
+        return 2;
+    }
+}
