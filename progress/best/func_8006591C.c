@@ -12,6 +12,7 @@ void func_8006591C(void *arg0) {
     f32 var_ft0;
     f32 var_ft2;
 f32 __repair_var_ft2_2;
+f32 __repair___repair_var_ft2_2_1;
     f32 var_fv0;
     f32 var_fv0_2;
     f32 var_fv1;
@@ -63,10 +64,10 @@ block_18:
         (*(f32 *)((char *)(temp_a1) + 0x24)) = (f32) ((*(f32 *)((char *)(temp_a1) + 0x24)) + var_ft0_2);
         return;
     }
-    __repair_var_ft2_2 = 0.5f;
+    __repair___repair_var_ft2_2_1 = 0.5f;
     var_fv0 = -0.05f;
     var_fv1_3 = -(*(f32 *)((char *)(temp_a1) + 0x24)) * 0.5f;
 block_20:
-    (*(f32 *)((char *)(temp_a1) + 0x28)) = (f32) ((*(f32 *)((char *)(temp_a1) + 0x28)) + ((var_fv0 - (*(f32 *)((char *)(temp_a1) + 0x28))) * __repair_var_ft2_2));
+    (*(f32 *)((char *)(temp_a1) + 0x28)) = (f32) ((*(f32 *)((char *)(temp_a1) + 0x28)) + ((var_fv0 - (*(f32 *)((char *)(temp_a1) + 0x28))) * __repair___repair_var_ft2_2_1));
     (*(f32 *)((char *)(temp_a1) + 0x24)) = (f32) ((*(f32 *)((char *)(temp_a1) + 0x24)) + var_fv1_3);
 }

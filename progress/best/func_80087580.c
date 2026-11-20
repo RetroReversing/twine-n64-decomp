@@ -40,9 +40,9 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x3B;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         var_s4 = 0;
-        (*(s16 *)((char *)(temp_v0) + 0x7C)) = 0;
         var_s2 = temp_s0;
         func_80044670(temp_v0, (*(u16 *)((char *)(arg2) + 0)), *(*(s16 **)((char *)(arg2) + 0x28)));
+        (*(s16 *)((char *)(temp_v0) + 0x7C)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x5C)) |= 0x600;
         (*(s32 *)((char *)(temp_v0) + 0x58)) |= 0x20000;
         do {
@@ -54,7 +54,7 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
                 (*(s32 *)((char *)(temp_v0_4) + 0x5C)) |= 0x600;
                 func_80044670(temp_v0_4, 3U, *(*(s16 **)((char *)(arg2) + 0x28)));
             }
-            var_s4 += 1;
+            var_s4++;
             var_s2 += 4;
         } while (var_s4 < 6U);
         func_80087380(temp_v0);
@@ -66,7 +66,7 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
         (*(s8 *)((char *)(temp_s0) + 0x1A)) = 1;
         (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) D_800B21CF;
         ((__repair_field_0 *)temp_s0)->value = -1;
-        (*(f32 *)((char *)(temp_s0) + 0x10)) = (f32) D_800B241F;
+        (*(f32 *)((char *)(temp_s0) + 0x10)) = (f32) (unsigned)D_800B241F;
         (*(f32 *)((char *)(temp_s0) + 4)) = 1000.0f;
         (*(f32 *)((char *)(temp_s0) + 8)) = 1000.0f;
     }

@@ -49,7 +49,7 @@ extern char D_80109688[];
 extern char D_8010A500[];
 extern u8 D_80112F6D;
 
-void *func_80064A18(u16 arg0, void *arg1, void *arg2, void *arg3) {
+void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     s32 var_fv1;
@@ -229,8 +229,8 @@ void *func_80064A18(u16 arg0, void *arg1, void *arg2, void *arg3) {
                 (*(u8 *)((char *)(temp_v1_8) + 0x29)) = (u8) ((u8) (*(u8 *)((char *)(temp_v1_8) + 0x29)) >> 1);
                 var_fv1 = 0x18;
                 (*(s16 *)((char *)((*(void **)((char *)(temp_s3) + 0x480))) + 0x20)) = 0x18;
-                var_s2 = 0x12;
                 var_s5 = 3;
+                var_s2 = 0x12;
                 (*(s16 *)((char *)((*(void **)((char *)(temp_s3) + 0x480))) + 0x22)) = 0x12;
             } else {
                 temp_v0_3 = func_800162BC((s8) (*(u8 *)((char *)(temp_s3) + 0x182)));
@@ -357,7 +357,6 @@ void *func_80064A18(u16 arg0, void *arg1, void *arg2, void *arg3) {
             temp_v1_18 = (*(u8 *)((char *)(temp_v0_10) + 0xE));
             (*(u8 *)((char *)(temp_v0_10) + 0xF)) = temp_v1_18;
             (*(u8 *)((char *)(temp_v0_10) + 0x10)) = temp_v1_18;
-            var_v0_4 = arg0 << 0x10;
             if (D_80102ED8 == 0) {
                 temp_a0 = (*(u16 *)((char *)(arg3) + 0x2C));
                 temp_s1_3 = (*(u16 *)((char *)(arg3) + 0x30));
@@ -391,16 +390,15 @@ void *func_80064A18(u16 arg0, void *arg1, void *arg2, void *arg3) {
                 func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x39)), 1, 1);
                 func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x3B)), 1, 1);
                 func_80070664(temp_s3, (*(u8 *)((char *)(arg3) + 0x3F)), 1, 1);
-                var_v0_4 = arg0 << 0x10;
                 if (D_80112F6D != 0) {
                     var_s0 = 0;
                     do {
                         func_80070664(temp_s3, var_s0 & 0xFF, 1, 0);
                         var_s0 += 1;
                     } while (var_s0 < 0x1EU);
-                    var_v0_4 = arg0 << 0x10;
                 }
             }
+            var_v0_4 = arg0 << 0x10;
             temp_v1_19 = var_v0_4 >> 0x10;
             switch (temp_v1_19) {                   /* switch 2; irregular */
             case 0:                                 /* switch 2 */

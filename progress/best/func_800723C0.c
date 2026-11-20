@@ -24,6 +24,7 @@ extern s32 D_800E1A68;
 
 typedef struct { float field_0; float field_4; float field_8; int field_C; unsigned char pad_10[8]; void * field_18; void * field_1C; } __repair_record_temp_s0;
 void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
+    f32 *__base_D_800E1A38;
     f32 sp30[3];
     Vec9 sp58;
     Vec9 sp80;
@@ -69,12 +70,13 @@ if (s != arg0 + 8) goto __repair_rows;
         temp_v0_2 = *(void **) ((u8 *) temp_v0 + 0x6C); temp_s0=(void *)temp_v0_2;
         *(s16 *) ((u8 *) temp_v0 + 0x78) = 0x1C;
         func_80045474(arg0, arg1, arg2, sp30);
-        var_fs0 = func_80045F44(arg0, &D_800E1A38);
-        temp_fv0 = func_80045F44(arg1, &D_800E1A38);
+        __base_D_800E1A38 = &D_800E1A38;
+        var_fs0 = func_80045F44(arg0, __base_D_800E1A38);
+        temp_fv0 = func_80045F44(arg1, __base_D_800E1A38);
         if (temp_fv0 < var_fs0) {
             var_fs0 = temp_fv0;
         }
-        temp_fv0_2 = func_80045F44(arg2, &D_800E1A38);
+        temp_fv0_2 = func_80045F44(arg2, __base_D_800E1A38);
         if (temp_fv0_2 < var_fs0) {
             var_fs0 = temp_fv0_2;
         }
@@ -82,7 +84,7 @@ if (s != arg0 + 8) goto __repair_rows;
             var_fs0 = 0.1f;
         }
         temp_ft0 = 1.0f / var_fs0;
-        ((__repair_record_temp_s0*)temp_s0)->field_0 = temp_ft0 * (sp30[0] - D_800E1A38);
+        ((__repair_record_temp_s0*)temp_s0)->field_0 = temp_ft0 * (sp30[0] - (*__base_D_800E1A38));
         ((__repair_record_temp_s0*)temp_s0)->field_4 = temp_ft0 * (sp30[1] - D_800E1A3C);
         ((__repair_record_temp_s0*)temp_s0)->field_8 = temp_ft0 * (sp30[2] - D_800E1A40);
         ((__repair_record_temp_s0*)temp_s0)->field_0 = ((__repair_record_temp_s0*)temp_s0)->field_0 + func_80045D8C(D_800E1A5C, D_800E1A60);
