@@ -23,15 +23,15 @@ s32 func_8009CCB0(s32);                             /* extern */
 extern s8 D_800EDE74;
 extern s8 D_800EE1F8;
 extern s8 D_800EE37C;
-extern void *D_80117708;
+extern void *gSlotListHead;
 
-void UpdateSlotList(void) {
+/* Walks the slot list at gSlotListHead, updating each slot's state flags and fades; unlinks and releases slots that finished. */ void UpdateSlotList(void) {
     f32 sp18;
     f32 sp1C;
     s32 sp20;
     s32 sp24;
     f32 sp28;
-    f32 temp_fv0;
+    f32 timer;
     s32 temp_a0;
     s32 temp_v0;
     s32 temp_v0_2;
@@ -42,53 +42,53 @@ void UpdateSlotList(void) {
     s32 temp_v1_5;
     s32 var_v0;
     void **temp_v1_6;
-    void *temp_s1;
-    void *var_s0;
+    void *next_slot;
+    void *slot;
 
-    var_s0 = D_80117708;
+    slot = gSlotListHead;
     D_800EDE74 = 0;
     D_800EE1F8 = 0;
     D_800EE37C = 0;
-    if (var_s0 != NULL) {
+    if (slot != NULL) {
         do {
-            temp_v1 = M2C_FIELD(var_s0, s32 *, 8);
-            temp_s1 = M2C_FIELD(var_s0, void **, 0);
+            temp_v1 = M2C_FIELD(slot, s32 *, 8);
+            next_slot = M2C_FIELD(slot, void **, 0);
             if (temp_v1 & 0x40000) {
-                if (temp_s1 != NULL) {
-                    M2C_FIELD(temp_s1, void ***, 4) = (void **) M2C_FIELD(var_s0, void ***, 4);
+                if (next_slot != NULL) {
+                    M2C_FIELD(next_slot, void ***, 4) = (void **) M2C_FIELD(slot, void ***, 4);
                 }
-                temp_v1_6 = M2C_FIELD(var_s0, void ***, 4);
+                temp_v1_6 = M2C_FIELD(slot, void ***, 4);
                 if (temp_v1_6 != NULL) {
-                    *temp_v1_6 = M2C_FIELD(var_s0, void **, 0);
+                    *temp_v1_6 = M2C_FIELD(slot, void **, 0);
                 } else {
-                    D_80117708 = M2C_FIELD(var_s0, void **, 0);
+                    gSlotListHead = M2C_FIELD(slot, void **, 0);
                 }
-                temp_a0 = M2C_FIELD(var_s0, s32 *, 0x34);
-                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s0, u16 *, 0xA);
+                temp_a0 = M2C_FIELD(slot, s32 *, 0x34);
+                M2C_FIELD(slot, s32 *, 8) = (s32) M2C_FIELD(slot, u16 *, 0xA);
                 if (temp_a0 != -1) {
                     func_8008EA58(temp_a0);
                 }
             } else {
                 if (temp_v1 & 0x20001) {
-                    func_800937D0(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
+                    func_800937D0(slot, &sp18, &sp1C, &sp20, &sp24, &sp28);
                 }
-                temp_v1_2 = M2C_FIELD(var_s0, s32 *, 8);
+                temp_v1_2 = M2C_FIELD(slot, s32 *, 8);
                 if (!(temp_v1_2 & 0x80000)) {
                     if (temp_v1_2 & 0x20000) {
                         if ((sp18 == 0.0f) && (temp_v1_2 & 4)) {
                             var_v0 = (temp_v1_2 | 0x80000) & 0xFFFDFFFF;
                             goto block_28;
                         }
-                        if (M2C_FIELD(var_s0, s32 *, 8) & 1) {
-                            if (func_80094B48(var_s0, sp18, sp20, sp24, sp28, sp1C) & 0xFF) {
+                        if (M2C_FIELD(slot, s32 *, 8) & 1) {
+                            if (func_80094B48(slot, sp18, sp20, sp24, sp28, sp1C) & 0xFF) {
                                 goto next;
                             }
                             goto block_29;
                         } else {
-                            temp_v0 = func_8008E3EC(M2C_FIELD(var_s0, u16 *, 0x3C), 0x7F, 0x40);
-                            M2C_FIELD(var_s0, s32 *, 0x34) = temp_v0;
+                            temp_v0 = func_8008E3EC(M2C_FIELD(slot, u16 *, 0x3C), 0x7F, 0x40);
+                            M2C_FIELD(slot, s32 *, 0x34) = temp_v0;
                             if (temp_v0 == -1) {
-                                temp_v1_3 = M2C_FIELD(var_s0, s32 *, 8);
+                                temp_v1_3 = M2C_FIELD(slot, s32 *, 8);
                                 if (!(temp_v1_3 & 2)) {
                                     var_v0 = (temp_v1_3 | 0x40000) & 0xFFFDFFFF;
                                     goto block_28;
@@ -98,41 +98,41 @@ void UpdateSlotList(void) {
                             }
                         }
                     } else {
-                        temp_v0_2 = func_8009CCB0(M2C_FIELD(var_s0, s32 *, 0x34));
-                        M2C_FIELD(var_s0, s32 *, 0x34) = temp_v0_2;
+                        temp_v0_2 = func_8009CCB0(M2C_FIELD(slot, s32 *, 0x34));
+                        M2C_FIELD(slot, s32 *, 0x34) = temp_v0_2;
                         if (temp_v0_2 == -1) {
-                            temp_v1_4 = M2C_FIELD(var_s0, s32 *, 8);
+                            temp_v1_4 = M2C_FIELD(slot, s32 *, 8);
                             if (!(temp_v1_4 & 2)) {
                                 var_v0 = temp_v1_4 | 0x40000;
                             } else {
                                 var_v0 = temp_v1_4 | 0x20000;
                             }
 block_28:
-                            M2C_FIELD(var_s0, s32 *, 8) = var_v0;
+                            M2C_FIELD(slot, s32 *, 8) = var_v0;
                         }
 block_29:
-                        if (M2C_FIELD(var_s0, s32 *, 0x34) != -1) {
-                            if (M2C_FIELD(var_s0, s32 *, 8) & 1) {
-                                func_800949B4(var_s0, sp18);
+                        if (M2C_FIELD(slot, s32 *, 0x34) != -1) {
+                            if (M2C_FIELD(slot, s32 *, 8) & 1) {
+                                func_800949B4(slot, sp18);
                             }
-                            if ((sp18 == 0.0f) && (M2C_FIELD(var_s0, s32 *, 8) & 4)) {
-                                func_8008EA58(M2C_FIELD(var_s0, s32 *, 0x34));
-                                temp_v1_5 = M2C_FIELD(var_s0, s32 *, 8);
-                                M2C_FIELD(var_s0, s32 *, 0x34) = -1;
+                            if ((sp18 == 0.0f) && (M2C_FIELD(slot, s32 *, 8) & 4)) {
+                                func_8008EA58(M2C_FIELD(slot, s32 *, 0x34));
+                                temp_v1_5 = M2C_FIELD(slot, s32 *, 8);
+                                M2C_FIELD(slot, s32 *, 0x34) = -1;
                                 if (temp_v1_5 & 2) {
-                                    M2C_FIELD(var_s0, s32 *, 8) = (s32) (temp_v1_5 | 0x80000);
+                                    M2C_FIELD(slot, s32 *, 8) = (s32) (temp_v1_5 | 0x80000);
                                 } else {
-                                    M2C_FIELD(var_s0, s32 *, 8) = (s32) (temp_v1_5 | 0x40000);
+                                    M2C_FIELD(slot, s32 *, 8) = (s32) (temp_v1_5 | 0x40000);
                                 }
                             } else {
-                                func_80093C40(var_s0, sp18, sp20, sp24, sp28, sp1C);
+                                func_80093C40(slot, sp18, sp20, sp24, sp28, sp1C);
                             }
                         }
-                        if (M2C_FIELD(var_s0, s32 *, 8) & 0x100000) {
-                            temp_fv0 = M2C_FIELD(var_s0, f32 *, 0x40) + 0.3f;
-                            M2C_FIELD(var_s0, f32 *, 0x40) = temp_fv0;
-                            if (temp_fv0 >= 1.0f) {
-                                M2C_FIELD(var_s0, s32 *, 8) &= 0xFFEFFFFF;
+                        if (M2C_FIELD(slot, s32 *, 8) & 0x100000) {
+                            timer = M2C_FIELD(slot, f32 *, 0x40) + 0.3f;
+                            M2C_FIELD(slot, f32 *, 0x40) = timer;
+                            if (timer >= 1.0f) {
+                                M2C_FIELD(slot, s32 *, 8) &= 0xFFEFFFFF;
                             }
                         }
                     }
@@ -140,12 +140,12 @@ block_29:
                     if (sp18 == 0.0f) {
                         goto next;
                     }
-                    M2C_FIELD(var_s0, s32 *, 8) = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
+                    M2C_FIELD(slot, s32 *, 8) = (temp_v1_2 & 0xFFF7FFFF) | 0x20000;
                 }
             }
 next:
-            var_s0 = temp_s1;
-        } while (var_s0 != NULL);
+            slot = next_slot;
+        } while (slot != NULL);
     }
     func_80094D3C();
 }

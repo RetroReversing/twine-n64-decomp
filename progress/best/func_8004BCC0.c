@@ -5,7 +5,7 @@ extern float D_800D3E28;
 extern float D_800D3E2C;
 s32 func_80047E4C();
 s32 func_800487F0();
-s32 func_8004886C(s32);
+s32 Sphere_OverlapsPoint(s32);
 s32 func_800488D4();
 s32 func_80048CC0();
 s32 func_8004D910();
@@ -183,7 +183,7 @@ u32 __repair_phase_temp_v1;
             sp10C = spD0;
             sp114 = spE0;
             do {
-                if (((*(s32 *)((char *)(var_s5) + 0x50)) & 0x200) && ((func_8004886C((s8 *) var_s5 + 0x40) << 0x18) != 0)) {
+                if (((*(s32 *)((char *)(var_s5) + 0x50)) & 0x200) && ((Sphere_OverlapsPoint((s8 *) var_s5 + 0x40) << 0x18) != 0)) {
                     temp_s1 = (*(void **)((char *)(var_s5) + 0x3C));
                     *(__repair_record_arg1 *)sp88 = *(__repair_record_arg1 *)arg1;
                     *(__repair_record_arg1 *)spD0 = *(__repair_record_arg1 *)sp28;

@@ -24,7 +24,7 @@ s32 func_800468E4();
 f32 func_80082A70();
 s32 func_80083410();
 s32 build_yz_rotation_matrix();
-s32 func_80083560();
+s32 MatMul3x3InPlace();
 s32 func_800839F0();
 s32 func_80083A6C();
 s32 guMtxF2L();
@@ -33,7 +33,7 @@ extern u8 D_800C2B40;
 extern char D_800C392A[];
 extern s32 (*D_800D9420)(s16 *, s32 *);
 extern void *D_801002FC;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern u32 D_80107EA0;
 extern void *D_8010A4B4;
 extern void *D_80115328;
@@ -192,17 +192,17 @@ do {
                             spA58[0] = M2C_FIELD(temp_s3, u16 *, 0x94) - M2C_FIELD(temp_s3, u16 *, 0x96);
                             __repair_result_spA5C = M2C_FIELD(temp_s3, u16 *, 0x98) - M2C_FIELD(temp_s3, u16 *, 0x9A);
                             func_80083410(spA58, sp90);
-                            func_80083560(sp90, temp_s1);
+                            MatMul3x3InPlace(sp90, temp_s1);
                         } else {
                             if (__repair_phase_var_s4 == 7) {
                                 spA58[1] = -(s16) M2C_FIELD(temp_s3, u16 *, 0x96);
                                 spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x9A);
                                 build_yz_rotation_matrix(spA58, sp90);
-                                func_80083560(sp90, temp_s1);
+                                MatMul3x3InPlace(sp90, temp_s1);
                             }
                         }
                     }
-                    if ((var_fp != NULL) && (gUpdateGateWord != 0)) {
+                    if ((var_fp != NULL) && (gBorderSkipFlag != 0)) {
                         if (__repair_phase_var_s4 == 7) {
                             temp_ft0 = (s32) (M2C_FIELD(var_fp, f32 *, 0x11C) * 4096.0f);
                             spA58[1] = (s16) temp_ft0;
@@ -224,7 +224,7 @@ block_42:
                                     spA58[2] = var_v0_2;
                                 }
                                 build_yz_rotation_matrix(spA58, sp90);
-                                func_80083560(sp90, temp_s1);
+                                MatMul3x3InPlace(sp90, temp_s1);
                             }
                         } else if (((__repair_phase_var_s4 == 0xB) | (__repair_phase_var_s4 == 8)) != 0) {
                             temp_v0_3 = M2C_FIELD(var_fp, s16 *, 0x17C);
@@ -237,7 +237,7 @@ block_42:
                                 spA58[1] = 0;
                                 spA58[2] = (u16) M2C_FIELD(var_fp, s16 *, 0x17C);
                                 build_yz_rotation_matrix(spA58, sp90);
-                                func_80083560(sp90, temp_s1);
+                                MatMul3x3InPlace(sp90, temp_s1);
                             }
                         }
                     }
@@ -258,17 +258,17 @@ block_42:
                         if (M2C_FIELD(arg0, s32 *, 0x58) & 0x40000) {
                             temp_s0 = func_8000DA08(arg0);
                         
-                        func_80083560(temp_s0, temp_s1);} else {
+                        MatMul3x3InPlace(temp_s0, temp_s1);} else {
                             temp_s0 = spA74;
                         
-                        func_80083560(temp_s0, temp_s1);}
+                        MatMul3x3InPlace(temp_s0, temp_s1);}
                     } else {
                         temp_s0 = spA9C + (M2C_FIELD(var_a1, s16 *, 2) * 0x30);
                         func_800839F0(temp_s0, sp20, temp_s1 + 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x24) += M2C_FIELD(temp_s0, f32 *, 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x28) += M2C_FIELD(temp_s0, f32 *, 0x28);
                         M2C_FIELD(temp_s1, f32 *, 0x2C) += M2C_FIELD(temp_s0, f32 *, 0x2C);
-                        func_80083560(temp_s0, temp_s1);
+                        MatMul3x3InPlace(temp_s0, temp_s1);
                         if ((spA84 != 0)) {
                             if ((__repair_phase_var_s4 == 0xE)) {
                                 sp30[0] = 0.0f;

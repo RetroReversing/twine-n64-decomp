@@ -21,12 +21,13 @@ extern char D_80100310[];
 extern char D_80100314[];
 extern void *D_80100B20;
 extern s32 D_8010302C;
-extern s32 gAimAxisTable;
+extern s32 D_80109688;
 extern char *D_8010A500;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
 
 void func_80074C34(void *arg0, void *arg1, s32 arg2) {
+    void **__base_D_80100B20;
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 __repair_store_2;
@@ -71,8 +72,9 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
     D_8010302C += 1;
     var_s4 = arg1;
     if (arg2 != 0) {
-        temp_s7 = &D_80100B20 - 1;
-        do {
+        __base_D_80100B20 = &D_80100B20;
+        temp_s7 = __base_D_80100B20 - 1;
+        __repair_rows: {
             var_fs0 = 5.0f;
             if (M2C_FIELD(var_s4, u16 *, 6) == 0x237) {
                 var_fs0 = 0.0f;
@@ -81,11 +83,11 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
             if (temp_v0 & 0x80000000) {
                 var_fs0 = func_8000A4F4(temp_v0 & 0xFFFFFF);
             }
-            func_80074820(gAimAxisTable, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);
+            func_80074820(D_80109688, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);
             if (D_80112EBC != 0) {
                 var_s1_2 = 0;
                 if (D_80112EBC > 0) {
-                    var_s2 = &D_80100B20;
+                    var_s2 = __base_D_80100B20;
                     do {
                         temp_v0_2 = *var_s2;
                         if (temp_v0_2 != NULL) {
@@ -107,7 +109,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
                         }
                         __repair_phase_storage.value = M2C_FIELD(var_s4, s32 *, 0);
                         if (__repair_phase_storage.value & 0x80000000) {
-                            var_v0 = D_80100B20; } else {
+                            var_v0 = (*__base_D_80100B20); } else {
                             var_v0 = temp_s7[D_80112EBC];
                         }
                         M2C_FIELD(M2C_FIELD(var_v0, void **, 0x6C), s32 *, 0x24) = __repair_phase_storage.value;
@@ -118,6 +120,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
                 }
             }
             var_s4 += 8;
-        } while ((u32) var_s4 < (u32) ((arg2 * 8) + arg1));
+        }
+if ((u32) var_s4 < (u32) ((arg2 * 8) + arg1)) goto __repair_rows;
     }
 }

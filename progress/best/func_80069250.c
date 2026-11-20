@@ -28,7 +28,7 @@ extern char D_800C46FC[];
 extern f64 D_800D44F0;
 extern f64 D_800D44F8;
 extern u8 gPauseFlag;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern char gAimAxisTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
@@ -201,7 +201,7 @@ f32 __repair_sp4C_1;
             if (D_800D44F8 < (f64) temp_fv0_3) {
                 M2C_FIELD(temp_s2, f32 *, 0x54) = 4.0f;
             }
-            if (gUpdateGateWord != 0) {
+            if (gBorderSkipFlag != 0) {
                 if (gPauseFlag != 0) {
                     do { func_800643C8(temp_s4); } while (0);
                 }

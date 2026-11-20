@@ -34,7 +34,7 @@ extern char D_800C7CAC[];
 extern s16 D_800C7CB4;
 extern s16 D_800C7CC0;
 extern char D_801001A4[];
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 
 extern char D_800D42E0[];
 extern char D_800D42E8[];
@@ -89,7 +89,7 @@ s32 func_80063998(void *arg0, s32 arg1) {
                 var_a1 = 0xA;
             
             func_800635BC(arg0, var_a1);}
-            if (gUpdateGateWord == 0) {
+            if (gBorderSkipFlag == 0) {
                 func_8000A344();
                 func_8000A894(0x101);
             } else {

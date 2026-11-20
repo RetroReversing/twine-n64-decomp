@@ -21,7 +21,7 @@ extern u8 D_801001A1;
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A2;
 extern Slot_801001A2 D_801001A2[];
 extern u8 D_801002A1;
-extern s32 D_801002C0;
+extern s32 gBorderMode;
 extern char D_8011F338[];
 
 void func_8011CC3C(void) {
@@ -39,7 +39,7 @@ void func_8011CC3C(void) {
     void *temp_v0;
 
     var_s3 = 0;
-    if (D_801002C0 > 0) {
+    if (gBorderMode > 0) {
         var_a0 = 0 & 0xFFFF;
         do {
             temp_v1 = D_801001A2[(unsigned char)var_a0].f0;
@@ -118,6 +118,6 @@ block_29:
             }
             var_s3 += 1;
             var_a0 = var_s3 & 0xFFFF;
-        } while ((var_s3 & 0xFFFF) < D_801002C0);
+        } while ((var_s3 & 0xFFFF) < gBorderMode);
     }
 }

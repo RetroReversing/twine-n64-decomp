@@ -17,7 +17,7 @@ M2C_UNK func_80008154();                            /* extern */
 s32 func_80009ED0(M2C_UNK);                         /* extern */
 M2C_UNK func_8000A5F4(s32);                         /* extern */
 void func_80045080(s32);                          /* extern */
-M2C_UNK func_80075EBC();                            /* extern */
+M2C_UNK DrawScreenBorderLines();                            /* extern */
 M2C_UNK func_80087CDC(void);                          /* extern */
 M2C_UNK func_80087D50(u8);                          /* extern */
 M2C_UNK func_80117BF4(u8);                          /* extern */
@@ -26,7 +26,7 @@ extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
 extern s8 D_801002B1;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern s32 D_8010A4E4;
@@ -40,8 +40,8 @@ void func_800761B8(void) {
     temp_s1 = (*__base_D_80102EDF);
     func_80008154();
     func_80045080((*__base_D_80102EDF));
-    if (gUpdateGateWord != 0) {
-        func_80075EBC();
+    if (gBorderSkipFlag != 0) {
+        DrawScreenBorderLines();
         func_80117BF4(temp_s1);
     }
     D_801002AE = 0;
@@ -57,7 +57,7 @@ void func_800761B8(void) {
         /* fallthrough */
     default:
         var_a0 = -1;
-        if (gUpdateGateWord != 0) {
+        if (gBorderSkipFlag != 0) {
             var_a0 = func_80009ED0(-1);
         }
         break;

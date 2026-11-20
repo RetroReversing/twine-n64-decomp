@@ -16,7 +16,7 @@ M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_8008EA58(s32);                         /* extern */
 extern u8 D_800CF540;
-extern void *D_80117708;
+extern void *gSlotListHead;
 
 s32 func_80094408(void *arg0) {
     s32 temp_a0;
@@ -33,7 +33,7 @@ s32 func_80094408(void *arg0) {
         if (temp_v1_2 != NULL) {
             *temp_v1_2 = M2C_FIELD(arg0, void **, 0);
         } else {
-            D_80117708 = M2C_FIELD(arg0, void **, 0);
+            gSlotListHead = M2C_FIELD(arg0, void **, 0);
         }
         temp_a0 = M2C_FIELD(arg0, s32 *, 0x34);
         M2C_FIELD(arg0, s32 *, 8) = (s32) M2C_FIELD(arg0, u16 *, 0xA);

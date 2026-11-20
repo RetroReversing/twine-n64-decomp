@@ -9,24 +9,24 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
  bytes=D_800C3928[n*4];
  obj=FLD(a,void*,0x68);
  state=(u8*)obj+0x14;
- if(!obj) {
+ if(obj == 0) {
   if(mode==1) bytes=(bytes+bytes*4+5)*4;
   else if(mode==2) bytes=(bytes*3+bytes+2)*4;
-  else if(mode!=3) bytes=(bytes+5)*4;
+  else if(mode!=3) bytes=((s32)bytes+5)*4;
   else bytes=(bytes*3+bytes+2+bytes*4)*4;
-  aligned=(bytes+7)&~7;
   size4=n*4; size12=n*12;
+  aligned=(bytes+7)&~7;
   base=func_80083E90(a,aligned+0xB8+aligned+bytes+size4+size12+size12);
   if(!base) goto done;
   FLD(a,void*,0x68)=base;
   memset(base,0,0xB8);
   obj=FLD(a,void*,0x68);
-  tmp=(s32)base+0xB8; FLD(obj,void*,0x54)=(void*)tmp;
+  tmp=base+0xB8; FLD(obj,void*,0x54)=(void*)tmp;
   tmp+=aligned; FLD(obj,void*,0x58)=(void*)tmp;
-  tmp+=bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
+  tmp+=(s32)bytes; FLD(obj,s32,0x14)=mode; FLD(obj,s16,0xA6)=bytes;
   tmp+=aligned; FLD(obj,void*,0x5C)=(void*)tmp;
-  FLD(obj,void*,0x6C)=(void*)(tmp+size4);
   FLD(base,void*,0)=(void*)(tmp+size4);
+  FLD(obj,void*,0x6C)=(void*)(tmp+size4);
   FLD(base,void*,4)=(void*)((s32)base+0x14+size12);
  }
  FLD(state,s8,0x9F)=n;
@@ -76,11 +76,11 @@ s32 func_8000237C(void *a,s32 index,s32 mode,s32 opt) {
    j=1;
    while(list[0]==14){list+=3;j++;}
    if(opt<0) j=func_80045CF8(j+1);
-   if(!j) {result=1;goto done;}
+   if(j == 0) {result=1;goto done;}
    val=func_8004478C(list[-2],id); FLD(state,s32,0x38)=val;
    for(;list[0]>=0;list+=3) if(list[-2]==val) FLD(state,s32,0x58+list[0]*4)=func_8004478C(list[0],id);
   }
- } else if(!valid) {
+ } else if(valid == 0) {
   for(i=0,j=0;list[j]>=0;j++,i++) FLD(state,s32,0x58+i*4)=0;
  }
  result=1;

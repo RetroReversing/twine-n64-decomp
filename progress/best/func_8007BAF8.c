@@ -17,13 +17,13 @@ s32 func_8003D6FC(f32 *, void *);                   /* extern */
 f32 func_80045764(f32 *, f32 *);                    /* extern */
 f32 func_800461D4();               /* extern */
 M2C_UNK func_80047E4C(void *, M2C_UNK *, M2C_UNK *); /* extern */
-s32 func_8004E6E4(M2C_UNK *, s32, f32 *, f32 *, s32, f32, s32, s32, s32); /* extern */
+s32 Ray_CastObjects(M2C_UNK *, s32, f32 *, f32 *, s32, f32, s32, s32, s32); /* extern */
 s32 func_8004F430(s32, f32 *, f32 *, f32);          /* extern */
 M2C_UNK func_80077960(void *, s32);                 /* extern */
 s32 func_80077E00(void *, s32, void *);             /* extern */
 M2C_UNK func_80083B64(M2C_UNK *, f32 *);            /* extern */
 extern void *D_80108F84;
-extern M2C_UNK func_8004DBD8;
+extern M2C_UNK Ray_TriangleIntersect;
 
 typedef struct { s32 x,y,z; } Vec3;
 s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
@@ -142,12 +142,12 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
                     delta[1] = M2C_FIELD(var_s0_2, f32 *, 4) - M2C_FIELD(arg0, f32 *, 0x28);
                     delta[2] = M2C_FIELD(var_s0_2, f32 *, 8) - M2C_FIELD(arg0, f32 *, 0x2C);
                     temp_fv0_8 = func_80045764(&delta[0], &delta[0]);
-                    if (((func_8004F430(temp_s5, temp_s4, &delta[0], temp_fv0_8) << 0x18) == 0) && ((func_8004E6E4(&func_8004DBD8, temp_s5, temp_s4, &delta[0], 0, temp_fv0_8, 0, 1, 0) << 0x18) == 0)) {
+                    if (((func_8004F430(temp_s5, temp_s4, &delta[0], temp_fv0_8) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, temp_s4, &delta[0], 0, temp_fv0_8, 0, 1, 0) << 0x18) == 0)) {
                         delta[0] = M2C_FIELD(arg1, f32 *, 0) - M2C_FIELD(var_s0_2, f32 *, 0);
                         delta[1] = M2C_FIELD(arg1, f32 *, 4) - M2C_FIELD(var_s0_2, f32 *, 4);
                         delta[2] = M2C_FIELD(arg1, f32 *, 8) - M2C_FIELD(var_s0_2, f32 *, 8);
                         temp_fv0_9 = func_80045764(&delta[0], &delta[0]);
-                        if (((func_8004F430(temp_s5, var_s0_2, &delta[0], temp_fv0_9) << 0x18) == 0) && ((func_8004E6E4(&func_8004DBD8, temp_s5, var_s0_2, &delta[0], 0, temp_fv0_9, 0, 1, 0) << 0x18) == 0)) {
+                        if (((func_8004F430(temp_s5, var_s0_2, &delta[0], temp_fv0_9) << 0x18) == 0) && ((Ray_CastObjects(&Ray_TriangleIntersect, temp_s5, var_s0_2, &delta[0], 0, temp_fv0_9, 0, 1, 0) << 0x18) == 0)) {
                             temp_fs0 = func_800461D4(temp_s4, var_s0_2);
                             temp_fs0_2 = temp_fs0 + func_800461D4(arg1, var_s0_2);
                             if (temp_fs0_2 < var_fs2) {

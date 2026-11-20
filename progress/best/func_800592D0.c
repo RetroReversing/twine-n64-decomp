@@ -10,7 +10,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s8 arg5, u16 arg6) {
     f32 temp_fv0;
     s16 var_v0;
-    s32 temp_a0;
+    unsigned temp_a0;
     u8 temp_v0_2;
     void *temp_s0;
     void *temp_v0;
@@ -34,8 +34,8 @@ void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s8 arg
         (*(u16 *)((char *)(temp_s0) + 0x3E)) = (u16) (*(u16 *)((char *)(arg3) + 0x36));
         (*(u16 *)((char *)(temp_s0) + 0x40)) = (u16) (*(u16 *)((char *)(arg3) + 0x38));
         (*(u16 *)((char *)(temp_s0) + 0x42)) = (u16) (*(u16 *)((char *)(arg3) + 0x40));
-        (*(s32 *)((char *)(temp_s0) + 8)) = 0;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
+        (*(s32 *)((char *)(temp_s0) + 8)) = 0;
         temp_fv0 = (*(f32 *)((char *)(temp_s0) + 8));
         (*(void **)((char *)(temp_s0) + 4)) = arg4;
         (*(u16 *)((char *)(temp_s0) + 0x44)) = arg6;

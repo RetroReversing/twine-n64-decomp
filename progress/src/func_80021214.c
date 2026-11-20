@@ -22,7 +22,7 @@ s32 func_80087100();
 extern char D_80100198[];
 extern u8 D_801002AD;
 extern char D_80100408[];
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern void *D_80109BB0;
 extern char D_8010A488[];
 extern s32 func_8001AC88;
@@ -47,7 +47,7 @@ void func_80021214(void) {
         __repair_offset = __base_D_801002AD - 0x115;
         M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + __repair_offset);
         func_80026004(temp_v0, "%s", func_80087100((unsigned short)(var_s1 + 0x96)));
-        __base_D_80102ED8 = &gUpdateGateWord;
+        __base_D_80102ED8 = &gBorderSkipFlag;
         if ((*__base_D_80102ED8) != 0) {
             func_8002A644(D_8010A488, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &func_80022C04, &func_8001AC88);
         }

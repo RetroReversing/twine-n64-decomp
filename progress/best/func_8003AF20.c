@@ -3,7 +3,7 @@
 s32 func_80039A10(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32); /* extern */
 s32 func_80039EFC(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32); /* extern */
 extern s8 D_800E176D;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern void *D_80115328;
 
 typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
@@ -137,7 +137,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
         func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x20, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + sp44), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
         return;
     }
-    if (D_8010A4E8 != 0) {
+    if (gHiResScreen != 0) {
         var_s5 = 0x200;
     } else {
         var_s5 = 0x400;
@@ -210,7 +210,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
                 do {
                     temp_t2 = ((__repair_record_arg2*)arg2)->field_20 + arg0 + (((__repair_record_arg2*)arg2)->field_26 * var_s2);
                     temp_t0 = ((__repair_record_arg2*)arg2)->field_22 + (((__repair_record_arg2*)arg2)->field_29 * var_t9);
-                    if (D_8010A4E8 != 0) {
+                    if (gHiResScreen != 0) {
                         if (((__repair_record_arg2*)arg2)->field_1E & 4) {
                             var_t1_2 = temp_t0 + arg1;
                         } else {

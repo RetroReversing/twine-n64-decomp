@@ -15,10 +15,10 @@ typedef struct { u16 f0; u8 pad[22]; } Slot_801001A2;
 extern Slot_801001A2 D_801001A2[];
 extern u8 D_801002A1;
 extern s32 D_801002B4;
-extern s32 D_801002C0;
+extern s32 gBorderMode;
 extern u8 gPauseFlag;
 extern s32 gAimAxisTable;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 extern s32 D_8010A500;
 extern s32 D_8011F018;
 extern u16 D_8011F0EC;
@@ -85,14 +85,14 @@ char *__repair_addr;
 
     var_fs2 = 160.0f;
     var_fs0 = 120.0f;
-    if (D_801002C0 != 2) {
-        if ((2 <= D_801002C0)) {
-            if ((D_801002C0 < 5)) {
+    if (gBorderMode != 2) {
+        if ((2 <= gBorderMode)) {
+            if ((gBorderMode < 5)) {
                 var_fs0 = 60.0f;
                 var_fs2 = 80.0f;
             }
         }
-    } else if (D_8010A4FD == 1) {
+    } else if (gBorderFlipFlag == 1) {
         var_fs2 = 80.0f;
     } else {
         var_fs0 = 60.0f;
@@ -100,15 +100,15 @@ char *__repair_addr;
     var_fp = 0;
     func_8011CFB0();
     var_a0 = 0 & 0xFFFF;
-    if (D_801002C0 > 0) {
+    if (gBorderMode > 0) {
         do {
             temp_v1 = var_a0 * 4;
             if (*(s32 *)((char *)&gAimAxisTable + temp_v1) != 0) {
 __repair_addr = (char *)((char *)&D_8010A500 + temp_v1);
 
                 temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));
-                if (D_801002C0 != 2) {
-                    if ((D_801002C0 < 3) || (D_801002C0 >= 5)) {
+                if (gBorderMode != 2) {
+                    if ((gBorderMode < 3) || (gBorderMode >= 5)) {
                         sp26 = 4;
                         sp1E = -4U;
                     } else {
@@ -116,7 +116,7 @@ __repair_addr = (char *)((char *)&D_8010A500 + temp_v1);
                         var_v0 = -(var_a0 >= 2U);
                         goto block_21;
                     }
-                } else if (D_8010A4FD != 0) {
+                } else if (gBorderFlipFlag != 0) {
                     sp1E = (-(var_a0 != 0) & ~3) | 8;
                     sp26 = 4;
                 } else {
@@ -276,6 +276,6 @@ var_a1_2 = var_a1_2 & 0xFFFF;
             }
             var_fp += 1;
             var_a0 = var_fp & 0xFFFF;
-        } while ((var_fp & 0xFFFF) < D_801002C0);
+        } while ((var_fp & 0xFFFF) < gBorderMode);
     }
 }

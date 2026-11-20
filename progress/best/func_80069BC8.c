@@ -8,7 +8,7 @@ extern f64 D_800D4508;
 extern f64 D_800D4510;
 extern s16 D_800E1A14;
 extern u8 D_800E1A16;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern u8 D_80102EE8;
 
 typedef struct { unsigned char pad[96]; int value; } __repair_field_60;
@@ -24,7 +24,7 @@ void func_80069BC8(void *arg0) {
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
     temp_s2 = (*(void **)((char *)(arg0) + 0x20));
-    if (gUpdateGateWord != 0) {
+    if (gBorderSkipFlag != 0) {
         D_800E1A16 = 1;
         return;
     }

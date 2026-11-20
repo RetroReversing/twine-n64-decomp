@@ -8,7 +8,7 @@ s32 func_80091654();
 s32 func_80092F9C();
 s32 func_800930F4();
 extern u8 D_800CF540;
-extern char D_800E5AC4[];
+extern char gSndEntities[];
 extern char D_800E5BD4[];
 extern char D_800E5BD8[];
 extern char D_800E6A84[];
@@ -100,7 +100,7 @@ void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
     var_v1 = 0;
     temp_a1 = temp_a2 & 0x7FFFFFFF;
 loop_1:
-    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(D_800E5AC4 + var_v1) != temp_a1)) {
+    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(gSndEntities + var_v1) != temp_a1)) {
         var_a0 += 1;
         var_v1 += 0xFF8;
         if ((s32)var_a0 >= 8U) {
@@ -186,7 +186,7 @@ loop_1:
                 var_v1_2 = 0;
                 temp_a1_2 = temp_a2_2 & 0x7FFFFFFF;
 loop_33:
-                if ((*(D_800E6A85 + var_v1_2) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_2) != temp_a1_2)) {
+                if ((*(D_800E6A85 + var_v1_2) != 0) || (*(s32 *)(gSndEntities + var_v1_2) != temp_a1_2)) {
                     var_a0_2 += 1;
                     var_v1_2 += 0xFF8;
                     if (var_a0_2 >= 8U) {
@@ -203,7 +203,7 @@ loop_33:
                         temp_a1_3 = (*(s32 *)((char *)(arg0) + 8));
                         var_v1_4 = 0;
 loop_40:
-                        if ((*(D_800E6A85 + var_v1_4) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_4) != (temp_a1_3 & 0x7FFFFFFF))) {
+                        if ((*(D_800E6A85 + var_v1_4) != 0) || (*(s32 *)(gSndEntities + var_v1_4) != (temp_a1_3 & 0x7FFFFFFF))) {
                             var_a0_3 += 1;
                             var_v1_4 += 0xFF8;
                             if ((int)var_a0_3 >= 8U) {
@@ -230,7 +230,7 @@ loop_40:
                             temp_t0 = (*(s32 *)((char *)(arg0) + 0x20));
                             var_v1_5 = 0;
                             for (;;) {
-                                if ((*(D_800E6A85 + var_v1_5) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_5) != (temp_a1_4 & 0x7FFFFFFF))) {
+                                if ((*(D_800E6A85 + var_v1_5) != 0) || (*(s32 *)(gSndEntities + var_v1_5) != (temp_a1_4 & 0x7FFFFFFF))) {
                                     var_a0_4 += 1;
                                     var_v1_5 += 0xFF8;
                                     if (var_a0_4 >= 8U) {
@@ -262,7 +262,7 @@ loop_40:
                             temp_a3_2 = (*(u16 *)((char *)(arg0) + 0x24));
                             var_v1_6 = 0;
                             for (;;) {
-                                if ((*(D_800E6A85 + (s32)var_v1_6) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_6) != (temp_a1_5 & 0x7FFFFFFF))) {
+                                if ((*(D_800E6A85 + (s32)var_v1_6) != 0) || (*(s32 *)(gSndEntities + var_v1_6) != (temp_a1_5 & 0x7FFFFFFF))) {
                                     var_a0_5 += 1;
                                     var_v1_6 += 0xFF8;
                                     if (var_a0_5 >= 8U) {
@@ -307,7 +307,7 @@ loop_40:
                                 temp_a2_3 = temp_s1_5 & 0x7FFFFFFF;
                                 var_v1_7 = 0;
 loop_78:
-                                if ((*(D_800E6A85 + var_v1_7) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_7) != temp_a2_3)) {
+                                if ((*(D_800E6A85 + var_v1_7) != 0) || (*(s32 *)(gSndEntities + var_v1_7) != temp_a2_3)) {
                                     var_a0_6 += 1;
                                     var_v1_7 += 0xFF8;
                                     if (var_a0_6 >= 8U) {
@@ -362,7 +362,7 @@ loop_78:
                     var_v1_8 = 0;
                     var_a0_7 = 0;
                     for (;;) {
-                        if ((*(D_800E6A85 + var_v1_8) != 0) || (*(s32 *)(D_800E5AC4 + var_v1_8) != (temp_v0_7 & 0x7FFFFFFF))) {
+                        if ((*(D_800E6A85 + var_v1_8) != 0) || (*(s32 *)(gSndEntities + var_v1_8) != (temp_v0_7 & 0x7FFFFFFF))) {
                             var_a0_7 += 1;
                             var_v1_8 += 0xFF8;
                             if (var_a0_7 >= 8U) {

@@ -25,7 +25,7 @@ M2C_UNK func_80081CC0(s32);                         /* extern */
 M2C_UNK func_80081D00(s32);                         /* extern */
 extern s8 D_801002AE;
 extern s32 D_801002B8;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern void *D_80102F2C;
 extern s32 D_80108F78;
 extern void *D_80109BB0;
@@ -42,7 +42,7 @@ void func_8001EB2C(void) {
     }
     func_8002CC34();
     func_8002D224();
-    if (gUpdateGateWord == 0) {
+    if (gBorderSkipFlag == 0) {
         if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
             goto fail;
         }

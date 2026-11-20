@@ -23,7 +23,7 @@ s32 func_80085E30();
 s32 func_80085E78();
 extern s16 D_800C2942;
 extern s32 *D_800CA31C;
-extern u8 D_80109A60[];
+extern u8 gActorFlagTable[];
 
 void func_8006217C(void *arg0) {
     s16 temp_v1;
@@ -39,7 +39,7 @@ void func_8006217C(void *arg0) {
     switch (temp_v1) {                              /* irregular */
     case 0:
         temp_a1 = M2C_FIELD(temp_s3, u8 *, 0x2E);
-        if ((temp_a1 == 0) || (*(D_80109A60 + temp_a1) != 0)) {
+        if ((temp_a1 == 0) || (*(gActorFlagTable + temp_a1) != 0)) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 1;
         }
         if (M2C_FIELD(arg0, s16 *, 0x7A) == 1) {
@@ -80,7 +80,7 @@ void func_8006217C(void *arg0) {
         M2C_FIELD(arg0, s32 *, 0x40) = 0;
         M2C_FIELD(arg0, f32 *, 0x44) = 2048.0f;
         if (M2C_FIELD(temp_s3, s16 *, 0xE) >= (M2C_FIELD(temp_s3, s16 *, 0xC) - 4)) {
-            *(D_80109A60 + M2C_FIELD(temp_s3, u8 *, 0x2F)) = 1;
+            *(gActorFlagTable + M2C_FIELD(temp_s3, u8 *, 0x2F)) = 1;
             func_80085E30(temp_s0_2);
             M2C_FIELD(arg0, s32 *, 0x60) |= 1;
         }

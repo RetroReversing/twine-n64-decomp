@@ -1,4 +1,3 @@
-/* identical to osMotorInit in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 typedef struct OSMesgQueue_s OSMesgQueue;
 typedef struct { u32 ramarray[15]; u32 pifstatus; } OSPifRam;
 typedef struct { u8 dummy; u8 txsize; u8 rxsize; u8 cmd; u8 addrh; u8 addrl; u8 data[32]; u8 datacrc; } __OSContRamReadFormat;

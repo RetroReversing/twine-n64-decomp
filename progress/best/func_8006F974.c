@@ -18,7 +18,7 @@ s32 func_8008194C(s8, M2C_UNK);                     /* extern */
 f32 func_800828D0(f32);                             /* extern */
 M2C_UNK func_800839F0(void *, M2C_UNK32 *, f32 *);  /* extern */
 extern f32 D_800C7C98;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s32 D_80108F78;
 
 void func_8006F974(void *arg0, void *arg1) {
@@ -74,7 +74,7 @@ block_7:
             } else if ((temp_a0 != 0x4D) && (temp_a0 != 0x61)) {
 block_16:
                 if ((var_s2 == NULL) || (temp_v1_2 = ((u32) M2C_FIELD(var_s2, u32 *, 0x88) >> 0x15) & 0xF, (temp_v1_2 == 1)) || (temp_v1_2 == 4)) {
-                    if (gUpdateGateWord != 0) {
+                    if (gBorderSkipFlag != 0) {
                         if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (temp_a0_2 = M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x6C), void **, 0xB4), u8 *, 0x12), (temp_a0_2 != 2))) {
                             if (temp_a0_2 != M2C_FIELD(M2C_FIELD(M2C_FIELD(arg1, void **, 0x6C), void **, 0xB4), u8 *, 0x12)) {
                                 goto block_29;

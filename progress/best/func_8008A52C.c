@@ -27,9 +27,9 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     s32 temp_a3_3;
     s32 temp_a3_4;
     s32 temp_a3_5;
-    s32 temp_a3_6;
+    register s32 temp_fv1_2;
     s32 temp_fv1;
-    s32 temp_fv1_2;
+    s32 temp_a3_6;
     s32 temp_fv1_3;
     s32 temp_fv1_4;
     s32 temp_fv1_5;
@@ -189,8 +189,8 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
                 }
                 (*(s32 *)((char *)(temp_s1) + 0x24)) = (s32) ((*(s32 *)((char *)(arg0) + 0x2C)) + ((((u32) sp10[0] >> 6) * 0x28) + 0x100));
                 var_s3_2 = sp10[0] & 0x3F & 0xFF;
-                (*(s16 *)((char *)(temp_s1) + 0x2E)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x2C)) = (s16) (((u32) (((u32) (sp10[4] + (var_s3_2 & 0x1F) + 0x1F) >> 5) + (var_s3_2 >> 5) + 1) >> 1) * 0x28);
+                (*(s16 *)((char *)(temp_s1) + 0x2E)) = 0;
                 (*(s32 *)((char *)(temp_s1) + 0x40)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
 block_38:
                 (*(u8 *)((char *)(temp_s1) + 0x3E)) = var_s3_2;

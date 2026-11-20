@@ -30,57 +30,57 @@ extern s32 D_8010A500;
 extern s32 func_8001E898;
 extern s32 func_8001EAF0;
 
-void func_8002085C(void) {
-    unsigned long temp_v1;
-    register s32 *temp_s0;
-    s32 temp_s1;
-    s32 temp_s3;
-    s32 temp_v0;
-    s16 var_s4;
-    unsigned int var_s2;
-    u8 temp_s1_2;
-    void *temp_s5;
-    void *temp_a0;
-    void *temp_s0_2;
-    void *var_s6;
+/* Sets up the channel table and related UI objects for the current owner record. */ void func_8002085C(void) {
+    unsigned long offset;
+    register s32 *slot;
+    s32 val;
+    s32 idx;
+    s32 handle;
+    s16 count;
+    unsigned int i;
+    u8 kind;
+    void *rec;
+    void *owner;
+    void *widget;
+    void *found;
 
     D_800B60E2 = 1;
     D_800B60EA = 1;
     D_800B60E4 = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_a0 = *(&D_8010A500 + D_800BD68F);
-    var_s6 = (s32)NULL;
-    if (temp_a0 != NULL) {
-        temp_s5 = (*(void **)((char *)(temp_a0) + 0x6C));
-        if (temp_s5 != (int)NULL) {
+    owner = *(&D_8010A500 + D_800BD68F);
+    found = (s32)NULL;
+    if (owner != NULL) {
+        rec = (*(void **)((char *)(owner) + 0x6C));
+        if (rec != (int)NULL) {
             func_80022A30(D_800BD68E, 0x20, 0x42, 0x72, 0x50);
-            var_s2 = 0;
-            var_s4 = 0;
+            i = 0;
+            count = 0;
             do {
-                temp_s1 = func_80070844(temp_s5, var_s2 & 0xFF) & 0xFF;
-                if ((temp_s1) || !(var_s2 & 0xFFFF)) {
-                    temp_s3 = var_s2 & 0xFFFF;
-                    temp_v0 = func_800162BC(D_800BD68E);
-                    temp_s0 = (temp_s3 * 4) + D_80109D28;
-                    *temp_s0 = temp_v0;
-                    if (temp_v0) {
-                        func_800160FC(*temp_s0, func_80087100(temp_s1 | 0x7000), 0x40);
-                        func_8002A7CC(D_800B60E4, *temp_s0, temp_s1, func_80018318(*temp_s0) & 0xFF);
+                val = func_80070844(rec, i & 0xFF) & 0xFF;
+                if ((val) || !(i & 0xFFFF)) {
+                    idx = i & 0xFFFF;
+                    handle = func_800162BC(D_800BD68E);
+                    slot = (idx * 4) + D_80109D28;
+                    *slot = handle;
+                    if (handle) {
+                        func_800160FC(*slot, func_80087100(val | 0x7000), 0x40);
+                        func_8002A7CC(D_800B60E4, *slot, val, func_80018318(*slot) & 0xFF);
                     }
-                    if ((*(u16 *)((char *)(temp_s5) + 0x174)) == temp_s3) {
-                        var_s6 = func_8002A9A8(D_800B60E4, var_s4);
+                    if ((*(u16 *)((char *)(rec) + 0x174)) == idx) {
+                        found = func_8002A9A8(D_800B60E4, count);
                     }
-                    ++var_s4;
+                    ++count;
                 }
-                var_s2 += 1;
-            } while ((u32) (var_s2 & 0xFFFF) < 0x1EU);
-            if (var_s6 != NULL) {
-                temp_s0_2 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
-                temp_s1_2 = (*(u8 *)((char *)(var_s6) + 8));
-                temp_v1 = temp_s1_2 * 0x8;
-                func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
-                if (temp_s0_2 != NULL) {
-                    (*(s16 *)((char *)(temp_s0_2) + 0x28)) = func_8001E760(2, temp_s1_2);
+                i += 1;
+            } while ((u32) (i & 0xFFFF) < 0x1EU);
+            if (found != NULL) {
+                widget = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
+                kind = (*(u8 *)((char *)(found) + 8));
+                offset = kind * 0x8;
+                func_8002135C(*(&D_800C4478 + offset), *(&D_800C447A + offset));
+                if (widget != NULL) {
+                    (*(s16 *)((char *)(widget) + 0x28)) = func_8001E760(2, kind);
                 }
             }
             func_80022E18(D_800BD68E);

@@ -28,7 +28,7 @@ s32 rsp_set_pc_if_halted(u32);
 s32 func_800A92C0(s32, u32, void *, u32);
 s32 func_800A9250(void);
 
-void func_800A2030(RspTask *arg0) {
+void rspStartTask(RspTask *arg0) {
     RspTask *p;
 
     p = &D_800FEDF0;

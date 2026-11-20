@@ -18,7 +18,7 @@ M2C_UNK func_80015DFC();                            /* extern */
 M2C_UNK func_80015E54();                            /* extern */
 M2C_UNK func_80016370();                            /* extern */
 M2C_UNK Obj_UpdateContactPairs(s32);                         /* extern */
-M2C_UNK func_8003E400(s32);                         /* extern */
+M2C_UNK Obj_AttachToFloorObjects(s32);                         /* extern */
 M2C_UNK func_80083D04(M2C_UNK);                     /* extern */
 extern void *gAimAxisTable;
 
@@ -29,6 +29,6 @@ void func_80044FF0(void) {
     func_80016370();
     func_80015DB8();
     func_80001AFC();
-    func_8003E400(*M2C_FIELD(gAimAxisTable, s32 **, 8));
+    Obj_AttachToFloorObjects(*M2C_FIELD(gAimAxisTable, s32 **, 8));
     func_80083D04(1);
 }

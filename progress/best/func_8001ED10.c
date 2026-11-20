@@ -21,7 +21,7 @@ extern s32 D_801002C8;
 extern s32 D_801002CC;
 extern s32 D_801002D0;
 extern s8 D_80102EB9;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s8 D_80102EDD;
 extern s8 D_80102EDE;
 extern u8 D_80102EE0;
@@ -63,7 +63,7 @@ void func_8001ED10(void) {
                 i++;
             } while ((u32)(i & 0xFFFF) < 4U);
             func_8002B000(&D_80102EFC, 0x1E);
-            if (gUpdateGateWord != 0) {
+            if (gBorderSkipFlag != 0) {
                 D_801002AC = 0;
                 D_801002A3 = 0;
                 D_801002AD = 0;

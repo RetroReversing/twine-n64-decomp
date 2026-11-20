@@ -18,7 +18,7 @@ extern char D_800C46A1[];
 extern char D_800C7C14[];
 extern char D_800C7C16[];
 extern u8 D_801002A0;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s32 D_8010302C;
 extern char gAimAxisTable[];
 
@@ -80,7 +80,7 @@ s32 __repair_phase_var_v0;
         if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * 2))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_a1 * 4))) {
             var_v0 = 0;
             if ((func_8005EF30(arg0) << 0x18) != 0) {
-                if (gUpdateGateWord != 0) {
+                if (gBorderSkipFlag != 0) {
                     var_v0_2 = func_80087100(arg0, (*(u16 *)((char *)(temp_s3) + 0x28)) | 0x9000);
                     var_a0 = 0xA2;
                 
@@ -134,7 +134,7 @@ block_66:
         }
         __repair_phase_var_v0 = 1;
         if ((*(s16 *)((char *)((temp_s1 + (temp_s2 * 2))) + 0x1BC)) < *(s16 *)(D_800C7C16 + (temp_s2 * 4))) {
-            if (gUpdateGateWord != 0) {
+            if (gBorderSkipFlag != 0) {
                 var_v0_3 = func_80087100(temp_s2 | 0x9000, D_800C469C);
                 var_a0_3 = 0x16A;
             
@@ -198,7 +198,7 @@ var_v1 = temp_s2 * 2;
         return __repair_phase_var_v0;
     case 1:                                         /* switch 1 */
         func_8005E350(arg0, (*(u16 *)((char *)(temp_s3) + 0x28)), 1);
-        if ((gUpdateGateWord != 0) && (D_801002A0 == 8)) {
+        if ((gBorderSkipFlag != 0) && (D_801002A0 == 8)) {
             temp_v1_9 = (*(u16 *)((char *)(temp_s3) + 0x28));
             switch (temp_v1_9) {                    /* switch 2; irregular */
             case 23:                                /* switch 2 */

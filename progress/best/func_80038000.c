@@ -28,7 +28,7 @@ s32 func_80037BDC(void *);                      /* extern */
 s32 func_80037C84(void *);                      /* extern */
 s32 func_80037DC0(void *);                      /* extern */
 s32 func_80045180(void *, void *, void *, f32); /* extern */
-s32 func_800484F8(void *, s32);                 /* extern */
+s32 cameraUpdateProjection(void *, s32);                 /* extern */
 s32 func_8006F90C(void *);                      /* extern */
 s32 func_80082C8C(void *);                      /* extern */
 s32 func_80082CFC(void *);                      /* extern */
@@ -130,7 +130,7 @@ int __repair_constant = 0xFF;
         sp28 = (*(f32 *)((char *)(arg0) + 0x58));
         sp2C = (*(f32 *)((char *)(arg0) + 0x5C));
         temp_s7 = ((__repair_field_F4 *)arg0)->value;
-        func_800484F8(arg0, ((__repair_field_84 *)arg0)->value);
+        cameraUpdateProjection(arg0, ((__repair_field_84 *)arg0)->value);
         temp_s0 = arg0 + 0x88;
         func_80045180(arg0 + 0x40, arg0 + 0xB8, temp_s0, temp_fs3);
         func_800839F0(temp_s0, arg0 + 0x1C, arg0 + 0xE8);

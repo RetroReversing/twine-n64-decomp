@@ -1,10 +1,10 @@
 void func_8003FDE0(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     u8 *p = arg0;
-    s32 raw;
+    long raw;
 s32 __repair_phase_raw;
     u32 opcode;
     
-    s32 count;
+    unsigned int count;
 
     *arg1 = 0;
     *arg2 = 0;
@@ -58,8 +58,8 @@ s32 __repair_phase_raw;
             extra:
                 count = p[1];
                 p += 2;
-                p += count * 3;
                 *arg2 += count;
+                p += count * 3;
                 break;
             case 4:
                 p += 4;

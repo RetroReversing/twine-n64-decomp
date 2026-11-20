@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *func_800162BC(M2C_UNK);                       /* extern */
 M2C_UNK func_800448A4(void *, M2C_UNK, M2C_UNK);    /* extern */
 
-void func_80075570(s16 arg0, s16 arg1, s16 arg2, s8 arg3) {
+void DrawBorderRect(s16 arg0, s16 arg1, s16 arg2, s8 arg3) {
     void *temp_v0;
 
     temp_v0 = func_800162BC(4);

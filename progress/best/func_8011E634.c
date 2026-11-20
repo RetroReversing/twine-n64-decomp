@@ -25,9 +25,9 @@ extern u8 D_801002A0;
 extern u8 D_801002AC;
 extern u8 D_801002AE;
 extern s32 D_801002B4;
-extern s32 D_801002C0;
-extern s32 gUpdateGateWord;
-extern u8 D_8010A4FD;
+extern s32 gBorderMode;
+extern s32 gBorderSkipFlag;
+extern u8 gBorderFlipFlag;
 extern s16 D_8011F0EC;
 extern s16 D_8011F0EE;
 extern s32 D_8011F3A8;
@@ -44,12 +44,12 @@ void func_8011E634(void) {
     void *temp_s1_2;
 
     D_8011F0EE = 0x78;
-    if (D_801002C0 >= 3) {
+    if (gBorderMode >= 3) {
         var_v0 = 0xA0;
         D_8011F0EC = var_v0;
     } else {
         var_v0 = 0x140;
-        if (D_8010A4FD == 1) {
+        if (gBorderFlipFlag == 1) {
             D_8011F0EC = 0xA0;
             D_8011F0EE = 0xF0;
         } else {
@@ -85,7 +85,7 @@ block_11:
         }
     }
     func_8011DC18();
-    if ((((gUpdateGateWord != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
+    if ((((gBorderSkipFlag != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
         if (temp_s1 == 0) {
             var_s0 = 0;
             func_8011E894();

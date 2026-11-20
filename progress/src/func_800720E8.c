@@ -30,73 +30,73 @@ extern char D_8010019C[];
 extern char D_801001A0[];
 extern u8 D_801002A0;
 extern s32 D_801002B8;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern char gAimAxisTable[];
 
-void func_800720E8(void *arg0, s32 arg1) {
-    s32 temp_fv0;
-    f64 temp_fv1;
-    f32 temp_fv2;
-    s32 temp_a0;
-    void *temp_s0;
-    void *temp_v0;
+/* Per-frame update for an actor in an update-gated state: clamps speed for state 0x4D, and on a state change resets the AI block, reloads axis data and sets the new state. */ void func_800720E8(void *actor, s32 newState) {
+    s32 zero;
+    f64 speed;
+    f32 startY;
+    s32 axisIndex;
+    void *ai;
+    void *axisEntry;
 
-    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
+    ai = M2C_FIELD(actor, void **, 0x6C);
     func_80069A90();
-    M2C_FIELD(arg0, u16 *, 0x7C) = 8;
-    if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x200) {
-        M2C_FIELD(arg0, u16 *, 0x7C) = 0xA;
+    M2C_FIELD(actor, u16 *, 0x7C) = 8;
+    if (M2C_FIELD(M2C_FIELD(actor, void **, 0x68), u16 *, 0xC) & 0x200) {
+        M2C_FIELD(actor, u16 *, 0x7C) = 0xA;
     }
-    if (gUpdateGateWord == 0) {
-        if (M2C_FIELD(arg0, u16 *, 0x78) == 0x4D) {
-            temp_v0 = *((s32 *)((s8 *)gAimAxisTable + (M2C_FIELD(temp_s0, s8 *, 0x182) * 4)));
-            temp_fv1 = (f64) M2C_FIELD(temp_v0, f32 *, 0x12C);
-            if (D_800D4818 < temp_fv1) {
-                M2C_FIELD(temp_v0, f32 *, 0x12C) = (f32) (temp_fv1 * D_800D4820);
+    if (gBorderSkipFlag == 0) {
+        if (M2C_FIELD(actor, u16 *, 0x78) == 0x4D) {
+            axisEntry = *((s32 *)((s8 *)gAimAxisTable + (M2C_FIELD(ai, s8 *, 0x182) * 4)));
+            speed = (f64) M2C_FIELD(axisEntry, f32 *, 0x12C);
+            if (D_800D4818 < speed) {
+                M2C_FIELD(axisEntry, f32 *, 0x12C) = (f32) (speed * D_800D4820);
             }
             func_800066A0(0xA);
         }
     } else {
-        if (M2C_FIELD(temp_s0, u8 *, 0x199) == 0) {
-            func_8007080C(temp_s0);
-            if (arg1 != 3) {
-                func_800635B4(arg0, 3);
+        if (M2C_FIELD(ai, u8 *, 0x199) == 0) {
+            func_8007080C(ai);
+            if (newState != 3) {
+                func_800635B4(actor, 3);
             }
-            M2C_FIELD(temp_s0, u8 *, 0x199) = 1U;
+            M2C_FIELD(ai, u8 *, 0x199) = 1U;
         }
-        if (((D_801002A0 != 7) || (M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xB4), u8 *, 0x11) != 0)) && ((D_801002A0 != 8) || (M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xB4), u8 *, 0x11) == 0))) {
-            func_80016314(M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xB4), s32 *, 8));
-            M2C_FIELD(M2C_FIELD(temp_s0, void **, 0xB4), s32 *, 8) = 0;
-            func_800635B4(arg0, 1);
-            temp_a0 = M2C_FIELD(temp_s0, s8 *, 0x182);
-            M2C_FIELD(temp_s0, s32 *, 0x60) = 0;
-            M2C_FIELD(temp_s0, s32 *, 0x64) = 0;
-            M2C_FIELD(arg0, f32 *, 0x74) = (temp_a0 < D_801002B8) ? *((u8 *)((s8 *)D_801001A0 + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) : (*(D_800BF688 + (*((s32 *)((s8 *)D_8010019C + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
-            temp_fv2 = M2C_FIELD(arg0, volatile f32 *, 0x74);
-            M2C_FIELD(temp_s0, u8 *, 0x18C) = 0;
-            M2C_FIELD(temp_s0, u8 *, 0x18D) = 0x80;
-            M2C_FIELD(temp_s0, u8 *, 0x199) = 0U;
-            M2C_FIELD(temp_s0, f32 *, 0x68) = temp_fv2;
-            func_80064630(arg0);
-            func_8011ACAC(arg0, temp_s0, (u8) M2C_FIELD(temp_s0, s8 *, 0x182));
-            func_80063FE8(arg0);
-            if (arg1 == 3) {
-                M2C_FIELD(temp_s0, f32 *, 0x20) = 0;
-                temp_fv0 = M2C_FIELD(temp_s0, f32 *, 0x20);
-                M2C_FIELD(temp_s0, s32 *, 0x1C) = 0;
-                M2C_FIELD(temp_s0, f32 *, 0x38) = temp_fv0;
-                M2C_FIELD(temp_s0, f32 *, 0x34) = temp_fv0;
-                M2C_FIELD(temp_s0, f32 *, 0x40) = 1.0f;
-                M2C_FIELD(temp_s0, f32 *, 0x3C) = 1.0f;
-                func_800656C0(arg0, arg0 + 0x24, arg0 + 0x3C);
-                M2C_FIELD(arg0, u16 *, 0x7C) = 0;
+        if (((D_801002A0 != 7) || (M2C_FIELD(M2C_FIELD(ai, void **, 0xB4), u8 *, 0x11) != 0)) && ((D_801002A0 != 8) || (M2C_FIELD(M2C_FIELD(ai, void **, 0xB4), u8 *, 0x11) == 0))) {
+            func_80016314(M2C_FIELD(M2C_FIELD(ai, void **, 0xB4), s32 *, 8));
+            M2C_FIELD(M2C_FIELD(ai, void **, 0xB4), s32 *, 8) = 0;
+            func_800635B4(actor, 1);
+            axisIndex = M2C_FIELD(ai, s8 *, 0x182);
+            M2C_FIELD(ai, s32 *, 0x60) = 0;
+            M2C_FIELD(ai, s32 *, 0x64) = 0;
+            M2C_FIELD(actor, f32 *, 0x74) = (axisIndex < D_801002B8) ? *((u8 *)((s8 *)D_801001A0 + ((func_80022DBC(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) : (*(D_800BF688 + (*((s32 *)((s8 *)D_8010019C + ((func_80022DBC(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
+            startY = M2C_FIELD(actor, volatile f32 *, 0x74);
+            M2C_FIELD(ai, u8 *, 0x18C) = 0;
+            M2C_FIELD(ai, u8 *, 0x18D) = 0x80;
+            M2C_FIELD(ai, u8 *, 0x199) = 0U;
+            M2C_FIELD(ai, f32 *, 0x68) = startY;
+            func_80064630(actor);
+            func_8011ACAC(actor, ai, (u8) M2C_FIELD(ai, s8 *, 0x182));
+            func_80063FE8(actor);
+            if (newState == 3) {
+                M2C_FIELD(ai, f32 *, 0x20) = 0;
+                zero = M2C_FIELD(ai, f32 *, 0x20);
+                M2C_FIELD(ai, s32 *, 0x1C) = 0;
+                M2C_FIELD(ai, f32 *, 0x38) = zero;
+                M2C_FIELD(ai, f32 *, 0x34) = zero;
+                M2C_FIELD(ai, f32 *, 0x40) = 1.0f;
+                M2C_FIELD(ai, f32 *, 0x3C) = 1.0f;
+                func_800656C0(actor, actor + 0x24, actor + 0x3C);
+                M2C_FIELD(actor, u16 *, 0x7C) = 0;
             } else {
-                func_800635B4(arg0, 0);
+                func_800635B4(actor, 0);
             }
-            M2C_FIELD(arg0, u16 *, 0x78) = arg1;
-            M2C_FIELD(temp_s0, u8 *, 0x5A8) = 4;
-            M2C_FIELD(arg0, s32 *, 0x5C) |= 0x200;
-            func_8011D158(M2C_FIELD(temp_s0, s8 *, 0x182));
+            M2C_FIELD(actor, u16 *, 0x78) = newState;
+            M2C_FIELD(ai, u8 *, 0x5A8) = 4;
+            M2C_FIELD(actor, s32 *, 0x5C) |= 0x200;
+            func_8011D158(M2C_FIELD(ai, s8 *, 0x182));
         }
     }
 }

@@ -14,12 +14,12 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800326B0();                            /* extern */
 extern s32 D_80109A30;
-extern s32 D_8010A510;
+extern s32 gGfxPtr;
 extern s32 D_8010D2B4;
 
 void func_80032884(void) {
     func_800326B0();
-    D_8010A510 = 0;
+    gGfxPtr = 0;
     D_8010D2B4 = 0;
     D_80109A30 = 0;
 }

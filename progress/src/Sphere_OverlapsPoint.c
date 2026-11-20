@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8004886C(void *arg0, void *arg1, f32 arg2) {
+s32 Sphere_OverlapsPoint(void *arg0, void *arg1, f32 arg2) {
     f32 temp_ft0;
     f32 temp_ft1;
     f32 temp_fv0;

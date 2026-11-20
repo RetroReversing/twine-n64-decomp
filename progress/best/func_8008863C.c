@@ -31,20 +31,20 @@ extern void (*D_80100180)(s32);
 extern s32 func_80088EE4;
 
 void func_8008863C(void) {
-    volatile u64 stack_pad[1];
     Obj *o;
+    volatile u64 stack_pad[1];
     s32 i;
     f64 tmp;
     s32 ret;
     s32 t;
 
-    if (D_800CEEC0 != 0) {
+    if (D_800CEEC0) {
         osRecvMesg(&D_800E3F30, 0, 1);
         for (i = 0; i < 2; i++) {
             o = (Obj *) ((u8 *) &D_800E1AC0 + i * 0x1228);
             if (D_800E2CC0[i] != 0) {
-                func_8009D5D4(o);
                 t = D_800E2CC0[i];
+                func_8009D5D4(o);
                 if (t == 1) {
                     if ((s8) o->f11DD == 2) {
                         t = o->d4;

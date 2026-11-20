@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 s32 osSendMesg();
 extern s8 D_800DD7B0;
 extern s32 D_800DD7B4;
-extern char D_80109C00[];
+extern char spEventQueue[];
 
 void func_8000B2B0(s32 arg0) {
     s8 *__base_D_800DD7B0;
     (*(__base_D_800DD7B0 = &D_800DD7B0)) = 2;
     D_800DD7B4 = arg0;
-    osSendMesg(D_80109C00, __base_D_800DD7B0, 1);
+    osSendMesg(spEventQueue, __base_D_800DD7B0, 1);
 }

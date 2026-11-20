@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8011E95C(void *, void *, M2C_UNK *, s32); /* extern */
-extern s32 D_801002C0;
+extern s32 gBorderMode;
 extern M2C_UNK D_8010A500;
 extern M2C_UNK D_8011F108;
 extern M2C_UNK D_8011F338;
@@ -23,7 +23,7 @@ void func_8011C890(void) {
     void *temp_a1;
     void *temp_s0;
 
-    for (i = 0; i < D_801002C0; i++) {
+    for (i = 0; i < gBorderMode; i++) {
         temp_a1 = ((void **) &D_8010A500)[i];
         if ((temp_a1 != NULL) && (M2C_FIELD(temp_a1, s32 *, 0x6C) != 0)) {
             temp_s0 = ((void **) &D_8011F338)[i];

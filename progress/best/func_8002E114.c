@@ -28,7 +28,7 @@ extern s32 D_80102EE4;
 extern u8 D_80102EE8;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 extern u8 D_8010A4FE;
 extern u8 D_8010A4FF;
 extern s8 D_80112F70;
@@ -115,7 +115,7 @@ loop_2:
     func_8002E93C(&D_800E1310, D_80102EE8, 1, 4);
     func_8002E93C(&D_800E1310, D_8010A4C0, 1, 2);
     func_8002E93C(&D_800E1310, D_8010A4FC, 1, 6);
-    func_8002E93C(&D_800E1310, D_8010A4FD, 1, 1);
+    func_8002E93C(&D_800E1310, gBorderFlipFlag, 1, 1);
     func_8002E93C(&D_800E1310, D_8010A4FE, 1, 1);
     func_8002E93C(&D_800E1310, D_8010A4FF, 1, 2);
     func_8002E93C(&D_800E1310, (u8) D_801002EC, 4, 1);

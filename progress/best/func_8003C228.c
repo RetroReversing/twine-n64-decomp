@@ -10,7 +10,7 @@ s32 SetScissorRect();
 extern s8 D_800C0738;
 extern s8 D_800E176C;
 extern s32 D_8010A4D8;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern void *D_80115328;
 
 typedef struct { unsigned char pad[40]; int value; } __repair_field_28;
@@ -56,7 +56,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                 if (temp_v1 & 0x1000) {
                     var_a1 = (*(u16 *)((char *)(var_s0) + 0x22));
                     var_a3 = (u8) ((__repair_field_28 *)var_s0)->value;
-                    if (D_8010A4E8) {
+                    if (gHiResScreen) {
                         var_a1 *= 2;
                         var_a3 *= 2;
                     }

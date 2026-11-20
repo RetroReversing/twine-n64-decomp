@@ -21,13 +21,13 @@ extern s32 func_80026004(s32, s32 *, s32);
 extern s32 func_80029068();
 extern s32 func_80087100(s32);
 extern void *D_80109BB0;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 void func_800223E4(void) {
     s32 id;
     func_80029068();
     if (*((u8 *)D_80109BB0 + 0x2D) != 0) {
         id = 0x67;
-        if (D_8010A4FD != 0) id = 0x68;
+        if (gBorderFlipFlag != 0) id = 0x68;
         func_80026004(*(s32 *)((u8 *)D_80109BB0 + 0x18) + 0x28, "%s", func_80087100(id));
     }
 }

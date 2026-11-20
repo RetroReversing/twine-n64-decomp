@@ -1,6 +1,6 @@
 extern s32 D_80108F90;
-extern s32 D_80117708;
+extern s32 gSlotListHead;
 void func_80095260(void) {
-    D_80117708 = 0;
+    gSlotListHead = 0;
     D_80108F90 = 0;
 }

@@ -24,7 +24,7 @@ extern char D_80108798[];
 extern char D_80115040[];
 extern char D_80117330[];
 extern s32 func_8000ADB8;
-extern s32 func_8000AECC;
+extern s32 rspTaskThread;
 
 s32 func_8000B828(s32 arg0) {
     s32 var_a1;
@@ -38,7 +38,7 @@ s32 func_8000B828(s32 arg0) {
     func_8009D090(D_800B2598);
     osCreateThread(D_80107CE8, 8, &func_8000ADB8, 0, D_80117330, 0x75);
     osStartThread(D_80107CE8);
-    osCreateThread(D_80108798, 7, &func_8000AECC, 0, D_80115040, 0x7A);
+    osCreateThread(D_80108798, 7, &rspTaskThread, 0, D_80115040, 0x7A);
     osStartThread(D_80108798);
     return 0;
 }

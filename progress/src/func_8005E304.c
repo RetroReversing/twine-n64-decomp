@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_80109A60[];
+extern char gActorFlagTable[];
 
 void func_8005E304(void *arg0) {
     u8 * __repair_hoisted;
@@ -26,7 +26,7 @@ void func_8005E304(void *arg0) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & 0xFFBFFFFF);
         temp_v1_2 = *__repair_hoisted;
         if (temp_v1_2 != 0) {
-            *(D_80109A60 + temp_v1_2) = 1;
+            *(gActorFlagTable + temp_v1_2) = 1;
         }
     }
 }

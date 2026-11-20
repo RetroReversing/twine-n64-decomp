@@ -33,7 +33,7 @@ s32 func_800175C0(s32, s32, s32, void *, f32, s32);
 s32 func_8007659C(void *, void *);
 s32 func_80085E30(void *);
 s32 func_80085E78(void *, void *);
-extern u8 D_80109A60[];
+extern u8 gActorFlagTable[];
 
 void func_8005B214(Obj5B214 *arg0) {
     s16 state = arg0->state;
@@ -45,7 +45,7 @@ void func_8005B214(Obj5B214 *arg0) {
     case 0:
         v = s->b30;
         if (v != 0) {
-            v = D_80109A60[v];
+            v = gActorFlagTable[v];
         } else {
             if (arg0->w60 & func_80015D40(s->b31)) {
                 arg0->state = 1;

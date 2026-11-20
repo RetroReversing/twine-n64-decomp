@@ -22,7 +22,7 @@ extern u8 D_800CEEB0;
 extern s32 D_800E1A80;
 extern u8 D_801002AE;
 extern u16 D_801002BA;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s32 D_8010A500;
 extern s32 D_8010D430;
 extern s32 D_8010D434;
@@ -159,7 +159,7 @@ void func_800821B4(void) {
     }
 } while ((s32) var_s2 < (s32) &D_8010D456);
     var_t8 = 4;
-    if (gUpdateGateWord != 0) {
+    if (gBorderSkipFlag != 0) {
         var_t8 = D_801002BA;
     }
     sp16 = var_t8;

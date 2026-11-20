@@ -2,7 +2,9 @@ extern s64 func_800ABE80(f64);
 extern f64 func_800ABFA0(s64);
 extern s64 D_800D1250[];
 extern f64 D_800D6FA0, D_800D6FA8;
-void func_800AB030(f64 angle, f64 *out1, f64 *out2) {
+
+// CORDIC sin/cos: angle is in radians; writes sin to *sinOut and cos to *cosOut.
+void func_800AB030(f64 angle, f64 *sinOut, f64 *cosOut) {
     s64 x = 0x09B74EDA8435E580LL;
     s64 y = 0;
     s64 z = func_800ABE80(angle * D_800D6FA0);
@@ -22,6 +24,6 @@ void func_800AB030(f64 angle, f64 *out1, f64 *out2) {
     }
     { f64 val = func_800ABFA0(y);
     f64 scale = D_800D6FA8;
-    *out1 = val / scale;
-    *out2 = func_800ABFA0(x) / scale; }
+    *sinOut = val / scale;
+    *cosOut = func_800ABFA0(x) / scale; }
 }

@@ -5,7 +5,7 @@ extern f32 D_8010A2D0;
 typedef struct { u8 pad[0x20]; s32 planes; } B14C10;
 typedef struct { u8 pad0[0x10]; f32 pos[3]; u8 pad1c[0x30]; f32 r; u8 pad50[0x18]; f32 f68, f6C; u8 pad70[0x18]; u8 m[0x18]; f32 a0, a4, a8; u8 padAC[8]; f32 b4; } C14C10;
 
-s32 func_80014C10(f32 *arg0, f32 arg1, B14C10 *arg2, C14C10 *arg3) {
+s32 IsSphereVisible(f32 *arg0, f32 arg1, B14C10 *arg2, C14C10 *arg3) {
     f32 v[3];
     f32 d[3];
     f32 r = arg1 * arg3->r;

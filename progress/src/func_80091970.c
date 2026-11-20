@@ -19,7 +19,7 @@ typedef struct {
     u8 padFEF[9];
 } EntSnd;
 
-extern EntSnd D_800E5AC4[];
+extern EntSnd gSndEntities[];
 
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
@@ -28,7 +28,7 @@ static inline s32 find_snd(s32 id) {
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
-        if (*((u8 *)&D_800E5AC4[0].busy + off) == 0 && *(s32 *)((u8 *)&D_800E5AC4[0].id + off) == key) {
+        if (*((u8 *)&gSndEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSndEntities[0].id + off) == key) {
             return i | hi;
         }
     }
@@ -45,7 +45,7 @@ void func_80091970(s32 arg0, s32 arg1, s32 arg2) {
     if (D_800CF540 != 0) {
         arg0 = find_snd(arg0);
         if (arg0 != -1) {
-            D_800E5AC4[arg0].tbl528[(u8)arg1] = arg2;
+            gSndEntities[arg0].tbl528[(u8)arg1] = arg2;
             func_8008F2A4(arg2, 2);
         }
     }

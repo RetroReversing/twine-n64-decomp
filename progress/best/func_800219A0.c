@@ -18,7 +18,7 @@ M2C_UNK func_8007560C();                            /* extern */
 extern s16 gExpansionPakPresent;
 extern s8 D_8010A4C0;
 extern M2C_UNK D_8010A4E4;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern s32 D_8010A4EC;
 extern s32 D_8010A4F0;
 extern s32 D_8010A4F4;
@@ -47,7 +47,7 @@ s32 func_800219A0(s8 arg0) {
         M2C_FIELD(__base_D_8010A4E4, s32 *, 0x10) = 0;
         M2C_FIELD(__base_D_8010A4E4, s32 *, 0x14) = 0;
     } else {
-        D_8010A4E8 = 0;
+        gHiResScreen = 0;
         D_8010A4EC = 1;
         D_8010A4F0 = 0;
         D_8010A4F4 = 1;

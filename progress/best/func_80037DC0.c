@@ -66,8 +66,8 @@ block_10:
         temp_a0 = D_80115328;
         ((__repair_field_0 *)temp_a0)->value = 0xFA000000;
         (*(s32 *)((char *)(temp_a0) + 8)) = 0xFB000000;
-        (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((var_a1 << 0x18) | (var_a3 << 0x10) | (var_a3 << 8) | 0xFF);
         (*(s32 *)((char *)(temp_a0) + 0xC)) = 0xFF;
+        (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((var_a1 << 0x18) | (var_a3 << 0x10) | (var_a3 << 8) | 0xFF);
         (*(s32 *)((char *)(temp_a0) + 0x10)) = 0xDE000000;
         temp_a1 = D_80112E40;
         D_80115328 = temp_a0 + 8;

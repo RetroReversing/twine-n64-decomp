@@ -41,18 +41,18 @@ extern s32 D_800D940C;
 extern s32 D_800D9410;
 extern s32 D_80109D18;
 
-void func_80001AFC(void) {
-    s32 i;
-    s16 *g;
+/* Resets the boot state, initialises the resource caches, flags table entries whose b field differs from D_800C39B0, and stores the handles for each asset id. */ void func_80001AFC(void) {
+    s32 rec_index;
+    s16 *threshold_ptr;
 
     D_80109D18 = 0;
     initResourceCaches();
     func_80001D80(0);
-    for (i = 0; D_800C3924[i].a != 0; i++) {
-        g = &D_800C39B0;
-        D_800C3924[i].c = 0;
-        if (D_800C3924[i].b != *g) {
-            D_800C3924[i].c = 1;
+    for (rec_index = 0; D_800C3924[rec_index].a != 0; rec_index++) {
+        threshold_ptr = &D_800C39B0;
+        D_800C3924[rec_index].c = 0;
+        if (D_800C3924[rec_index].b != *threshold_ptr) {
+            D_800C3924[rec_index].c = 1;
         }
     }
     D_800D93C0 = func_80005158(0x1D0, 4, 0);

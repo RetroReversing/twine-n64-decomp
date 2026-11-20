@@ -7,7 +7,7 @@ s32 func_80093C40(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
 extern u8 D_800CF540;
 extern s32 D_800EDCB0;
-extern s32 *D_80117708;
+extern s32 *gSlotListHead;
 
 typedef struct { s32 x, y, z; } V3_93FE8;
 s32 func_80093FE8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg5, u16 arg6, u8 arg7, u8 arg8) {
@@ -50,7 +50,7 @@ s32 func_80093FE8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
                 }
             }
         } else {
-            head = D_80117708;
+            head = gSlotListHead;
             (*(s32 *)((char *)(var_s0) + 0)) = (s32) head;
             if (head != NULL) {
                 *(s32 **)((char *)head + 4) = var_s0;
@@ -58,7 +58,7 @@ s32 func_80093FE8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
             fl = (*(s32 *)((char *)(var_s0) + 8));
             (*(s32 *)((char *)(var_s0) + 0x34)) = -1;
             (*(s32 *)((char *)(var_s0) + 4)) = 0;
-            D_80117708 = var_s0;
+            gSlotListHead = var_s0;
             (*(s16 *)((char *)(var_s0) + 0x3E)) = 0;
             (*(s32 *)((char *)(var_s0) + 8)) = fl | 0x30000;
         }

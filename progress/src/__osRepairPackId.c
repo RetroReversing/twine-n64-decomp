@@ -28,82 +28,82 @@ static inline static u16 inline_fn(u16 *arg0)
  * read back to verify), then rebuilds the block from the source record at src
  * and writes it four times to the key slots 1, 3, 4 and 6. dst receives the
  * block. Returns 0 on success or an error code. */
-s32 __osRepairPackId(S_osPfsInitPak_arg1 *pfs, void *src, void *dst)
+/* Writes a controller pak ID block for a bank: finds a free bank, rebuilds the 0x20-byte ID block from src, writes it to key slots, and verifies it */ s32 __osRepairPackId(S_osPfsInitPak_arg1 *pfs, void *src, void *dst)
 {
   u8 blockA[0x20];
   u8 blockB[0x20];
-  u8 *new_var2;
-  u16 new_var;
+  u8 *end_ptr;
+  u16 src_byte;
   s32 bank;
-  s32 n;
-  s32 v;
+  s32 idx;
+  s32 err;
   s16 keys[4];
   *((s32 *) dst) = -1;
   *(((s32 *) dst) - -1) = func_800A91F0();
   {
-    s32 t0;
-    s32 t1;
-    t0 = ((s32 *) src)[2];
-    t1 = ((s32 *) src)[3];
-    ((s32 *) dst)[2] = t0;
-    ((s32 *) dst)[3] = t1;
-    t0 = ((s32 *) src)[4];
-    t1 = ((s32 *) src)[5];
-    ((s32 *) dst)[4] = t0;
-    ((s32 *) dst)[5] = t1;
+    s32 w0;
+    s32 w1;
+    w0 = ((s32 *) src)[2];
+    w1 = ((s32 *) src)[3];
+    ((s32 *) dst)[2] = w0;
+    ((s32 *) dst)[3] = w1;
+    w0 = ((s32 *) src)[4];
+    w1 = ((s32 *) src)[5];
+    ((s32 *) dst)[4] = w0;
+    ((s32 *) dst)[5] = w1;
   }
   bank = 0;
-  if (pfs->unk_65 && (v = __osPfsSelectBank(pfs, 0)))
+  if (pfs->unk_65 && (err = __osPfsSelectBank(pfs, 0)))
   {
-    return v;
+    return err;
   }
   do
   {
-    if (v = __osPfsSelectBank(pfs, bank & 0xFF))
+    if (err = __osPfsSelectBank(pfs, bank & 0xFF))
     {
-      return v;
+      return err;
     }
-    if (v = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockA))
+    if (err = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockA))
     {
-      return v;
+      return err;
     }
     blockA[0] = (u8) (bank | 0x80);
-    for (n = 1; n < 0x20; n++)
+    for (idx = 1; idx < 0x20; idx++)
     {
-      blockA[n] = (u8) (~blockA[n]);
+      blockA[idx] = (u8) (~blockA[idx]);
     }
 
-    if (v = __osContRamWrite(pfs->unk_04, pfs->unk_08, 0, blockA, 0))
+    if (err = __osContRamWrite(pfs->unk_04, pfs->unk_08, 0, blockA, 0))
     {
-      return v;
+      return err;
     }
-    if (v = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockB))
+    if (err = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockB))
     {
-      return v;
+      return err;
     }
-    n = 0;
-    while (n < 0x20)
+    idx = 0;
+    while (idx < 0x20)
     {
-      if (blockB[n] != blockA[n])
+      if (blockB[idx] != blockA[idx])
       {
         break;
       }
-      n++;
+      idx++;
     }
 
-    if (n != 0x20)
+    if (idx != 0x20)
     {
       break;
     }
       if (bank > 0)
       {
-        if (v = __osPfsSelectBank(pfs, 0))
+        if (err = __osPfsSelectBank(pfs, 0))
         {
-          return v;
+          return err;
         }
-        if (v = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockA))
+        if (err = __osContRamRead(pfs->unk_04, pfs->unk_08, 0, blockA))
         {
-          return v;
+          return err;
         }
         if (blockA[0] != 0x80)
         {
@@ -117,67 +117,67 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *pfs, void *src, void *dst)
     }
   }
   while (1);
-  if (pfs->unk_65 && (v = __osPfsSelectBank(pfs, 0)))
+  if (pfs->unk_65 && (err = __osPfsSelectBank(pfs, 0)))
   {
-    return v;
+    return err;
   }
   {
-    u16 tv0;
-    u16 tv1;
-    u16 *a0p;
-    u16 *a1p;
-    u16 *a2p;
-    u16 *a3p;
-    u16 word;
+    u16 chk;
+    u16 flags;
+    u16 *srcp;
+    u16 *sump;
+    u16 *nsump;
+    u16 *sum_end;
+    u16 w;
     u16 acc;
-    tv0 = ((u16 *) src)[0xC];
-    a2p = (u16 *) (((u8 *) dst) + 0x1E);
-    a0p = (u16 *) dst;
-    tv1 = (u16) (bank > 0);
+    chk = ((u16 *) src)[0xC];
+    nsump = (u16 *) (((u8 *) dst) + 0x1E);
+    srcp = (u16 *) dst;
+    flags = (u16) (bank > 0);
     ((u8 *) dst)[0x1A] = (u8) bank;
-    tv0 = (u16) (tv0 & 0xFFFE);
-    tv1 = (u16) (tv1 | tv0);
-    ((u16 *) dst)[0xC] = tv1;
-    new_var = (u16) ((u8 *) src)[0x1B];
-    tv0 = new_var;
-    a1p = (u16 *) (((u8 *) dst) + 0x1C);
-    a3p = a1p;
+    chk = (u16) (chk & 0xFFFE);
+    flags = (u16) (flags | chk);
+    ((u16 *) dst)[0xC] = flags;
+    src_byte = (u16) ((u8 *) src)[0x1B];
+    chk = src_byte;
+    sump = (u16 *) (((u8 *) dst) + 0x1C);
+    sum_end = sump;
     *((u16 *) (((u8 *) dst) + 0x1E)) = 0;
-    *a1p = 0;
-    ((u8 *) dst)[0x1B] = (u8) tv0;
-    new_var2 = (u8 *) a3p;
+    *sump = 0;
+    ((u8 *) dst)[0x1B] = (u8) chk;
+    end_ptr = (u8 *) sum_end;
     do
     {
-      word = inline_fn(a0p);
-      acc = inline_fn(a1p);
-      acc += word;
-      *a1p = acc;
-      acc = inline_fn(a2p);
-      a0p = (u16 *) (((u8 *) a0p) + 2);
-      acc += (u16) (~word);
-      *a2p = acc;
+      w = inline_fn(srcp);
+      acc = inline_fn(sump);
+      acc += w;
+      *sump = acc;
+      acc = inline_fn(nsump);
+      srcp = (u16 *) (((u8 *) srcp) + 2);
+      acc += (u16) (~w);
+      *nsump = acc;
     }
-    while (((u8 *) a0p) < new_var2);
+    while (((u8 *) srcp) < end_ptr);
   }
   keys[0] = 1;
   keys[1] = 3;
   keys[2] = 4;
   keys[3] = 6;
-  for (n = 0; n < 4; n++)
+  for (idx = 0; idx < 4; idx++)
   {
-    if (v = __osContRamWrite(pfs->unk_04, pfs->unk_08, (u16) keys[n], (u8 *) dst, 1))
+    if (err = __osContRamWrite(pfs->unk_04, pfs->unk_08, (u16) keys[idx], (u8 *) dst, 1))
     {
-      return v;
+      return err;
     }
   }
 
-  if (v = __osContRamRead(pfs->unk_04, pfs->unk_08, 1, blockA))
+  if (err = __osContRamRead(pfs->unk_04, pfs->unk_08, 1, blockA))
   {
-    return v;
+    return err;
   }
-  for (n = 0; n < 0x20; n++)
+  for (idx = 0; idx < 0x20; idx++)
   {
-    if (blockA[n] != ((u8 *) dst)[n])
+    if (blockA[idx] != ((u8 *) dst)[idx])
     {
       return 11;
     }

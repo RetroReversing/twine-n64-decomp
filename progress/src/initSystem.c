@@ -67,25 +67,25 @@ extern void mainThreadEntry(void *);
 extern char D_014A8380[], D_014BA940[];
 
 typedef struct { s32 w[4]; } __repair_words4;
-void initSystem(void) {
-    char *var_a2;
-    s16 temp_v1;
+/* Boot init: starts the main thread, sets up the heap and VI mode, then runs the idle loop. */ void initSystem(void) {
+    char *dst;
+    s16 hasExpansionPak;
     s32 tvType;
-    s32 temp_s1;
-    s32 var_s1;
-    s32 var_s2;
-    u32 temp_a0;
-    u32 temp_a0_2;
-    u32 temp_a1;
-    u32 temp_a2;
-    void *temp_a3;
-    void *var_s1_2;
+    s32 viModeOffset;
+    s32 viScale;
+    s32 viIndex;
+    u32 sizeB;
+    u32 heapEnd;
+    u32 sizeC;
+    u32 sizeA;
+    void *srcEnd;
+    void *src;
 
     osCreateThread(D_800D8200, 3, &mainThreadEntry, 0, D_800D93B0, 0x7F);
     osStartThread(D_800D8200);
-    temp_v1 = osGetMemSize() > 0x7FFFFFU;
-    gExpansionPakPresent = temp_v1;
-    if (temp_v1 != 0) {
+    hasExpansionPak = osGetMemSize() > 0x7FFFFFU;
+    gExpansionPakPresent = hasExpansionPak;
+    if (hasExpansionPak != 0) {
         heapInit(D_8011FF40, 0x80800000);
         D_80109A54 = heapAlloc(0x4B000U, 1);
         D_80100304 = heapAlloc(0x4B000U, 0);
@@ -109,21 +109,21 @@ void initSystem(void) {
     }
     func_80008258();
     D_80108F7C = 1;
-    temp_a2 = D_14A8380 - D_14977A0;
-    temp_a0 = D_14BA940 - D_014A8380;
-    temp_a1 = D_14CD630 - D_014BA940;
-    if ((temp_a0 < temp_a2) & (temp_a1 < temp_a2)) {
-        D_80108F7C = temp_a2;
+    sizeA = D_14A8380 - D_14977A0;
+    sizeB = D_14BA940 - D_014A8380;
+    sizeC = D_14CD630 - D_014BA940;
+    if ((sizeB < sizeA) & (sizeC < sizeA)) {
+        D_80108F7C = sizeA;
     }
-    if ((temp_a2 < temp_a0) & (temp_a1 < temp_a0)) {
-        D_80108F7C = temp_a0;
+    if ((sizeA < sizeB) & (sizeC < sizeB)) {
+        D_80108F7C = sizeB;
     }
-    if ((temp_a2 < temp_a1) & (temp_a0 < temp_a1)) {
-        D_80108F7C = temp_a1;
+    if ((sizeA < sizeC) & (sizeB < sizeC)) {
+        D_80108F7C = sizeC;
     }
-    temp_a0_2 = D_80108F7C + 0x80;
-    D_80108F7C = temp_a0_2;
-    D_800CE800 = heapAlloc(temp_a0_2, 1);
+    heapEnd = D_80108F7C + 0x80;
+    D_80108F7C = heapEnd;
+    D_800CE800 = heapAlloc(heapEnd, 1);
     func_80006E30();
     func_8000B828(func_80083C8C());
     heapAlloc(func_80009F04() + 0x400, 1);
@@ -131,29 +131,29 @@ void initSystem(void) {
     gViFrameRateConst = 0x3BB;
     D_80117384 = (u32) (tvType - 1) < 2U;
     if (tvType == 0) goto pal;
-    var_s2 = 0;
+    viIndex = 0;
     if (tvType == 2) goto mpal;
     goto scale;
 pal:
-    var_s2 = 0xE;
+    viIndex = 0xE;
     goto scale;
 mpal:
-    var_s2 = 0x1C;
+    viIndex = 0x1C;
 scale:
-    var_s1 = var_s2 * 4;
-    temp_s1 = (var_s1 + var_s2) * 0x10;
-    osViSetMode(temp_s1 + D_800CFF60);
+    viScale = viIndex * 4;
+    viModeOffset = (viScale + viIndex) * 0x10;
+    osViSetMode(viModeOffset + D_800CFF60);
     osViBlack(1);
-    var_a2 = D_80109CC8;
-    var_s1_2 = temp_s1 + (D_800CFF60 + 0x50);
-    temp_a3 = var_s1_2 + 0x50;
-    D_80100964 = var_s2 + 2;
-    D_80108F95 = var_s2 + 6;
+    dst = D_80109CC8;
+    src = viModeOffset + (D_800CFF60 + 0x50);
+    srcEnd = src + 0x50;
+    D_80100964 = viIndex + 2;
+    D_80108F95 = viIndex + 6;
     do {
-        M2C_FIELD(var_a2, __repair_words4 *, 0x0) = *(__repair_words4 *) ((s8 *) var_s1_2 + 0x0);
-        var_s1_2 += 0x10;
-        var_a2 += 0x10;
-    } while (var_s1_2 != temp_a3);
+        M2C_FIELD(dst, __repair_words4 *, 0x0) = *(__repair_words4 *) ((s8 *) src + 0x0);
+        src += 0x10;
+        dst += 0x10;
+    } while (src != srcEnd);
     D_80109CD8 = 0x20C;
     D_80109CF4 = 0x800;
     D_80109D08 = 0x800;

@@ -4,7 +4,7 @@ extern s16 D_800C9D42;
 extern u8 D_800CA310;
 extern u8 D_800CA338;
 extern u8 D_801002AE;
-extern s8 gUpdateGateWord;
+extern s8 gBorderSkipFlag;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
@@ -164,7 +164,7 @@ L71:
             node = p;
         }
     }
-    if (gUpdateGateWord != 0 && D_800CA310 != 0) {
+    if (gBorderSkipFlag != 0 && D_800CA310 != 0) {
         func_8011E634();
     }
 }

@@ -19,7 +19,7 @@ M2C_UNK func_80027D60(u16);                         /* extern */
 extern s8 D_800BD690;
 extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern void *D_80102F2C;
 extern void *volatile gAimAxisTable;
 extern void *D_80109BB0;
@@ -30,7 +30,7 @@ void func_80028458(void) {
     }
     D_800BD690 = 0;
     func_800217F4();
-    if (gUpdateGateWord == 0) {
+    if (gBorderSkipFlag == 0) {
         M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BDB1C;
     } else {
         M2C_FIELD(D_80109BB0, M2C_UNK **, 0xC) = &D_800BDBF8;

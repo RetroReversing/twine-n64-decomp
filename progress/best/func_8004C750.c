@@ -16,7 +16,7 @@ M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
 void *func_80047B44(void **, f32 *, f32 *, f32 *);  /* extern */
 M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
-s32 func_8004886C(void **, void *, f32);            /* extern */
+s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
 s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
 s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
@@ -192,7 +192,7 @@ u16 __repair_result_var_v0;
             sp144 = sp13C;
             if (var_a0 != NULL) {
                 sp16C = &spB0;
-                __repair_rows: {
+                do {
                     var_s1 = *var_a0;
                     if (var_s1 != NULL) {
                         sp174 = &spB4;
@@ -295,8 +295,7 @@ u16 __repair_result_var_v0;
                         var_a0 = M2C_FIELD(sp144, void ***, 8);
                         sp144 = M2C_FIELD(sp144, void **, 0);
                     }
-                }
-if (var_a0 != NULL) goto __repair_rows;
+                } while (var_a0 != NULL);
             }
             if (var_s6 != NULL) {
                 sp17C = &sp98;
@@ -306,7 +305,7 @@ if (var_a0 != NULL) goto __repair_rows;
                     if (M2C_FIELD(var_s6, s32 *, 0x50) & 0x200) {
                         temp_s2_2 = ((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 4;
                         if (temp_s2_2 == 0) {
-                            if ((func_8004886C(var_s6 + 0x40, arg1, arg4) << 0x18) != 0) {
+                            if ((Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg4) << 0x18) != 0) {
                                 temp_s1 = M2C_FIELD(var_s6, void **, 0x3C);
                                 sp58 = M2C_FIELD(arg1, f32 *, 0);
                                 sp5C = M2C_FIELD(arg1, f32 *, 4);

@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003D64C(void *, void *);                  /* extern */
+s32 Probe_BoundsContainPoint(void *, void *);                  /* extern */
 void *func_8003D848(void *);                        /* extern */
 void *func_80047B44(void *, void *, void *, M2C_UNK); /* extern */
 
-extern void func_800484F8(void *, f32);
+extern void cameraUpdateProjection(void *, f32);
 typedef struct { s32 x,y,z; } Pos483;
 
 void func_8004830C(void *arg0) {
@@ -35,7 +35,7 @@ void func_8004830C(void *arg0) {
         }
     }
     temp_a1 = M2C_FIELD(arg0, void **, 0xF4);
-    if ((temp_a1 != NULL) && ((func_8003D64C(arg0 + 0x10, temp_a1) << 0x18) == 0)) {
+    if ((temp_a1 != NULL) && ((Probe_BoundsContainPoint(arg0 + 0x10, temp_a1) << 0x18) == 0)) {
         M2C_FIELD(arg0, Pos483 *, 0x10) = M2C_FIELD(arg0, Pos483 *, 0x28);
     } else {
         M2C_FIELD(arg0, Pos483 *, 0x28) = M2C_FIELD(arg0, Pos483 *, 0x10);
@@ -53,7 +53,7 @@ void func_8004830C(void *arg0) {
         } else {
             M2C_FIELD(arg0, s32 *, 0x100) = M2C_FIELD(arg0, s32 *, 0x100) & ~8;
         }
-        func_800484F8(arg0, M2C_FIELD(arg0, f32 *, 0x84));
+        cameraUpdateProjection(arg0, M2C_FIELD(arg0, f32 *, 0x84));
         return;
     }
     M2C_FIELD(arg0, void **, 0xF4) = temp_s1;

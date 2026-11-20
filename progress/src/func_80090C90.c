@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
-M2C_UNK func_80090A4C(s32);                         /* extern */
+M2C_UNK ReleaseSoundEntity(s32);                         /* extern */
 extern u8 D_800CF540;
 
 void func_80090C90(s32 arg0) {
     if (D_800CF540 != 0) {
         func_8008C0D4();
-        func_80090A4C(arg0);
+        ReleaseSoundEntity(arg0);
         func_8008C11C();
     }
 }

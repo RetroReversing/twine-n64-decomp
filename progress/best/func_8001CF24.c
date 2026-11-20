@@ -29,7 +29,9 @@ extern u8 D_801002A0;
 extern s32 D_80102EBC;
 extern void *D_80109BB0;
 
-void func_8001CF24(void *arg0, s32 arg1, s32 arg2) { /* baseline */
+void func_8001CF24(void *arg0, s32 arg1, s32 arg2) {
+int __repair_literal;
+ /* baseline */
     s32 var_v0_2;
     s32 palette;
     void *temp_a1;
@@ -62,7 +64,9 @@ void func_8001CF24(void *arg0, s32 arg1, s32 arg2) { /* baseline */
             M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s16 *, 0x20) = (s16) (M2C_FIELD(arg0, u16 *, 4) + 0x7E);
             M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), u16 *, 0x22) = (u16) M2C_FIELD(arg0, u16 *, 6);
             var_v0_2 = arg2 & 0xFF;
-            if (((s32) D_801002A0 >= 2) && ((var_v0_2 = arg2 & 0xFF, (((s32) D_801002A0 < 4) != 0)) || (var_v0_2 = arg2 & 0xFF, (D_801002A0 == 6)))) {
+__repair_literal = 2;
+
+            if (((s32) D_801002A0 >= __repair_literal) && ((var_v0_2 = arg2 & 0xFF, (((s32) D_801002A0 < 4) != 0)) || (var_v0_2 = arg2 & 0xFF, (D_801002A0 == 6)))) {
                 if (var_v0_2 != 0) {
                     M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x10) = (s32) ((D_800BD664 & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
                 } else if (*(D_801001A1 + (M2C_FIELD(arg0, u8 *, 8) * 0x18)) == 0) {

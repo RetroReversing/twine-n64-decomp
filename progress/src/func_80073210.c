@@ -17,7 +17,7 @@ s32 func_80082FE4();
 extern u8 D_800C7E6C;
 extern f64 D_800D4838;
 extern s32 D_800E1A30;
-extern f32 D_800E1A34;
+extern f32 gSubdivideMinSize;
 extern u32 D_800E1A64;
 extern s32 D_800E1A68;
 
@@ -35,7 +35,7 @@ void func_80073210(void *arg0, s32 arg1, s32 arg2, f32 arg3, f32 arg4, f32 arg5,
     if (arg6 < 0) {
         d += D_800D4838;
     }
-    D_800E1A34 = (f32) d;
+    gSubdivideMinSize = (f32) d;
     D_800E1A30 = arg7;
     D_800C7E6C = M2C_FIELD(arg0, u8 *, 0x44);
     s[0] = arg3;

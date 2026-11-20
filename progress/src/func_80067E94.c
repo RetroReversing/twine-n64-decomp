@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern s32 gAimAxisTable[];
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 
 void func_80067E94(void *arg0) {
     s16 __repair_store_0;
@@ -31,7 +31,7 @@ void func_80067E94(void *arg0) {
     if (temp_a2 != NULL) {
         idx = M2C_FIELD(temp_a1, s8 *, 0x182);
         var_v1 = 2;
-        if (D_8010A4E8 != 0) {
+        if (gHiResScreen != 0) {
             var_v1 = 1;
         }
         temp_v0 = gAimAxisTable[idx];

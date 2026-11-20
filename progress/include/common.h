@@ -55,9 +55,15 @@ typedef struct {
 typedef struct TwineProbeObject {
     u8 pad0[0x10];
     struct TwineProbeObject *next;
-    u8 pad14[0x28];
+    struct TwineProbeObject *attachedNext;
+    struct TwineProbeObject *attachedTo;
+    u8 pad1C[4];
+    u8 *hostData;
+    u8 pad24[4];
+    f32 groundY;
+    u8 pad2C[0x10];
     TwineProbeBounds *bounds;
-    u8 pad40[0xC];
+    f32 center[3];
     f32 distance;
     u8 pad50[8];
     u16 type;
@@ -100,7 +106,18 @@ extern s32 D_800CEE50[18];
 /* Bounds face rejection for a segment, with a separate Y margin. */
 s32 segmentPassesBoundsRejection(void *bounds, void *start, void *end, f32 yMargin);
 
-void func_800484F8(void *arg0, f32 arg1);
+void cameraUpdateProjection(void *arg0, f32 arg1);
 
 /* Sprite rectangle setup; verified from exact-matched func_8004844C. */
 void func_8004844C(void *sprite, f32 x, f32 y, f32 width, f32 height, f32 scaleX, f32 scaleY);
+
+extern void *jtbl_8011EF48[11];
+
+/* RSP task message posted to the SP event queue: type 1 = start task, 2 = yield, 0x81 = RSP done. */
+typedef struct {
+    u8 type;
+    u8 pad[3];
+    s32 task;
+} RspMsg;
+
+extern void *jtbl_8011EF48[11];

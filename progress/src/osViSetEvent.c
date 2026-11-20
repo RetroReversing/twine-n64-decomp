@@ -15,14 +15,14 @@ typedef s32 M2C_UNK32;
 /* Stores the retrace message and count into the VI state block, with interrupts off. */
 s32 func_8009F640();                                /* extern */
 M2C_UNK func_8009F6B0(s32);                         /* extern */
-extern void *D_800D1154;
+extern void *vi_active_ctx;
 
 void osViSetEvent(s32 mq, s32 msg, s16 retraceCount) {
     s32 saved;
 
     saved = func_8009F640();
-    M2C_FIELD(D_800D1154, s32 *, 0x10) = mq;
-    M2C_FIELD(D_800D1154, s32 *, 0x14) = msg;
-    M2C_FIELD(D_800D1154, s16 *, 2) = retraceCount;
+    M2C_FIELD(vi_active_ctx, s32 *, 0x10) = mq;
+    M2C_FIELD(vi_active_ctx, s32 *, 0x14) = msg;
+    M2C_FIELD(vi_active_ctx, s16 *, 2) = retraceCount;
     func_8009F6B0(saved);
 }

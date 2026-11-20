@@ -14,7 +14,7 @@ extern u32 D_800E1764;
 extern u16 D_800E1766;
 extern s32 D_800E1768;
 extern void *D_80109BB0;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern s32 *D_80115328;
 
 typedef struct { unsigned char pad[24]; int value; } __repair_field_18;
@@ -253,7 +253,7 @@ s32 __repair_result_var_v1_3;
                     temp_t3 = (*(u8 *)((char *)(temp_v1_4) + 0)) << 5;
                     temp_t4 = (*(u8 *)((char *)(temp_v1_4) + 1)) << 5;
                     temp_a0_2 = (s8)((*(s8 *)((char *)(temp_v1_4) + 4)));
-                    if (D_8010A4E8 != 0) {
+                    if (gHiResScreen != 0) {
                         var_a2_2 = D_80115328;
                         __repair_phase_storage.value = arg1 + ((var_s5 - temp_a0_2) * 2);
                         temp_v1_5 = temp_a3 + (*(void **)((char *)(temp_s4) + 8));

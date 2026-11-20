@@ -5,14 +5,14 @@ typedef struct Node8009450C {
     char pad[0x34 - 0xC];
     s32 unk34;
 } Node8009450C;
-extern Node8009450C *D_80117708;
+extern Node8009450C *gSlotListHead;
 extern u8 D_800CF540;
 void func_8008C0D4(void);
 void func_8008C11C(void);
 void func_8008EA58(s32);
 
 void func_8009450C(void) {
-    Node8009450C *n = D_80117708;
+    Node8009450C *n = gSlotListHead;
     Node8009450C *next;
     while (n != NULL) {
         next = n->next;
@@ -24,7 +24,7 @@ void func_8009450C(void) {
             if (n->prev != NULL) {
                 n->prev->next = n->next;
             } else {
-                D_80117708 = n->next;
+                gSlotListHead = n->next;
             }
             n->unk8 = *(u16 *)((u8 *)n + 0xA);
             if (n->unk34 != -1) {

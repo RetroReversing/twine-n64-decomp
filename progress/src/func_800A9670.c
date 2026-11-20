@@ -8,8 +8,8 @@ extern s32 D_800D10F4;
 extern s16 D_800D1122;
 extern s32 D_800D1124;
 extern V *D_800D1128;
-extern u8 *D_800D1150;
-extern V *D_800D1154;
+extern u8 *vi_pending_ctx;
+extern V *vi_active_ctx;
 extern u8 D_800D11B0[];
 extern u8 D_800D1200[];
 extern u8 D_800D1160[];
@@ -18,8 +18,8 @@ extern void bzero(void *, s32);
 
 void func_800A9670(void) {
     bzero(D_800D10F0, 0x60);
-    D_800D1150 = D_800D10F0;
-    D_800D1154 = (V *)(D_800D10F0 + 0x30);
+    vi_pending_ctx = D_800D10F0;
+    vi_active_ctx = (V *)(D_800D10F0 + 0x30);
     D_800D1122 = 1;
     D_800D10F2 = 1;
     D_800D1124 = 0x80000000;
@@ -31,8 +31,8 @@ void func_800A9670(void) {
     } else {
         D_800D1128 = (V *)D_800D1160;
     }
-    D_800D1154->unk0 = 0x20;
-    D_800D1154->unkC = D_800D1154->unk8->unk4;
+    vi_active_ctx->unk0 = 0x20;
+    vi_active_ctx->unkC = vi_active_ctx->unk8->unk4;
     while (*(volatile u32 *)0xA4400010 >= 0xB) {}
     *(volatile u32 *)0xA4400000 = 0;
     vi_apply_context();

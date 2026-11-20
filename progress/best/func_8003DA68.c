@@ -3,10 +3,10 @@ typedef struct { f32 x, y, z, w; } Vec4;
 extern Vec3 D_800D2FB0;
 extern Vec3 D_800D2FBC;
 extern void *D_80108F84;
-extern s32 func_8004DBD8;
-s32 func_8004E6E4(void *, void *, Vec3 *, Vec3 *, Vec3 *, f32, s32, s32, s32);
+extern s32 Ray_TriangleIntersect;
+s32 Ray_CastObjects(void *, void *, Vec3 *, Vec3 *, Vec3 *, f32, s32, s32, s32);
 void func_800458C0(Vec4 *, void *, void *, void *);
-s8 func_8003D64C(Vec3 *, void *);
+s8 Probe_BoundsContainPoint(Vec3 *, void *);
 
 #define FLIP_VECTOR() do { \
     f32 x = -arg3->x, y = -arg3->y, z = -arg3->z; \
@@ -14,7 +14,7 @@ s8 func_8003D64C(Vec3 *, void *);
 } while (0)
 #define FLIP_RETURN() do { FLIP_VECTOR(); *arg4 = -*arg4; return 1; } while (0)
 #define CELLVAL(p) ((((u32)*(u32 *)((u8 *)*(void **)((u8 *)(p) + 0x3C) + 0x30)) >> 4) & 0xFFFF)
-#define F8(o, a, b) (func_8004E6E4(&func_8004DBD8, (o), (a), (b), &out, 256.0f, 0, 1, 0) << 24)
+#define F8(o, a, b) (Ray_CastObjects(&Ray_TriangleIntersect, (o), (a), (b), &out, 256.0f, 0, 1, 0) << 24)
 
 s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     Vec3 pos;
@@ -124,8 +124,8 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     arg3->y = r.y;
     arg3->z = r.z;
     *arg4 = r.w;
-    c1 = func_8003D64C(&sum, arg1);
-    c2 = func_8003D64C(&sum, arg2);
+    c1 = Probe_BoundsContainPoint(&sum, arg1);
+    c2 = Probe_BoundsContainPoint(&sum, arg2);
     if ((c1 == 0) & (c2 == 0)) {
         arg3->x = 0.0f;
         arg3->y = 0.0f;
@@ -140,8 +140,8 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
         sum.x = pos.x + arg3->x;
         sum.y = pos.y + arg3->y;
         sum.z = pos.z + arg3->z;
-        c1 = func_8003D64C(&sum, arg1);
-        c2 = func_8003D64C(&sum, arg2);
+        c1 = Probe_BoundsContainPoint(&sum, arg1);
+        c2 = Probe_BoundsContainPoint(&sum, arg2);
         if ((c1 != 0) & (c2 == 0)) return 1;
         if ((c1 == 0) & (c2 != 0)) FLIP_RETURN();
     }

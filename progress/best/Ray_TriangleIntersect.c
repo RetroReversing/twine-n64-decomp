@@ -2,7 +2,7 @@
 
 extern f64 D_800D3E48;
 
-s32 func_8004DBD8(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 *arg5) {
+s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 *arg5) {
     f32 sp0[3];
     f32 sp10[3];
     f32 sp20[3];

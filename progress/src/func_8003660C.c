@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80008750(void *, u8, M2C_UNK);         /* extern */
 M2C_UNK func_80009DCC(void *, void *, void *, s32, s32); /* extern */
-s32 func_80014C10(void *, f32, void *, void *);     /* extern */
+s32 IsSphereVisible(void *, f32, void *, void *);     /* extern */
 M2C_UNK func_80033FB8(void *);                 /* extern */
 M2C_UNK func_8003438C(void *, void *);              /* extern */
 M2C_UNK func_80034560(void *);                      /* extern */
@@ -71,7 +71,7 @@ void func_8003660C(void *arg0) {
                 }
             }
             func_8003438C(temp_a0, arg0);
-            if ((func_80014C10(var_s1 + 0x24, ((__repair_record_var_s1*)var_s1)->field_64 * ((__repair_record_var_s1*)var_s1)->field_54, M2C_FIELD(arg0, void **, 0xF4), arg0) << 0x18) != 0) {
+            if ((IsSphereVisible(var_s1 + 0x24, ((__repair_record_var_s1*)var_s1)->field_64 * ((__repair_record_var_s1*)var_s1)->field_54, M2C_FIELD(arg0, void **, 0xF4), arg0) << 0x18) != 0) {
                 ((__repair_record_var_s1*)var_s1)->field_58 = (s32) (((__repair_record_var_s1*)var_s1)->field_58 | 4);
                 func_80009DCC(temp_s0, var_s1, arg0, D_800E1714, 0);
                 if (((u32) M2C_FIELD(temp_s0, u32 *, 0x58) >> 2) & 0x200) {

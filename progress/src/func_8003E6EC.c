@@ -11,14 +11,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003D64C(f32 *, void *);
-s32 func_8004886C(void *, void *, f32);
-s32 func_8004E6E4(M2C_UNK *, void *, f32 *, s32 *, M2C_UNK *, f32, s32, s32, s32);
+s32 Probe_BoundsContainPoint(f32 *, void *);
+s32 Sphere_OverlapsPoint(void *, void *, f32);
+s32 Ray_CastObjects(M2C_UNK *, void *, f32 *, s32 *, M2C_UNK *, f32, s32, s32, s32);
 M2C_UNK func_80082FE4(s16 *, M2C_UNK *);
 M2C_UNK func_80083A6C(M2C_UNK *, f32 *);
-extern M2C_UNK D_800D2FC8;
-extern M2C_UNK D_800D2FD4;
-extern M2C_UNK func_8004DBD8;
+extern M2C_UNK gVecUp;
+extern M2C_UNK gVecDown;
+extern M2C_UNK Ray_TriangleIntersect;
 
 /* Searches the list at listHead for the nearest surface above or below obj, then links obj into that surface's chain. */ s32 func_8003E6EC(void *listHead, void *obj, u8 flagIfUnlinked) {
     s16 rot[3];
@@ -73,22 +73,22 @@ extern M2C_UNK func_8004DBD8;
         f32 *point = pos;
         normOut = upA;
         do {
-            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((func_8004886C(cur + 0x40, point, M2C_FIELD(obj, f32 *, 0x64)) << 0x18) != 0) && ((func_8003D64C(point, cur) << 0x18) != 0)) {
-                __builtin_memcpy(upA, &D_800D2FC8, 12);
-                __builtin_memcpy(upB, &D_800D2FD4, 12);
+            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(cur + 0x40, point, M2C_FIELD(obj, f32 *, 0x64)) << 0x18) != 0) && ((Probe_BoundsContainPoint(point, cur) << 0x18) != 0)) {
+                __builtin_memcpy(upA, &gVecUp, 12);
+                __builtin_memcpy(upB, &gVecDown, 12);
                 curDist = M2C_FIELD(cur, f32 *, 0x4C);
                 if (curDist < bestBelowDist) {
                     bestBelow = cur;
                     bestBelowDist = curDist;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, cur, point, normOut, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((Ray_CastObjects(&Ray_TriangleIntersect, cur, point, normOut, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     dist = hit[1] - pos[1];
                     if (dist < bestAboveDist) {
                         bestAbove = cur;
                         bestAboveDist = dist;
                     }
                 } else {
-                    if ((func_8004E6E4(&func_8004DBD8, cur, point, upB, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    if ((Ray_CastObjects(&Ray_TriangleIntersect, cur, point, upB, &hit, 256.0f, 0, 1, 0) << 0x18) != 0) {
                         dist = pos[1] - hit[1];
                         if (dist < bestAboveDist) {
                             bestAbove = cur;

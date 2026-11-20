@@ -12,13 +12,13 @@ extern f64 D_800D48C8;
 extern f64 D_800D48D0;
 extern f64 D_800D48E0;
 extern s32 D_801002B4;
-extern s32 D_801002C0;
-extern s32 gUpdateGateWord;
+extern s32 gBorderMode;
+extern s32 gBorderSkipFlag;
 extern char gAimAxisTable[];
 extern void *D_80109698;
 extern void *D_8010969C;
 extern u8 D_8010A4C2;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 
 typedef struct { void * value; } __repair_field_0;
 void func_8007560C(void) {
@@ -83,7 +83,7 @@ short __repair_constant = 0x100;
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xDF;
     D_8010A4C2 |= 0x20;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
-    if (gUpdateGateWord == 0) {
+    if (gBorderSkipFlag == 0) {
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
             func_80048794(0, D_800CA31C);
         }
@@ -115,9 +115,9 @@ short __repair_constant = 0x100;
                     var_fv0 += temp_fs0;
                 }
                 do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, 0.0f, (f32) var_fv0); } while (0);
-                if (D_801002C0 <= var_s0) {
+                if (gBorderMode <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
-                    if ((D_801002C0 == 3) & (var_s0 == 3)) {
+                    if ((gBorderMode == 3) & (var_s0 == 3)) {
                         (*(&D_8010A4C3)) = (u8) ((*__base_D_8010A4C3) | var_v1); } else {
                         (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & ~(1 << var_s0));
                         var_v1 = 1 << var_s0;
@@ -135,7 +135,7 @@ short __repair_constant = 0x100;
             var_s1 += 1;
         } while (var_s0 < (*__base_D_801002B4));
     }
-    switch (D_801002C0) {                           /* irregular */
+    switch (gBorderMode) {                           /* irregular */
     case 1:
         if (((__repair_field_0 *)gAimAxisTable)->value == NULL) {
             func_80048794(0, D_800CA31C);
@@ -156,7 +156,7 @@ short __repair_constant = 0x100;
         if ((*(void **)((char *)(gAimAxisTable) + 4)) == NULL) {
             func_80048794(1, D_800CA31C);
         }
-        if (D_8010A4FD != 1) {
+        if (gBorderFlipFlag != 1) {
             temp_fs0_3 = 120.0f * 0.5f;
             temp_fs2 = 160.0f + 160.0f;
             func_8004844C(((__repair_field_0 *)gAimAxisTable)->value, 160.0f, temp_fs0_3, temp_fs2, 120.0f, 1.0f, 1.0f);
@@ -173,7 +173,7 @@ short __repair_constant = 0x100;
             var_a3 = 160.0f;
         }
 block_74:
-        func_8004844C(temp_s4, var_a1, var_a2, var_a3, D_8010A4FD == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
+        func_8004844C(temp_s4, var_a1, var_a2, var_a3, gBorderFlipFlag == 1 ? 240.0f : 120.0f, 1.0f, 1.0f);
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);

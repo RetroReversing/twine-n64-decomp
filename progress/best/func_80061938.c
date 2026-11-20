@@ -15,8 +15,10 @@ void func_80061938(void *arg0) {
     switch ((*(u16 *)((char *)(arg0) + 0x78))) {
     case 0x54:
         temp_v1_2 = (*(void **)((char *)(arg0) + 0x20));
-        t44 = (*(f32 *)((char *)(arg0) + 0x44)) + 16.0f;
-        temp_fv1 = (*(f32 *)((char *)(arg0) + 0x28)) + 0.020416668f;
+        t44 = (*(f32 *)((char *)(arg0) + 0x44));
+        temp_fv1 = (*(f32 *)((char *)(arg0) + 0x28));
+        t44 += 16.0f;
+        temp_fv1 += 0.020416668f;
         (*(f32 *)((char *)(arg0) + 0x44)) = t44;
         (*(f32 *)((char *)(arg0) + 0x28)) = temp_fv1;
         if ((*(f32 *)((char *)((*(void **)((char *)(temp_v1_2) + 0x3C))) + 0x24)) < temp_fv1) {
@@ -27,8 +29,10 @@ void func_80061938(void *arg0) {
         }
         goto mul;
     case 0x17:
-        t44 = (*(f32 *)((char *)(arg0) + 0x44)) + 16.0f;
-        temp_fv1 = (*(f32 *)((char *)(arg0) + 0x28)) + 0.010208334f;
+        t44 = (*(f32 *)((char *)(arg0) + 0x44));
+        temp_fv1 = (*(f32 *)((char *)(arg0) + 0x28));
+        t44 += 16.0f;
+        temp_fv1 += 0.010208334f;
         (*(f32 *)((char *)(arg0) + 0x44)) = t44;
         (*(f32 *)((char *)(arg0) + 0x28)) = temp_fv1;
         temp_fv0 = (*(f32 *)((char *)((*(void **)((char *)((*(void **)((char *)(arg0) + 0x20))) + 0x3C))) + 0x24));
@@ -41,7 +45,8 @@ void func_80061938(void *arg0) {
         (*(f32 *)((char *)(arg0) + 0x54)) *= (*(f32 *)((char *)(temp_s1) + 0x14));
         break;
     }
-    d = (*(u8 *)((char *)(arg0) + 0x82)) - (*(u8 *)((char *)(temp_s1) + 0x26));
+    d = (*(u8 *)((char *)(temp_s1) + 0x26));
+    d = (*(u8 *)((char *)(arg0) + 0x82)) - d;
     (*(u8 *)((char *)(arg0) + 0x7F)) += (*(u8 *)((char *)(temp_s1) + 0x23));
     (*(u8 *)((char *)(arg0) + 0x80)) += (*(u8 *)((char *)(temp_s1) + 0x24));
     (*(u8 *)((char *)(arg0) + 0x81)) += (*(u8 *)((char *)(temp_s1) + 0x25));

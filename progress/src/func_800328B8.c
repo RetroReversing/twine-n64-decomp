@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_8010A510;
+extern s32 gGfxPtr;
 extern s32 D_8010D2B4;
 
 void func_800328B8(s32 arg0, s32 arg1) {
-    D_8010A510 = arg1;
+    gGfxPtr = arg1;
     D_8010D2B4 = arg0;
 }

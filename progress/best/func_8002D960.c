@@ -47,7 +47,7 @@ extern u8 D_80102EE8;
 extern const u16 *volatile D_80102FD4;
 extern u8 D_8010A4C0;
 extern u8 D_8010A4FC;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 extern u8 D_8010A4FE;
 extern u8 D_8010A4FF;
 extern u8 D_80112F70;
@@ -172,7 +172,7 @@ loop_3:
         D_80102EE8 = func_8002E98C(&D_800E1310, 1, 4);
         D_8010A4C0 = func_8002E98C(&D_800E1310, 1, 2);
         D_8010A4FC = func_8002E98C(&D_800E1310, 1, 6);
-        D_8010A4FD = func_8002E98C(&D_800E1310, 1, 1);
+        gBorderFlipFlag = func_8002E98C(&D_800E1310, 1, 1);
         D_8010A4FE = func_8002E98C(&D_800E1310, 1, 1);
         D_8010A4FF = func_8002E98C(&D_800E1310, 1, 2);
         D_801002EC = func_8002E98C(&D_800E1310, 4, 1);

@@ -20,5 +20,5 @@ void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out) {
     *(s32 *)out=n;
     s=(s32)s*o;
     *(f32 *)((char *)out+4)=d;
-    *(f32 *)((char *)out+8)=s+m+((g+(e*0.5f))*a);
+    *(f32 *)((char *)out+8)=s+m+((g+(e*0.5f))*a); *(f32 *)((char *)out+12)=0.0f;
 }

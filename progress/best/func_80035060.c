@@ -2,7 +2,7 @@
 
 s32 func_80034EFC();                            /* extern */
 s32 osVirtualToPhysical(s32); /* extern */
-extern s32 D_801002C0;
+extern s32 gBorderMode;
 extern s32 D_80100304;
 extern u8 D_80100777;
 extern u8 D_80100778;
@@ -10,11 +10,11 @@ extern u8 D_80100779;
 extern u8 D_801007CF;
 extern u8 D_801007D0;
 extern u8 D_801007D1;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s32 D_80109A54;
 extern s16 D_8010A4B0;
 extern u8 D_8010A4C1;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern s32 D_8010A4EC;
 extern s16 D_8010D6F8;
 extern void * volatile D_80115328;
@@ -87,14 +87,14 @@ void func_80035060(void *arg0) {
     D_80115328 = temp_s1_2 + 0x10;
     var_a0 = 2;
     if (D_8010A4EC != 0) {
-        var_a0 = (-(D_8010A4E8 == 0) & 3) | 2;
+        var_a0 = (-(gHiResScreen == 0) & 3) | 2;
     }
     (*(s32 *)((char *)(temp_s1_2) + 0x10)) = (s32) ((var_a0 << 0x13) | (((D_8010D6F8 - 1) & 0xFFF) | 0xFF000000));
     D_80115328 = temp_s1_2 + 0x18;
     (*(s32 *)((char *)(temp_s1_2) + 0x14)) = osVirtualToPhysical(*((s32 *)((char *)&D_80100304 + (D_8010A4B0 * 4))));
-    if (gUpdateGateWord != 0) {
+    if (gBorderSkipFlag != 0) {
         temp_v1 = (*(const s16 *)((char *)(arg0) + 0x140));
-        if ((temp_v1 == 3) && (D_801002C0 == temp_v1)) {
+        if ((temp_v1 == 3) && (gBorderMode == temp_v1)) {
             temp_v0 = D_80115328;
             D_80115328 = temp_v0 + 8;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xF7000000;

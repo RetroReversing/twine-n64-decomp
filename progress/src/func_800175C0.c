@@ -1,20 +1,21 @@
 typedef struct { s32 x, y, z; } V3i;
 f32 func_80045E34(void *, void *);
 
-void func_800175C0(void **arg0, s32 arg1, s32 arg2, V3i *arg3, f32 arg4, s32 arg5) {
-    void **first = arg0;
-    void *o;
-    void *n;
-    void *p;
+/* Walks the object lists in a chain of list heads, and for objects in the given type set within max_dist of pos, updates their flag word and copies pos into their sub-record. */
+void func_800175C0(void **list_heads, s32 clear_mask, s32 set_mask, V3i *pos, f32 max_dist, s32 flag) {
+    void **first = list_heads;
+    void *obj;
+    void *node;
+    void *sub;
     s32 v;
 
-    if (arg0 == NULL) {
+    if (list_heads == NULL) {
         return;
     }
-    n = *(void **)((char *)*(void **)((char *)arg0 + 0x20) + 0x58);
+    node = *(void **)((char *)*(void **)((char *)list_heads + 0x20) + 0x58);
     do {
-        for (o = *arg0; o != NULL; o = *(void **)o) {
-            switch (*(u16 *)((char *)o + 0x78)) {
+        for (obj = *list_heads; obj != NULL; obj = *(void **)obj) {
+            switch (*(u16 *)((char *)obj + 0x78)) {
             case 1:
             case 2:
             case 3:
@@ -22,38 +23,38 @@ void func_800175C0(void **arg0, s32 arg1, s32 arg2, V3i *arg3, f32 arg4, s32 arg
             case 0x24:
             case 0x3B:
             case 0x4C:
-                if (arg4 == 0.0f || func_80045E34(arg3, (char *)o + 0x24) < arg4) {
-                    u16 t = *(u16 *)((char *)o + 0x78);
-                    if ((t == 1 || t == 0x4C) && !(*(s32 *)((char *)o + 0x60) & arg1)) {
-                        s32 w = *(s32 *)((char *)o + 0x60) | arg2;
+                if (max_dist == 0.0f || func_80045E34(pos, (char *)obj + 0x24) < max_dist) {
+                    u16 type = *(u16 *)((char *)obj + 0x78);
+                    if ((type == 1 || type == 0x4C) && !(*(s32 *)((char *)obj + 0x60) & clear_mask)) {
+                        s32 flags = *(s32 *)((char *)obj + 0x60) | set_mask;
                         s32 r;
-                        p = *(void **)((char *)o + 0x6C);
-                        *(s32 *)((char *)o + 0x60) = w;
-                        if (arg0 == first) {
-                            r = w | 0x1000;
+                        sub = *(void **)((char *)obj + 0x6C);
+                        *(s32 *)((char *)obj + 0x60) = flags;
+                        if (list_heads == first) {
+                            r = flags | 0x1000;
                         } else {
-                            r = w | 0x2000;
+                            r = flags | 0x2000;
                         }
-                        *(s32 *)((char *)o + 0x60) = r;
-                        *(V3i *)((char *)p + 0x50) = *arg3;
-                    } else if ((u32)(*(u16 *)((char *)o + 0x78) - 2) < 2U) {
-                        v = *(s32 *)((char *)o + 0x60);
-                        if (!(v & arg1)) {
-                            void *q = *(void **)((char *)o + 0x6C);
-                            *(s32 *)((char *)o + 0x60) = v | arg2;
-                            *(V3i *)((char *)q + 0x1A0) = *arg3;
+                        *(s32 *)((char *)obj + 0x60) = r;
+                        *(V3i *)((char *)sub + 0x50) = *pos;
+                    } else if ((u32)(*(u16 *)((char *)obj + 0x78) - 2) < 2U) {
+                        v = *(s32 *)((char *)obj + 0x60);
+                        if (!(v & clear_mask)) {
+                            void *q = *(void **)((char *)obj + 0x6C);
+                            *(s32 *)((char *)obj + 0x60) = v | set_mask;
+                            *(V3i *)((char *)q + 0x1A0) = *pos;
                         }
-                    } else if ((s8)arg5 == 0) {
-                        *(s32 *)((char *)o + 0x60) |= arg2;
+                    } else if ((s8)flag == 0) {
+                        *(s32 *)((char *)obj + 0x60) |= set_mask;
                     }
                 }
                 break;
             }
         }
-        arg0 = NULL;
-        if (n != NULL) {
-            arg0 = *(void ***)((char *)n + 8);
-            n = *(void **)n;
+        list_heads = NULL;
+        if (node != NULL) {
+            list_heads = *(void ***)((char *)node + 8);
+            node = *(void **)node;
         }
-    } while (arg0 != NULL);
+    } while (list_heads != NULL);
 }

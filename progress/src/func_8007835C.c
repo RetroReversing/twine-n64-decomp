@@ -4,7 +4,7 @@ f32 func_800461D4();
 s32 func_80077960();
 s32 func_80078274();
 s32 func_8007BAF8();
-extern u8 D_80109A60[];
+extern u8 gActorFlagTable[];
 
 s32 func_8007835C(void *arg0) {
     int var_s3;
@@ -16,7 +16,7 @@ s32 func_8007835C(void *arg0) {
     var_s3 = 0;
     if (var_s1 != NULL) {
         do {
-            if (((temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78))) < 0x61) && ((s32) temp_v1 >= 0x5E) && (*(D_80109A60 + (*(u16 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x34))) == 0)) {
+            if (((temp_v1 = (*(u16 *)((char *)(var_s1) + 0x78))) < 0x61) && ((s32) temp_v1 >= 0x5E) && (*(gActorFlagTable + (*(u16 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x34))) == 0)) {
                 temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
                 (*(s32 *)((char *)(temp_s0) + 0x88)) |= 0x02000000;
                 if ((func_8007BAF8(arg0, var_s1 + 0x24, 6, 0xB) << 0x18) != 0) {

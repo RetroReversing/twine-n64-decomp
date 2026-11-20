@@ -34,13 +34,13 @@ extern char D_80108416[];
 extern char D_8010A3C5[];
 extern s32 D_80115308;
 
-s32 func_80012428(void) {
-    s32 temp_a1;
+/* Runs the staged save/load step sequence (calls 0x6, 0xA, 0x9, 0xB via func_80011800), checking func_800109CC after each step; returns the final status. */ s32 func_80012428(void) {
+    s32 block_offset;
 
     D_800BFC32 = 0;
     func_800104B8(&D_80115308, D_80103030, 0x10);
     func_800104B8(&D_80103042, D_8010A3C5, 4);
-    if ((*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) == 0) || (temp_a1 = D_800E0978 << 5, func_80011800(6, (D_800E093A * 0x68) + D_800E0790, *(u16 *)(D_80108410 + temp_a1), *(s32 *)(D_8010840C + temp_a1), temp_a1 + D_80108416, temp_a1 + (D_80108416 - 4), NULL, NULL), (func_800109CC() == 0))) {
+    if ((*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) == 0) || (block_offset = D_800E0978 << 5, func_80011800(6, (D_800E093A * 0x68) + D_800E0790, *(u16 *)(D_80108410 + block_offset), *(s32 *)(D_8010840C + block_offset), block_offset + D_80108416, block_offset + (D_80108416 - 4), NULL, NULL), (func_800109CC() == 0))) {
         func_80011800(0xA, (D_800E093A * 0x68) + D_800E0790, 0x3639U, 0x4E4F3745, &D_80115308, &D_80103042, D_800E0960, &D_800E0978);
         if (func_800109CC() == 0) {
             *D_800E0964 = func_80010958((s8 *) D_800E0964 + 2, (s8 *)D_800E0960 - 2);

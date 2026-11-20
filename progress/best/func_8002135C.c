@@ -30,14 +30,14 @@ extern s32 D_8010A500;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; signed char field_82; } __repair_record_D_800B7CE8;
 void func_8002135C(void) {
-    s32 var_s1;
-    s32 temp_v0_2;
-    u32 var_v0;
-    unsigned var_s0;
+    register s32 var_s1;
+    register u32 temp_v0_2;
+    register u32 var_v0;
+    register unsigned var_s0;
     register void *temp_v0;
-    void *temp_v0_3;
+    register void *temp_v0_3;
 
-    if ((D_800B7CEC != 0) && (var_s0 = -1U, (D_80109698 != NULL))) {
+    if (((u32)D_800B7CEC != 0) && (var_s0 = -1U, (D_80109698 != NULL))) {
         var_s1 = -1;
         temp_v0 = func_8002A920(D_800B60E4, (*(s8 *)((char *)(D_800B60E4) + 0x18)));
         if (temp_v0 != NULL) {
@@ -58,7 +58,7 @@ void func_8002135C(void) {
         } else {
 block_9:
             var_v0 = var_s0 >> 0x1F;
-            if ((D_800B7CE8 != NULL) || ((D_80109D18 = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
+            if ((D_800B7CE8 != (unsigned)NULL) || ((D_80109D18 = 1, temp_v0_3 = func_80016410(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
                 if ((var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
                     func_80016718(D_800B7CE8);
                     return;
@@ -84,8 +84,8 @@ block_9:
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.022f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 2048.0f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) *(&D_800C477C + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8));
-                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = 0;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = (f32) ((*((f32 *)((s8 *)&D_800C4780 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8))) * 11.377778f) + -1024.0f);
+                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = 0;
                 }
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_82 = 0xFF;
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_7E = 1;

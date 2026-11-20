@@ -26,7 +26,7 @@ typedef struct {
     u8 padFF4[4];
 } EntSnd;
 
-extern EntSnd D_800E5AC4[];
+extern EntSnd gSndEntities[];
 
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
@@ -34,67 +34,67 @@ static inline s32 find_snd(s32 id) {
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
-        if (*((u8 *)&D_800E5AC4[0].busy + off) == 0 && *(s32 *)((u8 *)&D_800E5AC4[0].id + off) == key) {
+        if (*((u8 *)&gSndEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSndEntities[0].id + off) == key) {
             return i | (id & 0x80000000);
         }
     }
     return -1;
 }
 
-extern SndNode *D_800E5AC0;
+extern SndNode *gFreeSndNodeList;
 void func_80099708(s32);
 
-void func_80090CD4(s32 arg0) {
-    SndNode *n;
-    EntSnd *e;
-    EntSnd *f;
-    SndNode *m;
+/* Stops the sound entry for id: stops its active nodes and moves both node lists onto the free list; otherwise clears the entry's wFF0 when not busy. */ void func_80090CD4(s32 slot) {
+    SndNode *node;
+    EntSnd *ent;
+    EntSnd *ent_fn;
+    SndNode *tail;
 
-    arg0 = find_snd(arg0);
-    if (arg0 == -1) {
+    slot = find_snd(slot);
+    if (slot == -1) {
         return;
     }
-    if (arg0 >= 0) {
-        if (D_800E5AC4[arg0].active != 0 && D_800E5AC4[arg0].busy == 0) {
-            e = &D_800E5AC4[arg0];
-            D_800E5AC4[arg0].active = 0;
-            for (n = e->listF78; n != NULL; n = n->next) {
-                func_80099708(n->h);
+    if (slot >= 0) {
+        if (gSndEntities[slot].active != 0 && gSndEntities[slot].busy == 0) {
+            ent = &gSndEntities[slot];
+            gSndEntities[slot].active = 0;
+            for (node = ent->listF78; node != NULL; node = node->next) {
+                func_80099708(node->h);
             }
-            for (n = e->listF7C; n != NULL; n = n->next) {
-                func_80099708(n->h);
+            for (node = ent->listF7C; node != NULL; node = node->next) {
+                func_80099708(node->h);
             }
-            f = &D_800E5AC4[arg0];
-            m = f->listF78;
-            if (m != NULL) {
-                while (m->next != NULL) {
-                    m = m->next;
+            ent_fn = &gSndEntities[slot];
+            tail = ent_fn->listF78;
+            if (tail != NULL) {
+                while (tail->next != NULL) {
+                    tail = tail->next;
                 }
-                if (D_800E5AC0 != NULL) {
-                    m->next = D_800E5AC0;
-                    D_800E5AC0->prev = m;
+                if (gFreeSndNodeList != NULL) {
+                    tail->next = gFreeSndNodeList;
+                    gFreeSndNodeList->prev = tail;
                 }
-                D_800E5AC0 = f->listF78;
-                f->listF78 = NULL;
+                gFreeSndNodeList = ent_fn->listF78;
+                ent_fn->listF78 = NULL;
             }
-            m = f->listF7C;
-            if (m != NULL) {
-                while (m->next != NULL) {
-                    m = m->next;
+            tail = ent_fn->listF7C;
+            if (tail != NULL) {
+                while (tail->next != NULL) {
+                    tail = tail->next;
                 }
-                if (D_800E5AC0 != NULL) {
-                    m->next = D_800E5AC0;
-                    D_800E5AC0->prev = m;
+                if (gFreeSndNodeList != NULL) {
+                    tail->next = gFreeSndNodeList;
+                    gFreeSndNodeList->prev = tail;
                 }
-                D_800E5AC0 = f->listF7C;
-                f->listF7C = NULL;
+                gFreeSndNodeList = ent_fn->listF7C;
+                ent_fn->listF7C = NULL;
             }
         }
-        D_800E5AC4[arg0].busy = 1;
+        gSndEntities[slot].busy = 1;
     } else {
-        arg0 &= 0x7FFFFFFF;
-        if (D_800E5AC4[arg0].active != 0 && D_800E5AC4[arg0].busy == 0) {
-            D_800E5AC4[arg0].wFF0 = 0;
+        slot &= 0x7FFFFFFF;
+        if (gSndEntities[slot].active != 0 && gSndEntities[slot].busy == 0) {
+            gSndEntities[slot].wFF0 = 0;
         }
     }
 }

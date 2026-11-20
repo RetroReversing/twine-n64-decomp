@@ -16,7 +16,7 @@ f32 func_800829A0(f32);                             /* extern */
 f32 func_800829C8(f32);                             /* extern */
 extern u8 D_800B1FE0[];
 extern s32 D_800B2230;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern void *D_8010968C;
 
 typedef struct { f32 w[3]; } __repair_words3;
@@ -150,7 +150,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 6;
         (*(void **)((char *)(temp_s0) + 0x30)) = NULL;
         if ((*(s32 *)((char *)(arg2) + 0x60)) & 8) {
-            if (!(arg6 & 0x80000) && (gUpdateGateWord == 0)) {
+            if (!(arg6 & 0x80000) && (gBorderSkipFlag == 0)) {
                 temp_v0_3 = func_80031EF4(temp_v0 + 0x24, 0, 0x1E);
                 (*(void **)((char *)(temp_s0) + 0x30)) = temp_v0_3;
                 (*(void **)((char *)(temp_v0_3) + 0x18)) = temp_v0;

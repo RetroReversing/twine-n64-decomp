@@ -3,7 +3,7 @@
 void *func_80083E90();
 extern s32 D_80107ED0;
 extern char D_80109EA0[];
-extern s32 D_8010A510;
+extern s32 gGfxPtr;
 
 void func_800326BC(void *arg0) {
     s16 temp_lo;
@@ -19,7 +19,7 @@ void func_800326BC(void *arg0) {
     s32 base;
     s32 value;
     ((void **)D_80109EA0)[index] = temp_v0;
-    base = D_8010A510;
+    base = gGfxPtr;
     value = *(s32 *)((char *)arg0 + 8);
     temp_lo = temp_s2 * temp_s1;
     *(s32 *)((char *)temp_v0) = base + 4;

@@ -6,7 +6,7 @@ s32 func_8000AD5C(s32, s32);
 s32 func_800175C0(s32, s32, s32, void *, f32, s32);
 f32 func_80084270(void *, u16 *);
 extern s32 gAimAxisTable;
-extern s32 D_80109A60;
+extern s32 gActorFlagTable;
 void func_80085E78(void *arg0, void *arg1) {
 u16 sp18; f32 temp_fv0,temp_fv1,temp_fv1_2,temp_fv1_3,var_fs0,var_fv0,var_fv1;
 s32 temp_v0,temp_v0_3,temp_v0_4; u8 temp_v0_2,temp_v1; register s32 temp_v1_2; void *temp_a0,*temp_s0;
@@ -23,7 +23,7 @@ case 1: if (*(f32*)((char*)arg1+0x10)<var_fv1) { *(s32*)arg1=-1; *(u8*)((char*)a
 }
 } else {
 temp_v0_2=*(u8*)((char*)arg1+0x16);
-if(temp_v0_2 && *((u8*)((char*)&D_80109A60+temp_v0_2))==*(u8*)((char*)arg1+0x17)) {func_8000A270(*(s32*)arg1); *(s32*)arg1=-1; return;}
+if(temp_v0_2 && *((u8*)((char*)&gActorFlagTable+temp_v0_2))==*(u8*)((char*)arg1+0x17)) {func_8000A270(*(s32*)arg1); *(s32*)arg1=-1; return;}
 var_fs0=func_80084270(temp_a0,&sp18); temp_fv1=*(f32*)((char*)arg1+0xC); temp_fv1_2=*(f32*)((char*)arg1+0x10);
 if ((*(s32*)((char*)(*(s32*)((char*)&gAimAxisTable+sp18*4))+0x100))&8) {if(*(u8*)((char*)arg1+0x1A)==1)var_fs0=65536.0f;}
 else if(*(u8*)((char*)arg1+0x1A)==0)var_fs0=65536.0f;

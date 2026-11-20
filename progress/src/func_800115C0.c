@@ -30,15 +30,15 @@ extern char D_800E0970[];
 extern s32 D_801032A8;
 extern s16 D_80109DC8[];
 
-u16 func_800115C0(void) {
-    u16 temp_v1;
-    u16 var_v0;
+/* Runs the save-slot check for the current slot and returns a result code (0xA4/0xA5/0x63/0x62/0x10) or the stored status word. */ u16 func_800115C0(void) {
+    u16 status;
+    u16 unused;
 
-    temp_v1 = func_80010C00() & 0xFFFF;
-    if (temp_v1 == 0) {
+    status = func_80010C00() & 0xFFFF;
+    if (status == 0) {
         goto start;
     }
-    if (temp_v1 == 0x62) {
+    if (status == 0x62) {
         goto start;
     }
     return D_800BFC32;

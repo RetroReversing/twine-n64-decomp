@@ -3,7 +3,7 @@
 void *func_80047B44(void **, void *, f32 *, f32 *); /* extern */
 s32 func_80047E4C(void **, s32, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
-s32 func_8004886C(void **, void *, f32);            /* extern */
+s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
 s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
 s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
@@ -271,7 +271,7 @@ block_17:
                 sp19C = &spE4;
                 sp194 = &spE0;
                 do {
-                    if (((*(s32 *)((char *)(var_s6) + 0x50)) & 0x200) && (((u32) (*(u32 *)((char *)(var_s6) + 0x5C)) >> 0x11) & 0x3F & arg7) && ((func_8004886C((s8 *) var_s6 + 0x40, sp134, arg3) << 0x18) != 0)) {
+                    if (((*(s32 *)((char *)(var_s6) + 0x50)) & 0x200) && (((u32) (*(u32 *)((char *)(var_s6) + 0x5C)) >> 0x11) & 0x3F & arg7) && ((Sphere_OverlapsPoint((s8 *) var_s6 + 0x40, sp134, arg3) << 0x18) != 0)) {
                         sp48[0] = (*(f32 *)((char *)(__base_D_800D3E18) + 0));
                         sp48[1] = (*(f32 *)((char *)(__base_D_800D3E18) + 4));
                         sp48[2] = (*(f32 *)((char *)(__base_D_800D3E18) + 8));

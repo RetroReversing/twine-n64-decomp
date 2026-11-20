@@ -24,7 +24,7 @@ extern u8 D_801002D5;
 extern s32 D_801002F4;
 extern u8 D_80102EE8;
 extern u16 * volatile D_80102FD4;
-extern u8 D_8010A4FD;
+extern u8 gBorderFlipFlag;
 extern u32 D_80117730;
 extern char D_800D2858[];
 extern char D_800D2864[];
@@ -126,7 +126,7 @@ void func_8001BE64(void) {
             func_80026004(var_s1, D_800D2864, var_v0_4);
         }
         var_a0 = 0x67;
-        if (D_8010A4FD != 0) {
+        if (gBorderFlipFlag != 0) {
             var_a0 = 0x68;
         }
         func_80026004(temp_s5, D_800D2864, func_80087100(var_a0));

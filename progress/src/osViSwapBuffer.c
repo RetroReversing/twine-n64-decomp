@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_8009F640();                                /* extern */
 M2C_UNK func_8009F6B0(s32);                         /* extern */
-extern void *D_800D1154;
+extern void *vi_active_ctx;
 
 /* Points the current VI context at a new framebuffer and sets flag 0x10 in its control word, with interrupts masked meanwhile. */ void osViSwapBuffer(s32 framebuffer) {
     s32 int_state;
 
     int_state = func_8009F640();
-    M2C_FIELD(D_800D1154, s32 *, 4) = framebuffer;
-    M2C_FIELD(D_800D1154, u16 *, 0) = (u16) (M2C_FIELD(D_800D1154, u16 *, 0) | 0x10);
+    M2C_FIELD(vi_active_ctx, s32 *, 4) = framebuffer;
+    M2C_FIELD(vi_active_ctx, u16 *, 0) = (u16) (M2C_FIELD(vi_active_ctx, u16 *, 0) | 0x10);
     func_8009F6B0(int_state);
 }

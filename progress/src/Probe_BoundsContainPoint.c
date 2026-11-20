@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003D64C(void *arg0, void *arg1) {
+s32 Probe_BoundsContainPoint(void *arg0, void *arg1) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;

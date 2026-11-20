@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -63,7 +64,7 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                         var_fv1 = 0.0f;
                     }
                     temp_v1 = M2C_FIELD(temp_s1, u8 *, 0x82);
-                    if (((s32) temp_v1 >= 9) && (((s32) temp_v1 < 0xC) || (temp_v1 == 0x1E))) {
+                    if (((s32) temp_v1 >= 9) && (((s32) __repair_inline(0xC, temp_v1)) || (temp_v1 == 0x1E))) {
                         var_fv1 = 0.0f;
                     }
                     if ((var_fv1 < 8.0f) && (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 8)) {
@@ -76,7 +77,7 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
                     if ((temp_v1_2 >= 0) && ((temp_v1_2 < 2) || (temp_v1_2 == 3))) {
                         temp_v0 = func_80045CF8(0);
                         var_ft0 = (f64) temp_v0;
-                        if (temp_v0 < 0) {
+                        if (__repair_inline(0, temp_v0)) {
                             var_ft0 += D_800D5120;
                         }
                         sp14[0] = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x28) - M2C_FIELD(arg0, f32 *, 0x28);

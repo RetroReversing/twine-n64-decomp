@@ -19,7 +19,7 @@ extern s32 *D_800CA31C;
 extern u8 D_800CA338;
 extern u16 D_80108F72;
 extern s32 D_80108F78;
-extern char D_80109A60[];
+extern char gActorFlagTable[];
 extern u16 D_80113020;
 extern u8 D_80117734;
 extern s32 func_80076CE4;
@@ -89,7 +89,7 @@ s32 __repair_phase_var_a1;
                 (*(s32 *)((char *)(var_s1) + 0x58)) |= 0x2400;
                 (*(u8 *)((char *)(temp_s0) + 0x82)) = arg12;
                 (((__repair_field_88 *)temp_s0)->value) = (s32) (((((__repair_field_88 *)temp_s0)->value) & 0xFE1FFFFF) | 0x200000);
-                (*(u8 *)((char *)(temp_s0) + 0x85)) = (u8) *(D_80109A60 + (*(u8 *)((char *)(temp_s0) + 0x84)));
+                (*(u8 *)((char *)(temp_s0) + 0x85)) = (u8) *(gActorFlagTable + (*(u8 *)((char *)(temp_s0) + 0x84)));
                 (*(s16 *)((char *)(temp_s0) + 0x76)) = 0;
                 (*(s16 *)((char *)(temp_s0) + 0x74)) = 0;
                 if (D_80108F78 == 0x19) {

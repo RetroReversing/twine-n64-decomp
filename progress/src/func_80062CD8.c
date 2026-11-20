@@ -22,7 +22,7 @@ typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
 extern Words D_800D42C8;
 extern s16 D_80109A58;
 
-void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
+/* Spawns a burst of sprites at random points on a sphere of radius arg2 around arg0, each with a random size and tint. */ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     f32 vec[3];
 #define sp30 vec[0]
 #define sp34 vec[1]
@@ -32,28 +32,28 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
     f32 temp_fs0_2;
     f32 temp_fs1;
     f32 temp_fs2;
-    s16 temp_a1_2;
-    s16 var_a2;
-    s32 temp_s4;
+    s16 clamped_idx;
+    s16 word_idx;
+    s32 tint_rgba;
     u32 temp_a1;
-    u32 temp_s3;
+    u32 burst_count;
     u32 temp_v0;
-    u32 var_s1;
-    void *temp_v0_2;
+    u32 burst_i;
+    void *spawned;
 
     sp40 = D_800D42C8;
     temp_v0 = func_80045CF8(0x30);
     temp_a1 = temp_v0 >> 3;
-    temp_a1_2 = temp_a1 & ((s32) ~(s16) temp_a1 >> 0x1F);
-    var_a2 = temp_a1_2;
-    temp_s3 = temp_v0 + 0x30;
-    temp_s4 = (M2C_FIELD(arg0, u8 *, 0x7F) << 0x18) + (M2C_FIELD(arg0, u8 *, 0x80) << 0x10) + (M2C_FIELD(arg0, u8 *, 0x81) << 8) + 0xFF;
-    if (temp_a1_2 >= 6) {
-        var_a2 = 5;
+    clamped_idx = temp_a1 & ((s32) ~(s16) temp_a1 >> 0x1F);
+    word_idx = clamped_idx;
+    burst_count = temp_v0 + 0x30;
+    tint_rgba = (M2C_FIELD(arg0, u8 *, 0x7F) << 0x18) + (M2C_FIELD(arg0, u8 *, 0x80) << 0x10) + (M2C_FIELD(arg0, u8 *, 0x81) << 8) + 0xFF;
+    if (clamped_idx >= 6) {
+        word_idx = 5;
     }
-    func_8000A830(M2C_FIELD(((s8 *)&sp40 + (var_a2 * 2)), s16 *, 0), D_80109A58, 0xFF);
-    var_s1 = 0;
-    if (temp_s3 != 0) {
+    func_8000A830(M2C_FIELD(((s8 *)&sp40 + (word_idx * 2)), s16 *, 0), D_80109A58, 0xFF);
+    burst_i = 0;
+    if (burst_count != 0) {
         f32 zero = 0.0f;
         do {
             sp38 = zero;
@@ -66,10 +66,10 @@ void func_80062CD8(void *arg0, M2C_UNK arg1, f32 arg2) {
             temp_fs0_2 = __cosf(temp_fs2) * arg2;
             sp38 = temp_fs0_2 * __cosf(temp_fs1);
             sp34 = __sinf(temp_fs1) * arg2;
-            temp_v0_2 = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, func_80045CF8(2) + 0x17, 0xFB, 0x68, temp_s4, 4);
-            func_80062450(temp_v0_2, &sp30);
-            var_s1 += 1;
-            M2C_FIELD(temp_v0_2, f32 *, 0x54) = (f32) (M2C_FIELD(temp_v0_2, f32 *, 0x54) * 16.0f);
-        } while (var_s1 < temp_s3);
+            spawned = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, func_80045CF8(2) + 0x17, 0xFB, 0x68, tint_rgba, 4);
+            func_80062450(spawned, &sp30);
+            burst_i += 1;
+            M2C_FIELD(spawned, f32 *, 0x54) = (f32) (M2C_FIELD(spawned, f32 *, 0x54) * 16.0f);
+        } while (burst_i < burst_count);
     }
 }

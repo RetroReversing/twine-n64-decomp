@@ -23,7 +23,7 @@ extern s32 D_800D1078, D_80112F8C;
 extern u8 D_80100C0C, D_80100C0D, D_80100C0E, D_80100C0F, D_80100C10;
 extern u8 D_80109B24, D_80109B25, D_80109B26, D_80109B27, D_80109B28;
 
-void osInitialize(void)
+/* Boots the libultra system: sets up the PI/SI/RI hardware, copies the exception vectors, and reads the cart timing and TV type. */ void osInitialize(void)
 {
     u32 pif;
     u32 dom1Latency, dom1Pulse, dom1Page, dom1Release;

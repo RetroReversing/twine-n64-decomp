@@ -32,7 +32,7 @@ void func_800458C0(void *, s32, s32, s32);        /* extern */
 s32 func_80045CF8(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
 s32 func_800488D4(void *, void *, void *);            /* extern */
-s32 func_8004DBD8(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
+s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004DEE0(void *, void *, void *);           /* extern */
 u16 func_8004E418(void *, void *, void *);            /* extern */
 void func_80082D24(void *, void *);            /* extern */
@@ -41,7 +41,7 @@ void func_80083B64(void *, void *);                /* extern */
 extern void *D_80108788;
 extern void **D_80108F84;
 
-s32 func_8004E6E4(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, f32 *arg2, f32 *arg3, void *arg4, f32 arg5, RayPlane *arg6, u8 arg7, void *arg8) {
+s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, f32 *arg2, f32 *arg3, void *arg4, f32 arg5, RayPlane *arg6, u8 arg7, void *arg8) {
     RayVec end;
     RayVec nearest;
     struct {
@@ -331,7 +331,7 @@ s32 __repair_phase_var_a2;
                                     }
                                     var_fp = spEC;
                                     if (((u32) M2C_FIELD(var_s7, u32 *, 0x58) >> 2) & 8) {
-                                        var_fp = func_8004DBD8;
+                                        var_fp = Ray_TriangleIntersect;
                                     }
                                     temp_v1_10 = M2C_FIELD(temp_s2, u8 *, 0x48) & 4;
                                     if (temp_v1_10 != 0) {

@@ -359,8 +359,8 @@ block_43:
                 temp_a0_6 = D_80107EA0;
                 if (temp_a0_6 < (u32) D_800B1D84) {
                     temp_v0_8 = temp_a0_6 + 1;
-                    D_80107EA0 = temp_v0_8;
                     D_8010D538 = M2C_FIELD(D_80117728, s32 *, 0x74C) + (temp_v0_8 << 6);
+                    D_80107EA0 = temp_v0_8;
                     temp_v0_9 = M2C_FIELD(arg0, u8 *, 0x7E);
                     switch (temp_v0_9) {
                     case 0:

@@ -1,6 +1,6 @@
 void func_80043FA0(void);
 void func_800723C0(f32 *, f32 *, f32 *, void **, s32);
-void func_80072C7C(f32, f32 *, f32 *, f32 *, void **, s32);
+void subdivideTriangle(f32, f32 *, f32 *, f32 *, void **, s32);
 void func_80082FE4(s16 *, f32 *);
 void func_80083A6C(f32 *, f32 *);
 
@@ -65,7 +65,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                     ent += 9;
                 } while (var_s2 < 6U);
                 if (sp14C) {
-                    func_80072C7C(0.0f, &sp18[27], &sp18[36], &sp18[45], arg0, arg1);
+                    subdivideTriangle(0.0f, &sp18[27], &sp18[36], &sp18[45], arg0, arg1);
                 } else {
                     func_800723C0(&sp18[27], &sp18[36], &sp18[45], arg0, arg1);
                 }
@@ -99,7 +99,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                     ent += 9;
                 } while (var_s2 < 3U);
                 if (sp14C != 0) {
-                    func_80072C7C(0.0f, &sp18[0], &sp18[9], &sp18[18], arg0, arg1);
+                    subdivideTriangle(0.0f, &sp18[0], &sp18[9], &sp18[18], arg0, arg1);
                 } else {
                     func_800723C0(&sp18[0], &sp18[9], &sp18[18], arg0, arg1);
                 }

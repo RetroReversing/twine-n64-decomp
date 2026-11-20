@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s8 func_80073700(s32 arg0, s32 arg1, s8 *arg2) {
+s8 clamp_level_step(s32 arg0, s32 arg1, s8 *arg2) {
     s16 temp_a1;
     s16 var_v1;
 

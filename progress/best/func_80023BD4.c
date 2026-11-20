@@ -1,4 +1,3 @@
-static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -33,7 +32,7 @@ void *func_80023BD4(void) {
     s16 temp_v0_3;
     s32 var_s1;
     s32 temp_v0_2;
-    
+    s32 temp_v1;
     s32 var_s0;
     s32 var_s0_2;
     s32 var_s0_3;
@@ -43,7 +42,7 @@ void *func_80023BD4(void) {
     void **var_s2;
     void *temp_s0;
     void *temp_s5;
-    union { void * pointer; s32 value; } __repair_phase_storage;
+    void *temp_v0;
     void *var_a2;
     void *var_v0;
 
@@ -75,8 +74,8 @@ block_6:
         if (D_801002B4 > 0) {
             var_s2 = &D_80102CD0;
             do {
-                __repair_phase_storage.pointer = *var_s2;
-                if ((__repair_phase_storage.pointer != NULL) && (M2C_FIELD(M2C_FIELD(__repair_phase_storage.pointer, void **, 0xB4), u8 *, 0x11) != 0)) {
+                temp_v0 = *var_s2;
+                if ((temp_v0 != NULL) && (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0xB4), u8 *, 0x11) != 0)) {
                     var_s1_2 += 1;
                 } else {
                     var_s3 = func_80022DBC(var_s0 & 0xFFFF) & 0xFFFF;
@@ -96,19 +95,20 @@ block_6:
 block_19:
         temp_v0_2 = D_801002B4;
         var_s0_2 = 0;
-        if (__repair_inline(0, temp_v0_2)) {
+        if (temp_v0_2 > 0) {
             do {
-                __repair_phase_storage.value = func_80022DBC(var_s0_2 & 0xFFFF) & 0xFFFF;
-                temp_a0 = D_800E1068[__repair_phase_storage.value];
+                temp_v1 = func_80022DBC(var_s0_2 & 0xFFFF) & 0xFFFF;
+                temp_a0 = D_800E1068[temp_v1];
                 if (var_s1 < temp_a0) {
-var_s3 = __repair_phase_storage.value; var_s1 = temp_a0;
+                    var_s1 = temp_a0;
+                    var_s3 = temp_v1;
                 }
                 var_s0_2 += 1;
             } while (var_s0_2 < D_801002B4);
         }
         var_s1_3 = -1;
         var_s0_3 = 0;
-        if (__repair_inline(0, temp_v0_2)) {
+        if (temp_v0_2 > 0) {
             do {
                 temp_v0_3 = D_800E1068[func_80022DBC(var_s0_3 & 0xFFFF) & 0xFFFF];
                 var_s0_3 += 1;

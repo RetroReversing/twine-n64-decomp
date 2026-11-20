@@ -17,7 +17,7 @@ M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
 s32 func_80045B58(void *, s32, s32, s32, f32 *);    /* extern */
 f32 func_80047AB0(f32 *, f32 *);                    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
-s32 func_8004886C(void *, void *, f32);             /* extern */
+s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 func_80082908(f32, f32);                        /* extern */
 M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
@@ -487,7 +487,7 @@ block_65:
                 temp_s4 = M2C_FIELD(var_s6, void **, 0x3C);
                 if (M2C_FIELD(var_s6, s32 *, 0x50) & 0x200) {
                     temp_s1_3 = ((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20;
-                    if ((temp_s1_3 == 0) && ((func_8004886C(var_s6 + 0x40, arg1, arg3) << 0x18) != 0)) {
+                    if ((temp_s1_3 == 0) && ((Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg3) << 0x18) != 0)) {
                         sp28 = M2C_FIELD(arg1, f32 *, 0);
                         sp2C = M2C_FIELD(arg1, f32 *, 4);
                         sp30 = M2C_FIELD(arg1, f32 *, 8);
@@ -763,7 +763,7 @@ loop_154:
         var_s0 = M2C_FIELD(sp18C, void **, 8);
         if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != D_800B35B0) {
             if (sp18C != NULL) {
-                if ((func_8004886C(M2C_FIELD(sp18C, s32 *, 4) + 0x40, arg1, arg3) << 0x18) != 0) {
+                if ((Sphere_OverlapsPoint(M2C_FIELD(sp18C, s32 *, 4) + 0x40, arg1, arg3) << 0x18) != 0) {
                     sp18C = M2C_FIELD(sp18C, void **, 0);
                     goto block_160;
                 }

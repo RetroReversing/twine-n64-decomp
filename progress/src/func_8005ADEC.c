@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80044670();
-extern char D_80109A60[];
+extern char gActorFlagTable[];
 
 void func_8005ADEC(void *arg0) {
     s32 temp_a3;
@@ -22,6 +22,6 @@ void func_8005ADEC(void *arg0) {
 
     temp_v0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_a2 = M2C_FIELD(temp_v0, u32 *, 0);
-    temp_a3 = M2C_FIELD(temp_v0, u8 *, 5) ^ (*(D_80109A60 + M2C_FIELD(temp_v0, u8 *, 4)) & 1);
+    temp_a3 = M2C_FIELD(temp_v0, u8 *, 5) ^ (*(gActorFlagTable + M2C_FIELD(temp_v0, u8 *, 4)) & 1);
     func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + temp_a3, temp_a2 >> 0x14, temp_a3);
 }

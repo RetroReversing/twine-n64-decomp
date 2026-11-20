@@ -46,7 +46,7 @@ typedef struct {
     __OSViScale y;
 } __OSViContext;
 
-extern __OSViContext *D_800D1154;
+extern __OSViContext *vi_active_ctx;
 u32 func_8009F640(void);
 void func_8009F6B0(u32);
 
@@ -59,40 +59,40 @@ void osViSetSpecialFeatures(u32 func) {
     saveMask = func_8009F640();
 
     if ((func & 0x0001) != 0) {
-        D_800D1154->control |= 0x00008;
+        vi_active_ctx->control |= 0x00008;
     }
 
     if ((func & 0x0002) != 0) {
-        D_800D1154->control &= ~0x00008;
+        vi_active_ctx->control &= ~0x00008;
     }
 
     if ((func & 0x0004) != 0) {
-        D_800D1154->control |= 0x00004;
+        vi_active_ctx->control |= 0x00004;
     }
 
     if ((func & 0x0008) != 0) {
-        D_800D1154->control &= ~0x00004;
+        vi_active_ctx->control &= ~0x00004;
     }
 
     if ((func & 0x0010) != 0) {
-        D_800D1154->control |= 0x00010;
+        vi_active_ctx->control |= 0x00010;
     }
 
     if ((func & 0x0020) != 0) {
-        D_800D1154->control &= ~0x00010;
+        vi_active_ctx->control &= ~0x00010;
     }
 
     if ((func & 0x0040) != 0) {
-        D_800D1154->control |= 0x10000;
-        D_800D1154->control &= ~0x00300;
+        vi_active_ctx->control |= 0x10000;
+        vi_active_ctx->control &= ~0x00300;
     }
 
     if ((func & 0x0080) != 0) {
-        D_800D1154->control &= ~0x10000;
-        D_800D1154->control |= D_800D1154->modep->comRegs.ctrl & 0x00300;
+        vi_active_ctx->control &= ~0x10000;
+        vi_active_ctx->control |= vi_active_ctx->modep->comRegs.ctrl & 0x00300;
     }
 
-    D_800D1154->state |= 0x08;
+    vi_active_ctx->state |= 0x08;
 
     func_8009F6B0(saveMask);
 }

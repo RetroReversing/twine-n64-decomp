@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800271A4(s32);                         /* extern */
 extern s8 D_80102EB9;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern s8 D_80102EDD;
 extern s8 D_80102EDE;
 extern s32 D_8011F3A8;
 
 void func_80076168(s32 arg0) {
-    if (gUpdateGateWord != 0) {
+    if (gBorderSkipFlag != 0) {
         D_8011F3A8 = 0;
     }
     D_80102EDD = 1;

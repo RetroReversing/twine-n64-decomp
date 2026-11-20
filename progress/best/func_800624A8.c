@@ -18,7 +18,7 @@ extern f64 D_800D4278;
 extern f64 D_800D4280;
 extern f64 D_800D4288;
 extern f64 D_800D4290;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 
 void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     f32 sp30[7];
@@ -38,7 +38,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     u32 var_s6;
     union { void * pointer; u32 value; } __repair_phase_storage;
 
-    if (gUpdateGateWord != 0) {
+    if (gBorderSkipFlag != 0) {
         var_fp = 2;
         var_s6 = 0;
     } else {
@@ -94,7 +94,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
             if (sp30[1] < 0.0f) {
                 sp30[1] = -sp30[1];
             }
-            if (gUpdateGateWord == 0) {
+            if (gBorderSkipFlag == 0) {
                 func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4290), 0x1A, 0xFB, 0x33, 0xFF, 0x80808004), sp30);
                 var_s0 = 0;
                 if (var_s6) {

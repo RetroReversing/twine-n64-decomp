@@ -29,7 +29,7 @@ extern s32 D_8010A4D8;
 extern s32 D_8010A4DC;
 extern s32 D_8010A4E0;
 extern s32 D_8010A4E4;
-extern s32 D_8010A4E8;
+extern s32 gHiResScreen;
 extern s32 D_8010A4EC;
 extern s32 D_8010A4F0;
 extern s32 D_8010A4F4;
@@ -59,7 +59,7 @@ void func_8002D850(void) {
     D_8010A4DC = 1;
     D_8010A4E0 = 1;
     D_8010A4E4 = 1;
-    D_8010A4E8 = 0;
+    gHiResScreen = 0;
     D_8010A4EC = 0;
     D_8010A4F0 = 1;
     D_8010A4F4 = 0;

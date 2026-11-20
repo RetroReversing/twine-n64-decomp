@@ -44,6 +44,8 @@ extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
 
 void func_8002049C(void) {
+char *__repair_addr;
+
     s16 var_s3;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_s5;
@@ -82,7 +84,9 @@ void func_8002049C(void) {
             var_s3 = 0;
             var_s1 = 0 & 0xFFFF;
             do {
-                if (((M2C_FIELD((temp_s5 + (var_s1 * 8)), u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
+__repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
+
+                if (((M2C_FIELD(__repair_addr, u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
                     temp_v0_2 = func_800162BC(D_800BD68E);
                     __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;

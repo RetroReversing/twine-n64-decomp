@@ -3,7 +3,7 @@
 void func_80013F74(void *arg0) {
     s32 temp_v0_2;
     s32 temp_v1;
-    s32 temp_v1_2;
+    int temp_v1_2;
     s32 var_a2;
     s32 var_a2_10;
     
@@ -185,8 +185,8 @@ loop_2:
                 var_t1 = *(u32 *)var_t0;
                 var_t0 += 4;
                 var_v1_4 = (var_a1_5 + (temp_a1_6 << (var_a2_5 + 1))) & 1;
-                var_a1_5 = temp_a1_6 >> -var_a2_5;
                 var_a2_5 += 0x20;
+                var_a1_5 = temp_a1_6 >> -var_a2_5;
             } else {
                 var_a1_5 = var_a1_5 >> 1;
             }
@@ -199,8 +199,8 @@ loop_2:
                 temp_a1_7 = var_t1;
                 var_t1 = *(u32 *)var_t0;
                 var_t0 += 4;
-                var_t2_3 = (var_a1_5 + (temp_a1_7 << (var_a2 + 4))) & 0xF;
                 var_a1 = temp_a1_7 >> -var_a2;
+                var_t2_3 = (var_a1_5 + (temp_a1_7 << (var_a2 + 4))) & 0xF;
                 var_a2 += 0x20;
             } else {
                 var_a1 = var_a1_5 >> 4;
@@ -256,7 +256,7 @@ loop_2:
                 } else {
                     var_a1_7 = var_a1_6 >> 1;
                 }
-                var_a2_6 = var_a2_7 - 1;
+                var_a2_6 = (u32)var_a2_7 - 1;
                 var_v1_8 = var_a1_7 & 1;
                 if (var_a2_6 < 0) {
                     temp_a1_11 = var_t1;
@@ -298,7 +298,7 @@ loop_2:
                         var_a2_6 -= 1;
                         var_v1_11 = var_a1_6 & 1;
                         if (var_a2_6 < 0) {
-                            temp_a1_14 = var_t1;
+                            temp_a1_14 = (int)var_t1;
                             var_t1 = *(u32 *)var_t0;
                             var_t0 += 4;
                             var_v1_11 = (var_a1_6 + (temp_a1_14 << (var_a2_6 + 1))) & 1;
@@ -465,8 +465,8 @@ block_37:
                 } else {
                     var_a1_13 = var_a1_11 >> 1;
                 }
-                var_a2_10 = var_a2_12 - 1;
                 var_a3_6 = (var_a3_6 * 2) + var_v1_18 + 4;
+                var_a2_10 = var_a2_12 - 1;
                 if (var_a2_10 < 0) {
                     temp_a1_24 = var_t1;
                     var_t1 = *(u32 *)var_t0;

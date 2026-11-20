@@ -28,7 +28,7 @@ extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
 extern s8 D_80102EB8;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern char D_80102F48[];
 extern u8 D_80104310;
 extern u8 D_80108960;
@@ -99,7 +99,7 @@ void func_8001F9A4(void) {
     sp3C = func_8002638C((*(void **)((char *)(D_80109BB0) + 0x10)), 0x7F);
     if (((temp_s1 != 0) & (temp_s2 != 0)) && ((var_s0 != 0) & (temp_s7 != 0)) && ((sp34 != 0) & (temp_fp != 0)) && ((sp3C != 0) & (temp_s6 != 0))) {
         (*(s8 *)((char *)((*(void **)((char *)(D_80109BB0) + 0x10))) + 4)) = 1;
-        if (gUpdateGateWord == 0) {
+        if (gBorderSkipFlag == 0) {
             D_801002AD = 0;
         }
         D_800B7CF0 = D_801002AD;
@@ -121,7 +121,7 @@ void func_8001F9A4(void) {
         temp_s3 = temp_s1 - 0x28;
         temp_s1_2 = var_s0 - 0x28;
         func_80025D84(temp_s4, temp_s2, temp_s3, temp_s1_2, 0x79, 1);
-        if ((gUpdateGateWord == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
+        if ((gBorderSkipFlag == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
             func_80025E9C(temp_s4, temp_s2, temp_s3, temp_s1_2, 1, 0xD);
         }
         D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
@@ -195,7 +195,7 @@ block_36:
             var_a0_9 = 9;
         }
         func_80026004(sp3C, "%s", func_80087100(var_a0_9));
-        if (gUpdateGateWord != 0) {
+        if (gBorderSkipFlag != 0) {
             func_8002A644(D_8010A488, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &func_80022C04, &func_8001AC88);
             D_80102EB8 = func_8002D13C(0xA3);
             func_80022A30(D_800BD68E, 0x25, 0x48, 0x32, 0x76);

@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8003D6FC(void *, void *);                  /* extern */
-s32 func_8004886C(void *, void *, f32);         /* extern */
-s32 func_8004E6E4(M2C_UNK *, void *, void *, s32 *, M2C_UNK *, f32, s32, s32, s32); /* extern */
+s32 Sphere_OverlapsPoint(void *, void *, f32);         /* extern */
+s32 Ray_CastObjects(M2C_UNK *, void *, void *, s32 *, M2C_UNK *, f32, s32, s32, s32); /* extern */
 typedef struct { s32 x,y,z; } Vec;
-extern Vec D_800D2FC8;
-extern Vec D_800D2FD4;
-extern M2C_UNK func_8004DBD8;
+extern Vec gVecUp;
+extern Vec gVecDown;
+extern M2C_UNK Ray_TriangleIntersect;
 
 s32 func_8003EA68(void **arg0, void *arg1) {
     union {
@@ -56,22 +56,22 @@ s32 func_8003EA68(void **arg0, void *arg1) {
     var_fs1 = 65536.0f;
     if (var_s0 != NULL) {
         do {
-            if ((M2C_FIELD(var_s0, u16 *, 0x58) == 0x46) && ((func_8004886C(var_s0 + 0x40, arg1, 0) << 0x18) != 0) && ((func_8003D6FC(arg1, var_s0) << 0x18) != 0)) {
-                *(Vec *)&m2c_initial_frame.view_sp28.value = D_800D2FC8;
-                *(Vec *)&m2c_initial_frame.view_sp38.value = D_800D2FD4;
+            if ((M2C_FIELD(var_s0, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(var_s0 + 0x40, arg1, 0) << 0x18) != 0) && ((func_8003D6FC(arg1, var_s0) << 0x18) != 0)) {
+                *(Vec *)&m2c_initial_frame.view_sp28.value = gVecUp;
+                *(Vec *)&m2c_initial_frame.view_sp38.value = gVecDown;
                 temp_fv0 = M2C_FIELD(var_s0, f32 *, 0x4C);
                 if (temp_fv0 < var_fs1) {
                     var_s4 = var_s0;
                     var_fs1 = temp_fv0;
                 }
-                if ((func_8004E6E4(&func_8004DBD8, var_s0, arg1, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                if ((Ray_CastObjects(&Ray_TriangleIntersect, var_s0, arg1, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     var_fv1 = m2c_initial_frame.view_sp4C.value - M2C_FIELD(arg1, f32 *, 4);
                     if (var_fv1 < var_fs0) {
                         var_s2 = var_s0;
                         var_fs0 = var_fv1;
                     }
                 } else {
-                    if ((func_8004E6E4(&func_8004DBD8, var_s0, arg1, &m2c_initial_frame.view_sp38.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                    if ((Ray_CastObjects(&Ray_TriangleIntersect, var_s0, arg1, &m2c_initial_frame.view_sp38.value, &m2c_initial_frame.view_sp48.value, 256.0f, 0, 1, 0) << 0x18) != 0) {
                         var_fv1 = M2C_FIELD(arg1, f32 *, 4) - m2c_initial_frame.view_sp4C.value;
                         if (var_fv1 < var_fs0) {
                             var_s2 = var_s0;

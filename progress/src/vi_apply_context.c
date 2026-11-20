@@ -1,4 +1,3 @@
-/* Same-name source lead: vi_apply_context in V-RALLY-PAL; verified ROM source. Destination verification required. */
 typedef struct {
     u16 flags; u16 pad; s32 buffer; struct Mode *mode; s32 control; u8 pad10[16];
     u32 xscale; f32 yfactor; u16 origin; u16 pad2a; u32 yscale;
@@ -7,7 +6,7 @@ typedef struct Mode {
     u32 unk0, unk4, width, burst, vsync, hsync, leap, hvideo, xscale, unk24;
     struct { u32 origin, yscale, vvideo, vburst, vintr; } f[2];
 } Mode;
-extern ViContext *D_800D1154, *D_800D1150;
+extern ViContext *vi_active_ctx, *vi_pending_ctx;
 extern s32 D_800CFEBC;
 extern volatile u32 D_A4400000;
 extern s32 osVirtualToPhysical(s32);
@@ -32,29 +31,29 @@ extern s32 osVirtualToPhysical(s32);
  * fraction, 0x04 scale yscale by yfactor, 0x20 blank horizontal video,
  * 0x40 black frame (no yscale, buffer origin), 0x80 yscale from origin. */
 void vi_apply_context(void) {
-    ViContext *prev;
-    ViContext *cur;
+    ViContext *new_active_ctx;
+    ViContext *ctx;
     Mode *mode;
     s32 field, origin, hvideo, vvideo; u32 ctrl;
     u32 scaled;
-    cur = D_800D1154;
+    ctx = vi_active_ctx;
     field = VI_CURRENT & 1;
-    mode = cur->mode;
-    origin = osVirtualToPhysical(cur->buffer) + mode->f[field].origin;
-    if (cur->flags & 2) cur->xscale |= mode->xscale & ~0xFFFu;
-    else cur->xscale = mode->xscale;
-    if (cur->flags & 4) {
-        scaled = (u32)(cur->yfactor * (f32)(mode->f[field].yscale & 0xFFF));
-        cur->yscale = scaled;
-        cur->yscale = scaled | (mode->f[field].yscale & ~0xFFFu);
-    } else cur->yscale = mode->f[field].yscale;
+    mode = ctx->mode;
+    origin = osVirtualToPhysical(ctx->buffer) + mode->f[field].origin;
+    if (ctx->flags & 2) ctx->xscale |= mode->xscale & ~0xFFFu;
+    else ctx->xscale = mode->xscale;
+    if (ctx->flags & 4) {
+        scaled = (u32)(ctx->yfactor * (f32)(mode->f[field].yscale & 0xFFF));
+        ctx->yscale = scaled;
+        ctx->yscale = scaled | (mode->f[field].yscale & ~0xFFFu);
+    } else ctx->yscale = mode->f[field].yscale;
     hvideo = mode->hvideo;
     vvideo = mode->f[field].vvideo - (D_800CFEBC << 16) + D_800CFEBC;
-    hvideo &= -((cur->flags & 0x20) == 0);
-    if (cur->flags & 0x40) { cur->yscale = 0; origin = osVirtualToPhysical(cur->buffer); }
-    if (cur->flags & 0x80) {
-        cur->yscale = ((u32)cur->origin << 16) & 0x03FF0000;
-        origin = osVirtualToPhysical(cur->buffer);
+    hvideo &= -((ctx->flags & 0x20) == 0);
+    if (ctx->flags & 0x40) { ctx->yscale = 0; origin = osVirtualToPhysical(ctx->buffer); }
+    if (ctx->flags & 0x80) {
+        ctx->yscale = ((u32)ctx->origin << 16) & 0x03FF0000;
+        origin = osVirtualToPhysical(ctx->buffer);
     }
     VI_ORIGIN = origin;
     VI_WIDTH = mode->width;
@@ -66,12 +65,12 @@ void vi_apply_context(void) {
     VI_V_VIDEO = vvideo;
     VI_V_BURST = mode->f[field].vburst;
     VI_V_INTR = mode->f[field].vintr;
-    VI_X_SCALE = cur->xscale;
-    VI_Y_SCALE = cur->yscale;
-    ctrl = cur->control;
-    prev = D_800D1150;
-    D_800D1150 = cur;
-    D_800D1154 = prev;
+    VI_X_SCALE = ctx->xscale;
+    VI_Y_SCALE = ctx->yscale;
+    ctrl = ctx->control;
+    new_active_ctx = vi_pending_ctx;
+    vi_pending_ctx = ctx;
+    vi_active_ctx = new_active_ctx;
     VI_CONTROL = ctrl;
-    __builtin_memcpy(prev, cur, sizeof(ViContext));
+    __builtin_memcpy(new_active_ctx, ctx, sizeof(ViContext));
 }

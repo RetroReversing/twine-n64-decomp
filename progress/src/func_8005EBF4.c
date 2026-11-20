@@ -41,61 +41,62 @@ s32 func_8005E900(void *);
 s32 func_800850E0(void *);
 extern u8 D_801002A0;
 extern u8 D_801002A3;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 
-void func_8005EBF4(ObjEBF4 *arg0) {
-    SubEBF4 *s = arg0->sub;
+/* Per-frame update for an object with a sub-state: decays its motion, runs state-specific bounce/fall logic, and counts down the timer that sets the flag. */
+void func_8005EBF4(ObjEBF4 *obj) {
+    SubEBF4 *sub = obj->sub;
 
-    if (s->b2E != 0) {
-        arg0->f3C -= func_80000A30(0x400, (s32)arg0->f3C) * 0.1f;
-        arg0->f40 -= func_80000A30(0, (s32)arg0->f40) * 0.1f;
-        if (arg0->w60 & 2) {
-            arg0->w60 &= ~2;
-            func_80045DB4(&arg0->f3C, 512.0f, 256.0f);
-            func_80045DB4(&s->f0C, 0.4f, 0.2f);
-            s->f10 = 2.0f;
-            func_800850E0(&arg0->f24);
-            arg0->state = 0;
+    if (sub->b2E != 0) {
+        obj->f3C -= func_80000A30(0x400, (s32)obj->f3C) * 0.1f;
+        obj->f40 -= func_80000A30(0, (s32)obj->f40) * 0.1f;
+        if (obj->w60 & 2) {
+            obj->w60 &= ~2;
+            func_80045DB4(&obj->f3C, 512.0f, 256.0f);
+            func_80045DB4(&sub->f0C, 0.4f, 0.2f);
+            sub->f10 = 2.0f;
+            func_800850E0(&obj->f24);
+            obj->state = 0;
         }
     }
-    switch (arg0->state) {
+    switch (obj->state) {
     case 0:
     case 1:
-        s->f10 -= 0.32666668f;
-        arg0->f28 += s->f10 * 0.033333335f;
-        arg0->f24 += s->f0C;
-        arg0->f2C += s->f14;
-        s->f0C *= 0.75f;
-        s->f14 *= 0.75f;
-        func_8005E900(arg0);
+        sub->f10 -= 0.32666668f;
+        obj->f28 += sub->f10 * 0.033333335f;
+        obj->f24 += sub->f0C;
+        obj->f2C += sub->f14;
+        sub->f0C *= 0.75f;
+        sub->f14 *= 0.75f;
+        func_8005E900(obj);
         break;
     case 2:
-        if (s->b2F == 0 && (arg0->w60 & 0x01000000)) {
-            arg0->w60 &= ~0x01000000;
-            s->f10 -= 0.32666668f;
-            arg0->f28 += s->f10 * 0.033333335f;
-            func_8005E900(arg0);
+        if (sub->b2F == 0 && (obj->w60 & 0x01000000)) {
+            obj->w60 &= ~0x01000000;
+            sub->f10 -= 0.32666668f;
+            obj->f28 += sub->f10 * 0.033333335f;
+            func_8005E900(obj);
         }
         break;
     }
-    if (func_8005E4C8(arg0) != 0) {
-        if (s->b2D == 0) {
-            arg0->w60 |= 1;
+    if (func_8005E4C8(obj) != 0) {
+        if (sub->b2D == 0) {
+            obj->w60 |= 1;
         } else {
-            s->h30 = 0;
+            sub->h30 = 0;
         }
     }
-    if (s->b2E != 0 && (s->h26 == 0 || gUpdateGateWord != 0)) {
-        if (s->w18 > 0) {
-            if (--s->w18 == 0) {
-                arg0->b7E = 0x10;
-                arg0->b82 = 0xFF;
+    if (sub->b2E != 0 && (sub->h26 == 0 || gBorderSkipFlag != 0)) {
+        if (sub->w18 > 0) {
+            if (--sub->w18 == 0) {
+                obj->b7E = 0x10;
+                obj->b82 = 0xFF;
             }
-        } else if (arg0->b82 != 0) {
-            arg0->b82--;
+        } else if (obj->b82 != 0) {
+            obj->b82--;
         } else {
             if (D_801002A0 == 8) {
-                switch (s->h28) {
+                switch (sub->h28) {
                 case 25:
                     D_801002A3 &= 0xFB;
                     break;
@@ -107,7 +108,7 @@ void func_8005EBF4(ObjEBF4 *arg0) {
                     break;
                 }
             }
-            arg0->w60 |= 1;
+            obj->w60 |= 1;
         }
     }
 }

@@ -57,6 +57,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     u32 var_a0;
     u8 temp_v0;
     s32 temp_v1_6;
+s32 __repair_phase_temp_v1_6;
     s32 temp_v1_7;
     u8 var_v0;
     union { void * pointer; u32 value; } __repair_phase_storage;
@@ -323,8 +324,8 @@ block_29:
                 }
             }
         } else {
-            temp_v1_6 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
-            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v1_6 & 0xFFFF0003) | (((((u32)temp_v1_6 >> 2) & 0x3FFF) | 0x2000) * 4));
+            temp_a0 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
+            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_a0 & 0xFFFF0003) | (((((u32)temp_a0 >> 2) & 0x3FFF) | 0x2000) * 4));
             var_v0_6 = 0x88;
         }
         (*(s16 *)((char *)(arg1) + 0x58)) = var_v0_6;

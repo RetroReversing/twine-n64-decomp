@@ -36,8 +36,8 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
             ((__repair_record_temp_s0*)temp_s0)->field_C = 0;
             ((__repair_record_temp_s0*)temp_s0)->field_10 = 0;
             ((__repair_record_temp_s0*)temp_s0)->field_14 = 0;
-            ((__repair_record_temp_s0*)temp_s0)->field_2F = 1;
             ((__repair_record_temp_s0*)temp_s0)->field_24 = a11;
+            ((__repair_record_temp_s0*)temp_s0)->field_2F = 1;
             if (flags & 2) {
                 ((__repair_record_temp_s0*)temp_s0)->field_2D = 1;
             } else {

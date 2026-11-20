@@ -17,7 +17,7 @@ u8 func_8002D13C(M2C_UNK);                          /* extern */
 extern s32 D_801002B4;
 extern s32 D_801002B8;
 extern s32 D_801002BC;
-extern s32 D_801002C0;
+extern s32 gBorderMode;
 extern u8 D_80102EB8;
 
 extern char D_800D2858[];
@@ -55,12 +55,12 @@ void func_80018C5C(void *arg0, void *arg1) {
             D_801002BC = 4 - D_801002B8;
             (*__base_D_801002B4) = 4;
         }
-        D_801002C0 = D_801002B8;
+        gBorderMode = D_801002B8;
         if (D_801002B8 == 0) {
-            D_801002C0 = (*__base_D_801002B4);
+            gBorderMode = (*__base_D_801002B4);
         }
-        if (D_801002C0 >= 5) {
-            D_801002C0 = 4;
+        if (gBorderMode >= 5) {
+            gBorderMode = 4;
         }
         if (D_801002B8 == 1) {
             M2C_FIELD(arg1, s32 *, 0x14) = 0x10003;

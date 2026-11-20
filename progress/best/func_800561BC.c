@@ -21,7 +21,7 @@ M2C_UNK func_80016A10(void *, void *);              /* extern */
 M2C_UNK func_800175C0(void *, M2C_UNK, M2C_UNK, f32 *, s32, s32); /* extern */
 M2C_UNK func_80031EF4(f32 *, f32 *, M2C_UNK);       /* extern */
 M2C_UNK func_80032220(s32);                         /* extern */
-s32 func_8003D64C(void *, void *);                  /* extern */
+s32 Probe_BoundsContainPoint(void *, void *);                  /* extern */
 M2C_UNK func_80044670(void *, s16, s16);            /* extern */
 M2C_UNK func_80044710(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_80045290(f32 *, f32 *);                /* extern */
@@ -34,7 +34,7 @@ f32 approximate_hypot2(f32, f32);                        /* extern */
 M2C_UNK func_80046424(void *, f32, f32, f32);       /* extern */
 M2C_UNK func_80047E4C(); /* extern */
 s32 func_80048F10(void *, f32 *, s32, M2C_UNK, f32, s32, s32, s32); /* extern */
-s32 func_8004E6E4(M2C_UNK *, void *, void *, f32 *, f32 *, f32, f32 *, s32, s32); /* extern */
+s32 Ray_CastObjects(M2C_UNK *, void *, void *, f32 *, f32 *, f32, f32 *, s32, s32); /* extern */
 void *func_8004F990(void *, void *, f32 *, s32, f32 *, s32, s32, s32); /* extern */
 M2C_UNK func_80054FEC(void *, f32, f32, void *, f32 *, s32, s32); /* extern */
 void *func_800557E0(s32, s32, void *, f32 *, f32 *, f32 *, void **); /* extern */
@@ -85,7 +85,7 @@ extern f64 D_800D3FD0;
 extern f64 D_800D3FD8;
 extern f64 D_800D3FE0;
 extern s8 D_80100B18;
-extern s32 gUpdateGateWord;
+extern s32 gBorderSkipFlag;
 extern void *D_80102FD8;
 extern s8 D_80103EB0;
 extern void *D_80108788;
@@ -325,7 +325,7 @@ block_29:
                 D_80108788 = NULL;
             }
         }
-        if ((func_8004E6E4(&func_8004D910, sp174, arg0 + 0x24, temp_s2, &sp40, var_fs0, &sp70, M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), M2C_UNK (**)(void *, f32 *, f32 *), 0xD4) != NULL, 0) << 0x18) != 0) {
+        if ((Ray_CastObjects(&func_8004D910, sp174, arg0 + 0x24, temp_s2, &sp40, var_fs0, &sp70, M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), M2C_UNK (**)(void *, f32 *, f32 *), 0xD4) != NULL, 0) << 0x18) != 0) {
             temp_fv0 = Vec3_DistanceSq(temp_s2 + 0xC, &sp40);
             if (temp_fv0 < var_fs1) {
                 var_s6 = 1;
@@ -493,7 +493,7 @@ loop_95:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = 0;
                             goto block_262;
                         }
-                        if (gUpdateGateWord == 0) {
+                        if (gBorderSkipFlag == 0) {
                             func_800617D8(M2C_FIELD(arg0, void **, 0x20), &sp40, arg0 + 0x3C, 0, 0.1f, 1.025f, 0x19, 0xFB, 0x17, 0x80, 0x8080800C);
                             if (D_80108F84 != NULL) {
                                 sp98 = -sp70;
@@ -742,7 +742,7 @@ block_138:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = (s32) (M2C_FIELD(D_80108F84, s32 *, 0x50) & ~0x20);
                         }
                     }
-                    if ((var_s4_2 != -1) && (gUpdateGateWord == 0) && ((D_80108788 != NULL) || (D_80108F84 != NULL))) {
+                    if ((var_s4_2 != -1) && (gBorderSkipFlag == 0) && ((D_80108788 != NULL) || (D_80108F84 != NULL))) {
                         temp_v0_13 = func_800166A0();
                         if (temp_v0_13 != NULL) {
                             M2C_FIELD(temp_v0_13, s32 *, 0x1C) = 0;
@@ -805,7 +805,7 @@ block_138:
                     M2C_FIELD(temp_s2, f32 *, 8) = (f32) (spB8 - (temp_ft0_3 * spD8));
                     if (D_80108F84 != NULL) {
                         var_s0_4 = 4;
-                        if (gUpdateGateWord != 0) {
+                        if (gBorderSkipFlag != 0) {
                             var_s1 = 3e-45f;
                             var_s4_3 = 1e-45f;
                         } else {
@@ -837,7 +837,7 @@ block_138:
                         }
                     } else {
                         var_s0_5 = 4;
-                        if (gUpdateGateWord != 0) {
+                        if (gBorderSkipFlag != 0) {
                             var_s1_2 = 3e-45f;
                             var_s4_4 = 1e-45f;
                         } else {
@@ -1073,7 +1073,7 @@ block_13:
         }
         break;
     }
-    if ((M2C_FIELD(arg0, s16 *, 0x7A) != 2) && ((func_8003D64C(arg0 + 0x24, M2C_FIELD(arg0, void **, 0x20)) << 0x18) == 0)) {
+    if ((M2C_FIELD(arg0, s16 *, 0x7A) != 2) && ((Probe_BoundsContainPoint(arg0 + 0x24, M2C_FIELD(arg0, void **, 0x20)) << 0x18) == 0)) {
         M2C_FIELD(arg0, s16 *, 0x7A) = 2;
     }
 }
