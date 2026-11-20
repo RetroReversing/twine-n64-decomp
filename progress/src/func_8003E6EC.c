@@ -83,14 +83,17 @@ s32 func_8003E6EC(void *arg0, void *arg1, u8 arg2) {
                 }
                 if ((func_8004E6E4(&func_8004DBD8, var_s1, point, spAC, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
                     var_fv1 = sp90[1] - sp60[1];
-                    goto block_14;
-                }
-                if ((func_8004E6E4(&func_8004DBD8, var_s1, point, sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
-                    var_fv1 = sp60[1] - sp90[1];
-block_14:
                     if (var_fv1 < var_fs0) {
                         var_s3 = var_s1;
                         var_fs0 = var_fv1;
+                    }
+                } else {
+                    if ((func_8004E6E4(&func_8004DBD8, var_s1, point, sp80, &sp90, 256.0f, 0, 1, 0) << 0x18) != 0) {
+                        var_fv1 = sp60[1] - sp90[1];
+                        if (var_fv1 < var_fs0) {
+                            var_s3 = var_s1;
+                            var_fs0 = var_fv1;
+                        }
                     }
                 }
             }

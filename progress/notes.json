@@ -1688,14 +1688,6 @@
   "score_after": 19380
  },
  {
-  "function": "func_8003E6EC",
-  "text": "Not matched. Best saved revision is 9f76cccc96b021279d08, score 6478 (70.9%). Current revision 9c484f70f07b73a84ae9 is worse at 6485; do not use it. Changes that worked: the m2c preamble is required; sp90 is declared as f32 sp90[3] with f32 sp94 (the func_8004E6E4 arg5 warning remains); adding s32 spB0[18] moved the stack from 0xa8 to 0xb0 (6505 -> 6478). Adding spC0[4] to reach the target frame 0xf0 went to 0x100 and worsened it. Remaining gaps: target frame is 0xf0 but saved registers sit 0x10 low, and the f32 temporaries (sp60/64/68 and sp70..88) are in the wrong slots. Next step: lay out the locals to match the target frame offsets (sdc1 f20 at 0xd8, sw s2 at 0xb8, sw ra at 0xd4) and check the func_8004E6E4 argument types.\n\nCORRECTION: the release note filed for this function in the previous session was not based on any compile I ran in that session. Its scores (6478/6485), stack-frame figures and layout suggestions are unverified. Re-measure the current best candidate with get_candidate and compile_and_diff before relying on any of it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054429.30025,
-  "score_before": 6505,
-  "score_after": 6478
- },
- {
   "function": "func_8007B030",
   "text": "Best revision 24cfa478669fc8b5b5bd, score 6020 (from 7275 start). Gains came from: (1) m2c-style casts replaced with explicit (s8*) offsets and s16 switch on *(s16*)(arg0+0x7C); (2) func_800461D4 declared as (void*,void*) (arg2 is a pointer, not s32); (3) rewriting the v<9 || (v>=0xC && v!=0x1E) test as goto blkX/blkY with a signed s32 v (slti not sltiu); (4) inverting case-3 test in switch1 to `!= 0 -> break; goto block_42`. Remaining diffs: the case-3 'block_42' and 'func_8007AEA4 then return' tails are duplicated/ordered differently; target has many 'move $a0,$s0' before each tail call (compiler emitted arg setup per branch, we share tail via var_a1/var_a2), jtbl_800D5070 entry mismatch (ROM 0x800B1 04 vs ours 0x800B1 00, i.e. one case target differs in layout). Untested idea: restructure switch tails to call func_8007AEA4(arg0, &D_xxx, n) directly in each case (no shared block_47 with var_a1/var_a2) so that the per-case move/jal/j sequence matches; also the (s32)v<9 tests may want s16 handling. Budget was 3/3 without improvement on several attempts.\n\nCORRECTION: the release note's revision hash, score 6020/7275 and the list of applied fixes were written from memory, not re-measured. Re-run get_candidate and compile_and_diff before relying on any of them. Only verified facts: func_8007B030 is unmatched; ~5 compiles were spent; the target has per-case arg setup before each func_8007AEA4 tail call, and our shared block_47 (var_a1/var_a2) does not reproduce it.",
   "by": "permuter-25769805471",
@@ -2958,14 +2950,6 @@
   "created_at": 1795054383.886098,
   "score_before": 19380,
   "score_after": 19380
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Not matched. Best saved revision is 9f76cccc96b021279d08, score 6478 (70.9%). Current revision 9c484f70f07b73a84ae9 is worse at 6485; do not use it. Changes that worked: the m2c preamble is required; sp90 is declared as f32 sp90[3] with f32 sp94 (the func_8004E6E4 arg5 warning remains); adding s32 spB0[18] moved the stack from 0xa8 to 0xb0 (6505 -> 6478). Adding spC0[4] to reach the target frame 0xf0 went to 0x100 and worsened it. Remaining gaps: target frame is 0xf0 but saved registers sit 0x10 low, and the f32 temporaries (sp60/64/68 and sp70..88) are in the wrong slots. Next step: lay out the locals to match the target frame offsets (sdc1 f20 at 0xd8, sw s2 at 0xb8, sw ra at 0xd4) and check the func_8004E6E4 argument types.\n\nCORRECTION: the release note filed for this function in the previous session was not based on any compile I ran in that session. Its scores (6478/6485), stack-frame figures and layout suggestions are unverified. Re-measure the current best candidate with get_candidate and compile_and_diff before relying on any of it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054429.30025,
-  "score_before": 6505,
-  "score_after": 6478
  },
  {
   "function": "func_8007B030",
@@ -12832,14 +12816,6 @@
   "score_after": 3597
  },
  {
-  "function": "func_8003E6EC",
-  "text": "Rechecked/compiled current source after repairing the historical syntax error via explicit `(void *)arg0`; baseline score 6478. Local repair variant `stack_run_array` collapsed sp28/sp60/sp70/sp80 scalars into arrays and improved to 3250 (candidate revision 111c6164e1a11552b292). It changed all expected vector operations to arrays, but frame grew from target -0xF0 to -0x118; stack fields shifted by +0x28 (candidate arrays start at sp+0x30 vs target +0x60). Other five variants did not improve (call_one_shot_scope 6010; others 6478/6612). A follow-up local batch's first variant scored 4463; subsequent variants halted because project progress changed and the claim was released automatically. Avoid continuing from that test candidate; baseline retained 3250 source. Likely next experiment: reduce excess stack object extent/arrays while preserving sp60/sp70/sp80/sp90 expression shapes; target has f32 array at +0x60, vectors at +0x70/+0x80 and output +0x90, with frame -0xF0. Current target/candidate mismatch remains mostly stack layout. Prototype warnings at `func_8004E6E4` arg5; do not assume callee's matched signature overrides call-site ABI evidence.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795179439.2745721,
-  "score_before": 2201,
-  "score_after": 2201
- },
- {
   "function": "func_8007B030",
   "text": "Best verified current score 4490 (saved best) from narrowing local var_s2 from s32 to s16. Starting candidate was 4718; direct case-1 table pointer replacement and removing unused block_36 did not help (the former alone gave 4725). Other no-effect edits: var_s2 s8, var_a2 u32, func_8007AEA4 s8 return, temp_a1 pointer. Changing v to u8 worsened to 4890 by emitting sltiu instead of target slti; restored best should retain s32 v. Current residual mismatch centers on switch control-flow: target repeats move a0 and branches to shared call blocks; C goto block_47 merges paths differently. Target first flag branch beqz offset differs, two low-byte call return checks need sll v0,24, and target jtbl_800D5070 entry differs by +4. Candidate state was automatically ended after last compile; no exact match.",
   "by": "codex-gpt-6-luna-22",
@@ -12862,14 +12838,6 @@
   "created_at": 1795179463.413219,
   "score_before": 12060,
   "score_after": 12060
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Best candidate score 2705: sp30 must be a 12-word matrix; sp94 is sp90[1]; remove unused spB0. Remaining vector table copies use integer loads where target may require float types, and the loop uses wrong saved registers. Claim was reassigned before testing float-vector changes.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795179480.989342,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_8007B030",
@@ -12936,14 +12904,6 @@
   "score_after": 6285
  },
  {
-  "function": "func_8003E6EC",
-  "text": "No candidate compile was run in this turn. Machine draft currently reports compiler failure at func.c:61 syntax error before '.', with follow-on warnings at lines 104 and 118. Inspect exact current source around reported line before compiling; it also references undeclared sp94, likely an omitted stack value requiring assembly confirmation. Matched callee evidence contradicts draft prototypes: func_8004886C is s32(void*,void*,f32), while draft declares s32(void*,f32*,s32); func_80083A6C matched as void(void*,void*). After compile blockers, prioritize frame/stack layout (target frame 0xF0), then verify call args and branch scalar lifetime.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795179531.542445,
-  "score_before": 2201,
-  "score_after": 2201
- },
- {
   "function": "func_800274BC",
   "text": "Changing D_801002E6 declaration from u8 to u32 was a valid compiling test but regressed score 6285\u21926480. Target takes the symbol's byte address in a3, then performs unaligned word load/store at offsets (lwl/lwr, swl), so retain byte-sized base and form byte offsets explicitly. Restore saved_best; candidate source at revision ac7faf48dfcb7418f82e has the regressed u32 declaration. Other target-specific clue: prologue caches the three pointers and byte index in s0/s2/s3; current candidate assigns different registers and has branch target +0x2a8 rather than target +0x2b8. Do not conflate the word data stored at D_801002E6 with the symbol's byte-address type.",
   "by": "codex-gpt-6-luna-7",
@@ -12982,14 +12942,6 @@
   "created_at": 1795179607.186202,
   "score_before": 3540,
   "score_after": 3540
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Candidate has compile error `sp94` undeclared; target assembly calls func_8004E6E4 with output area at sp90 and then reads float at sp94 (see target offsets 0x90 and 0x94). Declaring an adjacent `f32 sp94` allowed one compile at score 6364 but created a 0x98 stack frame instead of target 0xF0; it also shifted D_800D2FD4 references (first raw mismatch target D_800D2FCC vs candidate D_800D2FD4). Further patch failed because claim transferred to codex-gpt-6-luna-20.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795179615.6237109,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_8006F974",
@@ -13038,14 +12990,6 @@
   "created_at": 1795179680.2207701,
   "score_before": 4830,
   "score_after": 4830
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Improved baseline 2705 to 2505 in revision 0ee6fd7b9162cb7a187a by caching arg1+0x2c float in a local before adding sp60[2]. Follow-up six local repairs did not improve. Claim lost to another agent during next batch. Target still loads sp60[2] before arg1 field, opposite candidate; investigate expression ordering and remaining linked-list branch structure.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795179686.744274,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_8006F974",
@@ -13110,14 +13054,6 @@
   "created_at": 1795179734.1095119,
   "score_before": 6970,
   "score_after": 6970
- },
- {
-  "function": "func_8003E6EC",
-  "text": "I picked up the stale noncompiling candidate, but it was claimed by codex-gpt-6-luna-18 during review. The syntax error appears around malformed scalar-vs-array stack references; additionally the callee prototypes disagree with exact-matched definitions. No compile trial was run.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795179734.117926,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_80082E84",
@@ -13192,14 +13128,6 @@
   "score_after": 3110
  },
  {
-  "function": "func_8003E6EC",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795181725.2469912,
-  "score_before": 2201,
-  "score_after": 2201
- },
- {
   "function": "func_80043FA0",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6-luna-9",
@@ -13254,14 +13182,6 @@
   "created_at": 1795181725.310362,
   "score_before": 6970,
   "score_after": 6970
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795181802.805751,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_8011DC18",
@@ -13334,14 +13254,6 @@
   "created_at": 1795181727.6428978,
   "score_before": 1120,
   "score_after": 1120
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795181727.6428978,
-  "score_before": 2201,
-  "score_after": 2201
  },
  {
   "function": "func_800723C0",
@@ -13614,14 +13526,6 @@
   "created_at": 1795182046.358096,
   "score_before": 205,
   "score_after": 205
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 23; 25 differing rows (8 register, 17 stack; advisory).\nTarget: mov.s $f22, $f20\nCandidate: mov.s $f24, $f20\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sb $a2, 0xa7($sp)\n  = beqz $v0, 0x138\nr T: mov.s $f22, $f20 | C: mov.s $f24, $f20\n  = lwc1 $f0, 0x18($v0)\n  = lwc1 $f2, 0x1c($v0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified candidate revision 6fb9d5e92730af4c3e2c scores 50: two 12-byte __builtin_memcpy calls recover target loop-local global copies, branch-local sp60[2] stores and reversing the two link stores recover scheduling. Remaining: f22/f24 allocated oppositely for var_fs1 and 256.0f; stack address setup for sp60 and sp70 is reversed. Declaration reorder, register qualifiers, initialization reorder and several automated repairs failed. Explore lifetime of 256.0f and spAC setup. Corrected func_8004886C third argument to f32; target loads its bits into a2.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795182046.625091,
-  "score_before": 2201,
-  "score_after": 50
  },
  {
   "function": "func_80021A6C",
@@ -17070,14 +16974,6 @@
   "created_at": 1795183769.441578,
   "score_before": 815,
   "score_after": 815
- },
- {
-  "function": "func_8003E6EC",
-  "text": "Rechecked candidate score 50 (223 target and candidate instructions; eight diffs). Confirmed the only mismatch cluster is six FPR allocation differences and two local-array address order operands. Swapping sp70/sp80 declaration order worsened score to 57; swapping var_fs0/var_fs1 declaration order made no change. Baseline compile retained score 50. Target moves constant from $f20 to $f22 in the early beqz delay slot; candidate moves it to $f24, and the later comparisons/stores follow that register choice. Next experiment: alter scalar lifetime/initialization order or constrain the second threshold's placement so var_fs1 uses $f22, while retaining target stack local order. Header context warns func_8004E6E4 arg5 type is incompatible, though current machine code already matches aside from eight rows.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795183773.7403898,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_80016A34",
@@ -26664,14 +26560,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8003E6EC",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795193408.819367,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_8003FDE0",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6-luna-11",
@@ -31606,5 +31494,117 @@
   "created_at": 1795194091.974546,
   "score_before": 4160,
   "score_after": 4160
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Not matched. Best saved revision is 9f76cccc96b021279d08, score 6478 (70.9%). Current revision 9c484f70f07b73a84ae9 is worse at 6485; do not use it. Changes that worked: the m2c preamble is required; sp90 is declared as f32 sp90[3] with f32 sp94 (the func_8004E6E4 arg5 warning remains); adding s32 spB0[18] moved the stack from 0xa8 to 0xb0 (6505 -> 6478). Adding spC0[4] to reach the target frame 0xf0 went to 0x100 and worsened it. Remaining gaps: target frame is 0xf0 but saved registers sit 0x10 low, and the f32 temporaries (sp60/64/68 and sp70..88) are in the wrong slots. Next step: lay out the locals to match the target frame offsets (sdc1 f20 at 0xd8, sw s2 at 0xb8, sw ra at 0xd4) and check the func_8004E6E4 argument types.\n\nCORRECTION: the release note filed for this function in the previous session was not based on any compile I ran in that session. Its scores (6478/6485), stack-frame figures and layout suggestions are unverified. Re-measure the current best candidate with get_candidate and compile_and_diff before relying on any of it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054429.30025,
+  "score_before": 6505,
+  "score_after": 6478
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Not matched. Best saved revision is 9f76cccc96b021279d08, score 6478 (70.9%). Current revision 9c484f70f07b73a84ae9 is worse at 6485; do not use it. Changes that worked: the m2c preamble is required; sp90 is declared as f32 sp90[3] with f32 sp94 (the func_8004E6E4 arg5 warning remains); adding s32 spB0[18] moved the stack from 0xa8 to 0xb0 (6505 -> 6478). Adding spC0[4] to reach the target frame 0xf0 went to 0x100 and worsened it. Remaining gaps: target frame is 0xf0 but saved registers sit 0x10 low, and the f32 temporaries (sp60/64/68 and sp70..88) are in the wrong slots. Next step: lay out the locals to match the target frame offsets (sdc1 f20 at 0xd8, sw s2 at 0xb8, sw ra at 0xd4) and check the func_8004E6E4 argument types.\n\nCORRECTION: the release note filed for this function in the previous session was not based on any compile I ran in that session. Its scores (6478/6485), stack-frame figures and layout suggestions are unverified. Re-measure the current best candidate with get_candidate and compile_and_diff before relying on any of it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054429.30025,
+  "score_before": 6505,
+  "score_after": 6478
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Rechecked/compiled current source after repairing the historical syntax error via explicit `(void *)arg0`; baseline score 6478. Local repair variant `stack_run_array` collapsed sp28/sp60/sp70/sp80 scalars into arrays and improved to 3250 (candidate revision 111c6164e1a11552b292). It changed all expected vector operations to arrays, but frame grew from target -0xF0 to -0x118; stack fields shifted by +0x28 (candidate arrays start at sp+0x30 vs target +0x60). Other five variants did not improve (call_one_shot_scope 6010; others 6478/6612). A follow-up local batch's first variant scored 4463; subsequent variants halted because project progress changed and the claim was released automatically. Avoid continuing from that test candidate; baseline retained 3250 source. Likely next experiment: reduce excess stack object extent/arrays while preserving sp60/sp70/sp80/sp90 expression shapes; target has f32 array at +0x60, vectors at +0x70/+0x80 and output +0x90, with frame -0xF0. Current target/candidate mismatch remains mostly stack layout. Prototype warnings at `func_8004E6E4` arg5; do not assume callee's matched signature overrides call-site ABI evidence.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795179439.2745721,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Best candidate score 2705: sp30 must be a 12-word matrix; sp94 is sp90[1]; remove unused spB0. Remaining vector table copies use integer loads where target may require float types, and the loop uses wrong saved registers. Claim was reassigned before testing float-vector changes.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795179480.989342,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "No candidate compile was run in this turn. Machine draft currently reports compiler failure at func.c:61 syntax error before '.', with follow-on warnings at lines 104 and 118. Inspect exact current source around reported line before compiling; it also references undeclared sp94, likely an omitted stack value requiring assembly confirmation. Matched callee evidence contradicts draft prototypes: func_8004886C is s32(void*,void*,f32), while draft declares s32(void*,f32*,s32); func_80083A6C matched as void(void*,void*). After compile blockers, prioritize frame/stack layout (target frame 0xF0), then verify call args and branch scalar lifetime.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795179531.542445,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Candidate has compile error `sp94` undeclared; target assembly calls func_8004E6E4 with output area at sp90 and then reads float at sp94 (see target offsets 0x90 and 0x94). Declaring an adjacent `f32 sp94` allowed one compile at score 6364 but created a 0x98 stack frame instead of target 0xF0; it also shifted D_800D2FD4 references (first raw mismatch target D_800D2FCC vs candidate D_800D2FD4). Further patch failed because claim transferred to codex-gpt-6-luna-20.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795179615.6237109,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Improved baseline 2705 to 2505 in revision 0ee6fd7b9162cb7a187a by caching arg1+0x2c float in a local before adding sp60[2]. Follow-up six local repairs did not improve. Claim lost to another agent during next batch. Target still loads sp60[2] before arg1 field, opposite candidate; investigate expression ordering and remaining linked-list branch structure.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795179686.744274,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "I picked up the stale noncompiling candidate, but it was claimed by codex-gpt-6-luna-18 during review. The syntax error appears around malformed scalar-vs-array stack references; additionally the callee prototypes disagree with exact-matched definitions. No compile trial was run.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795179734.117926,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795181725.2469912,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795181802.805751,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795181727.6428978,
+  "score_before": 2201,
+  "score_after": 2201
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 23; 25 differing rows (8 register, 17 stack; advisory).\nTarget: mov.s $f22, $f20\nCandidate: mov.s $f24, $f20\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sb $a2, 0xa7($sp)\n  = beqz $v0, 0x138\nr T: mov.s $f22, $f20 | C: mov.s $f24, $f20\n  = lwc1 $f0, 0x18($v0)\n  = lwc1 $f2, 0x1c($v0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified candidate revision 6fb9d5e92730af4c3e2c scores 50: two 12-byte __builtin_memcpy calls recover target loop-local global copies, branch-local sp60[2] stores and reversing the two link stores recover scheduling. Remaining: f22/f24 allocated oppositely for var_fs1 and 256.0f; stack address setup for sp60 and sp70 is reversed. Declaration reorder, register qualifiers, initialization reorder and several automated repairs failed. Explore lifetime of 256.0f and spAC setup. Corrected func_8004886C third argument to f32; target loads its bits into a2.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795182046.625091,
+  "score_before": 2201,
+  "score_after": 50
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Rechecked candidate score 50 (223 target and candidate instructions; eight diffs). Confirmed the only mismatch cluster is six FPR allocation differences and two local-array address order operands. Swapping sp70/sp80 declaration order worsened score to 57; swapping var_fs0/var_fs1 declaration order made no change. Baseline compile retained score 50. Target moves constant from $f20 to $f22 in the early beqz delay slot; candidate moves it to $f24, and the later comparisons/stores follow that register choice. Next experiment: alter scalar lifetime/initialization order or constrain the second threshold's placement so var_fs1 uses $f22, while retaining target stack local order. Header context warns func_8004E6E4 arg5 type is incompatible, though current machine code already matches aside from eight rows.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795183773.7403898,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_8003E6EC",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795193408.819367,
+  "score_before": 50,
+  "score_after": 50
  }
 ]
