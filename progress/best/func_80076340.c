@@ -6,7 +6,7 @@ s32 func_80048F10(s32, s32 *, s32 *, s32 *, f32, s32, s32, s32); /* extern */
 
 void func_80076340(void *arg0, s32 arg1, f32 arg2) {
     union {
-        unsigned char bytes[160];
+        unsigned char bytes[48];
         struct { unsigned char pad[32]; s32 value; } view_sp20;
         struct { unsigned char pad[36]; s32 value; } view_sp24;
         struct { unsigned char pad[40]; s32 value; } view_sp28;

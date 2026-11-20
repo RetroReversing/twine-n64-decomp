@@ -45,11 +45,11 @@ s32 func_8007AB60(void *arg0) {
             temp_v1 = M2C_FIELD(temp_a1, u8 *, 0x6E);
             switch (temp_v1) {                      /* switch 2; irregular */
             case 0:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *((u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2))));
                 var_a1 = 0x81;
                 break;
             case 1:                                 /* switch 2 */
-                func_80002BD0(arg0, *(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *((u16 *)(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2))));
                 var_a1 = 0x81;
                 break;
             case 2:                                 /* switch 2 */

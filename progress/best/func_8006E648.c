@@ -105,17 +105,27 @@ void func_8006E648(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
         return;
     }
     {
-        if ((M2C_FIELD(arg1, s16 *, 0x7C) > 0) && ((M2C_FIELD(arg1, s16 *, 0x7C) < 5) || (M2C_FIELD(arg1, s16 *, 0x7C) == 0xA))) {
-            vec30.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);
-            goto block_34;
+        temp_v1 = M2C_FIELD(arg1, s16 *, 0x7C);
+        if (temp_v1 <= 0) {
+            goto update;
         }
+        if (temp_v1 < 5) {
+            goto copy_position;
+        }
+        if (temp_v1 != 10) {
+            goto update;
+        }
+copy_position:
+        vec30.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);
+        goto block_34;
+update:
         temp_v1_2 = M2C_FIELD(arg1, void **, 0x68);
         temp_s2 = M2C_FIELD(arg1, void **, 0x6C);
         temp_ft1 = M2C_FIELD(arg1, f32 *, 0x28);
+        temp_ft2 = M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 4), f32 *, 0xAC) - temp_ft1;
         temp_a0 = M2C_FIELD(temp_v1_2, void **, 0);
         M2C_FIELD(temp_v1_2, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_2, u16 *, 0xC) & 0xFFCF);
         temp_v1_3 = M2C_FIELD(arg1, void **, 0x68);
-        temp_ft2 = M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 4), f32 *, 0xAC) - temp_ft1;
         M2C_FIELD(arg1, f32 *, 0x28) = (f32) (M2C_FIELD(arg1, f32 *, 0x28) + (M2C_FIELD(temp_s2, f32 *, 0xCC) * 0.033333335f));
         M2C_FIELD(temp_v1_3, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_3, u16 *, 0xC) | 0x80);
         vec30.xyz = M2C_FIELD(arg1, Vec3 *, 0x24);

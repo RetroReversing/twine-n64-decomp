@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a > b; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G8 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 void *func_8000182C();
@@ -65,15 +66,14 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
     temp_fp = var_s6 + temp_s4;
     if (temp_s0 != 0) {
         var_s5 = temp_s4;
-    }
-    temp_s0 = var_s5 * 6;
+    }{ s32 __repair_value; __repair_value = var_s5 * 6; temp_s0 = __repair_value; }
     var_s1 = 0;
     temp_a0_2 = arg2 & -(arg2 < (u32) (*(s16 *)((char *)(temp_v0) + 0)));
     func_8000B900(temp_s3, (((*(s32 *)((char *)(temp_v0) + 4)) + (((var_s5 * 3) + (temp_s4 * 2)) * temp_a0_2 * 2)) - temp_s0) + D_F8D70, temp_fp * 4);
-    if (var_s5 > 0) {
+    if (__repair_inline(var_s5, 0)) {
         var_a0_2 = temp_s3;
         var_v1_2 = temp_s3 + temp_s0;
-        do {
+        __repair_rows: {
             (*(f32 *)((char *)(var_a0_2) + 0)) = (f32) (((f32) (*(u16 *)((char *)(var_v1_2) + 0)) * (*(f32 *)((char *)(temp_v0) + 8))) + (*(f32 *)((char *)(temp_v0) + 0x14)));
             (*(f32 *)((char *)(var_a0_2) + 4)) = (f32) (((f32) (*(u16 *)((char *)(var_v1_2) + 2)) * (*(f32 *)((char *)(temp_v0) + 0xC))) + (*(f32 *)((char *)(temp_v0) + 0x18)));
             temp_fv1 = ((f32) (*(u16 *)((char *)(var_v1_2) + 4)) * (*(f32 *)((char *)(temp_v0) + 0x10))) + (*(f32 *)((char *)(temp_v0) + 0x1C));
@@ -81,7 +81,8 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3) {
             var_v1_2 += 6;
             (*(f32 *)((char *)(var_a0_2) + 8)) = temp_fv1;
             var_a0_2 += 0xC;
-        } while (var_s1 < var_s5);
+        }
+if (var_s1 < var_s5) goto __repair_rows;
     }
     if (arg3 != 0) {
         var_s1_2 = 0;

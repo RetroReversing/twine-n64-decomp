@@ -22,12 +22,12 @@ f32 __repair_var_ft2_2;
     void *temp_v0;
 
     temp_a1 = (*(void **)((char *)(arg0) + 0x6C));
-    var_fv1 = *((s32 *)((s8 *)&D_800C46AC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8))) * D_800C7C9C;
+    var_fv1 = *((f32 *)((s8 *)&D_800C46AC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8))) * D_800C7C9C;
     temp_a2 = (*(s8 *)((char *)(temp_a1) + 0x182));
     if (D_80108F78 == 0x19) {
         var_fv1 = D_800C0740;
     }
-    if (*((s32 *)((s8 *)&D_80115089 + (((*(s8 *)((char *)(temp_a1) + 0x182))) * 0xA0))) != 0) {
+    if (*((u8 *)((s8 *)&D_80115089 + (temp_a2 * 0xA0))) != 0) {
         temp_v0 = *((s32 *)((s8 *)&D_80109688 + (((*(s8 *)((char *)(temp_a1) + 0x182))) * 4)));
         if ((*(f32 *)((char *)(temp_v0) + 0x11C)) != var_fv1) {
             var_fv0 = -(*(f32 *)((char *)(temp_v0) + 0x114)) / (*(f32 *)((char *)(temp_v0) + 0x7C));
@@ -45,6 +45,7 @@ f32 __repair_var_ft2_2;
             if (D_80108F78 == 0x19) {
                 var_ft2 = 1.01f;
             }
+            __repair_var_ft2_2 = var_ft2;
             var_fv1_3 = (var_ft0 - (*(f32 *)((char *)(temp_a1) + 0x24))) * var_ft2;
             goto block_20;
         }

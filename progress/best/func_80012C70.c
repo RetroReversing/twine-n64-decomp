@@ -1,4 +1,4 @@
-s32 func_800109CC(); s32 func_80010A2C(); s32 func_80010B60(s32); s32 func_800115C0(s32,s16,s16*); s32 func_80011800(s32,void*,s16,s32,s32,s32,s32,s32); s32 func_80012F50(); extern u16 D_800BFC32; extern u16 D_800E0768[]; extern u8 D_800E076A[],D_800E076B[]; extern s32 D_800E0790; extern s16 D_800E0938,D_800E093A,D_800E093C,D_800E093E; extern s32 D_80103022,D_801032A8,D_801083D4; extern u8 D_80108F75; extern s16 D_80109BA4; extern s32 D_80109DC8; extern s8 D_8010A3C5,D_8010A3C6,D_8010A3C7,D_8010A3C8;
+s32 func_800109CC(); s32 func_80010A2C(); s32 func_80010B60(s32); s32 func_800115C0(s32); s32 func_80011800(s32,void*,s16,s32,s32,s32,s32,s32); s32 func_80012F50(); extern u16 D_800BFC32; extern u16 D_800E0768[]; extern u8 D_800E076A[],D_800E076B[]; extern s32 D_800E0790; extern s16 D_800E0938,D_800E093A,D_800E093C,D_800E093E; extern s32 D_80103022,D_801032A8,D_801083D4; extern u8 D_80108F75; extern s16 D_80109BA4; extern s32 D_80109DC8; extern s8 D_8010A3C5,D_8010A3C6,D_8010A3C7,D_8010A3C8;
 u16 func_80012C70(void){
 int __repair_literal;
 s16 *temp_a2; s16 temp_v0_2; unsigned int temp_a0; s32 temp_v0; register s32 var_s0; unsigned long temp_v1;
@@ -7,7 +7,7 @@ __repair_literal = 2;
 
 loop_1: temp_v0=D_800E093A*__repair_literal;temp_a2=(s16*)(temp_v0+(char*)&D_80103022);temp_a0=D_800E093A*4;*(s16*)(temp_v0+(char*)&D_80103022)=0;(&D_80109BA4)[D_800E093A]=0;*(s16*)((char*)&D_80109DC8+temp_v0)=0;*(s16*)((char*)&D_801083D4+temp_v0)=0;
 if(*((u8 *)D_800E076B+temp_a0)==0&&((s32)D_80108F75>>D_800E093A)!=0&&((*((u16 *)((char *)D_800E0768+temp_a0))&0x1F07)!=5||(*temp_a2=1,(*((u8 *)D_800E076A+temp_a0)&1)!=0))){
-temp_v1=func_800115C0(temp_a0,D_800E093A,temp_a2)&0xFFFF;
+temp_v1=func_800115C0(temp_a0)&0xFFFF;
 switch(temp_v1){
 case 0xA4:if(var_s0!=0&&D_800E093A==0){var_s0=0;D_80109BA4=1;if(!(func_80012F50()&0xFFFF)&&(func_80010A2C()&0xFFFF))D_800BFC32=0x30;}goto block_22;
 case 0xA5:func_80011800(0xC,(char *)&D_800E0790 + D_800E093A * 0x68,D_800E093A,0,0,0,0,0);func_800109CC();goto block_22;

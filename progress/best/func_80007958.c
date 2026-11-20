@@ -62,14 +62,17 @@ void func_80007958(void)
 {
     FrameSlot *slot = D_8010A2BC[D_8010A4B0];
     FrameCommand *start = slot->start;
-    s32 *renderMode = &D_8010A4E4;
+    s32 *renderMode;
     u8 *buffer, *segment1, *segment2, *segment3, *segment4;
     s32 commandBytes;
     FrameView **entry;
     FrameView *view;
+    FrameSlot *submittedSlot;
+    FrameView **layerEntry;
+    u64 stamp;
     FrameCommand *cmd;
     u32 i, mask, alpha;
-    s32 transitioning = 0;
+    s32 transitioning;
     s32 layer, previous, token;
     f32 opacity;
     u8 *modeFlags;
@@ -88,6 +91,8 @@ void func_80007958(void)
     D_8010A398 = osGetTime();
     func_80034DD0();
 
+    renderMode = &D_8010A4E4;
+    transitioning = 0;
     if (*renderMode == 0) {
         func_80034EFC();
     } else {
@@ -132,22 +137,28 @@ void func_80007958(void)
                     func_80035060(*entry);
                 }
                 if (modeFlags[-1] & mask) {
-                    cmd = D_80115328++;
+                    cmd = D_80115328;
                     cmd->w0 = 0xDE000000;
                     cmd->w1 = (u32)D_800B1BE0;
-                    func_8003C228(*entry, i, 5);
+                    view = *entry;
+                    D_80115328 = cmd + 1;
+                    func_8003C228(view, i, 5);
                 }
                 if (modeFlags[-2] & mask) {
-                    cmd = D_80115328++;
+                    cmd = D_80115328;
                     cmd->w0 = 0xDE000000;
                     cmd->w1 = (u32)D_800B1BE0;
-                    func_80038000(*entry, i);
+                    view = *entry;
+                    D_80115328 = cmd + 1;
+                    func_80038000(view, i);
                 }
                 if (modeFlags[-1] & mask) {
+                    layer = 4;
+                    layerEntry = entry;
                     func_80034560(*entry);
-                    for (layer = 4; layer >= 0; ) {
-                        func_8003C228(*entry, i, layer--);
-                    }
+                    do {
+                        func_8003C228(*layerEntry, i, layer--);
+                    } while (layer >= 0);
                 }
             }
             mask = 1U << i;
@@ -177,20 +188,21 @@ void func_80007958(void)
 
     func_80044410(0);
     cmd = D_80115328++;
-    commandBytes = ((u8 *)cmd - 0x30) - (u8 *)slot;
+    commandBytes = ((u32)cmd - 0x30) - (u32)slot;
     cmd->w0 = 0xE9000000;
     cmd->w1 = 0;
     cmd = D_80115328++;
     cmd->w0 = 0xDF000000;
     cmd->w1 = 0;
     func_800A0220(slot->buffer, commandBytes);
-    func_800A0220(slot->buffer, (D_8010A928 - 0x798) - (u8 *)slot);
-    func_800A0220(slot->buffer, (D_80109CB8 - 0x16A0) - (u8 *)slot);
-    func_800A0220(slot->buffer, (D_801002FC - 0x1AA8) - (u8 *)slot);
-    func_800A0220(slot->buffer, (D_8010A4B4 - 0x1BB0) - (u8 *)slot);
+    func_800A0220(slot->buffer, ((u32)D_8010A928 - 0x798) - (u32)slot);
+    func_800A0220(slot->buffer, ((u32)D_80109CB8 - 0x16A0) - (u32)slot);
+    func_800A0220(slot->buffer, ((u32)D_801002FC - 0x1AA8) - (u32)slot);
+    func_800A0220(slot->buffer, ((u32)D_8010A4B4 - 0x1BB0) - (u32)slot);
 
-    slot->commands = *(FrameCommand **)(D_80117728 + 0x750);
-    slot->commandBytes = (D_80115328 - *(FrameCommand **)(D_80117728 + 0x750)) * 8;
+    submittedSlot = slot;
+    submittedSlot->commands = *(FrameCommand **)(D_80117728 + 0x750);
+    submittedSlot->commandBytes = ((s32)((u32)D_80115328 - *(u32 *)(D_80117728 + 0x750)) >> 3) << 3;
     if (D_800B1D70 != D_800B1D72) {
         func_8000B260();
         osRecvMesg(D_8010A2A0, NULL, 1);
@@ -225,12 +237,14 @@ void func_80007958(void)
             }
             break;
         }
+        previous = D_800B1D72 + 1;
         D_80100C04 = D_8011740C;
-        D_800B1D72++;
+        D_800B1D72 = previous;
     }
     if (!D_800AE4B0) {
-        D_800DD750[D_8010A4B0] = osGetTime();
-        func_8000B224(slot);
+        stamp = osGetTime();
+        D_800DD750[D_8010A4B0] = stamp;
+        func_8000B224(submittedSlot);
         D_800B1D70++;
         D_8010A4B0++;
         if (D_8010A4B0 >= D_8010A518) {

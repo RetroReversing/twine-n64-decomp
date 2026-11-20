@@ -63,7 +63,7 @@ int __repair_constant = 0x26;
                 temp_v1_3 = M2C_FIELD(arg0, void **, 0x68);
                 temp_v0_2 = (u8) M2C_FIELD(temp_v1_3, s8 *, 0xF) - 1;
                 M2C_FIELD(temp_v1_3, s8 *, 0xF) = temp_v0_2;
-                if (temp_v0_2 & 0x80) {
+                if (temp_v0_2 < 0) {
                     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = __repair_constant;
                 }
             } while (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 0xE8)) & 0x8000));
@@ -73,7 +73,7 @@ loop_13:
         temp_v0_3 = (u8) M2C_FIELD(temp_v1_4, s8 *, 0xF) - 1;
         M2C_FIELD(temp_v1_4, s8 *, 0xF) = temp_v0_3;
         __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
-        if (temp_v0_3 & 0x80) {
+        if (temp_v0_3 < 0) {
             M2C_FIELD(__repair_hoisted, s8 *, 0xF) = __repair_constant;
         }
         temp_a2 = M2C_FIELD(arg0, void **, 0x68);
