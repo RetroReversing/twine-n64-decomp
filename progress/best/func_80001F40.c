@@ -25,7 +25,7 @@ short __repair_constant = 4;
         var_t2 = 0;
         var_t1 = __base_D_800AE724;
         for (;;) {
-            temp_a1 = __repair_inline(*(s32 *)*var_t1);
+            temp_a1 = **var_t1;
             if (arg0 == temp_a1) {
                 var_t3 = 1;
             }

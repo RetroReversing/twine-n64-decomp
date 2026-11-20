@@ -11,7 +11,7 @@ void func_8000CD8C(void) {
  switch(temp_v1) {
  case 35:var_s4=0;break;
  case 36:break;
- case 0:var_a1=**(u16**)((char*)var_s1+4);D_800E0740=var_a1;
+ case 0:var_a1=**(u16**)temp_s1;D_800E0740=var_a1;
  case 9:case 10:case 14:case 22:case 23:case 28:var_s0=1;break;
  case 26:var_s0=2;break;
  case 1:case 2:case 4:case 5:case 6:case 8:case 15:case 16:case 20:case 21:case 25:var_s0=3;break;

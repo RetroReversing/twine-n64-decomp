@@ -16,12 +16,13 @@ void func_80082D24(const s16 *ang, f32 *m) {
     f32 cc = COSS(c);
     f32 sa = SINS(a);
     f32 second = sb * -cc;
+    f32 fourth = cacb * sc + sa * cc;
     f32 sacb = sa * -cb;
 
     m[0] = first;
     m[1] = second;
     m[2] = cb;
-    m[3] = cacb * sc + sa * cc;
+    m[3] = fourth;
     m[4] = sa * sc - cacb * cc;
     m[5] = -ca * sb;
     m[6] = sacb * sc + ca * cc;

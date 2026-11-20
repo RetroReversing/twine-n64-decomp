@@ -6,8 +6,11 @@ extern s32 D_800AE682;
 extern s32 D_800AE684;
 extern void *D_800CA31C;
 
+typedef struct { s32 x, y, z; } PositionWords;
+
 s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
     s32 var_a3;
+    s32 offset;
     s32 var_v0_2;
     u16 temp_v1;
     u32 var_a2;
@@ -15,10 +18,11 @@ s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
     var_a2 = 0;
     var_a3 = 0;
     for (;;) {
-        temp_v1 = *((u16 *)((s8 *)&D_800AE680 + var_a3));
+        offset = var_a3;
+        temp_v1 = *((u16 *)((s8 *)&D_800AE680 + offset));
         if (((temp_v1 >> 9) != (*(s32 *)((char *)(D_800CA31C) + 4))) || (((temp_v1 >> 1) & 0xFF) != arg1)) {
             var_a2 += 1;
-            var_a3 += 6;
+            var_a3 = offset + 6;
             if (var_a2 >= 0x1BU) {
                 return 0;
             }
@@ -37,10 +41,9 @@ s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
         var_v0_2 = var_a2 * 2;
 block_10:
         func_80002D30(arg0, *((u16 *)((s8 *)&D_800AE682 + ((var_v0_2 + var_a2) * 2))), var_a2, var_a3);
-        (*(s32 *)((char *)(arg0) + 0x3C)) = (s32) (*(s32 *)((char *)(arg2) + 0));
-        (*(s32 *)((char *)(arg0) + 0x44)) = (s32) (*(s32 *)((char *)(arg2) + 8));
-        (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg2) + 4));
+        *(PositionWords *)((u8 *)arg0 + 0x3C) = *(PositionWords *)arg2;
         return 1;
     }
     return 0;
 }
+

@@ -26,17 +26,19 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
         var_a0 = 0;
         if (D_800CEEC0 != 0) {
             var_v1 = 0;
-loop_3:
-            if ((*(u8 *)((u8 *)&D_800E2CC0 + (var_v1)) == 0) || (*(s32 *)((u8 *)&D_800E2CE4 + (var_v1)) != arg0)) {
+            do {
+                if (*(u8 *)((u8 *)&D_800E2CC0 + var_v1) != 0) {
+                    if (*(s32 *)((u8 *)&D_800E2CE4 + var_v1) == arg0) {
+                        arg0 = var_a0;
+                        goto found;
+                    }
+                }
                 ++var_a0;
                 var_v1 += 0x1228;
-                if (2U <= var_a0) {
-                    var_a0 = -1U;
-                } else {
-                    goto loop_3;
-                }
-            }
+            } while (var_a0 < 2U);
+            var_a0 = -1U;
             arg0 = var_a0;
+found:
             if (arg0 != -1) {
                 osRecvMesg(&D_800E3F30, 0, 1);
                 if ((u8)(*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) << 1) == 4) {

@@ -17,7 +17,7 @@ extern u8 D_800F2720;
 void func_80096758(s32 arg0, void *arg1, void *arg2) {
     s32 temp_a1;
     s32 temp_a1_2;
-    s32 var_v0;
+    u8 var_v0;
     u32 temp_a2;
     u8 temp_a3;
     u8 temp_v1;

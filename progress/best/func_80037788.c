@@ -18,13 +18,17 @@ char *__repair_addr;
     unsigned temp_s1;
     u32 temp_v0;
 
+    u32 used;
     temp_s1 = (((__repair_record_arg0*)arg0)->field_18);
-    if ((temp_s1 != 0) && (D_80107EA0 < D_800B1D84)) {
-        temp_v0 = D_80107EA0 + 1;
+    if (!temp_s1) {
+        return;
+    }
+    used = D_80107EA0;
+    if (used < D_800B1D84) {
+        s32 base = *(s32 *)((char *)D_80117728 + 0x74C);
+        temp_v0 = used + 1;
         D_80107EA0 = temp_v0;
-__repair_addr = (char *)((char *)(D_80117728) + 0x74C);
-
-        D_8010D538 = ((temp_v0 << 6)) + ((*(s32 *)(__repair_addr))); func_800347B0(&D_80112F90, (((__repair_record_arg0*)arg0)->field_2C) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_30) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_34) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_20) * 64.0f, (((__repair_record_arg0*)arg0)->field_24) * 64.0f, (((__repair_record_arg0*)arg0)->field_28) * 64.0f);
+        D_8010D538 = base + (temp_v0 << 6); func_800347B0(&D_80112F90, (((__repair_record_arg0*)arg0)->field_2C) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_30) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_34) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_20) * 64.0f, (((__repair_record_arg0*)arg0)->field_24) * 64.0f, (((__repair_record_arg0*)arg0)->field_28) * 64.0f);
         func_800A37C0(&D_80112F90, D_8010D538);
         temp_a1 = D_80115328;
         D_80115328 = temp_a1 + 8;

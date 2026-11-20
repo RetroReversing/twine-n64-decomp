@@ -17,7 +17,6 @@ void func_80027970(void) {
     void *b;
     s32 i;
     u8 count;
-    void **records;
     void *record;
     void (*callback)(void *);
     if (D_80109BB0 != NULL) {
@@ -38,8 +37,7 @@ void func_80027970(void) {
             count = M2C_FIELD(M2C_FIELD(a, void **, 0x10), u8 *, 5);
             if (count != 0) {
                 do {
-                    records = M2C_FIELD(M2C_FIELD(a, void **, 0x10), void **, 0);
-                    record = (void *)((s8 *)records + ((i & 0xFF) * 0x28));
+                    record = (void *)((s8 *)M2C_FIELD(M2C_FIELD(a, void **, 0x10), void **, 0) + ((i & 0xFF) * 0x28));
                     func_80016314(((Record *)record)->value);
                     ((Record *)record)->value = NULL;
                     i++;

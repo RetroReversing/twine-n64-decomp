@@ -43,9 +43,10 @@ void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
         if (temp_a0 != NULL) {
             var_a1 = -0xFD;
             if (M2C_FIELD(temp_a3, void **, 0) != NULL) {
+                s32 flags = M2C_FIELD(temp_a0, s32 *, 0x28);
                 temp_v1 = (-((temp_t0 & 0xFF) == 0) & 7) | 3;
                 temp_v1 <<= 2;
-                M2C_FIELD(temp_a0, s32 *, 0x28) = (M2C_FIELD(temp_a0, s32 *, 0x28) & ~0xFC) | temp_v1;
+                M2C_FIELD(temp_a0, s32 *, 0x28) = (flags & ~0xFC) | temp_v1;
                 temp_a0_2 = M2C_FIELD(temp_a3, void **, 0);
                 M2C_FIELD(temp_a0_2, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a0_2, s32 *, 0x28) & ~0xFC) | temp_v1);
                 var_a2 = (s32) M2C_FIELD(temp_a3, void **, 4);

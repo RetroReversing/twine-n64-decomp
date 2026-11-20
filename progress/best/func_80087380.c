@@ -17,6 +17,8 @@ void func_80087380(void *arg0) {
         f32 f4C;
         s32 f50;
     } __repair_frame;
+    typeof(__repair_frame) *frame;
+    f32 loop_zero;
     register s32 *var_s5;
     f32 *var_s2;
     f32 temp_fv0;
@@ -27,9 +29,10 @@ void func_80087380(void *arg0) {
     u32 var_s6;
     register void *temp_s0;
     
+    register void *root;
     register void *var_s4;
 
-    temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
+    root = (*(void **)((char *)(arg0) + 0x6C));
     sp40[0] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x3C));
     sp40[1] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x40));
     sp40[2] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x44));
@@ -44,22 +47,24 @@ void func_80087380(void *arg0) {
         var_fs1 = var_fs0 = 0.0f;
     }
     var_s6 = 0;
+    frame = &__repair_frame;
+    loop_zero = 0.0f;
     var_s2 = &D_800CEE98;
     var_s5 = &D_800CEE50;
-    var_s4 = temp_s0;
+    var_s4 = root;
     do {
         temp_s0 = (*(void **)((char *)(var_s4) + 0x2C));
         __repair_frame = *(typeof(__repair_frame) *)var_s5;
         temp_a0 = __repair_frame.f50;
         temp_s0_2 = temp_s0 + 0x24;
         __repair_frame.f4C -= func_80045D2C(var_fs1);
-        func_800839F0(sp10, &__repair_frame, temp_s0_2);
+        func_800839F0(sp10, frame, temp_s0_2);
         do { func_800452AC(arg0 + 0x24, temp_s0_2, temp_s0_2); } while (0);
         (*(s32 *)((char *)(temp_s0) + 0x30)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x24));
         (*(s32 *)((char *)(temp_s0) + 0x34)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x28));
         (*(s32 *)((char *)(temp_s0) + 0x38)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x2C));
         (*(f32 *)((char *)(temp_s0) + 0x40)) = (f32) ((*(f32 *)((char *)(arg0) + 0x40)) + *var_s2);
-        if (*var_s2 == 0.0f) {
+        if (*var_s2 == loop_zero) {
             (*(f32 *)((char *)(temp_s0) + 0x3C)) = (*(f32 *)((char *)(temp_s0) + 0x3C)) - var_fs0;
         } else {
             (*(f32 *)((char *)(temp_s0) + 0x3C)) = (*(f32 *)((char *)(temp_s0) + 0x3C)) + var_fs0;
