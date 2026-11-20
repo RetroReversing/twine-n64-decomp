@@ -39,7 +39,7 @@ void func_8001C400(void) {
     void *temp_s2;
     void *temp_s3;
     register int temp_s0_2;
-    register void *var_a0_2;
+    void *var_a0_2;
 
     if ((*(u8 *)((char *)(&func_8011A7C8) + 0x3C)) != 0) {
         func_8003099C(D_800E0C60, D_800E0C61);
@@ -76,9 +76,11 @@ void func_8001C400(void) {
             } else {
                 D_80102F04 = 1;
                 func_80025D84(temp_s1, 0, temp_s2, temp_s3, 0x55, 0);
-                var_a0_2 = (((__repair_field_10 *)D_80109BB0)->value);
+                var_a0_2 = D_80109BB0;
                 (((__repair_record_temp_s1*)temp_s1)->field_18) = 0xA0;
-                var_a1 = 0x55;
+                var_a0_2 = ((__repair_field_10 *)var_a0_2)->value;
+                (*(s8 *)((char *)((((__repair_field_10 *)D_80109BB0)->value)) + 4)) = func_800263B8(((__repair_field_10 *)D_80109BB0)->value, 0x55);
+                return;
             }
             (*(s8 *)((char *)((((__repair_field_10 *)D_80109BB0)->value)) + 4)) = func_800263B8(var_a0_2, var_a1);
         }
