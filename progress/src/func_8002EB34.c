@@ -21,7 +21,6 @@ void func_8002EB34(void *arg0) {
     if (arg0 != NULL) {
         temp_v1 = M2C_FIELD(arg0, u16 *, 0x78);
         switch (temp_v1) {
-case 0: break;
                           /* irregular */
         case 0x38:
             func_8003056C(M2C_FIELD(arg0, s32 *, 0x6C));
