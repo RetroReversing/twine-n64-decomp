@@ -23,7 +23,8 @@ s8 func_8007C120(Ent7C120 *arg0, s32 arg1, f32 arg2) {
             idx = D_80117386;
             f = 0.25f;
         }
-        scale = D_800C2E64[idx] * f * arg2;
+        f = D_800C2E64[idx] * f;
+        scale = f * arg2;
     }
     return func_8007C094(arg0, arg1, scale);
 }

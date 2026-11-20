@@ -1,58 +1,36 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef struct { u8 pad[0x80]; u8 slot; u8 p81; u8 max; u8 cap; u8 pad84[0x64]; } P648FC;
+typedef struct { u8 pad[7]; s8 c; } I648FC;
+typedef struct { u8 pad[0x1BC]; s16 stock[30]; I648FC items[1]; } S648FC;
+typedef struct { u8 pad[0xE]; s8 idx; } Q648FC;
+typedef struct { u8 pad[0x68]; Q648FC *q; S648FC *s; } O648FC;
+extern P648FC D_800C469C[];
+s16 func_80063C7C(s32);
 
-s32 func_80063C7C();
-extern char D_800C469C[];
+s32 func_800648FC(O648FC *arg0, s8 arg1) {
+    s8 idx = arg0->q->idx;
+    S648FC *s = arg0->s;
+    P648FC *p = &D_800C469C[idx];
+    u8 slot = p->slot;
+    s16 k = func_80063C7C(idx);
+    s16 have = s->stock[slot];
+    s32 n;
 
-s32 func_800648FC(void *arg0, s32 arg1) {
-    s16 temp_a1;
-    s32 var_v1;
-    s32 temp_s2;
-    s32 temp_v0;
-    s8 temp_a0;
-    short temp_a0_2;
-    u8 temp_s0;
-    void *temp_a2;
-    void *temp_s1;
-    void *temp_t0;
-
-    temp_a0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE);
-    temp_s2 = M2C_FIELD(arg0, s32 *, 0x6C);
-    temp_s1 = (temp_a0 * 0xE8) + D_800C469C;
-    temp_s0 = M2C_FIELD(temp_s1, u8 *, 0x80);
-    temp_v0 = func_80063C7C(temp_a0);
-    temp_t0 = (char *)(temp_s2); temp_t0 += (s32)((temp_s0 * 2));
-    temp_a1 = M2C_FIELD(temp_t0, s16 *, 0x1BC);
-    if (temp_a1 > 0) {
-        temp_a0_2 = M2C_FIELD(temp_s1, u8 *, 0x83);
-        var_v1 = M2C_FIELD(temp_s1, u8 *, 0x82) - M2C_FIELD((temp_a2 = temp_s2 + ((s32) (temp_v0 << 0x10) >> 0xD)), s8 *, 0x1FF);
-        if ((s32) temp_a0_2 < var_v1) {
-            var_v1 = (s16) temp_a0_2;
+    if (have > 0) {
+        n = p->max - s->items[k].c;
+        if (p->cap < n) {
+            n = p->cap;
         }
-        if (temp_a1 < var_v1) {
-            var_v1 = temp_a1;
+        if (have < n) {
+            n = have;
         }
-        if (temp_a1 != 0) {
-            if ((arg1 << 0x18) != 0) {
+        if (n != 0) {
+            if (arg1 != 0) {
                 return 1;
             }
-            M2C_FIELD(temp_t0, s16 *, 0x1BC) = (s16) (temp_a1 - temp_a1);
-            M2C_FIELD(temp_a2, s8 *, 0x1FF) = (s8) ((u8) M2C_FIELD(temp_a2, s8 *, 0x1FF) + temp_a1);
+            s->stock[slot] = have - n;
+            s->items[k].c += n;
             return 1;
         }
-        goto block_10;
     }
-block_10:
     return 0;
 }
