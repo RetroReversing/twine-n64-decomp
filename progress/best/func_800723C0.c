@@ -1,5 +1,5 @@
 typedef union { s32 w[9]; f32 f[9]; } Vec9;
-void *func_80016410(s32, s32, s32, void *);
+void *func_80016410(s32, s32, s32);
 void func_80016990(void *, s32);
 void func_800328B8(void *, void *);
 void func_800336FC(void *, void *, void *, void *, s32, f32, s32, s32, s32, s32, s32);
@@ -44,10 +44,11 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     s32 temp_s0_2;
 
     s = arg0; d = sp58.w;
-    do {
+    __repair_rows: {
         d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
         s += 4; d += 4;
-    } while (s != arg0 + 8);
+    }
+if (s != arg0 + 8) goto __repair_rows;
     d[0] = s[0];
     s = arg1; d = sp80.w;
     do {
@@ -62,7 +63,7 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     } while (s != arg2 + 8);
     d[0] = s[0];
     D_800E1A68 += 1;
-    temp_v0 = func_80016410(0x24, 0, 0, d);
+    temp_v0 = func_80016410(0x24, 0, 0);
     if (temp_v0 != NULL) {
         temp_v0_2 = *(void **) ((u8 *) temp_v0 + 0x6C); temp_s0=(void *)temp_v0_2;
         *(s16 *) ((u8 *) temp_v0 + 0x78) = 0x1C;

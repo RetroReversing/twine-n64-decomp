@@ -15,7 +15,7 @@ typedef struct { u32 v; } __attribute__((packed)) UW;
 
 s32 func_80010C00(void)
 {
-    s32 idx;
+    s16 idx;
     
     s32 st;
     s32 a1;
@@ -25,18 +25,20 @@ s32 func_80010C00(void)
     func_80011800(7, ENT(idx), idx, 0, 0, 0, 0, 0);
     func_800109CC();
     if (D_800E093A != 0) return 0;
-    st = D_800BFC32;
-    if (st == 0x20) goto cec;
-    if (st < 0x21) {
-        if (st == 1) goto fb4;
-        if (st <= 0) goto d110e4;
-        if (st < 5) {
-            if (st < 3) goto d110e4;
+    if (D_800BFC32 == 0x20) goto cec;
+    if (D_800BFC32 < 0x21) {
+        if (D_800BFC32 == 1) goto fb4;
+        if (D_800BFC32 <= 0) goto d110e4;
+        if (D_800BFC32 < 5) {
+            if (D_800BFC32 < 3) goto d110e4;
             goto fb4;
         }
         goto d110e4;
     }
-    if (st == 0x21 || st == 0x25 || st == 0x62) goto d38;
+    if (D_800BFC32 == 0x25) goto d38;
+    if (D_800BFC32 >= 0x26) goto cec;
+    if (D_800BFC32 == 0x21) goto d38;
+    if (D_800BFC32 == 0x62) goto d38;
     goto d110e4;
 
 cec:

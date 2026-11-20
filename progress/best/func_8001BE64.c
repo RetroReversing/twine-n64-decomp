@@ -32,7 +32,7 @@ extern char D_800D2864[];
 void func_8001BE64(void) {
     void *temp_s3;
     void *temp_fp;
-    long var_v0_2;
+    s16 var_v0_2;
     void *temp_s2;
     void *temp_s5;
     void *temp_s7;

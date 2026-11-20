@@ -90,11 +90,11 @@ block_7:
                                     sp38[1] += (*(f32 *)((char *)(arg0) + 0xB0));
                                     temp_fv1 = sp38[2] + (*(f32 *)((char *)(arg0) + 0xB4));
                                     sp38[2] = temp_fv1;
-                                    if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), (func_800828D0(sp38[0] - var_fs0) < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0(sp38[1] - var_fs2) < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                    if ((temp_fv1 > 0.0f) && (temp_fv1 < (*(f32 *)((char *)(arg0) + 0x11C))) && (func_80045514(sp38, (*(f32 *)((char *)(arg0) + 0x68)) / temp_fv1, (*(f32 *)((char *)(arg0) + 0x6C)) / temp_fv1), (func_800828D0(sp38[0] - var_fs2) < ((*(f32 *)((char *)(arg0) + 0x54)) / var_fs4))) && (func_800828D0(sp38[1] - var_fs0) < ((*(f32 *)((char *)(arg0) + 0x5C)) / var_fs1)) && ((func_800158A4(arg0 + 0x10, (*(s32 *)((char *)((((__repair_record_arg1*)arg1)->field_68)) + 4)) + 0xA8, (*(s32 *)((char *)(arg0) + 0xF4)), sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                         (*(f32 *)((char *)(arg0) + 0x11C)) = sp38[2];
-                                        (*(f32 *)((char *)(arg0) + 0x10C)) = sp28[2];
-                                        (*(f32 *)((char *)(arg0) + 0x104)) = sp28[0];
-                                        (*(f32 *)((char *)(arg0) + 0x108)) = sp28[1];
+                                        (*(s32 *)((char *)(arg0) + 0x10C)) = *((s32 *)&sp28[2]);
+                                        (*(s32 *)((char *)(arg0) + 0x104)) = *((s32 *)&sp28[0]);
+                                        (*(s32 *)((char *)(arg0) + 0x108)) = *((s32 *)&sp28[1]);
                                         (*(f32 *)((char *)(arg0) + 0x114)) = sp38[1];
                                         if (D_80108F78 != 0x19) {
                                             if (!(sp38[2] < D_800C7C98)) {

@@ -25,11 +25,11 @@ extern Node *D_800E425C;
 extern Node *D_800E4260;
 extern Node *D_800E4264;
 extern Ent *D_80103EB4;
-extern s16 D_80108F70;
+extern u16 D_80108F70;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 
-void func_80089F7C(Out *arg0, u32 arg1, u16 arg2, s32 arg3) {
+void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3) {
     s32 sp10[6];
     u32 sp2C;
     u32 sp34;
@@ -74,7 +74,7 @@ Ent *e;
                         }
                         sp38 = t0;
                         D_80109BF8 += 0xC;
-                        D_80109BA0 = func_800CEEE0(D_80109BA0, D_80109BF8, (u16)(a0 + a1), arg3);
+                        D_80109BA0 = func_800CEEE0(D_80109BA0, D_80109BF8);
                         e = &D_80103EB4[(*(u16 *)&D_80108F70)];
                         e->b = s0->addr + s0->len;
                         e->a = s1;
@@ -151,8 +151,9 @@ Ent *e;
                 D_800E425C->prev->next = NULL;
                 s0 = D_800E425C;
                 D_800E4260 = s0;
-                D_800E4260->prev = NULL;
-                s0->next = NULL;
+                s0->next = D_800E4260;
+                D_800E4260->prev = s0;
+                s0->prev = NULL;
                 D_800E425C = D_800E425C->prev;
             }
             __repair_phase_storage.value = s2 + s1_2;
@@ -206,7 +207,7 @@ Ent *e;
         arg0->c = (s16)sp10[2];
         return;
     }
-    if (sp10[4] < sp10[5]) {
+    if ((u32)sp10[4] < (u32)sp10[5]) {
         arg0->a = sp10[0];
         arg0->b = sp10[1];
         arg0->c = (s16)sp10[2];

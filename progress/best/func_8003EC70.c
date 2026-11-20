@@ -4,20 +4,20 @@ extern f32 D_800C0750;
 extern f32 D_800C0754;
 extern f32 D_800C0758;
 extern f32 D_800C075C;
-extern s32 *D_800E1770;
+extern s8 *D_800E1770;
 extern s32 D_800E1778;
 extern s32 D_800E177C;
 extern s32 D_800E1898;
-extern s32 *D_800E19B8;
-extern s32 *D_800E19BC;
-extern s32 *D_800E19C0;
-extern s32 *D_800E19C4;
+extern s8 *D_800E19B8;
+extern s8 *D_800E19BC;
+extern s8 *D_800E19C0;
+extern s8 *D_800E19C4;
 extern s16 D_800E19C8;
 extern s16 D_800E19CA;
 extern u16 D_800E19CC;
 extern u16 D_800E19CE;
 
-s16 func_8003EC70(s16 arg0) {
+s32 func_8003EC70(s32 arg0) {
     u8 __repair_frame[16];
     s32 *temp_v0_4;
     f32 temp_ft0;
@@ -42,7 +42,7 @@ s16 func_8003EC70(s16 arg0) {
     register s16 var_a1_3;
     s16 var_a1_4;
     s16 var_t1;
-    s16 var_t2;
+    s32 var_t2;
     s16 var_t3;
     s16 var_t4;
     unsigned int var_v1;
@@ -70,7 +70,7 @@ s16 func_8003EC70(s16 arg0) {
     register void *temp_v0_3;
     void *temp_v1_3;
     register void *temp_v1_4;
-    s8 sp[64];
+    u8 sp[1];
 
     var_t2 = arg0;
     D_800E19CE = 0;
@@ -108,9 +108,9 @@ s16 func_8003EC70(s16 arg0) {
     if (((s16) D_800E19C8 != var_t2) && ((s16) D_800E19CA != var_t2) && ((s16) D_800E19CC != (u32)var_t2)) {
         var_t4 = 2;
         if ((s16) D_800E19CE != var_t2) {
-            D_800E19B8 = &D_800E1778;
-            D_800E1770 = &D_800E1778;
-            D_800E19BC = &D_800E1898;
+            D_800E19B8 = (s8 *)&D_800E1778;
+            D_800E1770 = (s8 *)&D_800E1778;
+            D_800E19BC = (s8 *)&D_800E1898;
             var_v0_2 = 2;
             do {
                 temp_v1 = var_v0_2;

@@ -40,6 +40,7 @@ void func_80008660(void *arg0) {
     D_80112FC0 = translation[0] * scale;
     D_80112FC4 = translation[1] * scale;
     value = translation[2] * scale;
-    D_80112FCC = 1.0f;
+    scale = 1.0f;
+    D_80112FCC = scale;
     D_80112FC8 = value;
 }
