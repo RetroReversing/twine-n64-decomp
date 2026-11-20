@@ -4600,14 +4600,6 @@
   "score_after": 205
  },
  {
-  "function": "func_800240A4",
-  "text": "Verified baseline score 230. Six local repairs (storage reuse, inferred layout, signedness, declaration order, address temporary, literal) did not improve. Main difference: compiler folds ((-((temp_t0 & 0xFF) == 0) & 7) | 3) * 4 into masks 0x1c/0xc; target emits masks 7/3 then sll 2. Also target loads arg0+4 before storing D_800BD558, candidate after. Explore type or expression barriers for shift and scheduling.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138344.7291899,
-  "score_before": 230,
-  "score_after": 230
- },
- {
   "function": "func_8001212C",
   "text": "Baseline 720 verified; six local variants did not improve. Unsigned loop counter worsened; explicit backedge, declaration order, typed temporary, nested guard and else conversion were identical. First control flow mismatch sends initial error branch to 0x128 instead of target 0x8c; restructure error path placement against full diff.",
   "by": "codex-gpt-6.1-terra-2",
@@ -9144,14 +9136,6 @@
   "score_after": 515
  },
  {
-  "function": "func_800240A4",
-  "text": "Rechecked 7321f1cd2df68478fd56 at 230. Six local scalar, record, address and constant variants failed to improve. Ten rows differ, mainly five branch offsets and two reordered instructions; target is one instruction longer. Inspect full diff and conditional call argument setup.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795178327.478288,
-  "score_before": 230,
-  "score_after": 230
- },
- {
   "function": "func_800968A4",
   "text": "Current best score 10, only two register mismatches: target's regular path address stays in $v1 through addu base and addu (index in $v0); candidate puts final pointer in $v0. Six local repair variants (signedness, declaration order, arg widths, symbol local, narrow widening, assignment-at-use) had no effect. Explicit pointer staging rewrite scored worse at 45 because GCC kept offset/index in different registers; 17 instructions all semantically aligned but 9 register mismatches. Need induce allocation so scaled arg1 offset remains in $v1, base in $v0 then index in $v0 and pointer addition writes $v1. Target table stride 16, special arg1 byte 0xFF branch. No reusable discovery.",
   "by": "codex-gpt-6-luna-20",
@@ -11774,14 +11758,6 @@
   "created_at": 1795182773.445285,
   "score_before": 190,
   "score_after": 0
- },
- {
-  "function": "func_800240A4",
-  "text": "Improved verified baseline 230 to 60 by splitting the mask/shift and caching the flags load. Remaining difference is instruction scheduling after func_80023EC0: target loads arg0+4 before storing return, then masks return after loading arg0+7. Caching arg0+4 moves that load to target position but moves the mask too early; changing return and local types and caching the byte did not fix it. Saved best retains original ordering mismatch.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795182775.02722,
-  "score_before": 230,
-  "score_after": 60
  },
  {
   "function": "func_80082834",
@@ -19152,14 +19128,6 @@
   "score_after": 200
  },
  {
-  "function": "func_800240A4",
-  "text": "Best 60 rechecked. Target and candidate are instruction-identical except two post-call operations reordered: target loads arg0+4 before storing returned D_800BD558; candidate does the load after. Then target loads arg0+7 before masking return into a0; candidate masks before the byte load. Staging arg0+4 before global store, and explicit byte/mask locals after it, did not alter schedule; stayed score 60. Earlier agent improved to 60 via split mask/shift and cached flags load. Remaining test: force argument construction order using volatile local or different expression / callee argument ordering while preserving first pre-store field load.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795191601.437525,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_80007160",
   "text": "Current best 190 (86 instructions all present). Initial compile corrected duplicate prototype. Best candidate preserves target body but has 8 ordering/register mismatches. Early target sequence stores zero to D_80100C04, loads it to v0, sets a0=0, then places D_8011740C store in the jal delay slot of func_800081C4; candidate instead emitted global store before call. A comma expression in call argument was tried but failed due to the same duplicate local prototype; removing that prototype restored score 190 but not the change. Later target index arithmetic uses v1 for adjusted index and v0 for scaled offset, candidate uses v0 for sum. Try obtaining order with separate result-local and target-compatible declarations, preserving current best.",
   "by": "codex-gpt-6-luna-11",
@@ -20216,14 +20184,6 @@
   "score_after": 150
  },
  {
-  "function": "func_800240A4",
-  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795193408.703294,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_8002FFAC",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6.1-terra-8",
@@ -20286,14 +20246,6 @@
   "created_at": 1795193408.932961,
   "score_before": 825,
   "score_after": 825
- },
- {
-  "function": "func_800240A4",
-  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795193444.283711,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_8003FDE0",
@@ -20438,14 +20390,6 @@
   "created_at": 1795193652.163967,
   "score_before": 1090,
   "score_after": 580
- },
- {
-  "function": "func_800240A4",
-  "text": "Current rechecked baseline score 60/85. Local repair sweeps and source attempts retained identical instruction diff. The final mismatch is in the call setup near func_80023EC0: target has lhu $a1,4($s0) before jal while candidate loads D_800BD558 into $a0 and writes the returned $v0 afterward; preserve argument staging to induce the target's second argument load before call. Parameter-width u8 degraded score to 465; struct-layout and pointer alias variants were neutral or worse. Continue by reorganizing call arguments/temporary lifetimes with baseline C.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795193663.93203,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_8001D204",
@@ -31606,5 +31550,61 @@
   "created_at": 1795193347.015027,
   "score_before": 470,
   "score_after": 470
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Verified baseline score 230. Six local repairs (storage reuse, inferred layout, signedness, declaration order, address temporary, literal) did not improve. Main difference: compiler folds ((-((temp_t0 & 0xFF) == 0) & 7) | 3) * 4 into masks 0x1c/0xc; target emits masks 7/3 then sll 2. Also target loads arg0+4 before storing D_800BD558, candidate after. Explore type or expression barriers for shift and scheduling.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138344.7291899,
+  "score_before": 230,
+  "score_after": 230
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Rechecked 7321f1cd2df68478fd56 at 230. Six local scalar, record, address and constant variants failed to improve. Ten rows differ, mainly five branch offsets and two reordered instructions; target is one instruction longer. Inspect full diff and conditional call argument setup.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795178327.478288,
+  "score_before": 230,
+  "score_after": 230
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Improved verified baseline 230 to 60 by splitting the mask/shift and caching the flags load. Remaining difference is instruction scheduling after func_80023EC0: target loads arg0+4 before storing return, then masks return after loading arg0+7. Caching arg0+4 moves that load to target position but moves the mask too early; changing return and local types and caching the byte did not fix it. Saved best retains original ordering mismatch.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795182775.02722,
+  "score_before": 230,
+  "score_after": 60
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Best 60 rechecked. Target and candidate are instruction-identical except two post-call operations reordered: target loads arg0+4 before storing returned D_800BD558; candidate does the load after. Then target loads arg0+7 before masking return into a0; candidate masks before the byte load. Staging arg0+4 before global store, and explicit byte/mask locals after it, did not alter schedule; stayed score 60. Earlier agent improved to 60 via split mask/shift and cached flags load. Remaining test: force argument construction order using volatile local or different expression / callee argument ordering while preserving first pre-store field load.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795191601.437525,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795193408.703294,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795193444.283711,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800240A4",
+  "text": "Current rechecked baseline score 60/85. Local repair sweeps and source attempts retained identical instruction diff. The final mismatch is in the call setup near func_80023EC0: target has lhu $a1,4($s0) before jal while candidate loads D_800BD558 into $a0 and writes the returned $v0 afterward; preserve argument staging to induce the target's second argument load before call. Parameter-width u8 degraded score to 465; struct-layout and pointer alias variants were neutral or worse. Continue by reorganizing call arguments/temporary lifetimes with baseline C.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795193663.93203,
+  "score_before": 60,
+  "score_after": 60
  }
 ]
