@@ -30,6 +30,7 @@ extern u8 D_80102EE8;
 extern s32 func_8001EA6C;
 extern s32 func_8001EAF0;
 
+extern char D_800D2A80[];
 void func_80020F84(void) {
     s32 *var_s5;
     void *temp_v0_3;
@@ -56,16 +57,16 @@ void func_80020F84(void) {
             var_s4 = 5;
             break;
         case 1:
-            var_s4 = 6;
             var_s5 = D_800CE984;
+            var_s4 = 6;
             break;
         case 2:
-            var_s4 = 6;
             var_s5 = D_800CE984;
+            var_s4 = 6;
             break;
         }
+        var_s3 = 0;
         if (var_s4) {
-            var_s3 = 0;
             do {
                 temp_v0_2 = func_800162BC(D_800BD68E);
                 temp_s2 = var_s3 & 0xFFFF;
@@ -75,7 +76,7 @@ void func_80020F84(void) {
                     temp_v0_3 = func_80087100((var_s3 + 0x4002) & 0xFFFF);
                     (*(s8 *)((char *)(temp_v0_3) + 0)) = 3;
                     (*(s8 *)((char *)(temp_v0_3) + 1)) = 0x6E;
-                    sprintf(temp_v0_3 + 2, "%s", func_80087100((*(u16 *)((char *)(((temp_s2 * 8) + var_s5)) + 6))));
+                    sprintf(temp_v0_3 + 2, D_800D2A80, func_80087100((*(u16 *)((char *)var_s5 + temp_s2 * 8 + 6))));
                     func_800160FC(*temp_s1, temp_v0_3, 0x40);
                     func_8002A7CC(D_800B60E4, *temp_s1, var_s3 & 0xFF, func_80018318(*temp_s1) & 0xFF);
                 }
