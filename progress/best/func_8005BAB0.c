@@ -39,7 +39,7 @@ void func_8005BAB0(void) {
             var_s3 = &D_800C4428;
             do {
                 temp_a1 = M2C_FIELD(M2C_FIELD(D_80108788, void **, 0x70), u32 *, 0x30);
-                if ((((temp_a1 >> 4) & 0xFFFF) == *(s32 *)var_s3) && ((temp_a1 >> 0x14) == *((D_800C4434-12) + (var_s2 * 4)))) {
+                if ((((temp_a1 >> 4) & 0xFFFF) == *(s32 *)var_s3) && ((temp_a1 >> 0x14) == *(s32 *)((D_800C4434-12) + (var_s2 * 4)))) {
                     D_8010A91C += 1;
                     temp_s1 = func_80087100(0xFA, temp_a1);
                     temp_s0 = func_80087100(0xFF);

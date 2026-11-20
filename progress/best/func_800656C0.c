@@ -25,24 +25,14 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     register void *temp_s0;
     
 
-    (*(s32 *)((char *)(arg0) + 0x24)) = (s32) (*(s32 *)((char *)(arg1) + 0));
-    (*(s32 *)((char *)(arg0) + 0x28)) = (s32) (*(s32 *)((char *)(arg1) + 4));
-    (*(s32 *)((char *)(arg0) + 0x38)) = (s32) (*(s32 *)((char *)(arg0) + 0x2C));
-    (*(s32 *)((char *)(arg0) + 0x2C)) = (s32) (*(s32 *)((char *)(arg1) + 8));
-    (*(s32 *)((char *)(arg0) + 0x34)) = (s32) (*(s32 *)((char *)(arg0) + 0x28));
-    (*(s32 *)((char *)(arg0) + 0x30)) = (s32) (*(s32 *)((char *)(arg0) + 0x24));
-    temp_s0 = (*(void **)((char *)(arg0) + 0x6C));
-    (*(s32 *)((char *)(temp_s0) + 0x130)) = (s32) (*(s32 *)((char *)(arg0) + 0x38));
-    (*(s32 *)((char *)(temp_s0) + 0x12C)) = (s32) (*(s32 *)((char *)(arg0) + 0x34));
-    temp_a3 = (*(s32 *)((char *)(arg2) + 8));
-    (*(s32 *)((char *)(arg0) + 0x40)) = (s32) (*(s32 *)((char *)(arg2) + 4));
-    (*(s32 *)((char *)(temp_s0) + 0x128)) = (s32) (*(s32 *)((char *)(arg0) + 0x30));
-    (*(s32 *)((char *)(arg0) + 0x3C)) = (s32) (*(s32 *)((char *)(arg2) + 0));
-    (*(s32 *)((char *)(arg0) + 0x50)) = temp_a2;
-    temp_a2 = (*(s32 *)((char *)(arg0) + 0x44));
-    (*(s32 *)((char *)(arg0) + 0x44)) = temp_a3;
-    (*(s32 *)((char *)(arg0) + 0x48)) = (s32) (*(s32 *)((char *)(arg0) + 0x3C));
-    (*(s32 *)((char *)(arg0) + 0x4C)) = (s32) (*(s32 *)((char *)(arg0) + 0x40));
+    temp_s0 = *(void **)((char *)arg0 + 0x6C);
+    { struct vec { s32 x, y, z; };
+      *(struct vec *)((char *)arg0 + 0x24) = *(struct vec *)arg1;
+      *(struct vec *)((char *)arg0 + 0x30) = *(struct vec *)((char *)arg0 + 0x24);
+      *(struct vec *)((char *)temp_s0 + 0x128) = *(struct vec *)((char *)arg0 + 0x30);
+      *(struct vec *)((char *)arg0 + 0x3C) = *(struct vec *)arg2;
+      *(struct vec *)((char *)arg0 + 0x48) = *(struct vec *)((char *)arg0 + 0x3C);
+    }
     func_800635B4(arg0,  1);
     func_800635BC(arg0, 0);
     func_80065684(arg0);

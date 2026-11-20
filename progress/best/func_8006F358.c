@@ -41,7 +41,7 @@ f32 __repair_var_fv0_1;
 
     temp_s3 = (*(void **)((char *)(arg1) + 0x6C));
     var_fs0 = 0.0f;
-    if (*((s32 *)((s8 *)&D_8011508C + ((*(s8 *)((char *)(temp_s3) + 0x182)) * 0xA0))) != 0) {
+    if (*((u8 *)((s8 *)&D_8011508C + ((*(s8 *)((char *)(temp_s3) + 0x182)) * 0xA0))) != 0) {
         m2c_initial_frame.view_sp20.value = (*(f32 *)((char *)(arg1) + 0x24));
         temp_a0 = (*(f32 *)((char *)(arg1) + 0x2C));
         m2c_initial_frame.view_sp24.__repair_value_1 = (*(f32 *)((char *)(arg1) + 0x28));

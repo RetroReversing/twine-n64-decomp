@@ -28,7 +28,7 @@ void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 var_a2;
     s32 var_v0;
 s32 __repair_phase_var_v0;
-    s32 var_v1;
+    
     s8 var_v1_2;
     u32 var_s0;
     char *var_s0_2;
@@ -39,11 +39,11 @@ s32 __repair_phase_var_v0;
     var_s0_2 = D_800E5AC4;
 
     var_s0 = 0;
-    var_v1 = 0;
+    temp_a2_2 = 0;
 loop_1:
-    if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(var_s0_2 + var_v1) != (arg2 & 0x7FFFFFFF))) {
+    if ((*(D_800E6A85 + temp_a2_2) != 0) || (*(s32 *)(var_s0_2 + temp_a2_2) != (arg2 & 0x7FFFFFFF))) {
         var_s0 += 1;
-        var_v1 += 0xFF8;
+        temp_a2_2 += 0xFF8;
         if (var_s0 >= 8U) {
             var_a2 = -1;
         } else {

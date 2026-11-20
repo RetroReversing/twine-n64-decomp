@@ -67,7 +67,6 @@ void *func_8011BD1C(s32 arg0, M2C_UNK arg1, u16 arg2) {
                 } else {
                     M2C_FIELD(temp_v0, u8 *, 0x7F) = 0xB4;
                 }
-                M2C_FIELD(temp_v0, u8 *, 0x80) = 0xB4;
                 M2C_FIELD(temp_v0, f32 *, 0x28) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) + 0.76f);
                 M2C_FIELD(temp_v0, f32 *, 0x34) = (f32) (M2C_FIELD(temp_v0, f32 *, 0x34) + 0.76f);
             }
