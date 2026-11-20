@@ -5264,14 +5264,6 @@
   "score_after": 121
  },
  {
-  "function": "func_8006F358",
-  "text": "Verified baseline 3222. Layout, branch, address, call arity, const and float-zero repairs did not improve; automatic frame narrowing failed to compile due to view_sp24. Target frame 0x78 vs candidate 0xc0. Reconstruct actual local vectors and result records instead of synthetic 120-byte union; candidate has uninitialized return path and view_sp24.value distinct from __repair_value_1, so verify semantics against assembly.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138864.625891,
-  "score_before": 3222,
-  "score_after": 3222
- },
- {
   "function": "func_8011B0FC",
   "text": "[Released without compiling it once; notes not checked by a compile.] No candidate C was generated because m2c failed to identify the indirect jump table at 0x8011B158. Target setup: signed byte arg0+0x182 indexes D_8010A500; calls func_8000A894 with 0x224; then D_801002B4-3 is range-checked against 6 and indexes a six-entry function-pointer table D_8011EFC8. The six table arms appear to be embedded code blocks (values 0..5) converging on D_8011F3AC with argument values and a few alternate a2=0x1E paths. Need provide a jtbl/jpt-style table read before indirect `jr` to help redraft, or manually write switch with equivalent dispatch. Remainder calls func_8002B150, marks arg0+0x32C, increments D_8010302C, calls func_80087100 / func_80073AF8, updates arg0+0x1D8/+0x32F, then func_8007089C. Not compiled.",
   "by": "codex-gpt-6-luna-7",
@@ -11750,14 +11742,6 @@
   "created_at": 1795178747.623712,
   "score_before": 150,
   "score_after": 0
- },
- {
-  "function": "func_8006F358",
-  "text": "Current best score 3022, revision a690424a9899caba6fd5. Verified compile; casting indexed D_8011508C access from s32* to u8* removed the lw/lbu mismatch and improved by 200. Remaining dominant mismatch is stack layout: target frame 0x78, candidate 0xc0 with extensive stack spills and FPR register differences. Try reconstructing temporary vectors as compact ordinary locals/structs to avoid the 120-byte union and the accidental separate __repair_value_1 field. Existing automatic frame narrowing failed compile because it removed view_sp24 while code still used it. Candidate return path has generated __repair_var_fv0_1 and should be audited; don't assume semantics. Candidate source C and mismatch diagnostics are in latest revision.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178747.649133,
-  "score_before": 3222,
-  "score_after": 3022
  },
  {
   "function": "func_8007C214",
@@ -28752,14 +28736,6 @@
   "score_after": 875
  },
  {
-  "function": "func_8006F358",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Claim receipt candidate has compile error `sp44` undeclared in prior machine draft; changed `m2c_initial_frame.view_sp44.value` was kept but the current first compile was blocked before C compilation because toolchain gcc-2.7.2-kmc is not installed. Prior agent saved historical score 3022 (down from 3222), unverified now. No structural source repair judged. Re-establish compiler availability; fix the `view_sp44`/stack value source, currently read without initialization in this draft, then recompile. Target contains two conditional call paths and float-coordinate query setup.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795193795.11895,
-  "score_before": 3022,
-  "score_after": 3022
- },
- {
   "function": "func_80046648",
   "text": "[Released without compiling it once; notes not checked by a compile.] Compile judge twice reported gcc-2.7.2-kmc not installed for this claim. No scored trial in this session; saved best 790 is unchanged. Prior G0 trial scored 180. Next test G0 with each initial angle multiplied by 0.0007669904f in x/y/z order, then by 651.8986f in x/z/y order before casting at each lookup. Target reserves 0x28 bytes late, so test a ten-float scratch array if needed. Keep the first sy*cs product before the cosine-y lookup and stage the remaining products before stores.",
   "by": "codex-gpt-6.2-sol-8",
@@ -32200,14 +32176,6 @@
   "score_after": 215
  },
  {
-  "function": "func_8006F358",
-  "text": "Best remains historical score 3022, rechecked through a trial. Fixing return to var_fs0 compiled at 3067; reducing the frame union byte array from 120 to 72 improved back to 3022. Current code still allocates 0x90 vs target 0x78, with saves shifted by 0x18; target local data begins at sp+0x20 and uses offsets through 0x44. Attempted caller prototype corrections using matched callee signatures (829A0/8292C single float, 82A70 two floats); fixing corresponding calls compiled worse at 3441. One experimental removal of the uninitialized return temp failed to compile; saved best retained. Next focus: resolve union/frame layout and return value control flow while preserving target's stack temps; inspect target call delay-slot args before signature tuning.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795200203.954682,
-  "score_before": 3022,
-  "score_after": 3022
- },
- {
   "function": "func_8011ACAC",
   "text": "Best 805/104 target instructions; initial original draft could not infer jr jump table, but supplied C compiles. Rechecked baseline. Local repair variants for final shift reuse, signedness, declaration order, address temporary, constant local and sum shape did not improve; changing s0 to s32 regressed to 1055. A scoped cached u16 read of (s1+2) preserved score 805 and improved three instruction windows but did not yield a match. Main remaining mismatch is branch target offset by one instruction (target beqz to +0x180 vs candidate +0x184), plus register/ordering around two table index calculations: target uses andi v1,s0,0xffff then scaled multiply; candidate uses a0, and has extra/missing operations around post-call p calculations. Preserve best original; restructure those pointer/index expressions and switch lowering. No new reusable rule.",
   "by": "codex-gpt-6-luna-7",
@@ -34502,14 +34470,6 @@
   "created_at": 1795202037.88784,
   "score_before": 800,
   "score_after": 800
- },
- {
-  "function": "func_8006F358",
-  "text": "Inherited candidate 81f31e39d879, rechecked score 3022; ran six independent local repair families (call arity, inferred record layout, branch orientation, address temporary, const read, read-before-assign). None improved; layout/const/address variants unchanged, arity and branch orientation worse, read-before-assign failed compile. Primary evidence: target frame -0x78, candidate -0x90; target saves a1 in s0 at sp+0x50, candidate s1 at sp+0x6c. Historical note says target models three coordinate triples on stack; explicit compact vector layout remains unexplored. Continue from saved candidate; investigate struct/vector local layout.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202039.151049,
-  "score_before": 3022,
-  "score_after": 3022
  },
  {
   "function": "func_8011BD1C",
@@ -37302,14 +37262,6 @@
   "created_at": 1795204318.43932,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_8006F358",
-  "text": "Best saved revision a690424a9899caba6fd5 score 3022, rechecked. I reproduced score 3022; reducing union bytes 120\u219272 had no effect (frame 0xc0\u21920x90). Replacing union with vectors did not compile because union references remained. Initializing synthetic return temporary regressed to 3617. Adding a point[3] local then scored 3023, worse by one; saved best intact. Target stack is 0x78 with input vector 3 words at sp+0x20 and output/result records around sp+0x40. Candidate code contains suspect synthetic union and unclear return initialization, so next agent should rebuild plausible C with real vector/result structs and ensure all return paths are defined.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795204326.137665,
-  "score_before": 3022,
-  "score_after": 3022
  },
  {
   "function": "func_8005BAB0",
@@ -47313,5 +47265,53 @@
   "score_before": 535,
   "score_after": 535,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_8006F358",
+  "text": "Verified baseline 3222. Layout, branch, address, call arity, const and float-zero repairs did not improve; automatic frame narrowing failed to compile due to view_sp24. Target frame 0x78 vs candidate 0xc0. Reconstruct actual local vectors and result records instead of synthetic 120-byte union; candidate has uninitialized return path and view_sp24.value distinct from __repair_value_1, so verify semantics against assembly.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138864.625891,
+  "score_before": 3222,
+  "score_after": 3222
+ },
+ {
+  "function": "func_8006F358",
+  "text": "Current best score 3022, revision a690424a9899caba6fd5. Verified compile; casting indexed D_8011508C access from s32* to u8* removed the lw/lbu mismatch and improved by 200. Remaining dominant mismatch is stack layout: target frame 0x78, candidate 0xc0 with extensive stack spills and FPR register differences. Try reconstructing temporary vectors as compact ordinary locals/structs to avoid the 120-byte union and the accidental separate __repair_value_1 field. Existing automatic frame narrowing failed compile because it removed view_sp24 while code still used it. Candidate return path has generated __repair_var_fv0_1 and should be audited; don't assume semantics. Candidate source C and mismatch diagnostics are in latest revision.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178747.649133,
+  "score_before": 3222,
+  "score_after": 3022
+ },
+ {
+  "function": "func_8006F358",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Claim receipt candidate has compile error `sp44` undeclared in prior machine draft; changed `m2c_initial_frame.view_sp44.value` was kept but the current first compile was blocked before C compilation because toolchain gcc-2.7.2-kmc is not installed. Prior agent saved historical score 3022 (down from 3222), unverified now. No structural source repair judged. Re-establish compiler availability; fix the `view_sp44`/stack value source, currently read without initialization in this draft, then recompile. Target contains two conditional call paths and float-coordinate query setup.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795193795.11895,
+  "score_before": 3022,
+  "score_after": 3022
+ },
+ {
+  "function": "func_8006F358",
+  "text": "Best remains historical score 3022, rechecked through a trial. Fixing return to var_fs0 compiled at 3067; reducing the frame union byte array from 120 to 72 improved back to 3022. Current code still allocates 0x90 vs target 0x78, with saves shifted by 0x18; target local data begins at sp+0x20 and uses offsets through 0x44. Attempted caller prototype corrections using matched callee signatures (829A0/8292C single float, 82A70 two floats); fixing corresponding calls compiled worse at 3441. One experimental removal of the uninitialized return temp failed to compile; saved best retained. Next focus: resolve union/frame layout and return value control flow while preserving target's stack temps; inspect target call delay-slot args before signature tuning.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795200203.954682,
+  "score_before": 3022,
+  "score_after": 3022
+ },
+ {
+  "function": "func_8006F358",
+  "text": "Inherited candidate 81f31e39d879, rechecked score 3022; ran six independent local repair families (call arity, inferred record layout, branch orientation, address temporary, const read, read-before-assign). None improved; layout/const/address variants unchanged, arity and branch orientation worse, read-before-assign failed compile. Primary evidence: target frame -0x78, candidate -0x90; target saves a1 in s0 at sp+0x50, candidate s1 at sp+0x6c. Historical note says target models three coordinate triples on stack; explicit compact vector layout remains unexplored. Continue from saved candidate; investigate struct/vector local layout.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202039.151049,
+  "score_before": 3022,
+  "score_after": 3022
+ },
+ {
+  "function": "func_8006F358",
+  "text": "Best saved revision a690424a9899caba6fd5 score 3022, rechecked. I reproduced score 3022; reducing union bytes 120\u219272 had no effect (frame 0xc0\u21920x90). Replacing union with vectors did not compile because union references remained. Initializing synthetic return temporary regressed to 3617. Adding a point[3] local then scored 3023, worse by one; saved best intact. Target stack is 0x78 with input vector 3 words at sp+0x20 and output/result records around sp+0x40. Candidate code contains suspect synthetic union and unclear return initialization, so next agent should rebuild plausible C with real vector/result structs and ensure all return paths are defined.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795204326.137665,
+  "score_before": 3022,
+  "score_after": 3022
  }
 ]
