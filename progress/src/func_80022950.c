@@ -26,9 +26,10 @@ s32 __repair_operand;
     void *temp_v1;
 
     if (D_800BF5A0 != NULL) {
+        s32 base = D_80109BB0;
         var_s0 = 0;
         M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 8), s32 *, 0x10) = 0;
-        func_80029AC8(D_80109BB0 + 0x2A, D_80109BB0 + 0x28, D_80109BB0 + 0x29);
+        func_80029AC8(base + 0x2A, base + 0x28, base + 0x29);
 loop_2:
         __repair_operand = M2C_FIELD(D_800BF5A0, s32 *, 0);
         temp_s1 = (var_s0 & 0xFFFF) * 0x28;
