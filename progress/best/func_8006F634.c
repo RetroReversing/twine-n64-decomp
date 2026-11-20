@@ -7,7 +7,7 @@ void func_8006F634(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
     f32 sp40[3];
     u8 sp50[0x10];
     u8 sp60[0x10];
-    u8 sp70[0x48];
+    u8 sp70[0x10];
     f32 sp80[3];
     f32 sp90[3];
     f32 spA0[3];
@@ -57,7 +57,7 @@ var_s2 = 0;
                     sp90[1] = spA0[1];
                     spA0[2] = *(f32 *)((u8 *)*(void **)((u8 *)arg1 + 0x68) + var_s1 + 8) + sp20[2];
                     sp90[2] = spA0[2];
-                    if ((func_8004FF30(arg0, (u32)sp90, sp30, 0.2f, 0x10, arg2, arg3, 0) << 0x18) != 0) {
+                    if ((func_8004FF30(arg0, sp90, (s32 *)sp30, 0.2f, 0x10, arg2, arg3, 0) << 0x18) != 0) {
                         sp20[0] += sp90[0] - spA0[0];
                         sp20[1] += sp90[1] - spA0[1];
                         sp20[2] += sp90[2] - spA0[2];

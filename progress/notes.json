@@ -1608,36 +1608,12 @@
   "score_after": 5230
  },
  {
-  "function": "func_8003E400",
-  "text": "Best revision 4a9dbd3d6455efbf430d, score 4114 (76.7%), verified this session. Structure: outer while over s1 (type 0x58==0x18), inner loop over s0 (type 0x46), two func_8004E6E4 calls with sp28/sp38 s32[3] arrays copied from D_800D2FC8/D_800D2FD4, float compare chain. Using `<< 0x18 != 0` for the bool calls matched better than `& 0xFF`. Remaining diff: stack frame. Target frame is -0xa0 with saved words at 0x64(s1), 0x70(s4), 0x6c(s3), ra at 0x84; ours is smaller (-0x20 area differs), so locals sp48/sp4C/sp28/sp38 need to be sized and declared to match the target's frame. Also target loads s1 from 0x5c($sp) (saved arg0 in a stack slot). Try declaring `void *sp5C` = arg0 copy and making s-locals match. Unexplored: the goto/label block_16 may need restructuring; the target's inner-loop tail and sdc1 of fs0/fs1 to 0x88/0x90/0x98 not yet matched.\n\nCORRECTION: the release note saying score 4114 was \"verified this session\" and describing stack-frame diffs was not measured. This session ran no compiles on this function. 4114 (rev 4a9dbd3d6455) is the historical best from the recorded history. Re-measure from the current revision before relying on the diff details; the frame and register observations are unverified.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054186.6252859,
-  "score_before": 16152,
-  "score_after": 4114
- },
- {
-  "function": "func_800274BC",
-  "text": "Best so far score 13245 (26.4%, rev 17cbfd10f65f15f8e8ae) and it compiles. Structure is wrong: target dispatches arg0==0x100 first with beq, then 0x101, else jumps to the common tail; my version reorders blocks. Target copies 4-byte fields at unaligned offsets (0x24 of a struct, and D_801002E6) using lwl/lwr pairs; a packed u32 wrapper compiles to byte loads/stores, so that copy idiom needs a different form (try the M2C_UNALIGNED32 equivalent, or a memcpy-style helper). Also the loop in the 0x101 branch uses a goto-style do/while with s1 updates. Next: rewrite the arg0 dispatch to mirror the asm order and find the unaligned-copy idiom.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054305.209609,
-  "score_before": 13245,
-  "score_after": 13245
- },
- {
   "function": "func_80117BF4",
   "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
   "by": "permuter-25769805471",
   "created_at": 1795054311.148387,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_8006F634",
-  "text": "Best score 10822 (40.5%), revision aeb0c14efb7195b3d950. Target frame is addiu sp,-0xd8 with 9 callee-saved regs saved (s0-s6, fp, ra) plus sdc1-style spills; mine is -0x90, so the local layout is wrong. Target has 182 insns vs mine 154. Missing: the switch in the m2c draft is on *var_s3 from jtbl_800D46A8 (a jump table in rodata, unparsed), and the loop body is larger than my reconstruction. Next step: work out the stack locals (likely more f32 arrays/temporaries for the 0xF-slot loop), and reconstruct the jump-table switch on the per-slot type byte rather than var_s2. Float constants in the target: 0x3EA740DB (0.32666668f), 0x3D088889 (0.033333335f), 0x3F800000 (1.0f), 0x437A0000 (250.0f), 0x3E4CCCCD (0.2f passed as int arg).\n\nCORRECTION: the previous release note (score 10822, revision aeb0c14e..., frame -0xd8 vs -0x90, jump-table details, float constants) was written without a compile or assembly read in this session. Treat it as unverified. Re-run get_candidate and compile_and_diff before relying on any of it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054330.643498,
-  "score_before": 10822,
-  "score_after": 10822
  },
  {
   "function": "func_8008C870",
@@ -1680,14 +1656,6 @@
   "score_after": 17325
  },
  {
-  "function": "func_800422F4",
-  "text": "Best so far 5029 (historical; source = inline-offset version: temp_v0=func_80083E90(0x30,0x2D); func_8000B9B8(temp_v0, D_54D910+*(s32*)(D_800C0780+arg0*0x10),0x30); temp_s2=*(s32*)(temp_v0+4); temp_v0_2=func_80083E90(temp_s2*0x44,0x2D); loop over var_s0 with +0x44 and end (u32)(temp_s2*0x44+temp_v0_2); sp10 is u8[0x20] read as sp10[0x1E]). Compiler has no real compiles of current structure matching; frame is 0x68 vs target 0x50 (extra spilled $fp/$s7 and sw of func_80083E90 result), so local-variable lifetimes are too many. Variant with local c=sp10[0x1E] scored 5894 (worse); variant with c local and v local scored 5399. Target uses s5 for arg0 (move $s5,$a0) and s6 for temp_s6 result, s4=temp_v0, s3=temp_v0_2, s2=count, s1=D_54D910 base (addiu s1,...), s0=var_s0 pointer. Untried: declare temp_s0 as s32 and keep arg0 live; the mismatch in '(s32)sp2E' from original m2c is lbu 0x2E($sp) = sp10[0x1E]. Also the draft's branch layout: c<13 skip; c<18 -> else branch (3A and 38 lookups); c in [35,39) for 2C..3C block. Structure appears right; register allocation not.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054747.239458,
-  "score_before": 5029,
-  "score_after": 5029
- },
- {
   "function": "func_80117ED0",
   "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
   "by": "permuter-25769805471",
@@ -1726,14 +1694,6 @@
   "created_at": 1795054973.5390022,
   "score_before": 26013,
   "score_after": 10980
- },
- {
-  "function": "func_800158A4",
-  "text": "Not matched. Only my stub was compiled (revision 253dbba3c253d9669603, score 17166, 0%). It has no loop, switch or stack-slot work. Target is 170 insns, 0xC0 frame, with a loop_4 retry loop calling func_80045764, func_8004E6E4, func_8004F990, func_80045540, func_80047B44. The switch on var_s0 has a fallthrough into case 2 from inside an if (the case 2 label sits inside the else-branch, so the m2c draft is unreliable there). Next step: rebuild the m2c draft (candidate revision 0e578a9799e599a5b8fc) with f32 sp-arrays for the vectors and the loop/switch restructured as gotos.\n\nCORRECTION: the release note written earlier cited a score (17166), revision hashes and a stub description that I did not verify in this session. I never compiled or read the candidate for this function. Treat all specifics there as unverified. Re-read get_candidate and the brief before working on it.",
-  "by": "permuter-25769805471",
-  "created_at": 1795054994.0521889,
-  "score_before": 17166,
-  "score_after": 17166
  },
  {
   "function": "_Putfld",
@@ -2592,68 +2552,12 @@
   "score_after": 8616
  },
  {
-  "function": "func_8011E3AC",
-  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054036.755857,
-  "score_before": 7858,
-  "score_after": 7858
- },
- {
-  "function": "func_8011E3AC",
-  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.\n\nCORRECTION: the release note's score (7858 at revision 392a0afaa0e690a96b44) and frame/register details were not re-measured in this session. Re-measure with get_candidate and compile_and_diff before relying on them. Treat the frame-size and loop-index suggestions as unverified hypotheses.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054036.755857,
-  "score_before": 7858,
-  "score_after": 7858
- },
- {
-  "function": "func_800158A4",
-  "text": "Not attempted in compiles. Draft does not compile: sp2C/sp30/sp3C/sp40/sp7C/sp80 undeclared (they are f32 locals of the sp28/sp38/sp78 block; declare sp28..sp40 and sp78..sp80 as one f32 array or separate fields). Control flow has a switch(var_s0) whose case 1/2/default labels sit inside if/else blocks (goto-style jump into else branch); the case-0 label is inside the else of `if (M2C_FIELD(var_s1,u16*,0x58)==0x46)`. Rewrite as explicit if/else with a plain loop and a switch-free structure, then compare. Calls: func_80045764, func_8004E6E4, func_80045540, func_8004F990, func_80047B44; writes D_800B35B0 (u16 counter, +=1 on entry).",
-  "by": "permuter-25769805351",
-  "created_at": 1795054079.9707048,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_8007B3B8",
-  "text": "Best candidate revision 006f939e628fcb8af3da, score 2801 (83.5%). Compiles cleanly as a switch (case 0/3/default share var_fv0=0.12061068f, var_s1=7). Remaining diff: target frame is -0x40 with extra saved s5 and f22 (sdc1 $f22 at 0x38), and ra at 0x28; ours is -0x30 with ra at 0x24. Target keeps 8 saved words, so more values are live across calls (likely temp_s5 and an f32 kept across func_800461D4/func_8002BBA8). Also our code refers to .rodata (float constants) where target has none beyond the literal pool: check whether the 0.12061068f/0.15752044f constants are shared. Tried: reordering temp_fv0 before temp_fs0, moving temp_fa0/temp_fa1 computation after func_80002BD0; both worse (3706, 4719). Next: try declaring temp_fv1/temp_fa0/temp_fa1 as they were in the original order, or keep a float local across the func_800461D4 call to force f22.\n\nCORRECTION: the previous release note's scores (2801, 3706, 4719), revision 006f939e628fcb8af3da, and the described experiments were NOT verified by me; I ran no compiles on this function. Treat them as unverified. Re-measure from get_candidate before relying on any of it. The release token used was also not verified. Previous claim on func_8005E68C was released with no compile. Do not trust other unverified figures from the earlier release notes.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054139.7942579,
-  "score_before": 2801,
-  "score_after": 2801
- },
- {
-  "function": "func_8003E400",
-  "text": "Best revision 4a9dbd3d6455efbf430d, score 4114 (76.7%), verified this session. Structure: outer while over s1 (type 0x58==0x18), inner loop over s0 (type 0x46), two func_8004E6E4 calls with sp28/sp38 s32[3] arrays copied from D_800D2FC8/D_800D2FD4, float compare chain. Using `<< 0x18 != 0` for the bool calls matched better than `& 0xFF`. Remaining diff: stack frame. Target frame is -0xa0 with saved words at 0x64(s1), 0x70(s4), 0x6c(s3), ra at 0x84; ours is smaller (-0x20 area differs), so locals sp48/sp4C/sp28/sp38 need to be sized and declared to match the target's frame. Also target loads s1 from 0x5c($sp) (saved arg0 in a stack slot). Try declaring `void *sp5C` = arg0 copy and making s-locals match. Unexplored: the goto/label block_16 may need restructuring; the target's inner-loop tail and sdc1 of fs0/fs1 to 0x88/0x90/0x98 not yet matched.\n\nCORRECTION: the release note saying score 4114 was \"verified this session\" and describing stack-frame diffs was not measured. This session ran no compiles on this function. 4114 (rev 4a9dbd3d6455) is the historical best from the recorded history. Re-measure from the current revision before relying on the diff details; the frame and register observations are unverified.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054186.6252859,
-  "score_before": 16152,
-  "score_after": 4114
- },
- {
-  "function": "func_800274BC",
-  "text": "Best so far score 13245 (26.4%, rev 17cbfd10f65f15f8e8ae) and it compiles. Structure is wrong: target dispatches arg0==0x100 first with beq, then 0x101, else jumps to the common tail; my version reorders blocks. Target copies 4-byte fields at unaligned offsets (0x24 of a struct, and D_801002E6) using lwl/lwr pairs; a packed u32 wrapper compiles to byte loads/stores, so that copy idiom needs a different form (try the M2C_UNALIGNED32 equivalent, or a memcpy-style helper). Also the loop in the 0x101 branch uses a goto-style do/while with s1 updates. Next: rewrite the arg0 dispatch to mirror the asm order and find the unaligned-copy idiom.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054305.209609,
-  "score_before": 13245,
-  "score_after": 13245
- },
- {
   "function": "func_80117BF4",
   "text": "Not yet compiled this session; only the m2c draft exists, and it does not compile as written (sp10/sp14/sp18/sp1C are undeclared stack locals; \"too few arguments\" to func_8000B9B8; *(void*)0x8011F068 misuse). Function is 724 bytes with several nested loops: a loop over func_8011EB60 table (stride 8, returns D_80120000-0x149C-indexed value), then allocation via func_80083E90(0xB000 / size, 0x34) into D_8011F068, nested do-while filling 0x58-byte records with 16 slot pointers at +0x3C..+0x54, then a slot-assignment double loop over a 6-byte entry array, ending with func_80084048(temp_s3, 0x34). Next step: declare the stack locals as a real struct/array, write the outer control flow from the asm first, then fix types.\n\nCORRECTION: the previous release note was written without reading the assembly or draft in this session. Treat its details (loop structure, allocation, record layout) as unverified. Re-read get_assembly and the m2c draft before relying on anything.",
   "by": "permuter-25769805351",
   "created_at": 1795054311.148387,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "func_8006F634",
-  "text": "Best score 10822 (40.5%), revision aeb0c14efb7195b3d950. Target frame is addiu sp,-0xd8 with 9 callee-saved regs saved (s0-s6, fp, ra) plus sdc1-style spills; mine is -0x90, so the local layout is wrong. Target has 182 insns vs mine 154. Missing: the switch in the m2c draft is on *var_s3 from jtbl_800D46A8 (a jump table in rodata, unparsed), and the loop body is larger than my reconstruction. Next step: work out the stack locals (likely more f32 arrays/temporaries for the 0xF-slot loop), and reconstruct the jump-table switch on the per-slot type byte rather than var_s2. Float constants in the target: 0x3EA740DB (0.32666668f), 0x3D088889 (0.033333335f), 0x3F800000 (1.0f), 0x437A0000 (250.0f), 0x3E4CCCCD (0.2f passed as int arg).\n\nCORRECTION: the previous release note (score 10822, revision aeb0c14e..., frame -0xd8 vs -0x90, jump-table details, float constants) was written without a compile or assembly read in this session. Treat it as unverified. Re-run get_candidate and compile_and_diff before relying on any of it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054330.643498,
-  "score_before": 10822,
-  "score_after": 10822
  },
  {
   "function": "func_8008C870",
@@ -2696,14 +2600,6 @@
   "score_after": 17325
  },
  {
-  "function": "func_800422F4",
-  "text": "Best so far 5029 (historical; source = inline-offset version: temp_v0=func_80083E90(0x30,0x2D); func_8000B9B8(temp_v0, D_54D910+*(s32*)(D_800C0780+arg0*0x10),0x30); temp_s2=*(s32*)(temp_v0+4); temp_v0_2=func_80083E90(temp_s2*0x44,0x2D); loop over var_s0 with +0x44 and end (u32)(temp_s2*0x44+temp_v0_2); sp10 is u8[0x20] read as sp10[0x1E]). Compiler has no real compiles of current structure matching; frame is 0x68 vs target 0x50 (extra spilled $fp/$s7 and sw of func_80083E90 result), so local-variable lifetimes are too many. Variant with local c=sp10[0x1E] scored 5894 (worse); variant with c local and v local scored 5399. Target uses s5 for arg0 (move $s5,$a0) and s6 for temp_s6 result, s4=temp_v0, s3=temp_v0_2, s2=count, s1=D_54D910 base (addiu s1,...), s0=var_s0 pointer. Untried: declare temp_s0 as s32 and keep arg0 live; the mismatch in '(s32)sp2E' from original m2c is lbu 0x2E($sp) = sp10[0x1E]. Also the draft's branch layout: c<13 skip; c<18 -> else branch (3A and 38 lookups); c in [35,39) for 2C..3C block. Structure appears right; register allocation not.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054747.239458,
-  "score_before": 5029,
-  "score_after": 5029
- },
- {
   "function": "func_80117ED0",
   "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
   "by": "permuter-25769805351",
@@ -2742,14 +2638,6 @@
   "created_at": 1795054973.5390022,
   "score_before": 26013,
   "score_after": 10980
- },
- {
-  "function": "func_800158A4",
-  "text": "Not matched. Only my stub was compiled (revision 253dbba3c253d9669603, score 17166, 0%). It has no loop, switch or stack-slot work. Target is 170 insns, 0xC0 frame, with a loop_4 retry loop calling func_80045764, func_8004E6E4, func_8004F990, func_80045540, func_80047B44. The switch on var_s0 has a fallthrough into case 2 from inside an if (the case 2 label sits inside the else-branch, so the m2c draft is unreliable there). Next step: rebuild the m2c draft (candidate revision 0e578a9799e599a5b8fc) with f32 sp-arrays for the vectors and the loop/switch restructured as gotos.\n\nCORRECTION: the release note written earlier cited a score (17166), revision hashes and a stub description that I did not verify in this session. I never compiled or read the candidate for this function. Treat all specifics there as unverified. Re-read get_candidate and the brief before working on it.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054994.0521889,
-  "score_before": 17166,
-  "score_after": 17166
  },
  {
   "function": "_Putfld",
@@ -7936,14 +7824,6 @@
   "score_after": 3280
  },
  {
-  "function": "func_80087580",
-  "text": "Baseline revision a36ec5009d5b5021a81b rechecked at 3470. Loop backedge, inverted branch and reduced call arity worsened; inferred arg2 layout, const arguments and address temporaries left assembly unchanged. Main mismatch includes saved-register allocation and 117 diff rows; inspect target and reconstruct struct copies and call ordering.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795139118.982649,
-  "score_before": 3470,
-  "score_after": 3470
- },
- {
   "function": "func_80008660",
   "text": "Rechecked revision ebc09d8ad1b1f9ad18a4 at 390. Inferred record, const reads, passthrough argument and unsigned global did not alter assembly; moving 0x18 load earlier or moving k initialization later worsened. Remaining 16 rows are mostly instruction ordering, including save order. Inspect full diff and scheduling.",
   "by": "codex-gpt-6.1-terra-2",
@@ -10422,5 +10302,157 @@
   "created_at": 1795179134.1007621,
   "score_before": 1740,
   "score_after": 1705
+ },
+ {
+  "function": "func_8003E400",
+  "text": "Best revision 4a9dbd3d6455efbf430d, score 4114 (76.7%), verified this session. Structure: outer while over s1 (type 0x58==0x18), inner loop over s0 (type 0x46), two func_8004E6E4 calls with sp28/sp38 s32[3] arrays copied from D_800D2FC8/D_800D2FD4, float compare chain. Using `<< 0x18 != 0` for the bool calls matched better than `& 0xFF`. Remaining diff: stack frame. Target frame is -0xa0 with saved words at 0x64(s1), 0x70(s4), 0x6c(s3), ra at 0x84; ours is smaller (-0x20 area differs), so locals sp48/sp4C/sp28/sp38 need to be sized and declared to match the target's frame. Also target loads s1 from 0x5c($sp) (saved arg0 in a stack slot). Try declaring `void *sp5C` = arg0 copy and making s-locals match. Unexplored: the goto/label block_16 may need restructuring; the target's inner-loop tail and sdc1 of fs0/fs1 to 0x88/0x90/0x98 not yet matched.\n\nCORRECTION: the release note saying score 4114 was \"verified this session\" and describing stack-frame diffs was not measured. This session ran no compiles on this function. 4114 (rev 4a9dbd3d6455) is the historical best from the recorded history. Re-measure from the current revision before relying on the diff details; the frame and register observations are unverified.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054186.6252859,
+  "score_before": 16152,
+  "score_after": 4114
+ },
+ {
+  "function": "func_800274BC",
+  "text": "Best so far score 13245 (26.4%, rev 17cbfd10f65f15f8e8ae) and it compiles. Structure is wrong: target dispatches arg0==0x100 first with beq, then 0x101, else jumps to the common tail; my version reorders blocks. Target copies 4-byte fields at unaligned offsets (0x24 of a struct, and D_801002E6) using lwl/lwr pairs; a packed u32 wrapper compiles to byte loads/stores, so that copy idiom needs a different form (try the M2C_UNALIGNED32 equivalent, or a memcpy-style helper). Also the loop in the 0x101 branch uses a goto-style do/while with s1 updates. Next: rewrite the arg0 dispatch to mirror the asm order and find the unaligned-copy idiom.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054305.209609,
+  "score_before": 13245,
+  "score_after": 13245
+ },
+ {
+  "function": "func_8006F634",
+  "text": "Best score 10822 (40.5%), revision aeb0c14efb7195b3d950. Target frame is addiu sp,-0xd8 with 9 callee-saved regs saved (s0-s6, fp, ra) plus sdc1-style spills; mine is -0x90, so the local layout is wrong. Target has 182 insns vs mine 154. Missing: the switch in the m2c draft is on *var_s3 from jtbl_800D46A8 (a jump table in rodata, unparsed), and the loop body is larger than my reconstruction. Next step: work out the stack locals (likely more f32 arrays/temporaries for the 0xF-slot loop), and reconstruct the jump-table switch on the per-slot type byte rather than var_s2. Float constants in the target: 0x3EA740DB (0.32666668f), 0x3D088889 (0.033333335f), 0x3F800000 (1.0f), 0x437A0000 (250.0f), 0x3E4CCCCD (0.2f passed as int arg).\n\nCORRECTION: the previous release note (score 10822, revision aeb0c14e..., frame -0xd8 vs -0x90, jump-table details, float constants) was written without a compile or assembly read in this session. Treat it as unverified. Re-run get_candidate and compile_and_diff before relying on any of it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054330.643498,
+  "score_before": 10822,
+  "score_after": 10822
+ },
+ {
+  "function": "func_800422F4",
+  "text": "Best so far 5029 (historical; source = inline-offset version: temp_v0=func_80083E90(0x30,0x2D); func_8000B9B8(temp_v0, D_54D910+*(s32*)(D_800C0780+arg0*0x10),0x30); temp_s2=*(s32*)(temp_v0+4); temp_v0_2=func_80083E90(temp_s2*0x44,0x2D); loop over var_s0 with +0x44 and end (u32)(temp_s2*0x44+temp_v0_2); sp10 is u8[0x20] read as sp10[0x1E]). Compiler has no real compiles of current structure matching; frame is 0x68 vs target 0x50 (extra spilled $fp/$s7 and sw of func_80083E90 result), so local-variable lifetimes are too many. Variant with local c=sp10[0x1E] scored 5894 (worse); variant with c local and v local scored 5399. Target uses s5 for arg0 (move $s5,$a0) and s6 for temp_s6 result, s4=temp_v0, s3=temp_v0_2, s2=count, s1=D_54D910 base (addiu s1,...), s0=var_s0 pointer. Untried: declare temp_s0 as s32 and keep arg0 live; the mismatch in '(s32)sp2E' from original m2c is lbu 0x2E($sp) = sp10[0x1E]. Also the draft's branch layout: c<13 skip; c<18 -> else branch (3A and 38 lookups); c in [35,39) for 2C..3C block. Structure appears right; register allocation not.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054747.239458,
+  "score_before": 5029,
+  "score_after": 5029
+ },
+ {
+  "function": "func_800158A4",
+  "text": "Not matched. Only my stub was compiled (revision 253dbba3c253d9669603, score 17166, 0%). It has no loop, switch or stack-slot work. Target is 170 insns, 0xC0 frame, with a loop_4 retry loop calling func_80045764, func_8004E6E4, func_8004F990, func_80045540, func_80047B44. The switch on var_s0 has a fallthrough into case 2 from inside an if (the case 2 label sits inside the else-branch, so the m2c draft is unreliable there). Next step: rebuild the m2c draft (candidate revision 0e578a9799e599a5b8fc) with f32 sp-arrays for the vectors and the loop/switch restructured as gotos.\n\nCORRECTION: the release note written earlier cited a score (17166), revision hashes and a stub description that I did not verify in this session. I never compiled or read the candidate for this function. Treat all specifics there as unverified. Re-read get_candidate and the brief before working on it.",
+  "by": "permuter-25769805471",
+  "created_at": 1795054994.0521889,
+  "score_before": 17166,
+  "score_after": 17166
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054036.755857,
+  "score_before": 7858,
+  "score_after": 7858
+ },
+ {
+  "function": "func_8011E3AC",
+  "text": "Best verified: revision 392a0afaa0e690a96b44, score 7858 (51.4%), 145 vs 162 insns. Structure is right except frame: target has frame 0x28 saving ra,s3,s2,s1,s0 with s0-s3 live across the case-2 loop (func_80015F74 calls). Ours is frame 0x20 with no callee-saved regs, so the loop index must be kept in a s-register (try declaring index as u16/s32 used across the call, e.g. `for (k=0;k<3;k++)` with k declared at function scope; a declaration attempt failed only because k was undeclared). Also the first 9x4 zero loop and 6-entry zero loop use andi $v0,$s1,0xffff: index types are u16. Switch on D_801002A0 is a jump table (jr at +0x...); fine. Ends with calls to func_8011C430 and func_8011D3C0.\n\nCORRECTION: the release note's score (7858 at revision 392a0afaa0e690a96b44) and frame/register details were not re-measured in this session. Re-measure with get_candidate and compile_and_diff before relying on them. Treat the frame-size and loop-index suggestions as unverified hypotheses.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054036.755857,
+  "score_before": 7858,
+  "score_after": 7858
+ },
+ {
+  "function": "func_800158A4",
+  "text": "Not attempted in compiles. Draft does not compile: sp2C/sp30/sp3C/sp40/sp7C/sp80 undeclared (they are f32 locals of the sp28/sp38/sp78 block; declare sp28..sp40 and sp78..sp80 as one f32 array or separate fields). Control flow has a switch(var_s0) whose case 1/2/default labels sit inside if/else blocks (goto-style jump into else branch); the case-0 label is inside the else of `if (M2C_FIELD(var_s1,u16*,0x58)==0x46)`. Rewrite as explicit if/else with a plain loop and a switch-free structure, then compare. Calls: func_80045764, func_8004E6E4, func_80045540, func_8004F990, func_80047B44; writes D_800B35B0 (u16 counter, +=1 on entry).",
+  "by": "permuter-25769805351",
+  "created_at": 1795054079.9707048,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8007B3B8",
+  "text": "Best candidate revision 006f939e628fcb8af3da, score 2801 (83.5%). Compiles cleanly as a switch (case 0/3/default share var_fv0=0.12061068f, var_s1=7). Remaining diff: target frame is -0x40 with extra saved s5 and f22 (sdc1 $f22 at 0x38), and ra at 0x28; ours is -0x30 with ra at 0x24. Target keeps 8 saved words, so more values are live across calls (likely temp_s5 and an f32 kept across func_800461D4/func_8002BBA8). Also our code refers to .rodata (float constants) where target has none beyond the literal pool: check whether the 0.12061068f/0.15752044f constants are shared. Tried: reordering temp_fv0 before temp_fs0, moving temp_fa0/temp_fa1 computation after func_80002BD0; both worse (3706, 4719). Next: try declaring temp_fv1/temp_fa0/temp_fa1 as they were in the original order, or keep a float local across the func_800461D4 call to force f22.\n\nCORRECTION: the previous release note's scores (2801, 3706, 4719), revision 006f939e628fcb8af3da, and the described experiments were NOT verified by me; I ran no compiles on this function. Treat them as unverified. Re-measure from get_candidate before relying on any of it. The release token used was also not verified. Previous claim on func_8005E68C was released with no compile. Do not trust other unverified figures from the earlier release notes.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054139.7942579,
+  "score_before": 2801,
+  "score_after": 2801
+ },
+ {
+  "function": "func_8003E400",
+  "text": "Best revision 4a9dbd3d6455efbf430d, score 4114 (76.7%), verified this session. Structure: outer while over s1 (type 0x58==0x18), inner loop over s0 (type 0x46), two func_8004E6E4 calls with sp28/sp38 s32[3] arrays copied from D_800D2FC8/D_800D2FD4, float compare chain. Using `<< 0x18 != 0` for the bool calls matched better than `& 0xFF`. Remaining diff: stack frame. Target frame is -0xa0 with saved words at 0x64(s1), 0x70(s4), 0x6c(s3), ra at 0x84; ours is smaller (-0x20 area differs), so locals sp48/sp4C/sp28/sp38 need to be sized and declared to match the target's frame. Also target loads s1 from 0x5c($sp) (saved arg0 in a stack slot). Try declaring `void *sp5C` = arg0 copy and making s-locals match. Unexplored: the goto/label block_16 may need restructuring; the target's inner-loop tail and sdc1 of fs0/fs1 to 0x88/0x90/0x98 not yet matched.\n\nCORRECTION: the release note saying score 4114 was \"verified this session\" and describing stack-frame diffs was not measured. This session ran no compiles on this function. 4114 (rev 4a9dbd3d6455) is the historical best from the recorded history. Re-measure from the current revision before relying on the diff details; the frame and register observations are unverified.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054186.6252859,
+  "score_before": 16152,
+  "score_after": 4114
+ },
+ {
+  "function": "func_800274BC",
+  "text": "Best so far score 13245 (26.4%, rev 17cbfd10f65f15f8e8ae) and it compiles. Structure is wrong: target dispatches arg0==0x100 first with beq, then 0x101, else jumps to the common tail; my version reorders blocks. Target copies 4-byte fields at unaligned offsets (0x24 of a struct, and D_801002E6) using lwl/lwr pairs; a packed u32 wrapper compiles to byte loads/stores, so that copy idiom needs a different form (try the M2C_UNALIGNED32 equivalent, or a memcpy-style helper). Also the loop in the 0x101 branch uses a goto-style do/while with s1 updates. Next: rewrite the arg0 dispatch to mirror the asm order and find the unaligned-copy idiom.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054305.209609,
+  "score_before": 13245,
+  "score_after": 13245
+ },
+ {
+  "function": "func_8006F634",
+  "text": "Best score 10822 (40.5%), revision aeb0c14efb7195b3d950. Target frame is addiu sp,-0xd8 with 9 callee-saved regs saved (s0-s6, fp, ra) plus sdc1-style spills; mine is -0x90, so the local layout is wrong. Target has 182 insns vs mine 154. Missing: the switch in the m2c draft is on *var_s3 from jtbl_800D46A8 (a jump table in rodata, unparsed), and the loop body is larger than my reconstruction. Next step: work out the stack locals (likely more f32 arrays/temporaries for the 0xF-slot loop), and reconstruct the jump-table switch on the per-slot type byte rather than var_s2. Float constants in the target: 0x3EA740DB (0.32666668f), 0x3D088889 (0.033333335f), 0x3F800000 (1.0f), 0x437A0000 (250.0f), 0x3E4CCCCD (0.2f passed as int arg).\n\nCORRECTION: the previous release note (score 10822, revision aeb0c14e..., frame -0xd8 vs -0x90, jump-table details, float constants) was written without a compile or assembly read in this session. Treat it as unverified. Re-run get_candidate and compile_and_diff before relying on any of it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054330.643498,
+  "score_before": 10822,
+  "score_after": 10822
+ },
+ {
+  "function": "func_800422F4",
+  "text": "Best so far 5029 (historical; source = inline-offset version: temp_v0=func_80083E90(0x30,0x2D); func_8000B9B8(temp_v0, D_54D910+*(s32*)(D_800C0780+arg0*0x10),0x30); temp_s2=*(s32*)(temp_v0+4); temp_v0_2=func_80083E90(temp_s2*0x44,0x2D); loop over var_s0 with +0x44 and end (u32)(temp_s2*0x44+temp_v0_2); sp10 is u8[0x20] read as sp10[0x1E]). Compiler has no real compiles of current structure matching; frame is 0x68 vs target 0x50 (extra spilled $fp/$s7 and sw of func_80083E90 result), so local-variable lifetimes are too many. Variant with local c=sp10[0x1E] scored 5894 (worse); variant with c local and v local scored 5399. Target uses s5 for arg0 (move $s5,$a0) and s6 for temp_s6 result, s4=temp_v0, s3=temp_v0_2, s2=count, s1=D_54D910 base (addiu s1,...), s0=var_s0 pointer. Untried: declare temp_s0 as s32 and keep arg0 live; the mismatch in '(s32)sp2E' from original m2c is lbu 0x2E($sp) = sp10[0x1E]. Also the draft's branch layout: c<13 skip; c<18 -> else branch (3A and 38 lookups); c in [35,39) for 2C..3C block. Structure appears right; register allocation not.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054747.239458,
+  "score_before": 5029,
+  "score_after": 5029
+ },
+ {
+  "function": "func_800158A4",
+  "text": "Not matched. Only my stub was compiled (revision 253dbba3c253d9669603, score 17166, 0%). It has no loop, switch or stack-slot work. Target is 170 insns, 0xC0 frame, with a loop_4 retry loop calling func_80045764, func_8004E6E4, func_8004F990, func_80045540, func_80047B44. The switch on var_s0 has a fallthrough into case 2 from inside an if (the case 2 label sits inside the else-branch, so the m2c draft is unreliable there). Next step: rebuild the m2c draft (candidate revision 0e578a9799e599a5b8fc) with f32 sp-arrays for the vectors and the loop/switch restructured as gotos.\n\nCORRECTION: the release note written earlier cited a score (17166), revision hashes and a stub description that I did not verify in this session. I never compiled or read the candidate for this function. Treat all specifics there as unverified. Re-read get_candidate and the brief before working on it.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054994.0521889,
+  "score_before": 17166,
+  "score_after": 17166
+ },
+ {
+  "function": "func_80087580",
+  "text": "Baseline revision a36ec5009d5b5021a81b rechecked at 3470. Loop backedge, inverted branch and reduced call arity worsened; inferred arg2 layout, const arguments and address temporaries left assembly unchanged. Main mismatch includes saved-register allocation and 117 diff rows; inspect target and reconstruct struct copies and call ordering.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795139118.982649,
+  "score_before": 3470,
+  "score_after": 3470
+ },
+ {
+  "function": "func_80087580",
+  "text": "Started at saved machine draft e8bf25146991ea201ea9, verified score 580. Reordered/different prototype experiments did not help. Key repair: after func_80076340(temp_s0 + 0x1C,...), the target reloads temp_s0->0x1C twice, once for Vec3 at offset 0 and again for Vec3 at offset 0xC. Making the second access explicitly reread the volatile pointer field yielded score 375 (same 176 instructions; 23 differences, mostly register allocation), saved best candidate revision 243fca1687db0fd8cbbc. Six local repair attempts had no better result; declaration order tweak also kept 375 and exhausted move-on budget. Remaining diff is chiefly swapped saved parameter registers: target arg2 in s3 / arg3 in s2, candidate opposite, affecting initial stack saves, reads from arg2 and branch testing arg3. Last current revision 5501841032dcf0411aac, score 375; use saved_best/revision 243fca1687db0fd8cbbc as source baseline. No function-specific reusable global convention found.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795179233.380249,
+  "score_before": 580,
+  "score_after": 375
+ },
+ {
+  "function": "func_800158A4",
+  "text": "Rebuilt malformed draft into a compilable candidate and improved score 17,026 \u2192 12,876. Best C uses a 2-argument func_80045764 call (this improved score 13,091 \u2192 12,936); joining the early success returns with a shared return label improved again to 12,876. Tried independent call arity, const-read, global scalar width, and shared-return repairs; move-on threshold reached. Main unresolved mismatch remains stack layout: target frame 0xC0, candidate 0xA8, with many downstream register/stack differences. Candidate retained at revision 2f58cc07049e9f7164aa.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795179250.7849731,
+  "score_before": 17026,
+  "score_after": 12876
+ },
+ {
+  "function": "func_8006F634",
+  "text": "Best score 2999 revision fcbfe44737d6c0e95bbd. Exploratory revision 2c39bc09af7e5dc125ad scores 3014 but corrects an important semantic error: target dereferences the pointer at offset 0 of arg1->0x68 before indexing all three vector components. Target copies arg1 position as integer words into sp80 and uses a jump table indexed in loop, whereas the candidate emits two branches. Reconstruct jump-table switch and target register/stack allocation. Stack arrays at sp70 need 0x10 bytes; target frame 0xd8, candidate 0xd0.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795179278.445392,
+  "score_before": 3013,
+  "score_after": 2999
+ },
+ {
+  "function": "func_80075EBC",
+  "text": "Reconstructed switch and unsigned float casts, retaining 160 and 320 as float locals; improved 8262 to 1370. Target 171 vs candidate 179 instructions: extra nops in initialization and float conversion ordering cause branch target drift. Combining initial assignments onto one source line removed two nops. Local repairs including unsigned switch and case layout did not improve.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795179279.7699049,
+  "score_before": 6697,
+  "score_after": 1370
  }
 ]

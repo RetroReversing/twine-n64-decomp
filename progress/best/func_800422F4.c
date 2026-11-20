@@ -28,7 +28,7 @@ void func_800422F4(s32 arg0) {
     func_8000B9B8(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);
     if (temp_s2 != 0) {
         var_s0 = temp_v0_2;
-        do {
+        __repair_rows: {
             id = **(s16 **)(var_s0 + 0x28);
             if (id != arg0) {
                 if (*(s32 *)(D_800C0784 + id * 0x10) == 0) {
@@ -90,7 +90,8 @@ void func_800422F4(s32 arg0) {
                 }
             }
             var_s0 += 0x44;
-        } while ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2));
+        }
+if ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2)) goto __repair_rows;
     }
     func_80084048(temp_v0_2, 0x2D);
     func_80084048(temp_v0, 0x2D);

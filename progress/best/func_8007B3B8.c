@@ -42,10 +42,13 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         *arg2 = temp_fv0;
     }
     temp_v1 = M2C_FIELD(arg0, s16 *, 0x7C);
-    if ((temp_v1 < 0) || ((temp_v1 >= 2) && (temp_v1 != 3))) {
-        func_80077E00(arg0);
-        return 0.0f;
-    }
+    if (temp_v1 < 0) goto invalid;
+    if (temp_v1 < 2) goto valid;
+    if (temp_v1 == 3) goto valid;
+invalid:
+    func_80077E00(arg0);
+    return 0.0f;
+valid:
     switch (arg3) {
     case 0:
     case 3:
@@ -70,8 +73,8 @@ f32 func_8007B3B8(void *arg0, void *arg1, f32 *arg2, u32 arg3) {
         var_s1 = 2;
         break;
     }
-    var_fs1 = temp_fs0 * var_fv0;
     func_80002BD0(arg0, var_s1 & 0xFFFF);
+    var_fs1 = temp_fs0 * var_fv0;
     M2C_FIELD(arg0, s16 *, 0x7C) = 3;
     M2C_FIELD(temp_s5, s8 *, 0x7F) = 3;
     temp_fv1 = *arg2 - var_fs1;

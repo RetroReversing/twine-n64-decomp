@@ -1,23 +1,14 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-
 void *func_80016410();
 s32 func_80044670();
-s32 func_80076340(s32, s32, f32);
+s32 func_80076340(void *, s32, f32);
 s32 func_80087380();
 extern u8 D_800B21CF;
 extern u8 D_800B241F;
-
 typedef struct { int value; } __repair_field_0;
 typedef struct { s32 x,y,z; } Vec3;
 void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
-    void *temp_s0;
-    void *temp_v0;
-    void *var_s2;
-    s32 var_s4;
-    void *temp_v0_2;
-    void *temp_v0_3;
-    void *temp_v0_4;
-
+    void *temp_s0; void *temp_v0; void *var_s2; s32 var_s4;
+    void *temp_v0_2; void *temp_v0_3; void *temp_v0_4;
     temp_v0 = func_80016410(0x4C, 0, 0);
     if (temp_v0 != NULL) {
         temp_s0 = (*(void **)((char *)(temp_v0) + 0x6C));
@@ -36,10 +27,10 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
             (*(s32 *)((char *)(temp_s0) + 0x20)) = 0;
             (*(f32 *)((char *)(temp_s0) + 0x24)) = 0.01f;
             func_80076340(temp_s0 + 0x1C, 1, 2.1f);
-            temp_v0_2 = (*(void **)((char *)(temp_s0) + 0x1C));
+            temp_v0_2 = (*(void * volatile *)((char *)(temp_s0) + 0x1C));
             *(Vec3 *)(temp_v0 + 0x30) = *(Vec3 *)temp_v0_2;
             *(Vec3 *)(temp_v0 + 0x24) = *(Vec3 *)(temp_v0 + 0x30);
-            *(Vec3 *)(temp_v0 + 0x48) = *(Vec3 *)(temp_v0_2 + 0xC);
+            *(Vec3 *)(temp_v0 + 0x48) = *(Vec3 *)((*(void * volatile *)((char *)(temp_s0) + 0x1C)) + 0xC);
         } else {
             *(Vec3 *)(temp_v0 + 0x30) = *(Vec3 *)arg0;
             *(Vec3 *)(temp_v0 + 0x24) = *(Vec3 *)(temp_v0 + 0x30);
@@ -81,4 +72,3 @@ void *func_80087580(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4) {
     }
     return temp_v0;
 }
-
