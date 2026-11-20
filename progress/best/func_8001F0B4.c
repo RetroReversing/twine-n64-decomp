@@ -115,7 +115,7 @@ block_15:
                         M2C_FIELD(temp_a0_2, s8 *, 0x306) = (s8) (temp_a1 - 0x21);
                     }
                     temp_a2 = *((D_800BD68F * 2) + &D_800E0ECC);
-                    func_8007089C(*((D_800BD68F * 4) + &D_8010A500), 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &D_8010A500);
+                    func_8007089C((&D_8010A500)[D_800BD68F], 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &D_8010A500);
                     if (M2C_FIELD(D_80109BB0, void **, 0x18) != NULL) {
                         temp_v0_3 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0xC), 0xE);
                         M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 1;

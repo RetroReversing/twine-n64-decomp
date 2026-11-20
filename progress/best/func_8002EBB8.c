@@ -70,8 +70,8 @@ void *func_8002EBB8(s32 arg0) {
     (*(s16 *)((char *)(temp_s1) + 0x42)) = 0;
     (*(void **)((char *)(temp_s1) + 0x38)) = NULL;
     (*(void **)((char *)(temp_s1) + 0x3C)) = NULL;
-    D_800BFDDC = arg0;
-    (*(void **)((char *)(temp_s1) + 0x3C)) = func_80015F74(&D_800BFDDC - 0x20);
+    *((s16 *)((char *)&D_800BFDDC - 0x20)) = arg0;
+    (*(void **)((char *)(temp_s1) + 0x3C)) = func_80015F74((s16 *)((char *)&D_800BFDDC - 0x20));
     var_a3 = &D_800BFD74;
     D_800BFD70 = arg0;
     var_a2 = ((D_800BFC92 & 1) * 0x24) + D_800BFD08;
@@ -97,8 +97,8 @@ void *func_8002EBB8(s32 arg0) {
         var_a1 = D_800BFD94 + 4;
     }
     (*(void **)((char *)(temp_s1) + 0x2C)) = func_80015F74(var_a1, var_a1, var_a2, var_a3);
-    D_800BFD04 = arg0;
-    temp_v0_2 = func_80015F74(&D_800BFD04 - 0x20);
+    *((s16 *)((char *)&D_800BFD04 - 0x20)) = arg0;
+    temp_v0_2 = func_80015F74((s16 *)((char *)&D_800BFD04 - 0x20));
     (*(void **)((char *)(temp_s1) + 0x34)) = temp_v0_2;
     temp_a0 = (*(s32 *)((char *)(temp_v0_2) + 8));
     if (temp_a0 != 0) {
@@ -138,7 +138,7 @@ void *func_8002EBB8(s32 arg0) {
         }
     }
     D_800BFCBC = (s32)arg0;
-    (*(void **)((char *)(temp_s1) + 0)) = func_80015F74(&D_800BFCBC - 0x20);
+    (*(void **)((char *)(temp_s1) + 0)) = func_80015F74((s16 *)((char *)&D_800BFCBC - 0x20));
     temp_v0_4 = func_80016410(0, 0, 0);
     (*(void **)((char *)(temp_s1) + 0x30)) = temp_v0_4;
     if (temp_v0_4 != NULL) {
@@ -156,8 +156,8 @@ void *func_8002EBB8(s32 arg0) {
         temp_s0 = arg0 & 0xFFFF;
         func_80064318((*(void **)((char *)(temp_s1) + 0x30)), temp_s0);
         func_80016990((*(void **)((char *)(temp_s1) + 0x30)), (*(s32 *)((char *)(*(s32 *)(D_80109688 + (temp_s0 * 4))) + 0xF4)));
-        D_800BFCE0 = arg0;
-        (*(void **)((char *)(temp_s1) + 0x38)) = func_80015F74(&D_800BFCE0 - 0x20);
+        *((s16 *)((char *)&D_800BFCE0 - 0x20)) = arg0;
+        (*(void **)((char *)(temp_s1) + 0x38)) = func_80015F74((s16 *)((char *)&D_800BFCE0 - 0x20));
         func_8002B000(D_800E1584, 0x1E);
     }
     return temp_v0;

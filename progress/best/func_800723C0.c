@@ -22,6 +22,7 @@ extern f32 D_800E1A60;
 extern s32 D_800E1A64;
 extern s32 D_800E1A68;
 
+typedef struct { float field_0; float field_4; float field_8; int field_C; unsigned char pad_10[8]; void * field_18; void * field_1C; } __repair_record_temp_s0;
 void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     f32 sp30[3];
     Vec9 sp58;
@@ -81,15 +82,15 @@ if (s != arg0 + 8) goto __repair_rows;
             var_fs0 = 0.1f;
         }
         temp_ft0 = 1.0f / var_fs0;
-        *(f32 *) ((u8 *) temp_s0 + 0) = temp_ft0 * (sp30[0] - D_800E1A38);
-        *(f32 *) ((u8 *) temp_s0 + 4) = temp_ft0 * (sp30[1] - D_800E1A3C);
-        *(f32 *) ((u8 *) temp_s0 + 8) = temp_ft0 * (sp30[2] - D_800E1A40);
-        *(f32 *) ((u8 *) temp_s0 + 0) = *(f32 *) ((u8 *) temp_s0 + 0) + func_80045D8C(D_800E1A5C, D_800E1A60);
-        *(f32 *) ((u8 *) temp_s0 + 4) = *(f32 *) ((u8 *) temp_s0 + 4) + func_80045D8C(D_800E1A5C, D_800E1A60);
-        *(f32 *) ((u8 *) temp_s0 + 8) = *(f32 *) ((u8 *) temp_s0 + 8) + func_80045D8C(D_800E1A5C, D_800E1A60);
-        *(s32 *) ((u8 *) temp_s0 + 0xC) = (s32) (var_fs0 * 8.0f);
-        if (*(s32 *) ((u8 *) temp_s0 + 0xC) >= 0x10) {
-            *(s32 *) ((u8 *) temp_s0 + 0xC) = 0xF;
+        ((__repair_record_temp_s0*)temp_s0)->field_0 = temp_ft0 * (sp30[0] - D_800E1A38);
+        ((__repair_record_temp_s0*)temp_s0)->field_4 = temp_ft0 * (sp30[1] - D_800E1A3C);
+        ((__repair_record_temp_s0*)temp_s0)->field_8 = temp_ft0 * (sp30[2] - D_800E1A40);
+        ((__repair_record_temp_s0*)temp_s0)->field_0 = ((__repair_record_temp_s0*)temp_s0)->field_0 + func_80045D8C(D_800E1A5C, D_800E1A60);
+        ((__repair_record_temp_s0*)temp_s0)->field_4 = ((__repair_record_temp_s0*)temp_s0)->field_4 + func_80045D8C(D_800E1A5C, D_800E1A60);
+        ((__repair_record_temp_s0*)temp_s0)->field_8 = ((__repair_record_temp_s0*)temp_s0)->field_8 + func_80045D8C(D_800E1A5C, D_800E1A60);
+        ((__repair_record_temp_s0*)temp_s0)->field_C = (s32) (var_fs0 * 8.0f);
+        if (((__repair_record_temp_s0*)temp_s0)->field_C >= 0x10) {
+            ((__repair_record_temp_s0*)temp_s0)->field_C = 0xF;
         }
         func_80045314(sp58.w, sp30, sp58.w);
         func_80045314(sp80.w, sp30, sp80.w);
@@ -136,14 +137,14 @@ if (s != arg0 + 8) goto __repair_rows;
             ((u8 *)temp_s3)[10] = (u32)spA8.f[7];
             ((u8 *)temp_s3)[11] = (s32)spA8.f[8] | 0x40;
             temp_v0_4 = func_80083E90(0x30, 0x2D);
-            *(void **)((u8 *)temp_s0 + 0x18) = temp_v0_4;
+            ((__repair_record_temp_s0*)temp_s0)->field_18 = temp_v0_4;
             if (temp_v0_4 == NULL) {
                 func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
                 func_80084048(temp_v0_3, 0x2D);
                 goto block_71;
             }
             temp_v0_5 = func_80083E90(0x100, 0x2D);
-            *(void **)((u8 *)temp_s0 + 0x1C) = temp_v0_5;
+            ((__repair_record_temp_s0*)temp_s0)->field_1C = temp_v0_5;
             if (temp_v0_5 == NULL) {
                 func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
                 func_80084048(temp_v0_3, 0x2D);

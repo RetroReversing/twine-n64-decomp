@@ -96,6 +96,7 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8002D240(void) {
+    s8 *base_801002AE;
     register int temp_s0;
     s32 *temp_s0_2;
     unsigned int temp_s1;
@@ -127,10 +128,11 @@ int __repair_phase_var_s2_2;
     D_80102EE4 = 2;
     D_80102EE0 = 2;
     D_80102EE8 = 0;
-    D_801002AE = 0;
-    D_801002AF = 0;
-    D_801002B0 = 0;
-    D_801002B1 = 0;
+    base_801002AE = &D_801002AE;
+    base_801002AE[0] = 0;
+    base_801002AE[1] = 0;
+    base_801002AE[2] = 0;
+    base_801002AE[3] = 0;
     D_80102EEC = 0;
     *(s32 *)D_80112F68 = 0;
     D_80112F6C = 0;

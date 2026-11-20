@@ -12,7 +12,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     int *__base_D_800E157C;
     int __repair_literal;
     f32 temp_fv1;
-    union { s32 * pointer; s32 value; } __repair_phase_storage;
+    register union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 temp_lo;
     s8 *temp_s0;
     s32 temp_v0;
@@ -36,15 +36,15 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
     u8 temp_v1;
 
     var_a0 = arg0;
-    var_a1 = arg1;
-    temp_s2 = var_a1;
+    temp_s2 = arg1;
     if (var_a0 != NULL) {
-        temp_s0 = (*(s32 *)((char *)(var_a0) + 8));
+        temp_s0 = (s8 *)(*(s32 *)((char *)(var_a0) + 8));
         D_800E156C = (s32) (*(u16 *)((char *)(var_a0) + 0x24));
         D_800E1570 = (s32) (*(u8 *)((char *)(var_a0) + 0x28));
-        D_800E1580 = 0;
+        __repair_phase_storage.pointer = &D_800E1580;
+        *__repair_phase_storage.pointer = 0;
         if (*temp_s2 != 0) {
-            __repair_phase_storage.pointer = &D_800E1580 - 4;
+            __repair_phase_storage.pointer = &D_800E1580 - 1;
             do {
                 if (*arg2 == 0) {
                     var_a0_2 = ((s32) D_800E156C >> 2) + (func_80045CC4() % (u32) (D_800E156C >> 1));
@@ -54,8 +54,8 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2) {
                 D_800E1564 = (s32) var_a0_2;
                 D_800E1568 = (func_80045CC4() & 3) + 0x1C;
                 temp_v0_2 = (func_80045CC4() % 255) - 0x80;
-                var_a1 = (u16 *) (D_800E1568 * D_800E156C);
-                var_a0 = (void *)(temp_s0); var_a0 = (void *)((char *)var_a0 + (s32)((D_800E1564 + var_a1)));
+                var_a1 = D_800E1568 * D_800E156C;
+                var_a0 = temp_s0 + (D_800E1564 + var_a1);
                 (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = temp_v0_2;
                 temp_v0_3 = (s32) (temp_v0_2 + *var_a0) >> 1;
                 (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0)) = temp_v0_3;

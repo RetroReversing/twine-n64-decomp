@@ -180,7 +180,7 @@ block_51:
                 (*(s32 *)((char *)(temp_s1) + 0)) = 0;
             }
             __base_D_8010D2C0 = D_8010D2C0;
-            (*(s32 *)((char *)(temp_s1) + 0x18)) = (s32) *(((*(u8 *)((char *)(temp_s1) + 0x34)) * 4) + (((*(u8 *)((char *)(temp_s1) + 0x33)) * 0x1C) + __base_D_8010D2C0));
+            (*(s32 *)((char *)(temp_s1) + 0x18)) = *(s32 *)((u8 *)__base_D_8010D2C0 + (*(u8 *)((char *)temp_s1 + 0x34)) * 4 + (*(u8 *)((char *)temp_s1 + 0x33)) * 0x1C);
             if (sp12F != 0) {
                 (*(s32 *)((char *)(temp_s1) + 0x1C)) = (s32) ((*(s32 *)((char *)(temp_s1) + 0x1C)) | 1);
                 temp_v1_2 = ((*(u8 *)((char *)(temp_s1) + 0x34)) * 4) + (((*(u8 *)((char *)(temp_s1) + 0x33)) * 0x1C) + __base_D_8010D2C0);

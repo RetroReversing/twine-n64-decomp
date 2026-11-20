@@ -174,7 +174,7 @@ loop_1:
         }
         var_t1_2 = var_t1 - 1;
         if (var_t1 != 0) {
-            do {
+            __repair_rows: {
                 var_t4 -= 8;
                 var_a2_2 = var_t2_2 & 0xFF;
                 if (var_t4 < 0) {
@@ -190,7 +190,8 @@ loop_1:
                 *var_fp = var_a2_2;
                 var_fp += 1;
                 var_t1_2 -= 1;
-            } while (var_t1_2 != 0);
+            }
+if (var_t1_2 != 0) goto __repair_rows;
             var_t4_2 = var_t4 - 1;
         } else {
             goto block_123;

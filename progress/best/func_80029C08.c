@@ -160,11 +160,7 @@ block_13:
                     var_ft0 += D_800D2CD0;
                 }
                 temp_fv1 = (*(f32 *)((char *)(arg0) + 0xC)) * (f32) var_ft0;
-                if (temp_fv1 >= 2.1474836e9f) {
-                    var_v0_4 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000001;
-                } else {
-                    var_v0_4 = (s32) temp_fv1 + 1;
-                }
+                var_v0_4 = (u32) temp_fv1 + 1;
                 (*(u8 *)((char *)(temp_v1_2) + 0x29)) = var_v0_4;
                 temp_a0 = (*(void **)((char *)(var_v0) + 8));
                 temp_v1_3 = (*(s32 *)((char *)(var_v0) + 0x14));

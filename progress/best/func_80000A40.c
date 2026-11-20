@@ -23,7 +23,7 @@ f32 func_80046140();
 s32 func_800468E4();
 f32 func_80082A70();
 s32 func_80083410();
-s32 func_800834B8();
+s32 build_yz_rotation_matrix();
 s32 func_80083560();
 s32 func_800839F0();
 s32 func_80083A6C();
@@ -196,7 +196,7 @@ do {
                         if (var_s4 == 7) {
                             spA58[1] = -(s16) M2C_FIELD(temp_s3, u16 *, 0x96);
                             spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x9A);
-                            func_800834B8(spA58, sp90);
+                            build_yz_rotation_matrix(spA58, sp90);
 block_30:
                             func_80083560(sp90, temp_s1);
                         }
@@ -235,7 +235,7 @@ block_42:
                                 spA58[1] = 0;
                                 spA58[2] = (u16) M2C_FIELD(var_fp, s16 *, 0x17C);
 block_49:
-                                func_800834B8(spA58, sp90);
+                                build_yz_rotation_matrix(spA58, sp90);
                                 func_80083560(sp90, temp_s1);
                             }
                         }

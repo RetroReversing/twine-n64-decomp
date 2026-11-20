@@ -71,7 +71,7 @@ u32 func_800A67B0(void) {
 
 extern f32 D_800CA350[];
 typedef struct { f32 v[9]; } Matrix3;
-void func_800834B8(s16 *angle, Matrix3 *out) {
+void build_yz_rotation_matrix(s16 *angle, Matrix3 *out) {
     s32 y = angle[1];
     s32 z = angle[2];
     f32 cy = D_800CA350[y & 0xfff];

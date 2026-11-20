@@ -262,7 +262,7 @@ block_56:
                             (*(u32 *)((char *)(var_s1) + -0x2E)) = temp_v1_7;
                             if (((temp_a1_3 < var_s0_2) && (temp_v1_7 < var_s0_2)) || ((var_s0_2 < temp_a1_3) && (var_s0_2 < temp_v1_7))) {
                                 var_a2 = (*(u32 *)((char *)(var_s1) + -0x2E));
-                                var_v0_3 = (*(s32 *)((char *)(var_s1) + -0x36)) + D_80109680;
+                                __repair_result_var_v0_3 = (*(s32 *)((char *)(var_s1) + -0x36)) + D_80109680;
                             } else {
                                 __repair_result_var_v0_3 = (*(s32 *)((char *)(var_s1) + -0x32));
                             }
@@ -372,16 +372,16 @@ block_56:
         temp_v1_10 = *(s32 *)(D_80107EE0 + var_s0_5);
         if (temp_v1_10 != 0) {
             temp_v0_7 = *(s32 *)(D_80107ED8 + var_s0_5) - ((temp_v1_10 >> 8) * *(s32 *)(D_80107EDC + var_s0_5));
-            *(s16 *)(D_80107ED4 + var_s0_5) = temp_v0_7;
+            *(s32 *)(D_80107ED4 + var_s0_5) = temp_v0_7;
             if (temp_v0_7 < 0) {
-                *(s16 *)(D_80107ED4 + var_s0_5) = 0;
+                *(s32 *)(D_80107ED4 + var_s0_5) = 0;
             }
             temp_v1_11 = *(s32 *)(D_80107EE0 + var_s0_5) - D_80109680;
             *(s32 *)(D_80107EE0 + var_s0_5) = temp_v1_11;
             if (temp_v1_11 <= 0) {
                 temp_v1_12 = *(s16 *)(D_80107EE9 + var_s0_5);
                 *(s32 *)(D_80107EE0 + var_s0_5) = 0;
-                *(s16 *)(D_80107ED4 + var_s0_5) = *(s32 *)(D_80107ED8 + var_s0_5);
+                *(s32 *)(D_80107ED4 + var_s0_5) = *(s32 *)(D_80107ED8 + var_s0_5);
                 switch (temp_v1_12) {               /* irregular */
                 case 1:
                     func_80090CD4(*(s32 *)(D_80107EE4 + var_s0_5));
@@ -398,7 +398,7 @@ block_56:
         temp_v1_13 = *(s32 *)(D_80107EF8 + var_s0_5);
         if (temp_v1_13 != 0) {
             temp_v0_8 = *(s32 *)(D_80107EF0 + var_s0_5) - ((temp_v1_13 >> 8) * *(s32 *)(D_80107EF4 + var_s0_5));
-            *(s16 *)(D_80107EEC + var_s0_5) = temp_v0_8;
+            *(s32 *)(D_80107EEC + var_s0_5) = temp_v0_8;
             if (temp_v0_8 < 0) {
                 *(s16 *)(D_80107EEC + var_s0_5) = 0;
             }
