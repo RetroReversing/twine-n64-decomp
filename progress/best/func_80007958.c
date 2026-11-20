@@ -159,10 +159,9 @@ void func_80007958(void)
                     layer = 4;
                     layerEntry = entry;
                     func_80034560(*entry);
-                    __repair_rows: {
+                    do {
                         func_8003C228(*layerEntry, i, layer);
-                    }
-if (--layer >= 0) goto __repair_rows;
+                    } while (--layer >= 0);
                 }
             }
             mask = 1U << i;

@@ -9,7 +9,7 @@ extern TableEntry D_800F8168[];
 void func_8008C0D4(void);
 void func_8008C11C(void);
 
-s32 func_800972A4(u16 key, const void *value, s32 extra) {
+s32 func_800972A4(u16 key, const void *value, u16 extra) {
     s32 count, i, j, off, newCount;
     u32 wanted;
     TableEntry *dst, *src;

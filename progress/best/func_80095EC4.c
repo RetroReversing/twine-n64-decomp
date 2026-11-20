@@ -28,6 +28,9 @@ extern char D_800F27A4[];
 extern char D_800F27A5[];
 
 void func_80095EC4(s32 arg0, s32 arg1) {
+    char *__base_D_800F2720;
+char *__repair_addr;
+
     s32 temp_a0;
     s32 temp_a0_10;
     s32 temp_a0_11;
@@ -58,7 +61,8 @@ void func_80095EC4(s32 arg0, s32 arg1) {
         } while ((u32) var_v1 < (u32) temp_a0_2);
         var_a0 = arg1 & 0xFF;
     } else {
-        var_v1_2 = ((arg0 & 0xFF) * 0x86) + D_800F2720;
+        __base_D_800F2720 = D_800F2720;
+        var_v1_2 = ((arg0 & 0xFF) * 0x86) + __base_D_800F2720;
         temp_a0_3 = var_v1_2 + 0x86;
         do {
             *(s8 *)var_v1_2 = 0;
@@ -67,7 +71,9 @@ void func_80095EC4(s32 arg0, s32 arg1) {
         var_a0 = arg1 & 0xFF;
     }
     if (var_a0 != 0xFF) {
-        M2C_FIELD((((arg0 & 0xFF) * 0x86) + ((var_a0 * 0x860) + D_800EE420)), s8 *, 7) = 0x7F;
+__repair_addr = (char *)((((arg0 & 0xFF) * 0x86) + ((var_a0 * 0x860) + D_800EE420)));
+
+        M2C_FIELD(__repair_addr, s8 *, 7) = 0x7F;
     } else {
         *(D_800F2727 + ((arg0 & 0xFF) * 0x86)) = 0x7F;
     }

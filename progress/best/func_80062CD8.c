@@ -15,13 +15,13 @@ void func_80062CD8(u8 *arg0, s32 arg1, f32 arg2) {
     f32 vec[3];
     u32 t;
     s32 idx;
-    u32 cnt;
+    void *obj;
     u32 i;
-    s32 s4;
+    unsigned long s4;
     f32 r1;
     f32 r2;
     f32 a;
-    void *obj;
+    u32 cnt;
 
     t = func_80045CF8(0x30);
     idx = (s16)(t >> 3);
@@ -40,16 +40,17 @@ void func_80062CD8(u8 *arg0, s32 arg1, f32 arg2) {
             vec[0] = __repair_fzero;
             vec[1] = __repair_fzero;
             vec[2] = __repair_fzero;
-            r1 = func_80045D2C(6.2831855f);
             r2 = func_80045D2C(6.2831855f);
+            r1 = func_80045D2C(6.2831855f);
             a = __sinf(r1) * arg2;
             vec[0] = a * __cosf(r2);
             a = __cosf(r1) * arg2;
             vec[2] = a * __cosf(r2);
             vec[1] = __sinf(r2) * arg2;
-            obj = func_800617D8(*(s32 *)(arg0 + 0x20), arg1, 0, vec, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, s4, 4);
-            func_80062450(obj, vec);
-            i += 1;
+            obj = func_800617D8(*(s32 *)(arg0 + 0x20), arg1, 0, vec, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, s4, 4);/*__repair_call_balance*/if(i){
+            func_80062450(obj, vec);}else{
+            func_80062450(obj, vec);}/*__repair_loop_weight*/do {
+            i += 1;} while (0);
             *(f32 *)((u8 *)obj + 0x54) = *(f32 *)((u8 *)obj + 0x54) * 16.0f;
         } while (i < cnt);
     }

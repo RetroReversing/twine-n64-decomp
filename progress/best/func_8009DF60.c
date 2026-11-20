@@ -566,7 +566,7 @@ s32 func_8009DF60(void *arg0, s32 arg1) {
         M2C_FIELD(arg0, s16 *, 0x18A) -= 1;
         sp50 = var_t0;
         sp58 = var_v1_11;
-        func_8009DBE8(arg0,  &spE8,  &spE0,  &spD0,  &spD8,  &spC8);
+        do { func_8009DBE8(arg0,  &spE8,  &spE0,  &spD0,  &spD8,  &spC8); } while (0);
         var_v1_3 = sp58;
         var_t0_2 = sp50;
     }

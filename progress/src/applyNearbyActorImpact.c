@@ -1,6 +1,6 @@
 typedef struct { u32 x, y, z; } Vec;
 f32 func_80045E34(void *, void *);
-void func_80017EC0(void *arg0, f32 arg1, f32 arg2) {
+void applyNearbyActorImpact(void *arg0, f32 arg1, f32 arg2) {
     void *node;
     u32 flag, mask, one;
     node = **(void ***)((char *)arg0 + 0x20);

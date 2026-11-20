@@ -30,7 +30,7 @@ void func_80044538(s32 arg0) {
         }
         temp_s0 = arg0 * 0x10;
         if (var_a2 != 0) {
-            func_80084048(D_800C0788[arg0].f0, 0xA, var_a2, temp_a3);
+            func_80084048(D_800C0788[arg0].f0, 0xA, var_a2);
             func_80084048(M2C_FIELD(M2C_FIELD(D_800C0784[arg0].f0, void **, 0x10), s32 *, 4), 0x1B);
             func_80084048(M2C_FIELD(M2C_FIELD(D_800C0784[arg0].f0, void **, 0x18), s32 *, 8), 0x1A);
             func_80084048(M2C_FIELD(D_800C0784[arg0].f0, s32 *, 0x10), 0x18);

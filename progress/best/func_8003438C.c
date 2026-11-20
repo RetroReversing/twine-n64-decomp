@@ -44,7 +44,7 @@ s32 __repair_branch_var_v1_1;
             var_a0 = temp_v1_5 * D_8010D2B8;
             __repair_branch_var_v1_1 = temp_v1_5 * D_8010A2CC;
             blueProduct = __repair_branch_var_v1_1;
-            var_a1 = (u32)var_a1 >> 8;
+            var_a1 = (u8)(var_a1 >> 8);
 scaled:
             var_a2 = var_a0 >> 8;
             var_a3 = blueProduct >> 8;

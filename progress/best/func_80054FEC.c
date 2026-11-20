@@ -28,7 +28,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
         if (arg0 != NULL) {
             func_800179E8(arg4, var_s3, 0x10000, (*(u8 *)((char *)(arg0) + 0x5E)));
         }
-        func_80054E68(arg2 * 4.0f, arg3, arg4);
+        do { func_80054E68(arg2 * 4.0f, arg3, arg4); } while (0);
         for (;;) {
             if (var_s1 != NULL) {
                 do {

@@ -4,7 +4,7 @@ typedef struct Rec6 { s16 a; s16 b; s16 c; } Rec6;
 typedef struct Ent { u8 pad0[0x10]; void *p10; struct Ent *arr[16]; s32 r54; } Ent;
 
 void func_8000B9B8();
-s32 func_8003D848(void *, s32);
+s32 func_8003D848(void *);
 void *func_80083E90(s32, s32);
 void func_80084048(void *, s32);
 extern TabEnt func_8011EB60[];
@@ -12,8 +12,10 @@ extern Ent *D_8011F068;
 extern s32 D_8011F06C;
 
 void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
+int __repair_literal;
+
     Rec16 rec;
-    s32 a3v;
+    unsigned int a3v;
     s32 val;
     u8 *s1;
     Rec6 *s3;
@@ -42,8 +44,8 @@ void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
     }
     func_8000B9B8(&rec, val + 0x54D910, 0x10, a3v);
     D_8011F068 = func_80083E90(0xB000, 0x34);
-    s1 = func_80083E90(rec.b, 0x34);
     s3 = func_80083E90(rec.e, 0x34);
+    s1 = func_80083E90(rec.b, 0x34);
     func_8000B9B8(s1, rec.a + 0x54D910, rec.b);
     func_8000B9B8(s3, rec.d + 0x54D910, rec.e);
     n1 = (u32)rec.b / 12;
@@ -56,12 +58,14 @@ void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
                 e->arr[j] = NULL;
             }
             s1 += 0xC;
-            e->r54 = func_8003D848(e->p10, -1);
+            e->r54 = func_8003D848(e->p10);
             D_8011F06C += 1;
         }
     }
     t0 = 0;
-    if (n4 > 0) {
+__repair_literal = 0;
+
+    if (n4 > __repair_literal) {
         t2 = D_8011F068;
         r = s3;
         do {
@@ -79,8 +83,8 @@ void func_80117BF4(s16 arg0, s32 unused1, s32 unused2, s32 arg3) {
                     break;
                 }
             }
-            r++;
-            t0++;
+            r += 1;/*(u32)__repair_loop_weight*/do {do {do {
+            t0++;} while (0);} while (0);} while (0);
         } while (t0 < n4);
     }
     func_80084048(s3, 0x34);

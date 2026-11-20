@@ -109,7 +109,7 @@ loop_1:
             goto loop_1;
         }
     } else {
-        var_t0 = var_a0 | (temp_a2 & 0x80000000);
+        var_t0 = var_a0 | (temp_a2 & 0x7fffffff);
     }
     if (var_t0 != -1) {
         temp_v1 = (*(u8 *)((char *)(arg0) + 0x26));
@@ -119,9 +119,9 @@ loop_1:
             do {
                 ((__repair_field_0 *)var_a3)->value = (s32) ((__repair_field_0 *)var_a2)->value;
                 __repair_store_0 = (s32) (*(s32 *)((char *)(var_a2) + 4));
-                __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 8));
                 __repair_store_2 = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
                 (*(s32 *)((char *)(var_a3) + 4)) = __repair_store_0;
+                __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 8));
                 (*(s32 *)((char *)(var_a3) + 8)) = __repair_store_1;
                 (*(s32 *)((char *)(var_a3) + 0xC)) = __repair_store_2;
                 var_a2 += 0x10;
@@ -223,8 +223,8 @@ loop_40:
                             }
                         }
                         func_80091654((*(u8 *)((char *)(arg0) + 0x18)), (*(u16 *)((char *)(arg0) + 0xC)), (*(s32 *)((char *)(arg0) + 8)), 0);
-                        var_a0_4 = 0;
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x10) {
+                            var_a0_4 = 0;
                             temp_a1_4 = (*(s32 *)((char *)(arg0) + 8));
                             temp_a3 = (*(s32 *)((char *)(arg0) + 0x1C));
                             temp_t0 = (*(s32 *)((char *)(arg0) + 0x20));
@@ -371,7 +371,7 @@ loop_78:
                                 continue;
                             }
                         } else {
-                            var_v0_5 = var_a0_7 | (temp_v0_7 & 0x80000000);
+                            var_v0_5 = var_a0_7 | (temp_v0_7 & 0x7fffffff);
                         }
                         break;
                     }

@@ -3,7 +3,7 @@ s32 func_8008C6CC(s32); void func_8008C6F4(s32,s32);
 #define AT(T,s,o) (*(volatile T *)((u8 *)&(s)+(o)))
 void func_80093268(void) {
  s32 unused[2]; s32 i=0, off=0; u32 *entry=&D_801096F8, now, old, base;
- if ((s32)D_801176E8 <= 0) return;
+ if ((s8)D_801176E8 <= 0) return;
  do {
   if (*(u8 *)((u8 *)&D_801096E8+off)==1) {
    now=func_8008C6CC(i); old=*entry;

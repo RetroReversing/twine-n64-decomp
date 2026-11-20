@@ -31,7 +31,8 @@ extern s32 D_800B60E4;
 extern u8 D_800BD68F;
 extern M2C_UNK D_800C4478;
 extern M2C_UNK D_800C447A;
-extern M2C_UNK D_800C469E;
+typedef struct { u16 f0; u8 pad[230]; } Slot_800C469E;
+extern Slot_800C469E D_800C469E[];
 extern M2C_UNK D_800C46D8;
 extern M2C_UNK D_800C46DA;
 extern M2C_UNK D_800E0ECC;
@@ -43,7 +44,7 @@ void func_8001F0B4(void) {
     s32 temp_v0;
     s32 temp_v1;
     u16 temp_a2;
-    u8 temp_a1;
+    unsigned short temp_a1;
     u8 temp_v1_2;
     void *temp_a0;
     void *temp_a0_2;
@@ -111,7 +112,7 @@ block_15:
                     temp_a1 = M2C_FIELD(temp_v0_2, u8 *, 8);
                     *(&D_800E0ECC + (D_800BD68F * 2)) = (s16) temp_a1;
                     temp_a0_2 = M2C_FIELD(*(&D_8010A500 + (D_800BD68F * 4)), void **, 0x6C);
-                    if (*(&D_800C469E + ((temp_a1 & 0xFFFF) * 0xE8)) == 0x21) {
+                    if (D_800C469E[temp_a1 & 0xFFFF].f0 == 0x21) {
                         M2C_FIELD(temp_a0_2, s8 *, 0x306) = (s8) (temp_a1 - 0x21);
                     }
                     temp_a2 = *((D_800BD68F * 2) + &D_800E0ECC);
@@ -128,6 +129,8 @@ block_15:
                     temp_v1_2 = M2C_FIELD(temp_v0_2, u8 *, 8);
                     *(&D_800E0ED4 + (D_800BD68F * 2)) = (s16) temp_v1_2;
                     func_8001F4B8(D_800BD68F, temp_v1_2);
+                    break;
+                case 2:
                     break;
                 }
             }

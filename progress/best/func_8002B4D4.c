@@ -12,16 +12,16 @@ extern s16 D_800BF5CA;
 extern Def *D_80109688[];
 
 Obj *func_8002B4D4(u8 kind, u16 mode) {
-    Obj *volatile *p;
     Obj *o;
+    Obj *volatile *p;
     f32 scale;
 
     p = &D_800BF5BC;
-    if (*p != NULL) {
+    if (*p != (s32)NULL) {
         return NULL;
     }
     *p = func_80016410(0, 0, 0);
-    D_800BF5CA = kind;
+    D_800BF5CA = (unsigned)kind;
     D_800BF5C4 = 0;
     switch (mode) {
     default:
@@ -50,8 +50,8 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         func_80064318(*p, kind);
         func_80016990(*p, D_80109688[kind]->wF4);
     }
-    D_800BF5C8 = mode;
     func_8002B6BC(*p);
+    D_800BF5C8 = mode;
     func_8002B6BC(*p);
     func_8002B6BC(*p);
     func_8002B6BC(*p);

@@ -25,6 +25,8 @@ extern s32 D_8011F3C8;
 extern s32 D_8011F3CC;
 
 void func_8011C958(void) {
+int __repair_literal;
+
     s32 var_a0;
     s32 var_s1;
     s32 var_s3;
@@ -43,7 +45,9 @@ void func_8011C958(void) {
             temp_v1 = *(&D_801001A2 + var_a0 * 0x6);
             if (temp_v1 != 0) {
                 var_s1 = 0;
-                if ((s32) temp_v1 >= 4) {
+__repair_literal = 4;
+
+                if ((s32) temp_v1 >= __repair_literal) {
                     var_s1 = var_s3 & 0xFFFF;
     var_v0 = var_s1;
                     if (temp_v1 == 5) {

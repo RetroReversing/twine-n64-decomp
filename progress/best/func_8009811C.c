@@ -10,6 +10,8 @@ extern s32 D_800F9564;
 extern s32 D_800F9566;
 
 s32 func_8009811C(s32 arg0) {
+int __repair_constant = 4;
+
     s32 *__base_D_800F9560;
 int __repair_literal;
 
@@ -33,10 +35,10 @@ int __repair_literal;
     u16 temp_v1;
     void *var_t0;
 
-    func_8008C0D4();
+    do { func_8008C0D4(); } while (0);
     temp_s0 = arg0 & 0xFFFF;
-    temp_t2 = temp_s0 >> 6;
-    var_a2 = temp_t2 * 4;
+    temp_t2 = temp_s0 >> 6;do{
+    var_a2 = temp_t2 * 4;}while(0);
     temp_v1 = *((s32 *)((s8 *)&D_800F8D60 + var_a2));
     if (temp_v1 != 0) {
         temp_t1 = *((u16 *)((s8 *)&D_800F8D62 + var_a2));
@@ -83,7 +85,7 @@ __repair_literal = 4;
                         if (temp_t1 < (s32) temp_v1_3) {
                             (*(s16 *)((char *)(var_a1) + 2)) = (s16) (temp_v1_3 - 1);
                         }
-                        var_a0 += 4;
+                        var_a0 += __repair_constant;
                         ++var_a1;
                     } while (var_a0 < 0x800);
                     temp_v0_4 = temp_t2 * 4;

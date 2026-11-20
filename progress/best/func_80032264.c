@@ -35,8 +35,7 @@ void func_80032264(void *arg0) {
             *(u8 *)((s8 *)temp_a1 + 2) = 0;
             temp_v0_4 = (*(s16 *)((s8 *)arg0 + 0x7A) + 1) & 3;
             *(s16 *)((s8 *)arg0 + 0x7A) = temp_v0_4;
-            var_v0 = temp_v0_4 != 3 ? 0x78 : 5;
-            *(u8 *)((s8 *)temp_a1 + 2) = var_v0;
+            *(u8 *)((s8 *)temp_a1 + 2) = (temp_v0_4 != 3 ? 0x78 : 5);
         }
         break;
     }

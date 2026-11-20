@@ -81,7 +81,7 @@ block_9:
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = -0.0315f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 170.66667f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = -113.77778f;
-                    M2C_FIELD(D_800B7CE8, M2C_UNK32 *, 0x44) = 0xC4EAAAAB;
+                    M2C_FIELD(D_800B7CE8, f32 *, 0x44) = 0xC4EAAAAB;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 & ~0x400);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.5f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) ((f64) ((1.0f / ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64) * 0.09f) * D_800D2A98);
@@ -89,15 +89,15 @@ block_9:
                     D_80109D18 = 1;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x400);
                     func_8000237C(D_800B7CE8, var_s0, 2, 0);
-                    func_80002D30(D_800B7CE8, *((M2C_UNK *)((s8 *)&D_800C472E + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8))));
+                    func_80002D30(D_800B7CE8, *((u16 *)((s8 *)&D_800C472E + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8))));
                     func_80002EF0(D_800B7CE8);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_24 = (f32) *((f32 *)((s8 *)&D_800C4774 + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8)));
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = (f32) *(&D_800C4778 + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8));
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.022f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 2048.0f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) *(&D_800C477C + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8));
-                    M2C_FIELD(D_800B7CE8, M2C_UNK32 *, 0x44) = 0;
-                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = (f32) ((*((M2C_UNK *)((s8 *)&D_800C4780 + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8))) * 11.377778f) + -1024.0f);
+                    M2C_FIELD(D_800B7CE8, f32 *, 0x44) = 0;
+                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = (f32) ((*((f32 *)((s8 *)&D_800C4780 + (M2C_FIELD(temp_v0, u8 *, 8) * 0xE8))) * 11.377778f) + -1024.0f);
                 }
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_82 = 0xFF;
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_7E = 1;

@@ -1,60 +1,73 @@
-extern u8 *D_800E41DC;
 #define FIELD(p, T, off) (*(T *)((p) + (off)))
-void func_8008C5DC(s32 index) {
-    u8 *base = D_800E41DC;
-    u8 *slot = base + index * 104;
-    if (slot[0]) {
-        u8 pending = slot[1];
-        FIELD(slot, u16, 0x28) = 20;
-        if (pending) {
-            slot[1] = 0;
-        } else {
-            f32 value = FIELD(slot, f32, 0x4c);
-            u16 timer = FIELD(slot, u16, 0x28);
-            slot[0x5c] = 3;
-            FIELD(slot, s32, 0x54) = 0;
-            FIELD(slot, s32, 0x50) = 0;
-            FIELD(slot, f32, 0x58) = value;
-            FIELD(slot, u16, 0x48) = timer;
-        }
-    }
-}
+typedef struct {
+    s32 value;
+    u16 field4;
+    u16 field6;
+} LookupResult;
 
+extern u16 D_800F38D4[];
+extern LookupResult *D_800F38DC;
+extern volatile s32 D_800F8158;
+extern s32 D_800F815C;
+extern s32 func_800986EC(void *, void *);
+extern LookupResult *func_800956E0(void *, void *, s32, s32, s32 (*)(void *, void *));
+
+s32 func_8009852C(u16 key, u16 *out) {
+    s32 count;
+    u16 *record;
+    LookupResult *result;
+    s32 value;
+
+    s32 (*compare)(void *, void *) = func_800986EC;
+    count = D_800F8158;
+    record = D_800F38D4;
+    *(volatile u16 *)record = key;
+    result = func_800956E0(record - 2, &D_800F815C, count, 12, compare);
+    D_800F38DC = result;
+    if (result == NULL) {
+        value = 0;
+    } else {
+        *out = result->field6;
+        value = D_800F38DC->value;
+    }
+    return value;
+}
 u32 func_8009D94C(u8 *state, u32 step) {
+    u32 ret;
     s32 remaining;
     u32 progress;
     u32 delta;
 
-    if ((s8)state[0x11dd] != 3) {
-        return 0;
-    }
-    remaining = FIELD(state, s32, 0x11a8);
-    if (remaining > 0) {
-        remaining = (u32)remaining - step;
-        FIELD(state, s32, 0x11a8) = remaining;
-        if (remaining <= 0) {
-            state[0x11dd] = 4;
-            FIELD(state, s32, 0x11a8) = 0;
+    if ((s8)state[0x11dd] != 3) return 0;
+    {
+        remaining = FIELD(state, s32, 0x11a8);
+        if (remaining > 0) {
+            remaining = (u32)remaining - step;
+            FIELD(state, s32, 0x11a8) = remaining;
+            if (remaining <= 0) {
+                state[0x11dd] = 4;
+                FIELD(state, s32, 0x11a8) = 0;
+            }
         }
+        progress = FIELD(state, u32, 0x11d4);
+        delta = FIELD(state, u32, 0x11d8) - progress;
+        if (step < delta) ret = step;
+        else ret = delta;
+        FIELD(state, u32, 0x11d4) = progress + ret;
     }
-    progress = FIELD(state, u32, 0x11d4);
-    delta = FIELD(state, u32, 0x11d8) - progress;
-    if (step < delta) {
-        delta = step;
-    }
-    FIELD(state, u32, 0x11d4) = progress + delta;
-    return delta;
+    return ret;
 }
 
 void func_800A97A0(f32 *out, u32 *in) {
     u32 *end = in + 8;
+    f32 scale = 0.0000152587890625f;
     do {
         u32 a = in[0];
         u32 b = in[8];
         s32 x = (a & 0xFFFF0000u) | (b >> 16);
         s32 y = (a << 16) | (b & 0xFFFFu);
-        f32 first = (f32)x * 0.0000152587890625f;
-        f32 second = (f32)y * 0.0000152587890625f;
+        f32 first = (f32)x * scale;
+        f32 second = (f32)y * scale;
         out[0] = first;
         out[1] = second;
         in++;
@@ -62,13 +75,34 @@ void func_800A97A0(f32 *out, u32 *in) {
     } while (in != end);
 }
 
-typedef struct ListNode ListNode;
-struct ListNode {
-    ListNode *next;
-};
-
-ListNode *func_800A798C(ListNode **head) {
-    ListNode *node = *head;
-    *head = node->next;
-    return node;
+extern u8 D_801007D9[];
+extern u8 D_80100C7C[];
+s32 func_80099AF0(void *arg0) {
+    u8 *base;
+    s32 temp_v1;
+    u8 temp_a1;
+    u8 temp_v0;
+    s32 var_v0;
+    register u8 var_v1;
+    s32 sentinel = 255;
+    temp_v1 = *(s32 *)((char *)arg0 + 0x60);
+    if (temp_v1 != -1) {
+        temp_a1 = *(u8 *)((char *)arg0 + 0x4A);
+        if (temp_a1 != sentinel) {
+            temp_v0 = *(u8 *)((char *)arg0 + 0x4B);
+            if (temp_v0 == sentinel) {
+                var_v1 = temp_v1 & 0xFF;
+                var_v0 = D_80100C7C[var_v1];
+            } else {
+                base = D_801007D9;
+                var_v0 = temp_v1 & 0xFF;
+                var_v1 = *((base + temp_v0 * 0x10) + temp_a1);
+            }
+            if (var_v1 == var_v0) return 1;
+            goto done;
+        }
+        return 0;
+    }
+done:
+    return 0;
 }

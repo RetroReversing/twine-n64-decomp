@@ -37,7 +37,7 @@ s32 func_80086DA0(s32 arg0) {
     switch (temp_a0) {                              /* irregular */
     case 2:
         D_800CE830 = 2;
-        D_800CE804 = D_800CE800;
+        D_800CE804 = (s32)&D_800CE800;
         D_800CE808 = D_800CE800 + D_BA8;
         D_800CE80C = D_800CE800 + D_DF0;
         D_800CE810 = D_800CE800 + (s32)D_EA0;

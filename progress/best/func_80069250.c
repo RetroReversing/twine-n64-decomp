@@ -88,7 +88,7 @@ f32 __repair_sp4C_1;
     temp_s4 = M2C_FIELD(temp_s3, void **, 0xAC);
     temp_s2 = M2C_FIELD(temp_s3, void **, 0xB0);
     spD4 = M2C_FIELD(temp_s3, void **, 0xA8);
-    func_800643D8(temp_s4);
+    do { func_800643D8(temp_s4); } while (0);
     func_800643D8(temp_s2);
     __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
     if ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xA8), s16 *, 0x7A) == 0) && ((temp_t0 = M2C_FIELD(temp_s3, s8 *, 0x182), spDC = (s32) temp_t0, temp_s5 = (temp_t0 * 4) + D_80109688, sp28[0] = M2C_FIELD(*temp_s5, f32 *, 0x34), temp_fp = (M2C_FIELD(__repair_hoisted, s8 *, 0xE) * 0xE8) + D_800C469C, sp28[2] = 0, sp28[1] = M2C_FIELD(*temp_s5, f32 *, 0x38), var_v0 = temp_s4 != NULL, ((M2C_FIELD(temp_fp, s32 *, 0x60) & 0xC) != 0)) || (var_v0 = temp_s4 != NULL, (M2C_FIELD(arg0, s16 *, 0x7C) == 5))) && (var_v0 & (temp_s2 != NULL))) {
@@ -203,7 +203,7 @@ f32 __repair_sp4C_1;
             }
             if (D_80102ED8 != 0) {
                 if (D_801002D4 != 0) {
-                    func_800643C8(temp_s4);
+                    do { func_800643C8(temp_s4); } while (0);
                 }
             } else {
                 func_80064318(temp_s4, M2C_FIELD(temp_s3, s8 *, 0x182));

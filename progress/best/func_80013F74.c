@@ -6,7 +6,7 @@ void func_80013F74(void *arg0) {
     s32 temp_v1_2;
     s32 var_a2;
     s32 var_a2_10;
-    s32 var_a2_11;
+    
     s32 var_a2_12;
     s32 var_a2_2;
     s32 var_a2_3;
@@ -107,7 +107,7 @@ u32 __repair_result_var_t1;
     var_a0 = (*(u8 **)((char *)(arg0) + 0));
     __repair_result_var_a1 = (*(u32 *)((char *)(temp_v0) + 0xC));
     __repair_result_var_t1 = (*(u32 *)((char *)(temp_v0) + 0x10));
-    var_t0 = temp_v0 + 0x14;
+    var_t0 = (void *)(temp_v0); var_t0 = (void *)((char *)var_t0 + (s32)(0x14));
 loop_1:
     var_a2_2 = var_a2 - 1;
 loop_2:
@@ -428,19 +428,19 @@ block_37:
             var_a1_11 = var_a1_10 >> 1;
         }
         if (var_v1_16 != 0) {
-            var_a2_11 = var_a2_10 - 1;
+            temp_v0_2 = var_a2_10 - 1;
             var_a3_6 = var_a1_11 & 1;
-            if (var_a2_11 < 0) {
+            if (temp_v0_2 < 0) {
                 temp_a1_21 = var_t1;
                 var_t1 = *(u32 *)var_t0;
                 var_t0 += 4;
-                var_a3_6 = (var_a1_11 + (temp_a1_21 << (var_a2_11 + 1))) & 1;
-                var_a1_12 = temp_a1_21 >> -var_a2_11;
-                var_a2_11 += 0x20;
+                var_a3_6 = (var_a1_11 + (temp_a1_21 << (temp_v0_2 + 1))) & 1;
+                var_a1_12 = temp_a1_21 >> -temp_v0_2;
+                temp_v0_2 += 0x20;
             } else {
                 var_a1_12 = var_a1_11 >> 1;
             }
-            var_a2_10 = var_a2_11 - 1;
+            var_a2_10 = temp_v0_2 - 1;
             var_v1_17 = var_a1_12 & 1;
             if (var_a2_10 < 0) {
                 temp_a1_22 = var_t1;

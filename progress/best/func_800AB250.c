@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800AB030(f64, f64 *, M2C_UNK *);       /* extern */
+void func_800AB030(f64, f64 *, f64 *);       /* extern */
 extern f64 D_800D6FB0;
 extern f64 D_800D6FB8;
 extern f64 D_800D6FC0;
@@ -22,7 +22,7 @@ extern f64 D_800D6FD8;
 
 f64 func_800AB250(f64 arg0) {
     f64 sp10;
-    M2C_UNK sp18;
+    f64 sp18;
     f64 temp_fa0;
     f64 q;
     f64 var_fv0;
@@ -31,7 +31,7 @@ f64 func_800AB250(f64 arg0) {
     s32 var_v0;
     s32 var_v1;
 
-    q = arg0 / D_800D6FB0;
+    q = arg0 / *(volatile f64 *)&D_800D6FB0;
     var_fv0_2 = D_800D6FB8; if (arg0 >= 0.0) {
         var_fv0_2 = D_800D6FC0;
     }

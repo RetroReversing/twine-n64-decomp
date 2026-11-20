@@ -70,7 +70,8 @@ void func_80018E38(void) {
         func_80029000(M2C_FIELD(D_800BF5A0, s32 *, 8));
         if (func_80027C60(0x24) & 0xFF) {
             M2C_FIELD(D_800BF5A0, s8 *, 0xD) = 0;
-            sprintf(temp_s1, temp_s0);
+            __repair_rows_: { sprintf(temp_s1, temp_s0); }
+if (0) goto __repair_rows_;
             goto block_40;
         }
         if (func_80027C60(0x2A) & 0xFF) {
@@ -135,15 +136,16 @@ block_16:
                     sp20[0] = temp_v0_2;
                     if (temp_v0_2 != 0) {
                         var_a1 = var_s0;
-                        do {
+                        __repair_rows: {
                             temp_v1_3 = &sp20[var_a2];
                             temp_v0_2 = *temp_v1_3;
-                            var_a1 += 1;
-                            var_a2 += 1;
+                            var_a1 += 1;/*__repair_loop_weight*/do {
+                            var_a2 += 1;} while (0);
                             *temp_v1_3 = temp_v0_2 - 1;
                             temp_v1_2 = *(s8 *)var_a1;
                             sp20[var_a2] = temp_v1_2;
-                        } while (temp_v1_2 != 0);
+                        }
+if (temp_v1_2 != 0) goto __repair_rows;
                     }
                     if (func_800AB950(sp10, sp20, var_a2) != 0) {
                         if ((u8) D_801002AD < 4U) {

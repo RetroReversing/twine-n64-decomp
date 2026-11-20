@@ -269,11 +269,11 @@ block_56:
                             (*(s32 *)((char *)(var_s1) + -0x36)) = __repair_result_var_v0_3;
                         }
                     }
-                    temp_s3 = var_a2 & 0xFFFF;
+                    var_a3_2 = var_a2 & 0xFFFF;
                     var_s2_3 = func_8008CC38((var_a2 >> 0x10) & 0xFF, (*(s32 *)((char *)(var_s1) + -0x66)), var_a2) << 0x10;
-                    if (temp_s3 != 0) {
+                    if (var_a3_2 != 0) {
                         var_s0_3 = var_s2_3 >> 0x10;
-                        var_s2_3 += ((func_8008CBD0(var_s0_3) & 0xFFFF) - var_s0_3) * temp_s3;
+                        var_s2_3 += ((func_8008CBD0(var_s0_3) & 0xFFFF) - var_s0_3) * var_a3_2;
                     }
                     var_s0_2 = var_s2_3 + ((*(s32 *)((char *)(var_s1) + -0x82)) + (*(s32 *)((char *)(var_s1) + -0x7E)));
                     if ((*(u8 *)((char *)(var_s1) + -0x78)) != 0xFF) {

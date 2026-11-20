@@ -51,8 +51,8 @@ u16 __repair_result_var_v1;
     if ((s32) M2C_FIELD(arg0, u16 *, 0x40) > 0) {
         var_t4 = 1;
         var_t0 = 0;
-        var_t3 = 0;
         var_t2 = 0;
+        var_t3 = 0;
         do {
             if (M2C_FIELD(arg0, u8 *, 0x48) & 4) {
                 temp_a0 = M2C_FIELD(arg0, s32 *, 0x3C) + var_t2;

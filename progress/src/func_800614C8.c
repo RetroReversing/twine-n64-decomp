@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80017EC0(void *, f32, f32);
+s32 applyNearbyActorImpact(void *, f32, f32);
 s32 func_80061578();
 s32 func_80085E30();
 s32 func_80085E78();
@@ -31,7 +31,7 @@ void func_800614C8(void *arg0) {
     temp_v0 = M2C_FIELD(temp_s1, s32 *, 0xC) - 1;
     M2C_FIELD(temp_s1, s32 *, 0xC) = temp_v0;
     if (temp_v0 < 0xF0) {
-        func_80017EC0(arg0, 1.5f, 10.0f);
+        applyNearbyActorImpact(arg0, 1.5f, 10.0f);
     }
     if ((M2C_FIELD(temp_s1, s32 *, 0xC) == 0) || !(M2C_FIELD(arg0, s32 *, 0x60) & 0x3000)) {
         func_80085E30(temp_s2);

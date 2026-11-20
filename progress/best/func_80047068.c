@@ -57,8 +57,8 @@ void func_80047068(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4, voi
     spC = 2.0f * temp_fs5;
     temp_fs5_2 = (((temp_fv1 - (temp_t0 * 2.5f)) + (2.0f * temp_fa0)) - temp_ft0_2) * (temp_ft4 * temp_ft4);
     temp_fv1_2 = (*(f32 *)((char *)(arg0) + 8));
-    temp_fa1 = temp_fv1_2 * -0.5f;
     temp_fs1_2 = (*(f32 *)((char *)(arg1) + 8));
+    temp_fa1 = temp_fv1_2 * -0.5f;
     temp_ft2_2 = (*(f32 *)((char *)(arg2) + 8));
     sp24 = temp_fs1_2;
     sp14 = temp_fs4_2 + spC;
@@ -66,8 +66,8 @@ void func_80047068(void *arg0, void *arg1, void *arg2, void *arg3, s32 arg4, voi
     sp2C += temp_fa0 * 0.5f;
     temp_fs4_4 = ((((temp_fv1_2 * -0.5f) + (temp_fs1_2 * 1.5f)) - (temp_ft2_2 * 1.5f)) + temp_ft1_2) * temp_fs1;
     temp_fs5_3 = (((temp_fv1_2 - (sp24 * 2.5f)) + (2.0f * temp_ft2_2)) - temp_ft1_2) * (temp_ft4 * temp_ft4);
-    (*(s32 *)((char *)(arg5) + 0)) = arg4;
     (*(f32 *)((char *)(arg5) + 4)) = temp_t1;
+    (*(s32 *)((char *)(arg5) + 0)) = arg4;
     (*(f32 *)((char *)(arg5) + 0x14)) = temp_t0;
     temp_ft5_2 = temp_fs4_4 * 6.0f;
     (*(f32 *)((char *)(arg5) + 0x24)) = temp_fs1_2;

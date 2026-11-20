@@ -87,23 +87,6 @@ block_38:
                     goto block_36;
                 }
                 break;
-            case 0x4C:                              /* switch 2 */
-            case 1:                                 /* switch 1 */
-                if (!(M2C_FIELD(arg0, s32 *, 0x58) & 0x80000)) {
-                    M2C_FIELD(arg0, s32 *, 0x24) = (s32) M2C_FIELD(arg0, s32 *, 0x30);
-                    M2C_FIELD(arg0, s32 *, 0x28) = (s32) M2C_FIELD(arg0, s32 *, 0x34);
-                    M2C_FIELD(arg0, s32 *, 0x2C) = (s32) M2C_FIELD(arg0, s32 *, 0x38);
-                    M2C_FIELD(arg0, s32 *, 0x3C) = (s32) M2C_FIELD(arg0, s32 *, 0x48);
-                    M2C_FIELD(arg0, s32 *, 0x40) = (s32) M2C_FIELD(arg0, s32 *, 0x4C);
-                    M2C_FIELD(arg0, s32 *, 0x44) = (s32) M2C_FIELD(arg0, s32 *, 0x50);
-                    {
-                    func_80016990(arg0, temp_s0_2);break;}
-                }
-block_34:
-                if ((func_8003E6EC(*D_800CA31C, arg0, 0) << 0x18) == 0) {
-                    func_80016990(arg0, temp_s0_2);
-                }
-                goto block_36;
             case 0x4D:                              /* switch 2 */
             case 0x61:                              /* switch 2 */
                 if (M2C_FIELD(arg0, s32 *, 0x58) & 0x80000) {
@@ -122,6 +105,23 @@ block_34:
 block_39:
                 func_8003E6EC(*D_800CA31C, arg0, 0);
                 break;
+            case 0x4C:                              /* switch 2 */
+            case 1:                                 /* switch 1 */
+                if (!(M2C_FIELD(arg0, s32 *, 0x58) & 0x80000)) {
+                    M2C_FIELD(arg0, s32 *, 0x24) = (s32) M2C_FIELD(arg0, s32 *, 0x30);
+                    M2C_FIELD(arg0, s32 *, 0x28) = (s32) M2C_FIELD(arg0, s32 *, 0x34);
+                    M2C_FIELD(arg0, s32 *, 0x2C) = (s32) M2C_FIELD(arg0, s32 *, 0x38);
+                    M2C_FIELD(arg0, s32 *, 0x3C) = (s32) M2C_FIELD(arg0, s32 *, 0x48);
+                    M2C_FIELD(arg0, s32 *, 0x40) = (s32) M2C_FIELD(arg0, s32 *, 0x4C);
+                    M2C_FIELD(arg0, s32 *, 0x44) = (s32) M2C_FIELD(arg0, s32 *, 0x50);
+                    {
+                    do { func_80016990(arg0, temp_s0_2); } while (0);break;}
+                }
+block_34:
+                if ((func_8003E6EC(*D_800CA31C, arg0, 0) << 0x18) == 0) {
+                    func_80016990(arg0, temp_s0_2);
+                }
+                goto block_36;
             }
         }
     } else {

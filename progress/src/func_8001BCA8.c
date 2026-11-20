@@ -1,4 +1,4 @@
-typedef struct { u8 pad[0x24]; f32 f24; f32 f28; f32 f2C; u8 pad30[0x24]; f32 f54; } ObjBCA8;
+typedef struct { u8 pad[0x24]; volatile f32 f24; volatile f32 f28; volatile f32 f2C; u8 pad30[0x24]; f32 f54; } ObjBCA8;
 typedef struct { u8 pad[8]; void (*f8)(void); void (*fC)(void); } VtBCA8;
 typedef struct { u8 pad[0x10]; VtBCA8 *vt; } SysBCA8;
 typedef struct { u8 pad[8]; u8 b8; } ResBCA8;
@@ -16,11 +16,11 @@ ResBCA8 *func_8002A980(void *);
 void func_8001BCA8(void) {
     ObjBCA8 *volatile *pp;
     s32 *pq;
-    u8 *ps;
-    ObjBCA8 *o;
     SysBCA8 *sys;
-    u8 saved;
+    ObjBCA8 *o;
     ResBCA8 *r;
+    u8 saved;
+    u8 *ps;
 
     func_8002ACB4(D_8010A488);
     pp = &D_800B5B14;
@@ -49,3 +49,4 @@ void func_8001BCA8(void) {
         }
     }
 }
+

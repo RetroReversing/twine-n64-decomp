@@ -4,7 +4,7 @@ extern int D_800D4240;
 extern int D_800D4244;
 extern int D_800D4248;
 s32 func_8001751C();
-s32 func_80017EC0();
+s32 applyNearbyActorImpact();
 s32 func_80045CF8();
 s32 func_80061578();
 s32 func_80082FE4();
@@ -70,7 +70,7 @@ void func_80061168(void *arg0) {
                 sp68[2] = (*(f32 *)((char *)(arg0) + 0x44));
                 func_8001751C((*(s32 *)((char *)(temp_s2) + 0x18)), (*(u8 *)((char *)(temp_s2) + 0x21)), sp58, sp68);
                 func_80061578(arg0, sp58);
-                func_80017EC0(arg0);
+                applyNearbyActorImpact(arg0);
                 temp_v1_2 = (*(u16 *)((char *)(arg0) + 0x78));
                 var_s0 = 0;
                 if ((s32) temp_v1_2 >= 0x47) {

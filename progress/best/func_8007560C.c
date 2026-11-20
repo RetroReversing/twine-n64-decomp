@@ -67,7 +67,7 @@ short __repair_constant = 0x100;
     if (0 < 0) {
         var_fv1 += D_800D48B0;
     }
-    { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, (f32) var_fv1, (f32) (f64) 0); }
+    { do { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, (f32) var_fv1, (f32) (f64) 0); } while (0); }
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xEF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xEF;
     (*(s32 *)((char *)(D_80109698) + 0x100)) |= __repair_constant;
@@ -99,7 +99,7 @@ short __repair_constant = 0x100;
         goto block_75;
     }
     __base_D_801002B4 = &D_801002B4;
-    if ((*__base_D_801002B4) > 0) {
+    if ((*(&D_801002B4)) > 0) {
         var_s0 = 0;
         temp_s4 = __base_D_8010A4C3 - 1;
         temp_fs0 = D_800D48D0;
@@ -114,7 +114,7 @@ short __repair_constant = 0x100;
                 if (0 < 0) {
                     var_fv0 += temp_fs0;
                 }
-                func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv0);
+                do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv0); } while (0);
                 if (D_801002C0 <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
                     if ((D_801002C0 == 3) & (var_s0 == 3)) {
@@ -136,69 +136,6 @@ short __repair_constant = 0x100;
         } while (var_s0 < (*__base_D_801002B4));
     }
     switch (D_801002C0) {                           /* irregular */
-    case 1:
-        if (((__repair_field_0 *)D_80109688)->value == NULL) {
-            func_80048794(0, D_800CA31C);
-        }
-        if (0 < 0) {
-
-        }
-        var_fv1_4 = (f64) 0;
-        if (0 < 0) {
-            var_fv1_4 += D_800D48E0;
-        }
-        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv1_4);
-        break;
-    case 4:
-        if (((__repair_field_0 *)D_80109688)->value == NULL) {
-            func_80048794(0, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 4)) == NULL) {
-            func_80048794(1, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 8)) == NULL) {
-            func_80048794(2, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 0xC)) == NULL) {
-            func_80048794(3, D_800CA31C);
-        }
-        temp_fs2_3 = 160.0f * 0.5f;
-        temp_fs4 = 120.0f * 0.5f;
-        temp_fs1 = 120.0f * 0.5f;
-        func_8004844C(((__repair_field_0 *)D_80109688)->value, temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_fs3_2 = temp_fs2_3 + 160.0f;
-        func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
-        func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
-        var_a1 = temp_fs3_2;
-        var_a2 = 120.0f + temp_fs1;
-        var_a3 = 160.0f;
-        goto block_74;
-    case 3:
-        if (((__repair_field_0 *)D_80109688)->value == NULL) {
-            func_80048794(0, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 4)) == NULL) {
-            func_80048794(1, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 8)) == NULL) {
-            func_80048794(2, D_800CA31C);
-        }
-        if ((*(void **)((char *)(D_80109688) + 0xC)) == NULL) {
-            func_80048794(3, D_800CA31C);
-        }
-        temp_fs2_2 = 160.0f * 0.5f;
-        temp_fs0_4 = 120.0f * 0.5f;
-        func_8004844C(((__repair_field_0 *)D_80109688)->value, temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_fs3 = temp_fs2_2 + 160.0f;
-        func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_fs0_5 = 120.0f + temp_fs0_4;
-        func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_2, temp_fs0_5, 160.0f, 120.0f, 1.0f, 1.0f);
-        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
-        var_a1 = temp_fs3;
-        var_a2 = temp_fs0_5;
-        var_a3 = 160.0f;
-        goto block_74;
     case 2:
         if (((__repair_field_0 *)D_80109688)->value == NULL) {
             func_80048794(0, D_800CA31C);
@@ -227,6 +164,69 @@ block_74:
         var_a0 = 0;
 block_75:
         func_800820B0(var_a0);
+        break;
+    case 3:
+        if (((__repair_field_0 *)D_80109688)->value == NULL) {
+            func_80048794(0, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 4)) == NULL) {
+            func_80048794(1, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 8)) == NULL) {
+            func_80048794(2, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 0xC)) == NULL) {
+            func_80048794(3, D_800CA31C);
+        }
+        temp_fs2_2 = 160.0f * 0.5f;
+        temp_fs0_4 = 120.0f * 0.5f;
+        func_8004844C(((__repair_field_0 *)D_80109688)->value, temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_fs3 = temp_fs2_2 + 160.0f;
+        func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_fs0_5 = 120.0f + temp_fs0_4;
+        func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_2, temp_fs0_5, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
+        var_a1 = temp_fs3;
+        var_a2 = temp_fs0_5;
+        var_a3 = 160.0f;
+        goto block_74;
+    case 4:
+        if (((__repair_field_0 *)D_80109688)->value == NULL) {
+            func_80048794(0, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 4)) == NULL) {
+            func_80048794(1, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 8)) == NULL) {
+            func_80048794(2, D_800CA31C);
+        }
+        if ((*(void **)((char *)(D_80109688) + 0xC)) == NULL) {
+            func_80048794(3, D_800CA31C);
+        }
+        temp_fs2_3 = 160.0f * 0.5f;
+        temp_fs4 = 120.0f * 0.5f;
+        temp_fs1 = 120.0f * 0.5f;
+        func_8004844C(((__repair_field_0 *)D_80109688)->value, temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_fs3_2 = temp_fs2_3 + 160.0f;
+        func_8004844C((*(void **)((char *)(D_80109688) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C((*(void **)((char *)(D_80109688) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        temp_s4 = (*(void **)((char *)(D_80109688) + 0xC));
+        var_a1 = temp_fs3_2;
+        var_a2 = 120.0f + temp_fs1;
+        var_a3 = 160.0f;
+        goto block_74;
+    case 1:
+        if (((__repair_field_0 *)D_80109688)->value == NULL) {
+            func_80048794(0, D_800CA31C);
+        }
+        if (0 < 0) {
+
+        }
+        var_fv1_4 = (f64) 0;
+        if (0 < 0) {
+            var_fv1_4 += D_800D48E0;
+        }
+        func_8004844C(((__repair_field_0 *)D_80109688)->value, 160.0f, 120.0f, 160.0f + 160.0f, (f32) var_fv1_4);
         break;
     }
     (*(s32 *)((char *)(((__repair_field_0 *)D_80109688)->value) + 0x100)) |= 0x40;

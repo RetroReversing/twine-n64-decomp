@@ -54,7 +54,7 @@ void func_8000C34C(void *arg0, void *arg1) {
     s32 *temp_v1_3;
     s32 *temp_v1_4;
     s32 *temp_v1_8;
-    s32 var_a1_2;
+    
     void *temp_v1_6;
     
     long var_s4;
@@ -99,7 +99,7 @@ s32 __repair_phase_var_s1;
             temp_v1_4 = D_8010A928;
             var_a0 = 0xFFFDFE38;
             D_801032A0 = 7;
-            D_8010A928 = temp_v1_4 + 8;
+            D_8010A928 = (s8 *) temp_v1_4 + 8;
             ((__repair_field_0 *)temp_v1_4)->value = 0xFCFF97FF;
             (*(s32 *)((char *)(temp_v1_4) + 4)) = 0xFFFDFE38;
         }
@@ -114,20 +114,21 @@ s32 __repair_phase_var_s1;
         var_s1 = 0;
         if (temp_s6 > 0) {
             var_a0_2 = sp18;
-            var_a1_2 = 0;
-            do {
-                (*(f32 *)((char *)(var_a0_2) + 0)) = (f32) *(f32 *)(var_a1_2 + (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)));
+            __repair_phase_var_s1 = 0;
+            __repair_rows: {
+                (*(f32 *)((char *)(var_a0_2) + 0)) = (f32) *(f32 *)(__repair_phase_var_s1 + (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)));
                 (*(f32 *)((char *)(var_a0_2) + 4)) = var_fs2;
-                (*(f32 *)((char *)(var_a0_2) + 8)) = (f32) (*(f32 *)((char *)((var_a1_2 + (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)))) + 8));
+                (*(f32 *)((char *)(var_a0_2) + 8)) = (f32) (*(f32 *)((char *)((__repair_phase_var_s1 + (*(s32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0)))) + 8));
                 temp_v1_5 = (*(void **)((char *)(arg0) + 0x68));
-                (*(f32 *)((char *)(var_a0_2) + 0)) += (var_fs1 * (((*(f32 *)((char *)((var_a1_2 + ((__repair_field_0 *)temp_v1_5)->value)) + 4)) - D_800AE4D8) - (*(f32 *)((char *)(temp_v1_5) + 8))));
+                (*(f32 *)((char *)(var_a0_2) + 0)) += (var_fs1 * (((*(f32 *)((char *)((__repair_phase_var_s1 + ((__repair_field_0 *)temp_v1_5)->value)) + 4)) - D_800AE4D8) - (*(f32 *)((char *)(temp_v1_5) + 8))));
                 temp_v1_6 = (*(void **)((char *)(arg0) + 0x68));
-                temp_fv1 = (*(f32 *)((char *)(var_a0_2) + 8)) + (var_ft1 * (((*(f32 *)((char *)((var_a1_2 + ((__repair_field_0 *)temp_v1_6)->value)) + 4)) - D_800AE4D8) - (*(f32 *)((char *)(temp_v1_6) + 8))));
+                temp_fv1 = (*(f32 *)((char *)(var_a0_2) + 8)) + (var_ft1 * (((*(f32 *)((char *)((__repair_phase_var_s1 + ((__repair_field_0 *)temp_v1_6)->value)) + 4)) - D_800AE4D8) - (*(f32 *)((char *)(temp_v1_6) + 8))));
                 var_s1++;
-                var_a1_2 += 0xC;
+                __repair_phase_var_s1 += 0xC;
                 (*(f32 *)((char *)(var_a0_2) + 8)) = temp_fv1;
                 var_a0_2 += 0xC;
-            } while (var_s1 < temp_s6);
+            }
+if (var_s1 < temp_s6) goto __repair_rows;
         }
         __repair_phase_var_s1 = 1;
         if (1 < temp_s6) {
@@ -149,7 +150,7 @@ s32 __repair_phase_var_s1;
                         }
                         temp_v1_8 = D_8010A928;
                         ((__repair_field_0 *)temp_v1_8)->value = 0xDE000000;
-                        D_8010A928 = temp_v1_8 + 8;
+                        D_8010A928 = (s8 *) temp_v1_8 + 8;
                         (*(s32 *)((char *)(temp_v1_8) + 4)) = (s32) ((__repair_field_0 *)temp_s0_2)->value;
                     }
                 }
