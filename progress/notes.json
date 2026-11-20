@@ -12640,14 +12640,6 @@
   "score_after": 4830
  },
  {
-  "function": "func_8002BC68",
-  "text": "Saved best revision 774091580d7e10cd218b scored 1: all instructions match; jump-table entry 0 points to 0x8002ca68 instead of 0x8002ca78. Moving shared block_12 and done to the end gave that result. Next try relocating case 0/default labels into the final done block inside the switch, or otherwise adjust jump-table destination without changing emitted instructions. Claim/candidate changed concurrently before experiment.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795179698.972065,
-  "score_before": 1520,
-  "score_after": 1
- },
- {
   "function": "func_800832BC",
   "text": "Rechecked baseline 545. Six local variants did not improve it: inferred struct, unsigned integer, address temporary, split integer lifetime, const arguments, and reordered first loads. Remaining diff is mostly FPU register allocation and load scheduling; inspect full diff and test coordinated expression/lifetime changes.",
   "by": "codex-gpt-6.1-terra-4",
@@ -12902,14 +12894,6 @@
   "created_at": 1795181953.4896169,
   "score_before": 170,
   "score_after": 170
- },
- {
-  "function": "func_8002BC68",
-  "text": "Rechecked saved candidate: score 1380. Recompiled unchanged candidate (1380), then tried separating case 0 with `case 0: return;` (still 1380; table entry moved from target 0x8002CA78 to 0x8002CA80, so this was worse). Function already had 50 prior attempts; remaining mismatches are primarily switch control-flow/table target (target case-0 table entry is func+0xE10 while out-of-range branch targets func+0xE00) plus many order/register cascades. `try_local_repairs` found no untried applicable repairs. Next useful experiment: model the zero case as a distinct epilogue path that skips the final D_80112F70 store, while allowing out-of-range default to store it; determine why a direct return adds an extra jump/offset. Keep the existing best candidate as baseline.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795181957.713794,
-  "score_before": 1,
-  "score_after": 1
  },
  {
   "function": "func_8008C5DC",
@@ -20334,14 +20318,6 @@
   "created_at": 1795185329.0459142,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8002BC68",
-  "text": "Current verified score 1380. Tried six independent local repairs (storage reuse, parameter width, CFG lifetimes, signedness, declaration order, address temp); no improvement. Mismatch centers on switch dispatch: target beqz goes to 0xe00, candidate to 0xe08; emitted jump table jtbl_800D2D08 is misplaced by 8 bytes (target entries begin at 0x8002ca78, candidate at 0x8002ca70). Need reshape switch/table placement or source structure. No match.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795185347.855552,
-  "score_before": 1,
-  "score_after": 1
  },
  {
   "function": "func_800740D0",
@@ -42264,14 +42240,6 @@
   "score_after": 2230
  },
  {
-  "function": "func_8002BC68",
-  "text": "Still 1380 (98.4%). Tried dropping `default:` merged with case 0 (default omitted, falls to done): still 1380, and the jump-table entry remains at 0x800CA70 vs ROM 0x...CA78, so the switch table placement/branch target (beqz to func+0xe00 vs ours +0xe08) is the blocker. Remaining diffs are register/order cascades from the switch arms. Prior attempts exhausted local repairs. Next idea if retried: reshape the case-0/default arm so the out-of-range branch targets the done block directly (e.g. if(temp>10) goto done before the switch), keeping the jump table for 1..9.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795208857.379314,
-  "score_before": 1,
-  "score_after": 1
- },
- {
   "function": "func_8006E648",
   "text": "Best candidate 511c09942cffc3d1d4a4 at score 30 (verified this session). Local repairs this session (6 trials): inferred record layout/temp typedef (score 30, no change), s16->u16 temp_v1 (30), temp_v1_5 declaration reorder (30), branch reorder at func_8004BCC0 block (640, worse), address temporary for D field (no better). Remaining mismatch: f0/f2 register roles in the vertical interpolation around target insns 509-516 (mul.s $f2,$f2,$f0 vs candidate $f0; lwc1 $f0,0xcc($s2) vs $f2; sub.s operand order), plus $fp/$s7 output pointer save ordering. Prior notes: six interpolation variants scored 100-110 on the other revision. Untested next step: rewrite the type-2 interpolation expression as a single (f32) float chain with temporaries declared at block scope to force f2 as the product register.",
   "by": "api-claude-haiku-5-5-4",
@@ -53169,5 +53137,37 @@
   "created_at": 1795218575.246617,
   "score_before": 15927,
   "score_after": 15927
+ },
+ {
+  "function": "func_8002BC68",
+  "text": "Saved best revision 774091580d7e10cd218b scored 1: all instructions match; jump-table entry 0 points to 0x8002ca68 instead of 0x8002ca78. Moving shared block_12 and done to the end gave that result. Next try relocating case 0/default labels into the final done block inside the switch, or otherwise adjust jump-table destination without changing emitted instructions. Claim/candidate changed concurrently before experiment.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795179698.972065,
+  "score_before": 1520,
+  "score_after": 1
+ },
+ {
+  "function": "func_8002BC68",
+  "text": "Rechecked saved candidate: score 1380. Recompiled unchanged candidate (1380), then tried separating case 0 with `case 0: return;` (still 1380; table entry moved from target 0x8002CA78 to 0x8002CA80, so this was worse). Function already had 50 prior attempts; remaining mismatches are primarily switch control-flow/table target (target case-0 table entry is func+0xE10 while out-of-range branch targets func+0xE00) plus many order/register cascades. `try_local_repairs` found no untried applicable repairs. Next useful experiment: model the zero case as a distinct epilogue path that skips the final D_80112F70 store, while allowing out-of-range default to store it; determine why a direct return adds an extra jump/offset. Keep the existing best candidate as baseline.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795181957.713794,
+  "score_before": 1,
+  "score_after": 1
+ },
+ {
+  "function": "func_8002BC68",
+  "text": "Current verified score 1380. Tried six independent local repairs (storage reuse, parameter width, CFG lifetimes, signedness, declaration order, address temp); no improvement. Mismatch centers on switch dispatch: target beqz goes to 0xe00, candidate to 0xe08; emitted jump table jtbl_800D2D08 is misplaced by 8 bytes (target entries begin at 0x8002ca78, candidate at 0x8002ca70). Need reshape switch/table placement or source structure. No match.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795185347.855552,
+  "score_before": 1,
+  "score_after": 1
+ },
+ {
+  "function": "func_8002BC68",
+  "text": "Still 1380 (98.4%). Tried dropping `default:` merged with case 0 (default omitted, falls to done): still 1380, and the jump-table entry remains at 0x800CA70 vs ROM 0x...CA78, so the switch table placement/branch target (beqz to func+0xe00 vs ours +0xe08) is the blocker. Remaining diffs are register/order cascades from the switch arms. Prior attempts exhausted local repairs. Next idea if retried: reshape the case-0/default arm so the out-of-range branch targets the done block directly (e.g. if(temp>10) goto done before the switch), keeping the jump table for 1..9.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795208857.379314,
+  "score_before": 1,
+  "score_after": 1
  }
 ]
