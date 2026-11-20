@@ -18,5 +18,9 @@ s32 func_8000BE00(s32 arg0, s32 arg1, s32 arg2) {
     if (var_fs3 > 1.0f) var_fs3 = 1.0f;
     if (var_fs2 > 1.0f) var_fs2 = 1.0f;
     if (var_fs1 > 1.0f) var_fs1 = 1.0f;
-    { s32 r = var_fs3 * 31.0f; s32 g = var_fs2 * 31.0f; s32 b = var_fs1 * 31.0f; return ((r & 0x1F) << 0xB) | ((g & 0x1F) << 6) | ((b & 0x1F) * 2); }
+    arg0 = var_fs3 * 31.0f;
+    arg1 = var_fs2 * 31.0f;
+    arg2 = var_fs1 * 31.0f;
+    return ((arg0 & 31) << 11) | ((arg1 & 31) << 6) | ((arg2 & 31) << 1);
 }
+
