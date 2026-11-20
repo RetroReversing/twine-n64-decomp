@@ -11,7 +11,7 @@ s32 func_8008EA58(void) {
         key = func_800989B8();
         if (key != -1) {
             do {
-                offset = (key & 0xFF) * 0x1A0;
+                { u32 index = (u8)key; offset = (index * 13) << 5; }
                 if (*(s32 *)((u8 *)&D_8010D784 + offset) == key) {
                     found = 0;
                     *(s32 *)((u8 *)&D_8010D748 + offset) |= 8;

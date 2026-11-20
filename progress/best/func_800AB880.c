@@ -1,24 +1,59 @@
-u8 *func_800AB880(u8 *arg0, u8 *arg1) {
-    u32 temp_v1;
-    u8 *var_a1 = arg1;
-    u8 *var_a2 = arg0;
-    if ((((u32)var_a1 - (u32)arg0) & 3) == 0) goto aligned;
-    {
-        u8 c = *var_a1++;
-        *var_a2++ = c;
-        while (c != 0) { c = *var_a1++; *var_a2++ = c; }
-    }
-    return arg0;
-aligned:
-    if (((s32)var_a2 & 3) != 0) {
-        do { u8 c = *var_a1++; *var_a2++ = c; if (!c) return arg0; } while (1);
-    }
+u8 *func_800AB880(u8 *dst, u8 *src) {
+    u8 *out = dst;
+    u32 word;
+    u8 ch;
+
+    if ((((u32)src - (u32)dst) & 3) == 0)
+        goto check_alignment;
+
+    ch = *src;
+    *out = ch;
+    src++;
+    out++;
+    if (ch == 0)
+        goto done;
     do {
-        temp_v1 = *(u32 *)var_a1;
-        var_a1 += 4;
-        if (!(temp_v1 & 0xFF000000)) { *(u8 *)var_a2 = 0; return arg0; }
-        if (!(temp_v1 & 0xFF0000)) { *(u16 *)var_a2 = (u16)(temp_v1 >> 16); return arg0; }
-        if (temp_v1 & 0xFF00) { *(u32 *)var_a2 = temp_v1; var_a2 += 4; if (!(temp_v1 & 0xFF)) return arg0; }
-        else { *(u16 *)var_a2 = (u16)(temp_v1 >> 16); *((u8 *)var_a2 + 2) = 0; return arg0; }
-    } while (1);
+        ch = *src;
+        *out = ch;
+        src++;
+        out++;
+    } while (ch != 0);
+    goto done;
+
+    do {
+        ch = *src;
+        *out = ch;
+        src++;
+        out++;
+        if (ch == 0)
+            goto done;
+check_alignment:
+        ;
+    } while ((u32)out & 3);
+
+    do {
+        word = *(u32 *)src;
+        src += 4;
+        if ((word & 0xFF000000U) != 0)
+            goto second;
+        *out = 0;
+        goto done;
+second:
+        if ((word & 0x00FF0000U) != 0)
+            goto third;
+        *(u16 *)out = word >> 16;
+        goto done;
+third:
+        if ((word & 0x0000FF00U) == 0)
+            goto three_bytes;
+        *(u32 *)out = word;
+        out += 4;
+    } while (word & 0xFF);
+    goto done;
+
+three_bytes:
+    *(u16 *)out = word >> 16;
+    out[2] = 0;
+done:
+    return dst;
 }

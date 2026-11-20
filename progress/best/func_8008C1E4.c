@@ -16,6 +16,8 @@ extern f64 D_800D67A0;
 extern s32 D_800E41DC;
 
 void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
+s32 __repair_operand;
+
     f64 var_fv1;
     s32 temp_a2;
     s32 temp_a2_2;
@@ -42,7 +44,8 @@ void func_8008C1E4(s32 arg0, void *arg1, s32 arg2) {
     M2C_FIELD(temp_v1, s16 *, 0x44) = 0;
     M2C_FIELD(temp_v1, s16 *, 0x46) = 0;
     if (arg2 & 0xFF) {
-        temp_v0 = (arg0 * 0x68) + D_800E41DC;
+        __repair_operand = D_800E41DC;
+        temp_v0 = (arg0 * 0x68) + __repair_operand;
         M2C_FIELD(temp_v0, s16 *, 0x20) = 0;
         M2C_FIELD(temp_v0, s16 *, 0x22) = 0;
         M2C_FIELD(temp_v0, f32 *, 0x24) = 1.0f;

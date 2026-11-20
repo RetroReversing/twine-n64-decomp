@@ -30,10 +30,15 @@ char *__repair_addr;
         D_80107EA0 = temp_v0;
         D_8010D538 = base + (temp_v0 << 6); func_800347B0(&D_80112F90, (((__repair_record_arg0*)arg0)->field_2C) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_30) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_34) * 0.0015339808f, (((__repair_record_arg0*)arg0)->field_20) * 64.0f, (((__repair_record_arg0*)arg0)->field_24) * 64.0f, (((__repair_record_arg0*)arg0)->field_28) * 64.0f);
         func_800A37C0(&D_80112F90, D_8010D538);
-        temp_a1 = D_80115328;
-        D_80115328 = temp_a1 + 8;
-        (*(s32 *)((char *)(temp_a1) + 4)) = (s32) (D_8010D538 - 0x80000000);
-        (*(s32 *)((char *)(temp_a1) + 0)) = 0xDA380003;
-        func_80032630(temp_s1, temp_a1, 0xDA380003);
+        {
+            u32 opcode = 0xDA380003;
+            u32 address;
+            temp_a1 = D_80115328;
+            address = D_8010D538;
+            D_80115328 = (char *)temp_a1 + 8;
+            ((u32 *)temp_a1)[0] = opcode;
+            ((u32 *)temp_a1)[1] = address - 0x80000000u;
+            func_80032630(temp_s1, temp_a1, opcode);
+        }
     }
 }

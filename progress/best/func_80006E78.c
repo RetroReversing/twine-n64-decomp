@@ -19,6 +19,7 @@ typedef struct {
 
 s32 func_80083C34(s32, s32);
 extern u8 D_800AC1E0[];
+extern u8 func_800AC1E0[];
 extern u8 D_800D1710[];
 extern u8 D_800DC740[];
 extern s32 D_800DD340;
@@ -27,7 +28,7 @@ extern u8 D_800DD780;
 extern s16 D_80108400;
 extern Task6E78 *D_8010A2BC[];
 extern s16 D_8010A4B0;
-extern u8 func_800AC110[];
+extern void func_800AC110(void);
 
 void func_80006E78(void) {
     s32 size;
@@ -39,22 +40,23 @@ void func_80006E78(void) {
         size = 0x4000;
     }
     size *= 8;
-    D_800DD340 = buf = func_80083C34(size, 0);
+    D_800DD340 = func_80083C34(size, 0);
     for (i = 0; i < 3; i++) {
         if (D_8010A2BC[i] != NULL) {
             D_8010A2BC[i]->type = 1;
             D_8010A2BC[i]->flags = 0;
-            D_8010A2BC[i]->ucode_boot = func_800AC110;
-            D_8010A2BC[i]->ucode_boot_size = D_800AC1E0 - func_800AC110;
-            D_8010A2BC[i]->ucode = D_800AC1E0;
-            D_8010A2BC[i]->ucode_data = D_800D1710;
+            D_8010A2BC[i]->ucode_boot = (void *)func_800AC110;
+            D_8010A2BC[i]->ucode_boot_size = (u8 *)func_800AC1E0 - (u8 *)func_800AC110;
+            D_8010A2BC[i]->ucode = (void *)D_800AC1E0;
+            D_8010A2BC[i]->ucode_data = (void *)D_800D1710;
             D_8010A2BC[i]->ucode_size = 0x1000;
             D_8010A2BC[i]->ucode_data_size = 0x800;
-            D_8010A2BC[i]->dram_stack = D_800DD350;
+            D_8010A2BC[i]->dram_stack = (void *)D_800DD350;
             D_8010A2BC[i]->dram_stack_size = 0x400;
+            buf = D_800DD340;
             D_8010A2BC[i]->output_buff = buf;
             D_8010A2BC[i]->output_buff_size = buf + size;
-            D_8010A2BC[i]->yield_data_ptr = D_800DC740;
+            D_8010A2BC[i]->yield_data_ptr = (void *)D_800DC740;
             D_8010A2BC[i]->yield_data_size = 0xC00;
         }
     }

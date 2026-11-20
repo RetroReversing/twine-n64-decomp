@@ -72,7 +72,7 @@ s32 func_80096A70(void *arg0, void *arg1) {
                     var_s1 = var_a0;
                     break;
                 case 1:
-                    var_s1 = var_s0 + (var_a0 - 0x2000);
+                    var_s1 = var_a0 + (var_s0 - 0x2000);
                     if (var_s1 >= -0x2000) {
                         goto upper_bound;
                     }

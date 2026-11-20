@@ -26,7 +26,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     u8 sp1F;
     M2C_UNK *var_s1;
     M2C_UNK *var_s6;
-    s16 temp_fp;
+    register s32 temp_fp;
     s32 temp_a0;
     s32 temp_a1_2;
     s32 temp_a2;
@@ -36,7 +36,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     s32 var_s5;
     s32 var_s7;
     u16 temp_a1;
-    s32 var_s3;
+    register u32 var_s3;
     u8 temp_a3;
     void *temp_s2;
     void *var_s0;
@@ -55,7 +55,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
-                    temp_s2 = (s8 *)var_s0 - 0x24;
+                    temp_s2 = var_s7 + (s8 *)&D_8010D724;
                     temp_a2 = M2C_FIELD(var_s0, s8 *, 0x9C) << 0x10;
                     temp_hi = temp_a2 / 100;
                     temp_a1 = M2C_FIELD(var_s0, u16 *, 0x2C);
@@ -67,7 +67,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                     temp_a2_2 = temp_a2 >> 0x1F;
                     M2C_FIELD(var_s0, u16 *, 0x2C) = (u16) (temp_fp + (M2C_FIELD(var_s0, u8 *, 0x2D) - temp_a3));
                     M2C_FIELD(var_s0, s32 *, 0) = (s32) (M2C_FIELD(var_s0, s32 *, 0) | 0x80800);
-                    temp_a1_2 = (temp_a1 << 0x10) + ((temp_hi >> 5) - temp_a2_2);
+                    temp_a1_2 = (temp_a1 << 0x10) + temp_hi;
                     M2C_FIELD(var_s0, s32 *, 0x70) = temp_a1_2;
                     func_8009876C(temp_s2, temp_a1_2, temp_a2_2, temp_a3);
                     if (var_s4 == -1) {

@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f64 func_800AA460();                                /* extern */
-f64 func_800ABA40(M2C_UNK, M2C_UNK *, f32, f64, s32, s32, s32, s32); /* extern */
+f64 func_800AA460(f64);
+f64 func_800ABA40(s32, const char *, f64, f64, f64);
 extern f64 D_800D6EA8;
 extern f64 D_800D6EB0;
 extern f64 D_800D6EB8;
 
 extern char D_800D6EA0[];
-f64 func_800AA538(f64 arg0, f32 arg1) {
+f64 twine_acos(f64 arg0) {
     f64 ret;
     s32 var_v0;
     s32 var_v1;
@@ -33,9 +33,9 @@ f64 func_800AA538(f64 arg0, f32 arg1) {
         var_v1 = 0;
     }
     if ((var_v0 | var_v1) == 0) {
-        ret = D_800D6EB8 - func_800AA460();
+        ret = D_800D6EB8 - func_800AA460(arg0);
     } else {
-        ret = func_800ABA40(1, D_800D6EA0, arg1, arg0, 0, 0, 0, 0);
+        ret = func_800ABA40(1, D_800D6EA0, arg0, 0.0, 0.0);
     }
     return ret;
 }

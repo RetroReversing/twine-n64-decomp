@@ -38,7 +38,7 @@ s32 func_80079928(s32 arg0, MovingActor *actor, s32 *arg2, s32 *arg3, s32 arg4)
 {
     Vec3f next;
     Vec3f scratch;
-    s32 result;
+    volatile s32 result;
     Vec3f delta;
     Vec3f otherDelta;
     Vec3f difference;
@@ -53,10 +53,11 @@ s32 func_80079928(s32 arg0, MovingActor *actor, s32 *arg2, s32 *arg3, s32 arg4)
     collision = actor->collision;
     y = actor->position.y;
     bounds = collision->bounds;
+    { f32 upper = collision->limit->topY;
+    f32 lower = bounds->minY + bounds->maxY;
     collision->flags &= ~0x30;
     if (func_80053940(actor, arg0, &actor->previous, &next, &scratch, 0.55f,
-                     y - (bounds->minY + bounds->maxY) * 0.5f,
-                     collision->limit->topY - y, arg4, arg2, &result, arg3)) {
+                     y - lower * 0.5f, upper - y, arg4, arg2, &result, arg3)) {
         actor->collision->flags |= 0x10;
         actor->position.x = next.x;
         if (next.y < actor->position.y) {
@@ -65,6 +66,7 @@ s32 func_80079928(s32 arg0, MovingActor *actor, s32 *arg2, s32 *arg3, s32 arg4)
         actor->position.z = next.z;
     }
 
+    }
     if (D_80108404 != NULL) {
         delta.x = actor->position.x - actor->previous.x;
         delta.y = actor->position.y - actor->previous.y;

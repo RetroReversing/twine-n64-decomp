@@ -3,8 +3,7 @@ f32 func_80045E34(void *, void *);
 void func_80017EC0(void *arg0, f32 arg1, f32 arg2) {
     void *node;
     u32 flag, mask, one;
-    node = *(void **)((char *)arg0 + 0x20);
-    node = *(void **)node;
+    node = **(void ***)((char *)arg0 + 0x20);
     if (node != 0) {
     flag = 0x40000000; mask = 0xFFFF0FFF; one = 1;
     do {
@@ -13,7 +12,7 @@ void func_80017EC0(void *arg0, f32 arg1, f32 arg2) {
                 char *dest = *(char **)((char *)node + 0x6C);
                 *(u32 *)((char *)node + 0x60) |= flag;
                 *(u32 *)(dest + 0x18C) = (*(u32 *)(dest + 0x18C) & mask) | 0x7000;
-                *(Vec *)(dest + 0x1A0) = *(Vec *)((char *)arg0 + 0x24);
+                { u32 a = *(u32 *)((char *)arg0 + 0x24), b = *(u32 *)((char *)arg0 + 0x28), c = *(u32 *)((char *)arg0 + 0x2c); *(u32 *)(dest + 0x1a0) = a; *(u32 *)(dest + 0x1a4) = b; *(u32 *)(dest + 0x1a8) = c; }
                 *(f32 *)(dest + 0x1B0) = arg2;
                 *(u32 *)(dest + 0x1B4) = 0;
             }

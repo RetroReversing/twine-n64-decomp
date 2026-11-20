@@ -63,7 +63,7 @@ s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 ar
             slot = &D_800E1AC0[index];
             osCreateMesgQueue(slot->queue, slot->messages, 2);
             if (rate == 0) {
-                rate = !*(u8 *)&D_800E3F1C[file] ? 8000 : 16000;
+                length = !*(u8 *)&D_800E3F1C[file] ? 8000 : 16000; rate=length;
             }
 
             slot->arg2 = arg2;

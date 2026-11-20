@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8008EB80();
-extern char D_800E5AC4[];
-extern char D_800E5FEC[];
-extern char D_800E6A85[];
-extern char D_800E6A88[];
-extern char D_800E6AA4[];
-extern char D_800E6AB2[];
-extern char D_800E6AB4[];
+extern unsigned char D_800E5AC4[];
+extern unsigned char D_800E5FEC[];
+extern unsigned char D_800E6A85[];
+extern unsigned char D_800E6A88[];
+extern unsigned char D_800E6AA4[];
+extern unsigned char D_800E6AB2[];
+extern unsigned char D_800E6AB4[];
 
 void func_80091654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a2_2;

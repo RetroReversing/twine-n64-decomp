@@ -13,10 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8003D6FC(void *, void *);                  /* extern */
-s32 func_8004886C(void *, void *, M2C_UNK);         /* extern */
+s32 func_8004886C(void *, void *, f32);         /* extern */
 s32 func_8004E6E4(M2C_UNK *, void *, void *, s32 *, M2C_UNK *, f32, s32, s32, s32); /* extern */
-extern M2C_UNK D_800D2FC8;
-extern M2C_UNK D_800D2FD4;
+typedef struct { s32 x,y,z; } Vec;
+extern Vec D_800D2FC8;
+extern Vec D_800D2FD4;
 extern M2C_UNK func_8004DBD8;
 
 s32 func_8003EA68(void **arg0, void *arg1) {
@@ -56,12 +57,8 @@ s32 func_8003EA68(void **arg0, void *arg1) {
     if (var_s0 != NULL) {
         do {
             if ((M2C_FIELD(var_s0, u16 *, 0x58) == 0x46) && ((func_8004886C(var_s0 + 0x40, arg1, 0) << 0x18) != 0) && ((func_8003D6FC(arg1, var_s0) << 0x18) != 0)) {
-                m2c_initial_frame.view_sp28.value = M2C_FIELD(&D_800D2FC8, s32 *, 0);
-                m2c_initial_frame.view_sp2C.value = M2C_FIELD(&D_800D2FC8, s32 *, 4);
-                m2c_initial_frame.view_sp30.value = M2C_FIELD(&D_800D2FC8, s32 *, 8);
-                m2c_initial_frame.view_sp38.value = M2C_FIELD(&D_800D2FD4, s32 *, 0);
-                m2c_initial_frame.view_sp3C.value = M2C_FIELD(&D_800D2FD4, s32 *, 4);
-                m2c_initial_frame.view_sp40.value = M2C_FIELD(&D_800D2FD4, s32 *, 8);
+                *(Vec *)&m2c_initial_frame.view_sp28.value = D_800D2FC8;
+                *(Vec *)&m2c_initial_frame.view_sp38.value = D_800D2FD4;
                 temp_fv0 = M2C_FIELD(var_s0, f32 *, 0x4C);
                 if (temp_fv0 < var_fs1) {
                     var_s4 = var_s0;

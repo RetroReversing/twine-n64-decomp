@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80005C70(s32, s16, s32, s32, f32, s32); /* extern */
-M2C_UNK func_8000600C(s16, s32, s32);               /* extern */
+M2C_UNK func_8000600C(void *, s16, s32, s32);               /* extern */
 extern f32 D_800D9414;
 
 void func_80005310(void *arg0) {
@@ -41,6 +41,7 @@ void func_80005310(void *arg0) {
     var_fs0 = M2C_FIELD(temp_v0, f32 *, 0x30);
     temp_fv0 = M2C_FIELD(temp_v1, f32 *, 0);
     temp_t0 = temp_v0 + 0x14;
+    frame_ptr = (f32 *)((s8 *)temp_v0 + 0x30);
     if (temp_fv0 <= var_fs0) {
         do {
             var_fs0 -= temp_fv0;
@@ -79,12 +80,12 @@ void func_80005310(void *arg0) {
         var_fv1 -= temp_fv0_2;
     }
     temp_fv0_3 = var_ft0 / var_fv1;
-    if (!(M2C_FIELD(temp_v0, s32 *, 0x14) & 0x40000)) {
+    if (!(M2C_FIELD(temp_t0, s32 *, 0) & 0x40000)) {
         D_800D9414 = temp_fv0_3;
-        func_8000600C(M2C_FIELD(temp_t0, s16 *, 0x7E), var_a2, temp_t1);
-        M2C_FIELD(temp_v0, f32 *, 0x30) = var_fs0;
+        func_8000600C(arg0, M2C_FIELD(temp_t0, s16 *, 0x7E), var_a2, temp_t1);
+        *frame_ptr = var_fs0;
         return;
     }
-    func_80005C70(M2C_FIELD(temp_t0, s32 *, 0x44), M2C_FIELD(temp_t0, s16 *, 0x7E), var_a2, temp_t1, temp_fv0_3, M2C_FIELD(temp_v0, s32 *, 0x14) & 1);
-    M2C_FIELD(temp_v0, f32 *, 0x30) = var_fs0;
+    func_80005C70(M2C_FIELD(temp_t0, s32 *, 0x44), M2C_FIELD(temp_t0, s16 *, 0x7E), var_a2, temp_t1, temp_fv0_3, M2C_FIELD(temp_t0, s32 *, 0) & 1);
+    *frame_ptr = var_fs0;
 }

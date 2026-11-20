@@ -44,7 +44,8 @@ void func_8011C958(void) {
             if (temp_v1 != 0) {
                 var_s1 = 0;
                 if ((s32) temp_v1 >= 4) {
-                    var_v0 = var_s3 & 0xFFFF;
+                    var_s1 = var_s3 & 0xFFFF;
+    var_v0 = var_s1;
                     if (temp_v1 == 5) {
                         var_s1 = 0;
                         goto block_6;
