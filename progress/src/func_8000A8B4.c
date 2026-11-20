@@ -30,7 +30,8 @@ s32 func_8000A8B4(s32 arg0, f32 arg1, u8 arg2) {
     s32 temp_v0;
     s32 var_v0;
 
-    if (D_801002EC != 0) {
+    if (D_801002EC == 0) goto failed;
+    {
         temp_ft0 = (f32) *(D_800B1FE0 + arg0);
         var_fv1 = arg1 - temp_ft0;
         temp_fv0 = (f32) *(D_800B2230 + arg0);
@@ -44,14 +45,15 @@ s32 func_8000A8B4(s32 arg0, f32 arg1, u8 arg2) {
             temp_s0 = (s32) (D_800D2168 - (f64) (var_fv1 * 127.0f));
             temp_v0 = func_8009CC3C(arg0 & 0xFFFF, arg2 & 0xFF, 0xFF);
             func_8009C930(temp_v0, temp_s0 & 0xFF);
-            if (*(D_800B1D90 + arg0) != 0) {
+            if (*(D_800B1D90 + arg0) == 0) {
+failed:
+                var_v0 = -1;
+            } else {
                 func_8000A724(temp_v0);
-                return temp_v0;
+                var_v0 = temp_v0;
             }
-            return -1;
         }
         return var_v0;
     }
-block_5:
-    return -1;
 }
+
