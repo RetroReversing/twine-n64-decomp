@@ -30,7 +30,7 @@ f64 func_800AA8B0(f64 arg0, f64 arg1) {
         }
         return D_800D6EF0;
     }
-    temp = atan(arg0 / arg1);
+    temp = atan();
     if (arg1 > 0.0) {
         return temp;
     }

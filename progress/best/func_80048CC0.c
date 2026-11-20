@@ -22,12 +22,12 @@ s32 func_80048CC0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     e1.z = (*(f32 *)((char *)(arg3) + 8)) - (*(f32 *)((char *)(arg2) + 8));
     e2.x = (*(f32 *)((char *)(arg4) + 0)) - (*(f32 *)((char *)(arg2) + 0));
     e2.y = (*(f32 *)((char *)(arg4) + 4)) - (*(f32 *)((char *)(arg2) + 4));
-    e2.z = (*(f32 *)((char *)(arg4) + 8)) - (*(f32 *)((char *)(arg2) + 8));
     s = (*(f32 *)((char *)(arg1) + 4));
+    e2.z = (*(f32 *)((char *)(arg4) + 8)) - (*(f32 *)((char *)(arg2) + 8));
     p.x = s * e2.z;
     p.y = 0;
     p.z = -(s * e2.x);
-    det = ((e1.z * p.z)) + ((e1.x * p.x));
+    det = (((e1.x * p.x))) + (((e1.z * p.z)));
     if (det < 1e-10f) {
         return 0;
     }
@@ -44,7 +44,7 @@ s32 func_80048CC0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     q.y = (t.z * e1.x) - (t.x * e1.z);
     q.z = (t.x * e1.y) - (t.y * e1.x);
     v = s * q.y;
-    if ((v < 0.0) || (det < (u + v))) {
+    if (((s * q.y) < 0.0) || (det < (u + v))) {
         return 0;
     }
     *arg5 = ((e2.x * q.x) + (e2.y * q.y) + (e2.z * q.z)) * (f32) (D_800D3E10 / det);

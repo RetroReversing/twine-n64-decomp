@@ -208,7 +208,7 @@ block_127:
                 if (temp_a1_3 != 1) {
                     return 0;
                 }
-                var_v0 = func_80117800(temp_a1_3) << 0x18;
+                var_v0 = func_80117800() << 0x18;
                 goto block_127;
             }
             if (temp_a1_3 != 3) {
