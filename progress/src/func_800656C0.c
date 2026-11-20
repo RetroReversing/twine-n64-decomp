@@ -2,7 +2,7 @@
 
 s32 func_80002D30();
 s32 func_80016718();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_800480A0();
 s32 func_800635B4();
 s32 func_800635BC();
@@ -63,7 +63,7 @@ void func_800656C0(void *arg0, void *arg1, void *arg2) {
     func_800705AC(0, temp_s0);
     (*(f32 *)((char *)(temp_s0) + 0x98)) = 0.55f;
     func_80016718(arg0);
-    func_8003E6EC(*D_800CA31C, arg0, 0);
+    actorLinkToSurface(*D_800CA31C, arg0, 0);
     (*(s32 *)((char *)(*((s32 *)((s8 *)gAimAxisTable + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4)))) + 0xF4)) = (s32) (*(s32 *)((char *)(arg0) + 0x20));
     func_800480A0(arg0, *((s32 *)((s8 *)gAimAxisTable + ((*(s8 *)((char *)(temp_s0) + 0x182)) * 4))));
     { __repair_record_temp_a2_2 *entry = *(__repair_record_temp_a2_2 **)((s8 *)gAimAxisTable + (*(s8 *)((char *)temp_s0 + 0x182) * 4));

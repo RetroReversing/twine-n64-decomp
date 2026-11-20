@@ -5,9 +5,9 @@ typedef struct { u8 pad[0x29]; u8 value; } Voice;
 typedef struct { u8 pad[8]; Voice *voice; u8 padC[8]; u32 count; } Entry;
 typedef struct { u8 pad[12]; f32 factor; } Scale;
 extern Root *D_80109BB0;
-s32 func_800262A8(Tbl263B8 *, u16);
+s32 findEntryById(Tbl263B8 *, u16);
 void func_8002A104(Scale *scale) {
-    Entry *entry = (Entry *)func_800262A8(D_80109BB0->table, 4);
+    Entry *entry = (Entry *)findEntryById(D_80109BB0->table, 4);
     if (entry) {
         Voice *voice = entry->voice;
         if ((voice != 0) & (scale != 0)) {

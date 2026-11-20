@@ -20,7 +20,7 @@ M2C_UNK func_8002135C(s16, s16);                    /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
-void *func_800262A8(s32, M2C_UNK);                  /* extern */
+void *findEntryById(s32, M2C_UNK);                  /* extern */
 void *func_8002638C(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
@@ -105,7 +105,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
             if (var_s4 != NULL) {
                 temp_s1 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x62);
                 __repair_phase_storage.value = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
-                temp_s0_2 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x1E);
+                temp_s0_2 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x1E);
                 func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + __repair_phase_storage.value)), *((s16 *)((s8 *)&D_800C46DA + __repair_phase_storage.value)));
                 if (temp_s1 != NULL) {
                     M2C_FIELD(temp_s1, s16 *, 0) = func_8001E760(0, M2C_FIELD(var_s4, u8 *, 8));

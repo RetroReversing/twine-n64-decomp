@@ -27,7 +27,7 @@ s32 func_80078860();
 s32 func_8007A7D8(void *, void *, void *, f32);
 s32 func_8007AA40();
 s32 func_8007AB18();
-s32 func_8007B030();
+s32 actorPlaySpeechLine();
 s32 func_8007C094();
 s32 func_8007C120();
 s32 func_8007C214();
@@ -379,7 +379,7 @@ block_23:
                         return 0;
                     }
                     if ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) != 0) {
-                        func_8007B030(arg0);
+                        actorPlaySpeechLine(arg0);
                         var_a1 = 0x21;
                         goto block_113;
                     }

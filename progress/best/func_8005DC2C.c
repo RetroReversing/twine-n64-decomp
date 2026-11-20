@@ -1,6 +1,6 @@
 s32 func_80015D40(s32);
 void *func_80016410(s32,s32,s32);
-s32 func_8003E6EC(void *,void *,u8);
+s32 actorLinkToSurface(void *,void *,u8);
 void func_80044670(void *,s32,s32);
 extern s32 *D_800CA31C;
 extern f64 D_800D4170;
@@ -44,7 +44,7 @@ mode_done: ;
   *(s32*)((char*)temp_v0+0x30)=*(s32*)((char*)temp_v0+0x24); *(s32*)((char*)temp_v0+0x34)=*(s32*)((char*)temp_v0+0x28); *(s32*)((char*)temp_v0+0x38)=*(s32*)((char*)temp_v0+0x2C);
   *(f32*)((char*)temp_v0+0x48)=*(f32*)((char*)temp_v0+0x3C); *(f32*)((char*)temp_v0+0x4C)=*(f32*)((char*)temp_v0+0x40); *(f32*)((char*)temp_v0+0x50)=*(f32*)((char*)temp_v0+0x44);
   ((R*)temp_v0)->u=0; ((R*)temp_v0)->v=0; ((R*)temp_v0)->flags|=0x600;
-  func_8003E6EC(*D_800CA31C,temp_v0,1);
+  actorLinkToSurface(*D_800CA31C,temp_v0,1);
  }
  return temp_v0;
 }

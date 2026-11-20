@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *func_80016410();
 s32 func_80016990();
 s32 applyNearbyActorImpact(s32, f32, f32);
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_80044670();
 u16 func_80045CF8();
 s32 func_8007659C();
@@ -43,7 +43,7 @@ void func_8006217C(void *arg0) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 1;
         }
         if (M2C_FIELD(arg0, s16 *, 0x7A) == 1) {
-            func_8003E6EC(*D_800CA31C, arg0, 1);
+            actorLinkToSurface(*D_800CA31C, arg0, 1);
             return;
         }
         return;

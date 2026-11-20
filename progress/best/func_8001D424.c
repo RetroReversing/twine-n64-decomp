@@ -23,7 +23,7 @@ extern M2C_UNK D_800B60A8;
 extern M2C_UNK D_800BD854;
 extern u8 D_800BD855;
 extern s32 D_80102EC0;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_8001D424(void) {
@@ -81,9 +81,9 @@ block_20:
     if (D_800B60A6 == 5) {
         func_8000A894(0xE8);
         func_800266DC(&D_800BD854);
-        M2C_FIELD(D_80102F2C, u16 *, 0x7A) = (u16) D_800BD855;
-        M2C_FIELD(D_80102F2C, s16 *, 0x7C) = 0x78;
-        func_800278AC(1, D_80102EC0 & ~0xFF, M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+        M2C_FIELD(sActiveMenu, u16 *, 0x7A) = (u16) D_800BD855;
+        M2C_FIELD(sActiveMenu, s16 *, 0x7C) = 0x78;
+        func_800278AC(1, D_80102EC0 & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         func_8002778C();
         M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;
     }

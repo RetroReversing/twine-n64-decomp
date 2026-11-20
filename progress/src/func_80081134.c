@@ -2,7 +2,7 @@
 
 void *func_80016410();
 s32 func_80017490();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_80045CF8();
 extern s32 *D_800CA31C;
 
@@ -34,7 +34,7 @@ void *func_80081134(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
             (*(s16 *)((char *)(temp_v0) + 0xC)) = (s16) (unsigned)arg11;
             (*(s16 *)((char *)(temp_v0) + 0x12)) = (s16) arg12;
             (*(s16 *)((char *)(temp_v0) + 0x10)) = 0;
-            func_8003E6EC(*list, var_s0, 1);
+            actorLinkToSurface(*list, var_s0, 1);
             (*(s16 *)((char *)(var_s0) + 0x7A)) = 0;
             (*(s16 *)((char *)(var_s0) + 0x7C)) = (s16) (func_80045CF8(0x78) + 1);
         }

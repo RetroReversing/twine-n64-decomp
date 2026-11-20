@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80026004(void *, M2C_UNK *, s32);      /* extern */
+M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
 void *func_8002638C(M2C_UNK *, M2C_UNK);            /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern s8 D_800BD690;
@@ -41,16 +41,16 @@ void func_8001E0B8(void) {
         case 0:
             var_a0 = 0x25;
 block_15:
-            func_80026004(temp_s1, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
             break;
         case 2:
             var_a0 = 0x27;
             {
-            func_80026004(temp_s1, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s1, "%s", func_80087100(var_a0));break;}
         case 1:
             var_a0 = 0x26;
             {
-            func_80026004(temp_s1, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s1, "%s", func_80087100(var_a0));break;}
         }
         M2C_FIELD(temp_s0, s32 *, 0x14) = (s32) ((((D_801002F1 * M2C_FIELD(temp_s0, s32 *, 0x10)) + 2) << 0x10) | 8);
         M2C_FIELD(temp_s2, s32 *, 0x14) = (s32) ((((D_801002F0 * M2C_FIELD(temp_s2, s32 *, 0x10)) + 2) << 0x10) | 8);
@@ -58,6 +58,6 @@ block_15:
         if (D_801002F3 != 0) {
             var_a0_2 = 9;
         }
-        func_80026004(temp_s3, "%s", func_80087100(var_a0_2));
+        formatTextEntry(temp_s3, "%s", func_80087100(var_a0_2));
     }
 }

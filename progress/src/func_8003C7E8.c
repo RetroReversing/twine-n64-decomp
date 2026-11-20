@@ -18,8 +18,8 @@ s32 isSlotActiveById(s32 key) {
     return 0;
 }
 
-extern void func_80026004(void *, s32, ...);
-extern void func_80029068(void);
+extern void formatTextEntry(void *, s32, ...);
+extern void updateActiveMenuState(void);
 extern char *func_80087100(s32);
 extern s16 D_80109B9C;
 extern void *D_80109BB0;
@@ -30,7 +30,7 @@ void func_800224E4(void) {
     u8 flag;
     char *text;
     char *buffer;
-    func_80029068();
+    updateActiveMenuState();
     if (*((u8 *)D_80109BB0 + 0x2D)) {
         flag = D_8010A4FF;
         D_80109B9C = !flag;
@@ -38,7 +38,7 @@ void func_800224E4(void) {
         if (flag) id = 0x1D;
         text = func_80087100(id);
         buffer = *(char **)((u8 *)D_80109BB0 + 0x18);
-        func_80026004(buffer + 0x28, (s32)D_800D2AA0, text);
+        formatTextEntry(buffer + 0x28, (s32)D_800D2AA0, text);
     }
 }
 

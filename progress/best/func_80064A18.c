@@ -10,7 +10,7 @@ void *func_800162BC();
 void *func_800164F8();
 s32 func_80022DBC();
 s32 func_8002B9CC();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_800448A4();
 s32 func_80063C7C();
 s32 func_800643EC();
@@ -177,7 +177,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(temp_s4) + 0x44)) = 0;
             (*(f32 *)((char *)(temp_s4) + 0x40)) = (f32) (*(f32 *)((char *)(sp14) + 4));
             var_v1 = 0;
-            func_8003E6EC(*D_800CA31C, temp_s4, 0);
+            actorLinkToSurface(*D_800CA31C, temp_s4, 0);
             (*(s8 *)((char *)(temp_s3) + 0x184)) = 0;
             (*(s8 *)((char *)(temp_s3) + 0x185)) = 0;
             (*(s32 *)((char *)(temp_s3) + 0x410)) = 0;

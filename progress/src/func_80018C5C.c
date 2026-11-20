@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80026004(void *, M2C_UNK *, s32);      /* extern */
+M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
 u8 func_8002D13C(M2C_UNK);                          /* extern */
 extern s32 D_801002B4;
 extern s32 D_801002B8;
@@ -68,7 +68,7 @@ void func_80018C5C(void *arg0, void *arg1) {
             M2C_FIELD(arg1, s32 *, 0x14) = 4 - D_801002B8;
         }
         temp_s0 = D_800D2858;
-        func_80026004(arg0 + 0x28, temp_s0, D_801002B8);
-        func_80026004(arg1 + 0x28, temp_s0, D_801002BC);
+        formatTextEntry(arg0 + 0x28, temp_s0, D_801002B8);
+        formatTextEntry(arg1 + 0x28, temp_s0, D_801002BC);
     }
 }

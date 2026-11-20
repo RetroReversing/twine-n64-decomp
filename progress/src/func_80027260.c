@@ -20,7 +20,7 @@ extern void func_80028F90(void);
 extern u8 D_800BD68E;
 extern u8 D_800BD68F;
 extern u8 D_800BD691;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_80027260(void *arg0) {
@@ -33,7 +33,7 @@ void func_80027260(void *arg0) {
         D_800BD68F = *(u8 *)((u8 *)temp_v1 + 4);
         D_800BD691 = *(u8 *)((u8 *)temp_v1 + 5);
         D_800BD68E = *(u8 *)((u8 *)temp_v1 + 6);
-        D_80102F2C = arg0;
+        sActiveMenu = arg0;
         D_80109BB0 = temp_v1;
         switch (temp_a1) {
         case 0:

@@ -1,0 +1,114 @@
+typedef struct {
+    u8 pad0[0xC];
+    f32 velX;
+    f32 velY;
+    f32 velZ;
+    s32 timer;
+    u8 pad1C[0xA];
+    u16 hitFlags;
+    u16 soundId;
+    u8 pad2A[3];
+    u8 bounceEnabled;
+    u8 active;
+    u8 soundPending;
+    s16 bounceCount;
+} SubEBF4;
+
+typedef struct {
+    u8 pad0[0x24];
+    f32 posX;
+    f32 posY;
+    f32 posZ;
+    u8 pad30[0xC];
+    f32 squashX;
+    f32 squashZ;
+    u8 pad44[0x1C];
+    s32 flags;
+    u8 pad64[8];
+    SubEBF4 *sub;
+    u8 pad70[0xA];
+    s16 state;
+    u8 pad7C[2];
+    s8 hideTimer;
+    u8 pad7F[3];
+    u8 expireTimer;
+} ObjEBF4;
+
+s32 func_80000A30(s32, s32);
+s32 func_80045DB4(void *, f32, f32);
+s8 func_8005E4C8(void *);
+s32 func_8005E900(void *);
+s32 func_800850E0(void *);
+extern u8 D_801002A0;
+extern u8 D_801002A3;
+extern s32 gBorderSkipFlag;
+
+/* Per-frame update for a bouncing object: decays squash and recoil, runs the bounce/fall state logic, and counts down the timers that flag the object for removal. */
+void objBounceUpdate(ObjEBF4 *obj) {
+    SubEBF4 *sub = obj->sub;
+
+    if (sub->active != 0) {
+        obj->squashX -= func_80000A30(0x400, (s32)obj->squashX) * 0.1f;
+        obj->squashZ -= func_80000A30(0, (s32)obj->squashZ) * 0.1f;
+        if (obj->flags & 2) {
+            obj->flags &= ~2;
+            func_80045DB4(&obj->squashX, 512.0f, 256.0f);
+            func_80045DB4(&sub->velX, 0.4f, 0.2f);
+            sub->velY = 2.0f;
+            func_800850E0(&obj->posX);
+            obj->state = 0;
+        }
+    }
+    switch (obj->state) {
+    case 0:
+    case 1:
+        sub->velY -= 0.32666668f;
+        obj->posY += sub->velY * 0.033333335f;
+        obj->posX += sub->velX;
+        obj->posZ += sub->velZ;
+        sub->velX *= 0.75f;
+        sub->velZ *= 0.75f;
+        func_8005E900(obj);
+        break;
+    case 2:
+        if (sub->soundPending == 0 && (obj->flags & 0x01000000)) {
+            obj->flags &= ~0x01000000;
+            sub->velY -= 0.32666668f;
+            obj->posY += sub->velY * 0.033333335f;
+            func_8005E900(obj);
+        }
+        break;
+    }
+    if (func_8005E4C8(obj) != 0) {
+        if (sub->bounceEnabled == 0) {
+            obj->flags |= 1;
+        } else {
+            sub->bounceCount = 0;
+        }
+    }
+    if (sub->active != 0 && (sub->hitFlags == 0 || gBorderSkipFlag != 0)) {
+        if (sub->timer > 0) {
+            if (--sub->timer == 0) {
+                obj->hideTimer = 0x10;
+                obj->expireTimer = 0xFF;
+            }
+        } else if (obj->expireTimer != 0) {
+            obj->expireTimer--;
+        } else {
+            if (D_801002A0 == 8) {
+                switch (sub->soundId) {
+                case 25:
+                    D_801002A3 &= 0xFB;
+                    break;
+                case 24:
+                    D_801002A3 &= 0xFD;
+                    break;
+                case 23:
+                    D_801002A3 &= 0xFE;
+                    break;
+                }
+            }
+            obj->flags |= 1;
+        }
+    }
+}

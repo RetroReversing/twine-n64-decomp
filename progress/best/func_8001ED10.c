@@ -29,7 +29,7 @@ extern u8 D_80102EE8;
 extern s32 D_80102EEC;
 extern s32 D_80102EF0;
 extern s32 D_80102EFC;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern s32 D_801176D8;
 extern s32 D_801176DC;
 extern s16 D_801176E0;
@@ -46,9 +46,9 @@ void func_8001ED10(void) {
 
     D_80102EDD = 1;
     if (D_80102EEC == 0) {
-        if (D_80102F2C != NULL && (t = *(s16 *)((char *)D_80102F2C + 0x7A), t != 0xF)) {
+        if (sActiveMenu != NULL && (t = *(s16 *)((char *)sActiveMenu + 0x7A), t != 0xF)) {
             if (t != 0xE) {
-                *(s16 *)((char *)D_80102F2C + 0x7A) = 0xE;
+                *(s16 *)((char *)sActiveMenu + 0x7A) = 0xE;
             }
         } else {
             D_801176D8 = 0;
@@ -72,14 +72,15 @@ void func_8001ED10(void) {
                 D_80102EF0 = 0;
                 i = 0;
                 if (D_801002B4 > 0) {
-                    do {
+                    __repair_rows: {
                         s32 r;
                         r = func_80022DBC(i & 0xFFFF);
                         r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
                         *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
                             **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
                         i++;
-                    } while ((i & 0xFFFF) < D_801002B4);
+                    }
+if ((i & 0xFFFF) < D_801002B4) goto __repair_rows;
                 }
                 *(s16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) = -1;
                 b = D_801002A4;

@@ -55,8 +55,9 @@ u32 func_800988D8(void *arg0) {
         }
     }
     temp_a1 = D_800FDB78;
-    temp_v1 = -1U;
-    if (temp_a1 != NULL) {
+    if (temp_a1 == NULL) return -1U;
+    temp_v1 = var_a3;
+    {
         temp_v0 = M2C_FIELD(temp_a1, M2C_UNK **, 0);
         D_800FDB78 = temp_v0;
         if (temp_v0 != NULL) {

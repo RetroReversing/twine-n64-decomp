@@ -16,16 +16,16 @@ s32 func_80023EC0();
 u16 func_800248B4();
 u16 func_8002495C();
 u16 func_80024AD0();
-s32 func_800262A8();
+s32 findEntryById();
 s32 func_800263B8();
 s32 func_80026424();
-s32 func_80029068();
+s32 updateActiveMenuState();
 s32 func_80029C08();
 s32 func_8002CC14();
 extern u16 D_800BD558;
 extern u8 D_800BD559;
 extern s8 D_800BD55A;
-extern s32 D_80102F2C;
+extern s32 sActiveMenu;
 extern char D_80107EA8[];
 extern u8 D_80107EC0;
 extern void *D_80109BB0;
@@ -36,7 +36,7 @@ void func_80024BDC(void) {
     s32 temp_v1;
 
     D_800BD55A = 1;
-    if (func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0x54) != 0) {
+    if (findEntryById(((__repair_field_10 *)D_80109BB0)->value, 0x54) != 0) {
         if (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0) {
             M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s8 *, 0x24) = (s8) ((D_800BD559 + func_800263B8(((__repair_field_10 *)D_80109BB0)->value, 0x54)) - 1);
         }
@@ -45,9 +45,9 @@ void func_80024BDC(void) {
         func_80023EC0(D_800BD558);
         temp_a0 = D_800BD558 & 0xE000;
         if (D_800BD558 & 0x1000) {
-            func_80029068(temp_a0);
+            updateActiveMenuState(temp_a0);
             if (func_8002CC14() & 0xFFFF) {
-                func_80026424(D_80102F2C, 0x18);
+                func_80026424(sActiveMenu, 0x18);
             }
         } else {
             temp_v1 = D_800BD558 & 0xFFF;
@@ -64,7 +64,7 @@ void func_80024BDC(void) {
             }
         }
     } else {
-        func_80029068();
+        updateActiveMenuState();
         func_80029C08(D_80107EA8, 2, 0);
         func_80023EC0(D_800BD558);
     }

@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800066A0(M2C_UNK);                     /* extern */
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 extern u8 D_800B60E1;
 extern s16 D_800BFC32;
-extern s32 D_80102F2C;
+extern s32 sActiveMenu;
 extern void *D_80109BB0;
 
 void func_8001ECA8(void) {
@@ -25,9 +25,9 @@ void func_8001ECA8(void) {
         func_800066A0(0x13);
         return;
     }
-    func_80029068();
+    updateActiveMenuState();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 1) {
         D_800BFC32 = 0x109;
-        func_80026424(D_80102F2C, 0x18);
+        func_80026424(sActiveMenu, 0x18);
     }
 }

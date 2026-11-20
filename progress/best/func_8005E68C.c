@@ -1,7 +1,7 @@
 void *func_80016410(s32, void *, s32);
 s32 func_80017490(void *arg0, u16, u16, u16);
 s32 func_8001751C(s32, u8, void *, s32);
-s32 func_8003E6EC(s32, void *, s32);
+s32 actorLinkToSurface(s32, void *, s32);
 s32 func_80044670(void *, s32, int);
 extern s16 D_800C4478;
 extern s16 D_800C447A;
@@ -64,7 +64,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
             ((__repair_record_temp_s0*)temp_s0)->field_28 = arg5;
             ((__repair_record_temp_s0*)temp_s0)->field_2A = sp26;
             ((__repair_record_temp_s0*)temp_s0)->field_30 = 0;
-            func_8003E6EC(*D_800CA31C, temp_v0, 1);
+            actorLinkToSurface(*D_800CA31C, temp_v0, 1);
             *(s32 *)((u8 *)temp_v0 + 0x5C) = *(s32 *)((u8 *)temp_v0 + 0x5C) | 0x400;
             *(f32 *)((u8 *)temp_v0 + 0x54) = 0.015625f;
             ((__repair_record_temp_s0*)temp_s0)->field_1C = *(f32 *)((u8 *)temp_v0 + 0x28) - 1.0f;

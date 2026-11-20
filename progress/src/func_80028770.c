@@ -16,7 +16,7 @@ s32 func_800277E4(M2C_UNK);                         /* extern */
 extern u16 D_800BD68A;
 extern void *D_800E1090;
 extern u8 D_800E1097;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 
 void func_80028770(void) {
     M2C_UNK (*temp_v0)();
@@ -33,6 +33,6 @@ void func_80028770(void) {
         }
     } else {
 block_5:
-        M2C_FIELD(D_80102F2C, u16 *, 0x7A) = (u16) D_800BD68A;
+        M2C_FIELD(sActiveMenu, u16 *, 0x7A) = (u16) D_800BD68A;
     }
 }

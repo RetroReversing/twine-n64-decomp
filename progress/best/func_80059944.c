@@ -4,7 +4,7 @@ s32 func_8000A270(s32);                         /* extern */
 s32 func_80015D40(u16);                             /* extern */
 s32 func_80016718(void *);                      /* extern */
 s32 func_800175C0(s32, s32, s32, void *, f32, s32); /* extern */
-s32 func_8003E6EC(s32, void *, s32);        /* extern */
+s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 s32 func_80045CF8(s32);                         /* extern */
 s32 func_80059120(s8, void *);                  /* extern */
 s32 func_80059658(void *, s32);                 /* extern */
@@ -162,7 +162,7 @@ block_17:
             temp_v0 = (*(u16 *)((char *)(temp_s0) + 0x34));
             if ((temp_v0 != 0) && (*(&gActorFlagTable + temp_v0) != 0)) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
-                func_8003E6EC(*D_800CA31C, arg0, 0);
+                actorLinkToSurface(*D_800CA31C, arg0, 0);
             case 2:                                 /* switch 4 */
                 D_80109CB4 = arg0;
                 if ((func_80059658(arg0, 1) << 0x18) != 0) {

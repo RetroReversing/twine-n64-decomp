@@ -4,11 +4,11 @@ s32 func_8000A894(s32);                     /* extern */
 s32 func_8001E760(s32, u8);                     /* extern */
 s32 func_8001F4B8(u8, u8);                      /* extern */
 s32 func_8002135C(s16, s16);                    /* extern */
-void *func_800262A8(s32, s32);                  /* extern */
+void *findEntryById(s32, s32);                  /* extern */
 void *func_80026314(s32, s32, s32);         /* extern */
 void *func_8002638C(s32, s32);                  /* extern */
 s32 func_80027C60(s32);                         /* extern */
-s32 func_80029068();                            /* extern */
+s32 updateActiveMenuState();                            /* extern */
 s32 func_80029C08(s32, s32, s32);           /* extern */
 void *func_8002A980(s32);                           /* extern */
 s32 func_8007089C(s32, s32, s32, s32 *); /* extern */
@@ -46,7 +46,7 @@ void func_8001F0B4(void) {
     void *temp_s1;
     void *temp_v0_3;
 
-    func_80029068();
+    updateActiveMenuState();
     (*(s8 *)((char *)(D_80109BB0) + 0x2C)) = 0;
     if ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0) {
         if (func_80029C08(D_800B60E4, 2, 0) & 0xFFFF) {
@@ -55,7 +55,7 @@ void func_8001F0B4(void) {
                 switch (D_800B60E2) {               /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     temp_s1 = func_8002638C((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x62);
-                    temp_s3 = func_800262A8((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x1E);
+                    temp_s3 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x1E);
                     if (temp_s1 != NULL) {
                         (*(s32 *)((char *)((*(void **)((char *)(temp_s1) + 8))) + 0x18)) = func_80087100(func_8001E760(0, (*(u8 *)((char *)(temp_s2) + 8))) & 0xFFFF);
                         temp_s0 = (*(void **)((char *)(temp_s1) + 8));
@@ -106,7 +106,7 @@ block_15:
                     temp_a2 = *((D_800BD68F * 2) + &D_800E0ECC);
                     func_8007089C((&D_8010A500)[D_800BD68F], 0, (temp_a2 + (*(u8 *)((char *)((temp_a0_2 + (temp_a2 * 8))) + 0x1FE))) & 0xFFFF, &D_8010A500);
                     if ((*(void **)((char *)(D_80109BB0) + 0x18)) != NULL) {
-                        temp_v0_3 = func_800262A8((*(s32 *)((char *)(D_80109BB0) + 0xC)), 0xE);
+                        temp_v0_3 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0xC)), 0xE);
                         (*(s8 *)((char *)(D_80109BB0) + 0x2C)) = 1;
                         (*(void **)((char *)(D_80109BB0) + 0x18)) = temp_v0_3;
                         (*(s32 (**)(void *))((char *)((*(void **)((char *)(D_80109BB0) + 0x18))) + 4))(D_80109BB0);

@@ -22,7 +22,7 @@ extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern M2C_UNK D_800BD8C4;
 extern s32 D_80102EBC;
-extern void *volatile D_80102F2C;
+extern void *volatile sActiveMenu;
 extern void *D_80109BB0;
 
 void func_80028A7C(void) {
@@ -65,7 +65,7 @@ void func_80028A7C(void) {
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x1C), s8 *, 0x29) = 0x16;
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x1C), s16 *, 0x1E) = 0x102;
     }
-    temp_v1_2 = M2C_FIELD(D_80102F2C, s16 *, 0x7C);
+    temp_v1_2 = M2C_FIELD(sActiveMenu, s16 *, 0x7C);
     if (temp_v1_2 == 0) {
         void *menu = D_80109BB0;
         var_a2 = 0;
@@ -99,16 +99,16 @@ void func_80028A7C(void) {
             if (M2C_FIELD(D_80109BB0, u16 *, 0x14) == 0x10) {
                 var_v0 = 0x4B;
             }
-            M2C_FIELD(D_80102F2C, s16 *, 0x7C) = var_v0;
+            M2C_FIELD(sActiveMenu, s16 *, 0x7C) = var_v0;
             goto block_24;
         }
     } else {
 block_24:
         if ((u16) M2C_FIELD(D_80109BB0, u16 *, 0x32) >= 0xF6U) {
-            temp_v0_4 = M2C_FIELD(D_80102F2C, s16 *, 0x7C);
+            temp_v0_4 = M2C_FIELD(sActiveMenu, s16 *, 0x7C);
             if (temp_v0_4 > 0) {
                 temp_v0_5 = temp_v0_4 - 1;
-                M2C_FIELD(D_80102F2C, s16 *, 0x7C) = temp_v0_5;
+                M2C_FIELD(sActiveMenu, s16 *, 0x7C) = temp_v0_5;
                 if ((temp_v0_5 << 0x10) == 0) {
                     temp_v0_6 = M2C_FIELD(D_80109BB0, u16 *, 0x14);
                     switch (temp_v0_6) {

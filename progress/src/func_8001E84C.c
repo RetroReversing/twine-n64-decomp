@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_80029C08(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_8002A104(s32);                         /* extern */
 M2C_UNK func_8002ACB4(s32);                         /* extern */
@@ -21,6 +21,6 @@ extern s32 D_800B60E4;
 void func_8001E84C(void) {
     func_8002A104(D_800B60E4);
     func_8002ACB4(D_800B60E4);
-    func_80029068();
+    updateActiveMenuState();
     func_80029C08(D_800B60E4, 2, 0);
 }

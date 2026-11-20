@@ -17,7 +17,7 @@ extern s16 D_800BD68A;
 extern s32 D_800E1090;
 extern s32 D_800E1094;
 extern s8 D_80102EDC;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_800278AC(u16 arg0, s32 arg1, s16 arg2) {
@@ -49,7 +49,7 @@ s32 __repair_operand;
         D_80102EDC = 0;
     }
     }
-    { void *p = D_80102F2C; void *q = D_80109BB0;
+    { void *p = sActiveMenu; void *q = D_80109BB0;
     M2C_FIELD(p, s16 *, 0x7A) = 0x14;
     M2C_FIELD(q, s16 *, 0x32) = 0; }
     func_80027408(0, 0, 0, 0);

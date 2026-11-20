@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80016410(M2C_UNK, s32, void *);          /* extern */
-M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
+M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 M2C_UNK func_80044670(void *, u16, s16);            /* extern */
 M2C_UNK func_80045278(void *);                 /* extern */
 extern s32 **D_800CA31C_dummy;
@@ -38,7 +38,7 @@ void *func_80018630(s32 arg0, void *arg1, void *arg2) {
         func_80044670(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
         { s32 *p = D_800CA31C;
         M2C_FIELD(temp_v0, s32 *, 0x5C) |= 0x200;
-        func_8003E6EC(*p, temp_v0, 1); }
+        actorLinkToSurface(*p, temp_v0, 1); }
     }
     return temp_v0;
 }

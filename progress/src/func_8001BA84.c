@@ -4,8 +4,8 @@ s32 func_8000237C();
 s32 func_80002BD0();
 s32 func_80002D30();
 s32 func_80002EF0();
-s32 func_80026004();
-s32 func_800262A8();
+s32 formatTextEntry();
+s32 findEntryById();
 s32 func_80029C08();
 void *func_8002A980();
 s32 func_8002ACB4();
@@ -46,11 +46,11 @@ extern char D_800D2864[];
         if (func_80029C08(D_8010A488, 2, 0) & 0xFFFF) {
             entry = func_8002A980(D_8010A488);
             if (entry != NULL) {
-                msgBuf = func_800262A8((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4000);
+                msgBuf = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4000);
                 table = func_800316C8();
                 if (table != 0) {
                     if (msgBuf) {
-                        func_80026004(msgBuf, D_800D2864, func_80087100(*(u16 *)(((*(u8 *)((char *)(entry) + 8)) * 4) + table)));
+                        formatTextEntry(msgBuf, D_800D2864, func_80087100(*(u16 *)(((*(u8 *)((char *)(entry) + 8)) * 4) + table)));
                     }
                     func_8002B8AC();
                     itemId = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(func_8002B9FC((*(u8 *)((char *)((((*(u8 *)((char *)(entry) + 8)) * 4) + (int)table)) + 2)))) * 0xC));

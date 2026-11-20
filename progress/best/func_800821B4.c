@@ -54,7 +54,7 @@ void func_800821B4(void) {
     s16 *var_s2;
     s32 temp_s0;
     s32 temp_s0_2;
-    s32 temp_s0_3;
+    u32 temp_s0_3;
     s32 temp_s0_4;
     int var_a0;
     

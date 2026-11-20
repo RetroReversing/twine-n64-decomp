@@ -1,11 +1,11 @@
 extern s8 func_8011AA9C[];
-void *func_800262A8(void *, s32);
+void *findEntryById(void *, s32);
 void *func_8002638C(void *, s32);
 s32 func_80018BE0(s32);
 void func_80018C5C(void *, void *);
 void func_80025D84(void *, void *, void *, void *, s32, s32);
 void func_80025E9C(void *, void *, void *, void *, s32, s32);
-void func_80026004(void *, char *, s32);
+void formatTextEntry(void *, char *, s32);
 s16 func_8002B278(void *);
 s32 func_8002B248(void *);
 void func_8003099C(u8, u8);
@@ -50,8 +50,8 @@ void func_8001BE64(void) {
     u32 temp_v1;
 
     D_800BD690 = 1;
-    temp_s6 = func_800262A8(D_800BD9A0, 0x5C);
-    temp_fp = func_800262A8(D_800BD9A0, 0x5B);
+    temp_s6 = findEntryById(D_800BD9A0, 0x5C);
+    temp_fp = findEntryById(D_800BD9A0, 0x5B);
     temp_s2 = func_8002638C(D_800BD9A0, 0xE7);
     temp_s5 = func_8002638C(D_800BD9A0, 0x66);
     var_s1 = func_8002638C(D_800BD9A0, 0xB1);
@@ -60,7 +60,7 @@ void func_8001BE64(void) {
     }
     temp_s4 = func_8002638C(D_800BD9A0, 0x16C);
     temp_s3 = func_8002638C(D_800BD9A0, 0x61);
-    temp_s7 = func_800262A8(D_800BD9A0, 0xC);
+    temp_s7 = findEntryById(D_800BD9A0, 0xC);
     D_801002F4 = func_80018BE0(D_801002C4);
     if (((temp_fp != (s32)NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL)) && ((var_s1 != NULL) & (temp_s3 != NULL)) && ((temp_s2 != NULL) & (temp_s7 != NULL))) {
         switch (D_801002A0) {
@@ -115,33 +115,33 @@ void func_8001BE64(void) {
         if ((func_8002B278(temp_s0) << 0x10) != 0) {
             var_v0_3 = func_8002B248(temp_s0);
         
-        func_80026004(temp_s3, D_800D2864, var_v0_3);} else {
+        formatTextEntry(temp_s3, D_800D2864, var_v0_3);} else {
             var_v0_3 = func_80087100(0x5F);
         
-        func_80026004(temp_s3, D_800D2864, var_v0_3);}
+        formatTextEntry(temp_s3, D_800D2864, var_v0_3);}
         if ((*__base_D_801002A8) != 0) {
-            func_80026004(var_s1, D_800D2858, (*__base_D_801002A8));
+            formatTextEntry(var_s1, D_800D2858, (*__base_D_801002A8));
         } else {
             var_v0_4 = func_80087100(0x5F);
-            func_80026004(var_s1, D_800D2864, var_v0_4);
+            formatTextEntry(var_s1, D_800D2864, var_v0_4);
         }
         var_a0 = 0x67;
         if (gBorderFlipFlag != 0) {
             var_a0 = 0x68;
         }
-        func_80026004(temp_s5, D_800D2864, func_80087100(var_a0));
+        formatTextEntry(temp_s5, D_800D2864, func_80087100(var_a0));
         var_a0 = 0xA;
         if (D_801002D5 != 0) {
             var_a0 = 9;
         }
-        func_80026004(temp_s4, D_800D2864, func_80087100(var_a0));
+        formatTextEntry(temp_s4, D_800D2864, func_80087100(var_a0));
         switch (gPauseFlag) {
         case 0: var_v0_4 = func_80087100(0xA); break;
         case 1: var_v0_4 = func_80087100(0x2E2); break;
         case 2: var_v0_4 = func_80087100(0x2E3); break;
         default: var_v0_4 = func_80087100(0x2E4); break;
         }
-        func_80026004(temp_s2, D_800D2864, var_v0_4);
+        formatTextEntry(temp_s2, D_800D2864, var_v0_4);
         if (D_801002A1 != 0) {
             func_80025D84((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 0x16C, 1);
         } else {

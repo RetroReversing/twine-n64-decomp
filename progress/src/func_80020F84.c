@@ -5,8 +5,8 @@ s32 func_800162BC();
 s32 func_80018318();
 s32 func_80022A30();
 s32 func_80022AD8();
-s32 func_80026004();
-s32 func_800262A8();
+s32 formatTextEntry();
+s32 findEntryById();
 s32 func_8002A644();
 s32 func_8002A7CC();
 s32 func_8002A9A8();
@@ -45,11 +45,11 @@ extern char D_800D2A80[];
     D_800B60E4 = D_800E0C70;
     func_8002A644(D_800E0C70, D_800E0C98, 0x1A4, 0xB, 0x2D, 0xB4, 0x4C, 0xB, 0, &func_8001EA6C, &func_8001EAF0);
     D_800B60E8 = 0;
-    resultHandle = func_800262A8(D_800BDBD0, 0x4000);
+    resultHandle = findEntryById(D_800BDBD0, 0x4000);
     if (resultHandle) {
         { func_80022A30(D_800BD68E, 0x2D, 0x46, 0xDC, 0x7F); }
         entryTable = NULL;
-        func_80026004(resultHandle, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (D_800BD68F * 2)) | 0x7000));
+        formatTextEntry(resultHandle, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (D_800BD68F * 2)) | 0x7000));
         entryCount = 0;
         switch (D_80102EE8) {                       /* irregular */
         case 0:

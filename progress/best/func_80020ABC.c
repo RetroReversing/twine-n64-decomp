@@ -12,7 +12,7 @@ s32 func_8002A7CC();
 s32 func_8002A9A8();
 s32 func_8002AC04();
 s32 func_8002ACB4();
-s32 func_80030C4C();
+s32 getCurrentMapIdx();
 s32 func_80031028();
 s32 func_80031250();
 s32 func_8003137C();
@@ -53,7 +53,7 @@ s32 __repair_phase_var_a2;
     __repair_result_temp_s4 = func_800162BC(D_800BD68E);
     (*(s32 *)((char *)(D_8010A2D8) + 0)) = __repair_result_temp_s4;
     if (__repair_result_temp_s4 != 0) {
-        func_800160FC((*(s32 *)((char *)(D_8010A2D8) + 0)), func_80087100(func_80030C4C() & 0xFFFF), 1);
+        func_800160FC((*(s32 *)((char *)(D_8010A2D8) + 0)), func_80087100(getCurrentMapIdx() & 0xFFFF), 1);
         D_8010A2DC = 0;
         func_8002A7CC(D_80115060, D_8010A2D8, 0xFF, func_80018318((*(s32 *)((char *)(D_8010A2D8) + 0))) & 0xFF);
     }

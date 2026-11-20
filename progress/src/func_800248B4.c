@@ -17,7 +17,7 @@ M2C_UNK func_8002CA90(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002CAEC(s32);                         /* extern */
 extern s16 D_800BFC32;
 extern s8 D_80102F04;
-extern s32 D_80102F2C;
+extern s32 sActiveMenu;
 extern void *D_80109BB0;
 
 s32 func_800248B4(s32 arg0, s32 arg1) {
@@ -33,7 +33,7 @@ s32 func_800248B4(s32 arg0, s32 arg1) {
             if (D_800BFC32 == 1) {
                 D_80102F04 = 1;
             }
-            func_80026424(D_80102F2C, 0x18);
+            func_80026424(sActiveMenu, 0x18);
             return 0x8001;
         case 0x8000:
             M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 0;

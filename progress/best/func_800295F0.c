@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8000A894(M2C_UNK);             /* extern */
-M2C_UNK func_80026004(void *, char *, ...);      /* extern */
+M2C_UNK formatTextEntry(void *, char *, ...);      /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern void *D_80109BB0;
 
@@ -53,13 +53,13 @@ void func_800295F0(s32 arg0) {
     *M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), s8 **, 0x10) = (s8) var_s1;
     if (M2C_FIELD(M2C_FIELD(temp_s3, void **, 8), s32 *, 0x18) != 0) {
         if (M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), u16 *, 0xC) & 0x400) {
-            func_80026004(temp_s3, "%d", var_s1);
+            formatTextEntry(temp_s3, "%d", var_s1);
         } else {
             var_a0 = 0xA;
             if ((var_s1 << 0x10) != 0) {
                 var_a0 = 9;
             }
-            func_80026004(temp_s3, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s3, "%s", func_80087100(var_a0));
         }
     }
 }

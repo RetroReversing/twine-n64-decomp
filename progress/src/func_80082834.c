@@ -23,7 +23,7 @@ extern MenuState *D_80109BB0;
 extern u8 D_800BD690, D_801002A2, D_800BDA68[];
 extern char D_800D2864[];
 void func_8001A4F4(void);
-void func_80026004(void *, s32, ...);
+void formatTextEntry(void *, s32, ...);
 s32 func_8002638C(s32, s32);
 char *func_80087100(s32);
 void func_8001A434(void) {
@@ -41,9 +41,9 @@ void func_8001A434(void) {
         index = &D_801002A2;
         text = func_80087100(*index + 0x16D);
         format = D_800D2864;
-        func_80026004(entry, (s32)format, text);
+        formatTextEntry(entry, (s32)format, text);
         text = func_80087100(*index + 0x177);
-        func_80026004(entry + 0x28, (s32)format, text);
+        formatTextEntry(entry + 0x28, (s32)format, text);
     }
 }
 extern u8 D_800CEEB0;

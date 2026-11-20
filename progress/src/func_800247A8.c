@@ -17,12 +17,12 @@ s32 func_80024EF0(u16);                             /* extern */
 s8 func_800263B8(s32, M2C_UNK);                     /* extern */
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 M2C_UNK func_800274BC(M2C_UNK, M2C_UNK);            /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002A9A8(M2C_UNK *, s32);              /* extern */
 s32 func_8002CC14();                                /* extern */
 extern u16 D_800BD558;
 extern s8 D_800BD55A;
-extern s32 D_80102F2C;
+extern s32 sActiveMenu;
 extern M2C_UNK D_80107EA8;
 extern void *D_80109BB0;
 
@@ -34,10 +34,10 @@ void func_800247A8(void) {
     temp_v0 = M2C_FIELD(D_80109BB0, void **, 0x18);
     D_800BD55A = 0;
     updatePairedSpriteState(D_800BD558, M2C_FIELD(temp_v0, u16 *, 0x18), M2C_FIELD(temp_v0, u8 *, 0x1B), 1);
-    func_80029068();
+    updateActiveMenuState();
     if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) && (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0)) {
         if (func_8002CC14() & 0xFFFF) {
-            func_80026424(D_80102F2C, 0x18);
+            func_80026424(sActiveMenu, 0x18);
         }
         temp_v0_2 = M2C_FIELD(D_80109BB0, void **, 0x18);
         updatePairedSpriteState(M2C_FIELD(temp_v0_2, s32 *, 0x14), M2C_FIELD(temp_v0_2, u16 *, 0x18), M2C_FIELD(temp_v0_2, u8 *, 0x1B), 1);

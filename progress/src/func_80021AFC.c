@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8000A18C(u8);                          /* extern */
 M2C_UNK func_8000A1D0(u8);                          /* extern */
 M2C_UNK func_8000A22C(u8);                          /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 D_80102EDD;
@@ -25,7 +25,7 @@ void func_80021AFC(void) {
     void *temp_a0;
     void *temp_v1;
 
-    func_80029068();
+    updateActiveMenuState();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         temp_v1 = M2C_FIELD(D_80109BB0, void **, 0x18);
         temp_a0 = M2C_FIELD(temp_v1, void **, 0x30);

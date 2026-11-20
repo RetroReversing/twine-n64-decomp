@@ -16,12 +16,12 @@ M2C_UNK func_80026424(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 M2C_UNK func_8002CFE8();                            /* extern */
 s32 func_8002D218();                                /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 
 void func_80027EF4(void) {
     func_8002CFE8();
-    func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+    func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     if ((func_8002D218() << 0x10) != 0) {
-        func_80026424(D_80102F2C, 0x18);
+        func_80026424(sActiveMenu, 0x18);
     }
 }

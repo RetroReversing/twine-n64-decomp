@@ -27,10 +27,10 @@ extern s32 D_80102EBC;
 extern u8 D_80102EC8;
 extern s32 D_80102ECC;
 extern f32 D_80102ED0;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
-/* Per-frame update of the active text/menu state: applies pending value changes and fires cursor/sound events. */ void func_80029068(void) {
+/* Per-frame update of the active menu/text state: applies pending value changes and fires cursor and sound events. */ /* Per-frame update of the active text/menu state: applies pending value changes and fires cursor/sound events. */ void updateActiveMenuState(void) {
     s16 kind_a;
     s16 kind;
     u16 flags_a;
@@ -40,12 +40,12 @@ extern void *D_80109BB0;
     void *cur_entry_b;
     void *cur_entry;
 
-    if ((D_80102F2C != NULL) && (kind = M2C_FIELD(D_80102F2C, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((func_80027A7C(M2C_FIELD(D_80109BB0, s32 *, 0x1C), M2C_FIELD(D_80109BB0, void **, 0x18), 0), M2C_FIELD(D_80109BB0, s8 *, 0x2D) = 0, M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(D_80109BB0, s32 *, 0x1C)), func_80029AC8(D_80109BB0 + 0x2A, D_80109BB0 + 0x28, D_80109BB0 + 0x29), (D_80102F2C == NULL)) || (kind_a = M2C_FIELD(D_80102F2C, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
+    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((func_80027A7C(M2C_FIELD(D_80109BB0, s32 *, 0x1C), M2C_FIELD(D_80109BB0, void **, 0x18), 0), M2C_FIELD(D_80109BB0, s8 *, 0x2D) = 0, M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(D_80109BB0, s32 *, 0x1C)), func_80029AC8(D_80109BB0 + 0x2A, D_80109BB0 + 0x28, D_80109BB0 + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
         if (func_80027C60(0x24) & 0xFF) {
             if (M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
                 func_8000A894(0xED);
-                func_800278AC(M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u16 *, 6), D_80102EBC, (u16) M2C_FIELD(D_80102F2C, s16 *, 0x7A));
+                func_800278AC(M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), u16 *, 6), D_80102EBC, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
             }
         } else if (M2C_FIELD(D_80109BB0, u8 *, 0x2E) == 0) {
             if (func_80027C60(0x2A) & 0xFF) {

@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80027D60(u16);                         /* extern */
 M2C_UNK func_80086DA0(M2C_UNK);                     /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 
 void func_80027E88(void) {
     func_80086DA0(1);
-    func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+    func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
 }

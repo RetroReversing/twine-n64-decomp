@@ -17,7 +17,7 @@ s32 func_800162BC(u8);                              /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
-void *func_800262A8(s32, M2C_UNK);                  /* extern */
+void *findEntryById(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, M2C_UNK); /* extern */
 u8 func_8002D13C(M2C_UNK);                          /* extern */
 s8 *func_80087100(u16);                             /* extern */
@@ -53,7 +53,7 @@ void func_80021CA0(void) {
     void *temp_s1_2;
     void *temp_v0;
 
-    temp_v0 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
+    temp_v0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
     temp_s1 = temp_v0 + 0x28;
     if (temp_v0 != NULL) {
         temp_a0 = *(D_80100198 + D_801002AD * 0x6) + 0x185;

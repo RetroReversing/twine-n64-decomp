@@ -12,9 +12,9 @@ u16 func_8002CBB8(u16);
 u16 func_8002D09C(u16);
 u16 func_8002D1F8(void);
 s32 func_800448A4(s32, s32, s32);
-s32 func_800262A8(s32, s32);
+s32 findEntryById(s32, s32);
 s32 func_80087100(s32);
-void func_80026004(s32, char *, s32, u16);
+void formatTextEntry(s32, char *, s32, u16);
 s32 sprintf(char *, const char *, ...);
 s16 strlen(const char *);
 
@@ -57,9 +57,9 @@ void func_80024D78(void) {
             func_800448A4(it->f4, 0x10, 0x24);
         }
     }
-    p = func_800262A8(D_80109BB0->f10, 0x4010);
+    p = findEntryById(D_80109BB0->f10, 0x4010);
     if (p != 0) {
         n = func_80087100(0x300E);
-        func_80026004(p, D_800D2AE0, n, func_8002D1F8());
+        formatTextEntry(p, D_800D2AE0, n, func_8002D1F8());
     }
 }

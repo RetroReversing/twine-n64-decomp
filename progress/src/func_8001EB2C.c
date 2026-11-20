@@ -17,7 +17,7 @@ M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
 M2C_UNK func_80011938(s32, M2C_UNK);                /* extern */
 M2C_UNK func_800218EC();                            /* extern */
 M2C_UNK func_80021938();                            /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002CC34();                            /* extern */
 s32 func_8002D0BC(M2C_UNK, s32);                    /* extern */
 M2C_UNK func_8002D224();                            /* extern */
@@ -26,7 +26,7 @@ M2C_UNK func_80081D00(s32);                         /* extern */
 extern s8 D_801002AE;
 extern s32 D_801002B8;
 extern s32 gBorderSkipFlag;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern s32 D_80108F78;
 extern void *D_80109BB0;
 
@@ -37,7 +37,7 @@ void func_8001EB2C(void) {
     s32 var_s1;
 
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) == 0) {
-        func_80029068();
+        updateActiveMenuState();
         return;
     }
     func_8002CC34();
@@ -53,9 +53,9 @@ void func_8001EB2C(void) {
             }
         }
     }
-    if ((D_80102F2C != NULL) && (temp_a0 = M2C_FIELD(D_80102F2C, s16 *, 0x7A), (temp_a0 != 0xF))) {
+    if ((sActiveMenu != NULL) && (temp_a0 = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (temp_a0 != 0xF))) {
         if (temp_a0 != 0xE) {
-            M2C_FIELD(D_80102F2C, s16 *, 0x7A) = 0xE;
+            M2C_FIELD(sActiveMenu, s16 *, 0x7A) = 0xE;
         }
         return;
     fail:

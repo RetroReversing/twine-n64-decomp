@@ -15,7 +15,7 @@ typedef struct {
 extern void func_8000A270(s32);
 extern OverlayObject *func_80016410(s32, OverlayPosition *, void *);
 extern void func_8002B000(void *, s32);
-extern void func_8003E6EC(s32, OverlayObject *, s32);
+extern void actorLinkToSurface(s32, OverlayObject *, s32);
 extern void func_80044670(OverlayObject *, s32, s32);
 extern s32 *D_800CA31C;
 extern u8 D_801002A0;
@@ -50,7 +50,7 @@ OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientati
             if (*state == 3) {
                 D_8011F298[idx].y += 0.76f;
             }
-            func_8003E6EC(*D_800CA31C, object, 1);
+            actorLinkToSurface(*D_800CA31C, object, 1);
             {
                 register s32 color = 0xB4;
                 if (idx == 0) {

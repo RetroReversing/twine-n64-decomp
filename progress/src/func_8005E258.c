@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
-M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
+M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 extern s32 *D_800CA31C;
 
 typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
@@ -32,7 +32,7 @@ void *func_8005E258(s32 arg0, M2C_UNK arg1, void *arg2, s8 arg3) {
         }
         ((__repair_record_temp_v0*)temp_v0)->field_7A = 0;
         ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);
-        func_8003E6EC(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
     }
     return temp_v0;
 }

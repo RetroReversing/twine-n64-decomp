@@ -17,15 +17,15 @@ M2C_UNK func_80027D60(u16);                         /* extern */
 M2C_UNK func_8002CBF4();                            /* extern */
 M2C_UNK func_8002CFE8();                            /* extern */
 s16 func_8002D218();                                /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern s16 D_80109DD0;
 
 void func_80028F90(void) {
     func_8002CFE8();
-    func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+    func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     func_8002CBF4();
     if (func_8002D218() == 0x30) {
-        func_80026424(D_80102F2C, 0x18);
+        func_80026424(sActiveMenu, 0x18);
         return;
     }
     D_80109DD0 = 0;

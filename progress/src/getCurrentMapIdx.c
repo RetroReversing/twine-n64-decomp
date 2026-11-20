@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern u16 D_800BFF0C;
 
-u16 func_80030C4C(void) {
+u16 getCurrentMapIdx(void) {
     return D_800BFF0C;
 }

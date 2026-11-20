@@ -17,18 +17,18 @@ found:
     }
     return 0;
 }
-extern s32 func_80026004(s32, s32 *, s32);
-extern s32 func_80029068();
+extern s32 formatTextEntry(s32, s32 *, s32);
+extern s32 updateActiveMenuState();
 extern s32 func_80087100(s32);
 extern void *D_80109BB0;
 extern u8 gBorderFlipFlag;
 void func_800223E4(void) {
     s32 id;
-    func_80029068();
+    updateActiveMenuState();
     if (*((u8 *)D_80109BB0 + 0x2D) != 0) {
         id = 0x67;
         if (gBorderFlipFlag != 0) id = 0x68;
-        func_80026004(*(s32 *)((u8 *)D_80109BB0 + 0x18) + 0x28, "%s", func_80087100(id));
+        formatTextEntry(*(s32 *)((u8 *)D_80109BB0 + 0x18) + 0x28, "%s", func_80087100(id));
     }
 }
 extern s32 D_800E06B8[];

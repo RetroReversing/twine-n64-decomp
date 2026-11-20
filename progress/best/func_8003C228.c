@@ -19,7 +19,7 @@ typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 typedef struct { unsigned char pad[20]; int value; } __repair_field_14;
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
-    unsigned sp14;
+    int sp14;
     u8 sp1F;
     s32 temp_s7;
     f32 temp_fs1;
@@ -134,8 +134,8 @@ void *temp_a0;
                                 }
                             }
                             (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & (unsigned)0xFF));
-                            ((__repair_field_0 *)D_80115328)->value = 0xFA000000;
                             (((__repair_field_8 *)D_80115328)->value) = 0xFB000000;
+                            ((__repair_field_0 *)D_80115328)->value = 0xFA000000;
                             (*(s32 *)((char *)(D_80115328) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));
                             temp_a0 = D_80115328 + 0x10;
                             D_80115328 += 8;
@@ -152,7 +152,7 @@ void *temp_a0;
             var_s0 = (*(void **)((char *)(var_s0) + 4));
         } while (var_s0 != NULL);
     }
-    if (!D_800E176C) {
+    if (D_800E176C == 0) {
         temp_v1_4 = D_80115328;
         D_80115328 = temp_v1_4 + 8;
         ((__repair_field_0 *)temp_v1_4)->value = 0xE3001201;

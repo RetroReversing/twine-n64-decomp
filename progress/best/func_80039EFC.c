@@ -109,7 +109,7 @@ void func_80039EFC(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
         temp_s0 = arg13 - 1;
         temp_t7 = (arg2 & 7) << 0x15;
         sp14 = (u32) arg4 >> 1;
-        do {
+        __repair_rows: {
             var_t4 = arg10;
             var_t6 = (s32) arg14;
             if (var_t4 < arg12) {
@@ -165,7 +165,7 @@ void *var_t0_2;
                         temp_v1 = temp_t7 | (((((s32) ((var_t2 - temp_t3) + 8) >> 3) & 0x1FF) << 9) | 0xF5080000);
                         temp_a1_3 = ((temp_t3 * 4) & 0xFFF) << 0xC;
                         temp_a2_4 = (temp_a2 * 4) & 0xFFF;
-                        temp_a0_2 = ((var_t2 * 4) & 0xFFF) << 0xC;
+                        temp_t3 = ((var_t2 * 4) & 0xFFF) << 0xC;
                         temp_a3 = (var_a3 * 4) & 0xFFF;
                         var_t1_2 = var_t1 + 0x38;
                         (*(s32 *)((char *)(var_t0) + 8)) = arg1;
@@ -177,7 +177,7 @@ void *var_t0_2;
                         (*(s32 *)((char *)(temp_t0_8) + -4)) = 0xE6000000;
                         (*(s32 *)((char *)(temp_t0_7) + 8)) = 0;
                         temp_t0_9 = temp_t0_8 + 8;
-                        (*(s32 *)((char *)(temp_t0_8) + 8)) = (s32) (temp_a0_2 | (temp_a3 | 0x07000000));
+                        (*(s32 *)((char *)(temp_t0_8) + 8)) = (s32) (temp_t3 | (temp_a3 | 0x07000000));
                         (*(s32 *)((char *)(temp_t0_9) + -4)) = (s32) (temp_a1_3 | (temp_a2_4 | 0xF4000000));
                         temp_t0_10 = temp_t0_9 + 8;
                         (*(s32 *)((char *)(temp_t0_10) + -4)) = 0xE7000000;
@@ -187,7 +187,7 @@ void *var_t0_2;
                         (*(s32 *)((char *)(temp_t0_10) + 8)) = 0x80200;
                         var_t0_2 = temp_t0_11 + 8;
                         (*(s32 *)((char *)(var_t0_2) + -4)) = (s32) (temp_a1_3 | (temp_a2_4 | 0xF2000000));
-                        (*(s32 *)((char *)(temp_t0_11) + 8)) = (s32) (temp_a0_2 | temp_a3);
+                        (*(s32 *)((char *)(temp_t0_11) + 8)) = (s32) (temp_t3 | temp_a3);
                     }
                     var_a0 = var_t6 + temp_fv1;
                     var_v1 = var_t8 + sp2C;
@@ -234,7 +234,8 @@ void *var_t0_2;
             }
             var_t5 += arg9;
             var_t8 += sp2C;
-        } while (var_t5 < arg13);
+        }
+if (var_t5 < arg13) goto __repair_rows;
     }
     *sp4 = var_t1;
 }

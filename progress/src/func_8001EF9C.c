@@ -10,7 +10,7 @@ s32 func_80045130(s32);                     /* extern */
 extern u16 D_80102EDA;
 extern s8 D_80102EDE;
 extern s32 D_80102EEC;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 
 void func_8001EF9C(void) {
     register s16 temp_a0;
@@ -19,9 +19,9 @@ void func_8001EF9C(void) {
 
     temp_s1 = D_80102EDA;
     if (!D_80102EEC) {
-        if ((D_80102F2C != NULL) && (temp_a0 = (*(s16 *)((char *)(D_80102F2C) + 0x7A)), (temp_a0 != 0xF))) {
+        if ((sActiveMenu != NULL) && (temp_a0 = (*(s16 *)((char *)(sActiveMenu) + 0x7A)), (temp_a0 != 0xF))) {
             if (temp_a0 != 0xE) {
-                (*(s16 *)((char *)(D_80102F2C) + 0x7A)) = 0xE;
+                (*(s16 *)((char *)(sActiveMenu) + 0x7A)) = 0xE;
             }
         } else {
             func_80045130(0x24);

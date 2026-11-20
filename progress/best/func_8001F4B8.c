@@ -24,12 +24,12 @@ typedef struct {
     u16 field7A;
 } ActionOptions;
 
-ActionHandler *func_800262A8(s32, s32);
+ActionHandler *findEntryById(s32, s32);
 s32 func_800278AC(s32, s32, u16);
 extern u8 D_800B60EA;
 extern ActionEntry D_800C4480[];
 extern s32 D_80102EBC;
-extern ActionOptions *D_80102F2C;
+extern ActionOptions *sActiveMenu;
 extern ActionState *D_80109BB0;
 extern s32 D_8010A500[];
 
@@ -60,11 +60,11 @@ s32 func_8001F4B8(u16 slot, s32 action)
         return (u8)action;
     }
     if (index == 0x13) {
-        func_800278AC(10, D_80102EBC, D_80102F2C->field7A);
+        func_800278AC(10, D_80102EBC, sActiveMenu->field7A);
         return (u8)action;
     }
     if (state->handler != 0) {
-        handler = func_800262A8(state->object, 14);
+        handler = findEntryById(state->object, 14);
         state = D_80109BB0;
         state->entered = 1;
         callbackState = D_80109BB0;

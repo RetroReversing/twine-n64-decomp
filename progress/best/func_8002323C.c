@@ -19,8 +19,8 @@ M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 s32 func_80022DBC(s32);                             /* extern */
 void *func_80023BD4();                              /* extern */
-M2C_UNK func_80026004(void *, M2C_UNK *);      /* extern */
-void *func_800262A8(M2C_UNK *, M2C_UNK);            /* extern */
+M2C_UNK formatTextEntry(void *, M2C_UNK *);      /* extern */
+void *findEntryById(M2C_UNK *, M2C_UNK);            /* extern */
 s32 func_800263B8(M2C_UNK *, M2C_UNK);               /* extern */
 M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32 *, s32, M2C_UNK); /* extern */
@@ -100,12 +100,12 @@ void func_8002323C(void) {
     void *temp_s4;
     void *var_s0;
 
-    temp_s2 = func_800262A8(&D_800BDBF8, 0x53);
-    temp_s3 = func_800262A8(&D_800BDBF8, 0xB);
-    var_s0 = func_800262A8(&D_800BDBF8, 0xE);
-    temp_s4 = func_800262A8(&D_800BDBF8, 0x4021);
+    temp_s2 = findEntryById(&D_800BDBF8, 0x53);
+    temp_s3 = findEntryById(&D_800BDBF8, 0xB);
+    var_s0 = findEntryById(&D_800BDBF8, 0xE);
+    temp_s4 = findEntryById(&D_800BDBF8, 0x4021);
     if (var_s0 == NULL) {
-        var_s0 = func_800262A8(&D_800BDBF8, 0);
+        var_s0 = findEntryById(&D_800BDBF8, 0);
     }
     haveEntries = (temp_s3 != NULL) & (temp_s2 != NULL);
     D_800B60E0 = 0;
@@ -126,7 +126,7 @@ void func_8002323C(void) {
         D_800BDBFC = var_s0_2;
         temp_a2 = *M2C_FIELD(D_80109BB0, s32 **, 0x10);
         D_801002E6 = M2C_FIELD((u8 *)temp_a2 + (u16)var_s0_2 * 0x28, UnalignedWord *, 0x24);
-        func_80026004(temp_s4, &D_800D2AAC);
+        formatTextEntry(temp_s4, &D_800D2AAC);
         {
         s16 *totals = &D_800E107E;
         s16 *scores = &D_800E1068;

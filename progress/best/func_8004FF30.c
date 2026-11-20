@@ -19,7 +19,7 @@ f32 func_80047AB0(f32 *, f32 *);                    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
-f32 func_80082908(f32, f32);                        /* extern */
+f32 func_80082908(f32);                        /* extern */
 M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
@@ -342,7 +342,7 @@ loop_3:
                                                 }
                                             }
                                             if (var_fa0_2 < temp_fs4) {
-                                                var_fa0 = (f32) (D_800D3E70 - (f64) (func_80082908(var_fa0_2, var_a0) / arg3));
+                                                var_fa0 = (f32) (D_800D3E70 - (f64) (func_80082908(var_fa0_2) / arg3));
                                                 temp_ft0_2 = var_fa0 * (sp18 - spA0);
                                                 temp_fv0_3 = var_fa0 * (sp20 - spA8);
                                                 temp_fv1 = var_fa0 * (sp1C - spA4);
@@ -363,7 +363,7 @@ block_37:
                                         }
                                         sp196 += 1;
                                         var_s5 += 6;
-                                        var_fp += 6;
+                                        var_fp += 3;
                                     } while (sp196 < (u16) M2C_FIELD(temp_v1, u16 *, 0x40));
                                 }
                             } else {
@@ -447,7 +447,7 @@ block_37:
                                                 }
                                             }
                                             if (var_fa0_4 < temp_fs4) {
-                                                var_fa0_3 = (f32) (D_800D3E78 - (f64) (func_80082908(var_fa0_4, var_a0_2) / arg3));
+                                                var_fa0_3 = (f32) (D_800D3E78 - (f64) (func_80082908(var_fa0_4) / arg3));
                                                 temp_ft0_4 = var_fa0_3 * (sp18 - spA0);
                                                 temp_fv0_6 = var_fa0_3 * (sp20 - spA8);
                                                 temp_fv1_2 = var_fa0_3 * (sp1C - spA4);
@@ -602,7 +602,7 @@ loop_81:
                                                 }
                                             }
                                             if (var_fa0_6 < temp_fs4) {
-                                                var_fa0_5 = (f32) (D_800D3E80 - (f64) (func_80082908(var_fa0_6, var_a0_3) / arg3));
+                                                var_fa0_5 = (f32) (D_800D3E80 - (f64) (func_80082908(var_fa0_6) / arg3));
                                                 temp_ft0_6 = var_fa0_5 * (sp28 - sp48);
                                                 temp_fv0_9 = var_fa0_5 * (sp30 - sp50);
                                                 temp_fv1_3 = var_fa0_5 * (sp2C - sp4C);
@@ -718,7 +718,7 @@ block_106:
                                                     }
                                                 }
                                                 if (var_fa0_8 < temp_fs4) {
-                                                    var_fa0_7 = (f32) (D_800D3E88 - (f64) (func_80082908(var_fa0_8, var_a0_4) / arg3));
+                                                    var_fa0_7 = (f32) (D_800D3E88 - (f64) (func_80082908(var_fa0_8) / arg3));
                                                     temp_ft0_8 = var_fa0_7 * (sp28 - sp48);
                                                     temp_fv0_12 = var_fa0_7 * (sp30 - sp50);
                                                     temp_fv1_4 = var_fa0_7 * (sp2C - sp4C);

@@ -29,7 +29,7 @@ void func_8011CC3C(void) {
     s32 var_a0;
     s32 var_s2;
     s32 var_s3;
-    s32 var_v0;
+    
     s32 var_v0_2;
     u32 temp_s0_2;
     u8 temp_s0;
@@ -46,7 +46,7 @@ void func_8011CC3C(void) {
             if (temp_v1 != 0) {
                 var_s2 = 0;
                 if ((s32) temp_v1 >= 4) {
-                    var_v0 = var_s3 & 0xFFFF;
+                    var_s2 = var_s3 & 0xFFFF;
                     if (temp_v1 == 5) {
                         var_s2 = 0;
                         goto block_6;
@@ -104,13 +104,13 @@ block_25:
                 } while ((u32) (var_s2 & 0xFFFF) < 4U);
             } else {
                 var_s2 = 0;
-                var_v0 = var_s3 & 0xFFFF;
+                var_s2 = var_s3 & 0xFFFF;
 block_29:
                 {
                     u16 __repair_i;
                     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
                         { {
-                        *(s32 *)((char *)D_8011F338 + var_v0 * 4 + __repair_i * 0x10) = 0;
+                        *(s32 *)((char *)D_8011F338 + var_s2 * 4 + __repair_i * 0x10) = 0;
                         }
                         }
                     }

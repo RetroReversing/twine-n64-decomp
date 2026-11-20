@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80015D40();
 s32 func_800175C0();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 void func_8007659C(void *, void *);
 s32 func_80085E30();
 s32 func_80085E78();
@@ -43,13 +43,13 @@ typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]
                 gateFlag = M2C_FIELD(cfg, u8 *, 0x46);
                 if ((gateFlag != 0) && (*(gActorFlagTable + gateFlag) == M2C_FIELD(cfg, u8 *, 0x47))) {
                     ((__repair_record_arg0*)arg0)->field_7A = 1;
-                    func_8003E6EC(*D_800CA31C, arg0, 1);
+                    actorLinkToSurface(*D_800CA31C, arg0, 1);
                     return;
                 }
             }
             return;
         }
-        func_8003E6EC(*D_800CA31C, arg0, 1);
+        actorLinkToSurface(*D_800CA31C, arg0, 1);
         if (M2C_FIELD(cfg, s32 *, 0x1C) == 0) {
             func_80087380(arg0);
             ((__repair_record_arg0*)arg0)->field_7A = 3;

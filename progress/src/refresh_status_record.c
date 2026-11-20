@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800261A4();
-void *func_800262A8();
+void *findEntryById();
 s8 func_800263B8();
 s32 func_8003099C();
 s32 func_80030C58();
@@ -32,7 +32,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
     void *rec_third;
 
     func_8003099C(D_80102EE0, D_80102EE8);
-    rec = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x72);
+    rec = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x72);
     D_800BD9CC = D_80102EE8;
     if (rec != NULL) {
         ((__repair_record_temp_s0*)rec)->field_C &= 0xFFF0;

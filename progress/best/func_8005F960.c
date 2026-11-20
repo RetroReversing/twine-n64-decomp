@@ -54,9 +54,9 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
         if (temp_v0 != NULL) {
             temp_s2 = (*(void **)((char *)(temp_v0) + 0x6C));
             if (arg1 != NULL) {
-                (*(s32 *)((char *)(temp_v0) + 0x3C)) = (s32) (*(s32 *)((char *)(arg1) + 0));
-                (*(s32 *)((char *)(temp_v0) + 0x40)) = (s32) (*(s32 *)((char *)(arg1) + 4));
-                (*(s32 *)((char *)(temp_v0) + 0x44)) = (s32) (*(s32 *)((char *)(arg1) + 8));
+                { typedef struct { s32 x, y, z; } Vec;
+                  *(Vec *)((char *)temp_v0 + 0x3C) = *(Vec *)arg1;
+                }
             } else {
                 func_80045278(temp_v0 + 0x3C);
             }
@@ -75,7 +75,7 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
                 break;
             }
             (*(s16 *)((char *)(temp_s2) + 0x3E)) = (s16) (var_s0 & 0xFFF);
-            func_80060890(temp_s2);
+            func_80060890(temp_s2, arg14, arg15, arg0);
             func_80060968(temp_v0);
             temp_ret = func_80045CC4();
             (*(s32 *)((char *)(temp_s2) + 0)) = (s32) (0x384 - (temp_ret % 90));

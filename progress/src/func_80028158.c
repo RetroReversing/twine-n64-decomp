@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800277E4(M2C_UNK);                         /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 s32 func_8002FBC0(s32);                             /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_80028158(void) {
@@ -24,7 +24,7 @@ void func_80028158(void) {
 
     if ((func_8002FBC0(M2C_FIELD(D_80109BB0, s32 *, 0x20)) & 0xFFFF) == 4) {
         if (func_800277E4(0x10) & 0xFF) {
-            func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+            func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         }
         if (D_80109BB0 != NULL) {
             temp_v0 = M2C_FIELD(D_80109BB0, void **, 0x10);

@@ -14,8 +14,8 @@ s32 func_80022DBC();
 s16 func_80022DE8();
 s32 func_80022E18();
 s32 func_80025F78();
-s32 func_80026004();
-s32 func_800262A8();
+s32 formatTextEntry();
+s32 findEntryById();
 void *func_8002638C();
 s32 func_80027A7C();
 s32 func_8002A644();
@@ -27,7 +27,7 @@ s32 func_8002B8AC();
 s32 func_8002B9CC();
 void *func_8002BA6C();
 s32 func_8002BC28();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_80044D28();
 void *func_80087100();
 s32 sprintf();
@@ -107,7 +107,7 @@ s32 __repair_phase_var_a0;
     temp_s7 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x65);
     temp_s6 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x64);
     temp_s5 = func_8002638C(((__repair_field_10 *)D_80109BB0)->value, 0x6A);
-    sp34 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0x400C);
+    sp34 = findEntryById(((__repair_field_10 *)D_80109BB0)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(D_800BD68E, 0x27, 0x2E, 0x3C, 0x98);
@@ -143,41 +143,41 @@ s32 __repair_phase_var_a0;
         func_8002AC04(D_8010A488, 1);
         func_8002ACB4(D_8010A488);
         temp_s0_3 = "%s";
-        func_80026004(temp_fp, temp_s0_3, func_8002BA6C(D_8010019C[D_801002AD].f0));
+        formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(D_8010019C[D_801002AD].f0));
         (*(void **)((char *)(temp_fp) + -0x18)) = (void *) (((u32)D_801002AD * 0x18) + (&D_801002AD - 0x111));
         func_80019E28(sp34);
         temp_s0_4 = &D_801002AD - 0x109;
-        func_80026004(temp_s7, temp_s0_3, (D_801002AD * 0x18) + temp_s0_4);
+        formatTextEntry(temp_s7, temp_s0_3, (D_801002AD * 0x18) + temp_s0_4);
         (*(void **)((char *)(temp_s7) + -0x18)) = (void *) ((D_801002AD * 0x18) + temp_s0_4);
         temp_v1 = D_801002AD * 0x18;
         D_80104311 = D_801001A0[D_801002AD].f0 / 10;
-        func_80026004(temp_s6, "%d", (void *) D_801001A0[D_801002AD].f0);
+        formatTextEntry(temp_s6, "%d", (void *) D_801001A0[D_801002AD].f0);
         (*(void **)((char *)(temp_s5) + -0x18)) = (void *) ((D_801002AD * 0x18) + (&D_801002AD - 0x10B));
         temp_v1_2 = *(u16 *)(D_801001A2 + (D_801002AD * 0x18));
         switch (temp_v1_2) {
         case 0:
             var_a0 = 0xA;
-            func_80026004(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
             break;
         case 1:
             var_a0 = 9;
             {
-            func_80026004(temp_s5, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));break;}
         case 2:
             var_a0 = 0x6B;
             {
-            func_80026004(temp_s5, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));break;}
         case 3:
             var_a0 = 0x6C;
-            func_80026004(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
             break;
         case 4:
             var_a0 = 0x296;
-            func_80026004(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
             break;
         case 5:
             __repair_phase_var_a0 = 0x297;
-            func_80026004(temp_s5, "%s", func_80087100(__repair_phase_var_a0));
+            formatTextEntry(temp_s5, "%s", func_80087100(__repair_phase_var_a0));
             break;
         }
         if ((*(u8 *)((char *)(D_80109BB0) + 8)) != 1) {
@@ -224,8 +224,8 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s6, 0xD);
             func_80025F78(temp_s5 - 0x28, 0xD);
             func_80025F78(temp_s5, 0xD);
-            func_80026004(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (D_8010019C[D_801002AD].f0 * 0xC)) * 5));
-            func_80026004(temp_s5, "%s", func_80087100(0x13));
+            formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (D_8010019C[D_801002AD].f0 * 0xC)) * 5));
+            formatTextEntry(temp_s5, "%s", func_80087100(0x13));
         } else {
             (*(s8 *)((char *)(temp_s7) + -1)) = 3;
             (*(s8 *)((char *)(temp_fp) + -2)) = 5;
@@ -249,7 +249,7 @@ s32 __repair_phase_var_a0;
             (*(f32 *)((char *)(D_800B5B14) + 0x24)) = 1.25f;
             (*(f32 *)((char *)(D_800B5B14) + 0x28)) = 0.15f;
             (*(u8 *)((char *)(D_800B5B14) + 0x81)) = 0xFF;
-            func_8003E6EC(*D_800CA31C, D_800B5B14, 1);
+            actorLinkToSurface(*D_800CA31C, D_800B5B14, 1);
             (*(f32 *)((char *)(D_800B5B14) + 0x2C)) = -3.0f;
             func_8002B8AC();
             temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(D_8010019C[D_801002AD].f0) * 0xC));

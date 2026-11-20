@@ -20,7 +20,7 @@ extern s8 D_800BD690;
 extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
 extern s32 gBorderSkipFlag;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *volatile gAimAxisTable;
 extern void *D_80109BB0;
 
@@ -40,5 +40,5 @@ void func_80028458(void) {
     func_80011938(1, 1);
     func_80011938(2, 1);
     func_80011938(3, 1);
-    func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+    func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
 }

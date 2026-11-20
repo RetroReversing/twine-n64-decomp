@@ -20,7 +20,8 @@ extern M2C_UNK gVecUp;
 extern M2C_UNK gVecDown;
 extern M2C_UNK Ray_TriangleIntersect;
 
-/* Searches the list at listHead for the nearest surface above or below obj, then links obj into that surface's chain. */ s32 func_8003E6EC(void *listHead, void *obj, u8 flagIfUnlinked) {
+/* Searches surfaceList for the nearest surface above or below actor, then links actor into that surface's chain. Returns 1 if linked. */
+s32 actorLinkToSurface(void *surfaceList, void *actor, u8 flagIfUnlinked) {
     s16 rot[3];
     M2C_UNK mtx[12];
     f32 pos[3];
@@ -32,7 +33,6 @@ extern M2C_UNK Ray_TriangleIntersect;
     f32 curDist;
     f32 bestAboveDist;
     f32 bestBelowDist;
-    f32 var_fv0;
     f32 dist;
     void *bounds;
     void *bounds2;
@@ -45,35 +45,35 @@ extern M2C_UNK Ray_TriangleIntersect;
 
     bestAboveDist = 65536.0f;
     bestAbove = NULL;
-    bounds = M2C_FIELD(obj, void **, 0x70);
+    bounds = M2C_FIELD(actor, void **, 0x70);
     bestBelow = NULL;
-    cur = listHead;
+    cur = surfaceList;
     flagCopy = flagIfUnlinked;
     bestBelowDist = 65536.0f;
     if (bounds != NULL) {
         pos[0] = (M2C_FIELD(bounds, f32 *, 0x18) + M2C_FIELD(bounds, f32 *, 0x1C)) * 0.5f;
-        bounds2 = M2C_FIELD(obj, void **, 0x70);
+        bounds2 = M2C_FIELD(actor, void **, 0x70);
         pos[1] = (M2C_FIELD(bounds2, f32 *, 0x20) + M2C_FIELD(bounds2, f32 *, 0x24)) * 0.5f;
-        bounds3 = M2C_FIELD(obj, void **, 0x70);
+        bounds3 = M2C_FIELD(actor, void **, 0x70);
         pos[2] = (M2C_FIELD(bounds3, f32 *, 0x28) + M2C_FIELD(bounds3, f32 *, 0x2C)) * 0.5f;
-        rot[0] = (s16) (s32) M2C_FIELD(obj, f32 *, 0x3C);
-        rot[1] = (s16) (s32) M2C_FIELD(obj, f32 *, 0x40);
-        rot[2] = (s16) (s32) M2C_FIELD(obj, f32 *, 0x44);
+        rot[0] = (s16) (s32) M2C_FIELD(actor, f32 *, 0x3C);
+        rot[1] = (s16) (s32) M2C_FIELD(actor, f32 *, 0x40);
+        rot[2] = (s16) (s32) M2C_FIELD(actor, f32 *, 0x44);
         func_80082FE4(rot, mtx);
         func_80083A6C(mtx, pos);
-        pos[0] += M2C_FIELD(obj, f32 *, 0x24);
-        pos[1] += M2C_FIELD(obj, f32 *, 0x28);
-        pos[2] += M2C_FIELD(obj, f32 *, 0x2C);
+        pos[0] += M2C_FIELD(actor, f32 *, 0x24);
+        pos[1] += M2C_FIELD(actor, f32 *, 0x28);
+        pos[2] += M2C_FIELD(actor, f32 *, 0x2C);
     } else {
-        pos[0] = M2C_FIELD(obj, f32 *, 0x24);
-        pos[1] = M2C_FIELD(obj, f32 *, 0x28);
-        pos[2] = M2C_FIELD(obj, f32 *, 0x2C);
+        pos[0] = M2C_FIELD(actor, f32 *, 0x24);
+        pos[1] = M2C_FIELD(actor, f32 *, 0x28);
+        pos[2] = M2C_FIELD(actor, f32 *, 0x2C);
     }
     if (cur != NULL) {
         f32 *point = pos;
         normOut = upA;
         do {
-            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(cur + 0x40, point, M2C_FIELD(obj, f32 *, 0x64)) << 0x18) != 0) && ((Probe_BoundsContainPoint(point, cur) << 0x18) != 0)) {
+            if ((M2C_FIELD(cur, u16 *, 0x58) == 0x46) && ((Sphere_OverlapsPoint(cur + 0x40, point, M2C_FIELD(actor, f32 *, 0x64)) << 0x18) != 0) && ((Probe_BoundsContainPoint(point, cur) << 0x18) != 0)) {
                 __builtin_memcpy(upA, &gVecUp, 12);
                 __builtin_memcpy(upB, &gVecDown, 12);
                 curDist = M2C_FIELD(cur, f32 *, 0x4C);
@@ -103,29 +103,29 @@ extern M2C_UNK Ray_TriangleIntersect;
     if (bestAbove != NULL) {
         oldHead = M2C_FIELD(bestAbove, void **, 0);
         if (oldHead != NULL) {
-            M2C_FIELD(oldHead, void **, 4) = obj;
+            M2C_FIELD(oldHead, void **, 4) = actor;
         }
-        M2C_FIELD(obj, void **, 0) = M2C_FIELD(bestAbove, void **, 0);
-        M2C_FIELD(obj, void **, 4) = bestAbove;
-        M2C_FIELD(bestAbove, void **, 0) = obj;
+        M2C_FIELD(actor, void **, 0) = M2C_FIELD(bestAbove, void **, 0);
+        M2C_FIELD(actor, void **, 4) = bestAbove;
+        M2C_FIELD(bestAbove, void **, 0) = actor;
         M2C_FIELD(bestAbove, s32 *, 4) = 0;
-        M2C_FIELD(obj, void **, 0x20) = bestAbove;
+        M2C_FIELD(actor, void **, 0x20) = bestAbove;
         return 1;
     }
     if (bestBelow != NULL) {
         oldHead2 = M2C_FIELD(bestBelow, void **, 0);
         if (oldHead2 != NULL) {
-            M2C_FIELD(oldHead2, void **, 4) = obj;
+            M2C_FIELD(oldHead2, void **, 4) = actor;
         }
-        M2C_FIELD(obj, void **, 0) = M2C_FIELD(bestBelow, void **, 0);
-        M2C_FIELD(obj, void **, 4) = bestBelow;
-        M2C_FIELD(bestBelow, void **, 0) = obj;
+        M2C_FIELD(actor, void **, 0) = M2C_FIELD(bestBelow, void **, 0);
+        M2C_FIELD(actor, void **, 4) = bestBelow;
+        M2C_FIELD(bestBelow, void **, 0) = actor;
         M2C_FIELD(bestBelow, s32 *, 4) = 0;
-        M2C_FIELD(obj, void **, 0x20) = bestBelow;
+        M2C_FIELD(actor, void **, 0x20) = bestBelow;
         return 1;
     }
     if ((flagCopy << 0x18) != 0) {
-        M2C_FIELD(obj, s32 *, 0x60) = (s32) (M2C_FIELD(obj, s32 *, 0x60) | 1);
+        M2C_FIELD(actor, s32 *, 0x60) = (s32) (M2C_FIELD(actor, s32 *, 0x60) | 1);
     }
     return 0;
 }

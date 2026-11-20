@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000A894();
-s32 func_80026004();
+s32 formatTextEntry();
 s32 func_8002638C();
 s32 func_80027A7C();
 s32 func_80027C60();
@@ -83,7 +83,7 @@ void func_80018E38(void) {
 block_40:
                 temp_v0 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x65);
                 if (temp_v0 != 0) {
-                    func_80026004(temp_v0);
+                    formatTextEntry(temp_v0);
                 }
                 M2C_FIELD(D_800BF5A0, s8 *, 0xF) = 1;
                 func_8000A894(0xE8);

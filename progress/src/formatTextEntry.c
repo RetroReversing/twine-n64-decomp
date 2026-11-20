@@ -17,7 +17,7 @@ s32 func_80087100();
 s16 strlen();
 extern s32 func_80025D50;
 
-void func_80026004(void *arg0, s32 arg1, ...) {
+void formatTextEntry(void *arg0, s32 arg1, ...) {
     char *__repair_ap;
     s32 temp_v0;
     void *temp_s0;

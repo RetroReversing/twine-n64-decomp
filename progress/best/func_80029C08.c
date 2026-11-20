@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_8000A894();
-void *func_800262A8();
+void *findEntryById();
 void *func_80026314();
 s32 func_80027CE0();
 s32 func_8002AAD4();
@@ -60,9 +60,9 @@ s32 __repair_phase_temp_s0;
     {
         temp_s6 = (*(u8 *)((char *)(arg0) + 0x18));
         if (!(arg2 & 0xFF)) {
-            var_s4 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0xAC);
-            var_s3 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 0xAB);
-            var_v0 = func_800262A8(((__repair_field_10 *)D_80109BB0)->value, 4);
+            var_s4 = findEntryById(((__repair_field_10 *)D_80109BB0)->value, 0xAC);
+            var_s3 = findEntryById(((__repair_field_10 *)D_80109BB0)->value, 0xAB);
+            var_v0 = findEntryById(((__repair_field_10 *)D_80109BB0)->value, 4);
             var_a1 = arg1 & 0xFF;
         } else {
             var_s4 = func_80026314(((__repair_field_10 *)D_80109BB0)->value, 0xAC, 2);

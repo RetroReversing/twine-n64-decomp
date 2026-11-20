@@ -14,19 +14,19 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800278AC(M2C_UNK, M2C_UNK, u16);       /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002D7C0();                            /* extern */
 M2C_UNK func_80086DA0(u16);                         /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_8001E3BC(void) {
-    func_80029068();
+    updateActiveMenuState();
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) {
         func_80086DA0(M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x18), u16 *, 0x16));
         func_8002D7C0();
         M2C_FIELD(D_80109BB0, u8 *, 0x2C) = 0U;
-        func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
-        func_800278AC(0, 0, M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+        func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+        func_800278AC(0, 0, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     }
 }

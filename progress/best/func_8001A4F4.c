@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80026004(s32, M2C_UNK *, s32);         /* extern */
+M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 func_8002638C(s32, M2C_UNK);                    /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
 extern u8 D_801002A0;
 extern s8 D_801002A1;
@@ -34,7 +34,7 @@ void func_8001A4F4(void) {
     
 
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2F) == 0) {
-        func_80029068();
+        updateActiveMenuState();
     }
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         temp_v0 = func_8002638C(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x5D);
@@ -43,27 +43,27 @@ void func_8001A4F4(void) {
             temp_s1 = temp_v0 + 0x28;
             switch (D_801002A0) {
             case 0:
-                func_80026004(temp_v0, "%s", func_80087100(0x81));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x81));
                 var_a0 = 0x8A;
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 1:
                 D_801002A1 = 1;
-                func_80026004(temp_v0, "%s", func_80087100(0x82));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x82));
                 var_a0 = 0x8B;
                 {
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));break;}
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));break;}
             case 2:
                 D_801002A1 = 1;
-                func_80026004(temp_v0, "%s", func_80087100(0x84));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x84));
                 var_a0 = 0x8D;
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 3:
                 D_801002A1 = 1;
                 temp_s0 = "%s";
-                func_80026004(temp_v0, temp_s0, func_80087100(0x85));
-                func_80026004(temp_s1, temp_s0, func_80087100(0x8E));
+                formatTextEntry(temp_v0, temp_s0, func_80087100(0x85));
+                formatTextEntry(temp_s1, temp_s0, func_80087100(0x8E));
                 if (D_80112F80 == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
@@ -79,15 +79,15 @@ block_25:
                 }
                 break;
             case 4:
-                func_80026004(temp_v0, "%s", func_80087100(0x83));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x83));
                 var_a0 = 0x8C;
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 5:
                 D_801002A1 = 1;
                 temp_s0_2 = "%s";
-                func_80026004(temp_v0, temp_s0_2, func_80087100(0x182));
-                func_80026004(temp_s1, temp_s0_2, func_80087100(0x183));
+                formatTextEntry(temp_v0, temp_s0_2, func_80087100(0x182));
+                formatTextEntry(temp_s1, temp_s0_2, func_80087100(0x183));
                 if (D_80112F7F == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {
@@ -100,19 +100,19 @@ block_25:
                 break;
             case 6:
                 D_801002A1 = 1;
-                func_80026004(temp_v0, "%s", func_80087100(0x87));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x87));
                 var_a0 = 0x90;
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));
                 break;
             case 7:
-                func_80026004(temp_v0, "%s", func_80087100(0x86));
+                formatTextEntry(temp_v0, "%s", func_80087100(0x86));
                 var_a0 = 0x8F;
                 {
-                func_80026004(temp_s1, "%s", func_80087100(var_a0));break;}
+                formatTextEntry(temp_s1, "%s", func_80087100(var_a0));break;}
             case 8:
                 temp_s0_3 = "%s";
-                func_80026004(temp_v0, temp_s0_3, func_80087100(0x88));
-                func_80026004(temp_s1, temp_s0_3, func_80087100(0x91));
+                formatTextEntry(temp_v0, temp_s0_3, func_80087100(0x88));
+                formatTextEntry(temp_s1, temp_s0_3, func_80087100(0x91));
                 if (D_80112F81 == 0) {
                     M2C_FIELD(D_80109BB0, u8 *, 0x2F) = 1U;
                     if (func_80027CE0(0x21) & 0xFF) {

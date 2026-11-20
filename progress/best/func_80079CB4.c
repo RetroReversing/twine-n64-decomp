@@ -9,7 +9,7 @@ s32 func_80017490();
 s32 func_8001751C();
 s32 func_8002BA9C();
 s32 func_800312F4();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 s32 func_80045CF8();
 s32 func_80077960();
 s32 func_800779C4();
@@ -381,7 +381,7 @@ block_76:
                     func_80077960(var_s1, 0x27);
                     return var_s1;
                 }
-                func_8003E6EC(*D_800CA31C, var_s1, 1);
+                actorLinkToSurface(*D_800CA31C, var_s1, 1);
                 func_80077960(var_s1, 0x26);
                 temp_v0_2 = (*(u8 *)((char *)(temp_s0) + 0x82));
                 var_s2 = 1;
@@ -393,12 +393,12 @@ block_76:
                 case 44:
                 default:                            /* switch 2 */
                     var_a1_2 = 1;
-block_110:
                     func_80077960(var_s1, var_a1_2);
                     break;
                 case 15:                            /* switch 2 */
                     var_a1_2 = 0x42;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 6:                             /* switch 2 */
                 case 8:                             /* switch 2 */
                     func_80002BD0(var_s1, 0x2C4);
@@ -420,7 +420,8 @@ block_94:
                     var_a1_2 = 3;
                     (*(s16 *)((char *)(var_s1) + 0x7C)) = 0xA;
                     (*(s8 *)((char *)(temp_s0) + 0x7F)) = 0xA;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 21:                            /* switch 2 */
                     var_s2 = 0;
                     if ((*(u8 *)((char *)(temp_s0) + 0x84)) == 0) {
@@ -436,7 +437,8 @@ block_94:
                     var_s2 = 0;
                     func_80002BD0(var_s1, 0x330);
                     var_a1_2 = 0x89;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 28:                            /* switch 2 */
                     if (func_800312F4(1, 0) == 2) {
                         (*(s32 *)((char *)(var_s1) + 0x60)) |= 1;
@@ -446,29 +448,37 @@ block_94:
                 case 43:                            /* switch 2 */
                     func_800779C4(var_s1);
                     var_a1_2 = 0x3E;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 31:                            /* switch 2 */
                     func_80002BD0(var_s1, 0x1FE);
                     var_a1_2 = 0x77;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 23:                            /* switch 2 */
                     var_a1_2 = 0x58;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 26:                            /* switch 2 */
                     var_a1_2 = 0x65;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 24:                            /* switch 2 */
                     var_a1_2 = 0x4C;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 25:                            /* switch 2 */
                     var_a1_2 = 0x59;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 41:                            /* switch 2 */
                     var_a1_2 = 0x66;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 case 37:                            /* switch 2 */
                     var_a1_2 = 0x7E;
-                    goto block_110;
+                    func_80077960(var_s1, var_a1_2);
+                    break;
                 }
                 if ((*(void **)((char *)(var_s1) + 0x20)) == NULL) {
                     goto block_112;

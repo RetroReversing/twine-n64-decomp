@@ -147,7 +147,7 @@ block_34:
                                 if (temp_s3_2 == 0) {
                                     var_a2 = 0xC;
                                 }
-                                do { sprintf(D_8011F170, D_8011EFE0, var_a2, temp_s5, temp_s0_4, temp_v0_5); } while (0);
+                                { sprintf(D_8011F170, D_8011EFE0, var_a2, temp_s5, temp_s0_4, temp_v0_5); }
                                 func_80073AF8(0, D_8010969C, D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
                             }
                             temp_s1 = temp_v1 & 0xFF;
@@ -174,7 +174,7 @@ block_34:
                     goto loop_6;
                 }
                 temp_s3_3 = func_80087100((-(temp_s0 != 0) & 0x6F) | 0x6E);
-                temp_s0_6 = func_80087100(0x28E);
+                temp_v0_5 = func_80087100(0x28E);
                 var_a0_3 = 0x290;
                 if (D_801002A0 == 2) {
                     var_a0_3 = 0x28F;
@@ -184,7 +184,7 @@ block_34:
                 if (temp_s0 == 0) {
                     var_a2_2 = 0xC;
                 }
-                sprintf(D_8011F170, D_8011EFE0, var_a2_2, temp_s3_3, temp_s0_6, temp_v0_7);
+                sprintf(D_8011F170, D_8011EFE0, var_a2_2, temp_s3_3, temp_v0_5, temp_v0_7);
                 func_8000A894(0x219);
                 func_80073AF8(0, D_8010969C, D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
                 temp_v0_7 = temp_s0 * 0xC;

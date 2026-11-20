@@ -18,7 +18,7 @@ M2C_UNK func_800266DC(M2C_UNK *);                   /* extern */
 M2C_UNK func_800269B4(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 extern M2C_UNK D_800BD7E4;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *volatile gAimAxisTable;
 extern s32 D_80109BB0;
 
@@ -33,5 +33,5 @@ void func_80028530(void) {
     func_80011938(1, 1);
     func_80011938(2, 1);
     func_80011938(3, 1);
-    func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+    func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
 }

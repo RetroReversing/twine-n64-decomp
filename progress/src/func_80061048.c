@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 void *func_80016410();
-s32 func_8003E6EC();
+s32 actorLinkToSurface();
 extern u16 D_800C7BE2[];
 extern char D_800C7C31[];
 extern char D_800C7C35[];
@@ -31,6 +31,6 @@ void func_80061048(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
         (*(s16 *)((char *)(temp_v0) + 0x78)) = arg0;
         (*(u8 *)((char *)(temp_a0) + 0x22)) = arg6;
-        func_8003E6EC(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
     }
 }

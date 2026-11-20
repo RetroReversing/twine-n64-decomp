@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_800262A8(s32, M2C_UNK);                  /* extern */
+void *findEntryById(s32, M2C_UNK);                  /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 extern u8 D_801002AC;
 extern u8 D_80102EDD;
@@ -29,7 +29,7 @@ void func_800281E0(void) {
                 if (func_80027C60(0x23) & 0xFF) {
                     M2C_FIELD(D_80109BB0, s8 *, 0x2C) = 1;
                     if (M2C_FIELD(D_80109BB0, void **, 0x18) != NULL) {
-                        M2C_FIELD(D_80109BB0, void **, 0x18) = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0xC), 0xE);
+                        M2C_FIELD(D_80109BB0, void **, 0x18) = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0xC), 0xE);
                     }
                 }
                 goto block_7;

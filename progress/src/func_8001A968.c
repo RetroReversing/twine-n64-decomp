@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80026004(s32, M2C_UNK *, u8);          /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK formatTextEntry(s32, M2C_UNK *, u8);          /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
 extern u8 D_801002AD;
@@ -22,10 +22,10 @@ extern void *D_80109BB0;
 
 void func_8001A968(void) {
     u8 *__base_D_801002AD;
-    do { func_80029068(); } while (0);
+    do { updateActiveMenuState(); } while (0);
     if (M2C_FIELD(D_80109BB0, u8 *, 0x2D) != 0) {
         __base_D_801002AD = &D_801002AD;
         D_801001A0[(*__base_D_801002AD)].f0 = D_80104311 * 0xA;
-        func_80026004(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%d", D_801001A0[(*__base_D_801002AD)].f0);
+        formatTextEntry(M2C_FIELD(D_80109BB0, s32 *, 0x18) + 0x28, "%d", D_801001A0[(*__base_D_801002AD)].f0);
     }
 }

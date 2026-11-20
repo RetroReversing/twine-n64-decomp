@@ -17,7 +17,7 @@ M2C_UNK func_80026424(s32, u16);                    /* extern */
 s16 func_8002D218();                                /* extern */
 extern u16 D_800BD68C;
 extern M2C_UNK D_80100910;
-extern s32 D_80102F2C;
+extern s32 sActiveMenu;
 
 void func_80028E6C(void) {
     s32 temp_v1;
@@ -26,6 +26,6 @@ void func_80028E6C(void) {
     if (!((temp_v1 != 0x80))) return;
 if (!((temp_v1 == 0xFF))) return;
 {
-        func_80026424(D_80102F2C, D_800BD68C);
+        func_80026424(sActiveMenu, D_800BD68C);
     }
 }

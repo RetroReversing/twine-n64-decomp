@@ -14,7 +14,7 @@ extern s32 D_80108F78;
 extern void *D_80108F84;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
-void func_800794C0(s32 arg0, void *actor) {
+/* Per-frame ground probe for an actor: sweeps the actor down against the floor, snaps it to the surface, and updates its motion and body flags. */ void UpdateActorGroundProbe(s32 arg0, void *actor) {
     union {
         unsigned char bytes[96];
         struct { f32 value; } view_sp30;

@@ -95,7 +95,7 @@ void func_800358D4(void *arg0) {
     f32 temp_fv0_2;
     f32 temp_fv0_3;
     f32 temp_fv0_4;
-    f32 var_fs0;
+    void *temp_v1_2;
     f32 var_fs1;
     f32 var_fv0;
     s32 *temp_a0;
@@ -104,15 +104,15 @@ void func_800358D4(void *arg0) {
     s32 var_s4;
     register s32 var_v0;
     u32 temp_v0_2;
-    s32 var_a1;
+    unsigned var_a1;
     s32 temp_v1_3;
     u8 temp_v0;
     void *temp_a1;
-    void *temp_a1_2;
-    void *temp_v0_4;
     void *temp_v1_6;
+    void *temp_v0_4;
+    void *temp_a1_2;
     void *temp_v1;
-    void *temp_v1_2;
+    f32 var_fs0;
     void *temp_v1_4;
     void *temp_v1_5;
     u32 temp_v0_3;
@@ -188,8 +188,8 @@ block_10:
                                     m2c_initial_frame.view_sp64.value = 0.0f;
                                     m2c_initial_frame.view_sp68.value = 25.0f;
                                     m2c_initial_frame.view_sp28.value *= temp_fv0_3;
-                                    m2c_initial_frame.view_sp2C.value *= temp_fv0_3;
                                     m2c_initial_frame.view_sp30.value *= temp_fv0_3;
+                                    m2c_initial_frame.view_sp2C.value *= temp_fv0_3;
                                     func_800452E0(&m2c_initial_frame.view_sp60.value, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp70.value);
                                     for (;;) {
                                         func_80047B14(&m2c_initial_frame.view_sp70.value, *((s32 *)((s8 *)&D_800C0670 + var_s4)), &m2c_initial_frame.view_sp80.value);

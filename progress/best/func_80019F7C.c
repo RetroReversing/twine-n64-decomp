@@ -5,11 +5,11 @@ s32 func_8000237C();
 s32 func_80002BD0();
 s32 func_80002D30();
 s32 func_80019E28();
-s32 func_80026004();
-void *func_800262A8();
+s32 formatTextEntry();
+void *findEntryById();
 s32 func_80027C60();
 s32 func_80027CE0();
-s32 func_80029068();
+s32 updateActiveMenuState();
 s32 func_8002B8AC();
 s32 func_8002B930();
 s32 func_8002B9CC();
@@ -45,9 +45,9 @@ void func_80019F7C(void) {
     register void *temp_s3;
     void *temp_s4;
 
-    temp_s4 = func_800262A8((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x400C);
+    temp_s4 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x400C);
     temp_s0 = (*(void **)((char *)(D_80109BB0) + 0x18));
-    do { func_80029068(); } while (0);
+    do { updateActiveMenuState(); } while (0);
     var_s1 = *(*(s32 **)((char *)(temp_s0) + 0x10));
     temp_s3 = (void *)(temp_s0); temp_s3 = (void *)((char *)temp_s3 + (s32)(0x28));
     if (((*(u8 *)((char *)(D_80109BB0) + 0x2D)) != 0) && ((*(u8 *)((char *)(D_80109BB0) + 0x2E)) == 0)) {
@@ -114,14 +114,14 @@ block_11:
         } else {
 block_21:
             if (temp_s3 != NULL) {
-                func_80026004(temp_s3, D_800D2864, func_8002BA6C(var_s1));
+                formatTextEntry(temp_s3, D_800D2864, func_8002BA6C(var_s1));
             }
             if (temp_s4 != NULL) {
                 func_80019E28(temp_s4);
             }
             if (D_801002AD > D_801002B8) {
-                temp_s4 = func_800262A8((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4004);
-func_80026004(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(D_8010019C + (D_801002AD * 0x18)) * 0xC)) * 5);
+                temp_s4 = findEntryById((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0x4004);
+formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(D_8010019C + (D_801002AD * 0x18)) * 0xC)) * 5);
             }
         }
     }

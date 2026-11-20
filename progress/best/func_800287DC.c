@@ -22,7 +22,7 @@ extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern char D_800BD8C4[];
 extern s32 D_80102EBC;
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 
 void func_800287DC(void) {
@@ -98,8 +98,8 @@ s32 __repair_operand;
         var_v0_2 = 0x96;
         goto block_23;
     }
-    __base_D_80102F2C = &D_80102F2C;
-    temp_v0_3 = M2C_FIELD(D_80102F2C, s16 *, 0x7C);
+    __base_D_80102F2C = &sActiveMenu;
+    temp_v0_3 = M2C_FIELD(sActiveMenu, s16 *, 0x7C);
     if (temp_v0_3 == 0) {
         func_80026424((*__base_D_80102F2C), 0x17);
         M2C_FIELD(D_80109BB0, u16 *, 0x32) = 0U;
@@ -107,5 +107,5 @@ s32 __repair_operand;
     }
     var_v0_2 = temp_v0_3 - 1;
 block_23:
-    M2C_FIELD(D_80102F2C, s16 *, 0x7C) = var_v0_2;
+    M2C_FIELD(sActiveMenu, s16 *, 0x7C) = var_v0_2;
 }

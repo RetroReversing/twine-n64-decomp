@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80016410(M2C_UNK, s32, M2C_UNK);         /* extern */
-M2C_UNK func_8003E6EC(s32, void *, M2C_UNK);        /* extern */
+M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 s32 func_80048F10(s32, void *, M2C_UNK *, M2C_UNK *, f32, s32, s32, s32); /* extern */
 extern s32 *D_800CA31C;
 extern s32 D_80103F00;
@@ -38,7 +38,7 @@ s32 func_80060C50(s32 arg0, void *arg1) {
         M2C_FIELD(temp_v0, s16 *, 0x7C) = (s16) (M2C_FIELD(arg1, u16 *, 0x2C) + 1);
         temp_s1 = M2C_FIELD(temp_v0, void **, 0x6C);
         ((__repair_record_temp_s1*)temp_s1)->field_0 = (f32) (((f32) M2C_FIELD(arg1, u16 *, 0x2E) * 0.1f) + 1.0f);
-        func_8003E6EC(*D_800CA31C, temp_v0, 1);
+        actorLinkToSurface(*D_800CA31C, temp_v0, 1);
         ((__repair_record_temp_s1*)temp_s1)->field_4 = (f32) (M2C_FIELD(temp_v0, f32 *, 0x28) - 150.0f);
         if ((func_80048F10(M2C_FIELD(temp_v0, s32 *, 0x20), temp_v0 + 0x24, &m2c_initial_frame.view_sp20.value, &m2c_initial_frame.view_sp30.value, 150.0f, 0, 0, 0) << 0x18) != 0) {
             ((__repair_record_temp_s1*)temp_s1)->field_4 = m2c_initial_frame.view_sp24.value;

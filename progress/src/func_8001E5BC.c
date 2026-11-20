@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800192E8(s8 *);                        /* extern */
-M2C_UNK func_80026004(s32, M2C_UNK *, s32);         /* extern */
-s32 func_800262A8(s32, M2C_UNK);                    /* extern */
+M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
+s32 findEntryById(s32, M2C_UNK);                    /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
-M2C_UNK func_80029068();                            /* extern */
+M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_80087100(u16);                             /* extern */
 extern void *D_80109BB0;
 
@@ -28,11 +28,11 @@ void func_8001E5BC(void) {
 
     temp_v1 = M2C_FIELD(D_80109BB0, u16 **, 0x18);
     M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
-    temp_v0 = func_800262A8(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
+    temp_v0 = findEntryById(M2C_FIELD(D_80109BB0, s32 *, 0x10), 0x4000);
     if (temp_v0 != 0) {
-        func_80026004(temp_v0, "%s", func_80087100(*M2C_FIELD(D_80109BB0, u16 **, 0x18)));
+        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(D_80109BB0, u16 **, 0x18)));
     }
-    func_80029068();
+    updateActiveMenuState();
     if ((M2C_FIELD(D_80109BB0, u8 *, 0x2C) != 0) || (func_80027C60(0x23) & 0xFF)) {
         temp_v1_2 = M2C_FIELD(D_80109BB0, u16 **, 0x18);
         temp_a0 = M2C_FIELD(temp_v1_2, s8 **, 0x10);

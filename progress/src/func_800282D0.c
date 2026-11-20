@@ -16,7 +16,7 @@ s32 func_80027848(M2C_UNK);                         /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 s32 func_8002FBC0(s32);                             /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
-extern void *D_80102F2C;
+extern void *sActiveMenu;
 extern void *D_80109BB0;
 extern s32 D_80109D18;
 
@@ -34,6 +34,6 @@ void func_800282D0(void) {
         temp_v0();
     }
     if ((func_80027848(0x20) & 0xFF) && ((func_8002FBC0(((__repair_field_20 *)D_80109BB0)->value) & 0xFFFF) == 2)) {
-        func_80027D60(M2C_FIELD(D_80102F2C, u16 *, 0x7A));
+        func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     }
 }

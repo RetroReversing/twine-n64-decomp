@@ -1,10 +1,22 @@
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 struct vec { f32 x,y,z; };
 extern u16 D_800B35B0;
 s8 Ray_CastObjects(void *, void *, f32 *, f32 *, f32 *, f32, s32, s32, s32);
-s32 func_8004F990(void *, f32 *, f32 *, s32, f32 *, s32, s32, s32);
+s32 func_8004F990();
 f32 Vec3_DistanceSq(f32 *, f32 *);
-f32 func_80045764(f32 *, f32 *);
-void *func_80047B44(void *, f32 *, f32 *, f32 *);
+f32 func_80045764();
+void *func_80047B44();
 extern void func_8004D910(void);
 #define FIELD(p,t,o) (*(t *)((s8 *)(p)+(o)))
 s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
@@ -27,7 +39,7 @@ s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32
     goto __shared_return_0;
    }
   }
-  obj=func_80047B44(obj,p,d,out);
+  obj=func_80047B44(obj,p,d);
   if(!obj)return 1;
   *(struct vec *)p=*(struct vec *)out;
   obj=FIELD(obj,void*,8);
