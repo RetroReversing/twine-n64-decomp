@@ -22,7 +22,7 @@ again:        {
             offset = index * 0x1A0;
             if (*(s32 *)((s8 *)&D_8010D784 + offset) != handle) goto unlock;
             if (*(s32 *)((s8 *)&D_8010D748 + offset) & 2) {
-                func_80095A80(0x5B, index, *(&D_8010D779 + offset), parameter);
+                do { func_80095A80(0x5B, index, *(&D_8010D779 + offset), parameter); } while (0);
             } else {
                 func_80095A80(0x5B, index, *(&D_8010D76F + index * 0x1A0), parameter);
             }
