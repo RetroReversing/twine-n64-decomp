@@ -34,13 +34,14 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 var_v0;
+    s8 *message = &D_800E416C;
 
     D_800E41D8 = 0;
     func_8008C08C();
     D_8010086C = (arg3 >> 0x14) & 1;
-    D_800E416C = 1;
+    *message = 1;
     osCreateMesgQueue(&D_800E4144, &D_800E415C, 4);
-    osSetEventMesg(6, &D_800E4144, &D_800E416C);
+    osSetEventMesg(6, (M2C_UNK *)((u32)&D_800E415C - 0x18), message);
     temp_v0 = osAiSetFrequency(*arg0);
     D_800E41D4 = temp_v0;
     *arg0 = temp_v0;
@@ -54,7 +55,10 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
         if (!(arg3 & 0x20000)) {
             var_v0 = 4;
             if (!(arg3 & 0x40000)) {
-                var_v0 = (arg3 & 0x80000) == 0;
+                var_v0 = 0;
+                if (!(arg3 & 0x80000)) {
+                    var_v0++;
+                }
             }
         }
     }

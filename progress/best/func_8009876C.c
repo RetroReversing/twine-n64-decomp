@@ -48,9 +48,10 @@ void func_8009876C(void *arg0) {
                 (*(s32 ***)((char *)(temp_v1_3) + 4)) = (s32 **) (*(s32 ***)((char *)(temp_v0_3) + 4));
             }
             __repair_hoisted = (*(s32 **)((char *)(arg0) + 0x18));
-            (*(s32 **)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 0)) = D_800FDB78;
-            if (D_800FDB78 != NULL) {
-                (*(s32 **)((char *)(D_800FDB78) + 4)) = (s32 *) __repair_hoisted;
+            temp_v1_3 = D_800FDB78;
+            (*(s32 **)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 0)) = temp_v1_3;
+            if (temp_v1_3 != NULL) {
+                (*(s32 **)((char *)(temp_v1_3) + 4)) = (s32 *) __repair_hoisted;
             }
             (*(s32 ***)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 4)) = NULL;
             D_800FDB78 = (*(s32 **)((char *)(arg0) + 0x18));

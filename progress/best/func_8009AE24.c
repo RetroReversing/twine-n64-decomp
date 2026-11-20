@@ -35,17 +35,21 @@ s32 func_8009AE24(Seq *s, Cmd *c, u8 op) {
     }
     switch (op) {
     case 0:
-        r = (s16)a == (s16)b;
+        r = (s16)b == (s16)a;
         break;
     case 1:
         r = (s16)a < (s16)b;
         break;
     }
-    if (((u8 *)c)[6] != 0) {
-        r = !r;
-    }
-    if (r) {
-        s->pc = s->base + (c->w1 >> 16) * 8;
+    {
+        u8 invert = ((u8 *)c)[6];
+        u32 dest = c->w1;
+        if (invert) {
+            r = !r;
+        }
+        if (r) {
+            s->pc = s->base + (dest >> 16) * 8;
+        }
     }
     return 0;
 }

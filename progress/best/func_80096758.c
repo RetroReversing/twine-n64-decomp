@@ -30,21 +30,36 @@ void func_80096758(s32 arg0, void *arg1, void *arg2) {
     temp_a3 = M2C_FIELD(arg2, u8 *, 0x63);
     temp_a2 = arg0 & 0xFF;
     if (temp_a2 < 0x40U) {
+        u8 *base = &D_800F2720;
+        s32 dst = (temp_v1 & 0xFF) * 0x86;
+        s32 src;
         temp_a1 = arg0 & 0x1F;
-        temp_v0 = ((temp_a3 & 0xFF) * 0x86) + &D_800F2720 + temp_a1;
-        temp_v1_2 = ((temp_v1 & 0xFF) * 0x86) + &D_800F2720 + temp_a1;
+        src = (temp_a3 & 0xFF) * 0x86;
+        temp_v0 = base + src + temp_a1;
+        temp_v1_2 = base + dst + temp_a1;
         M2C_FIELD(temp_v1_2, u8 *, 0) = (u8) M2C_FIELD(temp_v0, u8 *, 0);
         M2C_FIELD(temp_v1_2, u8 *, 0x20) = (u8) M2C_FIELD(temp_v0, u8 *, 0x20);
         return;
     }
     var_v0 = temp_v1 & 0xFF;
     if (((u32) ((arg0 + 0x80) & 0xFF) < 2U) || (var_v0 = temp_v1 & 0xFF, (((u32) ((arg0 + 0x7C) & 0xFF) < 2U) != 0))) {
+        u8 *base = &D_800F2720;
+        s32 dst = var_v0 * 0x86;
+        s32 src;
         temp_a1_2 = arg0 & 0xFE;
-        temp_v0_2 = ((temp_a3 & 0xFF) * 0x86) + &D_800F2720 + temp_a1_2;
-        temp_v1_3 = (var_v0 * 0x86) + &D_800F2720 + temp_a1_2;
+        src = (temp_a3 & 0xFF) * 0x86;
+        temp_v0_2 = base + src + temp_a1_2;
+        temp_v1_3 = base + dst + temp_a1_2;
         M2C_FIELD(temp_v1_3, u8 *, 0) = (u8) M2C_FIELD(temp_v0_2, u8 *, 0);
         M2C_FIELD(temp_v1_3, u8 *, 1) = (u8) M2C_FIELD(temp_v0_2, u8 *, 1);
         return;
     }
-    *((var_v0 * 0x86) + &D_800F2720 + temp_a2) = *(((temp_a3 & 0xFF) * 0x86) + &D_800F2720 + temp_a2);
+    {
+        u8 *base = &D_800F2720;
+        s32 dst = var_v0 * 0x86;
+        s32 src = (temp_a3 & 0xFF) * 0x86;
+        u8 *from = base + src + temp_a2;
+        u8 *to = base + dst + temp_a2;
+        *to = *from;
+    }
 }
