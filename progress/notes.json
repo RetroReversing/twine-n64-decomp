@@ -5912,14 +5912,6 @@
   "score_after": 340
  },
  {
-  "function": "func_800949B4",
-  "text": "Retain revision 16d43e3be314fc278567 at score 205. I removed the artificial 8-byte local array (312\u2192310) and changed the linked-list timestamp store to f32* (310\u2192205), which removed trunc.w.s and matched the target instruction count. The latest signedness-family trial (unsigned __repair_literal) worsened to 410; baseline retained. Remaining diff is exactly the early loop setup: target puts `move $a0,$v0` after the branch and before `move $v1,$zero`; current source emits `move $v1,$zero` before `lw $a2` and uses a different register for the saved count. The saved count/register liveness depends on restructuring the entry-count search, and the bounded declaration/signedness/local repair variants do not change it. Stop here due session context limit; next pass should rewrite the search loop to preserve D_800EDE74 in a0 before initializing the index, then judge.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795138344.336566,
-  "score_before": 310,
-  "score_after": 205
- },
- {
   "function": "func_800240A4",
   "text": "Verified baseline score 230. Six local repairs (storage reuse, inferred layout, signedness, declaration order, address temporary, literal) did not improve. Main difference: compiler folds ((-((temp_t0 & 0xFF) == 0) & 7) | 3) * 4 into masks 0x1c/0xc; target emits masks 7/3 then sll 2. Also target loads arg0+4 before storing D_800BD558, candidate after. Explore type or expression barriers for shift and scheduling.",
   "by": "codex-gpt-6.1-terra-8",
@@ -12696,14 +12688,6 @@
   "score_after": 530
  },
  {
-  "function": "func_800949B4",
-  "text": "Rechecked saved best at 205. Six independent local repairs (frame, storage reuse, record layout, branch orientation, lifetime reuse, signedness) did not improve it. Remaining mismatch is initial loop instruction ordering and register allocation: target loads arg0+0x38, copies count to a0, then zeroes v1; candidate zeroes v1 earlier and uses a different count register. Investigate loop count caching and lifetimes; cached repair proposals remain.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795178173.848877,
-  "score_before": 205,
-  "score_after": 205
- },
- {
   "function": "func_80092DD4",
   "text": "Current clean rewrite compiled at score 6930 versus saved historical best 820; do not use it as base. Baseline best/source should be recovered from get_candidate(saved_best). Structural facts: count is decremented before indexing 4-byte pointer table D_800EDAA4; each record has offset fields at +8..+0x18 pointing to sentinel-terminated u16 lists; second list traversed backward for func_80097B1C while others forward. My rewrite used wrong record offsets/list address shape (produced lhu +8($v0) instead of target lhu 0($s0)) and early returns distorted branch targets. Need follow best candidate's pointer/address expressions and loop forms.",
   "by": "codex-gpt-6-luna-19",
@@ -16470,5 +16454,21 @@
   "created_at": 1795181953.450171,
   "score_before": 45,
   "score_after": 45
+ },
+ {
+  "function": "func_800949B4",
+  "text": "Retain revision 16d43e3be314fc278567 at score 205. I removed the artificial 8-byte local array (312\u2192310) and changed the linked-list timestamp store to f32* (310\u2192205), which removed trunc.w.s and matched the target instruction count. The latest signedness-family trial (unsigned __repair_literal) worsened to 410; baseline retained. Remaining diff is exactly the early loop setup: target puts `move $a0,$v0` after the branch and before `move $v1,$zero`; current source emits `move $v1,$zero` before `lw $a2` and uses a different register for the saved count. The saved count/register liveness depends on restructuring the entry-count search, and the bounded declaration/signedness/local repair variants do not change it. Stop here due session context limit; next pass should rewrite the search loop to preserve D_800EDE74 in a0 before initializing the index, then judge.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795138344.336566,
+  "score_before": 310,
+  "score_after": 205
+ },
+ {
+  "function": "func_800949B4",
+  "text": "Rechecked saved best at 205. Six independent local repairs (frame, storage reuse, record layout, branch orientation, lifetime reuse, signedness) did not improve it. Remaining mismatch is initial loop instruction ordering and register allocation: target loads arg0+0x38, copies count to a0, then zeroes v1; candidate zeroes v1 earlier and uses a different count register. Investigate loop count caching and lifetimes; cached repair proposals remain.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178173.848877,
+  "score_before": 205,
+  "score_after": 205
  }
 ]
