@@ -5,7 +5,7 @@ s32 func_8003438C(s32, void *);                 /* extern */
 s32 func_80034560();                            /* extern */
 s32 func_80034630(s32, void *);                 /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
-s32 func_80038EE8();                            /* extern */
+s32 emit_projection_viewport_commands();                            /* extern */
 s32 func_800A37C0(s32 *, s32);              /* extern */
 s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern s32 D_800B1AC8;
@@ -40,7 +40,7 @@ void func_800371E0(void *arg0) {
         func_80034560();
         if (D_80112E40 != 0) {
             D_80112E40 = 0;
-            func_80038EE8();
+            emit_projection_viewport_commands();
         }
         if (D_8010A924 != 8) {
             __repair_phase_storage.pointer = D_80115328;

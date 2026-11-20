@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80034560();
 s32 func_80034928();
-s32 func_80038EE8();
+s32 emit_projection_viewport_commands();
 s32 func_80038FA4();
 extern char D_800B1AC8[];
 extern void *D_801002FC;
@@ -88,7 +88,7 @@ block_10:
         M2C_FIELD(temp_a0, s32 *, 0x14) = (s32) M2C_FIELD(D_80117728, s32 *, 0x1B68);
         if (temp_a1 != 0) {
             D_80112E40 = 0;
-            func_80038EE8(temp_a0, temp_a1, 0xFF);
+            emit_projection_viewport_commands(temp_a0, temp_a1, 0xFF);
         }
         ((__repair_field_0 *)D_8010A4B4)->value = 0xDF000000;
         M2C_FIELD(D_8010A4B4, s32 *, 4) = 0;

@@ -6,7 +6,7 @@ f32 func_80082908(f32 x) {
 
 extern u8 D_800CEEC0, D_800E2CC0;
 extern s32 D_800E2CE4;
-s32 func_8008845C(s32 id) {
+s32 isSlotActiveById(s32 id) {
     u32 i;
     s32 offset, index;
     if (D_800CEEC0 != 0) {
@@ -37,7 +37,7 @@ void func_8000CCE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
 extern void func_80034560(void *);
-extern void func_80038EE8(void);
+extern void emit_projection_viewport_commands(void);
 extern s32 D_801032A0, D_8010A920, D_8010A924, D_80112E40;
 extern u32 *D_8010A928, *D_80115328;
 extern u8 *D_80117728;
@@ -47,7 +47,7 @@ void func_80037BDC(void *window) {
     func_80034560(window);
     if (D_80112E40 != 0) {
         D_80112E40 = 0;
-        func_80038EE8();
+        emit_projection_viewport_commands();
     }
     head = D_8010A928;
     list = D_80115328;

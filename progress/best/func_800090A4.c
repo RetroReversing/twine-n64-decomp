@@ -20,7 +20,7 @@ s32 func_80008660();
 s32 func_80008750();
 s32 func_8000BF90();
 s32 func_8000C34C();
-s32 func_80038EE8();
+s32 emit_projection_viewport_commands();
 s32 func_80038FA4();
 s32 func_80039068();
 s32 func_8006F974();
@@ -164,7 +164,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                 }
             } else if (D_80112E40 != 0) {
                 D_80112E40 = 0;
-                func_80038EE8();
+                emit_projection_viewport_commands();
             }
             temp_v1_4 = M2C_FIELD(arg1, s32 *, 0x100);
             if (temp_v1_4 & 2) {
@@ -368,7 +368,7 @@ block_43:
                     default:
                         if (D_80112E40 != 0) {
                             D_80112E40 = 0;
-                            func_80038EE8(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
+                            emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
                         }
                         temp_v1_11 = ((__repair_field_58 *)arg0)->value;
                         if (temp_v1_11 & 0x40000) {

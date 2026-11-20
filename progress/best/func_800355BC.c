@@ -2,7 +2,7 @@
 
 s32 func_80032630(s32);                         /* extern */
 s32 func_8003438C(void *, void *);              /* extern */
-s32 func_80038EE8(void *);                      /* extern */
+s32 emit_projection_viewport_commands(void *);                      /* extern */
 extern s32 D_800B1AC8;
 extern s32 D_801032A0;
 extern void *D_80107E9C;
@@ -38,7 +38,7 @@ void func_800355BC(void *arg0) {
                             if (var_s3) {
                                 if (D_80112E40 != 0) {
                                     D_80112E40 = 0;
-                                    func_80038EE8(var_s2);
+                                    emit_projection_viewport_commands(var_s2);
                                 }
                                 if (D_8010A924 != 8) {
                                     temp_v1 = D_80115328;

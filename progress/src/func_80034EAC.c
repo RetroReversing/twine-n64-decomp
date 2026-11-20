@@ -9,7 +9,7 @@ s32 func_80034EAC(s32 i) {
 typedef struct Blk { struct Blk *prev; struct Blk *next; s32 size; } Blk;
 extern Blk *D_800E1AAC;
 
-void func_80083DBC(void) {
+void coalesce_adjacent_free_blocks(void) {
     Blk *b, *n;
     s32 merged;
     do {

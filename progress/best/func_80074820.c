@@ -11,7 +11,7 @@ extern s32 D_8010302C;
 extern s16 D_80112EBC;
 
 typedef struct { unsigned char pad_0[20]; float field_14; unsigned char pad_18[24]; short field_30; } __repair_record_temp_v0_5;
-void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
+void func_80074820(s32 arg0, s8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     char sp30[0x200];
     s8 sp230;
     f32 var_fv1;
@@ -32,7 +32,7 @@ s32 __repair_phase_temp_v1;
     s8 temp_v0_2;
     s8 var_v0;
 s8 __repair_result_var_v0;
-    register u8 *var_s0;
+    register s8 *var_s0;
     u8 var_a0;
     u8 var_v1;
     void **var_a0_3;

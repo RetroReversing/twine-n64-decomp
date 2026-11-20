@@ -98,7 +98,7 @@ typedef struct {
 
 u32 func_8001495C(void *, u32);
 
-void func_800148A4(Reader148 *reader) {
+void parse_edl_header(Reader148 *reader) {
     Header148 *header = reader->header;
     s32 format;
     s32 error;

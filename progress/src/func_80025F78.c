@@ -14,7 +14,7 @@ static inline s32 find_entry_8845C(s32 id)
     return -1;
 }
 
-s32 func_8008845C(s32 id)
+s32 isSlotActiveById(s32 id)
 {
     s32 index;
 

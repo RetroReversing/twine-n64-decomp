@@ -5,7 +5,7 @@ f32 func_8000550C(void *a, s32 i, s32 kind) {
  switch (kind) {
  case 0x15f: p = D_800D93C0; if (flag) p = D_800D9404; break;
  case 0x165: p = D_800D93CC; if (flag) p = D_800D9408; break;
- case 0x16b: p = D_800D93D8; break; default: p = 0; break;
+ default: p = 0; break; case 0x16b: p = D_800D93D8; break;
  }
  { s32 bad = (p == NULL) | (i == 0); f32 value;
  if (bad) value = 0.0f;

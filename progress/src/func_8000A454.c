@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80088040(s32, M2C_UNK, M2C_UNK, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800883CC(s32);                         /* extern */
-s32 func_8008845C(s32);                             /* extern */
+s32 isSlotActiveById(s32);                             /* extern */
 extern s32 D_800B2564;
 extern u8 D_801002F3;
 
@@ -25,7 +25,7 @@ s32 func_8000A454(s32 arg0, s32 arg1) {
         return -1;
     }
     if (D_800B2564 != -1) {
-        if (func_8008845C(D_800B2564) & 0xFF) {
+        if (isSlotActiveById(D_800B2564) & 0xFF) {
             func_800883CC(D_800B2564);
         }
     }

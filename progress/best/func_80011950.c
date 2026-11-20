@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80010590(s32);                         /* extern */
-M2C_UNK func_800105F8(s32);                         /* extern */
+M2C_UNK stop_controller_rumble(s32);                         /* extern */
 M2C_UNK func_80010690(s32);                         /* extern */
 M2C_UNK func_800107BC(s32);                         /* extern */
 M2C_UNK osContGetQuery(M2C_UNK *);                  /* extern */
@@ -163,7 +163,7 @@ void func_80011950(void) {
                             }
                         } else {
                             if (*(var_s1 + &D_8010A3A0) & 1) {
-                                func_800105F8(var_s5 & 0xFFFF);
+                                stop_controller_rumble(var_s5 & 0xFFFF);
                             }
                             goto block_30;
                         }

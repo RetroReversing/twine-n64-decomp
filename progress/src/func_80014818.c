@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80013430(void *);                      /* extern */
 M2C_UNK func_800134D0(void *);                      /* extern */
 M2C_UNK func_80013F74(void *);                      /* extern */
-M2C_UNK func_800148A4();                            /* extern */
+M2C_UNK parse_edl_header();                            /* extern */
 
 void func_80014818(void *arg0) {
     s32 temp_v1;
 
-    func_800148A4();
+    parse_edl_header();
     if (M2C_FIELD(arg0, s32 *, 0x1C) == 0) {
         temp_v1 = M2C_FIELD(arg0, s32 *, 0x10);
         switch (temp_v1) {                          /* irregular */

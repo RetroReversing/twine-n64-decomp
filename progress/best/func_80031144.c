@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80030818(s32, M2C_UNK *, s32, s32);         /* extern */
+M2C_UNK text_get_line_span(s32, M2C_UNK *, s32, s32);         /* extern */
 s32 func_8003137C(s16, M2C_UNK);                    /* extern */
 s32 func_80087100(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
@@ -44,7 +44,7 @@ M2C_UNK *func_80031144(s32 arg0, s16 arg1) {
             var_v0 = M2C_FIELD(D_800BFF08, u16 **, 8);
 block_14:
             if (var_v0 != NULL) {
-                func_80030818(arg0, &D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
+                text_get_line_span(arg0, &D_800E1600, func_80087100(*var_v0), (unsigned short)(arg1 - 1));
             }
             break;
         }

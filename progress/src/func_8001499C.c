@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800148A4(M2C_UNK *);                   /* extern */
+M2C_UNK parse_edl_header(M2C_UNK *);                   /* extern */
 
 s32 func_8001499C(s32 arg0) {
     union {
@@ -31,7 +31,7 @@ s32 func_8001499C(s32 arg0) {
 
     m2c_initial_frame.view_sp14.value = arg0;
     m2c_initial_frame.view_sp24.value = 1;
-    func_800148A4(&m2c_initial_frame.view_sp10.value);
+    parse_edl_header(&m2c_initial_frame.view_sp10.value);
     
     if (m2c_initial_frame.view_sp2C.value != 0) { var_v0=0; } else {
         var_v0 = m2c_initial_frame.view_sp1C.value;

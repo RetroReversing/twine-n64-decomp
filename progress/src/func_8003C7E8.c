@@ -9,7 +9,7 @@ static __inline__ s32 lookup_8845C(s32 key) {
     } while (++i < 2);
     return -1;
 }
-s32 func_8008845C(s32 key) {
+s32 isSlotActiveById(s32 key) {
     s32 found;
     if (D_800CEEC0) {
         found = lookup_8845C(key);
@@ -72,7 +72,7 @@ void func_8003C7E8(InitRecord3C *p, s32 value) {
 }
 
 typedef struct { s8 *start; s16 length; } LineSpan308;
-void func_80030818(LineSpan308 *out, s8 *text, u16 limit) {
+void text_get_line_span(LineSpan308 *out, s8 *text, u16 limit) {
     u16 n = 0;
     s8 *end = text;
     s32 ch;

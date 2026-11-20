@@ -1,6 +1,6 @@
 extern u8 D_800CEEC0, D_800E2CC0[];
 extern char D_800E2CE4[];
-s32 func_8008845C(s32 i) {
+s32 isSlotActiveById(s32 i) {
     s32 key = i;
     s32 offset;
     if (D_800CEEC0) {

@@ -21,7 +21,7 @@ s32 func_8009846C(s16 arg0) {
 }
 
 extern u8 D_800CEEC0, D_800E2CC0, D_800E2CE4;
-s32 func_8008845C(s32 key) {
+s32 isSlotActiveById(s32 key) {
     u32 i;
     s32 offset;
     s32 slot;

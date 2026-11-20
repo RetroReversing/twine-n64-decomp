@@ -5,7 +5,7 @@ s32 func_80032630(void *);                      /* extern */
 s32 func_8003438C(void *, void *);              /* extern */
 s32 func_80034630(void *, void *);              /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
-s32 func_80038EE8();                            /* extern */
+s32 emit_projection_viewport_commands();                            /* extern */
 s32 func_80039364(void *);                      /* extern */
 s32 func_80043FA0(void *);                      /* extern */
 s32 func_800A37C0(s32 *, s32);              /* extern */
@@ -63,7 +63,7 @@ void func_80036BBC(void *arg0) {
     D_801007BC = NULL;
     if (D_80112E40 != 0) {
         D_80112E40 = 0;
-        func_80038EE8();
+        emit_projection_viewport_commands();
     }
     if (D_8010A924 != 0) {
         D_8010A924 = 0;

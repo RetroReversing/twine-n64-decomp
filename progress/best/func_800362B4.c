@@ -30,7 +30,7 @@ extern void func_80014A40(RenderNode *, RenderView *);
 extern void func_80032630(void *);
 extern void func_8003438C(RenderNode *, RenderView *);
 extern void func_80034630(RenderNode *, RenderView *);
-extern void func_80038EE8(void);
+extern void emit_projection_viewport_commands(void);
 extern void func_800A37C0(f32 *, u32);
 extern void func_800A3940(f32 *, f32, f32, f32);
 extern void guMtxIdentF(f32 *);
@@ -60,7 +60,7 @@ void func_800362B4(RenderView *view) {
     }
     if (D_80112E40) {
         D_80112E40 = 0;
-        func_80038EE8();
+        emit_projection_viewport_commands();
     }
     if (D_8010A924 != 0) {
         D_8010A924 = 0;

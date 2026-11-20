@@ -42,7 +42,7 @@ typedef struct { u32 w0, w1; } Gfx38;
 extern Gfx38 * volatile D_80115328;
 extern u32 D_800E1710;
 extern u8 *D_80117728;
-void func_80038EE8(void) {
+void emit_projection_viewport_commands(void) {
     Gfx38 *g = D_80115328;
     u32 index = D_800E1710;
     u8 *base = D_80117728;
@@ -54,11 +54,14 @@ void func_80038EE8(void) {
     g[2].w0 = 0xdc080008;
     g[2].w1 = (u32)(base + ((index << 4) + 0x300));
     g[3].w0 = 0xdb0e0000;
-    D_80115328 = g + 1;
-    D_80115328 = g + 2;
-    D_80115328 = g + 3;
-    D_80115328 = g + 4;
-    g[3].w1 = *(u16 *)(base + (index << 1) + 0x360);
+    {
+        u16 fog = *(volatile u16 *)(((index << 1) + (u32)base) + 0x360);
+        D_80115328 = g + 1;
+        D_80115328 = g + 2;
+        D_80115328 = g + 3;
+        D_80115328 = g + 4;
+        g[3].w1 = fog;
+    }
 }
 
 extern f32 *D_800D93C0, *D_800D93CC, *D_800D93D8, *D_800D9404, *D_800D9408;

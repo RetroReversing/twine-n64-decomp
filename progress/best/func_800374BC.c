@@ -4,7 +4,7 @@ s32 func_80032630(void *);                      /* extern */
 s32 func_8003438C(void *, void *);              /* extern */
 s32 func_80034630(void *, void *);              /* extern */
 s32 func_800347B0(s32 *, s32, s32, s32, f32, f32, f32); /* extern */
-s32 func_80038EE8(s32, s32);            /* extern */
+s32 emit_projection_viewport_commands(s32, s32);            /* extern */
 s32 func_800A37C0(s32 *, s32);              /* extern */
 extern s32 D_800B1A78;
 extern u32 D_800B1D84;
@@ -66,7 +66,7 @@ void func_800374BC(void *arg0, s32 arg1) {
     }
     if (D_80112E40 != 0) {
         D_80112E40 = 0;
-        func_80038EE8(var_a0, var_a1);
+        emit_projection_viewport_commands(var_a0, var_a1);
     }
     if (var_s1 != NULL) {
         matrix = &D_80112F90;

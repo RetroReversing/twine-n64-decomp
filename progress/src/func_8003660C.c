@@ -19,8 +19,8 @@ M2C_UNK func_80033FB8(void *);                 /* extern */
 M2C_UNK func_8003438C(void *, void *);              /* extern */
 M2C_UNK func_80034560(void *);                      /* extern */
 M2C_UNK func_800378C0(void *, void *, void *);      /* extern */
-M2C_UNK func_80038EE8();                            /* extern */
-M2C_UNK func_800392A4();                            /* extern */
+M2C_UNK emit_projection_viewport_commands();                            /* extern */
+M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
 extern s32 D_800E1714;
 extern void *D_80109DC4;
 extern s32 D_80112E40;
@@ -37,7 +37,7 @@ void func_8003660C(void *arg0) {
 
     if (D_80112E40 != 0) {
         D_80112E40 = 0;
-        func_80038EE8();
+        emit_projection_viewport_commands();
     }
     func_80034560(arg0);
     var_s1 = D_80109DC4;
@@ -83,11 +83,11 @@ void func_8003660C(void *arg0) {
                         if (M2C_FIELD(temp_s0, s8 *, 0x38) == 0) {
                             if (D_80112E40 != 0) {
                                 D_80112E40 = 0;
-                                func_80038EE8();
+                                emit_projection_viewport_commands();
                             }
                         } else if (D_80112E40 != 4) {
                             D_80112E40 = 4;
-                            func_800392A4();
+                            emit_matrices_viewport_and_persp_norm();
                         }
                         func_80008750(arg0, M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x18), u8 *, 0x45), 0);
                         func_800378C0(temp_s0, var_s1, arg0);
@@ -95,7 +95,7 @@ void func_8003660C(void *arg0) {
                     } while (temp_s0 != NULL);
                     if (D_80112E40 != 0) {
                         D_80112E40 = 0;
-                        func_80038EE8();
+                        emit_projection_viewport_commands();
                     }
                 }
             }

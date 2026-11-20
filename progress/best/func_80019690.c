@@ -105,7 +105,8 @@ void func_80019690(void) {
                 __repair_rows: {
                     *((var_s0 * 2) + D_800BD680) = **(s32 **)(D_800C3CF8 + (func_8002B9CC(*(s32 *)(D_8010019C + ((func_80022DBC(var_s0) & 0xFFFF) * 0x18))) * 0xC));
                     var_s1 += 1;
-                    var_s0 = var_s1 & 0xFFFF;
+                    var_s1_2 = var_s1 & 0xFFFF;
+    var_s0 = var_s1_2;
                 }
 if ((var_s1 & 0xFFFF) < D_801002B4) goto __repair_rows;
             }

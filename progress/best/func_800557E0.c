@@ -19,31 +19,12 @@ M2C_UNK func_800556DC(void *, void *, f32 *, void *); /* extern */
 M2C_UNK func_80073304(void *, void *, void *);      /* extern */
 extern u16 D_800B35B0;
 
+typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg4;
 void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
-    union {
-        unsigned char bytes[144];
-        struct { unsigned char pad[24]; f32 value; } view_sp18;
-        struct { unsigned char pad[28]; f32 value; } view_sp1C;
-        struct { unsigned char pad[32]; f32 value; } view_sp20;
-        struct { unsigned char pad[40]; f32 value; } view_sp28;
-        struct { unsigned char pad[44]; f32 value; } view_sp2C;
-        struct { unsigned char pad[48]; f32 value; } view_sp30;
-        struct { unsigned char pad[56]; f32 value; } view_sp38;
-        struct { unsigned char pad[64]; f32 value; } view_sp40;
-        struct { unsigned char pad[68]; f32 value; } view_sp44;
-        struct { unsigned char pad[72]; f32 value; } view_sp48;
-        struct { unsigned char pad[76]; f32 value; } view_sp4C;
-    } m2c_initial_frame;
-
-             
-             
-             
-             
-             
-             
-             
-             
-             
+    f32 sp18[3];
+    f32 sp28[3];
+    f32 sp38;
+    f32 sp40[4];
     f32 temp_fs0;
     s32 temp_v1;
     s32 temp_v1_2;
@@ -60,10 +41,10 @@ void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *
     *arg6 = NULL;
     if (arg2 != NULL) {
         var_s0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0x20), void **, 0x58);
-        m2c_initial_frame.view_sp28.value = M2C_FIELD(arg4, f32 *, 0) - M2C_FIELD(arg3, f32 *, 0);
-        m2c_initial_frame.view_sp2C.value = M2C_FIELD(arg4, f32 *, 4) - M2C_FIELD(arg3, f32 *, 4);
-        m2c_initial_frame.view_sp30.value = M2C_FIELD(arg4, f32 *, 8) - M2C_FIELD(arg3, f32 *, 8);
-        temp_fs0 = func_80045764(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
+        sp28[0] = ((__repair_record_arg4*)arg4)->field_0 - M2C_FIELD(arg3, f32 *, 0);
+        sp28[1] = ((__repair_record_arg4*)arg4)->field_4 - M2C_FIELD(arg3, f32 *, 4);
+        sp28[2] = ((__repair_record_arg4*)arg4)->field_8 - M2C_FIELD(arg3, f32 *, 8);
+        temp_fs0 = func_80045764(sp18, sp28);
         if (var_s0 != NULL) {
 loop_3:
             temp_s2 = M2C_FIELD(M2C_FIELD(var_s0, void **, 4), void **, 0x3C);
@@ -75,7 +56,7 @@ loop_3:
 loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
                         temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                        if (!(func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !(m2c_initial_frame.view_sp38.value >= 0.0f) || !(m2c_initial_frame.view_sp38.value <= temp_fs0)) {
+                        if (!(func_8004DBD8(arg3, sp18, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &sp38) & 0xFF) || !(sp38 >= 0.0f) || !(sp38 <= temp_fs0)) {
                             var_s1 += 1;
                             var_s3 += 6;
                             if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
@@ -93,13 +74,13 @@ loop_8:
 loop_15:
                     temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
                     temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3_2;
-                    if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs0)) {
+                    if ((func_8004DBD8(arg3, sp18, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &sp38) & 0xFF) && (sp38 >= 0.0f) && (sp38 <= temp_fs0)) {
 block_18:
                         if (arg5 != NULL) {
-                            M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp18.value));
-                            M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp1C.value));
-                            M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp20.value));
-                            if ((M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) && (arg0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (arg1 != 0)) || (func_80045CF8(4) == 0))) {
+                            M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (sp38 * sp18[0]));
+                            M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (sp38 * sp18[1]));
+                            M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (sp38 * sp18[2]));
+                            if ((M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) && (arg0 != 0) && ((sp40[0] = M2C_FIELD(var_s0, f32 *, 0xC), sp40[1] = M2C_FIELD(var_s0, f32 *, 0x10), sp40[2] = M2C_FIELD(var_s0, f32 *, 0x14), sp40[3] = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, sp40, var_s0), (arg1 != 0)) || (func_80045CF8(4) == 0))) {
                                 func_80073304(var_s0, arg5, arg2);
                             }
                         }

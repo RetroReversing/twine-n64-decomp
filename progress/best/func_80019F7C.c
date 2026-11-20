@@ -60,7 +60,7 @@ void func_80019F7C(void) {
         *(*(s32 **)((char *)(temp_s0) + 0x10)) = var_s1;
         if (D_800B5B14 != NULL) {
             func_8002B8AC();
-            temp_v1 = *(u16 *)*(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
+            temp_v1 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
             D_800BD682 = -1;
             D_80107ECC = 1;
             D_800BD680 = temp_v1;
@@ -89,7 +89,7 @@ block_11:
         }
         if (func_80027C60(0x29) & 0xFF) {
             temp_s0_2 = D_801001A3[D_801002AD].f0;
-            if (temp_s0_2 < func_80001E28(*(s32 *)*(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC)))) {
+            if (temp_s0_2 < func_80001E28(*(s16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC)))) {
                 (*(s8 *)((char *)((temp_a0 + (&D_801002AD - 0x115))) + 0xB)) = (s8) (D_801001A3[D_801002AD].f0 + 1);
                 temp_a0 = D_801002AD * 0x18;
                 (*(u8 *)((char *)(D_80109BB0) + 0x2D)) = 1U;

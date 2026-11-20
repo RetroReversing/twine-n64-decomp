@@ -4,6 +4,8 @@ void func_800448A4(void *, s32, s32);
 extern u16 D_800C7E08[];
 extern u32 D_800D46E4[];
 extern u32 D_800D46EC[];
+extern void *jtbl_800D46F8[];
+typedef struct { u32 a, b; } PairWords;
 extern s32 D_801002C0;
 extern s32 D_80102ED8;
 extern void *D_80109688[];
@@ -31,10 +33,8 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     void *var_s0_2;
     s32 k;
 
-    sp10[0] = D_800D46E4[0];
-    sp10[1] = D_800D46E4[1];
-    sp10[2] = D_800D46EC[0];
-    sp10[3] = D_800D46EC[1];
+    *(PairWords *)sp10 = *(PairWords *)D_800D46E4;
+    *(PairWords *)(sp10 + 2) = *(PairWords *)D_800D46EC;
     var_s6 = 0x78;
     var_s7 = 0xA0;
     sp2C = *((u8 *)arg0 + 0x182);

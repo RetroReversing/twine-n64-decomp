@@ -83,7 +83,7 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, 
         sp2C = arg11 - 1;
         temp_t8 = (arg2 & 7) << 0x15;
         sp14 = arg4 >> 1;
-        do {
+        __repair_rows: {
             var_t4 = arg8;
             var_t5 = (s32) arg12;
             if (var_t4 < arg10) {
@@ -208,7 +208,8 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s32 arg6, 
             }
             var_t6 += arg7;
             var_t7 += arg7;
-        } while (var_t6 < arg11);
+        }
+if (var_t6 < arg11) goto __repair_rows;
     }
     *sp4 = var_t1;
 }

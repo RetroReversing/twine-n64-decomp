@@ -5,7 +5,7 @@ extern s32 D_800E1A9C;
 extern s32 D_800E1AA0;
 extern Node *D_800E1AAC;
 extern Node *D_800E1AB0;
-void func_80083DBC(Node *);
+void coalesce_adjacent_free_blocks(Node *);
 
 void func_80084048(void *arg0, s32 arg1) {
     Node *n;
@@ -65,7 +65,7 @@ void func_80084048(void *arg0, s32 arg1) {
                     break;
                 }
             }
-            func_80083DBC(cur);
+            coalesce_adjacent_free_blocks(cur);
         }
     }
 }
