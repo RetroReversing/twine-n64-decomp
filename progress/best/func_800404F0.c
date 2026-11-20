@@ -7,6 +7,7 @@ extern f32 D_800E19E4;
 extern f32 D_800E19E8;
 
 typedef struct { unsigned char pad[44]; f32 value; } __repair_field_2C;
+typedef struct { unsigned char pad[60]; int value; } __repair_field_3C;
 void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     s16 var_v0_6;
     
@@ -62,7 +63,7 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3) {
     void *temp_a0_3;
 
     temp_a0 = D_800CA338 != 0;
-    if ((*(s32 *)((char *)(arg0) + 0x3C)) & 0x400000) {
+    if ((((__repair_field_3C *)arg0)->value) & 0x400000) {
         (*(s32 *)((char *)(arg1) + 0x50)) |= 0x100;
     }
     temp_v0 = (*(u8 *)((char *)((*(void **)((char *)(arg0) + 0x24))) + 0x1E));
@@ -363,7 +364,7 @@ block_29:
         (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
         (*(f32 *)((char *)(arg1) + 0x28)) = 0;
         ((__repair_field_2C *)arg1)->value = 0;
-        (*(s8 *)((char *)((*(void **)((char *)(arg1) + 0x3C))) + 0x47)) = (s8) (*(u16 *)((char *)(arg0) + 0x2C));
+        (*(s8 *)((char *)((((__repair_field_3C *)arg1)->value)) + 0x47)) = (s8) (*(u16 *)((char *)(arg0) + 0x2C));
         return;
     case 0x15:
         temp_v0_28 = (u32) (*(s32 *)((char *)(arg1) + 0x58));

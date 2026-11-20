@@ -36,9 +36,7 @@ extern void *D_8010A500;
 extern char D_800D41E0[];
 extern char jtbl_800D41E8[];
 s32 func_8005FE20(void *arg0, s32 *arg1) {
-char *__repair_addr;
-
-    char sp30[116];
+    char sp30[124];
     s32 (*temp_v0_10)(void *, s32 *);
     union { s32 * pointer; s32 value; } __repair_phase_storage;
     s32 *temp_s0_3;
@@ -131,9 +129,7 @@ block_15:
                 temp_a0 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                 temp_v1 = temp_a0 & 0xFFFF;
                 var_v0 = 0;
-__repair_addr = (char *)((temp_s1 + (temp_v1 * 2)));
-
-                if (M2C_FIELD(__repair_addr, s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
+                if (M2C_FIELD((temp_s1 + (temp_v1 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
                     __repair_phase_storage.pointer = func_80087100(temp_a0 | 0x9000, var_a1);
                     sprintf(&sp30, D_800D41E0, __repair_phase_storage.pointer, func_80087100(0x16A));
                     D_8010302C += 1;

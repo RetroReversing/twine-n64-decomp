@@ -81,6 +81,7 @@ f32 func_80045D2C(f32 scale);
 f32 func_80045D8C(f32 scale, f32 offset);
 
 s32 func_800819EC(s32 bank, s32 index);
+s32 func_80096E7C(void *arg0, s32 arg1);
 
 extern char D_800D2D44[];
 

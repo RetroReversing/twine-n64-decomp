@@ -3,8 +3,8 @@
 s32 func_800452AC();
 s32 func_80045CF8();
 f32 func_80045D2C(f32);
-s32 func_8005D444(s32, s32, f32, s32, s32, s32);
-s32 func_800617D8(s32, void*, void*, s32, f32, f32, s32, s32, s32, s32, s32);
+s32 func_8005D444(void *, void *, f32, s32, s32, s32);
+void *func_800617D8(void *, void*, void*, void *, f32, f32, s32, s32, s32, u32, u32);
 extern f64 D_800D4150;
 extern f64 D_800D4158;
 extern f64 D_800D4160;
@@ -27,13 +27,16 @@ void func_8005D62C(void *arg0) {
     (((__repair_record_arg0*)arg0)->field_81) = temp_a0;
     temp_v0 = (((__repair_record_temp_s0*)temp_s0)->field_1C);
     temp_s3 = (((__repair_record_arg0*)arg0)->field_20);
-    if (0 >= temp_v0) {
-        if (func_80045CF8(4) == 0) {
-            func_8005D444(arg0, arg0 + 0x24, 2.0f, 2, 0x16, 0xFB);
-        }
-        (((__repair_record_arg0*)arg0)->field_60) |= 1;
-    return;}
+    if (temp_v0 > 0) {
         (((__repair_record_temp_s0*)temp_s0)->field_1C) = (s16) (temp_v0 - 1);
+        goto alive;
+    }
+    if (func_80045CF8(4) == 0) {
+        func_8005D444(arg0, arg0 + 0x24, 2.0f, 2, 0x16, 0xFB);
+    }
+    (((__repair_record_arg0*)arg0)->field_60) |= 1;
+    return;
+    alive:
         temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20));
         if ((((__repair_record_arg0*)arg0)->field_28) < temp_fv1) {
             (((__repair_record_temp_s0*)temp_s0)->field_4) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_4) * (func_80045D2C(0.9f) - 0.45f));

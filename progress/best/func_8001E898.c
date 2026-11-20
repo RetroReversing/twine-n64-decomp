@@ -67,7 +67,7 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
                 object->color = (D_800BD664 & ~0xFF) | D_80109BB0->alpha;
                 break;
             }
-            selected = D_800E0ED4[(*__base_D_800BD68F)];
+            selected = D_800E0ED4[D_800BD68F];
             if (selected == entry->id) {
                 object->color = (D_800BD660 & ~0xFF) | D_80109BB0->alpha;
             }

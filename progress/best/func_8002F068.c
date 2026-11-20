@@ -44,9 +44,8 @@ void func_8002F068(void *unused, void *arg1)
         if (phase >= 32) {
             D_800BFC96 = 63 - phase;
         }
-        mode = D_800BFC92;
         palette = D_800BD640;
-        if (mode & 1) {
+        if (D_800BFC92 & 1) {
             color = palette + 1;
         } else {
             color = palette + 9;

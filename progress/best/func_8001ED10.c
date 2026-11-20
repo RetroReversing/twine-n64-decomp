@@ -51,13 +51,17 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8001ED10(void) {
-    M2C_UNK *__base_D_800BD680;
+int __repair_literal;
+
     s16 temp_a0;
     s32 var_a0;
     s32 var_s0;
     s32 var_s1;
     s32 var_s1_2;
     u8 var_a0_2;
+    M2C_UNK *__base_D_8010019C;
+
+    /* no cached table base */
 
     D_80102EDD = 1;
     if (D_80102EEC == 0) {
@@ -85,18 +89,19 @@ void func_8001ED10(void) {
                 D_801002CC = D_801002C4;
                 D_801002D0 = D_801002C8;
                 D_80102EF0 = 0;
-                var_s1_2 = 0;
+                var_s1 = 0;
                 if (D_801002B4 > 0) {
                     var_s0 = 0 & 0xFFFF;
                     __repair_rows: {
-                        __base_D_800BD680 = &D_800BD680;
-                        *(u16 *)((char *)__base_D_800BD680 + var_s0 * 2) = **(u16 **)((char *)&D_800C3CF8 + func_8002B9CC(*(s32 *)((char *)&D_8010019C + (func_80022DBC(var_s0) & 0xFFFF) * 0x18)) * 0xC);/*__repair_loop_weight*/do {
-                        var_s1_2 += 1;} while (0);
+var_s1 = 2;
+
+                        *(u16 *)((s32)&D_800BD680 + (var_s0 << 1)) = **(u16 **)((s32)&D_800C3CF8 + func_8002B9CC(*(s32 *)((s32)&D_8010019C + (func_80022DBC(var_s0) & 0xFFFF) * 0x18)) * 0xC);
+                        var_s1_2 += 1;
                         var_s0 = var_s1_2 & 0xFFFF;
                     }
-if ((var_s1_2 & 0xFFFF) < D_801002B4) goto __repair_rows;
+if ((s32)(u16)var_s1_2 < D_801002B4) goto __repair_rows;
                 }
-                *(s16 *)((char *)__base_D_800BD680 + ((var_s1_2 & 0xFFFF) * 2)) = -1;
+                *(s16 *)((char *)&D_800BD680 + ((var_s1_2 & 0xFFFF) * 2)) = -1;
                 var_a0_2 = D_801002A4;
             } else {
                 var_a0_2 = D_80102EE0;

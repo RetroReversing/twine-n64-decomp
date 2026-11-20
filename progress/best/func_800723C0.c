@@ -43,7 +43,7 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_ft0;
-    s32 temp_s0_2;
+    int temp_s0_2;
 
     s = arg0; d = sp58.w;
     __repair_rows: {
@@ -174,8 +174,8 @@ func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
             *(s32 *)((u8 *)temp_v0 + 0x28) = ((s32 *)sp30)[1];
             *(s32 *)((u8 *)temp_v0 + 0x2C) = ((s32 *)sp30)[2];
             *(s32 *)((u8 *)temp_v0 + 0x30) = *(s32 *)((u8 *)temp_v0 + 0x24);
-            *(s32 *)((u8 *)temp_v0 + 0x34) = *(s32 *)((u8 *)temp_v0 + 0x28);
             *(s32 *)((u8 *)temp_v0 + 0x38) = *(s32 *)((u8 *)temp_v0 + 0x2C);
+            *(s32 *)((u8 *)temp_v0 + 0x34) = *(s32 *)((u8 *)temp_v0 + 0x28);
             func_80045278((u8 *)temp_v0 + 0x48);
             func_80045278((u8 *)temp_v0 + 0x3C);
             *(u8 *)((u8 *)temp_v0 + 0x7E) = 3;

@@ -23,7 +23,7 @@ typedef struct {
 } AudioSlot;
 
 extern s32 func_80087F60(s32);
-extern s32 func_800936A8(s32);
+extern s32 func_800936A8(void);
 extern void func_8009D510(void *, u32, void *, u32, void (*)(void));
 extern void func_800A0170(void *, s32);
 extern void osCreateMesgQueue(void *, void **, s32);
@@ -63,9 +63,8 @@ s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 ar
             slot = &D_800E1AC0[index];
             osCreateMesgQueue(slot->queue, slot->messages, 2);
             if (rate == 0) {
-                length = !*(u8 *)&D_800E3F1C[file] ? 8000 : 16000; rate=length;
+                rate = !*(u8 *)&D_800E3F1C[file] ? 8000 : 16000;
             }
-
             slot->arg2 = arg2;
             slot->arg3 = arg3;
             slot->arg4 = arg4;
@@ -77,7 +76,7 @@ s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 ar
             if (D_800E3F2C & 1) {
                 slot->buffer = D_800E3F24[index];
             } else {
-                allocationSize = func_800936A8(length);
+                allocationSize = func_800936A8();
                 buffer = D_8010017C(allocationSize, 0);
                 slot->buffer = buffer;
                 func_800A0170(buffer, allocationSize);

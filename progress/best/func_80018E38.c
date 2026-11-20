@@ -36,6 +36,7 @@ extern char D_8011AB08[];
 extern char D_800D285C[];
 extern char D_800D2864[];
 void func_80018E38(void) {
+    u8 *__base_D_801002AD;
     u8 sp10[0x10];
     u8 sp20[16];
     s32 temp_v0;
@@ -60,7 +61,8 @@ void func_80018E38(void) {
         temp_a1 = M2C_FIELD(D_800BF5A0, void **, 0);
         temp_a3 = M2C_FIELD(D_800BF5A0, void **, 4);
         temp_s1 = M2C_FIELD(M2C_FIELD(temp_a1, void **, 8), s8 **, 0x18);
-        temp_s0 = (D_801002AD * 0x18) + (&D_801002AD - 0x109);
+        __base_D_801002AD = &D_801002AD;
+        temp_s0 = ((*__base_D_801002AD) * 0x18) + (__base_D_801002AD - 0x109);
         if (temp_a3 == temp_a1) {
             M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (temp_a3 + 0x28);
             sprintf(temp_s1, temp_s0, D_800BF5A0);
@@ -70,8 +72,7 @@ void func_80018E38(void) {
         func_80029000(M2C_FIELD(D_800BF5A0, s32 *, 8));
         if (func_80027C60(0x24) & 0xFF) {
             M2C_FIELD(D_800BF5A0, s8 *, 0xD) = 0;
-            __repair_rows_: { sprintf(temp_s1, temp_s0); }
-if (0) goto __repair_rows_;
+            do { sprintf(temp_s1, temp_s0); } while (0);
             goto block_40;
         }
         if (func_80027C60(0x2A) & 0xFF) {
@@ -148,13 +149,13 @@ block_16:
 if (temp_v1_2 != 0) goto __repair_rows;
                     }
                     if (func_800AB950(sp10, sp20, var_a2) != 0) {
-                        if ((u8) D_801002AD < 4U) {
+                        if ((u8) (*__base_D_801002AD) < 4U) {
                             var_a2_2 = func_80087100(0xAD);
-                            var_a3 = D_801002AD + 1;
+                            var_a3 = (*__base_D_801002AD) + 1;
 
                         sprintf(temp_s1, D_800D285C, var_a2_2, var_a3);} else {
                             var_a2_2 = func_80087100(0x158);
-                            var_a3 = D_801002AD - 3;
+                            var_a3 = (*__base_D_801002AD) - 3;
 
                         sprintf(temp_s1, D_800D2864, var_a2_2, var_a3);}
                         D_800B60A4 = strlen(temp_s1);

@@ -97,9 +97,9 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
     spacing = (spacing >> 4) & 0xF;
     flags = (node->flags.word & 0xFFFF0FFF) | ((spacing & 0xF) << 12);
     node->flags.word = flags;
-    lines = args->options.word & 0xF;
-    if (lines == 0) {
-        lines = 1;
+    lines = 1;
+    if ((args->options.word & 0xF) != 0) {
+        lines = args->options.word & 0xF;
     }
     node->flags.word = (flags & ~0xF00) | (lines << 8);
     index = args->index;

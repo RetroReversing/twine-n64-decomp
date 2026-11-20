@@ -106,8 +106,8 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                         if (sp30[1] < 0.0f) {
                             sp30[1] = -sp30[1];
                         }
-                        var_s0 += 1;
                         func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
+                        var_s0 += 1;
                     } while (var_s0 < var_s6);
                 }
             }

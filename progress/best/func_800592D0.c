@@ -7,7 +7,7 @@ extern s32 *D_800CA31C;
 
 typedef struct { s32 w[3]; } __repair_words3;
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
-void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 arg5, u16 arg6) {
+void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s8 arg5, u16 arg6) {
     s32 temp_fv0;
     s16 var_v0;
     s32 temp_a0;
@@ -40,7 +40,7 @@ void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, s32 ar
         (*(void **)((char *)(temp_s0) + 4)) = arg4;
         (*(u16 *)((char *)(temp_s0) + 0x44)) = arg6;
         (*(s8 *)((char *)(temp_s0) + 0x4B)) = 0;
-        (*(s32 *)((char *)(temp_s0) + 0x4C)) = (s8) (arg5 - 1);
+        (*(s8 *)((char *)(temp_s0) + 0x4C)) = arg5 - 1;
         (*(s8 *)((char *)(temp_s0) + 0x4A)) = arg0;
         (*(s32 *)((char *)(temp_s0) + 0x24)) = temp_fv0;
         (*(s32 *)((char *)(temp_s0) + 0x20)) = temp_fv0;

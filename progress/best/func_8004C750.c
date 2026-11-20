@@ -144,6 +144,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     u16 temp_v1_4;
     u16 temp_v1_7;
     u16 var_v0;
+u16 __repair_result_var_v0;
     u32 temp_s2;
     u32 temp_s2_2;
     u32 temp_v1;
@@ -393,7 +394,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                 if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
                                                     temp_v1_9 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (var_s3_3 * 6);
                                                     var_a2 = M2C_FIELD(temp_v1_9, u16 *, 2) * 3;
-                                                    var_v0 = M2C_FIELD(temp_v1_9, u16 *, 4);
+                                                    __repair_result_var_v0 = M2C_FIELD(temp_v1_9, u16 *, 4);
                                                     var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_9, u16 *, 0) * 0xC);
                                                 } else {
                                                     temp_v1_10 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (var_s3_3 * 3);
