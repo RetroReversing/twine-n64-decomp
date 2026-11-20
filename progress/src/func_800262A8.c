@@ -10,7 +10,7 @@ s32 func_800262A8(Tbl263B8 *arg0, u16 arg1) {
     }
     for (i = 0; i < arg0->count; i++) {
         if (arg0->arr[i].id == arg1) {
-            return i;
+            return (s32) &arg0->arr[i];
         }
     }
     return 0;
