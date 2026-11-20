@@ -10,7 +10,7 @@ s32 func_8000A894(s32, s32 *);          /* extern */
 void *func_8005F664(void *, s32, s8);           /* extern */
 s32 func_800648FC(void *, s32);                 /* extern */
 s32 func_80065BC4(void *);                      /* extern */
-s32 func_80065C70(void *, s32 *);           /* extern */
+s32 func_80065C70(void *);           /* extern */
 s32 func_80067294(void *);                      /* extern */
 s32 func_80067390(void *);                      /* extern */
 s32 func_8006832C(void *, void *, void *);              /* extern */
@@ -25,9 +25,7 @@ extern s32 D_80102ED8;
 extern s32 D_80109688;
 
 void func_800673EC(void *arg0, void *arg1) {
-    f32 sp10;
-    f32 sp14;
-    f32 sp18;
+    f32 sp10[3];
     f32 temp_fs0;
     f32 temp_fs1;
     f32 temp_fs2;
@@ -35,7 +33,7 @@ void func_800673EC(void *arg0, void *arg1) {
     f32 temp_ft2;
     f32 temp_fv0;
     f32 temp_fv1;
-    s16 temp_v1;
+    s32 temp_v1;
     
     s16 var_v1;
     long temp_a0_3;
@@ -98,7 +96,7 @@ block_49:
         var_v0 = temp_s5 * 2;
         break;
     case 9:
-        func_80065C70(arg0, &D_800C469C);
+        func_80065C70(arg0);
         var_s4 = temp_s1;
         if ((*(s16 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 0x94)) == 0x21) {
             func_8006832C(arg0, arg1, var_s4);
@@ -134,7 +132,7 @@ block_48:
         break;
     case 1:
     case 10:
-        func_80065C70(arg0, &D_800C469C);
+        func_80065C70(arg0);
         func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
         func_80001660(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
         temp_a0_4 = (*(void **)((char *)(temp_s2) + 0xA8));
@@ -239,28 +237,28 @@ block_41:
         goto block_49;
     }
     temp_v0_2 = ((var_v0 + temp_s5) * 4) + var_s4;
-    sp10 = (*(f32 *)((char *)(temp_v0_2) + 0xA0));
-    sp14 = (*(f32 *)((char *)(temp_v0_2) + 0xA4));
-    sp18 = (*(f32 *)((char *)(temp_v0_2) + 0xA8));
+    sp10[0] = (*(f32 *)((char *)(temp_v0_2) + 0xA0));
+    sp10[1] = (*(f32 *)((char *)(temp_v0_2) + 0xA4));
+    sp10[2] = (*(f32 *)((char *)(temp_v0_2) + 0xA8));
     if (temp_s5 == 0) {
         temp_fv1 = (*(f32 *)((char *)(*((s32 *)((s8 *)&D_80109688 + ((*(s8 *)((char *)(temp_s2) + 0x182)) * 4)))) + 0x130));
         if (temp_fv1 > 0.0f) {
             temp_ft2 = temp_fv1 * 2.5f;
             temp_ft1 = 1.0f - temp_ft2;
-            sp10 = (sp10 * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xAC)) * temp_ft2);
-            sp14 = (sp14 * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xB0)) * temp_ft2);
-            sp18 = (sp18 * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xB4)) * temp_ft2);
+            sp10[0] = (sp10[0] * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xAC)) * temp_ft2);
+            sp10[1] = (sp10[1] * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xB0)) * temp_ft2);
+            sp10[2] = (sp10[2] * temp_ft1) + ((*(f32 *)((char *)(var_s4) + 0xB4)) * temp_ft2);
         }
     }
     temp_v0_3 = (*(void **)((char *)(temp_s2) + 0xA8));
-    (*(f32 *)((char *)(temp_v0_3) + 0x24)) = sp10;
-    (*(f32 *)((char *)(temp_v0_3) + 0x28)) = sp14;
-    (*(f32 *)((char *)(temp_v0_3) + 0x2C)) = sp18;
+    (*(f32 *)((char *)(temp_v0_3) + 0x24)) = sp10[0];
+    (*(f32 *)((char *)(temp_v0_3) + 0x28)) = sp10[1];
+    (*(f32 *)((char *)(temp_v0_3) + 0x2C)) = sp10[2];
     temp_v0_4 = (*(void **)((char *)(temp_s2) + 0xA8));
     (*(f32 *)((char *)(temp_v0_4) + 0x24)) = (f32) ((*(f32 *)((char *)(temp_v0_4) + 0x24)) + (*(f32 *)((char *)(arg1) + 0)));
     temp_v0_5 = (*(void **)((char *)(temp_s2) + 0xA8));
     (*(f32 *)((char *)(temp_v0_5) + 0x28)) = (f32) ((*(f32 *)((char *)(temp_v0_5) + 0x28)) + (*(f32 *)((char *)(arg1) + 4)));
     temp_v0_6 = (*(void **)((char *)(temp_s2) + 0xA8));
     (*(f32 *)((char *)(temp_v0_6) + 0x2C)) = (f32) ((*(f32 *)((char *)(temp_v0_6) + 0x2C)) + (*(f32 *)((char *)(arg1) + 8)));
-    func_80002EF0((*(void **)((char *)(temp_s2) + 0xA8)), sp18);
+    func_80002EF0((*(void **)((char *)(temp_s2) + 0xA8)), sp10[2]);
 }

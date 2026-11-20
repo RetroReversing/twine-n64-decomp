@@ -101,8 +101,8 @@ void func_8011D3C0(void) {
     if (D_801002C0 > 0) {
         do {
             temp_v1 = var_a0 * 4;
-            if (*(&D_80109688 + temp_v1) != 0) {
-                temp_s5 = (*(void **)((char *)(*(temp_v1 + &D_8010A500)) + 0x6C));
+            if (*(s32 *)((char *)&D_80109688 + temp_v1) != 0) {
+                temp_s5 = (*(void **)((char *)(*(s32 *)((char *)&D_8010A500 + temp_v1)) + 0x6C));
                 if (D_801002C0 != 2) {
                     if ((D_801002C0 < 3) || (D_801002C0 >= 5)) {
                         sp26 = 4;
@@ -230,8 +230,8 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                 temp_s0_4 = temp_s3 * 4;
                 (*(s16 *)((char *)(temp_v0) + 0x1C)) = 3;
                 (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x1C);
-                *(&D_8011F3E8 + temp_s0_4) = temp_v0;
-                *(&D_8011F3E0 + __repair_phase_storage.value) = 0;
+                *(s32 *)((char *)&D_8011F3E8 + temp_s0_4) = temp_v0;
+                *(s16 *)((char *)&D_8011F3E0 + __repair_phase_storage.value) = 0;
                 temp_s6 = D_801001A2[temp_s3].f0;
                 if (temp_s6 != 0) {
                     temp_v0_4 = func_800162BC(temp_s3);
@@ -242,9 +242,9 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                         (*(s32 *)((char *)(temp_v0_4) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0_4) + 0x28)) & ~0xFC) | 0x10);
                         (*(s16 *)((char *)(temp_v0_4) + 0x20)) = (s16) (D_8011F0EC + (sp1E + 0xFFC7));
                         (*(s32 *)((char *)(temp_v0_4) + 0x10)) = (s32) ((D_800BD66C & ~0xFF) | 0x88);
-                        *(&D_8011F0F0 + __repair_phase_storage.value) = sp1E + (D_8011F0EC + 0xFFDB);
-                        *(&D_8011F0F8 + __repair_phase_storage.value) = sp26 + 0x20;
-                        *(&D_8011F2E8 + temp_s0_4) = temp_v0_4;
+                        *(s16 *)((char *)&D_8011F0F0 + __repair_phase_storage.value) = sp1E + (D_8011F0EC + 0xFFDB);
+                        *(s16 *)((char *)&D_8011F0F8 + __repair_phase_storage.value) = sp26 + 0x20;
+                        *(s32 *)((char *)&D_8011F2E8 + temp_s0_4) = temp_v0_4;
                         if (D_801002B4 > 0) {
                             var_s1 = 0;
                             var_v0_4 = 0 & 0xFFFF;

@@ -117,7 +117,7 @@ s32 __repair_phase_var_a0;
             do {
                 temp_a0_2 = func_80022DBC(var_s0);
                 temp_v0 = func_800162BC(D_800BD68E);
-                *((var_s0 * 4) + D_80102F48) = temp_v0;
+                *(s32 *)((var_s0 * 4) + D_80102F48) = temp_v0;
                 if (temp_v0) {
                     temp_s1 = func_80087100((var_s2 + 0x4008) & 0xFFFF);
                     temp_s0 = temp_a0_2 & 0xFFFF;

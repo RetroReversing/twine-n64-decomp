@@ -45,6 +45,7 @@ extern s32 D_80115120;
 extern s32 D_80115124;
 
 void func_800821B4(void) {
+    volatile u64 frame_pad;
     s32 sp2C;
     u16 sp16;
     s32 *var_a0_2;
@@ -153,7 +154,7 @@ void func_800821B4(void) {
             *(&D_8011511C + var_s1) = 0;
         }
         var_s4 += 8;
-        var_a0_2 += 0xA0;
+        var_a0_2 += 40;
         var_s1 += 0xA0;
     }
 } while ((s32) var_s2 < (s32) &D_8010D456);

@@ -12,7 +12,7 @@ extern char D_800E5AC4[];
 extern char D_800E5BD4[];
 extern char D_800E5BD8[];
 extern char D_800E6A84[];
-extern char D_800E6A85[];
+extern u8 D_800E6A85[];
 extern char D_800E6A86[];
 extern char D_800E6A8C[];
 extern char D_800E6AA8[];
@@ -24,6 +24,7 @@ extern char D_800E6AB8[];
 
 typedef struct { int value; } __repair_field_0;
 void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
+    volatile s64 reserve[2];
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 __repair_store_2;

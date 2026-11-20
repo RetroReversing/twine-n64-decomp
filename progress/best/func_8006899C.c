@@ -43,7 +43,7 @@ void func_8006899C(void *arg0, u8 arg1) {
     s32 temp_v0_7;
     s32 var_a0;
     s32 var_s6;
-    s8 temp_fp;
+    s32 temp_fp;
     u16 temp_a0_5;
     u16 temp_v0_11;
     u16 temp_v1;
@@ -102,7 +102,7 @@ void func_8006899C(void *arg0, u8 arg1) {
                                     }
                                     if ((var_a0 << 0x18) != 0) {
                                         temp_s0 = var_s1 + 0x24;
-                                        if (((func_8007A9CC(arg0, temp_s0, &sp2C) << 0x18) != 0) && (func_80045E34(temp_s0, temp_s7) < 3.0f) && (func_80045590(temp_s0, temp_s7) < 2.0f)) {
+                                        if (((func_8007A9CC(arg0, temp_s0, &sp28) << 0x18) != 0) && (func_80045E34(temp_s0, temp_s7) < 3.0f) && (func_80045590(temp_s0, temp_s7) < 2.0f)) {
                                             temp_v0_3 = (*(s16 *)((char *)(var_s1) + 0x7A));
                                             if (((temp_v0_3 == 0) | (temp_v0_3 == 4)) != 0) {
                                                 if (((__repair_record_arg0*)arg0)->field_20 == (*(s32 *)((char *)(var_s1) + 0x20))) {

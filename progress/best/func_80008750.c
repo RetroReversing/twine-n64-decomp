@@ -17,7 +17,7 @@ extern s32 D_8010A92C;
 extern void *D_80115328;
 
 void func_80008750(void *arg0, s32 arg1, s32 arg2) {
-short __repair_constant = 8;
+
 
     register unsigned long temp_v1_10;
 
@@ -201,7 +201,7 @@ block_91:
     case 5:                                         /* switch 2 */
     case 6:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            D_8010A924 = __repair_constant;
+            D_8010A924 = 8;
             temp_v1_9 = D_80115328;
             D_80115328 = temp_v1_9 + 8;
             (*(s32 *)((char *)(temp_v1_9) + 0)) = 0xDE000000;
