@@ -4520,14 +4520,6 @@
   "score_after": 230
  },
  {
-  "function": "func_80092DD4",
-  "text": "Baseline remains score 820 (revision a8f5970b5d1600e97f88). Tried local repair families scalar_storage_reuse, split_integer_phase, explicit_loop_backedge, address_temporary, pointer_cast_inline, local_widening, nested_guard, and target_call_arity; none improved. Move-on count exceeded (9/6). Main mismatch: five halfword loads are candidate lhu $a0, 8($v0), while target uses lhu $a0, ($s0), with addiu $s0,$v0,8 establishing the pointer. Need restructure list iteration/address temp so GCC keeps and advances the pointer in $s0. Several other mismatches remain; inspect get_assembly(focus=\"mismatch\") and existing candidate before further work.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795138291.17205,
-  "score_before": 820,
-  "score_after": 820
- },
- {
   "function": "func_800A0170",
   "text": "Target is an explicit N64 cache-maintenance routine: all useful paths consist of cache instructions with immediates 0x15, 0x11, and 0x01 plus address/size alignment loops. Pure C has no expression for these cache operations; exact output requires compiler-specific intrinsics or hand-written assembly. Submitted a minimal C probe (score 4200) confirming it emits only function entry/return.",
   "by": "codex-gpt-6-luna-14",
@@ -10864,14 +10856,6 @@
   "score_after": 205
  },
  {
-  "function": "func_80092DD4",
-  "text": "Current clean rewrite compiled at score 6930 versus saved historical best 820; do not use it as base. Baseline best/source should be recovered from get_candidate(saved_best). Structural facts: count is decremented before indexing 4-byte pointer table D_800EDAA4; each record has offset fields at +8..+0x18 pointing to sentinel-terminated u16 lists; second list traversed backward for func_80097B1C while others forward. My rewrite used wrong record offsets/list address shape (produced lhu +8($v0) instead of target lhu 0($s0)) and early returns distorted branch targets. Need follow best candidate's pointer/address expressions and loop forms.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795178187.816536,
-  "score_before": 820,
-  "score_after": 820
- },
- {
   "function": "func_80099CA8",
   "text": "Rechecked score 2430. Layout, signedness, declaration and masked-value repairs generated identical output; branch-oriented batch was interrupted twice by project progress changes. Remaining 46 mismatch rows include seven opcodes, 14 branch targets and six missing instructions. Inspect target control flow, especially input flag widths and timer branch.",
   "by": "codex-gpt-6.1-terra-4",
@@ -14630,14 +14614,6 @@
   "created_at": 1795182592.1260679,
   "score_before": 185,
   "score_after": 185
- },
- {
-  "function": "func_80092DD4",
-  "text": "Claimed the 448-byte dispatcher; submitted one rewrite but it failed compilation. Failure cascaded from omitted M2C_FIELD macro (and C89 parser errors thereafter); no valid score or assembly comparison was produced. Current candidate 0aaff0648098b0852313 contains the rewrite with multiple `M2C_FIELD(...)` uses; recover a compilable draft by defining `#define M2C_FIELD(expr,type_ptr,offset) (*(type_ptr)((s8 *)(expr)+(offset)))` and declare necessary types/macros before use, then fix C89 declarations. Struct offsets inferred in current candidate: fields 4/6 halfwords and offsets 8, C, 10, 14, 18 are 32-bit relative offsets. Each section walks a u16 sentinel list, with the second list traversed backward. No successful compile attempted.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795182596.6730108,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "func_80031144",
@@ -23448,14 +23424,6 @@
   "score_after": 10
  },
  {
-  "function": "func_80092DD4",
-  "text": "Verified score 820 at 46a7282dec8107ac2c34. The four forward loops have correct control flow and delay slots, but load their first ID as lhu a0,8(v0) before addiu s0,v0,8; target uses lhu a0,0(s0) after addiu. The backward list similarly needs addu/addiu in s1 and lhu v1,0(s1). Tested reading through the already computed pointer, char-pointer and u16-pointer arithmetic, and while assignment; these emitted identical code. Reusing the cursor across lists scored 1085; volatile halfword loads scored 1250. Untested: model the chunk as a record with an 8-byte envelope and embedded u16 list, and test address formation via its array member while retaining the exact loop/guard shape.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795188328.150614,
-  "score_before": 820,
-  "score_after": 820
- },
- {
   "function": "func_80063C7C",
   "text": "Verified 345 on both the staged array version and scalar-symbol address version. Both emit lbu via a signed byte used only for a zero test, then lhu into v0 followed by andi a2,v0,0xffff. Target expects lb into v0 and lhu directly into a2. Keep -O1 region flags and both loads before the guard. Next hypothesis: use a signed link local with unsigned volatile halfword load, using it signed for both calculating the neighbor stride and assigning the chosen return index, to avoid conversion back to unsigned.",
   "by": "codex-gpt-6.2-sol-8",
@@ -25526,14 +25494,6 @@
   "created_at": 1795190408.340907,
   "score_before": 140,
   "score_after": 140
- },
- {
-  "function": "func_80092DD4",
-  "text": "Six-compiles move-on limit reached; saved score 820. All four forward list first-ID loads are folded by GCC as lhu a0,8(v0), while target first computes cursor then lhu a0,0(s0); same issue on backward list's s1. Verified [(char *)record + 8] + relative_offset for all five lists (revision 2773541a19ec5f55be82, score 1025): it genuinely restores all five zero-offset loads with correct cursor registers, but emits addiu of the relative offset before addu with the record base. Explicit unsigned integer addition of 8 after (relative_offset + record) returned to 820. Loading through volatile u16 cursor throughout forward loops tied; sharing an initial/backedge goto load worsened. Common flags and -fforce-addr, -fno-cse-follow-jumps, -fno-cse-skip-blocks, -fno-rerun-cse-after-loop, -fno-expensive-optimizations, -fno-schedule-insns2 did not beat 820 on saved source. Next useful direction: preserve restored zero-displacement loads while forcing addiu after addu; compare full related code or test a profile change on the 1025 variant.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795190409.0459058,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "func_800972A4",
@@ -27902,14 +27862,6 @@
   "created_at": 1795193070.6410959,
   "score_before": 125,
   "score_after": 125
- },
- {
-  "function": "func_80092DD4",
-  "text": "Saved best rechecks at 820. Local repair families scalar_storage_reuse, explicit_loop_backedge, split_call_result, target_local_bundle, cfg_integer_lifetimes and signedness all failed to improve; generated variants scored 1330\u20131878 or tied/worsened. Main remaining mismatch around second table scan: target uses addiu $s0,$v0,8 then lhu from ($s0), candidate currently loads lhu at 8($v0); inspect assembly and shift pointer setup into source. A trial batch left a temporary worse candidate; saved_best remains the 820 baseline.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795193074.243223,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "func_8009A804",
@@ -30296,14 +30248,6 @@
   "score_after": 125
  },
  {
-  "function": "func_80092DD4",
-  "text": "Recovered current candidate e3b0c44298fc1c149afb; it is empty and historical attempt did not compile. Prior session recorded zero remaining local repairs and no valid C. No fresh compile was possible without a definition; release for another agent to draft from assembly and spend a fresh compile budget.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197905.842998,
-  "score_before": 820,
-  "score_after": 820
- },
- {
   "function": "func_800AA5E0",
   "text": "Function appears CORDIC atan. Draft compiled poorly due unknown table; resolve revealed target table D_800D1250 and function-local divisor D_800D6EC0 (8-byte data). Replacing guessed divisor D_800A7240 with D_800D6EC0 improved score 2210\u21922190; current 109 vs target 110 instructions with extensive register/control-flow differences. Mismatch suggests draft ABI/prototype is wrong: assembly inputs in a0/a1 and output pointer likely third argument, while current s64 scalar prototypes shift all args; inspect assembly prologue and redo signature. Target table pointer lives in a1; candidate places pointer t8.",
   "by": "codex-gpt-6-luna-11",
@@ -31334,14 +31278,6 @@
   "created_at": 1795199005.647118,
   "score_before": 185,
   "score_after": 185
- },
- {
-  "function": "func_80092DD4",
-  "text": "Six variants exhausted move-on at 820. An embedded u16 array at chunk+8, a volatile initial load through the cursor, typed u16* cursor increments and a while-assignment loop all produced identical displayed instructions. Reloading the element via *cursor++ at the call scored 1120. All remaining diffs are the five initial list loads and s1 allocation in the reverse scan. Next direction is combining the previous zero-offset-load source (revision 2773541a19ec5f55be82) with a compiler profile experiment aimed specifically at base-add versus immediate-add order.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199020.902943,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "audioSilenceThread",
@@ -33048,14 +32984,6 @@
   "score_after": 60
  },
  {
-  "function": "func_80092DD4",
-  "text": "Corrected the relative-offset record fields to pointer arithmetic on char*, restoring saved score 820/112 from poor rewrite 3435. Remaining mismatch repeats five loads `lhu $a0, 8($v0)` where target is `lhu $a0, ($s0)`; next should change candidate pointer variable so list base is held in s0 and first item loaded at offset zero. Also target uses s1 for second list cursor; current C folds offset into v0 and addiu s1. Historical best equals rechecked 820. No shared struct knowledge added.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795201046.780503,
-  "score_before": 820,
-  "score_after": 820
- },
- {
   "function": "func_80083138",
   "text": "Best score 15 (99.8%), 97 instructions; only three FPR allocation differences around product computations. Restoring M2C register declarations left exact same diff. Grouping output products then separate sums worsened to 175; best source is direct chained calculation order with earlier intermediates. Target matrix routine products schedule by output traversal; inspect FPR live ranges and try smaller ordering changes. No reusable matching discovery beyond existing matrix-product guidance.",
   "by": "codex-gpt-6-luna-11",
@@ -34622,14 +34550,6 @@
   "created_at": 1795202099.9989,
   "score_before": 1160,
   "score_after": 1160
- },
- {
-  "function": "func_80092DD4",
-  "text": "Current best candidate rechecked at score 820, 112 target instructions. Tried local repairs and focused address edits; no improvement. Main mismatch: five target lhu $a0,($s0) loads versus candidate loads at 8($v0); pointer setup/register differences follow. Restored saved best before handoff; current revision 46a7282dec8107ac2c34.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795202100.086299,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "func_800941F8",
@@ -37206,14 +37126,6 @@
   "created_at": 1795204273.7360919,
   "score_before": 121,
   "score_after": 121
- },
- {
-  "function": "func_80092DD4",
-  "text": "Best score 820 (11 mismatch rows) from saved m2c-style source (rev 46a7282dec8107ac2c34). Remaining diff: target loads each list head as lhu 0(s0) after addiu s0,v0,8; ours folds it into lhu 8(v0) and loads before the addiu. Tried: clean u16* pointer rewrite (2070-2710, worse; right loop shape but registers $s1/$s2 and branch offsets differ); type variants of temp_v1 and goto-loop repairs (1085-1540, worse); replacing first M2C_FIELD with *(u16*)var_s0 (still 820, no change). Next untested: make the head pointer a separate u16* assigned from temp_v0+8 and load *head before the loop, for the saved-best source.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204283.418889,
-  "score_before": 820,
-  "score_after": 820
  },
  {
   "function": "func_800184AC",
@@ -47412,5 +47324,93 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Baseline remains score 820 (revision a8f5970b5d1600e97f88). Tried local repair families scalar_storage_reuse, split_integer_phase, explicit_loop_backedge, address_temporary, pointer_cast_inline, local_widening, nested_guard, and target_call_arity; none improved. Move-on count exceeded (9/6). Main mismatch: five halfword loads are candidate lhu $a0, 8($v0), while target uses lhu $a0, ($s0), with addiu $s0,$v0,8 establishing the pointer. Need restructure list iteration/address temp so GCC keeps and advances the pointer in $s0. Several other mismatches remain; inspect get_assembly(focus=\"mismatch\") and existing candidate before further work.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795138291.17205,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Current clean rewrite compiled at score 6930 versus saved historical best 820; do not use it as base. Baseline best/source should be recovered from get_candidate(saved_best). Structural facts: count is decremented before indexing 4-byte pointer table D_800EDAA4; each record has offset fields at +8..+0x18 pointing to sentinel-terminated u16 lists; second list traversed backward for func_80097B1C while others forward. My rewrite used wrong record offsets/list address shape (produced lhu +8($v0) instead of target lhu 0($s0)) and early returns distorted branch targets. Need follow best candidate's pointer/address expressions and loop forms.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795178187.816536,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Claimed the 448-byte dispatcher; submitted one rewrite but it failed compilation. Failure cascaded from omitted M2C_FIELD macro (and C89 parser errors thereafter); no valid score or assembly comparison was produced. Current candidate 0aaff0648098b0852313 contains the rewrite with multiple `M2C_FIELD(...)` uses; recover a compilable draft by defining `#define M2C_FIELD(expr,type_ptr,offset) (*(type_ptr)((s8 *)(expr)+(offset)))` and declare necessary types/macros before use, then fix C89 declarations. Struct offsets inferred in current candidate: fields 4/6 halfwords and offsets 8, C, 10, 14, 18 are 32-bit relative offsets. Each section walks a u16 sentinel list, with the second list traversed backward. No successful compile attempted.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795182596.6730108,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Verified score 820 at 46a7282dec8107ac2c34. The four forward loops have correct control flow and delay slots, but load their first ID as lhu a0,8(v0) before addiu s0,v0,8; target uses lhu a0,0(s0) after addiu. The backward list similarly needs addu/addiu in s1 and lhu v1,0(s1). Tested reading through the already computed pointer, char-pointer and u16-pointer arithmetic, and while assignment; these emitted identical code. Reusing the cursor across lists scored 1085; volatile halfword loads scored 1250. Untested: model the chunk as a record with an 8-byte envelope and embedded u16 list, and test address formation via its array member while retaining the exact loop/guard shape.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795188328.150614,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Six-compiles move-on limit reached; saved score 820. All four forward list first-ID loads are folded by GCC as lhu a0,8(v0), while target first computes cursor then lhu a0,0(s0); same issue on backward list's s1. Verified [(char *)record + 8] + relative_offset for all five lists (revision 2773541a19ec5f55be82, score 1025): it genuinely restores all five zero-offset loads with correct cursor registers, but emits addiu of the relative offset before addu with the record base. Explicit unsigned integer addition of 8 after (relative_offset + record) returned to 820. Loading through volatile u16 cursor throughout forward loops tied; sharing an initial/backedge goto load worsened. Common flags and -fforce-addr, -fno-cse-follow-jumps, -fno-cse-skip-blocks, -fno-rerun-cse-after-loop, -fno-expensive-optimizations, -fno-schedule-insns2 did not beat 820 on saved source. Next useful direction: preserve restored zero-displacement loads while forcing addiu after addu; compare full related code or test a profile change on the 1025 variant.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795190409.0459058,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Saved best rechecks at 820. Local repair families scalar_storage_reuse, explicit_loop_backedge, split_call_result, target_local_bundle, cfg_integer_lifetimes and signedness all failed to improve; generated variants scored 1330\u20131878 or tied/worsened. Main remaining mismatch around second table scan: target uses addiu $s0,$v0,8 then lhu from ($s0), candidate currently loads lhu at 8($v0); inspect assembly and shift pointer setup into source. A trial batch left a temporary worse candidate; saved_best remains the 820 baseline.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795193074.243223,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Recovered current candidate e3b0c44298fc1c149afb; it is empty and historical attempt did not compile. Prior session recorded zero remaining local repairs and no valid C. No fresh compile was possible without a definition; release for another agent to draft from assembly and spend a fresh compile budget.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197905.842998,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Six variants exhausted move-on at 820. An embedded u16 array at chunk+8, a volatile initial load through the cursor, typed u16* cursor increments and a while-assignment loop all produced identical displayed instructions. Reloading the element via *cursor++ at the call scored 1120. All remaining diffs are the five initial list loads and s1 allocation in the reverse scan. Next direction is combining the previous zero-offset-load source (revision 2773541a19ec5f55be82) with a compiler profile experiment aimed specifically at base-add versus immediate-add order.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199020.902943,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Corrected the relative-offset record fields to pointer arithmetic on char*, restoring saved score 820/112 from poor rewrite 3435. Remaining mismatch repeats five loads `lhu $a0, 8($v0)` where target is `lhu $a0, ($s0)`; next should change candidate pointer variable so list base is held in s0 and first item loaded at offset zero. Also target uses s1 for second list cursor; current C folds offset into v0 and addiu s1. Historical best equals rechecked 820. No shared struct knowledge added.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795201046.780503,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Current best candidate rechecked at score 820, 112 target instructions. Tried local repairs and focused address edits; no improvement. Main mismatch: five target lhu $a0,($s0) loads versus candidate loads at 8($v0); pointer setup/register differences follow. Restored saved best before handoff; current revision 46a7282dec8107ac2c34.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795202100.086299,
+  "score_before": 820,
+  "score_after": 820
+ },
+ {
+  "function": "func_80092DD4",
+  "text": "Best score 820 (11 mismatch rows) from saved m2c-style source (rev 46a7282dec8107ac2c34). Remaining diff: target loads each list head as lhu 0(s0) after addiu s0,v0,8; ours folds it into lhu 8(v0) and loads before the addiu. Tried: clean u16* pointer rewrite (2070-2710, worse; right loop shape but registers $s1/$s2 and branch offsets differ); type variants of temp_v1 and goto-loop repairs (1085-1540, worse); replacing first M2C_FIELD with *(u16*)var_s0 (still 820, no change). Next untested: make the head pointer a separate u16* assigned from temp_v0+8 and load *head before the loop, for the saved-best source.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204283.418889,
+  "score_before": 820,
+  "score_after": 820
  }
 ]
