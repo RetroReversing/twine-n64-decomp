@@ -1,25 +1,25 @@
 extern f32 D_80102E6C, D_80102E70, D_80102E74, D_80102E78;
 extern f32 D_80102E80, D_80102E84, D_80102E88, D_80102E8C, D_80102EA4;
 
-f32 *func_80082BD0(void) {
-    f32 *out = &D_80102E74;
-    f32 x0 = D_80102E80 * out[-3];
-    f32 x1 = D_80102E84 * D_80102E6C;
-    f32 x2 = D_80102E88 * D_80102E70;
-    f32 y0 = D_80102E8C * out[-3];
-    f32 y1 = out[7] * D_80102E6C;
-    f32 y2 = out[8] * D_80102E70;
-    f32 z0 = out[9] * out[-3];
-    f32 z1 = out[10] * D_80102E6C;
-    f32 z2 = out[11] * D_80102E70;
-    f32 x = x0 + x1 + x2 + D_80102EA4;
-    f32 y = y0 + y1 + y2 + out[13];
-    f32 z = z0 + z1 + z2 + out[14];
-    *out = x;
-    D_80102E78 = y;
-    out[2] = z;
-    return out;
-}
+f32 *func_80082BD0(void) ;
+                           
+                                  
+                                     
+                                     
+                                  
+                                 
+                                 
+                              
+                                  
+                                  
+                                      
+                                   
+                                   
+             
+                   
+               
+               
+ 
 
 
 
@@ -37,43 +37,43 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 decodeButtonMask840(s32 arg0) {
-    s32 var_v0;
-    u32 temp_a0;
+s32 decodeButtonMask840(s32 arg0) ;
+               
+                
 
-    temp_a0 = arg0 & 0x840;
-    if (temp_a0 != 0x40) {
-        var_v0 = 1;
-        if (temp_a0 >= 0x41U) {
-            switch (temp_a0) {                      /* irregular */
-            default:
-                break;
-            case 0x800:
-                return 2;
-            case 0x840:
-                var_v0 = 3;
-                /* Duplicate return node #8. Try simplifying control flow for better match */
-                return var_v0;
-            }
-        }
-        return var_v0;
-    } else {
-        return 0;
-    }
-}
+                           
+                          
+                   
+                               
+                                                                   
+                    
+                      
+                       
+                         
+                       
+                           
+                                                                                             
+                              
+             
+         
+                      
+            
+                 
+     
+ 
 
 u64 osGetTime(void);
 extern u64 D_80102CC8;
 extern u64 D_80109DD8;
 extern u64 D_80115320;
 
-void func_800070A4(void) {
-    u64 t;
-    D_80109DD8 = 0;
-    t = osGetTime();
-    D_80102CC8 = 0;
-    D_80115320 = (u64)t;
-}
+void func_800070A4(void) ;
+          
+                   
+                    
+                   
+                        
+ 
 
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
@@ -102,10 +102,11 @@ void func_8003FA20(void) {
     var_v1 = 0;
     end = count * 0x10;
     D_80100914 = count;
-    do {
+    __repair_rows: {
         *(s32 *)(D_800C0784 + var_v1) = 0;
         *(s32 *)(D_800C0788 + var_v1) = 0;
         var_v1 += 0x10;
-    } while (var_v1 < end);
+    }
+if (var_v1 < end) goto __repair_rows;
     func_80032884();
 }
