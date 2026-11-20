@@ -22,8 +22,8 @@ s32 func_80048CC0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f3
     e1.z = (*(f32 *)((char *)(arg3) + 8)) - (*(f32 *)((char *)(arg2) + 8));
     e2.x = (*(f32 *)((char *)(arg4) + 0)) - (*(f32 *)((char *)(arg2) + 0));
     e2.y = (*(f32 *)((char *)(arg4) + 4)) - (*(f32 *)((char *)(arg2) + 4));
-    s = (*(f32 *)((char *)(arg1) + 4));
     e2.z = (*(f32 *)((char *)(arg4) + 8)) - (*(f32 *)((char *)(arg2) + 8));
+    s = (*(f32 *)((char *)(arg1) + 4));
     p.x = s * e2.z;
     p.y = 0;
     p.z = -(s * e2.x);

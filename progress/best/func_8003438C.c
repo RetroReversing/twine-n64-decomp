@@ -10,7 +10,7 @@ extern void *D_80115328;
 
 void func_8003438C(void *arg0, void *arg1) {
 
-    s32 temp_v1;
+    
 u16 __repair_phase_temp_v1;
     
     s32 var_a3;
@@ -25,8 +25,8 @@ u16 __repair_phase_temp_v1;
     void *temp_v1_2;
     void *temp_v1_4;
 
-    temp_v1 = (*(s32 *)((char *)(arg1) + 0x100));
-    if (temp_v1 & 2) {
+    blueProduct = (*(s32 *)((char *)(arg1) + 0x100));
+    if (blueProduct & 2) {
 s32 __repair_branch_var_v1_0;
 
         temp_v1_2 = (*(void **)((char *)(arg0) + 0x20));
@@ -35,7 +35,7 @@ s32 __repair_branch_var_v1_0;
         var_a1 >>= 8;
         goto scaled;
     } else {
-        if (temp_v1 & 4) {
+        if (blueProduct & 4) {
 s32 __repair_branch_var_v1_1;
 
             temp_v1_4 = (*(void **)((char *)(arg0) + 0x20));

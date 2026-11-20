@@ -21,6 +21,8 @@ extern u16 D_800B35B0;
 
 typedef struct { float field_0; float field_4; float field_8; } __repair_record_arg4;
 void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
+int __repair_literal;
+
     f32 sp18[3];
     f32 sp28[3];
     f32 sp38;
@@ -48,53 +50,57 @@ void *func_800557E0(s8 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *
         if (var_s0 != NULL) {
 loop_3:
             temp_s2 = M2C_FIELD(M2C_FIELD(var_s0, void **, 4), void **, 0x3C);
-            if ((M2C_FIELD(M2C_FIELD(M2C_FIELD(var_s0, void **, 8), void **, 0x20), u16 *, 0x60) != D_800B35B0) && (temp_s2 != NULL)) {
-                if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
-                    var_s1 = 0;
-                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
-                        var_s3 = 0;
-loop_8:
-                        temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
-                        temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                        if (!(func_8004DBD8(arg3, sp18, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &sp38) & 0xFF) || !(sp38 >= 0.0f) || !(sp38 <= temp_fs0)) {
-                            var_s1 += 1;
-                            var_s3 += 6;
-                            if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
-                                goto block_26;
+            if ((M2C_FIELD(M2C_FIELD(M2C_FIELD(var_s0, void **, 8), void **, 0x20), u16 *, 0x60) != D_800B35B0)) {
+                if ((temp_s2 != NULL)) {
+                    if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
+                        var_s1 = 0;
+    __repair_literal = 0;
+
+                        if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > __repair_literal) {
+                            var_s3 = 0;
+    loop_8:
+                            temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
+                            temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
+                            if (!(func_8004DBD8(arg3, sp18, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &sp38) & 0xFF) || !(sp38 >= 0.0f) || !(sp38 <= temp_fs0)) {
+                                var_s1 += 1;
+                                var_s3 += 6;
+                                if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                                    goto block_26;
+                                }
+                                goto loop_8;
                             }
-                            goto loop_8;
+                            goto block_18;
                         }
-                        goto block_18;
+                        goto block_26;
+                    }
+                    if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
+                        var_s3_2 = 0;
+                        var_s1_2 = 0;
+    loop_15:
+                        temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
+                        temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3_2;
+                        if ((func_8004DBD8(arg3, sp18, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &sp38) & 0xFF) && (sp38 >= 0.0f) && (sp38 <= temp_fs0)) {
+    block_18:
+                            if (arg5 != NULL) {
+                                M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (sp38 * sp18[0]));
+                                M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (sp38 * sp18[1]));
+                                M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (sp38 * sp18[2]));
+                                if ((M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) && (arg0 != 0) && ((sp40[0] = M2C_FIELD(var_s0, f32 *, 0xC), sp40[1] = M2C_FIELD(var_s0, f32 *, 0x10), sp40[2] = M2C_FIELD(var_s0, f32 *, 0x14), sp40[3] = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, sp40, var_s0), (arg1 != 0)) || (func_80045CF8(4) == 0))) {
+                                    func_80073304(var_s0, arg5, arg2);
+                                }
+                            }
+                            *arg6 = var_s0;
+                            return M2C_FIELD(var_s0, void **, 8);
+                        }
+                        var_s1_2 += 1;
+                        var_s3_2 += 3;
+                        if (var_s1_2 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                            goto block_26;
+                        }
+                        goto loop_15;
                     }
                     goto block_26;
                 }
-                var_s1_2 = 0;
-                if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
-                    var_s3_2 = 0;
-loop_15:
-                    temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
-                    temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3_2;
-                    if ((func_8004DBD8(arg3, sp18, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &sp38) & 0xFF) && (sp38 >= 0.0f) && (sp38 <= temp_fs0)) {
-block_18:
-                        if (arg5 != NULL) {
-                            M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (sp38 * sp18[0]));
-                            M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (sp38 * sp18[1]));
-                            M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (sp38 * sp18[2]));
-                            if ((M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) && (arg0 != 0) && ((sp40[0] = M2C_FIELD(var_s0, f32 *, 0xC), sp40[1] = M2C_FIELD(var_s0, f32 *, 0x10), sp40[2] = M2C_FIELD(var_s0, f32 *, 0x14), sp40[3] = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, sp40, var_s0), (arg1 != 0)) || (func_80045CF8(4) == 0))) {
-                                func_80073304(var_s0, arg5, arg2);
-                            }
-                        }
-                        *arg6 = var_s0;
-                        return M2C_FIELD(var_s0, void **, 8);
-                    }
-                    var_s1_2 += 1;
-                    var_s3_2 += 3;
-                    if (var_s1_2 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
-                        goto block_26;
-                    }
-                    goto loop_15;
-                }
-                goto block_26;
             }
 block_26:
             var_s0 = M2C_FIELD(var_s0, void **, 0);
