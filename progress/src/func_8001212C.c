@@ -45,7 +45,14 @@ u16 func_8001212C(void) {
             *(u16 *)var_a0 = temp_v0;
             var_a0 += 2;
         } while (var_a1 < 4);
-        if (D_80109D1C != 0) {
+        if (D_80109D1C == 0) goto block_9;
+        goto block_10;
+    }
+block_9:
+    D_800BFC32 = 0x40;
+    return 0x40U;
+block_10:
+        {
             if ((D_800BFC32 == 0x30) && (D_80109DD0 == 1)) {
                 D_800BFC32 = 0;
             }
@@ -63,9 +70,6 @@ u16 func_8001212C(void) {
 block_20:
             return (u16) D_800BFC32;
         }
-        goto block_9;
-    }
-block_9:
-    D_800BFC32 = 0x40;
-    return 0x40U;
 }
+
+
