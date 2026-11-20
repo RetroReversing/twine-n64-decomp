@@ -6264,14 +6264,6 @@
   "score_after": 1975
  },
  {
-  "function": "func_800613AC",
-  "text": "Current best score 430 after local-repair variant passthrough_argument: candidate's first call is `func_80016410(arg0, 0x48, arg1, 0)` and second call is 2 args. A separate 3-arg direct-callee call `func_80016410(0x48,arg1,0)` scores 640 but is closer to matched callee signature. The remaining best diff (7 rows) starts after saving arg0: target sets `$a0=0x48` before saving a2/a3; candidate moves a1 into v1, saves a3, sets a1=0x48, and moves v1 to a2. Target later branches after the null check at 0x104 and at arg2 null check 0x84; best candidate targets 0x10c and 0x8c. Best source/revision 4ce07f74ca2e713c4d09; claim ended after move-on compiles. Table read order discovery: reading D_800B2272 into arg1 immediately after D_800B2022 store and using arg1 for final float gave 640 from 1055.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795139052.239764,
-  "score_before": 880,
-  "score_after": 430
- },
- {
   "function": "func_8005D238",
   "text": "Best score 4190 at revision 8c769c18fe1bc7a63ddb. Tried supplied draft, repair families for symbol address, call arity, inferred record layout, float argument bits, typed temporary, address temporary, plus explicit alternate branch structure. No improvement; move-on threshold 6/6 reached. Target has 102/108 listed instructions? Read full assembly: function begins with 0x40 frame, stores arg0 in s0 and field at +0x6C in s1. Candidate's initial register allocation is close but has 85 differing rows; branch compares `c.lt.s ft0,fv1` and target uses `bc1f` to skip the clamp/call block. The target's `func_800452AC` call sets a0=s1+4, a1=s0+0x24, a2=a1 in delay slot; simply changing candidate arity to 3 worsened score and swapped saved registers. Keep target assembly pages 0-108 for next pass; prioritize representing the early branch as an inverse guard that routes normal path to second check and clamp/call to exit. `func_800617D8` stack args include literal bit patterns 0x40008080 and 0x80808008.",
   "by": "codex-gpt-6-luna-22",
@@ -7072,14 +7064,6 @@
   "score_after": 120
  },
  {
-  "function": "func_800613AC",
-  "text": "Compiled full m2c draft at score 1525/71 instructions. Current source has 0xFF assigned via signed s8 at offset 0x45, but target uses addiu v0,zero,0xff (zero-extended immediate); try changing only that field access to u8. Also output flagged pointer from integer on D_800B byte values cast to float; inspect if those are actually float/global type mismatches. Compile baseline no improvements yet.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795164089.163769,
-  "score_before": 325,
-  "score_after": 325
- },
- {
   "function": "func_8008F2D4",
   "text": "Started from rechecked score 13773. Signedness/declaration-order variants for var_v0_2 had no effect. Local repairs testing initialization order, loop backedges, CFG lifetimes, signedness, declaration order and unknown-symbol offsets improved best to 6920; a later symbol_access_width repair narrowed D_8010D752 store from M2C_UNK to s8 and improved 7380\u21926920. Still far from match (154 differing instructions); target starts with 0x18-byte frame while current candidate emits extra saves and 0x20 frame. Revisit data symbol types/offsets broadly: draft treats many scattered globals as M2C_UNK (s32) despite byte/halfword-spaced addresses, and loops use raw byte offsets.",
   "by": "codex-gpt-6-luna-14",
@@ -7238,14 +7222,6 @@
   "created_at": 1795164177.318412,
   "score_before": 425,
   "score_after": 220
- },
- {
-  "function": "func_800613AC",
-  "text": "Rechecked best saved candidate score 325 (71 target instructions; emitted 72). A rewrite of the allocator call to func_80016410(0x48,arg1,0) plus the matched callee prototype scored worse at 640; explicit cast had no effect. Target passes a0=0x48, preserves incoming a1, and places zero in a2 delay slot; inspect argument evaluation/call shape and the remaining one-instruction gap if revisiting. Score 325 is substantially better than the recent exploratory revisions, so restore saved_best before any further tuning.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795164186.096116,
-  "score_before": 325,
-  "score_after": 325
  },
  {
   "function": "linkSourceNodesByNearestPart",
@@ -11992,14 +11968,6 @@
   "score_after": 656
  },
  {
-  "function": "func_800613AC",
-  "text": "Rechecked saved best 325. Six local repairs did not improve. Target call is func_80016410(0x48, arg1, 0), unlike saved candidate; correcting call yields exact instruction count but score 640 due to prologue scheduling. Next tune argument/prologue scheduling on corrected call; saved best has incorrect call arguments.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795178591.4939132,
-  "score_before": 325,
-  "score_after": 325
- },
- {
   "function": "func_800180D4",
   "text": "Clean initial compile score 2908. A volatile u32 pad[2] improved 2908\u21922895 (best saved, revision 3aa628bc702ad358d87a); pad[4] worsened to 2913; arg1=u16 variant 3245. Changing var_s0 char* to u8* retained 2895 but no assembly diff. Local repair branch_orientation worsened; signedness/declaration_order/typed_temporary no changes. Main remaining issues: prologue save registers/stack layout; switch jump table relocation targets differ, plus branch targets. Compiler reports .rodata+0 and jtbl_800D2690 data mismatch. Current best is 2895.",
   "by": "codex-gpt-6-luna-11",
@@ -15326,14 +15294,6 @@
   "created_at": 1795182922.404926,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_800613AC",
-  "text": "Saved best 325 has incorrect allocator arguments: target calls func_80016410(0x48, arg1, 0). Correcting call yields 640 solely due to prologue scheduling, otherwise instruction sequence matches. Local temporaries/register keyword did not change scheduling; flag search found no better variant. Continue from correct-call revision af7f84ae46be9364f9ba and investigate scheduling.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182936.200902,
-  "score_before": 325,
-  "score_after": 325
  },
  {
   "function": "func_80087380",
@@ -27152,14 +27112,6 @@
   "score_after": 15
  },
  {
-  "function": "func_800613AC",
-  "text": "Saved score 325 has incorrect allocation call arguments: target calls func_80016410(0x48, arg1, 0). Correcting the call and retaining owner in a local gives score 330 and differs only in prologue instruction scheduling; revision 23758f9afc2277f09fac. Flag search on saved candidate found no improvement. Next investigate scheduling for the correct call.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795193711.039385,
-  "score_before": 325,
-  "score_after": 325
- },
- {
   "function": "func_800556DC",
   "text": "Best/rechecked 270/65, score 95.8%. Target and candidate differ only three instruction order/register rows around staging arg2[1] to stack: target stores f12 to sp+0x10, later f0 to sp+0x14, then loads f14 from s0+8; candidate loads f14 from s0+8 before storing f12 at sp+0x10 and f0 at sp+0x14. Tried staging explicit h/r/q temporaries; compile_patch remained score 270 and instruction diff unchanged, despite a variant batch alternate worsening to 1601. Need adjust local declaration / expression staging to force target schedule. Current profile GCC 2.7.2 KMC -O1.",
   "by": "codex-gpt-6-luna-11",
@@ -29974,14 +29926,6 @@
   "created_at": 1795199807.137084,
   "score_before": 1260,
   "score_after": 700
- },
- {
-  "function": "func_800613AC",
-  "text": "Best score 5 (single register mismatch at call setup: target emits addiu a0,zero,0x48; candidate emits addiu a1,zero,0x48). Typed allocator prototype `void *func_80016410(void *, s32, s32);` fixed the prior no-prototype argument-register cascade after a temporary arg1 substitution had scored 325. Reverted to zero third argument; function remains score 5. Need alter call/prototype or argument staging to place size 0x48 in a0 while preserving subsequent args and all later instructions.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795199818.05793,
-  "score_before": 5,
-  "score_after": 5
  },
  {
   "function": "func_80044410",
@@ -35222,5 +35166,69 @@
   "created_at": 1795202323.984876,
   "score_before": 440,
   "score_after": 440
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Current best score 430 after local-repair variant passthrough_argument: candidate's first call is `func_80016410(arg0, 0x48, arg1, 0)` and second call is 2 args. A separate 3-arg direct-callee call `func_80016410(0x48,arg1,0)` scores 640 but is closer to matched callee signature. The remaining best diff (7 rows) starts after saving arg0: target sets `$a0=0x48` before saving a2/a3; candidate moves a1 into v1, saves a3, sets a1=0x48, and moves v1 to a2. Target later branches after the null check at 0x104 and at arg2 null check 0x84; best candidate targets 0x10c and 0x8c. Best source/revision 4ce07f74ca2e713c4d09; claim ended after move-on compiles. Table read order discovery: reading D_800B2272 into arg1 immediately after D_800B2022 store and using arg1 for final float gave 640 from 1055.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795139052.239764,
+  "score_before": 880,
+  "score_after": 430
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Compiled full m2c draft at score 1525/71 instructions. Current source has 0xFF assigned via signed s8 at offset 0x45, but target uses addiu v0,zero,0xff (zero-extended immediate); try changing only that field access to u8. Also output flagged pointer from integer on D_800B byte values cast to float; inspect if those are actually float/global type mismatches. Compile baseline no improvements yet.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795164089.163769,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Rechecked best saved candidate score 325 (71 target instructions; emitted 72). A rewrite of the allocator call to func_80016410(0x48,arg1,0) plus the matched callee prototype scored worse at 640; explicit cast had no effect. Target passes a0=0x48, preserves incoming a1, and places zero in a2 delay slot; inspect argument evaluation/call shape and the remaining one-instruction gap if revisiting. Score 325 is substantially better than the recent exploratory revisions, so restore saved_best before any further tuning.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795164186.096116,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Rechecked saved best 325. Six local repairs did not improve. Target call is func_80016410(0x48, arg1, 0), unlike saved candidate; correcting call yields exact instruction count but score 640 due to prologue scheduling. Next tune argument/prologue scheduling on corrected call; saved best has incorrect call arguments.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795178591.4939132,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Saved best 325 has incorrect allocator arguments: target calls func_80016410(0x48, arg1, 0). Correcting call yields 640 solely due to prologue scheduling, otherwise instruction sequence matches. Local temporaries/register keyword did not change scheduling; flag search found no better variant. Continue from correct-call revision af7f84ae46be9364f9ba and investigate scheduling.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182936.200902,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Saved score 325 has incorrect allocation call arguments: target calls func_80016410(0x48, arg1, 0). Correcting the call and retaining owner in a local gives score 330 and differs only in prologue instruction scheduling; revision 23758f9afc2277f09fac. Flag search on saved candidate found no improvement. Next investigate scheduling for the correct call.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795193711.039385,
+  "score_before": 325,
+  "score_after": 325
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Best score 5 (single register mismatch at call setup: target emits addiu a0,zero,0x48; candidate emits addiu a1,zero,0x48). Typed allocator prototype `void *func_80016410(void *, s32, s32);` fixed the prior no-prototype argument-register cascade after a temporary arg1 substitution had scored 325. Reverted to zero third argument; function remains score 5. Need alter call/prototype or argument staging to place size 0x48 in a0 while preserving subsequent args and all later instructions.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795199818.05793,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
+  "function": "func_800613AC",
+  "text": "Recovered matching 71-instruction body to score 5, leaving only allocator size immediate in $a1 instead of target $a0. Typed pointer prototype, array element references, and raw offset code tested. Historical candidate restored as required; best usable attempt recorded in prior compile (score 5).",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795201801.108638,
+  "score_before": 5,
+  "score_after": 5
  }
 ]
