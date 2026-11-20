@@ -10,7 +10,7 @@ extern s16 D_800C4708;
 extern s32 *D_800CA31C;
 
 void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, s32 arg10, u16 arg11, s32 arg12, u8 arg13) {
-    register u16 sp1E;
+    u16 sp1E;
     unsigned int flags;
     void *temp_s0;
     register u16 sp16;
@@ -31,12 +31,10 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
             temp_s0 = *(void **)((u8 *)temp_v0 + 0x6C);
             *(s16 *)((u8 *)temp_v0 + 0x78) = 0x24;
             *(s16 *)((u8 *)temp_v0 + 0x7A) = 0;
-            *(s32 *)((u8 *)temp_s0 + 0) = *(s32 *)((u8 *)arg0 + 0);
-            *(s32 *)((u8 *)temp_s0 + 8) = *(s32 *)((u8 *)arg0 + 8);
+            { struct V { s32 x,y,z; }; *(struct V *)temp_s0 = *(struct V *)arg0; }
             *(s32 *)((u8 *)temp_s0 + 0xC) = 0;
-            *(s32 *)((u8 *)temp_s0 + 4) = *(s32 *)((u8 *)arg0 + 4);
-            *(s32 *)((u8 *)temp_s0 + 0x14) = 0;
             *(s32 *)((u8 *)temp_s0 + 0x10) = 0;
+            *(s32 *)((u8 *)temp_s0 + 0x14) = 0;
             *(s8 *)((u8 *)temp_s0 + 0x2F) = 1;
             *(u16 *)((u8 *)temp_s0 + 0x24) = a11;
             if (flags & 2) {
@@ -52,7 +50,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
                     break;
                 case 1:
                     off = arg5 * 0x10;
-                    func_80044670(temp_v0, (u16) *(s16 *)((u8 *)&D_800C4478 + off), *(s16 *)((u8 *)&D_800C447A + off));
+                    func_80044670(temp_v0, *(s16 *)((u8 *)&D_800C4478 + off), *(s16 *)((u8 *)&D_800C447A + off));
                     break;
                 case 2:
                     func_80044670(temp_v0, sp16, arg3 & 0xFFFF);

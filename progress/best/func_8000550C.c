@@ -7,6 +7,8 @@ f32 func_8000550C(void *a, s32 i, s32 kind) {
  case 0x165: p = D_800D93CC; if (flag) p = D_800D9408; break;
  case 0x16b: p = D_800D93D8; break; default: p = 0; break;
  }
- if (!p || !i) return 0.0f;
- return p[i+1];
+ { s32 bad = (p == NULL) | (i == 0); f32 value;
+ if (bad) value = 0.0f;
+ else value = p[i + 1];
+ return value; }
 }

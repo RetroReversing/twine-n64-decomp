@@ -28,14 +28,14 @@ f32 __repair_var_fv0_1;
         D_80109CBC = ((*(f32 *)((char *)(arg1) + 0)) - temp_ft3) / temp_ft2;
         D_80109BAC = (((__repair_record_arg2*)arg2)->field_0 - ((__repair_record_arg0*)arg0)->field_0) / temp_ft2;
     }
-    var_fv0 = __repair_fzero;
     if (temp_ft1 == 0.0f) {
+        var_fv0 = 0.0f;
         D_80100780 = (0.0f);
     } else {
         D_80100780 = ((*(f32 *)((char *)(arg1) + 8)) - ((__repair_record_arg0*)arg0)->field_10) / temp_ft1;
-        __repair_var_fv0_1 = (((__repair_record_arg2*)arg2)->field_8 - ((__repair_record_arg0*)arg0)->field_10) / temp_ft1;
+        var_fv0 = (((__repair_record_arg2*)arg2)->field_8 - ((__repair_record_arg0*)arg0)->field_10) / temp_ft1;
     }
-    D_80100160 = __repair_var_fv0_1;
+    D_80100160 = var_fv0;
     temp_fv1 = D_80109CBC;
     if (D_80109BAC < temp_fv1) {
         D_80109CBC = D_80109BAC;

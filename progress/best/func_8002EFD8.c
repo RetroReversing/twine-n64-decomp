@@ -24,7 +24,8 @@ void func_8002EFD8(void *arg0, M2C_UNK arg1) {
 
     temp_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x2C), s32 *, 0x10);
     if ((u32) (temp_v1 & 0xFF) < 0xFFU) {
-        temp_v0 = (temp_v1 & 0xFF) + 0x10;
+        temp_v0 = (u8)temp_v1;
+        temp_v0 += 0x10;
         if (temp_v0 >= 0) {
             var_a0 = temp_v1 + 0x10;
             if (temp_v0 >= 0x100) {

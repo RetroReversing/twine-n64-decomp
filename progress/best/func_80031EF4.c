@@ -32,6 +32,8 @@ extern s32 D_8010A4E8;
 
 typedef struct { s32 w[3]; } __repair_words3;
 void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
+int __repair_literal;
+
     void *sp24;
     f32 temp_fv0;
     f32 temp_fv0_2;
@@ -59,7 +61,9 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
                 var_s2 = 0xB4;
             }
             var_fv1 = (f64) var_s0;
-            if (var_s0 < 0) {
+__repair_literal = 0;
+
+            if (var_s0 < __repair_literal) {
                 var_fv1 += D_800D2DE8;
             }
             var_ft0 = (f64) var_s2;

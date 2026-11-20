@@ -13,6 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_80005F5C(void *arg0) {
+    f32 before;
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;
@@ -28,16 +29,19 @@ void func_80005F5C(void *arg0) {
     if (temp_v1 & 0x4000) {
         M2C_FIELD(temp_a0, s32 *, 0x14) = (s32) (temp_v1 & ~0x4000);
         temp_v0 = M2C_FIELD(arg0, void **, 0x68);
+        before = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x54), f32 *, 8);
         temp_fv1 = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x58), f32 *, 8);
-        M2C_FIELD(temp_v0, f32 *, 0x48) = (f32) (M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x54), f32 *, 8) - temp_fv1);
+        M2C_FIELD(temp_v0, f32 *, 0x48) = before - temp_fv1;
         M2C_FIELD(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0x54), f32 *, 8) = temp_fv1;
         temp_v0_2 = M2C_FIELD(arg0, void **, 0x68);
+        before = M2C_FIELD(M2C_FIELD(temp_v0_2, void **, 0x54), f32 *, 0xC);
         temp_fv1_2 = M2C_FIELD(M2C_FIELD(temp_v0_2, void **, 0x58), f32 *, 0xC);
-        M2C_FIELD(temp_v0_2, f32 *, 0x4C) = (f32) (M2C_FIELD(M2C_FIELD(temp_v0_2, void **, 0x54), f32 *, 0xC) - temp_fv1_2);
+        M2C_FIELD(temp_v0_2, f32 *, 0x4C) = before - temp_fv1_2;
         M2C_FIELD(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0x54), f32 *, 0xC) = temp_fv1_2;
         temp_v0_3 = M2C_FIELD(arg0, void **, 0x68);
+        before = M2C_FIELD(M2C_FIELD(temp_v0_3, void **, 0x54), f32 *, 0x10);
         temp_fv1_3 = M2C_FIELD(M2C_FIELD(temp_v0_3, void **, 0x58), f32 *, 0x10);
-        M2C_FIELD(temp_v0_3, f32 *, 0x50) = (f32) (M2C_FIELD(M2C_FIELD(temp_v0_3, void **, 0x54), f32 *, 0x10) - temp_fv1_3);
+        M2C_FIELD(temp_v0_3, f32 *, 0x50) = before - temp_fv1_3;
         M2C_FIELD(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0x54), f32 *, 0x10) = temp_fv1_3;
         temp_v1_2 = M2C_FIELD(arg0, void **, 0x68);
         M2C_FIELD(temp_v1_2, s32 *, 0x14) = (s32) (M2C_FIELD(temp_v1_2, s32 *, 0x14) | 0x8000);

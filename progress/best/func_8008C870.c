@@ -1,17 +1,28 @@
-extern s16 D_800CF330[];
-extern s16 D_800CF334[];
-extern f32 D_800CF534[];
-extern f64 D_800D67C0;
-extern f64 D_800D67C8;
-extern f64 D_800D67D0;
-extern f64 D_800D67D8;
-extern f64 D_800D67E0;
-extern f64 D_800D67E8;
-
-void func_8008C870(s16 *arg0, s16 *arg1, u32 arg2, u32 arg3, u32 arg4, s16 *arg5, u32 arg6, s16 *arg7) {
-    u8 __repair_frame[24];
-    u32 a2 = arg2;
-    u32 t3 = arg6;
-    if (a2 > 0x7F0000U) a2 = 0x7F0000;
-    *arg5 = (s16)(s32)(((1.0f - (f32)((f64)(a2 & 0xFFFF) * 0.000015258789)) ) * 0.0f);
+extern f32 D_800CF330[], D_800CF334[], D_800CF534[];
+void func_8008C870(s16 *a, s16 *b, u32 x, u32 y, u32 z, s16 *c, u32 w, s16 *d) {
+ f32 p,q,r,t,v; u32 i,j;
+ if(x>0x7f0000) x=0x7f0000;
+ p=(f32)(x&0xffff)*0.000015258789f;
+ i=x>>16;
+ q=(1.0f-p)*D_800CF330[i]+p*D_800CF334[i];
+ p=(f32)(z&0x3fffff)*0.00000023841858f;
+ i=z>>22;
+ *c=(s32)(q*((1.0f-p)*D_800CF534[i]+p*D_800CF534[i+1])*23195.76f);
+ z=0x800000-z;
+ if(z>0x7fffff) z=0x7f0000;
+ p=(f32)(z&0x3fffff)*0.00000023841858f;
+ i=z>>22;
+ r=q*((1.0f-p)*D_800CF534[i]+p*D_800CF534[i+1]);
+ if(y==0x800000) { *a=(s32)(r*23195.76f); v=r*-23195.76f; }
+ else {
+ p=(f32)(y&0x3fffff)*0.00000023841858f; i=y>>22;
+ *a=(s32)(r*((1.0f-p)*D_800CF534[i]+p*D_800CF534[i+1])*32767.0f);
+ y=0x800000-y; if(y>0x7fffff) y=0x7f0000;
+ p=(f32)(y&0x3fffff)*0.00000023841858f; i=y>>22;
+ v=r*((1.0f-p)*D_800CF534[i]+p*D_800CF534[i+1])*32767.0f;
+ }
+ *b=(s32)v;
+ if(w>0x7f0000) w=0x7f0000;
+ p=(f32)(w&0xffff)*0.000015258789f; i=w>>16;
+ *d=(s32)(((1.0f-p)*D_800CF330[i]+p*D_800CF334[i])*23195.76f);
 }

@@ -30,6 +30,10 @@ void func_800105F8(u16 arg0) {
         __osMotorAccess((void *) ((temp_s1) + (s32) __base_D_800E0790), 0);
         var_s0 += 1;
     } while (var_s0 < 3);
-    temp_v0 = (arg0 * 2) + D_8010A3A0;
+    {
+        s32 index = arg0;
+        char *base = D_8010A3A0;
+        temp_v0 = (u16 *)(base + index * 2);
+    }
     *temp_v0 &= 0xFFFE;
 }

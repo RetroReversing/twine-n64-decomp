@@ -18,6 +18,8 @@ s32 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *); /* extern */
 extern f64 D_800D3E08;
 
 void *func_80047B44(void *arg0, void *arg1, void *arg2, void *arg3) {
+int __repair_literal;
+
     f32 sp18[3];
     f32 sp28[3];
     f32 sp38;
@@ -51,7 +53,9 @@ loop_3:
                 if (temp_s1 != NULL) {
                     if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
                         var_s0 = 0;
-                        if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > 0) {
+__repair_literal = 0;
+
+                        if ((s32) M2C_FIELD(temp_s1, u16 *, 0x40) > __repair_literal) {
                             var_s2 = 0;
 loop_8:
                             temp_v1 = M2C_FIELD(temp_s1, s32 *, 0x34);

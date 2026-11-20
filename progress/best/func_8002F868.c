@@ -48,7 +48,7 @@ void func_8002F868(void *arg0, void *arg1) {
     void *temp_t0;
 
     func_8002F718();
-    temp_v1 = M2C_FIELD(arg1, s16 *, 0x7A);
+    temp_v1 = M2C_FIELD(arg1, const s16 *, 0x7A);
     switch (temp_v1) {
     case 0:
         func_8002EFD8(arg0);
@@ -102,7 +102,7 @@ block_19:
             } while (var_a2 != temp_t0);
             *(s32 *)var_a3 = *(s32 *)var_a2;
             D_800BFC92 += 1;
-            func_80016160(M2C_FIELD(arg0, s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
+            func_80016160(M2C_FIELD(arg0, const s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
             func_8002FBD4(arg1, 0);
         }
         func_8002F2EC(arg0, arg1);

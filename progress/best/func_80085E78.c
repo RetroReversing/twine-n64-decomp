@@ -24,11 +24,11 @@ case 1: if (*(f32*)((char*)arg1+0x10)<var_fv1) { *(s32*)arg1=-1; *(u8*)((char*)a
 } else {
 temp_v0_2=*(u8*)((char*)arg1+0x16);
 if(temp_v0_2 && *((u8*)((char*)&D_80109A60+temp_v0_2))==*(u8*)((char*)arg1+0x17)) {func_8000A270(*(s32*)arg1); *(s32*)arg1=-1; return;}
-var_fs0=func_80084270(temp_a0,&sp18); temp_fv1=*(f32*)((char*)arg1+0xC);
+var_fs0=func_80084270(temp_a0,&sp18); temp_fv1=*(f32*)((char*)arg1+0xC); temp_fv1_2=*(f32*)((char*)arg1+0x10);
 if ((*(s32*)((char*)(*(s32*)((char*)&D_80109688+sp18*4))+0x100))&8) {if(*(u8*)((char*)arg1+0x1A)==1)var_fs0=65536.0f;}
 else if(*(u8*)((char*)arg1+0x1A)==0)var_fs0=65536.0f;
 var_fv0=var_fs0-temp_fv1; if(var_fv0<0.0f)var_fv0=0.0f;
-temp_fv1_2=*(f32*)((char*)arg1+0x10)-temp_fv1; if(temp_fv1_2<var_fv0)var_fv0=temp_fv1_2;
+temp_fv1_2=temp_fv1_2-temp_fv1; if(temp_fv1_2<var_fv0)var_fv0=temp_fv1_2;
 temp_fv0=var_fv0/temp_fv1_2; temp_fv1_3=127.0f-(temp_fv0*temp_fv0*127.0f);
 temp_v1_2=*(u8*)((char*)arg1+0x18); *(f32*)((char*)arg1+4)=temp_fv1_3;
 switch(temp_v1_2) {

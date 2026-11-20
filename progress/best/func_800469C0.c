@@ -26,7 +26,6 @@ void func_800469C0(f32 arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 var_fa1;
-    f32 var_fa1_2;
     f32 var_ft4;
     s32 var_a0;
 
@@ -45,17 +44,17 @@ void func_800469C0(f32 arg0, void *arg1, void *arg2, void *arg3) {
         temp_fv0 = temp_fv1 * var_ft4;
         temp_fv1_2 = (temp_fv1 - temp_fv0) * 651.8986f;
         var_ft4 = *((f32 *)((s8 *)&D_800CA350 + ((((s32) (temp_fv0 * 651.8986f) - 0x400) & 0xFFF) * 4))) * temp_ft2_2;
-        var_fa1_2 = *((f32 *)((s8 *)&D_800CA350 + ((((s32) temp_fv1_2 - 0x400) & 0xFFF) * 4))) * temp_ft2_2;
+        var_fa1 = *((f32 *)((s8 *)&D_800CA350 + ((((s32) temp_fv1_2 - 0x400) & 0xFFF) * 4))) * temp_ft2_2;
     } else {
-        var_fa1_2 = 1.0f - var_ft4;
+        var_fa1 = 1.0f - var_ft4;
     }
     if (var_a0 != 0) {
-        var_fa1_2 = -var_fa1_2;
+        var_fa1 = -var_fa1;
     }
-    __repair_store_0 = (f32) ((var_fa1_2 * M2C_FIELD(arg1, f32 *, 0)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 0)));
-    __repair_store_1 = (f32) ((var_fa1_2 * M2C_FIELD(arg1, f32 *, 4)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 4)));
-    __repair_store_2 = (f32) ((var_fa1_2 * M2C_FIELD(arg1, f32 *, 8)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 8)));
-    __repair_store_3 = (f32) ((var_fa1_2 * M2C_FIELD(arg1, f32 *, 0xC)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 0xC)));
+    __repair_store_0 = (f32) ((var_fa1 * M2C_FIELD(arg1, f32 *, 0)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 0)));
+    __repair_store_1 = (f32) ((var_fa1 * M2C_FIELD(arg1, f32 *, 4)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 4)));
+    __repair_store_2 = (f32) ((var_fa1 * M2C_FIELD(arg1, f32 *, 8)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 8)));
+    __repair_store_3 = (f32) ((var_fa1 * M2C_FIELD(arg1, f32 *, 0xC)) + (var_ft4 * M2C_FIELD(arg2, f32 *, 0xC)));
     M2C_FIELD(arg3, f32 *, 0) = __repair_store_0;
     M2C_FIELD(arg3, f32 *, 4) = __repair_store_1;
     M2C_FIELD(arg3, f32 *, 8) = __repair_store_2;

@@ -17,8 +17,8 @@ s16 strlen(s32);                                    /* extern */
 extern u16 D_800B60E2;
 extern s32 D_800B60E4;
 extern u8 D_800BD68F;
-extern s32 D_800C4478;
-extern s32 D_800C447A;
+extern s16 D_800C4478;
+extern s16 D_800C447A;
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C469E;
 extern Slot_800C469E D_800C469E[];
 extern s32 D_800C46D8;
@@ -79,7 +79,7 @@ void func_8001F0B4(void) {
                     break;
                 case 1:                             /* switch 1 */
                     temp_s0_3 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
-                    temp_v1 = (*(u8 *)((char *)(temp_s2) + 8)) * 0x10;
+                    temp_v1 = (*(u8 *)((char *)(temp_s2) + 8)) * 8;
                     func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
                     if (temp_s0_3 != NULL) {
                         (*(s32 *)((char *)((*(void **)((char *)(temp_s0_3) + 0x30))) + 0x18)) = func_80087100(func_8001E760(2, (*(u8 *)((char *)(temp_s2) + 8))) & 0xFFFF);

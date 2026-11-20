@@ -30,11 +30,11 @@ void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
         temp_a1 = (*(void **)((char *)(temp_s0) + 0));
         (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (arg2 & 0xFF) ? (s32) ((D_800BD660 & ~0xFF) | (*(u8 *)((char *)(D_80109BB0) + 0x30))) : (s32) (D_80102EBC);
         temp_a1 = *(void * volatile *)temp_s0;
-        flags = (u8)arg1 == 0;
-        flags = -flags;
-        flags &= 7;
-        flags |= 3;
-        (*(s32 *)((char *)(temp_a1) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a1) + 0x28)) & ~0xFC) | (flags << 2));
+        {
+            s32 bits = *(volatile s32 *)((char *)temp_a1 + 0x28) & ~0xFC;
+            flags = ((u8)arg1 == 0 ? 7 : 0) | 3;
+            *(s32 *)((char *)temp_a1 + 0x28) = bits | (flags << 2);
+        }
         func_80022E88(3, temp_a1);
         func_80022E5C((*(u8 *)((char *)(D_80109BB0) + 0x30)));
         if (arg2 & 0xFF) {

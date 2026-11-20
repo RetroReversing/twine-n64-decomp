@@ -23,7 +23,7 @@ extern void *D_8010A4B4;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 D_80112E40;
-extern void *D_80115328;
+extern void * volatile D_80115328;
 extern void *D_80117728;
 
 typedef struct { int value; } __repair_field_0;
@@ -92,10 +92,11 @@ block_10:
         }
         ((__repair_field_0 *)D_8010A4B4)->value = 0xDF000000;
         M2C_FIELD(D_8010A4B4, s32 *, 4) = 0;
-        ((__repair_field_0 *)D_80115328)->value = 0xDE000000;
-        M2C_FIELD(D_80115328, s32 *, 4) = (s32) M2C_FIELD(D_80117728, s32 *, 0x1C70);
+        temp_a2 = D_80115328;
+        ((__repair_field_0 *)temp_a2)->value = 0xDE000000;
+        M2C_FIELD(temp_a2, s32 *, 4) = (s32) M2C_FIELD(D_80117728, s32 *, 0x1C70);
         D_8010A4B4 += 8;
-        temp_a2 = D_80115328 + 8;
+        temp_a2 += 8;
         D_80115328 = temp_a2;
         func_80034928(arg0, D_8010A4D8, temp_a2);
     }

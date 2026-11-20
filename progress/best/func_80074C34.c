@@ -22,11 +22,11 @@ extern char D_80100314[];
 extern void *D_80100B20;
 extern s32 D_8010302C;
 extern s32 D_80109688;
-extern s32 D_8010A500;
+extern char *D_8010A500;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
 
-void func_80074C34(void *arg0, void *arg1, s8 arg2) {
+void func_80074C34(void *arg0, void *arg1, s32 arg2) {
     f32 temp_fv0;
     f32 var_fs0;
     s32 temp_v0;
@@ -47,8 +47,9 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
     if (arg0 != NULL) {
         M2C_FIELD(arg0, s32 *, 0x60) |= 0x10000000;
     }
+    temp_v1 = D_8010D294;
     var_s1 = 0;
-    if ((s32) D_8010D294 > 0) {
+    if (temp_v1 > 0) {
         var_v1 = 0;
         do {
             if (*(void **)(D_80100310 + var_v1) == arg1) {
@@ -61,13 +62,13 @@ void func_80074C34(void *arg0, void *arg1, s8 arg2) {
     if (var_a0 == 0) {
         temp_v0 = D_8010D294 * 8;
         *(D_80100314 + temp_v0) = arg2;
-        *(D_80100310 + temp_v0) = arg1;
+        *(void **)(D_80100310 + temp_v0) = arg1;
         D_8010D294 += 1;
     }
     D_8010302C += 1;
     var_s4 = arg1;
     if (arg2 != 0) {
-        temp_s7 = &D_80100B20 - 4;
+        temp_s7 = &D_80100B20 - 1;
         do {
             var_fs0 = 5.0f;
             if (M2C_FIELD(var_s4, u16 *, 6) == 0x237) {

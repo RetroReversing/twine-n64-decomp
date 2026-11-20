@@ -3,9 +3,9 @@ s32 func_8001792C(void *, s32, s32, s32);
 extern u16 D_800B35B0;
 
 void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
-    void *sp10[0x80];
-    s32 sp214;
-    s32 sp21C;
+    void *sp10[0x82];
+    volatile s32 sp214;
+    volatile s32 sp21C;
     u32 sp224;
     s32 var_s4;
     u32 temp_s7;
@@ -51,7 +51,7 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                     M2C_FIELD(temp_t0, u16 *, 0x60) = (u16) D_800B35B0;
                     func_8001792C(temp_s1, 2, var_s4 | 0x2000, sp214);
                     *var_s2 = temp_s1;
-                    var_s2 += 4;
+                    var_s2 += 1;
                     var_s6 += 1;
                 }
                 var_s0 = M2C_FIELD(var_s0, void **, 0);
@@ -76,14 +76,14 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                             M2C_FIELD(temp_t0_2, u16 *, 0x60) = (u16) D_800B35B0;
                             func_8001792C(temp_s1_2, 2, var_s4 | 0x4000, sp214);
                             *var_s2_2 = temp_s1_2;
-                            var_s2_2 += 4;
+                            var_s2_2 += 1;
                             var_s6 += 1;
                         }
                         var_s0_2 = M2C_FIELD(var_s0_2, void **, 0);
                     } while (var_s0_2 != NULL);
                 }
                 var_s3 += 1;
-                var_s5 += 4;
+                var_s5 += 1;
             } while (var_s3 < temp_s7);
         }
         if (sp21C == 3) {
@@ -106,7 +106,7 @@ void func_800179E8(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
                     } while (var_s0_3 != NULL);
                 }
                 var_s3_2 += 1;
-                var_s2_3 += 4;
+                var_s2_3 += 1;
             } while (var_s3_2 < var_s6);
         }
     }

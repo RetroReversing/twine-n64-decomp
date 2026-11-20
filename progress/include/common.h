@@ -72,3 +72,5 @@ s32 func_80094B48(void *object, f32 sortKey, f32 value0, f32 value1, f32 value2,
 void func_80027FF4(void);
 
 void func_80087A80(void);
+
+void func_8008C3D8(s32 index, u16 *data);

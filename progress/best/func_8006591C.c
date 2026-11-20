@@ -17,7 +17,7 @@ f32 __repair_var_ft2_2;
     f32 var_fv1;
     f32 var_fv1_2;
     f32 var_fv1_3;
-    s8 temp_a2;
+    s32 temp_a2;
     void *temp_a1;
     void *temp_v0;
 

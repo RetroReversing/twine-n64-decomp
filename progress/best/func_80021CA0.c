@@ -84,7 +84,7 @@ void func_80021CA0(void) {
                 break;
             }
         }
-        temp_s1_2 = temp_s1 + 0x28;
+        temp_s1 += 0x28; temp_s1_2 = temp_s1;
         temp_a0_2 = *(D_80100198 + D_801002AD * 0x6) + 0x18D;
         M2C_FIELD(temp_s1, u16 *, 0x28) = temp_a0_2;
         if (M2C_FIELD(temp_s1_2, void **, 8) != NULL) {
