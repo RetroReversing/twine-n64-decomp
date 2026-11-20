@@ -17,7 +17,7 @@ extern char D_80103022[];
 s32 func_80081828(s32 arg0) {
     char *__base_D_80103022;
     s32 temp_a0;
-    s32 var_a1;
+    u8 var_a1;
     s32 var_v0;
     s32 var_v1;
 
@@ -26,9 +26,9 @@ s32 func_80081828(s32 arg0) {
     temp_a0 = arg0 & 0xFF;
 __base_D_80103022 = D_80103022;
     for (;;) {
-        if (*(((var_v1 & 0xFF) * 2) + __base_D_80103022) != 0) {
-            var_a1 += 1;
-        }
+        if (*(u16 *)(((var_v1 & 0xFF) * 2) + __base_D_80103022) == 0) goto skip;
+        var_a1 += 1;
+        skip:;
         if ((var_a1 & 0xFF) != (temp_a0 + 1)) {
             var_v1 += 1;
             if ((u32) (var_v1 & 0xFF) < 4U) {

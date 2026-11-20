@@ -86,8 +86,8 @@ s32 func_8003EA68(void **arg0, void *arg1) {
             var_s0 = M2C_FIELD(var_s0, void **, 0x10);
         } while (var_s0 != NULL);
     }
-    if (var_s2 != NULL) {
-        return (s32) var_s2;
+    if (var_s2 == NULL) {
+        var_s2 = (void *) ((s32) var_s4 & -((s32) var_s4 != 0));
     }
-    return (s32) var_s4 & -(var_s4 != NULL);
+    return (s32) var_s2;
 }

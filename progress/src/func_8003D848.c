@@ -24,37 +24,46 @@ ProbeObject *func_8003D848(ProbeVector *position)
 {
     ProbeVector direction1, direction2;
     u8 hit[16];
-    ProbeObject *closest = NULL;
-    ProbeObject *object = *D_800CA31C;
-    f32 closestDistance = 65536.0f;
-    ProbeObject *fallback = NULL;
+    ProbeObject *fallback;
+    ProbeObject *object;
+    ProbeObject *closest;
+    f32 closestDistance;
+    ProbeObject *result;
+
+    closest = NULL;
+    object = *D_800CA31C;
+    closestDistance = 65536.0f;
+    fallback = NULL;
 
     if (object != NULL) {
         do {
             if (object->type == 0x46) {
+                f32 x = position->x;
                 ProbeBounds *bounds = object->bounds;
-                if (bounds->minX <= position->x &&
-                    bounds->minY <= position->y &&
-                    bounds->minZ <= position->z &&
-                    position->x <= bounds->maxX &&
-                    position->y <= bounds->maxY &&
-                    position->z <= bounds->maxZ) {
+                if (bounds->minX <= x) {
+                    f32 y = position->y;
+                    if (bounds->minY <= y) {
+                        f32 z = position->z;
+                        if (bounds->minZ <= z && x <= bounds->maxX &&
+                            y <= bounds->maxY && z <= bounds->maxZ) {
                     direction1 = D_800D2FB0;
                     direction2 = D_800D2FBC;
                     fallback = object;
                     if (object->distance < closestDistance &&
-                        ((u8)func_8004E6E4(func_8004DBD8, fallback, position, &direction1, hit, 256.0f, 0, 1, 0) ||
-                         (u8)func_8004E6E4(func_8004DBD8, fallback, position, &direction2, hit, 256.0f, 0, 1, 0))) {
+                        (((u32)func_8004E6E4(func_8004DBD8, fallback, position, &direction1, hit, 256.0f, 0, 1, 0) << 24) ||
+                         ((u32)func_8004E6E4(func_8004DBD8, fallback, position, &direction2, hit, 256.0f, 0, 1, 0) << 24))) {
                         closest = fallback;
                         closestDistance = fallback->distance;
+                    }
+                        }
                     }
                 }
             }
             object = object->next;
         } while (object != NULL);
     }
-    if (closest == NULL) {
-        closest = fallback;
+    if (closest != NULL) {
+        return closest;
     }
-    return closest;
+    return fallback;
 }

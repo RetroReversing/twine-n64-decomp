@@ -23,7 +23,7 @@ extern s32 D_800D1078, D_80112F8C;
 extern u8 D_80100C0C, D_80100C0D, D_80100C0E, D_80100C0F, D_80100C10;
 extern u8 D_80109B24, D_80109B25, D_80109B26, D_80109B27, D_80109B28;
 
-void func_800A6908(void)
+void osInitialize(void)
 {
     u32 pif;
     u32 dom1Latency, dom1Pulse, dom1Page, dom1Release;
@@ -70,13 +70,12 @@ void func_800A6908(void)
         bzero(D_8000031C, 0x40);
     }
     if (D_80000300 == 0) {
-        clock = 0x02F5B2D2;
+        D_800D1078 = 0x02F5B2D2;
     } else if (D_80000300 == 2) {
-        clock = 0x02E6025C;
+        D_800D1078 = 0x02E6025C;
     } else {
-        clock = 0x02E6D354;
+        D_800D1078 = 0x02E6D354;
     }
-    D_800D1078 = clock;
     if (func_800A91E0() & 0x1000) {
         for (;;) {}
     }

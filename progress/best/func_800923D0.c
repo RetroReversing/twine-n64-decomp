@@ -77,8 +77,8 @@ loop_6:
                 if ((unsigned)var_a0 != 0) {
                     temp_v0 = (*(s32 *)((char *)(D_800EDA8C) + 0xF70)) + (*(s32 *)((char *)(D_800EDA8C) + 0x118));
                     var_a0 = temp_v0 & 0xFFFF;
-                    (*(s32 *)((char *)(D_800EDA8C) + 0xF70)) = var_a0;
                     (*(s32 *)((char *)(D_800EDA8C) + 0xF74)) += ((temp_v0 >> 0x10) + (*(u32 *)((char *)(D_800EDA8C) + 0x11C)));
+                    (*(s32 *)((char *)(D_800EDA8C) + 0xF70)) = var_a0;
                 }
                 temp_s5 = func_80090464();
                 temp_s4 = func_8008FB20();

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern s32 (*D_800D941C)(f32, void *, void *, void *);
 
-void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
+void func_80005D04(u8 *arg0, u8 *arg1, u8 *arg2, f32 arg3) {
     f32 temp_ft0;
     f32 temp_ft0_2;
     f32 temp_ft1;
@@ -31,6 +31,7 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
     s32 temp_a2;
     s32 temp_a3;
     
+    s32 callbackFlag;
     s32 temp_s2;
     s32 temp_s6;
     s32 temp_v0;
@@ -44,9 +45,10 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
     u32 temp_v1_2;
     void *var_a0;
 
-    temp_v0 = *arg1;
+    temp_v0 = M2C_FIELD(arg1, s32 *, 0);
     temp_s2 = temp_v0 >> 0x10;
-    *arg0 = temp_v0;
+    callbackFlag = temp_v0 & 1;
+    M2C_FIELD(arg0, s32 *, 0) = temp_v0;
     if (temp_v0 & 2) {
         var_t2 = temp_s2 * 3;
     } else {
@@ -58,7 +60,7 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
         var_a1 = arg0;
         var_a0 = arg2;
         var_v1 = arg1;
-        do {
+    interpolate: {
             temp_ft3 = M2C_FIELD(var_v1, f32 *, 8);
             temp_ft2 = M2C_FIELD(var_v1, f32 *, 0xC);
             temp_ft1 = M2C_FIELD(var_v1, f32 *, 0x10);
@@ -72,7 +74,8 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
             M2C_FIELD(var_a1, f32 *, 0xC) = temp_fv1;
             M2C_FIELD(var_a1, f32 *, 0x10) = (f32) (temp_fv0 + temp_ft1);
             var_a1 += 0xC;
-        } while (var_s1 < var_t2);
+        }
+        if (var_s1 < var_t2) goto interpolate;
     }
     var_s1_2 = 0;
     if (temp_s2 > 0) {
@@ -81,16 +84,16 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
             temp_v1 = M2C_FIELD((temp_a0 + arg1), u32 *, 8);
             temp_v1_2 = M2C_FIELD((temp_a0 + arg2), u32 *, 8);
             temp_a1 = (temp_v1 >> 0x16) * 4;
-            temp_ft0_2 = (f32) ((s32) ((((temp_v1_2 >> 0x16) * 4) - temp_a1) << 0x14) >> 0x14) * arg3;
+            temp_ft0_2 = (f32) ((s32) ((((s32)((temp_v1_2 >> 0x16) * 4)) - temp_a1) << 0x14) >> 0x14) * arg3;
             temp_a2 = (temp_v1 >> 0xA) & 0xFFE;
             temp_a3 = (temp_v1 * 2) & 0xFFE;
-            temp_fv1_2 = (f32) ((s32) ((((temp_v1_2 >> 0xA) & 0xFFE) - temp_a2) << 0x14) >> 0x14) * arg3;
-            temp_fv0_2 = (f32) ((s32) ((((temp_v1_2 * 2) & 0xFFE) - temp_a3) << 0x14) >> 0x14) * arg3;
+            temp_fv1_2 = (f32) ((s32)((((temp_v1_2 >> 10) & 0xFFE) - temp_a2) << 20) >> 20) * arg3;
+            temp_fv0_2 = (f32) ((s32)((((temp_v1_2 * 2) & 0xFFE) - temp_a3) << 20) >> 20) * arg3;
             var_s1_2 += 1;
-            M2C_FIELD((temp_a0 + arg0), s32 *, 8) = (s32) (((s32) (((s32) temp_fv0_2 + temp_a3) & 0xFFE) >> 1) | ((((s32) temp_fv1_2 + temp_a2) & 0xFFE) << 0xA) | (((s32) ((s32) temp_ft0_2 + temp_a1) >> 2) << 0x16));
+            M2C_FIELD((temp_a0 + arg0), s32 *, 8) = (s32) (((s32) (((s32) temp_fv0_2 + temp_a3) & 0xFFE) >> 1) | ((((s32) temp_fv1_2 + temp_a2) & 0xFFE) << 0xA) | ((u32)(((s32)temp_ft0_2 + temp_a1) >> 2) << 22));
         } while (var_s1_2 < temp_s2);
     }
-    if (temp_v0 & 1) {
+    if (callbackFlag) {
         var_s1_3 = 0;
         if (temp_s2 > 0) {
             var_s0 = 2;
@@ -105,3 +108,4 @@ void func_80005D04(s32 *arg0, s32 *arg1, void *arg2, f32 arg3) {
         }
     }
 }
+

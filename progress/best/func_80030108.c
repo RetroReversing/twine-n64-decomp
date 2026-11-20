@@ -90,10 +90,10 @@ s32 __repair_phase_temp_v0;
                 var_a0_2 = 0;
             }
             temp_v0 = (u8)((*(u8 *)((char *)((*(void **)((char *)(arg0) + 0xC))) + 0x10)));
-            temp_v0_6 = temp_v0 - 0x20;
-            if (temp_v0_6 >= 0) {
+            temp_v0 = temp_v0 - 0x20;
+            if (temp_v0 >= 0) {
                 var_a2_2 = temp_v0 - 0x20;
-                if (temp_v0_6 >= 0x100) {
+                if (temp_v0 >= 0x100) {
                     var_a2_2 = 0xFF;
                 }
             } else {

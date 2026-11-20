@@ -45,3 +45,20 @@ typedef struct {
     u8 pad[0xC2];
     TwineAudioChannel channel[10];
 } TwineAudioChannelBank;
+
+/* Fields used by the type-0x46 object query at 0x8003D848. */
+typedef struct { f32 x, y, z; } TwineProbeVector;
+typedef struct {
+    u8 pad0[0x18];
+    f32 minX, maxX, minY, maxY, minZ, maxZ;
+} TwineProbeBounds;
+typedef struct TwineProbeObject {
+    u8 pad0[0x10];
+    struct TwineProbeObject *next;
+    u8 pad14[0x28];
+    TwineProbeBounds *bounds;
+    u8 pad40[0xC];
+    f32 distance;
+    u8 pad50[8];
+    u16 type;
+} TwineProbeObject;

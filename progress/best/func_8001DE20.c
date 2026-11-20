@@ -84,7 +84,7 @@ void func_8001DE20(void) {
         }
         M2C_FIELD(M2C_FIELD(D_80109BB0, void **, 0x10), s8 *, 4) = func_800263B8(var_a0_2, var_a1);
         var_a0_4 = 0x16;
-        if ((D_8010A4C0 != 0) && (D_8010A4C0 == 1)) {
+        if (D_8010A4C0 == 1) {
             var_a0_4 = 0x17;
         }
         func_80026004(temp_s4, "%s", func_80087100(var_a0_4));

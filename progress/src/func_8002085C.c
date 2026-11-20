@@ -77,7 +77,7 @@ void func_8002085C(void) {
             if (var_s6 != NULL) {
                 temp_s0_2 = func_80026314((*(s32 *)((char *)(D_80109BB0) + 0x10)), 0xA6, 2);
                 temp_s1_2 = (*(u8 *)((char *)(var_s6) + 8));
-                temp_v1 = temp_s1_2 * 0x2;
+                temp_v1 = temp_s1_2 * 0x8;
                 func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
                 if (temp_s0_2 != NULL) {
                     (*(s16 *)((char *)(temp_s0_2) + 0x28)) = func_8001E760(2, temp_s1_2);

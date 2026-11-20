@@ -11,7 +11,7 @@ extern s16 D_800E4268;
 extern s32 (*D_8010017C)(s32,s32,s32);
 extern void (*D_8010016C)(void (*)(void));
 extern void func_8008B25C(void);
-void func_8008B824(s32 *arg0,s32 arg1,s32 arg2,s32 arg3){
+void func_8008B824(s32 *arg0,s32 arg1,u16 arg2,s32 arg3){
 f32 temp_fv1; f64 var_ft0; s32 temp_a2,temp_a2_2,temp_s0,temp_v0,var_a1,var_s0,var_v0,var_v0_2,var_v1;
 var_s0=arg1;
 if((u32)(var_s0&0xffff)>=0x21U)var_s0=0x20;

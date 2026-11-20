@@ -32,7 +32,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
             D_801002AC = 0;
         }
         for (i = 0; (u32)i < 2; i++) {
-            buf[i] = func_8002B278(arg0, arg1) / 10;
+            buf[i] = func_8002B278(D_8011F140 + i * 8) / 10;
         }
         for (i = 0; i < (*(__base_D_801002B4 = &D_801002B4)); i++) {
             p = D_8010A500[i];
@@ -84,7 +84,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
             }
         }
         if (s0 >= D_801002B8) {
-            func_8011A7C8(arg0, (*__base_D_801002B4));
+            func_8011A7C8();
             if (D_801002B8 <= s0) {
                 D_8011F3A8 = 0x5A;
                 D_801002AC = 1;

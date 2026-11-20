@@ -46,16 +46,14 @@ void func_80089384(u16 arg0, s32 arg1) {
     D_800E41E0 = temp_v0;
     D_800E41DC = temp_v0;
     D_800E41E6 = 0;
-    var_a1 = 0;
     if (D_800E41E4 != 0) {
-        var_v0 = 0 & 0xFFFF;
+        var_a1 = 0;
         do {
-            temp_v1 = var_v0 * 0x68;
+            temp_v1 = (var_a1 & 0xFFFF) * 0x68;
             *(s8 *)(temp_v1 + D_800E41E0) = 0;
             M2C_FIELD((temp_v1 + D_800E41E0), s8 *, 0x61) = 0;
             M2C_FIELD((temp_v1 + D_800E41E0), u8 *, 0x60) = 0xFF;
             var_a1 += 1;
-            var_v0 = var_a1 & 0xFFFF;
         } while ((u32) (var_a1 & 0xFFFF) < (u16) D_800E41E4);
     }
     if (D_8010086C == 0) {
