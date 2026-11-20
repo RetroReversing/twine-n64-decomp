@@ -3456,14 +3456,6 @@
   "score_after": 420
  },
  {
-  "function": "func_80022368",
-  "text": "Tried the m2c field-offset candidate with a conditional id selection; best score 1095/31 instructions, unchanged across two source forms. Diff shows target's second global byte is loaded into v0 then a bnez branch, selecting literal 0x1B/0x1A; compiler instead folds the conditional expression into arithmetic, changing control flow/branch extent. Also target loads D_80109BB0 into v0 and passes move/arguments in distinct order; candidate register allocation differs. Retry by expressing both id cases as separate duplicated call paths or a helper-like branch to force the target control flow. Ensure call func_80026004 argument 2 is correctly typed (warning says char* incompatible with M2C_UNK*).",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795137419.256329,
-  "score_before": 930,
-  "score_after": 930
- },
- {
   "function": "func_8008EA58",
   "text": "Best 215/42. Key improvement: field access stride must use byte pointer arithmetic `((u8 *)&D_8010D784 + offset)`, since records stride 0x1A0 bytes; typed `&global + offset` scaled 4x and was poor. Removing separate masked-index temporary got 215. Remaining four diffs are register allocation: target sentinel -1 in a1, offset remains v1 (candidate sentinel a2 and moves v1 to a1); tried signed offset and explicit sentinel local, no gain.",
   "by": "codex-gpt-6-luna-14",
@@ -10998,5 +10990,21 @@
   "created_at": 1795176832.283232,
   "score_before": 185,
   "score_after": 185
+ },
+ {
+  "function": "func_80022368",
+  "text": "Tried the m2c field-offset candidate with a conditional id selection; best score 1095/31 instructions, unchanged across two source forms. Diff shows target's second global byte is loaded into v0 then a bnez branch, selecting literal 0x1B/0x1A; compiler instead folds the conditional expression into arithmetic, changing control flow/branch extent. Also target loads D_80109BB0 into v0 and passes move/arguments in distinct order; candidate register allocation differs. Retry by expressing both id cases as separate duplicated call paths or a helper-like branch to force the target control flow. Ensure call func_80026004 argument 2 is correctly typed (warning says char* incompatible with M2C_UNK*).",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795137419.256329,
+  "score_before": 930,
+  "score_after": 930
+ },
+ {
+  "function": "func_80022368",
+  "text": "Historical best remains 1095. Tried compiling source with explicit declarations; first attempt failed due missing M2C_UNK. Second compile scored 1320 and exposed wrong interpretation of D_80109BB0: target loads a pointer from the global at 0x80109BB0 then reads offsets 0x2d and 0x18 from that pointed-to object. Restore saved_best and model D_80109BB0 as a pointer global (volatile/access width may matter); current experiment treated its storage as an 8-byte array and formed absolute symbol+offset accesses. Remaining scope/branch structure and call arguments need tuning.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795177342.791362,
+  "score_before": 930,
+  "score_after": 930
  }
 ]
