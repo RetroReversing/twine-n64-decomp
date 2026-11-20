@@ -7,17 +7,23 @@ s32 func_8009F860(Dev *d, s32 dir, u32 offset, void *dram, s32 len) {
  domain=d->x9; old=D_800CFDA0[domain];
  if(old->x4 != d->x4) {
   if(domain==0) {
-   if(old->x5!=d->x5) *(volatile u32 *)0xA4600014=d->x5;
-   if(old->x6!=d->x6) *(volatile u32 *)0xA460001C=d->x6;
-   if(old->x7!=d->x7) *(volatile u32 *)0xA4600020=d->x7;
-   reg=(volatile u32 *)0xA4600018;
+   if(old->x5!=(value=d->x5)) *(volatile u32 *)0xA4600014=value;
+   if(old->x6!=(value=d->x6)) *(volatile u32 *)0xA460001C=value;
+   if(old->x7!=(value=d->x7)) *(volatile u32 *)0xA4600020=value;
+   if(old->x8!=(value=d->x8)) {
+    reg=(volatile u32 *)0xA4600018;
+    goto write_timing;
+   }
   } else {
-   if(old->x5!=d->x5) *(volatile u32 *)0xA4600024=d->x5;
-   if(old->x6!=d->x6) *(volatile u32 *)0xA460002C=d->x6;
-   reg=(volatile u32 *)0xA4600028;
-   if(old->x7!=d->x7) *(volatile u32 *)0xA4600030=d->x7;
+   if(old->x5!=(value=d->x5)) *(volatile u32 *)0xA4600024=value;
+   if(old->x6!=(value=d->x6)) *(volatile u32 *)0xA460002C=value;
+   if(old->x7!=(value=d->x7)) *(volatile u32 *)0xA4600030=value;
+   if(old->x8!=(value=d->x8)) {
+    reg=(volatile u32 *)0xA4600028;
+write_timing:
+    *reg=value;
+   }
   }
-  if(old->x8!=d->x8) *reg=d->x8;
   old->x4=d->x4; old->x5=d->x5; old->x6=d->x6; old->x7=d->x7; old->x8=d->x8;
  }
  *(volatile u32 *)0xA4600000=osVirtualToPhysical(dram);

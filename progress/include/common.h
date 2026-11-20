@@ -83,3 +83,5 @@ f32 func_80045D8C(f32 scale, f32 offset);
 s32 func_800819EC(s32 bank, s32 index);
 
 extern char D_800D2D44[];
+
+typedef s32 (*TwineDisplayUpdateCallback)(u32, u32, u32, u32, void *);

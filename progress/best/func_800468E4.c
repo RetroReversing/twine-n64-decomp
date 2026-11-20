@@ -1,6 +1,4 @@
-typedef struct {
-    f32 x, y, z, w;
-} RotationQuat;
+typedef struct { f32 x, y, z, w; } RotationQuat;
 void func_800468E4(const RotationQuat *q, f32 m[3][3]) {
     f32 y = q->y;
     f32 twiceY = y + y;
@@ -30,13 +28,7 @@ void func_800468E4(const RotationQuat *q, f32 m[3][3]) {
     f32 m00 = 1.0f - yyzz;
     f32 m11 = 1.0f - xxzz;
     f32 m22 = 1.0f - xxyy;
-    m[0][1] = m01;
-    m[0][2] = m02;
-    m[1][0] = m10;
-    m[1][2] = m12;
-    m[2][0] = m20;
-    m[2][1] = m21;
-    m[0][0] = m00;
-    m[1][1] = m11;
-    m[2][2] = m22;
+    u64 scratch[2];
+    m[0][1] = m01; m[0][2] = m02; m[1][0] = m10; m[1][2] = m12;
+    m[2][0] = m20; m[2][1] = m21; m[0][0] = m00; m[1][1] = m11; m[2][2] = m22;
 }

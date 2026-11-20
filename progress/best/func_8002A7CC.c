@@ -55,7 +55,7 @@ void *func_8002A7CC(void *arg0, s32 arg1, s8 arg2, s8 arg3) {
             if (temp_fv0 > 1.0f) {
                 M2C_FIELD(arg0, f32 *, 0xC) = 1.0f;
             }
-            return (void *)(((var_a1 & 0xFF) * 0xC) + M2C_FIELD(arg0, u32 *, 0));
+            return (void *)(M2C_FIELD(arg0, u32 *, 0) + ((var_a1 & 0xFF) * 0xC));
         }
         /* Duplicate return node #11. Try simplifying control flow for better match */
         return NULL;

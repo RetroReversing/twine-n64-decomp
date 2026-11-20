@@ -24,9 +24,7 @@ extern s32 D_80112E40;
 void func_80037A7C(s32 arg0) {
     s32 var_s4;
     s32 var_v0;
-    s32 var_v0_2;
     void *var_s0;
-    void *var_s0_2;
     void *var_s2;
     void *var_s3;
 
@@ -39,9 +37,9 @@ void func_80037A7C(s32 arg0) {
         do {
             var_s0 = M2C_FIELD(var_s3, void **, 8);
             var_s2 = M2C_FIELD(var_s3, void **, 0);
-            var_s4 = 1;
+            var_s4 = (var_s0 != NULL || var_s2 == var_s2);
             if (var_s0 != NULL) {
-                var_v0 = 1;
+                var_v0 = var_s4;
                 do {
                     if (var_v0 != 0) {
                         func_80034630(var_s3, arg0);
@@ -57,20 +55,20 @@ void func_80037A7C(s32 arg0) {
             if (var_s2 != NULL) {
                 do {
                     if (!(M2C_FIELD(var_s2, s32 *, 0x58) & 0x20000)) {
-                        var_s0_2 = M2C_FIELD(var_s2, void **, 8);
-                        var_v0_2 = var_s4;
-                        if (var_s0_2 != NULL) {
+                        var_s0 = M2C_FIELD(var_s2, void **, 8);
+                        var_v0 = var_s4;
+                        if (var_s0 != NULL) {
                             do {
-                                if (var_v0_2 != 0) {
+                                if (var_v0 != 0) {
                                     func_80034630(var_s3, arg0);
                                     func_8003438C(var_s3, arg0);
-                                    
+                                    var_s4 = 0;
                                 }
-                                func_80008750((var_s4 = 0, arg0), M2C_FIELD(M2C_FIELD(var_s0_2, void **, 0x18), u8 *, 0x45), 0);
-                                func_800378C0(var_s0_2, var_s2, arg0);
-                                var_s0_2 = M2C_FIELD(var_s0_2, void **, 8);
-                                var_v0_2 = var_s4;
-                            } while (var_s0_2 != NULL);
+                                func_80008750(arg0, M2C_FIELD(M2C_FIELD(var_s0, void **, 0x18), u8 *, 0x45), 0);
+                                func_800378C0(var_s0, var_s2, arg0);
+                                var_s0 = M2C_FIELD(var_s0, void **, 8);
+                                var_v0 = var_s4;
+                            } while (var_s0 != NULL);
                         }
                     }
                     var_s2 = M2C_FIELD(var_s2, void **, 0);
