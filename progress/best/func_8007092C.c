@@ -20,7 +20,7 @@ extern char D_800C469E[];
 
 void func_8007092C(void *arg0, s32 arg1) {
     s16 temp_v1;
-    s32 var_s6;
+    s16 var_s6;
     s32 temp_a1;
     s8 temp_a1_2;
     u8 temp_v0;
@@ -55,6 +55,7 @@ void func_8007092C(void *arg0, s32 arg1) {
             M2C_FIELD(temp_a2, u8 *, 0xF) = (u8) M2C_FIELD(temp_s4, u16 *, 0x134);
             return;
         }
+        arg1 = (s8)arg1;
 loop_8:
         temp_v1_5 = M2C_FIELD(arg0, void **, 0x68);
         temp_v0 = M2C_FIELD(temp_v1_5, u8 *, 0xF) + 1;
@@ -83,7 +84,7 @@ loop_8:
                     goto loop_8;
                 }
             }
-        } else if ((func_80063D38(arg0, temp_s4, temp_a1_2, temp_a2) << 0x18) == 0) {
+        } else if ((func_80063D38(temp_s4, temp_a1_2) << 0x18) == 0) {
             if ((M2C_FIELD(temp_s2, u8 *, 0x1FE) != 0) && ((func_80063D38(temp_s4, temp_a1) << 0x18) != 0)) {
                 M2C_FIELD(temp_s2, u8 *, 0x1FE) = 0U;
                 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xF) = (u8) temp_a1;

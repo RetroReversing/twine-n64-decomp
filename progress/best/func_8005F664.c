@@ -82,7 +82,7 @@ void *func_8005F664(void *arg0, s32 arg1, s32 arg2) {
                     (*(f32 *)((char *)(temp_s2) + 0x1C)) = (f32) (*(f32 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 8));
                     temp_v0_5 = var_s3 * 0xE8;
                     (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
-                    func_80044670(temp_v0, *((s32 *)((s8 *)&D_800C4706 + temp_v0_5)), *((s32 *)((s8 *)&D_800C4708 + temp_v0_5)));
+                    func_80044670(temp_v0, *((s16 *)((s8 *)&D_800C4706 + temp_v0_5)), *((s16 *)((s8 *)&D_800C4708 + temp_v0_5)));
                     (*(f32 *)((char *)(temp_v0) + 0x54)) = 0.015625f;
                     (*(s32 *)((char *)(temp_v0) + 0x5C)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x5C)) | 0x400);
                     func_80016990(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));

@@ -20,21 +20,23 @@ void func_80069BC8(void *arg0) {
     s32 temp_a0;
     u8 temp_v0;
     void *temp_s1;
+    void *temp_s2;
 
     temp_s1 = (*(void **)((char *)(arg0) + 0x6C));
+    temp_s2 = (*(void **)((char *)(arg0) + 0x20));
     if (D_80102ED8 != 0) {
         D_800E1A16 = 1;
         return;
     }
     temp_v0 = D_800E1A16;
-    temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)((*(void **)((char *)(arg0) + 0x20))) + 0x20))) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x28));
+    temp_fv1 = (*(f32 *)((char *)((*(void **)((char *)(temp_s2) + 0x20))) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x28));
     if (temp_v0 != 0) {
         if (temp_fv1 >= 0.601f) {
             temp_a0 = (*(s32 *)((char *)(temp_s1) + 8));
             D_800E1A16 = 0;
             if (temp_a0 != -1) {
-                (*(s32 *)((char *)(temp_s1) + 8)) = -1;
                 func_8000A270(arg0, temp_a0);
+                (*(s32 *)((char *)(temp_s1) + 8)) = -1;
             }
         }
     } else if (temp_fv1 <= 0.501f) {
@@ -49,7 +51,7 @@ void func_80069BC8(void *arg0) {
             func_8000A894(var_a0);
         }
     }
-    if (temp_v0 == 0) {
+    if (D_800E1A16 == 0) {
         switch (D_80102EE8) {                       /* irregular */
         case 1:
             var_fv1 = D_800D4508;

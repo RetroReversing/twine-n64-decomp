@@ -26,7 +26,7 @@ int __repair_constant = 0x26;
     s8 temp_a1;
     s8 temp_a1_2;
     s8 temp_v0_2;
-    s8 temp_v0_3;
+    s32 temp_v0_3;
     s8 temp_v1_2;
     void *temp_a0;
     void *temp_a2;

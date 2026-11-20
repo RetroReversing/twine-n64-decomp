@@ -37,7 +37,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80018030(s32 arg0) {
+s32 decodeButtonMask840(s32 arg0) {
     s32 var_v0;
     u32 temp_a0;
 

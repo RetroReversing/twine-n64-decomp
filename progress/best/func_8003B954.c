@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80018030();
+s32 decodeButtonMask840();
 u32 func_80018080();
 u32 func_800180D4();
 void *func_80018510();
@@ -93,7 +93,7 @@ s32 __repair_result_var_v1_3;
         D_800E1764 = 0;
         D_800E1768 = 0;
         var_s1 = M2C_FIELD(arg2, u16 *, 0x20);
-        temp_s4 = func_80018510(func_80018030(M2C_FIELD(arg2, u16 *, 0x1E)) & 0xFFFF);
+        temp_s4 = func_80018510(decodeButtonMask840(M2C_FIELD(arg2, u16 *, 0x1E)) & 0xFFFF);
         temp_s3 = D_800C0A24;
         var_s5 = M2C_FIELD(arg2, u16 *, 0x22);
         temp_s0 = M2C_FIELD(((((__repair_field_4 *)temp_s4)->value * 0xC) + ((__repair_field_18 *)temp_s3)->value), s32 *, 8);
@@ -218,7 +218,7 @@ s32 __repair_result_var_v1_3;
                     D_800E1760 = 0;
                     var_s5 = var_s5 + 3 + M2C_FIELD(M2C_FIELD(temp_s4, void **, 8), u8 *, 0x148);
                     if (temp_a0_5 & 1) {
-                        var_s1 -= func_800180D4(((__repair_field_18 *)arg2)->value + (var_s0 + 1), ((M2C_FIELD(arg2, u16 *, 0x1C) - 1) - var_s0) & 0xFFFF, M2C_FIELD(arg2, u16 *, 0x1E), func_80018030(temp_a0_5) & 0xFFFF, (s32) D_800E1766) >> 1;
+                        var_s1 -= func_800180D4(((__repair_field_18 *)arg2)->value + (var_s0 + 1), ((M2C_FIELD(arg2, u16 *, 0x1C) - 1) - var_s0) & 0xFFFF, M2C_FIELD(arg2, u16 *, 0x1E), decodeButtonMask840(temp_a0_5) & 0xFFFF, (s32) D_800E1766) >> 1;
                     }
                     break;
                 case 32:
@@ -232,7 +232,7 @@ s32 __repair_result_var_v1_3;
                         D_800E1760 = 0;
                         var_s5 = var_s5 + 3 + M2C_FIELD(M2C_FIELD(temp_s4, void **, 8), u8 *, 0x148);
                         if (temp_a0_6 & 1) {
-                            var_s1 = M2C_FIELD(arg2, u16 *, 0x20) - (func_800180D4(((__repair_field_18 *)arg2)->value + var_s0, (M2C_FIELD(arg2, u16 *, 0x1C) - var_s0) & 0xFFFF, M2C_FIELD(arg2, u16 *, 0x1E), func_80018030(temp_a0_6) & 0xFFFF, (s32) D_800E1766) >> 1);
+                            var_s1 = M2C_FIELD(arg2, u16 *, 0x20) - (func_800180D4(((__repair_field_18 *)arg2)->value + var_s0, (M2C_FIELD(arg2, u16 *, 0x1C) - var_s0) & 0xFFFF, M2C_FIELD(arg2, u16 *, 0x1E), decodeButtonMask840(temp_a0_6) & 0xFFFF, (s32) D_800E1766) >> 1);
                         } else {
                             var_s1 = M2C_FIELD(arg2, u16 *, 0x20) + D_800E1768;
                         }

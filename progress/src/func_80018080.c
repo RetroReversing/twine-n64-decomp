@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80018030(u16);                             /* extern */
+s32 decodeButtonMask840(u16);                             /* extern */
 s32 func_800180D4(s32, u16, u16, s32, s32);         /* extern */
 
 s32 func_80018080(void *arg0) {
     if (arg0 != NULL) { goto __repair_guard_body; }
 return 0;
 __repair_guard_body: {
-        return func_800180D4(M2C_FIELD(arg0, s32 *, 0x18), M2C_FIELD(arg0, u16 *, 0x1C), M2C_FIELD(arg0, u16 *, 0x1E), func_80018030(M2C_FIELD(arg0, u16 *, 0x1E)) & 0xFFFF, 0);
+        return func_800180D4(M2C_FIELD(arg0, s32 *, 0x18), M2C_FIELD(arg0, u16 *, 0x1C), M2C_FIELD(arg0, u16 *, 0x1E), decodeButtonMask840(M2C_FIELD(arg0, u16 *, 0x1E)) & 0xFFFF, 0);
     }
 }

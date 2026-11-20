@@ -16,21 +16,15 @@ void *func_80015F0C();                              /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
 extern u16 D_800C7E08;
-extern M2C_UNK D_800D46E4;
-extern M2C_UNK D_800D46EC;
+typedef struct { s16 x[4]; } __attribute__((packed, aligned(2))) Quad;
+extern Quad D_800D46E4, D_800D46EC;
 extern s32 D_801002C0;
 extern s32 D_80102ED8;
 extern M2C_UNK D_80109688;
 extern u8 D_8010A4FD;
 
 void func_8006FDF8(void *arg0, s32 arg1) {
-    M2C_UNK sp10;
-    s16 sp12;
-    M2C_UNK sp14;
-    s16 sp16;
-    M2C_UNK sp18;
-    s16 sp1C;
-    s16 sp1E;
+    Quad sp10, sp18;
     s32 sp24;
     s32 sp2C;
     M2C_UNK *var_s3;
@@ -55,10 +49,8 @@ void func_8006FDF8(void *arg0, s32 arg1) {
     void *var_s1;
 
     sp24 = arg1;
-    sp10 = M2C_UNALIGNED32(M2C_FIELD(&D_800D46E4, M2C_UNK *, 0));
-    sp14 = M2C_UNALIGNED32(M2C_FIELD(&D_800D46E4, M2C_UNK *, 4));
-    sp18 = M2C_UNALIGNED32(M2C_FIELD(&D_800D46EC, M2C_UNK *, 0));
-    sp1C = M2C_UNALIGNED32(M2C_FIELD(&D_800D46EC, M2C_UNK *, 4));
+    sp10 = D_800D46E4;
+    sp18 = D_800D46EC;
     var_s7 = 0xA0;
     var_s6 = 0x78;
     sp2C = (s32) M2C_FIELD(arg0, s8 *, 0x182);
@@ -83,12 +75,12 @@ block_8:
         var_s2 = 0;
     }
     var_s4 = &D_800C7E08;
-    var_s3 = &sp10;
+    var_s3 = (M2C_UNK *)&sp10;
     var_s1 = arg0;
-    sp12 = var_s7;
-    sp16 = var_s7;
-    sp1C = var_s6;
-    sp1E = var_s6;
+    sp10.x[1] = var_s7;
+    sp10.x[3] = var_s7;
+    sp18.x[2] = var_s6;
+    sp18.x[3] = var_s6;
     do {
         if ((M2C_FIELD(var_s1, void **, 0x3D4) != NULL) || (temp_v0 = func_80015F0C(), M2C_FIELD(var_s1, void **, 0x3D4) = temp_v0, (temp_v0 != NULL))) {
             temp_s0 = M2C_FIELD(var_s1, void **, 0x3D4);

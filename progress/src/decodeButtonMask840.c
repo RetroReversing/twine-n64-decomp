@@ -1,4 +1,4 @@
-s32 func_80018030(u32 buttons) {
+s32 decodeButtonMask840(u32 buttons) {
     u32 masked = buttons & 0x840;
     if (masked == 0x40) goto left;
     if (masked < 0x41) goto plain;
