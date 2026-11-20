@@ -5,7 +5,7 @@ s32 func_80031548(s32 arg0,s32 arg1,s32 arg2) {
  if ((arg2 & 0xffff)==1) index = (s16)func_8003090C(arg0,arg1);
  else index=(s16)(arg0-1);
  if (index >= 0) {
-  p=(u16 *)(D_800BFF04+index*8);
+  p=(u16 *)(index*8+D_800BFF04);
   value=p[1];
   if (D_800E160A >= (value & 0xf000)) {
    p[1]=(value & 0xfff0)|arg1;
