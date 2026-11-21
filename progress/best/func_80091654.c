@@ -36,23 +36,19 @@ s32 __repair_phase_var_v0;
     void *temp_s2;
     
 
-    var_s0_2 = gSoundEntities;
-
+    s32 scanOffset = 0;
     var_s0 = 0;
     temp_a3 = arg2 & 0x7FFFFFFF;
-    temp_a2_2 = 0;
-loop_1:
-    if ((*(D_800E6A85 + temp_a2_2) != 0) || (*(s32 *)(gSoundEntities + temp_a2_2) != temp_a3)) {
-        var_s0 += 1;
-        temp_a2_2 += 0xFF8;
-        if (var_s0 >= 8U) {
-            var_a2 = -1;
-        } else {
-            goto loop_1;
+    do {
+        if (D_800E6A85[scanOffset] == 0 && *(s32 *)(gSoundEntities + scanOffset) == temp_a3) {
+            var_a2 = var_s0 | (arg2 & 0x80000000);
+            goto found;
         }
-    } else {
-        var_a2 = var_s0 | (arg2 & 0x80000000);
-    }
+        var_s0++;
+        scanOffset += 0xFF8;
+    } while (var_s0 < 8U);
+    var_a2 = -1;
+found:
     if (var_a2 != -1) {
         if (var_a2 >= 0) {
             temp_a2_2 = var_a2 * 0xFF8;

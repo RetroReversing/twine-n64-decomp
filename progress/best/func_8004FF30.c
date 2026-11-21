@@ -21,7 +21,7 @@ s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 func_80082908(f32, f32);                        /* extern */
 M2C_UNK buildRotationMatrix(s16 *, f32 *);                /* extern */
-M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
+M2C_UNK buildRotationMatrixCopy(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK buildRotationMatrixS16Copy(s16 *, f32 *);                /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *, f32 *);         /* extern */
@@ -498,7 +498,7 @@ block_65:
                         sp88 = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
                         sp8A = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
                         sp8C = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
-                        func_80082E84(sp1A4, sp1D4);
+                        buildRotationMatrixCopy(sp1A4, sp1D4);
                         sp88 = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
                         sp8A = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
                         sp8C = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);

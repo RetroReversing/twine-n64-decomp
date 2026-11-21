@@ -43,7 +43,8 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
         temp_v0(arg0);
     }
     D_8010302C += 1;
-    if (!((temp_s1 == 0x1A) & ((arg2 & 0xFFFF) == 1))) {
+    if ((temp_s1 == 0x1A) & ((arg2 & 0xFFFF) == 1)) {
+    } else {
         var_s7 = *(s16 *)((u8 *)&D_800C4478 + temp_s0);
         var_s4 = *(s16 *)((u8 *)&D_800C447A + temp_s0);
     }

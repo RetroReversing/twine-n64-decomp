@@ -10,7 +10,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 void func_80045DB4(f32 *, f32, f32);
 M2C_UNK spawnConfiguredEffect(s32, f32 *, void *, f32 *, f32, f32, s32, s32, s32, s32, s32);
 typedef struct { u32 x,y,z; } VBits;
-void func_80061BE4(void *arg0) {
+void spawnTrackMarkerBurst(void *arg0) {
     VBits sp30; f32 sp40[3]; register f32 zero;
     sp30 = *(VBits *)((s8 *)arg0 + 0x24);
     func_80045DB4((f32 *)&sp30, 1.0f, 0.5f);
