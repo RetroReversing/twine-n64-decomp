@@ -19,7 +19,8 @@ typedef struct {
 
 extern EntSnd gSoundEntities[];
 
-static inline s32 find_snd(s32 id) {
+/* Finds the index of a free sound entity matching id (top bit kept as a flag); returns -1 if none */
+static inline s32 findSoundEntity(s32 id) {
     u32 i = 0;
     s32 key = id & 0x7FFFFFFF;
     s32 off = 0;
@@ -36,21 +37,22 @@ void workerLockAcquire(void);
 void workerLockRelease(void);
 extern u8 gWorkerActive;
 
-static inline void stop_snd_91324(s32 arg0) {
-    arg0 = find_snd(arg0);
-    if (arg0 != -1) {
-        if (arg0 >= 0) {
-            gSoundEntities[arg0].active = 1;
+static inline void stopSoundEntity(s32 soundId) {
+    soundId = findSoundEntity(soundId);
+    if (soundId != -1) {
+        if (soundId >= 0) {
+            gSoundEntities[soundId].active = 1;
         } else {
-            gSoundEntities[arg0 & 0x7FFFFFFF].flags &= 0xF7;
+            gSoundEntities[soundId & 0x7FFFFFFF].flags &= 0xF7;
         }
     }
 }
 
-void stopEntitySound(s32 arg0) {
+/* Stops the sound entity for soundId, if the sound worker is active */
+void stopEntitySound(s32 soundId) {
     if (gWorkerActive != 0) {
         workerLockAcquire();
-        stop_snd_91324(arg0);
+        stopSoundEntity(soundId);
         workerLockRelease();
     }
 }
