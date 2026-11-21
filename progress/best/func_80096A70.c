@@ -24,6 +24,8 @@ s32 func_80096A70(void *arg0, void *arg1) {
 
     
 
+    u32 scratch[2];
+
     var_s4 = 0;
     var_s0 = 0;
     if ((*(u8 *)((char *)(arg1) + 0x10)) != 0) {
@@ -107,9 +109,10 @@ s32 func_80096A70(void *arg0, void *arg1) {
                     break;
                 }
             }
-            var_s2 += 4;
+            var_s2 = (u8 *)arg1 + ((var_s4 + 1) << 2);
             ++var_s4;
         } while (var_s4 < (u8) (*(u8 *)((char *)(arg1) + 0x10)));
     }
     return var_s0 & 0xFFFF;
 }
+

@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s8 D_800B60A6;
+extern s8 sMenuCodeStep;
 
 void func_8001D3E8(void) {
-    D_800B60A6 = 0;
+    sMenuCodeStep = 0;
 }

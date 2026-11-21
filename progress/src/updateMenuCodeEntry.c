@@ -12,7 +12,7 @@ extern s32 D_80102EC0;
 extern u8 *sActiveMenu;
 extern u8 *gMenuItems;
 
-void func_8001D424(void) {
+void updateMenuCodeEntry(void) {
     u32 a, b, c, d;
     s32 id;
 
