@@ -2,11 +2,11 @@ s32 func_8008CEB0(s32, s32, s32);
 s32 func_80096970(s32, s32);
 void *func_8009852C(u32, u16 *);
 s32 func_800988D8(void *);
-s32 func_8009C420(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_8009C420(volatile unsigned char, u16, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_8010D738[];
 extern u8 gVoiceChannelTable[];
 extern u8 sVoiceTable[];
-s32 func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9)
+void func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9)
 {
   int __repair_literal;
   u8 sp57;
@@ -117,7 +117,7 @@ s32 func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 ar
               }
               do
               {
-                var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + sVoiceTable);
+ do { var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + sVoiceTable); } while (0);
               }
               while (0);
             }
@@ -162,4 +162,3 @@ s32 func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 ar
   }
   return var_s6;
 }
-

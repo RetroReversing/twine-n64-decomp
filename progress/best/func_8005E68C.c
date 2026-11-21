@@ -31,7 +31,7 @@ typedef struct
   signed char field_2F;
   short field_30;
 } __repair_record_temp_s0;
-void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, volatile long arg10, u16 arg11, s32 arg12, u8 arg13)
+void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, volatile int arg3, s32 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, short arg10, u16 arg11, s32 arg12, u8 arg13)
 {
   u16 sp16;
   u16 sp1E;
@@ -109,6 +109,11 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4, u16 arg5
       if (((((u32) ((short) (arg5 - 0x18))) < 2U) | (arg5 == 0x17)) != 0)
       {
         ((__repair_record_temp_s0 *) temp_s0)->field_2E = 1;
+      }
+      else
+        if (arg4)
+      {
+        ((__repair_record_temp_s0 *) temp_s0)->field_2E = 0;
       }
       else
       {

@@ -50,7 +50,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
   unsigned temp_s2;
   u32 var_a3;
   void *var_s0;
-  s32 var_v0;
+  unsigned char var_v0;
   u16 temp_v1;
   void *temp_v1_2;
   void *temp_a3_2;
@@ -140,7 +140,10 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
                 *((s32 *) (((char *) temp_v1_3) + 0xC)) = 0;
                 func_8003B954((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0);
               }
- do { temp_a3 = sDisplayListCursor; *__base_D_800C0738 = 0; *((s32 *) (((char *) temp_a3) + 4)) = (s32) (((((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000)) | (temp_s1 & 0xFF00)) | (temp_s1 & 0xFF)); sDisplayListCursor = temp_a3 + 8; } while (0);
+              temp_a3 = sDisplayListCursor;
+              *__base_D_800C0738 = 0;
+              *((s32 *) (((char *) temp_a3) + 4)) = (s32) (((((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000)) | (temp_s1 & 0xFF00)) | (temp_s1 & 0xFF));
+              sDisplayListCursor = temp_a3 + 8;
               sDisplayListCursor = temp_a3 + 0x10;
               ((__repair_field_0 *) temp_a3)->value = 0xFA000000;
               *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) ((((temp_s2 >> 0x18) << 0x18) | (temp_s2 & (0xFF0000 & 0xFFFFu))) | (temp_s2 & 0xFF00));
@@ -205,3 +208,4 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) temp_v1_4) + 4)) = 0x2000;
   }
 }
+

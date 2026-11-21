@@ -88,7 +88,14 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
           temp_fv0 = (f32) (((f64) ((f32) var_t4)) + D_800D2EF0);
           if (temp_s5 < var_t2)
           {
-            var_t2 = temp_s5;
+            if (var_a3 || D_800D2EF0)
+            {
+              var_t2 = temp_s5;
+            }
+            else
+            {
+              var_t2 = temp_s5;
+            }
           }
           temp_a2 = var_t6 - 1;
           temp_a2 = temp_a2 & (((s32) (~temp_a2)) >> 0x1F);
@@ -113,7 +120,7 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
             *((s32 *) (((char *) temp_t0_3) + (-4))) = 0xE6000000;
             *((s32 *) (((char *) temp_t0_2) + 8)) = 0;
             temp_t0_4 = temp_t0_3 + 8;
-            *((s32 *) (((char *) temp_t0_4) + (-4))) = (s32) ((((temp_t3 * 2) & 0xFFF) << 0xC) | (temp_a1_2 | 0xF4000000));
+            *((s32 *) (((char *) temp_t0_4) + (-4))) = (s32) ((((temp_t3 * 2) & 0xFFF) << 0xC) | (((temp_a2 * 4) & 0xFFF) | 0xF4000000));
             *((s32 *) (((char *) temp_t0_3) + 8)) = (s32) ((((var_t2 * 2) & 0xFFF) << 0xC) | (temp_a2_3 | 0x07000000));
             temp_t0_5 = temp_t0_4 + 8;
             *((s32 *) (((char *) temp_t0_5) + (-4))) = 0xE7000000;
@@ -122,7 +129,7 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
             *((s32 *) (((char *) temp_t0_6) + (-4))) = (s32) (temp_t8 | (temp_a0 | 0xF5000000));
             *((s32 *) (((char *) temp_t0_5) + 8)) = 0x80200;
             var_t0_2 = temp_t0_6 + 8;
-            *((s32 *) (((char *) var_t0_2) + (-4))) = (s32) ((((temp_t3 * 4) & 0xFFF) << 0xC) | (temp_a1_2 | 0xF2000000));
+            *((s32 *) (((char *) var_t0_2) + (-4))) = (s32) ((((temp_t3 * 4) & 0xFFF) << 0xC) | (((temp_a2 * 4) & 0xFFF) | 0xF2000000));
             *((s32 *) (((char *) temp_t0_6) + 8)) = (s32) ((((var_t2 * 4) & 0xFFF) << 0xC) | temp_a2_3);
           }
           else
@@ -178,13 +185,25 @@ void func_80039A10(s32 *arg0, s32 arg1, s32 arg2, volatile int arg3, u32 arg4, v
           temp_a1_4 = var_t5 * 4;
           if (D_8010A4E8 != 0)
           {
-            temp_t0_12 = var_t0_2 + 8;
+            ;
             var_fv1 = temp_fv0 * 32.0f;
-            *((s32 *) (((char *) temp_t0_12) + (-4))) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | (((temp_v1_3 * 2) & 0xFFF) | 0xE4000000));
+            *((s32 *) (((char *) (var_t0_2 + 8)) + (-4))) = (s32) (((temp_a0_3 & 0xFFF) << 0xC) | (((temp_v1_3 * 2) & 0xFFF) | 0xE4000000));
             *((s32 *) (((char *) var_t0_2) + 8)) = (s32) (((temp_a1_4 & 0xFFF) << 0xC) | ((var_t7 * 8) & 0xFFF));
             var_t0_3 = temp_t0_12 + 8;
-            var_t1 = var_t1_2 + 0x18;
-            var_fv0 = temp_ft1 * 32.0f;
+            do
+            {
+              if (temp_t3)
+              {
+                var_t1 = var_t1_2 + 0x18;
+                var_fv0 = temp_ft1 * 32.0f;
+              }
+              else
+              {
+                var_t1 = var_t1_2 + 0x18;
+                var_fv0 = temp_ft1 * 32.0f;
+              }
+            }
+            while (0);
             var_a0_2 = 0x04000200;
           }
           else

@@ -66,8 +66,7 @@ extern u16 gSharedItemId;
 extern char D_800D2858[], D_800D285C[], sFmtEntryName[];
 
 void func_8001ADE8(void) {
-    volatile struct { s32 unused; s32 entry; } scratch;
-#define sp34 scratch.entry
+    s32 sp34;
     char *temp_s0_3;
     volatile u8 *savedByte;
     volatile u8 *savedByteLate;

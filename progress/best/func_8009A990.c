@@ -28,6 +28,11 @@ inline static u8 chk(u8 *obj, s32 cur)
   return 0;
 }
 
+inline static s32 inline_fn(u32 arg0)
+{
+  return (s32) (arg0 & 0xFF);
+}
+
 s32 func_8009A990(u8 *obj, u8 *p)
 {
   volatile u64 pad;
@@ -87,7 +92,7 @@ s32 func_8009A990(u8 *obj, u8 *p)
     pitch = p[1];
   }
   r = randomU16Next() & 0xFFFF;
-  r = r % ((((s32) (hi & 0xFF)) - ((s32) (lo & 0xFF))) + 1);
+  r = r % ((((s32) (hi & 0xFF)) - inline_fn(lo)) + 1);
   *((s32 *) (p + 4)) = 0;
   *((s32 *) p) = (((pitch & 0xFF) << 16) | (((lo & 0xFF) + r) << 8)) | 0x19;
   cur = *((s32 *) (obj + 0x60));

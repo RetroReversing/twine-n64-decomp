@@ -26,13 +26,19 @@ extern s8 sSaveMenuRefresh;
 extern s32 sSaveMenuSpriteFirst;
 extern s32 sSaveMenuSpriteSecond;
 extern s32 updateSaveMenuEntries;
+typedef struct 
+{
+  short field_0;
+  unsigned char pad_2[34];
+  short field_24;
+} __repair_record_temp_s2;
 void func_8002424C(void)
 {
   int __repair_constant = 3;
   char *__base_D_800BD5D0;
   s16 *temp_s3;
   s32 temp_a0;
-  s32 temp_s0;
+  int temp_s0;
   s32 temp_v0;
   s32 var_s1;
   s32 temp_v1;
@@ -50,8 +56,27 @@ void func_8002424C(void)
   do
   {
     temp_a0 = var_s1 & 0xFFFF;
-    *((s16 *) (((char *) temp_s2) + 0)) = (s16) sMenuListKind;
- do { *((s16 *) (((char *) temp_s2) + 0x24)) = (s16) sMenuListKind; temp_v0 = temp_a0 * 8; *((s32 *) (D_80109C18 + temp_v0)) = 0; *((s32 *) (D_80109C1C + temp_v0)) = 0; if (func_8002D09C(temp_a0) & 0xFFFF) { *((s32 *) (((char *) temp_s2) + (-8))) = 0xF; } else { *((s32 *) (((char *) temp_s2) + (-8))) = 0x10; } *temp_s3 = var_s1 + 0x4000; *((s32 *) (D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8))) = spawnTextNode(temp_s3 - 0x14); *((s32 *) (D_80109C1C + temp_s0)) = spawnTextNode(temp_s3 - 0x38); func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1); var_s1 += 1; } while (0);
+    ((__repair_record_temp_s2 *) temp_s2)->field_0 = (s16) sMenuListKind;
+    do
+    {
+      (*((__repair_record_temp_s2 *) temp_s2)).field_24 = (s16) sMenuListKind; temp_v0 = temp_a0 * 8;
+      *((s32 *) (D_80109C18 + temp_v0)) = 0;
+      *((s32 *) (D_80109C1C + temp_v0)) = 0;
+      if (func_8002D09C(temp_a0) & 0xFFFF)
+      {
+        *((s32 *) (((char *) temp_s2) + (-8))) = 0xF;
+      }
+      else
+      {
+        *((s32 *) (((char *) temp_s2) + (-8))) = 0x10;
+      }
+      *temp_s3 = var_s1 + 0x4000;
+      *((s32 *) (D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8))) = spawnTextNode(temp_s3 - 0x14);
+      *((s32 *) (D_80109C1C + temp_s0)) = spawnTextNode(temp_s3 - 0x38);
+      func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
+      var_s1 += 1;
+    }
+    while (0);
   }
   while (((u32) (var_s1 & 0xFFFF)) < 0x10U);
   refreshSlotMenuLabels();
@@ -61,7 +86,7 @@ void func_8002424C(void)
   temp_v1 = *((u16 *) (((char *) gSaveMenuState) + 0x14));
   if (temp_v1 != 0x1A)
   {
-    if (((s32) temp_v1) < 0x1B)
+    if (0x1B > ((s32) temp_v1))
     {
       var_v0 = __repair_constant;
       if (temp_v1 != 0x19)
@@ -71,10 +96,17 @@ void func_8002424C(void)
     }
     else
     {
-      var_v0 = 1;
+      if (temp_v1)
+      {
+        var_v0 = 1;
+      }
+      else
+      {
+        var_v0 = 1;
+      }
       if (temp_v1 == 0x1B)
       {
-        var_v0 = __repair_constant;
+        var_v0 = 3;
       }
     }
   }
@@ -82,7 +114,14 @@ void func_8002424C(void)
   {
     var_v0 = 2;
   }
-  sSaveMenuAction = var_v0;
+  if (D_800BD5D0)
+  {
+    sSaveMenuAction = var_v0;
+  }
+  else
+  {
+    sSaveMenuAction = var_v0;
+  }
   do
   {
     updateSaveMenuSprites(sSaveMenuAction, D_800B81A8, D_800B81AB, 1);
@@ -96,3 +135,4 @@ void func_8002424C(void)
   }
   *((s8 *) (((char *) gSaveMenuState) + 0x2C)) = 0;
 }
+

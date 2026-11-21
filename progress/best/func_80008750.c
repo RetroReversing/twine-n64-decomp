@@ -21,7 +21,7 @@ void func_80008750(void *arg0, s32 arg1, s32 arg2) {
 
     register unsigned long temp_v1_10;
 
-s32 __repair_phase___repair_phase_temp_v1_10;
+
 s32 __repair_phase___repair_phase___repair_phase_temp_v1_10;
     
     register u32 temp_v1_8;
@@ -29,6 +29,7 @@ s32 __repair_phase___repair_phase___repair_phase_temp_v1_10;
     
     
 
+    s32 *packet;
     unsigned var_a1_2;
     unsigned int var_v1;
     void *temp_v0;
@@ -61,9 +62,9 @@ case 0:                                         /* switch 1 */                  
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0) + 4)) = 0;
         }
-        __repair_phase___repair_phase_temp_v1_10 = D_8010A4D8;
+        __repair_phase___repair_phase___repair_phase_temp_v1_10 = D_8010A4D8;
 block_10:
-        func_80034928(arg0, __repair_phase___repair_phase_temp_v1_10);
+        func_80034928(arg0, __repair_phase___repair_phase___repair_phase_temp_v1_10);
         break;
     case 7:                                         /* switch 1 */
         if (D_8010A92C != 2) {
@@ -74,8 +75,9 @@ block_10:
             (*(s32 *)((char *)(temp_v1) + 4)) = 3;
         }
 block_9:
-        __repair_phase___repair_phase_temp_v1_10 = 2;
-        goto block_10;
+        __repair_phase___repair_phase___repair_phase_temp_v1_10 = 2;
+        {
+        func_80034928(arg0, __repair_phase___repair_phase___repair_phase_temp_v1_10);break;}
     case 2:                                         /* switch 1 */
     case 3:                                         /* switch 1 */
     case 4:                                         /* switch 1 */
@@ -94,9 +96,9 @@ block_9:
             (*(s32 *)((char *)(temp_v0_2) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0_2) + 4)) = 0;
         }
-        {__repair_phase___repair_phase_temp_v1_10 = 2;
+        {__repair_phase___repair_phase___repair_phase_temp_v1_10 = 2;
         {
-        func_80034928(arg0, __repair_phase___repair_phase_temp_v1_10);break;}}
+        func_80034928(arg0, __repair_phase___repair_phase___repair_phase_temp_v1_10);break;}}
     }
     switch (arg1) {                                 /* switch 2 */
     case 1:                                         /* switch 2 */
@@ -110,8 +112,9 @@ block_9:
                 (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1A78;
             }
         } else if (D_8010A924) {
+            s32 flags = *(s32 *)((char *)arg0 + 0x100);
             D_8010A924 = 0;
-            if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
+            if (flags & 3) {
                 temp_v1_3 = sDisplayListCursor;
                 sDisplayListCursor = temp_v1_3 + 8;
                 (*(s32 *)((char *)(temp_v1_3) + 0)) = 0xDE000000;
@@ -124,14 +127,16 @@ block_9:
             }
         }
         if (D_801032A0 != 1) {
+            s32 flags = *(s32 *)((char *)arg0 + 0x100);
             D_801032A0 = 1;
-            if (!((*(s32 *)((char *)(arg0) + 0x100)) & 3)) {
-                temp_v1_10 = 0xFF0FF37F;
+            if (!(flags & 3)) {
                 var_a1_2 = 0xFC40FE03;
-block_92:
-                (*(s32 *)((char *)(sDisplayListCursor) + 0)) = var_a1_2;
-                sDisplayListCursor += 8;
-                (*(s32 *)((char *)(sDisplayListCursor) + 4)) = temp_v1_10;
+                packet = sDisplayListCursor;
+                temp_v1_10 = 0xFF0FF37F;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
             } else {
                 temp_v1_5 = sDisplayListCursor;
                 sDisplayListCursor = temp_v1_5 + 8;
@@ -153,8 +158,9 @@ block_92:
             (*(s32 **)((char *)(temp_v1_6) + 4)) = &D_800B1A28;
         }
         if (D_801032A0 != 1) {
+            s32 flags = *(s32 *)((char *)arg0 + 0x100);
             D_801032A0 = 1;
-            if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
+            if (flags & 3) {
                 temp_v1_5 = sDisplayListCursor;
                 sDisplayListCursor = temp_v1_5 + 8;
                 (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xFC40FE03;
@@ -163,7 +169,11 @@ block_92:
             }
             var_a1_2 = 0xFC40FE03;
             temp_v1_10 = 0xFF0FF37F;
-            goto block_92;
+            packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
         }
         break;
     case 15:                                        /* switch 2 */
@@ -177,23 +187,32 @@ block_92:
         if (D_801032A0 != 3) {
             temp_v1_8 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
-            switch (temp_v1_8) {
-case 4:                                 /* switch 3 */
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-                var_a1_2 = 0xFC119623;
-                goto block_91;
-            case 0: break;
-                    /* switch 3; irregular */
-            case 1:                                 /* switch 3 */
+            if (temp_v1_8 == 1) {
                 var_a1_2 = 0xFC409681;
+                packet = sDisplayListCursor;
                 temp_v1_10 = 0x332DFEFF;
-                goto block_92;
-            case 2:                                 /* switch 3 */
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
+            }
+            if (temp_v1_8 == 2) {
                 var_a1_2 = 0xFC119623;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-block_91:
-                temp_v1_10 = __repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
-                goto block_92;
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (temp_v1_8 == 4) {
+                var_a1_2 = 0xFC119623;
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
             }
         }
         break;
@@ -209,19 +228,32 @@ block_91:
         if (D_801032A0 != 3) {
             __repair_phase___repair_phase___repair_phase_temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
-            switch (__repair_phase___repair_phase___repair_phase_temp_v1_10) {                   /* switch 4; irregular */
-            case 1:                                 /* switch 4 */
-                temp_v1_10 = 0x332DFEFF;
+            if (__repair_phase___repair_phase___repair_phase_temp_v1_10 == 1) {
                 var_a1_2 = 0xFC409681;
-                goto block_92;
-            case 2:                                 /* switch 4 */
+                packet = sDisplayListCursor;
+                temp_v1_10 = 0x332DFEFF;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
+            }
+            if (__repair_phase___repair_phase___repair_phase_temp_v1_10 == 2) {
                 var_a1_2 = 0xFC119623;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-                goto block_91;
-            case 4:                                 /* switch 4 */
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (__repair_phase___repair_phase___repair_phase_temp_v1_10 == 4) {
                 var_a1_2 = 0xFC119623;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-                goto block_91;
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
             }
         }
         break;
@@ -236,19 +268,32 @@ block_91:
         if (D_801032A0 != 3) {
             temp_v1_10 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
             D_801032A0 = 3;
-            switch (temp_v1_10) {                   /* switch 5; irregular */
-            case 1:                                 /* switch 5 */
+            if (temp_v1_10 == 1) {
                 var_a1_2 = 0xFC409681;
+                packet = sDisplayListCursor;
                 temp_v1_10 = 0x332DFEFF;
-                goto block_92;
-            case 2:                                 /* switch 5 */
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
+            }
+            if (temp_v1_10 == 2) {
                 var_a1_2 = 0xFC119623;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-                goto block_91;
-            case 4:                                 /* switch 5 */
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (temp_v1_10 == 4) {
                 var_a1_2 = 0xFC119623;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
-                goto block_91;
+                packet = sDisplayListCursor;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF2E0000;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
             }
         }
         break;
@@ -264,7 +309,11 @@ block_91:
             var_a1_2 = 0xFC40C203;
             temp_v1_10 = 0xFF0FFF7F;
             D_801032A0 = 6;
-            goto block_92;
+            packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
         }
         break;
     case 13:                                        /* switch 2 */
@@ -279,7 +328,11 @@ block_91:
             var_a1_2 = 0xFC40C203;
             D_801032A0 = 6;
             temp_v1_10 = 0xFF0FFF7F;
-            goto block_92;
+            packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
         }
         break;
     case 16:                                        /* switch 2 */
@@ -294,7 +347,11 @@ block_91:
             var_a1_2 = 0xFC40C203;
             D_801032A0 = 6;
             temp_v1_10 = 0xFF0FFF7F;
-            goto block_92;
+            packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
         }
         break;
     case 7:                                         /* switch 2 */
@@ -309,7 +366,11 @@ block_91:
             var_a1_2 = 0xFC40C203;
             D_801032A0 = 6;
             temp_v1_10 = 0xFF0FFF7F;
-            goto block_92;
+            packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
         }
         break;
     case 12:                                        /* switch 2 */
@@ -326,13 +387,29 @@ block_91:
             if (var_v1 == 1) {
                 var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
-                goto block_92;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
             }
-block_88:
-            if ((var_v1 == 2) || (var_v1 == 4)) {
+            if (var_v1 == 2) {
                 var_a1_2 = 0xFC119823;
-                __repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
-                goto block_91;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (var_v1 == 4) {
+                var_a1_2 = 0xFC119823;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
             }
         }
         break;
@@ -351,9 +428,30 @@ block_88:
             if (var_v1 == 1) {
                 var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
-                goto block_92;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
             }
-            goto block_88;
+            if (var_v1 == 2) {
+                var_a1_2 = 0xFC119823;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (var_v1 == 4) {
+                var_a1_2 = 0xFC119823;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
         }
         break;
     case 8:                                         /* switch 2 */
@@ -370,10 +468,34 @@ block_88:
             if (var_v1 == 1) {
                 var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
-                goto block_92;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = temp_v1_10;
+                return;
             }
-            goto block_88;
+            if (var_v1 == 2) {
+                var_a1_2 = 0xFC119823;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
+            if (var_v1 == 4) {
+                var_a1_2 = 0xFC119823;
+                __repair_phase___repair_phase___repair_phase_temp_v1_10 = 0xFF320000;
+                packet = sDisplayListCursor;
+                sDisplayListCursor = packet + 2;
+                packet[0] = var_a1_2;
+                packet[1] = __repair_phase___repair_phase___repair_phase_temp_v1_10 | 0xFF7F;
+                return;
+            }
         }
         break;
     }
 }
+
+
+

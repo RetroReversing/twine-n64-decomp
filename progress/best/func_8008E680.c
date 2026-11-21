@@ -13,16 +13,17 @@ s32 func_8008E680(s32 arg0, s32 arg1)
   s32 handle;
   u32 high;
   u32 low;
-  handle = func_800989B8();
-  if (handle != (-1))
+  ret = func_800989B8();
+  if (ret != (-1))
   {
     high = ((u32) (arg1 & 0xffff)) >> 7;
     low = arg1 & 0x7f;
     again:
-    arg1 = ((u8) index) * 0x1a0;
+    handle = (u8) index;
+    arg1 = (handle) * 0x1a0;
 
-    index = handle;
-    if ((*((s32 *) (D_8010D784 + arg1))) != handle)
+    index = ret;
+    if ((*((s32 *) (D_8010D784 + arg1))) != ret)
     {
       goto done;
     }

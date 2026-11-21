@@ -57,9 +57,8 @@ u8 __repair_result_var_v1;
         var_s1 = 0;
         if (temp_v0 != 0) {
             do {
-                temp_v1 = (*(u8 *)((char *)(((var_s1 * 0xC) + (*(s32 *)((char *)(arg0) + 0)))) + 9));
                 temp_v0_2 = var_s1 + 1;
-                var_a1 += temp_v1;
+                var_a1 += ((*(u8 *)((char *)(((var_s1 * 0xC) + (*(s32 *)((char *)(arg0) + 0)))) + 9)));
                 var_s1 = temp_v0_2;
             } while (temp_v0_2 < (s32) temp_v0);
         }
@@ -162,18 +161,16 @@ u8 __repair_result_var_v1;
         if ((*(u8 *)((char *)(arg0) + 0x19)) != 0) {
             var_v0_3 = 0;
             do {
-                temp_t0 = var_v0_3;
-                temp_a0_3 = temp_t0 * 0xC;
-                (*(s16 *)((char *)((temp_a0_3 + (*(s32 *)((char *)(arg0) + 0)))) + 6)) = (s16) (((*(u16 *)((char *)(arg0) + 0x14)) + (var_s2 + (*(u8 *)((char *)(arg0) + 0x20)))) - temp_s3);
+                (*(s16 *)((char *)(((var_v0_3 * 0xC) + (*(s32 *)((char *)(arg0) + 0)))) + 6)) = (s16) (((*(u16 *)((char *)(arg0) + 0x14)) + (var_s2 + (*(u8 *)((char *)(arg0) + 0x20)))) - temp_s3);
                 temp_v1_7 = (*(u8 *)((char *)(arg0) + 0x21));
-                temp_a0_4 = temp_a0_3 + (*(s32 *)((char *)(arg0) + 0));
+                temp_a0_4 = (var_v0_3 * 0xC) + (*(s32 *)((char *)(arg0) + 0));
                 temp_lo = temp_v1_7 * (*(u8 *)((char *)(temp_a0_4) + 9));
                 temp_a2 = (*(u8 *)((char *)(arg0) + 0x20));
                 temp_a3 = (*(u16 *)((char *)(temp_a0_4) + 6));
                 temp_a1_3 = temp_v1_7 & 0xFF;
                 var_s2 += temp_lo;
                 if (((temp_a3 + temp_lo) >= (temp_a2 - temp_a1_3)) && ((s32) temp_a3 < (temp_a2 + (temp_a1_3 * (*(u8 *)((char *)(arg0) + 0x1B)))))) {
-                    (*(s32 (**)(void *, s32, s32, u16))((char *)(arg0) + 4))(temp_a0_4, 1, (*(u8 *)((char *)(arg0) + 0x18)) == temp_t0, temp_a3);
+                    (*(s32 (**)(void *, s32, s32, u16))((char *)(arg0) + 4))(temp_a0_4, 1, (*(u8 *)((char *)(arg0) + 0x18)) == var_v0_3, temp_a3);
                     var_v0_4 = var_s1 + 1;
                 } else {
                     (*(s32 (**)(void *, s32, s32, u16))((char *)(arg0) + 4))((*(s32 *)((char *)(arg0) + 0)) + (var_s1 * 0xC), 0, (*(u8 *)((char *)(arg0) + 0x18)) == var_s1, temp_a3);
