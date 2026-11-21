@@ -11,7 +11,7 @@ typedef struct
 } Slot_80100314;
 extern Slot_80100314 D_80100314[];
 extern void *D_80100B20;
-extern s32 gTrackMarkerSerial;
+extern volatile int gTrackMarkerSerial;
 extern void *sBonusObjectTable;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
@@ -117,7 +117,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
               temp_s0 = *((void **) (((char *) temp_v0_2) + 0x6C));
               if (arg0 != NULL)
               {
-                *((void **) (((char *) temp_s0) + 0x2C)) = arg0;
+                *((void **) (((char *) temp_s0) - (-0x2C))) = arg0;
                 {
                   typedef struct 
                   {
@@ -152,7 +152,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
       }
       var_s4 += 8;
     }
-    while ((((u32) var_s4) - ((u32) arg1)) < ((((u32) arg2) * 4) * 2));
+    while ((((u32) var_s4) - ((u32) arg1)) < ((2 * (2 * ((u32) arg2))) * 2));
   }
 }
 

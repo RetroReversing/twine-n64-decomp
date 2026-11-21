@@ -118,15 +118,15 @@ s32 func_8008FB20(void)
             {
               temp_a1_2 = temp_a1 & 0xFF;
               temp_a0 = temp_a3 & 0x7F;
-              if (temp_a1_2 != 9)
+              if ((temp_a1 & 0xFF) != 9)
               {
-                temp_a0_2 = *((u8 *) (((char *) (temp_a0 + temp_t0)) + 8));
+                temp_a0_2 = *((u8 *) (((char *) ((temp_a3 & 0x7F) + temp_t0)) + 8));
                 if (temp_a0_2 != 0xFF)
                 {
                   do
                   {
                     temp_v0_2 = inline_fn234(temp_a0_2); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4)))));
-                    *((s32 *) (((char *) ((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) (((((Field_u16 *) (((char *) temp_v0_2) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_2) + 2))->v << 8)) | ((Field_u8 *) (((char *) temp_v0_2) + 3))->v);
+                    *((s32 *) (((char *) (((temp_a1 & 0xFF) * 4) + temp_t0)) + 0xF80)) = (s32) (((((Field_u16 *) (((char *) temp_v0_2) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_2) + 2))->v << 8)) | ((Field_u8 *) (((char *) temp_v0_2) + 3))->v);
                   }
                   while (0);
                 }
@@ -236,7 +236,7 @@ s32 func_8008FB20(void)
                         }
                       }
                       *((void ***) (((char *) temp_t0_3) + 4)) = NULL;
-                      temp_v0_5 = *((void **) (((char *) gSeqPlayer) + 0xF78));
+                      temp_v1_2 = *((void **) (((char *) gSeqPlayer) + 0xF78)); temp_v0_5=(void *)temp_v1_2;
                       *((void **) (((char *) temp_t0_3) + 0)) = temp_v0_5;
                       if (temp_v0_5 != NULL)
                       {

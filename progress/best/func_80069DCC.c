@@ -105,7 +105,7 @@ volatile unsigned int func_80069DCC(void *arg0)
   s32 probeOutputs[5];
   CopyVec3 probe;
   volatile f32 sp5C;
-  void *sp64;
+  void * volatile sp64;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -325,9 +325,11 @@ volatile unsigned int func_80069DCC(void *arg0)
   void *temp_v1_9;
   void *var_s0_2;
   void *var_v0_25;
-  temp_s1 = *((void **) (((char *) arg0) + 0x6C));
+  do {
   sp64 = *((void **) (((char *) arg0) + 0x20));
+  temp_s1 = *((void **) (((char *) arg0) + 0x6C));
   temp_s4 = inline_fn((char *) temp_s1, 0x182);
+  } while (0);
 
   if (D_80103EB0 == 0)
   {
@@ -538,7 +540,7 @@ volatile unsigned int func_80069DCC(void *arg0)
       case 0:
         if (actorUpdateBorderFade(arg0) == 0)
       {
-        if (!(((s32) (*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)))) & 0x410000))
+        if (!(((s32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)))) & 0x410000))
         {
           var_fs3 = func_80081B44(temp_s4, 0, 1);
           temp_fs5 = absFloat(var_fs3);
@@ -876,204 +878,7 @@ volatile unsigned int func_80069DCC(void *arg0)
         }
       }
 
-      default:
-        block_430:
-      updateAirTimeGauge(arg0);
-
-        if (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8))
-      {
-        temp_v1_20 = *((u8 *) (((char *) temp_s1) + 0x196));
-        if (temp_v1_20 < 8U)
-        {
-          *((u8 *) (((char *) temp_s1) + 0x196)) = (u8) (temp_v1_20 + 1);
-        }
-      }
-      else
-      {
-        if (((u8) (*((u8 *) (((char *) temp_s1) + 0x196)))) >= 8U)
-        {
-          D_800E1A28 |= 0x20000;
-          requestSound(0x100);
-        }
-        *((u8 *) (((char *) temp_s1) + 0x196)) = 0U;
-      }
-        temp_v1_21 = inline_fn((char *) temp_s1, 0x180);
-        switch (temp_v1_21)
-      {
-        case 2:
-          if ((((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8) && (func_800818AC(temp_s4, 0xC) == 0)) && (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 1)))
-        {
-          *((s8 *) (((char *) temp_s1) + 0x180)) = 0;
-        }
-          break;
-
-        case 1:
-          if ((!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)) && (func_800818AC(temp_s4, 0xC) != 0))
-        {
-          temp_v0_5 = *((u8 *) (((char *) temp_s1) + 0x187));
-          *((u8 *) (((char *) temp_s1) + 0x187)) = (u8) (temp_v0_5 + 1);
-          if (((s8) temp_v0_5) >= 5)
-          {
-            goto block_444;
-          }
-          *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) (((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E8);
-        }
-        else
-        {
-          block_444:
-          *((s8 *) (((char *) temp_s1) + 0x180)) = 2;
-
-        }
-          break;
-
-      }
-
-        if (sBonusSlots[inline_fn((char *) temp_s1, 0x182) * 0xA0] == 0)
-      {
-        temp_v1_22 = inline_fn((char *) temp_s1, 0x17E);
-        if (((temp_v1_22 >= 0) && (temp_v1_22 >= 2)) && (temp_v1_22 < 4))
-        {
-          temp_v0_6 = inline_fn((char *) temp_s1, 0x19B);
-          if (temp_v0_6 != 0)
-          {
-            *((s8 *) (((char *) temp_s1) + 0x19B)) = (s8) (temp_v0_6 - 1);
-          }
-          else
-          {
-            temp_ft1 = *((f32 *) (((char *) temp_s1) + 0x34));
-            temp_ft0 = ((*((f32 *) (((char *) temp_s1) + 0x38))) - temp_ft1) * 0.15f;
-            if (((*((s16 *) (((char *) arg0) + 0x7C))) != 0) || (inline_fn((char *) temp_s1, 0x180) == 0))
-            {
-              temp_fv0_10 = temp_ft1 + temp_ft0;
-              var_fv1_3 = -1.0f;
-              *((f32 *) (((char *) temp_s1) + 0x34)) = temp_fv0_10;
-              if ((temp_fv0_10 < (-1.0f)) || ((var_fv1_3 = 1.0f, temp_fv0_10 > 1.0f)))
-              {
-                {
-                  long long phantom_wide = temp_v0;
-                }
-                *((f32 *) (((char *) temp_s1) + 0x34)) = var_fv1_3;
-              }
-              var_v0_12 = 1;
-              if (!(temp_ft0 <= 0.0002f))
-              {
-                var_v0_12 = 0;
-              }
-              var_v1_11 = 1;
-              if (!(temp_ft0 >= (-0.0002f)))
-              {
-                var_v1_11 = 0;
-              }
-              if ((var_v0_12 & var_v1_11) && (inline_fn((char *) temp_s1, 0x17E) == 2))
-              {
-                *((s8 *) (((char *) temp_s1) + 0x17E)) = 3;
-              }
-            }
-          }
-        }
-      }
-        temp_v1_23 = *((s16 *) (((char *) arg0) + 0x7C));
-        if ((temp_v1_23 == 0) || (temp_v1_23 == 6))
-      {
-        var_s5 -= *((f32 *) (((char *) temp_s1) + 0x11C));
-        var_s6 -= *((f32 *) (((char *) temp_s1) + 0x124));
-      }
-        temp_a0_6 = temp_s1 + 0x11C;
-        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
-        *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);
-        *((f32 *) (((char *) arg0) + 0x28)) = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fp);
-        *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + D_800E1A1C);
-        *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
-        *((f32 *) (((char *) arg0) + 0x3C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + sp5C);
-        *((f32 *) (((char *) arg0) + 0x44)) = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + 0.0f);
-        block_474:
-      func_80002EF0(arg0);
-
-        func_8006D2E4(arg0);
-        temp_v1_24 = *((s16 *) (((char *) arg0) + 0x7A));
-        if (temp_v1_24 < 4)
-      {
-        if (temp_v1_24 < 2)
-        {
-          if (temp_v1_24 != 1)
-          {
-          }
-          else
-            if (temp_s1)
-          {
-            goto block_479;
-          }
-          else
-          {
-            goto block_479;
-          }
-        }
-        else
-        {
-          updateSwayMotion(arg0);
-          func_80070F34(arg0);
-        }
-      }
-      else
-        if (temp_v1_24 == 4)
-      {
-        block_479:
-        temp_v1_25 = inline_fn((char *) temp_s1, 0x307);
-
-        *((u8 *) (((char *) temp_s1) + 0x197)) = (u8) ((*((u8 *) (((char *) temp_s1) + 0x197))) - 1);
-        if (temp_v1_25 < inline_fn((char *) temp_s1, 0x317))
-        {
-          *((s8 *) (((char *) temp_s1) + 0x317)) = temp_v1_25;
-        }
-        temp_v0_7 = inline_fn((char *) temp_s1, 0x317);
-        if (temp_v0_7 < inline_fn((char *) temp_s1, 0x307))
-        {
-          *((s8 *) (((char *) temp_s1) + 0x307)) = temp_v0_7;
-        }
-        if ((((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) + 1) <= 0)
-        {
-          temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
-          *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;
-          if (temp_v1_26 < 0x64)
-          {
-            *((s8 *) (((char *) temp_s1) + 0x307)) = (s8) (temp_v1_26 + 1);
-          }
-          *((s8 *) (((char *) temp_s1) + 0x317)) = (s8) ((u8) inline_fn((char *) temp_s1, 0x307));
-        }
-        func_80067E94(arg0);
-        updateSwayMotion(arg0);
-        func_80070F34(arg0);
-        temp_v1_27 = *((s16 *) (((char *) arg0) + 0x7C));
-        switch (temp_v1_27)
-        {
-          case 0:
-
-          case 1:
-
-          case 2:
-
-          case 3:
-
-          case 4:
-
-          case 6:
-
-          case 8:
-
-          case 9:
-
-          case 10:
-            func_8006899C(arg0, 0);
-            break;
-
-        }
-
-        func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
-      }
-        func_80047FB4((s32) sTrackMarkerTable[temp_s4], *((s32 *) (((char *) (&D_800C4710)) + (((s8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE)))) * 0xE8))));
-        func_80069250(arg0);
-        break;
-
+      default: goto block_430;
       case 6:
         if (actorUpdateBorderFade(arg0) == 0)
       {
@@ -1926,6 +1731,185 @@ volatile unsigned int func_80069DCC(void *arg0)
         goto block_430;
 
     }
+    goto after_switch_tail;
+    block_430:
+      updateAirTimeGauge(arg0);
+
+        if (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8))
+      {
+        temp_v1_20 = *((u8 *) (((char *) temp_s1) + 0x196));
+        if (temp_v1_20 < 8U)
+        {
+          *((u8 *) (((char *) temp_s1) + 0x196)) = (u8) (temp_v1_20 + 1);
+        }
+      }
+      else
+      {
+        if (((u8) (*((u8 *) (((char *) temp_s1) + 0x196)))) >= 8U)
+        {
+          D_800E1A28 |= 0x20000;
+          requestSound(0x100);
+        }
+        *((u8 *) (((char *) temp_s1) + 0x196)) = 0U;
+      }
+        temp_v1_21 = inline_fn((char *) temp_s1, 0x180);
+        switch (temp_v1_21)
+      {
+        case 2:
+          if ((((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 8) && (func_800818AC(temp_s4, 0xC) == 0)) && (!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 1)))
+        {
+          *((s8 *) (((char *) temp_s1) + 0x180)) = 0;
+        }
+          break;
+
+        case 1:
+          if ((!((*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC))) & 0x20)) && (func_800818AC(temp_s4, 0xC) != 0))
+        {
+          temp_v0_5 = *((u8 *) (((char *) temp_s1) + 0x187));
+          *((u8 *) (((char *) temp_s1) + 0x187)) = (u8) (temp_v0_5 + 1);
+          if (((s8) temp_v0_5) >= 5)
+          {
+            goto block_444;
+          }
+          *((f32 *) (((char *) temp_s1) + 0xCC)) = (f32) (((f64) (*((f32 *) (((char *) temp_s1) + 0xCC)))) + D_800D45E8);
+        }
+        else
+        {
+          block_444:
+          *((s8 *) (((char *) temp_s1) + 0x180)) = 2;
+
+        }
+          break;
+
+      }
+
+        if (sBonusSlots[inline_fn((char *) temp_s1, 0x182) * 0xA0] == 0)
+      {
+        temp_v1_22 = inline_fn((char *) temp_s1, 0x17E);
+        if (((temp_v1_22 >= 0) && (temp_v1_22 >= 2)) && (temp_v1_22 < 4))
+        {
+          temp_v0_6 = inline_fn((char *) temp_s1, 0x19B);
+          if (temp_v0_6 != 0)
+          {
+            *((s8 *) (((char *) temp_s1) + 0x19B)) = (s8) (temp_v0_6 - 1);
+          }
+          else
+          {
+            temp_ft1 = *((f32 *) (((char *) temp_s1) + 0x34));
+            temp_ft0 = ((*((f32 *) (((char *) temp_s1) + 0x38))) - temp_ft1) * 0.15f;
+            if (((*((s16 *) (((char *) arg0) + 0x7C))) != 0) || (inline_fn((char *) temp_s1, 0x180) == 0))
+            {
+              temp_fv0_10 = temp_ft1 + temp_ft0;
+              var_fv1_3 = -1.0f;
+              *((f32 *) (((char *) temp_s1) + 0x34)) = temp_fv0_10;
+              if ((temp_fv0_10 < (-1.0f)) || ((var_fv1_3 = 1.0f, temp_fv0_10 > 1.0f)))
+              {
+                {
+                  long long phantom_wide = temp_v0;
+                }
+                *((f32 *) (((char *) temp_s1) + 0x34)) = var_fv1_3;
+              }
+              var_v0_12 = 1;
+              if (!(temp_ft0 <= 0.0002f))
+              {
+                var_v0_12 = 0;
+              }
+              var_v1_11 = 1;
+              if (!(temp_ft0 >= (-0.0002f)))
+              {
+                var_v1_11 = 0;
+              }
+              if ((var_v0_12 & var_v1_11) && (inline_fn((char *) temp_s1, 0x17E) == 2))
+              {
+                *((s8 *) (((char *) temp_s1) + 0x17E)) = 3;
+              }
+            }
+          }
+        }
+      }
+        temp_v1_23 = *((s16 *) (((char *) arg0) + 0x7C));
+        if ((temp_v1_23 == 0) || (temp_v1_23 == 6))
+      {
+        var_s5 -= *((f32 *) (((char *) temp_s1) + 0x11C));
+        var_s6 -= *((f32 *) (((char *) temp_s1) + 0x124));
+      }
+        temp_a0_6 = temp_s1 + 0x11C;
+        func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
+        *((f32 *) (((char *) arg0) + 0x24)) = (f32) ((*((f32 *) (((char *) arg0) + 0x24))) + var_s5);
+        *((f32 *) (((char *) arg0) + 0x40)) = (f32) ((*((f32 *) (((char *) arg0) + 0x40))) + D_800E1A1C);
+        *((f32 *) (((char *) arg0) + 0x28)) = (f32) ((*((f32 *) (((char *) arg0) + 0x28))) + var_fp);
+        *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
+        *((f32 *) (((char *) arg0) + 0x3C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + sp5C);
+        *((f32 *) (((char *) arg0) + 0x44)) = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + 0.0f);
+        block_474:
+      func_80002EF0(arg0);
+
+        func_8006D2E4(arg0);
+        temp_v1_24 = *((s16 *) (((char *) arg0) + 0x7A));
+switch (temp_v1_24) {
+case 1:
+case 4:
+        temp_v1_25 = inline_fn((char *) temp_s1, 0x307);
+
+        *((u8 *) (((char *) temp_s1) + 0x197)) = (u8) ((*((u8 *) (((char *) temp_s1) + 0x197))) - 1);
+        if (temp_v1_25 < inline_fn((char *) temp_s1, 0x317))
+        {
+          *((s8 *) (((char *) temp_s1) + 0x317)) = temp_v1_25;
+        }
+        temp_v0_7 = inline_fn((char *) temp_s1, 0x317);
+        if (temp_v0_7 < inline_fn((char *) temp_s1, 0x307))
+        {
+          *((s8 *) (((char *) temp_s1) + 0x307)) = temp_v0_7;
+        }
+        if ((((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) + 1) <= 0)
+        {
+          temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
+          *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;
+          if (temp_v1_26 < 0x64)
+          {
+            *((s8 *) (((char *) temp_s1) + 0x307)) = (s8) (temp_v1_26 + 1);
+          }
+          *((s8 *) (((char *) temp_s1) + 0x317)) = (s8) ((u8) inline_fn((char *) temp_s1, 0x307));
+        }
+        func_80067E94(arg0);
+        updateSwayMotion(arg0);
+        func_80070F34(arg0);
+        temp_v1_27 = *((s16 *) (((char *) arg0) + 0x7C));
+        switch (temp_v1_27)
+        {
+          case 0:
+
+          case 1:
+
+          case 2:
+
+          case 3:
+
+          case 4:
+
+          case 6:
+
+          case 8:
+
+          case 9:
+
+          case 10:
+            func_8006899C(arg0, 0);
+            break;
+
+        }
+
+        func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
+              break;
+case 2:
+case 3:
+    updateSwayMotion(arg0);
+    func_80070F34(arg0);
+    break;
+}
+        func_80047FB4((s32) sTrackMarkerTable[temp_s4], *((s32 *) (((char *) (&D_800C4710)) + (((s8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xE)))) * 0xE8))));
+        func_80069250(arg0);
+    after_switch_tail: ;
 
   }
 }

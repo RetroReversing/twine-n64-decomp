@@ -296,7 +296,7 @@ s32 __repair_phase_var_a2;
             sp184 = &work.scratch.room.clippedStart.x;
             sp18C = &work.scratch.room.clippedEnd.x;
             sp194 = &work.roomDirection.x;
-            sp1AC = &work.roomDistance16;
+
             do {
                 temp_s2 = M2C_FIELD(var_s7, void **, 0x3C);
                 if (!(((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 0x40)) {
