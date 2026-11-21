@@ -1824,14 +1824,6 @@
   "score_after": 3742
  },
  {
-  "function": "func_80016FCC",
-  "text": "Best saved: revision 9d07ed70083d6516abcc, score 9190 (68%), 290 target insns vs 256 mine. Not matched. Findings: (1) Target keeps s1 as the node pointer in the first loop and zeroes the loop counter s1 separately on each switch-case path (`move $s1,$zero` in delay slots of every `jal`), and the 6-iteration D_80109688 loop reuses that same register. Declaring s1=0 once at the top makes the allocator pick s3 instead, so the first mismatch is at row 27 (bnez target). (2) Restructuring with a shared `s1 = 0` in an else branch scored 10010 (worse). Do not repeat. (3) The jump table jtbl_800D25B8 (switch on D_80108F78 with 40 cases, `addiu -2`, `sltiu 0x28`) mismatches only because the case labels land at different addresses until the body matches. (4) The 6-word struct copy 0x24..0x2C -> 0x30..0x38 and 0x3C..0x44 -> 0x48..0x50 is loaded in the order the target uses (v0,v1,a0 for each triple); my version hoists the second triple's loads early. Trying a Vec3 typedef as a single struct copy failed to compile (not declared in the file's context). (5) The second loop (node->0x10 walk over D_8010A410) has a goto-based tail sharing block L71 (0x4D/0x61/<0x4E range checks) that is not yet correct. Next steps: match the first loop by using the `D_80108F78` switch in a form where each case sets the counter, then work on the second loop's control flow.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054933.962315,
-  "score_before": 9190,
-  "score_after": 9190
- },
- {
   "function": "func_8006FDF8",
   "text": "Best saved: revision b35254d43f118272d47b, score 10980 (63.5%). Not matched. The body is a full rewrite from m2c: (1) 4-iteration loop over arg0 (+0x3D4 per-slot struct, func_80015F0C alloc, copies from sp10 halfwords [0] and [4] into +0x20/+0x22, D_80109688[arg1-index], D_800C7E08 halfword stride 4); (2) if D_80102ED8==0: arg1==5 loop of 6 slots (+0x3E4 table, switch on (i>>2) with cases 0-5); arg1==8 loop of 4 slots. Remaining mismatch: target keeps the sp10 halfword copy in a different order (lw D_800D46E4 loads placed after the frame setup), and the 0x3E4 lookups are reloaded each time in the target (it does not CSE them). The target frame is 0x58 bytes, mine is 0x48 so the sp10 array and sp12/sp16/sp1C/sp1E locals need correct placement (two s16 pairs at 0x12, 0x16, 0x1C, 0x1E from the m2c draft). Next: write the 0x3E4 accesses as explicit reloads through a local pointer per statement, and fix the frame layout by declaring sp10 as s16[8] or as separate s16 values. Also the 0x78/0x3C and 0xA0/0x50 width selection (var_s7/var_s6) should come from if/else blocks as in the m2c draft, not from fallthrough.\n\nCorrection from releasing agent: the detailed mismatch analysis in the release notes (frame sizes, sp10 ordering, 0x3E4 reloads, switch layout) was NOT verified in that session. Only the best score (10980, revision b35254d43f11) is confirmed by history. Re-check with get_assembly and compile before relying on those details.",
   "by": "permuter-25769805351",
@@ -10936,14 +10928,6 @@
   "score_after": 2010
  },
  {
-  "function": "func_80016FCC",
-  "text": "Current saved baseline 8595; switch label reordering made a candidate 8615 and did not resolve broad mismatch. Two six-variant local repair batches (explicit_loop_backedge, inferred_record_layout, target_local_bundle, call_forwarded_arguments, signedness, declaration_order, typed_temporary, branch_orientation) found no improvement; move-on reached 10/10. Linker data mismatch also flags jtbl_800D25B8 bytes (candidate 80 01 71 cc vs ROM 80 01 71 ec). First instruction mismatch is branch target: target bnez $v0 to +0x2e8, candidate +0x2ac, followed by target move $s1,zero vs candidate move $s3,zero. Inspect full target assembly, switch lowering/jump table shape, and loop structure around node traversal.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795179415.4898949,
-  "score_before": 8595,
-  "score_after": 8595
- },
- {
   "function": "func_80089F7C",
   "text": "Automated local trial variant 2 rewrote the D_800E4264 list splice branch to test D_800E4260 == NULL first (inverting the if/else); score improved from 11126 to 10251. Current candidate revision 287f5cd1ecae9cbd895b captures the selected variant. New claim was auto-released during concurrent progress; do not patch without reclaiming.",
   "by": "codex-gpt-6-luna-17",
@@ -15246,14 +15230,6 @@
   "created_at": 1795183912.184789,
   "score_before": 2245,
   "score_after": 2245
- },
- {
-  "function": "func_80016FCC",
-  "text": "Recovered and recompiled historical best at score 8595. It compiles and has 70.3% matching, 290 target vs 256 candidate instructions. Diagnostic showed major control-flow/switch differences beginning around row 27, incorrect matched jump-table data at 0x800D25B8, and register ordering in state copies. Attempted one prototype correction from matched callee evidence (void func_80016718(void*)) but it creates a too-many-arguments error; restored original source and score. Do not alter prototype without checking actual caller semantics. Next: inspect original assembly/jump table around row 27 and repair switch/case structure and jump table; then work remaining loops and stack-register allocation.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795183928.613657,
-  "score_before": 8595,
-  "score_after": 8595
  },
  {
   "function": "func_80041F68",
@@ -31848,14 +31824,6 @@
   "score_after": 3371
  },
  {
-  "function": "func_80016FCC",
-  "text": "Current best candidate is 14066149c6a9a12e3f6f, historical score 8595 (rechecked prior to restore). A separate full rewrite scored 8650 and was discarded. One ordered comparison patch retained score 8595. Link diagnostic persists: jump-table jtbl_800D25B8 trailing bytes differ (candidate target 0x800171cc vs ROM 0x800171ec); prioritize switch case structure/layout before interpreting downstream diff. Main remaining mismatches are branch layout and register allocation in list passes.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795203671.9090009,
-  "score_before": 8595,
-  "score_after": 8595
- },
- {
   "function": "func_800473AC",
   "text": "Verified 895\u2192600. Explicit return 1 for epsilon band, then scoped locals computing x and z deltas and coordinates before x/z stores match the tail. At 10/8. Remaining second determinant rejection branch is bnel where target uses beqz, nop, j with zero in delay slot. First two coordinate min/max blocks swap FPU registers. Load reorder and equivalent goto forms did not help; ternary bounds and swapped assignment order worsened. The ordinary second rejection can be isolated before changing float allocation.",
   "by": "codex-gpt-6.2-sol-9",
@@ -35086,14 +35054,6 @@
   "created_at": 1795206675.1814551,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80016FCC",
-  "text": "Fresh best 8595. Tested switch default patch: score 9415, worse; restored saved_best. Existing issue: dispatch switch table entry candidate 0x800171cc vs target 0x800171ec, 0x20 offset. Switch source already has 13 cases; identify missing/extra duplicate case labels or compiler table extent. Current mismatch begins around 0x17130 selector dispatch; remaining states and calls also differ. Local repairs previous 3 variants unchanged/worse.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795206860.9997592,
-  "score_before": 8595,
-  "score_after": 8595
  },
  {
   "function": "saveDataEncodeName",
@@ -49027,15 +48987,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4d15275860674212030ad5eea2422a35b77a94175557d440969db6450feff7cb"
  },
  {
-  "function": "func_80016FCC",
-  "text": "Grouped cases 28, 33, 40, 41 improved 8595 to 8555; separating those labels again generated identical instructions. Explicit loop backedge worsened to 11060. Jump table still points to 0x800171dc instead of 0x800171ec; target contains three more calls to 80117740.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795223016.5832162,
-  "score_before": 8595,
-  "score_after": 8555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
- },
- {
   "function": "func_80037A7C",
   "text": "Verified 110, 88/88 instructions. Argument and pending-state flag occupy swapped s1/s4 with three corresponding prologue save differences. Literal 1 and comma-condition initialization each score 360.\nReuse pending-state flag for initial render-mode load and separately replace outer do-while with explicit goto.\nScores 395 and 365 respectively; retained verified baseline 110.",
   "by": "codex-gpt-6.2-sol-9",
@@ -50014,15 +49965,6 @@
   "score_before": 1215,
   "score_after": 1125,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
- },
- {
-  "function": "func_80016FCC",
-  "text": "Restored missing marker-table lookup and object insertion: 8555 to 7425. Target special path skips equality check; removing it scored equally. Target loads next child before func_800167B4; that source ordering scored 7705. gBorderSkipFlag word declaration scored 7520. Jump table remains mismatched.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795224655.551301,
-  "score_before": 8555,
-  "score_after": 7425,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
  },
  {
   "function": "buildMenuItemRecord",
@@ -61479,14 +61421,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:c21fffb4df80e8d36fcaa3f4e4b398e3ee87e625a2e1d3372332d50cca8b171e"
  },
  {
-  "function": "func_80016FCC",
-  "text": "Fresh compile tool submission with empty source twice yielded no named function; inherited large candidate is unusable and historical score not reverified. Prior handoff indicates switch dispatch/table extent mismatch; latest attempt did not compile candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795241578.029709,
-  "score_before": 7425,
-  "score_after": 7425
- },
- {
   "function": "func_80043FA0",
   "text": "Cannot reliably progress: claim token and candidate reset between calls, losing the measured 4092 revision. Restore f026b1f27b381f87aa8d if available; its header struct, scratch array, byte ROM base and DMA length improved score from 9813 to 4092. The next byte pointer correction was inadvertently tested against stale source and scored 6615.",
   "by": "codex-gpt-6.1-terra-2",
@@ -65879,5 +65813,71 @@
   "score_before": 2550,
   "score_after": 690,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:7abbe890035b0792ab5b7b39ca974000b05f24b133fa68d8700f7b89e98864ab"
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Best saved: revision 9d07ed70083d6516abcc, score 9190 (68%), 290 target insns vs 256 mine. Not matched. Findings: (1) Target keeps s1 as the node pointer in the first loop and zeroes the loop counter s1 separately on each switch-case path (`move $s1,$zero` in delay slots of every `jal`), and the 6-iteration D_80109688 loop reuses that same register. Declaring s1=0 once at the top makes the allocator pick s3 instead, so the first mismatch is at row 27 (bnez target). (2) Restructuring with a shared `s1 = 0` in an else branch scored 10010 (worse). Do not repeat. (3) The jump table jtbl_800D25B8 (switch on D_80108F78 with 40 cases, `addiu -2`, `sltiu 0x28`) mismatches only because the case labels land at different addresses until the body matches. (4) The 6-word struct copy 0x24..0x2C -> 0x30..0x38 and 0x3C..0x44 -> 0x48..0x50 is loaded in the order the target uses (v0,v1,a0 for each triple); my version hoists the second triple's loads early. Trying a Vec3 typedef as a single struct copy failed to compile (not declared in the file's context). (5) The second loop (node->0x10 walk over D_8010A410) has a goto-based tail sharing block L71 (0x4D/0x61/<0x4E range checks) that is not yet correct. Next steps: match the first loop by using the `D_80108F78` switch in a form where each case sets the counter, then work on the second loop's control flow.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054933.962315,
+  "score_before": 9190,
+  "score_after": 9190
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Current saved baseline 8595; switch label reordering made a candidate 8615 and did not resolve broad mismatch. Two six-variant local repair batches (explicit_loop_backedge, inferred_record_layout, target_local_bundle, call_forwarded_arguments, signedness, declaration_order, typed_temporary, branch_orientation) found no improvement; move-on reached 10/10. Linker data mismatch also flags jtbl_800D25B8 bytes (candidate 80 01 71 cc vs ROM 80 01 71 ec). First instruction mismatch is branch target: target bnez $v0 to +0x2e8, candidate +0x2ac, followed by target move $s1,zero vs candidate move $s3,zero. Inspect full target assembly, switch lowering/jump table shape, and loop structure around node traversal.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795179415.4898949,
+  "score_before": 8595,
+  "score_after": 8595
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Recovered and recompiled historical best at score 8595. It compiles and has 70.3% matching, 290 target vs 256 candidate instructions. Diagnostic showed major control-flow/switch differences beginning around row 27, incorrect matched jump-table data at 0x800D25B8, and register ordering in state copies. Attempted one prototype correction from matched callee evidence (void func_80016718(void*)) but it creates a too-many-arguments error; restored original source and score. Do not alter prototype without checking actual caller semantics. Next: inspect original assembly/jump table around row 27 and repair switch/case structure and jump table; then work remaining loops and stack-register allocation.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795183928.613657,
+  "score_before": 8595,
+  "score_after": 8595
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Current best candidate is 14066149c6a9a12e3f6f, historical score 8595 (rechecked prior to restore). A separate full rewrite scored 8650 and was discarded. One ordered comparison patch retained score 8595. Link diagnostic persists: jump-table jtbl_800D25B8 trailing bytes differ (candidate target 0x800171cc vs ROM 0x800171ec); prioritize switch case structure/layout before interpreting downstream diff. Main remaining mismatches are branch layout and register allocation in list passes.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795203671.9090009,
+  "score_before": 8595,
+  "score_after": 8595
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Fresh best 8595. Tested switch default patch: score 9415, worse; restored saved_best. Existing issue: dispatch switch table entry candidate 0x800171cc vs target 0x800171ec, 0x20 offset. Switch source already has 13 cases; identify missing/extra duplicate case labels or compiler table extent. Current mismatch begins around 0x17130 selector dispatch; remaining states and calls also differ. Local repairs previous 3 variants unchanged/worse.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795206860.9997592,
+  "score_before": 8595,
+  "score_after": 8595
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Grouped cases 28, 33, 40, 41 improved 8595 to 8555; separating those labels again generated identical instructions. Explicit loop backedge worsened to 11060. Jump table still points to 0x800171dc instead of 0x800171ec; target contains three more calls to 80117740.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795223016.5832162,
+  "score_before": 8595,
+  "score_after": 8555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Restored missing marker-table lookup and object insertion: 8555 to 7425. Target special path skips equality check; removing it scored equally. Target loads next child before func_800167B4; that source ordering scored 7705. gBorderSkipFlag word declaration scored 7520. Jump table remains mismatched.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795224655.551301,
+  "score_before": 8555,
+  "score_after": 7425,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Fresh compile tool submission with empty source twice yielded no named function; inherited large candidate is unusable and historical score not reverified. Prior handoff indicates switch dispatch/table extent mismatch; latest attempt did not compile candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795241578.029709,
+  "score_before": 7425,
+  "score_after": 7425
  }
 ]
