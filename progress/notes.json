@@ -6480,14 +6480,6 @@
   "score_after": 15104
  },
  {
-  "function": "func_8006832C",
-  "text": "Restored saved_best candidate revision 07faa56758ed238acf78 (historical score 5835; not reverified after selection). One compile changing func_800829C8 prototype from f32(f32) to old-style f32() scored 6670, worse; reverted to saved_best. Current structural issue: target frame is 0x108 while candidate frame was 0xF8; target uses substantial stack float temporaries, especially lwc1 from 0x28($sp), but candidate gets double conversions/calls and swc1 there. Investigate sin/cos helper signatures and floating call ABI before changing logic. Also review warnings: incompatible pointer at source line 69 and pointer-to-integer argument at line 187. Best source still available as saved_best.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795172553.487402,
-  "score_before": 5825,
-  "score_after": 5825
- },
- {
   "function": "func_800589FC",
   "text": "10 compile trials; current rechecked best 10883, historical candidate score 10883. Attempts to declare D_80109688 as void** and alter stack/local types did not improve; several worsened. Keep saved best source. Major remaining mismatch is frame size -0xe0 vs target -0x140, plus vector/constant data addresses and call argument/register/stack differences. Candidate still has incompatible pointer warnings at table expressions. Next agent should inspect full target assembly around prologue and data loads, determine D_80109688 and D_800D3FE8/FF4 globals/layouts, and correct call prototypes before tuning.",
   "by": "codex-gpt-6-luna-21",
@@ -13128,14 +13120,6 @@
   "score_after": 200
  },
  {
-  "function": "func_8006832C",
-  "text": "Rechecked inherited best at 5835 (413 emitted vs 412 target). Current first major mismatch is target stack frame 0x108 and s3 holding arg0; best emits 0xf0 and s6. One attempt with explicit void** cast on temp_s4 was score-neutral. Tried merging temp_v0_6 into temp_v0_4 in the second branch; resulting compile scored 5970 and was worse, with altered control-flow/registers. Failed intermediate candidates from removing the declaration are superseded by the currently judged candidate. Remaining hint-driven experiment: merge var_s0/var_s0_2 while keeping separate temp_v0 variables, and inspect argument 2 warning at func_80064384/func_80055B5C call path. Larger issues are floating-point sin/cos register and stack layout. Stop here to avoid repeating lifetime merge.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795184276.996662,
-  "score_before": 5825,
-  "score_after": 5825
- },
- {
   "function": "func_80063758",
   "text": "Verified score 60. Sole scheduling issue: neg.s $f0,$f4 appears before mtc1 and cvt.s.w, target puts it after cvt.s.w. Inline repeated -arg2, assignment inside condition, and swapped comparison spelling yield the identical diff; early return and conditional select worsen. Try restructuring the result assignment to put conversion and comparison in one compiler expression while preserving the shared return.",
   "by": "codex-gpt-6.2-sol-8",
@@ -14622,14 +14606,6 @@
   "created_at": 1795185266.90831,
   "score_before": 100,
   "score_after": 100
- },
- {
-  "function": "func_8006832C",
-  "text": "Rechecked revision 07faa56758ed238acf78 at 5835. Scalar lifetime, loop, inferred record and declaration repairs did not improve; generated float prototype variants failed compilation. Target frame 0x108 versus candidate 0xf0, with 144 differing rows. Reconstruct stack vector/matrix extents and callee argument types from target, then address saved-register allocation.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795185272.9600892,
-  "score_before": 5825,
-  "score_after": 5825
  },
  {
   "function": "func_800AB250",
@@ -46052,15 +46028,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bb87beb5e62c7935eefe4ab8ea7c08dce774a82d39bc2b8b7b142c29da92b351"
  },
  {
-  "function": "func_8006832C",
-  "text": "Verified 5835 \u2192 540. Fixed forwarded rotateVec3ByMat3 argument, angle reloads, raw vector copies, shared global bases and stack offsets; 412 instructions on both sides. Remaining differences are predominantly the s3/s4/s5/s6 allocation cycle plus minor scheduling. The 16-byte unused local is a diagnostic frame reservation.\nReused one C scratch pointer for marker lookup, distance threshold and both angle vector arguments.\nScore 2110; reduced emitted instructions from 412 to 406 and disturbed s1/s2, so restored 540.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795236833.808697,
-  "score_before": 5835,
-  "score_after": 540,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:adeb0ec140f18b4708780469fb43aa08bb1802643b1273d2b948746084a89433"
- },
- {
   "function": "func_8008AECC",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 80; 21 differing rows (9 register, 3 branch target, 1 operand, 4 reordered, 2 inserted, 2 deleted; advisory).\nTarget: lui $a0, %hi(D_800E421C)\nCandidate: lui $a1, %hi(D_800E421C)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addu $v0, $a0, $v0\n  = sw $s5, 0x54($v0)\nr T: lui $a0, %hi(D_800E421C) | C: lui $a1, %hi(D_800E421C)\nr T: lw $a0, %lo(D_800E421C)($a0) | C: lw $a1, %lo(D_800E421C)($a1)\nr T: lhu $v1, ($a0) | C: lhu $v1, ($a1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nStruct rewrite (Voice size 0x68 {u8 active; pad[0x5F]; u8 idx; u8 flag; pad[6]}, Q size 0xA10 {u16 count; s16 f2; s32 f4,f8; u8 *fC; ...}, volatile s64 pad for 0x38 frame) gets right stack frame, scores 705 (saved best 510 was different source). Remaining diff: D_800E4234 section ordering (target does mult before addiu 0xC0, sw in bne delay slot) and a0/a1 swap for D_800E421C reload. Frame/loop shape matched with typed structs; reload of table after u8 store is natural.",
   "by": "api-claude-sonnet-5-5-2",
@@ -48876,14 +48843,6 @@
   "score_before": 160,
   "score_after": 160,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
- },
- {
-  "function": "func_8006832C",
-  "text": "Baseline attempt had empty C, no function definition; compile confirmed no object symbol. Prior machine draft has many undeclared identifiers and bad prototypes; historical best ~5825 but current candidate source uncompiled/invalid. Next step: recover function C from a full prior scored attempt/history or redraft using header/assembly and add required global declarations before compiling.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795242549.670542,
-  "score_before": 540,
-  "score_after": 540
  },
  {
   "function": "func_8005E350",
@@ -54324,15 +54283,6 @@
   "score_before": 140,
   "score_after": 140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
-  "function": "func_8006832C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 1; 58 differing rows (54 register, 4 operand; advisory).\nTarget: sw $s3, 0xe4($sp)\nCandidate: sw $s6, 0xf0($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x108\ni T: sw $s3, 0xe4($sp) | C: sw $s6, 0xf0($sp)\nr T: move $s3, $a0 | C: move $s6, $a0\n  = sw $ra, 0xfc($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 7a7e8e55e55f6cf663d4 rechecked at 310/412 target instructions. Corrected vector copies, stack frame and narrowing at spawnEffect, and shared volatile threshold address. Remaining diff is register allocation/operand ordering. Rewriting marker lookup as casted byte-offset arithmetic scored unchanged at 310. Next step: test an actor argument alias used only after the initial disabled gate, to change saved-register lifetimes (target the s3/s4/s6 permutation).",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795259983.550682,
-  "score_before": 20182,
-  "score_after": 310,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:adeb0ec140f18b4708780469fb43aa08bb1802643b1273d2b948746084a89433"
  },
  {
   "function": "func_8002502C",
@@ -75893,5 +75843,55 @@
   "score_before": 19981,
   "score_after": 9175,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Restored saved_best candidate revision 07faa56758ed238acf78 (historical score 5835; not reverified after selection). One compile changing func_800829C8 prototype from f32(f32) to old-style f32() scored 6670, worse; reverted to saved_best. Current structural issue: target frame is 0x108 while candidate frame was 0xF8; target uses substantial stack float temporaries, especially lwc1 from 0x28($sp), but candidate gets double conversions/calls and swc1 there. Investigate sin/cos helper signatures and floating call ABI before changing logic. Also review warnings: incompatible pointer at source line 69 and pointer-to-integer argument at line 187. Best source still available as saved_best.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795172553.487402,
+  "score_before": 5825,
+  "score_after": 5825
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Rechecked inherited best at 5835 (413 emitted vs 412 target). Current first major mismatch is target stack frame 0x108 and s3 holding arg0; best emits 0xf0 and s6. One attempt with explicit void** cast on temp_s4 was score-neutral. Tried merging temp_v0_6 into temp_v0_4 in the second branch; resulting compile scored 5970 and was worse, with altered control-flow/registers. Failed intermediate candidates from removing the declaration are superseded by the currently judged candidate. Remaining hint-driven experiment: merge var_s0/var_s0_2 while keeping separate temp_v0 variables, and inspect argument 2 warning at func_80064384/func_80055B5C call path. Larger issues are floating-point sin/cos register and stack layout. Stop here to avoid repeating lifetime merge.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795184276.996662,
+  "score_before": 5825,
+  "score_after": 5825
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Rechecked revision 07faa56758ed238acf78 at 5835. Scalar lifetime, loop, inferred record and declaration repairs did not improve; generated float prototype variants failed compilation. Target frame 0x108 versus candidate 0xf0, with 144 differing rows. Reconstruct stack vector/matrix extents and callee argument types from target, then address saved-register allocation.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795185272.9600892,
+  "score_before": 5825,
+  "score_after": 5825
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Verified 5835 \u2192 540. Fixed forwarded rotateVec3ByMat3 argument, angle reloads, raw vector copies, shared global bases and stack offsets; 412 instructions on both sides. Remaining differences are predominantly the s3/s4/s5/s6 allocation cycle plus minor scheduling. The 16-byte unused local is a diagnostic frame reservation.\nReused one C scratch pointer for marker lookup, distance threshold and both angle vector arguments.\nScore 2110; reduced emitted instructions from 412 to 406 and disturbed s1/s2, so restored 540.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795236833.808697,
+  "score_before": 5835,
+  "score_after": 540,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:adeb0ec140f18b4708780469fb43aa08bb1802643b1273d2b948746084a89433"
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Baseline attempt had empty C, no function definition; compile confirmed no object symbol. Prior machine draft has many undeclared identifiers and bad prototypes; historical best ~5825 but current candidate source uncompiled/invalid. Next step: recover function C from a full prior scored attempt/history or redraft using header/assembly and add required global declarations before compiling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242549.670542,
+  "score_before": 540,
+  "score_after": 540
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 1; 58 differing rows (54 register, 4 operand; advisory).\nTarget: sw $s3, 0xe4($sp)\nCandidate: sw $s6, 0xf0($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x108\ni T: sw $s3, 0xe4($sp) | C: sw $s6, 0xf0($sp)\nr T: move $s3, $a0 | C: move $s6, $a0\n  = sw $ra, 0xfc($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 7a7e8e55e55f6cf663d4 rechecked at 310/412 target instructions. Corrected vector copies, stack frame and narrowing at spawnEffect, and shared volatile threshold address. Remaining diff is register allocation/operand ordering. Rewriting marker lookup as casted byte-offset arithmetic scored unchanged at 310. Next step: test an actor argument alias used only after the initial disabled gate, to change saved-register lifetimes (target the s3/s4/s6 permutation).",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795259983.550682,
+  "score_before": 20182,
+  "score_after": 310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:adeb0ec140f18b4708780469fb43aa08bb1802643b1273d2b948746084a89433"
  }
 ]

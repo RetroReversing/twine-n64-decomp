@@ -67,7 +67,7 @@ void func_8006832C(void *arg0, f32 *arg1)
   register void *temp_v0_3;
   temp_s2 = *((void **) (((char *) arg0) + 0x6C));
   temp_s7 = *((s8 *) (((char *) temp_s2) + 0x182));
-  temp_s4 = &sTrackMarkerTable[temp_s7];
+  { char *base = (char *) sTrackMarkerTable; s32 offset = temp_s7 * 4; temp_s4 = (void * volatile *) (offset + base); }
   sp28[0] = *((f32 *) (((char *) (*temp_s4)) + 0x34));
   temp_a1 = *((f32 *) (((char *) (*temp_s4)) + 0x38));
   sp28[2] = 0;
