@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800476E0(void *arg0, void *arg1, void *arg2, const void *arg3, f32 arg4) {
+s32 clampRayToPlane(void *arg0, void *arg1, void *arg2, const void *arg3, f32 arg4) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fa1_2;
