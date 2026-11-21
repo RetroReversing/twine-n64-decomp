@@ -35,7 +35,14 @@ void func_8001A434(void) {
         func_8001A4F4();
         ((__repair_record_gSaveMenuState*)gSaveMenuState)->field_2F = 0;
         __base_sOptionCursor = &sOptionCursor;
-        formatTextEntry(temp_s2, &sFmtEntryName, lookupDataEntry((*__base_sOptionCursor) + 0x16D));
-        formatTextEntry(temp_s2 + 0x28, &sFmtEntryName, lookupDataEntry((*__base_sOptionCursor) + 0x177));
+        {
+            s32 cursor = *__base_sOptionCursor;
+            s32 item = lookupDataEntry(cursor + 0x16D);
+            M2C_UNK *format = &sFmtEntryName;
+            formatTextEntry(temp_s2, format, item);/*__repair_loop_weight*/do {
+            cursor = *__base_sOptionCursor;} while (0);
+            item = lookupDataEntry(cursor + 0x177);
+            formatTextEntry(temp_s2 + 0x28, format, item);
+        }
     }
 }
