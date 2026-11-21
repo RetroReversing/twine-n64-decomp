@@ -420,7 +420,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                 do {
                                                     temp_s1_2 = var_s3_3 & 0xFFFF;
                                                     temp_a0 = *(u16 *)((temp_s1_2 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
-                                                    temp_s0_3 = (*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_2 * 6);
+                                                    temp_s0_3 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_2 * 6);
                                                     if ((sp1F6 & temp_a0) && (sp1FE & temp_a0)) {
                                                         temp_v1_6 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                         if (rayHitsTriangleXZ(&sp58, &spE0, temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 0)) * 0xC), temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 2)) * 0xC), temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 4)) * 0xC), &spF0) & 0xFF) {
@@ -501,7 +501,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                 do {
                                                     temp_s1_3 = (s32)var_s3_4 & 0xFFFF;
                                                     temp_v1_11 = *(u16 *)((temp_s1_3 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
-                                                    temp_s0_4 = (*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_3 * 3);
+                                                    temp_s0_4 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_3 * 3);
                                                     if ((sp1F6 & temp_v1_11) && (sp1FE & temp_v1_11)) {
                                                         temp_v1_12 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                         if (rayHitsTriangleXZ(&sp58, &spE0, temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 0)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 2)) * 0xC), &spF0) & 0xFF) {
@@ -578,12 +578,12 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                             D_80108F84 = var_s7;
                                             if (arg7 != NULL) {
                                                 if ((*(u8 *)((char *)(temp_s2_2) + 0x48)) & 4) {
-                                                    temp_v1_17 = (*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (var_s4 * 6);
+                                                    temp_v1_17 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (var_s4 * 6);
                                                     var_a2 = (*(u16 *)((char *)(temp_v1_17) + 2)) * 3;
                                                     var_v0_5 = (*(u16 *)((char *)(temp_v1_17) + 4));
                                                     var_a1 = (*(s32 *)((char *)(temp_s2_2) + 0x34)) + ((*(u16 *)((char *)(temp_v1_17) + 0)) * 0xC);
                                                 } else {
-                                                    temp_v1_18 = (*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (var_s4 * 3);
+                                                    temp_v1_18 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (var_s4 * 3);
                                                     var_a1 = (*(s32 *)((char *)(temp_s2_2) + 0x34)) + ((*(u8 *)((char *)(temp_v1_18) + 0)) * 0xC);
                                                     var_a2 = (*(u8 *)((char *)(temp_v1_18) + 1)) * 3;
                                                     var_v0_5 = (u16) (*(u8 *)((char *)(temp_v1_18) + 2));
@@ -602,7 +602,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                             var_s3_5 = (*(u16 **)((char *)(temp_s2_2) + 0x3C));
                                             var_s4_2 = 0;
                                             if (temp_s1 < (u16) (*(u16 *)((char *)(temp_s2_2) + 0x40))) {
-                                                var_s0_3 = var_s3_5 + 4;
+                                                var_s0_3 = (char *)var_s3_5 + 4;
                                                 do {
                                                     temp_s1_4 = var_s4_2 & 0xFFFF;
                                                     temp_v1_20 = *(u16 *)((temp_s1_4 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
@@ -686,7 +686,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                             var_s4_3 = 0;
                                             if (temp_v1_19 < (u16) (*(u16 *)((char *)(temp_s2_2) + 0x40))) {
                                                 sp234 = &sp180;
-                                                var_s0_4 = var_s3_6 + 2;
+                                                var_s0_4 = (char *)var_s3_6 + 2;
                                                 do {
                                                     temp_s1_5 = var_s4_3 & 0xFFFF;
                                                     temp_v1_27 = *(u16 *)((temp_s1_5 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));

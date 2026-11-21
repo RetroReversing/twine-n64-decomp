@@ -29,9 +29,9 @@ s32 func_8005603C(void *);                      /* extern */
 s32 func_800560AC(void *);                      /* extern */
 s32 func_80056124(void *, f32 *, f32 *);            /* extern */
 s32 func_800588D8(void *);                          /* extern */
-s32 func_8005CBD4(void *, f32 *, f32 *, s32, s32); /* extern */
+s32 func_8005CBD4(void *, f32 *, f32 *, f32, s32); /* extern */
 s32 func_800624A8(void *, f32 *, f32, s32); /* extern */
-s32 func_80073108(void *, f32 *, s32);      /* extern */
+s32 func_80073108(void *, f32 *, f32);      /* extern */
 f32 func_80082908(f32);                             /* extern */
 s32 func_80083AE8(f32 *, f32 *, f32 *);         /* extern */
 s32 func_80083B64(f32 *, f32 *);                /* extern */
@@ -50,7 +50,7 @@ s32 rotateVec3ByMat3(s32 *, void *);        /* extern */
 s32 setActorStatusBits(void *);                 /* extern */
 f32 sinAngle(f32);                                  /* extern */
 s32 spawnConfiguredEffect(void *, f32 *, f32 *, s32, f32, f32, s32, s32, s32, s32, s32); /* extern */
-s32 spawnSparkleBurst(void *, f32 *, s32, s32, s32, s32); /* extern */
+s32 spawnSparkleBurst(void *, f32 *, f32, s32, s32, s32); /* extern */
 s32 spawnSparkleLine(void *, s32, void *, f32 *); /* extern */
 s32 spawnTimedEffect(void *, f32 *, f32 *, s32); /* extern */
 s32 startSubdivision(void *, void *, void *, f32, f32, f32, s32, s32); /* extern */
@@ -208,7 +208,7 @@ void func_800561BC(void *arg0) {
     s32 temp_v0_14;
     s32 temp_v0_15;
     s32 temp_v0_16;
-    s32 temp_v0_19;
+    long temp_v0_19;
     s32 temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
@@ -225,7 +225,7 @@ void func_800561BC(void *arg0) {
     s32 var_v0_2;
     s32 var_v0_4;
     s32 var_v1;
-    s32 var_v1_3;
+    long var_v1_3;
     u16 temp_a2;
     u16 temp_v0_8;
     u16 temp_v1_15;
@@ -276,8 +276,8 @@ void func_800561BC(void *arg0) {
     default:                                        /* switch 1 */
         temp_fs0_4 = 0.5f;
         temp_fs0_4 += randomFloatScaled(temp_fs0_4);
-        (*(s16 *)((char *)(arg0) + 0x7A)) = (s16) ((u16) (*(s16 *)((char *)(arg0) + 0x7A)) + 1);
         var_fs0 = temp_fs0_4 * (*(f32 *)((char *)(temp_s2) + 0x20));
+        (*(s16 *)((char *)(arg0) + 0x7A)) = (s16) ((u16) (*(s16 *)((char *)(arg0) + 0x7A)) + 1);
         goto block_19;
     case 1:                                         /* switch 1 */
         temp_a0_5 = (*(void **)((char *)(temp_s2) + 0x2C));
@@ -508,7 +508,7 @@ block_73:
                             if (((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 2) && (randomIntBelow(4) == 0)) {
                                 (*(s32 *)((char *)(gPlayerActor) + 0x60)) = (s32) ((*(s32 *)((char *)(gPlayerActor) + 0x60)) | 1);
                                 if ((*(void **)((char *)(gPlayerActor) + 0x70)) != NULL) {
-                                    func_80073108(gPlayerActor + 0x24, &local.sp40, 0x40A00000);
+                                    func_80073108(gPlayerActor + 0x24, &local.sp40, 5.0f);
                                     startSubdivision((*(void **)((char *)(gPlayerActor) + 0x70)), local.sp174, gPlayerActor + 0x24, (*(f32 *)((char *)(gPlayerActor) + 0x3C)), (*(f32 *)((char *)(gPlayerActor) + 0x40)), (*(f32 *)((char *)(gPlayerActor) + 0x44)), 1, 1);
                                     func_800851E0((s32)(&local.sp40));
                                     goto block_263;
@@ -531,7 +531,7 @@ loop_95:
                                     (*(void **)((char *)(var_v1_2) + 0x14)) = (void *) (*(void **)((char *)(temp_v0_6) + 0x14));
                                 }
                             }
-                            func_80073108(D_80108F84 + 0x24, &local.sp40, 0x40A00000);
+                            func_80073108(D_80108F84 + 0x24, &local.sp40, 5.0f);
                             startSubdivision((*(void **)((char *)(D_80108F84) + 0x3C)), local.sp174, D_80108F84 + 0x24, (*(f32 *)((char *)(D_80108F84) + 0x30)) * 651.8986f, (*(f32 *)((char *)(D_80108F84) + 0x34)) * 651.8986f, (*(f32 *)((char *)(D_80108F84) + 0x38)) * 651.8986f, 1, 1);
                             func_800851E0((s32)(&local.sp40));
                             (*(s32 *)((char *)(D_80108F84) + 0x50)) = 0;
@@ -705,7 +705,7 @@ block_138:
                 (*(f32 *)((char *)(temp_s2) + 0x18)) = 0.0f;
                 if ((func_80082908((temp_fv1_2 * temp_fv1_2) + (temp_fv0_4 * temp_fv0_4) + (2.0f * (*(f32 *)((char *)(temp_s2) + 8)))) < 0.1f) && (local.spBC > 0.5f)) {
                     temp_a1 = (*(u8 *)((char *)(temp_s2) + 0x38));
-                    if (temp_a1 < 2U) {
+                    if (2U > temp_a1) {
                         func_80085354(arg0 + 0x24, temp_a1);
                     }
                     (*(u8 *)((char *)(temp_s2) + 0x38)) = (u8) ((*(u8 *)((char *)(temp_s2) + 0x38)) + 1);
@@ -757,8 +757,8 @@ block_138:
                                     local.spB8 = (*(f32 *)((char *)(&D_800D3F54) + 8));
                                     var_s0_3 = 0;
                                     func_800851E0((s32)(D_80108F84 + 0x24));
-                                    temp_a3 = (*(s32 *)((char *)(D_80108F84) + 0x58));
                                     (*(s32 *)((char *)(D_80108F84) + 0x58)) = (s32) (-0x1C1 & temp_a3);
+                                    temp_a3 = (*(s32 *)((char *)(D_80108F84) + 0x58));
                                     (*(s32 *)((char *)(D_80108F84) + 0x50)) = (s32) ((*(s32 *)((char *)(D_80108F84) + 0x50)) & ~0x80);
                                     applyObjectRotation(D_80108F84, (s32)(&local.sp88), 0);
                                     do {
@@ -773,8 +773,8 @@ block_138:
                                         local.spC4 += (*(f32 *)((char *)(D_80108F84) + 0x28));
                                         var_s0_3 += 1;
                                         local.spC8 += (*(f32 *)((char *)(D_80108F84) + 0x2C));
-                                        func_8005CBD4(arg0, &local.spC0, &local.spB0, 0x3F800000, randomIntBelow(4) + 4);
-                                    } while (var_s0_3 < 8U);
+                                        func_8005CBD4(arg0, &local.spC0, &local.spB0, 1.0f, randomIntBelow(4) + 4);
+                                    } while (8U > var_s0_3);
                                 }
                                 temp_v0_12 = (*(u32 *)((char *)(temp_s5) + 0x58));
                                 (*(u32 *)((char *)(temp_s5) + 0x58)) = (u32) ((temp_v0_12 & 0xFFFF0003) | ((((temp_v0_12 >> 2) & 0x3FFF) | 0x100) * 4));
@@ -862,22 +862,22 @@ block_138:
                             var_s4_3 = 3;
                         }
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 4) {
-                            func_8005CBD4(arg0, &local.sp30, &local.spD0, 0x3F800000, var_s0_4 + randomIntBelow(var_s0_4));
+                            func_8005CBD4(arg0, &local.sp30, &local.spD0, 1.0f, var_s0_4 + randomIntBelow(var_s0_4));
                         }
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 1) {
-                            spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s4_3), 0x13, 0x1B);
+                            spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_3), 0x13, 0x1B);
                         }
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 8) {
-                            spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s1), 0x15, 0x1B);
+                            spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1), 0x15, 0x1B);
                         }
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 0x10) {
-                            spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s1), 0x14, 0x1B);
+                            spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1), 0x14, 0x1B);
                             if (randomIntBelow(2) == 0) {
-                                func_8005CBD4(arg0, &local.sp30, &local.spD0, 0x3F800000, randomIntBelow(2) + 2);
+                                func_8005CBD4(arg0, &local.sp30, &local.spD0, 1.0f, randomIntBelow(2) + 2);
                             }
                         }
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 0x40) {
-                            spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s4_3), 0x12, 0x1B);
+                            spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_3), 0x12, 0x1B);
                             if (randomIntBelow(16) != 0) {
                                 goto block_226;
                             }
@@ -895,22 +895,22 @@ block_138:
                         }
                         if (gPlayerActor != NULL) {
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 4) {
-                                func_8005CBD4(arg0, &local.sp30, &local.spD0, 0x3F800000, var_s0_5 + randomIntBelow(var_s0_5));
+                                func_8005CBD4(arg0, &local.sp30, &local.spD0, 1.0f, var_s0_5 + randomIntBelow(var_s0_5));
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 1) {
-                                spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s4_4), 0x13, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_4), 0x13, 0x1B);
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 8) {
-                                spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s1_2), 0x15, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1_2), 0x15, 0x1B);
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 0x10) {
-                                spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s1_2), 0x14, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1_2), 0x14, 0x1B);
                                 if (randomIntBelow(4) == 0) {
-                                    func_8005CBD4(arg0, &local.sp30, &local.spD0, 0x3F800000, randomIntBelow(2) + 2);
+                                    func_8005CBD4(arg0, &local.sp30, &local.spD0, 1.0f, randomIntBelow(2) + 2);
                                 }
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 0x40) {
-                                spawnSparkleBurst(arg0, &local.sp30, 0x40C00000, randomIntBelow(var_s4_4), 0x12, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_4), 0x12, 0x1B);
                                 if (randomIntBelow(16) == 0) {
 block_225:
                                     func_800851E0((s32)(&local.sp30));
@@ -967,7 +967,7 @@ block_234:
                 local.sp9C = (f32) var_fv1_7;
                 temp_v0_16 = randomIntBelow(4096);
                 var_fv1_8 = (f64) temp_v0_16;
-                if (temp_v0_16 < 0) {
+                if (0 > temp_v0_16) {
                     var_fv1_8 += D_800D3FE0;
                 }
                 local.spA0 = (f32) var_fv1_8;
@@ -1032,7 +1032,7 @@ block_263:
                             temp_fs0 = approximate_hypot2(temp_fs4, temp_fs3);
                             temp_fs2 = approximateAtan2(temp_fs4, temp_fs3) * 651.8986f;
                             temp_fs0_2 = -(approximateAtan2(temp_fs5, temp_fs0) * 651.8986f);
-                            (*(f32 *)((char *)(arg0) + 0x40)) = (f32) ((*(f32 *)((char *)(arg0) + 0x40)) - ((f32) angleDelta12((s32) temp_fs2, (s32) (*(f32 *)((char *)(arg0) + 0x40))) * 0.1f));
+                            (*(f32 *)((char *)(arg0) + 0x40)) = (f32) ((*(f32 *)((char *)(arg0) + 0x40)) - ((f32) angleDelta12(temp_fs2, (s32) (*(f32 *)((char *)(arg0) + 0x40))) * 0.1f));
                             (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) ((*(f32 *)((char *)(arg0) + 0x3C)) - ((f32) angleDelta12((s32) temp_fs0_2, (s32) (*(f32 *)((char *)(arg0) + 0x3C))) * 0.1f));
                             temp_fs1 = sinAngle((*(f32 *)((char *)(arg0) + 0x40)));
                             temp_fs2_2 = cosAngle((*(f32 *)((char *)(arg0) + 0x40)));

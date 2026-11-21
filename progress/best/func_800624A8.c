@@ -32,7 +32,6 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     f64 temp_fv1;
     s16 temp_v0_2;
     u32 var_fp;
-    u32 var_s0;
     u32 var_s1;
     
     u32 var_s6;
@@ -77,7 +76,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
         }
         ++var_s1;
     } while (var_s1 < 2U);
-    __repair_phase_storage.value = 0;
+    var_s1 = 0;
     if (var_fp != 0) {
         temp_fs1_2 = (f64) arg2; temp_fs5 = temp_fs1_2 * D_800D4278; temp_fs4 = arg2 * 0.2f; do {
             f32 __repair_loop_fzero = 0.0f;
@@ -99,7 +98,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
             }
             if (D_80102ED8 == 0) {
                 func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4290), 0x1A, 0xFB, 0x33, 0xFF, 0x80808004), sp30);
-                var_s0 = 0;
+                __repair_phase_storage.value = 0;
                 if (var_s6) {
                     do {
                         sp30[2] = __repair_loop_fzero;
@@ -110,11 +109,12 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                             sp30[1] = -sp30[1];
                         }
                         func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
-                        var_s0 += 1;
-                    } while (var_s0 < var_s6);
+                        __repair_phase_storage.value += 1;
+                    } while (__repair_phase_storage.value < var_s6);
                 }
             }
-            __repair_phase_storage.value += 1;
-        } while (__repair_phase_storage.value < var_fp);
+            var_s1 += 1;
+        } while (var_s1 < var_fp);
     }
 }
+

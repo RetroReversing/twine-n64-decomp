@@ -101,9 +101,10 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     if (F8(arg1, &sum, &p1) != 0) {
         s1 = D_80108F84;
         if (F8(arg1, &sum, &p2) != 0 && s1 == D_80108F84) {
-            if (s1 == arg1) return 1;
+            if (s1 != arg1) {
             FLIP_VECTOR();
-            *(volatile f32 *)arg4 = -*arg4;
+            *arg4 = -*arg4;
+            }
             return 1;
         }
     }
@@ -114,9 +115,10 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
     if (F8(arg2, &sum, &p1) != 0) {
         s1 = D_80108F84;
         if (F8(arg2, &sum, &p2) != 0 && s1 == D_80108F84) {
-            if (s1 == arg2) return 1;
+            if (s1 != arg2) {
             FLIP_VECTOR();
-            *(volatile f32 *)arg4 = -*arg4;
+            *arg4 = -*arg4;
+            }
             return 1;
         }
     }
@@ -158,3 +160,4 @@ E364:
     return 1;
 
 }
+
