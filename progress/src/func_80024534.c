@@ -15,15 +15,15 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80016314(s32);                         /* extern */
 M2C_UNK func_8002A700(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002CBE8();                            /* extern */
-extern s32 D_800BD550;
-extern s32 D_800BD554;
+extern s32 sSaveMenuSpriteFirst;
+extern s32 sSaveMenuSpriteSecond;
 extern M2C_UNK D_80107EA8;
 
 void func_80024534(void) {
     func_8002A700(&D_80107EA8);
-    func_80016314(D_800BD550);
-    D_800BD550 = 0;
-    func_80016314(D_800BD554);
-    D_800BD554 = 0;
+    func_80016314(sSaveMenuSpriteFirst);
+    sSaveMenuSpriteFirst = 0;
+    func_80016314(sSaveMenuSpriteSecond);
+    sSaveMenuSpriteSecond = 0;
     func_8002CBE8();
 }

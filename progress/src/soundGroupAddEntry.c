@@ -22,7 +22,7 @@ extern char D_800EE204[];
 extern u8 D_800EE37C;
 
 typedef struct { unsigned char pad[56]; int value; } __repair_field_38;
-void func_800949B4(void *arg0, f32 arg1) {
+void soundGroupAddEntry(void *arg0, f32 arg1) {
 int __repair_literal;
 
     s32 *var_a0;

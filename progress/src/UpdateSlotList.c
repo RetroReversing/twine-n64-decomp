@@ -16,7 +16,7 @@ s32 func_8008E3EC(u16, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_8008EA58(s32);                         /* extern */
 M2C_UNK func_800937D0(void *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 M2C_UNK soundVoiceStart(void *, f32, s32, s32, f32, f32); /* extern */
-M2C_UNK func_800949B4(void *, f32);                 /* extern */
+M2C_UNK soundGroupAddEntry(void *, f32);                 /* extern */
 s32 soundQueueInsert(void *, f32, s32, s32, f32, f32); /* extern */
 M2C_UNK soundGroupsUpdateVoices();                            /* extern */
 s32 func_8009CCB0(s32);                             /* extern */
@@ -113,7 +113,7 @@ block_28:
 block_29:
                         if (M2C_FIELD(slot, s32 *, 0x34) != -1) {
                             if (M2C_FIELD(slot, s32 *, 8) & 1) {
-                                func_800949B4(slot, sp18);
+                                soundGroupAddEntry(slot, sp18);
                             }
                             if ((sp18 == 0.0f) && (M2C_FIELD(slot, s32 *, 8) & 4)) {
                                 func_8008EA58(M2C_FIELD(slot, s32 *, 0x34));

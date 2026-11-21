@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 void func_80022B60(s32);
 u16 func_80023EC0(u16, s32, void *, void *);
-M2C_UNK updatePairedSpriteState(s32, u16, u8, s32);
+M2C_UNK updateSaveMenuSprites(s32, u16, u8, s32);
 extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gMenuState;
 void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
  s32 temp_s1; s32 temp_t0; s32 temp_v1; s32 var_a1; s32 var_a2; s32 var_v0; u16 temp_v0; void *temp_a0; void *temp_a0_2; void *temp_a3;
@@ -43,7 +43,7 @@ void func_800240A4(void *arg0, s32 arg1, s32 arg2) {
    temp_v0=func_80023EC0(sSaveMenuAction,var_a1,(void *)var_a2,temp_a3);
    temp_s1=M2C_FIELD(arg0,u16 *,4);
    sSaveMenuAction=temp_v0;
-   updatePairedSpriteState(temp_v0&0xFFFF,temp_s1,M2C_FIELD(arg0,u8 *,7),temp_t0&0xFF);
+   updateSaveMenuSprites(temp_v0&0xFFFF,temp_s1,M2C_FIELD(arg0,u8 *,7),temp_t0&0xFF);
   }
   func_80022B60(3);
  }

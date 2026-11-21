@@ -3,7 +3,7 @@
 s32 func_80015F74();
 s32 func_80022A30();
 s32 func_80022AD8();
-s32 updatePairedSpriteState();
+s32 updateSaveMenuSprites();
 s32 func_80024D78();
 s32 func_80024EF0();
 s32 func_8002A644();
@@ -14,8 +14,8 @@ s32 func_8002CBD8();
 s32 func_8002D09C();
 extern u16 D_800B81A8;
 extern u8 D_800B81AB;
-extern s32 D_800BD550;
-extern s32 D_800BD554;
+extern s32 sSaveMenuSpriteFirst;
+extern s32 sSaveMenuSpriteSecond;
 extern volatile u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
 extern char D_800BD5D0[];
@@ -43,8 +43,8 @@ void func_8002424C(void) {
     func_80022A30((i = 0, base = D_800BD5D0, config = base - 0x4C,
                    empty = 0xF, full = 0x10, slot = base - 0x34, gMenuParamC),
                   0x20, 0x3C, 0xF8, (pairs = D_80109C18, 0x78));
-    D_800BD554 = func_80015F74(base);
-    D_800BD550 = func_80015F74(base - 0x24);
+    sSaveMenuSpriteSecond = func_80015F74(base);
+    sSaveMenuSpriteFirst = func_80015F74(base - 0x24);
     do {
         param = gMenuParamC;
         *(s16 *)config = param;
@@ -72,7 +72,7 @@ void func_8002424C(void) {
     default: action = 1; break;
     }
     sSaveMenuAction = action;
-    updatePairedSpriteState(sSaveMenuAction, D_800B81A8, D_800B81AB, 1);
+    updateSaveMenuSprites(sSaveMenuAction, D_800B81A8, D_800B81AB, 1);
     menu = D_80107EA8;
     func_8002A9A8(menu, 0);
     func_8002AC04(menu, 1);

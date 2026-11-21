@@ -14,18 +14,18 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8002A104(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *, void *);           /* extern */
-extern void *D_800BD550;
-extern void *D_800BD554;
+extern void *sSaveMenuSpriteFirst;
+extern void *sSaveMenuSpriteSecond;
 extern M2C_UNK D_80107EA8;
 extern void *gMenuState;
 
 void func_80024584(void) {
     void *__repair_D_800BD554;
     func_8002A104(&D_80107EA8);
-    if (D_800BD550 != NULL) {
-        M2C_FIELD(D_800BD550, s32 *, 0x10) = (s32) ((M2C_FIELD(D_800BD550, s32 *, 0x10) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
+    if (sSaveMenuSpriteFirst != NULL) {
+        M2C_FIELD(sSaveMenuSpriteFirst, s32 *, 0x10) = (s32) ((M2C_FIELD(sSaveMenuSpriteFirst, s32 *, 0x10) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
     }
-    __repair_D_800BD554 = D_800BD554;
+    __repair_D_800BD554 = sSaveMenuSpriteSecond;
     if (__repair_D_800BD554 != NULL) {
         M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) = (s32) ((M2C_FIELD(__repair_D_800BD554, s32 *, 0x10) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
     }

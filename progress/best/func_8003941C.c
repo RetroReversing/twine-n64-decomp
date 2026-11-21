@@ -43,16 +43,16 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                 ent = sp18 + 27;
                 var_s2 = 3;
                 do {
-                    p = (u8 *)(var_s1 + spF0[var_s2] * 16);
-                    ent[0] = (f32)*(s16 *)(p + 0) * 0.015625f;
-                    ent[1] = (f32)*(s16 *)(p + 2) * 0.015625f;
-                    ent[2] = (f32)*(s16 *)(p + 4) * 0.015625f;
-                    ent[4] = (f32)*(s16 *)(p + 0xA);
-                    ent[3] = (f32)*(s16 *)(p + 8);
-                    ent[6] = (f32)p[0xD];
-                    ent[5] = (f32)p[0xC];
-                    ent[8] = (f32)p[0xF];
-                    ent[7] = (f32)p[0xE];
+                    
+                    ent[0] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 0) * 0.015625f;
+                    ent[1] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 2) * 0.015625f;
+                    ent[2] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 4) * 0.015625f;
+                    ent[4] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 0xA);
+                    ent[3] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 8);
+                    ent[6] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xD];
+                    ent[5] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xC];
+                    ent[8] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xF];
+                    ent[7] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xE];
                     if (arg3 != NULL) {
                         rotateVec3ByMat3(spF8, ent);
                     }
@@ -77,16 +77,16 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                 ent = sp18;
                 var_s2 = 0;
                 do {
-                    p = (u8 *)(var_s1 + spF0[var_s2] * 16);
-                    ent[0] = (f32)*(s16 *)(p + 0) * 0.015625f;
-                    ent[1] = (f32)*(s16 *)(p + 2) * 0.015625f;
-                    ent[2] = (f32)*(s16 *)(p + 4) * 0.015625f;
-                    ent[3] = (f32)*(s16 *)(p + 8);
-                    ent[4] = (f32)*(s16 *)(p + 0xA);
-                    ent[5] = (f32)p[0xC];
-                    ent[6] = (f32)p[0xD];
-                    ent[7] = (f32)p[0xE];
-                    ent[8] = (f32)p[0xF];
+                    
+                    ent[0] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 0) * 0.015625f;
+                    ent[1] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 2) * 0.015625f;
+                    ent[2] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 4) * 0.015625f;
+                    ent[3] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 8);
+                    ent[4] = (f32)*(s16 *)((u8 *)(var_s1 + spF0[var_s2] * 16) + 0xA);
+                    ent[5] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xC];
+                    ent[6] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xD];
+                    ent[7] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xE];
+                    ent[8] = (f32)((u8 *)(var_s1 + spF0[var_s2] * 16))[0xF];
                     if (arg3 != (unsigned)NULL) {
                         rotateVec3ByMat3(spF8, ent);
                     }
@@ -113,3 +113,4 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
         } while (!sp147);
     }
 }
+

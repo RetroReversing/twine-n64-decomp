@@ -4520,7 +4520,7 @@
   "score_after": 340
  },
  {
-  "function": "func_800949B4",
+  "function": "soundGroupAddEntry",
   "text": "Retain revision 16d43e3be314fc278567 at score 205. I removed the artificial 8-byte local array (312\u2192310) and changed the linked-list timestamp store to f32* (310\u2192205), which removed trunc.w.s and matched the target instruction count. The latest signedness-family trial (unsigned __repair_literal) worsened to 410; baseline retained. Remaining diff is exactly the early loop setup: target puts `move $a0,$v0` after the branch and before `move $v1,$zero`; current source emits `move $v1,$zero` before `lw $a2` and uses a different register for the saved count. The saved count/register liveness depends on restructuring the entry-count search, and the bounded declaration/signedness/local repair variants do not change it. Stop here due session context limit; next pass should rewrite the search loop to preserve D_800EDE74 in a0 before initializing the index, then judge.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795138344.336566,
@@ -10640,7 +10640,7 @@
   "score_after": 3154
  },
  {
-  "function": "func_800949B4",
+  "function": "soundGroupAddEntry",
   "text": "Rechecked saved best at 205. Six independent local repairs (frame, storage reuse, record layout, branch orientation, lifetime reuse, signedness) did not improve it. Remaining mismatch is initial loop instruction ordering and register allocation: target loads arg0+0x38, copies count to a0, then zeroes v1; candidate zeroes v1 earlier and uses a different count register. Investigate loop count caching and lifetimes; cached repair proposals remain.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795178173.848877,
@@ -21336,7 +21336,7 @@
   "score_after": 35
  },
  {
-  "function": "updatePairedSpriteState",
+  "function": "updateSaveMenuSprites",
   "text": "Rechecked baseline 555. Record layout, signedness, declaration order, branch orientation, address temporary and arg0 width did not improve. Twenty-five rows remain, including argument save order and branch targets; inspect switch and return control flow plus argument lifetimes.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795178408.389516,
@@ -21432,7 +21432,7 @@
   "score_after": 530
  },
  {
-  "function": "updatePairedSpriteState",
+  "function": "updateSaveMenuSprites",
   "text": "Verified 555 retained; six local repairs did not improve. Target saves arg1 in s1 and arg2 in s2 in opposite order from candidate; inspect parameter lifetimes and remaining inserted/deleted instructions. Changing arg0 to u16 worsened.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795182780.258773,
@@ -55597,5 +55597,68 @@
   "score_before": 4965,
   "score_after": 4965,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:01906bc4ee0601b4d9452960887a322e011bd3ddcf0d2bd0b445e193917f3eb1"
+ },
+ {
+  "function": "func_8009A4E4",
+  "text": "Reached the judge's 4/4 move-on threshold. Recasting both normalization loops as do/break with bound 11 improved 785 to 775. Postincrement loop regressed to 2615. Integer address operands tied 775 and left the duplicate address adds missing.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795224607.884916,
+  "score_before": 775,
+  "score_after": 775,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:19efe78e88efa25d9c868d6298e091bf6a11bd6cc3a4dfc219f332d512a9e72f"
+ },
+ {
+  "function": "func_8009811C",
+  "text": "Best C still scores 1125/102 instructions. First mismatch persists at initial bucket lookup: target computes scaled bucket offset in $v0 and loads count into $v1; candidate allocates base/load to $a0, shifting all subsequent register allocation. Changing cached count to volatile and comparing i<count both worsened score (1555/1575); volatile count became 4335. Current saved best restored and rechecked at 1125. No exact match.\nBaseline typed Bucket/Entry implementation and cached count; tried volatile bucket count, i<count, and distinct local repair permutations. Volatile/i<count rewrites worsened, baseline 1125 remains best.\nNo better score; target initial bucket load uses $v1 while C uses $a0. Removing repeated count lookup causes lower score. Downstream register and control-flow diffs follow from lookup lifetime.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795224615.348568,
+  "score_before": 1215,
+  "score_after": 1125,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
+ },
+ {
+  "function": "func_80016FCC",
+  "text": "Restored missing marker-table lookup and object insertion: 8555 to 7425. Target special path skips equality check; removing it scored equally. Target loads next child before func_800167B4; that source ordering scored 7705. gBorderSkipFlag word declaration scored 7520. Jump table remains mismatched.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795224655.551301,
+  "score_before": 8555,
+  "score_after": 7425,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:425b1153fdbc78ce8389da4b49c537dc5886c71b92748ffe2d665b7ecc101b1f"
+ },
+ {
+  "function": "func_80026A5C",
+  "text": "Session allowance nearly used. Remaining difference is CSE of the second -0x100 mask; typed union produced identical instructions. Disabling CSE follow/skip flags did not help. No independent source-level mask hypothesis verified.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795224669.516259,
+  "score_before": 1200,
+  "score_after": 285,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:dd32b34f2d04849bb46f0314056ea4b9efb19dd4dfcc2f14703c71f813be6499"
+ },
+ {
+  "function": "func_8009D9F0",
+  "text": "Saved candidate rechecks at 6020. A cast to u32 around first fixed-point product and an explicit cached x0 halfword both remained 6020. Preserving the original arg0 separately instead of overwriting it regressed to 6030. Earlier verified history notes pointer aliasing helps overall but corrupts arg0 used in call/final xor. Remaining mismatch is large: target starts with lh $t8,($a1), then immediate multiplier 0x3333 in v1 and uses multu; candidate uses different temps, signed mult, and additional index scaling. Explicit cast alone did not change signed mult codegen.\nExplicit unsigned cast on first product no change. Caching arg1[0] to s32 also unchanged. Keeping original base pointer separately made score worse.\nStill ~126 target vs 127 C instructions; candidate emits mult rather than target multu and keeps address/index operations in differing registers.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795224698.120466,
+  "score_before": 6020,
+  "score_after": 6020,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:c653c03091354abfd07dcb89cf32a4e4394e33cf56562d517467aa8bbedd8034"
+ },
+ {
+  "function": "func_8008F2D4",
+  "text": "Move-on threshold reached. Reusing the loop variables across loops with the original initial assignment order improved verified baseline 230 to 200 and fixed both countdown counter registers. Moving first offset initialization after globals and using ++counter in the loop condition fixed the increment placement but scored 285, or 265 with the automatic call-arity trial.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795224698.3807092,
+  "score_before": 230,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:606d9f6866f67022e72a9edd3362c16faf98e18e64327eb7c077d0c772b723a2"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Verified best is 875/87 target instructions. Reversed null-check forms for arg0+4 and byte 0x11 were neutral; local repair batch had no improvement (scalar storage worsened). A diagnostic 12-byte frame local changed stack to 16 and score 877. The main mismatch remains branch distance: target initial null branch is d8 and candidate d4, due to a missing/changed instruction in the opening block. Prior work had extensive attempts; preserve baseline.\nReversed null checks, three local repair variants, and expanded artificial frame from 8 to 12 bytes.\nNull-check flips neutral; local scalar-storage variant worse; frame grew to 16 bytes and score 877. Saved best 875 unchanged.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795224708.408046,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
  }
 ]
