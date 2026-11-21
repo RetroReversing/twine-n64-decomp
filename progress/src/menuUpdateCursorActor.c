@@ -29,31 +29,31 @@ extern s32 gBootState;
 extern s32 gBonusSceneHandle;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; unsigned char field_82; } __repair_record_D_800B7CE8;
-void func_8002135C(void) {
+/* Positions the menu cursor actor over the selected entry, spawning it on first use, then sets its animation and motion parameters. */ void menuUpdateCursorActor(void) {
     register f32 one = 1.0f;
     register u32 var_v0;
-    register u32 temp_v0_2;
-    register s32 var_s1;
-    register void *temp_v0;
-    register unsigned var_s0;
+    register u32 entryOffset;
+    register s32 animFrame;
+    register void *menuEntry;
+    register unsigned animIndex;
     register void *temp_v0_3;
 
-    if (((u32)gMenuCursorActive != 0) && (var_s0 = -1U, (gMenuRootObject != NULL))) {
-        var_s1 = -1;
-        temp_v0 = func_8002A920(gMenuList, (*(s8 *)((char *)(gMenuList) + 0x18)));
-        if (temp_v0 != NULL) {
+    if (((u32)gMenuCursorActive != 0) && (animIndex = -1U, (gMenuRootObject != NULL))) {
+        animFrame = -1;
+        menuEntry = func_8002A920(gMenuList, (*(s8 *)((char *)(gMenuList) + 0x18)));
+        if (menuEntry != NULL) {
             if (!gMenuMode) {
-                var_s0 = *((u8 *)((s8 *)&D_800C473A + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
-                if ((s32) var_s0 < 0) {
-                    var_s0 = -1U;
+                animIndex = *((u8 *)((s8 *)&D_800C473A + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8)));
+                if ((s32) animIndex < 0) {
+                    animIndex = -1U;
                 }
-                var_s1 = 1;
+                animFrame = 1;
                 goto block_9;
             }
             if (*((s32 *)((s8 *)&gBonusSceneHandle + (gMenuSlot * 4))) != 0) {
-                temp_v0_2 = (*(u8 *)((char *)(temp_v0) + 8)) * 0x10;
-                var_s0 = *((s16 *)((s8 *)&D_800C4478 + temp_v0_2));
-                var_s1 = *((s16 *)((s8 *)&D_800C447A + temp_v0_2));
+                entryOffset = (*(u8 *)((char *)(menuEntry) + 8)) * 0x10;
+                animIndex = *((s16 *)((s8 *)&D_800C4478 + entryOffset));
+                animFrame = *((s16 *)((s8 *)&D_800C447A + entryOffset));
                 goto block_9;
             }
         } else {
@@ -66,12 +66,12 @@ block_9:
                 if (gMenuCursorActor == NULL) return;
             }
             {
-                if (((var_s0 >> 31) | ((u32)var_s1 >> 31)) != 0) {
+                if (((animIndex >> 31) | ((u32)animFrame >> 31)) != 0) {
                     actorUnlinkFromSurface(gMenuCursorActor);
                     return;
                 }
                 if (gMenuMode == 1) {
-                    do { objectSetAnimFrame(gMenuCursorActor, var_s0, var_s1); } while (0);
+                    do { objectSetAnimFrame(gMenuCursorActor, animIndex, animFrame); } while (0);
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_24 = 0.14f;
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_28 = -0.0315f;
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_3C = 170.66667f;
@@ -83,15 +83,15 @@ block_9:
                 } else {
                     gBootState = 1;
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_58 = (s32) (((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_58 | 0x400);
-                    func_8000237C(gMenuCursorActor, var_s0, 2, 0);
-                    func_80002D30(gMenuCursorActor, *((u16 *)((s8 *)&D_800C472E + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8))));
+                    func_8000237C(gMenuCursorActor, animIndex, 2, 0);
+                    func_80002D30(gMenuCursorActor, *((u16 *)((s8 *)&D_800C472E + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8))));
                     func_80002EF0(gMenuCursorActor);
-                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_24 = (f32) *((f32 *)((s8 *)&D_800C4774 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
-                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_28 = (f32) *((f32 *)((s8 *)&D_800C4778 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
-                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_54 = (f32) *((f32 *)((s8 *)&D_800C477C + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
+                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_24 = (f32) *((f32 *)((s8 *)&D_800C4774 + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8)));
+                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_28 = (f32) *((f32 *)((s8 *)&D_800C4778 + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8)));
+                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_54 = (f32) *((f32 *)((s8 *)&D_800C477C + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8)));
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_2C = 0.022f;
                     ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_3C = 2048.0f;
-                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_40 = (f32) ((*((f32 *)((s8 *)&D_800C4780 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8))) * 11.377778f) + -1024.0f);
+                    ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_40 = (f32) ((*((f32 *)((s8 *)&D_800C4780 + ((*(u8 *)((char *)(menuEntry) + 8)) * 0xE8))) * 11.377778f) + -1024.0f);
                     (*(f32 *)((char *)(gMenuCursorActor) + 0x44)) = 0;
                 }
                 ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_82 = 0xFF;

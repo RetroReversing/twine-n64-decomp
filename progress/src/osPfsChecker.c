@@ -64,7 +64,7 @@ typedef struct {
 } __OSInodeCache;
 
 extern s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache);
-extern s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
+extern s32 pfsCountInodePageCopies(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
 extern s32 __osCheckId(OSPfs *pfs);
 extern s32 __osGetId(OSPfs *pfs);
 extern s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
@@ -129,7 +129,7 @@ extern void bzero(void *, int);
                         }
                     }
 
-                    if ((chain_diff = corrupted(pfs, page, &cache) - expected_chain) != 0) {
+                    if ((chain_diff = pfsCountInodePageCopies(pfs, page, &cache) - expected_chain) != 0) {
                         break;
                     }
 

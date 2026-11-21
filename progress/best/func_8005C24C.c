@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 requestSound();
+s32 func_8000A894();
 s32 func_8005B5A8();
 s32 func_80073AF8();
-s32 lookupDataEntry();
+s32 func_80087100();
 extern s32 D_800C4450;
 extern char D_800C4458[];
 extern char D_800C4462[];
@@ -43,22 +43,21 @@ void func_8005C24C(void) {
                 if ((((temp_a0 >> 4) & 0xFFFF) == *(s32 *)var_s2) && ((temp_a0 >> 0x14) == *(s32 *)(D_800C4458 + temp_s0)) && (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x12)) {
                     if (M2C_FIELD(D_80108788, s16 *, 0x7C) == 0) {
                         M2C_FIELD(D_80108788, s16 *, 0x7C) = 1;
-                        requestSound(0x110);
+                        func_8000A894(0x110);
                         var_s2 += 4;
-                        func_80073AF8(0, D_80109688, lookupDataEntry(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
+                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
                         M2C_FIELD(D_80108788, s32 *, 0x60) |= 0x08000000;
                     } else {
-                        func_80073AF8(0, D_80109688, lookupDataEntry(*(u16 *)(D_800C446A + temp_s0), D_80108788, var_a2), -1, -1, 1, 0, 0, 3, 0, 0);
+                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C446A + temp_s0), D_80108788, var_a2), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
                         goto block_9;
                     }
                 } else {
 block_9:
                     var_s2 += 4;
-                }/*__repair_loop_weight*/__repair_rows: {do {do {
-                var_s1 += 1;} while (0);} while (0);}
-if (0) goto __repair_rows;
+                }
+                var_s1 += 1;
             } while (var_s1 < 2U);
             goto block_11;
         }

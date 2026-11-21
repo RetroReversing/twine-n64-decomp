@@ -122,6 +122,17 @@ typedef struct {
 
 extern void *jtbl_8011EF48[11];
 
+/* Probe actor layout. */
+typedef struct ProbeActor {
+    u8 pad0[0x24];
+    f32 pos[3];
+    f32 pos2[3];
+    u8 pad1[0x58 - 0x3C];
+    s32 flags;
+    u8 pad2[0x7B - 0x5C];
+    u8 probeIndex;
+} ProbeActor;
+
 /* Track marker object (updateTrackMarkerTrigger): pos at 0x24, trigger data pointer at 0x6C, mode at 0x78. */
 typedef struct TrackMarkerTrigger {
     f32 scale;        /* 0x00 */

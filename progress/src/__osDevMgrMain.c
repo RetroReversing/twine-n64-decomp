@@ -10,7 +10,7 @@ extern s32      osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 extern void     __osSetGlobalIntMask(u32);
 extern void     __osResetGlobalIntMask(u32);
 extern s32 func_800A7EC0 (struct OSPiHandle_s *, u32 , u32);
-extern s32 func_800A7D50 (struct OSPiHandle_s *, u32 , u32 *);
+extern s32 piReadDomainWord (struct OSPiHandle_s *, u32 , u32 *);
 
 typedef struct {
     u32      errStatus;
@@ -137,7 +137,7 @@ typedef struct {
                 u32 piStat;
                 func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_RESET);
                 func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow);
-                func_800A7D50(io_msg->piHandle, LEO_STATUS_REG, &piStat);
+                piReadDomainWord(io_msg->piHandle, LEO_STATUS_REG, &piStat);
 
                 if (piStat & LEO_BM_STAT_BUSY) {
                     func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_STOP);

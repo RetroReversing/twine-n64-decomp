@@ -1,4 +1,4 @@
-extern s32 D_800CFDA0[];
+extern s32 gPiDomainCache[];
 extern s32 D_A0000000;
 s32 func_800A7EC0(u8 *arg0, s32 arg1, s32 *arg2) {
     u8 *var_v1;
@@ -9,7 +9,7 @@ s32 func_800A7EC0(u8 *arg0, s32 arg1, s32 *arg2) {
         } while (*(vu32 *)0xA4600010 & 3);
     }
     t0 = arg0[9];
-    temp_a3 = (u8 *)(unsigned long)D_800CFDA0[t0];
+    temp_a3 = (u8 *)(unsigned long)gPiDomainCache[t0];
     if (temp_a3[4] != arg0[4]) {
         var_v1 = temp_a3;
         if (t0 == 0) {

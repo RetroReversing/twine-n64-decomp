@@ -1,4 +1,4 @@
-/* identical to corrupted in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
+/* identical to pfsCountInodePageCopies in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 typedef struct {
 	int		status;
 	void	*queue;
@@ -41,7 +41,7 @@ s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
 /* Looks up fpage (an inode page reference) in the inode cache of the pack. Loads
    the bank's inode table into the cache when needed, counts how many inode entries
    in the cached banks point at fpage, and returns 2 once it has found two copies. */
-s32 corrupted(OSPfs* pfs, __OSInodeUnit fpage, __OSInodeCache* cache) {
+s32 pfsCountInodePageCopies(OSPfs* pfs, __OSInodeUnit fpage, __OSInodeCache* cache) {
     int inode_index;
     int map_index;
     int hits;
