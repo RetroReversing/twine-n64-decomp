@@ -43,7 +43,7 @@ s32 func_80069A90(void *);
 M2C_UNK func_80069BC8(void *);
 M2C_UNK func_8006D2E4(void *);
 M2C_UNK func_8006E648(void *, void *, M2C_UNK, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *);
-f32 func_8006F358(void *, void *);
+f32 probeTrackSteerAngle(void *, void *);
 M2C_UNK setTrackMarkerActive(M2C_UNK, void *);
 M2C_UNK func_8007092C(void *, M2C_UNK);
 M2C_UNK func_80070F34(void *);
@@ -641,7 +641,7 @@ func_80002D30(arg0, *(&D_800C7C8E + var_v0_9));
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
 }
 }
-func_800698D8(arg0, temp_fs5, func_8006F358(sp64, arg0));
+func_800698D8(arg0, temp_fs5, probeTrackSteerAngle(sp64, arg0));
 if (func_800818AC(temp_s4, 0xC) != 0) {
 if ((M2C_FIELD(temp_s1, s8 *, 0x180) == 0) && !(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x20)) {
 M2C_FIELD(temp_s1, u8 *, 0x187) = 0U;
@@ -881,7 +881,7 @@ case 6:
 if (func_80069A90(arg0) == 0) {
 if (!((s32) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x410000)) {
 temp_fs3_4 = func_80081B44(temp_s4, 0, 1);
-func_800698D8(arg0, temp_fs3_4, func_8006F358(sp64, arg0));
+func_800698D8(arg0, temp_fs3_4, probeTrackSteerAngle(sp64, arg0));
 temp_v1_28 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC);
 if (!(temp_v1_28 & 1)) {
 if ((temp_v1_28 & 8) && ((func_800819EC(temp_s4, 0xD) != 0) || (func_800819EC(temp_s4, 0xC) != 0))) {

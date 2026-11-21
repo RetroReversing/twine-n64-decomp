@@ -1,4 +1,4 @@
-s32 func_800AA5E0(u64,u64,f64 *);
+s32 cordicAtanVectoring(u64,u64,f64 *);
 u64 f64ToFixed60(f64);
 extern f64 D_800D6EC8,D_800D6ED0,D_800D6ED8,D_800D6EE0;
 f64 atan(f64 x) {
@@ -9,7 +9,7 @@ f64 atan(f64 x) {
  f64 ratio = D_800D6ED0;
  if(x>=ratio){ b=0x1000000000000000ULL; ratio /= x; scale = D_800D6ED8; a=f64ToFixed60(ratio * scale); }
  else {a=0x1000000000000000ULL;b=f64ToFixed60(x*D_800D6EE0);}
- func_800AA5E0(a,b,&out);
+ cordicAtanVectoring(a,b,&out);
  }else out=x;
  { f64 result = out; if(sign<0) result=-result; return result; }
 }

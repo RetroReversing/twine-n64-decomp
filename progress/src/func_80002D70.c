@@ -31,8 +31,7 @@ s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
         break;
     }
     if ((*(s32 *)((char *)(arg0) + 0x60)) & 0x20) {
-        offset = var_a2 * 2;
-        if (!(((u16) *((u16 *)((s8 *)&D_800AE684 + var_a3)) >> 0xD) & 1)) {
+        if (!(((u16) *((u16 *)((s8 *)&D_800AE684 + offset)) >> 0xD) & 1)) {
             return 0;
         }
         goto block_10;
@@ -43,9 +42,10 @@ s32 func_80002D70(void *arg0, s32 arg1, void *arg2) {
     {
         offset = var_a2 * 2;
 block_10:
-        func_80002D30(arg0,  *((u16 *)((s8 *)&D_800AE682 + ((offset + var_a2) * 2))));
+        func_80002D30(arg0,  *((u16 *)((s8 *)&D_800AE682 + ((var_a2 * 2 + var_a2) * 2))));
         *(PositionWords *)((u8 *)arg0 + 0x3C) = *(PositionWords *)arg2;
         return 1;
     }
 }
+
 

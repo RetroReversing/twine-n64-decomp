@@ -121,3 +121,27 @@ typedef struct {
 } RspMsg;
 
 extern void *jtbl_8011EF48[11];
+
+/* Track marker object (updateTrackMarkerTrigger): pos at 0x24, trigger data pointer at 0x6C, mode at 0x78. */
+typedef struct TrackMarkerTrigger {
+    f32 scale;        /* 0x00 */
+    s16 timer;        /* 0x04 */
+    u16 sfxId;        /* 0x06 */
+    u8 trackIndex;    /* 0x08 index into gTrackDoneFlags */
+    u8 expectedState; /* 0x09 */
+    u8 soundParam;    /* 0x0A */
+    u8 doneFlagIndex; /* 0x0B */
+    u8 notifyFlag;    /* 0x0C */
+    u8 useAltSpawn;   /* 0x0D */
+} TrackMarkerTrigger;
+
+typedef struct TrackMarker {
+    u8 pad0[0x24];
+    f32 pos[3];       /* 0x24 */
+    u8 pad1[0x60 - 0x30];
+    s32 flags;        /* 0x60 */
+    u8 pad2[0x6C - 0x64];
+    TrackMarkerTrigger *trigger; /* 0x6C */
+    u8 pad3[0x78 - 0x70];
+    u16 mode;         /* 0x78 */
+} TrackMarker;

@@ -8,7 +8,7 @@ extern u8 D_8011508C;
 
 struct Vec3 { f32 x; f32 y; f32 z; };
 
-f32 func_8006F358(s32 arg0, void *arg1) {
+f32 probeTrackSteerAngle(s32 arg0, void *arg1) {
     struct Vec3 v1;
     struct Vec3 v2;
     struct { s32 i; f32 f; s32 reserved[2]; } out;

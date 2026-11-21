@@ -1,5 +1,6 @@
+/* CORDIC vectoring-mode arctangent: drives y toward zero and accumulates the angle in z. */
 extern s64 gCordicAtanTable[]; extern f64 D_800D6EC0; extern f64 fixed60ToF64(s64);
-void func_800AA5E0(s64 xin, s64 yin, f64 *out) {
+void cordicAtanVectoring(s64 xin, s64 yin, f64 *out) {
     s64 x = xin, z = 0, next;
     s32 i = 0;
     do {

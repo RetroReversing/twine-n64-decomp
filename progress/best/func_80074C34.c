@@ -27,6 +27,7 @@ extern u8 D_8010D294;
 extern s16 D_80112EBC;
 
 void func_80074C34(void *arg0, void *arg1, s32 arg2) {
+    volatile u32 frame_pad[2];
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 __repair_store_2;
