@@ -4,7 +4,7 @@ s32 angleDelta12(s32, s32);                        /* extern */
 s32 func_80002BD0(void *, u16);                 /* extern */
 s32 func_80002EB8(void *);                      /* extern */
 s32 func_800452E0(void *, void *, void *, void *);      /* extern */
-s32 func_80045CF8(s32);                             /* extern */
+s32 randomIntBelow(s32);                             /* extern */
 s32 func_80077960(void *, s32);             /* extern */
 f32 approximateAtan2(f32, f32);                        /* extern */
 s32 func_80085610(void *);                      /* extern */
@@ -129,7 +129,7 @@ block_71:
                         var_fv1 = 15.0f;
                     }
                     var_a0 = var_fv1;
-                    if (func_80045CF8(var_a0) != 5) {
+                    if (randomIntBelow(var_a0) != 5) {
                         var_a1 = 0x15;
                     } else {
                         (*(s16 *)((char *)(temp_s0_2) + 0x7C)) = 0;
@@ -142,12 +142,12 @@ block_90:
             break;
         __base_D_800C9A58 = &D_800C9A58;
         case 22:                                    /* switch 2 */
-            func_80002BD0(arg0, *(__base_D_800C9A58 + func_80045CF8(1)));
+            func_80002BD0(arg0, *(__base_D_800C9A58 + randomIntBelow(1)));
             var_a1 = 0x4B;
             goto block_90;
         case 7:                                     /* switch 2 */
             func_80085710(arg0 + 0x24);
-            var_a1_2 = *(u16 *)(D_800C9A5C + (func_80045CF8(6)));
+            var_a1_2 = *(u16 *)(D_800C9A5C + (randomIntBelow(6)));
 block_61:
             func_80002BD0(arg0, var_a1_2);
             goto block_71;
@@ -155,11 +155,11 @@ block_61:
         case 8:                                     /* switch 2 */
         case 18:                                    /* switch 2 */
             func_80085610(arg0 + 0x24);
-            var_a1_2 = *(&D_800C9A68 + (func_80045CF8(3)));
+            var_a1_2 = *(&D_800C9A68 + (randomIntBelow(3)));
             goto block_61;
         case 4:                                     /* switch 2 */
             func_80085690(arg0 + 0x24, D_800C9A68);
-            func_80002BD0(arg0, func_80045CF8(4) + 0x2BC);
+            func_80002BD0(arg0, randomIntBelow(4) + 0x2BC);
             goto block_71;
         default:                                    /* switch 2 */
             if ((*(u16 *)((char *)(arg0) + 0x78)) == 1) {
@@ -205,28 +205,28 @@ block_61:
             case 3:                                 /* switch 4 */
                 switch (temp_a0_2) {                /* switch 5 */
                 case 0:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A70 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9A70 + (randomIntBelow(5)));
                     goto block_61;
                 case 1:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A7C + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9A7C + (randomIntBelow(5)));
                     goto block_61;
                 case 2:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A88 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9A88 + (randomIntBelow(5)));
                     goto block_61;
                 case 3:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9A94 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9A94 + (randomIntBelow(5)));
                     goto block_61;
                 case 4:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AA0 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AA0 + (randomIntBelow(5)));
                     goto block_61;
                 case 5:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AAC + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AAC + (randomIntBelow(5)));
                     goto block_61;
                 case 6:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AB8 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AB8 + (randomIntBelow(5)));
                     goto block_61;
                 case 7:                             /* switch 5 */
-                    var_a1_2 = *(&D_800C9AC4 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AC4 + (randomIntBelow(5)));
                     goto block_61;
                 }
                 goto block_71;
@@ -234,34 +234,34 @@ block_61:
             case 8:                                 /* switch 4 */
                 switch (temp_a0_2) {                /* switch 6 */
                 case 0:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AD0 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AD0 + (randomIntBelow(5)));
                     goto block_61;
                 case 1:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9ADC + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9ADC + (randomIntBelow(5)));
                     goto block_61;
                 case 2:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AE8 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AE8 + (randomIntBelow(5)));
                     goto block_61;
                 case 3:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9AF4 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9AF4 + (randomIntBelow(5)));
                     goto block_61;
                 case 4:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B00 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9B00 + (randomIntBelow(5)));
                     goto block_61;
                 case 5:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B0C + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9B0C + (randomIntBelow(5)));
                     goto block_61;
                 case 6:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B18 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9B18 + (randomIntBelow(5)));
                     goto block_61;
                 case 7:                             /* switch 6 */
-                    var_a1_2 = *(&D_800C9B24 + (func_80045CF8(5)));
+                    var_a1_2 = *(&D_800C9B24 + (randomIntBelow(5)));
                     goto block_61;
                 }
                 goto block_71;
             default:                                /* switch 4 */
                 if (var_s0 == 0xE) {
-                    var_a1_2 = *(&D_800C9B30 + (func_80045CF8(4)));
+                    var_a1_2 = *(&D_800C9B30 + (randomIntBelow(4)));
                     goto block_61;
                 }
                 switch (temp_a0_2) {                /* switch 7 */
@@ -281,28 +281,28 @@ block_61:
                         var_a0_2 = 0xB;
                         break;
                     }
-                    var_a1_2 = *((func_80045CF8(var_a0_2)) + var_s0_2);
+                    var_a1_2 = *((randomIntBelow(var_a0_2)) + var_s0_2);
                     goto block_61;
                 case 1:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B64 + (func_80045CF8(3)));
+                    var_a1_2 = *(&D_800C9B64 + (randomIntBelow(3)));
                     goto block_61;
                 case 2:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B6C + (func_80045CF8(1)));
+                    var_a1_2 = *(&D_800C9B6C + (randomIntBelow(1)));
                     goto block_61;
                 case 3:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B70 + (func_80045CF8(1)));
+                    var_a1_2 = *(&D_800C9B70 + (randomIntBelow(1)));
                     goto block_61;
                 case 4:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B74 + (func_80045CF8(2)));
+                    var_a1_2 = *(&D_800C9B74 + (randomIntBelow(2)));
                     goto block_61;
                 case 5:                             /* switch 7 */
-                    func_80002BD0(arg0, *(&D_800C9B78 + (func_80045CF8(1))));
+                    func_80002BD0(arg0, *(&D_800C9B78 + (randomIntBelow(1))));
                     /* fallthrough */
                 case 6:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B7C + (func_80045CF8(1)));
+                    var_a1_2 = *(&D_800C9B7C + (randomIntBelow(1)));
                     goto block_61;
                 case 7:                             /* switch 7 */
-                    var_a1_2 = *(&D_800C9B80 + (func_80045CF8(3)));
+                    var_a1_2 = *(&D_800C9B80 + (randomIntBelow(3)));
                     goto block_61;
                 }
                 goto block_71;
@@ -318,7 +318,7 @@ block_61:
                     var_a1 = 0x16;
                     goto block_90;
                 case 0x217:                         /* switch 9 */
-                    func_80002BD0(arg0, *(&D_800C9B88 + (func_80045CF8(5))));
+                    func_80002BD0(arg0, *(&D_800C9B88 + (randomIntBelow(5))));
                     var_a1 = 0x16;
                     goto block_90;
                 }

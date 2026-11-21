@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800452E0(f32 *, f32 *, f32 *);     /* extern */
 f32 func_8004572C(f32 *);                       /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 s32 func_80048F10(s32, f32 *, f32 *, f32 *, f32, f32 *, f32 *, s32 *); /* extern */
 s32 func_8004BCC0(s32, void *, f32 *, f32);     /* extern */
 s32 func_800515D0(void *, s32, void *, f32 *, s32 *, f32, f32, f32, s32, s32, s32, s32); /* extern */
@@ -335,7 +335,7 @@ block_35:
             var_v0 = D_80103F00;
             M2C_FIELD(temp_s2_2, f32 *, 0xE0) = (f32) M2C_FIELD(arg1, f32 *, 0x24);
             M2C_FIELD(temp_s2_2, f32 *, 0xE8) = (f32) M2C_FIELD(arg1, f32 *, 0x2C);
-            if ((var_v0 != 0) && (vec70.words[1] > M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8)) && (func_80045CF8(4) == 0)) {
+            if ((var_v0 != 0) && (vec70.words[1] > M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), f32 *, 8)) && (randomIntBelow(4) == 0)) {
                 func_8008548C(&vec70.words[0]);
                 func_800617D8(M2C_FIELD(arg1, s32 *, 0x20), &vec70.words[0], 0, 0, 0.5f, 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
                 M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0x11) = 5U;

@@ -27,8 +27,8 @@ M2C_UNK func_80044710(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_80045290(f32 *, f32 *);                /* extern */
 f32 Vec3_DistanceSq(f32 *, f32 *);                    /* extern */
 M2C_UNK func_80045764(f32 *, f32 *);                /* extern */
-s32 func_80045CF8();               /* extern */
-f32 func_80045D2C();                        /* extern */
+s32 randomIntBelow();               /* extern */
+f32 randomFloatScaled();                        /* extern */
 f32 func_80046054(f32, f32, f32);                   /* extern */
 f32 approximate_hypot2(f32, f32);                        /* extern */
 M2C_UNK func_80046424(void *, f32, f32, f32);       /* extern */
@@ -431,19 +431,19 @@ block_72:
 block_73:
             if (var_s6 != 0) {
                 if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64) & 1) {
-                    temp_v0_3 = func_80045CF8(5.74e-42f);
+                    temp_v0_3 = randomIntBelow(5.74e-42f);
                     var_fv1 = (f64) temp_v0_3;
                     if (temp_v0_3 < 0) {
                         var_fv1 += D_800D3F68;
                     }
                     sp88 = (f32) var_fv1;
-                    temp_v0_4 = func_80045CF8(5.74e-42f);
+                    temp_v0_4 = randomIntBelow(5.74e-42f);
                     var_fv1_2 = (f64) temp_v0_4;
                     if (temp_v0_4 < 0) {
                         var_fv1_2 += D_800D3F70;
                     }
                     sp8C = (f32) var_fv1_2;
-                    temp_v0_5 = func_80045CF8(5.74e-42f);
+                    temp_v0_5 = randomIntBelow(5.74e-42f);
                     var_fv1_3 = (f64) temp_v0_5;
                     if (temp_v0_5 < 0) {
                         var_fv1_3 += D_800D3F78;
@@ -461,7 +461,7 @@ block_73:
                                 M2C_FIELD(temp_v1_4, s32 *, 0xB0) = (s32) M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), u8 *, 1);
                                 M2C_FIELD(temp_v1_4, s32 *, 0xB4) = (s32) M2C_FIELD(temp_s2, s32 *, 0x24);
                             }
-                            if ((M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 2) && (func_80045CF8(6e-45f) == 0)) {
+                            if ((M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 2) && (randomIntBelow(6e-45f) == 0)) {
                                 M2C_FIELD(gPlayerActor, s32 *, 0x60) = (s32) (M2C_FIELD(gPlayerActor, s32 *, 0x60) | 1);
                                 if (M2C_FIELD(gPlayerActor, void **, 0x70) != NULL) {
                                     func_80073108(gPlayerActor + 0x24, &sp40, 0x40A00000);
@@ -517,13 +517,13 @@ loop_95:
                         sp98 = M2C_FIELD(arg0, f32 *, 0x3C);
                         sp9C = M2C_FIELD(arg0, f32 *, 0x40);
                         spA0 = M2C_FIELD(arg0, f32 *, 0x44);
-                        temp_v0_7 = func_80045CF8(5.74e-42f);
+                        temp_v0_7 = randomIntBelow(5.74e-42f);
                         var_fv1_4 = (f64) temp_v0_7;
                         if (temp_v0_7 < 0) {
                             var_fv1_4 += D_800D3F80;
                         }
                         spA0 = (f32) var_fv1_4;
-                        func_800617D8(M2C_FIELD(arg0, void **, 0x20), &sp40, arg0 + 0x3C, 0, func_80045D2C(1.5f) + 1.5f, 1.5f, 8, 0x1B, 0x17, 0xFFFF00FF, 0x8080807F);
+                        func_800617D8(M2C_FIELD(arg0, void **, 0x20), &sp40, arg0 + 0x3C, 0, randomFloatScaled(1.5f) + 1.5f, 1.5f, 8, 0x1B, 0x17, 0xFFFF00FF, 0x8080807F);
                         goto block_107;
                     }
                     goto block_107;
@@ -715,17 +715,17 @@ block_138:
                                     func_80047E4C(D_80108F84, &sp88, 0, temp_a3);
                                     do {
                                         temp_v0_9 = M2C_FIELD(D_80108F84, void **, 0x3C);
-                                        spC0 = func_80045D2C(M2C_FIELD(temp_v0_9, f32 *, 0x1C) - M2C_FIELD(temp_v0_9, f32 *, 0x18)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x18);
+                                        spC0 = randomFloatScaled(M2C_FIELD(temp_v0_9, f32 *, 0x1C) - M2C_FIELD(temp_v0_9, f32 *, 0x18)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x18);
                                         temp_v0_10 = M2C_FIELD(D_80108F84, void **, 0x3C);
-                                        spC4 = func_80045D2C(M2C_FIELD(temp_v0_10, f32 *, 0x24) - M2C_FIELD(temp_v0_10, f32 *, 0x20)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x20);
+                                        spC4 = randomFloatScaled(M2C_FIELD(temp_v0_10, f32 *, 0x24) - M2C_FIELD(temp_v0_10, f32 *, 0x20)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x20);
                                         temp_v0_11 = M2C_FIELD(D_80108F84, void **, 0x3C);
-                                        spC8 = func_80045D2C(M2C_FIELD(temp_v0_11, f32 *, 0x2C) - M2C_FIELD(temp_v0_11, f32 *, 0x28)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x28);
+                                        spC8 = randomFloatScaled(M2C_FIELD(temp_v0_11, f32 *, 0x2C) - M2C_FIELD(temp_v0_11, f32 *, 0x28)) + M2C_FIELD(M2C_FIELD(D_80108F84, void **, 0x3C), f32 *, 0x28);
                                         func_80083B64(&sp88, &spC0);
                                         spC0 += M2C_FIELD(D_80108F84, f32 *, 0x24);
                                         spC4 += M2C_FIELD(D_80108F84, f32 *, 0x28);
                                         var_s0_3 += 1;
                                         spC8 += M2C_FIELD(D_80108F84, f32 *, 0x2C);
-                                        func_8005CBD4(arg0, &spC0, &spB0, 0x3F800000, func_80045CF8(6e-45f) + 4);
+                                        func_8005CBD4(arg0, &spC0, &spB0, 0x3F800000, randomIntBelow(6e-45f) + 4);
                                     } while (var_s0_3 < 8U);
                                 }
                                 temp_v0_12 = M2C_FIELD(temp_s5, u32 *, 0x58);
@@ -814,23 +814,23 @@ block_138:
                             var_s4_3 = 4e-45f;
                         }
                         if (M2C_FIELD(D_80108F84, s32 *, 0x50) & 4) {
-                            func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, var_s0_4 + func_80045CF8(temp_fa0, 0x3C23D70A, var_s0_4));
+                            func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, var_s0_4 + randomIntBelow(temp_fa0, 0x3C23D70A, var_s0_4));
                         }
                         if (M2C_FIELD(D_80108F84, s32 *, 0x50) & 1) {
-                            func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_3), 0x13, 0x1B);
+                            func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s4_3), 0x13, 0x1B);
                         }
                         if (M2C_FIELD(D_80108F84, s32 *, 0x50) & 8) {
-                            func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1), 0x15, 0x1B);
+                            func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s1), 0x15, 0x1B);
                         }
                         if (M2C_FIELD(D_80108F84, s32 *, 0x50) & 0x10) {
-                            func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1), 0x14, 0x1B);
-                            if (func_80045CF8(3e-45f) == 0) {
-                                func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, func_80045CF8(3e-45f) + 2);
+                            func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s1), 0x14, 0x1B);
+                            if (randomIntBelow(3e-45f) == 0) {
+                                func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, randomIntBelow(3e-45f) + 2);
                             }
                         }
                         if (M2C_FIELD(D_80108F84, s32 *, 0x50) & 0x40) {
-                            func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_3), 0x12, 0x1B);
-                            if (func_80045CF8(2.2e-44f) != 0) {
+                            func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s4_3), 0x12, 0x1B);
+                            if (randomIntBelow(2.2e-44f) != 0) {
                                 goto block_226;
                             }
                             goto block_225;
@@ -847,23 +847,23 @@ block_138:
                         }
                         if (gPlayerActor != NULL) {
                             if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 4) {
-                                func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, var_s0_5 + func_80045CF8(temp_fa0, 0x3C23D70A, var_s0_5));
+                                func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, var_s0_5 + randomIntBelow(temp_fa0, 0x3C23D70A, var_s0_5));
                             }
                             if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 1) {
-                                func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_4), 0x13, 0x1B);
+                                func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s4_4), 0x13, 0x1B);
                             }
                             if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 8) {
-                                func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1_2), 0x15, 0x1B);
+                                func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s1_2), 0x15, 0x1B);
                             }
                             if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x10) {
-                                func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s1_2), 0x14, 0x1B);
-                                if (func_80045CF8(6e-45f) == 0) {
-                                    func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, func_80045CF8(3e-45f) + 2);
+                                func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s1_2), 0x14, 0x1B);
+                                if (randomIntBelow(6e-45f) == 0) {
+                                    func_8005CBD4(arg0, &sp30, &spD0, 0x3F800000, randomIntBelow(3e-45f) + 2);
                                 }
                             }
                             if (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x40) {
-                                func_8005CA00(arg0, &sp30, 0x40C00000, func_80045CF8(var_s4_4), 0x12, 0x1B);
-                                if (func_80045CF8(2.2e-44f) == 0) {
+                                func_8005CA00(arg0, &sp30, 0x40C00000, randomIntBelow(var_s4_4), 0x12, 0x1B);
+                                if (randomIntBelow(2.2e-44f) == 0) {
 block_225:
                                     func_800851E0(&sp30);
                                 } else {
@@ -878,7 +878,7 @@ block_226:
                         if ((D_80108F84 != NULL) && (M2C_FIELD(D_80108F84, s32 *, 0x50) & 4)) {
                             var_a0 = 3e-45f;
                         }
-                        if (func_80045CF8(var_a0) == 0) {
+                        if (randomIntBelow(var_a0) == 0) {
                             M2C_FIELD(temp_s2, f32 *, 0xC) = sp40;
                             M2C_FIELD(temp_s2, f32 *, 0x10) = sp44;
                             M2C_FIELD(temp_s2, f32 *, 0x14) = sp48;
@@ -905,19 +905,19 @@ block_234:
                     M2C_FIELD(var_s7, s32 *, 0x60) = var_v0_4;
                 }
                 M2C_FIELD(var_s7, s32 *, 0x60) = (s32) (M2C_FIELD(var_s7, s32 *, 0x60) | M2C_FIELD(temp_s2, s32 *, 0x28));
-                temp_v0_14 = func_80045CF8(5.74e-42f);
+                temp_v0_14 = randomIntBelow(5.74e-42f);
                 var_fv1_6 = (f64) temp_v0_14;
                 if (temp_v0_14 < 0) {
                     var_fv1_6 += D_800D3FD0;
                 }
                 sp98 = (f32) var_fv1_6;
-                temp_v0_15 = func_80045CF8(5.74e-42f);
+                temp_v0_15 = randomIntBelow(5.74e-42f);
                 var_fv1_7 = (f64) temp_v0_15;
                 if (temp_v0_15 < 0) {
                     var_fv1_7 += D_800D3FD8;
                 }
                 sp9C = (f32) var_fv1_7;
-                temp_v0_16 = func_80045CF8(5.74e-42f);
+                temp_v0_16 = randomIntBelow(5.74e-42f);
                 var_fv1_8 = (f64) temp_v0_16;
                 if (temp_v0_16 < 0) {
                     var_fv1_8 += D_800D3FE0;
@@ -1035,7 +1035,7 @@ block_263:
         }
         break;
     default:                                        /* switch 1 */
-        temp_fs0_4 = func_80045D2C(0.5f, temp_a0) + 0.5f;
+        temp_fs0_4 = randomFloatScaled(0.5f, temp_a0) + 0.5f;
         M2C_FIELD(arg0, s16 *, 0x7A) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 0x7A) + 1);
         var_fs0 = temp_fs0_4 * M2C_FIELD(temp_s2, f32 *, 0x20);
         goto block_19;

@@ -1,8 +1,8 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_800452AC();
-s32 func_80045CF8();
-f32 func_80045D2C(f32);
+s32 randomIntBelow();
+f32 randomFloatScaled(f32);
 s32 func_8005D444(void *, void *, f32, s32, s32, s32);
 void *func_800617D8(void *, void*, void*, void *, f32, f32, s32, s32, s32, u32, u32);
 extern f64 D_800D4150;
@@ -33,7 +33,7 @@ char *__repair_addr;
         (((__repair_record_temp_s0*)temp_s0)->field_1C) = (s16) (temp_v0 - 1);
         goto alive;
     }
-    if (func_80045CF8(4) == 0) {
+    if (randomIntBelow(4) == 0) {
         func_8005D444(arg0, arg0 + 0x24, 2.0f, 2, 0x16, 0xFB);
     }
     (((__repair_record_arg0*)arg0)->field_60) |= 1;
@@ -43,9 +43,9 @@ __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20
     alive:
         temp_fv1 = (*(f32 *)(__repair_addr));
         if ((((__repair_record_arg0*)arg0)->field_28) < temp_fv1) {
-            (((__repair_record_temp_s0*)temp_s0)->field_4) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_4) * (func_80045D2C(0.9f) - 0.45f));
+            (((__repair_record_temp_s0*)temp_s0)->field_4) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_4) * (randomFloatScaled(0.9f) - 0.45f));
             (((__repair_record_temp_s0*)temp_s0)->field_8) = (f32) ((f64) (((__repair_record_temp_s0*)temp_s0)->field_8) * D_800D4150);
-            (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_C) * (func_80045D2C(0.9f) - 0.45f));
+            (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_C) * (randomFloatScaled(0.9f) - 0.45f));
             (((__repair_record_arg0*)arg0)->field_28) = ((*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20)));
             (((__repair_record_arg0*)arg0)->field_54) = (f32) ((f64) (((__repair_record_arg0*)arg0)->field_54) * D_800D4158);
         }
@@ -58,7 +58,7 @@ __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20
         if ((((__repair_record_arg0*)arg0)->field_28) < (*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x20))) + 0x5C))) {
             temp_s0_2 = arg0 + 0x24;
             func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, temp_s2, 0, 0.1f, 1.01f, 0x19, 0xFB, 0x17, 0x80, 0x80808002);
-            func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, NULL, 0, 0.25f, func_80045D2C(0.05f) + 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
+            func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, NULL, 0, 0.25f, randomFloatScaled(0.05f) + 1.05f, 0x1C, 0x1B, 0x2C, 0x40008080, 0x80808008);
             (((__repair_record_arg0*)arg0)->field_60) |= 1;
         }
     

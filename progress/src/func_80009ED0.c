@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 extern u16 D_800B248A;
 
 int func_80009ED0(void) {
-    return *(u16 *)((u8 *)&D_800B248A + func_80045CF8(0xD) * 0xC);
+    return *(u16 *)((u8 *)&D_800B248A + randomIntBelow(0xD) * 0xC);
 }

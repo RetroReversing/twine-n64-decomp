@@ -3,7 +3,7 @@ typedef struct { u8 pad0[0x6C]; ActorData7C93C *data; u8 pad70[0xC]; s16 unk7C; 
 
 s32 func_80002BD0(void *, s32);
 void func_80006604(void *, s32);
-u32 func_80045CF8(s32);
+u32 randomIntBelow(s32);
 void func_80077960(void *, s32);
 extern u16 D_800C9D34[2];
 
@@ -18,7 +18,7 @@ void func_8007C93C(Actor7C93C *actor) {
     setFlag = 0;
     switch (data->kind) {
     case 1:
-        animation = D_800C9D34[func_80045CF8(2)];
+        animation = D_800C9D34[randomIntBelow(2)];
         state = 0xAD;
         setFlag = 1;
         break;

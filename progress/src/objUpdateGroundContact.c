@@ -1,6 +1,6 @@
 /* Per-frame ground contact step: probes the floor under the object, lands or bounces it, and damps the bounce. */
 
-f32 func_80045D2C(f32);
+f32 randomFloatScaled(f32);
 s32 func_8004C750(void *, f32 *, s32 *, s32 *, f32, f32 *, s32 *, s32);
 s32 func_8004FF30(void *, f32 *, s32 *, f32, s32, s32, s32, void *);
 s32 func_80085260(void *, u8);
@@ -81,10 +81,10 @@ void objUpdateGroundContact(void *obj) {
             (*(f32 *)((char *)(obj) + 0x28)) = (f32) ((*(f32 *)((char *)(physics) + 0x1C)) + offset);
             if ((*(s16 *)((char *)(obj) + 0x7A)) < 2) {
                 func_80085260(obj + 0x24, surfaceFlags);
-                temp_fs0 = func_80045D2C((*(f32 *)((char *)(physics) + 0x10)));
-                (*(f32 *)((char *)(physics) + 0xC)) = (f32) ((f64) (*(f32 *)((char *)(physics) + 0xC)) + ((f64) (temp_fs0 - func_80045D2C((*(f32 *)((char *)(physics) + 0x10)))) * (decayScale = D_800D4198)));
-                temp_fs0_2 = func_80045D2C((*(f32 *)((char *)(physics) + 0x10)));
-                newVel = (f64) (*(f32 *)((char *)(physics) + 0x14)) + ((f64) (temp_fs0_2 - func_80045D2C((*(f32 *)((char *)(physics) + 0x14)))) * decayScale);
+                temp_fs0 = randomFloatScaled((*(f32 *)((char *)(physics) + 0x10)));
+                (*(f32 *)((char *)(physics) + 0xC)) = (f32) ((f64) (*(f32 *)((char *)(physics) + 0xC)) + ((f64) (temp_fs0 - randomFloatScaled((*(f32 *)((char *)(physics) + 0x10)))) * (decayScale = D_800D4198)));
+                temp_fs0_2 = randomFloatScaled((*(f32 *)((char *)(physics) + 0x10)));
+                newVel = (f64) (*(f32 *)((char *)(physics) + 0x14)) + ((f64) (temp_fs0_2 - randomFloatScaled((*(f32 *)((char *)(physics) + 0x14)))) * decayScale);
                 (*(f32 *)((char *)(physics) + 0x10)) = (f32) ((f64) (*(f32 *)((char *)(physics) + 0x10)) * D_800D41A0);
                 (*(f32 *)((char *)(physics) + 0x14)) = (f32) newVel;
                 (*(s16 *)((char *)(obj) + 0x7A)) = (s16) ((u16) (*(s16 *)((char *)(obj) + 0x7A)) + 1);

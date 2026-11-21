@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK func_8000AABC(s32, s32, s32, M2C_UNK);      /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 func_80084270(s32, u16 *);                           /* extern */
 extern u8 D_800CE79C[];
 extern s32 gTrackMarkerTable[];
@@ -25,5 +25,5 @@ void func_80085710(s32 arg0) {
     f32 temp_fs0;
 
     temp_fs0 = func_80084270(arg0, &sp10);
-    func_8000AABC(func_8000A8B4(*(u16 *)(D_800CE79C + (func_80045CF8(1) * 2)), temp_fs0, 0xFF), gTrackMarkerTable[sp10], arg0, 0);
+    func_8000AABC(func_8000A8B4(*(u16 *)(D_800CE79C + (randomIntBelow(1) * 2)), temp_fs0, 0xFF), gTrackMarkerTable[sp10], arg0, 0);
 }

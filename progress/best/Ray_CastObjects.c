@@ -29,7 +29,7 @@ typedef union {
 f32 Vec3_DistanceSq(void *, void *);              /* extern */
 s32 func_800455CC(void *, void *, void *, void *); /* extern */
 void func_800458C0(void *, s32, s32, s32);        /* extern */
-s32 func_80045CF8(s32);                         /* extern */
+s32 randomIntBelow(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
 s32 func_800488D4(void *, void *, void *);            /* extern */
 s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
@@ -168,7 +168,7 @@ s32 __repair_phase_var_a2;
                 do {
                     if (((sp10C == var_s7) || (M2C_FIELD(var_s3, s32 *, 0x58) & 0x20000)) && !(M2C_FIELD(var_s3, s32 *, 0x58) & 0x400)) {
                         temp_v1 = M2C_FIELD(var_s3, s32 *, 0x5C);
-                        if ((temp_v1 & 0x400) && ((var_s3 == arg8) || !(temp_v1 & 0x800) || (func_80045CF8(2) != 0) || (sp107 != 0))) {
+                        if ((temp_v1 & 0x400) && ((var_s3 == arg8) || !(temp_v1 & 0x800) || (randomIntBelow(2) != 0) || (sp107 != 0))) {
                             temp_s1 = M2C_FIELD(var_s3, void **, 0x70);
                             if ((temp_s1 != NULL) && (M2C_FIELD(temp_s1, u8 *, 0x48) & 0x10)) {
                                 var_fs0 = M2C_FIELD(var_s3, f32 *, 0x64);
@@ -295,7 +295,7 @@ s32 __repair_phase_var_a2;
                 temp_s2 = M2C_FIELD(var_s7, void **, 0x3C);
                 if (!(((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 0x40)) {
                     temp_v1_9 = M2C_FIELD(var_s7, s32 *, 0x50);
-                    if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (func_80045CF8(2) != 0) || (sp107 != 0))) {
+                    if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (randomIntBelow(2) != 0) || (sp107 != 0))) {
                         temp_s0_3 = (void **)((u8 *)var_s7 + 0x40);
                         func_800455CC(sp164, spF4, &end.x, temp_s0_3);
                         temp_fv0_2 = Vec3_DistanceSq(temp_s0_3, sp164);

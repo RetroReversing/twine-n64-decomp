@@ -1,4 +1,4 @@
-u32 func_80045CF8(s32);
+u32 randomIntBelow(s32);
 extern u8 D_80102EE8;
 
 s32 func_80017490(u32 arg0, u32 arg1, u32 arg2) {
@@ -25,7 +25,7 @@ s32 func_80017490(u32 arg0, u32 arg1, u32 arg2) {
     } else if (chance == 0) {
         ret = 0;
     } else {
-        ret = func_80045CF8(100) < chance;
+        ret = randomIntBelow(100) < chance;
     }
     return ret;
 }

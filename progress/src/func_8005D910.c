@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CF8(s16);                             /* extern */
+s32 randomIntBelow(s16);                             /* extern */
 M2C_UNK func_8005D444(void *, void *, f32, s32, s32, s32); /* extern */
 M2C_UNK func_80085D08(void *);                      /* extern */
 extern void *gTrackMarkerTable;
@@ -20,11 +20,11 @@ extern void *gTrackMarkerTable;
 void func_8005D910(void *arg0) {
     if ((M2C_FIELD(arg0, s32 *, 0x58) & 4) || (M2C_FIELD(arg0, s32 *, 0x60) & 0x3000)) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & 1);
-        if (func_80045CF8(M2C_FIELD(arg0, s16 *, 0x7C)) == 0) {
+        if (randomIntBelow(M2C_FIELD(arg0, s16 *, 0x7C)) == 0) {
             if ((gTrackMarkerTable != NULL) && !(M2C_FIELD(gTrackMarkerTable, s32 *, 0x100) & 8)) {
                 func_80085D08(arg0 + 0x24);
             }
-            func_8005D444(arg0, arg0 + 0x24, 2.0f, func_80045CF8(4) + 2, 0x16, 0xFB);
+            func_8005D444(arg0, arg0 + 0x24, 2.0f, randomIntBelow(4) + 2, 0x16, 0xFB);
         }
     }
 }

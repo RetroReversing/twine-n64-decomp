@@ -1,7 +1,7 @@
 extern u32 D_800D4240[3];
 s32 func_8001751C(s32, u8, s32 *, f32 *);
 void applyNearbyActorImpact(void *, f32, f32);
-s32 func_80045CF8(s32);
+s32 randomIntBelow(s32);
 s32 func_80061578(void *, s32 *);
 s32 func_80082FE4(s16 *, void *);
 s32 rotateVec3ByMat3(void *, s32 *);
@@ -40,7 +40,7 @@ void func_80061168(void *arg0) {
         case 1:
             t = *(u8 *)((char *)s2 + 0x22);
             if ((!t) || (gTrackDoneFlags[t] != 0)) {
-                if (func_80045CF8((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
+                if (randomIntBelow((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
                     sp58[0] = *(s32 *)((char *)arg0 + 0x24);
                     sp58[1] = *(s32 *)((char *)arg0 + 0x28);
                     sp58[2] = *(s32 *)((char *)arg0 + 0x2C);
@@ -70,14 +70,14 @@ loop:
                         }
                     }
                 }
-                if (func_80045CF8(*(u8 *)((char *)s2 + 0x27)) == 0) {
+                if (randomIntBelow(*(u8 *)((char *)s2 + 0x27)) == 0) {
                     *(s16 *)((char *)arg0 + 0x7A) = 2;
                 }
                 break;
             }
             return;
         case 2:
-            if (func_80045CF8(*(u8 *)((char *)s2 + 0x28)) == 0) {
+            if (randomIntBelow(*(u8 *)((char *)s2 + 0x28)) == 0) {
                 *(s16 *)((char *)arg0 + 0x7A) = 1;
             }
             break;

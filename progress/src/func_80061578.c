@@ -4,8 +4,8 @@ typedef struct { u8 pad0[0x20]; s32 v20; u8 pad24[0x20]; f32 f44; u8 pad48[0xC];
 void *func_80016410(s32, s32, s32);
 void func_80016990(O61578 *, s32);
 void func_80044670(O61578 *, s32, s32);
-u32 func_80045CF8(s32);
-f32 func_80045D2C(f32);
+u32 randomIntBelow(s32);
+f32 randomFloatScaled(f32);
 
 void func_80061578(O61578 *arg0, s32 arg1) {
     O61578 *o = func_80016410(0x2C, arg1, 0);
@@ -17,10 +17,10 @@ void func_80061578(O61578 *arg0, s32 arg1) {
         src = arg0->p;
         o->t78 = 0x14;
         p->pos = src->pos;
-        p->pos.x = p->pos.x * 0.06f + func_80045D2C(0.02f) - 0.01f;
-        p->pos.y = p->pos.y * 0.06f + func_80045D2C(0.02f) - 0.01f;
-        p->pos.z = p->pos.z * 0.06f + func_80045D2C(0.02f) - 0.01f;
-        o->f44 = func_80045CF8(0x1000);
+        p->pos.x = p->pos.x * 0.06f + randomFloatScaled(0.02f) - 0.01f;
+        p->pos.y = p->pos.y * 0.06f + randomFloatScaled(0.02f) - 0.01f;
+        p->pos.z = p->pos.z * 0.06f + randomFloatScaled(0.02f) - 0.01f;
+        o->f44 = randomIntBelow(0x1000);
         o->f54 = 0.2f;
         p->c = 0x20;
         o->c82 = 0xFF;

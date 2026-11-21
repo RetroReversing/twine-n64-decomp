@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 __cosf(f32);                                    /* extern */
 f32 __sinf(f32);                                    /* extern */
 M2C_UNK func_8000A830(s16, s16, M2C_UNK);           /* extern */
-u32 func_80045CF8(s32);              /* extern */
+u32 randomIntBelow(s32);              /* extern */
 void *func_800617D8(s32, M2C_UNK, M2C_UNK, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_80062450(void *, f32 *);               /* extern */
 typedef struct { u32 a,b,c; } __attribute__((packed)) Words;
@@ -42,7 +42,7 @@ extern s16 D_80109A58;
     void *spawned;
 
     sp40 = D_800D42C8;
-    temp_v0 = func_80045CF8(0x30);
+    temp_v0 = randomIntBelow(0x30);
     temp_a1 = temp_v0 >> 3;
     clamped_idx = temp_a1 & ((s32) ~(s16) temp_a1 >> 0x1F);
     word_idx = clamped_idx;
@@ -59,14 +59,14 @@ extern s16 D_80109A58;
             sp38 = zero;
             sp34 = zero;
             sp30 = zero;
-            temp_fs2 = func_80045D2C(6.2831855f);
-            temp_fs1 = func_80045D2C(6.2831855f);
+            temp_fs2 = randomFloatScaled(6.2831855f);
+            temp_fs1 = randomFloatScaled(6.2831855f);
             temp_fs0 = __sinf(temp_fs2) * arg2;
             sp30 = temp_fs0 * __cosf(temp_fs1);
             temp_fs0_2 = __cosf(temp_fs2) * arg2;
             sp38 = temp_fs0_2 * __cosf(temp_fs1);
             sp34 = __sinf(temp_fs1) * arg2;
-            spawned = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, func_80045CF8(2) + 0x17, 0xFB, 0x68, tint_rgba, 4);
+            spawned = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, randomIntBelow(2) + 0x17, 0xFB, 0x68, tint_rgba, 4);
             func_80062450(spawned, &sp30);
             burst_i += 1;
             M2C_FIELD(spawned, f32 *, 0x54) = (f32) (M2C_FIELD(spawned, f32 *, 0x54) * 16.0f);

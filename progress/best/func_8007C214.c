@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800158A4(s32, s32, s32, M2C_UNK *, s32, s32, s32, s32, s32); /* extern */
-s32 func_80045CF8(s8);                              /* extern */
+s32 randomIntBelow(s8);                              /* extern */
 s32 func_8007A7D8(void *, void *, M2C_UNK *, f32);  /* extern */
 extern M2C_UNK D_800C2E64;
 extern s16 D_80117386;
@@ -61,7 +61,7 @@ f32 __repair_var_ft0_2_1;
                 __repair_var_ft0_2_1 = temp_fv1;
             }
             if ((func_8007A7D8(arg0, arg1 + 0x24, sp28, __repair_var_ft0_2_1) << 0x18) != 0) {
-                return (func_800158A4(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0) + (func_80045CF8(M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s8 *, 0xB3)) * 0xC), M2C_FIELD(arg0, s32 *, 0x20), sp30, 0, 0, 0, 1, 0) << 0x18) != 0;
+                return (func_800158A4(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 0) + (randomIntBelow(M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s8 *, 0xB3)) * 0xC), M2C_FIELD(arg0, s32 *, 0x20), sp30, 0, 0, 0, 1, 0) << 0x18) != 0;
             }
             return 0;
         }

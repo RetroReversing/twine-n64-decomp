@@ -32,7 +32,7 @@ extern s8 D_801002B0;
 extern s8 D_801002B1;
 extern s32 D_8010A500;
 
-void updateTransitionState(void) {
+/* Per-frame transition state machine; when idle, flags each object's sub-object for redraw. */ void updateTransitionState(void) {
     s8 *__base_D_801002AE;
     s16 temp_a0;
     s16 temp_v0;

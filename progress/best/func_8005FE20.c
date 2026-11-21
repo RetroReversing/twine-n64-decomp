@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000A894();
-u32 func_80045CF8();
+u32 randomIntBelow();
 s32 func_80063C7C();
 s32 setActionSlot();
 s32 func_80073AF8();
@@ -81,7 +81,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s2 = M2C_FIELD(var_a1, void **, 0x6C);
     if (gSceneType == 8) {
-        temp_s3 = func_80045CF8(0x1E) / 10;
+        temp_s3 = randomIntBelow(0x1E) / 10;
         var_s0 = 0;
         var_a1 = NULL;
         var_a0 = 0;

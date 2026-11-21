@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 M2C_UNK func_8007AB60(void *);                      /* extern */
 
 void func_8007AD88(void *arg0) {
-    if (func_80045CF8(0x12C) == 0) {
+    if (randomIntBelow(0x12C) == 0) {
         func_8007AB60(arg0);
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x34) = 0;
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;

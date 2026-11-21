@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_80002BD0();
 s32 func_800158A4();
 f32 func_80045590();
-s32 func_80045CF8();
+s32 randomIntBelow();
 s32 func_80077960();
 s32 func_800779C4();
 s32 func_80077A94();
@@ -270,14 +270,14 @@ block_77:
                             func_800779C4(arg0);return 1;}
                     }
 block_78:
-                    if ((func_80045CF8(0xF) != 0) || !(M2C_FIELD(arg0, s32 *, 0x58) & 4) || (temp_v0_7 = M2C_FIELD(temp_s1, void **, 0x40), M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x24), M2C_FIELD(temp_s1, s32 *, 0x1C) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x28), M2C_FIELD(temp_s1, s32 *, 0x20) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x2C), ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0))) {
+                    if ((randomIntBelow(0xF) != 0) || !(M2C_FIELD(arg0, s32 *, 0x58) & 4) || (temp_v0_7 = M2C_FIELD(temp_s1, void **, 0x40), M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x24), M2C_FIELD(temp_s1, s32 *, 0x1C) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x28), M2C_FIELD(temp_s1, s32 *, 0x20) = (s32) M2C_FIELD(temp_v0_7, s32 *, 0x2C), ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0))) {
                         goto block_81;
                     }
                     goto block_118;
                 }
 block_81:
                 if (M2C_FIELD(arg0, s32 *, 0x60) & 0x1000) {
-                    if ((func_80045CF8(0xF) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
+                    if ((randomIntBelow(0xF) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
                         if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x10000) && ((func_8007C120(arg0, temp_s1 + 0x50, 0x40C00000) << 0x18) != 0)) {
                             func_800779C4(arg0);
                             temp_v0_8 = M2C_FIELD(temp_s1, void **, 0x40);
@@ -305,7 +305,7 @@ block_81:
                 }
 block_92:
                 if (M2C_FIELD(arg0, s32 *, 0x60) & 0x2000) {
-                    if ((func_80045CF8(0xF) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
+                    if ((randomIntBelow(0xF) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
                         if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x10000) && ((func_8007C120(arg0, temp_s1 + 0x50, 0x40C00000) << 0x18) != 0)) {
                             func_800779C4(arg0);
                             temp_v0_9 = M2C_FIELD(temp_s1, void **, 0x40);
@@ -328,7 +328,7 @@ block_92:
                 }
 block_102:
                 if (M2C_FIELD(arg0, s32 *, 0x60) & 0xC004) {
-                    if ((func_80045CF8(0x1E) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
+                    if ((randomIntBelow(0x1E) != 0) || ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0)) {
                         if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x10000) && ((func_8007C120(arg0, temp_s1 + 0x50, 0x40C00000) << 0x18) != 0)) {
                             func_80077A94(arg0);
                             temp_v0_10 = M2C_FIELD(temp_s1, void **, 0x40);
@@ -357,7 +357,7 @@ block_112:
                 }
 block_115:
                 var_a1 = 0;
-                if (func_80045CF8(0x1E) == 0) {
+                if (randomIntBelow(0x1E) == 0) {
                     var_a1 = 0;
                     if (M2C_FIELD(arg0, s32 *, 0x58) & 4) {
                         var_a1 = 0;
@@ -390,7 +390,7 @@ block_23:
                 return var_a1;
             }
             if ((M2C_FIELD(arg0, s32 *, 0x60) & 0xF000) || (var_a1 = 0, ((M2C_FIELD(arg0, s32 *, 0x58) & 4) != 0))) {
-                if ((func_80045CF8(0xF) == 0) && ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) != 0)) {
+                if ((randomIntBelow(0xF) == 0) && ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) != 0)) {
                     M2C_FIELD(temp_s1, s32 *, 0x88) |= 0x40000000 | 0x08000000;
                     return 1;
                 }

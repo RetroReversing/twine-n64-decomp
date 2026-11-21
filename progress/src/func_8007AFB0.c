@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80002BD0(void *, u16);                 /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 extern M2C_UNK D_800C9D30;
 
 void func_8007AFB0(void *arg0) {
@@ -25,7 +25,7 @@ void func_8007AFB0(void *arg0) {
     case 0:
     case 1:
     case 3:
-        var_a1 = *((u16 *)((s8 *)&D_800C9D30 + (func_80045CF8(2) * 2)));
+        var_a1 = *((u16 *)((s8 *)&D_800C9D30 + (randomIntBelow(2) * 2)));
 block_5:
         func_80002BD0(arg0, var_a1);
         break;

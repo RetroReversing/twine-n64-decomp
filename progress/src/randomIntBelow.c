@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 s32 func_80045CC4();                                /* extern */
 
-u32 func_80045CF8(s32 arg0) {
+u32 randomIntBelow(s32 arg0) {
     return (u32) ((func_80045CC4() & 0xFFFF) * arg0) >> 0x10;
 }

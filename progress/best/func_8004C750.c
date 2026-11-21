@@ -49,7 +49,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 sp58;
     f32 sp5C;
     f32 sp60;
-    M2C_UNK sp68;
+    M2C_UNK sp68[12];
     s16 sp98;                                       /* compiler-managed */
     s16 sp9A;
     s16 sp9C;                                       /* compiler-managed */

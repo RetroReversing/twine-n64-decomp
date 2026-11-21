@@ -7,8 +7,8 @@ s32 func_80017E14(void *, s32, s32, s32); /* extern */
 void *func_80031EF4(void *, s32, s32);      /* extern */
 s32 func_80045290(s32, void *);             /* extern */
 s32 func_80045764(void *, void *);              /* extern */
-u32 func_80045CF8(s32);                         /* extern */
-f32 func_80045D8C(f32, f32);                        /* extern */
+u32 randomIntBelow(s32);                         /* extern */
+f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 void *func_80047B44(s32, void *, void *, s32);  /* extern */
 s32 func_80047F50(void *, void *);              /* extern */
 s32 func_80073304(void *, void *, s32);         /* extern */
@@ -89,7 +89,7 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         (*(void **)((char *)(temp_s0) + 0x2C)) = arg2;
         (*(s32 *)((char *)(temp_s0) + 0x24)) = arg6;
         (*(u16 *)((char *)(temp_s0) + 0x58)) = (u16) (*(u16 *)((char *)(arg1) + 0x78));
-        if (func_80045CF8(0x32) >= 0x1AU) {
+        if (randomIntBelow(0x32) >= 0x1AU) {
             (*(s32 *)((char *)(temp_s0) + 0x24)) = (s32) ((*(s32 *)((char *)(temp_s0) + 0x24)) & 0xFFF7FFFF);
         }
         do { func_80045290(arg3, temp_s0 + 0xC); } while (0);
@@ -99,8 +99,8 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         if (arg5 == NULL) {
             temp_fs0 = (*(f32 *)((char *)(arg2) + 0x20));
             temp_fs1 = 2.0f * temp_fs0;
-            (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) ((*(f32 *)((char *)(temp_v0) + 0x3C)) + func_80045D8C(temp_fs1, temp_fs0));
-            temp_fa0 = (*(f32 *)((char *)(temp_v0) + 0x40)) + func_80045D8C(temp_fs1, temp_fs0);
+            (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) ((*(f32 *)((char *)(temp_v0) + 0x3C)) + randomFloatMinusOffset(temp_fs1, temp_fs0));
+            temp_fa0 = (*(f32 *)((char *)(temp_v0) + 0x40)) + randomFloatMinusOffset(temp_fs1, temp_fs0);
             (*(f32 *)((char *)(temp_v0) + 0x40)) = temp_fa0;
             temp_fs1_2 = sinAngle(temp_fa0);
             temp_fs2 = cosAngle((*(f32 *)((char *)(temp_v0) + 0x40)));
@@ -112,9 +112,9 @@ void *func_80055B5C(s16 arg0, void *arg1, void *arg2, s32 arg3, s32 arg4, void *
         } else {
             temp_fs0_3 = (*(f32 *)((char *)(arg2) + 0x20));
             temp_fs1_3 = 2.0f * temp_fs0_3;
-            sp10[0] = func_80045D8C(temp_fs1_3, temp_fs0_3) * 0.001f;
-            sp10[1] = func_80045D8C(temp_fs1_3, temp_fs0_3) * 0.001f;
-            temp_fv0_2 = func_80045D8C(temp_fs1_3, temp_fs0_3) * 0.001f;
+            sp10[0] = randomFloatMinusOffset(temp_fs1_3, temp_fs0_3) * 0.001f;
+            sp10[1] = randomFloatMinusOffset(temp_fs1_3, temp_fs0_3) * 0.001f;
+            temp_fv0_2 = randomFloatMinusOffset(temp_fs1_3, temp_fs0_3) * 0.001f;
             sp10[2] = temp_fv0_2;
             (*(__repair_vec3 *) ((s8 *) (temp_s0) + 0)) = (*(__repair_vec3 *) ((s8 *) (arg5) + 0));
             (*(f32 *)((char *)(temp_s0) + 0)) = (f32) ((*(f32 *)((char *)(temp_s0) + 0)) + sp10[0]);

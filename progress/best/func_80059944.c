@@ -5,7 +5,7 @@ s32 func_80015D40(u16);                             /* extern */
 s32 func_80016718(void *);                      /* extern */
 s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32); /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
-s32 func_80045CF8(s32);                         /* extern */
+s32 randomIntBelow(s32);                         /* extern */
 s32 func_80059120(s8, void *);                  /* extern */
 s32 func_80059658(void *, s32);                 /* extern */
 s32 advanceMotionPath(void *, s32, u16, s8);        /* extern */
@@ -23,6 +23,7 @@ extern void *D_80109CB4;
 
 void func_80059944(void *arg0) {
     f32 sp30[3];
+    volatile s32 padding[6];
     f32 temp_fs0;
     s32 temp_v1_4;
     register f32 temp_fv0;
@@ -200,7 +201,7 @@ block_66:
             var_v0_2 = 1;
             goto block_259;
         case 1:                                     /* switch 5 */
-            (*(u16 *)((char *)(temp_s0) + 0x3C)) = (u16) (func_80045CF8(0x1E) * (*(u16 *)((char *)(temp_s0) + 0x3A)));
+            (*(u16 *)((char *)(temp_s0) + 0x3C)) = (u16) (randomIntBelow(0x1E) * (*(u16 *)((char *)(temp_s0) + 0x3A)));
             var_v0_2 = 2;
             goto block_259;
         case 2:                                     /* switch 5 */

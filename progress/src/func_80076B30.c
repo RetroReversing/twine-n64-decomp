@@ -11,7 +11,7 @@ typedef struct TwineMover76B30 {
 
 s32 func_80002BD0(void *, s32);
 f32 Vec3_DistanceSq(void *, void *);
-s32 func_80045CF8(s32);
+s32 randomIntBelow(s32);
 s32 func_80077960(void *, s32);
 s32 func_80077A94(void *);
 
@@ -65,9 +65,9 @@ block5:
         case 0:
         case 3:
             if (((s8 *)arg0->ptr68)[0xE] == 0) {
-                var_s0 = func_80045CF8(2) + 0x2E9;
+                var_s0 = randomIntBelow(2) + 0x2E9;
             } else {
-                var_s0 = func_80045CF8(2) + 0x2ED;
+                var_s0 = randomIntBelow(2) + 0x2ED;
             }
             break;
         }

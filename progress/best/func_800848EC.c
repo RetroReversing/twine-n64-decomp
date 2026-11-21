@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000A8B4(s32, f32, M2C_UNK);               /* extern */
 M2C_UNK func_8000AABC(s32, s32, void *, M2C_UNK);   /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 func_80084270(s32, u16 *);                      /* extern */
 extern u16 D_800CE644;
 extern u16 D_800CE64C;
@@ -56,7 +56,7 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x12:
         var_a0 = 0x18C;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE644 + (func_80045CF8(4)));
+            var_a0 = *(&D_800CE644 + (randomIntBelow(4)));
         }
         break;
     case 0x4:
@@ -66,7 +66,7 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x24:
         var_a0 = 0x158;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE65C + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE65C + (randomIntBelow(2)));
         }
         break;
     case 0x45:
@@ -74,7 +74,7 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x72:
         var_a0 = 0x188;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE660 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE660 + (randomIntBelow(2)));
         }
         break;
     case 0x1B:
@@ -89,9 +89,9 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x5E:
     case 0x6E:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE664 + (func_80045CF8(4)));
+            var_a0 = *(&D_800CE664 + (randomIntBelow(4)));
         } else {
-            var_a0 = *(&D_800CE6A0 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6A0 + (randomIntBelow(2)));
         }
         break;
     case 0x30:
@@ -99,7 +99,7 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x71:
         var_a0 = 0x158;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE678 + (func_80045CF8(3)));
+            var_a0 = *(&D_800CE678 + (randomIntBelow(3)));
         }
         break;
     case 0x0:
@@ -114,10 +114,10 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     case 0x5D:
     case 0x61:
         if ((arg2 << 0x18) == 0) {
-            var_a0 = *(&D_800CE6A0 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6A0 + (randomIntBelow(2)));
         } else {
 block_40:
-            var_a0 = *(&D_800CE64C + (func_80045CF8(3)));
+            var_a0 = *(&D_800CE64C + (randomIntBelow(3)));
         }
         break;
     case 0x13:
@@ -125,7 +125,7 @@ block_40:
     case 0x33:
         var_a0 = 0x146;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE670 + (func_80045CF8(3)));
+            var_a0 = *(&D_800CE670 + (randomIntBelow(3)));
         }
         break;
     case 0x28:
@@ -142,16 +142,16 @@ block_40:
     case 0x6B:
     case 0x70:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE688 + (func_80045CF8(7)));
+            var_a0 = *(&D_800CE688 + (randomIntBelow(7)));
         } else {
-            var_a0 = *(&D_800CE6D8 + (func_80045CF8(8)));
+            var_a0 = *(&D_800CE6D8 + (randomIntBelow(8)));
         }
         break;
     case 0x16:
     case 0x17:
         var_a0 = 0x188;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE6CC + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6CC + (randomIntBelow(2)));
         }
         break;
     case 0x19:
@@ -159,15 +159,15 @@ block_40:
     case 0x41:
         var_a0 = 0x158;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE66C + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE66C + (randomIntBelow(2)));
         }
         break;
     case 0x42:
     case 0x44:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE69C + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE69C + (randomIntBelow(2)));
         } else {
-            var_a0 = *(&D_800CE6A0 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6A0 + (randomIntBelow(2)));
         }
         break;
     case 0x51:
@@ -175,9 +175,9 @@ block_40:
     case 0x5B:
     case 0x75:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE6A4 + (func_80045CF8(4)));
+            var_a0 = *(&D_800CE6A4 + (randomIntBelow(4)));
         } else {
-            var_a0 = *(&D_800CE6AC + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6AC + (randomIntBelow(2)));
         }
         break;
     case 0x9:
@@ -185,7 +185,7 @@ block_40:
     case 0x78:
         var_a0 = 0x18C;
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE6D0 + (func_80045CF8(3)));
+            var_a0 = *(&D_800CE6D0 + (randomIntBelow(3)));
         }
         break;
     case 0x15:
@@ -197,9 +197,9 @@ block_40:
     case 0x37:
     case 0x4B:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE6B4 + (func_80045CF8(7)));
+            var_a0 = *(&D_800CE6B4 + (randomIntBelow(7)));
         } else {
-            var_a0 = *(&D_800CE6D8 + (func_80045CF8(8)));
+            var_a0 = *(&D_800CE6D8 + (randomIntBelow(8)));
         }
         break;
     case 0x2:
@@ -212,14 +212,14 @@ block_40:
     case 0x76:
     case 0x77:
         if ((arg2 << 0x18) != 0) {
-            var_a0 = *(&D_800CE6C8 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6C8 + (randomIntBelow(2)));
         } else {
-            var_a0 = *(&D_800CE6A0 + (func_80045CF8(2)));
+            var_a0 = *(&D_800CE6A0 + (randomIntBelow(2)));
         }
         break;
     default:
         if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x14) & 0x200000) {
-            var_a0 = *(&D_800CE654 + (func_80045CF8(3)));
+            var_a0 = *(&D_800CE654 + (randomIntBelow(3)));
         } else {
             goto block_40;
         }

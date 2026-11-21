@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80044670();
-s32 func_80045CF8();
+s32 randomIntBelow();
 extern char gTrackDoneFlags[];
 
 void func_8005AE38(void *arg0) {
@@ -32,10 +32,10 @@ void func_8005AE38(void *arg0) {
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (func_80045CF8(0x78) == 0) {
+        if (randomIntBelow(0x78) == 0) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         }
-        if (func_80045CF8(0x3C) == 0) {
+        if (randomIntBelow(0x3C) == 0) {
             temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v0 != 0) {
                 *(gTrackDoneFlags + temp_v0) = 0;
@@ -46,7 +46,7 @@ void func_8005AE38(void *arg0) {
         }
         return;
     case 1:
-        if (func_80045CF8(7) == 0) {
+        if (randomIntBelow(7) == 0) {
             temp_v1_2 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v1_2 != 0) {
                 *(gTrackDoneFlags + temp_v1_2) = 1;
@@ -58,7 +58,7 @@ void func_8005AE38(void *arg0) {
         }
         break;
     case 2:
-        if (func_80045CF8(7) != 0) {
+        if (randomIntBelow(7) != 0) {
             temp_v0_2 = M2C_FIELD(temp_s0, u8 *, 4);
             if (temp_v0_2 != 0) {
                 *(gTrackDoneFlags + temp_v0_2) = 0;
@@ -67,7 +67,7 @@ void func_8005AE38(void *arg0) {
             func_80044670(arg0, ((temp_a2_3 >> 4) & 0xFFFF) + 1, temp_a2_3 >> 0x14);
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;
         }
-        if (func_80045CF8(5) == 0) {
+        if (randomIntBelow(5) == 0) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 0;
             return;
         }

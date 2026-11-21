@@ -1,5 +1,5 @@
 s32 func_80044670();
-s32 func_80045CF8();
+s32 randomIntBelow();
 s32 func_80045DB4(f32 *, f32, f32);
 s32 func_80055568();
 s32 func_800617D8(s32, void *, s32, f32 *, f32, f32, s32, s32, s32, s32, s32);
@@ -14,7 +14,7 @@ void func_80062F34(Obj62F34 *arg0) {
 
     t = ++arg0->field_7A;
     if (t >= 0x2C) {
-        if (t >= func_80045CF8(0x1E) + 0x1E) {
+        if (t >= randomIntBelow(0x1E) + 0x1E) {
             func_80055568(arg0, (u8 *)arg0 + 0x24);
             arg0->field_60 |= 1;
         }
@@ -31,7 +31,7 @@ void func_80062F34(Obj62F34 *arg0) {
             if (v[1] < zero) {
                 v[1] = -v[1];
             }
-            func_80062450(func_800617D8(arg0->field_20, (u8 *)arg0 + 0x24, 0, v, 1.0f, zero, func_80045CF8(1) + 0x17, 0xFB, 0x33, 0xFF0000FF, 6), v);
+            func_80062450(func_800617D8(arg0->field_20, (u8 *)arg0 + 0x24, 0, v, 1.0f, zero, randomIntBelow(1) + 0x17, 0xFB, 0x33, 0xFF0000FF, 6), v);
         }
     }
 }

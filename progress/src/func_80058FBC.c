@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800452AC(void *, void *, void *); /* extern */
-f32 func_80045D8C(f32, f32);                /* extern */
+f32 randomFloatMinusOffset(f32, f32);                /* extern */
 M2C_UNK func_8008550C(void *);                      /* extern */
 
 void func_80058FBC(void *arg0) {
@@ -41,8 +41,8 @@ void func_80058FBC(void *arg0) {
         temp_fv1 = M2C_FIELD(temp_s1, f32 *, 0);
         if (M2C_FIELD(arg0, s16 *, 0x7A) == 0) {
             M2C_FIELD(arg0, f32 *, 0x28) = temp_fv1;
-            temp_fs0 = func_80045D8C(0.1f, 0.05f);
-            temp_fv0 = func_80045D8C(0.1f, 0.05f);
+            temp_fs0 = randomFloatMinusOffset(0.1f, 0.05f);
+            temp_fv0 = randomFloatMinusOffset(0.1f, 0.05f);
             M2C_FIELD(temp_s1, f32 *, 4) = temp_fs0;
             M2C_FIELD(temp_s1, f32 *, 0xC) = temp_fv0;
             M2C_FIELD(temp_s1, f32 *, 8) = (f32) (M2C_FIELD(temp_s1, f32 *, 8) * -0.5f);

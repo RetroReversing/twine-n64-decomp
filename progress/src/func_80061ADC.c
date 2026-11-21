@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *func_80016410();
 s32 actorLinkToSurface();
 s32 func_80044670();
-s8 func_80045CF8();
+s8 randomIntBelow();
 extern s32 *gProbeObjectList;
 
 void *func_80061ADC(s32 arg0, s32 arg1, void *arg2) {
@@ -37,7 +37,7 @@ void *func_80061ADC(s32 arg0, s32 arg1, void *arg2) {
         }
         temp_v0_2 = M2C_FIELD(arg2, u16 *, 0);
         M2C_FIELD(temp_s0, s8 *, 7) = (s8) temp_v0_2;
-        M2C_FIELD(temp_s0, s8 *, 6) = func_80045CF8(temp_v0_2 & 0xFF);
+        M2C_FIELD(temp_s0, s8 *, 6) = randomIntBelow(temp_v0_2 & 0xFF);
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
         M2C_FIELD(temp_v0, s16 *, 0x7C) = 0;
         M2C_FIELD(temp_v0, u8 *, 0x7F) = 0xFF;

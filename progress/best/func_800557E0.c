@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_80045764(f32 *, f32 *);                    /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
 s8 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *); /* extern */
 M2C_UNK func_800556DC(void *, void *, f32 *, void *); /* extern */
 M2C_UNK func_80073304(void *, void *, void *);      /* extern */
@@ -104,7 +104,7 @@ block_18:
                             M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp18.value));
                             M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp1C.value));
                             M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp20.value));
-                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((arg0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (arg1 != 0)) || (func_80045CF8(4) == 0))) {
+                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((arg0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (arg1 != 0)) || (randomIntBelow(4) == 0))) {
                                 func_80073304(var_s0, arg5, arg2);
                             }}
                         }

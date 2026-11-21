@@ -5,7 +5,7 @@ typedef struct {
 } SelectionEntry;
 
 s32 func_80002BD0(void *, s32);
-u32 func_80045CF8(s32);
+u32 randomIntBelow(s32);
 s32 func_8007ADD0(void *, s32);
 
 s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count) {
@@ -19,7 +19,7 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count) {
 
 retry:
     index = 0;
-    threshold = func_80045CF8(weight);
+    threshold = randomIntBelow(weight);
     limit = count - 1;
     if (!limit) {
         ++attempt;

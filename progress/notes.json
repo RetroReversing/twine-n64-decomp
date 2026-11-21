@@ -5168,7 +5168,7 @@
   "score_after": 770
  },
  {
-  "function": "func_8003030C",
+  "function": "createTextMenu",
   "text": "Verified best 130, 117/117 instructions; loops and frame exact after reusing the narrowed index as scaled slot address and keeping a separate volatile s32 state pointer. High 3-bit bitfield ternary gives both target branchless updates. Remaining in best: first flag-word lw and mask lui need to precede materialization/load of D_80102ED8; second flag lw should precede state lw. A full local struct snapshot copied back after updating its mode (attempt 25769827498, score 210) fixes second site and first flag load, leaving only the first mask lui too late. Try a source shape that generates the mask early while retaining its split lui/ori around the state load. Clearing then ORing mode, or copying just the 29-bit rest member, increased instructions. func_80015F74 appears to read only a0, with directory/call-inference two-arg disagreement; current candidate passes an extra base pointer only on the tail to reproduce a1.",
   "by": "codex-gpt-6.2-sol-7",
   "created_at": 1795138813.521845,
@@ -53312,5 +53312,102 @@
   "score_before": 12180,
   "score_after": 12180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
+ },
+ {
+  "function": "func_80082BD0",
+  "text": "Best stays 200 (rev 6eb8802144bef3400636); only diff is the 2 extra insns (addiu v1,-4; and v0,v0,v1) from the pointer mask. Tried without mask: plain &D_80102E74, (u32) cast, |0, array decl, static const ptr -> all 1110/1330 because GCC folds out[k] into lui/lwc1 of D_80102E68/E90.. symbols. Target mixes: base-reg loads for offsets -0xC,0x1C..0x38 but lui loads for E6C,E70,E80.. globals. Next step: find an opaque-but-not-masking way to keep out in a register (e.g. a struct/array type where the E6C/E70 fields are separate externs, or a different pointer-producing expression).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795218987.579925,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
+ },
+ {
+  "function": "func_8007560C",
+  "text": "Compiled a stub to establish baseline (55460), but it is worse than saved best 28119. This function has 556 instructions and requested batch=4 is disallowed by 48-instruction limit. Historical handoff says 49 local trials already, target prologue loads D_80000300 before stack save; candidate's globals/prologue order differs greatly. Saved best retained. Should restore saved_best and inspect target prologue; avoid repeating local repair families.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795218995.502998,
+  "score_before": 28119,
+  "score_after": 28119,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:9ff5286058ba2cb0c5948c5fbf1e43d31f2ceb4260809b5ed9077bc5f2c4ed55"
+ },
+ {
+  "function": "setActionSlot",
+  "text": "Judge reached 4/4 without improving verified 360. Scoped register u8 loop key tied; explicit truncation supplies the value mask but moves object to a3 and still omits the v1 loop key copy. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795219013.246804,
+  "score_before": 360,
+  "score_after": 360,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
+ },
+ {
+  "function": "func_800984CC",
+  "text": "Rechecked baseline 120. An explicit load of D_800F7954 into temp_v0 before the global store worsened score to 445; removing that load restored 120. Remaining four diffs are two reordered instructions: target loads D_800F7954 into a2 at instructions 1-2 before candidate's same pair at 9-10. Next step: move only the scalar load into an early local initializer before storing D_800F38C8, then retain its use as the third call arg.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795219032.657888,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5cfebe991a086619b905d8bcf47d915658ca4591cd729eedc8153d6698317c31"
+ },
+ {
+  "function": "createTextMenu",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not made readable yet: the saved candidate has m2c leftovers (__repair_variant_1, bitfield struct Mode, volatile state pointer, casts through (u32*)flags-2) that the matching shape depends on. Renaming would need a careful make_readable that keeps those casts. Next step: first rename the globals (D_800BFE28/D_800BFEB8 are TextSetup tables, D_800BFE48/D_800BFED8 u16 tables, gBorderSkipFlag) and the TextSetup/MenuText/MenuObject structs in the header, then rewrite the loops.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795219097.9705641,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Score 10 stays: only diff is orig arg2 copy in $v1 vs target $a3 (rows 3, 10). Additional tried: else-if clamp chain (475), s16 v clamp rewrite (1975), (u16)arg2 cast (265), u16 prototype param (730), register local, swapped temp order (all 10 or worse). Next step: try making a 4th arg/dummy local so allocator gives a3, or pass orig through a second s32 temp live across the switch.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795219120.792943,
+  "score_before": 475,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
+ },
+ {
+  "function": "func_8005CA00",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not readable yet. Still m2c-style (temp_/var_ locals, M2C_FIELD casts). The loop spawns 0x20-byte objects with random scale/offset fields. Needs callee names first: func_80045CF8 (looks like a random int in [0,n)), func_80045D2C (random float), func_80045D8C (random float in a range), func_80044670 and func_80016990 (object init/attach). Next step: name those callees, then make_readable with a struct for the 0x20 object (0x1C, 0x54, 0x58, 0x6C, 0x78 fields).",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795219147.5092149,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_80099AF0",
+  "text": "Key finding: target semantic is idx = byte[0x4B]*16 + byte[0x4A] into D_801007D9 (u8 table; sll v0,v0,4 uses the 0x4B byte, addu a1 = 0x4A byte), NOT temp_v1*0x10 as in saved best (saved best 215 has wrong semantics). Compare u8 table value vs (x&0xFF) where x = s32 at +0x60; other branch: v1=x&0xFF, v0=D_80100C7C[v1]. Target copies x into $a0 (move a0,v1 in delay slot of bne) before andi v1,a0,0xFF. My semantically-correct attempts scored 1250-1390 (compare as u8 locals emits xor/sltiu instead of bne; compare as s32 locals needed); u8 vars compare gives xor. Next step: use s32 v0/v1 (no register keyword) with u8 loads cast, and keep x in a second s32 var to force the move to a0; return-1/return-0 tail as 'if(v1==v0) return 1; return 0;'. Also D_80100C7C access should use lui/addu/lbu lo(v0) without $at.\nu8 tables with correct b*16+a index, register u8 var_v1\nscore 1250, structure close but regs differ (xor compare instead of bne; $at addressing)",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795219155.108039,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
+ },
+ {
+  "function": "func_8008EF18",
+  "text": "Rechecked baseline 40/21 instructions; exact logic/opcodes with eight register-allocation differences remain. Local repair variants for parameter width, symbol-address local, and global address table had no score change (parameter-width alternative compile error). Compiler trial at -O1 scored 45; attempted -fno-crossjumping profile did not compile. Next step: test expression-order variants with local scaled offset and explicit independent address expression for the first table lookup, preserving the masked index's current s32 form.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795219167.741409,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
+ },
+ {
+  "function": "func_80097A40",
+  "text": "Best remains 210 (rev 59d1811a00fd076a618b). Struct-based natural rewrite (u16 arg0, E* with while(e->id!=0xFFFF)) scored 1850 - worse (search loop codegen differs). Diff: target masks a3 (andi v1,a3,0xFFFF) in first guard only and hoists ori v0,0xFFFF before the loop. Next step: keep the m2c goto structure but try guard compare against a separate s32 temp copy of the lhu result.\nstruct rewrite with while loop (1850)\nworse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795219192.52895,
+  "score_before": 2335,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
+ },
+ {
+  "function": "func_8009D5D4",
+  "text": "Saved best rechecks at 13918 (211 candidate instructions vs 222 target); no improvement in 4/4. The attempted compile with a placeholder body yielded no function; full saved C then compiled to the same 13918. Changing osRecvMesg prototype from (void*,s32,s32) to (void*,void*,s32) and a no-op declaration patch left instruction diff unchanged. Main unresolved structure: target frame -0x28 saves ra,s3,s2,s1,s0 at 0x24..0x14 and uses branch-likely loop exits; candidate frame -0x30 and ordinary branches. Next step: restructure loops into explicit early-return/guarded blocks matching the target's branch-likely exits, then inspect frame allocation.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795219215.374709,
+  "score_before": 13918,
+  "score_after": 13918,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  }
 ]

@@ -3,7 +3,7 @@
 void *func_80016410();
 s32 func_80017490();
 s32 actorLinkToSurface();
-s32 func_80045CF8();
+s32 randomIntBelow();
 extern s32 *gProbeObjectList;
 
 void *func_80081134(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14) {
@@ -36,7 +36,7 @@ void *func_80081134(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
             (*(s16 *)((char *)(temp_v0) + 0x10)) = 0;
             actorLinkToSurface(*list, var_s0, 1);
             (*(s16 *)((char *)(var_s0) + 0x7A)) = 0;
-            (*(s16 *)((char *)(var_s0) + 0x7C)) = (s16) (func_80045CF8(0x78) + 1);
+            (*(s16 *)((char *)(var_s0) + 0x7C)) = (s16) (randomIntBelow(0x78) + 1);
         }
     }
     return var_s0;

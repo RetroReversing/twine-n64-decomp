@@ -4,9 +4,9 @@ void *func_80016410(s32, s32, s32);         /* extern */
 s32 func_80016990(void *, s32);                 /* extern */
 s32 func_80044670(void *, s16, s32);        /* extern */
 s32 func_80045278(void *);                      /* extern */
-s32 func_80045CF8(s32);                         /* extern */
-f32 func_80045D2C(f32);                             /* extern */
-f32 func_80045D8C(f32, f32);                        /* extern */
+s32 randomIntBelow(s32);                         /* extern */
+f32 randomFloatScaled(f32);                             /* extern */
+f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 s32 func_80045DB4(f32 *, f32, f32);             /* extern */
 s32 func_800617D8(s32, s32, void *, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80062450(s32, f32 *);                  /* extern */
@@ -57,19 +57,19 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
             (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x3C)) = 0;
             (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x40)) = 0;
             temp_fs1 = arg2 * 0.25f;
-            temp_fs0 = func_80045D2C(2048.0f);
-            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x44)) = (f32) ((temp_fs0 + 2048.0f) - func_80045D2C(1024.0f));
-            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x24)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x24)) + func_80045D8C(temp_fs2, temp_fs1));
-            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) + func_80045D8C(temp_fs2, temp_fs1));
-            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x2C)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x2C)) + func_80045D8C(temp_fs2, temp_fs1));
+            temp_fs0 = randomFloatScaled(2048.0f);
+            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x44)) = (f32) ((temp_fs0 + 2048.0f) - randomFloatScaled(1024.0f));
+            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x24)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x24)) + randomFloatMinusOffset(temp_fs2, temp_fs1));
+            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) + randomFloatMinusOffset(temp_fs2, temp_fs1));
+            (*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x2C)) = (f32) ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x2C)) + randomFloatMinusOffset(temp_fs2, temp_fs1));
             func_80045278(arg0 + 0x3C);
-            temp_v0_2 = func_80045CF8(0x10);
+            temp_v0_2 = randomIntBelow(0x10);
             (*(u16 *)((char *)(__repair_phase_storage.pointer) + 0x7A)) = temp_v0_2;
             func_80044670(__repair_phase_storage.pointer, temp_v0_2, 0xFB);
             (*(u8 *)((char *)(__repair_phase_storage.pointer) + 0x7F)) = 0xFF;
             (*(u8 *)((char *)(__repair_phase_storage.pointer) + 0x80)) = 0;
             (*(u8 *)((char *)(__repair_phase_storage.pointer) + 0x81)) = 0;
-            temp_fv1 = (f64) (arg2 * 1.5f) + ((f64) func_80045D2C(arg2) * D_800D4270);
+            temp_fv1 = (f64) (arg2 * 1.5f) + ((f64) randomFloatScaled(arg2) * D_800D4270);
             (*(u16 *)((char *)(__repair_phase_storage.pointer) + 0x78)) = 0x32;
             (*(volatile f32 *)((char *)(__repair_phase_storage.pointer) + 0x54)) = (f32) temp_fv1;
             (*(volatile f32 *)((char *)(__repair_phase_storage.pointer) + 0x54)) = arg2;
@@ -106,7 +106,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                         if (sp30[1] < 0.0f) {
                             sp30[1] = -sp30[1];
                         }
-                        func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, func_80045CF8(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
+                        func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, 1.0f, 0.0f, randomIntBelow(2) + 0x17, 0xFB, 0x68, 0xFF0000FF, 4), sp30);
                         var_s0 += 1;
                     } while (var_s0 < var_s6);
                 }

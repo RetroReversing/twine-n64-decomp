@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CF8();
+s32 randomIntBelow();
 s32 spawnFlashEffect(s32, s32, f32, s32);
 extern u8 gTrackDoneFlags[];
 
@@ -23,7 +23,7 @@ void func_80062C50(void *arg0) {
         temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) - 1;
         M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
         if ((temp_v0 << 0x10) <= 0) {
-            M2C_FIELD(arg0, u16 *, 0x7C) = (u16) (func_80045CF8(0x12C) + 1);
+            M2C_FIELD(arg0, u16 *, 0x7C) = (u16) (randomIntBelow(0x12C) + 1);
             spawnFlashEffect(arg0, arg0 + 0x24, 1.0f, 0);
         }
     }

@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_80016990(void *, s32);                 /* extern */
 M2C_UNK func_80044670(void *, s32, s32);            /* extern */
-s32 func_80045CF8(M2C_UNK);                         /* extern */
-f32 func_80045D2C(f32);                         /* extern */
-f32 func_80045D8C(f32, f32);                        /* extern */
+s32 randomIntBelow(M2C_UNK);                         /* extern */
+f32 randomFloatScaled(f32);                         /* extern */
+f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 extern f64 D_800D4120;
 
 void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 arg5) {
@@ -42,13 +42,13 @@ void func_8005CA00(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s32 a
                 temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
                 M2C_FIELD(temp_v0, s16 *, 0x78) = 0x21;
                 M2C_FIELD(temp_s0, s16 *, 0x1C) = 0x1E;
-                M2C_FIELD(temp_v0, f32 *, 0x54) = (f32) (func_80045D2C(1.0f) + 0.25f);
-                M2C_FIELD(temp_s0, f32 *, 4) = func_80045D8C(arg2, temp_fs2);
-                M2C_FIELD(temp_s0, f32 *, 8) = func_80045D8C(arg2, temp_fs2);
-                M2C_FIELD(temp_s0, f32 *, 0xC) = func_80045D8C(arg2, temp_fs2);
-                M2C_FIELD(temp_s0, f32 *, 0x10) = (u32) (func_80045CF8(0x100) - 0x80);
-                M2C_FIELD(temp_s0, f32 *, 0x14) = (u32) (func_80045CF8(0x100) - 0x80);
-                M2C_FIELD(temp_s0, f32 *, 0x18) = (u32) (func_80045CF8(0x100) - 0x80);
+                M2C_FIELD(temp_v0, f32 *, 0x54) = (f32) (randomFloatScaled(1.0f) + 0.25f);
+                M2C_FIELD(temp_s0, f32 *, 4) = randomFloatMinusOffset(arg2, temp_fs2);
+                M2C_FIELD(temp_s0, f32 *, 8) = randomFloatMinusOffset(arg2, temp_fs2);
+                M2C_FIELD(temp_s0, f32 *, 0xC) = randomFloatMinusOffset(arg2, temp_fs2);
+                M2C_FIELD(temp_s0, f32 *, 0x10) = (u32) (randomIntBelow(0x100) - 0x80);
+                M2C_FIELD(temp_s0, f32 *, 0x14) = (u32) (randomIntBelow(0x100) - 0x80);
+                M2C_FIELD(temp_s0, f32 *, 0x18) = (u32) (randomIntBelow(0x100) - 0x80);
                 M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 0x10000);
                 func_80044670(temp_v0, arg4, arg5);
                 func_80016990(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));

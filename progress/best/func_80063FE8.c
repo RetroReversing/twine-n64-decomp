@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 func_80045CF8(u32);                             /* extern */
+s16 randomIntBelow(u32);                             /* extern */
 f32 approxDistance(void *, s32);                     /* extern */
 M2C_UNK func_80063DB4(void *);                      /* extern */
 extern u8 gSceneType;
@@ -44,7 +44,7 @@ void func_80063FE8(void *arg0) {
     if (temp_v1 == 0) {
 loop_1:
         var_s0 = 0;
-        temp_s1 = func_80045CF8(D_801002E0);
+        temp_s1 = randomIntBelow(D_801002E0);
         if (D_801002B4 > 0) {
             for (;;) {
                 if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&D_8010A500)[var_s0] + 0x24) < 3.0f)) {

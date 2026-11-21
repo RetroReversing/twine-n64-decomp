@@ -3,7 +3,7 @@ static __inline__ s16 __repair_inline(s16 a) { return a; }
 
 s32 func_8000A894();
 s32 func_80031700();
-f32 func_80045D2C();
+f32 randomFloatScaled();
 s32 func_8005E350();
 s32 func_8005EF30();
 s32 func_80063C7C();
@@ -155,7 +155,7 @@ block_27:
                 func_8000A894();
             }
 block_28:
-            temp_fv1 = func_80045D2C();
+            temp_fv1 = randomFloatScaled();
             if (__repair_phase_storage.value != 0) {
                 temp_s0 = (*(u8 *)((char *)(temp_s5) + 0x82));
                 (*(u8 *)((char *)((temp_s1 + ((s32) (func_80063C7C((s16) (((__repair_record_temp_s3*)temp_s3)->field_28)) << 0x10) >> 0xD))) + 0x1FF)) = temp_s0;
@@ -178,7 +178,7 @@ var_v1 = temp_s2 * 2;
                 temp_s0_2 = (((((__repair_record_temp_s3*)temp_s3)->field_28) + temp_v0_5) * 0xE8) + D_800C469C;
                 temp_v1_7 = (*(u8 *)((char *)(temp_s0_2) + 0x80));
                 if (temp_v1_7 != (*(u8 *)((char *)(temp_s5) + 0x80))) {
-                    temp_fv1_3 = ((func_80045D2C(0x3F000000) + 0.5f) * (f32) (*(u8 *)((char *)(temp_s0_2) + 0x82))) + 1.0f;
+                    temp_fv1_3 = ((randomFloatScaled(0x3F000000) + 0.5f) * (f32) (*(u8 *)((char *)(temp_s0_2) + 0x82))) + 1.0f;
                     var_s0 = (u32) temp_fv1_3;
                     if (__repair_phase_storage.value != 0) {
                         (*(s8 *)((char *)((temp_s1 + ((s32) (func_80063C7C((s16) ((((__repair_record_temp_s3*)temp_s3)->field_28) + (s8) (u8) (*(s8 *)((char *)(temp_s5) + 4)))) << 0x10) >> 0xD))) + 0x1FF)) = (s8) var_s0;

@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800179E8(void *, s32, M2C_UNK, u8);    /* extern */
 s32 func_8002BB1C(u8);                              /* extern */
 s32 func_8004478C(s16, s16);                        /* extern */
-s32 func_80045CF8(u16);                             /* extern */
-f32 func_80045D8C(f32, f32);                        /* extern */
+s32 randomIntBelow(u16);                             /* extern */
+f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 f32 approximate_hypot2(f32, f32);                        /* extern */
 M2C_UNK func_80055B5C(M2C_UNK, void *, void *, void *, f32 *, s32, s32); /* extern */
 M2C_UNK func_8007947C();                 /* extern */
@@ -64,7 +64,7 @@ s32 func_8007B660(void *arg0, void *arg1) {
         if (temp_a0 != 0) {
             M2C_FIELD(temp_s0, s32 *, 0x4C) = func_80084338(temp_a0, arg0 + 0x24);
         }
-        M2C_FIELD(temp_s0, s16 *, 0x7C) = (s16) (func_80045CF8(M2C_FIELD(temp_s3, u16 *, 0x28)) + 1);
+        M2C_FIELD(temp_s0, s16 *, 0x7C) = (s16) (randomIntBelow(M2C_FIELD(temp_s3, u16 *, 0x28)) + 1);
         M2C_FIELD(temp_s0, s16 *, 0x7A) = (s16) M2C_FIELD(temp_s3, s32 *, 0x30);
         goto block_9;
     }
@@ -127,8 +127,8 @@ block_9:
             }
             temp_fs1_2 = var_fs1 * (1.0f - ((f32) (func_8002BB1C(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1)) & 0xFF) * 0.01f));
             temp_fs0_2 = 2.0f * temp_fs1_2;
-            sp30 += func_80045D8C(temp_fs0_2, temp_fs1_2);
-            sp34 += func_80045D8C(temp_fs0_2, temp_fs1_2);
+            sp30 += randomFloatMinusOffset(temp_fs0_2, temp_fs1_2);
+            sp34 += randomFloatMinusOffset(temp_fs0_2, temp_fs1_2);
             var_s2 = 0xDE000;
             if ((M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000) == 0x400000) {
                 var_s2 = 0xA0000;

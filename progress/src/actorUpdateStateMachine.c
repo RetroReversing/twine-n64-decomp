@@ -17,7 +17,7 @@ s32 func_80016990();
 s32 applyNearbyActorImpact(s32, f32, f32);
 s32 actorLinkToSurface();
 s32 func_80044670();
-u16 func_80045CF8();
+u16 randomIntBelow();
 s32 func_8007659C();
 s32 func_80085E30();
 s32 updateActorTrackingState();
@@ -61,7 +61,7 @@ void actorUpdateStateMachine(void *actor) {
                 child = func_80016410(2, actor + 0x24, actor + 0x3C);
                 if (child != NULL) {
                     childDataPtr = M2C_FIELD(child, u16 **, 0x6C);
-                    *childDataPtr = func_80045CF8(0x1C);
+                    *childDataPtr = randomIntBelow(0x1C);
                     M2C_FIELD(child, s16 *, 0x78) = 0x5C;
                     M2C_FIELD(child, u8 *, 0x7F) = 0xFF;
                     M2C_FIELD(child, s8 *, 0x80) = 0;

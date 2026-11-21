@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern void *gObjectTable;
-extern s8 D_800E0743;
+extern s8 gTransitionTimer;
 extern s8 D_801002AE;
 
 void func_8000CBE0(void) {
     f32 temp_fv0;
 
     temp_fv0 = M2C_FIELD(gObjectTable, f32 *, 0x2B3C);
-    D_800E0743 = 0x17;
+    gTransitionTimer = 0x17;
     M2C_FIELD(gObjectTable, s16 *, 0x2B92) = 0xF;
     M2C_FIELD(gObjectTable, f32 *, 0x2B3C) = 0;
     M2C_FIELD(gObjectTable, s16 *, 0x2B90) = 0;

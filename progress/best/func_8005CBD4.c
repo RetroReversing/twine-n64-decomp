@@ -4,8 +4,8 @@ void *func_80016410(s32, s32, s32);     /* extern */
 s32 func_80016990(void *, s32);                 /* extern */
 s32 func_80044670(void *, s32, s32);        /* extern */
 f32 func_80045764(s32, void *);                 /* extern */
-u32 func_80045CF8(s32);                         /* extern */
-f32 func_80045D2C(f32);                             /* extern */
+u32 randomIntBelow(s32);                         /* extern */
+f32 randomFloatScaled(f32);                             /* extern */
 s32 func_80046424(void *, f32, f32, f32);       /* extern */
 s32 func_80047B14(void *, f32, void *);     /* extern */
 
@@ -25,22 +25,22 @@ void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
             if (temp_v0 != NULL) {
                 temp_s1 = (*(void **)((char *)(temp_v0) + 0x6C));
                 (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
-                (*(s16 *)((char *)(temp_s1) + 0x1C)) = (s16) (func_80045CF8(4) + 4);
+                (*(s16 *)((char *)(temp_s1) + 0x1C)) = (s16) (randomIntBelow(4) + 4);
                 (*(s16 *)((char *)(temp_v0) + 0x78)) = 8;
                 (*(s8 *)((char *)(temp_v0) + 0x82)) = 0xFF;
                 (*(s8 *)((char *)(temp_s1) + 0x1E)) = (s8) (0xFF / (s16) (*(s16 *)((char *)(temp_s1) + 0x1C)));
-                (*(f32 *)((char *)(temp_v0) + 0x54)) = (f32) (func_80045D2C(0.5f) + 0.5f);
-                (*(f32 *)((char *)(temp_s1) + 4)) = (f32) (((*(f32 *)((char *)(arg2) + 0)) + func_80045D2C(arg3)) - temp_fs1);
-                (*(f32 *)((char *)(temp_s1) + 8)) = (f32) (((*(f32 *)((char *)(arg2) + 4)) + func_80045D2C(arg3)) - temp_fs1);
+                (*(f32 *)((char *)(temp_v0) + 0x54)) = (f32) (randomFloatScaled(0.5f) + 0.5f);
+                (*(f32 *)((char *)(temp_s1) + 4)) = (f32) (((*(f32 *)((char *)(arg2) + 0)) + randomFloatScaled(arg3)) - temp_fs1);
+                (*(f32 *)((char *)(temp_s1) + 8)) = (f32) (((*(f32 *)((char *)(arg2) + 4)) + randomFloatScaled(arg3)) - temp_fs1);
                 temp_s0 = temp_s1 + 4;
-                (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) (((*(f32 *)((char *)(arg2) + 8)) + func_80045D2C(arg3)) - temp_fs1);
+                (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) (((*(f32 *)((char *)(arg2) + 8)) + randomFloatScaled(arg3)) - temp_fs1);
                 func_80047B14(temp_s0, 6.0f, temp_s0);
                 (*(f32 *)((char *)(temp_s1) + 0)) = func_80045764(0, temp_s0);
                 (*(s8 *)((char *)(temp_v0) + 0x7F)) = 0xFF;
                 (*(s8 *)((char *)(temp_v0) + 0x80)) = 0xFF;
                 (*(s8 *)((char *)(temp_v0) + 0x81)) = 0;
                 (*(s32 *)((char *)(temp_v0) + 0x58)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x58)) | 0x10000);
-                func_80044670(temp_v0, func_80045CF8(3) + 0xF, 0x1B);
+                func_80044670(temp_v0, randomIntBelow(3) + 0xF, 0x1B);
                 func_80046424(temp_v0 + 0x3C, (*(f32 *)((char *)(temp_s1) + 4)), (*(f32 *)((char *)(temp_s1) + 8)), (*(f32 *)((char *)(temp_s1) + 0xC)));
                 (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) -(*(f32 *)((char *)(temp_v0) + 0x3C));
                 func_80016990(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));

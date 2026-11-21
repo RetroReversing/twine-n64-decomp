@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80002BD0();
-s32 func_80045CF8();
+s32 randomIntBelow();
 s32 func_80077960();
 s32 func_80077ED8();
 extern char D_800C469C[];
@@ -45,7 +45,7 @@ s32 func_8007AB60(void *arg0) {
             temp_v1 = M2C_FIELD(temp_a1, u8 *, 0x6E);
             switch (temp_v1) {                      /* switch 2; irregular */
             case 0:                                 /* switch 2 */
-                func_80002BD0(arg0, *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BE0 + (randomIntBelow(1, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             default:                                /* switch 2 */
@@ -54,11 +54,11 @@ s32 func_8007AB60(void *arg0) {
                 func_80077960(arg0, 4);
                 return 1;
             case 2:                                 /* switch 2 */
-                func_80002BD0(arg0, *(u16 *)(D_800C9BF4 + (func_80045CF8(5, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BF4 + (randomIntBelow(5, temp_a1, temp_a2) * 2)));
                 var_a1 = 0x81;
                 break;
             case 1:                                 /* switch 2 */
-                func_80002BD0(arg0, *(u16 *)(D_800C9BF0 + (func_80045CF8(1, temp_a1, temp_a2) * 2)));
+                func_80002BD0(arg0, *(u16 *)(D_800C9BF0 + (randomIntBelow(1, temp_a1, temp_a2) * 2)));
                 func_80077960(arg0, 0x81);
                 return 1;
             }
@@ -83,7 +83,7 @@ s32 func_8007AB60(void *arg0) {
                     } else {
                         var_s1 = D_800C9BE4;
                     }
-                    var_a1_2 = var_s1[func_80045CF8(var_a0, temp_a1, temp_a2)];
+                    var_a1_2 = var_s1[randomIntBelow(var_a0, temp_a1, temp_a2)];
                     func_80002BD0(arg0, var_a1_2);
                     func_80077960(arg0, 4);
                     return 1;
@@ -91,7 +91,7 @@ s32 func_8007AB60(void *arg0) {
                 if (temp_v1_2 != 0) {
                     goto __shared_return_0;
                 }
-                var_a1_2 = *(u16 *)(D_800C9BE0 + (func_80045CF8(1, temp_a1, temp_a2) * 2));
+                var_a1_2 = *(u16 *)(D_800C9BE0 + (randomIntBelow(1, temp_a1, temp_a2) * 2));
                 func_80002BD0(arg0, var_a1_2);
                 func_80077960(arg0, 4);
                 return 1;

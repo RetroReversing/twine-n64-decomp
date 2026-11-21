@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80016718(void *);                      /* extern */
 M2C_UNK func_800452AC(f32 *, void *, void *);       /* extern */
-u32 func_80045CF8(M2C_UNK);                         /* extern */
+u32 randomIntBelow(M2C_UNK);                         /* extern */
 M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80085160(void *);                      /* extern */
 M2C_UNK func_800851E0(void *);                      /* extern */
@@ -54,7 +54,7 @@ void func_80072F58(void *arg0) {
             M2C_FIELD(temp_s1, f32 *, 4) = (f32) (M2C_FIELD(temp_s1, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(arg0, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x3C), f32 *, 0x20)) {
                 func_80016718(arg0);
-                temp_v0_2 = func_80045CF8(0x20);
+                temp_v0_2 = randomIntBelow(0x20);
                 switch (temp_v0_2) {
                 case 0: case 1: case 2: case 3:
                     func_80085160(temp_s0);

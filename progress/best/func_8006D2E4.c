@@ -29,7 +29,8 @@ f32 Vec3_DistanceSq(f32 *, void *);                   /* extern */
 M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
 f32 func_80045764(M2C_UNK *, M2C_UNK *);            /* extern */
 s32 func_80045CC4();                                /* extern */
-s32 func_80045CF8(s32);                             /* extern */
+s32 randomIntBelow(s32);                             /* extern */
+f32 randomFloatScaled(f32);
 
 M2C_UNK func_80047B14(M2C_UNK *, f32, M2C_UNK *);   /* extern */
 M2C_UNK func_800635BC(void *, M2C_UNK);             /* extern */
@@ -80,7 +81,7 @@ extern u8 gBorderFlipFlag;
 extern s32 D_80112F68;
 
 typedef struct { unsigned char pad_0[96]; int field_60; unsigned char pad_64[12]; void * field_70; } __repair_record_sp38;
-typedef struct { f32 __repair_v[3]; } __repair_vec3;
+typedef struct { u32 __repair_v[3]; } __repair_vec3;
 void func_8006D2E4(void *arg0) {
     char sp20[0x10];
     s32 sp30;
@@ -211,19 +212,15 @@ void func_8006D2E4(void *arg0) {
                                 var_s0 = 0x32;
                                 break;
                             }
-                            if (((M2C_FIELD(temp_s3, u32 *, 0x18C) & 0xF000) == 0xE000) && (var_s0 < func_80045CF8(0x64))) {
+                            if (((M2C_FIELD(temp_s3, u32 *, 0x18C) & 0xF000) == 0xE000) && (var_s0 < randomIntBelow(0x64))) {
                                 M2C_FIELD(temp_s3, u32 *, 0x18C) = (u32) ((M2C_FIELD(temp_s3, u32 *, 0x18C) & 0xFFFF0FFF) | 0x7000);
                             }
                         }
                     }
                     temp_fs0 = M2C_FIELD(temp_s3, f32 *, 0x1B0) * (f32) *(&D_800C7DAC + (((u32) M2C_FIELD(temp_s3, u32 *, 0x18C) >> 0xC) & 0xF));
                     temp_fv1 = temp_fs0 * 0.1f;
-                    if (temp_fv1 >= 2.1474836e9f) {
-                        var_a0 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
-                    } else {
-                        var_a0 = (s32) temp_fv1;
-                    }
-                    temp_v0_5 = func_80045CF8(var_a0);
+                    var_a0 = (u32) temp_fv1;
+                    temp_v0_5 = randomIntBelow(var_a0);
                     var_ft0 = (f64) temp_v0_5;
                     if (temp_v0_5 < 0) {
                         var_ft0 += D_800D4650;
@@ -279,7 +276,7 @@ void func_8006D2E4(void *arg0) {
             }
 block_62:
             if (D_800E1A16 == 0) {
-                if (func_80045CF8(0x1E) == 0) {
+                if (randomIntBelow(0x1E) == 0) {
                     M2C_FIELD(temp_s3, s8 *, 0x198) = 0;
                     switch (D_80102EE8) {           /* switch 2; irregular */
                     default:                        /* switch 2 */
@@ -303,7 +300,7 @@ block_62:
                 if (M2C_FIELD(arg0, s16 *, 0x7C) == 6) {
                     var_a0_2 = 0x10;
                 }
-                if (func_80045CF8(var_a0_2) == 0) {
+                if (randomIntBelow(var_a0_2) == 0) {
                     M2C_FIELD(temp_s3, s8 *, 0x198) = 0;
                     if ((D_80102EE8 != 1) && (((s32) D_80102EE8 < 2) || (D_80102EE8 != 2))) {
                         var_fs0 = 1.0f;
@@ -513,7 +510,7 @@ block_153:
                 }
                 break;
             case 1:                                 /* switch 3 */
-                func_800635E0(arg0, func_80045D2C(0x3DCCCCCD) + 0.1f);
+                func_800635E0(arg0, randomFloatScaled(0.1f) + 0.1f);
                 temp_v0_12 = M2C_FIELD(temp_s3, void **, 0xC4);
                 M2C_FIELD(temp_v0_12, f32 *, 0x54) = (f32) (M2C_FIELD(temp_v0_12, f32 *, 0x54) + (D_800E19FC * 0.016666668f));
                 temp_v0_13 = M2C_FIELD(temp_s3, void **, 0xC4);

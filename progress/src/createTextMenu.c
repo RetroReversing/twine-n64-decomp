@@ -3,7 +3,7 @@ typedef struct { s32 unk0; void *left; void *middle; void *right; void *options[
 typedef struct { u8 pad[0x6C]; MenuText *text; u8 pad2[8]; s16 kind; s16 state; } MenuObject;
 extern void *func_80016410(s32,s32,s32); extern void func_80064318(void *,u32); extern void *func_80015F74();
 extern TextSetup D_800BFE28[]; extern TextSetup D_800BFEB8[]; extern u16 D_800BFE48[]; extern u16 D_800BFED8[]; extern u16 D_800BFE24,D_800BFE00; extern u32 D_800BFE0C,D_800BFDE8; extern s32 gBorderSkipFlag;
-void *func_8003030C(u16 textId) {
+void *createTextMenu(u16 textId) {
  MenuObject *obj; MenuText *text; s32 i; s32 index; s32 offset; struct Mode { unsigned mode:3; unsigned rest:29; } *flags; void *entry; volatile s32 *state; s32 variant;
     s32 __repair_variant_1;
  obj=func_80016410(0x28,0,0); if(obj==NULL) return NULL;

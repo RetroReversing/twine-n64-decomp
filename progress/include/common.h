@@ -83,8 +83,8 @@ void func_8008C3D8(s32 index, u16 *data);
 
 void func_800081C4(s32 fill);
 
-f32 func_80045D2C(f32 scale);
-f32 func_80045D8C(f32 scale, f32 offset);
+f32 randomFloatScaled(f32 scale);
+f32 randomFloatMinusOffset(f32 scale, f32 offset);
 
 s32 func_800819EC(s32 bank, s32 index);
 s32 func_80096E7C(void *arg0, s32 arg1);

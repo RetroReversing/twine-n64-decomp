@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80045348(f32 *, f32 *, M2C_UNK *);     /* extern */
-f32 func_80045D2C(f32);                         /* extern */
+f32 randomFloatScaled(f32);                         /* extern */
 s32 func_800723C0(f32 *, f32 *, f32 *, s32, s32);   /* extern */
 extern f32 gSubdivideMinSize;
 
@@ -28,8 +28,8 @@ extern f32 gSubdivideMinSize;
     f32 weight1;
 
     childSize = size + 1.0f;
-    weights[0] = func_80045D2C(0.5f);
-    weight1 = func_80045D2C(0.5f);
+    weights[0] = randomFloatScaled(0.5f);
+    weight1 = randomFloatScaled(0.5f);
     weight2 = 1.0f - (weights[0] + weight1);
     weights[1] = weight1;
     weights[2] = weight2;

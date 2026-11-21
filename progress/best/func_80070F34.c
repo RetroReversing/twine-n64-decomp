@@ -38,7 +38,7 @@ extern M2C_UNK D_800C7E14;
 extern M2C_UNK D_800C7E18;
 extern M2C_UNK D_800C7E40;
 extern M2C_UNK D_800D47A0;
-extern s32 D_800D47F8;
+extern f64 D_800D47F8;
 extern f64 D_800D4800;
 extern f64 D_800D4808;
 extern f64 D_800D4810;
@@ -88,7 +88,7 @@ void func_80070F34(void *arg0) {
     s32 temp_a0_9;
     s32 temp_a1_2;
     s32 temp_fv0;
-    s32 temp_s4;
+    f64 phaseOffset;
     s32 temp_s5;
     s32 temp_v0_12;
     s32 temp_v0_14;
@@ -548,16 +548,16 @@ block_10:
         }
         var_s0_2 = 0;
         temp_fs1 = (f64) (s16) temp_a1_2;
-        temp_s4 = D_800D47F8;
-        temp_s5 = D_800D47F8;
+        phaseOffset = D_800D47F8;
         temp_fs5 = D_800D4800;
         temp_fs4 = D_800D4808;
         var_s1_4 = temp_s2;
         do {
             temp_fs0 = __sinf(var_fs2_2);
-            temp_fs0_2 = (f64) (temp_fs0 + __sinf((f32) (((f64) var_fs2_2 + M2C_BITWISE(f64, temp_s5)) * temp_fs5)));
+            temp_fs0_2 = (f64) (temp_fs0 + __sinf((f32) (((f64) var_fs2_2 + phaseOffset) * temp_fs5)));
+            temp_fs0_3 = (temp_fs0_2 + ((f64) __cosf(var_fs3) * temp_fs4 * temp_fs1)) * D_800D4810;
             var_fs2_2 += 0.21f;
-            temp_fs0_3 = temp_fs1 + ((temp_fs0_2 + ((f64) __cosf(var_fs3) * temp_fs4 * temp_fs1)) * D_800D4810);
+            temp_fs0_3 = temp_fs1 + temp_fs0_3;
             var_s0_2 += 1;
             var_fs3 += 0.133f;
             temp_fv0 = (s32) temp_fs0_3;

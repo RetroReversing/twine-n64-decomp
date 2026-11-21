@@ -2,7 +2,7 @@
 
 s32 func_800452AC(void *, s32, s32);            /* extern */
 f32 func_80045590(void *, void *);                  /* extern */
-f32 func_80045D2C(f32);                        /* extern */
+f32 randomFloatScaled(f32);                        /* extern */
 s32 func_80082FE4(void *, s16 *);            /* extern */
 s32 func_800839F0(s32 *, s32 *, s32);       /* extern */
 extern s32 D_800CEE50;
@@ -57,7 +57,7 @@ void func_80087380(void *arg0) {
         __repair_frame = *(typeof(__repair_frame) *)var_s5;
         temp_a0 = __repair_frame.f50;
         temp_s0_2 = temp_s0 + 0x24;
-        __repair_frame.f4C -= func_80045D2C(var_fs1);
+        __repair_frame.f4C -= randomFloatScaled(var_fs1);
         func_800839F0(sp10, frame, temp_s0_2);
         do { func_800452AC(arg0 + 0x24, temp_s0_2, temp_s0_2); } while (0);
         (*(s32 *)((char *)(temp_s0) + 0x30)) = (s32) (*(s32 *)((char *)(temp_s0) + 0x24));
