@@ -3272,14 +3272,6 @@
   "score_after": 1855
  },
  {
-  "function": "func_8008E680",
-  "text": "Verified baseline score 1320. Six local repair variants did not improve. Tested adding a missing first parameter: score worsened to 1410 because it shifted all state; however assembly clearly saves second argument a1 as s1, passes a0 to func_800989B8, then masks a1 for derived values. The correct next experiment is two-argument signature AND changing func_800989B8((int)arg1) to func_800989B8((int)arg0); this combined edit was not compiled because move-on budget was exhausted. Current saved best remains 1320.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795138050.437857,
-  "score_before": 1063,
-  "score_after": 1063
- },
- {
   "function": "func_8009846C",
   "text": "Baseline 120. Tried six local repairs: signedness, declaration order, branch orientation, callee passthrough signature, ternary return, symbol address local; no variant improved. Target loads D_800F3950 into $a2 before preparing D_800F38BC and callback then spills callback as fifth stack arg; candidate currently misses/reorders global load. Callee prototype mismatch is key: target calls args (arg0-base-4, &D_800F3954, D_800F3950 value, 8, callback); candidate's current declaration shifts all args. A past attempted signature arg0-first scored 1385, so inspect func_800956E0 declaration and target call ABI carefully.",
   "by": "codex-gpt-6-luna-7",
@@ -7344,14 +7336,6 @@
   "score_after": 1770
  },
  {
-  "function": "func_8008E680",
-  "text": "Rechecked baseline score 1320. Six independent local repairs tested callee and argument widths, masked value reuse, lifetime splitting, signedness and declaration order; none improved. Target saves a1 in s1 while candidate saves a0 in s3, so revisit the function signature and loop/call argument lifetimes; historical best 1063 predates current inputs.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795178070.7259479,
-  "score_before": 1063,
-  "score_after": 1063
- },
- {
   "function": "func_800705AC",
   "text": "Rechecked baseline score 120. Ran all cached local repair proposals (symbol_address_local, pointer_local_reuse, paired_pointer_declarations): no score improvement. Target loads arg1+0x182, branches on arg0 low16 with v0=2 in delay slot, and computes table address only after branch; candidate hoists sll/table address before branch, four reordered instruction differences remain. Next experiment: restructure branch so table address arithmetic is separately inside each arm, while preserve shared index load. No reusable global finding.",
   "by": "codex-gpt-6-luna-19",
@@ -10070,14 +10054,6 @@
   "created_at": 1795182609.220809,
   "score_before": 135,
   "score_after": 135
- },
- {
-  "function": "func_8008E680",
-  "text": "Improved verified baseline 1320 to 1155 (78/78 instructions), then tool reported claim transferred to progress-judge.6. Revision c11c0914500d49201454 uses the two-argument ABI (a0 calls func_800989B8, a1 is split into high/low), correct byte offsets, repeated lbu across the first call, and reuses the second parameter local for the stride offset. Using the matched four-u8 callee prototype generated an extra a1 mask and larger frame in the tested shape; experiment with a compatible narrow/wide mix or declarations with no prototype. Remaining target has both branch-local andi s0,s2,0xff while GCC eliminates the redundant mask, and target allocates result/offset/low/high in s0/s1/s3/s4 while candidate has result and offset swapped and low/high swapped. Casting just the first result assignment to u8 tied baseline; casting the initial index assignment was not tested.\n\nVerified best 1155, revision c11c0914500d49201454. Two-argument ABI and corrected byte access; reusing a1 local for offset brought frame to 0x28 and size to 78/78. Target assigns result/offset and low/high to opposite register pairs. GCC removes redundant branch-local channel masks; initial u8 cast tied, u8 index local worsened, register hints and split &= tied. No-prototype and mixed-width callee declarations tied; flag sweep found no improvement. Try finding a natural call form that distinguishes index from the narrowed channel across both branches, then adjust allocation.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795182568.901108,
-  "score_before": 1063,
-  "score_after": 1063
  },
  {
   "function": "updateRandomMenuItem",
@@ -15352,14 +15328,6 @@
   "score_after": 820
  },
  {
-  "function": "func_8008E680",
-  "text": "Verified saved score 1155; both target and candidate have 78 instructions. Target masks handle into s0 at three call sites, candidate moves already-masked argument; much remaining difference is register allocation and setup order. u16 value parameter scored 1620; reversing handle branch 1200; address temporary produced identical instructions. Narrowing func_800989B8 return scored 1355, byte parameters on func_80095A80 tied 1155. Next reconstruct index/handle lifetimes so the mask occurs separately at each call, then adjust allocation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795187743.6021109,
-  "score_before": 1063,
-  "score_after": 1063
- },
- {
   "function": "func_800ABE20",
   "text": "Rechecked saved score 820. Tried guard inversion (1010), expanding prototype to three args (820), and wrapping each call in do/while (820); move-on threshold reached 3/3. Target branches on arg2 ($a2) and tail-jumps to func_800ABBE4, while candidate treats arg2 as arg0 and emits prologue plus two jal calls. Next investigate true prototype/leading unused parameters and tail-call control flow; inspect get_assembly mismatch.",
   "by": "codex-gpt-6-luna-19",
@@ -16616,14 +16584,6 @@
   "score_after": 3148
  },
  {
-  "function": "func_8008E680",
-  "text": "Best score 1155 (78 instructions). Corrected func_80095A80 declaration to matched u8 argument types; score unchanged. Local repairs tried callee parameter width, callee return width, parameter width, address temporary, read-before-assign, passthrough argument; no improvement and width variants worsened. Remaining diff is mostly callee-saved register allocation: target saves value arg in s1 and initializes result -1 in s0, candidate swaps s0/s1. Target arithmetic scales index by 0x1A0 via shift/add sequence. Keep the saved best candidate.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795189624.715646,
-  "score_before": 1063,
-  "score_after": 1063
- },
- {
   "function": "dataBankUpdateSlot",
   "text": "Byte-exact at revision 6ac0d8e7c999a57d5b69. Send queue is expressed as D_800E2CE4 + 0x124C to let GCC rematerialize its original address instead of preserving it across calls. Verify the offset and relocation in a full rebuild.",
   "by": "codex-gpt-6.2-sol-4",
@@ -17806,14 +17766,6 @@
   "created_at": 1795190981.705716,
   "score_before": 100,
   "score_after": 45
- },
- {
-  "function": "func_8008E680",
-  "text": "Verified saved best 420. Sharing second call explicitly by joining on a u8 channel scored 1843 (extra saved register/frame). Keeping calls in arms and changing to a direct early return plus a single conditional backedge tied 420. Remaining issue is keeping a masked index live across calls in s2 while still forcing a distinct u8 truncation into result/s0 in each arm; compiler currently moves raw handle into s2 and uses a1 for the masked index. Mismatch also branches to shared return-value move instead of entering epilogue with v0 set. Near twin func_8008E7B8 had a historical 285 candidate, but its raw-handle next-link offset is not semantically valid unless masked.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795191000.474506,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "buildRotationMatrix",
@@ -19078,14 +19030,6 @@
   "created_at": 1795192819.1471171,
   "score_before": 280,
   "score_after": 270
- },
- {
-  "function": "func_8008E680",
-  "text": "Verified 420. Narrowing index on assignment scores 565 or 725 depending on later cast; replacing next-link scale with arg1 scores 1251; unsigned index and 13*32 stride tie. Target keeps masked handle in s2 across calls then repeats andi into s0; candidate keeps raw handle in s2. Find a shape preserving the narrowed index lifetime and separate result truncation without an additional frame.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795192843.691707,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_8009A0E4",
@@ -20640,14 +20584,6 @@
   "score_after": 470
  },
  {
-  "function": "func_8008E680",
-  "text": "Current verified baseline score 215. Local repairs tried typed temporary, branch orientation, address temporary, parameter width, callee parameter width, and backward loop; none improved. Three alternatives made identical assembly. Remaining displayed mismatches are advisory register allocation, first after func_800989B8 where target copies return v0 to v1 but candidate to a1, which cascades into branch delay placement. Preserve saved candidate cd22100fc48be7550b52. Next focus: exact table addressing and original object/record types, then source lifetime causing callee result in v1; changing only variable names/types via repair families did not change output.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795197747.628223,
-  "score_before": 215,
-  "score_after": 215
- },
- {
   "function": "releaseSceneGroupRef",
   "text": "Rebuilt saved best source exactly at score 60 (99.1%, 74 instructions); it is the retained candidate. Only primary residual mismatch is target initialization/control flow around count load: target loads D_800F8158 into a2, then blez with delay-slot setup; candidate emits move v1,zero before blez, yielding one-instruction shorter branch displacement. Tried an explicit early `if (D_800F8158 <= 0) { cleanup; return 0; }`; that degraded substantially (best 201 via local constant repair, then restored). No clear improvement over existing candidate. Move-on threshold 7/6 reached.",
   "by": "codex-gpt-6-luna-9",
@@ -21406,14 +21342,6 @@
   "created_at": 1795198813.7951539,
   "score_before": 130,
   "score_after": 130
- },
- {
-  "function": "func_8008E680",
-  "text": "Best verified score 215. Tried branch orientation (985), typed temporary and address temporary tied, parameter width 705, callee prototype tied, backward-loop rewrite 798. Remaining diff starts at target move $v1,$v0 after func_800989B8; candidate moves to $a1 and branch targets shift, with 23 rows mostly register mismatches. Revisit loop/index register lifetimes around handle/index and call arguments.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198824.4257889,
-  "score_before": 215,
-  "score_after": 215
  },
  {
   "function": "func_80088DE0",
@@ -22480,14 +22408,6 @@
   "score_after": 705
  },
  {
-  "function": "func_8008E680",
-  "text": "Best score 215 (97.2%), 78 target instructions vs 79 candidate. Target differs mainly register allocation/control flow around handle comparison and table index: target uses v1 for narrowed index and v0 for scaled address; candidate uses a1/v1. Six local repairs (address temporary, parameter width, callee arg width, goto loop, call scope, address temp) did not improve. Retain explicit source and revisit loop variables/liveness to put byte index in v1 and scaled offset in v0.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795200883.32097,
-  "score_before": 215,
-  "score_after": 215
- },
- {
   "function": "func_8001A434",
   "text": "Best candidate rechecked 40/48. Tried four local variants: balanced_pointer_calls worsened to 450; declaration-order pointer variants and field-width casts retained score 40. Residual 8 register allocation differences primarily swap saved regs: target keeps D_801002A2 base in s0 and format string D_800D2864 in s1, candidate assigns them reversed. Try reorder pointer declarations/assignments or lifetime boundaries; no logic mismatches remain.",
   "by": "codex-gpt-6-luna-13",
@@ -23238,14 +23158,6 @@
   "created_at": 1795201876.4223921,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_8008E680",
-  "text": "Baseline score 215 uses index before initialization; reordering initialization worsens score to 420, so saved candidate is not semantically reliable.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795201878.187892,
-  "score_before": 215,
-  "score_after": 215
  },
  {
   "function": "func_80098710",
@@ -24800,14 +24712,6 @@
   "score_after": 165
  },
  {
-  "function": "func_8008E680",
-  "text": "Not matched. Best remains saved_best score 215 (permuter version: loop variable reuses arg1 as the per-entry offset, `arg1 = (u8)index*0x1a0; index = handle;`). Tried: (a) rewrite with func_800989B8(0) and handle/index split -> 350 (target keeps handle in $v1 and tests bne before using s0=result; ours emits extra move $a0,$zero). (b) do/while with separate off local -> 2612 (frame becomes 0x30, saved-reg order wrong). Target keeps arg1 in $s1 across the loop (andi $v0,$s1,0xffff for high), frame 0x28 with s0..s4, ra. Next step: start from saved_best and keep arg1 in s1, computing high/low from arg1 inline at call sites.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795204127.6898649,
-  "score_before": 215,
-  "score_after": 215
- },
- {
   "function": "releaseSceneGroupRef",
   "text": "Verified score 60; target initializes index after the positive-count branch, candidate before it. Explicit conditional/do loop worsened; reordered increments and while forms retained output.",
   "by": "codex-gpt-6.1-terra-5",
@@ -25726,14 +25630,6 @@
   "created_at": 1795205524.4649558,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8008E680",
-  "text": "Rechecked best 215. Equal-score defined rewrite sets index=handle before computing the masked offset, then assigns handle=index. Saved best reads index before initialization and omits the argument to matched callee func_800989B8(u32). Explicit forwarding in a larger do/while rewrite worsened register pressure; changing backedge alone scored 762. Target puts handle in v1 and keeps a separate masked index in s2.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795205525.66649,
-  "score_before": 215,
-  "score_after": 215
  },
  {
   "function": "func_80044538",
@@ -28216,14 +28112,6 @@
   "score_after": 40
  },
  {
-  "function": "func_8008E680",
-  "text": "Rechecked baseline 215, still uses uninitialized index and a zero-argument call declaration. Six trials exhausted. Defining a separate index masked from handle fixed v1 at the initial branch but scored 565 because GCC eliminated both call-side masks and introduced an extra move near the backedge. Prototype to unspecified args, comparison against result, and stride factorization did not change displayed diff.\nSet index = handle & 0xff before computing stride and retained explicit u8 call conversions.\nGot v1 at the first branch and s2 for masked value, but generated two moves instead of call-side andi and one extra instruction near the backedge.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795209534.8488169,
-  "score_before": 215,
-  "score_after": 215
- },
- {
   "function": "func_8001CF24",
   "text": "Not matched. Best remains saved_best 965 (rev 10ef294f778b63a86be5). Clean rewrite (rev 8561a84cee0bcfe939d7, 2530) matches control flow and data, but target does move a3,a1 before the null check and reuses a3 for the palette; mine copies to a0. Tried: branchless palette variants (2530, unchanged); s32 local copy of arg1 at top (2530, unchanged). Untested: force arg1 into a3 via different source shape for the palette computation.\nclean rewrite, branchless palette variants, top-of-function arg1 copy\nall 2530 vs saved 965; a3 copy never appears",
   "by": "api-claude-haiku-5-5-3",
@@ -30361,15 +30249,6 @@
   "score_before": 242465,
   "score_after": 242465,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
- },
- {
-  "function": "func_8008E680",
-  "text": "Rechecked saved baseline score 215; function target 78 instructions, C generates 79. It contains undefined read of index to form 0x1a0 stride before assigning index=handle, and matched func_800989B8 has actual argument u32 (candidate falsely declares zero-arg). Defined rewrite compiled score 215 too; 23 mismatches mostly registers: target carries handle in v1 and masked byte in s2; candidate moves handle into a1 and computes stride in v1, creating one extra move. Next step: use actual func_800989B8(u32) and restructure loop so byte-masked handle feeds index comparison separately from stride; test loop condition/temporary scopes.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795213529.0563478,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "func_8009F860",
@@ -35427,15 +35306,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
  },
  {
-  "function": "func_8008E680",
-  "text": "Saved best 215 retained. Defined-variable do/while rewrites (result=-1; do{idx; off=idx*0x1a0; if(D_8010D784[off]!=handle) return result; ...; handle=D_8010D734[idx*0x1a0]; result=0;}while(handle!=-1)) score 788-1563: GCC hoists &D_8010D734 into a saved reg (extra frame 0x30 vs 0x28) and drops the redundant andi on result=(u8)idx (target has andi s0,s2,0xff after andi s2,v1,0xff). Next step: make the final D_8010D734 access not CSE with the offset and keep idx a u8 local so result=idx re-masks; start from rev 72930840276580b559e0 (788).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795225624.262505,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
   "function": "func_80061168",
   "text": "Replaced list while loop with explicit null guard and do-while.\nIdentical output at 685. One missing NOP shifts branch destinations. Two sltiu comparisons and mask register a0 still differ.",
   "by": "codex-gpt-6.2-sol-6",
@@ -37074,15 +36944,6 @@
   "score_before": 875,
   "score_after": 875,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
-  "function": "func_8008E680",
-  "text": "Best clean structure: revision 935dee4a175b26064b9f (score 600, only 3 rows differ: target `andi $s0,$s2,0xff` x2 and `andi $a3,$s3,0xff`, ours `move`). Uses goto loop (while/do loops hoist gVoiceChannelTable lui), s32 idx = handle & 0xff, arg1 reused as byte offset (idx*0x1a0) so it shares s1, result=(u8)idx. GCC knows the masks from nonzero_bits so drops the redundant andi. Tried: prototype types s32/u32/s8/u16 (worse/equal), idx=arg0 pre-init (no effect), u8 idx (715). Saved best 215 (uninit index) stays better by score. Next step: find a way to make low/idx look unmasked to GCC (e.g. idx computed in a different basic block / non-single-set), keeping arg1 reuse.\nprototype types, pre-init idx, u8 idx\nnone of them restored the three andi instructions",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795229758.3577259,
-  "score_before": 1263,
-  "score_after": 420,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "lookupDataEntry",
@@ -42394,15 +42255,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:1b1453ef1719f8001fc3f283953125ae045d4f919ebe95b848e8972673fadf9a"
  },
  {
-  "function": "func_8008E680",
-  "text": "Matched similar function structure. Correcting soundResolveHandle call arity (one argument) preserved best score 1534. A volatile s64 local improved score to 1530 by changing frame/register allocation; replacing it with a two-word array tied at 1530. First mismatch remains prologue: target frame 0x28 and saves s1=a1, s0=-1; candidate frame 0x38 maps arg1 to s4 and computes masks/shifts near calls instead of hoisting them. Next step: Try declaration order and narrower unused locals to induce target frame and register mapping.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795240053.23194,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
   "function": "func_8009DCD0",
   "text": "Recovered prior typed source, replaced void * cursor with u8 *, flattened sp48 to s16[52]. IDO 7.1 -O2 with volatile byte reads scored 4937, reproducing 0xe0 frame, argument homes, sra, D0 header stores and repeated byte reads. IDO -O1 scored 19025 with excess spills; KMC scored 20748. Next step: assign combined-field volatile reads to separate temporaries in target order, then address the extra loop-limit calculation.\n\nTemporary hi/lo split under IDO worsened 4937 to 5682 and expanded frame to 0xe8. Official KMC best 20394 on revision 5fb47f123aac59c50770. Next step: use adjacent struct fields for sp48 and spB0 to test direct output cursor limit, preserving the volatile inline reads from the 4937 trial.",
   "by": "codex-gpt-6.2-sol-6",
@@ -44079,15 +43931,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
  },
  {
-  "function": "func_8008E680",
-  "text": "Rechecked 1310. Structured backedge scored 2703, u16 parameter 1719, u32 index 1425; address temporary and callee parameter width unchanged. Target repeats index masks and differs in argument register allocation.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795244952.8225112,
-  "score_before": 2703,
-  "score_after": 1310,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
   "function": "menuRefreshSlot",
   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 240fa6cfceeb3ca57d02 rechecked at 5; only addu $v0,$s5,$v0 vs addu $v0,$v0,$s5. Typed u8 base and swapped operands emitted the same instruction. Next step: test an eight-byte struct stride with the initial 0x1fc displacement represented as a field offset.",
   "by": "codex-gpt-6.2-sol-6",
@@ -44538,15 +44381,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:414d4807c68273825a095ba09f2b151aa66f15752e9ac6b28a46f8d402aabee8"
  },
  {
-  "function": "func_8008E680",
-  "text": "Restored inherited best candidate (1310 historical); current profile/header recheck score 1324. Tried u32 index (1315), u8 value plus u32 index (1425), volatile keep-index local (1324). Local batch tried shared-tail, callee arg/return widths, parameter width and backward-loop form; these tied or were substantially worse. Target uses repeated andi index masks and absolute D_8010D76F references; candidate uses byte pointer temporary/offset addressing and differs in frame size (target 0x28, candidate 0x30).\nIndex/value widths and volatile local, plus local repair families; none beat 1310 inherited best.\nu32 index improved current recheck to 1315 but still lower historical score comparison unavailable; volatile keep-index candidate 1324.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246381.683181,
-  "score_before": 1310,
-  "score_after": 1310,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
   "function": "setupSaveSlotMarkers",
   "text": "Claim was lost during repairs. Baseline 1990; u16 clear-loop counter variant scored 1625 (revision a78f5405373ee35a0bbe); corrected offset variant 1960 and local constant variant 1790. Next step: combine the counter with corrected symbol and byte offsets.",
   "by": "codex-gpt-6.1-terra-5",
@@ -44794,15 +44628,6 @@
   "score_before": 550,
   "score_after": 550,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5283587a6f8c9938d9b65adc618079fbb97cc12d6e7630b8c674fe6817524dd3"
- },
- {
-  "function": "func_8008E680",
-  "text": "Draft reconstruction scored 2514; corrected second argument and word loads scored 2598. Historical 1310 source unavailable. Target loads arg1 from a1 and fields D_8010D784 and D_8010D734 as words.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795247207.4881809,
-  "score_before": 1310,
-  "score_after": 1310,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "func_8001A434",
@@ -45055,15 +44880,6 @@
   "score_before": 995,
   "score_after": 995,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "func_8008E680",
-  "text": "Session allowance ending. Current reconstructed best 2204; historical 215 candidate was not available on claim. Explicit arg0 forwarding and arg1 signature correct; duplicate calls in arms improved 2514 to 2404, unsigned halfword cast improved to 2204. Treating all globals as pointers scored 5694; target only D_8010D784 is loaded as a word.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795248049.162287,
-  "score_before": 2514,
-  "score_after": 2204,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "beginSceneTransition",
@@ -45399,15 +45215,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f46dbc9c0f5c5c57403e8ec0e9f947601b4ba29d54b95255640d3c72d78ccbae"
  },
  {
-  "function": "func_8008E680",
-  "text": "Word loads at D_8010D784 and D_8010D748 and inline high argument computation improved the reconstructed candidate to 1185. Target still has repeated byte masks and different loop control. Address temporary worsened to 1754; call arity variants unchanged. Signed-to-unsigned next-link load scored 1185 but changes semantics.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795249353.3622332,
-  "score_before": 2204,
-  "score_after": 1185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
   "function": "updateRandomMenuItem",
   "text": "Prior handoff records extensive clamp experiments. The inherited draft used an unresolved MULTU_HI and signed random arithmetic; corrected unsigned random and one-argument lookup. Remaining clamp and switch control flow differ substantially; broad local variants did not help.",
   "by": "codex-gpt-6.1-terra-4",
@@ -45729,15 +45536,6 @@
   "score_before": 4660,
   "score_after": 4660,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:23162db38ec715c7f5063c3afaf4413c99d2a4ff9bceec30d192ebf03f79fdeb"
- },
- {
-  "function": "func_8008E680",
-  "text": "Current best 1185 rechecked. Added redundant idx reassignment before second call did not change score; six compiles without improvement reached. Target repeatedly masks current handle byte into s2 and recomputes address at calls/loop; best candidate holds idx/off and makes compact 70-instruction body vs target 78. A temporary-address experiment previously worsened to 1754; call arity variants unchanged.\nRedundant idx=v&255 before second call; unchanged 1185. Rechecked best baseline.\nNo improvement. Mismatch includes target repeated andi s2, addu base+offset, and loop control/address recomputation.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795250325.402936,
-  "score_before": 1185,
-  "score_after": 1185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "func_800589FC",
@@ -47003,15 +46801,6 @@
   "created_at": 1795256267.898504,
   "score_before": 201312,
   "score_after": 201312
- },
- {
-  "function": "func_8008E680",
-  "text": "Verified baseline 565. Register qualifier on high value and masked temporary reuse generated identical instructions; return temporary reuse scored 670 and branch inversion 1225. Target has three repeated handle masks absent from candidate.\nReused call-index local for return value\n670; removed five target mismatch sites but introduced nine",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256303.67277,
-  "score_before": 680,
-  "score_after": 565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "func_8007CC78",
@@ -48470,15 +48259,6 @@
   "score_before": 30,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4325797ddcca05b761ec7dac1d9929b129d6af1d1e3398ab7a3153553e4dc224"
- },
- {
-  "function": "func_8008E680",
-  "text": "Inherited score 215 reads index before initialization and omits the resolver argument. Donor adaptation scored 1428. Passing arg0 and assigning index=handle at initial and backedge paths scored 335 (e0aaabaaec0823a09959). Using handle for the link stride scored 325 (158633f0e7c6f29d2fd0), with correct dataflow. Mask at loop head scored 565 and using handle only for first stride scored 420.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795270944.194848,
-  "score_before": 215,
-  "score_after": 215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
   "function": "func_800184AC",
@@ -76627,5 +76407,225 @@
   "score_before": 3575,
   "score_after": 2615,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f63638ddab3bd58d66f2c42126a1174d8fac8037406a8bc1921610d0bc11c4a4"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Verified baseline score 1320. Six local repair variants did not improve. Tested adding a missing first parameter: score worsened to 1410 because it shifted all state; however assembly clearly saves second argument a1 as s1, passes a0 to func_800989B8, then masks a1 for derived values. The correct next experiment is two-argument signature AND changing func_800989B8((int)arg1) to func_800989B8((int)arg0); this combined edit was not compiled because move-on budget was exhausted. Current saved best remains 1320.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795138050.437857,
+  "score_before": 1063,
+  "score_after": 1063
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Rechecked baseline score 1320. Six independent local repairs tested callee and argument widths, masked value reuse, lifetime splitting, signedness and declaration order; none improved. Target saves a1 in s1 while candidate saves a0 in s3, so revisit the function signature and loop/call argument lifetimes; historical best 1063 predates current inputs.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795178070.7259479,
+  "score_before": 1063,
+  "score_after": 1063
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Improved verified baseline 1320 to 1155 (78/78 instructions), then tool reported claim transferred to progress-judge.6. Revision c11c0914500d49201454 uses the two-argument ABI (a0 calls func_800989B8, a1 is split into high/low), correct byte offsets, repeated lbu across the first call, and reuses the second parameter local for the stride offset. Using the matched four-u8 callee prototype generated an extra a1 mask and larger frame in the tested shape; experiment with a compatible narrow/wide mix or declarations with no prototype. Remaining target has both branch-local andi s0,s2,0xff while GCC eliminates the redundant mask, and target allocates result/offset/low/high in s0/s1/s3/s4 while candidate has result and offset swapped and low/high swapped. Casting just the first result assignment to u8 tied baseline; casting the initial index assignment was not tested.\n\nVerified best 1155, revision c11c0914500d49201454. Two-argument ABI and corrected byte access; reusing a1 local for offset brought frame to 0x28 and size to 78/78. Target assigns result/offset and low/high to opposite register pairs. GCC removes redundant branch-local channel masks; initial u8 cast tied, u8 index local worsened, register hints and split &= tied. No-prototype and mixed-width callee declarations tied; flag sweep found no improvement. Try finding a natural call form that distinguishes index from the narrowed channel across both branches, then adjust allocation.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795182568.901108,
+  "score_before": 1063,
+  "score_after": 1063
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Verified saved score 1155; both target and candidate have 78 instructions. Target masks handle into s0 at three call sites, candidate moves already-masked argument; much remaining difference is register allocation and setup order. u16 value parameter scored 1620; reversing handle branch 1200; address temporary produced identical instructions. Narrowing func_800989B8 return scored 1355, byte parameters on func_80095A80 tied 1155. Next reconstruct index/handle lifetimes so the mask occurs separately at each call, then adjust allocation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795187743.6021109,
+  "score_before": 1063,
+  "score_after": 1063
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Best score 1155 (78 instructions). Corrected func_80095A80 declaration to matched u8 argument types; score unchanged. Local repairs tried callee parameter width, callee return width, parameter width, address temporary, read-before-assign, passthrough argument; no improvement and width variants worsened. Remaining diff is mostly callee-saved register allocation: target saves value arg in s1 and initializes result -1 in s0, candidate swaps s0/s1. Target arithmetic scales index by 0x1A0 via shift/add sequence. Keep the saved best candidate.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795189624.715646,
+  "score_before": 1063,
+  "score_after": 1063
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Verified saved best 420. Sharing second call explicitly by joining on a u8 channel scored 1843 (extra saved register/frame). Keeping calls in arms and changing to a direct early return plus a single conditional backedge tied 420. Remaining issue is keeping a masked index live across calls in s2 while still forcing a distinct u8 truncation into result/s0 in each arm; compiler currently moves raw handle into s2 and uses a1 for the masked index. Mismatch also branches to shared return-value move instead of entering epilogue with v0 set. Near twin func_8008E7B8 had a historical 285 candidate, but its raw-handle next-link offset is not semantically valid unless masked.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795191000.474506,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Verified 420. Narrowing index on assignment scores 565 or 725 depending on later cast; replacing next-link scale with arg1 scores 1251; unsigned index and 13*32 stride tie. Target keeps masked handle in s2 across calls then repeats andi into s0; candidate keeps raw handle in s2. Find a shape preserving the narrowed index lifetime and separate result truncation without an additional frame.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795192843.691707,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Current verified baseline score 215. Local repairs tried typed temporary, branch orientation, address temporary, parameter width, callee parameter width, and backward loop; none improved. Three alternatives made identical assembly. Remaining displayed mismatches are advisory register allocation, first after func_800989B8 where target copies return v0 to v1 but candidate to a1, which cascades into branch delay placement. Preserve saved candidate cd22100fc48be7550b52. Next focus: exact table addressing and original object/record types, then source lifetime causing callee result in v1; changing only variable names/types via repair families did not change output.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795197747.628223,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Best verified score 215. Tried branch orientation (985), typed temporary and address temporary tied, parameter width 705, callee prototype tied, backward-loop rewrite 798. Remaining diff starts at target move $v1,$v0 after func_800989B8; candidate moves to $a1 and branch targets shift, with 23 rows mostly register mismatches. Revisit loop/index register lifetimes around handle/index and call arguments.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198824.4257889,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Best score 215 (97.2%), 78 target instructions vs 79 candidate. Target differs mainly register allocation/control flow around handle comparison and table index: target uses v1 for narrowed index and v0 for scaled address; candidate uses a1/v1. Six local repairs (address temporary, parameter width, callee arg width, goto loop, call scope, address temp) did not improve. Retain explicit source and revisit loop variables/liveness to put byte index in v1 and scaled offset in v0.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795200883.32097,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Baseline score 215 uses index before initialization; reordering initialization worsens score to 420, so saved candidate is not semantically reliable.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795201878.187892,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Not matched. Best remains saved_best score 215 (permuter version: loop variable reuses arg1 as the per-entry offset, `arg1 = (u8)index*0x1a0; index = handle;`). Tried: (a) rewrite with func_800989B8(0) and handle/index split -> 350 (target keeps handle in $v1 and tests bne before using s0=result; ours emits extra move $a0,$zero). (b) do/while with separate off local -> 2612 (frame becomes 0x30, saved-reg order wrong). Target keeps arg1 in $s1 across the loop (andi $v0,$s1,0xffff for high), frame 0x28 with s0..s4, ra. Next step: start from saved_best and keep arg1 in s1, computing high/low from arg1 inline at call sites.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795204127.6898649,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Rechecked best 215. Equal-score defined rewrite sets index=handle before computing the masked offset, then assigns handle=index. Saved best reads index before initialization and omits the argument to matched callee func_800989B8(u32). Explicit forwarding in a larger do/while rewrite worsened register pressure; changing backedge alone scored 762. Target puts handle in v1 and keeps a separate masked index in s2.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795205525.66649,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Rechecked baseline 215, still uses uninitialized index and a zero-argument call declaration. Six trials exhausted. Defining a separate index masked from handle fixed v1 at the initial branch but scored 565 because GCC eliminated both call-side masks and introduced an extra move near the backedge. Prototype to unspecified args, comparison against result, and stride factorization did not change displayed diff.\nSet index = handle & 0xff before computing stride and retained explicit u8 call conversions.\nGot v1 at the first branch and s2 for masked value, but generated two moves instead of call-side andi and one extra instruction near the backedge.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795209534.8488169,
+  "score_before": 215,
+  "score_after": 215
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Rechecked saved baseline score 215; function target 78 instructions, C generates 79. It contains undefined read of index to form 0x1a0 stride before assigning index=handle, and matched func_800989B8 has actual argument u32 (candidate falsely declares zero-arg). Defined rewrite compiled score 215 too; 23 mismatches mostly registers: target carries handle in v1 and masked byte in s2; candidate moves handle into a1 and computes stride in v1, creating one extra move. Next step: use actual func_800989B8(u32) and restructure loop so byte-masked handle feeds index comparison separately from stride; test loop condition/temporary scopes.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795213529.0563478,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Saved best 215 retained. Defined-variable do/while rewrites (result=-1; do{idx; off=idx*0x1a0; if(D_8010D784[off]!=handle) return result; ...; handle=D_8010D734[idx*0x1a0]; result=0;}while(handle!=-1)) score 788-1563: GCC hoists &D_8010D734 into a saved reg (extra frame 0x30 vs 0x28) and drops the redundant andi on result=(u8)idx (target has andi s0,s2,0xff after andi s2,v1,0xff). Next step: make the final D_8010D734 access not CSE with the offset and keep idx a u8 local so result=idx re-masks; start from rev 72930840276580b559e0 (788).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795225624.262505,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Best clean structure: revision 935dee4a175b26064b9f (score 600, only 3 rows differ: target `andi $s0,$s2,0xff` x2 and `andi $a3,$s3,0xff`, ours `move`). Uses goto loop (while/do loops hoist gVoiceChannelTable lui), s32 idx = handle & 0xff, arg1 reused as byte offset (idx*0x1a0) so it shares s1, result=(u8)idx. GCC knows the masks from nonzero_bits so drops the redundant andi. Tried: prototype types s32/u32/s8/u16 (worse/equal), idx=arg0 pre-init (no effect), u8 idx (715). Saved best 215 (uninit index) stays better by score. Next step: find a way to make low/idx look unmasked to GCC (e.g. idx computed in a different basic block / non-single-set), keeping arg1 reuse.\nprototype types, pre-init idx, u8 idx\nnone of them restored the three andi instructions",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795229758.3577259,
+  "score_before": 1263,
+  "score_after": 420,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Matched similar function structure. Correcting soundResolveHandle call arity (one argument) preserved best score 1534. A volatile s64 local improved score to 1530 by changing frame/register allocation; replacing it with a two-word array tied at 1530. First mismatch remains prologue: target frame 0x28 and saves s1=a1, s0=-1; candidate frame 0x38 maps arg1 to s4 and computes masks/shifts near calls instead of hoisting them. Next step: Try declaration order and narrower unused locals to induce target frame and register mapping.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795240053.23194,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Rechecked 1310. Structured backedge scored 2703, u16 parameter 1719, u32 index 1425; address temporary and callee parameter width unchanged. Target repeats index masks and differs in argument register allocation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795244952.8225112,
+  "score_before": 2703,
+  "score_after": 1310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Restored inherited best candidate (1310 historical); current profile/header recheck score 1324. Tried u32 index (1315), u8 value plus u32 index (1425), volatile keep-index local (1324). Local batch tried shared-tail, callee arg/return widths, parameter width and backward-loop form; these tied or were substantially worse. Target uses repeated andi index masks and absolute D_8010D76F references; candidate uses byte pointer temporary/offset addressing and differs in frame size (target 0x28, candidate 0x30).\nIndex/value widths and volatile local, plus local repair families; none beat 1310 inherited best.\nu32 index improved current recheck to 1315 but still lower historical score comparison unavailable; volatile keep-index candidate 1324.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246381.683181,
+  "score_before": 1310,
+  "score_after": 1310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Draft reconstruction scored 2514; corrected second argument and word loads scored 2598. Historical 1310 source unavailable. Target loads arg1 from a1 and fields D_8010D784 and D_8010D734 as words.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795247207.4881809,
+  "score_before": 1310,
+  "score_after": 1310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Session allowance ending. Current reconstructed best 2204; historical 215 candidate was not available on claim. Explicit arg0 forwarding and arg1 signature correct; duplicate calls in arms improved 2514 to 2404, unsigned halfword cast improved to 2204. Treating all globals as pointers scored 5694; target only D_8010D784 is loaded as a word.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795248049.162287,
+  "score_before": 2514,
+  "score_after": 2204,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Word loads at D_8010D784 and D_8010D748 and inline high argument computation improved the reconstructed candidate to 1185. Target still has repeated byte masks and different loop control. Address temporary worsened to 1754; call arity variants unchanged. Signed-to-unsigned next-link load scored 1185 but changes semantics.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795249353.3622332,
+  "score_before": 2204,
+  "score_after": 1185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Current best 1185 rechecked. Added redundant idx reassignment before second call did not change score; six compiles without improvement reached. Target repeatedly masks current handle byte into s2 and recomputes address at calls/loop; best candidate holds idx/off and makes compact 70-instruction body vs target 78. A temporary-address experiment previously worsened to 1754; call arity variants unchanged.\nRedundant idx=v&255 before second call; unchanged 1185. Rechecked best baseline.\nNo improvement. Mismatch includes target repeated andi s2, addu base+offset, and loop control/address recomputation.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795250325.402936,
+  "score_before": 1185,
+  "score_after": 1185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Verified baseline 565. Register qualifier on high value and masked temporary reuse generated identical instructions; return temporary reuse scored 670 and branch inversion 1225. Target has three repeated handle masks absent from candidate.\nReused call-index local for return value\n670; removed five target mismatch sites but introduced nine",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256303.67277,
+  "score_before": 680,
+  "score_after": 565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
+ },
+ {
+  "function": "func_8008E680",
+  "text": "Inherited score 215 reads index before initialization and omits the resolver argument. Donor adaptation scored 1428. Passing arg0 and assigning index=handle at initial and backedge paths scored 335 (e0aaabaaec0823a09959). Using handle for the link stride scored 325 (158633f0e7c6f29d2fd0), with correct dataflow. Mask at loop head scored 565 and using handle only for first stride scored 420.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270944.194848,
+  "score_before": 215,
+  "score_after": 215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  }
 ]
