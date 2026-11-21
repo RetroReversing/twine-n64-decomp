@@ -29,19 +29,18 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
             do {
                 if (*(u8 *)((u8 *)&sDataBankFlags + var_v1) != 0) {
                     if (*(s32 *)((u8 *)&sDataBankSlots + var_v1) == arg0) {
-                        arg0 = var_a0;
                         goto found;
                     }
                 }
                 ++var_a0;
                 var_v1 += 0x1228;
             } while (var_a0 < 2U);
-            arg0 = var_a0;
             var_a0 = -1U;
 found:
+            arg0 = var_a0;
             if (arg0 != -1) {
                 osRecvMesg(&sDataBankMesgQueue, 0, 1);
-                if ((u8)(*(u8 *)((u8 *)&sDataBankFlags + (arg0 * 0x1228)) << 1) == 4) {
+                if ((*(u8 *)((u8 *)&sDataBankFlags + (arg0 * 0x1228)) & 0x7f) == 2) {
                     var_fs0 = (f32)*(u32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228)) / (f32)*(u32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                 } else {
                     var_fs0 = 0.0f;

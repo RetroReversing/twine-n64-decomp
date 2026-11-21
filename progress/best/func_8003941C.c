@@ -33,7 +33,14 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
   state.done = 0;
   do
   {
-    var_s1 = 0;
+    if (state.flags)
+    {
+      var_s1 = 0;
+    }
+    else
+    {
+      var_s1 = 0;
+    }
   }
   while (0);
   if (((*arg0) != NULL) || ((func_80043FA0(), (*arg0) != NULL)))
@@ -67,16 +74,20 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
           offset = 0x6C;
           do
         {
-          ent = (f32 *) (((u8 *) sp18) + offset);
-          ent[0] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 0)))) * 0.015625f;
-          ent[1] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 2)))) * 0.015625f;
-          ent[2] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 4)))) * 0.015625f;
-          ent[3] = (f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 8)));
-          ent[4] = (f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 0xA)));
-          ent[5] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xC];
-          ent[6] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xD];
-          ent[7] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xE];
-          ent[8] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xF];
+          do
+          {
+            ent = (f32 *) (((u8 *) sp18) + offset);
+            ent[0] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 0)))) * 0.015625f;
+            ent[1] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 2)))) * 0.015625f;
+            ent[2] = ((f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 4)))) * 0.015625f;
+            ent[3] = (f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 8)));
+            ent[4] = (f32) (*((s16 *) (((u8 *) (var_s1 + (spF0[var_s2] * 16))) + 0xA)));
+            ent[5] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xC];
+            ent[6] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xD];
+            ent[7] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xE];
+            ent[8] = (f32) ((u8 *) (var_s1 + (spF0[var_s2] * 16)))[0xF];
+          }
+          while (0);
           if (state.rotation != NULL)
           {
             rotateVec3ByMat3(spF8, ent);

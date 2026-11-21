@@ -16,9 +16,9 @@ s32 func_80030108(void *arg0)
   short var_v0;
   s32 __repair_phase_var_v0;
   s32 var_v1;
-  s32 var_v1_2;
+  short var_v1_2;
   u16 temp_a0;
-  u32 temp_a1;
+  
   u32 temp_v1_2;
   u8 temp_a0_2;
   u8 temp_a1_3;
@@ -42,7 +42,7 @@ s32 func_80030108(void *arg0)
       if (temp_v0 >= 0)
       {
         var_v1 = temp_v1_2 - 0x20;
-        if (temp_v0 >= 0x25)
+        if ((temp_v0 + 1) >= (0x25 + 1))
         {
           var_v1 = 0x24;
         }
@@ -65,12 +65,12 @@ s32 func_80030108(void *arg0)
       {
         var_a0 = 0;
       }
-      temp_a1 = ((u32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0x10)))) >> 8;
-      __repair_phase_var_v0 = temp_a1 & 0xFF;
+      temp_v1_2 = ((u32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0x10)))) >> 8;
+      __repair_phase_var_v0 = temp_v1_2 & 0xFF;
       temp_v0 = __repair_phase_var_v0 - 0x20;
       if (temp_v0 >= 0)
       {
-        var_a2 = temp_a1 - 0x20;
+        var_a2 = temp_v1_2 - 0x20;
         if (temp_v0 >= 0x61)
         {
           var_a2 = 0x60;
@@ -83,7 +83,7 @@ s32 func_80030108(void *arg0)
       temp_a1_2 = *((void **) (((char *) arg0) + 4));
       *((u32 *) (((char *) temp_a1_2) + 0x10)) = (u32) ((((var_v1 << 0x18) | ((var_a0 & 0xFF) << 0x10)) | ((var_a2 & 0xFF) << 8)) | (*((u8 *) (((char *) temp_a1_2) + 0x13))));
       temp_v0 = (u8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0xC)))) + 0x10)));
-      temp_v0 = temp_v0 - 0x20;
+      temp_v0 -= 0x20;
       if (temp_v0 >= 0)
       {
         var_v1_2 = temp_v0_8 - 0x20;
@@ -149,7 +149,11 @@ s32 func_80030108(void *arg0)
         var_v0 = 0;
       }
       temp_v0 = var_v0 & 0xFF;
-      __repair_phase_temp_v0 = (((temp_v0 << 0x18) | (temp_v0 << 0x10)) | (temp_v0 << 8)) | 0xFF;
+      do
+      {
+        __repair_phase_temp_v0 = (((temp_v0 << 0x18) | (temp_v0 << 0x10)) | (temp_v0 << 8)) | 0xFF;
+      }
+      while (0);
       *((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x10)))) + 0x10)) = __repair_phase_temp_v0;
       *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x14)))) + 0x10)) = (int) __repair_phase_temp_v0;
       *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x18)))) + 0x10)) = __repair_phase_temp_v0;

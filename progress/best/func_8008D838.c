@@ -74,7 +74,6 @@ void func_8008D838(void)
   s32 var_s2_4;
   s32 var_s3;
   s32 var_s6;
-  s32 var_v0_3;
   s32 var_v1_2;
   s32 var_v1_3;
   u32 var_v1;
@@ -315,13 +314,12 @@ void func_8008D838(void)
               if (((temp_a1_3 < var_s0_2) && (temp_v1_7 < var_s0_2)) || ((var_s0_2 < temp_a1_3) && (var_s0_2 < temp_v1_7)))
               {
                 var_a2 = *((u32 *) (((char *) var_s1) + (-0x2E)));
-                var_v0_3 = (*((s32 *) (((char *) var_s1) + (-0x36)))) + D_80109680;
+                *((s32 *) (((char *) var_s1) + (-0x36))) = (*((s32 *) (((char *) var_s1) + (-0x36)))) + D_80109680;
               }
               else
               {
-                var_v0_3 = *((s32 *) (((char *) var_s1) + (-0x32)));
+                *((s32 *) (((char *) var_s1) + (-0x36))) = *((s32 *) (((char *) var_s1) + (-0x32)));
               }
-              *((s32 *) (((char *) var_s1) + (-0x36))) = var_v0_3;
             }
           }
           var_s0_2 = var_a2;
@@ -397,6 +395,7 @@ void func_8008D838(void)
                   var_v1_3 = 0x7F0000;
                   if (temp_s2_2 <= 0x7F0000)
                   {
+                      { long long phantom_wide = temp_a0; }
                     var_v1_3 = temp_s2_2;
                   }
                 }

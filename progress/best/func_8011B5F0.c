@@ -131,7 +131,14 @@ void func_8011B5F0(void *arg0)
 
     if (temp_s0)
     {
-      temp_a0_2 = *__repair_phase_storage.pointer;
+      if (var_a0_4 || arg0)
+      {
+        temp_a0_2 = *__repair_phase_storage.pointer;
+      }
+      else
+      {
+        temp_a0_2 = *__repair_phase_storage.pointer;
+      }
     }
     else
     {
@@ -190,7 +197,7 @@ void func_8011B5F0(void *arg0)
         *((s32 *) (((char *) arg0) + 0x3C)) = 0;
         *((f32 *) (((char *) arg0) + 0x40)) = 0.0f;
         *((s32 *) (((char *) arg0) + 0x44)) = 0;
-        setActorStatusBits(*((s32 *) (((char *) (&sProbeActors)) + temp_s1_3)));
+        setActorStatusBits(*((s32 *) (((char *) (&sProbeActors)) + (temp_s0 * 4))));
         temp_a0_4 = *((void **) (((u8 *) (&sProbeStates)) + temp_s1_3));
         *((s32 *) (((char *) temp_a0_4) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0_4) + 0x28))) & (~0xFC)) | 0x1C);
         return;

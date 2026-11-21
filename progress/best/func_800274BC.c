@@ -34,11 +34,11 @@ void func_800274BC(s32 arg0, u32 arg1) {
     s8 temp_v0;
     u16 temp_v0_2;
     u32 var_v0;
-    u8 temp_a0;
+    s32 temp_a0;
     u32 temp_t0;
     u8 temp_v1;
     u32 var_a0;
-    u8 var_a0_2;
+    
     s32 var_a0_3;
     u8 var_a1;
     s32 var_s1;
@@ -99,18 +99,19 @@ void func_800274BC(s32 arg0, u32 arg1) {
         if (temp_a0_2 != 0) {
             temp_a1 = M2C_FIELD(temp_s0, void **, 8);
             var_v0_3 = sMenuItemParamTable[temp_a0_2];
-            var_a0_2 = M2C_FIELD(gSaveMenuState, u8 *, 0x30);
+            temp_a0 = M2C_FIELD(gSaveMenuState, u8 *, 0x30);
         } else {
             if (temp_v0_2 & 0x80) {
                 temp_a1 = M2C_FIELD(temp_s0, void **, 8);
                 var_v0_3 = gMenuSoundParams;
-            } else {
+            
+            temp_a0 = M2C_FIELD(temp_a1, u8 *, 0x13);} else {
                 temp_a1 = M2C_FIELD(temp_s0, void **, 8);
                 var_v0_3 = sMenuDefaultSoundParams;
-            }
-            var_a0_2 = M2C_FIELD(temp_a1, u8 *, 0x13);
+            
+            temp_a0 = M2C_FIELD(temp_a1, u8 *, 0x13);}
         }
-        M2C_FIELD(temp_a1, s32 *, 0x10) = (var_v0_3 & ~0xFF) | var_a0_2;
+        M2C_FIELD(temp_a1, s32 *, 0x10) = (var_v0_3 & ~0xFF) | temp_a0;
                         M2C_FIELD(gSaveMenuState, u8 *, 8) = var_s1;
                         var_v0_4 = var_s1 & 0xFF;
     temp_s0 = M2C_FIELD(temp_s2, s32 *, 0) + ((var_v0_4) * 0x28);

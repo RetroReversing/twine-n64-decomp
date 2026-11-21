@@ -18,6 +18,15 @@ inline static s32 *inline_fn(void *arg0)
   return (s32 *) (((char *) arg0) + 0x50);
 }
 
+typedef struct {
+  char pad[0x58];
+  unsigned int mode : 16;
+  unsigned int state : 14;
+  unsigned int spare : 2;
+  unsigned int flags : 9;
+  unsigned int other : 23;
+} StateFields;
+
 void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
 {
   s16 var_v0_6;
@@ -96,19 +105,12 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       }
 
     case 0x40:
-      {
-      s32 flags;
-      u32 packed_flags, packed_state;
-      *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
-      packed_state = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      packed_flags = *((u32 *) (((char *) arg1) + 0x5C));
-      flags = *inline_fn(arg1);
-      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((packed_state & 0xFFFF0003) | ((((packed_state >> 2) & 0x3FFF) | 4) * 4));
-      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) ((packed_flags & 0x7FFFFF) | (((packed_flags >> 0x17) | 0x20) << 0x17));
-      *inline_fn(arg1) = flags & ~0x400;
+      ((StateFields *) arg1)->mode = 0x18;
+      ((StateFields *) arg1)->state |= 4;
+      ((StateFields *) arg1)->flags |= 0x20;
+      *inline_fn(arg1) &= ~0x400;
       *arg2 = 1;
       return;
-      }
 
     case 0x4D:
       var_v0 = 0x18;
@@ -200,7 +202,8 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       var_v0_3 = temp_v1_2 & 0xFF81FFFF;
       var_v1 = ((temp_v1_2 >> 0x11) & 0x3F) | 4;
       *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
-      goto store_mode_flag;
+      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+      return;
 
     case 0x68:
       temp_v0_10 = *((u32 *) (((char *) arg1) + 0x5C));
@@ -339,21 +342,22 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
       var_v0_3 = ((int) temp_v1_3) & 0xFF81FFFF;
       var_v1 = ((temp_v1_3 >> 0x11) & 0x3F) | 1;
-      goto store_mode_flag;
+      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+      return;
 
     case 0x3C:
       temp_v1_4 = *((u32 *) (((char *) arg1) + 0x5C));
       *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
       var_v0_3 = temp_v1_4 & 0xFF81FFFF;
       var_v1 = ((temp_v1_4 >> 0x11) & 0x3F) | 2;
-      goto store_mode_flag;
+      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
+      return;
 
     case 0x3D:
       temp_v1_5 = *((u32 *) (((char *) arg1) + 0x5C));
       var_v0_3 = temp_v1_5 & 0xFF81FFFF;
       *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
       var_v1 = ((temp_v1_5 >> 0x11) & 0x3F) | 8;
-      store_mode_flag:
       *((u32 *) (((char *) arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
       return;
 
@@ -446,12 +450,10 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_28 & 0xFFFF0003) | ((((temp_v0_28 >> 2) & 0x3FFF) | 2) * 4));
 
     case 0x14:
-      *((s16 *) (((char *) arg1) + 0x58)) = 0x18;
-      temp_v0_29 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      temp_v1_8 = *((u32 *) (((char *) arg1) + 0x5C));
-      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_29 & 0xFFFF0003) | ((((temp_v0_29 >> 2) & 0x3FFF) | 1) * 4));
+      ((StateFields *) arg1)->mode = 0x18;
+      ((StateFields *) arg1)->state |= 1;
       *inline_fn(arg1) &= ~0x600;
-      *((u32 *) (((char *) arg1) + 0x5C)) = (u32) ((temp_v1_8 & 0x7FFFFF) | (((temp_v1_8 >> 0x17) | 0x10) << 0x17));
+      ((StateFields *) arg1)->flags |= 0x10;
       *((s8 *) (((char *) arg1) + 0x54)) = (s8) (*((u16 *) (((char *) arg0) + 0x2C)));
       *((s8 *) (((char *) arg1) + 0x55)) = (s8) (*((u16 *) (((char *) arg0) + 0x2E)));
       *arg2 = 5;
@@ -465,5 +467,6 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
   }
 
 }
+
 
 

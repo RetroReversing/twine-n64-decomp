@@ -17,7 +17,8 @@ void func_8001E898(void *item, s32 dim, s32 draw)
     s32 width;
     s32 selected;
     if (obj) {
-        flags = FIELD(obj,s32,0x28) & ~0xFC;
+        flags = FIELD(obj,s32,0x28);
+        flags &= ~0xFC;
         FIELD(obj,u16,0x20) = FIELD(item,u16,4);
         width = FIELD(item,u16,6);
         { u32 enabled = (u8)dim == 0;

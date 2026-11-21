@@ -132,6 +132,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   f32 local_sp160[4];
   f32 local_sp170[4];
   f32 local_sp180[4];
+  volatile char pad;
   void * volatile sp194;
   void *sp19C;
   void *sp1A4;

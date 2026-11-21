@@ -63,9 +63,13 @@ void func_8002F068(void *unused, void *arg1)
       D_800BFC96 = 63 - phase;
     }
     palette = D_800BD640;
-    if (D_800BFC92 & 1)
+    if (!(D_800BFC92 & 1))
     {
-      if (D_800BD640)
+      color = palette + 9;
+    }
+    else
+    {
+      if (!(D_800BD640))
       {
         color = palette + 1;
       }
@@ -73,10 +77,6 @@ void func_8002F068(void *unused, void *arg1)
       {
         color = palette + 1;
       }
-    }
-    else
-    {
-      color = palette + 9;
     }
     current = D_800E1560;
     item->color = (*color) & (~255);

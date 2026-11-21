@@ -219,7 +219,7 @@ void func_800561BC(void *arg0) {
     s32 temp_v1_9;
     s32 var_s0_4;
     s32 var_s0_5;
-    s32 var_s4_2;
+    
     int var_s6;
     s32 var_v0;
     s32 var_v0_2;
@@ -713,7 +713,7 @@ block_138:
             }
             if ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)) & 3) {
                 if (var_s6 == 1) {
-                    var_s4_2 = -1;
+                    var_s1 = -1;
                     if (D_80108F84 != NULL) {
                         local.sp18C = (s32) (*(u8 *)((char *)((*(void **)((char *)(D_80108F84) + 0x3C))) + 0x47));
                     }
@@ -724,16 +724,16 @@ block_138:
                     temp_a1_2 = local.sp18C - 1;
                         switch (temp_a1_2) {            /* switch 2 */
                         case 0:                     /* switch 2 */
-                            var_s4_2 = 1;
+                            var_s1 = 1;
                             break;
                         case 1:                     /* switch 2 */
-                            var_s4_2 = 1;
+                            var_s1 = 1;
                             break;
                         case 3:                     /* switch 2 */
-                            var_s4_2 = 0xB;
+                            var_s1 = 0xB;
                             break;
                         case 5:                     /* switch 2 */
-                            var_s4_2 = 0x1D;
+                            var_s1 = 0x1D;
                             break;
                         case 6:
                         case 7:
@@ -745,7 +745,7 @@ block_138:
                             break;
                         }
                     if ((func_80056124(arg0, temp_s2, &local.sp40) << 0x18) != 0) {
-                        var_s4_2 = -1;
+                        var_s1 = -1;
                     }
                     if (D_80108F84 != NULL) {
                         if ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 0x80) {
@@ -790,14 +790,14 @@ block_138:
                             (*(s32 *)((char *)(D_80108F84) + 0x50)) = (s32) ((*(s32 *)((char *)(D_80108F84) + 0x50)) & ~0x20);
                         }
                     }
-                    if ((var_s4_2 != -1) && (gBorderSkipActive == 0) && ((gPlayerActor != NULL) || (D_80108F84 != NULL))) {
+                    if ((var_s1 != -1) && (gBorderSkipActive == 0) && ((gPlayerActor != NULL) || (D_80108F84 != NULL))) {
                         temp_v0_13 = func_800166A0();
                         if (temp_v0_13 != NULL) {
                             (*(s32 *)((char *)(temp_v0_13) + 0x1C)) = 0;
                             (*(f32 *)((char *)(temp_v0_13) + 0x20)) = local.sp40;
                             (*(f32 *)((char *)(temp_v0_13) + 0x24)) = local.sp44;
                             (*(f32 *)((char *)(temp_v0_13) + 0x28)) = local.sp48;
-                            func_80044710(temp_v0_13, var_s4_2, 0x1B);
+                            func_80044710(temp_v0_13, var_s1, 0x1B);
                             if (D_80108F84 != NULL) {
                                 local.spB0 = local.sp70;
                                 local.spB4 = local.sp74;

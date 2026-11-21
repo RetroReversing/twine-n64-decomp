@@ -21,6 +21,11 @@ typedef struct
   unsigned char field_28;
   unsigned char field_29;
 } __repair_record_arg2;
+inline static int inline_fn(u32 arg0)
+{
+  return (arg0 >> 8) & 0xF;
+}
+
 void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
 {
   s16 temp_t2_2;
@@ -225,7 +230,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
   *((s32 *) (((char *) temp_a1_4) + 4)) = 0;
   *((s32 *) (((char *) temp_a1_4) + 0xC)) = 0xC0300;
   *((s32 *) (((char *) temp_a1_4) + 0x10)) = 0xF2000000;
-  ((__repair_field_8 *) temp_a1_4)->value = (s32) ((var_t1 << 0x15) | ((((((s32) (((__repair_record_arg2 *) arg2)->field_24 + 7)) >> 3) & 0x1FF) << 9) | 0xF5080000));
+  ((__repair_field_8 *) temp_a1_4)->value = (s32) (((unsigned short) ((var_t1 << 8) << 13)) | ((((((s32) (((__repair_record_arg2 *) arg2)->field_24 + 7)) >> 3) & 0x1FF) << 9) | 0xF5080000));
   D_80115328 = temp_a1_4 + 8;
   D_80115328 = temp_a1_4 + 0x10;
   D_80115328 = temp_a1_4 + 0x18;
@@ -298,11 +303,24 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
                 var_v1_2 = ((s32) (~var_v0_3)) >> 0x1F;
               }
               else
+                if (((__repair_record_arg2 *) arg2)->field_29)
               {
                 var_v0_3 = ((s32) (temp_t2_2 * ((s16) var_s6))) >> 7;
                 var_v1_2 = -(1 > var_v0_3);
               }
-              *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v0_3 & var_v1_2)) << 0x10) | temp_s4);
+              else
+              {
+                var_v0_3 = ((s32) (temp_t2_2 * ((s16) var_s6))) >> 7;
+                var_v1_2 = -(1 > var_v0_3);
+              }
+              if (arg2)
+              {
+                *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v0_3 & var_v1_2)) << 0x10) | temp_s4);
+              }
+              else
+              {
+                *((s32 *) (((char *) temp_t0_2) + 4)) = (s32) (((var_s1 - (var_v0_3 & var_v1_2)) << 0x10) | temp_s4);
+              }
             }
             else
             {
@@ -366,7 +384,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
           *((s32 *) (((char *) temp_v1_5) + 4)) = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
           var_t9 += 1;
         }
-        while ((var_t9 & 0xFFFF) < (((*((u32 *) (((s8 *) arg2) + 0x28))) >> 8) & 0xF));
+        while ((var_t9 & 0xFFFF) < inline_fn(*((u32 *) (((s8 *) arg2) + 0x28))));
       }
       temp_a0_5 = (u32) ((__repair_record_arg2 *) arg2)->field_28;
       __repair_rows_:

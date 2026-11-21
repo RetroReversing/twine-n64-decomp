@@ -29,7 +29,7 @@ extern u8 D_80117410;
 extern u8 D_80117428;
 extern u8 D_80117578;
 extern u8 D_801176C8;
-inline static int inline_fn(u16 arg0)
+inline static unsigned char inline_fn(u16 arg0)
 {
   return arg0 & 0xFFFF;
 }
@@ -128,8 +128,16 @@ void func_8001C6CC(void)
       }
       if (inline_fn(func_800316B8()) == 1)
       {
-        func_8002BC68(4, 1);
-        D_80102CBE = 0x2B3;
+        if (temp_s0)
+        {
+          func_8002BC68(4, 1);
+          D_80102CBE = 0x2B3;
+        }
+        else
+        {
+          func_8002BC68(4, 1);
+          D_80102CBE = 0x2B3;
+        }
       }
       if ((func_800316B8() & 0xFFFF) == 2)
       {
@@ -138,7 +146,7 @@ void func_8001C6CC(void)
       }
     }
     temp_s0_4 = timerGetTotalSeconds(&D_80102EFC);
-    if (timerGetTotalSeconds(inline_fn234(temp_s5) + ((inline_fn(func_800316B8()) * 8) + (&D_80117578))) >= temp_s0_4)
+    if (temp_s0_4 <= timerGetTotalSeconds(inline_fn234(temp_s5) + ((inline_fn(func_800316B8()) * 8) + (&D_80117578))))
     {
       var_a0 = func_80030C58();
       switch (var_a0)

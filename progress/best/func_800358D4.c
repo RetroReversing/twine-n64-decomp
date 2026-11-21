@@ -227,9 +227,21 @@ void func_800358D4(void *arg0)
   temp_v1_3 = *((s32 *) (((char *) arg0) + 0x100));
   if (temp_v1_3 & 1)
   {
-    m2c_initial_frame.view_spAF.value = 0xFF;
-    var_fv0 = func_800357C8(0.05f) + 1.0f;
- do { m2c_initial_frame.view_spA7.value = 0xFF; m2c_initial_frame.view_sp9F.value = 0xFF; } while (0);
+    if (temp_fs0)
+    {
+      m2c_initial_frame.view_spAF.value = 0xFF;
+      var_fv0 = func_800357C8(0.05f) + 1.0f;
+    }
+    else
+    {
+      m2c_initial_frame.view_spAF.value = 0xFF;
+      var_fv0 = func_800357C8(0.05f) + 1.0f;
+    }
+    do
+    {
+      m2c_initial_frame.view_spA7.value = 0xFF; m2c_initial_frame.view_sp9F.value = 0xFF;
+    }
+    while (0);
     goto block_10;
   }
   if (!(temp_v1_3 & 4))
@@ -311,7 +323,7 @@ void func_800358D4(void *arg0)
                       }
                       if ((*((f32 *) (((char *) arg0) + 0x124))) > 1.0f)
                       {
-                        *((f32 *) (((char *) arg0) + 0x124)) = 1.0f;
+ do { *((f32 *) (((char *) arg0) + 0x124)) = 1.0f; } while (0);
                       }
                       if ((*((f32 *) (((char *) arg0) + 0x124))) < 0.0f)
                       {

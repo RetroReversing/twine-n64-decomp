@@ -15,9 +15,11 @@ typedef s32 M2C_UNK32;
 s32 func_8002FFAC(void *arg0) {
     u8 __repair_frame[8];
     s32 temp_v0_2;
+s32 __repair_phase_temp_v0_2;
     s32 temp_v0_3;
+
     
-    s32 temp_v0_6;
+    
     s32 temp_v0_7;
 s32 __repair_phase_temp_v0_7;
     s32 temp_v1_3;
@@ -31,14 +33,14 @@ s32 __repair_phase_temp_v0_7;
     u32 temp_v1;
     u8 temp_v1_2;
     void *temp_a1;
-    void *temp_v0;
+    
     void *temp_v0_5;
 
-    temp_v0 = M2C_FIELD(arg0, void **, 4);
+    temp_a1 = M2C_FIELD(arg0, void **, 4);
     var_t0 = 1;
-    if (temp_v0 != NULL) {
-        temp_v1 = *(u32 *)((s8 *)temp_v0 + 0x10);
-        if (M2C_FIELD(temp_v0, u8 *, 0x11) != 0x6B) {
+    if (temp_a1 != NULL) {
+        temp_v1 = *(u32 *)((s8 *)temp_a1 + 0x10);
+        if (M2C_FIELD(temp_a1, u8 *, 0x11) != 0x6B) {
             var_v1 = temp_v1 >> 24;
             temp_v0_2 = (u8)var_v1 + 0x10;
             if (temp_v0_2 >= 0) {
@@ -59,7 +61,7 @@ s32 __repair_phase_temp_v0_7;
             } else {
                 temp_a0_2 = 0;
             }
-            temp_v0_2 = temp_a0_2;
+            __repair_phase_temp_v0_2 = temp_a0_2;
             temp_a0_2 = (u32) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0x10) >> 8;
             temp_v0_3 = (temp_a0_2 & 0xFF) + 0x10;
             if (temp_v0_3 >= 0) {
@@ -72,17 +74,17 @@ s32 __repair_phase_temp_v0_7;
             }
             var_t0 = 0;
             temp_a1 = M2C_FIELD(arg0, void **, 4);
-            M2C_FIELD(temp_a1, u32 *, 0x10) = (u32) ((var_v1 << 0x18) | ((temp_v0_2 & 0xFF) << 0x10) | ((var_a0_2 & 0xFF) << 8) | M2C_FIELD(temp_a1, u8 *, 0x13));
+            M2C_FIELD(temp_a1, u32 *, 0x10) = (u32) ((var_v1 << 0x18) | ((__repair_phase_temp_v0_2 & 0xFF) << 0x10) | ((var_a0_2 & 0xFF) << 8) | M2C_FIELD(temp_a1, u8 *, 0x13));
         }
     }
     temp_v0_5 = M2C_FIELD(arg0, void **, 0x10);
     if (temp_v0_5 != NULL) {
         var_v1_2 = M2C_FIELD(temp_v0_5, u8 *, 0x10);
-        temp_v0_3 = (u8)var_v1_2 + 0x10;
+        __repair_phase_temp_v0_2 = (u8)var_v1_2 + 0x10;
         if (var_v1_2 != 0xFF) {
-            if (temp_v0_3 >= 0) {
+            if (__repair_phase_temp_v0_2 >= 0) {
                 var_v1_2 += 0x10;
-                if (temp_v0_3 >= 0x100) {
+                if (__repair_phase_temp_v0_2 >= 0x100) {
                     var_v1_2 = 0xFF;
                 }
             } else {

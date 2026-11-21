@@ -30,17 +30,21 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
   {
     index = arg0 & 0x1F;
     upper = ((u16) arg3) >> 7;
-    temp_a3 = arg2 & 0xFF;
-    if (temp_a3 != 0xFF)
+    temp_a0 = arg2 & 0xFF;
+    if (temp_a0 != 0xFF)
     {
-      groupBase = (u32) inline_fn2(D_800EE420, temp_a3);
-      rowOffset = (arg1 & 0xFF) * 134;
+      groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
+      rowOffset = 134 * (arg1 & 0xFF);
       var_v0 = inline_fn(groupBase, rowOffset);
     }
     else
     {
       rowOffset = (arg1 & 0xFF) * 134;
-      var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
+      do
+      {
+        var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
+      }
+      while (0);
     }
     *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
     temp_a0 = (arg0 & 0x1F) | 0x20;
@@ -57,29 +61,48 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
   if ((arg0 == 0x80) || (arg0 == 0x81))
   {
     index = arg0 & 0xFE;
-    upper = ((u16) arg3) >> 7;
-    temp_a0 = arg2 & 0xFF;
-    if (temp_a0 != 0xFF)
+    if (1)
     {
-      groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
-      rowOffset = (arg1 & 0xFF) * 134;
-      var_v0 = inline_fn(groupBase, rowOffset);
+      upper = ((u16) arg3) >> 7;
+      temp_a0 = arg2 & 0xFF;
+      if (temp_a0 != 0xFF)
+      {
+        groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
+        rowOffset = (arg1 & 0xFF) * 134;
+        var_v0 = inline_fn(groupBase, rowOffset);
+      }
+      else
+      {
+        rowOffset = (arg1 & 0xFF) * 134;
+        var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
+      }
+      *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
+      temp_a2 = arg2 & 0xFF;
+      var_a3 = arg3 & 0x7F;
+    }
+    if (arg1)
+    {
+      index = arg0 | 1;
     }
     else
     {
-      rowOffset = (arg1 & 0xFF) * 134;
-      var_v0 = inline_fn(rowOffset, (u32) D_800F2720);
+      index = arg0 | 1;
     }
-    *((u8 *) inline_fn(index, var_v0)) = upper & 0x7F;
-    temp_a2 = arg2 & 0xFF;
-    var_a3 = arg3 & 0x7F;
-    index = arg0 | 1;
     if (temp_a2 != 0xFF)
     {
       u32 __repair_branch_groupBase_2;
-      __repair_branch_groupBase_2 = (u32) D_800EE420[temp_a2];
-      var_v0 = inline_fn(__repair_branch_groupBase_2, rowOffset);
-      rowOffset = (arg1 & 0xFF) * 134;
+      if (groupBase)
+      {
+        __repair_branch_groupBase_2 = (u32) D_800EE420[temp_a2];
+        var_v0 = inline_fn(__repair_branch_groupBase_2, rowOffset);
+        rowOffset = (arg1 & 0xFF) * 134;
+      }
+      else
+      {
+        __repair_branch_groupBase_2 = (u32) D_800EE420[temp_a2];
+        var_v0 = inline_fn(__repair_branch_groupBase_2, rowOffset);
+        rowOffset = (arg1 & 0xFF) * 134;
+      }
     }
     else
     {
@@ -93,7 +116,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
     temp_a0 = arg2 & 0xFF;
     if (temp_a0 != 0xFF)
     {
-      groupBase = (u32) inline_fn2(D_800EE420, temp_a0);
+      groupBase = (unsigned char) ((u32) inline_fn2(D_800EE420, temp_a0));
       rowOffset = (arg1 & 0xFF) * 134;
       var_v0 = inline_fn(groupBase, rowOffset);
     }
@@ -102,15 +125,34 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3)
       rowOffset = (arg1 & 0xFF) * 134;
       var_v0 = rowOffset + ((u32) D_800F2720);
     }
-    *((u8 *) inline_fn(arg0 & 0xFE, var_v0)) = (index >> 7) & 0x7F;
-    index = arg0 | 1;
-    temp_a2 = arg2 & 0xFF;
-    var_a3 = arg3 & 0x7F;
+    if (arg1)
+    {
+      *((u8 *) inline_fn(arg0 & 0xFE, var_v0)) = (index >> 7) & 0x7F;
+      index = arg0 | 1;
+      temp_a2 = arg2 & 0xFF;
+      var_a3 = arg3 & 0x7F;
+    }
+    else
+    {
+      *((u8 *) inline_fn(arg0 & 0xFE, var_v0)) = (index >> 7) & 0x7F;
+      index = arg0 | 1;
+      temp_a2 = arg2 & 0xFF;
+      var_a3 = arg3 & 0x7F;
+    }
     if (temp_a2 != 0xFF)
     {
-      groupBase = inline_fn2(D_800EE420, temp_a2);
-      rowOffset = (arg1 & 0xFF) * 134;
-      var_v0 = inline_fn(groupBase, rowOffset);
+      if (D_800F2720)
+      {
+        groupBase = inline_fn2(D_800EE420, temp_a2);
+        rowOffset = (arg1 & 0xFF) * 134;
+        var_v0 = inline_fn(groupBase, rowOffset);
+      }
+      else
+      {
+        groupBase = inline_fn2(D_800EE420, temp_a2);
+        rowOffset = (arg1 & 0xFF) * 134;
+        var_v0 = inline_fn(groupBase, rowOffset);
+      }
     }
     else
     {

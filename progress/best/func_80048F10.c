@@ -58,6 +58,8 @@
 #define sp180 stack_sp180[0]
 #define sp184 stack_sp180[1]
 #define sp188 stack_sp180[2]
+#define spB0 stack_spB0[0]
+#define spB4 stack_spB0[1]
 s32 Sphere_OverlapsPoint(void **, void *, f32);
 f32 absFloat(f32);
 s32 applyObjectRotation(void **, s32, f32 *);
@@ -104,8 +106,6 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   } angleOrPoint;
   f32 stack_spA0[3];
   f32 stack_spB0[2];
-#define spB0 stack_spB0[0]
-#define spB4 stack_spB0[1]
   f32 stack_spB8[3];
   f32 stack_spC8[3];
   f32 stack_spD8[3];
@@ -348,10 +348,10 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             sp23C = var_t3;
                             var_t2 = sp238;
                             var_t3 = sp23C;
-                            if ((func_8004D910(&sp48, &spA0, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), ((int) temp_v1_3) + ((*((u16 *) (((char *) var_s2) + 0))) * 0xC), sp1DC) & 0xFF))
+                            if (func_8004D910(&sp48, &spA0, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), ((int) temp_v1_3) + ((*((u16 *) (((char *) var_s2) + 0))) * 0xC), sp1DC) & 0xFF)
                             {
                               f32 distance = spB0;
-                              if (distance >= 0.0f && distance < var_fs2)
+                              if ((distance >= 0.0f) && (distance < var_fs2))
                               {
                                 var_fs2 = distance;
                                 var_s6 = temp_s5;
@@ -571,7 +571,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                     else
                     {
                       var_s3_4 = 0;
-                      if (temp_s1 < ((u16) (*((u16 *) (((char *) temp_s2_2) + 0x40)))))
+                      if ((temp_s1 + 1) <= ((u16) (*((u16 *) (((char *) temp_s2_2) + 0x40)))))
                       {
                         sp21C = &sp158;
                         do
@@ -622,7 +622,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                   segmentClosestPoint((CollisionVec *) sp21C, (CollisionVec *) (temp_v1_15 + ((*((u8 *) (((char *) temp_s0_4) + 1))) * 0xC)), (CollisionVec *) (temp_v1_15 + ((*((u8 *) (((char *) temp_s0_4) + 2))) * 0xC)), (CollisionVec *) (&sp118));
                                   temp_v1_16 = *((s32 *) (((char *) temp_s2_2) + 0x34));
                                   temp_fs1_2 = func_80047AB0(sp21C, &sp118);
-                                  segmentClosestPoint((CollisionVec *) &sp168, (CollisionVec *) (temp_v1_16 + ((*((u8 *) (((char *) temp_s0_4) + 2))) * 0xC)), (CollisionVec *) (temp_v1_16 + ((*((u8 *) (((char *) temp_s0_4) + 0))) * 0xC)), (CollisionVec *) (&sp118));
+                                  segmentClosestPoint((CollisionVec *) (&sp168), (CollisionVec *) (temp_v1_16 + ((*((u8 *) (((char *) temp_s0_4) + 2))) * 0xC)), (CollisionVec *) (temp_v1_16 + ((*((u8 *) (((char *) temp_s0_4) + 0))) * 0xC)), (CollisionVec *) (&sp118));
                                   temp_fv0_4 = func_80047AB0(&sp168, &sp118);
                                   *((CollisionVec *) (&sp128)) = *((CollisionVec *) (&sp138));
                                   var_v0_3 = 1;
@@ -672,7 +672,30 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         while (((u32) (var_s3_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s2_2) + 0x40)))));
                       }
                     }
- do { if (var_s4 != (-1)) { gPlayerActor = NULL; D_80108F84 = var_s7; if (arg7 != NULL) { if ((*((u8 *) (((char *) temp_s2_2) + 0x48))) & 4) {  var_a2 = (*((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 2))) * 3; var_v0_5 = *((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 4)); var_a1 = (*((s32 *) (((char *) temp_s2_2) + 0x34))) + ((*((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 0))) * 0xC); } else {  var_a1 = (*((s32 *) (((char *) temp_s2_2) + 0x34))) + ((*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 0))) * 0xC); var_a2 = (*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 1))) * 3; var_v0_5 = (u16) (*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 2))); } buildPlaneFromPoints(&spF8, var_a1, (*((s32 *) (((char *) temp_s2_2) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s2_2) + 0x34))) + (var_v0_5 * 0xC)); *((f32 *) (((char *) arg7) + 0)) = spF8; *((f32 *) (((char *) arg7) + 4)) = spFC; *((f32 *) (((char *) arg7) + 8)) = sp100; *((f32 *) (((char *) arg7) + 0xC)) = sp104; } } } while (0);
+                    do
+                    {
+                      if (var_s4 != (-1))
+                      {
+                        gPlayerActor = NULL; D_80108F84 = var_s7;
+                        if (arg7 != NULL)
+                        {
+                          if ((*((u8 *) (((char *) temp_s2_2) + 0x48))) & 4)
+                          {
+                            var_a2 = (*((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 2))) * 3; var_v0_5 = *((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 4)); var_a1 = (*((s32 *) (((char *) temp_s2_2) + 0x34))) + ((*((u16 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 6))) + 0))) * 0xC);
+                          }
+                          else
+                          {
+                            var_a1 = (*((s32 *) (((char *) temp_s2_2) + 0x34))) + ((*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 0))) * 0xC); var_a2 = (*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 1))) * 3; var_v0_5 = (u16) (*((u8 *) (((char *) (((char *) (*((u16 **) (((char *) temp_s2_2) + 0x3C)))) + (var_s4 * 3))) + 2)));
+                          }
+                          buildPlaneFromPoints(&spF8, var_a1, (*((s32 *) (((char *) temp_s2_2) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s2_2) + 0x34))) + (var_v0_5 * 0xC));
+                          *((f32 *) (((char *) arg7) + 0)) = spF8;
+                          *((f32 *) (((char *) arg7) + 4)) = spFC;
+                          *((f32 *) (((char *) arg7) + 8)) = sp100;
+                          *((f32 *) (((char *) arg7) + 0xC)) = sp104;
+                        }
+                      }
+                    }
+                    while (0);
                   }
                   else
                   {
@@ -813,7 +836,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                 else
                                   if (arg3 != NULL)
                                 {
-                                  *((f32 *) (((char *) arg3) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
+                                  *((f32 *) (((char *) arg3) - -0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
                                   *((f32 *) (((char *) arg3) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - sp178);
                                   D_80103F00 = var_s7;
                                   *((f32 *) (((char *) arg3) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
@@ -843,7 +866,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                     segmentClosestPoint((CollisionVec *) sp214, (CollisionVec *) (temp_v1_32 + ((*((u8 *) (((char *) var_s0_4) + (-1)))) * 0xC)), (CollisionVec *) (temp_v1_32 + ((*((u8 *) (((char *) var_s0_4) + 0))) * 0xC)), (CollisionVec *) (&sp118));
                                     temp_v1_33 = *((s32 *) (((char *) temp_s2_2) + 0x34));
                                     temp_fs1_4 = func_80047AB0(sp214, &sp118);
-                                    segmentClosestPoint((CollisionVec *) &sp180, (CollisionVec *) (temp_v1_33 + ((*((u8 *) (((char *) var_s0_4) + 0))) * 0xC)), (CollisionVec *) (temp_v1_33 + ((*var_s3_6) * 0xC)), (CollisionVec *) (&sp118));
+                                    segmentClosestPoint((CollisionVec *) (&sp180), (CollisionVec *) (temp_v1_33 + ((*((u8 *) (((char *) var_s0_4) + 0))) * 0xC)), (CollisionVec *) (temp_v1_33 + ((*var_s3_6) * 0xC)), (CollisionVec *) (&sp118));
                                     temp_fv0_8 = func_80047AB0(&sp180, &sp118);
                                     *((CollisionVec *) (&sp128)) = *((CollisionVec *) (&sp138));
                                     var_v0_8 = 1;
@@ -890,7 +913,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             }
                           }
                           var_s0_4 += 3;
-                          var_s3_6 += 3;
+                          var_s3_6 = (u16 *) ((u8 *) var_s3_6 + 3);
                           ++var_s4_3;
                         }
                         while (((u32) (var_s4_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s2_2) + 0x40)))));

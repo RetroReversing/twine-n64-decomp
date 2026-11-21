@@ -10,7 +10,7 @@ s32 freeMenuItemRecord(void *, void *);
 s32 func_80002BD0(void *, s32);
 s32 func_8000C91C(s32);
 void *func_80015F0C();
-unsigned int func_800165E0(void *, s32);
+s32 func_800165E0(void *, s32);
 s32 func_800452E0(void *, void *, s32 *);
 f32 func_80045764(s32 *, s32 *);
 s32 func_80047B14(s32 *, f32, s32 *);
@@ -85,15 +85,10 @@ inline static s32 inline_fn()
   return (s32) sDifficultyLevel;
 }
 
-inline static f32 inline_fn2(f32 *arg0)
-{
-  return arg0[1];
-}
-
 void func_8006D2E4(void *arg0)
 {
   char sp20[0x10];
-  volatile unsigned int sp30;
+  s32 sp30;
   void *sp34;
   void *sp38;
   s32 sp3C;
@@ -136,7 +131,7 @@ void func_8006D2E4(void *arg0)
   s32 var_a2_2;
   s32 var_condition_bit;
   s32 var_s0;
-  s32 var_v0;
+  unsigned short var_v0;
   s32 var_v0_2;
   s32 var_v0_3;
   s32 var_v1;
@@ -302,24 +297,20 @@ void func_8006D2E4(void *arg0)
       }
       if (!((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000))
       {
-        do
+        if ((*((u16 *) (((char *) arg0) + 0x78))) == 2)
         {
-          if ((*((u16 *) (((char *) arg0) + 0x78))) == 2)
+          var_a2 = (((*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
+          if (var_a2 <= 0)
           {
-            var_a2 = (((*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
-            if (var_a2 <= 0)
-            {
-              var_a2 = 1;
-            }
-            else
-              if (var_a2 >= 0x65)
-            {
-              var_a2 = 0x64;
-            }
-            func_80082834(temp_s4, 8, var_a2);
+            var_a2 = 1;
           }
+          else
+            if (var_a2 >= 0x65)
+          {
+            var_a2 = 0x64;
+          }
+          func_80082834(temp_s4, 8, var_a2);
         }
-        while (0);
         if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000)
         {
           goto block_62;
@@ -448,15 +439,15 @@ void func_8006D2E4(void *arg0)
                 }
                 else
                 {
-                  if (gBorderFlipFlag == 1)
-                  {
-                    var_a1 = 0xA0;
-                  }
-                  else
+                  if (!(gBorderFlipFlag == 1))
                   {
                     block_107:
                     var_a0_3 = 0x78;
 
+                  }
+                  else
+                  {
+                    var_a1 = 0xA0;
                   }
                   goto block_108;
                 }
@@ -573,32 +564,35 @@ void func_8006D2E4(void *arg0)
           sp58[2] = *((f32 *) (((char *) sp34) + 0x2C));
           sp58[0] -= sinAngle(temp_fa0) * 0.43f;
           sp58[2] -= cosAngle(temp_fa0) * 0.43f;
-          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < inline_fn2(sp58))) && (!(inline_fn2(sp58) < (*((f32 *) (((char *) temp_s3) + 0x18))))))
+          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < sp58[1])) && (!(sp58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
           {
             *((f32 *) (((char *) arg0) + 0x24)) = sp58[0];
-            *((f32 *) (((char *) arg0) + 0x28)) = inline_fn2(sp58);
+            *((f32 *) (((char *) arg0) + 0x28)) = sp58[1];
             *((f32 *) (((char *) arg0) + 0x2C)) = sp58[2];
             *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
             *((f32 *) (((char *) arg0) + 0x44)) = 0.0f;
-            *((f32 *) (((char *) arg0) + 0x40)) = inline_fn2(sp48);
+            *((f32 *) (((char *) arg0) + 0x40)) = sp48[1];
             *((f32 *) (((char *) temp_s3) + 0x90)) = (f32) (*((f32 *) (((char *) arg0) + 0x40)));
             if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x18)))) < 0.15f)
             {
               var_a1_2 = 0x296;
-              goto block_153;
-            }
-            var_a1_2 = 0x297;
-            if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x14)))) < 0.15f)
-            {
-              block_153:
               func_80002BD0(arg0, var_a1_2);
-
               temp_v1_4 = *((void **) (((char *) arg0) + 0x68));
               *((u16 *) (((char *) temp_v1_4) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_4) + 0xC))) | 0x40);
             }
             else
             {
-              func_80002BD0(arg0, 0x295);
+              var_a1_2 = 0x297;
+              if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x14)))) < 0.15f)
+              {
+                func_80002BD0(arg0, var_a1_2);
+                temp_v1_4 = *((void **) (((char *) arg0) + 0x68));
+                *((u16 *) (((char *) temp_v1_4) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_4) + 0xC))) | 0x40);
+              }
+              else
+              {
+                func_80002BD0(arg0, 0x295);
+              }
             }
             requestSound(0x1B);
             *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x30)) = 0;
@@ -683,7 +677,7 @@ void func_8006D2E4(void *arg0)
               sp48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
               sp48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
               *((f32 *) (((char *) arg0) + 0x24)) = sp48[0];
-              *((f32 *) (((char *) arg0) + 0x28)) = inline_fn2(sp48);
+              *((f32 *) (((char *) arg0) + 0x28)) = sp48[1];
               *((f32 *) (((char *) arg0) + 0x2C)) = sp48[2];
               func_80065684(arg0);
               func_800635BC(arg0, 3);

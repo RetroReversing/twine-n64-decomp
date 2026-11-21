@@ -752,7 +752,7 @@ void func_80065D90(void *arg0)
       {
         var_v0_10 = 0;
       }
-      if (((var_v1_10 ^ 1) | (var_v0_10 ^ 1)) != 0)
+      if (((var_v0_10 ^ 1) | (var_v1_10 ^ 1)) != 0)
       {
         *((s8 *) (((char *) temp_s1) + 0x17E)) = 1;
         if (D_80115088[temp_s3].f0 != 0)

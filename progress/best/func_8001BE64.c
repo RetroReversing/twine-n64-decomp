@@ -6,7 +6,7 @@ s32 func_80025E9C(void *, void *, void *, void *, s32, s32);
 long func_8002B248(s32 *);
 s32 func_8003099C(u8, u8);
 s32 initSaveSlotMenus(void *, void *);
-s32 lookupDataEntry(s32);
+s32 lookupDataEntry(volatile long);
 s32 menuSetItemLabelIndices(void *, void *, void *, void *, s32, s32);
 s32 timerGetTotalSeconds(s32 *);
 extern s32 D_8011AC34;
@@ -75,32 +75,26 @@ void func_8001BE64(void)
       case 5:
 
       case 6:
-        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x1C4);
-        var_v0 = 0x19;
-        if (D_80102FD4 != var_v1)
+        do
       {
+        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x1C4); var_v0 = 0x19;
+        if (D_80102FD4 != var_v1)
         {
-          long long phantom_wide = var_a0;
+          {
+            long long phantom_wide = var_a0;
+          }
+          D_80117730 = 0;
         }
-        D_80117730 = 0;
-      }
         break;
+      }
+      while (0);
 
       case 2:
 
       case 3:
 
       case 4:
-        var_v1 = &D_8011AC34;
-        var_v0 = 0x14;
-        if (D_80102FD4 != (&D_8011AC34))
-      {
-        {
-          long long phantom_wide2 = var_a0;
-        }
-        D_80117730 = 0;
-      }
-        break;
+ do { var_v1 = &D_8011AC34; var_v0 = 0x14; if (D_80102FD4 != (&D_8011AC34)) { { long long phantom_wide2 = var_a0; } D_80117730 = 0; } break; } while (0);
 
       case 7:
         var_v1 = &D_8011AC94;
@@ -248,4 +242,3 @@ void func_8001BE64(void)
     }
   }
 }
-

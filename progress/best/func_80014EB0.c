@@ -24,6 +24,11 @@ extern ClipBounds D_80103F10[];
 extern void *gObjectList;
 extern s32 D_80109E1C;
 extern void *D_8010D53C;
+inline static s32 inline_fn(void *arg0)
+{
+  return (s32) (*((u16 *) (((u8 *) arg0) + 0x40)));
+}
+
 void func_80014EB0(void *arg0, ClipBounds *arg1)
 {
   void *sp10[32];
@@ -156,7 +161,7 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
               else
               {
                 spA7 = 0;
-                if (((s32) (*((u16 *) (((u8 *) temp_s4) + 0x40)))) > 0)
+                if (inline_fn(temp_s4) > 0)
                 {
                   spD4 = 0; spDC = 0;
                   do
@@ -302,7 +307,7 @@ void func_80014EB0(void *arg0, ClipBounds *arg1)
                   }
                   else
                   {
-                    s32 changed = 0;
+                    char changed = 0;
                     if (box.values[0] < (*((f32 *) (((u8 *) temp_a0) + 0))))
                     {
                       *((f32 *) (((u8 *) temp_a0) + 0)) = box.values[0]; changed = 1;

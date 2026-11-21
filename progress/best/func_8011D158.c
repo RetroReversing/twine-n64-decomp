@@ -57,7 +57,11 @@ void func_8011D158(short slot)
           if ((temp++) != index)
           {
             Save *other = (*cursor)->save;
- do { rank -= delta >= (other->start - other->end); } while (0);
+            do
+            {
+              rank -= delta >= (other->start - other->end);
+            }
+            while (0);
           }
           if (temp)
           {
@@ -77,8 +81,16 @@ void func_8011D158(short slot)
           goto format;
 
         case 2:
+          if (label)
+        {
           id = 0x2E6;
           goto format;
+        }
+        else
+        {
+          id = 0x2E6;
+          goto format;
+        }
 
         case 3:
           id = 0x2E7;
@@ -133,3 +145,4 @@ void func_8011D158(short slot)
     }
   }
 }
+

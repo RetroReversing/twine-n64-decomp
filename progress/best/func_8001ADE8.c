@@ -1,15 +1,3 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 #undef sp34
 s32 actorLinkToSurface(s32, void *, s32);
 s32 findEntryById(s32, s32);
@@ -301,22 +289,14 @@ void func_8001ADE8(void)
     }
     else
     {
-      *((s8 *) (((char *) temp_s7) + (-1))) = 3;
-      *((s8 *) (((char *) temp_fp) + (-2))) = 5;
-      D_801002E8 = 7;
-      D_801002E9 = 3;
-      D_801002E6 = 1;
-      D_801002E7 = 1;
-      func_80025F78(temp_a0_3, 0);
-      func_80025F78(temp_s6, 0);
-      func_80025F78(temp_s5 - 0x28, 0);
+ do { *((s8 *) (((char *) temp_s7) + (-1))) = 3; *((s8 *) (((char *) temp_fp) + (-2))) = 5; D_801002E8 = 7; D_801002E9 = 3; D_801002E6 = 1; D_801002E7 = 1; func_80025F78(temp_a0_3, 0); func_80025F78(temp_s6, 0); func_80025F78(temp_s5 - 0x28, 0); } while (0);
       func_80025F78(temp_s5, 0);
     }
     actorSlot = &gPickupActor;
-    if ((*(s32 *)actorSlot) == NULL)
+    if ((*((s32 *) actorSlot)) == NULL)
     {
       actor = spawnEffectObject(0, 0, 0);
-      *(s32 *)actorSlot = actor;
+      *((s32 *) actorSlot) = actor;
       if (actor == NULL)
       {
         return;
@@ -335,9 +315,9 @@ void func_8001ADE8(void)
       *((f32 *) (((char *) gPickupActor) + 0x28)) = 0.15f;
       *((f32 *) (((char *) gPickupActor) + 0x2C)) = -3.0f;
       func_8002B8AC();
-      actorLinkToSurface(*gProbeObjectList, *(s32 *)actorSlot, 1);
+      actorLinkToSurface(*gProbeObjectList, *((s32 *) actorSlot), 1);
       savedByteLate = &gPickupSavedByte;
-      temp_v1_4 = *(u16 *)(*((u16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC))));
+      temp_v1_4 = *((u16 *) (*((u16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) * 0xC)))));
       gSharedItemArg = -1;
       gSharedItemBusy = 1;
       {
@@ -348,18 +328,17 @@ void func_8001ADE8(void)
       model = *((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)));
       gSharedItemBusy = 0;
       model = func_8002B9CC(model);
-      func_8000237C(*(s32 *)actorSlot, model, 0, *((&D_801001A3) + inline_fn(savedByteLate)));
-      func_80002BD0(*(s32 *)actorSlot, 0x14D);
+      func_8000237C(*((s32 *) actorSlot), model, 0, *((&D_801001A3) + inline_fn(savedByteLate)));
+      func_80002BD0(*((s32 *) actorSlot), 0x14D);
       *((f32 *) (((char *) (*((void **) (((char *) gPickupActor) + 0x68)))) + 0x34)) = 0.05f;
       if (!(getKeyEntryFlag(*((s32 *) (((u8 *) (&gSaveSlotInfo)) + inline_fn(savedByteLate)))) & 0xFF))
       {
-        clearProbeState(*(s32 *)actorSlot, 0x2A9);
+        clearProbeState(*((s32 *) actorSlot), 0x2A9);
       }
       else
       {
-        clearProbeState(*(s32 *)actorSlot, 0x327);
+        clearProbeState(*((s32 *) actorSlot), 0x327);
       }
     }
   }
 }
-

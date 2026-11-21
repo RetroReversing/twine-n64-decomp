@@ -34,10 +34,20 @@ typedef struct
   unsigned char pad[16];
   int value;
 } __repair_field_10;
+inline static int inline_fn(__repair_field_28 *arg0)
+{
+  return arg0->value;
+}
+
+inline static unsigned inline_fn2(unsigned arg0)
+{
+  return (arg0 >> 0x18) << 0x18;
+}
+
 void func_8003C228(void *arg0, s32 arg1, s32 arg2)
 {
   s8 *__base_D_800C0738;
-  unsigned sp14;
+  volatile int sp14;
   u8 sp1F;
   s32 temp_s7;
   register f32 temp_fs1;
@@ -66,9 +76,9 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
     temp_s6 = temp_fs0;
     do
     {
-      if (((((u32) ((__repair_field_28 *) var_s0)->value) >> 2) & 0x3F) == sp14)
+      if (((((u32) inline_fn((__repair_field_28 *) var_s0)) >> 2) & 0x3F) == sp14)
       {
-        temp_s1 = ((__repair_field_10 *) var_s0)->value;
+        temp_s1 = inline_fn((__repair_field_10 *) var_s0);
         temp_v1 = *((u16 *) (((char *) var_s0) + 0x1E));
         do
         {
@@ -146,7 +156,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
               sDisplayListCursor = temp_a3 + 8;
               sDisplayListCursor = temp_a3 + 0x10;
               ((__repair_field_0 *) temp_a3)->value = 0xFA000000;
-              *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) ((temp_s2 & 0xFF00) | (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & (0xFF0000 & 0xFFFFu))));
+              *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) ((temp_s2 & 0xFF00) | (inline_fn2(temp_s2) | (temp_s2 & (0xFF0000 & 0xFFFFu))));
               ((__repair_field_8 *) temp_a3)->value = 0xFB000000;
               func_8003B954(temp_s7, temp_s6, var_s0);
             }
@@ -162,7 +172,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
                 *((s32 *) (((char *) temp_a3_2) + 0xC)) = 0;
                 sDisplayListCursor = temp_a3_2 + 8;
                 sDisplayListCursor = temp_a3_2 + 0x10;
-                if ((((__repair_field_28 *) var_s0)->value & 3) == 1)
+                if ((inline_fn((__repair_field_28 *) var_s0) & 3) == 1)
                 {
                   sDisplayListCursor = temp_a3_2 + 0x18;
                   ((__repair_field_10 *) temp_a3_2)->value = 0xFC119623;
@@ -179,12 +189,12 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
               }
               *((s32 *) (((char *) sDisplayListCursor) + 4)) = (s32) (((((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000)) | (temp_s1 & 0xFF00)) | (temp_s1 & 0xFF));
               ((__repair_field_8 *) sDisplayListCursor)->value = 0xFB000000;
-              *((s32 *) (((char *) sDisplayListCursor) + 0xC)) = (s32) ((((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000)) | (temp_s2 & 0xFF00));
+              *((s32 *) (((char *) sDisplayListCursor) + 0xC)) = (s32) (((temp_s2 & 0xFF0000) | ((temp_s2 >> 0x18) << 0x18)) | (temp_s2 & 0xFF00));
               sDisplayListCursor += 8;
               ((__repair_field_0 *) sDisplayListCursor)->value = 0xFA000000;
               temp_a0 = sDisplayListCursor + 0x10;
               sDisplayListCursor = temp_a0;
-              if ((((__repair_field_28 *) var_s0)->value & 3) == 1)
+              if ((inline_fn((__repair_field_28 *) var_s0) & 3) == 1)
               {
                 func_8003AF20(temp_s7, temp_s6, var_s0);
               }
@@ -195,6 +205,9 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
             }
           }
         }
+      }
+      if (1)
+      {
       }
       var_s0 = *((void **) (((char *) var_s0) + 4));
     }

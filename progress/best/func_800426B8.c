@@ -122,7 +122,14 @@ void func_800426B8(s32 arg0, s32 arg1, u8 arg2)
         }
         if (sp56 < header.sectionCount)
         {
-          sp56 = header.sectionCount;
+          if (header.packedSize)
+          {
+            sp56 = header.sectionCount;
+          }
+          else
+          {
+            sp56 = header.sectionCount;
+          }
         }
         if (var_s1 < header.packedSize)
         {

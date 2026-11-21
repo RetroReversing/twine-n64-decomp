@@ -114,7 +114,7 @@ void func_80037DC0(void *arg0)
     *((s32 *) (((char *) temp_a2) + 0)) = 0xDE000000;
     *((s32 *) (((char *) temp_a2) + 4)) = *((s32 *) (((char *) state) + 0x1C70));
     D_8010A4B4 = tail + 8;
-    sDisplayListCursor = temp_a2;
+    sDisplayListCursor = temp_a2 + 8;
     temp_a1 = D_8010A4D8;
     temp_a2 += 8;
     func_80034928(arg0, temp_a1);

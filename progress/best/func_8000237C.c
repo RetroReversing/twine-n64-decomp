@@ -28,6 +28,11 @@ typedef struct
 {
   int value;
 } __repair_field_0;
+inline static u32 inline_fn(s16 arg0)
+{
+  return (u32) arg0;
+}
+
 s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long arg3)
 {
   int __repair_constant = -1;
@@ -57,7 +62,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
   s32 temp_s2;
   s32 temp_s3;
   s32 temp_s5;
-  u32 temp_s7;
+  short temp_s7;
   s32 var_a0;
   int var_a0_2;
   s32 var_a0_3;
@@ -89,12 +94,16 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
   void *temp_v1_2;
   void *var_s3;
   void *var_v1_2;
-  sp1C = (int) arg1;
+  do
+  {
+    sp1C = (int) arg1;
+  }
+  while (0);
   sp2C = 0;
   if (arg0 != NULL)
   {
     temp_v0 = *((s16 *) (((char *) (&D_800C3CF4)) + (arg1 * 0xC)));
-    sp24 = (u32) temp_v0;
+    sp24 = inline_fn(temp_v0);
     temp_v1 = *((void **) (((char *) arg0) + 0x68));
     temp_s1 = *((s16 *) (((char *) (&D_800C3928)) + (temp_v0 * 8)));
     var_s3 = temp_v1 + 0x14;
@@ -180,10 +189,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
           *((f32 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 4)))) + var_a0)) = temp_fv0;
           *((f32 *) (((char *) ((__repair_field_0 *) (*((void **) (((char *) arg0) + 0x68))))->value) + var_a0)) = temp_fv0;
           temp_v0_5 = *((void **) (((char *) arg0) + 0x68));
-          temp_fv0_2 = *((f32 *) (((char *) arg0) + 0x28));
-          *((f32 *) (((char *) (var_a0 + (*((void **) (((char *) temp_v0_5) + 4))))) + 4)) = temp_fv0_2;
-          *((f32 *) (((char *) (var_a0 + ((__repair_field_0 *) temp_v0_5)->value)) + 4)) = temp_fv0_2;
-          temp_v0_6 = *((void **) (((char *) arg0) + 0x68));
+ do { temp_fv0_2 = *((f32 *) (((char *) arg0) + 0x28)); *((f32 *) (((char *) (var_a0 + (*((void **) (((char *) temp_v0_5) + 4))))) + 4)) = temp_fv0_2; *((f32 *) (((char *) (var_a0 + ((__repair_field_0 *) temp_v0_5)->value)) + 4)) = temp_fv0_2; temp_v0_6 = *((void **) (((char *) arg0) + 0x68)); } while (0);
           ++var_a1;
           temp_fv0_3 = *((f32 *) (((char *) arg0) + 0x2C));
           temp_v1_2 = var_a0 + ((__repair_field_0 *) temp_v0_6)->value;
@@ -232,7 +238,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
         func_800060B0(arg0, 0x71, 0);
       }
       else
-        if ((((u32) ((s32) (*((s16 *) (((char *) var_s3) + 0x92))))) >> 2) > 0)
+        if ((inline_fn((s32) (*((s16 *) (((char *) var_s3) + 0x92)))) >> 2) > 0)
       {
         var_a1_3 = 0;
         do
@@ -240,7 +246,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
           *((s32 *) (((char *) (*((void **) (((char *) var_s3) + 0x40)))) + (var_a1_3 * 4))) = 0;
           var_a1_3 += 1;
         }
-        while (var_a1_3 < ((s32) (((u32) (*((s16 *) (((char *) var_s3) + 0x92)))) >> 2)));
+        while (var_a1_3 < ((s32) (inline_fn(*((s16 *) (((char *) var_s3) + 0x92))) >> 2)));
       }
       func_80084180(*((void **) (((char *) var_s3) + 0x44)), *((s32 *) (((char *) var_s3) + 0x40)), *((s16 *) (((char *) var_s3) + 0x92)));
       func_80084180(*((void **) (((char *) var_s3) + 0x48)), *((s32 *) (((char *) var_s3) + 0x40)), *((s16 *) (((char *) var_s3) + 0x92)));
@@ -290,7 +296,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
           while ((*var_s2_2) >= 0);
         }
         temp_fp = arg3 & (-(D_800CA338 == 0));
-        if ((temp_fp != 0) && ((sp10 = (s32) ((int) temp_s5_2), (((u32) (((s32) temp_s5_2) - 0x2B)) < 0x5EU) != 0)))
+        if ((temp_fp != 0) && ((sp10 = (s32) ((int) temp_s5_2), (inline_fn((unsigned char) (((s32) temp_s5_2) - 0x2B)) < 0x5EU) != 0)))
         {
           var_s5 = &D_800AE4DC;
           var_s0_2 = &D_800AE53C;
@@ -316,7 +322,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
                   while ((*var_s0_2) == 0xE);
                 }
                 var_v1_3 = temp_fp;
-                if (temp_fp < 0)
+                if ((temp_fp + 1) <= 0)
                 {
                   var_v1_3 = randomIntBelow(var_a0_3 + 1);
                   if (var_v1_3 != 0)
@@ -332,7 +338,7 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
                   temp_v0_9 = var_s0_2 - (var_v0_3 + var_v1_3);
 
                   temp_s4 = *((s16 *) (((char *) temp_v0_9) + 2));
-                  *((s32 *) (((char *) (*((void **) (((char *) var_s3) + 0x58)))) + 0x38)) = func_8004478C((s32) (*((s16 *) (((char *) temp_v0_9) + 4))), sp10);
+                  *((s32 *) (((char *) (*((void **) (((char *) var_s3) + 0x58)))) + 0x38)) = func_8004478C((s32) (*((s16 *) (((char *) (var_s0_2 - (var_v0_3 + var_v1_3))) + 4))), sp10);
                   var_s1_2 = *var_s0_2;
                   var_a0_2 = 1;
                   if (var_s1_2 >= 0)
@@ -340,16 +346,26 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
                     var_s2_3 = var_s0_2 + 2;
                     do
                     {
-                      var_s0_2 += 3;
-                      if ((*((s16 *) (((char *) var_s2_3) + (-2)))) == temp_s4)
+                      do
                       {
-                        *((s32 *) (((char *) (*((void **) (((char *) var_s3) + 0x58)))) + (var_s1_2 * 4))) = func_8004478C((s32) (*((s16 *) (((char *) var_s2_3) + 0))), (unsigned) sp10);
+                        if (arg0)
+                        {
+                          var_s0_2 += 3;
+                        }
+                        else
+                        {
+                          var_s0_2 += 3;
+                        }
+                        if ((*((s16 *) (((char *) var_s2_3) + (-2)))) == temp_s4)
+                        {
+                          *((s32 *) (((char *) (*((void **) (((char *) var_s3) + 0x58)))) + (var_s1_2 * 4))) = func_8004478C((s32) (*((s16 *) (((char *) var_s2_3) + 0))), (unsigned) sp10);
+                        }
+                        var_s1_2 = *var_s0_2; var_s2_3 += 3;
                       }
-                      var_s1_2 = *var_s0_2;
-                      var_s2_3 += 3;
+                      while (0 <= var_s1_2);
+                      var_a0_2 = 1;
                     }
-                    while (0 <= var_s1_2);
-                    var_a0_2 = 1;
+                    while (0);
                   }
                   goto loop_35;
                 }
@@ -390,4 +406,3 @@ s32 func_8000237C(void *arg0, s32 arg1, s32 arg2, volatile unsigned long long ar
   gBootState = 0;
   return sp2C;
 }
-

@@ -141,174 +141,163 @@ void func_80036BBC(void *arg0)
 
       if ((((temp_v0 != NULL) && ((*((u8 *) (((char *) temp_v0) + 0x45))) != 0xB)) && (!(((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 1) >> 1) & 1))) && ((IsSphereVisible(var_s0 + 0x40, ((__repair_record_var_s0 *) var_s0)->field_4C, var_s2, arg0) << 0x18) != 0))
       {
-        temp_v1_5 = ((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2;
-        if (temp_v1_5 & 0xC)
+        do
         {
-          if (temp_v1_5 & 4)
+          temp_v1_5 = ((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2;
+          if (temp_v1_5 & 0xC)
           {
-            temp_a0 = ((__repair_record_var_s0 *) var_s0)->field_3C;
-            if ((((__repair_field_0 *) temp_a0)->value != 0) || ((func_80043FA0(temp_a0), (*((s32 *) (((char *) ((__repair_record_var_s0 *) var_s0)->field_3C) + 0))) != 0)))
+            if (temp_v1_5 & 4)
             {
-              temp_v1_6 = ((__repair_record_var_s0 *) var_s0)->field_3C;
-              if (!((*((u8 *) (((char *) temp_v1_6) + 0x46))) & 0x80))
+              temp_a0 = ((__repair_record_var_s0 *) var_s0)->field_3C;
+              if ((((__repair_field_0 *) temp_a0)->value != 0) || ((func_80043FA0(temp_a0), (*((s32 *) (((char *) ((__repair_record_var_s0 *) var_s0)->field_3C) + 0))) != 0)))
               {
-                *((u8 *) (((char *) temp_v1_6) + 0x46)) = (u8) D_800C2B40;
+                temp_v1_6 = ((__repair_record_var_s0 *) var_s0)->field_3C;
+                if (!((*((u8 *) (((char *) temp_v1_6) + 0x46))) & 0x80))
+                {
+                  *((u8 *) (((char *) temp_v1_6) + 0x46)) = (u8) D_800C2B40;
+                }
+                func_80039364(var_s0);
               }
-              func_80039364(var_s0);
-            }
-            if ((!((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 4)) || (!(((__repair_field_100 *) arg0)->value & 4)))
-            {
-              goto block_26;
-            }
-          }
-          else
-          {
-            block_26:
-            temp_v0_2 = D_801007BC;
-
-            D_801007BC = var_s0;
-            ((__repair_record_var_s0 *) var_s0)->field_1C = temp_v0_2;
-          }
-          goto block_59;
-        }
-        if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_5C) >> 0x17) & 3)
-        {
-          temp_v1_7 = sMatrixPoolUsed;
-          if (temp_v1_7 < sMatrixPoolLimit)
-          {
-            sMatrixPoolUsed = ++temp_v1_7;
-            D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v1_7 << 6);
-            if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_5C) >> 0x17) & 2)
-            {
-              func_800347B0(&D_80112F90, ((__repair_record_var_s0 *) var_s0)->field_30, ((__repair_record_var_s0 *) var_s0)->field_34, ((__repair_record_var_s0 *) var_s0)->field_38, ((__repair_record_var_s0 *) var_s0)->field_24 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_28 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_2C * 64.0f);
+              if ((!((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 4)) || (!(((__repair_field_100 *) arg0)->value & 4)))
+              {
+                goto block_26;
+              }
             }
             else
             {
-              guTranslateF(&D_80112F90, ((__repair_record_var_s0 *) var_s0)->field_24 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_28 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_2C * 64.0f);
+              block_26:
+              temp_v0_2 = D_801007BC;
+
+              D_801007BC = var_s0;
+              ((__repair_record_var_s0 *) var_s0)->field_1C = temp_v0_2;
             }
-            guMtxF2L(&D_80112F90, D_8010D538);
-            var_a0 = D_80115328;
-            D_80115328 = ((s8 *) var_a0) + 8;
-            var_v1 = D_8010D538 - 0x80000000;
-            ((__repair_field_0 *) var_a0)->value = 0xDA380003;
-            goto block_34;
+            goto block_59;
           }
-          return;
-        }
-        else
-        {
-          var_a0 = D_80115328;
-          ((__repair_field_0 *) var_a0)->value = 0xDA380003;
-          var_v1 = (*((s32 *) (((char *) sRenderState) + 0x74C))) - 0x80000000;
-          D_80115328 = ((s8 *) var_a0) + 8;
-          block_34:
-          *((s32 *) (((char *) var_a0) + 4)) = var_v1;
-
-          if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 0x400)
+          if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_5C) >> 0x17) & 3)
           {
-            if (D_8010A924 != 5)
+            temp_v1_7 = sMatrixPoolUsed;
+            if (temp_v1_7 < sMatrixPoolLimit)
             {
-              D_8010A924 = 5;
-              __repair_phase_storage.value = ((__repair_field_100 *) arg0)->value & 7;
-              if (__repair_phase_storage.value == 1)
+              sMatrixPoolUsed = ++temp_v1_7; D_8010D538 = (*((s32 *) (((char *) sRenderState) + 0x74C))) + (temp_v1_7 << 6);
+              if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_5C) >> 0x17) & 2)
               {
-                goto emit_first_mode;
-              }
-              if (__repair_phase_storage.value == 2)
-              {
-                var_v0 = D_80115328;
-                D_80115328 = var_v0 + 2;
-                var_v1_2 = &D_800B1D48;
-                var_v0[0] = 0xDE000000;
-                goto finish_first_mode;
-              }
-              if (__repair_phase_storage.value == 4)
-              {
-                emit_first_mode:
-                var_v0 = D_80115328;
-
-                D_80115328 = var_v0 + 2;
-                var_v1_2 = &D_800B1D20;
-                var_v0[0] = 0xDE000000;
-                finish_first_mode:
-                ((s32 **) var_v0)[1] = var_v1_2;
-
-              }
-            }
-            if (D_801032A0 != 4)
-            {
-              D_801032A0 = 4;
-              temp_v1_9 = ((__repair_field_100 *) arg0)->value & 7;
-              if (temp_v1_9 == 1)
-              {
-                var_a1 = 0xFC121824;
-                temp_v1_3 = D_80115328;
-                var_a0_2 = 0xFF33FFFF;
-                goto emit_combine;
-              }
-              if (temp_v1_9 == 2)
-              {
-                goto emit_other_combine;
-              }
-              if (temp_v1_9 == 4)
-              {
-                emit_other_combine:
-                var_a1 = 0xFC119823;
-
-                temp_v1_3 = D_80115328;
-                var_a0_2 = 0xFF32FF7F;
-                emit_combine:
-                D_80115328 = temp_v1_3 + 2;
-
-                temp_v1_3[0] = var_a1;
-                temp_v1_3[1] = var_a0_2;
-              }
-            }
-            func_80032630(((__repair_record_var_s0 *) var_s0)->field_3C);
-            if (D_8010A924 != 0)
-            {
-              D_8010A924 = 0;
-              if (((__repair_field_100 *) arg0)->value & 3)
-              {
-                var_v0_2 = D_80115328;
- do { D_80115328 = var_v0_2 + 2; } while (0);
-                var_v1_3 = &D_800B1A00;
-                ((__repair_field_0 *) var_v0_2)->value = 0xDE000000;
+                func_800347B0(&D_80112F90, ((__repair_record_var_s0 *) var_s0)->field_30, ((__repair_record_var_s0 *) var_s0)->field_34, ((__repair_record_var_s0 *) var_s0)->field_38, ((__repair_record_var_s0 *) var_s0)->field_24 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_28 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_2C * 64.0f);
               }
               else
               {
-                var_v0_2 = D_80115328;
-                D_80115328 = ((s8 *) var_v0_2) + 8;
-                ((__repair_field_0 *) var_v0_2)->value = 0xDE000000;
-                var_v1_3 = &D_800B1B18;
+                guTranslateF(&D_80112F90, ((__repair_record_var_s0 *) var_s0)->field_24 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_28 * 64.0f, ((__repair_record_var_s0 *) var_s0)->field_2C * 64.0f);
               }
-              *((s32 **) (((char *) var_v0_2) + 4)) = var_v1_3;
+              guMtxF2L(&D_80112F90, D_8010D538);
+              var_a0 = D_80115328; D_80115328 = ((s8 *) var_a0) + 8; var_v1 = D_8010D538 - 0x80000000;
+              ((__repair_field_0 *) var_a0)->value = 0xDA380003;
+              goto block_34;
             }
-            if (D_801032A0 != 1)
-            {
-              D_801032A0 = 1;
-              if (((__repair_field_100 *) arg0)->value & 3)
-              {
-                temp_v1_10 = D_80115328;
-                D_80115328 = ((s8 *) temp_v1_10) + 8;
-                ((__repair_field_0 *) temp_v1_10)->value = 0xFC40FE03;
-                *((s32 *) (((char *) temp_v1_10) + 4)) = -0xC88;
-              }
-              else
-              {
-                temp_v1_11 = D_80115328;
-                D_80115328 = ((s8 *) temp_v1_11) + 8;
-                ((__repair_field_0 *) temp_v1_11)->value = 0xFC40FE03;
-                *((s32 *) (((char *) temp_v1_11) + 4)) = 0xFF0FF37F;
-              }
-            }
+            return;
           }
           else
           {
-            func_80032630(((__repair_record_var_s0 *) var_s0)->field_3C);
+            var_a0 = D_80115328;
+            ((__repair_field_0 *) var_a0)->value = 0xDA380003; var_v1 = (*((s32 *) (((char *) sRenderState) + 0x74C))) - 0x80000000; D_80115328 = ((s8 *) var_a0) + 8;
+            block_34:
+            *((s32 *) (((char *) var_a0) + 4)) = var_v1;
+
+            if ((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 0x400)
+            {
+              if (D_8010A924 != 5)
+              {
+                D_8010A924 = 5; __repair_phase_storage.value = ((__repair_field_100 *) arg0)->value & 7;
+                if (__repair_phase_storage.value == 1)
+                {
+                  goto emit_first_mode;
+                }
+                if (__repair_phase_storage.value == 2)
+                {
+                  var_v0 = D_80115328; D_80115328 = var_v0 + 2; var_v1_2 = &D_800B1D48; var_v0[0] = 0xDE000000;
+                  goto finish_first_mode;
+                }
+                if (__repair_phase_storage.value == 4)
+                {
+                  emit_first_mode:
+                  var_v0 = D_80115328;
+
+ do { D_80115328 = var_v0 + 2; } while (0);
+                  var_v1_2 = &D_800B1D20; var_v0[0] = 0xDE000000;
+                  finish_first_mode:
+                  ((s32 **) var_v0)[1] = var_v1_2;
+
+                }
+              }
+              if (D_801032A0 != 4)
+              {
+                D_801032A0 = 4; temp_v1_9 = ((__repair_field_100 *) arg0)->value & 7;
+                if (temp_v1_9 == 1)
+                {
+                  var_a1 = 0xFC121824; temp_v1_3 = D_80115328; var_a0_2 = 0xFF33FFFF;
+                  goto emit_combine;
+                }
+                if (temp_v1_9 == 2)
+                {
+                  goto emit_other_combine;
+                }
+                if (temp_v1_9 == 4)
+                {
+                  emit_other_combine:
+                  var_a1 = 0xFC119823;
+
+                  temp_v1_3 = D_80115328; var_a0_2 = 0xFF32FF7F;
+                  emit_combine:
+                  D_80115328 = temp_v1_3 + 2;
+
+                  temp_v1_3[0] = var_a1; temp_v1_3[1] = var_a0_2;
+                }
+              }
+              func_80032630(((__repair_record_var_s0 *) var_s0)->field_3C);
+              if (D_8010A924 != 0)
+              {
+                D_8010A924 = 0;
+                if (((__repair_field_100 *) arg0)->value & 3)
+                {
+                  var_v0_2 = D_80115328;
+                  do
+                  {
+                    D_80115328 = var_v0_2 + 2;
+                  }
+                  while (0);
+                  var_v1_3 = &D_800B1A00;
+                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000;
+                }
+                else
+                {
+                  var_v0_2 = D_80115328; D_80115328 = ((s8 *) var_v0_2) + 8;
+                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000; var_v1_3 = &D_800B1B18;
+                }
+                *((s32 **) (((char *) var_v0_2) + 4)) = var_v1_3;
+              }
+              if (D_801032A0 != 1)
+              {
+                D_801032A0 = 1;
+                if (((__repair_field_100 *) arg0)->value & 3)
+                {
+                  temp_v1_10 = D_80115328; D_80115328 = ((s8 *) temp_v1_10) + 8;
+                  ((__repair_field_0 *) temp_v1_10)->value = 0xFC40FE03;
+                  *((s32 *) (((char *) temp_v1_10) + 4)) = -0xC88;
+                }
+                else
+                {
+                  temp_v1_11 = D_80115328; D_80115328 = ((s8 *) temp_v1_11) + 8;
+                  ((__repair_field_0 *) temp_v1_11)->value = 0xFC40FE03;
+                  *((s32 *) (((char *) temp_v1_11) + 4)) = 0xFF0FF37F;
+                }
+              }
+            }
+            else
+            {
+              func_80032630(((__repair_record_var_s0 *) var_s0)->field_3C);
+            }
+            goto block_59;
           }
-          goto block_59;
         }
+        while (0);
       }
       block_59:
       var_s0 = ((__repair_record_var_s0 *) var_s0)->field_14;

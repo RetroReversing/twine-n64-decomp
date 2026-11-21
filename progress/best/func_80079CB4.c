@@ -303,6 +303,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
               ;
 
             ;
+            ;
           }
           else
           {
@@ -386,8 +387,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
 
           case 31:
             D_80113020 += 1;
-            ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000);
-            *((u8 *) (((char *) temp_s0) + 0x82)) = 0x1FU;
+ do { ((__repair_field_88 *) temp_s0)->value = (s32) ((((__repair_field_88 *) temp_s0)->value & 0xFE1FFFFF) | 0x600000); *((u8 *) (((char *) temp_s0) + 0x82)) = 0x1FU; } while (0);
             break;
 
           case 32:
@@ -646,4 +646,3 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg
   return var_s1;
 
 }
-

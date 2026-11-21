@@ -68,7 +68,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
     __base_D_800F2720 = D_800F2720;
     __base_D_800F2720 = D_800F2720;
     var_v1 = *((u8 *) (((char *) ((((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + (temp_a3 & 0x1F))) + 0x20));
-    __base_D_800F2720 = D_800F2720;
+ do { __base_D_800F2720 = D_800F2720; } while (0);
     var_v0_3 = (*((u8 *) (((char *) ((((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + (temp_a3 & 0x1F))) + 0))) << 7;
     goto block_19;
   }
@@ -92,7 +92,10 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
     var_v0_2 = (((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + __repair_phase_storage.value;
     do
     {
-      return (-(((u8) (*var_v0_2)) >= 0x40U)) & 0x3FFF;
+      if (1)
+      {
+        return (-(((u8) (*var_v0_2)) >= 0x40U)) & 0x3FFF;
+      }
     }
     while (0);
   }
@@ -104,4 +107,3 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   var_v0 = (((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + __repair_phase_storage.value;
   return ((*var_v0) << 5) << 2;
 }
-

@@ -88,15 +88,19 @@ void func_8001D738(void)
   u8 temp_v0_6;
   u8 temp_v0_7;
   s8 temp_v1_2;
-  s8 temp_v1_3;
+  int temp_v1_3;
   D_800BD690 = 1;
   temp_s6 = func_8002638C(D_800BD914, 0x78);
-  temp_s2 = func_8002638C(D_800BD914, 0x79);
+  temp_s2 = (int) func_8002638C(D_800BD914, 0x79);
   var_s1 = func_8002638C(D_800BD914, 0x7A);
-  if (var_s1 == 0)
+  do
   {
-    var_s1 = func_8002638C(D_800BD914, 0x13);
+    if (var_s1 == 0)
+    {
+      var_s1 = func_8002638C(D_800BD914, 0x13);
+    }
   }
+  while (0);
   temp_s3 = func_8002638C(D_800BD914, 0x7B);
   temp_s7 = func_8002638C(D_800BD914, 0x7D);
   temp_s4 = func_8002638C(D_800BD914, 0x7C);
@@ -116,7 +120,14 @@ void func_8001D738(void)
     }
     do
     {
-      func_80026004(temp_s6, D_800D2864, func_80087100(var_a0));
+      if (D_800BD68E)
+      {
+        func_80026004(temp_s6, D_800D2864, func_80087100(var_a0));
+      }
+      else
+      {
+        func_80026004(temp_s6, D_800D2864, func_80087100(var_a0));
+      }
     }
     while (0);
     temp_v0_2 = *(D_80115089 + (D_800B7CF0 * 0xA0));

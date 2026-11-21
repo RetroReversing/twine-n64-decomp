@@ -82,7 +82,7 @@ void func_8000D6A0(s32 arg0)
       *((V *) inline_fn2((char *) temp_s3, 0x24)) = *((V *) sp20);
     }
     temp_v0_3 = *((void **) inline_fn2((char *) temp_s3, 0x70));
-    if (temp_v0_3 && ((((temp_v0_4 = *((u32 *) inline_fn2((char *) temp_v0_3, 0x30)), temp_a0_2 = (temp_v0_4 >> 4) & 0xFFFF, temp_a1 = temp_v0_4 >> 20, ((temp_a1 == 0x11C) & (temp_a0_2 == 0x1A)) != 0)) || ((temp_a1 == 0x98) & (temp_a0_2 == 3))) || ((temp_a1 == 0xB1) & (temp_a0_2 == 2))))
+    if (temp_v0_3 && ((((temp_v0_4 = *((u32 *) inline_fn2((char *) temp_v0_3, 0x30)), temp_a0_2 = (temp_v0_4 >> 4) & 0xFFFF, temp_a1 = temp_v0_4 >> 20, ((temp_a1 == 0x11C) & (temp_a0_2 == 0x1A)) != 0)) || ((temp_a1 == 0x98) & (temp_a0_2 == 3))) || ((temp_a0_2 == 2) & (temp_a1 == 0xB1))))
     {
       var_fv0 = approxDistance(inline_fn2(temp_s3, 0x24), inline_fn2(temp_s3, 0x30));
       {

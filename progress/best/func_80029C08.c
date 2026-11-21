@@ -33,7 +33,7 @@ s32 func_80029C08(void *arg0, s32 arg1, s32 arg2)
   s32 temp_v0_2;
   s32 temp_v1_3;
   s32 var_a1;
-  s32 var_s0;
+  unsigned short var_s0;
   s32 var_s1;
   s32 var_v0_2;
   unsigned long long var_v0_3;

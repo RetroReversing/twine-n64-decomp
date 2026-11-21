@@ -69,7 +69,7 @@ void *func_801183F4(void *arg0, u8 arg1)
   void *var_s0_2;
   void *var_s7;
   void *var_v0;
-  temp_s3 = *((void **) (((char *) arg0) + 0x6C));
+  temp_s3 = *((void **) (0x6C + ((char *) arg0)));
   sp47 = arg1;
   var_fs1 = 65536.0f;
   temp_s6 = D_8011ECB0[(*((u16 *) (((char *) D_800BF688) + (SLOT_INDEX() * 12)))) & 3];
@@ -116,7 +116,10 @@ void *func_801183F4(void *arg0, u8 arg1)
         var_fs0 = approxDistance(arg0 + 0x24, (*var_s0) + 0x24) * (*((f32 *) (((char *) temp_s6) + 0x0)));
         if (((u32) (gSceneType[0] - 2)) < 2U)
         {
-          var_v0_2 = temp_s4 & 4;
+          if (1)
+          {
+            var_v0_2 = temp_s4 & 4;
+          }
           if (sProbeOriginTable[*((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12))] == (*var_s0))
           {
             var_fs0 *= 0.33333334f;
@@ -178,7 +181,7 @@ void *func_801183F4(void *arg0, u8 arg1)
   {
     if (sp47 == 0)
     {
-      return *((void **) (((char *) temp_s3) + 0xC0));
+ do { return *((void **) (((char *) temp_s3) + 0xC0)); } while (0);
     }
     var_s0_2 = D_8010A410;
     if (var_s0_2 != NULL)
@@ -256,7 +259,8 @@ void *func_801183F4(void *arg0, u8 arg1)
                       }
                       while (0);
                       var_a0_2 = temp_v0_2;
-                      var_v0_8 = ((u32) ((u16) var_a0_2)) << 16;
+                      var_s5 = (u16) var_a0_2;
+                      var_v0_8 = (((u32) var_s5) << 8) << 8;
                     }
                     while (temp_v0_2 < ((s32) gSaveTotalSlots));
                   }
@@ -324,4 +328,3 @@ void *func_801183F4(void *arg0, u8 arg1)
   }
   return var_v0;
 }
-

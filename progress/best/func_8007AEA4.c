@@ -35,15 +35,8 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
       ++attempt;
       goto check_attempt;
     }
-    limit = count - 1; entry = (u8 *) entries;
-    scan:
-    if (inline_fn(entry, threshold))
-    {
-      index++;
-      goto advance;
-    }
-
-    id = *((u16 *) (entry + 2));
+    limit = count - 1;
+ do { entry = (u8 *) entries; scan: if (inline_fn(entry, threshold)) { index++; goto advance; } id = *((u16 *) (entry + 2)); } while (0);
     if (id == 0)
     {
       return 0;
@@ -83,4 +76,3 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   while (0);
   return 0;
 }
-

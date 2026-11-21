@@ -88,8 +88,8 @@ u16 func_80012F50(void)
   name = (u32) D_80107B6A;
   code = name + 17;
   used = (u16 *) (name - 2);
-  rawOffset = 0;
   i = 0;
+  rawOffset = 0;
   do
   {
     saveSubmitCommand(5, (s32) (gSaveSlotTable + (gSaveSlot * 104)), i, (s32) raw, 0, 0, 0, 0);
@@ -128,8 +128,8 @@ u16 func_80012F50(void)
     code += 24;
     used += 12;
     rawOffset += 32;
-    raw += 32;
-    ++i;
+    raw += 32;/*__repair_loop_weight*/do {
+    ++i;} while (0);
   }
   while (i < 16);
   if (D_800E097C)
@@ -143,9 +143,9 @@ u16 func_80012F50(void)
     do
     {
       done = 1;
-      scan = 0;
-      scanName = baseName;
       scanOffset = 0;
+      scanName = baseName;
+      scan = 0;
       headerOffset = 0;
       do
       {

@@ -856,7 +856,7 @@ volatile unsigned int func_80069DCC(void *arg0)
           }
           if (var_v0_11 & var_v1_10)
           {
-            if (((*((s16 *) (((char *) temp_a0_5) + 0xA2))) != 0x1AD) || ((*((s32 *) (((char *) temp_a0_5) + 0x14))) & 0x20))
+            if ((0x1AD != (*((s16 *) (((char *) temp_a0_5) + 0xA2)))) || ((*((s32 *) (((char *) temp_a0_5) + 0x14))) & 0x20))
             {
               func_80002BD0(arg0, 0x159);
             }
@@ -1030,7 +1030,7 @@ volatile unsigned int func_80069DCC(void *arg0)
         {
           *((s8 *) (((char *) temp_s1) + 0x307)) = temp_v0_7;
         }
-        if (((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) < 0)
+        if ((((s8) (*((u8 *) (((char *) temp_s1) + 0x197)))) + 1) <= 0)
         {
           temp_v1_26 = inline_fn((char *) temp_s1, 0x307);
           *((u8 *) (((char *) temp_s1) + 0x197)) = 0xFU;

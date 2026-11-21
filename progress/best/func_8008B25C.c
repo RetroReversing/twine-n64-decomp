@@ -65,6 +65,11 @@ inline static s32 inline_fn2()
   return (s32) (&func_800AC110);
 }
 
+inline static u16 inline_fn23(u32 arg0)
+{
+  return (u16) arg0;
+}
+
 void func_8008B25C(void)
 {
   s16 *temp_a0_3;
@@ -135,7 +140,7 @@ void func_8008B25C(void)
           temp_v0 = *((u16 *) (((char *) var_v1) + 0x10));
           if (temp_v0 != 0)
           {
-            *((u16 *) (((char *) var_v1) + 0x10)) = (u16) (temp_v0 - 1);
+            *((u16 *) (((char *) var_v1) + 0x10)) = inline_fn23(temp_v0 - 1);
           }
           var_v1 = *((void **) (((char *) var_v1) + 0));
         }
@@ -163,7 +168,7 @@ void func_8008B25C(void)
             do
             {
               u32 index;
-              if (((u16) var_s3) >= sMixBufferUnits)
+              if (inline_fn23(var_s3) >= sMixBufferUnits)
               {
                 break;
               }
@@ -174,75 +179,19 @@ void func_8008B25C(void)
                 func_800923D0();
                 func_8008E374();
               }
-              temp_a1 = (u16) var_s1;
+              temp_a1 = inline_fn23(var_s1);
               var_s1 += 0xC0;
               ++var_s3;
-              func_8008AECC(buffers[(u16) index], temp_a1);
+              func_8008AECC(buffers[inline_fn23(index)], temp_a1);
             }
-            while (((u16) var_s0) < limit);
+            while (inline_fn23(var_s0) < limit);
           }
           while (0);
         }
         else
         {
           var_s0 = D_800E4268;
-          if (var_s0 < gAudioBufferCount)
-          {
-            s32 *buffers = &gAudioBufferPtrs;
-            do
-            {
-              u32 index;
-              if (((u16) var_s3) >= sMixBufferUnits)
-              {
-                break;
-              }
-              index = var_s0++;
-              if (inline_fn(gWorkerActive, 0))
-              {
-                D_800E41E8 = D_800E41EC;
-                func_800923D0();
-                func_8008E374();
-              }
-              temp_a1 = (u16) var_s1;
-              var_s1 += 0xC0;
-              func_8008AECC(buffers[(u16) index], temp_a1);
-              ++var_s3;
-            }
-            while (((u16) var_s0) < gAudioBufferCount);
-          }
-          if (temp_s4 || D_8010D428)
-          {
-            var_s0 = 0;
-          }
-          else
-          {
-            var_s0 = 0;
-          }
-          if (((u16) temp_s4) != 0)
-          {
-            s32 *buffers = &gAudioBufferPtrs;
-            u32 limit = (u16) temp_s4;
-            do
-            {
-              u32 index;
-              if (((u16) var_s3) >= sMixBufferUnits)
-              {
-                break;
-              }
-              index = var_s0++;
-              if (inline_fn(gWorkerActive, 0))
-              {
-                D_800E41E8 = D_800E41EC;
-                func_800923D0();
-                func_8008E374();
-              }
-              temp_a1 = (u16) var_s1;
-              var_s1 += 0xC0;
-              ++var_s3;
-              func_8008AECC(buffers[(u16) index], temp_a1);
-            }
-            while (((u16) var_s0) < limit);
-          }
+ do { if (var_s0 < gAudioBufferCount) { s32 *buffers = &gAudioBufferPtrs; do { u32 index; if (inline_fn23(var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } temp_a1 = (u16) var_s1; var_s1 += 0xC0; func_8008AECC(buffers[inline_fn23(index)], temp_a1); ++var_s3; } while (inline_fn23(var_s0) < gAudioBufferCount); } if (temp_s4 || D_8010D428) { var_s0 = 0; } else { var_s0 = 0; } if (((u16) temp_s4) != 0) { s32 *buffers = &gAudioBufferPtrs; u32 limit = (u16) temp_s4; do { u32 index; if (((u16) var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } while (inline_fn23(var_s0) < limit); } } while (0);
         }
         if (sSlotLogCount != 0)
         {
@@ -298,4 +247,3 @@ void func_8008B25C(void)
   }
   func_8008C188();
 }
-

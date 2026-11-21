@@ -19,9 +19,15 @@ inline static int inline_fn2(s32 arg0)
   return arg0 == 1;
 }
 
+inline static int inline_fn23(int arg0)
+{
+  return arg0;
+}
+
 s32 func_8008FB20(void)
 {
   s32 temp_a0;
+  void *temp_v0_2;
   s32 temp_a0_4;
   s32 temp_a1_2;
   s32 temp_a3_2;
@@ -48,7 +54,6 @@ s32 func_8008FB20(void)
   void *temp_t0_2;
   void *temp_t0_3;
   void *temp_v0;
-  void *temp_v0_2;
   void *temp_v0_3;
   void *temp_v0_4;
   void *temp_v0_5;
@@ -84,7 +89,7 @@ s32 func_8008FB20(void)
           {
             temp_v1 = (temp_a3 >> 7) & 1;
             var_s4 = 4;
-            if (temp_v1 & (temp_t1 == 0))
+            if (inline_fn23(temp_v1 & (temp_t1 == 0)))
             {
               temp_a1_2 = temp_a1 & 0xFF;
               temp_a0 = temp_a3 & 0x7F;
@@ -93,8 +98,7 @@ s32 func_8008FB20(void)
                 temp_a0_2 = *((u8 *) (((char *) (temp_a0 + temp_t0)) + 8));
                 if (temp_a0_2 != 0xFF)
                 {
-                  temp_v0_2 = (void *) (temp_a0_2 * 8); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4)))));
-                  *((s32 *) (((char *) ((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) ((((*((u16 *) (((char *) temp_v0_2) + 0))) << 0x10) | ((*((u8 *) (((char *) temp_v0_2) + 2))) << 8)) | (*((u8 *) (((char *) temp_v0_2) + 3))));
+ do { temp_v0_2 = (void *) (temp_a0_2 * 8); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4))))); *((s32 *) (((char *) ((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) ((((*((u16 *) (((char *) temp_v0_2) + 0))) << 0x10) | ((*((u8 *) (((char *) temp_v0_2) + 2))) << 8)) | (*((u8 *) (((char *) temp_v0_2) + 3)))); } while (0);
                 }
               }
               else
@@ -192,7 +196,14 @@ s32 func_8008FB20(void)
                       gFreeSndNodeList = temp_v0_4;
                       if (temp_v0_4 != NULL)
                       {
-                        *((s32 *) (((char *) temp_v0_4) + 4)) = 0;
+                        if (temp_t1)
+                        {
+                          *((s32 *) (((char *) temp_v0_4) + 4)) = 0;
+                        }
+                        else
+                        {
+                          *((s32 *) (((char *) temp_v0_4) + 4)) = 0;
+                        }
                       }
                       *((void ***) (((char *) temp_t0_3) + 4)) = NULL;
                       temp_v0_5 = *((void **) (((char *) gSeqPlayer) + 0xF78));
@@ -262,4 +273,3 @@ s32 func_8008FB20(void)
   while (var_s6 < 0x40);
   return var_s7;
 }
-

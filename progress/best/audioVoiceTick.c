@@ -83,7 +83,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   long temp_v0_19;
   s32 temp_v0_21;
   s32 temp_v0_3;
-  s32 temp_v0_4;
+  unsigned long long temp_v0_4;
   int temp_v0_5;
   s32 temp_v0_6;
   s32 temp_v0_7;
@@ -135,6 +135,7 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
   u8 temp_a0_4;
   u8 temp_a1;
   u8 temp_a1_2;
+  volatile unsigned short pad;
   u8 temp_a2;
   u8 temp_s2;
   u8 temp_s2_2;
@@ -190,14 +191,14 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
       goto release_on_init;
     }
     func_800969B4(arg0);
-    temp_v0_2 = *((u8 *)arg0 + 0x54);
-    temp_v1_2 = *((u8 *)arg0 + 0x52);
-    temp_a2 = *((u8 *)arg0 + 0x56);
-    *((u8 *)arg0 + 0x4A) = temp_v0_2;
-    *((u8 *)arg0 + 0x4B) = *((u8 *)arg0 + 0x55);
+    temp_v0_2 = *(((u8 *) arg0) + 0x54);
+    temp_v1_2 = *(((u8 *) arg0) + 0x52);
+    temp_a2 = *(((u8 *) arg0) + 0x56);
+    *(((u8 *) arg0) + 0x4A) = temp_v0_2;
+    *(((u8 *) arg0) + 0x4B) = *(((u8 *) arg0) + 0x55);
     temp_v1_2 <<= 16;
-    *(s32 *)((u8 *)arg0 + 0x30) = temp_v1_2;
-    *(s32 *)((u8 *)arg0 + 0x34) = temp_v1_2;
+    *((s32 *) (((u8 *) arg0) + 0x30)) = temp_v1_2;
+    *((s32 *) (((u8 *) arg0) + 0x34)) = temp_v1_2;
     *((u8 *) (((char *) arg0) + 0x2F)) = temp_a2;
     *((s32 *) (((char *) arg0) + 0x38)) = (s32) ((*((u8 *) (((char *) arg0) + 0x53))) << 0x10);
     temp_v0 = func_800968E8(*((u8 *) (((char *) arg0) + 0x4A)), *((u8 *) (((char *) arg0) + 0x4B)));
@@ -263,8 +264,9 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0xA0)) = 0U;
     *((s32 *) (((char *) arg0) + 0xA4)) = 0U;
     goto block_19;
-release_on_init:
+    release_on_init:
     releaseAudioVoice(arg0);
+
     return;
   }
   block_19:
@@ -288,6 +290,7 @@ release_on_init:
   }
   if ((*((s32 *) (((char *) arg0) + 0x9C))) == 0)
   {
+    s32 divisorReciprocal = 0x51EB851F;
     D_80100868 = 1;
     loop_25:
     D_800FDB9C = *((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0));
@@ -354,9 +357,7 @@ release_on_init:
         break;
 
       case 0x4:
-        block_120:
-      var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
-
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
         break;
 
       case 0x5:
@@ -382,7 +383,8 @@ release_on_init:
 
       case 0x7:
         *((u16 *) (((char *) (&D_800FDBA0)) + 2)) = 1;
-        goto block_120;
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        break;
 
       case 0x8:
         var_a0 = audioCmdNoteOn(arg0, &D_800FDB9C);
@@ -452,8 +454,11 @@ release_on_init:
         if (temp_a0_2 >= 0)
       {
         var_v1 = 0x7F0000;
-        if (0x7F0000 >= temp_a0_2)
+        if (0x7F0000 > (temp_a0_2 - 1))
         {
+          {
+            long long phantom_wide = arg1;
+          }
           var_v1 = temp_a0_2;
         }
       }
@@ -591,7 +596,8 @@ release_on_init:
         func_800968A4(*((u8 *) (((char *) arg0) + 0x4A)), *((u8 *) (((char *) arg0) + 0x4B)), *((u8 *) (((char *) arg0) + 0x51)));
       }
         D_800FDB9C = 4;
-        goto block_120;
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        break;
 
       case 0x1A:
         temp_v1_10 = (*((u8 *) (((char *) arg0) + 0xC1))) + (((s32) (D_800FDB9C << 0x10)) >> 0x18);
@@ -619,7 +625,8 @@ release_on_init:
         func_800968A4(temp_a0_3, *((u8 *) (((char *) arg0) + 0x4B)), *((u8 *) (((char *) arg0) + 0x51)));
       }
         D_800FDB9C = 4;
-        goto block_120;
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        break;
 
       case 0x1B:
         *((u8 *) (((char *) arg0) + 0x98)) = (s8) ((u16) D_800FDB9C);
@@ -674,37 +681,45 @@ release_on_init:
         temp_v0_17 = ((u32) D_800FDB9C) >> 8;
         *((u8 *) (((char *) arg0) + 0x48)) = (s8) temp_v0_17;
         *((u8 *) (((char *) arg0) + 0xB0)) = (s8) temp_v0_17;
-        if (((s16) D_800FDB9C) >= 0)
       {
-        var_v0_4 = func_8008C7E0(D_800FDB9C);
-      }
-      else
-      {
-        var_v0_4 = -func_8008C7E0(-((s16) D_800FDB9C));
+        s16 pitch = *((s16 *) (&D_800FDB9C));
+        if (pitch >= 0)
+        {
+          var_v0_4 = func_8008C7E0(pitch);
+        }
+        else
+        {
+          var_v0_4 = -func_8008C7E0(-pitch);
+        }
       }
         *((s32 *) (((char *) arg0) + 0x7C)) = (s32) (var_v0_4 << 0x10);
         block_119:
       D_800FDB9C = 0;
 
-        goto block_120;
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        break;
 
       case 0x1E:
         *((s32 *) (((char *) arg0) + 0x44)) = 0;
         temp_v0_18 = ((u32) ((s32) D_800FDB9C)) >> 8;
         *((u8 *) (((char *) arg0) + 0x49)) = (s8) temp_v0_18;
         *((u8 *) (((char *) arg0) + 0xB1)) = (s8) temp_v0_18;
-        if (((s16) D_800FDB9C) >= 0)
       {
-        var_v0_5 = func_8008C7E0((s16) D_800FDB9C);
-      }
-      else
-      {
-        var_v0_5 = -func_8008C7E0(-((s16) D_800FDB9C));
+        s16 pitch = *((s16 *) (&D_800FDB9C));
+        if (pitch >= 0)
+        {
+          var_v0_5 = func_8008C7E0(pitch);
+        }
+        else
+        {
+          var_v0_5 = -func_8008C7E0(-pitch);
+        }
       }
         *((s32 *) (((char *) arg0) + 0x80)) = (s32) (var_v0_5 << 0x10);
       {
         D_800FDB9C = 0;
-        goto block_120;
+        var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
+        break;
       }
 
       case 0x1F:
@@ -841,7 +856,10 @@ release_on_init:
         temp_a0_6 = inline_fn2(temp_a0_6, temp_s0_2);
         *((s8 *) (((char *) temp_a0_6) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_6) + 1)) = temp_s2;
-        *((u16 *) (((char *) temp_a0_6) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_6) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -864,7 +882,10 @@ release_on_init:
         temp_a0_8 = inline_fn2(temp_a0_8, temp_s0_3);
         *((s8 *) (((char *) temp_a0_8) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_8) + 1)) = temp_s2_2;
-        *((u16 *) (((char *) temp_a0_8) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_8) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -887,7 +908,10 @@ release_on_init:
         temp_a0_10 = inline_fn2(temp_a0_10, temp_s0_4);
         *((s8 *) (((char *) temp_a0_10) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_10) + 1)) = temp_s2_3;
-        *((u16 *) (((char *) temp_a0_10) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_10) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -910,7 +934,10 @@ release_on_init:
         temp_a0_12 = inline_fn2(temp_a0_12, temp_s0_5);
         *((s8 *) (((char *) temp_a0_12) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_12) + 1)) = temp_s2_4;
-        *((u16 *) (((char *) temp_a0_12) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_12) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -933,7 +960,10 @@ release_on_init:
         temp_a0_14 = inline_fn2(temp_a0_14, (u32) temp_s0_6);
         *((s8 *) (((char *) temp_a0_14) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_14) + 1)) = temp_s2_5;
-        *((u16 *) (((char *) temp_a0_14) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_14) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -956,7 +986,10 @@ release_on_init:
         temp_a0_16 = inline_fn2(temp_a0_16, temp_s0_7);
         *((s8 *) (((char *) temp_a0_16) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_16) + 1)) = temp_s2_6;
-        *((u16 *) (((char *) temp_a0_16) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_16) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -979,7 +1012,10 @@ release_on_init:
         temp_a0_18 = inline_fn2(temp_a0_18, temp_s0_8);
         *((s8 *) (((char *) temp_a0_18) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_18) + 1)) = temp_s2_7;
-        *((u16 *) (((char *) temp_a0_18) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_18) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -1002,7 +1038,10 @@ release_on_init:
         temp_a0_20 = inline_fn2(temp_a0_20, temp_s0_9);
         *((s8 *) (((char *) temp_a0_20) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_20) + 1)) = temp_s2_8;
-        *((u16 *) (((char *) temp_a0_20) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_20) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -1025,7 +1064,10 @@ release_on_init:
         temp_a0_22 = inline_fn2(temp_a0_22, temp_s0_10);
         *((s8 *) (((char *) temp_a0_22) + 0)) = marker;
         *((u8 *) (((char *) temp_a0_22) + 1)) = temp_s2_9;
-        *((u16 *) (((char *) temp_a0_22) + 2)) = (s16) (((*((s16 *) (((char *) (&D_800FDB9C)) + 0))) << 8) / 100);
+        {
+          s32 scaled = (*((s16 *) (&D_800FDB9C))) * 256;
+          *((u16 *) (((char *) temp_a0_22) + 2)) = (s16) (((((s64) scaled) * divisorReciprocal) >> 37) - (scaled >> 31));
+        }
       }
         goto block_60;
 
@@ -1064,21 +1106,22 @@ release_on_init:
 
       case 0x65:
         temp_v1_23 = ((u32) D_800FDB9C) >> 0x10;
+        temp_a0 = D_800FDBA0;
         if ((((u32) D_800FDB9C) >> 8) & 0xFF)
       {
-        func_80096F44(arg0, temp_v1_23 & 0xFF, *((u32 *) (((char *) (&D_800FDBA0)) + 0)));
+        func_80096F44(arg0, temp_v1_23 & 0xFF, (s16) temp_a0);
         var_a0 = NULL;
       }
       else
       {
-        temp_v0_21 = temp_v1_24 * 2;
-        temp_v1_24 = temp_v1_23 & 0x1F;
-        if (temp_v1_24 < 0x10U)
+        temp_v1_23 = temp_v1_23 & 0x1F;
+        temp_v0_21 = temp_v1_23 * 2;
+        if (temp_v1_23 < 0x10U)
         {
-          *((u16 *) (((char *) (temp_v0_21 + arg0)) + 0x180)) = (s16) (*((u32 *) (((char *) (&D_800FDBA0)) + 0)));
+          *((u16 *) (((char *) (temp_v0_21 + arg0)) + 0x180)) = (u16) temp_a0;
           goto block_60;
         }
-        *((s16 *) (((char *) (&D_80112E9E)) + temp_v0_21)) = (s16) (*((u32 *) (((char *) (&D_800FDBA0)) + 0)));
+        *((s16 *) (((char *) (&D_80112E9E)) + temp_v0_21)) = (s16) temp_a0;
         var_a0 = NULL;
       }
         break;

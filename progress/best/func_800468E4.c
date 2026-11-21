@@ -14,7 +14,7 @@ void func_800468E4(const RotationQuat *q, f32 m[3][3])
   f32 z = q->z;
   f32 xy = y2 * x;
   f32 z2 = z + z;
-  f32 xz = z2 * x;
+  f32 xz = x * z2;
   f32 yy = y2 * y;
   f32 zz = z2 * z;
   f32 w = q->w;

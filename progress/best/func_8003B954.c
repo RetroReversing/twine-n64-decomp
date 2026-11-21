@@ -42,8 +42,10 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
   s32 *temp_v1;
   s32 *var_a2_2;
   s32 temp_a0_2;
-  s32 temp_a0_9;
-  s32 temp_a1_3;
+  volatile int temp_a0_9;
+  s32 temp_a1_3_2;
+  s32 temp_a1_3_32;
+  s32 temp_a1_3_default;
   s32 glyphWidth;
   s32 glyphHeight;
   u16 initialLength;
@@ -73,7 +75,6 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
   s32 var_s7;
   s32 var_v1;
   s8 temp_a0_7;
-  s32 var_v1_3;
   s32 __repair_result_var_v1_3;
   u16 temp_a0_5;
   u16 temp_a0_6;
@@ -182,16 +183,16 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x1C)) = 0x5566FF7F;
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x20)) = 0xE3001001;
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x24)) = 0;
-    *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x14)) = (s32) (((((*((u16 *) (((char *) temp_v0_5) + 2))) * 4) & 0xFFF) << 0xC) | (((*((u16 *) (((char *) temp_v0_5) + 4))) * 4) & 0xFFF));
+    *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x14)) = (short) ((s32) (((((*((u16 *) (((char *) temp_v0_5) + 2))) * 4) & 0xFFF) << 0xC) | (((*((u16 *) (((char *) temp_v0_5) + 4))) * 4) & 0xFFF)));
     initialLength = *((u16 *) (((char *) arg2) + 0x1C));
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x10);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x18);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x20);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x28);
-    var_s0 = 0;
     if (initialLength != 0)
     {
+      var_s0 = 0;
       do
       {
         temp_s3_2 = *((u8 *) (((__repair_field_18 *) arg2)->value + var_s0));
@@ -216,9 +217,9 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
 
           case 2:
             var_s0 += 1;
-            var_v1_3 = *((s8 *) (((__repair_field_18 *) arg2)->value + var_s0));
-            var_s1 += var_v1_3;
-            D_800E1760 += var_v1_3;
+            temp_a1_3_2 = *((s8 *) (((__repair_field_18 *) arg2)->value + var_s0));
+            var_s1 += temp_a1_3_2;
+            D_800E1760 += temp_a1_3_2;
             break;
 
           case 4:
@@ -239,7 +240,13 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
             if (!D_800C0738)
           {
             __repair_phase_storage.pointer = sDisplayListCursor;
- do { temp_t2 = *((u32 *) (((*((s8 *) (((__repair_field_18 *) arg2)->value + var_s0))) * 4) + sMenuItemParamTable)); sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8); ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xFA000000; *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = (s32) (((((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000)) | (temp_t2 & 0xFF00)) | (temp_t2 & 0xFF)); } while (0);
+            do
+            {
+              temp_t2 = *((u32 *) (((*((s8 *) (((__repair_field_18 *) arg2)->value + var_s0))) * 4) + sMenuItemParamTable)); sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8);
+              ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xFA000000;
+              *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = (s32) (((((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000)) | (temp_t2 & 0xFF00)) | (temp_t2 & 0xFF));
+            }
+            while (0);
           }
             break;
 
@@ -286,19 +293,30 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
             break;
 
           case 32:
-            var_v1_3 = *((u8 *) (((char *) temp_s4) + 0x10));
-            var_s1 += var_v1_3;
-            D_800E1760 += var_v1_3;
+            temp_a1_3_32 = *((u8 *) (((char *) temp_s4) + 0x10));
+            var_s1 += temp_a1_3_32;
+            D_800E1760 += temp_a1_3_32;
             break;
 
           default:
             if ((D_800E1764 != 0) && (((u32) (D_800E1760 + (func_80018578(temp_s4, ((__repair_field_18 *) arg2)->value + var_s0) & 0xFFFF))) >= ((u32) D_800E1764)))
           {
-            temp_a0_6 = *((u16 *) (((char *) arg2) + 0x1E));
-            lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
-            var_s5 += 3;
-            D_800E1760 = 0;
-            var_s5 += lineStep;
+            if (var_s1)
+            {
+              temp_a0_6 = *((u16 *) (((char *) arg2) + 0x1E));
+              lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
+              var_s5 += 3;
+              D_800E1760 = 0;
+              var_s5 += lineStep;
+            }
+            else
+            {
+              temp_a0_6 = *((u16 *) (((char *) arg2) + 0x1E));
+              lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
+              var_s5 += 3;
+              D_800E1760 = 0;
+              var_s5 += lineStep;
+            }
             if (temp_a0_6 & 1)
             {
               u32 lineWidth;
@@ -312,20 +330,20 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
             }
           }
             temp_v1_2 = *((s32 *) (((char *) temp_s4) + 0xC));
-            temp_a1_3 = temp_s3_2 & 0xFF;
-            temp_t2_3 = temp_a1_3 - 0x21;
+            temp_a1_3_default = temp_s3_2 & 0xFF;
+            temp_t2_3 = temp_a1_3_default - 0x21;
             if (temp_v1_2 != 0)
           {
             temp_a2 = var_s7 * 8;
-            var_a0 = 0;
             if ((*((u8 *) (((char *) (temp_a2 + temp_v1_2)) + 4))) != 0)
             {
+              var_a0 = 0;
               for (;;)
               {
                 temp_a1_4 = temp_a2 + temp_v1_2;
                 temp_v1_3 = (var_a0 * 2) + ((__repair_field_0 *) temp_a1_4)->value;
                 var_a0 += 1;
-                if ((*((u8 *) (((char *) temp_v1_3) + 0))) == temp_a1_3)
+                if ((*((u8 *) (((char *) temp_v1_3) + 0))) == temp_a1_3_default)
                 {
                   var_s1 -= *((s8 *) (((char *) temp_v1_3) + 1));
                 }
@@ -405,3 +423,4 @@ void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
     ((__repair_field_4 *) temp_v0_6)->value = 0;
   }
 }
+

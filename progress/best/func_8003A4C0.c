@@ -278,9 +278,7 @@ s32 __repair_phase_temp_t6;
                             } else {
                                 var_a0_3 = sp54 << 0x10;
                             }
-                            if (!((u32)(s16)((temp_t0 + arg1) * 4) >> 31)) {
-                                var_v0_5 = var_a0_3 | temp_s4;
-                            } else {
+                            if ((u32)(s16)((temp_t0 + arg1) * 4) >> 31) {
                                 temp_v0_3 = temp_t0 + arg1;
                                 if (__repair_phase_temp_t6 < 0) {
                                     temp_t2 = (s32) ((s16) (temp_v0_3 * 4) * __repair_phase_temp_t6) >> 7;
@@ -289,6 +287,8 @@ s32 __repair_phase_temp_t6;
                                     temp_v0_5 = (s32) ((s16) (temp_v0_3 * 4) * __repair_phase_temp_t6) >> 7;
                                     var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_5 & -(temp_v0_5 < 1))) & 0xFFFF);
                                 }
+                            } else {
+                                var_v0_5 = var_a0_3 | temp_s4;
                             }
                             M2C_FIELD(temp_t1, s32 *, 4) = var_v0_5;
                         }

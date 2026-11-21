@@ -125,7 +125,7 @@ void func_800362B4(RenderView *view)
         func_800A3940(matrix, one, -1.0f, one);
         D_80112FC4 = y * scale;
         guMtxF2L(matrix, D_8010D538);
-        D_80115328->w0 = 0xDA380003;
+        D_80115328->w0 = (float) 0xDA380003;
         D_80115328->w1 = D_8010D538 - ((char) 0x80000000);
         D_80115328++;
         func_80032630(node->detail);

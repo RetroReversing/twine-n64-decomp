@@ -20,6 +20,11 @@ typedef struct
 {
   f32 __repair_v[3];
 } __repair_vec3;
+inline static char *inline_fn(s32 arg0, int arg1, char *arg2)
+{
+  return (arg0 * arg1) + arg2;
+}
+
 void func_8006CD34(void *arg0)
 {
   float *__base_D_800D461C;
@@ -73,7 +78,7 @@ void func_8006CD34(void *arg0)
         var_fv0_2 = 0.0f;
       }
       temp_ft0 = *((f32 *) (((char *) temp_s2) + 0x98));
-      temp_s0_2 = (temp_s3 * 4) + D_80109688;
+      temp_s0_2 = inline_fn(temp_s3, 4, D_80109688);
       *((f32 *) (((char *) temp_s2) + 0x98)) = (f32) (((var_fv0_2 - temp_ft0) * 0.1f) + temp_ft0);
       *((f32 *) (((char *) (*temp_s0_2)) + 0x4C)) = (f32) (*((f32 *) (((char *) temp_s2) + 0x3C)));
       func_800480A0(arg0, *temp_s0_2);
@@ -99,7 +104,7 @@ void func_8006CD34(void *arg0)
       {
         *((s32 *) (((char *) (*((s32 *) (D_80109688 + (temp_s3 * 4))))) + 0x130)) = 0;
       }
-      temp_v1_2 = (temp_s3 * 4) + D_80109688;
+      temp_v1_2 = inline_fn(temp_s3, 4, D_80109688);
       temp_v0_4 = *temp_v1_2;
       *((f32 *) (((char *) temp_v0_4) + 0x14)) -= *((f32 *) (((char *) temp_v0_4) + 0x130));
       var_v0 = *temp_v1_2;
@@ -122,7 +127,7 @@ void func_8006CD34(void *arg0)
   if ((*((u8 *) (((char *) temp_s2) + 0x184))) == 2)
   {
     func_800643C8(arg0);
-    temp_v1_3 = (temp_s3 * 4) + D_80109688;
+    temp_v1_3 = inline_fn(temp_s3, 4, D_80109688);
     *((f32 *) (((char *) (*temp_v1_3)) + 0x10)) = (f32) (*((f32 *) (((char *) arg0) + 0x24)));
     *((f32 *) (((char *) (*temp_v1_3)) + 0x18)) = (f32) (*((f32 *) (((char *) arg0) + 0x2C)));
     *((f32 *) (((char *) (*temp_v1_3)) + 0x14)) = (f32) ((((f64) (*((f32 *) (((char *) arg0) + 0x28)))) + D_800D4630) + ((f64) D_800C9D4C));
@@ -151,8 +156,18 @@ void func_8006CD34(void *arg0)
       arg0 = sp18;
       rotateVec3ByMat3(sp28);
       sp18[0] += *((f32 *) (((char *) temp_s2) + 0x24));
- do { sp18[1] += *((f32 *) (((char *) temp_s2) + 0x28)); temp_s0_4 = (temp_s3 * 4) + D_80109688; sp18[2] += *((f32 *) (((char *) temp_s2) + 0x2C)); func_80045290(arg0, (*temp_s0_4) + 0x10); *((f32 *) (((char *) (*temp_s0_4)) + 0x34)) = (f32) ((*((f32 *) (((char *) temp_s2) + 0x3C))) * 0.0015339808f); *((f32 *) (((char *) (*temp_s0_4)) + 0x38)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x40))) * 0.0015339808f) + 3.1415927f); *((f32 *) (((char *) (*temp_s0_4)) + 0x3C)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x44))) * 0.0015339808f) + 3.1415927f); *((f32 *) (((char *) (*temp_s0_4)) + 0x4C)) = 1.0f; } while (0);
+      do
+      {
+        sp18[1] += *((f32 *) (((char *) temp_s2) + 0x28)); temp_s0_4 = (temp_s3 * 4) + D_80109688; sp18[2] += *((f32 *) (((char *) temp_s2) + 0x2C));
+        func_80045290(arg0, (*temp_s0_4) + 0x10);
+        *((f32 *) (((char *) (*temp_s0_4)) + 0x34)) = (f32) ((*((f32 *) (((char *) temp_s2) + 0x3C))) * 0.0015339808f);
+        *((f32 *) (((char *) (*temp_s0_4)) + 0x38)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x40))) * 0.0015339808f) + 3.1415927f);
+        *((f32 *) (((char *) (*temp_s0_4)) + 0x3C)) = (f32) (((*((f32 *) (((char *) temp_s2) + 0x44))) * 0.0015339808f) + 3.1415927f);
+        *((f32 *) (((char *) (*temp_s0_4)) + 0x4C)) = 1.0f;
+      }
+      while (0);
       *((s32 *) (((char *) (*temp_s0_4)) + 0xF4)) = (s32) (*((s32 *) (((char *) temp_s2) + 0x20)));
     }
   }
 }
+

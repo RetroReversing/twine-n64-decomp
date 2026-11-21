@@ -169,7 +169,11 @@ void func_8001F9A4(void)
     }
     if (temp_s7 || var_a0_4)
     {
-      formatTextEntry(temp_s7, D_800D2A80, func_80087100(var_a0_4));
+      do
+      {
+        formatTextEntry(temp_s7, D_800D2A80, func_80087100(var_a0_4));
+      }
+      while (0);
       temp_v0_4 = *((&D_8011508D) + (D_800B7CF0 * 0xA0));
       D_801007C1 = temp_v0_4;
       var_a0_5 = 0xA;
@@ -210,7 +214,7 @@ void func_8001F9A4(void)
       {
         if (((s32) temp_v1_2) < 6)
         {
-          if ((((s32) temp_v1_2) + 1) > 4)
+          if (((((s32) temp_v1_2) + 1) - 1) > (4 - 1))
           {
             var_a0_7 = temp_s6 - 0x28;
             goto block_32;
@@ -265,14 +269,17 @@ void func_8001F9A4(void)
           *((s32 *) (((u8 *) (&D_80102F48)) + (temp_s1_3 * 4))) = temp_v0_7;
           if (temp_v0_7 != 0)
           {
-            temp_s2_2 = func_80087100((var_s0_2 + 0x400C) & 0xFFFF);
-            if (temp_s1_3 < 4U)
+            if (1)
             {
-              sprintf(temp_s2_2, D_800D2A88, func_80087100(0xAD), temp_s1_3 + 1);
-            }
-            else
-            {
-              sprintf(temp_s2_2, D_800D2A88, func_80087100(0x158), temp_s1_3 - 3);
+              temp_s2_2 = func_80087100((var_s0_2 + 0x400C) & 0xFFFF);
+              if (temp_s1_3 < 4U)
+              {
+                sprintf(temp_s2_2, D_800D2A88, func_80087100(0xAD), temp_s1_3 + 1);
+              }
+              else
+              {
+                sprintf(temp_s2_2, D_800D2A88, func_80087100(0x158), temp_s1_3 - 3);
+              }
             }
             func_800160FC(*((s32 *) (((u8 *) (&D_80102F48)) + ((var_s0_2 & 0xFFFF) * 4))), temp_s2_2, 0x40);
           }

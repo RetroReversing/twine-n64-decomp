@@ -136,8 +136,16 @@ void func_80117BF4(s32 map)
 
         if (((SearchRow *) cursor)->links[0] == 0)
         {
-          ((SearchRow *) cursor)->links[0] = to;
-          goto forward_done;
+          if (edge)
+          {
+            ((SearchRow *) cursor)->links[0] = to;
+            goto forward_done;
+          }
+          else
+          {
+            ((SearchRow *) cursor)->links[0] = to;
+            goto forward_done;
+          }
         }
         cursor += 4;
         if (j < 16)

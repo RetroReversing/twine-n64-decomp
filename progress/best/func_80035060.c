@@ -21,6 +21,11 @@ inline static int inline_fn(s32 arg0, int arg1)
   return (arg0 * 8) & arg1;
 }
 
+inline static int inline_fn2(char *arg0, int arg1)
+{
+  return (*((const s32 *) arg0)) & arg1;
+}
+
 void func_80035060(void *arg0)
 {
   f32 temp_fv0;
@@ -54,14 +59,14 @@ void func_80035060(void *arg0)
   s32 framebuffer;
   s32 phys;
   s32 width;
-    s32 __repair_width_1;
+  s32 __repair_width_1;
   volatile unsigned int modeFlag;
   s32 image;
   s32 red;
   s32 green;
-  s32 blue;
+  volatile unsigned char blue;
   u32 fill = 0xF7000000;
-  if ((*((const s32 *) (((char *) arg0) + 0x100))) & 0x40)
+  if (inline_fn2(((char *) arg0) + 0x100, 0x40))
   {
     func_80034EFC(arg0);
     return;
@@ -84,7 +89,7 @@ void func_80035060(void *arg0)
   temp_s6 = (s32) (bottom - 1.0f);
   temp_s5 = (s32) (right - 1.0f);
   phys = osVirtualToPhysical(framebuffer);
-  framebuffer = (s32) (&D_80109A54);
+  framebuffer = 0x80109A54;
   temp_s0 = sDisplayListCursor;
   width = D_8010D6F8;
   *((s32 *) (((char *) temp_s1) + 0xC)) = phys;
@@ -104,7 +109,7 @@ void func_80035060(void *arg0)
   temp_s3 = ((((unsigned) temp_s5) & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000);
   *((s32 *) (((char *) temp_s1_2) + 0)) = 0xF7000000;
   *((s32 *) (((char *) temp_s1_2) + 8)) = temp_s3;
-  *((s32 *) (((char *) temp_s1_2) + 0xC)) = temp_s0_2;
+  *((s32 *) (((char *) temp_s1_2) + 0xC)) = ((temp_s7 & 0x3FF) << 0xE) | ((temp_fp & 0x3FF) * 4);
   modeFlag = D_8010A4EC;
   sDisplayListCursor = temp_s1_2 + 8;
   sDisplayListCursor = temp_s1_2 + 0x10;
@@ -156,9 +161,12 @@ void func_80035060(void *arg0)
         {
           var_a0_2 = 0x4000;
         }
-        if ((*((const s32 *) (((char *) arg0) + 0x100))) & 8)
+        if (1)
         {
-          var_a0_2 = ((D_80100777 << 0x18) + (D_80100778 << 0x10)) + (((unsigned) D_80100779) << 8);
+          if (inline_fn2(((char *) arg0) + 0x100, 8))
+          {
+            var_a0_2 = ((D_80100777 << 0x18) + (D_80100778 << 0x10)) + (((unsigned) D_80100779) << 8);
+          }
         }
       }
     }
@@ -200,7 +208,7 @@ void func_80035060(void *arg0)
 
       var_a0_2 = (temp_v1_2 << 0x10) | temp_v1_2;
     }
-    var_a0_2 &= -(((*((const s32 *) (((char *) arg0) + 0x100))) & 0x40) == 0);
+    var_a0_2 &= -(inline_fn2(((char *) arg0) + 0x100, 0x40) == 0);
     if (gTrackMarkerActiveMask)
     {
       temp_v0_2 = sDisplayListCursor;

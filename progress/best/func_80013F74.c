@@ -22,7 +22,6 @@ void func_80013F74(void *arg0)
   u32 temp_a1_13;
   u32 temp_a1_14;
   u32 temp_a1_15;
-  u32 temp_a1_16;
   u32 temp_a1_17;
   u32 __repair_phase_temp_a1_17;
   u32 temp_a1_19;
@@ -30,12 +29,9 @@ void func_80013F74(void *arg0)
   unsigned temp_a1_22;
   u32 temp_a1_23;
   u32 temp_a1_25;
-  u32 temp_a1_26;
-  u32 temp_a1_27;
   u32 temp_a1_28;
   u32 temp_a1_3;
   u32 temp_a1_5;
-  u32 temp_a1_7;
   u32 temp_a1_8;
   u32 temp_a1_9;
   u32 var_a1;
@@ -192,11 +188,11 @@ void func_80013F74(void *arg0)
       var_t2_3 = var_a1 & 0xF;
       if (var_a2 < 0)
       {
-        temp_a1_7 = var_t1;
+        temp_a1_5 = var_t1;
         var_t1 = *((u32 *) var_t0);
         var_t0 += 4;
-        var_t2_3 = (var_a1 + (temp_a1_7 << (var_a2 + 4))) & 0xF;
-        var_a1 = temp_a1_7 >> (-var_a2);
+        var_t2_3 = (var_a1 + (temp_a1_5 << (var_a2 + 4))) & 0xF;
+        var_a1 = temp_a1_5 >> (-var_a2);
         var_a2 += 0x20;
       }
       else
@@ -367,11 +363,11 @@ void func_80013F74(void *arg0)
       var_v1 = var_a1 & 0xFF;
       if (var_a2 < 0)
       {
-        temp_a1_16 = var_t1;
+        temp_a1_15 = var_t1;
         var_t1 = *((u32 *) var_t0);
         var_t0 += 4;
-        var_v1 = (var_a1 + (temp_a1_16 << (var_a2 + 8))) & 0xFF;
-        var_a1 = temp_a1_16 >> (-var_a2);
+        var_v1 = (var_a1 + (temp_a1_15 << (var_a2 + 8))) & 0xFF;
+        var_a1 = temp_a1_15 >> (-var_a2);
         var_a2 += 0x20;
       }
       else
@@ -508,6 +504,11 @@ void func_80013F74(void *arg0)
         var_a2 += 0x20;
       }
       else
+        if (temp_a1_22)
+      {
+        var_a1 = var_a1 >> 1;
+      }
+      else
       {
         var_a1 = var_a1 >> 1;
       }
@@ -592,11 +593,11 @@ void func_80013F74(void *arg0)
         var_v1 = var_a1 & 1;
         if (0 > var_a2)
         {
-          temp_a1_26 = var_t1;
+          temp_a1_25 = var_t1;
           var_t1 = *((u32 *) var_t0);
           var_t0 += 4;
-          var_v1 = (var_a1 + (temp_a1_26 << (var_a2 + 1))) & 1;
-          var_a1 = temp_a1_26 >> (-var_a2);
+          var_v1 = (var_a1 + (temp_a1_25 << (var_a2 + 1))) & 1;
+          var_a1 = temp_a1_25 >> (-var_a2);
           var_a2 += 0x20;
         }
         else
@@ -610,11 +611,11 @@ void func_80013F74(void *arg0)
     var_v1 = var_a1 & 0xFF;
     if (var_a2 < 0)
     {
-      temp_a1_27 = var_t1;
+      temp_a1_25 = var_t1;
       var_t1 = *((u32 *) var_t0);
       var_t0 += 4;
-      var_v1 = (var_a1 + (temp_a1_27 << (var_a2 + 8))) & 0xFF;
-      var_a1 = temp_a1_27 >> (-var_a2);
+      var_v1 = (var_a1 + (temp_a1_25 << (var_a2 + 8))) & 0xFF;
+      var_a1 = temp_a1_25 >> (-var_a2);
       var_a2 += 0x20;
     }
     else

@@ -139,9 +139,13 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         }
         var_s7 = -1;
         var_s6 = -1;
-        var_s1_2 = 0;
         var_s0_2 = &frame.corners[0].coord[0];
- do { temp_s4 = arg0 + 0x24; } while (0);
+        var_s1_2 = 0;
+        do
+        {
+          temp_s4 = arg0 + 0x24;
+        }
+        while (0);
         do
         {
           frame.dir.coord[0] = (*((f32 *) (((char *) var_s0_2) + 0))) - (*((f32 *) (((char *) arg0) + 0x24)));
@@ -197,8 +201,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3)
         if (var_s6 != (-1))
         {
           *((RoutePoint *) (((char *) temp_fp) + 0x18)) = frame.corners[var_s6];
-          temp_fv0_11 = func_800461D4(arg0 + 0x24, frame.corners[var_s6].coord);
-          var_a1 = spFC;
+ do { temp_fv0_11 = func_800461D4(arg0 + 0x24, frame.corners[var_s6].coord); var_a1 = spFC; } while (0);
           *((f32 *) (((char *) temp_fp) + 0x38)) = temp_fv0_11;
           *((f32 *) (((char *) temp_fp) + 0x34)) = temp_fv0_11;
           goto block_25;

@@ -45,7 +45,9 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
   long vbase;
   void *s1;
   s32 cellA;
+s32 __repair_result_cellA;
   s32 cellB;
+s32 __repair_result_cellB;
   f32 d1;
   s8 c1;
   s8 c2;
@@ -89,9 +91,9 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
   neg.z = -arg3->z;
   if ((*((u16 *) (((u8 *) arg0) + 0x58))) == 0x84)
   {
-    cellA = CELLVAL(arg1);
-    cellB = CELLVAL(arg2);
-    if (cellB < cellA)
+    __repair_result_cellA = CELLVAL(arg1);
+    __repair_result_cellB = CELLVAL(arg2);
+    if (__repair_result_cellB < __repair_result_cellA)
     {
       FLIP_RETURN();
     }

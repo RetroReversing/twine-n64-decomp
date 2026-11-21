@@ -29,7 +29,7 @@ extern u8 sPrimTintB;
 extern u8 sPrimTintG;
 extern s32 D_8010A924;
 extern s32 D_8010A92C;
-extern u8 D_8010D36C;
+extern volatile unsigned char D_8010D36C;
 extern u8 D_8010D374;
 extern s32 D_8010D538;
 extern s32 gRenderMode;
@@ -216,7 +216,68 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
       }
       else
       {
- do { if (temp_v1_4 & 4) { if (((__repair_field_58 *) arg0)->value & 0x2000) { temp_v0_3 = trackFindNearestLight(arg0, &sp26, &sp27, &sp28); temp_a0_3 = *((u8 *) (((char *) arg0) + 0x7F)); temp_a2_3 = *((u8 *) (((char *) arg0) + 0x81)); *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_a0_3 + ((sp26 >> 1) - (temp_a0_3 >> 1))); temp_a0_3 = *((u8 *) (((char *) arg0) + 0x80)); *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_a0_3 + ((sp27 >> 1) - (temp_a0_3 >> 1))); var_s4 = temp_v0_3; *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_3 + ((sp28 >> 1) - (temp_a2_3 >> 1))); temp_t3_2 = D_80115328; D_80115328 = temp_t3_2 + 2; ((__repair_field_0 *) temp_t3_2)->value = 0xFA000000; D_80115328 = temp_t3_2 + 4; *((s32 *) (((char *) temp_t3_2) + 0xC)) = (s32) ((((D_8010D36C << 0x18) | (D_801002E4 << 0x10)) | (D_80107ECD << 8)) | 0xFF); *((s32 *) (((char *) temp_t3_2) + 8)) = 0xFB000000; *((s32 *) (((char *) temp_t3_2) + 4)) = (s32) ((((D_80107ECE << 0x18) | (D_80108F94 << 0x10)) | (D_80103020 << 8)) | (*((u8 *) (((char *) arg0) + 0x82)))); func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3); temp_a1_3 = D_80115328; D_80115328 = temp_a1_3 + 2; ((__repair_field_0 *) temp_a1_3)->value = 0xFB000000; *((s32 *) (((char *) temp_a1_3) + 4)) = (s32) (((((*((u8 *) inline_fn(arg1))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF); if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF)) { var_v1 = D_80113022 + 1; if (((u8) D_80113022) < 0xAU) { var_a3 = sp26; var_v0 = sp28; D_80113022 = var_v1; func_8000C34C(arg0, var_s4, arg1, (u32) var_a3, inline_fn2(sp27), inline_fn2(var_v0)); } } } } else { temp_v1_5 = ((__repair_field_58 *) arg0)->value; if (temp_v1_5 & 0x2000) { var_a0 = arg0; if (temp_v1_5 & 0x1000) { var_a0 = temp_s0; } temp_s1_2 = trackFindNearestLight(var_a0, &sp29, &sp2A, &sp2B); temp_v1_6 = *((u8 *) (((char *) arg0) + 0x7F)); *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_v1_6 + ((sp29 >> 1) - (temp_v1_6 >> 1))); temp_v1_6 = *((u8 *) (((char *) arg0) + 0x80)); temp_t1 = *((u8 *) (((char *) arg0) + 0x81)); *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_v1_6 + ((sp2A >> 1) - (temp_v1_6 >> 1))); temp_t1_2 = temp_t1 + ((sp2B >> 1) - (temp_t1 >> 1)); *((u8 *) (((char *) arg0) + 0x81)) = temp_t1_2; temp_t2 = *((void **) (((char *) temp_s4) + 0x20)); temp_t3_3 = D_80115328; ((__repair_field_0 *) temp_t3_3)->value = 0xFA000000; D_80115328 = temp_t3_3 + 2; *((s32 *) (((char *) temp_t3_3) + 4)) = (s32) (((((inline_fn2((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2) + 0x64)))) >> 8) << 0x18) | ((inline_fn2((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2) + 0x65)))) >> 8) << 0x10)) | (((temp_t1_2 & 0xFF) * (*((u8 *) (((char *) temp_t2) + 0x66)))) & 0xFF00)) | (*((u8 *) (((char *) arg0) + 0x82)))); func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3); if ((arg3 == 0) && (((u8) D_80113022) < 0xAU)) { D_80113022 += 1; temp_v0_4 = *((u8 *) (((char *) arg0) + 0x82)); func_8000C34C(arg0, temp_s1_2, arg1, inline_fn2(sp29 * temp_v0_4) >> 8, inline_fn2(sp2A * temp_v0_4) >> 8, inline_fn2(sp2B * temp_v0_4) >> 8); } } else { temp_t2_2 = *((void **) (((char *) temp_s4) + 0x20)); temp_t3_4 = D_80115328; D_80115328 = temp_t3_4 + 2; *((s32 *) (((char *) temp_t3_4) + 4)) = (s32) (((((((u32) ((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2_2) + 0x64))))) >> 8) << 0x18) | ((((u32) ((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2_2) + 0x65))))) >> 8) << 0x10)) | (((*((u8 *) (((char *) arg0) + 0x81))) * (*((u8 *) (((char *) temp_t2_2) + 0x66)))) & 0xFF00)) | (((u8) (*((u8 *) (((char *) arg0) + 0x82)))) >> 1)); ((__repair_field_0 *) temp_t3_4)->value = 0xFA000000; func_80000A40(arg0, arg1, 0, 0, 0, arg3); } } } while (0);
+        do
+        {
+          if (temp_v1_4 & 4)
+          {
+            if (((__repair_field_58 *) arg0)->value & 0x2000)
+            {
+              temp_v0_3 = trackFindNearestLight(arg0, &sp26, &sp27, &sp28); temp_a0_3 = *((u8 *) (((char *) arg0) + 0x7F)); temp_a2_3 = *((u8 *) (((char *) arg0) + 0x81));
+              *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_a0_3 + ((sp26 >> 1) - (temp_a0_3 >> 1))); temp_a0_3 = *((u8 *) (((char *) arg0) + 0x80));
+              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_a0_3 + ((sp27 >> 1) - (temp_a0_3 >> 1))); var_s4 = temp_v0_3;
+              *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a2_3 + ((sp28 >> 1) - (temp_a2_3 >> 1))); temp_t3_2 = D_80115328; D_80115328 = temp_t3_2 + 2;
+              ((__repair_field_0 *) temp_t3_2)->value = 0xFA000000; D_80115328 = temp_t3_2 + 4;
+              *((s32 *) (((char *) temp_t3_2) + 0xC)) = (s32) ((((D_8010D36C << 0x18) | (D_801002E4 << 0x10)) | (D_80107ECD << 8)) | 0xFF);
+              *((s32 *) (((char *) temp_t3_2) + 8)) = 0xFB000000;
+              *((s32 *) (((char *) temp_t3_2) + 4)) = (s32) ((((D_80107ECE << 0x18) | (D_80108F94 << 0x10)) | (D_80103020 << 8)) | (*((u8 *) (((char *) arg0) + 0x82))));
+              func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
+              temp_a1_3 = D_80115328; D_80115328 = temp_a1_3 + 2;
+              ((__repair_field_0 *) temp_a1_3)->value = 0xFB000000;
+              *((s32 *) (((char *) temp_a1_3) + 4)) = (s32) (((((*((u8 *) inline_fn(arg1))) << 0x18) | ((*((u8 *) (((char *) arg1) + 0x144))) << 0x10)) | ((*((u8 *) (((char *) arg1) + 0x145))) << 8)) | 0xFF);
+              if ((arg3 == 0) && ((*((u8 *) (((char *) arg0) + 0x82))) == 0xFF))
+              {
+                var_v1 = D_80113022 + 1;
+                if (((u8) D_80113022) < 0xAU)
+                {
+                  var_a3 = sp26; var_v0 = sp28; D_80113022 = var_v1;
+                  func_8000C34C(arg0, var_s4, arg1, (u32) var_a3, inline_fn2(sp27), inline_fn2(var_v0));
+                }
+              }
+            }
+          }
+          else
+          {
+            temp_v1_5 = ((__repair_field_58 *) arg0)->value;
+            if (temp_v1_5 & 0x2000)
+            {
+              var_a0 = arg0;
+              if (temp_v1_5 & 0x1000)
+              {
+                var_a0 = temp_s0;
+              }
+              temp_s1_2 = trackFindNearestLight(var_a0, &sp29, &sp2A, &sp2B); temp_v1_6 = *((u8 *) (((char *) arg0) + 0x7F));
+              *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_v1_6 + ((sp29 >> 1) - (temp_v1_6 >> 1))); temp_v1_6 = *((u8 *) (((char *) arg0) + 0x80)); temp_t1 = *((u8 *) (((char *) arg0) + 0x81));
+              *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_v1_6 + ((sp2A >> 1) - (temp_v1_6 >> 1))); temp_t1_2 = temp_t1 + ((sp2B >> 1) - (temp_t1 >> 1));
+              *((u8 *) (((char *) arg0) + 0x81)) = temp_t1_2; temp_t2 = *((void **) (((char *) temp_s4) + 0x20)); temp_t3_3 = D_80115328;
+              ((__repair_field_0 *) temp_t3_3)->value = 0xFA000000; D_80115328 = temp_t3_3 + 2;
+              *((s32 *) (((char *) temp_t3_3) + 4)) = (s32) (((((inline_fn2((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2) + 0x64)))) >> 8) << 0x18) | ((inline_fn2((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2) + 0x65)))) >> 8) << 0x10)) | (((temp_t1_2 & 0xFF) * (*((u8 *) (((char *) temp_t2) + 0x66)))) & 0xFF00)) | (*((u8 *) (((char *) arg0) + 0x82))));
+              func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
+              if ((arg3 == 0) && (((u8) D_80113022) < 0xAU))
+              {
+                D_80113022 += 1; temp_v0_4 = *((u8 *) (((char *) arg0) + 0x82));
+                func_8000C34C(arg0, temp_s1_2, arg1, inline_fn2(sp29 * temp_v0_4) >> 8, inline_fn2(sp2A * temp_v0_4) >> 8, inline_fn2(sp2B * temp_v0_4) >> 8);
+              }
+            }
+            else
+            {
+              temp_t2_2 = *((void **) (((char *) temp_s4) + 0x20)); temp_t3_4 = D_80115328; D_80115328 = temp_t3_4 + 2;
+              *((s32 *) (((char *) temp_t3_4) + 4)) = (s32) (((((((u32) ((*((u8 *) (((char *) arg0) + 0x7F))) * (*((u8 *) (((char *) temp_t2_2) + 0x64))))) >> 8) << 0x18) | ((((u32) ((*((u8 *) (((char *) arg0) + 0x80))) * (*((u8 *) (((char *) temp_t2_2) + 0x65))))) >> 8) << 0x10)) | (((*((u8 *) (((char *) arg0) + 0x81))) * (*((u8 *) (((char *) temp_t2_2) + 0x66)))) & 0xFF00)) | (((u8) (*((u8 *) (((char *) arg0) + 0x82)))) >> 1));
+              ((__repair_field_0 *) temp_t3_4)->value = 0xFA000000;
+              func_80000A40(arg0, arg1, 0, 0, 0, arg3);
+            }
+          }
+        }
+        while (0);
       }
       goto block_72;
     }
@@ -258,18 +319,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82))));
       }
       else
-        if (!(temp_v1_8 & 1))
-      {
-        if (temp_v1_8 & 4)
-        {
-          var_a0_2 = D_80115328;
-          D_80115328 = var_a0_2 + 2;
-          ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
-          var_v0_2 = (((var_a2 << 0x18) | (var_a1 << 0x10)) | (var_a3_2 << 8)) | 0x80;
-          *((s32 *) (((char *) var_a0_2) + 4)) = var_v0_2;
-        }
-      }
-      else
+        if (temp_v1_8 & 1)
       {
         var_a0_2 = D_80115328;
         D_80115328 = var_a0_2 + 2;
@@ -277,6 +327,15 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         temp_v0_6 = (var_a2 << 0x18) | (var_a1 << 0x10);
         var_a1 = *((u8 *) (((char *) arg0) + 0x82));
         *((s32 *) (((char *) var_a0_2) + 4)) = (temp_v0_6 | (var_a3_2 << 8)) | var_a1;
+      }
+      else
+        if (temp_v1_8 & 4)
+      {
+        var_a0_2 = D_80115328;
+        D_80115328 = var_a0_2 + 2;
+        ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
+        var_v0_2 = (((var_a2 << 0x18) | (var_a1 << 0x10)) | (var_a3_2 << 8)) | 0x80;
+        *((s32 *) (((char *) var_a0_2) + 4)) = var_v0_2;
       }
       if (((__repair_field_58 *) arg0)->value & 0x1000)
       {
@@ -293,7 +352,10 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           if (((__repair_field_58 *) arg0)->value & 0x8000)
           {
             func_80008434(arg0, 0.015625f);
-            { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); }
+            {
+              volatile f32 *scaleX = &D_80112FB0;
+              *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
+            }
             D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
             D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
           }
@@ -303,7 +365,10 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           }
           if (((__repair_field_58 *) arg0)->value & 0x4000)
           {
-            { volatile f32 *matrixX = &D_80112F90; *matrixX = -*matrixX; }
+            {
+              volatile f32 *matrixX = &D_80112F90;
+              *matrixX = -(*matrixX);
+            }
             D_80112F94 = -D_80112F94;
             D_80112F98 = -D_80112F98;
             if (D_8010A924 != 0xB)
@@ -364,7 +429,10 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               if (temp_v1_11 & 0x8000)
             {
               func_80008434(arg0, 0.015625f);
-              { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); }
+              {
+                volatile f32 *scaleX = &D_80112FB0;
+                *scaleX *= *((f32 *) (((char *) arg0) + 0x54));
+              }
               D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
               D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
             }
@@ -415,3 +483,4 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     }
   }
 }
+

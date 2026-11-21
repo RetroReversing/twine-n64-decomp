@@ -63,7 +63,14 @@ void func_80098B14(register Entry *entry, s32 group)
       groupPosition = (u8) group; orderedGroup = (u16) __repair_phase_storage.value;
       if (orderedGroup >= ((u16) head))
       {
-        current = head;
+        if (D_8010957D)
+        {
+          current = head;
+        }
+        else
+        {
+          current = head;
+        }
         for (;;)
         {
           key = (u16) current;
@@ -95,6 +102,15 @@ void func_80098B14(register Entry *entry, s32 group)
       D_8010A51C[current].index = 0xFFFF; D_80109B1C = (u8) group;
     }
   }
-  D_8010957D[(u8) group] = slot; entry->group = (u8) group;
+  if (current)
+  {
+    D_8010957D[(u8) group] = slot;
+    entry->group = (u8) group;
+  }
+  else
+  {
+    D_8010957D[(u8) group] = slot;
+    entry->group = (u8) group;
+  }
 }
 

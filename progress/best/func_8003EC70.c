@@ -192,7 +192,11 @@ s32 func_8003EC70(s32 vert_count)
           f32 value;
           new_vtx->y = plane;
           base = cur->y;
- do { numerator = plane - base; fraction = numerator / (prev->y - base); } while (0);
+          do
+          {
+            numerator = plane - base; fraction = numerator / (prev->y - base);
+          }
+          while (0);
           others = prev->x;
           value = cur->x;
           new_vtx->x = value + ((others - value) * fraction);
@@ -214,9 +218,7 @@ s32 func_8003EC70(s32 vert_count)
           base = cur->x;
           numerator = plane - base;
           fraction = numerator / (prev->x - base);
-          others = prev->y;
-          value = cur->y;
-          new_vtx->y = value + ((others - value) * fraction);
+ do { others = prev->y; value = cur->y; new_vtx->y = value + ((others - value) * fraction); } while (0);
           new_vtx->z = cur->z + ((prev->z - cur->z) * fraction);
         }
         out_idx++;

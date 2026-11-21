@@ -6,7 +6,7 @@ inline static s8 __repair_inline(s8 a)
 s32 func_80073AF8(s32, s32, s8 *, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80074788(s8 *, s32);
 volatile unsigned int func_800AB6C0(s8 *, s8 *);
-s32 memcpy(s8 *, s8 *, s32);
+volatile unsigned int memcpy(s8 *, s8 *, s32);
 extern s8 D_800D4870;
 extern void *D_80100B20;
 extern u16 D_80112EBC;
@@ -21,10 +21,20 @@ inline static int inline_fn2(s32 arg0, s32 arg1)
   return arg0 | (arg1 == '\n');
 }
 
+inline static s8 inline_fn23(u8 arg0)
+{
+  return inline_fn(arg0);
+}
+
+inline static int inline_fn234(s32 arg0, s32 arg1)
+{
+  return arg0 >= arg1;
+}
+
 void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
 {
   char sp30[0x200];
-  s8 sp230[0x220];
+  s8 sp230[0x208];
   f32 var_fv1;
   s16 count;
   union 
@@ -54,7 +64,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
   var_s0 = arg1;
   sp230[0] = 0;
   var_a0 = *var_s0;
-  if (inline_fn(*var_s0) != 0)
+  if (inline_fn23(*var_s0) != 0)
   {
     var_t0 = sp30;
     do
@@ -69,7 +79,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
           if (((s8) var_v1) != 0)
           {
             var_a2 = 0;
-            if ((((inline_fn(var_v1) == 0x2E) | (inline_fn(var_v1) == 0x21)) != 0) || (((s8) var_v1) == 0x3F))
+            if ((((inline_fn(var_v1) == 0x2E) | (inline_fn23(var_v1) == 0x21)) != 0) || (((s8) var_v1) == 0x3F))
             {
               var_a2 = 1;
             }
@@ -86,7 +96,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
             }
             else
             {
-              if ((var_a2 != 0) && (var_a3 >= (arg2 / 2)))
+              if ((var_a2 != 0) && inline_fn234(var_a3, arg2 / 2))
               {
                 var_t1 = 1;
               }
@@ -121,7 +131,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       var_a0 = (u8) (*var_s0);
       var_t0 = sp30;
     }
-    while ((*var_s0) != 0);
+    while ((*((s8 *) var_s0)) != 0);
   }
   D_80112EBC = 0;
   var_s1 = sp230;
@@ -154,7 +164,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       }
       goto advance;
       check:
-      if (temp_v1 | (var_a0_2 >= arg3))
+      if (temp_v1 | inline_fn234(var_a0_2, arg3))
       {
         goto emit;
       }

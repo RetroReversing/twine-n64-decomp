@@ -7,7 +7,7 @@ inline static f32 inline_fn(void *arg0)
   return *((f32 *) (((char *) arg0) + 0x58));
 }
 
-inline static int inline_fn2(s32 arg0)
+inline static volatile int inline_fn2(s32 arg0)
 {
   return ((((unsigned short) arg0) - 1) & 0x3FF) << 0xE;
 }
@@ -47,10 +47,7 @@ void func_800389F0(void *arg0)
     *((s32 *) (((char *) temp_v0) + 0x18)) = 0xF7000000;
     *((s32 *) (((char *) temp_v0) + 0x1C)) = 0;
     position = *((f32 *) (((char *) arg0) + 0x64));
-    edge = *((f32 *) (((char *) arg0) + 0x58));
-    sDisplayListCursor = temp_v0 + 8;
-    sDisplayListCursor = temp_v0 + 0x10;
-    sDisplayListCursor = temp_v0 + 0x18;
+ do { edge = *((f32 *) (((char *) arg0) + 0x58)); sDisplayListCursor = temp_v0 + 8; sDisplayListCursor = temp_v0 + 0x10; sDisplayListCursor = temp_v0 + 0x18; } while (0);
     temp_v1 = temp_v0 + 0x20;
     sDisplayListCursor = temp_v1 + 8;
     sDisplayListCursor = temp_v1;
@@ -120,4 +117,3 @@ void func_800389F0(void *arg0)
     *((s32 *) (((char *) temp_v1_3) + 4)) = (s32) (var_v0_4 * 4);
   }
 }
-

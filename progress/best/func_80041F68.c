@@ -55,10 +55,10 @@ void func_80041F68(void *arg0)
   func_8000B9B8(sp1C, (*((u32 *) (((char *) arg0) + 0x10))) + ((u8 *) (&D_54D910)), (*((u32 *) (((char *) arg0) + 0x14))) * 8);
   func_8000B9B8(temp_fp, (*((u32 *) (((char *) arg0) + 0x18))) + ((u8 *) (&D_54D910)), (*((u32 *) (((char *) arg0) + 0x1C))) * 0xC);
   func_8000B9B8(temp_s4, (*((s32 *) (((char *) arg0) + 0x28))) + ((u8 *) (&D_54D910)), *((u32 *) (((char *) arg0) + 0x2C)));
-  var_s1 = func_8001499C(temp_s4);
-  if (var_s1 != 0)
+  var_s0 = func_8001499C(temp_s4);
+  if (var_s0 != 0)
   {
-    var_s7 = func_80083E90(var_s1, 0x1A);
+    var_s7 = func_80083E90(var_s0, 0x1A);
     func_80014A0C(var_s7, temp_s4);
   }
   else
@@ -99,19 +99,19 @@ void func_80041F68(void *arg0)
     }
   }
   func_80084048(temp_s4, 0x2D);
-  var_s1_2 = 0;
+  var_s1 = 0;
   *((u16 **) (((char *) arg0) + 0x10)) = sp1C;
   *((u16 **) (((char *) arg0) + 0x18)) = temp_fp;
   if ((*((u32 *) (((char *) arg0) + 0x14))) != 0)
   {
     do
     {
-      *((s32 *) (((char *) ((var_s1_2 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4)) = (s32) ((*((s32 *) (((char *) ((var_s1_2 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4))) * 2);
-      temp_a0_2 = (var_s1_2 * 8) + (*((u8 **) (((char *) arg0) + 0x10)));
+      *((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4)) = (s32) ((*((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4))) * 2);
+      temp_a0_2 = (var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10)));
       *((void **) (((char *) temp_a0_2) + 4)) = (void *) ((*((u32 *) (((char *) temp_a0_2) + 4))) + ((u8 *) var_s5));
-      var_s1_2 += 1;
+      var_s1 += 1;
     }
-    while (var_s1_2 < ((u32) (*((u32 *) (((char *) arg0) + 0x14)))));
+    while (var_s1 < ((u32) (*((u32 *) (((char *) arg0) + 0x14)))));
   }
   var_s1 = 0;
   if ((*((u32 *) (((char *) arg0) + 0x1C))) != 0)

@@ -86,6 +86,16 @@ inline static int inline_fn()
   return ((u32) D_8010A928) - 0x798;
 }
 
+inline static int inline_fn2(FrameCommand *arg0, int arg1)
+{
+  return ((u32) arg0) - arg1;
+}
+
+inline static int inline_fn23(u8 *arg0)
+{
+  return ((u32) arg0) - 0x16A0;
+}
+
 void func_80007958(void)
 {
   short __repair_constant = -1;
@@ -252,7 +262,7 @@ void func_80007958(void)
   }
   func_80044410(0);
   cmd = sDisplayListCursor++;
-  transitioning = (((u32) cmd) - 0x30) - ((u32) slot);
+  transitioning = inline_fn2(cmd, (unsigned short) 0x30) - ((u32) slot);
   cmd->w0 = 0xE9000000;
   cmd->w1 = 0;
   cmd = sDisplayListCursor++;
@@ -260,7 +270,7 @@ void func_80007958(void)
   cmd->w1 = 0;
   func_800A0220(slot->buffer, transitioning);
   func_800A0220(slot->buffer, inline_fn() - ((u32) slot));
-  func_800A0220(slot->buffer, (((u32) D_80109CB8) - 0x16A0) - ((u32) slot));
+  func_800A0220(slot->buffer, inline_fn23(D_80109CB8) - ((u32) slot));
   func_800A0220(slot->buffer, (((u32) D_801002FC) - 0x1AA8) - ((u32) slot));
   func_800A0220(slot->buffer, (((u32) D_8010A4B4) - 0x1BB0) - ((u32) slot));
   submittedSlot = slot;

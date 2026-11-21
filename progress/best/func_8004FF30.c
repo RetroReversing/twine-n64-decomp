@@ -141,6 +141,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   f32 *sp19C;
   s16 *sp1A4;
   f32 *sp1AC;
+  void *temp_v1;
   f32 *sp1B4;
   f32 *sp1BC;
   f32 *sp1C4;
@@ -269,7 +270,6 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   void *temp_t1;
   void *temp_t1_2;
   void *temp_v0;
-  void *temp_v1;
   void *var_s0;
   void *var_s4;
   void *var_s5;
@@ -882,7 +882,14 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                             }
                             if (arg6 != NULL)
                             {
-                              *arg6 = var_s6;
+                              if (scratch.vsp90.values)
+                              {
+                                *arg6 = var_s6;
+                              }
+                              else
+                              {
+                                *arg6 = var_s6;
+                              }
                             }
                           }
                           sp187 = 1;
@@ -904,42 +911,49 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     if (sp18C != NULL)
     {
       loop_153:
-      loop_154:
-      var_s0 = *((void **) (((char *) sp18C) + 8));
-
-
-      if ((*((u16 *) (((char *) (*((void **) (((char *) var_s0) + 0x20)))) + 0x60))) != gSurfaceQueryStamp)
+      for (;;)
       {
-        if (sp18C != ((u32) NULL))
+        var_s0 = *((void **) (((char *) sp18C) + 8));
+        if ((*((u16 *) (((char *) (*((void **) (((char *) var_s0) + 0x20)))) + 0x60))) != gSurfaceQueryStamp)
         {
-          if (Sphere_OverlapsPoint((*((s32 *) (((char *) sp18C) + 4))) + 0x40, arg1, arg3) != 0)
+          if (sp18C != ((u32) NULL))
           {
-            sp18C = *((void **) (((char *) sp18C) + 0));
+            if (Sphere_OverlapsPoint((*((s32 *) (((char *) sp18C) + 4))) + 0x40, arg1, arg3) != 0)
+            {
+              sp18C = *((void **) (((char *) sp18C) + 0));
+              goto block_160;
+            }
+            temp_t1 = *((void **) (((char *) sp18C) + 0));
+            sp18C = temp_t1;
+            if (temp_t1 != NULL)
+            {
+              goto loop_153;
+            }
             goto block_160;
           }
-          temp_t1 = *((void **) (((char *) sp18C) + 0));
-          sp18C = temp_t1;
-          if (temp_t1 != NULL)
-          {
-            goto loop_153;
-          }
-          goto block_160;
+          return (s8) sp187;
         }
-        return (s8) sp187;
-      }
-      temp_t1_2 = *((void **) (((char *) sp18C) + 0));
-      sp18C = temp_t1_2;
-      if (temp_t1_2 == NULL)
-      {
-        block_160:
-        if (var_s0 == NULL)
+        temp_t1_2 = *((void **) (((char *) sp18C) + 0));
+        sp18C = temp_t1_2;
+        if (temp_t1_2 == NULL)
         {
-          goto block_161;
-        }
+          block_160:
+          if (var_s0 == NULL)
+          {
+            goto block_161;
+          }
 
+          do
+          {
+            continue;
+          }
+          while (0);
+        }
         continue;
+        break;
       }
-      goto loop_154;
+
+
     }
     break;
   }

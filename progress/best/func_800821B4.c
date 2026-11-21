@@ -139,7 +139,7 @@ void func_800821B4(void)
           *((&D_80115118) + var_s1) = 0;
         }
         temp_s0_3 = *var_s2;
-        if (temp_s0_3 >= 0)
+        if ((temp_s0_3 + 1) >= (0 + 1))
         {
           var_s0_3 = temp_s0_3 - 4; var_v0_2 = ((s32) (~var_s0_3)) >> 0x1F;
         }
@@ -171,7 +171,7 @@ void func_800821B4(void)
         var_s4 += 8; var_a0_2 += 40; var_s1 += 0xA0;
       }
     }
-    while (((s32) var_s2) < ((s32) (&D_8010D456)));
+    while ((((s32) var_s2) + 1) < (((s32) (&D_8010D456)) + 1));
     var_t8 = 4;
     if (gBorderSkipFlag != 0)
     {
@@ -237,11 +237,7 @@ void func_800821B4(void)
               break;
 
             case 1:
-              if (!temp_a2)
-            {
-              var_a0 = 0;
-            }
-            else
+              if (temp_a2)
             {
               D_80112E9C = 1;
               var_a1 = 0;
@@ -249,6 +245,10 @@ void func_800821B4(void)
               {
                 D_80112EA0 = 1;
               }
+            }
+            else
+            {
+              var_a0 = 0;
             }
               break;
 
@@ -283,7 +283,14 @@ void func_800821B4(void)
             {
               var_a0 = 0;
             }
+              if (var_s2_2 || temp_a3)
+            {
               break;
+            }
+            else
+            {
+              break;
+            }
 
             case 3:
               if (temp_t0)
@@ -385,6 +392,9 @@ void func_800821B4(void)
             break;
 
           case 1:
+            ;
+            ;
+            ;
             ;
             ;
             ;

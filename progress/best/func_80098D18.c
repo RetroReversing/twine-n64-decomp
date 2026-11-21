@@ -56,7 +56,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   u16 var_t2_2;
   u32 temp_a1;
   u32 temp_a2;
-  register unsigned char var_a1;
+  register unsigned short var_a1;
   register u32 var_t0;
   s32 temp_t0_3;
   s32 var_t0_2;
@@ -312,7 +312,14 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
               {
                 D_801002EA = *((u8 *) (1 + ((char *) temp_a0_2)));
               }
-              temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
+              if (var_t8 || D_80112DC0)
+              {
+                temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
+              }
+              else
+              {
+                temp_t0_3 = *((u8 *) (((char *) temp_a0_2) + 1));
+              }
               if (temp_t0_3 != 0xFF)
               {
                 *(D_80117388 + (temp_t0_3 * 4)) = *((u8 *) (((char *) temp_a0_2) + 0));
@@ -330,7 +337,11 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
             }
             if ((*(sVoiceKeepFlags + inline_fn(var_t1))) != 0)
             {
- do { D_8010A930 -= 1; } while (0);
+              do
+              {
+                D_8010A930 -= 1;
+              }
+              while (0);
               var_v0_13 = arg3 & 0xFF;
             }
             else
@@ -361,3 +372,4 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   return -1U;
 
 }
+

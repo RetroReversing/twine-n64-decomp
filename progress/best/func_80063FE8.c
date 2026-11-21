@@ -18,12 +18,12 @@ void func_80063FE8(void *arg0)
   f32 temp_fv0;
   f32 var_fs0;
   f32 var_fs1;
-  s16 temp_s1;
+  u16 temp_s1;
   s16 temp_v0;
   s16 temp_v0_2;
   s16 var_s0;
   s16 var_s0_2;
-  u16 var_s1;
+  
   s16 var_s4;
   u8 temp_v1;
   void *temp_s3;
@@ -62,12 +62,12 @@ void func_80063FE8(void *arg0)
   }
   else
   {
-    var_s1 = 0;
+    temp_s1 = 0;
     if (gTrackMarkerCount != 0)
     {
       do
       {
-        if ((temp_v1 == 0) || ((*(D_80100BE0 + inline_fn(var_s1))) == (*((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12)))))
+        if ((temp_v1 == 0) || ((*(D_80100BE0 + inline_fn(temp_s1))) == (*((u8 *) (((char *) (*((void **) (((char *) temp_s3) + 0xB4)))) + 0x12)))))
         {
           var_fs0 = 4194304.0f;
           var_s0_2 = 0;
@@ -77,7 +77,7 @@ void func_80063FE8(void *arg0)
             {
               if (var_s0_2 != (*((s8 *) (((char *) temp_s3) + 0x182))))
               {
-                temp_fv0 = approxDistance((inline_fn(var_s1) * 0xC) + ((char *) (&gTrackMarkerPosTable)), (&gBonusObjects)[var_s0_2] + 0x24);
+                temp_fv0 = approxDistance((inline_fn(temp_s1) * 0xC) + ((char *) (&gTrackMarkerPosTable)), (&gBonusObjects)[var_s0_2] + 0x24);
                 if (temp_fv0 < var_fs0)
                 {
                   do
@@ -95,12 +95,12 @@ void func_80063FE8(void *arg0)
           if (var_fs1 < var_fs0)
           {
             var_fs1 = var_fs0;
-            var_s4 = var_s1;
+            var_s4 = temp_s1;
           }
         }
-        var_s1 += 1;
+        temp_s1 += 1;
       }
-      while (((u32) inline_fn(var_s1)) < ((u32) gTrackMarkerCount));
+      while (((u32) inline_fn(temp_s1)) < ((u32) gTrackMarkerCount));
     }
   }
   gTrackMarkerIndex = (s32) var_s4;

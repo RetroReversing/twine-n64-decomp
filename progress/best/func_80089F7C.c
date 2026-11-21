@@ -30,8 +30,8 @@ extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
-  s32 sp10[6];
   u32 sp2C;
+  s32 sp10[6];
   u32 sp34;
   s32 sp38;
   Node *s0;
@@ -197,11 +197,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
       if (__repair_phase_storage.value >= 0x601U)
       {
         Ent *e;
-        s0->len = 0x600;
-        D_80109BF8 += 0xC;
-        v0 = func_800CEEE0(D_80109BA0, D_80109BF8);
-        __repair_phase_storage.value = (u16) s3;
-        p = &sp10[__repair_phase_storage.value];
+ do { s0->len = 0x600; D_80109BF8 += 0xC; v0 = func_800CEEE0(D_80109BA0, D_80109BF8); __repair_phase_storage.value = (u16) s3; p = &sp10[__repair_phase_storage.value]; } while (0);
         s3++;
         e = &D_80103EB4[D_80108F70];
         D_80109BA0 = v0;
@@ -272,4 +268,3 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     arg0->d = (s16) sp10[2];
   }
 }
-

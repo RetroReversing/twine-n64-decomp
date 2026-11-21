@@ -27,6 +27,16 @@ extern s16 gSharedItemArg;
 extern s8 gSharedItemBusy;
 extern u16 gSharedItemId;
 extern s32 sFmtEntryName;
+inline static s8 inline_fn(u8 arg0)
+{
+  return (s8) (arg0 - 1);
+}
+
+inline static u8 *inline_fn2(u8 *arg0, int arg1)
+{
+  return arg0 - arg1;
+}
+
 void func_80019F7C(void)
 {
   char *__repair_addr;
@@ -119,15 +129,19 @@ void func_80019F7C(void)
       else
       {
         id = (*decrementSlot) * 0x18;
-        temp_v1_2 = *((&D_801001A3) + id);
+        do
+        {
+          temp_v1_2 = *((&D_801001A3) + id);
+        }
+        while (0);
       }
       if (temp_v1_2 != 0)
       {
         if (1)
         {
-          __repair_addr = (char *) (id + (decrementSlot - 0x115));
+          __repair_addr = (char *) (id + inline_fn2(decrementSlot, 0x115));
         }
-        *((s8 *) (((char *) __repair_addr) + 0xB)) = (s8) (temp_v1_2 - 1);
+        *((s8 *) (((char *) __repair_addr) + 0xB)) = inline_fn(temp_v1_2);
         *((u8 *) (((char *) gSaveMenuState) + 0x2D)) = 1U;
       }
     }
@@ -149,7 +163,7 @@ void func_80019F7C(void)
       if ((*actor) != NULL)
       {
         func_8002B8AC();
-        temp_v1_3 = *(*((s16 **) (((u8 *) (&D_800C3CF8)) + (func_8002B9CC(var_s1) * 0xC))));
+        temp_v1_3 = *(*((s16 **) (((u8 *) (&D_800C3CF8)) + (0xC * func_8002B9CC(var_s1)))));
         gSharedItemArg = -1;
         gSharedItemBusy = 1;
         list = &gSharedItemId;
@@ -185,7 +199,10 @@ void func_80019F7C(void)
       slot = &gPickupSavedByte;
       if (gSaveSlotCount < ((s32) (*slot)))
       {
-        formatTextEntry(findEntryById(*((s32 *) (((char *) gSaveMenuState) + 0x10)), 0x4004), D_800D2858, (*((u8 *) (((char *) (&D_800BF688)) + ((*((s32 *) (((char *) (&gSaveSlotInfo)) + ((*slot) * 0x18)))) * 0xC)))) * 5);
+        if (1)
+        {
+          formatTextEntry(findEntryById(*((s32 *) (((char *) gSaveMenuState) + 0x10)), 0x4004), D_800D2858, (*((u8 *) (((char *) (&D_800BF688)) + ((*((s32 *) (((char *) (&gSaveSlotInfo)) + ((*slot) * 0x18)))) * 0xC)))) * 5);
+        }
       }
     }
   }

@@ -18,6 +18,7 @@ int __repair_literal;
     s32 *var_a1_3;
     unsigned temp_a0;
     s32 temp_a0_2;
+s32 __repair_phase_temp_a0_2;
     s32 temp_a1_2;
     s32 temp_a1_3;
     s32 temp_s0;
@@ -45,7 +46,7 @@ int __repair_literal;
     u8 *var_a2_3;
     u8 *var_v1_3;
     u8 temp_a0_3;
-    u8 temp_a0_4;
+    
     u8 temp_a3_3;
     u8 temp_v0_6;
     u8 temp_v1_2;
@@ -71,8 +72,8 @@ int __repair_literal;
     void *var_v0_3;
     void *var_v1_2;
 
-    var_s5 = 0;
     var_s3 = arg2;
+    var_s5 = 0;
     var_v1 = 0;
     for (;;) {
         if (*(&D_800E6A85 + var_v1) == 0) {
@@ -88,7 +89,7 @@ int __repair_literal;
     }
     if (var_s5 != 8) {
         temp_s2 = (var_s5 * 0xFF8) + (u8 *)&gSoundEntities;
-        temp_a3 = temp_s2 + 8;
+        temp_a3 = (void *) ((8) + (s32) temp_s2);
         (((__repair_field_4 *)temp_s2)->value) = arg0;
         var_a2 = (((__repair_field_4 *)temp_s2)->value);
         (*(s8 *)((char *)(temp_s2) + 0xFF4)) = 0;
@@ -110,7 +111,7 @@ int __repair_literal;
                 var_a0_3 += 1;
             } while (var_a1 != 0xFF);
         }
-        temp_a3_2 = temp_s2 + 0x8C;
+        temp_a3_2 = (void *) ((0x8C) + (s32) temp_s2);
         var_a2_2 = (*(void **)((char *)(temp_s2) + 0x88));
         for (var_a0_4 = 0; var_a0_4 < 0x80; var_a0_4++) {
             *(temp_a3_2 + var_a0_4) = 0xFF;
@@ -128,7 +129,7 @@ int __repair_literal;
         (*(u8 *)((char *)(temp_s2) + 0xFC4)) = (u8) (var_s5 + 0x17);
         var_s1 = 0;
         do {
-            temp_v0 = temp_s2 + var_s1;
+            temp_v0 = (void *) ((var_s1) + (s32) temp_s2);
             var_s1 += 1;
             (*(u8 *)((char *)(temp_v0) + 0x528)) = (u8) (*(u8 *)((char *)(temp_s2) + 0xFC4));
         } while (var_s1 < 0x40);
@@ -172,12 +173,12 @@ __repair_literal = 0;
                 }
             }
         }
-        temp_a0_2 = (*(s32 *)((char *)(arg3) + 0x10));
-        (*(s32 *)((char *)(temp_s2) + 0x124)) = temp_a0_2;
-        func_8008CDC0(temp_a0_2, var_s5 & 0xFF);
-        temp_a0_2 = (*(s32 *)((char *)(arg3) + 0xC));
-        temp_v0_3 = temp_a0_2 + arg3;
-        if (temp_a0_2 != 0) {
+        var_a0 = (*(s32 *)((char *)(arg3) + 0x10));
+        (*(s32 *)((char *)(temp_s2) + 0x124)) = var_a0;
+        func_8008CDC0(var_a0, var_s5 & 0xFF);
+        __repair_phase_temp_a0_2 = (*(s32 *)((char *)(arg3) + 0xC));
+        temp_v0_3 = (void *) ((__repair_phase_temp_a0_2) + (s32) arg3);
+        if (__repair_phase_temp_a0_2 != 0) {
             (*(void **)((char *)(temp_s2) + 0xF68)) = temp_v0_3;
             (*(void **)((char *)(temp_s2) + 0xF6C)) = temp_v0_3;
             (*(s32 *)((char *)(temp_s2) + 0xF70)) = 0;
@@ -189,7 +190,7 @@ __repair_literal = 0;
         (*(s8 *)((char *)(temp_s2) + 0xFC5)) = 0;
         var_a0_6 = temp_s2;
         var_v1_2 = temp_s2;
-        var_a1_3 = (*(s32 *)((char *)(arg3) + 0)) + arg3;
+        var_a1_3 = (void *) (((*(s32 *)((char *)(arg3) + 0))) + (s32) arg3);
         do {
             *(&D_80102FDC + var_s1_4) = 0x7F;
             (*(s32 *)((char *)(var_v1_2) + 0x130)) = 0;
@@ -198,7 +199,7 @@ __repair_literal = 0;
             (*(s32 *)((char *)(var_a0_6) + 0x578)) = 0;
             (*(s32 *)((char *)(var_a0_6) + 0x57C)) = 0;
             temp_v0_4 = *var_a1_3;
-            temp_v0_5 = temp_v0_4 + arg3;
+            temp_v0_5 = (void *) ((temp_v0_4) + (s32) arg3);
             if (temp_v0_4 != 0) {
                 (*(void **)((char *)(var_v1_2) + 0x128)) = temp_v0_5;
                 (*(void **)((char *)(var_v1_2) + 0x12C)) = temp_v0_5;
@@ -221,49 +222,47 @@ __repair_literal = 0;
             var_a0_7 = (s32)var_s1_5 & 0xFF;
         } while (var_s1_5 < 0x10);
         var_s1_6 = 0xF;
-        var_v0_3 = temp_s2 + 0x3C;
+        var_v0_3 = (void *) ((0x3C) + (s32) temp_s2);
         do {
             (*(s32 *)((char *)(var_v0_3) + 0xF80)) = -1;
             var_s1_6 -= 1;
             var_v0_3 -= 4;
         } while (var_s1_6 >= 0);
         var_t1 = (((__repair_field_4 *)temp_s2)->value);
-        var_v1_3 = temp_s2 + 8;
+        var_v1_3 = (void *) ((8) + (s32) temp_s2);
         var_a3 = 0;
         do {
             var_a2_3 = var_v1_3;
-            temp_t0 = var_a2_3 + 0x80;
-loop_45:
-            temp_v0_6 = *var_a2_3;
-            if (temp_v0_6 != 0xFF) {
-                temp_a1 = (temp_v0_6 * 8) + var_t1;
-                temp_a0_3 = (*(u8 *)((char *)(temp_a1) + 4));
-                if (temp_a0_3 != 0xFF) {
-                    (*(s32 *)((char *)(((temp_a0_3 * 4) + temp_s2)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_a1) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_a1) + 2)) << 8) | (*(u8 *)((char *)(temp_a1) + 3)));
+            temp_t0 = (void *) ((0x80) + (s32) var_a2_3);
+            do {
+                temp_v0_6 = *var_a2_3;
+                if (temp_v0_6 != 0xFF) {
+                    temp_a1 = (void *) (((temp_v0_6 * 8)) + (s32) var_t1);
+                    temp_a0_3 = (*(u8 *)((char *)(temp_a1) + 4));
+                    if (temp_a0_3 != 0xFF) {
+                        (*(s32 *)((char *)(((temp_a0_3 * 4) + temp_s2)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_a1) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_a1) + 2)) << 8) | (*(u8 *)((char *)(temp_a1) + 3)));
+                    }
                 }
-            }
-            var_a2_3 += 1;
-            if ((s32) var_a2_3 < (s32) temp_t0) {
-                goto loop_45;
-            }
+                var_a2_3 += 1;
+            } while ((s32) var_a2_3 < (s32) temp_t0);
             var_t1 = (*(void **)((char *)(temp_s2) + 0x88));
             var_a3 += 1;
-            var_v1_3 = temp_s2 + 0x8C;
+            var_v1_3 = (void *) ((0x8C) + (s32) temp_s2);
         } while (var_a3 < 2);
         if (var_s3 != NULL) {
             var_s1_7 = 0;
             temp_s4 = var_s5 & 0xFF;
             do {
-                temp_a0_4 = (*(u8 *)((char *)(var_s3) + 4));
+                temp_a0_3 = (*(u8 *)((char *)(var_s3) + 4));
                 temp_a1_2 = var_s1_7 & 0xFF;
                 if (temp_a1_2 != 9) {
-                    temp_v1_2 = (*(u8 *)((char *)((temp_a0_4 + temp_s2)) + 8));
+                    temp_v1_2 = (*(u8 *)((char *)((temp_a0_3 + temp_s2)) + 8));
                     if (temp_v1_2 != 0xFF) {
                         temp_v1_3 = (temp_v1_2 * 8) + (((__repair_field_4 *)temp_s2)->value);
                         (*(s32 *)((char *)(((temp_a1_2 * 4) + temp_s2)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_v1_3) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v1_3) + 2)) << 8) | (*(u8 *)((char *)(temp_v1_3) + 3)));
                     }
                 } else {
-                    temp_v1_4 = (*(u8 *)((char *)((temp_a0_4 + temp_s2)) + 0x8C));
+                    temp_v1_4 = (*(u8 *)((char *)((temp_a0_3 + temp_s2)) + 0x8C));
                     if (temp_v1_4 != 0xFF) {
                         temp_v1_5 = (temp_v1_4 * 8) + (*(void **)((char *)(temp_s2) + 0x88));
                         (*(s32 *)((char *)(temp_s2) + 0xFA4)) = (s32) (((*(u16 *)((char *)(temp_v1_5) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v1_5) + 2)) << 8) | (*(u8 *)((char *)(temp_v1_5) + 3)));
@@ -272,7 +271,7 @@ loop_45:
                 temp_s0 = var_s1_7 & 0xFF;
                 voiceStoreParam(7, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 5)));
                 var_s1_7 += 1;
-                voiceStoreParam(0xA, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 6)));
+                do { voiceStoreParam(0xA, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 6))); } while (0);
                 voiceStoreParam(0x5B, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 7)));
                 voiceStoreParam(0x5D, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 8)));
                 var_s3 += 8;

@@ -64,10 +64,10 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
   f32 *sp164;
   f32 *sp16C;
   f32 *sp174;
+  void **sp12C;
   s16 *sp17C;
   f32 *sp184;
   f32 *sp18C;
-  void **sp12C;
   f32 *sp194;
   f32 *sp19C;
   s32 sp1A0;
@@ -318,8 +318,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
       if (var_s6 != NULL)
       {
         sp17C = (s16 *) (&scratch.point);
-        sp184 = &result.second.end.x;
         sp18C = &vecA8.x;
+        sp184 = &result.second.end.x;
         sp194 = &spE0;
         sp19C = &spE4;
         do
@@ -419,8 +419,16 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                 var_s5 = -1;
                 if (temp_v1_13 != 0)
                 {
-                  var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
-                  var_s0_5 = 0;
+                  if (var_s6)
+                  {
+                    var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
+                    var_s0_5 = 0;
+                  }
+                  else
+                  {
+                    var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
+                    var_s0_5 = 0;
+                  }
                   if ((*((u16 *) (((char *) temp_s1) + 0x40))) != 0)
                   {
                     var_s2_6 = ((u8 *) var_s3_5) + 4;
@@ -515,7 +523,10 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     while (sp12C != NULL);
     if (var_fs0 == arg3)
     {
-      goto block_131;
+      if (1)
+      {
+        goto block_131;
+      }
     }
     if (gPlayerActor == NULL)
     {

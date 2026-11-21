@@ -33,6 +33,26 @@ inline static int inline_fn(int arg0)
   return !arg0;
 }
 
+inline static u8 *inline_fn2(u8 *arg0, SceneSlots *arg1)
+{
+  return ((u8 *) (&gSceneType)) + (arg0 - ((u8 *) arg1));
+}
+
+inline static s16 inline_fn23(s16 arg0)
+{
+  return (s16) arg0;
+}
+
+inline static SceneSlots *inline_fn234()
+{
+  return &gSceneType;
+}
+
+inline static int inline_fn2345(s16 arg0, s32 arg1)
+{
+  return ((s16) arg0) < arg1;
+}
+
 void func_8011A7C8(void)
 {
   s16 i;
@@ -63,22 +83,26 @@ void func_8011A7C8(void)
               goto next_scene;
             }
             entry = D_80102CD0[i];
-            if ((entry == 0) || (entry->meta->disabled != 0))
+            do
             {
-              goto next_scene;
+              if ((entry == 0) || (entry->meta->disabled != 0))
+              {
+                goto next_scene;
+              }
+              (*slot)->meta->count++;
             }
-            (*slot)->meta->count++;
+            while (0);
             next_scene:
             i++;
 
           }
-          while (((s16) i) < (*((volatile s32 *) (((u8 *) (&gSceneType)) + (((u8 *) (&gSaveTotalSlots)) - ((u8 *) (&gSceneType)))))));
+          while (((s16) i) < (*((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234()))));
         }
         break;
       }
       i++;
     }
-    while (((s16) i) < gSceneType.count);
+    while (inline_fn2345(i, gSceneType.count));
   }
   if (((s16) chosen) == (-1))
   {
@@ -106,7 +130,7 @@ void func_8011A7C8(void)
       i++;
 
     }
-    while (((s16) i) < count);
+    while (inline_fn2345(i, count));
     goto done;
   }
   update:
@@ -116,7 +140,7 @@ void func_8011A7C8(void)
   {
     do
     {
-      if (((s16) i) != ((s16) chosen))
+      if (inline_fn23(i) != ((s16) chosen))
       {
         bonus = sBonusObjectTable[(s16) i];
         if (bonus != 0)

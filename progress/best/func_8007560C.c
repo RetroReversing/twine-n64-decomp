@@ -113,7 +113,14 @@ void func_8007560C(void)
           var_v1 = 1 << var_s0;
           if ((gVisibleSaveSlotCount == 3) & (var_s0 == 3))
           {
-            *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
+            if (var_v1)
+            {
+              *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
+            }
+            else
+            {
+              *((u8 *) (((char *) (&D_8010A4C3)) + 0)) = (u8) ((*((u8 *) (((char *) (&D_8010A4C3)) + 0))) | var_v1);
+            }
           }
           else
           {
@@ -215,12 +222,7 @@ void func_8007560C(void)
       temp_fs3 = temp_fs2_2 + 160.0f;
       func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
       func_8004844C(sTrackMarkerTable[2], 160.0f * 0.5f, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-      temp_fs0_4 = 120.0f + temp_fs0_4;
-      var_a0_2 = sTrackMarkerTable[3];
-      var_a1 = temp_fs3;
-      var_a3 = 160.0f;
-      var_a2 = temp_fs0_4;
-      height = 120.0f;
+ do { temp_fs0_4 = 120.0f + temp_fs0_4; var_a0_2 = sTrackMarkerTable[3]; var_a1 = temp_fs3; var_a3 = 160.0f; var_a2 = temp_fs0_4; height = 120.0f; } while (0);
       goto block_74;
 
     case 4:
@@ -259,4 +261,3 @@ void func_8007560C(void)
   *((s32 *) (((char *) sTrackMarkerTable[0]) + 0x100)) = (s32) ((*((s32 *) (((char *) sTrackMarkerTable[0]) + 0x100))) | 0x40);
   *((s8 *) (((char *) sTrackMarkerTable[0]) + 0x142)) = 4;
 }
-

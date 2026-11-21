@@ -29,6 +29,11 @@ inline static f32 inline_fn(void *arg0, f32 arg1)
   return (f32) ((*((f32 *) (((char *) arg0) + 4))) - arg1);
 }
 
+inline static u16 inline_fn2(void *arg0, int arg1)
+{
+  return (*((u16 **) (((char *) arg0) + 0x38)))[arg1];
+}
+
 s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7)
 {
   struct 
@@ -128,7 +133,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   u32 var_s0_2;
   unsigned int var_s0_3;
   s32 var_s0_4;
-  int var_s0_6;
+  unsigned short var_s0_6;
   s32 var_v0_2;
   s32 var_s5;
   s32 var_s7;
@@ -252,7 +257,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         do
                         {
                           temp_s5 = var_s0 & 0xFFFF;
-                          temp_v1_2 = (*((u16 **) (((char *) temp_s4) + 0x38)))[temp_s5];
+                          temp_v1_2 = inline_fn2(temp_s4, temp_s5);
                           if ((var_t3 & temp_v1_2) && (var_t2 & temp_v1_2))
                           {
                             temp_v1_3 = *((s32 *) (((char *) temp_s4) + 0x34));
@@ -290,7 +295,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         do
                         {
                           temp_s5_2 = var_s0_2 & 0xFFFF;
-                          temp_v1_4 = (*((u16 **) (((char *) temp_s4) + 0x38)))[temp_s5_2];
+                          temp_v1_4 = inline_fn2(temp_s4, temp_s5_2);
                           if ((var_t3 & temp_v1_4) && (var_t2 & temp_v1_4))
                           {
                             temp_v1_5 = *((s32 *) (((char *) temp_s4) + 0x34));
@@ -411,7 +416,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         do
                         {
                           temp_s2_3 = var_s0_3 & 0xFFFF;
-                          temp_a0 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_3];
+                          temp_a0 = inline_fn2(temp_s1, temp_s2_3);
                           temp_a1 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (((u32) temp_s2_3) * 6);
                           if ((sp18E & temp_a0) && (temp_s7 & temp_a0))
                           {
@@ -448,26 +453,28 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                       do
                       {
                         temp_s2_4 = var_s0_4 & 0xFFFF;
-                        temp_v1_7 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_4];
+                        temp_v1_7 = inline_fn2(temp_s1, temp_s2_4);
                         temp_a1_2 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (temp_s2_4 * 3);
                         if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7))
                         {
                           temp_v1_8 = *((s32 *) (((char *) temp_s1) + 0x34));
                           if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 0))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 1))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 2))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (var_fs0 > scratch.spF0))
                           {
-                            if (!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20))
+                            if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20)
+                            {
+                              if (sp134 != NULL)
+                              {
+                                *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
+                                *((f32 *) (((char *) sp134) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - scratch.spF0);
+                                gPlayerActor = NULL;
+                                D_80103F00 = var_s6;
+                                *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+                              }
+                            }
+                            else
                             {
                               var_fs0 = scratch.spF0;
                               var_s3_3 = temp_s2_4;
-                            }
-                            else
-                              if (sp134 != NULL)
-                            {
-                              *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-                              *((f32 *) (((char *) sp134) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - scratch.spF0);
-                              gPlayerActor = NULL;
-                              D_80103F00 = var_s6;
-                              *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
                             }
                           }
                         }
@@ -518,7 +525,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         do
                         {
                           temp_s4_2 = var_s0_5 & 0xFFFF;
-                          temp_v1_12 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_2];
+                          temp_v1_12 = inline_fn2(temp_s1, temp_s4_2);
                           if ((sp18E & temp_v1_12) && (temp_s7 & temp_v1_12))
                           {
                             temp_v1_13 = *((s32 *) (((char *) temp_s1) + 0x34));
@@ -545,7 +552,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         do
                         {
                           temp_s4_3 = var_s0_6 & 0xFFFF;
-                          temp_v1_14 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_3];
+                          temp_v1_14 = inline_fn2(temp_s1, temp_s4_3);
                           if ((sp18E & temp_v1_14) && (temp_s7 & temp_v1_14))
                           {
                             temp_v1_15 = *((s32 *) (((char *) temp_s1) + 0x34));
@@ -596,7 +603,14 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
           temp_v0_3 = func_80047B44(sp124, &scratch.endPoint[0], &scratch.startPoint[0], &scratch.plane[0]);
           if (temp_v0_3 == NULL)
           {
-            sp124 = NULL;
+            if (temp_s1)
+            {
+              sp124 = NULL;
+            }
+            else
+            {
+              sp124 = NULL;
+            }
           }
           else
           {

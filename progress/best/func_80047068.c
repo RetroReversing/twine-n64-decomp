@@ -1,6 +1,6 @@
 void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out)
 {
-  volatile f32 frame[20];
+  f32 frame[17];
   f32 inv;
   f32 inv2;
   f32 x;
@@ -30,7 +30,5 @@ void func_80047068(f32 *p0, f32 *p1, f32 *p2, f32 *p3, s32 n, void *out)
   *((f32 *) (((u8 *) out) + 20)) = (((s32) ((((y - (qx * 2.5f)) + (ry * 2.0f)) - (sy * ((char) 0.5f))) * (inv * inv))) * inv2) * inv;
   *((f32 *) (((u8 *) out) + 24)) = 0.0f;
   *((f32 *) (((u8 *) out) + 32)) = (((s32) ((((z - (qy * 2.5f)) + (rz * 2.0f)) - (sz * 0.5f)) * (inv * inv))) * (inv * inv)) * inv;
-  *((f32 *) (((u8 *) out) + 36)) = 0.0f;
-  *((f32 *) (((u8 *) out) + 28)) = qy;
+ do { *((f32 *) (((u8 *) out) + 36)) = 0.0f; *((f32 *) (((u8 *) out) + 28)) = qy; } while (0);
 }
-

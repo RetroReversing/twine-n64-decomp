@@ -23,7 +23,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   s32 a3_2;
   s32 v1_2;
   s32 a2;
-s32 __repair_result_a2;
+  s32 __repair_result_a2;
   s32 a3;
   s32 __repair_phase_v1;
   unsigned int base;
@@ -73,17 +73,36 @@ s32 __repair_result_a2;
       goto loop_48;
 
     case 2:
+      if (var_s1)
+    {
       var_s1 = var_s0 + 2;
       ++var_s0;
       var_s7 = 2;
       var_s0 += 1 + (var_s0[0] * 2);
       goto loop_48;
+    }
+    else
+    {
+      var_s1 = var_s0 + 2;
+      ++var_s0;
+      var_s7 = 2;
+      var_s0 += 1 + (var_s0[0] * 2);
+      goto loop_48;
+    }
 
     case 6:
     {
       u8 value = var_s0[1];
-      var_s0 += 2;
-      *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+      if (var_s0 || var_s1)
+      {
+        var_s0 += 2;
+        *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+      }
+      else
+      {
+        var_s0 += 2;
+        *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+      }
     }
       goto block_15;
 
@@ -114,18 +133,18 @@ s32 __repair_result_a2;
         switch (var_s7)
         {
           case 3:
-            {
-              u8 first = var_s1[var_s0[0]];
-              u8 second;
-              *var_s5 = first;
-              second = var_s1[var_s2[-1]];
-              var_s3[-1] = second;
-              tmp8 = var_s1[var_s2[0]];
-              a2 = first & 0xFF;
-              var_s5 += 3;
-              a3 = second & 0xFF;
-              goto block_27;
-            }
+          {
+            u8 first = var_s1[var_s0[0]];
+            u8 second;
+            *var_s5 = first;
+            second = var_s1[var_s2[-1]];
+            var_s3[-1] = second;
+            tmp8 = var_s1[var_s2[0]];
+            a2 = first & 0xFF;
+            var_s5 += 3;
+            a3 = second & 0xFF;
+            goto block_27;
+          }
 
           case 2:
             t16 = BE16(var_s1 + (var_s0[0] * 2));
@@ -143,18 +162,18 @@ s32 __repair_result_a2;
             break;
 
           case 0:
-            {
-              u8 first = var_s1[var_s0[0] * 3];
-              u8 second;
-              *var_s5 = first;
-              second = var_s1[var_s2[-1] * 3];
-              var_s3[-1] = second;
-              tmp8 = var_s1[var_s2[0] * 3];
-              a2 = first & 0xFF;
-              var_s5 += 3;
-              a3 = second & 0xFF;
-              goto block_27;
-            }
+          {
+            u8 first = var_s1[var_s0[0] * 3];
+            u8 second;
+            *var_s5 = first;
+            second = var_s1[var_s2[-1] * 3];
+            var_s3[-1] = second;
+            tmp8 = var_s1[var_s2[0] * 3];
+            a2 = first & 0xFF;
+            var_s5 += 3;
+            a3 = second & 0xFF;
+            goto block_27;
+          }
 
           default:
             t16 = BE16(var_s1 + (var_s0[0] * 6));
@@ -227,9 +246,11 @@ s32 __repair_result_a2;
           break;
 
         case 0:
-          { u8 first = var_s1[var_s0[1] * 3];
+        {
+          u8 first = var_s1[var_s0[1] * 3];
           var_s5[0] = first;
-          a2 = first; }
+          a2 = first;
+        }
           __repair_phase_v1 = var_s1[var_s0[2] * 3];
           var_s5[1] = (u8) __repair_phase_v1;
           tmp8 = var_s1[var_s0[3] * 3];
@@ -281,5 +302,4 @@ s32 __repair_result_a2;
   }
 
 }
-
 
