@@ -19,6 +19,7 @@ int __repair_literal;
     s32 temp_s6, temp_s0, temp_s2, c;
     u8 *temp_v0, *temp_v0_2, *var_s0;
     s16 id;
+    s32 invalid = -1;
     u16 v;
 
     temp_s6 = func_80083E24();
@@ -48,14 +49,14 @@ __repair_literal = 0x10;
                             v = *(u16 *)(var_s0 + 0x2C);
                             if (v != 0) {
                                 id = *(s16 *)(D_800C46DC + v * 0xE8);
-                                if (id != -1 && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
+                                if (id != invalid && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
                                     func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 1);
                                 }
                             }
                             v = *(u16 *)(var_s0 + 0x30);
                             if (v != 0) {
                                 id = *(s16 *)(D_800C46DC + v * 0xE8);
-                                if (id != -1 && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
+                                if (id != invalid && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
                                     func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 1);
                                 }
                             }
@@ -85,7 +86,7 @@ __repair_literal = 0x10;
                     v = *(u16 *)(var_s0 + 0x3A);
                     if (v != 0) {
                         id = *(s16 *)(D_800C46DC + v * 0xE8);
-                        if (id != -1 && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
+                        if (id != invalid && *(s32 *)(D_800C0784 + id * 0x10) == 0) {
                             func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 1);
                         }
                     }
@@ -97,9 +98,10 @@ __repair_literal = 0x10;
             }
             var_s0 += 0x44;
         }
-if ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2)) goto __repair_rows;
+if ((u32)var_s0 < (u32)((u32)(temp_s2 * 0x44) + (u32)temp_v0_2)) goto __repair_rows;
     }
     func_80084048(temp_v0_2, 0x2D);
     func_80084048(temp_v0, 0x2D);
     func_80083E44(temp_s6);
 }
+

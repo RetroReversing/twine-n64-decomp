@@ -26,7 +26,7 @@ s32 func_80098B14();
 s32 func_800992B4();
 void *audioUpdateClipSelection();
 void *func_80099E40();
-void *func_80099F80();
+void *audioCmdNoteOn();
 void *func_8009A0E4();
 void *audioVoiceApplyEnvelope();
 void *func_8009A39C();
@@ -321,7 +321,7 @@ block_120:
             D_800FDBA2 = 1;
             goto block_120;
         case 0x8:
-            var_a0 = func_80099F80(arg0, &D_800FDB9C);
+            var_a0 = audioCmdNoteOn(arg0, &D_800FDB9C);
             break;
         case 0x9:
             var_a1_2 = 0;

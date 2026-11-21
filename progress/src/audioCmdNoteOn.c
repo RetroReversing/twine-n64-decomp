@@ -6,7 +6,7 @@ extern s32 D_8010D738[];
 
 #define FIELD(base, type, offset) (*(type *)((u8 *)(base) + (offset)))
 
-s32 func_80099F80(void *state, void *command)
+s32 audioCmdNoteOn(void *state, void *command)
 {
     u32 word = FIELD(command, u32, 0);
     s32 level = FIELD(state, u16, 0x4E) + ((s32)(word << 16) >> 24);
