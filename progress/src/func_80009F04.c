@@ -1,27 +1,26 @@
 s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 func_8000B384(); s32 func_8000B534(); s32 func_8000B900(); s32 loadDataBank(); s32 func_80088C50(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
 extern char D_14CD630[],D_14D0ED0[],D_14DDC00[],D_14E2500[],D_1D69630[],D_800B2488[],D_800B256C[],D_800DD7D0[];
+extern char D_014D0ED0[], D_014DDC00[], D_014E2500[];
 extern s32 D_800B2480,D_800E06B0,D_800E06FC,D_800E0700,D_800E0704,D_800E0708; extern s32 *D_800E070C; extern s16 gExpansionPakPresent;
 s32 func_80009F04(void) {
     s32 ret;
     s32 s2;
-s32 __repair_phase_s2;
     s32 v0;
     s32 i;
-    u16 t;
     s32 mask = (gExpansionPakPresent != 0);
     mask = -mask & 0x140000;
     if (func_80095820(0x5622, 0x14, 0xA, 0xA, 0xFA, mask) != 0) {
         return 0;
     }
-    __repair_phase_s2 = (char *)0x14D0ED0 - D_14CD630;
-    v0 = func_8000B384(__repair_phase_s2, 0);
+    s2 = D_014D0ED0 - D_14CD630;
+    v0 = func_8000B384(s2, 0);
     D_800E06FC = v0;
-    func_8000B900(v0, (s32)D_14CD630 & 0x0FFFFFFF, __repair_phase_s2);
-    s2 = (char *)0x14DDC00 - D_14D0ED0;
+    func_8000B900(v0, (s32)D_14CD630 & 0x0FFFFFFF, s2);
+    s2 = D_014DDC00 - D_14D0ED0;
     v0 = func_8000B384(s2, 0);
     D_800E0700 = v0;
     func_8000B900(v0, (s32)D_14D0ED0 & 0x0FFFFFFF, s2);
-    s2 = (char *)0x14E2500 - D_14DDC00;
+    s2 = D_014E2500 - D_14DDC00;
     v0 = func_8000B384(s2, 0);
     D_800E0704 = v0;
     func_8000B900(v0, (s32)D_14DDC00 & 0x0FFFFFFF, s2);
@@ -29,9 +28,13 @@ s32 __repair_phase_s2;
     i = 0;
     if (D_800B2480 != 0) {
         do {
-            t = *(u16 *)(D_800B2488 + i);
+            s32 first = D_800E06FC;
+            u16 entry = *(u16 *)(D_800B2488 + i);
+            s32 fourth = D_800E0704;
+            s32 fifth = D_800E0700;
+            char *table = D_14E2500;
+            func_80092A68(first, entry, table, fourth, fifth);
             i += 0xC;
-            func_80092A68(D_800E06FC, t, D_14E2500, D_800E0704, D_800E0700);
         } while (*(s32 *)((char *)&D_800B2480 + i) != 0);
     }
     func_8009CE34(0xE7, 0);
@@ -56,3 +59,4 @@ s32 __repair_phase_s2;
     func_8000A22C(0xA);
     return ret;
 }
+
