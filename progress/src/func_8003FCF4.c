@@ -32,7 +32,7 @@ s32 func_8003FCF4(void *arg0) {
     if (temp_a1 & 8) {
         var_v1 |= 0x20;
     }
-    temp_a0 = (u16) temp_a1;
+    temp_a0 = (u16) temp_a1 | (temp_a1 & (s32)0xFFFF0000);
     if (temp_a0 & 0x400) {
         var_v1 |= 0x80;
     }

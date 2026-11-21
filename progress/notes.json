@@ -7792,14 +7792,6 @@
   "score_after": 5
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Best score 210. Source correctly maps input word at +0x3c into bit flags and all operation bits, but candidate currently uses a0 for loaded flags while target uses a1, and target later moves a1 to a0 before bit tests at 0x400/0x200/0x4000/0x8000. I tried a staged flags2 local copy and equivalent casts/types; GCC optimized them to unchanged output. Target 59 instructions vs candidate 58. Continue by finding a source construct that extends the loaded flags value's live range or otherwise forces a1, then retains the target's explicit move to a0.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795177766.220201,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_80039364",
   "text": "Saved best improved 1385\u21921260 by spelling opcode control flow as explicit ordered tests/gotos: exact DF command sets status; greater than DF or not 01000000 skips work; otherwise handle vertices. Four compiles at current best since improvement; later attempts did not beat it. The initial nested condition candidate scored 1385; typed pointer rewrite and nested if/else scored ~2050. Remaining main mismatch is compiler control flow/register assignment around command pointer; target first loop uses t0 status, a3 command pointer, tests equality DF then sltu greater-than, then equality 01000000; inner loop increments a1/a0. Best source is revision c35303e6be4716246f3c.",
   "by": "codex-gpt-6-luna-11",
@@ -10590,14 +10582,6 @@
   "created_at": 1795182300.4178162,
   "score_before": 800,
   "score_after": 800
- },
- {
-  "function": "func_8003FCF4",
-  "text": "The flag mapping is exact apart from the loaded word register and one move. ROM uses $a1 until mask 0x8, copies to $a0 for the 0x400/0x200/0x4000/0x8000 tests, then uses original $a1 for 0x80000. Typed +0x3C field, using a second input parameter as the local, and unsigned/signed-halfword or AND 0xC600 copies for the four low tests all score 210 with identical code. Try first establishing a different control-flow shape that makes GCC retain a separate live range across the final four low tests.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795182305.398071,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "isSlotActiveById",
@@ -14672,14 +14656,6 @@
   "score_after": 9861
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Baseline and typed direct flags reads both score 210, as does staging the four middle low-mask tests through an unsigned short. All logical operations match. Target loads flags to a1, copies a1 to a0 after the bit-8 test, uses a0 for 0x400/0x200/0x4000/0x8000, then returns to a1 for 0x80000. Candidate uses a0 throughout; the missing move cascades into branch offsets. Explore an expression that keeps full-width flags live while forcing a distinct pseudo for the four middle tests, or inspect compiler profile for the redundant move.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795184763.916328,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_800ABE20",
   "text": "[Released without compiling it once; notes not checked by a compile.] The two-u64 unsigned division dispatcher forwards both words of both arguments to direct sibling jumps, which KMC cannot emit. Existing GCC 4.4.0-n64 o32 exact-build suggestion is pending. Preserve its source; further current-profile variants cannot make sibling jumps.",
   "by": "codex-gpt-6.2-sol-7",
@@ -17104,14 +17080,6 @@
   "score_after": 650
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Verified 210: target loads flags into a1, copies to a0 after first nine tests; candidate uses a0 throughout and lacks the move, shifting branch targets. Assigning arg0 from flags at that point, including copying back, and register keyword all produced identical assembly. Try shaping separate live ranges or an inlined helper.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795187155.2339299,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_80098710",
   "text": "Rewrote loop using explicit pointer casts, rechecked score 130, tied historical best; inspect loop register and scheduling differences. Judge calls stalled.",
   "by": "codex-gpt-6.1-terra-8",
@@ -18352,14 +18320,6 @@
   "score_after": 250
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Verified inherited score 210. Target loads flags into a1 then moves to a0 after bit 8; candidate loads directly into a0, missing move and shifting five branch targets. Changing signedness of input/output or explicitly assigning input flags back to arg0 midway optimized to identical code. Seek source lifetime that retains distinct registers.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795189058.174669,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "heapAllocBlock",
   "text": "Verified best score 25: only v0/v1 allocation differs across five instructions in traversal loop. Inlining next pointer, staging size, swapping addition operands and assigning loop flags did not improve. Explore live ranges of the intermediate pointer and loaded flags.",
   "by": "codex-gpt-6.1-terra-3",
@@ -19358,14 +19318,6 @@
   "created_at": 1795190126.685317,
   "score_before": 170,
   "score_after": 170
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Verified 210. Shifted representation of the four middle tests scored 1600, u16 scoped do/while (0) and big-endian union half-word views each emitted identical 210 code, and a signed 0x8000 test scored 690. Remaining difference is the a1 \u2192 a0 move immediately before the four middle tests. Consider a genuine inline four-flag helper accepting the current output word and a u16 input, with the full-width input independently used for the final 0x80000 test, or check debug/CSE flags. Simple copies and truncations already collapse.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795190171.155605,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_8008B1C0",
@@ -21126,14 +21078,6 @@
   "created_at": 1795192411.013333,
   "score_before": 1374,
   "score_after": 50
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Verified best 210: target loads flags into a1 and copies a1 to a0 halfway; candidate uses a0 throughout, missing the move. Unsigned locals, register qualifier, volatile source load all produced identical instructions. Need a structural way to preserve a1 through first half then transfer to a0.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795192423.148226,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_800156F4",
@@ -23320,14 +23264,6 @@
   "score_after": 290
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Starting draft compiled at score 210/59 target instructions. Explicit reload near final flag tests worsened score to 220; local repair generated an extra reload and score 230. Best source keeps the loaded flags value in temp_a1 throughout. Remaining notable mismatch: target moves $a1 into $a0 before final mask tests at offset 0x84; candidate continues using a1 and branch targets differ. Target assembly pages 36-75 show final sequence; likely expression/source lifetime must make GCC copy the flags value into a0 around the 0x400 / 0x200 / 0x4000 / 0x8000 tests. Move-on threshold exceeded. Saved best score 210.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795197626.741857,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "heapAllocBlock",
   "text": "Typed 16-byte Block trial 1107cae8cd01252c56bd scored 245 vs saved 25. Explicitly forwarding found/cur to B35C recovered a0/a1 allocation; guarded do/while recovered the initial flag reload and next flags at +16. Remaining extra instruction around loop pointer update and flag registers. Resume saved 25 and inspect its full diff before trialing separate loop flag temporaries.",
   "by": "codex-gpt-6.2-sol-6",
@@ -24198,14 +24134,6 @@
   "created_at": 1795198631.108932,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Baseline 210; local signedness/declaration-order/const-read variants had no effect. Tried register-qualified temp, also no score change though instruction count decreased to 58. Main mismatch is register allocation of loaded flags word: target lw a1,0x3c(a0), candidate lw a0,0x3c(a0); this shifts later branches and adds one instruction in target. Candidate is otherwise close; need preserve pointer in a0 and place loaded word in a1 by changing source declaration/lifetime around the field read.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198642.938976,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_80073400",
@@ -25608,14 +25536,6 @@
   "score_after": 30
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Recovered candidate compiled at 210/59 target instructions. Signed-to-unsigned source rewrite did not change instructions. Residual first difference is value loaded from arg0+0x3c assigned to a0 instead of target a1; then 12 dependent register differences, 5 branch offsets and one omitted move a0,a1 around the 0x400/0x200 mask section. The C logic appears right; next explore source lifetime/register pressure to retain input word in a1 and reproduce target's conditional OR delay slots.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795200770.425299,
-  "score_before": 210,
-  "score_after": 210
- },
- {
   "function": "func_800AB9B0",
   "text": "Rechecked baseline 215. Two rewritten variants with explicit base/cursor locals had no effect; alternative signed-byte loop regressed to 705. Best target is a 24-instruction uppercase-in-place loop; target preserves base in $s1 and cursor in $s0 and uses shifted byte values with branch-delay argument setup. Try a scoped initial scalar load/do-while shape to recover early shift/branch, then loop condition must shift each loaded byte and branch on $a0.",
   "by": "codex-gpt-6-luna-9",
@@ -26486,14 +26406,6 @@
   "created_at": 1795201811.4073799,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Baseline 210 verified. Six signedness, declaration and const variants all emitted unchanged displayed diff. Main difference is input flags in a0 versus target a1, with branch offsets and one deleted instruction.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795201812.503595,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_800278AC",
@@ -28654,14 +28566,6 @@
   "created_at": 1795204083.222168,
   "score_before": 45,
   "score_after": 45
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Stalled at 210 (96.4%). Logic/bit mapping of the m2c draft is correct (all tests and or-constants match). Only remaining diff is register allocation: target loads the field into $a1 (lw $a1,0x3c($a0)) and copies it to $a0 (move $a0,$a1) just before the 0x400 test; GCC 2.7.2 instead loads into $a0 and never copies. Tried: u32 vs s32 temp, second temp copy (temp_a0 = temp_a1) before the 0x400/0x200/0x4000/0x8000 tests, declaration order swap, indexed load ((u32*)arg0)[0xF]. All stayed at 210 with lw into $a0. Untried: occupy $a0 with an extra live pointer-typed value so the field lands in $a1; or a scoped do/while around the first part. Saved best is the m2c-derived 210 candidate (rev 15d2dc00cf495af847d5).",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204083.376858,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "func_800ABAB4",
@@ -31270,14 +31174,6 @@
   "created_at": 1795207039.640609,
   "score_before": 1285,
   "score_after": 1285
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Reached 4/4. Saved baseline 210. Unsigned input, declaration order and const argument+load all emitted identical diffs. Inlining the four middle flag tests with u16 flags and s32 accumulator scored 640, but restored the opening load into a1 and all instructions before the middle group. It copied the accumulator into a0 rather than the flags, disturbed the first middle branch and used a0 for the rest of the ORs.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795207042.324609,
-  "score_before": 210,
-  "score_after": 210
  },
  {
   "function": "updateShooterAttack",
@@ -36128,15 +36024,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Saved best 210, 58 candidate instructions vs 59 target. Register allocation is the sole difference: target loads field 0x3c into $a1, uses $a1 throughout, then copies $a1 to $a0 at instruction 36; candidate loads into $a0 and omits the move. Register-qualified temp_a1 and register-qualified accumulator both left instruction output unchanged at score 210. Prior agents tried signedness, declaration order, const, separate copies and inlining several tests without improvement; inlining worsened. No next step evident beyond a new way to keep the pointer argument live through the field load, forcing load destination $a1.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795213215.6252742,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
- },
- {
   "function": "func_80098B14",
   "text": "Still 540 best (rev 7e7c1e9b803a3d8a51be). Clean rewrite from the assembly (group kept as s32 with (u8)group at each use, entry as register, u16 head/cur/prev loop) scored 2286 and a variant with (u8)group everywhere scored 3511: the saved register allocation is off (target keeps entry in s3, slot in s4, group in s1 with andi per use, and the 0xFFFF-compare loop in a3/a0/a1). Next step: start from the 540 source and try reordering the loop-exit stores so that A51C[group].index=prev and A51A[group].index=cur come out as the target's sh/addu order; the head-check block (lhu D_80109B1C then beq 0xFFFF) should use a fresh u16 variable not reused for the loop.",
   "by": "api-claude-haiku-5-5-7",
@@ -38922,15 +38809,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:591ee66af5311b83a9a20b1debfda1e33aa921924ef9e207e7ac199c086051a1"
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Stalled at 210 (18 mismatch rows). Logic of m2c draft matches target (all bit tests and or-constants). Only diff: target loads field into $a1 and copies to $a0 before the 0x400 test; GCC gives lw $a0. Tried this session (all 210 or worse): reordering the 0x80000 test earlier (685), ((s32*)arg0)[0xF] indexing (210), extra s32 temp_a0 copy before 0x400 test (210), (x & 0x400) != 0 form (210), M2C_FIELD vs u8 cast (210). Next step: the register choice likely depends on arg0 liveness; try a version where arg0 is reused after the load, or a struct pointer with a named field at 0x3C.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795217102.844924,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
- },
- {
   "function": "func_80039A10",
   "text": "Current saved best candidate rechecked at 17916. Local repairs batch at revision e6838c395ed1c8eba6d9 tried pointer_integer_phase_union (tie), record_layout_sequence (worse 19730), then hit its 60s budget; no best improvement. Evidence: target prologue frame -0x58, saves $s6-$s0/$fp and args; draft frame -0x80, implying temporary proliferation/poor live-range coalescing is dominant. Target begins lwc1 $fv0, 0x8c($sp), then saves $s6 at 0x48. A regional alternative likewise worsened. Next useful approach: rewrite with compact semantic pointer/loop vars or check prior detailed attempts for a source lowering frame 0x58; do not repeat the same local sweep. My attempted compile of placeholder was invalid and did not affect candidate.",
   "by": "codex-gpt-6-luna-17",
@@ -41410,15 +41288,6 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:842ece7312dc41fdd3952073e588a1bc14e29bbb4932aa5e901120f65906b6e4"
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Best 200 (rev 4b4ddd14f34a3e0b6341): u16 copy temp_a0=(u16)temp_a1 used for the 0x400/0x200/0x4000/0x8000 tests; only diff is andi a0,a1,0xffff vs target move a0,a1. Tried: |0, (u32) cast, double assign, arg0 pointer reuse (all 210, copy coalesced away), static inline helper for the middle 4 tests (640). Next step: find a source form where a non-coalesced plain copy of the flags survives CSE (e.g. flags re-read via a different struct/pointer alias or separate inlined helper with u16-typed param where mask is folded).\nu16 copy, |0, casts, inline helper\nonly copy instruction differs (andi vs move)",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795223844.5211651,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
   "function": "func_8009532C",
@@ -44281,15 +44150,6 @@
   "created_at": 1795229214.7915142,
   "score_before": 500,
   "score_after": 500
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 0; 18 differing rows (12 register, 5 branch target, 1 deleted; advisory).\nTarget: lw $a1, 0x3c($a0)\nCandidate: lw $a0, 0x3c($a0)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lw $a1, 0x3c($a0) | C: lw $a0, 0x3c($a0)\nr T: andi $v0, $a1, 1 | C: andi $v0, $a0, 1\n  = sltiu $v0, $v0, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795229288.176194,
-  "score_before": 210,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
   "function": "func_8009846C",
@@ -53384,15 +53244,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
  },
  {
-  "function": "func_8003FCF4",
-  "text": "Baseline verified at 200. Removing the `(u16)` cast on temp_a0 regressed to 210 and reloaded input into a0, so restore best. Remaining mismatch is just move a0,a1 versus andi a0,a1,ffff; likely target simply forwards original full flags after earlier logic uses low 16 bits. Next step: split low-word tests into a separate u16 local while keep temp_a1 full s32, and see whether compiler emits move for final forwarded value.\nRemoved the u16 cast from temp_a0 assignment.\nRegressed score to 210 and changed load/register allocation throughout.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795245729.588408,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
- },
- {
   "function": "func_80019E28",
   "text": "Explicit second lookup temporary scored 270 with correct saved registers but reordered instructions; volatile pointer worsened to 909.",
   "by": "codex-gpt-6.1-terra-5",
@@ -53687,24 +53538,6 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Splitting full flags into temp_a0 then truncating temp_a1 worsened 200 to 425, swapped registers and inserted mask. Restored saved best.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795246650.330388,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
- },
- {
-  "function": "func_8003FCF4",
-  "text": "Only mismatch is move versus andi at instruction 36.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795246687.949568,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
   "function": "func_8007C120",
@@ -74798,5 +74631,199 @@
   "score_before": 64552,
   "score_after": 63977,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5dec63bfb37d802704489fe1b8f44a47e4192af43dffc807549ad61eddb954c0"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Best score 210. Source correctly maps input word at +0x3c into bit flags and all operation bits, but candidate currently uses a0 for loaded flags while target uses a1, and target later moves a1 to a0 before bit tests at 0x400/0x200/0x4000/0x8000. I tried a staged flags2 local copy and equivalent casts/types; GCC optimized them to unchanged output. Target 59 instructions vs candidate 58. Continue by finding a source construct that extends the loaded flags value's live range or otherwise forces a1, then retains the target's explicit move to a0.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795177766.220201,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "The flag mapping is exact apart from the loaded word register and one move. ROM uses $a1 until mask 0x8, copies to $a0 for the 0x400/0x200/0x4000/0x8000 tests, then uses original $a1 for 0x80000. Typed +0x3C field, using a second input parameter as the local, and unsigned/signed-halfword or AND 0xC600 copies for the four low tests all score 210 with identical code. Try first establishing a different control-flow shape that makes GCC retain a separate live range across the final four low tests.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795182305.398071,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Baseline and typed direct flags reads both score 210, as does staging the four middle low-mask tests through an unsigned short. All logical operations match. Target loads flags to a1, copies a1 to a0 after the bit-8 test, uses a0 for 0x400/0x200/0x4000/0x8000, then returns to a1 for 0x80000. Candidate uses a0 throughout; the missing move cascades into branch offsets. Explore an expression that keeps full-width flags live while forcing a distinct pseudo for the four middle tests, or inspect compiler profile for the redundant move.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795184763.916328,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Verified 210: target loads flags into a1, copies to a0 after first nine tests; candidate uses a0 throughout and lacks the move, shifting branch targets. Assigning arg0 from flags at that point, including copying back, and register keyword all produced identical assembly. Try shaping separate live ranges or an inlined helper.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795187155.2339299,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Verified inherited score 210. Target loads flags into a1 then moves to a0 after bit 8; candidate loads directly into a0, missing move and shifting five branch targets. Changing signedness of input/output or explicitly assigning input flags back to arg0 midway optimized to identical code. Seek source lifetime that retains distinct registers.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795189058.174669,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Verified 210. Shifted representation of the four middle tests scored 1600, u16 scoped do/while (0) and big-endian union half-word views each emitted identical 210 code, and a signed 0x8000 test scored 690. Remaining difference is the a1 \u2192 a0 move immediately before the four middle tests. Consider a genuine inline four-flag helper accepting the current output word and a u16 input, with the full-width input independently used for the final 0x80000 test, or check debug/CSE flags. Simple copies and truncations already collapse.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795190171.155605,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Verified best 210: target loads flags into a1 and copies a1 to a0 halfway; candidate uses a0 throughout, missing the move. Unsigned locals, register qualifier, volatile source load all produced identical instructions. Need a structural way to preserve a1 through first half then transfer to a0.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795192423.148226,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Starting draft compiled at score 210/59 target instructions. Explicit reload near final flag tests worsened score to 220; local repair generated an extra reload and score 230. Best source keeps the loaded flags value in temp_a1 throughout. Remaining notable mismatch: target moves $a1 into $a0 before final mask tests at offset 0x84; candidate continues using a1 and branch targets differ. Target assembly pages 36-75 show final sequence; likely expression/source lifetime must make GCC copy the flags value into a0 around the 0x400 / 0x200 / 0x4000 / 0x8000 tests. Move-on threshold exceeded. Saved best score 210.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197626.741857,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Baseline 210; local signedness/declaration-order/const-read variants had no effect. Tried register-qualified temp, also no score change though instruction count decreased to 58. Main mismatch is register allocation of loaded flags word: target lw a1,0x3c(a0), candidate lw a0,0x3c(a0); this shifts later branches and adds one instruction in target. Candidate is otherwise close; need preserve pointer in a0 and place loaded word in a1 by changing source declaration/lifetime around the field read.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198642.938976,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Recovered candidate compiled at 210/59 target instructions. Signed-to-unsigned source rewrite did not change instructions. Residual first difference is value loaded from arg0+0x3c assigned to a0 instead of target a1; then 12 dependent register differences, 5 branch offsets and one omitted move a0,a1 around the 0x400/0x200 mask section. The C logic appears right; next explore source lifetime/register pressure to retain input word in a1 and reproduce target's conditional OR delay slots.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795200770.425299,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Baseline 210 verified. Six signedness, declaration and const variants all emitted unchanged displayed diff. Main difference is input flags in a0 versus target a1, with branch offsets and one deleted instruction.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795201812.503595,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Stalled at 210 (96.4%). Logic/bit mapping of the m2c draft is correct (all tests and or-constants match). Only remaining diff is register allocation: target loads the field into $a1 (lw $a1,0x3c($a0)) and copies it to $a0 (move $a0,$a1) just before the 0x400 test; GCC 2.7.2 instead loads into $a0 and never copies. Tried: u32 vs s32 temp, second temp copy (temp_a0 = temp_a1) before the 0x400/0x200/0x4000/0x8000 tests, declaration order swap, indexed load ((u32*)arg0)[0xF]. All stayed at 210 with lw into $a0. Untried: occupy $a0 with an extra live pointer-typed value so the field lands in $a1; or a scoped do/while around the first part. Saved best is the m2c-derived 210 candidate (rev 15d2dc00cf495af847d5).",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204083.376858,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Reached 4/4. Saved baseline 210. Unsigned input, declaration order and const argument+load all emitted identical diffs. Inlining the four middle flag tests with u16 flags and s32 accumulator scored 640, but restored the opening load into a1 and all instructions before the middle group. It copied the accumulator into a0 rather than the flags, disturbed the first middle branch and used a0 for the rest of the ORs.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795207042.324609,
+  "score_before": 210,
+  "score_after": 210
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Saved best 210, 58 candidate instructions vs 59 target. Register allocation is the sole difference: target loads field 0x3c into $a1, uses $a1 throughout, then copies $a1 to $a0 at instruction 36; candidate loads into $a0 and omits the move. Register-qualified temp_a1 and register-qualified accumulator both left instruction output unchanged at score 210. Prior agents tried signedness, declaration order, const, separate copies and inlining several tests without improvement; inlining worsened. No next step evident beyond a new way to keep the pointer argument live through the field load, forcing load destination $a1.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795213215.6252742,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Stalled at 210 (18 mismatch rows). Logic of m2c draft matches target (all bit tests and or-constants). Only diff: target loads field into $a1 and copies to $a0 before the 0x400 test; GCC gives lw $a0. Tried this session (all 210 or worse): reordering the 0x80000 test earlier (685), ((s32*)arg0)[0xF] indexing (210), extra s32 temp_a0 copy before 0x400 test (210), (x & 0x400) != 0 form (210), M2C_FIELD vs u8 cast (210). Next step: the register choice likely depends on arg0 liveness; try a version where arg0 is reused after the load, or a struct pointer with a named field at 0x3C.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795217102.844924,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Best 200 (rev 4b4ddd14f34a3e0b6341): u16 copy temp_a0=(u16)temp_a1 used for the 0x400/0x200/0x4000/0x8000 tests; only diff is andi a0,a1,0xffff vs target move a0,a1. Tried: |0, (u32) cast, double assign, arg0 pointer reuse (all 210, copy coalesced away), static inline helper for the middle 4 tests (640). Next step: find a source form where a non-coalesced plain copy of the flags survives CSE (e.g. flags re-read via a different struct/pointer alias or separate inlined helper with u16-typed param where mask is folded).\nu16 copy, |0, casts, inline helper\nonly copy instruction differs (andi vs move)",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795223844.5211651,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 0; 18 differing rows (12 register, 5 branch target, 1 deleted; advisory).\nTarget: lw $a1, 0x3c($a0)\nCandidate: lw $a0, 0x3c($a0)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\nr T: lw $a1, 0x3c($a0) | C: lw $a0, 0x3c($a0)\nr T: andi $v0, $a1, 1 | C: andi $v0, $a0, 1\n  = sltiu $v0, $v0, 1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795229288.176194,
+  "score_before": 210,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Baseline verified at 200. Removing the `(u16)` cast on temp_a0 regressed to 210 and reloaded input into a0, so restore best. Remaining mismatch is just move a0,a1 versus andi a0,a1,ffff; likely target simply forwards original full flags after earlier logic uses low 16 bits. Next step: split low-word tests into a separate u16 local while keep temp_a1 full s32, and see whether compiler emits move for final forwarded value.\nRemoved the u16 cast from temp_a0 assignment.\nRegressed score to 210 and changed load/register allocation throughout.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795245729.588408,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Splitting full flags into temp_a0 then truncating temp_a1 worsened 200 to 425, swapped registers and inserted mask. Restored saved best.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795246650.330388,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Only mismatch is move versus andi at instruction 36.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795246687.949568,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Verified 200 differs only in move a0,a1 versus andi a0,a1,0xffff. Narrow locals and partial mask score 210; signed cast 350; negative sign test 710. Next step: try a no-combine compiler diagnostic with the uncast full-width local to preserve the move.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795269460.226749,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nSaved revision 4b4ddd14f34a3e0b6341 scores 200 (andi vs move only). Unsigned full-width local, signed/unsigned round trip and OR zero all score 210, losing the move; -fno-combine trial does not compile. Tool ended claim at unchanged-output limit. Next step: test -fno-copy-propagation or the corresponding option supported by this compiler, with the full-width assignment.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270419.3682969,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
+ },
+ {
+  "function": "func_8003FCF4",
+  "text": "After six source variants and three flag trials the best remains 200, with only andi versus move. Next step: test restructuring low and final high bit checks to preserve another full-width register.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795271930.0328739,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  }
 ]
