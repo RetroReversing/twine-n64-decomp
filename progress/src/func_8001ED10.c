@@ -89,8 +89,9 @@ void func_8001ED10(void)
         while (0);
         D_801002A3 = 0;
         gPickupSavedByte = 0;
- do { { s32 timer = D_801002C4; s32 other = D_801002C8; sRaceTimer = timer; D_801002D0 = other; } D_80102EF0 = 0; var_s1 = 0; } while (0);
-        if (gSaveTotalSlots > 0)
+ do { s32 timer = D_801002C4; s32 other = D_801002C8; sRaceTimer = timer; D_801002D0 = other; } while (0);
+ { s32 initial_bound = gSaveTotalSlots; D_80102EF0 = 0; do { var_s1 = 0; } while (0);
+        if (initial_bound > 0)
         {
           s16 *items = gSharedItemId;
           do
@@ -108,6 +109,7 @@ void func_8001ED10(void)
           }
           while (((s32) ((u16) var_s1)) < gSaveTotalSlots);
         }
+ }
         gSharedItemId[(u16) var_s1] = -1;
         var_a0_2 = *((volatile u8 *) __base_D_801002A4);
       }
