@@ -56499,6 +56499,33 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f070be0536889ef813108c9f2fa2f820dbb208b6d7e4ce75f26b5d6f0ce96ad1"
  },
  {
+  "function": "func_8003AF20",
+  "text": "Extensive structural and register differences remain; the session claim was unexpectedly lost and reacquired, resetting the move-on count. Tested old-cursor first conditional write: 17537 versus 16587, so restored best.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795226624.484823,
+  "score_before": 31587,
+  "score_after": 16587,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:898c8190c3fbfb61546fe0a6dbe696eb8903123c2991a15371d701a448a2f7f9"
+ },
+ {
+  "function": "func_80093268",
+  "text": "Best 230 (rev 235b5eec7a0a672c8fda) is only 1 insn off: target emits `move $a2,$zero` in the delay slot of `beqz $v0,.L8009333C` (before `subu a1`); mine has nop there and the move later (before a3=0). Tried: (s32)0 casts, temp for now-old, base=0 temps, now>old, struct-array version (4185, wrong: target uses separate symbols). Next step: change how the zero args (a2,a3) are produced so a2=0 is emitted first in the old<now arm (e.g. different fn-pointer prototype with different arg types, or reorder arg evaluation).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795226654.169292,
+  "score_before": 230,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:d7e3ebae87163e0171ce379bff7cc80314cb269f03fe6d9f25b3a5fff8ab60be"
+ },
+ {
+  "function": "func_80099CA8",
+  "text": "Saved best 1050 (rev e6f103343c5723b38536), down from 2030. Key: nested structure (if (count!=0){...return x!=0;} return 0;) with inner early `return 0`s, plain C instead of gotos. Remaining diffs: target does `lw 4(arg1); srl 8; andi 1; move s1,v0; andi v0,v0,0xff` (s1 u32 copy, then masked test) whereas mine does `andi s1,v0,1; andi v0,s1,0xff`. Target also shares a common `sw v0,0x9C` (v0=-1 in beq delay slot for sp10==0xFFFF; v0=A4+sp10 in the other path via j) \u2014 mine duplicates the store. A goto/shared-var version (v=-1; ... *9C=v) gave 1205 (bnez/beqz orientation changed, -1 into a0). u8 s1 turns lw into lbu 6 (worse, 1245). Next step: find source that makes sp10==0xFFFF and the (A4+sp10) path share one store while keeping the beqz s1 orientation; maybe type arg1 as struct with real fields.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795226657.853739,
+  "score_before": 2030,
+  "score_after": 1050,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
+ },
+ {
   "function": "handleActorModeEvent",
   "text": "Structure is a two-level switch: outer on D_80108F78 via 41-entry jump table jtbl_800D65B0 (cases 1..41, default -> epilogue at +0x170), inner switches via jtbl_800D6658 and jtbl_800D6690. The saved-up C from the m2c draft is wrong on case mapping. My hand-written switch scored 3225 (76 vs 97 insns): saves s0/s1 in the wrong order (target: sw $s0 at 0x10, move $s0,$a0; sw $s1 at 0x14), and the blocks are arranged differently, so the compiler lays out cases differently. Lessons: target uses 'j' to shared exit at +0x170 for most cases; several cases share one block that does (arg1&0xFF)==k tests. Try writing the cases with explicit gotos or shared tails, and check the jump table data (jtbl_800D65B0 entries) to map exact case numbers before retrying. Also: func_80081470 and func_800814EC are called with arg0 only.",
   "by": "permuter-25769804461",
@@ -56545,32 +56572,5 @@
   "created_at": 1795189845.1262069,
   "score_before": 1060,
   "score_after": 0
- },
- {
-  "function": "func_8003AF20",
-  "text": "Extensive structural and register differences remain; the session claim was unexpectedly lost and reacquired, resetting the move-on count. Tested old-cursor first conditional write: 17537 versus 16587, so restored best.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795226624.484823,
-  "score_before": 31587,
-  "score_after": 16587,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:898c8190c3fbfb61546fe0a6dbe696eb8903123c2991a15371d701a448a2f7f9"
- },
- {
-  "function": "func_80093268",
-  "text": "Best 230 (rev 235b5eec7a0a672c8fda) is only 1 insn off: target emits `move $a2,$zero` in the delay slot of `beqz $v0,.L8009333C` (before `subu a1`); mine has nop there and the move later (before a3=0). Tried: (s32)0 casts, temp for now-old, base=0 temps, now>old, struct-array version (4185, wrong: target uses separate symbols). Next step: change how the zero args (a2,a3) are produced so a2=0 is emitted first in the old<now arm (e.g. different fn-pointer prototype with different arg types, or reorder arg evaluation).",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795226654.169292,
-  "score_before": 230,
-  "score_after": 230,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:d7e3ebae87163e0171ce379bff7cc80314cb269f03fe6d9f25b3a5fff8ab60be"
- },
- {
-  "function": "func_80099CA8",
-  "text": "Saved best 1050 (rev e6f103343c5723b38536), down from 2030. Key: nested structure (if (count!=0){...return x!=0;} return 0;) with inner early `return 0`s, plain C instead of gotos. Remaining diffs: target does `lw 4(arg1); srl 8; andi 1; move s1,v0; andi v0,v0,0xff` (s1 u32 copy, then masked test) whereas mine does `andi s1,v0,1; andi v0,s1,0xff`. Target also shares a common `sw v0,0x9C` (v0=-1 in beq delay slot for sp10==0xFFFF; v0=A4+sp10 in the other path via j) \u2014 mine duplicates the store. A goto/shared-var version (v=-1; ... *9C=v) gave 1205 (bnez/beqz orientation changed, -1 into a0). u8 s1 turns lw into lbu 6 (worse, 1245). Next step: find source that makes sp10==0xFFFF and the (A4+sp10) path share one store while keeping the beqz s1 orientation; maybe type arg1 as struct with real fields.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795226657.853739,
-  "score_before": 2030,
-  "score_after": 1050,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
  }
 ]
