@@ -23,7 +23,7 @@ void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void 
 int __repair_literal;
 
     union {
-        unsigned char bytes[72];
+        unsigned char bytes[64];
         struct { f32 value; } view_sp18;
         struct { unsigned char pad[4]; f32 value; } view_sp1C;
         struct { unsigned char pad[8]; f32 value; } view_sp20;
@@ -50,9 +50,7 @@ int __repair_literal;
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s1;
-    s32 var_s1_2;
     s32 var_s3;
-    s32 var_s3_2;
     void *temp_s2;
     void *temp_v0;
     void *temp_v0_2;
@@ -81,23 +79,21 @@ loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
                         temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
                         if (!(func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !(m2c_initial_frame.view_sp38.value >= 0.0f) || !(m2c_initial_frame.view_sp38.value <= temp_fs0)) {
-                            var_s1 += 1;
+                            var_s1++;
                             var_s3 += 6;
-                            if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
-                                goto block_26;
-                            }
-                            goto loop_8;
+                            if (var_s1 < (s32)M2C_FIELD(temp_s2, u16 *, 0x40)) goto loop_8;
+                            goto block_26;
                         }
                         goto block_18;
                     }
                     goto block_26;
                 }
-                var_s1_2 = 0;
+                var_s1 = 0;
                 if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
-                    var_s3_2 = 0;
+                    var_s3 = 0;
 loop_15:
                     temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
-                    temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3_2;
+                    temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
                     if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs0)) {
 block_18:
                         if (arg5 != NULL) {
@@ -111,9 +107,9 @@ block_18:
                         *arg6 = var_s0;
                         return M2C_FIELD(var_s0, void **, 8);
                     }
-                    var_s1_2 += 1;
-                    var_s3_2 += 3;
-                    if (var_s1_2 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
+                    var_s1 += 1;
+                    var_s3 += 3;
+                    if (var_s1 >= (s32) M2C_FIELD(temp_s2, u16 *, 0x40)) {
                         goto block_26;
                     }
                     goto loop_15;

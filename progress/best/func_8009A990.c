@@ -1,6 +1,6 @@
 s32 func_80095638();
 void func_800968A4();
-s32 func_80099CA8();
+s32 audioUpdateClipSelection();
 extern u8 D_801007D9[];
 extern u8 D_80100C7C[];
 s32 func_8009A990(void *arg0, void *arg1) {
@@ -35,5 +35,5 @@ s32 func_8009A990(void *arg0, void *arg1) {
       if(b4b==0xFF)x=D_80100C7C[y];else x=D_801007D9[b4b*0x10+b4a];
       res=(x==y);}}
     if(res)func_800968A4(obj[0x4A],obj[0x4B],obj[0x51]);
-    *(s32 *)p=4; func_80099CA8(obj); return 0;
+    *(s32 *)p=4; audioUpdateClipSelection(obj); return 0;
 }

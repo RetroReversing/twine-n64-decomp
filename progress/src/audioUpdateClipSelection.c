@@ -2,7 +2,7 @@ s32 func_8008C1B0(u8);
 s32 func_80095638(void);
 s32 func_800957A8(u32 *);
 s32 func_800957B8(u32 *, void *);
-s32 func_80099CA8(void *arg0, void *arg1) {
+s32 audioUpdateClipSelection(void *arg0, void *arg1) {
     u32 sp10;
     u8 s1;
     u32 a0;

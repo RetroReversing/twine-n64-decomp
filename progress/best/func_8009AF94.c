@@ -24,7 +24,7 @@ void *func_8009846C();
 s32 voiceListRemove();
 s32 func_80098B14();
 s32 func_800992B4();
-void *func_80099CA8();
+void *audioUpdateClipSelection();
 void *func_80099E40();
 void *func_80099F80();
 void *func_8009A0E4();
@@ -299,7 +299,7 @@ block_205:
             break;
         case 0x4:
 block_120:
-            var_a0 = func_80099CA8(arg0, &D_800FDB9C);
+            var_a0 = audioUpdateClipSelection(arg0, &D_800FDB9C);
             break;
         case 0x5:
             var_a0 = func_80099E40(arg0, &D_800FDB9C);

@@ -17,7 +17,7 @@ M2C_UNK func_800067C8();                            /* extern */
 M2C_UNK func_800072B8();                            /* extern */
 M2C_UNK func_80007958();                            /* extern */
 M2C_UNK func_8000A310();                            /* extern */
-M2C_UNK beginSceneTransition();                            /* extern */
+M2C_UNK func_8000CA3C();                            /* extern */
 M2C_UNK func_8000D000();                            /* extern */
 M2C_UNK func_8001ED10();                            /* extern */
 M2C_UNK func_80026F84(M2C_UNK);                     /* extern */
@@ -26,7 +26,7 @@ s32 func_8002D0BC(M2C_UNK, s32);                    /* extern */
 M2C_UNK func_80030F88(M2C_UNK);                     /* extern */
 M2C_UNK func_800450F0();                            /* extern */
 M2C_UNK func_80076168(M2C_UNK);                     /* extern */
-M2C_UNK initSceneStateForCurrentMode();                            /* extern */
+M2C_UNK func_800761B8();                            /* extern */
 M2C_UNK func_80087C9C();                            /* extern */
 extern u8 D_800B19F0;
 extern s8 D_800CA338;
@@ -40,7 +40,7 @@ extern u8 D_801002AE;
 extern M2C_UNK D_801002B8;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
-extern u8 gMenuUseTextList;
+extern u8 D_80102EDD;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern u8 D_80103EB0;
@@ -50,8 +50,6 @@ extern s32 D_8011740C;
 
 typedef struct { unsigned char pad_0[292]; float field_124; unsigned char pad_128[4]; float field_12C; } __repair_record_D_80109688;
 void func_800068B4(void) {
-int __repair_literal;
-
     M2C_UNK var_a0_2;
     f32 temp_fv1;
     f32 var_fv0;
@@ -88,19 +86,17 @@ block_10:
         var_a0 = 4;
         if (D_80102EEC == 0) {
             func_8002CC34(4);
-            if ((D_800CEEB0 == 0) && (gMenuUseTextList != 0)) {
+            if ((D_800CEEB0 == 0) && (D_80102EDD != 0)) {
                 if (D_80102ED8 == 0) {
                     if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
                         goto block_15;
                     }
                 } else {
                     var_s0 = 0;
-__repair_literal = 0;
-
-                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > __repair_literal) && (D_801002AE == 0)) {
+                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > 0) && (D_801002AE == 0)) {
 loop_19:
+                        var_s0 += 1;
                         if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
-                            var_s0 += 1;
                             if (var_s0 < M2C_FIELD(&D_801002B8, s32 *, 0)) {
                                 if (M2C_FIELD(&D_801002B8, u8 *, -0xA) != 0) {
 
@@ -178,17 +174,17 @@ block_37:
     case 4:
         func_800067C8();
         if (D_80102EDF == 0x24) {
-            gMenuUseTextList = 0;
+            D_80102EDD = 0;
             D_80102ED8 = 0;
             D_80102EB9 = 0xC;
         } else {
             D_801002AC = 0;
-            gMenuUseTextList = 1;
+            D_80102EDD = 1;
         }
         D_800B19F0 = 0xF;
         return;
     case 15:
-        initSceneStateForCurrentMode();
+        func_800761B8();
         var_a0 = 0x12;
         ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
         goto block_63;
@@ -210,7 +206,7 @@ block_37:
         }
         break;
     case 16:
-        beginSceneTransition();
+        func_8000CA3C();
         return;
     case 12:
         var_fv0 = -0.06666667f;
@@ -221,7 +217,8 @@ block_52:
         D_800DC739 = D_80103EB0;
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C;
+        if ((temp_fv1 <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {
