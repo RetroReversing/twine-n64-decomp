@@ -11,7 +11,7 @@ void func_80045474(void *, void *, void *, void *);
 f32 randomFloatMinusOffset(f32, f32);
 f32 func_80045F44(void *, void *);
 void func_80072390(void *, f32, void *);
-void *func_80083E90();
+void *func_80083E90(s32, s32);
 void func_80084048(void *, s32);
 extern s32 D_800C7E60;
 extern f32 D_800E1A38;
@@ -131,11 +131,11 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
             if (temp_v0_5 == NULL) {
                 func_80084048(*(void **)((u8 *)temp_v0 + 0x70), 0x2D);
                 func_80084048(temp_v0_3, 0x2D);
-                func_80084048(temp_v0_4, 0x2D);
+                func_80084048(((__repair_record_temp_s0*)temp_s0)->field_18, 0x2D);
                 goto block_71;
             }
-            func_800328B8(temp_v0_4, temp_v0_5);
-            *(void **)*(void **)((u8 *)temp_v0 + 0x70) = temp_v0_5;
+            func_800328B8(((__repair_record_temp_s0*)temp_s0)->field_18, temp_v0_5);
+            *(void **)*(void **)((u8 *)temp_v0 + 0x70) = ((__repair_record_temp_s0*)temp_s0)->field_1C;
             temp_s0_2 = func_80044968(D_800E1A64);
             func_800336FC(&D_800C7E60, (u8 *)temp_v0_3 + 0xC, temp_s3, temp_v0_3, 3, 1.0f, temp_s0_2, func_8004493C(D_800E1A64), 1, 0, 0);
             func_80084048(temp_v0_3, 0x2D);

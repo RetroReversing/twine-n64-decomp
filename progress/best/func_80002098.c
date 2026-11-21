@@ -68,9 +68,12 @@ check_actor:
             if (m2c_initial_frame.view_sp10.value >= 0) {
                 temp_v1 = (*(u16 *)((char *)(temp_a1_2) + 6));
                 if (temp_v1 & 0x38) {
-                    m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE72C + ((((temp_v1 >> 2) & 0xE) + m2c_initial_frame.view_sp10.value) * 2));
+                    s32 mapped = *(s16 *)(D_800AE72C + ((((temp_v1 >> 2) & 0xE) + m2c_initial_frame.view_sp10.value) * 2));
+                    volatile u16 *flag_ptr = (u16 *)((char *)temp_a1_2 + 6);
+                    u32 flags = *flag_ptr >> 2;
+                    m2c_initial_frame.view_sp14.value = mapped;
                     __base_D_800AE74A = D_800AE74A;
-                    m2c_initial_frame.view_sp18.value = (s32) *((((u16) (*(u16 *)((char *)(temp_a1_2) + 6)) >> 2) & 0xE) + __base_D_800AE74A + m2c_initial_frame.view_sp10.value);
+                    m2c_initial_frame.view_sp18.value = *((flags & 0xE) + __base_D_800AE74A + m2c_initial_frame.view_sp10.value);
                 }
             }
             if ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6) {

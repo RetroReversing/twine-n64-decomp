@@ -18,7 +18,7 @@ s32 func_8004478C(s16, s16);                        /* extern */
 s32 randomIntBelow(u16);                             /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 f32 approximate_hypot2(f32, f32);                        /* extern */
-M2C_UNK func_80055B5C(M2C_UNK, void *, void *, void *, f32 *, s32, s32); /* extern */
+M2C_UNK spawnActorEffect(M2C_UNK, void *, void *, void *, f32 *, s32, s32); /* extern */
 M2C_UNK func_8007947C();                 /* extern */
 f32 approximateAtan2(f32, f32);                        /* extern */
 s32 func_80084338();                /* extern */
@@ -140,7 +140,7 @@ s32 updateShooterAttack(void *shooter, void *startPos) {
     if (M2C_FIELD(enemyDef, u8 *, 0x14) != 0) {
         do {
             volleyOwner = M2C_FIELD(shooter, void **, 0x68);
-            func_80055B5C(-1, shooter, (M2C_FIELD(volleyOwner, s8 *, 0xE) * 0xE8) + &D_800C469C, M2C_FIELD(volleyOwner, void **, 4) + 0x78, &aim.x, 0, effectFlags);
+            spawnActorEffect(-1, shooter, (M2C_FIELD(volleyOwner, s8 *, 0xE) * 0xE8) + &D_800C469C, M2C_FIELD(volleyOwner, void **, 4) + 0x78, &aim.x, 0, effectFlags);
             i += 1;
         } while (i < (u8) M2C_FIELD(enemyDef, u8 *, 0x14));
     }

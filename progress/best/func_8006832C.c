@@ -5,7 +5,7 @@ s32 func_800158A4();
 f32 Vec3_DistanceSq();
 s32 func_80045764();
 s32 func_80046384(void *, f32, f32, f32);
-s32 func_80055B5C();
+s32 spawnActorEffect();
 s32 func_800589FC();
 s32 func_80064370();
 s32 func_800643EC();
@@ -145,7 +145,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
             var_s0 = 0;
             if ((*(u8 *)((char *)(var_s1) + 0x14)) != 0) {
                 do {
-                    temp_v0_5 = func_80055B5C((s16) temp_s7, arg0, var_s1, sp48, &spB8, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
+                    temp_v0_5 = spawnActorEffect((s16) temp_s7, arg0, var_s1, sp48, &spB8, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
                     if (temp_v0_5 != 0) {
                         func_80064370(temp_v0_5, temp_s7);
                     }
@@ -167,7 +167,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
             var_s0_2 = 0;
             if ((*(u8 *)((char *)(var_s1) + 0x14)) != 0) {
                 do {
-                    temp_v0_6 = func_80055B5C((s16) temp_s7, arg0, var_s1, sp48, sp38, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
+                    temp_v0_6 = spawnActorEffect((s16) temp_s7, arg0, var_s1, sp48, sp38, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
                     if (temp_v0_6) {
                         func_80064370(temp_v0_6, temp_s7);
                     }

@@ -22,9 +22,10 @@ extern s32 gTrackMarkerSerial;
 extern s32 gTrackMarkerTable[];
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
-    s16 var_s4, var_s7;
+    s32 var_s4, var_s7;
     s32 temp_s0, temp_s1;
     void *temp_s6;
+    temp_s1=arg1;
     temp_s6=M2C_FIELD(arg0,void**,0x6C);
     setActionSlot(temp_s6,arg1&0xFF,arg2&0xFF,0);
     temp_s1=arg1&0xFFFF;
