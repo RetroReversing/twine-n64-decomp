@@ -7,55 +7,55 @@ u32 randomIntBelow(s32);
 void func_80077960(void *, s32);
 extern u16 D_800C9D34[2];
 
-void func_8007C93C(Actor7C93C *actor) {
-    s32 state;
-    s8 setFlag;
-    s32 animation;
+/* Resets an actor and starts the action and animation matching its kind; sets flag 0x40000000 for kinds that need it. */ void actorStartKindState(Actor7C93C *actor) {
+    s32 actionState;
+    s8 setFlagOn;
+    s32 animId;
     ActorData7C93C *data = actor->data;
 
     data->unk82 = 0;
     func_80006604(actor, 0);
-    setFlag = 0;
+    setFlagOn = 0;
     switch (data->kind) {
     case 1:
-        animation = D_800C9D34[randomIntBelow(2)];
-        state = 0xAD;
-        setFlag = 1;
+        animId = D_800C9D34[randomIntBelow(2)];
+        actionState = 0xAD;
+        setFlagOn = 1;
         break;
     case 2:
-        animation = 0x2AC;
+        animId = 0x2AC;
         goto shortDelay;
     case 3:
-        animation = 0x2AD;
+        animId = 0x2AD;
     shortDelay:
         actor->unk7C = 8;
-        state = 3;
+        actionState = 3;
         break;
     default:
-        animation = 0x4D;
-        state = 2;
-        setFlag = 1;
+        animId = 0x4D;
+        actionState = 2;
+        setFlagOn = 1;
         data->unk7F = 10;
         actor->unk7C = 10;
         break;
     case 5:
-        animation = 0x3C2;
+        animId = 0x3C2;
         goto setState;
     case 6:
-        animation = 0x3C4;
+        animId = 0x3C4;
     setState:
-        state = 3;
-        setFlag = 1;
+        actionState = 3;
+        setFlagOn = 1;
         break;
     case 7:
         actor->unk7C = 8;
-        state = 0xA3;
-        animation = (-((data->flags & 0x01E00000) == 0x600000) & 0x217) | 0x214;
+        actionState = 0xA3;
+        animId = (-((data->flags & 0x01E00000) == 0x600000) & 0x217) | 0x214;
         break;
     }
-    func_80002BD0(actor, animation);
-    if (setFlag) {
+    func_80002BD0(actor, animId);
+    if (setFlagOn) {
         data->flags |= 0x40000000;
     }
-    do { func_80077960(actor, state); } while (0);
+    do { func_80077960(actor, actionState); } while (0);
 }

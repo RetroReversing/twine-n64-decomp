@@ -25,7 +25,7 @@ s32 func_800312F4(M2C_UNK, M2C_UNK);                /* extern */
 M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_800779C4(void *);                      /* extern */
 M2C_UNK func_80077C00(void *);                      /* extern */
-M2C_UNK func_8007C93C(void *);                      /* extern */
+M2C_UNK actorStartKindState(void *);                      /* extern */
 s32 randomIntBelow(s32);                            /* extern */
 extern u8 D_800CA338;
 extern u16 D_80108F72;
@@ -411,7 +411,7 @@ block_94:
                 case 21:                            /* switch 2 */
                     var_s2 = 0;
                     if (M2C_FIELD(temp_s0, u8 *, 0x84) == 0) {
-                        func_8007C93C(var_s1);
+                        actorStartKindState(var_s1);
                     }
                     break;
                 case 22:                            /* switch 2 */

@@ -1,4 +1,4 @@
-s32 func_80045B58(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
+s32 triangleContainsPoint(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
  f32 * volatile v[3]; f32 e[3],c[3],d[3]; u32 i,prev;
  v[0]=arg1; v[1]=arg2; v[2]=arg3; i=0; prev=2;
  do {

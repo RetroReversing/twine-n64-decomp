@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 Sphere_OverlapsPoint(void *, void *, f32);      /* extern */
 M2C_UNK func_800455CC(f32 *, s32, s32, f32 *);      /* extern */
 M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
-s32 func_80045B58(void *, s32, s32, s32, f32 *);    /* extern */
+s32 triangleContainsPoint(void *, s32, s32, s32, f32 *);    /* extern */
 f32 func_80047AB0(f32 *, f32 *);                    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
@@ -287,7 +287,7 @@ loop_3:
                                             temp_s2 = temp_a3 + (*var_fp * 0xC);
                                             temp_s0_2 = temp_a3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC);
                                             temp_s1 = temp_a3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC);
-                                            if ((func_80045B58(sp17C, temp_s2, temp_s0_2, temp_s1, sp1B4) << 0x18) != 0) {
+                                            if ((triangleContainsPoint(sp17C, temp_s2, temp_s0_2, temp_s1, sp1B4) << 0x18) != 0) {
                                                 var_fa0 = arg3 - temp_fs0;
                                                 temp_ft1 = var_fa0 * sp90;
                                                 temp_ft0 = var_fa0 * sp94;
@@ -392,7 +392,7 @@ block_37:
                                             temp_s2_2 = temp_a3_2 + (*var_fp_2 * 0xC);
                                             temp_s0_3 = temp_a3_2 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC);
                                             temp_s1_2 = temp_a3_2 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC);
-                                            if ((func_80045B58(sp17C, temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) << 0x18) != 0) {
+                                            if ((triangleContainsPoint(sp17C, temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) << 0x18) != 0) {
                                                 var_fa0_3 = arg3 - temp_fs0_3;
                                                 temp_ft1_2 = var_fa0_3 * sp90;
                                                 temp_ft0_3 = var_fa0_3 * sp94;
@@ -547,7 +547,7 @@ loop_81:
                                             temp_s2_3 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC);
                                             temp_s0_4 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC);
                                             temp_s1_5 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC);
-                                            if ((func_80045B58(sp17C, temp_s2_3, temp_s0_4, temp_s1_5, sp1EC) << 0x18) != 0) {
+                                            if ((triangleContainsPoint(sp17C, temp_s2_3, temp_s0_4, temp_s1_5, sp1EC) << 0x18) != 0) {
                                                 var_fa0_5 = arg3 - temp_fs0_5;
                                                 temp_ft1_3 = var_fa0_5 * spC8;
                                                 temp_ft0_5 = var_fa0_5 * spCC;
@@ -663,7 +663,7 @@ block_106:
                                                 temp_s2_4 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC);
                                                 temp_s0_5 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC);
                                                 temp_s1_7 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC);
-                                                if ((func_80045B58(sp17C, temp_s2_4, temp_s0_5, temp_s1_7, sp1EC) << 0x18) != 0) {
+                                                if ((triangleContainsPoint(sp17C, temp_s2_4, temp_s0_5, temp_s1_7, sp1EC) << 0x18) != 0) {
                                                     var_fa0_7 = arg3 - temp_fs0_7;
                                                     temp_ft1_4 = var_fa0_7 * spC8;
                                                     temp_ft0_7 = var_fa0_7 * spCC;

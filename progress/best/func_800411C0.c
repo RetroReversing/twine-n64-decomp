@@ -269,7 +269,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 (*(s32 *)((char *)(temp_v0_11) + 0x14)) = temp_a3_2;
                 func_80040E5C((*(void **)((char *)(*arg0) + 0x3C)), temp_a1_3, temp_a2, temp_a3_2);
                 func_80041114(*arg0);
-                if (1.0f != 1.0f) {
+                if (var_fs1 != 1.0f) {
                     temp_v1_3 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
                     (*(u8 *)((char *)(temp_v1_3) + 0x48)) |= 0x10;
                 }
@@ -283,13 +283,13 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                         temp_a3_3 = ((__repair_field_24 *)arg1)->value;
                         sp44 = 0;
                         sp48 = 0;
-                        func_800336FC((*(s32 *)((char *)(temp_a3_3) + 0x18)), (*(s32 *)((char *)(((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_3) + 8)), (*(s32 *)((char *)(temp_a3_3) + 0x10)), sp30, 1.0f, temp_s1, temp_s2, 0, &sp44, &sp48);
+                        func_800336FC((*(s32 *)((char *)(temp_a3_3) + 0x18)), (*(s32 *)((char *)(((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_3) + 8)), (*(s32 *)((char *)(temp_a3_3) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 0, &sp44, &sp48);
                         temp_v0_13 = func_80083E90((sp44 * 0x10) + (sp48 * 8), 0x2E);
                         *(s32 *)(((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7) = temp_v0_13;
                         func_800328B8(temp_v0_13 + (sp48 * 8), temp_v0_13);
                         (*(s32 *)((char *)(temp_s4) + 0)) = temp_v0_13;
                         temp_a3_4 = ((__repair_field_24 *)arg1)->value;
-                        func_800336FC((*(s32 *)((char *)(temp_a3_4) + 0x18)), (*(s32 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_4) + 8)), (*(s32 *)((char *)(temp_a3_4) + 0x10)), sp30, 1.0f, temp_s1, temp_s2, 1, NULL, NULL);
+                        func_800336FC((*(s32 *)((char *)(temp_a3_4) + 0x18)), (*(s32 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_4) + 8)), (*(s32 *)((char *)(temp_a3_4) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 1, NULL, NULL);
                         if (D_80109A94 != 0) {
                             temp_v1_5 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
                             (*(u8 *)((char *)(temp_v1_5) + 0x46)) |= 0x80;

@@ -1296,7 +1296,7 @@
   "score_after": 1990
  },
  {
-  "function": "func_80045B58",
+  "function": "triangleContainsPoint",
   "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
   "by": "restored",
   "created_at": 1795049511.859561,
@@ -1336,7 +1336,7 @@
   "score_after": 1990
  },
  {
-  "function": "func_80045B58",
+  "function": "triangleContainsPoint",
   "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
   "by": "restored",
   "created_at": 1795049511.859561,
@@ -1512,7 +1512,7 @@
   "score_after": 1805
  },
  {
-  "function": "func_80045B58",
+  "function": "triangleContainsPoint",
   "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
   "by": "permuter-25769804951",
   "created_at": 1795049511.859561,
@@ -5016,7 +5016,7 @@
   "score_after": 4562
  },
  {
-  "function": "func_8007C93C",
+  "function": "actorStartKindState",
   "text": "Saved 85-point candidate reproduces all 82 instructions modulo actor/state register swap ($s0/$s1), including jump table, shared case 2/3 and 5/6 labels, and signed-byte setFlag yielding target move to v0. State s16/u16/u8/u32/register s32 did not change allocation. Local actor copy before first use retained allocation; copy after initial call added a second live actor register and broke other saved register assignments. Start from saved best. Next try rearranging state and actor uses/lifetimes before first call without adding a copy; only s0/s1 allocation remains.",
   "by": "codex-gpt-6.2-sol-3",
   "created_at": 1795138858.947922,
@@ -11096,7 +11096,7 @@
   "score_after": 875
  },
  {
-  "function": "func_8007C93C",
+  "function": "actorStartKindState",
   "text": "Candidate matches instruction count and all operations, score 85. Diff is register assignment: target copies actor to $s1 and keeps state in $s0; candidate puts actor in $s0, state in $s1. Target saves $s1 at 0x14 and $s0 at 0x10; then loads data pointer into $s3, setFlag in $s2. Alias and reordering data/local declarations had no impact; same instruction diff repeated. Try changing shape/lifetimes so actor pointer remains live across calls and state is allocated earlier in $s0. All code paths/addresses otherwise match closely. No reusable discovery.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795178686.7482638,
@@ -14464,7 +14464,7 @@
   "score_after": 310
  },
  {
-  "function": "func_8007C93C",
+  "function": "actorStartKindState",
   "text": "Saved candidate rechecked at score 85. Six local repair variants made no improvement: store-value lifetime, call initialization, state signedness, declaration order, unsigned switch, and unsigned narrow flag; the unsigned switch introduced unwanted jump-table relocation. Remaining differences begin with register allocation: target saves actor in s1, best candidate saves in s0, producing broad register operand drift (about 15 rows), while high-level switch behavior aligns. Preserve the existing switch form and exact table access as a starting point.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795182922.404926,
@@ -27328,7 +27328,7 @@
   "score_after": 2405
  },
  {
-  "function": "func_8007C93C",
+  "function": "actorStartKindState",
   "text": "Baseline verified 85; target assigns actor to s1 and state to s0, candidate swaps them. Register qualifier, declaration order, and an initial state assignment leave code unchanged. Attempted state type variants stopped because gcc-2.7.2-kmc toolchain became unavailable; retry these once restored.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795193750.574403,
@@ -60210,5 +60210,59 @@
   "score_before": 1710,
   "score_after": 1710,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3f744a3c6c152c69475f6870bc89fd677806500a12a63ba9154cb90161c7aa14"
+ },
+ {
+  "function": "func_80030108",
+  "text": "Rechecked corrected candidate with volatile scratch: 4090. Historical best 2400 has known uninitialized and incorrect values; retain corrected revision as semantic starting point.\nVolatile qualification of scratch array\n4090, unchanged corrected baseline; first mismatch remains byte versus word load and clamp branching.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233604.2660239,
+  "score_before": 4090,
+  "score_after": 4090,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:65259f918bd579c71a2d18944b02b1efd15b2cf87b6e1aedb1a6516864a7d278"
+ },
+ {
+  "function": "func_8008EB80",
+  "text": "Current saved best rechecked at 19192 (target 230 instructions, candidate 152). Ordinary index branch has suspicious uninitialized delta use. Moving delta assignment before the division scored 21825, worse. Local repairs: explicit loop backedge 19452, constant local 19632, parameter-mask hoist failed compile. First compile established mismatch at prologue: target saves incoming fifth arg in s5 then restores required s1-s4 argument order; candidate starts with s4=a0 and has wrong save/register assignment. Next step: inspect incoming argument and register typing/prototype, then adjust parameter types or source variable lifetimes to recover target prologue.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795233604.312566,
+  "score_before": 19192,
+  "score_after": 19192,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
+ },
+ {
+  "function": "func_80061938",
+  "text": "Best 195 (104 vs 105 insns). Diffs: (1) target does `addiu a1,s0,0x24; move a2,a1` for vec3Add(temp_s1,pos,pos) while we emit addiu twice; local `void *pos` did not change it. (2) float regs: target loads 0x44 value in f0, constant in f4 (ours reversed) in both 0x54/0x17 arms. Tried: 16.0f+t44 operand swap (same), declaration reorder of float locals (225), pos local (same). Next step: try making the vec3Add pos pointer a variable that survives (e.g. computed before temp_s1 load) and fetch 0x44 value via different temp (same-type reuse of temp_fv0).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233616.295871,
+  "score_before": 195,
+  "score_after": 195,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bd0ee42ea13b2d868c445f5ef59c35f286854341cbaa0c4ebc3d75f08c1e5e40"
+ },
+ {
+  "function": "func_80096460",
+  "text": "Saved best has uninitialized base pointers; corrected candidate a54533d4bd31818c67ad is valid and rechecked at 3930.\nInferred record and unsigned temporary unchanged at 3930; reused temporary 3940; const base pointer did not improve.\nCorrected candidate loads both global addresses early, while target materializes them in branches.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795233616.511302,
+  "score_before": 3930,
+  "score_after": 3930,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c2a0ef5b5f58859da9e600b69ca0e90674d63cc892e926b1d84c2cb4114f9e91"
+ },
+ {
+  "function": "func_8006591C",
+  "text": "Rechecked saved 1170. Reported its uninitialized marker-path scale; corrected alternative 2192e87844a7979d8840 is available via reported_corrected. Target stores 0x24 then 0x28 in both tails.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795233616.729579,
+  "score_before": 1560,
+  "score_after": 1355,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:6cda9caa62f9b5571d68a0c04aaf572890ea8cd548e32cb1cc2e8293984440bb"
+ },
+ {
+  "function": "func_8001ED10",
+  "text": "Const-qualified table pointer and removing redundant assignment gave unchanged 1545; target sets up base later. Raw-address mismatch at row 68 remains to inspect.\nConst table pointer and remove redundant assignment\nBoth 1545 with identical instructions.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233640.603839,
+  "score_before": 1545,
+  "score_after": 1545,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4271dc092aca8d2871733b520d28b2514bd9025f2424aca94858adc1e6a3849f"
  }
 ]
