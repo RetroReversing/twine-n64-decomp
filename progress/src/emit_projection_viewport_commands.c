@@ -1,6 +1,6 @@
 typedef struct Link798C Link798C;
 struct Link798C { Link798C *next; };
-Link798C *func_800A798C(Link798C **head) {
+Link798C *__osPopThread(Link798C **head) {
     Link798C *prev = *head;
     *head = prev->next;
     return prev;

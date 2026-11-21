@@ -11,11 +11,11 @@ typedef struct OSMesgQueue_s {
     OSMesg      *msg;
 } OSMesgQueue;
 
-extern OSThread *D_800CFE80;
+extern OSThread *__osRunningThread;
 extern u32 __osDisableInt(void);
 extern void __osRestoreInt(u32);
-extern void func_800A783C(OSThread **);
-extern OSThread *func_800A798C(OSThread **);
+extern void __osEnqueueAndYield(OSThread **);
+extern OSThread *__osPopThread(OSThread **);
 extern void osStartThread(OSThread *);
 
 /* Sends msg to mq. If the queue is full, OS_MESG_BLOCK (flags == 1) sleeps the
@@ -29,8 +29,8 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
 
     while ((((  mq  )->validCount)  >= ( mq )->msgCount) ) {
         if (flags == 1 ) {
-            D_800CFE80->state = (1 << 3) ;
-            func_800A783C(&mq->fullqueue);
+            __osRunningThread->state = (1 << 3) ;
+            __osEnqueueAndYield(&mq->fullqueue);
         } else {
             __osRestoreInt(saveMask);
             return -1;
@@ -42,7 +42,7 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
     mq->validCount++;
 
     if (mq->mtqueue->next != 0 ) {
-        osStartThread(func_800A798C(&mq->mtqueue));
+        osStartThread(__osPopThread(&mq->mtqueue));
     }
 
     __osRestoreInt(saveMask);

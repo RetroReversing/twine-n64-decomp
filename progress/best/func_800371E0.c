@@ -1,3 +1,4 @@
+static __inline__ s32 __repair_inline(s32 a) { return a; }
 typedef struct { u32 w0; u32 w1; } Gfx;
 typedef struct { unsigned char pad_0[24]; int field_18; void *field_1C; unsigned char pad_20[4]; float field_24; float field_28; float field_2C; int field_30; int field_34; int field_38; int field_3C; unsigned char pad_40[28]; unsigned int field_5C; } Rec;
 
@@ -29,7 +30,7 @@ void func_800371E0(void *arg0) {
     u32 sel;
     u32 cnt;
     u32 w0;
-    u32 w1;
+    s32 w1;
 
     rec = (Rec *)D_801007BC;
     if (rec != NULL) {
@@ -78,8 +79,7 @@ skip_cmd:
                 }
                 if ((rec->field_5C >> 23) & 3) {
                     cnt = D_80107EA0;
-                    if (D_800B1D84 > cnt) {
-                        cnt = cnt + 1;
+                    if (D_800B1D84 > cnt) {{ u32 __repair_value; __repair_value = cnt + 1; cnt = __repair_value; }
                         D_80107EA0 = cnt;
                         D_8010D538 = *(s32 *)((char *)D_80117728 + 0x74C) + (cnt << 6);
                         if ((rec->field_5C >> 23) & 2) {
@@ -99,7 +99,7 @@ skip_cmd:
                     dl = D_80115328;
                     D_80115328 = dl + 1;
                     dl->w0 = 0xDA380003;
-                    dl->w1 = *(s32 *)((char *)D_80117728 + 0x74C) - 0x80000000;
+                    dl->w1 = __repair_inline(*(s32 *)((char *)D_80117728 + 0x74C) - 0x80000000);
                 }
                 func_80032630(rec->field_3C);
                 rec = rec->field_1C;

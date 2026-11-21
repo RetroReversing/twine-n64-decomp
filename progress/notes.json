@@ -2720,14 +2720,6 @@
   "score_after": 805
  },
  {
-  "function": "func_800A798C",
-  "text": "Best score 10/4 instructions, only registers differ: target loads *(*arg0) into $t9 then stores via $a0; candidate uses $v1. Tried direct pointer temp, nested inline expression, and explicit value temp; no instruction improvement. Compiler/local repairs did not resolve allocation. Remaining work is to induce GCC to allocate loaded word in $t9 while preserving four instructions.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795136648.4192781,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_800968A4",
   "text": "Exact best score 205. Tried raw int indices (score 550), restored char-pointer indexing, then unsigned-char index staging; best has 17 instructions and 3 residual differences around arg0 low-byte masking (target uses andi into v0 before adding index; compiler folds mask into addressing). Continue experimenting with index representation/evaluation order.",
   "by": "codex-gpt-6-luna-13",
@@ -5584,7 +5576,7 @@
   "score_after": 410
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Baseline 185; six cast, return-type and register declaration variants produced identical instructions. Remaining differences begin with 0x64 versus 0x2b materialization and store order; try restructuring initialization order and typed record stores.",
   "by": "codex-gpt-6.1-terra-8",
   "created_at": 1795163901.420373,
@@ -5614,14 +5606,6 @@
   "created_at": 1795163911.3521972,
   "score_before": 985,
   "score_after": 885
- },
- {
-  "function": "func_800A798C",
-  "text": "Score 10: target uses t9 for second load/store while compiler uses v1. Explicit register local and pointer cast did not change emitted instructions. Investigate compiler profile or source construct inducing t9.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795163911.43778,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_80081D20",
@@ -6678,14 +6662,6 @@
   "created_at": 1795165353.5144389,
   "score_before": 114,
   "score_after": 114
- },
- {
-  "function": "func_800A798C",
-  "text": "Typed FreeNode list pop is four instructions under current GCC, verified score 10. Volatile next or head and explicit next local each preserve v1 instead of target t9. IDO 5.3 and 7.1 default profiles use t6 (score 10), 5.3 -g3 expands code (305). The callers are OS thread/message queue operations. Investigate SDK assembler origin or IDO allocation control; no byte match yet.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795165361.701151,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8011CC3C",
@@ -8752,7 +8728,7 @@
   "score_after": 445
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Baseline rechecked score 185. Six local repairs failed: struct layout, address temp, dropping arg8 mask tied; changed call arity, hoisted mask, widening arg13 worsened. Twelve advisory mismatches, first at initialization: target loads 0x64 into a0 in branch delay slot; candidate loads 0x2b into v1 and stores field 0x78 earlier. Experiment with grouping/reordering initialization to shape scheduling.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795173835.529881,
@@ -10262,14 +10238,6 @@
   "created_at": 1795178154.120637,
   "score_before": 960,
   "score_after": 960
- },
- {
-  "function": "func_800A798C",
-  "text": "Best score 10, four instructions match; target loads *arg0 into v0, loads *v0 into t9, then jr with store t9 in delay slot. Candidate uses v1 for the second load/store. Tried preserved machine draft, pointer-typed return and function-pointer typing; score and emitted register choice stayed unchanged. Remaining issue is register allocation only.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795178154.12537,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8009811C",
@@ -11976,14 +11944,6 @@
   "score_after": 35
  },
  {
-  "function": "func_800A798C",
-  "text": "Linked-list pop baseline score 10: only target t9 versus v1 differs. Volatile temporary adds stack traffic and regresses. Investigate compiler/debug flags or allocation without volatile stack slot.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795180785.676563,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "actorLinkToSurface",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6-luna-17",
@@ -12046,14 +12006,6 @@
   "created_at": 1795181900.4978912,
   "score_before": 825,
   "score_after": 825
- },
- {
-  "function": "func_800A798C",
-  "text": "Verified score 10: only temporary register differs, target t9 versus GCC v1. Assignment-at-use, volatile load and register local do not change output. Flag search and IDO 5.3/7.1, GCC 2.8.1 and SN64 trials did not match. Investigate compilation unit or alternative compiler allocation.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795181900.513224,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_800968A4",
@@ -13568,7 +13520,7 @@
   "score_after": 2240
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Improved rechecked 185 to 95 by moving the 0xA stack-derived halfword before 0xC, and to 60 by moving the object class store after the first default byte in C. Best da432f1f15cbc5ed68fb has matching registers, constants and instruction count. Only scheduling remains: target stores class at object+0x78 before zero at data+0x15 and 100 at data+0x17; candidate schedules the class store after both. Fully typed structs tied with identical displayed diff, as did qualifying the earlier class store volatile on the 95 baseline. Moving the first default ahead of both zero and class scored 210. Reached 6/6 without further improvement.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795182536.67743,
@@ -13926,14 +13878,6 @@
   "created_at": 1795182728.058034,
   "score_before": 1455,
   "score_after": 1455
- },
- {
-  "function": "func_800A798C",
-  "text": "Rechecked 10 score, 2 register mismatches remain: target loads through $v0 into $t9 and stores $t9; candidate uses $v1. Tried assignment-at-use, register local, and volatile load; all retained score/instructions. Existing history contains related pointer qualification variants. Next explore register/address staging or compiler debug flags.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795182733.885334,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_800989B8",
@@ -15864,14 +15808,6 @@
   "score_after": 150
  },
  {
-  "function": "func_800A798C",
-  "text": "Libultra thread queue head pop (__osPopThread). Boundary verified: callers target the four-instruction entry directly; jr delay-slot store completes it. It is embedded in the handwritten scheduler with register conventions shared by adjacent func_800A7944 and the dispatch path. It uses $t9 directly for the next-thread link despite $v1 being free. Baseline and clean linked-node C both produce the exact instructions with $v1 in the two differing positions (score 10).",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795183750.937668,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8008C870",
   "text": "Full interpolation reconstructed from draft with float tables; saved best 3081, revision bab49db61d318fb6f395. Local parameter width, branch orientation, operand order and frame repairs did not improve score. Remaining differences include frame size, unsigned-to-float conversion branches/constants, scheduling and register allocation. A 24-byte unused frame gives target stack size; investigate explicit staged double conversions and constant symbols.",
   "by": "codex-gpt-6.1-terra-3",
@@ -16014,14 +15950,6 @@
   "created_at": 1795183829.033337,
   "score_before": 1490,
   "score_after": 1490
- },
- {
-  "function": "func_800A798C",
-  "text": "Four-instruction libultra scheduler queue-pop helper. Verified target ends at the jr delay-slot store. It follows adjacent scheduler assembly register conventions ($t9 for the loaded next link where a normal leaf uses $v1); retained typed C and prior GCC/IDO/SN64 builds cannot reproduce that register convention in the four-instruction body. Treat as handwritten assembly.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795183833.859853,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_800AC0A0",
@@ -17568,14 +17496,6 @@
   "score_after": 820
  },
  {
-  "function": "func_800A798C",
-  "text": "Four-instruction scheduler queue-pop helper (__osPopThread), bounded by the JR delay-slot store. Typed linked-node C verifies score 10, with normal leaf v1 instead of t9 as the only mismatch. Review notes show neighboring scheduler assembly shares the t9 scratch convention and compiler trials/qualifier changes have not reproduced it. Its location and matching neighboring hand-written conventions support assembly origin.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795184563.48435,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8011BF0C",
   "text": "Rechecked baseline score 1185. Twelve local repairs of scalar reuse, record layout, scheduling, masking and signedness did not improve it. First mismatch swaps s0/s1 for masked index and scaled offset; 35 differing rows, mostly registers, with five insertions/deletions. Investigate live ranges and struct-copy sequence.",
   "by": "codex-gpt-6.1-terra-6",
@@ -18118,14 +18038,6 @@
   "created_at": 1795184837.572748,
   "score_before": 255,
   "score_after": 255
- },
- {
-  "function": "func_800A798C",
-  "text": "Confirmed typed linked-node pop emits four instructions with score 10. Target uses t9 for next while v1 is free, following adjacent libultra scheduler assembly's t9 scratch convention. Existing GCC/IDO/SN and qualifiers fail only this unusual allocation. Function extent includes the head store in the jr delay slot. This is the handwritten scheduler queue-pop helper __osPopThread.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184837.704994,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_800336FC",
@@ -19712,14 +19624,6 @@
   "score_after": 35
  },
  {
-  "function": "func_800A798C",
-  "text": "Complete four-instruction libultra scheduler queue-pop helper (__osPopThread), through the jr delay-slot store. The next-pointer scratch t9 is consistent with adjacent scheduler assembly and compiler trials across GCC, IDO and SN instead allocate the free v1. Keep typed linked-node pop as behavioral reference.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795185754.3490272,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_80038000",
   "text": "Rechecked baseline score 20180. Local scope-depth and explicit-backedge variants worsened it; integer lifetime reuse tied. Claim ended during batch as project progress changed; target stack frame is 0x80 versus candidate 0x88.",
   "by": "codex-gpt-6.1-terra-5",
@@ -21056,14 +20960,6 @@
   "score_after": 0
  },
  {
-  "function": "func_800A798C",
-  "text": "Pointer pop implementation scores 10: target uses t9 for next pointer, compiler uses v1. Typed struct and void-pointer variants produce identical code. Investigate register allocation or compiler profile.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795186851.2542348,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_80022AD8",
   "text": "Verified best 60 rev f312b573afdfbd093b4e, all 34 instruction forms/order. Block-scoped register scale and mask locals and early flags masking each tie with the same 12 register differences. Widening coords and staging scale above cache initialization scores 1397 because it keeps scale live across func_800162BC. Target uses a1/a2/a3 for x/y/z, reuses a1 for color, and puts scale/mask constants in v0. Next try address staging or initial constant lifetime entirely after the call, or a diagnostic compiler-profile comparison. Saved source also contains unrelated batch functions, so isolate only this definition when testing whole rewrites.",
   "by": "codex-gpt-6.2-sol-1",
@@ -21286,14 +21182,6 @@
   "created_at": 1795187093.013608,
   "score_before": 57983,
   "score_after": 57983
- },
- {
-  "function": "func_800A798C",
-  "text": "Four-instruction libultra scheduler __osPopThread. The complete body ends with a queue-head store in the JR delay slot. It uses the adjacent handwritten scheduler's $t9 scratch convention even though $v1 is free. The typed C queue pop reproduces the instruction sequence but allocates $v1; previous GCC, IDO and SN64 profile trials corroborate assembly origin.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795187123.3599691,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8003F83C",
@@ -21800,7 +21688,7 @@
   "score_after": 1440
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Best verified score 60 (99.2%, 77 instructions). Remaining two mismatches are ordering around sh $v1,0x78($s0): target stores it before sb fields, while candidate emits it after initial byte fields. Moving the halfword store before those byte stores changed score to 95 due to constants/register allocation; restored best is saved. More tuning could stage constant 100 (target loads it in $a0 across three byte stores) while preserving the target's placement of 0x2B store. No reusable game-wide knowledge identified.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795187851.9834828,
@@ -22334,14 +22222,6 @@
   "created_at": 1795188670.085747,
   "score_before": 140,
   "score_after": 140
- },
- {
-  "function": "func_800A798C",
-  "text": "Best score 10, four instructions. The typed s32** rewrite and local assignment/single-use variants all leave the exact same two register mismatches: target loads the pointed-to word into t9 and stores t9; candidate uses v1. Source semantics already match; further work should explore register allocation via pointer-width/type and temporary lifetime. No reusable game-wide rule established.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795188676.172837,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8009DBE8",
@@ -23224,7 +23104,7 @@
   "score_after": 105
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Verified baseline 60 (da432f1f15cbc5ed68fb). All instructions match except scheduling of sh $v1,0x78($s0), which follows the data+0x15 zero and data+0x17 default byte stores in the candidate and precedes them in the target. Making just the class store volatile on this exact baseline tied. Putting the class store before the data pointer load or before all byte writes scored 95, including with volatile stores or a named 100 constant. Putting the first 100 store ahead of the class and zero scored 210. Moving the class between zero and first 100 scored 155. Preserve the baseline initialization and investigate scheduler/constant materialization at the allocation-null branch: the delay slot must retain $a0=100 even if the class store moves up.",
   "by": "codex-gpt-6.2-sol-1",
   "created_at": 1795189595.439208,
@@ -23816,14 +23696,6 @@
   "score_after": 170
  },
  {
-  "function": "func_800A798C",
-  "text": "Three compiles at score 10. Candidate uses $v1 for the loaded value, while target uses $t9; remaining two register differences, instructions otherwise match. Tried the saved candidate and a pointer return type; no assembly change. No applicable local repairs remained.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795190151.247833,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8003FCF4",
   "text": "Verified 210. Shifted representation of the four middle tests scored 1600, u16 scoped do/while (0) and big-endian union half-word views each emitted identical 210 code, and a signed 0x8000 test scored 690. Remaining difference is the a1 \u2192 a0 move immediately before the four middle tests. Consider a genuine inline four-flag helper accepting the current output word and a u16 input, with the full-width input independently used for the final 0x80000 test, or check debug/CSE flags. Simple copies and truncations already collapse.",
   "by": "codex-gpt-6.2-sol-3",
@@ -24240,7 +24112,7 @@
   "score_after": 478
  },
  {
-  "function": "func_80081134",
+  "function": "spawnProbeEffect",
   "text": "Verified exact revision 9a61fae2b9a10f2bfb16. Put the class halfword store before both initial byte stores, and assign 0x64 to a register u8 color in the non-null guard's comma expression, then use color for the three default byte stores. This preserves the constant in the delay slot and orders the stores as in the target.",
   "by": "codex-gpt-6.2-sol-8",
   "created_at": 1795190646.923559,
@@ -25432,14 +25304,6 @@
   "score_after": 55
  },
  {
-  "function": "func_800A798C",
-  "text": "Score 10 of 4 instructions. The target's two remaining differences use $t9 for the loaded pointer, while the candidate uses $v1. Assignment-at-use and adding register to temp_v0 did not change emitted code. Saved best should be fine; investigate compiler allocation/address staging.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795192108.710281,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8003C94C",
   "text": "Rechecked saved baseline 175. Explicit loop backedge, struct loads, register qualifiers on float temporaries, and swapping first two extent assignments all preserved score; regrouping squared sum worsened to 315, reversing max initialization worsened to 200. Remaining diff is primarily FP register allocation (x max f2 vs f8 and x/z extent f20/f24 swapped), plus prologue store order and add scheduling. Explore extent lifetime or declaration structure; baseline retained.",
   "by": "codex-gpt-6.1-terra-1",
@@ -26238,14 +26102,6 @@
   "created_at": 1795192924.332119,
   "score_before": 295,
   "score_after": 295
- },
- {
-  "function": "func_800A798C",
-  "text": "Score 10, exactly four instructions, only destination register mismatch: target loads inner pointer into $t9 and stores $t9, candidate uses $v1. Tried signed/unsigned/pointer return variants and local repairs (assignment-at-use/single-use inline); emitted code unchanged, move-on 5/3. This helper simply loads *arg0, then stores **arg0 through arg0 while returning original *arg0. Need a compiler allocation/context difference to get t9; likely pure C changes are optimized identically.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795192924.524718,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "audioVoiceApplyEnvelope",
@@ -27784,14 +27640,6 @@
   "score_after": 40
  },
  {
-  "function": "func_800A798C",
-  "text": "Four instructions match except load and store use $v1 instead of target $t9. Tried initial draft and staging loaded word through local; same diff. Remaining work is compiler register allocation via type/declaration/order/address staging.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197338.50502,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "guMtxF2L",
   "text": "Typed u32 pointers and a full-width end pointer repair the historical draft's truncated comparison; best 705. Register keywords, swapping pointer updates and goto loop all yield the same score. Remaining issues are copied argument registers, FP conversion scheduling and the target's sequential temporary registers; investigate compiler or library build profile.",
   "by": "codex-gpt-6.2-sol-6",
@@ -28726,14 +28574,6 @@
   "created_at": 1795198231.378935,
   "score_before": 275,
   "score_after": 205
- },
- {
-  "function": "func_800A798C",
-  "text": "Verified candidate has all four target instructions and score 10 (register-only residual): target loads through $v0 into caller-saved $t9 and stores it in jr delay slot; C uses $v1. Tried explicit intermediate, alternate return value and cast forms in variants; no improvement. Existing matched lookalike can reveal exact source idiom or try volatile/read staging to steer register allocation.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795198243.956502,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8003FDE0",
@@ -30472,14 +30312,6 @@
   "score_after": 115
  },
  {
-  "function": "func_800A798C",
-  "text": "Four-instruction function; best score 10 (97.5%), all operation/stack/control flow matches with only the loaded value in $v1 instead of target $t9. Tried the original m2c pointer traversal, inline dereference, and volatile pointee; none changed the diff. Further register allocation/address staging or compiler debug-flag experiments may help. No evidence of a semantic mismatch.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795200572.0010638,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8006D224",
   "text": "Saved score 45 has all 48 instruction forms aligned; target assigns red to v0 and blue to v1 through the color pack. Changing the final OR from (blue | alpha) | red to (red | alpha) | blue gave 60 and retained the early v0/v1 reversal. Next focus on changing red and blue pseudo lifetime/creation order before their first uses while retaining the exact scheduling and unsigned conversion.",
   "by": "codex-gpt-6.2-sol-6",
@@ -31352,14 +31184,6 @@
   "score_after": 45
  },
  {
-  "function": "func_800A798C",
-  "text": "Best/current score 10 (97.5%), revision 70d2859c7609249471c3. Target is 4 instructions; candidate matches instruction count and operations but load/store use $v1 where target uses $t9. Tried m2c source, explicit Node * temp, assignment at use, and separate next temporary; all stayed score 10 with identical diff. No reusable finding. Further register allocation tuning is needed.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201600.408711,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8009532C",
   "text": "Saved best revision 3b36fcf51ae061e9a5d2; score 1260. Source computes f32 vector length and normalizes vector. Tested six x/y inline reload variants (same score) and sqrtf replacement (worse 2040 due to double-width sqrt path), then restored saved best. Remaining: resolve correct single-precision sqrt call declaration and inspect full target assembly/store scheduling. No global rule established.",
   "by": "codex-gpt-6-luna-7",
@@ -31926,14 +31750,6 @@
   "created_at": 1795201884.5002172,
   "score_before": 5,
   "score_after": 5
- },
- {
-  "function": "func_800A798C",
-  "text": "Two compiles scored 10 (97.5%), same four operations but inner loaded value in v1 instead of target t9. Reordered locals had no effect. Saved best restored; no exact match.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795201887.784648,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_80073508",
@@ -34048,14 +33864,6 @@
   "score_after": 825
  },
  {
-  "function": "func_800A798C",
-  "text": "Target: lw v0,0(a0); lw t9,0(v0); jr ra; sw t9,0(a0). C with s32 **arg0 / s32 *temp_v0 / *arg0 = (s32*)*temp_v0 scores 10: only diff is loaded value in $v1 instead of $t9. Tried extra temp, volatile arg, unused decl, register keyword, +0 arithmetic: all still v1. Untested: struct-typed pointer wrapper, search_flags.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795203865.17501,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_800A97A0",
   "text": "Compiled the supplied candidate once: score 1350, 27 target vs 29 candidate instructions. Target loop uses in base as $a1, end pointer in $t8, output base $a0, and direct backedge bne $a1,$t8. Candidate's do/while emitted extra pointer copies, different regs, and loop branch at offset 0x18. This claim has a 3-compile limit; next try a counted loop with in pointer as explicit end and separate output increment, then release if no match.",
   "by": "codex-gpt-6-luna-12",
@@ -34734,14 +34542,6 @@
   "created_at": 1795204224.3159301,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_800A798C",
-  "text": "Best score 10/4 instructions, all source/type/register variants produced same two FPR-independent GPR differences: target loads `$t9` and stores it; compiler allocates `$v1`. Register allocator is the sole obstacle. No improvement.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795204236.691162,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8008BA98",
@@ -35852,14 +35652,6 @@
   "text": "Verified score 10; explicit forwarding arg1 unchanged still scores 10. Reversing addition scored 30. Two final FPR operands remain.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795205301.263179,
-  "score_before": 10,
-  "score_after": 10
- },
- {
-  "function": "func_800A798C",
-  "text": "Best candidate matches operations/order but register allocation differs: target loaded value is in $t9, C emits $v1. Tried typed pointer rewrites and local repairs with unchanged output. Next test a function-pointer typed dereference or adjust declaration/lifetime to steer value into $t9.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795205301.430731,
   "score_before": 10,
   "score_after": 10
  },
@@ -37008,14 +36800,6 @@
   "score_after": 1833
  },
  {
-  "function": "func_800A798C",
-  "text": "Stalled at score 10. Target: lw v0,0(a0); lw t9,0(v0); jr ra; sw t9,0(a0). Candidate always allocates the loaded value to $v1 instead of $t9. Tried this session on rev 8b4676e9: temp via s32 cast, extra tmp local, casts on the store RHS, +0 expressions. All scored 10 with identical output. Untested: a struct-typed pointer (e.g. a 2-level typedef) or a separate second local for the inner load.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795206400.443201,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_80082E84",
   "text": "Stalled at 1345 (88 insns each, 57 mismatch rows: mostly register/order). Target saves fs0-fs5 with a 0x58 frame, loads inputs lh a3,v1,a0 before frame setup; float loads in order fs1(v1), fa1(a0), ft0(a3-0x400), fs2(v1-0x400), ft1(a0-0x400), fv1(a3). Tried: local repair families (inferred_record_layout, signedness, address_temporary, constant_local, const_read, symbol_address_local): all 1345 or worse (1359). Input-load order swap: no change. Next agent: start from saved_best (551d0ca7866e5dcb3f6c); reorder float loads so fs1 (v1&0xFFF) loads before fa1 (a0&0xFFF) to match target lwc1 order.",
   "by": "api-claude-haiku-5-5-10",
@@ -38088,14 +37872,6 @@
   "score_after": 984
  },
  {
-  "function": "func_800A798C",
-  "text": "Saved candidate 8b4676e93adfceaa2a3f remains best score 10. Current simple typed-struct variant (revision 5de33c3eb03ee186c3b4) yielded same two register mismatches: target loads nested value into t9, candidate uses v1. Local repair variants for declaration order, signedness, and assignment staging were unchanged; one two-level struct-pointer experiment worsened to score 115 and was abandoned. Untested: explicitly use volatile s32 for nested value or a volatile-qualified node pointer to affect register allocation; preserve the simple four-instruction shape.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795207620.482871,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8007BAF8",
   "text": "Saved best 4528 is semantically invalid: spFC is uninitialized on one path. Corrected candidate 3fc25c5128dc0dd62736 forwards arg2 on both paths and scored 4965. Typed Vec3 input copy improved rechecked baseline 6446 to 5145. Do not trust the lower score without restoring the missing argument.",
   "by": "codex-gpt-6.1-terra-5",
@@ -39110,14 +38886,6 @@
   "created_at": 1795208503.751115,
   "score_before": 2986,
   "score_after": 2986
- },
- {
-  "function": "func_800A798C",
-  "text": "Target is 4 instructions, best candidate score 10. Tried function-pointer typing, explicit temporary load, and register-qualified temporary: all preserved same two register differences, target uses t9 for second pointer load/store while GCC uses v1. Candidate otherwise exact; next experiment could inspect project-wide type or create aggregate/volatile temporary to perturb reg allocation.\nFunction pointer and explicit unsigned pointer/temp variants, including register qualifier.\nAll score 10; same t9 versus v1 register diff.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795208504.1959739,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_80117ED0",
@@ -40272,14 +40040,6 @@
   "score_after": 705
  },
  {
-  "function": "func_800A798C",
-  "text": "Rechecked baseline score 10. Clear typed-pointer rewrite produces 4 instructions but only 2 register mismatches: target loads second word into $t9 and stores $t9; compiler chooses $v1. Tried register/volatile temp, staging second value, and void return; none matched. Next inspect compiler options/flags or alter source liveness to allocate $t9 while keeping first load in $v0.\nRegister and volatile temp variants and return-type void; all left same 2 register diffs.\nScore remained 10; second load/store destination register differs.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795209330.0321789,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_8007092C",
   "text": "Initialized previously uninitialized var_s6 to zero, improving 1708 to 1673; two-word stack pad improves to 1663. Padding sizes 1 and 3 and narrower flag types did not improve. Linker reports .rodata+0 where ROM has no address; target uses jtbl_800D4710.",
   "by": "codex-gpt-6.1-terra-4",
@@ -41040,14 +40800,6 @@
   "score_after": 375
  },
  {
-  "function": "func_800A798C",
-  "text": "Four-instruction pointer helper remains 10/4, only mismatch is target loads inner *temp into t9 while compiler uses v1, then stores same value. Baseline s32 func(s32 **arg0){s32 *temp=*arg0; *arg0=(s32 *)*temp; return (s32)temp;} verified. Explicit signature patch and two try_local_repairs variants had no effect. Next experiment: source-level call/volatile or alias staging to influence t9 allocation; avoid changing operation order.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795209836.993661,
-  "score_before": 10,
-  "score_after": 10
- },
- {
   "function": "func_800223E4",
   "text": "Rechecked the saved best (revision 77dec166bb96aaabf261) at 75, all 27 instructions generated with only 5 register/order mismatches. Tried the matched callee signature `void func_80026004(void *, s32, ...)` with explicit pointer/integer casts; score and instruction diff were unchanged. Automatic local pass also unchanged. Target calls func_80087100 first, moves its return into a2, then loads D_80109BB0 and prepares a0/a1; candidate currently reloads D_80109BB0 in v1 and differs in the scheduling/registers. Restored saved best.",
   "by": "codex-gpt-6-luna-12",
@@ -41718,14 +41470,6 @@
   "created_at": 1795210381.7999082,
   "score_before": 1180,
   "score_after": 1180
- },
- {
-  "function": "func_800A798C",
-  "text": "Rechecked four-instruction best score 10. Tried a separate loaded value and register-qualified local; both leave target's lw/sw value in t9 while compiler uses v1, with all other instructions matching. This is register allocation only; preserve typed s32** form and semantics. Need source liveness/register pressure that causes GCC to choose t9 for second load without changing the first load in v0.\nExplicit loaded-value local plus register qualifier; identical score and diff.\nNo improvement; target t9 vs emitted v1 remains.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795210383.777706,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_80096A70",
@@ -61287,5 +61031,303 @@
   "score_before": 765,
   "score_after": 370,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:a63122a34ba7712d004c483aae91e3140e9e49f21aeb9f3b24fa39901a0202dd"
+ },
+ {
+  "function": "func_800134D0",
+  "text": "Inherited candidate was empty and prior full draft was not included in the live candidate. First required compile of empty source failed: object had no func_800134D0; no matching attempt was possible. get_function brief includes m2c but it has known pointer scaling/type issues and is available to next claim. Next step: recover brief draft into compile_and_diff, then correct global byte-address arithmetic and inspect stack frame mismatch.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795235723.323539,
+  "score_before": 22615,
+  "score_after": 22615
+ },
+ {
+  "function": "func_80000A40",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Current candidate rechecks at 8140. It contains obvious m2c structural corruption: sp120 array size/indexing, spA58[2] temporary assigned separately, sp10 scaling accesses offset +0xB0, mangled pointer arithmetic, and several callee/global declarations are absent. Prior experiments on same code had no progress; next meaningful move is reconstruct stack locals and known prototypes/types from assembly before broad rewrites. Next step: inspect get_function/work and rebuild actual float matrix/bounds and matrix record arrays; compile one structural repair.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795235739.946594,
+  "score_before": 8140,
+  "score_after": 8140
+ },
+ {
+  "function": "func_800941F8",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 10; 9 differing rows (6 register, 3 operand; advisory).\nTarget: sw $s1, 0x34($sp)\nCandidate: sw $s2, 0x38($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $v0, %hi(gWorkerActive)\n  = lbu $v0, %lo(gWorkerActive)($v0)\ni T: sw $s1, 0x34($sp) | C: sw $s2, 0x38($sp)\nr T: lbu $s1, 0x8b($sp) | C: lbu $s2, 0x8b($sp)\ni T: sw $s2, 0x38($sp) | C: sw $s3, 0x3c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nScore 60 (rev 66a51551923d3583e3cf / 8ec55fc9fbfe7d733658 w/ register s32 key): `key = argK; key = (u16)key;` removes the andi (move s3,v1 matches). Only remaining diff: s-reg order \u2014 target s1=arg7,s2=arg8,s3=key; ours key=s1,arg7=s2,arg8=s3. Tried: key types/decl order, register on params, a7/a8 locals, swapped f32 stores, argK=(u16)argK (worse). Next: find a way to lower key's priority (e.g. longer live range of key) without adding andi.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795235743.615053,
+  "score_before": 200,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:dd95f59897cac98b3bb9e1f240d0736998e9edee0b7c3a58be2aaca8a1706a1e"
+ },
+ {
+  "function": "spawnProbeEffect",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not made readable this session: the 15-argument signature and the effect-object field offsets (0x6C, 0x78, 0x7A, 0x7C; struct at +0x14..+0x1A, +0x0..+0xE) need the caller func_80042CFC and spawnEffectObject's struct to be named first. Next step: guess_struct on spawnEffectObject's return value, then name the fields in context.h.\n\nCorrection: the handoff notes from an earlier release were written without reading this function. Treat them as unverified. Read the function and its callers before relying on any claim about its arguments or struct fields.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795235755.028933,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best score 10/4 instructions, only registers differ: target loads *(*arg0) into $t9 then stores via $a0; candidate uses $v1. Tried direct pointer temp, nested inline expression, and explicit value temp; no instruction improvement. Compiler/local repairs did not resolve allocation. Remaining work is to induce GCC to allocate loaded word in $t9 while preserving four instructions.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795136648.4192781,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Score 10: target uses t9 for second load/store while compiler uses v1. Explicit register local and pointer cast did not change emitted instructions. Investigate compiler profile or source construct inducing t9.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795163911.43778,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Typed FreeNode list pop is four instructions under current GCC, verified score 10. Volatile next or head and explicit next local each preserve v1 instead of target t9. IDO 5.3 and 7.1 default profiles use t6 (score 10), 5.3 -g3 expands code (305). The callers are OS thread/message queue operations. Investigate SDK assembler origin or IDO allocation control; no byte match yet.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795165361.701151,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best score 10, four instructions match; target loads *arg0 into v0, loads *v0 into t9, then jr with store t9 in delay slot. Candidate uses v1 for the second load/store. Tried preserved machine draft, pointer-typed return and function-pointer typing; score and emitted register choice stayed unchanged. Remaining issue is register allocation only.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795178154.12537,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Linked-list pop baseline score 10: only target t9 versus v1 differs. Volatile temporary adds stack traffic and regresses. Investigate compiler/debug flags or allocation without volatile stack slot.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795180785.676563,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Verified score 10: only temporary register differs, target t9 versus GCC v1. Assignment-at-use, volatile load and register local do not change output. Flag search and IDO 5.3/7.1, GCC 2.8.1 and SN64 trials did not match. Investigate compilation unit or alternative compiler allocation.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795181900.513224,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Rechecked 10 score, 2 register mismatches remain: target loads through $v0 into $t9 and stores $t9; candidate uses $v1. Tried assignment-at-use, register local, and volatile load; all retained score/instructions. Existing history contains related pointer qualification variants. Next explore register/address staging or compiler debug flags.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795182733.885334,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Libultra thread queue head pop (__osPopThread). Boundary verified: callers target the four-instruction entry directly; jr delay-slot store completes it. It is embedded in the handwritten scheduler with register conventions shared by adjacent func_800A7944 and the dispatch path. It uses $t9 directly for the next-thread link despite $v1 being free. Baseline and clean linked-node C both produce the exact instructions with $v1 in the two differing positions (score 10).",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795183750.937668,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four-instruction libultra scheduler queue-pop helper. Verified target ends at the jr delay-slot store. It follows adjacent scheduler assembly register conventions ($t9 for the loaded next link where a normal leaf uses $v1); retained typed C and prior GCC/IDO/SN64 builds cannot reproduce that register convention in the four-instruction body. Treat as handwritten assembly.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795183833.859853,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four-instruction scheduler queue-pop helper (__osPopThread), bounded by the JR delay-slot store. Typed linked-node C verifies score 10, with normal leaf v1 instead of t9 as the only mismatch. Review notes show neighboring scheduler assembly shares the t9 scratch convention and compiler trials/qualifier changes have not reproduced it. Its location and matching neighboring hand-written conventions support assembly origin.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795184563.48435,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Confirmed typed linked-node pop emits four instructions with score 10. Target uses t9 for next while v1 is free, following adjacent libultra scheduler assembly's t9 scratch convention. Existing GCC/IDO/SN and qualifiers fail only this unusual allocation. Function extent includes the head store in the jr delay slot. This is the handwritten scheduler queue-pop helper __osPopThread.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184837.704994,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Complete four-instruction libultra scheduler queue-pop helper (__osPopThread), through the jr delay-slot store. The next-pointer scratch t9 is consistent with adjacent scheduler assembly and compiler trials across GCC, IDO and SN instead allocate the free v1. Keep typed linked-node pop as behavioral reference.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795185754.3490272,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Pointer pop implementation scores 10: target uses t9 for next pointer, compiler uses v1. Typed struct and void-pointer variants produce identical code. Investigate register allocation or compiler profile.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795186851.2542348,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four-instruction libultra scheduler __osPopThread. The complete body ends with a queue-head store in the JR delay slot. It uses the adjacent handwritten scheduler's $t9 scratch convention even though $v1 is free. The typed C queue pop reproduces the instruction sequence but allocates $v1; previous GCC, IDO and SN64 profile trials corroborate assembly origin.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795187123.3599691,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best score 10, four instructions. The typed s32** rewrite and local assignment/single-use variants all leave the exact same two register mismatches: target loads the pointed-to word into t9 and stores t9; candidate uses v1. Source semantics already match; further work should explore register allocation via pointer-width/type and temporary lifetime. No reusable game-wide rule established.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795188676.172837,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Three compiles at score 10. Candidate uses $v1 for the loaded value, while target uses $t9; remaining two register differences, instructions otherwise match. Tried the saved candidate and a pointer return type; no assembly change. No applicable local repairs remained.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795190151.247833,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Score 10 of 4 instructions. The target's two remaining differences use $t9 for the loaded pointer, while the candidate uses $v1. Assignment-at-use and adding register to temp_v0 did not change emitted code. Saved best should be fine; investigate compiler allocation/address staging.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795192108.710281,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Score 10, exactly four instructions, only destination register mismatch: target loads inner pointer into $t9 and stores $t9, candidate uses $v1. Tried signed/unsigned/pointer return variants and local repairs (assignment-at-use/single-use inline); emitted code unchanged, move-on 5/3. This helper simply loads *arg0, then stores **arg0 through arg0 while returning original *arg0. Need a compiler allocation/context difference to get t9; likely pure C changes are optimized identically.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795192924.524718,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four instructions match except load and store use $v1 instead of target $t9. Tried initial draft and staging loaded word through local; same diff. Remaining work is compiler register allocation via type/declaration/order/address staging.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197338.50502,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Verified candidate has all four target instructions and score 10 (register-only residual): target loads through $v0 into caller-saved $t9 and stores it in jr delay slot; C uses $v1. Tried explicit intermediate, alternate return value and cast forms in variants; no improvement. Existing matched lookalike can reveal exact source idiom or try volatile/read staging to steer register allocation.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795198243.956502,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four-instruction function; best score 10 (97.5%), all operation/stack/control flow matches with only the loaded value in $v1 instead of target $t9. Tried the original m2c pointer traversal, inline dereference, and volatile pointee; none changed the diff. Further register allocation/address staging or compiler debug-flag experiments may help. No evidence of a semantic mismatch.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795200572.0010638,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best/current score 10 (97.5%), revision 70d2859c7609249471c3. Target is 4 instructions; candidate matches instruction count and operations but load/store use $v1 where target uses $t9. Tried m2c source, explicit Node * temp, assignment at use, and separate next temporary; all stayed score 10 with identical diff. No reusable finding. Further register allocation tuning is needed.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201600.408711,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Two compiles scored 10 (97.5%), same four operations but inner loaded value in v1 instead of target t9. Reordered locals had no effect. Saved best restored; no exact match.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795201887.784648,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Target: lw v0,0(a0); lw t9,0(v0); jr ra; sw t9,0(a0). C with s32 **arg0 / s32 *temp_v0 / *arg0 = (s32*)*temp_v0 scores 10: only diff is loaded value in $v1 instead of $t9. Tried extra temp, volatile arg, unused decl, register keyword, +0 arithmetic: all still v1. Untested: struct-typed pointer wrapper, search_flags.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795203865.17501,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best score 10/4 instructions, all source/type/register variants produced same two FPR-independent GPR differences: target loads `$t9` and stores it; compiler allocates `$v1`. Register allocator is the sole obstacle. No improvement.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795204236.691162,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Best candidate matches operations/order but register allocation differs: target loaded value is in $t9, C emits $v1. Tried typed pointer rewrites and local repairs with unchanged output. Next test a function-pointer typed dereference or adjust declaration/lifetime to steer value into $t9.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795205301.430731,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Stalled at score 10. Target: lw v0,0(a0); lw t9,0(v0); jr ra; sw t9,0(a0). Candidate always allocates the loaded value to $v1 instead of $t9. Tried this session on rev 8b4676e9: temp via s32 cast, extra tmp local, casts on the store RHS, +0 expressions. All scored 10 with identical output. Untested: a struct-typed pointer (e.g. a 2-level typedef) or a separate second local for the inner load.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795206400.443201,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Saved candidate 8b4676e93adfceaa2a3f remains best score 10. Current simple typed-struct variant (revision 5de33c3eb03ee186c3b4) yielded same two register mismatches: target loads nested value into t9, candidate uses v1. Local repair variants for declaration order, signedness, and assignment staging were unchanged; one two-level struct-pointer experiment worsened to score 115 and was abandoned. Untested: explicitly use volatile s32 for nested value or a volatile-qualified node pointer to affect register allocation; preserve the simple four-instruction shape.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795207620.482871,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Target is 4 instructions, best candidate score 10. Tried function-pointer typing, explicit temporary load, and register-qualified temporary: all preserved same two register differences, target uses t9 for second pointer load/store while GCC uses v1. Candidate otherwise exact; next experiment could inspect project-wide type or create aggregate/volatile temporary to perturb reg allocation.\nFunction pointer and explicit unsigned pointer/temp variants, including register qualifier.\nAll score 10; same t9 versus v1 register diff.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795208504.1959739,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Rechecked baseline score 10. Clear typed-pointer rewrite produces 4 instructions but only 2 register mismatches: target loads second word into $t9 and stores $t9; compiler chooses $v1. Tried register/volatile temp, staging second value, and void return; none matched. Next inspect compiler options/flags or alter source liveness to allocate $t9 while keeping first load in $v0.\nRegister and volatile temp variants and return-type void; all left same 2 register diffs.\nScore remained 10; second load/store destination register differs.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795209330.0321789,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Four-instruction pointer helper remains 10/4, only mismatch is target loads inner *temp into t9 while compiler uses v1, then stores same value. Baseline s32 func(s32 **arg0){s32 *temp=*arg0; *arg0=(s32 *)*temp; return (s32)temp;} verified. Explicit signature patch and two try_local_repairs variants had no effect. Next experiment: source-level call/volatile or alias staging to influence t9 allocation; avoid changing operation order.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795209836.993661,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "__osPopThread",
+  "text": "Rechecked four-instruction best score 10. Tried a separate loaded value and register-qualified local; both leave target's lw/sw value in t9 while compiler uses v1, with all other instructions matching. This is register allocation only; preserve typed s32** form and semantics. Need source liveness/register pressure that causes GCC to choose t9 for second load without changing the first load in v0.\nExplicit loaded-value local plus register qualifier; identical score and diff.\nNo improvement; target t9 vs emitted v1 remains.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795210383.777706,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "func_8008D838",
+  "text": "Two explicit loop backedges and local zero; scalar reuse and reduced call arity\nCurrent verified score improved from 16417 to 15740; scalar reuse and reduced arity worsened. Frame now matches but saved register allocation differs.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795235807.363596,
+  "score_before": 16827,
+  "score_after": 15740,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b59bce39b2026b94302ef15b658ebe62f066853a8756fa51634e2827441b5eb9"
  }
 ]

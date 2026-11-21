@@ -6,7 +6,7 @@ s32 actorLinkToSurface();
 s32 randomIntBelow();
 extern s32 *gProbeObjectList;
 
-void *func_80081134(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14) {
+void *spawnProbeEffect(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14) {
     void *var_s0;
     void *temp_v0;
     register s32 *list;

@@ -1,114 +1,63 @@
-static __inline__ u16 __repair_inline(u16 a) { return a; }
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-
 s32 workerLockAcquire();
 s32 workerLockRelease();
+typedef struct { u16 count; u16 start; } Bucket;
+typedef struct { s32 value; u16 key; u16 count; } Entry;
 extern s32 D_800F8D5C;
 extern u16 D_800F8D5E;
-extern char D_800F8D60[];
-extern char D_800F8D62[];
-typedef struct { s32 f0; u8 pad[4]; } Slot_800F9560;
-extern Slot_800F9560 D_800F9560[];
-extern char D_800F9564[];
-extern char D_800F9566[];
-extern char D_800F9568[];
+extern Bucket D_800F8D60[];
+extern Entry D_800F9560[];
 
 s32 func_80097EF8(u16 arg0, s32 arg1) {
-    volatile long long __frame_gap;
-    char *var_a1;
-    unsigned int temp_a1;
-    unsigned temp_t2;
-    s32 temp_v1_2;
-    s32 temp_v1_4;
-    s32 temp_v1;
-    s32 var_a2;
-    register s32 var_a2_2;
-    u32 var_v0_2;
-    s32 temp_v0;
-    s32 var_v0;
-    s32 var_a3;
-    s32 var_t1;
-    void *var_t0;
-    s32 var_a0_2;
-    u32 var_a0;
-    u16 temp_v1_3;
+    u32 key;
+    u32 b;
+    s32 start;
+    s32 i;
+    s32 idx;
+    s32 j;
+    s32 k;
 
     workerLockAcquire();
-    var_a0 = arg0;
-    temp_t2 = var_a0 >> 6;
-    temp_v1 = temp_t2 * 4;
-    do { temp_v0 = __repair_inline(*(u16 *)(D_800F8D60 + (temp_t2 * 4))); } while (0);
-    if (temp_v0 == 0) {
-        var_t1 = D_800F8D5E & 0xFFFF;
-        *(u16 *)(D_800F8D62 + temp_v1) = D_800F8D5E;
-        var_a3 = var_t1;
-        goto block_11;
-    }
-    var_a3 = *(u16 *)(D_800F8D62 + (temp_t2 * 4));
-    var_a2 = 0;
-    if (temp_v0) {
-        var_v0 = var_a3;
-loop_4:
-        var_v0_2 = temp_t2 * 4;
-        if ((u16) *(u16 *)(D_800F9564 + (var_v0 * 8)) < var_a0) {
-            ++var_a2;
-            var_v0 = var_a3 + var_a2;
-            if (var_a2 >= (s32) temp_v0) {
-                var_v0_2 = (u32)temp_t2 * 4;
-            } else {
-                goto loop_4;
+    key = arg0;
+    b = key >> 6;
+    if (D_800F8D60[b].count == 0) {
+        idx = D_800F8D5E;
+        D_800F8D60[b].start = D_800F8D5E;
+        start = idx;
+    } else {
+        start = D_800F8D60[b].start;
+        i = 0;
+        if (D_800F8D60[b].count != 0) {
+            while (D_800F9560[start + i].key < key) {
+                i++;
+                if (i >= D_800F8D60[b].count) break;
             }
         }
-        var_t1 = var_a3 + var_a2;
-        if (var_a2 < (s32) *(u16 *)(D_800F8D60 + var_v0_2)) {
-            temp_v1_2 = var_t1 * 8;
-            if (*(u16 *)(D_800F9564 + temp_v1_2) == var_a0) {
-                *(u16 *)(D_800F9566 + temp_v1_2) = *(u16 *)(D_800F9566 + temp_v1_2) + 1;
-                goto block_21;
+        idx = start + i;
+        if (i < D_800F8D60[b].count) {
+            if (D_800F9560[idx].key == key) {
+                D_800F9560[idx].count++;
+                workerLockRelease();
+                return 0;
             }
-            goto block_11;
         }
-        goto block_10;
     }
-block_10:
-    var_t1 = var_a3 + var_a2;
-block_11:
-    var_a0 = 0;
     if (D_800F8D5C < 0x800) {
-        var_a1 = D_800F8D60;
-        do {
-            temp_v1_3 = *(u16 *)(D_800F8D62 + var_a0);
-            if ((s32) var_a3 < (s32) temp_v1_3) {
-                (*(s16 *)((char *)(var_a1) + 2)) = (s16) (temp_v1_3 + 1);
+        for (j = 0; j < 0x200; j++) {
+            if (start < D_800F8D60[j].start) {
+                D_800F8D60[j].start = D_800F8D60[j].start + 1;
             }
-            var_a0 += 4;
-            var_a1 += 4;
-        } while ((s32) var_a0 < 0x800);
-        var_a2_2 = D_800F8D5C - 1;
-        var_a0_2 = var_t1 * 8;
-        if (var_a2_2 >= (s32) var_t1) {
-            temp_v1_4 = var_a2_2 * 8;
-            var_t0 = temp_v1_4 + D_800F9568;
-            var_a3 = (s32) (temp_v1_4 + (D_800F9568 - 8));
-            do {
-                (*(s32 *)((char *)(var_t0) + 0)) = (s32) (*(s32 *)((char *)(var_a3) + 0));
-                (*(s32 *)((char *)(var_t0) + 4)) = (s32) (*(s32 *)((char *)(var_a3) + 4));
-                var_t0 -= 8;
-                var_a3 -= 8;
-                var_a2_2 -= 1;
-            } while (var_a2_2 >= (s32) var_t1);
-            var_a0_2 = var_t1 * 8;
         }
-        var_v0_2 = temp_t2 * 4;
-        *(u16 *)(D_800F9564 + var_a0_2) = arg0;
-        *(u16 *)(D_800F9566 + var_a0_2) = 1;
-        D_800F9560[var_t1].f0 = arg1;
-        *(u16 *)(D_800F8D60 + var_v0_2) = *(u16 *)(D_800F8D60 + var_v0_2) + 1;
-        ++D_800F8D5C;
-        workerLockRelease(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
+        for (k = D_800F8D5C - 1; k >= idx; k--) {
+            D_800F9560[k + 1] = D_800F9560[k];
+        }
+        D_800F9560[idx].key = arg0;
+        D_800F9560[idx].count = 1;
+        D_800F9560[idx].value = arg1;
+        D_800F8D60[b].count++;
+        D_800F8D5C++;
+        workerLockRelease();
         return 1;
     }
-block_21:
-    workerLockRelease(var_a0);
+    workerLockRelease();
     return 0;
 }

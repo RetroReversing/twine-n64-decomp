@@ -10,10 +10,23 @@ extern char D_8010D784[];
 extern char gVoiceChannelTable[];
 extern u8 D_80110DB0;
 extern char D_80117388[];
-extern char D_80117389[];
+extern struct { char value; char pad[3]; } D_80117389[];
 extern u8 gWorkerActive;
 typedef struct VNode { struct VNode *next; s32 pad4; u32 key; s32 value; } VNode;
 extern VNode *gVoiceListHead;
+
+static inline VNode *voiceFind(u32 key) {
+    VNode *n;
+    for (n = gVoiceListHead; n != NULL; n = n->next) {
+        if (n->key == key) {
+            return n;
+        }
+        if (key < n->key) {
+            return NULL;
+        }
+    }
+    return NULL;
+}
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
 s32 sndStopNode(u32 arg0) {
@@ -21,7 +34,6 @@ s32 sndStopNode(u32 arg0) {
     s32 off;
     s32 next;
     s32 idx;
-    VNode *node;
     VNode *found;
     char *voice;
     void *rec;
@@ -29,16 +41,7 @@ s32 sndStopNode(u32 arg0) {
     ret = -1;
     if (gWorkerActive != 0) {
         if (arg0 != ret) {
-            found = NULL;
-            for (node = gVoiceListHead; node != NULL; node = node->next) {
-                if (node->key == arg0) {
-                    found = node;
-                    break;
-                }
-                if (arg0 < node->key) {
-                    break;
-                }
-            }
+            found = voiceFind(arg0);
             if (found != NULL) {
                 arg0 = found->value;
             } else {
@@ -66,7 +69,7 @@ s32 sndStopNode(u32 arg0) {
                             if (D_801002EA != 0xFF) {
                                 ((__repair_record_temp_a0*)rec)->field_1 = 0xFF;
                                 ((__repair_record_temp_a0*)rec)->field_0 = (u8) D_80110DB0;
-                                *(D_80117389 + (D_80110DB0 * 4)) = arg0;
+                                D_80117389[D_80110DB0].value = arg0;
                             } else {
                                 ((__repair_record_temp_a0*)rec)->field_1 = 0xFF;
                                 ((__repair_record_temp_a0*)rec)->field_0 = 0xFF;

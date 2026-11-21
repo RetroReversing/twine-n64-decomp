@@ -1,33 +1,35 @@
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-typedef struct { f32 f0,f4,f8,fC,f10,f14; } Bounds;
-s32 segmentPassesBoundsRejection(void *a0, void *a1, void *a2, f32 a3) {
+typedef struct { f32 minX, maxX, minY, maxY, minZ, maxZ; } Bounds;
+
+/* Tests a segment (start p0, end p1, both as x/y/z triples) against a box grown by margin;
+ * returns 1 if the segment is not rejected by the bounds test, 0 otherwise. */
+s32 segmentPassesBoundsRejection(void *bounds, void *p0, void *p1, f32 margin) {
  f32 t0,t1,t2,t3,t4,t5; s32 result;
- f32 x = *(volatile f32*)a1;
- t0=((Bounds*)a0)->f0;
+ f32 x = *(volatile f32*)p0;
+ t0=((Bounds*)bounds)->minX;
  if (x < t0) {
   result=0;
-  if (!(*(f32*)a2 < t0)) {
-   x = *(volatile f32*)a1;
+  if (!(*(f32*)p1 < t0)) {
+   x = *(volatile f32*)p0;
    goto L1;
   }
  } else {
  L1:
-  t1=((Bounds*)a0)->f4;
-  if (!(t1 < x) || (result=0, !(t1 < *(f32*)a2))) {
-   f32 z = *(volatile f32*)((u8*)a1+8);
-   t2=((Bounds*)a0)->f10;
+  t1=((Bounds*)bounds)->maxX;
+  if (!(t1 < x) || (result=0, !(t1 < *(f32*)p1))) {
+   f32 z = *(volatile f32*)((u8*)p0+8);
+   t2=((Bounds*)bounds)->minZ;
    if (z < t2) {
     result=0;
-    if (!(*(f32*)((u8*)a2+8) < t2)) {
-     z = *(volatile f32*)((u8*)a1+8);
+    if (!(*(f32*)((u8*)p1+8) < t2)) {
+     z = *(volatile f32*)((u8*)p0+8);
      goto L2;
     }
    } else {
    L2:
-    t3=((Bounds*)a0)->f14;
-    if ((!(t3 < z) || (result=0, !(t3 < *(f32*)((u8*)a2+8)))) &&
-        (((t4=((Bounds*)a0)->f8-a3), (*(f32*)((u8*)a1+4)<t4) && (*(f32*)((u8*)a2+4)<t4)) ||
-         ((t5=((Bounds*)a0)->fC+a3, result=1), (t5<*(volatile f32*)((u8*)a1+4)) && (t5<*(f32*)((u8*)a2+4))))) {
+    t3=((Bounds*)bounds)->maxZ;
+    if ((!(t3 < z) || (result=0, !(t3 < *(f32*)((u8*)p1+8)))) &&
+        (((t4=((Bounds*)bounds)->minY-margin), (*(f32*)((u8*)p0+4)<t4) && (*(f32*)((u8*)p1+4)<t4)) ||
+         ((t5=((Bounds*)bounds)->maxY+margin, result=1), (t5<*(volatile f32*)((u8*)p0+4)) && (t5<*(f32*)((u8*)p1+4))))) {
       result=0;
     }
    }

@@ -68,7 +68,7 @@ struct ListNode {
     ListNode *next;
 };
 
-ListNode *func_800A798C(ListNode **head) {
+ListNode *__osPopThread(ListNode **head) {
     ListNode *node = *head;
     *head = node->next;
     return node;

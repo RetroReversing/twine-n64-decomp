@@ -1,22 +1,23 @@
 f32 __cosf(f32);
 f32 sinApprox(f32);
 
-void func_800467B0(const f32 *arg0, f32 *arg1) {
-    f32 a = arg0[0] * 0.0007669904f;
-    f32 b = arg0[1] * 0.0007669904f;
-    f32 c = arg0[2] * 0.0007669904f;
-    f32 ca = __cosf(a);
-    f32 sa = sinApprox(a);
-    f32 cb = __cosf(b);
-    f32 sb = sinApprox(b);
-    f32 cc = __cosf(c);
-    f32 sc = sinApprox(c);
-    f32 cacc = ca * cc;
-    f32 casc = ca * sc;
-    f32 sacc = sa * cc;
-    f32 sasc = sa * sc;
-    arg1[0] = cb * sacc - sb * casc;
-    arg1[1] = cb * sasc + sb * cacc;
-    arg1[2] = cb * casc - sb * sacc;
-    arg1[3] = cb * cacc + sb * sasc;
+/* Converts Euler angles (x, y, z; 4096 units per turn) to a quaternion (x, y, z, w). */
+void eulerToQuat(const f32 *angles, f32 *quat) {
+    f32 halfX = angles[0] * 0.0007669904f;
+    f32 halfY = angles[1] * 0.0007669904f;
+    f32 halfZ = angles[2] * 0.0007669904f;
+    f32 cosX = __cosf(halfX);
+    f32 sinX = sinApprox(halfX);
+    f32 cosY = __cosf(halfY);
+    f32 sinY = sinApprox(halfY);
+    f32 cosZ = __cosf(halfZ);
+    f32 sinZ = sinApprox(halfZ);
+    f32 cxcz = cosX * cosZ;
+    f32 cxsz = cosX * sinZ;
+    f32 sxcz = sinX * cosZ;
+    f32 sxsz = sinX * sinZ;
+    quat[0] = cosY * sxcz - sinY * cxsz;
+    quat[1] = cosY * sxsz + sinY * cxcz;
+    quat[2] = cosY * cxsz - sinY * sxcz;
+    quat[3] = cosY * cxcz + sinY * sxsz;
 }

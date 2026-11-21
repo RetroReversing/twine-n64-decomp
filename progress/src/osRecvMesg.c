@@ -19,11 +19,11 @@ typedef struct OSMesgQueue_s {
     OSMesg *msg;
 } OSMesgQueue;
 
-extern OSThread *D_800CFE80;
+extern OSThread *__osRunningThread;
 extern u32 __osDisableInt(void);
 extern void __osRestoreInt(u32);
-extern void func_800A783C(OSThread **);
-extern OSThread *func_800A798C(OSThread **);
+extern void __osEnqueueAndYield(OSThread **);
+extern OSThread *__osPopThread(OSThread **);
 extern void osStartThread(OSThread *);
 
 /* Receives the next message from a queue. If the queue is empty, flag 0 returns -1 at once; otherwise the thread blocks until a message arrives. Copies the message to *msg if msg is non-null, then wakes the first blocked sender. */
@@ -37,8 +37,8 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags) {
             __osRestoreInt(saveMask);
             return -1;
         } else {
-            D_800CFE80->state = (1 << 3);
-            func_800A783C(&mq->mtqueue);
+            __osRunningThread->state = (1 << 3);
+            __osEnqueueAndYield(&mq->mtqueue);
         }
     }
 
@@ -50,7 +50,7 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags) {
     mq->validCount--;
 
     if (mq->fullqueue->next != 0) {
-        osStartThread(func_800A798C(&mq->fullqueue));
+        osStartThread(__osPopThread(&mq->fullqueue));
     }
 
     __osRestoreInt(saveMask);
