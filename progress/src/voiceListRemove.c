@@ -7,54 +7,54 @@ extern s32 D_8010D734;
 extern s32 D_8010D738;
 extern s32 D_8010D73C;
 
-void voiceListRemove(void *arg0) {
-    s32 **temp_v1_2;
+/* Unlinks a voice from its channel list and from the global voice node list. */ void voiceListRemove(void *voice) {
+    s32 **prevLink;
 
-    s32 * __repair_hoisted;
+    s32 * node;
     
-    s32 *temp_v0_3;
-    s32 *temp_v1_3;
-    s32 temp_a0;
-    s32 temp_v0;
-    s32 temp_v1;
+    s32 *listNode;
+    s32 *nextNode;
+    s32 prevId;
+    s32 nextId;
+    s32 nextId2;
 
-    voiceClearSlot(arg0);
-    if ((*(s32 *)((char *)(arg0) + 0x60)) != -1) {
-        temp_a0 = (*(s32 *)((char *)(arg0) + 0x14));
-        if (temp_a0 != -1) {
-            *((s32 *)((s8 *)&D_8010D734 + ((temp_a0 & 0xFF) * 0x1A0))) = (*(s32 *)((char *)(arg0) + 0x10));
-            temp_v0 = (*(s32 *)((char *)(arg0) + 0x10));
-            if (temp_v0 != -1) {
-                *((s32 *)((s8 *)&D_8010D738 + ((temp_v0 & 0xFF) * 0x1A0))) = (*(s32 *)((char *)(arg0) + 0x14));
+    voiceClearSlot(voice);
+    if ((*(s32 *)((char *)(voice) + 0x60)) != -1) {
+        prevId = (*(s32 *)((char *)(voice) + 0x14));
+        if (prevId != -1) {
+            *((s32 *)((s8 *)&D_8010D734 + ((prevId & 0xFF) * 0x1A0))) = (*(s32 *)((char *)(voice) + 0x10));
+            nextId = (*(s32 *)((char *)(voice) + 0x10));
+            if (nextId != -1) {
+                *((s32 *)((s8 *)&D_8010D738 + ((nextId & 0xFF) * 0x1A0))) = (*(s32 *)((char *)(voice) + 0x14));
             }
         } else {
-            temp_v1 = (*(s32 *)((char *)(arg0) + 0x10));
-            if (temp_v1 != temp_a0) {
-                (*(s32 *)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 0xC)) = temp_v1;
-                *((s32 *)((s8 *)&D_8010D738 + ((*(u8 *)((char *)(arg0) + 0x13)) * 0x1A0))) = temp_a0;
-                *((s32 *)((s8 *)&D_8010D73C + ((*(u8 *)((char *)(arg0) + 0x13)) * 0x1A0))) = (*(s32 **)((char *)(arg0) + 0x18));
+            nextId2 = (*(s32 *)((char *)(voice) + 0x10));
+            if (nextId2 != prevId) {
+                (*(s32 *)((char *)((*(s32 **)((char *)(voice) + 0x18))) + 0xC)) = nextId2;
+                *((s32 *)((s8 *)&D_8010D738 + ((*(u8 *)((char *)(voice) + 0x13)) * 0x1A0))) = prevId;
+                *((s32 *)((s8 *)&D_8010D73C + ((*(u8 *)((char *)(voice) + 0x13)) * 0x1A0))) = (*(s32 **)((char *)(voice) + 0x18));
                 return;
             }
-            __repair_hoisted = (*(s32 **)((char *)(arg0) + 0x18));
-            temp_v1_2 = (*(s32 ***)((char *)(__repair_hoisted) + 4));
-            if (temp_v1_2 != NULL) {
-                *temp_v1_2 = (*(s32 **)((char *)(__repair_hoisted) + 0));
+            node = (*(s32 **)((char *)(voice) + 0x18));
+            prevLink = (*(s32 ***)((char *)(node) + 4));
+            if (prevLink != NULL) {
+                *prevLink = (*(s32 **)((char *)(node) + 0));
             } else {
-                D_800FDB74 = (*(s32 **)((char *)(__repair_hoisted) + 0));
+                D_800FDB74 = (*(s32 **)((char *)(node) + 0));
             }
-            temp_v0_3 = (*(s32 **)((char *)(arg0) + 0x18));
-            temp_v1_3 = (*(s32 **)((char *)(temp_v0_3) + 0));
-            if (temp_v1_3 != NULL) {
-                (*(s32 ***)((char *)(temp_v1_3) + 4)) = (s32 **) (*(s32 ***)((char *)(temp_v0_3) + 4));
+            listNode = (*(s32 **)((char *)(voice) + 0x18));
+            nextNode = (*(s32 **)((char *)(listNode) + 0));
+            if (nextNode != NULL) {
+                (*(s32 ***)((char *)(nextNode) + 4)) = (s32 **) (*(s32 ***)((char *)(listNode) + 4));
             }
-            __repair_hoisted = (*(s32 **)((char *)(arg0) + 0x18));
-            temp_v1_3 = D_800FDB78;
-            (*(s32 **)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 0)) = temp_v1_3;
-            if (temp_v1_3 != NULL) {
-                (*(s32 **)((char *)(temp_v1_3) + 4)) = *(s32 * volatile *)((char *)arg0 + 0x18);
+            node = (*(s32 **)((char *)(voice) + 0x18));
+            nextNode = D_800FDB78;
+            (*(s32 **)((char *)((*(s32 **)((char *)(voice) + 0x18))) + 0)) = nextNode;
+            if (nextNode != NULL) {
+                (*(s32 **)((char *)(nextNode) + 4)) = *(s32 * volatile *)((char *)voice + 0x18);
             }
-            (*(s32 ***)((char *)((*(s32 **)((char *)(arg0) + 0x18))) + 4)) = NULL;
-            D_800FDB78 = (*(s32 **)((char *)(arg0) + 0x18));
+            (*(s32 ***)((char *)((*(s32 **)((char *)(voice) + 0x18))) + 4)) = NULL;
+            D_800FDB78 = (*(s32 **)((char *)(voice) + 0x18));
         }
     }
 }

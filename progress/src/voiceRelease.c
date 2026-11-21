@@ -26,7 +26,7 @@ extern char D_80117388[];
 extern char D_80117389[];
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
-void func_8009959C(s32 arg0) {
+void voiceRelease(s32 arg0) {
     s32 temp_v0;
     s32 var_v0;
     u8 temp_a1;

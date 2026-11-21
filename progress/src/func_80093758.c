@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 workerLockAcquire();
 s32 workerLockRelease();
-s32 func_8009959C();
+s32 voiceRelease();
 extern u8 gWorkerActive;
 extern u8 gVoiceTable[];
 
@@ -26,7 +26,7 @@ void func_80093758(s32 arg0) {
         temp_a0 = arg0 * 0x18;
         if (*(gVoiceTable + temp_a0) == 1) {
             *(gVoiceTable + temp_a0) = 0;
-            func_8009959C(arg0);
+            voiceRelease(arg0);
         }
         workerLockRelease();
     }
