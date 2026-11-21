@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
-extern s8 D_80102EDC;
+extern s8 sSaveMenuFlag;
 extern void *gSaveMenuState;
 
 void func_8001E36C(void) {
@@ -22,6 +22,6 @@ void func_8001E36C(void) {
     if (M2C_FIELD(gSaveMenuState, u8 *, 0x2C) != 0) {
         func_8002FBD4(M2C_FIELD(gSaveMenuState, s32 *, 0x20), 8);
         M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U;
-        D_80102EDC = 0;
+        sSaveMenuFlag = 0;
     }
 }

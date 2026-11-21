@@ -46,7 +46,7 @@ extern s32 D_80102EEC;
 extern u8 D_80103EB0;
 extern void *D_80109688;
 extern s32 D_8010A4E4;
-extern s32 D_8011740C;
+extern s32 gRetraceFrameCount;
 
 typedef struct { unsigned char pad_0[292]; float field_124; unsigned char pad_128[4]; float field_12C; } __repair_record_D_80109688;
 void func_800068B4(void) {
@@ -71,12 +71,12 @@ block_63:
         return;
     case 8:
         D_800B19F0 = 9;
-        D_800DC730 = D_8011740C;
+        D_800DC730 = gRetraceFrameCount;
         /* fallthrough */
     case 9:
         if (D_801002AE == 0) {
             var_v0 = 2;
-            if ((D_8011740C - D_800DC730) >= 0x1C3) {
+            if ((gRetraceFrameCount - D_800DC730) >= 0x1C3) {
 block_9:
                 D_800B19F0 = var_v0;
             }

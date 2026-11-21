@@ -3,15 +3,15 @@ u64 osGetTime(void);
 s32 osRecvMesg(void *, void *, s32);
 extern s32 osTvType;
 extern u64 D_80108F88;
-extern u8 D_80109C98[];
+extern u8 sGfxSyncQueue[];
 void func_80006FB4(void) {
     u64 t;
 
-    while (osRecvMesg(D_80109C98, 0, 0) == 0) {
+    while (osRecvMesg(sGfxSyncQueue, 0, 0) == 0) {
     }
-    osRecvMesg(D_80109C98, 0, 1);
+    osRecvMesg(sGfxSyncQueue, 0, 1);
     t = osGetTime();
-    osRecvMesg(D_80109C98, 0, 1);
+    osRecvMesg(sGfxSyncQueue, 0, 1);
     D_80108F88 = osGetTime() - t;
     if (osTvType == 0) {
         D_80108F88 = func_800ABCB0(D_80108F88 * 5 + 3, 6);

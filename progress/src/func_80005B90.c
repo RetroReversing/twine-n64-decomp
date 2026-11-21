@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s16 *func_8000182C(M2C_UNK);                        /* extern */
+s16 *findOrLoadCacheBlock(M2C_UNK);                        /* extern */
 M2C_UNK func_800055CC(M2C_UNK *, M2C_UNK, s32, M2C_UNK); /* extern */
 M2C_UNK func_80005D04(s32, M2C_UNK *, M2C_UNK *, f32); /* extern */
 
@@ -24,7 +24,7 @@ void func_80005B90(s32 arg0, M2C_UNK arg1, f32 arg2, M2C_UNK arg3) {
     s32 temp_v1;
     s32 var_s1;
 
-    temp_v1 = *func_8000182C(arg1) - 1;
+    temp_v1 = *findOrLoadCacheBlock(arg1) - 1;
     temp_fs0 = (f32) temp_v1 * arg2;
     temp_fv0 = (s32) temp_fs0;
     var_s1 = temp_fv0 + 1;

@@ -1,4 +1,4 @@
-extern s16 D_800D9428, D_800D942A, D_800D942C[6];
+extern s16 sCacheNextSlot, sCacheLastSlot, sCacheBlockIds[6];
 extern s16 D_800D94F8, D_800D94FA, sStreamSlotIds[8];
 extern s16 D_800DC710, D_800DC712;
 extern s32 D_800DC718[6];
@@ -14,7 +14,7 @@ static __inline__ void fill_s32(s32 value, u32 i, s32 *out, u32 count, s16 *read
     do { *out++ = value; ++i; } while (i < count);
 }
 void initResourceCaches(void) {
-    fill_s16(0x7fff, 0, D_800D942C, 6, &D_800D942A, &D_800D9428);
+    fill_s16(0x7fff, 0, sCacheBlockIds, 6, &sCacheLastSlot, &sCacheNextSlot);
     fill_s16(0x7fff, 0, sStreamSlotIds, 8, &D_800D94FA, &D_800D94F8);
     fill_s32(0x7fffffff, 0, D_800DC718, 6, &D_800DC712, &D_800DC710);
 }

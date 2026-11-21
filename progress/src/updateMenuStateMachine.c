@@ -19,7 +19,7 @@ extern char sMenuTextTemplates[];
 extern s32 sMenuTextRecord;
 extern s8 gMenuOutcome;
 extern char sMenuTimer[];
-extern u8 D_80102EDC;
+extern u8 sSaveMenuFlag;
 extern u8 D_80102EE0;
 extern u8 sDifficultyLevel;
 extern char D_80102EFC[];
@@ -52,7 +52,7 @@ void updateMenuStateMachine(void *arg0, void *arg1) {
         return;
     case 4:
         updateObjectFade(arg0);
-        if (D_80102EDC != 0) {
+        if (sSaveMenuFlag != 0) {
             advanceTimerRecord(sMenuTimer, 1);
         }
         if (!(func_80081730() & 0xFFFF)) {

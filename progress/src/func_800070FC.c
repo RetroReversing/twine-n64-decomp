@@ -14,17 +14,17 @@ typedef s32 M2C_UNK32;
 
 s32 osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);        /* extern */
 M2C_UNK osViBlack(s32);                             /* extern */
-extern M2C_UNK D_80109C98;
+extern M2C_UNK sGfxSyncQueue;
 
 void func_800070FC(s32 arg0) {
     s32 var_s0;
 
     osViBlack(arg0 & 0xFF);
-    while (osRecvMesg(&D_80109C98, 0, 0) == 0) {
+    while (osRecvMesg(&sGfxSyncQueue, 0, 0) == 0) {
     }
     var_s0 = 0;
     do {
-        osRecvMesg(&D_80109C98, 0, 1);
+        osRecvMesg(&sGfxSyncQueue, 0, 1);
         var_s0 += 1;
     } while (var_s0 < 4);
 }

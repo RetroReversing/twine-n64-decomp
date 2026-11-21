@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80008750(void *, u8, M2C_UNK);         /* extern */
-M2C_UNK func_80009DCC(void *, void *, void *, s32, s32); /* extern */
+M2C_UNK submitRenderObject(void *, void *, void *, s32, s32); /* extern */
 s32 IsSphereVisible(void *, f32, void *, void *);     /* extern */
 M2C_UNK updateObjectColor(void *);                 /* extern */
 M2C_UNK emitPrimColor(void *, void *);              /* extern */
@@ -73,9 +73,9 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
             emitPrimColor(target, view);
             if ((IsSphereVisible(node + 0x24, ((__repair_record_var_s1*)node)->field_64 * ((__repair_record_var_s1*)node)->field_54, M2C_FIELD(view, void **, 0xF4), view) << 0x18) != 0) {
                 ((__repair_record_var_s1*)node)->field_58 = (s32) (((__repair_record_var_s1*)node)->field_58 | 4);
-                func_80009DCC(object, node, view, gObjectDrawMask, 0);
+                submitRenderObject(object, node, view, gObjectDrawMask, 0);
                 if (((u32) M2C_FIELD(object, u32 *, 0x58) >> 2) & 0x200) {
-                    func_80009DCC(object, node, view, gObjectDrawMask, 1);
+                    submitRenderObject(object, node, view, gObjectDrawMask, 1);
                 }
                 object = ((__repair_record_var_s1*)node)->field_8;
                 if (object != NULL) {

@@ -5,20 +5,18 @@ extern s8 D_80112E9E[];
 s32 func_8009ABD4(void *arg0, u8 *arg1, s32 arg2) {
     s32 s1, s0, a2, a0;
     u8 v1;
-    u32 w, selector, mode;
-u32 __repair_phase_w;
-    
-u32 __repair_phase_idx;
+    u32 w, selector, mode, idx;
 
     w = *(u32 *)(arg1 + 4);
+    selector = w;
     if (arg1[0] != 0) {
-        s1 = func_80096E7C(arg0, w & 0xFF);
+        s1 = func_80096E7C(arg0, selector & 0xFF);
     } else {
-        __repair_phase_w &= 0x1F;
-        if (__repair_phase_w < 0x10U) {
-            s1 = *(s16 *)((s8 *)arg0 + __repair_phase_w * 2 + 0x180);
+        idx = w & 0x1F;
+        if (idx < 0x10U) {
+            s1 = *(s16 *)((s8 *)arg0 + idx * 2 + 0x180);
         } else {
-            s1 = *(s16 *)(D_80112E9E + __repair_phase_w * 2);
+            s1 = *(s16 *)(D_80112E9E + idx * 2);
         }
     }
     v1 = arg2 & 0xFF;
@@ -31,11 +29,11 @@ u32 __repair_phase_idx;
         if (mode & 0xFF) {
             a0 = func_80096E7C(arg0, selector & 0xFF);
         } else {
-            __repair_phase_w = selector & 0x1F;
-            if (__repair_phase_w < 0x10U) {
-                a0 = *(s16 *)((s8 *)arg0 + __repair_phase_w * 2 + 0x180);
+            idx = selector & 0x1F;
+            if (idx < 0x10U) {
+                a0 = *(s16 *)((s8 *)arg0 + idx * 2 + 0x180);
             } else {
-                a0 = *(s16 *)(D_80112E9E + __repair_phase_w * 2);
+                a0 = *(s16 *)(D_80112E9E + idx * 2);
             }
         }
         v1 = arg2 & 0xFF;
@@ -72,11 +70,11 @@ u32 __repair_phase_idx;
         func_80096F44(arg0, selector & 0xFF, (s16)a2);
         return 0;
     }
-    __repair_phase_idx = selector & 0x1F;
-    if (__repair_phase_idx < 0x10U) {
-        *(s16 *)((s8 *)arg0 + __repair_phase_idx * 2 + 0x180) = (s16)a2;
+    idx = selector & 0x1F;
+    if (idx < 0x10U) {
+        *(s16 *)((s8 *)arg0 + idx * 2 + 0x180) = (s16)a2;
     } else {
-        *(s16 *)(D_80112E9E + __repair_phase_idx * 2) = (s16)a2;
+        *(s16 *)(D_80112E9E + idx * 2) = (s16)a2;
     }
     return 0;
 }

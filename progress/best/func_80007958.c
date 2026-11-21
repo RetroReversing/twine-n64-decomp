@@ -51,9 +51,9 @@ extern f32 D_800B1D78;
 extern u64 D_800DD750[], D_800DD768[], D_8010A398;
 extern u8 *sRenderState, *D_8010A928, *D_80109CB8, *D_801002FC, *D_8010A4B4;
 extern void *D_80100304[];
-extern u32 D_80109C98[], D_8010A2A0[];
+extern u32 sGfxSyncQueue[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
-extern s32 D_80100C04, D_8011740C, gRenderMode;
+extern s32 D_80100C04, gRetraceFrameCount, gRenderMode;
 extern FrameView *gTrackMarkers[];
 extern FrameSlot *D_8010A2BC[];
 extern FrameCommand *sDisplayListCursor;
@@ -222,29 +222,29 @@ void func_80007958(void)
         switch (D_80109B9C) {
         default:
         case 1:
-            while (D_8011740C < D_80100C04 + 2) {
-                osRecvMesg(D_80109C98, NULL, 1);
+            while (gRetraceFrameCount < D_80100C04 + 2) {
+                osRecvMesg(sGfxSyncQueue, NULL, 1);
             }
             token = __osDisableInt();
             vi_apply_context();
             __osRestoreInt(token);
             break;
         case 0:
-            while (osRecvMesg((s32)D_80109C98, NULL, 0) == 0) {
+            while (osRecvMesg((s32)sGfxSyncQueue, NULL, 0) == 0) {
             }
-            while (D_8011740C < D_80100C04 + 1) {
-                osRecvMesg(D_80109C98, NULL, 1);
+            while (gRetraceFrameCount < D_80100C04 + 1) {
+                osRecvMesg(sGfxSyncQueue, NULL, 1);
             }
-            osRecvMesg(D_80109C98, NULL, 1);
+            osRecvMesg(sGfxSyncQueue, NULL, 1);
             break;
         case 2:
-            while (D_8011740C < D_80100C04 + 2) {
-                osRecvMesg(D_80109C98, NULL, 1);
+            while (gRetraceFrameCount < D_80100C04 + 2) {
+                osRecvMesg(sGfxSyncQueue, NULL, 1);
             }
             break;
         }
         previous = (u16)D_800B1D72 + 1;
-        D_80100C04 = (s32)D_8011740C;
+        D_80100C04 = (s32)gRetraceFrameCount;
         D_800B1D72 = previous;
     }
     if (!D_800AE4B0) {

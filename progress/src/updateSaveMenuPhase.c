@@ -12,41 +12,41 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern unsigned short D_800BD562;
+extern unsigned short sSaveMenuPhase;
 s32 func_80026424();
 s32 updateActiveMenuState();
 s32 func_800294E4();
 s32 func_8002CBF4();
 extern char D_800BD560[];
-extern s8 D_80102EDC;
+extern s8 sSaveMenuFlag;
 extern s32 sActiveMenu;
 extern void *gSaveMenuState;
 
 typedef struct { unsigned char pad_0[20]; unsigned short field_14; unsigned char pad_16[22]; unsigned char field_2C; unsigned char pad_2D[1]; unsigned char field_2E; signed char field_2F; } __repair_record_D_80109BB0;
-void func_80025C54(void) {
+void updateSaveMenuPhase(void) {
     u16 temp_a0;
 
     if ((((__repair_record_D_80109BB0*)gSaveMenuState)->field_2C == 0) || (((__repair_record_D_80109BB0*)gSaveMenuState)->field_2E != 0)) {
-        D_800BD562 = 3U;
-        D_80102EDC = ((__repair_record_D_80109BB0*)gSaveMenuState)->field_14 == 1;
+        sSaveMenuPhase = 3U;
+        sSaveMenuFlag = ((__repair_record_D_80109BB0*)gSaveMenuState)->field_14 == 1;
         updateActiveMenuState();
         return;
     }
-    temp_a0 = D_800BD562;
+    temp_a0 = sSaveMenuPhase;
     switch (temp_a0) {                              /* irregular */
     case 3:
-        D_80102EDC = 0;
+        sSaveMenuFlag = 0;
         if (!(func_8002CBF4() & 0xFFFF)) {
-            D_800BD562 = 4U;
+            sSaveMenuPhase = 4U;
             return;
         }
-        D_800BD562 = 3U;
+        sSaveMenuPhase = 3U;
         ((__repair_record_D_80109BB0*)gSaveMenuState)->field_2C = 0U;
         func_80026424(sActiveMenu, 0x18);
         return;
     case 4:
         ((__repair_record_D_80109BB0*)gSaveMenuState)->field_2F = 1;
-        D_800BD562 = 3U;
+        sSaveMenuPhase = 3U;
         func_800294E4();
         ((__repair_record_D_80109BB0*)gSaveMenuState)->field_2C = 1U;
         return;

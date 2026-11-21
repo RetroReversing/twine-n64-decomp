@@ -16,7 +16,7 @@ M2C_UNK func_80027408(M2C_UNK, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 extern s16 D_800BD68A;
 extern s32 D_800E1090;
 extern s32 D_800E1094;
-extern s8 D_80102EDC;
+extern s8 sSaveMenuFlag;
 extern void *sActiveMenu;
 extern void *gSaveMenuState;
 
@@ -44,9 +44,9 @@ s32 __repair_operand;
     D_800E1094 = arg1;
     D_800BD68A = arg2;
     if (var_v1 == one) {
-        D_80102EDC = 1;
+        sSaveMenuFlag = 1;
     } else {
-        D_80102EDC = 0;
+        sSaveMenuFlag = 0;
     }
     }
     { void *p = sActiveMenu; void *q = gSaveMenuState;

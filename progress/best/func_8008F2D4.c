@@ -90,9 +90,8 @@ void func_8008F2D4(s32 arg0) {
         *(s16 *)((u8 *)&D_8010D8A0 + var_v1) = 0;
         *(s32 *)((u8 *)&D_8010D7B0 + var_v1) = 0x64;
         *(u8 *)((u8 *)&D_8010D7BC + var_v1) = 0;
-        var_a1 += 1;
         var_v1 += 0x1A0;
-    } while (var_a1 < 0x20);
+    } while (++var_a1 < 0x20);
     var_a1 = 0;
     var_v1_2 = 0;
     do {
