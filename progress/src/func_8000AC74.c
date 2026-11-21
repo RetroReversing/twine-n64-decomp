@@ -1,9 +1,9 @@
 void listUnlinkFree(s32 block);
 s32 func_8009C930(s32 sound, u8 volume);
-extern u8 D_800B1FE0[];
-extern u8 D_800B2230[];
+extern u8 sDistanceNearRange[];
+extern u8 sDistanceFarRange[];
 extern f64 D_800D2170;
-extern s32 D_801002EC;
+extern s32 sDistanceSoundsActive;
 
 s32 func_8000AC74(s32 sound, s32 index, f32 distance)
 {
@@ -11,11 +11,11 @@ s32 func_8000AC74(s32 sound, s32 index, f32 distance)
     f32 farDistance;
     f32 fraction;
 
-    if (D_801002EC != 0) {
+    if (sDistanceSoundsActive != 0) {
         if (sound != -1) {
-            nearDistance = D_800B1FE0[index];
+            nearDistance = sDistanceNearRange[index];
             fraction = distance - nearDistance;
-            farDistance = D_800B2230[index];
+            farDistance = sDistanceFarRange[index];
             if (fraction < 0.0f) {
                 fraction = 0.0f;
             }

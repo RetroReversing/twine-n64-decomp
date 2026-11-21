@@ -36,7 +36,7 @@ extern u8 D_801002A4;
 extern s32 D_801002A8;
 extern u8 gPauseFlag;
 extern u8 D_801002D5;
-extern s32 D_801002EC;
+extern s32 sDistanceSoundsActive;
 extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 gOptionChoice;
@@ -175,7 +175,7 @@ loop_3:
         gBorderFlipFlag = func_8002E98C(&D_800E1310, 1, 1);
         gOptionFlagA = func_8002E98C(&D_800E1310, 1, 1);
         D_8010A4FF = func_8002E98C(&D_800E1310, 1, 2);
-        D_801002EC = func_8002E98C(&D_800E1310, 4, 1);
+        sDistanceSoundsActive = func_8002E98C(&D_800E1310, 4, 1);
         D_801002F0 = func_8002E98C(&D_800E1310, 1, 4);
         D_801002F1 = func_8002E98C(&D_800E1310, 1, 4);
         gOptionChoice = func_8002E98C(&D_800E1310, 1, 2);

@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000A724();
 s32 func_8009CC3C();
-extern u8 D_800B1D90[];
-extern s32 D_801002EC;
+extern u8 sDistanceSoundEnabled[];
+extern s32 sDistanceSoundsActive;
 
 s32 func_8000A830(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
 
-    if ((D_801002EC == 0) || (temp_s0 = func_8009CC3C(arg0 & 0xFFFF, arg1 & 0xFF, arg2 & 0xFF), (*(D_800B1D90 + arg0) == 0))) {
+    if ((sDistanceSoundsActive == 0) || (temp_s0 = func_8009CC3C(arg0 & 0xFFFF, arg1 & 0xFF, arg2 & 0xFF), (*(sDistanceSoundEnabled + arg0) == 0))) {
         return -1;
     }
     func_8000A724(temp_s0);

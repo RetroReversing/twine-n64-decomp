@@ -116,8 +116,10 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
             if (update != 0) {
                 type = best->type;
                 if ((type == 1) | (type == 0x4C)) {
-                    WORD(best->extra, 0x88) = (WORD(best->extra, 0x88) & 0xFFE1FFFF) |
-                        (((u8)D_800C42B0[bestPart][0] & 0xF) << 17);
+                    void *extra = best->extra;
+                    u32 flags = WORD(extra, 0x88);
+                    s32 id = D_800C42B0[bestPart][0];
+                    WORD(extra, 0x88) = (flags & 0xFFE1FFFF) | ((id & 0xF) << 17);
                 }
                 type = best->type;
                 if (((type == 2) | (type == 0x4D)) || type == 3) {
@@ -134,3 +136,4 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
     }
     return NULL;
 }
+

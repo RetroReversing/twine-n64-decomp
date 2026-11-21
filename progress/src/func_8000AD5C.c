@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK listUnlinkFree(s32);                         /* extern */
 M2C_UNK func_8009C930(s32, s32);                    /* extern */
-extern s32 D_801002EC;
+extern s32 sDistanceSoundsActive;
 
 s32 func_8000AD5C(s32 arg0, s32 arg1) {
-    if (D_801002EC != 0) {
+    if (sDistanceSoundsActive != 0) {
         if (arg0 == -1) {
             return -1;
         }

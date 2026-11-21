@@ -1,4 +1,4 @@
-extern void func_8000B900(void *, void *, s32);
+extern void romDmaRead(void *, void *, s32);
 extern s32 D_00437E38;
 extern s16 D_800D9428;
 extern s16 D_800D942A;
@@ -41,7 +41,7 @@ do {
             temp_s0 = D_800D9438 + (var_s1 << 5);
             src = (void *)((arg0 << 5) + ((u32)&D_F8D70 + (u32)&D_00437E38));
             D_800D9428 = var_s1;
-            func_8000B900(temp_s0, src, 0x20);
+            romDmaRead(temp_s0, src, 0x20);
             D_800D942C[var_s1] = arg0;
             D_800D942A = var_s1;
             return temp_s0;

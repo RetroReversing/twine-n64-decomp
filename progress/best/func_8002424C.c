@@ -34,7 +34,6 @@ extern SavePair D_80109C18[];
 
 void func_8002424C(void) {
     char *base, *config, *slot, *menu;
-    SavePair *pairs;
     int i, offset, full, empty, action, param;
 
     func_8002CBD8();
@@ -42,7 +41,7 @@ void func_8002424C(void) {
     func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &updateSaveMenuEntries, &func_800241F8);
     func_80022A30((i = 0, base = D_800BD5D0, config = base - 0x4C,
                    empty = 0xF, full = 0x10, slot = base - 0x34, sMenuListKind),
-                  0x20, 0x3C, 0xF8, (pairs = D_80109C18, 0x78));
+                  0x20, 0x3C, 0xF8, (0x78));
     sSaveMenuSpriteSecond = spawnTextNode(base);
     sSaveMenuSpriteFirst = spawnTextNode(base - 0x24);
     do {
@@ -59,7 +58,7 @@ void func_8002424C(void) {
         *(s16 *)slot = i + 0x4000;
         *(s32 *)((u32)D_80109C18 + (offset = (u16)i * 8)) = spawnTextNode(slot - 0x14);
         *(s32 *)((u32)D_80109C1C + offset) = spawnTextNode(slot - 0x38);
-        func_8002A7CC(D_80107EA8, (char *)(offset + (u32)pairs), (u8)i, 1);
+        func_8002A7CC(D_80107EA8, (char *)(offset + (u32)(D_80109C18)), (u8)i, 1);
         i++;
     } while ((u16)i < 16);
     refreshSlotMenuLabels();

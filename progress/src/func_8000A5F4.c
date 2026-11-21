@@ -10,14 +10,14 @@ extern SoundHalf D_800B248A[];
 extern s32 D_800E06B0;
 extern s32 D_800E0708;
 extern s32 D_800E070C;
-extern s32 D_801002EC;
+extern s32 sDistanceSoundsActive;
 
 s32 func_8000A5F4(s32 arg0) {
     s32 *ptr;
     u32 start, end;
     s32 index, result;
 
-    if ((D_801002EC == 0) || (index = 0, arg0 == D_800E06B0)) {
+    if ((sDistanceSoundsActive == 0) || (index = 0, arg0 == D_800E06B0)) {
         return -1;
     }
     for (;;) {

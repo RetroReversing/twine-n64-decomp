@@ -18,7 +18,7 @@ s32 osRecvMesg();
 s32 osYieldThread();
 extern char D_80113028[];
 
-void func_8000B900(s32 arg0, s32 arg1, u32 arg2) {
+void romDmaRead(s32 arg0, s32 arg1, u32 arg2) {
     u8 sp20[0x18];
     s32 var_s2;
     s32 var_s3;

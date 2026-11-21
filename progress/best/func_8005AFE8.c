@@ -4,8 +4,8 @@ void *spawnEffectObject();
 s32 actorLinkToSurface();
 s32 objectSetAnimFrame();
 s32 func_80076340();
-extern u8 D_800B1FE0[];
-extern u8 D_800B2230[];
+extern u8 sDistanceNearRange[];
+extern u8 sDistanceFarRange[];
 extern s32 *gProbeObjectList;
 
 typedef struct { unsigned char pad[76]; int value; } __repair_field_4C;
@@ -40,11 +40,11 @@ void *func_8005AFE8(void *arg0, void *arg1, s32 arg2) {
         (*(s8 *)((char *)(temp_s0) + 0x16)) = 0;
         (*(s8 *)((char *)(temp_s0) + 0x17)) = 0;
         (*(u16 *)((char *)(temp_s0) + 0x14)) = (u16) (*(u16 *)((char *)(arg0) + 0x30));
-        (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) *(D_800B1FE0 + (*(u16 *)((char *)(arg0) + 0x30)));
+        (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) *(sDistanceNearRange + (*(u16 *)((char *)(arg0) + 0x30)));
         (*(f32 *)((char *)(temp_s0) + 8)) = 1000.0f;
         (*(s32 *)((char *)(temp_s0) + 0)) = -1;
         (*(f32 *)((char *)(temp_s0) + 4)) = 1000.0f;
-        (*(f32 *)((char *)(temp_s0) + 0x10)) = (f32) *(D_800B2230 + (*(u16 *)((char *)(arg0) + 0x30)));
+        (*(f32 *)((char *)(temp_s0) + 0x10)) = (f32) *(sDistanceFarRange + (*(u16 *)((char *)(arg0) + 0x30)));
         func_80076340(temp_s0 + 0x1C, 0);
         (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x3F;
         (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;

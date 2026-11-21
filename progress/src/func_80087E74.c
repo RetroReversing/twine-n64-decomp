@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000B900(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
+M2C_UNK romDmaRead(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 M2C_UNK func_80045130(M2C_UNK, u8);                 /* extern */
 M2C_UNK func_80045CA0();                            /* extern */
 extern M2C_UNK D_1F282B0;
@@ -29,10 +29,10 @@ void func_80087E74(void) {
     if (D_800CEEB1 == 2) {
         temp_a0 = (D_800CEEB2 % 3) & 0xFF;
 if (temp_a0 != 1) { if ((temp_a0 < 2) || (temp_a0 != D_800CEEB1)) { func_80045130(0x22, D_800CEEB1);
- func_8000B900(&D_80104320, &D_1F282B0, 0x3840); } else goto b; } else { func_80045130(0x19, D_800CEEB1);
- func_8000B900(&D_80104320, &D_1F2BB00, 0x3840); }
+ romDmaRead(&D_80104320, &D_1F282B0, 0x3840); } else goto b; } else { func_80045130(0x19, D_800CEEB1);
+ romDmaRead(&D_80104320, &D_1F2BB00, 0x3840); }
  if (0) { b: func_80045130(1, D_800CEEB1);
- func_8000B900(&D_80104320, &D_1F2F350, 0x3840); }
+ romDmaRead(&D_80104320, &D_1F2F350, 0x3840); }
         D_800CEEB2 += 1;
     }
 }

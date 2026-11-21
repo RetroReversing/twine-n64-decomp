@@ -1,5 +1,5 @@
 
-s32 func_8000B9B8(u16 *, void *, u32);
+s32 dmaRomToRamUnaligned(u16 *, void *, u32);
 s32 packFadedRgb5A1(u32, s32, s32);
 u32 func_8001499C(u16 *);
 s32 func_80014A0C(u16 *, u16 *);
@@ -39,9 +39,9 @@ void func_80041F68(void *arg0) {
         var_a0 = *(u32 *)((u8 *)arg0 + 0x24);
     }
     temp_s4 = func_80083E90(var_a0, 0x2D);
-    func_8000B9B8(sp1C, (u8 *)*(u16 **)((u8 *)arg0 + 0x10) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x14) * 8);
-    do { func_8000B9B8(temp_fp, (u8 *)*(u16 **)((u8 *)arg0 + 0x18) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x1C) * 0xC); } while (0);
-    func_8000B9B8(temp_s4, (u8 *)*(u16 **)((u8 *)arg0 + 0x28) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x2C));
+    dmaRomToRamUnaligned(sp1C, (u8 *)*(u16 **)((u8 *)arg0 + 0x10) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x14) * 8);
+    do { dmaRomToRamUnaligned(temp_fp, (u8 *)*(u16 **)((u8 *)arg0 + 0x18) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x1C) * 0xC); } while (0);
+    dmaRomToRamUnaligned(temp_s4, (u8 *)*(u16 **)((u8 *)arg0 + 0x28) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x2C));
     var_s0 = func_8001499C(temp_s4);
     if (var_s0 != 0) {
         var_s7 = func_80083E90(var_s0, 0x1A);
@@ -50,7 +50,7 @@ void func_80041F68(void *arg0) {
         var_s7 = func_80083E90(*(u32 *)((u8 *)arg0 + 0x2C), 0x1A);
         memcpy(var_s7, temp_s4, *(u32 *)((u8 *)arg0 + 0x2C));
     }
-    func_8000B9B8(temp_s4, (u8 *)*(u16 **)((u8 *)arg0 + 0x20) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x24));
+    dmaRomToRamUnaligned(temp_s4, (u8 *)*(u16 **)((u8 *)arg0 + 0x20) + (u32)&D_54D910, *(u32 *)((u8 *)arg0 + 0x24));
     var_s0 = func_8001499C(temp_s4);
     if (var_s0 != 0) {
         var_s5 = func_80083E90(var_s0, 0x1B);

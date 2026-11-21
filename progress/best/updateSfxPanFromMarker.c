@@ -3,7 +3,7 @@ s32 func_8000AA64(void *, s32, s32 *);
 void func_8009C9F8(s32, s32);
 void func_8009CA5C(s32, s32);
 void func_8009CAC0(s32, s32);
-extern s32 D_801002EC;
+extern s32 sDistanceSoundsActive;
 extern u8 gOptionChoice;
 
 void updateSfxPanFromMarker(s32 arg0, void *arg1, s32 arg2, f32 arg3) {
@@ -15,7 +15,7 @@ void updateSfxPanFromMarker(s32 arg0, void *arg1, s32 arg2, f32 arg3) {
     f32 t;
     u8 *flag;
 
-    if (D_801002EC != 0) if (arg0 != -1) {
+    if (sDistanceSoundsActive != 0) if (arg0 != -1) {
         func_8000AA64(arg1, arg2, &sp10);
         pan = angleDelta12(sp10, (s32)(*(f32 *)((u8 *)arg1 + 0x38) * 651.8986f)) * 127 / 2048;
         a1 = pan;

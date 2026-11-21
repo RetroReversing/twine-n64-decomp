@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-void func_8000B9B8(u8 *, s32, u32);
+void dmaRomToRamUnaligned(u8 *, s32, u32);
 u16 func_800870F4(void);
 extern char D_148B400[];
 extern s32 D_800C7EDC;
@@ -27,7 +27,7 @@ one:
     goto scale;
 found:
     temp_s0 = *(u16 *)(var_v1 + 2);
-    func_8000B9B8(arg0, (*(s32 *)(var_v1 + 4)) + D_148B400, temp_s0);
+    dmaRomToRamUnaligned(arg0, (*(s32 *)(var_v1 + 4)) + D_148B400, temp_s0);
     goto done;
 two:
     var_v0_2 = 2;

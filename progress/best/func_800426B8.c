@@ -6,7 +6,7 @@ extern s32 gExpansionPakPresent;
 extern s32 func_80083E24(void), func_80083E90(s32,s32);
 extern void func_80083E44(s32), func_80084048(s32,s32);
 extern void func_800134C0(void), func_800134C8(void), func_80041F68(void *);
-extern void func_8000B9B8(u8 *,s32,u32);
+extern void dmaRomToRamUnaligned(u8 *,s32,u32);
 extern s32 func_8001499C(void *);
 extern s32 func_80014A0C(s32,s32);
 extern void func_800411C0(s32,s32,s32);
@@ -28,16 +28,16 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
  records=(u8*)func_80083E90(n*0x4C,0xA);
  D_800C0788[arg1]=(s32)records;
  memset(records,0,n*0x4C);
- func_8000B9B8(obj,D_800C0780[arg1]+(s32)D_54D910,0x30);
+ dmaRomToRamUnaligned(obj,D_800C0780[arg1]+(s32)D_54D910,0x30);
  D_800C0784[arg1]=(s32)obj;
  n=*(s32 *)(obj+4);
  p=(u8*)func_80083E90(n*0x44,0x2D);
- func_8000B9B8(p,*(s32*)obj+(s32)D_54D910,n*0x44);
+ dmaRomToRamUnaligned(p,*(s32*)obj+(s32)D_54D910,n*0x44);
  D_800E19E8= __repair_fzero; D_800E19E4= __repair_fzero; D_800E19E0= __repair_fzero;
  func_80041F68(obj);
  q=p;
  for(i=0;i<n;i++,q+=0x44) {
-  func_8000B9B8(header,*(s32*)(q+0x24)+(s32)D_54D910,0x20);
+  dmaRomToRamUnaligned(header,*(s32*)(q+0x24)+(s32)D_54D910,0x20);
   if(maxA<*(u16*)(header+4)) maxA=*(u16*)(header+4);
   if(maxB<*(u16*)(header+0xC)) maxB=*(u16*)(header+0xC);
   if(maxC<*(u16*)(header+0x14)) maxC=*(u16*)(header+0x14);
@@ -64,13 +64,13 @@ void func_800426B8(s32 arg0, s32 arg1, s8 arg2) {
   if(gExpansionPakPresent && !D_80107ECC) *(u8 *)(base+0x46)=0x80;
   else *(u8 *)(base+0x46)=0;
   if(!*(u8 *)(base+0x46)) D_80109A35=1;
-  do { func_8000B9B8(header,*(s32*)(p+0x24)+(s32)D_54D910,0x20); } while (0);
+  do { dmaRomToRamUnaligned(header,*(s32*)(p+0x24)+(s32)D_54D910,0x20); } while (0);
   *(s32*)records=(s32)header;
   if(!*(u8 *)(records+0x45)) {
-   func_8000B9B8(buf1,*(s32*)header+(s32)D_54D910,*(u16*)(header+4)*12);
-   func_8000B9B8(buf2,*(s32*)(header+8)+(s32)D_54D910,*(u16*)(header+0xC)*4);
-   func_8000B9B8(buf4,*(s32*)(p+0x28)+(s32)D_54D910,*(u16*)(p+0x2C)*12);
-   func_8000B9B8(buf3,*(s32*)(header+0x10)+(s32)D_54D910,*(u16*)(header+0x14)*12);
+   dmaRomToRamUnaligned(buf1,*(s32*)header+(s32)D_54D910,*(u16*)(header+4)*12);
+   dmaRomToRamUnaligned(buf2,*(s32*)(header+8)+(s32)D_54D910,*(u16*)(header+0xC)*4);
+   dmaRomToRamUnaligned(buf4,*(s32*)(p+0x28)+(s32)D_54D910,*(u16*)(p+0x2C)*12);
+   dmaRomToRamUnaligned(buf3,*(s32*)(header+0x10)+(s32)D_54D910,*(u16*)(header+0x14)*12);
    if(func_8001499C(buf4)) func_80014A0C((s32)buf5,(s32)buf4);
    else memcpy(buf5,buf4,*(u16*)(header+0x14)*12);
    if(func_8001499C(buf1)) func_80014A0C((s32)buf2,(s32)buf1);

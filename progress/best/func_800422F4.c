@@ -1,4 +1,4 @@
-void func_8000B9B8(void *, void *, s32);
+void dmaRomToRamUnaligned(void *, void *, s32);
 void func_800426B8(s32, s16, s32);
 s32 func_80083E24(void);
 void func_80083E44(s32 arg0);
@@ -22,10 +22,10 @@ void func_800422F4(s32 arg0) {
     temp_s6 = func_80083E24();
     temp_s0 = *(s32 *)(D_800C0780 + arg0 * 0x10);
     temp_v0 = (u8 *)func_80083E90(0x30, 0x2D);
-    func_8000B9B8(temp_v0, (s32)(D_54D910 + temp_s0), 0x30);
+    dmaRomToRamUnaligned(temp_v0, (s32)(D_54D910 + temp_s0), 0x30);
     temp_s2 = *(s32 *)(temp_v0 + 4);
     temp_v0_2 = (u8 *)func_80083E90(temp_s2 * 0x44, 0x2D);
-    func_8000B9B8(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);
+    dmaRomToRamUnaligned(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);
     if (temp_s2 != 0) {
         var_s0 = temp_v0_2;
         do {
@@ -35,7 +35,7 @@ void func_800422F4(s32 arg0) {
                     func_800426B8(*(s32 *)((u8 *)D_80109688 + 8), id, 0);
                 }
             }
-            func_8000B9B8(sp10, D_54D910 + *(s32 *)(var_s0 + 0x24), 0x20);
+            dmaRomToRamUnaligned(sp10, D_54D910 + *(s32 *)(var_s0 + 0x24), 0x20);
             c = sp10[0x1E];
             if (c >= 0xD) {
                 if (c >= 0x12) {

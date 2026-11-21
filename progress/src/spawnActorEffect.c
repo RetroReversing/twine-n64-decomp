@@ -14,8 +14,8 @@ s32 func_80047F50(void *, void *);              /* extern */
 s32 func_80073304(void *, void *, s32);         /* extern */
 f32 sinAngle(f32);                             /* extern */
 f32 cosAngle(f32);                             /* extern */
-extern u8 D_800B1FE0[];
-extern s32 D_800B2230;
+extern u8 sDistanceNearRange[];
+extern s32 sDistanceFarRange;
 extern s32 gBorderSkipActive;
 extern void *volatile gWobbleParams;
 
@@ -180,8 +180,8 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
             (*(s8 *)((char *)(effectData) + 0x53)) = 0;
             (*(s8 *)((char *)(effectData) + 0x56)) = 1;
             (*(u16 *)((char *)(effectData) + 0x50)) = index;
-            (*(f32 *)((char *)(effectData) + 0x48)) = (f32) *(D_800B1FE0 + (*(u16 *)((char *)(srcTemplate) + 0x52)));
-            value = *((u8 *)&D_800B2230 + (*(u16 *)((char *)(srcTemplate) + 0x52)));
+            (*(f32 *)((char *)(effectData) + 0x48)) = (f32) *(sDistanceNearRange + (*(u16 *)((char *)(srcTemplate) + 0x52)));
+            value = *((u8 *)&sDistanceFarRange + (*(u16 *)((char *)(srcTemplate) + 0x52)));
             (*(s32 *)((char *)(effectData) + 0x3C)) = -1;
             (*(f32 *)((char *)(effectData) + 0x40)) = 1000.0f;
             (*(f32 *)((char *)(effectData) + 0x44)) = 1000.0f;

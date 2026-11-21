@@ -1,6 +1,6 @@
-void func_8000B900();
+void romDmaRead();
 void *memcpy();
-void func_8000B9B8(u8 *dst, s32 src, u32 len) {
+void dmaRomToRamUnaligned(u8 *dst, s32 src, u32 len) {
     u8 buf[32];
     u32 n, align;
     s32 odd;
@@ -11,7 +11,7 @@ void func_8000B9B8(u8 *dst, s32 src, u32 len) {
             n = 8 - align;
             { s32 aligned_src = src - odd;
             if (len < n) n = len;
-            func_8000B900(buf, aligned_src, (n + odd + 1) & ~1); }
+            romDmaRead(buf, aligned_src, (n + odd + 1) & ~1); }
             n = align;
             if (n == 0) n = 8;
             if (len < n) n = len;
@@ -22,12 +22,12 @@ void func_8000B9B8(u8 *dst, s32 src, u32 len) {
         }
         n = len & ~1;
         if (n) {
-            func_8000B900(dst, src, n);
+            romDmaRead(dst, src, n);
             src += n;
             dst += n;
         }
         if (len & 1) {
-            func_8000B900(buf, src, 2);
+            romDmaRead(buf, src, 2);
             *dst = buf[0];
         }
     }

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000B900(M2C_UNK *, s32, s32);         /* extern */
+M2C_UNK romDmaRead(M2C_UNK *, s32, s32);         /* extern */
 M2C_UNK func_80119D00();                            /* extern */
 M2C_UNK func_8011E800();                            /* extern */
 M2C_UNK memset(s32, M2C_UNK, s32);                  /* extern */
@@ -35,7 +35,7 @@ void func_80044C4C(s32 arg0) {
         temp_v1 = D_80117386 * 16;
         if (*((M2C_UNK *)((s8 *)&D_800C2C14 + temp_v1)) != 0) {
             temp_a1 = *((M2C_UNK *)((s8 *)&D_800C2C1C + temp_v1));
-            func_8000B900(&func_80117740, temp_a1, *((M2C_UNK *)((s8 *)&D_800C2C20 + temp_v1)) - temp_a1);
+            romDmaRead(&func_80117740, temp_a1, *((M2C_UNK *)((s8 *)&D_800C2C20 + temp_v1)) - temp_a1);
             temp_v0 = D_80117386 * 16;
             temp_a0 = *((M2C_UNK *)((s8 *)&D_800C2C14 + temp_v0));
             memset(temp_a0, 0, *((M2C_UNK *)((s8 *)&D_800C2C18 + temp_v0)) - temp_a0);
