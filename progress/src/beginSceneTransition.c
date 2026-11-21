@@ -5,7 +5,7 @@ void func_8000CF14(s32 arg0);
 void func_8000DBBC(s32 arg0);
 void func_80064780(s32 arg0);
 void func_80084048(void *arg0, s32 arg1);
-extern void *gObjectTable;
+extern void *gObjectRecords;
 extern s8 D_800B2715;
 extern s8 gSceneObjectsLoaded;
 extern u8 gSceneSkipLoad;
@@ -22,13 +22,13 @@ extern s32 D_8010A500;
     s32 var_v0;
     register long notScene20;
 
-    sceneId = *(s16 *)((char *)gObjectTable + 0x10);
+    sceneId = *(s16 *)((char *)gObjectRecords + 0x10);
     if (gSceneObjectsLoaded != 0) {
         pendingSlot = &D_80109690;
         func_80084048(*pendingSlot, 0xE);
         *pendingSlot = NULL;
-        func_80084048(*(void **)((char *)gObjectTable + 4), 0x33);
-        func_80084048(gObjectTable, 0x33);
+        func_80084048(*(void **)((char *)gObjectRecords + 4), 0x33);
+        func_80084048(gObjectRecords, 0x33);
         func_8000CF14(1);
     }
     {
@@ -38,7 +38,7 @@ extern s32 D_8010A500;
     gSceneFlagsB |= 1;
     *(s32 *)((char *)gTrackMarkerTable + 0x100) &= ~0x100;
     func_80001D80(0);
-    gObjectTable = NULL;
+    gObjectRecords = NULL;
     if (sceneId == 0x26 && D_8010A500) {
         func_80064780(D_8010A500);
     }
@@ -73,4 +73,5 @@ extern s32 D_8010A500;
 block_22:
     func_8000C97C();
 }
+
 

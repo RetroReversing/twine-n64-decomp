@@ -2,7 +2,7 @@ extern u16 D_80103022[];
 extern u16 D_801083D4[];
 extern u16 gSaveSlotValid[];
 
-u16 func_8002D13C(u16 kind) {
+u16 countValidSaveSlots(u16 kind) {
     u16 n = 0;
     u16 i;
 

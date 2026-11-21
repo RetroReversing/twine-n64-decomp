@@ -44,7 +44,7 @@ extern f64 D_800D4808;
 extern f64 D_800D4810;
 extern M2C_UNK D_8011508D;
 extern u8 gBorderFlipFlag;
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern s32 gBorderSkipFlag;
 extern u8 gPauseFlag;
 extern M2C_UNK gTrackMarkerTable;
@@ -185,8 +185,8 @@ void func_80070F34(void *arg0) {
     temp_s6 = M2C_FIELD(temp_v0, u8 *, 0x80);
     var_fs1 = 120.0f;
     if (gBorderSkipFlag != 0) {
-        if (gBorderMode != 2) {
-            if ((gBorderMode >= 3) && (gBorderMode < 5)) {
+        if (gVisibleSaveSlots != 2) {
+            if ((gVisibleSaveSlots >= 3) && (gVisibleSaveSlots < 5)) {
                 var_fs2 = 80.0f;
                 var_fs1 = 60.0f;
             }

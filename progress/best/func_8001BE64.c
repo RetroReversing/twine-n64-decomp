@@ -2,7 +2,7 @@ extern s8 func_8011AA9C[];
 void *findEntryById(void *, s32);
 void *findEntryPayload(void *, s32);
 s32 func_80018BE0(s32);
-void func_80018C5C(void *, void *);
+void initSaveSlotMenus(void *, void *);
 void func_80025D84(void *, void *, void *, void *, s32, s32);
 void func_80025E9C(void *, void *, void *, void *, s32, s32);
 void formatTextEntry(void *, char *, s32);
@@ -109,7 +109,7 @@ void func_8001BE64(void) {
         }
         __base_D_801002A8 = &D_801002A8;
         (*__base_D_801002A8) = D_80102FD4[D_80117730];
-        func_80018C5C(temp_fp, temp_s6);
+        initSaveSlotMenus(temp_fp, temp_s6);
         temp_s0 = (s8 *) __base_D_801002A8 + 0x1C;
         func_8003099C(D_801002A4, D_80102EE8);
         if ((func_8002B278(temp_s0) << 0x10) != 0) {

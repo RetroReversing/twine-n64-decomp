@@ -19,7 +19,7 @@ M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
 void *findEntryById(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, M2C_UNK); /* extern */
-u8 func_8002D13C(M2C_UNK);                          /* extern */
+u8 countValidSaveSlots(M2C_UNK);                          /* extern */
 s8 *lookupDataEntry(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
@@ -54,16 +54,17 @@ void func_80021CA0(void) {
     void *temp_v0;
 
     temp_v0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x4000);
-    temp_s1 = temp_v0 + 0x28;
-    if (temp_v0 != NULL) {
-        temp_a0 = *(D_80100198 + D_801002AD * 0x6) + 0x185;
-        M2C_FIELD(temp_v0, u16 *, 0x28) = temp_a0;
+    temp_s1 = temp_v0;
+    if (temp_s1 != NULL) {
+        temp_s1 += 0x28;
+        temp_a0 = *(D_80100198 + D_801002AD * 0x18) + 0x185;
+        M2C_FIELD(temp_s1, u16 *, 0) = temp_a0;
         if (M2C_FIELD(temp_s1, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s8 **, 0x18) = lookupDataEntry(temp_a0);
             temp_s0 = M2C_FIELD(temp_s1, void **, 8);
             M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s8 **, 0x18));
         }
-        var_v1 = lookupDataEntry(M2C_FIELD(temp_v0, u16 *, 0x28));
+        var_v1 = lookupDataEntry(M2C_FIELD(temp_s1, u16 *, 0));
         if (var_v1 != NULL) {
             for (;;) {
                 temp_v0_2 = *var_v1;
@@ -85,8 +86,8 @@ void func_80021CA0(void) {
             }
         }
         temp_s1 += 0x28; temp_s1_2 = temp_s1;
-        temp_a0_2 = *(D_80100198 + D_801002AD * 0x6) + 0x18D;
-        M2C_FIELD(temp_s1, u16 *, 0x28) = temp_a0_2;
+        temp_a0_2 = *(D_80100198 + D_801002AD * 0x18) + 0x18D;
+        M2C_FIELD(temp_s1, u16 *, 0) = temp_a0_2;
         if (M2C_FIELD(temp_s1_2, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 8), s8 **, 0x18) = lookupDataEntry(temp_a0_2);
             temp_s0_2 = M2C_FIELD(temp_s1_2, void **, 8);
@@ -100,7 +101,7 @@ void func_80021CA0(void) {
         
         func_80022A30(gMenuParamC, 0x19, 0x30, var_a3, 0x50);}
         if ((D_80102EDD == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
-            D_80102EB8 = func_8002D13C(0xA3);
+            D_80102EB8 = countValidSaveSlots(0xA3);
             if (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0) {
                 D_80102EB8 = (u8) gSaveSlotCount;
             }
@@ -135,3 +136,4 @@ void func_80021CA0(void) {
         func_80022AD8(gMenuParamC);
     }
 }
+

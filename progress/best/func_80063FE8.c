@@ -16,7 +16,7 @@ s16 randomIntBelow(u32);                             /* extern */
 f32 approxDistance(void *, s32);                     /* extern */
 M2C_UNK func_80063DB4(void *);                      /* extern */
 extern u8 gSceneType;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern u32 gTrackMarkerCount;
 extern u8 D_80100BE0[];
 extern s32 gTrackMarkerIndex;
@@ -45,12 +45,12 @@ void func_80063FE8(void *arg0) {
 loop_1:
         var_s0 = 0;
         temp_s1 = randomIntBelow(gTrackMarkerCount);
-        if (D_801002B4 > 0) {
+        if (gSaveTotalSlots > 0) {
             for (;;) {
                 if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusSceneHandle)[var_s0] + 0x24) < 3.0f)) {
                     temp_v0 = var_s0 + 1;
                     var_s0 = temp_v0;
-                    if (temp_v0 < D_801002B4) {
+                    if (temp_v0 < gSaveTotalSlots) {
                         continue;
                     }
                 } else {
@@ -67,7 +67,7 @@ loop_1:
                 if ((temp_v1 == 0) || (*(D_80100BE0 + (var_s1 & 0xFFFF)) == M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), u8 *, 0x12))) {
                     var_fs0 = 4194304.0f;
                     var_s0_2 = 0;
-                    if (D_801002B4 > 0) {
+                    if (gSaveTotalSlots > 0) {
                         do {
                             if (var_s0_2 != M2C_FIELD(temp_s3, s8 *, 0x182)) {
                                 temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusSceneHandle)[var_s0_2] + 0x24);
@@ -77,7 +77,7 @@ loop_1:
                             }
                             temp_v0_2 = var_s0_2 + 1;
                             var_s0_2 = temp_v0_2;
-                        } while (temp_v0_2 < D_801002B4);
+                        } while (temp_v0_2 < gSaveTotalSlots);
                     }
                     if (var_fs1 < var_fs0) {
                         var_fs1 = var_fs0;

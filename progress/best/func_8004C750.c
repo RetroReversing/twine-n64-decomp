@@ -12,25 +12,25 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32);        /* extern */
+M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
 void *func_80047B44(void **, f32 *, f32 *, f32 *);  /* extern */
 M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
-s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
+s32 func_8004886C(void **, void *, f32);            /* extern */
 s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
-s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
+s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
 M2C_UNK func_80073304(void *, void *, void **);     /* extern */
-f32 absFloat(f32);                             /* extern */
+f32 func_800828D0(f32);                             /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80082FE4(f32 *, M2C_UNK *);            /* extern */
 M2C_UNK func_800839F0(M2C_UNK *, f32 *, f32 *);     /* extern */
-M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);            /* extern */
+M2C_UNK func_80083A6C(M2C_UNK *, f32 *);            /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *);                /* extern */
 extern M2C_UNK D_800D3E30;
 extern void **D_80103F00;
-extern void *gPlayerActor;
+extern void *D_80108788;
 extern void **D_80108F84;
 
 s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7) {
@@ -49,7 +49,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 sp58;
     f32 sp5C;
     f32 sp60;
-    M2C_UNK sp68[12];
+    M2C_UNK sp68;
     s16 sp98;                                       /* compiler-managed */
     s16 sp9A;
     s16 sp9C;                                       /* compiler-managed */
@@ -167,7 +167,7 @@ u16 __repair_result_var_v0;
     sp124 = arg0;
     sp12C = arg2;
     sp134 = arg3;
-    gPlayerActor = NULL;
+    D_80108788 = NULL;
     D_80108F84 = NULL;
     D_80103F00 = NULL;
     var_fs0 = arg4;
@@ -192,7 +192,7 @@ u16 __repair_result_var_v0;
             sp144 = sp13C;
             if (var_a0 != NULL) {
                 sp16C = &spB0;
-                __repair_rows: {
+                do {
                     var_s1 = *var_a0;
                     if (var_s1 != NULL) {
                         sp174 = &spB4;
@@ -211,9 +211,9 @@ u16 __repair_result_var_v0;
                                     sp58 = sp28 - M2C_FIELD(var_s1, f32 *, 0x24);
                                     sp5C = sp2C - M2C_FIELD(var_s1, f32 *, 0x28);
                                     sp60 = sp30 - M2C_FIELD(var_s1, f32 *, 0x2C);
-                                    rotateVec3ByMat3(sp14C, sp154);
+                                    func_80083A6C(sp14C, sp154);
                                     temp_s0 = temp_s4 + 0x18;
-                                    rotateVec3ByMat3(sp14C, sp15C);
+                                    func_80083A6C(sp14C, sp15C);
                                     if ((func_800488D4(temp_s0, sp154, sp15C) << 0x18) != 0) {
                                         spA0 = M2C_FIELD(&D_800D3E30, f32 *, 0);
                                         spA4 = M2C_FIELD(&D_800D3E30, s32 *, 4);
@@ -223,7 +223,7 @@ u16 __repair_result_var_v0;
                                         temp_t2 = temp_v0 & 0xFF00;
                                         sp198 = temp_t2;
                                         sp19C = temp_t3;
-                                        rotateVec3ByMat3(sp14C, sp164);
+                                        func_80083A6C(sp14C, sp164);
                                         sp18 = sp48;
                                         sp20 = sp50;
                                         var_t2 = temp_t2;
@@ -280,7 +280,7 @@ u16 __repair_result_var_v0;
                                             }
                                         }
                                         if (var_s7 != -1) {
-                                            gPlayerActor = var_s1;
+                                            D_80108788 = var_s1;
                                             D_80108F84 = NULL;
                                             sp1C = sp4C - var_fs0;
                                         }
@@ -295,8 +295,7 @@ u16 __repair_result_var_v0;
                         var_a0 = M2C_FIELD(sp144, void ***, 8);
                         sp144 = M2C_FIELD(sp144, void **, 0);
                     }
-                }
-if (var_a0 != NULL) goto __repair_rows;
+                } while (var_a0 != NULL);
             }
             if (var_s6 != NULL) {
                 sp17C = &sp98;
@@ -306,7 +305,7 @@ if (var_a0 != NULL) goto __repair_rows;
                     if (M2C_FIELD(var_s6, s32 *, 0x50) & 0x200) {
                         temp_s2_2 = ((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 4;
                         if (temp_s2_2 == 0) {
-                            if ((Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg4) << 0x18) != 0) {
+                            if ((func_8004886C(var_s6 + 0x40, arg1, arg4) << 0x18) != 0) {
                                 temp_s1 = M2C_FIELD(var_s6, void **, 0x3C);
                                 sp58 = M2C_FIELD(arg1, f32 *, 0);
                                 sp5C = M2C_FIELD(arg1, f32 *, 4);
@@ -346,14 +345,14 @@ if (var_a0 != NULL) goto __repair_rows;
                                                     temp_a1 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (temp_s2_3 * 6);
                                                     if ((sp18E & temp_a0) && (temp_s7 & temp_a0)) {
                                                         temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                        if ((rayHitsTriangleXZ(&sp58, &spE0, temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 0) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 2) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 4) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
+                                                        if ((func_80048CC0(&sp58, &spE0, temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 0) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 2) * 0xC), temp_v1_6 + (M2C_FIELD(temp_a1, u16 *, 4) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
                                                             if (!(((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20)) {
                                                                 var_fs0 = spF0;
                                                                 var_s3_3 = temp_s2_3;
                                                             } else if (sp134 != NULL) {
                                                                 M2C_FIELD(sp134, f32 *, 0) = (f32) M2C_FIELD(arg1, f32 *, 0);
                                                                 M2C_FIELD(sp134, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) - spF0);
-                                                                gPlayerActor = NULL;
+                                                                D_80108788 = NULL;
                                                                 D_80103F00 = var_s6;
                                                                 M2C_FIELD(sp134, f32 *, 8) = (f32) M2C_FIELD(arg1, f32 *, 8);
                                                             }
@@ -371,14 +370,14 @@ if (var_a0 != NULL) goto __repair_rows;
                                                     temp_a1_2 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (temp_s2_4 * 3);
                                                     if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7)) {
                                                         temp_v1_8 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                        if ((rayHitsTriangleXZ(&sp58, &spE0, temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 0) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 1) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 2) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
+                                                        if ((func_80048CC0(&sp58, &spE0, temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 0) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 1) * 0xC), temp_v1_8 + (M2C_FIELD(temp_a1_2, u8 *, 2) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
                                                             if (!(((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20)) {
                                                                 var_fs0 = spF0;
                                                                 var_s3_3 = temp_s2_4;
                                                             } else if (sp134 != NULL) {
                                                                 M2C_FIELD(sp134, f32 *, 0) = (f32) M2C_FIELD(arg1, f32 *, 0);
                                                                 M2C_FIELD(sp134, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) - spF0);
-                                                                gPlayerActor = NULL;
+                                                                D_80108788 = NULL;
                                                                 D_80103F00 = var_s6;
                                                                 M2C_FIELD(sp134, f32 *, 8) = (f32) M2C_FIELD(arg1, f32 *, 8);
                                                             }
@@ -389,7 +388,7 @@ if (var_a0 != NULL) goto __repair_rows;
                                             }
                                         }
                                         if (var_s3_3 != -1) {
-                                            gPlayerActor = NULL;
+                                            D_80108788 = NULL;
                                             D_80108F84 = var_s6;
                                             if (arg7 != NULL) {
                                                 if (M2C_FIELD(temp_s1, u8 *, 0x48) & 4) {
@@ -403,7 +402,7 @@ if (var_a0 != NULL) goto __repair_rows;
                                                     var_a2 = M2C_FIELD(temp_v1_10, u8 *, 1) * 3;
                                                     var_v0 = (u16) M2C_FIELD(temp_v1_10, u8 *, 2);
                                                 }
-                                                buildPlaneFromPoints(&spF8, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0 * 0xC));
+                                                func_800458C0(&spF8, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0 * 0xC));
                                                 M2C_FIELD(arg7, f32 *, 0) = spF8;
                                                 M2C_FIELD(arg7, f32 *, 4) = spFC;
                                                 M2C_FIELD(arg7, f32 *, 8) = sp100;
@@ -473,7 +472,7 @@ if (var_a0 != NULL) goto __repair_rows;
                             if (var_v0_2 & var_v1) {
                                 var_fs0 = temp_fv1;
 block_115:
-                                gPlayerActor = NULL;
+                                D_80108788 = NULL;
                                 D_80108F84 = var_s6;
                             }
                         }
@@ -483,7 +482,7 @@ block_115:
             }
             if (sp13C == NULL) {
                 sp124 = NULL;
-            } else if (gPlayerActor != NULL) {
+            } else if (D_80108788 != NULL) {
                 sp124 = NULL;
             } else if (D_80108F84 != NULL) {
                 sp124 = NULL;
@@ -503,10 +502,10 @@ block_115:
                             var_v1_2 = 0;
                         }
                         if (var_v0_3 & var_v1_2) {
-                            gPlayerActor = NULL;
+                            D_80108788 = NULL;
                             D_80108F84 = NULL;
                             var_fs0 = temp_fv1_2;
-                            if (absFloat(M2C_FIELD(temp_v0_3, f32 *, 0x10)) < 0.5f) {
+                            if (func_800828D0(M2C_FIELD(temp_v0_3, f32 *, 0x10)) < 0.5f) {
                                 func_80073304(temp_v0_3, arg1, sp124);
                             }
                         }
@@ -525,7 +524,7 @@ block_115:
             M2C_FIELD(sp12C, f32 *, 8) = sp30;
             goto block_162;
         }
-        if (gPlayerActor == NULL) {
+        if (D_80108788 == NULL) {
             if (arg5 != NULL) {
                 M2C_FIELD(arg5, f32 *, 0) = 0.0f;
                 M2C_FIELD(arg5, f32 *, 4) = 0.0f;
@@ -555,9 +554,9 @@ block_162:
             /* Duplicate return node #163. Try simplifying control flow for better match */
             return 1;
         }
-        spF8 = M2C_FIELD(gPlayerActor, f32 *, 0x3C) - M2C_FIELD(gPlayerActor, f32 *, 0x48);
-        spFC = M2C_FIELD(gPlayerActor, f32 *, 0x40) - M2C_FIELD(gPlayerActor, f32 *, 0x4C);
-        sp100 = M2C_FIELD(gPlayerActor, f32 *, 0x44) - M2C_FIELD(gPlayerActor, f32 *, 0x50);
+        spF8 = M2C_FIELD(D_80108788, f32 *, 0x3C) - M2C_FIELD(D_80108788, f32 *, 0x48);
+        spFC = M2C_FIELD(D_80108788, f32 *, 0x40) - M2C_FIELD(D_80108788, f32 *, 0x4C);
+        sp100 = M2C_FIELD(D_80108788, f32 *, 0x44) - M2C_FIELD(D_80108788, f32 *, 0x50);
         M2C_FIELD(sp12C, f32 *, 0) = (f32) M2C_FIELD(arg1, f32 *, 0);
         M2C_FIELD(sp12C, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) - var_fs0);
         M2C_FIELD(sp12C, f32 *, 8) = (f32) M2C_FIELD(arg1, f32 *, 8);
@@ -565,21 +564,21 @@ block_162:
             spB8 = sp18;
             spBC = sp1C;
             spC0 = sp20;
-            sp98 = (s16) (s32) M2C_FIELD(gPlayerActor, f32 *, 0x3C);
-            sp9A = (s16) (s32) M2C_FIELD(gPlayerActor, f32 *, 0x40);
-            sp9C = (s16) (s32) M2C_FIELD(gPlayerActor, f32 *, 0x44);
+            sp98 = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x3C);
+            sp9A = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x40);
+            sp9C = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x44);
             func_80082FE4(&sp98, &sp68);
             func_800839F0(&sp68, &spB8, &spC8);
-            sp98 = (s16) (s32) (M2C_FIELD(gPlayerActor, f32 *, 0x3C) + spF8);
-            sp9A = (s16) (s32) (M2C_FIELD(gPlayerActor, f32 *, 0x40) + spFC);
-            sp9C = (s16) (s32) (M2C_FIELD(gPlayerActor, f32 *, 0x44) + sp100);
+            sp98 = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x3C) + spF8);
+            sp9A = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x40) + spFC);
+            sp9C = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x44) + sp100);
             func_80082FE4(&sp98, &sp68);
             func_800839F0(&sp68, &spB8, &spD8);
-            temp_ft1 = M2C_FIELD(gPlayerActor, f32 *, 0x24) - M2C_FIELD(gPlayerActor, f32 *, 0x30);
+            temp_ft1 = M2C_FIELD(D_80108788, f32 *, 0x24) - M2C_FIELD(D_80108788, f32 *, 0x30);
             sp110 = temp_ft1;
-            temp_fv0 = M2C_FIELD(gPlayerActor, f32 *, 0x28) - M2C_FIELD(gPlayerActor, f32 *, 0x34);
+            temp_fv0 = M2C_FIELD(D_80108788, f32 *, 0x28) - M2C_FIELD(D_80108788, f32 *, 0x34);
             sp114 = temp_fv0;
-            sp118 = M2C_FIELD(gPlayerActor, f32 *, 0x2C) - M2C_FIELD(gPlayerActor, f32 *, 0x38);
+            sp118 = M2C_FIELD(D_80108788, f32 *, 0x2C) - M2C_FIELD(D_80108788, f32 *, 0x38);
             M2C_FIELD(arg5, f32 *, 0) = (f32) (temp_ft1 + (spD8 - spC8));
             M2C_FIELD(arg5, f32 *, 4) = (f32) (temp_fv0 + (spDC - spCC));
             M2C_FIELD(arg5, f32 *, 8) = (f32) (sp118 + (spE0 - spD0));

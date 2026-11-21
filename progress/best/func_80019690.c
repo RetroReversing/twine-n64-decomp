@@ -22,7 +22,7 @@ extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
 extern s8 D_801002AD;
-extern volatile s32 D_801002B4;
+extern volatile s32 gSaveTotalSlots;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
 extern s32 D_801002CC;
@@ -57,7 +57,7 @@ void func_80019690(void) {
         updateActiveMenuState();
         return;
     }
-    if ((*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0x18))) + 0x14)) != 0 && D_801002B4 < 2) {
+    if ((*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0x18))) + 0x14)) != 0 && gSaveTotalSlots < 2) {
         (*(u8 *)((char *)(gMenuState) + 0x2C)) = 0;
         requestSound(0xEA);
         return;
@@ -84,12 +84,12 @@ void func_80019690(void) {
             D_801002D0 = D_801002C8;
             D_80102EF0 = 0;
             i = 0;
-            if (D_801002B4 > 0) {
+            if (gSaveTotalSlots > 0) {
                 do {
                     __base_D_800C3CF8 = D_800C3CF8;
                     *(s16 *)(gSharedItemId + ((i & 0xFFFF) * 2)) = **(u16 **)(__base_D_800C3CF8 + (func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((func_80022DBC(i & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC));
                     i++;
-                } while ((i & 0xFFFF) < D_801002B4);
+                } while ((i & 0xFFFF) < gSaveTotalSlots);
             }
             *(s16 *)(gSharedItemId + ((i & 0xFFFF) * 2)) = -1;
             k = 0;

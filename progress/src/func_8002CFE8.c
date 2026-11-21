@@ -14,11 +14,11 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8001212C();                            /* extern */
 M2C_UNK func_8002CA90(M2C_UNK *);                   /* extern */
-s32 func_8002D13C(M2C_UNK);                         /* extern */
+s32 countValidSaveSlots(M2C_UNK);                         /* extern */
 extern s16 gSaveStatus;
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern s16 D_80109DD0;
 
 void func_8002CFE8(void) {
@@ -26,9 +26,9 @@ void func_8002CFE8(void) {
 
     func_8002CA90("TWINE.");
     func_8001212C();
-    D_801002B4 = func_8002D13C(0xA3) & 0xFFFF;
-    gSaveSlotCount = func_8002D13C(0xA3) & 0xFFFF;
-    gBorderMode = func_8002D13C(0xA3) & 0xFFFF;
+    D_801002B4 = countValidSaveSlots(0xA3) & 0xFFFF;
+    gSaveSlotCount = countValidSaveSlots(0xA3) & 0xFFFF;
+    gVisibleSaveSlots = countValidSaveSlots(0xA3) & 0xFFFF;
     switch (gSaveStatus) {                           /* irregular */
     case 16:
         var_v0 = 0xF;

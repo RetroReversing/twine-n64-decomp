@@ -1,4 +1,4 @@
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern u8 gSceneType;
 extern u8 gBorderFlipFlag;
 extern u16 D_8011ED40;
@@ -25,7 +25,7 @@ void func_8011D3C0(void);
     u16 baseX, flipX;
     u16 i, j;
 
-    if (gBorderMode == 1) {
+    if (gVisibleSaveSlots == 1) {
         D_8011ED42 = 0xCA;
     } else {
         D_8011ED42 = 0x76;
@@ -40,7 +40,7 @@ void func_8011D3C0(void);
     D_8011ED4C[1] = baseX;
     D_8011ED4C[2] = baseX;
     D_8011ED4C[3] = baseX;
-    switch (gBorderMode) {
+    switch (gVisibleSaveSlots) {
     case 1:
         D_8011F0EC = 0x140;
         break;

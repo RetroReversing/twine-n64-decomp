@@ -2,7 +2,7 @@ extern s64 D_800D1550[];
 extern f64 D_800D6F20, D_800D6F28;
 s64 f64ToFixed60(f64);
 f64 fixed60ToF64(s64);
-f64 func_800AAA20(f64 x) {
+f64 libmExpFraction(f64 x) {
     s64 result = 0x1000000000000000LL;
     s64 value = f64ToFixed60(x * D_800D6F20);
     s32 i;

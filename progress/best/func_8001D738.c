@@ -26,7 +26,7 @@ s32 func_8002A644();
 s32 func_8002A7CC();
 s32 func_8002A9A8();
 s32 func_8002AC04();
-u8 func_8002D13C();
+u8 countValidSaveSlots();
 s32 lookupDataEntry();
 s32 sprintf();
 extern char D_800D285C[];
@@ -41,7 +41,7 @@ extern u8 D_801002AD;
 extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
-extern u8 D_80102EB8;
+extern u8 gValidSaveSlotCount;
 extern char D_80102F48[];
 extern u8 D_80104310;
 extern u8 D_80108960;
@@ -203,8 +203,8 @@ block_31:
         formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0_9));
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x23, 0x2C, 0x33, 0x9A);
-        temp_v0_7 = func_8002D13C(0xA3);
-        D_80102EB8 = temp_v0_7;
+        temp_v0_7 = countValidSaveSlots(0xA3);
+        gValidSaveSlotCount = temp_v0_7;
         if (temp_v0_7 & 0xFF) {
             do {
                 temp_s0_2 = var_s1_2 & 0xFFFF;
@@ -225,7 +225,7 @@ block_31:
                 }
                 func_8002A7CC(D_8010A488, *(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
                 var_s1_2 += 1;
-            } while ((u32) (var_s1_2 & 0xFFFF) < (u8) D_80102EB8);
+            } while ((u32) (var_s1_2 & 0xFFFF) < (u8) gValidSaveSlotCount);
         }
         func_80022E18(gMenuParamC);
         func_80022AD8(gMenuParamC);

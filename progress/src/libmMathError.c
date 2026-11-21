@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800AC100();
 extern s32 D_80100960;
 
-f64 func_800ABA40(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f64 arg4, f64 arg6) {
+f64 libmMathError(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f64 arg4, f64 arg6) {
     struct {
         s32 f10;
         s32 f14;

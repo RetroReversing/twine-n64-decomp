@@ -47,7 +47,7 @@ extern Slot_801001A0 D_801001A0[];
 extern char D_801001A2[];
 extern char D_801001A3[];
 extern u8 D_801002AD;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern s32 gSaveSlotCount;
 extern s8 D_801002E6;
 extern s8 D_801002E7;
@@ -112,7 +112,7 @@ s32 __repair_phase_var_a0;
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x27, 0x2E, 0x3C, 0x98);
         var_s2 = 0;
-        if (D_801002B4 > 0) {
+        if (gSaveTotalSlots > 0) {
             var_s0 = 0 & 0xFFFF;
             do {
                 temp_a0_2 = func_80022DBC(var_s0);
@@ -135,7 +135,7 @@ s32 __repair_phase_var_a0;
                 var_s2++;
                 func_8002A7CC(D_8010A488, *__repair_phase_storage.pointer, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);
                 var_s0 = var_s2 & 0xFFFF;
-            } while ((var_s2 & 0xFFFF) < D_801002B4);
+            } while ((var_s2 & 0xFFFF) < gSaveTotalSlots);
         }
         func_80022E18(gMenuParamC);
         func_80022AD8(gMenuParamC);

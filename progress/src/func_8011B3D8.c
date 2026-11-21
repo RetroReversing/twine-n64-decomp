@@ -1,4 +1,4 @@
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern s32 *gBonusSceneHandle[];
 
 s32 *func_8011B3D8(s32 arg0) {
@@ -7,7 +7,7 @@ s32 *func_8011B3D8(s32 arg0) {
     s32 *q;
 
     arg0 &= 0x1E000;
-    for (i = 0; i < D_801002B4; i++) {
+    for (i = 0; i < gSaveTotalSlots; i++) {
         p = gBonusSceneHandle[i];
         if (p != NULL) {
             q = ((s32 **)p)[0x6C / 4];

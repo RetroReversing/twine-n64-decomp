@@ -24,8 +24,8 @@ M2C_UNK func_8011E894();                            /* extern */
 extern u8 gSceneType;
 extern u8 D_801002AC;
 extern u8 D_801002AE;
-extern s32 D_801002B4;
-extern s32 gBorderMode;
+extern s32 gSaveTotalSlots;
+extern s32 gVisibleSaveSlots;
 extern s32 gBorderSkipFlag;
 extern u8 gBorderFlipFlag;
 extern s16 D_8011F0EC;
@@ -44,7 +44,7 @@ void func_8011E634(void) {
     void *temp_s1_2;
 
     D_8011F0EE = 0x78;
-    if (gBorderMode >= 3) {
+    if (gVisibleSaveSlots >= 3) {
         var_v0 = 0xA0;
         D_8011F0EC = var_v0;
     } else {
@@ -89,7 +89,7 @@ block_11:
         if (temp_s1 == 0) {
             var_s0 = 0;
             func_8011E894();
-            __base_D_801002B4 = &D_801002B4;
+            __base_D_801002B4 = &gSaveTotalSlots;
             temp_s1_2 = (s8 *)__base_D_801002B4 - 6;
             if (temp_s1 < (*__base_D_801002B4)) {
                 var_a0 = 0 & 0xFF;

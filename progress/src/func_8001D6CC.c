@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80018C5C(s32, s32);                    /* extern */
+M2C_UNK initSaveSlotMenus(s32, s32);                    /* extern */
 M2C_UNK func_8001BE64();                            /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
@@ -24,7 +24,7 @@ void func_8001D6CC(void) {
     updateActiveMenuState();
     if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
         temp_s0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5B);
-        func_80018C5C(temp_s0, findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5C));
+        initSaveSlotMenus(temp_s0, findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5C));
         func_8001BE64();
     }
 }

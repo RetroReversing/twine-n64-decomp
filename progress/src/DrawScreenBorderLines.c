@@ -1,4 +1,4 @@
-extern s32 gBorderMode, gHiResScreen;
+extern s32 gVisibleSaveSlots, gHiResScreen;
 extern u8 gBorderFlipFlag;
 s32 DrawBorderRect(s32, s32, s32, s32);
 
@@ -18,7 +18,7 @@ void DrawScreenBorderLines(void) {
         full_height = 480.0f;
     }
 
-    switch (gBorderMode) {
+    switch (gVisibleSaveSlots) {
     case 2:
         if (gBorderFlipFlag == 1) {
             DrawBorderRect((u32) (half_width - 1.0f), 0, 3, (u32) full_height);

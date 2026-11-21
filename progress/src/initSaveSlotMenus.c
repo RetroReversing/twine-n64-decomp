@@ -13,15 +13,15 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
-u8 func_8002D13C(M2C_UNK);                          /* extern */
+u8 countValidSaveSlots(M2C_UNK);                          /* extern */
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
 extern s32 gSaveExtraSlotCount;
-extern s32 gBorderMode;
-extern u8 D_80102EB8;
+extern s32 gVisibleSaveSlots;
+extern u8 gValidSaveSlotCount;
 
 extern char D_800D2858[];
-void func_80018C5C(void *arg0, void *arg1) {
+void initSaveSlotMenus(void *arg0, void *arg1) {
     s32 *__base_D_801002B4;
     M2C_UNK *temp_s0;
     s32 temp_v0_2;
@@ -30,8 +30,8 @@ void func_80018C5C(void *arg0, void *arg1) {
     u8 temp_v0;
 
     if ((arg0 != NULL) & (arg1 != NULL)) {
-        temp_v0 = func_8002D13C(0xA3);
-        D_80102EB8 = temp_v0;
+        temp_v0 = countValidSaveSlots(0xA3);
+        gValidSaveSlotCount = temp_v0;
         temp_v1 = temp_v0 & 0xFF;
         if (temp_v1 != 0) {
             var_v0 = temp_v1 | 0x10000;
@@ -41,8 +41,8 @@ void func_80018C5C(void *arg0, void *arg1) {
         {
         s32 *minimum = &gSaveSlotCount;
         M2C_FIELD(arg0, s32 *, 0x14) = var_v0;
-        if (((s32) D_80102EB8 < *minimum) && (D_80102EB8 != 0)) {
-            *minimum = (s32) D_80102EB8;
+        if (((s32) gValidSaveSlotCount < *minimum) && (gValidSaveSlotCount != 0)) {
+            *minimum = (s32) gValidSaveSlotCount;
         }
         }
         if ((gSaveSlotCount == 1) && (gSaveExtraSlotCount == 0)) {
@@ -55,12 +55,12 @@ void func_80018C5C(void *arg0, void *arg1) {
             gSaveExtraSlotCount = 4 - gSaveSlotCount;
             (*__base_D_801002B4) = 4;
         }
-        gBorderMode = gSaveSlotCount;
+        gVisibleSaveSlots = gSaveSlotCount;
         if (gSaveSlotCount == 0) {
-            gBorderMode = (*__base_D_801002B4);
+            gVisibleSaveSlots = (*__base_D_801002B4);
         }
-        if (gBorderMode >= 5) {
-            gBorderMode = 4;
+        if (gVisibleSaveSlots >= 5) {
+            gVisibleSaveSlots = 4;
         }
         if (gSaveSlotCount == 1) {
             M2C_FIELD(arg1, s32 *, 0x14) = 0x10003;

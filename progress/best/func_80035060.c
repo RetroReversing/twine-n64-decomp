@@ -2,7 +2,7 @@
 
 s32 func_80034EFC();                            /* extern */
 s32 osVirtualToPhysical(s32); /* extern */
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern s32 D_80100304;
 extern u8 D_80100777;
 extern u8 D_80100778;
@@ -95,7 +95,7 @@ void func_80035060(void *arg0) {
     (*(s32 *)((char *)(temp_s1_2) + 0x14)) = osVirtualToPhysical(*((s32 *)((char *)&D_80100304 + (D_8010A4B0 * 4))));
     if (gBorderSkipFlag != 0) {
         temp_v1 = (*(const s16 *)((char *)(arg0) + 0x140));
-        if ((temp_v1 == 3) && (gBorderMode == temp_v1)) {
+        if ((temp_v1 == 3) && (gVisibleSaveSlots == temp_v1)) {
             temp_v0 = sDisplayListCursor;
             sDisplayListCursor = temp_v0 + 8;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xF7000000;

@@ -10,8 +10,9 @@ s32 func_8007ADD0(void *, s32);
 
 s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count) {
     u8 *details = *(u8 **)((u8 *)actor + 0x6C);
-    volatile s32 spare[2];
+    volatile s32 pad;
     volatile s32 weight = entries[count - 1].weight;
+    volatile s32 spare;
     u32 attempt = 0;
     u32 index, threshold, limit;
     u8 *entry;

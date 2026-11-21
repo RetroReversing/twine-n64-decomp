@@ -14,7 +14,7 @@ s32 func_8002A644();
 s32 func_8002A7CC();
 s32 func_8002A9A8();
 s32 func_8002AC04();
-s8 func_8002D13C();
+s8 countValidSaveSlots();
 s32 func_800316B8();
 s32 lookupDataEntry();
 s32 sprintf();
@@ -27,7 +27,7 @@ extern s32 gSaveSlotCount;
 extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
-extern s8 D_80102EB8;
+extern s8 gValidSaveSlotCount;
 extern s32 gBorderSkipFlag;
 extern char D_80102F48[];
 extern u8 D_80104310;
@@ -197,7 +197,7 @@ block_36:
         formatTextEntry(sp3C, "%s", lookupDataEntry(var_a0_9));
         if (gBorderSkipFlag != 0) {
             func_8002A644(D_8010A488, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &func_80022C04, &func_8001AC88);
-            D_80102EB8 = func_8002D13C(0xA3);
+            gValidSaveSlotCount = countValidSaveSlots(0xA3);
             func_80022A30(gMenuParamC, 0x25, 0x48, 0x32, 0x76);
             var_s0_2 = 0;
             if (gSaveSlotCount > 0) {

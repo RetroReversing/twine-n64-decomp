@@ -6,7 +6,7 @@ extern s32 func_801182B0(void *, void *);
 extern u32 gSaveSlotInfo[];
 extern s8 D_801001A1[];
 extern u8 gSceneType;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern void *D_80102CD0[4];
 extern void *D_8010A410;
 extern void *gBonusSceneHandle[4];
@@ -42,7 +42,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     n = ((u8 *)D_800BF688)[row * 12 + 3];
     best = 0; fallback = 0; selected = 0; best1=0x270f;
     if (n & 2) {
-        count=D_801002B4; i=0;
+        count=gSaveTotalSlots; i=0;
         while(i<count) {
             p=((void **)0x80102CD0)[i];
             v=*(s32 *)((u8 *)p+0xb4);

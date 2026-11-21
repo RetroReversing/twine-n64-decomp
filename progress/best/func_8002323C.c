@@ -51,7 +51,7 @@ extern M2C_UNK D_801001A1;
 extern M2C_UNK D_801001A4;
 extern M2C_UNK gSaveKeyRelaxed;
 extern u8 D_801002AC;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
 extern UnalignedWord D_801002E6;
 extern void *gMenuState;
@@ -133,7 +133,7 @@ void func_8002323C(void) {
         memset(totals, 0, 4);
         memset(scores, 0, 0x16);
         var_s4 = 0;
-        if (D_801002B4 > 0) {
+        if (gSaveTotalSlots > 0) {
             do {
                 var_s0_3 = (u16)var_s4;
                 temp_s1 = func_80022DBC(var_s0_3);
@@ -149,7 +149,7 @@ void func_8002323C(void) {
                 temp_a0_2 = &totals[*((u8 *)&D_801001A1 + (temp_v0_2 * 0x18))];
                 *temp_a0_2 = (u16) *temp_a0_2 + (u16) scores[temp_v0_2];
                 var_s4 += 1;
-            } while ((var_s4 & 0xFFFF) < D_801002B4);
+            } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
         }
         }
         var_s4 = 0;
@@ -188,7 +188,7 @@ void func_8002323C(void) {
             func_800160FC(D_800E0FC0, lookupDataEntry(0x6E), 0x40);
             func_800160FC(D_800E0FC4, temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, &D_800E0FC0, 0, 1);
-            if (D_801002B4 > 0) {
+            if (gSaveTotalSlots > 0) {
                 do {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5 = temp_s1 * 0x18;
@@ -221,7 +221,7 @@ void func_8002323C(void) {
                         next3:;
                     }
                     var_s4 += 1;
-                } while ((var_s4 & 0xFFFF) < D_801002B4);
+                } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
             }
             var_s4 = 0;
             temp_v0_10 = func_800162BC(gMenuParamC);
@@ -238,7 +238,7 @@ void func_8002323C(void) {
             func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6), lookupDataEntry(0x6F), 0x40);
             func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6), temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_6), 1, 1);
-            if (D_801002B4 > 0) {
+            if (gSaveTotalSlots > 0) {
                 do {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5_2 = temp_s1 * 0x18;
@@ -271,10 +271,10 @@ success5:
                             next5:;
                     }
                     var_s4 += 1;
-                } while ((var_s4 & 0xFFFF) < D_801002B4);
+                } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
             }
         } else {
-            if (temp_v0_2 < D_801002B4) {
+            if (temp_v0_2 < gSaveTotalSlots) {
                 do {
                     var_s0_4 = (u16)var_s4;
                     temp_s1 = func_80022DBC(var_s0_4);
@@ -302,7 +302,7 @@ success5:
                         func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s3_2), (var_s4 + 1) & 0xFF, 1);
                     next7:;
                     var_s4 += 1;
-                } while ((var_s4 & 0xFFFF) < D_801002B4);
+                } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
             }
         }
         func_80022AD8(gMenuParamC);

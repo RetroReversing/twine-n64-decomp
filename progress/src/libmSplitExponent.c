@@ -1,6 +1,6 @@
 typedef union { f64 d; u32 w[2]; u8 b[8]; } U;
 
-f64 func_800AAF80(f64 x, U *p) {
+f64 libmSplitExponent(f64 x, U *p) {
     s32 e;
     s32 i;
 

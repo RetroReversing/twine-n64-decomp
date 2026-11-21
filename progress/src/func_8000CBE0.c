@@ -12,18 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *gObjectTable;
+extern void *gObjectRecords;
 extern s8 gTransitionTimer;
 extern s8 D_801002AE;
 
 void func_8000CBE0(void) {
     f32 temp_fv0;
 
-    temp_fv0 = M2C_FIELD(gObjectTable, f32 *, 0x2B3C);
+    temp_fv0 = M2C_FIELD(gObjectRecords, f32 *, 0x2B3C);
     gTransitionTimer = 0x17;
-    M2C_FIELD(gObjectTable, s16 *, 0x2B92) = 0xF;
-    M2C_FIELD(gObjectTable, f32 *, 0x2B3C) = 0;
-    M2C_FIELD(gObjectTable, s16 *, 0x2B90) = 0;
-    M2C_FIELD(gObjectTable, f32 *, 0x2B30) = temp_fv0;
+    M2C_FIELD(gObjectRecords, s16 *, 0x2B92) = 0xF;
+    M2C_FIELD(gObjectRecords, f32 *, 0x2B3C) = 0;
+    M2C_FIELD(gObjectRecords, s16 *, 0x2B90) = 0;
+    M2C_FIELD(gObjectRecords, f32 *, 0x2B30) = temp_fv0;
     D_801002AE = 1;
 }

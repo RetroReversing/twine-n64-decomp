@@ -10,7 +10,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #endif
 extern s32 D_801002C0[1];
 s32 lookupDataEntry(); s32 sprintf();
-extern s32 D_801002B4; extern void *D_80102CD0;
+extern s32 gSaveTotalSlots; extern void *D_80102CD0;
 extern s16 D_8011F15C[];
 extern char D_8011F2B8[],D_8011F3E0[],D_8011F3E8[];
 void func_8011D158(s16 arg0) {
@@ -23,7 +23,7 @@ int __repair_literal;
  temp_a0=M2C_FIELD((&D_80102CD0)[arg0],void**,0xB4);
  temp_s2=M2C_FIELD(temp_a0,u8*,0x12); temp_a1_2=&D_80102CD0;
  if(temp_s2==2) {
- var_a2=D_801002B4; var_a1=0;
+ var_a2=gSaveTotalSlots; var_a1=0;
 __repair_literal = 0;
 
  if(var_a2>__repair_literal) do { if(var_a1++!=arg0) { temp_v1=M2C_FIELD(*temp_a1_2,void**,0xB4); var_a2-=(M2C_FIELD(temp_a0,u16*,0xC)-M2C_FIELD(temp_a0,u16*,0xE)) >= (M2C_FIELD(temp_v1,u16*,0xC)-M2C_FIELD(temp_v1,u16*,0xE)); } temp_a1_2+=1; } while(var_a1<M2C_FIELD(&D_801002C0,s32*,-0xC));

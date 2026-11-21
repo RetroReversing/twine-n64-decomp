@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 gObjectTable;
+extern s32 gObjectRecords;
 
 s32 func_8000DA08(void *arg0) {
-    return (M2C_FIELD(arg0, s16 *, 0x7C) * 0xD4) + gObjectTable + 0x9C;
+    return (M2C_FIELD(arg0, s16 *, 0x7C) * 0xD4) + gObjectRecords + 0x9C;
 }

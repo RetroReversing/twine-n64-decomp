@@ -6,12 +6,12 @@ typedef struct {
 f32 approxDistance(void *, void *);
 s8 func_8005FE20(NearbyObject *, void *);
 extern f64 D_800D41D8;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern s32 gBonusSceneHandle;
 
 s8 func_8005FD28(void *object) {
     u16 i = 0;
-    if (D_801002B4 > 0) {
+    if (gSaveTotalSlots > 0) {
         NearbyObject **objects = (NearbyObject **)&gBonusSceneHandle;
         s32 excludedA = 0x4D;
         s32 excludedB = 0x61;
@@ -29,7 +29,7 @@ s8 func_8005FD28(void *object) {
             }
 next:
             i++;
-        } while ((u16)i < D_801002B4);
+        } while ((u16)i < gSaveTotalSlots);
     }
     return 0;
 }

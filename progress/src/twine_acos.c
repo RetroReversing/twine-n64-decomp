@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f64 func_800AA460(f64);
-f64 func_800ABA40(s32, const char *, f64, f64, f64);
+f64 libmMathError(s32, const char *, f64, f64, f64);
 extern f64 D_800D6EA8;
 extern f64 D_800D6EB0;
 extern f64 D_800D6EB8;
@@ -35,7 +35,7 @@ f64 twine_acos(f64 arg0) {
     if ((var_v0 | var_v1) == 0) {
         ret = D_800D6EB8 - func_800AA460(arg0);
     } else {
-        ret = func_800ABA40(1, D_800D6EA0, arg0, 0.0, 0.0);
+        ret = libmMathError(1, D_800D6EA0, arg0, 0.0, 0.0);
     }
     return ret;
 }

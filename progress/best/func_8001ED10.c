@@ -15,7 +15,7 @@ extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
 extern s8 D_801002AD;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
 extern s32 D_801002CC;
@@ -71,7 +71,7 @@ void func_8001ED10(void) {
                 D_801002D0 = D_801002C8;
                 D_80102EF0 = 0;
                 i = 0;
-                if (D_801002B4 > 0) {
+                if (gSaveTotalSlots > 0) {
                     __repair_rows: {
                         s32 r;
                         r = func_80022DBC(i & 0xFFFF);
@@ -80,7 +80,7 @@ void func_8001ED10(void) {
                             **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
                         i++;
                     }
-if ((i & 0xFFFF) < D_801002B4) goto __repair_rows;
+if ((i & 0xFFFF) < gSaveTotalSlots) goto __repair_rows;
                 }
                 *(s16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) = -1;
                 b = D_801002A4;

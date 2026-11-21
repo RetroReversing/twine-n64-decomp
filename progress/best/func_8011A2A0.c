@@ -4,7 +4,7 @@ s32 func_8011A7C8();
 extern u8 gSceneType;
 extern s32 D_801002A8;
 extern u8 D_801002AC;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern s32 gSaveSlotCount;
 extern void *gBonusSceneHandle[];
 extern u8 sProbeTimers[];
@@ -13,7 +13,7 @@ extern s32 D_8011F3A8;
 
 u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     s32 *__base_gSaveSlotCount;
-    s32 *__base_D_801002B4 = &D_801002B4;
+    s32 *__base_D_801002B4 = &gSaveTotalSlots;
     void *q;
     u16 buf[2];
     s32 j;
@@ -35,7 +35,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
         for (i = 0; (u32)i < 2; i++) {
             buf[i] = func_8002B278(sProbeTimers + i * 8) / 10;
         }
-        for (i = 0; i < (*(__base_D_801002B4 = &D_801002B4)); i++) {
+        for (i = 0; i < (*(__base_D_801002B4 = &gSaveTotalSlots)); i++) {
             p = gBonusSceneHandle[i];
             if (p != NULL) {
                 q = (*(void * *)((u8 *)((*(void * *)((u8 *)(p) + (0x6C)))) + (0xB4)));

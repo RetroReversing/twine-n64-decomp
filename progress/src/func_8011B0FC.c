@@ -1,4 +1,4 @@
-extern s32 D_801002B4, gTrackMarkerSerial;
+extern s32 gSaveTotalSlots, gTrackMarkerSerial;
 extern void *gBonusSceneHandle[], *gTrackMarkerTable[];
 extern char D_8011F3AC[];
 void requestSound(s32);
@@ -10,7 +10,7 @@ void func_8011B0FC(void *p) {
  void *q = gBonusSceneHandle[*(s8*)((char*)p+0x182)];
  s32 x;
  requestSound(0x224);
- switch(D_801002B4) {
+ switch(gSaveTotalSlots) {
  default: func_8002B150(D_8011F3AC,1,0); break;
  case 3: func_8002B150(D_8011F3AC,2,0); break;
  case 4: func_8002B150(D_8011F3AC,3,0); break;

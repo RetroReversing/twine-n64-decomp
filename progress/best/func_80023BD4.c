@@ -5,7 +5,7 @@ extern char D_800D2AB4[], D_800D2ABC[];
 extern s16 D_800E1068[], D_800E107E, D_800E1080;
 extern char D_801001A4[];
 extern u8 gSceneType, gSaveKeyRelaxed, D_801002AC;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 
 typedef struct { u8 pad[0x11]; u8 active; } ResultState;
 typedef struct { u8 pad[0xB4]; ResultState *state; } ResultPlayer;
@@ -43,7 +43,7 @@ draw:
     if (gSceneType == 8) {
         best = 0;
         i = 0;
-        if (player < D_801002B4) {
+        if (player < gSaveTotalSlots) {
             table.players = D_80102CD0;
             do {
                 entry = *table.players;
@@ -53,9 +53,9 @@ draw:
                     player = (u16)func_80022DBC((u16)i);
                 i++;
                 table.players++;
-            } while (i < D_801002B4);
+            } while (i < gSaveTotalSlots);
         }
-        count = D_801002B4 - 1;
+        count = gSaveTotalSlots - 1;
         if (best == count) {
             best = 0;
             goto decided;
@@ -64,7 +64,7 @@ draw:
         player = 0;
     }
     i = 0;
-    if (D_801002B4 > 0) {
+    if (gSaveTotalSlots > 0) {
         table.scores = D_800E1068;
         do {
             idx = (u16)func_80022DBC((u16)i);
@@ -74,18 +74,18 @@ draw:
                 player = idx;
             }
             i++;
-        } while (i < D_801002B4);
+        } while (i < gSaveTotalSlots);
     }
     best = -1;
     i = 0;
-    if (D_801002B4 > 0) {
+    if (gSaveTotalSlots > 0) {
         winner = &D_800E1068[player];
         do {
             idx = (u16)func_80022DBC((u16)i);
             score = table.scores[idx];
             i++;
             best += score == *winner;
-        } while (i < D_801002B4);
+        } while (i < gSaveTotalSlots);
     }
 decided:
     if (best > 0)

@@ -4,7 +4,7 @@ typedef struct {
 } MenuPlayerState;
 
 extern MenuPlayerState D_801001A2[];
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern s16 D_8011EE4C;
 extern void *D_8011F338[];
 void *func_80015F74(void *);
@@ -16,7 +16,7 @@ void create_player_state_objects(void)
     s16 *paramIndex;
     void **results;
     i = 0;
-    if (gBorderMode > 0) {
+    if (gVisibleSaveSlots > 0) {
         special = 5;
         paramIndex = &D_8011EE4C;
         results = D_8011F338;
@@ -37,6 +37,6 @@ clear:
                 results[i] = NULL;
             }
             i++;
-        } while (i < gBorderMode);
+        } while (i < gVisibleSaveSlots);
     }
 }

@@ -3,11 +3,11 @@ static inline u32 negate_word(u32 value) {
 }
 extern s32 func_80079CB4(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 typedef struct { char pad[0x68]; char *object; char tail[0x68]; } ObjectSlot;
-extern ObjectSlot *gObjectTable;
+extern ObjectSlot *gObjectRecords;
 void func_8000CCE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     char *obj;
     u32 kind;
-    ObjectSlot *base = gObjectTable;
+    ObjectSlot *base = gObjectRecords;
     ObjectSlot *slot = base + arg0;
     obj = slot->object;
     kind = *(u8 *)(*(char * volatile *)(obj + 0x68) + 0xB1);

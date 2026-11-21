@@ -1,4 +1,4 @@
-typedef struct { f32 x,y,z; } TwineV3;
+typedef struct { f32 x, y, z; } TwineV3;
 typedef struct {
     f32 *stream;
     u8 pad04[0x1C];
@@ -9,17 +9,18 @@ typedef struct {
     s16 state, parameter;
     u8 pad84[0x50];
 } StreamRecord;
-extern StreamRecord *gObjectTable;
-#define READ_VECTOR(field) do { \
-    StreamRecord *records = gObjectTable; \
+extern StreamRecord *gObjectRecords;
+#define READ_STREAM_VECTOR(field) do { \
+    StreamRecord *records = gObjectRecords; \
     v.x = *records->stream++; \
     v.y = *records->stream++; \
     v.z = -*records->stream++; \
     records = (StreamRecord *)((u8 *)records + index * 0xD4); \
     records->field = v; \
 } while (0)
-void func_8000D3AC(s32 index, u32 parameter) {
-    StreamRecord *base = gObjectTable;
+/* Resets object record[index], copies its parameter byte, then reads four vectors from the stream. */
+void initObjectFromStream(s32 index, u32 parameter) {
+    StreamRecord *base = gObjectRecords;
     StreamRecord *obj = (StreamRecord *)((s32)base + index * 0xD4);
     void *linked = obj->linked;
     TwineV3 v;
@@ -28,8 +29,8 @@ void func_8000D3AC(s32 index, u32 parameter) {
     if (linked != NULL) {
         *(TwineV3 *)((u8 *)linked + 0x24) = obj->vector2C;
     }
-    READ_VECTOR(vector38);
-    READ_VECTOR(vector20);
-    READ_VECTOR(vector2C);
-    READ_VECTOR(vector44);
+    READ_STREAM_VECTOR(vector38);
+    READ_STREAM_VECTOR(vector20);
+    READ_STREAM_VECTOR(vector2C);
+    READ_STREAM_VECTOR(vector44);
 }

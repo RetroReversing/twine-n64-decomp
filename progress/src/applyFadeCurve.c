@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f64 func_800AAB20(f64);                             /* extern */
+f64 libmExp(f64);                             /* extern */
 f64 func_800AADA0(f64);                             /* extern */
 extern f64 D_800D2180;
 
@@ -37,5 +37,5 @@ f64 applyFadeCurve(f64 arg0, f64 arg1) {
         }
         arg0 = fabs(arg0);
     }
-    return func_800AAB20(func_800AADA0(arg0) * arg1) * (f64) sign;
+    return libmExp(func_800AADA0(arg0) * arg1) * (f64) sign;
 }

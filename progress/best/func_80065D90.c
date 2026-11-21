@@ -43,7 +43,7 @@ extern char D_800C4738[];
 extern u8 D_800E1A16;
 extern f32 D_800E1A1C;
 extern char D_80115088[];
-extern char D_8011508A[];
+extern u8 D_8011508A[];
 extern char D_8011508B[];
 extern char D_80115090[];
 extern s32 gTrackMarkerTable;
@@ -149,7 +149,7 @@ void func_80065D90(void *arg0) {
     s32 var_v1_7;
     s32 var_v1_8;
     s32 var_v1_9;
-    s8 temp_s3;
+    s32 temp_s3;
     s8 temp_v0_2;
     s8 temp_v1_4;
     s8 temp_v1_5;
@@ -219,23 +219,24 @@ block_8:
                 M2C_FIELD(temp_a2, s8 *, 0xE) = (s8) (temp_v0_2 + temp_v1_4);
                 temp_v1_5 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE);
                 var_a0 = 0;
-                if (!(*(D_800C469C + (temp_v1_5 * 0xE8)) & 0x8000)) {
-                    do {
+                if (!(*(u16 *)(D_800C469C + (temp_v1_5 * 0xE8)) & 0x8000)) {
+                    __repair_rows: {
                         var_a0 += 1;
-                    } while (!(*(D_800C469C + ((temp_v1_5 - var_a0) * 0xE8)) & 0x8000));
+                    }
+if (!(*(u16 *)(D_800C469C + ((temp_v1_5 - var_a0) * 0xE8)) & 0x8000)) goto __repair_rows;
                 }
                 M2C_FIELD((temp_s1 + ((M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) - var_a0) * 8)), s8 *, 0x1FE) = (s8) var_a0;
                 func_800015AC(arg0, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE), temp_a2, temp_a3);
                 func_800643EC(arg0);
                 temp_v1_6 = M2C_FIELD(arg0, void **, 0x68);
                 M2C_FIELD(temp_v1_6, u8 *, 0xF) = (u8) M2C_FIELD(temp_v1_6, s8 *, 0xE);
-                temp_a1_3 = *(D_800C4738 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8));
+                temp_a1_3 = *(u16 *)(D_800C4738 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8));
                 if (temp_a1_3 != 0) {
                     func_80002D30(M2C_FIELD(temp_s1, void **, 0xA8), temp_a1_3);
                     M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), s16 *, 0x7A) = 6;
                 }
                 func_80065BC4(arg0);
-                if (*(D_800C46FC + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 4) {
+                if (*(s32 *)(D_800C46FC + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 4) {
                     requestSound(0x1DF);
                 }
                 if ((u32) ((u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) - 4) >= 2U) {

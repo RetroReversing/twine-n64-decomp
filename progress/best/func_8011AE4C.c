@@ -18,7 +18,7 @@ M2C_UNK func_8007089C(void *, M2C_UNK, u16);        /* extern */
 M2C_UNK func_8011B0FC(void *);                      /* extern */
 M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
-extern s32 D_801002B4;
+extern s32 gSaveTotalSlots;
 extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK D_8011F3AC;
 extern void *gMarkerEntry1;
@@ -52,7 +52,7 @@ s32 __repair_literal;
         var_a0 = 0;
 __repair_literal = 0;
 
-        if (D_801002B4 > 0) {
+        if (gSaveTotalSlots > 0) {
             do {
                 var_v0 = var_a0 & 0xFFFF;
                 temp_v0 = (&gBonusSceneHandle)[var_v0];

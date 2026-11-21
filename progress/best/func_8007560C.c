@@ -11,8 +11,8 @@ extern f64 D_800D48B8;
 extern f64 D_800D48C8;
 extern f64 D_800D48D0;
 extern f64 D_800D48E0;
-extern s32 D_801002B4;
-extern s32 gBorderMode;
+extern s32 gSaveTotalSlots;
+extern s32 gVisibleSaveSlots;
 extern s32 gBorderSkipFlag;
 extern char gTrackMarkerTable[];
 extern void *D_80109698;
@@ -99,8 +99,8 @@ f32 __repair_var_a1_1;
         var_a0 = 1;
         goto block_75;
     }
-    __base_D_801002B4 = &D_801002B4;
-    if ((*(&D_801002B4)) > 0) {
+    __base_D_801002B4 = &gSaveTotalSlots;
+    if ((*(&gSaveTotalSlots)) > 0) {
         var_s0 = 0;
         temp_s4 = __base_D_8010A4C3 - 1;
         temp_fs0 = D_800D48D0;
@@ -116,9 +116,9 @@ f32 __repair_var_a1_1;
                     var_fv0 += temp_fs0;
                 }
                 do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, 0.0f, (f32) var_fv0); } while (0);
-                if (gBorderMode <= var_s0) {
+                if (gVisibleSaveSlots <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
-                    if ((gBorderMode == 3) & (var_s0 == 3)) {
+                    if ((gVisibleSaveSlots == 3) & (var_s0 == 3)) {
                         (*(&D_8010A4C3)) = (u8) ((*__base_D_8010A4C3) | var_v1); } else {
                         (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & ~(1 << var_s0));
                         var_v1 = 1 << var_s0;
@@ -136,7 +136,7 @@ f32 __repair_var_a1_1;
             var_s1 += 1;
         } while (var_s0 < (*__base_D_801002B4));
     }
-    switch (gBorderMode) {                           /* irregular */
+    switch (gVisibleSaveSlots) {                           /* irregular */
     case 1:
         if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK actorSteerTowardTarget(void *, void *, M2C_UNK *, s32); /* extern */
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK D_8011F108;
 extern M2C_UNK D_8011F338;
@@ -23,7 +23,7 @@ void func_8011C890(void) {
     void *temp_a1;
     void *temp_s0;
 
-    for (i = 0; i < gBorderMode; i++) {
+    for (i = 0; i < gVisibleSaveSlots; i++) {
         temp_a1 = ((void **) &gBonusSceneHandle)[i];
         if ((temp_a1 != NULL) && (M2C_FIELD(temp_a1, s32 *, 0x6C) != 0)) {
             temp_s0 = ((void **) &D_8011F338)[i];

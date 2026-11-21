@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 gObjectTable;
+extern s32 gObjectRecords;
 extern void *D_80109690;
 
 typedef struct { unsigned char pad_0[32]; float field_20; unsigned char pad_24[8]; float field_2C; unsigned char pad_30[80]; short field_80; short field_82; } __repair_record_temp_a1;
@@ -22,7 +22,7 @@ void func_8000CC38(s32 arg0) {
     f32 var_fv1;
     void *temp_a1;
 
-    temp_a1 = (char *)(gObjectTable); temp_a1 += (s32)((arg0 * 0xD4));
+    temp_a1 = (char *)(gObjectRecords); temp_a1 += (s32)((arg0 * 0xD4));
     temp_ft0 = ((__repair_record_temp_a1*)temp_a1)->field_20;
     var_fv0 = ((((__repair_record_temp_a1*)temp_a1)->field_2C - temp_ft0) * ((f32) ((__repair_record_temp_a1*)temp_a1)->field_80 / (f32) ((__repair_record_temp_a1*)temp_a1)->field_82)) + temp_ft0;
     var_fv1 = 0.0f;
