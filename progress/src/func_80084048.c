@@ -36,7 +36,7 @@ void func_80084048(void *arg0, s32 arg1) {
             n->b = NULL;
             cur = D_800E1AAC;
             if (cur != NULL) {
-                for (;;) {
+                do {
                     nxt = cur->b;
                     if (nxt == NULL) {
                         if (cur < n) {
@@ -54,16 +54,16 @@ void func_80084048(void *arg0, s32 arg1) {
                         }
                         break;
                     }
-                    if (((cur < n) & (n < nxt)) != 1) {
+                    if ((u8)((cur < n) & (n < nxt)) == 0) {
                         cur = nxt;
-                        continue;
+                    } else {
+                        cur->b = n;
+                        n->a = cur;
+                        nxt->a = n;
+                        n->b = nxt;
+                        break;
                     }
-                    cur->b = n;
-                    n->a = cur;
-                    nxt->a = n;
-                    n->b = nxt;
-                    break;
-                }
+                } while (cur != NULL);
             }
             coalesce_adjacent_free_blocks(cur);
         }

@@ -1480,14 +1480,6 @@
   "score_after": 2625
  },
  {
-  "function": "func_80084048",
-  "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049454.495337,
-  "score_before": 2285,
-  "score_after": 1805
- },
- {
   "function": "triangleContainsPoint",
   "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
   "by": "permuter-25769804951",
@@ -7736,14 +7728,6 @@
   "score_after": 620
  },
  {
-  "function": "func_80084048",
-  "text": "Saved candidate used n before initialization; moving n assignment ahead of size subtraction yields compiling and semantically plausible score 1680. Branch reversal worsens; const, base temporary, call arity and assignment-at-use unchanged. Target forms indexed global through hi/lo offset rather than candidate base pointer; reconstruct table layout and linked-list traversal. Historical 1440 may not be comparable due to header changes.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795178029.182992,
-  "score_before": 1440,
-  "score_after": 1440
- },
- {
   "function": "func_80070ECC",
   "text": "Rechecked saved best at score 280 (26 instructions). Six mismatch rows center on scheduling around the initial field_28 load: target loads field_28 before moving arg1 into a0; candidate moves arg1 first and omits/reorders the load. Tried local repairs (call arity, argument-width variants, store scope) and reordered source so field_28 update came first; no improvement. Keep saved best. Next avenue: model actual record layout/prototype and force the target load-before-pointer-move order; strlen declaration warns as a builtin conflict, though target call argument setup otherwise lines up.",
   "by": "codex-gpt-6-luna-17",
@@ -10366,14 +10350,6 @@
   "created_at": 1795182431.054399,
   "score_before": 1302,
   "score_after": 1302
- },
- {
-  "function": "func_80084048",
-  "text": "Verified baseline 1440 revision 0a1fba7fa1acaef608de. Six local trials (branch orientation, const argument, symbol base, callee arity, assignment at use, byte table) did not improve. Candidate uses n->size before initializing n, so inspect target and repair this semantic issue while restructuring linked-list insertion; 34 diff rows mainly branches and extra instructions.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182435.251325,
-  "score_before": 1440,
-  "score_after": 1440
  },
  {
   "function": "initObjectFromBankEntry",
@@ -16448,14 +16424,6 @@
   "score_after": 110
  },
  {
-  "function": "func_80084048",
-  "text": "Best historical score 1440, current corrected candidate reached 1680. Fixed prior uninitialized n->size by assigning n=(Node*)((char*)arg0-12) first and using its size; this raised score from 3390 to 1680. Replacing D_800CE354 byte-offset access with typed array and changing D_800E1A90 to volatile did not improve; volatile changed target lb to lbu. Target first instructions load D_800E1A90 before stack setup, then move arg0 to a3 and branch; current code moves arg0 to a2 and differs in branch displacement. Main mismatch: target uses explicit calculated offset then load/store via D_800CE354 relocation; current materializes table base, and candidate has many control-flow/register differences. Continue from saved best only after correcting uninitialized ordering. Struct layout fields a/b/size appear offsets 0/4/8, with user arg0 at node+12.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795187813.722913,
-  "score_before": 1440,
-  "score_after": 1440
- },
- {
   "function": "spawnProbeEffect",
   "text": "Best verified score 60 (99.2%, 77 instructions). Remaining two mismatches are ordering around sh $v1,0x78($s0): target stores it before sb fields, while candidate emits it after initial byte fields. Moving the halfword store before those byte stores changed score to 95 due to constants/register allocation; restored best is saved. More tuning could stage constant 100 (target loads it in $a0 across three byte stores) while preserving the target's placement of 0x2B store. No reusable game-wide knowledge identified.",
   "by": "codex-gpt-6-luna-11",
@@ -17656,14 +17624,6 @@
   "score_after": 115
  },
  {
-  "function": "func_80084048",
-  "text": "Historical best 1440 uses n before initialization and is invalid C. Corrected n assignment before size access scores 1680 (revision b07c7254465183cf79c3). Boolean rewrites and branch inversion did not improve; reloading n->b or reversing zero stores worsened. Next investigate D_800CE354 indexed relocation generation and linked-list insertion control flow using corrected candidate.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795189514.449749,
-  "score_before": 1440,
-  "score_after": 1440
- },
- {
   "function": "func_8007AABC",
   "text": "Verified saved best 10. Target uses f0 for the conversion/multiply and f2 for the reload and final sum/store. Baseline matches through the reload, then add.s f0,f0,f2 and stores f0. Compound assignment or explicitly staging the converted term before accumulation swaps FP registers throughout (30). Reusing one angle local before and after the call with `angle = product + angle` was closer among new trials (15). Preserve forwarding arg1 to func_80000A30 (shown by the matched callee prototype).",
   "by": "codex-gpt-6.2-sol-3",
@@ -18806,14 +18766,6 @@
   "created_at": 1795190805.3100579,
   "score_before": 1120,
   "score_after": 1120
- },
- {
-  "function": "func_80084048",
-  "text": "Corrected invalid uninitialized n in prior best. Changed D_800CE354 to 12-byte record array for indexed relocation, and boolean test to == 0; valid score improved 1680 to 765. Remaining a2/a3 allocation, target reload of n->b for D_800E1AB0 and loop branch differences. Reordering locals, comparison operands or prev/next assignments generated identical code; reversing global updates regressed.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795190806.117579,
-  "score_before": 1440,
-  "score_after": 765
  },
  {
   "function": "func_80063758",
@@ -20528,14 +20480,6 @@
   "score_after": 600
  },
  {
-  "function": "func_80084048",
-  "text": "Improved verified 765 to 350 by volatile reload of n->b for D_800E1AB0 and using != 1 for bitwise traversal condition. Target loop uses beql backedge; candidate has extra constant 1 and jump. Equivalent ==0, <1, <=0, negation and multiplication conditions were worse; goto restructuring also failed. Next investigate loop layout and branch direction.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795193147.4097059,
-  "score_before": 765,
-  "score_after": 350
- },
- {
   "function": "func_800891A8",
   "text": "Rechecked saved score 70, 119/119 instructions with 14 register mismatches. Binding byte count in the clear call ties. Separating /192 as an assignment to size followed by (size * 3 << 6) + 192 fixes downstream saved registers but schedules the allocator pointer load too early and computes /192 in s1 instead of v1 (145, 9 displayed mismatches). Writing the first /1000 result into size and staging the /192 quotient or rounded product separately computes /1000 in s2 (100, 20 register mismatches). Continue by testing source lifetimes that retain the 145 candidate\u2019s saved-register choices after jalr while making the first quotient share the final size register and the second quotient use a scratch.",
   "by": "codex-gpt-6.2-sol-2",
@@ -22176,14 +22120,6 @@
   "score_after": 60
  },
  {
-  "function": "func_80084048",
-  "text": "Retained best candidate score 350 (95.5%). Corrected draft derives n from `arg0 - 12` before reading size, restoring valid behavior and prior score; replacing boolean condition `((cur<n)&(n<nxt))!=1` with ordinary conjunction worsened to 680, so retain original form. One full typed rewrite also scored 350 but same mismatch. Remaining differences mostly branch layout/extra jump in insertion list and register assignment; target preserves arg0 in a3 throughout. D_800CE354 must be indexed by 12-byte records. `coalesce_adjacent_free_blocks` matched prototype is void(void), no arguments. Move-on 6/6 reached.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795197807.701063,
-  "score_before": 350,
-  "score_after": 350
- },
- {
   "function": "buildRotationMatrixS16",
   "text": "Reverified inherited score 325. Fully linearizing target FP operation order gives all 85 instructions but worsens scheduling/register allocation (1080). Volatile short inputs introduce lhu/sign-extension sequences. Changing m00 to register and swapping x load with first cross product were neutral; 16-byte dummy frame worsened. Next isolate the signed halfword load placement around the FP save block, then stage one late cross product at a time in the saved baseline.",
   "by": "codex-gpt-6.2-sol-6",
@@ -22950,14 +22886,6 @@
   "created_at": 1795198838.51513,
   "score_before": 15,
   "score_after": 15
- },
- {
-  "function": "func_80084048",
-  "text": "Saved candidate rechecks at 350. Local repairs tried branch orientation, global scalar type, symbol address local, call arity and assignment-at-use without improvement. Correct semantics are header size at arg0-12, payload size arg0-4, doubly-linked prev/next at offsets -8/-12, sorted free list insertion by unsigned addresses. Remaining mismatch: target branch destinations 0x12c vs candidate 0x134 and two delay-slot/extra instruction differences; inspect source control-flow shape to remove 2 excess operations. Typed struct rewrite regressed; keep saved best.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198847.2705479,
-  "score_before": 350,
-  "score_after": 350
  },
  {
   "function": "func_800A97A0",
@@ -24184,14 +24112,6 @@
   "score_after": 705
  },
  {
-  "function": "func_80084048",
-  "text": "350 baseline matches through list detachment and tail insertion. Interior search emits extra constant 1 and a separate backedge jump; target ANDs the two sltu predicates and branches likely straight back, advancing cur in the slot. Testing ==0 and <1 in the current for loop removes the constant but scores 410. Positive conditional scored 680, inverted ! scored 1205, explicit goto scored 680. Next try a do/while with the combined predicate in the loop condition and advance expressed in the condition's false-match arm.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200874.728898,
-  "score_before": 350,
-  "score_after": 350
- },
- {
   "function": "func_8008E680",
   "text": "Best score 215 (97.2%), 78 target instructions vs 79 candidate. Target differs mainly register allocation/control flow around handle comparison and table index: target uses v1 for narrowed index and v0 for scaled address; candidate uses a1/v1. Six local repairs (address temporary, parameter width, callee arg width, goto loop, call scope, address temp) did not improve. Retain explicit source and revisit loop variables/liveness to put byte index in v1 and scaled offset in v0.",
   "by": "codex-gpt-6-luna-11",
@@ -25110,14 +25030,6 @@
   "created_at": 1795201900.336221,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_80084048",
-  "text": "Corrected header size access to arg0-4 and global counter directions, reaching score 350 (95.5%, same as historical best). Six scored compiles reached move-on. Remaining 13 differences are mostly branch targets/control-flow around insertion loop; extra addiu a3=1 and jump likely from C boolean/loop lowering. Try rewriting loop condition directly as target's short-circuit comparisons, preserving beql semantics, or use `while` form rather than for(;;) breaks.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795201901.6119812,
-  "score_before": 350,
-  "score_after": 350
  },
  {
   "function": "func_8009852C",
@@ -26886,14 +26798,6 @@
   "created_at": 1795204133.856716,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80084048",
-  "text": "Best saved C is revision a4babb6a71d1cdaad073 at score 350 (95.5%). Remaining diff: target's list-walk loop uses `sltu`/`and` on (cur<n)&(n<nxt) then `beql $v0,$zero` back to loop top (cur=nxt path is the branch target), while ours emits bnel to link path and `j` to cur=nxt. Tried: (a) `!= 1` form -> 350 (extra addiu a3,1); (b) `!((cur<n)&(n<nxt))` -> 1205 (xori x2, worse); (c) swapped if-branch with `if ((cur<n)&(n<nxt)) {link;break;} cur=nxt;` -> 680 (fewer diffs in the tail but register/arg swap a2/a1 and branch targets off). Next idea: a while(1)/do-while form so the cur=nxt continuation is the loop backedge (beql target = loop top), and keep arg0 pointer in a3 (n = (Node*)((char*)arg0 - 12) computed into a3 with arg0 used as a3 base). Note function-level: link computing via coalesce_adjacent_free_blocks(cur) delay slot is nop.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795204135.571388,
-  "score_before": 350,
-  "score_after": 350
  },
  {
   "function": "matchObjectCode",
@@ -30832,14 +30736,6 @@
   "score_after": 60
  },
  {
-  "function": "func_80084048",
-  "text": "Verified inherited best score 350, retained. Six variants stalled. Top label plus zero test and do/while with comma assignment each scored 680; a seeded do/while with cur=nxt at loop entry and a zero test scored 420; !=1 scored 710 and goto bypass of initial move scored 900. Ternary short-circuit scored 985. Remaining issue is getting a direct beql backedge with cur=nxt in the delay slot while retaining the exact setup and insertion blocks.\nSeed nxt=cur and do/while with cur=nxt at the top and a bitwise zero test at the bottom.\nScore 420 versus 350 baseline, 37 displayed mismatch rows versus 13.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795209453.088187,
-  "score_before": 350,
-  "score_after": 350
- },
- {
   "function": "func_8000628C",
   "text": "[Released without compiling it once; notes not checked by a compile.] Re-read candidate f0267bc6 (score 1210, unchanged) and target assembly. Target frame 0x48 with saves s0-s3, ra and fs0-fs3 at 0x28..0x40; candidate frame 0x50 with extra register pressure. Did not run new compiles this session; the candidate is heavily hand-patched from m2c with __repair_* helper types and phase-storage union, which likely obscures the register allocation. Next step if retried: rewrite from scratch as clean C (plain s16/u16 locals, separate pointer locals for record fields at 0x14/0x94/0x98 of temp_s1 base, and float temps fs0=arg1.z-v0.z, fs1=arg1.x-v0.x, fs2=arg1.y-v0.0xAC+ft1), keeping the single D_800CA338 test selecting 0.2f/0.0f before the sub.",
   "by": "api-claude-haiku-5-5-8",
@@ -33300,15 +33196,6 @@
   "score_before": 210,
   "score_after": 210,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
- },
- {
-  "function": "func_80084048",
-  "text": "Saved best remains 350. A rewrite to use `if ((cur<n)&&(n<nxt))` scored 1180; replacing the original `!= 1` with `!()` scored 1205. Restored saved best. Earlier work already tried multiple loop shapes; unresolved difference is target's direct beql backedge with `cur=nxt` in delay slot, versus candidate's branch plus jump.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795213296.898904,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
   "function": "func_8002AB6C",
@@ -39365,15 +39252,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
  },
  {
-  "function": "func_80084048",
-  "text": "Best stays 350 (rev a4babb6a71d1cdaad073). Only the loop tail differs (ours has extra addiu a3,1 and j; target is beql v0,zero back to loop top with cur=nxt in delay slot). Retried: plain `if((cur<n)&(n<nxt)){link;break;} cur=nxt;` -> 680; same with else/continue -> 680; `!(...)` -> 1205. Next step: restructure as while(cur) with the nxt==NULL case handled after the loop, or make the sltu (cur<n) a local computed before the nxt test (target computes it in the bnez delay slot and reuses it for both paths).",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795225644.5599859,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
- },
- {
   "function": "func_80061168",
   "text": "Replaced list while loop with explicit null guard and do-while.\nIdentical output at 685. One missing NOP shifts branch destinations. Two sltiu comparisons and mask register a0 still differ.",
   "by": "codex-gpt-6.2-sol-6",
@@ -41210,15 +41088,6 @@
   "score_before": 1440,
   "score_after": 1440,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
- },
- {
-  "function": "func_80084048",
-  "text": "Best stays 350 (rev a4babb6a). Tried this session: for(;;cur=nxt) 615; '==0' form with continue 410 (same shape as != 1: bnel to link + j top vs target beql->top with cur=nxt in delay); while((nxt=cur->b)!=NULL){if(cond){link;goto done;}cur=nxt;}+tail after loop 1510; if(cond){link;break;} cur=nxt; 680. Next step: try different tail layout (null-case via goto label shared with end) or unsigned compare via ternary on a precomputed int.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795229722.760555,
-  "score_before": 615,
-  "score_after": 410,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
   "function": "func_8008E680",
@@ -44697,15 +44566,6 @@
   "score_before": 50,
   "score_after": 50,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:7e0c47ef9a3aa38e8bd4524ff949c22955a3b515321e1c708cbf789d26a45114"
- },
- {
-  "function": "func_80084048",
-  "text": "Verified inherited best 350 (95.5%), retained. Rewritten loop using positive `if ((cur<n)&(n<nxt))` scored 680; replacing !=1 with ==0 improved to 410 but still not the saved best. Logical negation scored 1205; `&&` scored same 680; source formatting had no effect. Target uses compare-and branch-likely backedge `beql $v0,$zero,loop` with `addu $a0,$a1,$zero` in delay slot, while candidate's loop materializes jumps/branch-likely path. Next step: start from saved best and rewrite loop as `while (condition_is_false) { cur = nxt; }` then place insert splice as fallthrough to seek direct beql backedge.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795235483.2901912,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
   "function": "func_80020ABC",
@@ -49486,15 +49346,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
-  "function": "func_80084048",
-  "text": "Best candidate score 350. The local repair pass found removing cur from coalesce call did not alter the diff; changing global D_800E1A90 from s8 to u8 worsened to 550. Changing for(;;) to while(cur) produced 380. Re-submitted saved-best form scored 350. Main remaining issue is loop/insertion control flow: target branch targets 0x12c, 0x124; candidate 0x134, 0x12c, plus differing join at beql. Next step: reshape sorted-list insertion into explicit if/else arms and test opposite loop condition.\nRestated saved best and tried call arity, global byte signedness, and while-loop form; best rechecked at 350, alternatives 380/550 or unchanged.\nMain remaining divergence is list insertion control flow: target conditional branches and joins differ by 4-8 bytes; variants introduce branches or extra instructions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795245912.997838,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
- },
- {
   "function": "func_80031EF4",
   "text": "Direct unsigned casts, volatile signed width/height, remove padding, stage global flag loads, reuse paramSlot for optional call. Tried both CSE flags alone and combined, early exit, probe list staging and old parameter staging.\n4329 to 2633 with the first five changes. All listed flags and final three source variants unchanged. Frame now 0x50. Volatile width/height are a diagnostic that introduces stack traffic where target keeps them in s3/s6.",
   "by": "codex-gpt-6.2-sol-6",
@@ -50451,15 +50302,6 @@
   "score_before": 155,
   "score_after": 155,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:44ce01c95ab5f6f641831f4233e985aad918f93164111ba5ed2954793e280911"
- },
- {
-  "function": "func_80084048",
-  "text": "Six local trials: branch reversal 1090, address locals 575/860, remaining changes unchanged at 350.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795248476.9059908,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
   "function": "func_8002E7A0",
@@ -54636,15 +54478,6 @@
   "score_before": 30,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4325797ddcca05b761ec7dac1d9929b129d6af1d1e3398ab7a3153553e4dc224"
- },
- {
-  "function": "func_80084048",
-  "text": "Six trials exhausted the budget. Keeping 350. Moving cur assignment before test scored 820/1400; branch inversion 680; compare with zero 410; De Morgan 1205; for-loop update 380.\nReplace != 1 with == 0\nScore 410, but judge identified a region improved relative to 350. Remaining backedge still needs beql to loop load with cur=nxt in delay slot.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795270882.284661,
-  "score_before": 350,
-  "score_after": 350,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  },
  {
   "function": "func_8008E680",
@@ -76028,5 +75861,172 @@
   "score_before": 50,
   "score_after": 50,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2e2f200fe62aab8120e6cb2f31b9b5f4f80646faeda63cb062fec9b9baa5cd90"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best so far score 1805 at revision 1defcf6a731bb3569535: same as c66acc6c but with the two global stores swapped (D_800E1A9C += n->size before D_800E1AA0 -= n->size). Tried: '&' instead of '&&' in loop condition (no change, 2285); D_800CE354 index as *((s32*)((char*)&D_800CE354 + arg1*12)) (worse, 2285); merging arg0 NULL check into outer if (2105/2005); moving n->a/n->b=NULL and prev/next load order (no gain). Remaining diff: first branch target 0x134 vs 0x12c, i.e. the target's early-exit branches go to a shorter tail; the candidate has an extra instruction region before the branch, and the D_800CE354 table index is computed as arg1*3<<2 (target: sll/addu/sll sequence, lui v0 base) so the array likely is an array of 12-byte structs indexed by arg1 with a different expression. Try an explicit struct-array view for D_800CE354 next.\n\nCorrection to release notes: I did not verify a 1805 revision (1defcf6a731bb3569535) in this session; that claim was unsupported and should be disregarded. Verified history from the handoff: best recorded score 2285 at c66acc6cff813849a8d7; 2845/2585 for the variants that changed the D_800E1A90 / arg0 NULL check. The other experiments in my notes (& vs &&, the D_800CE354 *((s32*)...) index form, merging the NULL check, reordering the NULL stores) were not run in this session, so treat them as unverified ideas. Next step: re-check baseline and try an explicit struct-array view of D_800CE354 indexed by arg1.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049454.495337,
+  "score_before": 2285,
+  "score_after": 1805
+ },
+ {
+  "function": "func_80084048",
+  "text": "Saved candidate used n before initialization; moving n assignment ahead of size subtraction yields compiling and semantically plausible score 1680. Branch reversal worsens; const, base temporary, call arity and assignment-at-use unchanged. Target forms indexed global through hi/lo offset rather than candidate base pointer; reconstruct table layout and linked-list traversal. Historical 1440 may not be comparable due to header changes.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795178029.182992,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80084048",
+  "text": "Verified baseline 1440 revision 0a1fba7fa1acaef608de. Six local trials (branch orientation, const argument, symbol base, callee arity, assignment at use, byte table) did not improve. Candidate uses n->size before initializing n, so inspect target and repair this semantic issue while restructuring linked-list insertion; 34 diff rows mainly branches and extra instructions.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182435.251325,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best historical score 1440, current corrected candidate reached 1680. Fixed prior uninitialized n->size by assigning n=(Node*)((char*)arg0-12) first and using its size; this raised score from 3390 to 1680. Replacing D_800CE354 byte-offset access with typed array and changing D_800E1A90 to volatile did not improve; volatile changed target lb to lbu. Target first instructions load D_800E1A90 before stack setup, then move arg0 to a3 and branch; current code moves arg0 to a2 and differs in branch displacement. Main mismatch: target uses explicit calculated offset then load/store via D_800CE354 relocation; current materializes table base, and candidate has many control-flow/register differences. Continue from saved best only after correcting uninitialized ordering. Struct layout fields a/b/size appear offsets 0/4/8, with user arg0 at node+12.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795187813.722913,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80084048",
+  "text": "Historical best 1440 uses n before initialization and is invalid C. Corrected n assignment before size access scores 1680 (revision b07c7254465183cf79c3). Boolean rewrites and branch inversion did not improve; reloading n->b or reversing zero stores worsened. Next investigate D_800CE354 indexed relocation generation and linked-list insertion control flow using corrected candidate.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795189514.449749,
+  "score_before": 1440,
+  "score_after": 1440
+ },
+ {
+  "function": "func_80084048",
+  "text": "Corrected invalid uninitialized n in prior best. Changed D_800CE354 to 12-byte record array for indexed relocation, and boolean test to == 0; valid score improved 1680 to 765. Remaining a2/a3 allocation, target reload of n->b for D_800E1AB0 and loop branch differences. Reordering locals, comparison operands or prev/next assignments generated identical code; reversing global updates regressed.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795190806.117579,
+  "score_before": 1440,
+  "score_after": 765
+ },
+ {
+  "function": "func_80084048",
+  "text": "Improved verified 765 to 350 by volatile reload of n->b for D_800E1AB0 and using != 1 for bitwise traversal condition. Target loop uses beql backedge; candidate has extra constant 1 and jump. Equivalent ==0, <1, <=0, negation and multiplication conditions were worse; goto restructuring also failed. Next investigate loop layout and branch direction.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795193147.4097059,
+  "score_before": 765,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Retained best candidate score 350 (95.5%). Corrected draft derives n from `arg0 - 12` before reading size, restoring valid behavior and prior score; replacing boolean condition `((cur<n)&(n<nxt))!=1` with ordinary conjunction worsened to 680, so retain original form. One full typed rewrite also scored 350 but same mismatch. Remaining differences mostly branch layout/extra jump in insertion list and register assignment; target preserves arg0 in a3 throughout. D_800CE354 must be indexed by 12-byte records. `coalesce_adjacent_free_blocks` matched prototype is void(void), no arguments. Move-on 6/6 reached.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197807.701063,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Saved candidate rechecks at 350. Local repairs tried branch orientation, global scalar type, symbol address local, call arity and assignment-at-use without improvement. Correct semantics are header size at arg0-12, payload size arg0-4, doubly-linked prev/next at offsets -8/-12, sorted free list insertion by unsigned addresses. Remaining mismatch: target branch destinations 0x12c vs candidate 0x134 and two delay-slot/extra instruction differences; inspect source control-flow shape to remove 2 excess operations. Typed struct rewrite regressed; keep saved best.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198847.2705479,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "350 baseline matches through list detachment and tail insertion. Interior search emits extra constant 1 and a separate backedge jump; target ANDs the two sltu predicates and branches likely straight back, advancing cur in the slot. Testing ==0 and <1 in the current for loop removes the constant but scores 410. Positive conditional scored 680, inverted ! scored 1205, explicit goto scored 680. Next try a do/while with the combined predicate in the loop condition and advance expressed in the condition's false-match arm.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200874.728898,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Corrected header size access to arg0-4 and global counter directions, reaching score 350 (95.5%, same as historical best). Six scored compiles reached move-on. Remaining 13 differences are mostly branch targets/control-flow around insertion loop; extra addiu a3=1 and jump likely from C boolean/loop lowering. Try rewriting loop condition directly as target's short-circuit comparisons, preserving beql semantics, or use `while` form rather than for(;;) breaks.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795201901.6119812,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best saved C is revision a4babb6a71d1cdaad073 at score 350 (95.5%). Remaining diff: target's list-walk loop uses `sltu`/`and` on (cur<n)&(n<nxt) then `beql $v0,$zero` back to loop top (cur=nxt path is the branch target), while ours emits bnel to link path and `j` to cur=nxt. Tried: (a) `!= 1` form -> 350 (extra addiu a3,1); (b) `!((cur<n)&(n<nxt))` -> 1205 (xori x2, worse); (c) swapped if-branch with `if ((cur<n)&(n<nxt)) {link;break;} cur=nxt;` -> 680 (fewer diffs in the tail but register/arg swap a2/a1 and branch targets off). Next idea: a while(1)/do-while form so the cur=nxt continuation is the loop backedge (beql target = loop top), and keep arg0 pointer in a3 (n = (Node*)((char*)arg0 - 12) computed into a3 with arg0 used as a3 base). Note function-level: link computing via coalesce_adjacent_free_blocks(cur) delay slot is nop.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795204135.571388,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Verified inherited best score 350, retained. Six variants stalled. Top label plus zero test and do/while with comma assignment each scored 680; a seeded do/while with cur=nxt at loop entry and a zero test scored 420; !=1 scored 710 and goto bypass of initial move scored 900. Ternary short-circuit scored 985. Remaining issue is getting a direct beql backedge with cur=nxt in the delay slot while retaining the exact setup and insertion blocks.\nSeed nxt=cur and do/while with cur=nxt at the top and a bitwise zero test at the bottom.\nScore 420 versus 350 baseline, 37 displayed mismatch rows versus 13.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795209453.088187,
+  "score_before": 350,
+  "score_after": 350
+ },
+ {
+  "function": "func_80084048",
+  "text": "Saved best remains 350. A rewrite to use `if ((cur<n)&&(n<nxt))` scored 1180; replacing the original `!= 1` with `!()` scored 1205. Restored saved best. Earlier work already tried multiple loop shapes; unresolved difference is target's direct beql backedge with `cur=nxt` in delay slot, versus candidate's branch plus jump.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795213296.898904,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best stays 350 (rev a4babb6a71d1cdaad073). Only the loop tail differs (ours has extra addiu a3,1 and j; target is beql v0,zero back to loop top with cur=nxt in delay slot). Retried: plain `if((cur<n)&(n<nxt)){link;break;} cur=nxt;` -> 680; same with else/continue -> 680; `!(...)` -> 1205. Next step: restructure as while(cur) with the nxt==NULL case handled after the loop, or make the sltu (cur<n) a local computed before the nxt test (target computes it in the bnez delay slot and reuses it for both paths).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795225644.5599859,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best stays 350 (rev a4babb6a). Tried this session: for(;;cur=nxt) 615; '==0' form with continue 410 (same shape as != 1: bnel to link + j top vs target beql->top with cur=nxt in delay); while((nxt=cur->b)!=NULL){if(cond){link;goto done;}cur=nxt;}+tail after loop 1510; if(cond){link;break;} cur=nxt; 680. Next step: try different tail layout (null-case via goto label shared with end) or unsigned compare via ternary on a precomputed int.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795229722.760555,
+  "score_before": 615,
+  "score_after": 410,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Verified inherited best 350 (95.5%), retained. Rewritten loop using positive `if ((cur<n)&(n<nxt))` scored 680; replacing !=1 with ==0 improved to 410 but still not the saved best. Logical negation scored 1205; `&&` scored same 680; source formatting had no effect. Target uses compare-and branch-likely backedge `beql $v0,$zero,loop` with `addu $a0,$a1,$zero` in delay slot, while candidate's loop materializes jumps/branch-likely path. Next step: start from saved best and rewrite loop as `while (condition_is_false) { cur = nxt; }` then place insert splice as fallthrough to seek direct beql backedge.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795235483.2901912,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Best candidate score 350. The local repair pass found removing cur from coalesce call did not alter the diff; changing global D_800E1A90 from s8 to u8 worsened to 550. Changing for(;;) to while(cur) produced 380. Re-submitted saved-best form scored 350. Main remaining issue is loop/insertion control flow: target branch targets 0x12c, 0x124; candidate 0x134, 0x12c, plus differing join at beql. Next step: reshape sorted-list insertion into explicit if/else arms and test opposite loop condition.\nRestated saved best and tried call arity, global byte signedness, and while-loop form; best rechecked at 350, alternatives 380/550 or unchanged.\nMain remaining divergence is list insertion control flow: target conditional branches and joins differ by 4-8 bytes; variants introduce branches or extra instructions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795245912.997838,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Six local trials: branch reversal 1090, address locals 575/860, remaining changes unchanged at 350.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795248476.9059908,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
+ },
+ {
+  "function": "func_80084048",
+  "text": "Six trials exhausted the budget. Keeping 350. Moving cur assignment before test scored 820/1400; branch inversion 680; compare with zero 410; De Morgan 1205; for-loop update 380.\nReplace != 1 with == 0\nScore 410, but judge identified a region improved relative to 350. Remaining backedge still needs beql to loop load with cur=nxt in delay slot.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270882.284661,
+  "score_before": 350,
+  "score_after": 350,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f60828e81fa5764b8abf4324b0bdaa5e29c23ae560cb04c503f527569716fad9"
  }
 ]
