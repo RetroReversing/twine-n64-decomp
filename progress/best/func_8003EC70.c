@@ -14,8 +14,8 @@ extern s8 *D_800E19C0;
 extern s8 *D_800E19C4;
 extern s16 D_800E19C8;
 extern s16 D_800E19CA;
-extern u16 D_800E19CC;
-extern u16 D_800E19CE;
+extern s16 D_800E19CC;
+extern s16 D_800E19CE;
 
 s32 func_8003EC70(s32 arg0) {
 
@@ -190,6 +190,7 @@ s32 func_8003EC70(s32 arg0) {
                         goto block_45;
                     }
                     break;
+                case 2:
                 default:
                     if ((s16) D_800E19C8 != 0) {
                         var_ft1 = D_800C075C;

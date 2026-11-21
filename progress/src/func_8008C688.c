@@ -14,12 +14,12 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80089850();                            /* extern */
 extern s32 D_800E4230;
-extern M2C_UNK (*D_80100180)(s32);
+extern M2C_UNK (*gDataBankFree)(s32);
 
 void func_8008C688(void) {
     if (D_800E4230 != 0) {
         func_80089850();
-        D_80100180(D_800E4230);
+        gDataBankFree(D_800E4230);
         D_800E4230 = 0;
     }
 }

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 (*D_80100178)(s32, s32);
+extern s32 (*gDataBankTranslate)(s32, s32);
 
 s32 func_8008C758(s32 arg0) {
     s32 temp_v0;
@@ -21,7 +21,7 @@ s32 func_8008C758(s32 arg0) {
     var_a1 = arg0;
     temp_v0 = var_a1 & 0xFF000000;
     if ((temp_v0 != 0x80000000) & (temp_v0 != 0xB0000000)) {
-        var_a1 = D_80100178(var_a1, var_a1);
+        var_a1 = gDataBankTranslate(var_a1, var_a1);
     }
     return var_a1;
 }

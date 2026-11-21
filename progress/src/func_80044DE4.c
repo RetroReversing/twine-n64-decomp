@@ -12,22 +12,22 @@ void func_80044DE4(u32 arg0) {
     case 40: var_a0=&D_800C2BA4; break; case 28: var_a0=&D_800C2BB0; break; case 18: var_a0=&D_800C2BB8; break;
     case 29: var_a0=&D_800C2BC0; break; case 33: var_a0=&D_800C2BCC; break; case 36: var_a0=&D_800C2B50; break;
     case 0: case 4: case 7: case 9: case 12: case 19: case 21: case 22: case 23: case 24: case 26: case 31: case 32: case 39:
-        var_v1=0x1B; var_a0_2=(char *)&sp10[0x1B]; var_v0=0x1FA;
-        do { *(s16*)var_a0_2=var_v0; var_a0_2-=2; var_v1--; var_v0--; } while(var_v1>=0);
+        var_v1=0x1B; var_a0=(u16 *)&sp10[0x1B]; var_v0=0x1FA;
+        do { *var_a0=var_v0; var_a0--; var_v1--; var_v0--; } while(var_v1>=0);
         sp10[0x1C]=-1; func_80044D28(&sp10[0]); var_a0=&D_800C2BF4; break;
     default: var_a0=NULL; break;
     }
     if(var_a0!=NULL) func_80044D28(var_a0);
     var_v1_2=0x1B;
     if(D_80112F6C!=0) {
-        var_a0_2=(char *)&sp10[0x1B]; var_v0_2=0x1FA;
-        do { *(s16*)var_a0_2=var_v0_2; var_a0_2-=2; var_v1_2--; var_v0_2--; } while(var_v1_2>=0);
+        var_a0=(u16 *)&sp10[0x1B]; var_v0_2=0x1FA;
+        do { *var_a0=var_v0_2; var_a0--; var_v1_2--; var_v0_2--; } while(var_v1_2>=0);
         sp10[0x1C]=-1; func_80044D28(&sp10[0]);
     }
     var_v1_3=0;
     if(D_80112F6D!=0) {
-        var_a0_2=(char *)&sp10[0]; var_a0_4=0;
-        do { temp_v0=*(u16*)(D_800C447A+var_a0_4); var_a0_4+=0x10; var_v1_3++; *(u16*)var_a0_2=temp_v0; var_a0_2+=2; } while(var_v1_3<0x1E);
+        var_a0_2=(char *)&sp10[0]; var_a0=(u16 *)0;
+        do { temp_v0=*(u16*)(D_800C447A+(s32)var_a0); var_a0+=8; var_v1_3++; *(u16*)var_a0_2=temp_v0; var_a0_2+=2; } while(var_v1_3<0x1E);
         sp10[0x1E]=-1; func_80044D28(&sp10[1],var_a0_2);
     }
     if(gBorderSkipFlag!=0) func_80044D28(&gSharedItemId);

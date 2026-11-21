@@ -26,7 +26,7 @@ extern M2C_UNK D_800E415C;
 extern s8 D_800E416C;
 extern s32 D_800E41D4;
 extern s8 D_800E41D8;
-extern s32 (*D_8010017C)(M2C_UNK, M2C_UNK);
+extern s32 (*gDataBankAlloc)(M2C_UNK, M2C_UNK);
 extern s8 D_8010086C;
 extern M2C_UNK audioSilenceThread;
 
@@ -45,7 +45,7 @@ s32 func_8008BA98(s32 *arg0, u16 arg1, u16 arg2, u32 arg3) {
     temp_v0 = osAiSetFrequency(*arg0);
     D_800E41D4 = temp_v0;
     *arg0 = temp_v0;
-    temp_v0_2 = D_8010017C(0x400, 0x80);
+    temp_v0_2 = gDataBankAlloc(0x400, 0x80);
     D_800E4140 = temp_v0_2;
     osCreateThread(&D_800E3F90, 0, &audioSilenceThread, 0, temp_v0_2 + 0x400, 0x7A);
     osStartThread((M2C_UNK *)((u32)&D_800E41D8 - 0x248));

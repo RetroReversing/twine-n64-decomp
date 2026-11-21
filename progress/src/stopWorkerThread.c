@@ -35,7 +35,7 @@ extern s32 D_800E4258;
 extern volatile u16 sWorkerAckCounter;
 extern M2C_UNK (*D_80100168)();
 extern M2C_UNK (*D_80100170)(M2C_UNK *);
-extern M2C_UNK (*D_80100180)(s32);
+extern M2C_UNK (*gDataBankFree)(s32);
 extern s32 D_80103EB4;
 extern M2C_UNK func_8008B25C;
 
@@ -55,27 +55,27 @@ extern M2C_UNK func_8008B25C;
         }
         if (D_800E4230 != 0) {
             func_80089850();
-            D_80100180(D_800E4230);
+            gDataBankFree(D_800E4230);
             D_800E4230 = 0;
         }
         if (D_800E4238 != 0) {
-            D_80100180(D_800E4238);
+            gDataBankFree(D_800E4238);
         }
         do {
 
         } while (sWorkerBusy != 0);
-        D_80100180(D_80103EB4);
-        D_80100180(D_800E4244);
-        D_80100180(D_800E4240);
-        D_80100180(D_800E4258);
-        D_80100180(D_800E4254);
-        D_80100180(D_800E4220);
-        D_80100180(D_800E4224);
-        D_80100180(D_800E41E0);
-        D_80100180(D_800E422C);
+        gDataBankFree(D_80103EB4);
+        gDataBankFree(D_800E4244);
+        gDataBankFree(D_800E4240);
+        gDataBankFree(D_800E4258);
+        gDataBankFree(D_800E4254);
+        gDataBankFree(D_800E4220);
+        gDataBankFree(D_800E4224);
+        gDataBankFree(D_800E41E0);
+        gDataBankFree(D_800E422C);
         quitMsg = 0xFF;
         osSendMesg(&gWorkerMsgQueue, &quitMsg, 1);
-        D_80100180(D_800E4170);
-        D_80100180(D_800E4140);
+        gDataBankFree(D_800E4170);
+        gDataBankFree(D_800E4140);
     }
 }

@@ -2,7 +2,7 @@ extern volatile u16 gAudioSampleCount;
 extern u32 D_800E41F4;
 extern char D_800E41F8[], D_800E4210[];
 extern s8 sWorkerBusy;
-extern s32 (*D_8010017C)(s32,s32);
+extern s32 (*gDataBankAlloc)(s32,s32);
 extern u8 D_8010086C;
 extern s32 D_80103EB4;
 extern u16 D_800CEED0[];
@@ -11,7 +11,7 @@ void func_80089C10(s32);
 void func_80089E64(u16);
 void osCreateMesgQueue(void *, void *, s32);
 
-/* Sets up the buffer sizing from a rate/count pair: derives the sample count and byte size, allocates the buffer through D_8010017C and initialises its message queue. */
+/* Sets up the buffer sizing from a rate/count pair: derives the sample count and byte size, allocates the buffer through gDataBankAlloc and initialises its message queue. */
 /* Sets up the audio buffer sizing from a rate/count pair: derives the sample count and byte size, allocates the buffer and initialises its message queue. */ void audioSetupRateBuffer(u16 rate, u32 freq, u8 index) {
     u32 count; u32 rate0;
     if (D_8010086C == 0) {
@@ -28,7 +28,7 @@ void osCreateMesgQueue(void *, void *, s32);
     D_800E41F4 = size;
     if ((s32)total < 0) d += D_800D6710;
     D_800E41F4 = (((((u32)((f32)d * 0.9f) + 63) >> 6) * 0x28) + 15) & 0xFFF0; }
-    D_80103EB4 = D_8010017C(gAudioSampleCount * 0x18, 0);
+    D_80103EB4 = gDataBankAlloc(gAudioSampleCount * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     sWorkerBusy = 0;
     func_80089C10(gAudioSampleCount);

@@ -8,7 +8,7 @@ extern volatile u8 D_800E41D0;
 extern u32 D_800E41D4;
 extern u8 D_800E41D8;
 extern volatile u16 D_800E41DA;
-extern s32 (*D_8010017C)(s32, s32);
+extern s32 (*gDataBankAlloc)(s32, s32);
 extern u8 D_8010086C;
 
 void audioSilenceThread(void) {
@@ -25,7 +25,7 @@ void audioSilenceThread(void) {
     if (D_800E41D4 < 0x5623U) {
         D_800E41DA = buffers >> 1;
     }
-    D_800E4170[0] = D_8010017C(D_800E41DA * 0x300, 0x80);
+    D_800E4170[0] = gDataBankAlloc(D_800E41DA * 0x300, 0x80);
     i = 1;
     count = *(u16 *)&D_800E41DA;
     prev = D_800E4170;

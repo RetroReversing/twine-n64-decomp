@@ -21,12 +21,12 @@ extern s8 sDataBankEnabled;
 extern char D_800E1AC0[];
 extern char D_800E2CC0[];
 extern s32 D_800E3F10;
-extern s32 D_800E3F1C;
+extern s32 sDataBankTable;
 extern s32 D_800E3F24;
 extern s32 D_800E3F2C;
 extern char D_800E3F30[];
 extern char D_800E3F48[];
-extern s32 (*D_8010017C)(s32, s32);
+extern s32 (*gDataBankAlloc)(s32, s32);
 extern u8 D_8010086C;
 extern s32 *D_8010D428;
 extern s32 func_8008863C;
@@ -44,7 +44,7 @@ void func_80088C50(s32 arg0) {
     var_s0 = D_800E1AC0;
     var_s2 = 0;
     D_800E3F2C = arg0;
-    D_800E3F1C = 0;
+    sDataBankTable = 0;
     do {
         func_8009D510(var_s0, 0, 0, 0, 0);
         if (D_8010086C != 0) {
@@ -63,7 +63,7 @@ void func_80088C50(s32 arg0) {
         var_s1_2 = 0;
         var_s0_2 = &D_800E3F24;
         do {
-            temp_v0 = D_8010017C(temp_s2, 0);
+            temp_v0 = gDataBankAlloc(temp_s2, 0);
             var_s1_2 += 1;
             *(s32 *)var_s0_2 = temp_v0;
             func_800A0170(temp_v0, temp_s2);

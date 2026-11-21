@@ -37,6 +37,7 @@ f32 __repair_sp4C_1;
     s32 spA8;
     f32 spB0[3];
     f32 spC0[3];
+    volatile s32 frame_padding[6];
     void *spD4;
     s32 spDC;
     f32 temp_a0;
@@ -173,9 +174,9 @@ f32 __repair_sp4C_1;
         temp_v1 = (*(void **)((char *)(arg0) + 0x68));
         if (((*(u16 *)((char *)(temp_v1) + 0xC)) & 1) && (*(s32 *)(D_800C46FC + ((*(s8 *)((char *)(temp_v1) + 0xE)) * 0xE8)) & 8)) {
             temp_v0_6 = spDC * 0xC;
-            *(s32 *)(D_80109A98 + temp_v0_6) = sp58[0];
-            *(s32 *)(D_80109A9C + temp_v0_6) = sp58[1];
-            *(s32 *)(D_80109AA0 + temp_v0_6) = sp58[2];
+            *(s32 *)(D_80109A98 + temp_v0_6) = ((s32 *)sp58)[0];
+            *(s32 *)(D_80109A9C + temp_v0_6) = ((s32 *)sp58)[1];
+            *(s32 *)(D_80109AA0 + temp_v0_6) = ((s32 *)sp58)[2];
         }
         if ((*(s16 *)((char *)(arg0) + 0x7C)) == 5) {
             spD4 = (*(void **)((char *)((*(void **)((char *)(temp_s3) + 0xBC))) + 0x6C));

@@ -3,8 +3,8 @@ typedef struct { u8 pad0[0x24]; s32 f24; u8 pad28[8]; u16 h30; u8 pad32[0x26]; s
 typedef struct { u32 w0; s32 w4; } EvA20C;
 extern s32 D_800FDB80;
 extern s32 D_800FDB84;
-extern u32 D_800FDB88;
-extern u32 D_800FDB8C;
+extern u32 sAudioVoiceVolume;
+extern u32 sAudioVolumeMax;
 s32 func_8009835C(u16, s32 *);
 void audioVoiceSetup(u8, u32 *, s32);
 
@@ -18,21 +18,21 @@ s32 func_8009A20C(VoiceA20C *v, EvA20C *e) {
     }
     switch (*(u8 *)e) {
     case 0:
-        D_800FDB88 = e->w4;
+        sAudioVoiceVolume = e->w4;
         break;
     case 1:
-        { s32 h = v->h30; s32 w = e->w4; D_800FDB88 = (u32)((0x7F - h) * w) / 127; }
+        { s32 h = v->h30; s32 w = e->w4; sAudioVoiceVolume = (u32)((0x7F - h) * w) / 127; }
         break;
     case 2:
-        D_800FDB88 = (u32)(v->h30 * e->w4) / 127;
+        sAudioVoiceVolume = (u32)(v->h30 * e->w4) / 127;
         break;
     default:
-        D_800FDB88 = 0;
+        sAudioVoiceVolume = 0;
         break;
     }
-    p = &D_800FDB88;
-    if (*p >= D_800FDB8C) {
-        *p = D_800FDB8C - 1;
+    p = &sAudioVoiceVolume;
+    if (*p >= sAudioVolumeMax) {
+        *p = sAudioVolumeMax - 1;
     }
     ch = v->b63;
     if (!(v->f24 & 0x200)) {

@@ -4,12 +4,12 @@ extern u8 *D_800E4244;
 extern s32 D_800E4248;
 extern s32 D_800E424C;
 extern N89C10 *D_800E4250;
-extern void *(*D_8010017C)(s32, s32);
+extern void *(*gDataBankAlloc)(s32, s32);
 void func_800A0170(void *, s32);
 
 void func_80089C10(s32 arg0) {
     s32 i;
-    void *(**alloc)(s32, s32) = &D_8010017C;
+    void *(**alloc)(s32, s32) = &gDataBankAlloc;
     s32 size;
 
     D_800E4240 = (*alloc)(arg0 * sizeof(N89C10), 0);

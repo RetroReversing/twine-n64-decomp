@@ -25,7 +25,7 @@ extern u32 D_800E41D4;
 extern void *D_800E4230;
 extern s32 D_800E4234;
 extern void *D_800E4238;
-extern void *(*D_8010017C)(s32, s32);
+extern void *(*gDataBankAlloc)(s32, s32);
 
 void func_800891A8(S891A8 *arg0) {
     u32 rate;
@@ -40,7 +40,7 @@ void func_800891A8(S891A8 *arg0) {
             rate = scaled / 1000;
         } while (0);
         rate = (rate / 192) * 192 + 192;
-        d = D_8010017C(0x48, 0);
+        d = gDataBankAlloc(0x48, 0);
         bytes = rate * 2;
         d->buf = D_800E4238;
         func_800A0FA0(D_800E4238, bytes);
