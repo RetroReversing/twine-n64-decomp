@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_80045CC4();                                /* extern */
 extern f64 D_800D3E00;
 
-f32 randomFloatScaled(f32 arg0) {
+f32 func_80045D2C(f32 arg0) {
     f64 var_ft0;
     s32 temp_v0;
 
