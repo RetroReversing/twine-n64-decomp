@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u16 *D_80109A50;
+extern u16 *sHeapFirstBlock;
 
 s32 func_8000B534(void) {
     u8 *p;
@@ -21,7 +21,7 @@ s32 func_8000B534(void) {
     s32 sum;
     u16 flags;
 
-    p = (u8 *)D_80109A50;
+    p = (u8 *)sHeapFirstBlock;
     sum = 0;
     if (!(*(u16 *)p & 8)) {
         do {

@@ -22,7 +22,7 @@ extern char sMenuTimer[];
 extern u8 sSaveMenuFlag;
 extern u8 D_80102EE0;
 extern u8 sDifficultyLevel;
-extern char D_80102EFC[];
+extern char sProbeTimer[];
 
 typedef struct { s32 w[9]; } __W36;
 /* Runs one frame of the menu state machine: dispatches on the menu state at +0x7A, advances text, and sets the outcome when done. */
@@ -95,7 +95,7 @@ block_19:
         return;
     case 11:
         if (decayObjectTimers(arg0) & 0xFF) {
-            func_8002B02C(D_80102EFC);
+            func_8002B02C(sProbeTimer);
             func_800283B0();
             gMenuOutcome = 2;
             func_80087E74();

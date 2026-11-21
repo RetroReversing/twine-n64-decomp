@@ -19,29 +19,29 @@ s16 timerGetTotalSeconds(M2C_UNK *);                       /* extern */
 M2C_UNK func_8011AA04();                            /* extern */
 s16 strlen(M2C_UNK *);                              /* extern */
 extern u8 gMenuUseTextList;
-extern M2C_UNK D_8011F0E0;
-extern M2C_UNK D_8011F3AC;
-extern s16 D_8011F3B0;
-extern void *D_8011F3BC;
+extern M2C_UNK sMenuCountdownText;
+extern M2C_UNK sMenuCountdown;
+extern s16 sMenuCountdownMuted;
+extern void *sMenuCountdownWidget;
 
-void func_8011C580(void) {
+void updateMenuCountdown(void) {
     void *temp_s1;
 
     if (gMenuUseTextList != 0) {
-        temp_s1 = D_8011F3BC;
+        temp_s1 = sMenuCountdownWidget;
         if (temp_s1 != NULL) {
-            if ((timerGetTotalSeconds(&D_8011F3AC) << 0x10) > 0) {
-                if ((timerGetTotalSeconds(&D_8011F3AC) < 6) && (D_8011F3B0 == 0)) {
+            if ((timerGetTotalSeconds(&sMenuCountdown) << 0x10) > 0) {
+                if ((timerGetTotalSeconds(&sMenuCountdown) < 6) && (sMenuCountdownMuted == 0)) {
                     requestSound(0x123);
                 }
-                advanceTimerRecord(&D_8011F3AC, -1);
+                advanceTimerRecord(&sMenuCountdown, -1);
                 M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x14;
             } else {
                 func_8011AA04();
                 M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x1C;
             }
-            do { func_8002B180(&D_8011F3AC, &D_8011F0E0); } while (0);
-            M2C_FIELD(temp_s1, s16 *, 0x1C) = strlen(&D_8011F0E0);
+            do { func_8002B180(&sMenuCountdown, &sMenuCountdownText); } while (0);
+            M2C_FIELD(temp_s1, s16 *, 0x1C) = strlen(&sMenuCountdownText);
         }
     }
 }

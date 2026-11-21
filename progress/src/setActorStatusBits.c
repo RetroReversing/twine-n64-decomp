@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800643C8(void *arg0) {
+void setActorStatusBits(void *arg0) {
     M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 0xF0);
 }

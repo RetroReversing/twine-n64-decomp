@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *getObjectListHead();                              /* extern */
 M2C_UNK func_80064370(void *, s8);                  /* extern */
-M2C_UNK func_800643C8(void *);                      /* extern */
+M2C_UNK setActorStatusBits(void *);                      /* extern */
 M2C_UNK func_800643D8(void *);                      /* extern */
 
 void func_8000CF14(s32 arg0) {
@@ -38,7 +38,7 @@ void func_8000CF14(s32 arg0) {
                     if (var_a0 != 0) {
                         func_80064370(var_s0, M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), s8 *, 0x182));
                     } else {
-                        func_800643C8(var_s0);
+                        setActorStatusBits(var_s0);
                     }
                 } else {
                     func_800643D8(var_s0);

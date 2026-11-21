@@ -1,4 +1,4 @@
-s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 func_8000B384(); s32 func_8000B534(); s32 romDmaRead(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
+s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 heapAllocBlock(); s32 func_8000B534(); s32 romDmaRead(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
 extern char D_14CD630[],D_14D0ED0[],D_14DDC00[],D_14E2500[],D_1D69630[],D_800B2488[],D_800B256C[],D_800DD7D0[];
 extern char D_014D0ED0[], D_014DDC00[], D_014E2500[];
 extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,sDistanceSoundResult; extern s32 *sDistanceSoundArg; extern s16 gExpansionPakPresent;
@@ -13,15 +13,15 @@ extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,s
         return 0;
     }
     bankSize = D_014D0ED0 - D_14CD630;
-    bankId = func_8000B384(bankSize, 0);
+    bankId = heapAllocBlock(bankSize, 0);
     D_800E06FC = bankId;
     romDmaRead(bankId, (s32)D_14CD630 & 0x0FFFFFFF, bankSize);
     bankSize = D_014DDC00 - D_14D0ED0;
-    bankId = func_8000B384(bankSize, 0);
+    bankId = heapAllocBlock(bankSize, 0);
     D_800E0700 = bankId;
     romDmaRead(bankId, (s32)D_14D0ED0 & 0x0FFFFFFF, bankSize);
     bankSize = D_014E2500 - D_14DDC00;
-    bankId = func_8000B384(bankSize, 0);
+    bankId = heapAllocBlock(bankSize, 0);
     D_800E0704 = bankId;
     romDmaRead(bankId, (s32)D_14DDC00 & 0x0FFFFFFF, bankSize);
     func_80092A68(D_800E06FC, 0, D_14E2500, D_800E0704, D_800E0700);

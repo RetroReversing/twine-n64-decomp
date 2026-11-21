@@ -108,7 +108,7 @@ typedef s32 M2C_UNK32;
 void *memset(void *, int, unsigned int);
 extern void *D_80100304;
 extern s16 gExpansionPakPresent;
-extern u16 D_8010A518;
+extern u16 sMatrixPoolSlotCount;
 
 void func_800081C4(s32 arg0) {
     s32 var_s2;
@@ -122,12 +122,12 @@ char __repair_stack_padding[8];
         var_s2 = 0x4B000;
     }
     var_s0 = 0;
-    if (D_8010A518 != 0) {
+    if (sMatrixPoolSlotCount != 0) {
         var_s1 = &D_80100304;
         do {
             memset(*(void **)var_s1, arg0 & 0xFF, var_s2);
             var_s0 += 1;
             var_s1 += 4;
-        } while (var_s0 < (u16) D_8010A518);
+        } while (var_s0 < (u16) sMatrixPoolSlotCount);
     }
 }

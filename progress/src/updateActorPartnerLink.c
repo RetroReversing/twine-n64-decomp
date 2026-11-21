@@ -1,6 +1,6 @@
 s32 func_8011AE4C();
 s32 func_8011B3D8();
-s32 func_8011C338();
+s32 releaseProbeForOwner();
 s32 func_8011D0B4();
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
@@ -58,7 +58,7 @@ void updateActorPartnerLink(Arg *arg0) {
         break;
     case 2:
     case 3:
-        func_8011C338(arg0);
+        releaseProbeForOwner(arg0);
     default:
         if (b == a || b == 0) {
             a->stats->partnerCount += 1;

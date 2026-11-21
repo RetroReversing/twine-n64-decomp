@@ -1,179 +1,120 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-f32 func_80045E34(void *, void *, void *);                  /* extern */
-s32 findNearestMatchingObject(void *, void *, void **, f32 *);  /* extern */
+f32 approxDistance(void *, void *);
+s32 findNearestMatchingObject(void *, void *, void **, f32 *);
 extern u16 gSurfaceQueryStamp;
 extern u16 D_80108F72;
-extern void *D_8010A500;
+extern void *sBonusObjectTable;
 extern f32 D_80117408;
+
+typedef struct Node {
+    struct Node *next;
+    u8 pad4[4];
+    struct Node *obj;
+    u8 pad[0x1A - 0xC + 0x0];
+} Node;
+
+#define F(p, t, o) (*(t *)((s8 *)(p) + (o)))
 
 void *func_8007847C(void *arg0) {
     void *sp10;
     f32 sp14;
     s32 temp_s6;
-    s32 var_s3;
-    s32 var_v0_2;
-    s32 var_v0_3;
-    s32 var_v1_3;
-    u16 temp_t0;
-    u8 temp_v1;
-    void *temp_a0;
-    void *temp_a0_2;
-    void *temp_a0_3;
-    void *temp_a1;
-    void *temp_s0;
-    void *temp_s5;
-    void *temp_v1_2;
-    void *temp_v1_3;
-    void *var_s0;
-    void *var_s2;
-    void *var_s4;
-    void *var_v0;
-    void *var_v1;
-    void *var_v1_2;
+    s32 found;
+    void *s5, *s0, *s2, *s4, *n, *a0, *v1;
+    u16 stamp;
 
-    temp_s5 = M2C_FIELD(arg0, void **, 0x6C);
+    s5 = F(arg0, void *, 0x6C);
     sp10 = NULL;
-    temp_v1 = M2C_FIELD(temp_s5, u8 *, 0x82);
-    temp_s6 = M2C_FIELD(arg0, s32 *, 0x60);
-    if (temp_v1 == 0x1E) {
-        if ((D_80117408 <= (f32) M2C_FIELD(temp_s5, s16 *, 0x74)) && (var_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0), (var_v1 != NULL))) {
-            for (;;) {
-                if ((M2C_FIELD(var_v1, u16 *, 0x78) != 1) || (var_v0 = var_v1, ((M2C_FIELD(M2C_FIELD(var_v1, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x600000))) {
-                    var_v1 = M2C_FIELD(var_v1, void **, 0);
-                    if (var_v1 != NULL) {
-                        continue;
-                    }
-                    goto block_49;
-                }
-                break;
+    temp_s6 = F(arg0, s32, 0x60);
+    if (F(s5, u8, 0x82) == 0x1E) {
+        if (D_80117408 <= (f32) F(s5, s16, 0x74)) {
+            n = F(F(arg0, void *, 0x20), void *, 0);
+            for (; n != NULL; n = F(n, void *, 0)) {
+                if (F(n, u16, 0x78) == 1 && (F(F(n, void *, 0x6C), s32, 0x88) & 0x01E00000) == 0x600000)
+                    return n;
             }
-        } else {
-            goto block_49;
         }
-        /* Duplicate return node #50. Try simplifying control flow for better match */
-        return var_v0;
+        return *(void **)&sBonusObjectTable;
     }
-    if (temp_v1 == 0x1F) {
-        var_v1_2 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0);
-        if (var_v1_2 != NULL) {
-            for (;;) {
-                if ((M2C_FIELD(var_v1_2, u16 *, 0x78) != 1) || (var_v0 = var_v1_2, ((M2C_FIELD(M2C_FIELD(var_v1_2, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x800000))) {
-                    var_v1_2 = M2C_FIELD(var_v1_2, void **, 0);
-                    if (var_v1_2 == NULL) {
-                        return NULL;
-                    }
-                    continue;
-                }
-                break;
-            }
-            /* Duplicate return node #50. Try simplifying control flow for better match */
-            return var_v0;
+    if (F(s5, u8, 0x82) == 0x1F) {
+        n = F(F(arg0, void *, 0x20), void *, 0);
+        for (; n != NULL; n = F(n, void *, 0)) {
+            if (F(n, u16, 0x78) == 1 && (F(F(n, void *, 0x6C), s32, 0x88) & 0x01E00000) == 0x800000)
+                return n;
         }
-        goto block_48;
+        return NULL;
     }
-    if ((M2C_FIELD(temp_s5, s32 *, 0x88) & 0x01E00000) == 0x200000) {
-        sp14 = func_80045E34(arg0, arg0 + 0x24, D_8010A500 + 0x24);
-        sp10 = D_8010A500;
+    if ((F(s5, s32, 0x88) & 0x01E00000) == 0x200000) {
+        sp14 = approxDistance((s8 *)arg0 + 0x24, (s8 *)(*(void **)&sBonusObjectTable) + 0x24);
+        sp10 = *(void **)&sBonusObjectTable;
     } else {
         sp10 = NULL;
         sp14 = 65536.0f;
     }
-    temp_t0 = gSurfaceQueryStamp + 1;
-    gSurfaceQueryStamp = temp_t0;
-    var_s3 = 0;
+    stamp = gSurfaceQueryStamp + 1;
+    gSurfaceQueryStamp = stamp;
+    found = 0;
     if (D_80108F72 != 0) {
-        temp_s0 = M2C_FIELD(arg0, void **, 0x20);
-        M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & 0xFFFE8FFF);
-        M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x20), u16 *, 0x60) = temp_t0;
-        if ((findNearestMatchingObject(temp_s0, arg0, &sp10, &sp14) << 0x18) != 0) {
-            var_s3 = 1;
-            M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x1000);
+        s0 = F(arg0, void *, 0x20);
+        F(arg0, s32, 0x60) &= 0xFFFE8FFF;
+        F(F(s0, void *, 0x20), u16, 0x60) = stamp;
+        if ((findNearestMatchingObject(s0, arg0, &sp10, &sp14) << 24) != 0) {
+            found = 1;
+            F(arg0, s32, 0x60) |= 0x1000;
         }
-        var_s4 = M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x20), void **, 0x58);
-        var_v1_3 = var_s3 ^ 1;
-        while ((var_s4 != NULL) & var_v1_3) {
-            if (M2C_FIELD(var_s4, u16 *, 0x26) & 0x2000) {
-                            temp_a0 = M2C_FIELD(var_s4, void **, 8);
-                            temp_v1_2 = M2C_FIELD(temp_a0, void **, 0x20);
-                            var_s2 = M2C_FIELD(temp_v1_2, void **, 0x58);
-                            if (M2C_FIELD(temp_v1_2, u16 *, 0x60) != gSurfaceQueryStamp) {
-                                M2C_FIELD(temp_v1_2, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                if ((findNearestMatchingObject(temp_a0, arg0, &sp10, &sp14) << 0x18) != 0) {
-                                    var_s3 = 1;
-                                    M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x2000);
+        s4 = F(F(s0, void *, 0x20), void *, 0x58);
+        while ((s4 != NULL) & !found) {
+            if (F(s4, u16, 0x26) & 0x2000) {
+                a0 = F(s4, void *, 8);
+                v1 = F(a0, void *, 0x20);
+                s2 = F(v1, void *, 0x58);
+                if (F(v1, u16, 0x60) != gSurfaceQueryStamp) {
+                    F(v1, u16, 0x60) = gSurfaceQueryStamp;
+                    if ((findNearestMatchingObject(a0, arg0, &sp10, &sp14) << 24) != 0) {
+                        found = 1;
+                        F(arg0, s32, 0x60) |= 0x2000;
+                    }
+                    while ((s2 != NULL) & !found) {
+                        if (F(s2, u16, 0x26) & 0x2000) {
+                            a0 = F(s2, void *, 8);
+                            v1 = F(a0, void *, 0x20);
+                            s0 = F(v1, void *, 0x58);
+                            if (F(v1, u16, 0x60) != gSurfaceQueryStamp) {
+                                F(v1, u16, 0x60) = gSurfaceQueryStamp;
+                                if ((findNearestMatchingObject(a0, arg0, &sp10, &sp14) << 24) != 0) {
+                                    found = 1;
+                                    F(arg0, s32, 0x60) |= 0x4000;
                                 }
-                                var_v0_2 = var_s2 != NULL;
-                                if (var_v0_2 & (var_s3 ^ 1)) {
-                                    do {
-                                        { {
-                                                                    if (M2C_FIELD(var_s2, u16 *, 0x26) & 0x2000) {
-                                                                        temp_a0_2 = M2C_FIELD(var_s2, void **, 8);
-                                                                        temp_v1_3 = M2C_FIELD(temp_a0_2, void **, 0x20);
-                                                                        var_s0 = M2C_FIELD(temp_v1_3, void **, 0x58);
-                                                                        if (M2C_FIELD(temp_v1_3, u16 *, 0x60) != gSurfaceQueryStamp) {
-                                                                            M2C_FIELD(temp_v1_3, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                                                            if ((findNearestMatchingObject(temp_a0_2, arg0, &sp10, &sp14) << 0x18) != 0) {
-                                                                                var_s3 = 1;
-                                                                                M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x4000);
-                                                                            }
-                                                                            var_v0_3 = var_s0 != NULL;
-                                                                            if (var_v0_3 & (var_s3 ^ 1)) {
-                                                                                do {
-                                                                                    if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x2000) {
-                                                                                        temp_a0_3 = M2C_FIELD(var_s0, void **, 8);
-                                                                                        temp_a1 = M2C_FIELD(temp_a0_3, void **, 0x20);
-                                                                                        if (M2C_FIELD(temp_a1, u16 *, 0x60) != gSurfaceQueryStamp) {
-                                                                                            M2C_FIELD(temp_a1, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                                                                            if ((findNearestMatchingObject(temp_a0_3, arg0, &sp10, &sp14) << 0x18) != 0) {
-                                                                                                var_s3 = 1;
-                                                                                                M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x8000);
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                    var_s0 = M2C_FIELD(var_s0, void **, 0);
-                                                                                } while ((var_s0 != NULL) & (var_s3 ^ 1));
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    var_s2 = M2C_FIELD(var_s2, void **, 0);
-                                                                }
+                                while ((s0 != NULL) & !found) {
+                                    if (F(s0, u16, 0x26) & 0x2000) {
+                                        a0 = F(s0, void *, 8);
+                                        v1 = F(a0, void *, 0x20);
+                                        if (F(v1, u16, 0x60) != gSurfaceQueryStamp) {
+                                            F(v1, u16, 0x60) = gSurfaceQueryStamp;
+                                            if ((findNearestMatchingObject(a0, arg0, &sp10, &sp14) << 24) != 0) {
+                                                found = 1;
+                                                F(arg0, s32, 0x60) |= 0x8000;
+                                            }
                                         }
-                                    } while ((var_s2 != NULL) & (var_s3 ^ 1));
+                                    }
+                                    s0 = F(s0, void *, 0);
                                 }
                             }
                         }
-                        var_s4 = M2C_FIELD(var_s4, void **, 0);
-                        var_v1_3 = var_s3 ^ 1;
+                        s2 = F(s2, void *, 0);
+                    }
+                }
+            }
+            s4 = F(s4, void *, 0);
         }
         if (sp10 != NULL) {
-            if (sp10 != D_8010A500) {
-                M2C_FIELD(temp_s5, s32 *, 0x88) = (s32) (M2C_FIELD(temp_s5, s32 *, 0x88) | 0x40000000);
-            } else {
-                M2C_FIELD(arg0, s32 *, 0x60) = temp_s6;
-            }
+            if (sp10 != *(void **)&sBonusObjectTable)
+                F(s5, s32, 0x88) |= 0x40000000;
+            else
+                F(arg0, s32, 0x60) = temp_s6;
             return sp10;
         }
-        goto block_47;
     }
-block_47:
-    if ((M2C_FIELD(temp_s5, s32 *, 0x88) & 0x01E00000) == 0x400000) {
-block_48:
+    if ((F(s5, s32, 0x88) & 0x01E00000) == 0x400000)
         return NULL;
-    }
-block_49:
-    var_v0 = D_8010A500;
-    return var_v0;
+    return *(void **)&sBonusObjectTable;
 }

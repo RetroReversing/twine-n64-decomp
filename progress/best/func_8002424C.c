@@ -9,7 +9,7 @@ extern s32 func_8002A9A8(void *, s32);
 extern s32 func_8002AC04(void *, s32);
 extern s32 func_8002CBD8(void);
 extern s32 func_8002D09C(s32);
-extern s32 updatePairedSpriteState(u16, u16, u8, s32);
+extern s32 updateSaveMenuSprites(u16, u16, u8, s32);
 extern u16 D_800B81A8;
 extern u8 D_800B81AB;
 extern s32 D_800BD550, D_800BD554;
@@ -18,21 +18,21 @@ extern s8 D_800BD55A, D_800BD690;
 extern s32 D_800BD5D0;
 extern s32 D_80107EA8, D_80109C18[], D_80109C1C[], D_8010D478;
 extern s32 func_800240A4, func_800241F8;
-extern u8 gMenuParamC;
-extern u8 *gMenuState;
+extern u8 sMenuListKind;
+extern u8 *gSaveMenuState;
 void func_8002424C(void) {
     s32 i;
     s32 *record = &D_800BD5D0;
     func_8002CBD8();
     D_800BD690 = 0;
     func_8002A644(&D_80107EA8, &D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &func_800240A4, &func_800241F8);
-    func_80022A30(gMenuParamC, 0x20, 0x3C, 0xF8, 0x78);
+    func_80022A30(sMenuListKind, 0x20, 0x3C, 0xF8, 0x78);
     D_800BD554 = func_80015F74(record);
     D_800BD550 = func_80015F74(record - 0x24);
     for (i = 0; i < 16; i++) {
         s32 *p = record - 0x4C + i * 8;
-        p[0] = gMenuParamC;
-        p[9] = gMenuParamC;
+        p[0] = sMenuListKind;
+        p[9] = sMenuListKind;
         D_80109C18[i] = 0;
         D_80109C1C[i] = 0;
         if (func_8002D09C(i) == 0) p[-2] = 0x10;
@@ -45,19 +45,19 @@ void func_8002424C(void) {
     func_80024D78();
     D_800BD55A = 0;
     D_800BD558 = 1;
-    func_80022AD8(gMenuParamC);
+    func_80022AD8(sMenuListKind);
     {
-        u16 state = *(u16 *)(gMenuState + 0x14);
+        u16 state = *(u16 *)(gSaveMenuState + 0x14);
         if (state == 0x1A) D_800BD558 = 2;
         else if (state == 0x19 || state == 0x1B) D_800BD558 = 3;
         else D_800BD558 = 1;
     }
-    updatePairedSpriteState(D_800BD558, D_800B81A8, D_800B81AB, 1);
+    updateSaveMenuSprites(D_800BD558, D_800B81A8, D_800B81AB, 1);
     func_8002A9A8(&D_80107EA8, 0);
     func_8002AC04(&D_80107EA8, 1);
     {
-        u16 state = *(u16 *)(gMenuState + 0x14);
+        u16 state = *(u16 *)(gSaveMenuState + 0x14);
         if ((u32)(state - 0x19) < 2) func_8002A9A8(&D_80107EA8, func_80024EF0(D_800BD558) & 0xFF);
     }
-    *(s8 *)(gMenuState + 0x2C) = 0;
+    *(s8 *)(gSaveMenuState + 0x2C) = 0;
 }

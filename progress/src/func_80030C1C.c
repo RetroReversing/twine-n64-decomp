@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8002B02C(M2C_UNK *);                   /* extern */
 extern s32 gEntryTable;
 extern s16 gEntryCount;
-extern M2C_UNK D_80102EFC;
+extern M2C_UNK sProbeTimer;
 
 void func_80030C1C(void) {
     gEntryTable = 0;
     gEntryCount = 0;
-    func_8002B02C(&D_80102EFC);
+    func_8002B02C(&sProbeTimer);
 }

@@ -46,7 +46,7 @@ extern void vi_apply_context(void);
 extern u8 D_800AE4B0, gTrackMarkerActiveMask, gSceneFlagsB, D_80113022;
 extern u32 D_800B1BE0[];
 extern s16 D_800B1D70, D_800B1D72, D_8010A4B0;
-extern u16 D_80109B9C, D_8010A518;
+extern u16 D_80109B9C, sMatrixPoolSlotCount;
 extern f32 D_800B1D78;
 extern u64 D_800DD750[], D_800DD768[], D_8010A398;
 extern u8 *sRenderState, *D_8010A928, *D_80109CB8, *D_801002FC, *D_8010A4B4;
@@ -55,7 +55,7 @@ extern u32 sGfxSyncQueue[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
 extern s32 D_80100C04, gRetraceFrameCount, gRenderMode;
 extern FrameView *gTrackMarkers[];
-extern FrameSlot *D_8010A2BC[];
+extern FrameSlot *sMatrixPoolSlots[];
 extern FrameCommand *sDisplayListCursor;
 
 static __inline__ f32 clamp_opacity(f32 value)
@@ -65,7 +65,7 @@ static __inline__ f32 clamp_opacity(f32 value)
 
 void func_80007958(void)
 {
-    FrameSlot *slot = D_8010A2BC[D_8010A4B0];
+    FrameSlot *slot = sMatrixPoolSlots[D_8010A4B0];
     register FrameCommand *start = slot->start;
     s32 *renderMode;
     u8 *buffer, *segment1, *segment2, *segment3, *segment4;
@@ -214,7 +214,7 @@ void func_80007958(void)
         osRecvMesg(D_8010A2A0, NULL, 1);
         previous = (u32)D_8010A4B0 - 1;
         if (previous < 0) {
-            previous += D_8010A518;
+            previous += sMatrixPoolSlotCount;
         }
         osViSwapBuffer(D_80100304[previous]);
         D_800DD768[previous] = osGetTime() - D_800DD750[previous];
@@ -253,7 +253,7 @@ void func_80007958(void)
         func_8000B224(submittedSlot);
         D_800B1D70++;
         D_8010A4B0++;
-        if (D_8010A518 <= D_8010A4B0) {
+        if (sMatrixPoolSlotCount <= D_8010A4B0) {
             D_8010A4B0 = 0;
         }
     }

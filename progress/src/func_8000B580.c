@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8000B2EC();                            /* extern */
-extern void *D_80109A50;
+extern void *sHeapFirstBlock;
 
 void func_8000B580(void *arg0, s32 arg1) {
     void *temp_s0;
@@ -22,7 +22,7 @@ char __repair_stack_padding[8];
 
     func_8000B2EC();
     M2C_FIELD(arg0, s16 *, 0) = 1;
-    D_80109A50 = arg0;
+    sHeapFirstBlock = arg0;
     M2C_FIELD(arg0, s16 *, 2) = 0;
     M2C_FIELD(arg0, s32 *, 4) = (s32) (arg1 - 0x20);
     temp_s0 = arg0 + arg1;

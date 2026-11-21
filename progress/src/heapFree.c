@@ -1,10 +1,10 @@
 typedef struct MemBlock { u16 flags; s32 size; u32 unk[2]; } MemBlock;
-extern MemBlock *D_80109A50;
+extern MemBlock *sHeapFirstBlock;
 void heapFree(void *ptr) {
     MemBlock *block, *prev, *end, *next;
     u16 flags;
     if (!ptr) return;
-    block = D_80109A50;
+    block = sHeapFirstBlock;
     flags = block->flags;
     ptr = (char *)ptr - 16;
     prev = 0;

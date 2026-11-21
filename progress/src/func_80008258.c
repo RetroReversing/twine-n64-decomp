@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_8010A2BC;
+extern void *sMatrixPoolSlots;
 
 void func_80008258(void) {
     u32 var_a0;
     void **var_v1;
 
     var_a0 = 0;
-    var_v1 = &D_8010A2BC;
+    var_v1 = &sMatrixPoolSlots;
     do {
         M2C_FIELD(*var_v1, s32 *, 0x790) = 0;
         var_a0 += 1;

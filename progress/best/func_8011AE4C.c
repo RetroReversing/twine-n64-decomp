@@ -19,7 +19,7 @@ M2C_UNK func_8011B460(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 D_801002B4;
 extern M2C_UNK D_8010A500;
-extern M2C_UNK D_8011F3AC;
+extern M2C_UNK sMenuCountdown;
 extern void *D_8011F3C4;
 extern void *D_8011F3C8;
 extern void *D_8011F3CC;
@@ -32,7 +32,7 @@ void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
     void *temp_v0_2;
 
     if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) == 7) {
-        func_8002B150(&D_8011F3AC, 0, 0);
+        func_8002B150(&sMenuCountdown, 0, 0);
         if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x26) {
             func_8007089C(arg0, 0, M2C_FIELD(arg1, u16 *, 0x134));
         }

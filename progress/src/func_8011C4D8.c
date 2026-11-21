@@ -7,20 +7,20 @@ s16 strlen();
 extern s32 D_800BD660;
 extern u16 D_8011ED40;
 extern u16 D_8011ED42;
-extern char D_8011F0E0[];
-extern char D_8011F3AC[];
-extern void *D_8011F3BC;
+extern char sMenuCountdownText[];
+extern char sMenuCountdown[];
+extern void *sMenuCountdownWidget;
 
 void func_8011C4D8(void) {
     void *temp_v0;
 
-    func_8002B000(D_8011F3AC, 0x1E);
-    temp_v0 = func_8011E304(D_8011ED40, (D_8011ED42 - 0xE) & 0xFFFF, D_8011F0E0, 4);
+    func_8002B000(sMenuCountdown, 0x1E);
+    temp_v0 = func_8011E304(D_8011ED40, (D_8011ED42 - 0xE) & 0xFFFF, sMenuCountdownText, 4);
     if (temp_v0 != NULL) {
         (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) D_800BD660;
         (*(s16 *)((char *)(temp_v0) + 0x1E)) = 0x21;
-        func_8002B180(D_8011F3AC, D_8011F0E0);
-        (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen(D_8011F0E0);
-        D_8011F3BC = temp_v0;
+        func_8002B180(sMenuCountdown, sMenuCountdownText);
+        (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen(sMenuCountdownText);
+        sMenuCountdownWidget = temp_v0;
     }
 }

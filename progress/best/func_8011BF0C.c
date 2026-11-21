@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 requestSound();
 s32 func_8002B150();
 f32 approxDistance();
-s32 func_800643C8();
+s32 setActorStatusBits();
 s32 func_80073AF8();
 s32 lookupDataEntry();
 s32 sprintf();
@@ -26,9 +26,9 @@ extern char D_8011F140[];
 extern u8 D_8011F168[];
 extern char D_8011F170[];
 extern char D_8011F280[];
-extern char D_8011F288[];
+extern char sProbeStates[];
 extern char sProbePositions[];
-extern char D_8011F2B0[];
+extern char sProbeActors[];
 
 typedef struct { s32 w[3]; } __repair_words3;
 void func_8011BF0C(void *arg0) {
@@ -59,7 +59,7 @@ void func_8011BF0C(void *arg0) {
         temp_s4 = M2C_FIELD(arg0, u8 *, 0x7B) ^ 1;
         temp_s0 = temp_s4 & 0xFF;
         temp_s1 = temp_s0 * 4;
-        temp_a0 = *(s32 *)(D_8011F2B0 + temp_s1);
+        temp_a0 = *(s32 *)(sProbeActors + temp_s1);
         if ((temp_a0 != 0) && (approxDistance(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
             if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
                 temp_s1_2 = lookupDataEntry((-(temp_s0 == 0) & 0x6F) | 0x6E);
@@ -76,7 +76,7 @@ void func_8011BF0C(void *arg0) {
             func_8002B150(temp_a0_2 + D_8011F140, (*(s32 *)(D_8011F140 + temp_a0_2) + 1) & 0xFF, 0);
             temp_v1 = temp_s4 & 0xFF;
             temp_s0_2 = temp_v1 * 4;
-            temp_a0_3 = temp_s0_2 + D_8011F2B0;
+            temp_a0_3 = temp_s0_2 + sProbeActors;
             temp_a2 = *temp_a0_3;
             temp_v0_2 = (temp_v1 * 0xC) + sProbePositions;
             M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
@@ -87,7 +87,7 @@ void func_8011BF0C(void *arg0) {
             M2C_FIELD(temp_v1_2, s32 *, 0x30) = temp_s0;
             M2C_FIELD(temp_v1_2, s32 *, 0x34) = temp_a2_2;
             M2C_FIELD(temp_v1_2, s32 *, 0x38) = temp_a3;
-            func_800643C8(*temp_a0_3);
+            setActorStatusBits(*temp_a0_3);
             temp_v0_3 = *(s32 *)(D_8011F280 + temp_s0_2);
             if (temp_v0_3 != NULL) {
                 temp_v0_4 = M2C_FIELD(temp_v0_3, void **, 0x6C);
@@ -97,7 +97,7 @@ void func_8011BF0C(void *arg0) {
                 }
             }
             temp_v0_5 = temp_s4 * 4;
-            temp_a0_4 = *(s32 *)(D_8011F288 + temp_v0_5);
+            temp_a0_4 = *(s32 *)(sProbeStates + temp_v0_5);
             *(s32 *)(D_8011F280 + temp_v0_5) = 0;
             M2C_FIELD(temp_a0_4, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a0_4, s32 *, 0x28) & ~0xFC) | 0x1C);
             M2C_FIELD(arg0, s32 *, 0x3C) = 0;

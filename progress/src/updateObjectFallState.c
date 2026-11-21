@@ -6,7 +6,7 @@ s32 triggerNearbyBonusObject(void *);
 s32 actorRespawnAtRandomPoint(void *);
 s32 objectUpdateAnimByState(void *);
 s32 func_800624A8(void *, void *, f32, s32);
-s32 func_800643C8(void *);
+s32 setActorStatusBits(void *);
 s32 func_800643D8(void *);
 s32 updateTrackMarkerProximity(void *, f32);
 s32 func_800853D4(void *);
@@ -26,7 +26,7 @@ void updateObjectFallState(void *obj) {
         func_800643D8(obj);
         if (M2C_FIELD(fallState, s32 *, 0) >= 0x384) {
             objectUpdateAnimByState(obj);
-            func_800643C8(obj);
+            setActorStatusBits(obj);
             func_8005FBB8(fallState);
             M2C_FIELD(fallState, f32 *, 0x2C) = -4.0f;
             M2C_FIELD(fallState, s32 *, 0) = (u32)randomU32Next() % 450;

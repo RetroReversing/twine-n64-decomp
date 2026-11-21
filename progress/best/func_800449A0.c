@@ -1,6 +1,6 @@
 extern void func_80083D04(s32);
 extern void func_80083C98(void);
-extern void func_8000828C(void);
+extern void initMatrixPools(void);
 extern void func_80064250(void);
 extern void func_80073400(void);
 extern s32 func_8003C7C4(void *, s32, s32, void *);
@@ -10,7 +10,7 @@ void func_800449A0(void) {
     s32 i,j;
     func_80083D04(0);
     func_80083C98();
-    func_8000828C();
+    initMatrixPools();
     func_80064250();
     func_80073400();
     for(i=0;i<6;i++) ((s32 *)&gTrackMarkerTable)[i]=0;

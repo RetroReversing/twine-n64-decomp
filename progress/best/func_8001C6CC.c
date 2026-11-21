@@ -28,7 +28,7 @@ extern s16 D_80102CBE;
 extern s16 D_80102CC0;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
-extern M2C_UNK D_80102EFC;
+extern M2C_UNK sProbeTimer;
 extern s8 sMenuRowEnabled;
 extern s8 gMenuFlagItem20;
 extern s8 gMenuFlagItem22;
@@ -73,7 +73,7 @@ void func_8001C6CC(void) {
         var_s2 = temp_s5;
         temp_s0 = (temp_s5 & 0xFFFF) * 0x18;
         if (((timerGetTotalSeconds(temp_s0 + ((temp_v0 * 8) + &D_80117428)) << 0x10) == 0) || (func_8002B2B0(temp_s0 + (((func_800316B8() & 0xFFFF) * 8) + &D_80117428), &D_80102EE0 + 0x1C) & 0xFF)) {
-            func_8002B3C0(temp_s0 + (((func_800316B8() & 0xFFFF) * 8) + &D_80117428), &D_80102EFC);
+            func_8002B3C0(temp_s0 + (((func_800316B8() & 0xFFFF) * 8) + &D_80117428), &sProbeTimer);
         }
         var_s1 = 0;
         func_8002B000(((func_800316B8() & 0xFFFF) * 8) + &D_80117410, 0x1E);
@@ -113,7 +113,7 @@ void func_8001C6CC(void) {
                 D_80102CC0 = 0x2BC;
             }
         }
-        temp_s0_4 = timerGetTotalSeconds(&D_80102EFC);
+        temp_s0_4 = timerGetTotalSeconds(&sProbeTimer);
         if (timerGetTotalSeconds(((temp_s5 & 0xFFFF) * 0x18) + (((func_800316B8() & 0xFFFF) * 8) + &D_80117578)) >= temp_s0_4) {
             temp_v0 = func_80030C58();
             switch (temp_v0) {
