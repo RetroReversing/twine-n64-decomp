@@ -23,7 +23,7 @@ void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void 
 int __repair_literal;
 
     union {
-        unsigned char bytes[64];
+        unsigned char bytes[56];
         struct { f32 value; } view_sp18;
         struct { unsigned char pad[4]; f32 value; } view_sp1C;
         struct { unsigned char pad[8]; f32 value; } view_sp20;
@@ -47,6 +47,7 @@ int __repair_literal;
              
              
     f32 temp_fs0;
+    f32 distance;
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s1;
@@ -65,6 +66,8 @@ int __repair_literal;
         m2c_initial_frame.view_sp30.value = M2C_FIELD(arg4, f32 *, 8) - M2C_FIELD(arg3, f32 *, 8);
         temp_fs0 = func_80045764(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
         if (var_s0 != NULL) {
+            s32 flag0 = (s8)arg0;
+            s32 flag1 = (s8)arg1;
 loop_3:
             temp_s2 = M2C_FIELD(M2C_FIELD(var_s0, void **, 4), void **, 0x3C);
             if (M2C_FIELD(M2C_FIELD(M2C_FIELD(var_s0, void **, 8), void **, 0x20), u16 *, 0x60) != D_800B35B0) {
@@ -78,7 +81,7 @@ __repair_literal = 0;
 loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
                         temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                        if (!(func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !(m2c_initial_frame.view_sp38.value >= 0.0f) || !(m2c_initial_frame.view_sp38.value <= temp_fs0)) {
+                        if (!(func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) || !(distance <= temp_fs0)) {
                             var_s1++;
                             var_s3 += 6;
                             if (var_s1 < (s32)M2C_FIELD(temp_s2, u16 *, 0x40)) goto loop_8;
@@ -89,19 +92,19 @@ loop_8:
                     goto block_26;
                 }
                 var_s1 = 0;
-                if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > 0) {
+                __repair_literal = 0;
+                if ((s32) M2C_FIELD(temp_s2, u16 *, 0x40) > __repair_literal) {
                     var_s3 = 0;
 loop_15:
                     temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
                     temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                    if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs0)) {
+                    if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && ((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) && (distance <= temp_fs0)) {
 block_18:
                         if (arg5 != NULL) {
-                            f32 distance = m2c_initial_frame.view_sp38.value;
                             M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (distance * m2c_initial_frame.view_sp18.value));
                             M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
                             M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
-                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((arg0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (arg1 != 0)) || (randomIntBelow(4) == 0))) {
+                            if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((flag0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (flag1 != 0)) || (randomIntBelow(4) == 0))) {
                                 func_80073304(var_s0, arg5, arg2);
                             }}
                         }

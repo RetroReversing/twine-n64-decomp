@@ -8,7 +8,7 @@ extern s32 gBorderSkipFlag;
 
 typedef struct { u8 pad_0[0x20]; s32 field_20; u8 pad_24[0x3C]; s32 field_60; u8 pad_64[0x16]; s16 field_7A; } Obj62F34;
 
-void func_80062F34(Obj62F34 *arg0) {
+void actorUpdateSparkEmitter(Obj62F34 *arg0) {
     f32 v[3];
     s16 t;
 
