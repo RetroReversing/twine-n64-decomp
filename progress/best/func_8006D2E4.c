@@ -76,7 +76,7 @@ extern u8 gSaveKeyRelaxed;
 extern s32 gSaveSlotCount;
 extern M2C_UNK gSaveSlotInfo;
 extern M2C_UNK gTrackMarkers;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_8006D2E4(void *arg0) {
@@ -337,11 +337,11 @@ block_95:
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;
                             if (gBorderSkipActive != 0) {
-                                if (gVisibleSaveSlots != 2) {
+                                if (gVisibleSaveSlotCount != 2) {
                                     var_v0_2 = temp_s1 * 8;
-                                    if (gVisibleSaveSlots >= 2) {
+                                    if (gVisibleSaveSlotCount >= 2) {
                                         var_v0_2 = temp_s1 * 8;
-                                        if (gVisibleSaveSlots < 5) {
+                                        if (gVisibleSaveSlotCount < 5) {
                                             var_a1 = 0xA0;
                                             goto block_107;
                                         }

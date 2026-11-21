@@ -33,7 +33,7 @@ extern M2C_UNK D_800C46D8;
 extern M2C_UNK D_800C46DA;
 extern M2C_UNK D_800E0ECC;
 extern M2C_UNK D_800E0ED4;
-extern M2C_UNK gBonusObjects;
+extern M2C_UNK gBonusObjectTable;
 extern s32 gMenuList;
 extern u16 gMenuMode;
 extern u8 gMenuSlot;
@@ -65,7 +65,7 @@ extern void *gMenuItems;
     if (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             selectedItem = func_8002A980(gMenuList);
-            if (*((s32 *)((u8 *)&gBonusObjects + (gMenuSlot * 4))) != 0) {
+            if (*((s32 *)((u8 *)&gBonusObjectTable + (gMenuSlot * 4))) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     payloadEntry = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x62);
@@ -116,13 +116,13 @@ block_15:
                     slot = gMenuSlot;
                     itemId = M2C_FIELD(selectedItem, u8 *, 8);
                     *((u16 *)((u8 *)&D_800E0ECC + (slot * 2))) = (s16) itemId;
-                    sceneState = M2C_FIELD(*((s32 *)((u8 *)&gBonusObjects + (slot * 4))), void **, 0x6C);
+                    sceneState = M2C_FIELD(*((s32 *)((u8 *)&gBonusObjectTable + (slot * 4))), void **, 0x6C);
                     if (*((u16 *)((u8 *)&D_800C469E + ((itemId & 0xFFFF) * 0xE8))) == 0x21) {
                         M2C_FIELD(sceneState, s8 *, 0x306) = (s8) (itemId - 0x21);
                     }
                     slot = gMenuSlot;
                     itemOffset = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
-                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusObjects), 0, (itemOffset + *((u8 *)sceneState + (itemOffset << 3) + 0x1FE)) & 0xFFFF, &gBonusObjects);
+                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusObjectTable), 0, (itemOffset + *((u8 *)sceneState + (itemOffset << 3) + 0x1FE)) & 0xFFFF, &gBonusObjectTable);
                     if (M2C_FIELD(gMenuItems, void **, 0x18) != NULL) {
                         callbackEntry = findEntryById(M2C_FIELD(gMenuItems, s32 *, 0xC), 0xE);
                         state = gMenuItems;

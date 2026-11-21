@@ -12,7 +12,7 @@ extern f64 D_800D48C8;
 extern f64 D_800D48D0;
 extern f64 D_800D48E0;
 extern s32 gSaveTotalSlots;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern char gTrackMarkers[];
 extern void *gMenuRootObject;
@@ -117,9 +117,9 @@ f32 __repair_var_a2_1;
                     var_fv0 += temp_fs0;
                 }
                 do { func_8004844C(*var_s1, 160.0f, 120.0f, 160.0f + 160.0f, 240.0f, 0.0f, (f32) var_fv0); } while (0);
-                if (gVisibleSaveSlots <= var_s0) {
+                if (gVisibleSaveSlotCount <= var_s0) {
                     var_v1 = 1 << (unsigned)var_s0;
-                    if ((gVisibleSaveSlots == 3) & (var_s0 == 3)) {
+                    if ((gVisibleSaveSlotCount == 3) & (var_s0 == 3)) {
                         (*(&D_8010A4C3)) = (u8) ((*__base_D_8010A4C3) | var_v1); } else {
                         (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & ~(1 << var_s0));
                         var_v1 = 1 << var_s0;
@@ -137,7 +137,7 @@ f32 __repair_var_a2_1;
             var_s1 += 1;
         } while (var_s0 < (*__base_D_801002B4));
     }
-    switch (gVisibleSaveSlots) {                           /* irregular */
+    switch (gVisibleSaveSlotCount) {                           /* irregular */
     case 1:
         if (((__repair_field_0 *)gTrackMarkers)->value == NULL) {
             func_80048794(0, gProbeObjectList);

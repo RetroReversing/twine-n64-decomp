@@ -1,4 +1,4 @@
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern u8 gSceneType;
 extern u8 gBorderFlipFlag;
 extern u16 D_8011ED40;
@@ -25,7 +25,7 @@ void sceneSetupScreenLayout(void) {
     u16 baseX, flipX;
     u16 i, j;
 
-    if (gVisibleSaveSlots == 1) {
+    if (gVisibleSaveSlotCount == 1) {
         D_8011ED42 = 0xCA;
     } else {
         D_8011ED42 = 0x76;
@@ -40,7 +40,7 @@ void sceneSetupScreenLayout(void) {
     D_8011ED4C[1] = baseX;
     D_8011ED4C[2] = baseX;
     D_8011ED4C[3] = baseX;
-    switch (gVisibleSaveSlots) {
+    switch (gVisibleSaveSlotCount) {
     case 1:
         D_8011F0EC = 0x140;
         break;

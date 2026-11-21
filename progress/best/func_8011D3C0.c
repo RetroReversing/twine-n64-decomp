@@ -15,7 +15,7 @@ typedef struct { u16 f0; u8 pad[22]; } Slot_801001A2;
 extern Slot_801001A2 sSaveSlotInfo[];
 extern u8 gSaveKeyRelaxed;
 extern s32 gSaveTotalSlots;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern u8 gPauseFlag;
 extern s32 gTrackMarkers;
 extern u8 gBorderFlipFlag;
@@ -85,9 +85,9 @@ char *__repair_addr;
 
     var_fs2 = 160.0f;
     var_fs0 = 120.0f;
-    if (gVisibleSaveSlots != 2) {
-        if ((2 <= gVisibleSaveSlots)) {
-            if ((gVisibleSaveSlots < 5)) {
+    if (gVisibleSaveSlotCount != 2) {
+        if ((2 <= gVisibleSaveSlotCount)) {
+            if ((gVisibleSaveSlotCount < 5)) {
                 var_fs0 = 60.0f;
                 var_fs2 = 80.0f;
             }
@@ -100,15 +100,15 @@ char *__repair_addr;
     var_fp = 0;
     func_8011CFB0();
     var_a0 = 0 & 0xFFFF;
-    if (gVisibleSaveSlots > 0) {
+    if (gVisibleSaveSlotCount > 0) {
         do {
             temp_v1 = var_a0 * 4;
             if (*(s32 *)((char *)&gTrackMarkers + temp_v1) != 0) {
 __repair_addr = (char *)((char *)&gBonusObjects + temp_v1);
 
                 temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));
-                if (gVisibleSaveSlots != 2) {
-                    if ((gVisibleSaveSlots < 3) || (gVisibleSaveSlots >= 5)) {
+                if (gVisibleSaveSlotCount != 2) {
+                    if ((gVisibleSaveSlotCount < 3) || (gVisibleSaveSlotCount >= 5)) {
                         sp26 = 4;
                         sp1E = -4U;
                     } else {
@@ -276,6 +276,6 @@ var_a1_2 = var_a1_2 & 0xFFFF;
             }
             var_fp += 1;
             var_a0 = var_fp & 0xFFFF;
-        } while ((var_fp & 0xFFFF) < gVisibleSaveSlots);
+        } while ((var_fp & 0xFFFF) < gVisibleSaveSlotCount);
     }
 }

@@ -30,7 +30,7 @@ extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
 extern s8 D_801002B1;
-extern s32 gBonusObjects;
+extern s32 gBonusObjectTable;
 
 /* Per-frame transition state machine; when idle, flags each object's sub-object for redraw. */ void updateTransitionState(void) {
     s8 *__base_D_801002AE;
@@ -67,7 +67,7 @@ loop_8:
                         goto loop_8;
                     }
                 } else {
-                    actorFinishIfMatch(gBonusObjects, 2);
+                    actorFinishIfMatch(gBonusObjectTable, 2);
                 }
             }
         } else if ((func_800819EC(0, 0x23) != 0) && (temp_a0 = M2C_FIELD(D_800B2710, s16 *, 0x10), (((temp_a0 != 7) & (temp_a0 != 0x19)) != 0)) && ((temp_a0 != 0x32) & (temp_a0 != 0x23))) {

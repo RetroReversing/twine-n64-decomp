@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 func_800829EC(f32);                     /* extern */
 extern f32 D_800C0740;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern u8 gBorderFlipFlag;
 extern u8 gOptionFlagA;
@@ -28,14 +28,14 @@ extern u8 gOptionFlagA;
     if (cam != NULL) {
         M2C_FIELD(cam, f32 *, 0x84) = fovDegrees;
         if ((M2C_FIELD(cam, f32 *, 0x78) != 0.0f) && (M2C_FIELD(cam, f32 *, 0x7C) != 0.0f)) {
-            if ((gBorderSkipActive == 0) || ((gVisibleSaveSlots == 1))) {
+            if ((gBorderSkipActive == 0) || ((gVisibleSaveSlotCount == 1))) {
                 if (gOptionFlagA == 0) {
                     M2C_FIELD(cam, f32 *, 0x80) = 1.3333334f;
                 } else {
                     goto block_18;
                 }
             } else {
-                if (gVisibleSaveSlots == 2) {
+                if (gVisibleSaveSlotCount == 2) {
                     if (gBorderFlipFlag == 1) {
                         if (gOptionFlagA == 0) {
                             M2C_FIELD(cam, f32 *, 0x80) = 0.6666667f;
@@ -48,7 +48,7 @@ extern u8 gOptionFlagA;
                         M2C_FIELD(cam, f32 *, 0x80) = 3.5555556f;
                     }
                 }
-                if (gVisibleSaveSlots >= 3) {
+                if (gVisibleSaveSlotCount >= 3) {
                     if (gOptionFlagA == 0) {
                         M2C_FIELD(cam, f32 *, 0x80) = 1.3333334f;
                     } else {

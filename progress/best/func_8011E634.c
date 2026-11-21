@@ -4,14 +4,14 @@ extern void func_8011C580(void);
 extern void updateRaceTimerHud(s32);
 extern void func_8011C890(void);
 extern void func_8011CAE4(void);
-extern void func_8011CEA0(void);
+extern void steerSaveSlotActors(void);
 extern void func_8011DC18(void);
 extern void func_8011E894(void);
 extern u8 gSceneType;
 extern u8 D_801002AC;
 extern u8 D_801002AE;
 extern s32 gSaveTotalSlots;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern u8 gBorderFlipFlag;
 extern s16 D_8011F0EC;
@@ -26,7 +26,7 @@ void func_8011E634(void) {
     s32 t;
     s32 s;
     D_8011F0EE = 0x78;
-    if (gVisibleSaveSlots >= 3) {
+    if (gVisibleSaveSlotCount >= 3) {
         D_8011F0EC = 0xA0;
     } else if (gBorderFlipFlag == 1) {
         D_8011F0EC = 0xA0;
@@ -54,7 +54,7 @@ void func_8011E634(void) {
                 func_8011CAE4();
             }
         } else {
-            func_8011CEA0();
+            steerSaveSlotActors();
         }
     }
     func_8011DC18();

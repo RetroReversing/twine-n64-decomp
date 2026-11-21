@@ -8,7 +8,7 @@ extern signed char D_801002D5;
 extern int D_801002B4;
 extern int gSaveExtraSlotCount;
 extern int gSaveSlotCount;
-extern int gVisibleSaveSlots;
+extern int gVisibleSaveSlotCount;
 s32 updateVideoMode();
 s32 func_8000A18C();
 s32 func_8000A22C();
@@ -189,7 +189,7 @@ int __repair_phase___repair_phase_var_s2_2;
     (*(s32 *)((char *)(&D_801002AE) + -6)) = 0;
     gSaveExtraSlotCount = 0;
     gSaveSlotCount = (s32) (countValidSaveSlots(0xA3) & 0xFFFF);
-    gVisibleSaveSlots = (s32) (countValidSaveSlots(0xA3) & 0xFFFF);
+    gVisibleSaveSlotCount = (s32) (countValidSaveSlots(0xA3) & 0xFFFF);
     (*(s8 *)((char *)(&D_801002AE) + -1)) = 0;
     var_s0 = 0 & 0xFFFF;
     do {

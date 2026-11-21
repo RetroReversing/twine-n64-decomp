@@ -1,17 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
 s32 initTextFromTemplate();
 s32 func_800283B0();
 s32 func_8002B02C();
@@ -38,7 +24,7 @@ extern u8 D_80102EE0;
 extern u8 sDifficultyLevel;
 extern char D_80102EFC[];
 
-typedef struct { s32 w[4]; } __repair_words4;
+typedef struct { s32 w[9]; } __W36;
 void func_8002F868(void *arg0, void *arg1) {
     char *__base_D_800BFD08;
     s16 temp_v1;
@@ -48,7 +34,7 @@ void func_8002F868(void *arg0, void *arg1) {
     void *temp_t0;
 
     updateMenuAnimation();
-    temp_v1 = M2C_FIELD(arg1, const s16 *, 0x7A);
+    temp_v1 = *(s16 *)((char *)arg1 + 0x7A);
     switch (temp_v1) {
     case 0:
         func_8002EFD8(arg0, arg1);
@@ -88,20 +74,14 @@ void func_8002F868(void *arg0, void *arg1) {
         return;
     case 7:
         if (decayObjectTimers(arg0) & 0xFF) {
-            var_a3 = &D_800BFD74;
             temp_v1_2 = D_800BFC92 + 1;
-            __base_D_800BFD08 = D_800BFD08;
-            var_a2 = ((temp_v1_2 & 1) * 0x24) + __base_D_800BFD08;
-            temp_t0 = var_a2 + 0x20;
             D_800BFC92 = temp_v1_2;
-            do {
-                M2C_FIELD(var_a3, __repair_words4 *, 0x0) = *(__repair_words4 *) ((s8 *) var_a2 + 0x0);
-                var_a2 += 0x10;
-                var_a3 += 0x10;
-            } while (var_a2 != temp_t0);
-            *(s32 *)var_a3 = *(s32 *)var_a2;
+            *(__W36 *)&D_800BFD74 = *(__W36 *)(D_800BFD08 + (temp_v1_2 & 1) * 0x24);
+            {
+            s32 t = *(s32 *)((char *)arg0 + 0x2C);
             D_800BFC92 += 1;
-            initTextFromTemplate(M2C_FIELD(arg0, const s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
+            initTextFromTemplate(t, &D_800BFD74);
+            }
             func_8002FBD4(arg1, 0);
         }
         func_8002F2EC(arg0, arg1);
@@ -129,5 +109,3 @@ block_19:
         return;
     }
 }
-
-

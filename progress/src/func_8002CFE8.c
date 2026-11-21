@@ -18,7 +18,7 @@ s32 countValidSaveSlots(M2C_UNK);                         /* extern */
 extern s16 gSaveStatus;
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern s16 gSaveRecovering;
 
 void func_8002CFE8(void) {
@@ -28,7 +28,7 @@ void func_8002CFE8(void) {
     saveCheckStatus();
     D_801002B4 = countValidSaveSlots(0xA3) & 0xFFFF;
     gSaveSlotCount = countValidSaveSlots(0xA3) & 0xFFFF;
-    gVisibleSaveSlots = countValidSaveSlots(0xA3) & 0xFFFF;
+    gVisibleSaveSlotCount = countValidSaveSlots(0xA3) & 0xFFFF;
     switch (gSaveStatus) {                           /* irregular */
     case 16:
         var_v0 = 0xF;

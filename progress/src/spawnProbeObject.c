@@ -22,7 +22,7 @@ extern u8 gSceneType;
 extern u32 sProbeTimers[][2];
 extern u8 sProbeActive[];
 extern OverlayObject *sProbeObjects[];
-extern s32 sProbeFlags[], sProbeHandles[];
+extern s32 sProbeOriginTable[], sProbeHandles[];
 extern OverlayPosition sProbePositions[];
 
 /* Spawns a probe object for slot 'slot' in scene types 2 and 3, records its position and state, and returns it (or NULL). */
@@ -43,7 +43,7 @@ OverlayObject *spawnProbeObject(register OverlayPosition *position, void *orient
             probe->scale = 1.0f;
             sProbeObjects[slotIndex] = probe;
             sProbeActive[slotIndex] = 1;
-            sProbeFlags[slotIndex] = 0;
+            sProbeOriginTable[slotIndex] = 0;
             func_8002B000(timerRec, 0x1E);
             listUnlinkFree(sProbeHandles[slotIndex]);
             sProbeHandles[slotIndex] = 0;

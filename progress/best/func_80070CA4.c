@@ -20,7 +20,7 @@ extern char sEnemyDefTable[];
 void func_80070CA4(void *arg0) {
     void * __repair_hoisted;
 
-int __repair_constant = 0x26;
+int __repair_constant;
 
     s16 temp_v1;
     s8 temp_a1;
@@ -46,7 +46,7 @@ int __repair_constant = 0x26;
     case 4:
     case 8:
         if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-            func_80084338(arg0, 0x118, arg0 + 0x24);
+            func_80084338(0x118, (u8 *)arg0 + 0x24);
         } else {
             requestSound(0x118);
         }
@@ -58,6 +58,7 @@ int __repair_constant = 0x26;
             M2C_FIELD(temp_a0, s8 *, 0xF) = (s8) M2C_FIELD(temp_s4, u16 *, 0x134);
             return;
         }
+        __repair_constant = 0x26;
         if (!(*(u16 *)(sEnemyDefTable + (temp_v1_2 * 0xE8)) & 0x8000)) {
             do {
                 temp_v1_3 = M2C_FIELD(arg0, void **, 0x68);
@@ -72,9 +73,8 @@ loop_13:
         temp_v1_4 = M2C_FIELD(arg0, void **, 0x68);
         temp_v0_3 = (u8) M2C_FIELD(temp_v1_4, s8 *, 0xF) - 1;
         M2C_FIELD(temp_v1_4, s8 *, 0xF) = temp_v0_3;
-        __repair_hoisted = M2C_FIELD(arg0, void **, 0x68);
-        if (temp_v0_3 < 0) {
-            M2C_FIELD(__repair_hoisted, s8 *, 0xF) = __repair_constant;
+        if ((s8)temp_v0_3 < 0) {
+            M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = __repair_constant;
         }
         temp_a2 = M2C_FIELD(arg0, void **, 0x68);
         temp_a1 = M2C_FIELD(temp_a2, s8 *, 0xF);

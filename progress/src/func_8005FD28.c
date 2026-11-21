@@ -7,12 +7,12 @@ f32 approxDistance(void *, void *);
 s8 func_8005FE20(NearbyObject *, void *);
 extern f64 D_800D41D8;
 extern s32 gSaveTotalSlots;
-extern s32 gBonusObjects;
+extern s32 gBonusObjectTable;
 
 s8 func_8005FD28(void *object) {
     u16 i = 0;
     if (gSaveTotalSlots > 0) {
-        NearbyObject **objects = (NearbyObject **)&gBonusObjects;
+        NearbyObject **objects = (NearbyObject **)&gBonusObjectTable;
         s32 excludedA = 0x4D;
         s32 excludedB = 0x61;
         f64 distance = D_800D41D8;

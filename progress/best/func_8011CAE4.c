@@ -16,7 +16,7 @@ M2C_UNK actorSteerTowardTarget(void *, s32, void *, s32);    /* extern */
 extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD650;
 extern s32 D_800BD678;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern M2C_UNK gBonusObjects;
 extern u8 D_8011F118[];
 extern M2C_UNK D_8011F150;
@@ -35,7 +35,7 @@ void func_8011CAE4(void) {
     __base_D_8011F118 = D_8011F118;
 
     var_s3 = 0;
-    if (gVisibleSaveSlots > 0) {
+    if (gVisibleSaveSlotCount > 0) {
         do {
             temp_s5 = var_s3 & 0xFFFF;
             temp_s4 = temp_s5;
@@ -62,6 +62,6 @@ void func_8011CAE4(void) {
     }
 }
             var_s3 += 1;
-        } while ((var_s3 & 0xFFFF) < gVisibleSaveSlots);
+        } while ((var_s3 & 0xFFFF) < gVisibleSaveSlotCount);
     }
 }

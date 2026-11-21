@@ -17,7 +17,7 @@ u8 countValidSaveSlots(M2C_UNK);                          /* extern */
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
 extern s32 gSaveExtraSlotCount;
-extern s32 gVisibleSaveSlots;
+extern s32 gVisibleSaveSlotCount;
 extern u8 gValidSaveSlotCount;
 
 extern char D_800D2858[];
@@ -55,12 +55,12 @@ extern char D_800D2858[];
             gSaveExtraSlotCount = 4 - gSaveSlotCount;
             (*totalSlotsPtr) = 4;
         }
-        gVisibleSaveSlots = gSaveSlotCount;
+        gVisibleSaveSlotCount = gSaveSlotCount;
         if (gSaveSlotCount == 0) {
-            gVisibleSaveSlots = (*totalSlotsPtr);
+            gVisibleSaveSlotCount = (*totalSlotsPtr);
         }
-        if (gVisibleSaveSlots >= 5) {
-            gVisibleSaveSlots = 4;
+        if (gVisibleSaveSlotCount >= 5) {
+            gVisibleSaveSlotCount = 4;
         }
         if (gSaveSlotCount == 1) {
             M2C_FIELD(menuB, s32 *, 0x14) = 0x10003;
