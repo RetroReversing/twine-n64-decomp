@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(f32 *, void *, f32 *);        /* extern */
+M2C_UNK vec3Add(f32 *, void *, f32 *);        /* extern */
 f32 approxDistance(f32 *, s32);                      /* extern */
 M2C_UNK func_80082FE4(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);            /* extern */
@@ -64,7 +64,7 @@ void linkSourceNodesByNearestPart(void *targetList, void *nodeList) {
                                 targetEntry = M2C_FIELD(node, void **, 0x70);
                                 nodeCenter[2] = (M2C_FIELD(targetEntry, f32 *, 0x28) + M2C_FIELD(targetEntry, f32 *, 0x2C)) * 0.5f;
                                 rotateVec3ByMat3(transform, nodeCenter);
-                                func_800452AC(nodeCenter, node + 0x24, nodeCenter);
+                                vec3Add(nodeCenter, node + 0x24, nodeCenter);
                                 dist = approxDistance(nodeCenter, partId + 0x40);
                                 if (dist < bestDist) {
                                     bestDist = dist;

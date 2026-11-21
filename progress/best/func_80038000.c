@@ -25,7 +25,7 @@ M2C_UNK func_800355BC(void *);                      /* extern */
 f32 func_800357C8(f32);                             /* extern */
 M2C_UNK func_80035854(void *, f32, f32);            /* extern */
 M2C_UNK func_800358D4(void *);                      /* extern */
-M2C_UNK func_80036108(void *);                      /* extern */
+M2C_UNK drawRenderObject(void *);                      /* extern */
 M2C_UNK func_800362B4(void *);                      /* extern */
 M2C_UNK drawObjectListPass(void *);                      /* extern */
 M2C_UNK func_800369B8(void *);                      /* extern */
@@ -236,7 +236,7 @@ loop_15:
                 } while (var_s0_2 != NULL);
             }
             func_80034928(arg0, D_8010A4D8);
-            func_80036108(arg0);
+            drawRenderObject(arg0);
             func_80034928(arg0, D_8010A4D8);
             func_800362B4(arg0);
             func_80034928(arg0, D_8010A4D8);

@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_800452AC();
+s32 vec3Add();
 s32 randomIntBelow();
 f32 randomFloatScaled(f32);
 s32 func_8005D444(void *, void *, f32, s32, s32, s32);
@@ -54,7 +54,7 @@ __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20
         temp_s2 = arg0 + 0x3C;
         (((__repair_record_arg0*)arg0)->field_2C) += ((((__repair_record_temp_s0*)temp_s0)->field_C) * 0.033333335f);
         (((__repair_record_temp_s0*)temp_s0)->field_8) = (f32) ((f64) (((__repair_record_temp_s0*)temp_s0)->field_8) - D_800D4160);
-        func_800452AC(temp_s0 + 0x10, temp_s2, temp_s2);
+        vec3Add(temp_s0 + 0x10, temp_s2, temp_s2);
         if ((((__repair_record_arg0*)arg0)->field_28) < (*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x20))) + 0x5C))) {
             temp_s0_2 = arg0 + 0x24;
             func_800617D8((((__repair_record_arg0*)arg0)->field_20), temp_s0_2, temp_s2, 0, 0.1f, 1.01f, 0x19, 0xFB, 0x17, 0x80, 0x80808002);

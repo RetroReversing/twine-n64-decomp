@@ -23,7 +23,7 @@ M2C_UNK func_800165E0(void *, s32);                 /* extern */
 s32 func_80022DBC(s32);                             /* extern */
 M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
-M2C_UNK func_800452AC(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK vec3Add(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_800452E0(void *, void *, M2C_UNK *);   /* extern */
 f32 Vec3_DistanceSq(f32 *, void *);                   /* extern */
 M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
@@ -405,7 +405,7 @@ block_108:
                     func_80045764(sp20, sp20);
                     func_80047B14(sp20, 0.075f, sp20);
                     temp_s0_2 = temp_s3 + 0x11C;
-                    func_800452AC(sp20, temp_s0_2, temp_s0_2);
+                    vec3Add(sp20, temp_s0_2, temp_s0_2);
                     var_fv0 = func_80045764(temp_s0_2, temp_s0_2);
                     if (var_fv0 > 0.075f) {
                         var_fv0 = 0.075f;

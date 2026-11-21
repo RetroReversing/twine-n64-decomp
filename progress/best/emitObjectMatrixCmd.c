@@ -12,7 +12,7 @@ extern void *sRenderState;
 typedef struct { int field_0; int field_4; } __repair_record_temp_a0;
 typedef struct { unsigned char pad_0[64]; int field_40; float field_44; float field_48; } __repair_record_arg0;
 typedef struct { int field_0; int field_4; int field_8; int field_C; int field_10; int field_14; } __repair_record_temp_v1;
-void func_80039128(void *arg0, f32 arg1) {
+void emitObjectMatrixCmd(void *arg0, f32 arg1) {
     register s32 temp_s0;
     unsigned long temp_v0;
     void *temp_a0;

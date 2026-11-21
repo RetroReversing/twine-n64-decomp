@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
+M2C_UNK vec3Add(void *, void *, void *);      /* extern */
 f32 randomFloatScaled(f32);                         /* extern */
 M2C_UNK func_80047B14(void *, f32, void *);     /* extern */
 M2C_UNK spawnSpriteBurstOnSphere(void *, void *, f32, M2C_UNK); /* extern */
@@ -28,7 +28,7 @@ void func_80063180(void *arg0) {
     temp_fs0 = randomFloatScaled(32.0f);
     temp_s2 = arg0 + 0x24;
     M2C_FIELD(arg0, f32 *, 0x44) = (f32) (M2C_FIELD(arg0, f32 *, 0x44) + (temp_fs0 - randomFloatScaled(16.0f)));
-    func_800452AC(temp_s0, temp_s2, temp_s2);
+    vec3Add(temp_s0, temp_s2, temp_s2);
     M2C_FIELD(temp_s0, f32 *, 4) = (f32) (M2C_FIELD(temp_s0, f32 *, 4) - 0.0025520835f);
     func_80047B14(temp_s0, 0.95f, temp_s0);
     if (M2C_FIELD(temp_s0, f32 *, 4) <= 0.0f) {

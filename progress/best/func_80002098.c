@@ -30,7 +30,7 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
     void *temp_a3;
     s32 var_a0;
     
-    unsigned var_v0;
+    s32 var_v0;
     void *temp_a1_2;
     register u16 temp_v1;
     s32 temp_v0;
@@ -53,9 +53,15 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
             if ((((m2c_initial_frame.view_sp14.value == 0x1F8) | (m2c_initial_frame.view_sp14.value == 0x1EA)) & (temp_a1 = arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1E6) & (arg2 == 0x29)) || ((m2c_initial_frame.view_sp14.value == 0x1E7) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1F0) & (arg2 == 0x27)) || ((m2c_initial_frame.view_sp14.value == 0x1EB) & (arg2 == 0x27))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
+            goto check_actor;
+found:
+                        m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE75A + ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6));
+                        m2c_initial_frame.view_sp18.value = (s32) *(D_800AE761 + var_a0);
+            goto done;
         } else if ((gBorderSkipFlag != 0) && ((u8) gPauseFlag < 3U)) {
             func_80001EB8(&m2c_initial_frame.view_sp14.value, &m2c_initial_frame.view_sp18.value);
         }
+check_actor:
         temp_a3 = (*(void **)((char *)(arg3) + 0x18));
         if ((temp_a3 != NULL) && (m2c_initial_frame.view_sp14.value >= 0) && ((*(u16 *)((char *)(temp_a3) + 0x78)) == 2)) {
             temp_a1_2 = func_8002BC4C((*(u8 *)((char *)((*(void **)((char *)(temp_a3) + 0x68))) + 0xB1)));
@@ -81,13 +87,13 @@ loop_31:
                             goto loop_31;
                         }
                     } else {
-                        m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE75A + ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6));
-                        m2c_initial_frame.view_sp18.value = (s32) *(D_800AE761 + var_a0);
+                        goto found;
                     }
                 }
             }
         }
     }
+done:
     *arg0 = m2c_initial_frame.view_sp14.value;
     *arg1 = m2c_initial_frame.view_sp18.value;
 }

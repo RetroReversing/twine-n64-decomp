@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
+M2C_UNK vec3Add(void *, void *, void *);      /* extern */
 
 void func_8006170C(void *arg0) {
     f32 temp_fv1;
@@ -25,7 +25,7 @@ void func_8006170C(void *arg0) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s2 = M2C_FIELD(arg0, void **, 0x20);
     temp_a1 = arg0 + 0x24;
-    func_800452AC(temp_s1, temp_a1, temp_a1);
+    vec3Add(temp_s1, temp_a1, temp_a1);
     M2C_FIELD(arg0, f32 *, 0x54) = (f32) (M2C_FIELD(arg0, f32 *, 0x54) + 0.02f);
     temp_fv1 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x20), f32 *, 0x5C);
     if (M2C_FIELD(arg0, f32 *, 0x28) < temp_fv1) {

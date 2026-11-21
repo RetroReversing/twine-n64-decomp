@@ -15,7 +15,7 @@ s32 func_800410E8();
 s32 func_80041114();
 s32 func_80045278();
 s32 func_80045290();
-s32 func_800452AC();
+s32 vec3Add();
 s32 func_80083E90();
 extern char D_800C0784[];
 extern char D_800C0788[];
@@ -247,7 +247,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 if ((s32) (*(u16 *)((char *)(__repair_hoisted) + 4)) > 0) {
                     var_s0 = 0;
                     do {
-                        func_800452AC(&D_800E19E0, (*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0)) + var_s0, ((__repair_field_34 *)temp_s4)->value + var_s0);
+                        vec3Add(&D_800E19E0, (*(s32 *)((char *)(((__repair_field_24 *)arg1)->value) + 0)) + var_s0, ((__repair_field_34 *)temp_s4)->value + var_s0);
                         var_s1++;
                         var_s0 += 0xC;
                     } while (var_s1 < (s32) (*(u16 *)((char *)(((__repair_field_24 *)arg1)->value) + 4)));

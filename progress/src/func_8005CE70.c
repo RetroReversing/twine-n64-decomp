@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(void *, void *, void *);      /* extern */
+M2C_UNK vec3Add(void *, void *, void *);      /* extern */
 
 void func_8005CE70(void *arg0) {
     void * __repair_hoisted;
@@ -32,5 +32,5 @@ void func_8005CE70(void *arg0) {
     M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (M2C_FIELD(temp_a2, f32 *, 8) * 0.033333335f));
     M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (M2C_FIELD(temp_a2, f32 *, 0xC) * 0.033333335f));
     M2C_FIELD(temp_a2, f32 *, 8) = (f32) (M2C_FIELD(temp_a2, f32 *, 8) - 0.32666668f);
-    func_800452AC(temp_a2 + 0x10, temp_a1, temp_a1);
+    vec3Add(temp_a2 + 0x10, temp_a1, temp_a1);
 }

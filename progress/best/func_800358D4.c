@@ -9,7 +9,7 @@ f32 func_800357C8(s32, s32, s32);       /* extern */
 s32 func_80039068();                            /* extern */
 s32 func_80043FA0(s32 *, void *);               /* extern */
 s32 func_8004478C(s32, s32);                /* extern */
-s32 func_800452AC(f32 *, f32 *, f32 *);         /* extern */
+s32 vec3Add(f32 *, f32 *, f32 *);         /* extern */
 s32 func_800452E0(f32 *, f32 *, f32 *);         /* extern */
 f32 approxDistance(void *, void *);                  /* extern */
 f32 func_80046140(f32, f32);                        /* extern */
@@ -193,7 +193,7 @@ block_10:
                                     func_800452E0(&m2c_initial_frame.view_sp60.value, &m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp70.value);
                                     for (;;) {
                                         func_80047B14(&m2c_initial_frame.view_sp70.value, *((s32 *)((s8 *)&D_800C0670 + var_s4)), &m2c_initial_frame.view_sp80.value);
-                                        func_800452AC(&m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp80.value, &m2c_initial_frame.view_sp80.value);
+                                        vec3Add(&m2c_initial_frame.view_sp28.value, &m2c_initial_frame.view_sp80.value, &m2c_initial_frame.view_sp80.value);
                                         if (var_s1 == 0) {
                                             var_fs1 = func_80046140(m2c_initial_frame.view_sp80.value, m2c_initial_frame.view_sp84.value);
                                             var_fs0 = (16.0f - var_fs1) * 0.03125f;

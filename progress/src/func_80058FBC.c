@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(void *, void *, void *); /* extern */
+M2C_UNK vec3Add(void *, void *, void *); /* extern */
 f32 randomFloatMinusOffset(f32, f32);                /* extern */
 M2C_UNK func_8008550C(void *);                      /* extern */
 
@@ -33,7 +33,7 @@ void func_80058FBC(void *arg0) {
             M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + M2C_FIELD(temp_s1, f32 *, 8));
             temp_a1 = arg0 + 0x3C;
             M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + M2C_FIELD(temp_s1, f32 *, 0xC));
-            func_800452AC(temp_s1 + 0x10, temp_a1, temp_a1);
+            vec3Add(temp_s1 + 0x10, temp_a1, temp_a1);
             M2C_FIELD(temp_s1, f32 *, 8) = (f32) (M2C_FIELD(temp_s1, f32 *, 8) - 0.01088889f);
         }
     }

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80016718(void *);                      /* extern */
-M2C_UNK func_800452AC(f32 *, void *, void *);       /* extern */
+M2C_UNK vec3Add(f32 *, void *, void *);       /* extern */
 u32 randomIntBelow(M2C_UNK);                         /* extern */
 M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80085160(void *);                      /* extern */
@@ -48,9 +48,9 @@ M2C_UNK func_800851E0(void *);                      /* extern */
             __repair_frame.f14 = M2C_FIELD(path, f32 *, 4) * 0.033333335f;
             pos = follower + 0x24;
             __repair_frame.f18 = M2C_FIELD(path, f32 *, 8) * 0.033333335f;
-            func_800452AC(&__repair_frame, pos, pos);
+            vec3Add(&__repair_frame, pos, pos);
             vel = follower + 0x3C;
-            func_800452AC(path, vel, vel);
+            vec3Add(path, vel, vel);
             M2C_FIELD(path, f32 *, 4) = (f32) (M2C_FIELD(path, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(follower, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(track, void **, 0x3C), f32 *, 0x20)) {
                 func_80016718(follower);

@@ -252,7 +252,7 @@ loop_14:
         func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
         temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
         func_8002B000(temp_s0_2, 0x1E);
-        temp_a2 = *((temp_s1_2 * 2) + (((unsigned)var_s2 * 6) + D_800BFC38));
+        temp_a2 = *(u16 *)((temp_s1_2 * 2) + (((unsigned)var_s2 * 6) + D_800BFC38));
         func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);
         __repair_phase_var_s2_2 += 1;
         if ((u32) (__repair_phase_var_s2_2 & 0xFFFF) < 3U) {

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800452AC(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK vec3Add(M2C_UNK *, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_800452E0(M2C_UNK *, void *, M2C_UNK *); /* extern */
 f32 func_80045764(M2C_UNK *, M2C_UNK *);            /* extern */
 M2C_UNK func_80047B14(M2C_UNK *, f32, M2C_UNK *);   /* extern */
@@ -26,13 +26,13 @@ void func_8007CAFC(void *arg0) {
 
     temp_s1 = M2C_FIELD(arg0, M2C_UNK **, 0x6C);
     temp_s2 = arg0 + 0x24;
-    func_800452AC(temp_s1, temp_s2, temp_s2);
+    vec3Add(temp_s1, temp_s2, temp_s2);
     func_80047B14(temp_s1, 0.95f, temp_s1);
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x22) {
         func_800452E0(temp_s2, (s8 *) temp_s1 + 0x50, sp10);
         func_80045764(sp10, sp10);
         func_80047B14(sp10, 0.075f, sp10);
-        func_800452AC(sp10, temp_s1, temp_s1);
+        vec3Add(sp10, temp_s1, temp_s1);
         var_ft0 = func_80045764(temp_s1, temp_s1);
         if (D_800D51E8 < (f64) var_ft0) {
             var_ft0 = 0.075f;
