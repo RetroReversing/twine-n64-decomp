@@ -27,7 +27,7 @@ extern char D_800FDC00[];
 extern s32 *D_8011772C;
 extern s32 func_8009D100;
 
-void dmaRomToRam(s32 arg0, s32 arg1, s32 arg2) {
+void func_8009D284(s32 arg0, s32 arg1, s32 arg2) {
     func_8008C0D4(arg0);
     if (D_8011772C == NULL) {
         osCreateMesgQueue(D_800FDBE8, D_800FDC00, 1);
