@@ -6,7 +6,7 @@ s32 func_800084C0();
 s32 func_80008598();
 s32 func_80008660();
 s32 func_80008750();
-s32 func_8000BF90();
+s32 trackFindNearestLight();
 s32 func_8000C34C();
 s32 emit_projection_viewport_commands();
 s32 func_80038FA4();
@@ -48,7 +48,7 @@ extern void *volatile sRenderState;
 
 typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
 typedef struct { int value; } __repair_field_0;
-void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
+void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
     volatile u64 padding;
     u8 sp2E;
     u8 sp2D;
@@ -130,7 +130,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
     temp_a2 = temp_v0 & arg2;
     if (temp_a2 == 0) {
         if (temp_v0 & 0x400) {
-            func_8000BF90(arg0, &sp20, &sp21, &sp22);
+            trackFindNearestLight(arg0, &sp20, &sp21, &sp22);
             temp_v1 = (*(u8 *)((char *)(arg0) + 0x7F));
             (*(u8 *)((char *)(arg0) + 0x7F)) = (u8) ((u32)temp_v1 + ((sp20 >> 1) - (temp_v1 >> 1)));
             temp_v1_2 = (*(u8 *)((char *)(arg0) + 0x80));
@@ -157,7 +157,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
             temp_v1_4 = (*(s32 *)((char *)(arg1) + 0x100));
             if (temp_v1_4 & 2) {
                 if (((__repair_field_58 *)arg0)->value & 0x2000) {
-                    temp_v0_2 = func_8000BF90(arg0, &sp23, &sp24, &sp25);
+                    temp_v0_2 = trackFindNearestLight(arg0, &sp23, &sp24, &sp25);
                     temp_a0 = (*(u8 *)((char *)(arg0) + 0x7F));
                     temp_a1 = (*(u8 *)((char *)(arg0) + 0x81));
                     (*(u8 *)((char *)(arg0) + 0x7F)) = (u8) (temp_a0 + ((sp23 >> 1) - (temp_a0 >> 1)));
@@ -189,7 +189,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                 }
             } else if (temp_v1_4 & 4) {
                 if (((__repair_field_58 *)arg0)->value & 0x2000) {
-                    temp_v0_3 = func_8000BF90(arg0, &sp26, &sp27, &sp28);
+                    temp_v0_3 = trackFindNearestLight(arg0, &sp26, &sp27, &sp28);
                     temp_a0_3 = (*(u8 *)((char *)(arg0) + 0x7F));
                     temp_a2_3 = (*(u8 *)((char *)(arg0) + 0x81));
                     (*(u8 *)((char *)(arg0) + 0x7F)) = (u8) (temp_a0_3 + ((sp26 >> 1) - (temp_a0_3 >> 1)));
@@ -226,7 +226,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                     if (temp_v1_5 & 0x1000) {
                         var_a0 = temp_s0;
                     }
-                    temp_s1_2 = func_8000BF90(var_a0, &sp29, &sp2A, &sp2B);
+                    temp_s1_2 = trackFindNearestLight(var_a0, &sp29, &sp2A, &sp2B);
                     temp_v1_6 = (*(u8 *)((char *)(arg0) + 0x7F));
                     (*(u8 *)((char *)(arg0) + 0x7F)) = (u8) (temp_v1_6 + ((sp29 >> 1) - (temp_v1_6 >> 1)));
                     temp_v1_6 = (*(u8 *)((char *)(arg0) + 0x80));
@@ -258,7 +258,7 @@ void func_800090A4(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
         }
         if (temp_s1 != 0) {
             if (temp_v1_3 & 0x2000) {
-                func_8000BF90(temp_s0, &sp2C, &sp2D, &sp2E);
+                trackFindNearestLight(temp_s0, &sp2C, &sp2D, &sp2E);
                 var_a2 = sp2C;
                 var_a1 = sp2D;
                 var_a3_2 = sp2E;

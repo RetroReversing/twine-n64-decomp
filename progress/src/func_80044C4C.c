@@ -21,7 +21,7 @@ extern M2C_UNK D_800C2C18;
 extern M2C_UNK D_800C2C1C;
 extern M2C_UNK D_800C2C20;
 extern s8 D_800CA310;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s16 D_80117386;
 extern M2C_UNK func_80117740;
 
@@ -43,7 +43,7 @@ void func_80044C4C(s32 arg0) {
         if (arg0 == 0x19) {
             func_80119D00();
         }
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             D_800CA310 = 1;
             func_8011E800();
             return;

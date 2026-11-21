@@ -33,7 +33,7 @@ extern u8 D_800C2B40;
 extern char D_800C392A[];
 extern s32 (*D_800D9420)(s16 *, s32 *);
 extern void *D_801002FC;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u32 sMatrixPoolUsed;
 extern void *D_8010A4B4;
 extern void *D_80115328;
@@ -203,7 +203,7 @@ do {
                             }
                         }
                     }
-                    if ((var_fp != NULL) && (gBorderSkipFlag != 0)) {
+                    if ((var_fp != NULL) && (gBorderSkipActive != 0)) {
                         if (__repair_phase_var_s4 == 7) {
                             temp_ft0 = (s32) (M2C_FIELD(var_fp, f32 *, 0x11C) * 4096.0f);
                             spA58[1] = (s16) temp_ft0;

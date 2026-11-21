@@ -85,7 +85,7 @@ extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
 extern u8 D_801002AE;
 extern s32 gSaveSlotCount;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s8 D_80103EB0;
 extern s32 gGameMode;
 extern M2C_UNK gTrackMarkerTable;
@@ -459,7 +459,7 @@ case 41:
 func_8007092C(arg0, 0);
 break;
 }
-if ((gBorderSkipFlag != 0) && (gSaveSlotCount < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
+if ((gBorderSkipActive != 0) && (gSaveSlotCount < (M2C_FIELD(temp_s1, s8 *, 0x182) + 1))) {
 M2C_FIELD(arg0, s16 *, 0x78) = 3;
 M2C_FIELD(arg0, s16 *, 0x7A) = 0;
 }
@@ -649,7 +649,7 @@ M2C_FIELD(temp_s1, f32 *, 0xCC) = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 0xCC) +
 temp_v1_18 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_18, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_18, u16 *, 0xC) & 0xFFCB);
 requestSound(0xFF, 4);
-if (gBorderSkipFlag != 0) {
+if (gBorderSkipActive != 0) {
 temp_fv0_4 = M2C_FIELD(temp_s1, f32 *, 0x4C);
 if ((temp_fv0_4 <= 0.0002f) && (temp_fv0_4 >= -0.0002f)) {
 temp_fv0_5 = M2C_FIELD(temp_s1, f32 *, 0x50);

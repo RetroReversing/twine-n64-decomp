@@ -6,7 +6,7 @@ s32 updateNearbyEntries(f32, void *, void *);         /* extern */
 s32 func_80073108(void *, void *, f32);     /* extern */
 s32 func_80073210(s32, void **, void *, s32, f32, f32, s32, s32); /* extern */
 s32 func_800851E0(void *arg0);                      /* extern */
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 
 void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 arg5, s32 arg6) {
   s32 __repair_integer_one;
@@ -42,7 +42,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
                         if (temp_fv0 < arg2) {
                             if ((u32) ((*(u16 *)((char *)(var_s1) + 0x78)) - 2) < 2U) {
                                 temp_a2 = (*(void **)((char *)(var_s1) + 0x6C));
-                                if (gBorderSkipFlag != 0) {
+                                if (gBorderSkipActive != 0) {
                                     var_fv0 = arg1;
                                 } else {
                                     var_fv0 = arg1 * 0.25f;

@@ -22,7 +22,7 @@ f32 cosAngle(f32);
 s32 rotateVec3ByMat3();
 extern char sEnemyDefTable[];
 extern u8 gPauseFlag;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern char gTrackMarkerTable[];
 
 typedef struct { f32 x, y, z; } Vec3;
@@ -54,7 +54,7 @@ s32 __repair_operand;
     actor_data = M2C_FIELD(actor, void **, 0x6C);
     axis_idx = M2C_FIELD(actor_data, s8 *, 0x182);
     actor_def = (M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xE) * 0xE8) + sEnemyDefTable;
-    if ((gBorderSkipFlag == 0) || (gPauseFlag != 0)) {
+    if ((gBorderSkipActive == 0) || (gPauseFlag != 0)) {
         if (M2C_FIELD(actor_def, u8 *, 0x9E) != 0xFF) {
             M2C_FIELD(M2C_FIELD(M2C_FIELD(actor_data, void **, 0xA8), void **, 0x68), s32 *, 0x78) = func_8004478C(M2C_FIELD(actor_def, s16 *, 0x48), M2C_FIELD(actor_def, s16 *, 0x40));
         }

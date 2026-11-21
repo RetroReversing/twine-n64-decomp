@@ -34,7 +34,7 @@ extern char D_800C7CAC[];
 extern s16 D_800C7CB4;
 extern s16 D_800C7CC0;
 extern char D_801001A4[];
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 
 extern char D_800D42E0[];
 extern char D_800D42E8[];
@@ -89,7 +89,7 @@ s32 actorFinishIfMatch(void *arg0, s32 arg1) {
                 var_a1 = 0xA;
             
             func_800635BC(arg0, var_a1);}
-            if (gBorderSkipFlag == 0) {
+            if (gBorderSkipActive == 0) {
                 func_8000A344();
                 requestSound(0x101);
             } else {

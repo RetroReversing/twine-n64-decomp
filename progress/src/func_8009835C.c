@@ -4,8 +4,8 @@ typedef struct { s32 a; s32 b; s32 zero; s32 c; s32 d; s32 e; u8 f; } Out9835C;
 extern s16 D_800F3894;
 extern Hdr9835C *D_800F38B0;
 extern void *D_800F38B4;
-extern s32 D_800F38EC;
-extern Bank9835C D_800F38F0[];
+extern s32 sKeyTableCount;
+extern Bank9835C sKeyTableSlots[];
 Hdr9835C *func_800956E0(void *, s32, s32, s32, void *);
 void func_800986CC(void);
 
@@ -14,8 +14,8 @@ s32 func_8009835C(s16 arg0, Out9835C *out) {
     Hdr9835C *h;
 
     D_800F3894 = arg0;
-    for (i = 0; i < D_800F38EC; i++) {
-        h = func_800956E0(&D_800F3894, D_800F38F0[i].rom, D_800F38F0[i].size, 0x1C, func_800986CC);
+    for (i = 0; i < sKeyTableCount; i++) {
+        h = func_800956E0(&D_800F3894, sKeyTableSlots[i].rom, sKeyTableSlots[i].size, 0x1C, func_800986CC);
         D_800F38B0 = h;
         if (h != NULL) {
             out->a = h->a;

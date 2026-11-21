@@ -89,7 +89,7 @@ extern M2C_UNK D_80109AA0;
 extern M2C_UNK gBonusObjects;
 extern s32 D_801176DC;
 extern M2C_UNK func_8004D910;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *gPlayerActor;
 extern void *gTrackedActor;
 
@@ -470,7 +470,7 @@ loop_95:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = 0;
                             goto block_262;
                         }
-                        if (gBorderSkipFlag == 0) {
+                        if (gBorderSkipActive == 0) {
                             spawnConfiguredEffect(M2C_FIELD(arg0, void **, 0x20), &vsp40[0], arg0 + 0x3C, 0, 0.1f, 1.025f, 0x19, 0xFB, 0x17, 0x80, 0x8080800C);
                             if (D_80108F84 != NULL) {
                                 vsp98[0] = -sp70;
@@ -719,7 +719,7 @@ block_138:
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = (s32) (M2C_FIELD(D_80108F84, s32 *, 0x50) & ~0x20);
                         }
                     }
-                    if ((var_s4_2 != -1) && (gBorderSkipFlag == 0) && ((gPlayerActor != NULL) || (D_80108F84 != NULL))) {
+                    if ((var_s4_2 != -1) && (gBorderSkipActive == 0) && ((gPlayerActor != NULL) || (D_80108F84 != NULL))) {
                         temp_v0_13 = func_800166A0();
                         if (temp_v0_13 != NULL) {
                             M2C_FIELD(temp_v0_13, s32 *, 0x1C) = 0;
@@ -782,7 +782,7 @@ block_138:
                     M2C_FIELD(temp_s2, f32 *, 8) = (f32) (spB8 - (temp_ft0_3 * vspD0[2]));
                     if (D_80108F84 != NULL) {
                         var_s0_4 = 4;
-                        if (gBorderSkipFlag != 0) {
+                        if (gBorderSkipActive != 0) {
                             var_s1 = 2;
                             var_s4_3 = 1;
                         } else {
@@ -814,7 +814,7 @@ block_138:
                         }
                     } else {
                         var_s0_5 = 4;
-                        if (gBorderSkipFlag != 0) {
+                        if (gBorderSkipActive != 0) {
                             var_s1_2 = 2;
                             var_s4_4 = 1;
                         } else {

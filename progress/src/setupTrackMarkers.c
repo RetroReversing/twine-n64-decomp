@@ -1,7 +1,7 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
 s32 func_800422F4(); s32 func_800426B8(); s32 activateIdList();
 extern u16 gSharedItemId,D_800C2B50,D_800C2B54,D_800C2B5C,D_800C2B64,D_800C2B68,D_800C2B70,D_800C2B80,D_800C2B88,D_800C2B94,D_800C2BA0,D_800C2BA4,D_800C2BB0,D_800C2BB8,D_800C2BC0,D_800C2BCC,D_800C2BF4;
-extern char D_800C447A[]; extern s32 gBorderSkipFlag; extern void *gTrackMarkerTable; extern u8 D_80112F6C,D_80112F6D;
+extern char D_800C447A[]; extern s32 gBorderSkipActive; extern void *gTrackMarkerTable; extern u8 D_80112F6C,D_80112F6D;
 
 /* Resets the marker id list for trackId, then activates the marker and HUD id lists for it. */
 void setupTrackMarkers(u32 trackId) {
@@ -50,5 +50,5 @@ void setupTrackMarkers(u32 trackId) {
         do { copyWord = *(u16*)(D_800C447A + (s32)listSrc); listSrc += 8; copyIndex++; *(u16*)bufCursor = copyWord; bufCursor += 2; } while (copyIndex < 0x1E);
         idList[0x1E] = -1; activateIdList(&idList[1], bufCursor);
     }
-    if (gBorderSkipFlag != 0) activateIdList(&gSharedItemId);
+    if (gBorderSkipActive != 0) activateIdList(&gSharedItemId);
 }

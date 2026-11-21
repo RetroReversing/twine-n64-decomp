@@ -12,7 +12,7 @@ extern s32 D_800C7EDC;
 extern f64 D_800D4860;
 extern f64 D_800D4868;
 extern s32 gVisibleSaveSlots;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s32 gTrackMarkerSerial;
 extern s32 gTrackMarkerTable;
 extern void *D_8010969C;
@@ -67,7 +67,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         var_s0 = " ";
     }
     sp13C = sp114;
-    if (gBorderSkipFlag) {
+    if (gBorderSkipActive) {
         temp_v0 = (*(s16 *)((char *)(sp114) + 0x140));
         if (gVisibleSaveSlots > temp_v0) {
             goto block_10;
@@ -216,7 +216,7 @@ block_51:
             (*(s8 *)((char *)(temp_s1) + 0x135)) = 0;
             var_a1 = 0xA0;
             var_a0 = 0x78;
-            if (gBorderSkipFlag != 0) {
+            if (gBorderSkipActive != 0) {
                 if (gVisibleSaveSlots != 2) {
                     if ((2 <= gVisibleSaveSlots)) {
                         if ((5 > gVisibleSaveSlots)) {
@@ -231,7 +231,7 @@ block_44:
                     var_a0 = 0x3C;
                 }
                 var_s4 = 0x16;
-                if ((u32)gBorderSkipFlag != 0) {
+                if ((u32)gBorderSkipActive != 0) {
                     var_s2 = (var_a0 * 2) - 0x18;
                     var_s5 = 0x840;
                     func_800AB9B0(sp10, var_a1);

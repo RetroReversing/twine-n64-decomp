@@ -12,7 +12,7 @@ extern u8 D_801002AC;
 extern u8 D_801002AE;
 extern s32 gSaveTotalSlots;
 extern s32 gVisibleSaveSlots;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u8 gBorderFlipFlag;
 extern s16 D_8011F0EC;
 extern s16 D_8011F0EE;
@@ -58,7 +58,7 @@ void func_8011E634(void) {
         }
     }
     func_8011DC18();
-    if (((gBorderSkipFlag != 0 && D_801002AC != 0) || (func_8011A2A0() & 0xFFFF)) && (t = D_8011F3A8 - 1, D_8011F3A8 = t, t <= 0)) {
+    if (((gBorderSkipActive != 0 && D_801002AC != 0) || (func_8011A2A0() & 0xFFFF)) && (t = D_8011F3A8 - 1, D_8011F3A8 = t, t <= 0)) {
         if (t == 0) {
             func_8011E894();
             i = 0;

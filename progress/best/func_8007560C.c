@@ -13,7 +13,7 @@ extern f64 D_800D48D0;
 extern f64 D_800D48E0;
 extern s32 gSaveTotalSlots;
 extern s32 gVisibleSaveSlots;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern char gTrackMarkerTable[];
 extern void *gMenuRootObject;
 extern void *D_8010969C;
@@ -85,7 +85,7 @@ f32 __repair_var_a2_1;
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xDF;
     gSceneFlagsB |= 0x20;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
-    if (gBorderSkipFlag == 0) {
+    if (gBorderSkipActive == 0) {
         if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {
             func_80048794(0, gProbeObjectList);
         }

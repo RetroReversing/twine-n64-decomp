@@ -25,7 +25,7 @@ M2C_UNK func_80081CC0(s32);                         /* extern */
 M2C_UNK func_80081D00(s32);                         /* extern */
 extern s8 D_801002AE;
 extern s32 gSaveSlotCount;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *sActiveMenu;
 extern s32 gGameMode;
 extern void *gMenuItems;
@@ -42,7 +42,7 @@ extern void *gMenuItems;
     }
     func_8002CC34();
     func_8002D224();
-    if (gBorderSkipFlag == 0) {
+    if (gBorderSkipActive == 0) {
         if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
             goto fail;
         }

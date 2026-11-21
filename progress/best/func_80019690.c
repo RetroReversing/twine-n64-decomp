@@ -30,7 +30,7 @@ extern s32 D_801002D0;
 extern s16 D_80102CBC;
 extern s16 D_80102CBE;
 extern s16 D_80102CC0;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s8 gMenuUseTextList;
 extern u8 D_80102EE0;
 extern u8 sDifficultyLevel;
@@ -74,9 +74,9 @@ void func_80019690(void) {
         gMenuUseTextList = 1;
         p = (*(void **)((char *)(gMenuItems) + 0x18));
         if ((*(s32 *)((char *)(p) + 0x10)) != 0) {
-            gBorderSkipFlag = (*(s32 *)((char *)(p) + 0x14));
+            gBorderSkipActive = (*(s32 *)((char *)(p) + 0x14));
         }
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             D_801002AC = 0;
             D_801002A3 = 0;
             gPickupSavedByte = 0;
@@ -110,7 +110,7 @@ void func_80019690(void) {
         D_80102CBE = 0;
         D_80102CC0 = 0;
         D_8010A4E4 = 0;
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             D_800CA338 = 0;
             func_80045130(D_801002A4);
             return;

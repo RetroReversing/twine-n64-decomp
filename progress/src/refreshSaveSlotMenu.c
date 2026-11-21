@@ -28,7 +28,7 @@ extern u8 D_80100198[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern u8 D_80102EB8;
-extern M2C_UNK gBorderSkipFlag;
+extern M2C_UNK gBorderSkipActive;
 extern u8 gMenuUseTextList;
 extern M2C_UNK D_80102F48[];
 extern void *gMenuItems;
@@ -72,7 +72,7 @@ extern M2C_UNK gPickupSearchBox;
                     textCursor += 1;
                     if (textChar == 1) {
                         replacementChar = 0x58;
-                        if ((M2C_FIELD(&gBorderSkipFlag, s32 *, 0) == 0) && (M2C_FIELD(&gBorderSkipFlag, u8 *, 5) != 0)) {
+                        if ((M2C_FIELD(&gBorderSkipActive, s32 *, 0) == 0) && (M2C_FIELD(&gBorderSkipActive, u8 *, 5) != 0)) {
                             replacementChar = 0x35;
                         }
                         *textCursor = replacementChar;
@@ -100,9 +100,9 @@ extern M2C_UNK gPickupSearchBox;
             yPos = 0x33;
         
         func_80022A30(sMenuListKind, 0x19, 0x30, yPos, 0x50);}
-        if ((gMenuUseTextList == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
+        if ((gMenuUseTextList == 0) || (M2C_FIELD(&gBorderSkipActive, s32 *, 0) != 0)) {
             D_80102EB8 = countValidSaveSlots(0xA3);
-            if (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0) {
+            if (M2C_FIELD(&gBorderSkipActive, s32 *, 0) != 0) {
                 D_80102EB8 = (u8) gSaveSlotCount;
             }
             if (D_80102EB8 == 0) {

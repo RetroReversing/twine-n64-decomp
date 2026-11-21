@@ -45,7 +45,7 @@ extern f64 D_800D4810;
 extern M2C_UNK D_8011508D;
 extern u8 gBorderFlipFlag;
 extern s32 gVisibleSaveSlots;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u8 gPauseFlag;
 extern M2C_UNK gTrackMarkerTable;
 
@@ -184,7 +184,7 @@ void func_80070F34(void *arg0) {
     sp1C = temp_v0;
     temp_s6 = M2C_FIELD(temp_v0, u8 *, 0x80);
     var_fs1 = 120.0f;
-    if (gBorderSkipFlag != 0) {
+    if (gBorderSkipActive != 0) {
         if (gVisibleSaveSlots != 2) {
             if ((gVisibleSaveSlots >= 3) && (gVisibleSaveSlots < 5)) {
                 var_fs2 = 80.0f;
@@ -195,7 +195,7 @@ void func_80070F34(void *arg0) {
         } else {
             var_fs1 = 60.0f;
         }
-        if (gBorderSkipFlag == 0) {
+        if (gBorderSkipActive == 0) {
             goto block_10;
         }
     } else {
@@ -423,7 +423,7 @@ block_10:
         }
     }
     if (M2C_FIELD(temp_s2, void **, 0x490) == NULL) {
-        if ((gBorderSkipFlag == 0) || (gPauseFlag != 0)) {
+        if ((gBorderSkipActive == 0) || (gPauseFlag != 0)) {
             M2C_FIELD(temp_s2, void **, 0x490) = spawnTrackMarker(M2C_FIELD(temp_s2, s8 *, 0x182));
         }
     } else {
@@ -451,7 +451,7 @@ block_10:
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), void **, 0x18) = temp_s0_3;
                 temp_s0_4 = M2C_FIELD(temp_s2, void **, 0x490);
                 M2C_FIELD(temp_s0_4, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_4, void **, 0x18));
-                if (gBorderSkipFlag != 0) {
+                if (gBorderSkipActive != 0) {
                     temp_fv1_11 = (2.0f * var_fs1) - 34.0f;
                     M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x20) = 0x16;
                     temp_a0_7 = M2C_FIELD(temp_s2, void **, 0x490);
@@ -537,7 +537,7 @@ block_10:
         M2C_FIELD(temp_s2, u8 *, 0x5A8) = 1U;
         M2C_FIELD(temp_s2, f32 *, 0x51C) = 0.0f;
         M2C_FIELD(temp_s2, f32 *, 0x518) = 0.0f;
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), u32 *, 0x10) = 0x3F0000FFU;
             M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x14) = 0x200000FF;
             return;
@@ -548,7 +548,7 @@ block_10:
         var_fs3 = M2C_FIELD(temp_s2, f32 *, 0x518);
         var_fs2_2 = 0.0f;
         temp_a1_2 = (s32) M2C_FIELD(temp_s2, f32 *, 0x51C);
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             var_fv1_3 = 2.45f;
             var_v0_4 = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) & ~0xFC) | 4;
         } else {
@@ -616,7 +616,7 @@ loop_154:
         } while (var_s0_3 < 0x40U);
         temp_ft0 = M2C_FIELD(temp_s2, f32 *, 0x34);
         M2C_FIELD(temp_s2, f32 *, 0x34) = (f32) (temp_ft0 + ((0.66f - temp_ft0) * 0.015625f));
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             temp_a0_13 = M2C_FIELD(temp_s2, void **, 0x514);
             temp_v1_22 = M2C_FIELD(temp_a0_13, u32 *, 0x10);
             if ((u32) (temp_v1_22 & 0xFF) < 0xC8U) {
@@ -626,7 +626,7 @@ loop_154:
         }
         break;
     case 3:                                         /* switch 3 */
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             temp_s0_5 = M2C_FIELD(temp_s2, void **, 0x514);
             temp_v0_13 = M2C_FIELD(temp_s0_5, u32 *, 0x10);
             temp_a0_14 = (temp_v0_13 & 0xFF) + 4;

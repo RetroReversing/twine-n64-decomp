@@ -8,7 +8,7 @@ extern f64 D_800D4508;
 extern f64 D_800D4510;
 extern s16 gAirTimeGauge;
 extern u8 gWheelsGrounded;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u8 sDifficultyLevel;
 
 typedef struct { unsigned char pad[96]; int value; } __repair_field_60;
@@ -24,7 +24,7 @@ typedef struct { unsigned char pad[96]; int value; } __repair_field_60;
 
     vehicle = (*(void **)((char *)(actor) + 0x6C));
     track = (*(void **)((char *)(actor) + 0x20));
-    if (gBorderSkipFlag != 0) {
+    if (gBorderSkipActive != 0) {
         gWheelsGrounded = 1;
         return;
     }

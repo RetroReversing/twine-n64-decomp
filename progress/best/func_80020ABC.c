@@ -57,13 +57,14 @@ s32 __repair_phase_var_a2;
         D_8010A2DC = 0;
         func_8002A7CC(D_80115060, D_8010A2D8, 0xFF, func_80018318((*(s32 *)((char *)(D_8010A2D8) + 0))) & 0xFF);
     }
-    temp_s4 = spawnTrackMarker(sMenuListKind);
-    (*(s32 *)((char *)(D_8010A2D8) + 8)) = temp_s4;
-    if (temp_s4 != 0) {
+    __repair_result_temp_s4 = spawnTrackMarker(sMenuListKind);
+    (*(s32 *)((char *)(D_8010A2D8) + 8)) = __repair_result_temp_s4;
+    if (__repair_result_temp_s4 != 0) {
         func_800160FC((*(s32 *)((char *)(D_8010A2D8) + 8)), lookupDataEntry((func_800316B8() + 0x72) & 0xFFFF), 0x41);
         D_8010A2E4 = 0;
         func_8002A7CC(D_80115060, D_8010A2D8 + 8, 0xFF, func_80018318((*(s32 *)((char *)(D_8010A2D8) + 8))) & 0xFF);
     }
+    temp_s4 = 0;
     var_s3 = 2;
     for (;;) {
         __repair_phase_temp_s4 = var_s3 & 0xFFFF;
@@ -95,7 +96,8 @@ s32 __repair_phase_var_a2;
                 __repair_phase_storage.pointer = *(s32 *)((u8 *)&D_8010A2DC + temp_s4);
                 (*(s16 *)((char *)(__repair_phase_storage.pointer) + 0x1C)) = strlen((*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x18)));
                 (*(s16 *)((char *)(*(s32 *)((u8 *)&D_8010A2DC + temp_s4)) + 0x1E)) = 0x40;
-                (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) = (s32) (((*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x28)) & ~0xFC) | 0xC);
+                temp_v1 = *(s32 *)((u8 *)&D_8010A2DC + temp_s4);
+                (*(s32 *)((char *)(temp_v1) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v1) + 0x28)) & ~0xFC) | 0xC);
                 __repair_phase_storage.pointer = *(s32 *)((u8 *)&D_8010A2DC + temp_s4);
                 (*(s32 *)((char *)(*(s32 *)((u8 *)&D_8010A2DC + temp_s4)) + 0x10)) = 0;
                 if ((__repair_phase_temp_s4 - 1) == (func_80031028(0, 1) & 0xFFFF)) {

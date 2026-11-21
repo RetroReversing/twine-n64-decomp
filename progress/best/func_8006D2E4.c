@@ -70,7 +70,7 @@ extern u8 D_80102EE8;
 extern u8 D_80109A73;
 extern s32 D_80112F68;
 extern u8 gBorderFlipFlag;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s32 gGameMode;
 extern u8 gSaveKeyRelaxed;
 extern s32 gSaveSlotCount;
@@ -157,7 +157,7 @@ void func_8006D2E4(void *arg0) {
     sp3C = 0;
     sp30 = 0;
     temp_s5 = M2C_FIELD(arg0, s32 *, 0x20);
-    if ((gBorderSkipFlag != 0) && (gSaveKeyRelaxed != 0) && (D_801002D5 == 0)) {
+    if ((gBorderSkipActive != 0) && (gSaveKeyRelaxed != 0) && (D_801002D5 == 0)) {
         temp_v0 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 0x1B8));
         if ((temp_v0 != NULL) && ((M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), u8 *, 0x12) == M2C_FIELD(M2C_FIELD(temp_v0, void **, 0xB4), u8 *, 0x12)) & ((s32) temp_s3 != (s32) temp_v0))) {
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & ~0x62);
@@ -183,7 +183,7 @@ void func_8006D2E4(void *arg0) {
                 M2C_FIELD(temp_s3, u32 *, 0x18C) = (u32) ((M2C_FIELD(temp_s3, u32 *, 0x18C) & 0xFFFF0FFF) | 0x7000);
             }
             if (M2C_FIELD(arg0, s32 *, 0x60) & 2) {
-                if (gBorderSkipFlag != 0) {
+                if (gBorderSkipActive != 0) {
                     temp_v0_3 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 4));
                     if (temp_v0_3 != NULL) {
                         temp_a0 = M2C_FIELD(temp_v0_3, s8 *, 0x182);
@@ -336,7 +336,7 @@ block_95:
                             func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&gTrackMarkerTable + (temp_s4 * 4)));
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;
-                            if (gBorderSkipFlag != 0) {
+                            if (gBorderSkipActive != 0) {
                                 if (gVisibleSaveSlots != 2) {
                                     var_v0_2 = temp_s1 * 8;
                                     if (gVisibleSaveSlots >= 2) {

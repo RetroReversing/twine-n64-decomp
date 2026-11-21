@@ -18,7 +18,7 @@ extern char D_800C46FC[];
 extern f32 D_800C683C;
 extern s16 D_800C6858;
 extern u16 D_800C68BA;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *gPlayerActor;
 extern char gTrackMarkerTable[];
 extern char D_80109A98[];
@@ -176,7 +176,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
             }
             UpdateActorTargetEffect(arg0, sp58);
         }
-        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gBorderSkipFlag == 0)) {
+        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gBorderSkipActive == 0)) {
             func_800589FC(arg0, (*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 4)) + ((*(u16 *)((char *)(var_s1) + 0x90)) * 0xC));
         }
         (*(f32 *)((char *)(temp_s2) + 0x70)) -= (*(f32 *)((char *)(var_s1) + 0x88));

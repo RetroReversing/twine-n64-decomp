@@ -25,6 +25,7 @@ s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg
 
     if (gWorkerThreadActive) {
         key = argK;
+        key = (u16)key;
         workerLockAcquire();
         var_s0 = arg0;
         if (var_s0 == NULL) {

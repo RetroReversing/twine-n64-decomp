@@ -1,13 +1,13 @@
 typedef struct { u8 pad0[0xE]; s8 sE; u8 padF[5]; s32 f14; } Info299C;
 typedef struct { u8 pad0[0x68]; Info299C *info; } Obj299C;
 extern u8 D_800C470A[];
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 
 s32 func_8000299C(Obj299C *o, s32 id) {
     s32 other = 1;
     s32 t;
 
-    if ((o->info->f14 & 0x200000) && gBorderSkipFlag == 0) {
+    if ((o->info->f14 & 0x200000) && gBorderSkipActive == 0) {
         other = 0;
         switch (id) {
         case 0x2:

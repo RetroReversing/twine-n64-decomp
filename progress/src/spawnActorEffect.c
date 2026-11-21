@@ -16,7 +16,7 @@ f32 sinAngle(f32);                             /* extern */
 f32 cosAngle(f32);                             /* extern */
 extern u8 D_800B1FE0[];
 extern s32 D_800B2230;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *volatile gWobbleParams;
 
 typedef struct { f32 w[3]; } __repair_words3;
@@ -154,7 +154,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
         (*(s16 *)((char *)(effect) + 0x78)) = 6;
         (*(void **)((char *)(effectData) + 0x30)) = NULL;
         if ((*(s32 *)((char *)(srcTemplate) + 0x60)) & 8) {
-            if (!(spawnFlags & 0x80000) && (gBorderSkipFlag == 0)) {
+            if (!(spawnFlags & 0x80000) && (gBorderSkipActive == 0)) {
                 borderObj = func_80031EF4(effect + 0x24, 0, 0x1E);
                 (*(void **)((char *)(effectData) + 0x30)) = borderObj;
                 (*(void **)((char *)(borderObj) + 0x18)) = effect;

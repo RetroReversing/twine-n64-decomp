@@ -1,5 +1,5 @@
 static __inline__ u16 __repair_inline(u16 a) { return a; }
-s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 func_80097814(); s32 func_80097A40(); s32 func_80097D0C(); s32 func_80097EF8();
+s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 keyTableRegister(); s32 func_80097A40(); s32 func_80097D0C(); s32 func_80097EF8();
 extern u8 gWorkerThreadActive; extern s16 sSceneGroupStackCount; extern char sSceneGroupStack[];
 s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
  char *__repair_addr; s32 *var_a1,*var_a1_3,*var_a1_4,*var_s1,*var_v0,*var_v0_2,*var_v0_3,*var_v0_4; u16 *temp_s0; char *var_s0,*var_s0_2,*var_s0_3,*var_s0_4,*var_s0_5; u16 var_a0,var_v1,var_v1_2,var_v1_3,var_v1_4; void *temp_a1,*temp_v0,*temp_v0_2,*temp_v0_3,*temp_v0_4;
@@ -11,7 +11,7 @@ s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
          break;
      }
 }if(var_v0)func_80097EF8(*(u16 *)var_s0,(s8 *)var_v0+8);var_s0+=2;var_v1=__repair_inline(*(u16 *)var_s0);}while(var_v1!=0xffff);
-     temp_s0=(u16 *)((char *)var_s1+var_s1[3]+8);if(func_80097814(arg3,func_8008C758(arg2))&0xff){var_a0=*temp_s0;var_s0_2=(char *)temp_s0+2;if(var_a0!=0xffff)do{func_80097A40(var_a0,arg3);var_a0=*(u16 *)var_s0_2;var_s0_2+=2;}while(var_a0!=0xffff);}
+     temp_s0=(u16 *)((char *)var_s1+var_s1[3]+8);if(keyTableRegister(arg3,func_8008C758(arg2))&0xff){var_a0=*temp_s0;var_s0_2=(char *)temp_s0+2;if(var_a0!=0xffff)do{func_80097A40(var_a0,arg3);var_a0=*(u16 *)var_s0_2;var_s0_2+=2;}while(var_a0!=0xffff);}
      temp_v0_2=(void *)(var_s1[4]+var_s1);var_s0_3=(char *)temp_v0_2+8;var_v1_2=*(u16 *)((char *)temp_v0_2+8);if(var_v1_2!=0xffff)do{var_v0_2=0;var_a1=(s32 *)((char *)arg4+*(s32 *)((char *)arg4+4));if(*var_a1!=-1){     for (;;) {
          var_v0_2=var_a1;if(*(u16 *)((char *)var_a1+4)!=(var_v1_2&0xffff)){var_a1=(s32 *)((char *)var_a1+*var_a1);var_v0_2=0;if(*var_a1!=-1)continue;}
          break;

@@ -1,4 +1,4 @@
-extern void *gBorderSkipFlag;
+extern void *gBorderSkipActive;
 extern u8 sOptionCursor;
 extern u8 sEnemyDefTable[];
 extern u8 D_800C447C[];
@@ -15,7 +15,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
     u32 v;
     void (*fn)(void *);
 
-    if (gBorderSkipFlag == NULL) {
+    if (gBorderSkipActive == NULL) {
         return;
     }
     switch (sOptionCursor) {

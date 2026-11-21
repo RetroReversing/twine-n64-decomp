@@ -16,7 +16,7 @@ M2C_UNK func_8000A3AC(void);       /* extern */
 extern M2C_UNK D_800E1098;
 extern s32 gVisibleSaveSlots;
 extern M2C_UNK D_801007C8;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u8 gMenuUseTextList;
 extern u8 gSceneFlagsA;
 extern u8 gSceneFlagsB;
@@ -36,7 +36,7 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     var_a3 = arg3;
     M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 0;
     M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0;
-    if (gBorderSkipFlag != 0) {
+    if (gBorderSkipActive != 0) {
         s32 *limit = &gVisibleSaveSlots;
         s32 i = 0;
         if (*limit > 0) {

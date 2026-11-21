@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8008C7B0();
-extern s32 D_800F38EC;
+extern s32 sKeyTableCount;
 extern s32 sortedEntryCount;
 extern s32 gCountedEntryCount;
 extern s32 D_800F8158;
@@ -26,7 +26,7 @@ void func_80098644(void) {
     s32 var_v1;
 
     var_v1 = 0;
-    D_800F38EC = 0;
+    sKeyTableCount = 0;
     sortedEntryCount = 0;
     gCountedEntryCount = 0;
     D_800F8158 = 0;

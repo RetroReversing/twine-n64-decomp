@@ -23,7 +23,7 @@ M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
 extern s32 *D_800CA31C;
 extern f64 D_800D2DE8;
 extern f64 D_800D2DF0;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *gWobbleParams;
 extern u8 gSceneFlagsA;
 extern u8 gSceneFlagsB;
@@ -43,7 +43,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
     s32 var_s0;
     s32 var_s2;
 
-    if (gBorderSkipFlag == 0) {
+    if (gBorderSkipActive == 0) {
         __base_D_8010968C = &gWobbleParams;
         if ((*__base_D_8010968C) != NULL) {
             func_80084048((*__base_D_8010968C), 0xE);

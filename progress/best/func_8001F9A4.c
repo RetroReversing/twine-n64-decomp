@@ -28,7 +28,7 @@ extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
 extern s8 gValidSaveSlotCount;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s32 D_80102F48[];
 extern const char D_800D2A80[];
 extern const char D_800D2A88[];
@@ -101,7 +101,7 @@ void func_8001F9A4(void) {
     sp3C = findEntryPayload((*(void **)((char *)(gMenuItems) + 0x10)), 0x7F);
     if (((temp_s1 != 0) & (temp_s2 != 0)) && ((var_s0 != 0) & (temp_s7 != 0)) && ((sp34 != 0) & (temp_fp != 0)) && ((sp3C != 0) & (temp_s6 != 0))) {
         (*(s8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x10))) + 4)) = 1;
-        if (gBorderSkipFlag == 0) {
+        if (gBorderSkipActive == 0) {
             gPickupSavedByte = 0;
         }
         gCurrentSaveSlot = gPickupSavedByte;
@@ -123,7 +123,7 @@ void func_8001F9A4(void) {
         temp_s3 = temp_s1 - 0x28;
         temp_s1_2 = var_s0 - 0x28;
         func_80025D84(temp_s4, temp_s2, temp_s3, temp_s1_2, 0x79, 1);
-        if ((gBorderSkipFlag == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
+        if ((gBorderSkipActive == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
             func_80025E9C(temp_s4, temp_s2, temp_s3, temp_s1_2, 1, 0xD);
         }
         D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
@@ -197,7 +197,7 @@ block_36:
             var_a0_9 = 9;
         }
         formatTextEntry(sp3C, D_800D2A80, lookupDataEntry(var_a0_9));
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
             gValidSaveSlotCount = countValidSaveSlots(0xA3);
             func_80022A30(sMenuListKind, 0x25, 0x48, 0x32, 0x76);

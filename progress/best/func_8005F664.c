@@ -22,7 +22,7 @@ extern M2C_UNK sEnemyDefTable;
 extern M2C_UNK D_800C4706;
 extern M2C_UNK D_800C4708;
 extern M2C_UNK func_8004D910;
-extern s16 gBorderSkipFlag;
+extern s16 gBorderSkipActive;
 typedef struct { s32 w[3]; } __repair_words3;
 void *func_8005F664(void *arg0, s32 arg1, u32 arg2) {
     M2C_UNK sp28;
@@ -39,7 +39,7 @@ void *func_8005F664(void *arg0, s32 arg1, u32 arg2) {
             var_v0 = var_s3 * 8;
         }
         if (*(s16 *)((u8 *)&D_800C4706 + ((((var_v0-var_s3)*4)+var_s3)*8)) != -1) {
-            if (!((gBorderSkipFlag != 0) & (var_s3 == 0x26))) {
+            if (!((gBorderSkipActive != 0) & (var_s3 == 0x26))) {
                 temp_v0 = spawnEffectObject(0x34,0,0);
                 if (temp_v0 != NULL) {
                     M2C_FIELD(temp_v0,u8 *,0x7F)=M2C_FIELD(arg0,u8 *,0x7F);

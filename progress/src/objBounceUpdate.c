@@ -41,7 +41,7 @@ s32 objUpdateGroundContact(void *);
 s32 func_800850E0(void *);
 extern u8 gSceneType;
 extern u8 D_801002A3;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 
 /* Per-frame update for a bouncing object: decays squash and recoil, runs the bounce/fall state logic, and counts down the timers that flag the object for removal. */
 void objBounceUpdate(ObjEBF4 *obj) {
@@ -86,7 +86,7 @@ void objBounceUpdate(ObjEBF4 *obj) {
             sub->bounceCount = 0;
         }
     }
-    if (sub->active != 0 && (sub->hitFlags == 0 || gBorderSkipFlag != 0)) {
+    if (sub->active != 0 && (sub->hitFlags == 0 || gBorderSkipActive != 0)) {
         if (sub->timer > 0) {
             if (--sub->timer == 0) {
                 obj->hideTimer = 0x10;

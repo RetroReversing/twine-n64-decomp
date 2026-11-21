@@ -16,7 +16,7 @@ extern char D_800C46FC[];
 extern f64 D_800D44F0;
 extern f64 D_800D44F8;
 extern u8 gPauseFlag;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern char gTrackMarkerTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
@@ -190,7 +190,7 @@ f32 __repair_sp4C_1;
             if (D_800D44F8 < (f64) temp_fv0_3) {
                 (*(f32 *)((char *)(temp_s2) + 0x54)) = 4.0f;
             }
-            if (gBorderSkipFlag) {
+            if (gBorderSkipActive) {
                 if (gPauseFlag != 0) {
                     do { func_800643C8(temp_s4); } while (0);
                 }

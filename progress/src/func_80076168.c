@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800271A4(s32);                         /* extern */
 extern s8 D_80102EB9;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s8 gMenuUseTextList;
 extern s8 gPendingMenuCommand;
 extern s32 D_8011F3A8;
 
 void func_80076168(s32 arg0) {
-    if (gBorderSkipFlag != 0) {
+    if (gBorderSkipActive != 0) {
         D_8011F3A8 = 0;
     }
     gMenuUseTextList = 1;

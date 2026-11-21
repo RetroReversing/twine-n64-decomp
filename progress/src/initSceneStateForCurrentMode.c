@@ -26,7 +26,7 @@ extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
 extern s8 D_801002B1;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern s32 D_8010A4E4;
@@ -40,7 +40,7 @@ extern s32 D_8010A4E4;
     prevMode = (*modePtr);
     func_80008154();
     func_80045080((*modePtr));
-    if (gBorderSkipFlag != 0) {
+    if (gBorderSkipActive != 0) {
         DrawScreenBorderLines();
         func_80117BF4(prevMode);
     }
@@ -57,7 +57,7 @@ extern s32 D_8010A4E4;
         /* fallthrough */
     default:
         setupParam = -1;
-        if (gBorderSkipFlag != 0) {
+        if (gBorderSkipActive != 0) {
             setupParam = func_80009ED0(-1);
         }
         break;

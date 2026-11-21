@@ -10,7 +10,7 @@ extern s8 D_800AE760;
 extern char D_800AE761[];
 extern s16 D_800C2852;
 extern u8 gPauseFlag;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s32 gBootState;
 
 void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
@@ -40,10 +40,10 @@ void func_80002098(s32 *arg0, s32 *arg1, s32 arg2, void *arg3) {
     m2c_initial_frame.view_sp18.value = *arg1;
     m2c_initial_frame.view_sp10.value = -1;
     if ((u32) (temp_v0 - 0x1DF) < 0x1CU) {
-        if ((gBorderSkipFlag) && (gPauseFlag == 0)) {
+        if ((gBorderSkipActive) && (gPauseFlag == 0)) {
             m2c_initial_frame.view_sp14.value = -1;
         } else if (matchObjectCode(m2c_initial_frame.view_unksp16.value, (s8)arg2, &m2c_initial_frame.view_sp10.value) != 0) {
-            if ((gBootState != 0) || (((gBorderSkipFlag != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) gPauseFlag < 2U))) {
+            if ((gBootState != 0) || (((gBorderSkipActive != 0) & (m2c_initial_frame.view_sp14.value != 0x1EE)) && ((u8) gPauseFlag < 2U))) {
                 m2c_initial_frame.view_sp14.value = -1;
             }
             if (m2c_initial_frame.view_sp14.value >= 0) {
@@ -58,7 +58,7 @@ found:
                         m2c_initial_frame.view_sp14.value = (s32) *(s16 *)(D_800AE75A + ((*(u16 *)((char *)(temp_a1_2) + 6)) & 6));
                         m2c_initial_frame.view_sp18.value = (s32) *(D_800AE761 + var_a0);
             goto done;
-        } else if ((gBorderSkipFlag != 0) && ((u8) gPauseFlag < 3U)) {
+        } else if ((gBorderSkipActive != 0) && ((u8) gPauseFlag < 3U)) {
             func_80001EB8(&m2c_initial_frame.view_sp14.value, &m2c_initial_frame.view_sp18.value);
         }
 check_actor:

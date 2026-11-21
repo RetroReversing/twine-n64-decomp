@@ -19,7 +19,7 @@ M2C_UNK func_80027D60(u16);                         /* extern */
 extern s8 D_800BD690;
 extern M2C_UNK D_800BDB1C;
 extern M2C_UNK D_800BDBF8;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *sActiveMenu;
 extern void *volatile gTrackMarkerTable;
 extern void *gMenuItems;
@@ -30,7 +30,7 @@ void func_80028458(void) {
     }
     D_800BD690 = 0;
     func_800217F4();
-    if (gBorderSkipFlag == 0) {
+    if (gBorderSkipActive == 0) {
         M2C_FIELD(gMenuItems, M2C_UNK **, 0xC) = &D_800BDB1C;
     } else {
         M2C_FIELD(gMenuItems, M2C_UNK **, 0xC) = &D_800BDBF8;

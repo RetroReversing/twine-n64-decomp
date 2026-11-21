@@ -22,7 +22,7 @@ s32 lookupDataEntry();
 extern char D_80100198[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern void *gMenuItems;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
@@ -47,7 +47,7 @@ extern s32 bindMenuItemRecord;
         kindBase = savedBytePtr - 0x115;
         M2C_FIELD(labelEntry, void **, -0x18) = (void *) (kindOffset + kindBase);
         formatTextEntry(labelEntry, "%s", lookupDataEntry((unsigned short)(kindLevel + 0x96)));
-        skipFlagPtr = &gBorderSkipFlag;
+        skipFlagPtr = &gBorderSkipActive;
         if ((*skipFlagPtr) != 0) {
             func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &bindMenuItemRecord, &func_8001AC88);
         }

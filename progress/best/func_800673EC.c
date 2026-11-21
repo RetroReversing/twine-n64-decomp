@@ -21,7 +21,7 @@ f32 func_8008292C(f32);                             /* extern */
 f32 func_80082968(f32);                             /* extern */
 extern s32 D_800C469C;
 extern s32 D_800C46FC;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
 extern s32 gAimAxisTable;
 
 void func_800673EC(void *arg0, void *arg1) {
@@ -75,7 +75,7 @@ s32 __repair_phase_temp_s0;
  temp_s1 = (void *)((char *)temp_s1 + (s32)(__base_D_800C469C));
     temp_v1 = (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A));
     var_s4 = (void *)(((*(s8 *)((char *)(temp_a0) + 0x10)) * 0xE8)); var_s4 = (void *)((char *)var_s4 + (s32)(__base_D_800C469C));
-    temp_s5 = gBorderSkipFlag != 0;
+    temp_s5 = gBorderSkipActive != 0;
     switch (temp_v1) {
     case 0:
     default:
@@ -156,7 +156,7 @@ block_48:
         temp_v1_5 = (*(void **)((char *)(temp_s2) + 0xA8));
         if ((*(s32 *)((char *)((*(void **)((char *)(temp_v1_5) + 0x68))) + 0x14)) & 0x10) {
             if ((*(s16 *)((char *)(temp_v1_5) + 0x7A)) == 0xB) {
-                if (gBorderSkipFlag == 0) {
+                if (gBorderSkipActive == 0) {
                     temp_v0 = func_8005F664(arg0, 0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
                     if (temp_v0 != NULL) {
                         temp_s0_2 = (temp_s0 * 4) + &gAimAxisTable;

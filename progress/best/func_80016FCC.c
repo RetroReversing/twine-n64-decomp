@@ -4,7 +4,7 @@ extern s16 D_800C9D42;
 extern u8 D_800CA310;
 extern u8 D_800CA338;
 extern u8 D_801002AE;
-extern s8 gBorderSkipFlag;
+extern s8 gBorderSkipActive;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
 extern s32 gGameMode;
@@ -167,7 +167,7 @@ L71:
             node = p;
         }
     }
-    if (gBorderSkipFlag != 0 && D_800CA310 != 0) {
+    if (gBorderSkipActive != 0 && D_800CA310 != 0) {
         func_8011E634();
     }
 }
