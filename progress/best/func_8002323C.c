@@ -68,7 +68,7 @@ void func_8002323C(void)
   s32 temp_s0_5;
   s32 temp_s0_6;
   s32 temp_s0_7;
-  unsigned char temp_s1;
+  unsigned short temp_s1;
   s32 temp_s3_2;
   s32 temp_s5;
   s32 temp_s5_2;

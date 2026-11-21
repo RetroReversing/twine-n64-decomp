@@ -54,10 +54,11 @@ void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
     s32 temp_v0;
     
     
-    s32 temp_v0_3;
+    
 s32 __repair_phase_temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
+s32 __repair_phase_temp_v0_5;
     s32 temp_v0_6;
     s32 temp_v0_7;
     s32 temp_v0_8;
@@ -286,9 +287,9 @@ loop_62:
                                     (*(u16 *)((char *)(&D_800E6A86) + (temp_a1 * 0xFF8))) = var_a1_2;
                                 } else {
                                     temp_a1 &= 0x7FFFFFFF;
-                                    temp_v0_5 = temp_a1 * 0xFF8;
-                                    (*(u16 *)((char *)(&D_800E6AB0) + temp_v0_5)) = var_a1_2;
-                                    (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_5)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_5)) | 0x20;
+                                    __repair_phase_temp_v0_5 = temp_a1 * 0xFF8;
+                                    (*(u16 *)((char *)(&D_800E6AB0) + __repair_phase_temp_v0_5)) = var_a1_2;
+                                    (*(u8 *)((char *)(&D_800E6AB2) + __repair_phase_temp_v0_5)) = (*(u8 *)((char *)(&D_800E6AB2) + __repair_phase_temp_v0_5)) | 0x20;
                                 }
                             }
                         }
@@ -313,8 +314,8 @@ skip_78:
                             temp_s2_5 = (*(u16 *)((char *)(arg0) + 0x24));
                             if (gWorkerActive != 0) {
                                 workerLockAcquire();
-                                var_a0_6 = 0;
                                 temp_a1 = temp_s1_5;
+                                var_a0_6 = 0;
                                 temp_a2_3 = temp_a1 & 0x7FFFFFFF;
                                 var_v1_7 = 0;
 loop_78:
