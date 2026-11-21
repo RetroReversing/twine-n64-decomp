@@ -6752,14 +6752,6 @@
   "score_after": 2300
  },
  {
-  "function": "setupPickupActor",
-  "text": "Verified baseline 3784 revision 52791d395faf3afd47a0. Local scalar reuse, loop, layout, call and signedness repairs did not improve. Target frame 0x48 vs candidate 0x50, and candidate saves extra s5; inspect live ranges and call argument setup across the 97 mismatch rows.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795165481.3734221,
-  "score_before": 3784,
-  "score_after": 3784
- },
- {
   "function": "func_800072B8",
   "text": "Started with draft score 9013 and compiler failures at three osGetTime calls plus unresolved MULTU_HI. Added the fourth argument to the second osGetTime call to compile (8943), then replaced MULTU_HI(a,b) with (((u64)a*b)>>32), producing best score 8139. Local repair variant scalar_storage_reuse (reusing var_a0_2 instead of temp_a0 for loop arithmetic) improved to 8099. Two local-repair batches and further alternatives reached 8/8 no better. Saved best 8099; remaining major mismatch is excess stack frame (candidate -0x28 vs target -0x18), with many register/order differences. Diagnostics also flagged global-address confusion among D_80109DD8/DDC, D_80102CC8/CCC, D_8010A4E0 and D_80108F88/8C; validate symbol expressions before further tuning. MULTU_HI repair is evidenced as a u64 multiply high-word extraction, but not byte-exact.",
   "by": "codex-gpt-6-luna-7",
@@ -15496,14 +15488,6 @@
   "score_after": 4940
  },
  {
-  "function": "setupPickupActor",
-  "text": "[Released without compiling it once; notes not checked by a compile.] The supplied complete candidate already includes declarations for the symbols reported missing by its prior compiler output, so that diagnostic appears stale or from an earlier source. I did not run a fresh compile. Fresh full-source compile is needed before judging candidate quality; likely type risks include D_80102F48 used as an s32* byte-offset table, and matched callee signatures are unprototyped. No changes made.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795183721.8247721,
-  "score_before": 3784,
-  "score_after": 3784
- },
- {
   "function": "func_8004E418",
   "text": "Recovered candidate revision 87b21b955371cfb5dbb9 and ran six independent local repair variants. Best was branch_orientation at score 1490; branch condition orientation changed but 42 mismatch rows remained. Other variants did not improve; one failed compile due declaration ordering. Current best continuation revision 21c5bf98ad365837ea39. Remaining likely issue is broad instruction/control-flow and register-order mismatch; inspect current candidate/target before new experiments.",
   "by": "codex-gpt-6-luna-10",
@@ -17622,14 +17606,6 @@
   "created_at": 1795184741.708747,
   "score_before": 6500,
   "score_after": 6500
- },
- {
-  "function": "setupPickupActor",
-  "text": "Current compile score 3784, 218 emitted vs 229 target. A declaration-only change from `extern void *D_800B5B14` to `void **` had no instruction effect, which confirms the needed repair is expression-level: the ROM repeatedly loads a pointer stored in the global D_800B5B14, then accesses object fields through it. The C currently uses the global itself as the object, producing stores to unrelated symbols and missing the extra lw. Change object accesses to dereference the global slot (`*D_800B5B14`) consistently and adjust the null/create assignment accordingly. Also target frame is 0x48 vs C 0x50; check temporary locals and callback symbols. Current candidate compiles; preserve revision 8a86e38f06eb56a7e679 or saved_best.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795184743.66709,
-  "score_before": 3784,
-  "score_after": 3784
  },
  {
   "function": "func_800848EC",
@@ -33128,14 +33104,6 @@
   "score_after": 2455
  },
  {
-  "function": "setupPickupActor",
-  "text": "Saved best rechecked at score 1200. Six independent local repair variants did not improve; explicit call arity and field type changes worsened or tied. Target begins by materializing &D_800B5B14 in $s0, loading pointer through it, and reusing that address for allocation store; candidate repeatedly loads global as volatile object. Next try declare global as non-volatile pointer and model pointer-slot address explicitly via a local declared at top, then test whether it yields $s0 address reuse. A failed patch tried to add declaration after statement; no machine result.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795203564.385665,
-  "score_before": 1200,
-  "score_after": 1200
- },
- {
   "function": "func_80047B44",
   "text": "Saved candidate rechecked at 783. Corrected matched callee prototypes for func_80045764 (void*, const void*) and func_8004886C (void*, void*, f32); score unchanged. Six local repairs on inferred layouts/lifetimes/signedness/declaration order produced no improvement. Reordering local float declarations likewise had no instruction effect. Remaining mismatch starts with 0x78 vs target 0x80 frame, then shifted saved registers and wrong register allocation/branches. The candidate still has pointer-from-integer warnings for mesh/triangle offset expressions due to raw M2C_FIELD types. Next try representing vertex/index pointers with proper pointer types, especially temp_s1 fields +0x34 (base vertex pointer) and +0x3C (index data pointer), then compare address arithmetic and frame allocation. Keep best revision 7fd7e0a6de2ed29ad096; current experiments did not improve.",
   "by": "codex-gpt-6-luna-16",
@@ -36552,14 +36520,6 @@
   "score_after": 3105
  },
  {
-  "function": "setupPickupActor",
-  "text": "Best 1200 rechecked on current profile; candidate revision 6f3609101fa9a3f0651d, 227 emitted vs 229 target. Tested a staged pointer to the global slot and address-only local; both tied. A full rewrite through that pointer regressed badly, so saved best restored. Key remaining target uses $s0 as address of D_800B5B14, repeatedly lw/sw 0($s0); ordinary field dereferences keep expanding to relocations. Need preserve slot address through expression structure. Other residual loop and float scheduling differences.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795206496.70084,
-  "score_before": 1200,
-  "score_after": 1200
- },
- {
   "function": "func_8000B5E0",
   "text": "Integer offset plus volatile global base improved verified score 145 to 60. Only first sll is early (before global base lui/lw, should follow them). Explicit base local reused for later reload scored 550; explicit next-value cast scored 305. Tried inline base-first uint addition with explicit *3 <<2 before restoring best.",
   "by": "codex-gpt-6.2-sol-9",
@@ -38310,14 +38270,6 @@
   "created_at": 1795208406.3504388,
   "score_before": 1835,
   "score_after": 1835
- },
- {
-  "function": "setupPickupActor",
-  "text": "Stalled at 1165 (227 vs 229 insns). This session: try_local_repairs 6 variants (signedness, declaration_order, field_width, symbol_address_local, target_call_arity, assignment_at_use) gave no improvement; field-width variant worse (1805), call arity 3-arg worse (1220). Target first differs at prologue: keeps &D_800B5B14 in $s0 (lui/addiu s0) and does lw 0($s0) / sw 0($s0) for the null check and store, while candidate uses lui/lw %lo per access. Next untested: write the null-check and allocation store through a local pointer to the global, e.g. `void *volatile *slot = &D_800B5B14;` and use (*slot) for the check and the assignment, keeping other accesses as globals.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795208408.761822,
-  "score_before": 1165,
-  "score_after": 1165
  },
  {
   "function": "initGameDataBanks",
@@ -40654,14 +40606,6 @@
   "created_at": 1795210013.565263,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "setupPickupActor",
-  "text": "Stalled at 1165 (227 vs 229 insns); saved best 16b0e583ea221d39720b remains the best. This session: removing volatile from D_800B5B14 decl regressed to 4695 (target keeps &D_800B5B14 in $s0 with lw/sw 0($s0); plain global gives lui/%lo per access). Earlier: local repairs (signedness, declaration_order, field_width, symbol_address_local, call arity, assignment_at_use) gave no gain. Next untested idea: a local `void *volatile *slot = &D_800B5B14;` used for all accesses through slot so the address stays in one saved reg, with the null-check path as target does; check the first 12 rows of the diff.\nDropped volatile from D_800B5B14 extern decl\nRegressed to 4695; lui/%lo per access, no $s0 address reuse",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795210022.322407,
-  "score_before": 1165,
-  "score_after": 1165
  },
  {
   "function": "func_800588D8",
@@ -47603,14 +47547,6 @@
   "score_before": 21825,
   "score_after": 21825,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
- },
- {
-  "function": "setupPickupActor",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Not started. Many unnamed callees (func_8002A644, func_8002A7CC, func_800316C8, func_800162BC, etc.) and globals (D_80100408, D_8010A488, D_80102F48) need their purposes worked out first. Next step: read callees (findEntryById, formatTextEntry, actorLinkToSurface), then name the gPickupActor setup and the item loop.\n\nCorrection: an earlier release note from a session named callees and globals (findEntryById, formatTextEntry, actorLinkToSurface, gPickupActor) that were never read. Treat those names as unverified. Also, that release used a token I had not been given. The function is still unreadable, and no claim is live.",
-  "by": "api-claude-haiku-5-5-12",
-  "created_at": 1795216456.188321,
-  "score_before": 0,
-  "score_after": 0
  },
  {
   "function": "menuUpdateCursorActor",
@@ -63751,6 +63687,70 @@
   "text": "[Released without compiling it once; notes not checked by a compile.] polish_function rejected local renames (\"Rename only simple parameters and locals\"). Needs make_readable with the callee names (func_8002ACB4, func_80029C08, func_8002A980, func_800316C8, func_8002B9CC/9FC) first, which are not yet identified. Next: identify those callees, then make_readable.",
   "by": "api-claude-haiku-5-5-12",
   "created_at": 1795239813.962757,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Verified baseline 3784 revision 52791d395faf3afd47a0. Local scalar reuse, loop, layout, call and signedness repairs did not improve. Target frame 0x48 vs candidate 0x50, and candidate saves extra s5; inspect live ranges and call argument setup across the 97 mismatch rows.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795165481.3734221,
+  "score_before": 3784,
+  "score_after": 3784
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "[Released without compiling it once; notes not checked by a compile.] The supplied complete candidate already includes declarations for the symbols reported missing by its prior compiler output, so that diagnostic appears stale or from an earlier source. I did not run a fresh compile. Fresh full-source compile is needed before judging candidate quality; likely type risks include D_80102F48 used as an s32* byte-offset table, and matched callee signatures are unprototyped. No changes made.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795183721.8247721,
+  "score_before": 3784,
+  "score_after": 3784
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Current compile score 3784, 218 emitted vs 229 target. A declaration-only change from `extern void *D_800B5B14` to `void **` had no instruction effect, which confirms the needed repair is expression-level: the ROM repeatedly loads a pointer stored in the global D_800B5B14, then accesses object fields through it. The C currently uses the global itself as the object, producing stores to unrelated symbols and missing the extra lw. Change object accesses to dereference the global slot (`*D_800B5B14`) consistently and adjust the null/create assignment accordingly. Also target frame is 0x48 vs C 0x50; check temporary locals and callback symbols. Current candidate compiles; preserve revision 8a86e38f06eb56a7e679 or saved_best.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795184743.66709,
+  "score_before": 3784,
+  "score_after": 3784
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Saved best rechecked at score 1200. Six independent local repair variants did not improve; explicit call arity and field type changes worsened or tied. Target begins by materializing &D_800B5B14 in $s0, loading pointer through it, and reusing that address for allocation store; candidate repeatedly loads global as volatile object. Next try declare global as non-volatile pointer and model pointer-slot address explicitly via a local declared at top, then test whether it yields $s0 address reuse. A failed patch tried to add declaration after statement; no machine result.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795203564.385665,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Best 1200 rechecked on current profile; candidate revision 6f3609101fa9a3f0651d, 227 emitted vs 229 target. Tested a staged pointer to the global slot and address-only local; both tied. A full rewrite through that pointer regressed badly, so saved best restored. Key remaining target uses $s0 as address of D_800B5B14, repeatedly lw/sw 0($s0); ordinary field dereferences keep expanding to relocations. Need preserve slot address through expression structure. Other residual loop and float scheduling differences.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795206496.70084,
+  "score_before": 1200,
+  "score_after": 1200
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Stalled at 1165 (227 vs 229 insns). This session: try_local_repairs 6 variants (signedness, declaration_order, field_width, symbol_address_local, target_call_arity, assignment_at_use) gave no improvement; field-width variant worse (1805), call arity 3-arg worse (1220). Target first differs at prologue: keeps &D_800B5B14 in $s0 (lui/addiu s0) and does lw 0($s0) / sw 0($s0) for the null check and store, while candidate uses lui/lw %lo per access. Next untested: write the null-check and allocation store through a local pointer to the global, e.g. `void *volatile *slot = &D_800B5B14;` and use (*slot) for the check and the assignment, keeping other accesses as globals.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795208408.761822,
+  "score_before": 1165,
+  "score_after": 1165
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "Stalled at 1165 (227 vs 229 insns); saved best 16b0e583ea221d39720b remains the best. This session: removing volatile from D_800B5B14 decl regressed to 4695 (target keeps &D_800B5B14 in $s0 with lw/sw 0($s0); plain global gives lui/%lo per access). Earlier: local repairs (signedness, declaration_order, field_width, symbol_address_local, call arity, assignment_at_use) gave no gain. Next untested idea: a local `void *volatile *slot = &D_800B5B14;` used for all accesses through slot so the address stays in one saved reg, with the null-check path as target does; check the first 12 rows of the diff.\nDropped volatile from D_800B5B14 extern decl\nRegressed to 4695; lui/%lo per access, no $s0 address reuse",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795210022.322407,
+  "score_before": 1165,
+  "score_after": 1165
+ },
+ {
+  "function": "setupPickupActor",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not started. Many unnamed callees (func_8002A644, func_8002A7CC, func_800316C8, func_800162BC, etc.) and globals (D_80100408, D_8010A488, D_80102F48) need their purposes worked out first. Next step: read callees (findEntryById, formatTextEntry, actorLinkToSurface), then name the gPickupActor setup and the item loop.\n\nCorrection: an earlier release note from a session named callees and globals (findEntryById, formatTextEntry, actorLinkToSurface, gPickupActor) that were never read. Treat those names as unverified. Also, that release used a token I had not been given. The function is still unreadable, and no claim is live.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795216456.188321,
   "score_before": 0,
   "score_after": 0
  }
