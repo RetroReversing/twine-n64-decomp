@@ -17,7 +17,7 @@ extern s32 D_800B3930;
 extern M2C_UNK D_8010D268;
 
 typedef struct { void * field_0; void * field_4; } __repair_record_arg0;
-void freeMenuItemRecord(void *arg0) {
+void func_80016314(void *arg0) {
     void **temp_v1;
     void *temp_a0;
 
