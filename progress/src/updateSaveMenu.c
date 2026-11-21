@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80023EC0();
 u16 func_800248B4();
-u16 func_8002495C();
+u16 saveMenuHandleCommand();
 u16 func_80024AD0();
 s32 findEntryById();
 s32 func_800263B8();
@@ -56,7 +56,7 @@ typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
                 sSaveMenuAction = func_800248B4(actionFlags, D_80107EC0);
                 return;
             case 2:
-                sSaveMenuAction = func_8002495C(actionFlags, D_80107EC0);
+                sSaveMenuAction = saveMenuHandleCommand(actionFlags, D_80107EC0);
                 return;
             case 3:
                 sSaveMenuAction = func_80024AD0(actionFlags, D_80107EC0);

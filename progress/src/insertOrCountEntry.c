@@ -5,7 +5,7 @@ extern char D_800F7958[];
 extern char D_800F795C[];
 extern char D_800F7960[];
 typedef struct { s32 w[2]; } __repair_words2;
-s32 func_80097020(u16 arg0, s32 arg1) {
+s32 insertOrCountEntry(u16 arg0, s32 arg1) {
 int __repair_literal;
     s32 temp_v0, temp_v1, var_a0, var_a3, var_t1, var_v0, var_v1;
     u32 temp_a1;

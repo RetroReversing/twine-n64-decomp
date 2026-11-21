@@ -15,11 +15,12 @@ extern u8 *gMenuState;
 extern u8 D_8010A950;
 extern char D_800D2AC8[];
 
-s32 func_8002495C(u16 arg0, u8 arg1) {
+/* Runs one save-menu command (flags in command) and returns the next menu result code. */
+s32 saveMenuHandleCommand(u16 command, u8 arg1) {
     Rec ***pp;
     Rec **p;
 
-    switch (arg0) {
+    switch (command) {
     case 0:
         func_8002CA90(D_800D2AC8);
         if (func_8002CC14()) {

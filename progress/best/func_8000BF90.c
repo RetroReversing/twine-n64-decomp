@@ -13,6 +13,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     u8 *list;
     f32 dot;
     u8 *t;
+    u8 *selected;
     f32 *pos;
     f32 *tf;
     f32 f;
@@ -35,17 +36,18 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                 if (node[0x2B] == 0 || gTrackDoneFlags[node[0x2B]] != 0) {
                     func_800455CC(sp20, node + 4, node + 0x10, ((f32 *)(arg0 + 0x24)));
                     f = approxDistance(((f32 *)(arg0 + 0x24)), sp20);
-                    for (idx = 0; idx < 2; idx++) {
-                        if (f > 0.0f && f < bestd[idx]) break;
-                    }
-                    if ((u32)idx < 2U) {
-                        for (iv = 1; iv > idx; iv--) {
-                            bestd[iv] = bestd[iv - 1];
-                            best[iv] = best[iv - 1];
+                    idx = 0;
+                    do {
+                        if (f > 0.0f && f < bestd[idx]) {
+                            for (iv = 1; iv > idx; iv--) {
+                                bestd[iv] = bestd[iv - 1];
+                                best[iv] = best[iv - 1];
+                            }
+                            best[idx] = node;
+                            bestd[idx] = f;
+                            break;
                         }
-                        best[idx] = node;
-                        bestd[idx] = f;
-                    }
+                    } while ((u32)++idx < 2U);
                 }
                 node = *(u8 **)node;
             }
@@ -56,10 +58,11 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                 __repair_phase_storage.pointer = NULL;
             }
         }
-        r = 0; g = 0; b = 0;
+        b = 0; g = 0; r = 0;
         for (idx = 0; (u32)idx < 2; idx++) {
-            t = best[idx];
-            if (t != NULL) {
+            selected = best[idx];
+            if (selected != NULL) {
+                t = selected;
                 tf = (f32 *)t;
                 sp30[0] = ((f32 *)(arg0 + 0x24))[0] - tf[1];
                 sp30[1] = ((f32 *)(arg0 + 0x24))[1] - tf[2];
@@ -85,7 +88,8 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
         if ((g & 0xFFFF) >= 0x100) g = 0xFF;
         if ((b & 0xFFFF) >= 0x100) b = 0xFF;
         *arg1 = r; *arg2 = g; *arg3 = b;
-        return best[0];
+        if (best[0] != NULL) return best[0];
     }
     return NULL;
 }
+
