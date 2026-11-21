@@ -2,7 +2,7 @@ typedef struct { int a,b,c; } Entry;
 extern Entry D_800F38E4[], sKeyTableSlots[];
 extern int sKeyTableCount;
 extern int workerLockAcquire(int), workerLockRelease(void);
-int func_8009794C(int arg0) {
+int removeKeyTableEntry(int arg0) {
     int i, j;
     for (i=0; i<sKeyTableCount; i++) {
         if (sKeyTableSlots[i].a == arg0) break;

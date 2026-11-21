@@ -4,7 +4,7 @@ void dmaRomToRamUnaligned(u8 *, s32, u32);
 u16 func_800870F4(void);
 extern char D_148B400[];
 extern s32 D_800C7EDC;
-extern char D_800C994C[];
+extern char sTextBankTables[];
 
 void func_80075490(s8 *arg0, s32 arg1) {
     unsigned temp_v1;
@@ -34,7 +34,7 @@ two:
 scale:
     var_v0 = (s32)var_v0_2 * 4;
 scan:
-    temp_a0 = *(s32 *)(D_800C994C + var_v0);
+    temp_a0 = *(s32 *)(sTextBankTables + var_v0);
     temp_s0 = 0;
     if (*temp_a0 != 0xFFFF) {
         unsigned sentinel = 0xFFFF;

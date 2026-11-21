@@ -16,12 +16,12 @@ M2C_UNK updateVideoMode();                            /* extern */
 M2C_UNK func_8003099C(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK func_800449A0();                            /* extern */
 M2C_UNK func_80045080(M2C_UNK);                     /* extern */
-M2C_UNK func_8007539C();                            /* extern */
+M2C_UNK loadTextBanks();                            /* extern */
 
 void func_800450F0(void) {
     updateVideoMode();
     func_800449A0();
     func_8003099C(0x24, 0);
     func_80045080(0x24);
-    func_8007539C();
+    loadTextBanks();
 }

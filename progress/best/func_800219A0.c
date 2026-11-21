@@ -40,7 +40,7 @@ s32 func_800219A0(u8 arg0) {
         var_s0 = 0;
     }
 configure:
-    mode = &D_8010A4E4;
+    mode = (s32 *)((u8 *)flag + 0x24);
     {
         u8 enabled = *((volatile u8 *)mode - 0x24);
         *mode = 0;

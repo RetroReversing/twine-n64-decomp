@@ -46,6 +46,7 @@ void func_8008863C(void) {
     s32 temp_v1_2;
     s32 var_s0;
     s32 var_s7;
+    s32 limit;
     u8 *var_s2;
     s32 *var_s3;
     s32 *var_s4;
@@ -57,6 +58,7 @@ void func_8008863C(void) {
     if (sDataBankInitialised != 0) {
         osRecvMesg(&sDataBankMesgQueue, 0, 1);
         var_s7 = 0;
+        limit = 2;
         var_s2 = &D_800E2CD8;
         var_s6 = (s32 *)(&D_800E2CD8 - 0xC);
         var_s3 = (s32 *)(&D_800E2CD8 - 8);
@@ -68,20 +70,20 @@ void func_8008863C(void) {
                 temp_s1 = &sDataBanks + var_s0;
                 func_8009D5D4(temp_s1);
                 temp_v1 = *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) & 0xFF;
-                if (temp_v1 != 2) {
-                    if (temp_v1 < 3) {
-                        if (temp_v1 != 1) {
-                            var_s2 += 0x1228;
-                        } else {
-                            if ((s8) *var_s5 == 2) {
+                if (temp_v1 == limit) goto state2;
+                if (temp_v1 < 3) {
+                    if (temp_v1 == 1) goto state1;
+                    goto advance;
+                }
+                if (temp_v1 == 3) goto state3;
+                goto advance;
+state1:
+                            if ((s8) *var_s5 == limit) {
                                 temp_v1_2 = *var_s4;
-                                var_ft0 = (f64) temp_v1_2;
-                                if (temp_v1_2 < 0) {
-                                    var_ft0 += D_800D66D0;
-                                }
-                                rate = ((f32) *(u16 *)((u8 *)&D_800E2C60 + var_s0) * 160.0f) / (f32) var_ft0;
+                                rate = (f32) *(u16 *)((u8 *)&D_800E2C60 + var_s0) * 160.0f;
+                                rate /= (f32)(f64)(u32)temp_v1_2;
                                 *(s32 *)((u8 *)&D_800E2CDC + var_s0) = 0;
-                                *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = 2;
+                                *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = limit;
                                 *(f32 *)((u8 *)&D_800E2CE0 + var_s0) = rate;
                                 func_8009D9B8(temp_s1);
                                 temp_v0 = startAudioVoice(*(u8 *)((u8 *)&D_800E2CC4 + var_s0), *var_s3, *(s32 *)((u8 *)&D_800E2CD4 + var_s0), *var_s4, (s32) *(u8 *)((u8 *)&D_800E2CC1 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC2 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC3 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CD9 + var_s0), &func_80088EE4, var_s7);
@@ -93,10 +95,13 @@ void func_8008863C(void) {
                                 goto block_23;
                             }
                             goto block_23;
-                        }
-                    } else if (temp_v1 != 3) {
-                        var_s2 += 0x1228;
-                    } else {
+state2:
+                    if ((s8) *var_s5 == 4) {
+                        *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = 3;
+                        *var_s2 = 4;
+                    }
+                    goto block_23;
+state3:
                         temp_v0_2 = *var_s2;
                         if (temp_v0_2 == 0) {
 block_17:
@@ -106,21 +111,17 @@ block_17:
                             *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = 0;
                             var_s2 += 0x1228;
                         } else {
-                            if (temp_v0_2 == 2) {
+                            if (temp_v0_2 == limit) {
                                 func_80093758(*var_s6);
                                 *var_s6 = -1;
                             }
                             M2C_FIELD(temp_s1, s8 *, 0x1218) = (s8) (*var_s2 - 1);
                             goto block_23;
                         }
-                    }
-                } else {
-                    if ((s8) *var_s5 == 4) {
-                        *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = 3;
-                        *var_s2 = 4;
-                    }
-                    goto block_23;
-                }
+                    goto advanced;
+advance:
+                var_s2 += 0x1228;
+advanced:;
             } else {
 block_23:
                 var_s2 += 0x1228;
