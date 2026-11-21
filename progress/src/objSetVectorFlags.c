@@ -12,21 +12,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-/* Sets flag bits in the packed word at 0x5C for each nonzero vector among the object's three float vectors at 0x24, 0x30. */ void objSetVectorFlags(void *obj) {
-    u32 flagsWord;
-    u32 flagsWord2;
-    u32 flagsWord3;
+void func_8003FBA8(void *arg0) {
+    u32 temp_v0;
+    u32 temp_v0_2;
+    u32 temp_v0_3;
 
-    if (((f64) M2C_FIELD(obj, f32 *, 0x24) != 0.0) || ((f64) M2C_FIELD(obj, f32 *, 0x28) != 0.0) || ((f64) M2C_FIELD(obj, f32 *, 0x2C) != 0.0)) {
-        flagsWord = M2C_FIELD(obj, u32 *, 0x5C);
-        M2C_FIELD(obj, u32 *, 0x5C) = (u32) ((flagsWord & 0x7FFFFF) | (((flagsWord >> 0x17) | 1) << 0x17));
+    if (((f64) M2C_FIELD(arg0, f32 *, 0x24) != 0.0) || ((f64) M2C_FIELD(arg0, f32 *, 0x28) != 0.0) || ((f64) M2C_FIELD(arg0, f32 *, 0x2C) != 0.0)) {
+        temp_v0 = M2C_FIELD(arg0, u32 *, 0x5C);
+        M2C_FIELD(arg0, u32 *, 0x5C) = (u32) ((temp_v0 & 0x7FFFFF) | (((temp_v0 >> 0x17) | 1) << 0x17));
     }
-    if (((f64) M2C_FIELD(obj, f32 *, 0x30) != 0.0) || ((f64) M2C_FIELD(obj, f32 *, 0x34) != 0.0) || ((f64) M2C_FIELD(obj, f32 *, 0x38) != 0.0)) {
-        flagsWord2 = M2C_FIELD(obj, u32 *, 0x5C);
-        M2C_FIELD(obj, u32 *, 0x5C) = (u32) ((flagsWord2 & 0x7FFFFF) | (((flagsWord2 >> 0x17) | 2) << 0x17));
+    if (((f64) M2C_FIELD(arg0, f32 *, 0x30) != 0.0) || ((f64) M2C_FIELD(arg0, f32 *, 0x34) != 0.0) || ((f64) M2C_FIELD(arg0, f32 *, 0x38) != 0.0)) {
+        temp_v0_2 = M2C_FIELD(arg0, u32 *, 0x5C);
+        M2C_FIELD(arg0, u32 *, 0x5C) = (u32) ((temp_v0_2 & 0x7FFFFF) | (((temp_v0_2 >> 0x17) | 2) << 0x17));
     }
-    if (((f64) M2C_FIELD(obj, f32 *, 0x30) != 0.0) || ((f64) M2C_FIELD(obj, f32 *, 0x38) != 0.0)) {
-        flagsWord3 = M2C_FIELD(obj, u32 *, 0x5C);
-        M2C_FIELD(obj, u32 *, 0x5C) = (u32) ((flagsWord3 & 0x7FFFFF) | (((flagsWord3 >> 0x17) | 0x80) << 0x17));
+    if (((f64) M2C_FIELD(arg0, f32 *, 0x30) != 0.0) || ((f64) M2C_FIELD(arg0, f32 *, 0x38) != 0.0)) {
+        temp_v0_3 = M2C_FIELD(arg0, u32 *, 0x5C);
+        M2C_FIELD(arg0, u32 *, 0x5C) = (u32) ((temp_v0_3 & 0x7FFFFF) | (((temp_v0_3 >> 0x17) | 0x80) << 0x17));
     }
 }
