@@ -34,7 +34,7 @@ extern u16 D_80113020;
 extern u8 D_80117734;
 extern M2C_UNK actorTickStateMachine;
 extern s32 *gProbeObjectList;
-extern M2C_UNK sTrackDoneFlags;
+extern M2C_UNK gTrackMarkerDone;
 
 typedef struct { s32 w[3]; } __repair_words3;
 typedef struct { s32 w[2]; } __repair_words2;
@@ -99,7 +99,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
                 M2C_FIELD(var_s1, s32 *, 0x58) = (s32) (M2C_FIELD(var_s1, s32 *, 0x58) | 0x2400);
                 M2C_FIELD(temp_s0, u8 *, 0x82) = arg12;
                 M2C_FIELD(temp_s0, s32 *, 0x88) = (s32) ((M2C_FIELD(temp_s0, s32 *, 0x88) & 0xFE1FFFFF) | 0x200000);
-                M2C_FIELD(temp_s0, u8 *, 0x85) = (u8) *(&sTrackDoneFlags + M2C_FIELD(temp_s0, u8 *, 0x84));
+                M2C_FIELD(temp_s0, u8 *, 0x85) = (u8) *(&gTrackMarkerDone + M2C_FIELD(temp_s0, u8 *, 0x84));
                 M2C_FIELD(temp_s0, s16 *, 0x76) = 0;
                 M2C_FIELD(temp_s0, s16 *, 0x74) = 0;
                 if (gGameMode == 0x19) {

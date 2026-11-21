@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008D838(s32);                         /* extern */
 extern s32 D_801002D8;
 extern s32 D_80109680;
-extern s32 D_8010A514;
+extern s32 gAudioOutputRate;
 
 void func_8008E374(void) {
     if (D_801002D8 != 0) {
-        D_80109680 = ((s32) (D_801002D8 * 0x7D00) / (s32) D_8010A514) * 8;
+        D_80109680 = ((s32) (D_801002D8 * 0x7D00) / (s32) gAudioOutputRate) * 8;
         func_8008D838(D_801002D8);
     }
 }

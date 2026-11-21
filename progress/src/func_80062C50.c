@@ -14,12 +14,12 @@ typedef s32 M2C_UNK32;
 
 s32 randomIntBelow();
 s32 spawnFlashEffect(s32, s32, f32, s32);
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 
 void func_80062C50(void *arg0) {
     u16 temp_v0;
 
-    if (*(sTrackDoneFlags + (s16) (s32) M2C_FIELD(arg0, f32 *, 0x74)) != 0) {
+    if (*(gTrackMarkerDone + (s16) (s32) M2C_FIELD(arg0, f32 *, 0x74)) != 0) {
         temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) - 1;
         M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
         if ((temp_v0 << 0x10) <= 0) {

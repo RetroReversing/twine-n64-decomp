@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
 void *findEntryPayload(M2C_UNK *, M2C_UNK);            /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
-extern s8 D_800BD690;
+extern s8 gMenuNeedsRedraw;
 extern M2C_UNK gMenuEntryTable;
 extern u8 D_801002F0;
 extern u8 D_801002F1;
@@ -31,7 +31,7 @@ extern void *gMenuItems;
     void *sliderB;
     void *toggleLabel;
 
-    D_800BD690 = 1;
+    gMenuNeedsRedraw = 1;
     choiceLabel = findEntryPayload(&gMenuEntryTable, 0x24);
     sliderA = findEntryPayload(&gMenuEntryTable, 0x22);
     sliderB = findEntryPayload(&gMenuEntryTable, 0x23);

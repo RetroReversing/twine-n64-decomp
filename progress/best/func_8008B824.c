@@ -1,6 +1,5 @@
 s32 func_80089384(s32,s32);
 s32 audioSetupRateBuffer(s32,s32,s32);
-s32 func_80054FEC(s32,s32,f32,void*,void*,s32,s32);
 extern f64 D_800D6798;
 extern char D_800D6780[];
 extern s32 D_800E41E8,D_800E41EC,D_800E4230,D_800E4238,D_800E423C,D_801002D8,D_80103098,D_8010D428,dmaHandlerInit;
@@ -25,6 +24,5 @@ temp_v0=*arg0;var_ft0=(f64)temp_v0;if(temp_v0<0)var_ft0+=D_800D6798;
 temp_fv1=((f32)var_ft0*0.016666668f*0.0052083335f)+0.5f;
 var_v1=(u32)temp_fv1;var_v0=var_v1*2;
 D_800E41EC=var_v1;D_800E41E8=var_v1;D_801002D8=(var_v0+var_v1)<<6;D_8010309D[0]=0x10;D_8010309C=1;D_80103098=*arg0;
-var_a1=0;if(D_800D6780[0]!=0){var_v0_2=0;do{var_a1+=1;D_8010319E[var_v0_2]=D_800D6780[var_v0_2];var_v0_2=var_a1&0xff;}while(D_800D6780[var_a1&0xff]!=0);}
-D_8010319E[var_a1&0xff]=0;
+{u8 i=0;while(D_800D6780[i]!=0){D_8010319E[i]=D_800D6780[i];i++;}D_8010319E[i]=0;}
 }

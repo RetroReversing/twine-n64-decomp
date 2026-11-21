@@ -18,7 +18,7 @@ f32 approxDistance();
 s32 func_80059658();
 s32 func_80084338();
 extern u8 sDifficultyLevel;
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 extern s32 gBonusObjects;
 
 void func_8005DED8(void *arg0) {
@@ -39,7 +39,7 @@ short __repair_constant = 0xFF;
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     if (M2C_FIELD(temp_s1, u16 *, 0x3A) == 1) {
-        temp_v1 = *(sTrackDoneFlags + M2C_FIELD(temp_s1, u16 *, 0x34));
+        temp_v1 = *(gTrackMarkerDone + M2C_FIELD(temp_s1, u16 *, 0x34));
         if (temp_v1 < 2U) {
             objectSetAnimFrame(arg0, M2C_FIELD(temp_s1, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s1, u16 *, 0x3E));
         }
@@ -69,10 +69,10 @@ block_14:
     temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x7A);
     switch (temp_v1_2) {
     case 0:
-        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_2 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_2 == 0)) || (*(sTrackDoneFlags + temp_v0_2) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
+        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_2 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_2 == 0)) || (*(gTrackMarkerDone + temp_v0_2) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
             temp_v1_3 = M2C_FIELD(temp_s1, u16 *, 0x34);
             if (temp_v1_3 != 0) {
-                *(sTrackDoneFlags + temp_v1_3) = *(sTrackDoneFlags + temp_v1_3) ^ 1;
+                *(gTrackMarkerDone + temp_v1_3) = *(gTrackMarkerDone + temp_v1_3) ^ 1;
             }
             temp_a0 = M2C_FIELD(temp_s1, u16 *, 0x40);
             if (temp_a0 != 0) {
@@ -98,7 +98,7 @@ block_14:
         }
         break;
     case 3:
-        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_3 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_3 == 0)) || (*(sTrackDoneFlags + temp_v0_3) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
+        if ((M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s1, s32 *, 0x2C)) && ((temp_v0_3 = M2C_FIELD(temp_s1, u16 *, 0x36), (temp_v0_3 == 0)) || (*(gTrackMarkerDone + temp_v0_3) == M2C_FIELD(temp_s1, u16 *, 0x38)))) {
             temp_v1_4 = M2C_FIELD(arg0, u16 *, 0x78);
             if ((temp_v1_4 != 0x12)) {
                 if ((temp_v1_4 != 0x60)) {
@@ -106,7 +106,7 @@ block_14:
                         M2C_FIELD(arg0, s16 *, 0x7A) = 4;
                     }
                     temp_v1_5 = M2C_FIELD(temp_s1, u16 *, 0x34);
-                    *(sTrackDoneFlags + temp_v1_5) = *(sTrackDoneFlags + temp_v1_5) ^ 1;
+                    *(gTrackMarkerDone + temp_v1_5) = *(gTrackMarkerDone + temp_v1_5) ^ 1;
                     temp_a0_2 = M2C_FIELD(temp_s1, u16 *, 0x40);
                     if (temp_a0_2 != 0) {
                         func_80084338(temp_a0_2, arg0 + 0x24);

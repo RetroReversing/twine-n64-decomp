@@ -38,12 +38,17 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
     u16 selected;
 
     if (object != (u32)NULL) {
-        u32 f = object->flags & ~0xFC;
-        u32 m = -(dim == 0);
-        object->x = entry->x;
-        object->y = entry->position.y;
+        u32 f = object->flags;
+        u16 x = entry->x;
+        u32 m;
+        f &= ~0xFC;
+        object->x = x;
+        x = entry->position.y;
+        m = -(dim == 0);
+        f = f | (m & 0x1C);
         object->size = 0x40;
-        object->flags = f | (m & 0x1C);
+        object->flags = f;
+        object->y = x;
         func_80022B60(0);
         object->color = (gMenuSoundParams & ~0xFF) | gMenuItems->alpha;
         func_80022E88(0);

@@ -51,7 +51,7 @@ extern u8 gBorderFlipFlag;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 extern u8 D_80112F70;
-extern u8 D_80112F7B;
+extern u8 gMenuRowEnabled;
 extern u8 D_80112F7F;
 extern u8 sOptionReady7;
 extern u8 D_80115088;
@@ -223,7 +223,7 @@ loop_17:
         } while ((u32) (var_s1 & 0xFFFF) < 0xBU);
         var_s1 = 0;
         do {
-            *(&D_80112F7B + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+            *(&gMenuRowEnabled + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
             var_s1 += 1;
         } while ((u32) (var_s1 & 0xFFFF) < 4U);
         var_s1 = 0;

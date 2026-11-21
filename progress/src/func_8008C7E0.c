@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern f64 D_800D67B0;
-extern s32 D_8010A514;
+extern s32 gAudioOutputRate;
 
 s32 func_8008C7E0(s32 arg0) {
     f32 temp_fv1;
@@ -24,7 +24,7 @@ s32 func_8008C7E0(s32 arg0) {
     if (arg0 < 0) {
         var_fv1 += D_800D67B0;
     }
-    temp_fv1 = ((f32) var_fv1 * 4096.0f) / (f32) D_8010A514;
+    temp_fv1 = ((f32) var_fv1 * 4096.0f) / (f32) gAudioOutputRate;
     var_v1 = (u32) temp_fv1;
     return var_v1;
 }

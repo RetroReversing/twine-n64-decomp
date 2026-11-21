@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u16 D_800E160A;
+extern u16 gEntryLevelLimit;
 
 u32 func_800316B8(void) {
-    return (u16) D_800E160A >> 0xC;
+    return (u16) gEntryLevelLimit >> 0xC;
 }

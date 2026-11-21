@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80012AB0(s32);                             /* extern */
+s32 requestSaveSlot(s32);                             /* extern */
 M2C_UNK func_8002E114();                            /* extern */
 
 s32 func_8002CB2C(s32 arg0) {
     func_8002E114();
-    return func_80012AB0(arg0 & 0xFFFF) & 0xFFFF;
+    return requestSaveSlot(arg0 & 0xFFFF) & 0xFFFF;
 }

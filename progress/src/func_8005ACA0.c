@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 
 void func_8005ACA0(void *arg0) {
     u8 temp_v0;
@@ -20,7 +20,7 @@ void func_8005ACA0(void *arg0) {
 
     temp_a1 = M2C_FIELD(arg0, void **, 0x6C);
     temp_v0 = M2C_FIELD(temp_a1, u8 *, 0xC);
-    if ((temp_v0 == 0) || (*(sTrackDoneFlags + temp_v0) == M2C_FIELD(temp_a1, u8 *, 0xD))) {
+    if ((temp_v0 == 0) || (*(gTrackMarkerDone + temp_v0) == M2C_FIELD(temp_a1, u8 *, 0xD))) {
         M2C_FIELD(arg0, f32 *, 0x3C) += M2C_FIELD(temp_a1, f32 *, 0);
         M2C_FIELD(arg0, f32 *, 0x40) += M2C_FIELD(temp_a1, f32 *, 4);
         M2C_FIELD(arg0, f32 *, 0x44) += M2C_FIELD(temp_a1, f32 *, 8);

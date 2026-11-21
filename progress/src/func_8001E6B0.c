@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s8 D_800BD690;
+extern s8 gMenuNeedsRedraw;
 extern s16 D_800BD9BA;
 
 void func_8001E6B0(void) {
     D_800BD9BA = 1;
-    D_800BD690 = 0;
+    gMenuNeedsRedraw = 0;
 }

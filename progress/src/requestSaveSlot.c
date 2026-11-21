@@ -10,9 +10,9 @@ extern char D_80107B68[];
 extern u8 D_80108412[];
 extern u8 D_8010A3C5[];
 
-u16 func_80012AB0(u16 arg0)
+/* Requests a save-slot operation: checks the slot header, loads the slot code and runs the save steps; returns the resulting save status. */ u16 requestSaveSlot(u16 arg0)
 {
-    s8 *p;
+    s8 *codeByte;
 
     gSaveStatus = 3;
     gSaveRequestSlot = arg0;
@@ -22,9 +22,9 @@ u16 func_80012AB0(u16 arg0)
                 gSaveStatus = 0x81;
                 return 0x81;
             }
-            p = (s8 *)&D_80103042;
-            *p = D_80108412[gSaveRequestSlot << 5];
-            func_800103B0(D_8010A3C5, p, 4);
+            codeByte = (s8 *)&D_80103042;
+            *codeByte = D_80108412[gSaveRequestSlot << 5];
+            func_800103B0(D_8010A3C5, codeByte, 4);
         }
         if ((u16)saveFindTaggedSlot() != 0) {
             gSaveStatus = 0x30;

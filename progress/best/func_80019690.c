@@ -13,7 +13,7 @@ s32 func_8003099C();
 s32 func_80045130();
 s32 func_80081CC0();
 extern char gSharedItemId[];
-extern s8 D_800BD690;
+extern s8 gMenuNeedsRedraw;
 extern s16 gSaveStatus;
 extern char D_800C3CF8[];
 extern s8 D_800CA338;
@@ -67,7 +67,7 @@ void func_80019690(void) {
             (*(s16 *)((char *)(sActiveMenu) + 0x7A)) = 0xE;
             gSaveStatus = 0x60;
             func_80026424(sActiveMenu, 0x18);
-            D_800BD690 = 0;
+            gMenuNeedsRedraw = 0;
         }
     } else {
         func_8003099C(D_80102EE0, sDifficultyLevel);

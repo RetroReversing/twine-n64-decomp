@@ -29,10 +29,10 @@ extern s16 D_80102CC0;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
 extern M2C_UNK D_80102EFC;
-extern s8 D_80112F7B;
-extern s8 D_80112F7C;
-extern s8 D_80112F7D;
-extern s8 D_80112F7E;
+extern s8 gMenuRowEnabled;
+extern s8 gMenuFlagItem20;
+extern s8 gMenuFlagItem22;
+extern s8 gMenuFlagItem27;
 extern s8 D_80112F7F;
 extern s8 D_80112F80;
 extern s8 D_80112F81;
@@ -142,7 +142,7 @@ block_59:
                 break;
             case 34:
                 if (!(func_800316B8() & 0xFFFF)) {
-                    D_80112F7E = 1;
+                    gMenuFlagItem27 = 1;
                     var_v0 = 0x2C0;
                     goto block_59;
                 }
@@ -153,14 +153,14 @@ block_59:
                     D_80102CBC = 0x2B4;
                 }
                 if ((func_800316B8() & 0xFFFF) == 1) {
-                    D_80112F7C = 1;
+                    gMenuFlagItem20 = 1;
                     var_v0 = 0x2BE;
                     goto block_59;
                 }
                 break;
             case 38:
                 if ((func_800316B8() & 0xFFFF) == 2) {
-                    D_80112F7B = 1;
+                    gMenuRowEnabled = 1;
                     var_v0 = 0x2BD;
                     goto block_59;
                 }
@@ -174,7 +174,7 @@ block_59:
                 break;
             case 11:
                 if (!(func_800316B8() & 0xFFFF)) {
-                    D_80112F7D = 1;
+                    gMenuFlagItem22 = 1;
                     D_80102CBC = 0x2BF;
                 }
                 if ((func_800316B8() & 0xFFFF) == 2) {

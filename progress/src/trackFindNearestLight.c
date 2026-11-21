@@ -2,7 +2,7 @@ void segmentClosestPoint(void *a, void *b, void *c, void *d);
 void normalizeVector3(f32 *a, f32 *b);
 f32 approxDistance(void *a, void *b);
 extern u8 D_801096A0;
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 
 /* Finds the two track segments nearest the actor and blends their light colours into outR/outG/outB, clamped to 0xFF. Returns the nearest segment or NULL. */
 void *trackFindNearestLight(u8 *actor, u8 *outR, u8 *outG, u8 *outB) {
@@ -33,7 +33,7 @@ void *trackFindNearestLight(u8 *actor, u8 *outR, u8 *outG, u8 *outB) {
         while (__repair_phase_storage.pointer != NULL) {
             seg = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (seg != NULL) {
-                if (seg[0x2B] == 0 || sTrackDoneFlags[seg[0x2B]] != 0) {
+                if (seg[0x2B] == 0 || gTrackMarkerDone[seg[0x2B]] != 0) {
                     segmentClosestPoint(closestPoint, seg + 4, seg + 0x10, ((f32 *)(actor + 0x24)));
                     dist = approxDistance(((f32 *)(actor + 0x24)), closestPoint);
                     idx = 0;

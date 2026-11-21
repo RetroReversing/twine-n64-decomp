@@ -7,7 +7,7 @@ s32 func_8008C4C0();
 s32 func_8008C524();
 s32 func_8008C7C8();
 s32 func_8008CBD0();
-s32 func_8008CC38();
+s32 computePitchStep();
 s32 func_80090A4C();
 s32 sndStopEntity();
 s32 func_80091428();
@@ -270,7 +270,7 @@ block_56:
                         }
                     }
                     temp_s3 = var_a2 & 0xFFFF;
-                    var_s2_3 = func_8008CC38((var_a2 >> 0x10) & 0xFF, (*(s32 *)((char *)(var_s1) + -0x66)), var_a2) << 0x10;
+                    var_s2_3 = computePitchStep((var_a2 >> 0x10) & 0xFF, (*(s32 *)((char *)(var_s1) + -0x66)), var_a2) << 0x10;
                     if (temp_s3 != 0) {
                         var_s0_3 = var_s2_3 >> 0x10;
                         var_s2_3 += ((func_8008CBD0(var_s0_3) & 0xFFFF) - var_s0_3) * temp_s3;

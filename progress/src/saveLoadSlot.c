@@ -21,7 +21,7 @@ extern char gSaveSlotTable[];
 extern s16 gSaveSlot;
 extern s32 gSaveRequestSlot;
 extern s32 gSaveCmdResult;
-extern char D_80107B68[];
+extern char gSaveSlotHeaders[];
 extern char D_80108408[];
 extern char D_8010840C[];
 extern char D_80108410[];
@@ -35,7 +35,7 @@ extern char D_80108416[];
     gSaveRequestSlot = slotIndex;
     gSaveStatus = 4;
     if (!(func_80012F50(slotIndex) & 0xFFFF)) {
-        if (*(u16 *)(D_80107B68 + (gSaveRequestSlot * 0x18)) == 0) {
+        if (*(u16 *)(gSaveSlotHeaders + (gSaveRequestSlot * 0x18)) == 0) {
             gSaveStatus = 0x80;
             return 0x80U;
         }

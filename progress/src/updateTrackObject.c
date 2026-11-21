@@ -33,7 +33,7 @@ s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32);
 s32 updateSplinePosition(void *, void *);
 s32 releaseTrackRecord(void *);
 s32 updateActorTrackingState(void *, void *);
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 
 /* Runs a track object's state machine: waits for its trigger, plays the spline path while marking nearby objects, then releases the track record. */
 void updateTrackObject(TrackObject *obj) {
@@ -46,7 +46,7 @@ void updateTrackObject(TrackObject *obj) {
     case 0:
         v = track->triggerFlagIndex;
         if (v != 0) {
-            v = sTrackDoneFlags[v];
+            v = gTrackMarkerDone[v];
         } else {
             if (obj->flags60 & getTrackTriggerMask(track->triggerType)) {
                 obj->state = 1;

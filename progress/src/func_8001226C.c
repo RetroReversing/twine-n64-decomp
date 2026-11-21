@@ -16,7 +16,7 @@ s32 func_800AB770();
 extern u16 D_800E097C;
 extern char D_80103030[];
 typedef struct { u16 f0; u8 pad[22]; } Slot_80107B68;
-extern Slot_80107B68 D_80107B68[];
+extern Slot_80107B68 gSaveSlotHeaders[];
 extern u8 D_80107B6A[];
 extern char D_8010840C[];
 extern char D_80108410[];
@@ -31,7 +31,7 @@ s32 func_8001226C(s32 arg0) {
 
     temp_s0 = arg0 * 0x18;
     temp_a0 = arg0 << 5;
-    if (D_80107B68[arg0].f0 != 0) {
+    if (gSaveSlotHeaders[arg0].f0 != 0) {
         if (*(s32 *)(D_8010840C + temp_a0) != 0x4E4F3745) goto fail;
         if (*(u16 *)(D_80108410 + temp_a0) != 0x3639) goto fail;
         if (D_800E097C != 0) return 1;

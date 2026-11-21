@@ -11,7 +11,7 @@ s32 func_8002B248(void *);
 void func_8003099C(u8, u8);
 s32 lookupDataEntry(s32);
 
-extern u8 D_800BD690;
+extern u8 gMenuNeedsRedraw;
 extern u8 D_800BD9A0[];
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
@@ -49,7 +49,7 @@ void func_8001BE64(void) {
     s32 *temp_s0;
     u32 temp_v1;
 
-    D_800BD690 = 1;
+    gMenuNeedsRedraw = 1;
     temp_s6 = findEntryById(D_800BD9A0, 0x5C);
     temp_fp = findEntryById(D_800BD9A0, 0x5B);
     temp_s2 = findEntryPayload(D_800BD9A0, 0xE7);

@@ -20,7 +20,7 @@ s32 actorLinkToSurface();
 void *func_80047B44();
 s32 func_80073304();
 extern s32 *gProbeObjectList;
-extern unsigned char sTrackDoneFlags[];
+extern unsigned char gTrackMarkerDone[];
 
 void func_80016A34(void *arg0) {
     s32 temp_s0;
@@ -39,10 +39,10 @@ void func_80016A34(void *arg0) {
             markObjectsNearPos(M2C_FIELD(arg0, s32 *, 0x20), 2, 0x20000, temp_s2, 0, 1);
             func_80073304(temp_v0, temp_s2, M2C_FIELD(arg0, s32 *, 0x20));
         }
-        if ((M2C_FIELD(arg0, u16 *, 0x78) == 2) && ((temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x29), (temp_v0_2 == 0)) || (*(sTrackDoneFlags + temp_v0_2) != 0))) {
+        if ((M2C_FIELD(arg0, u16 *, 0x78) == 2) && ((temp_v0_2 = M2C_FIELD(temp_v0, u8 *, 0x29), (temp_v0_2 == 0)) || (*(gTrackMarkerDone + temp_v0_2) != 0))) {
             temp_v1 = M2C_FIELD(temp_v0, u8 *, 0x28);
             if (temp_v1 != 0) {
-                *(sTrackDoneFlags + temp_v1) = 1;
+                *(gTrackMarkerDone + temp_v1) = 1;
             }
         }
         temp_s0 = M2C_FIELD(temp_v0, s32 *, 8);

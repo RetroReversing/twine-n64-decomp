@@ -2,7 +2,7 @@ typedef struct { u16 a; u16 flags; u32 b; } Ent30C7C;
 extern u32 gEntryMode;
 extern Ent30C7C *gEntryTable;
 extern u16 gEntryCount;
-extern u16 D_800E160A;
+extern u16 gEntryLevelLimit;
 
 s32 func_80030C7C(void) {
     u16 i;
@@ -17,7 +17,7 @@ s32 func_80030C7C(void) {
     }
     for (i = 0; gEntryTable != NULL && i < gEntryCount; i++) {
         u16 f = gEntryTable[i].flags;
-        if ((f & 0xF000) <= D_800E160A && !(f & 0x200)) {
+        if ((f & 0xF000) <= gEntryLevelLimit && !(f & 0x200)) {
             if ((f & 0xF) == 2) {
                 return 0x9F;
             }

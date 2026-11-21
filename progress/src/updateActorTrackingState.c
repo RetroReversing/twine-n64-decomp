@@ -6,7 +6,7 @@ s32 func_8000AD5C(s32, s32);
 s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32);
 f32 findNearestTrackMarker(void *, u16 *);
 extern s32 gTrackMarkers;
-extern s32 sTrackDoneFlags;
+extern s32 gTrackMarkerDone;
 /* Advances a tracking state record for an actor: eases a blend value toward the target from findNearestTrackMarker, or cancels when the done flag matches. */ void updateActorTrackingState(void *actor, void *track) {
 u16 sp18; s32 axisIndex; f32 temp_fv0,temp_fv1,temp_fv1_2,temp_fv1_3,var_fs0,var_fv0,var_fv1;
 s32 temp_v0,temp_v0_3,temp_v0_4; u8 temp_v0_2,temp_v1; register s32 temp_v1_2; void *temp_a0,*temp_s0;
@@ -23,7 +23,7 @@ case 1: if (*(f32*)((char*)track+0x10)<var_fv1) { *(s32*)track=-1; *(u8*)((char*
 }
 } else {
 temp_v0_2=*(u8*)((char*)track+0x16);
-if(temp_v0_2 && *((u8*)((char*)&sTrackDoneFlags+temp_v0_2))==*(u8*)((char*)track+0x17)) {listUnlinkFree(*(s32*)track); *(s32*)track=-1; return;}
+if(temp_v0_2 && *((u8*)((char*)&gTrackMarkerDone+temp_v0_2))==*(u8*)((char*)track+0x17)) {listUnlinkFree(*(s32*)track); *(s32*)track=-1; return;}
 var_fs0=findNearestTrackMarker(temp_a0,&sp18); temp_fv1=*(volatile f32*)((char*)track+0xC); temp_fv1_2=*(volatile f32*)((char*)track+0x10);
 if ((*(s32*)((char*)(*(s32*)((char*)&gTrackMarkers+sp18*4))+0x100))&8) {if(*(u8*)((char*)track+0x1A)==1)var_fs0=65536.0f;}
 else if(*(u8*)((char*)track+0x1A)==0)var_fs0=65536.0f;

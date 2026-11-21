@@ -17,7 +17,7 @@ f32 func_800461D4(void *, void *);                  /* extern */
 M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_800779C4(void *);                      /* extern */
 M2C_UNK func_80077E94(void *);                      /* extern */
-s32 func_8007835C(void *);                          /* extern */
+s32 updateTrackMarkerTargets(void *);                          /* extern */
 M2C_UNK func_8007B030(void *);                      /* extern */
 s32 func_8007BAF8(void *, void *, M2C_UNK, M2C_UNK); /* extern */
 s32 func_8007C214(void *, void *);                  /* extern */
@@ -48,7 +48,7 @@ s32 func_8007C3F0(void *arg0, s32 arg1) {
         if (M2C_FIELD(temp_s1, void **, 0x40) != NULL) {
             if (((arg1 << 0x18) != 0) || (var_v0 = 0, (func_80045CF8(0xF) == 0))) {
                 var_v0 = 0;
-                if (((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) != 0) && ((func_800779C4(arg0), (D_80109B1E == 0)) || (var_v0 = 1, ((func_8007835C(arg0) << 0x18) == 0)))) {
+                if (((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) != 0) && ((func_800779C4(arg0), (D_80109B1E == 0)) || (var_v0 = 1, ((updateTrackMarkerTargets(arg0) << 0x18) == 0)))) {
                     temp_ft0 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x24);
                     M2C_FIELD(temp_s1, f32 *, 0x18) = (f32) (temp_ft0 + ((temp_ft0 - M2C_FIELD(arg0, f32 *, 0x24)) * 0.5f) + func_80045D8C(2.0f, 1.0f));
                     temp_fv1 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x40), f32 *, 0x28);

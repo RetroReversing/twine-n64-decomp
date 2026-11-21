@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s32 gEntryTable;
 extern s32 gEntryMode;
 extern u16 gEntryCount;
-extern u16 D_800E160A;
+extern u16 gEntryLevelLimit;
 
 s32 func_80030D40(void) {
     s32 temp_v0;
@@ -36,7 +36,7 @@ s32 func_80030D40(void) {
             temp_v1 = var_a0 & 0xFFFF;
             if (temp_v1 < (u16) gEntryCount) {
                 temp_v1_2 = M2C_FIELD(((temp_v1 * 8) + p), u16 *, 2);
-                if ((u16) D_800E160A >= (u32) (temp_v1_2 & 0xF000)) {
+                if ((u16) gEntryLevelLimit >= (u32) (temp_v1_2 & 0xF000)) {
                     if (!(temp_v1_2 & 0x200)) {
                         if ((temp_v1_2 & 0xF) == 2) {
                             return 4;

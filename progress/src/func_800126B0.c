@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 void *lookupDataEntry();
 typedef struct { u16 f0; u8 pad[22]; } Slot_80107B68;
-extern Slot_80107B68 D_80107B68[];
+extern Slot_80107B68 gSaveSlotHeaders[];
 extern char D_80107B6A[];
 
 void *func_800126B0(s32 arg0) {
     u32 temp_a0;
 
     temp_a0 = arg0 & 0xFFFF;
-    if ((temp_a0 >= 0x10U) || ((D_80107B68[temp_a0].f0 == 0))) {
+    if ((temp_a0 >= 0x10U) || ((gSaveSlotHeaders[temp_a0].f0 == 0))) {
         return lookupDataEntry(0x3004);
     }
     return (temp_a0 * 0x18) + D_80107B6A;

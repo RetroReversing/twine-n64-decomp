@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800778E0();
-extern char sTrackDoneFlags[];
+extern char gTrackMarkerDone[];
 extern s8 D_8010D294;
 
 void func_80015DB8(void) {
@@ -21,7 +21,7 @@ void func_80015DB8(void) {
 
     var_v1 = 0;
     do {
-        *(sTrackDoneFlags + var_v1) = 0;
+        *(gTrackMarkerDone + var_v1) = 0;
         var_v1 += 1;
     } while (var_v1 < 0x2FU);
     func_800778E0();

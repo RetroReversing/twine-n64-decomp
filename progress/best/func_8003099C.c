@@ -21,8 +21,8 @@ extern M2C_UNK D_800C02C0;
 extern M2C_UNK D_800C02D4;
 extern u16 D_800C02D8;
 extern M2C_UNK D_800C02DA;
-extern u16 D_800C02DC; extern u16 D_800BFF0C; extern u16 D_800E160A; extern u16 gEntryCount;
-extern u16 D_800E160A;
+extern u16 D_800C02DC; extern u16 D_800BFF0C; extern u16 gEntryLevelLimit; extern u16 gEntryCount;
+extern u16 gEntryLevelLimit;
 extern s8 D_80100768;
 extern u16 gEntryCount;
 extern s32 gEntryMode;
@@ -67,7 +67,7 @@ loop_2:
             temp_v1 = *(u8 *)((u8 *)&D_800C02DC + temp_a1);
             __base_D_800BFF0C = &D_800BFF0C;
             (*__base_D_800BFF0C) = *(u16 *)((u8 *)&D_800C02D8 + temp_a1);
-            D_800E160A = (arg1 & 0xFF) << 0xC;
+            gEntryLevelLimit = (arg1 & 0xFF) << 0xC;
             gEntryCount = (u16) temp_v1;
             temp_v1_2 = temp_v1 & 0xFFFF;
             var_s0 = 0;
@@ -96,7 +96,7 @@ loop_10:
                 ((__repair_record_temp_a1_3*)temp_a1_3)->field_0 = -1;
                 if (gEntryTable != 0) {
                     temp_v1_3 = ((__repair_record_temp_a1_3*)temp_a1_3)->field_2;
-                    if (!(temp_v1_3 & 0x200) && ((u16) D_800E160A >= (u32) (temp_v1_3 & 0xF000))) {
+                    if (!(temp_v1_3 & 0x200) && ((u16) gEntryLevelLimit >= (u32) (temp_v1_3 & 0xF000))) {
                         ((__repair_record_temp_a1_3*)temp_a1_3)->field_0 = var_s2_2;
                         temp_v0_2 = func_80087100(((__repair_record_temp_a1_3*)temp_a1_3)->field_4, temp_a1_3);
                         if (temp_v0_2 != NULL) {
@@ -131,6 +131,6 @@ block_20:
     gEntryTable = 0;
     D_80100768 = 0;
     gEntryCount = 0;
-    D_800E160A = 0;
+    gEntryLevelLimit = 0;
     D_800BFF0C = 3;
 }

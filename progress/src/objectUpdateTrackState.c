@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 objectSetAnimFrame();
 s32 randomU32Next();
 extern f64 D_800D4258;
-extern u8 sTrackDoneFlags[];
+extern u8 gTrackMarkerDone[];
 
 /* Advances an object's track state: 0 waits for its done flag, 1 drifts scale/alpha randomly until a frame limit, 2 idles. */ void objectUpdateTrackState(void *obj) {
     f64 rndF;
@@ -29,8 +29,8 @@ extern u8 sTrackDoneFlags[];
     track = M2C_FIELD(obj, void **, 0x6C);
     switch (state) {                              /* irregular */
     case 0:
-        if (*(sTrackDoneFlags + M2C_FIELD(track, u8 *, 4)) == M2C_FIELD(track, u8 *, 5)) {
-            *(sTrackDoneFlags + M2C_FIELD(track, u8 *, 6)) = 1;
+        if (*(gTrackMarkerDone + M2C_FIELD(track, u8 *, 4)) == M2C_FIELD(track, u8 *, 5)) {
+            *(gTrackMarkerDone + M2C_FIELD(track, u8 *, 6)) = 1;
             animWord = M2C_FIELD(track, u32 *, 0);
             objectSetAnimFrame(obj, ((animWord >> 4) & 0xFFFF) + 1, animWord >> 0x14);
             M2C_FIELD(obj, s16 *, 0x7A) = 1;
@@ -50,7 +50,7 @@ extern u8 sTrackDoneFlags[];
         if ((s16) M2C_FIELD(obj, u16 *, 0x7C) >= 0xA8D) {
             animWord2 = M2C_FIELD(track, u32 *, 0);
             objectSetAnimFrame(obj, (animWord2 >> 4) & 0xFFFF, animWord2 >> 0x14);
-            *(sTrackDoneFlags + M2C_FIELD(track, u8 *, 6)) = 0;
+            *(gTrackMarkerDone + M2C_FIELD(track, u8 *, 6)) = 0;
             M2C_FIELD(obj, s16 *, 0x7A) = 2;
         }
         break;

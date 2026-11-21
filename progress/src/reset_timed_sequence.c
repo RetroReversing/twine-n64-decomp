@@ -17,7 +17,7 @@ void func_8008CDC0(s32, u8, Seq *);
 extern u8 D_800EDA87;
 extern Seq *gSeqPlayer;
 extern s32 D_801002D8;
-extern s32 D_8010A514;
+extern s32 gAudioOutputRate;
 
 /* Rewinds the sequence player to the event list, fires events already due at this base time, then recomputes the output position and half-step values from the current tempo. */ void reset_timed_sequence(s32 base) {
     Ev *event;
@@ -44,7 +44,7 @@ extern s32 D_8010A514;
                 }
             }
         }
-        tempoScale = (D_801002D8 << 16) / D_8010A514;
+        tempoScale = (D_801002D8 << 16) / gAudioOutputRate;
         {
         u32 lowBits = (((gSeqPlayer->cur * 0xC00) / 60 * tempoScale) >> 3);
         u16 scale = gSeqPlayer->scale;

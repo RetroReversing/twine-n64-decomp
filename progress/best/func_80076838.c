@@ -30,7 +30,7 @@ extern s32 gBonusObjects;
 extern s32 gProbeObjectList;
 extern u8 gTrackMarkerActiveMask;
 extern u8 gSceneFlagsB;
-extern s32 sTrackDoneFlags;
+extern s32 gTrackMarkerDone;
 
 void func_80076838(void *arg0) {
     s16 temp_v1;
@@ -46,7 +46,7 @@ void func_80076838(void *arg0) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (*(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
+        if (*(&gTrackMarkerDone + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
             if (D_80103EB0 == 0) {
                 var_v0 = M2C_FIELD(arg0, s32 *, 0x60) | 1;
 block_24:
@@ -60,18 +60,18 @@ block_24:
                     var_v1 = 0;
                     if (gTrackMarkerCount != 0) {
 loop_16:
-                        if (*(D_80100BE0 + var_v1) != M2C_FIELD(temp_s1, u8 *, 0)) {
+                        if (*(D_80100BE0 + var_v1) == M2C_FIELD(temp_s1, u8 *, 0)) {
+                            temp_v0 = var_v1 * 0xC;
+                            var_a3 = temp_v0 + gTrackMarkerPosTable;
+                            var_a2 = temp_v0 + gTrackMarkerRotTable;
+                        } else {
                             var_v1 += 1;
                             if (var_v1 < (u32) gTrackMarkerCount) {
                                 goto loop_16;
                             }
-                        } else {
-                            temp_v0 = var_v1 * 0xC;
-                            var_a3 = temp_v0 + gTrackMarkerPosTable;
-                            var_a2 = temp_v0 + gTrackMarkerRotTable;
                         }
                     }
-                    do { actorInitFromSpawn(temp_s0, var_a3, var_a2, var_a3); } while (0);
+                    actorInitFromSpawn(temp_s0, var_a3);
                     func_80001D80(1);
                     M2C_FIELD(arg0, s16 *, 0x7A) = 1;
                     return;
@@ -99,13 +99,13 @@ loop_16:
         M2C_FIELD(temp_s1, f32 *, 8) += M2C_FIELD(temp_s1, f32 *, 0xC);
         updateSplinePosition(arg0, temp_s1 + 4);
         func_80047F50(arg0, D_80109690);
-        if ((*(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
+        if ((*(&gTrackMarkerDone + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;
             return;
         }
         break;
     case 3:
-        *(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
+        *(&gTrackMarkerDone + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
         gTrackMarkerActiveMask |= 1;
         gSceneFlagsB |= 1;
         func_80084048(D_80109690, 0xE, &gTrackMarkerActiveMask);

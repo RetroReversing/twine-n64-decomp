@@ -40,7 +40,7 @@ s32 func_80056124(void *, f32 *, f32 *);            /* extern */
 s32 func_800588D8(void *);                          /* extern */
 M2C_UNK func_8005CBD4(void *, f32 *, f32 *, M2C_UNK, s32); /* extern */
 M2C_UNK func_8005D070(void *, M2C_UNK, void *, f32 *); /* extern */
-M2C_UNK func_800613AC(void *, f32 *, f32 *, M2C_UNK); /* extern */
+M2C_UNK spawnTimedEffect(void *, f32 *, f32 *, M2C_UNK); /* extern */
 M2C_UNK spawnConfiguredEffect(void *, f32 *, f32 *, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, f32 *, f32, M2C_UNK); /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
@@ -715,7 +715,7 @@ block_138:
                             spB8 = sp78;
                             func_80047E4C(D_80108F84, &vsp88[0], 0);
                             func_80083AE8(&vsp88[0], &spB0, &vspC0[0]);
-                            func_800613AC(arg0, &vsp40[0], &vspC0[0], 0x13);
+                            spawnTimedEffect(arg0, &vsp40[0], &vspC0[0], 0x13);
                             M2C_FIELD(D_80108F84, s32 *, 0x50) = (s32) (M2C_FIELD(D_80108F84, s32 *, 0x50) & ~0x20);
                         }
                     }

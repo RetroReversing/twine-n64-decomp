@@ -17,7 +17,7 @@ s32 func_800316B8();
 s32 lookupDataEntry();
 extern s16 D_800B5B24;
 extern s16 D_800B5B26;
-extern s8 D_800BD690;
+extern s8 gMenuNeedsRedraw;
 extern s16 D_800BD9BA;
 extern u8 D_80100768;
 extern char D_80100870[];
@@ -48,7 +48,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
         D_800E0C60 = (u8) (short)D_80100768;
         D_800E0C61 = func_800316B8();
     }
-    D_800BD690 = 0;
+    gMenuNeedsRedraw = 0;
     headerEntry = findEntryById((((__repair_field_10 *)gMenuItems)->value), 0xE);
     mapNameEntry = findEntryById((((__repair_field_10 *)gMenuItems)->value), 0x4000);
     infoEntry = findEntryById((((__repair_field_10 *)gMenuItems)->value), 0x4001);

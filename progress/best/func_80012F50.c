@@ -16,15 +16,15 @@ extern s32 D_800E0970;
 extern s32 D_800E0974;
 extern u16 D_800E097C;
 extern s8 D_80103030;
-extern s8 D_80103042;
+extern s8 gSaveSlotCodeByte;
 extern s32 gSaveCmdResult;
-extern u16 D_80107B68;
+extern u16 gSaveSlotHeaders;
 extern s8 D_80107B6A;
 extern s32 D_80108408;
 extern s32 D_8010840C;
 extern s32 D_80108410;
-extern s32 D_80108412;
-extern s8 D_8010A3C5;
+extern s32 gSaveSlotCodes;
+extern s8 gSaveSlotCodeBuf;
 extern s8 D_80115308;
 
 u16 func_80012F50(void) {
@@ -104,9 +104,9 @@ block_16:
         var_s6 += 8;
         if (var_s0_3 >= 0x10) {
             if (D_800E097C) {
-                D_8010A3C5 = 0x41;
+                gSaveSlotCodeBuf = 0x41;
                 saveDataEncodeName(&D_80115308, &D_80103030, 0x10);
-                saveDataEncodeName(&D_80103042, &D_8010A3C5, 4);
+                saveDataEncodeName(&gSaveSlotCodeByte, &gSaveSlotCodeBuf, 4);
                 var_s0 = 1;
                 do {
                     var_s2 = &D_80107B6A;
@@ -114,11 +114,11 @@ block_16:
                     var_s1_2 = 0;
                     __repair_phase_var_s0 = 0;
 loop_20:
-                    if ((*((u16 *)((u8 *)&D_80107B68 + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
-                        temp_v1 = *((s8 *)((s8 *)&D_80108412 + var_s1_2));
-                        if (temp_v1 == D_80103042) {
+                    if ((*((u16 *)((u8 *)&gSaveSlotHeaders + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
+                        temp_v1 = *((s8 *)((s8 *)&gSaveSlotCodes + var_s1_2));
+                        if (temp_v1 == gSaveSlotCodeByte) {
                             var_s0 = 0;
-                            D_80103042 = temp_v1 + 1;
+                            gSaveSlotCodeByte = temp_v1 + 1;
                         } else {
                             gSaveFoundSlot = var_s0_3;
                             goto block_27;
@@ -134,7 +134,7 @@ block_27:
                         }
                     }
                 } while (!(var_s0 & 0xFFFF));
-                func_800103B0(&D_8010A3C5, &D_80103042, 4);
+                func_800103B0(&gSaveSlotCodeBuf, &gSaveSlotCodeByte, 4);
             }
             gSaveStatus = 0;
             return 0U;

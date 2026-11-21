@@ -15,11 +15,11 @@ extern s32 gSaveCmdResult;
 extern s16 D_801083D4[4];
 extern u8 D_80108F75;
 extern s16 gSaveSlotLoaded[4], gSaveSlotValid[4];
-extern s8 D_8010A3C5, D_8010A3C6, D_8010A3C7, D_8010A3C8;
+extern s8 gSaveSlotCodeBuf, D_8010A3C6, D_8010A3C7, D_8010A3C8;
 u16 func_80012C70(void) {
     u8 *__base_D_800E0790;
     s32 state = -1;
-    D_8010A3C5 = 0; D_8010A3C6 = 0; D_8010A3C7 = 0; D_8010A3C8 = 0;
+    gSaveSlotCodeBuf = 0; D_8010A3C6 = 0; D_8010A3C7 = 0; D_8010A3C8 = 0;
     D_800E093E = 0;
     gSaveSlot = 0;
     D_800E093C = -1;

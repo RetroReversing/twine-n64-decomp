@@ -7,7 +7,7 @@ extern s32 D_800E0960;
 extern s32 D_800E096C;
 extern s32 D_800E0970;
 extern s32 D_800E0974;
-extern Slot10A2C D_80107B68[];
+extern Slot10A2C gSaveSlotHeaders[];
 extern Note10A2C D_8010840C[];
 extern char D_80115308[];
 
@@ -17,8 +17,8 @@ s32 saveFindTaggedSlot(void) {
 
     gSaveFoundSlot = -1;
     for (i = 0; i < 16; i++) {
-        if (D_80107B68[i].used != 0 && D_8010840C[i].code == 0x4E4F3745 && D_8010840C[i].ext == 0x3639
-            && func_800AB770(D_80107B68[i].name, D_80115308) != 0) {
+        if (gSaveSlotHeaders[i].used != 0 && D_8010840C[i].code == 0x4E4F3745 && D_8010840C[i].ext == 0x3639
+            && func_800AB770(gSaveSlotHeaders[i].name, D_80115308) != 0) {
             gSaveFoundSlot = i;
             break;
         }

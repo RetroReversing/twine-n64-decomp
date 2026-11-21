@@ -13,7 +13,7 @@ s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 getCurrentMapIdx();
-s32 func_80031028();
+s32 getEntryCount();
 s32 func_80031250();
 s32 func_8003137C();
 s32 func_800316B8();
@@ -68,7 +68,7 @@ s32 __repair_phase_var_a2;
     var_s3 = 2;
     for (;;) {
         __repair_phase_temp_s4 = var_s3 & 0xFFFF;
-        if (__repair_phase_temp_s4 >= ((func_80031028(0, 1) & 0xFFFF) + 2)) {
+        if (__repair_phase_temp_s4 >= ((getEntryCount(0, 1) & 0xFFFF) + 2)) {
             break;
         }
         temp_s4 = __repair_phase_temp_s4 * 8;
@@ -100,7 +100,7 @@ s32 __repair_phase_var_a2;
                 (*(s32 *)((char *)(temp_v1) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v1) + 0x28)) & ~0xFC) | 0xC);
                 __repair_phase_storage.pointer = *(s32 *)((u8 *)&D_8010A2DC + temp_s4);
                 (*(s32 *)((char *)(*(s32 *)((u8 *)&D_8010A2DC + temp_s4)) + 0x10)) = 0;
-                if ((__repair_phase_temp_s4 - 1) == (func_80031028(0, 1) & 0xFFFF)) {
+                if ((__repair_phase_temp_s4 - 1) == (getEntryCount(0, 1) & 0xFFFF)) {
                     __repair_phase_storage.value = var_s3 & 0xFF;
                     func_8002A7CC(D_80115060, temp_s2, __repair_phase_storage.value, func_80018318(*((s32 *)((s8 *)D_8010A2D8 + temp_s4))) + 1 & 0xFF);
                 } else {

@@ -27,7 +27,7 @@ extern M2C_UNK D_801096F0;
 extern M2C_UNK D_801096F4;
 extern M2C_UNK D_801096F8;
 extern M2C_UNK D_801096FC;
-extern s32 D_8010A514;
+extern s32 gAudioOutputRate;
 
 /* Starts an audio voice: records its sample range and loop in the voice table, then sends the start commands. */ s32 startAudioVoice(u8 voiceId, s32 dataStart, s32 dataEnd, s32 freq, u8 gain0, u8 gain1, u8 gain2, u8 gain3, s32 loopStart, s32 loopEnd) {
     struct { s32 w[6]; s8 b; } sp18s;
@@ -58,7 +58,7 @@ extern s32 D_8010A514;
             sp18s.w[5] = dataEnd;
             sp18s.b = 0;
             audioVoiceSetup(voice, &sp18s, 1);
-            rateRatio = ((f32) (u32) freq / (f32) D_8010A514) * 4096.0f;
+            rateRatio = ((f32) (u32) freq / (f32) gAudioOutputRate) * 4096.0f;
             rateFixed = (u32) rateRatio;
             func_8008C4C0(voice, rateFixed & 0xFFFF);
             func_8008C524(voice, gain0 << 0x10, gain1 << 0x10, gain2 << 0x10, gain3 << 0x10);

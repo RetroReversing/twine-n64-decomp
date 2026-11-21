@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800819EC(u16, s32);                         /* extern */
-extern u8 D_800BD690;
+extern u8 gMenuNeedsRedraw;
 extern u8 gMenuParamB;
 
 s32 func_80027C60(s32 arg0) {
     u16 var_s0;
 
-    if (D_800BD690 != 0) {
+    if (gMenuNeedsRedraw != 0) {
         for (var_s0 = 0; var_s0 < 4; var_s0++) {
             if (func_800819EC(var_s0, arg0) != 0) {
                 return 1;

@@ -5,7 +5,7 @@ void *findEntryPayload();
 s8 func_800263B8();
 s32 lookupDataEntry();
 extern s16 D_800B5B28;
-extern s8 D_800BD690;
+extern s8 gMenuNeedsRedraw;
 extern char D_800BD8EC[];
 extern char D_800D2A74[];
 extern char sFmtEntryName[];
@@ -30,7 +30,7 @@ s32 __repair_phase_var_a0;
     
     void *var_s3;
 
-    D_800BD690 = 1;
+    gMenuNeedsRedraw = 1;
     temp_s4 = findEntryPayload(D_800BD8EC, 0x1F);
     temp_s5 = findEntryPayload(D_800BD8EC, 0x20);
     temp_s1 = findEntryPayload(D_800BD8EC, 0x19);

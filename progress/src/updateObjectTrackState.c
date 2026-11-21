@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 objectSetAnimFrame();
 s32 func_80084338();
-extern char sTrackDoneFlags[];
+extern char gTrackMarkerDone[];
 
 /* Advances the object's track state machine (0 idle, 1 start, 2 playing) and syncs its track done flags. */ void updateObjectTrackState(void *obj) {
     s16 state;
@@ -27,7 +27,7 @@ extern char sTrackDoneFlags[];
 
     def = M2C_FIELD(obj, void **, 0x6C);
     if (M2C_FIELD(def, u16 *, 0x3A) == 1) {
-        doneFlag = *(sTrackDoneFlags + M2C_FIELD(def, u16 *, 0x34));
+        doneFlag = *(gTrackMarkerDone + M2C_FIELD(def, u16 *, 0x34));
         if (doneFlag < 2U) {
             objectSetAnimFrame(obj, M2C_FIELD(def, u16 *, 0x3C) + doneFlag, M2C_FIELD(def, u16 *, 0x3E));
         }
@@ -42,14 +42,14 @@ extern char sTrackDoneFlags[];
             M2C_FIELD(obj, s16 *, 0x7A) = 1;
             trackIdx = M2C_FIELD(def, u16 *, 0x34);
             if (trackIdx != 0) {
-                *(sTrackDoneFlags + trackIdx) = 2;
+                *(gTrackMarkerDone + trackIdx) = 2;
             }
         }
         break;
     case 1:
         trackIdx2 = M2C_FIELD(def, u16 *, 0x34);
         if (trackIdx2 != 0) {
-            *(sTrackDoneFlags + trackIdx2) = 1;
+            *(gTrackMarkerDone + trackIdx2) = 1;
         }
         callArg = M2C_FIELD(def, u16 *, 0x36);
         if (callArg != 0) {
@@ -60,7 +60,7 @@ extern char sTrackDoneFlags[];
     case 2:
         trackIdx3 = M2C_FIELD(def, u16 *, 0x34);
         if (trackIdx3 != 0) {
-            *(sTrackDoneFlags + trackIdx3) = 0;
+            *(gTrackMarkerDone + trackIdx3) = 0;
         }
         if (!(M2C_FIELD(obj, s32 *, 0x60) & M2C_FIELD(def, s32 *, 0x2C))) {
             M2C_FIELD(obj, s16 *, 0x7A) = 0;

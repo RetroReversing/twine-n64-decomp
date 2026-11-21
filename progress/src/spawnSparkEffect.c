@@ -9,7 +9,7 @@ extern char D_800C7C39[];
 extern s32 *gProbeObjectList;
 
 typedef struct { unsigned hi:12; unsigned tbl:16; unsigned lo:4; } BF1C;
-void func_80061048(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u8 arg6, s32 arg7, u16 arg8) {
+void spawnSparkEffect(u16 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u8 arg6, s32 arg7, u16 arg8) {
     s32 temp_a1;
     void *temp_a0;
     void *temp_v0;

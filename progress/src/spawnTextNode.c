@@ -45,7 +45,7 @@ const char *lookupDataEntry(u16);
 unsigned int strlen(const char *);
 extern s32 gTrackMarkers[];
 
-TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
+/* Allocates a text node and fills its position, style, string, size and track marker from the argument block; returns NULL if no node is free. */ TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
 {
     TextNode15F74 *node = func_80015F0C();
     u32 flags;
