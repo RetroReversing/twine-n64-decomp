@@ -2,7 +2,7 @@ void workerLockAcquire(void);
 void workerLockRelease(void);
 s32 func_80095A80(s32, s32, u8, s32);
 s32 func_800989B8(s32);
-extern u8 gWorkerActive, D_8010D76F, D_8010D779;
+extern u8 gWorkerThreadActive, D_8010D76F, D_8010D779;
 extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 
 s32 func_8009C660(s32 handle, s32 original) {
@@ -11,7 +11,7 @@ s32 func_8009C660(s32 handle, s32 original) {
     s32 value = original;
     u8 channel;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         handle = func_800989B8(handle);
         if (handle != result) {

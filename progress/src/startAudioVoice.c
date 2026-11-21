@@ -19,7 +19,7 @@ M2C_UNK func_8008C43C(s32);                         /* extern */
 M2C_UNK func_8008C4C0(s32, s32);                    /* extern */
 M2C_UNK func_8008C524(s32, s32, s32, s32, s32);     /* extern */
 s32 func_800994B4(s32);                             /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern f64 D_800D6840;
 extern M2C_UNK gVoiceTable;
 extern M2C_UNK D_801096EC;
@@ -39,7 +39,7 @@ extern s32 D_8010A514;
     s32 rateFixed;
 
     sp3F = gain1;
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         voice = func_800994B4(voiceId & 0xFF);
         if (voice != -1) {

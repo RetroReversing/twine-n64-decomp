@@ -5,7 +5,7 @@ s32 workerLockRelease();                            /* extern */
 s32 func_800937D0(s32 *, f32 *, f32 *, s32 *, s32 *, f32 *); /* extern */
 s32 soundVoiceStart(s32 *, f32, s32, s32, f32, f32); /* extern */
 s32 func_8009CC3C(u16, s32, s32);           /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s32 gStaticSoundSlot;
 extern s32 *gActiveSoundList;
 
@@ -22,7 +22,7 @@ typedef struct { s32 x, y, z; } V3_93FE8;
     s32 *oldHead;
     s32 slotFlags;
 
-    if (gWorkerActive) {
+    if (gWorkerThreadActive) {
         key = soundId | 0x80000000;
         workerLockAcquire();
         slot = voice;

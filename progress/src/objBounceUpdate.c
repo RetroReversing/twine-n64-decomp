@@ -36,7 +36,7 @@ typedef struct {
 
 s32 angleDelta12(s32, s32);
 s32 func_80045DB4(void *, f32, f32);
-s8 func_8005E4C8(void *);
+s8 checkBonusObjectPickup(void *);
 s32 objUpdateGroundContact(void *);
 s32 func_800850E0(void *);
 extern u8 gSceneType;
@@ -79,7 +79,7 @@ void objBounceUpdate(ObjEBF4 *obj) {
         }
         break;
     }
-    if (func_8005E4C8(obj) != 0) {
+    if (checkBonusObjectPickup(obj) != 0) {
         if (sub->bounceEnabled == 0) {
             obj->flags |= 1;
         } else {

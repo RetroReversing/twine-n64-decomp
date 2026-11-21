@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 M2C_UNK workerLockAcquire();                            /* extern */
 M2C_UNK workerLockRelease();                            /* extern */
 s32 func_8008E96C(s32, s32);                        /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 
 s32 func_8009C930(s32 arg0, u8 arg1) {
     s32 var_s0;
 
     var_s0 = -1;
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         var_s0 = func_8008E96C(arg0, arg1 & 0xFF);
         workerLockRelease();

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80089850();                            /* extern */
 M2C_UNK osYieldThread();                            /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern u16 gAudioBufferCount;
 extern s32 D_800E41E0;
 extern volatile u8 sWorkerBusy;
@@ -36,7 +36,7 @@ extern s32 sSlotLog;
 extern M2C_UNK func_8008B25C;
 
 void workerShutdownDrain(void) {
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         sWorkerAckCounter = gAudioBufferCount;
         do {
 

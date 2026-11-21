@@ -17,10 +17,10 @@ M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK func_80090F68();                            /* extern */
 M2C_UNK func_8009450C();                            /* extern */
 M2C_UNK releaseVoices(M2C_UNK);                     /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 
 void func_8009CD5C(void) {
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         func_80090F68();
         func_8009450C();

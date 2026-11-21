@@ -22,10 +22,12 @@ s32 func_8009A70C(LevelState *state, u8 *settings) {
         level = state->level;
         curve = low | (high << 8);
     }
+    curve &= 0xFFFF;
     if (curve == 0) {
         state->level = level;
         return 0;
     }
+    state->level = level;
     {
         s32 frac;
         samples = func_8009846C(curve);

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 sndStopEntity();
-extern char gSndEntities[];
+extern char gSoundEntities[];
 
 void func_80090F68(void) {
     s32 temp_a0;
@@ -23,7 +23,7 @@ void func_80090F68(void) {
     var_s1 = 0;
     var_s0 = 0;
     do {
-        temp_a0 = *(s32 *)(gSndEntities + var_s0);
+        temp_a0 = *(s32 *)(gSoundEntities + var_s0);
         var_s0 += 0xFF8;
         var_s1 += 1;
         sndStopEntity(temp_a0);

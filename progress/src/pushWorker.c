@@ -16,7 +16,7 @@ M2C_UNK workerLockAcquire();                            /* extern */
 M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK vec3Cross(void *, void *, void *);      /* extern */
 M2C_UNK invertAffineTransform(void *, f32 *);               /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern void *gWorkerListHead;
 
 typedef struct { s32 x, y, z; } Vec3w;
@@ -24,7 +24,7 @@ typedef struct { s32 x, y, z; } Vec3w;
     f32 mtx[12];
     void *prevHead;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         prevHead = gWorkerListHead;
         M2C_FIELD(worker, void **, 0) = prevHead;

@@ -1,9 +1,9 @@
 static __inline__ u16 __repair_inline(u16 a) { return a; }
 s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 func_80097814(); s32 func_80097A40(); s32 func_80097D0C(); s32 func_80097EF8();
-extern u8 gWorkerActive; extern s16 sSceneGroupStackCount; extern char sSceneGroupStack[];
+extern u8 gWorkerThreadActive; extern s16 sSceneGroupStackCount; extern char sSceneGroupStack[];
 s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
  char *__repair_addr; s32 *var_a1,*var_a1_3,*var_a1_4,*var_s1,*var_v0,*var_v0_2,*var_v0_3,*var_v0_4; u16 *temp_s0; char *var_s0,*var_s0_2,*var_s0_3,*var_s0_4,*var_s0_5; u16 var_a0,var_v1,var_v1_2,var_v1_3,var_v1_4; void *temp_a1,*temp_v0,*temp_v0_2,*temp_v0_3,*temp_v0_4;
- if(gWorkerActive&&sSceneGroupStackCount<0x80){var_s1=arg0;if(*arg0!=-1){__repair_addr=(char *)(var_s1+1);  for (;;) {
+ if(gWorkerThreadActive&&sSceneGroupStackCount<0x80){var_s1=arg0;if(*arg0!=-1){__repair_addr=(char *)(var_s1+1);  for (;;) {
      if(*(u16 *)__repair_addr==(arg1&0xffff)){*((s32 *)((s8 *)sSceneGroupStack+sSceneGroupStackCount))=var_s1;
      temp_v0=(void *)(var_s1[2]+(s32)var_s1); var_s0=(char *)temp_v0+8; var_v1=*(u16 *)((char *)temp_v0+8);
      if(var_v1!=0xffff) do {var_a1=(s32 *)((char *)arg4+*(s32 *)arg4);var_v0=0;if(*var_a1!=-1){     for (;;) {

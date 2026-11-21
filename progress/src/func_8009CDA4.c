@@ -14,7 +14,7 @@ s32 func_800A92C0(s32 direction, s32 spAddress, s32 dramAddress, s32 length) {
 
 s32 audioVoiceIsActive(s32);
 unsigned int func_8008C1DC(void);
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s8 D_80112DC0;
 extern u8 sVoiceCount;
 
@@ -25,7 +25,7 @@ s32 func_8009CDA4(void) {
     s32 result;
     s64 checkState;
     s64 *checkStatePtr = &checkState;
-    if (gWorkerActive == 0) goto done;
+    if (gWorkerThreadActive == 0) goto done;
     D_80112DC0 = 1;
     if ((u8)func_8008C1DC() == 0) {
         if ((count = sVoiceCount) > 0) {

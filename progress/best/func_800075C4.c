@@ -14,7 +14,7 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     s32 var_s1;
     s32 var_s2;
     s32 var_s3;
-    s32 var_v0;
+    
     s32 var_v0_2;
     s32 var_v0_3;
     s32 var_v0_4;
@@ -28,11 +28,11 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     temp_fv1 = (*(f32 *)((char *)(temp_v0) + 0x60)) + (*(f32 *)((char *)(temp_v0) + 0x50));
     if (!(temp_fv1 >= 2.1474836e9f)) {
         var_s3 = (s32) temp_fv1;
-        var_v0 = arg1 * 4;
+        var_s1 = arg1 * 4;
     } else {
         var_s3 = (s32) (temp_fv1 - 2.1474836e9f);
         var_s3 |= 0x80000000;
-        var_v0 = arg1 * 4;
+        var_s1 = arg1 * 4;
     }
     temp_v0_2 = gTrackMarkerTable[arg1];
     temp_fv1_2 = (*(f32 *)((char *)(temp_v0_2) + 0x64)) + (*(f32 *)((char *)(temp_v0_2) + 0x58));
@@ -93,7 +93,8 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     cmd->w0 = 0xD7000002;
     cmd->w1 = 0x80008000;
     cmd = sDisplayListCursor++;
-    cmd->w0 = (s32) ((((var_s0 & 0x3FF) * 4) | ((var_s1 & 0x3FF) << 0xE)) | 0xF6000000);
+    cmd->w0 = (0xF6000000 | ((var_s0 & 0x3FF) << 2)) | ((var_s1 & 0x3FF) << 14);
     cmd->w1 = (s32) (((var_s3 & 0x3FF) << 0xE) | ((var_s2 & 0x3FF) * 4));
 }
+
 

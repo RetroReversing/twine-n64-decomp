@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8008EB80();
-extern unsigned char gSndEntities[];
+extern unsigned char gSoundEntities[];
 extern unsigned char D_800E5FEC[];
 extern unsigned char D_800E6A85[];
 extern unsigned char D_800E6A88[];
@@ -36,7 +36,7 @@ s32 __repair_phase_var_v0;
     void *temp_s2;
     
 
-    var_s0_2 = gSndEntities;
+    var_s0_2 = gSoundEntities;
 
     var_s0 = 0;
     temp_a2_2 = 0;

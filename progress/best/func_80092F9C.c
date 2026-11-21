@@ -1,4 +1,4 @@
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s16 sSceneGroupStackCount;
 extern char *sSceneGroupStack[];
 void workerLockAcquire(void);
@@ -8,7 +8,7 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
  s32 i, result;
  char *p, *a, *b, *c;
  u16 n;
- if (gWorkerActive) {
+ if (gWorkerThreadActive) {
   { s32 offset=0; for (i=0; i<sSceneGroupStackCount; i++, offset+=4) {
    p=*(char **)((char *)sSceneGroupStack+offset);
    if (*(u16 *)(p+4)==id) {

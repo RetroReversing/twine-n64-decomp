@@ -19,7 +19,7 @@ s32 func_80092780(void);
 s32 func_80093220();
 s32 func_80095260();
 s32 func_80098644();
-extern s8 gWorkerActive;
+extern s8 gWorkerThreadActive;
 extern s8 D_801005B0;
 extern s8 D_801007C0;
 extern s8 D_80112DC0;
@@ -29,7 +29,7 @@ s32 func_800958F8(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
     s32 __repair_arg0;
     s32 temp_v0;
 
-    gWorkerActive = 0;
+    gWorkerThreadActive = 0;
     if ((u32) (arg1 & 0xFF) < 0x21U) {
         sVoiceCount = arg1;
     } else {
@@ -47,7 +47,7 @@ s32 func_800958F8(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
         func_8008F2D4(__repair_arg0);
         func_80093220();
         func_80095260();
-        gWorkerActive = 1;
+        gWorkerThreadActive = 1;
     }
     return temp_v0;
 }

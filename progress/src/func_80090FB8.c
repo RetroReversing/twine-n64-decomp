@@ -12,7 +12,7 @@ typedef struct {
     u8 padFEF[9];
 } EntSnd;
 
-extern EntSnd gSndEntities[];
+extern EntSnd gSoundEntities[];
 
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
@@ -20,7 +20,7 @@ static inline s32 find_snd(s32 id) {
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
-        if (*((u8 *)&gSndEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSndEntities[0].id + off) == key) {
+        if (*((u8 *)&gSoundEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSoundEntities[0].id + off) == key) {
             return i | (id & 0x80000000);
         }
     }
@@ -34,7 +34,7 @@ s32 func_80090FB8(s32 arg0, s32 arg1) {
         arg0 = find_snd(arg0);
         if (arg0 != -1) {
             if (arg0 >= 0) {
-                gSndEntities[arg0].bFC5 = (u8)arg1 == 0;
+                gSoundEntities[arg0].bFC5 = (u8)arg1 == 0;
                 return 1;
             }
         }

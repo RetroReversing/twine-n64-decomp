@@ -3,7 +3,7 @@ extern void workerLockAcquire(void);
 extern void workerLockRelease(void);
 extern s32 func_800989B8(s32);
 extern void func_80095A80(u8, u8, u8, u8);
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 extern u8 D_8010D76F, D_8010D779;
 
@@ -13,7 +13,7 @@ s32 func_8009CB24(s32 arg0, s32 arg1) {
     handle = arg0;
     result = -1;
     parameter = arg1;
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         handle = func_800989B8(handle);
         if (handle == result) goto unlock;

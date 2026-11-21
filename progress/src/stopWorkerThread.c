@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80089850();                            /* extern */
 M2C_UNK osSendMesg(M2C_UNK *, s8 *, M2C_UNK);       /* extern */
 M2C_UNK osYieldThread();                            /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s32 D_800E4140;
 extern M2C_UNK gWorkerMsgQueue;
 extern s32 gAudioBufferPtrs;
@@ -42,7 +42,7 @@ extern M2C_UNK func_8008B25C;
 /* Stops the worker thread: flushes pending work, then sends a 0xFF quit message on its queue. */ void stopWorkerThread(void) {
     u8 quitMsg;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         sWorkerAckCounter = gAudioBufferCount;
         do {
 

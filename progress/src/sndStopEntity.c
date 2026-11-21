@@ -26,7 +26,7 @@ typedef struct {
     u8 padFF4[4];
 } EntSnd;
 
-extern EntSnd gSndEntities[];
+extern EntSnd gSoundEntities[];
 
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
@@ -34,7 +34,7 @@ static inline s32 find_snd(s32 id) {
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
-        if (*((u8 *)&gSndEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSndEntities[0].id + off) == key) {
+        if (*((u8 *)&gSoundEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSoundEntities[0].id + off) == key) {
             return i | (id & 0x80000000);
         }
     }
@@ -55,16 +55,16 @@ void sndStopNode(s32);
         return;
     }
     if (entIndex >= 0) {
-        if (gSndEntities[entIndex].active != 0 && gSndEntities[entIndex].busy == 0) {
-            ent = &gSndEntities[entIndex];
-            gSndEntities[entIndex].active = 0;
+        if (gSoundEntities[entIndex].active != 0 && gSoundEntities[entIndex].busy == 0) {
+            ent = &gSoundEntities[entIndex];
+            gSoundEntities[entIndex].active = 0;
             for (node = ent->listF78; node != NULL; node = node->next) {
                 sndStopNode(node->h);
             }
             for (node = ent->listF7C; node != NULL; node = node->next) {
                 sndStopNode(node->h);
             }
-            entFree = &gSndEntities[entIndex];
+            entFree = &gSoundEntities[entIndex];
             listTail = entFree->listF78;
             if (listTail != NULL) {
                 while (listTail->next != NULL) {
@@ -90,11 +90,11 @@ void sndStopNode(s32);
                 entFree->listF7C = NULL;
             }
         }
-        gSndEntities[entIndex].busy = 1;
+        gSoundEntities[entIndex].busy = 1;
     } else {
         entIndex &= 0x7FFFFFFF;
-        if (gSndEntities[entIndex].active != 0 && gSndEntities[entIndex].busy == 0) {
-            gSndEntities[entIndex].wFF0 = 0;
+        if (gSoundEntities[entIndex].active != 0 && gSoundEntities[entIndex].busy == 0) {
+            gSoundEntities[entIndex].wFF0 = 0;
         }
     }
 }

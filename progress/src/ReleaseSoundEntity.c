@@ -24,7 +24,7 @@ typedef struct {
     u8 padFEF[9];
 } EntSnd;
 
-extern EntSnd gSndEntities[];
+extern EntSnd gSoundEntities[];
 
 static inline s32 find_snd(s32 id) {
     u32 i = 0;
@@ -32,7 +32,7 @@ static inline s32 find_snd(s32 id) {
     s32 off = 0;
 
     for (; i < 8; i++, off += sizeof(EntSnd)) {
-        if (*((u8 *)&gSndEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSndEntities[0].id + off) == key) {
+        if (*((u8 *)&gSoundEntities[0].busy + off) == 0 && *(s32 *)((u8 *)&gSoundEntities[0].id + off) == key) {
             return i | (id & 0x80000000);
         }
     }
@@ -53,16 +53,16 @@ void sndStopNode(s32);
         return;
     }
     if (entity_id >= 0) {
-        if (gSndEntities[entity_id].active != 0 && gSndEntities[entity_id].busy == 0) {
-            ent = &gSndEntities[entity_id];
-            gSndEntities[entity_id].active = 0;
+        if (gSoundEntities[entity_id].active != 0 && gSoundEntities[entity_id].busy == 0) {
+            ent = &gSoundEntities[entity_id];
+            gSoundEntities[entity_id].active = 0;
             for (node = ent->listF78; node != NULL; node = node->next) {
                 sndStopNode(node->h);
             }
             for (node = ent->listF7C; node != NULL; node = node->next) {
                 sndStopNode(node->h);
             }
-            ent_ptr = &gSndEntities[entity_id];
+            ent_ptr = &gSoundEntities[entity_id];
             tail = ent_ptr->listF78;
             if (tail != NULL) {
                 while (tail->next != NULL) {
@@ -90,8 +90,8 @@ void sndStopNode(s32);
         }
     } else {
         entity_id &= 0x7FFFFFFF;
-        if (gSndEntities[entity_id].active != 0 && gSndEntities[entity_id].busy == 0) {
-            gSndEntities[entity_id].flags |= 8;
+        if (gSoundEntities[entity_id].active != 0 && gSoundEntities[entity_id].busy == 0) {
+            gSoundEntities[entity_id].flags |= 8;
         }
     }
 }

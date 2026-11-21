@@ -6,7 +6,7 @@ typedef struct Node8009450C {
     s32 unk34;
 } Node8009450C;
 extern Node8009450C *gActiveSoundList;
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 void workerLockAcquire(void);
 void workerLockRelease(void);
 void func_8008EA58(s32);
@@ -16,7 +16,7 @@ void func_8009450C(void) {
     Node8009450C *next;
     while (n != NULL) {
         next = n->next;
-        if (gWorkerActive != 0) {
+        if (gWorkerThreadActive != 0) {
             workerLockAcquire();
             if (n->next != NULL) {
                 n->next->prev = n->prev;

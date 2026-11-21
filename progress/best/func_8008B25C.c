@@ -16,7 +16,7 @@ s32 osRecvMesg(s32 *, s32, s32);    /* extern */
 s32 osYieldThread();                            /* extern */
 extern s32 D_800AC1E0;
 extern s32 D_800AD570;
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s32 D_800D1B30;
 extern s32 D_800E3F50;
 extern s32 D_800E3F54;
@@ -100,7 +100,7 @@ void func_8008B25C(void) {
     }
     temp_s4 = var_v0 - 1;
     __osRestoreInt(temp_a0);
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         UpdateSlotList();
     }
     if (D_800E4268 != 0xFFFF) {
@@ -143,7 +143,7 @@ void func_8008B25C(void) {
                     temp_v0_2 = var_s0;
                     if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
                         ++var_s0;
-                        if (gWorkerActive != 0) {
+                        if (gWorkerThreadActive != 0) {
                             temp_v0_3 = D_800E41E8 - 1;
                             D_800E41E8 = temp_v0_3;
                             var_v0_2 = temp_v0_2 & 0xFFFF;
@@ -175,7 +175,7 @@ block_23:
                         temp_v0_4 = var_s0_2;
                         if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
                             var_s0_2 += 1;
-                            if (gWorkerActive != 0) {
+                            if (gWorkerThreadActive != 0) {
                                 temp_v0_5 = D_800E41E8 - 1;
                                 D_800E41E8 = temp_v0_5;
                                 var_v0_4 = temp_v0_4 & 0xFFFF;
@@ -207,7 +207,7 @@ block_32:
                         temp_v0_6 = var_s0;
                         if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
                             var_s0 += 1;
-                            if ((u32)gWorkerActive != 0) {
+                            if ((u32)gWorkerThreadActive != 0) {
                                 temp_v0_7 = D_800E41E8 - 1;
                                 D_800E41E8 = temp_v0_7;
                                 var_v0_5 = temp_v0_6 & 0xFFFF;
@@ -267,7 +267,7 @@ block_41:
             D_800E4215 = 1;
         }
         D_800E41E6 ^= 1;
-        if (gWorkerActive != 0) {
+        if (gWorkerThreadActive != 0) {
             updateVoiceRingBuffers();
         }
     } else {

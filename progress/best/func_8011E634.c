@@ -63,7 +63,7 @@ void func_8011E634(void) {
             func_8011E894();
             i = 0;
             b = &gSaveTotalSlots;
-            if (0 < *b) {
+            if ((u32)t < (u32)*b) {
                 q = (u8 *)b - 6;
                 do {
                     *q = 1;

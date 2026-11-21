@@ -17,7 +17,7 @@ s32 func_8008EB80();
 s32 func_8008F2A4();
 s32 func_80095A80();
 s32 audio_slot_reset();
-extern char gSndEntities[];
+extern char gSoundEntities[];
 extern u8 D_800E6A85[];
 extern s32 D_800EDA90;
 extern char D_80102FDC[];
@@ -96,7 +96,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
         break;
     }
     if (var_s5 != 8) {
-        temp_s2 = (var_s5 * 0xFF8) + gSndEntities;
+        temp_s2 = (var_s5 * 0xFF8) + gSoundEntities;
         temp_a3 = (void *) ((8) + (s32) temp_s2);
         M2C_FIELD(temp_s2, void **, 4) = arg0;
         var_a2 = M2C_FIELD(temp_s2, void **, 4);
@@ -303,7 +303,7 @@ loop_63:
                 var_a2_4 += 1;
                 goto block_70;
             }
-            if (*(s32 *)(gSndEntities + var_v1_4) == var_a0) {
+            if (*(s32 *)(gSoundEntities + var_v1_4) == var_a0) {
                 var_a0 = -1;
             } else {
                 var_a2_4 += 1;
@@ -314,7 +314,7 @@ block_70:
                 }
             }
         } while (var_a0 == -1);
-        *(s32 *)(gSndEntities + (var_s5 * 0xFF8)) = var_a0;
+        *(s32 *)(gSoundEntities + (var_s5 * 0xFF8)) = var_a0;
         M2C_FIELD(temp_s2, s8 *, 0xFC1) = 0;
         return var_a0;
     }

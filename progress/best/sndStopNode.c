@@ -16,12 +16,12 @@ M2C_UNK func_8009876C(void *, s32, s32);
 M2C_UNK func_80098A18(void *);
 extern void *gVoiceListHead; extern u8 D_801002EA; extern u8 D_8010A930; extern u8 D_8010D720;
 extern M2C_UNK D_8010D724, D_8010D734, D_8010D784;
-extern u8 D_80110DB0; extern M2C_UNK D_80117388, D_80117389; extern u8 gWorkerActive;
+extern u8 D_80110DB0; extern M2C_UNK D_80117388, D_80117389; extern u8 gWorkerThreadActive;
 s32 sndStopNode(register u32 arg0) {
     s32 temp_a0, temp_s1, temp_s3, var_a1, var_a2, var_v0;
     u32 temp_v0; void *temp_a0_2, *temp_s0, *var_v0_2, *var_v1;
     var_a2=-1;
-    if(gWorkerActive!=0){
+    if(gWorkerThreadActive!=0){
       if(arg0==-1U) goto block_11;
       var_v1=gVoiceListHead; var_v0_2=NULL;
       if(var_v1!=NULL) {

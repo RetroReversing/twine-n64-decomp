@@ -16,13 +16,13 @@ M2C_UNK workerLockAcquire();                            /* extern */
 M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK func_8008F2A4(s32, M2C_UNK);                /* extern */
 void *func_800985A8(s32);                           /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 
 void func_8009CE34(u16 arg0, u8 arg1) {
     s32 temp_a0;
     void *temp_v0;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         temp_v0 = func_800985A8(arg0 & 0xFFFF);
         temp_a0 = arg1;

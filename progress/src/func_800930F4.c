@@ -2,7 +2,7 @@ typedef struct { u8 pad[4]; u16 id; u16 busy; u8 pad8[0x14]; s32 o1C; s32 o20; s
 s32 workerLockAcquire();
 s32 workerLockRelease();
 s32 func_8008F520();
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s16 sSceneGroupStackCount;
 extern u8 sSceneGroupStack[];
 
@@ -17,7 +17,7 @@ s32 func_800930F4(s32 id, s32 arg1, s32 arg2, s32 arg3) {
     s32 v;
     s32 r;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         i = 0;
         if (i < sSceneGroupStackCount) {
         id &= 0xFFFF;

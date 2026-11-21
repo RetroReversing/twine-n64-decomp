@@ -17,7 +17,7 @@ s32 func_80097704();
 s32 func_80097B1C();
 s32 func_80097E14();
 s32 func_8009811C();
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s16 sSceneGroupStackCount;
 extern char sSceneGroupStack[];
 
@@ -46,7 +46,7 @@ s32 popAndUnloadSceneGroup(void) {
     void *groupE;
     void *groupB;
 
-    if ((gWorkerActive != 0) && (sSceneGroupStackCount != 0)) {
+    if ((gWorkerThreadActive != 0) && (sSceneGroupStackCount != 0)) {
         stackTop = sSceneGroupStackCount - 1;
         group = *((s32 *)((s8 *)sSceneGroupStack + ((s32) (stackTop << 0x10) >> 0xE)));
         sSceneGroupStackCount = stackTop;

@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK workerLockAcquire();                            /* extern */
 M2C_UNK workerLockRelease();                            /* extern */
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern void *gWorkerListHead;
 
 s32 func_80094934(void *arg0) {
     void **temp_v1_2;
     void *temp_v1;
 
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         workerLockAcquire();
         temp_v1 = M2C_FIELD(arg0, void **, 0);
         if (temp_v1 != NULL) {

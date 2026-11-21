@@ -1,5 +1,5 @@
 extern s32 func_800989B8(void);
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 extern s32 gVoiceChannelTable;
 extern s32 D_8010D748;
 extern s32 D_8010D784;
@@ -7,7 +7,7 @@ s32 func_8008EA58(void) {
     s32 key, found;
     u32 offset;
     found = -1;
-    if (gWorkerActive != 0) {
+    if (gWorkerThreadActive != 0) {
         key = func_800989B8();
         if (key != -1) {
             do {

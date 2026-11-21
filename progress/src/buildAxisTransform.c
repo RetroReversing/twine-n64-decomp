@@ -2,12 +2,12 @@ s32 workerLockAcquire(void);
 s32 workerLockRelease(void);
 void vec3Cross(void *, void *, void *);
 s32 invertAffineTransform(void *, f32 *);
-extern u8 gWorkerActive;
+extern u8 gWorkerThreadActive;
 typedef struct { s32 x,y,z; } Vec3s;
 /* Stores three points and a negated offset into transform, derives the inverse 3x4 affine matrix and scale; returns 0 if the worker is inactive. */ s32 buildAxisTransform(void *transform, Vec3s *pointA, Vec3s *pointB, Vec3s *pointC, f32 *negOffset, u8 scaleByte) {
     s32 success;
     f32 matrix[12];
-    if (!gWorkerActive) {
+    if (!gWorkerThreadActive) {
         success = 0;
     } else {
         workerLockAcquire();
