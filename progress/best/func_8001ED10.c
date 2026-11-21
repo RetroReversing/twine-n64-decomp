@@ -34,7 +34,7 @@ extern s32 D_801002D0;
 extern s8 D_80102EB9;
 extern u8 D_80102EE0;
 extern s32 D_80102EEC;
-extern s32 D_80102EF0;
+extern volatile s32 D_80102EF0;
 extern s32 D_801176D8;
 extern s32 D_801176DC;
 extern s16 D_801176E0;
@@ -43,9 +43,9 @@ extern s16 D_801176E4;
 extern s32 gBorderSkipActive;
 extern s8 gMenuUseTextList;
 extern s8 gPendingMenuCommand;
-extern s8 gPickupSavedByte;
+extern volatile s8 gPickupSavedByte;
 extern SlotEntry gSaveSlotInfo[];
-extern s32 gSaveTotalSlots;
+extern volatile s32 gSaveTotalSlots;
 extern s16 gSharedItemId[];
 extern void *sActiveMenu;
 extern u8 sDifficultyLevel;
@@ -83,7 +83,7 @@ void func_8001ED10(void) {
             } while ((u32) (var_s1 & 0xFFFF) < 4U);
             func_8002B000(&sProbeTimer, 0x1E);
             if (gBorderSkipActive != 0) {
-                D_801002AC = 0;
+                do { D_801002AC = 0; } while (0);
                 D_801002A3 = 0;
                 gPickupSavedByte = 0;
                 {
