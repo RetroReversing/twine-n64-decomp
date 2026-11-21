@@ -29,7 +29,7 @@ extern s32 gBootState;
 extern s32 gBonusSceneHandle;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; unsigned char field_82; } __repair_record_D_800B7CE8;
-void menuUpdateCursorActor(void) {
+void func_8002135C(void) {
     register f32 one = 1.0f;
     register u32 var_v0;
     register u32 temp_v0_2;
