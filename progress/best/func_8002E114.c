@@ -19,8 +19,8 @@ extern s32 D_801002C4;
 extern u8 gPauseFlag;
 extern u8 D_801002D5;
 extern s32 sDistanceSoundsActive;
-extern u8 D_801002F0;
-extern u8 D_801002F1;
+extern u8 sOptionScaleY;
+extern u8 sOptionScaleX;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
 extern u8 D_80102EE0;
@@ -117,8 +117,8 @@ void func_8002E114(void) {
     func_8002E93C(&D_800E1310, gOptionFlagA, 1, 1);
     func_8002E93C(&D_800E1310, D_8010A4FF, 1, 2);
     func_8002E93C(&D_800E1310, sDistanceSoundsActive, 4, 1);
-    func_8002E93C(&D_800E1310, D_801002F0, 1, 4);
-    func_8002E93C(&D_800E1310, D_801002F1, 1, 4);
+    func_8002E93C(&D_800E1310, sOptionScaleY, 1, 4);
+    func_8002E93C(&D_800E1310, sOptionScaleX, 1, 4);
     func_8002E93C(&D_800E1310, gOptionChoice, 1, 2);
     func_8002E93C(&D_800E1310, gOptionFlag, 1, 1);
     {

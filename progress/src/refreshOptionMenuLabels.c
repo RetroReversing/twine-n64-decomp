@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
 void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
-extern u8 D_801002F0;
-extern u8 D_801002F1;
+extern u8 sOptionScaleY;
+extern u8 sOptionScaleX;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
 extern void *gSaveMenuState;
@@ -48,8 +48,8 @@ block_15:
             {
             formatTextEntry(choiceEntry, "%s", lookupDataEntry(choiceTextId));break;}
         }
-        M2C_FIELD(sliderEntryA, s32 *, 0x14) = (s32) ((((D_801002F1 * 0xF) + 2) << 0x10) | 8);
-        M2C_FIELD(sliderEntryB, s32 *, 0x14) = (s32) ((((D_801002F0 * 0xF) + 2) << 0x10) | 8);
+        M2C_FIELD(sliderEntryA, s32 *, 0x14) = (s32) ((((sOptionScaleX * 0xF) + 2) << 0x10) | 8);
+        M2C_FIELD(sliderEntryB, s32 *, 0x14) = (s32) ((((sOptionScaleY * 0xF) + 2) << 0x10) | 8);
         flagTextId = 0xA;
         if (gOptionFlag != 0) {
             flagTextId = 9;

@@ -1,4 +1,4 @@
-extern void func_800103B0(u8 *dst, s8 *src, u8 len);
+extern void decodeTextField(u8 *dst, s8 *src, u8 len);
 extern s32 saveFindTaggedSlot(void);
 extern s32 func_8001226C(s32);
 extern s32 saveDataRunSteps(void);
@@ -24,7 +24,7 @@ extern u8 D_8010A3C5[];
             }
             codeByte = (s8 *)&D_80103042;
             *codeByte = D_80108412[gSaveRequestSlot << 5];
-            func_800103B0(D_8010A3C5, codeByte, 4);
+            decodeTextField(D_8010A3C5, codeByte, 4);
         }
         if ((u16)saveFindTaggedSlot() != 0) {
             gSaveStatus = 0x30;

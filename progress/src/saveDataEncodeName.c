@@ -1,5 +1,5 @@
 s32 memset();
-extern u8 D_800B2750[];
+extern u8 sCharMap[];
 
 void saveDataEncodeName(s8 *arg0, s8 *arg1, s32 arg2) {
     s32 len = arg2;
@@ -20,7 +20,7 @@ void saveDataEncodeName(s8 *arg0, s8 *arg1, s32 arg2) {
         end = n + (s32)dst;
         do {
             for (i = 0; i < 0x42; i++) {
-                if (D_800B2750[i] == *src) break;
+                if (sCharMap[i] == *src) break;
             }
             i &= -(i < 0x42);
             *dst = i;

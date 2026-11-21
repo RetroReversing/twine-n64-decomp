@@ -8,7 +8,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #define M2C_OVERFLOW(a) (0)
 #endif
 typedef struct {char b[10];} Ten; typedef struct{s32 x[4];} Four;
-extern M2C_UNK D_800E1328,D_800E1368,D_800E14B0,D_800E1500,sPickupSlotTable,gValidSaveSlotCount,D_8010A4C0,D_80112F68,D_80115088; extern s32 sDistanceSoundsActive,D_801002F0;
+extern M2C_UNK D_800E1328,D_800E1368,D_800E14B0,D_800E1500,sPickupSlotTable,gValidSaveSlotCount,D_8010A4C0,D_80112F68,D_80115088; extern s32 sDistanceSoundsActive,sOptionScaleY;
 /* Copies the saved state blocks into their RAM working tables, then copies four 10-byte records. */
 void copyStateTablesToRam(void) {
  M2C_UNK *end,*src,*src2,*src3,*dst,*dst3; s32 idx,i; void *srcRec,*dstRec,*dst2;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800103B0(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
+M2C_UNK decodeTextField(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 M2C_UNK saveDataEncodeName(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 M2C_UNK sprintf(M2C_UNK *, M2C_UNK *, s32);         /* extern */
 s8 *strchr(M2C_UNK *, M2C_UNK);                     /* extern */
@@ -43,5 +43,5 @@ void func_8001187C(s32 arg0, s32 arg1, s32 arg2) {
         D_800E097C = 1;
     }
     saveDataEncodeName(sp10, &D_80103030, 0x10);
-    func_800103B0(&D_80103030, sp10, 0x10);
+    decodeTextField(&D_80103030, sp10, 0x10);
 }

@@ -1,2 +1,2 @@
-extern s32 func_8009C8DC(s32); extern void func_8009CF18(s32,s32,s32); extern s32 D_800B2568; extern u8 D_801002F0,D_801002F1;
-void func_8000A3AC(void) { u32 scaled; u8 quotient; scaled=D_801002F1*0x7f; quotient=scaled/10; func_8009CF18(quotient&255,1000,253); scaled=D_801002F0*0x7f; quotient=scaled/10; func_8009CF18(quotient&255,1000,254); if(D_800B2568!=-1) { func_8009C8DC(D_800B2568); D_800B2568=-1; } }
+extern s32 func_8009C8DC(s32); extern void func_8009CF18(s32,s32,s32); extern s32 D_800B2568; extern u8 sOptionScaleY,sOptionScaleX;
+void func_8000A3AC(void) { u32 scaled; u8 quotient; scaled=sOptionScaleX*0x7f; quotient=scaled/10; func_8009CF18(quotient&255,1000,253); scaled=sOptionScaleY*0x7f; quotient=scaled/10; func_8009CF18(quotient&255,1000,254); if(D_800B2568!=-1) { func_8009C8DC(D_800B2568); D_800B2568=-1; } }

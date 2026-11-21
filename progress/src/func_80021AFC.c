@@ -16,8 +16,8 @@ M2C_UNK func_8000A18C(u8);                          /* extern */
 M2C_UNK func_8000A1D0(u8);                          /* extern */
 M2C_UNK func_8000A22C(u8);                          /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-extern u8 D_801002F0;
-extern u8 D_801002F1;
+extern u8 sOptionScaleY;
+extern u8 sOptionScaleX;
 extern u8 gMenuUseTextList;
 extern void *gSaveMenuState;
 
@@ -32,11 +32,11 @@ void func_80021AFC(void) {
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, s16 *, 0x26) = (s16) ((*M2C_FIELD(temp_v1, u8 **, 0x10) * M2C_FIELD(temp_v1, s32 *, 0x38)) + 2);
         }
-        func_8000A22C(D_801002F0);
+        func_8000A22C(sOptionScaleY);
         if (gMenuUseTextList != 0) {
-            func_8000A18C(D_801002F1);
+            func_8000A18C(sOptionScaleX);
             return;
         }
-        func_8000A1D0(D_801002F1);
+        func_8000A1D0(sOptionScaleX);
     }
 }
