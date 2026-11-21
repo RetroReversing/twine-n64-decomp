@@ -34,11 +34,11 @@ extern char gTrackMarkerTable[];
 extern void *gBonusSceneHandle;
 
 extern char D_800D41E0[];
-extern char jtbl_800D41E8[];
 s32 func_8005FE20(void *arg0, s32 *arg1) {
     char sp30[124];
-    s32 (*temp_v0_10)(void *, s32 *);
-    union { s32 * pointer; s32 value; } __repair_phase_storage;
+    s32 (*temp_v0_10)(void *);
+    s32 *formatName;
+    s32 enemyOffset;
     s32 *temp_s0_3;
     s32 *var_a1;
     s16 temp_v0_5;
@@ -60,8 +60,8 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     u16 var_a0_4;
     u32 var_a0;
     u32 var_s0;
-    u8 temp_s3_2;
-    u8 temp_v1_6;
+    u32 temp_s3_2;
+    u32 temp_v1_6;
     void **var_v1;
     void *temp_a0_2;
     void *temp_a0_4;
@@ -88,7 +88,6 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
         var_v1 = &gBonusSceneHandle;
         do {
             temp_v0 = *var_v1;
-            var_a0 += 1;
             if (temp_v0 != NULL) {
                 temp_v0_2 = M2C_FIELD(M2C_FIELD(temp_v0, void **, 0x6C), void **, 0xB4);
                 if (temp_v0_2 != NULL) {
@@ -96,7 +95,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
                 }
             }
             var_v1 += 1;
-        } while (var_a0 < 4U);
+        } while (++var_a0 < 4U);
         if ((var_s0 ^ 1) & 1 & (temp_s3 == 0)) {
             relinkTrackMarker(temp_s1, 1);
             var_a1 = (s32 *)1;
@@ -109,7 +108,8 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
             relinkTrackMarker(temp_s1, 4);
             var_a1 = (s32 *)1;
         }
-        if (var_a1 != NULL) {
+        var_v0 = (s32)var_a1;
+        if (var_v0 != 0) {
             var_v0 = 1;
             if (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xB4), u8 *, 0x10) == 7) {
                 startBonusSceneActor(temp_s1);
@@ -122,16 +122,14 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     }
 block_15:
     temp_s0 = M2C_FIELD(temp_s2, u16 *, 0x3C);
-    if (temp_s0 != 1) {
-        if ((s32) temp_s0 >= 2) {
-            var_v0 = 1;
-            if (temp_s0 == 2) {
+    switch (temp_s0) {
+    case 2:
                 temp_a0 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                 temp_v1 = temp_a0 & 0xFFFF;
                 var_v0 = 0;
                 if (M2C_FIELD((temp_s1 + (temp_v1 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
-                    __repair_phase_storage.pointer = lookupDataEntry(temp_a0 | 0x9000, var_a1);
-                    sprintf(&sp30, D_800D41E0, __repair_phase_storage.pointer, lookupDataEntry(0x16A));
+                    formatName = lookupDataEntry(temp_a0 | 0x9000);
+                    sprintf(&sp30, D_800D41E0, formatName, lookupDataEntry(0x16A));
                     gTrackMarkerSerial += 1;
                     func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                     temp_v0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
@@ -181,20 +179,15 @@ block_15:
                     }
                     goto block_65;
                 }
-            }
-            /* Duplicate return node #67. Try simplifying control flow for better match */
-            return var_v0;
-        }
-        if (temp_s0 != 0) {
-            return 1;
-        }
+        return 0;
+    case 0:
         temp_v1_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
-        __repair_phase_storage.value = temp_v1_3 * 0xE8;
-        temp_s4 = __repair_phase_storage.value + sEnemyDefTable;
+        enemyOffset = temp_v1_3 * 0xE8;
+        temp_s4 = enemyOffset + sEnemyDefTable;
         temp_s3_2 = M2C_FIELD(temp_s4, u8 *, 0x80);
-        if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + __repair_phase_storage.value)) {
+        if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + enemyOffset)) {
             gTrackMarkerSerial += 1;
-            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000, sEnemyDefTable), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
@@ -207,8 +200,8 @@ block_15:
         }
         var_v0 = 0;
         if (M2C_FIELD((temp_s1 + (temp_s3_2 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_s3_2 * 4))) {
-            temp_s0_3 = lookupDataEntry(temp_s3_2 | 0x9000, sEnemyDefTable);
-            sprintf(&sp30, jtbl_800D41E8, temp_s0_3, lookupDataEntry(0x16A));
+            temp_s0_3 = lookupDataEntry(temp_s3_2 | 0x9000);
+            sprintf(&sp30, D_800D41E0, temp_s0_3, lookupDataEntry(0x16A));
             gTrackMarkerSerial += 1;
             func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
@@ -236,9 +229,9 @@ block_45:
             var_v0 = 1;
             if (temp_a1_2 != 0) {
                 temp_a0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
-                temp_v1_6 = *(D_800C471C + ((temp_a0_3 + temp_a1_2) * 0xE8));
+                temp_v1_6 = *(u8 *)(D_800C471C + ((temp_a0_3 + temp_a1_2) * 0xE8));
                 if (temp_v1_6 != M2C_FIELD(temp_s4, u8 *, 0x80)) {
-                    if (M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (temp_a0_3 + temp_a1_2), temp_a1_2) << 0x10) >> 0xD)), s8 *, 0x1FF) == 0) {
+                    if (M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (temp_a0_3 + temp_a1_2)) << 0x10) >> 0xD)), s8 *, 0x1FF) == 0) {
                         M2C_FIELD((temp_s1 + ((s32) (func_80063C7C((s16) (M2C_FIELD(temp_s2, u16 *, 0x3E) + (s8) (u8) M2C_FIELD(temp_s4, s8 *, 4))) << 0x10) >> 0xD)), s8 *, 0x1FF) = 2;
                     } else {
                         temp_v1_7 = temp_s1 + (temp_v1_6 * 2);
@@ -259,10 +252,10 @@ block_45:
         }
         /* Duplicate return node #67. Try simplifying control flow for better match */
         return var_v0;
-    }
-    temp_v0_10 = *(s32 *)(D_800C447C + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
+    case 1:
+    temp_v0_10 = *(s32 (**)(void *))(D_800C447C + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
     if (temp_v0_10 != NULL) {
-        temp_v0_10(arg0, var_a1);
+        temp_v0_10(arg0);
     }
     setActionSlot(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
     gTrackMarkerSerial += 1;
@@ -276,7 +269,12 @@ block_63:
     var_a0_3 = *(u16 *)(D_800C4484 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
 block_65:
     requestSound(var_a0_3);
+        break;
+    default:
+        break;
+    }
 block_66:
     var_v0 = 1;
     return var_v0;
 }
+

@@ -7,7 +7,7 @@ s32 func_80047AEC();
 s32 func_80060890();
 s32 func_80060968();
 s32 func_800643D8();
-extern u8 D_801002A2;
+extern u8 sOptionCursor;
 
 void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5, u16 arg6, u16 arg7, u16 arg8, u16 arg9, u16 arg10, u16 arg11, u16 arg12, u16 arg13, s32 arg14, u16 arg15) {
     s16 var_v0;
@@ -17,7 +17,7 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
     u16 var_s0;
     void *temp_v0;
 
-    switch (D_801002A2) {                           /* switch 1 */
+    switch (sOptionCursor) {                           /* switch 1 */
     case 0:                                         /* switch 1 */
         var_s0 = arg4;
         break;

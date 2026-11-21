@@ -28,7 +28,7 @@ extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
 
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 void func_8001E23C(void) {
     u8 *__base_D_801002AD;
     u8 *__repair_offset;
@@ -47,7 +47,7 @@ void func_8001E23C(void) {
         }
         __repair_offset = __base_D_801002AD - 0x115;
         M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + __repair_offset);
-        formatTextEntry(temp_v0, D_800D2864, lookupDataEntry((unsigned short)(var_s1 + 0x96)));
+        formatTextEntry(temp_v0, sFmtEntryName, lookupDataEntry((unsigned short)(var_s1 + 0x96)));
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &bindMenuItemRecord, &func_8001AC88);
         refreshSaveSlotMenu(var_s1);
         func_8002A9A8(gPickupSearchBox, (*__base_D_801002AD));

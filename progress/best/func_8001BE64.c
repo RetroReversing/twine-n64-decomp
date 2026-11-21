@@ -27,7 +27,7 @@ extern u16 * volatile D_80102FD4;
 extern u8 gBorderFlipFlag;
 extern u32 D_80117730;
 extern char D_800D2858[];
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 
 void func_8001BE64(void) {
     void *temp_s3;
@@ -115,33 +115,33 @@ void func_8001BE64(void) {
         if ((func_8002B278(temp_s0) << 0x10) != 0) {
             var_v0_3 = func_8002B248(temp_s0);
         
-        formatTextEntry(temp_s3, D_800D2864, var_v0_3);} else {
+        formatTextEntry(temp_s3, sFmtEntryName, var_v0_3);} else {
             var_v0_3 = lookupDataEntry(0x5F);
         
-        formatTextEntry(temp_s3, D_800D2864, var_v0_3);}
+        formatTextEntry(temp_s3, sFmtEntryName, var_v0_3);}
         if ((*__base_D_801002A8) != 0) {
             formatTextEntry(var_s1, D_800D2858, (*__base_D_801002A8));
         } else {
             var_v0_4 = lookupDataEntry(0x5F);
-            formatTextEntry(var_s1, D_800D2864, var_v0_4);
+            formatTextEntry(var_s1, sFmtEntryName, var_v0_4);
         }
         var_a0 = 0x67;
         if (gBorderFlipFlag != 0) {
             var_a0 = 0x68;
         }
-        formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0));
+        formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0));
         var_a0 = 0xA;
         if (D_801002D5 != 0) {
             var_a0 = 9;
         }
-        formatTextEntry(temp_s4, D_800D2864, lookupDataEntry(var_a0));
+        formatTextEntry(temp_s4, sFmtEntryName, lookupDataEntry(var_a0));
         switch (gPauseFlag) {
         case 0: var_v0_4 = lookupDataEntry(0xA); break;
         case 1: var_v0_4 = lookupDataEntry(0x2E2); break;
         case 2: var_v0_4 = lookupDataEntry(0x2E3); break;
         default: var_v0_4 = lookupDataEntry(0x2E4); break;
         }
-        formatTextEntry(temp_s2, D_800D2864, var_v0_4);
+        formatTextEntry(temp_s2, sFmtEntryName, var_v0_4);
         if (gSaveKeyRelaxed != 0) {
             func_80025D84((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 0x16C, 1);
         } else {

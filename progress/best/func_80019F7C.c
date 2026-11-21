@@ -29,7 +29,7 @@ extern s32 gSaveSlotCount;
 extern s8 gSharedItemBusy;
 extern void *gMenuState;
 
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 extern char D_800D2858[];
 void func_80019F7C(void) {
     s32 var_a1;
@@ -114,7 +114,7 @@ block_11:
         } else {
 block_21:
             if (temp_s3 != NULL) {
-                formatTextEntry(temp_s3, D_800D2864, func_8002BA6C(var_s1));
+                formatTextEntry(temp_s3, sFmtEntryName, func_8002BA6C(var_s1));
             }
             if (temp_s4 != NULL) {
                 func_80019E28(temp_s4);

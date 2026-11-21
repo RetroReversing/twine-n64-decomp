@@ -31,7 +31,7 @@ extern u8 D_801001A2;
 extern u8 D_801001A4;
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
-extern u8 D_801002A2;
+extern u8 sOptionCursor;
 extern u8 D_801002A4;
 extern s32 D_801002A8;
 extern u8 gPauseFlag;
@@ -53,7 +53,7 @@ extern u8 D_8010A4FF;
 extern u8 D_80112F70;
 extern u8 D_80112F7B;
 extern u8 D_80112F7F;
-extern u8 D_80112F82;
+extern u8 sOptionReady7;
 extern u8 D_80115088;
 extern u8 D_80115089;
 extern u8 D_8011508A;
@@ -140,7 +140,7 @@ loop_3:
             u8 *mode = &gSceneType;
             *mode = func_8002E98C(&D_800E1310, 1, 4);
             gSaveKeyRelaxed = func_8002E98C(&D_800E1310, 1, 1);
-            D_801002A2 = func_8002E98C(&D_800E1310, 1, 4);
+            sOptionCursor = func_8002E98C(&D_800E1310, 1, 4);
             D_801002A4 = func_8002E98C(&D_800E1310, 1, 8);
             gPauseFlag = func_8002E98C(&D_800E1310, 1, 4);
             D_801002D5 = func_8002E98C(&D_800E1310, 1, 1);
@@ -233,7 +233,7 @@ loop_17:
         } while ((u32) (var_s1 & 0xFFFF) < 3U);
         var_s1 = 0;
         do {
-            *(&D_80112F82 + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+            *(&sOptionReady7 + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
             var_s1 += 1;
         } while ((u32) (var_s1 & 0xFFFF) < 3U);
         func_800219A0(D_8010A4C0);

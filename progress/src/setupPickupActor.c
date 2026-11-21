@@ -39,7 +39,7 @@ extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
 
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 /* Creates or reuses the pickup actor, configures it, links it to the surface list, and sets up the shared item display */ void setupPickupActor(void) {
     u16 *__base_D_800BD680;
     unsigned int temp_a2;
@@ -101,7 +101,7 @@ extern char D_800D2864[];
         func_8002AC04(gPickupSearchBox, 1);
         func_8002ACB4(gPickupSearchBox);
         if (entryText != 0) {
-            formatTextEntry(entryText, D_800D2864, lookupDataEntry((*(u16 *)((char *)(itemList) + 0))));
+            formatTextEntry(entryText, sFmtEntryName, lookupDataEntry((*(u16 *)((char *)(itemList) + 0))));
         }
         func_8002B8AC();
         itemId = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(func_8002B9FC((*(u8 *)((char *)(itemList) + 2)))) * 0xC));

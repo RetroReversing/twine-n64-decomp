@@ -17,8 +17,8 @@ M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 findEntryPayload(M2C_UNK *, M2C_UNK);              /* extern */
 s32 lookupDataEntry(s32);                             /* extern */
 extern s8 D_800BD690;
-extern M2C_UNK D_800BDA68;
-extern u8 D_801002A2;
+extern M2C_UNK sOptionEntryTable;
+extern u8 sOptionCursor;
 extern void *gMenuState;
 
 void func_8001A434(void) {
@@ -26,7 +26,7 @@ void func_8001A434(void) {
     M2C_UNK *temp_s1;
     s32 temp_s2;
 
-    temp_s2 = findEntryPayload(&D_800BDA68, 0x92);
+    temp_s2 = findEntryPayload(&sOptionEntryTable, 0x92);
     D_800BD690 = 1;
     if (temp_s2 != 0) {
         M2C_FIELD(gMenuState, s8 *, 0x2F) = 1;
@@ -34,7 +34,7 @@ void func_8001A434(void) {
         func_8001A4F4();
         M2C_FIELD(gMenuState, s8 *, 0x2F) = 0;
         temp_s1 = "%s";
-        __base_D_801002A2 = &D_801002A2;
+        __base_D_801002A2 = &sOptionCursor;
         formatTextEntry(temp_s2, temp_s1, lookupDataEntry((*__base_D_801002A2) + 0x16D));
         formatTextEntry(temp_s2 + 0x28, temp_s1, lookupDataEntry((*__base_D_801002A2) + 0x177));
     }

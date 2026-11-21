@@ -34,7 +34,7 @@ extern s32 func_8011AA9C;
 
 extern char D_8011AB08[];
 extern char D_800D285C[];
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 void func_80018E38(void) {
     u8 *__base_D_801002AD;
     u8 sp10[0x10];
@@ -156,7 +156,7 @@ block_16:
                             var_a2_2 = lookupDataEntry(0x158);
                             var_a3 = (*__base_D_801002AD) - 3;
 
-                        sprintf(temp_s1, D_800D2864, var_a2_2, var_a3);}
+                        sprintf(temp_s1, sFmtEntryName, var_a2_2, var_a3);}
                         D_800B60A4 = strlen(temp_s1);
                     } else {
                         var_s0 += strlen(var_s0) + 1;

@@ -36,8 +36,8 @@ extern s8 D_80112F7E;
 extern s8 D_80112F7F;
 extern s8 D_80112F80;
 extern s8 D_80112F81;
-extern s8 D_80112F82;
-extern s8 D_80112F83;
+extern s8 sOptionReady7;
+extern s8 sOptionReady8;
 extern s8 D_80112F84;
 extern u8 D_80117410;
 extern u8 D_80117428;
@@ -135,7 +135,7 @@ block_59:
                 break;
             case 16:
                 if ((func_800316B8() & 0xFFFF) == 2) {
-                    D_80112F82 = 1;
+                    sOptionReady7 = 1;
                     var_v0 = 0x2B7;
                     goto block_59;
                 }
@@ -196,7 +196,7 @@ block_59:
                 break;
             case 40:
                 if (!(func_800316B8() & 0xFFFF)) {
-                    D_80112F83 = 1;
+                    sOptionReady8 = 1;
                     var_v0 = 0x2B8;
                     goto block_59;
                 }

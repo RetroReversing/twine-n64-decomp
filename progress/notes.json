@@ -59703,7 +59703,43 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  },
  {
-  "function": "func_8001D204",
+  "function": "func_8002F068",
+  "text": "Stuck at 520. Target keeps call result in a0 (pseudo A, stored to D_800E1560) and copies it to a2 (pseudo B, sits in delay slot of the color-select beqz) used for item->color store and func_8002B050 arg2; ours uses single pseudo in a2. Target color select is beqz-form with `move a2,a0; j; addiu v0,v1,4` / else addiu 0x24; ours is bnez-form. Tried: item = D_800E1560 = call (825, volatile reload), copies via current/p temps (no change/worse), ternary/inverted if forms (520 unchanged). Next step: find a source shape forcing two distinct pseudos for the call result (e.g. a non-volatile global item pointer or separate local assigned after the phase computation).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232847.204126,
+  "score_before": 520,
+  "score_after": 520,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_800180D4",
+  "text": "Restored saved best score 2275 after testing edits. Changing loop condition to u16 arg1 !=0 worsened to 2430; switch pre-normalization worsened to 2720. u8 pointer type and signed var_s7 were neutral; final best source is original. Target switch dispatch uses jtbl_800D2690 and jump table relocation differs: candidate entries point 4 bytes earlier than ROM, linked .rodata+0 diagnostics indicate local jump table emitted. Target's frame/register layout s2 for arg0, s5 zero, fp arg1 differs from candidate. Six-compile move-on threshold reached; no match.\nTested signedness/pointer declarations, loop condition cast, and explicit switch normalization; scores neutral/worse, recovered saved best at 2275.\nThe jump table is emitted locally with entries four bytes earlier; target uses jtbl_800D2690 and a switch lowering with range dispatch. Prologue register allocation differs strongly.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232849.241481,
+  "score_before": 2430,
+  "score_after": 2275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ce61320d6794a9d743ceaf66f540d25279e2acb185e67c1038a7c398e497783b"
+ },
+ {
+  "function": "func_80023EC0",
+  "text": "Still 20 (4 reg rows: ori $v0,$s1,0x1000 target vs $s2 ours at early returns). Tried: swapping arg0/result in all `|0x1000` returns (797, worse, also creates extra s3). Next step: try source where masked value is a separate local (e.g. u32 masked = arg0 & 0xEFFF) with the switch reading arg0-copy, or different original shape (return flag |0x1000 computed via a helper local `fail = result | 0x1000`).\nswap arg0/result use in early-return ORs\n797 worse",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232889.27707,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
+ },
+ {
+  "function": "func_800219A0",
+  "text": "Best candidate score 630, measured from history/corrected type and restored. Failed simplified repeated global writes produced 2365/1730; restoring original pointer-based candidate returned 630. Target prologue is 51 instructions vs candidate 50. Key mismatches: target loads expansion pack with lh (candidate currently lhu); uses D_8010A4C0 pointer (0x8010A4C0) but candidate's p-base assumes D_8010A4E4 (0x8010A4E4), then performs `lbu -0x24($v1)` from that base. Branch targets differ, likely due missing initial instructions. Four-compile threshold reached.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232919.749054,
+  "score_before": 2365,
+  "score_after": 630,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1308c08f016fc2a6bb9fc201e60f05dad4be9506df496ec576a69257cf1833f4"
+ },
+ {
+  "function": "refreshOptionEntry",
   "text": "Saved 478/117 vs 119, ef6ba529aff301cd903a. Full independent switch actions retain all three condition/call blocks and compiler merges only shared final store/recursive call. All substantive instructions align except target rematerializes &D_801002A2 into s1 in formatting tail while candidate shares s1 from the switch. Target uses s0 switch address/s0 format, s2 item and s3 item+0x28, saving fourth s register. Candidate uses s1 shared address, s0 item/format, s2 second and 0x20 frame. All direct globals, register/volatile index, volatile qualifiers on both switch and tail regressed or tied. Flag search on pre-duplication candidate did not match.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795138884.990436,
@@ -59711,7 +59747,7 @@
   "score_after": 478
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Best current score 100 (retained automatic local-pass variant prepared_call_scope); baseline 478. It isolates the first func_80087100 argument in a local and do/while scope. Remaining diffs are mainly register assignment for D_801002A2 (candidate uses s1 while target uses s0 in switch path), plus target frame 0x28 vs candidate 0x20. Declaration-order variants had no effect. Splitting the final index pointer into index2 scored 320 and omitted the target's final global-address load, so do not keep it; restore saved best 100.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795178698.033105,
@@ -59719,7 +59755,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Rechecked best score 100. Simplifying the staged call argument worsened register allocation to 478; changing func_80027CE0 return type or swapping index/second setup left score 100 unchanged. Remaining differences are s0/s1 allocation and two reordered instructions; investigate lifetimes and call argument scheduling.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795182863.120509,
@@ -59727,7 +59763,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Verified score 100: switch pointer is s1 instead of target s0 at eight sites, and the first formatting destination move follows instead of preceding the format address materialization. Tail pointer in its own scope and format assignment at first call tie, as do staging destination and moving format into lookup scope. Reusing switch pointer as format scores 140 and initializing format before lookup scores 160. Try shifting switch pointer's live range independently by placing each common mutation tail behind explicit labels while preserving duplicated guarded calls.",
   "by": "codex-gpt-6.2-sol-2",
   "created_at": 1795193667.1722062,
@@ -59735,7 +59771,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Current candidate e22c28594405d8131f2f scores 100; local repair batch made no improvement (8/6 reached). Tried one-shot recursive-call scope, pointer-sum forms, explicit loop backedge, unsigned call arg and declaration order; scores remained 100 or worsened. Remaining diff is mainly register allocation around global D_801002A2 (target uses s0, candidate s1) plus reordered rows. Historical handoff also notes 4/6+ attempts around this issue. Next investigate scope/liveness and register allocation around the switch and recursive paths; inspect full mismatch assembly.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795199670.967571,
@@ -59743,7 +59779,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Best candidate revision 190d9a6aa146a0aad548 scores 100 (99.1%); current baseline rechecked at 100. A rewritten candidate with signed loop returns regressed to 478 and was discarded. Tested six automatic repairs (symbol address local worsened; case order, inline scalar, signedness tied; explicit loop backedge and switch layout worsened) and a block-local unsigned-char copy; no improvement. Remaining 10 differences are mostly registers: target retains global D_801002A2 pointer in $s0, candidate uses $s1; locals/register lifetime and two reordered ops. Next try move/recreate index pointer local to force $s0, perhaps separate from item/second lifetimes. No global rule evidence.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795201698.5726871,
@@ -59751,7 +59787,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Score 100 retained. Six local repairs tested pointer arithmetic, one-shot scopes, declaration order and types; no improvement. Remaining differences are index register allocation and scheduling.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795202623.6245792,
@@ -59759,7 +59795,7 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Saved best rechecked at score 100, 119/119 instructions. Early index materialization and recursive switch accesses need s0 where candidate uses s1. Late index must stay s1 and format s0. First formatting call needs move a0,s2 before format LUI/ADDIU. Array declaration for D_800BDA68, inline format assignment and repeated format literal did not change remaining diff. Splitting the two index locals (including declaration order and register hints) changed the disagreement distribution but tied at 100. Direct global switch read with split locals worsened to 380.",
   "by": "codex-gpt-6.2-sol-9",
   "created_at": 1795204910.770633,
@@ -59767,12 +59803,29 @@
   "score_after": 100
  },
  {
-  "function": "func_8001D204",
+  "function": "refreshOptionEntry",
   "text": "Best rechecked 100 (119/119 instructions). Tried full source rewrite, no improvement. Diff is 8 registers + 2 instruction-order differences: target holds D_801002A2 address in s0, candidate s1; late first formatting call target moves a0,s2 before format literal materialization, candidate after. register keyword on index and statement block changes produced identical output; local pass no effect. Next step: use declaration/lifetime splitting so early index pointer materializes into s0, but use a separate late index expression/pointer that can allocate s1; reorder first formatter setup so item argument is staged before D_800D2864 materialization.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795214729.1293771,
   "score_before": 3958,
   "score_after": 100,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:06a57cf6f12456ab7d4c4bd223ae2709757d79421e28ba40f39fd53010ba4f55"
+ },
+ {
+  "function": "refreshOptionEntry",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not readable yet; stopped for time. The function is a menu cursor/state update: it reads gMenuState[0x2D] and [0x2F], finds payload via findEntryPayload(&D_800BDA68, 0x92), and switches on D_801002A2 (cursor index, cases 7/8/9 with flags D_80112F82/83/84), calling func_80027CE0(0x21) as a yes/no check, then formats two text entries with lookupDataEntry(index+0x16D) and (index+0x177) using format string D_800D2864 (\"%s\"). Next: name gMenuState, D_801002A2 and the D_8011 flags after reading their users; check what lookupDataEntry returns; then make_readable with the switch kept as is.\n\nCorrection: the earlier release notes for this function describe details (gMenuState offsets, D_801002A2 cases, lookupDataEntry use) that were not verified by reading the code in this session. Treat them as unverified; re-read the function before relying on them.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795232836.524796,
+  "score_before": 100,
+  "score_after": 100
+ },
+ {
+  "function": "func_80060AA8",
+  "text": "Best rechecked score 1920, target/candidate both 104 instructions. Several branch/join differences persist around selector code and helper-call blocks; two complementary if/else call selection variants reached 2740/2765, ternary reduced to 3600, while preserving original nested conditions returns to 1920. Target compares selector in v1 with bnel, then has explicit beqz and beq call arms each jumping to +0x5c. Next step: retain nested source and model selector dispatch as explicit switch(code) with cases 0/2/default and separate call sites, keeping return/join statements to induce target jump blocks.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232935.913908,
+  "score_before": 1920,
+  "score_after": 1920,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  }
 ]

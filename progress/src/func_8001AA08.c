@@ -9,7 +9,7 @@ extern void *gMenuState;
 extern s32 D_80117730;
 
 extern char D_800D2858[];
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 void func_8001AA08(void) {
     u16 n;
 
@@ -20,7 +20,7 @@ void func_8001AA08(void) {
         if (n != 0) {
             formatTextEntry((*(s32 *)((char *)(gMenuState) + 0x18)) + 0x28, D_800D2858, n);
         } else {
-            formatTextEntry((*(s32 *)((char *)(gMenuState) + 0x18)) + 0x28, D_800D2864, lookupDataEntry(0x5F));
+            formatTextEntry((*(s32 *)((char *)(gMenuState) + 0x18)) + 0x28, sFmtEntryName, lookupDataEntry(0x5F));
         }
     }
 }

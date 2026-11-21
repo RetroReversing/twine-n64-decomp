@@ -8,7 +8,7 @@ extern s16 D_800B5B28;
 extern s8 D_800BD690;
 extern char D_800BD8EC[];
 extern char D_800D2A74[];
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 extern s16 gExpansionPakPresent;
 extern void *gMenuState;
 extern u8 D_8010A4C0;
@@ -43,7 +43,7 @@ s32 __repair_phase_var_a0;
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((gColorFadeLevel * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
         var_a0 = 0x1B;
         if (gOptionFlagA == 0) var_a0 = 0x1A;
-        formatTextEntry(temp_s1, D_800D2864, lookupDataEntry(var_a0));
+        formatTextEntry(temp_s1, sFmtEntryName, lookupDataEntry(var_a0));
         temp_s2 = var_s3 - 0x28;
         if (gExpansionPakPresent != 0) {
             temp_s0 = temp_s4 - 0x28;

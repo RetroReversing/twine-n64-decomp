@@ -20,14 +20,14 @@ void initResourceCaches(void) {
 }
 typedef struct { u8 pad[0x2D]; u8 flag2D; u8 pad2E; u8 flag2F; } MenuState;
 extern MenuState *gMenuState;
-extern u8 D_800BD690, D_801002A2, D_800BDA68[];
+extern u8 D_800BD690, sOptionCursor, sOptionEntryTable[];
 extern char D_800D2864[];
 void func_8001A4F4(void);
 void formatTextEntry(void *, s32, ...);
 s32 findEntryPayload(s32, s32);
 char *lookupDataEntry(s32);
 void func_8001A434(void) {
-    char *entry = (char *)findEntryPayload((s32)D_800BDA68, 0x92);
+    char *entry = (char *)findEntryPayload((s32)sOptionEntryTable, 0x92);
     D_800BD690 = 1;
     if (!entry) return;
     {
@@ -38,7 +38,7 @@ void func_8001A434(void) {
         gMenuState->flag2D = 1;
         func_8001A4F4();
         gMenuState->flag2F = 0;
-        index = &D_801002A2;
+        index = &sOptionCursor;
         text = lookupDataEntry(*index + 0x16D);
         format = D_800D2864;
         formatTextEntry(entry, (s32)format, text);

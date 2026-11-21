@@ -30,7 +30,7 @@ u8 countValidSaveSlots();
 s32 lookupDataEntry();
 s32 sprintf();
 extern char D_800D285C[];
-extern char D_800D2864[];
+extern char sFmtEntryName[];
 extern u8 gCurrentSaveSlot;
 extern u8 gMenuListParam;
 extern s8 D_800BD690;
@@ -121,14 +121,14 @@ void func_8001D738(void) {
         if (temp_v0 != 0) {
             var_a0 = 0xF;
         }
-        do { formatTextEntry(temp_s6, D_800D2864, lookupDataEntry(var_a0)); } while (0);
+        do { formatTextEntry(temp_s6, sFmtEntryName, lookupDataEntry(var_a0)); } while (0);
         temp_v0_2 = *(D_80115089 + (gCurrentSaveSlot * 0xA0));
         D_8010D454 = temp_v0_2;
         var_a0_2 = 0xA;
         if (temp_v0_2 != 0) {
             var_a0_2 = 9;
         }
-        formatTextEntry(temp_s2, D_800D2864, lookupDataEntry(var_a0_2));
+        formatTextEntry(temp_s2, sFmtEntryName, lookupDataEntry(var_a0_2));
         D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
         temp_v1_2 = D_80100198[gCurrentSaveSlot].f0;
         temp_a0 = var_s1 - 0x28;
@@ -140,7 +140,7 @@ void func_8001D738(void) {
             if (D_8010D2B1 != 0) {
                 var_a0_3 = 0x12;
             }
-            formatTextEntry(var_s1, D_800D2864, lookupDataEntry(var_a0_3));
+            formatTextEntry(var_s1, sFmtEntryName, lookupDataEntry(var_a0_3));
         }
         temp_v0_3 = *(D_80115090 + (gCurrentSaveSlot * 0xA0));
         D_80102EB0 = temp_v0_3;
@@ -148,21 +148,21 @@ void func_8001D738(void) {
         if (temp_v0_3 != 0) {
             var_a0_4 = 9;
         }
-        formatTextEntry(temp_s3, D_800D2864, lookupDataEntry(var_a0_4));
+        formatTextEntry(temp_s3, sFmtEntryName, lookupDataEntry(var_a0_4));
         temp_v0_4 = *(D_8011508D + (gCurrentSaveSlot * 0xA0));
         D_801007C1 = temp_v0_4;
         var_a0_5 = 0xA;
         if (temp_v0_4 != 0) {
             var_a0_5 = 9;
         }
-        do { formatTextEntry(temp_s7, D_800D2864, lookupDataEntry(var_a0_5)); } while (0);
+        do { formatTextEntry(temp_s7, sFmtEntryName, lookupDataEntry(var_a0_5)); } while (0);
         temp_v0_5 = *(D_8011508C + (gCurrentSaveSlot * 0xA0));
         D_8010A394 = temp_v0_5;
         var_a0_6 = 0xA;
         if (temp_v0_5 != 0) {
             var_a0_6 = 9;
         }
-        formatTextEntry(temp_s4, D_800D2864, lookupDataEntry(var_a0_6));
+        formatTextEntry(temp_s4, sFmtEntryName, lookupDataEntry(var_a0_6));
         D_80108960 = *(D_8011508F + (gCurrentSaveSlot * 0xA0));
         temp_v1_3 = D_80100198[gCurrentSaveSlot].f0;
         if ((s32) temp_v1_3 >= 0) {
@@ -191,7 +191,7 @@ block_31:
             if (D_80108960 != 0) {
                 var_a0_8 = 9;
             }
-            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0_8));
+            formatTextEntry(temp_s0, sFmtEntryName, lookupDataEntry(var_a0_8));
         }
         temp_v0_6 = *(D_8011508E + (gCurrentSaveSlot * 0xA0));
         D_80104310 = temp_v0_6;
@@ -200,7 +200,7 @@ block_31:
             var_a0_9 = 9;
         }
         var_s1_2 = 0;
-        formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0_9));
+        formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0_9));
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
         func_80022A30(gMenuListParam, 0x23, 0x2C, 0x33, 0x9A);
         temp_v0_7 = countValidSaveSlots(0xA3);

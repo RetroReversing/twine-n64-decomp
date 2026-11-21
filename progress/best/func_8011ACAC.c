@@ -1,5 +1,5 @@
 extern void *gBorderSkipFlag;
-extern u8 D_801002A2;
+extern u8 sOptionCursor;
 extern u8 sEnemyDefTable[];
 extern u8 D_800C447C[];
 void setActionSlot(void *a, s32 b, s32 c, s32 d);
@@ -18,7 +18,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
     if (gBorderSkipFlag == NULL) {
         return;
     }
-    switch (D_801002A2) {
+    switch (sOptionCursor) {
     case 0:
         s0 = 4;
         break;
@@ -68,7 +68,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
     }
     ret = (s16)ret * 8;
     ((u8 *)((u32)a1 + ret))[0x1FF] = s1[0x82];
-    if (D_801002A2 != 3) {
+    if (sOptionCursor != 3) {
         *(u16 *)(a1 + (s1[0x80] << 1) + 0x1BC) = s1[0x82] << 1;
     }
     if (s2 != 0) {
