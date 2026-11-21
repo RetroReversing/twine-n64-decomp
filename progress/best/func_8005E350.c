@@ -18,7 +18,7 @@ M2C_UNK func_80084338(u16, void *);
 s32 func_80087100(s32);
 typedef struct { s16 field0; s16 field2; M2C_UNK (*callback)(void *); u8 pad8[4]; u16 fieldC; u8 padE[2]; } EventEntry;
 extern EventEntry D_800C4478[];
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern s32 gTrackMarkerTable[];
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
@@ -32,7 +32,7 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     temp_v0=D_800C4478[temp_s1].callback;
     var_s7=-1; var_s4=-1;
     if(temp_v0!=NULL) do { temp_v0(arg0); } while (0);
-    D_8010302C+=1;
+    gTrackMarkerSerial+=1;
     if((temp_s1==0x1A)&((arg2&0xFFFF)==1)) {} else {
       var_s7=D_800C4478[temp_s1].field0;
       var_s4=D_800C4478[temp_s1].field2;

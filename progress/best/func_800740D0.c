@@ -19,7 +19,7 @@ void *func_80015F74();
 s32 func_80016314();
 s32 func_80016718();
 s32 objectListInsert();
-s32 func_80031700();
+s32 showTrackMarker();
 f32 func_80045590();
 extern s16 D_800C7EA0;
 extern char D_800C7EA4[];
@@ -92,7 +92,7 @@ do {
                     if ((M2C_FIELD(var_s0, u16 *, 0x78) == 0x19) && (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x6C), s32 *, 0x20) == M2C_FIELD(temp_s1, s32 *, 0x20))) {
                         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x32);
                         if (temp_a0 != 0) {
-                            func_80031700(temp_a0);
+                            showTrackMarker(temp_a0);
                         }
                         temp_v1_2 = M2C_FIELD(temp_s1, s32 *, 0x24);
                         if ((temp_v1_2 != 0) && !(temp_v1_2 & 0x80000000)) {
@@ -129,7 +129,7 @@ do {
                 }
                 temp_a0_3 = M2C_FIELD(temp_s1, u8 *, 0x32);
                 if (temp_a0_3 != 0) {
-                    func_80031700(temp_a0_3);
+                    showTrackMarker(temp_a0_3);
                 }
                 if (M2C_FIELD(temp_s1, s32 *, 0x24) >= 0) {
                     __base_D_800C7EA4 = D_800C7EA4;

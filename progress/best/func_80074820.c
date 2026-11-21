@@ -7,7 +7,7 @@ s32 func_800AB6C0(s8 *, s8 *);                  /* extern */
 s32 memcpy(s8 *, s8 *, s32);                    /* extern */
 extern s8 D_800D4870;
 extern void *D_80100B20;
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern s16 D_80112EBC;
 
 typedef struct { unsigned char pad_0[20]; float field_14; unsigned char pad_18[24]; short field_30; } __repair_record_temp_v0_5;
@@ -114,7 +114,7 @@ loop_27:
                         __repair_phase_temp_v1 = var_s1 - temp_a1;
                         memcpy(sp30, temp_a1, __repair_phase_temp_v1);
                         (sp30)[__repair_phase_temp_v1] = 0;
-                        D_8010302C += 1;
+                        gTrackMarkerSerial += 1;
                         temp_v0_3 = func_80073AF8(0, arg0, sp30, -1, -1, 1, 0, 0, arg5 & 0xFF, 0, 0x1E);
                         D_80112EBC += 1;
                         __repair_phase_storage.pointer = ((s32) (D_80112EBC << 0x10) >> 0xE) + &D_80100B20;

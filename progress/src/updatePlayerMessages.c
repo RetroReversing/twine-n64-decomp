@@ -18,7 +18,7 @@ M2C_UNK func_80070730(s32, M2C_UNK, M2C_UNK);       /* extern */
 s32 findActionSlot(s32, M2C_UNK, M2C_UNK);           /* extern */
 M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80087100(M2C_UNK);                         /* extern */
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern void *gPlayerActor;
 extern s8 gTrackMarkerTable;
 extern void *gBonusSceneHandle;
@@ -48,7 +48,7 @@ extern void *gBonusSceneHandle;
         if ((((playerStateNow == 1) | (playerStateNow == 0x4C)) != 0) && (M2C_FIELD(M2C_FIELD(gPlayerActor, void **, 0x6C), u8 *, 0x82) == 0x23) && (M2C_FIELD(gPlayerActor, s16 *, 0x7A) == 0x1D)) {
             func_80070730(actionTable, 0xC, 1);
             func_80070664(actionTable, 0xD, 1, 0);
-            D_8010302C += 1;
+            gTrackMarkerSerial += 1;
             func_8000A894(0x12B);
             func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), func_80087100(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
         }

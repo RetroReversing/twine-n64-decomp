@@ -25,7 +25,7 @@ s32 func_800AB880();
 s32 func_800AB950();
 s32 func_800AB9B0();
 s32 sprintf();
-u16 strlen();
+s32 strlen();
 extern u16 D_800B60A4;
 extern void *D_800BF5A0;
 extern u8 D_801002AD;

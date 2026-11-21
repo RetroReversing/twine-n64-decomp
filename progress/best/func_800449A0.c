@@ -15,7 +15,7 @@ extern s8 D_80100784;
 extern s8 D_80102F38;
 extern s8 D_80103020;
 extern s8 D_8010302A;
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern s8 D_80103041;
 extern s8 D_801032A4;
 extern s8 D_801032AC;
@@ -105,7 +105,7 @@ loop_6:
         ++var_a2;
         var_a3 += 28;
     } while (6U > var_a2);
-    D_8010302C = 0;
+    gTrackMarkerSerial = 0;
     gProbeObjectList = func_8003C7C4(var_a0, var_a1, var_a2, var_a3);
     func_8007560C();
     (*(u8 *)&D_801032AC) = 0xA0;

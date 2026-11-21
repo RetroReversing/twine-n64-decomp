@@ -20,7 +20,7 @@ extern s32 D_800C7EE4;
 extern char D_80100310[];
 extern char D_80100314[];
 extern void *D_80100B20;
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern s32 D_80109688;
 extern char *gBonusSceneHandle;
 extern u8 D_8010D294;
@@ -69,7 +69,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
         *(void **)(D_80100310 + temp_v0) = arg1;
         D_8010D294 += 1;
     }
-    D_8010302C += 1;
+    gTrackMarkerSerial += 1;
     var_s4 = arg1;
     if (arg2 != 0) {
         temp_s7 = &D_80100B20 - 1;

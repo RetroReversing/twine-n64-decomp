@@ -16,7 +16,7 @@ extern u16 D_800B81A8;
 extern u8 D_800B81AB;
 extern s32 D_800BD550;
 extern s32 D_800BD554;
-extern u16 sSaveMenuAction;
+extern volatile u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
 extern char D_800BD5D0[];
 extern u8 gMenuParamC;
@@ -40,14 +40,9 @@ void func_8002424C(void) {
     func_8002CBD8();
     D_800BD690 = 0;
     func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &func_800240A4, &func_800241F8);
-    i = 0;
-    base = D_800BD5D0;
-    config = base - 0x4C;
-    empty = 0xF;
-    full = 0x10;
-    slot = base - 0x34;
-    pairs = D_80109C18;
-    func_80022A30(gMenuParamC, 0x20, 0x3C, 0xF8, 0x78);
+    func_80022A30((i = 0, base = D_800BD5D0, config = base - 0x4C,
+                   empty = 0xF, full = 0x10, slot = base - 0x34, gMenuParamC),
+                  0x20, 0x3C, 0xF8, (pairs = D_80109C18, 0x78));
     D_800BD554 = func_80015F74(base);
     D_800BD550 = func_80015F74(base - 0x24);
     do {
@@ -64,7 +59,7 @@ void func_8002424C(void) {
         *(s16 *)slot = i + 0x4000;
         *(s32 *)((u32)D_80109C18 + (offset = (u16)i * 8)) = func_80015F74(slot - 0x14);
         *(s32 *)((u32)D_80109C1C + offset) = func_80015F74(slot - 0x38);
-        func_8002A7CC(D_80107EA8, (char *)pairs + offset, (u8)i, 1);
+        func_8002A7CC(D_80107EA8, (char *)(offset + (u32)pairs), (u8)i, 1);
         i++;
     } while ((u16)i < 16);
     func_80024D78();

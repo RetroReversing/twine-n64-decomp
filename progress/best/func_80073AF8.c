@@ -13,7 +13,7 @@ extern f64 D_800D4860;
 extern f64 D_800D4868;
 extern s32 gBorderMode;
 extern s32 gBorderSkipFlag;
-extern s32 D_8010302C;
+extern s32 gTrackMarkerSerial;
 extern s32 gTrackMarkerTable;
 extern void *D_8010969C;
 extern u8 gBorderFlipFlag;
@@ -87,7 +87,7 @@ block_10:
     if (temp_s3 != (s32)NULL) {
         temp_s1 = (*(void **)((char *)(temp_s3) + 0x6C));
         __repair_store_1 = (u16)(strlen(sp10));
-        (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) D_8010302C;
+        (*(s32 *)((char *)(temp_s1) + 0x20)) = (s32) gTrackMarkerSerial;
         (*(s8 *)((char *)(temp_s1) + 0x135)) = 1;
         (*(u8 *)((char *)(temp_s1) + 0x33)) = (u8) (u16) (*(s16 *)((char *)(sp114) + 0x140));
         (*(s8 *)((char *)(temp_s1) + 0x136)) = 0;

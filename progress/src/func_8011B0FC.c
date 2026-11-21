@@ -1,4 +1,4 @@
-extern s32 D_801002B4, D_8010302C;
+extern s32 D_801002B4, gTrackMarkerSerial;
 extern void *gBonusSceneHandle[], *gTrackMarkerTable[];
 extern char D_8011F3AC[];
 void func_8000A894(s32);
@@ -20,7 +20,7 @@ void func_8011B0FC(void *p) {
  case 8: func_8002B150(D_8011F3AC,5,0); break;
  }
  *(s8*)((char*)p+0x32c)=1;
- D_8010302C++;
+ gTrackMarkerSerial++;
  x=func_80087100(0x6026);
  func_80073AF8(0,gTrackMarkerTable[*(s8*)((char*)p+0x183)],x,-1,-1,1,0,0,0,0,0);
  *(s16*)((char*)p+0x1d8)=500;
