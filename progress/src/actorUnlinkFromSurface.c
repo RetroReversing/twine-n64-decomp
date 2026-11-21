@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void actorUnlinkFromSurface(void *arg0) {
+void func_80016718(void *arg0) {
     void **temp_v1;
     void *temp_v0;
 
