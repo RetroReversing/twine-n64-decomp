@@ -1,7 +1,7 @@
 f32 __cosf(f32);
 f32 sinApprox(f32);
 
-void eulerToQuat(const f32 *arg0, f32 *arg1) {
+void func_800467B0(const f32 *arg0, f32 *arg1) {
     f32 a = arg0[0] * 0.0007669904f;
     f32 b = arg0[1] * 0.0007669904f;
     f32 c = arg0[2] * 0.0007669904f;
