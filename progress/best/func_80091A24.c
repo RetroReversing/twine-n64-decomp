@@ -97,8 +97,8 @@ void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
 
     var_a0 = 0;
     temp_a2 = ((__repair_field_0 *)arg0)->value;
-    var_v1 = 0;
     temp_a1 = temp_a2 & 0x7FFFFFFF;
+    var_v1 = 0;
 loop_1:
     if ((*(D_800E6A85 + var_v1) != 0) || (*(s32 *)(gSndEntities + var_v1) != temp_a1)) {
         var_a0 += 1;

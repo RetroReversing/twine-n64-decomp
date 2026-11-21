@@ -15,7 +15,7 @@ extern u16 D_800E1766;
 extern s32 D_800E1768;
 extern void *gMenuState;
 extern s32 gHiResScreen;
-extern s32 *sDisplayListCursor;
+extern s32 * volatile sDisplayListCursor;
 
 typedef struct { unsigned char pad[24]; int value; } __repair_field_18;
 typedef struct { int value; } __repair_field_0;
@@ -79,9 +79,10 @@ s32 __repair_result_var_v1_3;
 
     var_s7 = 0;
     if ((func_8003FA78(0x2A) << 0x18) != 0) {
+        temp_a0_5 = *(u16 *)((char *)arg2 + 0x1E);
         D_800E1764 = 0;
         D_800E1768 = 0;
-        temp_s4 = func_80018510(decodeButtonMask840((*(u16 *)((char *)(arg2) + 0x1E))) & 0xFFFF);
+        temp_s4 = func_80018510(decodeButtonMask840(temp_a0_5) & 0xFFFF);
         var_s1 = (*(u16 *)((char *)(arg2) + 0x20));
         temp_s3 = D_800C0A24;
         var_s5 = (*(u16 *)((char *)(arg2) + 0x22));
@@ -102,11 +103,11 @@ s32 __repair_result_var_v1_3;
         (*(s32 *)((char *)(temp_v1) + 0x14)) = 0;
         ((__repair_field_18 *)temp_v1)->value = 0xF3000000;
         temp_a0_2 = (u16)((*(u16 *)((char *)(((((__repair_field_4 *)temp_s4)->value * 0xC) + ((__repair_field_18 *)temp_s3)->value)) + 2)));
-        sDisplayListCursor = temp_v1 + 8;
-        sDisplayListCursor = temp_v1 + 0x10;
+        sDisplayListCursor = (void *)((char *)temp_v1 + 8);
+        sDisplayListCursor = (void *)((char *)temp_v1 + 0x10);
         temp_v0 = (void *) ((0x18) + (s32) temp_v1);
         sDisplayListCursor = temp_v0;
-        sDisplayListCursor = temp_v1 + 0x20;
+        sDisplayListCursor = (void *)((char *)temp_v1 + 0x20);
         temp_a0 = temp_a0_2 + 1;
         var_v1 = temp_a0;
         if (temp_a0 < 0) {
@@ -147,11 +148,11 @@ s32 __repair_result_var_v1_3;
         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x20)) = 0xE3001001;
         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x24)) = 0;
         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x14)) = (s32) (((((*(u16 *)((char *)(temp_v0_5) + 2)) * 4) & 0xFFF) << 0xC) | (((*(u16 *)((char *)(temp_v0_5) + 4)) * 4) & 0xFFF));
-        sDisplayListCursor = __repair_phase_storage.pointer + 8;
-        sDisplayListCursor = __repair_phase_storage.pointer + 0x10;
-        sDisplayListCursor = __repair_phase_storage.pointer + 0x18;
-        sDisplayListCursor = __repair_phase_storage.pointer + 0x20;
-        sDisplayListCursor = __repair_phase_storage.pointer + 0x28;
+        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 8);
+        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 0x10);
+        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 0x18);
+        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 0x20);
+        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 0x28);
         var_s0 = 0;
         if ((*(u16 *)((char *)(arg2) + 0x1C)) != 0) {
             do {
@@ -186,7 +187,7 @@ s32 __repair_result_var_v1_3;
                     if (!D_800C0738) {
                         __repair_phase_storage.pointer = sDisplayListCursor;
                         temp_t2 = *((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) * 4) + D_800BD640);
-                        sDisplayListCursor = __repair_phase_storage.pointer + 8;
+                        sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 8);
                         ((__repair_field_0 *)__repair_phase_storage.pointer)->value = 0xFA000000;
                         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 4)) = (s32) (((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000) | (temp_t2 & 0xFF00) | (temp_t2 & 0xFF));
                     }
@@ -196,7 +197,7 @@ s32 __repair_result_var_v1_3;
                     if (D_800C0738 == 0) {
                         temp_t2_2 = (*(((*(s32 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30));
                         temp_a1_2 = sDisplayListCursor;
-                        sDisplayListCursor = temp_a1_2 + 8;
+                        sDisplayListCursor = (void *)((char *)temp_a1_2 + 8);
                         ((__repair_field_0 *)temp_a1_2)->value = 0xFA000000;
                         ((__repair_field_4 *)temp_a1_2)->value = (s32) (((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000) | (temp_t2_2 & 0xFF00) | (temp_t2_2 & 0xFF));
                     }
@@ -294,7 +295,7 @@ s32 __repair_result_var_v1_3;
             } while (var_s0 < (u16) (*(u16 *)((char *)(arg2) + 0x1C)));
         }
         temp_v0_6 = sDisplayListCursor;
-        sDisplayListCursor = temp_v0_6 + 8;
+        sDisplayListCursor = (void *)((char *)temp_v0_6 + 8);
         ((__repair_field_0 *)temp_v0_6)->value = 0xE8000000;
         ((__repair_field_4 *)temp_v0_6)->value = 0;
     }

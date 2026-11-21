@@ -27,7 +27,7 @@ extern M2C_UNK gBonusSceneHandle;
 void func_80026F84(u8 arg0) {
 s32 var_v0; u8 var_v0_2;
 if (D_800BF598 != 0) {
-(*(u8 *)&D_800E109F)=0xFF; (*(u8 *)&D_800E10A0)=0xFF; (*(u8 *)&D_800E10A1)=0xFF; (*(u8 *)&D_800E10A2)=0xFF; (*(u8 *)&D_800E10A3)=0xFF; (*(u8 *)&D_800E10A4)=0xFF; (*(u8 *)&D_80102F04)=0; D_800BF598=0; gMenuSlot=0; (*(u8 *)&D_800E109E)=0; (*(u8 *)&D_800E109D)=0; (*(u8 *)&D_800E109C)=0; (*(u8 *)&D_801002E6)=-1; (*(u8 *)&D_801002E7)=-1; (*(u8 *)&D_801002E8)=-1; (*(u8 *)&D_801002E9)=-1; gMenuState=NULL; func_8002D240(); copyStateTablesToRam();}
+(*(u8 *)&D_800E109F)=0xFF; (*(u8 *)&D_800E10A0)=0xFF; (*(u8 *)&D_800E10A1)=0xFF; (*(u8 *)&D_800E10A2)=0xFF; (*(u8 *)&D_800E10A3)=0xFF; (*(u8 *)&D_800E10A4)=0xFF; (*(u8 *)&D_80102F04)=0; D_800BF598=0; gMenuSlot=0; (*(u8 *)&D_800E109E)=0; (*(u8 *)&D_800E109D)=0; (*(u8 *)&D_800E109C)=0; D_801002E6=-1; D_801002E7=-1; D_801002E8=-1; D_801002E9=-1; gMenuState=NULL; func_8002D240(); copyStateTablesToRam();}
 (*(u8 *)&D_80102EB8)=func_8002D13C(0xA3); (*(u8 *)&D_80102ED4)=1; var_v0=arg0&0xFF;
 if(gMenuState!=NULL){
 void *__repair_cached_pointer = gMenuState;

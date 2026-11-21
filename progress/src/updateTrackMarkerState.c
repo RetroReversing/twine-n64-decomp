@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80018700();
 s32 func_80018744();
-s32 func_8001880C();
+s32 aimTrackMarkerAngles();
 s32 func_80084338();
 extern u16 D_800C79AA;
 extern f64 D_800D27E0;
@@ -47,15 +47,15 @@ void updateTrackMarkerState(void *arg0) {
         }
         /* fallthrough */
     case 2:
-        func_8001880C(arg0);
+        aimTrackMarkerAngles(arg0);
         return;
     case 3:
-        func_8001880C(arg0);
+        aimTrackMarkerAngles(arg0);
         M2C_FIELD(temp_s1, s32 *, 0x18) = func_80084338(D_800C79AA, arg0 + 0x24);
         M2C_FIELD(arg0, s16 *, 0x7A) = 4;
         return;
     case 4:
-        func_8001880C(arg0);
+        aimTrackMarkerAngles(arg0);
         func_80018744(arg0);
         temp_v0_2 = M2C_FIELD(arg0, u16 *, 0x7C) - 1;
         M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0_2;
@@ -68,12 +68,12 @@ void updateTrackMarkerState(void *arg0) {
     default:
         return;
     case 6:
-        func_8001880C(arg0);
+        aimTrackMarkerAngles(arg0);
         M2C_FIELD(temp_s1, s32 *, 0x18) = func_80084338(D_800C79AA, arg0 + 0x24);
         M2C_FIELD(arg0, s16 *, 0x7A) = 7;
         return;
     case 7:
-        func_8001880C(arg0);
+        aimTrackMarkerAngles(arg0);
         func_80018744(arg0);
         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x1C);
         if (temp_a0 != 0) {

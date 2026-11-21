@@ -1,4 +1,4 @@
-s32 func_800266DC(s32, s32);
+s32 setMenuTextRequest(s32, s32);
 extern u8 D_800BD694;
 extern u8 D_800BD695[];
 extern s8 D_800BD705;
@@ -16,6 +16,6 @@ void func_80027D60(s32 arg0) {
         }
         *(s16 *)((s8 *)sActiveMenu + 0x7A) = *(u8 *)(D_800BD695 + ((arg0 & 0xFFFF) * 0x1C));
         *(s16 *)((s8 *)sActiveMenu + 0x7C) = 0x78;
-        func_800266DC(*(s16 *)((s8 *)sActiveMenu + 0x7A) * 0x1C + (s32)&D_800BD694, arg0);
+        setMenuTextRequest(*(s16 *)((s8 *)sActiveMenu + 0x7A) * 0x1C + (s32)&D_800BD694, arg0);
     }
 }

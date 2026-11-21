@@ -60,6 +60,7 @@ extern s8 gTransitionPhase;
 typedef struct { unsigned char pad_0[56]; float field_38; unsigned char pad_3C[93]; unsigned char field_99; } __repair_record_temp_v1;
 typedef struct { void * field_0; void * field_4; } __repair_record_temp_v1_;
 typedef struct { unsigned char pad_0[124]; int field_7C; unsigned char pad_80[24]; unsigned char field_98; } __repair_record_temp_v0_4;
+typedef struct { unsigned char pad_0[8]; int field_8; unsigned char pad_C[244]; int field_100; unsigned char pad_104[62]; signed char field_142; } __repair_record_gTrackMarkerTable;
 s32 func_8000D000(void) {
     s32 temp_v0_6;
     s32 var_a0_2;
@@ -139,7 +140,7 @@ s32 func_8000D000(void) {
         func_80044D84(D_800E0740);
         activateIdList(D_80100B60);
         func_80044FF0();
-        func_80042CFC(M2C_FIELD(gTrackMarkerTable, s32 *, 8), D_800E0740);
+        func_80042CFC(((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_8, D_800E0740);
         func_8004505C();
     } else {
         activateIdList(D_80100B60);
@@ -172,8 +173,8 @@ s32 func_8000D000(void) {
         M2C_FIELD(temp_v1_4, s32 *, 0x60) = (s32) (temp_v0_6 | 1);
     }
     updateTransitionState();
-    M2C_FIELD(gTrackMarkerTable, s32 *, 0x100) |= 0x40;
-    M2C_FIELD(gTrackMarkerTable, s8 *, 0x142) = 7;
-    M2C_FIELD(gTrackMarkerTable, s32 *, 0x100) |= 0x100;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_100 |= 0x40;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_142 = 7;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_100 |= 0x100;
     return 1;
 }

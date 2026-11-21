@@ -46,7 +46,7 @@ extern s32 D_80102EE4;
 extern u8 D_80102EE8;
 extern const u16 *volatile D_80102FD4;
 extern u8 D_8010A4C0;
-extern u8 D_8010A4FC;
+extern u8 gColorFadeLevel;
 extern u8 gBorderFlipFlag;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
@@ -171,7 +171,7 @@ loop_3:
         D_80102EE4 = func_8002E98C(&D_800E1310, 4, 0x20);
         D_80102EE8 = func_8002E98C(&D_800E1310, 1, 4);
         D_8010A4C0 = func_8002E98C(&D_800E1310, 1, 2);
-        D_8010A4FC = func_8002E98C(&D_800E1310, 1, 6);
+        gColorFadeLevel = func_8002E98C(&D_800E1310, 1, 6);
         gBorderFlipFlag = func_8002E98C(&D_800E1310, 1, 1);
         gOptionFlagA = func_8002E98C(&D_800E1310, 1, 1);
         D_8010A4FF = func_8002E98C(&D_800E1310, 1, 2);

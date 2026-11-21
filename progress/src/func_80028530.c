@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A29C();                            /* extern */
 M2C_UNK func_80011938(M2C_UNK, M2C_UNK);            /* extern */
-M2C_UNK func_800266DC(M2C_UNK *);                   /* extern */
+M2C_UNK setMenuTextRequest(M2C_UNK *);                   /* extern */
 M2C_UNK func_800269B4(s32, M2C_UNK, M2C_UNK);       /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 extern M2C_UNK D_800BD7E4;
@@ -27,7 +27,7 @@ void func_80028530(void) {
         M2C_FIELD(gTrackMarkerTable, f32 *, 0x12C) = 1.0f;
     }
     func_8000A29C();
-    func_800266DC(&D_800BD7E4);
+    setMenuTextRequest(&D_800BD7E4);
     func_800269B4(gMenuState + 0x1C, 3, 0x2A);
     func_80011938(0, 1);
     func_80011938(1, 1);

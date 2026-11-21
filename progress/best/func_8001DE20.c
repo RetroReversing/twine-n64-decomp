@@ -12,7 +12,7 @@ extern char D_800D2864[];
 extern s16 gExpansionPakPresent;
 extern void *gMenuState;
 extern u8 D_8010A4C0;
-extern u8 D_8010A4FC;
+extern u8 gColorFadeLevel;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 
@@ -40,7 +40,7 @@ s32 __repair_phase_var_a0;
         var_s3 = func_8002638C(D_800BD8EC, 3);
     }
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
-        (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((D_8010A4FC * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
+        (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((gColorFadeLevel * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
         var_a0 = 0x1B;
         if (gOptionFlagA == 0) var_a0 = 0x1A;
         formatTextEntry(temp_s1, D_800D2864, lookupDataEntry(var_a0));

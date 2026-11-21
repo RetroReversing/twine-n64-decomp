@@ -25,7 +25,7 @@ extern s32 D_800E1A68;
 typedef struct { float field_0; float field_4; float field_8; int field_C; unsigned char pad_10[8]; void * field_18; void * field_1C; } __repair_record_temp_s0;
 void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     f32 *__base_D_800E1A38;
-    f32 sp30[3];
+    f32 sp30[9];
     Vec9 sp58;
     Vec9 sp80;
     Vec9 spA8;

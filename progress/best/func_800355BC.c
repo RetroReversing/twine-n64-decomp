@@ -13,6 +13,7 @@ extern void *sRenderState;
 
 typedef struct { int value; } __repair_field_0;
 void func_800355BC(void *arg0) {
+    s32 matrixAddr;
     s32 *temp_a0;
     s32 *temp_v1;
     s32 *temp_v1_3;
@@ -21,6 +22,7 @@ void func_800355BC(void *arg0) {
     s16 var_s0;
     s16 var_s3;
     void *temp_s4;
+    void *temp_sRenderState;
     void *var_s1;
     void *var_s2;
 
@@ -74,10 +76,12 @@ case 2:
                                     }
                                 }
                                 temp_a0 = sDisplayListCursor;
+                                temp_sRenderState = sRenderState;
                                 ((__repair_field_0 *)temp_a0)->value = 0xDA380003;
+                                matrixAddr = *(s32 *)((char *)temp_sRenderState + 0x74C);
                                 var_s3 = 0;
                                 sDisplayListCursor = temp_a0 + 2;
-                                (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((*(s32 *)((char *)(sRenderState) + 0x74C)) - 0x80000000);
+                                (*(s32 *)((char *)(temp_a0) + 4)) = (s32) (matrixAddr - 0x80000000);
                             }
                             emitPrimColor(var_s2, arg0);
                             var_s0 = 0;

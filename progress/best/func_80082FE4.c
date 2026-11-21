@@ -1,2 +1,23 @@
 extern f32 gCosTable[];
-void func_80082FE4(void *arg0, void *arg1) { s32 temp_v0; f32 temp_fa0; f32 temp_ft0; f32 temp_fv0; register f32 temp_ft3; register f32 temp_fa1; register f32 temp_ft4; s32 temp_a2; register f32 temp_fv1; f32 temp_ft1; f32 m00; temp_v0=*(s16*)((char*)arg0+2); temp_a2=*(s16*)((char*)arg0+4); temp_ft4=gCosTable[temp_v0&0xFFF]; temp_fa1=gCosTable[temp_a2&0xFFF]; m00 = temp_fa1 * temp_ft4; temp_ft3=gCosTable[(temp_v0-0x400)&0xFFF]; temp_fa0=temp_fa1*temp_ft3; temp_a2 -= 0x400; temp_fv0=gCosTable[temp_a2&0xFFF]; temp_a2=*(s16*)arg0; temp_ft0=temp_fv0*temp_ft3; temp_fv1=gCosTable[temp_a2&0xFFF]; temp_ft1=gCosTable[(temp_a2-0x400)&0xFFF]; *(f32*)((char*)arg1+0x18)=-temp_ft3; *(f32*)((char*)arg1+0x20)=temp_ft4*temp_fv1; *(f32*)((char*)arg1+0x1C)=temp_ft4*temp_ft1; *(f32*)((char*)arg1+4)=temp_fa0*temp_ft1-temp_fv0*temp_fv1; *(f32*)arg1=m00; *(f32*)((char*)arg1+0xC)=temp_fv0*temp_ft4; *(f32*)((char*)arg1+8)=temp_fa0*temp_fv1+temp_fv0*temp_ft1; *(f32*)((char*)arg1+0x10)=temp_ft0*temp_ft1+temp_fa1*temp_fv1; *(f32*)((char*)arg1+0x14)=temp_ft0*temp_fv1-temp_fa1*temp_ft1; }
+#define COS(x) gCosTable[(x) & 0xFFF]
+#define SIN(x) gCosTable[((x) - 0x400) & 0xFFF]
+void func_80082FE4(const s16 *arg0, f32 *arg1) {
+    s32 a = arg0[0];
+    s32 b = arg0[1];
+    s32 c = arg0[2];
+    f32 cb = COS(b);
+    f32 cc = COS(c);
+    f32 sb = SIN(b);
+    f32 sc = SIN(c);
+    f32 ca = COS(a);
+    f32 sa = SIN(a);
+    arg1[0] = cc * cb;
+    arg1[1] = cc * sb * sa - sc * ca;
+    arg1[2] = cc * sb * ca + sc * sa;
+    arg1[3] = sc * cb;
+    arg1[4] = sc * sb * sa + cc * ca;
+    arg1[5] = sc * sb * ca - cc * sa;
+    arg1[6] = -sb;
+    arg1[7] = cb * sa;
+    arg1[8] = cb * ca;
+}

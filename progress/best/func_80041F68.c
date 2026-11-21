@@ -1,6 +1,6 @@
 
 s32 func_8000B9B8(u16 *, void *, u32);
-s32 func_8000BE00(u32, s32, s32);
+s32 packFadedRgb5A1(u32, s32, s32);
 u32 func_8001499C(u16 *);
 s32 func_80014A0C(u16 *, u16 *);
 s32 func_80083E24();
@@ -9,7 +9,7 @@ u16 *func_80083E90(u32, s32);
 s32 func_80084048(u16 *, s32);
 s32 memcpy(u16 *, u16 *, u32);
 extern s32 D_54D910;
-extern u8 D_8010A4FC;
+extern u8 gColorFadeLevel;
 
 void func_80041F68(void *arg0) {
     u16 *sp1C;
@@ -61,7 +61,7 @@ void func_80041F68(void *arg0) {
         memcpy(var_s5, temp_s4, *(u32 *)((u8 *)arg0 + 0x24));
     }
     i = var_s0 >> 1;
-    if (D_8010A4FC != 0) {
+    if (gColorFadeLevel != 0) {
         var_s1 = 0;
         if (i != 0) {
             var_s2 = var_s5;
@@ -69,7 +69,7 @@ void func_80041F68(void *arg0) {
                 temp_s0 = *var_s2;
                 var_s1 += 1;
                 n = temp_s0 & 0xFFFF;
-                *var_s2 = func_8000BE00(n >> 0xB, (n >> 6) & 0x1F, (n >> 1) & 0x1F) + (temp_s0 & 1);
+                *var_s2 = packFadedRgb5A1(n >> 0xB, (n >> 6) & 0x1F, (n >> 1) & 0x1F) + (temp_s0 & 1);
                 var_s2 += 1;
             } while (var_s1 < (var_s0 >> 1));
         }
