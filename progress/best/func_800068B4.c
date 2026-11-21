@@ -54,8 +54,7 @@ s32 __repair_phase_var_a0;
         do { func_800450F0(); } while (0);
         var_a0 = 0x12;
         ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
-block_63:
-        func_800066A0(var_a0);
+        goto block_63;
     default:
         return;
     case 8:
@@ -63,54 +62,42 @@ block_63:
         D_800DC730 = gRetraceFrameCount;
         /* fallthrough */
     case 9:
-        if (D_801002AE == 0) {
+        if (D_801002AE == 0 && gRetraceFrameCount - D_800DC730 >= 0x1C3) {
             var_v0 = 2;
-            if ((gRetraceFrameCount - D_800DC730) >= 0x1C3) {
-block_9:
-                D_800B19F0 = var_v0;
-            }
+            goto block_9;
         }
+        goto block_10;
+    case 18:
+        ((__repair_record_D_80109688*)D_80109688)->field_12C += 0.06666667f;
+        if (!(((__repair_record_D_80109688*)*(void *volatile *)&D_80109688)->field_12C > 1.0f)) goto block_10;
+        ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
+        var_v0 = 1;
+block_9:
+        D_800B19F0 = var_v0;
     case 1:
 block_10:
         var_a0 = 4;
         if (D_80102EEC == 0) {
             func_8002CC34(4);
-            if ((!D_800CEEB0) && (D_80102EDD != 0)) {
-                if (D_80102ED8 == 0) {
-                    if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
-                        goto block_15;
-                    }
-                } else {
-                    volatile s32 *slots = &D_801002B8;
-                    if (*slots > 0 && D_801002AE == 0) {
-                        var_s0 = 0;
-                        do {
-                            unsigned int result = func_8002D0BC(0xA3, var_s0 & 0xFFFF);
-                            var_s0++;
-                            if (!(result & 0xFFFF)) {
+            if (D_800CEEB0 || !D_80102EDD) goto block_38;
+            if (D_80102ED8 == 0) {
+                if (func_8002D0BC(0xA3, 0) & 0xFFFF) goto block_38;
 block_15:
-                                func_80076168(0);
-                                break;
-                            }
-                        } while (var_s0 < *slots && ((volatile u8 *)slots)[-10] == 0);
-                    }
-                }
+                func_80076168(0);
+                goto block_38;
+            } else {
+                volatile s32 *slots = &D_801002B8;
+                var_s0 = 0;
+                if (*slots <= 0 || D_801002AE) goto block_38;
+                do {
+                    unsigned int result = func_8002D0BC(0xA3, var_s0 & 0xFFFF);
+                    var_s0++;
+                    if (!(result & 0xFFFF)) goto block_15;
+                } while (var_s0 < *slots && ((volatile u8 *)slots)[-10] == 0);
             }
-block_38:
-            func_800072B8();
-block_39:
-            func_80007958();
-            return;
+            goto block_38;
         }
         goto block_63;
-    case 18:
-        ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + 0.06666667f);
-        if (((__repair_record_D_80109688*)D_80109688)->field_12C > 1.0f) {
-            ((__repair_record_D_80109688*)D_80109688)->field_12C = 1.0f;
-            var_v0 = 1;
-            goto block_9;
-        }
-        goto block_10;
     case 2:
     case 10:
         if (D_801002AE == 0) {
@@ -132,12 +119,7 @@ block_29:
                 }
             }
         }
-block_37:
-        var_a0 = 4;
-        if (D_80102EEC == 0) {
-            goto block_38;
-        }
-        goto block_63;
+        goto block_37;
     case 3:
     case 11:
         if (!D_801002AE) {
@@ -151,12 +133,19 @@ block_37:
                         D_800B19F0 = var_a0;
                     }
                 } else {
-                    D_800B19F0 = __repair_phase_var_a0;
                     __repair_phase_var_a0 = 2;
+                    D_800B19F0 = __repair_phase_var_a0;
                 }
             }
         }
-        goto block_37;
+block_37:
+        var_a0 = 4;
+        if (D_80102EEC != 0) goto block_63;
+block_38:
+        func_800072B8();
+block_39:
+        func_80007958();
+        return;
     case 4:
         func_800067C8();
         if (D_80102EDF == 0x24) {
@@ -195,15 +184,14 @@ block_37:
         func_8000CA3C();
         return;
     case 12:
-        var_fv0 = -0.06666667f;
+        D_800DC734 = -0.06666667f;
 block_52:
-        D_800DC734 = var_fv0;
         D_800DC730 = 4;
         D_800B19F0 = 0xE;
         D_800DC739 = D_80103EB0;
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        if (((temp_fv1 = ((__repair_record_D_80109688*)*(void *volatile *)&D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {
@@ -217,7 +205,7 @@ block_52:
         }
         goto block_39;
     case 13:
-        var_fv0 = 0.06666667f;
+        D_800DC734 = 0.06666667f;
         goto block_52;
     case 17:
         func_80087C9C();
@@ -227,9 +215,9 @@ block_52:
         func_800072B8();
         func_80007958();
         var_a0 = 4;
-        if (D_80102EEC) {
-            goto block_63;
-        }
+        if (!D_80102EEC) break;
+block_63:
+        func_800066A0(var_a0);
         break;
     }
 }

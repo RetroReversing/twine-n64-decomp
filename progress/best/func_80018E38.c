@@ -35,6 +35,7 @@ extern M2C_UNK sFmtEntryName;
 extern void updateActorPartnerLink(void);
 
 void func_80018E38(void) {
+    u8 *__repair_byte_buffer;
     u32 sp10[4];
     u8 sp20[12];
     s32 temp_v0;
@@ -128,17 +129,18 @@ block_16:
             if (M2C_FIELD(updateActorPartnerLink, s8 *, 0x6C) != 0) {
                 slot = &gPickupSavedByte;
 loop_30:
+                __repair_byte_buffer = sp20;
                 sp20[0] = var_v1;
                 if (var_v1 != 0) {
                     var_a1 = var_s0;
                     do {
-                        temp_v1_3 = &(sp20)[var_a2];
+                        temp_v1_3 = __repair_byte_buffer + var_a2;
                         temp_v0_2 = *temp_v1_3;
                         var_a1 += 1;
                         var_a2 += 1;
                         *temp_v1_3 = temp_v0_2 - 1;
                         temp_v1_2 = *var_a1;
-                        (sp20)[var_a2] = temp_v1_2;
+                        __repair_byte_buffer[var_a2] = temp_v1_2;
                     } while (temp_v1_2 != 0);
                 }
                 if (func_800AB950(sp10, sp20, var_a2) != 0) {

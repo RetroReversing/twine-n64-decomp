@@ -22,12 +22,12 @@ void func_8000C34C(char *actor, char *viewer) {
     BeamLink *link;
     s32 pointOffset, linkOffset;
     char *base;
-    BeamModel *model;
+    register BeamModel *model;
     f32 h, sn, cs, angle, yaw, dx, dz, scale, x, y, z;
     f32 m0,m1,m2,m3,m4,m5;
     f32 *matrix;
     s32 count, i, mode;
-    u32 *cmd;
+    register u32 *cmd;
     u32 used, address;
     u8 *resource;
     u32 *modeCmd, *stateCmd, *displayCmd;
@@ -47,7 +47,7 @@ void func_8000C34C(char *actor, char *viewer) {
         }
         h = MODEL->height;
     } else {
-        if (D_8010A924 != mode) {
+        if (D_8010A924 != (int)mode) {
             modeCmd = D_8010A928;
             D_8010A924 = mode;
             D_8010A928 = modeCmd + 2;
@@ -72,7 +72,7 @@ void func_8000C34C(char *actor, char *viewer) {
         cs = 0.0f;
     }
     i = 0;
-    if (count > 0) {
+    if (0 < count) {
         out = points;
         pointOffset = 0;
         do {
@@ -82,10 +82,10 @@ void func_8000C34C(char *actor, char *viewer) {
             out->z = (*(BeamPoint *)(pointOffset + (char *)MODEL->points)).z;
             model = MODEL;
             out->x += sn * (((*(BeamPoint *)(pointOffset + (char *)model->points)).y - D_800AE4D8) - model->height);
-            model = MODEL;
+            model = (unsigned)MODEL;
             out->z += cs * (((*(BeamPoint *)(pointOffset + (char *)model->points)).y - D_800AE4D8) - model->height);
             pointOffset += 12;
-            i++;
+            ++i;
             out++;
         } while (i < count);
     }
@@ -93,8 +93,8 @@ void func_8000C34C(char *actor, char *viewer) {
     base = (char *)points;
     if (i < count) {
         f32 unit = 64.0f;
-        matrix = &D_80112F90;
         p = points+1;
+        matrix = &D_80112F90;
         linkOffset = 8;
         do {
             if (*(s8 *)((char *)D_800B25C0 + linkOffset) == -1) goto advance;
@@ -137,7 +137,7 @@ void func_8000C34C(char *actor, char *viewer) {
             cmd[3] = mode;
             address = *(u32 *)resource;
             D_8010A928 = cmd+4;
-            if (address == 0) {
+            if (!address) {
                 func_80043FA0(resource);
                 if (*(u32 *)resource == 0) goto advance;
             }
@@ -149,7 +149,7 @@ void func_8000C34C(char *actor, char *viewer) {
             displayCmd[1] = address;
         advance:
             ++p;
-            ++i;
+            i += 1;
             linkOffset += 8;
         } while (i < count);
     }

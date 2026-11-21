@@ -23,6 +23,8 @@ extern s32 sTrackMarkerTable;
 
 typedef struct { unsigned char pad_0[38]; unsigned short field_26; unsigned short field_28; unsigned short field_2A; } __repair_record_temp_s3;
 s32 func_8005EF84(void *arg0, void *arg1) {
+int __repair_literal;
+
     char sp30[128];
     char spB0[128];
     s32 *var_v0_2;
@@ -70,7 +72,9 @@ s32 __repair_phase_var_a1;
     switch (temp_v1) {                              /* switch 1; irregular */
     case 2:                                         /* switch 1 */
         temp_a1 = ((__repair_record_temp_s3*)temp_s3)->field_28;
-        if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * 2))) + 0x1BC)) < D_800C7C16[temp_a1 * 2]) {
+__repair_literal = 2;
+
+        if ((*(s16 *)((char *)((temp_s1 + (temp_a1 * __repair_literal))) + 0x1BC)) < D_800C7C16[temp_a1 * 2]) {
             if ((func_8005EF30(arg0, temp_a1) << 0x18) != 0) {
                 if (gBorderSkipActive) {
                     var_v0_2 = lookupDataEntry(((__repair_record_temp_s3*)temp_s3)->field_28 | 0x9000);

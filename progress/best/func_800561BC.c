@@ -415,7 +415,7 @@ block_29:
             if (M2C_FIELD(temp_s2, s32 *, 0x24) & 0x80000) {
                 setActorStatusBits(arg0);
                 effectSetAnimFrame(arg0, 5, 0x1B);
-                M2C_FIELD(arg0, s8 *, 0x7F) = 0xFF;
+                M2C_FIELD(arg0, u8 *, 0x7F) = 0xFF;
                 M2C_FIELD(arg0, s8 *, 0x80) = 0xA0;
                 M2C_FIELD(arg0, s8 *, 0x81) = 0xA;
                 M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 0x18000);
