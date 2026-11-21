@@ -23,12 +23,12 @@ extern char D_80100198[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern s32 gBorderSkipFlag;
-extern void *gMenuItems;
+extern void *gMenuState;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
 
-void pickupRefreshLabel(void) {
+void func_80021214(void) {
     s32 *__base_D_80102ED8;
     u8 *__base_D_801002AD;
     u8 *__repair_offset;
@@ -36,7 +36,7 @@ void pickupRefreshLabel(void) {
     u8 var_s1;
     void *temp_v0;
 
-    temp_v0 = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x7E);
+    temp_v0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x7E);
     if (temp_v0 != NULL) {
         __base_D_801002AD = &gPickupSavedByte;
         temp_v1 = (*__base_D_801002AD) * 0x18;
