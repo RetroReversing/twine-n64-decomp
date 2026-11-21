@@ -40,7 +40,7 @@ mapError:
 readSlots:
     raw = D_80108408;
     rawCode = raw + 10;
-    name = D_80107B6A;
+    name = (u32)D_80107B6A;
     code = name + 17;
     used = (u16 *)(name - 2);
     rawOffset = 0;
@@ -73,15 +73,15 @@ readSlots:
                 goto mapError;
             *used = 1;
             decodeTextField(name, (char *)((s32)D_80108408 + 14) + rawOffset, 16);
-            decodeTextField(code, rawCode, 4);
+            do { decodeTextField(code, rawCode, 4); } while (0);
         }
         rawCode += 32;
-        code += 24;
         name += 24;
+        code += 24;
         used += 12;
         rawOffset += 32;
-        ++i;
         raw += 32;
+        ++i;
     } while (i < 16);
     if (D_800E097C) {
         buf = gSaveSlotCodeBuf;

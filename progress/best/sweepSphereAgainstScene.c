@@ -40,7 +40,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         struct { f32 padding[2]; SweepVec end; } second;
     } result;
     f32 spE0;
-    f32 spE4;
+    register f32 spE4;
     s32 spE8[12];
     volatile SweepVec vec118;
     void **sp12C;
@@ -63,7 +63,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fs0;
-    s32 temp_fp;
+    int temp_fp;
     s32 temp_fp_2;
     s32 temp_s0;
     s32 temp_s0_2;
@@ -93,7 +93,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     s32 var_t2;
     register s32 var_v0;
     s32 var_v1;
-    u16 *var_s3;
+    register u16 *var_s3;
     u8 *var_s3_2;
     u16 *var_s3_3;
     u8 *var_s3_4;
@@ -117,7 +117,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     register void *temp_s4;
     void *temp_v0_3;
     void *var_s1;
-    void *var_s2_2;
+    register void *var_s2_2;
     void *var_s2_3;
     void *var_s2_4;
     void *var_s2_5;
@@ -244,7 +244,7 @@ block_17:
                                                     }
                                                     var_s2_3 += 3;
                                                     var_s3_2 += 3;
-                                                    var_s0_2 += 1;
+                                                    var_s0_2++;
                                                 } while ((u32) (var_s0_2 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s4) + 0x40)));
                                             }
                                         }
@@ -313,8 +313,8 @@ block_17:
                                                 }
                                             }
                                             var_s2_4 += 6;
-                                            var_s0_3 += 1;
                                             var_s3_3 += 3;
+                                            var_s0_3 += 1;
                                         } while ((u32) (var_s0_3 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s1) + 0x40)));
                                     }
                                 } else {

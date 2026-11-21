@@ -343,18 +343,18 @@ block_83:
                 } else {
                     goto block_93;
                 }
-                goto block_94;
-            }
-            if (temp_v1_8 == 0xA) {
-                D_8011F060[(s8) M2C_FIELD(temp_s2, u8 *, 0x182)] = 0;
-                if (randomIntBelow(0x64) < 0x42U) {
-                    var_a1_3 = 9;
-                } else {
-block_93:
-                    var_a1_3 = 3;
-                }
-block_94:
                 func_80117EC8(arg0, var_a1_3);
+            } else {
+                if (temp_v1_8 == 0xA) {
+                    D_8011F060[(s8) M2C_FIELD(temp_s2, u8 *, 0x182)] = 0;
+                    if (randomIntBelow(0x64) < 0x42U) {
+                        var_a1_3 = 9;
+                    } else {
+block_93:
+                        var_a1_3 = 3;
+                    }
+                    func_80117EC8(arg0, var_a1_3);
+                }
             }
         }
         if ((sp44 != NULL) && (M2C_FIELD(sp44, u16 *, 0x78) == 0xB)) {
