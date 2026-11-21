@@ -39,66 +39,66 @@ extern u16 gMenuMode;
 extern u8 gMenuSlot;
 extern void *gMenuState;
 
-/* Handles a confirmed menu selection: updates per-slot item state and sounds, or runs the item's callback. */ void menuHandleSelection(void) {
-    s32 itemIndex;
-    s32 itemIndex2;
-    u16 itemOffset;
-    u16 itemId;
+void menuHandleSelection(void) {
+    s32 temp_v0;
+    s32 temp_v1;
+    u16 temp_a2;
+    u16 temp_a1;
     u8 slot;
     s32 mode;
     void *state;
     void *callbackState;
-    u8 itemIdAlt;
-    void *itemData;
-    void *sceneState;
-    void *payloadText;
-    void *valueText;
-    void *itemEntry;
-    void *itemText;
-    void *payloadEntry;
-    void *selectedItem;
-    void *idEntry;
-    void *callbackEntry;
+    u8 temp_v1_2;
+    void *temp_a0;
+    void *temp_a0_2;
+    void *temp_s0;
+    void *temp_s0_2;
+    void *temp_s0_3;
+    void *temp_s0_4;
+    void *temp_s1;
+    void *temp_s2;
+    void *temp_s3;
+    void *temp_v0_3;
 
     updateActiveMenuState();
     M2C_FIELD(gMenuState, s8 *, 0x2C) = 0;
     if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
-            selectedItem = func_8002A980(gMenuList);
+            temp_s2 = func_8002A980(gMenuList);
             if (*((s32 *)((u8 *)&gBonusSceneHandle + (gMenuSlot * 4))) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
-                    payloadEntry = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
-                    idEntry = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
-                    if (payloadEntry != NULL) {
-                        M2C_FIELD(M2C_FIELD(payloadEntry, void **, 8), s32 *, 0x18) = lookupDataEntry(func_8001E760(0, M2C_FIELD(selectedItem, u8 *, 8)) & 0xFFFF);
-                        payloadText = M2C_FIELD(payloadEntry, void **, 8);
-                        M2C_FIELD(payloadText, s16 *, 0x1C) = strlen(M2C_FIELD(payloadText, s32 *, 0x18));
-                        M2C_FIELD(M2C_FIELD(payloadEntry, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(1, M2C_FIELD(selectedItem, u8 *, 8)) & 0xFFFF);
-                        valueText = M2C_FIELD(payloadEntry, void **, 0x30);
-                        M2C_FIELD(valueText, s16 *, 0x1C) = strlen(M2C_FIELD(valueText, s32 *, 0x18));
+                    temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
+                    temp_s3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
+                    if (temp_s1 != NULL) {
+                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s32 *, 0x18) = lookupDataEntry(func_8001E760(0, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        temp_s0 = M2C_FIELD(temp_s1, void **, 8);
+                        M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s32 *, 0x18));
+                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(1, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        temp_s0_2 = M2C_FIELD(temp_s1, void **, 0x30);
+                        M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s32 *, 0x18));
                     }
-                    itemIndex = M2C_FIELD(selectedItem, u8 *, 8) * 0xE8;
-                    func_8002135C(*((s16 *)((u8 *)&D_800C46D8 + itemIndex)), *((s16 *)((u8 *)&D_800C46DA + itemIndex)));
-                    if (idEntry != NULL) {
-                        itemData = M2C_FIELD(idEntry, void **, 8);
-                        if (itemData != NULL) {
-                            if (M2C_FIELD(selectedItem, u8 *, 8) == 0x24) {
-                                M2C_FIELD(itemData, s32 *, 0x28) = (s32) (M2C_FIELD(itemData, s32 *, 0x28) & ~0xFC);
+                    temp_v0 = M2C_FIELD(temp_s2, u8 *, 8) * 0xE8;
+                    func_8002135C(*((s16 *)((u8 *)&D_800C46D8 + temp_v0)), *((s16 *)((u8 *)&D_800C46DA + temp_v0)));
+                    if (temp_s3 != NULL) {
+                        temp_a0 = M2C_FIELD(temp_s3, void **, 8);
+                        if (temp_a0 != NULL) {
+                            if (M2C_FIELD(temp_s2, u8 *, 8) == 0x24) {
+                                M2C_FIELD(temp_a0, s32 *, 0x28) = (s32) (M2C_FIELD(temp_a0, s32 *, 0x28) & ~0xFC);
                             } else {
-                                M2C_FIELD(itemData, s32 *, 0x28) = (s32) ((M2C_FIELD(itemData, s32 *, 0x28) & ~0xFC) | 0x1C);
+                                M2C_FIELD(temp_a0, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a0, s32 *, 0x28) & ~0xFC) | 0x1C);
                             }
                         }
                     }
                     break;
                 case 1:                             /* switch 1 */
-                    itemEntry = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
-                    itemIndex2 = M2C_FIELD(selectedItem, u8 *, 8) * 0x10;
-                    func_8002135C(*((s16 *)((u8 *)&D_800C4478 + itemIndex2)), *((s16 *)((u8 *)&D_800C447A + itemIndex2)));
-                    if (itemEntry != NULL) {
-                        M2C_FIELD(M2C_FIELD(itemEntry, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(2, M2C_FIELD(selectedItem, u8 *, 8)) & 0xFFFF);
-                        itemText = M2C_FIELD(itemEntry, void **, 0x30);
-                        M2C_FIELD(itemText, s16 *, 0x1C) = strlen(M2C_FIELD(itemText, s32 *, 0x18));
+                    temp_s0_3 = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
+                    temp_v1 = M2C_FIELD(temp_s2, u8 *, 8) * 0x10;
+                    func_8002135C(*((s16 *)((u8 *)&D_800C4478 + temp_v1)), *((s16 *)((u8 *)&D_800C447A + temp_v1)));
+                    if (temp_s0_3 != NULL) {
+                        M2C_FIELD(M2C_FIELD(temp_s0_3, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(2, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        temp_s0_4 = M2C_FIELD(temp_s0_3, void **, 0x30);
+                        M2C_FIELD(temp_s0_4, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_4, s32 *, 0x18));
                     }
                     break;
                 }
@@ -106,29 +106,29 @@ extern void *gMenuState;
             }
         } else {
 block_15:
-            selectedItem = func_8002A980(gMenuList);
-            if ((selectedItem != NULL) && (func_80027C60(0x2A) & 0xFF)) {
+            temp_s2 = func_8002A980(gMenuList);
+            if ((temp_s2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
                 requestSound(0xE8);
                 mode = gMenuMode;
                 if (mode == 1) goto mode_one;
                 if (mode >= 2) return;
                 if (mode == 0) {
                     slot = gMenuSlot;
-                    itemId = M2C_FIELD(selectedItem, u8 *, 8);
-                    *((u16 *)((u8 *)&D_800E0ECC + (slot * 2))) = (s16) itemId;
-                    sceneState = M2C_FIELD(*((s32 *)((u8 *)&gBonusSceneHandle + (slot * 4))), void **, 0x6C);
-                    if (*((u16 *)((u8 *)&D_800C469E + ((itemId & 0xFFFF) * 0xE8))) == 0x21) {
-                        M2C_FIELD(sceneState, s8 *, 0x306) = (s8) (itemId - 0x21);
+                    temp_a1 = M2C_FIELD(temp_s2, u8 *, 8);
+                    *((u16 *)((u8 *)&D_800E0ECC + (slot * 2))) = (s16) temp_a1;
+                    temp_a0_2 = M2C_FIELD(*((s32 *)((u8 *)&gBonusSceneHandle + (slot * 4))), void **, 0x6C);
+                    if (*((u16 *)((u8 *)&D_800C469E + ((temp_a1 & 0xFFFF) * 0xE8))) == 0x21) {
+                        M2C_FIELD(temp_a0_2, s8 *, 0x306) = (s8) (temp_a1 - 0x21);
                     }
                     slot = gMenuSlot;
-                    itemOffset = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
-                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (itemOffset + *((u8 *)sceneState + (itemOffset << 3) + 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
+                    temp_a2 = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
+                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (temp_a2 + *((u8 *)temp_a0_2 + (temp_a2 << 3) + 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
                     if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
-                        callbackEntry = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
+                        temp_v0_3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
                         state = gMenuState;
                         M2C_FIELD(state, s8 *, 0x2C) = 1;
                         callbackState = gMenuState;
-                        M2C_FIELD(state, void **, 0x18) = callbackEntry;
+                        M2C_FIELD(state, void **, 0x18) = temp_v0_3;
                         M2C_FIELD(M2C_FIELD(callbackState, void *volatile *, 0x18), M2C_UNK (**)(void *), 4)(state);
                         return;
                     }
@@ -137,9 +137,9 @@ block_15:
 mode_one:
                 {
                     slot = gMenuSlot;
-                    itemIdAlt = M2C_FIELD(selectedItem, u8 *, 8);
-                    *((u16 *)((u8 *)&D_800E0ED4 + (slot * 2))) = (s16) itemIdAlt;
-                    func_8001F4B8(slot, itemIdAlt);
+                    temp_v1_2 = M2C_FIELD(temp_s2, u8 *, 8);
+                    *((u16 *)((u8 *)&D_800E0ED4 + (slot * 2))) = (s16) temp_v1_2;
+                    func_8001F4B8(slot, temp_v1_2);
                 }
             }
         }

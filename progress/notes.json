@@ -51224,79 +51224,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "menuHandleSelection",
-  "text": "Rechecked saved candidate c63e3e80dcaf3c670286 at score 790. Tested eight local repair variants covering scalar storage reuse, inferred record layouts, integer lifetimes, signedness, declaration order and branch orientation; no change improved it. Leading mismatch is control flow: target `bnez $v0` branches to 0x398, candidate to 0x394 after reading D_80109BB0+0x2e. Candidate includes irregular switches and likely incorrect inferred widths/layouts. No global reusable convention discovered.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795165473.3805141,
-  "score_before": 790,
-  "score_after": 790
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Improved saved candidate to 240 by correcting typed table strides and halfword accesses. Claim ceased during last compile. Next fix D_800E0ED4 indexing: its u16 declaration still has *2 in the index, producing shift 2 rather than target shift 1. Remaining missing lw 0x18 likely callback sequence; inspect last diff. The second func_8002A980 result uses s0 instead of target s2; reuse temp_s2 across both paths.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795183936.578945,
-  "score_before": 790,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Baseline recompiled at score 1720 (235/237 instructions); compile diagnostics only strlen prototype mismatch. Experiment casting D_800C46D8 address arithmetic to byte pointer regressed to 1905, though it altered index shift/register allocation substantially; best remains original. Remaining differences center on scaled table offsets, byte vs halfword store at D_800E0ECC (target sh, candidate sw), and branch targets about 8 bytes off. Investigate table element layouts/stride and use casts at access sites; don't keep the failed broad cast.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795183984.838021,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Best verified 1710 revision 7a4b13588539b567c1a2: indexed D_8010A500 by element rather than scaling an s32 pointer twice. Local scalar reuse, inferred record layouts, branch inversion, signedness, declaration order and address temporary trials did not improve. Remaining 41 instruction mismatches include missing operations and branch offsets; inspect raw diff and correct byte-offset table accesses and control flow before register tuning.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795185048.029443,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Tried six local repair families, fixed conflicting strlen declaration, and tested a casted table stride; best stays 1000. Remaining differences include table index scaling (target shifts by 1/2 rather than draft's 3/4/5/6), halfword stores to D_800E0ECC, one branch target offset, and register/order differences.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202715.995692,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Saved candidate 263b201a5fea78335809, score 1000, 236 vs 237 target instructions. Tried historic saved baseline, auto-repair batch (branch orientation, widening temp, target call arity, volatile global, scalar temp reuse, inferred record layout) and an if-condition patch; none improved. Branch target first differs at offset 0x394 vs 0x398. Remaining material mismatch includes expected halfword stores to D_800E0ECC vs word stores and shift scales (target shifts by 1/2 vs candidate by 3/4/5/6); table index/address typing likely root. Next experiment: model D_800E0ECC/ED4 as u16 arrays and use explicit typed table pointers for slot indexing, then inspect how computed nested record index is formed.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795206453.902773,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Not matched. Best remains saved 790 (rev c63e3e80dcaf3c670286, m2c-style). My rewrite (rev 0d6e196b9cf532ad0f61, typed s16 externs, u32 casts, 232/16 strides) scored 1950 and dropping the func_8002638C result assignment gave 1955: worse. Key finding from asm: in switch case 0, func_8002638C(D_80109BB0->0x10,0x62) result is DISCARDED (no move from v0 after its jal); s1 = func_800262A8(D_80109BB0->0x10,0x1E) result (move s1,v0 in jal delay slot), then s3 copy of same value. m2c draft wrongly assigns the 8002638C result to temp_s1. Also case 1 stores via func_80026314 result in s0. Remaining diffs: register allocation (target uses s2 for entry ptr, s3 for 262A8 result), branch targets off by 4 bytes in my rewrite, and the switch2 case-0 'andi v1,a1,0xffff' / lw 0x18(v1) ordering. Next step: start from saved 790 candidate, fix only the discarded-8002638C assignment and the s1/s3 copy, then the register order.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795208519.263131,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Not matched. Best 790 (96.6%, 236 vs 237 insns), rev ba2fe5bcea43b0fbd313 (same C as saved best). Diff: target uses sll 2/ sll 3/ sll 4 scalings for the 0xE8/0x10 record strides and loads D_800C46D8/D_800C4478 first, while candidate computes *0xE8 as sll 5 + sll 3 and loads from D_800C46DA/D_800C447A (the +2 offset symbol), so the two-halfword table indexing is off. Also target stores D_800E0ECC/ D_800E0ED4 via sh (halfword) while candidate uses sw; the typed s16 cast needs to propagate to the store. Branch targets offset by one instruction (0x398 vs 0x394) follow from the extra instruction. Next: try a struct/array typedef for D_800C46D8 (pairs of s16 with stride 0xE8 indexed by u8) and make the D_800E0ECC/D_800E0ED4 arrays u16 typed so stores are sh; check the switch-1 case 0 result-discard of func_8002638C. Local repair batch and signedness trials gave no improvement.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795210153.421012,
-  "score_before": 240,
-  "score_after": 240
- },
- {
-  "function": "menuHandleSelection",
-  "text": "Not matched. Best ~230 (98.9%). Key wins: the case-0/1 and switch-2 table accesses must be written as char/typed-pointer indexing, not pointer arithmetic on s32*: ((s16*)&D_800E0ECC)[D_800BD68F] = ..., ((u16*)&D_800E0ECC)[idx], ((s16*)&D_800E0ED4)[idx], ((s32*)&D_8010A500)[idx], and *(s16*)((char*)&D_800C4478 + off) with off = idx*0x10 and idx*29*8 for the 0xE8 stride (sll 3 / sll 1 scaling then fixed). Remaining diff: target still uses sll $v1,$v1,2 where ours has sll 4 in one indexed D_800BD68F access (the D_8010A500 index in the gate, after the branch inversion), and a lw $v0,0x18($v1) ordering; branch orientation of the 0x24 test flips between variants. Next step: from revision 472bfe128f00c190c255 (or saved best), retype the remaining D_800BD68F*4 access in the switch-2 path and try the 0x24 branch orientation with the stores as in the original order.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795216373.221889,
-  "score_before": 490,
-  "score_after": 230,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
- },
- {
   "function": "func_8009811C",
   "text": "Rechecked 1125 baseline. Local repair variants no better (one worse 1215); volatile pad[2] worsened to 1131. Changed argument from s32 to u16 retained 1125; uninitialized s32 local had no effect. Target references D_800F8D60/62 and D_800F9564/66 via byte offsets; baseline frame 0x28 already matches.\nRechecked 1125 baseline. Local repair variants no better; volatile pad[2] worsened to 1131. Changed arg s32 to u16 retained 1125.\nTarget 102 instructions versus candidate 105; 59 diff rows. Correct frame baseline is 0x28. Assembly loads bucket count/start from symbol offsets 0/2 and entry id/ref from offsets 4/6.",
   "by": "codex-gpt-6-luna-11",
@@ -51369,14 +51296,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
  },
  {
-  "function": "menuHandleSelection",
-  "text": "Inherited saved history reports earlier best score 230 but current draft rechecks 1720; all attempted rewrite compile failed due my incomplete resend omitting M2C typedef/macro block. Recovered handoff says key correction is typed halfword table addressing with (s16*)&D_800C46D8 + byte offset and 0x10 stride; further address/index corrections needed. Next step: start from full get_function brief draft (including M2C definitions), correct table accesses and run compile; do not reuse incomplete rewrite.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795217943.340626,
-  "score_before": 225,
-  "score_after": 225
- },
- {
   "function": "func_8009846C",
   "text": "Saved best remains 35, rechecked. Rewriting return to `if (temp_v0 != NULL) return *temp_v0; return 0;` recovered it from a bad exploratory rewrite (1385 -> 35); no further distinct improvement. Next step: explore pointer/function prototype and local lifetime allocation using staged_call_arguments / branch_tail_lifetimes; target only differs in registers around initializer call and null return path.",
   "by": "codex-gpt-6-luna-13",
@@ -51420,14 +51339,6 @@
   "score_before": 40,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
- },
- {
-  "function": "menuHandleSelection",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Prior candidate context is mixed: current compileable source not retrieved this session, prior agent reported draft compile failure from missing declarations and many previous trials; best remembered 75/230 but uncertain. No edits compiled this session. Handoff points to typed halfword table accesses and offset arithmetic (byte offsets, table strides 0x10 and 0xE8), not raw scalar extern arithmetic. Next step: get full current best, compile it to establish current score, then ensure declarations and rewrite each table access with typed `s16*`/`u16*` indexed forms using byte-offset arithmetic.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795218016.5365372,
-  "score_before": 225,
-  "score_after": 225
  },
  {
   "function": "func_8002FFAC",
@@ -56999,5 +56910,94 @@
   "score_before": 1592,
   "score_after": 1592,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:77cf1eaae71ca5710c31399fdbf551d440c849cf76e06d4aca23dacbe1ccfb3c"
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Rechecked saved candidate c63e3e80dcaf3c670286 at score 790. Tested eight local repair variants covering scalar storage reuse, inferred record layouts, integer lifetimes, signedness, declaration order and branch orientation; no change improved it. Leading mismatch is control flow: target `bnez $v0` branches to 0x398, candidate to 0x394 after reading D_80109BB0+0x2e. Candidate includes irregular switches and likely incorrect inferred widths/layouts. No global reusable convention discovered.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795165473.3805141,
+  "score_before": 790,
+  "score_after": 790
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Improved saved candidate to 240 by correcting typed table strides and halfword accesses. Claim ceased during last compile. Next fix D_800E0ED4 indexing: its u16 declaration still has *2 in the index, producing shift 2 rather than target shift 1. Remaining missing lw 0x18 likely callback sequence; inspect last diff. The second func_8002A980 result uses s0 instead of target s2; reuse temp_s2 across both paths.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795183936.578945,
+  "score_before": 790,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Baseline recompiled at score 1720 (235/237 instructions); compile diagnostics only strlen prototype mismatch. Experiment casting D_800C46D8 address arithmetic to byte pointer regressed to 1905, though it altered index shift/register allocation substantially; best remains original. Remaining differences center on scaled table offsets, byte vs halfword store at D_800E0ECC (target sh, candidate sw), and branch targets about 8 bytes off. Investigate table element layouts/stride and use casts at access sites; don't keep the failed broad cast.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795183984.838021,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Best verified 1710 revision 7a4b13588539b567c1a2: indexed D_8010A500 by element rather than scaling an s32 pointer twice. Local scalar reuse, inferred record layouts, branch inversion, signedness, declaration order and address temporary trials did not improve. Remaining 41 instruction mismatches include missing operations and branch offsets; inspect raw diff and correct byte-offset table accesses and control flow before register tuning.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795185048.029443,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Tried six local repair families, fixed conflicting strlen declaration, and tested a casted table stride; best stays 1000. Remaining differences include table index scaling (target shifts by 1/2 rather than draft's 3/4/5/6), halfword stores to D_800E0ECC, one branch target offset, and register/order differences.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202715.995692,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Saved candidate 263b201a5fea78335809, score 1000, 236 vs 237 target instructions. Tried historic saved baseline, auto-repair batch (branch orientation, widening temp, target call arity, volatile global, scalar temp reuse, inferred record layout) and an if-condition patch; none improved. Branch target first differs at offset 0x394 vs 0x398. Remaining material mismatch includes expected halfword stores to D_800E0ECC vs word stores and shift scales (target shifts by 1/2 vs candidate by 3/4/5/6); table index/address typing likely root. Next experiment: model D_800E0ECC/ED4 as u16 arrays and use explicit typed table pointers for slot indexing, then inspect how computed nested record index is formed.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795206453.902773,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Not matched. Best remains saved 790 (rev c63e3e80dcaf3c670286, m2c-style). My rewrite (rev 0d6e196b9cf532ad0f61, typed s16 externs, u32 casts, 232/16 strides) scored 1950 and dropping the func_8002638C result assignment gave 1955: worse. Key finding from asm: in switch case 0, func_8002638C(D_80109BB0->0x10,0x62) result is DISCARDED (no move from v0 after its jal); s1 = func_800262A8(D_80109BB0->0x10,0x1E) result (move s1,v0 in jal delay slot), then s3 copy of same value. m2c draft wrongly assigns the 8002638C result to temp_s1. Also case 1 stores via func_80026314 result in s0. Remaining diffs: register allocation (target uses s2 for entry ptr, s3 for 262A8 result), branch targets off by 4 bytes in my rewrite, and the switch2 case-0 'andi v1,a1,0xffff' / lw 0x18(v1) ordering. Next step: start from saved 790 candidate, fix only the discarded-8002638C assignment and the s1/s3 copy, then the register order.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795208519.263131,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Not matched. Best 790 (96.6%, 236 vs 237 insns), rev ba2fe5bcea43b0fbd313 (same C as saved best). Diff: target uses sll 2/ sll 3/ sll 4 scalings for the 0xE8/0x10 record strides and loads D_800C46D8/D_800C4478 first, while candidate computes *0xE8 as sll 5 + sll 3 and loads from D_800C46DA/D_800C447A (the +2 offset symbol), so the two-halfword table indexing is off. Also target stores D_800E0ECC/ D_800E0ED4 via sh (halfword) while candidate uses sw; the typed s16 cast needs to propagate to the store. Branch targets offset by one instruction (0x398 vs 0x394) follow from the extra instruction. Next: try a struct/array typedef for D_800C46D8 (pairs of s16 with stride 0xE8 indexed by u8) and make the D_800E0ECC/D_800E0ED4 arrays u16 typed so stores are sh; check the switch-1 case 0 result-discard of func_8002638C. Local repair batch and signedness trials gave no improvement.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795210153.421012,
+  "score_before": 240,
+  "score_after": 240
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Not matched. Best ~230 (98.9%). Key wins: the case-0/1 and switch-2 table accesses must be written as char/typed-pointer indexing, not pointer arithmetic on s32*: ((s16*)&D_800E0ECC)[D_800BD68F] = ..., ((u16*)&D_800E0ECC)[idx], ((s16*)&D_800E0ED4)[idx], ((s32*)&D_8010A500)[idx], and *(s16*)((char*)&D_800C4478 + off) with off = idx*0x10 and idx*29*8 for the 0xE8 stride (sll 3 / sll 1 scaling then fixed). Remaining diff: target still uses sll $v1,$v1,2 where ours has sll 4 in one indexed D_800BD68F access (the D_8010A500 index in the gate, after the branch inversion), and a lw $v0,0x18($v1) ordering; branch orientation of the 0x24 test flips between variants. Next step: from revision 472bfe128f00c190c255 (or saved best), retype the remaining D_800BD68F*4 access in the switch-2 path and try the 0x24 branch orientation with the stores as in the original order.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795216373.221889,
+  "score_before": 490,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Inherited saved history reports earlier best score 230 but current draft rechecks 1720; all attempted rewrite compile failed due my incomplete resend omitting M2C typedef/macro block. Recovered handoff says key correction is typed halfword table addressing with (s16*)&D_800C46D8 + byte offset and 0x10 stride; further address/index corrections needed. Next step: start from full get_function brief draft (including M2C definitions), correct table accesses and run compile; do not reuse incomplete rewrite.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795217943.340626,
+  "score_before": 225,
+  "score_after": 225
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Prior candidate context is mixed: current compileable source not retrieved this session, prior agent reported draft compile failure from missing declarations and many previous trials; best remembered 75/230 but uncertain. No edits compiled this session. Handoff points to typed halfword table accesses and offset arithmetic (byte offsets, table strides 0x10 and 0xE8), not raw scalar extern arithmetic. Next step: get full current best, compile it to establish current score, then ensure declarations and rewrite each table access with typed `s16*`/`u16*` indexed forms using byte-offset arithmetic.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795218016.5365372,
+  "score_before": 225,
+  "score_after": 225
  }
 ]
