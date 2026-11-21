@@ -56,7 +56,7 @@ typedef struct
 void func_80036BBC(void *arg0)
 {
   s32 *var_v1_2;
-  s32 *var_v1_3;
+  
   s32 *temp_v1;
   s32 *temp_v1_10;
   s32 *temp_v1_11;
@@ -158,7 +158,7 @@ void func_80036BBC(void *arg0)
                 {
                   *((u8 *) (((char *) temp_v1_6) + 0x46)) = (u8) D_800C2B40;
                 }
-                func_80039364(var_s0);
+                do { func_80039364(var_s0); } while (0);
               }
               if ((!((((u32) ((__repair_record_var_s0 *) var_s0)->field_58) >> 2) & 4)) || (!(((__repair_field_100 *) arg0)->value & 4)))
               {
@@ -199,7 +199,7 @@ void func_80036BBC(void *arg0)
           else
           {
             var_a0 = D_80115328;
-            ((__repair_field_0 *) var_a0)->value = 0xDA380003; var_v1 = (*((s32 *) (((char *) sRenderState) + 0x74C))) - 0x80000000; D_80115328 = ((s8 *) var_a0) + 8;
+            ((__repair_field_0 *) var_a0)->value = 0xDA380003; var_v1_2 = (void *) (*((s32 *) (((char *) sRenderState) + 0x74C))); var_v1 = (u32) var_v1_2 - 0x80000000; D_80115328 = ((s8 *) var_a0) + 8;
             block_34:
             *((s32 *) (((char *) var_a0) + 4)) = var_v1;
 
@@ -265,15 +265,15 @@ void func_80036BBC(void *arg0)
                     D_80115328 = var_v0_2 + 2;
                   }
                   while (0);
-                  var_v1_3 = &D_800B1A00;
+                  var_v1_2 = &D_800B1A00;
                   ((__repair_field_0 *) var_v0_2)->value = 0xDE000000;
                 }
                 else
                 {
                   var_v0_2 = D_80115328; D_80115328 = ((s8 *) var_v0_2) + 8;
-                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000; var_v1_3 = &D_800B1B18;
+                  ((__repair_field_0 *) var_v0_2)->value = 0xDE000000; var_v1_2 = &D_800B1B18;
                 }
-                *((s32 **) (((char *) var_v0_2) + 4)) = var_v1_3;
+                *((s32 **) (((char *) var_v0_2) + 4)) = var_v1_2;
               }
               if (D_801032A0 != 1)
               {

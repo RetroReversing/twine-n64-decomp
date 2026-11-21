@@ -206,7 +206,7 @@ void func_80035060(void *arg0)
       duplicate:
       temp_v1_2 = var_v1_3 & 0xFFFF;
 
-      var_a0_2 = (temp_v1_2 << 0x10) | temp_v1_2;
+      var_v1 = (temp_v1_2 << 0x10); var_a0_2 = var_v1 | temp_v1_2;
     }
     var_a0_2 &= -(inline_fn2(((char *) arg0) + 0x100, 0x40) == 0);
     if (gTrackMarkerActiveMask)

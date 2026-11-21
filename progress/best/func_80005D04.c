@@ -52,9 +52,8 @@ void func_80005D04(u8 *arg0, const u8 *arg1, const u8 *arg2, f32 arg3) {
             temp_ft0 = (*(const f32 *)((char *)(var_a0) + 8));
             temp_ft3 = (*(const f32 *)((char *)(var_v1) + 8));
             temp_ft0 -= temp_ft3;
-            temp_fv1 = (*(const f32 *)((char *)(var_a0) + 0xC));
             temp_ft2 = (*(const f32 *)((char *)(var_v1) + 0xC));
-            temp_fv1 -= temp_ft2;
+            temp_fv1 = ((*(const f32 *)((char *)(var_a0) + 0xC))) - temp_ft2;
             temp_fv0 = (*(const f32 *)((char *)(var_a0) + 0x10));
             temp_ft1 = (*(const f32 *)((char *)(var_v1) + 0x10));
             temp_fv0 -= temp_ft1;
