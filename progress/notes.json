@@ -58755,14 +58755,6 @@
   "score_after": 2264
  },
  {
-  "function": "func_80044410",
-  "text": "Rechecked best 656. Main near-match has exact 74 instruction count but stack frame is 0x30 vs target 0x40, shifting all save slots and branch offsets; also ten registers/order mismatches. Early-return rewrite scored 2271, so retain nested loops/conditions. Changing arg0 s8\u2192s32 worsened to 883; D_80100914 signedness had no effect. Local-repair batch tried loop weight/backedge, callee widths, address temporary, arity, dead copy; blocked mid-batch by project progress change. Remaining best candidate is saved. Investigate extra 16-byte local/spill area and target's $v0 sign extension vs candidate's $s4 intermediate.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795138793.538163,
-  "score_before": 656,
-  "score_after": 656
- },
- {
   "function": "func_8007AEA4",
   "text": "Improved the current verified score from 1043 to 577 (91.3%) and exhausted the 6-compile move-on budget. Corrected dataflow: *(u8 *)(arg1 + arg2*4 - 4) is passed through a stack slot to func_80045CF8 each outer iteration; func_8007ADD0 receives arg0 and its result is tested via <<24; the table scan checks byte +4, then u16 +2, writes byte +1 to *(arg0+0x6C)+0x7F and invokes func_80002BD0. Best candidate uses a volatile saved s32 and volatile pad array to influence frame/register allocation. Remaining differences are mainly saved-register allocation/stack slots, the loop's branch-likely offsets, conditional return shaping, and one extra candidate instruction. Reordering the initial temp_v0 computation and changing call signatures/casts did not improve. Continue from saved_best/current 577 candidate; target begins by saving arg0 as $s2, arg1 as $s6, arg2 as $s7, whereas candidate allocated these to different callee-saved registers.",
   "by": "codex-gpt-6-luna-17",
@@ -59433,14 +59425,6 @@
   "created_at": 1795178539.6816242,
   "score_before": 577,
   "score_after": 577
- },
- {
-  "function": "func_80044410",
-  "text": "Rechecked baseline 656; six local repairs failed to improve. Target stack frame 0x40 vs candidate 0x30, with 10 register differences and one extra/two missing instructions. Investigate local lifetimes or original stack allocation and loop register use; explicit outer goto worsened.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795178576.747745,
-  "score_before": 656,
-  "score_after": 656
  },
  {
   "function": "func_800180D4",
@@ -60819,14 +60803,6 @@
   "score_after": 2405
  },
  {
-  "function": "func_80044410",
-  "text": "Toolchain became unavailable during variant batch; next compile also reports gcc-2.7.2-kmc not installed. Saved score 640 uses incorrect three-argument call: target at 0x800444B8 passes only record word and 0x2e in a0/a1. Corrected two-argument candidate revision 9566e7dd7ea30ef533b2 scored 958, with 71 instructions and 0x38 frame; continue from that semantic correction after compiler restored. Four-word unused volatile array brought saved candidate frame to 0x40.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795193758.133373,
-  "score_before": 656,
-  "score_after": 640
- },
- {
   "function": "func_8007AEA4",
   "text": "Improved 577 to 517 with ABI-correct calls and explicit scan/retry control flow. func_80045CF8 takes the saved s32 weight; func_8007ADD0 receives actor and loaded u16 ID promoted to s32; func_80002BD0 receives actor and the reloaded promoted ID. Remaining differences: actor and retry counter swap s2/s3, saved weight is at sp+0x18 instead of +0x14, and scan limit check lacks the target's branch-likely increment slot. The compiler tool twice reported gcc-2.7.2-kmc is not installed after the 517 build. The proposed pad split is untested.",
   "by": "codex-gpt-6.2-sol-6",
@@ -61003,14 +60979,6 @@
   "score_after": 2275
  },
  {
-  "function": "func_80044410",
-  "text": "Historical best 640 did not recompile identically: saved candidate now verifies at 3613. One variable reuse repair improved to 3508; pointer-cast edit produced same instructions. Remaining key issue is source structure/register allocation: target frame 0x40, current 0x48 with extra saved s7 and differing loop counters; target indexes D_800C078C via indexed global relocation and uses loop offsets, while draft materializes base address and increments counters. Rewrite around typed parallel tables/record structs or inspect matched neighboring loops. No general finding.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199834.273182,
-  "score_before": 640,
-  "score_after": 640
- },
- {
   "function": "func_8007AEA4",
   "text": "Saved best score 517 (92.2%, 67 target vs 65 candidate instructions). Tried loop pointer update rewritten as entries[index] (regressed to 952), signed index (917), and unsigned count (returned to 517); register keyword was ineffective, volatile index caused major stack/frame regression. Target keeps actor in $s2, entries in $s6, index in $s3; candidate allocation differs, plus target uses branch-likely tests. Best source retained; prioritize local lifetimes/register allocation and loop CFG to recover the 2 missing instructions and likely branch-likely form.",
   "by": "codex-gpt-6-luna-7",
@@ -61129,14 +61097,6 @@
   "created_at": 1795201758.9126751,
   "score_before": 2275,
   "score_after": 2275
- },
- {
-  "function": "func_80044410",
-  "text": "Rechecked historical candidate at 3613; reuse of var_s3 improved current score to 3508. Local signedness, declaration order, callee width, field width and initialization variants were unchanged; materializing the global base worsened it. Target frame 0x40 versus candidate 0x48 and 64 differing rows remain.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795201782.4296901,
-  "score_before": 640,
-  "score_after": 640
  },
  {
   "function": "func_800468E4",
@@ -61641,14 +61601,6 @@
   "created_at": 1795205002.865356,
   "score_before": 2955,
   "score_after": 2730
- },
- {
-  "function": "func_80044410",
-  "text": "Not matched. Function: outer loop over 16-byte table entries (flag @D_800C0784, ptr @D_800C0788, count @D_800C078C, byte offset i stride 0x10, bound D_80100914) and inner loop over 0x4C-byte objects (timer byte @+0x46: if !(v&0x80) && v!=0, v--, store; if v==0 call func_80084048(arg0, *obj, 0x2E) and zero *obj; else if arg0!=0 && v>=5 store 0). Target uses s0-s5 only (frame 0x40); arg0 sign-extended (sll/sra) into s5 after the D_80100914 check. Tried: typed-pointer table walk (TwineEntry array) -> 4484, worse; offset-based i with s8 mode local -> 3719 (frame 0x38, extra s6/s7 saved regs; compiler hoists D_800C078C base into s3, target does not). Target reloads D_800C078C+i (addu with s4 copy of i) each inner iteration. Untested: loop on combined offset bound 0x10*D_80100914 without k counter; matching sll/sra placement exactly.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795205016.333196,
-  "score_before": 640,
-  "score_after": 640
  },
  {
   "function": "func_800274BC",
@@ -62321,14 +62273,6 @@
   "created_at": 1795209065.398825,
   "score_before": 2535,
   "score_after": 2535
- },
- {
-  "function": "func_80044410",
-  "text": "Saved historical 640 is at -fno-strength-reduce; same C rechecks 3613 under current -O2. Ordinary best tested 2171. Diagnostic score 85 trial 2ca6ccb4bda344d09cf4 (candidate with unchanged padding[4]; corrected callee to two args dropping arg0; preload count and objects as volatile before count guard; set inner index=0, innerOffset=outer byte offset, then object pointer; cast length indexing through integer addition using innerOffset; stage s32 mode=arg0 before initial outer offset zero; use temp_v0_2=temp_v0). Remaining swap s3/s4 between outer counter and innerOffset, and branch uses pointer load in slot rather than inner-index zero. Register qualifiers/signedness and reversing count/object read source statements did not fix.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795209105.629083,
-  "score_before": 640,
-  "score_after": 640
  },
  {
   "function": "func_80096460",
@@ -63025,15 +62969,6 @@
   "score_before": 1690,
   "score_after": 517,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f9e3601313a3441a1f3fa88e091799278fb61542df1e0b4c0802a4b925a696fc"
- },
- {
-  "function": "func_80044410",
-  "text": "Explored control-flow rewrites; best live score 3161 from explicit signed-byte argument, outer offset/iteration increments in both if branches, and inner do loop (compile #2; saved candidate score rechecked 3613). A rewrite that caches count/pointer and folds guards regressed to 3323; restructuring count and timer guards reached 4383. Six compiles exhausted. Target prologue requires 0x40 frame and saves s0-s5; attempts using volatile padding[4] still yielded 0x48 frame, extra saved regs. Next step: start from saved best, inspect full target and candidate around the prologue and model table fields as explicit fixed arrays/typed table struct to match $s2 offset indexing and pointer loads.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214458.243096,
-  "score_before": 3559,
-  "score_after": 3161,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
  },
  {
   "function": "func_80039EFC",
@@ -64193,15 +64128,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3aeea6a6ee09fd14623b15296e33aee8ee3ad68bfb7975aa0f914fd3a9fb0c93"
  },
  {
-  "function": "func_80044410",
-  "text": "Saved 85 under ordinary flags, all 74 instructions. Outer index and inner offset occupy swapped s3/s4; object pointer load went in count branch delay slot, displacing the index clear. Two-arg callee is established by target a0/a1 loads.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795227480.815062,
-  "score_before": 3613,
-  "score_after": 85,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
   "function": "func_8011B5F0",
   "text": "Candidate store was irrecoverably overwritten by an empty stub; historical score 20021 and m2c draft exists but no full source revision could be retrieved. Confirmed stub compile gives only 2 instructions vs target 459, score 45760. Redrafted with generic declarations; no compile attempted because m2c output contains unknown `?` types and malformed member access. No look-alikes. Next step: reconstruct valid source from m2c draft, correcting struct/function prototypes from assembly and callers, then submit whole C.",
   "by": "codex-gpt-6-luna-20",
@@ -64701,15 +64627,6 @@
   "score_before": 875,
   "score_after": 875,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_80044410",
-  "text": "Best 85 (rev 2959cc643ab9e86a11d8, volatile-hack source with outer counter `i`). Only diff: outer counter i gets s4 and innerOffset copy gets s3 (target: i=s3, copy=s4), plus beqz/addu s1 delay-slot ordering. Tried: declaration order permutations (no change), using (i<<4) in inner loop condition (90), dropping innerOffset (415), i*16/i++ (same). Natural non-volatile struct-array C gives 2586-3705 (extra s6/s7 from mode!=0 hoisting). Next step: make i higher allocation priority than innerOffset (extra use of i), or restructure so copy arises from a pointer var.\ndeclaration reorder, (i<<4) in inner cond, i++ forms\nscore stayed 85 or got worse",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795233246.8203342,
-  "score_before": 85,
-  "score_after": 85,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
  },
  {
   "function": "func_80096460",
@@ -66245,24 +66162,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
  },
  {
-  "function": "func_80044410",
-  "text": "Reconstructed machine draft trial: changing outer loop to explicit backedge scored 3559; correcting both count offsets and flag offset to byte indexing improved to 2895. Claim ended before correcting D_800C0788 pointer byte offset; next test that on candidate revision 4b58b510cd2e8068b57b.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795250871.44459,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
-  "function": "func_80044410",
-  "text": "Current candidate reached score 2457 after explicit inner-loop backedge; best historical save is 3559 but current candidate is better. Repeated explicit-backedge compile unchanged (2/6); target frame is 0x40 vs C 0x28. Counts and fields likely use row-stride addressing; several predecessor trials got score 85 under a different profile. Claim objective is frame/stack access. Next step: recover the saved score-85 source from attempt 2ca6ccb4bda344d09cf4 or inspect its profile, then retest under current claim inputs.\nExplicit inner-loop backedge improved 4459 to 2457; recompiling same structure did not change instruction diff.\nStill 50 mismatching rows, principally stack frame (target 0x40 vs candidate 0x28), register/order diffs; no compile improvement.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795250962.516397,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
   "function": "func_8011E634",
   "text": "Claim ended during work. Corrected renamed gBorderMode to gVisibleSaveSlotCount; changing scene local to s32 and reloading after func_8011C890 improved verified score 3650 to 2250. Target retains D_801002AE address across calls and uses 0x20 frame versus 0x28. Next: test retaining pointer to D_801002AE across calls.",
   "by": "codex-gpt-6.1-terra-2",
@@ -66334,15 +66233,6 @@
   "score_after": 795
  },
  {
-  "function": "func_80044410",
-  "text": "Frame padding only improves score cosmetically; target needs another saved register and row addressing remains incorrect. IDO 7.1 diagnostic did not compile this draft.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795251924.539444,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
   "function": "func_8001E898",
   "text": "Removing register keyword and simplifying arg1 mask retained score 2565; widening both arguments worsened to 3040. Local record, lifetime, signedness trials did not improve.",
   "by": "codex-gpt-6.1-terra-2",
@@ -66394,15 +66284,6 @@
   "score_before": 3573,
   "score_after": 3573,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:494b18e51034fb194f6840a484a93c2f26b0aef41d579f4ea9d462861903c296"
- },
- {
-  "function": "func_80044410",
-  "text": "16-byte struct indexed by row produced score 2852 versus baseline 2450; target uses more saved registers. Baseline row indexing scales offsets incorrectly, so its lower score is not proof of correct semantics.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795252396.43816,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
  },
  {
   "function": "func_801183F4",
@@ -66616,24 +66497,6 @@
   "created_at": 1795254733.180985,
   "score_before": 22439,
   "score_after": 22439
- },
- {
-  "function": "func_80044410",
-  "text": "Saved best has incorrect scaled loop-bound indexing. Corrected revision bc3c7d31cb0037ecef38 scored 4234; explicit outer backedge revision 87e0a08f7bdc5fba4d7f scored 2795. Diagnostic -fno-strength-reduce scored 1758 on corrected baseline. Padding only masks frame mismatch; loop restructuring and register pressure remain unresolved.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795254794.296673,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
-  "function": "func_80044410",
-  "text": "Best remains 3959; current compilation of casted byte-stride var_s0 += (u8*)0x4C matched score but different source. u8 inner loop-bound and array declarations worsened; volatile global no effect. Main mismatch is frame -0x38 vs -0x40 and extra saved $s7/$ra placement; pointer stride cast likely corrected one indexing issue only. Next step: use get_assembly around first inner-loop block and adjust explicit typed structure/locals to produce target eight-word save frame and keep pointer stride, perhaps remove unused s7 pressure.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795254939.271979,
-  "score_before": 30,
-  "score_after": 30,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
  },
  {
   "function": "func_8004BCC0",
@@ -76672,5 +76535,142 @@
   "score_before": 14811,
   "score_after": 13271,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:e1621fb2734cd339a7ad307efe6ace526a69da0449642d4754ce185cf42bcc03"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Rechecked best 656. Main near-match has exact 74 instruction count but stack frame is 0x30 vs target 0x40, shifting all save slots and branch offsets; also ten registers/order mismatches. Early-return rewrite scored 2271, so retain nested loops/conditions. Changing arg0 s8\u2192s32 worsened to 883; D_80100914 signedness had no effect. Local-repair batch tried loop weight/backedge, callee widths, address temporary, arity, dead copy; blocked mid-batch by project progress change. Remaining best candidate is saved. Investigate extra 16-byte local/spill area and target's $v0 sign extension vs candidate's $s4 intermediate.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795138793.538163,
+  "score_before": 656,
+  "score_after": 656
+ },
+ {
+  "function": "func_80044410",
+  "text": "Rechecked baseline 656; six local repairs failed to improve. Target stack frame 0x40 vs candidate 0x30, with 10 register differences and one extra/two missing instructions. Investigate local lifetimes or original stack allocation and loop register use; explicit outer goto worsened.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795178576.747745,
+  "score_before": 656,
+  "score_after": 656
+ },
+ {
+  "function": "func_80044410",
+  "text": "Toolchain became unavailable during variant batch; next compile also reports gcc-2.7.2-kmc not installed. Saved score 640 uses incorrect three-argument call: target at 0x800444B8 passes only record word and 0x2e in a0/a1. Corrected two-argument candidate revision 9566e7dd7ea30ef533b2 scored 958, with 71 instructions and 0x38 frame; continue from that semantic correction after compiler restored. Four-word unused volatile array brought saved candidate frame to 0x40.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795193758.133373,
+  "score_before": 656,
+  "score_after": 640
+ },
+ {
+  "function": "func_80044410",
+  "text": "Historical best 640 did not recompile identically: saved candidate now verifies at 3613. One variable reuse repair improved to 3508; pointer-cast edit produced same instructions. Remaining key issue is source structure/register allocation: target frame 0x40, current 0x48 with extra saved s7 and differing loop counters; target indexes D_800C078C via indexed global relocation and uses loop offsets, while draft materializes base address and increments counters. Rewrite around typed parallel tables/record structs or inspect matched neighboring loops. No general finding.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199834.273182,
+  "score_before": 640,
+  "score_after": 640
+ },
+ {
+  "function": "func_80044410",
+  "text": "Rechecked historical candidate at 3613; reuse of var_s3 improved current score to 3508. Local signedness, declaration order, callee width, field width and initialization variants were unchanged; materializing the global base worsened it. Target frame 0x40 versus candidate 0x48 and 64 differing rows remain.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795201782.4296901,
+  "score_before": 640,
+  "score_after": 640
+ },
+ {
+  "function": "func_80044410",
+  "text": "Not matched. Function: outer loop over 16-byte table entries (flag @D_800C0784, ptr @D_800C0788, count @D_800C078C, byte offset i stride 0x10, bound D_80100914) and inner loop over 0x4C-byte objects (timer byte @+0x46: if !(v&0x80) && v!=0, v--, store; if v==0 call func_80084048(arg0, *obj, 0x2E) and zero *obj; else if arg0!=0 && v>=5 store 0). Target uses s0-s5 only (frame 0x40); arg0 sign-extended (sll/sra) into s5 after the D_80100914 check. Tried: typed-pointer table walk (TwineEntry array) -> 4484, worse; offset-based i with s8 mode local -> 3719 (frame 0x38, extra s6/s7 saved regs; compiler hoists D_800C078C base into s3, target does not). Target reloads D_800C078C+i (addu with s4 copy of i) each inner iteration. Untested: loop on combined offset bound 0x10*D_80100914 without k counter; matching sll/sra placement exactly.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795205016.333196,
+  "score_before": 640,
+  "score_after": 640
+ },
+ {
+  "function": "func_80044410",
+  "text": "Saved historical 640 is at -fno-strength-reduce; same C rechecks 3613 under current -O2. Ordinary best tested 2171. Diagnostic score 85 trial 2ca6ccb4bda344d09cf4 (candidate with unchanged padding[4]; corrected callee to two args dropping arg0; preload count and objects as volatile before count guard; set inner index=0, innerOffset=outer byte offset, then object pointer; cast length indexing through integer addition using innerOffset; stage s32 mode=arg0 before initial outer offset zero; use temp_v0_2=temp_v0). Remaining swap s3/s4 between outer counter and innerOffset, and branch uses pointer load in slot rather than inner-index zero. Register qualifiers/signedness and reversing count/object read source statements did not fix.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795209105.629083,
+  "score_before": 640,
+  "score_after": 640
+ },
+ {
+  "function": "func_80044410",
+  "text": "Explored control-flow rewrites; best live score 3161 from explicit signed-byte argument, outer offset/iteration increments in both if branches, and inner do loop (compile #2; saved candidate score rechecked 3613). A rewrite that caches count/pointer and folds guards regressed to 3323; restructuring count and timer guards reached 4383. Six compiles exhausted. Target prologue requires 0x40 frame and saves s0-s5; attempts using volatile padding[4] still yielded 0x48 frame, extra saved regs. Next step: start from saved best, inspect full target and candidate around the prologue and model table fields as explicit fixed arrays/typed table struct to match $s2 offset indexing and pointer loads.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214458.243096,
+  "score_before": 3559,
+  "score_after": 3161,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Saved 85 under ordinary flags, all 74 instructions. Outer index and inner offset occupy swapped s3/s4; object pointer load went in count branch delay slot, displacing the index clear. Two-arg callee is established by target a0/a1 loads.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795227480.815062,
+  "score_before": 3613,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Best 85 (rev 2959cc643ab9e86a11d8, volatile-hack source with outer counter `i`). Only diff: outer counter i gets s4 and innerOffset copy gets s3 (target: i=s3, copy=s4), plus beqz/addu s1 delay-slot ordering. Tried: declaration order permutations (no change), using (i<<4) in inner loop condition (90), dropping innerOffset (415), i*16/i++ (same). Natural non-volatile struct-array C gives 2586-3705 (extra s6/s7 from mode!=0 hoisting). Next step: make i higher allocation priority than innerOffset (extra use of i), or restructure so copy arises from a pointer var.\ndeclaration reorder, (i<<4) in inner cond, i++ forms\nscore stayed 85 or got worse",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795233246.8203342,
+  "score_before": 85,
+  "score_after": 85,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Reconstructed machine draft trial: changing outer loop to explicit backedge scored 3559; correcting both count offsets and flag offset to byte indexing improved to 2895. Claim ended before correcting D_800C0788 pointer byte offset; next test that on candidate revision 4b58b510cd2e8068b57b.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795250871.44459,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Current candidate reached score 2457 after explicit inner-loop backedge; best historical save is 3559 but current candidate is better. Repeated explicit-backedge compile unchanged (2/6); target frame is 0x40 vs C 0x28. Counts and fields likely use row-stride addressing; several predecessor trials got score 85 under a different profile. Claim objective is frame/stack access. Next step: recover the saved score-85 source from attempt 2ca6ccb4bda344d09cf4 or inspect its profile, then retest under current claim inputs.\nExplicit inner-loop backedge improved 4459 to 2457; recompiling same structure did not change instruction diff.\nStill 50 mismatching rows, principally stack frame (target 0x40 vs candidate 0x28), register/order diffs; no compile improvement.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795250962.516397,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Frame padding only improves score cosmetically; target needs another saved register and row addressing remains incorrect. IDO 7.1 diagnostic did not compile this draft.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795251924.539444,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "16-byte struct indexed by row produced score 2852 versus baseline 2450; target uses more saved registers. Baseline row indexing scales offsets incorrectly, so its lower score is not proof of correct semantics.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795252396.43816,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Saved best has incorrect scaled loop-bound indexing. Corrected revision bc3c7d31cb0037ecef38 scored 4234; explicit outer backedge revision 87e0a08f7bdc5fba4d7f scored 2795. Diagnostic -fno-strength-reduce scored 1758 on corrected baseline. Padding only masks frame mismatch; loop restructuring and register pressure remain unresolved.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795254794.296673,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
+ },
+ {
+  "function": "func_80044410",
+  "text": "Best remains 3959; current compilation of casted byte-stride var_s0 += (u8*)0x4C matched score but different source. u8 inner loop-bound and array declarations worsened; volatile global no effect. Main mismatch is frame -0x38 vs -0x40 and extra saved $s7/$ra placement; pointer stride cast likely corrected one indexing issue only. Next step: use get_assembly around first inner-loop block and adjust explicit typed structure/locals to produce target eight-word save frame and keep pointer stride, perhaps remove unused s7 pressure.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795254939.271979,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
  }
 ]

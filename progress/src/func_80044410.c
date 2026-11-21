@@ -39,10 +39,14 @@ void func_80044410(s8 arg0)
           {
             count = *((volatile u32 *) (var_s2 + ((u32) (&D_800C078C))));
             objects = *((TimerObject * volatile *) (var_s2 + ((u32) (&D_800C0788))));
-            innerOffset = var_s2;
-            if (count != 0)
+            do
             {
               var_s1 = 0;
+            }
+            while (0);
+            if (count != 0)
+            {
+              innerOffset = var_s2;
               var_s0 = objects;
               do
               {
