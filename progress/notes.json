@@ -4944,14 +4944,6 @@
   "score_after": 2264
  },
  {
-  "function": "func_800285D4",
-  "text": "Best candidate improved to score 725 by changing the source read to `*(volatile u32 *)D_801002E6`; saved candidate revision 41b4e21ff0e5dde46178. The target still uses lwl/lwr from D_801002E6 and swl/swr to offset 0x24, while C volatile u32 still emits aligned lw/sw. A four-byte volatile byte-copy emitted lbu/sb sequences and scored worse (1625). Remaining differences include branch destinations and register allocation. Continue investigating a C aggregate/unaligned access idiom that makes GCC emit the paired left/right instructions.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795138691.049344,
-  "score_before": 820,
-  "score_after": 725
- },
- {
   "function": "func_8004830C",
   "text": "Rechecked best 1640. Local variants tested field layout, reversed float compare arms, address temporary, allocator call arity, checker call arity, assignment at use; none improved (batch interrupted on shared-file synchronization after two scored trials). Main mismatch starts with target saving arg0 in s0 and storing field F4 in s1; current source allocates different registers. Target's call sequence: existing field pointer loaded to s1, retained in a0 delay slot; on null calls func_8003D848(arg0+0x10), then writes result to F4; otherwise calls func_80047B44(field,arg0+0x28,arg0+0x10,0). Later target reloads F4 into a1, null-checks, calls func_8003D64C(arg0+0x10) while a1 persists. Rebuild with typed record and explicit saved base/pointer lifetimes.",
   "by": "codex-gpt-6-luna-7",
@@ -6678,6 +6670,14 @@
   "created_at": 1795164399.056898,
   "score_before": 16825,
   "score_after": 2015
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "Best score 7516 at revision 160a321690db310da96d; move-on reached at 12/8. Tried supplied draft plus local repairs call_one_shot_scope, branch_orientation, scalar_storage_reuse, target_local_bundle, call_forwarded_arguments, cfg_integer_lifetimes, and cast variants. Scores only tied or worsened. Main problem: target prologue saves s0-s4 and ra (0x48 frame), tests arg0 directly in $a0, and narrows into $s2; candidate moves arg0 into $s0 immediately and saves only s0-s2. Current source keeps the wide arg live across branches/calls. Brief notes confirmed matched callee signatures: func_800312F4(short,unsigned short), func_800313DC(s16,s32) returning s32*, func_800314E0(s16,s32) returning void, func_80031548(s32,s32,s32). Candidate wrongly assigns func_800314E0 return values and uses conflict-prone old-style prototypes. Rebuild with accurate callee prototypes and branch-local narrowed indices; avoid reusing the 7516 source unchanged.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795164412.916012,
+  "score_before": 7516,
+  "score_after": 7516
  },
  {
   "function": "func_800371E0",
@@ -15976,6 +15976,14 @@
   "score_after": 1684
  },
  {
+  "function": "showTrackMarker",
+  "text": "Rechecked revision 872afd4233f7b807423b at 7516. Six local repairs tested: call scope, signedness, declaration order and nested guard tied; removing result temporaries worsened to 7736; caching D_8010302C address worsened to 9564. Target still differs substantially in call arguments, scheduling and register allocation. Avoid caching the global address only on a conditional path: it leaves the pointer uninitialized when that path is skipped. Reconsider control flow and callee prototypes against assembly.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795183425.88898,
+  "score_before": 7516,
+  "score_after": 7516
+ },
+ {
   "function": "func_8001CF24",
   "text": "Improved verified score from 3905 to 2130 by moving the result field store into each branch of the palette-selection CFG (call_into_arms). A further batch and a scalar type edit did not improve it; the scalar edit is strictly worse source quality and had no instruction effect. Remaining key differences: target has move $a3,$a1; candidate misses it, initial lw uses $a0 instead of target $v1, and later target uses signed slti while candidate emits sltiu, with several branch offsets/control-flow differences. strlen prototype warning persists. Best candidate is the 2130 branch-local-store revision.",
   "by": "codex-gpt-6-luna-22",
@@ -18326,6 +18334,14 @@
   "created_at": 1795184489.287501,
   "score_before": 795,
   "score_after": 795
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "Current best 7466/172 target instructions. Tried replacing global-address temp dereferences and changing narrow calls to use arg0>>16; both worse or tied; initializing the pointer local directly preserves score but the historical best's local remains uninitialized in the >=0x14 and middle branches (reported hypothesis on revision 6b6aebabdefa5d2d6236). Local repair trials call-scope and branch-orientation were worse (8011, 13105). Next work: use exact target call arguments/prototypes and restructure the packed arg0 handling; target extracts signed low 16 bits via sll/sra in the delay slot after the <10 check. Keep saved best as starting point.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795184512.98629,
+  "score_before": 7516,
+  "score_after": 7466
  },
  {
   "function": "func_8005F960",
@@ -28904,6 +28920,14 @@
   "score_after": 145
  },
  {
+  "function": "showTrackMarker",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Candidate revision 6b6aebabdefa5d2d6236; historical best 7466. Reviewed reported quality issue: candidate has a local pointer initialized only in arg0<10 branch but dereferenced in other branches, so semantic validity is doubtful. Attempted one baseline compile; blocked because gcc-2.7.2-kmc is not installed. No fresh score or changes. Prior historical attempts reference alternative revision 872afd4233f7b807423b (score 7516); see quality section for tested repairs.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795194023.802353,
+  "score_before": 7466,
+  "score_after": 7466
+ },
+ {
   "function": "UpdateSwitchedActorState",
   "text": "Released because its agent stopped (3 consecutive sessions ended without a build or investigation. Automatic retries paused.); its attempts are kept.",
   "by": "codex-gpt-6.2-sol-7",
@@ -34720,6 +34744,14 @@
   "score_after": 560
  },
  {
+  "function": "showTrackMarker",
+  "text": "Current saved best score 6623. Derived from inherited m2c and exact matched callee evidence; correcting void func_800314E0 to call then var_a2=0 improved from 6718 to 6623. A typed rewrite scored 11733 and global-pointer/callee-argument rewrite scored 12270. No exact match. Target begins 0x48 frame, saves s4/s3/s2/s1/s0, retains arg0 in a0 until branch and then narrows to s2. Both initial func_800312F4 calls pass second argument zero, while candidate second call currently passes arg0 as second argument. Target func_800313DC receives arg1=0; candidate omits it. Target then loads *D_80109688 through s1 before passing; candidate direct global scalar expression causes different load patterns. Remaining mismatch primarily branch target/register lifetime and calls.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795202425.741548,
+  "score_before": 6628,
+  "score_after": 6623
+ },
+ {
   "function": "func_80026A5C",
   "text": "Restored inherited saved_best revision 553c1b67d898687cdc1f; first compile scored 650. Reconstructed more explicit local C and reduced a bad experimental candidate from 5783 back to the inherited 650. Remaining local repairs (callee_parameter_width, parameter_width, address_temporary, switch_layout, const_read, unsigned_switch) gave no improvement; best remains 650. Current diff focus is early jump target (+0x2cc vs +0x2c4), then branch offsets and small register/order differences near the flag-composition code. Keep saved best; continue from it with focused assembly at offsets 0x2cc and ~0x1b0, prioritizing instruction count/conditional structure.",
   "by": "codex-gpt-6-luna-10",
@@ -37198,6 +37230,14 @@
   "created_at": 1795204709.939853,
   "score_before": 295,
   "score_after": 295
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate rechecks at 6623; first own compile exposed a too-few-arguments error from incorrect func_80073AF8 prototype/calls. No valid new candidate score produced. Need inspect callee signature and caller assembly before further work; current candidate includes compiler-generated repair locals and suspicious uninitialized __base_D_80109688 pointer. Fix signature first.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795204710.747822,
+  "score_before": 6623,
+  "score_after": 6623
  },
  {
   "function": "func_80023EC0",
@@ -39712,6 +39752,14 @@
   "score_after": 4442
  },
  {
+  "function": "showTrackMarker",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Did not compile a new candidate this session. Findings from target asm: func_80073AF8 is called with 11 args (a0-a3 plus 7 stack words: -1,0,0,0,3,0,0 pattern), so its prototype must have 11 params; the saved draft's 6-arg and 10-arg calls are wrong, which is the too-few-arguments error. Target: first call func_800312F4(s16 arg0, 0) != 3 then func_800312F4(arg0,(s16)arg0) != 1; then func_80031548(s16,1,0), D_8010302C++, func_800313DC, D_80109688 loaded via lui/addiu, then func_80073AF8 with a0=0, a1=*D_80109688. Next step: fix prototypes (func_80073AF8 with 11 s32 params), keep arg0 in s2 across calls, and compare against the 6623 candidate.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795207301.6222951,
+  "score_before": 6623,
+  "score_after": 6623
+ },
+ {
   "function": "func_80117ED0",
   "text": "Rechecked saved best 1840. Three compile attempts explored signed-byte source to func_80022DBC, switching on extracted bits directly, and a declaration/lifetime tweak; no improvement, with linker warning referencing .rodata+0 due altered experiment. Baseline remains saved best. Target at offsets 0x38-0x5C uses computed jumptable D_8011EE50, then five constant arms writing FPR and selecting state IDs; C switch should likely preserve that computed jump. Next inspect/judge a control-flow representation that indexes a five-entry float/state table using `(sel - 1)` while retaining default path.\nTried alternate object argument to func_80022DBC, inlined switch expression, and an unused declaration; all worse/tied, source baseline restored.\nNo improvement; saved candidate score 1840.",
   "by": "codex-gpt-6-luna-15",
@@ -41174,6 +41222,14 @@
   "created_at": 1795208485.70687,
   "score_before": 4552,
   "score_after": 3053
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "Current saved best progressed from 6623 to 5931 by changing func_80073AF8 from an unprototyped declaration to an 11-argument void function and fixing calls to pass all observed trailing args. The baseline score 5931 is best; return type and args for func_800313DC are inconsistent with its matched callee evidence (s32 * func(s16,s32)), but patching that signature/arguments produced compile errors / worse 6081 when call args altered. Keep 5931 candidate; main diffs are function frame/register allocation, branch destinations and D_80109688 address/load sequence. Move-on budget was at 3/4 no improvement; explicitly releasing to continue queue.\n11-argument callback signature and all eleven args improved to 5931; pointer signature for 313DC with added arg0,0 args was worse 6081.\nSaved best is 5931; prototype-only change for func_800313DC failed compile because two call sites lack arg1; adding zero args compiled worse.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795208492.119293,
+  "score_before": 6623,
+  "score_after": 5931
  },
  {
   "function": "func_8011A7C8",
@@ -44120,6 +44176,14 @@
   "score_after": 11975
  },
  {
+  "function": "showTrackMarker",
+  "text": "Reconstructed three target paths and argument sequences; improved 5931 to 1865. The 314E0 return declaration conflicts with its matched void source, although target forwards v0; investigate callee semantics. Remaining target has branch-specific global-address setup and a shared final call tail.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795210490.921346,
+  "score_before": 2392,
+  "score_after": 1865
+ },
+ {
   "function": "func_800AB250",
   "text": "Stalled at 945 (best rev 6602d851a15701fe66a1 = saved source with volatile divisor cast restored). Tried: dropping volatile on divisor -> 1025 (lui/addiu sequence changes, ldc1 into f2); `0.0 <= arg0` and `arg0 >= 0.0f` -> 945 same; `!(arg0 < 0.0)` -> 1355; extra unused f64 local -> 1430. Remaining mismatch: target emits mtc1 $zero,$f0/$f1 AFTER div.d (between div and c.le.d), candidate hoists them before the addiu sp. Zero constant placement is the blocker; untested: express the 0.0 compare via a separate f64 local initialised to 0.0 declared after q, or compare against (arg0 - 0.0).\nZero-constant placement: 0.0 literal variants (!(arg0<0.0), 0.0<=arg0, arg0>=0.0f, extra unused local)\nHoisted mtc1 zero stays at top (945); other variants worse 1355/1430",
   "by": "api-claude-haiku-5-5-7",
@@ -45527,6 +45591,15 @@
   "score_before": 4605,
   "score_after": 1920,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "Best remains saved 1190 (93%): the brief's permuter source with 11-arg func_80073AF8 and p = register s32* &gAimAxisTable. Tried this session: (a) direct gAimAxisTable in each call, no p -> 2392 (worse; target reloads global via lui/addiu $s1 after the first call, and mid-function address set-up differs); (b) p non-register, reassigned &gAimAxisTable before each call -> 5210 (worse). Remaining diff: target computes gAimAxisTable address (lui $s1/addiu $s1, then lw $a1,($s1)) after the func_800313DC call in the first branch and frame layout sw $ra at 0x44 with s4 at 0x40 whereas ours differs. Next step: keep the 1190 source and try a register-local s1 pointer assigned after func_800313DC returns (i.e., p declared at point of use in the first two branches only), plus check the arg0 test order (target tests beqz $a0 before sltiu, with the else chain at 0x290 shared exit).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795211517.954943,
+  "score_before": 1190,
+  "score_after": 1190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8369ab6b69b5806810986dcffaf586eebd2e15029dde2a1971bb6f2c562c1835"
  },
  {
   "function": "func_8002E7A0",
@@ -49948,6 +50021,15 @@
   "score_before": 535,
   "score_after": 535,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:05176f80b440e74252790c7f532bd07e96b7a524a3fc1075c6d47b98b59b0b67"
+ },
+ {
+  "function": "showTrackMarker",
+  "text": "Tried local repair families branch_orientation, signedness, callee_parameter_width, narrow_widening, assignment_at_use, branch_integer_constant; none improved baseline score 1190 and several worsened it. Baseline has 56 mismatch rows, beginning with saved-register/register allocation disagreement.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795215706.0323892,
+  "score_before": 1190,
+  "score_after": 1190,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8369ab6b69b5806810986dcffaf586eebd2e15029dde2a1971bb6f2c562c1835"
  },
  {
   "function": "func_800374BC",
@@ -54911,93 +54993,29 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "showTrackMarker",
-  "text": "Best score 7516 at revision 160a321690db310da96d; move-on reached at 12/8. Tried supplied draft plus local repairs call_one_shot_scope, branch_orientation, scalar_storage_reuse, target_local_bundle, call_forwarded_arguments, cfg_integer_lifetimes, and cast variants. Scores only tied or worsened. Main problem: target prologue saves s0-s4 and ra (0x48 frame), tests arg0 directly in $a0, and narrows into $s2; candidate moves arg0 into $s0 immediately and saves only s0-s2. Current source keeps the wide arg live across branches/calls. Brief notes confirmed matched callee signatures: func_800312F4(short,unsigned short), func_800313DC(s16,s32) returning s32*, func_800314E0(s16,s32) returning void, func_80031548(s32,s32,s32). Candidate wrongly assigns func_800314E0 return values and uses conflict-prone old-style prototypes. Rebuild with accurate callee prototypes and branch-local narrowed indices; avoid reusing the 7516 source unchanged.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795164412.916012,
-  "score_before": 7516,
-  "score_after": 7516
- },
- {
-  "function": "showTrackMarker",
-  "text": "Rechecked revision 872afd4233f7b807423b at 7516. Six local repairs tested: call scope, signedness, declaration order and nested guard tied; removing result temporaries worsened to 7736; caching D_8010302C address worsened to 9564. Target still differs substantially in call arguments, scheduling and register allocation. Avoid caching the global address only on a conditional path: it leaves the pointer uninitialized when that path is skipped. Reconsider control flow and callee prototypes against assembly.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795183425.88898,
-  "score_before": 7516,
-  "score_after": 7516
- },
- {
-  "function": "showTrackMarker",
-  "text": "Current best 7466/172 target instructions. Tried replacing global-address temp dereferences and changing narrow calls to use arg0>>16; both worse or tied; initializing the pointer local directly preserves score but the historical best's local remains uninitialized in the >=0x14 and middle branches (reported hypothesis on revision 6b6aebabdefa5d2d6236). Local repair trials call-scope and branch-orientation were worse (8011, 13105). Next work: use exact target call arguments/prototypes and restructure the packed arg0 handling; target extracts signed low 16 bits via sll/sra in the delay slot after the <10 check. Keep saved best as starting point.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795184512.98629,
-  "score_before": 7516,
-  "score_after": 7466
- },
- {
-  "function": "showTrackMarker",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Candidate revision 6b6aebabdefa5d2d6236; historical best 7466. Reviewed reported quality issue: candidate has a local pointer initialized only in arg0<10 branch but dereferenced in other branches, so semantic validity is doubtful. Attempted one baseline compile; blocked because gcc-2.7.2-kmc is not installed. No fresh score or changes. Prior historical attempts reference alternative revision 872afd4233f7b807423b (score 7516); see quality section for tested repairs.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795194023.802353,
-  "score_before": 7466,
-  "score_after": 7466
- },
- {
-  "function": "showTrackMarker",
-  "text": "Current saved best score 6623. Derived from inherited m2c and exact matched callee evidence; correcting void func_800314E0 to call then var_a2=0 improved from 6718 to 6623. A typed rewrite scored 11733 and global-pointer/callee-argument rewrite scored 12270. No exact match. Target begins 0x48 frame, saves s4/s3/s2/s1/s0, retains arg0 in a0 until branch and then narrows to s2. Both initial func_800312F4 calls pass second argument zero, while candidate second call currently passes arg0 as second argument. Target func_800313DC receives arg1=0; candidate omits it. Target then loads *D_80109688 through s1 before passing; candidate direct global scalar expression causes different load patterns. Remaining mismatch primarily branch target/register lifetime and calls.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795202425.741548,
-  "score_before": 6628,
-  "score_after": 6623
- },
- {
-  "function": "showTrackMarker",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Inherited candidate rechecks at 6623; first own compile exposed a too-few-arguments error from incorrect func_80073AF8 prototype/calls. No valid new candidate score produced. Need inspect callee signature and caller assembly before further work; current candidate includes compiler-generated repair locals and suspicious uninitialized __base_D_80109688 pointer. Fix signature first.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795204710.747822,
-  "score_before": 6623,
-  "score_after": 6623
- },
- {
-  "function": "showTrackMarker",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Did not compile a new candidate this session. Findings from target asm: func_80073AF8 is called with 11 args (a0-a3 plus 7 stack words: -1,0,0,0,3,0,0 pattern), so its prototype must have 11 params; the saved draft's 6-arg and 10-arg calls are wrong, which is the too-few-arguments error. Target: first call func_800312F4(s16 arg0, 0) != 3 then func_800312F4(arg0,(s16)arg0) != 1; then func_80031548(s16,1,0), D_8010302C++, func_800313DC, D_80109688 loaded via lui/addiu, then func_80073AF8 with a0=0, a1=*D_80109688. Next step: fix prototypes (func_80073AF8 with 11 s32 params), keep arg0 in s2 across calls, and compare against the 6623 candidate.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795207301.6222951,
-  "score_before": 6623,
-  "score_after": 6623
- },
- {
-  "function": "showTrackMarker",
-  "text": "Current saved best progressed from 6623 to 5931 by changing func_80073AF8 from an unprototyped declaration to an 11-argument void function and fixing calls to pass all observed trailing args. The baseline score 5931 is best; return type and args for func_800313DC are inconsistent with its matched callee evidence (s32 * func(s16,s32)), but patching that signature/arguments produced compile errors / worse 6081 when call args altered. Keep 5931 candidate; main diffs are function frame/register allocation, branch destinations and D_80109688 address/load sequence. Move-on budget was at 3/4 no improvement; explicitly releasing to continue queue.\n11-argument callback signature and all eleven args improved to 5931; pointer signature for 313DC with added arg0,0 args was worse 6081.\nSaved best is 5931; prototype-only change for func_800313DC failed compile because two call sites lack arg1; adding zero args compiled worse.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795208492.119293,
-  "score_before": 6623,
-  "score_after": 5931
- },
- {
-  "function": "showTrackMarker",
-  "text": "Reconstructed three target paths and argument sequences; improved 5931 to 1865. The 314E0 return declaration conflicts with its matched void source, although target forwards v0; investigate callee semantics. Remaining target has branch-specific global-address setup and a shared final call tail.",
+  "function": "func_8003C228",
+  "text": "Verified baseline 4175. Local field width and delay slot changes had identical output; reusing var_a3 worsened to 4475. Replacing the first reconstructed packed color expression with temp_s1 worsened to 5883 and increased frame size.",
   "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795210490.921346,
-  "score_before": 2392,
-  "score_after": 1865
+  "created_at": 1795223168.612895,
+  "score_before": 4175,
+  "score_after": 4175,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f63638ddab3bd58d66f2c42126a1174d8fac8037406a8bc1921610d0bc11c4a4"
  },
  {
-  "function": "showTrackMarker",
-  "text": "Best remains saved 1190 (93%): the brief's permuter source with 11-arg func_80073AF8 and p = register s32* &gAimAxisTable. Tried this session: (a) direct gAimAxisTable in each call, no p -> 2392 (worse; target reloads global via lui/addiu $s1 after the first call, and mid-function address set-up differs); (b) p non-register, reassigned &gAimAxisTable before each call -> 5210 (worse). Remaining diff: target computes gAimAxisTable address (lui $s1/addiu $s1, then lw $a1,($s1)) after the func_800313DC call in the first branch and frame layout sw $ra at 0x44 with s4 at 0x40 whereas ours differs. Next step: keep the 1190 source and try a register-local s1 pointer assigned after func_800313DC returns (i.e., p declared at point of use in the first two branches only), plus check the arg0 test order (target tests beqz $a0 before sltiu, with the else chain at 0x290 shared exit).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795211517.954943,
-  "score_before": 1190,
-  "score_after": 1190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8369ab6b69b5806810986dcffaf586eebd2e15029dde2a1971bb6f2c562c1835"
+  "function": "func_8009D94C",
+  "text": "Verified baseline score 690. Three tested semantic fixes all scored worse: early return, initialized delta, and return ret (795/885/795). Target clearly has a zero return path when state[0x11dd] != 3. Recorded candidate issue wrong_value for baseline source's uninitialized return on that path. Remaining score mismatch is chiefly registers and branch placement.\nVerified baseline at 690. Correcting return to `ret` scored 795; early return 0 scored 795; initializing delta=0 scored 885. All had worse control flow/register allocation.\nBest 690 saved. Reported candidate issue: source sets ret=0 when status mismatch but returns uninitialized delta; target returns zero at shared tail in mismatch case.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795223198.675881,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
-  "function": "showTrackMarker",
-  "text": "Tried local repair families branch_orientation, signedness, callee_parameter_width, narrow_widening, assignment_at_use, branch_integer_constant; none improved baseline score 1190 and several worsened it. Baseline has 56 mismatch rows, beginning with saved-register/register allocation disagreement.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795215706.0323892,
-  "score_before": 1190,
-  "score_after": 1190,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8369ab6b69b5806810986dcffaf586eebd2e15029dde2a1971bb6f2c562c1835"
+  "function": "menuStateTimedUpdate",
+  "text": "Best candidate improved to score 725 by changing the source read to `*(volatile u32 *)D_801002E6`; saved candidate revision 41b4e21ff0e5dde46178. The target still uses lwl/lwr from D_801002E6 and swl/swr to offset 0x24, while C volatile u32 still emits aligned lw/sw. A four-byte volatile byte-copy emitted lbu/sb sequences and scored worse (1625). Remaining differences include branch destinations and register allocation. Continue investigating a C aggregate/unaligned access idiom that makes GCC emit the paired left/right instructions.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795138691.049344,
+  "score_before": 820,
+  "score_after": 725
  }
 ]

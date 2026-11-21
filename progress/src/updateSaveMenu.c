@@ -31,9 +31,9 @@ extern u8 D_80107EC0;
 extern void *gMenuState;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
-void updateSaveMenu(void) {
-    s32 temp_a0;
-    s32 temp_v1;
+/* Per-frame save menu update: refreshes the slot label and dispatches the pending save action. */ void updateSaveMenu(void) {
+    s32 actionFlags;
+    s32 actionCmd;
 
     sSaveMenuRefresh = 1;
     if (findEntryById(((__repair_field_10 *)gMenuState)->value, 0x54) != 0) {
@@ -43,23 +43,23 @@ void updateSaveMenu(void) {
     }
     if ((M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0)) {
         func_80023EC0(sSaveMenuAction);
-        temp_a0 = sSaveMenuAction & 0xE000;
+        actionFlags = sSaveMenuAction & 0xE000;
         if (sSaveMenuAction & 0x1000) {
-            updateActiveMenuState(temp_a0);
+            updateActiveMenuState(actionFlags);
             if (func_8002CC14() & 0xFFFF) {
                 func_80026424(sActiveMenu, 0x18);
             }
         } else {
-            temp_v1 = sSaveMenuAction & 0xFFF;
-            switch (temp_v1) {                      /* irregular */
+            actionCmd = sSaveMenuAction & 0xFFF;
+            switch (actionCmd) {                      /* irregular */
             case 1:
-                sSaveMenuAction = func_800248B4(temp_a0, D_80107EC0);
+                sSaveMenuAction = func_800248B4(actionFlags, D_80107EC0);
                 return;
             case 2:
-                sSaveMenuAction = func_8002495C(temp_a0, D_80107EC0);
+                sSaveMenuAction = func_8002495C(actionFlags, D_80107EC0);
                 return;
             case 3:
-                sSaveMenuAction = func_80024AD0(temp_a0, D_80107EC0);
+                sSaveMenuAction = func_80024AD0(actionFlags, D_80107EC0);
                 return;
             }
         }

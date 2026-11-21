@@ -10,7 +10,7 @@ extern void func_800282D0(void);
 extern void func_800283B0(void);
 extern void func_80028458(void);
 extern void func_80028530(void);
-extern void func_800285D4(void);
+extern void menuStateTimedUpdate(void);
 extern void func_80028770(void);
 extern void func_800287DC(void);
 extern void func_80028A7C(void);
@@ -79,7 +79,7 @@ extern void *gMenuState;
             func_800281E0();
             break;
         case 20:
-            func_800285D4();
+            menuStateTimedUpdate();
             break;
         case 21:
             func_80028770();

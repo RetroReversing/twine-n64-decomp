@@ -159,7 +159,7 @@ block_16:
                         sprintf(temp_s1, D_800D2864, var_a2_2, var_a3);}
                         D_800B60A4 = strlen(temp_s1);
                     } else {
-                        var_s0 = &M2C_FIELD(&var_s0[strlen(var_s0)], s8 *, 1);
+                        var_s0 += strlen(var_s0) + 1;
                         temp_v0_2 = (u8) *var_s0;
                         var_a2 = 0;
                         if (*var_s0 != 0) {
