@@ -1,6 +1,6 @@
 s32 func_8000A580(void);
 void func_8000B900(s32, u32, u32);
-s32 func_800930F4(u16, u16, s32, s32);
+s32 runSceneGroupEntry(u16, u16, s32, s32);
 typedef struct { u32 value; u8 pad[8]; } SoundWord;
 typedef struct { u16 value; u8 pad[10]; } SoundHalf;
 extern SoundWord D_800B2480[];
@@ -35,7 +35,7 @@ s32 func_8000A5F4(s32 arg0) {
     start = D_800B2480[index].value;
     D_800E06B0 = arg0;
     func_8000B900(*ptr, start, end - start);
-    result = func_800930F4(D_800B2488[index].value, D_800B248A[index].value, *ptr, 0);
+    result = runSceneGroupEntry(D_800B2488[index].value, D_800B248A[index].value, *ptr, 0);
     D_800E0708 = result;
     return result;
 }

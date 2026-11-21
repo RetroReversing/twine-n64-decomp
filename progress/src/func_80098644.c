@@ -16,7 +16,7 @@ s32 func_8008C7B0();
 extern s32 sKeyTableCount;
 extern s32 sortedEntryCount;
 extern s32 gCountedEntryCount;
-extern s32 D_800F8158;
+extern s32 sLoadedSceneGroupCount;
 extern s32 D_800F8D5C;
 extern char D_800F8D60[];
 extern char D_800F8D62[];
@@ -29,7 +29,7 @@ void func_80098644(void) {
     sKeyTableCount = 0;
     sortedEntryCount = 0;
     gCountedEntryCount = 0;
-    D_800F8158 = 0;
+    sLoadedSceneGroupCount = 0;
     D_800FD560 = 0;
     D_800F8D5C = 0;
     do {

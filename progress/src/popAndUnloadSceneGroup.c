@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80097194();
-s32 func_80097454();
+s32 releaseSceneGroupRef();
 s32 func_80097704();
 s32 func_80097B1C();
 s32 func_80097E14();
@@ -91,7 +91,7 @@ s32 popAndUnloadSceneGroup(void) {
         cursorE = groupE;
         while ((idE = *(u16 *)cursorE) != 0xFFFF) {
             cursorE += 2;
-            func_80097454(idE);
+            releaseSceneGroupRef(idE);
         }
         result = 1;
         if (((SceneGroupRecord*)group)->flag == 1) {

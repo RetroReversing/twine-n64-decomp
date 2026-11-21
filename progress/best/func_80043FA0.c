@@ -17,6 +17,7 @@ s32 func_80084048(s32 *, s32);
 void func_80043FA0(void *arg0) {
     u8 sp30[0x20], sp50[0x20];
     s32 sp70, sp74;
+    s32 *recordEnd;
     s32 *sp7C, *sp84, *sp8C;
     f32 var_fs0;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
@@ -37,6 +38,7 @@ void func_80043FA0(void *arg0) {
         if (sp8C != (u32)NULL) goto block_10;
         var_s5 = func_80083E90(FLD(sp30, u16, 4) * 0x18, 0x2D);
         if (var_s5 != NULL) {
+            recordEnd = (s32 *)((u8 *)var_s5 + FLD(sp30, u16, 4) * 0xC);
             func_8000B9B8(sp50, D_54D910 + FLD(sp30, s32, 0), 0x20);
             temp_v0 = func_800149D4(sp50);
             if (temp_v0 == 0) {
@@ -44,7 +46,7 @@ void func_80043FA0(void *arg0) {
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), FLD(sp30, u16, 4) * 0xC);
             } else {
                 func_8000B9B8(var_s5, D_54D910 + FLD(sp30, s32, 0), temp_v0);
-                sp8C = (s32 *)((u8 *)var_s5 + FLD(sp30, u16, 4) * 0xC);
+                sp8C = recordEnd;
                 do { func_8001499C(var_s5); } while (0);
                 func_80014A0C(sp8C, var_s5);
             }

@@ -6,7 +6,7 @@ typedef struct {
 
 extern u16 D_800F38D4[];
 extern LookupResult *D_800F38DC;
-extern volatile s32 D_800F8158;
+extern volatile s32 sLoadedSceneGroupCount;
 extern s32 D_800F815C;
 extern s32 func_800986EC(void *, void *);
 extern LookupResult *func_800956E0(void *, void *, s32, s32, s32 (*)(void *, void *));
@@ -17,7 +17,7 @@ s32 func_8009852C(u16 key, u16 *out) {
     LookupResult *result;
     s32 value;
 
-    count = D_800F8158;
+    count = sLoadedSceneGroupCount;
     D_800F38D4[0] = key;
     result = func_800956E0(D_800F38D4 - 2, &D_800F815C, count, 12, func_800986EC);
     D_800F38DC = result;

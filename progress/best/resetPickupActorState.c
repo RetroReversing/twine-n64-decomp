@@ -18,13 +18,13 @@ s32 func_80029C08(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
 void *func_8002A980(M2C_UNK *);                     /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
 extern void *gMenuItems;
-extern void *gPickupActor;
+extern void *volatile gPickupActor;
 extern u8 gPickupSavedByte;
 extern M2C_UNK gPickupSearchBox;
 extern s32 gTrackMarkers;
 
 void resetPickupActorState(void) {
-    u32 var_s0;
+    u8 var_s0;
     void *temp_v0;
 
     func_8002ACB4(&gPickupSearchBox);

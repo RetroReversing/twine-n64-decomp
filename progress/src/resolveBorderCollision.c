@@ -21,7 +21,7 @@ extern f32 D_800C7C98;
 extern s32 gBorderSkipActive;
 extern s32 gGameMode;
 
-void resolveBorderCollision(void *arg0, void *arg1) {
+/* Checks whether an actor has crossed a track border and, if so, pushes its contact point and height back into the actor. */ void resolveBorderCollision(void *actor, void *other) {
     union { f32 f[3]; M2C_UNK32 w[3]; } in;
 #define sp28 in.w[0]
 #define sp2C in.f[1]
@@ -32,55 +32,55 @@ void resolveBorderCollision(void *arg0, void *arg1) {
 #define sp40 out[2]
     struct { M2C_UNK sp48; u32 padding[2]; } local;
 #define sp48 local.sp48
-    f32 temp_fv1, height;
-    s32 mode;
-    f32 var_fs0;
-    f32 var_fs1;
-    f32 var_fs2;
-    f32 var_fs4;
-    s32 temp_v1;
-    s32 temp_v1_2;
+    f32 newDist, height;
+    s32 gameMode;
+    f32 lateral;
+    f32 lateralLimit;
+    f32 lateralRef;
+    f32 forwardLimit;
+    s32 flags;
+    s32 borderType;
     s32 var_v0;
-    u16 temp_a0;
+    u16 state;
     u8 temp_a0_2;
-    s32 temp_v1_3;
-    void *temp_a1;
+    s32 borderIndex;
+    void *trackData;
     void *borderData;
-    void *temp_s3;
+    void *track;
     void *temp_v0;
-    void *var_s2;
+    void *borderObj;
 
-    temp_v1 = M2C_FIELD(arg1, s32 *, 0x58);
-    if ((temp_v1 & 0x400) && !(M2C_FIELD(arg1, s32 *, 0x58) & 0x1000) && (temp_s3 = M2C_FIELD(arg0, void **, 0x138), (temp_s3 != NULL))) {
-        var_fs4 = 2.0f;
-        var_fs1 = 1.0f;
-        temp_a1 = M2C_FIELD(temp_s3, void **, 0x6C);
-        var_s2 = NULL;
+    flags = M2C_FIELD(other, s32 *, 0x58);
+    if ((flags & 0x400) && !(M2C_FIELD(other, s32 *, 0x58) & 0x1000) && (track = M2C_FIELD(actor, void **, 0x138), (track != NULL))) {
+        forwardLimit = 2.0f;
+        lateralLimit = 1.0f;
+        trackData = M2C_FIELD(track, void **, 0x6C);
+        borderObj = NULL;
         if (gGameMode == 0x19) {
-            var_fs0 = M2C_FIELD(arg0, f32 *, 0x58) * M2C_FIELD(temp_a1, f32 *, 0x20);
-            var_fs1 = 8.0f;
-            var_fs4 = 8.0f;
-            var_fs2 = M2C_FIELD(arg0, f32 *, 0x50) * -M2C_FIELD(temp_a1, f32 *, 0x1C);
+            lateral = M2C_FIELD(actor, f32 *, 0x58) * M2C_FIELD(trackData, f32 *, 0x20);
+            lateralLimit = 8.0f;
+            forwardLimit = 8.0f;
+            lateralRef = M2C_FIELD(actor, f32 *, 0x50) * -M2C_FIELD(trackData, f32 *, 0x1C);
             goto block_7;
         }
-        if (!(M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x68), u16 *, 0xC) & 1)) {
-            var_fs0 = 0.0f;
-            var_fs2 = 0.0f;
+        if (!(M2C_FIELD(M2C_FIELD(track, void **, 0x68), u16 *, 0xC) & 1)) {
+            lateral = 0.0f;
+            lateralRef = 0.0f;
 block_7:
-            temp_a0 = M2C_FIELD(arg1, u16 *, 0x78);
-            if ((temp_a0 == 1) || (temp_a0 == 0x4C)) {
-                var_s2 = M2C_FIELD(arg1, void **, 0x6C);
-                if ((func_8008194C(M2C_FIELD(temp_a1, s8 *, 0x182), 0xE) == 0) && (M2C_FIELD(arg1, u16 *, 0x78) == 0x4C)) {
-                    M2C_FIELD(arg1, f32 *, 0x74) = -30.0f;
+            state = M2C_FIELD(other, u16 *, 0x78);
+            if ((state == 1) || (state == 0x4C)) {
+                borderObj = M2C_FIELD(other, void **, 0x6C);
+                if ((func_8008194C(M2C_FIELD(trackData, s8 *, 0x182), 0xE) == 0) && (M2C_FIELD(other, u16 *, 0x78) == 0x4C)) {
+                    M2C_FIELD(other, f32 *, 0x74) = -30.0f;
                 }
-                if (!(M2C_FIELD(arg1, f32 *, 0x74) <= -30.0f) && (M2C_FIELD(arg1, s16 *, 0x7A) != 0x75)) {
+                if (!(M2C_FIELD(other, f32 *, 0x74) <= -30.0f) && (M2C_FIELD(other, s16 *, 0x7A) != 0x75)) {
                     goto block_16;
                 }
-            } else if (temp_a0 == 0x4D) { return; } else if (temp_a0 == 0x61) { return; } else {
+            } else if (state == 0x4D) { return; } else if (state == 0x61) { return; } else {
 block_16:
-                if ((var_s2 == NULL) || (temp_v1_2 = ((u32) M2C_FIELD(var_s2, u32 *, 0x88) >> 0x15) & 0xF, (temp_v1_2 == 1)) || (temp_v1_2 == 4)) {
+                if ((borderObj == NULL) || (borderType = ((u32) M2C_FIELD(borderObj, u32 *, 0x88) >> 0x15) & 0xF, (borderType == 1)) || (borderType == 4)) {
                     if (gBorderSkipActive != 0) {
-                        if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (temp_a0_2 = M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x6C), void **, 0xB4), u8 *, 0x12), borderData = M2C_FIELD(arg1, void **, 0x6C), (temp_a0_2 != 2))) {
+                        if (((u32) (M2C_FIELD(other, u16 *, 0x78) - 2) < 2U) && (temp_a0_2 = M2C_FIELD(M2C_FIELD(M2C_FIELD(track, void **, 0x6C), void **, 0xB4), u8 *, 0x12), borderData = M2C_FIELD(other, void **, 0x6C), (temp_a0_2 != 2))) {
                             if (temp_a0_2 != M2C_FIELD(M2C_FIELD(borderData, void **, 0xB4), u8 *, 0x12)) {
                                 goto block_29;
                             }
@@ -88,9 +88,9 @@ block_16:
                             goto block_29;
                         }
                     } else {
-                        temp_v1_3 = M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0xB1);
-                        if ((s32) temp_v1_3 < 0x3C) {
-                            if ((s32) temp_v1_3 >= 0x3A) {
+                        borderIndex = M2C_FIELD(M2C_FIELD(other, void **, 0x68), u8 *, 0xB1);
+                        if ((s32) borderIndex < 0x3C) {
+                            if ((s32) borderIndex >= 0x3A) {
                                 return;
                             }
                             var_v0 = 6;
@@ -98,27 +98,27 @@ block_16:
                         } else {
                             var_v0 = 0x61;
 block_28:
-                            if (temp_v1_3 != var_v0) {
+                            if (borderIndex != var_v0) {
 block_29:
-                                in.f[0] = M2C_FIELD(arg1, f32 *, 0x24);
-                                temp_v0 = M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), void **, 0);
+                                in.f[0] = M2C_FIELD(other, f32 *, 0x24);
+                                temp_v0 = M2C_FIELD(M2C_FIELD(other, void **, 0x68), void **, 0);
                                 sp2C = (M2C_FIELD(temp_v0, f32 *, 0x58) + M2C_FIELD(temp_v0, f32 *, 0xAC)) * 0.5f;
-                                in.f[2] = M2C_FIELD(arg1, f32 *, 0x2C);
-                                func_800839F0(arg0 + 0x88, &sp28, &sp38);
-                                sp38 += M2C_FIELD(arg0, f32 *, 0xAC);
-                                sp3C += M2C_FIELD(arg0, f32 *, 0xB0);
-                                temp_fv1 = sp40 + M2C_FIELD(arg0, f32 *, 0xB4);
-                                sp40 = temp_fv1;
-                                if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (var_fs0 = sp3C - var_fs0, absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
-                                    M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
-                                    { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)arg0 + 0x104) = *(struct vec *)&in; }
+                                in.f[2] = M2C_FIELD(other, f32 *, 0x2C);
+                                func_800839F0(actor + 0x88, &sp28, &sp38);
+                                sp38 += M2C_FIELD(actor, f32 *, 0xAC);
+                                sp3C += M2C_FIELD(actor, f32 *, 0xB0);
+                                newDist = sp40 + M2C_FIELD(actor, f32 *, 0xB4);
+                                sp40 = newDist;
+                                if ((newDist > 0.0f) && (newDist < M2C_FIELD(actor, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(actor, f32 *, 0x68) / newDist, M2C_FIELD(actor, f32 *, 0x6C) / newDist), (lateral = sp3C - lateral, absFloat(sp38 - lateralRef) < (M2C_FIELD(actor, f32 *, 0x54) / forwardLimit))) && (absFloat(lateral) < (M2C_FIELD(actor, f32 *, 0x5C) / lateralLimit)) && ((func_800158A4(actor + 0x10, M2C_FIELD(M2C_FIELD(other, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(actor, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                    M2C_FIELD(actor, f32 *, 0x11C) = sp40;
+                                    { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)actor + 0x104) = *(struct vec *)&in; }
                                     height = sp3C;
-                                    mode = gGameMode;
-                                    M2C_FIELD(arg0, f32 *, 0x114) = height;
-                                    if (mode == 0x19 || sp40 < D_800C7C98) {
-                                        M2C_FIELD(arg0, f32 *, 0x110) = sp38;
+                                    gameMode = gGameMode;
+                                    M2C_FIELD(actor, f32 *, 0x114) = height;
+                                    if (gameMode == 0x19 || sp40 < D_800C7C98) {
+                                        M2C_FIELD(actor, f32 *, 0x110) = sp38;
                                     } else {
-                                        M2C_FIELD(arg0, f32 *, 0x110) = 0.0f;
+                                        M2C_FIELD(actor, f32 *, 0x110) = 0.0f;
                                     }
                                 }
                             }

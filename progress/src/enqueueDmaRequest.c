@@ -23,14 +23,14 @@ extern char dmaQueueSize[];
 extern char dmaMesgQueue[];
 extern char dmaMesgBuf[];
 extern s32 *dmaHandlerInit;
-extern s32 func_8009D100;
+extern s32 flushDmaRequestQueue;
 
 /* Adds a DMA request (ROM addr, RAM addr, size) to the queue under a worker lock. */ void enqueueDmaRequest(s32 romAddr, s32 ramAddr, s32 size) {
     workerLockAcquire(romAddr);
     if (dmaHandlerInit == NULL) {
         osCreateMesgQueue(dmaMesgQueue, dmaMesgBuf, 1);
         D_800FDBB0 = 0;
-        dmaHandlerInit = &func_8009D100;
+        dmaHandlerInit = &flushDmaRequestQueue;
     }
     if ((u8) D_800FDBB0 < 4U) {
         *(s32 *)(dmaQueueRomAddr + (D_800FDBB0 * 0xC)) = romAddr;

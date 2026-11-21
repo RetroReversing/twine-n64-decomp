@@ -17,12 +17,12 @@ extern s8 dmaQueueCount;
 extern M2C_UNK dmaMesgQueue;
 extern M2C_UNK dmaMesgBuf;
 extern M2C_UNK *dmaHandlerInit;
-extern M2C_UNK func_8009D100;
+extern M2C_UNK flushDmaRequestQueue;
 
 void func_8009D228(void) {
     if (dmaHandlerInit == NULL) {
         osCreateMesgQueue(&dmaMesgQueue, &dmaMesgBuf, 1);
         dmaQueueCount = 0;
-        dmaHandlerInit = &func_8009D100;
+        dmaHandlerInit = &flushDmaRequestQueue;
     }
 }

@@ -6,7 +6,7 @@ s32 func_80091324();
 s32 setSoundEntityParams();
 s32 func_80091654();
 s32 func_80092F9C();
-s32 func_800930F4();
+s32 runSceneGroupEntry();
 extern u8 gWorkerActive;
 extern char gSoundEntities[];
 extern char D_800E5BD4[];
@@ -389,7 +389,7 @@ loop_78:
                     }
                 }
             } else {
-                temp_v0_10 = func_800930F4((*(u16 *)((char *)(arg0) + 0x14)), (*(u16 *)((char *)(arg0) + 0x16)), (*(s32 *)((char *)(arg0) + 0x10)), sp18);
+                temp_v0_10 = runSceneGroupEntry((*(u16 *)((char *)(arg0) + 0x14)), (*(u16 *)((char *)(arg0) + 0x16)), (*(s32 *)((char *)(arg0) + 0x10)), sp18);
                 *arg1 = temp_v0_10;
                 if ((temp_v0_10 != -1) && ((*(u8 *)((char *)(arg0) + 0x26)) & 0x80)) {
                     setSoundEntityParams(temp_v0_10, 0, 0);

@@ -25,7 +25,7 @@ extern char dmaQueueSize[];
 extern char dmaMesgQueue[];
 extern char dmaMesgBuf[];
 extern s32 *dmaHandlerInit;
-extern s32 func_8009D100;
+extern s32 flushDmaRequestQueue;
 
 /* Queues one ROM-to-RAM DMA request (romAddr -> ramAddr, size bytes) when a slot is free, then waits for it to finish. */
 void dmaRomToRam(s32 romAddr, s32 ramAddr, s32 size) {
@@ -33,7 +33,7 @@ void dmaRomToRam(s32 romAddr, s32 ramAddr, s32 size) {
     if (dmaHandlerInit == NULL) {
         osCreateMesgQueue(dmaMesgQueue, dmaMesgBuf, 1);
         dmaQueueCount = 0;
-        dmaHandlerInit = &func_8009D100;
+        dmaHandlerInit = &flushDmaRequestQueue;
     }
     if ((u8) dmaQueueCount < 4U) {
         *(s32 *)(dmaQueueRomAddr + (dmaQueueCount * 0xC)) = romAddr;
