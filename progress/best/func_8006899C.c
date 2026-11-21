@@ -7,9 +7,9 @@ s32 func_800648FC(void *, s32);
 s32 func_80067A24(void *, u16);
 s32 func_80067A7C(void *, void *, u16);
 void func_8006832C(void *, void *);
-s32 func_8007A9CC(void *, void *, s32 *, s32);
-s32 func_800818AC(s8, s32);
-s32 func_8008194C(s8, s32);
+s32 func_8007A9CC(void *, void *, s32 *, f32);
+s32 func_800818AC(int, s32);
+s32 func_8008194C(int, s32);
 s32 func_80081AA4(s32, s32);
 s32 func_80082834(s8, s32, u8);
 s32 func_80084338(u16, void *);
@@ -41,6 +41,11 @@ inline static int inline_fn234(void *arg0)
   return (*((u16 *) inline_fn2((char *) arg0, 0x34))) == 0;
 }
 
+inline static u8 *inline_fn2345(void *arg0, s8 arg1, int arg2)
+{
+  return (u8 *) (((char *) inline_fn2(arg0, arg1 * 8)) + arg2);
+}
+
 void func_8006899C(void *arg0, u8 arg1)
 {
   s16 __repair_store_0;
@@ -64,7 +69,7 @@ void func_8006899C(void *arg0, u8 arg1)
   s32 var_s6;
   s32 temp_fp;
   u16 temp_a0_5;
-  u16 temp_v0_11;
+  int temp_v0_11;
   s32 temp_v1;
   u16 var_a0_2;
   u8 temp_a1_2;
@@ -108,87 +113,98 @@ void func_8006899C(void *arg0, u8 arg1)
           do
           {
             temp_v1 = *((u16 *) inline_fn23((char *) var_s1, 0x78));
-            if ((s32)temp_v1 < 0x13)
+            if (((s32) temp_v1) < 0x13)
             {
-              if ((s32)temp_v1 >= 0x10)
+              if (((s32) temp_v1) >= 0x10)
+              {
                 goto block_10;
+              }
               if (temp_v1 == 0xB)
+              {
                 goto special;
+              }
               goto next_object;
             }
-            if ((s32)temp_v1 >= 0x61)
+            if (((s32) temp_v1) >= 0x61)
+            {
               goto next_object;
-            if ((s32)temp_v1 < 0x5E)
+            }
+            if (((s32) temp_v1) < 0x5E)
+            {
               goto next_object;
+            }
             block_10:
             if (((*((s32 *) inline_fn2((char *) var_s1, 0x20))) == (*((void ***) inline_fn2((char *) arg0, 0x20)))) && ((*((s32 *) inline_fn23((char *) (*((void **) inline_fn2((char *) var_s1, 0x6C))), 0x2C))) & 0x800))
             {
               temp_s0_2 = inline_fn2(var_s1, 0x24);
-              if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 0x44800000) << 0x18) != 0) && (approxDistance(temp_s0_2, inline_fn2(arg0, 0x24)) < 1.5f))
+              if (((func_8007A9CC(arg0, temp_s0_2, &sp28, 1024.0f) << 0x18) != 0) && (approxDistance(temp_s0_2, inline_fn2(arg0, 0x24)) < 1.5f))
               {
                 var_s6 = 0;
                 *((s32 *) inline_fn2((char *) var_s1, 0x60)) = (s32) ((*((s32 *) inline_fn2((char *) var_s1, 0x60))) | 0x800);
               }
             }
+
             goto next_object;
             special:
-                temp_a1 = *((void **) inline_fn23((char *) var_s1, 0x6C));
-                temp_v0_2 = *((u8 *) (((char *) temp_a1) + 0x4A));
-                var_a0 = 1;
-                switch (temp_v0_2)
+            temp_a1 = *((void **) inline_fn23((char *) var_s1, 0x6C));
+
+            temp_v0_2 = *((u8 *) (((char *) temp_a1) + 0x4A));
+            var_a0 = 1;
+            switch (temp_v0_2)
+            {
+              case 4:
+                var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
+                break;
+
+              case 5:
+                var_a0 = 1 & (-inline_fn234(temp_a1));
+                break;
+
+              case 16:
+                var_a0 = 1 & (-inline_fn234(temp_a1));
+                break;
+
+              case 17:
+                var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
+                break;
+
+              case 18:
+
+              case 19:
+
+              case 20:
+
+              default:
+                var_a0 = 0;
+                break;
+
+            }
+
+            if ((var_a0 << 0x18) != 0)
+            {
+              temp_s0 = inline_fn23(var_s1, 0x24);
+              if ((((func_8007A9CC(arg0, temp_s0, &sp2C, 1024.0f) << 0x18) != 0) && (approxDistance(temp_s0, temp_s7) < 3.0f)) && (func_80045590(temp_s0, temp_s7) < 2.0f))
+              {
+                temp_v0_3 = *((s16 *) inline_fn23((char *) var_s1, 0x7A));
+                if (((temp_v0_3 == 0) | (temp_v0_3 == 4)) != 0)
                 {
-                  case 4:
-                    var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
-                    break;
-
-                  case 5:
-                    var_a0 = 1 & (-inline_fn234(temp_a1));
-                    break;
-
-                  case 16:
-                    var_a0 = 1 & (-inline_fn234(temp_a1));
-                    break;
-
-                  case 17:
-                    var_a0 = 1 & (-((*((u16 *) inline_fn2((char *) temp_a1, 0x34))) == 0));
-                    break;
-
-                  case 18:
-
-                  case 19:
-
-                  case 20:
-
-                  default:
-                    var_a0 = 0;
-                    break;
-
-                }
-
-                if ((var_a0 << 0x18) != 0)
-                {
-                  temp_s0 = inline_fn23(var_s1, 0x24);
-                  if ((((func_8007A9CC(arg0, temp_s0, &sp2C, 0x44800000) << 0x18) != 0) && (approxDistance(temp_s0, temp_s7) < 3.0f)) && (func_80045590(temp_s0, temp_s7) < 2.0f))
+                  if ((*((void ***) inline_fn2((char *) arg0, 0x20))) == (*((s32 *) (((char *) var_s1) + 0x20))))
                   {
-                    temp_v0_3 = *((s16 *) inline_fn23((char *) var_s1, 0x7A));
-                    if (((temp_v0_3 == 0) | (temp_v0_3 == 4)) != 0)
-                    {
-                      if ((*((void ***) inline_fn2((char *) arg0, 0x20))) == (*((s32 *) (((char *) var_s1) + 0x20))))
-                      {
-                        *((s32 *) inline_fn2((char *) var_s1, 0x60)) = (*((s32 *) inline_fn2((char *) var_s1, 0x60))) | 8;
-                      }
-                      else
-                      {
-                        *((s32 *) inline_fn23((char *) var_s1, 0x60)) = (*((s32 *) inline_fn23((char *) var_s1, 0x60))) & (~8);
-                      }
-                      markObjectsNearPos(*((s32 *) inline_fn2((char *) var_s1, 0x20)), 2, 0x20000, var_s1 + 0x24, 0, 1);
-                      var_s6 = 0;
-                      *((s32 *) inline_fn2((char *) var_s1, 0x60)) = (s32) ((*((s32 *) inline_fn2((char *) var_s1, 0x60))) | 0x800);
-                    }
+                    *((s32 *) inline_fn2((char *) var_s1, 0x60)) = (*((s32 *) inline_fn2((char *) var_s1, 0x60))) | 8;
                   }
+                  else
+                  {
+                    *((s32 *) inline_fn23((char *) var_s1, 0x60)) = (*((s32 *) inline_fn23((char *) var_s1, 0x60))) & (~8);
+                  }
+                  markObjectsNearPos(*((s32 *) inline_fn2((char *) var_s1, 0x20)), 2, 0x20000, var_s1 + 0x24, 0, 1);
+                  var_s6 = 0;
+                  *((s32 *) inline_fn2((char *) var_s1, 0x60)) = (s32) ((*((s32 *) inline_fn2((char *) var_s1, 0x60))) | 0x800);
                 }
+              }
+            }
             next_object:
             var_s1 = *((void **) inline_fn2((char *) var_s1, 0));
+
           }
           while (var_s1 != NULL);
         }
@@ -225,8 +241,16 @@ void func_8006899C(void *arg0, u8 arg1)
         *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = (u16) (*((u16 *) (((char *) (((*((u8 *) inline_fn2((char *) (temp_s2 - (-((*((s8 *) inline_fn2((char *) (*((void **) (((char *) arg0) + 0x68))), 0xE))) * 8))), 0x1FD))) * 2) + temp_s4)) + 0x24)));
         if (temp_v1_2 != NULL)
         {
-          *((s16 *) inline_fn23((char *) temp_v1_2, 0x7A)) = 5;
-          func_80067A24(*((void **) (((char *) temp_s2) + 0xA8)), *((u16 *) inline_fn23((char *) temp_s4, 0x94)));
+          if (temp_v0_11)
+          {
+            *((s16 *) inline_fn23((char *) temp_v1_2, 0x7A)) = 5;
+            func_80067A24(*((void **) (((char *) temp_s2) + 0xA8)), *((u16 *) inline_fn23((char *) temp_s4, 0x94)));
+          }
+          else
+          {
+            *((s16 *) inline_fn23((char *) temp_v1_2, 0x7A)) = 5;
+            func_80067A24(*((void **) (((char *) temp_s2) + 0xA8)), *((u16 *) inline_fn23((char *) temp_s4, 0x94)));
+          }
         }
         else
           if ((*((u16 *) inline_fn2((char *) arg0, 0x78))) == 3)
@@ -320,7 +344,8 @@ void func_8006899C(void *arg0, u8 arg1)
           return;
         }
         var_a0_2 = *((u16 *) inline_fn2((char *) temp_s4, 0x54));
-        goto block_104;
+        func_80084338(var_a0_2, inline_fn2(arg0, 0x24));
+        return;
       }
       applyEnemyKindMode(arg0);
     }
@@ -387,14 +412,7 @@ void func_8006899C(void *arg0, u8 arg1)
           *((u16 *) inline_fn2((char *) temp_s2, 0x17A)) = temp_v0_11;
           if ((temp_v0_11 << 0x10) <= 0)
           {
-            temp_a0_3 = *((s32 *) inline_fn2((char *) temp_s2, 8));
-            if (temp_a0_3 == (-1))
-            {
-              *((s16 *) inline_fn23((char *) temp_s2, 0x178)) = 0;
-              return;
-            }
-            listUnlinkFree(temp_a0_3);
-            *((s32 *) inline_fn2((char *) temp_s2, 8)) = -1;
+ do { temp_a0_3 = *((s32 *) inline_fn2((char *) temp_s2, 8)); if (temp_a0_3 == (-1)) { *((s16 *) inline_fn23((char *) temp_s2, 0x178)) = 0; return; } listUnlinkFree(temp_a0_3); *((s32 *) inline_fn2((char *) temp_s2, 8)) = -1; } while (0);
             *((s16 *) inline_fn2((char *) temp_s2, 0x178)) = 0;
             return;
           }
@@ -418,9 +436,7 @@ void func_8006899C(void *arg0, u8 arg1)
               if ((*((u16 *) inline_fn2((char *) arg0, 0x78))) == 3)
               {
                 var_a0_2 = *((u16 *) inline_fn23((char *) temp_s4, 0x56));
-                block_104:
                 func_80084338(var_a0_2, inline_fn2(arg0, 0x24));
-
                 return;
               }
               requestSound(*((u16 *) inline_fn23((char *) temp_s4, 0x56)));
@@ -429,7 +445,7 @@ void func_8006899C(void *arg0, u8 arg1)
 
             D_800E1A28 |= 0x10000;
             D_800E1A2C = (s32) (*((u8 *) inline_fn2((char *) temp_s4, 0x5E)));
-            temp_a0_5 = *((u16 *) inline_fn2((char *) (((*((u8 *) (((char *) inline_fn2(temp_s2, (*((s8 *) inline_fn2((char *) (*((void **) inline_fn2((char *) arg0, 0x68))), 0xE))) * 8)) + 0x1FD))) * 2) + temp_s4), 0x4E));
+            temp_a0_5 = *((u16 *) inline_fn2((char *) (((*inline_fn2345(temp_s2, *((s8 *) inline_fn2((char *) (*((void **) inline_fn2((char *) arg0, 0x68))), 0xE)), 0x1FD)) * 2) + temp_s4), 0x4E));
             if ((temp_a0_5 != 0) && ((*((s32 *) inline_fn2((char *) temp_s2, 8))) == (-1)))
             {
               if ((*((u16 *) inline_fn2((char *) arg0, 0x78))) == 3)
@@ -467,5 +483,3 @@ void func_8006899C(void *arg0, u8 arg1)
 
 
 }
-
-

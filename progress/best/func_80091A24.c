@@ -211,17 +211,18 @@ loop_33:
                             break;
                         }
                         join_40:
-                        if (var_v0 != -1) {
-                            if (var_v0 >= 0) {
-                                (*(u8 *)((char *)(&D_800E6A84) + (var_v0 * 0xFF8))) = 1;
+                            temp_a1 = var_v0;
+                        if (temp_a1 != -1) {
+                            if (temp_a1 >= 0) {
+                                (*(u8 *)((char *)(&D_800E6A84) + (temp_a1 * 0xFF8))) = 1;
                             } else {
-                                temp_v1_2 = (var_v0 & 0x7FFFFFFF) * 0xFF8;
+                                goto negative_40;
+found_51: var_v0_2 = var_a0_4 | (temp_a1_4 & 0x80000000); goto join_51;
+negative_40:
+                                temp_v1_2 = (temp_a1 & 0x7FFFFFFF) * 0xFF8;
                                 (*(u8 *)((char *)(&D_800E6AB2) + (s32)temp_v1_2)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v1_2)) & 0xF7;
                             }
                         }
-goto skip_51;
-found_51: var_v0_2 = var_a0_4 | (temp_a1_4 & 0x80000000); goto join_51;
-skip_51:
                         func_80091654((*(u8 *)((char *)(arg0) + 0x18)), (*(u16 *)((char *)(arg0) + 0xC)), (*(s32 *)((char *)(arg0) + 8)), 0);
                         var_a0_4 = 0;
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x10) {
@@ -243,22 +244,23 @@ loop_51:
                                 goto found_51;
                             }
                             join_51:
-                            if (var_v0_2 != -1) {
-                                if (var_v0_2 >= 0) {
-                                    __repair_phase_temp_v0_3 = var_v0_2 * 0xFF8;
+                                var_a1_2 = var_v0_2;
+                            if (var_a1_2 != -1) {
+                                if (var_a1_2 >= 0) {
+                                    __repair_phase_temp_v0_3 = var_a1_2 * 0xFF8;
                                     (*(s32 *)((char *)(&D_800E5BD4) + __repair_phase_temp_v0_3)) = temp_a3;
                                     (*(s32 *)((char *)(&D_800E5BD8) + __repair_phase_temp_v0_3)) = temp_t0;
                                 } else {
-                                    var_v0_2 = (var_v0_2 & 0x7FFFFFFF) * 0xFF8;
-                                    (*(s32 *)((char *)(&D_800E6AA8) + var_v0_2)) = temp_a3;
-                                    (*(s32 *)((char *)(&D_800E6AAC) + var_v0_2)) = temp_t0;
-                                    (*(u8 *)((char *)(&D_800E6AB2) + var_v0_2)) = (*(u8 *)((char *)(&D_800E6AB2) + var_v0_2)) | 0x10;
+                                    goto negative_var_v0_2;
+found_62: var_v0_3 = var_a0_5 | (temp_a1 & 0x80000000); goto join_62;
+negative_var_v0_2:
+                                    var_a1_2 = (var_a1_2 & 0x7FFFFFFF) * 0xFF8;
+                                    (*(s32 *)((char *)(&D_800E6AA8) + var_a1_2)) = temp_a3;
+                                    (*(s32 *)((char *)(&D_800E6AAC) + var_a1_2)) = temp_t0;
+                                    (*(u8 *)((char *)(&D_800E6AB2) + var_a1_2)) = (*(u8 *)((char *)(&D_800E6AB2) + var_a1_2)) | 0x10;
                                 }
                             }
                         }
-goto skip_62;
-found_62: var_v0_3 = var_a0_5 | (temp_a1 & 0x80000000); goto join_62;
-skip_62:
                         var_a0_5 = 0;
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x20) {
                             temp_a1 = (*(s32 *)((char *)(arg0) + 8));
@@ -278,11 +280,13 @@ loop_62:
                                 goto found_62;
                             }
                             join_62:
-                            if (var_v0_3 != -1) {
-                                if (var_v0_3 >= 0) {
-                                    (*(u16 *)((char *)(&D_800E6A86) + (var_v0_3 * 0xFF8))) = var_a1_2;
+                            temp_a1 = var_v0_3;
+                            if (temp_a1 != -1) {
+                                if (temp_a1 >= 0) {
+                                    (*(u16 *)((char *)(&D_800E6A86) + (temp_a1 * 0xFF8))) = var_a1_2;
                                 } else {
-                                    temp_v0_5 = (var_v0_3 & 0x7FFFFFFF) * 0xFF8;
+                                    temp_a1 &= 0x7FFFFFFF;
+                                    temp_v0_5 = temp_a1 * 0xFF8;
                                     (*(u16 *)((char *)(&D_800E6AB0) + temp_v0_5)) = var_a1_2;
                                     (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_5)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_5)) | 0x20;
                                 }
@@ -290,7 +294,7 @@ loop_62:
                         }
                     } else {
 goto skip_78;
-found_78: var_v0_4 = var_a0_6 | (temp_s1_5 & 0x80000000); goto join_78;
+found_78: var_v0_4 = var_a0_6 | (temp_a1 & 0x80000000); goto join_78;
 skip_78:
                         stopEntitySound((*(s32 *)((char *)(arg0) + 8)));
                         temp_s3 = (*(u8 *)((char *)(arg0) + 0x18));
@@ -310,7 +314,8 @@ skip_78:
                             if (gWorkerActive != 0) {
                                 workerLockAcquire();
                                 var_a0_6 = 0;
-                                temp_a2_3 = temp_s1_5 & 0x7FFFFFFF;
+                                temp_a1 = temp_s1_5;
+                                temp_a2_3 = temp_a1 & 0x7FFFFFFF;
                                 var_v1_7 = 0;
 loop_78:
                                 if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_7)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_7)) != temp_a2_3)) {
@@ -346,6 +351,9 @@ loop_78:
                 *arg1 = var_v1_3;
                 return;
             }
+            goto setup_options;
+found_100: var_v0_5 = var_a0_7 | (temp_a1 & 0x80000000); goto join_100;
+setup_options:
             options.flags = 4;
             if ((*(u8 *)((char *)(arg0) + 0x26)) & 8) {
                 options.flags = 0x14;
@@ -367,7 +375,8 @@ loop_78:
                 *arg1 = temp_v0_7;
                 if ((temp_v0_7 != -1) && ((*(u8 *)((char *)(arg0) + 0x26)) & 0x80)) {
                     var_a0_7 = 0;
-                    temp_v0_8 = temp_v0_7 & 0x7FFFFFFF;
+                    temp_a1 = temp_v0_7;
+                    temp_v0_8 = temp_a1 & 0x7FFFFFFF;
                     var_v1_8 = 0;
 loop_100:
                     if (((*(u8 *)((char *)(&D_800E6A85) + var_v1_8)) != 0) || ((*(s32 *)((char *)(&gSoundEntities) + var_v1_8)) != temp_v0_8)) {
@@ -382,23 +391,22 @@ loop_100:
                         goto found_100;
                     }
                     join_100:
-                    if (var_v0_5 != -1) {
-                        if (0 <= var_v0_5) {
-                            __repair_phase_temp_v0_8 = var_v0_5 * 0xFF8;
+                    var_a1_2 = var_v0_5;
+                    if (var_a1_2 != -1) {
+                        if (0 <= var_a1_2) {
+                            __repair_phase_temp_v0_8 = var_a1_2 * 0xFF8;
                             (*(s32 *)((char *)(&D_800E5BD4) + __repair_phase_temp_v0_8)) = 0;
                             (*(s32 *)((char *)(&D_800E5BD8) + __repair_phase_temp_v0_8)) = 0;
                             return;
                         }
-                        temp_v0_9 = (var_v0_5 & 0x7FFFFFFF) * 0xFF8;
+                        var_a1_2 &= 0x7FFFFFFF;
+                        temp_v0_9 = var_a1_2 * 0xFF8;
                         (*(s32 *)((char *)(&D_800E6AA8) + temp_v0_9)) = 0;
                         (*(s32 *)((char *)(&D_800E6AAC) + temp_v0_9)) = 0;
                         (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_9)) = (*(u8 *)((char *)(&D_800E6AB2) + temp_v0_9)) | 0x10;
                     }
                 }
             } else {
-goto skip_100;
-found_100: var_v0_5 = var_a0_7 | (temp_v0_7 & 0x80000000); goto join_100;
-skip_100:
                 temp_v0 = runSceneGroupEntry((*(u16 *)((char *)(arg0) + 0x14)), (*(u16 *)((char *)(arg0) + 0x16)), (*(s32 *)((char *)(arg0) + 0x10)), &options.flags);
                 *arg1 = temp_v0;
                 if ((temp_v0 != -1) && ((*(u8 *)((char *)(arg0) + 0x26)) & 0x80)) {

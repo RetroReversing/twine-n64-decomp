@@ -87,7 +87,7 @@ skip_cmd:
                         } else {
                             guTranslateF(&D_80112F90, rec->field_24 * 64.0f, rec->field_28 * 64.0f, rec->field_2C * 64.0f);
                         }
-                        guMtxF2L(&D_80112F90, D_8010D538);
+                        do { guMtxF2L(&D_80112F90, D_8010D538); } while (0);
                         dl = D_80115328;
                         D_80115328 = dl + 1;
                         dl->w0 = 0xDA380003;

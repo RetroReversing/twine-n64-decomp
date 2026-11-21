@@ -46,8 +46,8 @@ void func_80064630(void *arg0)
     goto first_loop;
   }
   var_s2 = 0;
-  first_offset = 0;
   __repair_phase_storage.value = 0;
+  first_offset = 0;
   var_v1 = temp_s5;
   second_loop:
   {
