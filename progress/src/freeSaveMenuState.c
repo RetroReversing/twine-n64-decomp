@@ -12,7 +12,7 @@ void func_80022BB8(void);
 void func_8002EB34(void *);
 extern void *gSaveMenuState;
 typedef struct { u8 pad[8]; void *value; } Record;
-void func_80027970(void) {
+void freeSaveMenuState(void) {
     void *a;
     void *b;
     s32 i;
