@@ -182,7 +182,7 @@ void func_80035060(void *arg0)
         green = D_801007D0;
         red = D_801007CF;
         blue = D_801007D1;
-        var_v1 = ((blue >> 2) & 0x3E) | (((red << 8) & 0xF800) | inline_fn(green, 0x7C0));
+        var_v1_2 = (((red << 8) & 0xF800) | inline_fn(green, 0x7C0)); var_v1 = ((blue >> 2) & 0x3E) | var_v1_2;
       }
       temp_v1_2 = temp_a1 & 4;
       if (temp_v1_2)

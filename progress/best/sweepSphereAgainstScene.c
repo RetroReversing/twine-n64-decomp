@@ -451,8 +451,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
                         }
                       }
                       var_s2_6 += 6;
-                      var_s0_5 += 1;
                       var_s3_5 += 3;
+                      var_s0_5 += 1;
                     }
                     while (((u32) (var_s0_5 & 0xFFFF)) < ((u16) ((((Field_u16 *) (((char *) temp_s1) + 0x40))->v))));
                   }

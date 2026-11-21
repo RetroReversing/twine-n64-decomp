@@ -46,7 +46,6 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
   u32 a0;
   u32 a1;
   u32 a2;
-  s32 s1;
   s32 s3;
   s32 s2;
   u32 s4;
@@ -63,13 +62,14 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     t0 = 0x600;
     do
     {
+      s32 s1;
       s7 = s0->next;
       if (((s0->tag == arg3) && ((a0 = s0->addr, a0 < sp2C))) && (sp34 < a0))
       {
         a1 = s0->len;
         if (a1 != t0)
         {
-          if ((a0 + a1) < (s4 + s2))
+          if ((a1 + a0) < (s4 + s2))
           {
             Ent *e;
             if ((s4 + s2) >= (a0 + 0x600))
@@ -122,7 +122,11 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         {
           p = &sp10[(u16) s3];
           p[4] = s0->addr;
- do { p[0] = s0->data; } while (0);
+          do
+          {
+            p[0] = s0->data;
+          }
+          while (0);
           s3 += 1;
           s2 -= s2 - (a1 - s4);
           p[2] = s2;
@@ -275,3 +279,4 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     arg0->d = (s16) sp10[2];
   }
 }
+

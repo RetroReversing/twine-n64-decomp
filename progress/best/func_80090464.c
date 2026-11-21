@@ -24,7 +24,7 @@ s32 func_80090464(void)
   u8 temp_v0_5;
   u8 temp_v1_4;
   void *temp_a0_2;
-  void *temp_a0_3;
+  
   void *temp_a0_4;
   void *temp_a1_2;
   void *temp_a2;
@@ -109,17 +109,17 @@ s32 func_80090464(void)
           {
             *((void **) (((char *) temp_a1_2) + 0x578)) = (s32) NULL;
           }
-          temp_a0_3 = gSeqPlayer + var_s0;
-          *((s32 *) (((char *) temp_a0_3) + 0x584)) = 0;
-          *((s16 *) (((char *) temp_a0_3) + 0x580)) = 0x2000;
+          temp_a0_2 = gSeqPlayer + var_s0;
+          *((s32 *) (((char *) temp_a0_2) + 0x584)) = 0;
+          *((s16 *) (((char *) temp_a0_2) + 0x580)) = 0x2000;
           temp_v1_2 = *((s32 *) (((char *) temp_a2) + 8));
           if (temp_v1_2 != 0)
           {
-            *((s32 *) (((char *) temp_a0_3) + 0x57C)) = (s32) (temp_v1_2 + (*((void **) (((char *) gSeqPlayer) + 0x10C))));
+            *((s32 *) (((char *) temp_a0_2) + 0x57C)) = (s32) (temp_v1_2 + (*((void **) (((char *) gSeqPlayer) + 0x10C))));
           }
           else
           {
-            *((s32 *) (((char *) temp_a0_3) + 0x57C)) = 0;
+            *((s32 *) (((char *) temp_a0_2) + 0x57C)) = 0;
           }
           temp_a0_4 = gSeqPlayer + var_s0;
           *((s32 *) (((char *) temp_a0_4) + 0x588)) = 0;
@@ -148,7 +148,7 @@ s32 func_80090464(void)
               temp_v0_5 = *((u8 *) (((char *) temp_v0_2) + 0x8C));
               if (temp_v0_5 != 0xFF)
               {
-                temp_v0_6 = (temp_v0_5 * 8) + (*((u8 **) (((char *) gSeqPlayer) + 0x88)));
+                instrumentOffset = (*((u8 **) (((char *) gSeqPlayer) + 0x88))); temp_v0_6 = (temp_v0_5 * 8) + instrumentOffset;
                 *((s32 *) (((char *) gSeqPlayer) + 0xFA4)) = (s32) ((*((u8 *) (((char *) temp_v0_6) + 3))) | (((*((u16 *) (((char *) temp_v0_6) + 0))) << 0x10) | ((*((u8 *) (((char *) temp_v0_6) + 2))) << 8)));
               }
             }
@@ -163,7 +163,7 @@ s32 func_80090464(void)
           block_29:
           temp_t0 = gSeqPlayer;
 
-          temp_v0_7 = temp_t0 + (var_s1 * 0x10);
+          temp_a2_3 = (var_s1 * 0x10); temp_v0_7 = temp_t0 + temp_a2_3;
           if (((u32) ((*((s32 *) (((char *) temp_v0_7) + 0x134))) + (*((s32 *) (((char *) temp_t0) + 0x120))))) < ((u32) (*(*((u32 **) (((char *) temp_v0_7) + 0x12C))))))
           {
             goto block_30;
