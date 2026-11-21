@@ -64,14 +64,7 @@ block_20:
                 formatTextEntry(temp_s1, &sFmtEntryName, lookupDataEntry(0x8E));
                 if (D_80112F80 == 0) {
                     M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 1U;
-                    if (menuItemIsActive(0x21) & 0xFF) {
-                        temp_s1 = gSceneType; temp_s1 += 1;
-                    } else {
-block_12:
-                        temp_s1 = gSceneType - 1;
-                    }
-block_13:
-                    gSceneType = temp_s1;
+                    if (menuItemIsActive(0x21) & 0xFF) { gSceneType = gSceneType + 1; } else { gSceneType = gSceneType - 1; }
 block_25:
                     func_8001A4F4();
                 }
@@ -87,12 +80,8 @@ block_25:
                 formatTextEntry(temp_s1, &sFmtEntryName, lookupDataEntry(0x183));
                 if (D_80112F7F == 0) {
                     M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 1U;
-                    if (menuItemIsActive(0x21) & 0xFF) {
-                        temp_s1 = gSceneType + 1;
-                    } else {
-                        goto block_12;
-                    }
-                    goto block_13;
+                    gSceneType = (menuItemIsActive(0x21) & 0xFF) ? gSceneType + 1 : gSceneType - 1;
+                    func_8001A4F4();
                 }
                 break;
             case 6:
