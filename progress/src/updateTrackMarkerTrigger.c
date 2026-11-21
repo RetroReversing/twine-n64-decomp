@@ -12,16 +12,16 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 randomIntBelow(s32);                             /* extern */
+s32 func_80045CF8(s32);                             /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, f32, void *, void *, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, void *, f32, u8);     /* extern */
 M2C_UNK func_80073508(void *, f32);                 /* extern */
 M2C_UNK func_80084338(u16, void *);                 /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
-extern s8 gTransitionPhase;
+extern s8 D_800B2715;
 extern u8 gTrackDoneFlags[];
 
-void updateTrackMarkerTrigger(register void *arg0) {
+void func_800633D0(register void *arg0) {
     s16 temp_v0;
     u16 temp_a0;
     u16 temp_v1;
@@ -47,12 +47,12 @@ void updateTrackMarkerTrigger(register void *arg0) {
             } else {
                 temp_s2 = arg0 + 0x24;
                 func_80073508(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
-                if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (gTransitionPhase == 0)) {
+                if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (D_800B2715 == 0)) {
                     func_800853D4(temp_s2);
                 }
             }
             temp_a0 = M2C_FIELD(temp_s0, u16 *, 6);
-            if ((temp_a0 != 0) && (gTransitionPhase == 0)) {
+            if ((temp_a0 != 0) && (D_800B2715 == 0)) {
                 func_80084338(temp_a0, arg0 + 0x24);
             }
             temp_a2 = M2C_FIELD(temp_s0, u8 *, 0xB);
@@ -64,7 +64,7 @@ void updateTrackMarkerTrigger(register void *arg0) {
         }
         return;
     case 0x51:
-        if (randomIntBelow(M2C_FIELD(temp_s0, u8 *, 8) * 0x1E) == 0) {
+        if (func_80045CF8(M2C_FIELD(temp_s0, u8 *, 8) * 0x1E) == 0) {
             func_800624A8(arg0, arg0 + 0x24, 0.5f, M2C_FIELD(temp_s0, u8 *, 0xA));
         }
         break;
