@@ -9,7 +9,7 @@ s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 unsigned char func_8004E418(s32, f32 *, f32 *);               /* extern */
 s32 func_80082D24(s16 *, f32 *);                /* extern */
-s32 func_80082FE4(s16 *, s32 *);            /* extern */
+s32 buildRotationMatrixS16(s16 *, s32 *);            /* extern */
 s32 func_800839F0(s32 *, f32 *, f32 *);     /* extern */
 s32 rotateVec3ByMat3(f32 *, f32 *);                /* extern */
 s32 func_80083B64(f32 *, s16 *);                /* extern */
@@ -463,12 +463,12 @@ block_133:
             sp68[0] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x3C));
             sp68[1] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x40));
             sp68[2] = (s16) (s32) (*(f32 *)((char *)(gPlayerActor) + 0x44));
-            func_80082FE4(sp68, &spE8);
+            buildRotationMatrixS16(sp68, &spE8);
             func_800839F0(&spE8, spB8, spC8);
             sp68[0] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x3C)) + spA8[0]);
             sp68[1] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x40)) + spA8[1]);
             sp68[2] = (s16) (s32) ((*(f32 *)((char *)(gPlayerActor) + 0x44)) + spA8[2]);
-            func_80082FE4(sp68, &spE8);
+            buildRotationMatrixS16(sp68, &spE8);
             func_800839F0(&spE8, spB8, sp58);
             temp_ft1 = (*(f32 *)((char *)(gPlayerActor) + 0x24)) - (*(f32 *)((char *)(gPlayerActor) + 0x30));
             sp70[0] = temp_ft1;

@@ -13,8 +13,8 @@ void func_8007AABC(void *, s32, f32);
 
 f32 func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     u8 *s1;
-    f32 speed, angle, fs0, fs1, fs2, t, dx, dz, initial_dist;
-    s32 s2, sel, k;
+    f32 speed, fs0, fs1, fs2, t, dx, dz, initial_dist;
+    s32 s2, sel, k, yaw;
     u16 x, t16;
     s1 = *(u8 **)(arg0 + 0x6C);
     initial_dist = func_800461D4(arg0 + 0x24, arg1);
@@ -43,21 +43,21 @@ f32 func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
         dx = arg1[0] - *(f32 *)(arg0 + 0x24);
         dz = arg1[2] - *(f32 *)(arg0 + 0x2C);
         if ((dx == 0.0f) & (dz == 0.0f)) {
-            angle = *(f32 *)(arg0 + 0x40);
+            yaw = (s32)*(f32 *)(arg0 + 0x40);
         } else {
-            angle = approximateAtan2(dx, dz) * 651.8986f;
+            yaw = (s32)(approximateAtan2(dx, dz) * 651.8986f);
         }
-        func_8007AABC(arg0, (s32)angle, 0.2f);
+        func_8007AABC(arg0, yaw, (f32)0.2);
         return 0.0f;
     }
     dz = arg1[2] - *(f32 *)(arg0 + 0x2C);
     dx = arg1[0] - *(f32 *)(arg0 + 0x24);
     if ((dx == 0.0f) & (dz == 0.0f)) {
-        angle = *(f32 *)(arg0 + 0x40);
+        yaw = (s32)*(f32 *)(arg0 + 0x40);
     } else {
-        angle = approximateAtan2(dx, dz) * 651.8986f;
+        yaw = (s32)(approximateAtan2(dx, dz) * 651.8986f);
     }
-    func_8007AABC(arg0, (s32)angle, 0.2f);
+    func_8007AABC(arg0, yaw, 0.2f);
     if (arg2[0] != 0.0f) {
         f32 speedNow = *(f32 *)(s1 + 0x80);
         *(f32 *)(s1 + 0x80) = speedNow + (fs2 - speedNow) * 0.1f;

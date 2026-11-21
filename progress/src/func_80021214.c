@@ -26,7 +26,7 @@ extern s32 gBorderSkipFlag;
 extern void *gMenuState;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
-extern s32 func_80022C04;
+extern s32 bindMenuItemRecord;
 
 void func_80021214(void) {
     s32 *__base_D_80102ED8;
@@ -49,7 +49,7 @@ void func_80021214(void) {
         formatTextEntry(temp_v0, "%s", lookupDataEntry((unsigned short)(var_s1 + 0x96)));
         __base_D_80102ED8 = &gBorderSkipFlag;
         if ((*__base_D_80102ED8) != 0) {
-            func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &func_80022C04, &func_8001AC88);
+            func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &bindMenuItemRecord, &func_8001AC88);
         }
         refreshSaveSlotMenu(var_s1);
         if ((*__base_D_80102ED8) != 0) {

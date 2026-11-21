@@ -355,14 +355,14 @@ block_80:
                 temp_v1_9 = M2C_FIELD(temp_s1, u8 *, 0x185);
                 temp_s0 = M2C_FIELD(temp_s1, void **, 0x410);
                 switch (temp_v1_9) {                /* switch 1; irregular */
-                case 1:                             /* switch 1 */
-                    var_v1 = 0x3FFF3FFF;
-                    break;
                 case 2:                             /* switch 1 */
                     var_v1 = 0x3F3FFFFF;
                     break;
                 default:                            /* switch 1 */
                     var_v1 = 0xFF0000FF;
+                    break;
+                case 1:                             /* switch 1 */
+                    var_v1 = 0x3FFF3FFF;
                     break;
                 }
                 M2C_FIELD(temp_s0, s32 *, 0x10) = var_v1;

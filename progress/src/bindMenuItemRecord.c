@@ -24,7 +24,7 @@ extern void *gMenuState;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; int field_28; } __repair_record_temp_s1;
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; unsigned int hi:24; unsigned int bits:6; unsigned int lo:2; } __bf;
-void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
+void bindMenuItemRecord(void *arg0, s32 arg1, s32 arg2) {
     s32 var_v0_2;
     s32 var_v1;
     void *temp_s1;

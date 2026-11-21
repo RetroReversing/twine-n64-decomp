@@ -1,6 +1,6 @@
-extern f32 gCosTable[];
-#define SINS(x) gCosTable[(x) & 0xFFF]
-#define COSS(x) gCosTable[((x) - 0x400) & 0xFFF]
+extern f32 gSinCosTable[];
+#define SINS(x) gSinCosTable[(x) & 0xFFF]
+#define COSS(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 
 void func_80082D24(const s16 *ang, f32 *m) {
     s32 a = ang[0];
@@ -9,7 +9,7 @@ void func_80082D24(const s16 *ang, f32 *m) {
     s32 ai = (a - 0x400) & 0xFFF;
     f32 sb = SINS(b);
     f32 sc = SINS(c);
-    f32 ca = gCosTable[ai];
+    f32 ca = gSinCosTable[ai];
     f32 first = sb * sc;
     f32 cb = COSS(b);
     f32 cacb = ca * cb;

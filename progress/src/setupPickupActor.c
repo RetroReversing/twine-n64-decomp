@@ -37,7 +37,7 @@ extern s8 gSharedItemBusy;
 extern void *gMenuState;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
-extern s32 func_80022C04;
+extern s32 bindMenuItemRecord;
 
 extern char D_800D2864[];
 /* Creates or reuses the pickup actor, configures it, links it to the surface list, and sets up the shared item display */ void setupPickupActor(void) {
@@ -78,7 +78,7 @@ extern char D_800D2864[];
           *(f32 *)(actor + 0x2C) = depth;
           actorLinkToSurface(*(volatile s32 *)probe, *pickup, 1); }
         i = 0;
-        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
+        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &bindMenuItemRecord, &func_8001AC88);
         func_80022A30(gMenuListParam, 0x30, 0x30, 0x6E, 0xF);
         itemList = func_800316C8();
         for (;;) {

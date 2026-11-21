@@ -47,7 +47,7 @@ extern char D_8011508E[];
 extern char D_8011508F[];
 extern char D_80115090[];
 extern s32 func_8001AC88;
-extern s32 func_80022C04;
+extern s32 bindMenuItemRecord;
 
 void func_8001F9A4(void) {
     s32 sp34;
@@ -196,7 +196,7 @@ block_36:
         }
         formatTextEntry(sp3C, "%s", lookupDataEntry(var_a0_9));
         if (gBorderSkipFlag != 0) {
-            func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &func_80022C04, &func_8001AC88);
+            func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 8, 0x27, 0xB4, 0x4C, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
             gValidSaveSlotCount = countValidSaveSlots(0xA3);
             func_80022A30(gMenuListParam, 0x25, 0x48, 0x32, 0x76);
             var_s0_2 = 0;

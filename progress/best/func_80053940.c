@@ -22,7 +22,7 @@ s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 absFloat(f32, void *);                     /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
-M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
+M2C_UNK buildRotationMatrixS16(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();     /* extern */
 M2C_UNK func_80083B64();     /* extern */
 extern u16 gSurfaceQueryStamp;
@@ -249,7 +249,7 @@ block_21:
                                 sp98[1] = (s16) (s32) M2C_FIELD(var_s0_2, f32 *, 0x40);
                                 D_80108404 = var_s0_2;
                                 sp9C = (s16) (s32) M2C_FIELD(var_s0_2, f32 *, 0x44);
-                                func_80082FE4(sp11C, sp68);
+                                buildRotationMatrixS16(sp11C, sp68);
                                 temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
                                 if (temp_v1_2 != 0) {
                                     var_s6 = M2C_FIELD(temp_s1, u16 **, 0x3C);

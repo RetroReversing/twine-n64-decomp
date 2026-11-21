@@ -4,7 +4,7 @@ s32 func_8001751C(s32, u8, s32 *, f32 *);
 void applyNearbyActorImpact(void *, f32, f32);
 s32 randomIntBelow(s32);
 s32 spawnDriftEffect(void *, s32 *);
-s32 func_80082FE4(s16 *, void *);
+s32 buildRotationMatrixS16(s16 *, void *);
 s32 rotateVec3ByMat3(void *, s32 *);
 extern u8 gTrackDoneFlags[];
 
@@ -29,7 +29,7 @@ void func_80061168(void *arg0) {
             sp50[0] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x3C));
             sp50[1] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x40));
             sp50[2] = (s16)(s32)(*(f32 *)((char *)arg0 + 0x44));
-            func_80082FE4(sp50, sp20);
+            buildRotationMatrixS16(sp50, sp20);
             rotateVec3ByMat3(sp20, sp10);
             *(f32 *)((char *)s2 + 0) = *(f32 *)&sp10[0];
             *(f32 *)((char *)s2 + 4) = *(f32 *)&sp10[1];

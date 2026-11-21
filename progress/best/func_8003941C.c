@@ -1,7 +1,7 @@
 void func_80043FA0(void);
 void func_800723C0(f32 *, f32 *, f32 *, void **, s32);
 void subdivideTriangle(f32, f32 *, f32 *, f32 *, void **, s32);
-void func_80082FE4(s16 *, f32 *);
+void buildRotationMatrixS16(s16 *, f32 *);
 void rotateVec3ByMat3(f32 *, f32 *);
 
 void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
@@ -27,7 +27,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
             sp128[0] = (s16)arg3[0];
             sp128[1] = (s16)arg3[1];
             sp128[2] = (s16)arg3[2];
-            func_80082FE4(sp128, spF8);
+            buildRotationMatrixS16(sp128, spF8);
         }
         sp14C = (s8)arg4;
         var_s7 = var_s6 + 1;

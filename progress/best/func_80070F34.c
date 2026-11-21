@@ -486,8 +486,8 @@ block_10:
             break;
         }
     }
-    temp_v1_19 = M2C_FIELD(temp_s2, u8 *, 0x5A8);
-    switch (temp_v1_19) {                           /* switch 3 */
+    temp_a0_2 = M2C_FIELD(temp_s2, u8 *, 0x5A8);
+    switch (temp_a0_2) {                           /* switch 3 */
     case 0:                                         /* switch 3 */
         var_a0_2 = 0;
         if (M2C_FIELD(temp_s2, void **, 0x514) == NULL) {

@@ -69,16 +69,16 @@ u32 osGetMemSize(void) {
     return off;
 }
 
-extern f32 gCosTable[];
+extern f32 gSinCosTable[];
 typedef struct { f32 v[9]; } Matrix3;
 void build_yz_rotation_matrix(s16 *angle, Matrix3 *out) {
     s32 y = angle[1];
     s32 z = angle[2];
-    f32 cy = gCosTable[y & 0xfff];
-    f32 cz = gCosTable[z & 0xfff];
-    f32 sz = gCosTable[(z - 0x400) & 0xfff];
+    f32 cy = gSinCosTable[y & 0xfff];
+    f32 cz = gSinCosTable[z & 0xfff];
+    f32 sz = gSinCosTable[(z - 0x400) & 0xfff];
     f32 m00 = cy * cz;
-    f32 sy = gCosTable[(y - 0x400) & 0xfff];
+    f32 sy = gSinCosTable[(y - 0x400) & 0xfff];
     f32 m01 = -cy * sz;
     f32 m21 = sy * sz;
     f32 m20 = -cz * sy;

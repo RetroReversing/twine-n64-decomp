@@ -24,7 +24,7 @@ s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
 M2C_UNK func_80073304(void *, void *, void **);     /* extern */
 f32 func_800828D0(f32);                             /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
-M2C_UNK func_80082FE4(f32 *, M2C_UNK *);            /* extern */
+M2C_UNK buildRotationMatrixS16(f32 *, M2C_UNK *);            /* extern */
 M2C_UNK func_800839F0(M2C_UNK *, f32 *, f32 *);     /* extern */
 M2C_UNK func_80083A6C(M2C_UNK *, f32 *);            /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *);                /* extern */
@@ -567,12 +567,12 @@ block_162:
             sp98 = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x3C);
             sp9A = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x40);
             sp9C = (s16) (s32) M2C_FIELD(D_80108788, f32 *, 0x44);
-            func_80082FE4(&sp98, &sp68);
+            buildRotationMatrixS16(&sp98, &sp68);
             func_800839F0(&sp68, &spB8, &spC8);
             sp98 = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x3C) + spF8);
             sp9A = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x40) + spFC);
             sp9C = (s16) (s32) (M2C_FIELD(D_80108788, f32 *, 0x44) + sp100);
-            func_80082FE4(&sp98, &sp68);
+            buildRotationMatrixS16(&sp98, &sp68);
             func_800839F0(&sp68, &spB8, &spD8);
             temp_ft1 = M2C_FIELD(D_80108788, f32 *, 0x24) - M2C_FIELD(D_80108788, f32 *, 0x30);
             sp110 = temp_ft1;

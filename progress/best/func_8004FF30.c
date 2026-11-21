@@ -22,7 +22,7 @@ s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 func_80082908(f32);                        /* extern */
 M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
-M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
+M2C_UNK buildRotationMatrixS16(s16 *, f32 *);                /* extern */
 M2C_UNK func_800832BC(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();         /* extern */
 M2C_UNK func_80083B64();         /* extern */
@@ -259,7 +259,7 @@ loop_3:
                             sp88 = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x3C);
                             sp8A = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x40);
                             sp8C = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x44);
-                            func_80082FE4(sp1A4, &sp58);
+                            buildRotationMatrixS16(sp1A4, &sp58);
                             temp_v1_2 = M2C_FIELD(temp_v1, u8 *, 0x48) & 4;
                             if (temp_v1_2 != 0) {
                                 var_fp = M2C_FIELD(temp_v1, u16 **, 0x3C);

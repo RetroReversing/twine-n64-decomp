@@ -30,7 +30,7 @@ s32 func_80047AEC();
 s32 func_80047B14();
 f32 sinAngle(f32);
 f32 cosAngle();
-s32 func_80082FE4();
+s32 buildRotationMatrixS16();
 s32 rotateVec3ByMat3();
 extern char D_800C469C[];
 extern char gTrackMarkerTable[];
@@ -130,7 +130,7 @@ void func_800589FC(void *arg0, void *arg1) {
         repair_stack_record.sp70[0] = (s16) (s32) M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), f32 *, 0x3C);
         repair_stack_record.sp70[1] = (s16) (s32) M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), f32 *, 0x40);
         repair_stack_record.sp70[2] = (s16) (s32) M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), f32 *, 0x44);
-        func_80082FE4(repair_stack_record.sp70, repair_stack_record.sp40);
+        buildRotationMatrixS16(repair_stack_record.sp70, repair_stack_record.sp40);
         rotateVec3ByMat3(repair_stack_record.sp40, &sp98);
         rotateVec3ByMat3(repair_stack_record.sp40, &spA8);
         sp10C = &spB8;

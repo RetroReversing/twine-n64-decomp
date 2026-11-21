@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK vec3Add(f32 *, void *, f32 *);        /* extern */
 f32 approxDistance(f32 *, s32);                      /* extern */
-M2C_UNK func_80082FE4(s16 *, M2C_UNK *);            /* extern */
+M2C_UNK buildRotationMatrixS16(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);            /* extern */
 
 /* For each node of kind 0xB whose part is of a matching kind, find the closest part in the
@@ -56,7 +56,7 @@ void linkSourceNodesByNearestPart(void *targetList, void *nodeList) {
                                 nodePos[0] = (s16) (s32) M2C_FIELD(node, f32 *, 0x3C);
                                 nodePos[1] = (s16) (s32) M2C_FIELD(node, f32 *, 0x40);
                                 nodePos[2] = (s16) (s32) M2C_FIELD(node, f32 *, 0x44);
-                                { func_80082FE4(nodePos, transform); }
+                                { buildRotationMatrixS16(nodePos, transform); }
                                 targetEntry = M2C_FIELD(node, void **, 0x70);
                                 nodeCenter[0] = (M2C_FIELD(targetEntry, f32 *, 0x18) + M2C_FIELD(targetEntry, f32 *, 0x1C)) * 0.5f;
                                 targetEntry = M2C_FIELD(node, void **, 0x70);

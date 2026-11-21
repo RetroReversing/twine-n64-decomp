@@ -1,6 +1,6 @@
-extern f32 gCosTable[];
-#define SINS(x) gCosTable[(x) & 0xFFF]
-#define COSS(x) gCosTable[((x) - 0x400) & 0xFFF]
+extern f32 gSinCosTable[];
+#define SINS(x) gSinCosTable[(x) & 0xFFF]
+#define COSS(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 
 void spherical_to_cartesian(f32 *arg0, f32 r, f32 y, f32 p) {
     s32 a = y * 651.8986206054688f;

@@ -3,7 +3,7 @@
 s32 vec3Add(void *, s32, s32);            /* extern */
 f32 func_80045590(void *, void *);                  /* extern */
 f32 randomFloatScaled(f32);                        /* extern */
-s32 func_80082FE4(void *, s16 *);            /* extern */
+s32 buildRotationMatrixS16(void *, s16 *);            /* extern */
 s32 func_800839F0(s32 *, s32 *, s32);       /* extern */
 extern s32 D_800CEE50;
 extern f32 D_800CEE98;
@@ -36,7 +36,7 @@ void func_80087380(void *arg0) {
     sp40[0] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x3C));
     sp40[1] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x40));
     sp40[2] = (s16) (s32) (*(f32 *)((char *)(arg0) + 0x44));
-    func_80082FE4(sp40, sp10);
+    buildRotationMatrixS16(sp40, sp10);
     temp_fv0 = func_80045590(arg0 + 0x24, arg0 + 0x30);
     var_fs0 = 3.6442475f;
     if (temp_fv0 != 0.0f) {

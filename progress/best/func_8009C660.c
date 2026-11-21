@@ -7,7 +7,7 @@ extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 
 s32 func_8009C660(s32 handle, s32 original) {
     s32 index, result = -1;
-    u32 high, low;
+    u32 high; u32 low = original;
     s32 value = original;
     u8 channel;
 

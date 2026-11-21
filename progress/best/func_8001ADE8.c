@@ -63,7 +63,7 @@ extern s8 gSharedItemBusy;
 extern void *gMenuState;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
-extern s32 func_80022C04;
+extern s32 bindMenuItemRecord;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 void func_8001ADE8(void) {
@@ -109,7 +109,7 @@ s32 __repair_phase_var_a0;
     temp_s5 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x6A);
     sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
-        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
+        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
         func_80022A30(gMenuListParam, 0x27, 0x2E, 0x3C, 0x98);
         var_s2 = 0;
         if (gSaveTotalSlots > 0) {

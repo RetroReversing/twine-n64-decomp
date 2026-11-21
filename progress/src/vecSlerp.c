@@ -10,8 +10,8 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-extern M2C_UNK gCosTable;
-/* Spherical linear interpolation of two 4-float vectors/quaternions: out = from*wFrom + to*wTo, weights from t along the arc. Uses gCosTable (4096 entries) for sin. */
+extern M2C_UNK gSinCosTable;
+/* Spherical linear interpolation of two 4-float vectors/quaternions: out = from*wFrom + to*wTo, weights from t along the arc. Uses gSinCosTable (4096 entries) for sin. */
 void vecSlerp(f32 t, f32 *from, f32 *to, f32 *out) {
     f32 dot, dotSq, dotCube, dotPow5, theta, invSinTheta, thetaT, thetaRest, weightFrom, weightTo;
     f32 outX, outY, outZ, outW;
@@ -30,11 +30,11 @@ void vecSlerp(f32 t, f32 *from, f32 *to, f32 *out) {
         dotCube = dotSq * dot;
         dotPow5 = dotSq * dotCube;
         theta = ((1.5708f - (dot * 1.01744f)) - (dotCube * 0.0207019f)) - (dotPow5 * 0.32649f);
-        invSinTheta = 1.0f / *((f32 *)((s8 *)&gCosTable + ((((s32)(theta * 651.8986f) - 0x400) & 0xFFF) * 4)));
+        invSinTheta = 1.0f / *((f32 *)((s8 *)&gSinCosTable + ((((s32)(theta * 651.8986f) - 0x400) & 0xFFF) * 4)));
         thetaT = theta * t;
         thetaRest = (theta - thetaT) * 651.8986f;
-        weightTo = *((f32 *)((s8 *)&gCosTable + ((((s32)(thetaT * 651.8986f) - 0x400) & 0xFFF) * 4))) * invSinTheta;
-        weightFrom = *((f32 *)((s8 *)&gCosTable + ((((s32)thetaRest - 0x400) & 0xFFF) * 4))) * invSinTheta;
+        weightTo = *((f32 *)((s8 *)&gSinCosTable + ((((s32)(thetaT * 651.8986f) - 0x400) & 0xFFF) * 4))) * invSinTheta;
+        weightFrom = *((f32 *)((s8 *)&gSinCosTable + ((((s32)thetaRest - 0x400) & 0xFFF) * 4))) * invSinTheta;
     } else {
         weightFrom = 1.0f - weightTo;
     }

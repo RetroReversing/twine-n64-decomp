@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 vec3Add();
 s32 func_80055B5C();
-s32 func_80082FE4();
+s32 buildRotationMatrixS16();
 s32 func_800839F0();
 extern char D_800B5B00[];
 extern char D_800C795C[];
@@ -31,7 +31,7 @@ void func_80018744(void *arg0) {
     __repair_frame.f50 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x3C);
     __repair_frame.f52 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x40);
     __repair_frame.f54 = (s16) (s32) M2C_FIELD(arg0, f32 *, 0x44);
-    func_80082FE4(&__repair_frame, sp20);
+    buildRotationMatrixS16(&__repair_frame, sp20);
     func_800839F0(sp20, D_800B5B00, sp58);
     vec3Add(arg0 + 0x24, sp58, sp58);
     func_80055B5C(-1, arg0, D_800C795C, sp58, arg0 + 0x3C, 0, 0x3E000);

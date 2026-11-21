@@ -1,7 +1,7 @@
-/* identical to func_80082FE4 (matched), with its names changed by decompdecomp */
-extern f32 gCosTable[];
-#define COS(x) gCosTable[(x) & 0xFFF]
-#define SIN(x) gCosTable[((x) - 0x400) & 0xFFF]
+/* identical to buildRotationMatrixS16 (matched), with its names changed by decompdecomp */
+extern f32 gSinCosTable[];
+#define COS(x) gSinCosTable[(x) & 0xFFF]
+#define SIN(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 void func_800832BC(const s16 *arg0, f32 *arg1) {
     s32 b = arg0[1];
     s32 c = arg0[2];
