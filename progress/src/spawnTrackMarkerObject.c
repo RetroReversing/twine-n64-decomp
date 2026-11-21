@@ -4,7 +4,7 @@ void *spawnEffectObject(s32, s32, s32);         /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 extern s32 *gProbeObjectList;
 
-void *func_800632AC(s32 arg0, void *arg1, s16 arg2) {
+void *spawnTrackMarkerObject(s32 arg0, void *arg1, s16 arg2) {
     void *temp_v0;
     void *temp_a0;
 

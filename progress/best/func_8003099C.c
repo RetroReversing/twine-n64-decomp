@@ -28,8 +28,9 @@ extern u16 gEntryCount;
 extern s32 gEntryMode;
 extern s32 gEntryTable;
 
+typedef struct { short field_0; unsigned short field_2; unsigned short field_4; } __repair_record_temp_a1_3;
 void func_8003099C(s8 arg0, s32 arg1) {
-    u16 *__base_D_800BFF0C;
+    u16 *__base_D_800BFF0C = &D_800BFF0C;
 int __repair_constant = 6;
 
     s16 var_s2_2;
@@ -92,12 +93,12 @@ loop_5:
 loop_10:
                 temp_s1 = (var_s0_2 & 0xFFFF) * 8;
                 temp_a1_3 = temp_s1 + gEntryTable;
-                M2C_FIELD(temp_a1_3, s16 *, 0) = -1;
+                ((__repair_record_temp_a1_3*)temp_a1_3)->field_0 = -1;
                 if (gEntryTable != 0) {
-                    temp_v1_3 = M2C_FIELD(temp_a1_3, u16 *, 2);
+                    temp_v1_3 = ((__repair_record_temp_a1_3*)temp_a1_3)->field_2;
                     if (!(temp_v1_3 & 0x200) && ((u16) D_800E160A >= (u32) (temp_v1_3 & 0xF000))) {
-                        M2C_FIELD(temp_a1_3, s16 *, 0) = var_s2_2;
-                        temp_v0_2 = func_80087100(M2C_FIELD(temp_a1_3, u16 *, 4), temp_a1_3);
+                        ((__repair_record_temp_a1_3*)temp_a1_3)->field_0 = var_s2_2;
+                        temp_v0_2 = func_80087100(((__repair_record_temp_a1_3*)temp_a1_3)->field_4, temp_a1_3);
                         if (temp_v0_2 != NULL) {
                             M2C_FIELD(temp_v0_2, s8 *, 0) = __repair_constant;
                             M2C_FIELD(temp_v0_2, s8 *, 1) = -1;
@@ -131,5 +132,5 @@ block_20:
     D_80100768 = 0;
     gEntryCount = 0;
     D_800E160A = 0;
-    (*__base_D_800BFF0C) = 3;
+    D_800BFF0C = 3;
 }

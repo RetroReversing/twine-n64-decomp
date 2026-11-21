@@ -1,12 +1,14 @@
 typedef union {
     u32 word;
     u8 bytes[4];
+    struct { unsigned :16; unsigned x:4; unsigned y:4; unsigned :8; } bits;
 } PackedWord15F74;
 
 typedef union {
     u32 word;
     u16 halves[2];
     u8 bytes[4];
+    struct { unsigned :24; unsigned x:4; unsigned y:4; } bits;
 } PackedOptions15F74;
 
 typedef struct {
@@ -90,18 +92,8 @@ TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
         node->flags.bytes[1] = node->flags.bytes[0];
     }
 
-    spacing = args->options.word;
-    if ((spacing & 0xF0) == 0) {
-        spacing = 16;
-    }
-    spacing = (spacing >> 4) & 0xF;
-    flags = (node->flags.word & 0xFFFF0FFF) | ((spacing & 0xF) << 12);
-    node->flags.word = flags;
-    lines = 1;
-    if ((args->options.word & 0xF) != 0) {
-        lines = args->options.word & 0xF;
-    }
-    node->flags.word = (flags & ~0xF00) | (lines << 8);
+    node->flags.bits.x = args->options.bits.x ? args->options.bits.x : 1;
+    node->flags.bits.y = args->options.bits.y ? args->options.bits.y : 1;
     index = args->index;
     if (index >= 0) {
         func_800165E0(node, gTrackMarkers[index]);

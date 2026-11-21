@@ -19,7 +19,7 @@ extern s32 *gProbeObjectList;
 extern s32 D_80103F00;
 
 typedef struct { float field_0; float field_4; } __repair_record_temp_s1;
-s32 func_80060C50(s32 arg0, void *arg1) {
+s32 spawnSurfaceEffect(s32 arg0, void *arg1) {
     union {
         unsigned char bytes[32];
         struct { M2C_UNK value; } view_sp20;

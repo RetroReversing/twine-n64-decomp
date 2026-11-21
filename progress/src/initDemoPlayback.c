@@ -31,7 +31,9 @@ extern s32 gDemoFrame;
 extern s32 gDemoFadeTimer;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[10]; short field_1E; short field_20; short field_22; } __repair_record_D_801005AC;
-void func_80087D50(void) {
+
+/* Resets demo playback state and spawns the demo's track marker, storing its data entry and timing. */
+void initDemoPlayback(void) {
     f32 temp_fv1;
     s32 temp_v0;
     s32 var_a1;

@@ -19,7 +19,7 @@ M2C_UNK func_8000A5F4(s32);                         /* extern */
 void func_80045080(s32);                          /* extern */
 M2C_UNK DrawScreenBorderLines();                            /* extern */
 M2C_UNK func_80087CDC(void);                          /* extern */
-M2C_UNK func_80087D50(u8);                          /* extern */
+M2C_UNK initDemoPlayback(u8);                          /* extern */
 M2C_UNK func_80117BF4(u8);                          /* extern */
 extern u8 D_800CEEB1;
 extern s8 D_801002AE;
@@ -102,6 +102,6 @@ extern s32 D_8010A4E4;
             func_80087CDC();
             return;
         }
-        func_80087D50(D_800CEEB1);
+        initDemoPlayback(D_800CEEB1);
     }
 }

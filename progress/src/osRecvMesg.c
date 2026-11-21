@@ -1,4 +1,3 @@
-/* identical to osRecvMesg in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 typedef void *OSMesg;
 typedef s32 OSPri;
 
@@ -27,14 +26,14 @@ extern OSThread *__osPopThread(OSThread **);
 extern void osStartThread(OSThread *);
 
 /* Receives the next message from a queue. If the queue is empty, flag 0 returns -1 at once; otherwise the thread blocks until a message arrives. Copies the message to *msg if msg is non-null, then wakes the first blocked sender. */
-s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags) {
-    register u32 saveMask;
+/* Receives the next message from a queue, blocking when flags is nonzero and the queue is empty. */ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags) {
+    register u32 savedInt;
 
-    saveMask = __osDisableInt();
+    savedInt = __osDisableInt();
 
-    while ((((mq)->validCount) == 0)) {
+    while (mq->validCount == 0) {
         if (flags == 0) {
-            __osRestoreInt(saveMask);
+            __osRestoreInt(savedInt);
             return -1;
         } else {
             __osRunningThread->state = (1 << 3);
@@ -53,6 +52,6 @@ s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags) {
         osStartThread(__osPopThread(&mq->fullqueue));
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(savedInt);
     return 0;
 }
