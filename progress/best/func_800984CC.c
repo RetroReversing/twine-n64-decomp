@@ -3,7 +3,7 @@
 s32 *func_800956E0(s16 *, s32 *, s32, s32, s32 *); /* extern */
 extern s16 D_800F38C8;
 extern s32 *D_800F38CC;
-extern s32 D_800F7954;
+extern s32 gCountedEntryCount;
 extern s32 D_800F7958;
 extern s32 func_800986DC;
 
@@ -13,7 +13,7 @@ s32 func_800984CC(s16 arg0) {
 
     __base_D_800F38C8 = &D_800F38C8;
     (*__base_D_800F38C8) = arg0;
-    temp_v0 = func_800956E0((s32)__base_D_800F38C8 - 4, &D_800F7958, D_800F7954, 8, &func_800986DC);
+    temp_v0 = func_800956E0((s32)__base_D_800F38C8 - 4, &D_800F7958, gCountedEntryCount, 8, &func_800986DC);
     D_800F38CC = temp_v0;
     if (temp_v0 == NULL) { goto __repair_guard_body; }
 return *temp_v0;

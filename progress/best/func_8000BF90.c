@@ -59,9 +59,11 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
             }
         }
         b = 0; g = 0; r = 0;
-        for (idx = 0; (u32)idx < 2; idx++) {
+        idx = 0;
+        do {
             selected = best[idx];
-            if (selected != NULL) {
+            if (!selected) goto next_color;
+            {
                 t = selected;
                 tf = (f32 *)t;
                 sp30[0] = ((f32 *)(arg0 + 0x24))[0] - tf[1];
@@ -79,7 +81,9 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                     if ((b & 0xFFFF) >= 0x100) b = 0xFF;
                 }
             }
-        }
+next_color:
+            ++idx;
+        } while ((u32)idx < 2);
         __repair_phase_storage.value = D_801096A0 & 0xFFFF;
         if ((r & 0xFFFF) < __repair_phase_storage.value) r = (int)D_801096A0;
         if ((g & 0xFFFF) < __repair_phase_storage.value) g = D_801096A0;
