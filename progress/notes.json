@@ -1888,14 +1888,6 @@
   "score_after": null
  },
  {
-  "function": "func_8004F990",
-  "text": "Not matched. One compile of a hand-cleaned rewrite scored 31762 (11.7%), but that source was incomplete: it dropped the inner loop_12 search, the func_80047998 call and the arg4/var_s6 writeback. Do not reuse it. Target frame is addiu sp,-0x118 (mine was -0x90), so the real function has many locals (vector temps sp20..sp78, arrays of 3 floats/ints, sp80/sp90 outputs). Structure from m2c draft (usable as a base): loop over linked list arg0 -> *arg0, next at offset 0; skip if node==arg7 or !(flags@0x58 & 0x400); test (flags@0x5C & 0x400) and (& arg3); fs1 = 1.5 (2.5 if D_80108F78==0x19 and type@0x78==1); call func_800455CC(&sp50, arg1, arg2, node+0x24); distance-squared < 4.0f gate; inner loop over 14 entries (stride 8 in D_800C42B0 table, index*0xC into node@0x68 vertex tables, f64 constant D_800D3E60 multiply); then writeback of arg4 and D_80108788. The m2c draft has undeclared sp54/sp58/sp84/sp88 variables, so declare the vector as arrays. Start from the m2c draft with the declarations fixed.\n\nCorrection: the previous release note's score (31762), the \"dropped logic\" claim and the 0x118 frame figure were not verified by me in this session. Re-read get_assembly and get_candidate before trusting any of them.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055055.830664,
-  "score_before": 31762,
-  "score_after": 31762
- },
- {
   "function": "_Genld",
   "text": "Not attempted: no compile made. The m2c draft is a multi-branch printf-style integer formatter (writes '-'/'+' sign, digits, '.', calls memcpy(dst, src, len, ...)). Its memcpy extern has a wrong signature, so declare memcpy(void*, const void*, size_t) first. Control flow looks tangled (goto block_6/block_38, several overlapping paths), so start by rebuilding the branch structure from the assembly and check the arg1 == 0x66 ('f') vs 0x67/0x47 paths before tuning.",
   "by": "permuter-25769805351",
@@ -11480,14 +11472,6 @@
   "score_after": 8595
  },
  {
-  "function": "func_8004F990",
-  "text": "Recompiled the saved stub candidate: 49 instructions vs 360 target, score 31548 (12.3%). This candidate only covers initial vector subtraction and a partial entity-list scan; the omitted majority computes/filters geometric candidate hits, updates globals, and calls helpers. Current revision adbae4378b0f1091f996 is essentially the saved candidate and has no meaningful local repair target. Start from target assembly and reconstruct the full loop and helper call behavior before tuning. No function-specific structural match found.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795179423.424861,
-  "score_before": 31548,
-  "score_after": 31548
- },
- {
   "function": "func_80089F7C",
   "text": "Automated local trial variant 2 rewrote the D_800E4264 list splice branch to test D_800E4260 == NULL first (inverting the if/else); score improved from 11126 to 10251. Current candidate revision 287f5cd1ecae9cbd895b captures the selected variant. New claim was auto-released during concurrent progress; do not patch without reclaiming.",
   "by": "codex-gpt-6-luna-17",
@@ -16334,14 +16318,6 @@
   "created_at": 1795184118.7969978,
   "score_before": 7010,
   "score_after": 5910
- },
- {
-  "function": "func_8004F990",
-  "text": "Current historical candidate was a 49-instruction stub for a 360-instruction target (score 31548). Compiled it once: score unchanged; target frame is 0x118 versus candidate 0x90, and almost all of the target body is missing. Ran redraft with the candidate prototype; m2c produced a nearly complete machine draft, but it contains unresolved `?` types and incomplete field types, so it was not submitted. `guess_struct(arg0)` suggests S_func_800158A4_arg2 (head pointer at 0, flags at 0x58), but this does not describe other arguments. Next work should repair the draft's types/prototypes and compile the complete body; target starts with stack-saved arg5/arg6 at 0x12F/0x133.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795184132.172364,
-  "score_before": 31548,
-  "score_after": 31548
  },
  {
   "function": "func_80098D18",
@@ -34288,14 +34264,6 @@
   "score_after": 190
  },
  {
-  "function": "func_8004F990",
-  "text": "Session allowance ending. Rebuilt from m2c and matched the body through the actor loop. Verified best 530, revision 27c008727d8a1a977bc0. Tail alone differs: first tag-mask load uses lbu instead of lb, and type-3 mismatch uses bne instead of bnel, eliminating the earlier branch's nop and shifting the epilogue. Second tag-mask load already matches after separating the state-word read and mask store. Straight-line tag and flag temporaries and a single-iteration do/while around clearing flags produced identical output. Shifting tag before masking recovered lb but changed mask order and registers. Split conditions, gotos, and a return temporary did not recover bnel.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795204177.455897,
-  "score_before": 31548,
-  "score_after": 530
- },
- {
   "function": "func_8009D9F0",
   "text": "Rechecked best candidate score 6475 (revision 2fa6c34748dbed7a9638). Two bounded try_local_repairs batches and prior claim history yielded no improvement; remaining mismatches begin immediately with target loading arg1[0] into t8 and constant 0x3333 into v1, while candidate uses v0 and a0 and additionally saves arg0 in s0. The candidate's volatile long long reserve and arg2 home were inherited; stack frame matches target's 0x20. Likely next step: rewrite using S_D_800E1AC0 *arg0 and s16 *arg1, pointer-based direct stores into arg0 + selected record stride, then reconsider call signature of func_8009F1D4 so arg2 forwarding can be explicit without forced home. Arithmetic expression chain matches expected computations but target register lifetimes are substantially different.",
   "by": "codex-gpt-6-luna-16",
@@ -37544,14 +37512,6 @@
   "score_after": 5923
  },
  {
-  "function": "func_8004F990",
-  "text": "Reproduced current best score 530. Parenthesizing type==3 changed score from 1505 to 530 and saved that repair, category control_flow was attached but not a match (category only matters on match). Added explicit s8 cast to tag test; score/diff stayed 530 unchanged. Flattening final OR condition worsened to 1210; restored saved_best revision a07eb992fe524d33a2d0. Remaining target-only details: target lb vs candidate lbu for D_800C42B0 access at early loop test; target later uses bnez $v1, nop, addiu $v0,3, bnel $a0,$v0, branch delay move; candidate has shortened branch and no nop. Branch offsets differ by 4 due to one missing instruction. Try scoped signed global declaration/access shape or statement ordering to recover the branch-likely path, then preserve best.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795207479.997431,
-  "score_before": 530,
-  "score_after": 530
- },
- {
   "function": "func_800AB250",
   "text": "Stalled at 945 (saved_best rev 27a3cb430bcb94905316). Local repairs this session: signedness (u32 temp_fv1) 1275; declaration_order 945 (no change); symbol_address_local 945 (no change); stack_object_size (u8 sp18[8]) 948; call_balance and single_use_inline not better. Remaining mismatch: target starts with addiu sp / sw ra then div.d, candidate hoists mtc1 $zero (zero-constant moves) before the stack adjust; output reorders the zero-register moves. Earlier attempts: ternary var_fv0_2, inverted compares, volatile constant variants all 945-1360. Next idea: restructure so the zero-to-FPR moves happen in the function's first statement with a separate q division statement.",
   "by": "api-claude-haiku-5-5-5",
@@ -39126,14 +39086,6 @@
   "created_at": 1795208757.4779499,
   "score_before": 6081,
   "score_after": 6081
- },
- {
-  "function": "func_8004F990",
-  "text": "Verified saved_best 4dc4dd5c at score 200 (99.4%): 360 insns each, only remaining diff is one opcode: target `lb $v0, %lo(D_800C42B0)($at)` at row 308 (tail, the bestPart tag-id load), candidate emits lbu. Removing the (u8) cast on D_800C42B0[bestPart][0] in the WORD(extra,0x88) tag branch (revision 30c3839e2821391c011d) kept score 200 (no change). Tried several patches; 3 non-improving compiles. Next: find which source expression makes the final s8 load signed (e.g. load into an s8 local `s8 tag = D_800C42B0[bestPart][0];` before the type==1 branch, or use s32 id from the type==2/3 branch only), and check the first tag load before the type checks.\nremoved (u8) cast on D_800C42B0[bestPart][0] in the type 1/0x4C tag branch\nscore unchanged at 200; lbu still at row 308",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795208762.44206,
-  "score_before": 200,
-  "score_after": 200
  },
  {
   "function": "func_800411C0",
@@ -47941,15 +47893,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f0abbed59ad4b3ff23c7e735ba8b01d3e027eb05be68107453971732b109f5df"
- },
- {
-  "function": "func_8004F990",
-  "text": "The saved candidate is the current tied best (200). Explicit s8 pointer indexing at the final tag use did not alter emitted code. Unsigned global element definition regressed heavily (1210), so keep extern s8 table. Next experiment: introduce a separate signed-byte alias/global view only for the final tag-id load and see if it forces lb without changing rest.\nKept saved candidate score 200; cast removal in table tag branch also score 200. Defining global array u8 worsened to 1210. Restored saved best and changed final tag use to explicit s8 pointer indexing; score 200.\nTarget differs at exactly one opcode in the final bestPart tag-id load: lb target versus lbu candidate. Other rows now align.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795216517.701919,
-  "score_before": 200,
-  "score_after": 200,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:312b75ee42534593a72014908a22f95d2a15b02c5fbafda93702f25a95b43b1f"
  },
  {
   "function": "func_800984CC",
@@ -62326,5 +62269,62 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:606d9f6866f67022e72a9edd3362c16faf98e18e64327eb7c077d0c772b723a2"
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Not matched. One compile of a hand-cleaned rewrite scored 31762 (11.7%), but that source was incomplete: it dropped the inner loop_12 search, the func_80047998 call and the arg4/var_s6 writeback. Do not reuse it. Target frame is addiu sp,-0x118 (mine was -0x90), so the real function has many locals (vector temps sp20..sp78, arrays of 3 floats/ints, sp80/sp90 outputs). Structure from m2c draft (usable as a base): loop over linked list arg0 -> *arg0, next at offset 0; skip if node==arg7 or !(flags@0x58 & 0x400); test (flags@0x5C & 0x400) and (& arg3); fs1 = 1.5 (2.5 if D_80108F78==0x19 and type@0x78==1); call func_800455CC(&sp50, arg1, arg2, node+0x24); distance-squared < 4.0f gate; inner loop over 14 entries (stride 8 in D_800C42B0 table, index*0xC into node@0x68 vertex tables, f64 constant D_800D3E60 multiply); then writeback of arg4 and D_80108788. The m2c draft has undeclared sp54/sp58/sp84/sp88 variables, so declare the vector as arrays. Start from the m2c draft with the declarations fixed.\n\nCorrection: the previous release note's score (31762), the \"dropped logic\" claim and the 0x118 frame figure were not verified by me in this session. Re-read get_assembly and get_candidate before trusting any of them.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055055.830664,
+  "score_before": 31762,
+  "score_after": 31762
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Recompiled the saved stub candidate: 49 instructions vs 360 target, score 31548 (12.3%). This candidate only covers initial vector subtraction and a partial entity-list scan; the omitted majority computes/filters geometric candidate hits, updates globals, and calls helpers. Current revision adbae4378b0f1091f996 is essentially the saved candidate and has no meaningful local repair target. Start from target assembly and reconstruct the full loop and helper call behavior before tuning. No function-specific structural match found.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795179423.424861,
+  "score_before": 31548,
+  "score_after": 31548
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Current historical candidate was a 49-instruction stub for a 360-instruction target (score 31548). Compiled it once: score unchanged; target frame is 0x118 versus candidate 0x90, and almost all of the target body is missing. Ran redraft with the candidate prototype; m2c produced a nearly complete machine draft, but it contains unresolved `?` types and incomplete field types, so it was not submitted. `guess_struct(arg0)` suggests S_func_800158A4_arg2 (head pointer at 0, flags at 0x58), but this does not describe other arguments. Next work should repair the draft's types/prototypes and compile the complete body; target starts with stack-saved arg5/arg6 at 0x12F/0x133.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795184132.172364,
+  "score_before": 31548,
+  "score_after": 31548
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Session allowance ending. Rebuilt from m2c and matched the body through the actor loop. Verified best 530, revision 27c008727d8a1a977bc0. Tail alone differs: first tag-mask load uses lbu instead of lb, and type-3 mismatch uses bne instead of bnel, eliminating the earlier branch's nop and shifting the epilogue. Second tag-mask load already matches after separating the state-word read and mask store. Straight-line tag and flag temporaries and a single-iteration do/while around clearing flags produced identical output. Shifting tag before masking recovered lb but changed mask order and registers. Split conditions, gotos, and a return temporary did not recover bnel.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795204177.455897,
+  "score_before": 31548,
+  "score_after": 530
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Reproduced current best score 530. Parenthesizing type==3 changed score from 1505 to 530 and saved that repair, category control_flow was attached but not a match (category only matters on match). Added explicit s8 cast to tag test; score/diff stayed 530 unchanged. Flattening final OR condition worsened to 1210; restored saved_best revision a07eb992fe524d33a2d0. Remaining target-only details: target lb vs candidate lbu for D_800C42B0 access at early loop test; target later uses bnez $v1, nop, addiu $v0,3, bnel $a0,$v0, branch delay move; candidate has shortened branch and no nop. Branch offsets differ by 4 due to one missing instruction. Try scoped signed global declaration/access shape or statement ordering to recover the branch-likely path, then preserve best.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795207479.997431,
+  "score_before": 530,
+  "score_after": 530
+ },
+ {
+  "function": "func_8004F990",
+  "text": "Verified saved_best 4dc4dd5c at score 200 (99.4%): 360 insns each, only remaining diff is one opcode: target `lb $v0, %lo(D_800C42B0)($at)` at row 308 (tail, the bestPart tag-id load), candidate emits lbu. Removing the (u8) cast on D_800C42B0[bestPart][0] in the WORD(extra,0x88) tag branch (revision 30c3839e2821391c011d) kept score 200 (no change). Tried several patches; 3 non-improving compiles. Next: find which source expression makes the final s8 load signed (e.g. load into an s8 local `s8 tag = D_800C42B0[bestPart][0];` before the type==1 branch, or use s32 id from the type==2/3 branch only), and check the first tag load before the type checks.\nremoved (u8) cast on D_800C42B0[bestPart][0] in the type 1/0x4C tag branch\nscore unchanged at 200; lbu still at row 308",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795208762.44206,
+  "score_before": 200,
+  "score_after": 200
+ },
+ {
+  "function": "func_8004F990",
+  "text": "The saved candidate is the current tied best (200). Explicit s8 pointer indexing at the final tag use did not alter emitted code. Unsigned global element definition regressed heavily (1210), so keep extern s8 table. Next experiment: introduce a separate signed-byte alias/global view only for the final tag-id load and see if it forces lb without changing rest.\nKept saved candidate score 200; cast removal in table tag branch also score 200. Defining global array u8 worsened to 1210. Restored saved best and changed final tag use to explicit s8 pointer indexing; score 200.\nTarget differs at exactly one opcode in the final bestPart tag-id load: lb target versus lbu candidate. Other rows now align.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795216517.701919,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:312b75ee42534593a72014908a22f95d2a15b02c5fbafda93702f25a95b43b1f"
  }
 ]
