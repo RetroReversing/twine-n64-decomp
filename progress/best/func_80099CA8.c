@@ -22,7 +22,7 @@ s32 func_80099CA8(void *arg0, void *arg1) {
         }
         if (*(u16 *)arg1 & 1) sp10 = (func_80095638() & 0xFFFF) % sp10;
         if (sp10 != 0xFFFF) {
-            s1 = *(u32 *)((s8 *)arg1 + 4) >> 8;
+            s1 = (*(u32 *)((s8 *)arg1 + 4) >> 8) & 1;
             if (s1 & 0xFF) func_800957A8(&sp10);
             else func_800957B8(&sp10, arg0);
             if (s1 & 0xFF) {

@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800552E0();
+s32 actorTickTimedState();
 s32 func_80055444();
 extern void *gPlayerActor;
 extern void *D_80108F84;
 
 s32 func_80056124(s32 arg0, void *arg1, s32 arg2) {
     if ((D_80108F84 != NULL) && (M2C_FIELD(D_80108F84, s32 *, 0x50) & 0x300000)) {
-        func_800552E0(arg0, D_80108F84, arg2, M2C_FIELD(M2C_FIELD(arg1, void **, 0x2C), s32 *, 0xC), M2C_FIELD(arg1, s32 *, 0x24));
+        actorTickTimedState(arg0, D_80108F84, arg2, M2C_FIELD(M2C_FIELD(arg1, void **, 0x2C), s32 *, 0xC), M2C_FIELD(arg1, s32 *, 0x24));
         return 1;
     }
     if ((gPlayerActor != NULL) && (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x300000)) {
