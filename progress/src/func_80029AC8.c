@@ -12,25 +12,25 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80027CE0(u16);                             /* extern */
+s32 menuItemIsActive(u16);                             /* extern */
 
-void func_80029AC8(u16 *arg0, u8 *arg1, s8 *arg2) {
+void menuResolveCursorItem(u16 *arg0, u8 *arg1, s8 *arg2) {
     u8 temp_v0;
     u8 temp_v1;
 
-    if (!(func_80027CE0(*arg0) & 0xFF)) {
+    if (!(menuItemIsActive(*arg0) & 0xFF)) {
         *arg1 = 8;
-        if (func_80027CE0(0x1EU) & 0xFF) {
+        if (menuItemIsActive(0x1EU) & 0xFF) {
             *arg0 = 0x1E;
-        } else if (func_80027CE0(0x1FU) & 0xFF) {
+        } else if (menuItemIsActive(0x1FU) & 0xFF) {
             *arg0 = 0x1F;
-        } else if (func_80027CE0(0x20U) & 0xFF) {
+        } else if (menuItemIsActive(0x20U) & 0xFF) {
             *arg0 = 0x20;
-        } else if (func_80027CE0(0x21U) & 0xFF) {
+        } else if (menuItemIsActive(0x21U) & 0xFF) {
             *arg0 = 0x21;
-        } else if (func_80027CE0(0x25U) & 0xFF) {
+        } else if (menuItemIsActive(0x25U) & 0xFF) {
             *arg0 = 0x25;
-        } else if (func_80027CE0(0x26U) & 0xFF) {
+        } else if (menuItemIsActive(0x26U) & 0xFF) {
             *arg0 = 0x26;
         } else {
             *arg0 = 0x1D;

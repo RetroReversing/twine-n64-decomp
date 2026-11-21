@@ -93,26 +93,19 @@ void func_80076E98(void *arg0) {
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 4;
         temp_v1_3 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0x11) & 0xF;
         var_s2 = 1;
-        if (temp_v1_3 != 7) {
-            if (temp_v1_3 >= 8) {
-                if (temp_v1_3 == 0xE) {
-                    goto block_17;
-                }
-                goto block_18;
-            }
-            if (temp_v1_3 != 0) {
-block_18:
-                temp_v0_3 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
-                var_a1_2 = *(u16 *)((u8 *)&D_800C9A1C + temp_v0_3);
-                var_a2 = *(u16 *)((u8 *)&D_800C9A1E + temp_v0_3);
-            } else {
-                goto block_17;
-            }
-        } else {
-block_17:
+        switch (temp_v1_3) {
+        case 7:
+        case 0:
+        case 14:
             temp_v0_4 = (randomIntBelow(5) & 0xFFFF) * 4;
             var_a1_2 = *(u16 *)((u8 *)&D_800C9A08 + temp_v0_4);
             var_a2 = *(u16 *)((u8 *)&D_800C9A0A + temp_v0_4);
+            break;
+        default:
+                temp_v0_3 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
+                var_a1_2 = *(u16 *)((u8 *)&D_800C9A1C + temp_v0_3);
+                var_a2 = *(u16 *)((u8 *)&D_800C9A1E + temp_v0_3);
+            break;
         }
 block_19:
         func_80002CAC(arg0, var_a1_2, var_a2);

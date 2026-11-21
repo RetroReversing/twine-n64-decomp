@@ -1,32 +1,39 @@
+typedef struct { f32 x, y, z; } V3;
+typedef struct { f32 x, y, z, d; } Pl;
 f32 func_80082908(f32);
-s32 buildPlaneFromPoints(void *arg0, void *arg1, void *arg2, void *arg3) {
-    long ret; register f32 __repair_temp_fv1_2_temp_ft1; f32 sp10[3];
-    register f32 temp_fa1; f32 temp_fa1_2; f32 temp_fs0; f32 temp_fs1; f32 temp_fv0_2;
-    register f32 temp_ft0; register f32 temp_ft0_2; register f32 temp_ft1; f32 temp_ft1_2;
-    register f32 temp_ft2; register f32 temp_ft3; f32 temp_fv0; f32 temp_fs2;
-    f32 temp_fv0_3; f32 temp_fv0_4; f32 temp_fv0_5; f32 temp_fv1; f32 temp_fv1_2;
-    register f32 temp_fv1_3; f32 temp_fv1_4;
-    temp_fv0 = (*(f32 *)((char *)(arg2) + 4)); temp_fs1 = (*(f32 *)((char *)(arg1) + 4));
-    temp_fv1 = (*(f32 *)((char *)(arg2) + 8)); temp_ft2 = (*(f32 *)((char *)(arg3) + 8)) - temp_fv1;
-    temp_fa1 = temp_fv0 - temp_fs1; temp_fv0_2 = (*(f32 *)((char *)(arg2) + 0));
-    temp_fs2 = (*(f32 *)((char *)(arg1) + 8)); temp_ft1 = (*(f32 *)((char *)(arg3) + 4)) - temp_fv0;
-    temp_fv1_2 = temp_fv1 - temp_fs2; temp_ft0 = (*(f32 *)((char *)(arg3) + 0)) - temp_fv0_2;
-    temp_fs0 = (*(f32 *)((char *)(arg1) + 0)); temp_fv0_3 = temp_fv0_2 - temp_fs0;
-    __repair_temp_fv1_2_temp_ft1 = temp_fv1_2 * temp_ft1; temp_fa1_2 = (temp_fv0 - temp_fs1) * temp_ft0;
-    temp_ft3 = (((s32)temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1;
-    temp_fv0_4 = (temp_fv0_3 * temp_ft1) - temp_fa1_2;
-    sp10[0] = (((temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1); sp10[1] = (temp_fv1_3 = (temp_fv1_2 * temp_ft0) - (temp_fv0_3 * temp_ft2)); sp10[2] = temp_fv0_4;
-    temp_fv0_5 = func_80082908(sp10[0]*sp10[0] + sp10[1]*sp10[1] + sp10[2]*sp10[2]);
-    if (temp_fv0_5 == 0.0f) {
-        (*(f32 *)((char *)(arg0) + 4)) = 0.0f; (*(f32 *)((char *)(arg0) + 0)) = 0.0f;
-        (*(f32 *)((char *)(arg0) + 0xC)) = (f32)((-(*(f32 *)((char *)(arg0) + 0) * temp_fs0) - ((*(f32 *)((char *)(arg0) + 4)) * temp_fs1)));
-        (*(f32 *)((char *)(arg0) + 8)) = 0.0f; ret = 0;
+s32 buildPlaneFromPoints(Pl *out, V3 *p1, V3 *p2, V3 *p3) {
+    V3 n;
+    f32 len;
+    s32 ret;
+    f32 dy1 = p2->y - p1->y;
+    f32 py = p1->y;
+    f32 dz1 = p2->z - p1->z;
+    f32 pz = p1->z;
+    f32 dy2 = p3->y - p2->y;
+    f32 dz2 = p3->z - p2->z;
+    f32 dx2 = p3->x - p2->x;
+    f32 dx1 = p2->x - p1->x;
+    f32 px = p1->x;
+    n.x = dy1 * dz2 - dz1 * dy2;
+    n.y = dz1 * dx2 - dx1 * dz2;
+    n.z = dx1 * dy2 - dy1 * dx2;
+    len = func_80082908(n.x * n.x + n.y * n.y + n.z * n.z);
+    ret = 1;
+    if (len == 0.0f) {
+        out->x = 0.0f;
+        out->y = 0.0f;
+        out->d = -out->x * px - out->y * py;
+        out->z = 0.0f;
+        ret = 0;
     } else {
-        temp_fv0_5 = 1.0f / temp_fv0_5; temp_ft0_2 = sp10[0] * temp_fv0_5; temp_fv1_4 = sp10[1] * temp_fv0_5;
-        (*(f32 *)((char *)(arg0) + 4)) = temp_fv1_4; sp10[1] = temp_fv1_4; sp10[0] = temp_ft0_2;
-        (*(f32 *)((char *)(arg0) + 0)) = temp_ft0_2; (*(f32 *)((char *)(arg0) + 8)) = sp10[2]; ret = 1;
-        sp10[2] *= temp_fv0_5;
-        (*(f32 *)((char *)(arg0) + 0xC)) = (f32)((-(*(f32 *)((char *)(arg0) + 0) * temp_fs0) - ((*(f32 *)((char *)(arg0) + 4)) * temp_fs1)) - (sp10[2] * temp_fs2));
+    len = 1.0f / len;
+    n.x *= len;
+    n.y *= len;
+    n.z *= len;
+    out->x = n.x;
+    out->y = n.y;
+    out->d = -out->x * px - out->y * py - n.z * pz;
+    out->z = n.z;
     }
     return ret;
 }

@@ -16,7 +16,7 @@ M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
-s32 func_80027CE0(M2C_UNK);                         /* extern */
+s32 menuItemIsActive(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 extern void *gMenuItems;
@@ -24,7 +24,7 @@ extern void *gMenuItems;
 void func_80022848(void) {
     s32 temp_v0;
 
-    if ((func_80027CE0(0x20) & 0xFF) || (func_80027CE0(0x21) & 0xFF) || (func_80027CE0(0x1E) & 0xFF) || (func_80027CE0(0x1F) & 0xFF) || (func_80027CE0(0x24) & 0xFF)) {
+    if ((menuItemIsActive(0x20) & 0xFF) || (menuItemIsActive(0x21) & 0xFF) || (menuItemIsActive(0x1E) & 0xFF) || (menuItemIsActive(0x1F) & 0xFF) || (menuItemIsActive(0x24) & 0xFF)) {
         M2C_FIELD(gMenuItems, s8 *, 0x2C) = 0;
     }
     temp_v0 = findEntryById(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x4000);

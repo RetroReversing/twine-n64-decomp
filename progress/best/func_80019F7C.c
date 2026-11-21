@@ -8,7 +8,7 @@ s32 func_80019E28();
 s32 formatTextEntry();
 void *findEntryById();
 s32 func_80027C60();
-s32 func_80027CE0();
+s32 menuItemIsActive();
 s32 updateActiveMenuState();
 s32 func_8002B8AC();
 s32 func_8002B930();
@@ -52,10 +52,10 @@ void func_80019F7C(void) {
     temp_s3 = (void *)(temp_s0); temp_s3 = (void *)((char *)temp_s3 + (s32)(0x28));
     if (((*(u8 *)((char *)(gMenuItems) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuItems) + 0x2E)) == 0)) {
         D_801001A3[gPickupSavedByte].f0 = 0;
-        if (func_80027CE0(0x20) & 0xFF) {
+        if (menuItemIsActive(0x20) & 0xFF) {
             var_s1 = func_8002B930(var_s1, -1);
         }
-        if (func_80027CE0(0x21) & 0xFF) {
+        if (menuItemIsActive(0x21) & 0xFF) {
             var_s1 = func_8002B930(var_s1, 1);
         }
         *(*(s32 **)((char *)(temp_s0) + 0x10)) = var_s1;

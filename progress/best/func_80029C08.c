@@ -3,7 +3,7 @@
 s32 requestSound();
 void *findEntryById();
 void *func_80026314();
-s32 func_80027CE0();
+s32 menuItemIsActive();
 s32 func_8002AAD4();
 s32 func_8002AAF4();
 s32 func_8002AB14();
@@ -72,20 +72,20 @@ s32 __repair_phase_temp_s0;
         }
         switch (var_a1) {                           /* irregular */
         case 0:
-            var_s1 = func_80027CE0(0x25, var_a1) & 0xFF;
+            var_s1 = menuItemIsActive(0x25, var_a1) & 0xFF;
             var_a0 = 0x26;
-            var_s0 = func_80027CE0(var_a0) & 0xFF;
+            var_s0 = menuItemIsActive(var_a0) & 0xFF;
             break;
         case 1:
-            var_s1 = func_80027CE0(0x1E, var_a1) & 0xFF;
+            var_s1 = menuItemIsActive(0x1E, var_a1) & 0xFF;
             var_a0 = 0x1F;
-            var_s0 = func_80027CE0(var_a0) & 0xFF;
+            var_s0 = menuItemIsActive(var_a0) & 0xFF;
             break;
         default:
-            temp_s0 = func_80027CE0(0x25, var_a1);
-            var_s1 = (temp_s0 | func_80027CE0(0x1E)) & 0xFF;
-            __repair_phase_temp_s0 = func_80027CE0(0x26);
-            var_s0 = (__repair_phase_temp_s0 | func_80027CE0(0x1F)) & 0xFF;
+            temp_s0 = menuItemIsActive(0x25, var_a1);
+            var_s1 = (temp_s0 | menuItemIsActive(0x1E)) & 0xFF;
+            __repair_phase_temp_s0 = menuItemIsActive(0x26);
+            var_s0 = (__repair_phase_temp_s0 | menuItemIsActive(0x1F)) & 0xFF;
             break;
         }
         if ((var_s3 != NULL) & (var_s4 != NULL)) {

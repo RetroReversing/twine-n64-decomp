@@ -17,7 +17,7 @@ M2C_UNK func_800266DC(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002778C();                            /* extern */
 M2C_UNK func_800278AC(M2C_UNK, s32, u16);           /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
-s32 func_80027CE0(M2C_UNK);                         /* extern */
+s32 menuItemIsActive(M2C_UNK);                         /* extern */
 extern u8 D_800B60A6;
 extern M2C_UNK D_800B60A8;
 extern M2C_UNK D_800BD854;
@@ -38,7 +38,7 @@ void func_8001D424(void) {
     temp_s0 = func_80027C60(0x21);
     temp_s3 = func_80027C60(0x1E);
     temp_s1 = func_80027C60(0x1F);
-    if (!(func_80027CE0(0x2A) & 0xFF)) {
+    if (!(menuItemIsActive(0x2A) & 0xFF)) {
         D_800B60A6 = 0;
     }
     temp_v1 = *(&D_800B60A8 + D_800B60A6);

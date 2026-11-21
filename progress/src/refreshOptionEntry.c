@@ -4,7 +4,7 @@ extern int sOptionEntryTable;
 extern const char D_800D2864[];
 extern void updateActiveMenuState(void);
 extern int findEntryPayload(int, int);
-extern int func_80027CE0(int);
+extern int menuItemIsActive(int);
 extern int lookupDataEntry(int);
 extern void formatTextEntry(void *, int, ...);
 
@@ -29,7 +29,7 @@ extern void formatTextEntry(void *, int, ...);
     case 7:
         if (sOptionReady7 == 0) {
             gMenuItems[0x2F] = 1;
-            if ((unsigned char)func_80027CE0(0x21))
+            if ((unsigned char)menuItemIsActive(0x21))
                 ++*cursor;
             else
                 --*cursor;
@@ -39,7 +39,7 @@ extern void formatTextEntry(void *, int, ...);
     case 8:
         if (sOptionReady8 == 0) {
             gMenuItems[0x2F] = 1;
-            if ((unsigned char)func_80027CE0(0x21))
+            if ((unsigned char)menuItemIsActive(0x21))
                 ++*cursor;
             else
                 --*cursor;
@@ -49,7 +49,7 @@ extern void formatTextEntry(void *, int, ...);
     case 9:
         if (sOptionReady9 == 0) {
             gMenuItems[0x2F] = 1;
-            if ((unsigned char)func_80027CE0(0x21))
+            if ((unsigned char)menuItemIsActive(0x21))
                 *cursor = 0;
             else
                 --*cursor;

@@ -41,8 +41,7 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
   *(s8*)((char*)temp_s0+0x4C)=*(u8*)((char*)arg2+3)-1;
   *(f32*)((char*)temp_s0+8)=1.0f;
   if(arg3!=NULL) { ((R*)temp_v0)->x=*(f32*)arg3; ((R*)temp_v0)->y=*(f32*)((char*)arg3+4); ((R*)temp_v0)->z=*(f32*)((char*)arg3+8); ((R*)temp_v0)->a=(f32)((f64)*(f32*)((char*)arg3+0xC)*D_800D4170); ((R*)temp_v0)->b=(f32)((f64)*(f32*)((char*)arg3+0x10)*D_800D4170); ((R*)temp_v0)->c=(f32)((f64)*(f32*)((char*)arg3+0x14)*D_800D4170); }
-  *(s32*)((char*)temp_v0+0x30)=*(s32*)((char*)temp_v0+0x24); *(s32*)((char*)temp_v0+0x34)=*(s32*)((char*)temp_v0+0x28); *(s32*)((char*)temp_v0+0x38)=*(s32*)((char*)temp_v0+0x2C);
-  *(f32*)((char*)temp_v0+0x48)=*(f32*)((char*)temp_v0+0x3C); *(f32*)((char*)temp_v0+0x4C)=*(f32*)((char*)temp_v0+0x40); *(f32*)((char*)temp_v0+0x50)=*(f32*)((char*)temp_v0+0x44);
+  { typedef struct { s32 x,y,z; } Vec; *(Vec*)((char*)temp_v0+0x30)=*(Vec*)((char*)temp_v0+0x24); *(Vec*)((char*)temp_v0+0x48)=*(Vec*)((char*)temp_v0+0x3C); }
   ((R*)temp_v0)->u=0; ((R*)temp_v0)->v=0; ((R*)temp_v0)->flags|=0x600;
   actorLinkToSurface(*gProbeObjectList,temp_v0,1);
  }

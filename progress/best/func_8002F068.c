@@ -5,7 +5,7 @@ typedef struct { u8 pad[12]; void *display; } MenuObject;
 
 DisplayItem *func_80027408(s32, s32, s16, u8);
 void func_800278AC(s32, u32, u16);
-s32 func_80027CE0(s32);
+s32 menuItemIsActive(s32);
 void func_8002B050(void *, s32, DisplayItem *);
 void func_8002B150(void *, s32, s8);
 void func_8002FBD4(void *, s16);
@@ -31,7 +31,7 @@ void func_8002F068(void *unused, void *arg1)
     u32 *color, *palette;
     DisplayItem *current;
 
-    if (!(u8)func_80027CE0(0x23) && !(u8)func_80027CE0(0x2A) && !gPendingMenuCommand) {
+    if (!(u8)menuItemIsActive(0x23) && !(u8)menuItemIsActive(0x2A) && !gPendingMenuCommand) {
         asset = lookupDataEntry(0x2E9);
         mode = sMenuAnimFlags & 1;
         x = mode ? 0xA0 : 0xDC;
