@@ -10,7 +10,7 @@ s32 func_80083D04();
 extern s32 gProbeObjectList;
 extern s8 D_801002E4;
 extern s8 D_801002E5;
-extern s8 D_80100300;
+extern s8 sMarkerMessageCount;
 extern s8 D_80100784;
 extern s8 D_80102F38;
 extern s8 D_80103020;
@@ -140,7 +140,7 @@ loop_6:
     (*(u8 *)&D_801093A0) = 0;
     (*(u8 *)&D_801002E5) = 0;
     (*(u8 *)&D_80110CA8) = 0x80;
-    (*(u8 *)&D_80100300) = 0;
+    (*(u8 *)&sMarkerMessageCount) = 0;
     (*(u8 *)&gAnnounceCount) = 0;
     (*(u8 *)&D_80109B1E) = 0;
     (*(u8 *)&D_80117734) = 0;

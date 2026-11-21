@@ -16,7 +16,7 @@ M2C_UNK func_8000BBB4(M2C_UNK *, f32, f32, s32);    /* extern */
 M2C_UNK func_80014E30(void *);                      /* extern */
 M2C_UNK func_80014EB0(s32, f32 *);                  /* extern */
 M2C_UNK func_800156F4();                            /* extern */
-M2C_UNK func_80015BA8(void *, s32, f32 *);          /* extern */
+M2C_UNK buildNearbyProbeList(void *, s32, f32 *);          /* extern */
 M2C_UNK func_800325E4(void *, void *, f32, s32, f32, f32, f32); /* extern */
 M2C_UNK func_80034928(void *, s32);                 /* extern */
 M2C_UNK func_800349B4(void *);                      /* extern */
@@ -221,7 +221,7 @@ loop_15:
                 func_800156F4();
             }
             if (M2C_FIELD(arg0, s32 *, 0x100) & 4) {
-                func_80015BA8(arg0 + 0x10, temp_s7, &sp20);
+                buildNearbyProbeList(arg0 + 0x10, temp_s7, &sp20);
             }
             temp_s0_3 = arg0 + 0x88;
             gSurfaceQueryStamp += 1;

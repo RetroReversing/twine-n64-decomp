@@ -11,6 +11,7 @@ extern s32 D_8010A4F4;
 extern s32 D_8010A4F8;
 
 s32 func_800219A0(s8 arg0) {
+    s8 *__base_D_8010A4C0;
     s32 result;
     s32 *p;
     s32 t;
@@ -18,9 +19,10 @@ s32 func_800219A0(s8 arg0) {
     result = 1;
     p = &D_8010A4E4;
     t = gExpansionPakPresent;
-    D_8010A4C0 = arg0;
+    __base_D_8010A4C0 = &D_8010A4C0;
+    (*__base_D_8010A4C0) = arg0;
     if (t == 0 && (arg0 & 0xFF)) {
-        D_8010A4C0 = 0;
+        (*__base_D_8010A4C0) = 0;
         result = 0;
     }
     if (*((u8 *)p - 0x24) == 0) {

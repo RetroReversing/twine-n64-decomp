@@ -7,7 +7,7 @@ extern u16 gSurfaceQueryStamp;
 extern void **gProbeObjectList;
 extern void *gObjectListHead;
 
-void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
+void buildNearbyProbeList(s32 arg0, void *arg1, void *arg2) {
     s32 temp_a1;
     s32 temp_a1_2;
     s32 temp_a2;

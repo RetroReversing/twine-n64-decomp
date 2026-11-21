@@ -1,5 +1,7 @@
+typedef struct { s32 pad[17]; } ScratchArea;
 void func_8009DBE8(s32 arg0, s32 arg1, s16 *arg2, s16 *arg3, s16 *arg4, s16 *arg5, s32 arg6, s32 arg7) {
-    s32 sp44[21];
+    struct { s32 pad[17]; s32 buf[21]; } local;
+    s32 *sp44 = local.buf;
     s32 i;
     for (i = 0; i < 4; i++) {
         func_8009EE60(*arg5, *arg4, arg6, sp44);

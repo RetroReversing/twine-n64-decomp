@@ -76,7 +76,6 @@ void func_8002E114(void) {
     do {
         var_s1_5 = var_s4 & 0xFFFF;
         temp_s0 = var_s1_5 * 0xA0;
-        var_s3 = 0;
         func_8002E93C(&D_800E1310, *(&D_80115088 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115089 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508A + temp_s0), 1, 1);
@@ -93,7 +92,8 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A2 + temp_s0_2)), 1, 4);
-do {
+        var_s3 = 0;
+        do {
         temp_a1 = *((u8 *)&D_801001A4 + temp_s0_2 + (var_s3 & 0xFFFF));
         var_s3 += 1;
         func_8002E93C(&D_800E1310, temp_a1, 1, 8);
@@ -177,3 +177,4 @@ do {
     } while ((u32) (var_s1_5 & 0xFFFF) < 3U);
     func_8002E9C0(&D_800E1310);
 }
+
