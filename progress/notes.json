@@ -8208,14 +8208,6 @@
   "score_after": 600
  },
  {
-  "function": "func_80037C84",
-  "text": "Best current score 60. Key fix: func_80034928 has matched declaration void func_80034928(s32,s32); last call must be func_80034928(arg0,D_8010A4D8), not three arguments. This leaves only two reordered instructions: target updates D_80109CB8 global pointer, then increments/stores D_80115328 pointer; candidate schedules `addiu $a2,$a2,8` before storing D_80109CB8. Volatile qualification experiments caused severe regressions (score 550+); restore saved best. No exact match.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795178372.50462,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "updateMenuState",
   "text": "Verified baseline 330; six layout, signedness, branch orientation, const, volatile and field width repairs failed. Six diff rows comprise three branch offsets and three target-only instructions; inspect full diff around final branch and reproduce missing control flow.",
   "by": "codex-gpt-6.1-terra-1",
@@ -11174,14 +11166,6 @@
   "created_at": 1795182884.821794,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_80037C84",
-  "text": "Score 60 verified: only addiu a2,a2,8 moves ahead of the D_80109CB8 global store. The matched callee uses two arguments and removing the extra a2 argument yielded identical machine code. Caching mode yielded the same code. Selectively volatile final stores worsened it (205\u2013640), and rebuilding the whole body with shared typed command locals changed register allocation (1080). Try folding only the final graphics-pointer advance into a compound assignment, keeping the earlier variable lifetimes.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795182887.395282,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "updateTrackMarkerEffect",
@@ -16960,14 +16944,6 @@
   "score_after": 170
  },
  {
-  "function": "func_80037C84",
-  "text": "Target assembly confirms first `func_80034928` call sets only `$a0=arg0`, `$a1=2`, preserving incoming `$a2`; second call sets `$a0=arg0`, `$a1=D_8010A4D8`, `$a2=advanced D_80115328`. The supplied draft failed because the indexed callee signature requires 3 args. Compiling an explicit third function parameter and passing it through made a poor 2162 score / 89 instructions; it altered the target's one-argument function setup. Restored historical saved candidate (60 score, unverified); attempted variadic declaration, which failed C parse. No improved match achieved. Next experiment: determine if a function-prototype convention lets the first call preserve incoming `$a2` without adding a formal function parameter; otherwise attempt a structurally faithful C variadic wrapper/callee declaration.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795188539.43538,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_800698D8",
   "text": "Four source trials retained saved 290. Reusing arg1 or a false-arm float copy ties; embedding the helper call's assignment in the first comparison scores 688. Flag search ties at best (O1 and disabling the second scheduler each score 350). Remaining: target keeps result in f0 for the 0.2f compare and moves f0 into f2 in its bc1f delay slot, while baseline copies to f2 before that compare and uses f0 for 0.2f. A next source experiment is staging both thresholds as separate float locals with different lifetimes, while keeping floating comparisons ordered as <= on the low arm and >= on the high arm.",
   "by": "codex-gpt-6.2-sol-8",
@@ -19520,14 +19496,6 @@
   "score_after": 230
  },
  {
-  "function": "func_80037C84",
-  "text": "Rechecked score 60; only mismatch is addiu a2,a2,8 scheduled before rather than after store to D_80109CB8. Removing extra third argument to final func_80034928 call has identical instructions and agrees with matched callee. Direct volatile global generated extra reloads (550); volatile cast store generated extra address instruction (380); direct += on D_80115328 unchanged. Explore scheduling or local expression alternatives.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795191484.293549,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_8000BBB4",
   "text": "Verified best score 85: all 85 opcodes match, 17 register differences starting with swapped cy/sy saved registers. Reversing a,b,c,d declaration order worsened to 115; literal zero stores worsened to 1450. Two attempted declaration rearrangements failed C89 parsing. Next test C89-compliant predeclaration of cy and sy before all executable initializers, then assign in original call order to affect allocation.",
   "by": "codex-gpt-6.1-terra-6",
@@ -20942,14 +20910,6 @@
   "created_at": 1795193626.325275,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_80037C84",
-  "text": "Verified score 60: only remaining mismatch is addiu $a2,$a2,8 scheduled before rather than after the D_80109CB8 store. Correcting final callee to two arguments and direct pointer increments retained 60; volatile store worsened to 380. Explore scheduling of the two global pointer updates.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795193636.268872,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_80077C00",
@@ -22520,14 +22480,6 @@
   "score_after": 80
  },
  {
-  "function": "func_80037C84",
-  "text": "Current rechecked candidate score 60 (79 instructions) is materially better than the direct rewrite attempt and matches all but ordering of pointer increment for D_80115328. The target performs final pointer arithmetic/store after the last func_80034928 call's delay slot (target lines ~67/70); candidate emits addiu $a2,$a2,8 earlier. Moving D_80115328 assignment after call regressed to 650, so preserve current candidate. First-call prototype must remain old style to compile existing invocation forms: func_80034928(arg0,2) maps target jal with a1=2 delay slot; second target call passes a0=s0 in delay slot, with a1 loaded from D_8010A4D8. Draft's three-argument second call is incorrect. Next try splitting D_80115328 advancement into direct global update after call or expression side effects to shape scheduling; pointer arithmetic and aliases currently impact its register assignment. Other body/branches are near exact.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795198103.388305,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "func_80006E78",
   "text": "Saved best current rechecked score 140. Tested compact local task pointer rewrite; score 440 (77/79 instructions), worse. Attempted symbol declaration edit, compile failed because func_800AC110 already declared as a function and replacing func_800AC1E0 extern removed needed symbol. Restored saved best. Saved candidate has conceptual issues that can be revisited: ucode_boot_size subtracts u8* addresses, but compiler warns invalid pointer subtraction due symbol types in one draft; proper declarations matter. Target emits code address func_800AC110 into $a3, ucode address D_800AC1E0 into $v1 then subtracts; it also keeps D_800AC1E0 and D_800D1710 as separate locals in $t8/$t7 and maintains repeated reloads of D_8010A2BC[i] through $a0. Best score 140 source otherwise. Move-on reached with six no-better trials.",
   "by": "codex-gpt-6-luna-7",
@@ -23318,14 +23270,6 @@
   "created_at": 1795199109.793227,
   "score_before": 80,
   "score_after": 80
- },
- {
-  "function": "func_80037C84",
-  "text": "Best score 60 on revision cb8c5040a2e2093b6f21, 79 instructions, only two reordered instructions remain. Corrected the final call to matched `func_80034928(arg0, D_8010A4D8)` (callee prototype takes two args); score fell from compile error to 60. Remaining diff: target computes `addiu $a2,$a2,8` after storing updated D_80109CB8, while candidate schedules that add before the store. Directly expressing D_80115328 = (char *)D_80115328 + 8 retained same diff. Making D_80109CB8 volatile caused major regressions (score 550). Restore cb8 candidate and tune sequencing/local expression to keep the add after D_80109CB8 store.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795199113.662189,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "matchObjectCode",
@@ -24552,14 +24496,6 @@
   "score_after": 20
  },
  {
-  "function": "func_80037C84",
-  "text": "60 baseline differs only in order: addiu a2,a2,8 rises above the D_80109CB8 store. Removing the unneeded third argument gives the same score and bytes (callee's matched signature is two args). As-assignment call, scoped next pointer, and typed field-size pointer increments also keep identical output. Volatile store casts and do/while around either update regress. Try explicit paired Gfx command structs and typed postincrement cursor locals across the final display-list block to change schedule while retaining both pointer lifetimes.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795201051.217773,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "audioSilenceThread",
   "text": "Best and verified score 50, 126 instructions; all operations and ordering align, remaining 10 rendered register allocation differences. Tried moving count/loop initialization order and pointer declarations with independent variants; none beat 50. Preserve the best candidate. Register swaps begin in buffer-pointer initialization loop around lhu count and pointer increments.",
   "by": "codex-gpt-6-luna-13",
@@ -25558,14 +25494,6 @@
   "created_at": 1795202011.172139,
   "score_before": 265,
   "score_after": 265
- },
- {
-  "function": "func_80037C84",
-  "text": "Rechecked candidate after restoring saved best. A rewrite with correct two-argument final func_80034928 call produced current score 60 (same as best); remaining mismatches are two instruction-order differences around updating D_80115328 pointer. Previous callee prototype corrections were incompatible with call forms; left inherited candidate for handoff.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795202017.985884,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_8005E350",
@@ -27406,14 +27334,6 @@
   "created_at": 1795204326.137665,
   "score_before": 3022,
   "score_after": 3022
- },
- {
-  "function": "func_80037C84",
-  "text": "Score 60 on candidate 6e5cd7c2382dd05c4e8c. Only diff: scheduling of addiu $a2,$a2,8; target places it after addiu $v1/sw v1->D_80109CB8, ours hoists it above. Tried: reorder temp_a2 vs D_80109CB8 increment; direct D_80115328+=8 passing D_80115328; early temp_a2 load (score 100). Next idea: separate temp pointer for the D_80109CB8 block.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795204337.009103,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "attachProbeRecord",
@@ -34114,15 +34034,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f7e067ebe7014bf39961f8ceb051bb5eb083c0dd969e0f78aba2c2df26e76d06"
  },
  {
-  "function": "func_80037C84",
-  "text": "Best remains 60/79, with the sole reported issue instruction ordering: target's addiu $a2,$a2,8 is after addiu/sw updating D_80109CB8, while candidate hoists it earlier. Tried introducing a D_80109CB8 temp base and direct D_80115328 += 8 / pass global; exact diff unchanged. Prior agent tried direct update and early temp load (score 100). No verified repair. Candidate currently has an extra unused temp declaration from an exploratory patch; saved best remains score 60.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795213962.8441222,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
   "function": "selectItemAndUpdateAmount",
   "text": "Saved candidate rechecked at 150 (75 target instructions vs 74 candidate), almost all mismatches are branch target shifts from one omitted instruction and target's repeated count guard. Volatile read left exact same assembly. Rewriting inner guard as count>i inserted sltu but worsened to 170 and shifted count register. Other historical attempts: simple for-loop 275, paired/inert etc no effect. Next step: investigate preserving a second count-zero branch via a distinct reload of obj->count after i=0, rather than reusing the local count; or alter count local signedness while retaining target's v0 load/register.",
   "by": "codex-gpt-6-luna-6",
@@ -38426,15 +38337,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:aba8bb1824a3035bcd18497e163fce1b2cd8f302e7c4edf34b13f75e411361e7"
  },
  {
-  "function": "func_80037C84",
-  "text": "Reached the no-improvement limit at score 60. The sole addiu $a2,$a2,8 remains hoisted above the D_80109CB8 store. End-cursor local, split cursor update, and indexed pointer update left both diff rows unchanged. Globally volatile end/render cursors scored 530/470; disabling either scheduling pass and adding -g each worsened the baseline.\nQualified either entire cursor global volatile; also measured three ordinary source rewrites.\nGlobal qualification worsened the score; all ordinary rewrites preserved both diff rows.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795221757.120539,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
   "function": "func_8007AABC",
   "text": "Best score 10 (23 instructions), only two FPR register differences remain. Target `add.s $f2,$f2,$f0; swc1 $f2`; candidate `add.s $f0,$f0,$f2; swc1 $f0`. Target preceding ops multiply delta in $f0 then load original field in $f2. Tested explicit scalar temporary, direct old+delta expression, and volatile field; first two ballooned to score 347, volatile stayed at 10. Need make original field value the add destination in C while preserving multiply in $f0; possible source operand ordering with volatile or expression order.",
   "by": "codex-gpt-6-luna-17",
@@ -40846,15 +40748,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2e8f414903ae0b03a23916e7b0881b4e634debfc29b5881921f2a8928db63fbf"
  },
  {
-  "function": "func_80037C84",
-  "text": "Saved best (60) still: only addiu $a2,$a2,8 hoisted above the D_80109CB8 store. I tried Gfx-struct typed pointers with ++ (score 940, early a1 load), local p/q pointers (1765), and reordering the increments (975/1220). All worse. Next step: keep saved_best and try a 2-word Gfx struct only for the D_80109CB8 pointer while leaving the cursor as void*.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795228088.953774,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
   "function": "func_80018364",
   "text": "Stays 80. Only diff: `move $s0,$s4` (cursor=text) placed before lui/addiu of jump table in ours, after in target; plus the unresolvable local .rodata jtbl reference (likely unmatchable by harness). Tried: end precomputed, cursor assigned outside the if, declaration order, while(cursor<end), empty asm/if(0) filler (all 80, or worse 235-285). Next step: restructure so s0 is not a copy of text (e.g. loop uses text directly with a separate saved start pointer), or accept as blocked by jtbl.",
   "by": "api-claude-sonnet-5-5-2",
@@ -42160,15 +42053,6 @@
   "score_before": 1238,
   "score_after": 880,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:1308c08f016fc2a6bb9fc201e60f05dad4be9506df496ec576a69257cf1833f4"
- },
- {
-  "function": "func_80037C84",
-  "text": "Stays at 60 (saved best 600806d2ee3a9e27cdeb): only `addiu a2,a2,8` scheduled earlier than target. Tried this session: temp_a2 order, sDisplayListCursor+=8, temp for D_80109CB8, Gfx-struct pointer rewrite with ++ (945, worse: D_8010A4D8 load hoisted differently). Next step: try making the final call's second arg a local loaded before the D_80109CB8 += 8 store.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795231000.4951,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
  },
  {
   "function": "func_800588D8",
@@ -50038,15 +49922,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_80037C84",
-  "text": "Scoped local for D_80109CB8 writes tied score 60; reusing temp_v1 regressed to 145. Remaining mismatch is scheduling of cursor increment.\nScoped pointer for two D_80109CB8 stores\nScore 60, unchanged two reordered instructions",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245715.173235,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
   "function": "func_8003FCF4",
   "text": "Baseline verified at 200. Removing the `(u16)` cast on temp_a0 regressed to 210 and reloaded input into a0, so restore best. Remaining mismatch is just move a0,a1 versus andi a0,a1,ffff; likely target simply forwards original full flags after earlier logic uses low 16 bits. Next step: split low-word tests into a separate u16 local while keep temp_a1 full s32, and see whether compiler emits move for final forwarded value.\nRemoved the u16 cast from temp_a0 assignment.\nRegressed score to 210 and changed load/register allocation throughout.",
   "by": "codex-gpt-6-luna-15",
@@ -50878,15 +50753,6 @@
   "score_before": 2514,
   "score_after": 2204,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:463b15c4d11e69a14828dcc13bc8da1ba689a2541dff620e61d5a9b8ecbfa2ea"
- },
- {
-  "function": "func_80037C84",
-  "text": "Separate temporary for D_80109CB8 stores; equivalent pointer increment expression\nTemporary worsened score to 145; equivalent increment retained 60 with two reordered instructions.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248060.007543,
-  "score_before": 145,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
  },
  {
   "function": "beginSceneTransition",
@@ -54051,15 +53917,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0a96b4f5aac33e8190a387c9c92d1627ef428424c5ad3fccac9e4dadb2a731da"
  },
  {
-  "function": "func_80037C84",
-  "text": "Saved and freshly confirmed best is score 60 (79 instructions; target 79). Only two instructions differ by ordering: target advances/stores D_80109CB8 at rows 67-68 before addiu $a2,$a2,8 and stores sDisplayListCursor at 70-71; C equivalent after calling func_80034928 leaves cursor increment in different order. Putting temp_a2=sDisplayListCursor+8 before call but delaying global cursor store until after call regressed to 650; restored best returned to 60 unchanged. Earlier agents tried pointer temporaries, early cursor load, and direct D_80115328 increments. Continue experimenting only from saved_best, not regressed continuation.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795258587.9114828,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
- },
- {
   "function": "create_player_state_objects",
   "text": "Corrected both byte offsets and initialized markers inside positive-count branch; score 1100. Hoisting base and removing inner assignment scored 1193; initial index expression change tied.\nTarget caches D_8011EE4C and marker bases, but candidate caches slot-info base instead; loop and branches differ.",
   "by": "codex-gpt-6.1-terra-4",
@@ -54479,15 +54336,6 @@
   "score_before": 140,
   "score_after": 140,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
-  "function": "func_80037C84",
-  "text": "Score 60 persists; reordered statements and equivalent explicit assignments unchanged. Volatile global cursors worsen to 530 and 470.\nVolatile global pointers and explicit pointer assignments\nVolatile worsened; explicit assignments retained 60",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795261134.1471858,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
  },
  {
   "function": "func_8000BBB4",
@@ -75893,5 +75741,157 @@
   "score_before": 1585,
   "score_after": 1585,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:46c5928d26000a8dafeb4ec9b58e996f2cf5563d00d505727955de4e84ed8ae7"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Best current score 60. Key fix: func_80034928 has matched declaration void func_80034928(s32,s32); last call must be func_80034928(arg0,D_8010A4D8), not three arguments. This leaves only two reordered instructions: target updates D_80109CB8 global pointer, then increments/stores D_80115328 pointer; candidate schedules `addiu $a2,$a2,8` before storing D_80109CB8. Volatile qualification experiments caused severe regressions (score 550+); restore saved best. No exact match.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795178372.50462,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Score 60 verified: only addiu a2,a2,8 moves ahead of the D_80109CB8 global store. The matched callee uses two arguments and removing the extra a2 argument yielded identical machine code. Caching mode yielded the same code. Selectively volatile final stores worsened it (205\u2013640), and rebuilding the whole body with shared typed command locals changed register allocation (1080). Try folding only the final graphics-pointer advance into a compound assignment, keeping the earlier variable lifetimes.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795182887.395282,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Target assembly confirms first `func_80034928` call sets only `$a0=arg0`, `$a1=2`, preserving incoming `$a2`; second call sets `$a0=arg0`, `$a1=D_8010A4D8`, `$a2=advanced D_80115328`. The supplied draft failed because the indexed callee signature requires 3 args. Compiling an explicit third function parameter and passing it through made a poor 2162 score / 89 instructions; it altered the target's one-argument function setup. Restored historical saved candidate (60 score, unverified); attempted variadic declaration, which failed C parse. No improved match achieved. Next experiment: determine if a function-prototype convention lets the first call preserve incoming `$a2` without adding a formal function parameter; otherwise attempt a structurally faithful C variadic wrapper/callee declaration.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795188539.43538,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Rechecked score 60; only mismatch is addiu a2,a2,8 scheduled before rather than after store to D_80109CB8. Removing extra third argument to final func_80034928 call has identical instructions and agrees with matched callee. Direct volatile global generated extra reloads (550); volatile cast store generated extra address instruction (380); direct += on D_80115328 unchanged. Explore scheduling or local expression alternatives.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795191484.293549,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Verified score 60: only remaining mismatch is addiu $a2,$a2,8 scheduled before rather than after the D_80109CB8 store. Correcting final callee to two arguments and direct pointer increments retained 60; volatile store worsened to 380. Explore scheduling of the two global pointer updates.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795193636.268872,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Current rechecked candidate score 60 (79 instructions) is materially better than the direct rewrite attempt and matches all but ordering of pointer increment for D_80115328. The target performs final pointer arithmetic/store after the last func_80034928 call's delay slot (target lines ~67/70); candidate emits addiu $a2,$a2,8 earlier. Moving D_80115328 assignment after call regressed to 650, so preserve current candidate. First-call prototype must remain old style to compile existing invocation forms: func_80034928(arg0,2) maps target jal with a1=2 delay slot; second target call passes a0=s0 in delay slot, with a1 loaded from D_8010A4D8. Draft's three-argument second call is incorrect. Next try splitting D_80115328 advancement into direct global update after call or expression side effects to shape scheduling; pointer arithmetic and aliases currently impact its register assignment. Other body/branches are near exact.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795198103.388305,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Best score 60 on revision cb8c5040a2e2093b6f21, 79 instructions, only two reordered instructions remain. Corrected the final call to matched `func_80034928(arg0, D_8010A4D8)` (callee prototype takes two args); score fell from compile error to 60. Remaining diff: target computes `addiu $a2,$a2,8` after storing updated D_80109CB8, while candidate schedules that add before the store. Directly expressing D_80115328 = (char *)D_80115328 + 8 retained same diff. Making D_80109CB8 volatile caused major regressions (score 550). Restore cb8 candidate and tune sequencing/local expression to keep the add after D_80109CB8 store.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795199113.662189,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "60 baseline differs only in order: addiu a2,a2,8 rises above the D_80109CB8 store. Removing the unneeded third argument gives the same score and bytes (callee's matched signature is two args). As-assignment call, scoped next pointer, and typed field-size pointer increments also keep identical output. Volatile store casts and do/while around either update regress. Try explicit paired Gfx command structs and typed postincrement cursor locals across the final display-list block to change schedule while retaining both pointer lifetimes.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795201051.217773,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Rechecked candidate after restoring saved best. A rewrite with correct two-argument final func_80034928 call produced current score 60 (same as best); remaining mismatches are two instruction-order differences around updating D_80115328 pointer. Previous callee prototype corrections were incompatible with call forms; left inherited candidate for handoff.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795202017.985884,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Score 60 on candidate 6e5cd7c2382dd05c4e8c. Only diff: scheduling of addiu $a2,$a2,8; target places it after addiu $v1/sw v1->D_80109CB8, ours hoists it above. Tried: reorder temp_a2 vs D_80109CB8 increment; direct D_80115328+=8 passing D_80115328; early temp_a2 load (score 100). Next idea: separate temp pointer for the D_80109CB8 block.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795204337.009103,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Best remains 60/79, with the sole reported issue instruction ordering: target's addiu $a2,$a2,8 is after addiu/sw updating D_80109CB8, while candidate hoists it earlier. Tried introducing a D_80109CB8 temp base and direct D_80115328 += 8 / pass global; exact diff unchanged. Prior agent tried direct update and early temp load (score 100). No verified repair. Candidate currently has an extra unused temp declaration from an exploratory patch; saved best remains score 60.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795213962.8441222,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Reached the no-improvement limit at score 60. The sole addiu $a2,$a2,8 remains hoisted above the D_80109CB8 store. End-cursor local, split cursor update, and indexed pointer update left both diff rows unchanged. Globally volatile end/render cursors scored 530/470; disabling either scheduling pass and adding -g each worsened the baseline.\nQualified either entire cursor global volatile; also measured three ordinary source rewrites.\nGlobal qualification worsened the score; all ordinary rewrites preserved both diff rows.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795221757.120539,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Saved best (60) still: only addiu $a2,$a2,8 hoisted above the D_80109CB8 store. I tried Gfx-struct typed pointers with ++ (score 940, early a1 load), local p/q pointers (1765), and reordering the increments (975/1220). All worse. Next step: keep saved_best and try a 2-word Gfx struct only for the D_80109CB8 pointer while leaving the cursor as void*.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795228088.953774,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Stays at 60 (saved best 600806d2ee3a9e27cdeb): only `addiu a2,a2,8` scheduled earlier than target. Tried this session: temp_a2 order, sDisplayListCursor+=8, temp for D_80109CB8, Gfx-struct pointer rewrite with ++ (945, worse: D_8010A4D8 load hoisted differently). Next step: try making the final call's second arg a local loaded before the D_80109CB8 += 8 store.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795231000.4951,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Scoped local for D_80109CB8 writes tied score 60; reusing temp_v1 regressed to 145. Remaining mismatch is scheduling of cursor increment.\nScoped pointer for two D_80109CB8 stores\nScore 60, unchanged two reordered instructions",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245715.173235,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Separate temporary for D_80109CB8 stores; equivalent pointer increment expression\nTemporary worsened score to 145; equivalent increment retained 60 with two reordered instructions.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248060.007543,
+  "score_before": 145,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Saved and freshly confirmed best is score 60 (79 instructions; target 79). Only two instructions differ by ordering: target advances/stores D_80109CB8 at rows 67-68 before addiu $a2,$a2,8 and stores sDisplayListCursor at 70-71; C equivalent after calling func_80034928 leaves cursor increment in different order. Putting temp_a2=sDisplayListCursor+8 before call but delaying global cursor store until after call regressed to 650; restored best returned to 60 unchanged. Earlier agents tried pointer temporaries, early cursor load, and direct D_80115328 increments. Continue experimenting only from saved_best, not regressed continuation.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795258587.9114828,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
+ },
+ {
+  "function": "func_80037C84",
+  "text": "Score 60 persists; reordered statements and equivalent explicit assignments unchanged. Volatile global cursors worsen to 530 and 470.\nVolatile global pointers and explicit pointer assignments\nVolatile worsened; explicit assignments retained 60",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795261134.1471858,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:612b08bdf5df46156c1a313de14c7a0696f1b452b4b24d77aeac5baead9e4875"
  }
 ]

@@ -27,6 +27,7 @@ extern void *sRenderState;
 typedef struct { int value; } __repair_field_0;
 void func_80037C84(s32 arg0) {
     void *temp_a2;
+    s32 temp_a1;
     void *temp_v1;
     void *temp_v1_2;
 
@@ -54,8 +55,11 @@ void func_80037C84(s32 arg0) {
     ((__repair_field_0 *)D_80109CB8 + 1)->value = 0;
     ((__repair_field_0 *)sDisplayListCursor)->value = 0xDE000000;
     M2C_FIELD(sDisplayListCursor, s32 *, 4) = (s32) M2C_FIELD(sRenderState, s32 *, 0x1A60);
+    temp_a1 = D_8010A4D8;
     D_80109CB8 += 8;
-    temp_a2 = sDisplayListCursor + 8;
-    sDisplayListCursor = temp_a2;
-    func_80034928(arg0, D_8010A4D8, temp_a2);
+    do {
+        temp_a2 = sDisplayListCursor + 8;
+        sDisplayListCursor = temp_a2;
+        func_80034928(arg0, temp_a1, temp_a2);
+    } while (0);
 }
