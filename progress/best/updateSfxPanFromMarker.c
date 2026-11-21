@@ -40,6 +40,7 @@ void updateSfxPanFromMarker(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
         temp_a1 = var_v1;
         if (var_v1 >= 0x40) var_v1 = 0x7F - var_v1;
         if (var_v1 < -0x3F) var_v1 = -0x7F - var_v1;
+        var_v1 += 0x40;
         if (temp_a1 > 0) var_s0 = temp_a1;
         else var_s0 = -temp_a1;
         if (*flag != 0) {

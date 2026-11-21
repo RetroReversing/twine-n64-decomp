@@ -29,6 +29,7 @@ extern s32 gEntryMode;
 extern s32 gEntryTable;
 
 void func_8003099C(s8 arg0, s32 arg1) {
+    u16 *__base_D_800BFF0C;
 int __repair_constant = 6;
 
     s16 var_s2_2;
@@ -63,7 +64,8 @@ loop_2:
             D_800BFF08 = temp_a1 + (u8 *)&D_800C02C0;
             gEntryTable = temp_a0;
             temp_v1 = *(u8 *)((u8 *)&D_800C02DC + temp_a1);
-            D_800BFF0C = *(u16 *)((u8 *)&D_800C02D8 + temp_a1);
+            __base_D_800BFF0C = &D_800BFF0C;
+            (*__base_D_800BFF0C) = *(u16 *)((u8 *)&D_800C02D8 + temp_a1);
             D_800E160A = (arg1 & 0xFF) << 0xC;
             gEntryCount = (u16) temp_v1;
             temp_v1_2 = temp_v1 & 0xFFFF;
@@ -129,5 +131,5 @@ block_20:
     D_80100768 = 0;
     gEntryCount = 0;
     D_800E160A = 0;
-    D_800BFF0C = 3;
+    (*__base_D_800BFF0C) = 3;
 }

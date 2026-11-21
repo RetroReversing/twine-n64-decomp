@@ -69,6 +69,7 @@ extern s32 gObjectList;
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_80038000(void *arg0, s32 arg1) {
+    volatile s32 padding[2];
     f32 sp20;
     f32 sp24;
     f32 sp28;

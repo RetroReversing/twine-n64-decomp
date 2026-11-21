@@ -4,36 +4,36 @@ void vec3Cross(void *, void *, void *);
 s32 invertAffineTransform(void *, f32 *);
 extern u8 gWorkerActive;
 typedef struct { s32 x,y,z; } Vec3s;
-s32 buildAxisTransform(void *out, Vec3s *v1, Vec3s *v2, Vec3s *v3, f32 *neg, u8 scale) {
-    s32 ret;
-    f32 m[12];
+/* Stores three points and a negated offset into transform, derives the inverse 3x4 affine matrix and scale; returns 0 if the worker is inactive. */ s32 buildAxisTransform(void *transform, Vec3s *pointA, Vec3s *pointB, Vec3s *pointC, f32 *negOffset, u8 scaleByte) {
+    s32 success;
+    f32 matrix[12];
     if (!gWorkerActive) {
-        ret = 0;
+        success = 0;
     } else {
         workerLockAcquire();
-        *(Vec3s *)((s8 *)out + 0xC) = *v1;
-        *(Vec3s *)((s8 *)out + 0x18) = *v2;
-        *(Vec3s *)((s8 *)out + 0x24) = *v3;
-        *(f32 *)((s8 *)out + 0x3C) = -neg[0];
-        *(f32 *)((s8 *)out + 0x40) = -neg[1];
-        *(f32 *)((s8 *)out + 0x44) = -neg[2];
-        vec3Cross((s8 *)out + 0x30, (s8 *)out + 0x3C, (s8 *)out + 0x24);
-        m[0] = *(f32 *)((s8 *)out + 0x30);
-        m[3] = *(f32 *)((s8 *)out + 0x34);
-        m[6] = *(f32 *)((s8 *)out + 0x38);
-        m[1] = *(f32 *)((s8 *)out + 0x3C);
-        m[4] = *(f32 *)((s8 *)out + 0x40);
-        m[7] = *(f32 *)((s8 *)out + 0x44);
-        m[2] = *(f32 *)((s8 *)out + 0x24);
-        m[5] = *(f32 *)((s8 *)out + 0x28);
-        m[8] = *(f32 *)((s8 *)out + 0x2C);
-        m[9] = *(f32 *)((s8 *)out + 0xC);
-        m[10] = *(f32 *)((s8 *)out + 0x10);
-        m[11] = *(f32 *)((s8 *)out + 0x14);
-        invertAffineTransform((s8 *)out + 0x48, m);
-        *(f32 *)((s8 *)out + 0x84) = scale * 0.007874016f;
+        *(Vec3s *)((s8 *)transform + 0xC) = *pointA;
+        *(Vec3s *)((s8 *)transform + 0x18) = *pointB;
+        *(Vec3s *)((s8 *)transform + 0x24) = *pointC;
+        *(f32 *)((s8 *)transform + 0x3C) = -negOffset[0];
+        *(f32 *)((s8 *)transform + 0x40) = -negOffset[1];
+        *(f32 *)((s8 *)transform + 0x44) = -negOffset[2];
+        vec3Cross((s8 *)transform + 0x30, (s8 *)transform + 0x3C, (s8 *)transform + 0x24);
+        matrix[0] = *(f32 *)((s8 *)transform + 0x30);
+        matrix[3] = *(f32 *)((s8 *)transform + 0x34);
+        matrix[6] = *(f32 *)((s8 *)transform + 0x38);
+        matrix[1] = *(f32 *)((s8 *)transform + 0x3C);
+        matrix[4] = *(f32 *)((s8 *)transform + 0x40);
+        matrix[7] = *(f32 *)((s8 *)transform + 0x44);
+        matrix[2] = *(f32 *)((s8 *)transform + 0x24);
+        matrix[5] = *(f32 *)((s8 *)transform + 0x28);
+        matrix[8] = *(f32 *)((s8 *)transform + 0x2C);
+        matrix[9] = *(f32 *)((s8 *)transform + 0xC);
+        matrix[10] = *(f32 *)((s8 *)transform + 0x10);
+        matrix[11] = *(f32 *)((s8 *)transform + 0x14);
+        invertAffineTransform((s8 *)transform + 0x48, matrix);
+        *(f32 *)((s8 *)transform + 0x84) = scaleByte * 0.007874016f;
         workerLockRelease();
-        ret = 1;
+        success = 1;
     }
-    return ret;
+    return success;
 }

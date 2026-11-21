@@ -109,7 +109,7 @@ void *var_a0;
                         var_a0 = temp_s1;
                         var_a1_2 = D_800D42E0;
                         var_a2 = temp_s0_2;
-                        var_a3 = ((func_80022DBC((s8) M2C_FIELD(temp_s0, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
+                        var_a3 = ((func_80022DBC((s8) M2C_FIELD(temp_s0, volatile u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                     
                     sprintf(var_a0, var_a1_2, var_a2, var_a3);} else {
 void *var_a2;
@@ -117,7 +117,7 @@ void *var_a2;
 void *var_a0;
 
                         temp_s1_2 = lookupDataEntry(temp_a0_3 & 0xFFFF);
-                        temp_s0_3 = ((func_80022DBC((s8) M2C_FIELD(temp_s3, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
+                        temp_s0_3 = ((func_80022DBC((s8) M2C_FIELD(temp_s3, volatile u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                         var_a0 = temp_s1_2;
                         var_a1_2 = D_800D42E8;
                         var_a2 = temp_s0_3;
@@ -139,3 +139,4 @@ void *var_a0;
     }
     return 0;
 }
+

@@ -19,7 +19,7 @@ extern char D_800F3954[];
 extern char D_800F3958[];
 extern char D_800F395C[];
 
-s32 func_8009757C(u16 arg0, s32 arg1) {
+s32 insertOrRefSortedEntry(u16 arg0, s32 arg1) {
     struct { s32 value; u16 key; u16 refs; } previous;
     s32 __repair_store_0;
     s32 __repair_store_1;
