@@ -24,7 +24,7 @@ f32 approximateAtan2(f32, f32);                        /* extern */
 s32 func_80084338();                /* extern */
 extern s8 D_800C469C;
 extern u8 D_800C46FA;
-extern u8 sDifficultyLevel;
+extern u8 D_80102EE8;
 
 s32 updateShooterAttack(void *arg0, void *arg1) {
     struct { f32 x, y, z; } vec;
@@ -92,7 +92,7 @@ s32 updateShooterAttack(void *arg0, void *arg1) {
             sp38 = 0;
             sp34 = (f32) (s32) temp_fv0;
             if (M2C_FIELD(temp_s0, u8 *, 0x82) == 9) {
-                switch (sDifficultyLevel) {               /* switch 1; irregular */
+                switch (D_80102EE8) {               /* switch 1; irregular */
                 case 0:
                 default:                            /* switch 1 */
                     var_fs1 = 42.5f;
@@ -105,7 +105,7 @@ s32 updateShooterAttack(void *arg0, void *arg1) {
                     break;
                 }
             } else if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x1B) {
-                switch (sDifficultyLevel) {               /* switch 2; irregular */
+                switch (D_80102EE8) {               /* switch 2; irregular */
                 case 0:
                 default:
                     var_fs1 = 75.0f;
@@ -118,7 +118,7 @@ s32 updateShooterAttack(void *arg0, void *arg1) {
                     break;
                 }
             } else {
-                switch (sDifficultyLevel) {               /* switch 3; irregular */
+                switch (D_80102EE8) {               /* switch 3; irregular */
                 case 0:
                 default:                            /* switch 3 */
                     var_fs1 = 85.0f;
