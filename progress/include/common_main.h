@@ -156,3 +156,5 @@ typedef struct TrackMarker {
     u8 pad3[0x78 - 0x70];
     u16 mode;         /* 0x78 */
 } TrackMarker;
+
+void func_8008EF6C(u8, u16, u8);
