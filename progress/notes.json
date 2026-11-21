@@ -1304,14 +1304,6 @@
   "score_after": 8455
  },
  {
-  "function": "piWriteDomainWord",
-  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
-  "by": "restored",
-  "created_at": 1795049810.9206002,
-  "score_before": 400,
-  "score_after": 400
- },
- {
   "function": "func_80117AFC",
   "text": "Best 2203 (64.4%), revision 6d172416f3258dc6e437: loop over count at *(0x8011F06C) (u32), stride 0x58 over D_8011F068 table, calls func_80045E34(&sp10, table[i].+0x10) and keeps min f32 (init 65536.0f) and index. Source uses raw casts, no M2C_FIELD (macro is not in the compiled source and breaks compile). Remaining diff is frame: target is addiu sp,-0x48 with sdc1 $f20 at 0x40, saves s0-s4 and ra; mine is -0x38 with 5 saves. Target uses s4 = &sp10 (addiu s4,sp,0x10) and has sw $s4 at 0x38, so the local block is 0x10-0x20 and the struct is at sp+0x10. Variants that added scalar locals (sp1C/sp20), an array s32 sp10[5], and an explicit s32 *p = &sp10 inside a block all stayed at 2203 with no change. Not yet tried: declaring sp10 as a struct with an s32 sp10 plus a 0x18-byte block and returning via a separate temp; the target has s32 saved in the same slot order as sp10/sp14/sp18 pattern (sp+0x10, 0x14, 0x18).",
   "by": "restored",
@@ -1342,14 +1334,6 @@
   "created_at": 1795049511.859561,
   "score_before": 8650,
   "score_after": 8455
- },
- {
-  "function": "piWriteDomainWord",
-  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
-  "by": "restored",
-  "created_at": 1795049810.9206002,
-  "score_before": 400,
-  "score_after": 400
  },
  {
   "function": "libmExp",
@@ -1542,14 +1526,6 @@
   "created_at": 1795049691.905319,
   "score_before": null,
   "score_after": null
- },
- {
-  "function": "piWriteDomainWord",
-  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049810.9206002,
-  "score_before": 400,
-  "score_after": 400
  },
  {
   "function": "func_800AA8B0",
@@ -10568,14 +10544,6 @@
   "score_after": 250
  },
  {
-  "function": "piWriteDomainWord",
-  "text": "Initial saved C did not compile. Corrected pointer casts and got score 120, then corrected final operation from reading computed address into *arg2 to storing arg2 at computed address via D_A0000000 relocation; best score 110. Tried symbol-relative byte-pointer addition and array indexing variants (scores 270 and 510); retain best candidate fa2b9ff59a9158223eb4 / score 110. Remaining target tail is lw $v0,0xc($a0); lui $v1,%hi(D_A0000000); or $v0,$v0,$a1; or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). Best candidate adds addiu $v1,$v1,%lo(D_A0000000) then sw $a2,($v0), so focus on emitting relocation low half as store displacement without materializing it in a separate addiu.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795178217.4721,
-  "score_before": 120,
-  "score_after": 110
- },
- {
   "function": "func_80083E90",
   "text": "Started from the saved best (3400); direct whole-function compile rechecked at 3410. A targeted change that keeps the aligned size in arg0 rather than a separate p worsened to 3455, so the saved best remains preferable. Existing major issue: target's traversal loop uses a3 for requested size and computes a0=a3+12 after adding alignment; C variations here introduced branch/layout differences. Restore/recheck saved best and focus first on matching the early critical branch offset (target bnez at 0xb0, attempt b4), then inspect raw address warnings around D_800E1AA0 vs D_800E1A9C; avoid blindly rewriting field updates. No reliable general compiler discovery.",
   "by": "codex-gpt-6-luna-7",
@@ -13990,14 +13958,6 @@
   "created_at": 1795182546.2497978,
   "score_before": 65,
   "score_after": 65
- },
- {
-  "function": "piWriteDomainWord",
-  "text": "Best candidate remains historical score 110 (fa2b9ff59a9158223eb4; candidate maps lookup arrays to byte pointers, MMIO writes conditional on byte differences). First compile rechecked at 110, 90 instructions vs target 89. Remaining key difference: target final store is `sw $a2, %lo(D_A0000000)($v0)`, while best had an extra `addiu $v1, $v1, %lo(D_A0000000)` and `sw $a2, ($v0)`. Tried replacing OR-combined full address with pointer addition from `&D_A0000000`; these reached 270 and mismatched final address construction (target `lui $v1`, `or $v0,$v0,$a1`, `or $v0,$v0,$v1`, reloc store). Repeated attempts reached move-on 6/6. Resume from fa2b9ff59a9158223eb4; try expressing final target address as bitwise combination while preserving base in $v0, or inspect full assembly near offsets 83\u201387.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795182549.978997,
-  "score_before": 110,
-  "score_after": 110
  },
  {
   "function": "func_80093268",
@@ -22486,14 +22446,6 @@
   "created_at": 1795187953.765455,
   "score_before": 50,
   "score_after": 50
- },
- {
-  "function": "piWriteDomainWord",
-  "text": "Verified saved candidate score 110: all instructions match except extra addiu of %lo(D_A0000000) and store uses zero offset instead of relocation. Replacing final OR with pointer addition generated relocation store but used addu $at and changed order, scoring 270. Branch reversal and signed byte pointers worsened. Next investigate expression or symbol declaration that combines OR of high address with relocatable low offset in final store.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795187964.066786,
-  "score_before": 110,
-  "score_after": 110
  },
  {
   "function": "func_800AA8B0",
@@ -58007,5 +57959,53 @@
   "score_before": 1440,
   "score_after": 1440,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
+  "by": "restored",
+  "created_at": 1795049810.9206002,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
+  "by": "restored",
+  "created_at": 1795049810.9206002,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049810.9206002,
+  "score_before": 400,
+  "score_after": 400
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Initial saved C did not compile. Corrected pointer casts and got score 120, then corrected final operation from reading computed address into *arg2 to storing arg2 at computed address via D_A0000000 relocation; best score 110. Tried symbol-relative byte-pointer addition and array indexing variants (scores 270 and 510); retain best candidate fa2b9ff59a9158223eb4 / score 110. Remaining target tail is lw $v0,0xc($a0); lui $v1,%hi(D_A0000000); or $v0,$v0,$a1; or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). Best candidate adds addiu $v1,$v1,%lo(D_A0000000) then sw $a2,($v0), so focus on emitting relocation low half as store displacement without materializing it in a separate addiu.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795178217.4721,
+  "score_before": 120,
+  "score_after": 110
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Best candidate remains historical score 110 (fa2b9ff59a9158223eb4; candidate maps lookup arrays to byte pointers, MMIO writes conditional on byte differences). First compile rechecked at 110, 90 instructions vs target 89. Remaining key difference: target final store is `sw $a2, %lo(D_A0000000)($v0)`, while best had an extra `addiu $v1, $v1, %lo(D_A0000000)` and `sw $a2, ($v0)`. Tried replacing OR-combined full address with pointer addition from `&D_A0000000`; these reached 270 and mismatched final address construction (target `lui $v1`, `or $v0,$v0,$a1`, `or $v0,$v0,$v1`, reloc store). Repeated attempts reached move-on 6/6. Resume from fa2b9ff59a9158223eb4; try expressing final target address as bitwise combination while preserving base in $v0, or inspect full assembly near offsets 83\u201387.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795182549.978997,
+  "score_before": 110,
+  "score_after": 110
+ },
+ {
+  "function": "piWriteDomainWord",
+  "text": "Verified saved candidate score 110: all instructions match except extra addiu of %lo(D_A0000000) and store uses zero offset instead of relocation. Replacing final OR with pointer addition generated relocation store but used addu $at and changed order, scoring 270. Branch reversal and signed byte pointers worsened. Next investigate expression or symbol declaration that combines OR of high address with relocatable low offset in final store.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795187964.066786,
+  "score_before": 110,
+  "score_after": 110
  }
 ]
