@@ -3,10 +3,10 @@ typedef struct { u8 pad[0x2C]; u16 id; } S750;
 typedef struct { u8 b0; u8 flag; u8 pad[10]; } R750;
 O750 *spawnEffectObject(s32, s32, s32);
 extern R750 D_800C7EE8[];
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 
 O750 *func_800750B0(s32 arg0, s32 arg1, S750 *s) {
-    s32 mode = D_80102EE8;
+    s32 mode = sDifficultyLevel;
     O750 *o;
 
     if (mode == 0) goto make;

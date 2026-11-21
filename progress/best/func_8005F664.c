@@ -18,7 +18,7 @@ s32 func_800462C4(void *, f32, f32, f32);
 void objectListInsert(void *, void *);
 void objectSetAnimFrame(void *, s32, s32);
 void *spawnEffectObject(s32, s32, s32);
-extern M2C_UNK D_800C469C;
+extern M2C_UNK sEnemyDefTable;
 extern M2C_UNK D_800C4706;
 extern M2C_UNK D_800C4708;
 extern M2C_UNK func_8004D910;
@@ -34,8 +34,8 @@ void *func_8005F664(void *arg0, u16 arg2) {
     if ((var_s3 != 0) & (var_s3 < 0x27U)) {
         var_v1 = var_s3 * 0xE8;
         var_v0 = var_s3 * 8;
-        if (!(*(s32 *)((u8 *)&D_800C469C + var_v1) & 0x8000)) {
-            do { var_v1 -= 0xE8; var_s3 -= 1; } while (!(*(s32 *)((u8 *)&D_800C469C + var_v1) & 0x8000));
+        if (!(*(s32 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000)) {
+            do { var_v1 -= 0xE8; var_s3 -= 1; } while (!(*(s32 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000));
             var_v0 = var_s3 * 8;
         }
         if (*(s16 *)((u8 *)&D_800C4706 + ((((var_v0-var_s3)*4)+var_s3)*8)) != -1) {

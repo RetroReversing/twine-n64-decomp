@@ -25,7 +25,7 @@ extern s32 D_80102ED8;
 extern s8 gMenuUseTextList;
 extern s8 gPendingMenuCommand;
 extern u8 D_80102EE0;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern s32 D_80102EEC;
 extern s32 D_80102EF0;
 extern s32 D_80102EFC;
@@ -94,7 +94,7 @@ if ((i & 0xFFFF) < gSaveTotalSlots) goto __repair_rows;
             func_8000A310();
             func_800218EC();
             func_80021938();
-            func_8003099C(D_80102EE0, D_80102EE8);
+            func_8003099C(D_80102EE0, sDifficultyLevel);
         }
     }
 }

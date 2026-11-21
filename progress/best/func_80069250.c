@@ -11,7 +11,7 @@ f32 sinAngle(f32);
 f32 cosAngle(f32);
 s32 rotateVec3ByMat3();
 extern f32 D_800C0740;
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 extern char D_800C46FC[];
 extern f64 D_800D44F0;
 extern f64 D_800D44F8;
@@ -80,7 +80,7 @@ f32 __repair_sp4C_1;
     do { func_800643D8(temp_s4); } while (0);
     func_800643D8(temp_s2);
     __repair_hoisted = (*(void **)((char *)(arg0) + 0x68));
-    if (((*(s16 *)((char *)((*(void **)((char *)(temp_s3) + 0xA8))) + 0x7A)) == 0) && ((temp_t0 = (*(s8 *)((char *)(temp_s3) + 0x182)), spDC = (s32) (int)temp_t0, temp_s5 = (temp_t0 * 4) + gTrackMarkerTable, sp28[0] = (*(f32 *)((char *)(*temp_s5) + 0x34)), temp_fp = ((*(s8 *)((char *)(__repair_hoisted) + 0xE)) * 0xE8) + D_800C469C, sp28[2] = 0, sp28[1] = (*(f32 *)((char *)(*temp_s5) + 0x38)), var_v0 = temp_s4 != NULL, (((*(s32 *)((char *)(temp_fp) + 0x60)) & 0xC) != 0)) || (var_v0 = temp_s4 != NULL, ((*(s16 *)((char *)(arg0) + 0x7C)) == 5))) && (var_v0 & (temp_s2 != NULL))) {
+    if (((*(s16 *)((char *)((*(void **)((char *)(temp_s3) + 0xA8))) + 0x7A)) == 0) && ((temp_t0 = (*(s8 *)((char *)(temp_s3) + 0x182)), spDC = (s32) (int)temp_t0, temp_s5 = (temp_t0 * 4) + gTrackMarkerTable, sp28[0] = (*(f32 *)((char *)(*temp_s5) + 0x34)), temp_fp = ((*(s8 *)((char *)(__repair_hoisted) + 0xE)) * 0xE8) + sEnemyDefTable, sp28[2] = 0, sp28[1] = (*(f32 *)((char *)(*temp_s5) + 0x38)), var_v0 = temp_s4 != NULL, (((*(s32 *)((char *)(temp_fp) + 0x60)) & 0xC) != 0)) || (var_v0 = temp_s4 != NULL, ((*(s16 *)((char *)(arg0) + 0x7C)) == 5))) && (var_v0 & (temp_s2 != NULL))) {
         temp_v0 = *temp_s5;
         temp_a0 = (*(f32 *)((char *)(temp_v0) + 0x14));
         sp38[0] = (*(f32 *)((char *)(temp_v0) + 0x10));

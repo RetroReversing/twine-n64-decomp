@@ -19,7 +19,7 @@ s32 func_8003099C();
 s32 func_80030C58();
 extern u8 D_800BD9CC;
 extern u8 D_80102EE0;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern void *gMenuState;
 extern u8 D_80112F6E;
 extern char D_801176C7[];
@@ -31,9 +31,9 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
     void *rec_second;
     void *rec_third;
 
-    func_8003099C(D_80102EE0, D_80102EE8);
+    func_8003099C(D_80102EE0, sDifficultyLevel);
     rec = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x72);
-    D_800BD9CC = D_80102EE8;
+    D_800BD9CC = sDifficultyLevel;
     if (rec != NULL) {
         ((__repair_record_temp_s0*)rec)->field_C &= 0xFFF0;
         ((__repair_record_temp_s0*)rec)->field_34 &= 0xFFF0;

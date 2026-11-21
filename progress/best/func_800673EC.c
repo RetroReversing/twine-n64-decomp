@@ -19,7 +19,7 @@ s32 func_8008194C(int, s32);                     /* extern */
 s32 func_80081D20(s8, s32);                 /* extern */
 f32 sinTableLookup(f32);                             /* extern */
 f32 cosTableLookup(f32);                             /* extern */
-extern s32 D_800C469C;
+extern s32 sEnemyDefTable;
 extern s32 D_800C46FC;
 extern s32 gBorderSkipFlag;
 extern s32 gTrackMarkerTable;
@@ -72,7 +72,7 @@ s32 __repair_phase___repair_phase_temp_s0;
     temp_a0 = (*(void **)((char *)(arg0) + 0x68));
     temp_s2 = (*(void **)((char *)(arg0) + 0x6C));
     temp_s0 = (*(s8 *)((char *)(temp_s2) + 0x182));
-    temp_s1 = (void *)(((*(s8 *)((char *)(temp_a0) + 0xE)) * 0xE8)); __base_D_800C469C = &D_800C469C;
+    temp_s1 = (void *)(((*(s8 *)((char *)(temp_a0) + 0xE)) * 0xE8)); __base_D_800C469C = &sEnemyDefTable;
  temp_s1 = (void *)((char *)temp_s1 + (s32)(__base_D_800C469C));
     __repair_phase_temp_s0 = (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A));
     var_s4 = (void *)(((*(s8 *)((char *)(temp_a0) + 0x10)) * 0xE8)); var_s4 = (void *)((char *)var_s4 + (s32)(__base_D_800C469C));

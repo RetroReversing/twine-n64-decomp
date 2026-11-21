@@ -32,7 +32,7 @@ f32 sinAngle(f32);
 f32 cosAngle();
 s32 buildRotationMatrixS16();
 s32 rotateVec3ByMat3();
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 extern char gTrackMarkerTable[];
 
 void func_800589FC(void *arg0, void *arg1) {
@@ -91,7 +91,7 @@ void func_800589FC(void *arg0, void *arg1) {
         M2C_FIELD(temp_v0, void **, 0x18) = spFC;
         temp_a1 = (var_a1 * 4) + gTrackMarkerTable;
         temp_a0 = *temp_a1;
-        __base_D_800C469C = D_800C469C;
+        __base_D_800C469C = sEnemyDefTable;
         sp104 = (M2C_FIELD(M2C_FIELD(spFC, void **, 0x68), s8 *, 0xE) * 0xE8) + __base_D_800C469C;
         if (temp_a0 == NULL) {
             repair_stack_record.sp78[0] = 0.0f;

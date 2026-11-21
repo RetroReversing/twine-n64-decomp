@@ -25,7 +25,7 @@ extern u8 gOptionChoice;
 extern u8 gOptionFlag;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern u8 D_8010A4C0;
 extern u8 gColorFadeLevel;
 extern u8 gBorderFlipFlag;
@@ -112,7 +112,7 @@ loop_2:
     func_8002E93C(&D_800E1310, D_801002C4, 4, 0x20);
     func_8002E93C(&D_800E1310, D_80102EE0, 1, 8);
     func_8002E93C(&D_800E1310, D_80102EE4, 4, 0x20);
-    func_8002E93C(&D_800E1310, D_80102EE8, 1, 4);
+    func_8002E93C(&D_800E1310, sDifficultyLevel, 1, 4);
     func_8002E93C(&D_800E1310, D_8010A4C0, 1, 2);
     func_8002E93C(&D_800E1310, gColorFadeLevel, 1, 6);
     func_8002E93C(&D_800E1310, gBorderFlipFlag, 1, 1);

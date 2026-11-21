@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 requestSound();
 s32 func_80063D38();
 s32 func_80084338();
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 
 void func_80070CA4(void *arg0) {
     void * __repair_hoisted;
@@ -58,7 +58,7 @@ int __repair_constant = 0x26;
             M2C_FIELD(temp_a0, s8 *, 0xF) = (s8) M2C_FIELD(temp_s4, u16 *, 0x134);
             return;
         }
-        if (!(*(u16 *)(D_800C469C + (temp_v1_2 * 0xE8)) & 0x8000)) {
+        if (!(*(u16 *)(sEnemyDefTable + (temp_v1_2 * 0xE8)) & 0x8000)) {
             do {
                 temp_v1_3 = M2C_FIELD(arg0, void **, 0x68);
                 temp_v0_2 = (u8) M2C_FIELD(temp_v1_3, s8 *, 0xF) - 1;
@@ -66,7 +66,7 @@ int __repair_constant = 0x26;
                 if (temp_v0_2 < 0) {
                     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = __repair_constant;
                 }
-            } while (!(*(u16 *)(D_800C469C + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 0xE8)) & 0x8000));
+            } while (!(*(u16 *)(sEnemyDefTable + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 0xE8)) & 0x8000));
         }
 loop_13:
         temp_v1_4 = M2C_FIELD(arg0, void **, 0x68);
@@ -78,7 +78,7 @@ loop_13:
         }
         temp_a2 = M2C_FIELD(arg0, void **, 0x68);
         temp_a1 = M2C_FIELD(temp_a2, s8 *, 0xF);
-        if (!(*(u16 *)(D_800C469C + (temp_a1 * 0xE8)) & 0x8000)) {
+        if (!(*(u16 *)(sEnemyDefTable + (temp_a1 * 0xE8)) & 0x8000)) {
             goto loop_13;
         }
         M2C_FIELD(temp_a2, s8 *, 0xF) = (s8) (temp_a1 + M2C_FIELD((temp_s4 + (temp_a1 * 8)), u8 *, 0x1FE));

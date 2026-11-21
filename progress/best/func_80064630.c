@@ -2,7 +2,7 @@ extern u8 D_80112F6C;
 extern u8 D_800C7C16[];
 extern u8 D_800C46A1[];
 extern u8 D_800C471E[];
-extern u16 D_800C469C;
+extern u16 sEnemyDefTable;
 extern s32 func_800645A4(s32);
 
 void func_80064630(void *arg0) {
@@ -33,7 +33,7 @@ void func_80064630(void *arg0) {
                 entry[0x1FC] = 0;
                 entry[0x1FF] = 0;
             }
-            if ((*(u16 *)((u8 *)&D_800C469C + dataOff) & 0x8000) == 0) {
+            if ((*(u16 *)((u8 *)&sEnemyDefTable + dataOff) & 0x8000) == 0) {
                 *(u8 *)(record + recOff + 0x1FC) = 0;
             }
             {

@@ -14,7 +14,7 @@ s32 requestSound();
 s32 func_80063D38();
 s32 func_80084338();
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C469C;
-extern Slot_800C469C D_800C469C[];
+extern Slot_800C469C sEnemyDefTable[];
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C469E;
 extern Slot_800C469E D_800C469E[];
 
@@ -63,7 +63,7 @@ void func_8007092C(void *arg0, s8 arg1) {
             }
             temp_a2 = *(u8 **)((u8 *)arg0 + 0x68);
             temp_a1 = (s8)temp_a2[0xF];
-            if (!(D_800C469C[temp_a1].f0 & 0x8000)) {
+            if (!(sEnemyDefTable[temp_a1].f0 & 0x8000)) {
                 continue;
             }
             temp_a2[0xF] = (u8)(temp_a1 + temp_s4[temp_a1 * 8 + 0x1FE]);

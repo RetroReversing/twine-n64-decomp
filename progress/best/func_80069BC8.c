@@ -9,7 +9,7 @@ extern f64 D_800D4510;
 extern s16 D_800E1A14;
 extern u8 D_800E1A16;
 extern s32 gBorderSkipFlag;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 
 typedef struct { unsigned char pad[96]; int value; } __repair_field_60;
 void func_80069BC8(void *arg0) {
@@ -52,7 +52,7 @@ void func_80069BC8(void *arg0) {
         }
     }
     if (D_800E1A16 == 0) {
-        switch (D_80102EE8) {
+        switch (sDifficultyLevel) {
         case 0:
         default:
             D_800E1A14 = (s16) (s32) ((f64) D_800E1A14 - D_800D4500);

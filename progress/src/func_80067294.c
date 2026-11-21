@@ -4,7 +4,7 @@ typedef struct { u8 pad[0x7A]; s16 t; } Tgt;
 typedef struct { u8 pad[0xA8]; Tgt *tgt; } Own;
 typedef struct { u8 pad[0x68]; Sub *sub; Own *own; } Obj;
 void func_80070CA4();
-extern Ent D_800C469C[];
+extern Ent sEnemyDefTable[];
 extern s32 gBorderSkipFlag;
 
 void func_80067294(Obj *o, s32 arg1) {
@@ -23,7 +23,7 @@ void func_80067294(Obj *o, s32 arg1) {
     case 1: case 2: case 3: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
     case 13: case 14: case 15: case 16: case 17: case 20: case 21: case 22: case 23:
     case 24: case 25: case 26: case 27:
-        while (!(D_800C469C[o->sub->kind].flags & 0x8000)) {
+        while (!(sEnemyDefTable[o->sub->kind].flags & 0x8000)) {
             o->sub->kind--;
         }
         o->sub->mode = mode;

@@ -42,7 +42,7 @@ extern char D_801001A3[];
 extern s32 gSaveSlotCount;
 extern char D_80102CD0[];
 extern s32 gBorderSkipFlag;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern s8 D_80103EB0;
 extern s32 gGameMode;
 extern char gTrackMarkerTable[];
@@ -121,7 +121,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     volatile s64 stack_pad;
 
     sp14 = arg2;
-    if ((gBorderSkipFlag != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == D_80102EE8))) {
+    if ((gBorderSkipFlag != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == sDifficultyLevel))) {
         temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;
@@ -464,8 +464,8 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             var_fv1 = 0x41800000;
             goto block_65;
         }
-        if (D_80102EE8 != 1) {
-            if ((2 > D_80102EE8) || (var_v0 = temp_s4, (D_80102EE8 != 2))) {
+        if (sDifficultyLevel != 1) {
+            if ((2 > sDifficultyLevel) || (var_v0 = temp_s4, (sDifficultyLevel != 2))) {
                 var_fv1 = 0x41900000;
                 var_fv0 = 0x41400000;
                 goto block_65;

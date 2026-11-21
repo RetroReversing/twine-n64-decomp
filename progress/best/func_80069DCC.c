@@ -719,8 +719,8 @@ temp_fs3_3 = M2C_FIELD(temp_s1, f32 *, 0x50);
 var_s5 += temp_fs3_3 * sinAngle(M2C_FIELD(arg0, f32 *, 0x40) + 1024.0f);
 temp_a0_5 = M2C_FIELD(arg0, void **, 0x68);
 var_s6 += temp_fs3_3 * cosAngle(M2C_FIELD(arg0, f32 *, 0x40) + 1024.0f);
-var_v0_11 = 1;
 if (!(M2C_FIELD(temp_a0_5, u16 *, 0xC) & 0x40) && (M2C_FIELD(temp_s1, u8 *, 0x195) == 1)) {
+var_v0_11 = 1;
 if (!(temp_fs3_3 <= 0.0002f)) {
 var_v0_11 = 0;
 }

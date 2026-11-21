@@ -17,7 +17,7 @@ s32 func_80002D30();
 s32 func_80064318();
 s32 func_800643D8();
 s32 func_80067A24();
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 
 void func_80067AE8(void *arg0) {
     s32 temp_s3;
@@ -29,7 +29,7 @@ void func_80067AE8(void *arg0) {
 
     temp_s2 = M2C_FIELD(arg0, void **, 0x6C);
     temp_s1 = M2C_FIELD(temp_s2, void **, 0xA8);
-    temp_s0 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + D_800C469C;
+    temp_s0 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + sEnemyDefTable;
     temp_a1 = M2C_FIELD(temp_s0, u8 *, 0x9E);
     temp_s3 = M2C_FIELD(temp_s2, s8 *, 0x182);
     if (temp_a1 != 0xFF) {

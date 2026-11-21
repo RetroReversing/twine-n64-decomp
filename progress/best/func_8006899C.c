@@ -18,7 +18,7 @@ s32 func_8008194C();
 s32 func_80081AA4();
 s32 func_80082834();
 s32 func_80084338();
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 extern u8 D_800E1A16;
 extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
@@ -71,7 +71,7 @@ void func_8006899C(void *arg0, u8 arg1) {
     temp_v0 = (void **)((char *)temp_v0 + (temp_fp * 4));
     var_s6 = 1;
     sp37 = arg1;
-    temp_s4 = ((*(s8 *)((char *)(((__repair_record_arg0*)arg0)->field_68) + 0xE)) * 0xE8) + D_800C469C;
+    temp_s4 = ((*(s8 *)((char *)(((__repair_record_arg0*)arg0)->field_68) + 0xE)) * 0xE8) + sEnemyDefTable;
     if (func_80081AA4(arg0, temp_fp, 0x12, (*(f32 *)((char *)(*temp_v0) + 0x34)), (*(f32 *)((char *)(*temp_v0) + 0x38)), 0) != 0) {
         temp_v0 = ((__repair_record_arg0*)arg0)->field_20;
         var_s5 = (*(void **)((char *)((*(void **)((char *)(temp_v0) + 0x20))) + 0x58));

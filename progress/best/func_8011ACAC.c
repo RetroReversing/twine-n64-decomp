@@ -1,6 +1,6 @@
 extern void *gBorderSkipFlag;
 extern u8 D_801002A2;
-extern u8 D_800C469C[];
+extern u8 sEnemyDefTable[];
 extern u8 D_800C447C[];
 void setActionSlot(void *a, s32 b, s32 c, s32 d);
 s32 func_80063C7C(s32 a, s32 b);
@@ -55,7 +55,7 @@ void func_8011ACAC(void *a0, u8 *a1) {
         s2 = 0x1A;
         break;
     }
-    s1 = D_800C469C + (u16)s0 * 232;
+    s1 = sEnemyDefTable + (u16)s0 * 232;
     {
         s32 first = *(u16 *)(s1 + 2);
         s32 id = s0;

@@ -1,11 +1,11 @@
 u32 randomIntBelow(s32);
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 
 s32 func_80017490(u32 arg0, u32 arg1, u32 arg2) {
     u32 chance;
     s32 ret;
 
-    switch (D_80102EE8) {
+    switch (sDifficultyLevel) {
     case 2:
         chance = arg2;
         break;

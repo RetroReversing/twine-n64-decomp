@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80007160();                            /* extern */
 M2C_UNK func_8008173C();                            /* extern */
 M2C_UNK func_80081BC4(s32, M2C_UNK);                /* extern */
-extern s8 D_80102EE8;
+extern s8 sDifficultyLevel;
 extern s8 D_8010A4C0;
 extern s8 gSceneFlagsA;
 extern s8 gSceneFlagsB;
@@ -47,7 +47,7 @@ void func_8002D850(void) {
     gSceneFlagsA = 1;
     gSceneFlagsB = 0x1F;
     D_8010A4C3 = 0xF;
-    D_80102EE8 = 0;
+    sDifficultyLevel = 0;
     D_80112F68 = 0;
     D_80112F6C = 0;
     D_8010A4C0 = 0;

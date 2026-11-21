@@ -22,7 +22,7 @@ extern s32 D_801002C4;
 extern u8 gPauseFlag;
 extern u8 D_801002D5;
 extern s32 D_801002F4;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern u16 * volatile D_80102FD4;
 extern u8 gBorderFlipFlag;
 extern u32 D_80117730;
@@ -111,7 +111,7 @@ void func_8001BE64(void) {
         (*__base_D_801002A8) = D_80102FD4[D_80117730];
         initSaveSlotMenus(temp_fp, temp_s6);
         temp_s0 = (s8 *) __base_D_801002A8 + 0x1C;
-        func_8003099C(D_801002A4, D_80102EE8);
+        func_8003099C(D_801002A4, sDifficultyLevel);
         if ((func_8002B278(temp_s0) << 0x10) != 0) {
             var_v0_3 = func_8002B248(temp_s0);
         

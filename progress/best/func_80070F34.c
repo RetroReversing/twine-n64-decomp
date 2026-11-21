@@ -30,7 +30,7 @@ M2C_UNK func_800AB9B0(void *);                      /* extern */
 M2C_UNK memset(s32, M2C_UNK, M2C_UNK);              /* extern */
 M2C_UNK sprintf(void *, M2C_UNK *, s16);            /* extern */
 s16 strlen(void *);                                 /* extern */
-extern M2C_UNK D_800C469C;
+extern M2C_UNK sEnemyDefTable;
 extern M2C_UNK D_800C46FC;
 extern M2C_UNK D_800C7E10;
 extern M2C_UNK D_800C7E12;
@@ -180,7 +180,7 @@ void func_80070F34(void *arg0) {
 
     temp_s2 = M2C_FIELD(arg0, void **, 0x6C);
     var_fs2 = 160.0f;
-    temp_v0 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + &D_800C469C;
+    temp_v0 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + &sEnemyDefTable;
     sp1C = temp_v0;
     temp_s6 = M2C_FIELD(temp_v0, u8 *, 0x80);
     var_fs1 = 120.0f;
@@ -412,7 +412,7 @@ block_10:
                 func_80064318(temp_v0_7, M2C_FIELD(temp_s2, s8 *, 0x182));
             }
         } else {
-            temp_v0_8 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + &D_800C469C;
+            temp_v0_8 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + &sEnemyDefTable;
             func_80044670(temp_a0_6, M2C_FIELD(temp_v0_8, s16 *, 0x38), M2C_FIELD(temp_v0_8, s16 *, 0x3A));
             temp_v0_9 = M2C_FIELD(temp_s2, void **, 0x48C);
             M2C_FIELD(temp_v0_9, f32 *, 0x54) = (f32) ((0.0625f / M2C_FIELD(temp_v0_9, f32 *, 0x64)) * 0.0134375f);

@@ -16,7 +16,7 @@ s32 func_80002BD0();
 s32 randomIntBelow();
 s32 func_80077960();
 s32 func_80077ED8();
-extern char D_800C469C[];
+extern char sEnemyDefTable[];
 extern char D_800C9BD0[];
 extern char D_800C9BE0[];
 extern char D_800C9BE4[];
@@ -37,7 +37,7 @@ s32 func_8007AB60(void *arg0) {
 
     temp_a2 = M2C_FIELD(arg0, void **, 0x6C);
     temp_a0 = M2C_FIELD(arg0, s16 *, 0x7C);
-    temp_a1 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + D_800C469C;
+    temp_a1 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + sEnemyDefTable;
     switch (temp_a0) {                              /* switch 1 */
     case 0:                                         /* switch 1 */
     case 3:                                         /* switch 1 */

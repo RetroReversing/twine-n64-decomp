@@ -33,7 +33,7 @@ extern s16 D_80102CC0;
 extern s32 gBorderSkipFlag;
 extern s8 gMenuUseTextList;
 extern u8 D_80102EE0;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern s32 D_80102EF0;
 extern char D_80102EFC[];
 extern void *sActiveMenu;
@@ -70,7 +70,7 @@ void func_80019690(void) {
             D_800BD690 = 0;
         }
     } else {
-        func_8003099C(D_80102EE0, D_80102EE8);
+        func_8003099C(D_80102EE0, sDifficultyLevel);
         gMenuUseTextList = 1;
         p = (*(void **)((char *)(gMenuState) + 0x18));
         if ((*(s32 *)((char *)(p) + 0x10)) != 0) {

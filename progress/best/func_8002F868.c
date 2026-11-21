@@ -35,7 +35,7 @@ extern s8 D_800CEEB1;
 extern char D_800E1584[];
 extern u8 D_80102EDC;
 extern u8 D_80102EE0;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern char D_80102EFC[];
 
 typedef struct { s32 w[4]; } __repair_words4;
@@ -122,7 +122,7 @@ block_19:
             func_800283B0();
             D_800CEEB1 = 2;
             func_80087E74();
-            func_8003099C(D_80102EE0, D_80102EE8);
+            func_8003099C(D_80102EE0, sDifficultyLevel);
             return;
         }
         func_8002F2EC(arg0, arg1);

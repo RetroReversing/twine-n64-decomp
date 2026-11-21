@@ -24,7 +24,7 @@ extern char D_800E0C70[];
 extern char D_800E0C98[];
 extern char D_800E0E40[];
 extern char D_800E0ED4[];
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 extern s32 func_8001EA6C;
 extern s32 func_8001EAF0;
 extern char D_800D2A80[];
@@ -50,7 +50,7 @@ void menuPopulateItems(void) {
         itemTable = NULL;
         formatTextEntry(textHandle, "%s", lookupDataEntry(*(u16 *)(D_800E0ED4 + (gMenuSlot * 2)) | 0x7000));
         itemCount = 0;
-        switch (D_80102EE8) {                       /* irregular */
+        switch (sDifficultyLevel) {                       /* irregular */
         case 0:
             itemTable = D_800CE92C;
             itemCount = 5;
