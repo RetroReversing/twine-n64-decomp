@@ -43,7 +43,9 @@ void menuHandleSelection(void) {
     s32 temp_v0;
     s32 temp_v1;
     u16 temp_a2;
-    u8 temp_a1;
+    u16 temp_a1;
+    u8 slot;
+    s32 mode;
     u8 temp_v1_2;
     void *temp_a0;
     void *temp_a0_2;
@@ -54,7 +56,6 @@ void menuHandleSelection(void) {
     void *temp_s1;
     void *temp_s2;
     void *temp_s3;
-    void *temp_v0_2;
     void *temp_v0_3;
 
     updateActiveMenuState();
@@ -62,7 +63,7 @@ void menuHandleSelection(void) {
     if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             temp_s2 = func_8002A980(gMenuList);
-            if (*(&gBonusSceneHandle + (gMenuSlot * 4)) != 0) {
+            if (*((s32 *)((u8 *)&gBonusSceneHandle + (gMenuSlot * 4))) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
@@ -76,7 +77,7 @@ void menuHandleSelection(void) {
                         M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s32 *, 0x18));
                     }
                     temp_v0 = M2C_FIELD(temp_s2, u8 *, 8) * 0xE8;
-                    func_8002135C(*(&D_800C46D8 + temp_v0), *(&D_800C46DA + temp_v0));
+                    func_8002135C(*((s16 *)((u8 *)&D_800C46D8 + temp_v0)), *((s16 *)((u8 *)&D_800C46DA + temp_v0)));
                     if (temp_s3 != NULL) {
                         temp_a0 = M2C_FIELD(temp_s3, void **, 8);
                         if (temp_a0 != NULL) {
@@ -89,9 +90,9 @@ void menuHandleSelection(void) {
                     }
                     break;
                 case 1:                             /* switch 1 */
-                    temp_v1 = M2C_FIELD(temp_s2, u8 *, 8) * 0x10;
                     temp_s0_3 = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
-                    func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
+                    temp_v1 = M2C_FIELD(temp_s2, u8 *, 8) * 0x10;
+                    func_8002135C(*((s16 *)((u8 *)&D_800C4478 + temp_v1)), *((s16 *)((u8 *)&D_800C447A + temp_v1)));
                     if (temp_s0_3 != NULL) {
                         M2C_FIELD(M2C_FIELD(temp_s0_3, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(2, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
                         temp_s0_4 = M2C_FIELD(temp_s0_3, void **, 0x30);
@@ -103,19 +104,23 @@ void menuHandleSelection(void) {
             }
         } else {
 block_15:
-            temp_v0_2 = func_8002A980(gMenuList);
-            if ((temp_v0_2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
+            temp_s2 = func_8002A980(gMenuList);
+            if ((temp_s2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
                 requestSound(0xE8);
-                switch (gMenuMode) {                /* switch 2; irregular */
-                case 0:                             /* switch 2 */
-                    temp_a1 = M2C_FIELD(temp_v0_2, u8 *, 8);
-                    *(&D_800E0ECC + (gMenuSlot * 2)) = (s16) temp_a1;
-                    temp_a0_2 = M2C_FIELD(*(&gBonusSceneHandle + (gMenuSlot * 4)), void **, 0x6C);
-                    if (*(&D_800C469E + ((temp_a1 & 0xFFFF) * 0xE8)) == 0x21) {
+                mode = gMenuMode;
+                if (mode == 1) goto mode_one;
+                if (mode >= 2) return;
+                if (mode == 0) {
+                    slot = gMenuSlot;
+                    temp_a1 = M2C_FIELD(temp_s2, u8 *, 8);
+                    *((u16 *)((u8 *)&D_800E0ECC + (slot * 2))) = (s16) temp_a1;
+                    temp_a0_2 = M2C_FIELD(*((s32 *)((u8 *)&gBonusSceneHandle + (slot * 4))), void **, 0x6C);
+                    if (*((u16 *)((u8 *)&D_800C469E + ((temp_a1 & 0xFFFF) * 0xE8))) == 0x21) {
                         M2C_FIELD(temp_a0_2, s8 *, 0x306) = (s8) (temp_a1 - 0x21);
                     }
-                    temp_a2 = *((gMenuSlot * 2) + &D_800E0ECC);
-                    func_8007089C(*((gMenuSlot * 4) + &gBonusSceneHandle), 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
+                    slot = gMenuSlot;
+                    temp_a2 = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
+                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
                     if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
                         temp_v0_3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
                         M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;
@@ -123,14 +128,17 @@ block_15:
                         M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), M2C_UNK (**)(void *), 4)(gMenuState);
                         return;
                     }
-                    break;
-                case 1:                             /* switch 2 */
-                    temp_v1_2 = M2C_FIELD(temp_v0_2, u8 *, 8);
-                    *(&D_800E0ED4 + (gMenuSlot * 2)) = (s16) temp_v1_2;
-                    func_8001F4B8(gMenuSlot, temp_v1_2);
-                    break;
+                }
+                return;
+mode_one:
+                {
+                    slot = gMenuSlot;
+                    temp_v1_2 = M2C_FIELD(temp_s2, u8 *, 8);
+                    *((u16 *)((u8 *)&D_800E0ED4 + (slot * 2))) = (s16) temp_v1_2;
+                    func_8001F4B8(slot, temp_v1_2);
                 }
             }
         }
     }
 }
+

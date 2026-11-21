@@ -18,7 +18,7 @@ s8 countValidSaveSlots();
 s32 func_800316B8();
 s32 lookupDataEntry();
 s32 sprintf();
-extern u8 D_800B7CF0;
+extern u8 gCurrentSaveSlot;
 extern u8 gMenuParamC;
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
 extern Slot_80100198 D_80100198[];
@@ -102,7 +102,7 @@ void func_8001F9A4(void) {
         if (gBorderSkipFlag == 0) {
             D_801002AD = 0;
         }
-        D_800B7CF0 = D_801002AD;
+        gCurrentSaveSlot = D_801002AD;
         temp_v0 = *(D_80115088 + (D_801002AD * 0xA0));
         D_80109E20 = temp_v0;
         var_a0 = 0x10;
@@ -110,7 +110,7 @@ void func_8001F9A4(void) {
             var_a0 = 0xF;
         }
         formatTextEntry(temp_s1, "%s", lookupDataEntry(var_a0));
-        temp_v0_2 = *(D_80115089 + (D_800B7CF0 * 0xA0));
+        temp_v0_2 = *(D_80115089 + (gCurrentSaveSlot * 0xA0));
         D_8010D454 = temp_v0_2;
         var_a0_2 = 0xA;
         if (temp_v0_2 != 0) {
@@ -124,8 +124,8 @@ void func_8001F9A4(void) {
         if ((gBorderSkipFlag == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
             func_80025E9C(temp_s4, temp_s2, temp_s3, temp_s1_2, 1, 0xD);
         }
-        D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
-        temp_v1 = D_80100198[D_800B7CF0].f0;
+        D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
+        temp_v1 = D_80100198[gCurrentSaveSlot].f0;
         temp_a0 = var_s0 - 0x28;
         if (((s32) temp_v1 < 2) && ((s32) temp_v1 >= 0)) {
             func_80025E9C(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 1, 0xD);
@@ -137,29 +137,29 @@ void func_8001F9A4(void) {
             }
             formatTextEntry(var_s0, "%s", lookupDataEntry(var_a0_3));
         }
-        temp_v0_3 = *(D_80115090 + (D_800B7CF0 * 0xA0));
+        temp_v0_3 = *(D_80115090 + (gCurrentSaveSlot * 0xA0));
         D_80102EB0 = temp_v0_3;
         var_a0_4 = 0xA;
         if (temp_v0_3 != 0) {
             var_a0_4 = 9;
         }
         formatTextEntry(temp_s7, "%s", lookupDataEntry(var_a0_4));
-        temp_v0_4 = *(D_8011508D + (D_800B7CF0 * 0xA0));
+        temp_v0_4 = *(D_8011508D + (gCurrentSaveSlot * 0xA0));
         D_801007C1 = temp_v0_4;
         var_a0_5 = 0xA;
         if (temp_v0_4 != 0) {
             var_a0_5 = 9;
         }
         formatTextEntry(sp34, "%s", lookupDataEntry(var_a0_5));
-        temp_v0_5 = *(D_8011508C + (D_800B7CF0 * 0xA0));
+        temp_v0_5 = *(D_8011508C + (gCurrentSaveSlot * 0xA0));
         D_8010A394 = temp_v0_5;
         var_a0_6 = 0xA;
         if (temp_v0_5 != 0) {
             var_a0_6 = 9;
         }
         formatTextEntry(temp_fp, "%s", lookupDataEntry(var_a0_6));
-        D_80108960 = *(D_8011508F + (D_800B7CF0 * 0xA0));
-        temp_v1_2 = D_80100198[D_800B7CF0].f0;
+        D_80108960 = *(D_8011508F + (gCurrentSaveSlot * 0xA0));
+        temp_v1_2 = D_80100198[gCurrentSaveSlot].f0;
         if ((s32) temp_v1_2 >= 0) {
             var_a0_7 = temp_s6 - 0x28;
             if ((s32) temp_v1_2 >= 2) {
@@ -188,7 +188,7 @@ block_36:
             }
             formatTextEntry(temp_s6, "%s", lookupDataEntry(var_a0_8));
         }
-        temp_v0_6 = *(D_8011508E + (D_800B7CF0 * 0xA0));
+        temp_v0_6 = *(D_8011508E + (gCurrentSaveSlot * 0xA0));
         D_80104310 = temp_v0_6;
         var_a0_9 = 0xA;
         if (temp_v0_6 != 0) {

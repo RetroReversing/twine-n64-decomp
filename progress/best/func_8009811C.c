@@ -10,6 +10,7 @@ s32 func_8009811C(s32 arg0) {
     s32 count, start;
     s32 i, j;
     Bucket *p;
+    u16 r;
 
     workerLockAcquire();
     id = arg0 & 0xFFFF;
@@ -22,8 +23,9 @@ s32 func_8009811C(s32 arg0) {
         }
         if (i < D_800F8D60[bucket].count) {
             j = start + i;
-            D_800F9560[j].refs--;
-            if (D_800F9560[j].refs == 0) {
+            r = D_800F9560[j].refs - 1;
+            D_800F9560[j].refs = r;
+            if ((r & 0xFFFF) == 0) {
                 for (j++; j < D_800F8D5C; j++) {
                     D_800F9560[j - 1] = D_800F9560[j];
                 }
