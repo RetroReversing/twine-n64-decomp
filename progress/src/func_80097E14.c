@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 s32 workerLockAcquire();
 s32 workerLockRelease();
 extern char D_800FD55C[];
-extern s32 D_800FD560;
-extern char D_800FD564[];
+extern s32 sWorkerEntryCount;
+extern char sWorkerEntryIds[];
 
 typedef struct { s32 w[2]; } __repair_words2;
 s32 func_80097E14(s32 arg0) {
@@ -31,14 +31,14 @@ s32 func_80097E14(s32 arg0) {
     void *var_a3;
     void *var_t0;
 
-    scanCount = D_800FD560;
+    scanCount = sWorkerEntryCount;
     var_a0 = arg0;
     var_s0 = 0;
     if (scanCount > 0) {
         var_a0 &= 0xFFFF;
         var_v1 = 0;
         for (;;) {
-            if (*(u16 *)(D_800FD564 + var_v1) != var_a0) {
+            if (*(u16 *)(sWorkerEntryIds + var_v1) != var_a0) {
                 var_s0 += 1;
                 var_v1 += 8;
                 if (var_s0 < scanCount) {
@@ -48,11 +48,11 @@ s32 func_80097E14(s32 arg0) {
             break;
         }
     }
-    if (var_s0 != D_800FD560) {
+    if (var_s0 != sWorkerEntryCount) {
         workerLockAcquire();
         var_a2 = var_s0 + 1;
         temp_v1 = var_a2 * 8;
-        if (var_a2 < D_800FD560) {
+        if (var_a2 < sWorkerEntryCount) {
             var_t0 = temp_v1 + D_800FD55C;
             var_a3 = temp_v1 + (D_800FD55C + 8);
             do {
@@ -60,9 +60,9 @@ s32 func_80097E14(s32 arg0) {
                 var_t0 += 8;
                 var_a2 += 1;
                 var_a3 += 8;
-            } while (var_a2 < D_800FD560);
+            } while (var_a2 < sWorkerEntryCount);
         }
-        D_800FD560 -= 1;
+        sWorkerEntryCount -= 1;
         workerLockRelease();
         return 1;
     }

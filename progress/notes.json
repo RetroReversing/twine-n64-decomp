@@ -3456,6 +3456,14 @@
   "score_after": 120
  },
  {
+  "function": "func_80025F78",
+  "text": "Recompiled supplied C and tested swapping the two OR operands; both score 5/35 with only one rendered difference remaining: target `or $v1,$v0,$a1`, candidate `or $v1,$a1,$v0`. All other instructions match. Reordering the source OR operands did not alter the compiler's emitted commutative operand order. Remaining path is register/allocation shaping (e.g. declaration order, staged value or field layout) while keeping the rest of the exact code.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795137606.851281,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
   "function": "func_8000A3AC",
   "text": "Best 30/42, only six register differences remain. Unsigned `scaled = byte * 0x7f; quotient = scaled / 10` compiles to the exact arithmetic instruction sequence; 4th helper argument as quotient makes only register allocation differ. Explicitly computing the 64-bit magic high multiply duplicates operations/expands to 51 insns and is much worse. Last tried declaration reorder (no effect); restore saved best. Target has mfhi in a3, srl a0,a3,3, andi a0; candidate mfhi t0 then srl a3,t0,3. Likely direct source needs share high multiply result across arg0/arg3.",
   "by": "codex-gpt-6-luna-14",
@@ -3958,14 +3966,6 @@
   "created_at": 1795137946.510679,
   "score_before": 1590,
   "score_after": 1304
- },
- {
-  "function": "func_80097D0C",
-  "text": "Corrected pointer field store to word, improved 585 to 385. Remaining extra sign extension and zero initialization before search cause branch offsets; s32 arg0 plus retained s16 cast gives 430, removing cast 575. Need tune argument and search variable lifetimes to match target's a1 counter and a0 offset.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795137947.121266,
-  "score_before": 585,
-  "score_after": 385
  },
  {
   "function": "voiceSetParam40ForHandle",
@@ -9400,6 +9400,14 @@
   "score_after": 1440
  },
  {
+  "function": "func_80025F78",
+  "text": "Best verified candidate rechecks at score 5 with 35/35 instructions; only mismatch is OR operand ordering (`or $v1,$v0,$a1` target vs `$v1,$a1,$v0` candidate). Reversing C expression operands had no effect. Changing arg1 from u16 to s32 regressed to 210, though it revealed target preserves a3 copy of incoming a1 for later andi; saved-best source should be continued. No other function-specific corrections needed.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795177517.715203,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
   "function": "func_8001792C",
   "text": "Saved candidate rechecks at 1530. Rewrote outer guards to early return intending to place arg1/arg2 copies at entry; first attempt had brace error, corrected form compiled at 1550. Four-compile move-on limit reached. Target begins with move a1->t1 then branch on arg0 with a2->t2 in delay slot, then loads list head and branches; source currently checks arg0 before these copies and compiler emits different loop setup. Preserve saved_best and try explicit local snapshots of arg1/arg2 at function start plus separate head null guard. Remaining source shape likely also needs struct / field type refinement to match branch/call registers.",
   "by": "codex-gpt-6-luna-21",
@@ -9830,14 +9838,6 @@
   "created_at": 1795177971.389705,
   "score_before": 1690,
   "score_after": 1690
- },
- {
-  "function": "func_80097D0C",
-  "text": "Verified baseline 385. Storage reuse, loop backedge, masked reuse, lifetime merge, signedness, declaration order did not improve. Remaining 13 mismatches include extra arg0 sign-extension shifts and global count register allocation; inspect argument typing and lifetime.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795177979.4274502,
-  "score_before": 385,
-  "score_after": 385
  },
  {
   "function": "func_80063D38",
@@ -12368,6 +12368,14 @@
   "score_after": 1611
  },
  {
+  "function": "func_80025F78",
+  "text": "Score 5: only OR operand order differs (target or v1,v0,a1; compiler emits or v1,a1,v0). Reversing source operands gives identical code; widening temporary or using addition worsens. Investigate staged operands or compiler profile.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182128.0510368,
+  "score_before": 5,
+  "score_after": 5
+ },
+ {
   "function": "func_80097E14",
   "text": "Exact match at 180d0329922f410f1423. An unused volatile u64 aligns the frame. Cache the initial count throughout the scan, then read the global anew for the result branch. func_8008C0D4 reads no argument registers. Direct constant returns put the zero in the match branch delay slot and the one directly into v0.",
   "by": "codex-gpt-6.2-sol-6",
@@ -13134,14 +13142,6 @@
   "created_at": 1795182462.935981,
   "score_before": 820,
   "score_after": 820
- },
- {
-  "function": "func_80097D0C",
-  "text": "Rechecked saved candidate c78b6bdefa5e45e8918f at score 595. Ran two independent six-variant local-repair batches (12 variants); none improved, and move-on threshold reported exceeded. Candidate has 24 displayed mismatch rows; first is stack layout: target frame -0x30 and saves $s0 at 0x20($sp), candidate frame -0x20 and save at 0x10($sp). Other mismatch classes include registers, stack offsets, branch targets, and inserted instructions. Resume by revisiting stack/local lifetime layout and target assembly; preserve current candidate as baseline.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795182462.973227,
-  "score_before": 385,
-  "score_after": 385
  },
  {
   "function": "dataBankUpdateSlot",
@@ -14910,6 +14910,14 @@
   "created_at": 1795183451.934946,
   "score_before": 190,
   "score_after": 190
+ },
+ {
+  "function": "func_80025F78",
+  "text": "Exact by splitting flag assignment into load, &= 0xFFF0, and |= arg1 in the comma expression. This fixes the sole OR source register order mismatch. Original body and condition otherwise retained.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795183452.768648,
+  "score_before": 5,
+  "score_after": 0
  },
  {
   "function": "emitObjectListCommands",
@@ -21432,14 +21440,6 @@
   "score_after": 145
  },
  {
-  "function": "func_80097D0C",
-  "text": "Improved the inherited 595 candidate to 395 (94.0%) by correcting the store at D_800FD568 from a halfword to a word pointer store; current best revision is 0408622d41bb833e4721. Further loop/control and parameter-width edits scored worse or tied. Remaining diff is mostly prologue/register allocation and branch layout: target saves s0-s2 with a 0x30 frame, loads D_800FD560 into a1 before initializing v1, compares the table value in v0 against a2, and ends the search loop 8 instructions earlier than the candidate. Tried s32 args, removing the short cast, and explicitly caching the global count; none beat 395. Investigate preserving argument-width casts while shaping early load/register lifetimes. Store-width correction is the decisive improvement.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795187855.591786,
-  "score_before": 385,
-  "score_after": 385
- },
- {
   "function": "func_80060890",
   "text": "Improved valid initialized-count candidate from 1235 to 230. Guarded do/while with u16 index, bitwise loop condition, and explicit fallback check label reproduces 54 instructions. Six differences remain: initial t0/t4 move order, initial literal 1 register and conditional branch to fallback with delay-slot counter initialization. Moving count narrowing after first copy and placing i=1 before n improved scheduling. A separate goto fallback did not alter assembly. Explore separating constant comparison from live counter while preserving fallback entry.",
   "by": "codex-gpt-6.1-terra-7",
@@ -23062,14 +23062,6 @@
   "created_at": 1795189831.609922,
   "score_before": 280,
   "score_after": 280
- },
- {
-  "function": "func_80097D0C",
-  "text": "Verified exact at 1fcdb92bf452ee40d8d1. Cached limit, full-width ID, guarded u32 ID mask, and a separate block-local scaled offset resolved search and insertion scheduling. The unused volatile array reserves the observed frame gap; original purpose unknown. The retained unprototyped first call passes the live search-offset register to reproduce allocation, whereas the matched callee's source takes no arguments. Table entry stride 8: u16 ID, u16 count, pointer; pointed records have stride 12 and get byte 9 set to 31.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795189850.552922,
-  "score_before": 385,
-  "score_after": 0
  },
  {
   "function": "func_8009AE24",
@@ -63424,6 +63416,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:dfa4f50deca474b881a539b8ca1a3d4e6ad37875757b51da90af53ac6b046cd5:8875505c216713a990d1448bf67e5972630ed28961654f134aadba005b2d4b21"
  },
  {
+  "function": "func_80025F78",
+  "text": "Claim ended unexpectedly. Staged flag operations plus word indexing table scored 205; only target move a3,a1 and subsequent a3 use differ. Next step: try u16 parameter for arg1 to induce incoming argument copy, preserving staged flag operations and word indexing.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795239367.788924,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:19d58aa932833cfbb6d5f0c655504a565cbdd11772b032d9acfb9fc816c3a664"
+ },
+ {
   "function": "pickupRefreshLabel",
   "text": "Claim ended during follow-up. Byte-array indexing, u32 var_s1, and D_800D2A80 format symbol scored 926 (revision f3608e34ab1c824112ed). Target retains pointers to gPickupSavedByte and gBorderSkipActive across calls; next use pointer locals at both accesses.",
   "by": "codex-gpt-6.1-terra-2",
@@ -63566,44 +63567,70 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
  },
  {
-  "function": "func_80025F78",
-  "text": "Recompiled supplied C and tested swapping the two OR operands; both score 5/35 with only one rendered difference remaining: target `or $v1,$v0,$a1`, candidate `or $v1,$a1,$v0`. All other instructions match. Reordering the source OR operands did not alter the compiler's emitted commutative operand order. Remaining path is register/allocation shaping (e.g. declaration order, staged value or field layout) while keeping the rest of the exact code.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795137606.851281,
-  "score_before": 5,
-  "score_after": 5
+  "function": "menuRefreshOptionRows",
+  "text": "Explicit format symbols and variadic declaration scored 4896. Candidate reverted to draft before flag trials, saved_best and last_compiling were unavailable, and lease became stale. Target reloads format address each call, while candidate retains it in extra $s6. Next step: remeasure explicit-format source at -O2 with -fno-expensive-optimizations and compare address reuse and flag branch generation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795239577.995692,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "5e9980fa89b48fb4fe807b73a5d022d9953d2caf6b725058f1e8c12d457deab2:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3e5be3e05e761d9c741b072d7604cd1663d2b96fc2df16feb46ab258abbe5b17"
  },
  {
-  "function": "func_80025F78",
-  "text": "Best verified candidate rechecks at score 5 with 35/35 instructions; only mismatch is OR operand ordering (`or $v1,$v0,$a1` target vs `$v1,$a1,$v0` candidate). Reversing C expression operands had no effect. Changing arg1 from u16 to s32 regressed to 210, though it revealed target preserves a3 copy of incoming a1 for later andi; saved-best source should be continued. No other function-specific corrections needed.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795177517.715203,
-  "score_before": 5,
-  "score_after": 5
+  "function": "func_8002E7A0",
+  "text": "Unsigned shift cast, local declaration reorder and volatile field reload.\nScore 15 unchanged; three register differences on the reloaded bit index.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795239592.685601,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5936e031ad2018546b5004af9487cc2f9dfa0ef20d58931ddc6c152b76221b04"
  },
  {
-  "function": "func_80025F78",
-  "text": "Score 5: only OR operand order differs (target or v1,v0,a1; compiler emits or v1,a1,v0). Reversing source operands gives identical code; widening temporary or using addition worsens. Investigate staged operands or compiler profile.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182128.0510368,
-  "score_before": 5,
-  "score_after": 5
+  "function": "registerWorkerEntry",
+  "text": "Corrected pointer field store to word, improved 585 to 385. Remaining extra sign extension and zero initialization before search cause branch offsets; s32 arg0 plus retained s16 cast gives 430, removing cast 575. Need tune argument and search variable lifetimes to match target's a1 counter and a0 offset.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795137947.121266,
+  "score_before": 585,
+  "score_after": 385
  },
  {
-  "function": "func_80025F78",
-  "text": "Exact by splitting flag assignment into load, &= 0xFFF0, and |= arg1 in the comma expression. This fixes the sole OR source register order mismatch. Original body and condition otherwise retained.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795183452.768648,
-  "score_before": 5,
+  "function": "registerWorkerEntry",
+  "text": "Verified baseline 385. Storage reuse, loop backedge, masked reuse, lifetime merge, signedness, declaration order did not improve. Remaining 13 mismatches include extra arg0 sign-extension shifts and global count register allocation; inspect argument typing and lifetime.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795177979.4274502,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "registerWorkerEntry",
+  "text": "Rechecked saved candidate c78b6bdefa5e45e8918f at score 595. Ran two independent six-variant local-repair batches (12 variants); none improved, and move-on threshold reported exceeded. Candidate has 24 displayed mismatch rows; first is stack layout: target frame -0x30 and saves $s0 at 0x20($sp), candidate frame -0x20 and save at 0x10($sp). Other mismatch classes include registers, stack offsets, branch targets, and inserted instructions. Resume by revisiting stack/local lifetime layout and target assembly; preserve current candidate as baseline.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795182462.973227,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "registerWorkerEntry",
+  "text": "Improved the inherited 595 candidate to 395 (94.0%) by correcting the store at D_800FD568 from a halfword to a word pointer store; current best revision is 0408622d41bb833e4721. Further loop/control and parameter-width edits scored worse or tied. Remaining diff is mostly prologue/register allocation and branch layout: target saves s0-s2 with a 0x30 frame, loads D_800FD560 into a1 before initializing v1, compares the table value in v0 against a2, and ends the search loop 8 instructions earlier than the candidate. Tried s32 args, removing the short cast, and explicitly caching the global count; none beat 395. Investigate preserving argument-width casts while shaping early load/register lifetimes. Store-width correction is the decisive improvement.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795187855.591786,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "registerWorkerEntry",
+  "text": "Verified exact at 1fcdb92bf452ee40d8d1. Cached limit, full-width ID, guarded u32 ID mask, and a separate block-local scaled offset resolved search and insertion scheduling. The unused volatile array reserves the observed frame gap; original purpose unknown. The retained unprototyped first call passes the live search-offset register to reproduce allocation, whereas the matched callee's source takes no arguments. Table entry stride 8: u16 ID, u16 count, pointer; pointed records have stride 12 and get byte 9 set to 31.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795189850.552922,
+  "score_before": 385,
   "score_after": 0
  },
  {
-  "function": "func_80025F78",
-  "text": "Claim ended unexpectedly. Staged flag operations plus word indexing table scored 205; only target move a3,a1 and subsequent a3 use differ. Next step: try u16 parameter for arg1 to induce incoming argument copy, preserving staged flag operations and word indexing.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795239367.788924,
-  "score_before": 20,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:19d58aa932833cfbb6d5f0c655504a565cbdd11772b032d9acfb9fc816c3a664"
+  "function": "func_8001DE20",
+  "text": "Best clean candidate 1140 (rev 54fa8a05ffc9621991a5), semantically correct. Fixes found: D_800D2864 (alias extern of sFmtEntryName, same address) used in the else-branch formatTextEntry blocks CSE hoisting of the fmt address into s6; first call written as formatTextEntry(s1, sFmtEntryName, !flag ? lookupDataEntry(0x1A) : lookupDataEntry(0x1B)); temp_s2 assigned inside the expak-present branch (so addiu s2 lands in beqz delay slot). Callees: func_800263B8=findTableIndexById, gMenuItems=gSaveMenuState. Remaining diff (~22 rows): in the gExpansionPakPresent==0 branch GCC reuses s2 (s3-0x28), s0 (s4-0x28) and s1 (=1) from the expak branch (CSE across branches) whereas target recomputes addiu a0,s3,-0x28 / a3,s4,-0x28 / li v0,1 fresh. Tried: direct expressions instead of temps, char* casts, reordering, swapping if/else (worse, 4095). Next step: find a source form that keeps branch A's s2/s0/s1 from being visible to branch B (e.g. different pointer typing of s3/s4 in B, or B code before A with inverted layout via goto).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795239605.332431,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:98c061cc8fce4867a1fce0e3900beec0ec0eae4be7b16d29333d706b129fb020"
  }
 ]

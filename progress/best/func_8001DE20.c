@@ -38,9 +38,7 @@ void func_8001DE20(void) {
     }
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((gColorFadeLevel * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
-        if (gOptionFlagA == 0) var_a0 = lookupDataEntry(0x1A);
-        else var_a0 = lookupDataEntry(0x1B);
-        formatTextEntry(temp_s1, sFmtEntryName, var_a0);
+        formatTextEntry(temp_s1, sFmtEntryName, !gOptionFlagA ? lookupDataEntry(0x1A) : lookupDataEntry(0x1B));
         if (gExpansionPakPresent != 0) {
             temp_s2 = var_s3 - 0x28;
             temp_s0 = temp_s4 - 0x28;

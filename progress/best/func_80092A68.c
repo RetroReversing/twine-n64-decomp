@@ -1,5 +1,5 @@
 static __inline__ u16 __repair_inline(u16 a) { return a; }
-s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 keyTableRegister(); s32 func_80097A40(); s32 func_80097D0C(); s32 func_80097EF8();
+s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 keyTableRegister(); s32 func_80097A40(); s32 registerWorkerEntry(); s32 func_80097EF8();
 extern u8 gWorkerThreadActive; extern s16 sSceneGroupStackCount; extern char sSceneGroupStack[];
 s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
  char *__repair_addr; s32 *var_a1,*var_a1_3,*var_a1_4,*var_s1,*var_v0,*var_v0_2,*var_v0_3,*var_v0_4; u16 *temp_s0; char *var_s0,*var_s0_2,*var_s0_3,*var_s0_4,*var_s0_5; u16 var_a0,var_v1,var_v1_2,var_v1_3,var_v1_4; void *temp_a1,*temp_v0,*temp_v0_2,*temp_v0_3,*temp_v0_4;
@@ -27,7 +27,7 @@ s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
          break;
      }
 }if(var_v0_4)insertSortedKeyEntry(*(u16 *)var_s0_5,(s8 *)var_v0_4+12,*(u16 *)((char *)var_v0_4+10));var_s0_5+=2;var_v1_4=*(u16 *)var_s0_5;}while(var_v1_4!=0xffff);
-     if(*(u16 *)((char *)var_s1+6)==1){do { func_80097D0C(arg1&0xffff,temp_a1+12,*(u16 *)((char *)temp_a1+8)); } while (0);temp_a1=(void *)(var_s1[7]+(s32)var_s1);}sSceneGroupStackCount=(u16)sSceneGroupStackCount+1;return 1;}var_s1=(s32 *)((char *)var_s1+*var_s1);if(*var_s1==-1)goto block_49;continue;
+     if(*(u16 *)((char *)var_s1+6)==1){do { registerWorkerEntry(arg1&0xffff,temp_a1+12,*(u16 *)((char *)temp_a1+8)); } while (0);temp_a1=(void *)(var_s1[7]+(s32)var_s1);}sSceneGroupStackCount=(u16)sSceneGroupStackCount+1;return 1;}var_s1=(s32 *)((char *)var_s1+*var_s1);if(*var_s1==-1)goto block_49;continue;
      break;
  }
 }return 0;}block_49:return 0;

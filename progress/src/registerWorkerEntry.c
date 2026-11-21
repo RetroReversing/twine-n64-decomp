@@ -5,7 +5,7 @@ extern char D_800FD564[];
 extern char D_800FD566[];
 extern char D_800FD568[];
 
-s32 func_80097D0C(s32 arg0, void *arg1, s16 arg2) {
+s32 registerWorkerEntry(s32 arg0, void *arg1, s16 arg2) {
     s16 temp_s1;
     s16 temp_s2;
     u16 var_a2;

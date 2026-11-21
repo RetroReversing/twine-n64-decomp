@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800265AC();                            /* extern */
 M2C_UNK func_80027970();                            /* extern */
-M2C_UNK func_80065C88(u8);                          /* extern */
+M2C_UNK updateBonusObjects(u8);                          /* extern */
 M2C_UNK func_800828B4();                            /* extern */
 extern u8 gMenuSlot;
 extern void *sActiveMenu;
@@ -44,6 +44,6 @@ void func_800283B0(void) {
     }
     sActiveMenu = NULL;
     gSaveMenuState = NULL;
-    func_80065C88(gMenuSlot);
+    updateBonusObjects(gMenuSlot);
     func_800828B4();
 }
