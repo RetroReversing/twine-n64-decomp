@@ -24,7 +24,7 @@ extern s32 *D_800CA31C;
 extern f64 D_800D2DE8;
 extern f64 D_800D2DF0;
 extern s32 gBorderSkipFlag;
-extern void *D_8010968C;
+extern void *gWobbleParams;
 extern u8 gSceneFlagsA;
 extern u8 gSceneFlagsB;
 extern u8 D_8010A4C3;
@@ -44,7 +44,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
     s32 var_s2;
 
     if (gBorderSkipFlag == 0) {
-        __base_D_8010968C = &D_8010968C;
+        __base_D_8010968C = &gWobbleParams;
         if ((*__base_D_8010968C) != NULL) {
             func_80084048((*__base_D_8010968C), 0xE);
             (*__base_D_8010968C) = NULL;
@@ -69,17 +69,17 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
                 var_ft0 += D_800D2DF0;
             }
             func_8004844C((*__base_D_8010968C), (f32) (f64) 0xE6, (f32) var_fv1, (f32) (f64) 0x78, (f32) var_ft0, 0, 0);
-            M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 0x100);
-            M2C_FIELD(D_8010968C, __repair_words3 *, 0x10) = *(__repair_words3 *) ((s8 *) arg0 + 0x0);
+            M2C_FIELD(gWobbleParams, s32 *, 0x100) = (s32) (M2C_FIELD(gWobbleParams, s32 *, 0x100) | 0x100);
+            M2C_FIELD(gWobbleParams, __repair_words3 *, 0x10) = *(__repair_words3 *) ((s8 *) arg0 + 0x0);
             D_8010A4C3 |= 2;
             gSceneFlagsB |= 2;
             gSceneFlagsA |= 2;
-            M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) & ~7);
-            M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 2);
+            M2C_FIELD(gWobbleParams, s32 *, 0x100) = (s32) (M2C_FIELD(gWobbleParams, s32 *, 0x100) & ~7);
+            M2C_FIELD(gWobbleParams, s32 *, 0x100) = (s32) (M2C_FIELD(gWobbleParams, s32 *, 0x100) | 2);
             if (arg1 != NULL) {
                 func_800464B8((*__base_D_8010968C) + 0x34, M2C_FIELD(arg1, s32 *, 0), M2C_FIELD(arg1, s32 *, 4), M2C_FIELD(arg1, s32 *, 8));
-                M2C_FIELD(D_8010968C, f32 *, 0x34) = (f32) -M2C_FIELD(D_8010968C, f32 *, 0x34);
-                M2C_FIELD(D_8010968C, f32 *, 0x3C) = 3.1415927f;
+                M2C_FIELD(gWobbleParams, f32 *, 0x34) = (f32) -M2C_FIELD(gWobbleParams, f32 *, 0x34);
+                M2C_FIELD(gWobbleParams, f32 *, 0x3C) = 3.1415927f;
             }
             func_80016EA4(0x1D);
             func_80016EA4(0x1E);
@@ -89,13 +89,13 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
             M2C_FIELD(temp_v0, s32 *, 0x24) = (s32) M2C_FIELD(temp_v0, s32 *, 0x30);
             M2C_FIELD(temp_v0, s32 *, 0x28) = (s32) M2C_FIELD(temp_v0, s32 *, 0x34);
             M2C_FIELD(temp_v0, s32 *, 0x2C) = (s32) M2C_FIELD(temp_v0, s32 *, 0x38);
-            temp_fv0 = M2C_FIELD(D_8010968C, f32 *, 0x34) * 651.8986f;
+            temp_fv0 = M2C_FIELD(gWobbleParams, f32 *, 0x34) * 651.8986f;
             M2C_FIELD(temp_v0, f32 *, 0x3C) = temp_fv0;
             M2C_FIELD(temp_v0, f32 *, 0x48) = temp_fv0;
-            temp_fv0_2 = M2C_FIELD(D_8010968C, f32 *, 0x38) * 651.8986f;
+            temp_fv0_2 = M2C_FIELD(gWobbleParams, f32 *, 0x38) * 651.8986f;
             M2C_FIELD(temp_v0, f32 *, 0x40) = temp_fv0_2;
             M2C_FIELD(temp_v0, f32 *, 0x4C) = temp_fv0_2;
-            temp_fv0_3 = M2C_FIELD(D_8010968C, f32 *, 0x3C) * 651.8986f;
+            temp_fv0_3 = M2C_FIELD(gWobbleParams, f32 *, 0x3C) * 651.8986f;
             M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
             M2C_FIELD(temp_v0, f32 *, 0x44) = temp_fv0_3;
             M2C_FIELD(temp_v0, f32 *, 0x50) = temp_fv0_3;

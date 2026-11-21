@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_801002B8;
+extern s32 gSaveSlotCount;
 
-s32 func_80022DBC(s32 arg0) {
+s32 getSaveSlotIndex(s32 arg0) {
     s32 temp_v1;
 
     temp_v1 = arg0 & 0xFFFF;
-    if (temp_v1 < D_801002B8) {
+    if (temp_v1 < gSaveSlotCount) {
         return temp_v1;
     }
-    return ((arg0 - D_801002B8) + 4) & 0xFFFF;
+    return ((arg0 - gSaveSlotCount) + 4) & 0xFFFF;
 }

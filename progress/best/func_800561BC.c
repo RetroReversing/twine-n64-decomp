@@ -82,7 +82,7 @@ extern f64 D_800D3FE0;
 extern s8 D_80100B18;
 extern s8 D_80103EB0;
 extern void *D_80108F84;
-extern void *D_8010968C;
+extern void *gWobbleParams;
 extern M2C_UNK D_80109A98;
 extern M2C_UNK D_80109A9C;
 extern M2C_UNK D_80109AA0;
@@ -982,12 +982,12 @@ block_263:
                         vsp88[0] -= M2C_FIELD(temp_s2, f32 *, 0) * 0.2f;
                         vsp88[1] -= M2C_FIELD(temp_s2, f32 *, 4) * 0.2f;
                         vsp88[2] -= M2C_FIELD(temp_s2, f32 *, 8) * 0.2f;
-                        M2C_FIELD(D_8010968C, f32 *, 0x34) = (f32) (M2C_FIELD(arg0, f32 *, 0x3C) * 0.0015339808f);
-                        M2C_FIELD(D_8010968C, f32 *, 0x38) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f);
-                        M2C_FIELD(D_8010968C, f32 *, 0x3C) = (f32) ((M2C_FIELD(arg0, f32 *, 0x44) * 0.0015339808f) + 3.1415927f);
-                        M2C_FIELD(D_8010968C, f32 *, 0x10) = vsp88[0];
-                        M2C_FIELD(D_8010968C, f32 *, 0x14) = vsp88[1];
-                        M2C_FIELD(D_8010968C, f32 *, 0x18) = vsp88[2];
+                        M2C_FIELD(gWobbleParams, f32 *, 0x34) = (f32) (M2C_FIELD(arg0, f32 *, 0x3C) * 0.0015339808f);
+                        M2C_FIELD(gWobbleParams, f32 *, 0x38) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) * 0.0015339808f);
+                        M2C_FIELD(gWobbleParams, f32 *, 0x3C) = (f32) ((M2C_FIELD(arg0, f32 *, 0x44) * 0.0015339808f) + 3.1415927f);
+                        M2C_FIELD(gWobbleParams, f32 *, 0x10) = vsp88[0];
+                        M2C_FIELD(gWobbleParams, f32 *, 0x14) = vsp88[1];
+                        M2C_FIELD(gWobbleParams, f32 *, 0x18) = vsp88[2];
                     }
                 }
                 temp_s4 = arg0 + 0x24;

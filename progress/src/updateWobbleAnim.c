@@ -1,5 +1,5 @@
 extern void *D_8010968C;
-void func_80032264(void *arg0) {
+void updateWobbleAnim(void *arg0) {
     f32 temp_fv0, temp_fv0_2;
     s16 temp_v0_2, temp_v0_4, temp_v1;
     u8 temp_v0, temp_v0_3, var_v0;
