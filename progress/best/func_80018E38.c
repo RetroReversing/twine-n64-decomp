@@ -17,25 +17,26 @@ M2C_UNK formatTextEntry(s32, M2C_UNK *, s8 *);      /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 M2C_UNK func_80029000(s32);                         /* extern */
 M2C_UNK func_800AB880(M2C_UNK *, s8 *);             /* extern */
-s8 *func_800AB950(s8 *, s8 *);            /* extern */
+s32 func_800AB950(M2C_UNK *, u8 *, s32);            /* extern */
 M2C_UNK func_800AB9B0(M2C_UNK *);                   /* extern */
 M2C_UNK layoutTextBox(s32, void *, M2C_UNK);        /* extern */
 void *lookupDataEntry(M2C_UNK);                     /* extern */
 s32 menuItemIsActive(M2C_UNK);                      /* extern */
 M2C_UNK menuResolveCursorItem(void *, void *, void *); /* extern */
 M2C_UNK requestSound(M2C_UNK);                      /* extern */
-s32 sprintf(char *, const char *, ...);        /* extern */
-u32 strlen(const char *);                                   /* extern */
+s32 sprintf(s8 *, const s8 *, ...);        /* extern */
+u32 strlen(const s8 *);
+extern const s8 D_800D285C[];                                   /* extern */
 extern u16 D_800B60A4;
 extern void *D_800BF5A0;
 extern u8 gPickupSavedByte;
 extern void *gSaveMenuState;
 extern M2C_UNK sFmtEntryName;
-extern s8 updateActorPartnerLink[];
+extern void updateActorPartnerLink(void);
 
 void func_80018E38(void) {
-    M2C_UNK sp10[4];
-    u8 sp20[16];
+    u32 sp10[4];
+    u8 sp20[12];
     s32 temp_v0;
     s32 temp_v1;
     s32 var_a2;
@@ -52,21 +53,18 @@ void func_80018E38(void) {
     void *temp_a3;
     void *temp_s0_2;
     void *var_a2_2;
-    s32 var_a3;
+    volatile u8 *slot;
+    s8 *out;
+    const s8 *fmt;
 
     if (D_800BF5A0 != NULL) {
         temp_a1 = M2C_FIELD(D_800BF5A0, void **, 0);
         temp_a3 = M2C_FIELD(D_800BF5A0, void **, 4);
         temp_s1 = M2C_FIELD(M2C_FIELD(temp_a1, void **, 8), s8 **, 0x18);
-        {
-            u8 *pickup = &gPickupSavedByte;
-            u32 slot = *pickup;
-            pickup -= 0x109;
-            temp_s0 = (s8 *)(pickup + slot * 0x18);
-        }
+        temp_s0 = (s8 *)&gPickupSavedByte - 0x109 + (*(volatile u8 *)&gPickupSavedByte) * 0x18;
         if (temp_a3 == temp_a1) {
             M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (temp_a3 + 0x28);
-            sprintf(temp_s1, temp_s0);
+            sprintf(temp_s1, temp_s0, D_800BF5A0, temp_a3);
             D_800B60A4 = strlen(temp_s1);
         }
         menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29);
@@ -121,39 +119,43 @@ block_16:
                 requestSound(0xED);
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x27) * 0x28));
             }
-            var_s0 = updateActorPartnerLink + 0x6C;
+            var_s0 = (s8 *)updateActorPartnerLink + 0x6C;
             layoutTextBox(M2C_FIELD(D_800BF5A0, s32 *, 8), M2C_FIELD(D_800BF5A0, void **, 4), 0);
             func_800AB880(sp10, temp_s1);
             func_800AB9B0(sp10);
             var_v1 = (u8) M2C_FIELD(updateActorPartnerLink, s8 *, 0x6C);
             var_a2 = 0;
             if (M2C_FIELD(updateActorPartnerLink, s8 *, 0x6C) != 0) {
+                slot = &gPickupSavedByte;
 loop_30:
                 sp20[0] = var_v1;
                 if (var_v1 != 0) {
                     var_a1 = var_s0;
                     do {
-                        temp_v1_3 = &sp20[var_a2];
+                        temp_v1_3 = &(sp20)[var_a2];
                         temp_v0_2 = *temp_v1_3;
                         var_a1 += 1;
                         var_a2 += 1;
                         *temp_v1_3 = temp_v0_2 - 1;
                         temp_v1_2 = *var_a1;
-                        sp20[var_a2] = temp_v1_2;
+                        (sp20)[var_a2] = temp_v1_2;
                     } while (temp_v1_2 != 0);
                 }
-                if (func_800AB950((s8 *)sp10, (s8 *)sp20) != 0) {
-                    extern const char D_800D285C[];
-                    if (gPickupSavedByte < 4U) {
+                if (func_800AB950(sp10, sp20, var_a2) != 0) {
+                    if (*slot < 4U) {
                         var_a2_2 = lookupDataEntry(0xAD);
-                        sprintf(temp_s1, D_800D285C, var_a2_2, gPickupSavedByte + 1);
+                        out = temp_s1;
+                        fmt = D_800D285C;
+                        sprintf(out, fmt, var_a2_2, *slot + 1);
                     } else {
                         var_a2_2 = lookupDataEntry(0x158);
-                        sprintf(temp_s1, D_800D285C, var_a2_2, gPickupSavedByte - 3);
+                        out = temp_s1;
+                        fmt = D_800D285C;
+                        sprintf(out, fmt, var_a2_2, *slot - 3);
                     }
                     D_800B60A4 = strlen(temp_s1);
                 } else {
-                    var_s0 = &M2C_FIELD(&var_s0[strlen(var_s0)], s8 *, 1);
+                    var_s0 += strlen(var_s0) + 1;
                     var_v1 = (u8) *var_s0;
                     var_a2 = 0;
                     if (*var_s0 != 0) {
@@ -163,14 +165,15 @@ loop_30:
             }
             temp_s0_2 = M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 0), void **, 8);
             M2C_FIELD(temp_s0_2, u16 *, 0x1C) = strlen(temp_s1);
-            return;
         }
+        return;
 block_40:
-        temp_v0 = findEntryPayload(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x65);
-        if (temp_v0 != 0) {
-            formatTextEntry(temp_v0, &sFmtEntryName, temp_s1);
-        }
-        M2C_FIELD(D_800BF5A0, s8 *, 0xF) = 1;
-        requestSound(0xE8);
+                temp_v0 = findEntryPayload(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x65);
+                if (temp_v0 != 0) {
+                    formatTextEntry(temp_v0, &sFmtEntryName, temp_s1);
+                }
+                M2C_FIELD(D_800BF5A0, s8 *, 0xF) = 1;
+                requestSound(0xE8);
+
     }
 }

@@ -3,6 +3,7 @@
 extern f64 D_800D3E48;
 
 s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32 *arg5) {
+    f64 inv;
     f32 sp0[3];
     f32 sp10[3];
     f32 sp20[3];
@@ -54,7 +55,7 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
     temp_ft4 = (temp_t2 * temp_fv1_2) - (temp_t3 * temp_fv1);
     temp_ft2 = (temp_fs5 * temp_fv1) - (temp_t2 * temp_fs2);
     var_v0_2 = 1;
-    temp_ft0 = (temp_ft5 * temp_ft4) + ((temp_fs3 * temp_fa1) + (temp_fs1 * temp_ft2));
+    temp_ft0 = (temp_fs3 * temp_fa1) + (temp_fs1 * temp_ft2) + (temp_ft5 * temp_ft4);
     sp10[2] = temp_fs2;
     sp30[0] = temp_fa1;
     sp30[1] = temp_ft2;
@@ -68,13 +69,13 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
     }
     var_v0 = 0;
     if (!(var_v0_2 & var_v1)) {
-        temp_ft4_2 = (f32) (D_800D3E48 / (f64) temp_ft0);
+        inv = D_800D3E48 / (f64)temp_ft0;
         temp_ft3 = (*(f32 *)((char *)(arg0) + 0)) - (*(f32 *)((char *)(arg2) + 0));
         sp20[0] = temp_ft3;
         temp_fa0 = (*(f32 *)((char *)(arg0) + 4)) - (*(f32 *)((char *)(arg2) + 4));
         sp20[1] = temp_fa0;
         temp_ft1 = (*(f32 *)((char *)(arg0) + 8)) - (*(f32 *)((char *)(arg2) + 8));
-        temp_ft4_2 = (f32) (D_800D3E48 / (f64) temp_ft0);
+        temp_ft4_2 = (f32)inv;
         temp_fa1_2 = ((temp_ft3 * temp_fa1) + (temp_fa0 * temp_ft2) + (temp_ft1 * temp_ft4)) * temp_ft4_2;
         var_v0_3 = 1;
         sp20[2] = temp_ft1;

@@ -111,8 +111,8 @@ void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
 
     var_a0 = 0;
     temp_a2 = M2C_FIELD(arg0, s32 *, 0);
-    var_v1 = 0;
     temp_a1 = temp_a2 & 0x7FFFFFFF;
+    var_v1 = 0;
 loop_1:
     if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1) != temp_a1)) {
         var_a0 += 1;
@@ -157,23 +157,19 @@ loop_1:
             temp_s2 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
                 workerLockAcquire();
-                var_a1 = temp_s1;
-                var_a2_2 = temp_s2;
-                var_a3_2 = 2;
-                goto block_29;
+                func_80091654(0U, temp_s1, temp_s2, 2);
+                workerLockRelease();
             }
         } else if (temp_v1 & 0x40) {
             temp_s1_2 = M2C_FIELD(arg0, u16 *, 4);
             temp_s2_2 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
                 workerLockAcquire();
-                var_a1 = temp_s1_2;
-                var_a2_2 = temp_s2_2;
-                var_a3_2 = 3;
-                goto block_29;
+                func_80091654(0U, temp_s1_2, temp_s2_2, 3);
+                workerLockRelease();
             }
         } else {
-goto skip_33;
+            goto skip_33;
 found_33: var_v1_3 = var_a0_2 | (temp_a2_2 & 0x80000000); goto join_33;
 found_40: var_v0 = var_a0_3 | (temp_a1_3 & 0x80000000); goto join_40;
 skip_33:
@@ -181,11 +177,7 @@ skip_33:
             temp_s2_3 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
                 workerLockAcquire();
-                var_a1 = temp_s1_3;
-                var_a2_2 = temp_s2_3;
-                var_a3_2 = 1;
-block_29:
-                func_80091654(0U, var_a1, var_a2_2, var_a3_2);
+                func_80091654(0U, temp_s1_3, temp_s2_3, 1);
                 workerLockRelease();
             }
         }
@@ -193,8 +185,8 @@ block_29:
             var_a0_2 = 0;
             if (M2C_FIELD(arg0, u8 *, 0x26) & 2) {
                 temp_a2_2 = M2C_FIELD(arg0, s32 *, 8);
-                var_v1_2 = 0;
                 temp_a1_2 = temp_a2_2 & 0x7FFFFFFF;
+                var_v1_2 = 0;
 loop_33:
                 if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_2) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_2) != temp_a1_2)) {
                     var_a0_2 += 1;
@@ -212,9 +204,10 @@ loop_33:
                     var_a0_3 = 0;
                     if (arg2 & 0xFF) {
                         temp_a1_3 = M2C_FIELD(arg0, s32 *, 8);
+                        temp_v0_2 = temp_a1_3 & 0x7FFFFFFF;
                         var_v1_4 = 0;
 loop_40:
-                        if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_4) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_4) != (temp_a1_3 & 0x7FFFFFFF))) {
+                        if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_4) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_4) != temp_v0_2)) {
                             var_a0_3 += 1;
                             var_v1_4 += 0xFF8;
                             if (var_a0_3 >= 8U) {
@@ -243,9 +236,10 @@ skip_51:
                             temp_a1_4 = M2C_FIELD(arg0, s32 *, 8);
                             temp_a3 = M2C_FIELD(arg0, s32 *, 0x1C);
                             temp_t0 = M2C_FIELD(arg0, s32 *, 0x20);
+                            temp_v0_3 = temp_a1_4 & 0x7FFFFFFF;
                             var_v1_5 = 0;
 loop_51:
-                            if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_5) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_5) != (temp_a1_4 & 0x7FFFFFFF))) {
+                            if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_5) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_5) != temp_v0_3)) {
                                 var_a0_4 += 1;
                                 var_v1_5 += 0xFF8;
                                 if (var_a0_4 >= 8U) {
@@ -254,7 +248,7 @@ loop_51:
                                     goto loop_51;
                                 }
                             } else {
-                                {var_v0_2 = var_a0_4 | (temp_a1_4 & 0x80000000); goto join_51;}
+                                goto found_51;
                             }
                             join_51:
                             if (var_v0_2 != -1) {
@@ -276,10 +270,11 @@ skip_62:
                         var_a0_5 = 0;
                         if (M2C_FIELD(arg0, u8 *, 0x26) & 0x20) {
                             temp_a1_5 = M2C_FIELD(arg0, s32 *, 8);
-                            temp_a3_2 = M2C_FIELD(arg0, u16 *, 0x24);
+                            var_a1_2 = (u16)(M2C_FIELD(arg0, u16 *, 0x24));
+                            temp_v0_5 = temp_a1_5 & 0x7FFFFFFF;
                             var_v1_6 = 0;
 loop_62:
-                            if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_6) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_6) != (temp_a1_5 & 0x7FFFFFFF))) {
+                            if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_6) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_6) != temp_v0_5)) {
                                 var_a0_5 += 1;
                                 var_v1_6 += 0xFF8;
                                 if (var_a0_5 >= 8U) {
@@ -293,10 +288,10 @@ loop_62:
                             join_62:
                             if (var_v0_3 != -1) {
                                 if (var_v0_3 >= 0) {
-                                    M2C_FIELD(&D_800E6A86, u16 *, (var_v0_3 * 0xFF8)) = temp_a3_2;
+                                    M2C_FIELD(&D_800E6A86, u16 *, (var_v0_3 * 0xFF8)) = var_a1_2;
                                 } else {
                                     temp_v0_5 = (var_v0_3 & 0x7FFFFFFF) * 0xFF8;
-                                    M2C_FIELD(&D_800E6AB0, u16 *, temp_v0_5) = temp_a3_2;
+                                    M2C_FIELD(&D_800E6AB0, u16 *, temp_v0_5) = var_a1_2;
                                     M2C_FIELD(&D_800E6AB2, u8 *, temp_v0_5) = M2C_FIELD(&D_800E6AB2, u8 *, temp_v0_5) | 0x20;
                                 }
                             }
@@ -380,9 +375,10 @@ loop_78:
                 *arg1 = temp_v0_7;
                 if ((temp_v0_7 != -1) && (M2C_FIELD(arg0, u8 *, 0x26) & 0x80)) {
                     var_a0_7 = 0;
+                    temp_v0_8 = temp_v0_7 & 0x7FFFFFFF;
                     var_v1_8 = 0;
 loop_100:
-                    if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_8) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_8) != (temp_v0_7 & 0x7FFFFFFF))) {
+                    if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_8) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_8) != temp_v0_8)) {
                         var_a0_7 += 1;
                         var_v1_8 += 0xFF8;
                         if (var_a0_7 >= 8U) {
