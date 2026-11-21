@@ -75,7 +75,7 @@ void spherical_to_cartesian(f32 *out, f32 radius, f32 yaw, f32 pitch);
 
 s32 soundQueueInsert(void *object, f32 sortKey, f32 value0, f32 value1, f32 value2, f32 value3);
 
-void func_80027FF4(void);
+void updateMenuState(void);
 
 void func_80087A80(void);
 
@@ -122,12 +122,23 @@ typedef struct {
 
 extern void *jtbl_8011EF48[11];
 
+/* Probe actor layout. */
+typedef struct ProbeActor {
+    u8 pad0[0x24];
+    f32 pos[3];
+    f32 pos2[3];
+    u8 pad1[0x58 - 0x3C];
+    s32 flags;
+    u8 pad2[0x7B - 0x5C];
+    u8 probeIndex;
+} ProbeActor;
+
 /* Track marker object (updateTrackMarkerTrigger): pos at 0x24, trigger data pointer at 0x6C, mode at 0x78. */
 typedef struct TrackMarkerTrigger {
     f32 scale;        /* 0x00 */
     s16 timer;        /* 0x04 */
     u16 sfxId;        /* 0x06 */
-    u8 trackIndex;    /* 0x08 index into gTrackDoneFlags */
+    u8 trackIndex;    /* 0x08 index into sTrackDoneFlags */
     u8 expectedState; /* 0x09 */
     u8 soundParam;    /* 0x0A */
     u8 doneFlagIndex; /* 0x0B */

@@ -38,15 +38,16 @@ char *__repair_addr;
     }
     (((__repair_record_arg0*)arg0)->field_60) |= 1;
     return;
+
+    alive:;
 __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20);
 
-    alive:
         temp_fv1 = (*(f32 *)(__repair_addr));
         if ((((__repair_record_arg0*)arg0)->field_28) < temp_fv1) {
+            (((__repair_record_arg0*)arg0)->field_28) = temp_fv1;
             (((__repair_record_temp_s0*)temp_s0)->field_4) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_4) * (randomFloatScaled(0.9f) - 0.45f));
             (((__repair_record_temp_s0*)temp_s0)->field_8) = (f32) ((f64) (((__repair_record_temp_s0*)temp_s0)->field_8) * D_800D4150);
             (*(f32 *)((char *)(temp_s0) + 0xC)) = (f32) ((((__repair_record_temp_s0*)temp_s0)->field_C) * (randomFloatScaled(0.9f) - 0.45f));
-            (((__repair_record_arg0*)arg0)->field_28) = ((*(f32 *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20)));
             (((__repair_record_arg0*)arg0)->field_54) = (f32) ((f64) (((__repair_record_arg0*)arg0)->field_54) * D_800D4158);
         }
         (((__repair_record_arg0*)arg0)->field_24) += ((((__repair_record_temp_s0*)temp_s0)->field_4) * 0.033333335f);
@@ -63,3 +64,4 @@ __repair_addr = (char *)((char *)((*(void **)((char *)(temp_s3) + 0x3C))) + 0x20
         }
     
 }
+
