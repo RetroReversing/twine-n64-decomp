@@ -49,7 +49,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     void *sp14C;
     u16 *var_s6;
     f32 *sp15C;
-    u16 sp166;
+    s32 sp166;
     u16 sp16E;
     f32 temp_fa0;
     f32 temp_fa0_2;

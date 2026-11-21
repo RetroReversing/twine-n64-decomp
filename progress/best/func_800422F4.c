@@ -39,7 +39,7 @@ void func_800422F4(s32 arg0) {
     TrackHeader *header;
     TrackRecord *records, *record;
     s32 count, track, kind, marker;
-    s32 invalid = -1;
+    s32 invalid;
     s32 token = func_80083E24();
     s32 rom = D_800C0780[arg0].rom;
     header = heapAllocTagged(0x30, 0x2D);
@@ -48,6 +48,7 @@ void func_800422F4(s32 arg0) {
     records = heapAllocTagged(count * sizeof(TrackRecord), 0x2D);
     dmaRomToRamUnaligned(records, D_54D910 + header->rom, header->count * sizeof(TrackRecord));
     if (count != 0) {
+        invalid = -1;
         record = records;
     next_record:
             track = *record->track;
@@ -83,7 +84,7 @@ void func_800422F4(s32 arg0) {
             func_800426B8(marker, track, 1);
     advance:
         record++;
-        if (record < records + count)
+        if ((u32)record < count * 0x44 + (u32)records)
             goto next_record;
     }
     func_80084048(records, 0x2D);
