@@ -65,7 +65,7 @@ void func_800449A0(void)
   func_80083C98();
   initMatrixPools();
   func_80064250();
- do { func_80073400(); var_a2 = 0; var_v1 = sTrackMarkerTable; do { *var_v1 = 0; var_a2 += 1; var_v1++; } while (var_a2 < 6U); var_a2 = 0; var_v1_2 = &sBonusObjectTable; do { *var_v1_2 = 0; var_a2 += 1; var_v1_2++; } while (var_a2 < 4U); var_a2 = 0; var_t0 = &D_8010D2C0; var_a3 = &D_8010D380; do { var_a1 = 0; var_a0 = var_t0; var_v1_3 = var_a3; loop_6: *var_v1_3 = 0; *var_a0 = 0; var_a0++; var_a1 += 1; var_v1_3++; if (var_a1 < 6U) { goto loop_6; } var_t0 += 7; var_a2 += 1; var_a3 += 7; } while (var_a2 < 6U); gTrackMarkerSerial = 0; gProbeObjectList = func_8003C7C4(var_a0, var_a1, var_a2, var_a3); func_8007560C(); D_801032AC = 0xA0; D_8010D374 = 0x60; sPrimTintG = 0xEF; sPrimTintB = 0x40; D_8010A4B8 = 0x10; gObjectListHead = 0; D_801032A4 = 0xFF; D_80108F74 = 0xFF; D_80102F38 = 0xFF; D_80112F88 = 0xFF; D_80107B60 = 0xFF; D_80100784 = 0xFF; D_80103041 = 0; D_8010302A = 0; D_8010957C = 0; D_80103EB1 = 0; sPrimTintR = 8; } while (0);
+ do { func_80073400(); var_a2 = 0; var_v1 = sTrackMarkerTable; do { *var_v1 = 0; var_a2 += 1; var_v1++; } while (var_a2 < 6U); var_a2 = 0; var_v1_2 = &sBonusObjectTable; do { *var_v1_2 = 0; var_a2 += 1; var_v1_2++; } while (var_a2 < 4U); var_a2 = 0; var_t0 = &D_8010D2C0; var_a3 = &D_8010D380; do { var_a1 = 0; var_a0 = var_t0; var_v1_3 = var_a3; loop_6: *var_v1_3 = 0; *var_a0 = 0; var_a0++; var_a1 += 1; var_v1_3++; if (var_a1 < 6U) { goto loop_6; } var_t0 += 7; var_a2 += 1; var_a3 += 7; } while (var_a2 < 6U); gTrackMarkerSerial = 0; gProbeObjectList = func_8003C7C4(var_a0, var_a1, var_a2, var_a3); func_8007560C(); D_801032AC = 0xA0; D_8010A4B8 = 0x10; sPrimTintG = 0xEF; sPrimTintB = 0x40; D_8010D374 = 0x60; gObjectListHead = 0; D_801032A4 = 0xFF; D_80108F74 = 0xFF; D_80102F38 = 0xFF; D_80112F88 = 0xFF; D_80107B60 = 0xFF; D_80100784 = 0xFF; D_80103041 = 0; D_8010302A = 0; D_8010957C = 0; D_80103EB1 = 0; sPrimTintR = 8; } while (0);
   D_8010A3C4 = 0;
   D_80110DB1 = 8;
   D_80107ECE = 0;
@@ -90,3 +90,4 @@ void func_800449A0(void)
   D_80109A35 = 0;
   D_80109CB4 = 0;
 }
+

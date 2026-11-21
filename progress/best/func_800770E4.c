@@ -112,13 +112,7 @@ void func_800770E4(void *arg0) {
         var_s2 = 0;
         M2C_FIELD(temp_v0_2, s32 *, 0xCC) = 0;
         var_v0 = 0x4D;
-block_8:
-        var_fs1 = var_fv0 - origin_x;
-        M2C_FIELD(arg0, u16 *, 0x78) = var_v0;
-        var_s0 = var_v1_2 >> 0xC;
-        var_s0 &= 0xF;
-        var_fs0 = var_fv1_2 - origin_z;
-        goto block_9;
+        goto block_8;
     } else {
         var_s3 = 0;
         if (temp_v1 == 3) {
@@ -131,9 +125,15 @@ block_8:
             var_s2 = 0;
             M2C_FIELD(temp_v0_3, s32 *, 0xCC) = 0;
             var_v0 = 0x61;
-            goto block_8;
+        } else {
+            return;
         }
-        return;
+block_8:
+        var_fs1 = var_fv0 - origin_x;
+        M2C_FIELD(arg0, u16 *, 0x78) = var_v0;
+        var_s0 = var_v1_2 >> 0xC;
+        var_s0 &= 0xF;
+        var_fs0 = var_fv1_2 - origin_z;
     }
 block_9:
         temp_v0 = angleDelta12((s32) (approximateAtan2(var_fs1, var_fs0) * 651.8986f), (s32) (M2C_FIELD(arg0, f32 *, 0x40) + 256.0f)) >> 9;
@@ -147,8 +147,8 @@ block_9:
             goto block_71;
         case 22:                                    /* switch 2 */
             func_80002BD0(arg0, *(u16 *)(&D_800C9A58 + (randomIntBelow(1) * 2)));
-            var_a1 = 0x4B;
-            goto block_90;
+            func_80077960(arg0, 0x4B);
+            return;
         case 7:                                     /* switch 2 */
             func_80085710(arg0 + 0x24);
             var_a1_2 = *(u16 *)(&D_800C9A5C + (randomIntBelow(6) * 2));
@@ -181,7 +181,7 @@ block_9:
                     case 10:                        /* switch 3 */
                     case 11:                        /* switch 3 */
                     case 12:                        /* switch 3 */
-                        break;
+                        goto state_dispatch;
                     case 0:                         /* switch 3 */
                         M2C_FIELD(arg0, s16 *, 0x7C) = 0;
                         break;
@@ -189,6 +189,8 @@ block_9:
                 }
                 var_v1 = var_s3 - 2;
             }
+state_dispatch:
+                var_v1 = var_s3 - 2;
             switch (var_v1) {                       /* switch 4 */
             case 9:                                 /* switch 4 */
                 func_80002EB8(arg0);
@@ -305,16 +307,16 @@ block_61:
                 switch (temp_v1_4) {                /* switch 9; irregular */
                 case 0x2AC:                         /* switch 9 */
                     func_80002BD0(arg0, 0x2AEU);
-                    var_a1 = 0x16;
-                    goto block_90;
+                    func_80077960(arg0, 0x16);
+                    return;
                 case 0x2AD:                         /* switch 9 */
                     func_80002BD0(arg0, 0x2AFU);
-                    var_a1 = 0x16;
-                    goto block_90;
+                    func_80077960(arg0, 0x16);
+                    return;
                 case 0x217:                         /* switch 9 */
                     func_80002BD0(arg0, *(u16 *)(&D_800C9B88 + (randomIntBelow(5) * 2)));
-                    var_a1 = 0x16;
-                    goto block_90;
+                    func_80077960(arg0, 0x16);
+                    return;
                 }
                 goto block_71;
             }
