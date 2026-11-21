@@ -46,10 +46,11 @@ extern s32 sObjectIdList;
 extern void *volatile sTrackMarkerTable;
 
 s32 func_8000D000(void) {
+    void *recs_;
+    f32 big;
     void *volatile *scene;
     u8 *markerMask;
     s32 temp_v0_6;
-    s32 var_a0_2;
     s32 var_a2;
     s32 temp_s1;
     s8 var_a0;
@@ -91,11 +92,10 @@ s32 func_8000D000(void) {
         dmaRomToRamUnaligned(records[1], *(s32 *)(D_800B2640 + (temp_s0 * 4)) + D_54D910, 0x8000);
     }
     var_a2 = 0;
-    var_a0_2 = 0;
     do {
-        temp_v0_3 = gObjectRecords + var_a0_2;
+        temp_v0_3 = gObjectRecords + (var_a2 * 0xD4);
         (*(s8 *)((char *)(temp_v0_3) + 0x9A)) = 0;
-        temp_v1 = gObjectRecords + var_a0_2;
+        temp_v1 = gObjectRecords + (var_a2 * 0xD4);
         (*(s16 *)((char *)(temp_v0_3) + 0x80)) = 1;
         (*(s16 *)((char *)(temp_v0_3) + 0x82)) = 1;
         (*(s16 *)((char *)(temp_v0_3) + 0x84)) = 1;
@@ -109,20 +109,20 @@ s32 func_8000D000(void) {
         (*(f32 *)((char *)(temp_v0_3) + 0x74)) = 255.0f;
         (*(f32 *)((char *)(temp_v0_3) + 0x78)) = 255.0f;
         (*(s16 *)((char *)(temp_v0_3) + 0x90)) = -1;
-        (*(f32 *)((char *)(temp_v1) + 0x38)) = 999.0f;
+        big = 999.0f;
         (*(u8 *)((char *)(temp_v1) + 0x99)) = 0xFF;
-        temp_v0_4 = gObjectRecords + var_a0_2;
+        temp_v0_4 = gObjectRecords + (var_a2 * 0xD4);
+        (*(f32 *)((char *)(temp_v1) + 0x38)) = big;
         (*(u8 *)((char *)(temp_v0_4) + 0x98)) = 0xFF;
-        temp_v1_2 = gObjectRecords + var_a0_2;
+        temp_v1_2 = gObjectRecords + (var_a2 * 0xD4);
         var_a2 += 1;
         (*(s32 *)((char *)(temp_v0_4) + 0x7C)) = -1;
-        var_a0_2 += 0xD4;
         (*(s16 *)((char *)(temp_v1_2) + 0x96)) = 0;
         (*(s16 *)((char *)(temp_v1_2) + 0xE0)) = 0;
     } while (var_a2 < 0x38);
     D_800E0748 = 0;
     D_800E074C = 0;
-    collectObjectRecordIds(var_a0_2);
+    collectObjectRecordIds();
     D_800CA338 = 1;
     if (temp_s1 == 0) {
         func_80044D84(D_800E0740);
@@ -138,6 +138,7 @@ s32 func_8000D000(void) {
     scene = &D_80109690;
     func_8003C710(*scene);
     func_8004844C(*scene, 160.0f, 120.0f, 320.0f, 180.0f, 0.0f, 0.0f);
+    recs_ = gObjectRecords;
     (*(s32 *)((char *)(D_80109690) + 0x100)) |= 0x10;
     markerMask = &gTrackMarkerActiveMask;
     temp_v0_5 = *markerMask | 4;
@@ -146,9 +147,9 @@ s32 func_8000D000(void) {
     gSceneFlagsB = temp_v1_3;
     *markerMask = temp_v0_5 & 0xFE;
     gSceneFlagsB = temp_v1_3 & 0xFE;
-    (*(s32 *)((char *)(gObjectRecords) + 0x2B30)) = 0;
-    (*(s32 *)((char *)(gObjectRecords) + 0x2B3C)) = 0;
-    func_8000CC38(0x34, markerMask, gObjectRecords);
+    (*(s32 *)((char *)(recs_) + 0x2B30)) = 0;
+    (*(s32 *)((char *)(recs_) + 0x2B3C)) = 0;
+    func_8000CC38(0x34, markerMask, recs_);
     gTransitionEnabled = 1;
     gTransitionPhase = 0;
     D_800E0744 = 0;
