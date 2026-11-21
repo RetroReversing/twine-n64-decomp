@@ -79,12 +79,11 @@ void *func_8005F664(void *arg0, s32 unused, u32 arg2) {
                     distance = Vec3_DistanceSq(temp_s0, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0) + 0x78);
                     if ((Ray_CastObjects(&func_8004D910, M2C_FIELD(arg0, s32 *, 0x20), temp_s0, M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0) + 0x78, sp28, distance, 0, 1, 0) << 0x18) != 0) {
                         M2C_FIELD(temp_v0, LocalVec3 *, 0x24) = M2C_FIELD(arg0, LocalVec3 *, 0x24);
-                        M2C_FIELD(temp_s2, s32 *, 0xC) = 0;
                     } else {
                         temp_v0_4 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 0);
                         M2C_FIELD(temp_v0, LocalVec3 *, 0x24) = M2C_FIELD(temp_v0_4, LocalVec3 *, 0x78);
-                        M2C_FIELD(temp_s2, s32 *, 0xC) = 0;
                     }
+                    M2C_FIELD(temp_s2, s32 *, 0xC) = 0;
                     M2C_FIELD(temp_s2, s32 *, 0x10) = 0;
                     M2C_FIELD(temp_s2, s32 *, 0x14) = 0;
                     { f32 scale = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), f32 *, 8);
