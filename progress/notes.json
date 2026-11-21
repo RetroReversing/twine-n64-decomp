@@ -10280,14 +10280,6 @@
   "score_after": 1520
  },
  {
-  "function": "func_800556DC",
-  "text": "Best 270 (95.8%), target and candidate both 65 instructions. Tried baseline, substituting sp10/sp18 into func_80046140 (regressed), removing volatile stack float locals (large regression), then restoring baseline and explicit (s32)arg1 for func_80085160 (same 270). Three remaining mismatches are localized to float staging/call order: target rows 28/30/31 are swc1 $f12,0x10($sp), swc1 $f0,0x14($sp), lwc1 $f14,8($s0); candidate duplicates swc1 $f12 and orders lwc1 earlier. Preserve volatile float staging. Need reshape intermediate expression evaluation to store f0 before loading third vector component.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795178572.400848,
-  "score_before": 270,
-  "score_after": 270
- },
- {
   "function": "resolveActorCollisionOffset",
   "text": "Rechecked baseline 3113. Six local repair variants (inferred layout, source lines, address temporary, call arity, read-before-assign, float prototype); none improved. Target stack frame is 0x78 and saves s0/ra at 0x70/0x74; candidate frame is 0x60 with saves at 0x58/0x5c. Callee prototype experiment failed because argument 3 was incorrectly typed f32. Candidate draft also contains suspicious use of temp_fv0_3 before initialization in sp50[2]; inspect target dataflow and callee signature.",
   "by": "codex-gpt-6-luna-9",
@@ -25432,14 +25424,6 @@
   "score_after": 325
  },
  {
-  "function": "func_800556DC",
-  "text": "Best/rechecked 270/65, score 95.8%. Target and candidate differ only three instruction order/register rows around staging arg2[1] to stack: target stores f12 to sp+0x10, later f0 to sp+0x14, then loads f14 from s0+8; candidate loads f14 from s0+8 before storing f12 at sp+0x10 and f0 at sp+0x14. Tried staging explicit h/r/q temporaries; compile_patch remained score 270 and instruction diff unchanged, despite a variant batch alternate worsening to 1601. Need adjust local declaration / expression staging to force target schedule. Current profile GCC 2.7.2 KMC -O1.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795193711.0497122,
-  "score_before": 270,
-  "score_after": 270
- },
- {
   "function": "updateTrackMarkerProximity",
   "text": "Verified 225, 75 instructions. Residual f2 vs f0 through subtraction, multiply, comparison and store, plus bne vs beqz on the mask. Loop-invariant u32 one=1 and nonzero mask test scored 295; adding explicit distance temporary and splitting subtract/multiply plus in-place doubling scored 270, including with u8 mask cast. Bare nonzero literal mask with staged subtract/multiply, reversed product, or in-place doubling scored 812\u20131348. Keep saved 225. Next inspect the 270 variant's actual mask and FPR diff separately or test compiler combine/reload flags on the saved source.",
   "by": "codex-gpt-6.2-sol-4",
@@ -28400,14 +28384,6 @@
   "score_after": 2275
  },
  {
-  "function": "func_800556DC",
-  "text": "Current best retained score 267 (historical; recent recheck at 267). Source matches all 65 instruction count and differs only in FPR stack/register ordering around the two intermediate vector components; declaration swap produced 270 and removed two mismatches but changed third. Target order: load arg2[0] -> store 0x10(sp); load arg2[1] -> store 0x14(sp); load arg2[2] -> delay slot store 0x18(sp). Then reload 0x14(sp) as angle and 0x10(sp) for second helper. Candidate does not preserve that exact sequence. Keep original saved_best; inspect target lines around 28-45 and experiment with local declaration/lifetime/order. Also candidate prototype for func_80085160 warns pointer-to-int mismatch.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199799.761343,
-  "score_before": 267,
-  "score_after": 267
- },
- {
   "function": "spawnTimedEffect",
   "text": "Best score 5 (single register mismatch at call setup: target emits addiu a0,zero,0x48; candidate emits addiu a1,zero,0x48). Typed allocator prototype `void *func_80016410(void *, s32, s32);` fixed the prior no-prototype argument-register cascade after a temporary arg1 substitution had scored 325. Reverted to zero third argument; function remains score 5. Need alter call/prototype or argument staging to place size 0x48 in a0 while preserving subsequent args and all later instructions.",
   "by": "codex-gpt-6-luna-11",
@@ -30054,14 +30030,6 @@
   "created_at": 1795201795.527117,
   "score_before": 705,
   "score_after": 705
- },
- {
-  "function": "func_800556DC",
-  "text": "Reached move-on at 6/6. Saved best revision 5a3cc6663837b0a04dd6 scores 267/65 instructions. Reproduced score with corrected callee prototype; five remaining instruction differences are FPR allocation and order around three float component loads/stores at stack offsets 0x10 and 0x14. Reversing scalar spill assignment regressed to 423; a scoped block around the first spill had no effect. Shared header now declares func_80085160(void *). Next try modeling a struct/local copy or changing order of input vector component reads to force first component spill before remaining loads.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795201797.895545,
-  "score_before": 267,
-  "score_after": 267
  },
  {
   "function": "spawnTimedEffect",
@@ -33760,14 +33728,6 @@
   "score_after": 490
  },
  {
-  "function": "func_800556DC",
-  "text": "Stalled at score 267 (95.8%). Fixed header conflict by removing local s32 func_80085160(s32) prototype (header has func_80085160(void*)). Remaining mismatch: compiler hoists arg2[2] load (lwc1 $f14, 8($s0)) before sp10 store; target stores sp10 at 0x10 first. Tried: approximate_hypot2(sp10,sp18) (647), plain arg2[i] assignments (267), reordered volatile decls (273), non-volatile/other (worse). Next idea: separate local for the hypot second arg assigned after the sp stores.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795204875.233801,
-  "score_before": 267,
-  "score_after": 267
- },
- {
   "function": "func_8001CF24",
   "text": "Rechecked saved baseline 965. Local repairs: inferred_record_layout stayed 965; branch_orientation regressed 1835; signedness 1165; no improvement. Existing history exceeds 13/8 threshold. Next investigate control-flow/call placement around initial null-check; mismatch target beqz $v1 offset 0x268 vs candidate 0x26c. Current source retained at revision 10ef294f778b63a86be5.",
   "by": "codex-gpt-6-luna-9",
@@ -37014,14 +36974,6 @@
   "created_at": 1795208440.5468469,
   "score_before": 1630,
   "score_after": 1630
- },
- {
-  "function": "func_800556DC",
-  "text": "Reverified score 267 after taking func_80085160 from shared header. Scoped chained x/z assignments with nonvolatile input emitted identical code; volatile input regressed to 417. Target spills x at sp+0x10 before loading y, spills y at sp+0x14 before loading z, and spills z in hypot delay slot. Baseline hoists z and exchanges x/y stack locations.\nChained each x/z spill with the f32 value passed to approximate_hypot2; compared ordinary and volatile input reads.\nOrdinary input identical at 267; volatile input 417; continuation kept baseline.\n\nUntested next step: after dropping the obsolete local func_80085160 prototype, use one volatile three-float stack record laid out x/y/z in order, retaining nonvolatile input loads for hypot argument reuse. This targets the exchanged x/y spill slots while preserving the potential of register reuse. Scoped x/z chained assignments alone emitted identical diff at 267.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795208441.85527,
-  "score_before": 267,
-  "score_after": 267
  },
  {
   "function": "func_8001CCF4",
@@ -43413,15 +43365,6 @@
   "created_at": 1795214432.821418,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_800556DC",
-  "text": "Move-on threshold reached. Historical 267 source needs obsolete func_80085160 declaration removed. Removing it and using volatile x/y/z struct yielded 270 with correct stack offsets and only three advisory differences: z load hoisted before x and y stores. Chained x/z temporaries and volatile z only tied at 270; volatile y and z, with or without volatile x, scored 420.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795214438.925688,
-  "score_before": 3245,
-  "score_after": 270,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
  },
  {
   "function": "func_80064630",
@@ -56296,15 +56239,6 @@
   "score_after": 100
  },
  {
-  "function": "func_800556DC",
-  "text": "Best remains 267 (saved). Alternative rev ca7cbaaade1c23b2fe0a (score 270, 3 mismatch rows): one volatile local struct {f32 x,y,z;} v with sp10=v.x, sp14=v.y, sp18=v.z fixes the swapped stack slots (0x10/0x14); only remaining diff is scheduling: ours hoists `lwc1 f14,8(s0)` (arg2[2]) before the first sp10 store, target order is lw x/sw x, lw y/sw y, lw z, jal hypot with `swc1 z,0x18(sp)` in delay slot. Also tried: float locals x,y,z (compile err C89 decl; fixed variants worse), hoisting hypot into temp h (455), `hypot(arg2[0], sp18 = arg2[2])` (700 - volatile reload). Removed bad local func_80085160(s32) prototype (header has void*). Next step: try making arg2[2] load dependent/ordered after sp14 store (e.g. read z via a pointer re-derived after the y store, or arg2 passed as volatile-cast pointer only for z) so sched1 can't hoist it.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795232981.458747,
-  "score_before": 267,
-  "score_after": 267,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
- },
- {
   "function": "func_800468E4",
   "text": "Rechecked saved candidate remains score 630; current local repair discovery reports no untried applicable repairs. Earlier trials found FPR register allocation mismatch after volatile f64 scratch; three expression variants neutral. Next step: inspect target load/store order and test declaration order or targeted local lifetimes via compiler experiments.",
   "by": "codex-gpt-6-luna-15",
@@ -64948,15 +64882,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:b7bba60a7f3e15a98faf37d99dd55d98381ee41cd640a352f6a80f7331b73729"
  },
  {
-  "function": "func_800556DC",
-  "text": "Removed conflicting prototype and used volatile three-float array: score 270, correct stack slots; remaining three rows are load/store scheduling. Scalar baseline scored 267 but swaps slots.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245900.7175958,
-  "score_before": 267,
-  "score_after": 267,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
- },
- {
   "function": "func_80084048",
   "text": "Best candidate score 350. The local repair pass found removing cur from coalesce call did not alter the diff; changing global D_800E1A90 from s8 to u8 worsened to 550. Changing for(;;) to while(cur) produced 380. Re-submitted saved-best form scored 350. Main remaining issue is loop/insertion control flow: target branch targets 0x12c, 0x124; candidate 0x134, 0x12c, plus differing join at beql. Next step: reshape sorted-list insertion into explicit if/else arms and test opposite loop condition.\nRestated saved best and tried call arity, global byte signedness, and while-loop form; best rechecked at 350, alternatives 380/550 or unchanged.\nMain remaining divergence is list insertion control flow: target conditional branches and joins differ by 4-8 bytes; variants introduce branches or extra instructions.",
   "by": "codex-gpt-6-luna-15",
@@ -66109,15 +66034,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:fa130d00fcc04b3112fff2491f11761c7b3f06907f3e5b5724f6bb457b0431d6"
- },
- {
-  "function": "func_800556DC",
-  "text": "A volatile x/y/z struct corrected stack slots but scored 270; load scheduling remained wrong. Baseline scored 267.\nStruct variant reduces mismatch to three reordered/operand rows.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795248150.054751,
-  "score_before": 267,
-  "score_after": 267,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
  },
  {
   "function": "func_800588D8",
@@ -70742,15 +70658,6 @@
   "score_before": 170,
   "score_after": 170,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
- },
- {
-  "function": "func_800556DC",
-  "text": "Saved best has obsolete func_80085160 declaration conflicting with current header; remove it to compile. Volatile struct with nonvolatile hypot arguments gives score 270 and three ordering rows; scalar baseline scores 267 with five rows.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795259345.330322,
-  "score_before": 267,
-  "score_after": 267,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
  },
  {
   "function": "func_800219A0",
@@ -75713,5 +75620,98 @@
   "score_before": 2965,
   "score_after": 2880,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:ac492b18eb039cceb5e0639ccfc74fb1f45446bd015178fe5cae1002687da8e9"
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Best 270 (95.8%), target and candidate both 65 instructions. Tried baseline, substituting sp10/sp18 into func_80046140 (regressed), removing volatile stack float locals (large regression), then restoring baseline and explicit (s32)arg1 for func_80085160 (same 270). Three remaining mismatches are localized to float staging/call order: target rows 28/30/31 are swc1 $f12,0x10($sp), swc1 $f0,0x14($sp), lwc1 $f14,8($s0); candidate duplicates swc1 $f12 and orders lwc1 earlier. Preserve volatile float staging. Need reshape intermediate expression evaluation to store f0 before loading third vector component.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795178572.400848,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Best/rechecked 270/65, score 95.8%. Target and candidate differ only three instruction order/register rows around staging arg2[1] to stack: target stores f12 to sp+0x10, later f0 to sp+0x14, then loads f14 from s0+8; candidate loads f14 from s0+8 before storing f12 at sp+0x10 and f0 at sp+0x14. Tried staging explicit h/r/q temporaries; compile_patch remained score 270 and instruction diff unchanged, despite a variant batch alternate worsening to 1601. Need adjust local declaration / expression staging to force target schedule. Current profile GCC 2.7.2 KMC -O1.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795193711.0497122,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Current best retained score 267 (historical; recent recheck at 267). Source matches all 65 instruction count and differs only in FPR stack/register ordering around the two intermediate vector components; declaration swap produced 270 and removed two mismatches but changed third. Target order: load arg2[0] -> store 0x10(sp); load arg2[1] -> store 0x14(sp); load arg2[2] -> delay slot store 0x18(sp). Then reload 0x14(sp) as angle and 0x10(sp) for second helper. Candidate does not preserve that exact sequence. Keep original saved_best; inspect target lines around 28-45 and experiment with local declaration/lifetime/order. Also candidate prototype for func_80085160 warns pointer-to-int mismatch.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199799.761343,
+  "score_before": 267,
+  "score_after": 267
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Reached move-on at 6/6. Saved best revision 5a3cc6663837b0a04dd6 scores 267/65 instructions. Reproduced score with corrected callee prototype; five remaining instruction differences are FPR allocation and order around three float component loads/stores at stack offsets 0x10 and 0x14. Reversing scalar spill assignment regressed to 423; a scoped block around the first spill had no effect. Shared header now declares func_80085160(void *). Next try modeling a struct/local copy or changing order of input vector component reads to force first component spill before remaining loads.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795201797.895545,
+  "score_before": 267,
+  "score_after": 267
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Stalled at score 267 (95.8%). Fixed header conflict by removing local s32 func_80085160(s32) prototype (header has func_80085160(void*)). Remaining mismatch: compiler hoists arg2[2] load (lwc1 $f14, 8($s0)) before sp10 store; target stores sp10 at 0x10 first. Tried: approximate_hypot2(sp10,sp18) (647), plain arg2[i] assignments (267), reordered volatile decls (273), non-volatile/other (worse). Next idea: separate local for the hypot second arg assigned after the sp stores.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795204875.233801,
+  "score_before": 267,
+  "score_after": 267
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Reverified score 267 after taking func_80085160 from shared header. Scoped chained x/z assignments with nonvolatile input emitted identical code; volatile input regressed to 417. Target spills x at sp+0x10 before loading y, spills y at sp+0x14 before loading z, and spills z in hypot delay slot. Baseline hoists z and exchanges x/y stack locations.\nChained each x/z spill with the f32 value passed to approximate_hypot2; compared ordinary and volatile input reads.\nOrdinary input identical at 267; volatile input 417; continuation kept baseline.\n\nUntested next step: after dropping the obsolete local func_80085160 prototype, use one volatile three-float stack record laid out x/y/z in order, retaining nonvolatile input loads for hypot argument reuse. This targets the exchanged x/y spill slots while preserving the potential of register reuse. Scoped x/z chained assignments alone emitted identical diff at 267.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795208441.85527,
+  "score_before": 267,
+  "score_after": 267
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Move-on threshold reached. Historical 267 source needs obsolete func_80085160 declaration removed. Removing it and using volatile x/y/z struct yielded 270 with correct stack offsets and only three advisory differences: z load hoisted before x and y stores. Chained x/z temporaries and volatile z only tied at 270; volatile y and z, with or without volatile x, scored 420.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795214438.925688,
+  "score_before": 3245,
+  "score_after": 270,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Best remains 267 (saved). Alternative rev ca7cbaaade1c23b2fe0a (score 270, 3 mismatch rows): one volatile local struct {f32 x,y,z;} v with sp10=v.x, sp14=v.y, sp18=v.z fixes the swapped stack slots (0x10/0x14); only remaining diff is scheduling: ours hoists `lwc1 f14,8(s0)` (arg2[2]) before the first sp10 store, target order is lw x/sw x, lw y/sw y, lw z, jal hypot with `swc1 z,0x18(sp)` in delay slot. Also tried: float locals x,y,z (compile err C89 decl; fixed variants worse), hoisting hypot into temp h (455), `hypot(arg2[0], sp18 = arg2[2])` (700 - volatile reload). Removed bad local func_80085160(s32) prototype (header has void*). Next step: try making arg2[2] load dependent/ordered after sp14 store (e.g. read z via a pointer re-derived after the y store, or arg2 passed as volatile-cast pointer only for z) so sched1 can't hoist it.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232981.458747,
+  "score_before": 267,
+  "score_after": 267,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Removed conflicting prototype and used volatile three-float array: score 270, correct stack slots; remaining three rows are load/store scheduling. Scalar baseline scored 267 but swaps slots.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245900.7175958,
+  "score_before": 267,
+  "score_after": 267,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
+ },
+ {
+  "function": "func_800556DC",
+  "text": "A volatile x/y/z struct corrected stack slots but scored 270; load scheduling remained wrong. Baseline scored 267.\nStruct variant reduces mismatch to three reordered/operand rows.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795248150.054751,
+  "score_before": 267,
+  "score_after": 267,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
+ },
+ {
+  "function": "func_800556DC",
+  "text": "Saved best has obsolete func_80085160 declaration conflicting with current header; remove it to compile. Volatile struct with nonvolatile hypot arguments gives score 270 and three ordering rows; scalar baseline scores 267 with five rows.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795259345.330322,
+  "score_before": 267,
+  "score_after": 267,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:37e18b74b4a49c752fc43f17ec1e4e66b19c8e6d344d44261e5fc5853b593fa5"
  }
 ]
