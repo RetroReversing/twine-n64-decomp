@@ -4,13 +4,13 @@ s32 func_800090A4(void *, s32, s32, s32);   /* extern */
 s32 IsSphereVisible(void *, f32, void *, s32);        /* extern */
 s32 emitPrimColor(void *, s32);                 /* extern */
 s32 emitScissorFromWindow();                            /* extern */
-extern s32 D_800E1714;
-extern s32 D_800E1718;
-extern u8 D_800E1758;
-extern void *D_80107E9C;
+extern s32 gObjectDrawMask;
+extern s32 gVisibleObjects;
+extern u8 gVisibleObjectCount;
+extern void *gObjectListHead;
 
 typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
-void func_80036820(s32 arg0) {
+void drawObjectListPass(s32 arg0) {
     f32 var_fv1;
     u32 temp_a0;
     s32 temp_v1_2;
@@ -19,7 +19,7 @@ void func_80036820(s32 arg0) {
     void *var_s0;
     void *var_s1;
 
-    var_s1 = D_80107E9C;
+    var_s1 = gObjectListHead;
     emitScissorFromWindow();
     if (var_s1 != NULL) {
         do {
@@ -36,10 +36,10 @@ process:
                         temp_v1_2 = ((__repair_field_58 *)var_s0)->value;
                         if (!(temp_v1_2 & 0x20000)) {
                             if (temp_v1_2 & 0x101000) {
-                                temp_a0 = D_800E1758 & 0xFF;
+                                temp_a0 = gVisibleObjectCount & 0xFF;
                                 if (temp_a0 < 0x10U) {
-                                    (&D_800E1718)[temp_a0] = var_s0;
-                                    ++D_800E1758;
+                                    (&gVisibleObjects)[temp_a0] = var_s0;
+                                    ++gVisibleObjectCount;
                                 }
                             } else {
                                 temp_v0 = (*(void **)((char *)(var_s0) + 0x70));
@@ -50,9 +50,9 @@ process:
                                 }
                                 if ((((__repair_field_58 *)var_s0)->value & 0x8000) || ((IsSphereVisible(var_s0 + 0x24, var_fv1, var_s1, arg0) << 0x18) != 0)) {
                                     ((__repair_field_58 *)var_s0)->value = (s32) (((__repair_field_58 *)var_s0)->value | 4);
-                                    func_800090A4(var_s0, arg0, D_800E1714, 0);
+                                    func_800090A4(var_s0, arg0, gObjectDrawMask, 0);
                                     if (((u32) ((__repair_field_58 *)var_s1)->value >> 2) & 0x200) {
-                                        func_800090A4(var_s0, arg0, D_800E1714, 1);
+                                        func_800090A4(var_s0, arg0, gObjectDrawMask, 1);
                                     }
                                 }
                             }
