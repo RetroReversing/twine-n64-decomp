@@ -60,28 +60,28 @@ typedef struct { int value; } __repair_field_0;
 void func_80038000(void *arg0, s32 arg1) {
     typedef struct { u32 words[3]; } ThreeWords;
     typedef union { f32 values[4]; u32 words[4]; } ClipBounds;
-    ClipBounds clipBounds;
+    unsigned long temp_v0;
     f32 *var_s0;
-    f32 *var_v1;
+    register f32 *var_v1;
     f32 temp_fs3;
     f32 temp_fv0;
-    f32 temp_fv1;
+    void *var_s0_2;
     f32 temp_fv1_2;
-    s32 temp_s0_2;
-    s32 temp_s1;
-    s32 temp_s3;
-    s32 temp_s7;
-    u32 temp_v0;
-    u32 var_a0;
+    int temp_s0_2;
+    long temp_s1;
+    u32 temp_s3;
+    register void *temp_v1_3;
+    ClipBounds clipBounds;
+    s32 var_a0;
     u32 var_a1;
-    void *temp_a1;
+    void *temp_v1_2;
     void *temp_a1_2;
     void *temp_s0;
     void *temp_s0_3;
     void *temp_v1;
-    void *temp_v1_2;
-    void *temp_v1_3;
-    void *var_s0_2;
+    void *temp_a1;
+    int temp_s7;
+    f32 temp_fv1;
 
     temp_fs3 = (*(f32 *)((char *)(arg0) + 0x4C));
     if ((*(s32 *)((char *)(arg0) + 0x100)) & 4) {
@@ -109,8 +109,8 @@ void func_80038000(void *arg0, s32 arg1) {
         }
     }
     func_8006F90C(arg0);
-    D_800E1714 = func_80034EAC(arg1);
-    D_800E1710 = arg1;
+    D_800E1714 = func_80034EAC((s32)arg1);
+    D_800E1710 = (int)arg1;
     D_80107E9C = NULL;
     gObjectList = 0;
     D_800B35B0 += 1;
@@ -121,10 +121,10 @@ void func_80038000(void *arg0, s32 arg1) {
         temp_s0 = arg0 + 0x88;
         func_80045180(arg0 + 0x40, arg0 + 0xB8, temp_s0, temp_fs3);
         func_800839F0(temp_s0, arg0 + 0x1C, arg0 + 0xE8);
-        temp_s0_2 = arg1 * 0x10;
+        temp_s0_2 = (s32)arg1 * 0x10;
         temp_a1 = sRenderState + temp_s0_2;
-        (*(f32 *)((char *)(arg0) + 0xAC)) = (f32) -(*(f32 *)((char *)(arg0) + 0xE8));
         (*(f32 *)((char *)(arg0) + 0xB0)) = (f32) -(*(f32 *)((char *)(arg0) + 0xEC));
+        (*(f32 *)((char *)(arg0) + 0xAC)) = (f32) -(*(f32 *)((char *)(arg0) + 0xE8));
         (*(f32 *)((char *)(arg0) + 0xB4)) = (f32) -(*(f32 *)((char *)(arg0) + 0xF0));
         (*(s16 *)((char *)(temp_a1) + 0x300)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)(arg0) + 0x50)))));
         (*(s16 *)((char *)(temp_a1) + 0x304)) = 0x2FF;
@@ -142,14 +142,14 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(s16 *)((char *)(temp_v1) + 0x30E)) = 0;
         (*(s16 *)((char *)(temp_v1) + 0x30A)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x64)) * 4.0f);
         ((__repair_field_0 *)sDisplayListCursor)->value = 0xDC080008;
-        (*(void **)((char *)(sDisplayListCursor) + 4)) = (void *) (sRenderState + (temp_s0_2 + 0x300));
+        (*(void **)((char *)(sDisplayListCursor) + 4)) = (void *) (sRenderState + ((unsigned)temp_s0_2 + 0x300));
         sDisplayListCursor += 8;
         func_800325E4(sRenderState + temp_s3, sRenderState + (temp_s1 + 0x360), (*(f32 *)((char *)(arg0) + 0x84)), (*(s32 *)((char *)(arg0) + 0x80)), 12.8f, gCullFarDistance * 64.0f, 1.0f);
-        temp_a1_2 = sRenderState + temp_s0_2;
+        temp_a1_2 = sRenderState + (unsigned)temp_s0_2;
         (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x54)) - (*(f32 *)((char *)(arg0) + 0x50)))));
         (*(s16 *)((char *)(temp_a1_2) + 0x4F4)) = 0x2EF;
-        (*(s16 *)((char *)(temp_a1_2) + 0x4F6)) = 0;
         (*(s16 *)((char *)(temp_a1_2) + 0x4F2)) = (s16) (s32) (2.0f * (temp_fs3 * ((*(f32 *)((char *)(arg0) + 0x5C)) - (*(f32 *)((char *)(arg0) + 0x58)))));
+        (*(s16 *)((char *)(temp_a1_2) + 0x4F6)) = 0;
         if ((*(s32 *)((char *)(arg0) + 0x100)) & 8) {
             (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) = (s16) (s32) ((f32) (*(s16 *)((char *)(temp_a1_2) + 0x4F0)) + ((f32) (*(D_800C43A0 + (D_801007B8 & 0x7F)) + 0x80) * 0.078125f));
             (*(s16 *)((char *)(temp_a1_2) + 0x4F2)) = (s16) (s32) ((f32) (*(s16 *)((char *)(temp_a1_2) + 0x4F2)) + ((f32) (*(D_800C43A0 + ((D_801007B8 + 0x2AB) & 0x7F)) + 0x80) * 0.0390625f));
@@ -171,16 +171,16 @@ void func_80038000(void *arg0, s32 arg1) {
         (*(s16 *)((char *)(temp_v1_3) + 0x6E8)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x60)) * 4.0f);
         (*(s16 *)((char *)(temp_v1_3) + 0x6EC)) = 0;
         (*(s16 *)((char *)(temp_v1_3) + 0x6EE)) = 0;
-        (*(s16 *)((char *)(temp_v1_3) + 0x6EA)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x64)) * 4.0f);
         ((__repair_field_0 *)sDisplayListCursor)->value = 0xDC080008;
+        (*(s16 *)((char *)(temp_v1_3) + 0x6EA)) = (s16) (s32) ((*(f32 *)((char *)(arg0) + 0x64)) * 4.0f);
         sDisplayListCursor += 8;
         (*(void **)((char *)(sDisplayListCursor) + 4)) = (void *) (sRenderState + (temp_s0_2 + 0x6E0));
         func_800325E4(sRenderState + (temp_s3 + 0x560), sRenderState + (temp_s1 + 0x740), (*(f32 *)((char *)(arg0) + 0x84)), (*(s32 *)((char *)(arg0) + 0x80)), 0.64f, 64.0f, 1.0f);
         temp_v0 = sMatrixPoolUsed + 1;
-        if ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
+        if (sMatrixPoolUsed < sMatrixPoolLimit) {
             sMatrixPoolUsed = temp_v0;
-            sCurrentMatrixSlot = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6);
             func_8000BBB4(&sObjectMatrixF, (*(f32 *)((char *)(arg0) + 0x48)) + 3.1415927f, -((*(f32 *)((char *)(arg0) + 0x44)) + 3.1415927f), (*(s32 *)((char *)(arg0) + 0x40)));
+            sCurrentMatrixSlot = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6);
             guTranslateF(&D_80109E28, -(*(f32 *)((char *)(arg0) + 0x1C)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x20)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x24)) * 64.0f);
             func_800A3840(&D_80109E28, &sObjectMatrixF, &sParentMatrixF);
             var_s0 = &sParentMatrixF;
@@ -195,7 +195,7 @@ loop_15:
                 if (var_a0 < 4U) {
                     goto loop_15;
                 }
-                var_a1 += 1;
+                ++var_a1;
                 var_s0 += 4;
             } while (var_a1 < 4U);
             guMtxF2L(&sParentMatrixF, sRenderState + ((arg1 << 6) + 0x180));

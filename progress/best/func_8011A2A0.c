@@ -3,49 +3,53 @@ typedef struct { u8 pad[0xB4]; BonusData *data; } BonusState;
 typedef struct { u8 pad[0x6C]; BonusState *state; } BonusObject;
 extern BonusObject *sBonusObjectTable[];
 extern u8 gSceneType, D_801002AC;
-extern s32 gSaveTotalSlots, D_801002A8, D_8011F3A8;
+extern s32 gSaveTotalSlots, gSaveSlotCount, D_801002A8, D_8011F3A8;
 extern s16 D_8011F15C[];
 extern u8 sProbeTimers[][8];
 extern s32 timerGetTotalSeconds(void *);
 extern void func_8011A7C8(void);
 
 #define ACCUMULATE() do { \
+    slotPtr = &gSaveTotalSlots; \
     i = 0; \
-    while ((s32)(u16)i < gSaveTotalSlots) { \
+    if (*slotPtr > 0) do { \
         BonusObject *object = sBonusObjectTable[(u16)i]; \
         if (object != 0) { \
             BonusData *data = object->state->data; \
             totals[data->player] += data->total - data->remaining; \
         } \
         i++; \
-    } \
+    } while ((s32)(u16)i < *slotPtr); \
 } while (0)
 #define CHECK_TOTALS() do { \
-    s32 *thresholdPtr = &D_801002A8; \
-    s32 threshold = *thresholdPtr; \
+    thresholdPtr = &D_801002A8; \
+    threshold = *thresholdPtr; \
     i = 0; \
     if (threshold == 0) goto finish; \
     do { \
-        if (totals[(u16)i] >= threshold) { \
-            D_8011F3A8 = 90; \
-            *((u8 *)thresholdPtr + 4) = 1; \
-        } \
+        s32 index = (u16)i; \
         i++; \
+        if (totals[index] >= threshold) { \
+            D_8011F3A8 = 90; \
+            *((volatile u8 *)thresholdPtr + 4) = 1; \
+        } \
     } while ((u16)i < 2); \
     goto finish; \
 } while (0)
 #define COUNT_FLAGS(value) do { \
-    s32 slots = gSaveTotalSlots; \
-    s32 *countPtr = (s32 *)((u8 *)&gSaveTotalSlots + 4); \
+    slotPtr = &gSaveTotalSlots; \
+    slots = *slotPtr; \
+    countPtr = slotPtr + 1; \
     i = 0; \
-    while ((s32)(u16)i < slots) { \
-        BonusObject *object = sBonusObjectTable[(u16)i]; \
+    if (slots > 0) do { \
+        u16 index = (u16)i++; \
+        BonusObject *object = sBonusObjectTable[index]; \
         if (object != 0 && (object->state->data->flag != 0) == (value)) { \
             count++; \
-            saved += (s32)(u16)i < *countPtr; \
+            saved += (s32)index < *countPtr; \
         } \
-        i++; \
-    } \
+    } while ((s32)(u16)i < slots); \
+    countPtr = &gSaveSlotCount; \
     if (saved >= *countPtr) { \
         func_8011A7C8(); \
         if (saved >= *countPtr) goto set_flag; \
@@ -60,6 +64,8 @@ s32 func_8011A2A0(void) {
     s32 count = 0;
     s32 saved = 0;
     s32 i = 0;
+    volatile s32 *slotPtr, *thresholdPtr, *countPtr;
+    s32 slots, threshold;
     do {
         totals[(u16)i] = 0;
         i++;
@@ -85,9 +91,10 @@ s32 func_8011A2A0(void) {
         CHECK_TOTALS();
     case 8:
         COUNT_FLAGS(1);
-    default:
+    default: {
+        s32 slots = gSaveTotalSlots;
         i = 0;
-        while ((s32)(u16)i < gSaveTotalSlots) {
+        while ((s32)(u16)i < slots) {
             BonusObject *object = sBonusObjectTable[(u16)i];
             if (object != 0) {
                 BonusData *data = object->state->data;
@@ -97,6 +104,7 @@ s32 func_8011A2A0(void) {
             i++;
         }
         if (D_801002A8 == 0 || maximum < D_801002A8) goto finish;
+    }
     }
 set_flag:
     D_8011F3A8 = 90;

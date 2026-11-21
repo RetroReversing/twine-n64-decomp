@@ -169,14 +169,14 @@ void func_800821B4(void) {
         sp24 = 0;
         
         do {
-            memset((sp2C = 0, &D_80112E98), 0, 0x24);
+            memset(&D_80112E98, 0, 0x24);
             temp_s5 = *(&D_8010A500 + sp24);
             temp_fp = *(&D_80115091 + var_s7);
             var_a1 = 1;
             if (temp_s5 != NULL) {
                 var_s3_2 = (*(s8 *)((char *)((*(void **)((char *)(temp_s5) + 0x6C))) + 0x183));
                 var_s2_2 = *(&D_8010D430 + (var_s3_2 * 8));
-                var_a0 = *((var_s3_2 * 2) + &D_800E1A80);
+                var_a0 = ((s16 *)&D_800E1A80)[var_s3_2];
                 temp_a2 = var_s2_2 & 0x2000;
                 temp_a3 = var_s2_2 & 0x4000;
                 temp_t2 = -(temp_a3 != 0);
@@ -276,13 +276,13 @@ block_65:
                     }
                     var_v0_3 = var_a0 & 7;
                 } while (var_a1 != 0);
-                *((var_s3_2 * 2) + &D_800E1A80) = var_a0;
+                ((s16 *)&D_800E1A80)[var_s3_2] = var_a0;
             } else {
                 var_s3_2 = var_s6;
-                var_s2_2 = *(&D_8010D430 + sp2C);
+                var_s2_2 = *(u16 *)((u8 *)&D_8010D430 + sp2C);
             }
             temp_s1 = var_s7 + &D_80115094;
-            var_s0_5 = var_s6 & 0xFF;
+            var_s0_5 = var_s3_2 & 0xFF;
             func_80081D50(&D_800CA278, var_s0_5, var_s2_2, temp_s1);
             if ((temp_s5 != NULL) && (D_801002AE == 0)) {
                 switch (temp_fp) {                  /* switch 2 */
@@ -317,9 +317,8 @@ block_91:
                     var_a0_2 = &D_800C9F90;
                     break;
                 case 5:                             /* switch 2 */
+                    temp_s0_8 = var_s3_2 & 0xFF;
                     func_80081D50(&D_800C9F08, temp_s0_8, var_s2_2, temp_s1);
-                    var_a1_2 = var_s3_2 & 0xFF;
-    temp_s0_8 = var_a1_2;
                     var_a0_2 = &D_800C9F90;
                     var_a1_2 = temp_s0_8;
                     break;
