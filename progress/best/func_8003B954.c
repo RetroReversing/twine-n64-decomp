@@ -163,7 +163,7 @@ s32 __repair_result_var_v1_3;
                     break;
                 case 1:
                     var_s0 += 1;
-                    var_s1 = *(u16 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
+                    var_s1 = *(u8 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
                     break;
                 case 2:
                     var_s0 += 1;
@@ -176,7 +176,7 @@ s32 __repair_result_var_v1_3;
                     /* fallthrough */
                 case 3:
                     var_s0 += 1;
-                    D_800E1764 = *(u32 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
+                    D_800E1764 = *(u8 *)(((__repair_field_18 *)arg2)->value + var_s0) * 2;
                     D_800E1760 = 0;
                     break;
                 case 6:

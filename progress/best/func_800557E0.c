@@ -97,9 +97,10 @@ loop_15:
                     if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && (m2c_initial_frame.view_sp38.value >= 0.0f) && (m2c_initial_frame.view_sp38.value <= temp_fs0)) {
 block_18:
                         if (arg5 != NULL) {
-                            M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp18.value));
-                            M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp1C.value));
-                            M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (m2c_initial_frame.view_sp38.value * m2c_initial_frame.view_sp20.value));
+                            f32 distance = m2c_initial_frame.view_sp38.value;
+                            M2C_FIELD(arg5, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (distance * m2c_initial_frame.view_sp18.value));
+                            M2C_FIELD(arg5, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
+                            M2C_FIELD(arg5, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
                             if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((arg0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(arg2, arg5, &m2c_initial_frame.view_sp40.value, var_s0), (arg1 != 0)) || (randomIntBelow(4) == 0))) {
                                 func_80073304(var_s0, arg5, arg2);
                             }}

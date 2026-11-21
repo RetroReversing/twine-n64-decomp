@@ -4,7 +4,7 @@ s32 objectSetAnimFrame();
 s32 randomIntBelow();
 f32 randomFloatScaled(f32);
 f32 randomFloatMinusOffset(f32, f32);
-void func_80060D74(void *arg0) {
+void actorSpawnRandomEffect(void *arg0) {
  struct Vec3 { f32 x,y,z; } pos;
  void *temp_s0, *temp_s3, *temp_v0;
  temp_s3 = *(void **)((char *)arg0 + 0x6C);
