@@ -2928,14 +2928,6 @@
   "score_after": 200
  },
  {
-  "function": "func_80098710",
-  "text": "Rechecked baseline score 130. Ran six independent local repairs; none improved. Best source remains 5d78b7fa8327ec5a81b8. Assembly shows only 5 instructions differ: C allocates the address of D_800FD974 directly into $a1, while target materializes it in $v0 then copies to $a1 (also loop setup likely depends on declaration/allocation order). Try source declaration/order or a temporary that forces address materialization in a separate register. Other mismatch rows are branch/register consequences. Existing candidate warnings are from incompatible s32*/s8* pointer arithmetic.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795136739.814713,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_80082834",
   "text": "Baseline rechecked score 1753. Ran six independent local repairs (parameter widths, passthrough argument, global signedness, call scope); none improved, several generated variants fail because candidate references undefined MULT_HI. Best candidate still c21ff459f40d91d6218a. Target stack frame is 0x18, current is 0x20; start by correcting call expression/declarations so the backend does not preserve a spurious live value in $s1. Resolve MULT_HI into ordinary C before further compilation; avoid repeating these repair variants.",
   "by": "codex-gpt-6-luna-12",
@@ -6080,14 +6072,6 @@
   "score_after": 70
  },
  {
-  "function": "func_80098710",
-  "text": "Baseline 130: target materializes D_800FD974 in v0 then copies to a1; candidate uses a1 directly, shifting two branch offsets. Unsigned global and do-while wrapper around final store did not change code. Investigate pointer lifetime/register allocation to retain initial copy.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795164004.395553,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8007C214",
   "text": "Current best score 270 (119 instructions), inherited and rechecked. Source build copied from candidate. Single signedness tweak s8 temp_v1 -> u8 temp_v1 worsened score to 290/118 instructions, introducing several branch target shifts and dropping explicit andi; best candidate remains 6aaa25a7345ca5e6c67e. Remaining diff starts target mul.s FPR assignment and signed byte lbu at arg1+0x82. Need restore baseline after claim recovers.\n\nOn latest re-claim, full source copied from current queued candidate scored 2774 / 124 insns; prior session's saved best was 270 / 119 insns, but it wasn't accessible after the claim lease was lost during a long read. This source notably omitted the initial factor calculation before null checks, yielding smaller stack frame 0x40 vs target 0x50. The earlier 270 source included factor=(bytes at arg1 0x81/0x7f/0x80)*0.0013071896f before nested pointer check. Avoid using the reduced source as best. Prior signedness patch to u8 worsened 270 to 290.",
   "by": "codex-gpt-6-luna-16",
@@ -7646,14 +7630,6 @@
   "created_at": 1795170362.426388,
   "score_before": 105,
   "score_after": 105
- },
- {
-  "function": "func_80098710",
-  "text": "Verified saved baseline 130: only missing initial move from v0 to a1, causing shifted branch targets. Using var_a1 for D_800FDB78 tied; swapping initialization order regressed to 370. Investigate source layout/register allocation that retains the initial address in v0 before copying to a1.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795170378.040867,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "textScanNextWordSpan",
@@ -12752,14 +12728,6 @@
   "score_after": 1795
  },
  {
-  "function": "func_80098710",
-  "text": "Rechecked best 130; target loads D_800FD974 address in v0 then moves to a1, candidate loads directly into a1, accounting for missing instruction and branch offsets. Cast on initial assignment leaves output unchanged. Explore lifetime or declaration ordering.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795181992.1584089,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8001BE64",
   "text": "Rechecked baseline 3835; switch on D_801002D4 and s16 var_v0_2 improved score to 2815 (revision 9087dd14c42ea62283b3). Tested format branch merging, final call merging, pointer and scalar widths, volatile and prototype variants; none improved further. Target has three paths to func_80087100 for D4 selection, with calls for cases 1 and 2 distinct; inspect that control flow and saved-register lifetimes (first mismatch fp vs s2), then compare remaining missing instructions.",
   "by": "codex-gpt-6.1-terra-4",
@@ -14512,14 +14480,6 @@
   "score_after": 1446
  },
  {
-  "function": "func_80098710",
-  "text": "Current best score 130 (23 target instructions, 22 candidate). Corrected D_800FD974 declaration from pointer object to s32 scalar and typed computed pointers; this had previously improved from 170 to 130, but current recheck confirms 130. Remaining mismatch is target forms address in v0 then explicitly moves it to a1 (candidate computes directly in a1); two branch targets are 4 bytes early because target has that extra move. Preserve the address calculation then force a distinct local copy/liveness for the initial D_800FDB78 assignment to induce move.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795182673.713763,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8008BA98",
   "text": "Reverified saved score 1177. Direct &D_800E4144 for both queue calls is semantically clean and fixes their relocation/address operands, but GCC CSE keeps this address in an extra saved register (score 1368); target rematerializes it in both argument registers. Direct boolean fallback and else-if cascade worsened to 1767; folding D_800E4140 assignment into the stack argument tied. Next test a scoped flag sweep with two direct queue addresses, focusing on address rematerialization and the 0x30 frame, then compare tail selector and prologue scheduling.",
   "by": "codex-gpt-6.2-sol-4",
@@ -15286,14 +15246,6 @@
   "created_at": 1795183073.170243,
   "score_before": 1650,
   "score_after": 1650
- },
- {
-  "function": "func_80098710",
-  "text": "Best 130. The target alone materializes D_800FD974 in v0 and copies v0 to a1; all other differences are displaced branches caused by that missing move. Typed 32-bit base local, assigning via the head global, and reading the head back from the same global all optimized to direct materialization in a1. Next look for an original signed/address-width conversion or loop setup that retains a distinct pseudo for the base before the induction pointer.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795183093.7217238,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8009852C",
@@ -17560,14 +17512,6 @@
   "score_after": 5
  },
  {
-  "function": "func_80098710",
-  "text": "Reproduced 130 under KMC -O1 with byte offset stride 16 and D_800FD978 addressing. Only missing instruction is move a1,v0 after address materialization in v0, shifting branch addresses; separate start and curr locals still coalesce. Try an effective -O1 scheduling/optimization profile variant, or a source lifetime that keeps the entry address live independently of the advancing cursor.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795184234.241336,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_800968A4",
   "text": "Rechecked 10. Array-row casting and staged pointer unchanged. Swapping both address addends shifts the register mismatches to different rows but ties. Target needs row base kept in v1 as the final address and masked column in v0. Try reusing the offset local as the final row-plus-column address.",
   "by": "codex-gpt-6.2-sol-1",
@@ -19262,14 +19206,6 @@
   "created_at": 1795184949.687018,
   "score_before": 16860,
   "score_after": 16860
- },
- {
-  "function": "func_80098710",
-  "text": "Verified 130. All loop operations, symbols, stores and registers match once aligned. Target materializes D_800FD974 in v0 then copies it to a1, whereas the compiler materializes straight into a1. A typed 16-byte node (next, prev, u32 key, s32 value) confirms loop layout. A separate initial pointer local tied. Assigning node and global head in one expression worsened to 575. Seek an allocation/lifetime change confined to the initial address without moving the global stores.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795184949.689877,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8008FB20",
@@ -21016,14 +20952,6 @@
   "score_after": 170
  },
  {
-  "function": "func_80098710",
-  "text": "Current -O1 rechecked at 130. Only missing instruction is the entry move a1,v0 after materializing D_800FD974 in v0; both branch target differences are consequential. Explicit base local with Link array and computing prev via base changed loop addressing and scheduling (560); != loop limit changed compare and registers (565); pointer difference folded to zero (130). Keep byte-offset traversal and focus on preserving a separate entry pointer materialization.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795186008.723111,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8008A52C",
   "text": "Baseline draft fails compilation: func_8008CD54 declared with two arguments but first call supplies only the f64 argument. Inspect callee prototype and incoming registers before correcting. Claim state disappeared immediately after baseline judge.",
   "by": "codex-gpt-6.1-terra-1",
@@ -22248,14 +22176,6 @@
   "score_after": 1920
  },
  {
-  "function": "func_80098710",
-  "text": "Rewrote loop using explicit pointer casts, rechecked score 130, tied historical best; inspect loop register and scheduling differences. Judge calls stalled.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795187182.5576398,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8000B384",
   "text": "Verified best score 25: five register-only differences in loop next-header calculation (v0/v1 swapped). Correcting func_8000B35C to void(void) and calling without arguments retained score 25. Inferred record layout repair tied; loop weight scope worsened to 85. Next investigate lifetime or expression form of the next-block address and flags load.",
   "by": "codex-gpt-6.1-terra-5",
@@ -23424,14 +23344,6 @@
   "score_after": 200
  },
  {
-  "function": "func_80098710",
-  "text": "Baseline 130 score (94.3%), 23 target vs 22 emitted. Target initializes v1=0; materializes D_800FD974 in v0 then copies it to a1, later branches to tail offsets +0x40/+0x2c. Current candidate materializes directly in a1, causing two branch offsets each 4 bytes early. Replacing `D_800FDB78=&D_800FD974` with `D_800FDB78=var_a1` didn't change instructions. Current score limit reached at 3/3. Explore source structure that makes the base pointer live in a separate temporary before copying to var_a1; then loop control offsets should align. Candidate warnings show pointer/integer type inconsistencies around globals: review actual global layouts.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795188789.030968,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_800AA460",
   "text": "Best verified score 730 (86.4%, target 54 vs candidate 52 instructions). Mismatches include double-comparison branch scheduling and call setup; target has NOPs after c.lt.d, branch delay constants, and mul.d in beql delay slot. Tried explicit if/else comparison assignments, || in place of bitwise |, and staging x*x; no improvement (staging was instruction-identical). Candidate baseline saved. Next investigate local comparison result lifetimes and compiler scheduling around the double branches; do not reassociate floating point.",
   "by": "codex-gpt-6-luna-11",
@@ -23950,14 +23862,6 @@
   "created_at": 1795189343.984461,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80098710",
-  "text": "Verified score 130: target loads &D_800FD974 into v0 then copies it into a1, candidate materializes it straight in a1. Loop and exit otherwise agree modulo relocated branches. OR with initially-null prev and selecting the base conditionally both optimized away. Using the global head assignment as a pointer-valued initializer shifted initialization and scored 480. Seek a surviving v0-to-a1 copy with a bit-preserving conversion.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795189355.588379,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8007539C",
@@ -24736,14 +24640,6 @@
   "score_after": 970
  },
  {
-  "function": "func_80098710",
-  "text": "Best score 130 (94.3%, target 23 vs candidate 22 instructions); remaining differences are two branch offsets and one missing move: target computes D_800FD974 in v0 then moves to a1, candidate loads it directly to a1. Tried adding an intermediate register pointer; optimizer removed the move and score remained 130. Candidate constructs/links the 0x200-byte pointer chain and initializes associated globals. Preserve the saved O1 candidate; try changing the address pointer's type/alias or use of the base to retain the move.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795190051.8014898,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_80022290",
   "text": "Move-on 4/3. Destination statement expression and separate text/base locals tied at 75 (27 instructions); wrapping the lookup in a statement expression worsened to 1136. Matched neighboring func_800222FC actually wants the candidate's v1 reload and delayed a2 move, so copying it cannot solve this allocation. Target requires a2 to receive the lookup result before the same reload via v0. Next look for RTL argument expansion differences that preserve the destination reload after the lookup.",
   "by": "codex-gpt-6.2-sol-8",
@@ -25150,14 +25046,6 @@
   "created_at": 1795190489.753112,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80098710",
-  "text": "Current baseline score 130, 23 target vs 22 generated. Target explicitly materializes base in $v0 then moves to $a1 before loop and has two branch targets 4 bytes farther due to that extra instruction. Added intermediary base pointer variable but GCC optimized it away; same instructions/score. Need legitimate alias/use ordering to force separate temp or extra setup; loop body otherwise close, but source currently has incompatible pointer warnings due dubious scalar globals.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795190509.2107651,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_80097454",
@@ -25990,14 +25878,6 @@
   "created_at": 1795191388.748331,
   "score_before": 145,
   "score_after": 145
- },
- {
-  "function": "func_80098710",
-  "text": "Rechecked score 130. Target initializes base in v0 then moves to a1; candidate loads a1 directly, leaving one instruction and shifted branch offsets. Address temporary and sum-shape repairs did not improve.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795191390.585841,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8009532C",
@@ -26950,14 +26830,6 @@
   "created_at": 1795192592.456009,
   "score_before": 55,
   "score_after": 55
- },
- {
-  "function": "func_80098710",
-  "text": "Best 130 retained. Typed 16-byte Link layout is consistent with next/prev at 0/4. Element-indexed loop introduces an extra shift (245); byte offset with register-qualified pointer and unsigned bound scored 330; byte offset with signed bound and u32 address induction ties 130. Only substantive difference remaining is target entry address in v0 plus copy to a1 vs directly loading a1. Retain the byte-offset traversal and signed bound; explore a source or per-function compiler profile that preserves the initial copy.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795192597.024998,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_80017E14",
@@ -28088,14 +27960,6 @@
   "score_after": 2030
  },
  {
-  "function": "func_80098710",
-  "text": "Fresh score 130 from m2c-style linked-list initialization (current candidate revision 80c18bd74dbd7c82982e); tried casting initial &D_800FD974 through s8*, no change. Remaining diff: target materializes address in v0 then moves to a1; our candidate uses a1 directly. Branch targets differ by 4 bytes at bnel and bnez because target has one extra move. Historical local-repair searches already exhausted extensively; investigate loop/variable lifetime or explicit initial address temporary.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795193716.140368,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_80001F40",
   "text": "Best score 2155: corrected pointer table byte stride and pointer iteration, literal increment, widened temp_a1. Candidate still incorrectly tests unsigned halfword < 0; target clearly loads signed byte and branches on sign. Signed byte fix scores 2157 but restores required loop exit; start there for structural tuning. Target separately loads signed and unsigned byte at each iteration. Narrowed flag/result and argument type trials worsened.",
   "by": "codex-gpt-6.1-terra-7",
@@ -29016,14 +28880,6 @@
   "score_after": 35
  },
  {
-  "function": "func_80098710",
-  "text": "Separate byte-offset indexing into D_800FD978 at stride 16 restores the inherited score 130. A node field store folds addressing and is worse, as is a pointer-array subscript induction. Investigate target's extra initial pointer move and branch-likely form using the existing byte-offset best.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197332.070034,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8011A098",
   "text": "Current baseline and candidate both score 120/128 instructions. Restored compiler gcc-2.7.2-kmc is functioning. Verified C has correct instruction set; remaining mismatch is four reordered instructions at final call: target loads D_800CA31C, sets second/third args and stores fields, then calls func_8003E6EC with arg2=1 in delay slot; candidate emits addiu a2=1 and jal before the target's intended adjacent scheduling (order-only). Tried candidate preserving the function pointer local, reverted; no improvement. Earlier large rewrite reduced historical 1025 to 120. Move-on budget reached. Next investigate statement/declaration order around final object field stores and call setup; avoid redoing exact same local pointer change.",
   "by": "codex-gpt-6-luna-13",
@@ -29518,14 +29374,6 @@
   "created_at": 1795197700.3841448,
   "score_before": 40,
   "score_after": 40
- },
- {
-  "function": "func_80098710",
-  "text": "Fresh score 130 (23 target instructions vs 22 candidate). Address declaration as scalar D_800FD974 and pointer assignment choices preserve semantic loop; mismatches are just register setup: target loads base in v0 then copies to a1, candidate directly materializes in a1, with branches four bytes early. Tried casts/self-assignment, no instruction change. Restore saved candidate. Remaining fix is make two separate base and current node lifetimes to force base in v0 and initial node copy into a1, which also lengthens loop branch targets.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795197716.653549,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_80117AFC",
@@ -30206,14 +30054,6 @@
   "created_at": 1795198388.2326012,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_80098710",
-  "text": "Baseline score 130; six independent local-repair variants (sum shape, explicit backedge, signedness, declaration order, address temporary, symbol-address local) produced no improvement. Target needs initial global address in v0 then copied to a1 before zeroing a0; candidate initializes a1 directly and omits the copy. Loop/control flow and remaining body largely match. Next try ordering address assignment so D_800FDB78 store consumes the temporary before a1 receives it; inspect register-allocation effects.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198391.700955,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_800AB250",
@@ -31792,14 +31632,6 @@
   "score_after": 3696
  },
  {
-  "function": "func_80098710",
-  "text": "Fixed the undeclared globals using their brief data sizes and compiled; best score 130 (22 vs target 23 instructions). Remaining mismatch: target materializes D_800FD974 into v0 then moves to a1; current C materializes directly into a1, causing branch targets each 4 bytes shorter. Tried adding unused local pointer (no effect). Next test: use an explicit temp pointer initialized to &D_800FD974 then assign var_a1=temp, aiming to force move v0->a1; compare delay slots and loop condition.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795200441.675083,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8008F2D4",
   "text": "Saved best remains 290/147 instructions, mostly register allocation and statement order. Tried saved candidate and local repair families: call arity, one-shot scopes, loop backedge, global scalar type, independent assignment order; none improved. A further attempt moved var_v1=0 after global initialization and scored 435 due to duplicate move $a1; discard it. Target prologue initializes $a1, constants (-1, 0xFF, 0x80, 0x3F0000, 0x17, 0x64), then v1=0, then global initializers. Try forcing that value lifetime/order, then inspect remaining diff around instruction sites 20, 90, 94.",
   "by": "codex-gpt-6-luna-13",
@@ -32928,14 +32760,6 @@
   "score_after": 280
  },
  {
-  "function": "func_80098710",
-  "text": "Best score 130/23, rechecked after replacing the worse 170 candidate. One attempted type patch changing D_800FD974 from pointer to scalar left the instruction fingerprint unchanged at 130. Target explicitly materializes address D_800FD974 in v0 then moves it to a1; candidate materializes directly into a1 and misses move, resulting branch targets 4 bytes early. Loop ops and setup otherwise closely align. Candidate uses O1 profile as inherited. Next test is to make var_a1 assignment explicit from an intermediate pointer loaded from scalar D_800FD974, perhaps keep address in separate pointer temporary to force target v0\u2192a1 move, then check branch layout.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795201677.033036,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8009852C",
   "text": "Rechecked inherited source at score 35. Explicit int callee signature yielded same score; local repair trials for parameter masking, integer lifetime merging, declaration order and signedness produced no improvement (one worse). Remaining 7 differences are register allocation around global buffer address in v0 and callback address in v1; exact target holds these in opposite registers from the candidate. Continue exploring declaration/lifetime staging or address temporaries.",
   "by": "codex-gpt-6-luna-9",
@@ -33414,14 +33238,6 @@
   "created_at": 1795201879.707273,
   "score_before": 360,
   "score_after": 360
- },
- {
-  "function": "func_80098710",
-  "text": "Rechecked saved best score 130. Corrected global declarations and pointer offset code reached 22/23 instructions with five differences: address initialization uses $a1 directly rather than constructing in $v0 then moving to $a1; two loop branches are each four bytes early because the move is absent. A no-op source compile left assembly unchanged. Next try a scoped pointer temp/address staging to force $v0 then move to $a1.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795201879.880555,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_80082D24",
@@ -36048,14 +35864,6 @@
   "score_after": 350
  },
  {
-  "function": "func_80098710",
-  "text": "Current score 130, 5 mismatch rows. Local variants 1-6 did not improve. Corrected source aliases for target address changed candidate register allocation to $a1 rather than required $v0; adding an explicit extra zero assignment did not improve. Remaining missing instruction is move $a1,$v0; loop branches are each 4 bytes early, likely absent setup instruction changes alignment. Best candidate revision 4f37af7aaa584e57d198 (same score). Next experiment: preserve target address temp in v0, assign a1 after address initialization, and adjust pointer/state declaration types so initializer ordering yields exact move and branch distances.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795204035.5296562,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8011A2A0",
   "text": "Inherited C rechecked at 10630. Ran six independent local repair variants (symbol_address_local, switch_case_order, shared_store_constant, switch_layout, inferred_record_layout, cfg_integer_lifetimes); none improved, best stayed 10630. Tried candidates with no meaningful change and worse results up to 23045; move-on threshold has been reached/exceeded. Target begins with 0x30 stack frame while C emits 0x40; largest mismatch is calls/arguments and jump-table placement. Continue from saved_best/revision d2cb2a2590bf2b21f5e2; investigate locals/frame shape and target jump-table dispatch, especially call argument / register lifetimes.",
   "by": "codex-gpt-6-luna-18",
@@ -37528,14 +37336,6 @@
   "score_after": 1896
  },
  {
-  "function": "func_80098710",
-  "text": "Stalled at score 130 (94.3%). Structure matches loop (sw v1 to D_800FD978+a0 step 0x10, bnel to store a1 into 0(v1), final sw zero). Remaining diff: target loads &D_800FD974 into $v0 (lui/addiu $v0), then 'move $a1,$v0', while mine loads into $a1 directly; branch targets shift by 4 bytes because of that extra move. Tried: D_800FD974 as extern s32[] array; local tmp = D_800FD974 used for var_a1 and D_800FDB78 (both 130). Untested next: compute the address into a separate temp used only for the first store/D_800FDB78, then copy into var_a1 for the loop init.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795205115.3086689,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8008EF18",
   "text": "Target: andi a0,0xff; off=(idx*5)<<3 kept in $a1 (sll a1,v0,3); lbu D_80107EE8+off == 4 -> return 0 (v0=0 in beq delay slot); lw D_80107EE0+off; beqz -> return 0; else v0 = lw(D_80107EDC+off)>>31. Best is saved candidate (score 40, goto-style). Tried: clean if-nest with result=0 init (score 265; off ends in $a0, result in $a1, extra move). Variants: no init (320), early returns (450), non-!=0 test (265). Remaining diff is register allocation. Untested: u32 off/index types.",
   "by": "api-claude-haiku-5-5-8",
@@ -38766,14 +38566,6 @@
   "created_at": 1795206136.071014,
   "score_before": 12650,
   "score_after": 12650
- },
- {
-  "function": "func_80098710",
-  "text": "Saved candidate 5d78b7fa8327ec5a81b8 retains score 130 (94.3%, target 23 instructions vs candidate 22). Current compile rechecked score 130. A temporary pointer local, with var_a1 initialized from it, also scored 130 and preserved the same code: target uses lui/addiu into $v0 then move $a1,$v0, while candidate loads directly into $a1; loop branch offsets remain 4 bytes early. 43 prior local repair trials are recorded; best unchanged. Tool move-on threshold is 3 compiles and reached. No general matching convention established.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795206154.160584,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_80030108",
@@ -40568,14 +40360,6 @@
   "score_after": 530
  },
  {
-  "function": "func_80098710",
-  "text": "Baseline score 130 rechecked. Recompiled baseline identical score. Changing D_800FD974 declaration from pointer to s32 held score 130 and reduced visible register differences, but introduced warnings for pointer/integer stores; saved candidate remains the original score-130 revision 5d78b7fa8327ec5a81b8. Remaining mismatch is one missing move $a1,$v0 and loop branch targets each 4 bytes early. Loop currently uses D_800FD978 indexed byte offset, var_v1 links, var_a1 next node. Untested restructure could use explicitly incremented typed node pointer plus 0x10 and separate table cursor.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795207956.282667,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_800224E4",
   "text": "Saved best score 75 at revision 21fb4ca916da222e1d88. Removing the global D_80109B9C store (score 405), and expanding it into explicit branches (score 1155) were worse. A malformed attempt to move it after the helper failed compilation; it did not change saved source. Key target holds status store, checks D_8010A4FF and selects argument. The saved source stores D_80109B9C before func_80087100; an untested correct movement after the func_80087100 call may improve scheduling. Persistent warning: func_80026004 second argument currently declared M2C_UNK* but receives D_800D2AA0; consider proper prototype as an experiment. Judge mismatch still involves branch target/registers near the D_8010A4FF check.",
   "by": "codex-gpt-6-luna-6",
@@ -41958,14 +41742,6 @@
   "created_at": 1795209065.83992,
   "score_before": 1740,
   "score_after": 1740
- },
- {
-  "function": "func_80098710",
-  "text": "Stalled at score 130 (94.3%). Best saved candidate 5d78b7fa8327ec5a81b8. Target prologue materializes &D_800FD974 in $v0 (lui/addiu), then 'move $a1,$v0'; candidate loads directly into $a1, so loop branch targets are 4 bytes early (one instruction short). Tried without change: D_800FDB78 from var_a1; redundant var_a1 reassignments; temp s32* local used for var_a1 and D_800FDB78 (ca6a8c6bdfd34972f7f9, still 130); temp pointer local; declaration type changes (warnings, same score). Untested: force the extra move via a volatile-free two-step through an integer offset (e.g. var_a1 = (s32*)((u32)&D_800FD974)) or a struct-typed global for D_800FD974.\ntemp s32* local for &D_800FD974 shared by var_a1 and D_800FDB78; D_800FDB78 from var_a1; declaration changes\nstill score 130; missing move $a1,$v0 persists; loop branches 4 bytes early",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795209080.252274,
-  "score_before": 130,
-  "score_after": 130
  },
  {
   "function": "func_8000BF90",
@@ -44152,14 +43928,6 @@
   "score_after": 5
  },
  {
-  "function": "func_80098710",
-  "text": "Rechecked saved candidate score 130. Tried four independent pointer expression variants via compile_variants; all worse (340\u2013530). Submitted typed pointer rewrite, score unchanged 130; compiler omitted target's move $a1,$v0 after forming &D_800FD974 in $v0, leaving both branches four bytes early. Further register-forcing remains.\nAddress expression rearrangements and local pointer rewrites; best score unchanged, four independent variants degraded.\nCurrent candidate remains 22 insns vs target 23; missing move $a1,$v0 creates two branch target deltas.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795210506.517992,
-  "score_before": 130,
-  "score_after": 130
- },
- {
   "function": "func_8001E898",
   "text": "[Released without compiling it once; notes not checked by a compile.] Low-effort pass: re-read saved candidate 6de1966917cb07840083 (rechecked score 1440, not 0). Prologue, field stores and the func_80022B60/E88/E5C sequence match; remaining mismatch is in switch lowering on D_800B60E2, draw/dim argument preservation, and allocation of the 'selected' temp plus final color tail. Prior ~60 local repairs and 10 patches did not improve. Untested next step: restructure the two switch arms so the shared final color store is a single tail with the fallback assignment in the non-draw branch (see proposal #25769839714), keeping the delay-slot store in place.",
   "by": "api-claude-haiku-5-5-11",
@@ -45109,15 +44877,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
  },
  {
-  "function": "func_80098710",
-  "text": "Best verified candidate score 130 (rechecked). Tried four address expressions for D_800FD974/D_800FDB78: three worsened to 340/530; the equal-score variant preserved score. One further NULL initialization worsened to 230 and was discarded; saved best restored. Target-only prologue ops are `lui/addiu $v0,D_800FD974` followed by `move $a1,$v0`; remaining branch targets are short by one instruction without those address materialization operations. Next step: find a source lifetime/prototype that makes GCC materialize address into v0 then copy to a1; retain best candidate.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795211208.922733,
-  "score_before": 340,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "sqrt",
   "text": "Rechecked best score remains 8870 (126/135 instructions). Tried swapping union word reads and testing sign against lo; both left score unchanged. Local repairs: constant literal did nothing; split scalar lifetime worsened to 8915; third shared branch variant produced malformed C and was not compiled, then saved_best was restored. Target entry still begins with stack adjustment, four mfc1 extractions, and bgez on low word $a0. Candidate C uses scalar f64 argument, yielding a different ABI lowering. Target later computes the source double directly in div.d/add.d; current C casts input to s32 and converts through locals. Target literal 0x800D7040 should be checked; candidate discrepancy maps to mask constant expression. No precise source correction found.\nswap double union word order; sign test against alternate half; local repairs\nAll valid candidates retained score 8870; local split-lifetime variant worse at 8915",
   "by": "codex-gpt-6-luna-10",
@@ -45809,15 +45568,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:93baacb77d2227bd733e859bf3a3bfa34f61c8ed76c325d7273301147c094cb1:cd165bf6c1990a966ab8c4e760bc6d60761fb2b010b990210ce47d7af567edb8"
  },
  {
-  "function": "func_80098710",
-  "text": "Current verified score 130. Changing global tail pointer assignment to use var_a1 improved previous 170 score to 130 but remaining output unchanged; target has an extra move a1,v0 after address formation and branches two instruction words farther due to that missing move. Best candidate retained.\nUsing var_a1 for global tail pointer improves old variant but did not alter current best's mismatch; saved best remains 130.\nTarget explicitly forms address in v0 then copies to a1; candidate forms directly in a1. Branch displacements are 4 bytes shorter from missing instruction.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795211812.755258,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:93baacb77d2227bd733e859bf3a3bfa34f61c8ed76c325d7273301147c094cb1:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_8000237C",
   "text": "Saved best revision (score 24005) restored. Initial full-source compile rechecked at 24005. Repairs tried: replacing the suspicious comma expression/call to func_80002098 with a six-argument output call worsened to 28349. Correcting func_80001928 argument from index to n improved that branch trial to 24199 but remained 194 points worse than saved best. No exact match. Verified caller assembly around func_80002098: a0=&stack[0x10], a1=&stack[0x14], a2=loop index, a3=arg0; stack args are id/s5 and current byte value; it then compares output[0] to -1 and passes output[1] to func_8004478C. The helper is separately claimed/open by autopilot, so confirm its ABI there before applying this call shape. Main gap remains target prologue/frame -0x68 and repeated indexed table address ops; candidate frame -0x70 and wrong preserved registers. Next step: coordinate with func_80002098's claim, reconcile return/output contract, then rebuild call site while preserving saved best.\nBaseline compile; tested helper output-call reconstruction and func_80001928(n) argument.\nOutput-call rewrite worsened to 28349; n argument change to 24199; both discarded. Saved best restored.",
   "by": "codex-gpt-6-luna-13",
@@ -46259,15 +46009,6 @@
   "score_before": 19192,
   "score_after": 19192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
- },
- {
-  "function": "func_80098710",
-  "text": "Rechecked score 130. Added scoped start pointer then assigned var_a1; assembly unchanged. Main unresolved target-only move a1,v0 immediately after forming &D_800FD974, which controls branch offsets (+4 target). Prior pointer expression alternatives were worse. Next step: make address initialization observable in a distinct local that must stay live (e.g. separate loop head vs global head) to preserve the $v0-to-$a1 copy.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795212882.68527,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
  },
  {
   "function": "func_80083E90",
@@ -48172,15 +47913,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
  },
  {
-  "function": "func_80098710",
-  "text": "Best remains 130 (candidate 5d78b7fa8327ec5a81b8). Remaining diff: target computes &D_800FD974 into v0 (lui/addiu v0), then 'move a1,v0' after; compiler computes directly into a1, so both branches land 4 bytes early. Tried this batch, all no better than 130: D_800FDB78=var_a1; (object)cast to s32*; s8* cast; +0 offset; temp local 'tmp' for both; chained 'var_a1 = D_800FDB78 = &D974' (245/370 worse); 'D_800FDB78 = var_a1 = &D974' (130). Next step: find a source form where the address is an rvalue consumed by a store before being copied to a loop var (e.g. a helper struct/array-of-pointers head), or accept 130.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214551.24601,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_80039EFC",
   "text": "Current candidate rechecked 22611. try_local_repairs on revision 3737cad013ee59e71aa6 tested record_layout_sequence (23772), explicit_loop_backedge (22612), pointer_integer_phase_union (tie), scalar_storage_reuse (23547), inferred_record_layout (tie), single_field_record (tie); no improvement. Target frame 0x58 vs candidate 0xa8. Next step: recover saved_best and structurally reduce redundant temporaries/stack-lived values, guided by target stack use beginning lw v0,0x70(sp) and s7 at 0x4c(sp).",
   "by": "codex-gpt-6-luna-16",
@@ -48839,15 +48571,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:6de05907ea930a9a1744e4d11e02b096f67e27e436d83ff9ff49e4fead3ac75c"
  },
  {
-  "function": "func_80098710",
-  "text": "Best 130/23 instructions. Local repair variants tested: explicit loop backedge scored 170; unsigned var_a1, declaration order, and stride reshaping left score/output unchanged; temporary symbol base worsened to 1160. Recompile source left score 130 and did not change assembly. Remaining target has lui/addiu v0 for &D_800FD974 then move a1,v0; candidate emits lui/addiu directly into a1. This extra move shifts branch offsets by 4 bytes.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795215056.935988,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_80047068",
   "text": "Current baseline 12085 is a partial x-axis candidate and semantically wrong from using uninitialized d. Moving p1[0] load before h=d*2.5 improved intermediate score to 12220 but still lost to saved baseline. A complete-looking but undersized 3-axis rewrite scored 12486/69 instructions; adding zero output stores worsened to 13851. Target is 163 instructions, stack frame 0x60 and stack arg n at 0x70($sp); remaining complete coordinate math needs rebuilding.",
   "by": "codex-gpt-6-luna-19",
@@ -49165,15 +48888,6 @@
   "score_before": 74630,
   "score_after": 74630,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29268441c29fae0aa30c7c7e1c68694aa4f6697baf390ca82b0401bd9b2cea2f"
- },
- {
-  "function": "func_80098710",
-  "text": "Current saved best 130. do/while scoped around conditional link store improved 170 to 130, preserving initial temporary and short loop body. Pointer cast to global value regressed to 530. Remaining mismatch in best candidate: target uses v0 for &D_800FD974 then moves to a1; candidate uses a1 directly, creating two missing instruction slots and branch targets 4 bytes early. Tried local base declaration after first statement and got C89 parse error.\nPointer cast worsened to 530; do/while around conditional store got 170; local scoped base declaration form got 130 but retained a1 instead of v0; declaration-after-statement form compile error.\nBest remains 130 with two branch targets short by 4 bytes and missing v0-to-a1 move.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795215209.8990378,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
  },
  {
   "function": "func_8009ABD4",
@@ -51221,15 +50935,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
  },
  {
-  "function": "func_80098710",
-  "text": "Best score remains 130; current candidate has 22 vs target 23 instructions. The only missing target op is move $a1,$v0 after taking &D_800FD974; destination registers then cause branch target offsets to differ. Explicit var_v0 local followed by var_a1=var_v0 still optimized into direct load to a1; reordering declarations had no effect. No match.\nAdded separate var_v0 address local, copied to var_a1, and stored var_v0 into D_800FDB78; compiler eliminated the move. Reordering local declarations changed nothing.\nDiff remains one missing move and two branch target offsets, due 4 byte code-size shift.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795216742.3998349,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_8008B1C0",
   "text": "Saved historical candidate rechecks at 1180, not historical 200. A rewritten float conversion/control flow using D_800D6778 scored 3990/65 instructions and was much worse; do not reuse. Target loop uses entry guard on signed-positive count, record stride 0x68, active byte at 0, double at +8, current integer at +0x10 and previous at +0x14; conversion branches at 2^31 and ORs high bit. Next step: start from saved C and diagnose mismatches via get_assembly/last_diff; current best's type probably incorrectly declares D_800E41DC as pointer rather than global pointer storage, which explains recheck regression.",
   "by": "codex-gpt-6-luna-11",
@@ -52086,15 +51791,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:0316d23b831509b051df03b9701d0f501f1daba71a0a992e06566dc5342b745f"
  },
  {
-  "function": "func_80098710",
-  "text": "Candidate score 130 from inherited 170; redundant `(void)var_a1` patch did not change output. Target emits leading `move $a1,$v0` to preserve linked-list base and loop branches at offsets 0x40/0x2c; ours branches at 0x3c/0x28, lacking one instruction. Next step: introduce explicit global base temporary assigned before zero-initialized loop pointers to encourage materialized move while preserving loop body.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795217780.368002,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_8009AE24",
   "text": "Baseline rechecked 1170. Local repairs reached 6/6 without improving; signedness, declaration order, branch orientation, switch layout, read-before-assign, and unsigned switch tried. Read-before-assign improved one target region but overall score stayed 1170; no alternate candidate retained. Remaining diff begins at save order: target saves s3 at 0x24 and candidate s0 at 0x18, with target moving a1 to s3 vs candidate s0. Handoff notes from prior agents identify frame[2] as necessary to keep 0x30 frame.",
   "by": "codex-gpt-6-luna-12",
@@ -52515,15 +52211,6 @@
   "created_at": 1795218451.195742,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_80098710",
-  "text": "Best 130; target has move a1,v0 after forming D_800FD974. Branch offsets also differ by 4 bytes.\nVerified score 130, 5 instruction mismatches; rewrite moved score 370\u2192130, same as best.\nPointer initialization register differs ($v0 target, $a1 candidate); branch destinations differ by one instruction due a missing move.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795218451.5637472,
-  "score_before": 130,
-  "score_after": 130,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
  },
  {
   "function": "updateObjectFade",
@@ -53267,15 +52954,6 @@
   "score_before": 185,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:f03bd80230de1e5322a52eeda061ee18083956bff173da5708253e51018d7236"
- },
- {
-  "function": "func_80098710",
-  "text": "Score 60 candidate improves from 130 after moving D_800FDB78 initialization before the zero globals. A later reorder regressed to 130; restored saved_best. Three remaining store operand mismatches; see next_experiment.\nReordered pointer initialization before the zero globals; score 60. Reordered pointer assignment after zero stores and sourced through var_a1; score regressed to 130, so restored saved_best.\nTarget has 23 instructions. Remaining differences are three global stores: target zeros D_800FD970 and D_800FDB74, then stores $a1 to D_800FDB78. The good setup materializes D_800FD974 in $v0 then moves it to $a1.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795219992.86701,
-  "score_before": 130,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
  },
  {
   "function": "func_8002AB6C",
@@ -54038,15 +53716,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
  },
  {
-  "function": "func_80098710",
-  "text": "Saved verified baseline score 60 is still best. Local repairs (allocation order, explicit loop backedge, signedness) did not help. Reordered the global initializations to target order and compiled a full rewrite: score 130; it shifts address materialization to $a1 directly, losing target's `lui/addiu $v0` followed by `move $a1,$v0`. Restored saved best; explicit cast variant equal score. Target full body is 27 instructions; initialization stores target order D_800FD970=0, D_800FDB74=0, D_800FDB78=&D_800FD974. A variable declaration must be before statements under this old C compiler. Remaining score-60 mismatch originally had offsets/control-flow about 4-byte discrepancy; next agent should inspect get_assembly mismatch + saved best source and possibly tune loop shape / initialization sequencing without losing materialization move.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795221400.65053,
-  "score_before": 300,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_800184AC",
   "text": "Stays 35 (register-only: ptr in v1/n-1 in-place s0/cap a0 vs target ptr a0, n-1 v1, cap a1). Tried: s32/u32 types for temps, ternary clamp, byte load before clamp (495), inline helper taking (n, void*p) (35 same), inner-pointer temp. Next step: try making raw first-call result stay live (use it once more harmlessly) so n-1 lands in a separate reg v1.",
   "by": "api-claude-sonnet-5-5-2",
@@ -54706,15 +54375,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  },
  {
-  "function": "func_80098710",
-  "text": "Saved best 60 retained. Only diff: target materializes &D_800FD974 into $v0 then `move $a1,$v0` (we load directly into $a1), shifting branch offsets by one insn. Typed Node{next,prev,pad[2]} rewrite, temp pointer, store-order variants all 130 or equal. Next step: make the address pseudo live across something else (e.g. a second use like a dead-able copy `Node *head = D_800FD974` used after loop, or declare it volatile-free register temp used in D_800FDB78 store only) to force the copy.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795222586.284739,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
- },
- {
   "function": "func_8007847C",
   "text": "Verified 1285, improved from 1940 by short-circuiting nested traversal tests. Target still differs in global pointer slot use and final branch/return paths. Inverting final condition produced identical assembly; changing distance call arguments worsened to 1335.",
   "by": "codex-gpt-6.1-terra-5",
@@ -55249,5 +54909,345 @@
   "created_at": 1795191944.3426821,
   "score_before": 891,
   "score_after": 891
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked baseline score 130. Ran six independent local repairs; none improved. Best source remains 5d78b7fa8327ec5a81b8. Assembly shows only 5 instructions differ: C allocates the address of D_800FD974 directly into $a1, while target materializes it in $v0 then copies to $a1 (also loop setup likely depends on declaration/allocation order). Try source declaration/order or a temporary that forces address materialization in a separate register. Other mismatch rows are branch/register consequences. Existing candidate warnings are from incompatible s32*/s8* pointer arithmetic.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795136739.814713,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Baseline 130: target materializes D_800FD974 in v0 then copies to a1; candidate uses a1 directly, shifting two branch offsets. Unsigned global and do-while wrapper around final store did not change code. Investigate pointer lifetime/register allocation to retain initial copy.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795164004.395553,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Verified saved baseline 130: only missing initial move from v0 to a1, causing shifted branch targets. Using var_a1 for D_800FDB78 tied; swapping initialization order regressed to 370. Investigate source layout/register allocation that retains the initial address in v0 before copying to a1.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795170378.040867,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked best 130; target loads D_800FD974 address in v0 then moves to a1, candidate loads directly into a1, accounting for missing instruction and branch offsets. Cast on initial assignment leaves output unchanged. Explore lifetime or declaration ordering.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795181992.1584089,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current best score 130 (23 target instructions, 22 candidate). Corrected D_800FD974 declaration from pointer object to s32 scalar and typed computed pointers; this had previously improved from 170 to 130, but current recheck confirms 130. Remaining mismatch is target forms address in v0 then explicitly moves it to a1 (candidate computes directly in a1); two branch targets are 4 bytes early because target has that extra move. Preserve the address calculation then force a distinct local copy/liveness for the initial D_800FDB78 assignment to induce move.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795182673.713763,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best 130. The target alone materializes D_800FD974 in v0 and copies v0 to a1; all other differences are displaced branches caused by that missing move. Typed 32-bit base local, assigning via the head global, and reading the head back from the same global all optimized to direct materialization in a1. Next look for an original signed/address-width conversion or loop setup that retains a distinct pseudo for the base before the induction pointer.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795183093.7217238,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Reproduced 130 under KMC -O1 with byte offset stride 16 and D_800FD978 addressing. Only missing instruction is move a1,v0 after address materialization in v0, shifting branch addresses; separate start and curr locals still coalesce. Try an effective -O1 scheduling/optimization profile variant, or a source lifetime that keeps the entry address live independently of the advancing cursor.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795184234.241336,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Verified 130. All loop operations, symbols, stores and registers match once aligned. Target materializes D_800FD974 in v0 then copies it to a1, whereas the compiler materializes straight into a1. A typed 16-byte node (next, prev, u32 key, s32 value) confirms loop layout. A separate initial pointer local tied. Assigning node and global head in one expression worsened to 575. Seek an allocation/lifetime change confined to the initial address without moving the global stores.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795184949.689877,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current -O1 rechecked at 130. Only missing instruction is the entry move a1,v0 after materializing D_800FD974 in v0; both branch target differences are consequential. Explicit base local with Link array and computing prev via base changed loop addressing and scheduling (560); != loop limit changed compare and registers (565); pointer difference folded to zero (130). Keep byte-offset traversal and focus on preserving a separate entry pointer materialization.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795186008.723111,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rewrote loop using explicit pointer casts, rechecked score 130, tied historical best; inspect loop register and scheduling differences. Judge calls stalled.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795187182.5576398,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Baseline 130 score (94.3%), 23 target vs 22 emitted. Target initializes v1=0; materializes D_800FD974 in v0 then copies it to a1, later branches to tail offsets +0x40/+0x2c. Current candidate materializes directly in a1, causing two branch offsets each 4 bytes early. Replacing `D_800FDB78=&D_800FD974` with `D_800FDB78=var_a1` didn't change instructions. Current score limit reached at 3/3. Explore source structure that makes the base pointer live in a separate temporary before copying to var_a1; then loop control offsets should align. Candidate warnings show pointer/integer type inconsistencies around globals: review actual global layouts.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795188789.030968,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Verified score 130: target loads &D_800FD974 into v0 then copies it into a1, candidate materializes it straight in a1. Loop and exit otherwise agree modulo relocated branches. OR with initially-null prev and selecting the base conditionally both optimized away. Using the global head assignment as a pointer-valued initializer shifted initialization and scored 480. Seek a surviving v0-to-a1 copy with a bit-preserving conversion.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795189355.588379,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best score 130 (94.3%, target 23 vs candidate 22 instructions); remaining differences are two branch offsets and one missing move: target computes D_800FD974 in v0 then moves to a1, candidate loads it directly to a1. Tried adding an intermediate register pointer; optimizer removed the move and score remained 130. Candidate constructs/links the 0x200-byte pointer chain and initializes associated globals. Preserve the saved O1 candidate; try changing the address pointer's type/alias or use of the base to retain the move.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795190051.8014898,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current baseline score 130, 23 target vs 22 generated. Target explicitly materializes base in $v0 then moves to $a1 before loop and has two branch targets 4 bytes farther due to that extra instruction. Added intermediary base pointer variable but GCC optimized it away; same instructions/score. Need legitimate alias/use ordering to force separate temp or extra setup; loop body otherwise close, but source currently has incompatible pointer warnings due dubious scalar globals.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795190509.2107651,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked score 130. Target initializes base in v0 then moves to a1; candidate loads a1 directly, leaving one instruction and shifted branch offsets. Address temporary and sum-shape repairs did not improve.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795191390.585841,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best 130 retained. Typed 16-byte Link layout is consistent with next/prev at 0/4. Element-indexed loop introduces an extra shift (245); byte offset with register-qualified pointer and unsigned bound scored 330; byte offset with signed bound and u32 address induction ties 130. Only substantive difference remaining is target entry address in v0 plus copy to a1 vs directly loading a1. Retain the byte-offset traversal and signed bound; explore a source or per-function compiler profile that preserves the initial copy.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795192597.024998,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Fresh score 130 from m2c-style linked-list initialization (current candidate revision 80c18bd74dbd7c82982e); tried casting initial &D_800FD974 through s8*, no change. Remaining diff: target materializes address in v0 then moves to a1; our candidate uses a1 directly. Branch targets differ by 4 bytes at bnel and bnez because target has one extra move. Historical local-repair searches already exhausted extensively; investigate loop/variable lifetime or explicit initial address temporary.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795193716.140368,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Separate byte-offset indexing into D_800FD978 at stride 16 restores the inherited score 130. A node field store folds addressing and is worse, as is a pointer-array subscript induction. Investigate target's extra initial pointer move and branch-likely form using the existing byte-offset best.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197332.070034,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Fresh score 130 (23 target instructions vs 22 candidate). Address declaration as scalar D_800FD974 and pointer assignment choices preserve semantic loop; mismatches are just register setup: target loads base in v0 then copies to a1, candidate directly materializes in a1, with branches four bytes early. Tried casts/self-assignment, no instruction change. Restore saved candidate. Remaining fix is make two separate base and current node lifetimes to force base in v0 and initial node copy into a1, which also lengthens loop branch targets.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795197716.653549,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Baseline score 130; six independent local-repair variants (sum shape, explicit backedge, signedness, declaration order, address temporary, symbol-address local) produced no improvement. Target needs initial global address in v0 then copied to a1 before zeroing a0; candidate initializes a1 directly and omits the copy. Loop/control flow and remaining body largely match. Next try ordering address assignment so D_800FDB78 store consumes the temporary before a1 receives it; inspect register-allocation effects.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198391.700955,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Fixed the undeclared globals using their brief data sizes and compiled; best score 130 (22 vs target 23 instructions). Remaining mismatch: target materializes D_800FD974 into v0 then moves to a1; current C materializes directly into a1, causing branch targets each 4 bytes shorter. Tried adding unused local pointer (no effect). Next test: use an explicit temp pointer initialized to &D_800FD974 then assign var_a1=temp, aiming to force move v0->a1; compare delay slots and loop condition.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795200441.675083,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best score 130/23, rechecked after replacing the worse 170 candidate. One attempted type patch changing D_800FD974 from pointer to scalar left the instruction fingerprint unchanged at 130. Target explicitly materializes address D_800FD974 in v0 then moves it to a1; candidate materializes directly into a1 and misses move, resulting branch targets 4 bytes early. Loop ops and setup otherwise closely align. Candidate uses O1 profile as inherited. Next test is to make var_a1 assignment explicit from an intermediate pointer loaded from scalar D_800FD974, perhaps keep address in separate pointer temporary to force target v0\u2192a1 move, then check branch layout.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795201677.033036,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked saved best score 130. Corrected global declarations and pointer offset code reached 22/23 instructions with five differences: address initialization uses $a1 directly rather than constructing in $v0 then moving to $a1; two loop branches are each four bytes early because the move is absent. A no-op source compile left assembly unchanged. Next try a scoped pointer temp/address staging to force $v0 then move to $a1.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795201879.880555,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current score 130, 5 mismatch rows. Local variants 1-6 did not improve. Corrected source aliases for target address changed candidate register allocation to $a1 rather than required $v0; adding an explicit extra zero assignment did not improve. Remaining missing instruction is move $a1,$v0; loop branches are each 4 bytes early, likely absent setup instruction changes alignment. Best candidate revision 4f37af7aaa584e57d198 (same score). Next experiment: preserve target address temp in v0, assign a1 after address initialization, and adjust pointer/state declaration types so initializer ordering yields exact move and branch distances.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795204035.5296562,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Stalled at score 130 (94.3%). Structure matches loop (sw v1 to D_800FD978+a0 step 0x10, bnel to store a1 into 0(v1), final sw zero). Remaining diff: target loads &D_800FD974 into $v0 (lui/addiu $v0), then 'move $a1,$v0', while mine loads into $a1 directly; branch targets shift by 4 bytes because of that extra move. Tried: D_800FD974 as extern s32[] array; local tmp = D_800FD974 used for var_a1 and D_800FDB78 (both 130). Untested next: compute the address into a separate temp used only for the first store/D_800FDB78, then copy into var_a1 for the loop init.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795205115.3086689,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Saved candidate 5d78b7fa8327ec5a81b8 retains score 130 (94.3%, target 23 instructions vs candidate 22). Current compile rechecked score 130. A temporary pointer local, with var_a1 initialized from it, also scored 130 and preserved the same code: target uses lui/addiu into $v0 then move $a1,$v0, while candidate loads directly into $a1; loop branch offsets remain 4 bytes early. 43 prior local repair trials are recorded; best unchanged. Tool move-on threshold is 3 compiles and reached. No general matching convention established.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795206154.160584,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Baseline score 130 rechecked. Recompiled baseline identical score. Changing D_800FD974 declaration from pointer to s32 held score 130 and reduced visible register differences, but introduced warnings for pointer/integer stores; saved candidate remains the original score-130 revision 5d78b7fa8327ec5a81b8. Remaining mismatch is one missing move $a1,$v0 and loop branch targets each 4 bytes early. Loop currently uses D_800FD978 indexed byte offset, var_v1 links, var_a1 next node. Untested restructure could use explicitly incremented typed node pointer plus 0x10 and separate table cursor.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795207956.282667,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Stalled at score 130 (94.3%). Best saved candidate 5d78b7fa8327ec5a81b8. Target prologue materializes &D_800FD974 in $v0 (lui/addiu), then 'move $a1,$v0'; candidate loads directly into $a1, so loop branch targets are 4 bytes early (one instruction short). Tried without change: D_800FDB78 from var_a1; redundant var_a1 reassignments; temp s32* local used for var_a1 and D_800FDB78 (ca6a8c6bdfd34972f7f9, still 130); temp pointer local; declaration type changes (warnings, same score). Untested: force the extra move via a volatile-free two-step through an integer offset (e.g. var_a1 = (s32*)((u32)&D_800FD974)) or a struct-typed global for D_800FD974.\ntemp s32* local for &D_800FD974 shared by var_a1 and D_800FDB78; D_800FDB78 from var_a1; declaration changes\nstill score 130; missing move $a1,$v0 persists; loop branches 4 bytes early",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795209080.252274,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked saved candidate score 130. Tried four independent pointer expression variants via compile_variants; all worse (340\u2013530). Submitted typed pointer rewrite, score unchanged 130; compiler omitted target's move $a1,$v0 after forming &D_800FD974 in $v0, leaving both branches four bytes early. Further register-forcing remains.\nAddress expression rearrangements and local pointer rewrites; best score unchanged, four independent variants degraded.\nCurrent candidate remains 22 insns vs target 23; missing move $a1,$v0 creates two branch target deltas.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795210506.517992,
+  "score_before": 130,
+  "score_after": 130
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best verified candidate score 130 (rechecked). Tried four address expressions for D_800FD974/D_800FDB78: three worsened to 340/530; the equal-score variant preserved score. One further NULL initialization worsened to 230 and was discarded; saved best restored. Target-only prologue ops are `lui/addiu $v0,D_800FD974` followed by `move $a1,$v0`; remaining branch targets are short by one instruction without those address materialization operations. Next step: find a source lifetime/prototype that makes GCC materialize address into v0 then copy to a1; retain best candidate.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795211208.922733,
+  "score_before": 340,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current verified score 130. Changing global tail pointer assignment to use var_a1 improved previous 170 score to 130 but remaining output unchanged; target has an extra move a1,v0 after address formation and branches two instruction words farther due to that missing move. Best candidate retained.\nUsing var_a1 for global tail pointer improves old variant but did not alter current best's mismatch; saved best remains 130.\nTarget explicitly forms address in v0 then copies to a1; candidate forms directly in a1. Branch displacements are 4 bytes shorter from missing instruction.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795211812.755258,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:93baacb77d2227bd733e859bf3a3bfa34f61c8ed76c325d7273301147c094cb1:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Rechecked score 130. Added scoped start pointer then assigned var_a1; assembly unchanged. Main unresolved target-only move a1,v0 immediately after forming &D_800FD974, which controls branch offsets (+4 target). Prior pointer expression alternatives were worse. Next step: make address initialization observable in a distinct local that must stay live (e.g. separate loop head vs global head) to preserve the $v0-to-$a1 copy.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795212882.68527,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best remains 130 (candidate 5d78b7fa8327ec5a81b8). Remaining diff: target computes &D_800FD974 into v0 (lui/addiu v0), then 'move a1,v0' after; compiler computes directly into a1, so both branches land 4 bytes early. Tried this batch, all no better than 130: D_800FDB78=var_a1; (object)cast to s32*; s8* cast; +0 offset; temp local 'tmp' for both; chained 'var_a1 = D_800FDB78 = &D974' (245/370 worse); 'D_800FDB78 = var_a1 = &D974' (130). Next step: find a source form where the address is an rvalue consumed by a store before being copied to a loop var (e.g. a helper struct/array-of-pointers head), or accept 130.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214551.24601,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best 130/23 instructions. Local repair variants tested: explicit loop backedge scored 170; unsigned var_a1, declaration order, and stride reshaping left score/output unchanged; temporary symbol base worsened to 1160. Recompile source left score 130 and did not change assembly. Remaining target has lui/addiu v0 for &D_800FD974 then move a1,v0; candidate emits lui/addiu directly into a1. This extra move shifts branch offsets by 4 bytes.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795215056.935988,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Current saved best 130. do/while scoped around conditional link store improved 170 to 130, preserving initial temporary and short loop body. Pointer cast to global value regressed to 530. Remaining mismatch in best candidate: target uses v0 for &D_800FD974 then moves to a1; candidate uses a1 directly, creating two missing instruction slots and branch targets 4 bytes early. Tried local base declaration after first statement and got C89 parse error.\nPointer cast worsened to 530; do/while around conditional store got 170; local scoped base declaration form got 130 but retained a1 instead of v0; declaration-after-statement form compile error.\nBest remains 130 with two branch targets short by 4 bytes and missing v0-to-a1 move.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795215209.8990378,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best score remains 130; current candidate has 22 vs target 23 instructions. The only missing target op is move $a1,$v0 after taking &D_800FD974; destination registers then cause branch target offsets to differ. Explicit var_v0 local followed by var_a1=var_v0 still optimized into direct load to a1; reordering declarations had no effect. No match.\nAdded separate var_v0 address local, copied to var_a1, and stored var_v0 into D_800FDB78; compiler eliminated the move. Reordering local declarations changed nothing.\nDiff remains one missing move and two branch target offsets, due 4 byte code-size shift.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795216742.3998349,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Candidate score 130 from inherited 170; redundant `(void)var_a1` patch did not change output. Target emits leading `move $a1,$v0` to preserve linked-list base and loop branches at offsets 0x40/0x2c; ours branches at 0x3c/0x28, lacking one instruction. Next step: introduce explicit global base temporary assigned before zero-initialized loop pointers to encourage materialized move while preserving loop body.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795217780.368002,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Best 130; target has move a1,v0 after forming D_800FD974. Branch offsets also differ by 4 bytes.\nVerified score 130, 5 instruction mismatches; rewrite moved score 370\u2192130, same as best.\nPointer initialization register differs ($v0 target, $a1 candidate); branch destinations differ by one instruction due a missing move.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795218451.5637472,
+  "score_before": 130,
+  "score_after": 130,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Score 60 candidate improves from 130 after moving D_800FDB78 initialization before the zero globals. A later reorder regressed to 130; restored saved_best. Three remaining store operand mismatches; see next_experiment.\nReordered pointer initialization before the zero globals; score 60. Reordered pointer assignment after zero stores and sourced through var_a1; score regressed to 130, so restored saved_best.\nTarget has 23 instructions. Remaining differences are three global stores: target zeros D_800FD970 and D_800FDB74, then stores $a1 to D_800FDB78. The good setup materializes D_800FD974 in $v0 then moves it to $a1.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795219992.86701,
+  "score_before": 130,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Saved verified baseline score 60 is still best. Local repairs (allocation order, explicit loop backedge, signedness) did not help. Reordered the global initializations to target order and compiled a full rewrite: score 130; it shifts address materialization to $a1 directly, losing target's `lui/addiu $v0` followed by `move $a1,$v0`. Restored saved best; explicit cast variant equal score. Target full body is 27 instructions; initialization stores target order D_800FD970=0, D_800FDB74=0, D_800FDB78=&D_800FD974. A variable declaration must be before statements under this old C compiler. Remaining score-60 mismatch originally had offsets/control-flow about 4-byte discrepancy; next agent should inspect get_assembly mismatch + saved best source and possibly tune loop shape / initialization sequencing without losing materialization move.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795221400.65053,
+  "score_before": 300,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
+ },
+ {
+  "function": "func_80098710",
+  "text": "Saved best 60 retained. Only diff: target materializes &D_800FD974 into $v0 then `move $a1,$v0` (we load directly into $a1), shifting branch offsets by one insn. Typed Node{next,prev,pad[2]} rewrite, temp pointer, store-order variants all 130 or equal. Next step: make the address pseudo live across something else (e.g. a second use like a dead-able copy `Node *head = D_800FD974` used after loop, or declare it volatile-free register temp used in D_800FDB78 store only) to force the copy.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795222586.284739,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:55e8bb2190f8d91113e6b82a47d83b2da559b10eb2bd15a9c59a51e4899af392"
  }
 ]
