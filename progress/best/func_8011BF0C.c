@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A894();
+s32 requestSound();
 s32 func_8002B150();
 f32 approxDistance();
 s32 func_800643C8();
@@ -70,7 +70,7 @@ void func_8011BF0C(void *arg0) {
                 }
                 sprintf(D_8011F170, D_8011F000, var_a2, temp_s1_2, temp_v0);
                 func_80073AF8(0, D_8010969C, D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
-                func_8000A894(0x21A);
+                requestSound(0x21A);
             }
             temp_a0_2 = M2C_FIELD(arg0, s16 *, 0x7A) * 8;
             func_8002B150(temp_a0_2 + D_8011F140, (*(s32 *)(D_8011F140 + temp_a0_2) + 1) & 0xFF, 0);

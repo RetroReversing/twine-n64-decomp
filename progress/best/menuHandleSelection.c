@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *findEntryById(s32, M2C_UNK);                  /* extern */
-M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
+M2C_UNK requestSound(M2C_UNK);                     /* extern */
 s32 func_8001E760(M2C_UNK, u8);                     /* extern */
 M2C_UNK func_8001F4B8(u8, u8);                      /* extern */
 M2C_UNK func_8002135C(s16, s16);                    /* extern */
@@ -105,7 +105,7 @@ void menuHandleSelection(void) {
 block_15:
             temp_v0_2 = func_8002A980(gMenuList);
             if ((temp_v0_2 != NULL) && (func_80027C60(0x2A) & 0xFF)) {
-                func_8000A894(0xE8);
+                requestSound(0xE8);
                 switch (gMenuMode) {                /* switch 2; irregular */
                 case 0:                             /* switch 2 */
                     temp_a1 = M2C_FIELD(temp_v0_2, u8 *, 8);

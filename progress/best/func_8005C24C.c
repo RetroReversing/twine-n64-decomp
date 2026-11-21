@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A894();
+s32 requestSound();
 s32 func_8005B5A8();
 s32 func_80073AF8();
 s32 lookupDataEntry();
@@ -43,7 +43,7 @@ void func_8005C24C(void) {
                 if ((((temp_a0 >> 4) & 0xFFFF) == *(s32 *)var_s2) && ((temp_a0 >> 0x14) == *(s32 *)(D_800C4458 + temp_s0)) && (M2C_FIELD(D_80108788, u16 *, 0x78) == 0x12)) {
                     if (M2C_FIELD(D_80108788, s16 *, 0x7C) == 0) {
                         M2C_FIELD(D_80108788, s16 *, 0x7C) = 1;
-                        func_8000A894(0x110);
+                        requestSound(0x110);
                         var_s2 += 4;
                         func_80073AF8(0, D_80109688, lookupDataEntry(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;

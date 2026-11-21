@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A830(int, M2C_UNK, M2C_UNK);            /* extern */
 
-void func_8000A894(int __reuse_arg0) {
+void requestSound(int __reuse_arg0) {
     func_8000A830(__reuse_arg0, 0xFF, 0xFF);
 }

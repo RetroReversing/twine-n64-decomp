@@ -1,6 +1,6 @@
 
 s32 func_8000A29C();
-s32 func_8000A894();
+s32 requestSound();
 s32 func_8000C8BC();
 s32 func_80011938();
 s32 func_80022DBC();
@@ -59,7 +59,7 @@ void func_80019690(void) {
     }
     if ((*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0x18))) + 0x14)) != 0 && D_801002B4 < 2) {
         (*(u8 *)((char *)(gMenuState) + 0x2C)) = 0;
-        func_8000A894(0xEA);
+        requestSound(0xEA);
         return;
     }
     if (sActiveMenu != NULL && (*(s16 *)((char *)(sActiveMenu) + 0x7A)) != 0xF) {

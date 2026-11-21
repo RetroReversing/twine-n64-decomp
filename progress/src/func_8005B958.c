@@ -2,7 +2,7 @@ typedef struct { u8 pad0[0x30]; s32 w30; } Sub5B958;
 typedef struct { u8 pad0[0x70]; Sub5B958 *sub; u8 pad74[4]; s32 w78; s16 h7C_pad; } Obj5B958x;
 typedef struct { u8 pad0[0x70]; Sub5B958 *sub; u8 pad74[4]; s32 w78; } Obj5B958;
 
-void func_8000A894(s32);
+void requestSound(s32);
 void func_8005B5A8(void);
 void func_80073AF8(s32, s32, char *, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 lookupDataEntry(s32);
@@ -46,7 +46,7 @@ static inline s32 check_5B958(void) {
     sprintf(buf, D_800D4110, a, D_80100300, b, D_801007D8, lookupDataEntry(0xFD));
     func_80073AF8(0, gTrackMarkerTable, buf, m1, m1, 1, 0, 0, 3, 0, 0);
     *(s16 *)((u8 *)gPlayerActor + 0x7A) = 1;
-    func_8000A894(0x111);
+    requestSound(0x111);
     r = 1;
 out:
     return (s16)r;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016718(void *);                      /* extern */
+M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
 extern void *D_800B7CE8;
 extern s32 gBootState;
 
@@ -22,7 +22,7 @@ void func_800218EC(void) {
 
     gBootState = 0;
     if (D_800B7CE8 != NULL) {
-        func_80016718(D_800B7CE8);
+        actorUnlinkFromSurface(D_800B7CE8);
         temp_v1 = D_800B7CE8;
         temp_v0 = M2C_FIELD(temp_v1, s32 *, 0x60);
         D_800B7CE8 = NULL;

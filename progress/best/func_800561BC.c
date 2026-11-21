@@ -20,7 +20,7 @@ f32 approximateAtan2(f32, f32);                     /* extern */
 f32 approximate_hypot2(f32, f32);                   /* extern */
 f32 cosAngle(f32);                                  /* extern */
 void *func_800166A0();                              /* extern */
-M2C_UNK func_80016718(void *);                      /* extern */
+M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
 M2C_UNK func_800169EC(void *, void *);              /* extern */
 M2C_UNK func_80016A10(void *, void *);              /* extern */
 M2C_UNK func_80031EF4(f32 *, f32 *, M2C_UNK);       /* extern */
@@ -1000,7 +1000,7 @@ block_263:
                         vsp30[1] += M2C_FIELD(temp_s2, f32 *, 4) * 0.01f;
                         vsp30[2] += M2C_FIELD(temp_s2, f32 *, 8) * 0.01f;
                         Vec3_DistanceSq(temp_s4, &vsp30[0]);
-                        func_80016718(arg0);
+                        actorUnlinkFromSurface(arg0);
                         objectListInsert(arg0, temp_v0_20);
                         M2C_FIELD(arg0, void **, 0x20) = temp_v0_20;
                     }

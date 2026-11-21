@@ -5,7 +5,7 @@ s32 func_80002D30(void *, u16);                 /* extern */
 s32 func_80002EF0(void *);                      /* extern */
 u8 func_80006560();                                 /* extern */
 void *spawnEffectObject(s32, s32, s32);     /* extern */
-s32 func_80016718(void *);                      /* extern */
+s32 actorUnlinkFromSurface(void *);                      /* extern */
 s32 objectListInsert(void *, s32);                 /* extern */
 s32 func_8002A920(void *, s8);                      /* extern */
 s32 objectSetAnimFrame(void *, int, u32);             /* extern */
@@ -60,7 +60,7 @@ block_9:
             var_v0 = (int)var_s0 >> 0x1F;
             if ((D_800B7CE8 != (unsigned)NULL) || ((gBootState = 1, temp_v0_3 = spawnEffectObject(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
                 if ((var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
-                    func_80016718(D_800B7CE8);
+                    actorUnlinkFromSurface(D_800B7CE8);
                     return;
                 }
                 if (gMenuMode == 1) {
@@ -91,7 +91,7 @@ block_9:
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_7E = 1;
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_78 = 0x1F;
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x1100);
-                func_80016718(D_800B7CE8);
+                actorUnlinkFromSurface(D_800B7CE8);
                 objectListInsert(D_800B7CE8, (*(s32 *)((char *)(D_80109698) + 0xF4)));
                 (*(s8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
             }

@@ -10,7 +10,7 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-s32 func_8000A894();
+s32 requestSound();
 s32 func_80063D38();
 s32 func_80084338();
 typedef struct { u16 f0; u8 pad[230]; } Slot_800C469C;
@@ -43,7 +43,7 @@ void func_8007092C(void *arg0, s8 arg1) {
         if (*(u16 *)((u8 *)arg0 + 0x78) == 3) {
             func_80084338(0x118, (u8 *)arg0 + 0x24);
         } else {
-            func_8000A894(0x118);
+            requestSound(0x118);
         }
         temp_v1_2 = *(u8 **)((u8 *)arg0 + 0x68);
         temp_v1_2[0x10] = temp_v1_2[0xE];

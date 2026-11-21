@@ -20,12 +20,12 @@ s32 func_80048794();
 s32 func_800658C0();
 s32 func_8007659C();
 s32 func_80084048();
-extern u32 D_801002E0;
+extern u32 gTrackMarkerCount;
 extern char D_80100BE0[];
 extern s8 D_80103EB0;
-extern char D_80108608[];
+extern char gTrackMarkerRotTable[];
 extern void *D_80109690;
-extern char D_80110B28[];
+extern char gTrackMarkerPosTable[];
 extern s32 gBonusSceneHandle;
 extern s32 gProbeObjectList;
 extern u8 gSceneFlagsA;
@@ -58,17 +58,17 @@ block_24:
                 if (func_800658C0(temp_s0) != 0) {
                     var_a2 = temp_s0 + 0x3C;
                     var_v1 = 0;
-                    if (D_801002E0 != 0) {
+                    if (gTrackMarkerCount != 0) {
 loop_16:
                         if (*(D_80100BE0 + var_v1) != M2C_FIELD(temp_s1, u8 *, 0)) {
                             var_v1 += 1;
-                            if (var_v1 < (u32) D_801002E0) {
+                            if (var_v1 < (u32) gTrackMarkerCount) {
                                 goto loop_16;
                             }
                         } else {
                             temp_v0 = var_v1 * 0xC;
-                            var_a3 = temp_v0 + D_80110B28;
-                            var_a2 = temp_v0 + D_80108608;
+                            var_a3 = temp_v0 + gTrackMarkerPosTable;
+                            var_a2 = temp_v0 + gTrackMarkerRotTable;
                         }
                     }
                     actorInitFromSpawn(temp_s0, var_a3, var_a2, var_a3);

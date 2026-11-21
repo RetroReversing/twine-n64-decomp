@@ -1,7 +1,7 @@
 typedef struct { u8 pad0[0x2C]; s32 w2C; } Sub5C8C4;
 typedef struct { u8 pad0[0x60]; s32 w60; u8 pad64[8]; Sub5C8C4 *sub; u8 pad70[8]; u16 h78; u8 pad7A[2]; s16 h7C; } Obj5C8C4;
 
-void func_8000A894(s32, s32);
+void requestSound(s32, s32);
 void func_8005B5A8(void);
 void func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 lookupDataEntry(s32);
@@ -27,7 +27,7 @@ static inline s32 check_5C8C4(void) {
                 p->h7C = 1;
                 if (sub->w2C & mask) {
                     p->w60 |= mask;
-                    func_8000A894(sound, p->w60 |= mask);
+                    requestSound(sound, p->w60 |= mask);
                     func_80073AF8(0, gTrackMarkerTable, lookupDataEntry(0x160), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }

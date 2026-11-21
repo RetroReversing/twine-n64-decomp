@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800066A0();
 s32 func_80016314();
 s32 func_80022DBC();
-s32 func_800635B4();
+s32 actorSetField7A();
 s32 func_80063FE8();
 s32 func_80064630();
 s32 actorInitFromSpawn();
@@ -60,14 +60,14 @@ extern char gTrackMarkerTable[];
         if (M2C_FIELD(aiBlock, u8 *, 0x199) == 0) {
             func_8007080C(aiBlock);
             if (newState != 3) {
-                func_800635B4(actor, 3);
+                actorSetField7A(actor, 3);
             }
             M2C_FIELD(aiBlock, u8 *, 0x199) = 1U;
         }
         if (((gSceneType != 7) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) != 0)) && ((gSceneType != 8) || (M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), u8 *, 0x11) == 0))) {
             func_80016314(M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), s32 *, 8));
             M2C_FIELD(M2C_FIELD(aiBlock, void **, 0xB4), s32 *, 8) = 0;
-            func_800635B4(actor, 1);
+            actorSetField7A(actor, 1);
             axisIndex = M2C_FIELD(aiBlock, s8 *, 0x182);
             M2C_FIELD(aiBlock, s32 *, 0x60) = 0;
             M2C_FIELD(aiBlock, s32 *, 0x64) = 0;
@@ -91,7 +91,7 @@ extern char gTrackMarkerTable[];
                 actorInitFromSpawn(actor, actor + 0x24, actor + 0x3C);
                 M2C_FIELD(actor, u16 *, 0x7C) = 0;
             } else {
-                func_800635B4(actor, 0);
+                actorSetField7A(actor, 0);
             }
             M2C_FIELD(actor, u16 *, 0x78) = newState;
             M2C_FIELD(aiBlock, u8 *, 0x5A8) = 4;

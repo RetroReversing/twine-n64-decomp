@@ -12,7 +12,7 @@ extern void *gTrackMarkerTable[];
 extern void *D_8010A410;
 extern void *gBonusSceneHandle;
 extern s8 D_80115319;
-void func_80016718(void *, void *);
+void actorUnlinkFromSurface(void *, void *);
 void func_80016740(void *);
 void func_800167B4(void *);
 void objectListInsert(void *, s32);
@@ -137,7 +137,7 @@ L71:
                                 if (t0 != NULL) {
                                     v = *(s32 *)((u8 *)t0 + 0xF4);
                                     if (v != 0 && v != *(s32 *)((u8 *)node + 0x20)) {
-                                        func_80016718(node, tgt);
+                                        actorUnlinkFromSurface(node, tgt);
                                         objectListInsert(node, v);
                                     }
                                 }
@@ -146,7 +146,7 @@ L71:
                     } else {
                         v = *(s32 *)((u8 *)tgt + 0x20);
                         if (v != *(s32 *)((u8 *)node + 0x20)) {
-                            func_80016718(node, tgt);
+                            actorUnlinkFromSurface(node, tgt);
                             objectListInsert(node, v);
                         }
                     }

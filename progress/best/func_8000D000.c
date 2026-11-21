@@ -58,11 +58,13 @@ extern s8 gTransitionEnabled;
 extern s8 gTransitionPhase;
 
 typedef struct { unsigned char pad_0[56]; float field_38; unsigned char pad_3C[93]; unsigned char field_99; } __repair_record_temp_v1;
+typedef struct { void * field_0; void * field_4; } __repair_record_temp_v1_;
+typedef struct { unsigned char pad_0[124]; int field_7C; unsigned char pad_80[24]; unsigned char field_98; } __repair_record_temp_v0_4;
 s32 func_8000D000(void) {
     s32 temp_v0_6;
     s32 var_a0_2;
     s32 var_a2;
-    s8 temp_s1;
+    s32 temp_s1;
     s8 var_a0;
     u8 temp_s0;
     u8 temp_v0_5;
@@ -95,8 +97,9 @@ s32 func_8000D000(void) {
     memset(temp_v0, 0, 0x2E74);
     M2C_FIELD(gObjectTable, s16 *, 0x10) = (s16) temp_s0;
     temp_v0_2 = func_80083E90(0x8000, 0x33);
-    M2C_FIELD(gObjectTable, void **, 4) = temp_v0_2;
-    M2C_FIELD(gObjectTable, void **, 0) = temp_v0_2;
+    temp_v1 = gObjectTable;
+    ((__repair_record_temp_v1_*)temp_v1)->field_4 = temp_v0_2;
+    ((__repair_record_temp_v1_*)temp_v1)->field_0 = temp_v0_2;
     func_8000B9B8(M2C_FIELD(gObjectTable, void **, 4), *(s32 *)(D_800B2640 + (temp_s0 * 4)) + D_54D910, 0x8000);
     var_a2 = 0;
     var_a0_2 = 0;
@@ -120,9 +123,9 @@ s32 func_8000D000(void) {
         ((__repair_record_temp_v1*)temp_v1)->field_99 = 0xFF;
         ((__repair_record_temp_v1*)temp_v1)->field_38 = 999.0f;
         temp_v0_4 = gObjectTable + var_a0_2;
-        M2C_FIELD(temp_v0_4, u8 *, 0x98) = 0xFF;
+        ((__repair_record_temp_v0_4*)temp_v0_4)->field_98 = 0xFF;
         var_a2 += 1;
-        M2C_FIELD(temp_v0_4, s32 *, 0x7C) = -1;
+        ((__repair_record_temp_v0_4*)temp_v0_4)->field_7C = -1;
         temp_v1_2 = gObjectTable + var_a0_2;
         var_a0_2 += 0xD4;
         M2C_FIELD(temp_v1_2, s16 *, 0x96) = 0;

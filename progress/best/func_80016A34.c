@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80016718();
+s32 actorUnlinkFromSurface();
 s32 objectListInsert();
 s32 markObjectsNearPos();
 s32 Probe_BoundsContainPoint();
@@ -46,7 +46,7 @@ void func_80016A34(void *arg0) {
             }
         }
         temp_s0 = M2C_FIELD(temp_v0, s32 *, 8);
-        func_80016718(arg0);
+        actorUnlinkFromSurface(arg0);
         objectListInsert(arg0, temp_s0);
         M2C_FIELD(arg0, s32 *, 0x20) = temp_s0;
         M2C_FIELD(arg0, s32 *, 0x60) |= 0x400;
@@ -61,7 +61,7 @@ void func_80016A34(void *arg0) {
             goto block_39;
         }
     } else if ((Probe_BoundsContainPoint(temp_s2, temp_s0_2) << 0x18) == 0) {
-        func_80016718(arg0);
+        actorUnlinkFromSurface(arg0);
         temp_v1_3 = M2C_FIELD(arg0, u16 *, 0x78);
         if ((s32) temp_v1_3 < 8) {
             switch ((s32) temp_v1_3) {              /* switch 1; irregular */

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
+M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 s32 findEntryById(s32, M2C_UNK);                    /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
@@ -33,7 +33,7 @@ void func_80022848(void) {
     }
     updateActiveMenuState();
     if (func_80027C60(0x2A) & 0xFF) {
-        func_8000A894(0xEA);
+        requestSound(0xEA);
         M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;
     }
 }

@@ -7,7 +7,7 @@ extern u16 gEffectKind;
 extern char D_800BF5CC[];
 extern Def2B6BC *gTrackMarkerTable[];
 s32 *func_8002B400(f32, s32, char *);
-void func_80016718(void *);
+void actorUnlinkFromSurface(void *);
 void objectListInsert(void *, void *);
 void func_8002B7F8(void);
 
@@ -23,7 +23,7 @@ void func_8002B6BC(s32 arg0) {
             return;
         }
         v = (f32 *)func_8002B400(gEffectTimer, 0xE, D_800BF5CC);
-        func_80016718(*pp);
+        actorUnlinkFromSurface(*pp);
         objectListInsert(*pp, gTrackMarkerTable[gEffectKind]->fF4);
         gEffectObject->flags |= 0x1000;
         do { gEffectObject->f54 = *v; } while (0);

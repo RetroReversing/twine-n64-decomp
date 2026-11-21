@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A894();
+s32 requestSound();
 u32 randomIntBelow();
 s32 func_80063C7C();
 s32 setActionSlot();
@@ -199,7 +199,7 @@ block_15:
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
             if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
-                func_8000A894(0xD9U);
+                requestSound(0xD9U);
             } else {
                 goto block_43;
             }
@@ -213,7 +213,7 @@ block_15:
             func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
             if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
-                func_8000A894(0xD8U);
+                requestSound(0xD8U);
             } else {
 block_43:
                 func_80084338(var_a0_4, arg0 + 0x24);
@@ -275,7 +275,7 @@ block_63:
     }
     var_a0_3 = *(u16 *)(D_800C4484 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
 block_65:
-    func_8000A894(var_a0_3);
+    requestSound(var_a0_3);
 block_66:
     var_v0 = 1;
     return var_v0;

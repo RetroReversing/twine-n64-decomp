@@ -20,9 +20,9 @@ extern M2C_UNK D_801002A3;
 extern s32 D_801002B4;
 extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK D_8011F3AC;
-extern void *D_8011F3C4;
-extern void *D_8011F3C8;
-extern void *D_8011F3CC;
+extern void *gMarkerEntry1;
+extern void *gMarkerEntry2;
+extern void *gMarkerEntry3;
 
 void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
 s32 __repair_literal;
@@ -46,9 +46,9 @@ s32 __repair_literal;
         M2C_FIELD(arg1, s16 *, 0x1D8) = 0;
         M2C_FIELD(&D_801002A3, s8 *, 0) = 0;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) = 0U;
-        M2C_FIELD(D_8011F3C4, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C4, const s32 *, 0x28) & ~0xFC) | 0x1C);
-        M2C_FIELD(D_8011F3C8, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C8, const s32 *, 0x28) & ~0xFC) | 0x1C);
-        M2C_FIELD(D_8011F3CC, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3CC, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(gMarkerEntry2, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry2, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
         var_a0 = 0;
 __repair_literal = 0;
 
@@ -72,19 +72,19 @@ __repair_literal = 0;
             var_s0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
-            M2C_FIELD(D_8011F3C4, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C4, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
                 relinkTrackMarker(arg2, 1);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 2) {
-            M2C_FIELD(D_8011F3C8, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C8, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(gMarkerEntry2, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry2, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
                 relinkTrackMarker(arg2, 2);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 4) {
-            M2C_FIELD(D_8011F3CC, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3CC, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
                 relinkTrackMarker(arg2, 4);
                 goto block_23;

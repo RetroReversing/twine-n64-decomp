@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80016718();
+s32 actorUnlinkFromSurface();
 extern u16 gMenuMode;
 extern void *D_800B7CE8;
 extern void *gMenuState;
@@ -23,7 +23,7 @@ void func_8002175C(void) {
 
     if (D_800B7CE8 != NULL) {
         if (M2C_FIELD(gMenuState, u8 *, 0x30) != 0xFF) {
-            func_80016718(D_800B7CE8);
+            actorUnlinkFromSurface(D_800B7CE8);
             temp_v1 = D_800B7CE8;
             temp_v0 = M2C_FIELD(temp_v1, s32 *, 0x60);
             D_800B7CE8 = NULL;

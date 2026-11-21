@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
+M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK func_80070664(s32, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK func_80070730(s32, M2C_UNK, M2C_UNK);       /* extern */
 s32 findActionSlot(s32, M2C_UNK, M2C_UNK);           /* extern */
@@ -35,7 +35,7 @@ extern void *gBonusSceneHandle;
         if ((s32) playerState >= 0x11) {
             if (M2C_FIELD(M2C_FIELD(player, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
                 if ((findActionSlot(actionTable, 0xD, 1) << 0x18) != 0) {
-                    func_8000A894(0x12C);
+                    requestSound(0x12C);
                     M2C_FIELD(player, s32 *, 0x60) = (s32) (M2C_FIELD(player, s32 *, 0x60) | 0x08000000);
                 } else {
                     func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), lookupDataEntry(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
@@ -49,7 +49,7 @@ extern void *gBonusSceneHandle;
             func_80070730(actionTable, 0xC, 1);
             func_80070664(actionTable, 0xD, 1, 0);
             gTrackMarkerSerial += 1;
-            func_8000A894(0x12B);
+            requestSound(0x12B);
             func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
         }
     }

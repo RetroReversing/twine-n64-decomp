@@ -17,11 +17,11 @@ f32 approxDistance(void *, s32);                     /* extern */
 M2C_UNK func_80063DB4(void *);                      /* extern */
 extern u8 gSceneType;
 extern s32 D_801002B4;
-extern u32 D_801002E0;
+extern u32 gTrackMarkerCount;
 extern u8 D_80100BE0[];
-extern s32 D_80102F3C;
+extern s32 gTrackMarkerIndex;
 extern M2C_UNK gBonusSceneHandle;
-extern M2C_UNK D_80110B28;
+extern M2C_UNK gTrackMarkerPosTable;
 
 void func_80063FE8(void *arg0) {
     f32 temp_fv0;
@@ -44,10 +44,10 @@ void func_80063FE8(void *arg0) {
     if (temp_v1 == 0) {
 loop_1:
         var_s0 = 0;
-        temp_s1 = randomIntBelow(D_801002E0);
+        temp_s1 = randomIntBelow(gTrackMarkerCount);
         if (D_801002B4 > 0) {
             for (;;) {
-                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&gBonusSceneHandle)[var_s0] + 0x24) < 3.0f)) {
+                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusSceneHandle)[var_s0] + 0x24) < 3.0f)) {
                     temp_v0 = var_s0 + 1;
                     var_s0 = temp_v0;
                     if (temp_v0 < D_801002B4) {
@@ -62,7 +62,7 @@ loop_1:
         var_s4 = temp_s1;
     } else {
         var_s1 = 0;
-        if (D_801002E0 != 0) {
+        if (gTrackMarkerCount != 0) {
             do {
                 if ((temp_v1 == 0) || (*(D_80100BE0 + (var_s1 & 0xFFFF)) == M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), u8 *, 0x12))) {
                     var_fs0 = 4194304.0f;
@@ -70,7 +70,7 @@ loop_1:
                     if (D_801002B4 > 0) {
                         do {
                             if (var_s0_2 != M2C_FIELD(temp_s3, s8 *, 0x182)) {
-                                temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&D_80110B28, (&gBonusSceneHandle)[var_s0_2] + 0x24);
+                                temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusSceneHandle)[var_s0_2] + 0x24);
                                 if (temp_fv0 < var_fs0) {
                                     var_fs0 = temp_fv0;
                                 }
@@ -85,9 +85,9 @@ loop_1:
                     }
                 }
                 var_s1 += 1;
-            } while ((u32) (var_s1 & 0xFFFF) < (u32) D_801002E0);
+            } while ((u32) (var_s1 & 0xFFFF) < (u32) gTrackMarkerCount);
         }
     }
-    D_80102F3C = (s32) var_s4;
+    gTrackMarkerIndex = (s32) var_s4;
     func_80063DB4(arg0);
 }

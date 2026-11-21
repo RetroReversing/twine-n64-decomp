@@ -46,14 +46,14 @@ void activateIdList(s16 *arg0) {
 }
 
 typedef struct { s32 x, y, z; } Vec642;
-extern Vec642 D_80110B28[], D_80108608[];
-extern s32 D_801002E0;
+extern Vec642 gTrackMarkerPosTable[], gTrackMarkerRotTable[];
+extern s32 gTrackMarkerCount;
 extern s8 D_80100BE0[];
 void func_80064264(Vec642 *arg0, Vec642 *arg1, s8 arg2) {
-    D_80110B28[D_801002E0] = *arg0;
-    D_80108608[D_801002E0] = *arg1;
-    D_80100BE0[D_801002E0] = arg2;
-    D_801002E0++;
+    gTrackMarkerPosTable[gTrackMarkerCount] = *arg0;
+    gTrackMarkerRotTable[gTrackMarkerCount] = *arg1;
+    D_80100BE0[gTrackMarkerCount] = arg2;
+    gTrackMarkerCount++;
 }
 
 typedef struct { f32 x, y, z; } Vec77;

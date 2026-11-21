@@ -2,7 +2,7 @@
 
 s32 listUnlinkFree(s32);                         /* extern */
 s32 func_80015D40(u16);                             /* extern */
-s32 func_80016718(void *);                      /* extern */
+s32 actorUnlinkFromSurface(void *);                      /* extern */
 s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32); /* extern */
 s32 actorLinkToSurface(s32, void *, s32);        /* extern */
 s32 randomIntBelow(s32);                         /* extern */
@@ -156,7 +156,7 @@ block_17:
         temp_v1_4 = (*(s16 *)((char *)(arg0) + 0x7A));
         switch (temp_v1_4) {                        /* switch 4; irregular */
         case 0:                                     /* switch 4 */
-            func_80016718(arg0);
+            actorUnlinkFromSurface(arg0);
             var_v0_2 = 1;
             goto block_259;
         case 1:                                     /* switch 4 */

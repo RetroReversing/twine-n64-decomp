@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(s32);                         /* extern */
+M2C_UNK requestSound(s32);                         /* extern */
 M2C_UNK func_800274BC(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK func_800278AC(u16, s32, u16);               /* extern */
 M2C_UNK layoutTextBox(s32, void *, M2C_UNK);        /* extern */
@@ -44,14 +44,14 @@ extern void *gMenuState;
         if (func_80027C60(0x24) & 0xFF) {
             if (M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
-                func_8000A894(0xED);
+                requestSound(0xED);
                 func_800278AC(M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6), D_80102EBC, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
             }
         } else if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
             if (func_80027C60(0x2A) & 0xFF) {
                 M2C_FIELD(gMenuState, u8 *, 0x2C) = (u8) (M2C_FIELD(gMenuState, u8 *, 0x2C) ^ 1);
                 if (M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), u8 *, 0x1C) & 0x10) {
-                    func_8000A894((-(M2C_FIELD(gMenuState, u8 *, 0x2C) == 0) & 0xE9) | 0xE8);
+                    requestSound((-(M2C_FIELD(gMenuState, u8 *, 0x2C) == 0) & 0xE9) | 0xE8);
                 }
                 if (M2C_FIELD(gMenuState, u8 *, 0x2C) == 0) {
                     goto block_14;

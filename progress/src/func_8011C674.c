@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A894();
+s32 requestSound();
 s32 func_8002B050();
 s32 func_8002B180();
 s16 func_8002B278();
@@ -43,7 +43,7 @@ void func_8011C674(s16 arg0) {
                 }
             }
             if ((func_8002B278(D_801002CC) < 0xB) && (D_801002D0 == 0)) {
-                func_8000A894(0x123);
+                requestSound(0x123);
             }
             temp_s1 = D_8011F3B8;
             if (temp_s1 != NULL) {

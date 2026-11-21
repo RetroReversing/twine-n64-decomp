@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(M2C_UNK);                /* extern */
+M2C_UNK requestSound(M2C_UNK);                /* extern */
 M2C_UNK func_800705AC(M2C_UNK, void *);             /* extern */
 
 void func_80070528(void *arg0) {
@@ -26,10 +26,10 @@ void func_80070528(void *arg0) {
     temp_a0_2 = (temp_a0 + 1) % 3;
     M2C_FIELD(arg0, u8 *, 0x185) = temp_a0_2;
     if ((temp_a0_2 & 0xFF) != 1) {
-        func_8000A894(0x58);
+        requestSound(0x58);
         var_a0 = 0;
     } else {
-        func_8000A894(0x57);
+        requestSound(0x57);
         var_a0 = 1;
     }
     func_800705AC(var_a0, arg0);

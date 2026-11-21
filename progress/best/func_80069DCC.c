@@ -16,7 +16,7 @@ M2C_UNK func_80002D30(void *, u16);
 M2C_UNK func_80002D50(void *, M2C_UNK);
 M2C_UNK func_80002EF0(void *);
 M2C_UNK listUnlinkFree(s32);
-M2C_UNK func_8000A894();
+M2C_UNK requestSound();
 void *func_80015DAC(s8);
 M2C_UNK func_800179E8(void *, void *, s32, s32);
 M2C_UNK func_800452E0(void *, void *, f32 *);
@@ -363,7 +363,7 @@ if (temp_s1 != NULL) {
 if (M2C_FIELD(temp_s1, u8 *, 0x185) == 1) {
 temp_v1_2 = M2C_FIELD(temp_s1, u16 *, 0x520);
 if (temp_v1_2 < 2U) {
-func_8000A894(0x58);
+requestSound(0x58);
 setTrackMarkerActive(0, temp_s1);
 } else {
 M2C_FIELD(temp_s1, u16 *, 0x520) = (u16) (temp_v1_2 - 1);
@@ -649,7 +649,7 @@ M2C_FIELD(temp_s1, s8 *, 0x180) = 1;
 M2C_FIELD(temp_s1, f32 *, 0xCC) = (f32) ((f64) M2C_FIELD(temp_s1, f32 *, 0xCC) + D_800D45E0);
 temp_v1_18 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_18, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_18, u16 *, 0xC) & 0xFFCB);
-func_8000A894(0xFF, 4);
+requestSound(0xFF, 4);
 if (gBorderSkipFlag != 0) {
 temp_fv0_4 = M2C_FIELD(temp_s1, f32 *, 0x4C);
 if ((temp_fv0_4 <= 0.0002f) && (temp_fv0_4 >= -0.0002f)) {
@@ -753,7 +753,7 @@ M2C_FIELD(temp_s1, u8 *, 0x196) = (u8) (temp_v1_20 + 1);
 } else {
 if ((u8) M2C_FIELD(temp_s1, u8 *, 0x196) >= 8U) {
 D_800E1A28 |= 0x20000;
-func_8000A894(0x100);
+requestSound(0x100);
 }
 M2C_FIELD(temp_s1, u8 *, 0x196) = 0U;
 }
@@ -1050,7 +1050,7 @@ var_fs3_5 = 0.04f;
 temp_fs0_3 = var_fs3_5 + M2C_FIELD(arg0, f32 *, 0x28);
 if (func_800818AC(temp_s4, 0xC) != 0) {
 M2C_FIELD(temp_s1, s8 *, 0x181) = 4;
-func_8000A894(0xFF);
+requestSound(0xFF);
 } else if (M2C_FIELD(temp_s1, f32 *, 0x14) < temp_fs0_3) {
 if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 0x40000000) << 0x18) == 0) {
 sp48 = M2C_FIELD(arg0, f32 *, 0x24);
@@ -1299,7 +1299,7 @@ func_800635BC(arg0, 0);
 M2C_FIELD(temp_s1, f32 *, 0x38) = 0.0f;
 var_s6 = temp_fs3_8;
 M2C_FIELD(temp_s1, s8 *, 0x17E) = 2;
-func_8000A894(0xFF);
+requestSound(0xFF);
 M2C_FIELD(temp_s1, f32 *, 0xCC) = 0.0f;
 }
 }

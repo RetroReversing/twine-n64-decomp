@@ -2,38 +2,38 @@ typedef struct Node { struct Node *prev, *next; } Node;
 typedef struct { Node node; u8 pad8[0x20]; u32 flags; } NodeEntry;
 typedef struct { u8 pad0[0x10]; u8 flags; } EventState;
 typedef struct { u8 pad0[0xB4]; EventState *event; u8 padB8[0xCA]; s8 index; } EventActor;
-void func_8000A894(s32);
+void requestSound(s32);
 void unlinkNode(Node *, Node *, void *);
 extern Node *gTrackMarkerTable[];
-extern s16 D_8011ED74, D_8011ED98, D_8011EDBC;
-extern NodeEntry *D_8011F3C4, *D_8011F3C8, *D_8011F3CC;
+extern s16 gMarkerLastIndex1, gMarkerLastIndex2, gMarkerLastIndex3;
+extern NodeEntry *gMarkerEntry1, *gMarkerEntry2, *gMarkerEntry3;
 
 void relinkTrackMarker(EventActor *actor, u16 slot) {
     s16 *previous;
     NodeEntry *entry;
     u32 indexBits;
 
-    func_8000A894(0x223);
+    requestSound(0x223);
     switch (slot) {
     case 1:
-        previous = &D_8011ED74;
+        previous = &gMarkerLastIndex1;
         actor->event->flags |= 1;
-        unlinkNode(&D_8011F3C4->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
-        entry = D_8011F3C4;
+        unlinkNode(&gMarkerEntry1->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
+        entry = gMarkerEntry1;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     case 2:
-        previous = &D_8011ED98;
+        previous = &gMarkerLastIndex2;
         actor->event->flags |= 2;
-        unlinkNode(&D_8011F3C8->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
-        entry = D_8011F3C8;
+        unlinkNode(&gMarkerEntry2->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
+        entry = gMarkerEntry2;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     default:
-        previous = &D_8011EDBC;
+        previous = &gMarkerLastIndex3;
         actor->event->flags |= 4;
-        unlinkNode(&D_8011F3CC->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
-        entry = D_8011F3CC;
+        unlinkNode(&gMarkerEntry3->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
+        entry = gMarkerEntry3;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     }

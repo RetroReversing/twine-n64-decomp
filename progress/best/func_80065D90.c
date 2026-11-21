@@ -16,7 +16,7 @@ s32 func_800015AC();
 s32 func_80002BD0();
 s32 func_80002D30();
 s32 listUnlinkFree();
-s32 func_8000A894();
+s32 requestSound();
 void *func_80015F0C();
 s32 func_80016314();
 s32 func_800165E0();
@@ -236,7 +236,7 @@ block_8:
                 }
                 func_80065BC4(arg0);
                 if (*(D_800C46FC + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)) & 4) {
-                    func_8000A894(0x1DF);
+                    requestSound(0x1DF);
                 }
                 if ((u32) ((u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) - 4) >= 2U) {
                     goto block_30;
@@ -251,7 +251,7 @@ block_8:
                         M2C_FIELD(temp_a0_2, u8 *, 0x1FD) = 0U;
                     }
 block_30:
-                    func_8000A894(0x11D);
+                    requestSound(0x11D);
                 }
             }
         }
@@ -344,7 +344,7 @@ block_30:
                 }
                 var_a0_2 = 0x128;
 block_80:
-                M2C_FIELD(temp_s1, s32 *, 0xC) = func_8000A894(var_a0_2);
+                M2C_FIELD(temp_s1, s32 *, 0xC) = requestSound(var_a0_2);
             }
         }
     }

@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_801002E0;
-extern s32 D_80102F3C;
+extern s32 gTrackMarkerCount;
+extern s32 gTrackMarkerIndex;
 
 void func_80064250(void) {
-    D_801002E0 = 0;
-    D_80102F3C = 0;
+    gTrackMarkerCount = 0;
+    gTrackMarkerIndex = 0;
 }

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 angleDelta12(s32, s32);                        /* extern */
 M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80002D30(void *, M2C_UNK);             /* extern */
-M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
+M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK func_8000C91C(M2C_UNK);                     /* extern */
 void *func_80015F0C();                              /* extern */
 M2C_UNK func_80016314(void *, void *);              /* extern */
@@ -290,9 +290,9 @@ block_62:
                         break;
                     }
                     if (func_80045CC4() & 1) {
-                        func_8000A894(0x1AB);
+                        requestSound(0x1AB);
                     } else {
-                        func_8000A894(0x1AC);
+                        requestSound(0x1AC);
                     }
                 }
             } else {
@@ -473,7 +473,7 @@ block_153:
                         } else {
                             func_80002BD0(arg0, 0x295);
                         }
-                        func_8000A894(0x1B);
+                        requestSound(0x1B);
                         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
                         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x34) = 0;
                         func_80065684(arg0);

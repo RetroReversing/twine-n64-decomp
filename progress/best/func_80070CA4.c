@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A894();
+s32 requestSound();
 s32 func_80063D38();
 s32 func_80084338();
 extern char D_800C469C[];
@@ -48,7 +48,7 @@ int __repair_constant = 0x26;
         if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
             func_80084338(arg0, 0x118, arg0 + 0x24);
         } else {
-            func_8000A894(0x118);
+            requestSound(0x118);
         }
         temp_a0 = M2C_FIELD(arg0, void **, 0x68);
         M2C_FIELD(temp_a0, u8 *, 0x10) = (u8) M2C_FIELD(temp_a0, u8 *, 0xE);

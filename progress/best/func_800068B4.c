@@ -99,8 +99,8 @@ __repair_literal = 0;
 
                     if ((M2C_FIELD(&D_801002B8, s32 *, 0) > __repair_literal) && (D_801002AE == 0)) {
 loop_19:
-                        var_s0 += 1;
                         if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
+                            var_s0 += 1;
                             if (var_s0 < M2C_FIELD(&D_801002B8, s32 *, 0)) {
                                 if (M2C_FIELD(&D_801002B8, u8 *, -0xA) != 0) {
 

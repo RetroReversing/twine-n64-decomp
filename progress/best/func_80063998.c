@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 s32 func_80001624();
 s32 listUnlinkFree();
 s32 func_8000A344();
-s32 func_8000A894();
+s32 requestSound();
 s32 func_80015F74();
 s32 func_80022DBC();
 s32 func_8005F664();
-s32 func_800635B4();
+s32 actorSetField7A();
 s32 func_800635BC();
 s32 func_80065684();
 s32 func_80070870();
@@ -81,7 +81,7 @@ s32 func_80063998(void *arg0, s32 arg1) {
             if (temp_a0_2 != NULL) {
                 M2C_FIELD(temp_a0_2, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a0_2, s32 *, 0x28) & ~0xFC) | 0x1C);
             }
-            func_800635B4(arg0, 2);
+            actorSetField7A(arg0, 2);
             if (!(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x200)) {
                 var_a1 = 8;
             
@@ -91,7 +91,7 @@ s32 func_80063998(void *arg0, s32 arg1) {
             func_800635BC(arg0, var_a1);}
             if (gBorderSkipFlag == 0) {
                 func_8000A344();
-                func_8000A894(0x101);
+                requestSound(0x101);
             } else {
                 if (M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), s32 *, 8) == 0) {
                     temp_s0 = func_8011B3D8(M2C_FIELD(temp_s3, s32 *, 4));

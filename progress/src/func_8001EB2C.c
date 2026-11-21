@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800070A4();                            /* extern */
-M2C_UNK func_8000A894(M2C_UNK);                     /* extern */
+M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK func_80011938(s32, M2C_UNK);                /* extern */
 M2C_UNK func_800218EC();                            /* extern */
 M2C_UNK func_80021938();                            /* extern */
@@ -60,7 +60,7 @@ void func_8001EB2C(void) {
         return;
     fail:
         M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
-        func_8000A894(0xEA);
+        requestSound(0xEA);
         return;
     } else {
         var_s1 = 0;

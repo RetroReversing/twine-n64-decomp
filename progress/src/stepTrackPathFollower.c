@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016718(void *);                      /* extern */
+M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
 M2C_UNK vec3Add(f32 *, void *, void *);       /* extern */
 u32 randomIntBelow(M2C_UNK);                         /* extern */
 M2C_UNK func_80084048(s32, M2C_UNK);                /* extern */
@@ -53,7 +53,7 @@ M2C_UNK func_800851E0(void *);                      /* extern */
             vec3Add(path, vel, vel);
             M2C_FIELD(path, f32 *, 4) = (f32) (M2C_FIELD(path, f32 *, 4) - 0.32666668f);
             if (M2C_FIELD(follower, f32 *, 0x28) < M2C_FIELD(M2C_FIELD(track, void **, 0x3C), f32 *, 0x20)) {
-                func_80016718(follower);
+                actorUnlinkFromSurface(follower);
                 randomRoll = randomIntBelow(0x20);
                 switch (randomRoll) {
                 case 0: case 1: case 2: case 3:

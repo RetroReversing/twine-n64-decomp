@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 listUnlinkFree();
-s32 func_8000A894();
+s32 requestSound();
 s32 markObjectsNearPos();
 f32 func_80045590();
 f32 approxDistance();
@@ -173,7 +173,7 @@ block_28:
                 } else if (((__repair_record_arg0*)arg0)->field_78 == 3) {
                     func_80084338((*(u16 *)((char *)(temp_s4) + 0x54)), arg0 + 0x24);
                 } else {
-                    func_8000A894((*(u16 *)((char *)(temp_s4) + 0x54)));
+                    requestSound((*(u16 *)((char *)(temp_s4) + 0x54)));
                 }
             }
         }
@@ -191,7 +191,7 @@ block_28:
                 if (((__repair_record_arg0*)arg0)->field_78 == 3) {
                     func_80084338((*(u16 *)((char *)(temp_s4) + 0x56)), arg0 + 0x24);
                 } else {
-                    func_8000A894((*(u16 *)((char *)(temp_s4) + 0x56)));
+                    requestSound((*(u16 *)((char *)(temp_s4) + 0x56)));
                 }
             }
         }
@@ -308,7 +308,7 @@ block_104:
                                 func_80084338(var_a0_2, arg0 + 0x24);
                                 return;
                             }
-                            func_8000A894((*(u16 *)((char *)(temp_s4) + 0x56)));
+                            requestSound((*(u16 *)((char *)(temp_s4) + 0x56)));
                             return;
                         }
                         D_800E1A28 |= 0x10000;
@@ -318,7 +318,7 @@ block_104:
                             if (((__repair_record_arg0*)arg0)->field_78 == 3) {
                                 (*(s32 *)((char *)(temp_s2) + 8)) = func_80084338((*(u16 *)((char *)(temp_s4) + 0x58)), arg0 + 0x24);
                             } else {
-                                (*(s32 *)((char *)(temp_s2) + 8)) = func_8000A894(temp_a0_5);
+                                (*(s32 *)((char *)(temp_s2) + 8)) = requestSound(temp_a0_5);
                             }
                         }
                         if (((__repair_record_arg0*)arg0)->field_78 == 2) {

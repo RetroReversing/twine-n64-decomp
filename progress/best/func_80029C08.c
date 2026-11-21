@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8000A894();
+s32 requestSound();
 void *findEntryById();
 void *func_80026314();
 s32 func_80027CE0();
@@ -100,7 +100,7 @@ block_13:
             if (func_8002AB54(arg0) & 0xFF) {
                 var_a0_2 = 0xEC;
             }
-            func_8000A894(var_a0_2);
+            requestSound(var_a0_2);
             temp_a1 = (*(void **)((char *)(var_s3) + 8));
             ((__repair_field_10 *)temp_a1)->value = (s32) ((D_800BD644 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
@@ -113,7 +113,7 @@ block_13:
             if (func_8002AB6C(arg0) & 0xFF) {
                 var_a0_3 = 0xEC;
             }
-            func_8000A894(var_a0_3);
+            requestSound(var_a0_3);
             temp_a1_2 = (*(void **)((char *)(var_s4) + 8));
             ((__repair_field_10 *)temp_a1_2)->value = (s32) ((D_800BD644 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {

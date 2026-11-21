@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-M2C_UNK func_8000A894(u16);
+M2C_UNK requestSound(u16);
 M2C_UNK setActionSlot(void *, s32, s32, M2C_UNK);
 M2C_UNK func_80073AF8(M2C_UNK, s32, s32, s16, s32, s32, s32, s32, s32, s32, s32);
 M2C_UNK func_80084338(u16, void *);
@@ -42,5 +42,5 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
       do { func_80084338(D_800C4478[temp_s1].fieldC,arg0+0x24); } while (0);
       return;
     }
-    func_8000A894(D_800C4478[temp_s1].fieldC);
+    requestSound(D_800C4478[temp_s1].fieldC);
 }

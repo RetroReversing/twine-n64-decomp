@@ -6,7 +6,7 @@ s32 func_80002D30(void *, u16);                 /* extern */
 s32 func_80002EB8(void *);                      /* extern */
 s32 func_80002EF0(void *, f32);                 /* extern */
 s32 listUnlinkFree(s32, s8);                     /* extern */
-s32 func_8000A894(s32, s32 *);          /* extern */
+s32 requestSound(s32, s32 *);          /* extern */
 void *func_8005F664(void *, s32, s8);           /* extern */
 s32 func_800648FC(void *, s32);                 /* extern */
 s32 func_80065BC4(void *);                      /* extern */
@@ -238,7 +238,7 @@ block_41:
         var_s4 = temp_s1;
         if ((*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 0x14)) & 0x10) {
             if (*((s32 *)((s8 *)&D_800C46FC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8))) & 4) {
-                func_8000A894(0x1DF, __base_D_800C469C);
+                requestSound(0x1DF, __base_D_800C469C);
             }
             (*(s16 *)((char *)(temp_s2) + 0x178)) = 0;
             (*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) = 0;

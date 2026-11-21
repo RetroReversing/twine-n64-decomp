@@ -38,16 +38,17 @@ void func_8001880C(void *arg0) {
     m2c_initial_frame.view_sp10.value = -(approximateAtan2(m2c_initial_frame.view_sp24.value, var_fv0) * 651.8986f);
     temp_fv0_2 = approximateAtan2(m2c_initial_frame.view_sp20.value, m2c_initial_frame.view_sp28.value) * 651.8986f;
     m2c_initial_frame.view_sp14.value = temp_fv0_2;
-    m2c_initial_frame.view_sp20.value = (f32) angleDelta12((s32) temp_fv0, (s32) (*(f32 *)((char *)(temp_s1) + 0xC)));
-    m2c_initial_frame.view_sp24.value = (f32) angleDelta12((s32) temp_fv0_2, (s32) (*(f32 *)((char *)(temp_s1) + 0x10)));
+    m2c_initial_frame.view_sp20.value = (f32) angleDelta12((s32) m2c_initial_frame.view_sp10.value, (s32) (*(f32 *)((char *)(temp_s1) + 0xC)));
+    m2c_initial_frame.view_sp24.value = (f32) angleDelta12((s32) m2c_initial_frame.view_sp14.value, (s32) (*(f32 *)((char *)(temp_s1) + 0x10)));
     if (m2c_initial_frame.view_sp20.value < -56.88889f) {
         m2c_initial_frame.view_sp20.value = -56.88889f;
     } else if (m2c_initial_frame.view_sp20.value > 739.5556f) {
         m2c_initial_frame.view_sp20.value = 739.5556f;
     }
-    var_fv1 = -739.5556f;
-    if ((m2c_initial_frame.view_sp24.value < -739.5556f) || (var_fv1 = 739.5556f, (m2c_initial_frame.view_sp24.value > 739.5556f))) {
-        m2c_initial_frame.view_sp24.value = var_fv1;
+    if (m2c_initial_frame.view_sp24.value < -739.5556f) {
+        m2c_initial_frame.view_sp24.value = -739.5556f;
+    } else if (m2c_initial_frame.view_sp24.value > 739.5556f) {
+        m2c_initial_frame.view_sp24.value = 739.5556f;
     }
     temp_fv0_3 = (*(f32 *)((char *)(arg0) + 0x3C));
     (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) ((f64) temp_fv0_3 + ((f64) (((*(f32 *)((char *)(temp_s1) + 0xC)) - m2c_initial_frame.view_sp20.value) - temp_fv0_3) * D_800D27B0));
@@ -55,3 +56,4 @@ void func_8001880C(void *arg0) {
     (*(f32 *)((char *)(arg0) + 0x40)) = (f32) ((f64) temp_fv1 + ((f64) (((*(f32 *)((char *)(temp_s1) + 0x10)) - m2c_initial_frame.view_sp24.value) - temp_fv1) * D_800D27B0));
     (*(s32 *)((char *)(arg0) + 0x44)) = 0;
 }
+

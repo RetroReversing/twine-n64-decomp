@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A894(M2C_UNK);             /* extern */
+M2C_UNK requestSound(M2C_UNK);             /* extern */
 M2C_UNK formatTextEntry(void *, char *, ...);      /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern void *gMenuState;
@@ -41,7 +41,7 @@ void func_800295F0(s32 arg0) {
         var_s2 = 1;
         var_s0 = 0;
     }
-    func_8000A894(0xE8);
+    requestSound(0xE8);
     var_s1 += arg0;
     temp_v0_2 = var_s1;
     if ((s32)(var_s2 & 0xFFFF) < temp_v0_2) {
