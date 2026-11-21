@@ -40,10 +40,10 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
     if (object != (u32)NULL) {
         u32 f = object->flags & ~0xFC;
         u32 m = -(dim == 0);
-        object->flags = f | (m & 0x1C);
         object->x = entry->x;
         object->y = entry->position.y;
         object->size = 0x40;
+        object->flags = f | (m & 0x1C);
         func_80022B60(0);
         object->color = (gMenuSoundParams & ~0xFF) | gMenuItems->alpha;
         func_80022E88(0);

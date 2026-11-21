@@ -1,46 +1,53 @@
-extern void *D_8010968C;
-void func_80032264(void *arg0) {
-    f32 temp_fv0, temp_fv0_2;
-    s16 temp_v0_2, temp_v0_4, temp_v1;
-    u8 temp_v0, temp_v0_3, var_v0;
-    void *temp_a1;
-    temp_v1 = *(s16 *)((s8 *)arg0 + 0x7A);
-    temp_a1 = *(void **)((s8 *)arg0 + 0x6C);
-    switch (temp_v1) {
+extern void *gWobbleParams;
+
+/* Advances the wobble animation: four phases, each held for a countdown timer; the angle sweeps up or down in the first two phases. */
+void updateWobbleAnim(void *actor) {
+    f32 angle, angleBack;
+    s16 phase, nextPhase, wrappedPhase;
+    u8 timer, timerDec;
+    void *timerPtr;
+
+    phase = *(s16 *)((s8 *)actor + 0x7A);
+    timerPtr = *(void **)((s8 *)actor + 0x6C);
+    switch (phase) {
     case 0:
-        temp_fv0 = *(f32 *)((s8 *)arg0 + 0x40) + 3.0f;
-        { f32 t = temp_fv0 * 0.0015339808f;
-        *(f32 *)((s8 *)arg0 + 0x40) = temp_fv0;
-        *(f32 *)((s8 *)D_8010968C + 0x38) = t; }
+        angle = *(f32 *)((s8 *)actor + 0x40) + 3.0f;
+        {
+            f32 t = angle * 0.0015339808f;
+            *(f32 *)((s8 *)actor + 0x40) = angle;
+            *(f32 *)((s8 *)gWobbleParams + 0x38) = t;
+        }
     case 1:
-        temp_v0 = *(u8 *)((s8 *)temp_a1 + 2) - 1;
-        *(u8 *)((s8 *)temp_a1 + 2) = temp_v0;
-        if (!(temp_v0 & 0xFF)) {
-            temp_v0_2 = *(s16 *)((s8 *)arg0 + 0x7A) + 1;
-            *(s16 *)((s8 *)arg0 + 0x7A) = temp_v0_2;
-            if (temp_v0_2 != 1) {
-                *(u8 *)((s8 *)temp_a1 + 2) = 0x78;
+        timer = *(u8 *)((s8 *)timerPtr + 2) - 1;
+        *(u8 *)((s8 *)timerPtr + 2) = timer;
+        if (!(timer & 0xFF)) {
+            nextPhase = *(s16 *)((s8 *)actor + 0x7A) + 1;
+            *(s16 *)((s8 *)actor + 0x7A) = nextPhase;
+            if (nextPhase != 1) {
+                *(u8 *)((s8 *)timerPtr + 2) = 0x78;
             } else {
-                *(u8 *)((s8 *)temp_a1 + 2) = 5;
+                *(u8 *)((s8 *)timerPtr + 2) = 5;
             }
         }
         return;
     case 2:
-        temp_fv0_2 = *(f32 *)((s8 *)arg0 + 0x40) + -3.0f;
-        { f32 t = temp_fv0_2 * 0.0015339808f;
-        *(f32 *)((s8 *)arg0 + 0x40) = temp_fv0_2;
-        *(f32 *)((s8 *)D_8010968C + 0x38) = t; }
+        angleBack = *(f32 *)((s8 *)actor + 0x40) + -3.0f;
+        {
+            f32 t = angleBack * 0.0015339808f;
+            *(f32 *)((s8 *)actor + 0x40) = angleBack;
+            *(f32 *)((s8 *)gWobbleParams + 0x38) = t;
+        }
     case 3:
-        temp_v0_3 = *(u8 *)((s8 *)temp_a1 + 2) - 1;
-        *(u8 *)((s8 *)temp_a1 + 2) = temp_v0_3;
-        if (!(temp_v0_3 & 0xFF)) {
-            *(u8 *)((s8 *)temp_a1 + 2) = 0;
-            temp_v0_4 = (*(s16 *)((s8 *)arg0 + 0x7A) + 1) & 3;
-            *(s16 *)((s8 *)arg0 + 0x7A) = temp_v0_4;
-            if (temp_v0_4 == 3) {
-                *(u8 *)((s8 *)temp_a1 + 2) = 5;
+        timerDec = *(u8 *)((s8 *)timerPtr + 2) - 1;
+        *(u8 *)((s8 *)timerPtr + 2) = timerDec;
+        if (!(timerDec & 0xFF)) {
+            *(u8 *)((s8 *)timerPtr + 2) = 0;
+            wrappedPhase = (*(s16 *)((s8 *)actor + 0x7A) + 1) & 3;
+            *(s16 *)((s8 *)actor + 0x7A) = wrappedPhase;
+            if (wrappedPhase == 3) {
+                *(u8 *)((s8 *)timerPtr + 2) = 5;
             } else {
-                *(u8 *)((s8 *)temp_a1 + 2) = 0x78;
+                *(u8 *)((s8 *)timerPtr + 2) = 0x78;
             }
         }
         break;

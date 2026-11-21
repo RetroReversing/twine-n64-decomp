@@ -14,8 +14,8 @@ extern s8 *D_800E19C0;
 extern s8 *D_800E19C4;
 extern s16 D_800E19C8;
 extern s16 D_800E19CA;
-extern u16 D_800E19CC;
-extern u16 D_800E19CE;
+extern s16 D_800E19CC;
+extern s16 D_800E19CE;
 
 s32 func_8003EC70(s32 arg0) {
 
@@ -70,7 +70,7 @@ s32 func_8003EC70(s32 arg0) {
     register void *temp_v0_3;
     void *temp_v1_3;
     register void *temp_v1_4;
-    u8 sp[4];
+    u8 sp[16];
 
     var_t2 = arg0;
     D_800E19CE = 0;

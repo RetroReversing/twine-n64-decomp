@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80008750(s32, u8, M2C_UNK);            /* extern */
 M2C_UNK func_8003438C(void *, s32);                 /* extern */
 M2C_UNK func_80034630(void *, s32);                 /* extern */
-M2C_UNK func_80037788(void *, s32);                 /* extern */
+M2C_UNK submitObjectMatrix(void *, s32);                 /* extern */
 M2C_UNK func_800378C0(void *, void *, s32);         /* extern */
 M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
 extern void *D_80107E9C;
@@ -47,7 +47,7 @@ void func_80037A7C(s32 arg0) {
                         var_s4 = 0;
                     }
                     func_80008750(arg0, M2C_FIELD(M2C_FIELD(var_s0, void **, 0x18), u8 *, 0x45), 0);
-                    func_80037788(var_s0, arg0);
+                    submitObjectMatrix(var_s0, arg0);
                     var_s0 = M2C_FIELD(var_s0, void **, 8);
                     var_v0 = var_s4;
                 } while (var_s0 != NULL);
