@@ -28,16 +28,16 @@ s32 MatMul3x3InPlace();
 s32 func_800839F0();
 s32 rotateVec3ByMat3();
 s32 guMtxF2L();
-extern u32 D_800B1D84;
+extern u32 sMatrixPoolLimit;
 extern u8 D_800C2B40;
 extern char D_800C392A[];
 extern s32 (*D_800D9420)(s16 *, s32 *);
 extern void *D_801002FC;
 extern s32 gBorderSkipFlag;
-extern u32 D_80107EA0;
+extern u32 sMatrixPoolUsed;
 extern void *D_8010A4B4;
 extern void *D_80115328;
-extern void *D_80117728;
+extern void *sRenderState;
 
 typedef struct { int value; } __repair_field_0;
 typedef struct { unsigned char pad[100]; void * value; } __repair_field_64;
@@ -299,7 +299,7 @@ block_42:
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 4) = (f32) (sp10[1] + sp20[1]);
                         M2C_FIELD((var_s6 + M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 4)), f32 *, 8) = (f32) (sp10[2] + sp20[2]);
                     }
-                    if (!(M2C_FIELD(arg0, s32 *, 0x58) & 8) && ((u32) D_80107EA0 < (u32) D_800B1D84)) {
+                    if (!(M2C_FIELD(arg0, s32 *, 0x58) & 8) && ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit)) {
                         sp50[0] = M2C_FIELD(temp_s1, f32 *, 0) * 0.015625f;
                         sp50[4] = M2C_FIELD(temp_s1, f32 *, 4) * 0.015625f;
                         sp50[8] = M2C_FIELD(temp_s1, f32 *, 8) * 0.015625f;
@@ -308,9 +308,9 @@ block_42:
                         sp50[9] = M2C_FIELD(temp_s1, f32 *, 0x14) * 0.015625f;
                         sp50[2] = M2C_FIELD(temp_s1, f32 *, 0x18) * 0.015625f;
                         sp50[6] = M2C_FIELD(temp_s1, f32 *, 0x1C) * 0.015625f;
-                        temp_v0_5 = D_80107EA0 + 1;
-                        temp_s1_2 = M2C_FIELD(D_80117728, s32 *, 0x74C) + (temp_v0_5 << 6);
-                        D_80107EA0 = temp_v0_5;
+                        temp_v0_5 = sMatrixPoolUsed + 1;
+                        temp_s1_2 = M2C_FIELD(sRenderState, s32 *, 0x74C) + (temp_v0_5 << 6);
+                        sMatrixPoolUsed = temp_v0_5;
                         sp50[12] = sp10[0] * 64.0f;
                         sp50[13] = sp10[1] * 64.0f;
                         sp50[14] = sp10[2] * 64.0f;

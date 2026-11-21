@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK guPositionF(M2C_UNK *, f32, f32, f32, s32, f32, f32, f32); /* extern */
-extern M2C_UNK D_80112F90;
+extern M2C_UNK sObjectMatrixF;
 
 void func_80008434(void *arg0, s32 arg1) {
-    guPositionF(&D_80112F90, M2C_FIELD(arg0, f32 *, 0x3C) * 0.087890625f, M2C_FIELD(arg0, f32 *, 0x40) * 0.087890625f, M2C_FIELD(arg0, f32 *, 0x44) * 0.087890625f, arg1, M2C_FIELD(arg0, f32 *, 0x24) * 64.0f, M2C_FIELD(arg0, f32 *, 0x28) * 64.0f, M2C_FIELD(arg0, f32 *, 0x2C) * 64.0f);
+    guPositionF(&sObjectMatrixF, M2C_FIELD(arg0, f32 *, 0x3C) * 0.087890625f, M2C_FIELD(arg0, f32 *, 0x40) * 0.087890625f, M2C_FIELD(arg0, f32 *, 0x44) * 0.087890625f, arg1, M2C_FIELD(arg0, f32 *, 0x24) * 64.0f, M2C_FIELD(arg0, f32 *, 0x28) * 64.0f, M2C_FIELD(arg0, f32 *, 0x2C) * 64.0f);
 }

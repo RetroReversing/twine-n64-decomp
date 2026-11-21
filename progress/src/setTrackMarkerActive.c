@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *func_80015F74();
 s32 func_80016314();
-s32 func_800637DC();
+s32 updateHudSprites();
 s32 freeTrackSpriteSlots();
 s32 func_8006FDF8();
 extern s16 D_800C7CE4;
@@ -84,6 +84,6 @@ char *__branch___base_D_80109688;
         D_800C7D2C = (s16) trackId;
         D_800C7D50 = (s16) trackId;
         func_8006FDF8(obj, 5);
-        func_800637DC(obj);
+        updateHudSprites(obj);
     }
 }

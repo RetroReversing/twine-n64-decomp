@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern M2C_UNK D_800C0660;
 extern s32 D_8010A4EC;
 extern s32 D_8010A920;
-extern s32 *D_80115328;
+extern s32 *sDisplayListCursor;
 
 void func_80034928(s32 arg0, s32 arg1) {
     s32 *temp_v1;
@@ -24,15 +24,15 @@ void func_80034928(s32 arg0, s32 arg1) {
     if (arg0, D_8010A920 != arg1) {
         D_8010A920 = arg1;
         if (D_8010A4EC != 0) {
-            temp_v1 = D_80115328;
-            D_80115328 = (s8 *) temp_v1 + 8;
+            temp_v1 = sDisplayListCursor;
+            sDisplayListCursor = (s8 *) temp_v1 + 8;
             M2C_FIELD(temp_v1, s32 *, 0) = 0xE3001801;
             M2C_FIELD(temp_v1, s32 *, 4) = 0xC0;
             return;
         }
-        temp_v1_2 = D_80115328;
+        temp_v1_2 = sDisplayListCursor;
         M2C_FIELD(temp_v1_2, s32 *, 0) = 0xE3001801;
-        D_80115328 = (s8 *) temp_v1_2 + 8;
+        sDisplayListCursor = (s8 *) temp_v1_2 + 8;
         M2C_FIELD(temp_v1_2, s32 *, 4) = (s32) *(&D_800C0660 + arg1);
     }
 }

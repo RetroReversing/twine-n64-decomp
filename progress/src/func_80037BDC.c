@@ -39,8 +39,8 @@ void func_8000CCE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern void emitScissorFromWindow(void *);
 extern void emit_projection_viewport_commands(void);
 extern s32 D_801032A0, D_8010A920, D_8010A924, gRenderMode;
-extern u32 *D_8010A928, *D_80115328;
-extern u8 *D_80117728;
+extern u32 *D_8010A928, *sDisplayListCursor;
+extern u8 *sRenderState;
 void func_80037BDC(void *window) {
     u32 *head, *list, address;
     u8 *state;
@@ -50,8 +50,8 @@ void func_80037BDC(void *window) {
         emit_projection_viewport_commands();
     }
     head = D_8010A928;
-    list = D_80115328;
-    state = D_80117728;
+    list = sDisplayListCursor;
+    state = sRenderState;
     head[0] = 0xDF000000;
     head[1] = 0;
     list[0] = 0xDE000000;
@@ -61,6 +61,6 @@ void func_80037BDC(void *window) {
     gRenderMode = -1;
     D_8010A920 = -1;
     D_8010A928 = head + 2;
-    D_80115328 = list + 2;
+    sDisplayListCursor = list + 2;
     list[1] = address;
 }

@@ -39,13 +39,13 @@ s32 func_800989B8(u32 key) {
 }
 
 typedef struct { u32 w0, w1; } Gfx38;
-extern Gfx38 * volatile D_80115328;
+extern Gfx38 * volatile sDisplayListCursor;
 extern u32 D_800E1710;
-extern u8 *D_80117728;
+extern u8 *sRenderState;
 void emit_projection_viewport_commands(void) {
-    Gfx38 *g = D_80115328;
+    Gfx38 *g = sDisplayListCursor;
     u32 index = D_800E1710;
-    u8 *base = D_80117728;
+    u8 *base = sRenderState;
     u32 offset = index << 6;
     g[0].w0 = 0xda380007;
     g[0].w1 = (u32)(base + offset) - 0x80000000u;
@@ -56,10 +56,10 @@ void emit_projection_viewport_commands(void) {
     g[3].w0 = 0xdb0e0000;
     {
         u16 fog = *(volatile u16 *)(((index << 1) + (u32)base) + 0x360);
-        D_80115328 = g + 1;
-        D_80115328 = g + 2;
-        D_80115328 = g + 3;
-        D_80115328 = g + 4;
+        sDisplayListCursor = g + 1;
+        sDisplayListCursor = g + 2;
+        sDisplayListCursor = g + 3;
+        sDisplayListCursor = g + 4;
         g[3].w1 = fog;
     }
 }

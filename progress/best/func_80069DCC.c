@@ -27,7 +27,7 @@ M2C_UNK func_80047FB4(s32, s32);
 s32 func_8004BCC0(void *, void *, f32 *, M2C_UNK);
 M2C_UNK func_800635BC(void *, M2C_UNK);
 f32 func_80063758(f32, f32, s32);
-M2C_UNK func_800637DC(void *);
+M2C_UNK updateHudSprites(void *);
 M2C_UNK func_80064318(s32, s8);
 M2C_UNK func_80065684(void *);
 M2C_UNK actorInitFromSpawn(void *, void *, void *);
@@ -367,7 +367,7 @@ func_8000A894(0x58);
 setTrackMarkerActive(0, temp_s1);
 } else {
 M2C_FIELD(temp_s1, u16 *, 0x520) = (u16) (temp_v1_2 - 1);
-func_800637DC(temp_s1);
+updateHudSprites(temp_s1);
 }
 } else {
 temp_v1_3 = M2C_FIELD(temp_s1, u16 *, 0x520);

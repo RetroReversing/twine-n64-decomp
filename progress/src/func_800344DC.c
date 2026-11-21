@@ -14,14 +14,14 @@ typedef s32 M2C_UNK32;
 
 extern s16 D_80108F80;
 extern s16 D_8010D6F8;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 typedef struct { int field_0; int field_4; } __repair_record_temp_a0;
 void func_800344DC(void) {
     void *temp_a0;
 
-    temp_a0 = D_80115328;
-    D_80115328 = temp_a0 + 8;
+    temp_a0 = sDisplayListCursor;
+    sDisplayListCursor = temp_a0 + 8;
     ((__repair_record_temp_a0*)temp_a0)->field_0 = 0xED000000;
     ((__repair_record_temp_a0*)temp_a0)->field_4 = (s32) ((((s32) ((f32) D_8010D6F8 * 4.0f) & 0xFFF) << 0xC) | ((s32) ((f32) D_80108F80 * 4.0f) & 0xFFF));
 }

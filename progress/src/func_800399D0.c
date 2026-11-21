@@ -15,15 +15,15 @@ typedef s32 M2C_UNK32;
 extern M2C_UNK D_800C0700;
 extern s8 D_800E176C;
 extern s8 D_800E176D;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 void func_800399D0(void) {
     void *temp_v1;
 
-    temp_v1 = D_80115328;
+    temp_v1 = sDisplayListCursor;
     D_800E176C = 0;
     D_800E176D = 1;
-    D_80115328 = temp_v1 + 8;
+    sDisplayListCursor = temp_v1 + 8;
     M2C_FIELD(temp_v1, s32 *, 0) = 0xDE000000;
     M2C_FIELD(temp_v1, M2C_UNK **, 4) = &D_800C0700;
 }

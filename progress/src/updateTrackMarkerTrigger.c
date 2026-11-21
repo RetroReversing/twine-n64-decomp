@@ -21,7 +21,7 @@ M2C_UNK func_800853D4(void *);                      /* extern */
 extern s8 gTransitionPhase;
 extern u8 gTrackDoneFlags[];
 
-void func_800633D0(register void *arg0) {
+void updateTrackMarkerTrigger(register void *arg0) {
     s16 temp_v0;
     u16 temp_a0;
     u16 temp_v1;

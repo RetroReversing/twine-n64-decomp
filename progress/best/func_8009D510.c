@@ -8,10 +8,13 @@ void func_8009D510(void *arg0, volatile s32 arg1, volatile s32 arg2, volatile s3
     *(s32 *)((s8 *)arg0 + 0x194) = arg1;
     *(s32 *)((s8 *)arg0 + 0x19C) = arg3;
     osCreateMesgQueue((s8 *)arg0 + 0x11AC, (s8 *)arg0 + 0x11C4);
-    if ((arg1 == 0) || (!arg4)) {
+    if (arg1 != 0) {
         *(s8 *)((s8 *)arg0 + 0x11DD) = 0;
+        if (arg4 != 0) {
+            *(s8 *)((s8 *)arg0 + 0x11DD) = 1;
+        }
     } else {
-        *(s8 *)((s8 *)arg0 + 0x11DD) = 1;
+        *(s8 *)((s8 *)arg0 + 0x11DD) = 0;
     }
     *(s8 *)((s8 *)arg0 + 0x11DC) = 0;
     *(s16 *)((s8 *)arg0 + 0x11A2) = 0;

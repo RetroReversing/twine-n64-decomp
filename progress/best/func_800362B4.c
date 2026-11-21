@@ -35,14 +35,14 @@ extern void guMtxF2L(f32 *, u32);
 extern void func_800A3940(f32 *, f32, f32, f32);
 extern void guMtxIdentF(f32 *);
 extern RenderCommand D_800B1A00[], D_800B1A78[], D_800B1B18[];
-extern u32 D_800B1D84[3];
+extern u32 sMatrixPoolLimit[3];
 extern s32 D_801032A0, D_8010A924, gRenderMode;
 extern RenderNode *D_80107E9C;
-extern u32 D_80107EA0, D_8010D538;
+extern u32 sMatrixPoolUsed, D_8010D538;
 extern f32 D_80112F90[16];
 extern f32 D_80112FC4;
 extern RenderCommand *D_80115328;
-extern RenderFrame *D_80117728;
+extern RenderFrame *sRenderState;
 
 #define EMIT(a, b) { RenderCommand *cmd = D_80115328++; cmd->w0 = (a); cmd->w1 = (b); }
 
@@ -74,7 +74,7 @@ void func_800362B4(RenderView *view) {
     cmd = D_80115328;
     cmd->w0 = 0xDA380003;
     D_80115328++;
-    cmd->w1 = D_80117728->matrices - 0x80000000;
+    cmd->w1 = sRenderState->matrices - 0x80000000;
 
     for (; node != NULL; node = node->next) {
         func_80014A40(node, view);
@@ -97,12 +97,12 @@ void func_800362B4(RenderView *view) {
         do {
         if ((node->flags >> 2) & 0x200) {
             f32 y = 2.0f * node->detail->height;
-            if (D_80107EA0 >= D_800B1D84[0]) {
+            if (sMatrixPoolUsed >= sMatrixPoolLimit[0]) {
                 break;
             }
             emitPrimColor(node, view);
             func_80034630(node, view);
-            D_8010D538 = D_80117728->matrices + (++D_80107EA0 << 6);
+            D_8010D538 = sRenderState->matrices + (++sMatrixPoolUsed << 6);
             guMtxIdentF(matrix);
             func_800A3940(matrix, one, -1.0f, one);
             D_80112FC4 = y * scale;

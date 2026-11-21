@@ -2,7 +2,7 @@
 
 s32 emitScissorFromWindow(s32);                         /* extern */
 extern void *gTrackMarkerTable[];
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
     f32 temp_fv1;
@@ -60,22 +60,22 @@ void func_800075C4(s8 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4) {
         var_v0_4 = arg1 * 4;
     }
     emitScissorFromWindow(gTrackMarkerTable[arg1]);
-    temp_a0 = D_80115328;
-    D_80115328 = temp_a0 + 8;
-    D_80115328 = temp_a0 + 0x10;
-    D_80115328 = temp_a0 + 0x18;
-    D_80115328 = temp_a0 + 0x20;
+    temp_a0 = sDisplayListCursor;
+    sDisplayListCursor = temp_a0 + 8;
+    sDisplayListCursor = temp_a0 + 0x10;
+    sDisplayListCursor = temp_a0 + 0x18;
+    sDisplayListCursor = temp_a0 + 0x20;
     (*(s32 *)((char *)(temp_a0) + 0)) = 0xE3000A01;
-    D_80115328 = temp_a0 + 0x28;
+    sDisplayListCursor = temp_a0 + 0x28;
     (*(s32 *)((char *)(temp_a0) + 0x18)) = 0xFA000000;
-    D_80115328 = temp_a0 + 0x30;
-    D_80115328 = temp_a0 + 0x38;
+    sDisplayListCursor = temp_a0 + 0x30;
+    sDisplayListCursor = temp_a0 + 0x38;
     (*(s32 *)((char *)(temp_a0) + 0x30)) = 0xE7000000;
-    D_80115328 = temp_a0 + 0x40;
+    sDisplayListCursor = temp_a0 + 0x40;
     (*(s32 *)((char *)(temp_a0) + 0x3C)) = 0x8000;
-    D_80115328 = temp_a0 + 0x48;
+    sDisplayListCursor = temp_a0 + 0x48;
     (*(s32 *)((char *)(temp_a0) + 0xC)) = 0xFFFDF6FB;
-    D_80115328 = temp_a0 + 0x50;
+    sDisplayListCursor = temp_a0 + 0x50;
     (*(s32 *)((char *)(temp_a0) + 0x1C)) = (s32) ((arg2 << 0x18) | ((arg3 & 0xFF) << 0x10) | (arg4 << 8) | (arg0 & 0xFF));
     (*(s32 *)((char *)(temp_a0) + 4)) = 0;
     (*(s32 *)((char *)(temp_a0) + 8)) = 0xFCFFFFFF;

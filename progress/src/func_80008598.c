@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80043FA0(void *);                      /* extern */
 M2C_UNK guMtxF2L(M2C_UNK *, s32);              /* extern */
 extern u8 D_800C2B40;
-extern s32 D_8010D538;
+extern s32 sCurrentMatrixSlot;
 extern M2C_UNK D_80112F90;
 extern void *D_80115328;
 
@@ -24,9 +24,9 @@ typedef struct { int value; } __repair_field_0;
 void func_80008598(void *arg0) {
     void *temp_v1;
 
-    guMtxF2L(&D_80112F90, D_8010D538);
+    guMtxF2L(&D_80112F90, sCurrentMatrixSlot);
     ((__repair_field_0 *)D_80115328)->value = 0xDA380003;
-    M2C_FIELD(D_80115328, s32 *, 4) = (s32) (D_8010D538 - 0x80000000);
+    M2C_FIELD(D_80115328, s32 *, 4) = (s32) (sCurrentMatrixSlot - 0x80000000);
     D_80115328 += 8;
     if ((((__repair_record_arg0*)arg0)->field_0 != 0) || (func_80043FA0(arg0), (((__repair_record_arg0*)arg0)->field_0 != 0))) {
         if (!(((__repair_record_arg0*)arg0)->field_46 & 0x80)) {

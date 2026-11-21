@@ -29,6 +29,7 @@ extern M2C_UNK D_800C9A0A;
 extern M2C_UNK D_800C9A1C;
 extern M2C_UNK D_800C9A1E;
 
+typedef struct { s32 w[2]; } __repair_words2;
 void func_80076E98(void *arg0) {
     M2C_UNK var_a1;
     s16 temp_v1;
@@ -120,8 +121,7 @@ block_17:
     }
     if (var_v0 != 0) {
         M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_s1, s32 *, 0x50);
-        M2C_FIELD(temp_s1, s32 *, 0x1C) = (s32) M2C_FIELD(temp_s1, s32 *, 0x54);
-        M2C_FIELD(temp_s1, s32 *, 0x20) = (s32) M2C_FIELD(temp_s1, s32 *, 0x58);
+        M2C_FIELD(temp_s1, __repair_words2 *, 0x1C) = *(__repair_words2 *) ((s8 *) temp_s1 + 0x54);
         func_8007947C(arg0);
         var_a1 = 0x2D;
 block_23:

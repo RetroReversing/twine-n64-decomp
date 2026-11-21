@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_8000DA08();                              /* extern */
-extern f32 D_80112F90;
+extern f32 sObjectMatrixF;
 extern f32 D_80112F94;
 extern f32 D_80112F98;
 extern s32 D_80112F9C;
@@ -34,7 +34,7 @@ void func_80008660(void *arg0) {
     void *temp_v0;
 
     temp_v0 = func_8000DA08();
-    D_80112F90 = M2C_FIELD(temp_v0, f32 *, 0);
+    sObjectMatrixF = M2C_FIELD(temp_v0, f32 *, 0);
     D_80112F94 = M2C_FIELD(temp_v0, f32 *, 0xC);
     D_80112F98 = M2C_FIELD(temp_v0, f32 *, 0x18);
     D_80112F9C = 0;

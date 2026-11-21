@@ -11,12 +11,12 @@ s32 func_800A37C0();
 extern f32 D_800AE4D8;
 extern char D_800B1B68[];
 extern char D_800B1D48[];
-extern u32 D_800B1D84;
+extern u32 sMatrixPoolLimit;
 extern char D_800B25C0[];
 extern u8 D_800C2B40;
 extern char D_800C392A[];
 extern s32 D_801032A0;
-extern u32 D_80107EA0;
+extern u32 sMatrixPoolUsed;
 extern s32 D_8010A924;
 extern s32 *D_8010A928;
 extern s32 D_8010D538;
@@ -26,9 +26,9 @@ extern f32 D_80112FA0;
 extern f32 D_80112FA8;
 extern f32 D_80112FB0;
 extern f32 D_80112FB8;
-extern void *D_80117728;
+extern void *sRenderState;
 
-extern void *D_80117728;
+extern void *sRenderState;
 extern f32 D_80112F90, D_80112F98, D_80112FA0, D_80112FA8, D_80112FB0, D_80112FB8;
 extern u8 D_800C2B40;
 
@@ -143,7 +143,7 @@ s32 __repair_phase_var_s1;
                     temp_s0_2 = func_80044818((*(s32 *)((char *)(temp_s0) + 4)), 0x2A);
                     temp_fv1_2 = approximateAtan2(temp_fs1, temp_fs0);
                     temp_fs0_2 = func_80046140(temp_fs1, temp_fs0, temp_a0);
-                    if (((u32) D_80107EA0 < (u32) D_800B1D84) && ((temp_v0 = D_80107EA0 + 1, D_80107EA0 = temp_v0, D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6), func_8000BB50(&D_80112F90, (*(f32 *)((char *)(var_s2) + 0)) * 64.0f, (*(f32 *)((char *)(var_s2) + 4)) * 64.0f, (*(f32 *)((char *)(var_s2) + 8)) * 64.0f, temp_fv1_2), D_80112F90 *= temp_fs0_2, D_80112FA0 *= temp_fs0_2, D_80112FB0 *= temp_fs0_2, D_80112F98 *= temp_fs0_2, D_80112FA8 *= temp_fs0_2, D_80112FB8 *= temp_fs0_2, func_800A37C0(&D_80112F90, D_8010D538), temp_a0_2 = D_8010A928, D_8010A928 = (unsigned)temp_a0_2 + 8, ((__repair_field_0 *)temp_a0_2)->value = 0xDA380003, (*(s32 *)((char *)(temp_a0_2) + 4)) = (s32) (D_8010D538 - (unsigned)0x80000000), (*(s32 *)((char *)(temp_a0_2) + 8)) = 0xFA000000, (*(s32 *)((char *)(temp_a0_2) + 0xC)) = (s32) ((((*(u8 *)((char *)(arg0) + 0x82)) * 2) / 3) & 0xFF), D_8010A928 = (s8 *) temp_a0_2 + 0x10, (((__repair_field_0 *)temp_s0_2)->value != 0)) || (func_80043FA0(temp_s0_2, 0xDA380003), (((__repair_field_0 *)temp_s0_2)->value != 0)))) {
+                    if (((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit) && ((temp_v0 = sMatrixPoolUsed + 1, sMatrixPoolUsed = temp_v0, D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6), func_8000BB50(&D_80112F90, (*(f32 *)((char *)(var_s2) + 0)) * 64.0f, (*(f32 *)((char *)(var_s2) + 4)) * 64.0f, (*(f32 *)((char *)(var_s2) + 8)) * 64.0f, temp_fv1_2), D_80112F90 *= temp_fs0_2, D_80112FA0 *= temp_fs0_2, D_80112FB0 *= temp_fs0_2, D_80112F98 *= temp_fs0_2, D_80112FA8 *= temp_fs0_2, D_80112FB8 *= temp_fs0_2, func_800A37C0(&D_80112F90, D_8010D538), temp_a0_2 = D_8010A928, D_8010A928 = (unsigned)temp_a0_2 + 8, ((__repair_field_0 *)temp_a0_2)->value = 0xDA380003, (*(s32 *)((char *)(temp_a0_2) + 4)) = (s32) (D_8010D538 - (unsigned)0x80000000), (*(s32 *)((char *)(temp_a0_2) + 8)) = 0xFA000000, (*(s32 *)((char *)(temp_a0_2) + 0xC)) = (s32) ((((*(u8 *)((char *)(arg0) + 0x82)) * 2) / 3) & 0xFF), D_8010A928 = (s8 *) temp_a0_2 + 0x10, (((__repair_field_0 *)temp_s0_2)->value != 0)) || (func_80043FA0(temp_s0_2, 0xDA380003), (((__repair_field_0 *)temp_s0_2)->value != 0)))) {
                         if (!((*(u8 *)((char *)(temp_s0_2) + 0x46)) & 0x80)) {
                             (*(u8 *)((char *)(temp_s0_2) + 0x46)) = (u8) D_800C2B40;
                         }

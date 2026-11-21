@@ -21,8 +21,8 @@ extern void *D_80109CB8;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 gRenderMode;
-extern void *D_80115328;
-extern void *D_80117728;
+extern void *sDisplayListCursor;
+extern void *sRenderState;
 
 typedef struct { int value; } __repair_field_0;
 void func_80037C84(s32 arg0) {
@@ -36,26 +36,26 @@ void func_80037C84(s32 arg0) {
         func_80039068(arg0);
     }
     if (D_8010A924 != 6) {
-        temp_v1 = D_80115328;
+        temp_v1 = sDisplayListCursor;
         D_8010A924 = 6;
-        D_80115328 = temp_v1 + 8;
+        sDisplayListCursor = temp_v1 + 8;
         ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
         M2C_FIELD(temp_v1, s32 **, 4) = D_800B1CD0;
     }
     if (D_801032A0 != 2) {
-        temp_v1_2 = D_80115328;
+        temp_v1_2 = sDisplayListCursor;
         D_801032A0 = 2;
-        D_80115328 = temp_v1_2 + 8;
+        sDisplayListCursor = temp_v1_2 + 8;
         ((__repair_field_0 *)temp_v1_2)->value = 0xFC419883;
         M2C_FIELD(temp_v1_2, s32 *, 4) = 0xFF32FF7F;
     }
     func_80034928(arg0, 2);
     ((__repair_field_0 *)D_80109CB8)->value = 0xDF000000;
     ((__repair_field_0 *)D_80109CB8 + 1)->value = 0;
-    ((__repair_field_0 *)D_80115328)->value = 0xDE000000;
-    M2C_FIELD(D_80115328, s32 *, 4) = (s32) M2C_FIELD(D_80117728, s32 *, 0x1A60);
+    ((__repair_field_0 *)sDisplayListCursor)->value = 0xDE000000;
+    M2C_FIELD(sDisplayListCursor, s32 *, 4) = (s32) M2C_FIELD(sRenderState, s32 *, 0x1A60);
     D_80109CB8 += 8;
-    temp_a2 = D_80115328 + 8;
-    D_80115328 = temp_a2;
+    temp_a2 = sDisplayListCursor + 8;
+    sDisplayListCursor = temp_a2;
     func_80034928(arg0, D_8010A4D8, temp_a2);
 }

@@ -4,7 +4,7 @@ extern u8 D_80109A34;
 extern u8 D_8010A2CC;
 extern u8 D_8010D2B8;
 extern u8 D_80115318;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 void emitPrimColor(void *arg0, void *arg1) {
     s32 flags;
@@ -38,8 +38,8 @@ u8 *p;
         a2 = p[0x65];
         a3 = p[0x66];
     }
-    cmd = D_80115328;
-    D_80115328 = (u8 *)cmd + 8;
+    cmd = sDisplayListCursor;
+    sDisplayListCursor = (u8 *)cmd + 8;
     ((s32 *)cmd)[0] = 0xFA000000;
     ((s32 *)cmd)[1] = (a1 << 24) | ((a2 & 0xFF) << 16) | ((a3 & 0xFF) << 8) | 0x80;
 }

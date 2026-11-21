@@ -18,9 +18,9 @@ s32 func_8001880C();
 s32 func_80084338();
 extern u16 D_800C79AA;
 extern f64 D_800D27E0;
-extern char D_80109A60[];
+extern char gTrackDoneFlags[];
 
-void func_80018A18(void *arg0) {
+void updateTrackMarkerState(void *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     s16 temp_v1;
@@ -77,7 +77,7 @@ void func_80018A18(void *arg0) {
         func_80018744(arg0);
         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x1C);
         if (temp_a0 != 0) {
-            *(D_80109A60 + temp_a0) = 1;
+            *(gTrackDoneFlags + temp_a0) = 1;
             return;
         }
         break;

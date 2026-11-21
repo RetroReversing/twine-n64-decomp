@@ -14,7 +14,7 @@ extern s32 D_801032A0;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 D_8010A92C;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 void func_80008750(void *arg0, s32 arg1, s32 arg2) {
 
@@ -55,9 +55,9 @@ case 0:                                         /* switch 1 */                  
     case 1:                                         /* switch 1 */
     case 13:                                        /* switch 1 */
         if (D_8010A92C != 1) {
-            temp_v0 = D_80115328;
+            temp_v0 = sDisplayListCursor;
             D_8010A92C = 1;
-            D_80115328 = temp_v0 + 8;
+            sDisplayListCursor = temp_v0 + 8;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0) + 4)) = 0;
         }
@@ -68,8 +68,8 @@ block_10:
     case 7:                                         /* switch 1 */
         if (D_8010A92C != 2) {
             D_8010A92C = 2;
-            temp_v1 = D_80115328;
-            D_80115328 = temp_v1 + 8;
+            temp_v1 = sDisplayListCursor;
+            sDisplayListCursor = temp_v1 + 8;
             (*(s32 *)((char *)(temp_v1) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v1) + 4)) = 3;
         }
@@ -88,9 +88,9 @@ block_9:
     case 14:                                        /* switch 1 */
     case 15:                                        /* switch 1 */
         if (D_8010A92C != 1) {
-            temp_v0_2 = D_80115328;
+            temp_v0_2 = sDisplayListCursor;
             D_8010A92C = 1;
-            D_80115328 = temp_v0_2 + 8;
+            sDisplayListCursor = temp_v0_2 + 8;
             (*(s32 *)((char *)(temp_v0_2) + 0)) = 0xE2001E01;
             (*(s32 *)((char *)(temp_v0_2) + 4)) = 0;
         }
@@ -103,22 +103,22 @@ block_9:
     case 2:                                         /* switch 2 */
         if ((arg2 << 0x18) != 0) {
             if (D_8010A924 != 3) {
-                temp_v1_2 = D_80115328;
+                temp_v1_2 = sDisplayListCursor;
                 D_8010A924 = 3;
-                D_80115328 = temp_v1_2 + 8;
+                sDisplayListCursor = temp_v1_2 + 8;
                 (*(s32 *)((char *)(temp_v1_2) + 0)) = 0xDE000000;
                 (*(s32 **)((char *)(temp_v1_2) + 4)) = &D_800B1A78;
             }
         } else if (D_8010A924) {
             D_8010A924 = 0;
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
-                temp_v1_3 = D_80115328;
-                D_80115328 = temp_v1_3 + 8;
+                temp_v1_3 = sDisplayListCursor;
+                sDisplayListCursor = temp_v1_3 + 8;
                 (*(s32 *)((char *)(temp_v1_3) + 0)) = 0xDE000000;
                 (*(s32 **)((char *)(temp_v1_3) + 4)) = &D_800B1A00;
             } else {
-                temp_v1_4 = D_80115328;
-                D_80115328 = temp_v1_4 + 8;
+                temp_v1_4 = sDisplayListCursor;
+                sDisplayListCursor = temp_v1_4 + 8;
                 (*(s32 *)((char *)(temp_v1_4) + 0)) = 0xDE000000;
                 (*(s32 **)((char *)(temp_v1_4) + 4)) = &D_800B1B18;
             }
@@ -129,12 +129,12 @@ block_9:
                 temp_v1_10 = 0xFF0FF37F;
                 var_a1_2 = 0xFC40FE03;
 block_92:
-                (*(s32 *)((char *)(D_80115328) + 0)) = var_a1_2;
-                D_80115328 += 8;
-                (*(s32 *)((char *)(D_80115328) + 4)) = temp_v1_10;
+                (*(s32 *)((char *)(sDisplayListCursor) + 0)) = var_a1_2;
+                sDisplayListCursor += 8;
+                (*(s32 *)((char *)(sDisplayListCursor) + 4)) = temp_v1_10;
             } else {
-                temp_v1_5 = D_80115328;
-                D_80115328 = temp_v1_5 + 8;
+                temp_v1_5 = sDisplayListCursor;
+                sDisplayListCursor = temp_v1_5 + 8;
                 (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xFC40FE03;
                 (*(s32 *)((char *)(temp_v1_5) + 4)) = -0xC88;
                 return;
@@ -146,17 +146,17 @@ block_92:
         break;
     case 14:                                        /* switch 2 */
         if (((arg2 << 0x18) == 0) && (D_8010A924 != 1)) {
-            temp_v1_6 = D_80115328;
+            temp_v1_6 = sDisplayListCursor;
             D_8010A924 = 1;
-            D_80115328 = temp_v1_6 + 8;
+            sDisplayListCursor = temp_v1_6 + 8;
             (*(s32 *)((char *)(temp_v1_6) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_6) + 4)) = &D_800B1A28;
         }
         if (D_801032A0 != 1) {
             D_801032A0 = 1;
             if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
-                temp_v1_5 = D_80115328;
-                D_80115328 = temp_v1_5 + 8;
+                temp_v1_5 = sDisplayListCursor;
+                sDisplayListCursor = temp_v1_5 + 8;
                 (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xFC40FE03;
                 (*(s32 *)((char *)(temp_v1_5) + 4)) = -0xC88;
                 return;
@@ -168,9 +168,9 @@ block_92:
         break;
     case 15:                                        /* switch 2 */
         if (D_8010A924 != 0xA) {
-            temp_v1_7 = D_80115328;
+            temp_v1_7 = sDisplayListCursor;
             D_8010A924 = 0xA;
-            D_80115328 = temp_v1_7 + 8;
+            sDisplayListCursor = temp_v1_7 + 8;
             (*(s32 *)((char *)(temp_v1_7) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_7) + 4)) = &D_800B1BB8;
         }
@@ -201,8 +201,8 @@ block_91:
     case 6:                                         /* switch 2 */
         if (D_8010A924 != 8) {
             D_8010A924 = 8;
-            temp_v1_9 = D_80115328;
-            D_80115328 = temp_v1_9 + 8;
+            temp_v1_9 = sDisplayListCursor;
+            sDisplayListCursor = temp_v1_9 + 8;
             (*(s32 *)((char *)(temp_v1_9) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_9) + 4)) = &D_800B1AC8;
         }
@@ -227,9 +227,9 @@ block_91:
         break;
     case 9:                                         /* switch 2 */
         if (D_8010A924 != 0xA) {
-            temp_v1_11 = D_80115328;
+            temp_v1_11 = sDisplayListCursor;
             D_8010A924 = 0xA;
-            D_80115328 = temp_v1_11 + 8;
+            sDisplayListCursor = temp_v1_11 + 8;
             (*(s32 *)((char *)(temp_v1_11) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_11) + 4)) = &D_800B1BB8;
         }
@@ -254,9 +254,9 @@ block_91:
         break;
     case 10:                                        /* switch 2 */
         if (D_8010A924 != 9) {
-            temp_v1_13 = D_80115328;
+            temp_v1_13 = sDisplayListCursor;
             D_8010A924 = 9;
-            D_80115328 = temp_v1_13 + 8;
+            sDisplayListCursor = temp_v1_13 + 8;
             (*(s32 *)((char *)(temp_v1_13) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_13) + 4)) = &D_800B1B40;
         }
@@ -269,9 +269,9 @@ block_91:
         break;
     case 13:                                        /* switch 2 */
         if (D_8010A924 != 0xD) {
-            temp_v1_14 = D_80115328;
+            temp_v1_14 = sDisplayListCursor;
             D_8010A924 = 0xD;
-            D_80115328 = temp_v1_14 + 8;
+            sDisplayListCursor = temp_v1_14 + 8;
             (*(s32 **)((char *)(temp_v1_14) + 4)) = &D_800B1B68;
             (*(s32 *)((char *)(temp_v1_14) + 0)) = 0xDE000000;
         }
@@ -284,9 +284,9 @@ block_91:
         break;
     case 16:                                        /* switch 2 */
         if (D_8010A924 != 0x10) {
-            temp_v1_15 = D_80115328;
+            temp_v1_15 = sDisplayListCursor;
             D_8010A924 = 0x10;
-            D_80115328 = temp_v1_15 + 8;
+            sDisplayListCursor = temp_v1_15 + 8;
             (*(s32 *)((char *)(temp_v1_15) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_15) + 4)) = &D_800B1B68;
         }
@@ -299,10 +299,10 @@ block_91:
         break;
     case 7:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            temp_v1_16 = D_80115328;
+            temp_v1_16 = sDisplayListCursor;
             D_8010A924 = 8;
             (*(s32 *)((char *)(temp_v1_16) + 0)) = 0xDE000000;
-            D_80115328 = temp_v1_16 + 8;
+            sDisplayListCursor = temp_v1_16 + 8;
             (*(s32 **)((char *)(temp_v1_16) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 6) {
@@ -314,9 +314,9 @@ block_91:
         break;
     case 12:                                        /* switch 2 */
         if (D_8010A924 != 0xC) {
-            temp_v1_17 = D_80115328;
+            temp_v1_17 = sDisplayListCursor;
             D_8010A924 = 0xC;
-            D_80115328 = temp_v1_17 + 8;
+            sDisplayListCursor = temp_v1_17 + 8;
             (*(s32 *)((char *)(temp_v1_17) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_17) + 4)) = &D_800B1AF0;
         }
@@ -340,9 +340,9 @@ block_88:
     case 4:                                         /* switch 2 */
         if (D_8010A924 != 8) {
             D_8010A924 = 8;
-            temp_v1_18 = D_80115328;
+            temp_v1_18 = sDisplayListCursor;
             (*(s32 **)((char *)(temp_v1_18) + 4)) = &D_800B1AC8;
-            D_80115328 = temp_v1_18 + 8;
+            sDisplayListCursor = temp_v1_18 + 8;
             (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;
         }
         if (D_801032A0 != 4) {
@@ -358,9 +358,9 @@ block_88:
         break;
     case 8:                                         /* switch 2 */
         if (D_8010A924 != 8) {
-            temp_v1_19 = D_80115328;
+            temp_v1_19 = sDisplayListCursor;
             D_8010A924 = 8;
-            D_80115328 = temp_v1_19 + 8;
+            sDisplayListCursor = temp_v1_19 + 8;
             (*(s32 *)((char *)(temp_v1_19) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_19) + 4)) = &D_800B1AC8;
         }

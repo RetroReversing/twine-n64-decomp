@@ -4,13 +4,13 @@ s32 func_80032630(s32);        /* extern */
 s32 func_800347B0(s32 *, f32, f32, f32, f32, f32, f32); /* extern */
 s32 guMtxF2L(s32 *, s32);              /* extern */
 s32 func_800A3840(s32 *, s32 *, s32 *); /* extern */
-extern u32 D_800B1D84;
-extern u32 D_80107EA0;
-extern s32 D_80109BB8;
+extern u32 sMatrixPoolLimit;
+extern u32 sMatrixPoolUsed;
+extern s32 sParentMatrixF;
 extern s32 D_8010D538;
 extern s32 D_80112F90;
 extern void *D_80115328;
-extern void *D_80117728;
+extern void *sRenderState;
 
 typedef struct { unsigned char pad_0[24]; int field_18; unsigned char pad_1C[4]; float field_20; float field_24; float field_28; float field_2C; float field_30; float field_34; } __repair_record_arg0;
 void emitObjectMatrix(void *arg0, void *arg1) {
@@ -19,11 +19,11 @@ void emitObjectMatrix(void *arg0, void *arg1) {
     void *temp_a1;
 
     temp_s2 = ((__repair_record_arg0*)arg0)->field_18;
-    if ((temp_s2) && (D_80107EA0 < D_800B1D84)) {
-        temp_v0 = D_80107EA0 + 1;
-        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0 << 6); D_80107EA0 = temp_v0; func_800347B0(&D_80112F90, ((__repair_record_arg0*)arg0)->field_2C * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_30 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_34 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_20 * 64.0f, ((__repair_record_arg0*)arg0)->field_24 * 64.0f, ((__repair_record_arg0*)arg0)->field_28 * 64.0f);
-        func_800347B0(&D_80109BB8, (*(f32 *)((char *)(arg1) + 0x3C)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x40)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x44)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x24)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x28)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x2C)) * 64.0f);
-        func_800A3840(&D_80112F90, &D_80109BB8, &D_80112F90);
+    if ((temp_s2) && (sMatrixPoolUsed < sMatrixPoolLimit)) {
+        temp_v0 = sMatrixPoolUsed + 1;
+        D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6); sMatrixPoolUsed = temp_v0; func_800347B0(&D_80112F90, ((__repair_record_arg0*)arg0)->field_2C * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_30 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_34 * 0.0015339808f, ((__repair_record_arg0*)arg0)->field_20 * 64.0f, ((__repair_record_arg0*)arg0)->field_24 * 64.0f, ((__repair_record_arg0*)arg0)->field_28 * 64.0f);
+        func_800347B0(&sParentMatrixF, (*(f32 *)((char *)(arg1) + 0x3C)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x40)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x44)) * 0.0015339808f, (*(f32 *)((char *)(arg1) + 0x24)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x28)) * 64.0f, (*(f32 *)((char *)(arg1) + 0x2C)) * 64.0f);
+        func_800A3840(&D_80112F90, &sParentMatrixF, &D_80112F90);
         { guMtxF2L(&D_80112F90, D_8010D538); }
         { struct { u32 w0; u32 w1; } *g = (void *)D_80115328;
         D_80115328 = (char *)g + 8;

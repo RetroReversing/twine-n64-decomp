@@ -15,14 +15,14 @@ s32 func_8006F974();
 s32 rotateVec3ByMat3();
 s32 guPositionF(void *, s32, s32, f32, f32, f32, f32, f32);
 extern char D_800B1A50[];
-extern u32 D_800B1D84;
+extern u32 sMatrixPoolLimit;
 extern u8 D_801002E4;
 extern u8 D_80103020;
 extern u8 D_8010302A;
 extern s8 D_80103041;
 extern u8 D_801032AC;
 extern u8 D_80103EB1;
-extern u32 D_80107EA0;
+extern u32 sMatrixPoolUsed;
 extern u8 D_80107ECD;
 extern u8 D_80107ECE;
 extern u8 D_80108F94;
@@ -44,7 +44,7 @@ extern f32 D_80112FB8;
 extern u8 D_80113022;
 extern u8 D_80115318;
 extern s32 * volatile D_80115328;
-extern void *volatile D_80117728;
+extern void *volatile sRenderState;
 
 typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
 typedef struct { int value; } __repair_field_0;
@@ -307,10 +307,10 @@ block_43:
                     gRenderMode = 1;
                     func_80038FA4(arg1, var_a1, var_a2, (s32 *) var_a3_2);
                 }
-                temp_v0_7 = (*(s32 *)&D_80107EA0) + 1;
-                if ((u32) D_80107EA0 < (u32) D_800B1D84) {
-                    D_80107EA0 = temp_v0_7;
-                    D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0_7 << 6);
+                temp_v0_7 = (*(s32 *)&sMatrixPoolUsed) + 1;
+                if ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
+                    sMatrixPoolUsed = temp_v0_7;
+                    D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0_7 << 6);
                     if (((__repair_field_58 *)arg0)->value & 0x8000) {
                         func_80008434(arg0, 0.015625f);
                         D_80112FB0 *= (*(f32 *)((char *)(arg0) + 0x54));
@@ -344,11 +344,11 @@ block_43:
                     goto block_72;
                 }
             } else {
-                temp_a0_6 = D_80107EA0;
-                if (temp_a0_6 < (u32) D_800B1D84) {
+                temp_a0_6 = sMatrixPoolUsed;
+                if (temp_a0_6 < (u32) sMatrixPoolLimit) {
                     temp_v0_8 = temp_a0_6 + 1;
-                    D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0_8 << 6);
-                    D_80107EA0 = temp_v0_8;
+                    D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0_8 << 6);
+                    sMatrixPoolUsed = temp_v0_8;
                     temp_v0_9 = (*(u8 *)((char *)(arg0) + 0x7E));
                     switch (temp_v0_9) {
                     case 0:

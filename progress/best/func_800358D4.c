@@ -20,7 +20,7 @@ s32 func_800A3840(s32 *, s32 *, s32 *); /* extern */
 s32 func_800A3940(s32 *, f32, f32, f32);    /* extern */
 s32 guTranslateF(s32 *, f32, f32, f32);     /* extern */
 extern s32 D_800B1CA8;
-extern u32 D_800B1D84;
+extern u32 sMatrixPoolLimit;
 extern s32 D_800C0670;
 extern s32 D_800C0698;
 extern u8 D_800C06C4;
@@ -30,9 +30,9 @@ extern s32 D_800C06E8;
 extern u8 D_800C2B40;
 extern s32 D_801032A0;
 extern void *D_80107E9C;
-extern u32 D_80107EA0;
+extern u32 sMatrixPoolUsed;
 extern s32 gTrackDoneFlags;
-extern s32 D_80109BB8;
+extern s32 sParentMatrixF;
 extern void *D_80109CB8;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
@@ -40,7 +40,7 @@ extern s32 D_8010D538;
 extern s32 gRenderMode;
 extern s32 D_80112F90;
 extern void *D_80115328;
-extern void *volatile D_80117728;
+extern void *volatile sRenderState;
 
 void func_800358D4(void *arg0) {
     union {
@@ -165,10 +165,10 @@ block_10:
                     m2c_initial_frame.view_spB4.value = m2c_initial_frame.view_sp9F.value << 0x18;
                     for (;;) {
                         if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 1) && ((temp_v0 = (*(u8 *)((char *)(var_s3) + 0x54)), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&gTrackDoneFlags + temp_v0)) != (*(u8 *)((char *)(var_s3) + 0x55)))) && ((IsSphereVisible(temp_s1, (*(s32 *)((char *)(var_s3) + 0x4C)), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), rotateVec3ByMat3(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
-                            if ((u32) (*(s32 *)&D_80107EA0) < (u32) (*(s32 *)&D_800B1D84)) {
-                                temp_v0_2 = (*(s32 *)&D_80107EA0) + 1;
-                                (*(s32 *)&D_80107EA0) = temp_v0_2;
-                                D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0_2 << 6);
+                            if ((u32) (*(s32 *)&sMatrixPoolUsed) < (u32) (*(s32 *)&sMatrixPoolLimit)) {
+                                temp_v0_2 = (*(s32 *)&sMatrixPoolUsed) + 1;
+                                (*(s32 *)&sMatrixPoolUsed) = temp_v0_2;
+                                D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0_2 << 6);
                                 func_800083DC(&D_80112F90, m2c_initial_frame.view_sp28.value * 64.0f, m2c_initial_frame.view_sp2C.value * 64.0f, m2c_initial_frame.view_sp30.value * 64.0f, m2c_initial_frame.view_sp94.value);
                                 guMtxF2L(&D_80112F90, D_8010D538);
                                 (*(s32 *)((char *)(D_80115328) + 0)) = 0xDA380003;
@@ -220,13 +220,13 @@ block_10:
 block_35:
                                         if (var_fs1 < 127.0f) {
                                             temp_fs0 = *((f32 *)((s8 *)&D_800C0698 + var_s4));
-                                            if ((u32) (*(s32 *)&D_80107EA0) < (u32) (*(s32 *)&D_800B1D84)) {
-                                                temp_v0_3 = (*(s32 *)&D_80107EA0) + 1;
-                                                D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v0_3 << 6);
-                                                (*(s32 *)&D_80107EA0) = temp_v0_3;
+                                            if ((u32) (*(s32 *)&sMatrixPoolUsed) < (u32) (*(s32 *)&sMatrixPoolLimit)) {
+                                                temp_v0_3 = (*(s32 *)&sMatrixPoolUsed) + 1;
+                                                D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0_3 << 6);
+                                                (*(s32 *)&sMatrixPoolUsed) = temp_v0_3;
                                                 guTranslateF(&D_80112F90, m2c_initial_frame.view_sp80.value * 64.0f, m2c_initial_frame.view_sp84.value * 64.0f, m2c_initial_frame.view_sp88.value * 64.0f);
-                                                func_800A3940(&D_80109BB8, temp_fs0, temp_fs0, temp_fs0);
-                                                func_800A3840(&D_80109BB8, &D_80112F90, &D_80112F90);
+                                                func_800A3940(&sParentMatrixF, temp_fs0, temp_fs0, temp_fs0);
+                                                func_800A3840(&sParentMatrixF, &D_80112F90, &D_80112F90);
                                                 guMtxF2L(&D_80112F90, D_8010D538);
                                                 temp_v1_4 = D_80109CB8;
                                                 temp_a1_2 = temp_v1_4 + 8;

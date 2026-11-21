@@ -11,7 +11,7 @@ extern s8 D_800C0738;
 extern s8 D_800E176C;
 extern s32 D_8010A4D8;
 extern s32 gHiResScreen;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 typedef struct { unsigned char pad[40]; int value; } __repair_field_28;
 typedef struct { int value; } __repair_field_0;
@@ -74,38 +74,38 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                     if (var_v0) {
                         if ((*(u16 *)((char *)(var_s0) + 0x1E)) & 0x400) {
                             if (D_800E176C == 0) {
-                                temp_v1_2 = D_80115328;
+                                temp_v1_2 = sDisplayListCursor;
                                 D_800E176C = 1;
-                                D_80115328 = temp_v1_2 + 8;
+                                sDisplayListCursor = temp_v1_2 + 8;
                                 ((__repair_field_0 *)temp_v1_2)->value = 0xE3001201;
                                 (*(s32 *)((char *)(temp_v1_2) + 4)) = 0x2000;
                             }
                         } else if (D_800E176C) {
 void *temp_a0;
 
-                            temp_a0 = D_80115328;
+                            temp_a0 = sDisplayListCursor;
                             D_800E176C = 0;
-                            D_80115328 = temp_a0 + 8;
+                            sDisplayListCursor = temp_a0 + 8;
                             ((__repair_field_0 *)temp_a0)->value = 0xE3001201;
                             (*(s32 *)((char *)(temp_a0) + 4)) = 0;
                         }
                         if ((*(s32 *)((char *)(var_s0) + 0x18)) != 0) {
                             if ((*(u16 *)((char *)(var_s0) + 0x1E)) & 0x20) {
-                                temp_v1_3 = D_80115328;
+                                temp_v1_3 = sDisplayListCursor;
                                 D_800C0738 = 1;
-                                D_80115328 = temp_v1_3 + 8;
+                                sDisplayListCursor = temp_v1_3 + 8;
                                 ((__repair_field_0 *)temp_v1_3)->value = 0xFA000000;
                                 (*(s32 *)((char *)(temp_v1_3) + 4)) = (s32) (temp_s1 & 0xFF);
-                                D_80115328 = temp_v1_3 + 0x10;
+                                sDisplayListCursor = temp_v1_3 + 0x10;
                                 (((__repair_field_8 *)temp_v1_3)->value) = 0xFB000000;
                                 (*(s32 *)((char *)(temp_v1_3) + 0xC)) = 0;
                                 func_8003B954((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0);
                             }
-                            temp_a3 = D_80115328;
+                            temp_a3 = sDisplayListCursor;
                             D_800C0738 = 0;
                             (*(s32 *)((char *)(temp_a3) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & 0xFF));
-                            D_80115328 = temp_a3 + 8;
-                            D_80115328 = temp_a3 + 0x10;
+                            sDisplayListCursor = temp_a3 + 8;
+                            sDisplayListCursor = temp_a3 + 0x10;
                             ((__repair_field_0 *)temp_a3)->value = 0xFA000000;
                             (*(s32 *)((char *)(temp_a3) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));
                             (((__repair_field_8 *)temp_a3)->value) = 0xFB000000;
@@ -114,18 +114,18 @@ void *temp_a0;
 void *temp_a0;
 
                             if ((*(u16 *)((char *)(var_s0) + 0x1E)) & 0x20) {
-                                temp_a3_2 = D_80115328;
+                                temp_a3_2 = sDisplayListCursor;
                                 ((__repair_field_0 *)temp_a3_2)->value = 0xFA000000;
                                 (*(s32 *)((char *)(temp_a3_2) + 4)) = (s32) (temp_s1 & 0xFF);
                                 (((__repair_field_8 *)temp_a3_2)->value) = 0xFB000000;
                                 (*(s32 *)((char *)(temp_a3_2) + 0xC)) = 0;
-                                D_80115328 = temp_a3_2 + 8;
-                                D_80115328 = temp_a3_2 + 0x10;
+                                sDisplayListCursor = temp_a3_2 + 8;
+                                sDisplayListCursor = temp_a3_2 + 0x10;
                                 if ((((__repair_field_28 *)var_s0)->value & 3) == 1) {
-                                    D_80115328 = temp_a3_2 + 0x18;
+                                    sDisplayListCursor = temp_a3_2 + 0x18;
                                     (((__repair_field_10 *)temp_a3_2)->value) = 0xFC119623;
                                     (((__repair_field_14 *)temp_a3_2)->value) = 0xFF2FFFFF;
-                                    D_80115328 = temp_a3_2 + 0x20;
+                                    sDisplayListCursor = temp_a3_2 + 0x20;
                                     (*(s32 *)((char *)(temp_a3_2) + 0x18)) = 0xE3001001;
                                     (*(s32 *)((char *)(temp_a3_2) + 0x1C)) = 0x8000;
                                     func_8003AF20((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0, temp_a3_2);
@@ -133,13 +133,13 @@ void *temp_a0;
                                     func_8003A4C0((s32) (temp_fs1 + 1.0f), (s32) (temp_fs0 + 1.0f), var_s0, temp_a3_2);
                                 }
                             }
-                            (*(s32 *)((char *)(D_80115328) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & 0xFF));
-                            (((__repair_field_8 *)D_80115328)->value) = 0xFB000000;
-                            ((__repair_field_0 *)D_80115328)->value = 0xFA000000;
-                            (*(s32 *)((char *)(D_80115328) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));
-                            temp_a0 = D_80115328 + 0x10;
-                            D_80115328 += 8;
-                            D_80115328 = temp_a0;
+                            (*(s32 *)((char *)(sDisplayListCursor) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & 0xFF));
+                            (((__repair_field_8 *)sDisplayListCursor)->value) = 0xFB000000;
+                            ((__repair_field_0 *)sDisplayListCursor)->value = 0xFA000000;
+                            (*(s32 *)((char *)(sDisplayListCursor) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));
+                            temp_a0 = sDisplayListCursor + 0x10;
+                            sDisplayListCursor += 8;
+                            sDisplayListCursor = temp_a0;
                             if ((((__repair_field_28 *)var_s0)->value & 3) == 1) {
                                 func_8003AF20(temp_s7, temp_s6, var_s0);
                             } else {
@@ -153,8 +153,8 @@ void *temp_a0;
         } while (var_s0 != NULL);
     }
     if (D_800E176C == 0) {
-        temp_v1_4 = D_80115328;
-        D_80115328 = temp_v1_4 + 8;
+        temp_v1_4 = sDisplayListCursor;
+        sDisplayListCursor = temp_v1_4 + 8;
         ((__repair_field_0 *)temp_v1_4)->value = 0xE3001201;
         (*(s32 *)((char *)(temp_v1_4) + 4)) = 0x2000;
     }

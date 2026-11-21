@@ -25,7 +25,7 @@ extern s32 D_8010A924;
 extern s32 D_8010D370;
 extern void *D_8010D450;
 extern s32 gRenderMode;
-extern void *D_80115328;
+extern void *sDisplayListCursor;
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 void func_80036108(void *arg0) {
@@ -44,22 +44,22 @@ void func_80036108(void *arg0) {
             emitPrimColor(M2C_FIELD(arg0, s32 *, 0xF4), arg0);
             emitScissorFromWindow(arg0);
             if (D_8010A924 != 2) {
-                temp_v1_2 = D_80115328;
+                temp_v1_2 = sDisplayListCursor;
                 D_8010A924 = 2;
-                D_80115328 = temp_v1_2 + 8;
+                sDisplayListCursor = temp_v1_2 + 8;
                 M2C_FIELD(temp_v1_2, s32 *, 0) = 0xDE000000;
                 M2C_FIELD(temp_v1_2, M2C_UNK **, 4) = &D_800B1AA0;
             }
             if (D_801032A0 != 1) {
                 D_801032A0 = 1;
                 if (((__repair_field_100 *)arg0)->value & 3) {
-                    temp_v1_3 = D_80115328;
-                    D_80115328 = temp_v1_3 + 8;
+                    temp_v1_3 = sDisplayListCursor;
+                    sDisplayListCursor = temp_v1_3 + 8;
                     M2C_FIELD(temp_v1_3, s32 *, 0) = 0xFC40FE03;
                     M2C_FIELD(temp_v1_3, s32 *, 4) = -0xC88;
                 } else {
-                    temp_v1_4 = D_80115328;
-                    D_80115328 = temp_v1_4 + 8;
+                    temp_v1_4 = sDisplayListCursor;
+                    sDisplayListCursor = temp_v1_4 + 8;
                     M2C_FIELD(temp_v1_4, s32 *, 0) = 0xFC40FE03;
                     M2C_FIELD(temp_v1_4, s32 *, 4) = 0xFF0FF37F;
                 }

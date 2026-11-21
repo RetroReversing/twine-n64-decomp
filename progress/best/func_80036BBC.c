@@ -14,18 +14,18 @@ extern s32 D_800B1A00;
 extern s32 D_800B1B18;
 extern s32 D_800B1D20;
 extern s32 D_800B1D48;
-extern u32 D_800B1D84;
+extern u32 sMatrixPoolLimit;
 extern u8 D_800C2B40;
 extern void *D_801007BC;
 extern s32 D_801032A0;
 extern void *D_80107E9C;
-extern u32 D_80107EA0;
+extern u32 sMatrixPoolUsed;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
 extern s32 gRenderMode;
 extern s32 D_80112F90;
 extern s32 *D_80115328;
-extern void *D_80117728;
+extern void *sRenderState;
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
 typedef struct { int value; } __repair_field_0;
@@ -125,10 +125,10 @@ block_26:
                     goto block_59;
                 }
                 if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 3) {
-                    temp_v1_7 = D_80107EA0 + 1;
-                    if ((u32) D_80107EA0 < (u32) D_800B1D84) {
-                        D_8010D538 = (*(s32 *)((char *)(D_80117728) + 0x74C)) + (temp_v1_7 << 6);
-                        D_80107EA0 = temp_v1_7;
+                    temp_v1_7 = sMatrixPoolUsed + 1;
+                    if ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
+                        D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v1_7 << 6);
+                        sMatrixPoolUsed = temp_v1_7;
                         if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 2) {
                             func_800347B0(&D_80112F90, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_28 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_2C * 64.0f);
                         } else {
@@ -144,7 +144,7 @@ block_26:
                 } else {
                     var_a0 = D_80115328;
                     ((__repair_field_0 *)var_a0)->value = 0xDA380003;
-                    var_v1 = (*(s32 *)((char *)(D_80117728) + 0x74C)) - 0x80000000;
+                    var_v1 = (*(s32 *)((char *)(sRenderState) + 0x74C)) - 0x80000000;
                     D_80115328 = (s8 *) var_a0 + 8;
 block_34:
                     (*(s32 *)((char *)(var_a0) + 4)) = var_v1;

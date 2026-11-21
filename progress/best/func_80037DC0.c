@@ -11,8 +11,8 @@ extern void *D_8010A4B4;
 extern s32 D_8010A4D8;
 extern s32 D_8010A924;
 extern s32 gRenderMode;
-extern void * volatile D_80115328;
-extern void *D_80117728;
+extern void * volatile sDisplayListCursor;
+extern void *sRenderState;
 
 typedef struct { int value; } __repair_field_0;
 void func_80037DC0(void *arg0) {
@@ -32,16 +32,16 @@ void func_80037DC0(void *arg0) {
         func_80038FA4(arg0);
     }
     if (D_8010A924 != 8) {
-        temp_v1 = D_80115328;
+        temp_v1 = sDisplayListCursor;
         D_8010A924 = 8;
-        D_80115328 = temp_v1 + 8;
+        sDisplayListCursor = temp_v1 + 8;
         ((__repair_field_0 *)temp_v1)->value = 0xDE000000;
         (*(s32 **)((char *)(temp_v1) + 4)) = D_800B1AC8;
     }
     if (D_801032A0 != 2) {
-        temp_v1_2 = D_80115328;
+        temp_v1_2 = sDisplayListCursor;
         D_801032A0 = 2;
-        D_80115328 = temp_v1_2 + 8;
+        sDisplayListCursor = temp_v1_2 + 8;
         ((__repair_field_0 *)temp_v1_2)->value = 0xFC419883;
         (*(s32 *)((char *)(temp_v1_2) + 4)) = 0xFF32FF7F;
     }
@@ -57,35 +57,35 @@ void func_80037DC0(void *arg0) {
     }
     var_a3 = 0xFF;
     if (!(temp_v1_3 & 4)) {
-        temp_v1_4 = D_80115328;
+        temp_v1_4 = sDisplayListCursor;
         var_a1 = 0xFF;
-        D_80115328 = temp_v1_4 + 8;
+        sDisplayListCursor = temp_v1_4 + 8;
         ((__repair_field_0 *)temp_v1_4)->value = 0xFB000000;
         (*(s32 *)((char *)(temp_v1_4) + 4)) = 0xFF;
 block_10:
-        temp_a0 = D_80115328;
+        temp_a0 = sDisplayListCursor;
         ((__repair_field_0 *)temp_a0)->value = 0xFA000000;
         (*(s32 *)((char *)(temp_a0) + 8)) = 0xFB000000;
         (*(s32 *)((char *)(temp_a0) + 0xC)) = 0xFF;
         (*(s32 *)((char *)(temp_a0) + 4)) = (s32) ((var_a1 << 0x18) | (var_a3 << 0x10) | (var_a3 << 8) | 0xFF);
         (*(s32 *)((char *)(temp_a0) + 0x10)) = 0xDE000000;
         temp_a1 = gRenderMode;
-        D_80115328 = temp_a0 + 8;
-        D_80115328 = temp_a0 + 0x10;
-        D_80115328 = temp_a0 + 0x18;
-        (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) (*(s32 *)((char *)(D_80117728) + 0x1B68));
+        sDisplayListCursor = temp_a0 + 8;
+        sDisplayListCursor = temp_a0 + 0x10;
+        sDisplayListCursor = temp_a0 + 0x18;
+        (*(s32 *)((char *)(temp_a0) + 0x14)) = (s32) (*(s32 *)((char *)(sRenderState) + 0x1B68));
         if ((s32)temp_a1 != 0) {
             gRenderMode = 0;
             emit_projection_viewport_commands(temp_a0, temp_a1);
         }
         ((__repair_field_0 *)D_8010A4B4)->value = 0xDF000000;
         (*(s32 *)((char *)(D_8010A4B4) + 4)) = 0;
-        temp_a2 = D_80115328;
+        temp_a2 = sDisplayListCursor;
         ((__repair_field_0 *)temp_a2)->value = 0xDE000000;
-        (*(s32 *)((char *)(temp_a2) + 4)) = (s32) (*(s32 *)((char *)(D_80117728) + 0x1C70));
+        (*(s32 *)((char *)(temp_a2) + 4)) = (s32) (*(s32 *)((char *)(sRenderState) + 0x1C70));
         D_8010A4B4 += 8;
         temp_a2 += 8;
-        D_80115328 = temp_a2;
+        sDisplayListCursor = temp_a2;
         func_80034928(arg0, D_8010A4D8);
     }
 }

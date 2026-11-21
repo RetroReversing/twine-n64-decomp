@@ -17,7 +17,7 @@ extern u8 D_8010A4C1;
 extern s32 gHiResScreen;
 extern s32 D_8010A4EC;
 extern s16 D_8010D6F8;
-extern void * volatile D_80115328;
+extern void * volatile sDisplayListCursor;
 
 void func_80035060(void *arg0) {
     f32 temp_fv0;
@@ -56,9 +56,9 @@ void func_80035060(void *arg0) {
     temp_fv0 = (*(const f32 *)((char *)(arg0) + 0x64));
     temp_fp = (s32) (temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x58)));
     temp_s6 = (s32) ((temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x5C))) - 1.0f);
-    temp_s1 = D_80115328;
-    D_80115328 = temp_s1 + 8;
-    D_80115328 = temp_s1 + 0x10;
+    temp_s1 = sDisplayListCursor;
+    sDisplayListCursor = temp_s1 + 8;
+    sDisplayListCursor = temp_s1 + 0x10;
     (*(s32 *)((char *)(temp_s1) + 0)) = 0xE7000000;
     (*(s32 *)((char *)(temp_s1) + 4)) = 0;
     (*(s32 *)((char *)(temp_s1) + 8)) = 0xFE000000;
@@ -66,41 +66,41 @@ void func_80035060(void *arg0) {
     temp_fp = (s32) (temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x58)));
     __repair_temp_s5_1 = (s32) ((temp_fv1 + (*(const f32 *)((char *)(arg0) + 0x54))) - 1.0f);
     temp_s6 = (s32) ((temp_fv0 + (*(const f32 *)((char *)(arg0) + 0x5C))) - 1.0f);
-    temp_s0 = D_80115328;
+    temp_s0 = sDisplayListCursor;
     (*(s32 *)((char *)(temp_s1) + 0xC)) = osVirtualToPhysical(D_80109A54);
-    D_80115328 = temp_s0 + 8;
+    sDisplayListCursor = temp_s0 + 8;
     (*(s32 *)((char *)(temp_s0) + 4)) = 0x300000;
-    D_80115328 = temp_s0 + 0x10;
-    D_80115328 = temp_s0 + 0x18;
+    sDisplayListCursor = temp_s0 + 0x10;
+    sDisplayListCursor = temp_s0 + 0x18;
     (*(s32 *)((char *)(temp_s0) + 0)) = 0xE3000A01;
     (*(s32 *)((char *)(temp_s0) + 8)) = 0xE200001C;
     (*(s32 *)((char *)(temp_s0) + 0xC)) = 0x0F0A4000;
     (*(s32 *)((char *)(temp_s0) + 0x10)) = (s32) (((D_8010D6F8 - 1) & 0xFFF) | 0xFF100000);
     (*(s32 *)((char *)(temp_s0) + 0x14)) = osVirtualToPhysical(D_80109A54);
-    temp_s1_2 = D_80115328;
+    temp_s1_2 = sDisplayListCursor;
     (*(s32 *)((char *)(temp_s1_2) + 4)) = 0xFFFCFFFC;
     temp_s3 = ((__repair_temp_s5_1 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000);
     temp_s0_2 = ((temp_s7 & 0x3FF) << 0xE) | ((temp_fp & 0x3FF) * 4);
     (*(s32 *)((char *)(temp_s1_2) + 0)) = 0xF7000000;
     (*(s32 *)((char *)(temp_s1_2) + 8)) = temp_s3;
     (*(s32 *)((char *)(temp_s1_2) + 0xC)) = temp_s0_2;
-    D_80115328 = temp_s1_2 + 8;
-    D_80115328 = temp_s1_2 + 0x10;
+    sDisplayListCursor = temp_s1_2 + 8;
+    sDisplayListCursor = temp_s1_2 + 0x10;
     var_a0 = 2;
     if (D_8010A4EC != 0) {
         var_a0 = (-(gHiResScreen == 0) & 3) | 2;
     }
     (*(s32 *)((char *)(temp_s1_2) + 0x10)) = (s32) ((var_a0 << 0x13) | (((D_8010D6F8 - 1) & 0xFFF) | 0xFF000000));
-    D_80115328 = temp_s1_2 + 0x18;
+    sDisplayListCursor = temp_s1_2 + 0x18;
     (*(s32 *)((char *)(temp_s1_2) + 0x14)) = osVirtualToPhysical(*((s32 *)((char *)&D_80100304 + (D_8010A4B0 * 4))));
     if (gBorderSkipFlag != 0) {
         temp_v1 = (*(const s16 *)((char *)(arg0) + 0x140));
         if ((temp_v1 == 3) && (gBorderMode == temp_v1)) {
-            temp_v0 = D_80115328;
-            D_80115328 = temp_v0 + 8;
+            temp_v0 = sDisplayListCursor;
+            sDisplayListCursor = temp_v0 + 8;
             (*(s32 *)((char *)(temp_v0) + 0)) = 0xF7000000;
             (*(s32 *)((char *)(temp_v0) + 4)) = 0;
-            D_80115328 = temp_v0 + 0x10;
+            sDisplayListCursor = temp_v0 + 0x10;
             (*(s32 *)((char *)(temp_v0) + 8)) = temp_s3;
             (*(s32 *)((char *)(temp_v0) + 0xC)) = temp_s0_2;
             return;
@@ -145,18 +145,18 @@ block_26:
             var_a0_2 = (temp_v1_2 << 0x10) | temp_v1_2;
         }
         if (D_8010A4C1 != 0) {
-            temp_v0_2 = D_80115328;
-            D_80115328 = temp_v0_2 + 8;
+            temp_v0_2 = sDisplayListCursor;
+            sDisplayListCursor = temp_v0_2 + 8;
             (*(s32 *)((char *)(temp_v0_2) + 0)) = 0xF7000000;
             (*(s32 *)((char *)(temp_v0_2) + 4)) = (s32) (var_a0_2 & -(((*(const s32 *)((char *)(arg0) + 0x100)) & 0x40) == 0));
         } else {
-            temp_v0_3 = D_80115328;
-            D_80115328 = temp_v0_3 + 8;
+            temp_v0_3 = sDisplayListCursor;
+            sDisplayListCursor = temp_v0_3 + 8;
             (*(s32 *)((char *)(temp_v0_3) + 0)) = 0xF7000000;
             (*(s32 *)((char *)(temp_v0_3) + 4)) = 0;
         }
-        temp_a1_2 = D_80115328;
-        D_80115328 = temp_a1_2 + 8;
+        temp_a1_2 = sDisplayListCursor;
+        sDisplayListCursor = temp_a1_2 + 8;
         (*(s32 *)((char *)(temp_a1_2) + 0)) = (s32) (((__repair_temp_s5_1 & 0x3FF) << 0xE) | (((temp_s6 & 0x3FF) * 4) | 0xF6000000));
         (*(s32 *)((char *)(temp_a1_2) + 4)) = (s32) (((temp_s7 & 0x3FF) << 0xE) | ((temp_fp & 0x3FF) * 4));
     }

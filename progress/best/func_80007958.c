@@ -49,14 +49,14 @@ extern s16 D_800B1D70, D_800B1D72, D_8010A4B0;
 extern u16 D_80109B9C, D_8010A518;
 extern f32 D_800B1D78;
 extern u64 D_800DD750[], D_800DD768[], D_8010A398;
-extern u8 *D_80117728, *D_8010A928, *D_80109CB8, *D_801002FC, *D_8010A4B4;
+extern u8 *sRenderState, *D_8010A928, *D_80109CB8, *D_801002FC, *D_8010A4B4;
 extern void *D_80100304[];
 extern u32 D_80109C98[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
 extern s32 D_80100C04, D_8011740C, gRenderMode;
 extern FrameView *gTrackMarkerTable[];
 extern FrameSlot *D_8010A2BC[];
-extern FrameCommand *D_80115328;
+extern FrameCommand *sDisplayListCursor;
 
 static __inline__ f32 clamp_opacity(f32 value)
 {
@@ -82,13 +82,13 @@ void func_80007958(void)
     f32 opacity;
     u8 *modeFlags;
 
-    D_80117728 = slot->buffer;
+    sRenderState = slot->buffer;
     D_8010A928 = (u8 *)slot + 0x798;
     D_80109CB8 = (u8 *)slot + 0x16A0;
     D_801002FC = (u8 *)slot + 0x1AA8;
     D_8010A4B4 = (u8 *)slot + 0x1BB0;
     D_800B1D78 += 1.0f;
-    D_80115328 = start;
+    sDisplayListCursor = start;
     if (!start) {
         return;
     }
@@ -106,7 +106,7 @@ void func_80007958(void)
         entry = gTrackMarkerTable;
         D_80113022 = 0;
         do {
-            buffer = D_80117728;
+            buffer = sRenderState;
             segment1 = D_8010A928;
             segment2 = D_80109CB8;
             segment3 = D_801002FC;
@@ -140,19 +140,19 @@ void func_80007958(void)
                     func_80035060(*entry);
                 }
                 if (modeFlags[-1] & mask) {
-                    cmd = D_80115328;
+                    cmd = sDisplayListCursor;
                     cmd->w0 = 0xDE000000;
                     cmd->w1 = D_800B1BE0;
                     view = *entry;
-                    D_80115328 = cmd + 1;
+                    sDisplayListCursor = cmd + 1;
                     func_8003C228(view, i, 5);
                 }
                 if (modeFlags[-2] & mask) {
-                    cmd = D_80115328;
+                    cmd = sDisplayListCursor;
                     cmd->w0 = 0xDE000000;
                     cmd->w1 = (u32)D_800B1BE0;
                     view = *entry;
-                    D_80115328 = cmd + 1;
+                    sDisplayListCursor = cmd + 1;
                     func_80038000(view, i);
                 }
                 if (modeFlags[-1] & mask) {
@@ -193,11 +193,11 @@ void func_80007958(void)
     }
 
     func_80044410(0);
-    cmd = D_80115328++;
+    cmd = sDisplayListCursor++;
     transitioning = ((u32)cmd - 0x30) - (u32)slot;
     cmd->w0 = 0xE9000000;
     cmd->w1 = 0;
-    cmd = D_80115328++;
+    cmd = sDisplayListCursor++;
     cmd->w0 = 0xDF000000;
     cmd->w1 = 0;
     func_800A0220(slot->buffer, transitioning);
@@ -207,8 +207,8 @@ void func_80007958(void)
     func_800A0220(slot->buffer, ((u32)D_8010A4B4 - 0x1BB0) - (u32)slot);
 
     submittedSlot = slot;
-    submittedSlot->commands = *(FrameCommand **)(D_80117728 + 0x750);
-    submittedSlot->commandBytes = ((s32)((u32)D_80115328 - *(u32 *)(D_80117728 + 0x750)) >> 3) << 3;
+    submittedSlot->commands = *(FrameCommand **)(sRenderState + 0x750);
+    submittedSlot->commandBytes = ((s32)((u32)sDisplayListCursor - *(u32 *)(sRenderState + 0x750)) >> 3) << 3;
     if (D_800B1D70 != D_800B1D72) {
         func_8000B260();
         osRecvMesg(D_8010A2A0, NULL, 1);
