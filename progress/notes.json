@@ -3176,14 +3176,6 @@
   "score_after": 1110
  },
  {
-  "function": "func_8006D224",
-  "text": "Best score 1140/192 bytes with machine draft's arithmetic, one instruction short of 48. Target starts lw v0 from nested +0x414 and branches null; current C keeps pointer in a2. Remaining divergence is registers/branch extents, primarily float clamp and int conversion. Assembly uses x2.55, compares against 2^31, truncates float with MIPS signed-conversion correction, then clamps unsigned value <256 to 255 and writes packed words at offsets 0x10/0x14. Simplified direct cast-and-clamp was much worse. Local repairs signedness/declaration-order were no improvement. Try explicit temporaries to keep nested pointer in v0 through the initial null branch and force a2 copy only at the later delayed branch.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795137959.214795,
-  "score_before": 985,
-  "score_after": 985
- },
- {
   "function": "initDemoPlayback",
   "text": "Verified score 620; nine local layout, signedness and storage variants did not improve. Target initializes t0/t1 to zero before global stores, unlike candidate. Inspect full assembly for zero-valued local lifetimes and accurate call prototypes.",
   "by": "codex-gpt-6.1-terra-8",
@@ -7062,14 +7054,6 @@
   "created_at": 1795177980.074476,
   "score_before": 572,
   "score_after": 572
- },
- {
-  "function": "func_8006D224",
-  "text": "Rechecked inherited score 1140. Tried direct `(u32)value` conversion (score 1325) and explicit high-range branch with corrected initialization (score 1405); both worse. Keep inherited best, which has 32 differences and one fewer instruction. Target first loads output pointer into v0 and branches before using it, loads float into fv1, multiplies 2.55, then performs >=2^31 handling and both truncation paths with a shared clamp. Saved m2c C contains a suspicious uninitialized var_a0 in the high-range branch. Further work should correct semantics while matching target register/pointer lifetimes and branch fallthrough.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795177980.105462,
-  "score_before": 985,
-  "score_after": 985
  },
  {
   "function": "voiceSetParamForHandle",
@@ -12752,14 +12736,6 @@
   "score_after": 210
  },
  {
-  "function": "func_8006D224",
-  "text": "Saved best improved from 940 to verified 775 at 04d618714040edc16904. Direct float-to-u32 cast plus clamp emits both sltiu and branch-likely. Interleaved alpha/red/blue assembly of output words improves over inherited tail. Early-return, reassociation and structured clamp tie; staging alpha after conversion scored 990. Target holds nested pointer in v0 then copies to a2 in conversion branch delay slot, while candidate allocates a3 immediately and puts alpha constants in branch delay slots. A profile comparison around -O1 and scheduling/debug variants is the next direction.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795184944.3115609,
-  "score_before": 820,
-  "score_after": 775
- },
- {
   "function": "func_80098710",
   "text": "Verified 130. All loop operations, symbols, stores and registers match once aligned. Target materializes D_800FD974 in v0 then copies it to a1, whereas the compiler materializes straight into a1. A typed 16-byte node (next, prev, u32 key, s32 value) confirms loop layout. A separate initial pointer local tied. Assigning node and global head in one expression worsened to 575. Seek an allocation/lifetime change confined to the initial address without moving the global stores.",
   "by": "codex-gpt-6.2-sol-5",
@@ -14744,14 +14720,6 @@
   "score_after": 180
  },
  {
-  "function": "func_8006D224",
-  "text": "Restored a compiling baseline via batch; direct f32-to-u32 cast reverified 630. Explicit <= 2^31 split with signed truncation and separate top-bit OR scored 1035, dropping two instructions and producing bc1f. With direct cast, target's bc1t delay slot needs the nested color pointer move v0\u2192a2; candidate has bc1tl with sub.s in slot and keeps pointer in a3. Compare compiler scheduling/debug profiles on the 630 source.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795187462.153218,
-  "score_before": 630,
-  "score_after": 630
- },
- {
   "function": "approximate_hypot2",
   "text": "Rechecked reported corrected two-float argument candidate at 777. Register declarations, swapping values, branch orientation and local lifetime repair did not improve. Target saves three float registers; candidate saves one. Flag search favors O1 (602 for simpler candidate), but no exact flag match; explore float lifetimes and source structure.",
   "by": "codex-gpt-6.1-terra-2",
@@ -15752,14 +15720,6 @@
   "score_after": 115
  },
  {
-  "function": "func_8006D224",
-  "text": "Verified saved 590 uses native unsigned float conversion and explicit color staging. Loading a separate pointer alias after conversion scored 895. Explicit signed conversion with a >= 2^31 split scored 865, reversing bc1t and merging the two clamp predicates; keep native cast. Remaining differences center on source pointer in v0 versus a2 and branch-delay placement of the v0-to-a2 copy, plus FP/integer allocation in conversion and packed color.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795189222.458665,
-  "score_before": 590,
-  "score_after": 590
- },
- {
   "function": "func_8001A434",
   "text": "Rechecked baseline 40. Ran bounded local repairs: balanced pointer calls worsened to 440; inferred record layout, allocation schedule/declaration order, field width, target string symbol did not improve (no better in 5/4; one batch stopped at 60s). Best source retained rev baf8c9b0aa2b61161bc1. Main remaining mismatch is register allocation: target holds D_801002A2 base in s0 while candidate uses s1; 8 register advisory rows remain. Continue by trying source/declaration ordering or pointer lifetime shaping to obtain s0; inspect get_assembly(focus=\"mismatch\").",
   "by": "codex-gpt-6-luna-11",
@@ -16702,14 +16662,6 @@
   "created_at": 1795190341.7040472,
   "score_before": 1430,
   "score_after": 1430
- },
- {
-  "function": "func_8006D224",
-  "text": "Current best 590, 48 instructions. Tried volatile color pointer and ternary clamp; volatile had no effect, ternary worsened to 1000, then restored baseline. Target's initial nested pointer loads into $v0, while candidate uses $a2; target also uses bc1t with a pointer move in delay slot, while candidate uses bc1tl. Remaining differences mostly register allocation and scheduling.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795190348.8751402,
-  "score_before": 590,
-  "score_after": 590
  },
  {
   "function": "func_8009852C",
@@ -17750,14 +17702,6 @@
   "created_at": 1795191929.058251,
   "score_before": 505,
   "score_after": 260
- },
- {
-  "function": "func_8006D224",
-  "text": "Score 250 is the ordinary float to u32 cast. Target schedules integer sign-mask lui between mfc1 and or on the high arm; compiler emits it before trunc.w.s and leaves a nop after mfc1. Explicit threshold with high arm first flips bc1t to bc1f and drops shared compare delay-slot coverage (760). Next test GCC scheduling flags or put the low arm first using goto for the high arm. After conversion, red/blue allocation is swapped v0/v1.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795191940.025414,
-  "score_before": 250,
-  "score_after": 250
  },
  {
   "function": "func_80029768",
@@ -20056,14 +20000,6 @@
   "score_after": 50
  },
  {
-  "function": "func_8006D224",
-  "text": "Retried clean function-only C at score 60, exact 48-instruction shape; only 12 register assignments differ, first at target srl $v0,$a0,1 vs candidate $v1. Previous three byte-table signedness variants also unchanged. Try changing temp declaration/use order around value/red/blue to alter allocation.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795197802.3034198,
-  "score_before": 60,
-  "score_after": 60
- },
- {
   "function": "buildRotationMatrixS16",
   "text": "Reverified inherited score 325. Fully linearizing target FP operation order gives all 85 instructions but worsens scheduling/register allocation (1080). Volatile short inputs introduce lhu/sign-extension sequences. Changing m00 to register and swapping x load with first cross product were neutral; 16-byte dummy frame worsened. Next isolate the signed halfword load placement around the FP save block, then stage one late cross product at a time in the saved baseline.",
   "by": "codex-gpt-6.2-sol-6",
@@ -20638,14 +20574,6 @@
   "created_at": 1795198719.175915,
   "score_before": 25,
   "score_after": 25
- },
- {
-  "function": "func_8006D224",
-  "text": "Current baseline 60. Three local byte-table signedness variants and reordering color local declarations produced no score change; target has only register allocation differences in the computed RGBA words. Source implements the 2.55 intensity scale, truncation/saturation, then two packed color stores. Focus on declaration/lifetime or expression scheduling for u32 color components. Best candidate retained.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198734.037023,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "func_800698D8",
@@ -21480,14 +21408,6 @@
   "score_after": 115
  },
  {
-  "function": "func_8006D224",
-  "text": "Saved score 45 has all 48 instruction forms aligned; target assigns red to v0 and blue to v1 through the color pack. Changing the final OR from (blue | alpha) | red to (red | alpha) | blue gave 60 and retained the early v0/v1 reversal. Next focus on changing red and blue pseudo lifetime/creation order before their first uses while retaining the exact scheduling and unsigned conversion.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200578.853756,
-  "score_before": 45,
-  "score_after": 45
- },
- {
   "function": "func_8009A70C",
   "text": "Best current source rechecks at 535/62 instructions. First compile recovered that score; attempted u16 curve restructure worsened to 1030 due broad register allocation changes, then restored best. Six local repair variants: target_call_arity, branch_orientation, signedness, declaration_order, callee_parameter_width, const_read; none improved. Core residual mismatch near interpolation entry: target ORs curve, ANDIs to 16 bits into a0, then beql on zero with state->level store in delay slot; candidate branches on v1, moves it to a0, and omits that store placement. Target call result is checked, then computes index/high fractional portion. Need reshape control flow to common final store with the zero-curve path branching directly to epilogue, and preserve signed s16 curve to avoid global register-allocation regression. Remaining budget exhausted; no exact match.",
   "by": "codex-gpt-6-luna-13",
@@ -22086,14 +22006,6 @@
   "created_at": 1795201592.830092,
   "score_before": 1650,
   "score_after": 1650
- },
- {
-  "function": "func_8006D224",
-  "text": "Historical best score 45; current tested revision 8344156a7f451979cd30 scored 45 (99.0%). Starting candidate includes unrelated neighboring funcs, so focus only func_8006D224. The 48 target instructions match structurally; final nine register names differ in color packing. Local repair search had no applicable families. Try reordering temporary declarations/calculations to keep first red shift in $v0 and inverse blue in $v1.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201596.9226649,
-  "score_before": 45,
-  "score_after": 45
  },
  {
   "function": "func_8009532C",
@@ -23304,14 +23216,6 @@
   "score_after": 2986
  },
  {
-  "function": "func_8006D224",
-  "text": "Verified score 45, nine register differences in packing red and blue channels. Declaration ordering and unrelated byte signedness have no effect.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795202539.8783581,
-  "score_before": 45,
-  "score_after": 45
- },
- {
   "function": "func_8009D510",
   "text": "Target disassembly order: bzero call; set s16 0x166=0x28; load stack arg4 then setup queue args; store arg4,arg1,arg2 and zero fields interleaved; queue call delay slot stores arg3. Afterwards loads arg1 and arg4, `andi zero,0xffff`, branches first on arg1 then arg4; initializes byte 0x11DD to 0 or 1. Best C score 1650, currently saved source. No matching repair_category submission (no verified fix).",
   "by": "codex-gpt-6-luna-12",
@@ -23878,14 +23782,6 @@
   "created_at": 1795204082.2280881,
   "score_before": 185,
   "score_after": 185
- },
- {
-  "function": "func_8006D224",
-  "text": "Best candidate revision 8344156a7f451979cd30, score 45 (99%). Only register-allocation diffs remain: target keeps (value>>1)<<16 'red' in $v0 and (255-value)|64 'blue' in $v1; ours swaps them. Tried: declaration order permutations of red/blue/alpha (no change, 45); statement reorder of red/blue/alpha assignments (worse, 105-435). Untested: write red term as (value << 15) & 0xFF0000U or another shift form to change temp assignment.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795204083.222168,
-  "score_before": 45,
-  "score_after": 45
  },
  {
   "function": "func_8003FCF4",
@@ -25664,14 +25560,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8006D224",
-  "text": "Restored the verified score-45 candidate. Swapping halfColor OR grouping to match target dataflow yielded 60 with red and blue still swapped. Masked value << 15 yielded 320; reusing alpha for packed full color yielded 95. The separate packed temporary trial did not compile because the declaration was outside its patch anchor.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795207362.299992,
-  "score_before": 45,
-  "score_after": 45
- },
- {
   "function": "func_80012C70",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not matched. Inherited best candidate 18025b005596ef020c1b scores 4552 (265 prior attempts, 61 local repairs). Target frame is 0x38 (saved s0 at 0x20, s1 0x24, s2 0x28, s3 0x2C, ra 0x30; args 0x10-0x1C zeroed for func_80011800 call); candidate frame is 0x40 with extra stack use. Target loop uses s1 = 1 set before func_800109CC call (addiu s1,zero,1 in delay slot), s2/s3 hold &D_80109BA4 / &D_80103022 base pointers, so loop indexes via lh/sll; candidate reloads globals per iteration. Next step idea: restructure so the loop base pointers live in s2/s3 (declare local pointers &D_80103022[0], &D_80109BA4[0] before loop) to match frame size; did not verify this.",
   "by": "api-claude-haiku-5-5-5",
@@ -27072,14 +26960,6 @@
   "score_after": 14083
  },
  {
-  "function": "func_8006D224",
-  "text": "Saved best 45 is 99% and all operations match; nine remaining differences are register choices in final color bit packing. No-op cast recheck stayed 45. A whole rewrite regressed to 440 because it changed early load/branch and floating-point control flow; saved_best restored to revision 8940fc5860d5588fd4bb. Continue by tuning only final temporary widths/order while preserving exact float conversion and control flow.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795209497.0577128,
-  "score_before": 45,
-  "score_after": 45
- },
- {
   "function": "func_800224E4",
   "text": "Rechecked saved score 75. Extracting func_80087100 result to a local left score/diff unchanged; putting call back inline did likewise. Making the temp volatile worsened to 79. Restored saved best should be retained. Remaining diff has 5 rows: after helper, target moves $v0 to $a2 before reloading D_80109BB0 into $v0 for +0x18 address; candidate computes with $v1 and schedules move later. Need affect register/address reload order without volatile.\ntemp local, inline call restoration, volatile temp\n75 unchanged for plain temp/inlined form, 79 volatile",
   "by": "codex-gpt-6-luna-22",
@@ -27664,14 +27544,6 @@
   "score_after": 5930
  },
  {
-  "function": "func_8006D224",
-  "text": "Rechecked saved-best at score 45/48; final nine differences are register allocation/order in bit packing. Earlier OR grouping, mask/shift and alpha reuse trials worsened score. Whole rewrite disturbed the initial float/control flow. No applicable untried local repair.\nScoped local repairs; reverified score 45 with tail register-only mismatch.\nNo score change. Prior packing changes regressed.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795210463.620215,
-  "score_before": 45,
-  "score_after": 45
- },
- {
   "function": "func_800AB3C8",
   "text": "Stalled. Saved best rev 8aefdd46d9db4ff9c43f (680) is still best. Two more variants this session, both worse: (1) q computed first, zero test as if (0.0 <= arg0), separate v0/v1 flags: 715 (rev 98185824214449a29482). The compiler puts the zero compare before div.d, while the target does div.d first. (2) Zero test as (arg0 >= 0.0) with the divide folded into the (s32) cast: 1015 (rev 3da87e663124b112bb8d), which reorders the loads badly. Target shape: div.d on arg0/D_800D7000, then the 0<=arg0 select of D_800D7008/D_800D7010, add.d, trunc.w.d/mfc1/mtc1/cvt.d.w, mul by D_800D7018, sub from arg0, two compares with bc1t producing v0/v1, then bnel on the and to return arg0 or call func_800AB030 and divide. Untested: write the divide into a temp before the select and use the bnel-shaped early return directly.",
   "by": "api-claude-haiku-5-5-11",
@@ -28023,15 +27895,6 @@
   "score_before": 250,
   "score_after": 250,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:fc3b637fee7dc0e4341799685c3378a726b8dc1097191b8cce5209d0ec494933"
- },
- {
-  "function": "func_8006D224",
-  "text": "Best 45 retained; explicit rewrite of object pointers/casts scored 440 with 47 insns vs target 48, so worse. The rewrite pulled s16 conversion/arithmetic out of FP branch and altered likely vs ordinary branch. Restore saved_best 8940fc5860d5588fd4bb. Next experiment: verify exact struct and compare saved assembly; preserve target's bc1t and move a2,v0 between branch and subsequent math; avoid simplifying float clamp/cast sequence.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795210984.812046,
-  "score_before": 440,
-  "score_after": 440,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "aimTrackMarkerAngles",
@@ -28554,15 +28417,6 @@
   "score_before": 665,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:4b4f8cb4baed2e3c31a75a0b350e19af81c8a1510aadc2287ea8128c0f6fb134:3a6c4183157d2fc32bdeb4edcd8b8e9a2875c15bfee3b5193b306a252510c81f"
- },
- {
-  "function": "func_8006D224",
-  "text": "Tried full function-equivalent variant from saved_best; score remained 45/48, no instruction change. Existing history records extensive packing trials and local repairs; 9 final register allocation/order differences persist. Next step: alter only temporary declarations/lifetimes in final bit packing while preserving float conversion and control flow.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795211742.406056,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:4b4f8cb4baed2e3c31a75a0b350e19af81c8a1510aadc2287ea8128c0f6fb134:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "enemyStateSound",
@@ -29180,15 +29034,6 @@
   "score_before": 480,
   "score_after": 480,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:7b8867fc24f346625257e4b67c40778579b5116d1607527b0cb26e45c0ed4eaa"
- },
- {
-  "function": "func_8006D224",
-  "text": "No exact match; saved candidate still score 45. Keep the direct float-to-u32 conversion and clamp semantics. Output lifetime reorder yielded 680; declaration order and multiplication commutation tied 45.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795213544.961376,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_8007CC78",
@@ -30275,15 +30120,6 @@
   "created_at": 1795215404.934808,
   "score_before": 439705,
   "score_after": 439705
- },
- {
-  "function": "func_8006D224",
-  "text": "Saved best score 45 verified. An independent semantically equivalent rewrite scored 440 due to wrong FPR/branch lowering. Adding volatile live-value local for allocation changed code to score 855 because it forced stack spill and lost target sltiu. Restored best. Remaining nine rendered differences are register allocation only: candidate at final color packing uses v1 where target uses v0 and v0 where target uses v1; source arithmetic and branch shape align.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795215410.528113,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_8007CC78",
@@ -32365,15 +32201,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:628e0cd6feda3836695dff9254acab981e18879585caf878a4d83632dc384f9b"
  },
  {
-  "function": "func_8006D224",
-  "text": "Still 45 (only v0/v1 swap in tail packing: target red chain in v0, blue chain in v1). This session tried: blue-before-red order (435), swapped final stores (65), inlined store expressions (290/550/315). Next step: try different types/typedef (u8 value, s32 vs u32 for red/blue) or declaring red/blue at different scope to alter pseudo numbering.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795220681.066369,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_8005DC2C",
   "text": "Baseline rechecked 3486. Inferred layout and base signedness produced identical output; reversing branch worsened to 4046. Target preserves arg3 in s4 and switch differs.\nRecord typing, signed base pointer, branch reversal\nTwo unchanged at 3486; branch reversal 4046",
   "by": "codex-gpt-6.1-terra-5",
@@ -33707,15 +33534,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:631e54c8e5155faa6ad372dcad1fc71b0bfbb878581cf05cfab0716ec4928b12"
  },
  {
-  "function": "func_8006D224",
-  "text": "Saved best 45 remains. Variants: red-first with `halfColor = red|alpha|blue` gives 60 (pure v0/v1 swap of red/blue). Blue-first gives right registers but red's srl/sll scheduled after blue's addiu/subu/ori (score 120, 4 reordered rows). Neither reaches 0. Next step: find a source form that forces red's shift before blue's sub while red gets v0 (e.g. make blue depend on the red result, or compute from a different temp).\nred-first / blue-first ordering, expression regrouping, split blue ops\nonly trade between register swap (60) and instruction order (120)",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795224475.485327,
-  "score_before": 880,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_8004F430",
   "text": "Removed conflicting prototype; tested shared tail, inferred struct and reserve[12]\n8445 baseline; first two unchanged, reserve shrink worsened to 8465 and frame to 0xd8.",
   "by": "codex-gpt-6.1-terra-4",
@@ -34039,15 +33857,6 @@
   "score_before": 0,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
- },
- {
-  "function": "func_8006D224",
-  "text": "Saved best verified score 45/48 instructions; all remaining are register allocation swaps among v0/v1/a0 in channel packing and stores. Reordering red/blue setup worsened to 435. Local repairs found no untried applicable proposals. Keep best candidate.\nNo-op recheck at 45; reordered blue and red calculations, score regressed to 435.\nTarget uses v0 for red channel shift and v1 for complement-blue, candidate uses opposite temporaries, causing nine register-only differences.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795225688.764875,
-  "score_before": 60,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_80022AD8",
@@ -37685,15 +37494,6 @@
   "score_before": 2235,
   "score_after": 1945,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bb87beb5e62c7935eefe4ab8ea7c08dce774a82d39bc2b8b7b142c29da92b351"
- },
- {
-  "function": "func_8006D224",
-  "text": "Baseline verified score 45; core logic matches with nine register allocation differences starting around color packing (target uses v0 for shifted red and v1 for 255-value, opposite candidate). Moving the 0xFF000000 constant directly into expression regressed to 700. Three table signedness repairs left score 45. Current retained candidate is the saved 45 version.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795234080.800779,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "buildTriangleGridMasks",
@@ -42155,15 +41955,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
  },
  {
-  "function": "func_8006D224",
-  "text": "The candidate bundle has three functions; compiled only func_8006D224, explicitly. Reconstructed color math gives score 440; inherited best 45. Changing nested record aliases and fp temps caused missing target fp/bounds branches and register changes. Target scales intensity 2.55, truncates to u32, appears to test/clamp with floating threshold and integer range; preserve natural float comparison instead of direct `if(value>=256)`. Next step: inspect target full assembly and keep float-side clamp branch, then map bitfield packing.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795244227.8626518,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_8004D910",
   "text": "Verified score 310 on donor-derived C, equal instruction count. Historical score 305 source could not be recovered through saved_best or revision lookup. Remaining differences are an early rayDir.z load and f20/f22 exchange. Splitting y operands around the z load regressed to 2030/2045, and a y scalar with unchanged assignment order tied at 310.",
   "by": "codex-gpt-6.2-sol-9",
@@ -42641,15 +42432,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "func_8006D224",
-  "text": "Best 45/48, instructions match except 9 register allocation rows. try_local_repairs has no applicable proposals. KMC flag experiments fno-cse-skip-blocks and fno-strength-reduce both tie.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795246152.625049,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_80022AD8",
   "text": "Widen x to u32, reorder flags load, change parameter and scale types\nAll score 15 with identical three register differences.",
   "by": "codex-gpt-6.1-terra-2",
@@ -42666,15 +42448,6 @@
   "score_before": 170,
   "score_after": 170,
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
- },
- {
-  "function": "func_8006D224",
-  "text": "Reordered and split color computations and tried register qualifiers; score remains 45 or worsens. Moving on after four trials.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795246279.327104,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_8005C8C4",
@@ -43841,15 +43614,6 @@
   "score_before": 500,
   "score_after": 500,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
- },
- {
-  "function": "func_8006D224",
-  "text": "Saved candidate rechecks at 45/48, with only nine register mismatches in final packed color calculation. Local repairs had no untried families. IDO 7.1 was much worse (7240) due different conversion sequence. Adding an unused scalar local was initially terrible (855); replacing it with an uninitialized unused u32 local tied at 45.\nUnused u32 half local tied at 45; volatile local worsened to 855.\nNo register improvements; final packed channel operations allocate v0/v1 opposite target.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795250692.964235,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_800993A4",
@@ -45333,15 +45097,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4325797ddcca05b761ec7dac1d9929b129d6af1d1e3398ab7a3153553e4dc224"
  },
  {
-  "function": "func_8006D224",
-  "text": "Reordered red and blue declarations; unrelated byte table signedness changes.\nAll remain score 45 with nine register-only differences.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795259540.120097,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_800993A4",
   "text": "Moved offset calculation into loop; register qualifier and initial expression changes.\nLoop move worsened to 965; other changes unchanged at 535.",
   "by": "codex-gpt-6.1-terra-5",
@@ -45474,15 +45229,6 @@
   "score_before": 40,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e2189bce2ff800b58193a3fd2a577f8347bdc037a1a734307fdfa61f5bedca"
- },
- {
-  "function": "func_8006D224",
-  "text": "Saved candidate source rechecked not yet compiled in this turn; prior working history shows score 45, nine register-only packed-color mismatches and no local repair families. Full rewrite attempts scored 440/500, changing output pointer allocation and branch/delay scheduling; retain inherited candidate. Assembly confirms pointer loaded into v0 then moved to a2 in bc1t delay slot; final assembly packs channels in v0/v1 with a1 constants. Next step: focused lifetime/expression-order experiment on packed u32 temporary declarations to switch final v0/v1 allocation, retaining original source and semantics.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795260746.7589602,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_8009DCD0",
@@ -46013,15 +45759,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
  },
  {
-  "function": "func_8006D224",
-  "text": "Best 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435. Next step: Stage the half-color packed result before the first store with separate unsigned shifted temporaries.\nBest 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795269580.9321458,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_80019A3C",
   "text": "Array of 24-byte records recovers both table relocations, 2115\u21921395. Remaining differences are the shared zero register, primary beql, extra-loop guard, and return join. Volatile local zero adds stack traffic (1665), and positive final if and zero copied from slot stay at 1395.\nArray-of-record field access in both loops\nRecovered lui/addu/lbu relocations; score 1395.",
   "by": "codex-gpt-6.2-sol-6",
@@ -46238,15 +45975,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
  },
  {
-  "function": "func_8006D224",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nAuto-released at unchanged-output limit. Saved revision 8940fc5860d5588fd4bb remains score 45 (nine v0/v1 substitutions). Constant-false do/while around red initialization alone scored 55; automatic local pass recovered 45. Wrapping red halving or value = red | alpha against the recovered candidate each tied 45. Next step: test wrapping only the halfColor store; batch stopped before measuring it.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795272299.664394,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
   "function": "func_8011DC18",
   "text": "Reached verified 2735 from 4705. Follow-up countdown, animation branch and address-staging trials worsened or tied. Release to preserve the saved candidate and continue the session.",
   "by": "codex-gpt-6.2-sol-9",
@@ -46272,15 +46000,6 @@
   "score_before": 15,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f03bd80230de1e5322a52eeda061ee18083956bff173da5708253e51018d7236"
- },
- {
-  "function": "func_8006D224",
-  "text": "Verified 45, nine register substitutions in final packing. Reassociating final OR recovered operand order but yielded 60 from the remaining register swap. Declaration order and blue statement split tied 45.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795273451.096745,
-  "score_before": 45,
-  "score_after": 45,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
   "function": "func_8008EF18",
@@ -77490,5 +77209,286 @@
   "score_before": 29980,
   "score_after": 28790,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f84ebab0b09436c7a1ddec1c1ecef98d61d54e87a02fd1a84528204d5fe592fc"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Best score 1140/192 bytes with machine draft's arithmetic, one instruction short of 48. Target starts lw v0 from nested +0x414 and branches null; current C keeps pointer in a2. Remaining divergence is registers/branch extents, primarily float clamp and int conversion. Assembly uses x2.55, compares against 2^31, truncates float with MIPS signed-conversion correction, then clamps unsigned value <256 to 255 and writes packed words at offsets 0x10/0x14. Simplified direct cast-and-clamp was much worse. Local repairs signedness/declaration-order were no improvement. Try explicit temporaries to keep nested pointer in v0 through the initial null branch and force a2 copy only at the later delayed branch.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795137959.214795,
+  "score_before": 985,
+  "score_after": 985
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Rechecked inherited score 1140. Tried direct `(u32)value` conversion (score 1325) and explicit high-range branch with corrected initialization (score 1405); both worse. Keep inherited best, which has 32 differences and one fewer instruction. Target first loads output pointer into v0 and branches before using it, loads float into fv1, multiplies 2.55, then performs >=2^31 handling and both truncation paths with a shared clamp. Saved m2c C contains a suspicious uninitialized var_a0 in the high-range branch. Further work should correct semantics while matching target register/pointer lifetimes and branch fallthrough.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795177980.105462,
+  "score_before": 985,
+  "score_after": 985
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved best improved from 940 to verified 775 at 04d618714040edc16904. Direct float-to-u32 cast plus clamp emits both sltiu and branch-likely. Interleaved alpha/red/blue assembly of output words improves over inherited tail. Early-return, reassociation and structured clamp tie; staging alpha after conversion scored 990. Target holds nested pointer in v0 then copies to a2 in conversion branch delay slot, while candidate allocates a3 immediately and puts alpha constants in branch delay slots. A profile comparison around -O1 and scheduling/debug variants is the next direction.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795184944.3115609,
+  "score_before": 820,
+  "score_after": 775
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Restored a compiling baseline via batch; direct f32-to-u32 cast reverified 630. Explicit <= 2^31 split with signed truncation and separate top-bit OR scored 1035, dropping two instructions and producing bc1f. With direct cast, target's bc1t delay slot needs the nested color pointer move v0\u2192a2; candidate has bc1tl with sub.s in slot and keeps pointer in a3. Compare compiler scheduling/debug profiles on the 630 source.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795187462.153218,
+  "score_before": 630,
+  "score_after": 630
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Verified saved 590 uses native unsigned float conversion and explicit color staging. Loading a separate pointer alias after conversion scored 895. Explicit signed conversion with a >= 2^31 split scored 865, reversing bc1t and merging the two clamp predicates; keep native cast. Remaining differences center on source pointer in v0 versus a2 and branch-delay placement of the v0-to-a2 copy, plus FP/integer allocation in conversion and packed color.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795189222.458665,
+  "score_before": 590,
+  "score_after": 590
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Current best 590, 48 instructions. Tried volatile color pointer and ternary clamp; volatile had no effect, ternary worsened to 1000, then restored baseline. Target's initial nested pointer loads into $v0, while candidate uses $a2; target also uses bc1t with a pointer move in delay slot, while candidate uses bc1tl. Remaining differences mostly register allocation and scheduling.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795190348.8751402,
+  "score_before": 590,
+  "score_after": 590
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Score 250 is the ordinary float to u32 cast. Target schedules integer sign-mask lui between mfc1 and or on the high arm; compiler emits it before trunc.w.s and leaves a nop after mfc1. Explicit threshold with high arm first flips bc1t to bc1f and drops shared compare delay-slot coverage (760). Next test GCC scheduling flags or put the low arm first using goto for the high arm. After conversion, red/blue allocation is swapped v0/v1.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795191940.025414,
+  "score_before": 250,
+  "score_after": 250
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Retried clean function-only C at score 60, exact 48-instruction shape; only 12 register assignments differ, first at target srl $v0,$a0,1 vs candidate $v1. Previous three byte-table signedness variants also unchanged. Try changing temp declaration/use order around value/red/blue to alter allocation.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795197802.3034198,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Current baseline 60. Three local byte-table signedness variants and reordering color local declarations produced no score change; target has only register allocation differences in the computed RGBA words. Source implements the 2.55 intensity scale, truncation/saturation, then two packed color stores. Focus on declaration/lifetime or expression scheduling for u32 color components. Best candidate retained.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198734.037023,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved score 45 has all 48 instruction forms aligned; target assigns red to v0 and blue to v1 through the color pack. Changing the final OR from (blue | alpha) | red to (red | alpha) | blue gave 60 and retained the early v0/v1 reversal. Next focus on changing red and blue pseudo lifetime/creation order before their first uses while retaining the exact scheduling and unsigned conversion.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200578.853756,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Historical best score 45; current tested revision 8344156a7f451979cd30 scored 45 (99.0%). Starting candidate includes unrelated neighboring funcs, so focus only func_8006D224. The 48 target instructions match structurally; final nine register names differ in color packing. Local repair search had no applicable families. Try reordering temporary declarations/calculations to keep first red shift in $v0 and inverse blue in $v1.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201596.9226649,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Verified score 45, nine register differences in packing red and blue channels. Declaration ordering and unrelated byte signedness have no effect.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795202539.8783581,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Best candidate revision 8344156a7f451979cd30, score 45 (99%). Only register-allocation diffs remain: target keeps (value>>1)<<16 'red' in $v0 and (255-value)|64 'blue' in $v1; ours swaps them. Tried: declaration order permutations of red/blue/alpha (no change, 45); statement reorder of red/blue/alpha assignments (worse, 105-435). Untested: write red term as (value << 15) & 0xFF0000U or another shift form to change temp assignment.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795204083.222168,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Restored the verified score-45 candidate. Swapping halfColor OR grouping to match target dataflow yielded 60 with red and blue still swapped. Masked value << 15 yielded 320; reusing alpha for packed full color yielded 95. The separate packed temporary trial did not compile because the declaration was outside its patch anchor.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795207362.299992,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved best 45 is 99% and all operations match; nine remaining differences are register choices in final color bit packing. No-op cast recheck stayed 45. A whole rewrite regressed to 440 because it changed early load/branch and floating-point control flow; saved_best restored to revision 8940fc5860d5588fd4bb. Continue by tuning only final temporary widths/order while preserving exact float conversion and control flow.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795209497.0577128,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Rechecked saved-best at score 45/48; final nine differences are register allocation/order in bit packing. Earlier OR grouping, mask/shift and alpha reuse trials worsened score. Whole rewrite disturbed the initial float/control flow. No applicable untried local repair.\nScoped local repairs; reverified score 45 with tail register-only mismatch.\nNo score change. Prior packing changes regressed.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795210463.620215,
+  "score_before": 45,
+  "score_after": 45
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Best 45 retained; explicit rewrite of object pointers/casts scored 440 with 47 insns vs target 48, so worse. The rewrite pulled s16 conversion/arithmetic out of FP branch and altered likely vs ordinary branch. Restore saved_best 8940fc5860d5588fd4bb. Next experiment: verify exact struct and compare saved assembly; preserve target's bc1t and move a2,v0 between branch and subsequent math; avoid simplifying float clamp/cast sequence.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795210984.812046,
+  "score_before": 440,
+  "score_after": 440,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Tried full function-equivalent variant from saved_best; score remained 45/48, no instruction change. Existing history records extensive packing trials and local repairs; 9 final register allocation/order differences persist. Next step: alter only temporary declarations/lifetimes in final bit packing while preserving float conversion and control flow.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795211742.406056,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:4b4f8cb4baed2e3c31a75a0b350e19af81c8a1510aadc2287ea8128c0f6fb134:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "No exact match; saved candidate still score 45. Keep the direct float-to-u32 conversion and clamp semantics. Output lifetime reorder yielded 680; declaration order and multiplication commutation tied 45.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795213544.961376,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved best score 45 verified. An independent semantically equivalent rewrite scored 440 due to wrong FPR/branch lowering. Adding volatile live-value local for allocation changed code to score 855 because it forced stack spill and lost target sltiu. Restored best. Remaining nine rendered differences are register allocation only: candidate at final color packing uses v1 where target uses v0 and v0 where target uses v1; source arithmetic and branch shape align.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795215410.528113,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Still 45 (only v0/v1 swap in tail packing: target red chain in v0, blue chain in v1). This session tried: blue-before-red order (435), swapped final stores (65), inlined store expressions (290/550/315). Next step: try different types/typedef (u8 value, s32 vs u32 for red/blue) or declaring red/blue at different scope to alter pseudo numbering.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795220681.066369,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved best 45 remains. Variants: red-first with `halfColor = red|alpha|blue` gives 60 (pure v0/v1 swap of red/blue). Blue-first gives right registers but red's srl/sll scheduled after blue's addiu/subu/ori (score 120, 4 reordered rows). Neither reaches 0. Next step: find a source form that forces red's shift before blue's sub while red gets v0 (e.g. make blue depend on the red result, or compute from a different temp).\nred-first / blue-first ordering, expression regrouping, split blue ops\nonly trade between register swap (60) and instruction order (120)",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795224475.485327,
+  "score_before": 880,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved best verified score 45/48 instructions; all remaining are register allocation swaps among v0/v1/a0 in channel packing and stores. Reordering red/blue setup worsened to 435. Local repairs found no untried applicable proposals. Keep best candidate.\nNo-op recheck at 45; reordered blue and red calculations, score regressed to 435.\nTarget uses v0 for red channel shift and v1 for complement-blue, candidate uses opposite temporaries, causing nine register-only differences.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795225688.764875,
+  "score_before": 60,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Baseline verified score 45; core logic matches with nine register allocation differences starting around color packing (target uses v0 for shifted red and v1 for 255-value, opposite candidate). Moving the 0xFF000000 constant directly into expression regressed to 700. Three table signedness repairs left score 45. Current retained candidate is the saved 45 version.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795234080.800779,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "The candidate bundle has three functions; compiled only func_8006D224, explicitly. Reconstructed color math gives score 440; inherited best 45. Changing nested record aliases and fp temps caused missing target fp/bounds branches and register changes. Target scales intensity 2.55, truncates to u32, appears to test/clamp with floating threshold and integer range; preserve natural float comparison instead of direct `if(value>=256)`. Next step: inspect target full assembly and keep float-side clamp branch, then map bitfield packing.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795244227.8626518,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Best 45/48, instructions match except 9 register allocation rows. try_local_repairs has no applicable proposals. KMC flag experiments fno-cse-skip-blocks and fno-strength-reduce both tie.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795246152.625049,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Reordered and split color computations and tried register qualifiers; score remains 45 or worsens. Moving on after four trials.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795246279.327104,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved candidate rechecks at 45/48, with only nine register mismatches in final packed color calculation. Local repairs had no untried families. IDO 7.1 was much worse (7240) due different conversion sequence. Adding an unused scalar local was initially terrible (855); replacing it with an uninitialized unused u32 local tied at 45.\nUnused u32 half local tied at 45; volatile local worsened to 855.\nNo register improvements; final packed channel operations allocate v0/v1 opposite target.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795250692.964235,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Reordered red and blue declarations; unrelated byte table signedness changes.\nAll remain score 45 with nine register-only differences.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795259540.120097,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Saved candidate source rechecked not yet compiled in this turn; prior working history shows score 45, nine register-only packed-color mismatches and no local repair families. Full rewrite attempts scored 440/500, changing output pointer allocation and branch/delay scheduling; retain inherited candidate. Assembly confirms pointer loaded into v0 then moved to a2 in bc1t delay slot; final assembly packs channels in v0/v1 with a1 constants. Next step: focused lifetime/expression-order experiment on packed u32 temporary declarations to switch final v0/v1 allocation, retaining original source and semantics.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795260746.7589602,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Best 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435. Next step: Stage the half-color packed result before the first store with separate unsigned shifted temporaries.\nBest 45 differs only in channel register allocation. Final OR reversal scores 60; declaration order ties; signed channels score 435.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795269580.9321458,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nAuto-released at unchanged-output limit. Saved revision 8940fc5860d5588fd4bb remains score 45 (nine v0/v1 substitutions). Constant-false do/while around red initialization alone scored 55; automatic local pass recovered 45. Wrapping red halving or value = red | alpha against the recovered candidate each tied 45. Next step: test wrapping only the halfColor store; batch stopped before measuring it.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795272299.664394,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Verified 45, nine register substitutions in final packing. Reassociating final OR recovered operand order but yielded 60 from the remaining register swap. Declaration order and blue statement split tied 45.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795273451.096745,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  }
 ]

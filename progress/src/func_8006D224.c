@@ -51,7 +51,7 @@ void func_8006D224(Outer6D *obj) {
         u32 red, blue, alpha;
         if (value >= 256U) value = 255U;
         alpha = 0xFF000000U;
-        red = (value >> 1) << 16;
+        do { red = (value >> 1) << 16; } while (0);
         blue = (255U - value) | 64U;
         value = red | alpha;
         alpha = 0x7F800000U;
@@ -59,6 +59,6 @@ void func_8006D224(Outer6D *obj) {
         value |= blue;
         blue >>= 1;
         colors->color = value;
-        colors->halfColor = (blue | alpha) | red;
+        colors->halfColor = (red | alpha) | blue;
     }
 }
