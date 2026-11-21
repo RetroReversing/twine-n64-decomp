@@ -36,9 +36,10 @@ typedef struct {
 void func_80016A34(SurfaceProbeActor *actor) {
     ProbeVec *pos = &actor->pos;
     register u8 *hit = func_80047B44(actor->surface, &actor->previousPos, pos, 0);
-    register s32 surface;
+    s32 oldSurface;
     u8 marker;
     if (hit != NULL) {
+        s32 newSurface;
         if (*(u16 *)(hit + 0x26) & 0x1000) {
             markObjectsNearPos(actor->surface, 2, 0x20000, pos, 0, 1);
             prepareLinkedObjectPair(hit, pos, actor->surface);
@@ -47,16 +48,16 @@ void func_80016A34(SurfaceProbeActor *actor) {
             marker = hit[0x28];
             if (marker) gTrackMarkerDone[marker] = 1;
         }
-        surface = *(s32 *)(hit + 8);
+        newSurface = *(s32 *)(hit + 8);
         actorUnlinkFromSurface(actor);
-        objectListInsert(actor, surface);
-        actor->surface = surface;
+        objectListInsert(actor, newSurface);
+        actor->surface = newSurface;
         actor->state |= 0x400;
         goto save;
     }
 
-    surface = actor->surface;
-    if (surface == 0) {
+    oldSurface = actor->surface;
+    if (oldSurface == 0) {
         switch (actor->type) {
         case 0x1F:
         case 0x46:
@@ -64,7 +65,7 @@ void func_80016A34(SurfaceProbeActor *actor) {
         }
         goto done;
     }
-    if ((s8)Probe_BoundsContainPoint(pos, surface)) goto save;
+    if ((s8)Probe_BoundsContainPoint(pos, oldSurface)) goto save;
     actorUnlinkFromSurface(actor);
     switch (actor->type) {
     case 6:
@@ -102,7 +103,7 @@ void func_80016A34(SurfaceProbeActor *actor) {
         if (!(actor->flags & 0x80000)) goto restoreAndTest;
     tryLink:
         if (!(s8)actorLinkToSurface(*gProbeObjectList, actor, 0)) {
-            objectListInsert(actor, surface);
+            objectListInsert(actor, oldSurface);
         }
     save:
         actor->previousPos = actor->pos;
@@ -110,9 +111,9 @@ void func_80016A34(SurfaceProbeActor *actor) {
         goto done;
     restoreAndTest:
         RESTORE(actor);
-        if (!(s8)Probe_BoundsContainPoint(&actor->pos, surface)) goto relink;
+        if (!(s8)Probe_BoundsContainPoint(&actor->pos, oldSurface)) goto relink;
     insert:
-        objectListInsert(actor, surface);
+        objectListInsert(actor, oldSurface);
         goto done;
     relink:
         actorLinkToSurface(*gProbeObjectList, actor, 0);
