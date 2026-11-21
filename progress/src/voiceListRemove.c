@@ -7,7 +7,7 @@ extern s32 D_8010D734;
 extern s32 D_8010D738;
 extern s32 D_8010D73C;
 
-void func_8009876C(void *arg0) {
+void voiceListRemove(void *arg0) {
     s32 **temp_v1_2;
 
     s32 * __repair_hoisted;

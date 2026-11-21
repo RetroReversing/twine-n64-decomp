@@ -14,11 +14,11 @@ typedef s32 M2C_UNK32;
 
 s32 func_8008C1B0();
 s32 func_8008C590();
-s32 func_80098A18();
+s32 voiceReleaseHandles();
 extern u8 D_801002EA;
 extern u8 D_8010A930;
 extern u8 D_8010D720;
-extern char D_8010D724[];
+extern char sVoiceTable[];
 extern char D_8010D784[];
 extern char D_8010D7E1[];
 extern u8 D_80110DB0;
@@ -39,9 +39,9 @@ void func_8009959C(s32 arg0) {
         }
         var_v0 = arg0 * 2;
         temp_v0 = (((var_v0 + arg0) * 4) + arg0) << 5;
-        temp_s1 = temp_v0 + D_8010D724;
+        temp_s1 = temp_v0 + sVoiceTable;
         *(s32 *)(D_8010D784 + temp_v0) = arg0;
-        func_80098A18(temp_s1);
+        voiceReleaseHandles(temp_s1);
         temp_a1 = M2C_FIELD(temp_s1, u8 *, 0x63);
         M2C_FIELD(temp_s1, s32 *, 0) = 0;
         M2C_FIELD(temp_s1, s8 *, 0x2E) = 0;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80098A18();
+s32 voiceReleaseHandles();
 extern u8 D_801002EA;
 extern u8 D_8010A930;
 extern u8 D_8010D720;
@@ -25,7 +25,7 @@ void func_800992B4(void *arg0) {
     u8 temp_a1;
     void *temp_a0;
 
-    func_80098A18();
+    voiceReleaseHandles();
     temp_a1 = M2C_FIELD(arg0, u8 *, 0x63);
     M2C_FIELD(arg0, s32 *, 0) = 0;
     M2C_FIELD(arg0, s8 *, 0x2E) = 0;

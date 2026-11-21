@@ -1,9 +1,9 @@
-extern u8 gVoiceTable; extern u32 D_801096EC,D_801096F0,D_801096F4,D_801096F8,D_801096FC; extern u8 D_801176E8;
+extern u8 gVoiceTable; extern u32 D_801096EC,D_801096F0,D_801096F4,D_801096F8,D_801096FC; extern u8 sVoiceCount;
 s32 func_8008C6CC(s32); void func_8008C6F4(s32,s32);
 #define AT(T,s,o) (*(volatile T *)((u8 *)&(s)+(o)))
 void func_80093268(void) {
  s32 i=0, off; u32 *entry, now, old, base;
- if (i >= D_801176E8) return;
+ if (i >= sVoiceCount) return;
  entry=&D_801096F8; off=0;
  do {
   if (*(u8 *)((u8 *)&gVoiceTable+off)==1) {
@@ -23,5 +23,5 @@ store:
    *entry=now;
   }
   entry+=6; i++; off+=24;
- } while(i<(s32)D_801176E8);
+ } while(i<(s32)sVoiceCount);
 }

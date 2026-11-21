@@ -1,19 +1,19 @@
 extern s8 D_801002EA; extern char D_80102CE2[]; extern u8 D_8010957D[]; extern u16 D_80109B1C; extern s8 D_8010A930; extern s8 D_8010D720; extern s8 D_80110DB0; typedef struct { u8 prev; u8 next; u16 active; } Links;
-extern Links D_80117388[]; extern u8 D_801176E8;
+extern Links D_80117388[]; extern u8 sVoiceCount;
 void func_800993A4(void) {
  u8 frame[1]; s32 temp_v1; u32 var_a0_2,var_v1_2,i;
- for (i = 0; i < D_801176E8; i++) {
+ for (i = 0; i < sVoiceCount; i++) {
    D_80117388[i].prev = i - 1;
    D_80117388[i].active = 1;
    D_80117388[i].next = i + 1;
  }
  {
-   u32 last = D_801176E8;
+   u32 last = sVoiceCount;
    D_80117388[0].prev=0xFF;
    last -= 1;
    D_80117388[last].next=0xFF;
  }
- temp_v1=D_801176E8;
+ temp_v1=sVoiceCount;
  D_801002EA=0;
  D_80110DB0=temp_v1-1;
  temp_v1 &= 0xFF; var_a0_2=0;

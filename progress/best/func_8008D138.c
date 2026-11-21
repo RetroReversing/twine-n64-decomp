@@ -5,7 +5,7 @@ s32 func_80096970();
 void *func_8009852C();
 s32 func_800988D8();
 s32 func_8009C420();
-extern char D_8010D724[];
+extern char sVoiceTable[];
 extern char D_8010D734[];
 extern char D_8010D738[];
 
@@ -102,7 +102,7 @@ loop_3:
                     if (var_s6 == -1) {
                         temp_s0 = func_8009C420(temp_t0, sp46, (var_v0_2 | (sp4F & 0x80)) & 0xFF, temp_a3, var_t0 & 0xFF, temp_s3, temp_s4, (s32) sp5E, (s32) sp66, 0, (s32) sp6F);
                         if (temp_s0 != var_s6) {
-                            var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + D_8010D724);
+                            var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + sVoiceTable);
                         }
                     } else {
                         temp_v0_2 = func_8009C420(temp_t0, sp46, (var_v0_2 | (sp4F & 0x80)) & 0xFF, temp_a3, var_t0 & 0xFF, temp_s3, temp_s4, (s32) sp5E, (s32) sp66, 0, (s32) sp6F);

@@ -16,7 +16,7 @@ s32 func_8008C1B0(s32);
 unsigned int func_8008C1DC(void);
 extern u8 gWorkerActive;
 extern s8 D_80112DC0;
-extern u8 D_801176E8;
+extern u8 sVoiceCount;
 
 s32 func_8009CDA4(void) {
     s32 i;
@@ -28,12 +28,12 @@ s32 func_8009CDA4(void) {
     if (gWorkerActive == 0) goto done;
     D_80112DC0 = 1;
     if ((u8)func_8008C1DC() == 0) {
-        if ((count = D_801176E8) > 0) {
+        if ((count = sVoiceCount) > 0) {
             i = 0;
             do {
                 status |= func_8008C1B0(i);
                 i++;
-            } while (i < D_801176E8);
+            } while (i < sVoiceCount);
         }
     } else {
         status = 1;

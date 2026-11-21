@@ -19,7 +19,7 @@ extern u16 D_80109B1C;
 extern char D_8010A51A[];
 extern char D_8010A51C[];
 
-void func_80098A18(void *arg0) {
+void voiceReleaseHandles(void *arg0) {
     s32 temp_a1_3;
     u16 temp_a1_4;
     u8 temp_a1;

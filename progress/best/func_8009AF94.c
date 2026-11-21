@@ -21,7 +21,7 @@ s8 func_80096E1C();
 s32 func_80096F44();
 s32 func_800982B4();
 void *func_8009846C();
-s32 func_8009876C();
+s32 voiceListRemove();
 s32 func_80098B14();
 s32 func_800992B4();
 void *func_80099CA8();
@@ -47,7 +47,7 @@ extern char D_8010D748[];
 extern char D_8010D784[];
 extern char D_80112E9E[];
 extern char D_80112EBE[];
-extern u8 D_801176E8;
+extern u8 sVoiceCount;
 
 void func_8009AF94(void *arg0, u8 arg1, s32 arg2) {
     s16 sp10[4];
@@ -266,7 +266,7 @@ loop_25:
             } else {
             case 0x0:
 block_40:
-                func_8009876C(arg0);
+                voiceListRemove(arg0);
                 func_800992B4(arg0);
                 var_a0 = (void *)1;
             }
@@ -325,7 +325,7 @@ block_120:
             break;
         case 0x9:
             var_a1_2 = 0;
-            if (D_801176E8 != 0) {
+            if (sVoiceCount != 0) {
                 var_a2_2 = 0;
                 do {
                     temp_a0 = *(s32 *)(D_8010D784 + var_a2_2);
@@ -337,7 +337,7 @@ block_120:
                     }
                     var_a1_2 += 1;
                     var_a2_2 += 0x1A0;
-                } while (var_a1_2 < (u8) D_801176E8);
+                } while (var_a1_2 < (u8) sVoiceCount);
                 var_a0 = NULL;
             } else {
 block_60:

@@ -1,10 +1,10 @@
 typedef struct { u8 pad0[0x2e]; u8 group; u8 pad2f[0x34]; u8 slot; } Entry;
 typedef struct { u8 previous; u8 next; u16 used; } SlotLinks;
 typedef struct { u16 index; u16 pad; } IndexLink;
-extern SlotLinks D_80102CE0[]; extern u8 D_8010957D[]; extern u16 D_80109B1C; extern IndexLink D_8010A51A[], D_8010A51C[]; extern void func_80098A18(void *);
+extern SlotLinks D_80102CE0[]; extern u8 D_8010957D[]; extern u16 D_80109B1C; extern IndexLink D_8010A51A[], D_8010A51C[]; extern void voiceReleaseHandles(void *);
 void func_80098B14(register Entry *entry, s32 group) {
  u32 slot=entry->slot; union { SlotLinks * pointer; u32 value; } __repair_phase_storage = {&D_80102CE0[slot] }; u32 current,key,orderedGroup,groupPosition; u16 previous,head;  u8 next;
- if(__repair_phase_storage.pointer->used==1){ if(entry->group==(u8)group) return; func_80098A18(entry); }
+ if(__repair_phase_storage.pointer->used==1){ if(entry->group==(u8)group) return; voiceReleaseHandles(entry); }
  __repair_phase_storage.pointer->used=1; __repair_phase_storage.pointer->previous=0xFF; next=D_8010957D[(u8)group]; current=(u8)group; __repair_phase_storage.pointer->next=next;
  if(next!=0xFF) D_80102CE0[D_8010957D[(u8)group]].previous=slot;
  else {

@@ -36,8 +36,8 @@ extern char D_80107EF0[];
 extern char D_80107EF4[];
 extern char D_80107EF8[];
 extern s32 D_80109680;
-extern s32 D_8010D724;
-extern u8 D_801176E8;
+extern s32 sVoiceTable;
+extern u8 sVoiceCount;
 
 typedef struct { unsigned char pad[360]; int value; } __repair_field_168;
 void func_8008D838(void) {
@@ -105,10 +105,10 @@ s32 __repair_result_var_v0_3;
     void *temp_v1_3;
     void *var_s1;
 
-    var_s5 = &D_8010D724;
+    var_s5 = &sVoiceTable;
     var_s6 = 0;
-    if ((s32) D_801176E8 > 0) {
-        var_s1 = (char *)&D_8010D724 + 0xC2;
+    if ((s32) sVoiceCount > 0) {
+        var_s1 = (char *)&sVoiceTable + 0xC2;
         do {
             if (*(s32 *)var_s5 != 0) {
                 func_8009AF94(var_s5);
@@ -364,7 +364,7 @@ block_56:
             var_s6 += 1;
             var_s1 += 0x1A0;
             var_s5 += 0x1A0;
-        } while (var_s6 < (s32) D_801176E8);
+        } while (var_s6 < (s32) sVoiceCount);
         var_s6 = 0;
     }
     var_s0_5 = 0;

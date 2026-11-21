@@ -23,7 +23,7 @@ extern s8 gWorkerActive;
 extern s8 D_801005B0;
 extern s8 D_801007C0;
 extern s8 D_80112DC0;
-extern u8 D_801176E8;
+extern u8 sVoiceCount;
 
 s32 func_800958F8(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
     s32 __repair_arg0;
@@ -31,13 +31,13 @@ s32 func_800958F8(s32 arg0, u8 arg1, s8 arg2, s8 arg3, u16 arg4, s32 arg5) {
 
     gWorkerActive = 0;
     if ((u32) (arg1 & 0xFF) < 0x21U) {
-        D_801176E8 = arg1;
+        sVoiceCount = arg1;
     } else {
-        D_801176E8 = 0x20;
+        sVoiceCount = 0x20;
     }
     D_801007C0 = arg3;
     D_801005B0 = arg2;
-    temp_v0 = func_8008BBFC(&arg0, D_801176E8, arg4, arg5);
+    temp_v0 = func_8008BBFC(&arg0, sVoiceCount, arg4, arg5);
     if (temp_v0 == 0) {
         __repair_arg0 = arg0;
         func_80092780();

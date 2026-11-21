@@ -12,7 +12,7 @@ extern u8 D_8010D720;
 extern char D_8010D748[];
 extern char D_8010D74C[];
 extern char D_8010D752[];
-extern u8 D_8010D770[];
+extern u8 sVoiceKeepFlags[];
 extern char D_8010D7DE[];
 extern u8 D_8010D7E1[];
 extern u8 D_80110DB0;
@@ -20,7 +20,7 @@ extern u8 D_80112DC0;
 extern char D_80117388[];
 extern char D_80117389[];
 extern char D_8011738A[];
-extern u8 D_801176E8;
+extern u8 sVoiceCount;
 
 int func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_a0;
@@ -72,7 +72,7 @@ s32 __repair_phase___repair_phase_temp_a0;
         }
         var_t8 = 0;
         if (var_v0 == 0) {
-            var_t8 = var_v1 < (u8) D_801176E8;
+            var_t8 = var_v1 < (u8) sVoiceCount;
         }
         var_t3 = 0;
         if ((u32) (arg1 & 0xFF) < var_v1) {
@@ -92,7 +92,7 @@ s32 __repair_phase___repair_phase_temp_a0;
                                 if (*(D_8010D7E1 + temp_v1) == 0) {
                                     if (*(u16 *)(D_8010D7DE + temp_v1) == arg2) {
                                         var_t3 += 1;
-                                        if (!(var_t8 & 0xFF) || (var_v0_4 = var_t0_2 * 4, (*(D_8010D770 + temp_v1) == (arg3 & 0xFF)))) {
+                                        if (!(var_t8 & 0xFF) || (var_v0_4 = var_t0_2 * 4, (*(sVoiceKeepFlags + temp_v1) == (arg3 & 0xFF)))) {
                                             if (!(*(u32 *)(D_8010D748 + temp_v1) & 2)) {
                                                 if ((var_t1 == -1U) || (var_v0_4 = var_t0_2 * 4, (((u32) *(u32 *)(D_8010D74C + temp_v1) < (u32) *(u32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                                     var_t1 = var_t0_2;
@@ -186,7 +186,7 @@ block_37:
                             do {
                                 temp_a0 = (((var_v0_11 + var_t0_4) * 4) + var_t0_4) << 5;
                                 if (*(D_8010D7E1 + temp_a0) == 0) {
-                                    if ((!var_t8) || (var_v0_12 = var_t0_4 * 4, (*(D_8010D770 + temp_a0) == (arg3 & 0xFF)))) {
+                                    if ((!var_t8) || (var_v0_12 = var_t0_4 * 4, (*(sVoiceKeepFlags + temp_a0) == (arg3 & 0xFF)))) {
                                         if (!(*(u32 *)(D_8010D748 + temp_a0) & 2)) {
                                             if ((var_t1 == -1U) || (var_v0_12 = var_t0_4 * 4, (((u32) *(u32 *)(D_8010D74C + temp_a0) < (u32) *(u32 *)(D_8010D74C + (var_t1 * 0x1A0))) != 0))) {
                                                 var_t1 = var_t0_4;
@@ -240,7 +240,7 @@ block_59:
                             }
                             goto block_73;
                         }
-                        if (*(D_8010D770 + (var_t1 * 0x1A0)) != 0) {
+                        if (*(sVoiceKeepFlags + (var_t1 * 0x1A0)) != 0) {
                             D_8010A930 -= 1;
                             var_v0_13 = arg3 & 0xFF;
                         } else {

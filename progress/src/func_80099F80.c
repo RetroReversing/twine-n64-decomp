@@ -1,6 +1,6 @@
 s32 func_8009C420(u32, s32, s32, u8, u8, u8, u8, u16, u16, u8, u8);
 void func_8008E8F0(s32, s32);
-extern u8 D_8010D724[];
+extern u8 sVoiceTable[];
 extern s32 D_8010D734[];
 extern s32 D_8010D738[];
 
@@ -64,11 +64,11 @@ s32 func_80099F80(void *state, void *command)
             u8 linked = FIELD(state, u8, 0x4C);
             FIELD(state, s32, 0x10) = result;
             if (linked) {
-                func_8008E8F0((s32)(D_8010D724 + offset), (s32)state);
+                func_8008E8F0((s32)(sVoiceTable + offset), (s32)state);
             }
         }
         if (0) {
-            func_8008E8F0((s32)(D_8010D724 + offset), (s32)state);
+            func_8008E8F0((s32)(sVoiceTable + offset), (s32)state);
         }
     }
 
