@@ -92,13 +92,13 @@ void func_8002A1F0(void *arg0) {
         if (((s16) var_a1 - M2C_FIELD(arg0, u8 *, 0x1D)) >= (s32) M2C_FIELD(arg0, u8 *, 0x1B)) {
             M2C_FIELD(arg0, u8 *, 0x1D) = var_a1;
         }
-        temp_a1 = M2C_FIELD(arg0, u8 *, 0x1B);
-        var_s2 = temp_a1 & 0xFF;
+        temp_v1_2 = M2C_FIELD(arg0, u8 *, 0x1B);
+        var_s2 = temp_v1_2 & 0xFF;
     temp_v1_3 = var_s2;var_s2=0;
         temp_v0_5 = var_a2 - temp_v1_3;
         if ((var_a2 - M2C_FIELD(arg0, u8 *, 0x1D)) < temp_v1_3) {
             if (temp_v0_5 >= 0) {
-                var_a0 = var_a2 - temp_a1;
+                var_a0 = var_a2 - temp_v1_2;
                 if (temp_v0_5 >= 0x100) {
                     var_a0 = 0xFF;
                 }

@@ -10,11 +10,11 @@ extern u16 D_8011F0EE;
 extern u32 D_8011F2E8[][4];
 extern u32 D_8011F3B8[];
 extern u8 D_8011ED54[];
-extern u32 gMarkerEntry1[];
+extern u32 sMarkerTextNode1[];
 extern u32 D_8011F040[];
 s32 spawnTextNode(void *);
 void func_8011C4D8(void);
-void func_8011C958(void);
+void setupSaveSlotMarkers(void);
 void create_player_state_objects(void);
 void func_8011CC3C(void);
 void func_8011C430(void);
@@ -78,12 +78,12 @@ after:
     switch (gSceneType) {
     case 8:
         for (i = 0; i < 3; i++) {
-            gMarkerEntry1[i] = spawnTextNode(D_8011ED54 + i * 36);
+            sMarkerTextNode1[i] = spawnTextNode(D_8011ED54 + i * 36);
         }
         func_8011C4D8();
         break;
     case 6:
-        func_8011C958();
+        setupSaveSlotMarkers();
         break;
     case 4:
     case 5:
