@@ -3,7 +3,9 @@ void func_80061938(void *arg0)
 {
   f32 temp_fv0;
   f32 temp_fv1;
+f32 __repair_phase_temp_fv1;
   f32 t44;
+f32 __repair_phase_t44;
   short d;
   void *temp_s1;
   void *temp_v1_2;
@@ -13,11 +15,8 @@ void func_80061938(void *arg0)
   {
     case 0x54:
       temp_v1_2 = *((void **) (((char *) arg0) + 0x20));
-      t44 = *((f32 *) (((char *) arg0) + 0x44));
-      temp_fv1 = *((f32 *) (((char *) arg0) + 0x28));
-      t44 += 16.0f;
-      temp_fv1 += 0.020416668f;
-      *((f32 *) (((char *) arg0) + 0x44)) = t44;
+      temp_fv1 = (*((f32 *) (((char *) arg0) + 0x28))) + 0.020416668f;
+      *((f32 *) (((char *) arg0) + 0x44)) += 16.0f;
       *((f32 *) (((char *) arg0) + 0x28)) = temp_fv1;
       if ((*((f32 *) (((char *) (*((void **) (((char *) temp_v1_2) + 0x3C)))) + 0x24))) < temp_fv1)
     {
@@ -29,14 +28,11 @@ void func_80061938(void *arg0)
       goto mul;
 
     case 0x17:
-      t44 = *((f32 *) (((char *) arg0) + 0x44));
-      temp_fv1 = *((f32 *) (((char *) arg0) + 0x28));
-      t44 += 16.0f;
-      temp_fv1 += 0.010208334f;
-      *((f32 *) (((char *) arg0) + 0x44)) = t44;
-      *((f32 *) (((char *) arg0) + 0x28)) = temp_fv1;
+      __repair_phase_temp_fv1 = (*((f32 *) (((char *) arg0) + 0x28))) + 0.010208334f;
+      *((f32 *) (((char *) arg0) + 0x44)) += 16.0f;
+      *((f32 *) (((char *) arg0) + 0x28)) = __repair_phase_temp_fv1;
       temp_fv0 = *((f32 *) (((char *) (*((void **) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x3C)))) + 0x24));
-      if (temp_fv0 < temp_fv1)
+      if (temp_fv0 < __repair_phase_temp_fv1)
     {
       *((f32 *) (((char *) arg0) + 0x28)) = temp_fv0;
     }
@@ -51,8 +47,8 @@ void func_80061938(void *arg0)
 
   }
 
-  d = *((u8 *) (((char *) temp_s1) + 0x26));
-  d = (*((u8 *) (((char *) arg0) + 0x82))) - d;
+  d = *((u8 *) (((char *) arg0) + 0x82));
+  d -= *((u8 *) (((char *) temp_s1) + 0x26));
   *((u8 *) (((char *) arg0) + 0x7F)) += *((u8 *) (((char *) temp_s1) + 0x23));
   *((u8 *) (((char *) arg0) + 0x80)) += *((u8 *) (((char *) temp_s1) + 0x24));
   *((u8 *) (((char *) arg0) + 0x81)) += *((u8 *) (((char *) temp_s1) + 0x25));
@@ -63,4 +59,5 @@ void func_80061938(void *arg0)
   }
   *((u8 *) (((char *) arg0) + 0x82)) = d;
 }
+
 
