@@ -22,7 +22,7 @@ extern char D_800C7EE8[];
 extern u8 D_800C7EE9[];
 extern char D_800C7EEC[];
 extern u8 D_800CEEB0;
-extern void *gBonusSceneHandle;
+extern void *gBonusObjects;
 extern u8 D_80115091[];
 extern s32 func_801188B4;
 
@@ -39,10 +39,10 @@ void func_8007514C(void *arg0) {
     void *temp_s2;
     f32 threshold;
 
-    if ((D_800CEEB0 == 0) && (gBonusSceneHandle != NULL)) {
+    if ((D_800CEEB0 == 0) && (gBonusObjects != NULL)) {
         temp_v1 = __repair_inline(*(D_800C7EE8 + (((__repair_record_arg0*)arg0)->field_7C * 0xC)));
         threshold = 3.0f;
-        temp_s2 = M2C_FIELD(gBonusSceneHandle, void **, 0x6C);
+        temp_s2 = M2C_FIELD(gBonusObjects, void **, 0x6C);
         var_s0 = 0;
         switch (temp_v1) {
 case 0: case 3: goto block_12;
@@ -55,7 +55,7 @@ case 0: case 3: goto block_12;
 block_12:
                     var_v0 = var_s0;
 block_13:
-                    if ((var_s0 != 0) || (Vec3_DistanceSq(arg0 + 0x24, gBonusSceneHandle + 0x24) < threshold)) {
+                    if ((var_s0 != 0) || (Vec3_DistanceSq(arg0 + 0x24, gBonusObjects + 0x24) < threshold)) {
                         temp_v0 = *(D_80115091 + (M2C_FIELD(temp_s2, s8 *, 0x182) * 0xA0));
                         switch (temp_v0) {          /* switch 2 */
                         case 2: case 4: case 6:
@@ -98,7 +98,7 @@ block_13:
             break;
         case 5:                                     /* switch 1 */
             var_s0 = 1;
-            if (M2C_FIELD(M2C_FIELD(gBonusSceneHandle, void **, 0x68), s8 *, 0xE) == 0x29) {
+            if (M2C_FIELD(M2C_FIELD(gBonusObjects, void **, 0x68), s8 *, 0xE) == 0x29) {
                 goto block_12;
             }
             break;

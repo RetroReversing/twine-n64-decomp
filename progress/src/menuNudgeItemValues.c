@@ -12,44 +12,44 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void **D_80109BB0;
+extern void **gMenuItems;
 
-void func_80026868(s16 arg0) {
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    s32 temp_a1_2;
-    s32 temp_a3;
-    u8 lo;
+/* Nudges the low byte of the value field of the first two menu items up (above 90) or down (below 30) by 8. */ void menuNudgeItemValues(s16 position) {
+    f32 positionF;
+    f32 positionF2;
+    s32 item2;
+    s32 itemValue;
+    u8 lowByte;
     
-    void *temp_a0;
-    void *temp_a0_2;
-    void *temp_a0_3;
-    void *temp_a1;
+    void *itemA;
+    void *item2A;
+    void *item2B;
+    void *item;
 
-    temp_a1 = M2C_FIELD(D_80109BB0, void **, 0x24);
-    if (temp_a1 != NULL) {
-        temp_a3 = M2C_FIELD(temp_a1, s32 *, 0x10);
-        lo = temp_a3;
-        temp_fv1 = (f32) arg0;
-        if (temp_fv1 > 90.0f) {
-            M2C_FIELD(temp_a1, s32 *, 0x10) = (s32) ((temp_a3 & ~0xFF) | (lo + 8));
+    item = M2C_FIELD(gMenuItems, void **, 0x24);
+    if (item != NULL) {
+        itemValue = M2C_FIELD(item, s32 *, 0x10);
+        lowByte = itemValue;
+        positionF = (f32) position;
+        if (positionF > 90.0f) {
+            M2C_FIELD(item, s32 *, 0x10) = (s32) ((itemValue & ~0xFF) | (lowByte + 8));
         }
-        if (temp_fv1 < 30.0f) {
-            temp_a0 = M2C_FIELD(D_80109BB0, void **, 0x24);
-            M2C_FIELD(temp_a0, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0, s32 *, 0x10) & ~0xFF) | (lo - 8));
+        if (positionF < 30.0f) {
+            itemA = M2C_FIELD(gMenuItems, void **, 0x24);
+            M2C_FIELD(itemA, s32 *, 0x10) = (s32) ((M2C_FIELD(itemA, s32 *, 0x10) & ~0xFF) | (lowByte - 8));
         }
     }
-    temp_a0_2 = M2C_FIELD(D_80109BB0, void **, 0);
-    if (temp_a0_2 != NULL) {
-        temp_a1_2 = M2C_FIELD(temp_a0_2, s32 *, 0x10);
-        lo = temp_a1_2;
-        temp_fv1_2 = (f32) arg0;
-        if (temp_fv1_2 > 90.0f) {
-            M2C_FIELD(temp_a0_2, s32 *, 0x10) = (s32) ((temp_a1_2 & ~0xFF) | (lo + 8));
+    item2A = M2C_FIELD(gMenuItems, void **, 0);
+    if (item2A != NULL) {
+        item2 = M2C_FIELD(item2A, s32 *, 0x10);
+        lowByte = item2;
+        positionF2 = (f32) position;
+        if (positionF2 > 90.0f) {
+            M2C_FIELD(item2A, s32 *, 0x10) = (s32) ((item2 & ~0xFF) | (lowByte + 8));
         }
-        if (temp_fv1_2 < 30.0f) {
-            temp_a0_3 = M2C_FIELD(D_80109BB0, void **, 0);
-            M2C_FIELD(temp_a0_3, s32 *, 0x10) = (s32) ((M2C_FIELD(temp_a0_3, s32 *, 0x10) & ~0xFF) | (lo - 8));
+        if (positionF2 < 30.0f) {
+            item2B = M2C_FIELD(gMenuItems, void **, 0);
+            M2C_FIELD(item2B, s32 *, 0x10) = (s32) ((M2C_FIELD(item2B, s32 *, 0x10) & ~0xFF) | (lowByte - 8));
         }
     }
 }

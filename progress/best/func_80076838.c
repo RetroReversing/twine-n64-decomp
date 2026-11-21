@@ -26,7 +26,7 @@ extern s8 D_80103EB0;
 extern char gTrackMarkerRotTable[];
 extern void *D_80109690;
 extern char gTrackMarkerPosTable[];
-extern s32 gBonusSceneHandle;
+extern s32 gBonusObjects;
 extern s32 gProbeObjectList;
 extern u8 gSceneFlagsA;
 extern u8 gSceneFlagsB;
@@ -52,7 +52,7 @@ void func_80076838(void *arg0) {
 block_24:
                 M2C_FIELD(arg0, s32 *, 0x60) = var_v0;
             } else {
-                temp_s0 = gBonusSceneHandle;
+                temp_s0 = gBonusObjects;
                 D_80103EB0 = 0;
                 var_a3 = temp_s0 + 0x24;
                 if (func_800658C0(temp_s0) != 0) {

@@ -2,7 +2,7 @@
 
 s32 actorSteerTowardTarget(s32, s32, void *, s32);       /* extern */
 extern s32 gVisibleSaveSlots;
-extern s32 gBonusSceneHandle;
+extern s32 gBonusObjects;
 extern s32 D_8011F160;
 extern u8 sProbeFlags[];
 extern s32 D_8011F338;
@@ -22,7 +22,7 @@ void func_8011CEA0(void) {
     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
         { char *q = (__repair_i * 0x10) + (char *)&D_8011F338; temp_a0 = *(s32 *)(temp_s2 + (s32)q); }
         if (temp_a0 != 0) {
-        actorSteerTowardTarget(temp_a0, (&gBonusSceneHandle)[var_s1 & 0xFFFF], (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + sProbeFlags), var_s1 & 0xFFFF);
+        actorSteerTowardTarget(temp_a0, (&gBonusObjects)[var_s1 & 0xFFFF], (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + sProbeFlags), var_s1 & 0xFFFF);
         }
     }
 }

@@ -31,7 +31,7 @@ extern char D_800C7C16[];
 extern u8 gSceneType;
 extern s32 gTrackMarkerSerial;
 extern char gTrackMarkerTable[];
-extern void *gBonusSceneHandle;
+extern void *gBonusObjects;
 
 extern char D_800D41E0[];
 s32 func_8005FE20(void *arg0, s32 *arg1) {
@@ -84,7 +84,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
         var_s0 = 0;
         markerLinked = 0;
         var_a0 = 0;
-        var_v1 = &gBonusSceneHandle;
+        var_v1 = &gBonusObjects;
         do {
             temp_v0 = *var_v1;
             if (temp_v0 != NULL) {

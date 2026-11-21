@@ -23,7 +23,7 @@ extern s32 D_800E1A80;
 extern u8 D_801002AE;
 extern u16 D_801002BA;
 extern s32 gBorderSkipFlag;
-extern s32 gBonusSceneHandle;
+extern s32 gBonusObjects;
 extern s32 D_8010D430;
 extern s32 D_8010D434;
 extern s16 D_8010D436;
@@ -170,7 +170,7 @@ void func_800821B4(void) {
         
         do {
             memset((sp2C = 0, &D_80112E98), 0, 0x24);
-            temp_s5 = *(&gBonusSceneHandle + sp24);
+            temp_s5 = *(&gBonusObjects + sp24);
             temp_fp = *(&D_80115091 + var_s7);
             var_a1 = 1;
             if (temp_s5 != NULL) {

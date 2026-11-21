@@ -6,7 +6,7 @@ extern s32 D_801002A8;
 extern u8 D_801002AC;
 extern s32 gSaveTotalSlots;
 extern s32 gSaveSlotCount;
-extern void *gBonusSceneHandle[];
+extern void *gBonusObjects[];
 extern u8 sProbeTimers[];
 extern u16 D_8011F15C[];
 extern s32 D_8011F3A8;
@@ -36,7 +36,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
             buf[i] = func_8002B278(sProbeTimers + i * 8) / 10;
         }
         for (i = 0; i < (*(__base_D_801002B4 = &gSaveTotalSlots)); i++) {
-            p = gBonusSceneHandle[i];
+            p = gBonusObjects[i];
             if (p != NULL) {
                 q = (*(void * *)((u8 *)((*(void * *)((u8 *)(p) + (0x6C)))) + (0xB4)));
                 buf[*(u8 *)((u8 *)q + 0x12)] += *(u16 *)((u8 *)q + 0xC) - *(u16 *)((u8 *)q + 0xE);
@@ -57,7 +57,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
         s0 = 0;
         s2 = 0;
         for (j = 0; j < (*__base_D_801002B4); j++) {
-            p = gBonusSceneHandle[j];
+            p = gBonusObjects[j];
             if (p != NULL && ((*(u8 *)((u8 *)(*(void * *)((u8 *)((*(void * *)((u8 *)(p) + (0x6C)))) + (0xB4))) + 0x11) == 0) == 0)) {
                 __base_gSaveSlotCount = &gSaveSlotCount;
                 s0 += j < (*__base_gSaveSlotCount);
@@ -82,7 +82,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     case 3:
     case 5:
         for (i = 0; i < (*__base_D_801002B4); i++) {
-            p = gBonusSceneHandle[i];
+            p = gBonusObjects[i];
             if (p != NULL) {
                 q = (*(void * *)((u8 *)((*(void * *)((u8 *)(p) + (0x6C)))) + (0xB4)));
                 buf[*(u8 *)((u8 *)q + 0x12)] += *(u16 *)((u8 *)q + 0xC) - *(u16 *)((u8 *)q + 0xE);
@@ -101,7 +101,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
     default:
         a0 = 0;
         for (j = 0; j < (s32)(*__base_D_801002B4); j++) {
-            p = gBonusSceneHandle[j];
+            p = gBonusObjects[j];
             if (p != NULL) {
                 q = (*(void * *)((u8 *)((*(void * *)((u8 *)(p) + (0x6C)))) + (0xB4)));
                 if (a0 < *(u16 *)((u8 *)q + 0xC) - *(u16 *)((u8 *)q + 0xE)) {

@@ -6,7 +6,7 @@ typedef struct { u8 flag; u8 pad[0x9F]; } Ent65C88;
 s32 func_800643D8(s32);
 extern s32 gSaveSlotCount;
 extern u8 D_8010A4C0[];
-extern Obj65C88 *gBonusSceneHandle[];
+extern Obj65C88 *gBonusObjects[];
 extern Ent65C88 D_8011508B[];
 
 void func_80065C88(void) {
@@ -15,7 +15,7 @@ void func_80065C88(void) {
     Sub65C88 *s;
 
     for (i = 0; i < gSaveSlotCount; i++) {
-        p = gBonusSceneHandle[i];
+        p = gBonusObjects[i];
         if (p != NULL) {
             s = p->sub;
             if (p->h7C == 5) {

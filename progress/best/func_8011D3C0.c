@@ -19,7 +19,7 @@ extern s32 gVisibleSaveSlots;
 extern u8 gPauseFlag;
 extern s32 gTrackMarkerTable;
 extern u8 gBorderFlipFlag;
-extern s32 gBonusSceneHandle;
+extern s32 gBonusObjects;
 extern s32 D_8011F018;
 extern u16 D_8011F0EC;
 extern s32 D_8011F0F0;
@@ -104,7 +104,7 @@ char *__repair_addr;
         do {
             temp_v1 = var_a0 * 4;
             if (*(s32 *)((char *)&gTrackMarkerTable + temp_v1) != 0) {
-__repair_addr = (char *)((char *)&gBonusSceneHandle + temp_v1);
+__repair_addr = (char *)((char *)&gBonusObjects + temp_v1);
 
                 temp_s5 = (*(void **)((char *)(*(s32 *)(__repair_addr)) + 0x6C));
                 if (gVisibleSaveSlots != 2) {
@@ -249,7 +249,7 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                             var_s1 = 0;
                             var_v0_4 = 0 & 0xFFFF;
                             do {
-                                temp_s0_5 = (*(void **)((char *)((&gBonusSceneHandle)[var_v0_4]) + 0x6C));
+                                temp_s0_5 = (*(void **)((char *)((&gBonusObjects)[var_v0_4]) + 0x6C));
                                 if ((temp_s3 != var_v0_4) && (temp_s6 != 5) && ((gSaveKeyRelaxed != 1) || (((temp_s6 != 2) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) == (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12)))) && ((temp_s6 != 3) || ((*(u8 *)((char *)((*(void **)((char *)(temp_s5) + 0xB4))) + 0x12)) != (*(u8 *)((char *)((*(void **)((char *)(temp_s0_5) + 0xB4))) + 0x12))))))) {
                                     temp_v0 = func_800162BC(var_fp & 0xFFFF);
                                     if (temp_v0 != NULL) {

@@ -40,7 +40,7 @@ extern s8 D_8010A2B8;
 extern s8 D_8010A2CC;
 extern s8 D_8010A3C4;
 extern s8 D_8010A4B8;
-extern s32 gBonusSceneHandle;
+extern s32 gBonusObjects;
 extern s8 gAnnounceCount;
 extern s8 D_8010D2B0;
 extern s8 D_8010D2B8;
@@ -79,7 +79,7 @@ void func_800449A0(void) {
         var_v1 += 4;
     } while (6U > var_a2);
     var_a2 = 0;
-    var_v1_2 = &gBonusSceneHandle;
+    var_v1_2 = &gBonusObjects;
     do {
         *(s32 *)var_v1_2 = 0;
         ++var_a2;

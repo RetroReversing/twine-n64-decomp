@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8003FBA8();                            /* extern */
+M2C_UNK objSetVectorFlags();                            /* extern */
 
 void func_800410E8(void *arg0) {
     if (M2C_FIELD(arg0, u16 *, 0x58) == 0x18) {
-        func_8003FBA8();
+        objSetVectorFlags();
     }
 }

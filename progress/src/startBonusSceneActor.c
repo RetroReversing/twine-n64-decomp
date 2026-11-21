@@ -1,5 +1,5 @@
 extern s32 gSaveTotalSlots, gTrackMarkerSerial;
-extern void *gBonusSceneHandle[], *gTrackMarkerTable[];
+extern void *gBonusObjects[], *gTrackMarkerTable[];
 extern char D_8011F3AC[];
 void requestSound(s32);
 void func_8002B150(void *,s32,s32);
@@ -7,7 +7,7 @@ s32 lookupDataEntry(s32);
 void func_80073AF8(s32,void *,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_8007089C(void *,s32,s32);
 /* Starts a bonus-scene actor: plays the start sound, picks the slot layout from the saved slot count, and sets its timers */ void startBonusSceneActor(void *actor) {
- void *sceneHandle = gBonusSceneHandle[*(s8*)((char*)actor+0x182)];
+ void *sceneHandle = gBonusObjects[*(s8*)((char*)actor+0x182)];
  s32 markerEntry;
  requestSound(0x224);
  switch(gSaveTotalSlots) {

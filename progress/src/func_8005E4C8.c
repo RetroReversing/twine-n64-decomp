@@ -2,7 +2,7 @@ f32 approxDistance();
 s8 func_8005EF84();
 extern const f64 D_800D4190;
 extern u8 sTrackDoneFlags[];
-extern void *gBonusSceneHandle;
+extern void *gBonusObjects;
 
 s8 func_8005E4C8(void *arg0) {
     u32 i;
@@ -17,7 +17,7 @@ s8 func_8005E4C8(void *arg0) {
         return 0;
     }
     for (i = 0; i < 4; i++) {
-        p = (void **) &gBonusSceneHandle + i;
+        p = (void **) &gBonusObjects + i;
         e = *p;
         if (e == NULL) {
             continue;

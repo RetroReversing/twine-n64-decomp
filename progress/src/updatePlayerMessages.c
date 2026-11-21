@@ -21,7 +21,7 @@ s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern s32 gTrackMarkerSerial;
 extern void *gPlayerActor;
 extern s8 gTrackMarkerTable;
-extern void *gBonusSceneHandle;
+extern void *gBonusObjects;
 
 /* Plays cue sounds and sets message flags based on the player's state and action slots */ void updatePlayerMessages(void) {
     s32 actionTable;
@@ -30,7 +30,7 @@ extern void *gBonusSceneHandle;
     void *player;
 
     player = gPlayerActor;
-    actionTable = M2C_FIELD(gBonusSceneHandle, s32 *, 0x6C);
+    actionTable = M2C_FIELD(gBonusObjects, s32 *, 0x6C);
     if ((player != NULL) && (playerState = M2C_FIELD(player, u16 *, 0x78), (((s32) playerState < 0x13) != 0))) {
         if ((s32) playerState >= 0x11) {
             if (M2C_FIELD(M2C_FIELD(player, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
