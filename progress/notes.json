@@ -1296,14 +1296,6 @@
   "score_after": 1990
  },
  {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
- },
- {
   "function": "piWriteDomainWord",
   "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
   "by": "restored",
@@ -1334,14 +1326,6 @@
   "created_at": 1795049347.151763,
   "score_before": 2145,
   "score_after": 1990
- },
- {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "piWriteDomainWord",
@@ -1510,14 +1494,6 @@
   "created_at": 1795049454.495337,
   "score_before": 2285,
   "score_after": 1805
- },
- {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
  },
  {
   "function": "func_80019E28",
@@ -60264,5 +60240,29 @@
   "score_before": 1545,
   "score_after": 1545,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4271dc092aca8d2871733b520d28b2514bd9025f2424aca94858adc1e6a3849f"
+ },
+ {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
  }
 ]
