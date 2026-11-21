@@ -1,7 +1,7 @@
 void *func_80015F0C();
 s32 func_800165E0(void *, s32);
 s32 initObjectFromBankEntry(void *, s32, s32);
-extern u16 D_800C7E08;
+extern u16 D_800C7E08[];
 typedef struct 
 {
   s16 half[4];
@@ -47,60 +47,32 @@ void func_8006FDF8(void *arg0, s32 arg1)
   var_s7 = 0xA0;
   var_s6 = 0x78;
   sp2C = (s32) (*((s8 *) (((char *) arg0) + 0x182)));
-  if (gBorderSkipActive != 0)
+  if (gBorderSkipActive == 0)
+    goto full_size;
+  switch (gVisibleSaveSlotCount)
   {
-    if (gVisibleSaveSlotCount != 2)
-    {
-      if (2 > gVisibleSaveSlotCount)
-      {
-        goto full_size;
-      }
-      if (gVisibleSaveSlotCount >= 5)
-      {
-        goto full_size;
-      }
-      var_s6 = 0x3C;
+    case 2:
+      if (gBorderFlipFlag == 1)
+        var_s7 = 0x50;
+      else
+        var_s6 = 0x3C;
+      break;
+    case 3:
+    case 4:
       var_s7 = 0x50;
-    }
-    else
-    {
-      do
-      {
-        if (gBorderFlipFlag != 1)
-        {
-          var_s6 = 0x3C;
-        }
-        else
-        {
-          var_s7 = 0x50;
-        }
-      }
-      while (0);
-    }
+      var_s6 = 0x3C;
+      break;
   }
   full_size:
   var_s2 = 0;
 
-  if (var_s3)
-  {
-    var_s4 = &D_800C7E08;
-    var_s3 = (s8 *) (&positions);
-    var_s1 = arg0;
-    positions.x.half[3] = var_s7;
-    positions.x.half[1] = var_s7;
-    positions.y.half[2] = var_s6;
-    positions.y.half[3] = var_s6;
-  }
-  else
-  {
-    var_s4 = &D_800C7E08;
-    var_s3 = (s8 *) (&positions);
-    var_s1 = arg0;
-    positions.x.half[3] = var_s7;
-    positions.x.half[1] = var_s7;
-    positions.y.half[2] = var_s6;
-    positions.y.half[3] = var_s6;
-  }
+  var_s4 = D_800C7E08;
+  var_s3 = (s8 *) &positions;
+  var_s1 = arg0;
+  positions.x.half[1] = var_s7;
+  positions.x.half[3] = var_s7;
+  positions.y.half[2] = var_s6;
+  positions.y.half[3] = var_s6;
   do
   {
     if (((*((void * volatile *) (((char *) var_s1) + 0x3D4))) != NULL) || ((temp_v0 = func_80015F0C(), *((void * volatile *) (((char *) var_s1) + 0x3D4)) = temp_v0, temp_v0 != NULL)))
@@ -116,7 +88,7 @@ void func_8006FDF8(void *arg0, s32 arg1)
       func_800165E0(temp_s0, (&sTrackMarkerTable)[sp2C]);
       *((u16 *) (((char *) temp_s0) + 0x1E)) = (u16) (*var_s4);
     }
-    var_s4 += 2;
+    var_s4 += 1;
     var_s3 += 2;
     var_s2 += 1;
     var_s1 += 4;
@@ -246,3 +218,4 @@ void func_8006FDF8(void *arg0, s32 arg1)
     }
   }
 }
+

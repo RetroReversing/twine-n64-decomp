@@ -108,8 +108,9 @@ void func_8006CD34(void *arg0)
       temp_v0_4 = *temp_v1_2;
       *((f32 *) (((char *) temp_v0_4) + 0x14)) -= *((f32 *) (((char *) temp_v0_4) + 0x130));
       var_v0 = *temp_v1_2;
+      var_fv1 = *((f32 *) (((char *) var_v0) + 0x14));
       temp_ft0_2 = *((f32 *) (((char *) var_v0) + 0x2C));
-      var_fv0 = (((*((f32 *) (((char *) var_v0) + 0x14))) - temp_ft0_2) * 0.5f) + temp_ft0_2;
+      var_fv0 = ((var_fv1 - temp_ft0_2) * 0.5f) + temp_ft0_2;
     }
     *((f32 *) (((char *) var_v0) + 0x14)) = var_fv0;
   }

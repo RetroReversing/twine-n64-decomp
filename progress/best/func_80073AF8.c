@@ -105,8 +105,11 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
     temp_v0_2 = strlen(sp10);
     *((s32 *) (((char *) temp_s1) + 0x20)) = (s32) gTrackMarkerSerial;
     *((s8 *) (((char *) temp_s1) + 0x135)) = 1;
-    *((s8 *) (((char *) temp_s1) + 0x136)) = 0;
-    *((u8 *) (((char *) temp_s1) + 0x33)) = (u8) ((u16) (*((s16 *) (((char *) sp114) + 0x140))));
+    {
+      u16 caption = *(u16 *)((char *)sp114 + 0x140);
+      *((s8 *) (((char *) temp_s1) + 0x136)) = 0;
+      *((u8 *) (((char *) temp_s1) + 0x33)) = caption;
+    }
     temp_v1 = var_s7 & 0xFF;
     *((s16 *) (((char *) temp_s3) + 0x7C)) = 0;
     *((u8 *) (((char *) temp_s1) + 0x35)) = var_s7;
@@ -369,4 +372,3 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
     return temp_s3;
   }
 }
-

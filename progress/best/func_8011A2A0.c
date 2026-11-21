@@ -1,6 +1,6 @@
 #define ACCUMULATE() do {     i = 0;     if (*(volatile s32 *)&gSaveTotalSlots > 0) do {         BonusObject *object = sBonusObjectTable[(u16)i];         if (object != 0) {             BonusData *data = object->state->data;             totals[data->player] += data->total - data->remaining;         }         i++;     } while ((s32)(u16)i < *(volatile s32 *)&gSaveTotalSlots); } while (0)
-#define CHECK_TOTALS() do {     thresholdPtr = &D_801002A8;     threshold = *thresholdPtr;     i = 0;     if (threshold == 0) goto finish;     do {         s32 index = (u16)i;         i++;         if (totals[index] >= threshold) {             D_8011F3A8 = 90;             *((volatile u8 *)thresholdPtr + 4) = 1;         }     } while ((u16)i < 2);     goto finish; } while (0)
-#define COUNT_FLAGS(value) do {     slotPtr = &gSaveTotalSlots;     slots = *slotPtr;         i = 0;     if (slots > 0) do {         s32 index = (u16)i;         BonusObject *object = sBonusObjectTable[index]; i++;         if (object != 0 && (object->state->data->flag != 0) == (value)) {             count++;             saved += (s32)index < *(slotPtr + 1);         }     } while ((s32)(u16)i < slots);     countPtr = &gSaveSlotCount;     if (saved >= *countPtr) {         func_8011A7C8();         if (saved >= *countPtr) goto set_flag;     }     if (count < gSaveTotalSlots - 1) goto finish;     goto set_flag; } while (0)
+#define CHECK_TOTALS() do {     s32 *tp = &D_801002A8; i = 0;     if (*tp == 0) goto finish;     { s32 *tq = tp; do {         s32 index = (u16)i;         i++;         if (totals[index] >= *tp) {             D_8011F3A8 = 90;             *((volatile u8 *)tq + 4) = 1;         }     } while ((u16)i < 2); }    goto finish; } while (0)
+#define COUNT_FLAGS(value) do {     s32 *np = &gSaveTotalSlots; s32 one = 1; for (i = 0; (s32)(u16)i < *np; ) { s32 index = (u16)i; BonusObject *object = sBonusObjectTable[index]; i++; if (object != 0 && (object->state->data->flag != 0) == (value)) { count++; saved += (s32)index < np[one]; } }    if (saved >= *(volatile s32 *)&gSaveSlotCount) {         func_8011A7C8();         if (saved >= *(volatile s32 *)&gSaveSlotCount) goto set_flag;     }     if (count < gSaveTotalSlots - 1) goto finish;     goto set_flag; } while (0)
 typedef struct 
 {
   u8 pad[12];
@@ -35,8 +35,8 @@ s32 func_8011A2A0(void)
 {
   s16 totals[2];
   s32 maximum = 0;
-  s32 saved = 0;
   s32 count = 0;
+  s32 saved = 0;
   short i = 0;
   volatile s32 *slotPtr;
   volatile s32 *thresholdPtr;

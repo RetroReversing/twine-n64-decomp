@@ -69,7 +69,11 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
             u32 x;
             u32 y;
             u32 z;
-            VERTICES(6, (x = WORD(q), y = WORD(q + 2), z = WORD(q + 4)));
+            u32 xHigh, xLow, yHigh, yLow, zHigh, zLow;
+            VERTICES(6, (xHigh = q[0], xLow = q[1], yHigh = q[2],
+                         zLow = q[5], x = (xHigh << 8) + xLow,
+                         yLow = q[3], zHigh = q[4],
+                         y = (yHigh << 8) + yLow, z = (zHigh << 8) + zLow));
             advance = (*p) * 3;
             goto double_advance;
           }
