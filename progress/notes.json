@@ -4824,14 +4824,6 @@
   "score_after": 1352
  },
  {
-  "function": "func_80044538",
-  "text": "Fixed the macro omission in my submitted source (the draft depends on M2C_FIELD) and reached a current score of 360 vs historical 366 (target 76 instructions, candidate 74). Adding `volatile u64 stack_pad` moved the stack frame from 0x18 to 0x20 and shifted saved $ra/$s0 to target offsets 0x1c/0x18. Remaining differences center on keeping the initial arg0*16 scale in $v1 while using $a1 as the loop counter; explicit register qualifiers, signedness, and a direct byte-offset access for the first record did not change instructions. Move-on threshold reached at 6/6. Submitted the stack-frame observation as global knowledge.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795138864.561101,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "probeTrackSteerAngle",
   "text": "Verified baseline 3222. Layout, branch, address, call arity, const and float-zero repairs did not improve; automatic frame narrowing failed to compile due to view_sp24. Target frame 0x78 vs candidate 0xc0. Reconstruct actual local vectors and result records instead of synthetic 120-byte union; candidate has uninitialized return path and view_sp24.value distinct from __repair_value_1, so verify semantics against assembly.",
   "by": "codex-gpt-6.1-terra-8",
@@ -10438,14 +10430,6 @@
   "created_at": 1795178639.244101,
   "score_before": 765,
   "score_after": 765
- },
- {
-  "function": "func_80044538",
-  "text": "Candidate compiles at score 360 (95.2%; 74 vs 76 instructions). First build was recovered by restoring extern globals and declarations; exact candidate signature then judged. Tried using byte-offset s8 base + temp_v1 for D_800C0784 and D_800C0788 to force target sll v1 index register; no instruction changes. Current diff begins target `sll v1,a0,4`, candidate `sll a1,a0,4`; target uses zeroed a1 in loop where candidate allocates t0, and branch labels are 4 bytes off due two omitted instructions. Relevant data tables are 16-byte slot arrays; loop elements stride 0x4C. Continue by restructuring indexing/locals to retain computed stride in v1 and recover target a1 zero initialization/control flow. Best revision is original 19df00196cd886b008b9 / verified equivalent 721378199bf6b25b184f.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795178647.494988,
-  "score_before": 121,
-  "score_after": 121
  },
  {
   "function": "setEntryMode",
@@ -25944,14 +25928,6 @@
   "score_after": 705
  },
  {
-  "function": "func_80044538",
-  "text": "Resumed at revision 19df00196cd886b008b9. Ran try_local_repairs (4 requested) but baseline was blocked before variants: gcc-2.7.2-kmc is not installed. Prior session also recorded the same missing compiler after repeated compile attempts. Candidate C/revision retained; on toolchain restoration, recheck baseline then try remaining local repairs: const_read, result_debris (2), block_accumulator_lifetime. No fresh score obtained this session; historical best 360 only.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795193865.573736,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "sndStopNode",
   "text": "[Released without compiling it once; notes not checked by a compile.] Recovered historical candidate revision ddbd7db34db862557ed8 (historical score 1445). Tried try_local_repairs; no variants could run because gcc-2.7.2-kmc is not installed. No source edits or current score. Revisit after compiler installation; candidate has many cached proposals.",
   "by": "codex-gpt-6-luna-18",
@@ -28696,14 +28672,6 @@
   "score_after": 517
  },
  {
-  "function": "func_80044538",
-  "text": "Current verified best is 880, unchanged across local field-layout, register, and signedness experiments. Target has identical 76 instruction count; mismatches are mainly loop register allocation/control-flow and generating status byte accesses at 0x46 directly from record pointer ($v1), while candidate forms $v1=$a1+0x46 and uses $a1 as base. Try a record struct with a status member at 0x46 and structure loop around a moving record pointer, plus rearrange locals to keep table base in t0, count in a1, and item pointer in v1. Candidate saved with field layout experiment; score unchanged.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199893.349636,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "func_800295F0",
   "text": "Reduced verified score 400 to 180 by using the same s16 local for the initial byte and the increment, keeping the high extraction syntactically before the low copy. Remaining target differences: $s1 and $s2 exchanged throughout, plus target packs the copy before its jump and puts srl in that delay slot. Reverse bound assignments collapsed the packed load and scored 305; scoped assignments and halfword bound did not improve. Try altering live-range allocation and testing distinct typed packed-bound extraction while maintaining all 94 instructions.",
   "by": "codex-gpt-6.2-sol-6",
@@ -30614,14 +30582,6 @@
   "created_at": 1795201913.531913,
   "score_before": 280,
   "score_after": 280
- },
- {
-  "function": "func_80044538",
-  "text": "Rechecked saved candidate at 880/76; no improvement in permitted window. One attempt to change global array declarations did not compile because the body uses .f0; restored saved best and recompiled at 880. Another compile reached same 880. Three independent pointer/integer type variants generated no changed diff rows. First meaningful mismatch around target lines 12\u201328: target loads D_800C0788 into $a3 before setting loop index $a1=0, while C allocates pointer to $a1, resulting in wrong branch target and pointer arithmetic (candidate adds 0x46 to index). Target loop explicitly loads at 0($v1), conditional branch with nop delay slot, then lbu/sb at 0x46($v1); candidate uses incorrect pointer/index allocation, beql and extra increment. Next try rewrite loop with a pointer cursor initialized from D_800C0788[arg0] and a separate zero-based count; ensure D_800C078C[arg0] is loaded after cursor setup and preserve separate byte offset 0x46. Need retain the target order loading count before base pointer.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201913.6239018,
-  "score_before": 121,
-  "score_after": 121
  },
  {
   "function": "cordicAtanVectoring",
@@ -33256,14 +33216,6 @@
   "score_after": 330
  },
  {
-  "function": "func_80044538",
-  "text": "Current rechecked score 880, 76 instructions. I recovered best by setting loop counter i uninitialized at declaration but assigning i=0 only after loading count and pointer, before checking count; this preserved score. Explicitly setting var_a2=1 gives score 1340, setting it uninitialized gives 1275. At best there are 18 mismatches concentrated in loop prologue/body and register allocation. Target: after count and pointer loads, beqz count with a1=0 delay slot; setup threshold t1=4, t0=record offset, v1=pointer, loop loads record->active; if active, lbu state +0x46 and sltiu <5; beql false with sb threshold delay; then clear a2. Increment i then reload count and compare, loop increment pointer by 0x4c in branch delay. Candidate function currently reverts to inherited best source because most recent exploratory runs tested variations; saved best score 880. Next experiment: recover candidate at 78709a7fa812ab7ef201 and change counter initializer placement/declaration to reproduce loop setup registers and branch delay without disturbing call sequence.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795204273.7360919,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "popAndUnloadSceneGroup",
   "text": "Best score 820 (11 mismatch rows) from saved m2c-style source (rev 46a7282dec8107ac2c34). Remaining diff: target loads each list head as lhu 0(s0) after addiu s0,v0,8; ours folds it into lhu 8(v0) and loads before the addiu. Tried: clean u16* pointer rewrite (2070-2710, worse; right loop shape but registers $s1/$s2 and branch offsets differ); type variants of temp_v1 and goto-loop repairs (1085-1540, worse); replacing first M2C_FIELD with *(u16*)var_s0 (still 820, no change). Next untested: make the head pointer a separate u16* assigned from temp_v0+8 and load *head before the loop, for the saved-best source.",
   "by": "api-claude-haiku-5-5-5",
@@ -34432,14 +34384,6 @@
   "score_after": 120
  },
  {
-  "function": "func_80044538",
-  "text": "Current candidate rechecks at 875 (76 instructions), 18 mismatches mostly loop prologue/body and register allocation. Local repairs (signedness, declaration order, result_debris, dead_pointer_clear, balanced_call_references) all tied at 875. Reordering tmp/i likewise unchanged. Target keeps D_800C0788 load in $a3, then uses it as loop base in $v1; candidate assigns it to $a1, loop address formation and branch offsets differ. Earlier handoff reports targeted moving i=0 until after global count/pointer loads with score 875; remaining likely source-shape/lifetime issue.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795205536.763615,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "func_8008CEB0",
   "text": "[Released without compiling it once; notes not checked by a compile.] Did not compile new attempts this turn; reviewed the brief and target. Target frame is 0x50 while the best candidate (7863138da0, score 997) reserves 0x48, which shifts saved-register offsets and accounts for most mismatches. Prior agents' local-repair and patch trials (volatile/nonvolatile u64 local, symbol_address_local, shared_store_constant, scalar_storage_reuse, single_field_record, structured_backedge) did not beat 997. Shared prototype caveat: func_800968A4 and func_8009876C caller declarations disagree with the matched definitions (selected void(s32,s32,s8) and void(void*)); the arguments in the candidate may need the real interface. Next step: fix the frame size first (add one 8-byte-aligned local array or volatile local so the frame becomes 0x50), then recheck the s-register save offsets and the loop with a goto-free structure. Candidate C has many raw M2C_FIELD offsets that should become a struct with fields at 0x2A, 0x2B, 0x2C, 0x3C, 0x60, 0x68, 0x70, 0x9C, 0x9D and record stride 0x1A0.",
   "by": "api-claude-haiku-5-5-9",
@@ -35480,14 +35424,6 @@
   "score_after": 2625
  },
  {
-  "function": "func_80044538",
-  "text": "Best remains saved candidate e84317ed4fb64edca5fc at 875 (76 insns, 18 mismatches). Tried: (a) cnt-local loop bound (1710, worse); (b) removing tmp and assigning p directly from D_800C0788 (1275, worse; loop register roles swap). Target loads D_800C078C count, then D_800C0788 base into $a3, copies to loop cursor $v1, hoists t1=4 and t0=arg0 offset. Untested: keep tmp and use an index-based loop.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795206567.740337,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "func_8002FFAC",
   "text": "Tried a clean rewrite from scratch (cached p=arg0->4, q=arg0->0x10, clamp helpers as if/else): score 2305; adding an unused u32 frame[2] local to reserve the target's addiu $sp,-8 brought it to 1530. Still worse than saved best 875. Remaining diffs: target reloads lw arg0+4 three times (no cached pointer), branch targets shifted by 0x14-0x20, and a stray move ordering in the tail. Untested next step: rewrite the clean version reloading *(arg0+4) and *(arg0+0x10) at each use, keeping the 8-byte frame local.",
   "by": "api-claude-haiku-5-5-4",
@@ -36414,14 +36350,6 @@
   "created_at": 1795207694.0204742,
   "score_before": 1440,
   "score_after": 1440
- },
- {
-  "function": "func_80044538",
-  "text": "Best remains saved_best e84317ed4fb64edca5fc at 875 (76 insns, 18 mismatches). Tried: index-free loop (p = D_800C0788[arg0].f0 directly) -> 1275, worse; loop register roles swap ($a1 instead of $a3 base) and target hoists t1=4/t0=arg0<<4 before loop, not reproduced. Untested: keep tmp, split base load before D_800C078C check, index-based loop with base recomputed. Low-yield so far; leave for a later pass.\nRemoving tmp so p is assigned directly from D_800C0788 (1275, worse).\nLoop register roles swapped; base in $a1 not $a3.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795207722.554629,
-  "score_before": 121,
-  "score_after": 121
  },
  {
   "function": "buildRotationMatrixCopy",
@@ -38504,14 +38432,6 @@
   "score_after": 180
  },
  {
-  "function": "func_80044538",
-  "text": "Stalled at 875 (18 mismatches). Tried: local signedness/declaration_order families (no change), dummy locals (no change or 1275), p=D_800C0788 direct (1275). Persistent diff: target uses $a3 as base register for D_800C0788 and $v1 as loop cursor; candidate picks $a1 for base. Target reloads D_800C078C count each iteration, hoists constant 4 into $t1 and arg0<<4 into $t0. Untested: index-based loop recomputing base each iteration, or a for-loop shape.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795209402.962552,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "func_8008AECC",
   "text": "Stalled at score 510 (revision 2926c02613fe052e3e2e). This session: local repairs variants (k!=0 branch orientation -> 1115 worse; u32 s1 / s2 declaration order, volatile D_800E4218, s16 stores, v->k -> 510 no change). Remaining diff: target hoists lui/lw D_800E41DC before index computation in loop head, and ring-buffer section loads D_800E421C/D_800E4218 once per block. Untested: restructure loop so the base pointer is loaded in the loop head each iteration with off computed as (i*13)<<3 via separate variable.",
   "by": "api-claude-haiku-5-5-11",
@@ -40014,14 +39934,6 @@
   "created_at": 1795210567.71926,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_80044538",
-  "text": "Stalled at 875 (18 mismatches), saved_best e84317ed4fb64edca5fc retained. This session: removing volatile stack_pad -> 881; moving i=0 into the do-loop -> 1070 (worse). Persistent diff: target keeps tmp base in $a3 (lui $a3 for D_800C0788) and cursor $v1; candidate allocates base to $a1. Target hoists t1=4 and t0=arg0<<4 before the loop and reloads D_800C078C count each iteration. Untested: split base load before D_800C078C check; index-based loop recomputing base each iteration. Low yield; leave for later.",
-  "by": "api-claude-haiku-5-5-10",
-  "created_at": 1795210578.974446,
-  "score_before": 121,
-  "score_after": 121
  },
  {
   "function": "func_8008863C",
@@ -42009,14 +41921,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
-  "function": "func_80044538",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at saved_best e84317ed (score 875, 18 mismatches). Not re-compiled this session; prior trials (per handoff) covered signedness/declaration_order local repairs, dummy locals, direct p=D_800C0788, removing stack_pad (881), moving i=0 into do-loop (1070). Persistent diff: target keeps the D_800C0788 base in $a3 (lui $a3 + addu with $v1 cursor) and hoists t1=4 and t0=arg0<<4 before the loop, reloading D_800C078C count each iteration; candidate allocates base to $a1. Next step: try a loop with an explicit index variable over D_800C0788[arg0] base computed once into a separate u8* local declared after the count guard, keeping i as u32 and the count reloaded through D_800C078C[arg0].f0 each iteration (untested variant of the current shape).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795213000.2001102,
-  "score_before": 121,
-  "score_after": 121
- },
- {
   "function": "func_801183F4",
   "text": "I rechecked the saved candidate at 24521. Two edits to add and initialize a union had no instruction effect; using threshold.f worsened score to 24887 and changed frame allocation. Restored saved_best. Four compiles reached the move-on limit, and the 445-instruction target remains only partially represented, with 186 deleted instructions and a failed m2c jump-table recovery. No verified repair.",
   "by": "codex-gpt-6-luna-12",
@@ -43473,15 +43377,6 @@
   "score_before": 575,
   "score_after": 575,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:0a2c6da483f556e2ddf451e6e7d42ec60409462bc1ca4f7a7e09a47e3f0fcc8c"
- },
- {
-  "function": "func_80044538",
-  "text": "Baseline 875. Signedness, declaration order, dead pointer clear and call balancing unchanged; moving index initialization worsened to 1065.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795214457.47249,
-  "score_before": 3101,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
   "function": "func_800515D0",
@@ -47250,15 +47145,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
  },
  {
-  "function": "func_80044538",
-  "text": "Rechecked saved best at 875. Tried field-biased loop cursor p=(u8*)tmp+0x46; score worsened to 1030. Restored saved best and recompiled unchanged (875). Main remaining diff is base allocated $a1 rather than target $a3, loop uses wrong cursor/load offset and branch structure (beql / extra pointer increments); cleanup call sequence appears close. A malformed independent variant moving i initialization failed parse. Already has 100+ prior attempts and 6 compile threshold inherited history; releasing stalled claim.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795218042.453315,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
   "function": "func_8001E898",
   "text": "Latest current verified score 1440 (117 target instructions, candidate ~115; 30 diff rows). Tried boolean mask cast; identical output. Corrected switch symbol to gMenuMode and declared D_800BD68F; outputs unchanged. Target proves args dim/draw in a3/s3, slot global gMenuSlot, ID is entry byte +8; menu state is pointer gMenuState with alpha +0x30. Candidate source still erroneously uses outdated fields/layouts and keeps local pointer temp. Next step: change TextEntry to object*, x at +4, y at +6, id byte +8; use gMenuSlot and gMenuState->alpha, restructure switch to preserve target shared jump layout.",
   "by": "codex-gpt-6-luna-19",
@@ -49040,15 +48926,6 @@
   "score_before": 1305,
   "score_after": 1305,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:38f15f5a9c4f24fb144db74650f5f799fd25bd0d58fe272351667f9bb24f8bb9"
- },
- {
-  "function": "func_80044538",
-  "text": "Verified baseline 875. Tested three loop extra reads, no instruction changes; local signedness/declaration-order/result-debris neutral. Target holds table base in a3, candidate uses a1; target cursor increments in branch delay slot while candidate hoists pointer addition/field address. Next step: rewrite loop around explicit current-record pointer and precomputed count-table base so count is reloaded each iteration and cursor increment occupies backedge delay slot.\nextra unused reads and local repair signedness/declaration-order/result-debris\nno improvement; persistent register/loop lowering mismatch",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795221455.875839,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
   "function": "func_800180D4",
@@ -50848,15 +50725,6 @@
   "score_before": 5,
   "score_after": 5,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:01373c06c8bad58a2cdfe6fe68cbe058a4c94cecb35b07332659162093e21354"
- },
- {
-  "function": "func_80044538",
-  "text": "Saved candidate rechecks at 875. Extra count local/reload and signed-to-unsigned active test were neutral. Repeated initialization inside the do loop retained same output (best remains 875). Target differences: holds D_800C0788 table base in a3 then record cursor in v1; current source uses a1 for table base and constructs cursor via p+0x46; target increments cursor in branch delay slot, current C emits separate addiu; target uses beqz/nop while candidate beql with pointer increment in delay slot. Previous note says explicit indexed loop with p=&D_800E41DC[i] matched related function.\nExplicitly cached count, repeated loop counter init and u32 active load did not change assembly; best stayed 875.\nMain difference still table base register a3, record cursor in v1, and delay-slot increment / beqz versus beql.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795224787.7344189,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
   "function": "func_8005E350",
@@ -53846,15 +53714,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d217e8b2bb71d6b1a38476ad26b5d08534d6b6209e11fa9863d061348b7c39cc"
  },
  {
-  "function": "func_80044538",
-  "text": "Saved source rechecked score 875. Local repair search had no applicable candidates; IDO-7.1 score 5835. Added unused locals and explicit base/index expressions: both no-op at 875 (same instruction diff). Remaining 18 mismatches mainly allocator uses $a1 for D_800C0788 base where target uses $a3, plus cursor loop shape (target lbu/sb offset 0x46; candidate forms address separately; branch +0x90 vs +0x8c). Next step: change loop to index `p = base + i * 0x4C` instead of incrementing pointer, and use `D_800C0788[arg0].f0` directly after loop to see if base stays in $a3.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795229646.189187,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
   "function": "func_80064630",
   "text": "Unsigned first-loop index improves current verified score 3625 to 3430. Subsequent local variants failed to improve; move-on threshold reached. Prologue and saved-register allocation still differ.",
   "by": "codex-gpt-6.1-terra-5",
@@ -54728,15 +54587,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b3557af727507769235cc3a980c5620e7ef74a04ea7997903a317c0940bfffe5"
  },
  {
-  "function": "func_80044538",
-  "text": "Rechecked saved candidate 875; three applicable local repair variants (flag signedness, declaration order, initialize flag inside branch) all unchanged at 875. Target first mismatch remains global base register allocation: target loads D_800C0788 into $a3 before branch, candidate uses $a1. Rest loop target uses p[0x46] lbu/sltiu and conditional sb in branch-likely delay slot; source shape already close. Next step: try a pointer typed as the actual table word pointer and preserve D_800C0788 value in the pointer local so it naturally occupies $a3 across the loop.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795231096.9146419,
-  "score_before": 875,
-  "score_after": 875,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
   "function": "func_8006D2E4",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 1; 375 differing rows (30 opcode, 42 register, 35 stack, 98 branch target, 46 operand, 44 reordered, 53 inserted, 27 deleted; advisory).\nTarget: sw $s2, 0x78($sp)\nCandidate: sw $s2, 0x70($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0xa0\ns T: sw $s2, 0x78($sp) | C: sw $s2, 0x70($sp)\n  = move $s2, $a0\ns T: sw $ra, 0x88($sp) | C: sw $ra, 0x84($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest revision 4354c05e2ca81129469c scored 18025. Grouped vector copies, unsigned conversions, stack arrays and an 8-byte local improved baseline 25952. Signed field-width and local address variants worsened or unchanged; changing func_80082834 parameter to s32 scored 18025 unchanged. The added func_8006D224 second argument is an automated score improvement, but verify callee signature. Next step: inspect stack local allocation and target call prototypes to address saved-register and stack offsets.",
   "by": "codex-gpt-6.1-terra-4",
@@ -55208,15 +55058,6 @@
   "created_at": 1795231634.137957,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_80044538",
-  "text": "Latest source and all trials remain at score 120 (75/76 instructions); target alone includes move $v0,$a2 and branch offset differs at initial guard. Previous base register allocation/loop-shape probes unchanged. Last exact rewrite and local-repair batch produced identical instruction diff. Try adding an explicit local copy of flag to a second call argument or restructuring initial guard to preserve the target delay-slot move.\nRecompiled latest whole-function candidate; score 120 unchanged and judge says no improvement in 7/6.\nNo instruction output changed; target has move $v0,$a2 absent in candidate, with branch target offset differing.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795231668.4019682,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
   "function": "func_8009D9F0",
@@ -56568,15 +56409,6 @@
   "score_before": 192665,
   "score_after": 192665,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9eab3db7e63cf5ed6f53d23cb4b151321680e05129cf85d51f34067e4ddfe18a"
- },
- {
-  "function": "func_80044538",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 7; 3 differing rows (2 branch target, 1 deleted; advisory).\nTarget: beqz $v0, 0x120\nCandidate: beqz $v0, 0x11c\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addu $v0, $v0, $v1\n  = lw $v0, %lo(D_800C0784)($v0)\ni T: beqz $v0, 0x120 | C: beqz $v0, 0x11c\n  = addiu $a2, $zero, 1\n  = lui $v0, %hi(D_800C078C)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795233345.9109561,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  },
  {
   "function": "func_8006201C",
@@ -61553,15 +61385,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
-  "function": "func_80044538",
-  "text": "Recompiled saved best at 120 and reached move-on threshold. Only missing instruction is move $v0,$a2 before the final zero test, shifting two branch destinations by four bytes. Narrowing the condition to u8 fixes instruction count but emits a mask instead of a move.\nFlag predicates ==1, >0, negated unsigned, and u8 cast.\n==1 scored 520, >0 scored 310, negation tied at 120, u8 scored 200 with only the wrong opcode for the desired move.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795240042.230787,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
- },
- {
   "function": "func_80054FEC",
   "text": "Saved best 2945 (rev 41dd76dde0a636d0170f): arg3=s5 correct, but root(var_s3) and arg4 are swapped (target root=s3, arg4=s4; ours reverse), also list s5/arg3 ordering in other variants. Allocation order in target is likely: cur s1, arg0 s2, root s3, arg4 s4, arg3 s5, list s6, const1 s7, arg6 fp, temp_s0 s0. Introducing `f32 ratio = 1.0f - temp_fv0/arg2;` before the (type-2)<2 test (rev ef9eec26...) fixed sub.s/div.s hoist ordering but scored 3040 overall because registers shifted (arg3 became s6). Also target uses bnel for gBorderSkipActive ternary (mov.s fs0 in delay slot) and loads arg5 from 0x6C($sp) each use (not in reg). Next step: combine ratio local with saved_best register layout; try making root pseudo higher priority (e.g. extra uses of var_s3 / pass it earlier) so it wins s3 over arg4.\nratio local before type test, literal 1 vs repair_integer_one local\nsub.s/div.s ordering improved but arg3/root/list register assignment worsened (3040)",
   "by": "api-claude-sonnet-5-5-1",
@@ -65816,5 +65639,182 @@
   "score_before": 5674,
   "score_after": 5674,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:631e54c8e5155faa6ad372dcad1fc71b0bfbb878581cf05cfab0716ec4928b12"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Fixed the macro omission in my submitted source (the draft depends on M2C_FIELD) and reached a current score of 360 vs historical 366 (target 76 instructions, candidate 74). Adding `volatile u64 stack_pad` moved the stack frame from 0x18 to 0x20 and shifted saved $ra/$s0 to target offsets 0x1c/0x18. Remaining differences center on keeping the initial arg0*16 scale in $v1 while using $a1 as the loop counter; explicit register qualifiers, signedness, and a direct byte-offset access for the first record did not change instructions. Move-on threshold reached at 6/6. Submitted the stack-frame observation as global knowledge.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795138864.561101,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Candidate compiles at score 360 (95.2%; 74 vs 76 instructions). First build was recovered by restoring extern globals and declarations; exact candidate signature then judged. Tried using byte-offset s8 base + temp_v1 for D_800C0784 and D_800C0788 to force target sll v1 index register; no instruction changes. Current diff begins target `sll v1,a0,4`, candidate `sll a1,a0,4`; target uses zeroed a1 in loop where candidate allocates t0, and branch labels are 4 bytes off due two omitted instructions. Relevant data tables are 16-byte slot arrays; loop elements stride 0x4C. Continue by restructuring indexing/locals to retain computed stride in v1 and recover target a1 zero initialization/control flow. Best revision is original 19df00196cd886b008b9 / verified equivalent 721378199bf6b25b184f.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795178647.494988,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Resumed at revision 19df00196cd886b008b9. Ran try_local_repairs (4 requested) but baseline was blocked before variants: gcc-2.7.2-kmc is not installed. Prior session also recorded the same missing compiler after repeated compile attempts. Candidate C/revision retained; on toolchain restoration, recheck baseline then try remaining local repairs: const_read, result_debris (2), block_accumulator_lifetime. No fresh score obtained this session; historical best 360 only.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795193865.573736,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Current verified best is 880, unchanged across local field-layout, register, and signedness experiments. Target has identical 76 instruction count; mismatches are mainly loop register allocation/control-flow and generating status byte accesses at 0x46 directly from record pointer ($v1), while candidate forms $v1=$a1+0x46 and uses $a1 as base. Try a record struct with a status member at 0x46 and structure loop around a moving record pointer, plus rearrange locals to keep table base in t0, count in a1, and item pointer in v1. Candidate saved with field layout experiment; score unchanged.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199893.349636,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Rechecked saved candidate at 880/76; no improvement in permitted window. One attempt to change global array declarations did not compile because the body uses .f0; restored saved best and recompiled at 880. Another compile reached same 880. Three independent pointer/integer type variants generated no changed diff rows. First meaningful mismatch around target lines 12\u201328: target loads D_800C0788 into $a3 before setting loop index $a1=0, while C allocates pointer to $a1, resulting in wrong branch target and pointer arithmetic (candidate adds 0x46 to index). Target loop explicitly loads at 0($v1), conditional branch with nop delay slot, then lbu/sb at 0x46($v1); candidate uses incorrect pointer/index allocation, beql and extra increment. Next try rewrite loop with a pointer cursor initialized from D_800C0788[arg0] and a separate zero-based count; ensure D_800C078C[arg0] is loaded after cursor setup and preserve separate byte offset 0x46. Need retain the target order loading count before base pointer.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201913.6239018,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Current rechecked score 880, 76 instructions. I recovered best by setting loop counter i uninitialized at declaration but assigning i=0 only after loading count and pointer, before checking count; this preserved score. Explicitly setting var_a2=1 gives score 1340, setting it uninitialized gives 1275. At best there are 18 mismatches concentrated in loop prologue/body and register allocation. Target: after count and pointer loads, beqz count with a1=0 delay slot; setup threshold t1=4, t0=record offset, v1=pointer, loop loads record->active; if active, lbu state +0x46 and sltiu <5; beql false with sb threshold delay; then clear a2. Increment i then reload count and compare, loop increment pointer by 0x4c in branch delay. Candidate function currently reverts to inherited best source because most recent exploratory runs tested variations; saved best score 880. Next experiment: recover candidate at 78709a7fa812ab7ef201 and change counter initializer placement/declaration to reproduce loop setup registers and branch delay without disturbing call sequence.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795204273.7360919,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Current candidate rechecks at 875 (76 instructions), 18 mismatches mostly loop prologue/body and register allocation. Local repairs (signedness, declaration order, result_debris, dead_pointer_clear, balanced_call_references) all tied at 875. Reordering tmp/i likewise unchanged. Target keeps D_800C0788 load in $a3, then uses it as loop base in $v1; candidate assigns it to $a1, loop address formation and branch offsets differ. Earlier handoff reports targeted moving i=0 until after global count/pointer loads with score 875; remaining likely source-shape/lifetime issue.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795205536.763615,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Best remains saved candidate e84317ed4fb64edca5fc at 875 (76 insns, 18 mismatches). Tried: (a) cnt-local loop bound (1710, worse); (b) removing tmp and assigning p directly from D_800C0788 (1275, worse; loop register roles swap). Target loads D_800C078C count, then D_800C0788 base into $a3, copies to loop cursor $v1, hoists t1=4 and t0=arg0 offset. Untested: keep tmp and use an index-based loop.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795206567.740337,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Best remains saved_best e84317ed4fb64edca5fc at 875 (76 insns, 18 mismatches). Tried: index-free loop (p = D_800C0788[arg0].f0 directly) -> 1275, worse; loop register roles swap ($a1 instead of $a3 base) and target hoists t1=4/t0=arg0<<4 before loop, not reproduced. Untested: keep tmp, split base load before D_800C078C check, index-based loop with base recomputed. Low-yield so far; leave for a later pass.\nRemoving tmp so p is assigned directly from D_800C0788 (1275, worse).\nLoop register roles swapped; base in $a1 not $a3.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795207722.554629,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Stalled at 875 (18 mismatches). Tried: local signedness/declaration_order families (no change), dummy locals (no change or 1275), p=D_800C0788 direct (1275). Persistent diff: target uses $a3 as base register for D_800C0788 and $v1 as loop cursor; candidate picks $a1 for base. Target reloads D_800C078C count each iteration, hoists constant 4 into $t1 and arg0<<4 into $t0. Untested: index-based loop recomputing base each iteration, or a for-loop shape.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795209402.962552,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Stalled at 875 (18 mismatches), saved_best e84317ed4fb64edca5fc retained. This session: removing volatile stack_pad -> 881; moving i=0 into the do-loop -> 1070 (worse). Persistent diff: target keeps tmp base in $a3 (lui $a3 for D_800C0788) and cursor $v1; candidate allocates base to $a1. Target hoists t1=4 and t0=arg0<<4 before the loop and reloads D_800C078C count each iteration. Untested: split base load before D_800C078C check; index-based loop recomputing base each iteration. Low yield; leave for later.",
+  "by": "api-claude-haiku-5-5-10",
+  "created_at": 1795210578.974446,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at saved_best e84317ed (score 875, 18 mismatches). Not re-compiled this session; prior trials (per handoff) covered signedness/declaration_order local repairs, dummy locals, direct p=D_800C0788, removing stack_pad (881), moving i=0 into do-loop (1070). Persistent diff: target keeps the D_800C0788 base in $a3 (lui $a3 + addu with $v1 cursor) and hoists t1=4 and t0=arg0<<4 before the loop, reloading D_800C078C count each iteration; candidate allocates base to $a1. Next step: try a loop with an explicit index variable over D_800C0788[arg0] base computed once into a separate u8* local declared after the count guard, keeping i as u32 and the count reloaded through D_800C078C[arg0].f0 each iteration (untested variant of the current shape).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795213000.2001102,
+  "score_before": 121,
+  "score_after": 121
+ },
+ {
+  "function": "func_80044538",
+  "text": "Baseline 875. Signedness, declaration order, dead pointer clear and call balancing unchanged; moving index initialization worsened to 1065.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795214457.47249,
+  "score_before": 3101,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Rechecked saved best at 875. Tried field-biased loop cursor p=(u8*)tmp+0x46; score worsened to 1030. Restored saved best and recompiled unchanged (875). Main remaining diff is base allocated $a1 rather than target $a3, loop uses wrong cursor/load offset and branch structure (beql / extra pointer increments); cleanup call sequence appears close. A malformed independent variant moving i initialization failed parse. Already has 100+ prior attempts and 6 compile threshold inherited history; releasing stalled claim.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795218042.453315,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Verified baseline 875. Tested three loop extra reads, no instruction changes; local signedness/declaration-order/result-debris neutral. Target holds table base in a3, candidate uses a1; target cursor increments in branch delay slot while candidate hoists pointer addition/field address. Next step: rewrite loop around explicit current-record pointer and precomputed count-table base so count is reloaded each iteration and cursor increment occupies backedge delay slot.\nextra unused reads and local repair signedness/declaration-order/result-debris\nno improvement; persistent register/loop lowering mismatch",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221455.875839,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Saved candidate rechecks at 875. Extra count local/reload and signed-to-unsigned active test were neutral. Repeated initialization inside the do loop retained same output (best remains 875). Target differences: holds D_800C0788 table base in a3 then record cursor in v1; current source uses a1 for table base and constructs cursor via p+0x46; target increments cursor in branch delay slot, current C emits separate addiu; target uses beqz/nop while candidate beql with pointer increment in delay slot. Previous note says explicit indexed loop with p=&D_800E41DC[i] matched related function.\nExplicitly cached count, repeated loop counter init and u32 active load did not change assembly; best stayed 875.\nMain difference still table base register a3, record cursor in v1, and delay-slot increment / beqz versus beql.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795224787.7344189,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Saved source rechecked score 875. Local repair search had no applicable candidates; IDO-7.1 score 5835. Added unused locals and explicit base/index expressions: both no-op at 875 (same instruction diff). Remaining 18 mismatches mainly allocator uses $a1 for D_800C0788 base where target uses $a3, plus cursor loop shape (target lbu/sb offset 0x46; candidate forms address separately; branch +0x90 vs +0x8c). Next step: change loop to index `p = base + i * 0x4C` instead of incrementing pointer, and use `D_800C0788[arg0].f0` directly after loop to see if base stays in $a3.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229646.189187,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Rechecked saved candidate 875; three applicable local repair variants (flag signedness, declaration order, initialize flag inside branch) all unchanged at 875. Target first mismatch remains global base register allocation: target loads D_800C0788 into $a3 before branch, candidate uses $a1. Rest loop target uses p[0x46] lbu/sltiu and conditional sb in branch-likely delay slot; source shape already close. Next step: try a pointer typed as the actual table word pointer and preserve D_800C0788 value in the pointer local so it naturally occupies $a3 across the loop.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795231096.9146419,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Latest source and all trials remain at score 120 (75/76 instructions); target alone includes move $v0,$a2 and branch offset differs at initial guard. Previous base register allocation/loop-shape probes unchanged. Last exact rewrite and local-repair batch produced identical instruction diff. Try adding an explicit local copy of flag to a second call argument or restructuring initial guard to preserve the target delay-slot move.\nRecompiled latest whole-function candidate; score 120 unchanged and judge says no improvement in 7/6.\nNo instruction output changed; target has move $v0,$a2 absent in candidate, with branch target offset differing.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795231668.4019682,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 7; 3 differing rows (2 branch target, 1 deleted; advisory).\nTarget: beqz $v0, 0x120\nCandidate: beqz $v0, 0x11c\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addu $v0, $v0, $v1\n  = lw $v0, %lo(D_800C0784)($v0)\ni T: beqz $v0, 0x120 | C: beqz $v0, 0x11c\n  = addiu $a2, $zero, 1\n  = lui $v0, %hi(D_800C078C)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795233345.9109561,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Recompiled saved best at 120 and reached move-on threshold. Only missing instruction is move $v0,$a2 before the final zero test, shifting two branch destinations by four bytes. Narrowing the condition to u8 fixes instruction count but emits a mask instead of a move.\nFlag predicates ==1, >0, negated unsigned, and u8 cast.\n==1 scored 520, >0 scored 310, negation tied at 120, u8 scored 200 with only the wrong opcode for the desired move.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795240042.230787,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
  }
 ]

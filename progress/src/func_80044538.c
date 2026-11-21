@@ -28,7 +28,7 @@ void func_80044538(s32 arg0) {
                 i++;
             } while (i < D_800C078C[arg0].f0);
         }
-        if (flag != 0) {
+        if ((s16)flag != 0) {
             func_80084048(D_800C0788[arg0].f0, 0xA, flag);
             func_80084048(*(u32 *)(*(u32 *)(D_800C0784[arg0].f0 + 0x10) + 4), 0x1B);
             func_80084048(*(u32 *)(*(u32 *)(D_800C0784[arg0].f0 + 0x18) + 8), 0x1A);
