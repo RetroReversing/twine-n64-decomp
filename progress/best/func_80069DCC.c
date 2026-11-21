@@ -861,7 +861,7 @@ block_479:
         }
         func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
       }
-      func_80047FB4((s32)sTrackMarkerTable[temp_s4], *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
+      func_80047FB4((s32)sTrackMarkerTable[temp_s4], M2C_FIELD(&D_800C4710, s32 *, ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
       func_80069250(arg0);
       break;
     case 6:

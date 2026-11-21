@@ -44,6 +44,7 @@ void func_800068B4(void) {
     s32 var_s0;
     s32 var_a0;
 s32 __repair_phase_var_a0;
+    u32 scratch[2];
     register u8 var_v0;
     
 

@@ -80,16 +80,19 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     __repair_phase_storage.value = 0;
     if (var_fp != 0) {
         temp_fs1_2 = (f64) arg2; temp_fs5 = temp_fs1_2 * D_800D4278; temp_fs4 = arg2 * 0.2f; do {
-            { register f32 zero = 0.0f; sp30[2] = zero; sp30[1] = zero; sp30[0] = zero; }
+            f32 __repair_loop_fzero = 0.0f;
+            sp30[2] = __repair_loop_fzero;
+            sp30[1] = __repair_loop_fzero;
+            sp30[0] = __repair_loop_fzero;
             func_80045DB4(sp30, (f32) temp_fs5, temp_fs4);
             if (sp30[1] < 0.0f) {
                 sp30[1] = -sp30[1];
             }
             temp_fs2_2 = (f32) (temp_fs1_2 * D_800D4280);
             func_80062450(func_800617D8((*(s32 *)((char *)(arg0) + 0x20)), arg1, NULL, sp30, temp_fs2_2, (f32) (temp_fs1_2 * D_800D4288), 0x19, 0xFB, 0x33, 0x80, 0x80808001), sp30);
-            sp30[2] = 0.0f;
-            sp30[1] = 0.0f;
-            sp30[0] = 0.0f;
+            sp30[2] = __repair_loop_fzero;
+            sp30[1] = __repair_loop_fzero;
+            sp30[0] = __repair_loop_fzero;
             func_80045DB4(sp30, temp_fs4, arg2 * 0.1f);
             if (sp30[1] < 0.0f) {
                 sp30[1] = -sp30[1];
@@ -99,9 +102,9 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
                 var_s0 = 0;
                 if (var_s6) {
                     do {
-                        sp30[2] = 0.0f;
-                        sp30[1] = 0.0f;
-                        sp30[0] = 0.0f;
+                        sp30[2] = __repair_loop_fzero;
+                        sp30[1] = __repair_loop_fzero;
+                        sp30[0] = __repair_loop_fzero;
                         func_80045DB4(sp30, arg2 * 0.6f, arg2 * 0.3f);
                         if (sp30[1] < 0.0f) {
                             sp30[1] = -sp30[1];
