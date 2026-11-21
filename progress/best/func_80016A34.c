@@ -2,7 +2,7 @@ extern int Probe_BoundsContainPoint(void *, int);
 extern int actorLinkToSurface(void *, void *, unsigned char);
 extern void actorUnlinkFromSurface(void *);
 extern void *func_80047B44(int, void *, void *, int);
-extern int func_80073304(void *, void *, int);
+extern int prepareLinkedObjectPair(void *, void *, int);
 extern void markObjectsNearPos(void **, int, int, void *, float, int);
 extern void objectListInsert(void *, void *);
 extern void **gProbeObjectList;
@@ -18,7 +18,7 @@ void func_80016A34(void *arg0) {
  if(temp_v0) {
   if(*(unsigned short *)((char *)temp_v0+0x26)&0x1000) {
    markObjectsNearPos((void **)*(int *)((char *)arg0+0x20),2,0x20000,temp_s2,0.0f,1);
-   func_80073304(temp_v0,temp_s2,*(int *)((char *)arg0+0x20));
+   prepareLinkedObjectPair(temp_v0,temp_s2,*(int *)((char *)arg0+0x20));
   }
   if(*(unsigned short *)((char *)arg0+0x78)==2 &&
      ((temp_v0_2=*((unsigned char *)temp_v0+0x29))==0 || gTrackMarkerDone[temp_v0_2]!=0)) {

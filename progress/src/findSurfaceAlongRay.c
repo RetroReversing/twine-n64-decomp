@@ -16,7 +16,7 @@ f32 func_80045764(f32 *, f32 *);
 s32 randomIntBelow(M2C_UNK);
 s8 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *);
 M2C_UNK func_800556DC(void *, void *, f32 *, void *);
-M2C_UNK func_80073304(void *, void *, void *);
+M2C_UNK prepareLinkedObjectPair(void *, void *, void *);
 extern u16 gSurfaceQueryStamp;
 
 /* Walks the surface-group list and returns the first group whose triangles the
@@ -98,7 +98,7 @@ block_18:
                             M2C_FIELD(out, f32 *, 4) = (f32) (M2C_FIELD(rayOrigin, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
                             M2C_FIELD(out, f32 *, 8) = (f32) (M2C_FIELD(rayOrigin, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
                             if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((flag0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(object, out, &m2c_initial_frame.view_sp40.value, var_s0), (flag1 != 0)) || (randomIntBelow(4) == 0))) {
-                                func_80073304(var_s0, out, object);
+                                prepareLinkedObjectPair(var_s0, out, object);
                             }}
                         }
                         *hitGroupOut = var_s0;

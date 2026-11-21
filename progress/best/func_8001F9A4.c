@@ -139,9 +139,11 @@ void func_8001F9A4(void) {
         D_8010D2B1 = *(&D_8011508A + (D_800B7CF0 * 0xA0));
         temp_v1 = *((u8 *)&D_80100198 + (D_800B7CF0 * 0x18));
         temp_a0 = var_s0 - 0x28;
-        if (((s32) temp_v1 < 2) && ((s32) temp_v1 >= 0)) {
+        if (temp_v1 >= 2) goto normal_label;
+        if (temp_v1 >= 0) {
             func_80025E9C(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 1, 0xD);
         } else {
+normal_label:
             func_80025D84(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 0x7A, 1);
             var_a0_3 = 0x11;
             if (D_8010D2B1 != 0) {

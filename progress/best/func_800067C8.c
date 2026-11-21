@@ -25,7 +25,7 @@ extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
 extern s8 D_801002B1;
-extern void *D_80109688;
+extern void *volatile D_80109688;
 extern s32 D_8010A4E4;
 
 void func_800067C8(void) {
@@ -47,7 +47,7 @@ void func_800067C8(void) {
     func_80044FF0();
     func_8004505C();
     create_centered_sprite(0xF, 0);
-    M2C_FIELD(D_80109688, s32 *, 0x100) = (s32) (M2C_FIELD(D_80109688, s32 *, 0x100) & ~0x40);
+    { void *p = D_80109688; M2C_FIELD(p, s32 *, 0x100) = (s32) (M2C_FIELD(p, s32 *, 0x100) & ~0x40); }
     M2C_FIELD(D_80109688, s8 *, 0x142) = 0;
     D_801002AE = 0;
     D_801002AF = 0;

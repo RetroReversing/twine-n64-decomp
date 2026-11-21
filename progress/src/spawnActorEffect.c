@@ -11,7 +11,7 @@ u32 randomIntBelow(s32);                         /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 void *func_80047B44(s32, void *, void *, s32);  /* extern */
 s32 func_80047F50(void *, void *);              /* extern */
-s32 func_80073304(void *, void *, s32);         /* extern */
+s32 prepareLinkedObjectPair(void *, void *, s32);         /* extern */
 f32 sinAngle(f32);                             /* extern */
 f32 cosAngle(f32);                             /* extern */
 extern u8 sDistanceNearRange[];
@@ -148,7 +148,7 @@ typedef struct { f32 __repair_v[3]; } __repair_vec3;
             (*(s32 *)((char *)(effect) + 0x4C)) = (*(s32 *)((char *)(effect) + 0x40));
             (*(s32 *)((char *)(effect) + 0x50)) = (s32) (*(s32 *)((char *)(effect) + 0x44));
             if ((*(u16 *)((char *)(linkedObj) + 0x26)) & 0x1000) {
-                func_80073304(linkedObj, effectPos, linkedList);
+                prepareLinkedObjectPair(linkedObj, effectPos, linkedList);
             }
         }
         (*(s16 *)((char *)(effect) + 0x78)) = 6;
