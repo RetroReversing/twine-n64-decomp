@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80015DAC();                              /* extern */
+void *getObjectListHead();                              /* extern */
 M2C_UNK releaseTrackRecord(s32);                         /* extern */
 
 void func_80086424(void) {
     void *var_s0;
 
-    var_s0 = func_80015DAC();
+    var_s0 = getObjectListHead();
     if (var_s0 != NULL) {
         do {
             if ((u32) (M2C_FIELD(var_s0, u16 *, 0x78) - 0xE) < 2U) {

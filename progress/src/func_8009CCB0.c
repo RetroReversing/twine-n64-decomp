@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800989B8();                                /* extern */
+s32 soundResolveHandle();                                /* extern */
 
 s32 func_8009CCB0(s32 arg0) {
     s32 var_v0;
 
     var_v0 = arg0;
-    if (func_800989B8() == -1) { goto __repair_guard_body; }
+    if (soundResolveHandle() == -1) { goto __repair_guard_body; }
 return var_v0;
 __repair_guard_body: {
         return -1;

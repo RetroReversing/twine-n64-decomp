@@ -44,7 +44,7 @@ static inline void set_snd_9113C(s32 arg0, s16 arg1) {
     }
 }
 
-void func_8009113C(s32 arg0, s16 arg1) {
+void soundEntitySetParam(s32 arg0, s16 arg1) {
     if (gWorkerActive != 0) {
         workerLockAcquire();
         set_snd_9113C(arg0, arg1);

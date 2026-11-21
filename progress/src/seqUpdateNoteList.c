@@ -17,7 +17,7 @@ extern void *gSeqPlayer;
 
 typedef struct { void * value; } __repair_field_0;
 typedef struct { unsigned char pad[4]; void * value; } __repair_field_4;
-s32 func_8008FFF8(void) {
+s32 seqUpdateNoteList(void) {
     s32 temp_v0_3;
     void **temp_v1_2;
     void *temp_s1;

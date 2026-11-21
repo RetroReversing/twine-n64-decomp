@@ -8,7 +8,7 @@ extern s32 sSlotLog;
 extern u16 D_800CEED0[];
 extern f64 D_800D6700, D_800D6708, D_800D6710;
 void func_80089C10(s32);
-void func_80089E64(u16);
+void audioInitBufferPool(u16);
 void osCreateMesgQueue(void *, void *, s32);
 
 /* Sets up the buffer sizing from a rate/count pair: derives the sample count and byte size, allocates the buffer through gDataBankAlloc and initialises its message queue. */
@@ -32,5 +32,5 @@ void osCreateMesgQueue(void *, void *, s32);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     sWorkerBusy = 0;
     func_80089C10(gAudioSampleCount);
-    func_80089E64(D_800CEED0[index] * rate);
+    audioInitBufferPool(D_800CEED0[index] * rate);
 }

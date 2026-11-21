@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8000A2B8();                            /* extern */
-void *func_80015DAC();                              /* extern */
+void *getObjectListHead();                              /* extern */
 
 void func_80073A30(void) {
     void *var_v1;
 
-    var_v1 = func_80015DAC();
+    var_v1 = getObjectListHead();
     if (var_v1 != NULL) {
         do {
             if (M2C_FIELD(var_v1, u16 *, 0x78) == 0x19) {

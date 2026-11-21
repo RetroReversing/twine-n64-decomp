@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 M2C_UNK actorUnlinkFromSurface(void *, void *);
 s32 func_8000A454(s32, s32);
-void *func_80015DAC(void);
+void *getObjectListHead(void);
 s32 spawnTextNode(s16 *);
 void freeMenuItemRecord(void *);
 f32 func_80045590(void *, s32);
@@ -40,7 +40,7 @@ void func_800740D0(void *arg0) {
  if(*(s32*)((M2C_FIELD(temp_s1,u8*,0x34)*4)+((M2C_FIELD(temp_s1,u8*,0x33)*0x1C)+(u8*)&D_8010D380))==M2C_FIELD(temp_s1,s32*,0x18)) {
  temp_s3=M2C_FIELD(temp_s1,void**,4);
  if(M2C_FIELD(temp_s1,f32*,0xC)!=65536.0f && 2.0f*M2C_FIELD(temp_s1,f32*,0x28)<func_80045590((u8*)temp_s1+8,gBonusObjects+0x24)) {
- var_s0=func_80015DAC(); if(var_s0!=NULL) do { if(M2C_FIELD(var_s0,u16*,0x78)==0x19 && M2C_FIELD(M2C_FIELD(var_s0,void**,0x6C),s32*,0x20)==M2C_FIELD(temp_s1,s32*,0x20)) { temp_a0=M2C_FIELD(temp_s1,u8*,0x32); if(temp_a0) showTrackMarker(temp_a0); temp_v1_2=M2C_FIELD(temp_s1,s32*,0x24); if(temp_v1_2!=0 && !(temp_v1_2&0x80000000)) {temp_v1_3=temp_v1_2&0xFF; gTrackMarkerDone[temp_v1_3]^=1;} M2C_FIELD(var_s0,s16*,0x7A)=8;} var_s0=M2C_FIELD(var_s0,void**,0x10);} while(var_s0!=NULL);
+ var_s0=getObjectListHead(); if(var_s0!=NULL) do { if(M2C_FIELD(var_s0,u16*,0x78)==0x19 && M2C_FIELD(M2C_FIELD(var_s0,void**,0x6C),s32*,0x20)==M2C_FIELD(temp_s1,s32*,0x20)) { temp_a0=M2C_FIELD(temp_s1,u8*,0x32); if(temp_a0) showTrackMarker(temp_a0); temp_v1_2=M2C_FIELD(temp_s1,s32*,0x24); if(temp_v1_2!=0 && !(temp_v1_2&0x80000000)) {temp_v1_3=temp_v1_2&0xFF; gTrackMarkerDone[temp_v1_3]^=1;} M2C_FIELD(var_s0,s16*,0x7A)=8;} var_s0=M2C_FIELD(var_s0,void**,0x10);} while(var_s0!=NULL);
  } else { temp_v0_2=M2C_FIELD(temp_s1,s32*,0x24); if(temp_v0_2<0) D_80109B98=func_8000A454(temp_v0_2&0xFFFFFF,0x64); M2C_FIELD(temp_s3,s32*,0x28)&=~0xFC; temp_v1_4=M2C_FIELD(temp_s1,u8*,0x34); if(temp_v1_4==3){var_v0=1;M2C_FIELD(temp_s3,s32*,0x10)=0;}else{M2C_FIELD(temp_s3,s32*,0x10)=(*(&D_800C7EC4+temp_v1_4*4)|0xF0);var_v0=7;} M2C_FIELD(arg0,s16*,0x7A)=var_v0; M2C_FIELD(arg0,void**,0x18)=M2C_FIELD(temp_s1,void**,0);
  __base_D_800C7EA0 = &D_800C7EA0;
  if(M2C_FIELD(temp_s1,s8*,0x135)!=0 && (((*__base_D_800C7EA0)=M2C_FIELD(temp_s1,u8*,0x33), D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)]!=NULL) || (D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)]= (void*)spawnTextNode(__base_D_800C7EA0-0x20),D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)]!=NULL))) { M2C_FIELD(D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)],s8*,0x29)=0x1C; M2C_FIELD(D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)],s16*,0x22)=M2C_FIELD(temp_s3,u16*,0x22)-5; M2C_FIELD(D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)],s32*,0x10)=0x88; temp_a0_2=D_800E1A70[M2C_FIELD(temp_s1,u8*,0x34)]; M2C_FIELD(temp_a0_2,s32*,0x28)=(M2C_FIELD(temp_a0_2,s32*,0x28)&~0xFC)|0x10; }

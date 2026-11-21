@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8008CDC0();
 s32 func_8008EB80();
 s32 func_8008F2A4();
-s32 func_80095A80();
+s32 voiceStoreParam();
 s32 audio_slot_reset();
 extern char gSoundEntities[];
 extern u8 D_800E6A85[];
@@ -281,12 +281,12 @@ loop_45:
                 temp_s0 = var_s1_7 & 0xFF;
                 temp_a1_3 = temp_s0;
                 var_s1_7 += 1;
-                func_80095A80(7, temp_a1_3, temp_s4, M2C_FIELD(var_s3, u8 *, 5));
-                func_80095A80(0xA, temp_s0, temp_s4, M2C_FIELD(var_s3, u8 *, 6));
-                func_80095A80(0x5B, temp_s0, temp_s4, M2C_FIELD(var_s3, u8 *, 7));
+                voiceStoreParam(7, temp_a1_3, temp_s4, M2C_FIELD(var_s3, u8 *, 5));
+                voiceStoreParam(0xA, temp_s0, temp_s4, M2C_FIELD(var_s3, u8 *, 6));
+                voiceStoreParam(0x5B, temp_s0, temp_s4, M2C_FIELD(var_s3, u8 *, 7));
                 temp_a3_3 = M2C_FIELD(var_s3, u8 *, 8);
                 var_s3 += 8;
-                func_80095A80(0x5D, temp_s0, temp_s4, temp_a3_3);
+                voiceStoreParam(0x5D, temp_s0, temp_s4, temp_a3_3);
             } while (var_s1_7 < 0x10);
         }
         M2C_FIELD(temp_s2, s16 *, 0xFC6) = 0;

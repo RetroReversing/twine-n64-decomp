@@ -20,7 +20,7 @@ extern s8 D_80109B1E;
 
 typedef struct { unsigned char pad[92]; int value; } __repair_field_5C;
 typedef struct { unsigned char pad_0[100]; float field_64; unsigned char pad_68[4]; void * field_6C; void * field_70; unsigned char pad_74[4]; short field_78; short field_7A; short field_7C; unsigned char field_7E; } __repair_record_temp_v0;
-void *func_8005D9C0(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
+void *spawnTrackTriggerEffect(s32 arg0, M2C_UNK arg1, void *arg2, void *arg3) {
     s32 var_v0;
 s32 __repair_phase_var_v0;
     u8 temp_v1;

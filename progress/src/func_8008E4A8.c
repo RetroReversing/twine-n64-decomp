@@ -1,5 +1,5 @@
-extern s32 func_800989B8(u32);
-extern void func_80095A80(u8, u8, u8, u8);
+extern s32 soundResolveHandle(u32);
+extern void voiceStoreParam(u8, u8, u8, u8);
 extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 extern u8 D_8010D76F, D_8010D779;
 
@@ -7,7 +7,7 @@ s32 func_8008E4A8(u32 key, s32 value)
 {
     s32 index, offset, handle, result, end;
     result = -1;
-    handle = func_800989B8(key);
+    handle = soundResolveHandle(key);
     if (handle == result) goto done;
     end = -1;
 again:
@@ -15,9 +15,9 @@ again:
     offset = index * 0x1a0;
     if (*(s32 *)((s8 *)&D_8010D784 + offset) != handle) goto done;
     if (*(s32 *)((s8 *)&D_8010D748 + offset) & 2) {
-        func_80095A80(10, index, *(&D_8010D779 + offset), value & 0xff);
+        voiceStoreParam(10, index, *(&D_8010D779 + offset), value & 0xff);
     } else {
-        func_80095A80(10, index, *(&D_8010D76F + index * 0x1a0), value & 0xff);
+        voiceStoreParam(10, index, *(&D_8010D76F + index * 0x1a0), value & 0xff);
     }
     handle = *(s32 *)((s8 *)&gVoiceChannelTable + index * 0x1a0);
     result = 0;

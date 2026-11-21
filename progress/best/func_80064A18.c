@@ -460,28 +460,32 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s8 *)((char *)(temp_s3) + 0x17E)) = 3;
             (*(f32 *)((char *)((*(void **)((char *)(temp_s4) + 0x68))) + 8)) = (f32) ((*(f32 *)((char *)(temp_s4) + 0x28)) - 2.0f);
         }
-        if (gBorderSkipActive != 0) {
-            var_fv0 = 0x41200000;
-            var_fv1 = 0x41800000;
-            goto block_65;
-        }
-        if (sDifficultyLevel != 1) {
-            if ((2 > sDifficultyLevel) || (var_v0 = temp_s4, (sDifficultyLevel != 2))) {
-                var_fv1 = 0x41900000;
-                var_fv0 = 0x41400000;
-                goto block_65;
+        {
+            f32 speed, distance;
+            s32 difficulty;
+            if (gBorderSkipActive) {
+                speed = 10.0f;
+                distance = 16.0f;
+                goto store;
             }
+            difficulty = sDifficultyLevel;
+            if (difficulty == 1) goto one;
+            if (((difficulty >= 2) && ((var_v0 = temp_s4), difficulty == 2))) goto two;
+            speed = 12.0f;
+            distance = 18.0f;
+            goto store;
+one:
+            speed = 8.0f;
+            distance = 14.0f;
+store:
+            *(f32 *)&D_800C7C98 = speed;
+            *(f32 *)&D_800C7C9C = distance;
+            return temp_s4;
+two:
             D_800C7C98 = 0;
             D_800C7C9C = 0;
-            /* Duplicate return node #67. Try simplifying control flow for better match */
             return var_v0;
         }
-        var_fv0 = 0x41000000;
-        var_fv1 = 0x41600000;
-block_65:
-        D_800C7C98 = var_fv0;
-        D_800C7C9C = var_fv1;
-        return temp_s4;
     }
     return var_v0;
 }

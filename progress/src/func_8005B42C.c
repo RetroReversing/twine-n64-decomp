@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80015DAC();                              /* extern */
+void *getObjectListHead();                              /* extern */
 f32 approxDistance(void *, void *);                  /* extern */
 M2C_UNK func_80047AEC(void *, void *, void *);      /* extern */
 
@@ -27,7 +27,7 @@ void func_8005B42C(void *arg0) {
     switch (temp_v1) {                              /* irregular */
     case 0:
         var_s2 = NULL;
-        var_s0 = func_80015DAC();
+        var_s0 = getObjectListHead();
         var_fs0 = 65536.0f;
         if (var_s0 != NULL) {
             do {

@@ -17,7 +17,7 @@ M2C_UNK func_80002D50(void *, M2C_UNK);
 M2C_UNK func_80002EF0(void *);
 M2C_UNK listUnlinkFree(s32);
 M2C_UNK requestSound();
-void *func_80015DAC(s8);
+void *getObjectListHead(s8);
 M2C_UNK func_800179E8(void *, void *, s32, s32);
 M2C_UNK func_800452E0(void *, void *, f32 *);
 f32 func_8004572C(f32 *);
@@ -1315,7 +1315,7 @@ var_s3 = 0;
 loop_365:
 if (var_v0_25 == NULL) {
 var_s3 = 1;
-var_s0_2 = func_80015DAC(temp_s4);
+var_s0_2 = getObjectListHead(temp_s4);
 goto block_371;
 }
 var_s0_2 = M2C_FIELD(var_v0_25, void **, 0x10);

@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern s32 D_8010A410;
 
-s32 func_80015DAC(void) {
+s32 getObjectListHead(void) {
     return D_8010A410;
 }

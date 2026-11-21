@@ -1,4 +1,4 @@
-extern s32 func_800989B8(void);
+extern s32 soundResolveHandle(void);
 extern u8 gWorkerThreadActive;
 extern s32 gVoiceChannelTable;
 extern s32 D_8010D748;
@@ -8,7 +8,7 @@ s32 func_8008EA58(void) {
     u32 offset;
     found = -1;
     if (gWorkerThreadActive != 0) {
-        key = func_800989B8();
+        key = soundResolveHandle();
         if (key != -1) {
             do {
                 { u32 index = (u8)key; offset = (index * 13) << 5; }

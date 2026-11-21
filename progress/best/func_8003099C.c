@@ -53,12 +53,11 @@ int __repair_constant = 6;
 
     D_800BFF02 = 0;
     D_80100768 = arg0;
-    gEntryMode = __repair_constant;
+    gEntryMode = 6;
     var_s2 = 0;
     if (D_800C02D8 != 0) {
-        var_v0 = 0 & 0xFFFF;
 loop_2:
-        temp_a1 = var_v0 << 5;
+        temp_a1 = (var_s2 & 0xFFFF) << 5;
         var_s2 += 1;
         if (*(u16 *)((u8 *)&D_800C02DA + temp_a1) == (arg0 & 0xFF)) {
             temp_a0 = *(s32 *)((u8 *)&D_800C02D4 + temp_a1);
@@ -121,7 +120,6 @@ loop_10:
             func_80030680();
             return;
         }
-        var_v0 = var_s2 & 0xFFFF;
         if (*(u16 *)((u8 *)&D_800C02D8 + ((var_s2 & 0xFFFF) << 5)) == 0) {
             goto block_20;
         }
@@ -134,3 +132,4 @@ block_20:
     gEntryLevelLimit = 0;
     D_800BFF0C = 3;
 }
+

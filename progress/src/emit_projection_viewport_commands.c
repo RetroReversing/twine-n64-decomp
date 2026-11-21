@@ -14,7 +14,7 @@ struct Entry989 {
     s32 value;
 };
 extern Entry989 *gVoiceListHead;
-s32 func_800989B8(u32 key) {
+s32 soundResolveHandle(u32 key) {
     Entry989 *p, *found;
     if (key == (u32)-1)
         return -1;

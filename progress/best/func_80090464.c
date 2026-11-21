@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 reset_timed_sequence();
-s32 func_80095A80();
+s32 voiceStoreParam();
 extern u8 D_800EDA87;
 extern void *gSeqPlayer;
 
@@ -113,7 +113,7 @@ int __repair_literal;
                                             }
                                             temp_a3_2 = (*(u8 *)((char *)(temp_a3) + 5));
                                             if (temp_a3_2 != 0xFF) {
-                                                func_80095A80(7, (*(u8 *)((char *)((gSeqPlayer + var_s5)) + 0x58C)), D_800EDA87, temp_a3_2);
+                                                voiceStoreParam(7, (*(u8 *)((char *)((gSeqPlayer + var_s5)) + 0x58C)), D_800EDA87, temp_a3_2);
                                             }
                                             temp_v1_5 = gSeqPlayer + var_s2;
                                             (*(s32 *)((char *)(temp_v1_5) + 0x12C)) += 0xC;

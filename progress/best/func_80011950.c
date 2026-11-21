@@ -117,7 +117,7 @@ void func_80011950(void) {
                 }
                 temp_a0 = *var_s2;
                 if ((temp_a0 & 0x300) == 0x300) {
-                    *(&D_800E0778 + var_s3) = temp_a0 ^ 0x300;
+                    *(u16 *)((u8 *)&D_800E0778 + var_s3) = temp_a0 ^ 0x300;
                 }
                 temp_a0_2 = *(&D_800E0778 + var_s3);
                 if ((temp_a0_2 & 0xC00) == 0xC00) {

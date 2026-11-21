@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800989B8();                                /* extern */
+s32 soundResolveHandle();                                /* extern */
 extern M2C_UNK D_8010D748;
 extern M2C_UNK D_8010D784;
 extern M2C_UNK D_8010D7E6;
@@ -21,7 +21,7 @@ u16 func_8008EB00(void) {
     s32 temp_v0;
     s32 temp_v1;
 
-    temp_v0 = func_800989B8();
+    temp_v0 = soundResolveHandle();
     if (temp_v0 != -1) {
         temp_v1 = (temp_v0 & 0xFF) * 0x1A0;
         if ((*((M2C_UNK *)((s8 *)&D_8010D784 + temp_v1)) == temp_v0) && !(*((M2C_UNK *)((s8 *)&D_8010D748 + temp_v1)) & 2)) {

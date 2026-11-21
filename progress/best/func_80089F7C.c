@@ -2,7 +2,7 @@ typedef struct Node { struct Node *prev; struct Node *next; u32 addr; s32 tag; s
 typedef struct Out { s32 a; s32 b; s16 c; s16 d; } Out;
 typedef struct Ent { s32 a; s32 b; s32 c; } Ent;
 s32 func_800CEEE0();
-extern Node *D_800E425C,*D_800E4260,*D_800E4264;
+extern Node *D_800E425C,*D_800E4260,*sPoolNodeHead;
 extern Ent *sSlotLog;
 extern u16 sSlotLogCount;
 extern s32 D_80109BA0,D_80109BF8;
@@ -19,8 +19,8 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3) {
        if(a1+s0->len<s4+s2) { s1_2=(u16)s3; p=&sp10[s1_2]; p[0]=s0->data+(s4-a1); p[4]=s4; p[2]=s0->addr+s0->len-s4; s3++; s2-=(s0->addr+s0->len-s4); s4=s0->addr+s0->len; s0=s7; continue; }
        p=&sp10[(u16)s3]; p[2]=s2; s2=0; s3++; p[4]=s4; p[0]=s0->data+(s4-a1);
       } s0=s7; } while(s0!=NULL); }
-    if(s2!=0) { s1_2=(s4-arg3)%1536; do { phase.pointer=D_800E4264;
-      if(D_800E4264!=NULL) { D_800E4264=phase.pointer->prev; if(D_800E4264!=NULL)D_800E4264->next=NULL;
+    if(s2!=0) { s1_2=(s4-arg3)%1536; do { phase.pointer=sPoolNodeHead;
+      if(sPoolNodeHead!=NULL) { sPoolNodeHead=phase.pointer->prev; if(sPoolNodeHead!=NULL)sPoolNodeHead->next=NULL;
        if(D_800E4260==NULL) { phase.pointer->prev=D_800E425C; if(D_800E425C!=NULL)D_800E425C->next=phase.pointer; D_800E425C=phase.pointer; }
        else { phase.pointer->prev=NULL; phase.pointer->next=D_800E4260; D_800E4260->prev=phase.pointer; } D_800E4260=phase.pointer; s0=phase.pointer;
       } else { D_800E425C->prev->next=NULL; s0=D_800E425C; D_800E4260=s0; s0->next=D_800E4260; D_800E4260->prev=s0; s0->prev=NULL; D_800E425C=D_800E425C->prev; }

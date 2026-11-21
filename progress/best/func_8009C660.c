@@ -1,7 +1,7 @@
 void workerLockAcquire(void);
 void workerLockRelease(void);
-s32 func_80095A80(s32, s32, u8, s32);
-s32 func_800989B8(s32);
+s32 voiceStoreParam(s32, s32, u8, s32);
+s32 soundResolveHandle(s32);
 extern u8 gWorkerThreadActive, D_8010D76F, D_8010D779;
 extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 
@@ -13,7 +13,7 @@ s32 func_8009C660(s32 handle, s32 original) {
 
     if (gWorkerThreadActive != 0) {
         workerLockAcquire();
-        handle = func_800989B8(handle);
+        handle = soundResolveHandle(handle);
         if (handle != result) {
             high = (u32)(value & 0xffff) >> 7;
             low = value & 0x7f;
@@ -22,11 +22,11 @@ s32 func_8009C660(s32 handle, s32 original) {
             value = index * 0x1a0;
             if (*(s32 *)((char *)&D_8010D784 + value) != handle) goto done;
             if (*(s32 *)((char *)&D_8010D748 + value) & 2) {
-                func_80095A80(1, (u8)index, *(&D_8010D779 + value), high & 0xff);
-                func_80095A80(0x21, (u8)index, *(&D_8010D779 + value), low & 0xff);
+                voiceStoreParam(1, (u8)index, *(&D_8010D779 + value), high & 0xff);
+                voiceStoreParam(0x21, (u8)index, *(&D_8010D779 + value), low & 0xff);
             } else {
-                func_80095A80(1, (u8)index, *(&D_8010D76F + value), high & 0xff);
-                func_80095A80(0x21, (u8)index, *(&D_8010D76F + value), low & 0xff);
+                voiceStoreParam(1, (u8)index, *(&D_8010D76F + value), high & 0xff);
+                voiceStoreParam(0x21, (u8)index, *(&D_8010D76F + value), low & 0xff);
             }
             handle = *(s32 *)((char *)&gVoiceChannelTable + index * 0x1a0);
             result = 0;

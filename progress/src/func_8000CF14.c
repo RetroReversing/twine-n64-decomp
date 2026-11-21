@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80015DAC();                              /* extern */
+void *getObjectListHead();                              /* extern */
 M2C_UNK func_80064370(void *, s8);                  /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 M2C_UNK func_800643D8(void *);                      /* extern */
@@ -22,7 +22,7 @@ void func_8000CF14(s32 arg0) {
     u16 temp_v1;
     void *var_s0;
 
-    var_s0 = func_80015DAC();
+    var_s0 = getObjectListHead();
     if (var_s0 != NULL) {
         do {
             temp_v1 = M2C_FIELD(var_s0, u16 *, 0x78);

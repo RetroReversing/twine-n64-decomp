@@ -2,7 +2,7 @@
 
 s32 func_8008D49C(s32, s32, s32, s32);          /* extern */
 s32 func_80091A24(void *, s32, s32);    /* extern */
-void func_80095A80(u8, u8, u8, u8);            /* extern */
+void voiceStoreParam(u8, u8, u8, u8);            /* extern */
 extern void *D_800E5AC0;
 extern u8 D_800EDA87;
 extern u8 D_800EDA88;
@@ -99,7 +99,7 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                             (*(s8 *)((char *)(D_800EDA8C) + 0xFF4)) = 0;
                                         }
                                     } else {
-                                        func_80095A80(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);
+                                        voiceStoreParam(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);
                                     }
                                 } else if (((temp_a3 != 0) | (temp_t1 != 0)) != 0) {
                                     temp_t0_2 = D_800EDA8C + var_s2;
@@ -173,7 +173,7 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                     }
                                 }
                             } else {
-                                func_80095A80(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);
+                                voiceStoreParam(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);
                             }
                         }
                         temp_v1_5 = D_800EDA8C + var_s2;
