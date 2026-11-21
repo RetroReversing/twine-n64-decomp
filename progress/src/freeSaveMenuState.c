@@ -10,29 +10,29 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 void freeMenuItemRecord(void *);
 void func_80022BB8(void);
 void func_8002EB34(void *);
-extern void *gSaveMenuState;
+extern void *gMenuItems;
 typedef struct { u8 pad[8]; void *value; } Record;
-void freeSaveMenuState(void) {
+void func_80027970(void) {
     void *a;
     void *b;
     s32 i;
     u8 count;
     void *record;
     void (*callback)(void);
-    if (gSaveMenuState != NULL) {
-        func_8002EB34(M2C_FIELD(gSaveMenuState, void **, 0x20));
-        M2C_FIELD(gSaveMenuState, void **, 0x20) = NULL;
-        freeMenuItemRecord(M2C_FIELD(gSaveMenuState, void **, 0x24));
-        M2C_FIELD(gSaveMenuState, void **, 0x24) = NULL;
-        freeMenuItemRecord(M2C_FIELD(gSaveMenuState, void **, 0x1C));
-        M2C_FIELD(gSaveMenuState, void **, 0x1C) = NULL;
-        freeMenuItemRecord(M2C_FIELD(gSaveMenuState, void **, 0));
-        b = M2C_FIELD(gSaveMenuState, void **, 0x10);
-        M2C_FIELD(gSaveMenuState, void **, 0) = NULL;
+    if (gMenuItems != NULL) {
+        func_8002EB34(M2C_FIELD(gMenuItems, void **, 0x20));
+        M2C_FIELD(gMenuItems, void **, 0x20) = NULL;
+        freeMenuItemRecord(M2C_FIELD(gMenuItems, void **, 0x24));
+        M2C_FIELD(gMenuItems, void **, 0x24) = NULL;
+        freeMenuItemRecord(M2C_FIELD(gMenuItems, void **, 0x1C));
+        M2C_FIELD(gMenuItems, void **, 0x1C) = NULL;
+        freeMenuItemRecord(M2C_FIELD(gMenuItems, void **, 0));
+        b = M2C_FIELD(gMenuItems, void **, 0x10);
+        M2C_FIELD(gMenuItems, void **, 0) = NULL;
         if (b != NULL) {
             callback = M2C_FIELD(b, void (**)(void), 0xC);
             if (callback != NULL) callback();
-            a = gSaveMenuState;
+            a = gMenuItems;
             i = 0;
             count = M2C_FIELD(M2C_FIELD(a, void **, 0x10), u8 *, 5);
             if (count != 0) {
@@ -41,7 +41,7 @@ void freeSaveMenuState(void) {
                     freeMenuItemRecord(((Record *)record)->value);
                     ((Record *)record)->value = NULL;
                     i++;
-                    a = gSaveMenuState;
+                    a = gMenuItems;
                     count = M2C_FIELD(M2C_FIELD(a, void **, 0x10), u8 *, 5);
                 } while ((u32)(i & 0xFF) < count);
             }
