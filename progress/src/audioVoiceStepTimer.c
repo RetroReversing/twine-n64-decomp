@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8008C1B0(u8);                              /* extern */
-s32 randomU16Next();                                /* extern */
+s32 func_80095638();                                /* extern */
 
-s32 audioVoiceStepTimer(void *arg0, void *arg1) {
+s32 func_80099E40(void *arg0, void *arg1) {
     u16 temp_a0;
     u16 temp_v0;
     u16 temp_v1;
@@ -23,7 +23,7 @@ s32 audioVoiceStepTimer(void *arg0, void *arg1) {
     temp_v1 = M2C_FIELD(arg0, u16 *, 0x68);
     if (temp_v1 == 0) {
         if (M2C_FIELD(arg1, u16 *, 0) & 1) {
-            M2C_FIELD(arg0, u16 *, 0x68) = (u16) ((u32) (randomU16Next() & 0xFFFF) % (u16) M2C_FIELD(arg1, u16 *, 4));
+            M2C_FIELD(arg0, u16 *, 0x68) = (u16) ((u32) (func_80095638() & 0xFFFF) % (u16) M2C_FIELD(arg1, u16 *, 4));
         } else {
             M2C_FIELD(arg0, u16 *, 0x68) = (u16) M2C_FIELD(arg1, u16 *, 4);
         }
