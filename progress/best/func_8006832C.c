@@ -18,13 +18,15 @@ extern char D_800C46FC[];
 extern f32 D_800C683C;
 extern s16 D_800C6858;
 extern u16 D_800C68BA;
-extern s32 gBorderSkipActive;
+extern s32 gBorderSkipFlag;
 extern void *gPlayerActor;
 extern char gTrackMarkerTable[];
 extern char D_80109A98[];
 extern char D_80109A9C[];
 extern char D_80109AA0[];
 extern s32 D_801176D8;
+
+typedef struct { u32 word[3]; } TrackWords;
 
 void func_8006832C(void *arg0, f32 *arg1) {
     char *__base_D_80109688;
@@ -39,8 +41,6 @@ void func_8006832C(void *arg0, f32 *arg1) {
     s32 spC0;
     s32 (*temp_a1_2)(void *, s32);
     f32 *var_s1;
-    f32 temp_a0;
-    f32 temp_a1;
     f32 temp_fa0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -73,11 +73,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
     var_s1 = arg1;
     if ((*(u8 *)((char *)(temp_s2) + 0x184)) == 0) {
         temp_v0 = *temp_s4;
-        temp_a0 = (*(f32 *)((char *)(temp_v0) + 0x14));
-        temp_a1 = (*(f32 *)((char *)(temp_v0) + 0x18));
-        sp48[1] = temp_a0;
-        sp48[0] = (*(f32 *)((char *)(temp_v0) + 0x10));
-        sp48[2] = temp_a1;
+        *(TrackWords *)sp48 = *(TrackWords *)((char *)temp_v0 + 0x10);
         temp_fa0 = sp28[1] * 651.8986f;
         sp38[1] = temp_fa0;
         sp38[0] = -(sp28[0] * 651.8986f);
@@ -113,9 +109,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
         sp58[2] = temp_fv0 + sp48[2];
         if (*(s32 *)(D_800C46FC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8)) & 8) {
             temp_v0_4 = temp_s7 * 0xC;
-            *(s32 *)(D_80109A98 + temp_v0_4) = sp58[0];
-            *(s32 *)(D_80109A9C + temp_v0_4) = sp58[1];
-            *(s32 *)(D_80109AA0 + temp_v0_4) = sp58[2];
+            *(TrackWords *)(D_80109A98 + temp_v0_4) = *(TrackWords *)sp58;
         }
         if ((func_800158A4(sp48, sp58, (*(s32 *)((char *)(*temp_s4) + 0xF4)), sp68, 0, 0, (*(s32 *)((char *)(temp_s2) + 0)), 0, 0) << 0x18) == 0) {
             if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) == 0x21) && (gPlayerActor != NULL) && ((*(s16 *)((char *)(gPlayerActor) + 0x7A)) == 0x72)) {
@@ -176,7 +170,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
             }
             UpdateActorTargetEffect(arg0, sp58);
         }
-        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gBorderSkipActive == 0)) {
+        if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gBorderSkipFlag == 0)) {
             func_800589FC(arg0, (*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 4)) + ((*(u16 *)((char *)(var_s1) + 0x90)) * 0xC));
         }
         (*(f32 *)((char *)(temp_s2) + 0x70)) -= (*(f32 *)((char *)(var_s1) + 0x88));

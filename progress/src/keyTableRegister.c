@@ -1,45 +1,45 @@
 typedef struct { u16 key; s16 state; u8 pad[0x18]; } N97814;
 typedef struct { N97814 *list; s32 arg; u16 count; } Slot97814;
-extern s32 D_800F38EC;
-extern Slot97814 D_800F38F0[];
+extern s32 sKeyTableCount;
+extern Slot97814 sKeyTableSlots[];
 void workerLockAcquire(void);
 void workerLockRelease(void);
 extern u8 D_800F38F4[];
 extern u8 D_800F38F8[];
 
-s32 func_80097814(N97814 *arg0, s32 arg1) {
-    s32 i;
-    u16 n;
-    u16 j;
-    N97814 *p;
+/* Registers a 0xFFFF-terminated key list in a free slot (max 8) and resets its entry states; returns 0 if full. */
+s32 keyTableRegister(N97814 *keyList, s32 value) {
+    s32 slot;
+    u16 count;
+    u16 k;
+    N97814 *entry;
 
-    for (i = 0; i < D_800F38EC; i++) {
-        if (D_800F38F0[i].list == arg0) {
+    for (slot = 0; slot < sKeyTableCount; slot++) {
+        if (sKeyTableSlots[slot].list == keyList) {
             break;
         }
     }
-    if (i != D_800F38EC) {
+    if (slot != sKeyTableCount) {
         return 1;
     }
-    if (i < 8) {
-    n = 0;
-    for (p = arg0; p->key != 0xFFFF; p++) {
-        n++;
+    if (slot < 8) {
+    count = 0;
+    for (entry = keyList; entry->key != 0xFFFF; entry++) {
+        count++;
     }
     workerLockAcquire();
-    p = arg0;
-    i = D_800F38EC;
-    *(N97814 **)((u8 *)D_800F38F0 + i * 12) = p;
-    *(u16 *)(D_800F38F8 + i * 12) = n;
-    *(s32 *)(D_800F38F4 + i * 12) = arg1;
-    i = n;
-    for (j = 0; j < (u32)i; j++, p++) {
-        p->state = 0;
+    entry = keyList;
+    slot = sKeyTableCount;
+    *(N97814 **)((u8 *)sKeyTableSlots + slot * 12) = entry;
+    *(u16 *)(D_800F38F8 + slot * 12) = count;
+    *(s32 *)(D_800F38F4 + slot * 12) = value;
+    slot = count;
+    for (k = 0; k < (u32)slot; k++, entry++) {
+        entry->state = 0;
     }
-    D_800F38EC++;
+    sKeyTableCount++;
     workerLockRelease();
     return 1;
     }
     return 0;
 }
-

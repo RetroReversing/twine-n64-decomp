@@ -11,6 +11,7 @@ extern Slot10A2C D_80107B68[];
 extern Note10A2C D_8010840C[];
 extern char D_80115308[];
 
+/* Looks for a save slot tagged with the expected code and name; sets gSaveFoundSlot to it, or -1 if none. Returns 1 when no slot was found and the counters allow it. */
 s32 saveFindTaggedSlot(void) {
     u16 i;
 

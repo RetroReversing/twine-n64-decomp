@@ -95,11 +95,11 @@ void func_80028A7C(void) {
         temp_v0_3 = M2C_FIELD(gMenuItems, u16 *, 0x32) + 6;
         M2C_FIELD(gMenuItems, u16 *, 0x32) = temp_v0_3;
         if ((u32) (temp_v0_3 & 0xFFFF) >= 0xF6U) {
-            var_v0 = 1;
             if (M2C_FIELD(gMenuItems, u16 *, 0x14) == 0x10) {
-                var_v0 = 0x4B;
+                M2C_FIELD(sActiveMenu, s16 *, 0x7C) = 0x4B;
+            } else {
+                M2C_FIELD(sActiveMenu, s16 *, 0x7C) = 1;
             }
-            M2C_FIELD(sActiveMenu, s16 *, 0x7C) = var_v0;
             goto block_24;
         }
     } else {

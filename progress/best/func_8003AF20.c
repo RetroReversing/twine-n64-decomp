@@ -4,7 +4,7 @@ s32 func_80039A10(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32
 s32 func_80039EFC(void **, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32); /* extern */
 extern s8 D_800E176D;
 extern s32 gHiResScreen;
-extern void *sDisplayListCursor;
+extern void *D_80115328;
 
 typedef struct { unsigned char pad[8]; int value; } __repair_field_8;
 typedef struct { unsigned char pad_0[12]; int field_C; unsigned char pad_10[14]; unsigned short field_1E; unsigned short field_20; unsigned short field_22; unsigned short field_24; unsigned short field_26; unsigned char field_28; unsigned char field_29; } __repair_record_arg2;
@@ -77,47 +77,47 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
         if (temp_v1 & 0x4000) {
             if (D_800E176D == 1) {
                 D_800E176D = 0;
-                sDisplayListCursor += 8;
-                (*(s32 *)((char *)(sDisplayListCursor) + 0)) = 0xE200001C;
+                D_80115328 += 8;
+                (*(s32 *)((char *)(D_80115328) + 0)) = 0xE200001C;
                 sp4C = 0x504340;
-                (*(s32 *)((char *)(sDisplayListCursor) + 4)) = sp4C;
+                (*(s32 *)((char *)(D_80115328) + 4)) = sp4C;
             }
         } else if (D_800E176D == 0) {
             D_800E176D = 1;
-            sDisplayListCursor += 8;
-            (*(s32 *)((char *)(sDisplayListCursor) + 0)) = 0xE200001C;
+            D_80115328 += 8;
+            (*(s32 *)((char *)(D_80115328) + 0)) = 0xE200001C;
             sp4C = 0x5040C0;
-            (*(s32 *)((char *)(sDisplayListCursor) + 4)) = sp4C;
+            (*(s32 *)((char *)(D_80115328) + 4)) = sp4C;
         }
-        temp_v1_2 = sDisplayListCursor;
+        temp_v1_2 = D_80115328;
         var_t0 = 0x1000;
-        sDisplayListCursor = temp_v1_2 + 8;
+        D_80115328 = temp_v1_2 + 8;
         (*(s32 *)((char *)(temp_v1_2) + 0)) = 0xFC30B261;
         (*(s32 *)((char *)(temp_v1_2) + 4)) = 0x5566FF7F;
-        sDisplayListCursor = temp_v1_2 + 0x10;
+        D_80115328 = temp_v1_2 + 0x10;
         ((__repair_field_8 *)temp_v1_2)->value = 0xE3001001;
         (*(s32 *)((char *)(temp_v1_2) + 0xC)) = 0;
     } else {
         var_t1 = 2;
-        temp_v0 = sDisplayListCursor;
-        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
-        (*(s32 *)((char *)(temp_v0) + 4)) = 0xFF2FFFFF;
+        temp_v0 = D_80115328;
         ((__repair_field_8 *)temp_v0)->value = 0xE3001001;
         (*(s32 *)((char *)(temp_v0) + 0xC)) = 0x8000;
+        (*(s32 *)((char *)(temp_v0) + 0)) = 0xFC119623;
+        (*(s32 *)((char *)(temp_v0) + 4)) = 0xFF2FFFFF;
         (*(s32 *)((char *)(temp_v0) + 0x10)) = 0xFD100000;
         var_t0 = 0x800;
-        sDisplayListCursor = temp_v0 + 8;
-        sDisplayListCursor = temp_v0 + 0x10;
-        sDisplayListCursor = temp_v0 + 0x18;
-        sDisplayListCursor = temp_v0 + 0x20;
+        D_80115328 = temp_v0 + 8;
+        D_80115328 = temp_v0 + 0x10;
+        D_80115328 = temp_v0 + 0x18;
+        D_80115328 = temp_v0 + 0x20;
         (*(s32 *)((char *)(temp_v0) + 0x18)) = 0xE8000000;
-        sDisplayListCursor = temp_v0 + 0x28;
+        D_80115328 = temp_v0 + 0x28;
         (*(s32 *)((char *)(temp_v0) + 0x24)) = 0x07000000;
-        sDisplayListCursor = temp_v0 + 0x30;
+        D_80115328 = temp_v0 + 0x30;
         (*(s32 *)((char *)(temp_v0) + 0x28)) = 0xE6000000;
-        sDisplayListCursor = temp_v0 + 0x38;
+        D_80115328 = temp_v0 + 0x38;
         (*(s32 *)((char *)(temp_v0) + 0x30)) = 0xF0000000;
-        sDisplayListCursor = temp_v0 + 0x40;
+        D_80115328 = temp_v0 + 0x40;
         (*(s32 *)((char *)(temp_v0) + 0x1C)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x20)) = 0xF5000100;
         (*(s32 *)((char *)(temp_v0) + 0x2C)) = 0;
@@ -131,10 +131,10 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     if (var_t0 < (u32) (temp_a0 * temp_a1)) {
         temp_v1_3 = ((__repair_record_arg2*)arg2)->field_26;
         if ((temp_v1_3 == temp_a0) && (((__repair_record_arg2*)arg2)->field_29 == temp_a1)) {
-            func_80039A10(&sDisplayListCursor, ((__repair_field_8 *)arg2)->value, 2, 1, temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x20, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
+            func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x20, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
             return;
         }
-        func_80039EFC(&sDisplayListCursor, ((__repair_field_8 *)arg2)->value, 2, 1, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x20, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + sp44), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
+        func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, 2, 1, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x20, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + sp44), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
         return;
     }
     if (gHiResScreen != 0) {
@@ -142,9 +142,9 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     } else {
         var_s5 = 0x400;
     }
-    temp_t2 = (u16)(((__repair_record_arg2*)arg2)->field_24);
-    var_s6 = (s32) (0x400 * temp_t2) / (s32) ((__repair_record_arg2*)arg2)->field_26; var_s5_2 = (s32) (var_s5 * ((__repair_record_arg2*)arg2)->field_28) / (s32) ((__repair_record_arg2*)arg2)->field_29;
-    var_s1 = temp_t2 << 5;
+    temp_a1_2 = ((__repair_record_arg2*)arg2)->field_24;
+    var_s6 = (s32) (0x400 * temp_a1_2) / (s32) ((__repair_record_arg2*)arg2)->field_26; var_s5_2 = (s32) (var_s5 * ((__repair_record_arg2*)arg2)->field_28) / (s32) ((__repair_record_arg2*)arg2)->field_29;
+    var_s1 = temp_a1_2 << 5;
     if (((__repair_record_arg2*)arg2)->field_1E & 0x80) {
         var_s6 = ~var_s6;
     } else {
@@ -155,22 +155,22 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
         var_s5_2 = ~var_s5_2;
         var_t8 = ((__repair_record_arg2*)arg2)->field_28 << 5;
     }
-    temp_v1_4 = sDisplayListCursor;
+    temp_v1_4 = D_80115328;
     temp_a0_2 = var_t1 << 0x15;
     (*(s32 *)((char *)(temp_v1_4) + 0)) = (s32) (temp_a0_2 | 0xFD100000);
     (*(s32 *)((char *)(temp_v1_4) + 0x10)) = 0xE6000000;
     (*(s32 *)((char *)(temp_v1_4) + 0xC)) = 0x070C0300;
     var_a2 = 0x800;
     (*(s32 *)((char *)(temp_v1_4) + 0x18)) = 0xF3000000;
-    sDisplayListCursor = temp_v1_4 + 8;
+    D_80115328 = temp_v1_4 + 8;
     ((__repair_field_8 *)temp_v1_4)->value = (s32) (temp_a0_2 | 0xF5100000);
     (*(s32 *)((char *)(temp_v1_4) + 0x14)) = 0;
-    sDisplayListCursor = temp_v1_4 + 0x10;
+    D_80115328 = temp_v1_4 + 0x10;
     (*(s32 *)((char *)(temp_v1_4) + 4)) = (s32) ((__repair_field_8 *)arg2)->value;
     temp_a1_3 = ((__repair_record_arg2*)arg2)->field_24;
     temp_v0_2 = temp_v1_4 + 0x18;
-    sDisplayListCursor = temp_v0_2;
-    sDisplayListCursor = temp_v1_4 + 0x20;
+    D_80115328 = temp_v0_2;
+    D_80115328 = temp_v1_4 + 0x20;
     temp_a0_3 = temp_a1_3 >> 3;
     if (temp_a0_3 != 0) {
         var_a2 = temp_a0_3 + 0x7FF;
@@ -184,16 +184,16 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
     } else {
         var_v0 = var_a2 & 0xFFF;
     }
-    temp_a1_4 = sDisplayListCursor;
+    temp_a1_4 = D_80115328;
     (*(s32 *)((char *)(temp_v0_2) + 4)) = (s32) (((var_v1 & 0xFFF) << 0xC) | 0x07000000 | var_v0);
     (*(s32 *)((char *)(temp_a1_4) + 0)) = 0xE7000000;
     (*(s32 *)((char *)(temp_a1_4) + 4)) = 0;
     (*(s32 *)((char *)(temp_a1_4) + 0xC)) = 0xC0300;
     (*(s32 *)((char *)(temp_a1_4) + 0x10)) = 0xF2000000;
     ((__repair_field_8 *)temp_a1_4)->value = (s32) ((var_t1 << 0x15) | (((((s32) (((__repair_record_arg2*)arg2)->field_24 + 7) >> 3) & 0x1FF) << 9) | 0xF5080000));
-    sDisplayListCursor = temp_a1_4 + 8;
-    sDisplayListCursor = temp_a1_4 + 0x10;
-    sDisplayListCursor = temp_a1_4 + 0x18;
+    D_80115328 = temp_a1_4 + 8;
+    D_80115328 = temp_a1_4 + 0x10;
+    D_80115328 = temp_a1_4 + 0x18;
     (*(s32 *)((char *)(temp_a1_4) + 0x14)) = (s32) (((((((__repair_record_arg2*)arg2)->field_24 - 1) * 4) & 0xFFF) << 0xC) | (((((__repair_record_arg2*)arg2)->field_28 - 1) * 4) & 0xFFF));
     temp_a0_4 = *(u32 *)((s8 *)arg2 + 0x28);
     var_s2 = 0;
@@ -201,7 +201,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
         sp54 = var_s1 & 0xFFFF;
         sp4C = var_s5_2 << 0x10;
         var_v0_2 = temp_a0_4 >> 8;
-        __repair_rows: {
+        do {
             if ((var_v0_2 & 0xF) > 0) {
                 var_t9 = 0;
                 temp_t6 = var_t8 & 0xFFFF;
@@ -217,14 +217,14 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
                             temp_a1_5 = temp_t0 & 0xFFFF;
     var_t1_2 = arg1 + ((temp_a1_5) * 2);
                         }
-                        temp_a3 = sDisplayListCursor;
+                        temp_a3 = D_80115328;
                         temp_t2_2 = temp_t2 * 4;
                         temp_t0_2 = temp_a3 + 8;
-                        sDisplayListCursor = temp_t0_2;
+                        D_80115328 = temp_t0_2;
                         temp_a1_5 = temp_t2 + ((__repair_record_arg2*)arg2)->field_26;
                         ((__repair_field_8 *)temp_a3)->value = 0xE1000000;
                         (*(s32 *)((char *)(temp_a3) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t2_2 >> 0x1F) & 0xFFC) << 0xC) | ((var_t1_2 * 4) & ((s32) ~(s16) (var_t1_2 * 4) >> 0x1F) & 0xFFC));
-                        sDisplayListCursor = temp_a3 + 0x10;
+                        D_80115328 = temp_a3 + 0x10;
                         temp_a2 = var_t1_2 + (((__repair_record_arg2*)arg2)->field_29 * 2);
                         (*(s32 *)((char *)(temp_a3) + 0)) = (s32) ((((temp_a1_5 * 4) & ((s32) ~(s16) (temp_a1_5 * 4) >> 0x1F) & 0xFFC) << 0xC) | (((temp_a2 * 4) & ((s32) ~(s16) (temp_a2 * 4) >> 0x1F) & 0xFFC) | 0xE4000000));
                         if (temp_t2_2 < 0) {
@@ -240,15 +240,15 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
                             (*(s32 *)((char *)(temp_t0_2) + 4)) = (s32) (sp54 << 0x10 | temp_s4);
                         }
                     } else {
-                        temp_a3_2 = sDisplayListCursor;
+                        temp_a3_2 = D_80115328;
                         temp_t0_3 = temp_t0 + arg1;
                         temp_t3 = temp_t2 * 4;
                         temp_t1 = temp_a3_2 + 8;
-                        sDisplayListCursor = temp_t1;
+                        D_80115328 = temp_t1;
                         temp_a1_6 = temp_t2 + ((__repair_record_arg2*)arg2)->field_26;
                         ((__repair_field_8 *)temp_a3_2)->value = 0xE1000000;
                         (*(s32 *)((char *)(temp_a3_2) + 4)) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t3 >> 0x1F) & 0xFFC) << 0xC) | ((temp_t0_3 * 4) & ((s32) ~(s16) (temp_t0_3 * 4) >> 0x1F) & 0xFFC));
-                        sDisplayListCursor = temp_a3_2 + 0x10;
+                        D_80115328 = temp_a3_2 + 0x10;
                         temp_a2_2 = ((__repair_record_arg2*)arg2)->field_29 + temp_t0_3;
                         (*(s32 *)((char *)(temp_a3_2) + 0)) = (s32) ((((temp_a1_6 * 4) & ((s32) ~(s16) (temp_a1_6 * 4) >> 0x1F) & 0xFFC) << 0xC) | (((temp_a2_2 * 4) & ((s32) ~(s16) (temp_a2_2 * 4) >> 0x1F) & 0xFFC) | 0xE4000000));
                         if (temp_t3 < 0) {
@@ -271,27 +271,26 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2) {
                                 temp_v0_4 = (s32) ((s16) (temp_v0_3 * 4) * temp_t6) >> 7;
                                 var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_4 & ((s32) ~temp_v0_4 >> 0x1F))) & 0xFFFF);
                             } else {
-                                temp_v0_5 = (s32) ((s16) (temp_v0_3 * 4) * temp_t6) >> 7;
                                 var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_5 & -(temp_v0_5 < 1))) & 0xFFFF);
+                                temp_v0_5 = (s32) ((s16) (temp_v0_3 * 4) * temp_t6) >> 7;
                             }
                         }
                         (*(s32 *)((char *)(temp_t1) + 4)) = var_v0_5;
                     }
-                    temp_v1_5 = sDisplayListCursor;
-                    sDisplayListCursor = temp_v1_5 + 8;
+                    temp_v1_5 = D_80115328;
+                    D_80115328 = temp_v1_5 + 8;
                     (*(s32 *)((char *)(temp_v1_5) + 0)) = 0xF1000000;
                     (*(s32 *)((char *)(temp_v1_5) + 4)) = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
                     var_t9 += 1;
                 } while ((var_t9 & 0xFFFF) < ((*(u32 *)((s8 *)arg2 + 0x28) >> 8) & 0xF));
             }
-            temp_a0_5 = *(u32 *)((s8 *)arg2 + 0x28);
+            temp_a0_5 = (u32) ((__repair_record_arg2*)arg2)->field_28;
             var_s2 += 1;
             var_v0_2 = temp_a0_5 >> 8;
-        }
-if ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF)) goto __repair_rows;
+        } while ((var_s2 & 0xFFFF) < ((temp_a0_5 >> 0xC) & 0xF));
     }
-    temp_v0_6 = sDisplayListCursor;
-    sDisplayListCursor = temp_v0_6 + 8;
+    temp_v0_6 = D_80115328;
+    D_80115328 = temp_v0_6 + 8;
     (*(s32 *)((char *)(temp_v0_6) + 0)) = 0xE8000000;
     (*(s32 *)((char *)(temp_v0_6) + 4)) = 0;
 }
