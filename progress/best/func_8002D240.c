@@ -156,7 +156,7 @@ void func_8002D240(void)
   D_801002F3 = 1;
   D_801002F2 = 0;
   D_801002F0 = 0xA;
-  c2 = 2; c64 = 0x64; c1 = 1;
+  c64 = 0x64; c2 = 2; c1 = 1;
   func_8000A22C(0xA);
   ci = 0;
   func_8000A18C(D_801002F1);
@@ -274,8 +274,8 @@ void func_8002D240(void)
       q = t3 + (t0 + b3);
       func_8002B000(q, 0x1E);
       a2 = *(u16 *)((i * 2) + ((v * 6) + b2));
-      cj += 1;
       func_8002B150(q, a2 >> 8, a2 & 0xFF);
+      cj += 1;
     } while ((u16)cj < 3U);
     ci += 1;
   } while ((u16)ci < 0xEU);

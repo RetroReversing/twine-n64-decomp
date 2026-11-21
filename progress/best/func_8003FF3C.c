@@ -133,7 +133,7 @@ s32 __repair_result_a2;
             t16 = BE16(var_s1 + (var_s0[0] * 2));
             *var_s6 = t16;
             t16b = BE16(var_s1 + (var_s2[-1] * 2));
-            var_s4[-2] = t16b;
+            var_s4[-1] = t16b;
             a2 = t16 & 0xFFFF;
             var_s6 += 3;
             tmp8 = var_s2[0];
@@ -159,7 +159,7 @@ s32 __repair_result_a2;
             t16 = BE16(var_s1 + (var_s0[0] * 6));
             *var_s6 = t16;
             t16b = BE16(var_s1 + (var_s2[-1] * 6));
-            var_s4[-2] = t16b;
+            var_s4[-1] = t16b;
             a2 = t16 & 0xFFFF;
             var_s6 += 3;
             tmp8 = var_s2[0] * 3;
@@ -226,8 +226,9 @@ s32 __repair_result_a2;
           break;
 
         case 0:
-          tmp8 = var_s1[var_s0[1] * 3];
-          var_s5[0] = tmp8;
+          { u8 first = var_s1[var_s0[1] * 3];
+          var_s5[0] = first;
+          a2 = first; }
           __repair_phase_v1 = var_s1[var_s0[2] * 3];
           var_s5[1] = (u8) __repair_phase_v1;
           tmp8 = var_s1[var_s0[3] * 3];

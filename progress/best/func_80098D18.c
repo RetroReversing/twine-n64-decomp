@@ -330,7 +330,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
             }
             if ((*(sVoiceKeepFlags + inline_fn(var_t1))) != 0)
             {
-              D_8010A930 -= 1;
+ do { D_8010A930 -= 1; } while (0);
               var_v0_13 = arg3 & 0xFF;
             }
             else
@@ -361,4 +361,3 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   return -1U;
 
 }
-

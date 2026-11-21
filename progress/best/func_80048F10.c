@@ -350,10 +350,14 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                             sp23C = var_t3;
                             var_t2 = sp238;
                             var_t3 = sp23C;
-                            if (((func_8004D910(&sp48, &spA0, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), ((int) temp_v1_3) + ((*((u16 *) (((char *) var_s2) + 0))) * 0xC), sp1DC) & 0xFF) && (spB0 >= 0.0f)) && (((u32) spB0) < var_fs2))
+                            if ((func_8004D910(&sp48, &spA0, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), ((int) temp_v1_3) + ((*((u16 *) (((char *) var_s2) + 0))) * 0xC), sp1DC) & 0xFF))
                             {
-                              var_fs2 = spB0;
-                              var_s6 = temp_s5;
+                              f32 distance = spB0;
+                              if (distance >= 0.0f && distance < var_fs2)
+                              {
+                                var_fs2 = distance;
+                                var_s6 = temp_s5;
+                              }
                             }
                           }
                           var_s2 = ((u16 *) var_s2) + 3;
