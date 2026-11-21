@@ -2,7 +2,7 @@
 
 s32 func_80022B60();
 extern char D_800BD640[];
-extern s32 D_800BD644;
+extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD64C;
 extern s32 D_800BD650;
 extern s32 D_800BD65C;
@@ -44,7 +44,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                     case 0xFF:                      /* switch 1 */
                         global_ptr = gMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
-                        __base_D_800BD644 = &D_800BD644;
+                        __base_D_800BD644 = &sSaveMenuFlagsA;
                         var_v0 = (*__base_D_800BD644);
                         break;
                     case 0x1:                       /* switch 1 */

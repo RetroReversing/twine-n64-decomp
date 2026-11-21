@@ -40,7 +40,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     s32 *formatName;
     s32 enemyOffset;
     s32 *temp_s0_3;
-    s32 *var_a1;
+    s32 markerLinked;
     s16 temp_v0_5;
     s16 temp_v0_8;
     s16 temp_v0_9;
@@ -77,13 +77,12 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
     void *temp_v1_5;
     void *temp_v1_7;
 
-    var_a1 = arg1;
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_s2 = M2C_FIELD(var_a1, void **, 0x6C);
+    temp_s2 = M2C_FIELD(arg1, void **, 0x6C);
     if (gSceneType == 8) {
         temp_s3 = randomIntBelow(0x1E) / 10;
         var_s0 = 0;
-        var_a1 = NULL;
+        markerLinked = 0;
         var_a0 = 0;
         var_v1 = &gBonusSceneHandle;
         do {
@@ -98,17 +97,17 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
         } while (++var_a0 < 4U);
         if ((var_s0 ^ 1) & 1 & (temp_s3 == 0)) {
             relinkTrackMarker(temp_s1, 1);
-            var_a1 = (s32 *)1;
+            markerLinked = 1;
         }
         if (((var_s0 >> 1) ^ 1) & 1 & (temp_s3 == 1)) {
             relinkTrackMarker(temp_s1, 2);
-            var_a1 = (s32 *)1;
+            markerLinked = 1;
         }
         if (((var_s0 >> 2) ^ 1) & 1 & (temp_s3 == 2)) {
             relinkTrackMarker(temp_s1, 4);
-            var_a1 = (s32 *)1;
+            markerLinked = 1;
         }
-        var_v0 = (s32)var_a1;
+        var_v0 = markerLinked;
         if (var_v0 != 0) {
             var_v0 = 1;
             if (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xB4), u8 *, 0x10) == 7) {
@@ -174,10 +173,10 @@ block_15:
                         M2C_FIELD(temp_a0_2, s16 *, 0x1BC) = temp_v0_5;
                     }
                     var_a0_3 = 0xD8;
-                    if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-                        goto block_63;
+                    if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
+                        goto block_65;
                     }
-                    goto block_65;
+                    goto block_63;
                 }
         return 0;
     case 0:

@@ -25,7 +25,7 @@ extern char D_80107EA8[];
 extern void *gMenuState;
 extern char D_80109C1C[];
 extern char D_8010D478[];
-extern s32 func_800240A4;
+extern s32 updateSaveMenuEntries;
 extern s32 func_800241F8;
 
 typedef struct { s32 first, second; } SavePair;
@@ -39,7 +39,7 @@ void func_8002424C(void) {
 
     func_8002CBD8();
     D_800BD690 = 0;
-    func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &func_800240A4, &func_800241F8);
+    func_8002A644(D_80107EA8, D_8010D478, 0xC0, 6, 0x58, 0xB2, 0x3C, 0x14, 1, &updateSaveMenuEntries, &func_800241F8);
     func_80022A30((i = 0, base = D_800BD5D0, config = base - 0x4C,
                    empty = 0xF, full = 0x10, slot = base - 0x34, gMenuListParam),
                   0x20, 0x3C, 0xF8, (pairs = D_80109C18, 0x78));

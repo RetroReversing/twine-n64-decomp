@@ -12,40 +12,40 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 approximateAtan2(f32 arg0, f32 arg1) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 var_ft0;
-    f32 var_fv0;
-    f32 var_fv1;
+/* Polynomial approximation of atan2(y, x) returning an angle in radians. */ f32 approximateAtan2(f32 x, f32 y) {
+    f32 ratioInv;
+    f32 ratio;
+    f32 angle;
+    f32 absX;
+    f32 absY;
 
-    if (arg1 == arg0) {
-        var_ft0 = 0.7853982f;
-        if (arg1 == 0.0f) {
-            var_ft0 = 0.0f;
+    if (y == x) {
+        angle = 0.7853982f;
+        if (y == 0.0f) {
+            angle = 0.0f;
         }
     } else {
-        var_fv1 = arg1;
-        if (arg1 < 0.0f) {
-            var_fv1 = -arg1;
+        absY = y;
+        if (y < 0.0f) {
+            absY = -y;
         }
-        var_fv0 = arg0;
-        if (arg0 < 0.0f) {
-            var_fv0 = -arg0;
+        absX = x;
+        if (x < 0.0f) {
+            absX = -x;
         }
-        if (var_fv0 < var_fv1) {
-            temp_fv0_2 = var_fv0 / var_fv1;
-            var_ft0 = (temp_fv0_2 * 1.06036f) - (temp_fv0_2 * temp_fv0_2 * 0.272123f);
+        if (absX < absY) {
+            ratio = absX / absY;
+            angle = (ratio * 1.06036f) - (ratio * ratio * 0.272123f);
         } else {
-            temp_fv0 = var_fv1 / var_fv0;
-            var_ft0 = 1.5707964f - ((temp_fv0 * 1.06036f) - (temp_fv0 * temp_fv0 * 0.272123f));
+            ratioInv = absY / absX;
+            angle = 1.5707964f - ((ratioInv * 1.06036f) - (ratioInv * ratioInv * 0.272123f));
         }
     }
-    if (arg1 < 0.0f) {
-        var_ft0 = 3.1415927f - var_ft0;
+    if (y < 0.0f) {
+        angle = 3.1415927f - angle;
     }
-    if (arg0 < 0.0f) {
-        var_ft0 = -var_ft0;
+    if (x < 0.0f) {
+        angle = -angle;
     }
-    return var_ft0;
+    return angle;
 }

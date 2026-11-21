@@ -1,5 +1,5 @@
 void func_80022B60(s32, ...);
-extern u32 D_800BD644;
+extern u32 sSaveMenuFlagsA;
 extern u32 D_800BD64C;
 extern u8 gMenuUseTextList;
 extern u8 *gMenuState;
@@ -13,7 +13,7 @@ void func_8001AB88(Ent *arg0, u8 arg1) {
         s->x = arg0->x;
         s->y = arg0->y;
         if (arg0->kind == 0xFF) {
-            s->color = (D_800BD644 & ~0xFF) | gMenuState[0x30];
+            s->color = (sSaveMenuFlagsA & ~0xFF) | gMenuState[0x30];
         } else {
             s->color = (D_800BD64C & ~0xFF) | gMenuState[0x30];
         }

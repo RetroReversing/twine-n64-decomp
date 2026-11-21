@@ -7,7 +7,7 @@ s32 *lookupDataEntry(s32);                    /* extern */
 s32 func_8011CFB0();                            /* extern */
 void *func_8011E304(s32, s32, void *, s8);          /* extern */
 s32 sprintf(void *, s32 *);                 /* extern */
-extern s32 D_800BD644;
+extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD654;
 extern s32 D_800BD66C;
 extern s32 D_800BD678;
@@ -260,7 +260,7 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                                                 (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) D_800BD654;
                                             }
                                         } else {
-                                            (*(s32 *)((char *)(temp_v0) + 0x10)) = D_800BD644;
+                                            (*(s32 *)((char *)(temp_v0) + 0x10)) = sSaveMenuFlagsA;
                                         }
                                         (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0xC);
                                         func_800448A4(temp_v0, 0x17, 0x1B);

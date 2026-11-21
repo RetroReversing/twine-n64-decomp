@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK actorSteerTowardTarget(void *, s32, void *, s32);    /* extern */
-extern s32 D_800BD644;
+extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD650;
 extern s32 D_800BD678;
 extern s32 gVisibleSaveSlots;
@@ -55,7 +55,7 @@ void func_8011CAE4(void) {
         M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD650;
         break;
         default:
-        M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD644;
+        M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) sSaveMenuFlagsA;
         break;
         }
         }

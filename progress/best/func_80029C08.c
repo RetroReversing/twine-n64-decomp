@@ -11,7 +11,7 @@ s32 func_8002AB34();
 s32 func_8002AB54();
 s32 func_8002AB6C();
 extern char D_80000001[];
-extern s32 D_800BD644;
+extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD64C;
 extern s32 D_800BD660;
 extern f64 D_800D2CD0;
@@ -102,7 +102,7 @@ block_13:
             }
             requestSound(var_a0_2);
             temp_a1 = (*(void **)((char *)(var_s3) + 8));
-            ((__repair_field_10 *)temp_a1)->value = (s32) ((D_800BD644 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
+            ((__repair_field_10 *)temp_a1)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
                 func_8002AAF4(arg0, temp_a1);
             } else {
@@ -115,7 +115,7 @@ block_13:
             }
             requestSound(var_a0_3);
             temp_a1_2 = (*(void **)((char *)(var_s4) + 8));
-            ((__repair_field_10 *)temp_a1_2)->value = (s32) ((D_800BD644 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
+            ((__repair_field_10 *)temp_a1_2)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
                 func_8002AAD4(arg0, temp_a1_2);
             } else {

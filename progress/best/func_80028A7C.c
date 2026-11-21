@@ -18,7 +18,7 @@ M2C_UNK func_800278AC(M2C_UNK, s32, M2C_UNK);       /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80030644(s32, M2C_UNK);                /* extern */
-extern s32 D_800BD648;
+extern s32 sSaveMenuFlagsB;
 extern s32 D_800BD64C;
 extern M2C_UNK D_800BD8C4;
 extern s32 gMenuSoundParams;
@@ -58,7 +58,7 @@ void func_80028A7C(void) {
     }
     temp_v1 = M2C_FIELD(gMenuState, void **, 0x1C);
     if (temp_v1 != NULL) {
-        M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) (D_800BD648 | 0xFF);
+        M2C_FIELD(temp_v1, s32 *, 0x10) = (s32) (sSaveMenuFlagsB | 0xFF);
         M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x1C), u16 *, 0x22) = (u16) M2C_FIELD(gMenuState, u16 *, 0x32);
         M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x1C), s16 *, 0x20) = 0;
         M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x1C), s16 *, 0x26) = 0x140;
