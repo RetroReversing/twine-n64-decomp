@@ -15,25 +15,25 @@ typedef s32 M2C_UNK32;
 s32 requestSound();
 s32 func_80065BC4();
 s32 func_80084338();
-extern char D_800C4486[];
+extern char gPhaseSlotIds[];
 
-void func_80070B40(void *arg0) {
-    s32 var_a0_2;
-    s32 temp_v1;
-    s16 var_a0;
-    s32 var_a1;
-    s8 temp_v0;
-    s32 var_a0_3;
-    void *temp_s1;
-    void *temp_v0_2;
-    void *temp_v1_2;
-    void *temp_v1_3;
-    void *temp_v1_4;
+/* Advances the actor's phase counter through 0x28..0x37, plays the phase sound, then maps the phase to its slot index. */ void advanceActorPhaseSound(void *actor) {
+    s32 soundId;
+    s32 stateId;
+    s16 skipFirstSound;
+    s32 tableOffset;
+    s8 nextPhase;
+    s32 tableIndex;
+    void *actorState;
+    void *phaseTrackD;
+    void *phaseTrackA;
+    void *phaseTrackB;
+    void *phaseTrackC;
 
-    temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_v1 = M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xA8), s16 *, 0x7A);
-    var_a0 = 1;
-    switch (temp_v1) {
+    actorState = M2C_FIELD(actor, void **, 0x6C);
+    stateId = M2C_FIELD(M2C_FIELD(actorState, void **, 0xA8), s16 *, 0x7A);
+    skipFirstSound = 1;
+    switch (stateId) {
     case 1:
     case 3:
     case 5:
@@ -48,40 +48,40 @@ void func_80070B40(void *arg0) {
     case 2:
     case 4:
     case 8:
-        temp_v1_2 = M2C_FIELD(arg0, void **, 0x68);
-        M2C_FIELD(temp_v1_2, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_2, u8 *, 0xE);
-        temp_v1_3 = M2C_FIELD(arg0, void **, 0x68);
-        if (M2C_FIELD(temp_v1_3, s8 *, 0xF) < 0x28) {
-            M2C_FIELD(temp_s1, s16 *, 0x134) = (s16) (s8) M2C_FIELD(temp_v1_3, u8 *, 0xE);
-            M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = 0x27;
+        phaseTrackA = M2C_FIELD(actor, void **, 0x68);
+        M2C_FIELD(phaseTrackA, u8 *, 0x10) = (u8) M2C_FIELD(phaseTrackA, u8 *, 0xE);
+        phaseTrackB = M2C_FIELD(actor, void **, 0x68);
+        if (M2C_FIELD(phaseTrackB, s8 *, 0xF) < 0x28) {
+            M2C_FIELD(actorState, s16 *, 0x134) = (s16) (s8) M2C_FIELD(phaseTrackB, u8 *, 0xE);
+            M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xF) = 0x27;
         }
         for (;;) {
-            temp_v1_4 = M2C_FIELD(arg0, void **, 0x68);
-            temp_v0 = (u8) M2C_FIELD(temp_v1_4, s8 *, 0xF) + 1;
-            M2C_FIELD(temp_v1_4, s8 *, 0xF) = temp_v0;
-            if (temp_v0 >= 0x37) {
-                M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = 0x28;
-                var_a0_2 = 0xEC;
-                if (var_a0 != 0) {
-                    var_a0 = 0;
+            phaseTrackC = M2C_FIELD(actor, void **, 0x68);
+            nextPhase = (u8) M2C_FIELD(phaseTrackC, s8 *, 0xF) + 1;
+            M2C_FIELD(phaseTrackC, s8 *, 0xF) = nextPhase;
+            if (nextPhase >= 0x37) {
+                M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xF) = 0x28;
+                soundId = 0xEC;
+                if (skipFirstSound != 0) {
+                    skipFirstSound = 0;
                     goto block_10;
                 }
-                temp_v0_2 = M2C_FIELD(arg0, void **, 0x68);
-                M2C_FIELD(temp_v0_2, s8 *, 0xF) = (s8) M2C_FIELD(temp_v0_2, u8 *, 0xE);
+                phaseTrackD = M2C_FIELD(actor, void **, 0x68);
+                M2C_FIELD(phaseTrackD, s8 *, 0xF) = (s8) M2C_FIELD(phaseTrackD, u8 *, 0xE);
                 {
-                    requestSound(var_a0_2);break;}
+                    requestSound(soundId);break;}
             }
 block_10:
             {
-            char *slot = temp_s1;
-            slot += M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 8;
-            if (M2C_FIELD(slot, u8 *, 0x1FC) != 0) {
-                var_a0_2 = 0x118;
-                if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
-                    func_80084338(0x118, arg0 + 0x24);
+            char *phaseSlot = actorState;
+            phaseSlot += M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xF) * 8;
+            if (M2C_FIELD(phaseSlot, u8 *, 0x1FC) != 0) {
+                soundId = 0x118;
+                if (M2C_FIELD(actor, u16 *, 0x78) == 3) {
+                    func_80084338(0x118, actor + 0x24);
                 } else {
 block_12:
-                    requestSound(var_a0_2);
+                    requestSound(soundId);
                 }
             } else {
                 continue;
@@ -89,17 +89,17 @@ block_12:
             break;
             }
         }
-        func_80065BC4(arg0);
-        M2C_FIELD(temp_s1, u16 *, 0x174) = 0U;
-        var_a0_3 = 0;
-        var_a1 = 0;
+        func_80065BC4(actor);
+        M2C_FIELD(actorState, u16 *, 0x174) = 0U;
+        tableIndex = 0;
+        tableOffset = 0;
         do {
-            if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) == *(s16 *)(D_800C4486 + var_a1)) {
-                M2C_FIELD(temp_s1, u16 *, 0x174) = var_a0_3;
+            if (M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s8 *, 0xF) == *(s16 *)(gPhaseSlotIds + tableOffset)) {
+                M2C_FIELD(actorState, u16 *, 0x174) = tableIndex;
             }
-            var_a0_3 += 1;
-            var_a1 += 0x10;
-        } while (var_a0_3 < 0x1EU);
+            tableIndex += 1;
+            tableOffset += 0x10;
+        } while (tableIndex < 0x1EU);
         break;
     }
 }

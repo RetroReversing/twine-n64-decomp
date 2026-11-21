@@ -101,5 +101,5 @@ if ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2)) goto __repair_rows;
     }
     func_80084048(temp_v0_2, 0x2D);
     func_80084048(temp_v0, 0x2D);
-    func_80083E44(arg0);
+    func_80083E44(temp_s6);
 }

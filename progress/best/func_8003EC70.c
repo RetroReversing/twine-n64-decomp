@@ -14,11 +14,11 @@ extern s8 *D_800E19C0;
 extern s8 *D_800E19C4;
 extern s16 D_800E19C8;
 extern s16 D_800E19CA;
-extern s16 D_800E19CC;
-extern s16 D_800E19CE;
+extern u16 D_800E19CC;
+extern u16 D_800E19CE;
 
 s32 func_8003EC70(s32 arg0) {
-
+    u8 __repair_frame[16];
     s32 *temp_v0_4;
     f32 temp_ft0;
     f32 temp_ft0_2;
@@ -70,16 +70,16 @@ s32 func_8003EC70(s32 arg0) {
     register void *temp_v0_3;
     void *temp_v1_3;
     register void *temp_v1_4;
-    u8 sp[16];
+    u8 sp[4];
 
     var_t2 = arg0;
     D_800E19CE = 0;
     D_800E19CC = 0;
     D_800E19CA = 0;
     D_800E19C8 = 0;
-    var_v1 = 0;
+    var_a0 = 0;
     if (var_t2 > 0) {
-        var_a0 = 0;
+        var_v1 = 0;
         do {
             temp_fv0 = *((f32 *)((s8 *)&D_800E1778 + var_v1));
             if (temp_fv0 < D_800C0754) {
@@ -190,7 +190,6 @@ s32 func_8003EC70(s32 arg0) {
                         goto block_45;
                     }
                     break;
-                case 2:
                 default:
                     if ((s16) D_800E19C8 != 0) {
                         var_ft1 = D_800C075C;
@@ -259,12 +258,12 @@ block_46:
                                         var_a3 += 4;
                                         var_a2 += 4;
                                     } while (var_a2 != temp_t0);
-                                    *var_a3 = *var_a2;/*__repair_loop_weight*/do {do {do {
-                                    var_t1++;} while (0);} while (0);} while (0);
+                                    *var_a3 = *var_a2;
+                                    var_t1++;
                                 }
-                                temp_a3 = var_t3;
-                                temp_v0 = temp_a3 + 1;
-                                var_v0_5 = temp_a3;
+                                temp_a1 = var_t3;
+                                temp_v0 = temp_a1 + 1;
+                                var_v0_5 = temp_a1;
                                 var_t3 = temp_v0;
                             } while (temp_v0 < var_t2);
                         }
