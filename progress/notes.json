@@ -3712,7 +3712,7 @@
   "score_after": 280
  },
  {
-  "function": "func_80044D28",
+  "function": "activateIdList",
   "text": "Current best score 465/23 instructions on -O1 profile. First source recompile matched inherited score, with missing 2 insns and shifted branch due to omitted second arg at func_800426B8. Assembly shows call args: a0=*(D_80109688+8), a1=current s16, a2=1; increment pointer in jal delay slot. Also initial signed guard branches to epilogue, loop checks next s16 with bgez. Rework loop to pass three arguments and preserve delay-slot scheduling.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795137674.460875,
@@ -6688,7 +6688,7 @@
   "score_after": 1740
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Current best/current rechecked score 60, revision 61178a785d1f79d7a959. Structural match achieved by s16 sp10[0x100] and using its elements for stack array accesses; target frame/instruction count match. Remaining 12 rows are register allocation only: target uses $a0 as descending-loop pointer from stack+0x46 and subsequent target calls use stack+0x10; candidate uses $a1 for loop pointer. Tested independent declaration reorders/removing unused locals and replacing &sp10[0] with sp10; all stayed at score 60. No score improvement at 8/8 move-on budget. Further work could inspect function's source-level pointer/local lifetimes or explicit scopes to encourage $a0 reuse; don't alter array shape/loop structure.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795164612.196413,
@@ -6782,6 +6782,14 @@
   "created_at": 1795165214.895798,
   "score_before": 2180,
   "score_after": 2180
+ },
+ {
+  "function": "vecSlerp",
+  "text": "Rechecked baseline remains score 325 (revision 6154ab78868fa9828853). Tried local repairs for inferred record layout, branch orientation, constant locals, split scalar lifetime, const reads, and unused frame local. Best remained 325; one frame-local variant worsened to 327. Main visible mismatch starts around dot-product accumulation: target uses $fv1/$ft1/$ft0/$fv0 and accumulates as add.s $fv1,$fv1,$ft1 then +$ft0 then +$fv0, while baseline allocates different FPRs/order; remaining function body has substantial FPR allocation mismatches. Retry from candidate and inspect target full assembly, especially expression grouping and local lifetime. A second local repair batch halted after a concurrent progress change.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795165228.443718,
+  "score_before": 325,
+  "score_after": 325
  },
  {
   "function": "func_8009DCD0",
@@ -10152,7 +10160,7 @@
   "score_after": 30
  },
  {
-  "function": "func_80044D28",
+  "function": "activateIdList",
   "text": "Best verified score 465. Adding an inferred three-argument func_800426B8 call made score 665; restoring the original single-argument call returned to 465. Remaining target differences: initial signed halfword check happens before saving s0; current code saves s0 before checking. Target uses branch targets 0x4c/0x18 and has an additional addiu a2,1 before func_800426B8. Need resolve callee args and loop structure; explicit extra parameters were not correct.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795177866.41606,
@@ -13560,7 +13568,7 @@
   "score_after": 15
  },
  {
-  "function": "func_80044D28",
+  "function": "activateIdList",
   "text": "Improved 465 to 315 by passing the target's second and third call arguments and using s32 for the loaded signed halfword. Remaining mismatch is instruction scheduling: initial pointer move before branch and second load before first call; try loop/source structure to defer them. Local loop backedge and declaration variants tied.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795182298.993222,
@@ -15880,7 +15888,7 @@
   "score_after": 1220
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Current header prototype makes saved candidate's one-argument calls fail; casting func_80044D28 to an unprototyped function pointer allows compilation at verified score 60 (revision 49edd427f0ec6bbd19e0). Twelve register differences remain: two fill loops use a1 instead of a0, and final copy loop swaps a0/v1 roles. Six local repairs did not improve. Inspect callee prototype and loop-local lifetimes; cast is a workaround, not evidence of callee signature.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795183451.8724449,
@@ -15950,6 +15958,14 @@
   "created_at": 1795183473.317767,
   "score_before": 3073,
   "score_after": 3073
+ },
+ {
+  "function": "vecSlerp",
+  "text": "Unified var_fa1 and var_fa1_2, improving 325 to 300. Remaining 12 differences are register allocation and scheduling around polynomial evaluation. Tried signed and unsigned byte flag and multiplication order without improvement; inspect lifetimes of polynomial temporaries and scheduling.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795183473.585217,
+  "score_before": 325,
+  "score_after": 300
  },
  {
   "function": "func_80070CA4",
@@ -17072,7 +17088,7 @@
   "score_after": 4835
  },
  {
-  "function": "func_80044D28",
+  "function": "activateIdList",
   "text": "Agent typed-state trial scored 60 by taking `input` and separately assigning loop pointer `p` inside the nonnegative guard, then loading `state = D_80109688; id = *p; value = state->value; func_800426B8(value, (p++, id), 1);`. Only pointer addiu was early. Try `func_800426B8(value,*p++,1)` with state loaded beforehand or make the state field load volatile to maintain order. Tool transferred ownership before further trials.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795184015.030257,
@@ -18072,6 +18088,14 @@
   "score_after": 6665
  },
  {
+  "function": "vecSlerp",
+  "text": "Rechecked candidate 8a00527e7d746e1e0449 at 300. Twelve mismatch rows remain: 8 registers, 2 reordered, one insertion and one deletion; first is square var_fa1 in f6 target vs f0 candidate. Record casts, signed flag, const inputs, cached table base tie; branch inversion, split lifetimes and literal locals worsen. Investigate floating-point expression scheduling and register lifetimes in the polynomial.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795184455.527552,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
   "function": "func_8001CF24",
   "text": "Baseline 2130 rechecked. Six local repair variants plus early-lifetime patch and signedness trial yielded no score or instruction change; move-on at 8/8. First mismatch register is target lw $v1,0($s1) and move $a3,$a1 before null branch, candidate loads into $a0 and omits move. Need restructure to force $a3 copy/live incoming arg before branch; later signed/unsigned comparisons and target slti vs candidate sltiu also differ.",
   "by": "codex-gpt-6-luna-21",
@@ -18160,7 +18184,7 @@
   "score_after": 4815
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Fixed declaration/call compile errors by declaring func_80044D28(s16*) and removing an erroneous second argument; best fresh score observed was 540 after changing arg0 to s16 (historical best 60 is not comparable under current inputs). Explored s32/u16 arg widths (worse); move-on reached. Remaining mismatches: target dispatch references jtbl_800D3D50 and branches to +0x148, candidate emits an unresolved local jump table and branches to +0x150, plus narrow-arg shifts at entry. Next agent should inspect current saved_best/last_compiling, retain s16 parameter if useful, and restore the historical score-60 candidate before experiments.",
   "by": "codex-gpt-6-luna-18",
   "created_at": 1795184482.433001,
@@ -34440,6 +34464,14 @@
   "score_after": 2955
  },
  {
+  "function": "vecSlerp",
+  "text": "Baseline rechecked at 300. Local layout, signedness and const variants unchanged; reversed branch 630, literal local 302, split lifetime 1597. Remaining mismatch starts with polynomial square FPR selection and includes instruction scheduling.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795202398.906945,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
   "function": "guPerspectiveF",
   "text": "Baseline 445 with unresolved rodata reference and 42 mixed register/operand/branch differences. Loop backedges, layout, tail, call arity and scope failed.",
   "by": "codex-gpt-6.1-terra-2",
@@ -34472,7 +34504,7 @@
   "score_after": 475
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Baseline rechecked score 60 (131 instructions, 12 register allocation differences). Tried callee prototype based on matched func_80044D28; typed s16* caused too-many-arguments because target actually passes second pointer at one call. Restored saved baseline. Changing loop pointer from char* to s16* produced score 80 and altered strides to +/-4; no improvement. Threshold reached 8/8. Best candidate remains original score 60 revision 61178a785d1f79d7a959.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795202412.992357,
@@ -37224,6 +37256,14 @@
   "score_after": 2730
  },
  {
+  "function": "vecSlerp",
+  "text": "Inherited best score 300, but my initial whole-function attempt failed C89 parsing due to declarations after statements and lack of helper defines in source. Recovered saved_best at revision 8a00527e7d746e1e0449. Need compile original candidate first, then inspect evidence around float table index and expression order. No successful compile in this turn.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795205005.339734,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
   "function": "func_80044410",
   "text": "Not matched. Function: outer loop over 16-byte table entries (flag @D_800C0784, ptr @D_800C0788, count @D_800C078C, byte offset i stride 0x10, bound D_80100914) and inner loop over 0x4C-byte objects (timer byte @+0x46: if !(v&0x80) && v!=0, v--, store; if v==0 call func_80084048(arg0, *obj, 0x2E) and zero *obj; else if arg0!=0 && v>=5 store 0). Target uses s0-s5 only (frame 0x40); arg0 sign-extended (sll/sra) into s5 after the D_80100914 check. Tried: typed-pointer table walk (TwineEntry array) -> 4484, worse; offset-based i with s8 mode local -> 3719 (frame 0x38, extra s6/s7 saved regs; compiler hoists D_800C078C base into s3, target does not). Target reloads D_800C078C+i (addu with s4 copy of i) each inner iteration. Untested: loop on combined offset bound 0x10*D_80100914 without k counter; matching sll/sra placement exactly.",
   "by": "api-claude-haiku-5-5-4",
@@ -37344,7 +37384,7 @@
   "score_after": 45
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Inherited best candidate restored as required; score 60 is historical and not reverified after correcting an invalid extra call argument. Correcting func_80044D28 to its matched one-argument prototype compiles at 90, but does not beat the inherited best. Repeated fill loops in the valid version differ in register assignment. Previous candidate/current attempts remain available in history.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795205151.7491,
@@ -40168,6 +40208,14 @@
   "score_after": 705
  },
  {
+  "function": "vecSlerp",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Recovered saved_best (score 300, rev 8a00527e7d746e1e0449) and read target assembly start. Target polynomial: ft1=fa1*fa1, ft0=fa1*0x3F823B79 constant, ft2=ft1*fa1, ft1=ft1*ft2 (the pow-4 term) then fv1 accumulation. Prior notes: local layout/signedness/const variants unchanged at 300; reversed branch 630; literal local 302; split lifetime 1597. Untested next step: rewrite the polynomial as a single expression in the exact target order (ft0 constant multiply first, then pow-3/pow-4 terms) with the 1.5708 subtraction last, keeping the rest of the candidate; expect FPR selection to remain the mismatch.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795207871.774152,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
   "function": "func_8005BAB0",
   "text": "Not matched. Best 1192 (rev 0abd36b3aed093e41e28). Changes that helped: local char buf[0x100] (not s32), extern char D_800D4110[] declared inside function for the format string (fixes .rodata linker error), calls: func_80087100(0xFA,a1) result discarded, s1=f(0xFF), s0=f(0xFE), sprintf(buf,fmt,s1,A91C,s0,F28,s0), indexing &D_800C4428+var_s2 for the table compare (1795->1192). Remaining diffs: target re-loads D_80109688 global after the first |=0x40 store (lui/lw twice) while ours CSEs it; target keeps constant 1 in s4 across the loop (sh s4 / sw s4 arg) and saves s4 so frame saves are 6 regs; ours saves 5. Tried: adding dummy global self-assign and asm(\"\") (asm rejected). Next: find a way to force reload of D_80109688 (e.g. separate statements through a different pointer type) and an s4=1 live variable for the 0x7A store and 0x14 arg.",
   "by": "api-claude-haiku-5-5-3",
@@ -40408,7 +40456,7 @@
   "score_after": 800
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Best current candidate rechecked at score 60, revision 61178a785d1f79d7a959. A typed one-argument func_80044D28(s16*) prototype plus removing the final call's extra pointer argument compiled at score 90, with all operations/order matching but 18 register differences in the two descending fill loops. Restored saved_best. Local repair batch (shared_store_constant, explicit_loop_backedge, spill_declaration_order, inline_scalar_shape, typed_temporary, address_temporary) kept baseline score 60. Target uses v1 as the loop counter and a0 as the stack pointer in both descending loops; saved candidate assigns those roles to a0 and v1. Matched func_80044D28 has one argument, but target's final call delay slot sets a0 to sp+0x12 while a1 still carries the post-loop pointer; baseline has an unspecified old-style prototype and passes both, which can retain that a1 value. Keep saved candidate unless exploring register allocation.",
   "by": "codex-gpt-6-luna-16",
   "created_at": 1795208033.584011,
@@ -41720,7 +41768,7 @@
   "score_after": 80
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Stalled at score 60 (inherited best, revision 61178a785d1f79d7a959). Local repairs tried: loop backedge goto rewrites (60, no change), narrow temp (60), address temp (395), call arity drop (580, invalid). Remaining mismatch: 12 register diffs (target uses $a0 for the sp46 address where candidate uses $a1, and similar in the descending fill loops). Note the candidate's final func_80044D28(&sp10[1],var_a0_2) call has an invalid extra arg; func_80044D28 takes one s16*. Correcting it gives 90. Untried: reordering the fill-loop pointer locals or using a single shared s16* pointer for both fill loops.",
   "by": "api-claude-haiku-5-5-3",
   "created_at": 1795209093.4508102,
@@ -42672,6 +42720,14 @@
   "score_after": 1170
  },
  {
+  "function": "vecSlerp",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (rev 8a00527e7d746e1e0449, score 300) and the full target assembly. Structure matches in outline: dot product of two vec4 (arg1,arg2), sign flag in $a0, polynomial/table lookup via D_800CA350 with (trunc(x*651.8986)-0x400)&0xFFF indexing, 1/x via div.s from ft3=1.0, final 4-component store to arg3. Previous notes: local layout, signedness and const variants stuck at 300; reversed branch 630; split lifetime 1597. No new compile performed in this session, so no new evidence. Untested idea: the pow-4 term order and where the 0x3FC90FF9 (pi/2) constant sits relative to the -0x3EA729B3 term; try computing temp_fv1 as ((pi/2 - x*k1) - ft2*k2) - ft1*ft2*k3 with the constants loaded in the order seen in the asm (0x3F823B79 loaded before the mul by fa1; 0x3CA99708 next). Table lookups all use identical index expression so only the input operand of each lookup needs checking.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795209552.813644,
+  "score_before": 300,
+  "score_after": 300
+ },
+ {
   "function": "func_80047068",
   "text": "Rechecked saved best 12893: it computes only the first component and stores n, p1[0], and s+m+(-.5*p0[0]+.5*p2[0])*dt, where s is the cubic term and m the quadratic term. Reconstructed target as duration plus four words per component: base p1, delta (A+B+C), B, A; axis groups appear at offsets 4/8/c/10, 14/18/1c/20, 24/28/2c/30. Full 3-axis local-variable rewrite emitted 163 instructions but scored 19345 (then 18351 when reserve shrank 6\u21924); sequential temporary reuse emitted 115 instructions and scored 15780. Restored best revision 5a31c6e6a84c65a62eed. No exact match.",
   "by": "codex-gpt-6-luna-11",
@@ -43360,7 +43416,7 @@
   "score_after": 60
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Stalled at score 60 (revision 61178a785d1f79d7a959). Remaining mismatch is 12 register diffs: in the case-group descending fill loop (sp+0x46 store loop) the target uses $a0 for the loop pointer while candidate uses $a1; same pattern in the other fill loops. Tried: separate block-scoped s16* pointer loop (score 95), dropping the extra final-call arg with func_80044D28(&sp10[1]) (score 90, 18 reg diffs). Both worse than 60. Untested next step: restructure the switch so the case-group fill loop is not joined with the var_a0 pointer live range (e.g., assign var_a0 after the loop), or declare var_a0_2 as s16* to push the allocator toward $a0.",
   "by": "api-claude-haiku-5-5-8",
   "created_at": 1795210093.923376,
@@ -48143,7 +48199,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:01373c06c8bad58a2cdfe6fe68cbe058a4c94cecb35b07332659162093e21354"
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Best this session: score 90 (revision a936e5510ccbcdb55fb9), 18 register diffs only. Fixed the last block's call to func_80044D28(&sp10[1]) (the 2-arg call in the saved best is wrong). Remaining: in the 0x1B descending fill loops the target keeps the loop counter in $v1 and the sp+0x46 pointer in $a0; candidate swaps them. Declaration-order swaps and reordering the pointer init gave 90 or 105. Next step: try expressing the fill loop with a single shared helper-like block or a counter declared as s32 inside the case block, and check whether the third loop's pointer should be a1 (target uses $a1 for sp+0x10 pointer and $a0 for the index into D_800C447A).",
   "by": "api-claude-haiku-5-5-7",
   "created_at": 1795214750.0155342,
@@ -48239,6 +48295,15 @@
   "score_before": 10380,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:536b302a75d6b3d397db7996a1a99affd92067a9960bbcbf7a6b6ec037e83ab0"
+ },
+ {
+  "function": "vecSlerp",
+  "text": "Stalled at saved_best rev 8a00527e7d746e1e0449 (score 300). Structure matches: 4-term dot product of arg1/arg2, sign flag in a0, branch on (1-|x|)>0.01 with polynomial in x (t1=x*x, t2=t1*x, pow-4 term t1*t2), table lookups D_800CA350 indexed by ((int)(v*651.8986)-0x400)&0xFFF, 1/table via div, final 4-component combine store to arg3. A clean rewrite with my own variable naming (rev 08fce0b5695a589ff185) scored 380 (worse): the target computes the pow-4 product with a different register/order (mul t1,t1 at [38], nop, mul by t2 at [47] after a nop), and the table-index scalar order differs. Next step: on saved_best, try reordering the polynomial so t1*t2 is computed as (t1*t1)*x or as x*x*x*x chain to match the target's mul order at lines 38-47; keep the 300 baseline if no gain.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214831.527174,
+  "score_before": 3400,
+  "score_after": 380,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29ede7895b8824ea207660625f13c0d1ba0309e34d9785df4b418247c017e9d1"
  },
  {
   "function": "func_80079928",
@@ -49727,7 +49792,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f070be0536889ef813108c9f2fa2f820dbb208b6d7e4ce75f26b5d6f0ce96ad1"
  },
  {
-  "function": "func_80044DE4",
+  "function": "setupTrackMarkers",
   "text": "Current best score 60, rechecked; 12 register-only diffs. Register allocation loops: descending fills target uses $a0 as sp+0x46 pointer, candidate uses $a1. Final forward-copy loop target uses $v1 as index and $a0 as byte offset; candidate swaps those roles. Prior agents already tried declaration order, pointer init reorder, scoped s16 pointer, and call argument changes; no gains. Latest compile no effect. Further tuning exhausted move-on threshold.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795215810.622423,
@@ -49956,6 +50021,15 @@
   "score_before": 4170,
   "score_after": 1565,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:7abbe890035b0792ab5b7b39ca974000b05f24b133fa68d8700f7b89e98864ab"
+ },
+ {
+  "function": "vecSlerp",
+  "text": "Recompiled candidate 133 instructions, score 300. Added one extra polynomial staging multiplication before t2: improved score to 275 but emitted 135 instructions, with an extra mul and changed branch target; repeated multiplier after t2 had no effect. Best is saved at 275. Remaining first mismatch near polynomial branch: bc1f target .L1a0 vs candidate .L1a8, then FPR allocation for polynomial terms; 14 differences total.\nAdded one extra temp_ft1 multiplication before calculating temp_ft2 (300\u2192275), then another after temp_ft2 (no score change).\nBest score 275, 135 candidate insns vs target 133. Core outstanding differences are FPR register assignment and branch target around polynomial path.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795215959.068835,
+  "score_before": 380,
+  "score_after": 275,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29ede7895b8824ea207660625f13c0d1ba0309e34d9785df4b418247c017e9d1"
  },
  {
   "function": "func_80019690",
@@ -55759,77 +55833,65 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
  },
  {
-  "function": "func_800469C0",
-  "text": "Rechecked baseline remains score 325 (revision 6154ab78868fa9828853). Tried local repairs for inferred record layout, branch orientation, constant locals, split scalar lifetime, const reads, and unused frame local. Best remained 325; one frame-local variant worsened to 327. Main visible mismatch starts around dot-product accumulation: target uses $fv1/$ft1/$ft0/$fv0 and accumulates as add.s $fv1,$fv1,$ft1 then +$ft0 then +$fv0, while baseline allocates different FPRs/order; remaining function body has substantial FPR allocation mismatches. Retry from candidate and inspect target full assembly, especially expression grouping and local lifetime. A second local repair batch halted after a concurrent progress change.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795165228.443718,
-  "score_before": 325,
-  "score_after": 325
- },
- {
-  "function": "func_800469C0",
-  "text": "Unified var_fa1 and var_fa1_2, improving 325 to 300. Remaining 12 differences are register allocation and scheduling around polynomial evaluation. Tried signed and unsigned byte flag and multiplication order without improvement; inspect lifetimes of polynomial temporaries and scheduling.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795183473.585217,
-  "score_before": 325,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "Rechecked candidate 8a00527e7d746e1e0449 at 300. Twelve mismatch rows remain: 8 registers, 2 reordered, one insertion and one deletion; first is square var_fa1 in f6 target vs f0 candidate. Record casts, signed flag, const inputs, cached table base tie; branch inversion, split lifetimes and literal locals worsen. Investigate floating-point expression scheduling and register lifetimes in the polynomial.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795184455.527552,
-  "score_before": 300,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "Baseline rechecked at 300. Local layout, signedness and const variants unchanged; reversed branch 630, literal local 302, split lifetime 1597. Remaining mismatch starts with polynomial square FPR selection and includes instruction scheduling.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795202398.906945,
-  "score_before": 300,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "Inherited best score 300, but my initial whole-function attempt failed C89 parsing due to declarations after statements and lack of helper defines in source. Recovered saved_best at revision 8a00527e7d746e1e0449. Need compile original candidate first, then inspect evidence around float table index and expression order. No successful compile in this turn.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795205005.339734,
-  "score_before": 300,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Recovered saved_best (score 300, rev 8a00527e7d746e1e0449) and read target assembly start. Target polynomial: ft1=fa1*fa1, ft0=fa1*0x3F823B79 constant, ft2=ft1*fa1, ft1=ft1*ft2 (the pow-4 term) then fv1 accumulation. Prior notes: local layout/signedness/const variants unchanged at 300; reversed branch 630; literal local 302; split lifetime 1597. Untested next step: rewrite the polynomial as a single expression in the exact target order (ft0 constant multiply first, then pow-3/pow-4 terms) with the 1.5708 subtraction last, keeping the rest of the candidate; expect FPR selection to remain the mismatch.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795207871.774152,
-  "score_before": 300,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed saved_best (rev 8a00527e7d746e1e0449, score 300) and the full target assembly. Structure matches in outline: dot product of two vec4 (arg1,arg2), sign flag in $a0, polynomial/table lookup via D_800CA350 with (trunc(x*651.8986)-0x400)&0xFFF indexing, 1/x via div.s from ft3=1.0, final 4-component store to arg3. Previous notes: local layout, signedness and const variants stuck at 300; reversed branch 630; split lifetime 1597. No new compile performed in this session, so no new evidence. Untested idea: the pow-4 term order and where the 0x3FC90FF9 (pi/2) constant sits relative to the -0x3EA729B3 term; try computing temp_fv1 as ((pi/2 - x*k1) - ft2*k2) - ft1*ft2*k3 with the constants loaded in the order seen in the asm (0x3F823B79 loaded before the mul by fa1; 0x3CA99708 next). Table lookups all use identical index expression so only the input operand of each lookup needs checking.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795209552.813644,
-  "score_before": 300,
-  "score_after": 300
- },
- {
-  "function": "func_800469C0",
-  "text": "Stalled at saved_best rev 8a00527e7d746e1e0449 (score 300). Structure matches: 4-term dot product of arg1/arg2, sign flag in a0, branch on (1-|x|)>0.01 with polynomial in x (t1=x*x, t2=t1*x, pow-4 term t1*t2), table lookups D_800CA350 indexed by ((int)(v*651.8986)-0x400)&0xFFF, 1/table via div, final 4-component combine store to arg3. A clean rewrite with my own variable naming (rev 08fce0b5695a589ff185) scored 380 (worse): the target computes the pow-4 product with a different register/order (mul t1,t1 at [38], nop, mul by t2 at [47] after a nop), and the table-index scalar order differs. Next step: on saved_best, try reordering the polynomial so t1*t2 is computed as (t1*t1)*x or as x*x*x*x chain to match the target's mul order at lines 38-47; keep the 300 baseline if no gain.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214831.527174,
-  "score_before": 3400,
-  "score_after": 380,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29ede7895b8824ea207660625f13c0d1ba0309e34d9785df4b418247c017e9d1"
- },
- {
-  "function": "func_800469C0",
-  "text": "Recompiled candidate 133 instructions, score 300. Added one extra polynomial staging multiplication before t2: improved score to 275 but emitted 135 instructions, with an extra mul and changed branch target; repeated multiplier after t2 had no effect. Best is saved at 275. Remaining first mismatch near polynomial branch: bc1f target .L1a0 vs candidate .L1a8, then FPR allocation for polynomial terms; 14 differences total.\nAdded one extra temp_ft1 multiplication before calculating temp_ft2 (300\u2192275), then another after temp_ft2 (no score change).\nBest score 275, 135 candidate insns vs target 133. Core outstanding differences are FPR register assignment and branch target around polynomial path.",
+  "function": "func_80086DA0",
+  "text": "Built the inherited compiling approximation after confirming a 94-instruction/213 target candidate scores 12,550 (historical best 12,180). Main structural miss: dispatch needs target's exact `arg0 == 5`, `arg0 < 3`, `arg0 == 2` branch cascade; switch lowered to beq/bnel short paths. Target has three distinct initialization calls with index values 1/5/2 and tables, then shared offset stores. Current best remains the inherited approximation. Next step: inspect full assembly dispatch and express as sequential if/else conditions, preserving exact call/store delay-slot ordering.",
   "by": "codex-gpt-6-luna-20",
-  "created_at": 1795215959.068835,
-  "score_before": 380,
-  "score_after": 275,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:29ede7895b8824ea207660625f13c0d1ba0309e34d9785df4b418247c017e9d1"
+  "created_at": 1795225164.7815628,
+  "score_before": 12550,
+  "score_after": 12550,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5f2beaeed26d10429c5889f21242f9456bc2e736a1132f9afdefc4d4230fc091"
+ },
+ {
+  "function": "func_800184AC",
+  "text": "Best stays 35 (7 register-only diffs). Target keeps call-2 result in a0 (move a0,v0), first-1 in v1, cap in a1; ours puts ptr in v1, first-1 in s0, cap in a0. Tried decl order, s32/u32 cap/first, u16 arg1, cap-init order, register p, and inline helper getb(p) (worse: 999, extra saved reg). Next step: try making the loaded u8 come from a struct-typed pointer (e.g. p->unk8->b148 via typedef structs) or a ternary form for the clamp.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795225189.558441,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
+ },
+ {
+  "function": "func_80088040",
+  "text": "Reconstructed m2c draft using exact body and corrected u8 parameter types; compile score 4475, then parameter correction improved to 3885. Another signature reversion regressed to 4475. Saved best is 3885. Target stack args are byte loads at SP+0x53,0x57,0x5B; draft signature passes arg4-6 as s32, yielding word loads. Current best passes u8 but still mismatches initial spill/register mapping. Division expression currently produces 0x66666667 where target uses 0xCCCCCCCD; inspect reciprocal/division source shape. Next step: restore saved_best and try separate unsigned byte args/field-order local declaration tuning; separately recast formula to trigger target unsigned multiply reciprocal.\nu8 arg4-arg6 improved 4475\u21923885; reverting them worsened.\ntarget uses lbu for stack args, but register/spill order still shifted; reciprocal differs by factor two.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795225208.462922,
+  "score_before": 16210,
+  "score_after": 3885,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:c5feeaed2dbfbd305974a0114bfcd3b6cbf6cac8f5ad195afa2e49b9e743b67c"
+ },
+ {
+  "function": "setupTrackMarkers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not made readable this session: the body is a table-driven builder for a 0x100-entry s16 buffer keyed by arg0. Still unknown: the meaning of the switch cases, the callees func_800422F4/func_800426B8/func_80044D28, and the globals D_800C2B50..D_800C2BCC. Next step: read the callees and the caller func_800067C8 to find the meaning of arg0 before naming anything.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795225210.168291,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current verified best remains 690. Volatile pointer regressed to 1085; explicit early return with signed state and direct ternary scored 890. The target loads signed state byte at 0x11dd, initializes result accumulator to zero, computes remaining-step in a separate temporary, then clamps total-progress against step. Candidate has near-correct 27-insn shape but different registers and branches. Next step: try a local s8 state variable and separate signed remaining-step temporary while retaining shared return path, then tune clamp operands.\nu8* baseline 690; volatile pointer 1085; early return + signed state and direct ternary 890.\nBaseline remains best; target loads signed state and has distinct remaining-step temp, register/branch mismatch remains.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795225235.0332968,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8007092C",
+  "text": "Changed 0x469E entry to u16 and staged saved index, removed incidental a2 call argument. Tried split stride and array pointer variants.\n1020 to 830, lhu restored. Explicit 232-byte stride scored 1553. Array indexing and s8 saved copy unchanged. Three instructions absent around signed index and second offset calculation.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795225253.39111,
+  "score_before": 1020,
+  "score_after": 830,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:361027249e9b82033533a63b3de264e43250036e5b461641dcf507ecfac3c42d"
+ },
+ {
+  "function": "func_80073400",
+  "text": "Best 260 (rev 92f1adf76b8fed666ca9): only an extra addiu sp,-8/+8 frame and a 1-slot reorder of final swc1 vs addiu sp. Plain `u8 *p=&D_801007CF; p[-1]=0` gets folded into lui $at per store (3500); volatile p without x-x trick -> 2050; register var 3000. The `(u32)&D_801007CF + D_801003D8 - D_801003D8` trick keeps base in $v0 but spawns the frame (even without float local z; z local needed for swc1 $f0). Inline asm barred. Next step: find a non-asm way to keep the lui/addiu base in a register without the frame (e.g. base derived from a pointer-typed global/struct field address, or a helper static inline).\nx-x address trick, volatile, register, f32 local variants\nframe always 8 bytes extra at score 260",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795225254.08454,
+  "score_before": 260,
+  "score_after": 260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  }
 ]

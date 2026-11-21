@@ -24,7 +24,7 @@ s32 func_8000CF14();
 s32 func_8003C710();
 s32 func_80042CFC();
 s32 func_80044BE4();
-s32 func_80044D28();
+s32 activateIdList();
 s32 func_80044D84();
 s32 func_80044FF0();
 s32 func_8004505C();
@@ -134,12 +134,12 @@ s32 func_8000D000(void) {
     D_800CA338 = 1;
     if (temp_s1 == 0) {
         func_80044D84(D_800E0740);
-        func_80044D28(D_80100B60);
+        activateIdList(D_80100B60);
         func_80044FF0();
         func_80042CFC(M2C_FIELD(gTrackMarkerTable, s32 *, 8), D_800E0740);
         func_8004505C();
     } else {
-        func_80044D28(D_80100B60);
+        activateIdList(D_80100B60);
         func_8000CF14(0);
     }
     func_80048794(2, gProbeObjectList);

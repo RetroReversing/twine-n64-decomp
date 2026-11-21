@@ -5,7 +5,7 @@ typedef struct {
     volatile s32 value;
 } IdTable;
 extern IdTable *gTrackMarkerTable;
-void func_80044D28(s16 *input) {
+void activateIdList(s16 *input) {
     if (*input >= 0) {
         s16 *p = input;
         do {

@@ -7,7 +7,7 @@ s32 func_80008154();                            /* extern */
 s32 func_8000A310();                            /* extern */
 s32 func_800449A0();                            /* extern */
 s32 func_80044D84(s32);                     /* extern */
-s32 func_80044DE4(s32);                     /* extern */
+s32 setupTrackMarkers(s32);                     /* extern */
 s32 func_80044FF0();                            /* extern */
 s32 func_8004505C();                            /* extern */
 extern s8 D_801002AE;
@@ -40,7 +40,7 @@ void func_800067C8(void) {
     func_80008154();
     func_800449A0();
     func_80044D84(0xF);
-    func_80044DE4(0xF);
+    setupTrackMarkers(0xF);
     func_80044FF0();
     func_8004505C();
     create_centered_sprite(0xF, 0);

@@ -12,7 +12,7 @@ typedef struct {
 extern Object44D28 *gTrackMarkerTable;
 void func_800422F4(s16);
 void func_800426B8(s32, s16, s32);
-void func_80044D28(s16 *ids) {
+void activateIdList(s16 *ids) {
     if (*ids >= 0) {
         do {
             s16 id;

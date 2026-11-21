@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern f32 D_800CA350[];
+extern f32 gCosTable[];
 
 void func_80083410(void *arg0, void *arg1) {
     f32 temp_ft0;
@@ -24,10 +24,10 @@ void func_80083410(void *arg0, void *arg1) {
 
     temp_v1 = M2C_FIELD(arg0, s16 *, 0);
     temp_a0 = M2C_FIELD(arg0, s16 *, 4);
-    temp_ft1 = D_800CA350[(temp_v1 & 0xFFF)];
-    temp_fv1 = D_800CA350[((temp_a0 - 0x400) & 0xFFF)];
-    temp_ft0 = D_800CA350[(temp_a0 & 0xFFF)];
-    temp_fv0 = D_800CA350[((temp_v1 - 0x400) & 0xFFF)];
+    temp_ft1 = gCosTable[(temp_v1 & 0xFFF)];
+    temp_fv1 = gCosTable[((temp_a0 - 0x400) & 0xFFF)];
+    temp_ft0 = gCosTable[(temp_a0 & 0xFFF)];
+    temp_fv0 = gCosTable[((temp_v1 - 0x400) & 0xFFF)];
     M2C_FIELD(arg1, s32 *, 8) = 0;
     M2C_FIELD(arg1, f32 *, 0) = temp_ft0;
     M2C_FIELD(arg1, f32 *, 0x20) = temp_ft1;

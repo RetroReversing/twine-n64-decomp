@@ -16,7 +16,7 @@ M2C_UNK func_80026F84(M2C_UNK);                     /* extern */
 M2C_UNK func_8003FA20();                            /* extern */
 M2C_UNK func_80044C04();                            /* extern */
 M2C_UNK func_80044C4C(s32);                         /* extern */
-M2C_UNK func_80044D28(M2C_UNK *);                   /* extern */
+M2C_UNK activateIdList(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800C2BDC;
 extern void *gProbeObjectList;
 
@@ -27,6 +27,6 @@ void func_80044D84(s32 arg0) {
     M2C_FIELD(gProbeObjectList, s32 *, 4) = arg0;
     func_80044C4C(arg0);
     if (arg0 != 0xF) {
-        func_80044D28(&D_800C2BDC);
+        activateIdList(&D_800C2BDC);
     }
 }

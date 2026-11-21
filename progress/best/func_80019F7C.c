@@ -15,7 +15,7 @@ s32 func_8002B930();
 s32 func_8002B9CC();
 s32 func_8002BA6C();
 s32 getKeyEntryFlag();
-s32 func_80044D28();
+s32 activateIdList();
 extern void *gPickupActor;
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
@@ -66,7 +66,7 @@ void func_80019F7C(void) {
             gSharedItemArg = -1;
             gSharedItemBusy = 1;
             gSharedItemId = temp_v1;
-            func_80044D28(&gSharedItemId);
+            activateIdList(&gSharedItemId);
             gSharedItemBusy = 0;
             func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
             func_80002BD0((*__base_D_800B5B14), 0x14D);
@@ -104,7 +104,7 @@ block_11:
                 gSharedItemArg = -1;
                 gSharedItemBusy = 1;
                 gSharedItemId = temp_v1_3;
-                func_80044D28(&gSharedItemId);
+                activateIdList(&gSharedItemId);
                 gSharedItemBusy = 0;
                 func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
                 func_80002BD0((*__base_D_800B5B14), 0x14D);

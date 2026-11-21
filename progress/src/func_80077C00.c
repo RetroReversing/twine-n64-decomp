@@ -31,7 +31,7 @@ typedef struct { s32 pad[2]; s32 id; } Group44D;
 extern Group44D *gTrackMarkerTable;
 extern void func_800422F4(s16);
 extern void func_800426B8(s32, s16, s32);
-void func_80044D28(s16 *arg0) {
+void activateIdList(s16 *arg0) {
     s16 *entry = arg0;
     if (*arg0 >= 0) {
         do {

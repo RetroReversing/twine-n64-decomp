@@ -12,7 +12,7 @@ s32 func_8002B8AC();
 s32 func_8002B9CC();
 s32 func_8002B9FC();
 s32 func_800316C8();
-s32 func_80044D28();
+s32 activateIdList();
 s32 lookupDataEntry();
 extern void *volatile gPickupActor;
 extern u16 gSharedItemId;
@@ -57,7 +57,7 @@ void actorSetupItemPickup(void) {
                     D_80107ECC = 1;
                     sharedItemIdRef = &gSharedItemId;
                     (*sharedItemIdRef) = itemIdValue;
-                    func_80044D28(sharedItemIdRef);
+                    activateIdList(sharedItemIdRef);
                     D_80107ECC = 0;
                     func_8000237C((*pickupActorRef), func_8002B9CC(func_8002B9FC((*(u8 *)((char *)((((*(u8 *)((char *)(pickupEntry) + 8)) * 4) + itemTable)) + 2)))), 0, 0);
                     func_80002BD0((*pickupActorRef), 0x14D);

@@ -77,9 +77,9 @@ s32 func_8003EC70(s32 arg0) {
     D_800E19CC = 0;
     D_800E19CA = 0;
     D_800E19C8 = 0;
-    var_a0 = 0;
+    var_v1 = 0;
     if (var_t2 > 0) {
-        var_v1 = 0;
+        var_a0 = 0;
         do {
             temp_fv0 = *((f32 *)((s8 *)&D_800E1778 + var_v1));
             if (temp_fv0 < D_800C0754) {

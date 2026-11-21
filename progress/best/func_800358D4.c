@@ -87,6 +87,7 @@ void func_800358D4(void *arg0) {
             
             
              
+    volatile long long unused_frame;
     s32 var_a0;
     void *temp_v0_5;
     f32 *temp_s1;
