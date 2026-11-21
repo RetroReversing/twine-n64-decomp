@@ -1,5 +1,5 @@
 typedef struct { u8 b[8]; } Pk8;
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern s32 gSaveSlotInfo[];
 extern u16 D_800BF688[];
@@ -20,7 +20,7 @@ void func_80019E28(s32 arg0) {
     s32 temp_s0;
     u16 var_a0;
 
-    __base_D_801002AD = &D_801002AD;
+    __base_D_801002AD = &gPickupSavedByte;
     if ((*__base_D_801002AD) < gSaveSlotCount) {
         formatTextEntry(arg0, D_800D290C, lookupDataEntry(!(getKeyEntryFlag(gSaveSlotInfo[(*__base_D_801002AD) * 6]) & 0xFF) ? 0x15B : 0x15C));
     } else {

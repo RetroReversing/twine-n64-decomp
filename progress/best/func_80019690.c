@@ -21,7 +21,7 @@ extern char gSaveSlotInfo[];
 extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
-extern s8 D_801002AD;
+extern s8 gPickupSavedByte;
 extern volatile s32 gSaveTotalSlots;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
@@ -79,7 +79,7 @@ void func_80019690(void) {
         if (gBorderSkipFlag != 0) {
             D_801002AC = 0;
             D_801002A3 = 0;
-            D_801002AD = 0;
+            gPickupSavedByte = 0;
             D_801002CC = D_801002C4;
             D_801002D0 = D_801002C8;
             D_80102EF0 = 0;

@@ -28,7 +28,7 @@ s32 sprintf();
 s32 strlen();
 extern u16 D_800B60A4;
 extern void *D_800BF5A0;
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern void *gMenuState;
 extern s32 func_8011AA9C;
 
@@ -61,7 +61,7 @@ void func_80018E38(void) {
         temp_a1 = M2C_FIELD(D_800BF5A0, void **, 0);
         temp_a3 = M2C_FIELD(D_800BF5A0, void **, 4);
         temp_s1 = M2C_FIELD(M2C_FIELD(temp_a1, void **, 8), s8 **, 0x18);
-        __base_D_801002AD = &D_801002AD;
+        __base_D_801002AD = &gPickupSavedByte;
         temp_s0 = ((*__base_D_801002AD) * 0x18) + (__base_D_801002AD - 0x109);
         if (temp_a3 == temp_a1) {
             M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (temp_a3 + 0x28);

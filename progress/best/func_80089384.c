@@ -2,7 +2,7 @@ extern u32 (*gDataBankAlloc)(s32, s32);
 extern u32 gAudioVoiceTable, D_800E41E0, D_800E4220, D_800E4224, D_800E422C;
 extern u16 D_800E41E4, D_800E4216;
 extern s16 D_800E4228, D_800E422A;
-extern s16 D_800E41E6;
+extern u8 D_800E41E6;
 extern u8 D_8010086C;
 extern f64 D_800D66F0, D_800D66F8;
 extern u32 D_80000001;

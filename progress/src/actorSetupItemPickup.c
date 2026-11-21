@@ -20,7 +20,7 @@ extern s16 gSharedItemArg;
 extern char D_800C3CF8[];
 extern s8 D_80107ECC;
 extern void *gMenuState;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern char D_800D2864[];
 
 void actorSetupItemPickup(void) {
@@ -32,7 +32,7 @@ void actorSetupItemPickup(void) {
     u16 itemIdValue;
     u16 *sharedItemIdRef;
 
-    func_8002ACB4(D_8010A488);
+    func_8002ACB4(gPickupSearchBox);
     pickupActorRef = &gPickupActor;
     pickupActor = *pickupActorRef;
     if (pickupActor != NULL) {
@@ -42,8 +42,8 @@ void actorSetupItemPickup(void) {
         (*(f32 *)((char *)(gPickupActor) + 0x2C)) = -3.0f;
         (*(f32 *)((char *)(gPickupActor) + 0x54)) = 1.05f;
         func_80002D30((*pickupActorRef), 0x14D);
-        if (func_80029C08(D_8010A488, 2, 0) & 0xFFFF) {
-            pickupEntry = func_8002A980(D_8010A488);
+        if (func_80029C08(gPickupSearchBox, 2, 0) & 0xFFFF) {
+            pickupEntry = func_8002A980(gPickupSearchBox);
             if (pickupEntry != NULL) {
                 msgBuffer = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x4000);
                 itemTable = func_800316C8();

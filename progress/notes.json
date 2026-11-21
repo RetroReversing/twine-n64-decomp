@@ -11008,7 +11008,7 @@
   "score_after": 515
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Best score 80 (89/89 instructions); all instruction contents match, with four mismatches caused by order/operands around the first func_8000628C call. Target materializes $a2=1 immediately before loading address D_80109688 into $s0; candidate loads address first and sets $a2 later. Tried introducing a local constant, register declaration, and assigning it before address setup; compiler emitted identical instructions. Saved best initial candidate remains at score 80. Target sequence around rows 40\u201343 is mtc1; addiu $a2,1; lui/addiu $s0,D_80109688; swc1.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795178456.410769,
@@ -14784,7 +14784,7 @@
   "score_after": 1355
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Held best score 80, 89 instructions. The sole issue is scheduling a2=1 before the two instructions that materialize &D_80109688 near the final float store. Capturing pq within the call or explicitly staging the offset and object reads produced identical code. Using D_80109688 directly loses the shared address register, and moving address materialization within the final float assignment worsened the schedule. A next targeted test is a compiler-experiment profile for scheduler flags with the same source, or examine matched callers of func_8000628C for an argument declaration that changes call setup.",
   "by": "codex-gpt-6.2-sol-3",
   "created_at": 1795182949.633696,
@@ -25968,7 +25968,7 @@
   "score_after": 270
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Rechecked saved revision 54ff574d34f6c9f095e5 at 80. Signedness, declaration order, call arity, saved local widening and volatile global pointer yielded identical mismatch; introducing an address local for D_801002AD worsened to 225. Remaining four rows concern scheduling/address setup around D_80109688 and a2=1. Try other scheduling or source arrangements; unused address-local proposals remain.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795191769.05939,
@@ -27368,7 +27368,7 @@
   "score_after": 810
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
   "by": "codex-gpt-6.1-terra-3",
   "created_at": 1795193408.679759,
@@ -27448,7 +27448,7 @@
   "score_after": 60
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
   "by": "codex-gpt-6.1-terra-3",
   "created_at": 1795193444.283711,
@@ -27472,7 +27472,7 @@
   "score_after": 1120
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Verified score 80, 89 instructions. Only ordering differs: target sets a2=1 before materializing D_80109688 in s0; candidate materializes s0 first. Local signedness, declaration order, address local, arity, widening and volatile variants did not improve. Flag search retained 80. Try a different call argument expression or dependency that schedules a2 before address setup.",
   "by": "codex-gpt-6.1-terra-3",
   "created_at": 1795193608.5106292,
@@ -29768,7 +29768,7 @@
   "score_after": 575
  },
  {
-  "function": "func_8001BCA8",
+  "function": "resetPickupActorState",
   "text": "Rechecked saved candidate at score 820; best exact-code attempt remains 820. Tried current candidate with f24 before call (820) and after call (975); restored target-like ordering f24 before call. Local target_call_arity repair failed to compile because callee prototype requires one argument. Remaining diff centers on conditional branch extent (candidate beqz target 0x140 vs ROM 0x14c), call placement around f24 store, global pointer reload/register allocation and FP literal store scheduling. Need inspect full assembly and experiment with declarations/volatile access order.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795198299.603738,
@@ -57486,5 +57486,50 @@
   "score_before": 115,
   "score_after": 115,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:63d032bdee583f7ef1e58ee42e77de493af4d32036d4f9693dbc08db9ca3606c"
+ },
+ {
+  "function": "func_8011B5F0",
+  "text": "Only stub source was recoverable; fresh m2c draft using a plausible signature had unresolved '?' types and broken declarations. A manual partial rewrite of flag-set and loop entry compiled at 43241 vs stub 45760, but still only 47 of 459 target instructions; use as salvage starting point. Added ProbeActor layout to shared context (pos 0x24, flags 0x58, index 0x7B), accepted by all affected matched functions. No useful exact match.\nFresh partial rewrite encoded object flag bit and early probe path plus approximate distance loop.\nScore 43241 (47 vs 459 instructions); target address 0x8011F290 incorrectly resolved via gBonusSceneHandle candidate pointer at 0x8010A500; many calls/branches absent.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795228686.54662,
+  "score_before": 43241,
+  "score_after": 43241,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:0ed5ea5c32b5dbaa0fc5709ed3034853e04a13a72595c1e6e4e002275e2dbecb"
+ },
+ {
+  "function": "func_8007560C",
+  "text": "Verified saved candidate at 28119. Structural draft compiles after removing conflicting func_8004844C redeclaration (the shared header signature is correct); best recovered candidate 28119, 481/556 instructions. Alternative source compiled 29138 and was worse. Main early differences include missing D_80000300 load and target prologue sdc1 $f26; later global byte base should be D_8010A4C3-2 rather than global gSceneFlagsA accesses. Significant float expressions differ: target uses double conversions/additions and f30-based float adds.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795228698.342844,
+  "score_before": 29138,
+  "score_after": 28119,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:9ff5286058ba2cb0c5948c5fbf1e43d31f2ceb4260809b5ed9077bc5f2c4ed55"
+ },
+ {
+  "function": "lookupDataEntry",
+  "text": "Saved candidate uses low 16 bits where target masks low 12; correctness needs repair despite score.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795228748.508895,
+  "score_before": 2880,
+  "score_after": 2880,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Verified saved best 1315; changing osCreateMesgQueue call to pass three args improved from 1880 to 1315. Adding early 0x11A4/0x11A0 zero stores produced 1515; removing them restored 1315. Remaining structural mismatch is argument setup around queue call and conditional byte store; target emits addiu a2,1 and andi v0,zero,ffff plus beqz t1 / bnez t2 branches. Candidate only 45 of 49 target instructions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795228766.610645,
+  "score_before": 1880,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_800295F0",
+  "text": "Best stays 180 (m2c-style candidate, only s1/s2 swap: target keeps current value in s1 and upper bound in s2). Tried decl reorders (no change), s32 var_s1 (1880), pre-initializing s2/s0 (635), assignment swaps (525/305), and a typed-struct rewrite (2935; length 90 insns, different control flow\u2014structure loses the target's branches). Next step: keep M2C form but make var_s1 live range start later, e.g. read *value into temp used only after requestSound call? (target loads lbu before call into s1).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228772.838026,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
  }
 ]

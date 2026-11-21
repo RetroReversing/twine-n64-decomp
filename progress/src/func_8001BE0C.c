@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 M2C_UNK cache_release_block();                      /* extern */
 M2C_UNK func_8002A700(M2C_UNK *);                   /* extern */
 extern void *gPickupActor;
-extern M2C_UNK D_8010A488;
+extern M2C_UNK gPickupSearchBox;
 
 void func_8001BE0C(void) {
     void **__base_D_800B5B14;
-    func_8002A700(&D_8010A488);
+    func_8002A700(&gPickupSearchBox);
     cache_release_block();
     __base_D_800B5B14 = &gPickupActor;
     if ((*__base_D_800B5B14) != NULL) {

@@ -24,7 +24,7 @@ extern char D_800C3CF8[];
 extern char gSaveSlotInfo[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A3;
 extern Slot_801001A3 D_801001A3[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern s8 gSharedItemBusy;
 extern void *gMenuState;
@@ -51,7 +51,7 @@ void func_80019F7C(void) {
     var_s1 = *(*(s32 **)((char *)(temp_s0) + 0x10));
     temp_s3 = (void *)(temp_s0); temp_s3 = (void *)((char *)temp_s3 + (s32)(0x28));
     if (((*(u8 *)((char *)(gMenuState) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuState) + 0x2E)) == 0)) {
-        D_801001A3[D_801002AD].f0 = 0;
+        D_801001A3[gPickupSavedByte].f0 = 0;
         if (func_80027CE0(0x20) & 0xFF) {
             var_s1 = func_8002B930(var_s1, -1);
         }
@@ -68,10 +68,10 @@ void func_80019F7C(void) {
             gSharedItemId = temp_v1;
             activateIdList(&gSharedItemId);
             gSharedItemBusy = 0;
-            func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
+            func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[gPickupSavedByte].f0);
             func_80002BD0((*__base_D_800B5B14), 0x14D);
             (*(f32 *)((char *)((*(void **)((char *)((*__base_D_800B5B14)) + 0x68))) + 0x34)) = 0.05f;
-            if (getKeyEntryFlag(*(s32 *)(gSaveSlotInfo + (D_801002AD * 0x18))) & 0xFF) {
+            if (getKeyEntryFlag(*(s32 *)(gSaveSlotInfo + (gPickupSavedByte * 0x18))) & 0xFF) {
                 func_80002D30((*__base_D_800B5B14), 0x327);
             } else {
                 func_80002D30((*__base_D_800B5B14), 0x2A9);
@@ -82,18 +82,18 @@ void func_80019F7C(void) {
 block_11:
         (*(u8 *)((char *)(gMenuState) + 0x2D)) = 0U;
         if (func_80027C60(0x28) & 0xFF) {
-            temp_a0 = D_801002AD * 0x18;
-            temp_v1_2 = D_801001A3[D_801002AD].f0;
+            temp_a0 = gPickupSavedByte * 0x18;
+            temp_v1_2 = D_801001A3[gPickupSavedByte].f0;
             if (temp_v1_2) {
-                (*(s8 *)((char *)((temp_a0 + (&D_801002AD - 0x115))) + 0xB)) = (s8) (temp_v1_2 - 1);
+                (*(s8 *)((char *)((temp_a0 + (&gPickupSavedByte - 0x115))) + 0xB)) = (s8) (temp_v1_2 - 1);
                 (*(u8 *)((char *)(gMenuState) + 0x2D)) = 1U;
             }
         }
         if (func_80027C60(0x29) & 0xFF) {
-            temp_s0_2 = D_801001A3[D_801002AD].f0;
+            temp_s0_2 = D_801001A3[gPickupSavedByte].f0;
             if (temp_s0_2 < func_80001E28(*(s16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC)))) {
-                temp_a0 = D_801002AD * 0x18;
-                (*(s8 *)((char *)((temp_a0 + (&D_801002AD - 0x115))) + 0xB)) = (s8) (D_801001A3[D_801002AD].f0 + 1);
+                temp_a0 = gPickupSavedByte * 0x18;
+                (*(s8 *)((char *)((temp_a0 + (&gPickupSavedByte - 0x115))) + 0xB)) = (s8) (D_801001A3[gPickupSavedByte].f0 + 1);
                 (*(u8 *)((char *)(gMenuState) + 0x2D)) = 1U;
             }
         }
@@ -106,7 +106,7 @@ block_11:
                 gSharedItemId = temp_v1_3;
                 activateIdList(&gSharedItemId);
                 gSharedItemBusy = 0;
-                func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[D_801002AD].f0);
+                func_8000237C((*__base_D_800B5B14), func_8002B9CC(var_s1), 0, D_801001A3[gPickupSavedByte].f0);
                 func_80002BD0((*__base_D_800B5B14), 0x14D);
                 (*(f32 *)((char *)((*(void **)((char *)((*__base_D_800B5B14)) + 0x68))) + 0x34)) = 0.05f;
                 goto block_21;
@@ -119,9 +119,9 @@ block_21:
             if (temp_s4 != NULL) {
                 func_80019E28(temp_s4);
             }
-            if (D_801002AD > gSaveSlotCount) {
+            if (gPickupSavedByte > gSaveSlotCount) {
                 temp_s4 = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x4004);
-formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(gSaveSlotInfo + (D_801002AD * 0x18)) * 0xC)) * 5);
+formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(gSaveSlotInfo + (gPickupSavedByte * 0x18)) * 0xC)) * 5);
             }
         }
     }

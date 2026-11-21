@@ -20,11 +20,11 @@ s32 func_8002A9A8();
 s32 func_8002AC04();
 s32 lookupDataEntry();
 extern char D_80100198[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern s32 gBorderSkipFlag;
 extern void *gMenuState;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
@@ -38,7 +38,7 @@ void func_80021214(void) {
 
     temp_v0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x7E);
     if (temp_v0 != NULL) {
-        __base_D_801002AD = &D_801002AD;
+        __base_D_801002AD = &gPickupSavedByte;
         temp_v1 = (*__base_D_801002AD) * 0x18;
         var_s1 = *(D_80100198 + temp_v1);
         if (var_s1 >= 8U) {
@@ -49,12 +49,12 @@ void func_80021214(void) {
         formatTextEntry(temp_v0, "%s", lookupDataEntry((unsigned short)(var_s1 + 0x96)));
         __base_D_80102ED8 = &gBorderSkipFlag;
         if ((*__base_D_80102ED8) != 0) {
-            func_8002A644(D_8010A488, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &func_80022C04, &func_8001AC88);
+            func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 4, 0x21, 0xB4, 0x4F, 0xB, 1, &func_80022C04, &func_8001AC88);
         }
         refreshSaveSlotMenu(var_s1);
         if ((*__base_D_80102ED8) != 0) {
-            func_8002A9A8(D_8010A488, (*__base_D_801002AD));
-            func_8002AC04(D_8010A488, 1);
+            func_8002A9A8(gPickupSearchBox, (*__base_D_801002AD));
+            func_8002AC04(gPickupSearchBox, 1);
         }
     }
 }

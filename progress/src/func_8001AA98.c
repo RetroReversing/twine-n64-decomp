@@ -6,7 +6,7 @@ s32 formatTextEntry();
 s32 updateActiveMenuState();
 s32 lookupDataEntry();
 extern char D_801001A2[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern void *gMenuState;
 
 void func_8001AA98(void) {
@@ -18,7 +18,7 @@ void func_8001AA98(void) {
     updateActiveMenuState();
     if ((*(u8 *)((char *)(gMenuState) + 0x2D)) != 0) {
         temp_s0 = (*(s32 *)((char *)(gMenuState) + 0x18)) + 0x28;
-        temp_s1 = __repair_inline(*(D_801001A2 + (D_801002AD * 0x18)));
+        temp_s1 = __repair_inline(*(D_801001A2 + (gPickupSavedByte * 0x18)));
         temp_v1 = temp_s1 & 0xFFFF;
         switch (temp_v1) {
         case 0:
@@ -45,6 +45,6 @@ block_9:
             {
             formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0));break;}
         }
-        *(D_801001A2 + (D_801002AD * 0x18)) = temp_s1;
+        *(D_801001A2 + (gPickupSavedByte * 0x18)) = temp_s1;
     }
 }

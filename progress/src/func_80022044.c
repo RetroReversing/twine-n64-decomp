@@ -21,9 +21,9 @@ s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 lookupDataEntry();
 extern char D_80100198[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern void *gMenuState;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 
 extern char D_800D2AA0[];
 void func_80022044(void) {
@@ -34,16 +34,16 @@ void func_80022044(void) {
     updateActiveMenuState();
     if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
         temp_s0 = M2C_FIELD(gMenuState, s32 *, 0x18) + 0x28;
-        __base_D_801002AD = &D_801002AD;
+        __base_D_801002AD = &gPickupSavedByte;
         var_s1 = *(D_80100198 + ((*__base_D_801002AD) * 0x18));
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }
         formatTextEntry(temp_s0, D_800D2AA0, lookupDataEntry((unsigned short)(var_s1 + 0x96)));
-        func_8002A700(D_8010A488);
+        func_8002A700(gPickupSearchBox);
         refreshSaveSlotMenu(var_s1);
-        func_8002AC04(D_8010A488, 1);
-        func_8002A9A8(D_8010A488, (*__base_D_801002AD));
-        func_8002ACB4(D_8010A488);
+        func_8002AC04(gPickupSearchBox, 1);
+        func_8002A9A8(gPickupSearchBox, (*__base_D_801002AD));
+        func_8002ACB4(gPickupSearchBox);
     }
 }

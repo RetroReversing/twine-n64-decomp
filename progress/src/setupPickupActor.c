@@ -35,7 +35,7 @@ extern char D_80100408[];
 extern char D_80102F48[];
 extern s8 gSharedItemBusy;
 extern void *gMenuState;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
@@ -78,7 +78,7 @@ extern char D_800D2864[];
           *(f32 *)(actor + 0x2C) = depth;
           actorLinkToSurface(*(volatile s32 *)probe, *pickup, 1); }
         i = 0;
-        func_8002A644(D_8010A488, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
+        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x30, 0x30, 0x6E, 0xF);
         itemList = func_800316C8();
         for (;;) {
@@ -92,14 +92,14 @@ extern char D_800D2864[];
                 func_800160FC(((s32 (*)[0x1]) D_80102F48)[index][0x0], func_8002BA6C(func_8002B9FC(((u8 (*)[0x4]) itemList)[index][0x2])), 0x40);
             }
             result = func_80018318(((s32 *)D_80102F48)[index]);
-            func_8002A7CC(D_8010A488, ((s32 *)D_80102F48)[index], i & 0xFF, result & 0xFF);
+            func_8002A7CC(gPickupSearchBox, ((s32 *)D_80102F48)[index], i & 0xFF, result & 0xFF);
             i++;
         }
         func_80022E18(gMenuParamC);
         func_80022AD8(gMenuParamC);
-        func_8002A9A8(D_8010A488, 0);
-        func_8002AC04(D_8010A488, 1);
-        func_8002ACB4(D_8010A488);
+        func_8002A9A8(gPickupSearchBox, 0);
+        func_8002AC04(gPickupSearchBox, 1);
+        func_8002ACB4(gPickupSearchBox);
         if (entryText != 0) {
             formatTextEntry(entryText, D_800D2864, lookupDataEntry((*(u16 *)((char *)(itemList) + 0))));
         }

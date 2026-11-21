@@ -16,14 +16,14 @@ s32 cache_release_block();
 s32 func_80022BB8();
 s32 func_8002A700();
 extern u8 gCurrentSaveSlot;
-extern s8 D_801002AD;
+extern s8 gPickupSavedByte;
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
 extern u8 D_80104310;
 extern u8 D_80108960;
 extern u8 D_80109E20;
 extern u8 D_8010A394;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern u8 D_8010D2B1;
 extern u8 D_8010D454;
 extern char D_80115088[];
@@ -36,7 +36,7 @@ extern char D_8011508F[];
 extern char D_80115090[];
 
 /* Copies the current session fields into the save-slot record for gCurrentSaveSlot, resets the slot pool, then flushes the cache. */ void commitSaveSlotRecord(void) {
-    func_8002A700(D_8010A488);
+    func_8002A700(gPickupSearchBox);
     *(D_80115088 + (gCurrentSaveSlot * 0xA0)) = D_80109E20;
     *(D_80115089 + (gCurrentSaveSlot * 0xA0)) = D_8010D454;
     *(D_8011508A + (gCurrentSaveSlot * 0xA0)) = D_8010D2B1;
@@ -45,7 +45,7 @@ extern char D_80115090[];
     *(D_8011508C + (gCurrentSaveSlot * 0xA0)) = D_8010A394;
     *(D_8011508F + (gCurrentSaveSlot * 0xA0)) = D_80108960;
     *(D_8011508E + (gCurrentSaveSlot * 0xA0)) = D_80104310;
-    D_801002AD = 0;
+    gPickupSavedByte = 0;
     func_80022BB8();
     cache_release_block();
 }

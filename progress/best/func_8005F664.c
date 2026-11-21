@@ -23,6 +23,7 @@ extern M2C_UNK D_800C4706;
 extern M2C_UNK D_800C4708;
 extern M2C_UNK func_8004D910;
 extern s16 gBorderSkipFlag;
+typedef struct { s32 w[3]; } __repair_words3;
 void *func_8005F664(void *arg0, u16 arg2) {
     M2C_UNK sp28;
     f32 temp_fs0, temp_fs1, temp_fs2;
@@ -53,14 +54,10 @@ void *func_8005F664(void *arg0, u16 arg2) {
                     temp_s2=M2C_FIELD(temp_v0,void **,0x6C);
                     temp_fs2=M2C_FIELD(temp_v1,f32 *,0x7C)-M2C_FIELD(temp_v0_3,f32 *,0x7C);
                     approximateAtan2(temp_fs1,temp_fs0);
-                    M2C_FIELD(temp_v0,s32 *,0x30)=M2C_FIELD(arg0,s32 *,0x24);
-                    M2C_FIELD(temp_v0,s32 *,0x34)=M2C_FIELD(arg0,s32 *,0x28);
-                    M2C_FIELD(temp_v0,s32 *,0x38)=M2C_FIELD(arg0,s32 *,0x2C);
+                    M2C_FIELD(temp_v0, __repair_words3 *, 0x30) = *(__repair_words3 *) ((s8 *) arg0 + 0x24);
                     temp_s0=arg0+0x24;
                     if ((Ray_CastObjects(&func_8004D910,M2C_FIELD(arg0,s32 *,0x20),temp_s0,M2C_FIELD(M2C_FIELD(arg0,void **,0x68),void **,0)+0x78,&sp28,Vec3_DistanceSq(temp_s0,M2C_FIELD(M2C_FIELD(arg0,void **,0x68),void **,0)+0x78),0,1,0)<<0x18)!=0) {
-                        M2C_FIELD(temp_v0,s32 *,0x24)=M2C_FIELD(arg0,s32 *,0x24);
-                        M2C_FIELD(temp_v0,s32 *,0x28)=M2C_FIELD(arg0,s32 *,0x28);
-                        M2C_FIELD(temp_v0,s32 *,0x2C)=M2C_FIELD(arg0,s32 *,0x2C);
+                        M2C_FIELD(temp_v0, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) arg0 + 0x24);
                         M2C_FIELD(temp_s2,s32 *,0xC)=0;
                     } else {
                         temp_v0_4=M2C_FIELD(M2C_FIELD(arg0,void **,0x68),void **,0);

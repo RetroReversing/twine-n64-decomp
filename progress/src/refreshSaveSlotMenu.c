@@ -25,14 +25,14 @@ M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
 extern u8 gMenuParamC;
 extern u8 D_80100198[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern u8 D_80102EB8;
 extern M2C_UNK gBorderSkipFlag;
 extern u8 D_80102EDD;
 extern M2C_UNK D_80102F48[];
 extern void *gMenuState;
-extern M2C_UNK D_8010A488;
+extern M2C_UNK gPickupSearchBox;
 
 /* Refreshes the save-slot menu: label text, slot-name strings and per-slot entries */ void refreshSaveSlotMenu(void) {
     M2C_UNK yPos;
@@ -57,7 +57,7 @@ extern M2C_UNK D_8010A488;
     labelEntry = menuEntry;
     if (labelEntry != NULL) {
         labelEntry += 0x28;
-        labelId = *(D_80100198 + D_801002AD * 0x18) + 0x185;
+        labelId = *(D_80100198 + gPickupSavedByte * 0x18) + 0x185;
         M2C_FIELD(labelEntry, u16 *, 0) = labelId;
         if (M2C_FIELD(labelEntry, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(labelEntry, void **, 8), s8 **, 0x18) = lookupDataEntry(labelId);
@@ -86,7 +86,7 @@ extern M2C_UNK D_8010A488;
             }
         }
         labelEntry += 0x28; nextEntry = labelEntry;
-        labelIdB = *(D_80100198 + D_801002AD * 0x18) + 0x18D;
+        labelIdB = *(D_80100198 + gPickupSavedByte * 0x18) + 0x18D;
         M2C_FIELD(labelEntry, u16 *, 0) = labelIdB;
         if (M2C_FIELD(nextEntry, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(nextEntry, void **, 8), s8 **, 0x18) = lookupDataEntry(labelIdB);
@@ -127,7 +127,7 @@ extern M2C_UNK D_8010A488;
                         sprintf(slotText, "%s %d", slotPrefix, slotNumber);}
                         func_800160FC(D_80102F48[slotIndex & 0xFFFF], slotText, 0x40);
                     }
-                    func_8002A7CC(&D_8010A488, D_80102F48[slotIndex & 0xFFFF], slotIndex & 0xFF, 1);
+                    func_8002A7CC(&gPickupSearchBox, D_80102F48[slotIndex & 0xFFFF], slotIndex & 0xFF, 1);
                     slotIndex += 1;
                 } while ((u32) (slotIndex & 0xFFFF) < (u8) D_80102EB8);
             }

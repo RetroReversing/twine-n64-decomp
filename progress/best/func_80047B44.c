@@ -9,7 +9,6 @@ int __repair_literal;
     f32 sp18[3];
     f32 sp28[3];
     f32 sp38;
-    volatile u64 frameSpace;
     f32 temp_fs1;
     f64 temp_fs0;
     s32 temp_v1, temp_v1_2;
@@ -51,9 +50,10 @@ __repair_literal = 0;
                             }
                             var_v0 = var_s5;
                             if (arg3 != NULL) {
-                                *(f32 *)((s8 *)arg3) = (f32)((f64)(*(f32 *)((s8 *)arg1) + (sp38 * sp18[0])) + ((f64)sp18[0] * temp_fs0));
-                                *(f32 *)((s8 *)arg3 + 4) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 4) + (sp38 * sp18[1])) + ((f64)sp18[1] * temp_fs0));
-                                *(f32 *)((s8 *)arg3 + 8) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 8) + (sp38 * sp18[2])) + ((f64)sp18[2] * temp_fs0));
+                                f32 distance = sp38;
+                                *(f32 *)((s8 *)arg3) = (f32)((f64)(*(f32 *)((s8 *)arg1) + (distance * sp18[0])) + ((f64)sp18[0] * temp_fs0));
+                                *(f32 *)((s8 *)arg3 + 4) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 4) + (distance * sp18[1])) + ((f64)sp18[1] * temp_fs0));
+                                *(f32 *)((s8 *)arg3 + 8) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 8) + (distance * sp18[2])) + ((f64)sp18[2] * temp_fs0));
                                 return var_v0;
                             }
                             return var_v0;
@@ -61,7 +61,7 @@ __repair_literal = 0;
                         goto block_21;
                     }
                     var_s0 = 0;
-                    if ((s32)*(u16 *)((s8 *)temp_s1 + 0x40) > 0) {
+                    if ((s32)*(u16 *)((s8 *)temp_s1 + 0x40) > var_s0) {
                         var_s2 = 0;
                     loop_15:
                         temp_v1_2 = *(s32 *)((s8 *)temp_s1 + 0x34);
@@ -69,9 +69,10 @@ __repair_literal = 0;
                         if ((func_8004DBD8(arg1, sp18, temp_v1_2 + (*(u8 *)((s8 *)temp_v0_2) * 0xC), temp_v1_2 + (*(u8 *)((s8 *)temp_v0_2 + 1) * 0xC), temp_v1_2 + (*(u8 *)((s8 *)temp_v0_2 + 2) * 0xC), &sp38) & 0xFF) && (sp38 >= 0.0f) && (sp38 <= temp_fs1)) {
                             var_v0 = var_s5;
                             if (arg3 != NULL) {
-                                *(f32 *)((s8 *)arg3) = (f32)((f64)(*(f32 *)((s8 *)arg1) + (sp38 * sp18[0])) + ((f64)sp18[0] * temp_fs0));
-                                *(f32 *)((s8 *)arg3 + 4) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 4) + (sp38 * sp18[1])) + ((f64)sp18[1] * temp_fs0));
-                                *(f32 *)((s8 *)arg3 + 8) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 8) + (sp38 * sp18[2])) + ((f64)sp18[2] * temp_fs0));
+                                f32 distance = sp38;
+                                *(f32 *)((s8 *)arg3) = (f32)((f64)(*(f32 *)((s8 *)arg1) + (distance * sp18[0])) + ((f64)sp18[0] * temp_fs0));
+                                *(f32 *)((s8 *)arg3 + 4) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 4) + (distance * sp18[1])) + ((f64)sp18[1] * temp_fs0));
+                                *(f32 *)((s8 *)arg3 + 8) = (f32)((f64)(*(f32 *)((s8 *)arg1 + 8) + (distance * sp18[2])) + ((f64)sp18[2] * temp_fs0));
                                 return var_v0;
                             }
                             return var_v0;
@@ -94,3 +95,5 @@ block_22:
     var_v0 = NULL;
     return var_v0;
 }
+
+

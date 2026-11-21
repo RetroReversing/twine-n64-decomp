@@ -18,7 +18,8 @@ s32 func_8009811C(s32 arg0) {
     id = arg0 & 0xFFFF;
     bucket = id >> 6;
     count = D_800F8D60[bucket].count;
-    if (count != 0) {
+    if (count == 0) goto unlock;
+    {
         start = D_800F8D60[bucket].start;
         for (i = 0; i < count; i++) {
             if (D_800F9560[start + i].id == id) break;
@@ -29,8 +30,17 @@ s32 func_8009811C(s32 arg0) {
             r = D_800F9560[j].refs - 1;
             D_800F9560[j].refs = r;
             if ((r & 0xFFFF) == 0) {
-                for (j++; j < D_800F8D5C; j++) {
-                    D_800F9560[j - 1] = D_800F9560[j];
+                j++;
+                if (j < D_800F8D5C) {
+                    Entry *dst = (e - 1) + j;
+                    Entry *src = e + j;
+                    __repair_rows: {
+                        *dst = *src;
+                        dst++;
+                        j++;
+                        src++;
+                    }
+if (j < D_800F8D5C) goto __repair_rows;
                 }
                 p = D_800F8D60;
                 for (i = 0; i < 512; i++) {
@@ -44,6 +54,9 @@ s32 func_8009811C(s32 arg0) {
             }
         }
     }
+unlock:
     workerLockRelease();
     return 0;
 }
+
+

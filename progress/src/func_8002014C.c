@@ -15,20 +15,20 @@ typedef s32 M2C_UNK32;
 s32 func_80029C08(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
 void *func_8002A980(M2C_UNK *);                     /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern void *gMenuState;
-extern M2C_UNK D_8010A488;
+extern M2C_UNK gPickupSearchBox;
 
 void func_8002014C(void) {
     u8 *__base_D_801002AD;
     u8 var_s1;
     void *temp_v0;
 
-    func_8002ACB4(&D_8010A488);
-    if (func_80029C08(&D_8010A488, 0, 0) & 0xFFFF) {
-        __base_D_801002AD = &D_801002AD;
+    func_8002ACB4(&gPickupSearchBox);
+    if (func_80029C08(&gPickupSearchBox, 0, 0) & 0xFFFF) {
+        __base_D_801002AD = &gPickupSavedByte;
         var_s1 = (*__base_D_801002AD);
-        temp_v0 = func_8002A980(&D_8010A488);
+        temp_v0 = func_8002A980(&gPickupSearchBox);
         if (temp_v0 != NULL) {
             var_s1 = M2C_FIELD(temp_v0, u8 *, 8);
         }

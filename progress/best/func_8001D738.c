@@ -37,7 +37,7 @@ extern s8 D_800BD690;
 extern char D_800BD914[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
 extern Slot_80100198 D_80100198[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern u8 D_801007C1;
 extern u8 D_80102EB0;
@@ -48,7 +48,7 @@ extern u8 D_80108960;
 extern void *gMenuState;
 extern u8 D_80109E20;
 extern u8 D_8010A394;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern u8 D_8010D2B1;
 extern u8 D_8010D454;
 extern char D_80115088[];
@@ -112,8 +112,8 @@ void func_8001D738(void) {
     temp_s0 = findEntryPayload(D_800BD914, 0x162);
     temp_s5 = findEntryPayload(D_800BD914, 0x7F);
     if (((temp_s6 != 0) & (temp_s2 != 0)) && ((var_s1 != 0) & (temp_s3 != 0)) && ((temp_s7 != 0) & (temp_s4 != 0)) && ((temp_s5 != 0) & (temp_s0 != 0))) {
-        gCurrentSaveSlot = D_801002AD;
-        temp_v1 = D_801002AD & 0xFF;
+        gCurrentSaveSlot = gPickupSavedByte;
+        temp_v1 = gPickupSavedByte & 0xFF;
         D_80100198[temp_v1].f0 = *(D_80115091 + (temp_v1 * 0xA0));
         temp_v0 = *(D_80115088 + (gCurrentSaveSlot * 0xA0));
         D_80109E20 = temp_v0;
@@ -201,7 +201,7 @@ block_31:
         }
         var_s1_2 = 0;
         formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0_9));
-        func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &func_80022C04, &func_8001AC88);
+        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x23, 0x2C, 0x33, 0x9A);
         temp_v0_7 = countValidSaveSlots(0xA3);
         gValidSaveSlotCount = temp_v0_7;
@@ -223,13 +223,13 @@ block_31:
                     sprintf(temp_s5, D_800D285C, var_a2, var_a3);}
                     func_800160FC(*(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), temp_s5, 0x40);
                 }
-                func_8002A7CC(D_8010A488, *(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
+                func_8002A7CC(gPickupSearchBox, *(s32 *)(((var_s1_2 & 0xFFFF) * 4) + D_80102F48), var_s1_2 & 0xFF, 1);
                 var_s1_2 += 1;
             } while ((u32) (var_s1_2 & 0xFFFF) < (u8) gValidSaveSlotCount);
         }
         func_80022E18(gMenuParamC);
         func_80022AD8(gMenuParamC);
-        func_8002A9A8(D_8010A488, D_801002AD);
-        func_8002AC04(D_8010A488, 1);
+        func_8002A9A8(gPickupSearchBox, gPickupSavedByte);
+        func_8002AC04(gPickupSearchBox, 1);
     }
 }

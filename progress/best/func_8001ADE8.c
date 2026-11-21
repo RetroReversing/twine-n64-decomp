@@ -46,7 +46,7 @@ typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
 extern char D_801001A2[];
 extern char D_801001A3[];
-extern u8 D_801002AD;
+extern u8 gPickupSavedByte;
 extern s32 gSaveTotalSlots;
 extern s32 gSaveSlotCount;
 extern s8 D_801002E6;
@@ -61,7 +61,7 @@ extern s32 D_80102F48[];
 extern s8 D_80104311;
 extern s8 gSharedItemBusy;
 extern void *gMenuState;
-extern char D_8010A488[];
+extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 func_80022C04;
 
@@ -109,7 +109,7 @@ s32 __repair_phase_var_a0;
     temp_s5 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x6A);
     sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
-        func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
+        func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x27, 0x2E, 0x3C, 0x98);
         var_s2 = 0;
         if (gSaveTotalSlots > 0) {
@@ -133,27 +133,27 @@ s32 __repair_phase_var_a0;
                 __repair_phase_storage.pointer = (s32 *)((u8 *)D_80102F48 + ((var_s2 & 0xFFFF) * 4));
                 temp_a0 = *__repair_phase_storage.pointer;
                 var_s2++;
-                func_8002A7CC(D_8010A488, *__repair_phase_storage.pointer, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);
+                func_8002A7CC(gPickupSearchBox, *__repair_phase_storage.pointer, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);
                 var_s0 = var_s2 & 0xFFFF;
             } while ((var_s2 & 0xFFFF) < gSaveTotalSlots);
         }
         func_80022E18(gMenuParamC);
         func_80022AD8(gMenuParamC);
-        func_8002A9A8(D_8010A488, func_80022DE8(D_801002AD));
-        func_8002AC04(D_8010A488, 1);
-        func_8002ACB4(D_8010A488);
+        func_8002A9A8(gPickupSearchBox, func_80022DE8(gPickupSavedByte));
+        func_8002AC04(gPickupSearchBox, 1);
+        func_8002ACB4(gPickupSearchBox);
         temp_s0_3 = "%s";
-        formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(gSaveSlotInfo[D_801002AD].f0));
-        (*(void **)((char *)(temp_fp) + -0x18)) = (void *) (((u32)D_801002AD * 0x18) + (&D_801002AD - 0x111));
+        formatTextEntry(temp_fp, temp_s0_3, func_8002BA6C(gSaveSlotInfo[gPickupSavedByte].f0));
+        (*(void **)((char *)(temp_fp) + -0x18)) = (void *) (((u32)gPickupSavedByte * 0x18) + (&gPickupSavedByte - 0x111));
         func_80019E28(sp34);
-        temp_s0_4 = &D_801002AD - 0x109;
-        formatTextEntry(temp_s7, temp_s0_3, (D_801002AD * 0x18) + temp_s0_4);
-        (*(void **)((char *)(temp_s7) + -0x18)) = (void *) ((D_801002AD * 0x18) + temp_s0_4);
-        temp_v1 = D_801002AD * 0x18;
-        D_80104311 = D_801001A0[D_801002AD].f0 / 10;
-        formatTextEntry(temp_s6, "%d", (void *) D_801001A0[D_801002AD].f0);
-        (*(void **)((char *)(temp_s5) + -0x18)) = (void *) ((D_801002AD * 0x18) + (&D_801002AD - 0x10B));
-        temp_v1_2 = *(u16 *)(D_801001A2 + (D_801002AD * 0x18));
+        temp_s0_4 = &gPickupSavedByte - 0x109;
+        formatTextEntry(temp_s7, temp_s0_3, (gPickupSavedByte * 0x18) + temp_s0_4);
+        (*(void **)((char *)(temp_s7) + -0x18)) = (void *) ((gPickupSavedByte * 0x18) + temp_s0_4);
+        temp_v1 = gPickupSavedByte * 0x18;
+        D_80104311 = D_801001A0[gPickupSavedByte].f0 / 10;
+        formatTextEntry(temp_s6, "%d", (void *) D_801001A0[gPickupSavedByte].f0);
+        (*(void **)((char *)(temp_s5) + -0x18)) = (void *) ((gPickupSavedByte * 0x18) + (&gPickupSavedByte - 0x10B));
+        temp_v1_2 = *(u16 *)(D_801001A2 + (gPickupSavedByte * 0x18));
         switch (temp_v1_2) {
         case 0:
             var_a0 = 0xA;
@@ -213,7 +213,7 @@ s32 __repair_phase_var_a0;
             layoutTextBox((*(s32 *)((char *)(gMenuState) + 0x1C)), (*(void **)((char *)(gMenuState) + 0x18)), 0);
         }
         temp_a0_3 = temp_s6 - 0x28;
-        if (gSaveSlotCount < (s32) D_801002AD) {
+        if (gSaveSlotCount < (s32) gPickupSavedByte) {
             (*(s8 *)((char *)(temp_s7) + -1)) = 7;
             (*(s8 *)((char *)(temp_fp) + -2)) = 1;
             D_801002E8 = 7;
@@ -224,7 +224,7 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s6, 0xD);
             func_80025F78(temp_s5 - 0x28, 0xD);
             func_80025F78(temp_s5, 0xD);
-            formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (gSaveSlotInfo[D_801002AD].f0 * 0xC)) * 5));
+            formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (gSaveSlotInfo[gPickupSavedByte].f0 * 0xC)) * 5));
             formatTextEntry(temp_s5, "%s", lookupDataEntry(0x13));
         } else {
             (*(s8 *)((char *)(temp_s7) + -1)) = 3;
@@ -252,17 +252,17 @@ s32 __repair_phase_var_a0;
             actorLinkToSurface(*gProbeObjectList, gPickupActor, 1);
             (*(f32 *)((char *)(gPickupActor) + 0x2C)) = -3.0f;
             func_8002B8AC();
-            temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(gSaveSlotInfo[D_801002AD].f0) * 0xC));
+            temp_v1_4 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(gSaveSlotInfo[gPickupSavedByte].f0) * 0xC));
             gSharedItemArg = -1;
             gSharedItemBusy = 1;
             gSharedItemId = temp_v1_4;
             activateIdList(&gSharedItemId);
             gSharedItemBusy = 0;
-            func_8000237C(gPickupActor, func_8002B9CC(gSaveSlotInfo[D_801002AD].f0), 0, *(u16 *)(D_801001A3 + (D_801002AD * 0x18)));
+            func_8000237C(gPickupActor, func_8002B9CC(gSaveSlotInfo[gPickupSavedByte].f0), 0, *(u16 *)(D_801001A3 + (gPickupSavedByte * 0x18)));
             func_80002BD0(gPickupActor, 0x14D);
             (*(f32 *)((char *)((*(void **)((char *)(gPickupActor) + 0x68))) + 0x34)) = 0.05f;
             temp_a0_2 = 0x327;
-            if (!(getKeyEntryFlag(gSaveSlotInfo[D_801002AD].f0) & 0xFF)) {
+            if (!(getKeyEntryFlag(gSaveSlotInfo[gPickupSavedByte].f0) & 0xFF)) {
                 temp_a0_2 = 0x2A9;
             }
             func_80002D30(gPickupActor, temp_a0_2);
