@@ -1912,14 +1912,6 @@
   "score_after": null
  },
  {
-  "function": "func_80086480",
-  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
-  "by": "permuter-25769805351",
-  "created_at": 1795055623.5764108,
-  "score_before": 10155,
-  "score_after": 10155
- },
- {
   "function": "func_800770E4",
   "text": "Not matched. Start from m2c draft (rev 6d0f8e9dd30d2810c74a); its duplicate case 7 is the blocker. Removing the first 'case 7:' label (before block_71) and renaming the second to 'case 9:' gave score 22675 with 405 differing rows. That is still far off: the target frame is 0x38 with saves s0-s3, ra, fs0/fs1 at 0x10-0x30, but the candidate saves ra at 0x24, so the stack/register allocation is wrong. Also, jump tables (jtbl_800D4AD0, D4B68, D4BA0, D4BC8, D4BE8, D4C08, D4C28) need switch-case reconstruction. The draft's case labels for switch 2 and switch 4 are also suspect. Do a clean rewrite of the switch structure, starting from the case-by-case assembly, before fine tuning registers. The function is large (509 insns), so budget multiple sessions.\n\nSession note: claimed but not compiled or worked on; released/set aside with no candidate changes. Draft has a duplicate case value (case 7 vs an earlier case) and a few undeclared/mistyped locals, and is 2036 bytes. Local-repair budget for this candidate revision was reported exhausted at 6d0f8e9dd30d2810c74a. Start from get_assembly and a fresh draft rather than the saved candidate.",
   "by": "permuter-25769805351",
@@ -10096,14 +10088,6 @@
   "score_after": 17120
  },
  {
-  "function": "func_80086480",
-  "text": "Rechecked baseline 6775; 12 local variants did not improve. The bulk of the 199 diff rows are branch targets and ordering in nested switch dispatch. Branch reversal in cases 1 and 34 worsened; parameter widths, temporary reuse and forwarded arg0 did not change assembly. Compare jump table layouts and default return against target; candidate differs by one instruction near final return.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795179596.6813881,
-  "score_before": 6775,
-  "score_after": 6775
- },
- {
   "function": "func_8001C6CC",
   "text": "Initial candidate had invalid `else { default: }`; removing that construct scored 18140, then changing `func_800316B8` prototype from s8 to u8 scored 6035 (84.6%, 397 vs target 394 instructions). This strongly indicates the function returns an unsigned byte; remaining key mismatches include repeated indexing by `func_800316B8()` producing sll-by-5 versus target sll $s0,$v1,3 plus 16-bit masking. Claim ended after the prototype edit, so no further patches made.",
   "by": "codex-gpt-6-luna-18",
@@ -14702,14 +14686,6 @@
   "created_at": 1795184339.312525,
   "score_before": 129,
   "score_after": 129
- },
- {
-  "function": "func_80086480",
-  "text": "Rechecked best revision 7293f2751ab7324d9346 at 6775. Fifteen local variants tried across argument forwarding, parameter width, signedness, lifetime sharing, declaration order, branch orientation and switch layout; none improved it. Target has a missing non-NOP operation and candidate is four bytes longer at the common exit, producing many downstream branch offsets. Inspect earliest actual missing operation and switch control flow before tuning offsets; numerous cached repair proposals remain.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795184343.144008,
-  "score_before": 6775,
-  "score_after": 6775
  },
  {
   "function": "func_8002255C",
@@ -35752,14 +35728,6 @@
   "score_after": 705
  },
  {
-  "function": "func_80086480",
-  "text": "Started from held best. A stub compile scored 48205. Reconstructed the dispatcher with explicit switch cases and signed-byte return narrowing; compile improved current score to 14880 but linker warned that seven jump-table references resolve to local .rodata addresses, so candidate is structurally invalid. Restored saved_best revision 500fa41ee9c9e6cd9d34 (historical score 6565), whose current compile hasn't been run. Prior handoffs document 27 attempts, but current diagnostics show large switch lowering issue. Next experiment: use get_assembly around switch dispatch and define/refer to original jtbl_800D63F0 (and other tables) with proper symbols or reshape dispatch into if/else comparisons to prevent compiler-generated .rodata jump tables; compare target original control-flow ordering. Current trial candidate should not be inherited; saved_best remains best.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795209357.126571,
-  "score_before": 6565,
-  "score_after": 6565
- },
- {
   "function": "func_800AB3C8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Checked the saved best (rev 8aefdd46d9db4ff9c43f, score 680) and the target assembly. Earlier work tried about 59 explicit patches and 27 local repairs; none beat 680. Remaining diff is FPR allocation and scheduling in the arg0/D_800D7000 quotient. Not retried here, given low effort budget. Next idea if someone resumes: try a version where the q quotient is computed after the zero comparison, and compare the two-branch and/bnel shape against the target.",
   "by": "api-claude-haiku-5-5-3",
@@ -41819,15 +41787,6 @@
   "score_before": 3272,
   "score_after": 3272,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:28b9b25eb9eb062613ad134f7a9d6b318d3d71692a924431af5d158dee7b9301"
- },
- {
-  "function": "func_80086480",
-  "text": "Verified saved baseline 6565. Five local .rodata jump-table references lack ROM addresses; resolve switch/table structure before further instruction tuning.\nForward arg0 to func_80117AEC, narrow arg1 to u8, and share temp_a1 lifetime independently.\nAll three retained score 6565 and identical displayed diff; local jump-table relocations and common exit remain mismatched.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795217154.5459461,
-  "score_before": 7895,
-  "score_after": 6565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
  },
  {
   "function": "func_8011B5F0",
@@ -51874,15 +51833,6 @@
   "score_after": 385
  },
  {
-  "function": "func_80086480",
-  "text": "Forward arg0 to func_80117AEC, unify selector temporary, and change selector temporary to unsigned.\nAll three retained score 6565 and identical displayed instructions; local jump-table linker diagnostics remain.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795235316.404554,
-  "score_before": 6565,
-  "score_after": 6565,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
- },
- {
   "function": "actorUpdateBorderFade",
   "text": "[Released without compiling it once; notes not checked by a compile.] Readability not attempted: the matched C is m2c-shaped with many untyped actor fields (+0x28, +0x7A, +0x7C, +0x68/+0x6C sub-structs, +0x94 float lerp). Meaning (border/skip-gated fade toward 0.5 or 1.0, plays sound 0x1A8, resets state fields) is inferred and needs callee names (func_800635BC, func_80065684, func_80002BD0) before a safe rename. Next: name the callees first, then make_readable with a struct for the actor.",
   "by": "api-claude-haiku-5-5-12",
@@ -60218,15 +60168,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:66137bdd970e9a0613c4bb0e844e07d2a3d489941cc757c7e31417b38fd4bc22"
  },
  {
-  "function": "func_80086480",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 138 differing rows (118 branch target, 14 operand, 3 reordered, 2 inserted, 1 deleted; advisory).\nTarget: beqz $v0, 0x780\nCandidate: beqz $v0, 0x784\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v1, $v0, -1\n  = sltiu $v0, $v1, 0x29\ni T: beqz $v0, 0x780 | C: beqz $v0, 0x784\n  = sw $ra, 0x10($sp)\n  = sll $v0, $v1, 2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nInherited revision 1d70f1b3204f59b3a5d6 rechecked at 1700, both sides 484 instructions. Removing the synthetic outer mode-0 case or replacing it with default: goto return_zero each scored 1740; the tool released at its 4-compile threshold and kept the baseline. Next step: retain the outer switch and isolate mode 33's extra delay-slot NOP at +0x40 by testing whether placing the shared signed-byte return label at the second call makes the first comparison's delay slot match.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795252481.412116,
-  "score_before": 1700,
-  "score_after": 1700,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
- },
- {
   "function": "func_80023EC0",
   "text": "Rechecked corrected candidate at 5213. Shared-tail rewrite scored 5233, inline comparison unchanged. Automatic return substitution scored 4428 but is semantically wrong, so restored reported_corrected. Next step: restructure switch and shared return paths while preserving case 1's var_v0.",
   "by": "codex-gpt-6.1-terra-2",
@@ -60530,15 +60471,6 @@
   "score_before": 20,
   "score_after": 20,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
- },
- {
-  "function": "func_80086480",
-  "text": "Repairs did not improve baseline score 1700; local switch_layout, cfg lifetimes, signedness, declaration_order variants scored 1700-2790. Switches yield 135 mismatch sites; target starts with table-dispatch range check and 0x18 frame.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253239.488003,
-  "score_before": 1700,
-  "score_after": 1700,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
  },
  {
   "function": "func_800336FC",
@@ -74528,5 +74460,73 @@
   "score_before": 40,
   "score_after": 40,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:18e2189bce2ff800b58193a3fd2a577f8347bdc037a1a734307fdfa61f5bedca"
+ },
+ {
+  "function": "func_80086480",
+  "text": "Current candidate 71fdf003fc21dfde9e67 compiles, score 10155 (79%). Fixes: removed duplicate 'default:' labels (the m2c draft had them in the inner switch 3 only; keep one), and changed the prototype of func_80117740 to unprototyped 's32 func_80117740();' because it's called with 0 and 1 args. Remaining diff: the jump table jtbl_800D63F0 entry 0 (case 1 of the outer switch on D_80108F78) points to 0x8008661C in ROM but ours is 0x80086624, so case 1's code is 2 instructions longer than the target. The outer switch has 42 entries (cases 1..41), the inner switches are on (arg1&0xFF). Next step: check the case 1 block (temp_a1_2 path, 'if (temp_a1_2 != 2)' ordering) and the register use (target reuses $a1 for the and-mask). Also, the single-return 'block_127' pattern may need to be rewritten to return directly per case.",
+  "by": "permuter-25769805351",
+  "created_at": 1795055623.5764108,
+  "score_before": 10155,
+  "score_after": 10155
+ },
+ {
+  "function": "func_80086480",
+  "text": "Rechecked baseline 6775; 12 local variants did not improve. The bulk of the 199 diff rows are branch targets and ordering in nested switch dispatch. Branch reversal in cases 1 and 34 worsened; parameter widths, temporary reuse and forwarded arg0 did not change assembly. Compare jump table layouts and default return against target; candidate differs by one instruction near final return.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795179596.6813881,
+  "score_before": 6775,
+  "score_after": 6775
+ },
+ {
+  "function": "func_80086480",
+  "text": "Rechecked best revision 7293f2751ab7324d9346 at 6775. Fifteen local variants tried across argument forwarding, parameter width, signedness, lifetime sharing, declaration order, branch orientation and switch layout; none improved it. Target has a missing non-NOP operation and candidate is four bytes longer at the common exit, producing many downstream branch offsets. Inspect earliest actual missing operation and switch control flow before tuning offsets; numerous cached repair proposals remain.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795184343.144008,
+  "score_before": 6775,
+  "score_after": 6775
+ },
+ {
+  "function": "func_80086480",
+  "text": "Started from held best. A stub compile scored 48205. Reconstructed the dispatcher with explicit switch cases and signed-byte return narrowing; compile improved current score to 14880 but linker warned that seven jump-table references resolve to local .rodata addresses, so candidate is structurally invalid. Restored saved_best revision 500fa41ee9c9e6cd9d34 (historical score 6565), whose current compile hasn't been run. Prior handoffs document 27 attempts, but current diagnostics show large switch lowering issue. Next experiment: use get_assembly around switch dispatch and define/refer to original jtbl_800D63F0 (and other tables) with proper symbols or reshape dispatch into if/else comparisons to prevent compiler-generated .rodata jump tables; compare target original control-flow ordering. Current trial candidate should not be inherited; saved_best remains best.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795209357.126571,
+  "score_before": 6565,
+  "score_after": 6565
+ },
+ {
+  "function": "func_80086480",
+  "text": "Verified saved baseline 6565. Five local .rodata jump-table references lack ROM addresses; resolve switch/table structure before further instruction tuning.\nForward arg0 to func_80117AEC, narrow arg1 to u8, and share temp_a1 lifetime independently.\nAll three retained score 6565 and identical displayed diff; local jump-table relocations and common exit remain mismatched.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795217154.5459461,
+  "score_before": 7895,
+  "score_after": 6565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
+ },
+ {
+  "function": "func_80086480",
+  "text": "Forward arg0 to func_80117AEC, unify selector temporary, and change selector temporary to unsigned.\nAll three retained score 6565 and identical displayed instructions; local jump-table linker diagnostics remain.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795235316.404554,
+  "score_before": 6565,
+  "score_after": 6565,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
+ },
+ {
+  "function": "func_80086480",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 5; 138 differing rows (118 branch target, 14 operand, 3 reordered, 2 inserted, 1 deleted; advisory).\nTarget: beqz $v0, 0x780\nCandidate: beqz $v0, 0x784\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $v1, $v0, -1\n  = sltiu $v0, $v1, 0x29\ni T: beqz $v0, 0x780 | C: beqz $v0, 0x784\n  = sw $ra, 0x10($sp)\n  = sll $v0, $v1, 2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nInherited revision 1d70f1b3204f59b3a5d6 rechecked at 1700, both sides 484 instructions. Removing the synthetic outer mode-0 case or replacing it with default: goto return_zero each scored 1740; the tool released at its 4-compile threshold and kept the baseline. Next step: retain the outer switch and isolate mode 33's extra delay-slot NOP at +0x40 by testing whether placing the shared signed-byte return label at the second call makes the first comparison's delay slot match.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795252481.412116,
+  "score_before": 1700,
+  "score_after": 1700,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
+ },
+ {
+  "function": "func_80086480",
+  "text": "Repairs did not improve baseline score 1700; local switch_layout, cfg lifetimes, signedness, declaration_order variants scored 1700-2790. Switches yield 135 mismatch sites; target starts with table-dispatch range check and 0x18 frame.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253239.488003,
+  "score_before": 1700,
+  "score_after": 1700,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5f4a2a51a31ecb7273b6f5def9419fbe2de4a4441918cec547ac641aeca8fb57"
  }
 ]
