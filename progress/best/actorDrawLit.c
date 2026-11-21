@@ -11,7 +11,7 @@ s32 func_80038FA4();
 s32 func_80039068();
 s32 resolveBorderCollision();
 s32 rotateVec3ByMat3();
-s32 guPositionF(void *, s32, s32, f32, f32, f32, f32, f32);
+s32 guPositionF(void *, f32, f32, f32, f32, f32, f32, f32);
 extern char D_800B1A50[];
 extern u32 sMatrixPoolLimit;
 extern u8 D_801002E4;
@@ -401,9 +401,18 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           temp_v0_9 = *((u8 *) (((char *) arg0) + 0x7E));
           switch (temp_v0_9)
           {
-            case 0:
-
             case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
 
             default:
               if (gRenderMode)
@@ -479,3 +488,4 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     }
   }
 }
+

@@ -120,10 +120,11 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
 #define sp48 locals.sp48
 #define sp4C locals.sp4C
 #define sp50 locals.sp50
+  s16 *tableIndex = *((s16 **) (((char *) arg1) + 0x28));
   sp30 = 1;
   sp34 = 1;
   temp_a0 = *((u16 *) (((char *) arg1) + 0));
-  temp_s7 = *(D_800C0788 + ((*(*((s16 **) (((char *) arg1) + 0x28)))) * 4));
+  temp_s7 = *(D_800C0788 + ((*tableIndex) * 4));
   ;
   *((s32 *) (((char *) ((temp_a0 * 0x4C) + temp_s7)) + 0x30)) = (s32) (((*((s32 *) (((char *) ((temp_a0 * 0x4C) + temp_s7)) + 0x30))) & 0xFFF0000F) | (temp_a0 * 0x10));
   temp_v0_2 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
@@ -280,6 +281,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
       *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * rotationScale);
       *((s32 *) (((char *) (*arg0)) + 0x50)) = func_8003FCF4(arg1);
       *((f32 *) (((char *) (*arg0)) + 0x54)) = 0.0f;
+      var_fs1 = 1.0f;
       if ((*((s32 *) (((char *) arg1) + 0x3C))) & 0x10000)
       {
         temp_v0_7 = *arg0;
@@ -328,11 +330,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
             var_s0 = 0;
             do
             {
-              vec3Add(&D_800E19E0, (*((s32 *) (((char *) (*((s32 **) (((char *) arg1) + 0x24)))) + 0))) + var_s0, (*((s32 *) (((char *) temp_s4) + 0x34))) + var_s0);
+              vec3Add(&D_800E19E0, *temp_a1 + var_s0, (*((s32 *) (((char *) temp_s4) + 0x34))) + var_s0);
+              temp_a1 = *((s32 **) (((char *) arg1) + 0x24));
               ++var_s1;
               var_s0 += 0xC;
             }
-            while (var_s1 < ((s32) (*((u16 *) (((char *) (*((s32 **) (((char *) arg1) + 0x24)))) + 4)))));
+            while (var_s1 < *(u16 *)((char *)temp_a1 + 4));
           }
           func_8003FF3C(temp_s4, temp_s5, temp_v0_10);
           *((void **) (((char *) (*arg0)) + 0x3C)) = (void *) (temp_s7 + ((*((u16 *) (((char *) arg1) + 0))) * 0x4C));
@@ -422,17 +425,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
         case 0x73:
           *((s32 *) (((char *) arg1) + 0x3C)) |= 0x1000;
 
-        case 0x30:
-
-        case 0x54:
-
-        case 0x56:
-
-        case 0xC9:
-          block_52:
-        var_s0_2 = 1;
-
-          break;
+          goto block_52;
 
         case 0x74:
           *((s32 *) (((char *) arg1) + 0x3C)) |= 0x1000;
@@ -531,6 +524,21 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
 
         case 0x5D:
           *((s32 *) (((char *) arg1) + 0x3C)) |= 0x1000;
+          break;
+
+        default:
+          break;
+
+        case 0x30:
+
+        case 0x54:
+
+        case 0x56:
+
+        case 0xC9:
+          block_52:
+        var_s0_2 = 1;
+
           break;
 
       }

@@ -8,7 +8,6 @@ inline static int inline_fn(u8 *arg0, u8 arg1)
 
 void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 {
-  register void *var_t1 = arg0;
   register u8 *var_s0 = arg1;
   register s16 *var_t0 = arg2;
   register unsigned long var_s7 = 3;
@@ -35,13 +34,13 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   u16 t16b;
   u16 __repair_result_t16b;
   u16 t16c;
-  if ((*((u8 *) (((u8 *) var_t1) + 0x48))) & 4)
+  if ((*((u8 *) (((u8 *) arg0) + 0x48))) & 4)
   {
-    var_s6 = *((s16 **) (((u8 *) var_t1) + 0x3C));
+    var_s6 = *((s16 **) (((u8 *) arg0) + 0x3C));
   }
   else
   {
-    var_s5 = *((u8 **) (((u8 *) var_t1) + 0x3C));
+    var_s5 = *((u8 **) (((u8 *) arg0) + 0x3C));
   }
   goto loop_48;
   dispatch:
@@ -96,12 +95,12 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
       if (var_s0 || var_s1)
       {
         var_s0 += 2;
-        *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+        *((u8 *) (((u8 *) arg0) + 0x44)) = value;
       }
       else
       {
         var_s0 += 2;
-        *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+        *((u8 *) (((u8 *) arg0) + 0x44)) = value;
       }
     }
       goto block_15;
@@ -110,7 +109,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
     {
       u8 value = var_s0[1];
       ++var_s0;
-      *((u8 *) (((u8 *) var_t1) + 0x44)) = value;
+      *((u8 *) (((u8 *) arg0) + 0x44)) = value;
       goto block_15;
     }
 
@@ -201,7 +200,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
         after:
         var_s2 += 3;
 
-        base = *((s32 *) (((u8 *) var_t1) + 0x34));
+        base = *((s32 *) (((u8 *) arg0) + 0x34));
         buildPlaneFromPoints(&sp10, base + (a2 * 12), base + (a3 * 12), base + (v1_2 * 12));
         var_s0 += 3;
         var_fp += 1;
@@ -271,7 +270,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 
       }
 
-      __repair_phase_base = *((s32 *) (((u8 *) var_t1) + 0x34));
+      __repair_phase_base = *((s32 *) (((u8 *) arg0) + 0x34));
       buildPlaneFromPoints(&sp10, __repair_phase_base + (a2 * 12), __repair_phase_base + (a3_2 * 12), __repair_phase_base + (v1_2 * 12));
       var_s0 += 4;
       *var_t0 = 0;
@@ -281,7 +280,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
       goto loop_48;
 
     case 10:
-      *((u8 *) (((u8 *) var_t1) + 0x44)) = var_s0[1];
+      *((u8 *) (((u8 *) arg0) + 0x44)) = var_s0[1];
       var_s0 += 2;
       goto loop_48;
 
@@ -302,4 +301,5 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   }
 
 }
+
 

@@ -118,20 +118,15 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
       return;
 
     case 0x52:
-
     case 0xCB:
-      temp_v0_3 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      var_v0 = 0x18;
-      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_3 & 0xFFFF0003) | ((((temp_v0_3 >> 2) & 0x3FFF) | 0x400) * 4));
+      ((StateFields *) arg1)->state |= 0x400;
       *inline_fn(arg1) &= ~0x200;
-      *((s16 *) (((char *) arg1) + 0x58)) = (s16) var_v0;
+      ((StateFields *) arg1)->mode = 0x18;
       return;
 
     case 0x1B:
-      temp_v0_4 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-      var_v0 = 0x18;
-      *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_4 & 0xFFFF0003) | ((((temp_v0_4 >> 2) & 0x3FFF) | 8) * 4));
-      *((s16 *) (((char *) arg1) + 0x58)) = (s16) var_v0;
+      ((StateFields *) arg1)->state |= 8;
+      ((StateFields *) arg1)->mode = 0x18;
       return;
 
     case 0x99:
@@ -374,29 +369,20 @@ void func_800404F0(void *arg0, void *arg1, s32 *arg2, s8 *arg3)
     case 0x89:
       *arg3 = 0;
       temp_v1_6 = *((u8 *) (((char *) (*((void **) (((char *) arg0) + 0x24)))) + 0x1E));
-      switch (temp_v1_6) {
-      case 0x85:
-        var_v0_6 = 0x84;
-        break;
-      case 0x89:
+      if (temp_v1_6 == 0x88) {
+        ((StateFields *) arg1)->state |= 0x2000;
         var_v0_6 = 0x88;
-        break;
-      default: var_v0_6 = 0x1E; break;
-      case 0x1E:
-        temp_v0_23 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-        *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_23 & 0xFFFF0003) | ((((temp_v0_23 >> 2) & 0x3FFF) | 0x2000) * 4));
+      } else if (temp_v1_6 >= 0x89) {
         var_v0_6 = 0x1E;
-        break;
-      case 0x84:
-        temp_v0_23 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-        *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_23 & 0xFFFF0003) | ((((temp_v0_23 >> 2) & 0x3FFF) | 0x2000) * 4));
+        if (temp_v1_6 == 0x89) var_v0_6 = 0x88;
+      } else if (temp_v1_6 == 0x85) {
         var_v0_6 = 0x84;
-        break;
-      case 0x88:
-        temp_v0_23 = (u32) (*((s32 *) (((char *) arg1) + 0x58)));
-        *((s32 *) (((char *) arg1) + 0x58)) = (s32) ((temp_v0_23 & 0xFFFF0003) | ((((temp_v0_23 >> 2) & 0x3FFF) | 0x2000) * 4));
-        var_v0_6 = 0x88;
-        break;
+      } else if (temp_v1_6 == 0x84) {
+        ((StateFields *) arg1)->state |= 0x2000;
+        var_v0_6 = 0x84;
+      } else {
+        if (temp_v1_6 == 0x1E) ((StateFields *) arg1)->state |= 0x2000;
+        var_v0_6 = 0x1E;
       }
       *((s16 *) (((char *) arg1) + 0x58)) = (int) var_v0_6;
       D_800E19E0 = *((f32 *) (((char *) arg1) + 0x24));

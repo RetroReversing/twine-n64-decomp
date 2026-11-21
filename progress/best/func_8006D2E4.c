@@ -11,7 +11,7 @@ s32 freeMenuItemRecord(void *, void *);
 s32 func_80002BD0(void *, s32);
 s32 func_8000C91C(s32);
 void *func_80015F0C();
-s32 func_800165E0(void *, s32);
+s32 func_800165E0(void *, void *);
 s32 func_800452E0(void *, void *, s32 *);
 f32 func_80045764(s32 *, s32 *);
 s32 func_80047B14(s32 *, f32, s32 *);
@@ -42,14 +42,14 @@ extern s32 D_800BF688;
 extern u8 D_800C7DAC[];
 typedef struct 
 {
-  u16 f0;
-  u8 pad[6];
+  s32 f0;
+  s32 unused;
 } Slot_800C7DC8;
 extern Slot_800C7DC8 D_800C7DC8[];
 typedef struct 
 {
-  u16 f0;
-  u8 pad[6];
+  s32 f0;
+  s32 unused;
 } Slot_800C7DCC;
 extern Slot_800C7DCC D_800C7DCC[];
 extern f64 D_800D4650;
@@ -88,14 +88,20 @@ inline static s32 inline_fn()
 
 void func_8006D2E4(void *arg0)
 {
-  char sp20[0x10];
-  s32 sp30;
-  void *sp34;
-  void *sp38;
-  s32 sp3C;
-  s32 sp40;
-  f32 sp48[3];
-  f32 sp58[3];
+  struct {
+    s32 vec20[3];
+    s32 pad2C;
+    s32 flags30;
+    void *out34;
+    void *out38;
+    s32 flags3C;
+    s32 out40;
+    s32 pad44;
+    f32 vec48[3];
+    s32 pad54;
+    f32 vec58[3];
+  } locals;
+  const u8 *table;
   s32 *temp_s0_2;
   s32 var_a1_2;
   s32 var_a2_3;
@@ -157,11 +163,11 @@ void func_8006D2E4(void *arg0)
   temp_s3 = *((void **) (((char *) arg0) + 0x6C));
   temp_s4 = *((s8 *) (((char *) temp_s3) + 0x182));
   var_fs0 = 0.0f;
-  sp40 = 0;
-  sp34 = NULL;
-  sp38 = NULL;
-  sp3C = 0;
-  sp30 = 0;
+  locals.out40 = 0;
+  locals.out34 = NULL;
+  locals.out38 = NULL;
+  locals.flags3C = 0;
+  locals.flags30 = 0;
   temp_s5 = *((s32 *) (((char *) arg0) + 0x20));
   if (((gBorderSkipActive != 0) && (gSaveKeyRelaxed != 0)) && (D_801002D5 == 0))
   {
@@ -201,6 +207,7 @@ void func_8006D2E4(void *arg0)
         if (gBorderSkipActive != 0)
         {
           temp_v0_3 = func_8011B3D8(*((s32 *) (((char *) temp_s3) + 4)));
+          table = D_800C7DAC;
           if (temp_v0_3 != NULL)
           {
             temp_a0 = *((s8 *) (((char *) temp_v0_3) + 0x182));
@@ -239,7 +246,7 @@ void func_8006D2E4(void *arg0)
               }
             }
           }
-          temp_fs0 = (*((f32 *) (((char *) temp_s3) + 0x1B0))) * ((f32) (*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))));
+          temp_fs0 = (f32)table[(*((u32 *) ((char *)temp_s3 + 0x18C)) >> 12) & 15] * *((f32 *) ((char *)temp_s3 + 0x1B0));
           temp_fv1 = temp_fs0 * 0.1f;
           var_a0 = (u32) temp_fv1;
           temp_v0_5 = randomIntBelow(var_a0);
@@ -257,21 +264,21 @@ void func_8006D2E4(void *arg0)
         }
         else
         {
-          if (sDifficultyLevel != temp_s0)
-          {
-            if ((inline_fn() < 2) || (sDifficultyLevel != 2))
-            {
-              var_fv1 = 0.90000004f;
-            }
-            else
-            {
-              var_fv1 = 1.8000001f;
-            }
-          }
-          else
-          {
-            var_fv1 = 1.35f;
-          }
+          if (sDifficultyLevel == temp_s0)
+            goto normal_scale;
+          if (inline_fn() < 2)
+            goto low_scale;
+          if (sDifficultyLevel == 2)
+            goto high_scale;
+        low_scale:
+          var_fv1 = 0.90000004f;
+          goto apply_scale;
+        normal_scale:
+          var_fv1 = 1.35f;
+          goto apply_scale;
+        high_scale:
+          var_fv1 = 1.8000001f;
+        apply_scale:
           temp_fv0 = *((f32 *) (((char *) temp_s3) + 0x1B0));
           *((f32 *) (((char *) temp_s3) + 0x1B0)) = 0.0f;
           var_fs0 = temp_fv0 * var_fv1;
@@ -376,7 +383,7 @@ void func_8006D2E4(void *arg0)
           }
           temp_fv1_2 = *((f32 *) (((char *) arg0) + 0x74));
           var_v0 = (u32) temp_fv1_2;
-          if (!var_v0)
+          if (!(var_v0 & 3))
           {
             func_8008558C(arg0);
           }
@@ -384,9 +391,7 @@ void func_8006D2E4(void *arg0)
       }
 
       var_condition_bit = var_fs0 > 0.0f;
-      *((f32 *) (((char *) temp_s3) + 0x1A0)) = (f32) (*((f32 *) (((char *) arg0) + 0x24)));
-      *((f32 *) (((char *) temp_s3) + 0x1A4)) = (f32) (*((f32 *) (((char *) arg0) + 0x28)));
-      *((f32 *) (((char *) temp_s3) + 0x1A8)) = (f32) (*((f32 *) (((char *) arg0) + 0x2C)));
+      *(HitVec *)((char *)temp_s3 + 0x1A0) = *(HitVec *)((char *)arg0 + 0x24);
       if ((var_fs0 > 0.0f) && ((*((u16 *) (((char *) arg0) + 0x78))) == 2))
       {
         var_a2_2 = (s32) (var_fs0 * 40.0f);
@@ -501,11 +506,11 @@ void func_8006D2E4(void *arg0)
       {
         if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x40000022)
         {
-          func_800452E0(temp_s3 + 0x1A0, arg0 + 0x24, sp20);
-          func_80045764(sp20, sp20);
-          func_80047B14(sp20, 0.075f, sp20);
+          func_800452E0(temp_s3 + 0x1A0, arg0 + 0x24, locals.vec20);
+          func_80045764(locals.vec20, locals.vec20);
+          func_80047B14(locals.vec20, 0.075f, locals.vec20);
           temp_s0_2 = temp_s3 + 0x11C;
-          vec3Add(sp20, temp_s0_2, temp_s0_2);
+          vec3Add(locals.vec20, temp_s0_2, temp_s0_2);
           var_fv0 = func_80045764(temp_s0_2, temp_s0_2);
           if (var_fv0 > 0.075f)
           {
@@ -526,7 +531,7 @@ void func_8006D2E4(void *arg0)
     block_130:
     if (temp_s5)
     {
-      func_8006E648(temp_s5, arg0, D_800E1A24, &sp30, &sp34, &sp38, &sp3C, &sp40);
+      func_8006E648(temp_s5, arg0, D_800E1A24, &locals.flags30, &locals.out34, &locals.out38, &locals.flags3C, &locals.out40);
     }
 
     temp_a1 = *((void **) (((char *) temp_s3) + 0x414));
@@ -544,33 +549,34 @@ void func_8006D2E4(void *arg0)
     }
     if (((u32) (((u16) (*((s16 *) (((char *) arg0) + 0x7A)))) - 2)) >= 2U)
     {
-      if (((((D_800E19F4 == 0) && (gGameMode == 0xB)) && (sp38 != NULL)) && (D_80109A73 != 0)) && (((*((s32 *) (((char *) ((__repair_record_sp38 *) sp38)->field_70) + 0x30))) & 0xFFFF0) == 0x610))
+      if (((((D_800E19F4 == 0) && (gGameMode == 0xB)) && (locals.out38 != NULL)) && (D_80109A73 != 0)) && (((*((s32 *) (((char *) ((__repair_record_sp38 *) locals.out38)->field_70) + 0x30))) & 0xFFFF0) == 0x610))
       {
         D_800E19F4 = 1;
-        ((__repair_record_sp38 *) sp38)->field_60 = (s32) (((__repair_record_sp38 *) sp38)->field_60 | 1);
+        ((__repair_record_sp38 *) locals.out38)->field_60 = (s32) (((__repair_record_sp38 *) locals.out38)->field_60 | 1);
         func_80073A30();
         func_8000C91C(7);
       }
-      if ((sp34 != NULL) && (sp30 & 1))
+      temp_a1 = locals.out34;
+      if ((temp_a1 != NULL) && (locals.flags30 & 1))
       {
         temp_v0_10 = *((s16 *) (((char *) arg0) + 0x7C));
-        if ((((temp_v0_10 != 1) & (temp_v0_10 != 3)) && ((*((u8 *) (((char *) temp_s3) + 0x186))) == 0)) && (((f32) angleDelta12((s32) (*((f32 *) (((char *) arg0) + 0x40))), (s32) ((*((f32 *) (((char *) sp34) + 0x34))) * 651.8986f))) < 0.0f))
+        if ((((temp_v0_10 != 1) & (temp_v0_10 != 3)) && ((*((u8 *) (((char *) temp_s3) + 0x186))) == 0)) && (((f32) angleDelta12((s32) (*((f32 *) (((char *) arg0) + 0x40))), (s32) ((*((f32 *) (((char *) temp_a1) + 0x34))) * 651.8986f))) < 0.0f))
         {
-          *((f32 *) (((char *) temp_s3) + 0x14)) = (f32) (((*((f32 *) (((char *) sp34) + 0x44))) + (*((f32 *) (((char *) sp34) + 0x4C)))) + (-1.1f));
-          *((f32 *) (((char *) temp_s3) + 0x18)) = (f32) (((*((f32 *) (((char *) sp34) + 0x44))) - (*((f32 *) (((char *) sp34) + 0x4C)))) + 0.9f);
-          temp_fa0 = ((*((f32 *) (((char *) sp34) + 0x34))) * 651.8986f) + 1024.0f;
-          sp48[1] = temp_fa0;
-          sp58[0] = *((f32 *) (((char *) sp34) + 0x24));
-          sp58[1] = *((f32 *) (((char *) arg0) + 0x28));
-          sp58[2] = *((f32 *) (((char *) sp34) + 0x2C));
-          sp58[0] -= sinAngle(temp_fa0) * 0.43f;
-          sp58[2] -= cosAngle(sp48[1]) * 0.43f;
-          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < sp58[1])) && (!(sp58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
+          *((f32 *) (((char *) temp_s3) + 0x14)) = (f32) (((*((f32 *) (((char *) temp_a1) + 0x44))) + (*((f32 *) (((char *) temp_a1) + 0x4C)))) + (-1.1f));
+          *((f32 *) (((char *) temp_s3) + 0x18)) = (f32) (((*((f32 *) (((char *) temp_a1) + 0x44))) - (*((f32 *) (((char *) temp_a1) + 0x4C)))) + 0.9f);
+          temp_fa0 = ((*((f32 *) (((char *) temp_a1) + 0x34))) * 651.8986f) + 1024.0f;
+          locals.vec48[1] = temp_fa0;
+          locals.vec58[0] = *((f32 *) (((char *) temp_a1) + 0x24));
+          locals.vec58[1] = *((f32 *) (((char *) arg0) + 0x28));
+          locals.vec58[2] = *((f32 *) (((char *) temp_a1) + 0x2C));
+          locals.vec58[0] -= sinAngle(temp_fa0) * 0.43f;
+          locals.vec58[2] -= cosAngle(locals.vec48[1]) * 0.43f;
+          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < locals.vec58[1])) && (!(locals.vec58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
           {
-            *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)sp58;
+            *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)locals.vec58;
             *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
             *((f32 *) (((char *) arg0) + 0x44)) = 0.0f;
-            *((f32 *) (((char *) arg0) + 0x40)) = sp48[1];
+            *((f32 *) (((char *) arg0) + 0x40)) = locals.vec48[1];
             *((f32 *) (((char *) temp_s3) + 0x90)) = (f32) (*((f32 *) (((char *) arg0) + 0x40)));
             if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x18)))) < 0.15f)
             {
@@ -652,10 +658,10 @@ void func_8006D2E4(void *arg0)
           if (((temp_v0_14 != 3) & (temp_v0_14 != 1)) && ((*((s8 *) (((char *) temp_s3) + 0x188))) == 0))
         {
           temp_s0_3 = arg0 + 0x24;
-          segmentClosestPoint(sp48, temp_s3 + 0xEC, temp_s3 + 0xF8, temp_s0_3);
-          if (Vec3_DistanceSq(sp48, temp_s0_3) < 0.8f)
+          segmentClosestPoint(locals.vec48, temp_s3 + 0xEC, temp_s3 + 0xF8, temp_s0_3);
+          if (Vec3_DistanceSq(locals.vec48, temp_s0_3) < 0.8f)
           {
-            temp_fa0_2 = approximateAtan2((*((f32 *) (((char *) arg0) + 0x24))) - sp48[0], (*((f32 *) (((char *) arg0) + 0x2C))) - sp48[2]) * 651.8986f;
+            temp_fa0_2 = approximateAtan2((*((f32 *) (((char *) arg0) + 0x24))) - locals.vec48[0], (*((f32 *) (((char *) arg0) + 0x2C))) - locals.vec48[2]) * 651.8986f;
             temp_fv1_3 = (f32) (((s32) ((((s32) (*((f32 *) (((char *) arg0) + 0x40)))) - ((s32) temp_fa0_2)) << 0x14)) >> 0x14);
             D_800E19F8 = temp_fa0_2;
             var_v0_3 = 1;
@@ -671,9 +677,9 @@ void func_8006D2E4(void *arg0)
             if ((var_v0_3 | var_v1) != 0)
             {
               *((f32 *) (((char *) arg0) + 0x40)) = (f32) (temp_fa0_2 + 2048.0f);
-              sp48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
-              sp48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
-              *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)sp48;
+              locals.vec48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
+              locals.vec48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
+              *(HitVec *)((char *)arg0 + 0x24) = *(HitVec *)locals.vec48;
               func_80065684(arg0);
               func_800635BC(arg0, 3);
               clearProbeState(arg0, 0x159);
@@ -689,7 +695,7 @@ void func_8006D2E4(void *arg0)
 
       temp_v0_15 = *((void **) (((char *) arg0) + 0x68));
       *((u16 *) (((char *) temp_v0_15) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v0_15) + 0xC))) & 0xFFFB);
-      if ((sp40 != 0) && (sp3C & 2))
+      if ((locals.out40 != 0) && (locals.flags3C & 2))
       {
         temp_v1_5 = *((void **) (((char *) arg0) + 0x68));
         *((u16 *) (((char *) temp_v1_5) + 0xC)) = (u16) ((*((u16 *) (((char *) temp_v1_5) + 0xC))) | 4);
@@ -702,4 +708,5 @@ void func_8006D2E4(void *arg0)
     *((s32 *) (((char *) temp_s3) + 4)) = 0;
   }
 }
+
 
