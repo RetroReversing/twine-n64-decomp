@@ -158,3 +158,5 @@ typedef struct TrackMarker {
 } TrackMarker;
 
 void func_8008EF6C(u8, u16, u8);
+
+
