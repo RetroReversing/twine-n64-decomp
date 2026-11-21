@@ -3437,25 +3437,28 @@ static const fu	zero = {0x00000000};
 
 
 
-float
-__cosf ( float x )
+/* Single-precision cosine: reduces the angle to [-pi/4, pi/4] by quadrant and evaluates a polynomial; NaN input returns NaN. */ float
+__cosf ( float angle )
 {
-float	absx;
-double	dx, xsq, poly;
-double	dn;
-int	n;
-double	result;
-int	ix, xpt;
+float	absAngle;
+double	reduced;
+double	reducedSq;
+double	poly;
+double	quadrantFloat;
+int	quadrant;
+double	cosValue;
+int	bits;
+int	expBits;
 
 
-	ix = *(int *)&x;
-	xpt = (ix >> 22);
-	xpt &= 0x1ff;
+	bits = *(int *)&angle;
+	expBits = (bits >> 22);
+	expBits &= 0x1ff;
 
 	 
 
 
-	if ( xpt < 0x136 )
+	if ( expBits < 0x136 )
 	{
 		 
 
@@ -3463,34 +3466,34 @@ int	ix, xpt;
 
 
 
-		absx = (( x ) > 0) ? ( x ) : -( x ) ;
+		absAngle = (( angle ) > 0) ? ( angle ) : -( angle ) ;
 
-		dx = absx;
+		reduced = absAngle;
 
-		dn = dx*rpi.d + 0.5;
-		n = (int)((( dn ) >= 0.0) ? (( dn ) + 0.5) : (( dn ) - 0.5)) ;
-		dn = n;
+		quadrantFloat = reduced*rpi.d + 0.5;
+		quadrant = (int)((( quadrantFloat ) >= 0.0) ? (( quadrantFloat ) + 0.5) : (( quadrantFloat ) - 0.5)) ;
+		quadrantFloat = quadrant;
 
-		dn -= 0.5;
+		quadrantFloat -= 0.5;
 
-		dx = dx - dn*pihi.d;
-		dx = dx - dn*pilo.d;	 
+		reduced = reduced - quadrantFloat*pihi.d;
+		reduced = reduced - quadrantFloat*pilo.d;	 
 
-		xsq = dx*dx;
+		reducedSq = reduced*reduced;
 
-		poly = ((P[4].d*xsq + P[3].d)*xsq + P[2].d)*xsq + P[1].d;
+		poly = ((P[4].d*reducedSq + P[3].d)*reducedSq + P[2].d)*reducedSq + P[1].d;
 
-		result = dx + (dx*xsq)*poly;
+		cosValue = reduced + (reduced*reducedSq)*poly;
 
 		 
 
-		if ( (n & 1) == 0 )
-			return ( (float)result );
+		if ( (quadrant & 1) == 0 )
+			return ( (float)cosValue );
 
-		return ( -(float)result );
+		return ( -(float)cosValue );
 	}
 
-	if ( x != x )
+	if ( angle != angle )
 	{
 		 
 

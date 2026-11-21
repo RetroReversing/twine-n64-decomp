@@ -21,17 +21,20 @@ void updateSfxPanFromMarker(s32 arg0, void *arg1, s32 arg2, f32 arg3) {
         a1 = pan;
         if (pan >= 64) pan = 127 - pan;
         if (pan < -63) pan = -127 - pan;
-        if (a1 <= 0) dist = -a1; else dist = a1;
         pan += 64;
+        if (a1 > 0) dist = a1; else dist = -a1;
         flag = &gOptionChoice;
         if (*flag != 0) {
             func_8009CAC0(arg0, pan & 0xFF);
-            if (*flag >= 2) a1 = dist & 0xFF; else a1 = 0;
+            if (*flag >= 2) {
+                func_8009C9F8(arg0, dist & 0xFF);
+                goto pitch;
+            }
         } else {
             func_8009CAC0(arg0, 0x40);
-            a1 = 0;
         }
-        func_8009C9F8(arg0, a1);
+        func_8009C9F8(arg0, 0);
+pitch:
         if (arg3 > 16.0f) arg3 = 16.0f;
         t = arg3 * 512.0f + 8192.0f;
         val = (u32)t;

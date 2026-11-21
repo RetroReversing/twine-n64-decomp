@@ -9,12 +9,12 @@ extern char gSaveSlotTable[];
 extern s16 gSaveSlot;
 extern s32 D_800E0960;
 extern u16 *D_800E0964;
-extern s32 D_800E0978;
+extern s32 gSaveRequestSlot;
 extern s32 gSaveCmdResult;
 
 u16 func_8001233C(void) {
     gSaveStatus = 0;
-    saveSubmitCommand(9, (gSaveSlot * 0x68) + gSaveSlotTable, D_800E0978, 0, 0, D_800E0960, D_800E0964, 0);
+    saveSubmitCommand(9, (gSaveSlot * 0x68) + gSaveSlotTable, gSaveRequestSlot, 0, 0, D_800E0960, D_800E0964, 0);
     if (saveWaitCommand() != 0) {
         return func_80010B60(gSaveCmdResult) & 0xFFFF;
     }
