@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 func_80045E34(void *, void *, void *);                  /* extern */
-s32 func_80078114(void *, void *, void **, f32 *);  /* extern */
+s32 findNearestMatchingObject(void *, void *, void **, f32 *);  /* extern */
 extern u16 gSurfaceQueryStamp;
 extern u16 D_80108F72;
 extern void *D_8010A500;
@@ -98,7 +98,7 @@ void *func_8007847C(void *arg0) {
         temp_s0 = M2C_FIELD(arg0, void **, 0x20);
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & 0xFFFE8FFF);
         M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x20), u16 *, 0x60) = temp_t0;
-        if ((func_80078114(temp_s0, arg0, &sp10, &sp14) << 0x18) != 0) {
+        if ((findNearestMatchingObject(temp_s0, arg0, &sp10, &sp14) << 0x18) != 0) {
             var_s3 = 1;
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x1000);
         }
@@ -111,7 +111,7 @@ void *func_8007847C(void *arg0) {
                             var_s2 = M2C_FIELD(temp_v1_2, void **, 0x58);
                             if (M2C_FIELD(temp_v1_2, u16 *, 0x60) != gSurfaceQueryStamp) {
                                 M2C_FIELD(temp_v1_2, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                if ((func_80078114(temp_a0, arg0, &sp10, &sp14) << 0x18) != 0) {
+                                if ((findNearestMatchingObject(temp_a0, arg0, &sp10, &sp14) << 0x18) != 0) {
                                     var_s3 = 1;
                                     M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x2000);
                                 }
@@ -125,7 +125,7 @@ void *func_8007847C(void *arg0) {
                                                                         var_s0 = M2C_FIELD(temp_v1_3, void **, 0x58);
                                                                         if (M2C_FIELD(temp_v1_3, u16 *, 0x60) != gSurfaceQueryStamp) {
                                                                             M2C_FIELD(temp_v1_3, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                                                            if ((func_80078114(temp_a0_2, arg0, &sp10, &sp14) << 0x18) != 0) {
+                                                                            if ((findNearestMatchingObject(temp_a0_2, arg0, &sp10, &sp14) << 0x18) != 0) {
                                                                                 var_s3 = 1;
                                                                                 M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x4000);
                                                                             }
@@ -137,7 +137,7 @@ void *func_8007847C(void *arg0) {
                                                                                         temp_a1 = M2C_FIELD(temp_a0_3, void **, 0x20);
                                                                                         if (M2C_FIELD(temp_a1, u16 *, 0x60) != gSurfaceQueryStamp) {
                                                                                             M2C_FIELD(temp_a1, u16 *, 0x60) = (u16) gSurfaceQueryStamp;
-                                                                                            if ((func_80078114(temp_a0_3, arg0, &sp10, &sp14) << 0x18) != 0) {
+                                                                                            if ((findNearestMatchingObject(temp_a0_3, arg0, &sp10, &sp14) << 0x18) != 0) {
                                                                                                 var_s3 = 1;
                                                                                                 M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x8000);
                                                                                             }
