@@ -91,8 +91,8 @@ void func_8008F2D4(s32 arg0) {
         *(s16 *)(D_8010D8A0 + offset) = 0;
         *(s32 *)(D_8010D7B0 + offset) = priority;
         *(D_8010D7BC + offset) = 0;
-        i += 1;
         offset += 0x1A0;
+        i += 1;
     } while (i < 0x20);
     i = 0;
     mode = 4;
@@ -104,8 +104,8 @@ void func_8008F2D4(s32 arg0) {
         *(s32 *)(D_80107EE0 + offset) = 0;
         *(D_80107EE8 + offset) = mode;
         *(s32 *)(D_80107EEC + offset) = volume;
-        i += 1;
         offset += 0x28;
+        i += 1;
     } while (i < 0x20);
     D_801083C0 = 1;
     i = 7;
