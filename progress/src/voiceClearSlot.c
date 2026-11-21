@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern char D_801007D9[];
 extern u8 D_80100C7C[];
 
-void voiceClearSlot(void *arg0) {
+void func_80099BC0(void *arg0) {
     char *base;
     s32 id;
     u8 col, row, value, entry;
