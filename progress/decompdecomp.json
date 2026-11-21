@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795239767.999097,
- "revision": 19103,
+ "saved_at": 1795239822.894351,
+ "revision": 19105,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1188,8 +1188,7 @@
     "-mgp32",
     "-mfp32",
     "-O2"
-   ],
-   "timeout": 20
+   ]
   },
   "646288:2148126864": {
    "vram": 2148126864,
@@ -1672,45 +1671,6 @@
     "-woff",
     "649,838,712"
    ]
-  },
-  "624908:2148105484": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "registerWorkerEntry",
-   "vram": 2148105484
-  },
-  "136284:2147616860": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "menuBuildOwnerChannels",
-   "vram": 2147616860
-  },
-  "122916:2147603492": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "updateMenuCodeEntry",
-   "vram": 2147603492
   }
  },
  "instructions": "",
@@ -1756,7 +1716,8 @@
   "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed.",
   "At KMC GCC 2.7.2 -O2, expressing an index stride as an odd factor followed by a left shift can alter register allocation even when the arithmetic instruction sequence is equivalent.",
   "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form.",
-  "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences."
+  "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences.",
+  "For TWINE's KMC GCC 2.7.2, using an explicit pointer local initialized to a global's address and dereferencing it on both sides of a call can produce a saved-register address with repeated offset-zero loads. This works for byte and word loads."
  ],
  "knowledge_evidence": {
   "For KMC GCC 2.7.2, use unsigned C division when the MIPS target uses an unsigned multiply-high sequence. For division by 10, a u32 numerator can produce multu with 0xCCCCCCCD followed by mfhi and a logical shift by 3. A signed numerator selects a different constant and sign correction.": {
@@ -2506,6 +2467,28 @@
     {
      "by": "codex-gpt-6.1-terra-5",
      "value": "In func_800723C0 replacing three manual nine-word copy loops with 36-byte Vec9 typed assignments recovered target block-copy instruction shape and improved the score from 11600 to 7115."
+    }
+   ]
+  },
+  "For TWINE's KMC GCC 2.7.2, using an explicit pointer local initialized to a global's address and dereferencing it on both sides of a call can produce a saved-register address with repeated offset-zero loads. This works for byte and word loads.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "pickupRefreshLabel matched all 82 instructions in revision 4cb76f1fc9d3dc47c83b with savedByte and borderSkip pointer locals, corresponding to $s2 and $s0."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "func_8011E634: initializing a local u8 pointer to &D_801002AE and dereferencing before and after func_8011C674 produced the target saved-register base and two offset-zero byte loads; score improved 3650 to 3425."
     }
    ]
   }
@@ -3387,8 +3370,7 @@
   "local_source_25769805767": "common_local_source_25769805767.h",
   "local_source_25769805768": "common_local_source_25769805768.h",
   "local_source_25769805772": "common_local_source_25769805772.h",
-  "local_source_25769805778": "common_local_source_25769805778.h",
-  "main": "common_main.h"
+  "local_source_25769805778": "common_local_source_25769805778.h"
  },
  "functions": {
   "main": {
@@ -4428,8 +4410,8 @@
   },
   "func_80012C70": {
    "vram": 2147560560,
-   "best_score": 2430,
-   "best_by": "codex-gpt-6.1-terra-2"
+   "best_score": 980,
+   "best_by": "api-claude-sonnet-5-5-2"
   },
   "func_80012F50": {
    "vram": 2147561296,
@@ -4941,6 +4923,16 @@
    "best_score": 7667,
    "best_by": "codex-gpt-6.1-terra-2"
   },
+  "setupPickupActor": {
+   "vram": 2147596016,
+   "matched_by": "codex-gpt-6.2-sol-9",
+   "readable": false
+  },
+  "actorSetupItemPickup": {
+   "vram": 2147596932,
+   "matched_by": "codex-gpt-6.2-sol-6",
+   "readable": false
+  },
   "func_8001BE0C": {
    "vram": 2147597836,
    "matched_by": "autopilot",
@@ -4996,6 +4988,11 @@
    "matched_by": "autopilot",
    "readable": false
   },
+  "updateMenuCodeEntry": {
+   "vram": 2147603492,
+   "matched_by": "codex-gpt-6.2-sol-9",
+   "readable": true
+  },
   "func_8001D658": {
    "vram": 2147604056,
    "matched_by": "autopilot",
@@ -5040,6 +5037,11 @@
    "vram": 2147607604,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "updateRandomMenuItem": {
+   "vram": 2147607712,
+   "best_score": 1990,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_8001E5BC": {
    "vram": 2147607996,
@@ -5141,6 +5143,11 @@
    "matched_by": "autopilot",
    "readable": true
   },
+  "menuRefreshSlot": {
+   "vram": 2147615900,
+   "best_score": 2205,
+   "best_by": "codex-gpt-6-luna-15"
+  },
   "func_800207D8": {
    "vram": 2147616728,
    "matched_by": "autopilot",
@@ -5150,6 +5157,11 @@
    "vram": 2147616796,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "menuBuildOwnerChannels": {
+   "vram": 2147616860,
+   "matched_by": "codex-gpt-6.2-sol-9",
+   "readable": true
   },
   "func_80020EAC": {
    "vram": 2147618476,
@@ -5471,6 +5483,11 @@
    "matched_by": "codex-gpt-6-luna-9",
    "readable": true
   },
+  "func_800265AC": {
+   "vram": 2147640748,
+   "best_score": 2460,
+   "best_by": "codex-gpt-6.1-terra-2"
+  },
   "setMenuTextRequest": {
    "vram": 2147641052,
    "matched_by": "codex-gpt-6.2-sol-6",
@@ -5670,6 +5687,16 @@
    "vram": 2147653036,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "func_800295F0": {
+   "vram": 2147653104,
+   "best_score": 395,
+   "best_by": "codex-gpt-6.1-terra-4"
+  },
+  "func_80029768": {
+   "vram": 2147653480,
+   "best_score": 1855,
+   "best_by": "codex-gpt-6-luna-15"
   },
   "adjustMenuSliderValue": {
    "vram": 2147653840,
@@ -7308,8 +7335,8 @@
   },
   "func_8004D910": {
    "vram": 2147801360,
-   "best_score": 2527,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 1155,
+   "best_by": "api-claude-sonnet-5-5-1"
   },
   "Ray_TriangleIntersect": {
    "vram": 2147802072,
@@ -7660,6 +7687,11 @@
    "vram": 2147861988,
    "matched_by": "autopilot",
    "readable": true
+  },
+  "func_8005C6F8": {
+   "vram": 2147862264,
+   "best_score": 1988,
+   "best_by": "codex-gpt-6-luna-20"
   },
   "func_8005C81C": {
    "vram": 2147862556,
@@ -8688,8 +8720,8 @@
   },
   "func_8007AB60": {
    "vram": 2147986272,
-   "best_score": 2450,
-   "best_by": "codex-gpt-6.1-terra-5"
+   "best_score": 1235,
+   "best_by": "api-claude-sonnet-5-5-1"
   },
   "func_8007AD88": {
    "vram": 2147986824,
@@ -10421,6 +10453,11 @@
    "best_score": 150,
    "best_by": "codex-gpt-6.2-sol-6"
   },
+  "registerWorkerEntry": {
+   "vram": 2148105484,
+   "matched_by": "codex-gpt-6.2-sol-7",
+   "readable": true
+  },
   "func_80097E14": {
    "vram": 2148105748,
    "matched_by": "codex-gpt-6.2-sol-6",
@@ -11094,7 +11131,7 @@
   "__osInsertTimer": {
    "vram": 2148150208,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "osCreateViManager": {
    "vram": 2148150672,
@@ -11881,10 +11918,10 @@
    "matched_by": "api-claude-haiku-5-5-12",
    "readable": true
   },
-  "func_8011CFB0": {
+  "computeTrackMarkerScale": {
    "vram": 2148650928,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "func_8011D0B4": {
    "vram": 2148651188,
@@ -11906,6 +11943,11 @@
    "matched_by": "codex-gpt-6.1-terra-4",
    "readable": true
   },
+  "func_8011E634": {
+   "vram": 2148656692,
+   "best_score": 2260,
+   "best_by": "codex-gpt-6.1-terra-2"
+  },
   "func_8011E800": {
    "vram": 2148657152,
    "matched_by": "autopilot",
@@ -11920,26 +11962,6 @@
    "vram": 2148657500,
    "matched_by": "codex-gpt-6.1-terra-3",
    "readable": true
-  },
-  "registerWorkerEntry": {
-   "vram": 2148105484,
-   "matched_by": "codex-gpt-6.2-sol-7",
-   "readable": false
-  },
-  "actorSetupItemPickup": {
-   "vram": 2147596932,
-   "matched_by": "codex-gpt-6.2-sol-6",
-   "readable": false
-  },
-  "menuBuildOwnerChannels": {
-   "vram": 2147616860,
-   "matched_by": "codex-gpt-6.2-sol-9",
-   "readable": false
-  },
-  "updateMenuCodeEntry": {
-   "vram": 2147603492,
-   "matched_by": "codex-gpt-6.2-sol-9",
-   "readable": false
   }
  },
  "function_headers": {
@@ -22038,6 +22060,12 @@
    "status": "open"
   },
   {
+   "name": "registerWorkerEntry",
+   "vram": 2148105484,
+   "size": 264,
+   "status": "open"
+  },
+  {
    "name": "func_80097E14",
    "vram": 2148105748,
    "size": 228,
@@ -24120,7 +24148,7 @@
    "status": "open"
   },
   {
-   "name": "func_8011CFB0",
+   "name": "computeTrackMarkerScale",
    "vram": 2148650928,
    "size": 260,
    "status": "open"
@@ -24183,12 +24211,6 @@
    "name": "actorSteerTowardTarget",
    "vram": 2148657500,
    "size": 516,
-   "status": "open"
-  },
-  {
-   "name": "registerWorkerEntry",
-   "vram": 2148105484,
-   "size": 264,
    "status": "open"
   }
  ],
@@ -29756,6 +29778,12 @@
    "kind": "func"
   },
   {
+   "name": "computeTrackMarkerScale",
+   "address": 2148650928,
+   "size": 260,
+   "kind": "func"
+  },
+  {
    "name": "sceneSetupScreenLayout",
    "address": 2148656044,
    "size": 648,
@@ -29788,6 +29816,12 @@
   {
    "name": "sMarkerTextArgs",
    "address": 2148658624,
+   "size": 0,
+   "kind": "data"
+  },
+  {
+   "name": "sTrackMarkerScale",
+   "address": 2148659408,
    "size": 0,
    "kind": "data"
   },

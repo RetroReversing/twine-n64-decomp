@@ -11,27 +11,27 @@ extern void __osRestoreInt(u32);
  * head). Each entry's value is the delay after the previous one, so t->value is made
  * relative to the entries before it. Returns the relative delay stored in t. Interrupts
  * are masked around the list update. */
-OSTime __osInsertTimer(OSTimer* t) {
-    OSTimer* timep;
-    OSTime tim;
+/* Inserts a timer into the sorted delta list __osTimerList with interrupts masked and returns its relative delay. */ OSTime __osInsertTimer(OSTimer* newTimer) {
+    OSTimer* nextTimer;
+    OSTime relativeDelay;
     u32 savedMask = __osDisableInt();
 
-    timep = __osTimerList->next;
-    tim = t->value;
-    for (; timep != __osTimerList && tim > timep->value; timep = timep->next) {
-        tim -= timep->value;
+    nextTimer = __osTimerList->next;
+    relativeDelay = newTimer->value;
+    for (; nextTimer != __osTimerList && relativeDelay > nextTimer->value; nextTimer = nextTimer->next) {
+        relativeDelay -= nextTimer->value;
     }
 
-    t->value = tim;
+    newTimer->value = relativeDelay;
 
-    if (timep != __osTimerList) {
-        timep->value -= tim;
+    if (nextTimer != __osTimerList) {
+        nextTimer->value -= relativeDelay;
     }
 
-    t->next = timep;
-    t->prev = timep->prev;
-    timep->prev->next = t;
-    timep->prev = t;
+    newTimer->next = nextTimer;
+    newTimer->prev = nextTimer->prev;
+    nextTimer->prev->next = newTimer;
+    nextTimer->prev = newTimer;
     __osRestoreInt(savedMask);
-    return tim;
+    return relativeDelay;
 }

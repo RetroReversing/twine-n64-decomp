@@ -42,57 +42,57 @@ extern u8 gMenuSlot;
 extern void *gSaveMenuState;
 extern u8 sMenuListKind;
 
-void menuBuildOwnerChannels(void) {
-    s16 var_s4;
-    s32 *temp_s0;
-    s32 temp_s1;
-    s32 temp_s3;
-    s32 temp_v0;
-    s32 temp_v1;
-    s32 var_s2;
-    u8 temp_s1_2;
-    void *temp_a0;
-    void *temp_s0_2;
-    void *temp_s5;
-    void *var_s6;
+/* Rebuilds the owner menu channel list: spawns track markers for each entry and sets up the cursor for the selected one. */ void menuBuildOwnerChannels(void) {
+    s16 channelIndex;
+    s32 *markerSlot;
+    s32 entryFlags;
+    s32 slotIndex;
+    s32 markerObj;
+    s32 kindOffset;
+    s32 entryIndex;
+    u8 selectedKind;
+    void *ownerObj;
+    void *cursorWidget;
+    void *ownerEntries;
+    void *selectedEntry;
 
     gMenuMode = 1;
     D_800B60EA = 1;
     gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_a0 = *(&gBonusObjectTable + gMenuSlot);
-    var_s6 = NULL;
-    if (temp_a0 != NULL) {
-        temp_s5 = M2C_FIELD(temp_a0, void **, 0x6C);
-        if (temp_s5 != NULL) {
+    ownerObj = *(&gBonusObjectTable + gMenuSlot);
+    selectedEntry = NULL;
+    if (ownerObj != NULL) {
+        ownerEntries = M2C_FIELD(ownerObj, void **, 0x6C);
+        if (ownerEntries != NULL) {
             func_80022A30(sMenuListKind, 0x20, 0x42, 0x72, 0x50);
-            var_s2 = 0;
-            var_s4 = 0;
+            entryIndex = 0;
+            channelIndex = 0;
             do {
-                temp_s1 = func_80070844(temp_s5, var_s2 & 0xFF) & 0xFF;
-                if ((temp_s1 != 0) || !(var_s2 & 0xFFFF)) {
-                    temp_s3 = var_s2 & 0xFFFF;
-                    temp_v0 = spawnTrackMarker(sMenuListKind);
-                    temp_s0 = &D_80109D28 + temp_s3;
-                    *temp_s0 = temp_v0;
-                    if (temp_v0 != 0) {
-                        func_800160FC(*temp_s0, lookupDataEntry(temp_s1 | 0x7000), 0x40);
-                        func_8002A7CC(gMenuList, *temp_s0, temp_s1, func_80018318(*temp_s0) & 0xFF);
+                entryFlags = func_80070844(ownerEntries, entryIndex & 0xFF) & 0xFF;
+                if ((entryFlags != 0) || !(entryIndex & 0xFFFF)) {
+                    slotIndex = entryIndex & 0xFFFF;
+                    markerObj = spawnTrackMarker(sMenuListKind);
+                    markerSlot = &D_80109D28 + slotIndex;
+                    *markerSlot = markerObj;
+                    if (markerObj != 0) {
+                        func_800160FC(*markerSlot, lookupDataEntry(entryFlags | 0x7000), 0x40);
+                        func_8002A7CC(gMenuList, *markerSlot, entryFlags, func_80018318(*markerSlot) & 0xFF);
                     }
-                    if (M2C_FIELD(temp_s5, u16 *, 0x174) == temp_s3) {
-                        var_s6 = selectItemAndUpdateAmount(gMenuList, var_s4);
+                    if (M2C_FIELD(ownerEntries, u16 *, 0x174) == slotIndex) {
+                        selectedEntry = selectItemAndUpdateAmount(gMenuList, channelIndex);
                     }
-                    var_s4 += 1;
+                    channelIndex += 1;
                 }
-                var_s2 += 1;
-            } while ((u32) (var_s2 & 0xFFFF) < 0x1EU);
-            if (var_s6 != NULL) {
-                temp_s0_2 = func_80026314(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0xA6, 2);
-                temp_s1_2 = M2C_FIELD(var_s6, u8 *, 8);
-                temp_v1 = temp_s1_2 * 8;
-                menuUpdateCursorActor(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
-                if (temp_s0_2 != NULL) {
-                    M2C_FIELD(temp_s0_2, s16 *, 0x28) = func_8001E760(2, temp_s1_2);
+                entryIndex += 1;
+            } while ((u32) (entryIndex & 0xFFFF) < 0x1EU);
+            if (selectedEntry != NULL) {
+                cursorWidget = func_80026314(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0xA6, 2);
+                selectedKind = M2C_FIELD(selectedEntry, u8 *, 8);
+                kindOffset = selectedKind * 8;
+                menuUpdateCursorActor(*(&D_800C4478 + kindOffset), *(&D_800C447A + kindOffset));
+                if (cursorWidget != NULL) {
+                    M2C_FIELD(cursorWidget, s16 *, 0x28) = func_8001E760(2, selectedKind);
                 }
             }
             func_80022E18(sMenuListKind);

@@ -15,8 +15,8 @@ typedef s32 M2C_UNK32;
 s32 binarySearchRecords();
 extern s16 D_800F38E0;
 extern s32 D_800FD560;
-extern char D_800FD566[];
-extern char D_800FD568[];
+extern char sWorkerEntryFlags[];
+extern char sWorkerEntryData[];
 extern s32 func_800986FC;
 
 s32 func_800985A8(s16 arg0) {
@@ -34,7 +34,7 @@ __repair_literal = 0;
         s32 *callback = &func_800986FC;
         var_s0 = 0;
         for (;;) {
-            var_v0 = binarySearchRecords(&D_800F38E0, *(s32 *)(D_800FD568 + var_s0), *(u16 *)(D_800FD566 + var_s0), 0xC, callback);
+            var_v0 = binarySearchRecords(&D_800F38E0, *(s32 *)(sWorkerEntryData + var_s0), *(u16 *)(sWorkerEntryFlags + var_s0), 0xC, callback);
             var_s1 += 1;
             if (var_v0 != 0) {
                 break;

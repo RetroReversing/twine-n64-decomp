@@ -17,7 +17,7 @@ f32 approximate_hypot2(f32, f32);                        /* extern */
 f32 sinAngle(f32);                             /* extern */
 f32 cosAngle(f32);                             /* extern */
 f32 approximateAtan2(f32, f32);                        /* extern */
-extern f32 D_8011F0D0;
+extern f32 sTrackMarkerScale;
 extern M2C_UNK D_8011F0F0;
 extern M2C_UNK D_8011F0F8;
 
@@ -33,7 +33,7 @@ extern M2C_UNK D_8011F0F8;
 
     dx = M2C_FIELD(target, f32 *, 0x24) - M2C_FIELD(origin, f32 *, 0);
     dz = M2C_FIELD(target, f32 *, 0x2C) - M2C_FIELD(origin, f32 *, 8);
-    dist = (approximate_hypot2(dx, dz) / D_8011F0D0) * 20.0f;
+    dist = (approximate_hypot2(dx, dz) / sTrackMarkerScale) * 20.0f;
     M2C_FIELD(actor, u16 *, 0x20) = (u16) *((u16 *)((s8 *)&D_8011F0F0 + ((dirIndex & 0xFFFF) * 2)));
     M2C_FIELD(actor, u16 *, 0x22) = (u16) *((u16 *)((s8 *)&D_8011F0F8 + ((dirIndex & 0xFFFF) * 2)));
     if ((f64) dist > 0.0) {

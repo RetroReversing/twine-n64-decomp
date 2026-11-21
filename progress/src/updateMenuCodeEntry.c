@@ -26,41 +26,41 @@ extern void *sActiveMenu;
 extern M2C_UNK sMenuCodeSequence;
 extern u8 sMenuCodeStep;
 
-void updateMenuCodeEntry(void) {
-    M2C_UNK var_a0;
-    s32 temp_s0;
-    s32 temp_s1;
-    s32 temp_s2;
-    s32 temp_s3;
-    s32 temp_v1;
+/* Advances the secret menu code sequence from the menu item states and triggers the unlock when the full code is entered. */ void updateMenuCodeEntry(void) {
+    M2C_UNK matchedCode;
+    s32 item21Active;
+    s32 item1FActive;
+    s32 item20Active;
+    s32 item1EActive;
+    s32 expectedCode;
 
-    temp_s2 = func_80027C60(0x20);
-    temp_s0 = func_80027C60(0x21);
-    temp_s3 = func_80027C60(0x1E);
-    temp_s1 = func_80027C60(0x1F);
+    item20Active = func_80027C60(0x20);
+    item21Active = func_80027C60(0x21);
+    item1EActive = func_80027C60(0x1E);
+    item1FActive = func_80027C60(0x1F);
     if (!(menuItemIsActive(0x2A) & 0xFF)) {
         sMenuCodeStep = 0;
     }
-    temp_v1 = *(&sMenuCodeSequence + sMenuCodeStep);
-    switch (temp_v1) {
+    expectedCode = *(&sMenuCodeSequence + sMenuCodeStep);
+    switch (expectedCode) {
     case 32:
-        if (((temp_s0 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) goto failure;
-        if (temp_s3 & 0xFF) goto failure;
-        var_a0 = 32;
+        if (((item21Active & 0xFF) != 0) | ((item1FActive & 0xFF) != 0)) goto failure;
+        if (item1EActive & 0xFF) goto failure;
+        matchedCode = 32;
         goto success;
     case 33:
-        if (((temp_s2 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) goto failure;
-        if (temp_s3 & 0xFF) goto failure;
-        var_a0 = 33;
+        if (((item20Active & 0xFF) != 0) | ((item1FActive & 0xFF) != 0)) goto failure;
+        if (item1EActive & 0xFF) goto failure;
+        matchedCode = 33;
         goto success;
     case 30:
-        if (((temp_s0 & 0xFF) != 0) | ((temp_s1 & 0xFF) != 0)) goto failure;
-        if (temp_s2 & 0xFF) goto failure;
-        var_a0 = 30;
+        if (((item21Active & 0xFF) != 0) | ((item1FActive & 0xFF) != 0)) goto failure;
+        if (item20Active & 0xFF) goto failure;
+        matchedCode = 30;
         goto success;
     case 31:
-        if (((temp_s0 & 0xFF) != 0) | ((temp_s2 & 0xFF) != 0)) goto failure;
-        if (!(temp_s3 & 0xFF)) { var_a0 = 31; goto success; }
+        if (((item21Active & 0xFF) != 0) | ((item20Active & 0xFF) != 0)) goto failure;
+        if (!(item1EActive & 0xFF)) { matchedCode = 31; goto success; }
         goto failure;
     default:
         goto finish;
@@ -70,7 +70,7 @@ failure:
     requestSound(0xED);
     goto finish;
 success:
-    if (func_80027C60(var_a0) & 0xFF) {
+    if (func_80027C60(matchedCode) & 0xFF) {
         requestSound(0xED);
         sMenuCodeStep += 1;
     }

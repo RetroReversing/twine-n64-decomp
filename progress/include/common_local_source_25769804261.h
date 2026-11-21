@@ -18,6 +18,8 @@ typedef volatile s32 vs32;
 typedef int s32_bool;
 
 #define NULL ((void *)0)
+extern void *volatile gPickupActor;
+
 #define TRUE 1
 #define FALSE 0
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
