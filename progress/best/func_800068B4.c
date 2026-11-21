@@ -26,7 +26,7 @@ s32 func_8002D0BC(M2C_UNK, s32);                    /* extern */
 M2C_UNK func_80030F88(M2C_UNK);                     /* extern */
 M2C_UNK func_800450F0();                            /* extern */
 M2C_UNK func_80076168(M2C_UNK);                     /* extern */
-M2C_UNK func_800761B8();                            /* extern */
+M2C_UNK initSceneStateForCurrentMode();                            /* extern */
 M2C_UNK func_80087C9C();                            /* extern */
 extern u8 D_800B19F0;
 extern s8 D_800CA338;
@@ -188,7 +188,7 @@ block_37:
         D_800B19F0 = 0xF;
         return;
     case 15:
-        func_800761B8();
+        initSceneStateForCurrentMode();
         var_a0 = 0x12;
         ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
         goto block_63;

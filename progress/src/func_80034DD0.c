@@ -2,7 +2,7 @@ s32 func_8003278C();
 s32 guMtxCatL(s32 *, s32 *, s32 *);
 s32 guMtxIdent(s32 *);
 s32 guRotate(s32 *, f32, f32, f32, f32);
-extern s8 gVisibleObjectCount;
+extern s8 gVisibleObjectTotal;
 extern s32 sMatrixPoolUsed, D_801096A8;
 extern s32 *D_8010D538;
 extern void *sRenderState;
@@ -12,7 +12,7 @@ void func_80034DD0(void) {
  s32 *__base_D_801096A8 = &D_801096A8;
  func_8003278C();
  temp_a0 = *(s32 **)((char *)sRenderState + 0x74C);
- gVisibleObjectCount = 0;
+ gVisibleObjectTotal = 0;
  sMatrixPoolUsed = 0;
  D_8010D538 = temp_a0;
  guMtxIdent(temp_a0);

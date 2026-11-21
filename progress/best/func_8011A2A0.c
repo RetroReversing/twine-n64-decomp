@@ -12,7 +12,7 @@ extern u16 D_8011F15C[];
 extern s32 D_8011F3A8;
 
 u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
-    s32 *__base_gSaveSlotCount;
+    s32 *__base_gSaveSlotCount = &gSaveSlotCount;
     s32 *__base_D_801002B4 = &gSaveTotalSlots;
     void *q;
     u16 buf[2];

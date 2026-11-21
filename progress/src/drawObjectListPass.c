@@ -6,7 +6,7 @@ s32 emitPrimColor(void *, s32);                 /* extern */
 s32 emitScissorFromWindow();                            /* extern */
 extern s32 gObjectDrawMask;
 extern s32 gVisibleObjects;
-extern u8 gVisibleObjectCount;
+extern u8 gVisibleObjectTotal;
 extern void *gObjectListHead;
 
 typedef struct { unsigned char pad[88]; int value; } __repair_field_58;
@@ -36,10 +36,10 @@ process:
                         temp_v1_2 = ((__repair_field_58 *)var_s0)->value;
                         if (!(temp_v1_2 & 0x20000)) {
                             if (temp_v1_2 & 0x101000) {
-                                temp_a0 = gVisibleObjectCount & 0xFF;
+                                temp_a0 = gVisibleObjectTotal & 0xFF;
                                 if (temp_a0 < 0x10U) {
                                     (&gVisibleObjects)[temp_a0] = var_s0;
-                                    ++gVisibleObjectCount;
+                                    ++gVisibleObjectTotal;
                                 }
                             } else {
                                 temp_v0 = (*(void **)((char *)(var_s0) + 0x70));

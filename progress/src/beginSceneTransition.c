@@ -15,49 +15,49 @@ extern u8 D_8010A4C1;
 extern u8 gSceneFlagsB;
 extern s32 D_8010A500;
 
-/* Frees the current scene's objects, sets the scene-exit flags, and picks the next scene id to load. */ void beginSceneTransition(void) {
-    void **pendingSlot;
-    s32 sceneId;
+/* Frees the current scene objects, sets exit flags and picks the next scene id to load */ /* Frees the current scene's objects, sets the scene-exit flags, and picks the next scene id to load. */ void beginSceneTransition(void) {
+    void **pendingObjectSlot;
+    s32 currentSceneId;
     s32 nextSceneId;
     s32 var_v0;
-    register long notScene20;
+    register long isNotScene20;
 
-    sceneId = *(s16 *)((char *)gObjectRecords + 0x10);
+    currentSceneId = *(s16 *)((char *)gObjectRecords + 0x10);
     if (gSceneObjectsLoaded != 0) {
-        pendingSlot = &D_80109690;
-        func_80084048(*pendingSlot, 0xE);
-        *pendingSlot = NULL;
+        pendingObjectSlot = &D_80109690;
+        func_80084048(*pendingObjectSlot, 0xE);
+        *pendingObjectSlot = NULL;
         func_80084048(*(void **)((char *)gObjectRecords + 4), 0x33);
         func_80084048(gObjectRecords, 0x33);
         func_8000CF14(1);
     }
     {
-        u8 *p = &D_8010A4C1;
-        *p |= 1;
+        u8 *sceneFlagsPtr = &D_8010A4C1;
+        *sceneFlagsPtr |= 1;
     }
     gSceneFlagsB |= 1;
     *(s32 *)((char *)gTrackMarkerTable + 0x100) &= ~0x100;
     func_80001D80(0);
     gObjectRecords = NULL;
-    if (sceneId == 0x26 && D_8010A500) {
+    if (currentSceneId == 0x26 && D_8010A500) {
         func_80064780(D_8010A500);
     }
-    notScene20 = sceneId != 0x20;
-    nextSceneId = -notScene20 | 0x1C;
-    if (sceneId == 0x1C) {
+    isNotScene20 = currentSceneId != 0x20;
+    nextSceneId = -isNotScene20 | 0x1C;
+    if (currentSceneId == 0x1C) {
         nextSceneId = 0x1D;
     }
-    if (sceneId == 0xA) {
+    if (currentSceneId == 0xA) {
         nextSceneId = 0xB;
     }
-    if (sceneId == 0x11) {
+    if (currentSceneId == 0x11) {
         nextSceneId = 0x13;
     }
-    if (sceneId == 5) {
+    if (currentSceneId == 5) {
         nextSceneId = 0x33;
     }
     if ((gSceneSkipLoad != 0) && (!D_800B2715)) {
-        func_8000C8BC(sceneId);
+        func_8000C8BC(currentSceneId);
         return;
     }
     if (nextSceneId >= 0) {

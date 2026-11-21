@@ -118,7 +118,8 @@ block_25:
                     if (func_80027CE0(0x21) & 0xFF) {
                         gSceneType = 0;
                     } else {
-                        gSceneType -= 1;
+                        u8 *scene = &gSceneType;
+                        *scene -= 1;
                     }
                     {
                     func_8001A4F4();break;}

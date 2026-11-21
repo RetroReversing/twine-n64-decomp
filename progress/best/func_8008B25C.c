@@ -28,9 +28,9 @@ extern s32 *D_800E3F68;
 extern s32 D_800E3F6C;
 extern s16 *D_800E3F80;
 extern s32 D_800E3F84;
-extern s32 D_800E4170;
-extern volatile u8 D_800E41D0;
-extern u16 D_800E41DA;
+extern s32 gAudioBufferPtrs;
+extern volatile u8 gAudioBufferIndex;
+extern u16 gAudioBufferCount;
 extern u8 D_800E41E6;
 extern s32 D_800E41E8;
 extern s32 D_800E41EC;
@@ -94,9 +94,9 @@ void func_8008B25C(void) {
     }
     func_8008C160();
     temp_a0 = __osDisableInt();
-    if (D_800E41D0 == 0) {
-        var_v0 = D_800E41DA; } else {
-        var_v0 = (u16) D_800E41D0;
+    if (gAudioBufferIndex == 0) {
+        var_v0 = gAudioBufferCount; } else {
+        var_v0 = (u16) gAudioBufferIndex;
     }
     temp_s4 = var_v0 - 1;
     __osRestoreInt(temp_a0);
@@ -160,7 +160,7 @@ block_23:
                         temp_a0 = (unsigned)var_s1 & 0xFFFF;
                         var_s1 += 0xC0;
                         var_s3 += 1;
-                        func_8008AECC((&D_800E4170)[var_v0_2], temp_a0);
+                        func_8008AECC((&gAudioBufferPtrs)[var_v0_2], temp_a0);
                         if ((u32) (var_s0 & 0xFFFF) < temp_s2) {
                             continue;
                         }
@@ -170,7 +170,7 @@ block_23:
             } else {
                 var_s0_2 = D_800E4268;
                 var_v0_3 = temp_s4 & 0xFFFF;
-                if (var_s0_2 < (u16) D_800E41DA) {
+                if (var_s0_2 < (u16) gAudioBufferCount) {
                     for (;;) {
                         temp_v0_4 = var_s0_2;
                         if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
@@ -191,9 +191,9 @@ block_32:
                             }
                             temp_a1_2 = var_s1 & 0xFFFF;
                             var_s1 += 0xC0;
-                            func_8008AECC((&D_800E4170)[var_v0_4], temp_a1_2);
+                            func_8008AECC((&gAudioBufferPtrs)[var_v0_4], temp_a1_2);
                             var_s3 += 1;
-                            if ((u32) (var_s0_2 & 0xFFFF) < (u16) D_800E41DA) {
+                            if ((u32) (var_s0_2 & 0xFFFF) < (u16) gAudioBufferCount) {
                                 continue;
                             }
                         }
@@ -224,7 +224,7 @@ block_41:
                             temp_a1_3 = var_s1 & 0xFFFF;
                             var_s1 += 0xC0;
                             var_s3 += 1;
-                            func_8008AECC((&D_800E4170)[var_v0_5], temp_a1_3);
+                            func_8008AECC((&gAudioBufferPtrs)[var_v0_5], temp_a1_3);
                             if ((u32) (var_s0 & 0xFFFF) < var_v0_3) {
                                 continue;
                             }

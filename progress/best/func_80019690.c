@@ -86,8 +86,10 @@ void func_80019690(void) {
             i = 0;
             if (gSaveTotalSlots > 0) {
                 do {
-                    __base_D_800C3CF8 = D_800C3CF8;
-                    *(s16 *)(gSharedItemId + ((i & 0xFFFF) * 2)) = **(u16 **)(__base_D_800C3CF8 + (func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((func_80022DBC(i & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC));
+                    s32 row = func_80022DBC((u16)i);
+                    s32 key = *(s32 *)(((u16)row * 3 << 3) + (u32)gSaveSlotInfo);
+                    s32 index = func_8002B9CC(key);
+                    *(s16 *)(gSharedItemId + (u16)i * 2) = **(u16 **)(D_800C3CF8 + (index * 3 << 2));
                     i++;
                 } while ((i & 0xFFFF) < gSaveTotalSlots);
             }

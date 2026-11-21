@@ -307,7 +307,7 @@ block_21:
                                     var_s4_2 = 0;
                                     if (temp_v1_2 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                                         var_s3_2 = var_s6_2 + 2;
-                                        do {
+                                        __repair_rows: {
                                             temp_v1_6 = *(u16 *)(((var_s4_2 & 0xFFFF) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                             if ((sp12E & temp_v1_6) && (sp136 & temp_v1_6)) {
                                                 temp_v1_7 = M2C_FIELD(temp_s1, s32 *, 0x34);
@@ -350,7 +350,8 @@ block_21:
                                             var_s3_2 += 3;
                                             var_s4_2 += 1;
                                             var_s6_2 += 3;
-                                        } while ((u32) (var_s4_2 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
+                                        }
+if ((u32) (var_s4_2 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) goto __repair_rows;
                                     }
                                 }
                             }

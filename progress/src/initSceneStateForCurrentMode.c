@@ -31,18 +31,18 @@ extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern s32 D_8010A4E4;
 
-void func_800761B8(void) {
-    u8 *__base_D_80102EDF;
-    s32 var_a0;
-    u8 temp_s1;
+/* Resets scene flags and runs the per-mode setup selected by the current mode byte */ void initSceneStateForCurrentMode(void) {
+    u8 *modePtr;
+    s32 setupParam;
+    u8 prevMode;
 
-    __base_D_80102EDF = &D_80102EDF;
-    temp_s1 = (*__base_D_80102EDF);
+    modePtr = &D_80102EDF;
+    prevMode = (*modePtr);
     func_80008154();
-    func_80045080((*__base_D_80102EDF));
+    func_80045080((*modePtr));
     if (gBorderSkipFlag != 0) {
         DrawScreenBorderLines();
-        func_80117BF4(temp_s1);
+        func_80117BF4(prevMode);
     }
     D_801002AE = 0;
     D_801002AF = 0;
@@ -51,53 +51,53 @@ void func_800761B8(void) {
     D_80102EEC = 0;
     D_8010A4E4 = 1;
     func_800070A4();
-    switch ((*__base_D_80102EDF)) {
+    switch ((*modePtr)) {
     case 36:
         D_801002AE = 1;
         /* fallthrough */
     default:
-        var_a0 = -1;
+        setupParam = -1;
         if (gBorderSkipFlag != 0) {
-            var_a0 = func_80009ED0(-1);
+            setupParam = func_80009ED0(-1);
         }
         break;
     case 20:
-        var_a0 = 5;
+        setupParam = 5;
         break;
     case 34:
-        var_a0 = 8;
+        setupParam = 8;
         break;
     case 38:
-        var_a0 = 0x10;
+        setupParam = 0x10;
         break;
     case 1:
-        var_a0 = 2;
+        setupParam = 2;
         break;
     case 2:
     case 11:
     case 41:
-        var_a0 = -1;
+        setupParam = -1;
         break;
     case 40:
-        var_a0 = 0xC;
+        setupParam = 0xC;
         break;
     case 16:
     case 18:
     case 25:
     case 28:
-        var_a0 = 0x11;
+        setupParam = 0x11;
         break;
     case 29:
-        var_a0 = 0xA;
+        setupParam = 0xA;
         break;
     case 33:
-        var_a0 = 9;
+        setupParam = 9;
         break;
     }
-    if (var_a0 != -1) {
-        func_8000A5F4(var_a0);
+    if (setupParam != -1) {
+        func_8000A5F4(setupParam);
     }
-    if ((D_800CEEB1 != 0) & (temp_s1 != 0x24)) {
+    if ((D_800CEEB1 != 0) & (prevMode != 0x24)) {
         if (D_800CEEB1 == 1) {
             func_80087CDC();
             return;

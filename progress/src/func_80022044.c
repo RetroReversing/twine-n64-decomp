@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80021CA0();
+s32 refreshSaveSlotMenu();
 s32 formatTextEntry();
 s32 updateActiveMenuState();
 s32 func_8002A700();
@@ -41,7 +41,7 @@ void func_80022044(void) {
         }
         formatTextEntry(temp_s0, D_800D2AA0, lookupDataEntry((unsigned short)(var_s1 + 0x96)));
         func_8002A700(D_8010A488);
-        func_80021CA0(var_s1);
+        refreshSaveSlotMenu(var_s1);
         func_8002AC04(D_8010A488, 1);
         func_8002A9A8(D_8010A488, (*__base_D_801002AD));
         func_8002ACB4(D_8010A488);

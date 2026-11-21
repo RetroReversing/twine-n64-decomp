@@ -35,19 +35,19 @@ s32 func_80070B40();
 s32 func_80070CA4();
 s32 func_800818AC();
 f32 func_80081B44();
-f32 absFloat();
+f32 absFloat(f32);
 extern char D_800C469C[];
 extern char D_800C46A0[];
 extern char D_800C46FC[];
 extern char D_800C4738[];
 extern u8 D_800E1A16;
 extern f32 D_800E1A1C;
-extern char D_80115088[];
+extern u8 D_80115088[];
 extern u8 D_8011508A[];
 extern char D_8011508B[];
-extern char D_80115090[];
+extern u8 D_80115090[];
 extern s32 gTrackMarkerTable;
-extern s32 gBorderMode;
+extern s32 gVisibleSaveSlots;
 extern s32 gBorderSkipFlag;
 
 void func_80065D90(void *arg0) {
@@ -391,7 +391,7 @@ block_80:
         M2C_FIELD(temp_s0_2, s32 *, 0x10) = var_v1_2;
         M2C_FIELD(temp_s0_2, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_s0_2, s32 *, 0x28) & ~0xFC) | 0x10);
         var_a1 = 0x18;
-        if ((gBorderSkipFlag != 0) && (gBorderMode >= 2)) {
+        if ((gBorderSkipFlag != 0) && (gVisibleSaveSlots >= 2)) {
             var_a1 = 0x2A;
         }
 block_107:

@@ -21,54 +21,54 @@ extern s32 gVisibleSaveSlots;
 extern u8 gValidSaveSlotCount;
 
 extern char D_800D2858[];
-void initSaveSlotMenus(void *arg0, void *arg1) {
-    s32 *__base_D_801002B4;
-    M2C_UNK *temp_s0;
-    s32 temp_v0_2;
-    s32 temp_v1;
-    s32 var_v0;
-    u8 temp_v0;
+/* Sets up the two save-slot menus: slot counts, row flags and label text */ void initSaveSlotMenus(void *menuA, void *menuB) {
+    s32 *totalSlotsPtr;
+    M2C_UNK *slotFormat;
+    s32 totalSlots;
+    s32 validSlotBits;
+    s32 menuAFlags;
+    u8 validSlots;
 
-    if ((arg0 != NULL) & (arg1 != NULL)) {
-        temp_v0 = countValidSaveSlots(0xA3);
-        gValidSaveSlotCount = temp_v0;
-        temp_v1 = temp_v0 & 0xFF;
-        if (temp_v1 != 0) {
-            var_v0 = temp_v1 | 0x10000;
+    if ((menuA != NULL) & (menuB != NULL)) {
+        validSlots = countValidSaveSlots(0xA3);
+        gValidSaveSlotCount = validSlots;
+        validSlotBits = validSlots & 0xFF;
+        if (validSlotBits != 0) {
+            menuAFlags = validSlotBits | 0x10000;
         } else {
-            var_v0 = 0x10001;
+            menuAFlags = 0x10001;
         }
         {
-        s32 *minimum = &gSaveSlotCount;
-        M2C_FIELD(arg0, s32 *, 0x14) = var_v0;
-        if (((s32) gValidSaveSlotCount < *minimum) && (gValidSaveSlotCount != 0)) {
-            *minimum = (s32) gValidSaveSlotCount;
+        s32 *slotCountPtr = &gSaveSlotCount;
+        M2C_FIELD(menuA, s32 *, 0x14) = menuAFlags;
+        if (((s32) gValidSaveSlotCount < *slotCountPtr) && (gValidSaveSlotCount != 0)) {
+            *slotCountPtr = (s32) gValidSaveSlotCount;
         }
         }
         if ((gSaveSlotCount == 1) && (gSaveExtraSlotCount == 0)) {
             gSaveExtraSlotCount = gSaveSlotCount;
         }
-        temp_v0_2 = gSaveSlotCount + gSaveExtraSlotCount;
-        __base_D_801002B4 = &D_801002B4;
-        (*__base_D_801002B4) = temp_v0_2;
-        if (temp_v0_2 >= 5) {
+        totalSlots = gSaveSlotCount + gSaveExtraSlotCount;
+        totalSlotsPtr = &D_801002B4;
+        (*totalSlotsPtr) = totalSlots;
+        if (totalSlots >= 5) {
             gSaveExtraSlotCount = 4 - gSaveSlotCount;
-            (*__base_D_801002B4) = 4;
+            (*totalSlotsPtr) = 4;
         }
         gVisibleSaveSlots = gSaveSlotCount;
         if (gSaveSlotCount == 0) {
-            gVisibleSaveSlots = (*__base_D_801002B4);
+            gVisibleSaveSlots = (*totalSlotsPtr);
         }
         if (gVisibleSaveSlots >= 5) {
             gVisibleSaveSlots = 4;
         }
         if (gSaveSlotCount == 1) {
-            M2C_FIELD(arg1, s32 *, 0x14) = 0x10003;
+            M2C_FIELD(menuB, s32 *, 0x14) = 0x10003;
         } else {
-            M2C_FIELD(arg1, s32 *, 0x14) = 4 - gSaveSlotCount;
+            M2C_FIELD(menuB, s32 *, 0x14) = 4 - gSaveSlotCount;
         }
-        temp_s0 = D_800D2858;
-        formatTextEntry(arg0 + 0x28, temp_s0, gSaveSlotCount);
-        formatTextEntry(arg1 + 0x28, temp_s0, gSaveExtraSlotCount);
+        slotFormat = D_800D2858;
+        formatTextEntry(menuA + 0x28, slotFormat, gSaveSlotCount);
+        formatTextEntry(menuB + 0x28, slotFormat, gSaveExtraSlotCount);
     }
 }

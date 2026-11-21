@@ -91,6 +91,7 @@ extern s32 gGameMode;
 extern M2C_UNK gTrackMarkerTable;
 extern u8 gSceneFlagsB;
 extern M2C_UNK D_8011508B;
+typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_80069DCC(void *arg0) {
 volatile s32 unused_stack[4];
 f32 sp20;
@@ -573,9 +574,7 @@ var_s6 = 0.0f + (temp_fs3 * cosAngle(M2C_FIELD(arg0, f32 *, 0x40)));
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), f32 *, 0x34) = temp_fs3;
 temp_fs2 = absFloat(temp_fs3);
 func_800452E0(temp_s1 + 0x128, arg0 + 0x24, &sp48);
-M2C_FIELD(temp_s1, f32 *, 0x128) = (f32) M2C_FIELD(arg0, f32 *, 0x24);
-M2C_FIELD(temp_s1, f32 *, 0x12C) = (f32) M2C_FIELD(arg0, f32 *, 0x28);
-M2C_FIELD(temp_s1, f32 *, 0x130) = (f32) M2C_FIELD(arg0, f32 *, 0x2C);
+(*(__repair_vec3 *) ((s8 *) (temp_s1) + 0x128)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x24));
 sp4C = 0.0f;
 var_s0 = 1;
 if (func_8004572C(&sp48) <= 0.001f) {
@@ -1330,15 +1329,9 @@ M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u
 gSceneFlagsB |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
 temp_v0_10 = *(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
-M2C_FIELD(arg0, f32 *, 0x30) = (f32) M2C_FIELD(arg0, f32 *, 0x24);
-M2C_FIELD(arg0, f32 *, 0x34) = (f32) M2C_FIELD(arg0, f32 *, 0x28);
-M2C_FIELD(arg0, f32 *, 0x38) = (f32) M2C_FIELD(arg0, f32 *, 0x2C);
-M2C_FIELD(temp_v0_10, f32 *, 0x10) = (f32) M2C_FIELD(arg0, f32 *, 0x30);
-M2C_FIELD(temp_v0_10, f32 *, 0x14) = (f32) M2C_FIELD(arg0, f32 *, 0x34);
-M2C_FIELD(temp_v0_10, f32 *, 0x18) = (f32) M2C_FIELD(arg0, f32 *, 0x38);
-M2C_FIELD(temp_v0_10, f32 *, 0x28) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x10);
-M2C_FIELD(temp_v0_10, f32 *, 0x2C) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x14);
-M2C_FIELD(temp_v0_10, f32 *, 0x30) = (f32) M2C_FIELD(temp_v0_10, f32 *, 0x18);
+(*(__repair_vec3 *) ((s8 *) (arg0) + 0x30)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x24));
+(*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x30));
+(*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x28)) = (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10));
 M2C_FIELD(*(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
 func_80081D20(temp_s4, 0x12);
 return;

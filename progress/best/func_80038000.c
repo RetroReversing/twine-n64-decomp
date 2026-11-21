@@ -28,7 +28,7 @@ M2C_UNK func_800358D4(void *);                      /* extern */
 M2C_UNK drawRenderObject(void *);                      /* extern */
 M2C_UNK func_800362B4(void *);                      /* extern */
 M2C_UNK drawObjectListPass(void *);                      /* extern */
-M2C_UNK func_800369B8(void *);                      /* extern */
+M2C_UNK collectVisibleObjects(void *);                      /* extern */
 M2C_UNK func_80036B38(void *);                      /* extern */
 M2C_UNK func_80036BBC(void *);                      /* extern */
 M2C_UNK func_800371E0(void *);                      /* extern */
@@ -252,7 +252,7 @@ loop_15:
             func_80034928(arg0, D_8010A4D8);
             func_80037A7C(arg0);
             func_80034928(arg0, D_8010A4D8);
-            func_800369B8(arg0);
+            collectVisibleObjects(arg0);
             func_80034928(arg0, D_8010A4D8);
             func_80037BDC(arg0);
             func_80034928(arg0, D_8010A4D8);

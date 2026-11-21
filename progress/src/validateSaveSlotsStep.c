@@ -30,11 +30,11 @@ extern void *sActiveMenu;
 extern s32 gGameMode;
 extern void *gMenuState;
 
-void func_8001EB2C(void) {
-    s16 temp_a0;
-    s32 temp_s0;
-    u8 i;
-    s32 var_s1;
+/* Validates save slots before advancing the menu; on failure it plays a sound and clears the menu-ready flag */ void validateSaveSlotsStep(void) {
+    s16 menuState7A;
+    s32 slotIndexU32;
+    u8 slotLoop;
+    s32 slotCursor;
 
     if (M2C_FIELD(gMenuState, u8 *, 0x2C) == 0) {
         updateActiveMenuState();
@@ -47,14 +47,14 @@ void func_8001EB2C(void) {
             goto fail;
         }
     } else {
-        for (i = 0; i < gSaveSlotCount; i++) {
-            if (!(func_8002D0BC(0xA3, i) & 0xFFFF)) {
+        for (slotLoop = 0; slotLoop < gSaveSlotCount; slotLoop++) {
+            if (!(func_8002D0BC(0xA3, slotLoop) & 0xFFFF)) {
                 goto fail;
             }
         }
     }
-    if ((sActiveMenu != NULL) && (temp_a0 = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (temp_a0 != 0xF))) {
-        if (temp_a0 != 0xE) {
+    if ((sActiveMenu != NULL) && (menuState7A = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (menuState7A != 0xF))) {
+        if (menuState7A != 0xE) {
             M2C_FIELD(sActiveMenu, s16 *, 0x7A) = 0xE;
         }
         return;
@@ -63,17 +63,17 @@ void func_8001EB2C(void) {
         requestSound(0xEA);
         return;
     } else {
-        var_s1 = 0;
+        slotCursor = 0;
         func_800070A4();
         do {
-            temp_s0 = var_s1 & 0xFFFF;
-            func_80011938(temp_s0, 0);
-            func_80081CC0(temp_s0);
+            slotIndexU32 = slotCursor & 0xFFFF;
+            func_80011938(slotIndexU32, 0);
+            func_80081CC0(slotIndexU32);
             if (gGameMode == 0x19) {
-                func_80081D00(temp_s0);
+                func_80081D00(slotIndexU32);
             }
-            var_s1 += 1;
-        } while ((u32) (var_s1 & 0xFFFF) < 4U);
+            slotCursor += 1;
+        } while ((u32) (slotCursor & 0xFFFF) < 4U);
         func_800218EC();
         func_80021938();
         D_801002AE = 0;

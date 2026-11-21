@@ -19,7 +19,7 @@ s32 setActionSlot();
 s32 func_80073AF8();
 s32 func_80084338();
 s32 *lookupDataEntry();
-s32 func_8011B0FC();
+s32 startBonusSceneActor();
 s32 relinkTrackMarker();
 s32 sprintf();
 extern char D_800C447C[];
@@ -112,7 +112,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
         if (var_a1 != NULL) {
             var_v0 = 1;
             if (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0xB4), u8 *, 0x10) == 7) {
-                func_8011B0FC(temp_s1);
+                startBonusSceneActor(temp_s1);
                 return 1;
             }
             /* Duplicate return node #67. Try simplifying control flow for better match */

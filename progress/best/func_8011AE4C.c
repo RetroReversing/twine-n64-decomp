@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void func_8002B150(void *, s32, s8);
 #define func_8002B150(a,b,c,d) func_8002B150(a,b,c)
 M2C_UNK func_8007089C(void *, M2C_UNK, u16);        /* extern */
-M2C_UNK func_8011B0FC(void *);                      /* extern */
+M2C_UNK startBonusSceneActor(void *);                      /* extern */
 M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 gSaveTotalSlots;
@@ -92,7 +92,7 @@ __repair_literal = 0;
         } else {
 block_23:
             if ((var_s0 & 0xFF) && (M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) == 7)) {
-                func_8011B0FC(arg2);
+                startBonusSceneActor(arg2);
             }
         }
         M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) = 0U;
