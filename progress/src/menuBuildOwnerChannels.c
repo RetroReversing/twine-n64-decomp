@@ -18,7 +18,7 @@ s32 lookupDataEntry(s32);                             /* extern */
 extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern s8 D_800B60EA;
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 extern u8 gMenuSlot;
 extern s16 D_800C4478;
 extern s16 D_800C447A;
@@ -53,14 +53,14 @@ extern s32 func_8001EAF0;
     if (owner != NULL) {
         rec = (*(void **)((char *)(owner) + 0x6C));
         if (rec != (int)NULL) {
-            func_80022A30(gMenuParamC, 0x20, 0x42, 0x72, 0x50);
+            func_80022A30(gMenuListParam, 0x20, 0x42, 0x72, 0x50);
             i = 0;
             count = 0;
             do {
                 val = func_80070844(rec, i & 0xFF) & 0xFF;
                 if ((val) || !(i & 0xFFFF)) {
                     idx = i & 0xFFFF;
-                    handle = func_800162BC(gMenuParamC);
+                    handle = func_800162BC(gMenuListParam);
                     slot = (idx * 4) + D_80109D28;
                     *slot = handle;
                     if (handle) {
@@ -83,8 +83,8 @@ extern s32 func_8001EAF0;
                     (*(s16 *)((char *)(widget) + 0x28)) = func_8001E760(2, kind);
                 }
             }
-            func_80022E18(gMenuParamC);
-            func_80022AD8(gMenuParamC);
+            func_80022E18(gMenuListParam);
+            func_80022AD8(gMenuListParam);
             func_8002AC04(gMenuList, 1);
         }
     }

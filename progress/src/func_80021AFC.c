@@ -18,7 +18,7 @@ M2C_UNK func_8000A22C(u8);                          /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 extern u8 D_801002F0;
 extern u8 D_801002F1;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern void *gMenuState;
 
 void func_80021AFC(void) {
@@ -33,7 +33,7 @@ void func_80021AFC(void) {
             M2C_FIELD(temp_a0, s16 *, 0x26) = (s16) ((*M2C_FIELD(temp_v1, u8 **, 0x10) * M2C_FIELD(temp_v1, s32 *, 0x38)) + 2);
         }
         func_8000A22C(D_801002F0);
-        if (D_80102EDD != 0) {
+        if (gMenuUseTextList != 0) {
             func_8000A18C(D_801002F1);
             return;
         }

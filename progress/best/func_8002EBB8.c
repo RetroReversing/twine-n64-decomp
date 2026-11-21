@@ -23,7 +23,7 @@ extern s16 D_800BFDB8;
 extern s16 D_800BFDDC;
 extern char D_800E1584[];
 extern char D_800E1590[];
-extern u8 D_80102EDE;
+extern u8 gPendingMenuCommand;
 extern char gTrackMarkerTable[];
 
 typedef struct { void * field_0; unsigned char pad_4[36]; int field_28; void * field_2C; void * field_30; void * field_34; void * field_38; void * field_3C; short field_40; short field_42; short field_44; } __repair_record_temp_s1;
@@ -60,7 +60,7 @@ void *func_8002EBB8(s32 arg0) {
         return NULL;
     }
     (*(s16 *)((char *)(temp_v0) + 0x78)) = 0x39;
-    (*(s16 *)((char *)(temp_v0) + 0x7A)) = (s16) ((D_80102EDE != 0) * 4);
+    (*(s16 *)((char *)(temp_v0) + 0x7A)) = (s16) ((gPendingMenuCommand != 0) * 4);
     func_8000A310();
     func_8000A5D0(0xC);
     do { func_80064318(temp_v0, arg0 & 0xFFFF); } while (0);
@@ -101,7 +101,7 @@ void *func_8002EBB8(s32 arg0) {
     D_800BFDB8 = arg0;
     D_800BFC92 += 1;
     var_a1 = (char *)&D_800BFD94;
-    if (D_80102EDE != 0) {
+    if (gPendingMenuCommand != 0) {
         var_a1 += 4;
     } else {
         var_a1 -= 0x20;

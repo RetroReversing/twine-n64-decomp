@@ -26,7 +26,7 @@ extern s32 D_800BD65C;
 extern s32 D_800BD664;
 extern u8 D_801001A1[];
 extern u8 D_801002A0;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *gMenuState;
 
 void func_8001CF24(void *arg0, s32 arg1, s32 arg2) {
@@ -77,7 +77,7 @@ __repair_literal = 2;
             } else if (var_v0_2 != 0) {
                 M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x10) = (s32) ((D_800BD664 & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
             } else {
-                M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x10) = (s32) ((D_80102EBC & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
+                M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x10) = (s32) ((gMenuSoundParams & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
             }
             var_a1 = M2C_FIELD(temp_s1, void **, 4);
             M2C_FIELD(var_a1, s32 *, 0x28) = (s32) ((M2C_FIELD(var_a1, s32 *, 0x28) & ~0xFC) | (M2C_FIELD(M2C_FIELD(temp_s1, void **, 0), s32 *, 0x28) & 0xFC));

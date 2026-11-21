@@ -4,7 +4,7 @@ s32 func_80018318(void *);                          /* extern */
 s32 func_80022B60(s32, void *);             /* extern */
 extern s32 D_800BD64C;
 extern s32 D_800BD660;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern void *gMenuState;
 
 void func_8002255C(void *arg0, void *arg1) {
@@ -56,7 +56,7 @@ block_9:
                 var_v0 = (*(u16 *)((char *)(arg0) + 4));break;}
             }
             (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x20)) = var_v0;
-            if (D_80102EDD != 0) {
+            if (gMenuUseTextList != 0) {
                 var_v1 = (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 4))) + 0x28)) & ~0xFC;
                 var_v0_2 = -(((s32) temp_s2 & 0xFF) == 0) & 7;
             } else {
@@ -82,7 +82,7 @@ block_9:
             }
             (*(u16 *)((char *)(__repair_phase_storage.pointer) + 0x20)) = var_v0_3;
             (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
-            if (D_80102EDD != 0) {
+            if (gMenuUseTextList != 0) {
                 var_v1_2 = (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x28)) & ~0xFC;
                 var_v0_4 = -(((s32) temp_s2 & 0xFF) == 0) & 0x1C;
             } else {
@@ -107,7 +107,7 @@ block_26:
             }
         }
         var_a0 = 2;
-        if (D_80102EDD != 0) {
+        if (gMenuUseTextList != 0) {
             var_a0 = 0;
         }
         func_80022B60(var_a0, var_a1);

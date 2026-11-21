@@ -49,7 +49,7 @@ extern s16 gSaveStatus;
 extern s16 D_800BFC34;
 extern u8 gSaveKeyRelaxed;
 extern u16 D_80100910;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern s8 D_80102EDC;
 extern s8 D_80102F04;
 extern void *gMenuState;
@@ -209,10 +209,10 @@ block_95:
                         D_800BD55C = 0U;
                         var_a0 = 0x19;
                         if ((((u16) D_800BD68C < 0xAU) | (D_800BD68C == 0x13)) != 0) {
-                            var_a1_4 = D_80102EBC;
+                            var_a1_4 = gMenuSoundParams;
                             var_a2_3 = 0x13;
                         } else {
-                            var_a1_4 = D_80102EBC;
+                            var_a1_4 = gMenuSoundParams;
                             var_a0 = 0x1B;
                             var_a2_3 = 0xA;
                         }
@@ -327,10 +327,10 @@ block_184:
                                         if (temp_v1 != 0x19) {
                                             var_a0 = 1;
                                             if (temp_v1 != 0x1A) {
-                                                var_a1_4 = D_80102EBC;
+                                                var_a1_4 = gMenuSoundParams;
                                                 var_a2_3 = 0xA;
                                             } else {
-                                                var_a1_4 = D_80102EBC;
+                                                var_a1_4 = gMenuSoundParams;
                                                 var_a0 = 0x10;
                                                 var_a2_3 = 0xA;
                                             }
@@ -384,10 +384,10 @@ block_134:
                                 if (((func_8002D218() << 0x10) == 0) || (var_v0 = 0x80, (func_8002D218() == temp_s0))) {
                                     var_a0 = 0x19;
                                     if ((((u16) D_800BD68C < 0xAU) | (D_800BD68C == 0x13)) != 0) {
-                                        var_a1_4 = D_80102EBC;
+                                        var_a1_4 = gMenuSoundParams;
                                         var_a2_3 = 0x13;
                                     } else {
-                                        var_a1_4 = D_80102EBC;
+                                        var_a1_4 = gMenuSoundParams;
                                         var_a0 = 0x1B;
                                         var_a2_3 = 0xA;
                                     }
@@ -404,10 +404,10 @@ block_134:
                                 if (temp_v1_2 != 0x19) {
                                     var_a0 = 1;
                                     if (temp_v1_2 != 0x1A) {
-                                        var_a1_4 = D_80102EBC;
+                                        var_a1_4 = gMenuSoundParams;
                                         var_a2_3 = 0xA;
                                     } else {
-                                        var_a1_4 = D_80102EBC;
+                                        var_a1_4 = gMenuSoundParams;
                                         var_a0 = 0x10;
                                         var_a2_3 = 0xA;
                                     }
@@ -448,7 +448,7 @@ block_134:
                             var_v0 = 0xFF;
                             if (D_80100910 == 1) {
                                 func_8002778C();
-                                var_a1_4 = D_80102EBC;
+                                var_a1_4 = gMenuSoundParams;
                                 var_a0 = 1;
                                 var_a2_3 = 0xA;
                                 D_80102F04 = 0;
@@ -494,10 +494,10 @@ block_163:
                             if (temp_v1_3 != 0x19) {
                                 var_a0 = 1;
                                 if (temp_v1_3 != 0x1A) {
-                                    var_a1_4 = D_80102EBC;
+                                    var_a1_4 = gMenuSoundParams;
                                     var_a2_3 = 0xA;
                                 } else {
-                                    var_a1_4 = D_80102EBC;
+                                    var_a1_4 = gMenuSoundParams;
                                     var_a0 = 0x10;
                                     var_a2_3 = 0xA;
                                 }

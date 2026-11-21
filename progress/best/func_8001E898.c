@@ -29,7 +29,7 @@ extern u32 D_800BD664;
 extern u8 gMenuSlot;
 extern u16 D_800E0ECC[];
 extern u16 D_800E0ED4[];
-extern u32 D_80102EBC;
+extern u32 gMenuSoundParams;
 extern OpacityState *gMenuState;
 
 void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
@@ -43,7 +43,7 @@ void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
         object->y = entry->position.y;
         object->size = 0x40;
         func_80022B60(0);
-        object->color = (D_80102EBC & ~0xFF) | gMenuState->alpha;
+        object->color = (gMenuSoundParams & ~0xFF) | gMenuState->alpha;
         func_80022E88(0);
         func_80022E5C(gMenuState->alpha);
         switch (gMenuMode) {

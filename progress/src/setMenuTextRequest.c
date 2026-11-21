@@ -41,7 +41,7 @@ void func_80016314(void *);
 s32 func_800448A4(void *, u32, s32);
 s32 lookupDataEntry(u16, void *);
 s32 strlen(s8 *);
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 extern MenuState *gMenuState;
 
 /* Replaces the menu text request: frees the pending object, rebuilds the active text, and queues a sprite object. */
@@ -62,7 +62,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
     }
     gMenuState->pendingText = NULL;
     if (request != NULL) {
-        if ((gMenuState->activeText != NULL) || (temp_v0 = func_800162BC(gMenuParamC), (gMenuState->activeText = temp_v0), (temp_v0 != NULL))) {
+        if ((gMenuState->activeText != NULL) || (temp_v0 = func_800162BC(gMenuListParam), (gMenuState->activeText = temp_v0), (temp_v0 != NULL))) {
             gMenuState->activeText->param1E = request->slot02;
             temp_a1 = gMenuState->activeText;
             temp_a1->flags = (temp_a1->flags & ~0xFC) | 0xC;
@@ -79,7 +79,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
         }
         gMenuState->pendingText = NULL;
         if (request->spriteArgs.hi >= 0) {
-            temp_v0_2 = func_800162BC(gMenuParamC);
+            temp_v0_2 = func_800162BC(gMenuListParam);
             temp_v0_2->param10 = request->value08;
             flags = temp_v0_2->flags;
             temp_a0_2 = request->value0C;

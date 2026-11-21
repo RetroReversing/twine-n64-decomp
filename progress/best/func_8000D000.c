@@ -43,7 +43,7 @@ extern s32 D_800E0748;
 extern s32 D_800E074C;
 extern s8 D_800E0758;
 extern char D_80100B60[];
-extern u8 D_80102EDE;
+extern u8 gPendingMenuCommand;
 extern u8 D_80102EE0;
 extern void *D_80109690;
 extern u8 D_80109E68;
@@ -82,7 +82,7 @@ s32 func_8000D000(void) {
     temp_s1 = gSceneObjectsLoaded;
     var_a0 = 0;
     if (D_80102EE0 == 0x24) {
-        var_a0 = D_80102EDE != 0x1F;
+        var_a0 = gPendingMenuCommand != 0x1F;
     }
     gSceneSkipLoad = var_a0;
     func_80008154(var_a0);

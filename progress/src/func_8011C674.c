@@ -22,7 +22,7 @@ extern s32 D_800BD66C;
 extern u8 D_801002AC;
 extern char D_801002CC[];
 extern s16 D_801002D0;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern char D_8011F0D4[];
 extern s32 D_8011F3A8;
 extern void *D_8011F3B8;
@@ -32,7 +32,7 @@ void func_8011C674(s16 arg0) {
     u8 temp_v0;
     void *temp_s1;
 
-    if (D_80102EDD != 0) {
+    if (gMenuUseTextList != 0) {
         func_8002B050(D_801002CC, arg0);
         if ((func_8002B278(D_801002CC - 8) << 0x10) != 0) {
             if (D_801002AC == 0) {

@@ -23,7 +23,7 @@ M2C_UNK func_800295F0(M2C_UNK);                     /* extern */
 M2C_UNK func_80029768(M2C_UNK);                     /* extern */
 M2C_UNK adjustMenuSliderValue(M2C_UNK);                     /* extern */
 M2C_UNK func_80029AC8(void *, void *, void *);      /* extern */
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern u8 D_80102EC8;
 extern s32 D_80102ECC;
 extern f32 D_80102ED0;
@@ -45,7 +45,7 @@ extern void *gMenuState;
             if (M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6) != 0) {
                 M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
                 requestSound(0xED);
-                func_800278AC(M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6), D_80102EBC, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
+                func_800278AC(M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), u16 *, 6), gMenuSoundParams, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
             }
         } else if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
             if (func_80027C60(0x2A) & 0xFF) {

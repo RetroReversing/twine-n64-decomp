@@ -40,7 +40,7 @@ extern u8 D_801002AE;
 extern M2C_UNK D_801002B8;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern u8 D_80102EDF;
 extern s32 D_80102EEC;
 extern u8 D_80103EB0;
@@ -88,7 +88,7 @@ block_10:
         var_a0 = 4;
         if (D_80102EEC == 0) {
             func_8002CC34(4);
-            if ((D_800CEEB0 == 0) && (D_80102EDD != 0)) {
+            if ((D_800CEEB0 == 0) && (gMenuUseTextList != 0)) {
                 if (D_80102ED8 == 0) {
                     if (!(func_8002D0BC(0xA3, 0) & 0xFFFF)) {
                         goto block_15;
@@ -178,12 +178,12 @@ block_37:
     case 4:
         func_800067C8();
         if (D_80102EDF == 0x24) {
-            D_80102EDD = 0;
+            gMenuUseTextList = 0;
             D_80102ED8 = 0;
             D_80102EB9 = 0xC;
         } else {
             D_801002AC = 0;
-            D_80102EDD = 1;
+            gMenuUseTextList = 1;
         }
         D_800B19F0 = 0xF;
         return;

@@ -3,7 +3,7 @@ extern void func_80027E88(void);
 extern void func_80027EB4(void);
 extern void func_80027EF4(void);
 extern void func_80027F44(void);
-extern void func_80027FF4(void);
+extern void updateMenuState(void);
 extern void func_80028158(void);
 extern void func_800281E0(void);
 extern void func_800282D0(void);
@@ -17,7 +17,7 @@ extern void func_80028A7C(void);
 extern void func_80028E6C(void);
 extern void func_80028EC8(void);
 extern void func_80028F90(void);
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 extern u8 gMenuSlot;
 extern u8 gMenuParamB;
 extern void *sActiveMenu;
@@ -32,7 +32,7 @@ extern void *gMenuState;
         stateId = *(s16 *)((u8 *)menu + 0x7A);
         gMenuSlot = *(u8 *)((u8 *)stateData + 4);
         gMenuParamB = *(u8 *)((u8 *)stateData + 5);
-        gMenuParamC = *(u8 *)((u8 *)stateData + 6);
+        gMenuListParam = *(u8 *)((u8 *)stateData + 6);
         sActiveMenu = menu;
         gMenuState = stateData;
         switch (stateId) {
@@ -61,7 +61,7 @@ extern void *gMenuState;
             func_80027EF4();
             break;
         case 9:
-            func_80027FF4();
+            updateMenuState();
             break;
         case 11:
             func_80028458();

@@ -44,7 +44,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern M2C_UNK D_800BD640;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern s32 D_80102EC4;
 extern void *gMenuState;
 
@@ -55,7 +55,7 @@ void func_80025F78(void *arg0, u16 arg1) {
     if ((arg0 != NULL) && (temp_a2 = M2C_FIELD(arg0, void **, 8), temp_v1 = M2C_FIELD(arg0, u16 *, 0xC), temp_v1 &= 0xFFF0, temp_v1 |= arg1, M2C_FIELD(arg0, u16 *, 0xC) = temp_v1, (temp_a2 != NULL))) {
         if (!(arg1 & 0xFFFF)) {
             if (temp_v1 & 0x80) {
-                M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) D_80102EBC;
+                M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) gMenuSoundParams;
                 return;
             }
             M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) D_80102EC4;

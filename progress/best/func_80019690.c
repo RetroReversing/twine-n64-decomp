@@ -31,7 +31,7 @@ extern s16 D_80102CBC;
 extern s16 D_80102CBE;
 extern s16 D_80102CC0;
 extern s32 gBorderSkipFlag;
-extern s8 D_80102EDD;
+extern s8 gMenuUseTextList;
 extern u8 D_80102EE0;
 extern u8 D_80102EE8;
 extern s32 D_80102EF0;
@@ -71,7 +71,7 @@ void func_80019690(void) {
         }
     } else {
         func_8003099C(D_80102EE0, D_80102EE8);
-        D_80102EDD = 1;
+        gMenuUseTextList = 1;
         p = (*(void **)((char *)(gMenuState) + 0x18));
         if ((*(s32 *)((char *)(p) + 0x10)) != 0) {
             gBorderSkipFlag = (*(s32 *)((char *)(p) + 0x14));

@@ -5,10 +5,10 @@ s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 extern s32 D_800BD640;
-extern u8 gMenuParamC;
-extern s32 D_80102EBC;
+extern u8 gMenuListParam;
+extern s32 gMenuSoundParams;
 extern s32 D_80102EC4;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 
 
 void *func_80026A5C(void *arg0, s32 arg1) {
@@ -22,10 +22,10 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     u32 temp_v1;
     void *temp_v0;
 
-    if ((arg0 == NULL) || (temp_v0 = func_800162BC(gMenuParamC), (temp_v0 == NULL))) {
+    if ((arg0 == NULL) || (temp_v0 = func_800162BC(gMenuListParam), (temp_v0 == NULL))) {
         return NULL;
     }
-    if (D_80102EDD == 0) {
+    if (gMenuUseTextList == 0) {
         var_v0 = ((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 8;
     } else {
         var_v0 = ((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 4;
@@ -66,7 +66,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
         (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x20);
     }
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x80) {
-        var_v0_3 = D_80102EBC;
+        var_v0_3 = gMenuSoundParams;
     } else {
         var_v0_3 = D_80102EC4;
     }
@@ -85,7 +85,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
         temp_a2 = (*(u32 *)((char *)(arg0) + 0x20));
         func_800448A4(temp_v0, temp_a2 >> 0x10, temp_a2 & 0xFF);
         (*(s32 *)((char *)(temp_v0) + 0x18)) = 0;
-        if (((*(u8 *)((char *)(arg0) + 0x1C)) & 0x10) && (D_80102EDD)) {
+        if (((*(u8 *)((char *)(arg0) + 0x1C)) & 0x10) && (gMenuUseTextList)) {
             (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x1C);
         }
     } else {

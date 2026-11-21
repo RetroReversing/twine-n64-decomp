@@ -18,7 +18,7 @@ M2C_UNK func_800278AC(M2C_UNK, s32, M2C_UNK);       /* extern */
 M2C_UNK func_8002FBD4(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK func_80081D20(M2C_UNK, M2C_UNK);            /* extern */
 extern M2C_UNK D_800BF458;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *gMenuState;
 
 void func_8002F240(int __reuse_arg0, M2C_UNK arg1) {
@@ -29,6 +29,6 @@ void func_8002F240(int __reuse_arg0, M2C_UNK arg1) {
     func_800269B4(gMenuState + 0x1C, 0x26, 0x24);
     func_8002FBD4(arg1, 9);
     M2C_FIELD(gMenuState, s16 *, 0x32) = 0;
-    func_800278AC(1, D_80102EBC & ~0xFF, 0x16);
+    func_800278AC(1, gMenuSoundParams & ~0xFF, 0x16);
     func_8002778C();
 }

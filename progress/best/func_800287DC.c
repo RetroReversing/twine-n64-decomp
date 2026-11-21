@@ -21,7 +21,7 @@ s32 func_80030644();
 extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern char D_800BD8C4[];
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *sActiveMenu;
 extern void *gMenuState;
 
@@ -47,7 +47,7 @@ s32 __repair_operand;
     if (temp_a3 != 0) {
         func_80030644(M2C_FIELD(gMenuState, s32 *, 0x20), 0xFF);
         M2C_FIELD(gMenuState, s32 **, 0xC) = D_800BD8C4;
-        func_800278AC(1, D_80102EBC, 0xA);
+        func_800278AC(1, gMenuSoundParams, 0xA);
         func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 4);
         func_800269B4(gMenuState + 0x1C, 3, 0x2A);
         temp_v0 = M2C_FIELD(gMenuState, void **, 0x1C);

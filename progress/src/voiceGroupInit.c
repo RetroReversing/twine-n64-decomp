@@ -4,7 +4,7 @@ s32 func_800269B4(void *, s32, s32);    /* extern */
 void *func_80026A5C(void *, s32);       /* extern */
 extern s32 D_800BD660;
 extern s32 D_800BF5A0;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *gMenuState;
 
 /* Sets up a voice group: stores its id and size, primes each sub-entry's
@@ -26,7 +26,7 @@ s32 voiceGroupInit(void *group, s32 id, u8 count, s8 flags) {
     if (M2C_FIELD(group, u8 *, 0xE) != 0) {
         do {
             temp_s0 = M2C_FIELD(group, s32 *, 0) + ((var_s2 & 0xFFFF) * 0x28);
-            temp_v0 = func_80026A5C(temp_s0, D_80102EBC);
+            temp_v0 = func_80026A5C(temp_s0, gMenuSoundParams);
             M2C_FIELD(temp_s0, void **, 8) = temp_v0;
             if (temp_v0 != NULL) {
                 void *p = temp_v0;

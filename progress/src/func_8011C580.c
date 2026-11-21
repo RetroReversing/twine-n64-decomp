@@ -18,7 +18,7 @@ M2C_UNK func_8002B180(M2C_UNK *, M2C_UNK *);        /* extern */
 s16 func_8002B278(M2C_UNK *);                       /* extern */
 M2C_UNK func_8011AA04();                            /* extern */
 s16 strlen(M2C_UNK *);                              /* extern */
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern M2C_UNK D_8011F0E0;
 extern M2C_UNK D_8011F3AC;
 extern s16 D_8011F3B0;
@@ -27,7 +27,7 @@ extern void *D_8011F3BC;
 void func_8011C580(void) {
     void *temp_s1;
 
-    if (D_80102EDD != 0) {
+    if (gMenuUseTextList != 0) {
         temp_s1 = D_8011F3BC;
         if (temp_s1 != NULL) {
             if ((func_8002B278(&D_8011F3AC) << 0x10) > 0) {

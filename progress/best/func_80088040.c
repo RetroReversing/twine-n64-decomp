@@ -1,4 +1,4 @@
-extern s32 func_80087F60(s32);
+extern s32 func_80087F60(u32 arg0, s32);
 extern s32 func_800936A8(s32);
 extern s32 func_8009D510(void *,s32,s32,s32,void *);
 extern s32 func_800A0170(s32,s32);
@@ -16,7 +16,7 @@ extern s32 (*gDataBankAlloc)(s32,s32);
 extern s32 sDataBankAux;
 extern u32 sDataBankCount;
 extern u8 sDataBankEnabled;
-extern u32 sDataBankTable[];
+extern u32 *sDataBankTable;
 s32 func_80088040(u32 arg0,s32 arg1,s8 arg2,s8 arg3,u8 arg4,u8 arg5,u8 arg6) {
     s32 temp_a0;
     s32 temp_v0;
@@ -51,7 +51,7 @@ loop:
                 if(D_8010086C) temp_s1[0x11DE]*=2;
                 *(s32 *)(temp_s1+0x120C)=-1; *(s8 *)(temp_s1+0x1200)=1;
                 osSendMesg(D_800E3F30,0,0);
-                return func_80087F60(var_s2);
+                return func_80087F60(var_s2, 0);
             }
         }
     }

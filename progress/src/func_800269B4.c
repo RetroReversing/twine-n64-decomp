@@ -4,14 +4,14 @@ void *func_800162BC(u8);                            /* extern */
 s32 func_80016314(void *);                      /* extern */
 s32 func_800448A4(void *, s32, s32);    /* extern */
 extern s32 D_800BD660;
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 
 void func_800269B4(void **arg0, s32 arg1, s32 arg2) {
     register void *temp_v0;
 
     func_80016314(*arg0);
     *arg0 = NULL;
-    temp_v0 = func_800162BC(gMenuParamC);
+    temp_v0 = func_800162BC(gMenuListParam);
     if (temp_v0 != NULL) {
         (*(s16 *)((char *)(temp_v0) + 0x1E)) = 0;
         (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0xC);

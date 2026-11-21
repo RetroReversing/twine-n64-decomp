@@ -61,9 +61,7 @@ void *func_8005F664(void *arg0, u16 arg2) {
                         M2C_FIELD(temp_s2,s32 *,0xC)=0;
                     } else {
                         temp_v0_4=M2C_FIELD(M2C_FIELD(arg0,void **,0x68),void **,0);
-                        M2C_FIELD(temp_v0,s32 *,0x24)=M2C_FIELD(temp_v0_4,s32 *,0x78);
-                        M2C_FIELD(temp_v0,s32 *,0x28)=M2C_FIELD(temp_v0_4,s32 *,0x7C);
-                        M2C_FIELD(temp_v0,s32 *,0x2C)=M2C_FIELD(temp_v0_4,s32 *,0x80);
+                        M2C_FIELD(temp_v0, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_4 + 0x78);
                         M2C_FIELD(temp_s2,s32 *,0xC)=0;
                     }
                     M2C_FIELD(temp_s2,s32 *,0x10)=0; M2C_FIELD(temp_s2,s32 *,0x14)=0; M2C_FIELD(temp_s2,s32 *,0x18)=0xE10;

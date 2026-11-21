@@ -5,7 +5,7 @@ s32 func_8002FBE4();
 extern u16 D_800BFC92;
 extern u16 D_800BFC98;
 extern char D_800E1590[];
-extern u8 D_80102EDE;
+extern u8 gPendingMenuCommand;
 
 void func_8002F718(void *arg0) {
     f32 temp_fv0;
@@ -17,7 +17,7 @@ void func_8002F718(void *arg0) {
     s32 var_s0;
 
     temp_a0 = (*(void **)((char *)(arg0) + 0x34));
-    if (((*(u8 *)((char *)(temp_a0) + 0x13)) != 0) && (!D_80102EDE) && (D_800BFC92 & 1)) {
+    if (((*(u8 *)((char *)(temp_a0) + 0x13)) != 0) && (!gPendingMenuCommand) && (D_800BFC92 & 1)) {
         func_8002FBE4(temp_a0, arg0 + 0x40, arg0 + 0x42);
     }
     temp_v0 = (*(u16 *)((char *)(arg0) + 0x40)) + 1;

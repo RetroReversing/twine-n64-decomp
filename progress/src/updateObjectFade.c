@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80016160(void *, M2C_UNK *, void *);   /* extern */
 extern u16 D_800BFC92;
 extern M2C_UNK D_800BFD98;
-extern s8 D_80102EDE;
+extern s8 gPendingMenuCommand;
 
 /* Fades the alpha bytes of an object and its sub-objects toward visible or transparent, based on a fade flag. */ s32 updateObjectFade(void *obj) {
     s32 subAlpha;
@@ -104,7 +104,7 @@ extern s8 D_80102EDE;
 block_22:
             result = 0;
         } else {
-            D_80102EDE = 0;
+            gPendingMenuCommand = 0;
         }
     }
     return result;

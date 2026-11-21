@@ -22,8 +22,8 @@ extern s32 D_801002CC;
 extern s32 D_801002D0;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
-extern s8 D_80102EDD;
-extern s8 D_80102EDE;
+extern s8 gMenuUseTextList;
+extern s8 gPendingMenuCommand;
 extern u8 D_80102EE0;
 extern u8 D_80102EE8;
 extern s32 D_80102EEC;
@@ -44,7 +44,7 @@ void func_8001ED10(void) {
 
     __base_D_800C3CF8 = &D_800C3CF8;
 
-    D_80102EDD = 1;
+    gMenuUseTextList = 1;
     if (D_80102EEC == 0) {
         if (D_80102F2C != NULL && (t = *(s16 *)((char *)D_80102F2C + 0x7A), t != 0xF)) {
             if (t != 0xE) {
@@ -89,7 +89,7 @@ if ((i & 0xFFFF) < gSaveTotalSlots) goto __repair_rows;
                 D_80102EF0 = 1;
             }
             func_80045130(b);
-            D_80102EDE = 0;
+            gPendingMenuCommand = 0;
             func_800283B0();
             func_8000A310();
             func_800218EC();

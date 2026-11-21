@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 void *findEntryById(s32, M2C_UNK);                  /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 extern u8 D_801002AC;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern void *gMenuState;
 
 void func_800281E0(void) {
@@ -24,7 +24,7 @@ void func_800281E0(void) {
 
     if (gMenuState != NULL) {
         M2C_FIELD(gMenuState, s8 *, 0x2E) = 0;
-        if ((D_80102EDD != 0) && (D_801002AC == 0)) {
+        if ((gMenuUseTextList != 0) && (D_801002AC == 0)) {
             if (gMenuState != NULL) {
                 if (func_80027C60(0x23) & 0xFF) {
                     M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;

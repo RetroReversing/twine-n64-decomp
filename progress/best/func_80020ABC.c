@@ -19,7 +19,7 @@ s32 func_8003137C();
 s32 func_800316B8();
 s32 lookupDataEntry();
 s32 strlen();
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 extern char D_80100870[];
 extern u8 D_8010A2D8[];
 extern s32 D_8010A2DC;
@@ -49,15 +49,15 @@ s32 __repair_phase_var_a2;
 
     func_8002A644(D_80115060, D_80100870, 0x90, 0xA, 0x2D, 0xB4, 0x4C, 0xB, 0, &func_8002255C, &func_800227EC);
     func_8002A700(D_80115060);
-    func_80022A30(gMenuParamC, 0x2D, 0x46, 0xDC, 0x7F);
-    __repair_result_temp_s4 = func_800162BC(gMenuParamC);
+    func_80022A30(gMenuListParam, 0x2D, 0x46, 0xDC, 0x7F);
+    __repair_result_temp_s4 = func_800162BC(gMenuListParam);
     (*(s32 *)((char *)(D_8010A2D8) + 0)) = __repair_result_temp_s4;
     if (__repair_result_temp_s4 != 0) {
         func_800160FC((*(s32 *)((char *)(D_8010A2D8) + 0)), lookupDataEntry(getCurrentMapIdx() & 0xFFFF), 1);
         D_8010A2DC = 0;
         func_8002A7CC(D_80115060, D_8010A2D8, 0xFF, func_80018318((*(s32 *)((char *)(D_8010A2D8) + 0))) & 0xFF);
     }
-    temp_s4 = func_800162BC(gMenuParamC);
+    temp_s4 = func_800162BC(gMenuListParam);
     (*(s32 *)((char *)(D_8010A2D8) + 8)) = temp_s4;
     if (temp_s4 != 0) {
         func_800160FC((*(s32 *)((char *)(D_8010A2D8) + 8)), lookupDataEntry((func_800316B8() + 0x72) & 0xFFFF), 0x41);
@@ -71,11 +71,11 @@ s32 __repair_phase_var_a2;
             break;
         }
         temp_s4 = __repair_phase_temp_s4 * 8;
-        temp_v0_3 = func_800162BC(gMenuParamC);
+        temp_v0_3 = func_800162BC(gMenuListParam);
         temp_s2 = temp_s4 + D_8010A2D8;
         (*(s32 *)((char *)(temp_s2) + 0)) = temp_v0_3;
         if (temp_v0_3 != 0) {
-            temp_v0_4 = func_800162BC(gMenuParamC);
+            temp_v0_4 = func_800162BC(gMenuListParam);
             (*(s32 *)((char *)(temp_s2) + 4)) = temp_v0_4;
             if (temp_v0_4 == 0) {
                 var_s3 += 1;
@@ -112,7 +112,7 @@ block_13:
             var_s3 += 1;
         }
     }
-    func_80022AD8(gMenuParamC);
+    func_80022AD8(gMenuListParam);
     func_8002A9A8(D_80115060, 0);
     func_8002AC04(D_80115060, 1);
     func_8002ACB4(D_80115060);

@@ -8,7 +8,7 @@ s32 func_800283B0();                         /* extern */
 s32 setEntryMode(s32);                     /* extern */
 s32 func_80045130(s32);                     /* extern */
 extern u16 D_80102EDA;
-extern s8 D_80102EDE;
+extern s8 gPendingMenuCommand;
 extern s32 D_80102EEC;
 extern void *sActiveMenu;
 
@@ -37,7 +37,7 @@ void func_8001EF9C(void) {
             if (!temp_s1) {
                 var_v0 = 0x10;
             }
-            D_80102EDE = var_v0;
+            gPendingMenuCommand = var_v0;
             func_8000A310();
             func_800218EC();
             func_80021938();

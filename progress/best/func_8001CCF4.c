@@ -11,7 +11,7 @@ extern s32 D_800BD65C;
 extern s32 D_800BD660;
 extern s32 D_800BD664;
 extern u8 D_801001A1[];
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *gMenuState;
 
 void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
@@ -28,7 +28,7 @@ void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
         (*(u16 *)((char *)(temp_v1) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 4));
         (*(u16 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 6));
         temp_a1 = (*(void **)((char *)(temp_s0) + 0));
-        (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (arg2 & 0xFF) ? (s32) ((D_800BD660 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30))) : (s32) (D_80102EBC);
+        (*(s32 *)((char *)((*(void **)((char *)(temp_s0) + 0))) + 0x10)) = (arg2 & 0xFF) ? (s32) ((D_800BD660 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30))) : (s32) (gMenuSoundParams);
         temp_a1 = *(void * volatile *)temp_s0;
         {
             s32 bits = *(volatile s32 *)((char *)temp_a1 + 0x28) & ~0xFC;

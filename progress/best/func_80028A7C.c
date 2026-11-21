@@ -21,7 +21,7 @@ M2C_UNK func_80030644(s32, M2C_UNK);                /* extern */
 extern s32 D_800BD648;
 extern s32 D_800BD64C;
 extern M2C_UNK D_800BD8C4;
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *volatile sActiveMenu;
 extern void *gMenuState;
 
@@ -46,7 +46,7 @@ void func_80028A7C(void) {
     if (func_80027C60(0x24) & 0xFF) {
         func_80030644(M2C_FIELD(gMenuState, s32 *, 0x20), 0xFF);
         M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BD8C4;
-        func_800278AC(1, D_80102EBC, 0xA);
+        func_800278AC(1, gMenuSoundParams, 0xA);
         func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 4);
         func_800269B4(gMenuState + 0x1C, 3, 0x2A);
         temp_v0 = M2C_FIELD(gMenuState, void **, 0x1C);
@@ -114,68 +114,68 @@ block_24:
                     switch (temp_v0_6) {
                     case 1:
                         var_a0_2 = 2;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 2:
                         var_a0_2 = 3;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 3:
                         var_a0_2 = 4;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 4:
                         var_a0_2 = 5;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 5:
                         var_a0_2 = 6;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 6:
                         var_a0_2 = 7;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 7:
                         var_a0_2 = 8;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 8:
                         var_a0_2 = 9;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 9:
                         var_a0_2 = 0xA;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 10:
                         var_a0_2 = 0xB;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 11:
                         var_a0_2 = 0xC;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 12:
                         var_a0_2 = 0xD;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 13:
                         var_a0_2 = 0xE;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 14:
                         var_a0_2 = 0xF;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 15:
                         var_a0_2 = 0x10;
-                        func_800278AC(var_a0_2, D_80102EBC & ~0xFF, 0x16);
+                        func_800278AC(var_a0_2, gMenuSoundParams & ~0xFF, 0x16);
                         break;
                     case 16:
                         func_80030644(M2C_FIELD(gMenuState, s32 *, 0x20), 0xFF);
                         M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BD8C4;
-                        func_800278AC(1, D_80102EBC, 0xA);
+                        func_800278AC(1, gMenuSoundParams, 0xA);
                         func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 4);
                         func_800269B4(gMenuState + 0x1C, 3, 0x2A);
                         temp_v0_7 = M2C_FIELD(gMenuState, void **, 0x1C);

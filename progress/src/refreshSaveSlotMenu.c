@@ -23,13 +23,13 @@ u8 countValidSaveSlots(M2C_UNK);                          /* extern */
 s8 *lookupDataEntry(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
-extern u8 gMenuParamC;
+extern u8 gMenuListParam;
 extern u8 D_80100198[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern u8 D_80102EB8;
 extern M2C_UNK gBorderSkipFlag;
-extern u8 D_80102EDD;
+extern u8 gMenuUseTextList;
 extern M2C_UNK D_80102F48[];
 extern void *gMenuState;
 extern M2C_UNK gPickupSearchBox;
@@ -93,14 +93,14 @@ extern M2C_UNK gPickupSearchBox;
             labelObjB = M2C_FIELD(nextEntry, void **, 8);
             M2C_FIELD(labelObjB, s16 *, 0x1C) = strlen(M2C_FIELD(labelObjB, s8 **, 0x18));
         }
-        if (D_80102EDD != 0) {
+        if (gMenuUseTextList != 0) {
             yPos = 0x37;
         
-        func_80022A30(gMenuParamC, 0x19, 0x30, yPos, 0x50);} else {
+        func_80022A30(gMenuListParam, 0x19, 0x30, yPos, 0x50);} else {
             yPos = 0x33;
         
-        func_80022A30(gMenuParamC, 0x19, 0x30, yPos, 0x50);}
-        if ((D_80102EDD == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
+        func_80022A30(gMenuListParam, 0x19, 0x30, yPos, 0x50);}
+        if ((gMenuUseTextList == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
             D_80102EB8 = countValidSaveSlots(0xA3);
             if (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0) {
                 D_80102EB8 = (u8) gSaveSlotCount;
@@ -112,7 +112,7 @@ extern M2C_UNK gPickupSearchBox;
             if (D_80102EB8 != 0) {
                 do {
                     slotIndexU16 = slotIndex & 0xFFFF;
-                    slotHandle = func_800162BC(gMenuParamC);
+                    slotHandle = func_800162BC(gMenuListParam);
                     D_80102F48[slotIndexU16] = slotHandle;
                     if (slotHandle != 0) {
                         slotText = lookupDataEntry((slotIndex + 0x4008) & 0xFFFF);
@@ -131,9 +131,9 @@ extern M2C_UNK gPickupSearchBox;
                     slotIndex += 1;
                 } while ((u32) (slotIndex & 0xFFFF) < (u8) D_80102EB8);
             }
-            func_80022E18(gMenuParamC);
+            func_80022E18(gMenuListParam);
         }
-        func_80022AD8(gMenuParamC);
+        func_80022AD8(gMenuListParam);
     }
 }
 

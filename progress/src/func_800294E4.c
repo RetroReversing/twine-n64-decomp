@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80026E9C(M2C_UNK);                     /* extern */
 M2C_UNK func_800278AC(s32, s32, u16);               /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern void *sActiveMenu;
 extern void *gMenuState;
 
@@ -37,7 +37,7 @@ void func_800294E4(void) {
             func_80026E9C(0xFF);
             temp_a0 = M2C_FIELD(temp_s0, s32 *, 0x14);
             if (temp_a0 != 0) {
-                func_800278AC(temp_a0 & 0xFF, D_80102EBC, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+                func_800278AC(temp_a0 & 0xFF, gMenuSoundParams, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
             }
         }
     }

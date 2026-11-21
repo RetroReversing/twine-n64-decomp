@@ -28,7 +28,7 @@ ActionHandler *findEntryById(s32, s32);
 s32 func_800278AC(s32, s32, u16);
 extern u8 D_800B60EA;
 extern ActionEntry D_800C4480[];
-extern s32 D_80102EBC;
+extern s32 gMenuSoundParams;
 extern ActionOptions *sActiveMenu;
 extern ActionState *gMenuState;
 extern s32 gBonusSceneHandle[];
@@ -60,7 +60,7 @@ s32 func_8001F4B8(u16 slot, s32 action)
         return (u8)action;
     }
     if (index == 0x13) {
-        func_800278AC(10, D_80102EBC, sActiveMenu->field7A);
+        func_800278AC(10, gMenuSoundParams, sActiveMenu->field7A);
         return (u8)action;
     }
     if (state->handler != 0) {
