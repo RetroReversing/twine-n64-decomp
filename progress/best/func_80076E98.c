@@ -115,8 +115,8 @@ block_18:
         } else {
 block_17:
             temp_v0_4 = (randomIntBelow(5) & 0xFFFF) * 4;
-            var_a1_2 = *(&D_800C9A08 + temp_v0_4);
-            var_a2 = *(&D_800C9A0A + temp_v0_4);
+            var_a1_2 = *(u16 *)((u8 *)&D_800C9A08 + temp_v0_4);
+            var_a2 = *(u16 *)((u8 *)&D_800C9A0A + temp_v0_4);
         }
         goto block_19;
     }

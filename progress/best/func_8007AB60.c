@@ -97,7 +97,6 @@ s32 func_8007AB60(void *arg0) {
                 return 1;
             }
         }
-    default:                                        /* switch 1 */
     case 2:                                         /* switch 1 */
     case 4:                                         /* switch 1 */
     case 5:                                         /* switch 1 */

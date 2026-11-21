@@ -5,7 +5,7 @@ s32 actorUnlinkFromSurface(Obj60968 *);
 s32 actorLinkToSurface(s32, Obj60968 *, s32);
 s32 randomU32Next(void);
 s32 func_80048F10(s32, Vec3_60968 *, Vec3_60968 *, Vec3_60968 *, f32, s32, s32, s32);
-s32 func_80060AA8(Obj60968 *);
+s32 objectUpdateAnimByState(Obj60968 *);
 s32 func_800643D8(Obj60968 *);
 f32 absFloat(f32);
 extern s32 *gProbeObjectList;
@@ -27,11 +27,11 @@ void func_80060968(Obj60968 *arg0) {
         arg0->f7A = 0;
         arg0->f78 = 0x28;
         arg0->f58 |= 1;
-        func_80060AA8(arg0);
+        objectUpdateAnimByState(arg0);
     } else {
         arg0->f7A = 0;
         arg0->f78 = 0x55;
-        func_80060AA8(arg0);
+        objectUpdateAnimByState(arg0);
     }
     func_800643D8(arg0);
     sub->f28 = 0;

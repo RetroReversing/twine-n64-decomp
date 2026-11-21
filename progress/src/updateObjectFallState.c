@@ -4,7 +4,7 @@ s32 func_80054FEC(s32, f32, f32, void *, void *, s32, s32);
 s32 func_8005FBB8(void *);
 s32 func_8005FD28(void *);
 s32 func_80060968(void *);
-s32 func_80060AA8(void *);
+s32 objectUpdateAnimByState(void *);
 s32 func_800624A8(void *, void *, f32, s32);
 s32 func_800643C8(void *);
 s32 func_800643D8(void *);
@@ -25,7 +25,7 @@ void updateObjectFallState(void *obj) {
         M2C_FIELD(fallState, s32 *, 0) = M2C_FIELD(fallState, s32 *, 0) + 1;
         func_800643D8(obj);
         if (M2C_FIELD(fallState, s32 *, 0) >= 0x384) {
-            func_80060AA8(obj);
+            objectUpdateAnimByState(obj);
             func_800643C8(obj);
             func_8005FBB8(fallState);
             M2C_FIELD(fallState, f32 *, 0x2C) = -4.0f;
@@ -43,11 +43,11 @@ void updateObjectFallState(void *obj) {
         if (newPosY < floorY) {
             M2C_FIELD(obj, f32 *, 0x28) = floorY;
             M2C_FIELD(obj, s16 *, 0x7A) = 3;
-            func_80060AA8(obj);
+            objectUpdateAnimByState(obj);
         }
         if (M2C_FIELD(obj, s32 *, 0x60) & 2) {
             M2C_FIELD(obj, s16 *, 0x7A) = 2;
-            func_80060AA8(obj);
+            objectUpdateAnimByState(obj);
             return;
         }
         break;
@@ -72,7 +72,7 @@ void updateObjectFallState(void *obj) {
                 return;
             }
             M2C_FIELD(obj, s16 *, 0x7A) = 3;
-            func_80060AA8(obj);
+            objectUpdateAnimByState(obj);
             return;
         }
         break;

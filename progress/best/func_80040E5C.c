@@ -48,7 +48,7 @@ u16 __repair_result_var_v1;
     temp_fs3 = (M2C_FIELD(arg0, f32 *, 0x1C) - M2C_FIELD(arg0, f32 *, 0x18)) * 0.125f;
     var_t1 = 0;
     temp_fs2 = (M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(arg0, f32 *, 0x28)) * 0.125f;
-    if ((s32) M2C_FIELD(arg0, u16 *, 0x40) > 0) {
+    if (var_t1 < (s32) M2C_FIELD(arg0, u16 *, 0x40)) {
         var_t4 = 1;
         var_t0 = 0;
         var_t2 = 0;

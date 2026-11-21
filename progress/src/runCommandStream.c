@@ -16,42 +16,42 @@ s32 func_8000299C();
 s32 func_80005A7C();
 extern char sCommandSlotTable[];
 extern char sCommandLabelTable[];
-extern char D_800B19C8[];
+extern char sCommandSecondaryTable[];
 
-void runCommandStream(s32 arg0, s32 arg1, s32 arg2) {
-    char *var_s0;
-    s32 temp_v1;
-    s32 var_s1;
-    u32 temp_a1;
+/* Walks a 16-bit command stream, dispatching each opcode until a terminating command clears keepRunning. */ void runCommandStream(s32 arg0, s32 arg1, s32 arg2) {
+    char *cmdPtr;
+    s32 cmdWord;
+    s32 keepRunning;
+    u32 cmdOpcode;
 
-    var_s0 = *(s32 *)(sCommandLabelTable + (func_8000299C(arg0, arg1) * 4));
-    var_s1 = 1;
+    cmdPtr = *(s32 *)(sCommandLabelTable + (func_8000299C(arg0, arg1) * 4));
+    keepRunning = 1;
     do {
-        temp_v1 = *(s16 *)var_s0;
-        temp_a1 = temp_v1 & 0x1F;
-        var_s0 += 2;
-        switch (temp_a1) {
+        cmdWord = *(s16 *)cmdPtr;
+        cmdOpcode = cmdWord & 0x1F;
+        cmdPtr += 2;
+        switch (cmdOpcode) {
         case 0:
         case 1:
         case 2:
         case 3:
-            var_s0 = *(char **)(((temp_v1 & 0x1F) * 4) + sCommandSlotTable);
-            *(s16 *)var_s0 = (*(s16 *)var_s0 & 0x1F) + ((u16)temp_v1 & 0xFFE0);
+            cmdPtr = *(char **)(((cmdWord & 0x1F) * 4) + sCommandSlotTable);
+            *(s16 *)cmdPtr = (*(s16 *)cmdPtr & 0x1F) + ((u16)cmdWord & 0xFFE0);
             break;
         case 27:
-            var_s0 = *(char **)((func_8000299C(arg0, *(s16 *)var_s0) * 4) + sCommandLabelTable);
+            cmdPtr = *(char **)((func_8000299C(arg0, *(s16 *)cmdPtr) * 4) + sCommandLabelTable);
             break;
         case 28:
-            var_s0 = *(char **)((*(s16 *)var_s0 * 4) + D_800B19C8);
+            cmdPtr = *(char **)((*(s16 *)cmdPtr * 4) + sCommandSecondaryTable);
             break;
         case 21:
         case 22:
         case 23:
-            func_80005A7C((u32) (temp_v1 & 0xFFFF) >> 5, arg2);
-            var_s1 = 0;
+            func_80005A7C((u32) (cmdWord & 0xFFFF) >> 5, arg2);
+            keepRunning = 0;
             break;
         case 11:
-            var_s0 += 4;
+            cmdPtr += 4;
             break;
         case 10:
         case 12:
@@ -67,8 +67,8 @@ void runCommandStream(s32 arg0, s32 arg1, s32 arg2) {
         case 25:
         case 26:
         case 29:
-            var_s0 += 2;
+            cmdPtr += 2;
             break;
         }
-    } while (var_s1 != 0);
+    } while (keepRunning != 0);
 }

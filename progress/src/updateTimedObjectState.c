@@ -5,7 +5,7 @@ M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, void *, s32, s32);
 M2C_UNK func_8005FBB8(s32 *);
 s32 func_8005FD28(void *);
 M2C_UNK func_80060968(void *);
-M2C_UNK func_80060AA8(void *);
+M2C_UNK objectUpdateAnimByState(void *);
 M2C_UNK func_800624A8(void *, void *, f32, M2C_UNK);
 M2C_UNK func_800643C8(void *);
 M2C_UNK func_800643D8(void *);
@@ -18,7 +18,7 @@ switch(state) {
 case 0:
 M2C_FIELD(obj,s32 *,0x60)=M2C_FIELD(obj,s32 *,0x60)&~2;
 *timer+=1; func_800643D8(obj);
-if(*timer>=0x384) { func_80060AA8(obj); func_800643C8(obj); func_8005FBB8(timer); *timer=(u32)randomU32Next()%450U; M2C_FIELD(obj,s16 *,0x7A)=3; return; } return;
+if(*timer>=0x384) { objectUpdateAnimByState(obj); func_800643C8(obj); func_8005FBB8(timer); *timer=(u32)randomU32Next()%450U; M2C_FIELD(obj,s16 *,0x7A)=3; return; } return;
 case 3:
 flags=M2C_FIELD(obj,s32 *,0x60);
 if(flags&2) { effectPos=obj+0x24; M2C_FIELD(obj,s32 *,0x60)=flags&~2;

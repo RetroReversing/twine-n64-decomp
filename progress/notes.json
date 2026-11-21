@@ -4456,7 +4456,7 @@
   "score_after": 230
  },
  {
-  "function": "func_8001212C",
+  "function": "saveCheckStatus",
   "text": "Baseline 720 verified; six local variants did not improve. Unsigned loop counter worsened; explicit backedge, declaration order, typed temporary, nested guard and else conversion were identical. First control flow mismatch sends initial error branch to 0x128 instead of target 0x8c; restructure error path placement against full diff.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795138349.396914,
@@ -60235,7 +60235,34 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
-  "function": "func_80060AA8",
+  "function": "func_8005F960",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction shape; first differing row 105; 2 differing rows (2 reordered; advisory).\nTarget: \nCandidate: move $a3, $s6\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $a1, 0x68($sp)\n  = lhu $a2, 0x6e($sp)\no T:  | C: move $a3, $s6\n  = andi $v0, $s0, 0xfff\no T: move $a3, $s6 | C: \nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest e2796b581bbcce307c20 scores 60. Only move $a3,$s6 occurs before andi $v0,$s0,0xfff instead of after. Loading tail.word and tail.half into locals before the halfword store fixed delay-slot scheduling elsewhere; a separate mask local regressed to 520, and a full-width four-arg prototype tied at 60. Next step: test sequencing the halfword store in a comma expression in the fourth argument; the earlier variant was interrupted by a concurrent progress change.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795233991.796829,
+  "score_before": 1633,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9fc49f2bf674c8f9698e732f1df2d7268b6d540657db44b688f475c5ae510292"
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "The 2450 saved best removes the switch default and falls off a non-void function for out-of-range input; do not inherit it as correct. Revision a6affc9159b4992ac93e restores return 0 and scores 2490. Inferred struct layout generated identical output. The switch control-flow and call ordering remain different.\nRemove default then restore an explicit return 0 after switch\n2450 without return has undefined behavior; restored return scores 2490 and changes branch target placement.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795234005.737343,
+  "score_before": 2490,
+  "score_after": 2450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "func_80082BD0",
+  "text": "Rechecked saved source: score 200. Three remaining operand-order variants all worsened (645,675,740). Target starts by address-loading D_80102E74 into v0 with no alignment mask, while C's explicit &~3U emits v1=-4 and and. Direct address expression caused separate global accesses and score 1110, so restore pointer arithmetic candidate before future work.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795234021.353363,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
+ },
+ {
+  "function": "objectUpdateAnimByState",
   "text": "Started from m2c draft, compiled a cleaned equivalent. Score stayed 4562 (no improvement in 2/6). Main structural mismatch persists: target frame is 0x20 while candidate allocates 0x28 and saves f20; target uses likely f0 temporaries. Candidate switch/control-flow also misses target branch-likely dispatch (bnel at offset 0x2c and a compact sequence of beqz/beq/jump tables around the 0x3c field). Revisit float result computation: target loads lwc1 f0 from s1+0x34 twice and subtracts target pointer field conditionally; candidate's split `var_fv0`/repair temp creates f20 spill and uninitialized value path. Try expressing one common assignment directly, plus align control flow to target assembly. No function-specific shared knowledge.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795138853.970498,
@@ -60243,7 +60270,7 @@
   "score_after": 4562
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Best 4562 rechecked. Tried volatile float local (worse 5002), direct destination assignments in one branch (4802), s32->s16 status temp (5222), then local repairs inferred_record_layout (equal) and field_load_hoist (4852). Target uses 0x20 frame, no f20 save, compact status dispatch with `slti` + `beql`, and direct f0 operations; candidate has 0x28 frame/f20 save, switch-generated CFG and split float temporaries (including repair temp). Target assembly pages 0-90 show status field 0x7A dispatch: status==2 path, status<2 and zero/one, status==4; status 0x3C actions branch around calls. Rewrite dispatch as explicit if/gotos around these exact cases and remove f32 temp/repair temp to address structure.",
   "by": "codex-gpt-6-luna-18",
   "created_at": 1795178863.218207,
@@ -60251,7 +60278,7 @@
   "score_after": 4562
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "[Released without compiling it once; notes not checked by a compile.] Compiler unavailable: judge reported gcc-2.7.2-kmc is not installed. Candidate has an uninitialized __repair_var_fv0_2 on default path; replace both the assignment in the 0x55 branch and final store with var_fv0 to restore common value flow, then judge once toolchain is restored.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795193762.398218,
@@ -60259,7 +60286,7 @@
   "score_after": 4562
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Rechecked best is 4452. Replacing the uninitialized __repair_var_fv0_2 final merge with var_fv0 improved 5302\u21924452; this also matches value flow from the default branch. Target has a 0x20-byte frame with saved s0 at 0x10 and s1 at 0x14; current source allocates 0x28 and emits an unnecessary sdc1 $f20. First mismatch is entry frame/register setup, then switch CFG (target has bnel and explicit jump patterns). switch_case_order variants worsened; switch_layout equal; record layout, target local bundle, integer lifetime no effect; signedness worsened. Compiler is available despite prior agent note.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795200091.765385,
@@ -60267,7 +60294,7 @@
   "score_after": 4452
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Baseline 4452 verified. Candidate has uninitialized var_fv0 on 0x55 path: __repair_var_fv0_2 is assigned but not used. Six local repairs failed to improve; several repeated previous agent experiments. Correct semantic value flow before tuning switch and frame.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795201957.998442,
@@ -60275,7 +60302,7 @@
   "score_after": 4452
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Candidate corrected the float common value path (replaced unused __repair_var_fv0_2 assignment with var_fv0); score improved from 4452 to 4375, 102 emitted vs 104 target. Other experiments: simpler explicit checks and switch/goto rewrite scored worse (4690, 5775); reordering special float base load/subtraction and equivalent case-2 condition each tied or worsened; callee prototype narrowing tied. Restored best score 4375 at revision e07ce6effe439c091da4. Remaining major mismatch is switch/control-flow shape: calls arguments and branch scheduling differ, target has beqz prologue branches to 0x18c and a bnel comparison in case 2. No global reusable discovery.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795204347.969263,
@@ -60283,7 +60310,7 @@
   "score_after": 4375
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Not matched. Best 5890 at revision c8a8a9e439c6da0d5042 (goto_leaf inlining block_29 into case 2). Tried moving the 0x54=0.015625 store before the 0x70 load in default: no change (5890, equal). Target is 104 insns vs ours 95; target uses compare chains (beqz/beq on the 0x3C value, slti on lh 0x7A) rather than a switch-table shape, and the first block differs (beqz $s0 target 0x18c vs ours 0x168). Next step for a future agent: rewrite the switch as explicit if/else on temp_v1 (0, 4 -> fallthrough to case 1 path; 2 -> case 2; default) so the lh 0x7A dispatch matches the slti/beql sequence seen in the target assembly.",
   "by": "api-claude-haiku-5-5-8",
   "created_at": 1795205577.417026,
@@ -60291,7 +60318,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Before project progress changed, reversed the 0x55 branch, used a switch for case-2 lookup with a direct leaf call, and put direct calls in each special-branch switch arm; scored 3190. Current project reset candidate, so recheck historical attempt 25769919902 and later variants if available. Next try the case-2 direct-call switch and shared float tail.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795205919.589453,
@@ -60299,7 +60326,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Best candidate remains c8a8a9e439c6da0d5042, score 5890. Winning patch changes case 2 selection to if nonzero then default 6 and override to 4 when value==2; this matches target's lhu 0x3C/beqz/beq structure. Tried reversed case test (5900), outer 0x55 reversal (5900), full control rewrite (7515), and reran winning patch (no improvement). Six no-better compiles reached. Remaining mismatch is duplicated target compare/jump chains and branch-likely/control flow; target 104 instructions, candidate 95. No verified match.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795206654.02176,
@@ -60307,7 +60334,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 5890 (candidate c8a8a9e439c6da0d5042, verified). Prior agents tried ~28 local repairs (best 3450 in an earlier project state), 5+ explicit patches, outer 0x55 reversal, full control rewrite (7515, worse), direct-call switch variants (3190 on an older project state). Remaining mismatch: target duplicates compare/jump chains for the case-2 lookup and uses branch-likely (beql) plus a shared float tail (lwc1 0x34/0x20, sub.s, swc1 0x28) placed at .L80060C30. Not attempted in this session due to low effort. Next untested step: restructure the 0x55 branch to compute the float tail via a shared label as in the target, and check the case 2 path with an explicit switch on the lhu result.",
   "by": "api-claude-haiku-5-5-10",
   "created_at": 1795207680.470846,
@@ -60315,7 +60342,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Improved inherited candidate from rechecked score 5890 to 5300. Focused edit in case 2 changed selection to if (u16@0x3C==0) result 8; else if (value==outer s16 case selector) result 4; else 6. It reduced diff and recovered target operation sites but branch labels still differ; saved best is 5300. A no-op patch had no effect. Flipping outer 0x55 predicate scored same. Candidate at saved_best revision 1668f08dadc3af7d31ae contains extra dead code inserted during exploration in case 2; verify and clean/recover a concise equivalent before next compile. Target entry's useful structure: after fields, if tag==0 branch to value 2, then compare loaded value==2 and jump; this resembles result selector sequencing, branch-likely at non-0x55 outer check. Remaining mismatch includes repeated compare/jump chains and exact branch-likely in value selection.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795208875.718661,
@@ -60323,7 +60350,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Reacquired saved best score 5300. Three compile_variants: conditions reordered in first decision scored 5740; case-2 selector comparison before zero scored 5400; special 0x55 branch reordered scored 5490. One exact patch restoring the call/return brace structure scored 5300 (no improvement). Target has 104 instructions vs candidate 88; remaining mismatch is major control flow and call topology. Specific residuals at tail: target index 92 lacks candidate bnez $v0; target beqz $v0 at 98 targets +0x184 but candidate +0x11c; candidate computes boolean with sltu and constant 2 while target uses distinct branch arms and call argument setup. Next try source shape that duplicates switch lookup chains and uses explicit calls in each arm, preserving branch-specific control topology; inspect target 0xBC4-0xC34 call epilogues and avoid merging 0x55 path with default path.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795209251.040421,
@@ -60331,7 +60358,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Inherited best revision 1668f08dadc3af7d31ae rechecked at 5300/104 instructions. Tried a cleaner switch rewrite and removal of dead removed-arms artifact: score 5900/95 insns, worse. Recovered saved_best (verified 5300). Structural target clue: target has an explicit early 0x55 branch handling u16@0x3C and calling helper; general case dispatch uses a signed s16@0x7A and source must preserve branch/call structure. Existing best contains dead impossible code and duplicate returns in case 2, previously established score 5300. No repair succeeded. Next experiment: rewrite around assembly topology, keep helper calls as repeated calls with explicit returns; first distinguish special u16 0x78==0x55 before dispatch, then for other cases route 0,1,2,4 with signed switch; do not merge the special and default branches. Remaining score gaps mostly calls/arguments and branch labels. Current saved best revision is 1668f08dadc3af7d31ae.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795209788.1060321,
@@ -60339,7 +60366,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Rechecked saved baseline at 5300. Tested inversion of 0x55 branch (unchanged); restructured nested null guards (same score, unchanged target diff); special-case selector condition reordered (worse 5490); restored baseline. Target dispatch structure has explicit multiple helper call sites; C switch/join currently yields fewer instructions (88 vs 104) and wrong branch targets. Further work should preserve dispatch/call sites with explicit goto/labels or direct duplicated call arms, then address s16 selector read and output pointer null test; don't repeat selector-order variations already tested.",
   "by": "codex-gpt-6-luna-6",
   "created_at": 1795210612.4543202,
@@ -60347,7 +60374,7 @@
   "score_after": 3190
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Recovered a valid rewrite and improved through sequential dispatch shape variants: 5300 baseline \u2192 4605 \u2192 3390 \u2192 2945 \u2192 2170 \u2192 1920. Best revision 97626a8f4fb1cb00e366. Explicit comparisons per selector and code branching work much better than ternary expressions. Latest equal-score variant did not alter instructions. Remaining 33 mismatch sites, largely branch targets and dispatch/control-flow layout; target around row 10 wants bnel v1,v0,+0x84 while current has +0x80, consistent with missing instructions in branch arms. No repair matched.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795211490.561651,
@@ -60356,7 +60383,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "[Released without compiling it once; notes not checked by a compile.] Rechecked saved best 1920 (revision 97626a8f4fb1cb00e366); not matched. Prior agents tried branch inversion, nested null guards, switch restructuring for the case-2 lookup and direct-call arms, all without reaching a match. Target structure: 0x55 path calls func_80044670 with (a,0/1/2,0x149) then float tail; default path calls with 0x149 and float tail; modes 1/2 call with 0x141 and return early. Next step: compare the mode-0/4 fall-through into case 1 at the assembly level (target reaches the 0x3F800000 store before the switch dispatch via beql), and try the float 1.0f store placed in each arm separately.",
   "by": "api-claude-haiku-5-5-7",
   "created_at": 1795213145.104885,
@@ -60364,7 +60391,7 @@
   "score_after": 1920
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Rechecked baseline 1920. Branch inversion scored 2185 or 2375; unsigned switch 3040; scoped calls and split locals unchanged.",
   "by": "codex-gpt-6.1-terra-5",
   "created_at": 1795214522.439369,
@@ -60373,7 +60400,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Saved candidate 97626a8f4fb1cb00e366 remains best at 1920. Tried branch inversion/order in helper dispatch and null-case removal; scores 2170, 1925, 2010, 2880, 2185, none improved. At 6/6 no-better count. Remaining mismatch chiefly branch targets/control flow around mode 0x55 and default path: target bnel $v1,$v0,+0x84 vs +0x80, beqz +0x4c vs +0x50, beq vs bne at +0x58; target has duplicated direct call/join paths. Next step: restructure helper calls as explicit duplicated if arms matching the assembly blocks; preserve null checks and restore saved baseline first.\nReordered nested comparison arms and simplified default null fallback; scores worsened or tied against 1920.\nNo candidate beat baseline; best remains 1920.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795218177.9464772,
@@ -60382,7 +60409,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Six local repairs: branch_orientation, unsigned_switch, call_one_shot_scope, split_call_result; none improved 1920, one worsened to 2375. Baseline still 1920; first branch mismatch is bnel target 0x84 vs candidate 0x80.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795223337.219244,
@@ -60391,7 +60418,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Baseline score 1920, fully rechecked. Repair batch: reversing nested comparisons worsened to 2185; unsigned switch 3040; call one-shot scope and split result unchanged; branch orientation to default also worse (2375). Target differs in branch destinations and dispatch layout by ~33 instructions, although instruction count matches. Saved best retained and move-on threshold reached.\nBranch orientation, unsigned switch, call one-shot scope, split call result and target-local bundle repair families.\nNo improvement; scores 1920 baseline, variants 2185/3040/2375 worse or unchanged.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795229907.342366,
@@ -60400,12 +60427,57 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
  },
  {
-  "function": "func_80060AA8",
+  "function": "objectUpdateAnimByState",
   "text": "Best rechecked score 1920, target/candidate both 104 instructions. Several branch/join differences persist around selector code and helper-call blocks; two complementary if/else call selection variants reached 2740/2765, ternary reduced to 3600, while preserving original nested conditions returns to 1920. Target compares selector in v1 with bnel, then has explicit beqz and beq call arms each jumping to +0x5c. Next step: retain nested source and model selector dispatch as explicit switch(code) with cases 0/2/default and separate call sites, keeping return/join statements to induce target jump blocks.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795232935.913908,
   "score_before": 1920,
   "score_after": 1920,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
+ },
+ {
+  "function": "func_8005AFE8",
+  "text": "Cannot get closer: further trials twice stopped because project progress changed during compilation. Baseline 1945; u16 arg2 scored 2235, const arguments and table base local unchanged.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795234068.186795,
+  "score_before": 2235,
+  "score_after": 1945,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bb87beb5e62c7935eefe4ab8ea7c08dce774a82d39bc2b8b7b142c29da92b351"
+ },
+ {
+  "function": "func_80070CA4",
+  "text": "Saved candidate still best current rechecked score 2875 (historical 2730); all switch dispatch/local repair attempts failed to improve. Loop-shape variants were worse/equal; struct access equal; branch orientation worse. Explicit range check before switch worsened to 3665 and caused local jump-table reference plus signedness changes. Malformed whole-function C89 rewrite failed to compile; restored saved best. Target starts with signed lh, sltiu and beqz delay-slot sll into jtbl_800D4770; saved C instead inserts a constant setup before dispatch. Linker notes .rodata+0x0 with unresolved sEnemyDefTable may be contributing. Next step: inspect function declarations/context for sEnemyDefTable/jump-table typing, then try a layout-preserving signed switch expression that keeps compiler jump-table dispatch and moves the 0x26 setup into the post-dispatch path.\nSaved m2c candidate; loop form, inferred arg struct, branch orientation; explicit range guard before switch; malformed C89 whole rewrite.\nNo lasting improvement. Local repair batch 2875 baseline; range guard scored 3665 and created local jump-table relocation; whole rewrite failed compile.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795234071.386624,
+  "score_before": 2875,
+  "score_after": 2875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ac492b18eb039cceb5e0639ccfc74fb1f45446bd015178fe5cae1002687da8e9"
+ },
+ {
+  "function": "func_8006D224",
+  "text": "Baseline verified score 45; core logic matches with nine register allocation differences starting around color packing (target uses v0 for shifted red and v1 for 255-value, opposite candidate). Moving the 0xFF000000 constant directly into expression regressed to 700. Three table signedness repairs left score 45. Current retained candidate is the saved 45 version.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795234080.800779,
+  "score_before": 45,
+  "score_after": 45,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
+ },
+ {
+  "function": "func_80063FE8",
+  "text": "Move-on threshold reached at 4/4. Restored saved best 795. Duplicated increment paths and changed counter widths without recovering either branch-likely delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795234094.733602,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:353a76035957f668bbd677cacf8a1de886600ccda16455fbfc49b0cb785c08f2"
+ },
+ {
+  "function": "func_80040E5C",
+  "text": "Changed initial condition to var_t1 < count: score 2763 vs 2940. Removing frame_pad then scored 2730, but claim was lost to another agent and candidate reverted; test removal against current input before relying on it. u32 var_v1 unchanged; signed s16 count worsened to 2945. Next examine loop induction and vertex pointer calculation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795234105.220261,
+  "score_before": 2940,
+  "score_after": 2730,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:aba8bb1824a3035bcd18497e163fce1b2cd8f302e7c4edf34b13f75e411361e7"
  }
 ]

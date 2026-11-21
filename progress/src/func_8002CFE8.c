@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8001212C();                            /* extern */
+M2C_UNK saveCheckStatus();                            /* extern */
 M2C_UNK func_8002CA90(M2C_UNK *);                   /* extern */
 s32 countValidSaveSlots(M2C_UNK);                         /* extern */
 extern s16 gSaveStatus;
@@ -25,7 +25,7 @@ void func_8002CFE8(void) {
     s16 var_v0;
 
     func_8002CA90("TWINE.");
-    func_8001212C();
+    saveCheckStatus();
     D_801002B4 = countValidSaveSlots(0xA3) & 0xFFFF;
     gSaveSlotCount = countValidSaveSlots(0xA3) & 0xFFFF;
     gVisibleSaveSlots = countValidSaveSlots(0xA3) & 0xFFFF;
