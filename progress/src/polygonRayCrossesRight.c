@@ -1,56 +1,43 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Counts polygon edges crossing the horizontal ray at height y and toggles a flag when the crossing lies right of x. */
+s32 polygonRayCrossesRight(s32 vertexCount, f32 *xs, f32 *ys, f32 x, f32 y) {
+    volatile s32 scratch[2];
+    s32 i;
+    s32 prev;
+    s32 crossingFlag;
+    f32 ys0;
+    f32 xs0;
+    f32 yCur;
+    f32 *ysCursor;
+    f32 *xsCursor;
 
-s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
-    u8 __repair_frame[8];
-    char *var_a3;
-    char *var_t1;
-    f32 temp_ft1;
-    f32 temp_ft2;
-    f32 temp_fv1;
-    s32 var_t0;
-    s32 var_t2;
-    s32 var_v1;
-
-    var_t0 = 0;
-    var_v1 = arg0 - 1;
-    var_t2 = 0;
-    if (arg0 > 0) {
-        var_a3 = arg2;
-        var_t1 = arg1;
+    i = 0;
+    prev = vertexCount - 1;
+    crossingFlag = 0;
+    if (vertexCount > 0) {
+        ysCursor = ys;
+        xsCursor = xs;
         do {
-            temp_fv1 = *(f32 *)var_a3;
-            if (!(temp_fv1 <= arg4) || !(arg4 < arg2[var_v1])) {
-                if (arg2[var_v1] <= arg4) {
-                    if (arg4 < temp_fv1) {
+            yCur = *ysCursor;
+            if (!(yCur <= y) || !(y < ys[prev])) {
+                if (ys[prev] <= y) {
+                    if (y < yCur) {
                         goto block_8;
                     }
                 }
             } else {
 block_8:
-                temp_ft1 = *(f32 *)var_a3;
-                temp_fv1 = arg1[var_v1];
-                temp_ft2 = *(f32 *)var_t1;
-                if (arg3 < ((((temp_fv1 - temp_ft2) * (arg4 - temp_ft1)) / (arg2[var_v1] - temp_ft1)) + temp_ft2)) {
-                    var_t2 = var_t2 == 0;
+                xs0 = *ysCursor;
+                yCur = xs[prev];
+                ys0 = *xsCursor;
+                if (x < ((((yCur - ys0) * (y - xs0)) / (ys[prev] - xs0)) + ys0)) {
+                    crossingFlag = crossingFlag == 0;
                 }
             }
-            var_v1 = var_t0;
-            var_a3 += 4;
-            var_t0 += 1;
-            var_t1 += 4;
-        } while (var_t0 < arg0);
+            prev = i;
+            ysCursor += 1;
+            i += 1;
+            xsCursor += 1;
+        } while (i < vertexCount);
     }
-    return var_t2;
+    return crossingFlag;
 }

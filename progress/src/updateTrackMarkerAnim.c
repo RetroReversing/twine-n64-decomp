@@ -18,7 +18,7 @@ s32 randomIntBelow();
 s32 func_80061BE4();
 extern u8 gTrackMarkerDone[];
 
-void func_80061CCC(void *arg0) {
+void updateTrackMarkerAnim(void *arg0) {
     f32 var_fv0;
     u8 temp_v0;
     u8 temp_v0_2;

@@ -2,7 +2,7 @@
 s32 randomU32Next();
 s32 func_80054FEC(s32, f32, f32, void *, void *, s32, s32);
 s32 func_8005FBB8(void *);
-s32 func_8005FD28(void *);
+s32 triggerNearbyBonusObject(void *);
 s32 actorRespawnAtRandomPoint(void *);
 s32 objectUpdateAnimByState(void *);
 s32 func_800624A8(void *, void *, f32, s32);
@@ -88,7 +88,7 @@ void updateObjectFallState(void *obj) {
             actorRespawnAtRandomPoint(obj);
             break;
         }
-        if ((func_8005FD28(obj) << 0x18) != 0) {
+        if ((triggerNearbyBonusObject(obj) << 0x18) != 0) {
     case 4:
             actorRespawnAtRandomPoint(obj);
         }

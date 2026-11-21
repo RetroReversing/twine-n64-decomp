@@ -17,7 +17,7 @@ void buildRotationMatrix(const s16 *ang, f32 *m) {
     f32 sa = SINS(a);
     f32 second = sb * -cc;
     f32 fourth = cacb * sc + sa * cc;
-    f32 sacb = sa * -cb;
+    f32 sacb;
 
     m[0] = first;
     m[1] = second;
@@ -25,7 +25,9 @@ void buildRotationMatrix(const s16 *ang, f32 *m) {
     m[3] = fourth;
     m[4] = sa * sc - cacb * cc;
     m[5] = -ca * sb;
+    sacb = sa * -cb;
     m[6] = sacb * sc + ca * cc;
     m[7] = ca * sc - sacb * cc;
     m[8] = sa * sb;
 }
+

@@ -26,8 +26,8 @@ extern M2C_UNK gTrackMarkers;
 
 void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     M2C_UNK (*temp_v0)(void *);
-    s16 var_s4;
-    s16 var_s7;
+    s32 var_s4;
+    s32 var_s7;
     s32 temp_s0;
     s32 temp_s1;
     void *temp_s6;

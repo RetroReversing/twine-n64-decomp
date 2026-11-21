@@ -10,7 +10,7 @@ extern BonusEnt sBonusSlots[];
 
 #define E(n) arg0[(u16)(n)]
 
-void func_80081D50(SlotEnt *arg0, s32 arg1, s32 arg2, SlotOut *arg3) {
+void func_80081D50(SlotEnt *arg0, u8 arg1, s32 arg2, SlotOut *arg3) {
     s32 i = 0;
     s32 s1;
     s32 idx;
