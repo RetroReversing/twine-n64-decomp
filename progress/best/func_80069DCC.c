@@ -39,7 +39,7 @@ M2C_UNK func_80069250(void *);
 M2C_UNK func_800698D8(void *, f32, f32);
 f32 func_80069998(f32);
 f32 func_80069A14(f32);
-s32 func_80069A90(void *);
+s32 actorUpdateBorderFade(void *);
 M2C_UNK updateAirTimeGauge(void *);
 M2C_UNK func_8006D2E4(void *);
 M2C_UNK func_8006E648(void *, void *, M2C_UNK, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *);
@@ -490,7 +490,7 @@ M2C_FIELD(temp_s1, s8 *, 0x188) = (s8) (temp_v0_3 - 1);
 temp_v1_16 = M2C_FIELD(arg0, s16 *, 0x7C);
 switch (temp_v1_16) {
 case 0:
-if (func_80069A90(arg0) == 0) {
+if (actorUpdateBorderFade(arg0) == 0) {
 if (!((s32) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x410000)) {
 var_fs3 = func_80081B44(temp_s4, 0, 1);
 temp_fs5 = absFloat(var_fs3);
@@ -877,7 +877,7 @@ func_80047FB4(*(M2C_UNK *)((u8 *)&gTrackMarkerTable + (temp_s4 * 4)), *(M2C_UNK 
 func_80069250(arg0);
 break;
 case 6:
-if (func_80069A90(arg0) == 0) {
+if (actorUpdateBorderFade(arg0) == 0) {
 if (!((s32) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 0x410000)) {
 temp_fs3_4 = func_80081B44(temp_s4, 0, 1);
 func_800698D8(arg0, temp_fs3_4, probeTrackSteerAngle(sp64, arg0));
@@ -1107,7 +1107,7 @@ var_s6 = cosAngle(M2C_FIELD(arg0, f32 *, 0x40)) * 0.2f;
 block_286:
 M2C_FIELD(temp_s1, f32 *, 0xCC) = 0.0f;
 M2C_FIELD(temp_s1, u8 *, 0x186) = 0xAU;
-if (func_80069A90(arg0) == 0) {
+if (actorUpdateBorderFade(arg0) == 0) {
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
 func_80002BD0(arg0, 0x159);
 func_800635BC(arg0, 0);

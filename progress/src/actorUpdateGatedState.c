@@ -19,7 +19,7 @@ s32 actorSetField7A();
 s32 func_80063FE8();
 s32 func_80064630();
 s32 actorInitFromSpawn();
-s32 func_80069A90();
+s32 actorUpdateBorderFade();
 s32 func_8007080C();
 s32 func_8011ACAC();
 s32 func_8011D158();
@@ -42,7 +42,7 @@ extern char gTrackMarkerTable[];
     void *axisEntry;
 
     aiBlock = M2C_FIELD(actor, void **, 0x6C);
-    func_80069A90();
+    actorUpdateBorderFade();
     M2C_FIELD(actor, u16 *, 0x7C) = 8;
     if (M2C_FIELD(M2C_FIELD(actor, void **, 0x68), u16 *, 0xC) & 0x200) {
         M2C_FIELD(actor, u16 *, 0x7C) = 0xA;

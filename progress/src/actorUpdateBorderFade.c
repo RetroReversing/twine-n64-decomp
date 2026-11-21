@@ -18,7 +18,7 @@ M2C_UNK func_800635BC(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80065684(void *);                      /* extern */
 extern s32 gBorderSkipFlag;
 
-s32 func_80069A90(void *arg0) {
+s32 actorUpdateBorderFade(void *arg0) {
     f32 temp_ft0;
     f32 var_fs0;
     void *temp_s1;

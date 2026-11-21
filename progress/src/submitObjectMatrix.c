@@ -1,2 +1,44 @@
-s32 func_80032630(s32);s32 func_800347B0(s32*,f32,f32,f32,f32,f32,f32);s32 guMtxF2L(s32*,s32);extern u32 sMatrixPoolLimit,sMatrixPoolUsed;extern s32 D_8010D538,D_80112F90;extern void *D_80115328,*sRenderState;typedef struct{u8 pad[24];s32 f18;u8 pad1c[4];f32 f20,f24,f28,f2c,f30,f34;}Rec;
-void func_80037788(void*arg0){void*temp_a1;u32 temp_s1,temp_v0,used;temp_s1=((Rec*)arg0)->f18;if(!temp_s1)return;used=sMatrixPoolUsed;if(used<sMatrixPoolLimit){s32 base=*(s32*)((char*)sRenderState+0x74c);temp_v0=used+1;sMatrixPoolUsed=temp_v0;D_8010D538=base+(temp_v0<<6);func_800347B0(&D_80112F90,((Rec*)arg0)->f2c*0.0015339808f,((Rec*)arg0)->f30*0.0015339808f,((Rec*)arg0)->f34*0.0015339808f,((Rec*)arg0)->f20*64.0f,((Rec*)arg0)->f24*64.0f,((Rec*)arg0)->f28*64.0f);guMtxF2L(&D_80112F90,D_8010D538);{u32 opcode=0xDA380003,address;temp_a1=D_80115328;address=D_8010D538;D_80115328=(char*)temp_a1+8;((u32*)temp_a1)[0]=opcode;((u32*)temp_a1)[1]=address-0x80000000u;func_80032630(temp_s1);}}}
+s32 func_80032630(s32);
+s32 func_800347B0(s32 *, f32, f32, f32, f32, f32, f32);
+s32 guMtxF2L(s32 *, s32);
+extern u32 sMatrixPoolLimit, sMatrixPoolUsed;
+extern s32 sCurrentMatrixSlot, sObjectMatrixF;
+extern void *sDisplayListCursor, *sRenderState;
+
+typedef struct {
+    u8 pad[24];
+    s32 dlId;
+    u8 pad1c[4];
+    f32 posX, posY, posZ;
+    f32 angleX, angleY, angleZ;
+} ObjectMatrix;
+
+/* Builds the object's transform in the matrix pool and appends a G_MTX display list command that loads it. */
+void submitObjectMatrix(ObjectMatrix *obj) {
+    void *cmd;
+    u32 dlId, used, newUsed;
+    s32 base;
+
+    dlId = obj->dlId;
+    if (!dlId) {
+        return;
+    }
+    used = sMatrixPoolUsed;
+    if (used < sMatrixPoolLimit) {
+        base = *(s32 *)((char *)sRenderState + 0x74c);
+        newUsed = used + 1;
+        sMatrixPoolUsed = newUsed;
+        sCurrentMatrixSlot = base + (newUsed << 6);
+        func_800347B0(&sObjectMatrixF, obj->angleX * 0.0015339808f, obj->angleY * 0.0015339808f, obj->angleZ * 0.0015339808f, obj->posX * 64.0f, obj->posY * 64.0f, obj->posZ * 64.0f);
+        guMtxF2L(&sObjectMatrixF, sCurrentMatrixSlot);
+        {
+            u32 opcode = 0xDA380003, address;
+            cmd = sDisplayListCursor;
+            address = sCurrentMatrixSlot;
+            sDisplayListCursor = (char *)cmd + 8;
+            ((u32 *)cmd)[0] = opcode;
+            ((u32 *)cmd)[1] = address - 0x80000000u;
+            func_80032630(dlId);
+        }
+    }
+}

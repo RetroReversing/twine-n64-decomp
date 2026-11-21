@@ -10,7 +10,7 @@ f32 approximateAtan2(f32, f32);                        /* extern */
 s32 func_80085610(void *);                      /* extern */
 s32 func_80085690(void *, s32);                      /* extern */
 s32 func_80085710(void *);                      /* extern */
-typedef struct { u16 f0; u8 pad[230]; } Slot_800C470A;
+typedef struct { u8 f0; u8 pad[231]; } Slot_800C470A;
 extern Slot_800C470A D_800C470A[];
 extern u16 D_800C9A58;
 extern u8 D_800C9A5C[];
@@ -65,7 +65,7 @@ void func_800770E4(void *arg0) {
     
     u32 var_v1_2;
     u8 temp_v1_2;
-    u8 temp_v1_3;
+    u32 temp_v1_3;
     u8 var_s2;
     long temp_v0;
     void *temp_a0_3;

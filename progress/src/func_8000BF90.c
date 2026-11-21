@@ -13,12 +13,11 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     u8 *list;
     f32 dot;
     u8 *t;
-    u8 *selected;
+    union { u32 index; u8 *selected; } search;
     f32 *pos;
     f32 *tf;
     f32 f;
     s32 idx;
-    u32 iv;
     register u8 *node;
     u32 r, g, b, v;
     register unsigned int k;
@@ -39,9 +38,9 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
                     idx = 0;
                     do {
                         if (f > 0.0f && f < bestd[idx]) {
-                            for (iv = 1; iv > idx; iv--) {
-                                bestd[iv] = bestd[iv - 1];
-                                best[iv] = best[iv - 1];
+                            for (search.index = 1; search.index > idx; search.index--) {
+                                bestd[search.index] = bestd[search.index - 1];
+                                best[search.index] = best[search.index - 1];
                             }
                             best[idx] = node;
                             bestd[idx] = f;
@@ -61,10 +60,10 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
         b = 0; g = 0; r = 0;
         idx = 0;
         do {
-            selected = best[idx];
-            if (!selected) goto next_color;
+            search.selected = best[idx];
+            if (!search.selected) goto next_color;
             {
-                t = selected;
+                t = search.selected;
                 tf = (f32 *)t;
                 sp30[0] = ((f32 *)(arg0 + 0x24))[0] - tf[1];
                 sp30[1] = ((f32 *)(arg0 + 0x24))[1] - tf[2];
@@ -84,10 +83,10 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
 next_color:
             ++idx;
         } while ((u32)idx < 2);
-        __repair_phase_storage.value = D_801096A0 & 0xFFFF;
-        if ((r & 0xFFFF) < __repair_phase_storage.value) r = (int)D_801096A0;
-        if ((g & 0xFFFF) < __repair_phase_storage.value) g = D_801096A0;
-        if ((b & 0xFFFF) < __repair_phase_storage.value) b = D_801096A0;
+        __repair_phase_storage.value = D_801096A0;
+        if ((r & 0xFFFF) < ((u16)__repair_phase_storage.value)) r = (int)D_801096A0;
+        if ((g & 0xFFFF) < ((u16)__repair_phase_storage.value)) g = D_801096A0;
+        if ((b & 0xFFFF) < ((u16)__repair_phase_storage.value)) b = D_801096A0;
         if ((r & 0xFFFF) >= 0x100) r = 0xFF;
         if ((g & 0xFFFF) >= 0x100) g = 0xFF;
         if ((b & 0xFFFF) >= 0x100) b = 0xFF;
