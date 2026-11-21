@@ -53436,38 +53436,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
  },
  {
-  "function": "voiceListRemove",
-  "text": "Started from m2c, compiled score 415 (92 vs target 91 instructions), then tried local repair variants for CFG lifetimes, declaration order, signedness, and address temporary; none improved. Remaining differences cluster in linked-list unlink/relink block: target reloads node at +0x18 into $v0 and uses $v1 for its +4 link, while candidate hoists/uses other registers and loads D_800FDB78 before target's expected branch. Early branch targets also land 4 bytes late, likely due to an extra instruction/control-flow shape difference. Need model list node as typed struct and preserve target reload/order.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795138115.203361,
-  "score_before": 415,
-  "score_after": 415
- },
- {
-  "function": "voiceListRemove",
-  "text": "Rechecked best revision c657b58a0c734daa1399 at 415. Branch orientation worsened to 2385; signedness, declaration order and address temporary trials tied. Remaining mismatch includes 11 register, 5 branch target, 2 inserted and 1 deleted instructions; inspect full diff and linked-list tail scheduling. Local repairs remain untried.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795178153.8290648,
-  "score_before": 415,
-  "score_after": 415
- },
- {
-  "function": "voiceListRemove",
-  "text": "Best verified score 150/91 target instructions (98.3%), revision 4e731d4046bb77b0aacb. Decisive change: cache D_800FDB78 into temp_v1_3, store it to node->next before testing it, then conditionally write the cached node's backlink; score improved 415\u2192150 and matched the target branch delay-store pattern. Remaining diff has five branch targets offset by one instruction and one missing target load `lw v0,0x18(s0)` near the final unlink/tail insertion. Attempts to add a volatile field reload moved registers and regressed; do not use revision efc12ed204e8b6e6a643. A general linked-list-tail note was proposed as knowledge #25769826906. Next inspect CSE/liveness around node pointer reload at merge point.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795182623.76157,
-  "score_before": 415,
-  "score_after": 150
- },
- {
-  "function": "voiceListRemove",
-  "text": "Current best 150, revision 4e731d4046bb77b0aacb, verified. Two bounded local-repair rounds explored branch_orientation, CFG lifetimes, signedness, declaration order, address temporaries, integer lifetime merge, const read. Results stayed at 150 or worsened; move-on threshold is exceeded (latest 4/6, earlier attempts also compiled). Only six target mismatches remain. First is target beq $v0,$a1 to the later return at offset 0x15c; candidate branches to 0x158, a one-instruction difference. Inspect subsequent candidate and target block labels/branch layout. Several compiler warnings about assigning pointer values into s32 locals suggest the candidate's doubly linked node pointer declarations should be corrected to pointer types before any register allocation tuning.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795187949.3788328,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_80053940",
   "text": "Three-float struct copies improved 37095 to 35935; signed sp166 left output unchanged; explicit loop backedge worsened to 37899.\nFrame remains 0x1e0 versus target 0x1c8, with extensive register and control-flow differences.",
   "by": "codex-gpt-6.1-terra-5",
@@ -53561,5 +53529,37 @@
   "score_before": 5295,
   "score_after": 2490,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "voiceListRemove",
+  "text": "Started from m2c, compiled score 415 (92 vs target 91 instructions), then tried local repair variants for CFG lifetimes, declaration order, signedness, and address temporary; none improved. Remaining differences cluster in linked-list unlink/relink block: target reloads node at +0x18 into $v0 and uses $v1 for its +4 link, while candidate hoists/uses other registers and loads D_800FDB78 before target's expected branch. Early branch targets also land 4 bytes late, likely due to an extra instruction/control-flow shape difference. Need model list node as typed struct and preserve target reload/order.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795138115.203361,
+  "score_before": 415,
+  "score_after": 415
+ },
+ {
+  "function": "voiceListRemove",
+  "text": "Rechecked best revision c657b58a0c734daa1399 at 415. Branch orientation worsened to 2385; signedness, declaration order and address temporary trials tied. Remaining mismatch includes 11 register, 5 branch target, 2 inserted and 1 deleted instructions; inspect full diff and linked-list tail scheduling. Local repairs remain untried.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795178153.8290648,
+  "score_before": 415,
+  "score_after": 415
+ },
+ {
+  "function": "voiceListRemove",
+  "text": "Best verified score 150/91 target instructions (98.3%), revision 4e731d4046bb77b0aacb. Decisive change: cache D_800FDB78 into temp_v1_3, store it to node->next before testing it, then conditionally write the cached node's backlink; score improved 415\u2192150 and matched the target branch delay-store pattern. Remaining diff has five branch targets offset by one instruction and one missing target load `lw v0,0x18(s0)` near the final unlink/tail insertion. Attempts to add a volatile field reload moved registers and regressed; do not use revision efc12ed204e8b6e6a643. A general linked-list-tail note was proposed as knowledge #25769826906. Next inspect CSE/liveness around node pointer reload at merge point.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795182623.76157,
+  "score_before": 415,
+  "score_after": 150
+ },
+ {
+  "function": "voiceListRemove",
+  "text": "Current best 150, revision 4e731d4046bb77b0aacb, verified. Two bounded local-repair rounds explored branch_orientation, CFG lifetimes, signedness, declaration order, address temporaries, integer lifetime merge, const read. Results stayed at 150 or worsened; move-on threshold is exceeded (latest 4/6, earlier attempts also compiled). Only six target mismatches remain. First is target beq $v0,$a1 to the later return at offset 0x15c; candidate branches to 0x158, a one-instruction difference. Inspect subsequent candidate and target block labels/branch layout. Several compiler warnings about assigning pointer values into s32 locals suggest the candidate's doubly linked node pointer declarations should be corrected to pointer types before any register allocation tuning.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795187949.3788328,
+  "score_before": 150,
+  "score_after": 150
  }
 ]
