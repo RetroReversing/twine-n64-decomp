@@ -72,7 +72,7 @@ restore_and_exit:
                 temp_v0_2 = (u8) M2C_FIELD(temp_v1_3, s8 *, 0xF) - 1;
                 M2C_FIELD(temp_v1_3, s8 *, 0xF) = temp_v0_2;
                 if (temp_v0_2 < 0) {
-                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = __repair_constant;
+                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = 0x26;
                 }
             } while (!(sEnemyDefTable[M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF)].flags & 0x8000));
         }

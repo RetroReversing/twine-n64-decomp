@@ -4,7 +4,9 @@ typedef struct { char pad[0xac]; f32 height; } MoveLimit;
 typedef struct { MoveBounds *bounds; MoveLimit *limit; s32 unk; u16 flags; } MoveState;
 typedef struct { char pad[0x24]; MoveVec pos; char direction[0x38]; MoveState *state; } MoveActor;
 s8 func_800515D0(MoveActor *, void *, void *, MoveVec *, void *, f32, f32, f32, s32, s32 *, s32 *, s32 *);
-s32 func_80079B08(void *arg0, MoveActor *actor, s32 *arg2, s32 *arg3, s32 arg4)
+
+/* Moves the actor through the collision routine, using its bounds and height to find the floor and ceiling; the new position is stored only if the move succeeds. Returns the collision result. */
+s32 moveActorWithCollision(void *arg0, MoveActor *actor, s32 *arg2, s32 *arg3, s32 arg4)
 {
     MoveVec pos;
     f32 scratch[4];
