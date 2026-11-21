@@ -15,8 +15,10 @@ void func_80089384(u16 arg0, u32 arg1) {
  for(i=0;i<D_800E41E4;i++){ D_800E41E0[i].a=0; D_800E41E0[i].b61=0; D_800E41E0[i].b60=0xff; }
  if(D_8010086C==0){ f=arg1*0.000125f; D_800E4216=(u32)f+1; }
  else { f=arg1*0.00025f; D_800E4216=(u32)f+1; }
- D_800E4220=gDataBankAlloc(D_800E4216*0xA10,0);
- D_800E4224=gDataBankAlloc(D_800E4216*0xA10,0);
+ { u32 (**al)(s32, s32) = &gDataBankAlloc;
+ D_800E4220=(*al)(D_800E4216*0xA10,0);
+ D_800E4224=(*al)(D_800E4216*0xA10,0);
  D_800E422A=0; D_800E4228=0;
- p=(Voice *)gDataBankAlloc(0x298,0); D_800E422C=(u32)p; bzero(p,0x298); func_800A0220(D_800E422C,0x298);
+ p=(Voice *)(*al)(0x298,0); }
+ D_800E422C=(u32)p; bzero(p,0x298); func_800A0220(D_800E422C,0x298);
 }
