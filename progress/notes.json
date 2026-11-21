@@ -63585,6 +63585,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5936e031ad2018546b5004af9487cc2f9dfa0ef20d58931ddc6c152b76221b04"
  },
  {
+  "function": "func_8001DE20",
+  "text": "Best clean candidate 1140 (rev 54fa8a05ffc9621991a5), semantically correct. Fixes found: D_800D2864 (alias extern of sFmtEntryName, same address) used in the else-branch formatTextEntry blocks CSE hoisting of the fmt address into s6; first call written as formatTextEntry(s1, sFmtEntryName, !flag ? lookupDataEntry(0x1A) : lookupDataEntry(0x1B)); temp_s2 assigned inside the expak-present branch (so addiu s2 lands in beqz delay slot). Callees: func_800263B8=findTableIndexById, gMenuItems=gSaveMenuState. Remaining diff (~22 rows): in the gExpansionPakPresent==0 branch GCC reuses s2 (s3-0x28), s0 (s4-0x28) and s1 (=1) from the expak branch (CSE across branches) whereas target recomputes addiu a0,s3,-0x28 / a3,s4,-0x28 / li v0,1 fresh. Tried: direct expressions instead of temps, char* casts, reordering, swapping if/else (worse, 4095). Next step: find a source form that keeps branch A's s2/s0/s1 from being visible to branch B (e.g. different pointer typing of s3/s4 in B, or B code before A with inverted layout via goto).",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795239605.332431,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:98c061cc8fce4867a1fce0e3900beec0ec0eae4be7b16d29333d706b129fb020"
+ },
+ {
   "function": "registerWorkerEntry",
   "text": "Corrected pointer field store to word, improved 585 to 385. Remaining extra sign extension and zero initialization before search cause branch offsets; s32 arg0 plus retained s16 cast gives 430, removing cast 575. Need tune argument and search variable lifetimes to match target's a1 counter and a0 offset.",
   "by": "codex-gpt-6.1-terra-1",
@@ -63623,14 +63632,5 @@
   "created_at": 1795189850.552922,
   "score_before": 385,
   "score_after": 0
- },
- {
-  "function": "func_8001DE20",
-  "text": "Best clean candidate 1140 (rev 54fa8a05ffc9621991a5), semantically correct. Fixes found: D_800D2864 (alias extern of sFmtEntryName, same address) used in the else-branch formatTextEntry blocks CSE hoisting of the fmt address into s6; first call written as formatTextEntry(s1, sFmtEntryName, !flag ? lookupDataEntry(0x1A) : lookupDataEntry(0x1B)); temp_s2 assigned inside the expak-present branch (so addiu s2 lands in beqz delay slot). Callees: func_800263B8=findTableIndexById, gMenuItems=gSaveMenuState. Remaining diff (~22 rows): in the gExpansionPakPresent==0 branch GCC reuses s2 (s3-0x28), s0 (s4-0x28) and s1 (=1) from the expak branch (CSE across branches) whereas target recomputes addiu a0,s3,-0x28 / a3,s4,-0x28 / li v0,1 fresh. Tried: direct expressions instead of temps, char* casts, reordering, swapping if/else (worse, 4095). Next step: find a source form that keeps branch A's s2/s0/s1 from being visible to branch B (e.g. different pointer typing of s3/s4 in B, or B code before A with inverted layout via goto).",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795239605.332431,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:98c061cc8fce4867a1fce0e3900beec0ec0eae4be7b16d29333d706b129fb020"
  }
 ]
