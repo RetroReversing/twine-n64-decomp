@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 s32 func_80027C60(s32);                             /* extern */
-M2C_UNK func_80029AC8(s32, s32, s32);               /* extern */
+M2C_UNK menuResolveCursorItem(s32, s32, s32);               /* extern */
 extern void *D_800BF5A0;
 extern s32 gMenuItems;
 
@@ -29,7 +29,7 @@ s32 __repair_operand;
         s32 base = gMenuItems;
         var_s0 = 0;
         M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 8), s32 *, 0x10) = 0;
-        func_80029AC8(base + 0x2A, base + 0x28, base + 0x29);
+        menuResolveCursorItem(base + 0x2A, base + 0x28, base + 0x29);
 loop_2:
         __repair_operand = M2C_FIELD(D_800BF5A0, s32 *, 0);
         temp_s1 = (var_s0 & 0xFFFF) * 0x28;

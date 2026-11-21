@@ -32,8 +32,8 @@ s32 buildPlaneFromPoints(Pl *out, V3 *p1, V3 *p2, V3 *p3) {
     n.z *= len;
     out->x = n.x;
     out->y = n.y;
-    out->d = -out->x * px - out->y * py - n.z * pz;
     out->z = n.z;
+    out->d = -out->x * px - out->y * py - out->z * pz;
     }
     return ret;
 }

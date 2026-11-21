@@ -19,7 +19,7 @@ s32 layoutTextBox();
 s32 func_80027C60();
 s32 menuItemIsActive();
 s32 func_80029000();
-s32 func_80029AC8();
+s32 menuResolveCursorItem();
 void *lookupDataEntry();
 s32 func_800AB880();
 s32 func_800AB950();
@@ -68,7 +68,7 @@ void func_80018E38(void) {
             sprintf(temp_s1, temp_s0, D_800BF5A0);
             D_800B60A4 = strlen(temp_s1);
         }
-        func_80029AC8(gMenuItems + 0x2A, gMenuItems + 0x28, gMenuItems + 0x29);
+        menuResolveCursorItem(gMenuItems + 0x2A, gMenuItems + 0x28, gMenuItems + 0x29);
         func_80029000(M2C_FIELD(D_800BF5A0, s32 *, 8));
         if (func_80027C60(0x24) & 0xFF) {
             M2C_FIELD(D_800BF5A0, s8 *, 0xD) = 0;

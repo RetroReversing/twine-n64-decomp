@@ -115,8 +115,8 @@ block_19:
         break;
     }
     if (var_s2 != 0) {
-        M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_s1, s32 *, 0x50);
-        M2C_FIELD(temp_s1, __repair_words2 *, 0x1C) = *(__repair_words2 *) ((s8 *) temp_s1 + 0x54);
+        typedef struct { s32 w[3]; } Position;
+        M2C_FIELD(temp_s1, Position *, 0x18) = M2C_FIELD(temp_s1, Position *, 0x50);
         func_8007947C(arg0);
         var_a1 = 0x2D;
 block_23:
