@@ -37,7 +37,7 @@ s32 func_800219A0(s8 arg0) {
         (*__base_D_8010A4C0) = 0;
         var_s0 = 0;
     }
-    __base_D_8010A4E4 = (s32 *)(__base_D_8010A4C0 + 0x24);
+    __base_D_8010A4E4 = (s32 *)((((u32)&D_8010A4E4) + var_s0) - var_s0);
     M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 0;
     if (M2C_FIELD(__base_D_8010A4E4, u8 *, -0x24) == 0) {
         M2C_FIELD(__base_D_8010A4E4, s32 *, 4) = 0;
