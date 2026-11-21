@@ -37,7 +37,7 @@ typedef struct MenuState {
 } MenuState;
 
 void *func_800162BC(u8);
-void func_80016314(void *);
+void freeMenuItemRecord(void *);
 s32 func_800448A4(void *, u32, s32);
 s32 lookupDataEntry(u16, void *);
 s32 strlen(s8 *);
@@ -58,7 +58,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
 
     temp_a0 = gMenuState->pendingText;
     if (temp_a0 != NULL) {
-        func_80016314(temp_a0);
+        freeMenuItemRecord(temp_a0);
     }
     gMenuState->pendingText = NULL;
     if (request != NULL) {

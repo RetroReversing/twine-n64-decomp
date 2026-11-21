@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016314(s32);                         /* extern */
+M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 
 void func_8002FAD8(void *arg0) {
     s32 temp_a0;
@@ -31,23 +31,23 @@ void func_8002FAD8(void *arg0) {
         temp_a0 = M2C_FIELD(temp_s1, s32 *, 4);
         var_s0 += 1;
         if (temp_a0 != 0) {
-            func_80016314(temp_a0);
+            freeMenuItemRecord(temp_a0);
         }
         M2C_FIELD(temp_s1, s32 *, 4) = 0;
     } while ((u32) (var_s0 & 0xFFFF) < 9U);
     temp_a0_2 = M2C_FIELD(arg0, s32 *, 0);
     if (temp_a0_2 != 0) {
-        func_80016314(temp_a0_2);
+        freeMenuItemRecord(temp_a0_2);
     }
     temp_a0_3 = M2C_FIELD(arg0, s32 *, 0x34);
     M2C_FIELD(arg0, s32 *, 0) = 0;
     if (temp_a0_3 != 0) {
-        func_80016314(temp_a0_3);
+        freeMenuItemRecord(temp_a0_3);
     }
     temp_a0_4 = M2C_FIELD(arg0, s32 *, 0x2C);
     M2C_FIELD(arg0, s32 *, 0x34) = 0;
     if (temp_a0_4 != 0) {
-        func_80016314(temp_a0_4);
+        freeMenuItemRecord(temp_a0_4);
     }
     temp_v1 = M2C_FIELD(arg0, void **, 0x30);
     M2C_FIELD(arg0, s32 *, 0x2C) = 0;
@@ -57,12 +57,12 @@ void func_8002FAD8(void *arg0) {
     temp_a0_5 = M2C_FIELD(arg0, s32 *, 0x38);
     M2C_FIELD(arg0, void **, 0x30) = NULL;
     if (temp_a0_5 != 0) {
-        func_80016314(temp_a0_5);
+        freeMenuItemRecord(temp_a0_5);
     }
     temp_a0_6 = M2C_FIELD(arg0, s32 *, 0x3C);
     M2C_FIELD(arg0, s32 *, 0x38) = 0;
     if (temp_a0_6 != 0) {
-        func_80016314(temp_a0_6);
+        freeMenuItemRecord(temp_a0_6);
     }
     M2C_FIELD(arg0, s32 *, 0x3C) = 0;
     M2C_FIELD(arg0, void **, 0x30) = NULL;

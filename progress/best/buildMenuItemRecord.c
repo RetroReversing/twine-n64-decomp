@@ -11,7 +11,7 @@ extern s32 D_80102EC4;
 extern u8 gMenuUseTextList;
 
 
-void *func_80026A5C(void *arg0, s32 arg1) {
+void *buildMenuItemRecord(void *arg0, s32 arg1) {
     register long temp_v0_2;
     s32 var_v0;
     s32 var_v0_3;

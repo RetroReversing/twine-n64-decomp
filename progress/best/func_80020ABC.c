@@ -2,7 +2,7 @@
 
 s32 func_800160FC();
 s32 func_800162BC();
-s32 func_80016314();
+s32 freeMenuItemRecord();
 s32 func_80018318();
 s32 func_80022A30();
 s32 func_80022AD8();
@@ -79,7 +79,7 @@ s32 __repair_phase_var_a2;
             (*(s32 *)((char *)(temp_s2) + 4)) = temp_v0_4;
             if (temp_v0_4 == 0) {
                 var_s3 += 1;
-                func_80016314(*((s32 *)((s8 *)D_8010A2D8 + temp_s4)));
+                freeMenuItemRecord(*((s32 *)((s8 *)D_8010A2D8 + temp_s4)));
             } else {
                 temp_s0 = var_s3 - 1;
                 (*(s32 *)((char *)(*((s32 *)((s8 *)D_8010A2D8 + temp_s4))) + 0x18)) = lookupDataEntry(func_8003137C(temp_s0, 1) & 0xFFFF);

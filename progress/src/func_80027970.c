@@ -7,7 +7,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void func_80016314(void *);
+void freeMenuItemRecord(void *);
 void func_80022BB8(void);
 void func_8002EB34(void *);
 extern void *gMenuState;
@@ -22,11 +22,11 @@ void func_80027970(void) {
     if (gMenuState != NULL) {
         func_8002EB34(M2C_FIELD(gMenuState, void **, 0x20));
         M2C_FIELD(gMenuState, void **, 0x20) = NULL;
-        func_80016314(M2C_FIELD(gMenuState, void **, 0x24));
+        freeMenuItemRecord(M2C_FIELD(gMenuState, void **, 0x24));
         M2C_FIELD(gMenuState, void **, 0x24) = NULL;
-        func_80016314(M2C_FIELD(gMenuState, void **, 0x1C));
+        freeMenuItemRecord(M2C_FIELD(gMenuState, void **, 0x1C));
         M2C_FIELD(gMenuState, void **, 0x1C) = NULL;
-        func_80016314(M2C_FIELD(gMenuState, void **, 0));
+        freeMenuItemRecord(M2C_FIELD(gMenuState, void **, 0));
         b = M2C_FIELD(gMenuState, void **, 0x10);
         M2C_FIELD(gMenuState, void **, 0) = NULL;
         if (b != NULL) {
@@ -38,7 +38,7 @@ void func_80027970(void) {
             if (count != 0) {
                 do {
                     record = (void *)((s8 *)M2C_FIELD(M2C_FIELD(a, void **, 0x10), void **, 0) + ((i & 0xFF) * 0x28));
-                    func_80016314(((Record *)record)->value);
+                    freeMenuItemRecord(((Record *)record)->value);
                     ((Record *)record)->value = NULL;
                     i++;
                     a = gMenuState;

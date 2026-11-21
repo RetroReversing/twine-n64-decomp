@@ -1,19 +1,19 @@
 typedef struct { u32 a, b, c, d; } FourWords;
-extern u8 gMenuParamC, gMenuSlot, D_80102EDD, D_801007D2, D_801007D3, D_801007D4, gSceneFlagsA[], gSceneFlagsB;
+extern u8 gMenuListParam, gMenuSlot, gMenuUseTextList, D_801007D2, D_801007D3, D_801007D4, gSceneFlagsA[], gSceneFlagsB;
 extern u16 gBorderSkipFlag;
 extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
 void func_8000A368(void);
 void func_8000A3AC(void);
-void func_8001E7A4(u16);
-void func_80026450(void) {
-    u8 *flags = gSceneFlagsA;
-    s32 mask;
-    *flags = 0;
+void updateBonusSceneSlot(u16);
+/* Resets menu scene flags, then sets the selected list bit and text-list state (text lists also refresh slot data). */ void setupMenuListFlags(void) {
+    u8 *sceneFlagsA = gSceneFlagsA;
+    s32 listBit;
+    *sceneFlagsA = 0;
     gSceneFlagsB = 0;
     func_8000A2B8();
-    if (D_80102EDD == 0) {
-        *flags |= 1;
+    if (gMenuUseTextList == 0) {
+        *sceneFlagsA |= 1;
         gSceneFlagsB |= 1;
     } else {
         D_800E1098 = D_801007C8;
@@ -21,14 +21,14 @@ void func_80026450(void) {
         D_801007D3 = -1;
         D_801007D4 = -1;
         if ((*(s32 *)&gBorderSkipFlag) != 0) {
-            gSceneFlagsB |= 1 << gMenuParamC;
+            gSceneFlagsB |= 1 << gMenuListParam;
         } else {
-            mask = 1 << gMenuParamC;
-            gSceneFlagsB |= mask;
-            *flags |= mask;
+            listBit = 1 << gMenuListParam;
+            gSceneFlagsB |= listBit;
+            *sceneFlagsA |= listBit;
         }
     }
-    if (D_80102EDD != 0) func_8000A368();
+    if (gMenuUseTextList != 0) func_8000A368();
     else func_8000A3AC();
-    if (D_80102EDD != 0) func_8001E7A4(gMenuSlot);
+    if (gMenuUseTextList != 0) updateBonusSceneSlot(gMenuSlot);
 }

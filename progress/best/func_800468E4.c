@@ -1,5 +1,6 @@
 typedef struct { f32 x, y, z, w; } RotationQuat;
 void func_800468E4(const RotationQuat *q, f32 m[3][3]) {
+    volatile f64 scratch[1];
     f32 y = q->y;
     f32 y2 = y + y;
     f32 x = q->x;

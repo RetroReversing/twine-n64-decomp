@@ -22,10 +22,10 @@ s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 absFloat(f32, void *);                     /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
-M2C_UNK buildRotationMatrixS16(s16 *, f32 *);                /* extern */
+M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();     /* extern */
 M2C_UNK func_80083B64();     /* extern */
-extern u16 gSurfaceQueryStamp;
+extern u16 D_800B35B0;
 extern f64 D_800D3EC0;
 extern void *D_80108404;
 extern void *gPlayerActor;
@@ -166,10 +166,10 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     sp11C = sp98;
     var_fp = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), void **, 0x58);
     sp124 = sp38;
-    gSurfaceQueryStamp += 1;
+    D_800B35B0 += 1;
 loop_3:
     var_s2 = var_s0;
-    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) gSurfaceQueryStamp;
+    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) D_800B35B0;
     if (var_s0 != NULL) {
         var_s0_2 = M2C_FIELD(var_s0, void **, 0);
         if (var_s0_2 != NULL) {
@@ -249,7 +249,7 @@ block_21:
                                 sp98[1] = (s16) (s32) M2C_FIELD(var_s0_2, f32 *, 0x40);
                                 D_80108404 = var_s0_2;
                                 sp9C = (s16) (s32) M2C_FIELD(var_s0_2, f32 *, 0x44);
-                                buildRotationMatrixS16(sp11C, sp68);
+                                func_80082FE4(sp11C, sp68);
                                 temp_v1_2 = M2C_FIELD(temp_s1, u8 *, 0x48) & 4;
                                 if (temp_v1_2 != 0) {
                                     var_s6 = M2C_FIELD(temp_s1, u16 **, 0x3C);
@@ -299,7 +299,7 @@ block_21:
                                             }
                                             var_s3 += 6;
                                             var_s4 += 1;
-                                            var_s6 += 6;
+                                            var_s6 += 3;
                                         } while ((u32) (var_s4 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                     }
                                 } else {
@@ -307,7 +307,7 @@ block_21:
                                     var_s4_2 = 0;
                                     if (temp_v1_2 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) {
                                         var_s3_2 = var_s6_2 + 2;
-                                        __repair_rows: {
+                                        do {
                                             temp_v1_6 = *(u16 *)(((var_s4_2 & 0xFFFF) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                             if ((sp12E & temp_v1_6) && (sp136 & temp_v1_6)) {
                                                 temp_v1_7 = M2C_FIELD(temp_s1, s32 *, 0x34);
@@ -350,8 +350,7 @@ block_21:
                                             var_s3_2 += 3;
                                             var_s4_2 += 1;
                                             var_s6_2 += 3;
-                                        }
-if ((u32) (var_s4_2 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) goto __repair_rows;
+                                        } while ((u32) (var_s4_2 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                     }
                                 }
                             }
@@ -625,7 +624,7 @@ block_137:
 loop_159:
 loop_160:
         var_s0 = M2C_FIELD(var_fp, void **, 8);
-        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != gSurfaceQueryStamp) {
+        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != D_800B35B0) {
             if (var_fp != NULL) {
                 if ((Sphere_OverlapsPoint(M2C_FIELD(var_fp, s32 *, 4) + 0x40, arg3, arg5) << 0x18) != 0) {
                     var_fp = M2C_FIELD(var_fp, void **, 0);

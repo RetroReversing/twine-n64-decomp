@@ -7,7 +7,7 @@ s32 func_80002D30();
 s32 func_8000A270();
 s32 func_8000A894();
 void *func_80015F0C();
-s32 func_80016314();
+s32 freeMenuItemRecord();
 s32 func_800165E0();
 s32 func_800448A4();
 s32 func_800643EC();
@@ -362,7 +362,7 @@ f32 __repair_var_fs0_1;
                 (*(s16 *)((char *)((*(void **)((char *)(temp_s1) + 0x410))) + 0x1E)) = 6;
             }
         } else {
-            func_80016314((*(void **)((char *)(temp_s1) + 0x410)));
+            freeMenuItemRecord((*(void **)((char *)(temp_s1) + 0x410)));
             (*(void **)((char *)(temp_s1) + 0x410)) = NULL;
         }
     } else if (((*(void **)((char *)(temp_s1) + 0x410)) != NULL) || (temp_v0_5 = func_80015F0C(), (*(void **)((char *)(temp_s1) + 0x410)) = temp_v0_5, func_800165E0(temp_v0_5, *(u16 *)(D_80109688 + (temp_s3 * 4))), ((*(void **)((char *)(temp_s1) + 0x410)) != NULL))) {

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016314(s32);                         /* extern */
+M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 M2C_UNK func_8002A700(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002CBE8();                            /* extern */
 extern s32 sSaveMenuSpriteFirst;
@@ -21,9 +21,9 @@ extern M2C_UNK D_80107EA8;
 
 void func_80024534(void) {
     func_8002A700(&D_80107EA8);
-    func_80016314(sSaveMenuSpriteFirst);
+    freeMenuItemRecord(sSaveMenuSpriteFirst);
     sSaveMenuSpriteFirst = 0;
-    func_80016314(sSaveMenuSpriteSecond);
+    freeMenuItemRecord(sSaveMenuSpriteSecond);
     sSaveMenuSpriteSecond = 0;
     func_8002CBE8();
 }

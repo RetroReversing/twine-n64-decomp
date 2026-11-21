@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_800160FC(s32, void *, M2C_UNK);        /* extern */
 s32 func_800162BC(s32);                         /* extern */
-M2C_UNK func_80016314(s32);                         /* extern */
+M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 s32 func_80022DBC(s32);                             /* extern */
@@ -207,8 +207,8 @@ void func_8002323C(void) {
                         if (temp_a0_3 == 0) goto cleanup3;
                         if (temp_v0_6 != 0) goto success3;
                         cleanup3:
-                            func_80016314(temp_a0_3);
-                            func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5));
+                            freeMenuItemRecord(temp_a0_3);
+                            freeMenuItemRecord(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5));
                             goto next3;
                         success3:
                             temp_v0_4 = lookupDataEntry((var_s2 + 0x4003) & 0xFFFF);
@@ -257,8 +257,8 @@ void func_8002323C(void) {
                             if (temp_a0_5 == 0) goto cleanup5;
                             if (temp_v0_9 != 0) goto success5;
 cleanup5:
-                                func_80016314(temp_a0_5);
-                                func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
+                                freeMenuItemRecord(temp_a0_5);
+                                freeMenuItemRecord(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
                                 goto next5;
 success5:
                                 temp_v0_4 = lookupDataEntry((var_s2 + 0x400B) & 0xFFFF);
@@ -290,8 +290,8 @@ success5:
                     if (temp_a0_7 == 0) goto cleanup7;
                     if (temp_v0_10 != 0) goto success7;
                     cleanup7:
-                        func_80016314(temp_a0_7);
-                        func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2));
+                        freeMenuItemRecord(temp_a0_7);
+                        freeMenuItemRecord(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2));
                         goto next7;
                     success7:
                         temp_v0_4 = lookupDataEntry((var_s4 + 0x4003) & 0xFFFF);

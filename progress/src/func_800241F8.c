@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016314(s32);                         /* extern */
+M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 M2C_UNK func_80022BB8();                            /* extern */
 
 void func_800241F8(void **arg0) {
@@ -20,9 +20,9 @@ void func_800241F8(void **arg0) {
 
     temp_s0 = *arg0;
     if (temp_s0 != NULL) {
-        func_80016314(M2C_FIELD(temp_s0, s32 *, 4));
+        freeMenuItemRecord(M2C_FIELD(temp_s0, s32 *, 4));
         M2C_FIELD(temp_s0, s32 *, 4) = 0;
-        func_80016314(M2C_FIELD(temp_s0, s32 *, 0));
+        freeMenuItemRecord(M2C_FIELD(temp_s0, s32 *, 0));
         M2C_FIELD(temp_s0, s32 *, 0) = 0;
         *arg0 = NULL;
         func_80022BB8();
