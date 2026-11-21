@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80046DC0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
+s32 polygonRayCrossesRight(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4) {
     u8 __repair_frame[8];
     char *var_a3;
     char *var_t1;

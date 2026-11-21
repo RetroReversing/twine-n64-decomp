@@ -21,7 +21,7 @@ s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 absFloat(f32, void *);                     /* extern */
-M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
+M2C_UNK buildRotationMatrix(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();     /* extern */
 M2C_UNK func_80083B64();     /* extern */
@@ -226,7 +226,7 @@ block_21:
                             sp98[0] = (s16) (s32) -M2C_FIELD(var_s0_2, f32 *, 0x3C);
                             sp98[1] = (s16) (s32) -M2C_FIELD(var_s0_2, f32 *, 0x40);
                             sp9C = (s16) (s32) -M2C_FIELD(var_s0_2, f32 *, 0x44);
-                            func_80082D24(sp11C, sp124);
+                            buildRotationMatrix(sp11C, sp124);
                             sp28[0] -= M2C_FIELD(var_s0_2, f32 *, 0x24);
                             sp28[1] -= M2C_FIELD(var_s0_2, f32 *, 0x28);
                             sp28[2] -= M2C_FIELD(var_s0_2, f32 *, 0x2C);

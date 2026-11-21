@@ -32,9 +32,7 @@ void func_80081D50(SlotEnt *arg0, s32 arg1, s32 arg2, SlotOut *arg3) {
             }
             a2 = bonus;
             t1 = (E(i).mask != 0) | (a2 != 0);
-            t2 = ((((arg2 & E(i).mask) != 0) ^ (E(i).flags & 1)) == 0);
-            t3 = (a2 == 0);
-            if (!(t1 && (t2 & t3))) {
+            if (!(t1 && (t2 = ((((arg2 & E(i).mask) != 0) ^ (E(i).flags & 1)) == 0), t3 = (a2 == 0), t2 & t3))) {
                 if (E(i).val != 0 || E(i).type != 0) {
                     if (E(i).type != 0) {
                         s1 = D_80112E98[E(i).type];

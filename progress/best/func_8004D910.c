@@ -37,6 +37,7 @@ s32 func_8004D910(Vec3 *arg0, Vec3 *arg1, Vec3 *arg2, Vec3 *arg3, Vec3 *arg4, f3
     q.z = t.x * e1.y - t.y * e1.x;
     v = dx.f * q.x + dy.f * q.y + dz * q.z;
     if (v < 0.0 || det < u + v) return 0;
-    *arg5 = (ex.f * q.x + ey.f * q.y + ez.f * q.z) * (D_800D3E40 / det);
+    *arg5 = (ex.f * q.x + ey.f * q.y + ez.f * q.z) * (f32)(D_800D3E40 / det);
     return 1;
 }
+

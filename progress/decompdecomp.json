@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795240757.0394921,
- "revision": 19265,
+ "saved_at": 1795240925.597528,
+ "revision": 19293,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -424,7 +424,7 @@
   },
   "286080:2147766656": {
    "vram": 2147766656,
-   "function": "func_80045180",
+   "function": "buildScaledTransform",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -1698,8 +1698,7 @@
     "-Wab,-r4300_mul",
     "-woff",
     "649,838,712"
-   ],
-   "timeout": 20
+   ]
   }
  },
  "instructions": "",
@@ -1747,7 +1746,8 @@
   "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form.",
   "Some TWINE functions are IDO-compiled, not KMC GCC: tell-tales are callee-saved registers stored at low sp offsets (0x18..) with locals above them, and register moves emitted as `or rd, rs, $zero`. When GCC attempts get a wrong frame layout (saves at top), run compiler_experiments/try_compiler with ido-7.1 (flags -O2 -mips2 -G 0 -non_shared -Xcpluscomm -Wab,-r4300_mul -woff 649,838,712) and write clean C (no volatile pads, a plain local array sized to the frame).",
   "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences.",
-  "For TWINE's KMC GCC 2.7.2, using an explicit pointer local initialized to a global's address and dereferencing it on both sides of a call can produce a saved-register address with repeated offset-zero loads. This works for byte and word loads."
+  "For TWINE's KMC GCC 2.7.2, using an explicit pointer local initialized to a global's address and dereferencing it on both sides of a call can produce a saved-register address with repeated offset-zero loads. This works for byte and word loads.",
+  "KMC GCC 2.7.2: a 'switch' with only a few sparse cases (e.g. 7 and 14) becomes compare/branch, not a jump table. To get the target's `sltiu/lw jtbl/jr` dispatch, list all intermediate values as explicit empty cases (case 0..6: break; case 8..13: break; case 7: case 14: body). Also, when a callee's bool result is tested with `sll $v0,$v0,24; beqz`, declare it returning s8 and test `(call(...) << 24) != 0` (an `& 0xFF` gives andi instead)."
  ],
  "knowledge_evidence": {
   "For KMC GCC 2.7.2, use unsigned C division when the MIPS target uses an unsigned multiply-high sequence. For division by 10, a u32 numerator can produce multu with 0xCCCCCCCD followed by mfhi and a logical shift by 3. A signed numerator selects a different constant and sign correction.": {
@@ -2537,6 +2537,28 @@
     {
      "by": "codex-gpt-6.1-terra-2",
      "value": "func_8011E634: initializing a local u8 pointer to &D_801002AE and dereferencing before and after func_8011C674 produced the target saved-register base and two offset-zero byte loads; score improved 3650 to 3425."
+    }
+   ]
+  },
+  "KMC GCC 2.7.2: a 'switch' with only a few sparse cases (e.g. 7 and 14) becomes compare/branch, not a jump table. To get the target's `sltiu/lw jtbl/jr` dispatch, list all intermediate values as explicit empty cases (case 0..6: break; case 8..13: break; case 7: case 14: body). Also, when a callee's bool result is tested with `sll $v0,$v0,24; beqz`, declare it returning s8 and test `(call(...) << 24) != 0` (an `& 0xFF` gives andi instead).": {
+   "model": [
+    {
+     "by": "api-claude-sonnet-5-5-2",
+     "value": "claude-sonnet-5-5"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "api-claude-sonnet-5-5-2",
+     "value": "func_8006F634: 2326 -> 920 (explicit empty cases) -> 520 -> 1 (<<24 tests, statement order flags&= before struct copy; in->vel -= c; pos.y += vel*k). Remaining score 1 is only a jtbl_800D46A8 trailing-byte data diff at 0x800D46E7."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "Recompiled func_8006F634 with explicit empty cases 0\u20136 and 8\u201313. All 182 instructions match, including jump-table dispatch and shifted low-byte call-result tests. The only mismatch is table-tail padding. The verified source uses s32 callee declarations, so this evidence supports the dense case layout and explicit shift, without establishing that s8 is required."
     }
    ]
   }
@@ -4460,8 +4482,8 @@
   },
   "func_80012C70": {
    "vram": 2147560560,
-   "best_score": 980,
-   "best_by": "api-claude-sonnet-5-5-2"
+   "best_score": 660,
+   "best_by": "codex-gpt-6.2-sol-9"
   },
   "func_80012F50": {
    "vram": 2147561296,
@@ -5188,11 +5210,6 @@
    "best_score": 995,
    "best_by": "codex-gpt-6.1-terra-5"
   },
-  "menuRefreshOptionRows": {
-   "vram": 2147612100,
-   "best_score": 4526,
-   "best_by": "codex-gpt-6.1-terra-4"
-  },
   "refreshOptionMenuLabels": {
    "vram": 2147612708,
    "matched_by": "autopilot",
@@ -5207,11 +5224,6 @@
    "vram": 2147615224,
    "matched_by": "autopilot",
    "readable": true
-  },
-  "menuRefreshSlot": {
-   "vram": 2147615900,
-   "best_score": 1955,
-   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_800207D8": {
    "vram": 2147616728,
@@ -5256,7 +5268,7 @@
   "initBonusObjectIfActive": {
    "vram": 2147620852,
    "matched_by": "codex-gpt-6.2-sol-6",
-   "readable": false
+   "readable": true
   },
   "func_800218EC": {
    "vram": 2147621100,
@@ -7063,10 +7075,10 @@
    "matched_by": "codex-gpt-6.1-terra-1",
    "readable": false
   },
-  "func_80045180": {
+  "buildScaledTransform": {
    "vram": 2147766656,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "func_80045278": {
    "vram": 2147766904,
@@ -7268,7 +7280,7 @@
    "matched_by": "codex-gpt-6.2-sol-6",
    "readable": true
   },
-  "func_80046DC0": {
+  "polygonRayCrossesRight": {
    "vram": 2147773888,
    "matched_by": "codex-gpt-6.1-terra-6",
    "readable": false
@@ -7440,8 +7452,8 @@
   },
   "func_8004D910": {
    "vram": 2147801360,
-   "best_score": 690,
-   "best_by": "api-claude-sonnet-5-5-1"
+   "best_score": 305,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "Ray_TriangleIntersect": {
    "vram": 2147802072,
@@ -8027,6 +8039,11 @@
    "vram": 2147881032,
    "matched_by": "autopilot",
    "readable": true
+  },
+  "func_80061168": {
+   "vram": 2147881320,
+   "best_score": 9153,
+   "best_by": "codex-gpt-6-luna-15"
   },
   "spawnTimedEffect": {
    "vram": 2147881900,
@@ -9080,7 +9097,7 @@
   },
   "func_80081D50": {
    "vram": 2148015440,
-   "best_score": 3005,
+   "best_score": 2315,
    "best_by": "api-claude-sonnet-5-5-1"
   },
   "func_800820B0": {
@@ -9188,7 +9205,7 @@
    "matched_by": "codex-gpt-6-luna-10",
    "readable": false
   },
-  "func_80082D24": {
+  "buildRotationMatrix": {
    "vram": 2148019492,
    "best_score": 50,
    "best_by": "codex-gpt-6.2-sol-8"
@@ -9980,7 +9997,7 @@
   },
   "func_8008D138": {
    "vram": 2148061496,
-   "best_score": 3569,
+   "best_score": 3342,
    "best_by": "api-claude-sonnet-5-5-2"
   },
   "func_8008D49C": {
@@ -10187,6 +10204,11 @@
    "vram": 2148082604,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "func_800923D0": {
+   "vram": 2148082640,
+   "best_score": 3526,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_800926E8": {
    "vram": 2148083432,
@@ -12541,7 +12563,7 @@
   "func_8004505C": "local_source_25769804707",
   "func_80045080": "local_source_25769804708",
   "func_800450F0": "local_source_25769804709",
-  "func_80045180": "local_source_25769804711",
+  "buildScaledTransform": "local_source_25769804711",
   "func_80045278": "local_source_25769804712",
   "func_80045290": "local_source_25769804713",
   "vec3Add": "local_source_25769804714",
@@ -17654,7 +17676,7 @@
    "status": "open"
   },
   {
-   "name": "func_80045180",
+   "name": "buildScaledTransform",
    "vram": 2147766656,
    "size": 248,
    "status": "open"
@@ -17900,7 +17922,7 @@
    "status": "open"
   },
   {
-   "name": "func_80046DC0",
+   "name": "polygonRayCrossesRight",
    "vram": 2147773888,
    "size": 248,
    "status": "open"
@@ -20444,7 +20466,7 @@
    "status": "open"
   },
   {
-   "name": "func_80082D24",
+   "name": "buildRotationMatrix",
    "vram": 2148019492,
    "size": 352,
    "status": "open"
@@ -25618,6 +25640,12 @@
    "kind": "func"
   },
   {
+   "name": "buildScaledTransform",
+   "address": 2147766656,
+   "size": 248,
+   "kind": "func"
+  },
+  {
    "name": "vec3Add",
    "address": 2147766956,
    "size": 52,
@@ -25729,6 +25757,12 @@
    "name": "quatSlerp",
    "address": 2147773396,
    "size": 492,
+   "kind": "func"
+  },
+  {
+   "name": "polygonRayCrossesRight",
+   "address": 2147773888,
+   "size": 248,
    "kind": "func"
   },
   {
@@ -26515,6 +26549,12 @@
    "name": "approximateAtan2",
    "address": 2148018800,
    "size": 340,
+   "kind": "func"
+  },
+  {
+   "name": "buildRotationMatrix",
+   "address": 2148019492,
+   "size": 352,
    "kind": "func"
   },
   {

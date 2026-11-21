@@ -37,7 +37,7 @@ M2C_UNK func_80037A7C(void *);                      /* extern */
 M2C_UNK func_80037BDC(void *);                      /* extern */
 M2C_UNK func_80037C84(void *);                      /* extern */
 M2C_UNK func_80037DC0(void *);                      /* extern */
-M2C_UNK func_80045180(void *, void *, void *, f32); /* extern */
+M2C_UNK buildScaledTransform(void *, void *, void *, f32); /* extern */
 M2C_UNK func_8006F90C(void *);                      /* extern */
 M2C_UNK func_80082C8C(void *);                      /* extern */
 M2C_UNK func_80082CFC(void *);                      /* extern */
@@ -135,7 +135,7 @@ void func_80038000(void *arg0, s32 arg1) {
         temp_s7 = M2C_FIELD(arg0, s32 *, 0xF4);
         cameraUpdateProjection(arg0, M2C_FIELD(arg0, f32 *, 0x84));
         temp_s0 = arg0 + 0x88;
-        func_80045180(arg0 + 0x40, arg0 + 0xB8, temp_s0, temp_fs3);
+        buildScaledTransform(arg0 + 0x40, arg0 + 0xB8, temp_s0, temp_fs3);
         func_800839F0(temp_s0, arg0 + 0x1C, arg0 + 0xE8);
         temp_s0_2 = arg1 * 0x10;
         temp_a1 = D_80117728 + temp_s0_2;

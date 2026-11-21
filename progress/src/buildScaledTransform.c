@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80082D24(s16 *);                       /* extern */
+M2C_UNK buildRotationMatrix(s16 *);                       /* extern */
 
-void func_80045180(void *arg0, void *arg1, void *arg2, f32 arg3) {
+void buildScaledTransform(void *arg0, void *arg1, void *arg2, f32 arg3) {
     struct {
         s16 f10;
         s16 f12;
@@ -24,7 +24,7 @@ void func_80045180(void *arg0, void *arg1, void *arg2, f32 arg3) {
     __repair_frame.f10 = (s16) (s32) (M2C_FIELD(arg0, f32 *, 0) * 651.8986f);
     __repair_frame.f12 = (s16) (s32) (M2C_FIELD(arg0, f32 *, 4) * 651.8986f);
     __repair_frame.f14 = (s16) (s32) (M2C_FIELD(arg0, f32 *, 8) * 651.8986f);
-    func_80082D24(&__repair_frame);
+    buildRotationMatrix(&__repair_frame);
     M2C_FIELD(arg2, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) * arg3);
     M2C_FIELD(arg2, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) * arg3);
     M2C_FIELD(arg2, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) * arg3);

@@ -2,7 +2,7 @@ extern f32 gSinCosTable[];
 #define SINS(x) gSinCosTable[(x) & 0xFFF]
 #define COSS(x) gSinCosTable[((x) - 0x400) & 0xFFF]
 
-void func_80082D24(const s16 *ang, f32 *m) {
+void buildRotationMatrix(const s16 *ang, f32 *m) {
     s32 a = ang[0];
     s32 b = ang[1];
     s32 c = ang[2];

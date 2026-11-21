@@ -9,6 +9,8 @@ extern char gVoiceChannelTable[];
 extern char D_8010D738[];
 
 s32 func_8008D138(u32 arg0, u16 arg1, u8 arg2, u32 arg3, u8 arg4, u8 arg5, u8 arg6, u16 arg7, u16 arg8, u8 arg9) {
+int __repair_constant = -1;
+
     u16 count;
     Ent *e;
     s32 i;
@@ -16,18 +18,19 @@ s32 func_8008D138(u32 arg0, u16 arg1, u8 arg2, u32 arg3, u8 arg4, u8 arg5, u8 ar
     u32 voice;
     u32 key;
     s32 note, r, t, pan, pri;
-    u32 a, b, c;
+    u32 a, b;
+    u32 c;
     u32 v;
     u16 id;
-    u32 vol;
+    s32 vol;
 
-    ret = -1;
+    ret = __repair_constant;
     e = func_8009852C(arg0 >> 16, &count);
     if (e != 0 && count > 0) {
+        c = arg3 & 0xFF;
         key = arg2 & 0x7F;
         a = arg5;
         b = arg6;
-        c = arg3 & 0xFF;
         i = 0;
 loop:
         if (e->id == 0xFFFF || key < e->lo || e->hi < key) goto next;
@@ -37,7 +40,7 @@ loop:
             } else {
                 note = 0x7F;
             }
-            if (a == 0xFF || !(func_80096970(a, b) & 0xFF) || (r = func_8008CEB0(note & 0x7F, a, b), r == -1)) r = -1;
+            if (a == 0xFF || !(func_80096970(a, b) & 0xFF) || (r = func_8008CEB0(note & 0x7F, a, b), r == -1)) r = __repair_constant;
             if (r != -1) return r;
             if (e->pri & 0x80) {
                 pri = 0x80;

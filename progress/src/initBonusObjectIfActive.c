@@ -17,31 +17,32 @@ void *heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
 extern void *sBonusObject;
 extern s8 gMenuCursorActive;
 extern u8 gMenuSlot;
-extern void * volatile D_80109698;
+extern void * volatile gMenuRootObject;
 extern s32 gBootState;
 extern M2C_UNK sBonusObjectTable;
 
+/* Starts the bonus object for the current menu slot when that slot has one and no bonus object exists yet; links it into the root menu object. */
 void initBonusObjectIfActive(void) {
-    void *temp_v0;
-    void *temp_v0_2;
-    void *p;
+    void *bonusObj;
+    void *bonusState;
+    void *rootObj;
 
     gBootState = 1;
     gMenuCursorActive = 1;
     if ((*(&sBonusObjectTable + gMenuSlot) != 0) && (sBonusObject == NULL)) {
-        temp_v0 = heapAllocTagged(0x60, 0);
-        sBonusObject = temp_v0;
-        if ((temp_v0 != NULL) && ((func_8003C7E8(temp_v0, 0), (M2C_FIELD(sBonusObject, void **, 0x20) != NULL)) || (temp_v0_2 = heapAllocTagged(0x68, 1), M2C_FIELD(sBonusObject, void **, 0x20) = temp_v0_2, (temp_v0_2 != NULL)))) {
+        bonusObj = heapAllocTagged(0x60, 0);
+        sBonusObject = bonusObj;
+        if ((bonusObj != NULL) && ((func_8003C7E8(bonusObj, 0), (M2C_FIELD(sBonusObject, void **, 0x20) != NULL)) || (bonusState = heapAllocTagged(0x68, 1), M2C_FIELD(sBonusObject, void **, 0x20) = bonusState, (bonusState != NULL)))) {
             M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x50) = 0;
             M2C_FIELD(M2C_FIELD(sBonusObject, void **, 0x20), s32 *, 0x58) = 0;
-            p = D_80109698;
-            if (p != NULL) {
-                s32 *flags;
-                M2C_FIELD(p, s32 *, 0xFC) = 1;
-                flags = (s32 *)((u8 *)D_80109698 + 0x100);
-                *flags |= 0x20;
-                p = D_80109698;
-                M2C_FIELD(p, void **, 0xF4) = sBonusObject;
+            rootObj = gMenuRootObject;
+            if (rootObj != NULL) {
+                s32 *rootFlags;
+                M2C_FIELD(rootObj, s32 *, 0xFC) = 1;
+                rootFlags = (s32 *)((u8 *)gMenuRootObject + 0x100);
+                *rootFlags |= 0x20;
+                rootObj = gMenuRootObject;
+                M2C_FIELD(rootObj, void **, 0xF4) = sBonusObject;
             }
         }
     }

@@ -20,7 +20,7 @@ f32 func_80047AB0(f32 *, f32 *);                    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
 f32 func_80082908(f32, f32);                        /* extern */
-M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
+M2C_UNK buildRotationMatrix(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK buildRotationMatrixS16Copy(s16 *, f32 *);                /* extern */
@@ -252,7 +252,7 @@ loop_3:
                             sp88 = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x3C);
                             sp8A = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x40);
                             sp8C = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x44);
-                            func_80082D24(sp1A4, sp1AC);
+                            buildRotationMatrix(sp1A4, sp1AC);
                             sp18 -= M2C_FIELD(var_s4, f32 *, 0x24);
                             sp1C -= M2C_FIELD(var_s4, f32 *, 0x28);
                             sp20 -= M2C_FIELD(var_s4, f32 *, 0x2C);
