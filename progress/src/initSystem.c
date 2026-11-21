@@ -35,7 +35,7 @@ extern char D_14A8380[];
 extern char D_14BA940[];
 extern char D_14CD630[];
 extern s32 D_80000300;
-extern s32 D_800CE800;
+extern s32 sDataEntryBase;
 extern char D_800CFF60[];
 extern s32 gViFrameRateConst;
 extern char D_800D8200[];
@@ -123,7 +123,7 @@ typedef struct { s32 w[4]; } __repair_words4;
     }
     heapEnd = D_80108F7C + 0x80;
     D_80108F7C = heapEnd;
-    D_800CE800 = heapAlloc(heapEnd, 1);
+    sDataEntryBase = heapAlloc(heapEnd, 1);
     func_80006E30();
     func_8000B828(func_80083C8C());
     heapAlloc(initGameDataBanks() + 0x400, 1);

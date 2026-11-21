@@ -1,6 +1,6 @@
 extern u8 *gAudioVoiceTable;
-extern u16 D_800E41E4;
-extern u16 D_800E4216;
+extern u16 sAudioVoiceCount;
+extern u16 sMixBufferUnits;
 extern u8 *D_800E4218;
 extern u16 *D_800E421C;
 extern s32 D_800E422C;
@@ -27,7 +27,7 @@ void func_8008AECC(s32 arg0, u16 arg1) {
     s1 = 0;
     i = 0;
     s2 = 0;
-    if (D_800E41E4 != 0) {
+    if (sAudioVoiceCount != 0) {
         do {
             off = (i * 13) << 3;
             ent = (u8 *)(off + (u32)gAudioVoiceTable);
@@ -40,7 +40,7 @@ void func_8008AECC(s32 arg0, u16 arg1) {
                 s1 += 1;
             }
             i += 1;
-        } while (i < D_800E41E4);
+        } while (i < sAudioVoiceCount);
     }
     cur = (u8 *)((*D_800E421C * 0xA10) + (u32)D_800E4218);
     k = *(u16 *)cur;
@@ -65,7 +65,7 @@ void func_8008AECC(s32 arg0, u16 arg1) {
     }
     *D_800E421C += 1;
     v = *D_800E421C;
-    if (v < D_800E4216) {
+    if (v < sMixBufferUnits) {
         D_8010D378 = (u8 *)((u32)(D_800E4218 + *D_800E421C * 0xA10 + 0x10) & ~0xF);
         D_8010D42C = D_800E4218 + *D_800E421C * 0xA10 + 0x10;
         *(u16 *)(D_800E4218 + *D_800E421C * 0xA10) = 0;

@@ -5,7 +5,7 @@ s32 spawnTrackMarker();
 s32 func_80022A30();
 s32 func_80022AD8();
 s32 func_80022E18();
-s32 func_80025D84();
+s32 menuSetItemLabelIndices();
 s32 func_80025E9C();
 s32 formatTextEntry();
 s32 findEntryPayload();
@@ -122,7 +122,7 @@ void func_8001F9A4(void) {
         formatTextEntry(temp_s2, D_800D2A80, lookupDataEntry(var_a0_2));
         temp_s3 = temp_s1 - 0x28;
         temp_s1_2 = var_s0 - 0x28;
-        func_80025D84(temp_s4, temp_s2, temp_s3, temp_s1_2, 0x79, 1);
+        menuSetItemLabelIndices(temp_s4, temp_s2, temp_s3, temp_s1_2, 0x79, 1);
         if ((gBorderSkipActive == 0) && ((func_800316B8() & 0xFFFF) == 2)) {
             func_80025E9C(temp_s4, temp_s2, temp_s3, temp_s1_2, 1, 0xD);
         }
@@ -132,7 +132,7 @@ void func_8001F9A4(void) {
         if (((s32) temp_v1 < 2) && ((s32) temp_v1 >= 0)) {
             func_80025E9C(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 1, 0xD);
         } else {
-            func_80025D84(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 0x7A, 1);
+            menuSetItemLabelIndices(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 0x7A, 1);
             var_a0_3 = 0x11;
             if (D_8010D2B1 != 0) {
                 var_a0_3 = 0x12;
@@ -183,7 +183,7 @@ block_32:
             var_a0_7 = temp_s6 - 0x28;
 block_35:
 block_36:
-            func_80025D84(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 0x162, 1);
+            menuSetItemLabelIndices(var_a0_7, temp_s6, temp_fp - 0x28, sp3C - 0x28, 0x162, 1);
             var_a0_8 = 0xA;
             if (D_80108960 != 0) {
                 var_a0_8 = 9;

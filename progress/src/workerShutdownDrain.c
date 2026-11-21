@@ -19,8 +19,8 @@ extern u16 gAudioBufferCount;
 extern s32 D_800E41E0;
 extern volatile u8 sWorkerBusy;
 extern u8 D_800E4215;
-extern s32 D_800E4220;
-extern s32 D_800E4224;
+extern s32 sMixBufferA;
+extern s32 sMixBufferB;
 extern s32 D_800E422C;
 extern s32 D_800E4230;
 extern s32 D_800E4238;
@@ -63,8 +63,8 @@ void workerShutdownDrain(void) {
         gDataBankFree(D_800E4240);
         gDataBankFree(D_800E4258);
         gDataBankFree(D_800E4254);
-        gDataBankFree(D_800E4220);
-        gDataBankFree(D_800E4224);
+        gDataBankFree(sMixBufferA);
+        gDataBankFree(sMixBufferB);
         gDataBankFree(D_800E41E0);
         gDataBankFree(D_800E422C);
     }

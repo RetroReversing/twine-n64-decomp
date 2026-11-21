@@ -3,7 +3,7 @@ void *findEntryById(void *, s32);
 void *findEntryPayload(void *, s32);
 s32 func_80018BE0(s32);
 void initSaveSlotMenus(void *, void *);
-void func_80025D84(void *, void *, void *, void *, s32, s32);
+void menuSetItemLabelIndices(void *, void *, void *, void *, s32, s32);
 void func_80025E9C(void *, void *, void *, void *, s32, s32);
 void formatTextEntry(void *, char *, s32);
 s16 timerGetTotalSeconds(void *);
@@ -143,12 +143,12 @@ void func_8001BE64(void) {
         }
         formatTextEntry(temp_s2, sFmtEntryName, var_v0_4);
         if (gSaveKeyRelaxed != 0) {
-            func_80025D84((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 0x16C, 1);
+            menuSetItemLabelIndices((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 0x16C, 1);
         } else {
             func_80025E9C((u8 *)temp_s4 - 0x28, temp_s4, (u8 *)temp_s2 - 0x28, (u8 *)temp_s3 - 0x28, 1, 0xD);
         }
         if (gSaveSlotCount == 2) {
-            func_80025D84((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 0x66, 1);
+            menuSetItemLabelIndices((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 0x66, 1);
         } else {
             func_80025E9C((u8 *)temp_s5 - 0x28, temp_s5, temp_s6, (u8 *)temp_s2 - 0x28, 1, 0xD);
         }
@@ -159,9 +159,9 @@ void func_8001BE64(void) {
         if (gSceneType == 7) {
             var_v0_2 = 0x1AD;
         
-        func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);} else {
+        menuSetItemLabelIndices((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);} else {
             var_v0_2 = 0xB1;
         
-        func_80025D84((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);}
+        menuSetItemLabelIndices((u8 *)var_s1 - 0x28, var_s1, (u8 *)temp_s3 - 0x28, temp_s7, var_v0_2, 1);}
     }
 }

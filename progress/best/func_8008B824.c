@@ -1,4 +1,4 @@
-s32 func_80089384(s32,s32);
+s32 audioInitVoices(s32,s32);
 s32 audioSetupRateBuffer(s32,s32,s32);
 extern f64 D_800D6798;
 extern char D_800D6780[];
@@ -15,7 +15,7 @@ f32 temp_fv1; f64 var_ft0; s32 temp_a2,temp_a2_2,temp_s0,temp_v0,var_a1,var_s0,v
 var_s0=arg1;
 if((u32)(var_s0&0xffff)>=0x21U)var_s0=0x20;
 sWorkerPendingCallback=0; temp_s0=var_s0&0xffff;
-func_80089384(temp_s0,*arg0);
+audioInitVoices(temp_s0,*arg0);
 audioSetupRateBuffer(temp_s0,*arg0,arg3&0xff);
 temp_v0=*arg0; temp_a2=arg2&0xffff;
 if(temp_a2!=0){u32 q=(u32)(temp_v0*temp_a2)/1000U;D_800E4230=0;temp_a2_2=((q/192U)*0xC0)+0xC0;D_800E423C=temp_a2_2;D_800E4238=gDataBankAlloc(temp_a2_2*2,0,temp_a2_2);}else{D_800E4238=0;}

@@ -1,9 +1,47 @@
-typedef struct Obj {u8 pad0[0x11A0];s32 f11A0;u8 pad1[0x3D];u8 f11DD;u8 pad2[0x22];u8 status,c1,c2,c3;s32 c4,d4,ret,p10,p14;u8 cmd,d9;u8 pad3[2];s32 dc;f32 e0;s32 p24;} Obj;
-extern u8 sDataBankInitialised; extern f64 D_800D66D0; extern u8 sDataBanks; extern volatile u8 D_800E2CC0[]; extern s32 D_800E3F30,sDataBankMode; extern void (*gDataBankFree)(s32); extern s32 func_80088EE4;
+typedef struct Obj {u8 pad[0x120C]; s32 ret; u8 pad2[8]; u8 cmd;} Obj;
+extern u8 sDataBankInitialised; extern f64 D_800D66D0; extern u8 sDataBanks[]; extern u8 D_800E2CC0[], D_800E2CC1[], D_800E2CC2[], D_800E2CC3[], D_800E2CC4[], D_800E2CC8[], D_800E2CCC[], D_800E2CD0[], D_800E2CD4[], D_800E2CD8[], D_800E2CD9[], D_800E2CDC[], D_800E2CE0[], D_800E2C60[], D_800E2C9D[];
+extern u8 sDataBankMesgQueue[]; extern s32 sDataBankMode; extern void (*gDataBankFree)(s32); extern s32 func_80088EE4;
+extern s32 startAudioVoice(u8,s32,s32,s32,u8,u8,u8,u8,s32,s32);
+#define F(T,s,o) (*(T*)((u8*)(s)+(o)))
 void func_8008863C(void) {
-Obj *o; volatile u64 stack_pad[0]; s32 i; f64 tmp; s32 ret,t;
-    extern s32 startAudioVoice(u8,s32,s32,s32,u8,u8,u8,u8,s32,s32);
-if(sDataBankInitialised){osRecvMesg(&D_800E3F30,0,1);for(i=0;i<2;i++){o=(Obj*)((u8*)&sDataBanks+i*0x1228);if(D_800E2CC0[i]!=0){t=D_800E2CC0[i];func_8009D5D4(o);if(t==1){if((s8)o->f11DD==2){t=o->d4;tmp=(f64)t;if(t<0)tmp+=D_800D66D0;o->dc=0;D_800E2CC0[i]=2;o->e0=((f32)o->f11A0*160.0f)/(f32)tmp;func_8009D9B8(o);ret=startAudioVoice(o->c4,o->p10,o->d4,o->d4,o->c1,o->c2,o->c3,o->d9,(s32)&func_80088EE4,i);o->ret=ret;if(ret==-1){func_8009D9D8(o);if(!(sDataBankMode&1))gDataBankFree(o->p10);o->status=0;}}}else if(t==2){if((s8)o->f11DD==4){D_800E2CC0[i]=3;o->cmd=4;}}else if(t==3){if(o->cmd==0){if(!(sDataBankMode&1))gDataBankFree(o->p10);o->status=0;}else{if(o->cmd==2){func_80093758(o->ret);o->ret=-1;}o->cmd=(s8)(o->cmd-1);}}}}
-osSendMesg(&D_800E3F30,0,0);
-}
+ s32 i, off; Obj *o;
+ if (sDataBankInitialised) {
+  osRecvMesg(sDataBankMesgQueue, 0, 1);
+  for (i = 0, off = 0; i < 2; i++, off += 0x1228) {
+   if (D_800E2CC0[off] != 0) {
+    o = (Obj*)(sDataBanks + off);
+    func_8009D5D4(o);
+    switch (D_800E2CC0[off]) {
+    case 1:
+     if (F(s8,D_800E2C9D,off) == 2) {
+      u32 t = F(u32,D_800E2CC8,off);
+      F(s32,D_800E2CDC,off) = 0;
+      D_800E2CC0[off] = 2;
+      F(f32,D_800E2CE0,off) = ((f32)F(u16,D_800E2C60,off) * 160.0f) / (f32)t;
+      func_8009D9B8(o);
+      o->ret = startAudioVoice(D_800E2CC4[off], F(s32,D_800E2CD0,off), F(s32,D_800E2CD4,off), F(s32,D_800E2CC8,off), D_800E2CC1[off], D_800E2CC2[off], D_800E2CC3[off], D_800E2CD9[off], (s32)&func_80088EE4, i);
+      if (o->ret == -1) {
+       func_8009D9D8(o);
+       goto freeit;
+      }
+     }
+     break;
+    case 2:
+     if (F(s8,D_800E2C9D,off) == 4) { D_800E2CC0[off] = 3; D_800E2CD8[off] = 4; }
+     break;
+    case 3:
+     if (D_800E2CD8[off] == 0) {
+freeit:
+      if (!(sDataBankMode & 1)) gDataBankFree(F(s32,D_800E2CD0,off));
+      D_800E2CC0[off] = 0;
+     } else {
+      if (D_800E2CD8[off] == 2) { func_80093758(F(s32,D_800E2CCC,off)); F(s32,D_800E2CCC,off) = -1; }
+      o->cmd = D_800E2CD8[off] - 1;
+     }
+     break;
+    }
+   }
+  }
+  osSendMesg(sDataBankMesgQueue, 0, 0);
+ }
 }

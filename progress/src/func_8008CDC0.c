@@ -1,6 +1,6 @@
 typedef struct { u8 active; u8 pad[7]; f64 time; u32 now; u32 prev; u8 rest[0x50]; } E8B1C0;
-extern E8B1C0 *gAudioVoiceTable; extern u16 D_800E41E4;
-void func_8008B1C0(void) { s32 i; E8B1C0 *e,*p; i=0; e=gAudioVoiceTable; if(i<D_800E41E4) do { p=e; if(p->active) {p->prev=p->now;p->now=p->time;} i++;e++; } while(i<D_800E41E4); }
+extern E8B1C0 *gAudioVoiceTable; extern u16 sAudioVoiceCount;
+void func_8008B1C0(void) { s32 i; E8B1C0 *e,*p; i=0; e=gAudioVoiceTable; if(i<sAudioVoiceCount) do { p=e; if(p->active) {p->prev=p->now;p->now=p->time;} i++;e++; } while(i<sAudioVoiceCount); }
 extern f32 sqrtf(f32);
 void func_8009532C(f32 *a){ f32 x=a[0],y=a[1],z=a[2]; f32 v=sqrtf(x*x+y*y+z*z); a[0]=x/v;a[1]=a[1]/v;a[2]=a[2]/v; }
 extern s32 D_800E4290;

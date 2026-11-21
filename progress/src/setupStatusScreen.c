@@ -2,7 +2,7 @@
 
 extern unsigned char D_800E0C60;
 extern unsigned char D_800E0C61;
-s32 func_80025D84();
+s32 menuSetItemLabelIndices();
 s32 func_80025E9C();
 s32 formatTextEntry();
 void *findEntryById();
@@ -75,7 +75,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
                 selectIndex = 0xE;
             } else {
                 D_80102F04 = 1;
-                func_80025D84(selectedEntry, 0, labelEntry, headerEntry, 0x55, 0);
+                menuSetItemLabelIndices(selectedEntry, 0, labelEntry, headerEntry, 0x55, 0);
                 ownerEntry = gMenuItems;
                 (((__repair_record_temp_s1*)selectedEntry)->field_18) = 0xA0;
                 ownerEntry = ((__repair_field_10 *)ownerEntry)->value;

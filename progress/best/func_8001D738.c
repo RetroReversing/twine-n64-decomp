@@ -17,7 +17,7 @@ s32 spawnTrackMarker();
 s32 func_80022A30();
 s32 func_80022AD8();
 s32 func_80022E18();
-s32 func_80025D84();
+s32 menuSetItemLabelIndices();
 s32 func_80025E9C();
 s32 formatTextEntry();
 s32 findEntryPayload();
@@ -135,7 +135,7 @@ void func_8001D738(void) {
         if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= 0)) {
             func_80025E9C(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
         } else {
-            func_80025D84(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 0x7A, 1);
+            menuSetItemLabelIndices(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 0x7A, 1);
             var_a0_3 = 0x11;
             if (D_8010D2B1 != 0) {
                 var_a0_3 = 0x12;
@@ -186,7 +186,7 @@ block_27:
             var_a0_7 = temp_s0 - 0x28;
 block_30:
 block_31:
-            func_80025D84(var_a0_7, temp_s0, temp_s4 - 0x28, temp_s5 - 0x28, 0x162, 1);
+            menuSetItemLabelIndices(var_a0_7, temp_s0, temp_s4 - 0x28, temp_s5 - 0x28, 0x162, 1);
             var_a0_8 = 0xA;
             if (D_80108960 != 0) {
                 var_a0_8 = 9;

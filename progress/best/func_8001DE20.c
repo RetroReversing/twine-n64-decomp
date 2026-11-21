@@ -1,4 +1,4 @@
-s32 func_80025D84();
+s32 menuSetItemLabelIndices();
 s32 func_80025E9C();
 s32 formatTextEntry();
 void *findEntryPayload();
@@ -50,12 +50,12 @@ s32 __repair_phase_var_a0;
             (*(s16 *)((char *)(var_s3) + -0x28)) = 3;
             func_80025E9C(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);
             formatTextEntry(var_s3, D_800D2A74);
-            func_80025D84(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
+            menuSetItemLabelIndices(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
             temp_s2 = (*(void **)((char *)(gMenuItems) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x1F);
         } else {
             (*(s16 *)((char *)(var_s3) + -0x28)) = 0x1C;
-            func_80025D84(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C, 1);
+            menuSetItemLabelIndices(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C, 1);
             var_a0 = 0x1B3;
             if (D_8010A4FF != 0) var_a0 = 0x1D;
             { formatTextEntry(var_s3, "%s", lookupDataEntry(var_a0)); }

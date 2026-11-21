@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8003FA90(s32, s32, s32, f32, f32, f32, f32); /* extern */
+s32 triangleOverlapsBounds(s32, s32, s32, f32, f32, f32, f32); /* extern */
 
 typedef struct { unsigned char pad[52]; int value; } __repair_field_34;
 void func_80040E5C(void *arg0) {
@@ -78,7 +78,7 @@ do {
             sp30 = var_t2;
             sp34 = var_t3;
             sp38 = var_t4;
-            if ((func_8003FA90(var_s7, ((__repair_field_34 *)arg0)->value + var_v0, ((__repair_field_34 *)arg0)->value + (var_v1 * 0xC), temp_ft2 + (temp_fs3 * (f32) var_s1), temp_ft0 + (temp_fs2 * (f32) var_s0), temp_ft2 + (temp_fs3 * (f32) (var_s1 + 1)), temp_ft0 + (temp_fs2 * (f32) temp_s2)) << 0x18) != 0) {
+            if ((triangleOverlapsBounds(var_s7, ((__repair_field_34 *)arg0)->value + var_v0, ((__repair_field_34 *)arg0)->value + (var_v1 * 0xC), temp_ft2 + (temp_fs3 * (f32) var_s1), temp_ft0 + (temp_fs2 * (f32) var_s0), temp_ft2 + (temp_fs3 * (f32) (var_s1 + 1)), temp_ft0 + (temp_fs2 * (f32) temp_s2)) << 0x18) != 0) {
                 temp_a0_3 = temp_fp + M2C_FIELD(arg0, s32 *, 0x38);
                 *temp_a0_3 |= temp_s6 | (var_t4 << var_s0);
             }

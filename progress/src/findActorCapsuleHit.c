@@ -13,10 +13,10 @@ struct Actor {
     u16 type;
 };
 #define WORD(p, o) (*(u32 *)((u8 *)(p) + (o)))
-extern s8 sCapsulePartId[14][8], D_800C42B1[14][8], D_800C42B2[14][8];
-extern f32 D_800C42B4[14][2];
-extern Vec D_800D3E50;
-extern f64 D_800D3E60;
+extern s8 sCapsulePartId[14][8], sCapsulePointA[14][8], sCapsulePointB[14][8];
+extern f32 sCapsuleRadius[14][2];
+extern Vec sZeroVec;
+extern f64 gCapsuleEndInsetScale;
 extern Actor *gPlayerActor;
 extern s32 gGameMode, D_80108F84;
 
@@ -26,21 +26,22 @@ f32 func_80045764(Vec *, Vec *);
 f32 approxDistance(Vec *, Vec *);
 s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
 
-Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, u8 update, u8 mark, Actor *skip)
+/* Tests segment start..end against actors' capsule parts in list, returns the nearest actor hit (or NULL) and writes the hit point to result. */
+Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, u8 update, u8 mark, Actor *skip)
 {
-    Vec direction, axis, bestPoint, closest, a, b, hit, other;
+    Vec rayDir, partAxis, bestPoint, closestPoint, partStart, partEnd, hitPoint, otherPoint;
     Actor *best, *actor;
-    f32 bestDistance, length, scale, dx, dy, dz, radius, factor, x, y, z, axisLength, distance;
-    u32 bestPart, found, part;
+    f32 bestDistance, rayLength, sizeScale, dx, dy, dz, partRadius, endInset, insetX, insetY, insetZ, partLength, distance;
+    u32 bestPart, hitPart, part;
 
-    bestPoint = D_800D3E50;
-    direction.x = end->x - start->x;
-    direction.y = end->y - start->y;
+    bestPoint = sZeroVec;
+    rayDir.x = end->x - start->x;
+    rayDir.y = end->y - start->y;
     best = NULL;
     bestDistance = 65536.0f;
     bestPart = 0;
-    direction.z = end->z - start->z;
-    length = func_80045764(&direction, &direction);
+    rayDir.z = end->z - start->z;
+    rayLength = func_80045764(&rayDir, &rayDir);
     D_80108F84 = 0;
     gPlayerActor = NULL;
     if (list != NULL) {
@@ -50,52 +51,52 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
         do {
             if (actor != skip && (actor->active & 0x400) &&
                 (actor->mask & 0x400) && (actor->mask & mask)) {
-                scale = 1.5f;
+                sizeScale = 1.5f;
                 if (gGameMode == 0x19 && actor->type == 1)
-                    scale = 2.5f;
-                segmentClosestPoint(&closest, start, end, &actor->pos);
-                dx = closest.x - actor->pos.x;
-                dy = closest.y - actor->pos.y;
-                dz = closest.z - actor->pos.z;
-                found = -1;
+                    sizeScale = 2.5f;
+                segmentClosestPoint(&closestPoint, start, end, &actor->pos);
+                dx = closestPoint.x - actor->pos.x;
+                dy = closestPoint.y - actor->pos.y;
+                dz = closestPoint.z - actor->pos.z;
+                hitPart = -1;
                 if (dx * dx + dy * dy + dz * dz < maxSquared) {
                     for (part = 0; part < 14; part++) {
                         if (sCapsulePartId[part][0] != -1) {
-                            s32 index = D_800C42B1[part][0];
-                            if (index == *(s8 *)((s32)(part * 8) + (s32)D_800C42B2))
-                                a = actor->points[0][index];
+                            s32 index = sCapsulePointA[part][0];
+                            if (index == *(s8 *)((s32)(part * 8) + (s32)sCapsulePointB))
+                                partStart = actor->points[0][index];
                             else
-                                a = actor->points[1][index];
-                            b = actor->points[1][D_800C42B2[part][0]];
-                            axis.x = b.x - a.x;
-                            axis.y = b.y - a.y;
-                            axis.z = b.z - a.z;
-                            axisLength = func_80045764(&axis, &axis);
-                            radius = D_800C42B4[part][0] * scale;
-                            factor = (f32)((f64)radius * D_800D3E60);
-                            x = axis.x * factor;
-                            y = axis.y * factor;
-                            axisLength -= radius;
-                            z = axis.z * factor;
-                            a.x += x;
-                            a.y += y;
-                            a.z += z;
-                            b.x -= x;
-                            b.y -= y;
-                            b.z -= z;
-                            if ((func_80047998(&hit, &other, start, &direction, &a, &axis, length, axisLength) << 24) &&
-                                Vec3_DistanceSq(&hit, &other) < radius) {
-                                *result = hit;
-                                found = part;
+                                partStart = actor->points[1][index];
+                            partEnd = actor->points[1][sCapsulePointB[part][0]];
+                            partAxis.x = partEnd.x - partStart.x;
+                            partAxis.y = partEnd.y - partStart.y;
+                            partAxis.z = partEnd.z - partStart.z;
+                            partLength = func_80045764(&partAxis, &partAxis);
+                            partRadius = sCapsuleRadius[part][0] * sizeScale;
+                            endInset = (f32)((f64)partRadius * gCapsuleEndInsetScale);
+                            insetX = partAxis.x * endInset;
+                            insetY = partAxis.y * endInset;
+                            partLength -= partRadius;
+                            insetZ = partAxis.z * endInset;
+                            partStart.x += insetX;
+                            partStart.y += insetY;
+                            partStart.z += insetZ;
+                            partEnd.x -= insetX;
+                            partEnd.y -= insetY;
+                            partEnd.z -= insetZ;
+                            if ((func_80047998(&hitPoint, &otherPoint, start, &rayDir, &partStart, &partAxis, rayLength, partLength) << 24) &&
+                                Vec3_DistanceSq(&hitPoint, &otherPoint) < partRadius) {
+                                *result = hitPoint;
+                                hitPart = part;
                                 break;
                             }
                         }
                     }
-                    if (found != (u32)-1) {
+                    if (hitPart != (u32)-1) {
                         distance = approxDistance(start, result);
                         if (distance < bestDistance) {
                             best = actor;
-                            bestPart = found;
+                            bestPart = hitPart;
                             bestPoint = *result;
                             bestDistance = distance;
                         }
@@ -136,4 +137,3 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
     }
     return NULL;
 }
-

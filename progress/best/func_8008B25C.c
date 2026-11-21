@@ -37,10 +37,10 @@ extern s32 D_800E41EC;
 extern s32 D_800E41F8;
 extern u8 sWorkerBusy;
 extern u8 D_800E4215;
-extern u16 D_800E4216;
+extern u16 sMixBufferUnits;
 extern s16 *D_800E4218;
 extern u16 *D_800E421C;
-extern s16 *D_800E4220[];
+extern s16 *sMixBufferA[];
 extern u8 D_800E4228[];
 extern void *sSlotActiveList;
 extern u16 D_800E4268;
@@ -124,7 +124,7 @@ void func_8008B25C(void) {
             } while (var_v1 != NULL);
         }
         temp_a0_2 = ((int)D_800E41E6 * 2) + D_800E4228;
-        temp_v1 = D_800E4220[D_800E41E6];
+        temp_v1 = sMixBufferA[D_800E41E6];
         D_800E421C = temp_a0_2;
         D_800E4218 = temp_v1;
         temp_v1_2 = (void *) ((0x10) + (s32) temp_v1);
@@ -141,7 +141,7 @@ void func_8008B25C(void) {
                 var_s0 = D_800E4268;
                 for (;;) {
                     temp_v0_2 = var_s0;
-                    if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
+                    if ((u32) (var_s3 & 0xFFFF) < (u16) sMixBufferUnits) {
                         ++var_s0;
                         if (gWorkerThreadActive != 0) {
                             temp_v0_3 = D_800E41E8 - 1;
@@ -173,7 +173,7 @@ block_23:
                 if (var_s0_2 < (u16) gAudioBufferCount) {
                     for (;;) {
                         temp_v0_4 = var_s0_2;
-                        if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
+                        if ((u32) (var_s3 & 0xFFFF) < (u16) sMixBufferUnits) {
                             var_s0_2 += 1;
                             if (gWorkerThreadActive != 0) {
                                 temp_v0_5 = D_800E41E8 - 1;
@@ -205,7 +205,7 @@ block_32:
                 if (var_v0_3 != 0) {
                     for (;;) {
                         temp_v0_6 = var_s0;
-                        if ((u32) (var_s3 & 0xFFFF) < (u16) D_800E4216) {
+                        if ((u32) (var_s3 & 0xFFFF) < (u16) sMixBufferUnits) {
                             var_s0 += 1;
                             if ((u32)gWorkerThreadActive != 0) {
                                 temp_v0_7 = D_800E41E8 - 1;
@@ -243,7 +243,7 @@ block_41:
         func_80093410();
         temp_v0_8 = D_800E41E6 ^ 1;
         D_800E421C = (temp_v0_8 * 2) + D_800E4228;
-        temp_a0_3 = D_800E4220[temp_v0_8];
+        temp_a0_3 = sMixBufferA[temp_v0_8];
         D_800E4218 = temp_a0_3;
         if (D_800E4215 != 0) {
             D_80100168(temp_a0_3, D_800E4215);

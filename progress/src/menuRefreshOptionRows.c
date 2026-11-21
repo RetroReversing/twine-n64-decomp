@@ -6,7 +6,7 @@ extern s16 gExpansionPakPresent;
 extern u8 D_8010A4C0, gOptionFlagA, D_8010A4FF;
 char *findEntryPayload(MenuList1F5C4 *, s32);
 s8 func_800263B8(MenuList1F5C4 *, s32);
-void func_80025D84(void *, char *, void *, void *, u16, u16);
+void menuSetItemLabelIndices(void *, char *, void *, void *, u16, u16);
 void func_80025E9C(void *, char *, void *, void *, u16, u16);
 void formatTextEntry(char *, const char *, ...);
 const char *lookupDataEntry(s32);
@@ -36,11 +36,11 @@ const char *lookupDataEntry(s32);
         *(s16 *)(c - 0x28) = 3;
         func_80025E9C(baseC, c, baseB, baseA, enabled, 9);
         formatTextEntry(c, D_800D2A84);
-        func_80025D84(baseA, a, baseC, baseB, 0x1F, enabled);
+        menuSetItemLabelIndices(baseA, a, baseC, baseB, 0x1F, enabled);
         gMenuItems->list->selection = func_800263B8(gMenuItems->list, 0x1F);
     } else {
         *(s16 *)(c - 0x28) = 0x1C;
-        func_80025D84(c - 0x28, c, b - 0x28, a - 0x28, 0x1C, 1);
+        menuSetItemLabelIndices(c - 0x28, c, b - 0x28, a - 0x28, 0x1C, 1);
         if (D_8010A4FF != 0) {
             formatTextEntry(c, D_800D2A80, lookupDataEntry(0x1D));
         } else {
