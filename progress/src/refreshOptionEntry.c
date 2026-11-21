@@ -8,31 +8,31 @@ extern int func_80027CE0(int);
 extern int lookupDataEntry(int);
 extern void formatTextEntry(void *, int, ...);
 
-/* Moves the option cursor on left/right input (cases 7-9), then redraws the option label and sub-label. */ void refreshOptionEntry(void) {
-    unsigned char *cursor;
-    unsigned char *cursorIdx;
-    char *entry;
-    char *subEntry;
-    const char *fmt;
-    int nameId;
+void refreshOptionEntry(void) {
+    unsigned char *index;
+    unsigned char *index2;
+    char *item;
+    char *second;
+    const char *format;
+    int name;
 
     if (gMenuState[0x2F] == 0)
         updateActiveMenuState();
     if (gMenuState[0x2D] == 0)
         goto clear;
-    entry = (char *)findEntryPayload((int)&sOptionEntryTable, 0x92);
-    if (entry == 0)
+    item = (char *)findEntryPayload((int)&sOptionEntryTable, 0x92);
+    if (item == 0)
         return;
-    cursor = &sOptionCursor;
-    subEntry = entry + 0x28;
-    switch (*cursor) {
+    index = &sOptionCursor;
+    second = item + 0x28;
+    switch (*index) {
     case 7:
         if (sOptionReady7 == 0) {
             gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
-                ++*cursor;
+                ++*index;
             else
-                --*cursor;
+                --*index;
             refreshOptionEntry();
         }
         break;
@@ -40,9 +40,9 @@ extern void formatTextEntry(void *, int, ...);
         if (sOptionReady8 == 0) {
             gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
-                ++*cursor;
+                ++*index;
             else
-                --*cursor;
+                --*index;
             refreshOptionEntry();
         }
         break;
@@ -50,18 +50,18 @@ extern void formatTextEntry(void *, int, ...);
         if (sOptionReady9 == 0) {
             gMenuState[0x2F] = 1;
             if ((unsigned char)func_80027CE0(0x21))
-                *cursor = 0;
+                *index = 0;
             else
-                --*cursor;
+                --*index;
             refreshOptionEntry();
         }
         break;
     }
-    cursorIdx = &sOptionCursor;
-    nameId = lookupDataEntry(*cursorIdx + 0x16D);
-    fmt = D_800D2864;
-    formatTextEntry(entry, (int)fmt, nameId);
-    formatTextEntry(subEntry, (int)fmt, lookupDataEntry(*cursorIdx + 0x177));
+    index2 = &sOptionCursor;
+    name = lookupDataEntry(*index2 + 0x16D);
+    format = D_800D2864;
+    formatTextEntry(item, (int)format, name);
+    formatTextEntry(second, (int)format, lookupDataEntry(*index2 + 0x177));
 clear:
     gMenuState[0x2F] = 0;
 }
