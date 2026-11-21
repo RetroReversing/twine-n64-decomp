@@ -1,16 +1,28 @@
-s32 func_8000A1D0(u8);
-s32 func_8000A22C(u8);
-s32 func_800219A0(u8);
-s32 func_8002B000(void *, s32);
-s32 func_8002BC68(s32, s32);
-s32 func_8002E918(s32 *, u16 *, s32, s32);
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+M2C_UNK func_8000A1D0(u8);
+M2C_UNK func_8000A22C(u8);
+M2C_UNK func_800219A0(u8);
+M2C_UNK func_8002B000(void *, M2C_UNK);
+M2C_UNK func_8002BC68(s32, s32);
+M2C_UNK func_8002E918(M2C_UNK *, u16 *, M2C_UNK, M2C_UNK);
 s32 func_8002E98C(void *, s32, s32);
-s32 func_80048734(f32);
-s32 func_80081BC4(u32, u8);
+M2C_UNK func_80048734(f32);
+M2C_UNK func_80081BC4(u32, u8);
 extern u16 D_800E1112;
-extern s32 D_800E1310;
+extern M2C_UNK D_800E1310;
 extern u8 D_80100198;
-extern s32 D_8010019C;
+extern M2C_UNK D_8010019C;
 extern u8 D_801001A0;
 extern u8 D_801001A1;
 extern u8 D_801001A2;
@@ -50,18 +62,13 @@ extern u8 D_8011508E;
 extern u8 D_8011508F;
 extern u8 D_80115090;
 extern u8 D_80115091;
-extern s32 D_80117410;
+extern M2C_UNK D_80117410;
 extern u8 D_80117416;
-extern s32 D_80117428;
+extern M2C_UNK D_80117428;
 extern u8 D_8011742E;
 extern u8 D_801176C8;
 extern s32 D_80117730;
 extern void func_8011AA9C(void);
-inline static u8 *inline_fn(s32 arg0)
-{
-  return arg0 + ((u8 *) (&D_80117428));
-}
-
 void func_8002D960(void)
 {
   const u16 *var_v0;
@@ -79,8 +86,8 @@ void func_8002D960(void)
   s32 var_s4;
   u32 temp_a0;
   u8 temp_v0;
+  M2C_UNK *bs;
   u8 *tailBase;
-  s32 *bs;
   u8 *tail;
   u16 *input = &D_800E1112;
   if ((*(input++)) == 0xF)
@@ -94,16 +101,16 @@ void func_8002D960(void)
       s32 first = func_8002E98C(bs, 1, 1);
       temp_s1 = var_s4 & 0xFFFF;
       temp_s0 = temp_s1 * 0xA0;
-      *((&D_80115088) + temp_s0) = first;
+      *((&D_80115088) - (-temp_s0)) = first;
       *((&D_80115089) + temp_s0) = func_8002E98C(bs, 1, 1);
       *((&D_8011508A) + temp_s0) = func_8002E98C(bs, 1, 1);
       *((&D_8011508B) + temp_s0) = func_8002E98C(bs, 1, 1);
       *((&D_8011508C) + temp_s0) = func_8002E98C(bs, 1, 1);
-      *((&D_8011508D) + temp_s0) = func_8002E98C(bs, 1, 1);
-      *((&D_80115090) + temp_s0) = func_8002E98C(bs, 1, 1);
-      *((&D_80115091) + temp_s0) = func_8002E98C(bs, 1, 4);
-      *((&D_8011508E) + temp_s0) = func_8002E98C(bs, 1, 1);
-      *((&D_8011508F) + temp_s0) = func_8002E98C(bs, 1, 1);
+      *((&D_8011508D) + (temp_s1 * 0xA0)) = func_8002E98C(bs, 1, 1);
+      *((&D_80115090) + (temp_s1 * 0xA0)) = func_8002E98C(bs, 1, 1);
+      *((&D_80115091) + (temp_s1 * 0xA0)) = func_8002E98C(bs, 1, 4);
+      *((&D_8011508E) + (temp_s1 * 0xA0)) = func_8002E98C(bs, 1, 1);
+      *((&D_8011508F) + (temp_s1 * 0xA0)) = func_8002E98C(bs, 1, 1);
       {
         s32 value = func_8002E98C(bs, 1, 4);
         temp_s0_2 = temp_s1 * 0x18;
@@ -129,11 +136,11 @@ void func_8002D960(void)
       }
       if (temp_a0 < 4U)
       {
-        func_80081BC4(temp_a0, ((volatile struct 
+        func_80081BC4(temp_a0, (*((volatile struct 
         {
           u8 filler[0x198];
           u8 value;
-        } *) (((u8 *) 0x80100000) + (temp_a0 * 0x18)))->value);
+        } *) (((u8 *) 0x80100000) + (temp_a0 * 0x18)))).value);
       }
       var_s4 += 1;
     }
@@ -154,7 +161,7 @@ void func_8002D960(void)
         case 5:
 
         case 6:
-          var_v0 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x1C4);
+          D_80102FD4 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x1C4);
           break;
 
         case 2:
@@ -162,21 +169,20 @@ void func_8002D960(void)
         case 3:
 
         case 4:
-          var_v0 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x198);
+          D_80102FD4 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x198);
           break;
 
         case 7:
-          var_v0 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x1F8);
+          D_80102FD4 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x1F8);
           break;
 
         default:
-          var_v0 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x180);
+          D_80102FD4 = (const u16 *) (((const u8 *) func_8011AA9C) + 0x180);
           break;
 
       }
 
     }
-    D_80102FD4 = var_v0;
     D_801002A8 = (s32) (*(D_80117730 + D_80102FD4));
     D_80102EE0 = func_8002E98C(&D_800E1310, 1, 8);
     D_80102EE4 = func_8002E98C(&D_800E1310, 4, 0x20);
@@ -191,28 +197,28 @@ void func_8002D960(void)
     D_801002F1 = func_8002E98C(&D_800E1310, 1, 4);
     D_801002F2 = func_8002E98C(&D_800E1310, 1, 2);
     D_801002F3 = func_8002E98C(&D_800E1310, 1, 1);
-    var_s4 = 0;
+    var_s3 = 0;
     do
     {
-      temp_s0_3 = (var_s4 & 0xFFFF) * 8;
+      temp_s0_3 = (var_s3 & 0xFFFF) * 8;
       func_8002B000(temp_s0_3 + ((u8 *) (&D_80117410)), 0x1E);
       *((s32 *) (((u8 *) (&D_80117410)) + temp_s0_3)) = func_8002E98C(&D_800E1310, 4, 0xD);
       {
         s32 value = func_8002E98C(&D_800E1310, 1, 6);
-        var_s4 += 1;
+        var_s3 += 1;
         *((&D_80117416) + temp_s0_3) = value;
       }
     }
-    while (((u32) (var_s4 & 0xFFFF)) < 3U);
+    while (((u32) (var_s3 & 0xFFFF)) < 3U);
     var_s1 = 0;
     do
     {
       var_s3 = 0;
-      temp_s2 = (var_s1 & 0xFFFF) * 0x18;
+      temp_s2 = ((var_s1 & 0xFFFF) * 3) << 3;
       loop_17:
       temp_s0_4 = (var_s3 & 0xFFFF) * 8;
 
-      func_8002B000(temp_s2 + inline_fn(temp_s0_4), 0x1E);
+      func_8002B000(temp_s0_4 + (temp_s2 + ((u8 *) (&D_80117428))), 0x1E);
       temp_s0_5 = temp_s0_4 + temp_s2;
       *((s32 *) (((u8 *) (&D_80117428)) + temp_s0_5)) = func_8002E98C(&D_800E1310, 4, 4);
       {
@@ -258,8 +264,16 @@ void func_8002D960(void)
     var_s1 = 0;
     do
     {
-      *((&D_80112F82) + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
-      var_s1 += 1;
+      if (var_s3)
+      {
+        *((&D_80112F82) + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+        var_s1 += 1;
+      }
+      else
+      {
+        *((&D_80112F82) + (var_s1 & 0xFFFF)) = func_8002E98C(&D_800E1310, 1, 1);
+        var_s1 += 1;
+      }
     }
     while (((u32) (var_s1 & 0xFFFF)) < 3U);
     func_800219A0(D_8010A4C0);
