@@ -100,5 +100,32 @@ f32 func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2)
     yaw = (s32) (approximateAtan2(dx, dz) * 651.8986f);
   }
   func_8007AABC(arg0, yaw, 0.2f);
- do { if (arg2[0] != 0.0f) { f32 speedNow = *((f32 *) (s1 + 0x80)); *((f32 *) (s1 + 0x80)) = speedNow + ((fs2 - speedNow) * 0.1f); } fs0 = *((f32 *) (s1 + 0x80)); fs1 = *((f32 *) (arg0 + 0x40)); if ((*((s16 *) (arg0 + 0x7A))) == 9) { fs0 = (f32) (((f64) fs0) * (*((f64 *) D_8011EE68))); fs1 = fs1 + 1024.0f; func_80002BD0(arg0, 0x1A2); } else if ((*((s16 *) (arg0 + 0x7A))) == 10) { fs0 = (f32) (((f64) fs0) * (*((f64 *) D_8011EE70))); fs1 = fs1 - 1024.0f; func_80002BD0(arg0, 0x1A8); } else { func_80002BD0(arg0, s2); } *((f32 *) (arg0 + 0x24)) += fs0 * sinAngle(fs1); *((f32 *) (arg0 + 0x2C)) += fs0 * cosAngle(fs1); *((f32 *) ((*((u8 **) (arg0 + 0x68))) + 0x34)) = fs0; return absFloat(fs2); } while (0);
+  if (arg2[0] != 0.0f)
+  {
+    f32 speedNow = *((f32 *) (s1 + 0x80));
+ do { *((f32 *) (s1 + 0x80)) = speedNow + ((fs2 - speedNow) * 0.1f); } while (0);
+  }
+  fs0 = *((f32 *) (s1 + 0x80));
+  fs1 = *((f32 *) (arg0 + 0x40));
+  if ((*((s16 *) (arg0 + 0x7A))) == 9)
+  {
+    fs0 = (f32) (((f64) fs0) * (*((f64 *) D_8011EE68)));
+    fs1 = fs1 + 1024.0f;
+    func_80002BD0(arg0, 0x1A2);
+  }
+  else
+    if ((*((s16 *) (arg0 + 0x7A))) == 10)
+  {
+    fs0 = (f32) (((f64) fs0) * (*((f64 *) D_8011EE70)));
+    fs1 = fs1 - 1024.0f;
+    func_80002BD0(arg0, 0x1A8);
+  }
+  else
+  {
+    func_80002BD0(arg0, s2);
+  }
+  *((f32 *) (arg0 + 0x24)) += fs0 * sinAngle(fs1);
+  *((f32 *) (arg0 + 0x2C)) += fs0 * cosAngle(fs1);
+  *((f32 *) ((*((u8 **) (arg0 + 0x68))) + 0x34)) = fs0;
+  return absFloat(fs2);
 }

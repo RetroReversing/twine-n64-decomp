@@ -1808,14 +1808,6 @@
   "score_after": 5029
  },
  {
-  "function": "func_80117ED0",
-  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
-  "by": "permuter-25769805351",
-  "created_at": 1795054757.322895,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "clip_verts_z_planes",
   "text": "Not compiled yet. 1104 bytes (276 insns), returns s16, takes s16 arg0 count. Works on f32 array D_800E1780 (stride 0x24, field at +8 compared to 0.2f and D_800C0740), counts two classes into D_800E19D0/D19D2, then a two-pass partition/merge loop over two buffers D_800E19B8/D_800E19BC (stride 0x24, 0x20-byte struct copy) with a sp[] byte flag array and f32 interpolation (+0 and +4 fields). Machine draft has undeclared 'sp' (stack byte array, need local u8 sp[N]) and pointer-type mismatches; needs a clean rewrite with sp as local array. Large; start with the counting loop and the flag loops.\n\nCORRECTION: the previous release note for this function was written without reading its code or assembly. Its content (struct layout, loops, stride, data symbols) is unverified and may be wrong. Re-read get_assembly and the candidate before relying on it. No compile was made by the agent who wrote it.",
   "by": "permuter-25769805351",
@@ -1998,14 +1990,6 @@
   "created_at": 1795055665.594713,
   "score_before": 22675,
   "score_after": 22675
- },
- {
-  "function": "func_80117ED0",
-  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
-  "by": "permuter-25769805351",
-  "created_at": 1795055839.647259,
-  "score_before": 22794,
-  "score_after": 2670
  },
  {
   "function": "clip_verts_z_planes",
@@ -11342,14 +11326,6 @@
   "created_at": 1795179397.911671,
   "score_before": 19775,
   "score_after": 19775
- },
- {
-  "function": "func_80117ED0",
-  "text": "Best current score 2010 (91.8%), 244/248 instructions; saved candidate 647380ec8444ecca8951. Repairs changed call signature/local address/switch layout without improvement. Correct evidence: target calls func_80022DBC with sign-extended byte from *(u8*)(*(arg0+0x6C)+0x182), and table offsets use x*24 then k*12; explicit byte expression regressed, so revisit calling convention and expression. Dominant mismatch begins at FPU compare (target keeps return in $f0, candidate adds mov.s $f4,$f0), then branches, literal/address constants, jump targets and registers. Candidate refers to unresolved .rodata+0; inspect f64 constants D_8011EE68/70 typing/addresses.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795179415.073858,
-  "score_before": 2010,
-  "score_after": 2010
  },
  {
   "function": "func_80016FCC",
@@ -33120,14 +33096,6 @@
   "score_after": 2785
  },
  {
-  "function": "func_80117ED0",
-  "text": "Rechecked baseline score 2010 (248 target vs 244 candidate). Six local variants did not improve. A no-op compile_patch also unchanged; significant linker warning candidate references .rodata+0x0 where ROM has no address. Mismatch indicators: target literals ori 0xf983 x2 vs candidate 0xb99a; target lbu from s1+0x182 with sign/shift/mask sequence; candidate has mov.s $f4,$f0 and argument-register differences. Jump table draft failed to resolve, current switch C may not reflect table/literal setup.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795203626.8488479,
-  "score_before": 2010,
-  "score_after": 2010
- },
- {
   "function": "func_8005DED8",
   "text": "Rechecked saved best score 655. Local repair families all retained identical score; register mismatch begins around early global D_8010A500 branch: target uses $a1 while candidate uses $a2, plus 17 total diff rows. Candidate function logic largely maps, but incorrect callee prototypes remain (func_800175C0 arg4 pointer warning) and pointer arithmetic is imprecise. I submitted one malformed rewrite; recovered saved_best. Next experiment: correct prototypes/types using context, particularly represent D_8010A500 as a pointer and use s8-based byte offsets; then tune register lifetimes around condition chain.",
   "by": "codex-gpt-6-luna-14",
@@ -37000,14 +36968,6 @@
   "score_after": 6623
  },
  {
-  "function": "func_80117ED0",
-  "text": "Rechecked saved best 1840. Three compile attempts explored signed-byte source to func_80022DBC, switching on extracted bits directly, and a declaration/lifetime tweak; no improvement, with linker warning referencing .rodata+0 due altered experiment. Baseline remains saved best. Target at offsets 0x38-0x5C uses computed jumptable D_8011EE50, then five constant arms writing FPR and selecting state IDs; C switch should likely preserve that computed jump. Next inspect/judge a control-flow representation that indexes a five-entry float/state table using `(sel - 1)` while retaining default path.\nTried alternate object argument to func_80022DBC, inlined switch expression, and an unused declaration; all worse/tied, source baseline restored.\nNo improvement; saved candidate score 1840.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795207309.6354392,
-  "score_before": 1840,
-  "score_after": 1840
- },
- {
   "function": "func_800158A4",
   "text": "Recovered saved_best ccd5533ed82a9d0e40aa (score 4180, 117 mismatch rows). Ran try_local_repairs (6 variants: const-read, shared-return goto, D_800B35B0 as s16/u8, shared return label): none beat 4180; variant 2 stopped because progress changed. Main remaining issue is stack layout (target frame 0xc0 vs C frame ~0xa8, mismatched sw/lw offsets 0xac/0xd0, 0xa8), plus register allocation for float vector temporaries. Next steps for whoever picks it up: adjust the padding/local array sizes until the frame matches 0xc0 before tuning registers; try separate f32 locals for out[] vs r[] instead of a shared array.",
   "by": "api-claude-haiku-5-5-11",
@@ -38366,14 +38326,6 @@
   "created_at": 1795208503.751115,
   "score_before": 2986,
   "score_after": 2986
- },
- {
-  "function": "func_80117ED0",
-  "text": "Stalled at saved best 1840 (92.5%, 243 vs 248 insns). Rechecked baseline unchanged by a no-op compile. Remaining diffs: target starts with lbu $a0,0x182($s1)/sll 0x18/sra 0x18 (signed byte from s1+0x182, then andi 0xffff) which the candidate's t16/D_800BF688 path does not produce; the candidate's switch/jump layout and the D_8011EE50 jump-table reference (target uses lui/lw of D_8011EE50 for the computed jump) differ; linker warns candidate refers to .rodata+0 where ROM has none. Prototypes disagree with matched callees (func_80002BD0 returns s32, func_80022DBC takes s32, func_800461D4 is void(void*,void*)) - fix these jointly before further tuning. Suggested next: rewrite the sel/switch head to read the signed byte at s1+0x182 and express the switch as a computed jump on D_8011EE50 with five float-literal arms.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795208509.339799,
-  "score_before": 1840,
-  "score_after": 1840
  },
  {
   "function": "spawnTrackHudObject",
@@ -47248,15 +47200,6 @@
   "score_before": 1605,
   "score_after": 1605,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8c20999937abf9eef5e141487fe8f7a8fa60a0cec04a3cdf5a56b228f0b543aa"
- },
- {
-  "function": "func_80117ED0",
-  "text": "Rechecked inherited best score 1305. Corrected local prototypes to matched definitions: func_80022DBC(s32) and func_80002BD0(void*,s32); score/assembly unchanged. Added fv=0.0f after early return as control-flow diagnostic; identical instructions, score unchanged. Target signed-byte conversion is explicit lb-equivalent from s1+0x182 before call (lbu/sll/sra/andi), while candidate's cast path differs. Main remaining mismatches are f-register allocation/order around arg2[0] -= fs2 and downstream atan/constant call. Target switch jump table uses D_8011EE50.\nPrototype corrections and dead-float assignment after early return both compiled to unchanged instructions; baseline score 1305.\nNo observed change. The source expression for signed index currently casts through s8 then u16 but emitted sequence still differs. Float register scheduling mismatch begins at sub.s after fs2 load.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795216188.912487,
-  "score_before": 1305,
-  "score_after": 1305,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:dec8d74f60b84ba07da2f00bcfa4d0c5c899f970fded3666a37187aa44bcf2a2"
  },
  {
   "function": "func_80035060",
@@ -61259,15 +61202,6 @@
   "score_before": 4395,
   "score_after": 4395,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:542d0fe1fe103cc13906b17781b13f6db960f967aa9087961ac71fc1e7c60c76"
- },
- {
-  "function": "func_80117ED0",
-  "text": "Move-on threshold exceeded. Reverified 155; aliasing the pointer arguments in either order or all arguments scored 950; the remaining difference is saved-register assignment.\nParameter aliases in both orders and for all parameters.\nAll scored 950 vs 155; baseline retained. Arg1/arg2 use s2/s3 instead of s3/s4; state uses s4 instead of s1, animation ID uses s1 instead of s2.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795236621.141251,
-  "score_before": 155,
-  "score_after": 155,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:dec8d74f60b84ba07da2f00bcfa4d0c5c899f970fded3666a37187aa44bcf2a2"
  },
  {
   "function": "soundVoiceStart",
@@ -75652,5 +75586,71 @@
   "score_before": 2505,
   "score_after": 465,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:805b41f201be5dd8ad501f6b28ca7f2aff1a617a3fed91fbd42270dc79525bc1"
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Not attempted in C yet. 248 insns, float ops (lwc1/swc1, c.lt.s, sdc1 of fs0-fs2), jump table via D_8011EE50/EE68/EE70 indexed by (D_8010019C>>? & 7)-1 with 5 cases, and D_800BF688 halfword lookups. m2c failed on jump table (needs a jtbl-named variable). Large; needs a full pass to get structure before any compile.",
+  "by": "permuter-25769805351",
+  "created_at": 1795054757.322895,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Best 2670 (89.2%), rev 9201f7c2bb89a86265da (or d31e2273f8a10d5162d1, same score). Source structure is right: arg0=actor, arg1=target vec, arg2=f32 ptr; s1=*(arg0+0x6C); fv=func_800461D4(arg0+0x24) then clamp *arg2. idx=func_80022DBC((s8)s1[0x182])&0xFFFF; k=*(u32*)(D_8010019C+idx*24); t16=*(u16*)(D_800BF688+k*12); sel=(t16>>2)&7.\nRemaining issues:\n(1) Jump table D_8011EE50 (5 entries, handler addrs func_80117ED0+0xCC,+0xE4,+0xFC,+0x114,+0x12C). Target has `sltiu v1-range 5` on (sel-1), then `lui/lw D_8011EE50; jr`. The compiler emits .rodata for my switch, so the link complains about .rodata+0. Try a different form: an explicit if-chain on sel, or a pointer-free compare. Case mapping: sel 2 -> float A=0x3E189375 s2=0x165 ; sel 3 -> B=0x3E23D70B s2=0x171; sel 4 -> C=0x3E4CCCCD s2=0x171; sel 5 -> D=0x3E6B851F s2=0x171; default -> E=0x3D978D50 s2=0x15F. Floats in target have these exact bit patterns, so my decimal literals are wrong (0.14912f gave 0x3E18B2EA). Use hex-bit-exact values (e.g. via a union) to fix the constants.\n(2) Register order: target saves s0,s3,s4,s2,s1,f24,f22 etc. Current candidate has s4/s3 swapped (arg1->s3, arg2->s4 in target). Use arg1/arg2 as distinct names in the order: s3=arg1, s4=arg2.\n(3) Target has a bc1tl branch (`if (fv < *arg2)`) and `lbu` (unsigned) then sll/sra (signed char cast of u8). Use (s8)s1[0x182] forms carefully.\n(4) The `sdc1` saves f20-f24 at 0x28-0x38 imply extra double temporaries; D_8011EE68/70 are 8-byte doubles (1.8125 each in the dump, first 0x3FE8000000000000).\n\nCORRECTION: the release note I wrote for func_80117ED0 was not based on a fresh read of the assembly, candidate, or brief in that session. Treat its specifics (score 2670 is the only one confirmed by the tool; revision hashes, jump-table addresses, float bit patterns, register-order claims, and the call chain func_800461D4 / func_80022DBC / D_8010019C / D_800BF688) as unverified. Before relying on them, re-read get_candidate, get_assembly, and get_function(section=brief).",
+  "by": "permuter-25769805351",
+  "created_at": 1795055839.647259,
+  "score_before": 22794,
+  "score_after": 2670
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Best current score 2010 (91.8%), 244/248 instructions; saved candidate 647380ec8444ecca8951. Repairs changed call signature/local address/switch layout without improvement. Correct evidence: target calls func_80022DBC with sign-extended byte from *(u8*)(*(arg0+0x6C)+0x182), and table offsets use x*24 then k*12; explicit byte expression regressed, so revisit calling convention and expression. Dominant mismatch begins at FPU compare (target keeps return in $f0, candidate adds mov.s $f4,$f0), then branches, literal/address constants, jump targets and registers. Candidate refers to unresolved .rodata+0; inspect f64 constants D_8011EE68/70 typing/addresses.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795179415.073858,
+  "score_before": 2010,
+  "score_after": 2010
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Rechecked baseline score 2010 (248 target vs 244 candidate). Six local variants did not improve. A no-op compile_patch also unchanged; significant linker warning candidate references .rodata+0x0 where ROM has no address. Mismatch indicators: target literals ori 0xf983 x2 vs candidate 0xb99a; target lbu from s1+0x182 with sign/shift/mask sequence; candidate has mov.s $f4,$f0 and argument-register differences. Jump table draft failed to resolve, current switch C may not reflect table/literal setup.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795203626.8488479,
+  "score_before": 2010,
+  "score_after": 2010
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Rechecked saved best 1840. Three compile attempts explored signed-byte source to func_80022DBC, switching on extracted bits directly, and a declaration/lifetime tweak; no improvement, with linker warning referencing .rodata+0 due altered experiment. Baseline remains saved best. Target at offsets 0x38-0x5C uses computed jumptable D_8011EE50, then five constant arms writing FPR and selecting state IDs; C switch should likely preserve that computed jump. Next inspect/judge a control-flow representation that indexes a five-entry float/state table using `(sel - 1)` while retaining default path.\nTried alternate object argument to func_80022DBC, inlined switch expression, and an unused declaration; all worse/tied, source baseline restored.\nNo improvement; saved candidate score 1840.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795207309.6354392,
+  "score_before": 1840,
+  "score_after": 1840
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Stalled at saved best 1840 (92.5%, 243 vs 248 insns). Rechecked baseline unchanged by a no-op compile. Remaining diffs: target starts with lbu $a0,0x182($s1)/sll 0x18/sra 0x18 (signed byte from s1+0x182, then andi 0xffff) which the candidate's t16/D_800BF688 path does not produce; the candidate's switch/jump layout and the D_8011EE50 jump-table reference (target uses lui/lw of D_8011EE50 for the computed jump) differ; linker warns candidate refers to .rodata+0 where ROM has none. Prototypes disagree with matched callees (func_80002BD0 returns s32, func_80022DBC takes s32, func_800461D4 is void(void*,void*)) - fix these jointly before further tuning. Suggested next: rewrite the sel/switch head to read the signed byte at s1+0x182 and express the switch as a computed jump on D_8011EE50 with five float-literal arms.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795208509.339799,
+  "score_before": 1840,
+  "score_after": 1840
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Rechecked inherited best score 1305. Corrected local prototypes to matched definitions: func_80022DBC(s32) and func_80002BD0(void*,s32); score/assembly unchanged. Added fv=0.0f after early return as control-flow diagnostic; identical instructions, score unchanged. Target signed-byte conversion is explicit lb-equivalent from s1+0x182 before call (lbu/sll/sra/andi), while candidate's cast path differs. Main remaining mismatches are f-register allocation/order around arg2[0] -= fs2 and downstream atan/constant call. Target switch jump table uses D_8011EE50.\nPrototype corrections and dead-float assignment after early return both compiled to unchanged instructions; baseline score 1305.\nNo observed change. The source expression for signed index currently casts through s8 then u16 but emitted sequence still differs. Float register scheduling mismatch begins at sub.s after fs2 load.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795216188.912487,
+  "score_before": 1305,
+  "score_after": 1305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:dec8d74f60b84ba07da2f00bcfa4d0c5c899f970fded3666a37187aa44bcf2a2"
+ },
+ {
+  "function": "func_80117ED0",
+  "text": "Move-on threshold exceeded. Reverified 155; aliasing the pointer arguments in either order or all arguments scored 950; the remaining difference is saved-register assignment.\nParameter aliases in both orders and for all parameters.\nAll scored 950 vs 155; baseline retained. Arg1/arg2 use s2/s3 instead of s3/s4; state uses s4 instead of s1, animation ID uses s1 instead of s2.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795236621.141251,
+  "score_before": 155,
+  "score_after": 155,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:dec8d74f60b84ba07da2f00bcfa4d0c5c899f970fded3666a37187aa44bcf2a2"
  }
 ]
