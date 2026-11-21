@@ -5,7 +5,7 @@ s32 hi; u32 sv; s32 dv;
 var_s1=arg1;if((var_s1&0xFFFF)==0)var_s1=arg1+1;temp_s0=var_s1&0xFFFF;sp10=temp_s0;func_800957A8(&sp10);temp_v1=arg2&0xFF;
 switch(temp_v1){
 case 0xFF:var_a2=0;hi=(arg0&0xFF)<<0x10;sv=sp10;dv=var_s1&0xFFFF;var_a1=&D_80107EF0;var_a0=0;do{if((u8)*(D_80107EE8+var_a0)<2U){*(s32*)var_a1=hi;*(s32*)(D_80107EF8+var_a0)=sv;*(s32*)(D_80107EF4+var_a0)=(s32)(*(s32*)var_a1-*(s32*)(D_80107EEC+var_a0))/dv;}var_a1+=0x28;++var_a2;var_a0+=0x28;}while(var_a2<0x20U);return;
-case 0xFC:var_a2_2=0;var_a1_2=&D_80107EF0;temp_s0=0;hi=(arg0&0xFF)<<0x10;sv=sp10;dv=var_s1&0xFFFF;do{if((u32)(*(D_80107EE8+temp_s0)-2)<2U){*(s32*)var_a1_2=hi;*(s32*)(D_80107EF8+temp_s0)=sv;*(s32*)(D_80107EF4+temp_s0)=(s32)(*(s32*)var_a1_2-*(s32*)(D_80107EEC+temp_s0))/dv;}var_a1_2+=0x28;var_a2_2+=1;temp_s0+=0x28;}while(var_a2_2<0x20U);return;
+case 0xFC:var_a2_2=0;hi=(arg0&0xFF)<<0x10;sv=sp10;dv=var_s1&0xFFFF;var_a1_2=&D_80107EF0;temp_s0=0;do{if((u32)(*(D_80107EE8+temp_s0)-2)<2U){*(s32*)var_a1_2=hi;*(s32*)(D_80107EF8+temp_s0)=sv;*(s32*)(D_80107EF4+temp_s0)=(s32)(*(s32*)var_a1_2-*(s32*)(D_80107EEC+temp_s0))/dv;}var_a1_2+=0x28;var_a2_2+=1;temp_s0+=0x28;}while(var_a2_2<0x20U);return;
 case 0xFA:var_v0=2;goto block_18;
 case 0xFB:var_v0=3;goto block_18;
 case 0xFD:var_v0=0;goto block_18;
