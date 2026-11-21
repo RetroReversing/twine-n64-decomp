@@ -1,9 +1,9 @@
 char *lookupDataEntry(s32);
 void *memset(void *, s32, s32);
 s32 sprintf(char *, const char *, ...);
-extern u8 sCharMap[];
+extern u8 D_800B2750[];
 
-void decodeTextField(u8 *dst, s8 *src, u8 len) {
+void func_800103B0(u8 *dst, s8 *src, u8 len) {
     s32 i;
 
     memset(dst, 0, len);
@@ -20,7 +20,7 @@ void decodeTextField(u8 *dst, s8 *src, u8 len) {
         if (src[i] == 0) {
             dst[i] = ' ';
         } else if ((u32)src[i] < 0x42) {
-            dst[i] = sCharMap[(u16)src[i]];
+            dst[i] = D_800B2750[(u16)src[i]];
         }
     }
 }
