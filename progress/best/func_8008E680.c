@@ -4,6 +4,7 @@ extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
 extern u8 D_8010D76F, D_8010D779;
 s32 func_8008E680(s32 arg0, s32 arg1) {
     s32 index, offset, handle, result, end;
+    volatile s64 padding;
     result = -1;
     handle = soundResolveHandle(arg0);
     if (handle == result) goto done;

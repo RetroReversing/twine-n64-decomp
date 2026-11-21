@@ -6,9 +6,9 @@ void func_8008B1C0(void) {
  i=0; e=gAudioVoiceTable;
  if(i<sAudioVoiceCount) do { p=e; if(p->active) {p->prev=p->now; p->now=p->time;} i++; e++; } while(i<sAudioVoiceCount);
 }
-extern s32 D_800E06B0;
-void func_8000A5F4(void);
-void func_8000A5D0(void) { D_800E06B0=-1; func_8000A5F4(); }
+extern s32 sCurrentDistanceSoundId;
+void startDistanceSound(void);
+void func_8000A5D0(void) { sCurrentDistanceSoundId=-1; startDistanceSound(); }
 extern s8 D_80102EDF, D_800CA310;
 extern s32 D_80102EEC, D_8010A4E4;
 void hiscore_refresh_all(void);

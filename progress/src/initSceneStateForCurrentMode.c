@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_800070A4();                            /* extern */
 M2C_UNK func_80008154();                            /* extern */
 s32 func_80009ED0(M2C_UNK);                         /* extern */
-M2C_UNK func_8000A5F4(s32);                         /* extern */
+M2C_UNK startDistanceSound(s32);                         /* extern */
 void func_80045080(s32);                          /* extern */
 M2C_UNK DrawScreenBorderLines();                            /* extern */
 M2C_UNK func_80087CDC(void);                          /* extern */
@@ -95,7 +95,7 @@ extern s32 D_8010A4E4;
         break;
     }
     if (setupParam != -1) {
-        func_8000A5F4(setupParam);
+        startDistanceSound(setupParam);
     }
     if ((gMenuOutcome != 0) & (prevMode != 0x24)) {
         if (gMenuOutcome == 1) {

@@ -6,7 +6,7 @@ s32 saveWaitCommand();                                /* extern */
 s32 func_80010B60(s32);                             /* extern */
 s32 saveRefreshStatus();                                /* extern */
 s32 saveSubmitCommand(u16, s32, s32, s32, s32, s32, s32, s32); /* extern */
-s32 func_800AB770(s8 *, s8 *);                      /* extern */
+s32 stringCompare(s8 *, s8 *);                      /* extern */
 extern s16 gSaveFoundSlot;
 extern u16 gSaveStatus;
 extern u8 gSaveSlotTable[];
@@ -114,7 +114,7 @@ block_16:
                     var_s1_2 = 0;
                     __repair_phase_var_s0 = 0;
 loop_20:
-                    if ((*((u16 *)((u8 *)&gSaveSlotHeaders + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (func_800AB770(var_s2, &D_80115308) != 0)) {
+                    if ((*((u16 *)((u8 *)&gSaveSlotHeaders + __repair_phase_var_s0)) != 0) && (*((s32 *)((s8 *)&D_8010840C + var_s1_2)) == 0x4E4F3745) && (*((s32 *)((s8 *)&D_80108410 + var_s1_2)) == 0x3639) && (stringCompare(var_s2, &D_80115308) != 0)) {
                         temp_v1 = *((s8 *)((s8 *)&gSaveSlotCodes + var_s1_2));
                         if (temp_v1 == gSaveSlotCodeByte) {
                             var_s0 = 0;

@@ -13,18 +13,18 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80090F24(s32);                         /* extern */
-extern s32 D_800E06B0;
-extern s32 D_800E0708;
+extern s32 sCurrentDistanceSoundId;
+extern s32 sDistanceSoundResult;
 
 void func_8000A580(void) {
     s32 *__base_D_800E0708;
 int __repair_constant = -1;
 
-    __base_D_800E0708 = &D_800E0708;
+    __base_D_800E0708 = &sDistanceSoundResult;
     if ((*__base_D_800E0708) != -1) {
         func_80090F24((*__base_D_800E0708));
         (*__base_D_800E0708) = __repair_constant;
 __base_D_800E0708 = 0;
     }
-    D_800E06B0 = __repair_constant;
+    sCurrentDistanceSoundId = __repair_constant;
 }

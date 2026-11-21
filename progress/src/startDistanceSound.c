@@ -7,17 +7,17 @@ extern SoundWord D_800B2480[];
 extern SoundWord D_800B2484[];
 extern SoundHalf D_800B2488[];
 extern SoundHalf D_800B248A[];
-extern s32 D_800E06B0;
-extern s32 D_800E0708;
-extern s32 D_800E070C;
+extern s32 sCurrentDistanceSoundId;
+extern s32 sDistanceSoundResult;
+extern s32 sDistanceSoundArg;
 extern s32 sDistanceSoundsActive;
 
-s32 func_8000A5F4(s32 arg0) {
+s32 startDistanceSound(s32 arg0) {
     s32 *ptr;
     u32 start, end;
     s32 index, result;
 
-    if ((sDistanceSoundsActive == 0) || (index = 0, arg0 == D_800E06B0)) {
+    if ((sDistanceSoundsActive == 0) || (index = 0, arg0 == sCurrentDistanceSoundId)) {
         return -1;
     }
     for (;;) {
@@ -30,12 +30,12 @@ s32 func_8000A5F4(s32 arg0) {
         index++;
     }
     func_8000A580();
-    ptr = &D_800E070C;
+    ptr = &sDistanceSoundArg;
     end = D_800B2484[index].value;
     start = D_800B2480[index].value;
-    D_800E06B0 = arg0;
+    sCurrentDistanceSoundId = arg0;
     func_8000B900(*ptr, start, end - start);
     result = runSceneGroupEntry(D_800B2488[index].value, D_800B248A[index].value, *ptr, 0);
-    D_800E0708 = result;
+    sDistanceSoundResult = result;
     return result;
 }

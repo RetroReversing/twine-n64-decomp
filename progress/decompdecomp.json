@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795240022.6900952,
- "revision": 19143,
+ "saved_at": 1795240144.577843,
+ "revision": 19165,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1459,7 +1459,7 @@
   },
   "705392:2148185968": {
    "vram": 2148185968,
-   "function": "func_800AB770",
+   "function": "stringCompare",
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
     "-G0",
@@ -1671,19 +1671,6 @@
     "-woff",
     "649,838,712"
    ]
-  },
-  "597796:2148078372": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "stopEntitySound",
-   "vram": 2148078372
   }
  },
  "instructions": "",
@@ -1729,6 +1716,7 @@
   "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed.",
   "At KMC GCC 2.7.2 -O2, expressing an index stride as an odd factor followed by a left shift can alter register allocation even when the arithmetic instruction sequence is equivalent.",
   "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form.",
+  "Some TWINE functions are IDO-compiled, not KMC GCC: tell-tales are callee-saved registers stored at low sp offsets (0x18..) with locals above them, and register moves emitted as `or rd, rs, $zero`. When GCC attempts get a wrong frame layout (saves at top), run compiler_experiments/try_compiler with ido-7.1 (flags -O2 -mips2 -G 0 -non_shared -Xcpluscomm -Wab,-r4300_mul -woff 649,838,712) and write clean C (no volatile pads, a plain local array sized to the frame).",
   "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences.",
   "For TWINE's KMC GCC 2.7.2, using an explicit pointer local initialized to a global's address and dereferencing it on both sides of a call can produce a saved-register address with repeated offset-zero loads. This works for byte and word loads."
  ],
@@ -2458,6 +2446,24 @@
     {
      "by": "codex-gpt-6.1-terra-4",
      "value": "func_8000D000: changing 0x99 sentinel field from s8 to u8 generated target 255 immediate and improved score 4495 to 3865."
+    }
+   ]
+  },
+  "Some TWINE functions are IDO-compiled, not KMC GCC: tell-tales are callee-saved registers stored at low sp offsets (0x18..) with locals above them, and register moves emitted as `or rd, rs, $zero`. When GCC attempts get a wrong frame layout (saves at top), run compiler_experiments/try_compiler with ido-7.1 (flags -O2 -mips2 -G 0 -non_shared -Xcpluscomm -Wab,-r4300_mul -woff 649,838,712) and write clean C (no volatile pads, a plain local array sized to the frame).": {
+   "model": [
+    {
+     "by": "api-claude-sonnet-5-5-2",
+     "value": "claude-sonnet-5-5"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "api-claude-sonnet-5-5-2",
+     "value": "func_8009DBE8: 13+ GCC attempts stuck at 1304+; ido-7.1 with s32 sp44[21] and plain for loop scored 15, then 0 after reordering pointer increments (arg5,arg3,arg2,arg4)."
     }
    ]
   },
@@ -3906,10 +3912,10 @@
    "matched_by": "codex-gpt-6.1-terra-1",
    "readable": false
   },
-  "func_8000A5F4": {
+  "startDistanceSound": {
    "vram": 2147526132,
    "matched_by": "codex-gpt-6.2-sol-6",
-   "readable": false
+   "readable": true
   },
   "func_8000A6F4": {
    "vram": 2147526388,
@@ -4926,9 +4932,9 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8001AB88": {
+  "updateMenuEntrySprite": {
    "vram": 2147593096,
-   "matched_by": "autopilot",
+   "matched_by": "codex-gpt-6.1-terra-4",
    "readable": false
   },
   "func_8001AC88": {
@@ -4950,6 +4956,11 @@
    "vram": 2147596932,
    "matched_by": "codex-gpt-6.2-sol-6",
    "readable": true
+  },
+  "resetPickupActorState": {
+   "vram": 2147597480,
+   "best_score": 1522,
+   "best_by": "codex-gpt-6.1-terra-4"
   },
   "func_8001BE0C": {
    "vram": 2147597836,
@@ -5375,6 +5386,11 @@
    "vram": 2147631608,
    "matched_by": "autopilot",
    "readable": false
+  },
+  "func_8002424C": {
+   "vram": 2147631692,
+   "best_score": 8788,
+   "best_by": "codex-gpt-6-luna-15"
   },
   "func_80024504": {
    "vram": 2147632388,
@@ -5831,10 +5847,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_8002B050": {
+  "advanceTimerRecord": {
    "vram": 2147659856,
    "matched_by": "codex-gpt-6.2-sol-1",
-   "readable": false
+   "readable": true
   },
   "func_8002B150": {
    "vram": 2147660112,
@@ -9506,6 +9522,11 @@
    "matched_by": "codex-gpt-6.2-sol-3",
    "readable": false
   },
+  "func_80088040": {
+   "vram": 2148040768,
+   "best_score": 3595,
+   "best_by": "codex-gpt-6.1-terra-5"
+  },
   "func_800882D0": {
    "vram": 2148041424,
    "best_score": 60,
@@ -9873,7 +9894,7 @@
   },
   "func_8008E680": {
    "vram": 2148066944,
-   "best_score": 1534,
+   "best_score": 1530,
    "best_by": "codex-gpt-6-luna-15"
   },
   "func_8008E7B8": {
@@ -9920,6 +9941,11 @@
    "vram": 2148070052,
    "matched_by": "codex-gpt-6.1-terra-8",
    "readable": false
+  },
+  "func_8008F2D4": {
+   "vram": 2148070100,
+   "best_score": 240,
+   "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_8008FF80": {
    "vram": 2148073344,
@@ -10018,8 +10044,8 @@
   },
   "func_80091654": {
    "vram": 2148079188,
-   "best_score": 1440,
-   "best_by": "codex-gpt-6-luna-9"
+   "best_score": 1255,
+   "best_by": "api-claude-sonnet-5-5-2"
   },
   "func_80091864": {
    "vram": 2148079716,
@@ -10876,6 +10902,11 @@
    "best_score": 2687,
    "best_by": "codex-gpt-6.1-terra-5"
   },
+  "func_8009DCD0": {
+   "vram": 2148130000,
+   "best_score": 20748,
+   "best_by": "codex-gpt-6.2-sol-6"
+  },
   "func_8009DF60": {
    "vram": 2148130656,
    "best_score": 60587,
@@ -11566,10 +11597,10 @@
    "best_score": 835,
    "best_by": "autopilot"
   },
-  "func_800A9670": {
+  "initViManagerContexts": {
    "vram": 2148177520,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "func_800A9780": {
    "vram": 2148177792,
@@ -11726,10 +11757,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "func_800AB770": {
+  "stringCompare": {
    "vram": 2148185968,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "func_800AB880": {
    "vram": 2148186240,
@@ -11941,15 +11972,15 @@
    "matched_by": "autopilot",
    "readable": true
   },
+  "create_player_state_objects": {
+   "vram": 2148648884,
+   "best_score": 1190,
+   "best_by": "codex-gpt-6.2-sol-6"
+  },
   "updateSaveSlotMarkers": {
    "vram": 2148649104,
    "matched_by": "codex-gpt-6.2-sol-6",
    "readable": false
-  },
-  "setupSaveSlotMarkers": {
-   "vram": 2148649304,
-   "matched_by": "codex-gpt-6.2-sol-6",
-   "readable": true
   },
   "steerSaveSlotActors": {
    "vram": 2148650656,
@@ -12109,7 +12140,7 @@
   "func_8001A968": "local_source_25769804253",
   "func_8001AA08": "local_source_25769804254",
   "func_8001AA98": "local_source_25769804255",
-  "func_8001AB88": "local_source_25769804256",
+  "updateMenuEntrySprite": "local_source_25769804256",
   "func_8001AC88": "local_source_25769804257",
   "actorSetupItemPickup": "local_source_25769804261",
   "func_8001BE0C": "local_source_25769804263",
@@ -12862,7 +12893,7 @@
   "bufFill": "local_source_25769805760",
   "libmSplitExponent": "local_source_25769805761",
   "func_800AB6C0": "local_source_25769805767",
-  "func_800AB770": "local_source_25769805768",
+  "stringCompare": "local_source_25769805768",
   "ctype_toupper": "local_source_25769805772",
   "func_800ABE20": "local_source_25769805778",
   "func_80117EC8": "local_source_25769803832",
@@ -13500,7 +13531,7 @@
    "status": "open"
   },
   {
-   "name": "func_8000A5F4",
+   "name": "startDistanceSound",
    "vram": 2147526132,
    "size": 256,
    "status": "open"
@@ -14760,7 +14791,7 @@
    "status": "open"
   },
   {
-   "name": "func_8001AB88",
+   "name": "updateMenuEntrySprite",
    "vram": 2147593096,
    "size": 256,
    "status": "open"
@@ -16026,7 +16057,7 @@
    "status": "open"
   },
   {
-   "name": "func_8002B050",
+   "name": "advanceTimerRecord",
    "vram": 2147659856,
    "size": 256,
    "status": "open"
@@ -23640,7 +23671,7 @@
    "status": "asm"
   },
   {
-   "name": "func_800A9670",
+   "name": "initViManagerContexts",
    "vram": 2148177520,
    "size": 260,
    "status": "open"
@@ -23832,7 +23863,7 @@
    "status": "open"
   },
   {
-   "name": "func_800AB770",
+   "name": "stringCompare",
    "vram": 2148185968,
    "size": 260,
    "status": "open"
@@ -24254,6 +24285,12 @@
  ],
  "symbols": [
   {
+   "name": "osTvType",
+   "address": 2147484416,
+   "size": 0,
+   "kind": "data"
+  },
+  {
    "name": "entrypoint",
    "address": 2147484672,
    "size": 0,
@@ -24353,6 +24390,12 @@
    "name": "listUnlinkFree",
    "address": 2147525232,
    "size": 44,
+   "kind": "func"
+  },
+  {
+   "name": "startDistanceSound",
+   "address": 2147526132,
+   "size": 256,
    "kind": "func"
   },
   {
@@ -24665,6 +24708,12 @@
    "name": "saveSlotKeyCheck",
    "address": 2147588916,
    "size": 564,
+   "kind": "func"
+  },
+  {
+   "name": "updateMenuEntrySprite",
+   "address": 2147593096,
+   "size": 256,
    "kind": "func"
   },
   {
@@ -25019,6 +25068,12 @@
    "name": "voiceGroupInit",
    "address": 2147659104,
    "size": 360,
+   "kind": "func"
+  },
+  {
+   "name": "advanceTimerRecord",
+   "address": 2147659856,
+   "size": 256,
    "kind": "func"
   },
   {
@@ -27596,6 +27651,12 @@
    "kind": "func"
   },
   {
+   "name": "initViManagerContexts",
+   "address": 2148177520,
+   "size": 260,
+   "kind": "func"
+  },
+  {
    "name": "guNormalize",
    "address": 2148177952,
    "size": 84,
@@ -27701,6 +27762,12 @@
    "name": "sqrt",
    "address": 2148185248,
    "size": 540,
+   "kind": "func"
+  },
+  {
+   "name": "stringCompare",
+   "address": 2148185968,
+   "size": 260,
    "kind": "func"
   },
   {
@@ -27914,7 +27981,7 @@
    "kind": "data"
   },
   {
-   "name": "sSaveMenuFlagsA",
+   "name": "sSaveMenuColorActive",
    "address": 2148259396,
    "size": 4,
    "kind": "data"
@@ -27922,6 +27989,12 @@
   {
    "name": "sSaveMenuFlagsB",
    "address": 2148259400,
+   "size": 4,
+   "kind": "data"
+  },
+  {
+   "name": "sSaveMenuColorIdle",
+   "address": 2148259404,
    "size": 4,
    "kind": "data"
   },
@@ -28304,6 +28377,18 @@
    "kind": "data"
   },
   {
+   "name": "viContextBuffer",
+   "address": 2148339952,
+   "size": 2,
+   "kind": "data"
+  },
+  {
+   "name": "vi_active_ctx_table",
+   "address": 2148340008,
+   "size": 40,
+   "kind": "data"
+  },
+  {
    "name": "vi_pending_ctx",
    "address": 2148340048,
    "size": 4,
@@ -28319,6 +28404,12 @@
    "name": "gCordicAtanTable",
    "address": 2148340304,
    "size": 512,
+   "kind": "data"
+  },
+  {
+   "name": "sExpLogTable",
+   "address": 2148341072,
+   "size": 448,
    "kind": "data"
   },
   {
@@ -28394,6 +28485,18 @@
    "kind": "data"
   },
   {
+   "name": "kFixed60Scale",
+   "address": 2148364064,
+   "size": 8,
+   "kind": "data"
+  },
+  {
+   "name": "kFixed60One",
+   "address": 2148364072,
+   "size": 8,
+   "kind": "data"
+  },
+  {
    "name": "gCordicAngleScale",
    "address": 2148364192,
    "size": 8,
@@ -28463,6 +28566,24 @@
    "name": "yieldState",
    "address": 2148390821,
    "size": 0,
+   "kind": "bss"
+  },
+  {
+   "name": "sCurrentDistanceSoundId",
+   "address": 2148402864,
+   "size": 8,
+   "kind": "bss"
+  },
+  {
+   "name": "sDistanceSoundResult",
+   "address": 2148402952,
+   "size": 4,
+   "kind": "bss"
+  },
+  {
+   "name": "sDistanceSoundArg",
+   "address": 2148402956,
+   "size": 4,
    "kind": "bss"
   },
   {

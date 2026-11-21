@@ -93,7 +93,7 @@ typedef struct {
 } OSDevMgr;
 
 extern void __osTimerServicesInit(void);
-extern void func_800A9670(void);
+extern void initViManagerContexts(void);
 extern void     osCreateViManager(OSPri);
 extern void osCreateViManager(OSPri);
 
@@ -150,7 +150,7 @@ void osCreateViManager(OSPri pri) {
     __osViDevMgr.dma = 0 ;
     __osViDevMgr.edma = 0 ;
     osCreateThread(&viThreadStorage.thread, 0, viMgrMain, &__osViDevMgr, &viThreadStack[4096 ], pri);
-    func_800A9670();
+    initViManagerContexts();
     osStartThread(&viThreadStorage.thread);
     __osRestoreInt(saved_mask);
 

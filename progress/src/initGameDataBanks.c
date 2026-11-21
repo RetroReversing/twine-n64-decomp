@@ -1,7 +1,7 @@
 s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 func_8000B384(); s32 func_8000B534(); s32 romDmaRead(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
 extern char D_14CD630[],D_14D0ED0[],D_14DDC00[],D_14E2500[],D_1D69630[],D_800B2488[],D_800B256C[],D_800DD7D0[];
 extern char D_014D0ED0[], D_014DDC00[], D_014E2500[];
-extern s32 D_800B2480,D_800E06B0,D_800E06FC,D_800E0700,D_800E0704,D_800E0708; extern s32 *D_800E070C; extern s16 gExpansionPakPresent;
+extern s32 D_800B2480,sCurrentDistanceSoundId,D_800E06FC,D_800E0700,D_800E0704,sDistanceSoundResult; extern s32 *sDistanceSoundArg; extern s16 gExpansionPakPresent;
 /* Sets up the game's data banks and tables from ROM ranges, then loads the main data bank. */ s32 initGameDataBanks(void) {
     s32 result;
     s32 bankSize;
@@ -50,10 +50,10 @@ extern s32 D_800B2480,D_800E06B0,D_800E06FC,D_800E0700,D_800E0704,D_800E0708; ex
     initDataBankBuffers(1);
     loadDataBank(D_1D69630, 0);
     func_8009D030(D_800B256C);
-    D_800E0708 = -1;
-    D_800E070C = (s32 *)D_800DD7D0;
+    sDistanceSoundResult = -1;
+    sDistanceSoundArg = (s32 *)D_800DD7D0;
     func_8000A6F4();
-    D_800E06B0 = -1;
+    sCurrentDistanceSoundId = -1;
     result = func_8000B534();
     func_8000A18C(0xA);
     func_8000A22C(0xA);

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 requestSound();
-s32 func_8002B050();
+s32 advanceTimerRecord();
 s32 func_8002B180();
 s16 timerGetTotalSeconds();
 s16 strlen();
@@ -33,7 +33,7 @@ extern void *D_8011F3B8;
     void *hudElement;
 
     if (gMenuUseTextList != 0) {
-        func_8002B050(sRaceTimer, frameDelta);
+        advanceTimerRecord(sRaceTimer, frameDelta);
         if ((timerGetTotalSeconds(sRaceTimer - 8) << 0x10) != 0) {
             if (D_801002AC == 0) {
                 warnFlag = (timerGetTotalSeconds(sRaceTimer) << 0x10) < 1;

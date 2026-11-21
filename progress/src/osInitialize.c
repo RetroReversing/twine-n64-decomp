@@ -16,7 +16,7 @@ extern void func_800A9620(void);
 extern u64 func_800ABE20(u64, u64);
 extern void func_800A71C0(void);
 extern ExceptionPreamble D_80000000;
-extern s32 D_80000300, D_8000030C;
+extern s32 osTvType, D_8000030C;
 extern u8 D_8000031C[];
 extern u64 D_800D1070;
 extern s32 D_800D1078, D_80112F8C;
@@ -69,9 +69,9 @@ extern u8 D_80109B24, D_80109B25, D_80109B26, D_80109B27, D_80109B28;
     if (D_8000030C == 0) {
         bzero(D_8000031C, 0x40);
     }
-    if (D_80000300 == 0) {
+    if (osTvType == 0) {
         D_800D1078 = 0x02F5B2D2;
-    } else if (D_80000300 == 2) {
+    } else if (osTvType == 2) {
         D_800D1078 = 0x02E6025C;
     } else {
         D_800D1078 = 0x02E6D354;

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
-M2C_UNK func_8002B050(M2C_UNK *, M2C_UNK);          /* extern */
+M2C_UNK advanceTimerRecord(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_8002B180(M2C_UNK *, M2C_UNK *);        /* extern */
 s16 timerGetTotalSeconds(M2C_UNK *);                       /* extern */
 M2C_UNK func_8011AA04();                            /* extern */
@@ -34,7 +34,7 @@ void func_8011C580(void) {
                 if ((timerGetTotalSeconds(&D_8011F3AC) < 6) && (D_8011F3B0 == 0)) {
                     requestSound(0x123);
                 }
-                func_8002B050(&D_8011F3AC, -1);
+                advanceTimerRecord(&D_8011F3AC, -1);
                 M2C_FIELD(temp_s1, s32 *, 0x28) = (M2C_FIELD(temp_s1, s32 *, 0x28) & ~0xFC) | 0x14;
             } else {
                 func_8011AA04();

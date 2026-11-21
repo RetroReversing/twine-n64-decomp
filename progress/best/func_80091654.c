@@ -39,9 +39,10 @@ s32 __repair_phase_var_v0;
     var_s0_2 = gSoundEntities;
 
     var_s0 = 0;
+    temp_a3 = arg2 & 0x7FFFFFFF;
     temp_a2_2 = 0;
 loop_1:
-    if ((*(D_800E6A85 + temp_a2_2) != 0) || (*(s32 *)(var_s0_2 + temp_a2_2) != (arg2 & 0x7FFFFFFF))) {
+    if ((*(D_800E6A85 + temp_a2_2) != 0) || (*(s32 *)(gSoundEntities + temp_a2_2) != temp_a3)) {
         var_s0 += 1;
         temp_a2_2 += 0xFF8;
         if (var_s0 >= 8U) {

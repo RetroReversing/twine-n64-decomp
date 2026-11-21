@@ -1,7 +1,7 @@
 s32 initTextFromTemplate();
 s32 func_800283B0();
 s32 func_8002B02C();
-s32 func_8002B050();
+s32 advanceTimerRecord();
 s32 func_8002B150();
 s32 func_8002EFD8();
 s32 func_8002F068();
@@ -53,7 +53,7 @@ void updateMenuStateMachine(void *arg0, void *arg1) {
     case 4:
         updateObjectFade(arg0);
         if (D_80102EDC != 0) {
-            func_8002B050(sMenuTimer, 1);
+            advanceTimerRecord(sMenuTimer, 1);
         }
         if (!(func_80081730() & 0xFFFF)) {
             goto tail;
