@@ -13,7 +13,7 @@ extern u8 D_801007D1;
 extern s32 gBorderSkipFlag;
 extern s32 D_80109A54;
 extern s16 D_8010A4B0;
-extern u8 D_8010A4C1;
+extern u8 gSceneFlagsA;
 extern s32 gHiResScreen;
 extern s32 D_8010A4EC;
 extern s16 D_8010D6F8;
@@ -144,7 +144,7 @@ block_26:
             temp_v1_2 = var_v1_3 & 0xFFFF;
             var_a0_2 = (temp_v1_2 << 0x10) | temp_v1_2;
         }
-        if (D_8010A4C1 != 0) {
+        if (gSceneFlagsA != 0) {
             temp_v0_2 = sDisplayListCursor;
             sDisplayListCursor = temp_v0_2 + 8;
             (*(s32 *)((char *)(temp_v0_2) + 0)) = 0xF7000000;

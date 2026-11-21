@@ -19,7 +19,7 @@ s32 func_80059658();
 s32 func_80084338();
 extern u8 D_80102EE8;
 extern u8 gTrackDoneFlags[];
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 
 void func_8005DED8(void *arg0) {
 short __repair_constant = 0xFF;
@@ -47,7 +47,7 @@ short __repair_constant = 0xFF;
     if (M2C_FIELD(arg0, s32 *, 0x60) & 0x100000) {
         M2C_FIELD(arg0, s32 *, 0x60) = 0;
     }
-    if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(temp_s1, s32 *, 0x4C) & 0x80) && (M2C_FIELD(arg0, s32 *, 0x58) & 4) && (approxDistance(arg0, arg0 + 0x24, D_8010A500 + 0x24) < 4.0f)) {
+    if ((D_80102EE8 == 0) && (gBonusSceneHandle != 0) && (M2C_FIELD(temp_s1, s32 *, 0x4C) & 0x80) && (M2C_FIELD(arg0, s32 *, 0x58) & 4) && (approxDistance(arg0, arg0 + 0x24, gBonusSceneHandle + 0x24) < 4.0f)) {
         var_v0 = 0xFF;
         if (M2C_FIELD(temp_s1, s32 *, 0x2C) & 0x08000802) {
             temp_v0 = M2C_FIELD(temp_s1, u16 *, 0x42) + 1;

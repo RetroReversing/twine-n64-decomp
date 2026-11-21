@@ -1,6 +1,6 @@
 typedef struct { u8 pad0[0x120]; f32 f120; f32 f124; } Func80073508Obj;
 extern Func80073508Obj *gTrackMarkerTable[];
-extern u8 D_8010A4C1;
+extern u8 gSceneFlagsA;
 f32 approxDistance(s32, void *);
 
 void func_80073508(s32 arg0, f32 arg1) {
@@ -17,7 +17,7 @@ void func_80073508(s32 arg0, f32 arg1) {
                 gTrackMarkerTable[i]->f120 = t;
             }
             bit = 1 << i;
-            if (D_8010A4C1 & bit) {
+            if (gSceneFlagsA & bit) {
                 gTrackMarkerTable[i]->f124 = gTrackMarkerTable[i]->f124 + 2.0f * t;
             }
             if (gTrackMarkerTable[i]->f124 > 1.0f) {

@@ -18,14 +18,14 @@ s32 func_800819EC(u32, M2C_UNK);                    /* extern */
 extern u8 D_800CA338;
 extern u8 D_800CEEB0;
 extern s8 D_80103EB0;
-extern void *D_8010A500;
+extern void *gBonusSceneHandle;
 
 void func_80016EE0(void) {
     u32 i;
     if ((D_800CEEB0 == 0) && ((func_80006694() == 1) || (func_80006694() == 9)) && (D_80103EB0 != 0) && (D_800CA338 == 0)) {
         for (i = 0; i < 4; i++) {
-            if (((void **)&D_8010A500)[i] != NULL && M2C_FIELD(((void **)&D_8010A500)[i], u16 *, 0x78) == 2 && func_800819EC(i, 0x15) != 0
-                && (u32)(M2C_FIELD(((void **)&D_8010A500)[i], u16 *, 0x7A) - 2) >= 2U) {
+            if (((void **)&gBonusSceneHandle)[i] != NULL && M2C_FIELD(((void **)&gBonusSceneHandle)[i], u16 *, 0x78) == 2 && func_800819EC(i, 0x15) != 0
+                && (u32)(M2C_FIELD(((void **)&gBonusSceneHandle)[i], u16 *, 0x7A) - 2) >= 2U) {
                 func_80076168(i & 0xFF);
                 return;
             }

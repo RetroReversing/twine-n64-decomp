@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 approxDistance(void *, s32);                     /* extern */
 extern u8 D_80102EE8;
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 
 void func_80017D24(void *arg0) {
     s32 temp_v1;
@@ -25,8 +25,8 @@ void func_80017D24(void *arg0) {
     if (temp_v1 == 1) goto case_one;
     if (temp_v1 >= 2) return;
     if (temp_v1 == 0) {
-        if ((D_80102EE8 == 0) && (D_8010A500 != 0) && (M2C_FIELD(arg0, s32 *, 0x58) & 4)) {
-            if (approxDistance(arg0 + 0x24, D_8010A500 + 0x24) < 4.0f) {
+        if ((D_80102EE8 == 0) && (gBonusSceneHandle != 0) && (M2C_FIELD(arg0, s32 *, 0x58) & 4)) {
+            if (approxDistance(arg0 + 0x24, gBonusSceneHandle + 0x24) < 4.0f) {
                 temp_v0 = M2C_FIELD(arg0, u16 *, 0x7C) + 1;
                 M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0;
                 if (!(temp_v0 & 0x10)) {

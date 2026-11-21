@@ -1,5 +1,5 @@
 extern s32 D_801002B4, D_8010302C;
-extern void *D_8010A500[], *gTrackMarkerTable[];
+extern void *gBonusSceneHandle[], *gTrackMarkerTable[];
 extern char D_8011F3AC[];
 void func_8000A894(s32);
 void func_8002B150(void *,s32,s32);
@@ -7,7 +7,7 @@ s32 func_80087100(s32);
 void func_80073AF8(s32,void *,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_8007089C(void *,s32,s32);
 void func_8011B0FC(void *p) {
- void *q = D_8010A500[*(s8*)((char*)p+0x182)];
+ void *q = gBonusSceneHandle[*(s8*)((char*)p+0x182)];
  s32 x;
  func_8000A894(0x224);
  switch(D_801002B4) {

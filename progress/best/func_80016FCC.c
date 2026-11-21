@@ -10,7 +10,7 @@ extern s8 D_80103EB0;
 extern s32 D_80108F78;
 extern void *gTrackMarkerTable[];
 extern void *D_8010A410;
-extern void *D_8010A500;
+extern void *gBonusSceneHandle;
 extern s8 D_80115319;
 void func_80016718(void *, void *);
 void func_80016740(void *);
@@ -76,7 +76,7 @@ void func_80016FCC(s8 arg0) {
                 }
                 node = *(void **)((u8 *)node + 0x10);
             }
-            if (D_800CA338 == 0 && D_8010A500 != NULL && ((t = *(s16 *)((u8 *)D_8010A500 + 0x7A)) >= 4 || t < 2)) {
+            if (D_800CA338 == 0 && gBonusSceneHandle != NULL && ((t = *(s16 *)((u8 *)gBonusSceneHandle + 0x7A)) >= 4 || t < 2)) {
                 switch (D_80108F78) {
                 case 25: s1 = 0; func_80118098(); break;
                 case 20: s1 = 0; func_801181B0(); break;

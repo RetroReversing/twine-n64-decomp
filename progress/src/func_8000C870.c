@@ -14,13 +14,13 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK hiscore_refresh_all();                      /* extern */
 extern s32 D_800B2718;
-extern s8 D_800E0742;
+extern s8 gSceneObjectsLoaded;
 extern s8 D_80109E68;
 
 s32 func_8000C870(s8 arg0, s8 arg1) {
     D_800B2718 = 0;
     hiscore_refresh_all();
     D_80109E68 = arg0;
-    D_800E0742 = arg1;
+    gSceneObjectsLoaded = arg1;
     return 1;
 }

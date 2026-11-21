@@ -3,7 +3,7 @@
 s32 func_8002B050();
 f32 approxDistance();
 s32 func_80119E60();
-extern void *D_8010A500[];
+extern void *gBonusSceneHandle[];
 extern char D_8011ECE0[];
 extern char sProbeTimers[];
 
@@ -29,9 +29,9 @@ void func_80119F50(void *arg0) {
             }
         }
         for (var_s2 = 0; var_s2 < 4U; var_s2++) {
-            temp_a0 = D_8010A500[var_s2];
+            temp_a0 = gBonusSceneHandle[var_s2];
             if ((temp_a0 != NULL) && ((*(s16 *)((char *)(temp_a0) + 0x7A)) != 2) && (approxDistance(temp_a0 + 0x24, arg0 + 0x24) < 2.5f)) {
-                func_80119E60((u16) (*(s16 *)((char *)(arg0) + 0x7A)), (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(D_8010A500[var_s2]) + 0x6C))) + 0xB4))) + 0x12)), arg0);
+                func_80119E60((u16) (*(s16 *)((char *)(arg0) + 0x7A)), (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(gBonusSceneHandle[var_s2]) + 0x6C))) + 0xB4))) + 0x12)), arg0);
             }
         }
         temp_a0_2 = (*(s16 *)((char *)(arg0) + 0x7C));

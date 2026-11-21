@@ -33,7 +33,7 @@ block_10:
 block_20:
             *(u32 *)((s8 *)arg0 + 0x9C) = var_v0_3;
         } else {
-            temp_v0_2 = (((u32)*(u16 *)((s8 *)arg1 + 4)) >> 8) & 1;
+            temp_v0_2 = (((u32)*(u32 *)((s8 *)arg1 + 4)) >> 8) & 1;
             if (temp_v0_2 & 0xFF) { func_800957A8(&sp10); var_v0_4 = temp_v0_2 & 0xFF; }
             else { func_800957B8(&sp10, arg0); var_v0_4 = temp_v0_2 & 0xFF; }
             if (var_v0_4 != 0) { var_v0_3 = *(u32 *)((s8 *)arg0 + 0xA4) + sp10; goto block_20; }

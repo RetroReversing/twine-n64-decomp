@@ -26,7 +26,7 @@ extern f64 D_800D2A98;
 extern void *D_80109698;
 extern void *gMenuState;
 extern s32 gBootState;
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 
 typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; signed char field_82; } __repair_record_D_800B7CE8;
 void func_8002135C(void) {
@@ -49,7 +49,7 @@ void func_8002135C(void) {
                 var_s1 = 1;
                 goto block_9;
             }
-            if (*((s32 *)((s8 *)&D_8010A500 + (gMenuSlot * 4))) != 0) {
+            if (*((s32 *)((s8 *)&gBonusSceneHandle + (gMenuSlot * 4))) != 0) {
                 temp_v0_2 = (*(u8 *)((char *)(temp_v0) + 8)) * 0x10;
                 var_s0 = *((s16 *)((s8 *)&D_800C4478 + temp_v0_2));
                 var_s1 = *((s16 *)((s8 *)&D_800C447A + temp_v0_2));

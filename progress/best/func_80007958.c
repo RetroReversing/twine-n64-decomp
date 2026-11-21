@@ -43,7 +43,7 @@ extern void func_8000B224(FrameSlot *);
 extern s32 func_8009F640(void);
 extern void func_8009F6B0(s32);
 extern void vi_apply_context(void);
-extern u8 D_800AE4B0, D_8010A4C1, D_8010A4C2, D_80113022;
+extern u8 D_800AE4B0, gSceneFlagsA, gSceneFlagsB, D_80113022;
 extern u32 D_800B1BE0[];
 extern s16 D_800B1D70, D_800B1D72, D_8010A4B0;
 extern u16 D_80109B9C, D_8010A518;
@@ -165,7 +165,7 @@ void func_80007958(void)
                 }
             }
             mask = 1U << i;
-            if (!(D_8010A4C1 & mask) && !(D_8010A4C2 & mask)) {
+            if (!(gSceneFlagsA & mask) && !(gSceneFlagsB & mask)) {
                 goto next_view;
             }
 

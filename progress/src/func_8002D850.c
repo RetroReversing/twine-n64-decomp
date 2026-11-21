@@ -17,8 +17,8 @@ M2C_UNK func_8008173C();                            /* extern */
 M2C_UNK func_80081BC4(s32, M2C_UNK);                /* extern */
 extern s8 D_80102EE8;
 extern s8 D_8010A4C0;
-extern s8 D_8010A4C1;
-extern s8 D_8010A4C2;
+extern s8 gSceneFlagsA;
+extern s8 gSceneFlagsB;
 extern s8 D_8010A4C3;
 extern s8 D_8010A4C4;
 extern s32 D_8010A4C8;
@@ -44,8 +44,8 @@ void func_8002D850(void) {
 
     func_8008173C();
     D_8010A4C4 = 1;
-    D_8010A4C1 = 1;
-    D_8010A4C2 = 0x1F;
+    gSceneFlagsA = 1;
+    gSceneFlagsB = 0x1F;
     D_8010A4C3 = 0xF;
     D_80102EE8 = 0;
     D_80112F68 = 0;

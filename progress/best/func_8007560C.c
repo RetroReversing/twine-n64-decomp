@@ -17,7 +17,7 @@ extern s32 gBorderSkipFlag;
 extern char gTrackMarkerTable[];
 extern void *D_80109698;
 extern void *D_8010969C;
-extern u8 D_8010A4C2;
+extern u8 gSceneFlagsB;
 extern u8 gBorderFlipFlag;
 
 typedef struct { void * value; } __repair_field_0;
@@ -82,7 +82,7 @@ f32 __repair_var_a1_1;
     func_8004844C(D_8010969C, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1_2, (f32) (f64) 0);
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xDF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xDF;
-    D_8010A4C2 |= 0x20;
+    gSceneFlagsB |= 0x20;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) |= __repair_constant;
     if (gBorderSkipFlag == 0) {
         if (((__repair_field_0 *)gTrackMarkerTable)->value == NULL) {

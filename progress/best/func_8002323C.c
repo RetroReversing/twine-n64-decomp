@@ -55,7 +55,7 @@ extern s32 D_801002B4;
 typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
 extern UnalignedWord D_801002E6;
 extern void *gMenuState;
-extern void *D_8010A500[];
+extern void *gBonusSceneHandle[];
 extern M2C_UNK sProbeTimers;
 extern M2C_UNK func_80022F10;
 extern M2C_UNK func_800231F4;
@@ -137,7 +137,7 @@ void func_8002323C(void) {
             do {
                 var_s0_3 = (u16)var_s4;
                 temp_s1 = func_80022DBC(var_s0_3);
-                temp_s0 = D_8010A500[var_s0_3];
+                temp_s0 = gBonusSceneHandle[var_s0_3];
                 if (temp_s0 != NULL) {
                     temp_s0_2 = M2C_FIELD(temp_s0, void **, 0x6C);
                     if (temp_s0_2 != NULL) {

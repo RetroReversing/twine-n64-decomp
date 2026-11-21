@@ -3,7 +3,7 @@
 extern s32 gSceneType;
 #define D_801002B4 (*(s32 *)((char *)(&gSceneType) + 0x14))
 extern s32 D_80102CD0;
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 extern s32 D_8011F3A8;
 
 void func_8011A7C8(void) {
@@ -91,7 +91,7 @@ block_17:
         if (D_801002B4 > 0) {
             var_a0_3 = 0;
             var_v0_6 = 0 << 0x10;
-__base_D_8010A500 = &D_8010A500;
+__base_D_8010A500 = &gBonusSceneHandle;
     for (;;) {
         temp_v0_4 = *(void **)((s8 *)__base_D_8010A500 + (var_v0_6 >> 0xE));
         if (temp_v0_4 == NULL) {

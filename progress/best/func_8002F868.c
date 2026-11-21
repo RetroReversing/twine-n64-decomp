@@ -63,6 +63,7 @@ void func_8002F868(void *arg0, void *arg1) {
             func_8002FBD4(arg1, 4);
         } else {
         default:
+        tail:
         }
         func_8002F2EC(arg0, arg1);
         return;
@@ -71,11 +72,10 @@ void func_8002F868(void *arg0, void *arg1) {
         if (D_80102EDC != 0) {
             func_8002B050(D_800E1584, 1);
         }
-        if (func_80081730() & 0xFFFF) {
-            goto block_19;
+        if (!(func_80081730() & 0xFFFF)) {
+            goto tail;
         }
-        {
-        func_8002F2EC(arg0, arg1);return;}
+        goto block_19;
     case 3:
         func_8002FBD4(arg1, 1);
         func_8002F2EC(arg0, arg1);
@@ -129,4 +129,5 @@ block_19:
         return;
     }
 }
+
 

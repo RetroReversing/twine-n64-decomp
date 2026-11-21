@@ -19,7 +19,7 @@ f32 absFloat(f32);                             /* extern */
 f32 approximateAtan2(f32, f32);                   /* extern */
 M2C_UNK func_80084338(M2C_UNK, void *);             /* extern */
 extern f64 D_800D2DE0;
-extern void *D_8010A500;
+extern void *gBonusSceneHandle;
 
 /* Advances a switched actor's counter while the player is near and facing it, and resets it otherwise. */ void updateActorProximityTrigger(void *actor) {
     void **__base_D_8010A500;
@@ -33,7 +33,7 @@ extern void *D_8010A500;
 
     temp_v1 = M2C_FIELD(actor, s32 *, 0x60);
     temp_s2 = M2C_FIELD(actor, u16 **, 0x6C);
-    if ((temp_v1 & 0x3000) && (M2C_FIELD(actor, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = actor + 0x24, (approxDistance(temp_s3, (*(__base_D_8010A500 = &D_8010A500)) + 0x24) < 10.0f)) && (x = M2C_FIELD(actor, f32 *, 0x24), temp_a0 = M2C_FIELD(actor, f32 *, 0x2C), z = temp_a0, px = M2C_FIELD(D_8010A500, f32 *, 0x24), pz = M2C_FIELD(D_8010A500, f32 *, 0x2C), sp28 = M2C_FIELD(actor, struct Vec *, 0x24), (absFloat((f32) angleDelta12((s32) (approximateAtan2(x - px, (*(f32 *)&sp28.y -= 1.0f, z - pz)) * 651.8986f), (s32) M2C_FIELD(actor, f32 *, 0x40))) < 500.0f)) && ((func_800158A4((f32 *)&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(actor, s32 *, 0x20), sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+    if ((temp_v1 & 0x3000) && (M2C_FIELD(actor, s32 *, 0x60) = (s32) (temp_v1 & ~0x3000), temp_s3 = actor + 0x24, (approxDistance(temp_s3, (*(__base_D_8010A500 = &gBonusSceneHandle)) + 0x24) < 10.0f)) && (x = M2C_FIELD(actor, f32 *, 0x24), temp_a0 = M2C_FIELD(actor, f32 *, 0x2C), z = temp_a0, px = M2C_FIELD(gBonusSceneHandle, f32 *, 0x24), pz = M2C_FIELD(gBonusSceneHandle, f32 *, 0x2C), sp28 = M2C_FIELD(actor, struct Vec *, 0x24), (absFloat((f32) angleDelta12((s32) (approximateAtan2(x - px, (*(f32 *)&sp28.y -= 1.0f, z - pz)) * 651.8986f), (s32) M2C_FIELD(actor, f32 *, 0x40))) < 500.0f)) && ((func_800158A4((f32 *)&sp28, (*__base_D_8010A500) + 0x24, M2C_FIELD(actor, s32 *, 0x20), sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
         temp_a0_2 = *temp_s2;
         if ((f64) temp_a0_2 < D_800D2DE0) {
             if (M2C_FIELD(actor, u16 *, 0x78) == 0x1B) {

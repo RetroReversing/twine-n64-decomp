@@ -25,8 +25,8 @@ extern f64 D_800D2DE8;
 extern f64 D_800D2DF0;
 extern s32 gBorderSkipFlag;
 extern void *D_8010968C;
-extern u8 D_8010A4C1;
-extern u8 D_8010A4C2;
+extern u8 gSceneFlagsA;
+extern u8 gSceneFlagsB;
 extern u8 D_8010A4C3;
 extern s32 gHiResScreen;
 
@@ -72,8 +72,8 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
             M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 0x100);
             M2C_FIELD(D_8010968C, __repair_words3 *, 0x10) = *(__repair_words3 *) ((s8 *) arg0 + 0x0);
             D_8010A4C3 |= 2;
-            D_8010A4C2 |= 2;
-            D_8010A4C1 |= 2;
+            gSceneFlagsB |= 2;
+            gSceneFlagsA |= 2;
             M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) & ~7);
             M2C_FIELD(D_8010968C, s32 *, 0x100) = (s32) (M2C_FIELD(D_8010968C, s32 *, 0x100) | 2);
             if (arg1 != NULL) {

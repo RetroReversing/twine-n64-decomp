@@ -66,8 +66,8 @@ void func_80076E98(void *arg0) {
         M2C_FIELD(arg0, s16 *, 0x7C) = 5;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 5;
         temp_v0 = ((u32) M2C_FIELD(temp_s1, u32 *, 0x88) >> 0xF) & 0x3C;
-        var_a1_2 = *(&D_800C9970 + temp_v0);
-        var_a2 = *(&D_800C9972 + temp_v0);
+        var_a1_2 = *(u16 *)((u8 *)&D_800C9970 + temp_v0);
+        var_a2 = *(u16 *)((u8 *)&D_800C9972 + temp_v0);
         var_s2 = 1;
 block_19:
         func_80002CAC(arg0, var_a1_2, var_a2);

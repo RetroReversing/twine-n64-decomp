@@ -18,7 +18,7 @@ M2C_UNK func_8011B0FC(void *);                      /* extern */
 M2C_UNK func_8011B460(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 D_801002B4;
-extern M2C_UNK D_8010A500;
+extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK D_8011F3AC;
 extern void *D_8011F3C4;
 extern void *D_8011F3C8;
@@ -55,7 +55,7 @@ __repair_literal = 0;
         if (D_801002B4 > 0) {
             var_v0 = 0 & 0xFFFF;
             do {
-                temp_v0 = (&D_8010A500)[var_v0];
+                temp_v0 = (&gBonusSceneHandle)[var_v0];
                 if (temp_v0 != NULL) {
                     temp_v0_2 = M2C_FIELD(temp_v0, void **, 0x6C);
                     if (temp_v0_2 != NULL) {
@@ -68,7 +68,7 @@ __repair_literal = 0;
         }
     } else {
         var_s0 = 0;
-        if ((arg2 != NULL) && (arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&D_8010A500 + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
+        if ((arg2 != NULL) && (arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusSceneHandle + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
             var_s0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {

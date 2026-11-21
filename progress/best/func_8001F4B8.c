@@ -31,11 +31,11 @@ extern ActionEntry D_800C4480[];
 extern s32 D_80102EBC;
 extern ActionOptions *sActiveMenu;
 extern ActionState *gMenuState;
-extern s32 D_8010A500[];
+extern s32 gBonusSceneHandle[];
 
 s32 func_8001F4B8(u16 slot, s32 action)
 {
-    s32 object = D_8010A500[slot];
+    s32 object = gBonusSceneHandle[slot];
     s32 index;
     void (*invoke)(s32);
     ActionState *state;

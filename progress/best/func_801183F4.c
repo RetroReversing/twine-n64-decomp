@@ -9,7 +9,7 @@ extern u8 gSceneType;
 extern s32 D_801002B4;
 extern void *D_80102CD0[4];
 extern void *D_8010A410;
-extern void *D_8010A500[4];
+extern void *gBonusSceneHandle[4];
 extern u16 D_800BF688[];
 extern s32 D_8011ECB0[];
 extern s32 sProbeFlags[];
@@ -54,7 +54,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     if(best1<=0) best1=1;
     i=0;
     for(entry=0;entry<4;entry++) {
-        if(!(candidate = D_8010A500[entry]) || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
+        if(!(candidate = gBonusSceneHandle[entry]) || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
         p=*(void **)((u8 *)candidate+0x6c);
         if(*(u16 *)((u8 *)candidate+0x78)==0x4d || *(u16 *)((u8 *)candidate+0x78)==0x61) continue;
         v=*(u8 *)((u8 *)sub->field_b4+0x12);
@@ -64,16 +64,16 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         scale=*(f32 *)((u8 *)flags);
         state=*(u8 *)((u8 *)sub->field_b4+0x12);
         if(gSceneType>=2 && gSceneType<=3) {
-            if(sProbeFlags[state] == D_8010A500[entry]) tmp*=0.33333334f;
+            if(sProbeFlags[state] == gBonusSceneHandle[entry]) tmp*=0.33333334f;
         }
-        if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)D_8010A500[entry]+0x74));
+        if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)gBonusSceneHandle[entry]+0x74));
         if(n&2) {
             v=*(s16 *)((u8 *)((void **)D_80102CD0)[entry]+0xc);
             if(v<=0) v=1;
             tmp=tmp/((f32)v/(f32)best1);
         }
         if(n&8 && i==D_8011F100[*(s8 *)((u8 *)sub+0x182)]) tmp*=0.25f;
-        if(tmp<0.0f) { best1=*(s32 *)D_8010A500[entry]; fallback=best1; }
+        if(tmp<0.0f) { best1=*(s32 *)gBonusSceneHandle[entry]; fallback=best1; }
         if(tmp<100.0f) {
             if(tmp<6.0f) goto scan_select;
             if(!(n&1)) {

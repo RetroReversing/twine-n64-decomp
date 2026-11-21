@@ -27,7 +27,7 @@ extern char D_800C7EC4[];
 extern char D_800E1A70[];
 extern u8 gTrackDoneFlags[];
 extern s32 D_80109B98;
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 extern char D_8010D380[];
 extern char D_8010D2C0[];
 
@@ -85,7 +85,7 @@ s32 __repair_argument;
     }
         if (temp_v0_7 == M2C_FIELD(temp_s1, s32 *, 0x18)) {
             temp_s3 = M2C_FIELD(temp_s1, void **, 4);
-            if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && (func_80045590(temp_s1 + 8, D_8010A500 + 0x24) > (2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)))) {
+            if ((M2C_FIELD(temp_s1, f32 *, 0xC) != 65536.0f) && (func_80045590(temp_s1 + 8, gBonusSceneHandle + 0x24) > (2.0f * M2C_FIELD(temp_s1, f32 *, 0x28)))) {
                 var_s0 = func_80015DAC();
                 if (var_s0 != NULL) {
 do {

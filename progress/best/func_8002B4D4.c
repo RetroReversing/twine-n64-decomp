@@ -42,9 +42,9 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         D_800BF5BC->b82 = 0xFF;
         *(volatile f32 *)&D_800BF5BC->f24 = 0.015f;
         *(volatile f32 *)&D_800BF5BC->f28 = 0.02f;
-        D_800BF5BC->f2C = 0.1f;
-        D_800BF5BC->w3C = 0;
-        D_800BF5BC->w40 = 0;
+        *(volatile f32 *)&D_800BF5BC->f2C = 0.1f;
+        *(volatile s32 *)&D_800BF5BC->w3C = 0;
+        *(volatile s32 *)&D_800BF5BC->w40 = 0;
         *(volatile f32 *)&D_800BF5BC->f44 = 0.1f;
         D_800BF5BC->f54 = scale;
         func_80064318(*p, kind);

@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 f32 approxDistance(void *, void *);                  /* extern */
-extern void *D_8010A500;
+extern void *gBonusSceneHandle;
 
 void func_80119D28(void *arg0) {
     f32 temp_fv1;
@@ -13,7 +13,7 @@ void func_80119D28(void *arg0) {
     void *temp_v0;
 
     var_s2 = 0;
-    var_s1 = &D_8010A500;
+    var_s1 = &gBonusSceneHandle;
     (*(u16 *)((char *)(arg0) + 0x7C)) = (u16) ((*(u16 *)((char *)(arg0) + 0x7C)) + 1);
     do {
         temp_a0 = *var_s1;

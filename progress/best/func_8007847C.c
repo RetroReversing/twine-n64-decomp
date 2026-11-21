@@ -51,7 +51,7 @@ void *func_8007847C(void *arg0) {
     if (temp_v1 == 0x1E) {
         if ((D_80117408 <= (f32) M2C_FIELD(temp_s5, s16 *, 0x74)) && (var_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0), (var_v1 != NULL))) {
             for (;;) {
-                if ((M2C_FIELD(var_v1, u16 *, 0x78) != 1) || (var_v0 = var_v1, ((M2C_FIELD(M2C_FIELD(var_v1, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x600000))) {
+                if ((M2C_FIELD(var_v1, u16 *, 0x78) != 1) || ((M2C_FIELD(M2C_FIELD(var_v1, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x600000)) {
                     var_v1 = M2C_FIELD(var_v1, void **, 0);
                     if (var_v1 != NULL) {
                         continue;
@@ -64,13 +64,13 @@ void *func_8007847C(void *arg0) {
             goto block_49;
         }
         /* Duplicate return node #50. Try simplifying control flow for better match */
-        return var_v0;
+        return var_v1;
     }
     if (temp_v1 == 0x1F) {
         __repair_phase_storage.pointer = M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), void **, 0);
         if (__repair_phase_storage.pointer != NULL) {
             for (;;) {
-                if ((M2C_FIELD(__repair_phase_storage.pointer, u16 *, 0x78) != 1) || (var_v0 = __repair_phase_storage.pointer, ((M2C_FIELD(M2C_FIELD(__repair_phase_storage.pointer, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x800000))) {
+                if ((M2C_FIELD(__repair_phase_storage.pointer, u16 *, 0x78) != 1) || ((M2C_FIELD(M2C_FIELD(__repair_phase_storage.pointer, void **, 0x6C), s32 *, 0x88) & 0x01E00000) != 0x800000)) {
                     __repair_phase_storage.pointer = M2C_FIELD(__repair_phase_storage.pointer, void **, 0);
                     if (__repair_phase_storage.pointer == NULL) {
                         return NULL;
@@ -80,7 +80,7 @@ void *func_8007847C(void *arg0) {
                 break;
             }
             /* Duplicate return node #50. Try simplifying control flow for better match */
-            return var_v0;
+            return __repair_phase_storage.pointer;
         }
         goto block_48;
     }

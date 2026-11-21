@@ -33,7 +33,7 @@ extern M2C_UNK D_800C46D8;
 extern M2C_UNK D_800C46DA;
 extern M2C_UNK D_800E0ECC;
 extern M2C_UNK D_800E0ED4;
-extern M2C_UNK D_8010A500;
+extern M2C_UNK gBonusSceneHandle;
 extern s32 gMenuList;
 extern u16 gMenuMode;
 extern u8 gMenuSlot;
@@ -62,7 +62,7 @@ void menuHandleSelection(void) {
     if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             temp_s2 = func_8002A980(gMenuList);
-            if (*(&D_8010A500 + (gMenuSlot * 4)) != 0) {
+            if (*(&gBonusSceneHandle + (gMenuSlot * 4)) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
                     temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
@@ -110,12 +110,12 @@ block_15:
                 case 0:                             /* switch 2 */
                     temp_a1 = M2C_FIELD(temp_v0_2, u8 *, 8);
                     *(&D_800E0ECC + (gMenuSlot * 2)) = (s16) temp_a1;
-                    temp_a0_2 = M2C_FIELD(*(&D_8010A500 + (gMenuSlot * 4)), void **, 0x6C);
+                    temp_a0_2 = M2C_FIELD(*(&gBonusSceneHandle + (gMenuSlot * 4)), void **, 0x6C);
                     if (*(&D_800C469E + ((temp_a1 & 0xFFFF) * 0xE8)) == 0x21) {
                         M2C_FIELD(temp_a0_2, s8 *, 0x306) = (s8) (temp_a1 - 0x21);
                     }
                     temp_a2 = *((gMenuSlot * 2) + &D_800E0ECC);
-                    func_8007089C(*((gMenuSlot * 4) + &D_8010A500), 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &D_8010A500);
+                    func_8007089C(*((gMenuSlot * 4) + &gBonusSceneHandle), 0, (temp_a2 + M2C_FIELD((temp_a0_2 + (temp_a2 * 8)), u8 *, 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
                     if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
                         temp_v0_3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
                         M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;

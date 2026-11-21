@@ -17,25 +17,25 @@ extern void func_80028A7C(void);
 extern void func_80028E6C(void);
 extern void func_80028EC8(void);
 extern void func_80028F90(void);
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern u8 gMenuSlot;
-extern u8 D_800BD691;
+extern u8 gMenuParamB;
 extern void *sActiveMenu;
 extern void *gMenuState;
 
-void func_80027260(void *arg0) {
-    s32 temp_a1;
-    void *temp_v1;
+/* Loads the menu's state data into globals and calls the handler for its state id, unless the menu's flag bit 0 is set. */ void dispatchMenuState(void *menu) {
+    s32 stateId;
+    void *stateData;
 
-    if (!(*(s32 *)((u8 *)arg0 + 0x60) & 1)) {
-        temp_v1 = *(void **)((u8 *)arg0 + 0x6C);
-        temp_a1 = *(s16 *)((u8 *)arg0 + 0x7A);
-        gMenuSlot = *(u8 *)((u8 *)temp_v1 + 4);
-        D_800BD691 = *(u8 *)((u8 *)temp_v1 + 5);
-        D_800BD68E = *(u8 *)((u8 *)temp_v1 + 6);
-        sActiveMenu = arg0;
-        gMenuState = temp_v1;
-        switch (temp_a1) {
+    if (!(*(s32 *)((u8 *)menu + 0x60) & 1)) {
+        stateData = *(void **)((u8 *)menu + 0x6C);
+        stateId = *(s16 *)((u8 *)menu + 0x7A);
+        gMenuSlot = *(u8 *)((u8 *)stateData + 4);
+        gMenuParamB = *(u8 *)((u8 *)stateData + 5);
+        gMenuParamC = *(u8 *)((u8 *)stateData + 6);
+        sActiveMenu = menu;
+        gMenuState = stateData;
+        switch (stateId) {
         case 0:
             func_80027E00();
             break;

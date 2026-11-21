@@ -89,7 +89,7 @@ extern s32 gBorderSkipFlag;
 extern s8 D_80103EB0;
 extern s32 D_80108F78;
 extern M2C_UNK gTrackMarkerTable;
-extern u8 D_8010A4C2;
+extern u8 gSceneFlagsB;
 extern M2C_UNK D_8011508B;
 void func_80069DCC(void *arg0) {
 volatile s32 unused_stack[4];
@@ -1327,7 +1327,7 @@ func_800635BC(arg0, 0);
 temp_v1_33 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_33, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_33, u8 *, 0xE);
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u16 *, 0x134);
-D_8010A4C2 |= 0x21;
+gSceneFlagsB |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
 temp_v0_10 = *(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
 M2C_FIELD(arg0, f32 *, 0x30) = (f32) M2C_FIELD(arg0, f32 *, 0x24);

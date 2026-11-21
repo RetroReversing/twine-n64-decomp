@@ -30,7 +30,8 @@ void func_8006F974(void *arg0, void *arg1) {
 #define sp38 out[0]
 #define sp3C out[1]
 #define sp40 out[2]
-    M2C_UNK sp48; volatile u32 padding[2];
+    struct { M2C_UNK sp48; u32 padding[2]; } local;
+#define sp48 local.sp48
     f32 temp_fv1;
     f32 var_fs0;
     f32 var_fs1;
@@ -65,7 +66,7 @@ void func_8006F974(void *arg0, void *arg1) {
             var_fs2 = 0.0f;
 block_7:
             temp_a0 = M2C_FIELD(arg1, u16 *, 0x78);
-            if (((temp_a0 == 1) | (temp_a0 == 0x4C)) != 0) {
+            if ((temp_a0 == 1) || (temp_a0 == 0x4C)) {
                 var_s2 = M2C_FIELD(arg1, void **, 0x6C);
                 if ((func_8008194C(M2C_FIELD(temp_a1, s8 *, 0x182), 0xE) == 0) && (M2C_FIELD(arg1, u16 *, 0x78) == 0x4C)) {
                     M2C_FIELD(arg1, f32 *, 0x74) = -30.0f;

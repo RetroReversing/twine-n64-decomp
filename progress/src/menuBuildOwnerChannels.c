@@ -26,7 +26,7 @@ extern s32 D_801003E0;
 extern s32 D_801093A8;
 extern void *gMenuState;
 extern u8 D_80109D28[];
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 extern s32 func_8001E898;
 extern s32 func_8001EAF0;
 
@@ -48,7 +48,7 @@ extern s32 func_8001EAF0;
     D_800B60EA = 1;
     gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    owner = *(&D_8010A500 + gMenuSlot);
+    owner = *(&gBonusSceneHandle + gMenuSlot);
     found = (s32)NULL;
     if (owner != NULL) {
         rec = (*(void **)((char *)(owner) + 0x6C));

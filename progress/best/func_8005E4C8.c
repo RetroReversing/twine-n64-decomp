@@ -16,7 +16,7 @@ f32 approxDistance();
 s8 func_8005EF84();
 extern f64 D_800D4190;
 extern u8 gTrackDoneFlags[];
-extern void *D_8010A500;
+extern void *gBonusSceneHandle;
 
 s8 func_8005E4C8(void *arg0) {
     u32 i;
@@ -34,7 +34,7 @@ s8 func_8005E4C8(void *arg0) {
     i = 0;
     temp_fs0 = D_800D4190;
     for (; i < 4; i++) {
-        p = (void **) &D_8010A500 + i;
+        p = (void **) &gBonusSceneHandle + i;
         e = *p;
         if (e == NULL) {
             continue;

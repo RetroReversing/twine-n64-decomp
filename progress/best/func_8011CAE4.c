@@ -17,7 +17,7 @@ extern s32 D_800BD644;
 extern s32 D_800BD650;
 extern s32 D_800BD678;
 extern s32 gBorderMode;
-extern M2C_UNK D_8010A500;
+extern M2C_UNK gBonusSceneHandle;
 extern u8 D_8011F118[];
 extern M2C_UNK D_8011F150;
 extern M2C_UNK D_8011F338;
@@ -45,7 +45,7 @@ void func_8011CAE4(void) {
         __base_D_8011F338 = &D_8011F338;
         temp_s0 = (void *)*(temp_s4 + ((__repair_i * 4) + __base_D_8011F338));
         if (temp_s0 != NULL) {
-        actorSteerTowardTarget(temp_s0, ((u32 *) &D_8010A500)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);
+        actorSteerTowardTarget(temp_s0, ((u32 *) &gBonusSceneHandle)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);
         temp_v1 = M2C_FIELD((&D_8011F150)[__repair_i], s16 *, 0x7C);
         switch (temp_v1) {                  /* irregular */
         case 0:

@@ -1,9 +1,9 @@
 typedef struct { char pad[0x68]; void *a; void *b; } Obj;
-extern Obj *D_8010A500[];
+extern Obj *gBonusSceneHandle[];
 extern s16 D_800E0ECC[], D_800E0ED4[];
 extern u8 func_80070844(void *, s32);
 void func_8001E7A4(u16 i) {
- Obj *p = D_8010A500[i];
+ Obj *p = gBonusSceneHandle[i];
  void *q;
  if (p != 0) {
   q = p->b;

@@ -17,7 +17,7 @@ M2C_UNK func_800067C8();                            /* extern */
 M2C_UNK func_800072B8();                            /* extern */
 M2C_UNK func_80007958();                            /* extern */
 M2C_UNK func_8000A310();                            /* extern */
-M2C_UNK func_8000CA3C();                            /* extern */
+M2C_UNK beginSceneTransition();                            /* extern */
 M2C_UNK func_8000D000();                            /* extern */
 M2C_UNK func_8001ED10();                            /* extern */
 M2C_UNK func_80026F84(M2C_UNK);                     /* extern */
@@ -210,7 +210,7 @@ block_37:
         }
         break;
     case 16:
-        func_8000CA3C();
+        beginSceneTransition();
         return;
     case 12:
         var_fv0 = -0.06666667f;

@@ -19,7 +19,7 @@ extern s8 D_800B7CEC;
 extern u8 gMenuSlot;
 extern void * volatile D_80109698;
 extern s32 gBootState;
-extern M2C_UNK D_8010A500;
+extern M2C_UNK gBonusSceneHandle;
 
 void func_800217F4(void) {
     void *temp_v0;
@@ -28,7 +28,7 @@ void func_800217F4(void) {
 
     gBootState = 1;
     D_800B7CEC = 1;
-    if ((*(&D_8010A500 + gMenuSlot) != 0) && (D_800B7CE4 == NULL)) {
+    if ((*(&gBonusSceneHandle + gMenuSlot) != 0) && (D_800B7CE4 == NULL)) {
         temp_v0 = func_80083E90(0x60, 0);
         D_800B7CE4 = temp_v0;
         if ((temp_v0 != NULL) && ((func_8003C7E8(temp_v0, 0), (M2C_FIELD(D_800B7CE4, void **, 0x20) != NULL)) || (temp_v0_2 = func_80083E90(0x68, 1), M2C_FIELD(D_800B7CE4, void **, 0x20) = temp_v0_2, (temp_v0_2 != NULL)))) {

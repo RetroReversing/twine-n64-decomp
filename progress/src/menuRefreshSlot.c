@@ -39,7 +39,7 @@ extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
 extern void *gMenuState;
 extern M2C_UNK D_80109D28;
-extern M2C_UNK D_8010A500;
+extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
 
@@ -63,7 +63,7 @@ void menuRefreshSlot(void) {
     D_800B60E4 = &D_801003E0;
     (*(u16 *)&gMenuMode) = 0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_v0 = *((M2C_UNK *)((s8 *)&D_8010A500 + (gMenuSlot * 4)));
+    temp_v0 = *((M2C_UNK *)((s8 *)&gBonusSceneHandle + (gMenuSlot * 4)));
     var_s4 = NULL;
     if (temp_v0 != NULL) {
         temp_s5 = M2C_FIELD(temp_v0, s32 *, 0x6C);

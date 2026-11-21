@@ -17,7 +17,7 @@ extern s32 D_8010302C;
 extern s32 gTrackMarkerTable;
 extern void *D_8010969C;
 extern u8 gBorderFlipFlag;
-extern s32 D_8010A500;
+extern s32 gBonusSceneHandle;
 extern u8 D_8010D2C0[];
 extern s32 D_8010D2CC;
 extern s32 D_8010D38C;
@@ -127,7 +127,7 @@ block_51:
                 (*(s32 *)((char *)(temp_s1) + 8)) = var_a1;
                 (*(s32 *)((char *)(temp_s1) + 0xC)) = __repair_store_1;
                 (*(s32 *)((char *)(temp_s1) + 0x10)) = __repair_store_2;
-                temp_fv0 = func_80045590(temp_s1 + 8, D_8010A500 + 0x24);
+                temp_fv0 = func_80045590(temp_s1 + 8, gBonusSceneHandle + 0x24);
                 (*(f32 *)((char *)(temp_s1) + 0x28)) = temp_fv0;
                 if (temp_fv0 < 4.0f) {
                     (*(f32 *)((char *)(temp_s1) + 0x28)) = 4.0f;

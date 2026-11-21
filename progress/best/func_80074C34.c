@@ -22,7 +22,7 @@ extern char D_80100314[];
 extern void *D_80100B20;
 extern s32 D_8010302C;
 extern s32 D_80109688;
-extern char *D_8010A500;
+extern char *gBonusSceneHandle;
 extern u8 D_8010D294;
 extern s16 D_80112EBC;
 
@@ -100,7 +100,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
                                 M2C_FIELD(__repair_phase_storage.pointer, s32 *, 8) = __repair_store_0;
                                 M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0xC) = __repair_store_1;
                                 M2C_FIELD(__repair_phase_storage.pointer, s32 *, 0x10) = __repair_store_2;
-                                temp_fv0 = func_80045E34(__repair_phase_storage.pointer + 8, D_8010A500 + 0x24);
+                                temp_fv0 = func_80045E34(__repair_phase_storage.pointer + 8, gBonusSceneHandle + 0x24);
                                 M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x28) = temp_fv0;
                                 if (temp_fv0 < 4.0f) {
                                     M2C_FIELD(__repair_phase_storage.pointer, f32 *, 0x28) = 4.0f;

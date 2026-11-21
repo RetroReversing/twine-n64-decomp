@@ -19,7 +19,7 @@ M2C_UNK func_80048734(f32);                     /* extern */
 M2C_UNK func_80086424();                            /* extern */
 extern s8 gTransitionPhase;
 extern s8 D_800CA338;
-extern s8 D_800E0742;
+extern s8 gSceneObjectsLoaded;
 extern s8 D_800E0745;
 extern u8 D_80102EE0;
 extern s32 D_80102EEC;
@@ -30,7 +30,7 @@ void func_8000C97C(void) {
     gTransitionPhase = 0;
     D_800CA338 = 0;
     func_80048734(60.0f);
-    if (D_800E0742 == 0) {
+    if (gSceneObjectsLoaded == 0) {
         if (D_800E0745 == 0) {
             func_80045130(D_80102EE0);
         }
@@ -41,7 +41,7 @@ void func_8000C97C(void) {
         func_800066A0(4);
         return;
     }
-    if (D_800E0742 == 0) {
+    if (gSceneObjectsLoaded == 0) {
         func_800066A0(1);
         return;
     }
