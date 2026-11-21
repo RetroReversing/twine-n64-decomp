@@ -75,7 +75,7 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s4;
                         var_s4 = func_800988D8(temp_s2);
                     } else {
-                        *(&D_8010D734 + ((var_s5 & 0xFF) * 0x1A0)) = M2C_FIELD(var_s1, s32 *, 0x60);
+                        M2C_FIELD(&D_8010D734, s32 *, (var_s5 & 0xFF) * 0x1A0) = M2C_FIELD(var_s1, s32 *, 0x60);
                         M2C_FIELD(var_s1, s32 *, 0x14) = var_s5;
                     }
                     var_s5 = M2C_FIELD(var_s1, s32 *, 0x60);
