@@ -13,9 +13,10 @@ void func_8008863C(void) {
     switch (sDataBanks[i].flags) {
     case 1:
      if (sDataBanks[i].f11DD == 2) {
+      { f32 value = ((f32)sDataBanks[i].f11A0 * 160.0f) / (f32)((s32)sDataBanks[i].d4 < 0 ? (double)(s32)sDataBanks[i].d4 + D_800D66D0 : (double)(s32)sDataBanks[i].d4);
       sDataBanks[i].dc = 0;
       sDataBanks[i].flags = 2;
-      sDataBanks[i].e0 = ((f32)sDataBanks[i].f11A0 * 160.0f) / (f32)((s32)sDataBanks[i].d4 < 0 ? (double)(s32)sDataBanks[i].d4 + D_800D66D0 : (double)(s32)sDataBanks[i].d4);
+      sDataBanks[i].e0 = value; }
       func_8009D9B8(o);
       o->ret = startAudioVoice(sDataBanks[i].c4, sDataBanks[i].p10, sDataBanks[i].p14, sDataBanks[i].d4, sDataBanks[i].c1, sDataBanks[i].c2, sDataBanks[i].c3, sDataBanks[i].d9, (s32)&func_80088EE4, i);
       if (o->ret == -1) {

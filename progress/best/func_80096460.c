@@ -37,26 +37,31 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
         temp_t0 = temp_a3 & 0xFF;
         if (temp_t0 < 0x40U) {
             __base_D_800EE420 = D_800EE420;
+            __base_D_800EE420 = D_800EE420;
             temp_v1 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420) + (temp_a3 & 0x1F);
             var_v1 = M2C_FIELD(temp_v1, u8 *, 0x20);
             var_v0_3 = M2C_FIELD(temp_v1, u8 *, 0) << 7;
             goto block_19;
         }
         if ((u32) ((temp_a3 + 0x80) & 0xFF) < 2U) {
+            __base_D_800EE420 = D_800EE420;
             var_v1_2 = (void *)(((arg1 & 0xFF) * 0x86)); var_v1_2 = (void *)((char *)var_v1_2 + (s32)(((temp_a2 * 0x860) + __base_D_800EE420)));
             goto block_18;
         }
         if ((u32) ((temp_a3 + 0x7C) & 0xFF) < 2U) {
+            __base_D_800EE420 = D_800EE420;
             var_v1_2 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420);
             goto block_18;
         }
         if (temp_t0 < 0x46U) {
+            __base_D_800EE420 = D_800EE420;
             var_v0_2 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420) + temp_t0;
             return -((u8) *var_v0_2 >= 0x40U) & 0x3FFF;
         }
         if ((u32) ((temp_a3 - 0x60) & 0xFF) < 6U) {
             return 0;
         }
+        __base_D_800EE420 = D_800EE420;
         var_v0 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __base_D_800EE420) + temp_t0;
         return *var_v0 << 7;
     }
@@ -64,12 +69,15 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2) {
     if (temp_a2_2 < 0x40U) {
         __base_D_800F2720 = D_800F2720;
         
+        __base_D_800F2720 = D_800F2720;
         var_v1 = M2C_FIELD((((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + (temp_a3 & 0x1F)), u8 *, 0x20);
+        __base_D_800F2720 = D_800F2720;
         var_v0_3 = M2C_FIELD((((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + (temp_a3 & 0x1F)), u8 *, 0) << 7;
         goto block_19;
     }
     temp_a2 = arg1 & 0xFF;
     if (((u32) ((temp_a3 + 0x80) & 0xFF) < 2U) || (temp_a2 = arg1 & 0xFF, (((u32) ((temp_a3 + 0x7C) & 0xFF) < 2U) != 0))) {
+        __base_D_800F2720 = D_800F2720;
         var_v1_2 = (temp_a2 * 0x86) + __base_D_800F2720;
 block_18:
         temp_v1 = var_v1_2 + (temp_a3 & 0xFE);
@@ -79,12 +87,15 @@ block_19:
         return var_v1 | var_v0_3;
     }
     if (temp_a2_2 < 0x46U) {
+        __base_D_800F2720 = D_800F2720;
         var_v0_2 = ((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + temp_a2_2;
         return -((u8) *var_v0_2 >= 0x40U) & 0x3FFF;
     }
     if ((u32) ((temp_a3 - 0x60) & 0xFF) < 6U) {
         return 0;
     }
+    __base_D_800F2720 = D_800F2720;
     var_v0 = ((arg1 & 0xFF) * 0x86) + __base_D_800F2720 + temp_a2_2;
     return *var_v0 << 7;
 }
+

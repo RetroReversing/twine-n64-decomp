@@ -11,9 +11,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80097194();
+s32 releaseCountedEntry();
 s32 releaseSceneGroupRef();
-s32 func_80097704();
+s32 releaseSortedEntry();
 s32 func_80097B1C();
 s32 func_80097E14();
 s32 func_8009811C();
@@ -77,14 +77,14 @@ s32 popAndUnloadSceneGroup(void) {
         cursorC = groupC;
         while ((idC = *(u16 *)cursorC) != 0xFFFF) {
             cursorC += 2;
-            func_80097704(idC);
+            releaseSortedEntry(idC);
         }
         groupD = (void *) ((((SceneGroupRecord*)group)->listOffsetD) + (s32) group);
         groupD = (char *)groupD + 8;
         cursorD = groupD;
         while ((idD = *(u16 *)cursorD) != 0xFFFF) {
             cursorD += 2;
-            func_80097194(idD);
+            releaseCountedEntry(idD);
         }
         groupE = (void *) ((((SceneGroupRecord*)group)->listOffsetE) + (s32) group);
         groupE = (char *)groupE + 8;

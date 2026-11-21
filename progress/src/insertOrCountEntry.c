@@ -1,7 +1,7 @@
 s32 workerLockAcquire();
 s32 workerLockRelease();
-extern s32 gCountedEntryCount;
-extern char D_800F7958[];
+extern s32 gCountedEntryTotal;
+extern char sCountedEntries[];
 extern char D_800F795C[];
 extern char D_800F7960[];
 typedef struct { s32 w[2]; } __repair_words2;
@@ -14,7 +14,7 @@ s32 insertOrCountEntry(u16 key, s32 value) {
     void *srcEntry, *dstEntry;
 
     workerLockAcquire();
-    entryCount = gCountedEntryCount;
+    entryCount = gCountedEntryTotal;
     insertIndex = 0;
 __repair_literal = 0;
     if (entryCount > __repair_literal) {
@@ -27,10 +27,10 @@ loop_2:
             if (insertIndex < entryCount) goto loop_2;
         }
         entryCount = insertIndex * 8;
-        if (insertIndex < gCountedEntryCount) {
+        if (insertIndex < gCountedEntryTotal) {
             if (*(u16 *)(D_800F795C + entryCount) != keyValue) {
-                shiftIndex = gCountedEntryCount - 1;
-                if (gCountedEntryCount < 0x800) {
+                shiftIndex = gCountedEntryTotal - 1;
+                if (gCountedEntryTotal < 0x800) {
                     shiftOffset = shiftIndex * 8;
                     if (shiftIndex >= insertIndex) {
                         dstEntry = shiftOffset + D_800F7960;
@@ -42,7 +42,7 @@ loop_2:
                             srcEntry -= 8;
                         } while (shiftIndex >= insertIndex);
                     }
-                    nextCount = gCountedEntryCount + 1;
+                    nextCount = gCountedEntryTotal + 1;
                     goto block_15;
                 }
                 goto block_14;
@@ -53,7 +53,7 @@ loop_2:
         goto block_13;
     }
 block_13:
-    currentCount = gCountedEntryCount;
+    currentCount = gCountedEntryTotal;
     if (currentCount < 0x800) {
         nextCount = currentCount + 1;
         goto block_15;
@@ -62,10 +62,10 @@ block_14:
     workerLockRelease();
     return 0;
 block_15:
-    gCountedEntryCount = nextCount;
+    gCountedEntryTotal = nextCount;
     newCount = insertIndex * 8;
     *(u16 *)(D_800F795C + newCount) = key;
-    *(s32 *)(D_800F7958 + newCount) = value;
+    *(s32 *)(sCountedEntries + newCount) = value;
     *(u16 *)(D_800F795C + 2 + newCount) = 1;
     workerLockRelease();
     return 1;

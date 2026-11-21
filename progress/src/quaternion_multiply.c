@@ -2,6 +2,7 @@ typedef struct {
     f32 x, y, z, w;
 } Quaternion46538;
 
+/* Hamilton product of two quaternions (a * b), written to out. */
 void quaternion_multiply(const Quaternion46538 *a, const Quaternion46538 *b, Quaternion46538 *out)
 {
     f32 aw = a->w, bx = b->x, az = a->z, ax = a->x;

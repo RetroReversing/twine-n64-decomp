@@ -1,4 +1,4 @@
-s32 func_800986CC(const u16 *left, const u16 *right) {
+s32 compareU16Key(const u16 *left, const u16 *right) {
     return *left - *right;
 }
 s32 func_800986DC(const u16 *left, const u16 *right) {

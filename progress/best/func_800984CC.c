@@ -34,13 +34,13 @@ u32 func_8008EF18(s32 arg0) {
 s32 *func_800956E0(s16 *, s32 *, s32, s32, s32 *); /* extern */
 extern volatile s16 D_800F38C8;
 extern s32 *D_800F38CC;
-extern volatile s32 gCountedEntryCount;
+extern volatile s32 gCountedEntryTotal;
 extern s32 D_800F7958;
 extern s32 func_800986DC;
 
 s32 func_800984CC(s16 arg0) {
     volatile s16 *__base_D_800F38BC;
-    s32 size = gCountedEntryCount;
+    s32 size = gCountedEntryTotal;
     s32 ret;
     s32 *temp_v0;
 

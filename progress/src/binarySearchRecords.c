@@ -1,0 +1,1 @@
+s32 binarySearchRecords(s32 arg0,s32 arg1,s32 arg2,s32 arg3,s32 (*arg4)(s32,s32)) { s32 p, lower, mid, cmp, hi, lo, sum; if (arg2 != 0) { lo=1; hi=arg2; do { mid=(lo+hi)>>1; lower=mid-1; p=arg1+arg3*lower; cmp=arg4(arg0,p); if (cmp==0) return p; if (cmp<0) hi=lower; else lo=mid+1; sum=lo+hi; } while (hi>=lo); } return 0; }

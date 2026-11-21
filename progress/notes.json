@@ -63248,5 +63248,104 @@
   "score_before": 2660,
   "score_after": 2660,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
+ },
+ {
+  "function": "func_80074820",
+  "text": "A one-off full rewrite compiled at 5735, worse than the historical best 4595. It exposed that the current draft doesn't preserve byte-load/control-flow shape around the first punctuation scanner loop (first mismatch target lbu $a0,($s0), candidate lbu $v1,($s0)); revert to saved_best/current 4595. Earlier agents report 8 no-improvement compiles. Next step: recover saved 4595 source and target first scanner block, then change only its input byte-load signedness/live value to retain target's lbu $a0 before punctuation tests.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239013.268142,
+  "score_before": 5735,
+  "score_after": 5735,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:abd698301377246e6224676850ccf0de94925357064461bf3fdf677ad03e9645"
+ },
+ {
+  "function": "func_8001ED10",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 52; 21 differing rows (1 register, 8 operand, 6 reordered, 3 inserted, 3 deleted; advisory).\nTarget: lui $at, %hi(D_801002AC)\nCandidate: lui $v0, %hi(D_801002C4)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beqz $v0, 0x1bc\n  = addiu $v0, $zero, 1\ni T: lui $at, %hi(D_801002AC) | C: lui $v0, %hi(D_801002C4)\no T:  | C: lw $v0, %lo(D_801002C4)($v0)\no T:  | C: lui $v1, %hi(D_801002C8)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest 855 (rev 5b98137b3d9507f6b5ac): declare D_800BD680 as s16[], D_8010019C as 24-byte-stride struct array, D_800C3CF8 as 12-byte-stride struct array {u16 *p;...}, and put D_801002A4.. (A4,AC,AD,B4,C4,C8,CC,D0) as fields of one struct based at D_801002A4 (fixes frame/saved regs and loop order). Remaining: only scheduling \u2014 target keeps the 3 byte stores (AC,A3,AD) before loads of C4/C8, and loads slot count after D0 store; mine hoists the loads. Tried volatile, const-address stores, statement reorders: no help. Next: try making stores' struct-ness/alias differ (e.g. A3 and AC/AD in a different struct type than C4/C8).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795239010.49773,
+  "score_before": 1763,
+  "score_after": 855,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4271dc092aca8d2871733b520d28b2514bd9025f2424aca94858adc1e6a3849f"
+ },
+ {
+  "function": "func_8008D138",
+  "text": "Saved best C is malformed (parse error before else; loop_3 and block_30 undefined), preventing bounded local repairs. A structured C rewrite compiled but scored 17524 vs saved best 3738. Saved best rechecks at 3738. Target entry has frame -0xa8 and incoming argument staging; exploratory rewrite frame -0xb0 and differs broadly in call/control flow. No useful new matching discovery.\nStructured loop rewrite compiled at 17524, much worse than saved best 3738; original candidate fails to compile due malformed goto/loop labels.\nSaved best rechecked 3738; rewrite 17524.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795239027.918648,
+  "score_before": 3738,
+  "score_after": 3738,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f111ff44f43d0621fab5ea0ce96079a4b9705bad352980807567bf28f04732c8"
+ },
+ {
+  "function": "func_8008863C",
+  "text": "Concurrent progress changed during repair. Baseline 3175 improved to 2510 by explicit D_800D66D0 conversion and calculating float before the two stores. Target still hoists field addresses and has fewer instructions.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795239032.359112,
+  "score_before": 3230,
+  "score_after": 2510,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "The judge gave the move-on signal after seven attempts without improvement. The typed float-pointer alias and separate animation calls improved the saved baseline from 676 to 531. Moving the alias into a nested block emitted the same instructions. The s4 save and s3 copy are still missing.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239034.4466429,
+  "score_before": 145,
+  "score_after": 145,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
+ },
+ {
+  "function": "func_8007C3F0",
+  "text": "The draft has a reserved 2-float array and prior history identifies the best 1658 candidate after using 4 floats. I tried replacing the arrays with sp14[4], but the current rechecked score was 5674 and it introduced unmatched local rodata relocations; it was far worse than the historical best 3384 in this context. Recovered saved candidate. Next step: use prior 1658 source if available and inspect data relocations/constants first; avoid widening stack array alone.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239043.871382,
+  "score_before": 5674,
+  "score_after": 5674,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:631e54c8e5155faa6ad372dcad1fc71b0bfbb878581cf05cfab0716ec4928b12"
+ },
+ {
+  "function": "func_8000D6A0",
+  "text": "Rechecked 450 with the full target instruction count. Changing the rotation-matrix address to base plus stride then a separate 0x9C addition scored 565 in both typed-pointer and integer forms. Reversing the existing addition tied at 450. Judge reached move-on threshold.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239087.1156218,
+  "score_before": 450,
+  "score_after": 450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:82ccbcb7d88ac0533fb19e6f2d4ad32c2f2e9ac45eb6225cb1fb8bcd398d8029"
+ },
+ {
+  "function": "func_8007847C",
+  "text": "Current saved candidate reverified at score 2925. Adding unused void *frame_reserve[2] worsened to 2958 (frame target 0x38 vs candidate 0x40); recovered baseline. Local repair trials with branch orientation worsened to 3625 and 3515. Remaining first mismatch is the computed dispatch branch at target bne $v1,$v0,+0xb8 vs candidate +0xbc and later traversal control flow. Next step: investigate target's and/sltu zero-test loop form around this branch using source CFG and distinct loop structure; preserve 2925 baseline.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795239115.0420291,
+  "score_before": 2958,
+  "score_after": 2925,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:733c576d965ebb61fd7730a76e4e0fcec31c1c984c26c4a210681512686787ee"
+ },
+ {
+  "function": "func_800848EC",
+  "text": "Three local variants (unsigned var_a0, reversed conditional branch, explicit pointer temporary) all remained 3820 with no diff changes. Target saves arg2 in s0 and arg0 in s1; first mismatch is register/stack save pattern. Switch dispatch dominates the body.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795239115.270278,
+  "score_before": 3820,
+  "score_after": 3820,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2a250ad7fe98c692e3d34d63f14c1ffb90de3f468500681ed8fa162537f5ca14"
+ },
+ {
+  "function": "func_800179E8",
+  "text": "Typed-struct rewrite (Obj{pad[0x20];Inner*in}, Inner{pad[0x58];Link*list;pad[4];u16 stamp}, Link{next,pad,Obj*obj}) with volatile a0/a3/start spills and list[0x82]: 2377 (frame 0x250 matches, but a0 at 0x218 vs target 0x214 \u2014 target slots 0x214/0x21C/0x224 are 8-spaced; list[0x81] + padding volatiles, s64 volatiles gave 2415/10430). Without volatile spills: 2308 (a0/a3 kept in regs, frame 0x250 also matches). Not beating saved 2171. Next step: find what makes spill slots 8-apart (interleaved dead locals?) and target uses $t1 for reload of a3 compare and beql on 'if(l)' loops (2nd/3rd loops use for-style with i++ in delay slot after inner loop).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795239124.13358,
+  "score_before": 2502,
+  "score_after": 2308,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
+ },
+ {
+  "function": "create_player_state_objects",
+  "text": "Claim disappeared immediately after receipt; saved_best recovery and work packet failed. A simplified byte-addressed state load with combined condition scored 2295 (worse than prior 1715); it hoisted sSaveSlotInfo and lost s4 and D_8011EE4C base. Next step: recover prior candidate and retain nested branches while forcing the table address to be materialized within the loop.\n\nNested branch trial revision cf44ef3f42763113ae0a scored 1745; immediately afterward compile_patch rejected it as stale and reverted to earlier 2295 candidate ca5be227e98a4f73e844. The trial mistakenly used &D_8011EE4C-32 shorts; target offset is -0x20 bytes, so next test should use -16 shorts. Claim and candidate state are unstable.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795239097.545096,
+  "score_before": 873,
+  "score_after": 873,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
  }
 ]

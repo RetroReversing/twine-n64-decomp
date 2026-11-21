@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800956E0();
+s32 binarySearchRecords();
 extern s16 D_800F38E0;
 extern s32 D_800FD560;
 extern char D_800FD566[];
@@ -34,7 +34,7 @@ __repair_literal = 0;
         s32 *callback = &func_800986FC;
         var_s0 = 0;
         for (;;) {
-            var_v0 = func_800956E0(&D_800F38E0, *(s32 *)(D_800FD568 + var_s0), *(u16 *)(D_800FD566 + var_s0), 0xC, callback);
+            var_v0 = binarySearchRecords(&D_800F38E0, *(s32 *)(D_800FD568 + var_s0), *(u16 *)(D_800FD566 + var_s0), 0xC, callback);
             var_s1 += 1;
             if (var_v0 != 0) {
                 break;

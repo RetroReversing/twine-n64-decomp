@@ -7,7 +7,7 @@ extern void *D_800F38B4;
 extern s32 sKeyTableCount;
 extern Bank9835C sKeyTableSlots[];
 Hdr9835C *func_800956E0(void *, s32, s32, s32, void *);
-void func_800986CC(void);
+void compareU16Key(void);
 
 s32 func_8009835C(s16 arg0, Out9835C *out) {
     s32 i;
@@ -15,7 +15,7 @@ s32 func_8009835C(s16 arg0, Out9835C *out) {
 
     D_800F3894 = arg0;
     for (i = 0; i < sKeyTableCount; i++) {
-        h = func_800956E0(&D_800F3894, sKeyTableSlots[i].rom, sKeyTableSlots[i].size, 0x1C, func_800986CC);
+        h = func_800956E0(&D_800F3894, sKeyTableSlots[i].rom, sKeyTableSlots[i].size, 0x1C, compareU16Key);
         D_800F38B0 = h;
         if (h != NULL) {
             out->a = h->a;

@@ -4,12 +4,13 @@ extern E97704 sortedEntryValues[];
 void workerLockAcquire(void);
 void workerLockRelease(void);
 
-s32 func_80097704(u16 arg0) {
+/* Drops one reference to the sorted entry with the given id, under the worker lock. When the count reaches zero the entry is removed from the table; returns 1 if removed, else 0. */
+s32 releaseSortedEntry(u16 id) {
     s32 i, j;
 
     workerLockAcquire();
     for (i = 0; i < sortedEntryCount; i++) {
-        if (sortedEntryValues[i].id == arg0) {
+        if (sortedEntryValues[i].id == id) {
             break;
         }
     }

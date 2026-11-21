@@ -7,7 +7,7 @@ extern u8 D_8010086C;
 extern s32 sSlotLog;
 extern u16 D_800CEED0[];
 extern f64 D_800D6700, D_800D6708, D_800D6710;
-void func_80089C10(s32);
+void audioInitSlotPool(s32);
 void audioInitBufferPool(u16);
 void osCreateMesgQueue(void *, void *, s32);
 
@@ -31,6 +31,6 @@ void osCreateMesgQueue(void *, void *, s32);
     sSlotLog = gDataBankAlloc(gAudioSampleCount * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     sWorkerBusy = 0;
-    func_80089C10(gAudioSampleCount);
+    audioInitSlotPool(gAudioSampleCount);
     audioInitBufferPool(D_800CEED0[index] * rate);
 }

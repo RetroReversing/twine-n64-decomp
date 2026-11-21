@@ -9,7 +9,7 @@ void func_80045278(void *);
 void func_80045314(void *, void *, void *);
 void func_80045474(void *, void *, void *, void *);
 f32 randomFloatMinusOffset(f32, f32);
-f32 func_80045F44(void *, void *);
+f32 approxDistanceAlt(void *, void *);
 void func_80072390(void *, f32, void *);
 void *func_80083E90(s32, s32);
 void func_80084048(void *, s32);
@@ -57,12 +57,12 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
         *(s16 *) ((u8 *) temp_v0 + 0x78) = 0x1C;
         func_80045474(arg0, arg1, arg2, sp30);
         __base_D_800E1A38 = &D_800E1A38;
-        var_fs0 = func_80045F44(arg0, __base_D_800E1A38);
-        temp_fv0 = func_80045F44(arg1, __base_D_800E1A38);
+        var_fs0 = approxDistanceAlt(arg0, __base_D_800E1A38);
+        temp_fv0 = approxDistanceAlt(arg1, __base_D_800E1A38);
         if (temp_fv0 < var_fs0) {
             var_fs0 = temp_fv0;
         }
-        temp_fv0_2 = func_80045F44(arg2, __base_D_800E1A38);
+        temp_fv0_2 = approxDistanceAlt(arg2, __base_D_800E1A38);
         if (temp_fv0_2 < var_fs0) {
             var_fs0 = temp_fv0_2;
         }
