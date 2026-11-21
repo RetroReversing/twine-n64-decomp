@@ -24,14 +24,34 @@ inline static int inline_fn23(int arg0)
   return arg0;
 }
 
-typedef struct { s32 v; } Field_s32;
-typedef struct { s8 v; } Field_s8;
-typedef struct { u16 v; } Field_u16;
-typedef struct { u32 v; } Field_u32;
-typedef struct { u8 v; } Field_u8;
+typedef struct 
+{
+  s32 v;
+} Field_s32;
+typedef struct 
+{
+  s8 v;
+} Field_s8;
+typedef struct 
+{
+  u16 v;
+} Field_u16;
+typedef struct 
+{
+  u32 v;
+} Field_u32;
+typedef struct 
+{
+  u8 v;
+} Field_u8;
+inline static void *inline_fn234(u8 arg0)
+{
+  return (void *) (arg0 * 8);
+}
+
 s32 func_8008FB20(void)
 {
-  s32 temp_a0;
+  unsigned char temp_a0;
   void *temp_v0_2;
   s32 temp_a0_4;
   s32 temp_a1_2;
@@ -78,14 +98,14 @@ s32 func_8008FB20(void)
       var_a2 = temp_t0 + var_s2;
       for (;;)
       {
-        temp_s1 = (*((u16 *) (((char *) (*((void **) (((char *) var_a2) + 0x574)))) + 0))) + ((((Field_u32 *) (((char *) var_a2) + 0x570))->v));
-        if (((u32) (((((Field_s32 *) (((char *) var_a2) + 0x56C))->v)) + ((((Field_s32 *) (((char *) temp_t0) + 0x120))->v)))) >= temp_s1)
+        temp_s1 = (*((u16 *) (((char *) (*((void **) (((char *) var_a2) + 0x574)))) + 0))) + ((Field_u32 *) (((char *) var_a2) + 0x570))->v;
+        if (((u32) (((Field_s32 *) (((char *) var_a2) + 0x56C))->v + ((Field_s32 *) (((char *) temp_t0) + 0x120))->v)) >= temp_s1)
         {
-          (((Field_u32 *) (((char *) var_a2) + 0x570))->v) = temp_s1;
+          ((Field_u32 *) (((char *) var_a2) + 0x570))->v = temp_s1;
           temp_v0 = *((void **) (((char *) var_a2) + 0x574));
-          temp_a3 = (((Field_u8 *) (((char *) temp_v0) + 2))->v);
-          temp_a1 = (((Field_u8 *) (((char *) var_a2) + 0x58C))->v);
-          temp_t1 = (((Field_u8 *) (((char *) temp_v0) + 3))->v);
+          temp_a3 = ((Field_u8 *) (((char *) temp_v0) + 2))->v;
+          temp_a1 = ((Field_u8 *) (((char *) var_a2) + 0x58C))->v;
+          temp_t1 = ((Field_u8 *) (((char *) temp_v0) + 3))->v;
           if ((temp_a3 == 0xFF) & (temp_t1 == 0xFF))
           {
             *((void **) (((char *) var_a2) + 0x574)) = NULL;
@@ -103,7 +123,12 @@ s32 func_8008FB20(void)
                 temp_a0_2 = *((u8 *) (((char *) (temp_a0 + temp_t0)) + 8));
                 if (temp_a0_2 != 0xFF)
                 {
- do { temp_v0_2 = (void *) (temp_a0_2 * 8); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4))))); *((s32 *) (((char *) ((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) (((((((Field_u16 *) (((char *) temp_v0_2) + 0))->v)) << 0x10) | (((((Field_u8 *) (((char *) temp_v0_2) + 2))->v)) << 8)) | ((((Field_u8 *) (((char *) temp_v0_2) + 3))->v))); } while (0);
+                  do
+                  {
+                    temp_v0_2 = inline_fn234(temp_a0_2); temp_v0_2 = (void *) (((char *) temp_v0_2) + ((s32) (*((char **) (((char *) temp_t0) + 4)))));
+                    *((s32 *) (((char *) ((temp_a1_2 * 4) + temp_t0)) + 0xF80)) = (s32) (((((Field_u16 *) (((char *) temp_v0_2) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_2) + 2))->v << 8)) | ((Field_u8 *) (((char *) temp_v0_2) + 3))->v);
+                  }
+                  while (0);
                 }
               }
               else
@@ -112,7 +137,7 @@ s32 func_8008FB20(void)
                 if (temp_a0_3 != 0xFF)
                 {
                   temp_v0_3 = (void *) (temp_a0_3 * 8); temp_v0_3 = (void *) (((char *) temp_v0_3) + ((s32) (*((char **) (((char *) temp_t0) + 0x88)))));
-                  (((Field_s32 *) (((char *) temp_t0) + 0xFA4))->v) = (s32) (((((((Field_u16 *) (((char *) temp_v0_3) + 0))->v)) << 0x10) | (((((Field_u8 *) (((char *) temp_v0_3) + 2))->v)) << 8)) | ((((Field_u8 *) (((char *) temp_v0_3) + 3))->v)));
+                  ((Field_s32 *) (((char *) temp_t0) + 0xFA4))->v = (s32) (((((Field_u16 *) (((char *) temp_v0_3) + 0))->v << 0x10) | (((Field_u8 *) (((char *) temp_v0_3) + 2))->v << 8)) | ((Field_u8 *) (((char *) temp_v0_3) + 3))->v);
                 }
               }
             }
@@ -128,10 +153,10 @@ s32 func_8008FB20(void)
               {
                 if (var_a0 == 0x68)
                 {
-                  if (((((Field_u8 *) (((char *) temp_t0) + 0xFF4))->v)) != 0)
+                  if (((Field_u8 *) (((char *) temp_t0) + 0xFF4))->v != 0)
                   {
-                    func_80091A24(temp_t0 + 0xFC8, (((Field_s32 *) (((char *) temp_t0) + 0xFF0))->v), 1);
-                    (((Field_s8 *) (((char *) gSeqPlayer) + 0xFF4))->v) = 0;
+                    func_80091A24(temp_t0 + 0xFC8, ((Field_s32 *) (((char *) temp_t0) + 0xFF0))->v, 1);
+                    ((Field_s8 *) (((char *) gSeqPlayer) + 0xFF4))->v = 0;
                   }
                 }
                 else
@@ -147,7 +172,7 @@ s32 func_8008FB20(void)
                   temp_t0 = gSeqPlayer;
                   temp_t0_2 = temp_t0 + var_s2;
                   var_s4 = 6;
-                  temp_t2 = (((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v);
+                  temp_t2 = ((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v;
                   var_v0 = temp_t2;
                 }
                 else
@@ -156,7 +181,7 @@ s32 func_8008FB20(void)
                   temp_t0 = gSeqPlayer;
                   temp_t0_2 = temp_t0 + var_s2;
                   var_s4 = 6;
-                  temp_t2 = (((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v);
+                  temp_t2 = ((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v;
                   var_v0 = temp_t2;
                 }
                 else
@@ -164,7 +189,7 @@ s32 func_8008FB20(void)
                   temp_t0 = gSeqPlayer;
                   temp_t0_2 = temp_t0 + var_s2;
                   var_s4 = 6;
-                  temp_t2 = (((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v);
+                  temp_t2 = ((Field_u8 *) (((char *) temp_t0_2) + 0x58F))->v;
                   var_v0 = temp_t2;
                 }
                 if (((s32) temp_t2) < 0)
@@ -176,7 +201,7 @@ s32 func_8008FB20(void)
                   temp_a0_4 = *((s32 *) (((char *) ((temp_a1 * 4) + temp_t0)) + 0xF80));
                   if (temp_a0_4 != (-1))
                   {
-                    temp_a3 = temp_a3 + ((((Field_s8 *) (((char *) temp_t0_2) + 0x58E))->v));
+                    temp_a3 = temp_a3 + ((Field_s8 *) (((char *) temp_t0_2) + 0x58E))->v;
                     if (temp_a3 < 0x80)
                     {
                       var_v1 = temp_a3 & (((s32) (~temp_a3)) >> 0x1F);
@@ -203,11 +228,11 @@ s32 func_8008FB20(void)
                       {
                         if (temp_t1)
                         {
-                          (((Field_s32 *) (((char *) temp_v0_4) + 4))->v) = 0;
+                          ((Field_s32 *) (((char *) temp_v0_4) + 4))->v = 0;
                         }
                         else
                         {
-                          (((Field_s32 *) (((char *) temp_v0_4) + 4))->v) = 0;
+                          ((Field_s32 *) (((char *) temp_v0_4) + 4))->v = 0;
                         }
                       }
                       *((void ***) (((char *) temp_t0_3) + 4)) = NULL;
@@ -224,9 +249,9 @@ s32 func_8008FB20(void)
                       temp_v0_6 = func_8008D49C(temp_a0_4, var_v1 & 0xFF, var_v0_2 & 0xFF, 0x40, temp_a1, D_800EDA87, 0, temp_t2, *((u8 *) ((((char *) gSeqPlayer) + 0x528) + temp_t2)), (D_800EDA88) ? (-1) : (0));
                       if (temp_v0_6 != (-1))
                       {
-                        (((Field_s32 *) (((char *) temp_t0_3) + 8))->v) = temp_v0_6;
+                        ((Field_s32 *) (((char *) temp_t0_3) + 8))->v = temp_v0_6;
                         temp_v1_2 = gSeqPlayer + var_s2;
-                        (((Field_s32 *) (((char *) temp_t0_3) + 0xC))->v) = (s32) (temp_s1 + (*((u16 *) (((char *) (*((void **) (((char *) temp_v1_2) + 0x574)))) + 4))));
+                        ((Field_s32 *) (((char *) temp_t0_3) + 0xC))->v = (s32) (temp_s1 + (*((u16 *) (((char *) (*((void **) (((char *) temp_v1_2) + 0x574)))) + 4))));
                         *((__repair_words2 *) (((char *) temp_t0_3) + 0x10)) = *((__repair_words2 *) (((s8 *) temp_v1_2) + 0x568));
                       }
                       else
@@ -259,11 +284,11 @@ s32 func_8008FB20(void)
               }
             }
             temp_v1_5 = gSeqPlayer + var_s2;
-            (((Field_s32 *) (((char *) temp_v1_5) + 0x574))->v) = (s32) (inline_fn((char *) temp_v1_5) + var_s4);
+            ((Field_s32 *) (((char *) temp_v1_5) + 0x574))->v = (s32) (inline_fn((char *) temp_v1_5) + var_s4);
           }
           temp_t0 = gSeqPlayer;
           var_a2 = temp_t0 + var_s2;
-          if (((((Field_s32 *) (((char *) var_a2) + 0x574))->v)) != 0)
+          if (((Field_s32 *) (((char *) var_a2) + 0x574))->v != 0)
           {
             continue;
           }
@@ -278,3 +303,4 @@ s32 func_8008FB20(void)
   while (var_s6 < 0x40);
   return var_s7;
 }
+

@@ -90,7 +90,7 @@ void func_8006899C(void *arg0, u8 arg1)
   cameraAngles[0] = *((f32 *) (((char *) (*temp_v0)) + 0x34));
   var_s6 = 1;
   sp37 = arg1;
-  temp_s4 = ((*((s8 *) (((char *) (*((void **) inline_fn2((char *) arg0, 0x68)))) + 0xE))) * 0xE8) + ((char *) (&sEnemyDefTable));
+  temp_v0_6 = ((*((s8 *) (((char *) (*((void **) inline_fn2((char *) arg0, 0x68)))) + 0xE))) * 0xE8); temp_s4 = temp_v0_6 + ((char *) (&sEnemyDefTable));
   cameraAngles[1] = *((f32 *) inline_fn2((char *) (*temp_v0), 0x38));
   cameraAngles[2] = 0.0f;
   if (func_80081AA4(temp_fp, 0x12) != 0)

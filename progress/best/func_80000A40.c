@@ -175,7 +175,7 @@ do {
                 spA9C = &sp120;
                 var_a1 = temp_v0_2;
                 var_s6 = 0;
-                spAAC = spA6C;
+                spAAC = (char *)spA6C + 0x10;
                 do {
                     temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);
                     if (spA94 == 0) {
@@ -247,9 +247,9 @@ block_42:
                         sp20[1] = M2C_FIELD(var_a1, f32 *, 8);
                         var_fv0 = M2C_FIELD(var_a1, f32 *, 0xC);
                     } else {
-                        sp20[0] = M2C_FIELD(spAAC, f32 *, 8);
-                        sp20[1] = M2C_FIELD(spAAC, f32 *, 0xC);
-                        var_fv0 = M2C_FIELD(spAAC, f32 *, 0x10);
+                        sp20[0] = M2C_FIELD(spAAC, f32 *, -8);
+                        sp20[1] = M2C_FIELD(spAAC, f32 *, -4);
+                        var_fv0 = M2C_FIELD(spAAC, f32 *, 0);
                     }
                     sp20[2] = var_fv0;
                     if (__repair_phase_var_s4 == 0) {

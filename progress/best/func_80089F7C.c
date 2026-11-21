@@ -33,6 +33,11 @@ inline static Ent *inline_fn(Ent *arg0)
   return arg0;
 }
 
+inline static int inline_fn2(u32 arg0)
+{
+  return arg0 - 0x600;
+}
+
 void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
   u32 sp2C;
@@ -60,7 +65,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
   s4 = arg1;
   s2 = arg2;
   sp2C = s4 + s2;
-  sp34 = s4 - 0x600;
+  sp34 = inline_fn2(s4);
   s3 = 0;
   if (s0 != NULL)
   {
@@ -230,10 +235,10 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         e->b = s0->addr;
         e->a = 0x600;
         *((s32 *) (((u8 *) e) + 0x8)) = s0->data;
-        a0 = s2 - 0x600; s2 = a0 + s1_2;
+        a0 = inline_fn2(s2); s2 = a0 + s1_2;
         D_80108F70 += 1;
         p[0] = s0->data + s1_2;
-        s4 -= s1_2 - 0x600;
+        s4 -= inline_fn2(s1_2);
         p[4] = 0x600 - s1_2;
         p[2] = s0->addr + s1_2;
       }

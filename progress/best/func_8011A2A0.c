@@ -31,6 +31,11 @@ extern s16 D_8011F15C[];
 extern u8 sProbeTimers[][8];
 extern s32 timerGetTotalSeconds(void *);
 extern void func_8011A7C8(void);
+inline static u16 inline_fn(short arg0)
+{
+  return (u16) arg0;
+}
+
 s32 func_8011A2A0(void)
 {
   s16 totals[2];
@@ -93,7 +98,7 @@ s32 func_8011A2A0(void)
 
     default:
     {
-      s32 slots = gSaveTotalSlots;
+      short slots = gSaveTotalSlots;
       i = 0;
       do
       {
@@ -102,14 +107,14 @@ s32 func_8011A2A0(void)
         }
         while (((s32) ((u16) i)) < slots)
         {
-          BonusObject *object = sBonusObjectTable[(u16) i];
+          BonusObject *object = sBonusObjectTable[inline_fn(i)];
           if (object != 0)
           {
             BonusData *data = object->state->data;
             s32 difference = data->total - data->remaining;
             if (maximum < difference)
             {
-              maximum = difference;
+ do { maximum = difference; } while (0);
             }
           }
           i++;
@@ -140,5 +145,3 @@ s32 func_8011A2A0(void)
   while (((u16) i) < 2);
   return D_801002AC;
 }
-
-
