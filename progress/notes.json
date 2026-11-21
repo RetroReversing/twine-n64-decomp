@@ -3424,14 +3424,6 @@
   "score_after": 480
  },
  {
-  "function": "func_8009D510",
-  "text": "Best current verified 1666/49 instructions. Reproduced after reacquiring claim. Corrected bzero signature/call to bzero(arg0,0x190). Marking arg1..arg4 volatile reduced 3183 to 1881; moving osCreateMesgQueue call immediately after the 0x166 halfword initialization then storing arg4/arg1/arg2/arg3 improved to 1666. Nested if/else for the byte flag reproduces branch shape better than ternary. Remaining differences center on frame (-0x18 vs target -0x20), caller-home spills/argument register allocation, final flag branches using v0 rather than t1/t2, and zero temp register (`andi v0,zero,0xffff`) whose C equivalent remains unclear. Local debug-boundary variants had no effect; passthrough argument repair worsened to 2109.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795137552.2442229,
-  "score_before": 2418,
-  "score_after": 1666
- },
- {
   "function": "func_80022AD8",
   "text": "Saved score 555 writes a full word at +0x28 from D_800E0EE6; target uses sb at +0x28 and separately reads/modifies the word. Correcting to byte store scored 1570 due scheduling/global pointer reloads. Explore local struct pointer and preloading three halfwords to reproduce target scheduling.",
   "by": "codex-gpt-6.1-terra-8",
@@ -9208,14 +9200,6 @@
   "score_after": 510
  },
  {
-  "function": "func_8009D510",
-  "text": "Current rechecked best remains 1650. Tried reordering stores/call and explicit goto control flow; result 1665. Restored saved baseline, tried ordering change (1665), restored and recompiled saved source (1650), reaching 4/4 no-better threshold. Remaining target control flow requires loading arg1 and arg4 from stack, testing them in separate branches with delay-slot constants, then writing flag; candidate's short-circuit expression emits a different branch-likely shape. Call setup also needs to interleave addiu arguments with stores; candidate currently emits all call setup together. Signature/argument volatiles may affect stack placement; removing all made score 2998, so preserve baseline qualifiers.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795176840.975553,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_8009DBE8",
   "text": "Started from scored machine draft and verified 1552. Adding volatile s32 pad[22] changed frame from 0x40 to 0xa0 (score 1461); reducing to [20] gave 0x98 frame but local address +0x60 and score 1304. [16] regressed to 0x88 frame and score 1461. Best candidate remains the [20] variant (score 1304) although get_candidate/base=saved_best should be checked before continuation. Target needs 0x98 frame and local output at sp+0x44, so simple padding size/order remains unresolved; also compiler emits addu (or) encoding instead of target or on move-to-a3. Further investigate local placement and correct prototypes/callee arguments.",
   "by": "codex-gpt-6-luna-7",
@@ -12656,14 +12640,6 @@
   "score_after": 25
  },
  {
-  "function": "func_8009D510",
-  "text": "Baseline 1650 unchanged after testing goto guard, boolean assignment, parameter volatility and unused pad. Target resembles IDO register numbering/scheduling; IDO 5.3 -O2 -non_shared scored 2215 with current candidate and wrong call order. Investigate compiler/profile and move osCreateMesgQueue after field assignments, matching target's interleaved call delay slot.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182047.0995278,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_80087F60",
   "text": "Verified score 250: seven mismatches, all branch targets or instruction ordering. Scalar reuse, signed byte base and declaration-order trials failed to improve; investigate loop entry and global load scheduling.",
   "by": "codex-gpt-6.1-terra-6",
@@ -14960,14 +14936,6 @@
   "score_after": 430
  },
  {
-  "function": "func_8009D510",
-  "text": "Byte-identical source verified with IDO 5.3 -O2 -mips2 -G 0 -non_shared -Xcpluscomm -Wab,-r4300_mul and attached to the checked function-only compiler suggestion. Automatic compiler changes are off. To match with IDO, queue creation follows the argument stores and the clears are halfword 0x11A0 = word 0x11A4 = halfword 0x11A2 = 0. GCC candidate still open pending bundle approval.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795183073.170243,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_80098710",
   "text": "Best 130. The target alone materializes D_800FD974 in v0 and copies v0 to a1; all other differences are displaced branches caused by that missing move. Typed 32-bit base local, assigning via the head global, and reading the head back from the same global all optimized to direct materialization in a1. Next look for an original signed/address-width conversion or loop setup that retains a distinct pseudo for the base before the induction pointer.",
   "by": "codex-gpt-6.2-sol-7",
@@ -17230,14 +17198,6 @@
   "created_at": 1795184248.788662,
   "score_before": 10883,
   "score_after": 10883
- },
- {
-  "function": "func_8009D510",
-  "text": "Rechecked 3253. Volatile a/b/c/d restored the argument homes; a volatile unused s64 local restored the 0x20 frame (current 1665, historical 1650). Preloading a/d and explicit gotos gave two loads but retained beql and j. Unsigned-half chained zero assignment did not materialize the target andi. Remaining structural issues: call argument setup interleaved with stores, first branch beqz with literal 2 in delay slot, andi $v0,$zero,0xffff feeding the last two of the three zero stores at 0x11A2/0x11A4/0x11A0. Consider current KMC profile against -O1 and explicit scheduling/branch-likely settings before further C tuning; compare the prologue ordering as well.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795184249.366476,
-  "score_before": 1650,
-  "score_after": 1650
  },
  {
   "function": "func_800624A8",
@@ -19600,14 +19560,6 @@
   "score_after": 48867
  },
  {
-  "function": "func_8009D510",
-  "text": "Byte-exact standalone with IDO 5.3 -O2 -G0 -mips2 -non_shared; checked function-only bundle submitted, automatic changes are off. Correct source writes 0x19C before clearing 0x11A8, which IDO schedules between the argument reload and dependent delay-slot store. The active GCC profile produced 3253 for the original rewrite; stop GCC source tuning pending the verified bundle.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795185316.668201,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "menuUpdateCursorActor",
   "text": "Concurrent claim interrupted another batch. Against 64b98607fa7d406b56a0 baseline 6181, inferred D_800B7CE8 direct record accesses scored 5381, candidate revision 9650034b47289e1420a0; u8 load at D_800C473A scored 6116 independently. Check persistence before continuing.",
   "by": "codex-gpt-6.1-terra-5",
@@ -21312,14 +21264,6 @@
   "score_after": 17801
  },
  {
-  "function": "func_8009D510",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Independently verified IDO 5.3 function-only bundle with score 0 and submitted exact source/profile. Use u16 halfword lvalues in the chain HALF(0x11a0) = WORD(0x11a4) = HALF(0x11a2) = 0; signed lvalues score 540 under identical flags and add an lh. Active KMC candidate remains 1650 pending compiler bundle approval; further KMC source tuning is redundant.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795186445.130929,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_80079CB4",
   "text": "Rechecked inherited candidate at 21255. Resumed local repairs on revision 9e02a6865bc613d91d19: tried scalar storage reuse, inferred record layout, call arity, parameter width, call initialization, and CFG integer lifetime variants; none improved score. Candidate retained. Remaining path: inspect target prologue/mismatch and correct early argument/register allocation; repair proposals did not address it. Stop early because bounded repair attempts yielded no structural improvement; function remains open.",
   "by": "codex-gpt-6-luna-19",
@@ -22920,14 +22864,6 @@
   "score_after": 385
  },
  {
-  "function": "func_8009D510",
-  "text": "Inherited GCC best 1650. Moving queue creation after field stores produced 1665; branch inversion, nonvolatile arguments, and assignment-derived zero worsened it. Target uses IDO-style t6 onward and prologue; IDO 5.3 trial with register arg0 and stores before queue call scored 820, still not a match. Investigate IDO flags and branch/zero initialization source before suggesting compiler change.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795188731.301364,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_8001ACCC",
   "text": "Best score 85 (revision 54f68d32d8c8eba241d1); 71 instructions and only 7 register/order differences remain. Repeated the nested global field access instead of retaining temp_v0_2, improving the earlier score 95. Tried pointer temp type, declaration reorder, var_v0 width and an extra local without further improvement. Remaining key mismatch: target lw $a0,0($v0), candidate lw $a1,0($v0), with dependent addu and two loop OR/store registers; focus on separating early table-base temporary from later loop index or lifetime/declaration ordering. Current experimental revision is worse/equal; saved best remains.",
   "by": "codex-gpt-6-luna-22",
@@ -23966,14 +23902,6 @@
   "created_at": 1795189780.4703228,
   "score_before": 50,
   "score_after": 50
- },
- {
-  "function": "func_8009D510",
-  "text": "Best 1650 remains. Moving queue call after field stores improved structural ordering but scored 1665; explicit goto branch emitted identical code. Removing volatile arguments worsened allocation significantly. IDO 5.3 trial on prior candidate scored 2105; target uses IDO-like temporaries but compiler mismatch remains unproven. Target stores parameters before queue call and has explicit andi zero, branch polarity differences.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795189791.080409,
-  "score_before": 1650,
-  "score_after": 1650
  },
  {
   "function": "func_8008BA98",
@@ -25048,14 +24976,6 @@
   "score_after": 115
  },
  {
-  "function": "func_8009D510",
-  "text": "Verified baseline 1650. Moving queue creation after field initialization scored 1665; removing volatile arguments scored 3248, reversing boolean branch 1675, removing volatile padding 1691. IDO 5.3 default with saved candidate scored 2105, not a match. Target uses sequential t6-t4 temporaries, or move, and interleaves queue arguments with field stores, suggesting compiler/scheduling investigation with corrected source. Saved baseline unchanged.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795190881.687594,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_80096758",
   "text": "Current candidate score 70 (83 instructions), rechecked. Main remaining difference is four instructions around the pair-copy condition: target puts `andi $v0,$v1,0xff` in the delay slot of `bnez` and branches to 0x9c; candidate puts that mask later and branches to 0x98. Rewrote the combined OR as explicit sequential goto labels; score unchanged. Comma assignment and constant_local variants also left instructions unchanged (score 70). More work could alter local lifetimes/condition structure so the v1 mask schedules into the first branch delay slot. No reusable compiler rule established.",
   "by": "codex-gpt-6-luna-7",
@@ -26054,14 +25974,6 @@
   "created_at": 1795192135.601006,
   "score_before": 730,
   "score_after": 730
- },
- {
-  "function": "func_8009D510",
-  "text": "Best saved candidate e3ecaffbf6dbdd8a3121 score 1650 (rechecked once). Local repairs variants 1-2 tied; later variants hit batch time. Removing volatile args worsened to 3308; removing volatile s64 pad from saved candidate yielded 1656 and kept 49 instructions, but frame shrank from target 0x20 to 0x18 and altered conditional layout. Target entry explicitly spills a1-a3, retains a0 in s0, frame 0x20; target boolean logic uses t1/t2 with beqz+bnez and separate branches. Investigate struct typing/volatile aggregate fields and reconstructing source-level boolean branches while preserving 0x20 frame; saved best remains available.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795192140.723561,
-  "score_before": 1650,
-  "score_after": 1650
  },
  {
   "function": "func_8001E898",
@@ -28600,14 +28512,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8009D510",
-  "text": "Rechecked candidate baseline 1955; target 49 instructions, candidate 48. Main mismatch starts in prologue: target saves ra at sp+0x1c then s0 at +0x18, spills incoming a1/a2/a3 at +0x24/+0x28/+0x2c, moves a0 to s0, then calls bzero with size 0x190 in delay slot. Candidate prologue starts saving s0 and moves it before spill, so likely source argument/liveness/order shaping is off. It also calls osCreateMesgQueue before storing halfword 0x28, whereas target sets 0x28 before queue call; this swap was tried and did not improve. Candidate uses volatile args and unused volatile s64 padding; removing volatile args worsened. Tried alternate osCreateMesgQueue signature from matched definition, no score effect (warning because candidate passes pointer as arg2). Main downstream semantic mismatch includes flag conditional/store/control flow and expected `andi $v0,$zero,0xffff`. Next worker should inspect full target around queue call and remaining code, correct prototype/order and if possible reconstruct source-level structure; no match.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795197411.971591,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_800AB330",
   "text": "Worked from best source; fixed the helper output argument type and preserved its M2C local declarations. Rechecked baseline score 710/38 instructions. Three experiments after restoring best: one full corrected source returning to 710 (from a worse 1270), then declaration reorder still 710. Remaining differences are 21 instruction rows (6 register, 14 reordered, 1 deleted), notably target initializes frame and copies $f12 into $f4 before quotient/comparison; candidate has two zero mtc1s and different FP temporary lifetimes, and s0/v0 parity register mismatch. Latest revision c3308a1e1d391055f089. Try moving saved original argument to first local/init and staging bias selection after compare.",
   "by": "codex-gpt-6-luna-13",
@@ -29750,14 +29654,6 @@
   "created_at": 1795198486.644106,
   "score_before": 820,
   "score_after": 820
- },
- {
-  "function": "func_8009D510",
-  "text": "Baseline rechecked at 1950. Tried inserting the missing target store *(s16*)(arg0+0x166)=0x28 (score 1955), volatile qualification (same), and nested condition instead of || (1965; reverted to 1955). The target's clear operations around 0x11A4/0x11A0 come from an explicit zero narrowed to 16 bits (andi $v0,$zero,0xffff), which candidate folds away. Remaining major mismatch is call/store scheduling: target stores 0x166 before message queue call and maintains t registers/stack args; candidate queues first and different register allocation. arg0 likely S_D_800E1AC0 per guess_struct.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198487.662986,
-  "score_before": 1650,
-  "score_after": 1650
  },
  {
   "function": "func_8009A70C",
@@ -31224,14 +31120,6 @@
   "score_after": 200
  },
  {
-  "function": "func_8009D510",
-  "text": "Best score 1950 on 49 instructions; later edits worsened. Tried adding target's *(s16 *)(arg0+0x166)=0x28, then moving osCreateMesgQueue after adjacent stores (worse), and inverting the condition (worse). Original target saves args to stack, calls bzero with 0x190 in delay slot, stores 0x28 at offset 0x166, then loads args and stages fields around osCreateMesgQueue. Remaining key issue is exact call/order/control flow and boolean branch lowering; target uses andi $v0,$zero,0xffff and two separate tests with branches, while C collapsed them to a single conditional. Continue from saved best.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795200496.220982,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_800AB3C8",
   "text": "Baseline rechecked at 680 (53 instructions, target 53). Source computes quotient, selects D_800D7008/D_800D7010 bias, truncates, subtracts multiple of D_800D7018, checks bounds, and falls back to func_800AB030. Target instruction sequence is mostly right; remaining 21 rows are chiefly FPR allocation and operation order. Local declaration-order swap and s32->u32 var_v0 did not change score; unsigned var_v1 triggered unusable .rodata reference. Machine draft may have questionable unsigned-zero comparison, but target begins by dividing arg0 by D_800D7000 before comparing zero, and condition selects the constants as represented. Revisit statement/declaration order to obtain target FPRs: target division result in fv1 and constant/load in fv0, while C currently uses f2/f4 and computes some operations in a different order. Two raw relocation render differences were omitted; inspect symbol mapping if pursuing.",
   "by": "codex-gpt-6-luna-7",
@@ -32182,14 +32070,6 @@
   "created_at": 1795201587.124511,
   "score_before": 2012,
   "score_after": 2012
- },
- {
-  "function": "func_8009D510",
-  "text": "Current best recovered at score 1650 (improved from 1950 by removing arg4 from the status-byte condition, matching target's beqz arg1 then bnez stack arg4). Variants changing osCreateMesgQueue prototype to its matched signature (void*,s32,s32), removing unused volatile 64-bit pad, or changing constant initialization made no difference or worsened. Struct layout rewrite scored 2065. Target has 49 instructions; current source 46 and misses initialization of 0x166 to 0x28 (target uses sh $t6), initializes the queue and fields in a different scheduling order, and target obtains v0=0xFFFF via andi zero then writes halfword/word offsets 0x11A0/0x11A4. Next try changing field at 0x166 to s16 and write 0x28 before the queue call, then reorder stack arg stores around osCreateMesgQueue as target: loads arg4 from 0x30($sp), computes queue ptrs, stores arg4/arg1/arg2 and arg3 before call, with arg3 store in jal delay slot. Preserve recovered status check condition.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201592.830092,
-  "score_before": 1650,
-  "score_after": 1650
  },
  {
   "function": "func_8006D224",
@@ -34224,14 +34104,6 @@
   "score_after": 45
  },
  {
-  "function": "func_8009D510",
-  "text": "Target disassembly order: bzero call; set s16 0x166=0x28; load stack arg4 then setup queue args; store arg4,arg1,arg2 and zero fields interleaved; queue call delay slot stores arg3. Afterwards loads arg1 and arg4, `andi zero,0xffff`, branches first on arg1 then arg4; initializes byte 0x11DD to 0 or 1. Best C score 1650, currently saved source. No matching repair_category submission (no verified fix).",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795202543.168706,
-  "score_before": 1650,
-  "score_after": 1650
- },
- {
   "function": "func_8011BF0C",
   "text": "Restored saved_best revision 1f712cf905c597ba09d7 before handoff; rechecked score 1185. A prototype-only trial adding f32 func_80045E34(void*,void*) tied at 1185; compiler warned first arg integer because pointer table/global declarations remain wrong. Exact-matched signatures: func_80045E34(void*,void*) returns f32; func_8002B150(void*,s32,s8); func_800643C8(void*). Candidate source uses pointer arithmetic on D_8011F2B0/D_8011F280 declared char arrays, creating likely bad address scaling and warnings. Target first instructions save arg0 in s2 and branches; target then uses s0 for byte selector and s1 for selector*4, candidate has inverse local allocation. Try typed pointer arrays and explicit distinct selector/offset locals.",
   "by": "codex-gpt-6-luna-13",
@@ -35110,14 +34982,6 @@
   "created_at": 1795203921.248579,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8009D510",
-  "text": "Best so far 1540 (revision 01305e516b1150ca6a56): volatile s32 arg1..arg4, bzero(arg0,0x190), then *(s16*)(arg0+0x166)=0x28 before osCreateMesgQueue(arg0+0x11AC, arg0+0x11C4, 1); arg4 copied to a local 'volatile s32 a4' around the call and stored to 0x190 after it. Remaining diffs: prologue save order (target: sw ra 0x1c, s0 0x18, a1 0x24 ... ; ours saves s0 first at 0x18 and a1 at 0x24 later), andi v0 temp / branch layout of the t1/t2 flag block, and a register choice (target uses t6/t7/t8 temps, ours v0). Untried: reorder the arg1..arg3 stores or split the t=0 temp into its own statement.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795203947.0627258,
-  "score_before": 1650,
-  "score_after": 1540
  },
  {
   "function": "func_80082BD0",
@@ -36584,14 +36448,6 @@
   "score_after": 3940
  },
  {
-  "function": "func_8009D510",
-  "text": "Fresh baseline is 3538 (49 target instructions). Two manual variants produced the same score/diff. A variant with two-argument bzero failed because shared context declares bzero(s32). Assembly shows 0x20 frame, caller args spilled at 0x24/0x28/0x2C and arg4 loaded at 0x30(sp); bzero receives length in a1 while a0 remains incoming arg0. osCreateMesgQueue gets arg0+0x11AC, arg0+0x11C4, 1. Control branch checks arg1 then arg4 and writes 0/1 to 0x11DD.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795204990.296489,
-  "score_before": 1540,
-  "score_after": 1540
- },
- {
   "function": "func_800882D0",
   "text": "Rechecked inherited source at 662 (89.4%; 64 vs 63 instructions). First compile same score. Tried moving state writes before osSendMesg and adding break: worsened to 717; restored saved_best. Added unused scaled local, score remained 662 but instructions differ and no improvement. Remaining consistent differences include target frame 0x18 vs candidate 0x20, saved s0 vs s1/extra saved ra, sll target in s0, branch offsets +4, callable queue address should use $a0 not $s0; target OS send moves after stores and passes queue as a0, msg 0, flags 0. Existing C uses incorrect argument ordering via osSendMesg(D_800E3F30,0) unprototyped. Next try exact OSTypes/prototypes and pass all args explicitly; also model per-record type size 0x1228 to get stride and frame/register allocation.",
   "by": "codex-gpt-6-luna-18",
@@ -37686,14 +37542,6 @@
   "created_at": 1795205992.7276878,
   "score_before": 1150,
   "score_after": 1150
- },
- {
-  "function": "func_8009D510",
-  "text": "Best 1825 (revision 0342284d2c97ef1d44d3): volatile s32 params arg1..arg4, bzero(arg0,0x190) via local prototype, field stores, plus `volatile s32 pad[2];` for 0x20 frame. Remaining: save order (target saves ra 0x1c, s0 0x18, a1 0x24 first; ours s0 first), andi zero-store temp, flag block (0x11DD) branch shape (target beqz arg1 -> sb 0, else bnez arg4 -> sb 1). Tried: nested-if flag rewrite (1835/2069), extra volatile a4 copy (worse), pad[3] (1846), volatile s64 pad (1825 equal). Untried: prototype-based bzero/osCreateMesgQueue signatures, reordering field stores to change save order.",
-  "by": "api-claude-haiku-5-5-9",
-  "created_at": 1795206000.11261,
-  "score_before": 1540,
-  "score_after": 1540
  },
  {
   "function": "func_8011E634",
@@ -38934,14 +38782,6 @@
   "created_at": 1795207420.7969549,
   "score_before": 7717,
   "score_after": 7717
- },
- {
-  "function": "func_8009D510",
-  "text": "Saved best 1825 (rev 0342284d2c97ef1d44d3) still unmatched after prior 46+ trials. Remaining diffs: save order (target saves ra 0x1c, s0 0x18, a1 0x24 first), andi $v0,$zero,0xFFFF temp for zero stores (sw/sh of a u16 zero), and flag block branch shape at 0x11DD (target: beqz arg1 -> sb 0; else bnez arg4 -> sb 1; ours uses || form producing beql/j). One extra duplicate-store patch tried this session scored 1975 (worse). Next idea: write flag block as nested if (arg1==0) {sb 0} else if (arg4!=0) {sb 1} else {sb 0} with explicit sb 0 duplicates; or a u16 zero local to get andi.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795207420.9089339,
-  "score_before": 1540,
-  "score_after": 1540
  },
  {
   "function": "func_800624A8",
@@ -41248,14 +41088,6 @@
   "score_after": 1150
  },
  {
-  "function": "func_8009D510",
-  "text": "Stalled at best 1765 (saved_best 0342284d2c97ef1d44d3; ~50 trials total across sessions). This session: u16 z=0 temp for zero stores + else-if flag form scored 1770 (worse). Remaining diffs: prologue save order (target sw ra 0x1c, s0 0x18, a1 0x24 first), flag block branch shape (target beqz arg1 -> sb 0; else bnez arg4 -> sb 1), addiu a2,zero,1 placement. Untested next: restart from saved_best and only change flag block to else-if form without the z temp.\nu16 z temp with else-if flag form (on ed0075f7)\n1770 vs 1765 saved best; worse",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209284.233654,
-  "score_before": 1445,
-  "score_after": 1445
- },
- {
   "function": "func_8007CC78",
   "text": "Two required empty-baseline compiles both score 439705 (target 4399 instructions, candidate 2). Source and m2c draft are unavailable due to omitted bytes for final jump table jtbl_800D5BD0; a duplicate compile is unchanged. Function clearly needs table/overlay restoration or full manual reconstruction, not routine call tuning.",
   "by": "codex-gpt-6-luna-6",
@@ -42910,14 +42742,6 @@
   "created_at": 1795210410.225313,
   "score_before": 705,
   "score_after": 705
- },
- {
-  "function": "func_8009D510",
-  "text": "Stalled at 1765 (rev 2b17aba0 / saved_best 0342284d). This session tried: flag block as (arg1!=0&&arg4!=0)?1:0 form (1955), ternary form (not better), else-if chain (1770), && if/else (worse); removing pad[2] (1791), pad[1] (1781), pad[4] (1765 equal). Target prologue: sw ra 0x1c, sw s0 0x18, sw a1 0x24, move s0,a0, sw a2/a3 \u2014 candidate emits sw s0 first and ra later, which is the first mismatch and was not fixed by any variant. Untested: a plain local for the 0x11DE constant (t4 hoisted into delay slot of beqz) and a bzero-free rewrite of the first store block.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795210416.492105,
-  "score_before": 1445,
-  "score_after": 1445
  },
  {
   "function": "func_8009DBE8",
@@ -44776,14 +44600,6 @@
   "score_after": 24521
  },
  {
-  "function": "func_8009D510",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Accidental claim while trying to reclaim a readable function; no compile attempted. Released unchanged.",
-  "by": "api-claude-haiku-5-5-14",
-  "created_at": 1795212544.4961312,
-  "score_before": 1445,
-  "score_after": 1445
- },
- {
   "function": "func_800223E4",
   "text": "[Released without compiling it once; notes not checked by a compile.] While reacquiring this claim, another worker's shared rename changed func_80029068 to updateActiveMenuState, changing candidate to revision f02fcb9fe360247a7c15. Do not revert it. No new compile/edit was applied in this continuation; inherited best score 75 and prior findings remain.",
   "by": "codex-gpt-6-luna-6",
@@ -46040,15 +45856,6 @@
   "score_before": 30,
   "score_after": 30,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:ed4755f1364c8d2ac83c21f5c1595e47edf708e94d7d0d89b79b137ccb3328b0"
- },
- {
-  "function": "func_8009D510",
-  "text": "Recovered saved candidate and rechecked it at 1445; a conditional rewrite also scored 1445 after reaching 2115. Main unresolved difference is the arg1/arg4 boolean branch: target materializes 1 in a2, clears v0 with andi, branches on t1/t2 and uses b; candidate uses beql, sb zero, bnez and unconditional j. Structural/frame differences remain.\nRestored saved_best and compiled it; score 1445. Rewrote condition to if ((arg1 == 0) || (!arg4)) ... else ...; also 1445.\nNo improvement; conditional lowering differs substantially from target branches.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795213695.887855,
-  "score_before": 1445,
-  "score_after": 1445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
  },
  {
   "function": "func_8007560C",
@@ -50695,15 +50502,6 @@
   "score_after": 14295
  },
  {
-  "function": "func_8009D510",
-  "text": "Best remains 1445. Target passes 1 as the third osCreateMesgQueue argument; adding it in the current volatile s32 draft scored 1875, and rewriting with nonvolatile s32 prototype assumptions scored 3428. Restoring the saved candidate and recompiling scored 1445 with no better result at 4/4. Main surviving issue is codegen around queue call / post-call boolean flag: target emits addiu a2,1, then andi v0,zero,0xffff, explicit beqz t1 and bnez t2 with delay-slot constants, then a branch around sb zero; candidate folds it into beql/bnez/j. Initial prologue order also differs (target saves ra,s0 then a1; candidate s0 setup and stack spill order).\nAdded third osCreateMesgQueue argument 1, kept volatile s32 params and original branch form; score unchanged at 1445 after recovering saved best. Nonvolatile scalar rewrite with three-arg call degraded to 3428.\nThe target requires explicit a2=1; experiment generated substantially different code and recovered baseline remained best.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795217655.39782,
-  "score_before": 1875,
-  "score_after": 1445,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
- },
- {
   "function": "func_800515D0",
   "text": "Inherited candidate is a placeholder (29 instructions vs 2267 target, score 225320). Rechecked compile unchanged at 225320; redraft failed because the stored machine draft no longer compiles and function-specific context isn't accepted as prose. Contract from matched caller: s8 func_800515D0(MoveActor *, void *, void *, MoveVec *, void *, f32, f32, f32, s32, s32 *, s32 *, s32 *). Target uses extensive actor/vector logic, stack frame 0x288, calls absFloat, func_80045590, func_800487F0, func_80082D24, rotateVec3ByMat3, func_8004886C. Next step: reconstruct C from full assembly pages and callee prototypes, or recover draft via m2c with proper C declarations; don't tune stub.",
   "by": "codex-gpt-6-luna-19",
@@ -52453,15 +52251,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:141af8ad8e396a680308977e6aa79675dc631532b11cc10555074a6528e14719"
  },
  {
-  "function": "func_8009D510",
-  "text": "Recompiled inherited best 1445. Tested boolean expression (1635), nested explicit if/else (1450), duplicate zero store before nested arg4 test (1315 best), then inverse nested condition (1450). Best saved score 1315. Residual mismatch includes prologue save order and condition block branch/register allocation.\nRecompiled inherited best; tested several boolean block structures. Best score 1315 with duplicate zero store before conditional arg4 assignment.\nMain residuals are prologue save order and condition block branches/registers. Restore saved best before further attempts.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795220774.715986,
-  "score_before": 1445,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
- },
- {
   "function": "func_8009D94C",
   "text": "Historical saved candidate and current trial scores have differing source/header inputs; current local batch best remained 690. Several repair family batches tested without improvement; one baseline gave 795. The initial full rewrite did not compile due to missing declarations in whole submitted source. Next step: inspect mismatch assembly and recover a clean complete candidate before testing the return path/register allocation.\nLocal repair batches: copy_register_reuse return delta stayed at 795; signedness/declaration order and further families on the continued candidate did not exceed 690. A full rewrite failed to compile because it omitted needed declarations/macros in the standalone source.\nNo accepted improvement or match; current baseline from selected continuation was score 690. Target first differs in registers/control flow around status load and return paths.",
   "by": "codex-gpt-6-luna-15",
@@ -53034,15 +52823,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:eec889ffa1d1d591ab29855fe2860c1195fdc554864479b32e0471e91cd41030"
  },
  {
-  "function": "func_8009D510",
-  "text": "Saved candidate rechecked at 1315. Tested branch orientation (1515) and adding third osCreateMesgQueue argument (1740); both worse. Target post-call block reloads arg1 and arg4, materializes constants 1 and 2, and stores 0/1 conditionally. Next step: identify exact post-call source control flow and call prototype from matched siblings before another rewrite.\nSaved best baseline 1315; branch orientation scored 1515, adding third call argument scored 1740.\nNo improvement; target includes a2=1 on call, followed by separate tests for arg1 and arg4.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795221716.5046642,
-  "score_before": 1515,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
- },
- {
   "function": "func_80040E5C",
   "text": "Register qualifiers and volatile count produced identical 2940 output. Signed halfword count produced blez but wrong lh, score 2945. Unsigned >=1 returned to 2940.",
   "by": "codex-gpt-6.1-terra-5",
@@ -53510,15 +53290,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
- },
- {
-  "function": "func_8009D510",
-  "text": "Saved best 1315 unchanged. Tried: struct-typed arg0 (2250-2456), local u16 z=0 for 'andi v0,zero,0xffff' (stored to 11A4 sw and 11A0 sh), osCreateMesgQueue 3rd arg 1, with/without volatile pad[2]. Results all worse (2170-2456). Findings: target frame 0x20 w/ only ra,s0 saved; no pad -> 0x18 frame; z declared before bzero -> extra s1 saved (0x28 frame with pad). Target interleaves lw/sw for arg copies (volatile args order arg4,arg1,arg2,arg3); post-call reloads arg1 (t1), arg4 (t2) and hoists consts 2 (t4), 1 (t3) before branch. Next step: declare z after call but keep pointer-cast style and pad[2], use if(arg1!=0){if(arg4!=0)...} form, and try u16 z as volatile-free expression like (u16)0 assigned via a separate variable between the 11A2 and 11A4 stores.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795222837.405272,
-  "score_before": 1315,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
  },
  {
   "function": "updateSaveMenu",
@@ -56339,15 +56110,6 @@
   "score_after": 0
  },
  {
-  "function": "func_8009D510",
-  "text": "Target passes a2=1 to osCreateMesgQueue; inherited candidate omits it. Explicit argument alone regressed score. Target also materializes zero with andi for subsequent stores.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795227611.22476,
-  "score_before": 1315,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
- },
- {
   "function": "func_8005E4C8",
   "text": "Rechecked 120, 79/79 instructions. Only double threshold load precedes three invariant skip constants instead of following them. Volatile double and for initializer unchanged. Reversing i/load assignments scored 390. Loading on i==0 in loop scored 690 and added two instructions. Disabling first scheduling pass left 120; disabling second scored 240.",
   "by": "codex-gpt-6.2-sol-9",
@@ -56947,15 +56709,6 @@
   "score_before": 2880,
   "score_after": 2880,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
- },
- {
-  "function": "func_8009D510",
-  "text": "Verified saved best 1315; changing osCreateMesgQueue call to pass three args improved from 1880 to 1315. Adding early 0x11A4/0x11A0 zero stores produced 1515; removing them restored 1315. Remaining structural mismatch is argument setup around queue call and conditional byte store; target emits addiu a2,1 and andi v0,zero,ffff plus beqz t1 / bnez t2 branches. Candidate only 45 of 49 target instructions.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795228766.610645,
-  "score_before": 1880,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
  },
  {
   "function": "func_800295F0",
@@ -57783,15 +57536,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:a8c2388db0bcb85300a17165685e2642f8c42e9bbc499924c399216ed314530a"
  },
  {
-  "function": "func_8009D510",
-  "text": "Verified saved baseline score 1315. Alternative branch orientation and extra call-arity trials scored 1515/1740; reshaped nested branch version 1450, not better. Main mismatch remains prologue save order/frame values and branch block around arg1/arg4 conditions; target has explicit arg2=1 in t3, bnez t2 and zero/sign extension operations that current source loses by repeated byte stores. Threshold 4/4.\nCurrent baseline 1315; branch orientation, call arity, and nested conditional rewrite gave worse scores.\nNo improvement; best saved retained.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795229772.83838,
-  "score_before": 1315,
-  "score_after": 1315,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
- },
- {
   "function": "func_80038000",
   "text": "Baseline rechecked at 23629; three variants worsened, and further batch was interrupted by changed progress. Extensive previous trials remain.",
   "by": "codex-gpt-6.1-terra-2",
@@ -58435,5 +58179,261 @@
   "score_before": 1190,
   "score_after": 1190,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:0f5fc56f1e67e6155a7a02016911753168763f3acd0cd29c8b619143a22ce255"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best current verified 1666/49 instructions. Reproduced after reacquiring claim. Corrected bzero signature/call to bzero(arg0,0x190). Marking arg1..arg4 volatile reduced 3183 to 1881; moving osCreateMesgQueue call immediately after the 0x166 halfword initialization then storing arg4/arg1/arg2/arg3 improved to 1666. Nested if/else for the byte flag reproduces branch shape better than ternary. Remaining differences center on frame (-0x18 vs target -0x20), caller-home spills/argument register allocation, final flag branches using v0 rather than t1/t2, and zero temp register (`andi v0,zero,0xffff`) whose C equivalent remains unclear. Local debug-boundary variants had no effect; passthrough argument repair worsened to 2109.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795137552.2442229,
+  "score_before": 2418,
+  "score_after": 1666
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Current rechecked best remains 1650. Tried reordering stores/call and explicit goto control flow; result 1665. Restored saved baseline, tried ordering change (1665), restored and recompiled saved source (1650), reaching 4/4 no-better threshold. Remaining target control flow requires loading arg1 and arg4 from stack, testing them in separate branches with delay-slot constants, then writing flag; candidate's short-circuit expression emits a different branch-likely shape. Call setup also needs to interleave addiu arguments with stores; candidate currently emits all call setup together. Signature/argument volatiles may affect stack placement; removing all made score 2998, so preserve baseline qualifiers.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795176840.975553,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Baseline 1650 unchanged after testing goto guard, boolean assignment, parameter volatility and unused pad. Target resembles IDO register numbering/scheduling; IDO 5.3 -O2 -non_shared scored 2215 with current candidate and wrong call order. Investigate compiler/profile and move osCreateMesgQueue after field assignments, matching target's interleaved call delay slot.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182047.0995278,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Byte-identical source verified with IDO 5.3 -O2 -mips2 -G 0 -non_shared -Xcpluscomm -Wab,-r4300_mul and attached to the checked function-only compiler suggestion. Automatic compiler changes are off. To match with IDO, queue creation follows the argument stores and the clears are halfword 0x11A0 = word 0x11A4 = halfword 0x11A2 = 0. GCC candidate still open pending bundle approval.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795183073.170243,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Rechecked 3253. Volatile a/b/c/d restored the argument homes; a volatile unused s64 local restored the 0x20 frame (current 1665, historical 1650). Preloading a/d and explicit gotos gave two loads but retained beql and j. Unsigned-half chained zero assignment did not materialize the target andi. Remaining structural issues: call argument setup interleaved with stores, first branch beqz with literal 2 in delay slot, andi $v0,$zero,0xffff feeding the last two of the three zero stores at 0x11A2/0x11A4/0x11A0. Consider current KMC profile against -O1 and explicit scheduling/branch-likely settings before further C tuning; compare the prologue ordering as well.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795184249.366476,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Byte-exact standalone with IDO 5.3 -O2 -G0 -mips2 -non_shared; checked function-only bundle submitted, automatic changes are off. Correct source writes 0x19C before clearing 0x11A8, which IDO schedules between the argument reload and dependent delay-slot store. The active GCC profile produced 3253 for the original rewrite; stop GCC source tuning pending the verified bundle.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795185316.668201,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Independently verified IDO 5.3 function-only bundle with score 0 and submitted exact source/profile. Use u16 halfword lvalues in the chain HALF(0x11a0) = WORD(0x11a4) = HALF(0x11a2) = 0; signed lvalues score 540 under identical flags and add an lh. Active KMC candidate remains 1650 pending compiler bundle approval; further KMC source tuning is redundant.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795186445.130929,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Inherited GCC best 1650. Moving queue creation after field stores produced 1665; branch inversion, nonvolatile arguments, and assignment-derived zero worsened it. Target uses IDO-style t6 onward and prologue; IDO 5.3 trial with register arg0 and stores before queue call scored 820, still not a match. Investigate IDO flags and branch/zero initialization source before suggesting compiler change.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795188731.301364,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best 1650 remains. Moving queue call after field stores improved structural ordering but scored 1665; explicit goto branch emitted identical code. Removing volatile arguments worsened allocation significantly. IDO 5.3 trial on prior candidate scored 2105; target uses IDO-like temporaries but compiler mismatch remains unproven. Target stores parameters before queue call and has explicit andi zero, branch polarity differences.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795189791.080409,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Verified baseline 1650. Moving queue creation after field initialization scored 1665; removing volatile arguments scored 3248, reversing boolean branch 1675, removing volatile padding 1691. IDO 5.3 default with saved candidate scored 2105, not a match. Target uses sequential t6-t4 temporaries, or move, and interleaves queue arguments with field stores, suggesting compiler/scheduling investigation with corrected source. Saved baseline unchanged.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795190881.687594,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best saved candidate e3ecaffbf6dbdd8a3121 score 1650 (rechecked once). Local repairs variants 1-2 tied; later variants hit batch time. Removing volatile args worsened to 3308; removing volatile s64 pad from saved candidate yielded 1656 and kept 49 instructions, but frame shrank from target 0x20 to 0x18 and altered conditional layout. Target entry explicitly spills a1-a3, retains a0 in s0, frame 0x20; target boolean logic uses t1/t2 with beqz+bnez and separate branches. Investigate struct typing/volatile aggregate fields and reconstructing source-level boolean branches while preserving 0x20 frame; saved best remains available.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795192140.723561,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Rechecked candidate baseline 1955; target 49 instructions, candidate 48. Main mismatch starts in prologue: target saves ra at sp+0x1c then s0 at +0x18, spills incoming a1/a2/a3 at +0x24/+0x28/+0x2c, moves a0 to s0, then calls bzero with size 0x190 in delay slot. Candidate prologue starts saving s0 and moves it before spill, so likely source argument/liveness/order shaping is off. It also calls osCreateMesgQueue before storing halfword 0x28, whereas target sets 0x28 before queue call; this swap was tried and did not improve. Candidate uses volatile args and unused volatile s64 padding; removing volatile args worsened. Tried alternate osCreateMesgQueue signature from matched definition, no score effect (warning because candidate passes pointer as arg2). Main downstream semantic mismatch includes flag conditional/store/control flow and expected `andi $v0,$zero,0xffff`. Next worker should inspect full target around queue call and remaining code, correct prototype/order and if possible reconstruct source-level structure; no match.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795197411.971591,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Baseline rechecked at 1950. Tried inserting the missing target store *(s16*)(arg0+0x166)=0x28 (score 1955), volatile qualification (same), and nested condition instead of || (1965; reverted to 1955). The target's clear operations around 0x11A4/0x11A0 come from an explicit zero narrowed to 16 bits (andi $v0,$zero,0xffff), which candidate folds away. Remaining major mismatch is call/store scheduling: target stores 0x166 before message queue call and maintains t registers/stack args; candidate queues first and different register allocation. arg0 likely S_D_800E1AC0 per guess_struct.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198487.662986,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best score 1950 on 49 instructions; later edits worsened. Tried adding target's *(s16 *)(arg0+0x166)=0x28, then moving osCreateMesgQueue after adjacent stores (worse), and inverting the condition (worse). Original target saves args to stack, calls bzero with 0x190 in delay slot, stores 0x28 at offset 0x166, then loads args and stages fields around osCreateMesgQueue. Remaining key issue is exact call/order/control flow and boolean branch lowering; target uses andi $v0,$zero,0xffff and two separate tests with branches, while C collapsed them to a single conditional. Continue from saved best.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795200496.220982,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Current best recovered at score 1650 (improved from 1950 by removing arg4 from the status-byte condition, matching target's beqz arg1 then bnez stack arg4). Variants changing osCreateMesgQueue prototype to its matched signature (void*,s32,s32), removing unused volatile 64-bit pad, or changing constant initialization made no difference or worsened. Struct layout rewrite scored 2065. Target has 49 instructions; current source 46 and misses initialization of 0x166 to 0x28 (target uses sh $t6), initializes the queue and fields in a different scheduling order, and target obtains v0=0xFFFF via andi zero then writes halfword/word offsets 0x11A0/0x11A4. Next try changing field at 0x166 to s16 and write 0x28 before the queue call, then reorder stack arg stores around osCreateMesgQueue as target: loads arg4 from 0x30($sp), computes queue ptrs, stores arg4/arg1/arg2 and arg3 before call, with arg3 store in jal delay slot. Preserve recovered status check condition.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201592.830092,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Target disassembly order: bzero call; set s16 0x166=0x28; load stack arg4 then setup queue args; store arg4,arg1,arg2 and zero fields interleaved; queue call delay slot stores arg3. Afterwards loads arg1 and arg4, `andi zero,0xffff`, branches first on arg1 then arg4; initializes byte 0x11DD to 0 or 1. Best C score 1650, currently saved source. No matching repair_category submission (no verified fix).",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795202543.168706,
+  "score_before": 1650,
+  "score_after": 1650
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best so far 1540 (revision 01305e516b1150ca6a56): volatile s32 arg1..arg4, bzero(arg0,0x190), then *(s16*)(arg0+0x166)=0x28 before osCreateMesgQueue(arg0+0x11AC, arg0+0x11C4, 1); arg4 copied to a local 'volatile s32 a4' around the call and stored to 0x190 after it. Remaining diffs: prologue save order (target: sw ra 0x1c, s0 0x18, a1 0x24 ... ; ours saves s0 first at 0x18 and a1 at 0x24 later), andi v0 temp / branch layout of the t1/t2 flag block, and a register choice (target uses t6/t7/t8 temps, ours v0). Untried: reorder the arg1..arg3 stores or split the t=0 temp into its own statement.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795203947.0627258,
+  "score_before": 1650,
+  "score_after": 1540
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Fresh baseline is 3538 (49 target instructions). Two manual variants produced the same score/diff. A variant with two-argument bzero failed because shared context declares bzero(s32). Assembly shows 0x20 frame, caller args spilled at 0x24/0x28/0x2C and arg4 loaded at 0x30(sp); bzero receives length in a1 while a0 remains incoming arg0. osCreateMesgQueue gets arg0+0x11AC, arg0+0x11C4, 1. Control branch checks arg1 then arg4 and writes 0/1 to 0x11DD.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795204990.296489,
+  "score_before": 1540,
+  "score_after": 1540
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best 1825 (revision 0342284d2c97ef1d44d3): volatile s32 params arg1..arg4, bzero(arg0,0x190) via local prototype, field stores, plus `volatile s32 pad[2];` for 0x20 frame. Remaining: save order (target saves ra 0x1c, s0 0x18, a1 0x24 first; ours s0 first), andi zero-store temp, flag block (0x11DD) branch shape (target beqz arg1 -> sb 0, else bnez arg4 -> sb 1). Tried: nested-if flag rewrite (1835/2069), extra volatile a4 copy (worse), pad[3] (1846), volatile s64 pad (1825 equal). Untried: prototype-based bzero/osCreateMesgQueue signatures, reordering field stores to change save order.",
+  "by": "api-claude-haiku-5-5-9",
+  "created_at": 1795206000.11261,
+  "score_before": 1540,
+  "score_after": 1540
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Saved best 1825 (rev 0342284d2c97ef1d44d3) still unmatched after prior 46+ trials. Remaining diffs: save order (target saves ra 0x1c, s0 0x18, a1 0x24 first), andi $v0,$zero,0xFFFF temp for zero stores (sw/sh of a u16 zero), and flag block branch shape at 0x11DD (target: beqz arg1 -> sb 0; else bnez arg4 -> sb 1; ours uses || form producing beql/j). One extra duplicate-store patch tried this session scored 1975 (worse). Next idea: write flag block as nested if (arg1==0) {sb 0} else if (arg4!=0) {sb 1} else {sb 0} with explicit sb 0 duplicates; or a u16 zero local to get andi.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795207420.9089339,
+  "score_before": 1540,
+  "score_after": 1540
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Stalled at best 1765 (saved_best 0342284d2c97ef1d44d3; ~50 trials total across sessions). This session: u16 z=0 temp for zero stores + else-if flag form scored 1770 (worse). Remaining diffs: prologue save order (target sw ra 0x1c, s0 0x18, a1 0x24 first), flag block branch shape (target beqz arg1 -> sb 0; else bnez arg4 -> sb 1), addiu a2,zero,1 placement. Untested next: restart from saved_best and only change flag block to else-if form without the z temp.\nu16 z temp with else-if flag form (on ed0075f7)\n1770 vs 1765 saved best; worse",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209284.233654,
+  "score_before": 1445,
+  "score_after": 1445
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Stalled at 1765 (rev 2b17aba0 / saved_best 0342284d). This session tried: flag block as (arg1!=0&&arg4!=0)?1:0 form (1955), ternary form (not better), else-if chain (1770), && if/else (worse); removing pad[2] (1791), pad[1] (1781), pad[4] (1765 equal). Target prologue: sw ra 0x1c, sw s0 0x18, sw a1 0x24, move s0,a0, sw a2/a3 \u2014 candidate emits sw s0 first and ra later, which is the first mismatch and was not fixed by any variant. Untested: a plain local for the 0x11DE constant (t4 hoisted into delay slot of beqz) and a bzero-free rewrite of the first store block.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795210416.492105,
+  "score_before": 1445,
+  "score_after": 1445
+ },
+ {
+  "function": "func_8009D510",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Accidental claim while trying to reclaim a readable function; no compile attempted. Released unchanged.",
+  "by": "api-claude-haiku-5-5-14",
+  "created_at": 1795212544.4961312,
+  "score_before": 1445,
+  "score_after": 1445
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Recovered saved candidate and rechecked it at 1445; a conditional rewrite also scored 1445 after reaching 2115. Main unresolved difference is the arg1/arg4 boolean branch: target materializes 1 in a2, clears v0 with andi, branches on t1/t2 and uses b; candidate uses beql, sb zero, bnez and unconditional j. Structural/frame differences remain.\nRestored saved_best and compiled it; score 1445. Rewrote condition to if ((arg1 == 0) || (!arg4)) ... else ...; also 1445.\nNo improvement; conditional lowering differs substantially from target branches.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795213695.887855,
+  "score_before": 1445,
+  "score_after": 1445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Best remains 1445. Target passes 1 as the third osCreateMesgQueue argument; adding it in the current volatile s32 draft scored 1875, and rewriting with nonvolatile s32 prototype assumptions scored 3428. Restoring the saved candidate and recompiling scored 1445 with no better result at 4/4. Main surviving issue is codegen around queue call / post-call boolean flag: target emits addiu a2,1, then andi v0,zero,0xffff, explicit beqz t1 and bnez t2 with delay-slot constants, then a branch around sb zero; candidate folds it into beql/bnez/j. Initial prologue order also differs (target saves ra,s0 then a1; candidate s0 setup and stack spill order).\nAdded third osCreateMesgQueue argument 1, kept volatile s32 params and original branch form; score unchanged at 1445 after recovering saved best. Nonvolatile scalar rewrite with three-arg call degraded to 3428.\nThe target requires explicit a2=1; experiment generated substantially different code and recovered baseline remained best.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795217655.39782,
+  "score_before": 1875,
+  "score_after": 1445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Recompiled inherited best 1445. Tested boolean expression (1635), nested explicit if/else (1450), duplicate zero store before nested arg4 test (1315 best), then inverse nested condition (1450). Best saved score 1315. Residual mismatch includes prologue save order and condition block branch/register allocation.\nRecompiled inherited best; tested several boolean block structures. Best score 1315 with duplicate zero store before conditional arg4 assignment.\nMain residuals are prologue save order and condition block branches/registers. Restore saved best before further attempts.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795220774.715986,
+  "score_before": 1445,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Saved candidate rechecked at 1315. Tested branch orientation (1515) and adding third osCreateMesgQueue argument (1740); both worse. Target post-call block reloads arg1 and arg4, materializes constants 1 and 2, and stores 0/1 conditionally. Next step: identify exact post-call source control flow and call prototype from matched siblings before another rewrite.\nSaved best baseline 1315; branch orientation scored 1515, adding third call argument scored 1740.\nNo improvement; target includes a2=1 on call, followed by separate tests for arg1 and arg4.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221716.5046642,
+  "score_before": 1515,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Saved best 1315 unchanged. Tried: struct-typed arg0 (2250-2456), local u16 z=0 for 'andi v0,zero,0xffff' (stored to 11A4 sw and 11A0 sh), osCreateMesgQueue 3rd arg 1, with/without volatile pad[2]. Results all worse (2170-2456). Findings: target frame 0x20 w/ only ra,s0 saved; no pad -> 0x18 frame; z declared before bzero -> extra s1 saved (0x28 frame with pad). Target interleaves lw/sw for arg copies (volatile args order arg4,arg1,arg2,arg3); post-call reloads arg1 (t1), arg4 (t2) and hoists consts 2 (t4), 1 (t3) before branch. Next step: declare z after call but keep pointer-cast style and pad[2], use if(arg1!=0){if(arg4!=0)...} form, and try u16 z as volatile-free expression like (u16)0 assigned via a separate variable between the 11A2 and 11A4 stores.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795222837.405272,
+  "score_before": 1315,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Target passes a2=1 to osCreateMesgQueue; inherited candidate omits it. Explicit argument alone regressed score. Target also materializes zero with andi for subsequent stores.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795227611.22476,
+  "score_before": 1315,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Verified saved best 1315; changing osCreateMesgQueue call to pass three args improved from 1880 to 1315. Adding early 0x11A4/0x11A0 zero stores produced 1515; removing them restored 1315. Remaining structural mismatch is argument setup around queue call and conditional byte store; target emits addiu a2,1 and andi v0,zero,ffff plus beqz t1 / bnez t2 branches. Candidate only 45 of 49 target instructions.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795228766.610645,
+  "score_before": 1880,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e1ee58a346b5ae97738654d55c551e218258316ab630c099c342364d460e4c5:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
+ },
+ {
+  "function": "func_8009D510",
+  "text": "Verified saved baseline score 1315. Alternative branch orientation and extra call-arity trials scored 1515/1740; reshaped nested branch version 1450, not better. Main mismatch remains prologue save order/frame values and branch block around arg1/arg4 conditions; target has explicit arg2=1 in t3, bnez t2 and zero/sign extension operations that current source loses by repeated byte stores. Threshold 4/4.\nCurrent baseline 1315; branch orientation, call arity, and nested conditional rewrite gave worse scores.\nNo improvement; best saved retained.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795229772.83838,
+  "score_before": 1315,
+  "score_after": 1315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
  }
 ]
