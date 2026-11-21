@@ -28,6 +28,11 @@ inline static u8 inline_fn(s32 arg0)
   return *((u8 *) (((u8 *) (&D_800E2CC4)) + arg0));
 }
 
+inline static u8 *inline_fn2(s32 arg0)
+{
+  return (u8 *) (((u8 *) (&D_800E2CC1)) + arg0);
+}
+
 void func_8008863C(void)
 {
   f64 var_ft0;
@@ -53,7 +58,7 @@ void func_8008863C(void)
     var_s2 = &D_800E2CD8;
     var_s6 = (s32 *) ((&D_800E2CD8) - 0xC);
     var_s3 = (s32 *) ((&D_800E2CD8) - 8);
-    var_s5 = (&D_800E2CD8) - 0x3B;
+    var_s5 = (&D_800E2CD8) + (-0x3B);
     var_s4 = (s32 *) ((&D_800E2CD8) - 0x10);
     var_s0 = 0;
     do
@@ -89,7 +94,20 @@ void func_8008863C(void)
             {
               temp_v1_2 = *var_s4; rate = (((f32) (*((u16 *) (((u8 *) (&D_800E2C60)) + var_s0)))) * 160.0f) / ((f32) ((f64) ((u32) temp_v1_2)));
               *((s32 *) (((u8 *) (&D_800E2CDC)) + var_s0)) = 0;
- do { *((volatile u8 *) (((u8 *) (&sDataBankFlags)) + var_s0)) = limit; *((f32 *) (((u8 *) (&D_800E2CE0)) + var_s0)) = rate; func_8009D9B8(temp_s1); { s32 arg0 = inline_fn(var_s0); s32 arg1 = *var_s3; s32 arg2 = *((s32 *) (((u8 *) (&D_800E2CD4)) + var_s0)); s32 arg3 = *var_s4; temp_v0 = startAudioVoice(arg0, arg1, arg2, arg3, (s32) (*((u8 *) (((u8 *) (&D_800E2CC1)) + var_s0))), (s32) (*((u8 *) (((u8 *) (&D_800E2CC2)) + var_s0))), (s32) (*((u8 *) (((u8 *) (&D_800E2CC3)) + var_s0))), (s32) (*((u8 *) (((u8 *) (&D_800E2CD9)) + var_s0))), &func_80088EE4, var_s7); } } while (0);
+              do
+              {
+                *((volatile u8 *) (((u8 *) (&sDataBankFlags)) + var_s0)) = limit;
+                *((f32 *) (((u8 *) (&D_800E2CE0)) + var_s0)) = rate;
+                func_8009D9B8(temp_s1);
+                {
+                  s32 arg0 = inline_fn(var_s0);
+                  s32 arg1 = *var_s3;
+                  s32 arg2 = *((s32 *) (((u8 *) (&D_800E2CD4)) + var_s0));
+                  s32 arg3 = *var_s4;
+                  temp_v0 = startAudioVoice(arg0, arg1, arg2, arg3, (s32) (*inline_fn2(var_s0)), (s32) (*((u8 *) (((u8 *) (&D_800E2CC2)) + var_s0))), (s32) (*((u8 *) (((u8 *) (&D_800E2CC3)) + var_s0))), (s32) (*((u8 *) (((u8 *) (&D_800E2CD9)) + var_s0))), &func_80088EE4, var_s7);
+                }
+              }
+              while (0);
               *((s32 *) (((char *) temp_s1) + 0x120C)) = temp_v0;
               if (temp_v0 == (-1))
               {
@@ -118,7 +136,14 @@ void func_8008863C(void)
             block_17:
             if (!(sDataBankMode & 1))
             {
-              gDataBankFree(*var_s3);
+              if (var_s0)
+              {
+                gDataBankFree(*var_s3);
+              }
+              else
+              {
+                gDataBankFree(*var_s3);
+              }
             }
 
             *((volatile u8 *) (((u8 *) (&sDataBankFlags)) + var_s0)) = 0; var_s2 += 0x1228;
@@ -150,6 +175,8 @@ void func_8008863C(void)
         ;
         ;
         ;
+        ;
+        ;
       }
       else
       {
@@ -168,3 +195,4 @@ void func_8008863C(void)
     osSendMesg(&sDataBankMesgQueue, 0, 0);
   }
 }
+
