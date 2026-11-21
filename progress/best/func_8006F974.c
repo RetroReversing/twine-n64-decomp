@@ -44,6 +44,7 @@ void func_8006F974(void *arg0, void *arg1) {
     u8 temp_a0_2;
     s32 temp_v1_3;
     void *temp_a1;
+    void *borderData;
     void *temp_s3;
     void *temp_v0;
     void *var_s2;
@@ -78,8 +79,8 @@ block_7:
 block_16:
                 if ((var_s2 == NULL) || (temp_v1_2 = ((u32) M2C_FIELD(var_s2, u32 *, 0x88) >> 0x15) & 0xF, (temp_v1_2 == 1)) || (temp_v1_2 == 4)) {
                     if (gBorderSkipFlag != 0) {
-                        if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (temp_a0_2 = M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x6C), void **, 0xB4), u8 *, 0x12), (temp_a0_2 != 2))) {
-                            if (temp_a0_2 != M2C_FIELD(M2C_FIELD(M2C_FIELD(arg1, void **, 0x6C), void **, 0xB4), u8 *, 0x12)) {
+                        if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (temp_a0_2 = M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s3, void **, 0x6C), void **, 0xB4), u8 *, 0x12), borderData = M2C_FIELD(arg1, void **, 0x6C), (temp_a0_2 != 2))) {
+                            if (temp_a0_2 != M2C_FIELD(M2C_FIELD(borderData, void **, 0xB4), u8 *, 0x12)) {
                                 goto block_29;
                             }
                         } else {
@@ -89,9 +90,10 @@ block_16:
                         temp_v1_3 = M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u8 *, 0xB1);
                         if ((s32) temp_v1_3 < 0x3C) {
                             var_v0 = 6;
-                            if ((s32) temp_v1_3 < 0x3A) {
-                                goto block_28;
+                            if ((s32) temp_v1_3 >= 0x3A) {
+                                return;
                             }
+                            goto block_28;
                         } else {
                             var_v0 = 0x61;
 block_28:
@@ -106,19 +108,16 @@ block_29:
                                 sp3C += M2C_FIELD(arg0, f32 *, 0xB0);
                                 temp_fv1 = sp40 + M2C_FIELD(arg0, f32 *, 0xB4);
                                 sp40 = temp_fv1;
-                                if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(sp3C - var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                                if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (var_fs0 = sp3C - var_fs0, absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                     M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
                                     { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)arg0 + 0x104) = *(struct vec *)&in; }
+                                    var_v0 = gGameMode;
                                     M2C_FIELD(arg0, f32 *, 0x114) = sp3C;
-                                    if (gGameMode != 0x19) {
-                                        if (!(sp40 < D_800C7C98)) {
-                                            M2C_FIELD(arg0, f32 *, 0x110) = 0.0f;
-                                            return;
-                                        }
-                                        goto block_38;
+                                    if (var_v0 == 0x19 || sp40 < D_800C7C98) {
+                                        M2C_FIELD(arg0, f32 *, 0x110) = sp38;
+                                    } else {
+                                        M2C_FIELD(arg0, f32 *, 0x110) = 0.0f;
                                     }
-block_38:
-                                    M2C_FIELD(arg0, f32 *, 0x110) = sp38;
                                 }
                             }
                         }
@@ -128,3 +127,4 @@ block_38:
         }
     }
 }
+

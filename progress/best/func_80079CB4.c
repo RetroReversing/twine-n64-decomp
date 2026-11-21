@@ -36,6 +36,7 @@ extern M2C_UNK actorTickStateMachine;
 extern s32 *gProbeObjectList;
 extern M2C_UNK gTrackDoneFlags;
 
+typedef struct { s32 w[3]; } __repair_words3;
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u8 arg9, s32 arg10, s32 arg11, u8 arg12, u8 arg13, s32 arg14, s32 arg15) {
     M2C_UNK var_a0;
     M2C_UNK var_a1_2;
@@ -45,7 +46,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
     
     s32 var_a1;
     s32 var_s2;
-    s32 var_s5;
+    s32 var_s5; 
     s32 var_v0;
     s32 var_v0_3;
     s32 var_v1;
@@ -135,12 +136,8 @@ block_76:
                             temp_v0 = randomIntBelow(temp_a0 - 1);
                             M2C_FIELD(temp_s0, s8 *, 0x86) = (s8) (temp_v0 + 1);
                             temp_v1 = (temp_v0 * 0x18) + temp_s2;
-                            M2C_FIELD(arg0, s32 *, 0) = (s32) M2C_FIELD(temp_v1, s32 *, 0);
-                            M2C_FIELD(arg0, s32 *, 4) = (s32) M2C_FIELD(temp_v1, s32 *, 4);
-                            M2C_FIELD(arg0, s32 *, 8) = (s32) M2C_FIELD(temp_v1, s32 *, 8);
-                            M2C_FIELD(arg1, s32 *, 0) = (s32) M2C_FIELD(temp_v1, s32 *, 0xC);
-                            M2C_FIELD(arg1, s32 *, 4) = (s32) M2C_FIELD(temp_v1, s32 *, 0x10);
-                            M2C_FIELD(arg1, s32 *, 8) = (s32) M2C_FIELD(temp_v1, s32 *, 0x14);
+                            M2C_FIELD(arg0, __repair_words3 *, 0x0) = *(__repair_words3 *) ((s8 *) temp_v1 + 0x0);
+                            M2C_FIELD(arg1, __repair_words3 *, 0) = *(__repair_words3 *)((s8 *)temp_v1 + 0xC);
                         }
                     }
                     break;

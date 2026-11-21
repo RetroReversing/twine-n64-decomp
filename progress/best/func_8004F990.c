@@ -21,7 +21,7 @@ extern Actor *gPlayerActor;
 extern s32 gGameMode, D_80108F84;
 
 f32 Vec3_DistanceSq(Vec *, Vec *);
-void func_800455CC(Vec *, Vec *, Vec *, Vec *);
+void segmentClosestPoint(Vec *, Vec *, Vec *, Vec *);
 f32 func_80045764(Vec *, Vec *);
 f32 approxDistance(Vec *, Vec *);
 s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
@@ -53,7 +53,7 @@ Actor *func_8004F990(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, 
                 scale = 1.5f;
                 if (gGameMode == 0x19 && actor->type == 1)
                     scale = 2.5f;
-                func_800455CC(&closest, start, end, &actor->pos);
+                segmentClosestPoint(&closest, start, end, &actor->pos);
                 dx = closest.x - actor->pos.x;
                 dy = closest.y - actor->pos.y;
                 dz = closest.z - actor->pos.z;

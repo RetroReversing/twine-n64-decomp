@@ -1,4 +1,4 @@
-void func_800455CC(void *a, void *b, void *c, void *d);
+void segmentClosestPoint(void *a, void *b, void *c, void *d);
 void normalizeVector3(f32 *a, f32 *b);
 f32 approxDistance(void *a, void *b);
 extern u8 D_801096A0;
@@ -34,7 +34,7 @@ void *func_8000BF90(u8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
             node = *(u8 **)(*(u8 **)(__repair_phase_storage.pointer + 0x20) + 0x50);
             while (node != NULL) {
                 if (node[0x2B] == 0 || gTrackDoneFlags[node[0x2B]] != 0) {
-                    func_800455CC(sp20, node + 4, node + 0x10, ((f32 *)(arg0 + 0x24)));
+                    segmentClosestPoint(sp20, node + 4, node + 0x10, ((f32 *)(arg0 + 0x24)));
                     f = approxDistance(((f32 *)(arg0 + 0x24)), sp20);
                     idx = 0;
                     do {

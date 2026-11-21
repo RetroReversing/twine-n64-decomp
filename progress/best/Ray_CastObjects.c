@@ -27,7 +27,7 @@ typedef union {
 } RayScratch;
 
 f32 Vec3_DistanceSq(void *, void *);              /* extern */
-s32 func_800455CC(void *, void *, void *, void *); /* extern */
+s32 segmentClosestPoint(void *, void *, void *, void *); /* extern */
 void buildPlaneFromPoints(void *, s32, s32, s32);        /* extern */
 s32 randomIntBelow(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
@@ -176,7 +176,7 @@ s32 __repair_phase_var_a2;
                                 var_fs0 = M2C_FIELD(var_s3, f32 *, 0x64) * M2C_FIELD(var_s3, f32 *, 0x54);
                             }
                             temp_s0 = var_s3 + 0x24;
-                            func_800455CC(sp11C, spF4, &end.x, temp_s0);
+                            segmentClosestPoint(sp11C, spF4, &end.x, temp_s0);
                             temp_fv0 = Vec3_DistanceSq(temp_s0, sp11C);
                             work.distance8 = temp_fv0;
                             if (temp_fv0 < var_fs0) {
@@ -297,7 +297,7 @@ s32 __repair_phase_var_a2;
                     temp_v1_9 = M2C_FIELD(var_s7, s32 *, 0x50);
                     if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (randomIntBelow(2) != 0) || (sp107 != 0))) {
                         temp_s0_3 = (void **)((u8 *)var_s7 + 0x40);
-                        func_800455CC(sp164, spF4, &end.x, temp_s0_3);
+                        segmentClosestPoint(sp164, spF4, &end.x, temp_s0_3);
                         temp_fv0_2 = Vec3_DistanceSq(temp_s0_3, sp164);
                         work.distance8 = temp_fv0_2;
                         if (temp_fv0_2 < M2C_FIELD(var_s7, f32 *, 0x4C)) {

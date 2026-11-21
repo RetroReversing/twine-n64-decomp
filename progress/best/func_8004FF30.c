@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800455CC(f32 *, s32, s32, f32 *);      /* extern */
+M2C_UNK segmentClosestPoint(f32 *, s32, s32, f32 *);      /* extern */
 M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32);        /* extern */
 s32 func_80045B58(void *, s32, s32, s32, f32 *);    /* extern */
 f32 func_80047AB0(f32 *, f32 *);                    /* extern */
@@ -299,11 +299,11 @@ loop_3:
                                                 sp20 += temp_fv0;
                                                 goto block_37;
                                             }
-                                            func_800455CC(sp1BC, temp_s2, temp_s0_2, &sp18);
+                                            segmentClosestPoint(sp1BC, temp_s2, temp_s0_2, &sp18);
                                             temp_fs0_2 = func_80047AB0(sp1BC, &sp18);
-                                            func_800455CC(sp1C4, temp_s0_2, temp_s1, &sp18);
+                                            segmentClosestPoint(sp1C4, temp_s0_2, temp_s1, &sp18);
                                             temp_fs1 = func_80047AB0(sp1C4, &sp18);
-                                            func_800455CC(sp1CC, temp_s1, temp_s2, &sp18);
+                                            segmentClosestPoint(sp1CC, temp_s1, temp_s2, &sp18);
                                             temp_fv0_2 = func_80047AB0(sp1CC, &sp18);
                                             var_fa0_2 = temp_fs0_2;
                                             var_a0 = spB8;
@@ -404,11 +404,11 @@ block_37:
                                                 sp20 += temp_fv0_4;
                                                 goto block_65;
                                             }
-                                            func_800455CC(sp1BC, temp_s2_2, temp_s0_3, &sp18);
+                                            segmentClosestPoint(sp1BC, temp_s2_2, temp_s0_3, &sp18);
                                             temp_fs0_4 = func_80047AB0(sp1BC, &sp18);
-                                            func_800455CC(sp1C4, temp_s0_3, temp_s1_2, &sp18);
+                                            segmentClosestPoint(sp1C4, temp_s0_3, temp_s1_2, &sp18);
                                             temp_fs1_2 = func_80047AB0(sp1C4, &sp18);
-                                            func_800455CC(sp1CC, temp_s1_2, temp_s2_2, &sp18);
+                                            segmentClosestPoint(sp1CC, temp_s1_2, temp_s2_2, &sp18);
                                             temp_fv0_5 = func_80047AB0(sp1CC, &sp18);
                                             var_fa0_4 = temp_fs0_4;
                                             var_a0_2 = spB8;
@@ -559,11 +559,11 @@ loop_81:
                                                 sp30 += temp_fv0_7;
                                                 goto block_106;
                                             }
-                                            func_800455CC(sp1F4, temp_s2_3, temp_s0_4, sp1AC);
+                                            segmentClosestPoint(sp1F4, temp_s2_3, temp_s0_4, sp1AC);
                                             temp_fs0_6 = func_80047AB0(sp1F4, sp1AC);
-                                            func_800455CC(sp1FC, temp_s0_4, temp_s1_5, sp1AC);
+                                            segmentClosestPoint(sp1FC, temp_s0_4, temp_s1_5, sp1AC);
                                             temp_fs1_3 = func_80047AB0(sp1FC, sp1AC);
-                                            func_800455CC(&sp148, temp_s1_5, temp_s2_3, sp1AC);
+                                            segmentClosestPoint(&sp148, temp_s1_5, temp_s2_3, sp1AC);
                                             temp_fv0_8 = func_80047AB0(&sp148, sp1AC);
                                             var_fa0_6 = temp_fs0_6;
                                             var_a0_3 = sp130;
@@ -675,11 +675,11 @@ block_106:
                                                     sp30 += temp_fv0_10;
                                                     goto block_141;
                                                 }
-                                                func_800455CC(sp1F4, temp_s2_4, temp_s0_5, sp1AC);
+                                                segmentClosestPoint(sp1F4, temp_s2_4, temp_s0_5, sp1AC);
                                                 temp_fs0_8 = func_80047AB0(sp1F4, sp1AC);
-                                                func_800455CC(sp1FC, temp_s0_5, temp_s1_7, sp1AC);
+                                                segmentClosestPoint(sp1FC, temp_s0_5, temp_s1_7, sp1AC);
                                                 temp_fs1_4 = func_80047AB0(sp1FC, sp1AC);
-                                                func_800455CC(&sp148, temp_s1_7, temp_s2_4, sp1AC);
+                                                segmentClosestPoint(&sp148, temp_s1_7, temp_s2_4, sp1AC);
                                                 temp_fv0_11 = func_80047AB0(&sp148, sp1AC);
                                                 var_fa0_8 = temp_fs0_8;
                                                 var_a0_4 = sp130;
