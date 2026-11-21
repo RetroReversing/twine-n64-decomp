@@ -1,6 +1,6 @@
 s32 func_8008C1B0(s32);
 s32 func_80095EC4(s32, s32);
-s32 func_800982B4(u32);
+s32 func_800982B4(short);
 void func_8009876C(void *);
 s32 func_800988D8(void *);
 void func_80098B14(void *, s32);

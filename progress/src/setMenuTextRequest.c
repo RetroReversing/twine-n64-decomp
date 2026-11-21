@@ -42,7 +42,7 @@ s32 func_800448A4(void *, u32, s32);
 s32 lookupDataEntry(u16, void *);
 s32 strlen(s8 *);
 extern u8 sMenuListKind;
-extern MenuState *gMenuState;
+extern MenuState *gMenuItems;
 
 /* Replaces the menu text request: frees the pending object, rebuilds the active text, and queues a sprite object. */
 void setMenuTextRequest(MenuTextRequest *request) {
@@ -56,28 +56,28 @@ void setMenuTextRequest(MenuTextRequest *request) {
     MenuTextObj *temp_v0_2;
     s32 temp_a0_2;
 
-    temp_a0 = gMenuState->pendingText;
+    temp_a0 = gMenuItems->pendingText;
     if (temp_a0 != NULL) {
         freeMenuItemRecord(temp_a0);
     }
-    gMenuState->pendingText = NULL;
+    gMenuItems->pendingText = NULL;
     if (request != NULL) {
-        if ((gMenuState->activeText != NULL) || (temp_v0 = func_800162BC(sMenuListKind), (gMenuState->activeText = temp_v0), (temp_v0 != NULL))) {
-            gMenuState->activeText->param1E = request->slot02;
-            temp_a1 = gMenuState->activeText;
+        if ((gMenuItems->activeText != NULL) || (temp_v0 = func_800162BC(sMenuListKind), (gMenuItems->activeText = temp_v0), (temp_v0 != NULL))) {
+            gMenuItems->activeText->param1E = request->slot02;
+            temp_a1 = gMenuItems->activeText;
             temp_a1->flags = (temp_a1->flags & ~0xFC) | 0xC;
-            gMenuState->activeText->x = request->textX;
-            gMenuState->activeText->y = request->textY;
-            gMenuState->activeText->param10 = -0x100;
-            gMenuState->activeText->text = (void *)lookupDataEntry(request->textId, temp_a1);
-            gMenuState->activeText->textLength = 0;
-            temp_s0 = gMenuState->activeText;
+            gMenuItems->activeText->x = request->textX;
+            gMenuItems->activeText->y = request->textY;
+            gMenuItems->activeText->param10 = -0x100;
+            gMenuItems->activeText->text = (void *)lookupDataEntry(request->textId, temp_a1);
+            gMenuItems->activeText->textLength = 0;
+            temp_s0 = gMenuItems->activeText;
             temp_a0_2 = (s32)temp_s0->text;
             if (temp_a0_2) {
                 temp_s0->textLength = strlen((s8 *)temp_a0_2);
             }
         }
-        gMenuState->pendingText = NULL;
+        gMenuItems->pendingText = NULL;
         if (request->spriteArgs.hi >= 0) {
             temp_v0_2 = func_800162BC(sMenuListKind);
             temp_v0_2->param10 = request->value08;
@@ -92,7 +92,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
             func_800448A4(temp_v0_2, packed >> 0x10, packed & 0xFF);
             {
                 u16 x = request->spriteX;
-                MenuState *p = gMenuState;
+                MenuState *p = gMenuItems;
                 temp_v0_2->x = x;
                 temp_v0_2->y = request->spriteY;
                 p->pendingText = temp_v0_2;

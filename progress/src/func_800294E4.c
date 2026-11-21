@@ -17,23 +17,23 @@ M2C_UNK func_800278AC(s32, s32, u16);               /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 extern s32 gMenuSoundParams;
 extern void *sActiveMenu;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_800294E4(void) {
     s32 temp_a0;
     void *temp_s0;
     void *temp_v1;
 
-    temp_v1 = M2C_FIELD(gMenuState, void **, 0x18);
+    temp_v1 = M2C_FIELD(gMenuItems, void **, 0x18);
     M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
-    if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
-        if (M2C_FIELD(gMenuState, u8 *, 0x2F) == 0) {
+    if (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0) {
+        if (M2C_FIELD(gMenuItems, u8 *, 0x2F) == 0) {
             updateActiveMenuState();
         }
-        M2C_FIELD(gMenuState, u8 *, 0x2F) = 0U;
-        if ((M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0)) {
-            M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
-            temp_s0 = M2C_FIELD(gMenuState, void **, 0x18);
+        M2C_FIELD(gMenuItems, u8 *, 0x2F) = 0U;
+        if ((M2C_FIELD(gMenuItems, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0)) {
+            M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
+            temp_s0 = M2C_FIELD(gMenuItems, void **, 0x18);
             func_80026E9C(0xFF);
             temp_a0 = M2C_FIELD(temp_s0, s32 *, 0x14);
             if (temp_a0 != 0) {

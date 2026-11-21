@@ -20,19 +20,19 @@ extern u8 gMenuSlot;
 extern u8 gMenuParamB;
 extern s8 D_801002AE;
 extern u8 D_80102EB9;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_800271A4(u8 arg0) {
     void *temp_s0;
     void *temp_v0;
 
     hiscore_refresh_all();
-    if (gMenuState == NULL) {
+    if (gMenuItems == NULL) {
         temp_v0 = spawnEffectObject(0x34, 0, 0);
         gMenuSlot = arg0;
         if (temp_v0 != NULL) {
             temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
-            gMenuState = temp_s0;
+            gMenuItems = temp_s0;
             func_80026F84(arg0 & 0xFF);
             D_801002AE = 1;
             M2C_FIELD(temp_s0, u8 *, 4) = (u8) gMenuSlot;

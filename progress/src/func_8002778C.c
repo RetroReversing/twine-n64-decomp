@@ -13,16 +13,16 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80026E9C(M2C_UNK);                     /* extern */
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_8002778C(void) {
     M2C_UNK (*temp_v0_2)();
     void *temp_v0;
 
-    M2C_FIELD(gMenuState, s8 *, 0x30) = 0;
+    M2C_FIELD(gMenuItems, s8 *, 0x30) = 0;
     func_80026E9C(0);
-    if (gMenuState != NULL) {
-        temp_v0 = M2C_FIELD(gMenuState, void **, 0x10);
+    if (gMenuItems != NULL) {
+        temp_v0 = M2C_FIELD(gMenuItems, void **, 0x10);
         if (temp_v0 != NULL) {
             temp_v0_2 = M2C_FIELD(temp_v0, M2C_UNK (**)(), 0x10);
             if (temp_v0_2 != NULL) {

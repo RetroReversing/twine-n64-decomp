@@ -19,7 +19,7 @@ extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 /* Refreshes option menu label text and slider positions from the current option choice and flags */ void refreshOptionMenuLabels(void) {
     M2C_UNK choiceTextId;
@@ -29,10 +29,10 @@ extern void *gMenuState;
     void *sliderEntryB;
     void *flagEntry;
 
-    choiceEntry = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x24);
-    sliderEntryA = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x22);
-    sliderEntryB = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x23);
-    flagEntry = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x199);
+    choiceEntry = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x24);
+    sliderEntryA = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x22);
+    sliderEntryB = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x23);
+    flagEntry = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x199);
     if (((choiceEntry != NULL) & (sliderEntryA != NULL)) && ((sliderEntryB != NULL) & (flagEntry != NULL))) {
         switch (gOptionChoice) {                       /* irregular */
         case 0:

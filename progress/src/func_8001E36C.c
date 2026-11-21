@@ -15,13 +15,13 @@ typedef s32 M2C_UNK32;
 M2C_UNK updateActiveMenuState();                            /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 extern s8 D_80102EDC;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_8001E36C(void) {
     updateActiveMenuState();
-    if (M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) {
-        func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 8);
-        M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
+    if (M2C_FIELD(gMenuItems, u8 *, 0x2C) != 0) {
+        func_8002FBD4(M2C_FIELD(gMenuItems, s32 *, 0x20), 8);
+        M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
         D_80102EDC = 0;
     }
 }

@@ -21,7 +21,7 @@ extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 /* Refreshes the option-menu label text and slider values from the menu entry table. */ void updateOptionMenuText(void) {
     M2C_UNK choiceId;
@@ -35,7 +35,7 @@ extern void *gMenuState;
     choiceLabel = findEntryPayload(&gMenuEntryTable, 0x24);
     sliderA = findEntryPayload(&gMenuEntryTable, 0x22);
     sliderB = findEntryPayload(&gMenuEntryTable, 0x23);
-    toggleLabel = findEntryPayload(M2C_FIELD(gMenuState, M2C_UNK **, 0x10), 0x199);
+    toggleLabel = findEntryPayload(M2C_FIELD(gMenuItems, M2C_UNK **, 0x10), 0x199);
     if (((choiceLabel != NULL) & (sliderA != NULL)) && ((sliderB != NULL) & (toggleLabel != NULL))) {
         switch (gOptionChoice) {                       /* irregular */
         case 0:

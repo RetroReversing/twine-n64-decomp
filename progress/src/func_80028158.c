@@ -16,18 +16,18 @@ s32 func_800277E4(M2C_UNK);                         /* extern */
 M2C_UNK func_80027D60(u16);                         /* extern */
 s32 func_8002FBC0(s32);                             /* extern */
 extern void *sActiveMenu;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_80028158(void) {
     M2C_UNK (*temp_v0_2)();
     void *temp_v0;
 
-    if ((func_8002FBC0(M2C_FIELD(gMenuState, s32 *, 0x20)) & 0xFFFF) == 4) {
+    if ((func_8002FBC0(M2C_FIELD(gMenuItems, s32 *, 0x20)) & 0xFFFF) == 4) {
         if (func_800277E4(0x10) & 0xFF) {
             func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         }
-        if (gMenuState != NULL) {
-            temp_v0 = M2C_FIELD(gMenuState, void **, 0x10);
+        if (gMenuItems != NULL) {
+            temp_v0 = M2C_FIELD(gMenuItems, void **, 0x10);
             if (temp_v0 != NULL) {
                 temp_v0_2 = M2C_FIELD(temp_v0, M2C_UNK (**)(), 0x10);
                 if (temp_v0_2 != NULL) {

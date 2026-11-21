@@ -24,7 +24,7 @@ extern f32 D_800C477C;
 extern s32 D_800C4780;
 extern f64 D_800D2A98;
 extern void *gMenuRootObject;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern s32 gBootState;
 extern s32 gBonusSceneHandle;
 
@@ -100,7 +100,7 @@ block_9:
                 ((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_58 = (s32) (((__repair_record_D_800B7CE8*)gMenuCursorActor)->field_58 | 0x1100);
                 actorUnlinkFromSurface(gMenuCursorActor);
                 objectListInsert(gMenuCursorActor, (*(s32 *)((char *)(gMenuRootObject) + 0xF4)));
-                (*(u8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
+                (*(u8 *)((char *)(gMenuItems) + 0x30)) = 0xFF;
             }
         }
     }

@@ -27,7 +27,7 @@ extern Slot_801001A3 D_801001A3[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern s8 gSharedItemBusy;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 extern char sFmtEntryName[];
 extern char D_800D2858[];
@@ -45,12 +45,12 @@ void func_80019F7C(void) {
     register void *temp_s3;
     void *temp_s4;
 
-    temp_s4 = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x400C);
-    temp_s0 = (*(void **)((char *)(gMenuState) + 0x18));
+    temp_s4 = findEntryById((*(s32 *)((char *)(gMenuItems) + 0x10)), 0x400C);
+    temp_s0 = (*(void **)((char *)(gMenuItems) + 0x18));
     do { updateActiveMenuState(); } while (0);
     var_s1 = *(*(s32 **)((char *)(temp_s0) + 0x10));
     temp_s3 = (void *)(temp_s0); temp_s3 = (void *)((char *)temp_s3 + (s32)(0x28));
-    if (((*(u8 *)((char *)(gMenuState) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuState) + 0x2E)) == 0)) {
+    if (((*(u8 *)((char *)(gMenuItems) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuItems) + 0x2E)) == 0)) {
         D_801001A3[gPickupSavedByte].f0 = 0;
         if (func_80027CE0(0x20) & 0xFF) {
             var_s1 = func_8002B930(var_s1, -1);
@@ -80,13 +80,13 @@ void func_80019F7C(void) {
         }
     } else {
 block_11:
-        (*(u8 *)((char *)(gMenuState) + 0x2D)) = 0U;
+        (*(u8 *)((char *)(gMenuItems) + 0x2D)) = 0U;
         if (func_80027C60(0x28) & 0xFF) {
             temp_a0 = gPickupSavedByte * 0x18;
             temp_v1_2 = D_801001A3[gPickupSavedByte].f0;
             if (temp_v1_2) {
                 (*(s8 *)((char *)((temp_a0 + (&gPickupSavedByte - 0x115))) + 0xB)) = (s8) (temp_v1_2 - 1);
-                (*(u8 *)((char *)(gMenuState) + 0x2D)) = 1U;
+                (*(u8 *)((char *)(gMenuItems) + 0x2D)) = 1U;
             }
         }
         if (func_80027C60(0x29) & 0xFF) {
@@ -94,10 +94,10 @@ block_11:
             if (temp_s0_2 < func_80001E28(*(s16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC)))) {
                 temp_a0 = gPickupSavedByte * 0x18;
                 (*(s8 *)((char *)((temp_a0 + (&gPickupSavedByte - 0x115))) + 0xB)) = (s8) (D_801001A3[gPickupSavedByte].f0 + 1);
-                (*(u8 *)((char *)(gMenuState) + 0x2D)) = 1U;
+                (*(u8 *)((char *)(gMenuItems) + 0x2D)) = 1U;
             }
         }
-        if (((*(u8 *)((char *)(gMenuState) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuState) + 0x2E)) == 0)) {
+        if (((*(u8 *)((char *)(gMenuItems) + 0x2D)) != 0) && ((*(u8 *)((char *)(gMenuItems) + 0x2E)) == 0)) {
             if (gPickupActor != NULL) {
                 func_8002B8AC();
                 temp_v1_3 = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(var_s1) * 0xC));
@@ -120,7 +120,7 @@ block_21:
                 func_80019E28(temp_s4);
             }
             if (gPickupSavedByte > gSaveSlotCount) {
-                temp_s4 = findEntryById((*(s32 *)((char *)(gMenuState) + 0x10)), 0x4004);
+                temp_s4 = findEntryById((*(s32 *)((char *)(gMenuItems) + 0x10)), 0x4004);
 formatTextEntry(temp_s4, D_800D2858, *(D_800BF688 + (*(s32 *)(gSaveSlotInfo + (gPickupSavedByte * 0x18)) * 0xC)) * 5);
             }
         }

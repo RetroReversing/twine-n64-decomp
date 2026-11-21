@@ -5,7 +5,7 @@ typedef struct { u8 pad[8]; u8 b8; } ResBCA8;
 extern ObjBCA8 *volatile gPickupActor;
 extern u8 gPickupSavedByte;
 extern s32 gTrackMarkerTable;
-extern SysBCA8 *gMenuState;
+extern SysBCA8 *gMenuItems;
 extern u8 gPickupSearchBox[];
 void func_8002ACB4(void *);
 void func_80002EF0(ObjBCA8 *);
@@ -42,8 +42,8 @@ void resetPickupActorState(void) {
             if (r != NULL) {
                 saved = r->b8;
             }
-            gMenuState->vt->fC();
-            sys = gMenuState;
+            gMenuItems->vt->fC();
+            sys = gMenuItems;
             *ps = saved;
             sys->vt->f8();
         }

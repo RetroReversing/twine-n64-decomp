@@ -37,7 +37,7 @@ extern M2C_UNK D_800C46DA;
 extern M2C_UNK D_800E0ECC;
 extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern M2C_UNK D_80109D28;
 extern M2C_UNK gBonusSceneHandle;
 extern M2C_UNK func_8001E898;
@@ -101,8 +101,8 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
             } while ((u32) (var_s2 & 0xFFFF) < 0x25U);
             if (var_s4 != NULL) {
                 s32 offset;
-                temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
-                temp_s0_2 = func_800262A8(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
+                temp_s1 = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x62);
+                temp_s0_2 = func_800262A8(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x1E);
                 offset = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
                 menuUpdateCursorActor(*((s16 *)((s8 *)&D_800C46D8 + offset)), *((s16 *)((s8 *)&D_800C46DA + offset)));
                 if (temp_s1 != NULL) {
@@ -116,7 +116,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                         M2C_FIELD(temp_s0_2, u8 *, 0x1C) = 0x90;
                     }
                 }
-                M2C_FIELD(gMenuState, u8 *, 0x30) = 0xFF;
+                M2C_FIELD(gMenuItems, u8 *, 0x30) = 0xFF;
             }
             func_80022E18(sMenuListKind);
             func_80022AD8(sMenuListKind);

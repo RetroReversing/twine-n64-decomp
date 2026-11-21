@@ -29,7 +29,7 @@ s32 strlen();
 extern u16 D_800B60A4;
 extern void *D_800BF5A0;
 extern u8 gPickupSavedByte;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern s32 func_8011AA9C;
 
 extern char D_8011AB08[];
@@ -68,7 +68,7 @@ void func_80018E38(void) {
             sprintf(temp_s1, temp_s0, D_800BF5A0);
             D_800B60A4 = strlen(temp_s1);
         }
-        func_80029AC8(gMenuState + 0x2A, gMenuState + 0x28, gMenuState + 0x29);
+        func_80029AC8(gMenuItems + 0x2A, gMenuItems + 0x28, gMenuItems + 0x29);
         func_80029000(M2C_FIELD(D_800BF5A0, s32 *, 8));
         if (func_80027C60(0x24) & 0xFF) {
             M2C_FIELD(D_800BF5A0, s8 *, 0xD) = 0;
@@ -81,7 +81,7 @@ void func_80018E38(void) {
             if (temp_v1 == 0x7D0) {
                 sprintf(temp_s0, temp_s1);
 block_40:
-                temp_v0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x65);
+                temp_v0 = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x65);
                 if (temp_v0 != 0) {
                     formatTextEntry(temp_v0);
                 }
@@ -110,19 +110,19 @@ block_12:
             }
         } else {
 block_16:
-            if ((func_80027CE0(0x20) & 0xFF) && (M2C_FIELD(gMenuState, u8 *, 0x29) != 0)) {
+            if ((func_80027CE0(0x20) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
                 requestSound(0xED);
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x24) * 0x28));
             }
-            if ((func_80027CE0(0x21) & 0xFF) && (M2C_FIELD(gMenuState, u8 *, 0x29) != 0)) {
+            if ((func_80027CE0(0x21) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
                 requestSound(0xED);
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x25) * 0x28));
             }
-            if ((func_80027CE0(0x1E) & 0xFF) && (M2C_FIELD(gMenuState, u8 *, 0x29) != 0)) {
+            if ((func_80027CE0(0x1E) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
                 requestSound(0xED);
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x26) * 0x28));
             }
-            if ((func_80027CE0(0x1F) & 0xFF) && (M2C_FIELD(gMenuState, u8 *, 0x29) != 0)) {
+            if ((func_80027CE0(0x1F) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
                 requestSound(0xED);
                 M2C_FIELD(D_800BF5A0, void **, 4) = (void *) (M2C_FIELD(D_800BF5A0, void **, 0) + (M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 4), s8 *, 0x27) * 0x28));
             }

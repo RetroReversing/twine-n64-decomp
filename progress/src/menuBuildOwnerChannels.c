@@ -24,7 +24,7 @@ extern s16 D_800C4478;
 extern s16 D_800C447A;
 extern s32 D_801003E0;
 extern s32 D_801093A8;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern u8 D_80109D28[];
 extern s32 gBonusSceneHandle;
 extern s32 func_8001E898;
@@ -75,7 +75,7 @@ extern s32 func_8001EAF0;
                 i += 1;
             } while ((u32) (i & 0xFFFF) < 0x1EU);
             if (found != NULL) {
-                widget = func_80026314((*(s32 *)((char *)(gMenuState) + 0x10)), 0xA6, 2);
+                widget = func_80026314((*(s32 *)((char *)(gMenuItems) + 0x10)), 0xA6, 2);
                 kind = (*(u8 *)((char *)(found) + 8));
                 offset = kind * 0x8;
                 menuUpdateCursorActor(*(&D_800C4478 + offset), *(&D_800C447A + offset));

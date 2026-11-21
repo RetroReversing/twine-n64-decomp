@@ -20,7 +20,7 @@ M2C_UNK func_80027D60(u16);                         /* extern */
 extern M2C_UNK D_800BD7E4;
 extern void *sActiveMenu;
 extern void *volatile gTrackMarkerTable;
-extern s32 gMenuState;
+extern s32 gMenuItems;
 
 void func_80028530(void) {
     if (gTrackMarkerTable != NULL) {
@@ -28,7 +28,7 @@ void func_80028530(void) {
     }
     func_8000A29C();
     setMenuTextRequest(&D_800BD7E4);
-    func_800269B4(gMenuState + 0x1C, 3, 0x2A);
+    func_800269B4(gMenuItems + 0x1C, 3, 0x2A);
     func_80011938(0, 1);
     func_80011938(1, 1);
     func_80011938(2, 1);

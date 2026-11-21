@@ -30,7 +30,7 @@ extern u8 D_800B60EA;
 extern ActionEntry D_800C4480[];
 extern s32 gMenuSoundParams;
 extern ActionOptions *sActiveMenu;
-extern ActionState *gMenuState;
+extern ActionState *gMenuItems;
 extern s32 gBonusSceneHandle[];
 
 s32 func_8001F4B8(u16 slot, s32 action)
@@ -52,7 +52,7 @@ s32 func_8001F4B8(u16 slot, s32 action)
         invoke(object);
     }
 
-    state = gMenuState;
+    state = gMenuItems;
     if (state->entered != 0) {
         return (u8)action;
     }
@@ -65,9 +65,9 @@ s32 func_8001F4B8(u16 slot, s32 action)
     }
     if (state->handler != 0) {
         handler = findEntryById(state->object, 14);
-        state = gMenuState;
+        state = gMenuItems;
         state->entered = 1;
-        callbackState = gMenuState;
+        callbackState = gMenuItems;
         state->handler = handler;
         callbackState->handler->enter(state);
     }

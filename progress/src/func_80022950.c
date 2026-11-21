@@ -16,7 +16,7 @@ M2C_UNK requestSound(M2C_UNK);                     /* extern */
 s32 func_80027C60(s32);                             /* extern */
 M2C_UNK func_80029AC8(s32, s32, s32);               /* extern */
 extern void *D_800BF5A0;
-extern s32 gMenuState;
+extern s32 gMenuItems;
 
 void func_80022950(void) {
 s32 __repair_operand;
@@ -26,7 +26,7 @@ s32 __repair_operand;
     void *temp_v1;
 
     if (D_800BF5A0 != NULL) {
-        s32 base = gMenuState;
+        s32 base = gMenuItems;
         var_s0 = 0;
         M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 8), s32 *, 0x10) = 0;
         func_80029AC8(base + 0x2A, base + 0x28, base + 0x29);

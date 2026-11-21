@@ -46,7 +46,7 @@ typedef s32 M2C_UNK32;
 extern M2C_UNK sMenuItemParamTable;
 extern s32 gMenuSoundParams;
 extern s32 sMenuDefaultSoundParams;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_80025F78(void *arg0, u16 arg1) {
     u16 temp_v1;
@@ -61,7 +61,7 @@ void func_80025F78(void *arg0, u16 arg1) {
             M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) sMenuDefaultSoundParams;
             return;
         }
-        M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) ((*((M2C_UNK *)((s8 *)&sMenuItemParamTable + ((arg1 & 0xF) * 4))) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
+        M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) ((*((M2C_UNK *)((s8 *)&sMenuItemParamTable + ((arg1 & 0xF) * 4))) & ~0xFF) | M2C_FIELD(gMenuItems, u8 *, 0x30));
     }
 }
 

@@ -27,30 +27,30 @@ extern s32 gMenuSoundParams;
 extern u8 gMenuUseTextList;
 extern u8 gPendingMenuCommand;
 extern void *sActiveMenu;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 /* Creates the menu's list object on first use, refreshes the active menu, and dispatches a pending menu command. */ void updateMenuState(void) {
     s32 command;
 
-    if (M2C_FIELD(gMenuState, s32 *, 0x20) == 0) {
+    if (M2C_FIELD(gMenuItems, s32 *, 0x20) == 0) {
         if (gMenuUseTextList == 0) {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = spawnTrackHudObject(sMenuListKind);
+            M2C_FIELD(gMenuItems, s32 *, 0x20) = spawnTrackHudObject(sMenuListKind);
         } else {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(sMenuListKind);
+            M2C_FIELD(gMenuItems, s32 *, 0x20) = createTextMenu(sMenuListKind);
         }
     }
     setupMenuListFlags();
     func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
-    if (M2C_FIELD(gMenuState, s32 *, 0x10) == 0) {
+    if (M2C_FIELD(gMenuItems, s32 *, 0x10) == 0) {
         command = gPendingMenuCommand;
         if (command == 31) {
-            M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BF458;
+            M2C_FIELD(gMenuItems, M2C_UNK **, 0xC) = &D_800BF458;
             func_80081D20(0, 0x2A);
             func_80081D20(0, 0x24);
             func_80081D20(0, 0x23);
-            func_800269B4(gMenuState + 0x1C, 0x26, 0x24);
-            func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 9);
-            M2C_FIELD(gMenuState, s16 *, 0x32) = 0;
+            func_800269B4(gMenuItems + 0x1C, 0x26, 0x24);
+            func_8002FBD4(M2C_FIELD(gMenuItems, s32 *, 0x20), 9);
+            M2C_FIELD(gMenuItems, s16 *, 0x32) = 0;
             func_800278AC(1U, gMenuSoundParams & ~0xFF, 0x16U);
             func_8002778C();
         } else if (command != 0) {

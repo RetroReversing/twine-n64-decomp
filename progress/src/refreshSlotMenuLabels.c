@@ -4,7 +4,7 @@ typedef struct { u8 pad0[0x10]; s32 f10; } Sys4D78;
 extern s32 D_80107EA8;
 extern char D_800D2AD0[];
 extern char D_800D2AE0[];
-extern Sys4D78 *gMenuState;
+extern Sys4D78 *gMenuItems;
 Item4D78 **func_8002A920(s32 *, s8);
 s8 func_8002CB98(u16);
 s32 func_8002CB7C(u16);
@@ -57,7 +57,7 @@ s16 strlen(const char *);
             func_800448A4(entry->f4, 0x10, 0x24);
         }
     }
-    footerEntry = findEntryById(gMenuState->f10, 0x4010);
+    footerEntry = findEntryById(gMenuItems->f10, 0x4010);
     if (footerEntry != 0) {
         footerId = lookupDataEntry(0x300E);
         formatTextEntry(footerEntry, D_800D2AE0, footerId, func_8002D1F8());

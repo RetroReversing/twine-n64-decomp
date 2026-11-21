@@ -46,10 +46,15 @@ void func_80061168(void *arg0) {
                     func_8001751C(*(s32 *)((char *)s2 + 0x18), *(u8 *)((char *)s2 + 0x21), sp58, (f32 *)sp68);
                     spawnDriftEffect(arg0, sp58);
                     applyNearbyActorImpact(arg0, 1.5f, 10.0f);
-                    switch (*(u16 *)((char *)arg0 + 0x78)) {
-                    case 0x49: s0 = 0x02000000; goto loop;
-                    case 0x47: case 0x48: s0 = 0;
-                    loop: {
+                    {
+                        s32 kind = *(u16 *)((char *)arg0 + 0x78);
+                        s0 = 0;
+                        if (kind < 0x47) goto skip_effect_flags;
+                        if (kind >= 0x49) {
+                            if (kind != 0x49) goto skip_effect_flags;
+                            s0 = 0x02000000;
+                        }
+                        {
                         void *head = *(void **)((char *)arg0 + 0x20);
                         if (head != NULL) {
                             v1 = *(void **)head;
@@ -58,8 +63,9 @@ void func_80061168(void *arg0) {
                                 v1 = *(void **)v1;
                             }
                         }
+                        }
                     }
-                    }
+                skip_effect_flags:;
                 }
                 if (randomIntBelow(*(u8 *)((char *)s2 + 0x27)) == 0) {
                     *(s16 *)((char *)arg0 + 0x7A) = 2;
@@ -81,3 +87,4 @@ void func_80061168(void *arg0) {
         *(s32 *)((char *)arg0 + 0x60) = 0;
     }
 }
+

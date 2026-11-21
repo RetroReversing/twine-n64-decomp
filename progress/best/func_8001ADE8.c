@@ -60,7 +60,7 @@ extern s32 sMenuDefaultSoundParams;
 extern s32 D_80102F48[];
 extern s8 D_80104311;
 extern s8 gSharedItemBusy;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern char gPickupSearchBox[];
 extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
@@ -103,11 +103,11 @@ s32 __repair_phase_var_a0;
     void *var_a2;
 
     D_800BD690 = 1;
-    temp_fp = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x70);
-    temp_s7 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x65);
-    temp_s6 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x64);
-    temp_s5 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x6A);
-    sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
+    temp_fp = findEntryPayload(((__repair_field_10 *)gMenuItems)->value, 0x70);
+    temp_s7 = findEntryPayload(((__repair_field_10 *)gMenuItems)->value, 0x65);
+    temp_s6 = findEntryPayload(((__repair_field_10 *)gMenuItems)->value, 0x64);
+    temp_s5 = findEntryPayload(((__repair_field_10 *)gMenuItems)->value, 0x6A);
+    sp34 = findEntryById(((__repair_field_10 *)gMenuItems)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &bindMenuItemRecord, &func_8001AC88);
         func_80022A30(sMenuListKind, 0x27, 0x2E, 0x3C, 0x98);
@@ -180,13 +180,13 @@ s32 __repair_phase_var_a0;
             formatTextEntry(temp_s5, "%s", lookupDataEntry(__repair_phase_var_a0));
             break;
         }
-        if ((*(u8 *)((char *)(gMenuState) + 8)) != 1) {
-            temp_v1_3 = (*(void **)((char *)(gMenuState) + 0x18));
+        if ((*(u8 *)((char *)(gMenuItems) + 8)) != 1) {
+            temp_v1_3 = (*(void **)((char *)(gMenuItems) + 0x18));
             temp_v0_2 = (*(u16 *)((char *)(temp_v1_3) + 0xC));
             __repair_phase_storage.value = temp_v0_2 & 0xF;
             if (__repair_phase_storage.value != 0) {
                 var_v0 = *(s32 *)(sMenuItemParamTable + (__repair_phase_storage.value * 4));
-                (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
+                (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)(gMenuItems) + 0x30)));
             } else {
                 if (temp_v0_2 & 0x80) {
                     var_v0 = gMenuSoundParams;
@@ -195,22 +195,22 @@ s32 __repair_phase_var_a0;
                 }
                 (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x13)));
             }
-            (*(u8 *)((char *)(gMenuState) + 8)) = 1U;
-            (*(void **)((char *)(gMenuState) + 0x18)) = (void *) (temp_s7 - 0x28);
+            (*(u8 *)((char *)(gMenuItems) + 8)) = 1U;
+            (*(void **)((char *)(gMenuItems) + 0x18)) = (void *) (temp_s7 - 0x28);
             temp_a1 = (*(void **)((char *)(temp_v0_3) + 8));
-            temp_v0_3 = (*(void **)((char *)(gMenuState) + 0x18));
+            temp_v0_3 = (*(void **)((char *)(gMenuItems) + 0x18));
             if (temp_a1 != NULL) {
                 temp_v0_4 = (*(u16 *)((char *)(temp_v0_3) + 0xC)) & 0xF;
                 if (temp_v0_4) {
                     temp_a0_2 = *(s32 *)(sMenuItemParamTable + (temp_v0_4 * 4));
-                    __repair_phase_storage.value = (*(u8 *)((char *)(gMenuState) + 0x30));
+                    __repair_phase_storage.value = (*(u8 *)((char *)(gMenuItems) + 0x30));
                 } else {
                     temp_a0_2 = D_80102EC0;
                     __repair_phase_storage.value = (*(u8 *)((char *)(temp_a1) + 0x13));
                 }
                 ((__repair_field_10 *)temp_a1)->value = (s32) ((temp_a0_2 & ~0xFF) | __repair_phase_storage.value);
             }
-            layoutTextBox((*(s32 *)((char *)(gMenuState) + 0x1C)), (*(void **)((char *)(gMenuState) + 0x18)), 0);
+            layoutTextBox((*(s32 *)((char *)(gMenuItems) + 0x1C)), (*(void **)((char *)(gMenuItems) + 0x18)), 0);
         }
         temp_a0_3 = temp_s6 - 0x28;
         if (gSaveSlotCount < (s32) gPickupSavedByte) {

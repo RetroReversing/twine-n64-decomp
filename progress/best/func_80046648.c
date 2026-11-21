@@ -7,9 +7,9 @@ void func_80046648(f32 *arg0, f32 *arg1) {
     s32 ix, iy, iz;
     f32 sx, cx, sy, cy, sz, cz;
     f32 a, b, c, d;
-    x *= 651.8986f;
     z *= 651.8986f;
     y *= 651.8986f;
+    x *= 651.8986f;
     ix = (s32) x;
     sx = gSinCosTable[ix & 0xFFF];
     iz = (s32) z;

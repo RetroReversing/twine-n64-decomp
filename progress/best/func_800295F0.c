@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK requestSound(M2C_UNK);             /* extern */
 M2C_UNK formatTextEntry(void *, char *, ...);      /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_800295F0(s32 arg0) {
     M2C_UNK *var_a1;
@@ -30,9 +30,9 @@ void func_800295F0(s32 arg0) {
     void *temp_a1;
     void *temp_s3;
 
-    temp_a1 = M2C_FIELD(gMenuState, void **, 0x18);
+    temp_a1 = M2C_FIELD(gMenuItems, void **, 0x18);
     var_s1 = (u8)(*M2C_FIELD(temp_a1, u8 **, 0x10));
-    temp_s3 = (char *)*M2C_FIELD(gMenuState, s32 **, 0x10) + (((M2C_FIELD(gMenuState, u8 *, 8) * 5) * 8) + 0x28);
+    temp_s3 = (char *)*M2C_FIELD(gMenuItems, s32 **, 0x10) + (((M2C_FIELD(gMenuItems, u8 *, 8) * 5) * 8) + 0x28);
     if (M2C_FIELD(temp_a1, u16 *, 0xC) & 0x400) {
         temp_v0 = M2C_FIELD(temp_a1, u32 *, 0x14);
         var_s0 = temp_v0 >> 0x10;
@@ -49,10 +49,10 @@ void func_800295F0(s32 arg0) {
     } else if (temp_v0_2 < (s32) var_s0) {
         var_s1 = (s16) var_s2;
     }
-    M2C_FIELD(gMenuState, s8 *, 0x2D) = (s8) (*M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), u8 **, 0x10) != (var_s1 & 0xFF));
-    *M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), s8 **, 0x10) = (s8) var_s1;
+    M2C_FIELD(gMenuItems, s8 *, 0x2D) = (s8) (*M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), u8 **, 0x10) != (var_s1 & 0xFF));
+    *M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), s8 **, 0x10) = (s8) var_s1;
     if (M2C_FIELD(M2C_FIELD(temp_s3, void **, 8), s32 *, 0x18) != 0) {
-        if (M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x18), u16 *, 0xC) & 0x400) {
+        if (M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), u16 *, 0xC) & 0x400) {
             formatTextEntry(temp_s3, "%d", var_s1);
         } else {
             var_a0 = 0xA;

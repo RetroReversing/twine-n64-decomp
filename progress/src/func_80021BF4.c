@@ -17,7 +17,7 @@ s32 func_80029C08(M2C_UNK *, M2C_UNK, M2C_UNK);     /* extern */
 void *func_8002A980(M2C_UNK *);                     /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
 extern u8 gPickupSavedByte;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern M2C_UNK gPickupSearchBox;
 
 void func_80021BF4(void) {
@@ -33,8 +33,8 @@ void func_80021BF4(void) {
         if (temp_v0 != NULL) {
             var_s1 = M2C_FIELD(temp_v0, u8 *, 8);
         }
-        M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), M2C_UNK (**)(), 0xC)();
+        M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x10), M2C_UNK (**)(), 0xC)();
         (*__base_D_801002AD) = var_s1;
-        M2C_FIELD(M2C_FIELD(gMenuState, void **, 0x10), M2C_UNK (**)(), 8)();
+        M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x10), M2C_UNK (**)(), 8)();
     }
 }

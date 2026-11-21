@@ -37,7 +37,7 @@ extern M2C_UNK gBonusSceneHandle;
 extern s32 gMenuList;
 extern u16 gMenuMode;
 extern u8 gMenuSlot;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 /* Handles a confirmed menu selection: updates per-slot item state and sounds, or runs the item's callback. */ void menuHandleSelection(void) {
     s32 itemIndex;
@@ -61,15 +61,15 @@ extern void *gMenuState;
     void *callbackEntry;
 
     updateActiveMenuState();
-    M2C_FIELD(gMenuState, s8 *, 0x2C) = 0;
-    if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
+    M2C_FIELD(gMenuItems, s8 *, 0x2C) = 0;
+    if (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0) {
         if (func_80029C08(gMenuList, 2, 0) & 0xFFFF) {
             selectedItem = func_8002A980(gMenuList);
             if (*((s32 *)((u8 *)&gBonusSceneHandle + (gMenuSlot * 4))) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
-                    payloadEntry = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
-                    idEntry = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
+                    payloadEntry = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x62);
+                    idEntry = findEntryById(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x1E);
                     if (payloadEntry != NULL) {
                         M2C_FIELD(M2C_FIELD(payloadEntry, void **, 8), s32 *, 0x18) = lookupDataEntry(func_8001E760(0, M2C_FIELD(selectedItem, u8 *, 8)) & 0xFFFF);
                         payloadText = M2C_FIELD(payloadEntry, void **, 8);
@@ -92,7 +92,7 @@ extern void *gMenuState;
                     }
                     break;
                 case 1:                             /* switch 1 */
-                    itemEntry = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
+                    itemEntry = func_80026314(M2C_FIELD(gMenuItems, s32 *, 0x10), 0xA6, 2);
                     itemIndex2 = M2C_FIELD(selectedItem, u8 *, 8) * 0x10;
                     menuUpdateCursorActor(*((s16 *)((u8 *)&D_800C4478 + itemIndex2)), *((s16 *)((u8 *)&D_800C447A + itemIndex2)));
                     if (itemEntry != NULL) {
@@ -123,11 +123,11 @@ block_15:
                     slot = gMenuSlot;
                     itemOffset = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
                     func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (itemOffset + *((u8 *)sceneState + (itemOffset << 3) + 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
-                    if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
-                        callbackEntry = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
-                        state = gMenuState;
+                    if (M2C_FIELD(gMenuItems, void **, 0x18) != NULL) {
+                        callbackEntry = findEntryById(M2C_FIELD(gMenuItems, s32 *, 0xC), 0xE);
+                        state = gMenuItems;
                         M2C_FIELD(state, s8 *, 0x2C) = 1;
-                        callbackState = gMenuState;
+                        callbackState = gMenuItems;
                         M2C_FIELD(state, void **, 0x18) = callbackEntry;
                         M2C_FIELD(M2C_FIELD(callbackState, void *volatile *, 0x18), M2C_UNK (**)(void *), 4)(state);
                         return;

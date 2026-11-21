@@ -2,17 +2,17 @@ extern void updateActiveMenuState(void);
 extern void formatTextEntry(void *, const char *, ...);
 extern char *lookupDataEntry(int);
 extern unsigned char gOptionChoice;
-extern char *gMenuState;
+extern char *gMenuItems;
 void func_80022450(void) {
  int id;
  updateActiveMenuState();
- if (*(unsigned char *)(gMenuState+0x2d)) {
+ if (*(unsigned char *)(gMenuItems+0x2d)) {
  switch (gOptionChoice) {
  case 0: id=0x25; break;
  case 1: id=0x26; break;
  case 2: id=0x27; break;
  default: return;
  }
- formatTextEntry(*(char **)(gMenuState+0x18)+0x28, "%s", lookupDataEntry(id));
+ formatTextEntry(*(char **)(gMenuItems+0x18)+0x28, "%s", lookupDataEntry(id));
  }
 }

@@ -22,7 +22,7 @@ extern char D_800BD5D0[];
 extern u8 sMenuListKind;
 extern s8 D_800BD690;
 extern char D_80107EA8[];
-extern void *gMenuState;
+extern void *gMenuItems;
 extern char D_80109C1C[];
 extern char D_8010D478[];
 extern s32 updateSaveMenuEntries;
@@ -66,7 +66,7 @@ void func_8002424C(void) {
     sSaveMenuRefresh = 0;
     sSaveMenuAction = 1;
     func_80022AD8(sMenuListKind);
-    switch (((SaveState *)gMenuState)->mode) {
+    switch (((SaveState *)gMenuItems)->mode) {
     case 0x19: case 0x1B: action = 3; break;
     case 0x1A: action = 2; break;
     default: action = 1; break;
@@ -76,7 +76,7 @@ void func_8002424C(void) {
     menu = D_80107EA8;
     func_8002A9A8(menu, 0);
     func_8002AC04(menu, 1);
-    if ((u32)(((SaveState *)gMenuState)->mode - 0x19) < 2)
+    if ((u32)(((SaveState *)gMenuItems)->mode - 0x19) < 2)
         func_8002A9A8(menu, (u8)func_80024EF0(sSaveMenuAction));
-    ((SaveState *)gMenuState)->refresh = 0;
+    ((SaveState *)gMenuItems)->refresh = 0;
 }

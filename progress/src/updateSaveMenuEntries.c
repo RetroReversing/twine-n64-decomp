@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 void func_80022B60(s32);
 u16 func_80023EC0(u16, s32, void *, void *);
 M2C_UNK updateSaveMenuSprites(s32, u16, u8, s32);
-extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gMenuState;
+extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gMenuItems;
 /* Updates the two save-menu sprite entries (flags, position, size) from the menu object and refreshes the sprites when a sound/action is pending. */ void updateSaveMenuEntries(void *menu, s32 input, s32 cursorArg) {
  s32 posX; s32 inputByte; s32 flagBits; s32 actionArg; s32 spriteB; s32 inputLow; u16 action; void *spriteA; void *entryAFlags; void *entryA;
  actionArg=input; spriteB=cursorArg; entryA=M2C_FIELD(menu,void **,0); inputByte=actionArg; input=spriteB;
@@ -30,8 +30,8 @@ extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; e
     entryAFlags=M2C_FIELD(entryA,void **,0);
     M2C_FIELD(entryAFlags,s32 *,0x28)=(M2C_FIELD(entryAFlags,s32 *,0x28)&~0xFC)|flagBits;
     spriteB=(s32)M2C_FIELD(entryA,void **,4); actionArg=-0x100;
-    M2C_FIELD(spriteB,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
-    M2C_FIELD(M2C_FIELD(entryA,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
+    M2C_FIELD(spriteB,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(gMenuItems,u8 *,0x30);
+    M2C_FIELD(M2C_FIELD(entryA,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(gMenuItems,u8 *,0x30);
     M2C_FIELD(M2C_FIELD(entryA,void **,4),u16 *,0x22)=M2C_FIELD(menu,u16 *,6);
     M2C_FIELD(M2C_FIELD(entryA,void **,0),s16 *,0x22)=M2C_FIELD(menu,u16 *,6)+8;
     M2C_FIELD(M2C_FIELD(entryA,void **,4),u16 *,0x20)=M2C_FIELD(menu,u16 *,4);

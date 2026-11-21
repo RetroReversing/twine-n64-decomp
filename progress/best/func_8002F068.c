@@ -19,7 +19,7 @@ extern u8 D_800E1584[];
 extern u32 gMenuSoundParams;
 extern u8 D_80102EDC, gPendingMenuCommand;
 extern MenuData *sActiveMenu;
-extern MenuObject *gMenuState;
+extern MenuObject *gMenuItems;
 
 void func_8002F068(void *unused, void *arg1)
 {
@@ -59,7 +59,7 @@ void func_8002F068(void *unused, void *arg1)
         }
     } else {
         D_800BFC94 = 0;
-        gMenuState->display = D_800BD8C4;
+        gMenuItems->display = D_800BD8C4;
         func_800278AC(1, gMenuSoundParams & ~255, sActiveMenu->value);
         func_80027408(lookupDataEntry(3), 0x40, 0xA0, 0xCC);
         func_8002B150(D_800E1584, 0, 0);

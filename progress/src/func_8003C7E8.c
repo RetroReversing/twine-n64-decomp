@@ -22,7 +22,7 @@ extern void formatTextEntry(void *, s32, ...);
 extern void updateActiveMenuState(void);
 extern char *lookupDataEntry(s32);
 extern s16 D_80109B9C;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern u8 D_8010A4FF;
 extern char D_800D2AA0[];
 void func_800224E4(void) {
@@ -31,13 +31,13 @@ void func_800224E4(void) {
     char *text;
     char *buffer;
     updateActiveMenuState();
-    if (*((u8 *)gMenuState + 0x2D)) {
+    if (*((u8 *)gMenuItems + 0x2D)) {
         flag = D_8010A4FF;
         D_80109B9C = !flag;
         id = 0x1B3;
         if (flag) id = 0x1D;
         text = lookupDataEntry(id);
-        buffer = *(char **)((u8 *)gMenuState + 0x18);
+        buffer = *(char **)((u8 *)gMenuItems + 0x18);
         formatTextEntry(buffer + 0x28, (s32)D_800D2AA0, text);
     }
 }

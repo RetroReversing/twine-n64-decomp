@@ -24,26 +24,26 @@ extern u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
 extern s32 sActiveMenu;
 extern M2C_UNK D_80107EA8;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 void func_800247A8(void) {
     void *temp_v0;
     void *temp_v0_2;
 
-    M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
-    temp_v0 = M2C_FIELD(gMenuState, void **, 0x18);
+    M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
+    temp_v0 = M2C_FIELD(gMenuItems, void **, 0x18);
     sSaveMenuRefresh = 0;
     updateSaveMenuSprites(sSaveMenuAction, M2C_FIELD(temp_v0, u16 *, 0x18), M2C_FIELD(temp_v0, u8 *, 0x1B), 1);
     updateActiveMenuState();
-    if ((M2C_FIELD(gMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0)) {
+    if ((M2C_FIELD(gMenuItems, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0)) {
         if (func_8002CC14() & 0xFFFF) {
             func_80026424(sActiveMenu, 0x18);
         }
-        temp_v0_2 = M2C_FIELD(gMenuState, void **, 0x18);
+        temp_v0_2 = M2C_FIELD(gMenuItems, void **, 0x18);
         updateSaveMenuSprites(M2C_FIELD(temp_v0_2, s32 *, 0x14), M2C_FIELD(temp_v0_2, u16 *, 0x18), M2C_FIELD(temp_v0_2, u8 *, 0x1B), 1);
         func_8002A9A8(&D_80107EA8, func_80024EF0(sSaveMenuAction) & 0xFF);
-        M2C_FIELD(gMenuState, s8 *, 8) = func_800263B8(M2C_FIELD(gMenuState, s32 *, 0x10), 3);
-        M2C_FIELD(gMenuState, u8 *, 0x2C) = 0U;
+        M2C_FIELD(gMenuItems, s8 *, 8) = func_800263B8(M2C_FIELD(gMenuItems, s32 *, 0x10), 3);
+        M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
         func_800274BC(0x101, 0xFF);
     }
 }

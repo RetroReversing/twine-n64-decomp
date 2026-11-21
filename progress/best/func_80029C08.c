@@ -16,7 +16,7 @@ extern s32 D_800BD64C;
 extern s32 D_800BD660;
 extern f64 D_800D2CD0;
 extern f64 D_800D2CD8;
-extern void *gMenuState;
+extern void *gMenuItems;
 
 typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
 s32 func_80029C08(void *arg0, s32 arg1, s32 arg2) {
@@ -60,14 +60,14 @@ s32 __repair_phase_temp_s0;
     {
         temp_s6 = (*(u8 *)((char *)(arg0) + 0x18));
         if (!(arg2 & 0xFF)) {
-            var_s4 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0xAC);
-            var_s3 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0xAB);
-            var_v0 = findEntryById(((__repair_field_10 *)gMenuState)->value, 4);
+            var_s4 = findEntryById(((__repair_field_10 *)gMenuItems)->value, 0xAC);
+            var_s3 = findEntryById(((__repair_field_10 *)gMenuItems)->value, 0xAB);
+            var_v0 = findEntryById(((__repair_field_10 *)gMenuItems)->value, 4);
             var_a1 = arg1 & 0xFF;
         } else {
-            var_s4 = func_80026314(((__repair_field_10 *)gMenuState)->value, 0xAC, 2);
-            var_s3 = func_80026314(((__repair_field_10 *)gMenuState)->value, 0xAB, 2);
-            var_v0 = func_80026314(((__repair_field_10 *)gMenuState)->value, 4, 2);
+            var_s4 = func_80026314(((__repair_field_10 *)gMenuItems)->value, 0xAC, 2);
+            var_s3 = func_80026314(((__repair_field_10 *)gMenuItems)->value, 0xAB, 2);
+            var_v0 = func_80026314(((__repair_field_10 *)gMenuItems)->value, 4, 2);
             var_a1 = arg1 & 0xFF;
         }
         switch (var_a1) {                           /* irregular */
@@ -95,27 +95,27 @@ s32 __repair_phase_temp_s0;
 block_12:
         return 0;
 block_13:
-        if (((u32)var_s1 != 0) && ((*(u8 *)((char *)(gMenuState) + 0x29)) != 0)) {
+        if (((u32)var_s1 != 0) && ((*(u8 *)((char *)(gMenuItems) + 0x29)) != 0)) {
             var_a0_2 = 0xEB;
             if (func_8002AB54(arg0) & 0xFF) {
                 var_a0_2 = 0xEC;
             }
             requestSound(var_a0_2);
             temp_a1 = (*(void **)((char *)(var_s3) + 8));
-            ((__repair_field_10 *)temp_a1)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
+            ((__repair_field_10 *)temp_a1)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuItems) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
                 func_8002AAF4(arg0, temp_a1);
             } else {
                 func_8002AB34(arg0, temp_a1);
             }
-        } else if ((var_s0 != 0) && ((*(u8 *)((char *)(gMenuState) + 0x29)) != 0)) {
+        } else if ((var_s0 != 0) && ((*(u8 *)((char *)(gMenuItems) + 0x29)) != 0)) {
             var_a0_3 = 0xEB;
             if (func_8002AB6C(arg0) & 0xFF) {
                 var_a0_3 = 0xEC;
             }
             requestSound(var_a0_3);
             temp_a1_2 = (*(void **)((char *)(var_s4) + 8));
-            ((__repair_field_10 *)temp_a1_2)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
+            ((__repair_field_10 *)temp_a1_2)->value = (s32) ((sSaveMenuFlagsA & ~0xFF) | (*(u8 *)((char *)(gMenuItems) + 0x30)));
             if ((*(u8 *)((char *)(arg0) + 0x1E)) == 0) {
                 func_8002AAD4(arg0, temp_a1_2);
             } else {
@@ -129,9 +129,9 @@ block_13:
                 temp_a1 = (*(void **)((char *)(var_s3) + 8));
                 var_a0_4 = &D_800BD64C;
             }
-            (*(s32 *)((char *)(temp_a1) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
-            (*(s32 *)((char *)((*(void **)((char *)(var_s4) + 8))) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
-            temp_v1 = (*(u8 *)((char *)(gMenuState) + 0x30));
+            (*(s32 *)((char *)(temp_a1) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)(gMenuItems) + 0x30)));
+            (*(s32 *)((char *)((*(void **)((char *)(var_s4) + 8))) + 0x10)) = (s32) ((*var_a0_4 & ~0xFF) | (*(u8 *)((char *)(gMenuItems) + 0x30)));
+            temp_v1 = (*(u8 *)((char *)(gMenuItems) + 0x30));
             var_s1_2 = 0xFF;
             if (temp_v1 < 0xFFU) {
                 var_s1_2 = temp_v1;
@@ -139,15 +139,15 @@ block_13:
             temp_s3 = (*(void **)((char *)(var_s3) + 8));
             temp_s0 = ((__repair_field_10 *)temp_s3)->value & ~0xFF;
             var_v0_2 = temp_v1 | temp_s0;
-            if (!(func_8002AB54(arg0, -0x100, gMenuState, (*(void **)((char *)(var_s3) + 8))) & 0xFF)) {
-                var_v0_2 = temp_s0 | (*(u8 *)((char *)((*(void **)((char *)(gMenuState) + 0x1C))) + 0x13));
+            if (!(func_8002AB54(arg0, -0x100, gMenuItems, (*(void **)((char *)(var_s3) + 8))) & 0xFF)) {
+                var_v0_2 = temp_s0 | (*(u8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x1C))) + 0x13));
             }
             temp_s3_2 = (*(void **)((char *)(var_s4) + 8));
             temp_s0_4 = ((__repair_field_10 *)temp_s3_2)->value & ~0xFF;
             ((__repair_field_10 *)temp_s3)->value = var_v0_2;
             var_v0_3 = var_s1_2 | temp_s0_4;
             if (!(func_8002AB6C(arg0) & 0xFF)) {
-                var_v0_3 = temp_s0_4 | (*(u8 *)((char *)((*(void **)((char *)(gMenuState) + 0x1C))) + 0x13));
+                var_v0_3 = temp_s0_4 | (*(u8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x1C))) + 0x13));
             }
             ((__repair_field_10 *)temp_s3_2)->value = var_v0_3;
         }

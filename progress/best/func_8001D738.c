@@ -45,7 +45,7 @@ extern u8 gValidSaveSlotCount;
 extern char D_80102F48[];
 extern u8 D_80104310;
 extern u8 D_80108960;
-extern void *gMenuState;
+extern void *gMenuItems;
 extern u8 D_80109E20;
 extern u8 D_8010A394;
 extern char gPickupSearchBox[];
@@ -179,7 +179,7 @@ void func_8001D738(void) {
             }
 block_27:
             func_80025E9C(var_a0_7, temp_s0, temp_s4 - 0x28, temp_s5 - 0x28, 1, 0xD);
-            if (M2C_FIELD(gMenuState, u8 *, 8) == 0xD) {
+            if (M2C_FIELD(gMenuItems, u8 *, 8) == 0xD) {
                 func_800274BC(0x100, 2);
             }
         } else {
