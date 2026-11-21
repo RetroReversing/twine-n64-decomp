@@ -6376,14 +6376,6 @@
   "score_after": 5392
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Current-input baseline recheck of recorded best scored 3770; repaired undefined data declarations and uninitialized local by directly assigning D_80109B1E, reaching 3566. Subsequent branch/call restructuring candidates scored 4116 and 4796 and should not replace saved best. Main remaining mismatch starts in switch at offset +0x60: target tests 0x2F first, then signed/range branch <0x30, handles 0x2D and 0x8E/0x90; C switch version emits different compare/order. Also target uses s4 for arg3 (sw at 0x20), candidate allocates s3; investigate lifetime/register pressure. For the alternate callback path target uses `lh` through the pointer at arg2+0x28; candidate still produced lhu/sign-extension. Continue from saved_best revision 6704ebad8f2c21701193.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795165259.850606,
-  "score_before": 3770,
-  "score_after": 3566
- },
- {
   "function": "func_80012C70",
   "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 1; 105 differing rows (3 opcode, 10 register, 2 stack, 19 branch target, 15 operand, 30 reordered, 11 inserted, 15 deleted; advisory).\nTarget: sw $s0, 0x20($sp)\nCandidate: sw $s0, 0x28($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x38\ns T: sw $s0, 0x20($sp) | C: sw $s0, 0x28($sp)\n> T:  | C: addiu $s0, $zero, -1\nr T: addiu $s0, $zero, -1 | C: addiu $v0, $zero, -1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest current score 5242 from adding `volatile long long reserve;` to the saved candidate (frame becomes -0x38, removing two target mismatches; register saves still shifted). Call-arity repair on func_800115C0 from (s32,s16,s16*) to (s32) improved 5407\u21925387 before reserve. Local repair batches did not further improve. Remaining key mismatch: target uses base D_80103022 in s3 and indexed sh $zero,($a2), while candidate still emits loads/stores via D_800E093A; target switch joins at +0x25c, candidate +0x26c. Candidate revision 7039117117b50f74ad84.",
   "by": "codex-gpt-6-luna-17",
@@ -14912,14 +14904,6 @@
   "score_after": 12949
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Rechecked 3566 baseline; eight trials of switch order, branch orientation, struct layout, call arity and temporary addresses failed to improve. Existing quality report warns semantics need review; particularly inspect switch ordering and arg3 register lifetime. Best revision 6704ebad8f2c21701193 retained.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795183537.8421671,
-  "score_before": 3566,
-  "score_after": 3566
- },
- {
   "function": "func_8007B3B8",
   "text": "Baseline 987 retained. Flag and animation ID type changes did not improve; volatile float locals worsened. Frame is 0x38 versus target 0x40 with several saved-register differences. Reconstruct variable lifetimes and switch jump table against target; linker warns candidate rodata reference differs.",
   "by": "codex-gpt-6.1-terra-8",
@@ -16982,14 +16966,6 @@
   "created_at": 1795184536.831224,
   "score_before": 5051,
   "score_after": 5051
- },
- {
-  "function": "func_8005DC2C",
-  "text": "Rechecked best 3566. Signed var_a2, s32 var_v0, u8 table declaration, signed pointer read, explicit zero test, and register pointers produced identical instructions. Unsigned switch value and s16 D_80109B1E worsened. Remaining target switch comparison order and arg3 register differ; quality concern and branch-specific signed halfword load remain unresolved.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795184536.865889,
-  "score_before": 3566,
-  "score_after": 3566
  },
  {
   "function": "func_8000A4F4",
@@ -32592,14 +32568,6 @@
   "score_after": 3388
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 47 differing rows (45 register, 2 operand; advisory).\nTarget: sw $s2, 0x18($sp)\nCandidate: sw $s1, 0x14($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $v0, $a0\n  = move $v1, $a1\ni T: sw $s2, 0x18($sp) | C: sw $s1, 0x14($sp)\nr T: move $s2, $a2 | C: move $s1, $a2\n  = sw $s4, 0x20($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAuto handoff retained 9f53dd6ce63e70484abc at 245 from 3170. Corrected uninitialized switch destination, byte table/field accesses, signedness of the fallback callee argument and float transform copies. A local copy of arg3 after reading type, used for the transform while original arg3 is stored, recovered the target delay-slot move and exact instruction count. Only s1/s2 swap remains. Declaration reordering, typed aliases for arg2, assignment inside null check and early return did not solve it. Next: vary result lifetime at final call/return with a scoped alias while retaining shared null exit.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795202592.4605381,
-  "score_before": 3170,
-  "score_after": 245
- },
- {
   "function": "func_80022290",
   "text": "Verified 75 baseline; five differences are register allocation and order following func_80087100. Scope, struct layout, const and volatile reads did not change output.",
   "by": "codex-gpt-6.1-terra-4",
@@ -35760,14 +35728,6 @@
   "score_after": 3738
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Best candidate is revision 244b8ed7033c454b73c3, previously scored 5671; subsequent experimental revisions scored 5676, 5801, 5841, or 7149 and should not replace it. Experiments addressed target-like switch sequence plus locals and arg3 parameter qualifiers; no better result. Main remaining issue is frame/register allocation: target saves arg3 in s4 at 0x20(sp), candidate uses s3 at 0x1c(sp); dispatch still has differences around comparisons/branch delay slots, and later instructions retain substantial register/order mismatch. Function has extensive earlier attempts; advise focus on frame/register lifetimes after a fresh baseline compile.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795206011.41805,
-  "score_before": 245,
-  "score_after": 245
- },
- {
   "function": "func_8008F2D4",
   "text": "[Released without compiling it once; notes not checked by a compile.] Reviewed brief and target asm; no new compile made. Target structure matches the candidate's per-field lui/addu(v1)/sw loops, so the remaining 290-score gap is constant-register hoisting order (target loads a1,t3,t2,t1,t0,a3,a2,v1,v0 up front; candidate differs). 62 local repairs and 1 signedness trial already gave no gain. Untested idea: hoist the 0xFF/0x80/0x3F0000/0x17/0x64 constants into named locals declared in the target order before the first loop, or split the first loop body so the 0x3F0000 store lands after D_8010D754. Recommend a fresh agent try that, otherwise leave as-is.",
   "by": "api-claude-haiku-5-5-7",
@@ -37822,14 +37782,6 @@
   "created_at": 1795208256.505953,
   "score_before": 2715,
   "score_after": 2715
- },
- {
-  "function": "func_8005DC2C",
-  "text": "Rechecked best candidate score 5671/171 target instructions. Full C rewrite compiled and remains best; subsequent tests changing helper declaration, pointer qualifier of arg3, and no-op declaration had identical output/score, and one small previous reconstruction got 5671. No improvement within four-compile budget. Main diffs: target preserves arg3 in $s4 at sp+0x20 and $s3 as separate local; candidate maps arg3 to $s3, omits $s4 and shifts frame. Switch/control-flow around byte mode cases remains notably off: target uses equality branches (beq) and a delay-slot signed load, candidate uses bne/extra jumps and has return-branch opcode mismatch. Existing C also has bad prototypes for func_8003E6EC and possible ABI warnings. Next agent should start from saved best, use true callee signatures, and first reshape switch/comparison control flow to match the target's chained equality checks, then target arg3 lifetimes/declarations for s4 allocation.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795208256.745756,
-  "score_before": 245,
-  "score_after": 245
  },
  {
   "function": "func_8008863C",
@@ -49949,15 +49901,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Baseline rechecked 3486. Inferred layout and base signedness produced identical output; reversing branch worsened to 4046. Target preserves arg3 in s4 and switch differs.\nRecord typing, signed base pointer, branch reversal\nTwo unchanged at 3486; branch reversal 4046",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795220685.9336052,
-  "score_before": 3486,
-  "score_after": 3486,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
- },
- {
   "function": "updateTrackMarkerTrigger",
   "text": "Current best score remains 285 (16 differing instruction rows), verified from the initial candidate. The mismatch is almost entirely saved-register allocation: target copies arg0 to $s1 and arg0+0x24 to $s2; candidate copies arg0 to $s2 and assigns other locals oppositely, which shifts saves/loads and argument setup. Tried changing function prototypes/signs, typed and void-pointer arg0 aliases, and a register-qualified alias; generated instructions remained unchanged at score 285. One signedness variant regressed to 938. Next: try C local declaration/order/lifetime changes or compile_variants to steer GCC's saved-register assignment, keeping the original candidate as baseline.",
   "by": "codex-gpt-6-luna-11",
@@ -58680,15 +58623,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5f1240455833c193d0b64acc232b0c5f0d3f933206b7ae33d6a0061bc2d3d301"
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Corrected byte store and float source types, and used two word-aligned vector assignments; score improved 3486 to 676. Explicit nested comparisons worsened to 2436; cast of arg3 was unchanged. Remaining switch layout and s3/s4 allocation differ.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795234206.680469,
-  "score_before": 3486,
-  "score_after": 676,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
- },
- {
   "function": "func_8011A7C8",
   "text": "Saved best ef1a0e87ab95ec394f18 uses two uninitialized base pointers (reported). Initializing both at entry scored 4825; moving only D_80102CD0 initialization before use scored 4650, but leaves gBonusObjects base uninitialized on direct block_27 path. Loop rewrite scored 4905.\nInitialize bases at entry and swap first table base assignment before use.\n4650 with first base fixed; target still differs in loop control and base materialization.",
   "by": "codex-gpt-6.1-terra-2",
@@ -62560,15 +62494,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
  },
  {
-  "function": "func_8005DC2C",
-  "text": "Ordinary judge saved score 205 at revision fe14d6a23735cc3c1266 as claim closed. The typed position pointer local before the switch recovered s4\u2192s3 and exact frame. Separate objectSetAnimFrame calls in the two branches recovered the a0 move in the branch delay slot and table lookup allocation. Remaining 3 differences are exclusively the 0x3C lhu (target early in v1, current later in v0) and final addu operand order. Next step: retain the two calls and initialize a fresh scalar from 0x3C before assigning var_a1 from the marker table, then add scalar + var_a1.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795238938.246563,
-  "score_before": 676,
-  "score_after": 145,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
- },
- {
   "function": "func_80096A70",
   "text": "Session allowance. Best rechecked 1010 with indexed cursor and break at the count check, frame now correct. Padding alone 1712, signed-mode if-chain 5077, simple cursor +=4 after break 1602 and introduces extra saved fp.",
   "by": "codex-gpt-6.2-sol-6",
@@ -62630,15 +62555,6 @@
   "score_before": 3230,
   "score_after": 2510,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
- },
- {
-  "function": "func_8005DC2C",
-  "text": "The judge gave the move-on signal after seven attempts without improvement. The typed float-pointer alias and separate animation calls improved the saved baseline from 676 to 531. Moving the alias into a nested block emitted the same instructions. The s4 save and s3 copy are still missing.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795239034.4466429,
-  "score_before": 145,
-  "score_after": 145,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
  },
  {
   "function": "func_8007C3F0",
@@ -75652,5 +75568,89 @@
   "score_before": 7807,
   "score_after": 5655,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:1048df4a7dc03619971d0653db5d6b44ac256057df333b0d87824539dfe8df0d"
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Current-input baseline recheck of recorded best scored 3770; repaired undefined data declarations and uninitialized local by directly assigning D_80109B1E, reaching 3566. Subsequent branch/call restructuring candidates scored 4116 and 4796 and should not replace saved best. Main remaining mismatch starts in switch at offset +0x60: target tests 0x2F first, then signed/range branch <0x30, handles 0x2D and 0x8E/0x90; C switch version emits different compare/order. Also target uses s4 for arg3 (sw at 0x20), candidate allocates s3; investigate lifetime/register pressure. For the alternate callback path target uses `lh` through the pointer at arg2+0x28; candidate still produced lhu/sign-extension. Continue from saved_best revision 6704ebad8f2c21701193.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795165259.850606,
+  "score_before": 3770,
+  "score_after": 3566
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Rechecked 3566 baseline; eight trials of switch order, branch orientation, struct layout, call arity and temporary addresses failed to improve. Existing quality report warns semantics need review; particularly inspect switch ordering and arg3 register lifetime. Best revision 6704ebad8f2c21701193 retained.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795183537.8421671,
+  "score_before": 3566,
+  "score_after": 3566
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Rechecked best 3566. Signed var_a2, s32 var_v0, u8 table declaration, signed pointer read, explicit zero test, and register pointers produced identical instructions. Unsigned switch value and s16 D_80109B1E worsened. Remaining target switch comparison order and arg3 register differ; quality concern and branch-specific signed halfword load remain unresolved.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795184536.865889,
+  "score_before": 3566,
+  "score_after": 3566
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 3; 47 differing rows (45 register, 2 operand; advisory).\nTarget: sw $s2, 0x18($sp)\nCandidate: sw $s1, 0x14($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $v0, $a0\n  = move $v1, $a1\ni T: sw $s2, 0x18($sp) | C: sw $s1, 0x14($sp)\nr T: move $s2, $a2 | C: move $s1, $a2\n  = sw $s4, 0x20($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nAuto handoff retained 9f53dd6ce63e70484abc at 245 from 3170. Corrected uninitialized switch destination, byte table/field accesses, signedness of the fallback callee argument and float transform copies. A local copy of arg3 after reading type, used for the transform while original arg3 is stored, recovered the target delay-slot move and exact instruction count. Only s1/s2 swap remains. Declaration reordering, typed aliases for arg2, assignment inside null check and early return did not solve it. Next: vary result lifetime at final call/return with a scoped alias while retaining shared null exit.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795202592.4605381,
+  "score_before": 3170,
+  "score_after": 245
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Best candidate is revision 244b8ed7033c454b73c3, previously scored 5671; subsequent experimental revisions scored 5676, 5801, 5841, or 7149 and should not replace it. Experiments addressed target-like switch sequence plus locals and arg3 parameter qualifiers; no better result. Main remaining issue is frame/register allocation: target saves arg3 in s4 at 0x20(sp), candidate uses s3 at 0x1c(sp); dispatch still has differences around comparisons/branch delay slots, and later instructions retain substantial register/order mismatch. Function has extensive earlier attempts; advise focus on frame/register lifetimes after a fresh baseline compile.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795206011.41805,
+  "score_before": 245,
+  "score_after": 245
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Rechecked best candidate score 5671/171 target instructions. Full C rewrite compiled and remains best; subsequent tests changing helper declaration, pointer qualifier of arg3, and no-op declaration had identical output/score, and one small previous reconstruction got 5671. No improvement within four-compile budget. Main diffs: target preserves arg3 in $s4 at sp+0x20 and $s3 as separate local; candidate maps arg3 to $s3, omits $s4 and shifts frame. Switch/control-flow around byte mode cases remains notably off: target uses equality branches (beq) and a delay-slot signed load, candidate uses bne/extra jumps and has return-branch opcode mismatch. Existing C also has bad prototypes for func_8003E6EC and possible ABI warnings. Next agent should start from saved best, use true callee signatures, and first reshape switch/comparison control flow to match the target's chained equality checks, then target arg3 lifetimes/declarations for s4 allocation.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795208256.745756,
+  "score_before": 245,
+  "score_after": 245
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Baseline rechecked 3486. Inferred layout and base signedness produced identical output; reversing branch worsened to 4046. Target preserves arg3 in s4 and switch differs.\nRecord typing, signed base pointer, branch reversal\nTwo unchanged at 3486; branch reversal 4046",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795220685.9336052,
+  "score_before": 3486,
+  "score_after": 3486,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Corrected byte store and float source types, and used two word-aligned vector assignments; score improved 3486 to 676. Explicit nested comparisons worsened to 2436; cast of arg3 was unchanged. Remaining switch layout and s3/s4 allocation differ.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795234206.680469,
+  "score_before": 3486,
+  "score_after": 676,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "Ordinary judge saved score 205 at revision fe14d6a23735cc3c1266 as claim closed. The typed position pointer local before the switch recovered s4\u2192s3 and exact frame. Separate objectSetAnimFrame calls in the two branches recovered the a0 move in the branch delay slot and table lookup allocation. Remaining 3 differences are exclusively the 0x3C lhu (target early in v1, current later in v0) and final addu operand order. Next step: retain the two calls and initialize a fresh scalar from 0x3C before assigning var_a1 from the marker table, then add scalar + var_a1.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795238938.246563,
+  "score_before": 676,
+  "score_after": 145,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
+ },
+ {
+  "function": "func_8005DC2C",
+  "text": "The judge gave the move-on signal after seven attempts without improvement. The typed float-pointer alias and separate animation calls improved the saved baseline from 676 to 531. Moving the alias into a nested block emitted the same instructions. The s4 save and s3 copy are still missing.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795239034.4466429,
+  "score_before": 145,
+  "score_after": 145,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ff79d0f596c24af3d6eca86d565fa92768402ef3cec67a4a38bc661d6aeabd73"
  }
 ]

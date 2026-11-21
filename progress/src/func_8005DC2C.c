@@ -1,5 +1,5 @@
 s32 func_80015D40(s32);
-void *func_80016410(s32,s32,s32);
+void *func_80016410(s32, s32, s32, void *);
 s32 func_8003E6EC(s32,void *,s32);
 void func_80044670(void *,s32,s32);
 extern s32 *D_800CA31C;
@@ -11,7 +11,7 @@ typedef struct { f32 v[3]; } __repair_vec3;
 typedef struct { unsigned char pad0[36]; f32 x,y,z; unsigned char pad30[12]; f32 a,b,c; unsigned char pad48[20]; s32 flags; unsigned char pad60[12]; void *sub; unsigned char pad70[8]; s16 t,u,v; } R;
 void *func_8005DC2C(s32 arg0,s32 arg1,void *arg2,void *arg3) {
  s16 var_v0; s32 temp_v1,var_a1; u16 var_a2,temp_v0_2; void *temp_s0,*temp_v0,*transform;
- temp_v0=func_80016410(0x50,arg0,arg1);
+ temp_v0=func_80016410(0x50,arg0,arg1, arg3);
  if(temp_v0!=NULL) {
   temp_s0=((R*)temp_v0)->sub;
   (*(s32*)((char*)temp_s0+0x4C)) &= ~0x40;
