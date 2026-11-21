@@ -1,2 +1,2 @@
 extern unsigned char *gAudioVoiceTable;
-int audioVoiceIsActive(int arg0) { return gAudioVoiceTable[arg0 * 0x68] != 0; }
+int func_8008C1B0(int arg0) { return gAudioVoiceTable[arg0 * 0x68] != 0; }
