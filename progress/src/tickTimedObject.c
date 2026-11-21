@@ -17,7 +17,7 @@ M2C_UNK freeNodeChain(s32);                         /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, s32, f32, M2C_UNK); /* extern */
 
-void func_80055444(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
+void tickTimedObject(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
     f32 temp_fv0;
     u32 temp_a2;
 

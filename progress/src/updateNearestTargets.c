@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 approxDistance(M2C_UNK, void *);                 /* extern */
 M2C_UNK actorTickTimedState(void *, void **, void *, f32, s32); /* extern */
-M2C_UNK func_80055444(void *, void *, f32, M2C_UNK); /* extern */
+M2C_UNK tickTimedObject(void *, void *, f32, M2C_UNK); /* extern */
 
 /* Finds the nearest flagged entry in each of the two object lists and dispatches to both. */
 void updateNearestTargets(void *owner, M2C_UNK fromPos) {
@@ -75,7 +75,7 @@ void updateNearestTargets(void *owner, M2C_UNK fromPos) {
             actorTickTimedState(owner, nearestGroup, (s8 *) nearestGroup + 0x40, 100.0f, 0);
         }
         if (nearestEntry != NULL) {
-            func_80055444(nearestEntry, nearestEntry + 0x24, 100.0f, 0);
+            tickTimedObject(nearestEntry, nearestEntry + 0x24, 100.0f, 0);
         }
     }
 }

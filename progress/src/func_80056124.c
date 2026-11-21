@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 actorTickTimedState();
-s32 func_80055444();
+s32 tickTimedObject();
 extern void *gPlayerActor;
 extern void *D_80108F84;
 
@@ -23,7 +23,7 @@ s32 func_80056124(s32 arg0, void *arg1, s32 arg2) {
         return 1;
     }
     if ((gPlayerActor != NULL) && (M2C_FIELD(gPlayerActor, s32 *, 0x5C) & 0x300000)) {
-        func_80055444(gPlayerActor, arg2, M2C_FIELD(M2C_FIELD(arg1, void **, 0x2C), s32 *, 0xC), M2C_FIELD(arg1, s32 *, 0x24));
+        tickTimedObject(gPlayerActor, arg2, M2C_FIELD(M2C_FIELD(arg1, void **, 0x2C), s32 *, 0xC), M2C_FIELD(arg1, s32 *, 0x24));
         return 1;
     }
     return 0;
