@@ -4,8 +4,8 @@ typedef void *OSMesg;
 typedef struct OSMesgQueue_s { void *mtqueue; void *fullqueue; s32 validCount; s32 first; s32 msgCount; OSMesg *msg; } OSMesgQueue;
 typedef struct OSTimer_s { struct OSTimer_s *next; struct OSTimer_s *prev; OSTime interval; OSTime value; OSMesgQueue *mq; OSMesg msg; } OSTimer;
 extern OSTimer *D_800CFE90;
-extern u32 func_8009F640(void);
-extern void func_8009F6B0(u32);
+extern u32 __osDisableInt(void);
+extern void __osRestoreInt(u32);
 
 /* Inserts timer t into the sorted timer list D_800CFE90 (a circular list with a sentinel
  * head). Each entry's value is the delay after the previous one, so t->value is made
@@ -14,7 +14,7 @@ extern void func_8009F6B0(u32);
 OSTime __osInsertTimer(OSTimer* t) {
     OSTimer* timep;
     OSTime tim;
-    u32 savedMask = func_8009F640();
+    u32 savedMask = __osDisableInt();
 
     timep = D_800CFE90->next;
     tim = t->value;
@@ -32,6 +32,6 @@ OSTime __osInsertTimer(OSTimer* t) {
     t->prev = timep->prev;
     timep->prev->next = t;
     timep->prev = t;
-    func_8009F6B0(savedMask);
+    __osRestoreInt(savedMask);
     return tim;
 }

@@ -9,8 +9,8 @@ s32 func_800923D0();                            /* extern */
 s32 func_80093268();                            /* extern */
 s32 func_80093410();                            /* extern */
 s32 UpdateSlotList();                            /* extern */
-s32 func_8009F640();                                /* extern */
-s32 func_8009F6B0(s32);                         /* extern */
+s32 __osDisableInt();                                /* extern */
+s32 __osRestoreInt(s32);                         /* extern */
 s32 func_800A0220(s16 *, s32, u16);             /* extern */
 s32 osRecvMesg(s32 *, s32, s32);    /* extern */
 s32 osYieldThread();                            /* extern */
@@ -93,13 +93,13 @@ void func_8008B25C(void) {
         D_8010D428();
     }
     func_8008C160();
-    temp_a0 = func_8009F640();
+    temp_a0 = __osDisableInt();
     if (D_800E41D0 == 0) {
         var_v0 = D_800E41DA; } else {
         var_v0 = (u16) D_800E41D0;
     }
     temp_s4 = var_v0 - 1;
-    func_8009F6B0(temp_a0);
+    __osRestoreInt(temp_a0);
     if (gWorkerActive != 0) {
         UpdateSlotList();
     }

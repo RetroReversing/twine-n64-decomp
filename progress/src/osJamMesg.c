@@ -20,8 +20,8 @@ typedef struct OSMesgQueue_s {
 } OSMesgQueue;
 
 extern OSThread *D_800CFE80;
-extern u32 func_8009F640(void);
-extern void func_8009F6B0(u32);
+extern u32 __osDisableInt(void);
+extern void __osRestoreInt(u32);
 extern void func_800A783C(OSThread **);
 extern OSThread *func_800A798C(OSThread **);
 extern void osStartThread(OSThread *);
@@ -30,14 +30,14 @@ extern void osStartThread(OSThread *);
 s32 osJamMesg(OSMesgQueue *mq, OSMesg msg, s32 flag) {
     register u32 saveMask;
 
-    saveMask = func_8009F640();
+    saveMask = __osDisableInt();
 
     while (mq->validCount >= mq->msgCount) {
         if (flag == 1) {
             D_800CFE80->state = (1 << 3);
             func_800A783C(&mq->fullqueue);
         } else {
-            func_8009F6B0(saveMask);
+            __osRestoreInt(saveMask);
             return -1;
         }
     }
@@ -50,6 +50,6 @@ s32 osJamMesg(OSMesgQueue *mq, OSMesg msg, s32 flag) {
         osStartThread(func_800A798C(&mq->mtqueue));
     }
 
-    func_8009F6B0(saveMask);
+    __osRestoreInt(saveMask);
     return 0;
 }

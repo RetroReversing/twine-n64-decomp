@@ -13,14 +13,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8009F640();                                /* extern */
-M2C_UNK func_8009F6B0(s32);                         /* extern */
+s32 __osDisableInt();                                /* extern */
+M2C_UNK __osRestoreInt(s32);                         /* extern */
 extern s32 D_800D1080;
 
 /* Adds mask to the global interrupt mask with interrupts disabled, then restores the previous interrupt state. */ void __osSetGlobalIntMask(s32 mask) {
     s32 saved;
 
-    saved = func_8009F640();
+    saved = __osDisableInt();
     D_800D1080 |= mask;
-    func_8009F6B0(saved);
+    __osRestoreInt(saved);
 }

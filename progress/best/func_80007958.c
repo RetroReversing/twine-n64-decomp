@@ -40,8 +40,8 @@ extern void func_80044410(s32);
 extern void func_800A0220(void *, s32);
 extern void func_8000B260(void);
 extern void func_8000B224(FrameSlot *);
-extern s32 func_8009F640(void);
-extern void func_8009F6B0(s32);
+extern s32 __osDisableInt(void);
+extern void __osRestoreInt(s32);
 extern void vi_apply_context(void);
 extern u8 D_800AE4B0, gSceneFlagsA, gSceneFlagsB, D_80113022;
 extern u32 D_800B1BE0[];
@@ -225,9 +225,9 @@ void func_80007958(void)
             while (D_8011740C < D_80100C04 + 2) {
                 osRecvMesg(D_80109C98, NULL, 1);
             }
-            token = func_8009F640();
+            token = __osDisableInt();
             vi_apply_context();
-            func_8009F6B0(token);
+            __osRestoreInt(token);
             break;
         case 0:
             while (osRecvMesg((s32)D_80109C98, NULL, 0) == 0) {

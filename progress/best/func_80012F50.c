@@ -67,7 +67,7 @@ s32 __repair_phase_var_s4_2;
         do { saveSubmitCommand(5, (gSaveSlot * 0x68) + gSaveSlotTable, var_s0_3, var_s6, 0, 0, 0, 0); } while (0);
         var_s0 = 0xF;
         if (saveWaitCommand() == 5) {
-            *var_s4 = 0;
+            *(u16 *)var_s4 = 0;
             var_v0 = var_s1 + 0xF;
             do {
                 *var_v0 = 0x20;
@@ -91,7 +91,7 @@ s32 __repair_phase_var_s4_2;
         if (gSaveCmdResult) {
             break;
         }
-        *var_s4 = 1;
+        *(u16 *)var_s4 = 1;
         do { func_800103B0(var_s1, var_s3 + ((s32 *)((s8 *)&D_80108408 + 0xE)), 0x10); } while (0);
         func_800103B0(var_s2, var_s7, 4);
         var_s7 += 0x20;

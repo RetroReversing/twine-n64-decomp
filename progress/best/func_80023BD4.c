@@ -14,7 +14,7 @@ extern ResultPlayer *D_80102CD0[];
 char *func_80023BD4(void) {
     s32 i, best, player, message, score, count, idx;
     s16 *winner;
-    ResultPlayer **players;
+    union { ResultPlayer **players; s16 *scores; } table;
     ResultPlayer *entry;
     char *buffer, *name, *suffix;
     s32 scratch[4];
@@ -44,15 +44,15 @@ draw:
         best = 0;
         i = 0;
         if (player < D_801002B4) {
-            players = D_80102CD0;
+            table.players = D_80102CD0;
             do {
-                entry = *players;
+                entry = *table.players;
                 if (entry && entry->state->active)
                     best++;
                 else
                     player = (u16)func_80022DBC((u16)i);
                 i++;
-                players++;
+                table.players++;
             } while (i < D_801002B4);
         }
         count = D_801002B4 - 1;
@@ -65,9 +65,10 @@ draw:
     }
     i = 0;
     if (D_801002B4 > 0) {
+        table.scores = D_800E1068;
         do {
             idx = (u16)func_80022DBC((u16)i);
-            score = D_800E1068[idx];
+            score = table.scores[idx];
             if (best < score) {
                 best = score;
                 player = idx;
@@ -81,7 +82,7 @@ draw:
         winner = &D_800E1068[player];
         do {
             idx = (u16)func_80022DBC((u16)i);
-            score = D_800E1068[idx];
+            score = table.scores[idx];
             i++;
             best += score == *winner;
         } while (i < D_801002B4);

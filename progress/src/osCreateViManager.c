@@ -46,7 +46,7 @@ typedef struct OSThread_s {
 extern void     osCreateThread(OSThread *, OSId, void (*)(void *), void *, void *, OSPri);
 extern void     osStartThread(OSThread *);
 extern void     osSetThreadPri(OSThread *, OSPri);
-extern OSPri    func_800A2550(OSThread *);
+extern OSPri    osGetThreadPri(OSThread *);
 
 typedef void *OSMesg;
 
@@ -64,8 +64,8 @@ typedef u32 OSEvent;
 extern void     osSetEventMesg(OSEvent, OSMesgQueue *, OSMesg);
 
 typedef u32 OSIntMask;
-extern u32      func_8009F640(void);
-extern void     func_8009F6B0(u32);
+extern u32      __osDisableInt(void);
+extern void     __osRestoreInt(u32);
 
 typedef struct {
     u16          type;
@@ -134,14 +134,14 @@ void osCreateViManager(OSPri pri) {
     osSetEventMesg(7 , &viEventQueue, &viRetraceMsg);
     osSetEventMesg(3 , &viEventQueue, &viCounterMsg);
     old_pri = -1;
-    my_pri = func_800A2550(0 );
+    my_pri = osGetThreadPri(0 );
 
     if (my_pri < pri) {
         old_pri = my_pri;
         osSetThreadPri(0 , pri);
     }
 
-    saved_mask = func_8009F640();
+    saved_mask = __osDisableInt();
     __osViDevMgr.active = 1 ;
     __osViDevMgr.thread = &viThreadStorage.thread;
     __osViDevMgr.cmdQueue = &viEventQueue;
@@ -152,7 +152,7 @@ void osCreateViManager(OSPri pri) {
     osCreateThread(&viThreadStorage.thread, 0, viMgrMain, &__osViDevMgr, &viThreadStack[4096 ], pri);
     func_800A9670();
     osStartThread(&viThreadStorage.thread);
-    func_8009F6B0(saved_mask);
+    __osRestoreInt(saved_mask);
 
     if (old_pri != -1) {
         osSetThreadPri(0 , old_pri);

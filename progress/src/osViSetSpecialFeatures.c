@@ -47,8 +47,8 @@ typedef struct {
 } __OSViContext;
 
 extern __OSViContext *vi_active_ctx;
-u32 func_8009F640(void);
-void func_8009F6B0(u32);
+u32 __osDisableInt(void);
+void __osRestoreInt(u32);
 
 /* Turns VI special features on or off (bit set = on, bit clear = off) in the current
    VI context's control word, then marks the context as changed. Interrupts are
@@ -56,7 +56,7 @@ void func_8009F6B0(u32);
 void osViSetSpecialFeatures(u32 func) {
     register u32 saveMask;
 
-    saveMask = func_8009F640();
+    saveMask = __osDisableInt();
 
     if ((func & 0x0001) != 0) {
         vi_active_ctx->control |= 0x00008;
@@ -94,5 +94,5 @@ void osViSetSpecialFeatures(u32 func) {
 
     vi_active_ctx->state |= 0x08;
 
-    func_8009F6B0(saveMask);
+    __osRestoreInt(saveMask);
 }

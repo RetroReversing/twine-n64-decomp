@@ -1,6 +1,6 @@
 /* identical to osViSetMode in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
-s32 func_8009F640();
-s32 func_8009F6B0();
+s32 __osDisableInt();
+s32 __osRestoreInt();
 extern void *vi_active_ctx;
 
 /* Makes `mode` the current VI mode: stores it in the VI context (+8), flags the context for update
@@ -12,7 +12,7 @@ void osViSetMode(void *mode)
   char *ctx;
   s32 savedInt;
   void *temp_a1;
-  savedInt = func_8009F640();
+  savedInt = __osDisableInt();
   ctx = (char *) vi_active_ctx;
   *((void **) (((char *) vi_active_ctx) + 8)) = mode;
   ;
@@ -20,5 +20,5 @@ void osViSetMode(void *mode)
   *((s16 *) (ctx + 0)) = 1;
   modePtr = *modeSlot;
   *((s32 *) (ctx + 0xC)) = (s32) (*((s32 *) (((char *) (*modeSlot)) + 4)));
-  func_8009F6B0(savedInt, modePtr);
+  __osRestoreInt(savedInt, modePtr);
 }
