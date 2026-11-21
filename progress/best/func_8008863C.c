@@ -80,13 +80,18 @@ void func_8008863C(void) {
 state1:
                             if ((s8) *var_s5 == limit) {
                                 temp_v1_2 = *var_s4;
-                                rate = (f32) *(u16 *)((u8 *)&D_800E2C60 + var_s0) * 160.0f;
-                                rate /= (f32)(f64)(u32)temp_v1_2;
+                                rate = ((f32) *(u16 *)((u8 *)&D_800E2C60 + var_s0) * 160.0f) / ((f32)(f64)(u32)temp_v1_2);
                                 *(s32 *)((u8 *)&D_800E2CDC + var_s0) = 0;
                                 *(volatile u8 *)((u8 *)&sDataBankFlags + var_s0) = limit;
                                 *(f32 *)((u8 *)&D_800E2CE0 + var_s0) = rate;
                                 func_8009D9B8(temp_s1);
-                                temp_v0 = startAudioVoice(*(u8 *)((u8 *)&D_800E2CC4 + var_s0), *var_s3, *(s32 *)((u8 *)&D_800E2CD4 + var_s0), *var_s4, (s32) *(u8 *)((u8 *)&D_800E2CC1 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC2 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC3 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CD9 + var_s0), &func_80088EE4, var_s7);
+                                {
+                                    s32 arg0 = *(u8 *)((u8 *)&D_800E2CC4 + var_s0);
+                                    s32 arg1 = *var_s3;
+                                    s32 arg2 = *(s32 *)((u8 *)&D_800E2CD4 + var_s0);
+                                    s32 arg3 = *var_s4;
+                                temp_v0 = startAudioVoice(arg0, arg1, arg2, arg3, (s32) *(u8 *)((u8 *)&D_800E2CC1 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC2 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CC3 + var_s0), (s32) *(u8 *)((u8 *)&D_800E2CD9 + var_s0), &func_80088EE4, var_s7);
+                                }
                                 M2C_FIELD(temp_s1, s32 *, 0x120C) = temp_v0;
                                 if (temp_v0 == -1) {
                                     func_8009D9D8(temp_s1);
@@ -136,3 +141,4 @@ block_23:
         osSendMesg(&sDataBankMesgQueue, 0, 0);
     }
 }
+

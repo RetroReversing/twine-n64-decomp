@@ -4,7 +4,7 @@ s32 func_80000A40();
 s32 func_80008434(void *, f32);
 s32 func_800084C0();
 s32 func_80008598();
-s32 func_80008660();
+s32 cacheObjectTransform();
 s32 func_80008750();
 s32 trackFindNearestLight();
 s32 func_8000C34C();
@@ -360,7 +360,7 @@ block_43:
                         }
                         temp_v1_11 = ((__repair_field_58 *)arg0)->value;
                         if (temp_v1_11 & 0x40000) {
-                            func_80008660(arg0);
+                            cacheObjectTransform(arg0);
                         } else if ((arg3 << 0x18) != 0) {
                             func_800084C0(arg0, temp_s4);
                         } else if (temp_v1_11 & 0x8000) {

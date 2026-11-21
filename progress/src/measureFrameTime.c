@@ -4,7 +4,7 @@ s32 osRecvMesg(void *, void *, s32);
 extern s32 osTvType;
 extern u64 D_80108F88;
 extern u8 sGfxSyncQueue[];
-void func_80006FB4(void) {
+void measureFrameTime(void) {
     u64 t;
 
     while (osRecvMesg(sGfxSyncQueue, 0, 0) == 0) {

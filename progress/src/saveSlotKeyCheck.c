@@ -1,5 +1,5 @@
 extern struct { s32 value; char pad[20]; } gSaveSlotInfo[];
-extern u8 D_801001A1[];
+extern u8 sSaveSlotTable[];
 extern u8 gSaveKeyRelaxed;
 extern s32 gSaveSlotCount, gSaveExtraSlotCount;
 u8 getKeyEntryFlag(s32);
@@ -20,7 +20,7 @@ u8 getKeyEntryFlag(s32);
     }
     if (gSaveKeyRelaxed) {
         if (getKeyEntryFlag(slotKey) & 0xff) goto __shared_return_345;
-        if (!D_801001A1[(u16)slotIndex * 24]) return 0x15a;
+        if (!sSaveSlotTable[(u16)slotIndex * 24]) return 0x15a;
         goto __shared_return_345;
     }
     if ((getKeyEntryFlag(slotKey) & 0xff)) goto __shared_return_345;

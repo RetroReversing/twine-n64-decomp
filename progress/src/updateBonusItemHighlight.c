@@ -16,7 +16,7 @@ f32 approxDistance(void *, s32);                     /* extern */
 extern u8 sDifficultyLevel;
 extern s32 sBonusObjectTable;
 
-void func_80017D24(void *arg0) {
+void updateBonusItemHighlight(void *arg0) {
     s32 temp_v1;
     u8 var_v0;
     u16 temp_v0;

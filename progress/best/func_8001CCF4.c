@@ -10,7 +10,7 @@ extern s32 D_800BD650;
 extern s32 D_800BD65C;
 extern s32 D_800BD660;
 extern s32 D_800BD664;
-extern u8 D_801001A1[];
+extern u8 sSaveSlotTable[];
 extern s32 gMenuSoundParams;
 extern void *gSaveMenuState;
 
@@ -54,7 +54,7 @@ void func_8001CCF4(void *arg0, s32 arg1, s32 arg2) {
                 (*(s32 *)((char *)(var_a1) + 0x10)) = ((D_800BD664 & ~0xFF) | (*(u8 *)((char *)(gSaveMenuState) + 0x30)));
             } else {
                 var_a1 = (*(void **)((char *)(temp_s0) + 4));
-                if (*(D_801001A1 + ((*(u8 *)((char *)(arg0) + 8)) * 0x18)) == 0)
+                if (*(sSaveSlotTable + ((*(u8 *)((char *)(arg0) + 8)) * 0x18)) == 0)
                     (*(s32 *)((char *)(var_a1) + 0x10)) = ((D_800BD65C & ~0xFF) | (*(u8 *)((char *)(gSaveMenuState) + 0x30)));
                 else
                     (*(s32 *)((char *)(var_a1) + 0x10)) = ((D_800BD650 & ~0xFF) | (*(u8 *)((char *)(gSaveMenuState) + 0x30)));

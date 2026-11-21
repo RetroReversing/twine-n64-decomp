@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800068B4();
 s32 func_80006E30();
 void func_80006E78(void);
-s32 func_80006FB4();
+s32 measureFrameTime();
 s32 func_80008258();
 s32 initGameDataBanks();
 s32 func_8000B828();
@@ -165,7 +165,7 @@ scale:
     osViSwapBuffer(D_80100304);
     func_80086DA0(1);
     initControllerAndSaveState();
-    func_80006FB4();
+    measureFrameTime();
 loop_18:
     func_800068B4();
     goto loop_18;

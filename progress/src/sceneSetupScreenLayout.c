@@ -10,7 +10,7 @@ extern u16 D_8011F0EE;
 extern u32 D_8011F2E8[][4];
 extern u32 D_8011F3B8[];
 extern u8 D_8011ED54[];
-extern u32 sMarkerTextNode1[];
+extern u32 sBonusMarkerNodes[];
 extern u32 D_8011F040[];
 s32 spawnTextNode(void *);
 void func_8011C4D8(void);
@@ -78,7 +78,7 @@ after:
     switch (gSceneType) {
     case 8:
         for (i = 0; i < 3; i++) {
-            sMarkerTextNode1[i] = spawnTextNode(D_8011ED54 + i * 36);
+            sBonusMarkerNodes[i] = spawnTextNode(D_8011ED54 + i * 36);
         }
         func_8011C4D8();
         break;
