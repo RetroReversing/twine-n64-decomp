@@ -4,7 +4,7 @@ extern char D_800E41F8[], D_800E4210[];
 extern s8 sWorkerBusy;
 extern s32 (*gDataBankAlloc)(s32,s32);
 extern u8 D_8010086C;
-extern s32 D_80103EB4;
+extern s32 sSlotLog;
 extern u16 D_800CEED0[];
 extern f64 D_800D6700, D_800D6708, D_800D6710;
 void func_80089C10(s32);
@@ -28,7 +28,7 @@ void osCreateMesgQueue(void *, void *, s32);
     D_800E41F4 = size;
     if ((s32)total < 0) d += D_800D6710;
     D_800E41F4 = (((((u32)((f32)d * 0.9f) + 63) >> 6) * 0x28) + 15) & 0xFFF0; }
-    D_80103EB4 = gDataBankAlloc(gAudioSampleCount * 0x18, 0);
+    sSlotLog = gDataBankAlloc(gAudioSampleCount * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
     sWorkerBusy = 0;
     func_80089C10(gAudioSampleCount);

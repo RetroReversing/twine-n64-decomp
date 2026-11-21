@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800882D0();
 extern u8 sDataBankInitialised;
 extern u8 sDataBankFlags[];
-extern char D_800E2CE4[];
+extern char sDataBankSlots[];
 
 s32 func_800883CC(s32 arg0) {
     s32 var_v1;
@@ -26,7 +26,7 @@ s32 func_800883CC(s32 arg0) {
         if (sDataBankInitialised != 0) {
             var_v1 = 0;
 loop_3:
-            if ((*(sDataBankFlags + var_v1) == 0) || (*(s32 *)(D_800E2CE4 + var_v1) != arg0)) {
+            if ((*(sDataBankFlags + var_v1) == 0) || (*(s32 *)(sDataBankSlots + var_v1) != arg0)) {
                 var_a0 += 1;
                 var_v1 += 0x1228;
                 if (var_a0 >= 2U) {

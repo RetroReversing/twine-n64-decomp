@@ -1,10 +1,10 @@
 extern u8 sDataBankInitialised, sDataBankFlags[];
-extern char D_800E2CE4[];
+extern char sDataBankSlots[];
 static __inline__ s32 lookup_8845C(s32 key) {
     u32 i = 0;
     s32 offset = 0;
     do {
-        if (sDataBankFlags[offset] && *(s32 *)(D_800E2CE4 + offset) == key) return i;
+        if (sDataBankFlags[offset] && *(s32 *)(sDataBankSlots + offset) == key) return i;
         offset += 0x1228;
     } while (++i < 2);
     return -1;

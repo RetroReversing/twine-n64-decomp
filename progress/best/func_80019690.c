@@ -25,7 +25,7 @@ extern s8 gPickupSavedByte;
 extern volatile s32 gSaveTotalSlots;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
-extern s32 D_801002CC;
+extern s32 sRaceTimer;
 extern s32 D_801002D0;
 extern s16 D_80102CBC;
 extern s16 D_80102CBE;
@@ -80,7 +80,7 @@ void func_80019690(void) {
             D_801002AC = 0;
             D_801002A3 = 0;
             gPickupSavedByte = 0;
-            D_801002CC = D_801002C4;
+            sRaceTimer = D_801002C4;
             D_801002D0 = D_801002C8;
             D_80102EF0 = 0;
             i = 0;

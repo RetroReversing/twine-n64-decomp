@@ -48,7 +48,7 @@ extern u16 sWorkerAckCounter;
 extern s32 (*D_80100164)(s32 *);
 extern s32 (*D_80100168)(s16 *, u8);
 extern s32 (*D_80100174)(s32, u16, s32 *);
-extern s32 D_80103EB4;
+extern s32 sSlotLog;
 extern u16 sSlotLogCount;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
@@ -109,8 +109,8 @@ void func_8008B25C(void) {
             sWorkerBusy = 0; osYieldThread();
         }
         sSlotLogCount = 0;
-        D_80109BA0 = D_80103EB4 & ~0xF;
-        D_80109BF8 = D_80103EB4; if (dmaHandlerInit != NULL) {
+        D_80109BA0 = sSlotLog & ~0xF;
+        D_80109BF8 = sSlotLog; if (dmaHandlerInit != NULL) {
             ((s32 (*)())dmaHandlerInit)();
         }
         var_v1 = sSlotActiveList;
@@ -235,7 +235,7 @@ block_41:
             }
             if (sSlotLogCount) {
                 sWorkerBusy = 1;
-                D_80100174(D_80103EB4, sSlotLogCount, &D_800E41F8);
+                D_80100174(sSlotLog, sSlotLogCount, &D_800E41F8);
             }
             D_800E4268 = var_s0;
             sWorkerAckCounter -= var_s3;

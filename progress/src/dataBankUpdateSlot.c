@@ -9,35 +9,35 @@ extern char D_800E2CC1[];
 extern char D_800E2CC2[];
 extern char D_800E2CC3[];
 extern char D_800E2CCC[];
-extern char D_800E2CE4[];
+extern char sDataBankSlots[];
 extern char sDataBankMesgQueue[];
 
-s32 dataBankUpdateSlot(s32 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
-    s32 temp_a0;
-    s32 var_v1;
-    u32 var_a1;
-    s32 var_s0;
+/* Finds the data bank slot with the given id, waits for the mesg queue, updates its stored values and notifies the queue. */ s32 dataBankUpdateSlot(s32 id, s8 value1, s8 value2, s8 value3, u8 value4) {
+    s32 oldHandle;
+    s32 slotOffset;
+    u32 i;
+    s32 slotIndex;
 
     if (sDataBankInitialised != 0) {
-        for (var_a1 = 0, var_v1 = 0; var_a1 < 2U; ++var_a1, var_v1 += 0x1228) {
-            if (*(sDataBankFlags + var_v1) != 0 && *(s32 *)(D_800E2CE4 + var_v1) == arg0) {
-                var_s0 = var_a1;
+        for (i = 0, slotOffset = 0; i < 2U; ++i, slotOffset += 0x1228) {
+            if (*(sDataBankFlags + slotOffset) != 0 && *(s32 *)(sDataBankSlots + slotOffset) == id) {
+                slotIndex = i;
                 goto found;
             }
         }
-        var_s0 = -1;
+        slotIndex = -1;
 found:
-        if (var_s0 != -1) {
+        if (slotIndex != -1) {
             osRecvMesg(sDataBankMesgQueue, 0, 1);
-            var_s0 *= 0x1228;
-            temp_a0 = *(s32 *)(D_800E2CCC + var_s0);
-            if (temp_a0 != -1) {
-                func_800936B4(temp_a0, arg1 & 0xFF, arg2 & 0xFF, arg3 & 0xFF, (s32) arg4);
+            slotIndex *= 0x1228;
+            oldHandle = *(s32 *)(D_800E2CCC + slotIndex);
+            if (oldHandle != -1) {
+                func_800936B4(oldHandle, value1 & 0xFF, value2 & 0xFF, value3 & 0xFF, (s32) value4);
             }
-            *(D_800E2CC2 + var_s0) = arg2;
-            *(D_800E2CC3 + var_s0) = arg3;
-            *(D_800E2CC1 + var_s0) = arg1;
-            osSendMesg(D_800E2CE4 + 0x124C, 0, 0);
+            *(D_800E2CC2 + slotIndex) = value2;
+            *(D_800E2CC3 + slotIndex) = value3;
+            *(D_800E2CC1 + slotIndex) = value1;
+            osSendMesg(sDataBankSlots + 0x124C, 0, 0);
             return 1;
         }
         goto block_10;

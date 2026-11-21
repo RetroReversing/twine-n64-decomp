@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 M2C_UNK func_8002B050(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_8002B180(M2C_UNK *, M2C_UNK *);        /* extern */
-s16 func_8002B278(M2C_UNK *);                       /* extern */
+s16 timerGetTotalSeconds(M2C_UNK *);                       /* extern */
 M2C_UNK func_8011AA04();                            /* extern */
 s16 strlen(M2C_UNK *);                              /* extern */
 extern u8 gMenuUseTextList;
@@ -30,8 +30,8 @@ void func_8011C580(void) {
     if (gMenuUseTextList != 0) {
         temp_s1 = D_8011F3BC;
         if (temp_s1 != NULL) {
-            if ((func_8002B278(&D_8011F3AC) << 0x10) > 0) {
-                if ((func_8002B278(&D_8011F3AC) < 6) && (D_8011F3B0 == 0)) {
+            if ((timerGetTotalSeconds(&D_8011F3AC) << 0x10) > 0) {
+                if ((timerGetTotalSeconds(&D_8011F3AC) < 6) && (D_8011F3B0 == 0)) {
                     requestSound(0x123);
                 }
                 func_8002B050(&D_8011F3AC, -1);

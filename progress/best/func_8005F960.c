@@ -74,11 +74,11 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
             case 0x1000:                            /* switch 2 */
                 (*(s16 *)((char *)(temp_s2) + 0x3C)) = 0;
                 break;
-            case 0x3000:                            /* switch 2 */
-                var_v0 = 1;
-                /* fallthrough */
-            case 0x2000:                            /* switch 2 */
-                (*(s16 *)((char *)(temp_s2) + 0x3C)) = var_v0;
+            case 0x3000:
+                (*(s16 *)((char *)temp_s2 + 0x3C)) = 1;
+                break;
+            case 0x2000:
+                (*(s16 *)((char *)temp_s2 + 0x3C)) = 2;
                 break;
             }
             { s32 word = tail.word;
@@ -96,3 +96,4 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
     }
     return NULL;
 }
+

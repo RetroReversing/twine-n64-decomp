@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern u8 D_800E2CC0[];
-extern u8 D_800E2CE4[];
+extern u8 sDataBankSlots[];
 extern s32 sDataBankReady;
 
 s32 func_80087F60(s32 arg0) {
@@ -37,7 +37,7 @@ loop_2:
         cache = sDataBankReady;
         __block___repair_phase_temp_a0 = 0;
         for (;;) {
-            if ((*((__base_D_800E2CC0 = D_800E2CC0) + __block___repair_phase_temp_a0) == 0) || (__block_var_v1 == arg0) || (*(s32 *)(D_800E2CE4 + __block___repair_phase_temp_a0) != cache)) {
+            if ((*((__base_D_800E2CC0 = D_800E2CC0) + __block___repair_phase_temp_a0) == 0) || (__block_var_v1 == arg0) || (*(s32 *)(sDataBankSlots + __block___repair_phase_temp_a0) != cache)) {
                 __block_var_v1 += 1;
                 __block___repair_phase_temp_a0 += 0x1228;
                 if (__block_var_v1 < 2U) {
@@ -59,11 +59,11 @@ loop_2:
         break;
     }
     __repair_phase_temp_a0 = arg0 * 0x1228;
-    *(s32 *)(D_800E2CE4 + __repair_phase_temp_a0) = sDataBankReady;
+    *(s32 *)(sDataBankSlots + __repair_phase_temp_a0) = sDataBankReady;
     temp_v1 = sDataBankReady + 1;
     sDataBankReady = temp_v1;
     if (temp_v1 == -1) {
         sDataBankReady = 0;
     }
-    return *(s32 *)(D_800E2CE4 + __repair_phase_temp_a0);
+    return *(s32 *)(sDataBankSlots + __repair_phase_temp_a0);
 }

@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_8002B248(u32 *);                           /* extern */
-s32 func_8002B278(u32 *);                           /* extern */
+s32 timerGetTotalSeconds(u32 *);                           /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern u32 D_801002C4;
 extern u32 D_801002F4;
@@ -55,7 +55,7 @@ void func_8001A880(void) {
             break;
         }
         D_801002C4 = var_v0;
-        if ((func_8002B278(&D_801002C4) << 0x10) == 0) {
+        if ((timerGetTotalSeconds(&D_801002C4) << 0x10) == 0) {
             var_v0_2 = lookupDataEntry(0x5F);
         
         formatTextEntry(M2C_FIELD(gMenuItems, s32 *, 0x18) + 0x28, sFmtEntryName, var_v0_2);} else {

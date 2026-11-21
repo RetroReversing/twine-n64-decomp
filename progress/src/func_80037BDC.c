@@ -5,7 +5,7 @@ f32 func_80082908(f32 x) {
 }
 
 extern u8 sDataBankInitialised, sDataBankFlags;
-extern s32 D_800E2CE4;
+extern s32 sDataBankSlots;
 s32 isSlotActiveById(s32 id) {
     u32 i;
     s32 offset, index;
@@ -13,7 +13,7 @@ s32 isSlotActiveById(s32 id) {
         i = 0;
         offset = 0;
         do {
-            if (*(&sDataBankFlags + offset) && *(s32 *)((s8 *)&D_800E2CE4 + offset) == id) {
+            if (*(&sDataBankFlags + offset) && *(s32 *)((s8 *)&sDataBankSlots + offset) == id) {
                 index = i;
                 goto found;
             }

@@ -15,14 +15,14 @@ typedef s32 M2C_UNK32;
 s32 func_80026424();
 s32 func_8002778C();
 s32 func_8002B150();
-s16 func_8002B278();
+s16 timerGetTotalSeconds();
 s32 func_8002FBD4();
 extern char D_800E1584[];
 extern s32 sActiveMenu;
 
 void func_8002F2EC(s32 arg0, void *arg1) {
 
-    if (func_8002B278(D_800E1584) >= 0x14) {
+    if (timerGetTotalSeconds(D_800E1584) >= 0x14) {
         if (M2C_FIELD(arg1, s16 *, 0x7A) == 5) {
             func_8002FBD4(arg1, 0xB);
         } else {

@@ -26,7 +26,7 @@ M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32
 M2C_UNK func_8002A7CC(M2C_UNK *, s32 *, s32, M2C_UNK); /* extern */
 M2C_UNK func_8002A9A8(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
-s16 func_8002B278(void *);                          /* extern */
+s16 timerGetTotalSeconds(void *);                          /* extern */
 void *lookupDataEntry(s32);                           /* extern */
 void *memset(void *, s32, u32);            /* extern */
 s32 sprintf(char *, const char *, ...);            /* extern */
@@ -159,7 +159,7 @@ void func_8002323C(void) {
                 break;
             }
             if (mode[-1] == 6) {
-                s16 bonus = func_8002B278((u8 *)&sProbeTimers + (u16)var_s4 * 8);
+                s16 bonus = timerGetTotalSeconds((u8 *)&sProbeTimers + (u16)var_s4 * 8);
                 (&D_800E107E)[(u16)var_s4] += bonus / 10;
             }
             var_s4++;

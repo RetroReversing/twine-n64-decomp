@@ -24,32 +24,32 @@ static OSPifRam __MotorDataBuf[4] __attribute__((aligned(8)));
 /* Runs one rumble-pak command on the channel's 32-byte block. flag is the fill byte:
    0 switches the motor off (expects CRC 0), anything else switches it on (expects CRC
    0xEB). Returns 0 on success, 4 if the CRC is wrong, 5 if no pak is plugged in. */
-s32 __osMotorAccess(OSPfs *pfs, s32 flag) {
+/* Runs one rumble-pak command on the channel's 32-byte block, switching the motor on or off. */ s32 __osMotorAccess(OSPfs *controller, s32 fillByte) {
     int i;
     s32 ret;
-    u8 *block = (u8 *)&__MotorDataBuf[pfs->channel];
+    u8 *block = (u8 *)&__MotorDataBuf[controller->channel];
 
-    if (!(pfs->status & 0x8)) {
+    if (!(controller->status & 0x8)) {
         return 5;
     }
 
     func_800A23E4();
-    __MotorDataBuf[pfs->channel].pifstatus = 1;
-    block += pfs->channel;
+    __MotorDataBuf[controller->channel].pifstatus = 1;
+    block += controller->channel;
 
     for (i = 0; i < 32; i++) {
-        ((__OSContRamReadFormat *)block)->data[i] = flag;
+        ((__OSContRamReadFormat *)block)->data[i] = fillByte;
     }
 
     D_80109E90 = 0xfe;
-    __osSiRawStartDma(1, &__MotorDataBuf[pfs->channel]);
-    osRecvMesg(pfs->queue, 0, 1);
-    ret = __osSiRawStartDma(0, &__MotorDataBuf[pfs->channel]);
-    osRecvMesg(pfs->queue, 0, 1);
+    __osSiRawStartDma(1, &__MotorDataBuf[controller->channel]);
+    osRecvMesg(controller->queue, 0, 1);
+    ret = __osSiRawStartDma(0, &__MotorDataBuf[controller->channel]);
+    osRecvMesg(controller->queue, 0, 1);
 
     ret = ((__OSContRamReadFormat *)block)->rxsize & 0xC0;
     if (!ret) {
-        if (!flag) {
+        if (!fillByte) {
             if (((__OSContRamReadFormat *)block)->datacrc != 0) {
                 ret = 0x4;
             }

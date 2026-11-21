@@ -41,9 +41,9 @@ s32 __repair_phase_var_a0;
     }
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((gColorFadeLevel * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);
-        var_a0 = 0x1B;
-        if (gOptionFlagA == 0) var_a0 = 0x1A;
-        formatTextEntry(temp_s1, sFmtEntryName, lookupDataEntry(var_a0));
+        if (gOptionFlagA != 0) var_a0 = lookupDataEntry(0x1B);
+        else var_a0 = lookupDataEntry(0x1A);
+        formatTextEntry(temp_s1, sFmtEntryName, var_a0);
         temp_s2 = var_s3 - 0x28;
         if (gExpansionPakPresent != 0) {
             temp_s0 = temp_s4 - 0x28;
@@ -63,8 +63,9 @@ s32 __repair_phase_var_a0;
             temp_s2 = (*(void **)((char *)(gMenuItems) + 0x10));
             (*(s8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x20);
         }
-        if (D_8010A4C0 == 1) var_a0_4 = 0x17;
-        else var_a0_4 = 0x16;
-        do { formatTextEntry(temp_s4, "%s", lookupDataEntry(var_a0_4)); } while (0);
+        if (D_8010A4C0 == 0) var_a0_4 = lookupDataEntry(0x16);
+        else if (D_8010A4C0 == 1) var_a0_4 = lookupDataEntry(0x17);
+        else var_a0_4 = lookupDataEntry(0x16);
+        do { formatTextEntry(temp_s4, sFmtEntryName, var_a0_4); } while (0);
     }
 }

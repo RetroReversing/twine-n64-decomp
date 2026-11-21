@@ -1,6 +1,6 @@
 extern u8 sDataBankInitialised;
 extern u8 sDataBankFlags[];
-extern s32 D_800E2CE4;
+extern s32 sDataBankSlots;
 
 static inline s32 find_entry_8845C(s32 id)
 {
@@ -8,7 +8,7 @@ static inline s32 find_entry_8845C(s32 id)
     s32 off = 0;
 
     for (; i < 2; i++, off += 0x1228) {
-        if (sDataBankFlags[off] && *(s32 *)((u8 *)&D_800E2CE4 + off) == id)
+        if (sDataBankFlags[off] && *(s32 *)((u8 *)&sDataBankSlots + off) == id)
             return i;
     }
     return -1;

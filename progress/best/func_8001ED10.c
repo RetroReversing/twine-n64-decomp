@@ -18,7 +18,7 @@ extern s8 D_801002AD;
 extern s32 D_801002B4;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
-extern s32 D_801002CC;
+extern s32 sRaceTimer;
 extern s32 D_801002D0;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
@@ -67,7 +67,7 @@ void func_8001ED10(void) {
                 D_801002AC = 0;
                 D_801002A3 = 0;
                 D_801002AD = 0;
-                D_801002CC = D_801002C4;
+                sRaceTimer = D_801002C4;
                 D_801002D0 = D_801002C8;
                 D_80102EF0 = 0;
                 i = 0;

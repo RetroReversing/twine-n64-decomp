@@ -36,7 +36,7 @@ extern volatile u16 sWorkerAckCounter;
 extern M2C_UNK (*D_80100168)();
 extern M2C_UNK (*D_80100170)(M2C_UNK *);
 extern M2C_UNK (*gDataBankFree)(s32);
-extern s32 D_80103EB4;
+extern s32 sSlotLog;
 extern M2C_UNK func_8008B25C;
 
 /* Stops the worker thread: flushes pending work, then sends a 0xFF quit message on its queue. */ void stopWorkerThread(void) {
@@ -64,7 +64,7 @@ extern M2C_UNK func_8008B25C;
         do {
 
         } while (sWorkerBusy != 0);
-        gDataBankFree(D_80103EB4);
+        gDataBankFree(sSlotLog);
         gDataBankFree(D_800E4244);
         gDataBankFree(D_800E4240);
         gDataBankFree(D_800E4258);

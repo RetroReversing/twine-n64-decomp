@@ -1,6 +1,6 @@
 extern u8 sDataBankInitialised;
 extern u8 sDataBankFlags;
-extern s32 D_800E2CE4;
+extern s32 sDataBankSlots;
 
 static inline s32 find_active_slot(s32 id) {
     u32 i = 0;
@@ -8,7 +8,7 @@ static inline s32 find_active_slot(s32 id) {
 
     for (; i < 2; i++, offset += 0x1228) {
         if (*(u8 *)((u8 *)&sDataBankFlags + offset) != 0 &&
-            *(s32 *)((u8 *)&D_800E2CE4 + offset) == id) {
+            *(s32 *)((u8 *)&sDataBankSlots + offset) == id) {
             return i;
         }
     }
@@ -23,7 +23,7 @@ s32 isSlotActiveById(s32 id) {
         offset = 0;
         do {
             if (*(u8 *)((u8 *)&sDataBankFlags + offset) != 0 &&
-                *(s32 *)((u8 *)&D_800E2CE4 + offset) == key) {
+                *(s32 *)((u8 *)&sDataBankSlots + offset) == key) {
                 goto found;
             }
             id++;

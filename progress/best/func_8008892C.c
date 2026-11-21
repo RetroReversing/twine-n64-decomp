@@ -9,7 +9,7 @@ extern s32 sDataBankFlags;
 extern s32 D_800E2CC8;
 extern s32 D_800E2CDC;
 extern s32 D_800E2CE0;
-extern s32 D_800E2CE4;
+extern s32 sDataBankSlots;
 extern s32 sDataBankMesgQueue;
 
 f32 func_8008892C(s32 arg0, f32 *arg1) {
@@ -28,7 +28,7 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
             var_v1 = 0;
             do {
                 if (*(u8 *)((u8 *)&sDataBankFlags + var_v1) != 0) {
-                    if (*(s32 *)((u8 *)&D_800E2CE4 + var_v1) == arg0) {
+                    if (*(s32 *)((u8 *)&sDataBankSlots + var_v1) == arg0) {
                         arg0 = var_a0;
                         goto found;
                     }

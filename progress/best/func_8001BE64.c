@@ -6,7 +6,7 @@ void initSaveSlotMenus(void *, void *);
 void func_80025D84(void *, void *, void *, void *, s32, s32);
 void func_80025E9C(void *, void *, void *, void *, s32, s32);
 void formatTextEntry(void *, char *, s32);
-s16 func_8002B278(void *);
+s16 timerGetTotalSeconds(void *);
 s32 func_8002B248(void *);
 void func_8003099C(u8, u8);
 s32 lookupDataEntry(s32);
@@ -112,7 +112,7 @@ void func_8001BE64(void) {
         initSaveSlotMenus(temp_fp, temp_s6);
         temp_s0 = (s8 *) __base_D_801002A8 + 0x1C;
         func_8003099C(D_801002A4, sDifficultyLevel);
-        if ((func_8002B278(temp_s0) << 0x10) != 0) {
+        if ((timerGetTotalSeconds(temp_s0) << 0x10) != 0) {
             var_v0_3 = func_8002B248(temp_s0);
         
         formatTextEntry(temp_s3, sFmtEntryName, var_v0_3);} else {
