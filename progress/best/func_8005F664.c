@@ -24,18 +24,18 @@ extern M2C_UNK D_800C4708;
 extern M2C_UNK func_8004D910;
 extern s16 gBorderSkipFlag;
 typedef struct { s32 w[3]; } __repair_words3;
-void *func_8005F664(void *arg0, u16 arg2) {
+void *func_8005F664(void *arg0, s32 arg1, u32 arg2) {
     M2C_UNK sp28;
     f32 temp_fs0, temp_fs1, temp_fs2;
     s32 var_v0, var_v1;
-    u16 var_s3;
+    s32 var_s3;
     void *temp_s0, *temp_s2, *temp_v0, *temp_v0_2, *temp_v0_3, *temp_v0_4, *temp_v1;
     var_s3 = arg2;
     if ((var_s3 != 0) & (var_s3 < 0x27U)) {
         var_v1 = var_s3 * 0xE8;
         var_v0 = var_s3 * 8;
-        if (!(*(s32 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000)) {
-            do { var_v1 -= 0xE8; var_s3 -= 1; } while (!(*(s32 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000));
+        if (!(*(u16 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000)) {
+            do { var_v1 -= 0xE8; var_s3 -= 1; } while (!(*(u16 *)((u8 *)&sEnemyDefTable + var_v1) & 0x8000));
             var_v0 = var_s3 * 8;
         }
         if (*(s16 *)((u8 *)&D_800C4706 + ((((var_v0-var_s3)*4)+var_s3)*8)) != -1) {

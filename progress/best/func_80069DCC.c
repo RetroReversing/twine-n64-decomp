@@ -22,9 +22,9 @@ M2C_UNK func_800179E8(void *, void *, s32, s32);
 M2C_UNK func_800452E0(void *, void *, f32 *);
 f32 func_8004572C(f32 *);
 
-M2C_UNK func_80047B14(void *, M2C_UNK, void *);
+M2C_UNK func_80047B14(void *, f32, void *);
 M2C_UNK func_80047FB4(s32, s32);
-s32 func_8004BCC0(void *, void *, f32 *, M2C_UNK);
+s32 func_8004BCC0(void *, void *, f32 *, f32);
 M2C_UNK func_800635BC(void *, M2C_UNK);
 f32 func_80063758(f32, f32, s32);
 M2C_UNK updateHudSprites(void *);
@@ -814,7 +814,7 @@ var_s5 -= M2C_FIELD(temp_s1, f32 *, 0x11C);
 var_s6 -= M2C_FIELD(temp_s1, f32 *, 0x124);
 }
 temp_a0_6 = temp_s1 + 0x11C;
-func_80047B14(temp_a0_6, 0x3F4CCCCD, temp_a0_6);
+func_80047B14(temp_a0_6, 0.8f, temp_a0_6);
 M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + var_s5);
 M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + var_fp);
 M2C_FIELD(arg0, f32 *, 0x40) = (f32) (M2C_FIELD(arg0, f32 *, 0x40) + D_800E1A1C);
@@ -873,7 +873,7 @@ break;
 }
 func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
 }
-func_80047FB4(*(&gTrackMarkerTable + (temp_s4 * 4)), *(&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
+func_80047FB4(*(M2C_UNK *)((u8 *)&gTrackMarkerTable + (temp_s4 * 4)), *(M2C_UNK *)((u8 *)&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
 func_80069250(arg0);
 break;
 case 6:
@@ -884,7 +884,7 @@ func_800698D8(arg0, temp_fs3_4, probeTrackSteerAngle(sp64, arg0));
 temp_v1_28 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC);
 if (!(temp_v1_28 & 1)) {
 if ((temp_v1_28 & 8) && ((func_800819EC(temp_s4, 0xD) != 0) || (func_800819EC(temp_s4, 0xC) != 0))) {
-if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 0x40000000) << 0x18) == 0) {
+if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 2.0f) << 0x18) == 0) {
 sp48 = M2C_FIELD(arg0, f32 *, 0x24);
 sp4C = M2C_FIELD(arg0, f32 *, 0x28);
 sp50 = M2C_FIELD(arg0, f32 *, 0x2C);
@@ -1051,7 +1051,7 @@ if (func_800818AC(temp_s4, 0xC) != 0) {
 M2C_FIELD(temp_s1, s8 *, 0x181) = 4;
 requestSound(0xFF);
 } else if (M2C_FIELD(temp_s1, f32 *, 0x14) < temp_fs0_3) {
-if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 0x40000000) << 0x18) == 0) {
+if ((func_8004BCC0(sp64, arg0 + 0x24, &sp48, 2.0f) << 0x18) == 0) {
 sp48 = M2C_FIELD(arg0, f32 *, 0x24);
 sp4C = M2C_FIELD(arg0, f32 *, 0x28);
 sp50 = M2C_FIELD(arg0, f32 *, 0x2C);
@@ -1328,11 +1328,11 @@ M2C_FIELD(temp_v1_33, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_33, u8 *, 0xE);
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u16 *, 0x134);
 gSceneFlagsB |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
-temp_v0_10 = *(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
+temp_v0_10 = *(M2C_UNK *)((u8 *)&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
 (*(__repair_vec3 *) ((s8 *) (arg0) + 0x30)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x24));
 (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x30));
 (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x28)) = (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10));
-M2C_FIELD(*(&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
+M2C_FIELD(*(M2C_UNK *)((u8 *)&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
 func_80081D20(temp_s4, 0x12);
 return;
 }

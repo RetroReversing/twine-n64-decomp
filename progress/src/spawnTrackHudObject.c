@@ -27,7 +27,7 @@ extern u8 gPendingMenuCommand;
 extern char gTrackMarkerTable[];
 
 typedef struct { void * field_0; unsigned char pad_4[36]; int field_28; void * field_2C; void * field_30; void * field_34; void * field_38; void * field_3C; short field_40; short field_42; short field_44; } __repair_record_temp_s1;
-void *func_8002EBB8(s32 arg0) {
+void *spawnTrackHudObject(s32 arg0) {
     s16 *__base_D_800BFD04;
     
     s16 *__base_D_800BFCBC;

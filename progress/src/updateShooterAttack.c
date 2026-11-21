@@ -24,130 +24,127 @@ f32 approximateAtan2(f32, f32);                        /* extern */
 s32 func_80084338();                /* extern */
 extern s8 D_800C469C;
 extern u8 D_800C46FA;
-extern u8 D_80102EE8;
+extern u8 sDifficultyLevel;
 
-s32 updateShooterAttack(void *arg0, void *arg1) {
-    struct { f32 x, y, z; } vec;
-#define sp20 vec.x
-#define sp24 vec.y
-#define sp28 vec.z
-    struct { f32 x, y; s32 z; } angles;
+/* Counts down a shooter's attack timer; when it fires, aims at the target and spawns a projectile volley. */
+s32 updateShooterAttack(void *shooter, void *startPos) {
+    struct { f32 x, y, z; } pos;
+    struct { f32 x, y; s32 z; } aim;
     volatile long long padding;
-#define sp30 angles.x
-#define sp34 angles.y
-#define sp38 angles.z
-    f32 temp_fs0;
-    f32 temp_fs0_2;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fv0;
-    f32 var_fs1;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v0_3;
-    s32 var_s2;
-    u16 temp_a0;
-    u32 var_s0;
-    void *temp_s0;
-    void *temp_s3;
-    void *temp_v0_4;
-    void *temp_v0_5;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 yawDeg;
+    f32 spreadRange;
+    f32 spreadRange2;
+    f32 spread;
+    s16 timer;
+    s16 timerNext;
+    s16 shotsLeft;
+    s32 effectFlags;
+    u16 soundId;
+    u32 i;
+    void *enemyDef;
+    void *attack;
+    void *target;
+    void *owner;
+    void *volleyOwner;
 
-    temp_s3 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + &D_800C469C;
-    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
-    vec = *(typeof(vec) *)arg1;
-    if ((M2C_FIELD(temp_s0, s16 *, 0x78) == -1) && (M2C_FIELD(temp_s0, s16 *, 0x7C) == 0)) {
-        temp_a0 = M2C_FIELD(temp_s3, u16 *, 0x58);
-        if (temp_a0 != 0) {
-            M2C_FIELD(temp_s0, s32 *, 0x4C) = func_80084338(temp_a0, arg0 + 0x24);
+    enemyDef = (M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s8 *, 0xE) * 0xE8) + &D_800C469C;
+    attack = M2C_FIELD(shooter, void **, 0x6C);
+    pos = *(typeof(pos) *)startPos;
+    if ((M2C_FIELD(attack, s16 *, 0x78) == -1) && (M2C_FIELD(attack, s16 *, 0x7C) == 0)) {
+        soundId = M2C_FIELD(enemyDef, u16 *, 0x58);
+        if (soundId != 0) {
+            M2C_FIELD(attack, s32 *, 0x4C) = func_80084338(soundId, shooter + 0x24);
         }
-        M2C_FIELD(temp_s0, s16 *, 0x7C) = (s16) (randomIntBelow(M2C_FIELD(temp_s3, u16 *, 0x28)) + 1);
-        M2C_FIELD(temp_s0, s16 *, 0x7A) = (s16) M2C_FIELD(temp_s3, s32 *, 0x30);
+        M2C_FIELD(attack, s16 *, 0x7C) = (s16) (randomIntBelow(M2C_FIELD(enemyDef, u16 *, 0x28)) + 1);
+        M2C_FIELD(attack, s16 *, 0x7A) = (s16) M2C_FIELD(enemyDef, s32 *, 0x30);
     } else {
-        temp_v0 = M2C_FIELD(temp_s0, s16 *, 0x7A);
-        if (temp_v0 <= 0) {
+        timer = M2C_FIELD(attack, s16 *, 0x7A);
+        if (timer <= 0) {
             return 1;
         }
-        temp_v0_2 = temp_v0 - 1;
-        M2C_FIELD(temp_s0, s16 *, 0x7A) = temp_v0_2;
-        if (temp_v0_2 != 0) {
+        timerNext = timer - 1;
+        M2C_FIELD(attack, s16 *, 0x7A) = timerNext;
+        if (timerNext != 0) {
             return 1;
         }
-        temp_v0_3 = (u16) M2C_FIELD(temp_s0, s16 *, 0x7C) - 1;
-        M2C_FIELD(temp_s0, s16 *, 0x7C) = temp_v0_3;
-        if (temp_v0_3 <= 0) {
-            M2C_FIELD(temp_s0, s16 *, 0x7A) = 0;
-            M2C_FIELD(temp_s0, s16 *, 0x78) = 0xF;
-            func_8007947C(arg0);
+        shotsLeft = (u16) M2C_FIELD(attack, s16 *, 0x7C) - 1;
+        M2C_FIELD(attack, s16 *, 0x7C) = shotsLeft;
+        if (shotsLeft <= 0) {
+            M2C_FIELD(attack, s16 *, 0x7A) = 0;
+            M2C_FIELD(attack, s16 *, 0x78) = 0xF;
+            func_8007947C(shooter);
             return 0;
         }
     }
-            M2C_FIELD(temp_s0, s16 *, 0x7A) = (s16) M2C_FIELD(temp_s3, s32 *, 0x30);
-            temp_v0_4 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), void **, 4);
-            temp_fs1 = sp20 - M2C_FIELD(temp_v0_4, f32 *, 0x78);
-            temp_fs2 = sp28 - M2C_FIELD(temp_v0_4, f32 *, 0x80);
-            temp_fs0 = sp24 - M2C_FIELD(temp_v0_4, f32 *, 0x7C);
-            sp30 = -(approximateAtan2(temp_fs0, approximate_hypot2(temp_fs1, temp_fs2)) * 651.8986f);
-            temp_fv0 = approximateAtan2(temp_fs1, temp_fs2) * 651.8986f;
-            sp38 = 0;
-            sp34 = (f32) (s32) temp_fv0;
-            if (M2C_FIELD(temp_s0, u8 *, 0x82) == 9) {
-                switch (D_80102EE8) {               /* switch 1; irregular */
-                case 0:
-                default:                            /* switch 1 */
-                    var_fs1 = 42.5f;
-                    break;
-                case 1:                             /* switch 1 */
-                    var_fs1 = 36.125f;
-                    break;
-                case 2:                             /* switch 1 */
-                    var_fs1 = 31.875f;
-                    break;
-                }
-            } else if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x1B) {
-                switch (D_80102EE8) {               /* switch 2; irregular */
-                case 0:
-                default:
-                    var_fs1 = 75.0f;
-                    break;
-                case 1:
-                    var_fs1 = 63.75f;
-                    break;
-                case 2:
-                    var_fs1 = 56.25f;
-                    break;
-                }
-            } else {
-                switch (D_80102EE8) {               /* switch 3; irregular */
-                case 0:
-                default:                            /* switch 3 */
-                    var_fs1 = 85.0f;
-                    break;
-                case 1:                             /* switch 3 */
-                    var_fs1 = 72.25f;
-                    break;
-                case 2:                             /* switch 3 */
-                    var_fs1 = 63.75f;
-                    break;
-                }
-            }
-            var_fs1 = var_fs1 * (1.0f - ((f32) (func_8002BB1C(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1)) & 0xFF) * 0.01f));
-            temp_fs0_2 = 2.0f * var_fs1;
-            sp30 += randomFloatMinusOffset(temp_fs0_2, var_fs1);
-            sp34 += randomFloatMinusOffset(temp_fs0_2, var_fs1);
-            var_s2 = 0xDE000;
-            if ((M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000) == 0x400000) {
-                var_s2 = 0xA0000;
-            }
-            var_s0 = 0;
-            if (M2C_FIELD(temp_s3, u8 *, 0x14) != 0) {
-                do {
-                    temp_v0_5 = M2C_FIELD(arg0, void **, 0x68);
-                    func_80055B5C(-1, arg0, (M2C_FIELD(temp_v0_5, s8 *, 0xE) * 0xE8) + &D_800C469C, M2C_FIELD(temp_v0_5, void **, 4) + 0x78, &sp30, 0, var_s2);
-                    var_s0 += 1;
-                } while (var_s0 < (u8) M2C_FIELD(temp_s3, u8 *, 0x14));
-            }
-            func_800179E8(arg0 + 0x24, M2C_FIELD(arg0, s32 *, 0x20), 0x10000, *(&D_800C46FA + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8)));
-            M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(temp_s3, s16 *, 0x4A), M2C_FIELD(temp_s3, s16 *, 0x40));
+    M2C_FIELD(attack, s16 *, 0x7A) = (s16) M2C_FIELD(enemyDef, s32 *, 0x30);
+    target = M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), void **, 4);
+    dx = pos.x - M2C_FIELD(target, f32 *, 0x78);
+    dz = pos.z - M2C_FIELD(target, f32 *, 0x80);
+    dy = pos.y - M2C_FIELD(target, f32 *, 0x7C);
+    aim.x = -(approximateAtan2(dy, approximate_hypot2(dx, dz)) * 651.8986f);
+    yawDeg = approximateAtan2(dx, dz) * 651.8986f;
+    aim.z = 0;
+    aim.y = (f32) (s32) yawDeg;
+    if (M2C_FIELD(attack, u8 *, 0x82) == 9) {
+        switch (sDifficultyLevel) {
+        case 0:
+        default:
+            spread = 42.5f;
+            break;
+        case 1:
+            spread = 36.125f;
+            break;
+        case 2:
+            spread = 31.875f;
+            break;
+        }
+    } else if (M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s8 *, 0xE) == 0x1B) {
+        switch (sDifficultyLevel) {
+        case 0:
+        default:
+            spread = 75.0f;
+            break;
+        case 1:
+            spread = 63.75f;
+            break;
+        case 2:
+            spread = 56.25f;
+            break;
+        }
+    } else {
+        switch (sDifficultyLevel) {
+        case 0:
+        default:
+            spread = 85.0f;
+            break;
+        case 1:
+            spread = 72.25f;
+            break;
+        case 2:
+            spread = 63.75f;
+            break;
+        }
+    }
+    spread = spread * (1.0f - ((f32) (func_8002BB1C(M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), u8 *, 0xB1)) & 0xFF) * 0.01f));
+    spreadRange2 = 2.0f * spread;
+    aim.x += randomFloatMinusOffset(spreadRange2, spread);
+    aim.y += randomFloatMinusOffset(spreadRange2, spread);
+    effectFlags = 0xDE000;
+    if ((M2C_FIELD(attack, s32 *, 0x88) & 0x01E00000) == 0x400000) {
+        effectFlags = 0xA0000;
+    }
+    i = 0;
+    if (M2C_FIELD(enemyDef, u8 *, 0x14) != 0) {
+        do {
+            volleyOwner = M2C_FIELD(shooter, void **, 0x68);
+            func_80055B5C(-1, shooter, (M2C_FIELD(volleyOwner, s8 *, 0xE) * 0xE8) + &D_800C469C, M2C_FIELD(volleyOwner, void **, 4) + 0x78, &aim.x, 0, effectFlags);
+            i += 1;
+        } while (i < (u8) M2C_FIELD(enemyDef, u8 *, 0x14));
+    }
+    func_800179E8(shooter + 0x24, M2C_FIELD(shooter, s32 *, 0x20), 0x10000, *(&D_800C46FA + (M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s8 *, 0xE) * 0xE8)));
+    M2C_FIELD(M2C_FIELD(shooter, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(enemyDef, s16 *, 0x4A), M2C_FIELD(enemyDef, s16 *, 0x40));
     return 1;
 }

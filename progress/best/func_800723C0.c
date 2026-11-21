@@ -45,25 +45,9 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     f32 temp_ft0;
     long temp_s0_2;
 
-    s = arg0; d = sp58.w;
-    do { {
-        d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
-        s += 4; d += 4;
-    }
-} while (s != arg0 + 8);
-    d[0] = s[0];
-    s = arg1; d = sp80.w;
-    do {
-        d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
-        s += 4; d += 4;
-    } while (s != arg1 + 8);
-    d[0] = s[0];
-    s = arg2; d = spA8.w;
-    do {
-        d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
-        s += 4; d += 4;
-    } while (s != arg2 + 8);
-    d[0] = s[0];
+    sp58 = *(Vec9 *)arg0;
+    sp80 = *(Vec9 *)arg1;
+    spA8 = *(Vec9 *)arg2;
     D_800E1A68 += 1;
     temp_v0 = spawnEffectObject(0x24, 0, 0);
     if (temp_v0 != NULL) {
@@ -100,18 +84,15 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
         temp_v0_2 = func_80083E90(0x4C, 0x16);
         *(void **) ((u8 *) temp_v0 + 0x70) = temp_v0_2;
         if (temp_v0_2 != NULL) {
-            s32 *src = (s32 *) arg3;
-            s32 *dst = (s32 *) temp_v0_2;
-            do {
-                dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2]; dst[3] = src[3];
-                src += 4; dst += 4;
-            } while (src != (s32 *) arg3 + 16);
-            dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+            typedef struct { s32 w[19]; } Block76;
+            s32 *src = (s32 *)arg3 + 16;
+            s32 *dst = (s32 *)temp_v0_2 + 16;
+            *(Block76 *)temp_v0_2 = *(Block76 *)arg3;
             *(s16 *) ((u8 *) temp_v0_2 + 0x42) = 3;
             *(s32 *) ((u8 *) temp_v0_2 + 0x34) = 0;
             *(s16 *) ((u8 *) temp_v0_2 + 0x40) = 1;
+            temp_v0_3 = func_80083E90(0x3C, 0x2D);
             temp_v0_2 = (u8 *) temp_v0_3 + 0xC;
-            temp_v0_3 = func_80083E90(0x3C, 0x2D, dst, src);
             temp_s3 = (u8 *) temp_v0_3 + 0x30;
             if (temp_v0_3 == NULL) {
                 func_80084048(*(void **) ((u8 *) temp_v0 + 0x70), 0x16);

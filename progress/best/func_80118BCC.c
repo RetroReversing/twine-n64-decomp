@@ -8,7 +8,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
     extern u8 gSceneType;
     extern u8 sProbeActive[];
     extern f32 func_800461D4(void *, void *);
-    volatile s32 frame[24];
+    volatile s32 frame[16];
     u8 *self = (u8 *)arg0;
     u8 *state = *(u8 **)(self + 0x6C);
     s32 entry = *(s32 *)(self + 0x20);

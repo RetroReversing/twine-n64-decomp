@@ -1,6 +1,6 @@
 extern s32 func_80022DBC(s32);
 extern f32 approxDistance(void *, void *);
-extern s32 func_8007A9CC(void *, s32, s32 *, f32);
+extern s32 func_8007A9CC(void *, void *, f32 *, f32);
 extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 extern s32 func_801182B0(void *, void *);
 extern u32 gSaveSlotInfo[];
@@ -12,7 +12,7 @@ extern void *D_8010A410;
 extern void *gBonusSceneHandle[4];
 extern u16 D_800BF688[];
 extern s32 D_8011ECB0[];
-extern s32 sProbeFlags[];
+extern void *sProbeFlags[];
 extern s16 D_8011F100[];
 extern u8 sProbeActive[];
 extern u8 D_8011F169;
@@ -73,11 +73,11 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
             tmp=tmp/((f32)v/(f32)best1);
         }
         if(n&8 && i==D_8011F100[*(s8 *)((u8 *)sub+0x182)]) tmp*=0.25f;
-        if(tmp<0.0f) { best1=*(s32 *)gBonusSceneHandle[entry]; fallback=best1; }
+        if(tmp<0.0f) { best1=*(s32 *)gBonusSceneHandle[entry]; fallback=gBonusSceneHandle[entry]; }
         if(tmp<100.0f) {
             if(tmp<6.0f) goto scan_select;
             if(!(n&1)) {
-                v=func_8007A9CC(arg0,(u8 *)candidate+0x24,&scale,0x448E38E4);
+                v=func_8007A9CC(arg0,(u8 *)candidate+0x24,&scale,1137.7778f);
                 if(v) goto scan_select;
                 continue;
             }

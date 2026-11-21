@@ -1,4 +1,3 @@
-static __inline__ u32 __repair_inline(u32 a) { return a; }
 typedef struct { u32 w0; u32 w1; } Gfx;
 typedef struct { unsigned char pad_0[24]; int field_18; void *field_1C; unsigned char pad_20[4]; float field_24; float field_28; float field_2C; int field_30; int field_34; int field_38; int field_3C; unsigned char pad_40[28]; unsigned int field_5C; } Rec;
 
@@ -11,16 +10,16 @@ s32 emit_projection_viewport_commands();
 s32 guMtxF2L(s32 *, s32);
 s32 guTranslateF(s32 *, f32, f32, f32);
 extern s32 D_800B1AC8;
-extern u32 sMatrixPoolLimit;
+extern u32 D_800B1D84;
 extern void *D_801007BC;
 extern s32 D_801032A0;
-extern u32 sMatrixPoolUsed;
+extern u32 D_80107EA0;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
 extern s32 D_80112E40;
 extern s32 D_80112F90;
 extern Gfx *D_80115328;
-extern void *sRenderState;
+extern void *D_80117728;
 
 void func_800371E0(void *arg0) {
     s32 temp_s0;
@@ -78,10 +77,11 @@ skip_cmd:
                     var_s4 = temp_s0;
                 }
                 if ((rec->field_5C >> 23) & 3) {
-                    cnt = sMatrixPoolUsed;
-                    if (sMatrixPoolLimit > cnt) {{ u32 __repair_value; __repair_value = cnt + 1; cnt = __repair_value; }
-                        sMatrixPoolUsed = cnt;
-                        D_8010D538 = *(s32 *)((char *)sRenderState + 0x74C) + (cnt << 6);
+                    cnt = D_80107EA0;
+                    if (D_800B1D84 > cnt) {
+                        cnt = cnt + 1;
+                        D_80107EA0 = cnt;
+                        D_8010D538 = *(s32 *)((char *)D_80117728 + 0x74C) + (cnt << 6);
                         if ((rec->field_5C >> 23) & 2) {
                             func_800347B0(&D_80112F90, rec->field_30, rec->field_34, rec->field_38, rec->field_24 * 64.0f, rec->field_28 * 64.0f, rec->field_2C * 64.0f);
                         } else {
@@ -99,7 +99,7 @@ skip_cmd:
                     dl = D_80115328;
                     D_80115328 = dl + 1;
                     dl->w0 = 0xDA380003;
-                    dl->w1 = __repair_inline(*(s32 *)((char *)sRenderState + 0x74C) - 0x80000000);
+                    dl->w1 = *(s32 *)((char *)D_80117728 + 0x74C) - 0x80000000;
                 }
                 func_80032630(rec->field_3C);
                 rec = rec->field_1C;

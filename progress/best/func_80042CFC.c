@@ -1,6 +1,6 @@
 extern u8 D_54D910[];
 typedef struct { s32 offset; s32 count; s32 extra_offset; s32 extra_count; } Rec;
-extern Rec *D_800C0784[];
+typedef struct { Rec *ptr; s32 pad[3]; } Slot; extern Slot D_800C0784[];
 extern u8 D_800CA338[];
 extern s32 func_80083E24(void);
 extern u8 *func_80083E90(s32, s32);
@@ -8,17 +8,11 @@ extern void func_8000B9B8(u8 *, s32, u32);
 extern void func_80084048(s32, s32);
 extern void func_80083E44(s32);
 void func_80042CFC(s32 arg0, s32 arg1) {
-    s32 saved;
-    s32 src;
-    s32 size;
-    s32 count;
-    s32 special;
-    Rec *fp;
-    u8 *data;
-    u8 *extra;
+    s32 saved, src, size, count, special;
+    Rec *fp; u8 *data, *extra;
     volatile s32 frame[0x3C];
     saved = func_80083E24();
-    fp = D_800C0784[arg1];
+    fp = D_800C0784[arg1].ptr;
     count = fp->count;
     special = D_800CA338[0] != 0;
     size = count * 68;

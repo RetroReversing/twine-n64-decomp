@@ -6,8 +6,8 @@ extern float D_800D4624;
 s32 func_80045290();
 s32 func_800480A0();
 s32 func_80048124();
-s32 func_80048164();
-s32 func_800481E8();
+s32 func_80048164(void *, void *, f32);
+s32 func_800481E8(void *, void *, f32, s32);
 s32 func_80048224(s32, s32, s32, f32, f32);
 s32 func_80064370();
 s32 func_800643C8();
@@ -103,9 +103,9 @@ f32 __repair_var_fv1_1;
         func_800643C8(arg0);
         temp_s0_3 = (temp_s3 * 4) + D_80109688;
         func_80048224(arg0 + 0x24, arg0 + 0x3C, *temp_s0_3, 1.0f, 10.0f);
-        func_800481E8(arg0,  *temp_s0_3);
+        func_800481E8(arg0, *temp_s0_3, 1.0f, 0);
         func_80048124(arg0, *temp_s0_3);
-        func_80048164(arg0, *temp_s0_3);
+        func_80048164(arg0, *temp_s0_3, 1.0f);
         (*(f32 *)((char *)(*temp_s0_3) + 0x4C)) = 1.0f;
         (*(s32 *)((char *)(*temp_s0_3) + 0xF4)) = temp_s4;
     }
@@ -136,7 +136,7 @@ f32 __repair_var_fv1_1;
             sp18[1] += (*(f32 *)((char *)(temp_s2_2) + 0x28));
             temp_s0_4 = (temp_s3 * 4) + D_80109688;
             sp18[2] += (*(f32 *)((char *)(temp_s2_2) + 0x2C));
-            func_80045290(arg0, sp18, *temp_s0_4 + 0x10);
+            func_80045290(sp18, *temp_s0_4 + 0x10);
             (*(f32 *)((char *)(*temp_s0_4) + 0x34)) = (f32) ((*(f32 *)((char *)(temp_s2_2) + 0x3C)) * 0.0015339808f);
             (*(f32 *)((char *)(*temp_s0_4) + 0x38)) = (f32) (((*(f32 *)((char *)(temp_s2_2) + 0x40)) * 0.0015339808f) + 3.1415927f);
             (*(f32 *)((char *)(*temp_s0_4) + 0x3C)) = (f32) (((*(f32 *)((char *)(temp_s2_2) + 0x44)) * 0.0015339808f) + 3.1415927f);
@@ -145,3 +145,4 @@ f32 __repair_var_fv1_1;
         }
     }
 }
+

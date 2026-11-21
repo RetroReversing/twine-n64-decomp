@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795230912.623851,
- "revision": 17369,
+ "saved_at": 1795230956.259244,
+ "revision": 17382,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1640,32 +1640,6 @@
     "-ffast-math"
    ]
   },
-  "508512:2147989088": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "updateShooterAttack",
-   "vram": 2147989088
-  },
-  "43780:2147524356": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_80009F04",
-   "vram": 2147524356
-  },
   "647440:2148128016": {
    "vram": 2148128016,
    "function": "func_8009D510",
@@ -1680,8 +1654,7 @@
     "-Wab,-r4300_mul",
     "-woff",
     "649,838,712"
-   ],
-   "timeout": 20
+   ]
   },
   "648688:2148129264": {
    "vram": 2148129264,
@@ -1697,21 +1670,7 @@
     "-Wab,-r4300_mul",
     "-woff",
     "649,838,712"
-   ],
-   "timeout": 20
-  },
-  "354140:2147834716": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "func_80055B5C",
-   "vram": 2147834716
+   ]
   }
  },
  "instructions": "",
@@ -1756,7 +1715,8 @@
   "When the target reads three consecutive unaligned 32-bit words from a global byte table and copies them to a local stack buffer, model the source global as a three-u32 struct rather than u8[]: GCC 2.7.2 KMC can emit lwl/lwr pairs plus swl/swr copies matching the target.",
   "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed.",
   "At KMC GCC 2.7.2 -O2, expressing an index stride as an odd factor followed by a left shift can alter register allocation even when the arithmetic instruction sequence is equivalent.",
-  "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form."
+  "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form.",
+  "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences."
  ],
  "knowledge_evidence": {
   "For KMC GCC 2.7.2, use unsigned C division when the MIPS target uses an unsigned multiply-high sequence. For division by 10, a u32 numerator can produce multu with 0xCCCCCCCD followed by mfhi and a logical shift by 3. A signed numerator selects a different constant and sign correction.": {
@@ -2484,6 +2444,28 @@
     {
      "by": "codex-gpt-6.1-terra-4",
      "value": "func_8000D000: changing 0x99 sentinel field from s8 to u8 generated target 255 immediate and improved score 4495 to 3865."
+    }
+   ]
+  },
+  "In KMC GCC 2.7.2, a typed assignment of a 36-byte struct with word alignment can reproduce the compiler's 16-byte-step block copy loop for 32 bytes followed by a final word copy. Writing the same loop by hand can introduce extra address induction variables and offset differences.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "gpt-6.2-sol"
+    },
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "gpt-6.1-terra"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.2-sol-6",
+     "value": "func_8002EBB8 revision 3174363cda68efc0ffd8 uses a struct of nine u32s and recovers the copy block shape, improving score from 985 to 465."
+    },
+    {
+     "by": "codex-gpt-6.1-terra-5",
+     "value": "In func_800723C0 replacing three manual nine-word copy loops with 36-byte Vec9 typed assignments recovered target block-copy instruction shape and improved the score from 11600 to 7115."
     }
    ]
   }
@@ -3275,7 +3257,9 @@
   "local_source_25769805548": "common_local_source_25769805548.h",
   "local_source_25769805551": "common_local_source_25769805551.h",
   "local_source_25769805553": "common_local_source_25769805553.h",
+  "local_source_25769805555": "common_local_source_25769805555.h",
   "local_source_25769805558": "common_local_source_25769805558.h",
+  "local_source_25769805560": "common_local_source_25769805560.h",
   "local_source_25769805580": "common_local_source_25769805580.h",
   "local_source_25769805583": "common_local_source_25769805583.h",
   "local_source_25769805585": "common_local_source_25769805585.h",
@@ -3363,10 +3347,7 @@
   "local_source_25769805767": "common_local_source_25769805767.h",
   "local_source_25769805768": "common_local_source_25769805768.h",
   "local_source_25769805772": "common_local_source_25769805772.h",
-  "local_source_25769805778": "common_local_source_25769805778.h",
-  "main": "common_main.h",
-  "local_source_25769805555": "common_local_source_25769805555.h",
-  "local_source_25769805560": "common_local_source_25769805560.h"
+  "local_source_25769805778": "common_local_source_25769805778.h"
  },
  "functions": {
   "main": {
@@ -5296,8 +5277,8 @@
   },
   "func_800219A0": {
    "vram": 2147621280,
-   "best_score": 1238,
-   "best_by": "permuter-25769804327"
+   "best_score": 880,
+   "best_by": "codex-gpt-6-luna-20"
   },
   "func_80021A6C": {
    "vram": 2147621484,
@@ -6304,7 +6285,7 @@
    "matched_by": "codex-gpt-6-luna-7",
    "readable": false
   },
-  "func_8002EBB8": {
+  "spawnTrackHudObject": {
    "vram": 2147675064,
    "matched_by": "codex-gpt-6.2-sol-6",
    "readable": false
@@ -6751,8 +6732,8 @@
   },
   "func_800371E0": {
    "vram": 2147709408,
-   "best_score": 535,
-   "best_by": "permuter-25769804618"
+   "best_score": 635,
+   "best_by": "codex-gpt-6.2-sol-9"
   },
   "func_800374BC": {
    "vram": 2147710140,
@@ -7101,8 +7082,8 @@
   },
   "func_80042CFC": {
    "vram": 2147757308,
-   "best_score": 112947,
-   "best_by": "permuter-25769804688"
+   "best_score": 112937,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_80043FA0": {
    "vram": 2147762080,
@@ -7596,8 +7577,8 @@
   },
   "func_8004BCC0": {
    "vram": 2147794112,
-   "best_score": 67165,
-   "best_by": "codex-gpt-6-luna-20"
+   "best_score": 65999,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_8004C750": {
    "vram": 2147796816,
@@ -8171,8 +8152,8 @@
   },
   "func_8005F664": {
    "vram": 2147874404,
-   "best_score": 3809,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 2904,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "func_8005F960": {
    "vram": 2147875168,
@@ -8661,18 +8642,23 @@
   },
   "func_80069DCC": {
    "vram": 2147917260,
-   "best_score": 71572,
+   "best_score": 69729,
    "best_by": "codex-gpt-6.1-terra-2"
   },
   "func_8006CD34": {
    "vram": 2147929396,
-   "best_score": 1930,
-   "best_by": "codex-gpt-6.1-terra-4"
+   "best_score": 1690,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_8006D224": {
    "vram": 2147930660,
    "best_score": 45,
    "best_by": "codex-gpt-6.2-sol-6"
+  },
+  "func_8006D2E4": {
+   "vram": 2147930852,
+   "best_score": 22832,
+   "best_by": "codex-gpt-6.1-terra-4"
   },
   "func_8006E4A8": {
    "vram": 2147935400,
@@ -8816,8 +8802,8 @@
   },
   "func_800723C0": {
    "vram": 2147951552,
-   "best_score": 11465,
-   "best_by": "codex-gpt-6.1-terra-2"
+   "best_score": 5490,
+   "best_by": "codex-gpt-6.1-terra-5"
   },
   "subdivideTriangle": {
    "vram": 2147953788,
@@ -9237,7 +9223,7 @@
   "updateShooterAttack": {
    "vram": 2147989088,
    "matched_by": "codex-gpt-6.2-sol-6",
-   "readable": false
+   "readable": true
   },
   "func_8007BA98": {
    "vram": 2147990168,
@@ -10671,8 +10657,8 @@
   },
   "func_80093268": {
    "vram": 2148086376,
-   "best_score": 230,
-   "best_by": "codex-gpt-6.2-sol-9"
+   "matched_by": "api-claude-sonnet-5-5-1",
+   "readable": false
   },
   "func_80093410": {
    "vram": 2148086800,
@@ -12426,8 +12412,8 @@
   },
   "func_801183F4": {
    "vram": 2148631540,
-   "best_score": 24506,
-   "best_by": "permuter-25769803850"
+   "best_score": 24386,
+   "best_by": "codex-gpt-6-luna-20"
   },
   "func_80118AE8": {
    "vram": 2148633320,
@@ -12436,8 +12422,8 @@
   },
   "func_80118BCC": {
    "vram": 2148633548,
-   "best_score": 81794,
-   "best_by": "permuter"
+   "best_score": 81792,
+   "best_by": "codex-gpt-6.1-terra-4"
   },
   "func_80119AF4": {
    "vram": 2148637428,
@@ -13427,7 +13413,9 @@
   "func_8009D090": "local_source_25769805548",
   "func_8009D228": "local_source_25769805551",
   "dmaRomToRam": "local_source_25769805553",
+  "func_8009D510": "local_source_25769805555",
   "func_8009D9B8": "local_source_25769805558",
+  "func_8009D9F0": "local_source_25769805560",
   "osCreatePiManager": "local_source_25769805580",
   "func_8009FE10": "local_source_25769805583",
   "func_8009FED0": "local_source_25769805585",
@@ -17049,7 +17037,7 @@
    "status": "open"
   },
   {
-   "name": "func_8002EBB8",
+   "name": "spawnTrackHudObject",
    "vram": 2147675064,
    "size": 1056,
    "status": "open"
@@ -25430,6 +25418,12 @@
    "name": "countValidSaveSlots",
    "address": 2147668284,
    "size": 188,
+   "kind": "func"
+  },
+  {
+   "name": "spawnTrackHudObject",
+   "address": 2147675064,
+   "size": 1056,
    "kind": "func"
   },
   {
