@@ -12,43 +12,43 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80027CE0(u16);                             /* extern */
+s32 menuItemIsActive(u16);                             /* extern */
 
-void func_80029AC8(u16 *arg0, u8 *arg1, s8 *arg2) {
-    u8 temp_v0;
-    u8 temp_v1;
+/* Keeps the menu cursor on an active item, resetting it to a default if not, and steps a repeat timer; flag is set when the timer wraps or reaches 8. */ void menuResolveCursorItem(u16 *itemId, u8 *timer, s8 *flag) {
+    u8 timerValue;
+    u8 timerNow;
 
-    if (!(func_80027CE0(*arg0) & 0xFF)) {
-        *arg1 = 8;
-        if (func_80027CE0(0x1EU) & 0xFF) {
-            *arg0 = 0x1E;
-        } else if (func_80027CE0(0x1FU) & 0xFF) {
-            *arg0 = 0x1F;
-        } else if (func_80027CE0(0x20U) & 0xFF) {
-            *arg0 = 0x20;
-        } else if (func_80027CE0(0x21U) & 0xFF) {
-            *arg0 = 0x21;
-        } else if (func_80027CE0(0x25U) & 0xFF) {
-            *arg0 = 0x25;
-        } else if (func_80027CE0(0x26U) & 0xFF) {
-            *arg0 = 0x26;
+    if (!(menuItemIsActive(*itemId) & 0xFF)) {
+        *timer = 8;
+        if (menuItemIsActive(0x1EU) & 0xFF) {
+            *itemId = 0x1E;
+        } else if (menuItemIsActive(0x1FU) & 0xFF) {
+            *itemId = 0x1F;
+        } else if (menuItemIsActive(0x20U) & 0xFF) {
+            *itemId = 0x20;
+        } else if (menuItemIsActive(0x21U) & 0xFF) {
+            *itemId = 0x21;
+        } else if (menuItemIsActive(0x25U) & 0xFF) {
+            *itemId = 0x25;
+        } else if (menuItemIsActive(0x26U) & 0xFF) {
+            *itemId = 0x26;
         } else {
-            *arg0 = 0x1D;
+            *itemId = 0x1D;
         }
     } else {
-        temp_v0 = *arg1;
-        if (temp_v0 != 0) {
-            *arg1 = temp_v0 - 1;
+        timerValue = *timer;
+        if (timerValue != 0) {
+            *timer = timerValue - 1;
         }
     }
-    *arg2 = 0;
-    temp_v1 = *arg1;
-    if (temp_v1 == 0) {
-        *arg1 = 4;
+    *flag = 0;
+    timerNow = *timer;
+    if (timerNow == 0) {
+        *timer = 4;
         goto block_19;
     }
-    if (temp_v1 == 8) {
+    if (timerNow == 8) {
 block_19:
-        *arg2 = 1;
+        *flag = 1;
     }
 }

@@ -56,8 +56,8 @@ void func_80076E98(void *arg0) {
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 0xC;
         M2C_FIELD(arg0, s32 *, 0x74) = 0;
         func_80002D30(arg0, 0x205);
-        var_a1 = 0x71;
-        goto block_23;
+        func_80077960(arg0, 0x71);
+        return;
     }
     temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x7C);
     var_s2 = 0;

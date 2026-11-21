@@ -21,7 +21,7 @@ void func_80016EE0(void);
 void dispatchMenuState(void *);
 void func_8002B050(void *, s32);
 void func_8002EAC4(void *);
-void func_8004830C(void);
+void cameraTrackTarget(void);
 void func_80069DCC(void *);
 void func_8007BA98(void);
 void func_80117740(void);
@@ -110,7 +110,7 @@ void func_80016FCC(s8 arg0) {
         p = gTrackMarkerTable[s1];
         s1 += 1;
         if (p != NULL && *(s32 *)((u8 *)p + 0xFC) == 0) {
-            func_8004830C();
+            cameraTrackTarget();
         }
     } while (s1 < 6);
     node = D_8010A410;
