@@ -44,6 +44,11 @@ inline static u8 *inline_fn23(s32 arg0, u8 *arg1)
   return arg0 + arg1;
 }
 
+inline static int inline_fn234(s32 arg0)
+{
+  return inline_fn(arg0) * 0x18;
+}
+
 void func_8001C6CC(void)
 {
   s16 temp_s0_4;
@@ -56,7 +61,7 @@ void func_8001C6CC(void)
   s32 __repair_phase_var_s1;
   s32 var_s2;
   u32 temp_s0_3;
-  u16 temp_v0;
+  s32 temp_v0;
   void *temp_s0_2;
   D_80102CBC = 0;
   D_80102CBE = 0;
@@ -133,10 +138,10 @@ void func_8001C6CC(void)
       }
     }
     temp_s0_4 = timerGetTotalSeconds(&D_80102EFC);
-    if (timerGetTotalSeconds((inline_fn(temp_s5) * 0x18) + ((inline_fn(func_800316B8()) * 8) + (&D_80117578))) >= temp_s0_4)
+    if (timerGetTotalSeconds(inline_fn234(temp_s5) + ((inline_fn(func_800316B8()) * 8) + (&D_80117578))) >= temp_s0_4)
     {
-      temp_v0 = func_80030C58();
-      switch (temp_v0)
+      var_a0 = func_80030C58();
+      switch (var_a0)
       {
         case 2:
           if ((func_800316B8() & 0xFFFF) == 1)

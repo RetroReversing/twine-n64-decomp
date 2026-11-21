@@ -144,7 +144,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
         if (var_t2 < (u32) (temp_v1 * temp_a1)) {
             temp_v1_3 = ((__repair_record_arg2*)arg2)->field_26;
             if ((temp_v1_3 == temp_v1) && (((__repair_record_arg2*)arg2)->field_29 == temp_a1)) {
-                func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
+                do { func_80039A10(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2*)arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1)); } while (0);
                 return;
             }
             func_80039EFC(&D_80115328, ((__repair_field_8 *)arg2)->value, var_t3, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (s32) ((__repair_record_arg2*)arg2)->field_26, (s32) ((__repair_record_arg2*)arg2)->field_29, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2*)arg2)->field_24, (s32) ((__repair_record_arg2*)arg2)->field_28, (f32) (((__repair_record_arg2*)arg2)->field_20 + arg0), (f32) (((__repair_record_arg2*)arg2)->field_22 + arg1));
@@ -238,8 +238,8 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                             temp_a1_5 = temp_t2 + ((__repair_record_arg2*)arg2)->field_26;
                             ((__repair_field_8 *)temp_a3)->value = 0xE1000000;
                             M2C_FIELD(temp_a3, s32 *, 4) = (s32) ((((temp_t2 * 4) & ((s32) ~temp_t2_2 >> 0x1F) & 0xFFC) << 0xC) | ((var_t1 * 4) & ((s32) ~(s16) (var_t1 * 4) >> 0x1F) & 0xFFC));
-                            D_80115328 = temp_a3 + 0x10;
                             temp_a2 = var_t1 + (((__repair_record_arg2*)arg2)->field_29 * 2);
+                            D_80115328 = temp_a3 + 0x10;
                             M2C_FIELD(temp_a3, s32 *, 0) = (s32) ((((temp_a1_5 * 4) & ((s32) ~(s16) (temp_a1_5 * 4) >> 0x1F) & 0xFFC) << 0xC) | (((temp_a2 * 4) & ((s32) ~(s16) (temp_a2 * 4) >> 0x1F) & 0xFFC) | 0xE4000000));
                             if (temp_t2_2 < 0) {
                                 if ((s16) var_s6 < 0) {

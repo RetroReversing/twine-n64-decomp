@@ -34,7 +34,7 @@ int __repair_literal;
     
     s32 temp_s1;
     s32 temp_s3;
-    s32 var_a1;
+    
 s32 __repair_phase_var_a1;
     s32 var_a2;
     
@@ -76,17 +76,17 @@ s32 __repair_phase_var_a1;
 block_11:
             head = -1;
         }
-        var_a1 = head;
+        __repair_phase_var_a1 = head;
         }
-        if (var_a1 != -1) {
+        if (__repair_phase_var_a1 != -1) {
             do {
-                temp_s1 = var_a1 & 0xFF;
+                temp_s1 = __repair_phase_var_a1 & 0xFF;
                 __repair_phase_storage.value = temp_s1 * 0x1A0;
                 temp_s3 = *(s32 *)(D_8010D734 + __repair_phase_storage.value);
-                if (*(s32 *)(D_8010D784 + __repair_phase_storage.value) == var_a1) {
+                if (*(s32 *)(D_8010D784 + __repair_phase_storage.value) == __repair_phase_var_a1) {
                     if (*(s32 *)(D_8010D724 + __repair_phase_storage.value) != 0) {
                         temp_s0 = __repair_phase_storage.value + D_8010D724;
-                        func_8009876C(temp_s0, var_a1, var_a2);
+                        func_8009876C(temp_s0);
                         M2C_FIELD(temp_s0, s32 *, 0x28) = 0;
                         M2C_FIELD(temp_s0, s32 *, 0x24) &= ~3;
                         func_80098A18(temp_s0);
@@ -123,8 +123,8 @@ block_23:
                     func_8008C5DC(temp_s1);
                     var_a2 = 0;
                 }
-                var_a1 = temp_s3;
-            } while (var_a1 != -1);
+                __repair_phase_var_a1 = temp_s3;
+            } while (__repair_phase_var_a1 != -1);
             goto block_26;
         }
     } else {
