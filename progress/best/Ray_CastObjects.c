@@ -31,7 +31,7 @@ s32 segmentClosestPoint(void *, void *, void *, void *); /* extern */
 void buildPlaneFromPoints(void *, s32, s32, s32);        /* extern */
 s32 randomIntBelow(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
-s32 func_800488D4(void *, void *, void *);            /* extern */
+s32 segmentOverlapsBox(void *, void *, void *);            /* extern */
 s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 clipSegmentToObjectBox(void *, void *, void *);           /* extern */
 u16 func_8004E418(void *, void *, void *);            /* extern */
@@ -195,7 +195,7 @@ s32 __repair_phase_var_a2;
                                 rotateVec3ByMat3(sp134, sp124);
                                 temp_s0_2 = temp_s1 + 0x18;
                                 rotateVec3ByMat3(sp134, sp12C);
-                                if (((u32)func_800488D4(temp_s0_2, sp124, sp12C) << 24) != 0) {
+                                if (((u32)segmentOverlapsBox(temp_s0_2, sp124, sp12C) << 24) != 0) {
                                     work.scratch.object.direction = *(RayVec *)spFC;
                                     temp_v0 = func_8004E418(temp_s0_2, sp124, sp12C) & 0xFFFF;
                                     var_s0 = temp_v0 & 0xFF;
@@ -317,7 +317,7 @@ s32 __repair_phase_var_a2;
                                 func_80083B64(sp17C, sp174);
                             }
                             temp_s0_4 = temp_s2 + 0x18;
-                            if (((u32)func_800488D4(temp_s0_4, sp16C, sp174) << 24) != 0) {
+                            if (((u32)segmentOverlapsBox(temp_s0_4, sp16C, sp174) << 24) != 0) {
                                 work.scratch.room.clippedStart = work.plane.vector;
                                 work.scratch.room.clippedEnd = work.scratch.room.end;
                                 var_s4_3 = -1;

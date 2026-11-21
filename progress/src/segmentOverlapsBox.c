@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800488D4(void *arg0, void *arg1, void *arg2) {
+s32 segmentOverlapsBox(void *arg0, void *arg1, void *arg2) {
     s32 var_v0;
 
     var_v0 = 0;

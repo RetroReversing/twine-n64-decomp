@@ -37,6 +37,7 @@ extern s32 *gProbeObjectList;
 extern M2C_UNK sTrackDoneFlags;
 
 typedef struct { s32 w[3]; } __repair_words3;
+typedef struct { s32 w[2]; } __repair_words2;
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u8 arg9, s32 arg10, s32 arg11, u8 arg12, u8 arg13, s32 arg14, s32 arg15) {
     M2C_UNK var_a0;
     M2C_UNK var_a1_2;
@@ -318,8 +319,7 @@ block_66:
                     goto block_74;
                 }
                 M2C_FIELD(var_s1, s32 *, 0x24) = (s32) M2C_FIELD(arg0, s32 *, 0);
-                M2C_FIELD(var_s1, s32 *, 0x28) = (s32) M2C_FIELD(arg0, s32 *, 4);
-                M2C_FIELD(var_s1, s32 *, 0x2C) = (s32) M2C_FIELD(arg0, s32 *, 8);
+                M2C_FIELD(var_s1, __repair_words2 *, 0x28) = *(__repair_words2 *) ((s8 *) arg0 + 0x4);
                 M2C_FIELD(var_s1, s32 *, 0x30) = (s32) M2C_FIELD(var_s1, s32 *, 0x24);
                 M2C_FIELD(var_s1, s32 *, 0x34) = (s32) M2C_FIELD(var_s1, s32 *, 0x28);
                 M2C_FIELD(var_s1, s32 *, 0x38) = (s32) M2C_FIELD(var_s1, s32 *, 0x2C);

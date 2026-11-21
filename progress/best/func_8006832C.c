@@ -29,6 +29,7 @@ extern s32 D_801176D8;
 typedef struct { u32 word[3]; } TrackWords;
 
 void func_8006832C(void *arg0, f32 *arg1) {
+    register void *actor = arg0;
     char *__base_D_80109688;
     f32 sp28[3];
     f32 sp38[3];
@@ -36,9 +37,9 @@ void func_8006832C(void *arg0, f32 *arg1) {
     f32 sp58[3];
     f32 sp68[3];
     char sp78[0x10];
-    f32 sp88[9];
-    f32 spB8;
-    s32 spC0;
+    f32 sp88[12];
+    f32 spB8[3];
+    volatile u32 spC8[4];
     s32 (*temp_a1_2)(void *, s32);
     f32 *var_s1;
     f32 temp_fa0;
@@ -51,6 +52,8 @@ void func_8006832C(void *arg0, f32 *arg1) {
     f32 temp_ft1;
     f32 temp_fv0;
     s32 temp_a0_2;
+    s32 *effectCount;
+    f32 *distanceLimit;
     s32 temp_v0_4;
     unsigned long temp_v0_5;
     s32 temp_v0_6;
@@ -63,7 +66,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
     void *temp_v0_2;
     void *temp_v0_3;
 
-    temp_s2 = (*(void **)((char *)(arg0) + 0x6C));
+    temp_s2 = (*(void **)((char *)(actor) + 0x6C));
     temp_s7 = (*(s8 *)((char *)(temp_s2) + 0x182));
     __base_D_80109688 = gTrackMarkerTable;
     temp_s4 = (temp_s7 * 4) + __base_D_80109688;
@@ -107,39 +110,41 @@ void func_8006832C(void *arg0, f32 *arg1) {
         sp58[0] = temp_ft1 + sp48[0];
         sp58[1] = temp_ft0 + sp48[1];
         sp58[2] = temp_fv0 + sp48[2];
-        if (*(s32 *)(D_800C46FC + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8)) & 8) {
+        if (*(s32 *)(D_800C46FC + ((*(s8 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0xE)) * 0xE8)) & 8) {
             temp_v0_4 = temp_s7 * 0xC;
             *(TrackWords *)(D_80109A98 + temp_v0_4) = *(TrackWords *)sp58;
         }
         if ((func_800158A4(sp48, sp58, (*(s32 *)((char *)(*temp_s4) + 0xF4)), sp68, 0, 0, (*(s32 *)((char *)(temp_s2) + 0)), 0, 0) << 0x18) == 0) {
-            if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) == 0x21) && (gPlayerActor != NULL) && ((*(s16 *)((char *)(gPlayerActor) + 0x7A)) == 0x72)) {
-                if (Vec3_DistanceSq(sp48, sp68) < D_800C683C) {
+            if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && ((*(s8 *)((char *)((*(void **)((char *)(actor) + 0x68))) + 0xE)) == 0x21) && (gPlayerActor != NULL) && ((*(s16 *)((char *)(gPlayerActor) + 0x7A)) == 0x72)) {
+                distanceLimit = &D_800C683C;
+                if (Vec3_DistanceSq(sp48, sp68) < *distanceLimit) {
                     temp_a0_2 = (*(s32 *)((char *)(temp_s2) + 8));
                     if (temp_a0_2 != -1) {
                         listUnlinkFree(temp_a0_2);
                         (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                     }
                     (*(s32 *)((char *)(temp_s2) + 0x10)) = (s32) D_800C6858;
-                    var_s1 = &D_800C683C - 0x18;
+                    var_s1 = (f32 *)((char *)distanceLimit - 0x18);
                     func_80067A7C(temp_s2, (*(void **)((char *)(temp_s2) + 0xA8)), D_800C68BA);
                 }
             }
-            UpdateActorTargetEffect(arg0, sp68);
+            UpdateActorTargetEffect(actor, sp68);
             sp68[0] -= sp48[0];
             sp68[1] -= sp48[1];
             sp68[2] -= sp48[2];
             func_80045764(sp78, sp68);
-            func_80046384(&spB8, sp68[0], sp68[1], sp68[2]);
-            spC0 = 0;
-            spB8 = -spB8;
-            func_800643EC(arg0);
+            func_80046384(spB8, sp68[0], sp68[1], sp68[2]);
+            spB8[2] = 0;
+            spB8[0] = -spB8[0];
+            func_800643EC(actor);
             if (((*(s32 *)((char *)(var_s1) + 0x64)) & 0x201) == 1) {
-                D_801176D8 += 1;
+                effectCount = &D_801176D8;
+                *effectCount += 1;
             }
             var_s0 = 0;
             if ((*(u8 *)((char *)(var_s1) + 0x14)) != 0) {
                 do {
-                    temp_v0_5 = spawnActorEffect((s16) temp_s7, arg0, var_s1, sp48, &spB8, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
+                    temp_v0_5 = spawnActorEffect((s16) temp_s7, actor, var_s1, sp48, spB8, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
                     if (temp_v0_5 != 0) {
                         func_80064370(temp_v0_5, temp_s7);
                     }
@@ -154,31 +159,32 @@ void func_8006832C(void *arg0, f32 *arg1) {
             func_80046384(sp38, sp68[0], sp68[1], sp68[2]);
             sp38[2] = 0;
             sp38[0] = -sp38[0];
-            func_800643EC(arg0);
+            func_800643EC(actor);
             if (((*(s32 *)((char *)(var_s1) + 0x64)) & 0x201) == 1) {
-                D_801176D8 += 1;
+                effectCount = &D_801176D8;
+                *effectCount += 1;
             }
             var_s0_2 = 0;
             if ((*(u8 *)((char *)(var_s1) + 0x14)) != 0) {
                 do {
-                    temp_v0_6 = spawnActorEffect((s16) temp_s7, arg0, var_s1, sp48, sp38, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
+                    temp_v0_6 = spawnActorEffect((s16) temp_s7, actor, var_s1, sp48, sp38, sp78, (*(s32 *)((char *)(temp_s2) + 0)));
                     if (temp_v0_6) {
                         func_80064370(temp_v0_6, temp_s7);
                     }
                     var_s0_2 += 1;
                 } while (var_s0_2 < (u8) (*(u8 *)((char *)(var_s1) + 0x14)));
             }
-            UpdateActorTargetEffect(arg0, sp58);
+            UpdateActorTargetEffect(actor, sp58);
         }
         if (((*(u8 *)((char *)(var_s1) + 0x9E)) != 0xFF) && ((*(s32 *)((char *)(var_s1) + 0x60)) & 0x100) && (gBorderSkipFlag == 0)) {
-            func_800589FC(arg0, (*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 4)) + ((*(u16 *)((char *)(var_s1) + 0x90)) * 0xC));
+            func_800589FC(actor, (*(s32 *)((char *)((*(void **)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x68))) + 4)) + ((*(u16 *)((char *)(var_s1) + 0x90)) * 0xC));
         }
         (*(f32 *)((char *)(temp_s2) + 0x70)) -= (*(f32 *)((char *)(var_s1) + 0x88));
         (*(f32 *)((char *)(temp_s2) + 0x74)) += (*(f32 *)((char *)(var_s1) + 0x8C));
         if ((*(u8 *)((char *)(var_s1) + 0x80)) == 0) {
             temp_a1_2 = (*(s32 (**)(void *, s32))((char *)(var_s1) + 0xD0));
             if (temp_a1_2 != NULL) {
-                temp_a1_2(arg0, temp_a1_2);
+                temp_a1_2(actor, temp_a1_2);
             }
         }
     }

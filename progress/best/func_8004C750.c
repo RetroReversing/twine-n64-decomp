@@ -17,7 +17,7 @@ void *func_80047B44(void **, f32 *, f32 *, f32 *);  /* extern */
 M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004886C(void **, void *, f32);            /* extern */
-s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
+s32 segmentOverlapsBox(s32, f32 *, f32 *);               /* extern */
 s32 func_80048CC0(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
@@ -192,7 +192,7 @@ u16 __repair_result_var_v0;
             sp144 = sp13C;
             if (var_a0 != NULL) {
                 sp16C = &spB0;
-                do {
+                __repair_rows: {
                     var_s1 = *var_a0;
                     if (var_s1 != NULL) {
                         sp174 = &spB4;
@@ -214,7 +214,7 @@ u16 __repair_result_var_v0;
                                     func_80083A6C(sp14C, sp154);
                                     temp_s0 = temp_s4 + 0x18;
                                     func_80083A6C(sp14C, sp15C);
-                                    if ((func_800488D4(temp_s0, sp154, sp15C) << 0x18) != 0) {
+                                    if ((segmentOverlapsBox(temp_s0, sp154, sp15C) << 0x18) != 0) {
                                         spA0 = M2C_FIELD(&D_800D3E30, f32 *, 0);
                                         spA4 = M2C_FIELD(&D_800D3E30, s32 *, 4);
                                         spA8 = M2C_FIELD(&D_800D3E30, s32 *, 8);
@@ -295,7 +295,8 @@ u16 __repair_result_var_v0;
                         var_a0 = M2C_FIELD(sp144, void ***, 8);
                         sp144 = M2C_FIELD(sp144, void **, 0);
                     }
-                } while (var_a0 != NULL);
+                }
+if (var_a0 != NULL) goto __repair_rows;
             }
             if (var_s6 != NULL) {
                 sp17C = &sp98;
@@ -327,7 +328,7 @@ u16 __repair_result_var_v0;
                                     func_80083B64(&spB8, (f32 *) sp17C);
                                 }
                                 temp_s0_2 = temp_s1 + 0x18;
-                                if ((func_800488D4(temp_s0_2, sp15C, (f32 *) sp17C) << 0x18) != 0) {
+                                if ((segmentOverlapsBox(temp_s0_2, sp15C, (f32 *) sp17C) << 0x18) != 0) {
                                     spE0 = M2C_FIELD(&D_800D3E30, f32 *, 0);
                                     spE4 = M2C_FIELD(&D_800D3E30, s32 *, 4);
                                     spE8 = M2C_FIELD(&D_800D3E30, s32 *, 8);

@@ -4,7 +4,7 @@ void *func_80047B44(void **, void *, f32 *, f32 *); /* extern */
 s32 func_80047E4C(void **, s32, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void **, void *, f32);            /* extern */
-s32 func_800488D4(s32, f32 *, f32 *);               /* extern */
+s32 segmentOverlapsBox(s32, f32 *, f32 *);               /* extern */
 s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 unsigned char func_8004E418(s32, f32 *, f32 *);               /* extern */
@@ -187,7 +187,7 @@ block_17:
                                     rotateVec3ByMat3(sp154, sp15C);
                                     temp_s0 = temp_s4 + 0x18;
                                     rotateVec3ByMat3(sp154, sp164);
-                                    if ((func_800488D4(temp_s0, sp15C, sp164) << 0x18) != 0) {
+                                    if ((segmentOverlapsBox(temp_s0, sp15C, sp164) << 0x18) != 0) {
                                         __base_D_800D3E18 = &D_800D3E18;
                                         sp90[0] = (*(f32 *)((char *)(__base_D_800D3E18) + 0));
                                         sp90[1] = (*(f32 *)((char *)(__base_D_800D3E18) + 4));
@@ -297,7 +297,7 @@ block_17:
                             func_80083B64(sp18C, (s16 *) sp184);
                         }
                         temp_s0_2 = temp_s1 + 0x18;
-                        if ((func_800488D4(temp_s0_2, (f32 *) sp17C, sp184) << 0x18) != 0) {
+                        if ((segmentOverlapsBox(temp_s0_2, (f32 *) sp17C, sp184) << 0x18) != 0) {
                             temp_v0_2 = func_8004E418(temp_s0_2, (f32 *) sp17C, sp184) & 0xFFFF;
                             temp_fp_2 = temp_v0_2 & 0xFF;
                             temp_s7 = temp_v0_2 & 0xFF00;

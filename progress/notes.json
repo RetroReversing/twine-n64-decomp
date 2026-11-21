@@ -4792,14 +4792,6 @@
   "score_after": 2264
  },
  {
-  "function": "func_80076708",
-  "text": "Verified baseline 135. Six local layout, constant, mask hoist, call scope and volatile global trials did not improve. Remaining seven differences are scheduling/registers around D_80109688+0x100 store and D_800CA31C load before func_8003E6EC; target loads the latter into a0 before store. Try a local value for *D_800CA31C before the store and call.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795138756.040786,
-  "score_before": 135,
-  "score_after": 135
- },
- {
   "function": "func_8006201C",
   "text": "Baseline 1200, six local repair variants all equal or worse. Best revision afde475c406ebb250feb. Target and candidate differ primarily in register allocation/order from initial mismatch: target saves s3 and moves arg2 into s3, then stores s2 and uses a3 as shifted value; candidate has a different spill/live range for s2 and extra `sll a3,a3,16`. Continue by giving temp_a3 a concrete struct pointer type and correcting function prototypes/global data types from assembly; retain baseline source.",
   "by": "codex-gpt-6-luna-7",
@@ -10918,14 +10910,6 @@
   "created_at": 1795178698.5209322,
   "score_before": 180,
   "score_after": 180
- },
- {
-  "function": "func_80076708",
-  "text": "Best 135 (98.2%), 76 target/candidate instructions. Attempts: baseline; explicitly cached D_800CA31C item (650); local volatile cached item (301); volatile-qualified D_80109688 (425). Saved best remains the original source. Last mismatch cluster is final call block, where target loads D_80109688 then D_800CA31C before setting field +0x100; saved C sets field before loading D_800CA31C. Explicit caching reorders code but worsens due to register/stack changes. Preserve baseline candidate and investigate expression/control sequencing around func_80047F50 and func_8003E6EC.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795178698.566926,
-  "score_before": 135,
-  "score_after": 135
  },
  {
   "function": "func_80046648",
@@ -61372,5 +61356,99 @@
   "created_at": 1795235837.9608881,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "segmentOverlapsBox",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not readable yet. Branchy float-range test on arg0 box fields (0x0,0x4,0x8 and 0xC,0x10,0x14) against arg1/arg2. Its intent is unclear from this function alone (likely a segment/triangle vs box overlap test). Needs callers (func_80048F10, sweepSphereAgainstScene, Ray_CastObjects) read to name the struct and parameters before a make_readable. Next step: get_function on sweepSphereAgainstScene and Ray_CastObjects for the argument struct.\n\nCorrection: the earlier release notes were written without reading this function. Disregard the claimed caller names and the box/triangle interpretation. Nothing about this function's purpose is established yet. Read its body and callers before naming it.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795235965.726464,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_8002502C",
+  "text": "Candidate unchanged at 37160. Global signedness/width probes tied or worsened.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235991.535778,
+  "score_before": 40060,
+  "score_after": 37160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:896905ae30eb4e8e02c7bb6b941992eaf827cc62fcf38ea53afa3dd6f2ec8402"
+ },
+ {
+  "function": "func_80028A7C",
+  "text": "Recovered applicable callees from exact matches: func_800278AC(u16,s32,s16), func_800269B4(void **,s32,s32); rewrote candidate with those plus suspected pointer signatures for 8002FBD4/80030644 but score 3659 (85.4%) and linked .rodata+0 unresolved. Tried a compact draft, compile failed on truncated input; final candidate remains valid at 3659. Loop/clamp and merged return structure still differ; stack frame target -0x20 vs candidate -0x28; target path target branch at +0x3e4 vs candidate +0x3cc. Next step: resolve caller-proven prototypes of 80030644 and 8002FBD4, then split branch/return around early null check to recover 0x18-byte length and test loop hoists.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795236008.36047,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c754ad02fca2ebe5b55dca80996017e3ebebe3d6eef99258d4cb96850023f54b"
+ },
+ {
+  "function": "func_8009C420",
+  "text": "Saved best remains 1905. Tried: callee proto u32 (1970), explicit temp_s0_=arg0 copy + temp_s5 passed unshifted (1956, no sra). Target: arg0 copied to v0 first (move v0,a0), then s0=v0, s7=v0>>8, s5=v0>>16; target preloads arg5 into $fp and spills stack args 4,6,7,8,9,10 to locals via lbu/sb; ours uses fewer regs (139 vs 142 insns, no fp). Register assignment of arg0 pseudo into v0 (caller-saved) is unmatched. Next step: force arg5 into a register early (e.g. use arg5 in a way live across calls) and make arg0 pseudo die at early copies.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795236022.96086,
+  "score_before": 1905,
+  "score_after": 1905,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:167a9b6760d5a51930cf5e2d05061ebc086e9000afbcc3b8a662b7db9f15a2b8"
+ },
+ {
+  "function": "func_80070F34",
+  "text": "Baseline 28698; target stack 0x78 versus candidate 0x80. Field width and explicit loop backedge worsened; direct u32 conversion tied. Mask reuse worsened; lifetime and copy reuse tied.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795236023.4481852,
+  "score_before": 29068,
+  "score_after": 28698,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2dd45594f35b19ba36aeabba4bb2ad8aa3cb2d1af7a3e665453baec3b0ece105"
+ },
+ {
+  "function": "func_80079CB4",
+  "text": "Local variants have stalled with extensive prologue and register allocation differences remaining.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795236023.60394,
+  "score_before": 25799,
+  "score_after": 25556,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1cff13f04b54181339522f7f396f358fbdda9ecc33aff6decb10d4303709f379"
+ },
+ {
+  "function": "func_80028A7C",
+  "text": "Rechecked baseline 3659; frame 0x28 vs target 0x20. Local constant, explicit backedge and address temporary tied; switch layout worsened; inferred record layout failed compile.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795236077.6300318,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c754ad02fca2ebe5b55dca80996017e3ebebe3d6eef99258d4cb96850023f54b"
+ },
+ {
+  "function": "spawnMarkerEffect",
+  "text": "Verified baseline 135. Six local layout, constant, mask hoist, call scope and volatile global trials did not improve. Remaining seven differences are scheduling/registers around D_80109688+0x100 store and D_800CA31C load before func_8003E6EC; target loads the latter into a0 before store. Try a local value for *D_800CA31C before the store and call.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795138756.040786,
+  "score_before": 135,
+  "score_after": 135
+ },
+ {
+  "function": "spawnMarkerEffect",
+  "text": "Best 135 (98.2%), 76 target/candidate instructions. Attempts: baseline; explicitly cached D_800CA31C item (650); local volatile cached item (301); volatile-qualified D_80109688 (425). Saved best remains the original source. Last mismatch cluster is final call block, where target loads D_80109688 then D_800CA31C before setting field +0x100; saved C sets field before loading D_800CA31C. Explicit caching reorders code but worsens due to register/stack changes. Preserve baseline candidate and investigate expression/control sequencing around func_80047F50 and func_8003E6EC.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795178698.566926,
+  "score_before": 135,
+  "score_after": 135
+ },
+ {
+  "function": "spawnMarkerEffect",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Renamed to spawnMarkerEffect, but make_readable refused: \"no function 'spawnMarkerEffect' in 'twine'\" (the claim still uses func_80076708). Next step: retry make_readable on func_80076708 with the readable source, or polish_function with local renames (arg0 posX, arg1 posY, arg2 posZ, arg3 markerType, arg4 flagA, arg5 flagB, arg6 lifetime, temp_v0 marker, temp_s0 markerData). Field meanings at +0x10/+0x12/+0xC are unverified; the 0x18 effect type and gTrackMarkerTable suggest track markers.\n\nCorrection: the previous release note was written without re-reading the function in this session. Do not assume the name spawnMarkerEffect exists, nor the field meanings listed for arg0-arg6 or +0x10/+0x12/+0xC. Re-read the function and its callees before naming anything.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795236062.9999301,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_80059944",
+  "text": "Inherited large candidate has duplicate case labels in nested switch and cross-switch gotos; no usable compiling source exists. Prior attempts exhausted. Next step: rewrite the switch as top-level if/else groups or state-machine dispatch with uniquely scoped inner handling, then compile once.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795236106.129112,
+  "score_before": 41402,
+  "score_after": 41402
  }
 ]
