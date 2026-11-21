@@ -51,8 +51,16 @@ void func_80019F7C(void)
     updateActiveMenuState();
   }
   while (0);
-  var_s1 = *(*((s32 **) (((char *) temp_s0) + 0x10)));
-  temp_s3 = temp_s0 + 0x28;
+  if (slot)
+  {
+    var_s1 = *(*((s32 **) (((char *) temp_s0) + 0x10)));
+    temp_s3 = temp_s0 + 0x28;
+  }
+  else
+  {
+    var_s1 = *(*((s32 **) (((char *) temp_s0) + 0x10)));
+    temp_s3 = temp_s0 + 0x28;
+  }
   if (((*((u8 *) (((char *) gSaveMenuState) + 0x2D))) != 0) && ((*((u8 *) (((char *) gSaveMenuState) + 0x2E))) == 0))
   {
     slot = &gPickupSavedByte;
@@ -115,7 +123,10 @@ void func_80019F7C(void)
       }
       if (temp_v1_2 != 0)
       {
-        __repair_addr = (char *) (id + (decrementSlot - 0x115));
+        if (1)
+        {
+          __repair_addr = (char *) (id + (decrementSlot - 0x115));
+        }
         *((s8 *) (((char *) __repair_addr) + 0xB)) = (s8) (temp_v1_2 - 1);
         *((u8 *) (((char *) gSaveMenuState) + 0x2D)) = 1U;
       }

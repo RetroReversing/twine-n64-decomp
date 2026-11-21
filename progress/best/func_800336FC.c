@@ -12,17 +12,21 @@ extern void func_800A0220(GfxPair **, s32);
 #define VERTICES(step, read) \
     q = p + 2; \
     first = D_8010D2B4; \
-    for (i = 0; i < p[1]; i++, q += step) { \
+    i = 0; \
+    if (p[1]) do { \
         read; \
         if (draw) { \
-            func_800328CC(D_8010D2B4, model, a2, vertexTransform, x, y, z, scale); \
+            func_800328CC(D_8010D2B4, model, a2, state.vertexTransform, x, y, z, scale); \
             D_8010D2B4 += 16; \
         } else { \
             ++*vertices; \
         } \
-    } \
+        ++i; \
+        q += step; \
+    } while (i < p[1]); \
     if (draw) { \
-        gfx = gGfxPtr++; \
+        gfx = gGfxPtr; \
+        gGfxPtr = gfx + 1; \
         n = p[1]; \
         gfx->w1 = first - 0x80000000U; \
         gfx->w0 = (n << 12) | (((n & 127) << 1) | 0x01000000); \
@@ -35,17 +39,27 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3,
                    s32 a4, register f32 scale, s32 a6, s32 a7, s32 enable,
                    s32 *vertices, s32 *commands)
 {
-    s32 texture = -1;
-    GfxPair *start = gGfxPtr;
+    struct {
+        s32 texture;
+        GfxPair *start;
+        s32 unused;
+        volatile s32 vertexTransform;
+        u8 padding[7];
+        volatile u8 emit;
+    } state;
+    u32 savedSpace[8];
     GfxPair *gfx;
-    u8 *q;
-    s32 first, x, y, z, a, b, c;
+    const volatile u8 *q;
+    s32 first;
+    u8 x, y, z, a, b, c;
     u32 op, i, n, pairs, advance;
     s32 draw;
-    volatile s32 vertexTransform = a3;
-    volatile u8 emit = enable;
+    state.vertexTransform = a3;
+    state.texture = -1;
+    state.start = gGfxPtr;
     D_80109A94 = 0;
     op = *p;
+    state.emit = enable;
     if (op != 12) {
         draw = (s8)enable;
         do {
@@ -57,16 +71,20 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3,
                 VERTICES(3, (x = q[0], y = q[1], z = q[2]));
                 advance = *p * 3;
                 goto add_one;
-            case 1:
+            case 1: {
+                u32 x, y, z;
                 VERTICES(6, (x = WORD(q), y = WORD(q + 2), z = WORD(q + 4)));
                 advance = *p * 3;
                 goto double_advance;
+            }
             case 3:
                 VERTICES(1, (x = y = z = q[0]));
                 advance = *p + 1;
                 goto advance_stream;
-            case 2:
+            case 2: {
+                u32 x, y, z;
                 VERTICES(2, (x = y = z = WORD(q)));
+            }
                 advance = *p;
             double_advance:
                 advance *= 2;
@@ -76,14 +94,14 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3,
                 p += advance;
                 break;
             case 6:
-                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                gfxAppendTexture(p, &state.texture, a4, a6, a7, draw, commands);
                 ++p;
                 func_80032978(p, a4, a6, a7, draw, commands);
                 ++p;
                 goto triangles;
             case 7:
                 func_80032978(p, a4, a6, a7, draw, commands);
-                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                gfxAppendTexture(p, &state.texture, a4, a6, a7, draw, commands);
                 ++p;
                 goto triangles;
             case 8:
@@ -143,17 +161,23 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3,
                 p += 2;
                 break;
             case 11:
-                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                gfxAppendTexture(p, &state.texture, a4, a6, a7, draw, commands);
                 p += 2;
                 break;
             }
             op = *p;
         } while (op != 12);
     }
-    if ((emit << 24) != 0) {
-        gfx = gGfxPtr++;
+    if ((state.emit << 24) != 0) {
+        s32 size;
+        GfxPair *next;
+        gfx = gGfxPtr;
+        next = gfx + 1;
+        gGfxPtr = next;
+        size = (u32)next - (u32)state.start;
         gfx->w0 = 0xdf000000;
         gfx->w1 = 0;
-        func_800A0220(&start, (u8 *)(gfx + 1) - (u8 *)start);
+        func_800A0220(&state.start, size);
     } else ++*commands;
 }
+

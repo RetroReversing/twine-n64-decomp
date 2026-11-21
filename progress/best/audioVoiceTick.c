@@ -187,16 +187,17 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     if ((*((s32 *) (((char *) arg0) + 0x24))) & 0x40)
     {
       *((s32 *) (((char *) arg0) + 0x24)) = 0;
-      releaseAudioVoice(arg0);
-      return;
+      goto release_on_init;
     }
     func_800969B4(arg0);
-    temp_a2 = *((u8 *) (((char *) arg0) + 0x56));
-    *((u8 *) (((char *) arg0) + 0x4A)) = (u8) (*((u8 *) (((char *) arg0) + 0x54)));
-    *((u8 *) (((char *) arg0) + 0x4B)) = (u8) (*((u8 *) (((char *) arg0) + 0x55)));
-    temp_v1_2 = (*((u8 *) (((char *) arg0) + 0x52))) << 0x10;
-    *((s32 *) (((char *) arg0) + 0x34)) = temp_v1_2;
-    *((s32 *) (((char *) arg0) + 0x30)) = (unsigned) temp_v1_2;
+    temp_v0_2 = *((u8 *)arg0 + 0x54);
+    temp_v1_2 = *((u8 *)arg0 + 0x52);
+    temp_a2 = *((u8 *)arg0 + 0x56);
+    *((u8 *)arg0 + 0x4A) = temp_v0_2;
+    *((u8 *)arg0 + 0x4B) = *((u8 *)arg0 + 0x55);
+    temp_v1_2 <<= 16;
+    *(s32 *)((u8 *)arg0 + 0x30) = temp_v1_2;
+    *(s32 *)((u8 *)arg0 + 0x34) = temp_v1_2;
     *((u8 *) (((char *) arg0) + 0x2F)) = temp_a2;
     *((s32 *) (((char *) arg0) + 0x38)) = (s32) ((*((u8 *) (((char *) arg0) + 0x53))) << 0x10);
     temp_v0 = func_800968E8(*((u8 *) (((char *) arg0) + 0x4A)), *((u8 *) (((char *) arg0) + 0x4B)));
@@ -262,6 +263,9 @@ void audioVoiceTick(void *arg0, s32 arg1, s32 arg2)
     *((s32 *) (((char *) arg0) + 0xA0)) = 0U;
     *((s32 *) (((char *) arg0) + 0xA4)) = 0U;
     goto block_19;
+release_on_init:
+    releaseAudioVoice(arg0);
+    return;
   }
   block_19:
   var_a0 = *((void **) (((char *) arg0) + 0x20));

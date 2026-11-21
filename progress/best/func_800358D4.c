@@ -33,7 +33,7 @@ extern s32 gTrackMarkerDone;
 extern s32 sParentMatrixF;
 extern void *D_80109CB8;
 extern s32 D_8010A4D8;
-extern s32 D_8010A924;
+extern unsigned int D_8010A924;
 extern s32 D_8010D538;
 extern s32 gRenderMode;
 extern s32 D_80112F90;
@@ -229,8 +229,7 @@ void func_800358D4(void *arg0)
   {
     m2c_initial_frame.view_spAF.value = 0xFF;
     var_fv0 = func_800357C8(0.05f) + 1.0f;
-    m2c_initial_frame.view_spA7.value = 0xFF;
-    m2c_initial_frame.view_sp9F.value = 0xFF;
+ do { m2c_initial_frame.view_spA7.value = 0xFF; m2c_initial_frame.view_sp9F.value = 0xFF; } while (0);
     goto block_10;
   }
   if (!(temp_v1_3 & 4))
@@ -436,4 +435,3 @@ void func_800358D4(void *arg0)
     }
   }
 }
-

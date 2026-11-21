@@ -99,9 +99,9 @@ inline static char *inline_fn()
 
 void func_8002D240(void)
 {
-  int ci, cj;
-  unsigned int i, v, t3, t0, a2;
   char *q, *b1, *b2, *b3;
+  unsigned int i, v, t3, t0, a2;
+  int ci, cj;
   u16 *rowp;
   s8 *base_801002AE;
   unsigned int temp_v0;
@@ -259,10 +259,10 @@ void func_8002D240(void)
     func_8002B000(((cj & 0xFFFF) * 8) + D_80117410, 0x1E);
     cj += 1;
   } while ((u16)cj < 2U);
+  ci = 0;
   b1 = D_80117428;
   b3 = b1 + 0x150;
   b2 = D_800BFC38;
-  ci = 0;
   do {
     cj = 0;
     v = ci & 0xFFFF;
