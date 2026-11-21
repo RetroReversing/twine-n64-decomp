@@ -4,17 +4,17 @@ s32 Sphere_OverlapsPoint(void **, void *, f32);     /* extern */
 f32 absFloat(void);                                  /* extern */
 s32 applyObjectRotation(void **, s32, f32 *); /* extern */
 s32 buildPlaneFromPoints(f32 *, s32, s32, s32); /* extern */
-s32 buildRotationMatrix(s16 *, s32 *);      /* extern */
-s32 buildRotationMatrixS16(s16 *, s32 *);   /* extern */
+void buildRotationMatrix(const s16 *, f32 *);      /* extern */
+void buildRotationMatrixS16(const s16 *, f32 *);   /* extern */
 void *func_80047B44(void **, f32 *, f32 *, f32 *);  /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 func_8004E418(s32, f32 *, f32 *);               /* extern */
-s32 func_800839F0(s32 *, f32 *, f32 *);     /* extern */
+void func_800839F0(f32 *, f32 *, f32 *);     /* extern */
 s32 func_80083B64(f32 *, f32 *);                /* extern */
 s32 prepareLinkedObjectPair(void *, void *, void **); /* extern */
 s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
-s32 rotateVec3ByMat3(s32 *, f32 *);         /* extern */
+s32 rotateVec3ByMat3(f32 *, f32 *);         /* extern */
 s32 segmentOverlapsBox(s32, f32 *, f32 *);          /* extern */
 typedef struct { f32 x, y, z; } PointCopy;
 extern PointCopy D_800D3E30;
@@ -28,13 +28,13 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 rotatedA[3];
     f32 plane[4];
     volatile f32 sp18;
-    volatile f32 sp1C;
+    f32 matrix[9];
     volatile f32 sp20;
     f32 startPoint[3];
     f32 endPoint[3];
     f32 localStart[3];
     f32 localEnd[3];
-    s32 matrix[9];
+    volatile f32 sp1C;
     union { s16 angles[3]; f32 point[3]; struct { f32 prefix[2]; f32 point[3]; } overlap; } rotationInput;
     f32 spB4;
     f32 spB0;
@@ -46,7 +46,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     void *sp134;
     void *sp13C;
     void *sp144;
-    s32 *sp14C;
+    f32 *sp14C;
     f32 *sp154;
     f32 *sp15C;
     f32 *sp164;
@@ -550,5 +550,6 @@ block_162:
 block_160:
     return 0;
 }
+
 
 

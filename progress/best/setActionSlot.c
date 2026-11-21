@@ -4,15 +4,15 @@ s32 setActionSlot(u8 *object, u8 action, s32 value) {
     u8 frame[16];
     s16 i;
     s16 index;
-    u8 id;
+    s32 id;
     if (object != 0) {
-        id = action;
+        id = (u8)action;
         if (((u8)(action - 23) < 2) | (id == 25)) {
             return 0;
         }
         i = 1;
         do {
-            if (object[0x139 + i * 2] == id) {
+            if (object[0x139 + i * 2] == (u8)action) {
                 goto found;
             }
             i++;

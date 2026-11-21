@@ -2,13 +2,13 @@
 
 s32 Sphere_OverlapsPoint(void **, void *, f32);     /* extern */
 s32 applyObjectRotation(void **, s32, f32 *); /* extern */
-s32 buildRotationMatrix(s16 *, f32 *);          /* extern */
-s32 buildRotationMatrixS16(s16 *, s32 *);   /* extern */
+void buildRotationMatrix(const s16 *, f32 *);          /* extern */
+void buildRotationMatrixS16(const s16 *, f32 *);   /* extern */
 void *func_80047B44(void **, void *, f32 *, f32 *); /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004D910(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 unsigned char func_8004E418(s32, f32 *, f32 *);               /* extern */
-s32 func_800839F0(s32 *, f32 *, f32 *);     /* extern */
+void func_800839F0(f32 *, f32 *, f32 *);     /* extern */
 s32 func_80083B64(f32 *, s16 *);                /* extern */
 s32 rayHitsTriangleXZ(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 s32 rotateVec3ByMat3(f32 *, f32 *);             /* extern */
@@ -24,7 +24,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     SweepVec vec28;
     SweepVec vec38;
     SweepVec vec48;
-    f32 matrix[12];
+    f32 matrix[9];
     s16 sp68[3];
     SweepVec vec70;
     union {
@@ -41,7 +41,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     } result;
     f32 spE0;
     register f32 spE4;
-    s32 spE8[12];
+    f32 spE8[9];
     volatile SweepVec vec118;
     void **sp12C;
     void *sp134;
@@ -237,7 +237,7 @@ block_17:
                                                         temp_v1_7 = (*(s32 *)((char *)(temp_s4) + 0x34));
                                                         sp1A0 = var_t2;
                                                         var_t2 = sp1A0;
-                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + (*var_s3_2 * 0xC), (u32)temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + -1)) * 0xC), temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + 0)) * 0xC), sp174) & 0xFF) && ((s32)spA0 >= 0.0f) && (spA0 < var_fs0)) {
+                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + (*var_s3_2 * 0xC), (u32)temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + -1)) * 0xC), temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + 0)) * 0xC), sp174) & 0xFF) && (spA0 >= 0.0f) && (spA0 < var_fs0)) {
                                                             var_fs0 = spA0;
                                                             var_s7 = temp_s5_2;
                                                         }
