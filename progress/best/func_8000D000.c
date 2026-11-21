@@ -43,7 +43,7 @@ extern u8 gTrackMarkerActiveMask;
 extern s8 gTransitionEnabled;
 extern s8 gTransitionPhase;
 extern s32 sObjectIdList;
-extern void *sTrackMarkerTable;
+extern void *volatile sTrackMarkerTable;
 
 s32 func_8000D000(void) {
     void *volatile *scene;
@@ -95,6 +95,7 @@ s32 func_8000D000(void) {
     do {
         temp_v0_3 = gObjectRecords + var_a0_2;
         (*(s8 *)((char *)(temp_v0_3) + 0x9A)) = 0;
+        temp_v1 = gObjectRecords + var_a0_2;
         (*(s16 *)((char *)(temp_v0_3) + 0x80)) = 1;
         (*(s16 *)((char *)(temp_v0_3) + 0x82)) = 1;
         (*(s16 *)((char *)(temp_v0_3) + 0x84)) = 1;
@@ -107,7 +108,6 @@ s32 func_8000D000(void) {
         (*(s16 *)((char *)(temp_v0_3) + 0x8E)) = 1;
         (*(f32 *)((char *)(temp_v0_3) + 0x74)) = 255.0f;
         (*(f32 *)((char *)(temp_v0_3) + 0x78)) = 255.0f;
-        temp_v1 = gObjectRecords + var_a0_2;
         (*(s16 *)((char *)(temp_v0_3) + 0x90)) = -1;
         (*(f32 *)((char *)(temp_v1) + 0x38)) = 999.0f;
         (*(u8 *)((char *)(temp_v1) + 0x99)) = 0xFF;
@@ -164,7 +164,7 @@ s32 func_8000D000(void) {
     }
     updateTransitionState();
     (*(s32 *)((char *)(sTrackMarkerTable) + 0x100)) |= 0x40;
-    (*(s8 *)((char *)(*(void *volatile *)&sTrackMarkerTable) + 0x142)) = 7;
+    (*(s8 *)((char *)sTrackMarkerTable + 0x142)) = 7;
     (*(s32 *)((char *)(sTrackMarkerTable) + 0x100)) |= 0x100;
     return 1;
 }

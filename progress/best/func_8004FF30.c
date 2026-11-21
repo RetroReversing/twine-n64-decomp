@@ -46,9 +46,9 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
         struct { u8 pad[0x30]; f32 values[3]; } chosenPoint;
     } scratch;
 
-    void *sp17C;
     u8 sp187;
     void *sp18C;
+    void *sp17C;
     volatile u16 sp196;
     f32 *sp19C;
     s16 *sp1A4;
@@ -158,12 +158,12 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     s32 var_v1_11;
     s32 var_v1_12;
     s32 var_v1_2;
-    s32 var_v1_3;
+    int var_v1_3;
     s32 var_v1_4;
     s32 var_v1_5;
     register s32 var_v1_6;
     s32 var_v1_7;
-    s32 var_v1_8;
+    unsigned long var_v1_8;
     s32 var_v1_9;
     register u16 *var_fp;
     u8 *var_fp_2;
@@ -356,7 +356,7 @@ block_37:
                                                     temp_s2_2 = temp_a3_2 + (*var_fp_2 * 0xC);
                                                     temp_s1_2 = temp_a3_2 + ((*(u8 *)((char *)(var_s5_2) + 0)) * 0xC);
                                                     temp_s0_3 = temp_a3_2 + ((*(u8 *)((char *)(var_s5_2) + -1)) * 0xC);
-                                                    if (triangleContainsPoint(sp17C, temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) != 0) {
+                                                    if (triangleContainsPoint(sp17C, (s32)temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) != 0) {
                                                         var_fa0_3 = arg3 - temp_fs0_3;
                                                         temp_ft1_2 = var_fa0_3 * scratch.vsp90.values[0];
                                                         temp_ft0_3 = var_fa0_3 * scratch.vsp90.values[1];
@@ -537,7 +537,7 @@ block_65:
                                                             var_fa0_6 = temp_fs1_3;
                                                         } else {
                                                             var_v0_9 = 1;
-                                                            if (!(temp_fv0_8 < var_fa0_6)) {
+                                                            if (!(var_fa0_6 > temp_fv0_8)) {
                                                                 var_v0_9 = 0;
                                                             }
                                                             var_v1_9 = 1;

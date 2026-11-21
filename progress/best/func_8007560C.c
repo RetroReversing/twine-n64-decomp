@@ -17,7 +17,7 @@ extern s32 gSaveTotalSlots;
 extern u8 gSceneFlagsB;
 extern s32 gVisibleSaveSlotCount;
 extern s32 osTvType;
-extern s32 sTrackMarkerTable;
+extern void *sTrackMarkerTable[];
 
 void func_8007560C(void) {
     s32 var_a0;
@@ -71,13 +71,13 @@ void func_8007560C(void) {
     gSceneFlagsB |= 0x20;
     (*(s32 *)((char *)(D_8010969C) + 0x100)) = (s32) ((*(s32 *)((char *)(D_8010969C) + 0x100)) | 0x100);
     if (gBorderSkipActive == 0) {
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0)) == NULL) {
+        if (sTrackMarkerTable[0] == NULL) {
             func_80048794(0, gProbeObjectList);
         }
 
         var_fv1_3 = (f64) 0;
 
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), 160.0f, 120.0f, 320.0f, 240.0f, (f32)xOffset, (f32)yOffset);
+        func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32)xOffset, (f32)yOffset);
         var_a0 = 1;
         goto block_75;
     }
@@ -116,33 +116,33 @@ void func_8007560C(void) {
     }
     switch (gVisibleSaveSlotCount) {                /* irregular */
     case 1:
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0)) == NULL) {
+        if (sTrackMarkerTable[0] == NULL) {
             func_80048794(0, gProbeObjectList);
         }
 
         var_fv1_4 = (f64) 0;
 
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), 160.0f, 120.0f, 320.0f, 240.0f, (f32)xOffset, (f32)yOffset);
+        func_8004844C(sTrackMarkerTable[0], 160.0f, 120.0f, 320.0f, 240.0f, (f32)xOffset, (f32)yOffset);
         break;
     case 2:
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0)) == NULL) {
+        if (sTrackMarkerTable[0] == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 4)) == NULL) {
+        if (sTrackMarkerTable[1] == NULL) {
             func_80048794(1, gProbeObjectList);
         }
         if (gBorderFlipFlag == 1) {
             temp_fs0_2 = 160.0f * 0.5f;
-            func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
-            var_a0_2 = (*(void **)((char *)(&sTrackMarkerTable) + 4));
+            func_8004844C(sTrackMarkerTable[0], temp_fs0_2, 120.0f, 160.0f, 2.0f * 120.0f, 1.0f, 1.0f);
+            var_a0_2 = sTrackMarkerTable[1];
             var_a2 = 120.0f;
             var_a1 = 160.0f + temp_fs0_2;
             var_a3 = 160.0f;
             height = 240.0f;
         } else {
-            func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), 160.0f, temp_fs0_3, (temp_fs2 = 160.0f + 160.0f), 120.0f, 1.0f, 1.0f);
+            func_8004844C(sTrackMarkerTable[0], 160.0f, temp_fs0_3, (temp_fs2 = 160.0f + 160.0f), 120.0f, 1.0f, 1.0f);
             temp_fs0_3 = 120.0f * 0.5f;
-            var_a0_2 = (*(void **)((char *)(&sTrackMarkerTable) + 4));
+            var_a0_2 = sTrackMarkerTable[1];
             var_a1 = 160.0f;
             var_a3 = temp_fs2;
             height = 120.0f;
@@ -155,58 +155,58 @@ block_75:
         func_800820B0(var_a0);
         break;
     case 3:
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0)) == NULL) {
+        if (sTrackMarkerTable[0] == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 4)) == NULL) {
+        if (sTrackMarkerTable[1] == NULL) {
             func_80048794(1, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 8)) == NULL) {
+        if (sTrackMarkerTable[2] == NULL) {
             func_80048794(2, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0xC)) == NULL) {
+        if (sTrackMarkerTable[3] == NULL) {
             func_80048794(3, gProbeObjectList);
         }
         temp_fs2_2 = 160.0f * 0.5f;
         temp_fs0_4 = 120.0f * 0.5f;
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(sTrackMarkerTable[0], temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs3 = temp_fs2_2 + 160.0f;
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 4)), temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 8)), temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(sTrackMarkerTable[1], temp_fs3, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(sTrackMarkerTable[2], temp_fs2_2, temp_fs0_4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs0_4 = 120.0f + temp_fs0_4;
-        var_a0_2 = (*(void **)((char *)(&sTrackMarkerTable) + 0xC));
+        var_a0_2 = sTrackMarkerTable[3];
         var_a1 = temp_fs3;
         var_a3 = 160.0f;
         var_a2 = temp_fs0_4;
         height = 120.0f;
         goto block_74;
     case 4:
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0)) == NULL) {
+        if (sTrackMarkerTable[0] == NULL) {
             func_80048794(0, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 4)) == NULL) {
+        if (sTrackMarkerTable[1] == NULL) {
             func_80048794(1, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 8)) == NULL) {
+        if (sTrackMarkerTable[2] == NULL) {
             func_80048794(2, gProbeObjectList);
         }
-        if ((*(void **)((char *)(&sTrackMarkerTable) + 0xC)) == NULL) {
+        if (sTrackMarkerTable[3] == NULL) {
             func_80048794(3, gProbeObjectList);
         }
         temp_fs2_3 = 160.0f * 0.5f;
         temp_fs4 = 120.0f * 0.5f;
         temp_fs1 = 120.0f * 0.5f;
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 0)), temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(sTrackMarkerTable[0], temp_fs2_3, temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
         temp_fs3_2 = temp_fs2_3 + 160.0f;
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 4)), temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
-        func_8004844C((*(void **)((char *)(&sTrackMarkerTable) + 8)), temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
-        var_a0_2 = (*(void **)((char *)(&sTrackMarkerTable) + 0xC));
+        func_8004844C(sTrackMarkerTable[1], temp_fs3_2, temp_fs1, 160.0f, 120.0f, 1.0f, 1.0f);
+        func_8004844C(sTrackMarkerTable[2], temp_fs2_3, 120.0f + temp_fs4, 160.0f, 120.0f, 1.0f, 1.0f);
+        var_a0_2 = sTrackMarkerTable[3];
         var_a1 = temp_fs3_2;
         var_a2 = 120.0f + temp_fs1;
         var_a3 = 160.0f;
         height = 120.0f;
         goto block_74;
     }
-    (*(s32 *)((char *)((*(void **)((char *)(&sTrackMarkerTable) + 0))) + 0x100)) = (s32) ((*(s32 *)((char *)((*(void **)((char *)(&sTrackMarkerTable) + 0))) + 0x100)) | 0x40);
-    (*(s8 *)((char *)((*(void **)((char *)(&sTrackMarkerTable) + 0))) + 0x142)) = 4;
+    (*(s32 *)((char *)(sTrackMarkerTable[0]) + 0x100)) = (s32) ((*(s32 *)((char *)(sTrackMarkerTable[0]) + 0x100)) | 0x40);
+    (*(s8 *)((char *)(sTrackMarkerTable[0]) + 0x142)) = 4;
 }

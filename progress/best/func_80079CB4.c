@@ -26,23 +26,23 @@ extern s32 gTrackMarkerDone;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
 void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14, s32 arg15) {
-    s32 var_a0;
+    unsigned long var_a0;
     u8 var_v0_4;
     u8 var_v0_2;
     s32 temp_s2;
     s32 temp_v0;
     s32 temp_v1_2;
-    unsigned long var_a1;
+    int var_a1;
     unsigned long var_s2;
     s32 var_s5;
-    unsigned int var_v1;
+    u32 var_v1;
     u8 var_v0_6;
     s8 temp_a0;
     u8 temp_v0_2;
     s32 var_a1_3;
     s32 var_a1_2;
     u8 var_v0_5;
-    s32 var_v0_3;
+    register s32 var_v0_3;
     void *temp_s0;
     void *temp_v1;
     void *temp_v1_3;
@@ -120,7 +120,7 @@ block_76:
                     temp_s2 = (*(s32 *)((char *)(temp_s0) + 0x44));
                     if (temp_s2 != 0) {
                         temp_a0 = (*(s8 *)((char *)(temp_s0) + 0x87));
-                        if (temp_a0 >= 3) {
+                        if (3 <= temp_a0) {
                             temp_v0 = randomIntBelow(temp_a0 - 1);
                             (*(s8 *)((char *)(temp_s0) + 0x86)) = (s8) (temp_v0 + 1);
                             temp_v1 = (temp_v0 * 0x18) + (int)temp_s2;
@@ -307,8 +307,8 @@ block_76:
                     break;
                 case 40:                            /* switch 1 */
                     var_a1 = arg3 & 0xFF;
-                    var_v0_4 = 0x29;
                     (*(u8 *)((char *)(temp_s0) + 0x82)) = var_v0_4;
+                    var_v0_4 = 0x29;
                     ((__repair_field_88 *)temp_s0)->value = (s32) ((((__repair_field_88 *)temp_s0)->value & 0xFE1FFFFF) | 0x600000);
                     func_8001751C(arg2, var_a1, arg0);
                     (*(s32 *)((char *)(temp_s0) + 0x44)) = 0;
