@@ -69,8 +69,8 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4) {
                     if (((KernTab *)(kern + off))->count != 0) {
                         k = 0;
                         for (;;) {
-                            kt = (KernTab *)(kern + off);
-                            p = kt->pairs + k * 2;
+                            kt = (KernTab *)(off + kern);
+                            p = (u8 *)((u32)(k * 2) - -(u32)*(u8 * volatile *)&kt->pairs);
                             k++;
                             if (p[0] == c) {
                                 width -= (s8)p[1];
@@ -93,3 +93,4 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4) {
     if (limit != 0 && limit < width) return limit;
     return width;
 }
+

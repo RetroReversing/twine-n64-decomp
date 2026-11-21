@@ -16,11 +16,11 @@ s32 func_8004D910(Vec3 *arg0, Vec3 *arg1, Vec3 *arg2, Vec3 *arg3, Vec3 *arg4, f3
     ex.f = arg4->x - arg2->x;
     e2[0] = ex.i;
     ey.f = arg4->y - arg2->y;
-    e2[1] = ey.i;
     dz = arg1->z;
+    e2[1] = ey.i;
     ez.f = arg4->z - arg2->z;
-    dy.i = ((u32*)arg1)[1];
-    dx.i = ((u32*)arg1)[0];
+    dy = ((FU*)arg1)[1];
+    dx = ((FU*)arg1)[0];
     p.x = dy.f * ez.f - dz * ey.f;
     p.y = dz * ex.f - dx.f * ez.f;
     p.z = dx.f * ey.f - dy.f * ex.f;

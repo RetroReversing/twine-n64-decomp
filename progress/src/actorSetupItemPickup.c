@@ -26,15 +26,16 @@ extern Selection *func_800316C8(void);
 extern s32 lookupDataEntry(u16);
 #define FIELD(p,t,o) (*(t *)((u8 *)(p)+(o)))
 #define ACTOR gPickupActor
+/* Reconfigures the existing pickup actor, shows the selected item's name and id, and activates it */
 void actorSetupItemPickup(void) {
-    s32 *box = &gPickupSearchBox;
+    s32 *searchBox = &gPickupSearchBox;
     void **actor;
-    Pickup *pickup;
-    s32 entry;
-    Selection *selections;
-    u16 id;
-    u16 *shared;
-    func_8002ACB4(box);
+    Pickup *pickupEntry;
+    s32 entryTextId;
+    Selection *selectionList;
+    u16 itemId;
+    u16 *sharedIdPtr;
+    func_8002ACB4(searchBox);
     actor = (void **)&gPickupActor;
     if (*actor != NULL) {
         func_80002EF0(*actor);
@@ -43,24 +44,24 @@ void actorSetupItemPickup(void) {
         FIELD(ACTOR, f32, 0x2C) = -3.0f;
         FIELD(ACTOR, f32, 0x54) = 1.05f;
         clearProbeState(*actor, 0x14D);
-        if (func_80029C08(box, 2, 0)) {
-            pickup = func_8002A980(box);
-            if (pickup != NULL) {
-                entry = findEntryById(FIELD(gSaveMenuState, s32, 0x10), 0x4000);
-                selections = func_800316C8();
-                if (selections != NULL) {
-                    if (entry != 0) {
-                        formatTextEntry(entry, sFmtEntryName, lookupDataEntry(selections[pickup->index].label));
+        if (func_80029C08(searchBox, 2, 0)) {
+            pickupEntry = func_8002A980(searchBox);
+            if (pickupEntry != NULL) {
+                entryTextId = findEntryById(FIELD(gSaveMenuState, s32, 0x10), 0x4000);
+                selectionList = func_800316C8();
+                if (selectionList != NULL) {
+                    if (entryTextId != 0) {
+                        formatTextEntry(entryTextId, sFmtEntryName, lookupDataEntry(selectionList[pickupEntry->index].label));
                     }
                     func_8002B8AC();
-                    id = *D_800C3CF8[func_8002B9CC(func_8002B9FC(selections[pickup->index].item))].id;
+                    itemId = *D_800C3CF8[func_8002B9CC(func_8002B9FC(selectionList[pickupEntry->index].item))].id;
                     gSharedItemArg = -1;
                     gSharedItemBusy = 1;
-                    shared = &gSharedItemId;
-                    *shared = id;
-                    activateIdList(shared);
+                    sharedIdPtr = &gSharedItemId;
+                    *sharedIdPtr = itemId;
+                    activateIdList(sharedIdPtr);
                     gSharedItemBusy = 0;
-                    func_8000237C(*actor, func_8002B9CC(func_8002B9FC(selections[pickup->index].item)), 0, 0);
+                    func_8000237C(*actor, func_8002B9CC(func_8002B9FC(selectionList[pickupEntry->index].item)), 0, 0);
                     func_80002BD0(*actor, 0x14D);
                     FIELD(FIELD(gPickupActor, void *, 0x68), f32, 0x34) = 0.05f;
                 }

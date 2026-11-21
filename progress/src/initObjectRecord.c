@@ -2,7 +2,7 @@
 
 extern f32 **gObjectRecords;
 
-void func_8000D59C(s32 arg0, u32 arg1) {
+void initObjectRecord(s32 arg0, u32 arg1) {
     s32 __repair_store_0;
     s32 __repair_store_1;
     s32 __repair_store_2;

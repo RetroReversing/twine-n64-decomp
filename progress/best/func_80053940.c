@@ -16,7 +16,7 @@ f32 func_80045590(void *, void *);                  /* extern */
 M2C_UNK func_80045764(f32 *, f32 *);                /* extern */
 M2C_UNK buildPlaneFromPoints(f32 *, void *, void *, void *); /* extern */
 s32 triangleContainsPoint(void *, void *, void *, void *, f32 *); /* extern */
-M2C_UNK func_80047E4C(void *, f32 *, M2C_UNK *);    /* extern */
+M2C_UNK applyObjectRotation(void *, f32 *, M2C_UNK *);    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
 s32 Sphere_OverlapsPoint(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
@@ -393,7 +393,7 @@ loop_61:
                     sp88[2] -= M2C_FIELD(var_s2, f32 *, 0x2C);
                 }
                 if (((u32) M2C_FIELD(var_s2, u32 *, 0x5C) >> 0x17) & 2) {
-                    func_80047E4C(var_s2, sp28, sp50);
+                    applyObjectRotation(var_s2, sp28, sp50);
                     func_80083B64(sp50, sp154);
                     func_80083B64(sp50, sp15C);
                 }

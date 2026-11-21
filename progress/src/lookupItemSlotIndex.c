@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800261A4(u32 arg0) {
-    switch (arg0) {
+/* Maps an item id (0-41) to its menu slot index; unknown ids return 0 */ s32 lookupItemSlotIndex(u32 itemId) {
+    switch (itemId) {
     case 20:
         return 1;
     case 16:

@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800260A0(u32 arg0) {
-    switch (arg0) {
+/* Maps a menu item kind (1-27) to its table index; kind 0 or unknown returns 2 */ s32 lookupMenuItemIndex(u32 itemKind) {
+    switch (itemKind) {
     case 1:
         return 0x14;
     case 2:

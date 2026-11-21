@@ -47,7 +47,7 @@ static inline void stop_snd_91324(s32 arg0) {
     }
 }
 
-void func_80091324(s32 arg0) {
+void stopEntitySound(s32 arg0) {
     if (gWorkerActive != 0) {
         workerLockAcquire();
         stop_snd_91324(arg0);

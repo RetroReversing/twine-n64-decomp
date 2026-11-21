@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800260A0(u32);                              /* extern */
-s32 func_800261A4(s32);                              /* extern */
+s32 lookupMenuItemIndex(u32);                              /* extern */
+s32 lookupItemSlotIndex(s32);                              /* extern */
 M2C_UNK func_8002B000(void *, M2C_UNK);             /* extern */
 s16 timerGetTotalSeconds(M2C_UNK *);                       /* extern */
 s32 func_8002B2B0(void *, void *);                    /* extern */
@@ -63,12 +63,12 @@ void func_8001C6CC(void) {
     D_80102CC0 = 0;
     if (func_80030D40() == 5) {
         u8 *p_ee0 = &D_80102EE0;
-        var_s2 = func_800261A4(*p_ee0) + 1;
+        var_s2 = lookupItemSlotIndex(*p_ee0) + 1;
         if ((u32) (var_s2 & 0xFFFF) >= 0xEU) {
             var_s2 = 0xD;
         }
-        *p_ee0 = func_800260A0(var_s2 & 0xFFFF);
-        temp_s5 = func_800261A4(func_80030C58());
+        *p_ee0 = lookupMenuItemIndex(var_s2 & 0xFFFF);
+        temp_s5 = lookupItemSlotIndex(func_80030C58());
         var_s2 = temp_s5;
         var_s1 = temp_s5 & 0xFFFF;
     temp_s0 = (var_s1) * 0x18;
@@ -87,15 +87,15 @@ void func_8001C6CC(void) {
             *(&D_801176C8 + temp_s0_3) = func_800316B8();
         }
         var_s2_2 = var_s2 + 1;
-        if (temp_s0_3 >= (u32) (func_800261A4((u8) D_80102EE4) & 0xFFFF)) {
+        if (temp_s0_3 >= (u32) (lookupItemSlotIndex((u8) D_80102EE4) & 0xFFFF)) {
             if ((u32) (var_s2_2 & 0xFFFF) >= 0xEU) {
                 var_s2_2 = 0xD;
             }
             var_a0 = var_s2_2 & 0xFFFF;
         } else {
-            var_a0 = func_800261A4((u8) D_80102EE4) & 0xFFFF;
+            var_a0 = lookupItemSlotIndex((u8) D_80102EE4) & 0xFFFF;
         }
-        D_80102EE4 = func_800260A0(var_a0) & 0xFFFF;
+        D_80102EE4 = lookupMenuItemIndex(var_a0) & 0xFFFF;
         if (func_80030C58() == 0x21) {
             if (!(func_800316B8() & 0xFFFF)) {
                 func_8002BC68(0xA, 1);

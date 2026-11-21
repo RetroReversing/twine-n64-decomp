@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 randomIntBelow(M2C_UNK);                         /* extern */
-M2C_UNK func_8007AB60(void *);                      /* extern */
+M2C_UNK enemyStateSound(void *);                      /* extern */
 
 void func_8007AD88(void *arg0) {
     if (randomIntBelow(0x12C) == 0) {
-        func_8007AB60(arg0);
+        enemyStateSound(arg0);
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x34) = 0;
         M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
     }

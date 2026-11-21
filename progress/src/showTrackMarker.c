@@ -1,5 +1,5 @@
 s32 func_800312F4(s16, u16);
-s32 func_800313DC(s16, s32);
+s32 formatTrackMarkerLabel(s16, s32);
 s32 func_800314E0(s16, s32);
 void func_80031548(s32,s32,s32);
 void func_800315E0(s16);
@@ -18,7 +18,7 @@ void showTrackMarker(u32 markerId) {
         if (func_800312F4(entryId,0)==3 || func_800312F4(entryId,0)==1) return;
         func_80031548(entryId,1,0);
         gTrackMarkerSerial++;
-        label = func_800313DC(entryId,0);
+        label = formatTrackMarkerLabel(entryId,0);
         markerTable = &gTrackMarkers;
         func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
         label = func_800314E0(entryId,0);
@@ -32,7 +32,7 @@ void showTrackMarker(u32 markerId) {
         func_80074F04();
         func_80031548(entryId,2,0);
         gTrackMarkerSerial++;
-        label = func_800313DC(entryId,0);
+        label = formatTrackMarkerLabel(entryId,0);
         markerTable = &gTrackMarkers;
         func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
         label = func_800314E0(entryId,0);

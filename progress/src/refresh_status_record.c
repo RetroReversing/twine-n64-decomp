@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800261A4();
+s32 lookupItemSlotIndex();
 void *findEntryById();
 s8 findTableIndexById();
 s32 func_8003099C();
@@ -47,7 +47,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
         rec_second = rec + 0x28;
         rec_third = rec + 0x50;
         if ((func_80030C58() != 2) && (D_80112F6E == 0)) {
-            table_code = *(D_801176C7 + (func_800261A4(func_80030C58()) & 0xFFFF));
+            table_code = *(D_801176C7 + (lookupItemSlotIndex(func_80030C58()) & 0xFFFF));
             switch (table_code) {                      /* irregular */
             case 0:
                 ((__repair_record_temp_s0*)rec)->field_27 = findTableIndexById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x72);
@@ -71,7 +71,7 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
                 M2C_FIELD(rec_third, s8 *, 0x26) = findTableIndexById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x73);
                 break;
             }
-            D_800BD9CC = *(D_801176C7 + (func_800261A4(func_80030C58()) & 0xFFFF));
+            D_800BD9CC = *(D_801176C7 + (lookupItemSlotIndex(func_80030C58()) & 0xFFFF));
         }
     }
 }

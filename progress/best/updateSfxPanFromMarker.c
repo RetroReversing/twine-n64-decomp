@@ -25,7 +25,11 @@ void updateSfxPanFromMarker(s32 arg0, void *arg1, s32 arg2, f32 arg3) {
         if (a1 > 0) dist = a1; else dist = -a1;
         flag = &gOptionChoice;
         if (*flag != 0) {
-            func_8009CAC0(arg0, pan & 0xFF);
+            /*__repair_pointer_balance*/if ((unsigned long)flag & 0x100) {
+func_8009CAC0(arg0, pan & 0xFF);
+} else {
+func_8009CAC0(arg0, pan & 0xFF);
+}
             if (*flag >= 2) {
                 func_8009C9F8(arg0, dist & 0xFF);
                 goto pitch;
@@ -41,3 +45,4 @@ pitch:
         func_8009CA5C(arg0, val & 0xFFFF);
     }
 }
+

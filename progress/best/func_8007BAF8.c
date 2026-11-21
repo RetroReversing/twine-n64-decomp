@@ -16,7 +16,7 @@ M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
 s32 func_8003D6FC(f32 *, void *);                   /* extern */
 f32 func_80045764(f32 *, f32 *);                    /* extern */
 f32 func_800461D4();               /* extern */
-M2C_UNK func_80047E4C(void *, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK applyObjectRotation(void *, M2C_UNK *, M2C_UNK *); /* extern */
 s32 Ray_CastObjects(M2C_UNK *, s32, f32 *, f32 *, s32, f32, s32, s32, s32); /* extern */
 s32 func_8004F430(s32, f32 *, f32 *, f32);          /* extern */
 M2C_UNK func_80077960(void *, s32);                 /* extern */
@@ -113,7 +113,7 @@ s32 func_8007BAF8(void *arg0, f32 *arg1, s32 arg2, s32 arg3) {
             points[20] = temp_fv0_7;
             points[17] = temp_fv0_7;
             points[14] = temp_fv0_7;
-            func_80047E4C(D_80108F84, sp48, sp70);
+            applyObjectRotation(D_80108F84, sp48, sp70);
             *(Vec3 *)pos = *(Vec3 *)arg1;
             pos[0] -= M2C_FIELD(D_80108F84, f32 *, 0x24);
             pos[1] -= M2C_FIELD(D_80108F84, f32 *, 0x28);
