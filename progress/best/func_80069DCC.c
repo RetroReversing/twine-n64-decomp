@@ -15,7 +15,7 @@ M2C_UNK func_80002BD0(void *, M2C_UNK);
 M2C_UNK func_80002D30(void *, u16);
 M2C_UNK func_80002D50(void *, M2C_UNK);
 M2C_UNK func_80002EF0(void *);
-M2C_UNK func_8000A270(s32);
+M2C_UNK listUnlinkFree(s32);
 M2C_UNK func_8000A894();
 void *func_80015DAC(s8);
 M2C_UNK func_800179E8(void *, void *, s32, s32);
@@ -333,7 +333,7 @@ if (D_80103EB0 == 0) {
 temp_a0 = M2C_FIELD(temp_s1, s32 *, 8);
 M2C_FIELD(temp_s1, s32 *, 0x1B0) = 0;
 if (temp_a0 != -1) {
-func_8000A270(temp_a0);
+listUnlinkFree(temp_a0);
 M2C_FIELD(temp_s1, s32 *, 8) = -1;
 }
 func_8006E648(M2C_FIELD(arg0, void **, 0x20), arg0, 0, &sp30, &sp34, &sp38, &sp3C, &sp40);

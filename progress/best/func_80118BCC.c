@@ -6,7 +6,7 @@ extern u8 D_800BF68B[];
 extern u8 D_800BF688[];
 void func_80118BCC(void *arg0, s32 arg1) {
     extern u8 gSceneType;
-    extern u8 D_8011F168[];
+    extern u8 sProbeActive[];
     extern f32 func_800461D4(void *, void *);
     volatile s32 frame[24];
     u8 *self = (u8 *)arg0;
@@ -48,7 +48,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
         } else if (type == 0x45 && gSceneType == 3) {
             s16 index = *(s16 *)((u8 *)target + 0x7A);
             u8 *room = *(u8 **)(state + 0xB4);
-            if (index == *(s16 *)(room + 0x12) && D_8011F168[index] == 0) {
+            if (index == *(s16 *)(room + 0x12) && sProbeActive[index] == 0) {
                 if (func_800461D4(self + 0x24, (u8 *)target + 0x24) < 2.0f) {
                     *(s16 *)(self + 0x7A) = 7;
                 }

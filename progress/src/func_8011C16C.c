@@ -12,7 +12,7 @@ typedef struct {
     u8 color[3];
 } OverlayObject;
 
-extern void func_8000A270(s32);
+extern void listUnlinkFree(s32);
 extern OverlayObject *spawnEffectObject(s32, OverlayPosition *, void *);
 extern void func_8002B000(void *, s32);
 extern void actorLinkToSurface(s32, OverlayObject *, s32);
@@ -21,9 +21,9 @@ extern s32 *gProbeObjectList;
 extern u8 gSceneType;
 extern u32 D_8011F140[][2];
 extern u8 D_8011F168[];
-extern OverlayObject *D_8011F270[];
+extern OverlayObject *sProbeObjects[];
 extern s32 D_8011F280[], D_8011F290[];
-extern OverlayPosition D_8011F298[];
+extern OverlayPosition sProbePositions[];
 
 OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientation, u32 index)
 {
@@ -35,20 +35,20 @@ OverlayObject *func_8011C16C(register OverlayPosition *position, void *orientati
             register u32 idx = (u16)index;
             register void *timer;
             do { objectSetAnimFrame(object, 6, 0xF4); } while (0);
-            D_8011F298[idx] = *position;
+            sProbePositions[idx] = *position;
             timer = D_8011F140[idx];
             object->kind = 0x45;
             object->index = index;
             object->scale = 1.0f;
-            D_8011F270[idx] = object;
+            sProbeObjects[idx] = object;
             D_8011F168[idx] = 1;
             D_8011F280[idx] = 0;
             func_8002B000(timer, 0x1E);
-            func_8000A270(D_8011F290[idx]);
+            listUnlinkFree(D_8011F290[idx]);
             D_8011F290[idx] = 0;
             object->flags &= ~0x200;
             if (*state == 3) {
-                D_8011F298[idx].y += 0.76f;
+                sProbePositions[idx].y += 0.76f;
             }
             actorLinkToSurface(*gProbeObjectList, object, 1);
             {

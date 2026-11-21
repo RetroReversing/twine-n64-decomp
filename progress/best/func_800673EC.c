@@ -5,7 +5,7 @@ s32 func_80001678(void *, s8);                  /* extern */
 s32 func_80002D30(void *, u16);                 /* extern */
 s32 func_80002EB8(void *);                      /* extern */
 s32 func_80002EF0(void *, f32);                 /* extern */
-s32 func_8000A270(s32, s8);                     /* extern */
+s32 listUnlinkFree(s32, s8);                     /* extern */
 s32 func_8000A894(s32, s32 *);          /* extern */
 void *func_8005F664(void *, s32, s8);           /* extern */
 s32 func_800648FC(void *, s32);                 /* extern */
@@ -90,7 +90,7 @@ s32 __repair_phase___repair_phase_temp_s0;
                 (*(s8 *)((char *)(temp_v1_3) + 0xE)) = (s8) (u8) (*(s8 *)((char *)(temp_v1_3) + 0xF));
                 temp_a0_3 = (*(s32 *)((char *)(temp_s2) + 8));
                 if (temp_a0_3 != -1) {
-                    func_8000A270(temp_a0_3, __repair_phase___repair_phase_temp_s0);
+                    listUnlinkFree(temp_a0_3, __repair_phase___repair_phase_temp_s0);
                     (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                 }
                 func_80067390(arg0);

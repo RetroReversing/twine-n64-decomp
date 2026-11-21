@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8000A270();
+s32 listUnlinkFree();
 s32 func_8000A894();
 s32 markObjectsNearPos();
 f32 func_80045590();
@@ -162,7 +162,7 @@ block_28:
                 temp_a0 = (*(s32 *)((char *)(temp_s2) + 8));
                 (*(s16 *)((char *)(temp_s2) + 0x176)) = (s16) (*(u8 *)((char *)(temp_s4) + 0x36));
                 if (temp_a0 != -1) {
-                    func_8000A270(temp_a0);
+                    listUnlinkFree(temp_a0);
                     (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                 }
                 temp_v1_2 = (*(void **)((char *)(temp_s2) + 0xA8));
@@ -217,7 +217,7 @@ block_62:
         if (((*(s16 *)((char *)((*(void **)((char *)(temp_s2) + 0xA8))) + 0x7A)) == 0) && (((*(s8 *)((char *)(((__repair_record_arg0*)arg0)->field_68) + 0xE)) != 0x1C) || (func_800818AC(temp_fp, 0x18) == 0))) {
             temp_a0_2 = (*(s32 *)((char *)(temp_s2) + 8));
             if (temp_a0_2 != -1) {
-                func_8000A270(temp_a0_2);
+                listUnlinkFree(temp_a0_2);
                 (*(s32 *)((char *)(temp_s2) + 8)) = -1;
             }
             if ((func_800648FC(arg0, 1) << 0x18) != 0) {
@@ -285,7 +285,7 @@ block_91:
                             (*(s16 *)((char *)(temp_s2) + 0x178)) = 0;
                             return;
                         }
-                        func_8000A270(temp_a0_3);
+                        listUnlinkFree(temp_a0_3);
                         (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                         (*(s16 *)((char *)(temp_s2) + 0x178)) = 0;
                         return;
@@ -296,7 +296,7 @@ block_91:
                         (*(u16 *)((char *)(temp_s2) + 0x17A)) += 1;
                         (*(s16 *)((char *)(temp_s2) + 0x178)) = (s16) (*(s32 *)((char *)(temp_s4) + 0x30));
                         if (temp_a0_4 != -1) {
-                            func_8000A270(temp_a0_4);
+                            listUnlinkFree(temp_a0_4);
                             (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                         }
                     } else {

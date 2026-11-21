@@ -1,4 +1,4 @@
-s32 func_8000A270(s32);
+s32 listUnlinkFree(s32);
 s32 func_8000A8B4(u16, f32, u8);
 s32 func_8000A9CC(u16, s32, u8);
 s32 func_8000AABC(s32, s32, void *, f32);
@@ -23,7 +23,7 @@ case 1: if (*(f32*)((char*)track+0x10)<var_fv1) { *(s32*)track=-1; *(u8*)((char*
 }
 } else {
 temp_v0_2=*(u8*)((char*)track+0x16);
-if(temp_v0_2 && *((u8*)((char*)&gTrackDoneFlags+temp_v0_2))==*(u8*)((char*)track+0x17)) {func_8000A270(*(s32*)track); *(s32*)track=-1; return;}
+if(temp_v0_2 && *((u8*)((char*)&gTrackDoneFlags+temp_v0_2))==*(u8*)((char*)track+0x17)) {listUnlinkFree(*(s32*)track); *(s32*)track=-1; return;}
 var_fs0=func_80084270(temp_a0,&sp18); temp_fv1=*(volatile f32*)((char*)track+0xC); temp_fv1_2=*(volatile f32*)((char*)track+0x10);
 if ((*(s32*)((char*)(*(s32*)((char*)&gTrackMarkerTable+sp18*4))+0x100))&8) {if(*(u8*)((char*)track+0x1A)==1)var_fs0=65536.0f;}
 else if(*(u8*)((char*)track+0x1A)==0)var_fs0=65536.0f;

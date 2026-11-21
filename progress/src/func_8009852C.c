@@ -18,9 +18,8 @@ s32 func_8009852C(u16 key, u16 *out) {
     s32 value;
 
     count = D_800F8158;
-    record = D_800F38D4;
-    *(volatile u16 *)record = key;
-    result = func_800956E0(record - 2, &D_800F815C, count, 12, func_800986EC);
+    D_800F38D4[0] = key;
+    result = func_800956E0(D_800F38D4 - 2, &D_800F815C, count, 12, func_800986EC);
     D_800F38DC = result;
     if (result == NULL) {
         value = 0;

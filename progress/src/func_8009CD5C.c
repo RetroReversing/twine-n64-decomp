@@ -16,7 +16,7 @@ M2C_UNK func_8008C0D4();                            /* extern */
 M2C_UNK func_8008C11C();                            /* extern */
 M2C_UNK func_80090F68();                            /* extern */
 M2C_UNK func_8009450C();                            /* extern */
-M2C_UNK func_8009991C(M2C_UNK);                     /* extern */
+M2C_UNK releaseVoices(M2C_UNK);                     /* extern */
 extern u8 gWorkerActive;
 
 void func_8009CD5C(void) {
@@ -24,7 +24,7 @@ void func_8009CD5C(void) {
         func_8008C0D4();
         func_80090F68();
         func_8009450C();
-        func_8009991C(0);
+        releaseVoices(0);
         func_8008C11C();
     }
 }

@@ -7,7 +7,7 @@ extern u8 D_801002AC;
 extern s32 D_801002B4;
 extern s32 gSaveSlotCount;
 extern void *D_8010A500[];
-extern u8 D_8011F140[];
+extern u8 sProbeTimers[];
 extern u16 D_8011F15C[];
 extern s32 D_8011F3A8;
 
@@ -33,7 +33,7 @@ u8 func_8011A2A0(s32 arg0, void *arg1, void *arg2) {
             D_801002AC = 0;
         }
         for (i = 0; (u32)i < 2; i++) {
-            buf[i] = func_8002B278(D_8011F140 + i * 8) / 10;
+            buf[i] = func_8002B278(sProbeTimers + i * 8) / 10;
         }
         for (i = 0; i < (*(__base_D_801002B4 = &D_801002B4)); i++) {
             p = D_8010A500[i];

@@ -27,7 +27,7 @@ extern u8 D_8011F168[];
 extern char D_8011F170[];
 extern char D_8011F280[];
 extern char D_8011F288[];
-extern char D_8011F298[];
+extern char sProbePositions[];
 extern char D_8011F2B0[];
 
 typedef struct { s32 w[3]; } __repair_words3;
@@ -78,7 +78,7 @@ void func_8011BF0C(void *arg0) {
             temp_s0_2 = temp_v1 * 4;
             temp_a0_3 = temp_s0_2 + D_8011F2B0;
             temp_a2 = *temp_a0_3;
-            temp_v0_2 = (temp_v1 * 0xC) + D_8011F298;
+            temp_v0_2 = (temp_v1 * 0xC) + sProbePositions;
             M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
             temp_v1_2 = *temp_a0_3;
             temp_s0 = M2C_FIELD(temp_v0_2, s32 *, 0);

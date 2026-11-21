@@ -16,7 +16,7 @@ s16 func_8002B278();
 s32 func_800643C8();
 extern char D_80102EFC[];
 extern char D_8011F278[];
-extern char D_8011F280[];
+extern char sProbeFlags[];
 extern char D_8011F288[];
 extern char D_8011F2B0[];
 
@@ -30,7 +30,7 @@ void func_8011C338(s32 arg0) {
         u16 __repair_i;
         for (__repair_i = 0; __repair_i < 2; __repair_i++) {
             temp_s0 = __repair_i * 4;
-            temp_s1 = temp_s0 + D_8011F280;
+            temp_s1 = temp_s0 + sProbeFlags;
             if (arg0 == *temp_s1) {
             ((u32 *) &D_8011F278)[__repair_i] = (s32) func_8002B278(D_80102EFC);
             *temp_s1 = 0;

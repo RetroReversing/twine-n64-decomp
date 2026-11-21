@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8000A270();
+s32 listUnlinkFree();
 s32 func_800158A4();
 f32 Vec3_DistanceSq();
 s32 func_80045764();
@@ -122,7 +122,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
                 if (Vec3_DistanceSq(sp48, sp68) < D_800C683C) {
                     temp_a0_2 = (*(s32 *)((char *)(temp_s2) + 8));
                     if (temp_a0_2 != -1) {
-                        func_8000A270(temp_a0_2);
+                        listUnlinkFree(temp_a0_2);
                         (*(s32 *)((char *)(temp_s2) + 8)) = -1;
                     }
                     (*(s32 *)((char *)(temp_s2) + 0x10)) = (s32) D_800C6858;

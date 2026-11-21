@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_800015AC();
 s32 func_80002BD0();
 s32 func_80002D30();
-s32 func_8000A270();
+s32 listUnlinkFree();
 s32 func_8000A894();
 void *func_80015F0C();
 s32 func_80016314();
@@ -298,7 +298,7 @@ block_30:
         }
         temp_a0_3 = M2C_FIELD(temp_s1, s32 *, 0xC);
         if (temp_a0_3 != -1) {
-            func_8000A270(temp_a0_3);
+            listUnlinkFree(temp_a0_3);
             M2C_FIELD(temp_s1, s32 *, 0xC) = -1;
         }
     }
@@ -332,7 +332,7 @@ block_30:
                 if (temp_a0_4 == -1) {
                     var_a0_2 = 0x127;
                 } else {
-                    func_8000A270(temp_a0_4);
+                    listUnlinkFree(temp_a0_4);
                     var_a0_2 = 0x127;
                 }
                 goto block_80;
@@ -340,7 +340,7 @@ block_30:
             if (func_800819EC((s32) temp_s3, 0x1A) != 0) {
                 temp_a0_5 = M2C_FIELD(temp_s1, s32 *, 0xC);
                 if (temp_a0_5 != -1) {
-                    func_8000A270(temp_a0_5);
+                    listUnlinkFree(temp_a0_5);
                 }
                 var_a0_2 = 0x128;
 block_80:

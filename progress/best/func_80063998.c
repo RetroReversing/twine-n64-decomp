@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_80001624();
-s32 func_8000A270();
+s32 listUnlinkFree();
 s32 func_8000A344();
 s32 func_8000A894();
 s32 func_80015F74();
@@ -131,7 +131,7 @@ void *var_a0;
             }
             temp_a0_4 = M2C_FIELD(temp_s3, s32 *, 8);
             if (temp_a0_4 != -1) {
-                func_8000A270(temp_a0_4);
+                listUnlinkFree(temp_a0_4);
                 M2C_FIELD(temp_s3, s32 *, 8) = -1;
             }
             return 1;

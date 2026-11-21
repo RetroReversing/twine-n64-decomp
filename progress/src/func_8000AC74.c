@@ -1,4 +1,4 @@
-void func_8000A270(s32 block);
+void listUnlinkFree(s32 block);
 s32 func_8009C930(s32 sound, u8 volume);
 extern u8 D_800B1FE0[];
 extern u8 D_800B2230[];
@@ -25,7 +25,7 @@ s32 func_8000AC74(s32 sound, s32 index, f32 distance)
                 func_8009C930(sound, (s32)(D_800D2170 - (f64)(fraction * 127.0f)) & 0xFF);
                 return sound;
             }
-            func_8000A270(sound);
+            listUnlinkFree(sound);
             goto inactive;
         }
         return -1;

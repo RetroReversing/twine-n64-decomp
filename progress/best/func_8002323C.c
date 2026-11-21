@@ -56,7 +56,7 @@ typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
 extern UnalignedWord D_801002E6;
 extern void *gMenuState;
 extern void *D_8010A500[];
-extern M2C_UNK D_8011F140;
+extern M2C_UNK sProbeTimers;
 extern M2C_UNK func_80022F10;
 extern M2C_UNK func_800231F4;
 
@@ -159,7 +159,7 @@ void func_8002323C(void) {
                 break;
             }
             if (mode[-1] == 6) {
-                s16 bonus = func_8002B278((u8 *)&D_8011F140 + (u16)var_s4 * 8);
+                s16 bonus = func_8002B278((u8 *)&sProbeTimers + (u16)var_s4 * 8);
                 (&D_800E107E)[(u16)var_s4] += bonus / 10;
             }
             var_s4++;

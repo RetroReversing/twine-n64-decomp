@@ -5,7 +5,7 @@ f32 approxDistance();
 s32 func_80119E60();
 extern void *D_8010A500[];
 extern char D_8011ECE0[];
-extern char D_8011F140[];
+extern char sProbeTimers[];
 
 void func_80119F50(void *arg0) {
     s16 temp_a0_2;
@@ -36,7 +36,7 @@ void func_80119F50(void *arg0) {
         }
         temp_a0_2 = (*(s16 *)((char *)(arg0) + 0x7C));
         if (temp_a0_2 < 2) {
-            func_8002B050((temp_a0_2 * 8) + D_8011F140, 1);
+            func_8002B050((temp_a0_2 * 8) + sProbeTimers, 1);
         }
     }
 }

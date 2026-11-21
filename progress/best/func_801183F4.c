@@ -12,9 +12,9 @@ extern void *D_8010A410;
 extern void *D_8010A500[4];
 extern u16 D_800BF688[];
 extern s32 D_8011ECB0[];
-extern s32 D_8011F280[];
+extern s32 sProbeFlags[];
 extern s16 D_8011F100[];
-extern u8 D_8011F168[];
+extern u8 sProbeActive[];
 extern u8 D_8011F169;
 
 typedef struct { u8 pad[0xB4]; void *field_b4; } ObjSub;
@@ -64,7 +64,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         scale=*(f32 *)((u8 *)flags);
         state=*(u8 *)((u8 *)sub->field_b4+0x12);
         if(gSceneType>=2 && gSceneType<=3) {
-            if(D_8011F280[state] == D_8010A500[entry]) tmp*=0.33333334f;
+            if(sProbeFlags[state] == D_8010A500[entry]) tmp*=0.33333334f;
         }
         if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)D_8010A500[entry]+0x74));
         if(n&2) {

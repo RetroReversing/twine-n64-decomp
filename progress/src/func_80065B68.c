@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A270(s32);                         /* extern */
+M2C_UNK listUnlinkFree(s32);                         /* extern */
 M2C_UNK func_80063590();                            /* extern */
 
 void func_80065B68(void *arg0) {
@@ -25,7 +25,7 @@ void func_80065B68(void *arg0) {
     func_80063590();
     temp_a0 = M2C_FIELD(temp_s0, s32 *, 0xC);
     if (temp_a0 != -1) {
-        func_8000A270(temp_a0);
+        listUnlinkFree(temp_a0);
         M2C_FIELD(temp_s0, s32 *, 0xC) = -1;
     }
 }
