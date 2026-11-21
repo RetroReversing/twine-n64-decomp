@@ -39,8 +39,8 @@ s32 func_80096A70(void *arg0, void *arg1) {
     var_s4 = 0;
     var_s0 = 0;
     if (M2C_FIELD(arg1, u8 *, 0x10) != 0) {
-        var_s2 = arg1;
         do {
+            var_s2 = (u8 *)arg1 + var_s4 * 4;
             temp_a3 = M2C_FIELD(var_s2, u8 *, 0);
             temp_a0 = temp_a3;
             if (((temp_a0 == 0x80) | (temp_a0 == 1)) ||
@@ -58,21 +58,23 @@ s32 func_80096A70(void *arg0, void *arg1) {
                     var_a0 = (func_80096460(temp_a3, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) & 0xFFFF) - 0x2000;
                     break;
                 }
-                temp_a0_2 = (s32) (var_a0 * M2C_FIELD(var_s2, s16 *, 2)) >> 8;
-                if (temp_a0_2 < -0x2000) {
-                    var_a0 = -0x2000;
+                var_a0 = (s32) (var_a0 * M2C_FIELD(var_s2, s16 *, 2)) >> 8;
+                if (var_a0 < -0x2000) {
+                    temp_a0_2 = -0x2000;
                 } else {
-                    var_a0 = 0x1FFF;
-                    if (temp_a0_2 < 0x2000) {
-                        var_a0 = temp_a0_2;
+                    temp_a0_2 = 0x1FFF;
+                    if (var_a0 < 0x2000) {
+                        temp_a0_2 = var_a0;
                     }
                 }
+                var_a0 = temp_a0_2;
                 switch (M2C_FIELD(var_s2, u8 *, 1)) {
                 case 0:
                     var_s1 = var_a0;
                     break;
                 case 1:
-                    var_s1 = var_a0 + (var_s0 - 0x2000);
+                    var_v0 = var_a0 - 0x2000;
+                    var_s1 = var_s0 + var_v0;
                     if (var_s1 >= -0x2000) {
                         goto upper_bound;
                     }
@@ -120,8 +122,8 @@ s32 func_80096A70(void *arg0, void *arg1) {
                 }
             }
             var_s4 += 1;
-            var_s2 += 4;
         } while (var_s4 < (u8) M2C_FIELD(arg1, u8 *, 0x10));
     }
     return var_s0 & 0xFFFF;
 }
+
