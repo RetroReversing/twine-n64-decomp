@@ -1,6 +1,6 @@
 typedef struct Node { struct Node *prev, *next; } Node;
 extern void func_800165E0(Node *, void *);
-void func_80016624(Node *a, Node *head, void *arg) {
+void unlinkNode(Node *a, Node *head, void *arg) {
     Node *p = head->next, *prev = p;
     while (p) {
         if (p == a) {

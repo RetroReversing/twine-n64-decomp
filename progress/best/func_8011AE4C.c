@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8002B150(void *, M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
 M2C_UNK func_8007089C(void *, M2C_UNK, u16);        /* extern */
 M2C_UNK func_8011B0FC(void *);                      /* extern */
-M2C_UNK func_8011B460(void *, M2C_UNK);             /* extern */
+M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 D_801002B4;
 extern M2C_UNK gBonusSceneHandle;
@@ -74,19 +74,19 @@ __repair_literal = 0;
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
             M2C_FIELD(D_8011F3C4, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C4, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                func_8011B460(arg2, 1);
+                relinkTrackMarker(arg2, 1);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 2) {
             M2C_FIELD(D_8011F3C8, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3C8, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                func_8011B460(arg2, 2);
+                relinkTrackMarker(arg2, 2);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 4) {
             M2C_FIELD(D_8011F3CC, s32 *, 0x28) = (s32) ((M2C_FIELD(D_8011F3CC, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                func_8011B460(arg2, 4);
+                relinkTrackMarker(arg2, 4);
                 goto block_23;
             }
         } else {

@@ -20,7 +20,7 @@ s32 func_80073AF8();
 s32 func_80084338();
 s32 *lookupDataEntry();
 s32 func_8011B0FC();
-s32 func_8011B460();
+s32 relinkTrackMarker();
 s32 sprintf();
 extern char D_800C447C[];
 extern char D_800C4484[];
@@ -98,15 +98,15 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
             var_v1 += 1;
         } while (var_a0 < 4U);
         if ((var_s0 ^ 1) & 1 & (temp_s3 == 0)) {
-            func_8011B460(temp_s1, 1);
+            relinkTrackMarker(temp_s1, 1);
             var_a1 = (s32 *)1;
         }
         if (((var_s0 >> 1) ^ 1) & 1 & (temp_s3 == 1)) {
-            func_8011B460(temp_s1, 2);
+            relinkTrackMarker(temp_s1, 2);
             var_a1 = (s32 *)1;
         }
         if (((var_s0 >> 2) ^ 1) & 1 & (temp_s3 == 2)) {
-            func_8011B460(temp_s1, 4);
+            relinkTrackMarker(temp_s1, 4);
             var_a1 = (s32 *)1;
         }
         if (var_a1 != NULL) {

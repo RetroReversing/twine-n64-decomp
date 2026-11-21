@@ -2816,6 +2816,14 @@
   "score_after": 0
  },
  {
+  "function": "func_8009532C",
+  "text": "Target is a leaf 18-instruction vector normalization using hardware sqrt.s and three div.s instructions. m2c draft uses sqrtf; compiled candidate expands to a sqrtf call/prologue (35 insns, score 1980) and unresolved sqrtf symbol. Tried explicit declaration and __builtin_sqrtf, unchanged. Likely need a recognized compiler intrinsic or source idiom that emits MIPS sqrt.s directly; preserve independent multiply/add order shown in assembly.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795136676.045676,
+  "score_before": 1980,
+  "score_after": 1980
+ },
+ {
   "function": "func_80095A54",
   "text": "Rechecked saved best score 35. It has target arithmetic/control flow but seven rendered register allocation differences, beginning global byte load in v0 instead of v1 and address computation in v1 instead of v0. Tried direct return and address/scalar declaration variants; no improvement. Keep saved best; remaining work is register allocation/control-flow shaping.",
   "by": "codex-gpt-6-luna-14",
@@ -4384,6 +4392,14 @@
   "score_after": 1430
  },
  {
+  "function": "func_8009532C",
+  "text": "Rechecked current candidate at score 1980; a fresh compile with the same builtin sqrt expression produced identical 35-instruction output and did not improve. Build diagnostics say sqrtf is not a known symbol, while target is 18 instructions. Resolve actual sqrt call/relocation and inspect target assembly before further source experiments; likely need the project's intrinsic spelling or recognized symbol. Existing candidate accesses x/y/z, computes builtin sqrt, and normalizes three components.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795138278.786529,
+  "score_before": 1980,
+  "score_after": 1980
+ },
+ {
   "function": "func_800969B4",
   "text": "Current candidate baseline 280 (47 instructions, six differences, all ordering/register allocation). Moving the 0x84 assignment ahead of the repeated fields worsened score to 620; reverting restored 280. Changing the 0x154 byte store from signed to unsigned had no effect (score 280). Remaining diff is ordering of immediate setup: target begins 7, 0x100, 1; source emits 7,1,0x100 and schedules 0x5b differently. Best retained at 280; further source statement/declaration ordering exploration remains.",
   "by": "codex-gpt-6-luna-11",
@@ -5264,7 +5280,7 @@
   "score_after": 1975
  },
  {
-  "function": "func_8011B460",
+  "function": "relinkTrackMarker",
   "text": "Verified matching source defines EventActor, EventState, NodeEntry and Node field layouts. The three slot paths set bits 1/2/4, pass old/current Node table pointers to func_80016624, and update the slot index and entry flags. The underlying gameplay event is not established.",
   "by": "codex-gpt-6.2-sol-3",
   "created_at": 1795138939.7493482,
@@ -6224,6 +6240,14 @@
   "score_after": 230
  },
  {
+  "function": "func_8009532C",
+  "text": "Target uses inline sqrt.s. sqrtf under current flags emits a guarded library call, score 1980; -ffast-math diagnostic gives 55. Saved score 1775 is misleading: undeclared __builtin_sqrt emits unresolved int-returning call, issue reported. Revisit profile and use correctly declared sqrtf.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795164141.712338,
+  "score_before": 1980,
+  "score_after": 1775
+ },
+ {
   "function": "func_80076CE4",
   "text": "Baseline 1170. Six variants of return width, state and result type, state reuse, scalar vector copy and byte test did not improve. First substantive differences are missing initial switch comparison branches and a generated rodata jump table not present in target; reconstruct first and second state dispatch from assembly, avoiding jump table.",
   "by": "codex-gpt-6.1-terra-5",
@@ -7094,6 +7118,14 @@
   "created_at": 1795165454.3494232,
   "score_before": 205,
   "score_after": 10
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Submitted verified byte-identical function-only compiler bundle using -ffast-math. Returning the original length keeps it in f0; same C as void function scored 55 with fast math, differing only by FPR allocation. Ordinary profile emits guarded sqrtf fallback. Applying bundle is pending.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795165459.86506,
+  "score_before": 1775,
+  "score_after": 1775
  },
  {
   "function": "func_80028A7C",
@@ -10792,6 +10824,14 @@
   "score_after": 1470
  },
  {
+  "function": "func_8009532C",
+  "text": "Inherited best rechecks at score 1775 but candidate has invalid implicit __builtin_sqrt (treated as unresolved int call). Tried explicit sqrtf call (2565 with unresolved symbol), then __builtin_sqrtf (1980, improves call to sqrt.s but adds c.eq.s, prologue/save and poor FPU allocation). Register locals and ordered sum did not change score. Assembly target has no prologue and computes x*x+y*y+z*z in $f0/$f4/$f2 then sqrt.s $f0; normalized writes use $ft1/$ft0/$fv1 and final store in return delay slot. Need avoid builtin's NaN check and achieve FPU allocation, likely project-specific sqrt intrinsic/compiler treatment; resolve valid sqrt mapping before calling. C candidate from invalid saved best remains best.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795178277.1083379,
+  "score_before": 1775,
+  "score_after": 1775
+ },
+ {
   "function": "func_80012AB0",
   "text": "Fixed the shadowed/uninitialized arg0 and old-style function declarations so the draft compiles. A clean rewrite with explicit returns/goto structure scored 210 on current inputs (71 instructions), close to historical 190; replacing masked tests with plain == 0 worsened to 470. At 6/6 no better. Remaining diagnostic points to only three early instruction differences involving entry/store ordering and address sequence; inspect saved best source and exact diff, then tune expression/declaration order.",
   "by": "codex-gpt-6-luna-11",
@@ -12792,6 +12832,14 @@
   "score_after": 210
  },
  {
+  "function": "func_8009532C",
+  "text": "Target uses bare sqrt.s. Saved best's undeclared __builtin_sqrt is invalid and emits unresolved call; sqrtf and __builtin_sqrtf emit sqrt.s plus errno fallback and unresolved call. Flag search did not improve. Need a compiler intrinsic or appropriate profile producing unchecked sqrt.s; do not trust saved score as semantically correct.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795182034.5841541,
+  "score_before": 1775,
+  "score_after": 1775
+ },
+ {
   "function": "func_80089F7C",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 4; 229 differing rows (1 opcode, 116 register, 1 stack, 20 branch target, 15 operand, 21 reordered, 25 inserted, 30 deleted; advisory).\nTarget: sw $s5, 0x54($sp)\nCandidate: sw $s6, 0x58($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $s0, %hi(D_800E4260)\n  = lw $s0, %lo(D_800E4260)($s0)\ni T: sw $s5, 0x54($sp) | C: sw $s6, 0x58($sp)\nr T: move $s5, $a0 | C: move $s6, $a0\ni T: sw $s4, 0x50($sp) | C: sw $s2, 0x48($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRechecked best improved 10251 to 7486: calls to func_800CEEE0 take two arguments, D_80108F70 is u16, arg2 is s32, and the range comparison uses unsigned full-width addition. Candidate still has semantic errors: eviction branch must retain old D_800E4260 before updating head, and first overlap branch stores s2 - (a1 - s4) in p[2], then subtracts it from s2; independent corrections scored worse but match target assembly. Rework these together and tune register allocation.",
   "by": "codex-gpt-6.1-terra-3",
@@ -14440,6 +14488,14 @@
   "score_after": 30
  },
  {
+  "function": "func_8009532C",
+  "text": "Current candidate remains score 1775 after cached x-only norm rewrite; target is 18 instructions, candidate 31 with unresolved jal ?__builtin_sqrt and conversion sequence instead of target sqrt.s. sqrtf and __builtin_sqrtf trials scored 1980; -G0/O2/O3 flag searches did not improve. Current source still uses undeclared __builtin_sqrt and is semantically invalid. Resolve target sqrt instruction/prototype/available intrinsic; target sequence only retains x, then reloads y and z after norm. Candidate revision b6126e24931a1163b971.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795182705.4847949,
+  "score_before": 1775,
+  "score_after": 1775
+ },
+ {
   "function": "func_80082D24",
   "text": "Score 2375 -> 190 by staging first cosine index and sb*sc before later loads; ->80 by staging m[1], ->50 by staging m[3] between second and sacb (revision ae7d740d37e7c7a67492). All 88 operations align. Remaining f0/f2 swap between sin(a) and sa*-cb and its downstream users. Explicit neg_cb, register qualifiers, output order, and staging each remaining result after sacb did not improve. Next try varying where the negated cosine/sacb declaration is introduced relative to fourth and second, keeping the four successful precomputations.",
   "by": "codex-gpt-6.2-sol-8",
@@ -15318,6 +15374,14 @@
   "created_at": 1795183178.594501,
   "score_before": 1605,
   "score_after": 1550
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Diagnostic trial 8d37b8e208e709439d1a verified 55 with __builtin_sqrtf and -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math. Only f0/f2 are exchanged throughout, no missing instructions. -g/-g2, -O3 and an inline helper preserve this swap; grouping the divisions before stores makes score 220. Baseline's undeclared __builtin_sqrt is invalid. Effective profile still lacks -ffast-math. Claim was dropped after a project update.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795183179.5505972,
+  "score_before": 1775,
+  "score_after": 1775
  },
  {
   "function": "func_80089384",
@@ -16950,6 +17014,14 @@
   "created_at": 1795183937.168324,
   "score_before": 8503,
   "score_after": 8503
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Exact diagnostic trial cfd8338f4f9c38a3e7bc under EGCS 2.91.66 with -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -mno-abicalls -fno-pic. Function-only suggestion submitted and verified; automatic compiler changes are off. Reviewer can apply the bundle. KMC 2.7.2 double sqrt with fast-math scored 400, differing only by sqrt.d and conversion pair.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795183950.811859,
+  "score_before": 1775,
+  "score_after": 1365
  },
  {
   "function": "func_800592D0",
@@ -19158,6 +19230,14 @@
   "created_at": 1795184950.115697,
   "score_before": 40,
   "score_after": 40
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Exact byte match reverified by a function-only compiler suggestion with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math. Suggestion is pending because automatic compiler changes are off. C accumulates the squares into sum with separate += statements, overwrites sum with __builtin_sqrtf, then divides each element and returns sum. Diagnostic trial 4298e14ddd5f3a405c7c. Apply the pending verified bundle.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795184972.473769,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "func_80008750",
@@ -21472,6 +21552,14 @@
   "score_after": 16840
  },
  {
+  "function": "func_8009532C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified exact with KMC -O2 -ffast-math and __builtin_sqrtf. The checked compiler bundle awaits application. Default flags emit a NaN check plus fallback, and -O1 -ffast-math emits the sqrt but schedules differently.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795186262.458966,
+  "score_before": 1365,
+  "score_after": 1365
+ },
+ {
   "function": "guMtxF2L",
   "text": "Full extent verified through jr/nop. Consecutive fresh integer temporaries t0-t7 despite short live ranges, reserved t8/t9 for bound/mask, six distinct even FPRs in strict load/multiply/truncate order, and cursors staying in incoming a0/a1 show handwritten register assignment. Previous typed C checked under KMC, IDO and SN does not reproduce this fingerprint. Score 805 candidate incorrectly truncates bound; typed 900-point source is the semantic reference.",
   "by": "codex-gpt-6.2-sol-1",
@@ -21590,6 +21678,14 @@
   "created_at": 1795186476.557276,
   "score_before": 115,
   "score_after": 115
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Independently reverified exact GCC 2.7.2 KMC -O2 -ffast-math diagnostic using staged sum += squares, __builtin_sqrtf, and compound divisions for the second/third elements. Plain -O2 emits a guarded unresolved sqrtf fallback (1980). The exact function-only bundle is already pending; the lease changed before release.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795186482.6079092,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "func_8001D738",
@@ -22120,6 +22216,14 @@
   "score_after": 220
  },
  {
+  "function": "func_8009532C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Exact KMC -O2 -ffast-math compiler trial 4298e14ddd5f3a405c7c is already pending application and was independently reverified by prior agents. The active profile still omits -ffast-math; the saved sqrt declaration rechecks at 1365, and __builtin_sqrtf under the active profile emits the NaN fallback. Apply the existing exact function-only compiler/source bundle; duplicate compiler proposals add no coverage.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795187203.96578,
+  "score_before": 1365,
+  "score_after": 1365
+ },
+ {
   "function": "func_800588D8",
   "text": "Candidate matches 22/23 instructions, score 5. Swapped mask operand expression as a trial; score regressed to 10, and the baseline remains best. Remaining difference is register allocation between flags load and mask constant: target loads flags into v1 and constant into v0; candidate reverses them. Move-on threshold reached.",
   "by": "codex-gpt-6-luna-19",
@@ -22478,6 +22582,14 @@
   "created_at": 1795187717.284545,
   "score_before": 360,
   "score_after": 360
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Reverified an exact function-only KMC -O2 -ffast-math compiler bundle with __builtin_sqrtf and submitted it. Automatic application is disabled. Both expression and staged-square normalizations emit a NaN fallback to sqrtf under default flags. Apply the verified bundle to save the match.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795187720.812086,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "func_8009CB24",
@@ -23382,6 +23494,14 @@
   "created_at": 1795188948.427402,
   "score_before": 75,
   "score_after": 75
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Historical best 1365 is not reproduced under current header/compiler provenance. Ordinary float sqrt attempts call sqrt and produce a large prologue; removing its prototype produces double sqrt and worse output. Target uses hardware sqrt.s inline with no call. Need identify the project's inline sqrt idiom/compiler builtin and retain original staging: load x,y,z and square each, add in order, normalize using original fields; target does not return length in observed tail. Current candidates scored 1665+; release at 3/3 no improvement.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795188952.105664,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "initResourceCaches",
@@ -24360,6 +24480,14 @@
   "score_after": 825
  },
  {
+  "function": "func_8009532C",
+  "text": "Saved best score 1365 (24.1%, target 18 instructions, source emits 27). Candidate computes vector length then normalizes all components, but helper `sqrt` prototype conflicts with built-in and output adds substantial ABI/call code. Removing prototype made sqrt promote to double and used sqrt.d; using `__builtin_sqrtf` generated sqrt.s but still left a sqrtf library reference and 34 instructions. Best source remains ce4907e3bc762027f9ab. Target performs direct sqrt.s after ordered individual loads/multiplies/adds; investigate intrinsic/library linkage and rewrite arithmetic in target order.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795189898.4964569,
+  "score_before": 1365,
+  "score_after": 1365
+ },
+ {
   "function": "func_800AA460",
   "text": "Rechecked best score 730. Volatile first comparison worsened to 1465; explicit != 0 unchanged; changing error call's second double to x worsened to 1032. Remaining mismatch includes prologue scheduling, branch positions and missing NOP. Investigate compiler scheduling or exact call ABI.",
   "by": "codex-gpt-6.1-terra-4",
@@ -25070,6 +25198,14 @@
   "created_at": 1795190655.368032,
   "score_before": 710,
   "score_after": 710
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Rechecked best remains 1365. Tried repairs that inline v[0]/v[1] reads with no change; attempted source retaining only x then rereading remaining components scored 2265. sqrtf variant invalid due unresolved symbol; target itself uses sqrt.s, likely need correct single-precision intrinsic/declaration, but prior sqrt declaration produced double sqrt/conversion and ABI spills. Major gap is scalar sqrt lowering and callee/prototype; inspect call/relocation evidence before further source tuning.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795190677.397797,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "func_80099AF0",
@@ -25790,6 +25926,14 @@
   "created_at": 1795191390.585841,
   "score_before": 130,
   "score_after": 130
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Target uses inline sqrt.s. __builtin_sqrtf emitted unresolved sqrtf call; saved sqrt candidate rechecks at 1365. Flag search found no improvement, IDO 5.3 also emitted a call. Need identify supported intrinsic or compiler configuration that emits sqrt.s.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795191397.851068,
+  "score_before": 1365,
+  "score_after": 1365
  },
  {
   "function": "func_800AC0A0",
@@ -27568,6 +27712,14 @@
   "score_after": 80
  },
  {
+  "function": "func_8009532C",
+  "text": "Three scored trials on this claim: baseline source 1260; sqrtf spelling ballooned to 2465 and failed symbol resolution; explicit func_800952F0(float) call produced 1965 due to a call where target uses sqrt.s. Last compile was rejected (inline asm disallowed). Best candidate remains original saved source with length=sqrt(x*x+y*y+z*z), then three divisions. Target directly performs sqrt.s and inlines all arithmetic; use compiler-recognized sqrt intrinsic/prototype or recover correct sqrt symbol to get sqrt.s without an external call. Ensure values v[1]/v[2] are reloaded after sqrt: target loads them after the length calculation, while x is held.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795193615.315489,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_80018C5C",
   "text": "Best 810, 91.5%; no improvement over six compiles. Independent repairs (scalar_storage_reuse, branch_orientation, masked_value_reuse, cfg_integer_lifetimes, signedness, declaration_order) did not improve; branch-orientation worsened. Also tested && vs bitwise & and signed/unsigned temp pointer changes, same output. Main remaining differences: initial null-check branch offset target 0x16c vs ours 0x170; target retains address of D_801002B8 in $a0 across subsequent loads/stores, while candidate rematerializes; multiple downstream branch layout mismatches. Inspect null-check structure and use a local pointer to global D_801002B8 across compare/update while leaving other globals direct. Candidate rechecked 810.",
   "by": "codex-gpt-6-luna-18",
@@ -28752,6 +28904,14 @@
   "score_after": 645
  },
  {
+  "function": "func_8009532C",
+  "text": "Normalizing three floats needs a bare sqrt.s. sqrtf and __builtin_sqrtf both emit a NaN guard and library fallback (1870); ordinary sqrt uses double and scored 2265. Standard flag search did not remove the guard. Next investigate a supported no-math-errno or unsafe-math compiler option, then check FP register lifetimes.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197331.926089,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8009846C",
   "text": "Target passes the address of D_800F3954 and loads D_800F3950. Correcting that operand and using the matched callee prototype scored 445 in the clean single-definition form within the batch. Inherited 35 is closer and has the v0/v1 allocation cycle; compare its exact return branch and base/callback lifetimes before tuning.",
   "by": "codex-gpt-6.2-sol-6",
@@ -29230,6 +29390,14 @@
   "created_at": 1795197681.200704,
   "score_before": 300,
   "score_after": 300
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Current baseline rechecks at 1260. Six bounded single-use inline variants left score and assembly unchanged; sqrt prototype warning persists and target directly emits sqrt.s with no call/frame. Need model target expression as compiler builtin/intrinsic sqrt lowering; don't use libc sqrt declaration. Prior history found extern func_800952F0 calls also wrong. Target computes squared components, sqrt.s, divides original components and returns length.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795197684.15345,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_8000A5F4",
@@ -30318,6 +30486,14 @@
   "created_at": 1795198794.630338,
   "score_before": 170,
   "score_after": 170
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Best rechecked score 1260/18 instructions, from the historical C using x/y/z locals, sqrt call, normalization and length return. Direct `__builtin_sqrtf` variants scored 1665 and emitted a prologue, extra NaN checks and an unresolved sqrtf reference. The current best emits a sqrt call and prologue instead of target's inline sqrt.s and has different load/FPR allocation/order; target is a frameless 18-instruction leaf that squares components directly in $f6/$f4/$f2, sums into $f0, sqrt.s, divides each original component by length, stores, and returns length. Need find a compiler-recognized pure C operation that lowers directly to sqrt.s without libm call; preserve direct load/square/store order.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795198797.854784,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_8009A0E4",
@@ -31696,6 +31872,14 @@
   "score_after": 10
  },
  {
+  "function": "func_8009532C",
+  "text": "Prior session already verified and submitted a function-only KMC -O2 -ffast-math bundle with __builtin_sqrtf; automatic application is disabled. Default profile __builtin_sqrt emits an unresolved call, __builtin_sqrtf emits a fallback call, and adding a nonnegative clamp increases differences. Apply the existing exact bundle rather than continuing source permutations under the old profile.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795200626.021137,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8008EF18",
   "text": "Rechecked score 40 (8 register-only differences). Typed array with one initialized result scored 265; register stride/inline mask tied with identical output; using arg0 for the status load scored 250. Target keeps scaled offset in a1 across the three relocations, status in a0, presence in v1, and zero/final result in v0. Prioritize an allocation change in the shared-return shape; do not replace it with an initialized result or ordinary early returns.",
   "by": "codex-gpt-6.2-sol-6",
@@ -32552,6 +32736,14 @@
   "score_after": 10
  },
  {
+  "function": "func_8009532C",
+  "text": "Saved best revision 3b36fcf51ae061e9a5d2; score 1260. Source computes f32 vector length and normalizes vector. Tested six x/y inline reload variants (same score) and sqrtf replacement (worse 2040 due to double-width sqrt path), then restored saved best. Remaining: resolve correct single-precision sqrt call declaration and inspect full target assembly/store scheduling. No global rule established.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795201623.556075,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_800820BC",
   "text": "Saved best rechecked at score 200. One tempting type correction changing D_8010D436 load from signed word to signed halfword substantially worsened (score 1537 or 485 depending declaration) and gave wrong address/register lifetime; restored best. Target's relevant instruction is lh via %lo(D_8010D436) on an address already computed by base + s2, while candidate uses lw via lower-address pointer. Remaining issue is pointer base/index calculations and destination stores; preserve i/src/dst baseline then try expressing source arrays as typed records/pointer arithmetic matching s2 += 8 and source pointer base. Also ensure exact declaration of D_8010D436 isn't a dense s16 array: target steps 8 bytes.",
   "by": "codex-gpt-6-luna-11",
@@ -33382,6 +33574,14 @@
   "created_at": 1795201958.725523,
   "score_before": 870,
   "score_after": 870
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Tried six single_use_inline repairs from revision ed845ab586a82dd11b18; explicit reload v[0] improved current score to 2185, but unresolved sqrtf declaration causes non-target call/prologue. Restored saved_best revision 3b36fcf51ae061e9a5d2 (historical score 1260, not reverified under current header). Target is 20-instruction leaf using sqrt.s and three div.s operations. Left: find supported C spelling/intrinsic for hardware sqrt.s, then retain source ordering of component reloads.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201961.52945,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_80064630",
@@ -35496,6 +35696,14 @@
   "score_after": 8067
  },
  {
+  "function": "func_8009532C",
+  "text": "Saved candidate 3b36fcf51ae061e9a5d2 rechecks at 1260, with 22 mismatch rows and sqrt declared as a function causing an external call rather than sqrt.s. Six local expression-inline variants were identical. A sqrtf attempt was worse (2465, unresolved symbol); corrected spelling to sqrt recovered toward 1965 but still worse than saved. Next experiment: determine project's sqrt intrinsic/builtin prototype or use target SDK math alias that lowers to sqrt.s; then preserve saved local staging and return to vector store sequence.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795203906.2551491,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8003941C",
   "text": "Tried one applicable allocation_initialization_order local repair (score worsened to 9934). Corrected invalid callees/prototype conflicts and pointer casts in full rewrite; it compiles at 9754 but the target remains 363 instructions vs 309. Target prologue stores $fp/$s5/$ra/$s7..$s0 plus $fs0; candidate starts with a different save order and lacks target's indexed byte lookup sequence: repeated addu v1,v1,s2; lbu v0,(v1); sll v0,v0,4. Likely current integer-base pointer arithmetic / index-source modeling is wrong. Next experiment: represent var_s1 as an s8* table base, compute indexed record address as base + (index << 4), and use explicit byte offsets to read fields; separately preserve index values in a u8 array. Then inspect full mismatch around first loop before allocation tuning. Existing C is compilable but structurally incomplete.",
   "by": "codex-gpt-6-luna-17",
@@ -35902,6 +36110,14 @@
   "created_at": 1795204138.3171399,
   "score_before": 2155,
   "score_after": 740
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Rechecked inherited candidate at score 1260, 26 instructions vs target 18. extern sqrt calls produce jal and are wrong; __builtin_sqrtf worsened score and linker reports sqrtf is not a known symbol. Saved best restored at revision b18cdcc205c607cda1b0. Target uses sqrt.s directly and has no stack frame; likely need project convention for inline sqrt instruction.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795204138.498427,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_80087380",
@@ -37360,6 +37576,14 @@
   "score_after": 120
  },
  {
+  "function": "func_8009532C",
+  "text": "Target uses hardware sqrt.s instruction. Candidate declaring sqrt(f32) turns it into an external call and expands frame; sqrtf is unresolved. Explicit left-associated arithmetic improved current score from 2465 to 1365 but still invokes sqrt. Next experiment resolve hardware sqrt intrinsic/library mapping or search matched vector normalization routines.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795205407.748229,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_80096F44",
   "text": "4/4 without improvement. Baseline reverified at score 10; rows 3 and 10 use v1 instead of a3. Using outgoing local for incoming copy scored 30, moving original to function scope tied with identical diff. Clean clamp and range rewrite scored 1970.",
   "by": "codex-gpt-6.2-sol-9",
@@ -38544,6 +38768,14 @@
   "score_after": 1345
  },
  {
+  "function": "func_8009532C",
+  "text": "try_compiler(gcc-2.7.2-kmc, flags \"-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math\") with source: f32 x=v[0],y=v[1],z=v[2]; f32 length=__builtin_sqrtf(x*x+y*y+z*z); v[0]=v[0]/length; v[1]=v[1]/length; v[2]=v[2]/length; return length; -> MATCHES byte for byte. Under the project default profile (no -ffast-math) the same source gives 1665 with a sqrtf call/frame. Suggested as a function-only bundle; not applied because the judge profile is the default. Needs user approval of -ffast-math for this function (or a per-function profile) to save the match.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795206416.811213,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_800A3840",
   "text": "Rechecked 1367. Volatile pointer qualifications unchanged; volatile result worsened score. Target frame 0x40 vs candidate 0x48 with saved s0.",
   "by": "codex-gpt-6.1-terra-2",
@@ -39214,6 +39446,14 @@
   "created_at": 1795207180.754836,
   "score_before": 175,
   "score_after": 60
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Exact match verified with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math and __builtin_sqrtf. Two suggest submissions failed because prepared compiler/build settings changed; evidence retained. Default flags emit sqrtf call and score 1665.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795207188.040363,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_8003FF3C",
@@ -40424,6 +40664,14 @@
   "score_after": 805
  },
  {
+  "function": "func_8009532C",
+  "text": "Restored historical sqrt candidate and recompiled: score 1260, 18 target instructions vs 26. Using __builtin_sqrtf scored 1665 and generated unresolved sqrtf call. Direct extern sqrt returns intrinsic sqrt.s but the three loads and products land in the wrong FPRs and extra prologue remains. No better in 4/3. Next inspect target entry and try forcing scalar expression/store evaluation without preserving address in s0; candidate historical saved score 1260.\nrestored historical sqrt-based candidate, compiled at 1260; builtin sqrtf failed unresolved\nrecovered sqrt.s target instruction but loads/FPR allocation and frame differ",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795208202.009144,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8005F664",
   "text": "Rewrote the m2c draft with cleaned-up declarations (func_80082A70 void, func_80016990(void*,void*), D_800C469C as u16, D_800C4706/4708 as s16, dropped the unused temp and the duplicate return). Still score 375 (98%, 13 diff rows). Remaining diff: the target does the tail zero stores (0x10/0x14 of s2), then lw 0x68 / lwc1 / swc1 0x1c before jal func_800462C4; the candidate schedules the jal earlier and puts the zero stores after it, plus s3 vs v0 register on the sll at row 158. Earlier agents also tried 32 local repairs with no gain. Next idea: move the func_800462C4 call and the 0x1c float store after the zero-store block in source order (or make temp_s2 writes come right after the if/else), and check whether the sll of var_s3*0xE8 should be reused as a temp instead of var_s3.",
   "by": "api-claude-haiku-5-5-7",
@@ -40902,6 +41150,14 @@
   "created_at": 1795208574.4606578,
   "score_before": 1310,
   "score_after": 1310
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Best rechecked candidate score 1260; variants using sqrtf or sqrt symbol fail/link or worsen, and operation-order variant worsens. Target uses inline sqrt.s rather than call, so float square-root lowering/library intrinsic is unresolved. Target loads and squares x,y,z sequentially, adds x\u00b2+y\u00b2 then z\u00b2, executes sqrt.s, then reloads vector members and divides/stores. Next use context/tool evidence for correct sqrt builtin/intrinsic and retain explicit target load/add order.\nTried sqrtf (unknown symbol), sqrt call, then explicit per-component square temporaries.\nScores worsened to 2465/1965/1665; best remains 1260.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795208588.363186,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_80086DA0",
@@ -42048,6 +42304,14 @@
   "score_after": 280
  },
  {
+  "function": "func_8009532C",
+  "text": "Restored and rechecked saved best 1260. C89 declaration-order correction scored same; changing symbol declaration sqrt\u2192sqrtf regressed to 2040 and generated double sqrt sequence. Prior evidence: sqrtf builtin unresolved call; extern sqrt lowers to sqrt.s but target operand/register scheduling differs. Target is 18 instructions, straight inline sqrt.s after x,y,z squares/adds, without stack frame. Saved candidate currently has local x/y/z and direct vector rewrites but preserves address in s0/prologue. Need force direct $a0 accesses and compiler intrinsic lowering while retaining inline sqrt.s; no global knowledge discovered.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795209369.1144938,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8008EF18",
   "text": "Restored saved best revision e869e8515df220d1f76e, historical score 40. A rewritten u8/u32 source scored 55 with all 21 target instructions but many register mismatches; worse and abandoned. Target's scaled index is kept in $a1 and reused across three global accesses; candidate currently allocates it elsewhere. Next preserve the scaled index's lifetime explicitly (e.g. separate index and byte offset locals) to encourage $a1 reuse.",
   "by": "codex-gpt-6-luna-13",
@@ -42968,6 +43232,14 @@
   "score_after": 115
  },
  {
+  "function": "func_8009532C",
+  "text": "Current best is score 1260/18 instructions, matched source structure: x/y/z loads, sum of squares, sqrt call, in-place divides; still wrong due emitted sqrt call/prologue and FPR ordering. Added a reciprocal-and-multiply rewrite; score 2955. Restored source, current recheck 1260. Removed explicit sqrt prototype to check builtin; score 2040 due double sqrt/check sequence. Target is frameless and uses sqrt.s, then scalar div.s for each component. No improvement in 3/3 compiles. Next step: experiment with a compiler-recognized __builtin_sqrtf and/or sqrtf declaration while preserving direct per-component division; target inline sqrt.s should avoid call.\nBest C x/y/z locals, sqrt(float) declaration, direct divisions rechecked 1260. Reciprocal multiplication regressed to 2955; removing declaration regressed to 2040.\nTarget requires inline sqrt.s, no frame, and direct div.s operations; current best introduces sqrt call and stack frame.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795209980.549883,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8001A4F4",
   "text": "[Released without compiling it once; notes not checked by a compile.] Released at move-on limit. Saved best 540936280aac5ba25727 (score 255). Tried: local repairs (29), byte-selector temps, scoped local, shorter rewrite, ++/-- variant; none beat 255. Mismatch: target uses v0 for D_801002A0 load/increment, baseline uses s1; shared selector-update tails (goto block_12/block_13) and register allocation. Untested: duplicate the selector store in each case 3/5/8 arm instead of goto tails.",
   "by": "api-claude-haiku-5-5-8",
@@ -43822,6 +44094,14 @@
   "created_at": 1795210598.8678012,
   "score_before": 570,
   "score_after": 570
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Current compiles of historical best do not match current outputs: explicit sqrt call candidates score 1965\u20132465; initial sqrtf fails unresolved. Best historical score 1260 source uses sqrt call and repeated vector loads; current GCC emits call/stack traffic instead of target sqrt.s, indicating signature/intrinsic mismatch. No improvement by move-on threshold.\nRebuilt candidate with retained scalars and sqrt/sqrtf alternatives; all scored worse; unresolved sqrtf is not project symbol.\nTarget uses hardware sqrt.s and in-place arithmetic; current sqrt call adds jal and stack, so best remains historical only.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795210599.630337,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_8007560C",
@@ -45072,6 +45352,15 @@
   "score_after": 0
  },
  {
+  "function": "func_8009532C",
+  "text": "Tried six single_use_inline variants replacing saved x/y values with direct v[] reads in sqrt expression; all score 1260 identical output. Baseline retained; high mismatch due sqrt call lowering to external call/stack traffic instead of target sqrt.s, as previous notes state. Next step: recover exact target call/intrinsic handling or test caller-provided scalar sqrt instruction idiom; prior sqrtf unresolved and sqrt emits call.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795211559.278165,
+  "score_before": 1260,
+  "score_after": 1260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_8009DCD0",
   "text": "Recompiled saved best: score 12921, target 164 instructions vs candidate 124. The candidate is a plausible bitstream decoder but intro stack stores/arg home layout differ badly; no better score this session. Prior 19 local repairs and 5 explicit patch trials also did not improve beyond 12921. Do not pursue more unless redesigning pointer/stack output representation.\nRestored saved best and rechecked it; current rewrite compiled at same score 12921, 40 instructions short.\nNo improvement. Large mismatch in stack shape, register assignments and source byte extraction; candidate uses many pointer increments while target accesses direct positive offsets from a1.",
   "by": "codex-gpt-6-luna-12",
@@ -45924,6 +46213,15 @@
   "score_before": 1180,
   "score_after": 1180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:83430afeddca40f26232b0fefb71ba7ce3fe549b35f63052df87531fa53c0bde"
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Saved best score 1260 uses extern sqrt(f32); target emits sqrt.s and no call. Changing to sqrtf caused unresolved linker symbol; changing declaration alone led double-precision sqrt and score 2040. Variants substituting x/y/z directly for stores scored 1965; preserve saved source. Main matching issue likely float register allocation/order around component loads/squares/adds; target uses ft1/fv0, ft0, fv1 sequence. Next step: inspect similar matched vector-normalization functions and model target sqrt as compiler intrinsic/builtin-compatible spelling; no verified repair.\nRechecked baseline 1260; store-source variants and sqrtf name/declaration trials worsened to 1965/1665/2040.\nSaved candidate remains best. Target performs single-precision sqrt opcode directly; sqrtf unresolved, sqrt declaration triggers conversion to double-precision sqrt path.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795213061.4979641,
+  "score_before": 1965,
+  "score_after": 1665,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
  },
  {
   "function": "func_80065D90",
@@ -47963,6 +48261,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5cfebe991a086619b905d8bcf47d915658ca4591cd729eedc8153d6698317c31"
  },
  {
+  "function": "func_8009532C",
+  "text": "Best retained score 1260; target begins f32 products and ends with sqrt.s, but candidate sqrt prototype maps to double sqrt and differs substantially. Tried sqrtf both with and without caching components; linked symbol is unknown, score 2465/2040, no improvement. Next step: restore saved best and inspect matched nearby vector-length helpers / sqrt naming to identify the game's single-precision sqrt call or inline builtin; do not use unresolved sqrtf.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214808.52316,
+  "score_before": 1665,
+  "score_after": 1665,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_8008EB80",
   "text": "Rechecked best remains 19192 (230 target instructions vs 152 candidate). I inspected the ordinary-index branch and reported candidate issue `uninitialized`: it reads delta for D_80107EDC before assigning delta. Moving the delta calculation before the division worsened score to 21825, so restored saved_best; that source appears semantically suspect. Prior work explored 36 local repairs and multiple conditional/stride rewrites; target has a six-entry switch table jtbl_800D6810, separate case loops for 255 (<2), 252 (statuses 2\u20133), and 250\u2013254, plus ordinary path. Next step: first model the six cases as a switch with distinct loops and preserve delta-before-division, then compare.",
   "by": "codex-gpt-6-luna-13",
@@ -48478,6 +48785,15 @@
   "score_before": 118805,
   "score_after": 118805,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:23845c50c75437a6cc9f9752566a058d86186d40d1a083aa48e2482c0edd8109"
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Rechecked saved best score 1260. Six single-use-inline variants had identical output. Tried sqrtf variants: external sqrtf emitted unwanted double/runtime conversion and unresolved sqrtf symbol (score 1665\u20132465); restored saved best. Key mismatch: candidate has 22 extra prologue/FP register operations and uses different registers; target is frameless and computes sqrt.s directly into f0. Next step: inspect current-context available sqrt intrinsic/runtime and use compiler builtin/known project sqrt symbol to force sqrt.s without lib call, then fix FPR allocation.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795215167.142756,
+  "score_before": 1665,
+  "score_after": 1260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
  },
  {
   "function": "func_80039EFC",
@@ -50209,6 +50525,15 @@
   "score_before": 1720,
   "score_after": 1310,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:fc092efc28d595ed23a690056981bd63bc531b013dcaa3b68e4e0cb9eaa2c962"
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Saved best rechecks at 1260; sqrt call/in-place normalization is structurally right but does not match. `__builtin_sqrtf` emitted sqrt.s but still added a frame, altered FPR allocation and unresolved sqrtf link; removing its declaration changed nothing. Prior sessions also tried removing sqrt prototype and reciprocal/multiply, worse. Target is frameless and uses sqrt.s $fv0,$fv0. Next experiment: search compiler flags for the target sqrt lowering; preserve scalar load/multiply order and investigate using a compiler intrinsic supported by this KMC profile.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795216463.6262789,
+  "score_before": 2040,
+  "score_after": 1665,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
  },
  {
   "function": "func_8009DF60",
@@ -52002,6 +52327,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
  },
  {
+  "function": "func_8009532C",
+  "text": "Target is 18 instructions and uses inline sqrt.s; C helper sqrtf unresolved, sqrt lowers through double and is much worse. Saved best C score 1260; direct expression also emitted sqrt.d. Need discover project builtin/math declaration for sqrt.s.\nsqrtf caused unresolved symbol and score 1665; direct sqrt yielded 2040 due double sqrt lowering.\nsaved best score 1260 retained",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795218757.835419,
+  "score_before": 1260,
+  "score_after": 1260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_80039EFC",
   "text": "Rechecked saved_best at 22611; candidate is structurally far from target (target frame 0x58, candidate 0xA8; 425+ differing instruction rows). One accidental stub rewrite scored 36810, then restored saved_best. Local repair families pointer/integer phase union and inline scalar shape were neutral; scalar storage reuse worsened to 24012; explicit loop backedge and branch orientation only made tiny/worse result. Large candidate uses many raw s32 stores and void* arithmetic, with uninitialized pointer warnings. No focused way identified within this claim. Next step: obtain clean machine draft and infer command-pair structures plus actual arg0 pointer type; split N64 command stores into typed u64 pairs to reduce offset-pointer expression mismatches.",
   "by": "codex-gpt-6-luna-17",
@@ -52670,6 +53004,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:0d760d9efd35f88c58fe38d9e47cbae325b23e24968169b10c67f990d6adc9e4"
  },
  {
+  "function": "func_8009532C",
+  "text": "Saved best is score 1260. Replacing normalization loads with saved x/y/z caused 1965, worse due to long-double callee saves; sqrt(f64) caused 2040 and double sqrt lowering. Restored saved best. Target is 18 instructions with inline sqrt.s and three divisions; candidate needs math-library lowering investigation.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795220078.695599,
+  "score_before": 1965,
+  "score_after": 1965,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_800561BC",
   "text": "On context v967, the inherited candidate failed to compile: sp54/sp58/sp64/sp68 undeclared and fixed-arity prototypes for randomIntBelow, func_800851E0 and func_80047E4C conflict with calls. Frame-gap experiment could not be evaluated. Claim was lost before recovery; restore a compiling revision and reconcile declarations against current shared context.",
   "by": "codex-gpt-6.1-terra-5",
@@ -53231,6 +53574,14 @@
   "created_at": 1795220939.532248,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_8009532C",
+  "text": "Saved baseline rechecked score 1260. Target is leaf function: computes sqrt.s of x*x+y*y+z*z, divides each original vector component by length, returns length in $f0, and last swc1 is return delay slot. sqrtf prototype is unrecognized by linker, causing unresolved symbol and much worse output; sqrt declaration generates sqrt.s but warning conflicting built-in type and still has 8 extra instructions, stack frame and wrong FP register allocation. Local inline variants unchanged. Next test: correct math header/prototype context for builtin sqrt semantics or use existing function symbol resolving to sqrt.s; avoid sqrtf without symbol alias. Need retain original direct loads after norm computation, since target reloads y and z after sqrt rather than preserving all scalars. No exact match.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795221079.683125,
+  "score_before": 1260,
+  "score_after": 1260
  },
  {
   "function": "func_8009AE24",
@@ -53882,6 +54233,14 @@
   "score_after": 440
  },
  {
+  "function": "func_8009532C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Re-verified: matches byte-for-byte with try_compiler flags \"-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math\" and __builtin_sqrtf(x*x+y*y+z*z), v[i]=v[i]/length. suggest() function-bundle was rejected (\"prepared inputs changed\"), not applied. Needs per-function -ffast-math profile from the user; no C-only route found under default flags. func_800937D0 (three sqrt.s) likely same.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795222238.374979,
+  "score_before": 1260,
+  "score_after": 1260
+ },
+ {
   "function": "func_8008EF18",
   "text": "Saved best stays 40. Struct-array (40-byte E{u32 a;u32 b;u32 c;u8 d;pad[27]} at D_80107EDC) shapes score 265-965: nested-if with `u32 r=0; ... r=a>>31; return r;` gives 265 (only diff: r lands in $a1 + extra move; target has v0=0 in beq delay slot and index*40 in $a1). Early-return forms give branch-likely (beql) mismatches. Next step: separate-symbol form with result var declared as the return register trick, e.g. ternary `return (d!=4 && b) ? a>>31 : 0` on the 265 base.",
   "by": "api-claude-sonnet-5-5-1",
@@ -54452,6 +54811,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
+  "function": "func_8009532C",
+  "text": "Saved baseline rechecked 1260 and retained; compiler experiment -ffast-math did not improve, still used external sqrt and added prologue. A custom candidate with __builtin_sqrtf required unknown linker symbol sqrtf and scored 1665. Previous agents report exact match only under per-function fast-math plus intrinsic sqrtf semantics, but current flags don't inline it under available profile.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795223860.121293,
+  "score_before": 1260,
+  "score_after": 1260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_80034630",
   "text": "Move-on threshold reached at verified baseline 150. The 0x70 and 0x74 loads are swapped and 26 FPR rows differ. Volatile on both loads scored 210; swapping the independent += and -= updates kept identical output at 150; wrapping the 0x50 chain's second addition in do/while scored 910 and introduced f20 saves. Restored saved best.",
   "by": "codex-gpt-6.2-sol-9",
@@ -55015,6 +55383,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
+  "function": "func_8009532C",
+  "text": "Inherited saved candidate rechecked at 1260. Single-use expression variants all stayed 1260. An explicit __builtin_sqrtf rewrite produced 2465 due to 36 instructions, and restoring cached sqrt call with direct cached vector divisions scored 1965 (29 instructions). Target is 18 instructions and directly uses sqrt.s with no call; current candidate emits jal sqrt plus save/restore frame and wrong FPR allocations. sqrtf is not a known symbol in linker context. No candidate improvement.\nsqrtf unresolved; __builtin_sqrtf yielded poor 2465. Cached sqrt call plus cached x/y/z divisions got 1965, still worse than inherited best.\nAssembly shows a hardware sqrt.s and no call or prologue. Compiler-generated builtin expands to call-heavy code; sqrt declaration conflicts with builtin and emits jal.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795224290.568089,
+  "score_before": 1260,
+  "score_after": 1260,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+ },
+ {
   "function": "func_8009846C",
   "text": "Compile from current saved best reveals prior accepted candidate now assembles differently (score 1385 vs historical 35) because external declarations/addresses in combined source are malformed/overlapping: target calls func_800956E0 with &func_800986DC final arg; target address annotation shows D_800F3950/38BC confusion. My attempted cleaned isolated rewrite scored 1385 unchanged; saved best restored. Next step: get full assembly and verify target call argument ordering/types and original globals; then compile reconstructed full candidate.",
   "by": "codex-gpt-6-luna-15",
@@ -55518,380 +55895,48 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8f71dc469e0bb65c4d15309d3e27febf3e09415df406731836df4a5dd41943a9"
  },
  {
-  "function": "func_8009532C",
-  "text": "Target is a leaf 18-instruction vector normalization using hardware sqrt.s and three div.s instructions. m2c draft uses sqrtf; compiled candidate expands to a sqrtf call/prologue (35 insns, score 1980) and unresolved sqrtf symbol. Tried explicit declaration and __builtin_sqrtf, unchanged. Likely need a recognized compiler intrinsic or source idiom that emits MIPS sqrt.s directly; preserve independent multiply/add order shown in assembly.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795136676.045676,
-  "score_before": 1980,
-  "score_after": 1980
- },
- {
-  "function": "func_8009532C",
-  "text": "Rechecked current candidate at score 1980; a fresh compile with the same builtin sqrt expression produced identical 35-instruction output and did not improve. Build diagnostics say sqrtf is not a known symbol, while target is 18 instructions. Resolve actual sqrt call/relocation and inspect target assembly before further source experiments; likely need the project's intrinsic spelling or recognized symbol. Existing candidate accesses x/y/z, computes builtin sqrt, and normalizes three components.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795138278.786529,
-  "score_before": 1980,
-  "score_after": 1980
- },
- {
-  "function": "func_8009532C",
-  "text": "Target uses inline sqrt.s. sqrtf under current flags emits a guarded library call, score 1980; -ffast-math diagnostic gives 55. Saved score 1775 is misleading: undeclared __builtin_sqrt emits unresolved int-returning call, issue reported. Revisit profile and use correctly declared sqrtf.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795164141.712338,
-  "score_before": 1980,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Submitted verified byte-identical function-only compiler bundle using -ffast-math. Returning the original length keeps it in f0; same C as void function scored 55 with fast math, differing only by FPR allocation. Ordinary profile emits guarded sqrtf fallback. Applying bundle is pending.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795165459.86506,
-  "score_before": 1775,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Inherited best rechecks at score 1775 but candidate has invalid implicit __builtin_sqrt (treated as unresolved int call). Tried explicit sqrtf call (2565 with unresolved symbol), then __builtin_sqrtf (1980, improves call to sqrt.s but adds c.eq.s, prologue/save and poor FPU allocation). Register locals and ordered sum did not change score. Assembly target has no prologue and computes x*x+y*y+z*z in $f0/$f4/$f2 then sqrt.s $f0; normalized writes use $ft1/$ft0/$fv1 and final store in return delay slot. Need avoid builtin's NaN check and achieve FPU allocation, likely project-specific sqrt intrinsic/compiler treatment; resolve valid sqrt mapping before calling. C candidate from invalid saved best remains best.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795178277.1083379,
-  "score_before": 1775,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Target uses bare sqrt.s. Saved best's undeclared __builtin_sqrt is invalid and emits unresolved call; sqrtf and __builtin_sqrtf emit sqrt.s plus errno fallback and unresolved call. Flag search did not improve. Need a compiler intrinsic or appropriate profile producing unchecked sqrt.s; do not trust saved score as semantically correct.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795182034.5841541,
-  "score_before": 1775,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Current candidate remains score 1775 after cached x-only norm rewrite; target is 18 instructions, candidate 31 with unresolved jal ?__builtin_sqrt and conversion sequence instead of target sqrt.s. sqrtf and __builtin_sqrtf trials scored 1980; -G0/O2/O3 flag searches did not improve. Current source still uses undeclared __builtin_sqrt and is semantically invalid. Resolve target sqrt instruction/prototype/available intrinsic; target sequence only retains x, then reloads y and z after norm. Candidate revision b6126e24931a1163b971.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795182705.4847949,
-  "score_before": 1775,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Diagnostic trial 8d37b8e208e709439d1a verified 55 with __builtin_sqrtf and -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math. Only f0/f2 are exchanged throughout, no missing instructions. -g/-g2, -O3 and an inline helper preserve this swap; grouping the divisions before stores makes score 220. Baseline's undeclared __builtin_sqrt is invalid. Effective profile still lacks -ffast-math. Claim was dropped after a project update.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795183179.5505972,
-  "score_before": 1775,
-  "score_after": 1775
- },
- {
-  "function": "func_8009532C",
-  "text": "Exact diagnostic trial cfd8338f4f9c38a3e7bc under EGCS 2.91.66 with -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -mno-abicalls -fno-pic. Function-only suggestion submitted and verified; automatic compiler changes are off. Reviewer can apply the bundle. KMC 2.7.2 double sqrt with fast-math scored 400, differing only by sqrt.d and conversion pair.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795183950.811859,
-  "score_before": 1775,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Exact byte match reverified by a function-only compiler suggestion with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math. Suggestion is pending because automatic compiler changes are off. C accumulates the squares into sum with separate += statements, overwrites sum with __builtin_sqrtf, then divides each element and returns sum. Diagnostic trial 4298e14ddd5f3a405c7c. Apply the pending verified bundle.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795184972.473769,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Verified exact with KMC -O2 -ffast-math and __builtin_sqrtf. The checked compiler bundle awaits application. Default flags emit a NaN check plus fallback, and -O1 -ffast-math emits the sqrt but schedules differently.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795186262.458966,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Independently reverified exact GCC 2.7.2 KMC -O2 -ffast-math diagnostic using staged sum += squares, __builtin_sqrtf, and compound divisions for the second/third elements. Plain -O2 emits a guarded unresolved sqrtf fallback (1980). The exact function-only bundle is already pending; the lease changed before release.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795186482.6079092,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Exact KMC -O2 -ffast-math compiler trial 4298e14ddd5f3a405c7c is already pending application and was independently reverified by prior agents. The active profile still omits -ffast-math; the saved sqrt declaration rechecks at 1365, and __builtin_sqrtf under the active profile emits the NaN fallback. Apply the existing exact function-only compiler/source bundle; duplicate compiler proposals add no coverage.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795187203.96578,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Reverified an exact function-only KMC -O2 -ffast-math compiler bundle with __builtin_sqrtf and submitted it. Automatic application is disabled. Both expression and staged-square normalizations emit a NaN fallback to sqrtf under default flags. Apply the verified bundle to save the match.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795187720.812086,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Historical best 1365 is not reproduced under current header/compiler provenance. Ordinary float sqrt attempts call sqrt and produce a large prologue; removing its prototype produces double sqrt and worse output. Target uses hardware sqrt.s inline with no call. Need identify the project's inline sqrt idiom/compiler builtin and retain original staging: load x,y,z and square each, add in order, normalize using original fields; target does not return length in observed tail. Current candidates scored 1665+; release at 3/3 no improvement.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795188952.105664,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved best score 1365 (24.1%, target 18 instructions, source emits 27). Candidate computes vector length then normalizes all components, but helper `sqrt` prototype conflicts with built-in and output adds substantial ABI/call code. Removing prototype made sqrt promote to double and used sqrt.d; using `__builtin_sqrtf` generated sqrt.s but still left a sqrtf library reference and 34 instructions. Best source remains ce4907e3bc762027f9ab. Target performs direct sqrt.s after ordered individual loads/multiplies/adds; investigate intrinsic/library linkage and rewrite arithmetic in target order.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795189898.4964569,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Rechecked best remains 1365. Tried repairs that inline v[0]/v[1] reads with no change; attempted source retaining only x then rereading remaining components scored 2265. sqrtf variant invalid due unresolved symbol; target itself uses sqrt.s, likely need correct single-precision intrinsic/declaration, but prior sqrt declaration produced double sqrt/conversion and ABI spills. Major gap is scalar sqrt lowering and callee/prototype; inspect call/relocation evidence before further source tuning.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795190677.397797,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Target uses inline sqrt.s. __builtin_sqrtf emitted unresolved sqrtf call; saved sqrt candidate rechecks at 1365. Flag search found no improvement, IDO 5.3 also emitted a call. Need identify supported intrinsic or compiler configuration that emits sqrt.s.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795191397.851068,
-  "score_before": 1365,
-  "score_after": 1365
- },
- {
-  "function": "func_8009532C",
-  "text": "Three scored trials on this claim: baseline source 1260; sqrtf spelling ballooned to 2465 and failed symbol resolution; explicit func_800952F0(float) call produced 1965 due to a call where target uses sqrt.s. Last compile was rejected (inline asm disallowed). Best candidate remains original saved source with length=sqrt(x*x+y*y+z*z), then three divisions. Target directly performs sqrt.s and inlines all arithmetic; use compiler-recognized sqrt intrinsic/prototype or recover correct sqrt symbol to get sqrt.s without an external call. Ensure values v[1]/v[2] are reloaded after sqrt: target loads them after the length calculation, while x is held.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795193615.315489,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Normalizing three floats needs a bare sqrt.s. sqrtf and __builtin_sqrtf both emit a NaN guard and library fallback (1870); ordinary sqrt uses double and scored 2265. Standard flag search did not remove the guard. Next investigate a supported no-math-errno or unsafe-math compiler option, then check FP register lifetimes.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197331.926089,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Current baseline rechecks at 1260. Six bounded single-use inline variants left score and assembly unchanged; sqrt prototype warning persists and target directly emits sqrt.s with no call/frame. Need model target expression as compiler builtin/intrinsic sqrt lowering; don't use libc sqrt declaration. Prior history found extern func_800952F0 calls also wrong. Target computes squared components, sqrt.s, divides original components and returns length.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795197684.15345,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Best rechecked score 1260/18 instructions, from the historical C using x/y/z locals, sqrt call, normalization and length return. Direct `__builtin_sqrtf` variants scored 1665 and emitted a prologue, extra NaN checks and an unresolved sqrtf reference. The current best emits a sqrt call and prologue instead of target's inline sqrt.s and has different load/FPR allocation/order; target is a frameless 18-instruction leaf that squares components directly in $f6/$f4/$f2, sums into $f0, sqrt.s, divides each original component by length, stores, and returns length. Need find a compiler-recognized pure C operation that lowers directly to sqrt.s without libm call; preserve direct load/square/store order.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795198797.854784,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Prior session already verified and submitted a function-only KMC -O2 -ffast-math bundle with __builtin_sqrtf; automatic application is disabled. Default profile __builtin_sqrt emits an unresolved call, __builtin_sqrtf emits a fallback call, and adding a nonnegative clamp increases differences. Apply the existing exact bundle rather than continuing source permutations under the old profile.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795200626.021137,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved best revision 3b36fcf51ae061e9a5d2; score 1260. Source computes f32 vector length and normalizes vector. Tested six x/y inline reload variants (same score) and sqrtf replacement (worse 2040 due to double-width sqrt path), then restored saved best. Remaining: resolve correct single-precision sqrt call declaration and inspect full target assembly/store scheduling. No global rule established.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795201623.556075,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Tried six single_use_inline repairs from revision ed845ab586a82dd11b18; explicit reload v[0] improved current score to 2185, but unresolved sqrtf declaration causes non-target call/prologue. Restored saved_best revision 3b36fcf51ae061e9a5d2 (historical score 1260, not reverified under current header). Target is 20-instruction leaf using sqrt.s and three div.s operations. Left: find supported C spelling/intrinsic for hardware sqrt.s, then retain source ordering of component reloads.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201961.52945,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved candidate 3b36fcf51ae061e9a5d2 rechecks at 1260, with 22 mismatch rows and sqrt declared as a function causing an external call rather than sqrt.s. Six local expression-inline variants were identical. A sqrtf attempt was worse (2465, unresolved symbol); corrected spelling to sqrt recovered toward 1965 but still worse than saved. Next experiment: determine project's sqrt intrinsic/builtin prototype or use target SDK math alias that lowers to sqrt.s; then preserve saved local staging and return to vector store sequence.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795203906.2551491,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Rechecked inherited candidate at score 1260, 26 instructions vs target 18. extern sqrt calls produce jal and are wrong; __builtin_sqrtf worsened score and linker reports sqrtf is not a known symbol. Saved best restored at revision b18cdcc205c607cda1b0. Target uses sqrt.s directly and has no stack frame; likely need project convention for inline sqrt instruction.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795204138.498427,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Target uses hardware sqrt.s instruction. Candidate declaring sqrt(f32) turns it into an external call and expands frame; sqrtf is unresolved. Explicit left-associated arithmetic improved current score from 2465 to 1365 but still invokes sqrt. Next experiment resolve hardware sqrt intrinsic/library mapping or search matched vector normalization routines.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795205407.748229,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "try_compiler(gcc-2.7.2-kmc, flags \"-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math\") with source: f32 x=v[0],y=v[1],z=v[2]; f32 length=__builtin_sqrtf(x*x+y*y+z*z); v[0]=v[0]/length; v[1]=v[1]/length; v[2]=v[2]/length; return length; -> MATCHES byte for byte. Under the project default profile (no -ffast-math) the same source gives 1665 with a sqrtf call/frame. Suggested as a function-only bundle; not applied because the judge profile is the default. Needs user approval of -ffast-math for this function (or a per-function profile) to save the match.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795206416.811213,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Exact match verified with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math and __builtin_sqrtf. Two suggest submissions failed because prepared compiler/build settings changed; evidence retained. Default flags emit sqrtf call and score 1665.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795207188.040363,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Restored historical sqrt candidate and recompiled: score 1260, 18 target instructions vs 26. Using __builtin_sqrtf scored 1665 and generated unresolved sqrtf call. Direct extern sqrt returns intrinsic sqrt.s but the three loads and products land in the wrong FPRs and extra prologue remains. No better in 4/3. Next inspect target entry and try forcing scalar expression/store evaluation without preserving address in s0; candidate historical saved score 1260.\nrestored historical sqrt-based candidate, compiled at 1260; builtin sqrtf failed unresolved\nrecovered sqrt.s target instruction but loads/FPR allocation and frame differ",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795208202.009144,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Best rechecked candidate score 1260; variants using sqrtf or sqrt symbol fail/link or worsen, and operation-order variant worsens. Target uses inline sqrt.s rather than call, so float square-root lowering/library intrinsic is unresolved. Target loads and squares x,y,z sequentially, adds x\u00b2+y\u00b2 then z\u00b2, executes sqrt.s, then reloads vector members and divides/stores. Next use context/tool evidence for correct sqrt builtin/intrinsic and retain explicit target load/add order.\nTried sqrtf (unknown symbol), sqrt call, then explicit per-component square temporaries.\nScores worsened to 2465/1965/1665; best remains 1260.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795208588.363186,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Restored and rechecked saved best 1260. C89 declaration-order correction scored same; changing symbol declaration sqrt\u2192sqrtf regressed to 2040 and generated double sqrt sequence. Prior evidence: sqrtf builtin unresolved call; extern sqrt lowers to sqrt.s but target operand/register scheduling differs. Target is 18 instructions, straight inline sqrt.s after x,y,z squares/adds, without stack frame. Saved candidate currently has local x/y/z and direct vector rewrites but preserves address in s0/prologue. Need force direct $a0 accesses and compiler intrinsic lowering while retaining inline sqrt.s; no global knowledge discovered.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795209369.1144938,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Current best is score 1260/18 instructions, matched source structure: x/y/z loads, sum of squares, sqrt call, in-place divides; still wrong due emitted sqrt call/prologue and FPR ordering. Added a reciprocal-and-multiply rewrite; score 2955. Restored source, current recheck 1260. Removed explicit sqrt prototype to check builtin; score 2040 due double sqrt/check sequence. Target is frameless and uses sqrt.s, then scalar div.s for each component. No improvement in 3/3 compiles. Next step: experiment with a compiler-recognized __builtin_sqrtf and/or sqrtf declaration while preserving direct per-component division; target inline sqrt.s should avoid call.\nBest C x/y/z locals, sqrt(float) declaration, direct divisions rechecked 1260. Reciprocal multiplication regressed to 2955; removing declaration regressed to 2040.\nTarget requires inline sqrt.s, no frame, and direct div.s operations; current best introduces sqrt call and stack frame.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795209980.549883,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "Current compiles of historical best do not match current outputs: explicit sqrt call candidates score 1965\u20132465; initial sqrtf fails unresolved. Best historical score 1260 source uses sqrt call and repeated vector loads; current GCC emits call/stack traffic instead of target sqrt.s, indicating signature/intrinsic mismatch. No improvement by move-on threshold.\nRebuilt candidate with retained scalars and sqrt/sqrtf alternatives; all scored worse; unresolved sqrtf is not project symbol.\nTarget uses hardware sqrt.s and in-place arithmetic; current sqrt call adds jal and stack, so best remains historical only.",
+  "function": "func_8009D5D4",
+  "text": "Saved candidate recompiles at 13918. Correcting bzero prototype to void bzero(void *,s32) recovers that score but does not beat inherited best; other type/layout change had no effect. Target prologue frame is -0x28 and preserves arg0 in a0, while candidate frame -0x30 and copies arg0 to s0; remaining core differences are repeated status tests/branch structure and row iteration. Next step: recover source lifetime by retaining arg0 in a0 and avoiding explicit phase temp across loop, then tune state comparisons for target likely beql/bnel branches.",
   "by": "codex-gpt-6-luna-15",
-  "created_at": 1795210599.630337,
-  "score_before": 1260,
-  "score_after": 1260
+  "created_at": 1795225306.522016,
+  "score_before": 15396,
+  "score_after": 13918,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  },
  {
-  "function": "func_8009532C",
-  "text": "Tried six single_use_inline variants replacing saved x/y values with direct v[] reads in sqrt expression; all score 1260 identical output. Baseline retained; high mismatch due sqrt call lowering to external call/stack traffic instead of target sqrt.s, as previous notes state. Next step: recover exact target call/intrinsic handling or test caller-provided scalar sqrt instruction idiom; prior sqrtf unresolved and sqrt emits call.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795211559.278165,
-  "score_before": 1260,
-  "score_after": 1260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+  "function": "setupTrackMarkers",
+  "text": "Correction: an earlier release note on this function (under its old name func_80044DE4) was written without reading the code and is wrong. Current readable C matches. activateIdList is called with two arguments in the D_80112F6D branch; the prototype is unprototyped, so the second argument is what the target passes.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795225315.373906,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13717ab39b289c69ad7a9f109b11cad536d726ed3d447068babfb73f804a9e57"
  },
  {
-  "function": "func_8009532C",
-  "text": "Saved best score 1260 uses extern sqrt(f32); target emits sqrt.s and no call. Changing to sqrtf caused unresolved linker symbol; changing declaration alone led double-precision sqrt and score 2040. Variants substituting x/y/z directly for stores scored 1965; preserve saved source. Main matching issue likely float register allocation/order around component loads/squares/adds; target uses ft1/fv0, ft0, fv1 sequence. Next step: inspect similar matched vector-normalization functions and model target sqrt as compiler intrinsic/builtin-compatible spelling; no verified repair.\nRechecked baseline 1260; store-source variants and sqrtf name/declaration trials worsened to 1965/1665/2040.\nSaved candidate remains best. Target performs single-precision sqrt opcode directly; sqrtf unresolved, sqrt declaration triggers conversion to double-precision sqrt path.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795213061.4979641,
-  "score_before": 1965,
-  "score_after": 1665,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Best retained score 1260; target begins f32 products and ends with sqrt.s, but candidate sqrt prototype maps to double sqrt and differs substantially. Tried sqrtf both with and without caching components; linked symbol is unknown, score 2465/2040, no improvement. Next step: restore saved best and inspect matched nearby vector-length helpers / sqrt naming to identify the game's single-precision sqrt call or inline builtin; do not use unresolved sqrtf.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214808.52316,
-  "score_before": 1665,
-  "score_after": 1665,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Rechecked saved best score 1260. Six single-use-inline variants had identical output. Tried sqrtf variants: external sqrtf emitted unwanted double/runtime conversion and unresolved sqrtf symbol (score 1665\u20132465); restored saved best. Key mismatch: candidate has 22 extra prologue/FP register operations and uses different registers; target is frameless and computes sqrt.s directly into f0. Next step: inspect current-context available sqrt intrinsic/runtime and use compiler builtin/known project sqrt symbol to force sqrt.s without lib call, then fix FPR allocation.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795215167.142756,
-  "score_before": 1665,
-  "score_after": 1260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved best rechecks at 1260; sqrt call/in-place normalization is structurally right but does not match. `__builtin_sqrtf` emitted sqrt.s but still added a frame, altered FPR allocation and unresolved sqrtf link; removing its declaration changed nothing. Prior sessions also tried removing sqrt prototype and reciprocal/multiply, worse. Target is frameless and uses sqrt.s $fv0,$fv0. Next experiment: search compiler flags for the target sqrt lowering; preserve scalar load/multiply order and investigate using a compiler intrinsic supported by this KMC profile.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795216463.6262789,
-  "score_before": 2040,
-  "score_after": 1665,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Target is 18 instructions and uses inline sqrt.s; C helper sqrtf unresolved, sqrt lowers through double and is much worse. Saved best C score 1260; direct expression also emitted sqrt.d. Need discover project builtin/math declaration for sqrt.s.\nsqrtf caused unresolved symbol and score 1665; direct sqrt yielded 2040 due double sqrt lowering.\nsaved best score 1260 retained",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795218757.835419,
-  "score_before": 1260,
-  "score_after": 1260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved best is score 1260. Replacing normalization loads with saved x/y/z caused 1965, worse due to long-double callee saves; sqrt(f64) caused 2040 and double sqrt lowering. Restored saved best. Target is 18 instructions with inline sqrt.s and three divisions; candidate needs math-library lowering investigation.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795220078.695599,
-  "score_before": 1965,
-  "score_after": 1965,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
- },
- {
-  "function": "func_8009532C",
-  "text": "Saved baseline rechecked score 1260. Target is leaf function: computes sqrt.s of x*x+y*y+z*z, divides each original vector component by length, returns length in $f0, and last swc1 is return delay slot. sqrtf prototype is unrecognized by linker, causing unresolved symbol and much worse output; sqrt declaration generates sqrt.s but warning conflicting built-in type and still has 8 extra instructions, stack frame and wrong FP register allocation. Local inline variants unchanged. Next test: correct math header/prototype context for builtin sqrt semantics or use existing function symbol resolving to sqrt.s; avoid sqrtf without symbol alias. Need retain original direct loads after norm computation, since target reloads y and z after sqrt rather than preserving all scalars. No exact match.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795221079.683125,
-  "score_before": 1260,
-  "score_after": 1260
- },
- {
-  "function": "func_8009532C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Re-verified: matches byte-for-byte with try_compiler flags \"-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math\" and __builtin_sqrtf(x*x+y*y+z*z), v[i]=v[i]/length. suggest() function-bundle was rejected (\"prepared inputs changed\"), not applied. Needs per-function -ffast-math profile from the user; no C-only route found under default flags. func_800937D0 (three sqrt.s) likely same.",
+  "function": "func_800468E4",
+  "text": "Still 785 best. This session: natural-order rewrite (x,y,z,w loads, then products, direct stores) scores 965; reordering load/twiceY decls and xy/twiceZ order gave 785 (identical asm); removing scratch gives 792. Only FPR allocation differs (target uses f20..f28 5 saved regs, early load order y,x,z then xy before z2). Next step: try declaring some temps in different order so xy (y2*x) is scheduled before z2 = z+z and gets $f18 (=ft5), or use loop-free m-pointer variants.",
   "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795222238.374979,
-  "score_before": 1260,
-  "score_after": 1260
+  "created_at": 1795225320.6292439,
+  "score_before": 785,
+  "score_after": 785,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
  },
  {
-  "function": "func_8009532C",
-  "text": "Saved baseline rechecked 1260 and retained; compiler experiment -ffast-math did not improve, still used external sqrt and added prologue. A custom candidate with __builtin_sqrtf required unknown linker symbol sqrtf and scored 1665. Previous agents report exact match only under per-function fast-math plus intrinsic sqrtf semantics, but current flags don't inline it under available profile.",
+  "function": "func_80047068",
+  "text": "Saved best rechecked 11940; compile tied at 11940. Candidate is 88 insns vs target 163, with major missing coefficient precompute/float dataflow. Target first loads n from 0x70(sp), computes float inverse and squared inverse, then accumulates coefficients in FPU registers and spills intermediates; high-level three-axis polynomial candidate differs substantially. Prior cast removal worsened, const qualifier tied, full three-axis rewrite scored much worse historically. Next step: reconstruct exact first-axis coefficient schedule from target assembly windows and preserve multiplication/addition sequencing without integer casts, then mirror for other axes.\nRecompiled inherited best; tied at 11940. No code shape improvement.\nTarget carries much longer FP coefficient schedule, with target constants 0.5, 2.5, 1.5 and repeated add.s/mul.s absent from candidate.",
   "by": "codex-gpt-6-luna-15",
-  "created_at": 1795223860.121293,
-  "score_before": 1260,
-  "score_after": 1260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+  "created_at": 1795225337.071656,
+  "score_before": 11940,
+  "score_after": 11940,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:136dc6a8bbeef1919c6d32495c24f9d3360e8552c712cdd72a350489ba995c2d"
  },
  {
-  "function": "func_8009532C",
-  "text": "Inherited saved candidate rechecked at 1260. Single-use expression variants all stayed 1260. An explicit __builtin_sqrtf rewrite produced 2465 due to 36 instructions, and restoring cached sqrt call with direct cached vector divisions scored 1965 (29 instructions). Target is 18 instructions and directly uses sqrt.s with no call; current candidate emits jal sqrt plus save/restore frame and wrong FPR allocations. sqrtf is not a known symbol in linker context. No candidate improvement.\nsqrtf unresolved; __builtin_sqrtf yielded poor 2465. Cached sqrt call plus cached x/y/z divisions got 1965, still worse than inherited best.\nAssembly shows a hardware sqrt.s and no call or prologue. Compiler-generated builtin expands to call-heavy code; sqrt declaration conflicts with builtin and emits jal.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795224290.568089,
-  "score_before": 1260,
-  "score_after": 1260,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f463d24fd65802863b45df2ab45dd52b53f247689993dac687e574d6653ee847"
+  "function": "func_800770E4",
+  "text": "Three local variants (lifetime, declaration order, branch orientation) left score 16015 unchanged. Moving the table-base initialization into case 22 scored 16490; scaling the D_800C9A5C index as u16 scored 16055. Linker reports jump-table overlap with ROM data.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795225337.68566,
+  "score_before": 16015,
+  "score_after": 16015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
  }
 ]
