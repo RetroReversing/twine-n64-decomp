@@ -114,7 +114,7 @@ block_25:
                     if (menuItemIsActive(0x21) & 0xFF) {
                         gSceneType = 0;
                     } else {
-                        gSceneType -= 1;
+                        { u8 *__repair_byte_address = &gSceneType; *__repair_byte_address -= 1; }
                     }
                     {
                     func_8001A4F4();break;}

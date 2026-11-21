@@ -259,17 +259,7 @@ void func_8002D240(void)
   var_s5_2 = 0;
   do
   {
-    __repair_phase_var_s2_2 = 0;
-    var_s2 = ((s32) var_s5_2) & 0xFFFF;
-    temp_s3 = var_s2 * 0x18;
-    loop_14:
-    temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF;
-
-    temp_s0 = temp_s1_2 * 8;
-    func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
-    temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
-    func_8002B000(temp_s0_2, 0x1E);
-    temp_a2 = *((u16 *) ((temp_s1_2 * 2) + ((((unsigned) var_s2) * 6) + D_800BFC38)));
+ do { __repair_phase_var_s2_2 = 0; var_s2 = ((s32) var_s5_2) & 0xFFFF; temp_s3 = var_s2 * 0x18; loop_14: temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF; temp_s0 = temp_s1_2 * 8; func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E); temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150)); func_8002B000(temp_s0_2, 0x1E); temp_a2 = *((u16 *) ((temp_s1_2 * 2) + ((((unsigned) var_s2) * 6) + D_800BFC38))); } while (0);
     func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);
     do
     {
@@ -290,4 +280,3 @@ void func_8002D240(void)
   D_801176E2 = 0;
   D_801176E4 = 0;
 }
-

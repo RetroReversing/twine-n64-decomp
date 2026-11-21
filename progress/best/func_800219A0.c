@@ -37,7 +37,7 @@ s32 func_800219A0(s8 arg0) {
         (*__base_D_8010A4C0) = 0;
         var_s0 = 0;
     }
-    __base_D_8010A4E4 = &D_8010A4E4;
+    __base_D_8010A4E4 = (s32 *)(__base_D_8010A4C0 + 0x24);
     M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 0;
     if (M2C_FIELD(__base_D_8010A4E4, u8 *, -0x24) == 0) {
         M2C_FIELD(__base_D_8010A4E4, s32 *, 4) = 0;
@@ -54,7 +54,7 @@ s32 func_800219A0(s8 arg0) {
     }
     func_80007160();
     func_8007560C();
-    M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 1;
+    D_8010A4E4 = 1;
     func_80026450();
     return var_s0;
 }

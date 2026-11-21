@@ -55,8 +55,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
     s32 temp_a2;
     s32 temp_a2_2;
     s32 temp_a2_3;
-    s32 temp_a3_2;
-    unsigned long temp_s1;
+    u32 temp_a3_2;
+    unsigned int temp_s1;
     register unsigned int temp_s1_2;
     int temp_s2;
     s32 temp_s2_2;
@@ -193,8 +193,8 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 (*(s32 *)((char *)(temp_v0_6) + 0x3C)) = (s32) (temp_s7 + ((*(u16 *)((char *)(arg1) + 0)) * 0x4C));
                 break;
             }
-            sp30 = 1;
             temp_s4 = (*(void **)((char *)(*arg0) + 0x3C));
+            sp30 = 1;
             func_80045278(&D_800E19E0);
             (*(f32 *)((char *)(*arg0) + 0x24)) = (f32) (*(f32 *)((char *)(arg1) + 0xC));
             (*(f32 *)((char *)(*arg0) + 0x28)) = (f32) (*(f32 *)((char *)(arg1) + 0x10));
@@ -262,7 +262,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                 temp_a3_2 = (*(s32 *)((char *)(temp_v1_2) + 0x4C));
                 (*(s32 *)((char *)(temp_v0_11) + 8)) = (s32) (*(s32 *)((char *)(temp_v1_2) + 0x40));
                 (*(s32 *)((char *)(temp_v0_11) + 0xC)) = temp_a1_3;
-                (*(s32 *)((char *)(temp_v0_11) + 0x10)) = temp_a2;
+                (*(s32 *)((char *)(temp_v0_11) + 0x10)) = (s32)temp_a2;
                 (*(s32 *)((char *)(temp_v0_11) + 0x14)) = temp_a3_2;
                 buildTriangleGridMasks((*(void **)((char *)(*arg0) + 0x3C)), temp_a1_3, temp_a2, temp_a3_2);
                 func_80041114(*arg0);
@@ -287,7 +287,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2) {
                         (*(s32 *)((char *)(temp_s4) + 0)) = temp_v0_13;
                         temp_a3_4 = (*(s32 **)((char *)(arg1) + 0x24));
                         func_800336FC((*(s32 *)((char *)(temp_a3_4) + 0x18)), (*(s32 *)((char *)((((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7)) + 0x34)), (*(s32 *)((char *)(temp_a3_4) + 8)), (*(s32 *)((char *)(temp_a3_4) + 0x10)), sp30, 1.0f, temp_s1, temp_s2, 1, NULL, NULL);
-                        if (D_80109A94 != 0) {
+                        if (D_80109A94) {
                             temp_v1_5 = ((*(u16 *)((char *)(arg1) + 0)) * 0x4C) + temp_s7;
                             (*(u8 *)((char *)(temp_v1_5) + 0x46)) |= 0x80;
                         }
@@ -430,7 +430,7 @@ block_37:
                     var_s0_3 = 0;
                     do {
                         func_80045290((*(s32 *)((char *)((*(s32 **)((char *)(arg1) + 0x24))) + 0)) + var_s0_3, (*(s32 *)((char *)(temp_s4_2) + 0x34)) + var_s0_3);
-                        var_s1_2 += 1;
+                        ++var_s1_2;
                         var_s0_3 += 0xC;
                     } while (var_s1_2 < (s32) (*(u16 *)((char *)((*(s32 **)((char *)(arg1) + 0x24))) + 4)));
                 }

@@ -4,7 +4,6 @@ void func_800169EC(void *, void *);
 s32 func_80044710(void *, s32, s32);
 f32 approximate_hypot2(f32, f32);
 f32 approximateAtan2(f32, f32);
-s32 func_80085160(s32);
 void func_800556DC(void *arg0, s32 *arg1, const f32 *arg2, s32 arg3) {
     volatile f32 sp14;
     volatile f32 sp10;

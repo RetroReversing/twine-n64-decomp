@@ -1,111 +1,99 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef struct {
+    u32 offsetAndFlags;
+} AudioFile;
 
-s32 flushDCacheRange();
-s32 func_80087F60();
-s32 func_800936A8();
-s32 func_8009D510();
-s32 osCreateMesgQueue();
-s32 osRecvMesg();
-s32 osSendMesg();
-extern char D_800E3F24[];
+typedef struct {
+    u8 state[0x11DE];
+    u8 volume;
+    u8 pad11DF;
+    u32 queue[6];
+    void *messages[2];
+    u8 active;
+    u8 arg3;
+    u8 arg4;
+    u8 arg5;
+    u8 arg2;
+    u32 rate;
+    s32 handle;
+    void *buffer;
+    u32 length;
+    u8 pad1218;
+    u8 arg6;
+    u8 pad121A[14];
+} AudioSlot;
+
+extern s32 func_80087F60(s32);
+extern s32 func_800936A8(void);
+extern void func_8009D510(void *, u32, void *, u32, void (*)(void));
+extern void func_800A0170(void *, s32);
+extern void osCreateMesgQueue(void *, void **, s32);
+extern s32 osRecvMesg(void *, void **, s32);
+extern s32 osSendMesg(void *, void *, s32);
+extern void func_80088F6C(void);
+
+extern u8 D_800CEEC0;
+extern AudioSlot D_800E1AC0[];
+extern u8 D_800E2CC0[];
+extern u32 D_800E3F18;
+extern AudioFile *D_800E3F1C;
+extern u32 D_800E3F20;
+extern void *D_800E3F24[];
+extern u32 D_800E3F2C;
+extern u32 D_800E3F30[6];
+extern void *(*D_8010017C)(s32, s32);
 extern u8 D_8010086C;
-extern s32 func_80088F6C;
-extern s32 (*gDataBankAlloc)(s32, s32);
-extern s32 sDataBankAux;
-extern u32 sDataBankCount;
-extern s32 sDataBankFlags;
-extern u8 sDataBankInitialised;
-extern s32 sDataBankMesgQueue;
-extern s32 sDataBankMode;
-extern s32 sDataBankTable;
-extern s32 sDataBanks;
 
-s32 func_80088040(u32 arg0, s32 arg1, s8 arg2, s8 arg3, u8 arg4, u8 arg5, u8 arg6) {
-    s32 temp_a0;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s32 var_s0;
-    s32 var_s2;
-    s32 var_v1;
-    u32 var_v1_2;
-    void *temp_s1;
-    s32 *__base_sDataBankMesgQueue;
-    char *__base_D_800E3F24;
+s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6)
+{
+    s32 index;
+    s32 offset;
+    AudioSlot *slot;
+    u32 length;
+    s32 allocationSize;
+    void *buffer;
 
-    __base_D_800E3F24 = D_800E3F24;
-
-    __base_sDataBankMesgQueue = &sDataBankMesgQueue;
-
-    var_s0 = arg1;
-    if (sDataBankInitialised != 0) {
-        var_s2 = 0;
-        if (arg0 < (u32) sDataBankCount) {
-            var_v1 = 0;
-loop_3:
-            if (*(u8 *)((char *)&sDataBankFlags + var_v1) != 0) {
-                var_s2 += 1;
-                var_v1 += 0x1228;
-                if (var_s2 >= 2) {
-
-                } else {
-                    goto loop_3;
-                }
+    if (D_800CEEC0 && file < (*(s32 *)&D_800E3F20)) {
+        for (index = 0, offset = 0; index < 2; offset += sizeof(AudioSlot)) {
+            if (!D_800E2CC0[offset]) {
+                break;
             }
-            if (var_s2 != 2) {
-                temp_s1 = (var_s2 * 0x1228) + (char *)&sDataBanks;
-                osCreateMesgQueue(temp_s1 + 0x11E0, temp_s1 + 0x11F8, 2);
-                var_v1_2 = var_s0 * 8;
-                if (var_s0 == 0) {
-                    var_s0 = 0x3E80;
-                    if (*(u8 *)((arg0 * 4) + sDataBankTable) == 0) {
-                        var_s0 = 0x1F40;
-                    }
-                    var_v1_2 = var_s0 * 8;
-                }
-                M2C_FIELD(temp_s1, s8 *, 0x1204) = arg2;
-                M2C_FIELD(temp_s1, s8 *, 0x1201) = arg3;
-                M2C_FIELD(temp_s1, u8 *, 0x1202) = arg4;
-                M2C_FIELD(temp_s1, u8 *, 0x1203) = arg5;
-                M2C_FIELD(temp_s1, u8 *, 0x1219) = arg6;
-                M2C_FIELD(temp_s1, s32 *, 0x1208) = var_s0;
-                temp_a0 = (((var_v1_2 / 30) + 0x9F) / 160) * 0xA0;
-                M2C_FIELD(temp_s1, s32 *, 0x1214) = temp_a0;
-                if (sDataBankMode & 1) {
-                    M2C_FIELD(temp_s1, s32 *, 0x1210) = *(s32 *)(__base_D_800E3F24 + (var_s2 * 4));
-                } else {
-                    temp_v0 = func_800936A8(temp_a0);
-                    temp_v0_2 = gDataBankAlloc(temp_v0, 0);
-                    M2C_FIELD(temp_s1, s32 *, 0x1210) = temp_v0_2;
-                    flushDCacheRange(temp_v0_2, temp_v0);
-                }
-                if (M2C_FIELD(temp_s1, s32 *, 0x1210) != 0) {
-                    osRecvMesg(__base_sDataBankMesgQueue, 0, 1);
-                    func_8009D510(temp_s1, (*(s32 *)((arg0 * 4) + sDataBankTable) & 0xFFFFFF) + sDataBankAux, M2C_FIELD(temp_s1, s32 *, 0x1210), M2C_FIELD(temp_s1, s32 *, 0x1214), &func_80088F6C);
-                    if (D_8010086C != 0) {
-                        M2C_FIELD(temp_s1, u8 *, 0x11DE) = (u8) (M2C_FIELD(temp_s1, u8 *, 0x11DE) * 2);
-                    }
-                    M2C_FIELD(temp_s1, s32 *, 0x120C) = -1;
-                    M2C_FIELD(temp_s1, s8 *, 0x1200) = 1;
-                    osSendMesg(__base_sDataBankMesgQueue, 0);
-                    return func_80087F60(var_s2);
-                }
-                goto block_18;
+            index++;
+        }
+        if (index != 2) {
+            slot = &D_800E1AC0[index];
+            osCreateMesgQueue(slot->queue, slot->messages, 2);
+            if (rate == 0) {
+                rate = !*(u8 *)&D_800E3F1C[file] ? 8000 : 16000;
             }
-            goto block_18;
+            slot->arg2 = arg2;
+            slot->arg3 = arg3;
+            slot->arg4 = arg4;
+            slot->arg5 = arg5;
+            slot->arg6 = arg6;
+            slot->rate = rate;
+            length = ((rate * 8) / 30 + 159) / 160;
+            slot->length = (length * 5) << 5;
+            if ((*(s32 *)&D_800E3F2C) & 1) {
+                slot->buffer = D_800E3F24[index];
+            } else {
+                allocationSize = func_800936A8();
+                buffer = D_8010017C(allocationSize, 0);
+                slot->buffer = buffer;
+                func_800A0170(buffer, allocationSize);
+            }
+            if (slot->buffer != NULL) {
+                osRecvMesg(D_800E3F30, NULL, 1);
+                func_8009D510(slot, (D_800E3F1C[file].offsetAndFlags & 0xFFFFFF) + (*(s32 *)&D_800E3F18),
+                              slot->buffer, slot->length, func_80088F6C);
+                if (D_8010086C) {
+                    slot->volume *= 2;
+                }
+                slot->handle = -1;
+                *(volatile u8 *)&slot->active = 1;
+                osSendMesg(&D_800E3F24[3], NULL, 0);
+                return func_80087F60(index);
+            }
         }
     }
-block_18:
     return -1;
 }

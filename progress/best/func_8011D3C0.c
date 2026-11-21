@@ -268,9 +268,8 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                                         func_800448A4(temp_v0, 0x17, 0x1B);
                                         *(var_v0_2 + (((var_s1 & 0xFFFF) * 0x10) + (__base_D_8011F2E8 + 0x10))) = temp_v0;
                                     }
-                                }/*__repair_loop_weight*/__repair_rows: {
-                                var_s1 += 1;}
-if (0) goto __repair_rows;
+                                }
+                                var_s1 += 1;
                                 var_v0_4 = var_s1 & 0xFFFF;
                             } while ((var_s1 & 0xFFFF) < D_801002B4);
                         }

@@ -3,6 +3,7 @@
 f32 absFloat(f32);                             /* extern */
 
 void func_8002A1F0(void *arg0) {
+    char frame[1];
     s16 var_s1;
     s32 temp_lo;
     s16 temp_v0_2;
@@ -200,4 +201,5 @@ u8 __repair_result_var_v1;
         }
     }
 }
+
 

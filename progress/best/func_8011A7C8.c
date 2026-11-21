@@ -1,94 +1,99 @@
-extern void *D_80102CD0[];
-extern void *sBonusObjectTable[];
-extern s32 gSceneType;
+typedef struct SlotMeta {
+    u8 pad[0xC];
+    u16 count;
+    u8 padE[2];
+    u8 type;
+    u8 disabled;
+} SlotMeta;
+typedef struct SaveSlot {
+    u8 pad[0xB4];
+    SlotMeta *meta;
+} SaveSlot;
+typedef struct BonusSlot {
+    u8 pad[0x78];
+    u16 type;
+    s16 state;
+} BonusSlot;
+typedef struct SceneSlots {
+    u8 type;
+    u8 pad[0x13];
+    s32 count;
+} SceneSlots;
+extern SceneSlots gSceneType;
 extern s32 gSaveTotalSlots;
+extern SaveSlot *D_80102CD0[];
+extern BonusSlot *sBonusObjectTable[];
 extern s32 D_8011F3A8;
 
-#define FIELD(p, T, off) (*(T *)((u8 *)(p) + (off)))
-
-void func_8011A7C8(void) {
+void func_8011A7C8(void)
+{
+    s16 i;
     s16 chosen = -1;
-    s16 index;
-    s32 signedIndex;
-    s32 chosenIndex;
-    s32 limit;
-    u8 *scene = (u8 *)&gSceneType;
-    volatile s32 *sceneLimit;
-    volatile s32 *slots;
-    void **entry;
-    void *object;
-    void *info;
+    s32 index;
+    SaveSlot **slot;
+    SaveSlot *entry;
+    BonusSlot *bonus;
+    s32 count;
     s16 state;
 
-    if (*scene != 8) goto check_chosen;
-    index = 0;
-    if (gSaveTotalSlots > 0) {
-        sceneLimit = (volatile s32 *)(scene + 0x14);
+    if (gSceneType.type == 8 && (i = 0, gSaveTotalSlots > 0)) {
         do {
-            signedIndex = index;
-            entry = &D_80102CD0[signedIndex];
-            object = *entry;
-            if (object == NULL) goto next_scene_entry;
-            if (FIELD(FIELD(object, void *, 0xB4), u8, 0x10) != 7) goto next_scene_entry;
-            chosen = index;
-            index = 0;
-            if (*sceneLimit <= index) goto check_chosen;
-            chosenIndex = signedIndex;
-            slots = &gSaveTotalSlots;
-            do {
-                signedIndex = index;
-                if (signedIndex == chosenIndex) goto next_slot;
-                object = D_80102CD0[signedIndex];
-                if (object == NULL) goto next_slot;
-                if (FIELD(FIELD(object, void *, 0xB4), u8, 0x11) != 0) goto next_slot;
-                info = FIELD(*entry, void *, 0xB4);
-                FIELD(info, u16, 0xC)++;
-next_slot:
-                index++;
-            } while (index < *slots);
-            goto check_chosen;
-next_scene_entry:
-            index++;
-        } while (index < *sceneLimit);
+            index = (s16)i;
+            slot = &D_80102CD0[index];
+            entry = *slot;
+            if (entry != 0 && entry->meta->type == 7) {
+                chosen = i;
+                i = 0;
+                if (i < gSceneType.count) {
+                    do {
+                        if (i == index) goto next_scene;
+                        entry = D_80102CD0[i];
+                        if (entry == 0 || entry->meta->disabled != 0) goto next_scene;
+                        (*slot)->meta->count++;
+next_scene:
+                        i++;
+                    } while ((s16)i < *(volatile s32 *)((u8 *)&gSceneType + ((u8 *)&gSaveTotalSlots - (u8 *)&gSceneType)));
+                }
+                break;
+            }
+            i++;
+        } while ((s16)i < gSceneType.count);
     }
-check_chosen:
-    if (chosen == -1) {
-        limit = gSaveTotalSlots;
-        if (limit <= 0) goto done;
-        index = 0;
+    if ((s16)chosen == -1) {
+        i = 0;
+        count = gSaveTotalSlots;
+        if (count <= 0) goto done;
         do {
-            object = *(void **)((u8 *)sBonusObjectTable + ((index << 16) >> 14));
-            if (object == NULL) goto next_bonus;
-            state = FIELD(object, s16, 0x7A);
+            bonus = sBonusObjectTable[(s16)i];
+            if (bonus == 0) goto next_bonus;
+            state = bonus->state;
             if (!((state < 2) & (state != 6))) goto next_bonus;
-            chosen = index;
-            goto update_slots;
+            chosen = i;
+            goto update;
 next_bonus:
-            index++;
-        } while (index < limit);
+            i++;
+        } while ((s16)i < count);
+        goto done;
     }
-update_slots:
-    slots = &gSaveTotalSlots;
-    if (*slots > 0) {
-        index = 0;
+update:
+    i = 0;
+    if (*(volatile s32 *)&gSaveTotalSlots > 0) {
         do {
-            signedIndex = index;
-            if (signedIndex != chosen) {
-                object = sBonusObjectTable[signedIndex];
-                if (object != NULL) {
-                    if (FIELD(object, u16, 0x78) == 2) {
-                        FIELD(object, s16, 0x7A) = 2;
+            if ((s16)i != (s16)chosen) {
+                bonus = sBonusObjectTable[(s16)i];
+                if (bonus != 0) {
+                    if (bonus->type == 2) {
+                        bonus->state = 2;
                     } else {
-                        FIELD(object, s16, 0x7A) = 6;
+                        bonus->state = 6;
                     }
                 }
             }
-            index++;
-        } while (index < *slots);
+            i++;
+        } while ((s16)i < *(volatile s32 *)&gSaveTotalSlots);
     }
 done:
-    if (chosen < 0) {
+    if ((s16)chosen < 0) {
         D_8011F3A8 = 0;
     }
 }
-

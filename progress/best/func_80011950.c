@@ -80,17 +80,17 @@ s32 __repair_phase_var_s1;
     if (D_800E09AE) {
         osRecvMesg(&D_8010D298, 0, 1);
         osContGetReadData(&D_800E0778);
-        var_s5 = 0;
-        var_s4 = 0;
         var_s6 = &D_8010D430;
-        __repair_phase_var_s1 = 0;
-        var_s2 = &D_800E0778;
         var_s1 = 0;
+        var_s2 = &D_800E0778;
+        __repair_phase_var_s1 = 0;
+        var_s4 = 0;
+        var_s5 = 0;
         do {
             if ((*(D_800E077C + __repair_phase_var_s1) != 4) || (D_800CEEB0 == 2)) {
                 *(&D_8010D434 + var_s4) = (s16) (s8) *(D_800E077A + __repair_phase_var_s1);
                 *(&D_8010D436 + var_s4) = (s16) (s8) *(&D_800E077B + __repair_phase_var_s1);
-                if (*(u16 *)((u8 *)&D_800E0930 + var_s1) != 0) {
+                if (*(&D_800E0930 + var_s1) != 0) {
                     if (*(&D_8010D434 + var_s4) < -0x1E) {
                         *var_s2 |= 0x200;
                     }
@@ -115,23 +115,22 @@ s32 __repair_phase_var_s1;
                 temp_v1_2 = (u16)(*(&D_800E0778 + __repair_phase_var_s1));
                 *((s16 *)((s8 *)&D_8010D432 + var_s4)) = temp_v1_2 & (*var_s6 ^ temp_v1_2);
                 *var_s6 = *(&D_800E0778 + (s32)__repair_phase_var_s1);
-                if (*((u16 *)((s8 *)&gSaveSlotValid + var_s1)) != 0) {
-                    temp_s0 = (void *)(var_s1); temp_s0 = (void *)((char *)temp_s0 + (s32)(&D_800E09A6));/*__repair_loop_weight*/__repair_rows: {do {do {
-                    temp_v0_2 = *temp_s0;} while (0);} while (0);}
-if (0) goto __repair_rows;
+                if (*((s32 *)((s8 *)&gSaveSlotValid + var_s1)) != 0) {
+                    temp_s0 = (void *)(var_s1); temp_s0 = (void *)((char *)temp_s0 + (s32)(&D_800E09A6));
+                    temp_v0_2 = *temp_s0;
                     if (temp_v0_2 != 0) {
                         *temp_s0 = temp_v0_2 - 1;
                     }
                     temp_a0_3 = var_s1 + &D_800E097E;
                     if (*temp_a0_3 == 0) {
-                        if (*(u16 *)(var_s1 + &D_8010A3A0) & 2) {
+                        if (*(var_s1 + &D_8010A3A0) & 2) {
                             func_80010690(var_s5 & 0xFFFF);
                             var_s6 += 4;
                         } else {
                             goto block_30;
                         }
                     } else {
-                        temp_v1 = (void *)(var_s1); temp_v1 = (void *)((char *)temp_v1 + (s32)(&D_800E099E));
+                        temp_v1 = var_s1 + &D_800E099E;
                         temp_v0_3 = *temp_v1 + 1;
                         *temp_v1 = temp_v0_3;
                         if ((u32) (temp_v0_3 & 0xFFFF) >= 0x258U) {
@@ -141,18 +140,18 @@ if (0) goto __repair_rows;
                         }
                         *temp_a0_3 -= 1;
                         temp_a0_4 = var_s1 + &D_800E098E;
-                        temp_v1_2 = *temp_a0_4 - *((u16 *)((s8 *)&D_800E0996 + var_s1));
+                        temp_v1_2 = *temp_a0_4 - *((s32 *)((s8 *)&D_800E0996 + var_s1));
                         *temp_a0_4 = temp_v1_2;
-                        if ((s16)temp_v1_2 < 0) {
+                        if (temp_v1_2 & 0x8000) {
                             *temp_a0_4 = temp_v1_2 + 0x100;
-                            if (!(*(u16 *)(var_s1 + &D_8010A3A0) & 1)) {
+                            if (!(*(var_s1 + &D_8010A3A0) & 1)) {
                                 func_80010590(var_s5 & 0xFFFF);
                                 var_s6 += 4;
                             } else {
                                 goto block_30;
                             }
                         } else {
-                            if (*(u16 *)(var_s1 + &D_8010A3A0) & 1) {
+                            if (*(var_s1 + &D_8010A3A0) & 1) {
                                 stop_controller_rumble(var_s5 & 0xFFFF);
                             }
                             goto block_30;

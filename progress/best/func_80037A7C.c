@@ -12,65 +12,65 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK emitObjectMatrix(void *, void *, s32);      /* extern */
-M2C_UNK emitPrimColor(void *, s32);                 /* extern */
-M2C_UNK emit_matrices_viewport_and_persp_norm();    /* extern */
 M2C_UNK func_80008750(s32, u8, M2C_UNK);            /* extern */
+M2C_UNK func_8003438C(void *, s32);                 /* extern */
 M2C_UNK func_80034630(void *, s32);                 /* extern */
-M2C_UNK submitObjectMatrix(void *, s32);            /* extern */
-extern void *gObjectListHead;
-extern s32 gRenderMode;
+M2C_UNK submitObjectMatrix(void *, s32);                 /* extern */
+M2C_UNK func_800378C0(void *, void *, s32);         /* extern */
+M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
+extern void *D_80107E9C;
+extern s32 D_80112E40;
 
 void func_80037A7C(s32 arg0) {
     s32 var_s4;
     s32 var_v0;
-    s32 var_v0_2;
     void *var_s0;
-    void *var_s0_2;
     void *var_s2;
     void *var_s3;
 
-    var_s3 = gObjectListHead;
-    if (gRenderMode != 4) {
-        gRenderMode = 4;
+    var_s3 = D_80107E9C;
+    if (D_80112E40 != 4) {
+        D_80112E40 = 4;
         emit_matrices_viewport_and_persp_norm();
     }
     if (var_s3 != NULL) {
         do {
             var_s0 = M2C_FIELD(var_s3, void **, 8);
             var_s2 = M2C_FIELD(var_s3, void **, 0);
-            var_s4 = 1;
+            var_s4 = (var_s0 != NULL || var_s2 == var_s2);
             if (var_s0 != NULL) {
-                var_v0 = 1;
-                do {
+                var_v0 = var_s4;
+                __repair_rows: {
                     if (var_v0 != 0) {
                         func_80034630(var_s3, arg0);
-                        emitPrimColor(var_s3, arg0);
+                        func_8003438C(var_s3, arg0);
                         var_s4 = 0;
                     }
                     func_80008750(arg0, M2C_FIELD(M2C_FIELD(var_s0, void **, 0x18), u8 *, 0x45), 0);
                     submitObjectMatrix(var_s0, arg0);
                     var_s0 = M2C_FIELD(var_s0, void **, 8);
                     var_v0 = var_s4;
-                } while (var_s0 != NULL);
+                }
+if (var_s0 != NULL) goto __repair_rows;
             }
             if (var_s2 != NULL) {
                 do {
                     if (!(M2C_FIELD(var_s2, s32 *, 0x58) & 0x20000)) {
-                        var_s0_2 = M2C_FIELD(var_s2, void **, 8);
-                        var_v0_2 = var_s4;
-                        if (var_s0_2 != NULL) {
-                            do {
-                                if (var_v0_2 != 0) {
+                        var_s0 = M2C_FIELD(var_s2, void **, 8);
+                        var_v0 = var_s4;
+                        if (var_s0 != NULL) {
+                            __repair_rows_: {
+                                if (var_v0 != 0) {
                                     func_80034630(var_s3, arg0);
-                                    emitPrimColor(var_s3, arg0);
-                                    
+                                    func_8003438C(var_s3, arg0);
+                                    var_s4 = 0;
                                 }
-                                func_80008750((var_s4 = 0, arg0), M2C_FIELD(M2C_FIELD(var_s0_2, void **, 0x18), u8 *, 0x45), 0);
-                                emitObjectMatrix(var_s0_2, var_s2, arg0);
-                                var_s0_2 = M2C_FIELD(var_s0_2, void **, 8);
-                                var_v0_2 = var_s4;
-                            } while (var_s0_2 != NULL);
+                                func_80008750(arg0, M2C_FIELD(M2C_FIELD(var_s0, void **, 0x18), u8 *, 0x45), 0);
+                                func_800378C0(var_s0, var_s2, arg0);
+                                var_s0 = M2C_FIELD(var_s0, void **, 8);
+                                var_v0 = var_s4;
+                            }
+if (var_s0 != NULL) goto __repair_rows_;
                         }
                     }
                     var_s2 = M2C_FIELD(var_s2, void **, 0);

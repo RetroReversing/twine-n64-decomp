@@ -1,11 +1,11 @@
-extern s32 gSaveSlotCount[];
-extern s32 gSaveExtraSlotCount;
+extern s32 D_801002B8[];
+extern s32 D_801002BC;
 typedef struct 
 {
   u8 id;
   u8 pad[23];
 } Slot_801001A1;
-extern Slot_801001A1 sSaveSlotTable[];
+extern Slot_801001A1 D_801001A1[];
 volatile int func_80019A3C(void)
 {
   volatile s32 *base;
@@ -19,7 +19,7 @@ volatile int func_80019A3C(void)
   s32 key;
   long firstCount;
   id = 0;
-  first = gSaveSlotCount;
+  first = D_801002B8;
   base = first + 1;
   firstCount = *first;
   firstPresent = (s16) (zero < firstCount);
@@ -33,15 +33,15 @@ volatile int func_80019A3C(void)
     if (zero)
     {
       key = (u16) id;
-      count = gSaveSlotCount[0];
+      count = D_801002B8[0];
     }
     else
     {
       key = (u16) id;
-      count = gSaveSlotCount[0];
+      count = D_801002B8[0];
     }
     first_loop:
-    if (sSaveSlotTable[(u16) idx].id != key)
+    if (D_801001A1[(u16) idx].id != key)
     {
       idx++;
       if (count > ((u16) idx))
@@ -61,9 +61,9 @@ volatile int func_80019A3C(void)
   if (zero < (*base))
   {
     key = (u16) id;
-    count = (u32) gSaveExtraSlotCount;
+    count = (u32) D_801002BC;
     second_loop:
-    if (sSaveSlotTable[((u16) (idx++)) + 4].id == key)
+    if (D_801001A1[((u16) (idx++)) + 4].id == key)
     {
       goto set_found;
     }

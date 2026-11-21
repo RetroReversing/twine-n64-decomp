@@ -16,14 +16,14 @@ void func_8002B150(void *, s32, s8);
 #define func_8002B150(a,b,c,d) func_8002B150(a,b,c)
 M2C_UNK func_8007089C(void *, M2C_UNK, u16);        /* extern */
 M2C_UNK func_8011B0FC(void *);                      /* extern */
-M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
+M2C_UNK relinkTrackMarkerSlot(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 D_801002B4;
-extern M2C_UNK gBonusSceneHandle;
+extern M2C_UNK sBonusObjectTable;
 extern M2C_UNK D_8011F3AC;
-extern void *gMarkerEntry1;
-extern void *gMarkerEntry2;
-extern void *gMarkerEntry3;
+extern void *sBonusMarkerNodes;
+extern void *sMarkerTextNode2;
+extern void *sMarkerTextNode3;
 
 void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
 s32 __repair_literal;
@@ -46,16 +46,16 @@ s32 __repair_literal;
         M2C_FIELD(arg1, s16 *, 0x1D8) = 0;
         M2C_FIELD(&D_801002A3, s8 *, 0) = 0;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) = 0U;
-        M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
-        M2C_FIELD(gMarkerEntry2, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry2, const s32 *, 0x28) & ~0xFC) | 0x1C);
-        M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(sBonusMarkerNodes, s32 *, 0x28) = (s32) ((M2C_FIELD(sBonusMarkerNodes, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(sMarkerTextNode2, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode2, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(sMarkerTextNode3, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode3, const s32 *, 0x28) & ~0xFC) | 0x1C);
         var_a0 = 0;
 __repair_literal = 0;
 
         if (D_801002B4 > 0) {
             do {
                 var_v0 = var_a0 & 0xFFFF;
-                temp_v0 = (&gBonusSceneHandle)[var_v0];
+                temp_v0 = (&sBonusObjectTable)[var_v0];
                 if (temp_v0 != NULL) {
                     temp_v0_2 = M2C_FIELD(temp_v0, void **, 0x6C);
                     if (temp_v0_2 != NULL) {
@@ -67,26 +67,26 @@ __repair_literal = 0;
         }
     } else {
         var_s0 = 0;
-        if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusSceneHandle + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
+        if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&sBonusObjectTable + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
             var_v0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
             var_s0 = (u8)var_v0;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
-            M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(sBonusMarkerNodes, s32 *, 0x28) = (s32) ((M2C_FIELD(sBonusMarkerNodes, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                relinkTrackMarker(arg2, 1);
+                relinkTrackMarkerSlot(arg2, 1);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 2) {
-            M2C_FIELD(gMarkerEntry2, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry2, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(sMarkerTextNode2, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode2, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                relinkTrackMarker(arg2, 2);
+                relinkTrackMarkerSlot(arg2, 2);
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 4) {
-            M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(sMarkerTextNode3, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode3, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
-                relinkTrackMarker(arg2, 4);
+                relinkTrackMarkerSlot(arg2, 4);
                 goto block_23;
             }
         } else {
