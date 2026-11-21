@@ -15,28 +15,28 @@ typedef s32 M2C_UNK32;
 s32 func_80010A2C();
 s32 func_80012C70();
 extern s16 gSaveStatus;
-extern s16 gSaveDisabled;
+extern s16 D_800E09B2;
 extern u16 D_80103022;
 extern u16 D_80109BA4;
-extern u16 gSaveSlotFlagsCopy;
+extern u16 D_80109D1C;
 extern s16 D_80109DD0;
-extern u16 gSaveDataPresent;
+extern u16 D_80117384;
 
-u16 saveCheckStatus(void) {
+u16 func_8001212C(void) {
     s32 var_a1;
     char *var_a0;
     char *var_v1;
     u16 temp_v0;
 
     gSaveStatus = 0;
-    if (gSaveDisabled == 0) {
-        if (gSaveDataPresent == 0) {
+    if (D_800E09B2 == 0) {
+        if (D_80117384 == 0) {
             gSaveStatus = 0x41;
             return 0x41U;
         }
         func_80012C70();
         var_a1 = 0;
-        var_a0 = &gSaveSlotFlagsCopy;
+        var_a0 = &D_80109D1C;
         var_v1 = &D_80103022;
         do {
             temp_v0 = *(u16 *)var_v1;
@@ -45,7 +45,7 @@ u16 saveCheckStatus(void) {
             *(u16 *)var_a0 = temp_v0;
             var_a0 += 2;
         } while (var_a1 < 4);
-        if (gSaveSlotFlagsCopy == 0) goto block_9;
+        if (D_80109D1C == 0) goto block_9;
         goto block_10;
     }
 block_9:
