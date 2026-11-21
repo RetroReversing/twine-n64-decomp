@@ -56106,14 +56106,6 @@
   "score_after": 765
  },
  {
-  "function": "func_801182B0",
-  "text": "Rechecked baseline 570. Six storage reuse, inferred layout, lifetime, signedness, declaration order and branch-orientation variants did not improve. Remaining 17 differences largely branch targets and delay-slot placement; target first branch has constant 2 in delay slot, candidate initializes zero. Restructure return paths and boolean comparison join while retaining float calculations.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795138894.0250921,
-  "score_before": 570,
-  "score_after": 570
- },
- {
   "function": "func_8002F068",
   "text": "Best 555 (95.2%), 116/118 instructions, revision 24d576086935882d8533. Second incoming argument is preserved in s0; base palette choices are byte offsets 4 and 0x24. Separate halfword externs D_800BFC94 and D_800BFC96 give correct relocations and avoid CSE of the common pulse address. Use a volatile global pointer read and a volatile lvalue for just the second color store. Remaining structural gap: target copies result to a0 after allocation, then a0 to a2 in the palette beqz delay slot; our compiler uses a2 directly and picks bnez with the other offset in its delay slot, dropping the extra jump. Reversing the if, giving it an explicit goto, and separating palette load from pointer reload all produced identical output. Target also places the tick LHU before the second color store; moving tick read to an explicit local schedules too early and alters register allocation, including with a volatile tick read. The entire alternate path matches apart from shifted control-flow targets.",
   "by": "codex-gpt-6.2-sol-4",
@@ -56306,14 +56298,6 @@
   "score_after": 765
  },
  {
-  "function": "func_801182B0",
-  "text": "Best score remains 570 at revision fd19a4ab0b493fddc9ad (u8 var_condition_bit and u8 var_v0 edits do not change assembly). Tested local scalar_storage_reuse, inferred_record_layout, branch_orientation with no improvement. Remaining differences are branch layout and two redundant zero-move/control-flow sequences: target beq/bne branches land 6 bytes earlier, target uses bnez $v1 where candidate has extra zero materialization / sltu. Revisit the nested flag and comparison structure (especially shared block_9) with explicit labels/gotos to match target block placement. Candidate uses byte-stride global tables D_800C471C and D_800C7C16.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178877.377942,
-  "score_before": 570,
-  "score_after": 570
- },
- {
   "function": "func_800561BC",
   "text": "Rechecked cb04927dcc7951211fa0 at 93086. Six independent stack array size variants did not improve; sp140 sizes 8, 9, 10, sp118 sizes 8 and 10, spF0 size 8. Signedness changes sp7C, spE0, spE2 produced identical code. Local repair discovery timed out before submitting variants. Target frame 0x1e8 versus candidate 0x1b0; many call signatures and m2c bit-pattern float arguments need investigation, especially func_80045CF8. Continue from saved candidate.",
   "by": "codex-gpt-6.1-terra-2",
@@ -56464,14 +56448,6 @@
   "created_at": 1795182982.862017,
   "score_before": 2768,
   "score_after": 2768
- },
- {
-  "function": "func_801182B0",
-  "text": "Rechecked baseline 570. Tried scalar storage reuse, inferred record layout, integer lifetimes, signedness, declaration order, and branch orientation; none improved, branch orientation worsened to 800. Main mismatch is early control flow/register order: target branches on actor type at +0x138, candidate branch reaches +0x144; target then loads arg1's +0x6C pointer. The known byte-stride offsets into arg0/global tables should be formed through byte pointers. Keep revision fd19a4ab0b493fddc9ad and focus on restructuring the outer conditionals.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795183007.712998,
-  "score_before": 570,
-  "score_after": 570
  },
  {
   "function": "func_8003099C",
@@ -57010,14 +56986,6 @@
   "score_after": 680
  },
  {
-  "function": "func_801182B0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Compilation attempted but toolchain gcc-2.7.2-kmc is not installed. No candidate changes; install compiler and verify saved baseline before further experiments.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795193942.500015,
-  "score_before": 570,
-  "score_after": 570
- },
- {
   "function": "func_8003099C",
   "text": "[Released without compiling it once; notes not checked by a compile.] Initial compile attempt is blocked: gcc-2.7.2-kmc is not installed. No code could be judged. Candidate revision 5cda60bc573ef46fcece has compiler warnings about func_80087100 signatures; resume after compiler installation and resolve the callee prototype first.",
   "by": "codex-gpt-6-luna-10",
@@ -57114,14 +57082,6 @@
   "score_after": 490
  },
  {
-  "function": "func_801182B0",
-  "text": "Current best 570/81 target instructions vs 83 candidate. Ran baseline compile and six local repair variants; none improved. Variants tried integer phase union, inline compared load, scalar storage reuse, record layout, branch orientation, and condition lifetime. Target opening expects equality compare with 7, then compare opcode with 2 and route opcode!=2 to second case; candidate emits different branch/control-flow shape and accumulates 2 extra instructions; multiple downstream branch offsets differ. Need restructure conditions/early exits rather than chase offsets. Float halves and indexed table calculations appear structurally close.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795200175.5935202,
-  "score_before": 570,
-  "score_after": 570
- },
- {
   "function": "func_8007C120",
   "text": "Current candidate revision 30e5c136ee31eab0faef rechecked score 40. Targeted local repair batch: split_scalar_lifetime worsened to 1240; unsigned index 240; symbol address local 420; shared branch locals malformed compile; signedness and return-width tied at 40. Mismatch is eight register-only differences. Target code uses $fv1 for table load and both multiplies; source builds into $f0 in one branch. Target preserves separate branch-local D_80117386 halfword loads, materializes constants 0.95/0.75/0.25 in $fv0, scales the index in delay slots, joins at common table load/multiply, then multiplies by incoming $ft0; direct state 9/10/11 branch loads table value and multiplies arg2 directly. Candidate if/else source has same apparent behavior but compiler emits alternate FP register lifetimes. Try an explicit shared join/control shape with branch-local `f32 factor` values and table index load after factor selection; examine all mismatch rows after compile. Do not retry failed generic local repairs without a new source hypothesis.",
   "by": "codex-gpt-6-luna-17",
@@ -57192,14 +57152,6 @@
   "created_at": 1795201966.757039,
   "score_before": 490,
   "score_after": 490
- },
- {
-  "function": "func_801182B0",
-  "text": "Verified baseline 570; control flow and branch targets remain different.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795201995.512761,
-  "score_before": 570,
-  "score_after": 570
  },
  {
   "function": "func_8009811C",
@@ -58062,15 +58014,6 @@
   "created_at": 1795213930.608526,
   "score_before": 96805,
   "score_after": 96805
- },
- {
-  "function": "func_801182B0",
-  "text": "Flattening control flow improved 570 to 210. Both integer address orders and guard inversion tied. Shared zero label scored 2165. Budget exhausted with two reversed addu operands and bnel instead of bne.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795214134.412184,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
  },
  {
   "function": "func_80118BCC",
@@ -59054,15 +58997,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e1621fb2734cd339a7ad307efe6ace526a69da0449642d4754ce185cf42bcc03"
  },
  {
-  "function": "func_801182B0",
-  "text": "Verified 210 at 81/81 instructions. Rows 21 and 51 have reversed addu operands for arg0 and the doubled index. Row 67 uses bnel instead of bne for the 26 case.\nExplicit integer address addition in both operand orders, typed halfword array subscripting, positive equality with goto compare, and an inclusive bound.\nInteger offset-first and typed array retained score 210. Inclusive bound worsened to 410. Three instruction differences remain.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795229873.0689301,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
- },
- {
   "function": "func_8009D5D4",
   "text": "Compiled the inherited m2c candidate (13918, unchanged). The large offset access to field 0x19c and hand-built loops remain, but score is stable. Target uses frame -0x28 and saves ra at 0x24, candidate reserves -0x30 and saves s0 at 0x18 after copying a0; this suggests original C directly keeps arg0 in a0-derived values. Local changes to bzero prototype and synthetic offset struct made no output difference. Next step: inspect target start and restructure arg0 lifetime to eliminate saved s0; use exact -0x28 frame and preserve incoming arg0 in stack/register as assembly demonstrates.",
   "by": "codex-gpt-6-luna-15",
@@ -59240,15 +59174,6 @@
   "score_before": 2660,
   "score_after": 2660,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9c1a8605c0ed88247479feb794b037dd63811a28bed7466a0e8714a22a5a0c41"
- },
- {
-  "function": "func_801182B0",
-  "text": "Best this session 230 (rev d72029d5d4dc5e8ce254): result variable r with if(op==2)/else if(op==0)/else chain, op reused as idx, third case uses a1 as int (a1=(u8*)(u32)*(u16*)(a1+0x3E)), single 'return r'. Remaining: 7 rows, registers only: target uses v1 for the sll/addu (addu v1,a0,v1 with a0 first) vs mine v0 (addu v0,v0,a0); third-case bnel vs bne. Array-index/cast/ordering forms of the arg0+op*2 address all unchanged. Next step: try try_local_repairs on d72029d5 for operand order / make arg0 pointer typed s16* and index.\naddress-expression reformulations (u32 cast, index form, order, shift)\nno change, 230",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795234627.022582,
-  "score_before": 210,
-  "score_after": 210,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
  },
  {
   "function": "func_80035060",
@@ -76028,5 +75953,98 @@
   "score_before": 551,
   "score_after": 200,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:dd95f59897cac98b3bb9e1f240d0736998e9edee0b7c3a58be2aaca8a1706a1e"
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Rechecked baseline 570. Six storage reuse, inferred layout, lifetime, signedness, declaration order and branch-orientation variants did not improve. Remaining 17 differences largely branch targets and delay-slot placement; target first branch has constant 2 in delay slot, candidate initializes zero. Restructure return paths and boolean comparison join while retaining float calculations.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795138894.0250921,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Best score remains 570 at revision fd19a4ab0b493fddc9ad (u8 var_condition_bit and u8 var_v0 edits do not change assembly). Tested local scalar_storage_reuse, inferred_record_layout, branch_orientation with no improvement. Remaining differences are branch layout and two redundant zero-move/control-flow sequences: target beq/bne branches land 6 bytes earlier, target uses bnez $v1 where candidate has extra zero materialization / sltu. Revisit the nested flag and comparison structure (especially shared block_9) with explicit labels/gotos to match target block placement. Candidate uses byte-stride global tables D_800C471C and D_800C7C16.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178877.377942,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Rechecked baseline 570. Tried scalar storage reuse, inferred record layout, integer lifetimes, signedness, declaration order, and branch orientation; none improved, branch orientation worsened to 800. Main mismatch is early control flow/register order: target branches on actor type at +0x138, candidate branch reaches +0x144; target then loads arg1's +0x6C pointer. The known byte-stride offsets into arg0/global tables should be formed through byte pointers. Keep revision fd19a4ab0b493fddc9ad and focus on restructuring the outer conditionals.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795183007.712998,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Compilation attempted but toolchain gcc-2.7.2-kmc is not installed. No candidate changes; install compiler and verify saved baseline before further experiments.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795193942.500015,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Current best 570/81 target instructions vs 83 candidate. Ran baseline compile and six local repair variants; none improved. Variants tried integer phase union, inline compared load, scalar storage reuse, record layout, branch orientation, and condition lifetime. Target opening expects equality compare with 7, then compare opcode with 2 and route opcode!=2 to second case; candidate emits different branch/control-flow shape and accumulates 2 extra instructions; multiple downstream branch offsets differ. Need restructure conditions/early exits rather than chase offsets. Float halves and indexed table calculations appear structurally close.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795200175.5935202,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Verified baseline 570; control flow and branch targets remain different.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795201995.512761,
+  "score_before": 570,
+  "score_after": 570
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Flattening control flow improved 570 to 210. Both integer address orders and guard inversion tied. Shared zero label scored 2165. Budget exhausted with two reversed addu operands and bnel instead of bne.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795214134.412184,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Verified 210 at 81/81 instructions. Rows 21 and 51 have reversed addu operands for arg0 and the doubled index. Row 67 uses bnel instead of bne for the 26 case.\nExplicit integer address addition in both operand orders, typed halfword array subscripting, positive equality with goto compare, and an inclusive bound.\nInteger offset-first and typed array retained score 210. Inclusive bound worsened to 410. Three instruction differences remain.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795229873.0689301,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Best this session 230 (rev d72029d5d4dc5e8ce254): result variable r with if(op==2)/else if(op==0)/else chain, op reused as idx, third case uses a1 as int (a1=(u8*)(u32)*(u16*)(a1+0x3E)), single 'return r'. Remaining: 7 rows, registers only: target uses v1 for the sll/addu (addu v1,a0,v1 with a0 first) vs mine v0 (addu v0,v0,a0); third-case bnel vs bne. Array-index/cast/ordering forms of the arg0+op*2 address all unchanged. Next step: try try_local_repairs on d72029d5 for operand order / make arg0 pointer typed s16* and index.\naddress-expression reformulations (u32 cast, index form, order, shift)\nno change, 230",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795234627.022582,
+  "score_before": 210,
+  "score_after": 210,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Move-on limit reached. Verified score 200; only bnel vs bne at row 67. Reversed equality, singleton switch and zero-result assignment tied; shared rejection labels and computed false regressed.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795282286.0838609,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
+ },
+ {
+  "function": "func_801182B0",
+  "text": "Verified 200, solely bnel at row 67. Unsigned subtract/range, halfword casts, positive equality nesting, and explicit bool return tied. Shared zero exit scored 530. Both scheduling flags tied; -fno-delayed-branch 1250, -mips1 1770, -mno-branch-likely unsupported.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795284749.3278022,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:342bb1c39b9216efe0e3eb2aeeb1e9688aa6336a514e8ff7d9b85fbc5f9e7acd"
  }
 ]
