@@ -25,7 +25,7 @@ M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();     /* extern */
 M2C_UNK func_80083B64();     /* extern */
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern f64 D_800D3EC0;
 extern void *D_80108404;
 extern void *gPlayerActor;
@@ -166,10 +166,10 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     sp11C = sp98;
     var_fp = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), void **, 0x58);
     sp124 = sp38;
-    D_800B35B0 += 1;
+    gSurfaceQueryStamp += 1;
 loop_3:
     var_s2 = var_s0;
-    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) D_800B35B0;
+    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) gSurfaceQueryStamp;
     if (var_s0 != NULL) {
         var_s0_2 = M2C_FIELD(var_s0, void **, 0);
         if (var_s0_2 != NULL) {
@@ -625,7 +625,7 @@ block_137:
 loop_159:
 loop_160:
         var_s0 = M2C_FIELD(var_fp, void **, 8);
-        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != D_800B35B0) {
+        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != gSurfaceQueryStamp) {
             if (var_fp != NULL) {
                 if ((Sphere_OverlapsPoint(M2C_FIELD(var_fp, s32 *, 4) + 0x40, arg3, arg5) << 0x18) != 0) {
                     var_fp = M2C_FIELD(var_fp, void **, 0);

@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 struct vec { f32 x,y,z; };
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 s8 Ray_CastObjects(void *, void *, f32 *, f32 *, f32 *, f32, s32, s32, s32);
 s32 func_8004F990();
 f32 Vec3_DistanceSq(f32 *, f32 *);
@@ -21,7 +21,7 @@ extern void func_8004D910(void);
 #define FIELD(p,t,o) (*(t *)((s8 *)(p)+(o)))
 s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
  volatile s32 padding[6]; f32 p[3], d[3], q[3], r[3], out[3]; s32 mode=0; void *obj=arg2; f32 limit=65536.0f; f32 v;
- D_800B35B0++;
+ gSurfaceQueryStamp++;
  *(struct vec *)p=*(struct vec *)arg0;
  *(struct vec *)d=*(struct vec *)arg1; q[0]=0.0f;
  if(!obj){*(struct vec *)arg3=*(struct vec *)arg0;__shared_return_0:

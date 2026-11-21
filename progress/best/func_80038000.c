@@ -48,7 +48,7 @@ M2C_UNK guTranslateF(M2C_UNK *, f32, f32, f32);     /* extern */
 M2C_UNK renderObjectList(void *);                   /* extern */
 M2C_UNK updateObjectColor(void *);                  /* extern */
 extern u32 D_800B1D84;
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern f32 D_800C0740;
 extern s8 D_800C43A0;
 extern s32 D_800E1710;
@@ -126,7 +126,7 @@ void func_80038000(void *arg0, s32 arg1) {
     D_800E1710 = arg1;
     gObjectListHead = NULL;
     gObjectList = 0;
-    D_800B35B0 += 1;
+    gSurfaceQueryStamp += 1;
     if (M2C_FIELD(arg0, s32 *, 0xF4) != 0) {
         sp20 = M2C_FIELD(arg0, f32 *, 0x50);
         sp24 = M2C_FIELD(arg0, f32 *, 0x54);
@@ -224,7 +224,7 @@ loop_15:
                 func_80015BA8(arg0 + 0x10, temp_s7, &sp20);
             }
             temp_s0_3 = arg0 + 0x88;
-            D_800B35B0 += 1;
+            gSurfaceQueryStamp += 1;
             func_80082C8C(temp_s0_3);
             func_80082CFC(temp_s0_3);
             func_800349B4(arg0);

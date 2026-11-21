@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80082C8C(s32, s32);                    /* extern */
 M2C_UNK func_80082CFC(s32);                         /* extern */
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern s32 D_800E09F0;
 extern void *gObjectListHead;
 extern s32 D_80109E1C;
@@ -37,5 +37,5 @@ void func_80014E30(s32 arg0) {
     func_80082C8C(temp_s0, arg0);
     func_80082CFC(temp_s0);
     D_80109E1C = 0;
-    D_800B35B0 += 1;
+    gSurfaceQueryStamp += 1;
 }

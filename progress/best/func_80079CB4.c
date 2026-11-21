@@ -32,7 +32,7 @@ extern u16 D_80108F72;
 extern s32 gGameMode;
 extern u16 D_80113020;
 extern u8 D_80117734;
-extern M2C_UNK func_80076CE4;
+extern M2C_UNK actorTickStateMachine;
 extern s32 *gProbeObjectList;
 extern M2C_UNK gTrackDoneFlags;
 
@@ -92,7 +92,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
             func_8000237C(var_s1, arg10, 1, -(D_800CA338 == 0));
             if (M2C_FIELD(var_s1, void **, 0x68) != NULL) {
                 func_800015AC(var_s1, arg11);
-                func_80002EAC(var_s1, &func_80076CE4);
+                func_80002EAC(var_s1, &actorTickStateMachine);
                 M2C_FIELD(var_s1, f32 *, 0x74) = (f32) (func_8002BA9C(arg10) & 0xFFFF);
                 M2C_FIELD(var_s1, s32 *, 0x58) = (s32) (M2C_FIELD(var_s1, s32 *, 0x58) | 0x2400);
                 M2C_FIELD(temp_s0, u8 *, 0x82) = arg12;

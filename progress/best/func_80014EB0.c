@@ -5,7 +5,7 @@ extern s32 func_8003F83C(f32 *, f32 *, s32);
 extern void func_8003F918(f32, f32, f32, f32);
 extern void func_80045514(void *, f32, f32);
 extern void func_80082BD0();
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern s32 D_800E09F0;
 extern f32 D_800E0A00;
 extern f32 D_800E0A24;
@@ -219,8 +219,8 @@ block_51:
                                     *(f32 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0x54) = fv;
                                 }
                                 temp_a0 = *(void **)((u8 *)temp_a3 + 0x20);
-                                if (*(u16 *)((u8 *)temp_a0 + 0x60) != D_800B35B0) {
-                                    *(u16 *)((u8 *)temp_a0 + 0x60) = D_800B35B0;
+                                if (*(u16 *)((u8 *)temp_a0 + 0x60) != gSurfaceQueryStamp) {
+                                    *(u16 *)((u8 *)temp_a0 + 0x60) = gSurfaceQueryStamp;
                                     *(ClipBounds *)*(void **)((u8 *)temp_a3 + 0x20) = box;
                                     *(u16 *)((u8 *)*(void **)((u8 *)temp_a3 + 0x20) + 0x62) = (u16) D_800E0C38;
                                     sp10[spAC] = temp_a3;

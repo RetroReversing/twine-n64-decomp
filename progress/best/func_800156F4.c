@@ -16,7 +16,7 @@ typedef struct Entry156 {
     EntryData156 *data;
 } Entry156;
 
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern Entry156 *D_80102D68[];
 extern Bounds156 D_80103F10[];
 extern Entry156 *gObjectListHead;
@@ -38,8 +38,8 @@ void func_800156F4(void) {
     EntryData156 *maxYData;
     f32 value;
 
-    stamp = D_800B35B0 + 1;
-    D_800B35B0 = stamp;
+    stamp = gSurfaceQueryStamp + 1;
+    gSurfaceQueryStamp = stamp;
     count = D_80109E1C;
     i = 0;
     if (count != 0) {

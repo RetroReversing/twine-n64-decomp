@@ -26,7 +26,7 @@ M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
 M2C_UNK func_800832BC(s16 *, f32 *);                /* extern */
 M2C_UNK rotateVec3ByMat3();         /* extern */
 M2C_UNK func_80083B64();         /* extern */
-extern u16 D_800B35B0;
+extern u16 gSurfaceQueryStamp;
 extern f64 D_800D3E70;
 extern f64 D_800D3E78;
 extern f64 D_800D3E80;
@@ -228,11 +228,11 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     sp1A4 = &sp88;
     sp1AC = &sp28;
     sp1B4 = &sp90;
-    D_800B35B0 += 1;
+    gSurfaceQueryStamp += 1;
     sp18C = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), void **, 0x58);
 loop_3:
     var_s6 = var_s0;
-    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) D_800B35B0;
+    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) gSurfaceQueryStamp;
     if (var_s0 != NULL) {
         var_s4 = M2C_FIELD(var_s0, void **, 0);
         if (var_s4 != NULL) {
@@ -761,7 +761,7 @@ block_141:
 loop_153:
 loop_154:
         var_s0 = M2C_FIELD(sp18C, void **, 8);
-        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != D_800B35B0) {
+        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != gSurfaceQueryStamp) {
             if (sp18C != NULL) {
                 if ((Sphere_OverlapsPoint(M2C_FIELD(sp18C, s32 *, 4) + 0x40, arg1, arg3) << 0x18) != 0) {
                     sp18C = M2C_FIELD(sp18C, void **, 0);

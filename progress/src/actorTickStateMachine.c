@@ -7,7 +7,7 @@ void func_80077960(void *, s32);
 void func_800779C4(void *);
 s32 func_80077E00(void *arg0);
 
-void func_80076CE4(void *arg0) {
+void actorTickStateMachine(void *arg0) {
     u8 *st = F(arg0, u8 *, 0x6C);
     s32 s = F(st, u8, 0x7F);
     s8 r;

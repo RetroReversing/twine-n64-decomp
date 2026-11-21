@@ -12,16 +12,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80045764(f32 *, f32 *);                    /* extern */
-s32 randomIntBelow(M2C_UNK);                         /* extern */
-s8 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *); /* extern */
-M2C_UNK func_800556DC(void *, void *, f32 *, void *); /* extern */
-M2C_UNK func_80073304(void *, void *, void *);      /* extern */
-extern u16 D_800B35B0;
+f32 func_80045764(f32 *, f32 *);
+s32 randomIntBelow(M2C_UNK);
+s8 func_8004DBD8(void *, f32 *, s32, s32, s32, f32 *);
+M2C_UNK func_800556DC(void *, void *, f32 *, void *);
+M2C_UNK func_80073304(void *, void *, void *);
+extern u16 gSurfaceQueryStamp;
 
-void *func_800557E0(s32 arg0, s8 arg1, void *arg2, void *arg3, void *arg4, void *arg5, void **arg6) {
-int __repair_literal;
-
+/* Walks the surface-group list and returns the first group whose triangles the
+ * ray (rayOrigin -> rayTarget) hits within its length. Writes the hit point and
+ * the hit group to the output pointers. */
+void *findSurfaceAlongRay(s32 arg0, s8 arg1, void *object, void *rayOrigin, void *rayTarget, void *hitPoint, void **hitGroupOut) {
     union {
         unsigned char bytes[56];
         struct { f32 value; } view_sp18;
@@ -36,19 +37,9 @@ int __repair_literal;
         struct { unsigned char pad[48]; f32 value; } view_sp48;
         struct { unsigned char pad[52]; f32 value; } view_sp4C;
     } m2c_initial_frame;
-
-             
-             
-             
-             
-             
-             
-             
-             
-             
+    int __repair_literal;
     f32 temp_fs0;
-    void *out = arg5;
-    void *object = arg2;
+    void *out = hitPoint;
     f32 distance;
     s32 temp_v1;
     s32 temp_v1_2;
@@ -59,20 +50,20 @@ int __repair_literal;
     void *temp_v0_2;
     void *var_s0;
 
-    M2C_FIELD(M2C_FIELD(object, void **, 0x20), u16 *, 0x60) = (u16) D_800B35B0;
-    *arg6 = NULL;
+    M2C_FIELD(M2C_FIELD(object, void **, 0x20), u16 *, 0x60) = (u16) gSurfaceQueryStamp;
+    *hitGroupOut = NULL;
     if (object != NULL) {
         var_s0 = M2C_FIELD(M2C_FIELD(object, void **, 0x20), void **, 0x58);
-        m2c_initial_frame.view_sp28.value = M2C_FIELD(arg4, f32 *, 0) - M2C_FIELD(arg3, f32 *, 0);
-        m2c_initial_frame.view_sp2C.value = M2C_FIELD(arg4, f32 *, 4) - M2C_FIELD(arg3, f32 *, 4);
-        m2c_initial_frame.view_sp30.value = M2C_FIELD(arg4, f32 *, 8) - M2C_FIELD(arg3, f32 *, 8);
+        m2c_initial_frame.view_sp28.value = M2C_FIELD(rayTarget, f32 *, 0) - M2C_FIELD(rayOrigin, f32 *, 0);
+        m2c_initial_frame.view_sp2C.value = M2C_FIELD(rayTarget, f32 *, 4) - M2C_FIELD(rayOrigin, f32 *, 4);
+        m2c_initial_frame.view_sp30.value = M2C_FIELD(rayTarget, f32 *, 8) - M2C_FIELD(rayOrigin, f32 *, 8);
         temp_fs0 = func_80045764(&m2c_initial_frame.view_sp18.value, &m2c_initial_frame.view_sp28.value);
         if (var_s0 != NULL) {
             s32 flag0 = (s8)arg0;
             s32 flag1 = (s8)arg1;
 loop_3:
             temp_s2 = M2C_FIELD(M2C_FIELD(var_s0, void **, 4), void **, 0x3C);
-            if (M2C_FIELD(M2C_FIELD(M2C_FIELD(var_s0, void **, 8), void **, 0x20), u16 *, 0x60) != D_800B35B0) {
+            if (M2C_FIELD(M2C_FIELD(M2C_FIELD(var_s0, void **, 8), void **, 0x20), u16 *, 0x60) != gSurfaceQueryStamp) {
               if (temp_s2 != NULL) {
                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
                     var_s1 = 0;
@@ -83,7 +74,7 @@ __repair_literal = 0;
 loop_8:
                         temp_v1 = M2C_FIELD(temp_s2, s32 *, 0x34);
                         temp_v0 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                        if (!(func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) || !(distance <= temp_fs0)) {
+                        if (!(func_8004DBD8(rayOrigin, &m2c_initial_frame.view_sp18.value, temp_v1 + (M2C_FIELD(temp_v0, u16 *, 0) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 2) * 0xC), temp_v1 + (M2C_FIELD(temp_v0, u16 *, 4) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) || !((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) || !(distance <= temp_fs0)) {
                             var_s1++;
                             var_s3 += 6;
                             if (var_s1 < (s32)M2C_FIELD(temp_s2, u16 *, 0x40)) goto loop_8;
@@ -100,17 +91,17 @@ loop_8:
 loop_15:
                     temp_v1_2 = M2C_FIELD(temp_s2, s32 *, 0x34);
                     temp_v0_2 = M2C_FIELD(temp_s2, s32 *, 0x3C) + var_s3;
-                    if ((func_8004DBD8(arg3, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && ((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) && (distance <= temp_fs0)) {
+                    if ((func_8004DBD8(rayOrigin, &m2c_initial_frame.view_sp18.value, temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 0) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 1) * 0xC), temp_v1_2 + (M2C_FIELD(temp_v0_2, u8 *, 2) * 0xC), &m2c_initial_frame.view_sp38.value) & 0xFF) && ((distance = m2c_initial_frame.view_sp38.value) >= 0.0f) && (distance <= temp_fs0)) {
 block_18:
                         if (out != NULL) {
-                            M2C_FIELD(out, f32 *, 0) = (f32) (M2C_FIELD(arg3, f32 *, 0) + (distance * m2c_initial_frame.view_sp18.value));
-                            M2C_FIELD(out, f32 *, 4) = (f32) (M2C_FIELD(arg3, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
-                            M2C_FIELD(out, f32 *, 8) = (f32) (M2C_FIELD(arg3, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
+                            M2C_FIELD(out, f32 *, 0) = (f32) (M2C_FIELD(rayOrigin, f32 *, 0) + (distance * m2c_initial_frame.view_sp18.value));
+                            M2C_FIELD(out, f32 *, 4) = (f32) (M2C_FIELD(rayOrigin, f32 *, 4) + (distance * m2c_initial_frame.view_sp1C.value));
+                            M2C_FIELD(out, f32 *, 8) = (f32) (M2C_FIELD(rayOrigin, f32 *, 8) + (distance * m2c_initial_frame.view_sp20.value));
                             if (M2C_FIELD(var_s0, u16 *, 0x26) & 0x1000) { if ((flag0 != 0) && ((m2c_initial_frame.view_sp40.value = M2C_FIELD(var_s0, f32 *, 0xC), m2c_initial_frame.view_sp44.value = M2C_FIELD(var_s0, f32 *, 0x10), m2c_initial_frame.view_sp48.value = M2C_FIELD(var_s0, f32 *, 0x14), m2c_initial_frame.view_sp4C.value = M2C_FIELD(var_s0, f32 *, 0x18), func_800556DC(object, out, &m2c_initial_frame.view_sp40.value, var_s0), (flag1 != 0)) || (randomIntBelow(4) == 0))) {
                                 func_80073304(var_s0, out, object);
                             }}
                         }
-                        *arg6 = var_s0;
+                        *hitGroupOut = var_s0;
                         return M2C_FIELD(var_s0, void **, 8);
                     }
                     var_s1 += 1;

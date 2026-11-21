@@ -33,7 +33,7 @@ M2C_UNK func_80046424(void *, f32, f32, f32);       /* extern */
 s32 func_80048F10(void *, f32 *, s32, M2C_UNK, f32, s32, s32, s32); /* extern */
 void *func_8004F990(void *, void *, f32 *, s32, f32 *, s32, s32, s32); /* extern */
 M2C_UNK func_80054FEC(void *, f32, f32, void *, f32 *, s32, s32); /* extern */
-void *func_800557E0(s32, s32, void *, f32 *, f32 *, f32 *, void **); /* extern */
+void *findSurfaceAlongRay(s32, s32, void *, f32 *, f32 *, f32 *, void **); /* extern */
 M2C_UNK func_8005603C(void *);                      /* extern */
 M2C_UNK func_800560AC(void *);                      /* extern */
 s32 func_80056124(void *, f32 *, f32 *);            /* extern */
@@ -286,7 +286,7 @@ block_29:
         sp184 = NULL;
         D_80108F84 = NULL;
         gPlayerActor = NULL;
-        var_fp = func_800557E0(0, 0, sp174, arg0 + 0x24, &vsp30[0], &vsp50[0], &sp80);
+        var_fp = findSurfaceAlongRay(0, 0, sp174, arg0 + 0x24, &vsp30[0], &vsp50[0], &sp80);
         if (var_fp != NULL) {
             var_fs1 = Vec3_DistanceSq(temp_s2 + 0xC, &vsp50[0]);
             if ((M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x60) & 0x8000) && (M2C_FIELD(sp80, u16 *, 0x26) & 0x1000)) {
@@ -993,7 +993,7 @@ block_263:
                 temp_s4 = arg0 + 0x24;
                 if (var_fp != NULL) {
                     temp_a1_3 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64);
-                    temp_v0_20 = func_800557E0((temp_a1_3 & 0x1BC3) != 0, (temp_a1_3 & 0x13C2) != 0, sp174, temp_s4, &vsp30[0], &vsp50[0], &sp80);
+                    temp_v0_20 = findSurfaceAlongRay((temp_a1_3 & 0x1BC3) != 0, (temp_a1_3 & 0x13C2) != 0, sp174, temp_s4, &vsp30[0], &vsp50[0], &sp80);
                     if (temp_v0_20 != NULL) {
                         func_80045290(&vsp50[0], &vsp30[0]);
                         vsp30[0] += M2C_FIELD(temp_s2, f32 *, 0) * 0.01f;
