@@ -1,4 +1,4 @@
-void func_80024D78(void);
+void refreshSlotMenuLabels(void);
 void func_80026424(s32, s32);
 s32 func_8002AF30(void *);
 void func_8002CB5C(u8);
@@ -29,7 +29,7 @@ s32 func_80024AD0(u16 arg0, u8 arg1) {
         func_80026424(sActiveMenu, 0x18);
         return 0x8003;
     case 0x8000:
-        func_80024D78();
+        refreshSlotMenuLabels();
         gMenuState[0x2C] = 0;
         return 3;
     default:

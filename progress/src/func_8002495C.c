@@ -1,5 +1,5 @@
 typedef struct { u8 pad[0x18]; s32 key; } Rec;
-void func_80024D78(void);
+void refreshSlotMenuLabels(void);
 void func_80026424(s32, s32);
 Rec ***func_8002A920(void *, s8);
 s32 func_8002AF30(void *);
@@ -53,7 +53,7 @@ s32 func_8002495C(u16 arg0, u8 arg1) {
         func_80026424(sActiveMenu, 0x18);
         return 0x8002;
     case 0x8000:
-        func_80024D78();
+        refreshSlotMenuLabels();
         gMenuState[0x2C] = 0;
         return 2;
     default:

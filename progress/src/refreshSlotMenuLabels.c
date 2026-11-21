@@ -18,7 +18,7 @@ void formatTextEntry(s32, char *, s32, u16);
 s32 sprintf(char *, const char *, ...);
 s16 strlen(const char *);
 
-void func_80024D78(void) {
+void refreshSlotMenuLabels(void) {
     u16 i;
     Item4D78 **pp;
     Item4D78 *it;

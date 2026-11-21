@@ -4,6 +4,7 @@ void func_8009F1D4(void *, s32, s32);
 #define FM(v, off, k, add) ((s16)(((s32)((u32)((u64)(u32)(((v) - (off)) << 10) * (k)) + (add)) >> 15) * 2))
 
 void func_8009D9F0(u8 *arg0, s16 *arg1, s32 arg2, s32 arg3) {
+    volatile s32 pad[2];
     s16 *out = (s16 *)(arg0 + *(s16 *)(arg0 + 0x188) * 16 + 0x168);
 
     out[0] = FM(arg1[0], 0x20, 0x3333, 0x4000);

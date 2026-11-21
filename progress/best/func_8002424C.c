@@ -4,7 +4,7 @@ s32 func_80015F74();
 s32 func_80022A30();
 s32 func_80022AD8();
 s32 updateSaveMenuSprites();
-s32 func_80024D78();
+s32 refreshSlotMenuLabels();
 s32 func_80024EF0();
 s32 func_8002A644();
 s32 func_8002A7CC();
@@ -62,7 +62,7 @@ void func_8002424C(void) {
         func_8002A7CC(D_80107EA8, (char *)(offset + (u32)pairs), (u8)i, 1);
         i++;
     } while ((u16)i < 16);
-    func_80024D78();
+    refreshSlotMenuLabels();
     sSaveMenuRefresh = 0;
     sSaveMenuAction = 1;
     func_80022AD8(gMenuParamC);

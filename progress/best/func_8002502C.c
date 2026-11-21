@@ -4,7 +4,7 @@ extern unsigned short D_800BD55C;
 extern unsigned short D_800BD55E;
 s32 func_8001F064();
 s32 func_8001F08C();
-s32 func_80024D78();
+s32 refreshSlotMenuLabels();
 s32 func_8002778C();
 s32 func_800277E4();
 s32 func_800278AC();
@@ -369,7 +369,7 @@ block_134:
                                     var_s0 = 0x94;
                                 }
                             }
-                            func_80024D78();
+                            refreshSlotMenuLabels();
                             func_800277E4(-(((u16) D_800BD68C >= 0xAU) & (D_800BD68C != 0x13)) & (s32)0xFF);
                             var_a1_5 = var_s0 << 0x10;
                             {var_a1 = (s16) (var_a1_5 >> 0x10);
