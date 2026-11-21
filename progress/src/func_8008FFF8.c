@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8008EA58(s32, void *);                 /* extern */
-extern void *D_800EDA8C;
+extern void *gSeqPlayer;
 
 typedef struct { void * value; } __repair_field_0;
 typedef struct { unsigned char pad[4]; void * value; } __repair_field_4;
@@ -26,15 +26,15 @@ s32 func_8008FFF8(void) {
     void *temp_v1;
     void *var_s0;
 
-    temp_v0 = M2C_FIELD(D_800EDA8C, void **, 0xF78);
+    temp_v0 = M2C_FIELD(gSeqPlayer, void **, 0xF78);
     if (temp_v0 != NULL) goto start;
     return 0;
 start:
     var_s0 = temp_v0;
     do {
         temp_s1 = ((__repair_field_0 *)var_s0)->value;
-        if ((M2C_FIELD(var_s0, s32 *, 0x14) + M2C_FIELD(D_800EDA8C, s32 *, 0x120)) >= M2C_FIELD(var_s0, s32 *, 0xC)) {
-            func_8008EA58(M2C_FIELD(var_s0, s32 *, 8), D_800EDA8C);
+        if ((M2C_FIELD(var_s0, s32 *, 0x14) + M2C_FIELD(gSeqPlayer, s32 *, 0x120)) >= M2C_FIELD(var_s0, s32 *, 0xC)) {
+            func_8008EA58(M2C_FIELD(var_s0, s32 *, 8), gSeqPlayer);
             temp_v1 = ((__repair_field_0 *)var_s0)->value;
             if (temp_v1 != NULL) {
                 ((__repair_field_4 *)temp_v1)->value = (void **) ((__repair_field_4 *)var_s0)->value;
@@ -43,19 +43,19 @@ start:
             if (temp_v1_2 != NULL) {
                 *temp_v1_2 = ((__repair_field_0 *)var_s0)->value;
             } else {
-                M2C_FIELD(D_800EDA8C, void **, 0xF78) = (void *) ((__repair_field_0 *)var_s0)->value;
+                M2C_FIELD(gSeqPlayer, void **, 0xF78) = (void *) ((__repair_field_0 *)var_s0)->value;
             }
-            temp_v0_2 = M2C_FIELD(D_800EDA8C, void **, 0xF7C);
+            temp_v0_2 = M2C_FIELD(gSeqPlayer, void **, 0xF7C);
             ((__repair_field_0 *)var_s0)->value = temp_v0_2;
             if (temp_v0_2 != NULL) {
-                M2C_FIELD(M2C_FIELD(D_800EDA8C, void **, 0xF7C), void **, 4) = var_s0;
+                M2C_FIELD(M2C_FIELD(gSeqPlayer, void **, 0xF7C), void **, 4) = var_s0;
             }
             ((__repair_field_4 *)var_s0)->value = NULL;
-            M2C_FIELD(D_800EDA8C, void **, 0xF7C) = var_s0;
+            M2C_FIELD(gSeqPlayer, void **, 0xF7C) = var_s0;
         } else {
-            temp_v0_3 = M2C_FIELD(var_s0, s32 *, 0x10) + M2C_FIELD(D_800EDA8C, s32 *, 0x118);
+            temp_v0_3 = M2C_FIELD(var_s0, s32 *, 0x10) + M2C_FIELD(gSeqPlayer, s32 *, 0x118);
             M2C_FIELD(var_s0, s32 *, 0x10) = (s32) (temp_v0_3 & 0xFFFF);
-            M2C_FIELD(var_s0, s32 *, 0x14) = (s32) (M2C_FIELD(var_s0, s32 *, 0x14) + ((temp_v0_3 >> 0x10) + M2C_FIELD(D_800EDA8C, s32 *, 0x11C)));
+            M2C_FIELD(var_s0, s32 *, 0x14) = (s32) (M2C_FIELD(var_s0, s32 *, 0x14) + ((temp_v0_3 >> 0x10) + M2C_FIELD(gSeqPlayer, s32 *, 0x11C)));
         }
         var_s0 = temp_s1;
     } while (var_s0 != NULL);

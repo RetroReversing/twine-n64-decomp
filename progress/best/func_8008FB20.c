@@ -6,7 +6,7 @@ void func_80095A80(u8, u8, u8, u8);            /* extern */
 extern void *D_800E5AC0;
 extern u8 D_800EDA87;
 extern u8 D_800EDA88;
-extern void *D_800EDA8C;
+extern void *gSeqPlayer;
 
 typedef struct { void * value; } __repair_field_0;
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
@@ -54,7 +54,7 @@ char *__repair_addr;
     var_s6 = 0;
     var_s2 = 0;
     do {
-        temp_t0 = D_800EDA8C;
+        temp_t0 = gSeqPlayer;
         if ((*(s32 *)((char *)((temp_t0 + var_s2)) + 0x574)) != 0) {
             var_s7 = 1;
             var_a2 = temp_t0 + var_s2;
@@ -96,22 +96,22 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                     if (var_a0 == 0x68) {
                                         if ((*(u8 *)((char *)(temp_t0) + 0xFF4)) != 0) {
                                             func_80091A24(temp_t0 + 0xFC8, (*(s32 *)((char *)(temp_t0) + 0xFF0)), 1);
-                                            (*(s8 *)((char *)(D_800EDA8C) + 0xFF4)) = 0;
+                                            (*(s8 *)((char *)(gSeqPlayer) + 0xFF4)) = 0;
                                         }
                                     } else {/*__repair_call_balance*/if(var_s7){
                                         func_80095A80(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);}else{
                                         func_80095A80(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);}
                                     }
                                 } else if (((temp_a3 != 0) | (temp_t1 != 0)) != 0) {
-                                    temp_t0_2 = D_800EDA8C + var_s2;
+                                    temp_t0_2 = gSeqPlayer + var_s2;
                                     temp_a0_3 = (*(u8 *)((char *)(temp_t0_2) + 0x58F));
                                     var_s4 = 6;
                                     var_v0 = temp_a0_3;
                                     if ((s32) temp_a0_3 < 0) {
                                         var_v0 = temp_a0_3 + 0x1F;
                                     }
-                                    if ((*(s32 *)((char *)(((((s32) var_v0 >> 5) * 4) + D_800EDA8C)) + 0x110)) & (1 << (temp_a0_3 & 0x1F))) {
-                                        temp_a0_4 = (*(s32 *)((char *)(((temp_t1_2 * 4) + D_800EDA8C)) + 0xF80));
+                                    if ((*(s32 *)((char *)(((((s32) var_v0 >> 5) * 4) + gSeqPlayer)) + 0x110)) & (1 << (temp_a0_3 & 0x1F))) {
+                                        temp_a0_4 = (*(s32 *)((char *)(((temp_t1_2 * 4) + gSeqPlayer)) + 0xF80));
                                         if (temp_a0_4 != -1) {
                                             temp_a3_2 = temp_a3 + (*(s8 *)((char *)(temp_t0_2) + 0x58E));
                                             if (temp_a3_2 < 0x80) {
@@ -119,7 +119,7 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                             } else {
                                                 var_v1 = 0x7F;
                                             }
-                                            temp_t1_2 = temp_t1 + (*(s8 *)((char *)((D_800EDA8C + var_s2)) + 0x58D));
+                                            temp_t1_2 = temp_t1 + (*(s8 *)((char *)((gSeqPlayer + var_s2)) + 0x58D));
                                             if (temp_t1_2 < 0x80) {
                                                 var_v0_2 = temp_t1_2 & ((s32) ~temp_t1_2 >> 0x1F);
                                             } else {
@@ -133,12 +133,12 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                                     ((__repair_field_4 *)temp_v0_4)->value = 0;
                                                 }
                                                 (*(void ***)((char *)(temp_t0_3) + 4)) = NULL;
-                                                temp_v0_5 = (*(void **)((char *)(D_800EDA8C) + 0xF78));
+                                                temp_v0_5 = (*(void **)((char *)(gSeqPlayer) + 0xF78));
                                                 ((__repair_field_0 *)temp_t0_3)->value = temp_v0_5;
                                                 if (temp_v0_5 != NULL) {
-                                                    (*(void **)((char *)((*(void **)((char *)(D_800EDA8C) + 0xF78))) + 4)) = temp_t0_3;
+                                                    (*(void **)((char *)((*(void **)((char *)(gSeqPlayer) + 0xF78))) + 4)) = temp_t0_3;
                                                 }
-                                                (*(void **)((char *)(D_800EDA8C) + 0xF78)) = temp_t0_3;
+                                                (*(void **)((char *)(gSeqPlayer) + 0xF78)) = temp_t0_3;
                                             }
                                             if (temp_t0_3 != NULL) {
                                                 if ((u32)D_800EDA88 != 0) {
@@ -146,7 +146,7 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                                 }
                                                 temp_v0_6 = func_8008D49C(temp_a0_4, var_v1 & 0xFF, var_v0_2 & 0xFF, 0x40);
                                                 if (temp_v0_6 != -1) {
-                                                    temp_v1_2 = D_800EDA8C + var_s2;
+                                                    temp_v1_2 = gSeqPlayer + var_s2;
                                                     (*(s32 *)((char *)(temp_t0_3) + 8)) = temp_v0_6;
                                                     (*(s32 *)((char *)(temp_t0_3) + 0xC)) = (s32) (temp_s1 + (*(u16 *)((char *)((*(void **)((char *)(temp_v1_2) + 0x574))) + 4)));
                                                     (*(s32 *)((char *)(temp_t0_3) + 0x10)) = (s32) (*(s32 *)((char *)(temp_v1_2) + 0x568));
@@ -160,7 +160,7 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                                     if (temp_v1_4 != NULL) {
                                                         *temp_v1_4 = ((__repair_field_0 *)temp_t0_3)->value;
                                                     } else {
-                                                        (*(void **)((char *)(D_800EDA8C) + 0xF78)) = (void *) ((__repair_field_0 *)temp_t0_3)->value;
+                                                        (*(void **)((char *)(gSeqPlayer) + 0xF78)) = (void *) ((__repair_field_0 *)temp_t0_3)->value;
                                                     }
                                                     ((__repair_field_0 *)temp_t0_3)->value = (void *) D_800E5AC0;
                                                     if (D_800E5AC0 != NULL) {
@@ -178,11 +178,11 @@ __repair_addr = (char *)((*(void **)((char *)(var_a2) + 0x574)));
                                 func_80095A80(var_a0, temp_t1_2, D_800EDA87, temp_a3 & 0x7F);}
                             }
                         }
-                        temp_v1_5 = D_800EDA8C + var_s2;
+                        temp_v1_5 = gSeqPlayer + var_s2;
                         (*(s32 *)((char *)(temp_v1_5) + 0x574)) = (s32) ((*(s32 *)((char *)(temp_v1_5) + 0x574)) + var_s4);
                     }
-                    var_a2 = D_800EDA8C + var_s2;
-                    if ((*(s32 *)((char *)((D_800EDA8C + var_s2)) + 0x574)) != 0) {
+                    var_a2 = gSeqPlayer + var_s2;
+                    if ((*(s32 *)((char *)((gSeqPlayer + var_s2)) + 0x574)) != 0) {
                         continue;
                     }
                 }

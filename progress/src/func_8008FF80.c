@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_800EDA8C;
+extern void *gSeqPlayer;
 
 void func_8008FF80(void) {
     s32 temp_v0;
@@ -20,7 +20,7 @@ void func_8008FF80(void) {
     void *temp_a3;
     void *var_a1;
 
-    var_a1 = D_800EDA8C;
+    var_a1 = gSeqPlayer;
     temp_a2 = var_a1;
     temp_a3 = var_a1 + 0xA00;
     do {

@@ -15,7 +15,7 @@ typedef struct {
 } Seq;
 void func_8008CDC0(s32, u8, Seq *);
 extern u8 D_800EDA87;
-extern Seq *D_800EDA8C;
+extern Seq *gSeqPlayer;
 extern s32 D_801002D8;
 extern s32 D_8010A514;
 
@@ -26,34 +26,34 @@ void reset_timed_sequence(s32 base) {
     u32 hi;
     u32 end;
 
-    p = D_800EDA8C->list;
+    p = gSeqPlayer->list;
     if (p != NULL) {
-        D_800EDA8C->next = p;
-        D_800EDA8C->base = base;
-        D_800EDA8C->f70 = 0;
-        if (D_800EDA8C->list != NULL && D_800EDA8C->next->time != (u32)-1) {
+        gSeqPlayer->next = p;
+        gSeqPlayer->base = base;
+        gSeqPlayer->f70 = 0;
+        if (gSeqPlayer->list != NULL && gSeqPlayer->next->time != (u32)-1) {
             end = -1;
         loop:
-            if ((u32)(D_800EDA8C->base + D_800EDA8C->half) >= D_800EDA8C->next->time) {
-                { s32 val = D_800EDA8C->next->value;
-                D_800EDA8C->cur = val;
-                func_8008CDC0(val, D_800EDA87, D_800EDA8C); }
-                D_800EDA8C->next = D_800EDA8C->next + 1;
-                if (D_800EDA8C->next->time != end) {
+            if ((u32)(gSeqPlayer->base + gSeqPlayer->half) >= gSeqPlayer->next->time) {
+                { s32 val = gSeqPlayer->next->value;
+                gSeqPlayer->cur = val;
+                func_8008CDC0(val, D_800EDA87, gSeqPlayer); }
+                gSeqPlayer->next = gSeqPlayer->next + 1;
+                if (gSeqPlayer->next->time != end) {
                     goto loop;
                 }
             }
         }
         tempo = (D_801002D8 << 16) / D_8010A514;
         {
-        u32 low = (((D_800EDA8C->cur * 0xC00) / 60 * tempo) >> 3);
-        u16 scale = D_800EDA8C->scale;
+        u32 low = (((gSeqPlayer->cur * 0xC00) / 60 * tempo) >> 3);
+        u16 scale = gSeqPlayer->scale;
         v = low * scale;
         low = (v >> 8) & 0xFFFF;
         v >>= 24;
-        D_800EDA8C->hi = v;
-        D_800EDA8C->lo = low;
-        D_800EDA8C->half = (s32)v >> 1;
+        gSeqPlayer->hi = v;
+        gSeqPlayer->lo = low;
+        gSeqPlayer->half = (s32)v >> 1;
         }
     }
 }
