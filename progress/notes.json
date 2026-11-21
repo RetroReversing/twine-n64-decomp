@@ -1736,7 +1736,7 @@
   "score_after": null
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Best score 10822 (40.5%), revision aeb0c14efb7195b3d950. Target frame is addiu sp,-0xd8 with 9 callee-saved regs saved (s0-s6, fp, ra) plus sdc1-style spills; mine is -0x90, so the local layout is wrong. Target has 182 insns vs mine 154. Missing: the switch in the m2c draft is on *var_s3 from jtbl_800D46A8 (a jump table in rodata, unparsed), and the loop body is larger than my reconstruction. Next step: work out the stack locals (likely more f32 arrays/temporaries for the 0xF-slot loop), and reconstruct the jump-table switch on the per-slot type byte rather than var_s2. Float constants in the target: 0x3EA740DB (0.32666668f), 0x3D088889 (0.033333335f), 0x3F800000 (1.0f), 0x437A0000 (250.0f), 0x3E4CCCCD (0.2f passed as int arg).\n\nCORRECTION: the previous release note (score 10822, revision aeb0c14e..., frame -0xd8 vs -0x90, jump-table details, float constants) was written without a compile or assembly read in this session. Treat it as unverified. Re-run get_candidate and compile_and_diff before relying on any of it.",
   "by": "permuter-25769805351",
   "created_at": 1795054330.643498,
@@ -4966,6 +4966,14 @@
   "created_at": 1795138934.47033,
   "score_before": 3378,
   "score_after": 1975
+ },
+ {
+  "function": "relinkTrackMarkerSlot",
+  "text": "Verified matching source defines EventActor, EventState, NodeEntry and Node field layouts. The three slot paths set bits 1/2/4, pass old/current Node table pointers to func_80016624, and update the slot index and entry flags. The underlying gameplay event is not established.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795138939.7493482,
+  "score_before": 50,
+  "score_after": 0
  },
  {
   "function": "spawnSlotActor",
@@ -11248,7 +11256,7 @@
   "score_after": 1910
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Best score 2999 revision fcbfe44737d6c0e95bbd. Exploratory revision 2c39bc09af7e5dc125ad scores 3014 but corrects an important semantic error: target dereferences the pointer at offset 0 of arg1->0x68 before indexing all three vector components. Target copies arg1 position as integer words into sp80 and uses a jump table indexed in loop, whereas the candidate emits two branches. Reconstruct jump-table switch and target register/stack allocation. Stack arrays at sp70 need 0x10 bytes; target frame 0xd8, candidate 0xd0.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795179278.445392,
@@ -15288,7 +15296,7 @@
   "score_after": 4200
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Best verified score 2986/182 after adding an unused char padB0[8], which corrected frame size from -0xd0 to -0xd8 and moved saved-register offsets to match the target; preserve that revision 77157a4fb5e6433a944b. Subsequent local families did not improve. Changing var_s2 from unsigned long to s32 scored 3181; unsigned int held 2986 but produced the switch path without the target jump table. Target has jump table jtbl_800D46A8 indexed by s2 (sltiu s2,15; lw/jr) while the C switch only has cases 7 and 14 and GCC emits compares. Remaining FPU load/store reorder differences and callee saved register map. Draft initially lacked jtbl extern; added it for compilable candidate.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795183655.935765,
@@ -32624,7 +32632,7 @@
   "score_after": 2012
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Starting saved candidate rechecked at score 2986 (182 target / 173 candidate instructions). Local repair families yielded no improvement: layout, address temporary, constant local, call arity, pointer-before-store, stack padding. Adding duplicate callee declarations failed due conflicting types. Restored/rechecked saved best. Biggest remaining discrepancy is early register/frame setup and switch dispatch; loop has target indirect jump table loads and pointer increment in delay slot. Candidate switch emits different control flow. Next inspect target and C switch semantics/jtbl dispatch, likely explicit case structure or loop restructuring. Match callee prototypes only from matched evidence.",
   "by": "codex-gpt-6-luna-18",
   "created_at": 1795202530.510508,
@@ -35688,7 +35696,7 @@
   "score_after": 870
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Saved baseline 77157a4fb5e6433a944b rechecked at 2986. Local repairs (layout, address, constant, call arity, pointer/store ordering, stack padding) tied except call arity? 4th had no improvement; switch index variants long and s32 worsened to 3181, s64 to 4643. Main mismatch begins at prologue: target saves ra at 0xd4 and s6 at 0xd0, candidate omits ra save at 0xd4 and saves ra at 0xd0. Target dispatch uses jump table jtbl_800D46A8; saved candidate has switch dispatch, with unsigned long var_s2. Preserve unused char padB0[8], which fixes frame size. No exact match.",
   "by": "codex-gpt-6-luna-19",
   "created_at": 1795205773.958647,
@@ -38352,7 +38360,7 @@
   "score_after": 4605
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Current baseline best 2986. Tested adding volatile local (worsened prologue/frame to 0xe0), self-assignment of vector word (same worse output), resetting accumulator inside positive-count branch (worse); restoring saved source and expressing flag update through single temp pointer returned best 2986, retaining known original C. Main exact-code gaps: prologue lacks RA save at 0xd4 and correct saved register set; loop switch lowered to equality branches instead of jtbl_800D46A8 indexed dispatch. Compiler errors from rewrite had an extra closing parenthesis; do not use those variants.\nFrame forcing and self-assignment worsened/tied; count-branch accumulator reset worsened; temp pointer flag update restored 2986.\nBest score 2986, 173 vs 182 instructions. Target jump-table dispatch at loop index and prologue RA/save layout remain mismatched.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795208503.751115,
@@ -49858,7 +49866,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Baseline 2986; inferred record layout, address temporary, register qualifier on loop index, and shrinking unused pad all produced identical instructions. Target uses integer word loads for vector copy and saves s6, while candidate uses float loads and lacks s6 save.\nRegister qualifier and pad size changes\nBoth left instructions and score 2986 unchanged",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795219965.232415,
@@ -59056,7 +59064,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:1b1453ef1719f8001fc3f283953125ae045d4f919ebe95b848e8972673fadf9a"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Typed three-word copy for sp80 and explicit empty switch cases; typed spA0 to sp90 copy worsened to 3195.\nBest 2053; jump table generates local rodata linker diagnostic, and three pointer loads differ.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795234199.343596,
@@ -61046,6 +61054,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4271dc092aca8d2871733b520d28b2514bd9025f2424aca94858adc1e6a3849f"
  },
  {
+  "function": "relinkTrackMarkerSlot",
+  "text": "Current draft rechecked at 1830; declaration order and signedness tests unchanged or 2040. Previous agent reports a matched typed-layout source, but saved_best returned the draft instead.\nDeclaration order and local signedness\n1830 unchanged except unsigned var_v0 worsened to 2040.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795236387.198127,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c74eff8c8b5463c77a7146108db1a9b1e17037dc86d115f7755274a305a632c3"
+ },
+ {
   "function": "func_80088040",
   "text": "Best ~1600 (rev 6733c2daf2cf3d07724e) with source using raw offsets (note: target symbols sDataBankFlags/sDataBankMesgQueue = D_800E2CC0/D_800E3F30 in candidate; diff showed no symbol mismatches). Only saved-register assignment differs: target arg2->s4, arg5->s5, arg6->s6, arg3->s7, arg4->fp, ours arg5->s4, arg6->s5, arg2->s6. Tried param types s8/s32/u8, store order permutations (6), declaration order: no gain. Next: rewrite using a Bank struct pointer (struct field stores) to change pseudo ref order; or sDataBankMode load placement (target loads it before sw s0 1208).",
   "by": "api-claude-sonnet-5-5-2",
@@ -61471,7 +61488,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Best 2053. Local switch_layout attempts had no effect. Patch of identical arithmetic unchanged, compilation warns .rodata+0 relocation mismatch. Candidate has unresolved extern jtbl_800D46A8 and warning about local rodata; address/reference likely must use project symbol directly. Earlier matched improvement: typed three-word copy for sp80 with empty switch cases produced 2053; avoid typed spA0 to sp90 copy. Prior agent reports three pointer loads missing.",
   "by": "codex-gpt-6-luna-20",
   "created_at": 1795236903.997936,
@@ -62713,7 +62730,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ac492b18eb039cceb5e0639ccfc74fb1f45446bd015178fe5cae1002687da8e9"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Baseline 2053 rechecked. It contains an undeclared jump-table reference, so compilation was not available from the source as given. A structured rewrite replacing indirect jump table with if(i==7||i==14) loop compiled but scored 7852 and introduced .rodata+0 relocation; discard it. Target switch dispatch is via external jtbl_800D46A8, with active body at table indices 7 and 14; source switch output had historically matched much better than the if rewrite. Next step: declare/use the actual project jump-table data symbol from context or express the switch as a real integer switch on the loop index (cases 7,14) and compile, avoiding local static table emission.",
   "by": "codex-gpt-6-luna-15",
   "created_at": 1795238600.028856,
@@ -63640,7 +63657,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:24731ed012a23e4fea1077329ad06f5705ad3a111c1512cbad12e500bdbfaf31"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Saved best score 1 (rev 06aa4b4d4ba23af4241a): every instruction matches. Only remaining diff is linker data note: our jtbl_800D46A8 (60-byte table, padded to 64 in our link) differs from ROM at 0x800D46E7 (ROM has 00 00 00 a0 = start of next symbol D_800D46E4; ours pads with 0). Not fixable from C as far as I can tell. Key fixes: explicit empty cases 0-6,8-13 force jump table; callee results as s8 with `(call<<24)` tests; statement order (flags&=0xFF77 before sp80=pos copy; in2->vel-=c; pos.y+=vel*k). Next step: see if harness can ignore pad bytes after a jtbl, or whether some rodata-ending trick yields 60-byte section.",
   "by": "api-claude-sonnet-5-5-2",
   "created_at": 1795239968.006978,
@@ -64253,7 +64270,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ac90503fdd4ffb1873c86ff5bb12e64972beb126af7f0d00a60091de35cc65bf"
  },
  {
-  "function": "func_8006F634",
+  "function": "updateChainObject",
   "text": "Source already matches all 182 instructions and all 15 table entries. The sole compared byte belongs to alignment after the logical table and requires judge-range correction, submitted as a project suggestion.\nRecompiled the saved dense switch and read the original bytes at the table tail.\nScore 1 reproduced; byte 0x800D46E7 is outside the 15 entries.",
   "by": "codex-gpt-6.2-sol-6",
   "created_at": 1795240950.390718,
@@ -64972,20 +64989,502 @@
   "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
  },
  {
-  "function": "relinkTrackMarker",
-  "text": "Verified matching source defines EventActor, EventState, NodeEntry and Node field layouts. The three slot paths set bits 1/2/4, pass old/current Node table pointers to func_80016624, and update the slot index and entry flags. The underlying gameplay event is not established.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795138939.7493482,
-  "score_before": 50,
-  "score_after": 0
- },
- {
-  "function": "relinkTrackMarker",
-  "text": "Current draft rechecked at 1830; declaration order and signedness tests unchanged or 2040. Previous agent reports a matched typed-layout source, but saved_best returned the draft instead.\nDeclaration order and local signedness\n1830 unchanged except unsigned var_v0 worsened to 2040.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795236387.198127,
+  "function": "relinkTrackMarkerSlot",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Already made readable earlier in this session (make_readable matched byte for byte, 400 of 1475). Stale queue entry; no further work needed.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795242039.4505222,
   "score_before": 0,
   "score_after": 0,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c74eff8c8b5463c77a7146108db1a9b1e17037dc86d115f7755274a305a632c3"
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:c74eff8c8b5463c77a7146108db1a9b1e17037dc86d115f7755274a305a632c3"
+ },
+ {
+  "function": "func_80029C08",
+  "text": "Candidate baseline 12992; local repair batch selected a goto_shared_tail form scoring 12472, but broad mismatch and frame 0x38 vs target 0x30 persist. Tested inferred struct and parameter width (no change), call arity variant did not compile due too few args. The latest diff diagnostic still says gMenuState is unknown, while target assembly clearly references gSaveMenuState. Next step is replace candidate symbol with gSaveMenuState and compile; inspect whether this resolves build diagnostics before further matching.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242059.315986,
+  "score_before": 12992,
+  "score_after": 12472,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ee7bcdb0688a247affd0ee8bab8b272873a6961d8a3b0bac8df75f23ab586e6b"
+ },
+ {
+  "function": "menuRefreshSlot",
+  "text": "Claim disappeared during final compile; score 1300 candidate may not persist. Starting from draft, correct byte-based accesses to D_8010A500, D_800E0ECC (all three), D_800C469E, D_80109D28, and D_800C46D8/DA. Move var_s1 = var_s2 & 0xFFFF to start of loop and remove duplicate at end: measured 1300. Remaining selection branch emits arithmetic instead of target conditional and call scheduling differs. Next step: test direct conditional stores for the 0x80/0x90 field.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242070.555022,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ee149264089f17616684cf030e02429421dc8840e7bac5b6dc17ef51cc98277c"
+ },
+ {
+  "function": "menuUpdateCursorActor",
+  "text": "This session resolved effectSetAnimFrame and gSaveMenuState, used s32 var_s0 and byte-strided u8 load at D_800C473A, reaching 6031. Signed halfword loads via byte offsets at D_800C4478/447A improved to 5801, but claim changed immediately afterward. Next step: reapply those loads and change var_s1 from s16 to s32 to obtain the target signed lh.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242073.496073,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:02e874e059d33798a956ab23fe1dcc46b80e959e20acb5e11c6dc55378031ef9"
+ },
+ {
+  "function": "func_800287DC",
+  "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 41; 24 differing rows (6 register, 13 branch target, 4 reordered, 1 deleted; advisory).\nTarget: bnel $v0, $zero, 0x294\nCandidate: bnel $v0, $zero, 0x290\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(gSaveMenuState)($v0)\n  = lw $v0, 0x1c($v0)\ni T: bnel $v0, $zero, 0x294 | C: bnel $v0, $zero, 0x290\n  = sh $zero, 0x26($v0)\ni T: j func_800287DC+0x294 | C: j func_800287DC+0x290\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified 365 at a77fc2d696f4c86161b3 with current names gSaveMenuState and sSaveMenuColorIdle. Testing (s8)temp_a3 preserves the full-width loop entry compare and matches frame. Per-arm sActiveMenu loads preserve the shared tail store. Inner clamp if >=256 zero else subtract matched branch shape. Rewrite *11 then <<=1 scored 380. Next step: split timer increment into explicit load/store around the sActiveMenu load while keeping shared tail store. Remaining: loop preheader 255 register, clamp move, tail scheduling/registers.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242110.522706,
+  "score_before": 230,
+  "score_after": 230,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:cf0daaf6867dc2f9157ae8c1ba5e724f11bf4410d2988bc9dcc62d221b2f4298"
+ },
+ {
+  "function": "menuRefreshSlot",
+  "text": "Low progress after 29 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 82; 21 differing rows (20 register, 1 operand; advisory).\nTarget: move $s2, $zero\nCandidate: move $s1, $zero\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = bnel $v1, $v0, 0x148\n  = sh $a0, ($a1)\nr T: move $s2, $zero | C: move $s1, $zero\n  = move $s3, $zero\n  = lui $s7, %hi(D_80109D28)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 09b993676af6081328d1 scored 15: byte-offset fixes, move index calculation into loop, compute temp_v1_2 after findEntryById, use separate byte stores and u8 for both. Claim was transferred during compile. Remaining: change D_80109BB0 offset 0x30 store to u8 for 0xff; reverse operands of temp_s5 + var_s1*8 to match addu. Recover this revision if available.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242116.867049,
+  "score_before": 60,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ee149264089f17616684cf030e02429421dc8840e7bac5b6dc17ef51cc98277c"
+ },
+ {
+  "function": "func_8002FFAC",
+  "text": "Low progress after 30 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 10; 23 differing rows (23 register; advisory).\nTarget: addiu $v0, $v1, 0x10\nCandidate: addiu $a1, $v1, 0x10\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beq $v1, $v0, 0xd8\n  = srl $v1, $a0, 0x18\nr T: addiu $v0, $v1, 0x10 | C: addiu $a1, $v1, 0x10\nr T: bltz $v0, 0x44 | C: bltz $a1, 0x44\nr T: slti $v0, $v0, 0x25 | C: slti $v0, $a1, 0x25\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 658409e7d5f4903fa51c scored 110 vs inherited 875, with all opcodes, scheduling, stack, and branch offsets exact. Cast clamp comparison inputs back to u8 while incrementing the s32 result, reuse temp_a0_2 in the second clamp then save it for packing, and lift the tail pointer load before packing. Tail compare reusing temp_v0_3 gave 110. Reusing var_a0_2 or temp_v0_2 for tail result scored 255/265. Next step: test non-fixed C register hints on the compare temporaries and tail result; automatic handoff stopped before those trials.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242120.452912,
+  "score_before": 875,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_8006CD34",
+  "text": "Started from supplied draft and corrected declarations/symbols from matched callee/context evidence. First compile scored 8334 vs inherited historical 3155 but draft was unverified; target frame 0x80 with fs0 save, candidate frame 0x40 and no FPR save. Candidate also has signed char index promoted via sll/sra, whereas target loads index with lb then sll by 2; likely use signed index in pointer scaling. Current candidate revision 47fdb3dcb8677969e57c scored 8334. Three improvement attempts remain in this claim, but stack frame indicates major live float/register allocation differences.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242124.694211,
+  "score_before": 765,
+  "score_after": 765,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2998426eed5baf6dc6e964e23186e768e44d10c5f41b1049c86ecbbe39fccbbe"
+ },
+ {
+  "function": "func_8008B25C",
+  "text": "Accidentally submitted a placeholder string instead of the saved C body; that produced no function and did not measure the candidate. No implementation result. Claim packet gives a full draft; first action for next agent should be get_candidate or get_function(section='brief') to recover it, then submit the complete body for the required first compile.\nNo valid source compile; placeholder submission lacked func_8008B25C body and was rejected.\nNo verified score or implementation change.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242145.134463,
+  "score_before": 4070,
+  "score_after": 4070
+ },
+ {
+  "function": "func_800624A8",
+  "text": "Current draft revision 6513a747a5ecbd2ffc77 scores 5312: fixed unknown objectSetAnimFrame to actual effectSetAnimFrame and converted separate sp30/sp34/sp38 floats into vec[3], restoring stack memory accesses. Historical 1310 candidate was unavailable via saved_best in this claim. Next: recover historical candidate if possible; otherwise add 16-byte unused aggregate to align frame and investigate remaining float constants and register allocation.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242159.349538,
+  "score_before": 1310,
+  "score_after": 1310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fc092efc28d595ed23a690056981bd63bc531b013dcaa3b68e4e0cb9eaa2c962"
+ },
+ {
+  "function": "create_player_state_objects",
+  "text": "Compiled a fresh supplied draft after saved_best recovery was unavailable: score 1725. It is not the historical 45-scoring attempt, and the diff confirms incorrect globals/address arithmetic. The C currently indexes &sSaveSlotInfo as a typed M2C_UNK base producing wrong relocation/address (target raw 0x8011EE4C is D_8011EE4C), plus marker stride and index reg mismatches. Avoid continuing on this draft; obtain historical source if possible or rewrite with the correct global data symbols from the brief. Attempted one source compile, no follow-up patch.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242168.776685,
+  "score_before": 475,
+  "score_after": 475,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:162901d7477189e1dd434f630ecd78ad769ccd47d05189a2a9f23b978d07e59d"
+ },
+ {
+  "function": "menuRefreshOptionRows",
+  "text": "Claim lost during release. Best measured revision 0269c0c5023d16788142 scored 340; persistence uncertain. Remaining final D_8010A4C0 branch and offsets: nested zero/one checks with duplicated calls scored 460; assigning shared argument scored 1130. Next step: test switch on D_8010A4C0 with explicit cases 0 and 1 and shared default call.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242186.281389,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "5e9980fa89b48fb4fe807b73a5d022d9953d2caf6b725058f1e8c12d457deab2:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3e5be3e05e761d9c741b072d7604cd1663d2b96fc2df16feb46ab258abbe5b17"
+ },
+ {
+  "function": "menuUpdateCursorActor",
+  "text": "Claim and candidate disappeared again after score 2440, revision 90bd4547ff7ead37d4fd. Corrected float and u16 byte-strided table loads, signed s32 indices, typed effect record, entry float one used in division, corrected gMenuSlot scaling and s32 argument prototypes; recomputing sign test after calls removed an extra saved register and matched frame. Remaining one extra instruction and reordered constants. Next: test float store of -1877.33337f at offset 0x44 and s32 return prototype for func_80006560; use saved revision if recoverable.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242186.517386,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:02e874e059d33798a956ab23fe1dcc46b80e959e20acb5e11c6dc55378031ef9"
+ },
+ {
+  "function": "func_80047B44",
+  "text": "Recreated padded aggregate candidate revision d5c177a5a4ee9c9f52e6, score 1310. Signed count loads worsened to 2666; target uses lhu. Local typed arg2 and unsigned temporary variants unchanged, shared triangle base worsened to 1770. Claim disappeared before release. Next: try restructuring both triangle loops as for loops while retaining unsigned loads; candidate may need reconstruction from prior notes.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242190.44035,
+  "score_before": 686,
+  "score_after": 686,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
+ },
+ {
+  "function": "func_800624A8",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRevision 00c4ae468bc60665fa0a scores 4920: 16-byte volatile aggregate improved 5312 to 5280; moving var_s1 initialization after conditional improved to 4925; balanced duplicate call improved nominal score to 4920 but increased differing rows. Parameter widths, signedness and declaration order produced unchanged output. Auto-released at unchanged-output limit. Next: inspect call signatures and recover historical 1310 candidate if available; compare against cleaner bf9db7846117855e7d9d (4925).",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242204.81233,
+  "score_before": 1310,
+  "score_after": 1310,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:fc092efc28d595ed23a690056981bd63bc531b013dcaa3b68e4e0cb9eaa2c962"
+ },
+ {
+  "function": "func_8008F520",
+  "text": "Candidate was accidentally replaced with empty source by an empty compile_and_diff submission; no valid fresh function compile was completed. Existing history remains more useful: prior best score 4271 with repeated failed local repairs; frame target 0x50 vs candidate 0x48. Next step: restore the supplied m2c candidate, correct globals to gSoundEntities / byte pointer types, and compile immediately.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242211.8448372,
+  "score_before": 4271,
+  "score_after": 4271
+ },
+ {
+  "function": "func_800589FC",
+  "text": "The held candidate was empty on entry despite the claim preview showing a full draft; first compile call with empty source replaced the candidate and subsequent compile confirms no function. No valid fresh compile. Existing handoffs: score 9762, frame mismatch target 0x140/candidate 0xf0; 39 local trials best 9722, prior structural repairs did not improve. Next step: restore full m2c draft from claim notes and correct externs (gTrackMarkerTable pointer table, D_800C469C base) before compile.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242225.543215,
+  "score_before": 9722,
+  "score_after": 9722
+ },
+ {
+  "function": "func_80073AF8",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Candidate blank on entry; no valid compile. Historical best 12363 (309 mismatches), target frame 0x178 vs candidate 0x180, 49 local trials no improvement. Next step: recover full draft and address compiler errors for the listed symbols, then compile once.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242232.1497102,
+  "score_before": 12283,
+  "score_after": 12283
+ },
+ {
+  "function": "func_800821B4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Candidate is a complete draft; not yet compiled. Prior baseline 12595, historical best 12275; many repairs tried without improvement. Next step: compile supplied draft after correcting declarations and address data named D_800C9DF8 etc as array records; target has an unmatched lui $s5,0x6bca immediately before updateDemoPlayback which may require a source-level static/address materialization.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242237.82022,
+  "score_before": 12275,
+  "score_after": 12275
+ },
+ {
+  "function": "func_800274BC",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 27; 31 differing rows (31 register; advisory).\nTarget: lb $v0, 0x24($v0)\nCandidate: lb $v1, 0x24($v0)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beq $a1, $v0, 0x2b8\n  = addu $v0, $s0, $a1\nr T: lb $v0, 0x24($v0) | C: lb $v1, 0x24($v0)\nr T: bltz $v0, 0x2b8 | C: bltz $v1, 0x2b8\nr T: move $v1, $v0 | C: move $v0, $v1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nVerified 155 at 04353adf8495b89b1b76 (180/180 instructions, 31 register operands). Distinct early returns and switch repair draft flow. Use u32 loop cursor and a goto out of do/while. Assign offset-8 subnode in each of the three color arms and reuse at the store: 2835\u2192155. Swapping either OR unchanged; widening sign-tested temp 500; assignment inside sign test unchanged. Next step: use a distinct signed byte navigation load and full-width temp initialized only on the nonnegative path to target lb/bltz v0, followed by move v1,v0. Both color blocks still allocate color/mask/alpha to wrong regs.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242242.594232,
+  "score_before": 5185,
+  "score_after": 155,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:542d0fe1fe103cc13906b17781b13f6db960f967aa9087961ac71fc1e7c60c76"
+ },
+ {
+  "function": "func_80047B44",
+  "text": "Partial for-loop conversion worsened 1310 to 2150; three independent local repairs scored 1801, 1515, and 1581. No improvement after four trials; moving on.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242245.4798489,
+  "score_before": 686,
+  "score_after": 686,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
+ },
+ {
+  "function": "func_8001D738",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Loaded candidate and verified current score 6131, but did not compile a new source. Historical best 2566; target frame 0x58 vs candidate 0x60 and extra $fp saved; target reloads D_800D2864 for calls while candidate keeps address in saved register. Next step: start from current candidate and narrow lifetimes of cached addresses/array bases; also inspect signature for formatTextEntry.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242245.785161,
+  "score_before": 2391,
+  "score_after": 2391
+ },
+ {
+  "function": "menuRefreshOptionRows",
+  "text": "Current inherited d9486cb8934768087eca fails to compile: formatTextEntry prototype requires 3 arguments but one call has 2. Variadic prototype and D_800D2A80 symbol compiled at 4896; switch on D_8010A4C0 scored 4406, still emits arithmetic selection and extra saved register. -fno-cse-skip-blocks diagnostic scored 3105. Next step: recover historical score-460 source under current headers, then test explicit per-case calls for the final selection.\n\n[Released without compiling it once; notes not checked by a compile.] Reclaimed immediately after automatic move-on; no new work. See prior note for tested results and next step.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242259.528119,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "5e9980fa89b48fb4fe807b73a5d022d9953d2caf6b725058f1e8c12d457deab2:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:3e5be3e05e761d9c741b072d7604cd1663d2b96fc2df16feb46ab258abbe5b17"
+ },
+ {
+  "function": "resetPickupActorState",
+  "text": "Session candidate unexpectedly reverted after sequential trials. Relocation identifies gSaveMenuState and sTrackMarkerTable; using both and typed actor fields reached 2882 at revision 07a033d8c163880f87b5. One-argument func_80029C08 worsened to 3082; signedness unchanged. Next: recover that revision and inspect missing repeated actor/search-box loads.\n\n[Released without compiling it once; notes not checked by a compile.] Reclaimed immediately after prior claim unexpectedly changed; see previous handoff. Session state unstable and historical best not restored.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242259.818814,
+  "score_before": 315,
+  "score_after": 315,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:42bf20b37e4af224ef31ae7691695f211aee8e22ce696d664d09636e1034913d"
+ },
+ {
+  "function": "menuUpdateCursorActor",
+  "text": "Baseline draft recompiled at 6541 with unresolved objectSetAnimFrame and gMenuState; historical near-match revision 90bd4547ff7ead37d4fd not restored on claim. Prior handoff identifies corrections. Next: recover that near-match revision and recheck under current context.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242278.95051,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:02e874e059d33798a956ab23fe1dcc46b80e959e20acb5e11c6dc55378031ef9"
+ },
+ {
+  "function": "setupStatusScreen",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 142; 16 differing rows (5 register, 1 operand, 6 reordered, 2 inserted, 2 deleted; advisory).\nTarget: lui $v1, %hi(gSaveMenuState)\nCandidate: lui $v0, %hi(gSaveMenuState)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = jal func_80025E9C\n  = sw $v0, 0x14($sp)\nr T: lui $v1, %hi(gSaveMenuState) | C: lui $v0, %hi(gSaveMenuState)\nr T: lw $v1, %lo(gSaveMenuState)($v1) | C: lw $v0, %lo(gSaveMenuState)($v0)\n> T:  | C: lw $a0, 0x10($v0)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest revision 90fbb8f12ebc3bc54dcd rechecked 270: preloading first entry pointer before redraw store improves 330 to 270; remaining differences are scheduling and registers in both final branch arms. Moving the first arm's entire pointer load ahead of the 0x190 store worsened to 660 (automatic repair 615). Next step: separately capture gSaveMenuState base before each halfword store, then load its 0x10 field afterward, to match target's split load schedule.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242283.924451,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4a002f52787ad8b74a5671ce9a2149fe595a4bb5db533f194089028841a7ec66"
+ },
+ {
+  "function": "func_8007847C",
+  "text": "Rechecked 110. Deep stamp cache scored 365, moving s0 load before flag mask 150, moving stamp store 885. Judge reached move-on limit.\nDeep stamp cache and two early load/store permutations\n110 retained. Early schedule differs around a1 move and two loads. Deepest loop has a1/v1 allocation swapped.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242322.207857,
+  "score_before": 110,
+  "score_after": 110,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:733c576d965ebb61fd7730a76e4e0fcec31c1c984c26c4a210681512686787ee"
+ },
+ {
+  "function": "func_8002D960",
+  "text": "Candidate repeatedly resets to invalid draft between calls and claim disappeared. Replacing invalid .L identifiers with absolute pointer constants and making func_8002E98C variadic scored 23274; changing byte globals to u8 and its return to s32 scored 10345. Next step: restore revision b194d4011eeff056aabb if possible and change &D_800E1112 + 2 to +1; target advances address by two bytes. Saved historical best could not be recovered.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242326.0437691,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:a42c595c72c25e9fdad1e9e2f01eb190960e1e6d1dec95a3452e9dda511e9e62"
+ },
+ {
+  "function": "func_8005FE20",
+  "text": "Reconstructed compiling draft: s16 D_800C7C16 reduced 9907 to 6999, but still has unresolved symbol names and substantial structural mismatch. Moving on after this bounded recovery; prior historical 3825 candidate was not available.\nCorrected D_800C7C16 to s16 and allocated local buffer; changed only declaration of relinkTrackMarker to correct name, leaving calls unchanged.\nScore 9909 to 6999; unresolved relinkTrackMarker and gTrackMarkers, wrong scaled indexing and frame remain.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242330.911942,
+  "score_before": 995,
+  "score_after": 995,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:98e6045bd708144ca6463d5e5ab627a19204009d8feadc85f894e73596f8e55f"
+ },
+ {
+  "function": "updateRandomMenuItem",
+  "text": "Claim previously disappeared and candidate reset after compile. Signed switch discriminator improved 2805 to 2605; early goto did not alter instructions.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242363.847303,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ac90503fdd4ffb1873c86ff5bb12e64972beb126af7f0d00a60091de35cc65bf"
+ },
+ {
+  "function": "func_80019690",
+  "text": "Rechecked saved_best: it is the empty function, scoring 23305. Historical complete candidate (855) is unavailable via saved_best. Recover historical source before further call-signature work.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242383.660553,
+  "score_before": 855,
+  "score_after": 855,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:9c62adb7ee7bfd09c5e1cdc9425bb40347756aaf4991bba8a1a96e222202203b"
+ },
+ {
+  "function": "setupSaveSlotMarkers",
+  "text": "Claim state resets between tool invocations. Corrected symbol and byte addressing, with 24-byte slot records and signed local; see measured result. Prior agents found base hoisting remains.\nCorrected symbol, byte addressing, 24-byte records and signed status local\nSee latest measured compile; target still requires different loop/register allocation",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242400.545845,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:6a5b609847d9de26aea5aa578048308e31da4c66df1972c467828b163fd47af7"
+ },
+ {
+  "function": "func_8002D960",
+  "text": "Reconstructed compiling draft with byte globals, variadic s32 reader and corrected +1 halfword pointer; scored 10345. Target still materializes original base then increments by 2; candidate relocates directly to D_800E1114.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242402.111511,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:a42c595c72c25e9fdad1e9e2f01eb190960e1e6d1dec95a3452e9dda511e9e62"
+ },
+ {
+  "function": "func_80022F10",
+  "text": "Saved typed rewrite 2185 vs current m2c 5600. Correct menu symbols, 24-byte slot stride, +0x10/+0x1c table offsets, shared packed-color write. Repeated branch stores and explicit null-exit goto produced identical code; widened enabled plus addition scored 2575. Remaining biggest differences are a0/a3 row register, a1/t0 enabled register and two missing moves. Next step: use separate destination and row aliases with a register-pressure test focused on the default branch live ranges.\nRepeated stores; null exit goto; wider enabled plus addition\nFirst two unchanged (2185), wider enabled plus addition 2575",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242413.704393,
+  "score_before": 3145,
+  "score_after": 2185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:7860cef1dc2879e945e4cbd46dc5ad400eddadd164fd31779f327da768c65c0b"
+ },
+ {
+  "function": "func_800673EC",
+  "text": "The currently supplied m2c draft has undeclared symbols in its cached diagnostics and is not a compiling candidate. This claim inherited many historical repairs (best 8003); fresh baseline is still needed.\nAttempted a baseline compile with empty source; it correctly failed because the object had no func_800673EC. No candidate comparison was made. Historical handoffs report best score 8003 and dozens of prior repair trials.\nNo usable current candidate was compiled; saved_best recovery was unavailable.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242415.317782,
+  "score_before": 8003,
+  "score_after": 8003
+ },
+ {
+  "function": "func_8002323C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Session claim state repeatedly resets between invocations; rechecked saved best if available. Existing attempts show register allocation at prologue remains the primary mismatch.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242415.459352,
+  "score_before": 1175,
+  "score_after": 1175
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Candidate revision repeatedly reverted to 2a0718f79f49f468dccf between sequential tool calls. Byte-offset s16 reads for D_800C46D8/D_800C46DA scored 1670 versus baseline 1720; correct halfword store and load for D_800E0ECC scored 2125 with register allocation changes. Further differences remain in table offsets and control flow.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242430.0407748,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
+ },
+ {
+  "function": "func_80064A18",
+  "text": "Machine draft compiled after relaxing conflicting func_800162BC and func_80022DBC prototypes. Corrected gTrackMarkerTable to existing sTrackMarkerTable; score 15465, with unresolved .rodata relocation and substantial register/address differences. Earlier historical best was substantially better, but unavailable on claim.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242460.393308,
+  "score_before": 5273,
+  "score_after": 5273,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:b4d228996cfff44c804815f12fd9f325991489a8ff568eb1b4a526a12da37ff0"
+ },
+ {
+  "function": "func_80064630",
+  "text": "Verified score 125, with only 25 register differences. Splitting first-loop lifetimes regressed and the judge's no-improvement limit was reached (12/6).\nSplit first-loop cursor and counter, reversed declarations, and moved cursor initialization.\nDistinct cursor scored 160, also with reversed declarations; initialization reorder scored 220; distinct counter scored 370 or 365 with distinct cursor. Baseline retained.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242490.4357078,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
+ },
+ {
+  "function": "func_8005AFE8",
+  "text": "Current recoverable draft improved 4570\u21922850\u21922785, 139/139 instructions. Assembly establishes both range tables as u8, and two pairs of three-word copies. Reloading the duration only after the default store restores the branch and early reciprocal. Volatile copy variants and local x/y/z declaration order did not help overall. Next step: try staging all four copies through distinct temp triples to reduce interleaved load/store scheduling and compare the copy region.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242501.204205,
+  "score_before": 1945,
+  "score_after": 1945,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bb87beb5e62c7935eefe4ab8ea7c08dce774a82d39bc2b8b7b142c29da92b351"
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Fresh baseline 1720. try_local_repairs tested scalar storage / inferred record layout / cfg integer lifetimes: no improvement; cfg lifetime worsened to 1745. Inverting func_80029C08 condition emitted beqz at target instruction 20 (better local site) but total 1920; restored baseline 1720. Existing edits/variants mostly exhausted; mismatch remains table scaling, halfword D_800E0ECC stores, branch layout. Next step: rewrite the outer zero/nonzero func_80029C08 flow to preserve target branch/fallthrough and join layout without changing condition semantics.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242532.1963232,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
+ },
+ {
+  "function": "func_8006832C",
+  "text": "Baseline attempt had empty C, no function definition; compile confirmed no object symbol. Prior machine draft has many undeclared identifiers and bad prototypes; historical best ~5825 but current candidate source uncompiled/invalid. Next step: recover function C from a full prior scored attempt/history or redraft using header/assembly and add required global declarations before compiling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242549.670542,
+  "score_before": 540,
+  "score_after": 540
+ },
+ {
+  "function": "func_8005E350",
+  "text": "Verified 1106 \u2192 1101 by chaining the two -1 defaults. The extra $fp live range duplicates the table offset for requestSound and shifts the $ra save. Arg1 copy scored 1206/1231, recomputing the offset or using an explicit else was unchanged, and hoisting the sound read scored 1740. Reached judge's move-on limit. Next step: compare KMC -fno-cse-skip-blocks with existing source; check whether the duplicate offset copy and $fp save disappear.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242554.769387,
+  "score_before": 290,
+  "score_after": 290,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:0d47508ea0acca70270d282ce66d28b1659e819c7fd2b4c0ced0696cfb9a829f"
+ },
+ {
+  "function": "func_80069250",
+  "text": "Confirmed candidate is empty: compile produced no named function. The supplied m2c draft contains unresolved global identifiers, while historical best reportedly ~13232; prior repairs have substantial trials. Next step: restore saved_best and resolve missing global declarations/prototypes from project context before compiling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242577.384748,
+  "score_before": 13232,
+  "score_after": 13232
+ },
+ {
+  "function": "func_800067C8",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRecreated volatile pointer plus cached RMW candidate at score 170. Moving counter initialization after func_8000A310 produced identical instructions; claim was lost during compile. Next step: find a genuine use of the zero counter across that call to schedule initialization in its delay slot.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242583.8033652,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
+ },
+ {
+  "function": "func_8011DC18",
+  "text": "Empty candidate confirmed by compile: no named function object. Historical best reported 5680, but source unavailable; m2c draft incomplete/invalid with undeclared globals and even undefined `sp`. Next step: retrieve any scored prior candidate via saved_best/history; if unavailable redraft from assembly, fixing format string variadic prototypes and globals.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242587.398731,
+  "score_before": 5680,
+  "score_after": 5680
+ },
+ {
+  "function": "func_800358D4",
+  "text": "Empty candidate confirmed by compile (no symbol). Historical best reported 9212. Draft is mostly complete but missing sp84/sp88; prior note: those are likely vector components in &sp80 output from vector helpers, and adding scalar locals scored 15278. Next step: use three-float vector arrays for sp28/sp2C/sp30 and sp80/sp84/sp88, then compile; ensure missing declarations are supplied from candidate/header.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242597.137503,
+  "score_before": 6315,
+  "score_after": 6315
+ },
+ {
+  "function": "menuRefreshSlot",
+  "text": "Service reset candidate immediately after scoring 1300; earlier byte offset and loop index repairs were reverified at 1300. Historical score 15 or 0 source unavailable. Next step: recover historical source and examine selection branch and call scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242624.5729191,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ee149264089f17616684cf030e02429421dc8840e7bac5b6dc17ef51cc98277c"
+ },
+ {
+  "function": "func_8003B954",
+  "text": "Inherited draft failed to compile due to unresolved globals and malformed pointer arithmetic; prior agents had 31 local-repair trials (best historical score 12290). My empty-source compile did not establish a score. Brief confirms lookup table is sMenuItemParamTable and color state is gSaveMenuState; matched callee evidence gives func_80018578(Font18578 *, char *) returning u16 and func_80018080(void *) returning s32. Next step: start from a fresh machine draft with those declaration corrections and byte-pointer arithmetic; compile immediately before broad repair searches.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242634.356995,
+  "score_before": 12290,
+  "score_after": 12290
+ },
+ {
+  "function": "func_800723C0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Candidate did not compile; historical best 11593, with 37 local-repair trials and 1 explicit patch already recorded. My baseline repair probe was blocked by undeclared stack floats, bad func_80083E90 prototype/arity and pointer arithmetic. Previous evidence: a typed temp_s0 struct improved the score to 11593; stack target 0xf8 vs candidate 0xe0, with 320 diff rows. Next step: redraft with correct float stack locals and callee signatures, inspect the frame/register live ranges, preserving saved_best.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242647.208519,
+  "score_before": 2475,
+  "score_after": 2475
+ },
+ {
+  "function": "beginSceneTransition",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked score 20: four register differences, target uses a0 for gTrackMarkerActiveMask address while candidate uses a2. s32 scene and destination locals, pointer locals for D_80109690 and D_8010A4C1, and a simple conditional followed by scene != 0x20 reached 20. Separating pointer initialization and assignment left output unchanged; declaration order and nested guard also unchanged, unsigned destination worsened to 470. Next step: test moving the marker address assignment relative to the preceding call and adjacent byte update to alter its lifetime.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242650.149437,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:7651921d02483a853a7851b773c94b78fa2aec7522f828ad992481c3c5a79f33"
+ },
+ {
+  "function": "func_8008B824",
+  "text": "Saved 745 with 157/157 instructions. The division now uses both target reciprocals but distributes shifts 12/1 instead of 6/7. Explicit widened first multiply scored 1010, introducing mflo and zero instructions. Signed 32-bit local for first mixer string character recovered lb in that trial.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795242671.725207,
+  "score_before": 1675,
+  "score_after": 745,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:cba7f023daa9fffc8db3787739eaf57478dda702af624273ed29389157dd58c5"
+ },
+ {
+  "function": "func_8007514C",
+  "text": "No improvement after six source trials. Rechecked 1145; volatile null loads worsened to 1435\u20131505, disabling CSE across jumps tied, and explicit zero in case 2 worsened to 1471. Initial bonus table loads still coalesce.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795242684.503357,
+  "score_before": 865,
+  "score_after": 865,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:1b37bde887bfb7277ef299b68274f6c12f73ba154ec1f13e2d4b6e0ac7de4b11"
+ },
+ {
+  "function": "menuHandleSelection",
+  "text": "Byte-offset sBonusObjectTable indexing (cast base to u8 * and dereference s32 *) scored 1690 versus baseline 1720, correcting three scaled shifts. Candidate and claim reverted externally immediately afterward. Next step: combine that correction with s16 byte-offset reads for D_800C4478/D_800C447A; this combination was not tested.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795242693.6037629,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8440243abad5a02799f2873268c07e96776eb3b5b2e87ddda9f6902d134c3943"
+ },
+ {
+  "function": "menuRefreshSlot",
+  "text": "Service repeatedly resets claims and candidates between calls. Byte-offset casts and loop index at loop top reverified score 1300; historical score-15 source unavailable. Next step: recover historical source and examine selection branch and call scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795242713.479404,
+  "score_before": 15,
+  "score_after": 15,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:ee149264089f17616684cf030e02429421dc8840e7bac5b6dc17ef51cc98277c"
+ },
+ {
+  "function": "func_800067C8",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nClaim was lost during compile. Revision e5110a0bd84ef23c3b0f scored 170: volatile global pointer plus cached first RMW; remaining second loop counter initialization is emitted later rather than in func_8000A310 delay slot. Moving initialization after the call produced identical instructions. Next step: test a genuine use of the counter across that call.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795242714.577634,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "70506753d5a98e858d740f4310c2662aae7cb9f4fcb382c1c219730aaff69d85:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5fea60b17b02aad9176f9ccb689bb4c78cba7d5b544bcc1efc5544710d3976f6"
+ },
+ {
+  "function": "func_8011D3C0",
+  "text": "Continuation from saved_best is still far from a match (current score 22367). Bounded local repair comparison on 80f03298: symbol_address_local neutral; loop_weight_scope worsened to 24267; pointer_integer_phase_union worsened to 22512. A declaration replacement compile failed and was abandoned. Declaration evidence lists gVisibleSaveSlotCount at 0x801002C0; target prologue reads it. Next step: use a freshly claimed candidate and replace only the outer loop's gBorderMode bound with gVisibleSaveSlotCount, while preserving a separate border-mode value if needed based on original symbol addresses.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795242726.961076,
+  "score_before": 15660,
+  "score_after": 15660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:d217e8b2bb71d6b1a38476ad26b5d08534d6b6209e11fa9863d061348b7c39cc"
  }
 ]

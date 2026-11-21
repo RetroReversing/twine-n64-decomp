@@ -23,7 +23,7 @@ s32 func_800982B4();
 void *func_8009846C();
 s32 voiceListRemove();
 s32 func_80098B14();
-s32 func_800992B4();
+s32 releaseAudioVoice();
 void *audioUpdateClipSelection();
 void *audioVoiceStepTimer();
 void *audioCmdNoteOn();
@@ -175,7 +175,7 @@ s32 __repair_result_var_v0_4;
         }
         if ((*(s32 *)((char *)(arg0) + 0x24)) & 0x40) {
             (*(s32 *)((char *)(arg0) + 0x24)) = 0;
-            func_800992B4(arg0);
+            releaseAudioVoice(arg0);
             return;
         }
         func_800969B4(arg0);
@@ -267,7 +267,7 @@ loop_25:
             case 0x0:
 block_40:
                 voiceListRemove(arg0);
-                func_800992B4(arg0);
+                releaseAudioVoice(arg0);
                 var_a0 = (void *)1;
             }
             break;

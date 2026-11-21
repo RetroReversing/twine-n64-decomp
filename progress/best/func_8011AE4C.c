@@ -1,5 +1,5 @@
 typedef struct { f32 x, y, z; } Vec3f;
-extern void relinkTrackMarker(void *, s32);
+extern void relinkTrackMarkerSlot(void *, s32);
 extern void startBonusSceneActor(void *);
 extern s32 func_8002B150(void *, s32, s32);
 extern s32 func_8007089C(void *, s32, u16);
@@ -47,16 +47,16 @@ void func_8011AE4C(u8 *arg0, u8 *arg1, u8 *arg2) {
         }
         if (*(*(u8 **)(arg1 + 0xB4) + 0x10) & 1) {
             *(s32 *)(sBonusMarkerNodes + 0x28) = (*(s32 *)(sBonusMarkerNodes + 0x28) & ~0xFC) | 0x1C;
-            if (s0 & 0xFF) relinkTrackMarker(arg2, 1);
+            if (s0 & 0xFF) relinkTrackMarkerSlot(arg2, 1);
         }
         if (*(*(u8 **)(arg1 + 0xB4) + 0x10) & 2) {
             *(s32 *)(sMarkerTextNode2 + 0x28) = (*(s32 *)(sMarkerTextNode2 + 0x28) & ~0xFC) | 0x1C;
-            if (s0 & 0xFF) relinkTrackMarker(arg2, 2);
+            if (s0 & 0xFF) relinkTrackMarkerSlot(arg2, 2);
         }
         if (*(*(u8 **)(arg1 + 0xB4) + 0x10) & 4) {
             *(s32 *)(sMarkerTextNode3 + 0x28) = (*(s32 *)(sMarkerTextNode3 + 0x28) & ~0xFC) | 0x1C;
             if (s0 & 0xFF) {
-                relinkTrackMarker(arg2, 4);
+                relinkTrackMarkerSlot(arg2, 4);
                 goto blk;
             }
         } else {
