@@ -76,8 +76,8 @@ void func_80041F68(void *arg0) {
         var_s5 = func_80083E90(var_s0, 0x1B);
         memcpy(var_s5, temp_s4, (*(u32 *)((char *)(arg0) + 0x24)));
     }
-    var_a0 = var_s0 >> 1;
     if (D_8010A4FC != 0) {
+        var_a0 = var_s0 >> 1;
         var_s1 = 0;
         if (var_a0 != 0) {
             var_s2 = var_s5;

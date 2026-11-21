@@ -17,22 +17,22 @@ s32 __repair_phase_temp_a0;
     unsigned int var_v0_2;
 unsigned int __repair_phase_var_v0_2;
     long var_v0_3;
-    long var_v0_4;
+    unsigned long var_v0_4;
     int var_v0_5;
     register unsigned int var_v1;
     unsigned int var_v1_2;
     unsigned var_v1_3;
     
-    u32 temp_v0_10;
+    unsigned long temp_v0_10;
     unsigned long temp_v0_11;
     u32 temp_v0_12;
     u32 temp_v0_13;
-    unsigned long temp_v0_14;
+    long temp_v0_14;
     u32 temp_v0_15;
 u32 __repair_phase_temp_v0_15;
     
     u32 temp_v0_17;
-    register u32 temp_v0_18;
+    u32 temp_v0_18;
     unsigned temp_v0_19;
     u32 temp_v0_20;
     u32 temp_v0_21;
@@ -50,12 +50,12 @@ u32 __repair_phase_temp_v0_15;
     int temp_v0_5;
     register s32 temp_v0_6;
     register u32 temp_v0_7;
-    u32 temp_v0_8;
+    unsigned long temp_v0_8;
     u32 temp_v0_9;
     register u32 temp_v1;
     register u32 temp_v1_2;
     unsigned int temp_v1_3;
-    u32 temp_v1_4;
+    register u32 temp_v1_4;
     u32 temp_v1_5;
     u32 temp_v1_8;
     u32 var_a0;
@@ -96,7 +96,7 @@ s32 __repair_phase_temp_v1_6;
         var_v0 = 0x18;
         (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_3 & 0xFFFF0003) | ((((temp_v0_3 >> 2) & 0x3FFF) | 0x400) * 4));
         (*(s32 *)((char *)(arg1) + 0x50)) &= ~0x200;
-        (*(s16 *)((char *)(arg1) + 0x58)) = (s16) (u32)var_v0;
+        (*(s16 *)((char *)(arg1) + 0x58)) = (s16) var_v0;
         return;
     case 0x1B:
         temp_v0_4 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
@@ -151,8 +151,8 @@ s32 __repair_phase_temp_v1_6;
         break;
     case 0x9E:
         temp_v0_9 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
-        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_9 & 0xFFFF0003) | ((((temp_v0_9 >> 2) & (u32)0x3FFF) | 8) * 4));
-        if (__repair_phase_temp_a0 == 0) {
+        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_9 & 0xFFFF0003) | ((((temp_v0_9 >> 2) & 0x3FFF) | 8) * 4));
+        if (!__repair_phase_temp_a0) {
             var_v0 = 0x18;
             (*(s16 *)((char *)(arg1) + 0x58)) = (s16) var_v0;
             return;
@@ -166,8 +166,8 @@ s32 __repair_phase_temp_v1_6;
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) (var_v0_3 | (var_v1 << 0x11));
         return;
     case 0x68:
-        temp_v0_10 = (*(u32 *)((char *)(arg1) + 0x5C));
         (*(u32 *)((char *)(arg1) + 0x5C)) = (u32) ((temp_v0_10 & 0x7FFFFF) | (((temp_v0_10 >> 0x17) | 0x10) << 0x17));
+        temp_v0_10 = (*(u32 *)((char *)(arg1) + 0x5C));
         /* fallthrough */
     case 0xC8:
         temp_v0_11 = (*(u32 *)((char *)(arg1) + 0x5C));
@@ -229,7 +229,7 @@ block_29:
         func_800404D8(arg1);
         temp_v0_17 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
         temp_a0 = temp_v0_17 & 0xFFFF0003;
-        var_v0_5 = (((u32)temp_v0_17 >> 2) & 0x3FFF) | 0x40;
+        var_v0_5 = ((temp_v0_17 >> 2) & 0x3FFF) | 0x40;
         goto block_27;
     case 0x48:
         func_800404D8(arg1);
@@ -259,7 +259,7 @@ block_29:
     case 0x43:
         temp_v0_22 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
         temp_a0_3 = (*(void **)((char *)(arg1) + 0x20));
-        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_22 & 0xFFFF0003) | ((((temp_v0_22 >> 2) & (unsigned short)0x3FFF) | 0x20) * 4));
+        (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v0_22 & 0xFFFF0003) | ((((temp_v0_22 >> 2) & 0x3FFF) | 0x20) * 4));
         (*(u8 *)((char *)(temp_a0_3) + 0x66)) = 0x80;
         (*(u8 *)((char *)(temp_a0_3) + 0x65)) = 0x80;
         (*(u8 *)((char *)(temp_a0_3) + 0x64)) = 0x80;
@@ -321,7 +321,7 @@ block_29:
                 var_v0_6 = 0x1E;
             }
         } else if (temp_v1_6 != 0x88) {
-            if (0x89 <= temp_v1_6) {
+            if (temp_v1_6 >= 0x89) {
                 var_v0_6 = 0x88;
                 if (temp_v1_6 != 0x89) {
                     var_v0_6 = 0x1E;
@@ -339,7 +339,7 @@ s32 __repair_branch_temp_v1_6_0;
             var_v0_6 = 0x88;
             (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((__repair_branch_temp_v1_6_0 & 0xFFFF0003) | (((((u32)__repair_branch_temp_v1_6_0 >> 2) & 0x3FFF) | 0x2000) * 4));
         }
-        (*(s16 *)((char *)(arg1) + 0x58)) = var_v0_6;
+        (*(s16 *)((char *)(arg1) + 0x58)) = (int)var_v0_6;
         D_800E19E0 = (*(f32 *)((char *)(arg1) + 0x24));
         (*(f32 *)&D_800E19E4) = (*(f32 *)((char *)(arg1) + 0x28));
         (*(f32 *)&D_800E19E8) = ((__repair_field_2C *)arg1)->value;
@@ -360,9 +360,9 @@ s32 __repair_branch_temp_v1_6_0;
     case 0x8B:
         temp_v1_7 = (*(u8 *)((char *)((*(void **)((char *)(arg0) + 0x24))) + 0x1E));
         var_v0_6 = 0x1E;
-        if (0x86 <= temp_v1_7) {
+        if (temp_v1_7 >= 0x86) {
             var_v0_6 = 0x84;
-            if (((s32) temp_v1_7 >= 0x88) && (((s32) temp_v1_7 >= 0x8C) || (var_v0_6 = 0x88, (((s32) temp_v1_7 < 0x8A) != 0)))) {
+            if (((s32) temp_v1_7 >= 0x88) && ((temp_v1_7 >= 0x8C) || (var_v0_6 = 0x88, (((s32) temp_v1_7 < 0x8A) != 0)))) {
                 var_v0_6 = 0x1E;
             }
         }

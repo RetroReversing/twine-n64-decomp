@@ -101,6 +101,7 @@ void func_8002323C(void) {
     void *temp_s3;
     void *temp_s4;
     void *var_s0;
+    void * buf3;
     s32 slotB;
 
     temp_s2 = findEntryById(&D_800BDBF8, 0x53);
@@ -295,11 +296,11 @@ success5:
                         freeMenuItemRecord(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2));
                         goto next7;
                     success7:
-                        temp_v0_4 = lookupDataEntry((var_s4 + 0x4003) & 0xFFFF);
+                        buf3 = lookupDataEntry((var_s4 + 0x4003) & 0xFFFF);
                         temp_s1 = temp_s1 & 0xFFFF;
-                        sprintf(temp_v0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
+                        sprintf(buf3, D_800D2AB0, (&D_800E1068)[temp_s1]);
                         func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2), (temp_s1 * 0x18) + (u8 *)&D_801001A4, 0x40);
-                        func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2), temp_v0_4, 0x240);
+                        func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2), buf3, 0x240);
                         func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s3_2), (var_s4 + 1) & 0xFF, 1);
                     next7:;
                     var_s4 += 1;
