@@ -31,8 +31,11 @@ inline static f32 inline_fn(void *arg0, f32 arg1)
 
 s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7)
 {
-  struct {
-    volatile f32 sp18, sp1C, sp20;
+  struct 
+  {
+    volatile f32 sp18;
+    volatile f32 sp1C;
+    volatile f32 sp20;
     u32 pad24;
     f32 startPoint[3];
     u32 pad34;
@@ -43,20 +46,31 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 localEnd[3];
     u32 pad64;
     f32 matrix[12];
-    union {
+    union 
+    {
       s16 angles[3];
       f32 point[3];
-      struct { f32 prefix[2]; f32 point[3]; } overlap;
+      struct 
+      {
+        f32 prefix[2];
+        f32 point[3];
+      } overlap;
     } rotationInput;
     u32 padAC;
-    f32 spB0, spB4;
+    f32 spB0;
+    f32 spB4;
     f32 translation[3];
     u32 padC4;
     f32 rotatedA[3];
     u32 padD4;
-    union {
+    union 
+    {
       f32 rotated[3];
-      struct { f32 prefix[2]; f32 point[3]; } overlap;
+      struct 
+      {
+        f32 prefix[2];
+        f32 point[3];
+      } overlap;
     } secondPoint;
     u32 padEC;
     f32 spF0;
@@ -192,7 +206,11 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
             {
               if ((*((void **) (((char *) var_s1) + 0x70))) != NULL)
               {
- do { temp_s2 = (*((s32 *) (((char *) var_s1) + 0x58))) & 0x400; } while (0);
+                do
+                {
+                  temp_s2 = (*((s32 *) (((char *) var_s1) + 0x58))) & 0x400;
+                }
+                while (0);
                 if (((((s32) temp_s2) == 0) && ((*((s32 *) (((char *) var_s1) + 0x5C))) & 0x200)) && ((func_800487F0(var_s1, arg1, arg4) << 0x18) != 0))
                 {
                   temp_s4 = *((void **) (((char *) var_s1) + 0x70));
@@ -227,7 +245,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                     if (temp_v1 != 0)
                     {
                       var_s3 = *((u16 **) (((char *) temp_s4) + 0x3C));
-                      if (temp_s2 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
+                      if ((temp_s2 - 1) < (((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))) - 1))
                       {
                         var_s0 = 0;
                         var_s2 = ((u8 *) var_s3) + 4;
@@ -261,7 +279,14 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                       var_s0_2 = 0;
                       if (temp_v1 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
                       {
-                        var_s2_2 = ((u8 *) ((u8 *) var_s3_2)) + 2;
+                        if (gPlayerActor || temp_s4)
+                        {
+                          var_s2_2 = ((u8 *) ((u8 *) var_s3_2)) + 2;
+                        }
+                        else
+                        {
+                          var_s2_2 = ((u8 *) ((u8 *) var_s3_2)) + 2;
+                        }
                         do
                         {
                           temp_s5_2 = var_s0_2 & 0xFFFF;
@@ -359,177 +384,193 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                 func_80083B64(&scratch.translation[0], sp15C);
                 func_80083B64(&scratch.translation[0], (f32 *) sp17C);
               }
-              temp_s0_2 = temp_s1 + 0x18;
-              if ((segmentOverlapsBox(temp_s0_2, sp15C, (f32 *) sp17C) << 0x18) != 0)
+              if (1)
               {
-                *((PointCopy *) scratch.secondPoint.overlap.point) = D_800D3E30;
-                temp_v0_2 = func_8004E418(temp_s0_2, sp15C, (f32 *) sp17C);
-                temp_s7 = temp_v0_2 & 0xFF00;
-                sp18E = temp_v0_2 & 0xFF;
-                if ((!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)) || ((func_80083B64(&scratch.translation[0], sp184), ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2) == 0)))
+                if (scratch.matrix)
                 {
-                  var_s3_3 = -1;
-                  if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
+                  temp_s0_2 = temp_s1 + 0x18;
+                }
+                else
+                {
+                  temp_s0_2 = temp_s1 + 0x18;
+                }
+                if ((segmentOverlapsBox(temp_s0_2, sp15C, (f32 *) sp17C) << 0x18) != 0)
+                {
+                  *((PointCopy *) scratch.secondPoint.overlap.point) = D_800D3E30;
+                  temp_v0_2 = func_8004E418(temp_s0_2, sp15C, (f32 *) sp17C);
+                  temp_s7 = temp_v0_2 & 0xFF00;
+                  sp18E = temp_v0_2 & 0xFF;
+                  if ((!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)) || ((func_80083B64(&scratch.translation[0], sp184), ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2) == 0)))
                   {
-                    var_s0_3 = 0;
-                    if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                    var_s3_3 = -1;
+                    if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
                     {
+                      var_s0_3 = 0;
+                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      {
+                        do
+                        {
+                          temp_s2_3 = var_s0_3 & 0xFFFF;
+                          temp_a0 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_3];
+                          temp_a1 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (((u32) temp_s2_3) * 6);
+                          if ((sp18E & temp_a0) && (temp_s7 & temp_a0))
+                          {
+                            temp_v1_6 = *((s32 *) (((char *) temp_s1) + 0x34));
+                            if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, ((s32) temp_v1_6) + ((*((u16 *) (((char *) temp_a1) + 0))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 2))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 4))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (scratch.spF0 < var_fs0))
+                            {
+                              if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20)
+                              {
+                                if (sp134 != NULL)
+                                {
+                                  *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
+                                  *((f32 *) (((char *) sp134) + 4)) = inline_fn(arg1, scratch.spF0);
+                                  gPlayerActor = NULL;
+                                  D_80103F00 = var_s6;
+                                  *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+                                }
+                              }
+                              else
+                              {
+                                var_fs0 = scratch.spF0;
+                                var_s3_3 = temp_s2_3;
+                              }
+                            }
+                          }
+                          var_s0_3 += 1;
+                        }
+                        while (((u32) (var_s0_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                      }
+                    }
+                    else
+                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                    {
+                      var_s0_4 = 0;
                       do
                       {
-                        temp_s2_3 = var_s0_3 & 0xFFFF;
-                        temp_a0 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_3];
-                        temp_a1 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (((u32) temp_s2_3) * 6);
-                        if ((sp18E & temp_a0) && (temp_s7 & temp_a0))
+                        temp_s2_4 = var_s0_4 & 0xFFFF;
+                        temp_v1_7 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_4];
+                        temp_a1_2 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (temp_s2_4 * 3);
+                        if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7))
                         {
-                          temp_v1_6 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, ((s32) temp_v1_6) + ((*((u16 *) (((char *) temp_a1) + 0))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 2))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 4))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (scratch.spF0 < var_fs0))
+                          temp_v1_8 = *((s32 *) (((char *) temp_s1) + 0x34));
+                          if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 0))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 1))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 2))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (var_fs0 > scratch.spF0))
                           {
                             if (!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20))
                             {
                               var_fs0 = scratch.spF0;
-                              var_s3_3 = temp_s2_3;
+                              var_s3_3 = temp_s2_4;
                             }
                             else
                               if (sp134 != NULL)
                             {
                               *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-                              *((f32 *) (((char *) sp134) + 4)) = inline_fn(arg1, scratch.spF0);
+                              *((f32 *) (((char *) sp134) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - scratch.spF0);
                               gPlayerActor = NULL;
                               D_80103F00 = var_s6;
                               *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
                             }
                           }
                         }
-                        var_s0_3 += 1;
+                        ++var_s0_4;
                       }
-                      while (((u32) (var_s0_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                      while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
                     }
-                  }
-                  else
-                    if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
-                  {
-                    var_s0_4 = 0;
-                    do
+                    if (var_s3_3 != (-1))
                     {
-                      temp_s2_4 = var_s0_4 & 0xFFFF;
-                      temp_v1_7 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s2_4];
-                      temp_a1_2 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (temp_s2_4 * 3);
-                      if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7))
+                      gPlayerActor = NULL;
+                      D_80108F84 = var_s6;
+                      if (arg7 != NULL)
                       {
-                        temp_v1_8 = *((s32 *) (((char *) temp_s1) + 0x34));
-                        if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 0))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 1))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 2))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (var_fs0 > scratch.spF0))
+                        if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
                         {
-                          if (!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20))
-                          {
-                            var_fs0 = scratch.spF0;
-                            var_s3_3 = temp_s2_4;
-                          }
-                          else
-                            if (sp134 != NULL)
-                          {
-                            *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-                            *((f32 *) (((char *) sp134) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - scratch.spF0);
-                            gPlayerActor = NULL;
-                            D_80103F00 = var_s6;
-                            *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
-                          }
+                          temp_v1_9 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 6);
+                          var_a2 = (*((u16 *) (((char *) temp_v1_9) + 2))) * 3;
+                          var_v0 = *((u16 *) (((char *) temp_v1_9) + 4));
+                          var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u16 *) (((char *) temp_v1_9) + 0))) * 0xC);
+                          buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
                         }
-                      }
-                      ++var_s0_4;
-                    }
-                    while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
-                  }
-                  if (var_s3_3 != (-1))
-                  {
-                    gPlayerActor = NULL;
-                    D_80108F84 = var_s6;
-                    if (arg7 != NULL)
-                    {
-                      if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
-                      {
-                        temp_v1_9 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 6);
-                        var_a2 = (*((u16 *) (((char *) temp_v1_9) + 2))) * 3;
-                        var_v0 = *((u16 *) (((char *) temp_v1_9) + 4));
-                        var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u16 *) (((char *) temp_v1_9) + 0))) * 0xC);
-                        buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
-                      }
-                      else
-                      {
-                        temp_v1_10 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 3);
-                        var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u8 *) (((char *) temp_v1_10) + 0))) * 0xC);
-                        var_a2 = (*((u8 *) (((char *) temp_v1_10) + 1))) * 3;
-                        var_v0 = (u16) (*((u8 *) (((char *) temp_v1_10) + 2)));
-                        buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
-                      }
-                      *((f32 *) (((char *) arg7) + 0)) = scratch.plane[0];
-                      *((f32 *) (((char *) arg7) + 4)) = scratch.plane[1];
-                      *((f32 *) (((char *) arg7) + 8)) = scratch.plane[2];
-                      *((f32 *) (((char *) arg7) + 0xC)) = scratch.plane[3];
-                    }
-                  }
-                }
-                else
-                {
-                  temp_v1_11 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4;
-                  var_s5 = -1;
-                  if (temp_v1_11 != 0)
-                  {
-                    var_s3_4 = *((u16 **) (((char *) temp_s1) + 0x3C));
-                    var_s0_5 = 0;
-                    if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
-                    {
-                      var_s2_3 = ((u8 *) var_s3_4) + 4;
-                      do
-                      {
-                        temp_s4_2 = var_s0_5 & 0xFFFF;
-                        temp_v1_12 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_2];
-                        if ((sp18E & temp_v1_12) && (temp_s7 & temp_v1_12))
+                        else
                         {
-                          temp_v1_13 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_13 + ((*var_s3_4) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + (-2)))) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (scratch.sp108 < var_fs0))
-                          {
-                            var_fs0 = scratch.sp108;
-                            var_s5 = temp_s4_2;
-                          }
+                          temp_v1_10 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 3);
+                          var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u8 *) (((char *) temp_v1_10) + 0))) * 0xC);
+                          var_a2 = (*((u8 *) (((char *) temp_v1_10) + 1))) * 3;
+                          var_v0 = (u16) (*((u8 *) (((char *) temp_v1_10) + 2)));
+                          buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
                         }
-                        var_s2_3 = (void *) (((u8 *) var_s2_3) + 6);
-                        ++var_s0_5;
-                        var_s3_4 = (void *) (((u8 *) var_s3_4) + 6);
+                        *((f32 *) (((char *) arg7) + 0)) = scratch.plane[0];
+                        *((f32 *) (((char *) arg7) + 4)) = scratch.plane[1];
+                        *((f32 *) (((char *) arg7) + 8)) = scratch.plane[2];
+                        *((f32 *) (((char *) arg7) + 0xC)) = scratch.plane[3];
                       }
-                      while (((u32) (var_s0_5 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
                     }
                   }
                   else
                   {
-                    var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
-                    var_s0_6 = 0;
-                    if (temp_v1_11 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                    temp_v1_11 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4;
+                    var_s5 = -1;
+                    if (temp_v1_11 != 0)
                     {
-                      var_s2_4 = ((u8 *) var_s3_5) + 2;
-                      do
+                      var_s3_4 = *((u16 **) (((char *) temp_s1) + 0x3C));
+                      var_s0_5 = 0;
+                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
                       {
-                        temp_s4_3 = var_s0_6 & 0xFFFF;
-                        temp_v1_14 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_3];
-                        if ((sp18E & temp_v1_14) && (temp_s7 & temp_v1_14))
+                        var_s2_3 = ((u8 *) var_s3_4) + 4;
+                        do
                         {
-                          temp_v1_15 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_15 + ((*((u8 *) var_s3_5)) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + (-1)))) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (var_fs0 > scratch.sp108))
+                          temp_s4_2 = var_s0_5 & 0xFFFF;
+                          temp_v1_12 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_2];
+                          if ((sp18E & temp_v1_12) && (temp_s7 & temp_v1_12))
                           {
-                            var_fs0 = scratch.sp108;
-                            var_s5 = temp_s4_3;
+                            temp_v1_13 = *((s32 *) (((char *) temp_s1) + 0x34));
+                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_13 + ((*var_s3_4) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + (-2)))) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (scratch.sp108 < var_fs0))
+                            {
+                              var_fs0 = scratch.sp108;
+                              var_s5 = temp_s4_2;
+                            }
                           }
+                          var_s2_3 = (void *) (((u8 *) var_s2_3) + 6);
+                          ++var_s0_5;
+                          var_s3_4 = (void *) (((u8 *) var_s3_4) + 6);
                         }
-                        var_s2_4 = (void *) (((u8 *) var_s2_4) + 3);
-                        var_s3_5 = (void *) (((u8 *) var_s3_5) + 3);
-                        var_s0_6 += 1;
+                        while (((u32) (var_s0_5 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
                       }
-                      while (((u32) (var_s0_6 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
                     }
-                  }
-                  if (var_s5 != (-1))
-                  {
-                    gPlayerActor = NULL;
-                    D_80108F84 = var_s6;
+                    else
+                    {
+                      var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
+                      var_s0_6 = 0;
+                      if (temp_v1_11 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      {
+                        var_s2_4 = ((u8 *) var_s3_5) + 2;
+                        do
+                        {
+                          temp_s4_3 = var_s0_6 & 0xFFFF;
+                          temp_v1_14 = (*((u16 **) (((char *) temp_s1) + 0x38)))[temp_s4_3];
+                          if ((sp18E & temp_v1_14) && (temp_s7 & temp_v1_14))
+                          {
+                            temp_v1_15 = *((s32 *) (((char *) temp_s1) + 0x34));
+                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_15 + ((*((u8 *) var_s3_5)) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + (-1)))) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (var_fs0 > scratch.sp108))
+                            {
+                              var_fs0 = scratch.sp108;
+                              do
+                              {
+                                var_s5 = temp_s4_3;
+                              }
+                              while (0);
+                            }
+                          }
+                          var_s2_4 = (void *) (((u8 *) var_s2_4) + 3);
+                          var_s3_5 = (void *) (((u8 *) var_s3_5) + 3);
+                          var_s0_6 += 1;
+                        }
+                        while (((u32) (var_s0_6 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                      }
+                    }
+                    if (var_s5 != (-1))
+                    {
+                      gPlayerActor = NULL;
+                      D_80108F84 = var_s6;
+                    }
                   }
                 }
               }
@@ -608,7 +649,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
       {
         goto block_160;
       }
-      *(PointCopy *)sp12C = *(PointCopy *)scratch.startPoint;
+      *((PointCopy *) sp12C) = *((PointCopy *) scratch.startPoint);
       goto block_162;
     }
     if (gPlayerActor == NULL)

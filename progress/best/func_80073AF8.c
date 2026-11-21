@@ -231,6 +231,7 @@ block_51:
             func_800AB880(temp_s6, sp10);
             temp_v0_4 = func_80015F0C();
             if (temp_v0_4 != NULL) {
+                { long long phantom_wide = arg3; }
                 (*(s32 **)((char *)(temp_v0_4) + 0x18)) = temp_s6;
                 (*(u16 *)((char *)(temp_v0_4) + 0x1C)) = sp14E;
                 (*(s16 *)((char *)(temp_v0_4) + 0x20)) = var_s4;

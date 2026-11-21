@@ -1,415 +1,159 @@
-inline static u8 __repair_inline(u8 a)
-{
-  return a;
-}
-
-s32 func_800328CC();
-s32 func_80032978();
-s32 gfxAppendTexture();
-s32 func_800A0220();
+typedef struct { u32 w0, w1; } GfxPair;
+extern GfxPair *gGfxPtr;
 extern s8 D_80109A94;
-extern void *gGfxPtr;
-extern s16 D_8010D2B4;
-typedef struct 
+extern s32 D_8010D2B4;
+extern void func_800328CC(s32, s32, s32, s32, s32, s32, s32, f32);
+extern void func_80032978(u8 *, s32, s32, s32, s32, s32 *);
+extern void gfxAppendTexture(u8 *, s32 *, s32, s32, s32, s32, s32 *);
+extern void func_800A0220(GfxPair **, s32);
+
+#define TRI(a,b,c) (((((a) * 2) & 255) << 16) | (((b) << 9) & 0xfe00) | (((c) * 2) & 255))
+#define WORD(p) (((p)[0] << 8) + (p)[1])
+#define VERTICES(step, read) \
+    q = p + 2; \
+    first = D_8010D2B4; \
+    for (i = 0; i < p[1]; i++, q += step) { \
+        read; \
+        if (draw) { \
+            func_800328CC(D_8010D2B4, model, a2, vertexTransform, x, y, z, scale); \
+            D_8010D2B4 += 16; \
+        } else { \
+            ++*vertices; \
+        } \
+    } \
+    if (draw) { \
+        gfx = gGfxPtr++; \
+        n = p[1]; \
+        gfx->w1 = first - 0x80000000U; \
+        gfx->w0 = (n << 12) | (((n & 127) << 1) | 0x01000000); \
+    } else { \
+        ++*commands; \
+    } \
+    ++p
+
+void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3,
+                   s32 a4, register f32 scale, s32 a6, s32 a7, s32 enable,
+                   s32 *vertices, s32 *commands)
 {
-  unsigned char pad[4];
-  int value;
-} __repair_field_4;
-inline static int inline_fn(u32 arg0, u8 arg1)
-{
-  return arg0 < arg1;
-}
-
-inline static char *inline_fn2(void *arg0)
-{
-  return (char *) arg0;
-}
-
-inline static char *inline_fn23(char *arg0)
-{
-  return (char *) arg0;
-}
-
-void func_800336FC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 *arg9, s32 *arg10)
-{
-  s32 *__base_D_8010D2B4;
-  volatile s64 reserve[3];
-  s32 sp20;
-  void *sp24;
-  s32 sp2C;
-  u8 sp37;
-  s32 temp_s4;
-  s32 temp_s4_2;
-  s32 temp_s4_3;
-  s32 temp_s4_4;
-  s32 temp_v0_2;
-  s32 var_v0;
-  s32 var_v0_2;
-  s32 var_v0_3;
-  u32 temp_v0_3;
-  u32 var_s2;
-  u32 var_s2_2;
-  u32 var_s2_3;
-  u32 var_s2_4;
-  u32 var_s2_5;
-  u32 var_v1;
-  u8 *temp_a1_5;
-  u8 *temp_s1;
-  u8 *var_a1;
-  char *var_a1_2;
-  char *var_s0_3;
-  char *var_s1;
-  u8 temp_a0;
-  u8 temp_a2;
-  u8 temp_a3;
-  u8 temp_t3;
-  s32 temp_v0;
-  u8 temp_v1;
-  u8 temp_v1_2;
-  u8 temp_v1_3;
-  u8 temp_v1_4;
-  u8 temp_v1_5;
-  u8 var_v0_4;
-  u8 __repair_result_var_v0_4;
-  void *temp_a0_2;
-  void *temp_a0_3;
-  void *temp_a0_4;
-  void *temp_a0_5;
-  void *temp_a1;
-  void *temp_a1_2;
-  void *temp_a1_3;
-  void *temp_a1_4;
-  void *temp_v0_4;
-  void *temp_v1_6;
-  void *var_s0;
-  void *var_s0_2;
-  void *var_s0_4;
-  void *var_s1_2;
-  var_s1 = arg0;
-  sp2C = arg3;
-  D_80109A94 = 0;
-  sp20 = -1;
-  sp24 = gGfxPtr;
-  temp_a0 = __repair_inline(*((u8 *) var_s1));
-  sp37 = (u8) arg8;
-  if ((temp_a0 & 0xFF) != 0xC)
-  {
-    var_v1 = temp_a0 & 0xFF;
-    var_v0 = inline_fn(var_v1, 0xCU);
-    do
-    {
-      if (var_v0 != 0)
-      {
-        switch (var_v1)
-        {
-          case 9:
-            var_s1 += 4;
-            break;
-            __base_D_8010D2B4 = &D_8010D2B4;
-
-          case 0:
-            temp_s4 = *__base_D_8010D2B4;
-            var_s2 = 0;
-            if ((*((u8 *) (((char *) var_s1) + 1))) != 0)
-          {
-            var_s0 = var_s1 + 2;
-            do
-            {
-              if (((s8) arg8) != 0)
-              {
-                func_800328CC(*__base_D_8010D2B4, arg1, arg2, sp2C, (s32) (*((u8 *) (((char *) var_s0) + 0))), (s32) (*((u8 *) (((char *) var_s0) + 1))), (s32) (*((u8 *) (inline_fn23(var_s0) + 2))));
-                *__base_D_8010D2B4 += 0x10;
-              }
-              else
-              {
-                *arg9 += 1;
-              }
-              var_s2 += 1;
-              var_s0 += 3;
-            }
-            while (inline_fn(var_s2, (u8) (*((u8 *) (((char *) var_s1) + 1)))));
-          }
-            if (((s8) arg8) != 0)
-          {
-            temp_a1 = gGfxPtr;
-            gGfxPtr = temp_a1 + 8;
-            temp_v1 = *((u8 *) (((char *) var_s1) + 1));
-            ((__repair_field_4 *) temp_a1)->value = (s32) (temp_s4 - 0x80000000);
-            *((s32 *) (((char *) temp_a1) + 0)) = (s32) ((temp_v1 << 0xC) | (((temp_v1 & 0x7F) * 2) | 0x01000000));
-          }
-          else
-          {
-            *arg10 += 1;
-          }
-            var_s1_2 = var_s1 + 1;
-            var_v0_2 = (*((u8 *) (inline_fn23(var_s1) + 1))) * 3;
-            block_46:
-          var_v0_3 = var_v0_2 + 1;
-
-            block_47:
-          var_s1 = var_s1_2 + var_v0_3;
-
-            break;
-
-          case 1:
-            temp_s4_2 = *__base_D_8010D2B4;
-            var_s2_2 = 0;
-            if ((*((u8 *) (inline_fn23(var_s1) + 1))) != 0)
-          {
-            var_s0_2 = var_s1 + 2;
-            do
-            {
-              if (((s8) arg8) != 0)
-              {
-                func_800328CC(*__base_D_8010D2B4, arg1, arg2, sp2C, ((*((u8 *) (((char *) var_s0_2) + 0))) << 8) + (*((u8 *) (inline_fn23(var_s0_2) + 1))), ((*((u8 *) (((char *) var_s0_2) + 2))) << 8) + (*((u8 *) (inline_fn23(var_s0_2) + 3))), ((*((u8 *) (inline_fn23(var_s0_2) + 4))) << 8) + (*((u8 *) (inline_fn2(var_s0_2) + 5))));
-                *__base_D_8010D2B4 += 0x10;
-              }
-              else
-              {
-                *arg9 += 1;
-              }
-              var_s2_2 += 1;
-              var_s0_2 += 6;
-            }
-            while (inline_fn(var_s2_2, (u8) (*((u8 *) (inline_fn23(var_s1) + 1)))));
-          }
-            if (((s8) arg8) != 0)
-          {
-            temp_a1_2 = gGfxPtr;
-            gGfxPtr = temp_a1_2 + 8;
-            temp_v1_2 = *((u8 *) (((char *) var_s1) + 1));
-            ((__repair_field_4 *) temp_a1_2)->value = (s32) (temp_s4_2 - 0x80000000);
-            *((s32 *) (inline_fn23(temp_a1_2) + 0)) = (s32) ((temp_v1_2 << 0xC) | (((temp_v1_2 & 0x7F) * 2) | 0x01000000));
-          }
-          else
-          {
-            *arg10 += 1;
-          }
-            var_s1_2 = var_s1 + 1;
-            var_v0_4 = (*((u8 *) (((char *) var_s1) + 1))) * 3;
-            block_45:
-          var_v0_2 = var_v0_4 * 2;
-
-            goto block_46;
-
-          case 3:
-            temp_s4_3 = *__base_D_8010D2B4;
-            var_s2_3 = 0;
-            if ((*((u8 *) (inline_fn23(var_s1) + 1))) != 0)
-          {
-            var_s0_3 = var_s1 + 2;
-            do
-            {
-              if (((s8) arg8) != 0)
-              {
-                func_800328CC(*__base_D_8010D2B4, arg1, arg2, sp2C, (s32) (*((u8 *) var_s0_3)), (s32) (*((u8 *) var_s0_3)), (s32) (*((u8 *) var_s0_3)));
-                *__base_D_8010D2B4 += 0x10;
-              }
-              else
-              {
-                *arg9 += 1;
-              }
-              var_s2_3 += 1;
-              var_s0_3 += 1;
-            }
-            while (inline_fn(var_s2_3, (u8) (*((u8 *) (inline_fn23(var_s1) + 1)))));
-          }
-            if (((s8) arg8) != 0)
-          {
-            temp_a1_3 = gGfxPtr;
-            gGfxPtr = temp_a1_3 + 8;
-            temp_v1_3 = *((u8 *) (inline_fn23(var_s1) + 1));
-            ((__repair_field_4 *) temp_a1_3)->value = (s32) (temp_s4_3 - 0x80000000);
-            *((s32 *) (inline_fn23(temp_a1_3) + 0)) = (s32) ((temp_v1_3 << 0xC) | (((temp_v1_3 & 0x7F) * 2) | 0x01000000));
-          }
-          else
-          {
-            *arg10 += 1;
-          }
-            var_s1_2 = var_s1 + 1;
-            var_v0_3 = (*((u8 *) (inline_fn23(var_s1) + 1))) + 1;
-            goto block_47;
-
-          case 2:
-            temp_s4_4 = *__base_D_8010D2B4;
-            var_s2_4 = 0;
-            if ((*((u8 *) (inline_fn23(var_s1) + 1))) != 0)
-          {
-            var_s0_4 = var_s1 + 2;
-            do
-            {
-              temp_v0_2 = ((*((u8 *) (inline_fn23(var_s0_4) + 0))) << 8) + (*((u8 *) (inline_fn23(var_s0_4) + 1)));
-              if (((s8) arg8) != 0)
-              {
-                func_800328CC(*__base_D_8010D2B4, arg1, arg2, sp2C, temp_v0_2);
-                *__base_D_8010D2B4 += 0x10;
-              }
-              else
-              {
-                *arg9 += 1;
-              }
-              var_s2_4 += 1;
-              var_s0_4 += 2;
-            }
-            while (inline_fn(var_s2_4, (u8) (*((u8 *) (inline_fn23(var_s1) + 1)))));
-          }
-            if (((s8) arg8) != 0)
-          {
-            temp_a1_4 = gGfxPtr;
-            gGfxPtr = temp_a1_4 + 8;
-            temp_v1_4 = *((u8 *) (inline_fn23(var_s1) + 1));
-            ((__repair_field_4 *) temp_a1_4)->value = (s32) (temp_s4_4 - 0x80000000);
-            *((s32 *) (inline_fn23(temp_a1_4) + 0)) = (s32) ((temp_v1_4 << 0xC) | (((temp_v1_4 & 0x7F) * 2) | 0x01000000));
-          }
-          else
-          {
-            *arg10 += 1;
-          }
-            var_s1_2 = var_s1 + 1;
-            __repair_result_var_v0_4 = *((u8 *) (inline_fn23(var_s1) + 1));
-          {
-            var_v0_2 = var_v0_4 * 2;
-            goto block_46;
-          }
-
-          case 6:
-            gfxAppendTexture(var_s1, arg1, &sp20, arg4, arg6, arg7, (s32) ((s8) arg8), arg10);
-            temp_s1 = var_s1 + 1;
-            var_s1 = 0;
-            func_80032978(temp_s1, arg4, arg6, arg7, (s32) ((s8) arg8), arg10);
-            var_s1 = temp_s1 + 1;
-
-          case 5:
-            block_51:
-          temp_t3 = *((u8 *) (inline_fn23(var_s1) + 1));
-
-            var_s1 += 2;
-            temp_v0_3 = temp_t3 >> 1;
-            var_s2_5 = 0;
-            if (temp_v0_3 != 0)
-          {
-            var_a1 = var_s1 + 2;
-            do
-            {
-              temp_a1_5 = var_a1 + 3;
-              if (((s8) arg8) != 0)
-              {
-                temp_a0_2 = gGfxPtr;
-                gGfxPtr = temp_a0_2 + 8;
-                *((s32 *) (inline_fn23(temp_a0_2) + 0)) = (s32) (((((((*((u8 *) (inline_fn23(var_s1) + 0))) * 2) & 0xFF) << 0x10) | (((*((u8 *) (inline_fn23(var_a1) + (-1)))) << 9) & 0xFE00)) | (((*((u8 *) (inline_fn23(var_a1) + 0))) * 2) & 0xFF)) | 0x06000000);
-                ((__repair_field_4 *) temp_a0_2)->value = (s32) ((((((*((u8 *) (inline_fn23(var_s1) + 3))) * 2) & 0xFF) << 0x10) | (((*((u8 *) (inline_fn23(temp_a1_5) + (-1)))) << 9) & 0xFE00)) | (((*((u8 *) (inline_fn23(var_a1) + 3))) * 2) & 0xFF));
-              }
-              else
-              {
-                *arg10 += 1;
-              }
-              var_a1 = temp_a1_5 + 3;
-              var_s2_5 += 1;
-              var_s1 = (var_s1 + 3) + 3;
-            }
-            while (inline_fn(var_s2_5, temp_v0_3));
-          }
-            if (temp_t3 & 1)
-          {
-            if (((s8) arg8) != 0)
-            {
-              temp_a0_3 = gGfxPtr;
-              gGfxPtr = temp_a0_3 + 8;
-              *((s32 *) (inline_fn23(temp_a0_3) + 0)) = (s32) (((((((*((u8 *) (inline_fn23(var_s1) + 0))) * 2) & 0xFF) << 0x10) | (((*((u8 *) (inline_fn23(var_s1) + 1))) << 9) & 0xFE00)) | (((*((u8 *) (inline_fn23(var_s1) + 2))) * 2) & 0xFF)) | 0x05000000);
-              ((__repair_field_4 *) temp_a0_3)->value = 0;
-            }
-            else
-            {
-              (*arg10)++;
-            }
-            var_s1 += 3;
-          }
-            break;
-
-          case 7:
-            func_80032978(var_s1, arg4, arg6, arg7, (s32) ((s8) arg8));
-            gfxAppendTexture(var_s1, &sp20, arg4, arg6, arg7, (s32) ((s8) arg8));
-            var_s1 += 1;
-            goto block_51;
-
-          case 8:
-            var_s1 += 3;
-            goto block_51;
-
-          case 4:
-            var_a1_2 = var_s1 + 7;
-            if ((*((u8 *) (inline_fn23(var_s1) + 0))) == 4)
-          {
-            do
-            {
-              temp_v1_5 = *((u8 *) (inline_fn23(var_a1_2) + (-6)));
-              temp_s4 = (u8) (*((u8 *) (inline_fn23(var_a1_2) + (-5))));
-              temp_t3 = *((u8 *) (inline_fn23(var_a1_2) + (-4)));
-              if ((*((u8 *) (inline_fn23(var_a1_2) + (-3)))) == 4)
-              {
-                if (((s8) arg8) != 0)
-                {
-                  temp_a0_4 = gGfxPtr;
-                  gGfxPtr = temp_a0_4 + 8;
-                  *((s32 *) (inline_fn23(temp_a0_4) + 0)) = (s32) ((((((temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_s4 << 9) & 0xFE00)) | ((temp_t3 * 2) & 0xFF)) | 0x06000000);
-                  ((__repair_field_4 *) temp_a0_4)->value = (s32) ((((((*((u8 *) (inline_fn23(var_a1_2) + (-2)))) * 2) & 0xFF) << 0x10) | (((*((u8 *) (inline_fn23(var_a1_2) + (-1)))) << 9) & 0xFE00)) | (((*((u8 *) (inline_fn23(var_a1_2) + 0))) * 2) & 0xFF));
+    s32 texture = -1;
+    GfxPair *start = gGfxPtr;
+    GfxPair *gfx;
+    u8 *q;
+    s32 first, x, y, z, a, b, c;
+    u32 op, i, n, pairs, advance;
+    s32 draw;
+    volatile s32 vertexTransform = a3;
+    volatile u8 emit = enable;
+    D_80109A94 = 0;
+    op = *p;
+    if (op != 12) {
+        draw = (s8)enable;
+        do {
+            if (op < 12) switch (op) {
+            case 9:
+                p += 4;
+                break;
+            case 0:
+                VERTICES(3, (x = q[0], y = q[1], z = q[2]));
+                advance = *p * 3;
+                goto add_one;
+            case 1:
+                VERTICES(6, (x = WORD(q), y = WORD(q + 2), z = WORD(q + 4)));
+                advance = *p * 3;
+                goto double_advance;
+            case 3:
+                VERTICES(1, (x = y = z = q[0]));
+                advance = *p + 1;
+                goto advance_stream;
+            case 2:
+                VERTICES(2, (x = y = z = WORD(q)));
+                advance = *p;
+            double_advance:
+                advance *= 2;
+            add_one:
+                advance++;
+            advance_stream:
+                p += advance;
+                break;
+            case 6:
+                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                ++p;
+                func_80032978(p, a4, a6, a7, draw, commands);
+                ++p;
+                goto triangles;
+            case 7:
+                func_80032978(p, a4, a6, a7, draw, commands);
+                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                ++p;
+                goto triangles;
+            case 8:
+                p += 3;
+            case 5:
+            triangles:
+                n = p[1];
+                p += 2;
+                pairs = n >> 1;
+                q = p + 2;
+                for (i = 0; i < pairs; i++, q += 3, p += 3) {
+                    x = p[0]; y = q[-1]; z = q[0];
+                    q += 3; p += 3;
+                    a = p[0]; b = q[-1]; c = q[0];
+                    if (draw) {
+                        gfx = gGfxPtr++;
+                        gfx->w0 = TRI(x, y, z) | 0x06000000;
+                        gfx->w1 = TRI(a, b, c);
+                    } else ++*commands;
                 }
-                else
-                {
-                  *arg10 += 1;
+                if (n & 1) {
+                    x = p[0]; y = p[1]; z = p[2];
+                    if (draw) {
+                        gfx = gGfxPtr++;
+                        gfx->w0 = TRI(x, y, z) | 0x05000000;
+                        gfx->w1 = 0;
+                    } else ++*commands;
+                    p += 3;
                 }
-                var_a1_2 += 8;
-                var_s1 += 8;
-              }
-              else
-              {
-                if (((s8) arg8) != 0)
-                {
-                  temp_a0_5 = gGfxPtr;
-                  gGfxPtr = temp_a0_5 + 8;
-                  *((s32 *) (inline_fn23(temp_a0_5) + 0)) = (s32) ((((((temp_v1_5 * 2) & 0xFF) << 0x10) | ((temp_s4 << 9) & 0xFE00)) | ((temp_t3 * 2) & 0xFF)) | 0x05000000);
-                  ((__repair_field_4 *) temp_a0_5)->value = 0;
+                break;
+            case 4:
+                q = p + 7;
+                while (*p == 4) {
+                    x = q[-6]; y = q[-5]; z = q[-4];
+                    if (q[-3] == 4) {
+                        a = q[-2]; b = q[-1]; c = q[0];
+                        if (draw) {
+                            gfx = gGfxPtr++;
+                            gfx->w0 = TRI(x, y, z) | 0x06000000;
+                            gfx->w1 = TRI(a, b, c);
+                        } else ++*commands;
+                        q += 8;
+                        p += 8;
+                    } else {
+                        if (draw) {
+                            gfx = gGfxPtr++;
+                            gfx->w0 = TRI(x, y, z) | 0x05000000;
+                            gfx->w1 = 0;
+                        } else ++*commands;
+                        q += 4;
+                        p += 4;
+                    }
                 }
-                else
-                {
-                  *arg10 += 1;
-                }
-                var_a1_2 += 4;
-                var_s1 += 4;
-              }
+                break;
+            case 10:
+                func_80032978(p, a4, a6, a7, draw, commands);
+                p += 2;
+                break;
+            case 11:
+                gfxAppendTexture(p, &texture, a4, a6, a7, draw, commands);
+                p += 2;
+                break;
             }
-            while ((*((u8 *) var_s1)) == 4);
-          }
-            break;
-
-          case 10:
-            func_80032978(var_s1, arg4, arg6, arg7, (s32) ((s8) arg8), arg10);
-            var_s1 += 2;
-            break;
-
-          case 11:
-            gfxAppendTexture(var_s1, &sp20, arg4, arg6, arg7, (s32) ((s8) arg8), arg10);
-            var_s1 += 2;
-            break;
-
-        }
-
-      }
-      var_v1 = (*((u8 *) var_s1)) & 0xFF;
-      var_v0 = inline_fn(var_v1, 0xCU);
+            op = *p;
+        } while (op != 12);
     }
-    while (var_v1 != 0xC);
-  }
-  if ((sp37 << 0x18) != 0)
-  {
-    temp_v1_6 = gGfxPtr;
-    temp_v0_4 = temp_v1_6 + 8;
-    gGfxPtr = temp_v0_4;
-    *((s32 *) (inline_fn23(temp_v1_6) + 0)) = 0xDF000000;
-    ((__repair_field_4 *) temp_v1_6)->value = 0;
-    func_800A0220(&sp24, (temp_v1_6 + 8) - sp24);
-    return;
-  }
-  *arg10 += 1;
+    if ((emit << 24) != 0) {
+        gfx = gGfxPtr++;
+        gfx->w0 = 0xdf000000;
+        gfx->w1 = 0;
+        func_800A0220(&start, (u8 *)(gfx + 1) - (u8 *)start);
+    } else ++*commands;
 }
-

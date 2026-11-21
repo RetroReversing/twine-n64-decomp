@@ -32,6 +32,16 @@ typedef struct
   unsigned char pad_2[34];
   short field_24;
 } __repair_record_temp_s2;
+inline static u16 *inline_fn(void *arg0)
+{
+  return (u16 *) (((char *) arg0) + 0x14);
+}
+
+inline static s32 inline_fn2(char *arg0, int arg1)
+{
+  return spawnTextNode(arg0 - arg1);
+}
+
 void func_8002424C(void)
 {
   unsigned long long __repair_constant = 3;
@@ -52,7 +62,7 @@ void func_8002424C(void)
   temp_s3 = __base_D_800BD5D0 - 0x34;
   func_80022A30((var_s1 = 0, sMenuListKind), 0x20, 0x3C, 0xF8, 0x78);
   sSaveMenuSpriteSecond = spawnTextNode(__base_D_800BD5D0);
-  sSaveMenuSpriteFirst = spawnTextNode(__base_D_800BD5D0 - 0x24);
+  sSaveMenuSpriteFirst = inline_fn2(__base_D_800BD5D0, 0x24);
   do
   {
     temp_a0 = var_s1 & 0xFFFF;
@@ -71,8 +81,8 @@ void func_8002424C(void)
         *((s32 *) (((char *) temp_s2) + (-8))) = 0x10;
       }
       *temp_s3 = var_s1 + 0x4000;
-      *((s32 *) (D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8))) = spawnTextNode(temp_s3 - 0x14);
-      *((s32 *) (D_80109C1C + temp_s0)) = spawnTextNode(temp_s3 - 0x38);
+      *((s32 *) (D_80109C18 + (temp_s0 = (var_s1 & 0xFFFF) * 8))) = inline_fn2(temp_s3, 0x14);
+      *((s32 *) (D_80109C1C + temp_s0)) = inline_fn2(temp_s3, 0x38);
       func_8002A7CC(D_80107EA8, temp_s0 + D_80109C18, var_s1 & 0xFF, 1);
       var_s1 += 1;
     }
@@ -83,7 +93,7 @@ void func_8002424C(void)
   sSaveMenuRefresh = 0;
   sSaveMenuAction = 1;
   func_80022AD8(sMenuListKind);
-  temp_v1 = *((u16 *) (((char *) gSaveMenuState) + 0x14));
+  temp_v1 = *inline_fn(gSaveMenuState);
   if (temp_v1 != 0x1A)
   {
     if (0x1B > ((s32) temp_v1))
@@ -129,7 +139,7 @@ void func_8002424C(void)
   while (0);
   selectItemAndUpdateAmount(D_80107EA8, 0);
   func_8002AC04(D_80107EA8, 1);
-  if (((u32) ((*((u16 *) (((char *) gSaveMenuState) + 0x14))) - 0x19)) < 2U)
+  if (((u32) ((*inline_fn(gSaveMenuState)) - 0x19)) < 2U)
   {
     selectItemAndUpdateAmount(D_80107EA8, findSaveSlotByMode(sSaveMenuAction) & 0xFF);
   }
