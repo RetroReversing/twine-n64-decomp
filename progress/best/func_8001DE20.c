@@ -1,7 +1,7 @@
 s32 func_80025D84();
 s32 func_80025E9C();
 s32 formatTextEntry();
-void *func_8002638C();
+void *findEntryPayload();
 s8 func_800263B8();
 s32 lookupDataEntry();
 extern s16 D_800B5B28;
@@ -31,13 +31,13 @@ s32 __repair_phase_var_a0;
     void *var_s3;
 
     D_800BD690 = 1;
-    temp_s4 = func_8002638C(D_800BD8EC, 0x1F);
-    temp_s5 = func_8002638C(D_800BD8EC, 0x20);
-    temp_s1 = func_8002638C(D_800BD8EC, 0x19);
-    var_s3 = func_8002638C(D_800BD8EC, 0x1C);
+    temp_s4 = findEntryPayload(D_800BD8EC, 0x1F);
+    temp_s5 = findEntryPayload(D_800BD8EC, 0x20);
+    temp_s1 = findEntryPayload(D_800BD8EC, 0x19);
+    var_s3 = findEntryPayload(D_800BD8EC, 0x1C);
     D_800B5B28 = 1;
     if (var_s3 == (u32)NULL) {
-        var_s3 = func_8002638C(D_800BD8EC, 3);
+        var_s3 = findEntryPayload(D_800BD8EC, 3);
     }
     if (((temp_s4 != NULL) & (temp_s5 != NULL)) && ((temp_s1 != NULL) & (var_s3 != NULL))) {
         (*(s32 *)((char *)(temp_s5) + 0x14)) = (s32) ((((gColorFadeLevel * (*(s32 *)((char *)(temp_s5) + 0x10))) + 2) << 0x10) | 8);

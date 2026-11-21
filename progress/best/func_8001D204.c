@@ -3,7 +3,7 @@ extern unsigned char *gMenuState;
 extern int D_800BDA68;
 extern const char D_800D2864[];
 extern void updateActiveMenuState(void);
-extern int func_8002638C(int, int);
+extern int findEntryPayload(int, int);
 extern int func_80027CE0(int);
 extern int lookupDataEntry(int);
 extern void formatTextEntry(void *, int, ...);
@@ -20,7 +20,7 @@ void func_8001D204(void) {
         updateActiveMenuState();
     if (gMenuState[0x2D] == 0)
         goto clear;
-    item = (char *)func_8002638C((int)&D_800BDA68, 0x92);
+    item = (char *)findEntryPayload((int)&D_800BDA68, 0x92);
     if (item == 0)
         return;
     index = &D_801002A2;

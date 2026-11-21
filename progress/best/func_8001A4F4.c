@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
-s32 func_8002638C(s32, M2C_UNK);                    /* extern */
+s32 findEntryPayload(s32, M2C_UNK);                    /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
@@ -37,7 +37,7 @@ void func_8001A4F4(void) {
         updateActiveMenuState();
     }
     if (M2C_FIELD(gMenuState, u8 *, 0x2D) != 0) {
-        temp_v0 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5D);
+        temp_v0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x5D);
         if (temp_v0 != 0) {
             gSaveKeyRelaxed = 0;
             temp_s1 = temp_v0 + 0x28;

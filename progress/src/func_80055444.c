@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK objectSetAnimFrame(void *, s32, u32);            /* extern */
-M2C_UNK func_80054E30(s32);                         /* extern */
+M2C_UNK freeNodeChain(s32);                         /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, s32, f32, M2C_UNK); /* extern */
 
@@ -25,7 +25,7 @@ void func_80055444(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
         temp_fv0 = M2C_FIELD(arg0, f32 *, 0x74) - arg2;
         M2C_FIELD(arg0, f32 *, 0x74) = temp_fv0;
         if (temp_fv0 < 0.0f) {
-            func_80054E30(M2C_FIELD(arg0, s32 *, 8));
+            freeNodeChain(M2C_FIELD(arg0, s32 *, 8));
             if (M2C_FIELD(arg0, s32 *, 0x5C) & 0x100000) {
                 M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
             } else {

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_8004478C(s32, u32);                      /* extern */
-M2C_UNK func_80054E30(s32);                         /* extern */
+M2C_UNK freeNodeChain(s32);                         /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, f32, f32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(s32, s32, f32, M2C_UNK);  /* extern */
 
@@ -29,7 +29,7 @@ void func_800552E0(s32 arg0, void *arg1, s32 arg2, f32 arg3, s32 arg4) {
         if (temp_fv0 < 0.0f) {
             if (M2C_FIELD(arg1, s32 *, 0x50) & 0x100000) {
                 var_s0 = M2C_FIELD(arg1, void **, 0x18);
-                func_80054E30(M2C_FIELD(arg1, s32 *, 8));
+                freeNodeChain(M2C_FIELD(arg1, s32 *, 8));
                 if (var_s0 != NULL) {
 loop_4:
                     temp_v0 = M2C_FIELD(var_s0, void **, 0x14);

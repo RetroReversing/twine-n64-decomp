@@ -4,7 +4,7 @@ extern MenuState1F5C4 *gMenuState;
 extern const char D_800D2A80[], D_800D2A84[];
 extern s16 gExpansionPakPresent;
 extern u8 D_8010A4C0, gOptionFlagA, D_8010A4FF;
-char *func_8002638C(MenuList1F5C4 *, s32);
+char *findEntryPayload(MenuList1F5C4 *, s32);
 s8 func_800263B8(MenuList1F5C4 *, s32);
 void func_80025D84(void *, char *, void *, void *, u16, u16);
 void func_80025E9C(void *, char *, void *, void *, u16, u16);
@@ -16,11 +16,11 @@ const char *lookupDataEntry(s32);
     char *baseA, *baseB, *baseC;
     s32 labelId;
 
-    a = func_8002638C(gMenuState->list, 0x1F);
-    b = func_8002638C(gMenuState->list, 0x19);
-    c = func_8002638C(gMenuState->list, 0x1C);
+    a = findEntryPayload(gMenuState->list, 0x1F);
+    b = findEntryPayload(gMenuState->list, 0x19);
+    c = findEntryPayload(gMenuState->list, 0x1C);
     if (c == NULL)
-        c = func_8002638C(gMenuState->list, 3);
+        c = findEntryPayload(gMenuState->list, 3);
     if (((a != NULL) & (b != NULL)) && (c != NULL)) {
     labelId = 0x1B;
     if (gOptionFlagA == 0) {

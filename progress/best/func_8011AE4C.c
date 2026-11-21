@@ -12,7 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002B150(void *, M2C_UNK *, M2C_UNK, M2C_UNK); /* extern */
+void func_8002B150(void *, s32, s8);
+#define func_8002B150(a,b,c,d) func_8002B150(a,b,c)
 M2C_UNK func_8007089C(void *, M2C_UNK, u16);        /* extern */
 M2C_UNK func_8011B0FC(void *);                      /* extern */
 M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
@@ -34,11 +35,10 @@ s32 __repair_literal;
     void *temp_v0;
     void *temp_v0_2;
 
-    __stack_copy.a = M2C_FIELD(arg0, const s32 *, 0x24);
-    __stack_copy.b = M2C_FIELD(arg0, const s32 *, 0x28);
-    __stack_copy.c = M2C_FIELD(arg0, const s32 *, 0x2C);
+    *(struct __arg_copy *)&__stack_copy = M2C_FIELD(arg0, const struct __arg_copy *, 0x24);
+    { volatile struct __arg_copy *copy = &__stack_copy; (void)copy; }
     if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) == 7) {
-        func_8002B150(arg0, &D_8011F3AC, 0, 0);
+        func_8002B150(&D_8011F3AC, 0, 0, 0);
         if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) == 0x26) {
             func_8007089C(arg0, 0, M2C_FIELD(arg1, const u16 *, 0x134));
         }
@@ -53,8 +53,8 @@ s32 __repair_literal;
 __repair_literal = 0;
 
         if (D_801002B4 > 0) {
-            var_v0 = 0 & 0xFFFF;
             do {
+                var_v0 = var_a0 & 0xFFFF;
                 temp_v0 = (&gBonusSceneHandle)[var_v0];
                 if (temp_v0 != NULL) {
                     temp_v0_2 = M2C_FIELD(temp_v0, void **, 0x6C);
@@ -63,13 +63,13 @@ __repair_literal = 0;
                     }
                 }
                 var_a0 += 1;
-                var_v0 = var_a0 & 0xFFFF;
             } while ((var_a0 & 0xFFFF) < M2C_FIELD(&D_801002A3, s32 *, 0x11));
         }
     } else {
         var_s0 = 0;
-        if ((arg2 != NULL) && (arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusSceneHandle + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
-            var_s0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
+        if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusSceneHandle + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
+            var_v0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
+            var_s0 = (u8)var_v0;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
             M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);

@@ -1,6 +1,6 @@
 extern s8 func_8011AA9C[];
 void *findEntryById(void *, s32);
-void *func_8002638C(void *, s32);
+void *findEntryPayload(void *, s32);
 s32 func_80018BE0(s32);
 void func_80018C5C(void *, void *);
 void func_80025D84(void *, void *, void *, void *, s32, s32);
@@ -52,14 +52,14 @@ void func_8001BE64(void) {
     D_800BD690 = 1;
     temp_s6 = findEntryById(D_800BD9A0, 0x5C);
     temp_fp = findEntryById(D_800BD9A0, 0x5B);
-    temp_s2 = func_8002638C(D_800BD9A0, 0xE7);
-    temp_s5 = func_8002638C(D_800BD9A0, 0x66);
-    var_s1 = func_8002638C(D_800BD9A0, 0xB1);
+    temp_s2 = findEntryPayload(D_800BD9A0, 0xE7);
+    temp_s5 = findEntryPayload(D_800BD9A0, 0x66);
+    var_s1 = findEntryPayload(D_800BD9A0, 0xB1);
     if (var_s1 == (int)NULL) {
-        var_s1 = func_8002638C(D_800BD9A0, 0x1AD);
+        var_s1 = findEntryPayload(D_800BD9A0, 0x1AD);
     }
-    temp_s4 = func_8002638C(D_800BD9A0, 0x16C);
-    temp_s3 = func_8002638C(D_800BD9A0, 0x61);
+    temp_s4 = findEntryPayload(D_800BD9A0, 0x16C);
+    temp_s3 = findEntryPayload(D_800BD9A0, 0x61);
     temp_s7 = findEntryById(D_800BD9A0, 0xC);
     D_801002F4 = func_80018BE0(D_801002C4);
     if (((temp_fp != (s32)NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL)) && ((var_s1 != NULL) & (temp_s3 != NULL)) && ((temp_s2 != NULL) & (temp_s7 != NULL))) {

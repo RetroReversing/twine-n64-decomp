@@ -16,12 +16,12 @@ s32 func_80088040(s32, M2C_UNK, M2C_UNK, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800883CC(s32);                         /* extern */
 s32 isSlotActiveById(s32);                             /* extern */
 extern s32 D_800B2564;
-extern u8 D_801002F3;
+extern u8 gOptionFlag;
 
 s32 func_8000A454(s32 arg0, s32 arg1) {
     s32 temp_v0;
 
-    if (D_801002F3 == 0) {
+    if (gOptionFlag == 0) {
         return -1;
     }
     if (D_800B2564 != -1) {

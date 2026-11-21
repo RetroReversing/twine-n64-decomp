@@ -1,98 +1,86 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+#define SORTED_TABLE_MAX 0x800
+
+typedef struct { s32 value, keyRefs; } EntryWords;
 
 void workerLockAcquire(void);
 void workerLockRelease(void);
-extern volatile s32 D_800F3950;
-extern char D_800F3954[];
-extern char D_800F3958[];
-extern char D_800F395C[];
+extern volatile s32 sortedEntryCount;
+extern char sortedEntryValues[];
+extern char sortedEntryKeys[];
+extern char sortedEntryShiftBuf[];
 
-s32 insertOrRefSortedEntry(u16 arg0, s32 arg1) {
+/* Under the worker lock, inserts key into the sorted entry table, or bumps its refcount if already present. Returns 1 if inserted, 0 if full or duplicate. */
+s32 insertOrRefSortedEntry(u16 key, s32 value) {
     struct { s32 value; u16 key; u16 refs; } previous;
-    s32 __repair_store_0;
-    s32 __repair_store_1;
-    s32 temp_a0;
-    s32 count;
-    s32 temp_s0;
-    s32 temp_v0;
-    s32 temp_v1;
-    s32 var_a3;
-    s32 var_t1;
-    s32 var_v0;
-    s32 var_v1;
-    u32 temp_a1;
-    void *var_a2;
-    void *var_t0;
+    s32 entryCount;
+    s32 currentCount;
+    s32 insertIndex;
+    s32 insertOffset;
+    s32 moveIndex;
+    s32 newCount;
+    s32 probeOffset;
+    s32 entryOffset;
+    s32 moveOffset;
+    u32 keyU32;
+    void *dstPtr;
+    void *srcPtr;
 
     workerLockAcquire();
-    temp_a0 = D_800F3950;
-    var_t1 = 0;
-    if (temp_a0 > 0) {
-        temp_a1 = arg0 & 0xFFFF;
-        var_v1 = 0;
+    entryCount = sortedEntryCount;
+    insertIndex = 0;
+    if (entryCount > 0) {
+        keyU32 = key & 0xFFFF;
+        probeOffset = 0;
 loop_2:
-        if ((u16) *(u16 *)(D_800F3958 + var_v1) < temp_a1) {
-            var_t1 += 1;
-            var_v1 += 8;
-            if (var_t1 < temp_a0) {
+        if ((u16) *(u16 *)(sortedEntryKeys + probeOffset) < keyU32) {
+            insertIndex += 1;
+            probeOffset += 8;
+            if (insertIndex < entryCount) {
                 goto loop_2;
             }
         }
-        temp_s0 = var_t1 * 8;
-        if (var_t1 < (count = D_800F3950)) {
-            if (*(u16 *)(D_800F3958 + temp_s0) != temp_a1) {
-                var_a3 = count - 1;
-                if (count < 0x800) {
-                    temp_v1 = var_a3 * 8;
-                    if (var_a3 >= var_t1) {
-                        var_t0 = temp_v1 + D_800F395C;
-                        var_a2 = temp_v1 + (D_800F395C - 8);
+        insertOffset = insertIndex * 8;
+        if (insertIndex < (currentCount = sortedEntryCount)) {
+            if (*(u16 *)(sortedEntryKeys + insertOffset) != keyU32) {
+                moveIndex = currentCount - 1;
+                if (currentCount < SORTED_TABLE_MAX) {
+                    moveOffset = moveIndex * 8;
+                    if (moveIndex >= insertIndex) {
+                        dstPtr = moveOffset + sortedEntryShiftBuf;
+                        srcPtr = moveOffset + (sortedEntryShiftBuf - 8);
                         do {
-                            typedef struct { s32 value, keyRefs; } EntryWords;
-                            *(EntryWords *)var_t0 = *(EntryWords *)var_a2;
-                            var_t0 -= 8;
-                            var_a3 -= 1;
-                            var_a2 -= 8;
-                        } while (var_a3 >= var_t1);
+                            *(EntryWords *)dstPtr = *(EntryWords *)srcPtr;
+                            dstPtr -= 8;
+                            moveIndex -= 1;
+                            srcPtr -= 8;
+                        } while (moveIndex >= insertIndex);
                     }
-                    var_v0 = D_800F3950 + 1;
+                    newCount = sortedEntryCount + 1;
                     goto block_15;
                 }
                 goto block_14;
             }
             workerLockRelease();
-            *(u16 *)(D_800F3958 + 2 + temp_s0) = *(u16 *)(D_800F3958 + 2 + temp_s0) + 1;
+            *(u16 *)(sortedEntryKeys + 2 + insertOffset) = *(u16 *)(sortedEntryKeys + 2 + insertOffset) + 1;
             return 0;
         }
         goto check_capacity;
     }
-    count = D_800F3950;
+    currentCount = sortedEntryCount;
 check_capacity:
-    if (count < 0x800) {
-        var_v0 = count + 1;
+    if (currentCount < SORTED_TABLE_MAX) {
+        newCount = currentCount + 1;
         goto block_15;
     }
 block_14:
     workerLockRelease();
     return 0;
 block_15:
-    D_800F3950 = var_v0;
-    temp_v0 = var_t1 * 8;
-    *(u16 *)(D_800F3958 + temp_v0) = arg0;
-    *(s32 *)(D_800F3954 + temp_v0) = arg1;
-    *(u16 *)(D_800F3958 + 2 + temp_v0) = 1;
+    sortedEntryCount = newCount;
+    entryOffset = insertIndex * 8;
+    *(u16 *)(sortedEntryKeys + entryOffset) = key;
+    *(s32 *)(sortedEntryValues + entryOffset) = value;
+    *(u16 *)(sortedEntryKeys + 2 + entryOffset) = 1;
     workerLockRelease();
     return 1;
 }

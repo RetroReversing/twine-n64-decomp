@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK formatTextEntry(void *, M2C_UNK *, s32);      /* extern */
-void *func_8002638C(s32, M2C_UNK);                  /* extern */
+void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern u8 D_801002F0;
 extern u8 D_801002F1;
-extern u8 D_801002F2;
-extern u8 D_801002F3;
+extern u8 gOptionChoice;
+extern u8 gOptionFlag;
 extern void *gMenuState;
 
 void func_8001F824(void) {
@@ -29,12 +29,12 @@ void func_8001F824(void) {
     void *temp_s2;
     void *temp_s3;
 
-    temp_s0 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x24);
-    temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x22);
-    temp_s2 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x23);
-    temp_s3 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x199);
+    temp_s0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x24);
+    temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x22);
+    temp_s2 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x23);
+    temp_s3 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x199);
     if (((temp_s0 != NULL) & (temp_s1 != NULL)) && ((temp_s2 != NULL) & (temp_s3 != NULL))) {
-        switch (D_801002F2) {                       /* irregular */
+        switch (gOptionChoice) {                       /* irregular */
         case 0:
             var_a0 = 0x25;
 block_15:
@@ -51,7 +51,7 @@ block_15:
         M2C_FIELD(temp_s1, s32 *, 0x14) = (s32) ((((D_801002F1 * 0xF) + 2) << 0x10) | 8);
         M2C_FIELD(temp_s2, s32 *, 0x14) = (s32) ((((D_801002F0 * 0xF) + 2) << 0x10) | 8);
         var_a0_2 = 0xA;
-        if (D_801002F3 != 0) {
+        if (gOptionFlag != 0) {
             var_a0_2 = 9;
         }
         formatTextEntry(temp_s3, "%s", lookupDataEntry(var_a0_2));

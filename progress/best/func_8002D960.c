@@ -39,8 +39,8 @@ extern u8 D_801002D5;
 extern s32 D_801002EC;
 extern u8 D_801002F0;
 extern u8 D_801002F1;
-extern u8 D_801002F2;
-extern u8 D_801002F3;
+extern u8 gOptionChoice;
+extern u8 gOptionFlag;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
 extern u8 D_80102EE8;
@@ -178,8 +178,8 @@ loop_3:
         D_801002EC = func_8002E98C(&D_800E1310, 4, 1);
         D_801002F0 = func_8002E98C(&D_800E1310, 1, 4);
         D_801002F1 = func_8002E98C(&D_800E1310, 1, 4);
-        D_801002F2 = func_8002E98C(&D_800E1310, 1, 2);
-        D_801002F3 = func_8002E98C(&D_800E1310, 1, 1);
+        gOptionChoice = func_8002E98C(&D_800E1310, 1, 2);
+        gOptionFlag = func_8002E98C(&D_800E1310, 1, 1);
         var_s4 = 0;
         do {
             temp_s0_3 = (var_s4 & 0xFFFF) * 8;

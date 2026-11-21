@@ -38,7 +38,7 @@ extern s32 gBorderSkipFlag;
 
 extern char D_800D42E0[];
 extern char D_800D42E8[];
-s32 func_80063998(void *arg0, s32 arg1) {
+s32 actorFinishIfMatch(void *arg0, s32 arg1) {
     s32 *var_a1_2;
     s32 var_a1;
     s16 temp_a0_3;

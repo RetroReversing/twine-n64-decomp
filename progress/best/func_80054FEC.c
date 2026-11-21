@@ -2,7 +2,7 @@
 
 s32 func_800179E8(void *, void **, s32, u8); /* extern */
 f32 approxDistance(void *, void *);                  /* extern */
-s32 func_80054E68(f32, void *, void *);         /* extern */
+s32 updateNearbyEntries(f32, void *, void *);         /* extern */
 s32 func_80073108(void *, void *, f32);     /* extern */
 s32 func_80073210(s32, void **, void *, s32, f32, f32, s32, s32); /* extern */
 s32 func_800851E0(void *arg0);                      /* extern */
@@ -27,7 +27,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
         if (arg0 != NULL) {
             func_800179E8(arg4, var_s3, 0x10000, (*(u8 *)((char *)(arg0) + 0x5E)));
         }
-        do { func_80054E68(arg2 * 4.0f, arg3, arg4); } while (0);
+        do { updateNearbyEntries(arg2 * 4.0f, arg3, arg4); } while (0);
         for (;;) {
             if (var_s1 != NULL) {
                 __repair_integer_one = 1;

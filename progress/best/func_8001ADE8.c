@@ -16,7 +16,7 @@ s32 func_80022E18();
 s32 func_80025F78();
 s32 formatTextEntry();
 s32 findEntryById();
-void *func_8002638C();
+void *findEntryPayload();
 s32 layoutTextBox();
 s32 func_8002A644();
 s32 func_8002A7CC();
@@ -103,10 +103,10 @@ s32 __repair_phase_var_a0;
     void *var_a2;
 
     D_800BD690 = 1;
-    temp_fp = func_8002638C(((__repair_field_10 *)gMenuState)->value, 0x70);
-    temp_s7 = func_8002638C(((__repair_field_10 *)gMenuState)->value, 0x65);
-    temp_s6 = func_8002638C(((__repair_field_10 *)gMenuState)->value, 0x64);
-    temp_s5 = func_8002638C(((__repair_field_10 *)gMenuState)->value, 0x6A);
+    temp_fp = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x70);
+    temp_s7 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x65);
+    temp_s6 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x64);
+    temp_s5 = findEntryPayload(((__repair_field_10 *)gMenuState)->value, 0x6A);
     sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
@@ -128,9 +128,9 @@ s32 __repair_phase_var_a0;
                         var_a2 = lookupDataEntry(0x158);
                         sprintf(temp_s1, "%s %d", var_a2, temp_s0 - 3);
                     }
-                    func_800160FC(*(((var_s2 & 0xFFFF) * 4) + D_80102F48), temp_s1, 0x40);
+                    func_800160FC(D_80102F48[var_s2 & 0xFFFF], temp_s1, 0x40);
                 }
-                __repair_phase_storage.pointer = ((var_s2 & 0xFFFF) * 4) + D_80102F48;
+                __repair_phase_storage.pointer = (s32 *)((u8 *)D_80102F48 + ((var_s2 & 0xFFFF) * 4));
                 temp_a0 = *__repair_phase_storage.pointer;
                 var_s2++;
                 func_8002A7CC(D_8010A488, *__repair_phase_storage.pointer, temp_a0_2 & 0xFF, func_80018318(temp_a0) & 0xFF);

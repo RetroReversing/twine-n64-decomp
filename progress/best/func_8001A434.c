@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8001A4F4();                            /* extern */
 M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
-s32 func_8002638C(M2C_UNK *, M2C_UNK);              /* extern */
+s32 findEntryPayload(M2C_UNK *, M2C_UNK);              /* extern */
 s32 lookupDataEntry(s32);                             /* extern */
 extern s8 D_800BD690;
 extern M2C_UNK D_800BDA68;
@@ -26,7 +26,7 @@ void func_8001A434(void) {
     M2C_UNK *temp_s1;
     s32 temp_s2;
 
-    temp_s2 = func_8002638C(&D_800BDA68, 0x92);
+    temp_s2 = findEntryPayload(&D_800BDA68, 0x92);
     D_800BD690 = 1;
     if (temp_s2 != 0) {
         M2C_FIELD(gMenuState, s8 *, 0x2F) = 1;

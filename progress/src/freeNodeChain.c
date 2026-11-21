@@ -2,7 +2,7 @@
 
 s32 func_800167B4(void *);                      /* extern */
 
-void func_80054E30(void *arg0) {
+void freeNodeChain(void *arg0) {
     void *var_a0;
     void *var_s0;
 

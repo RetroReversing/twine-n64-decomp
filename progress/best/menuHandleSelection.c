@@ -18,7 +18,7 @@ s32 func_8001E760(M2C_UNK, u8);                     /* extern */
 M2C_UNK func_8001F4B8(u8, u8);                      /* extern */
 M2C_UNK func_8002135C(s16, s16);                    /* extern */
 void *func_80026314(s32, M2C_UNK, M2C_UNK);         /* extern */
-void *func_8002638C(s32, M2C_UNK);                  /* extern */
+void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 s32 func_80029C08(s32, M2C_UNK, M2C_UNK);           /* extern */
 void *func_8002A980(s32);                           /* extern */
@@ -65,7 +65,7 @@ void menuHandleSelection(void) {
             if (*(&gBonusSceneHandle + (gMenuSlot * 4)) != 0) {
                 switch (gMenuMode) {                /* switch 1; irregular */
                 case 0:                             /* switch 1 */
-                    temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
+                    temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
                     temp_s3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
                     if (temp_s1 != NULL) {
                         M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s32 *, 0x18) = lookupDataEntry(func_8001E760(0, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);

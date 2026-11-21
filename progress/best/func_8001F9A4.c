@@ -8,7 +8,7 @@ s32 func_80022E18();
 s32 func_80025D84();
 s32 func_80025E9C();
 s32 formatTextEntry();
-s32 func_8002638C();
+s32 findEntryPayload();
 s32 func_800274BC();
 s32 func_8002A644();
 s32 func_8002A7CC();
@@ -86,17 +86,17 @@ void func_8001F9A4(void) {
     u8 temp_v1;
     s32 temp_v1_2;
 
-    temp_s2 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x79);
-    temp_s1 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x78);
-    var_s0 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7A);
+    temp_s2 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x79);
+    temp_s1 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x78);
+    var_s0 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x7A);
     if (var_s0 == 0) {
-        var_s0 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x13);
+        var_s0 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x13);
     }
-    temp_s7 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7B);
-    sp34 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7D);
-    temp_fp = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7C);
-    temp_s6 = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x162);
-    sp3C = func_8002638C((*(void **)((char *)(gMenuState) + 0x10)), 0x7F);
+    temp_s7 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x7B);
+    sp34 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x7D);
+    temp_fp = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x7C);
+    temp_s6 = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x162);
+    sp3C = findEntryPayload((*(void **)((char *)(gMenuState) + 0x10)), 0x7F);
     if (((temp_s1 != 0) & (temp_s2 != 0)) && ((var_s0 != 0) & (temp_s7 != 0)) && ((sp34 != 0) & (temp_fp != 0)) && ((sp3C != 0) & (temp_s6 != 0))) {
         (*(s8 *)((char *)((*(void **)((char *)(gMenuState) + 0x10))) + 4)) = 1;
         if (gBorderSkipFlag == 0) {

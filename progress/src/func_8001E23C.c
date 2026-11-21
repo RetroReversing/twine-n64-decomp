@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_80021CA0();
 s32 formatTextEntry();
-void *func_8002638C();
+void *findEntryPayload();
 s32 func_8002A644();
 s32 func_8002A9A8();
 s32 func_8002AC04();
@@ -37,7 +37,7 @@ void func_8001E23C(void) {
     void *temp_v0;
 
     D_800BD690 = 1;
-    temp_v0 = func_8002638C(D_800BD928, 0x7E);
+    temp_v0 = findEntryPayload(D_800BD928, 0x7E);
     if (temp_v0 != NULL) {
         __base_D_801002AD = &D_801002AD;
         temp_v1 = (*__base_D_801002AD) * 0x18;

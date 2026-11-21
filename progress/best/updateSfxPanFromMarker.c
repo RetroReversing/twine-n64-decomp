@@ -12,21 +12,22 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 angleDelta12(s32, s32);
-M2C_UNK func_8000AA64(void *, M2C_UNK, s32 *);
-M2C_UNK func_8009C9F8(s32, s32);
-M2C_UNK func_8009CA5C(s32, s32);
-M2C_UNK func_8009CAC0(s32, s32);
+s32 angleDelta12(s32, s32);                         /* extern */
+M2C_UNK func_8000AA64(void *, M2C_UNK, s32 *);      /* extern */
+M2C_UNK func_8009C9F8(s32, s32);                    /* extern */
+M2C_UNK func_8009CA5C(s32, s32);                    /* extern */
+M2C_UNK func_8009CAC0(s32, s32);                    /* extern */
 extern s32 D_801002EC;
 extern u8 D_801002F2;
-void updateSfxPanFromMarker(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
+
+void func_8000AABC(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
     s32 sp10;
     u8 *flag = &D_801002F2;
     f32 temp_fv1;
     f32 var_fs0;
     s32 temp_a1;
     s32 var_a1;
-    
+    s32 var_a1_2;
     s32 var_s0;
     s32 var_v0;
     s32 var_v1;
@@ -35,29 +36,45 @@ void updateSfxPanFromMarker(s32 arg0, void *arg1, M2C_UNK arg2, f32 arg3) {
     if (D_801002EC != 0) if (arg0 != -1) {
         func_8000AA64(arg1, arg2, &sp10);
         var_v0 = angleDelta12(sp10, (s32) (M2C_FIELD(arg1, f32 *, 0x38) * 651.8986f)) * 0x7F;
-        if (var_v0 < 0) var_v0 += 0x7FF;
+        if (var_v0 < 0) {
+            var_v0 += 0x7FF;
+        }
         var_v1 = var_v0 >> 0xB;
         temp_a1 = var_v1;
-        if (var_v1 >= 0x40) var_v1 = 0x7F - var_v1;
-        if (var_v1 < -0x3F) var_v1 = -0x7F - var_v1;
+        if (var_v1 >= 0x40) {
+            var_v1 = 0x7F - var_v1;
+        }
+        if (var_v1 < -0x3F) {
+            var_v1 = -0x7F - var_v1;
+        }
+        if (temp_a1 <= 0) {
+            var_s0 = -temp_a1;
+        } else {
+            var_s0 = temp_a1;
+        }
         var_v1 += 0x40;
-        if (temp_a1 > 0) var_s0 = temp_a1;
-        else var_s0 = -temp_a1;
         if (*flag != 0) {
-            func_8009CAC0(arg0, (var_v1 + 0x40) & 0xFF);
-            if (*flag >= 2U) var_a1 = var_s0 & 0xFF;
-            else goto block_15;
+            func_8009CAC0(arg0, var_v1 & 0xFF);
+            if (*flag >= 2U) {
+                var_a1 = var_s0 & 0xFF;
+            } else {
+                goto block_15;
+            }
         } else {
             func_8009CAC0(arg0, 0x40);
 block_15:
             var_a1 = 0;
         }
         func_8009C9F8(arg0, var_a1);
-        if (var_fs0 > 16.0f) var_fs0 = 16.0f;
+        if (var_fs0 > 16.0f) {
+            var_fs0 = 16.0f;
+        }
         temp_fv1 = (var_fs0 * 512.0f) + 8192.0f;
-        if (temp_fv1 >= 2.1474836e9f)
-            var_a1 = (s32)(temp_fv1 - 2.1474836e9f) | 0x80000000;
-        else var_a1 = (s32)temp_fv1;
-        func_8009CA5C(arg0, var_a1 & 0xFFFF);
+        if (temp_fv1 >= 2.1474836e9f) {
+            var_a1_2 = (s32) (temp_fv1 - 2.1474836e9f) | 0x80000000;
+        } else {
+            var_a1_2 = (s32) temp_fv1;
+        }
+        func_8009CA5C(arg0, var_a1_2 & 0xFFFF);
     }
 }

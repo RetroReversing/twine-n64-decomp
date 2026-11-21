@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 findEntryById();
 
-s32 func_8002638C(s32 arg0, s32 arg1) {
+s32 findEntryPayload(s32 arg0, s32 arg1) {
     s32 temp_v0;
     s32 var_v1;
 

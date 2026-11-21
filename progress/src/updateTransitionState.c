@@ -20,7 +20,7 @@ M2C_UNK func_8000CC38(M2C_UNK);                     /* extern */
 M2C_UNK func_8000DB28();                            /* extern */
 s32 func_8000DBF0(M2C_UNK);                         /* extern */
 M2C_UNK func_8002B7F8();                            /* extern */
-M2C_UNK func_80063998(s32, M2C_UNK);                /* extern */
+M2C_UNK actorFinishIfMatch(s32, M2C_UNK);                /* extern */
 s32 func_800819EC(M2C_UNK, M2C_UNK);                /* extern */
 extern void *D_800B2710;
 extern s8 gTransitionEnabled;
@@ -67,7 +67,7 @@ loop_8:
                         goto loop_8;
                     }
                 } else {
-                    func_80063998(gBonusSceneHandle, 2);
+                    actorFinishIfMatch(gBonusSceneHandle, 2);
                 }
             }
         } else if ((func_800819EC(0, 0x23) != 0) && (temp_a0 = M2C_FIELD(D_800B2710, s16 *, 0x10), (((temp_a0 != 7) & (temp_a0 != 0x19)) != 0)) && ((temp_a0 != 0x32) & (temp_a0 != 0x23))) {

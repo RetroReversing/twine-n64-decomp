@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 requestSound();
 s32 formatTextEntry();
-s32 func_8002638C();
+s32 findEntryPayload();
 s32 layoutTextBox();
 s32 func_80027C60();
 s32 func_80027CE0();
@@ -81,7 +81,7 @@ void func_80018E38(void) {
             if (temp_v1 == 0x7D0) {
                 sprintf(temp_s0, temp_s1);
 block_40:
-                temp_v0 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x65);
+                temp_v0 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x65);
                 if (temp_v0 != 0) {
                     formatTextEntry(temp_v0);
                 }

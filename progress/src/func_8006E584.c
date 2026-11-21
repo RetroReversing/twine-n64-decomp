@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80063998(void *, M2C_UNK);             /* extern */
+M2C_UNK actorFinishIfMatch(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8006D224(void *);                      /* extern */
 M2C_UNK func_800848EC(void *, M2C_UNK, M2C_UNK);    /* extern */
 extern void *gPlayerActor;
@@ -32,6 +32,6 @@ void func_8006E584(void *arg0) {
         }
         func_800848EC(arg0, 1, var_a2);
         func_8006D224(arg0);
-        func_80063998(arg0, 2);
+        actorFinishIfMatch(arg0, 2);
     }
 }

@@ -21,7 +21,7 @@ M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
 void *func_800262A8(s32, M2C_UNK);                  /* extern */
-void *func_8002638C(s32, M2C_UNK);                  /* extern */
+void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
 void *func_8002A9A8(M2C_UNK *, s16);                /* extern */
@@ -101,7 +101,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
             } while ((u32) (var_s2 & 0xFFFF) < 0x25U);
             if (var_s4 != NULL) {
                 s32 offset;
-                temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
+                temp_s1 = findEntryPayload(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
                 temp_s0_2 = func_800262A8(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
                 offset = M2C_FIELD(var_s4, u8 *, 8) * 0xE8;
                 func_8002135C(*((s16 *)((s8 *)&D_800C46D8 + offset)), *((s16 *)((s8 *)&D_800C46DA + offset)));

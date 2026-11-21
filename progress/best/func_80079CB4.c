@@ -42,7 +42,7 @@ void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg
     M2C_UNK var_a1_3;
     s32 temp_s2;
     s32 temp_v0;
-    s32 temp_v1_2;
+    
     s32 var_a1;
     s32 var_s2;
     s32 var_s5;
@@ -338,8 +338,8 @@ block_66:
                 M2C_FIELD(temp_s0, s32 *, 0xC) = (s32) M2C_FIELD(var_s1, s32 *, 0x3C);
                 M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) M2C_FIELD(var_s1, s32 *, 0x40);
                 M2C_FIELD(temp_s0, s32 *, 0x14) = (s32) M2C_FIELD(var_s1, s32 *, 0x44);
-                temp_v1_2 = M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000;
-                if (((temp_v1_2 == 0x400000) | (temp_v1_2 == 0x600000)) != 0) {
+                temp_s2 = M2C_FIELD(temp_s0, s32 *, 0x88) & 0x01E00000;
+                if (((temp_s2 == 0x400000) | (temp_s2 == 0x600000)) != 0) {
                     var_v1_2 = 0x5E600;
                 } else {
                     var_v1_2 = 0x20600;

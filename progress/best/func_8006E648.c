@@ -19,7 +19,7 @@ s32 func_80048F10(s32, f32 *, f32 *, f32 *, f32, f32 *, f32 *, s32 *); /* extern
 s32 func_8004BCC0(s32, void *, f32 *, f32);     /* extern */
 s32 func_800515D0(void *, s32, void *, f32 *, s32 *, f32, f32, f32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800617D8(s32, f32 *, M2C_UNK, M2C_UNK, f32, f32, s32, s32, s32, s32, s32); /* extern */
-M2C_UNK func_80063998(void *, M2C_UNK);             /* extern */
+M2C_UNK actorFinishIfMatch(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8006D224(void *);                      /* extern */
 M2C_UNK func_8006E4A8(void *);                      /* extern */
 M2C_UNK func_8006E584(void *);                      /* extern */
@@ -158,7 +158,7 @@ update:
                         }
                         func_800848EC(arg1, 1, var_a2);
                         func_8006D224(arg1);
-                        func_80063998(arg1, 2);
+                        actorFinishIfMatch(arg1, 2);
                     }
                 }
                 M2C_FIELD(arg1, f32 *, 0x28) = vec30.words[1];
@@ -197,7 +197,7 @@ block_35:
                             }
                             func_800848EC(arg1, 1, var_a2_2);
                             func_8006D224(arg1);
-                            func_80063998(arg1, 2);
+                            actorFinishIfMatch(arg1, 2);
                         }
                     }
                     goto block_35;
@@ -299,7 +299,7 @@ block_35:
                             }
                             func_800848EC(arg1, 1, var_a2_3);
                             func_8006D224(arg1);
-                            func_80063998(arg1, 2);
+                            actorFinishIfMatch(arg1, 2);
                         }
                     }
                     var_fv0 = vec90.words[1] * 14.999999f;
@@ -351,7 +351,7 @@ block_35:
                     }
                     if ((var_a0 << 0x18) != 0) {
                         M2C_FIELD(arg1, f32 *, 0x74) = 0.0f;
-                        func_80063998(arg1, 2);
+                        actorFinishIfMatch(arg1, 2);
                     }
                 }
                 if (((u32) (M2C_FIELD(arg1, u16 *, 0x78) - 2) < 2U) && (M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), u16 *, 0xC) & 8)) {
@@ -380,7 +380,7 @@ block_35:
                     } else {
 block_98:
                         M2C_FIELD(arg1, f32 *, 0x74) = 0.0f;
-                        func_80063998(arg1, 2);
+                        actorFinishIfMatch(arg1, 2);
                     }
                 }
             }

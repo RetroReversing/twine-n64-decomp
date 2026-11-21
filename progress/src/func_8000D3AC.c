@@ -15,7 +15,8 @@ extern StreamRecord *gObjectTable;
     v.x = *records->stream++; \
     v.y = *records->stream++; \
     v.z = -*records->stream++; \
-    records[index].field = v; \
+    records = (StreamRecord *)((u8 *)records + index * 0xD4); \
+    records->field = v; \
 } while (0)
 void func_8000D3AC(s32 index, u32 parameter) {
     StreamRecord *base = gObjectTable;

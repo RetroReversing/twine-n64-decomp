@@ -191,7 +191,7 @@ do {
                     if (M2C_FIELD(temp_a0, s32 *, 0x14) & 0x80000) {
                         if (__repair_phase_var_s4 == 0xE) {
                             spA58[0] = M2C_FIELD(temp_s3, u16 *, 0x94) - M2C_FIELD(temp_s3, u16 *, 0x96);
-                            __repair_result_spA5C = M2C_FIELD(temp_s3, u16 *, 0x98) - M2C_FIELD(temp_s3, u16 *, 0x9A);
+                            spA58[2] = M2C_FIELD(temp_s3, u16 *, 0x98) - M2C_FIELD(temp_s3, u16 *, 0x9A);
                             func_80083410(spA58, sp90);
                             MatMul3x3InPlace(sp90, temp_s1);
                         } else {

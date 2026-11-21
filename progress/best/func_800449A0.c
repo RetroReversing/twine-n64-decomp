@@ -41,7 +41,7 @@ extern s8 D_8010A2CC;
 extern s8 D_8010A3C4;
 extern s8 D_8010A4B8;
 extern s32 gBonusSceneHandle;
-extern s8 D_8010A91C;
+extern s8 gAnnounceCount;
 extern s8 D_8010D2B0;
 extern s8 D_8010D2B8;
 extern s32 D_8010D2C0;
@@ -141,7 +141,7 @@ loop_6:
     (*(u8 *)&D_801002E5) = 0;
     (*(u8 *)&D_80110CA8) = 0x80;
     (*(u8 *)&D_80100300) = 0;
-    (*(u8 *)&D_8010A91C) = 0;
+    (*(u8 *)&gAnnounceCount) = 0;
     (*(u8 *)&D_80109B1E) = 0;
     (*(u8 *)&D_80117734) = 0;
     (*(u8 *)&D_8010A2B8) = 0;

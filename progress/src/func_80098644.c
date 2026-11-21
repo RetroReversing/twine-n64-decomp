@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8008C7B0();
 extern s32 D_800F38EC;
-extern s32 D_800F3950;
+extern s32 sortedEntryCount;
 extern s32 D_800F7954;
 extern s32 D_800F8158;
 extern s32 D_800F8D5C;
@@ -27,7 +27,7 @@ void func_80098644(void) {
 
     var_v1 = 0;
     D_800F38EC = 0;
-    D_800F3950 = 0;
+    sortedEntryCount = 0;
     D_800F7954 = 0;
     D_800F8158 = 0;
     D_800FD560 = 0;

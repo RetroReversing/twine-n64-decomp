@@ -21,8 +21,8 @@ extern u8 D_801002D5;
 extern s32 D_801002EC;
 extern u8 D_801002F0;
 extern u8 D_801002F1;
-extern u8 D_801002F2;
-extern u8 D_801002F3;
+extern u8 gOptionChoice;
+extern u8 gOptionFlag;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
 extern u8 D_80102EE8;
@@ -121,8 +121,8 @@ loop_2:
     func_8002E93C(&D_800E1310, D_801002EC, 4, 1);
     func_8002E93C(&D_800E1310, D_801002F0, 1, 4);
     func_8002E93C(&D_800E1310, D_801002F1, 1, 4);
-    func_8002E93C(&D_800E1310, D_801002F2, 1, 2);
-    func_8002E93C(&D_800E1310, D_801002F3, 1, 1);
+    func_8002E93C(&D_800E1310, gOptionChoice, 1, 2);
+    func_8002E93C(&D_800E1310, gOptionFlag, 1, 1);
     {
         u16 __repair_i;
         for (__repair_i = 0; __repair_i < 3; __repair_i++) {
