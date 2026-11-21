@@ -39,7 +39,7 @@ void func_800274BC(s32 arg0, u32 arg1) {
     u8 temp_v1;
     u32 var_a0;
     u8 var_a0_2;
-    u8 var_a0_3;
+    s32 var_a0_3;
     u8 var_a1;
     s32 var_s1;
     void *temp_a1;
@@ -112,7 +112,8 @@ void func_800274BC(s32 arg0, u32 arg1) {
         }
         M2C_FIELD(temp_a1, s32 *, 0x10) = (var_v0_3 & ~0xFF) | var_a0_2;
                         M2C_FIELD(gSaveMenuState, u8 *, 8) = var_s1;
-                        temp_s0 = M2C_FIELD(temp_s2, s32 *, 0) + ((var_s1 & 0xFF) * 0x28);
+                        var_v0_4 = var_s1 & 0xFF;
+    temp_s0 = M2C_FIELD(temp_s2, s32 *, 0) + ((var_v0_4) * 0x28);
                         M2C_FIELD(gSaveMenuState, void **, 0x18) = temp_s0;
                         temp_a1 = M2C_FIELD(temp_s0, void **, 8);
                         if (temp_a1 != NULL) {

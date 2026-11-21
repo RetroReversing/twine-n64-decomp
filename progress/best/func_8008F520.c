@@ -4,12 +4,13 @@ s32 audio_slot_reset(s32, s32);                 /* extern */
 s32 func_8008CDC0(s32, s32);                    /* extern */
 s32 func_8008EB80(u8, u16, u8, s32, s32);   /* extern */
 void func_8008F2A4(s32, s8);                 /* extern */
-void voiceStoreParam(u8, u8, u8, u8);     /* extern */
+void voiceStoreParam(u8, int, u8, u8);     /* extern */
 extern u8 D_800E6A85;
 extern s32 D_800EDA90;
 extern u8 D_80102FDC;
 extern s32 gSoundEntities;
 
+typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
 int __repair_literal;
 
@@ -88,8 +89,8 @@ int __repair_literal;
     if (var_s5 != 8) {
         temp_s2 = (var_s5 * 0xFF8) + (u8 *)&gSoundEntities;
         temp_a3 = temp_s2 + 8;
-        (*(void **)((char *)(temp_s2) + 4)) = arg0;
-        var_a2 = (*(void **)((char *)(temp_s2) + 4));
+        (((__repair_field_4 *)temp_s2)->value) = arg0;
+        var_a2 = (((__repair_field_4 *)temp_s2)->value);
         (*(s8 *)((char *)(temp_s2) + 0xFF4)) = 0;
         (*(void **)((char *)(temp_s2) + 0x88)) = arg1;
         (*(void **)((char *)(temp_s2) + 0x10C)) = arg3;
@@ -137,7 +138,7 @@ int __repair_literal;
             (*(u16 *)((char *)(temp_s2) + 0xFC2)) = 0x100U;
         } else {
             if ((*(s32 *)((char *)(arg4) + 0)) & 1) {
-                (*(s32 *)((char *)(temp_s2) + 0x110)) = (s32) (*(s32 *)((char *)(arg4) + 4));
+                (*(s32 *)((char *)(temp_s2) + 0x110)) = (s32) (((__repair_field_4 *)arg4)->value);
                 (*(s32 *)((char *)(temp_s2) + 0x114)) = (s32) (*(s32 *)((char *)(arg4) + 8));
             } else {
                 (*(s32 *)((char *)(temp_s2) + 0x110)) = -1;
@@ -154,10 +155,8 @@ __repair_literal = 0;
 
                 if ((s32) (*(u8 *)((char *)(arg4) + 0x12)) > __repair_literal) {
                     do {
-                        temp_a0 = var_s1_2 * 2;
-                        temp_v1 = temp_a0 + (*(u8 **)((char *)(arg4) + 0x14));
-                        (*(u8 *)((char *)((temp_s2 + (*(u8 *)((char *)(temp_v1) + 0)))) + 0x528)) = (u8) (*(u8 *)((char *)(temp_v1) + 1));
-                        func_8008F2A4((*(u8 *)((char *)((temp_a0 + (*(u8 **)((char *)(arg4) + 0x14)))) + 1)), 0);
+                        (*(u8 *)((char *)((temp_s2 + (*(u8 *)((char *)(((var_s1_2 * 2) + (*(u8 **)((char *)(arg4) + 0x14)))) + 0)))) + 0x528)) = (u8) (*(u8 *)((char *)(((var_s1_2 * 2) + (*(u8 **)((char *)(arg4) + 0x14)))) + 1));
+                        func_8008F2A4((*(u8 *)((char *)(((var_s1_2 * 2) + (*(u8 **)((char *)(arg4) + 0x14)))) + 1)), 0);
                         var_s1_2 += 1;
                     } while (var_s1_2 < (s32) (*(u8 *)((char *)(arg4) + 0x12)));
                 }
@@ -228,7 +227,7 @@ __repair_literal = 0;
             var_s1_6 -= 1;
             var_v0_3 -= 4;
         } while (var_s1_6 >= 0);
-        var_t1 = (*(void **)((char *)(temp_s2) + 4));
+        var_t1 = (((__repair_field_4 *)temp_s2)->value);
         var_v1_3 = temp_s2 + 8;
         var_a3 = 0;
         do {
@@ -260,7 +259,7 @@ loop_45:
                 if (temp_a1_2 != 9) {
                     temp_v1_2 = (*(u8 *)((char *)((temp_a0_4 + temp_s2)) + 8));
                     if (temp_v1_2 != 0xFF) {
-                        temp_v1_3 = (temp_v1_2 * 8) + (*(void **)((char *)(temp_s2) + 4));
+                        temp_v1_3 = (temp_v1_2 * 8) + (((__repair_field_4 *)temp_s2)->value);
                         (*(s32 *)((char *)(((temp_a1_2 * 4) + temp_s2)) + 0xF80)) = (s32) (((*(u16 *)((char *)(temp_v1_3) + 0)) << 0x10) | ((*(u8 *)((char *)(temp_v1_3) + 2)) << 8) | (*(u8 *)((char *)(temp_v1_3) + 3)));
                     }
                 } else {

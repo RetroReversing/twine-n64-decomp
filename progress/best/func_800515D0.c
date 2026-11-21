@@ -352,8 +352,8 @@ loop_3:
                                 var_v1 = 0;
                             }
                             if (var_v0 & var_v1) {
-                                sp1C = 0.0f;
                                 sp18 = (*(f32 *)((char *)(arg3) + 0)) - (*(f32 *)((char *)(var_s5) + 0x24));
+                                sp1C = 0.0f;
                                 sp20 = (*(f32 *)((char *)(arg3) + 8)) - (*(f32 *)((char *)(var_s5) + 0x2C));
                                 func_80045764(&sp18, &sp18);
                                 temp_fs0_2 = var_fs1 - temp_fs0;
@@ -390,8 +390,8 @@ loop_3:
                                 sp1DE = temp_v0 & 0xFF;
                                 sp1E6 = temp_v0 & 0xFF00;
                                 sp9A = (s16) (s32) (*(f32 *)((char *)(var_s5) + 0x40));
-                                D_80108404 = var_s5;
                                 sp9C = (s16) (s32) (*(f32 *)((char *)(var_s5) + 0x44));
+                                D_80108404 = var_s5;
                                 buildRotationMatrixS16(sp1D4, &sp68);
                                 temp_v1 = (*(u8 *)((char *)(temp_s7) + 0x48)) & 4;
                                 if (temp_v1 != 0) {

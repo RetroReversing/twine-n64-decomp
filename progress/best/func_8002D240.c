@@ -127,6 +127,7 @@ void func_8002D240(void)
   D_80102EDC = 0;
   D_80102EDE = 0;
   D_80102EF0 = 1;
+  var_s2 = 0;
   D_80102EF4 = 0;
   D_80102EF8 = 1;
   D_80102EE4 = 2;
@@ -210,8 +211,8 @@ void func_8002D240(void)
     }
     temp_v1 = ((s32) var_s0) * 0x18;
     *(D_80100198 + temp_v1) = c2;
-    *(D_801001A0 + temp_v1) = c64;
     *(D_801001A2 + temp_v1) = c1;
+    *(D_801001A0 + temp_v1) = c64;
     *(D_801001A3 + temp_v1) = 0;
     if (temp_s1)
     {
@@ -238,7 +239,6 @@ void func_8002D240(void)
     var_s0 = __repair_phase_var_s2_2 & 0xFFFF;
   }
   while (((u32) ((temp_s1 = (short) __repair_phase_var_s2_2) & 0xFFFF)) < 0xBU);
-  var_s2 = 0;
   func_8002D7C0();
   gSaveSlotInfo = func_8002B9FC(0x11);
   D_801001B4 = func_8002B9FC(0x52);
@@ -251,7 +251,6 @@ void func_8002D240(void)
   D_8010025C = func_8002B9FC(0x2F);
   D_80100274 = func_8002B9FC(0x37);
   D_8010028C = func_8002B9FC(0x53);
-  temp_s1_2 = 0 & 0xFFFF;
   do
   {
     func_8002B000((temp_s1_2 * 8) + D_80117410, 0x1E);
@@ -269,6 +268,7 @@ void func_8002D240(void)
       __repair_phase_var_s2_2 = 0; var_s2 = ((s32) var_s5_2) & 0xFFFF;
  do { temp_s3 = var_s2 * 0x18; loop_14: temp_s1_2 = __repair_phase_var_s2_2 & 0xFFFF; temp_s0 = temp_s1_2 * 8; func_8002B000(temp_s3 + (temp_s0 + inline_fn()), 0x1E); temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150)); } while (0);
       func_8002B000(temp_s0_2, 0x1E);
+  temp_s1_2 = 0 & 0xFFFF;
       temp_a2 = *((u16 *) ((temp_s1_2 * 2) + ((((unsigned) var_s2) * 6) + D_800BFC38)));
     }
     while (0);

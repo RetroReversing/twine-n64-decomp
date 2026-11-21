@@ -188,7 +188,7 @@ void func_800561BC(void *arg0) {
     s32 var_s1;
     s32 var_s1_2;
     unsigned int var_s4_3;
-    s32 var_s4_4;
+    
     f64 var_fv0;
     f64 var_fv1;
     f64 var_fv1_2;
@@ -887,18 +887,18 @@ block_138:
                         var_s0_5 = 4;
                         if (gBorderSkipActive != 0) {
                             var_s1_2 = 2;
-                            var_s4_4 = 1;
+                            var_s1 = 1;
                         } else {
                             var_s0_5 = 8;
                             var_s1_2 = 6;
-                            var_s4_4 = 3;
+                            var_s1 = 3;
                         }
                         if (gPlayerActor != NULL) {
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 4) {
                                 func_8005CBD4(arg0, &local.sp30, &local.spD0, 1.0f, var_s0_5 + randomIntBelow(var_s0_5));
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 1) {
-                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_4), 0x13, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1), 0x13, 0x1B);
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 8) {
                                 spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1_2), 0x15, 0x1B);
@@ -910,7 +910,7 @@ block_138:
                                 }
                             }
                             if ((*(s32 *)((char *)(gPlayerActor) + 0x5C)) & 0x40) {
-                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s4_4), 0x12, 0x1B);
+                                spawnSparkleBurst(arg0, &local.sp30, 6.0f, randomIntBelow(var_s1), 0x12, 0x1B);
                                 if (randomIntBelow(16) == 0) {
 block_225:
                                     func_800851E0((s32)(&local.sp30));

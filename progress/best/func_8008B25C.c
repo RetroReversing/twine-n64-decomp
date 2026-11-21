@@ -60,6 +60,11 @@ inline static int inline_fn(u8 arg0, int arg1)
   return (arg0 != 0) && ((--D_800E41E8) == arg1);
 }
 
+inline static s32 inline_fn2()
+{
+  return (s32) (&func_800AC110);
+}
+
 void func_8008B25C(void)
 {
   s16 *temp_a0_3;
@@ -93,7 +98,11 @@ void func_8008B25C(void)
   void *var_v1;
   if (D_8010D428 != NULL)
   {
-    D_8010D428();
+    do
+    {
+      D_8010D428();
+    }
+    while (0);
   }
   func_8008C160();
   temp_a0 = __osDisableInt();
@@ -147,7 +156,7 @@ void func_8008B25C(void)
         if (var_v0_3 < temp_s2)
         {
           s32 *buffers = &gAudioBufferPtrs;
-          u32 limit = temp_s2;
+          unsigned short limit = temp_s2;
           do
           {
             var_s0 = var_v0_3;
@@ -201,7 +210,14 @@ void func_8008B25C(void)
             }
             while (((u16) var_s0) < gAudioBufferCount);
           }
-          var_s0 = 0;
+          if (temp_s4 || D_8010D428)
+          {
+            var_s0 = 0;
+          }
+          else
+          {
+            var_s0 = 0;
+          }
           if (((u16) temp_s4) != 0)
           {
             s32 *buffers = &gAudioBufferPtrs;
@@ -257,7 +273,7 @@ void func_8008B25C(void)
     {
       s32 *task = &D_800E3F50;
       *task = 2;
-      D_800E3F5C = ((s32) (&D_800AC1E0)) - ((s32) (&func_800AC110));
+      D_800E3F5C = ((s32) (&D_800AC1E0)) - inline_fn2();
       D_800E3F60 = &D_800AD570;
       D_800E3F64 = 0x1000;
       D_800E3F68 = &D_800D1B30;

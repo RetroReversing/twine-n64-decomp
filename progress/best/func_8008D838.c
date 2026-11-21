@@ -38,7 +38,6 @@ extern u8 sVoiceCount;
 extern s32 sVoiceTable;
 void func_8008D838(void)
 {
-  volatile u32 reserved[2];
   u8 *var_a0;
   u8 *var_s0;
   u8 *var_s5;

@@ -53,7 +53,12 @@ void func_80064630(void *arg0)
   {
     if (D_80112F6C != 0)
     {
- do { *((u8 *) (((char *) var_v1) + 0x1FC)) = (u8) D_800C46A1[__repair_phase_storage.value]; *((u8 *) (((char *) var_v1) + 0x1FF)) = (u8) D_800C471E[__repair_phase_storage.value]; } while (0);
+      do
+      {
+        *((u8 *) (((char *) var_v1) + 0x1FC)) = (u8) D_800C46A1[__repair_phase_storage.value];
+        *((u8 *) (((char *) var_v1) + 0x1FF)) = (u8) D_800C471E[__repair_phase_storage.value];
+      }
+      while (0);
     }
     else
     {
@@ -65,7 +70,7 @@ void func_80064630(void *arg0)
       *((s8 *) (((char *) (temp_s5 + first_offset)) + 0x1FC)) = 0;
     }
     __repair_phase_storage.value += 0xE8;
-    temp_s0 = (void *) (first_offset + ((s32) temp_s5));
+    temp_s0 = (void *) (((s32) temp_s5) + first_offset);
     first_offset += 8;
     var_v1 += 8;
     temp_a0 = var_s2;
@@ -87,3 +92,4 @@ void func_80064630(void *arg0)
     *((s8 *) (((char *) temp_s5) + 0x1FC)) = 1;
   }
 }
+

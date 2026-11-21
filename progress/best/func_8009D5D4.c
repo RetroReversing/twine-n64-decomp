@@ -11,14 +11,14 @@ void func_8009D5D4(void *arg0) {
     s32 temp_v0_2;
     u32 temp_v0_3;
     u32 temp_v1_2;
-    u16 temp_t1;
+    s32 temp_t1;
     unsigned long temp_v0;
     s32 temp_v0_5;
     s32 var_s3;
     s32 var_a2;
     u32 temp_t4;
     u32 temp_v1;
-    s32 temp_v0_4;
+    
     
 u32 __repair_phase_temp_v1_3;
     s32 var_a0;
@@ -80,7 +80,7 @@ u32 __repair_result_var_s1;
             var_v1 = (unsigned)var_s1 - (*(s32 *)((char *)(arg0) + 0x11D4));
             var_a0 = ((__repair_field_19C *)arg0)->value - 0xA0;
         }
-if ((var_a0 > var_v1) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_v0_4 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_v0_4 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_v0_4 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (var_s3 > 0)) goto __repair_rows;
+if ((var_a0 > var_v1) && (((*(s8 *)((char *)(arg0) + 0x11DD)) == 1) || ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) > 0)) && (((temp_t1 = (*(s32 *)((char *)(arg0) + 0x11D0)), (temp_t1 != 0)) && ((*(u32 *)((char *)(arg0) + 0x11A4)) == 0)) || ((u32) (temp_t1 - (*(s32 *)((char *)(arg0) + 0x11CC))) >= 0x25U)) && (var_s3 > 0)) goto __repair_rows;
     }
     temp_v0_5 = (*(s8 *)((char *)(arg0) + 0x11DD));
     if (((temp_v0_5 == 3) || (((*(s8 *)((char *)(arg0) + 0x11DD))) == 4)) && ((s32) (*(u16 *)((char *)(arg0) + 0x11A0)) <= 0) && (var_a0 > var_v1) && (var_s3 > 0)) {

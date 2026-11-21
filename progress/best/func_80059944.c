@@ -24,7 +24,7 @@ extern s32 sTrackMarkerTable;
 void func_80059944(void *arg0) {
     volatile struct {
         f32 x, y, z;
-        u8 reserved1[4];
+        u8 reserved1[12];
     } delta;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -170,8 +170,7 @@ block_17:
                     }
                     (*(s16 *)((char *)(arg0) + 0x7A)) = 3;
                 }
-block_66:
-                (*(s32 *)((char *)(arg0) + 0x58)) = (s32) ((*(s32 *)((char *)(arg0) + 0x58)) | 1);
+                goto block_66;
             }
             break;
         }
@@ -240,7 +239,9 @@ block_66:
             }
             break;
         }
-        goto block_66;
+block_66:
+        (*(s32 *)((char *)(arg0) + 0x58)) |= 1;
+        break;
     case 20:                                        /* switch 1 */
         if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x100800) == 0x800) {
             var_a2 = lookupDataEntry((*(u16 *)((char *)(temp_s0) + 0x48)));
