@@ -16,56 +16,56 @@ s32 objectSetAnimFrame();
 s32 func_80084338();
 extern char sTrackDoneFlags[];
 
-void updateObjectTrackState(void *arg0) {
-    s16 temp_v1_2;
-    u16 temp_a0;
-    u16 temp_v0;
-    u16 temp_v1_3;
-    u16 temp_v1_4;
-    u8 temp_v1;
-    void *temp_s0;
+/* Advances the object's track state machine (0 idle, 1 start, 2 playing) and syncs its track done flags. */ void updateObjectTrackState(void *obj) {
+    s16 state;
+    u16 callArg;
+    u16 trackIdx3;
+    u16 trackIdx;
+    u16 trackIdx2;
+    u8 doneFlag;
+    void *def;
 
-    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
-    if (M2C_FIELD(temp_s0, u16 *, 0x3A) == 1) {
-        temp_v1 = *(sTrackDoneFlags + M2C_FIELD(temp_s0, u16 *, 0x34));
-        if (temp_v1 < 2U) {
-            objectSetAnimFrame(arg0, M2C_FIELD(temp_s0, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s0, u16 *, 0x3E));
+    def = M2C_FIELD(obj, void **, 0x6C);
+    if (M2C_FIELD(def, u16 *, 0x3A) == 1) {
+        doneFlag = *(sTrackDoneFlags + M2C_FIELD(def, u16 *, 0x34));
+        if (doneFlag < 2U) {
+            objectSetAnimFrame(obj, M2C_FIELD(def, u16 *, 0x3C) + doneFlag, M2C_FIELD(def, u16 *, 0x3E));
         }
     }
-    if (M2C_FIELD(arg0, s32 *, 0x60) & 0x100000) {
-        M2C_FIELD(arg0, s32 *, 0x60) = 0;
+    if (M2C_FIELD(obj, s32 *, 0x60) & 0x100000) {
+        M2C_FIELD(obj, s32 *, 0x60) = 0;
     }
-    temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x7A);
-    switch (temp_v1_2) {                            /* irregular */
+    state = M2C_FIELD(obj, s16 *, 0x7A);
+    switch (state) {                            /* irregular */
     case 0:
-        if (M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s0, s32 *, 0x2C)) {
-            M2C_FIELD(arg0, s16 *, 0x7A) = 1;
-            temp_v1_3 = M2C_FIELD(temp_s0, u16 *, 0x34);
-            if (temp_v1_3 != 0) {
-                *(sTrackDoneFlags + temp_v1_3) = 2;
+        if (M2C_FIELD(obj, s32 *, 0x60) & M2C_FIELD(def, s32 *, 0x2C)) {
+            M2C_FIELD(obj, s16 *, 0x7A) = 1;
+            trackIdx = M2C_FIELD(def, u16 *, 0x34);
+            if (trackIdx != 0) {
+                *(sTrackDoneFlags + trackIdx) = 2;
             }
         }
         break;
     case 1:
-        temp_v1_4 = M2C_FIELD(temp_s0, u16 *, 0x34);
-        if (temp_v1_4 != 0) {
-            *(sTrackDoneFlags + temp_v1_4) = 1;
+        trackIdx2 = M2C_FIELD(def, u16 *, 0x34);
+        if (trackIdx2 != 0) {
+            *(sTrackDoneFlags + trackIdx2) = 1;
         }
-        temp_a0 = M2C_FIELD(temp_s0, u16 *, 0x36);
-        if (temp_a0 != 0) {
-            func_80084338(temp_a0, arg0 + 0x24);
+        callArg = M2C_FIELD(def, u16 *, 0x36);
+        if (callArg != 0) {
+            func_80084338(callArg, obj + 0x24);
         }
-        M2C_FIELD(arg0, s16 *, 0x7A) = 2;
+        M2C_FIELD(obj, s16 *, 0x7A) = 2;
         break;
     case 2:
-        temp_v0 = M2C_FIELD(temp_s0, u16 *, 0x34);
-        if (temp_v0 != 0) {
-            *(sTrackDoneFlags + temp_v0) = 0;
+        trackIdx3 = M2C_FIELD(def, u16 *, 0x34);
+        if (trackIdx3 != 0) {
+            *(sTrackDoneFlags + trackIdx3) = 0;
         }
-        if (!(M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s0, s32 *, 0x2C))) {
-            M2C_FIELD(arg0, s16 *, 0x7A) = 0;
+        if (!(M2C_FIELD(obj, s32 *, 0x60) & M2C_FIELD(def, s32 *, 0x2C))) {
+            M2C_FIELD(obj, s16 *, 0x7A) = 0;
         }
         break;
     }
-    M2C_FIELD(arg0, s32 *, 0x60) &= 1;
+    M2C_FIELD(obj, s32 *, 0x60) &= 1;
 }
