@@ -94,12 +94,8 @@ void func_80076838(Obj *obj)
         g3 = &D_80109690;
         gTrackMarkerDone[cur->next] = 1;
         m = &gTrackMarkerActiveMask;
-        a = *m;
-        b = gSceneFlagsB;
-        a |= 1;
-        b |= 1;
-        *m = a;
-        gSceneFlagsB = b;
+        *m |= 1;
+        gSceneFlagsB |= 1;
         func_80084048(*(u8 **)g3, 14, m);
         *(u8 **)g3 = 0;
         func_80001D80(0);
