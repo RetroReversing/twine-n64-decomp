@@ -96,7 +96,8 @@ void func_80036BBC(void *arg0) {
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
         do { func_80034630(var_s2, arg0); } while (0);
         emitPrimColor(var_s2, arg0);
-        while (var_s0 != NULL) {
+        if (var_s0 != NULL) {
+inner_loop:
             temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;
             if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 1) && ((IsSphereVisible(var_s0 + 0x40, ((__repair_record_var_s0*)var_s0)->field_4C, var_s2, arg0) << 0x18) != 0)) {
                 temp_v1_5 = (u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2;
@@ -122,10 +123,10 @@ block_26:
                     goto block_59;
                 }
                 if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 3) {
-                    temp_v1_7 = sMatrixPoolUsed + 1;
-                    if ((u32) sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
+                    temp_v1_7 = sMatrixPoolUsed;
+                    if (temp_v1_7 < (u32) sMatrixPoolLimit) {
+                        sMatrixPoolUsed = ++temp_v1_7;
                         D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v1_7 << 6);
-                        sMatrixPoolUsed = temp_v1_7;
                         if (((u32) ((__repair_record_var_s0*)var_s0)->field_5C >> 0x17) & 2) {
                             func_800347B0(&D_80112F90, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_28 * 64.0f, ((__repair_record_var_s0*)var_s0)->field_2C * 64.0f);
                         } else {
@@ -227,6 +228,7 @@ emit_combine:
             }
 block_59:
             var_s0 = ((__repair_record_var_s0*)var_s0)->field_14;
+            if (var_s0 != NULL) goto inner_loop;
         }
         var_s2 = (*(void **)((char *)(var_s2) + 0x1C));
     }

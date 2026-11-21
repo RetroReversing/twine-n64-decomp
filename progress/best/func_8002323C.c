@@ -156,9 +156,9 @@ void func_8002323C(void) {
             } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
         }
         }
-        var_s4 = 0;
-        do {
-            volatile u8 *mode = (u8 *)&gSaveKeyRelaxed;
+        {
+        volatile u8 *mode = (u8 *)&gSaveKeyRelaxed;
+        for (var_s4 = 0; (u16)var_s4 < 2; var_s4++) {
             if (mode[0] == 0) {
                 break;
             }
@@ -166,8 +166,8 @@ void func_8002323C(void) {
                 s16 bonus = timerGetTotalSeconds((u8 *)&sProbeTimers + (u16)var_s4 * 8);
                 (&D_800E107E)[(u16)var_s4] += bonus / 10;
             }
-            var_s4++;
-        } while ((u16)var_s4 < 2);
+        }
+        }
         func_8002A644(&D_800E0EF0, &D_800E0F18, 0xA8, 7, 0x4E, 0x64, 0x6E, 0xB, 0, &func_80022F10, &func_800231F4);
         func_80022A30(sMenuListKind, 0x4C, 0x69, 0x98, 0x5A);
         if (D_801002AC != 0) {

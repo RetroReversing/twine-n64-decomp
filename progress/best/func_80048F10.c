@@ -182,15 +182,15 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 temp_v1_30;
     s32 temp_v1_31;
     s32 temp_v1_32;
-    unsigned temp_v1_33;
+    s32 temp_v1_33;
     s32 temp_v1_3;
     s32 temp_v1_5;
     s32 temp_v1_6;
     s32 temp_v1_7;
-    unsigned temp_v1_8;
+    register unsigned temp_v1_8;
     s32 temp_v1_9;
     s32 var_a1;
-    s32 var_a2;
+    unsigned int var_a2;
     unsigned var_s0;
     s32 var_s0_2;
     s32 var_s3_3;
@@ -208,7 +208,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 var_v0_3;
     s32 var_v0_4;
     unsigned var_v0_6;
-    s32 var_v0_7;
+    int var_v0_7;
     s32 var_v0_8;
     unsigned long var_v0_9;
     s32 var_v1;
@@ -228,12 +228,12 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 temp_a0;
     s32 temp_v1_11;
     s32 temp_v1_20;
-    u16 temp_v1_27;
+    s32 temp_v1_27;
     u16 temp_v1_2;
     u16 temp_v1_4;
     u16 var_v0_5;
     u32 temp_s1;
-    u32 temp_s2;
+    unsigned long temp_s2;
     u32 temp_v1;
     u32 temp_v1_19;
     u32 temp_v1_22;
@@ -419,15 +419,15 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                             if (temp_s1 < (u16) (*(u16 *)((char *)(temp_s2_2) + 0x40))) {
                                                 do {
                                                     temp_s1_2 = var_s3_3 & 0xFFFF;
-                                                    temp_a0 = *(u16 *)((temp_s1_2 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
                                                     temp_s0_3 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_2 * 6);
+                                                    temp_a0 = *(u16 *)((temp_s1_2 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
                                                     if ((sp1F6 & temp_a0) && (sp1FE & temp_a0)) {
                                                         temp_v1_6 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                         if (rayHitsTriangleXZ(&sp58, &spE0, temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 0)) * 0xC), temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 2)) * 0xC), temp_v1_6 + ((*(u16 *)((char *)(temp_s0_3) + 4)) * 0xC), &spF0) & 0xFF) {
                                                             if ((spF0 >= 0.0f) && (spF0 < var_fs2)) {
                                                                 if (!(((u32) (*(u32 *)((char *)(var_s7) + 0x5C)) >> 0x17) & 0x20)) {
                                                                     var_fs2 = spF0;
-                                                                    var_s4 = temp_s1_2;
+                                                                    var_s4 = (s32)temp_s1_2;
                                                                 } else if (arg3 != NULL) {
                                                                     __repair_store_0 = (f32) (*(f32 *)((char *)(arg1) + 0));
                                                                     __repair_store_1 = (f32) ((*(f32 *)((char *)(arg1) + 4)) - spF0);
@@ -501,7 +501,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                 do {
                                                     temp_s1_3 = (s32)var_s3_4 & 0xFFFF;
                                                     temp_v1_11 = *(u16 *)((temp_s1_3 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
-                                                    temp_s0_4 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + (temp_s1_3 * 3);
+                                                    temp_s0_4 = (char *)(*(u16 **)((char *)(temp_s2_2) + 0x3C)) + ((unsigned)temp_s1_3 * 3);
                                                     if ((sp1F6 & temp_v1_11) && (sp1FE & temp_v1_11)) {
                                                         temp_v1_12 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                         if (rayHitsTriangleXZ(&sp58, &spE0, temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 0)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(temp_s0_4) + 2)) * 0xC), &spF0) & 0xFF) {
@@ -527,8 +527,8 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                     sp118 = sp58 - (temp_fv0_3 * spF8);
                                                                     sp11C = sp5C - (temp_fv0_3 * spFC);
                                                                     sp120 = sp60 - ((int)temp_fv0_3 * sp100);
-                                                                    segmentClosestPoint((CollisionVec *)(sp20C), (CollisionVec *)(temp_v1_14 + ((*(u8 *)((char *)(temp_s0_4) + 0)) * 0xC)), (CollisionVec *)( temp_v1_14 + ((*(u8 *)((char *)(temp_s0_4) + 1)) * 0xC)), (CollisionVec *)(&sp118));
                                                                     temp_v1_15 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
+                                                                    segmentClosestPoint((CollisionVec *)(sp20C), (CollisionVec *)(temp_v1_14 + ((*(u8 *)((char *)(temp_s0_4) + 0)) * 0xC)), (CollisionVec *)( temp_v1_14 + ((*(u8 *)((char *)(temp_s0_4) + 1)) * 0xC)), (CollisionVec *)(&sp118));
                                                                     var_fs0_2 = func_80047AB0(sp20C, &sp118);
                                                                     segmentClosestPoint((CollisionVec *)(sp21C), (CollisionVec *)(temp_v1_15 + ((*(u8 *)((char *)(temp_s0_4) + 1)) * 0xC)), (CollisionVec *)(temp_v1_15 + ((*(u8 *)((char *)(temp_s0_4) + 2)) * 0xC)), (CollisionVec *)(&sp118));
                                                                     temp_v1_16 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
@@ -549,7 +549,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                         var_fs0_2 = temp_fs1_2;
                                                                     } else {
                                                                         var_v0_4 = 1;
-                                                                        if (!(temp_fv0_4 < var_fs0_2)) {
+                                                                        if (!(var_fs0_2 > temp_fv0_4)) {
                                                                             var_v0_4 = 0;
                                                                         }
                                                                         var_v1_4 = 1;

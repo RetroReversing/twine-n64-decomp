@@ -115,7 +115,7 @@ s32 __repair_phase_var_s1;
                 temp_v1_2 = (u16)(*(&D_800E0778 + __repair_phase_var_s1));
                 *((s16 *)((s8 *)&D_8010D432 + var_s4)) = temp_v1_2 & (*var_s6 ^ temp_v1_2);
                 *var_s6 = *(&D_800E0778 + (s32)__repair_phase_var_s1);
-                if (*((s32 *)((s8 *)&gSaveSlotValid + var_s1)) != 0) {
+                if (*((u16 *)((s8 *)&gSaveSlotValid + var_s1)) != 0) {
                     temp_s0 = (void *)(var_s1); temp_s0 = (void *)((char *)temp_s0 + (s32)(&D_800E09A6));/*__repair_loop_weight*/__repair_rows: {do {do {
                     temp_v0_2 = *temp_s0;} while (0);} while (0);}
 if (0) goto __repair_rows;
@@ -141,9 +141,9 @@ if (0) goto __repair_rows;
                         }
                         *temp_a0_3 -= 1;
                         temp_a0_4 = var_s1 + &D_800E098E;
-                        temp_v1_2 = *temp_a0_4 - *((s32 *)((s8 *)&D_800E0996 + var_s1));
+                        temp_v1_2 = *temp_a0_4 - *((u16 *)((s8 *)&D_800E0996 + var_s1));
                         *temp_a0_4 = temp_v1_2;
-                        if (temp_v1_2 & 0x8000) {
+                        if ((s16)temp_v1_2 < 0) {
                             *temp_a0_4 = temp_v1_2 + 0x100;
                             if (!(*(var_s1 + &D_8010A3A0) & 1)) {
                                 func_80010590(var_s5 & 0xFFFF);
