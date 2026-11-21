@@ -1,7 +1,7 @@
 extern void actorLinkToSurface(s32, void *, s32);
 extern s32 func_80017490(u16, u16, u16);
 extern void func_8001751C(s32, u8, void *, s32);
-extern void effectSetAnimFrame(void *, u16, s16);
+extern void effectSetAnimFrame(void *, s16, s16);
 extern void *spawnEffectObject(s32, void *, s32);
 extern s16 D_800C4478;
 extern s16 D_800C447A;
@@ -13,7 +13,7 @@ void *func_8005E68C(void *arg0, s32 arg1, u16 arg2, s32 arg3, u16 arg4, u16 arg5
     u8 *obj;
     u8 *s0;
     s32 off;
-    s16 a1, a2;
+    s32 a1, a2;
 
     func_8001751C(arg12, arg13, arg0, arg1);
     if ((func_80017490(arg7, arg8, arg9) << 24) != 0) {

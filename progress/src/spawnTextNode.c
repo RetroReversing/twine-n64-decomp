@@ -29,7 +29,7 @@ extern unsigned int strlen(const char *);
 extern Text *func_80015F0C(void);
 extern void func_800165E0(Text *, s32);
 extern s32 sTrackMarkerTable[];
-Text *spawnTextNode(Template *src) {
+/* Allocates a text node and fills it from a template: position, style, string, size, mode, width and colour state. */ Text *spawnTextNode(Template *src) {
     Text *dst = func_80015F0C();
     if (dst == NULL)
         return NULL;

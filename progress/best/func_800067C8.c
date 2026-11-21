@@ -38,8 +38,8 @@ void func_800067C8(void) {
         var_s0 += 1;
         func_80007958();
     } while (var_s0 < 3U);
-    var_s0_2 = 0;
     func_8000A310();
+    var_s0_2 = 0;
     func_80008154();
     func_800449A0();
     func_80044D84(0xF);
@@ -47,7 +47,7 @@ void func_800067C8(void) {
     func_80044FF0();
     func_8004505C();
     create_centered_sprite(0xF, 0);
-    { void *p = D_80109688; M2C_FIELD(p, s32 *, 0x100) = (s32) (M2C_FIELD(p, s32 *, 0x100) & ~0x40); }
+    M2C_FIELD(D_80109688, s32 *, 0x100) = (s32) (M2C_FIELD(D_80109688, s32 *, 0x100) & ~0x40);
     M2C_FIELD(D_80109688, s8 *, 0x142) = 0;
     D_801002AE = 0;
     D_801002AF = 0;

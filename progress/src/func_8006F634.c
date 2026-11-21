@@ -58,3 +58,5 @@ void func_8006F634(s32 arg0, Obj *arg1, s32 arg2, s32 arg3) {
     arg1->pos.y += sp20[1];
     arg1->pos.z += sp20[2];
 }
+
+const u32 D_800D46E4 = 0xA0;

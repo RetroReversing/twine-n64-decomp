@@ -21,7 +21,8 @@ typedef struct {
 
 extern EntSnd gSoundEntities[];
 
-static inline s32 find_snd(s32 id) {
+/* Finds the sound entity whose id matches; returns its index, with the high bit kept from the input flag, or -1. */
+static inline s32 findSoundEntity(s32 id) {
     u32 i = 0;
     s32 key = id & 0x7FFFFFFF;
     s32 off = 0;
@@ -38,19 +39,20 @@ void workerLockAcquire(void);
 void workerLockRelease(void);
 extern u8 gWorkerActive;
 
-void func_80091428(s32 arg0, s32 arg1, s32 arg2) {
-    arg0 = find_snd(arg0);
-    if (arg0 != -1) {
-        if (arg0 >= 0) {
-            gSoundEntities[arg0].w110 = arg1;
-            gSoundEntities[arg0].w114 = arg2;
+/* Stores two values into the matching sound entity; a negative index selects the second slot set and sets flag 0x10. */
+void setSoundEntityValues(s32 id, s32 value1, s32 value2) {
+    id = findSoundEntity(id);
+    if (id != -1) {
+        if (id >= 0) {
+            gSoundEntities[id].w110 = value1;
+            gSoundEntities[id].w114 = value2;
         } else {
-            arg0 &= 0x7FFFFFFF;
+            id &= 0x7FFFFFFF;
             {
-                s32 off = arg0 * sizeof(EntSnd);
+                s32 off = id * sizeof(EntSnd);
                 u8 flags = *((u8 *)&gSoundEntities[0].flags + off);
-                *(s32 *)((u8 *)&gSoundEntities[0].wFE4 + off) = arg1;
-                *(s32 *)((u8 *)&gSoundEntities[0].wFE8 + off) = arg2;
+                *(s32 *)((u8 *)&gSoundEntities[0].wFE4 + off) = value1;
+                *(s32 *)((u8 *)&gSoundEntities[0].wFE8 + off) = value2;
                 *((u8 *)&gSoundEntities[0].flags + off) = flags | 0x10;
             }
         }
