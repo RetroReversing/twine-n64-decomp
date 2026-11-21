@@ -39,8 +39,7 @@ void func_80006E78(void)
   {
     size = 0x4000;
   }
-  size *= 8;
-  D_800DD340 = heapAlloc(size, 0);
+  D_800DD340 = heapAlloc(size * 8, 0);
   for (i = 0; i < 3; i++)
   {
     if (sMatrixPoolSlots[i] != NULL)
@@ -57,7 +56,7 @@ void func_80006E78(void)
       sMatrixPoolSlots[i]->dram_stack_size = 0x400;
       buf = D_800DD340;
       sMatrixPoolSlots[i]->output_buff = buf;
-      sMatrixPoolSlots[i]->output_buff_size = (unsigned short) (buf + size);
+      sMatrixPoolSlots[i]->output_buff_size = buf + size * 8;
       sMatrixPoolSlots[i]->yield_data_ptr = (void *) D_800DC740;
       sMatrixPoolSlots[i]->yield_data_size = 0xC00;
     }

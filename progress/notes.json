@@ -7616,14 +7616,6 @@
   "score_after": 1265
  },
  {
-  "function": "func_80006E78",
-  "text": "Current source compiled score 515 (77 vs 79 instructions). Main semantic mismatch is task boot size: target loads func_800AC110 and D_800AC1E0 for pointer subtraction; source appears to compile the wrong address into registers despite correct expression, likely struct member type/layout/liveness. Also fields use repeated D_8010A2BC[i], causing significant register/order mismatch. Tried caching task pointer but incomplete edit had brace errors; restored saved compiling candidate. Continue by checking exact Task struct/assembly and correcting pointer field representation; no reusable knowledge established.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795178318.291753,
-  "score_before": 515,
-  "score_after": 515
- },
- {
   "function": "func_8002A7CC",
   "text": "Rechecked baseline 1090 despite stale claim warning. Scalar reuse, loop backedge, struct layout, masked reuse, lifetimes and signedness did not improve. 31 mismatch rows remain; inspect loop and return block against target, particularly branch destinations and 14 register differences.",
   "by": "codex-gpt-6.1-terra-8",
@@ -10470,14 +10462,6 @@
   "created_at": 1795182960.984703,
   "score_before": 2045,
   "score_after": 2045
- },
- {
-  "function": "func_80006E78",
-  "text": "Reduced 515 to 140, all 79 instructions in target order. Keep allocation result written straight to D_800DD340 and source task output from that global inside the loop. Preserve distinct boot-end and main-ucode-start labels at 0x800AC1E0. Remaining allocation rotates task pointer a1\u2192a0, i a2\u2192a1, buf a3\u2192a2, boot start t0\u2192a3, output end a0\u2192t0. Output pointer types, separate end local before/after start store, global direct uses and indexed do/while were instruction-equivalent; manual pointer/counter for loop scored 540. Next vary the indexed loop's induction types and loop setup while preserving register-only baseline.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795182961.007885,
-  "score_before": 515,
-  "score_after": 140
  },
  {
   "function": "advanceActorPhaseSound",
@@ -15736,14 +15720,6 @@
   "score_after": 8864
  },
  {
-  "function": "func_80006E78",
-  "text": "Baseline score 140 rechecked initially; all 28 differences are register allocation in loop setup and stores. Swapping addition operands, declaration order, and register qualifier produced identical score; changing loop condition to != 3 worsened to 893. Consider lifetime staging of hoisted boot and buffer values; unsigned buf variant remains untested.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795188580.830404,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "getTextLine",
   "text": "Rechecked saved revision 4566dac2ce0ac52191f9 at 650. Inferred record layout tied; unsigned temp_a0 worsened to 1395. Remaining mismatch is control flow and saved-register allocation; try remaining switch-layout and parameter-width variants, then inspect target argument lifetimes.",
   "by": "codex-gpt-6.1-terra-4",
@@ -18056,14 +18032,6 @@
   "score_after": 0
  },
  {
-  "function": "func_80006E78",
-  "text": "Baseline candidate rechecked score 140; its instruction stream matches target with register allocation differences only. Cleaned Task layout and pointer casts compile but score 440, with 44 register mismatches plus loop branch displacement. Local repairs (signedness, declaration order, target constant, symbol address local, assignment-at-use, global scalar type) did not beat baseline. Correct end pointer is D_800AC1E0, boot pointer is func_800AC110; target keeps both addresses live separately. Remaining work: recover saved best and influence register allocation/declaration lifetimes or loop setup ordering.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795191442.28911,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "attachProbeRecord",
   "text": "Saved best 395/68 target vs 67 generated. Cached global field before loop did not improve; local register qualifiers likewise optimized away and scored 405. Target's loop copies a3 offset into a0 before increment, keeps cached field in t0, and zeroes a2 before a3; candidate differs in register allocation/control offsets. Automatic address_temporary family produced identical results. Continue from saved_best; inspect exact diff/consider offset temporary lifetime.",
   "by": "codex-gpt-6-luna-9",
@@ -19440,14 +19408,6 @@
   "score_after": 105
  },
  {
-  "function": "func_80006E78",
-  "text": "Rechecked best 140, 79 instructions with 28 register-only differences. Do-while loop, unsigned buf or size, and local declaration reorder remain 140; i != 3 scores 893. Explore lifetimes and original task pointer types; target loop index is a1 rather than candidate a2, with subsequent address temporaries shifted.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795193645.7419362,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "spawnTextNode",
   "text": "Improved 1090 to 845 using typed records, byte load at node+0x28, packed word loads at args+0x10 and early returns. Separate selected=1 temporary for low nibble reached 580 before lease transferred. Next try `if (spacing & 0xF0) { spacing >>= 4; spacing &= 0xF; } else { spacing = 1; }` or zero-path assignment then goto common flags store with shift/mask on fallthrough. Target wants beql with default 1 in delay slot then in-place srl/andi.",
   "by": "codex-gpt-6.2-sol-4",
@@ -20792,14 +20752,6 @@
   "score_after": 80
  },
  {
-  "function": "func_80006E78",
-  "text": "Saved best current rechecked score 140. Tested compact local task pointer rewrite; score 440 (77/79 instructions), worse. Attempted symbol declaration edit, compile failed because func_800AC110 already declared as a function and replacing func_800AC1E0 extern removed needed symbol. Restored saved best. Saved candidate has conceptual issues that can be revisited: ucode_boot_size subtracts u8* addresses, but compiler warns invalid pointer subtraction due symbol types in one draft; proper declarations matter. Target emits code address func_800AC110 into $a3, ucode address D_800AC1E0 into $v1 then subtracts; it also keeps D_800AC1E0 and D_800D1710 as separate locals in $t8/$t7 and maintains repeated reloads of D_8010A2BC[i] through $a0. Best score 140 source otherwise. Move-on reached with six no-better trials.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198108.3458939,
-  "score_before": 140,
-  "score_after": 140
- },
- {
   "function": "updateTrackMarkerEffect",
   "text": "Verified saved best score 60/316 and 79 instructions. Full rewrite reproduced score 60; remaining normalized differences: target stores sampled float to object before reading mode and has a likely annulled branch shape difference near mode dispatch (target branch at offset 0xb4; C fallthrough differs by one instruction). Attempted adding explicit invalid-mode guard before switch; regressed to score 430 due to extra comparison/branch. Restored saved best and tried explicit two-value mode guard, also score 430. Keep current best; next investigate control-flow placement of mode handling and branch delay slot around sampled-value store. No need to retune float constants yet.",
   "by": "codex-gpt-6-luna-11",
@@ -21638,14 +21590,6 @@
   "created_at": 1795199475.7260349,
   "score_before": 1367,
   "score_after": 1367
- },
- {
-  "function": "func_80006E78",
-  "text": "Verified score 140, 28 register-only rows. Single-pass scopes on boot assignment, buffer load or end store each scored 900; allocator result captured into existing buf scored 655; early redundant index init 659; unsigned index comparison 335. Preserve signed loop and duplicated symbol linkage at AC1E0. Next inspect allocator priority between derived table cursor, index and end value; all machine operations already align.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795199494.047701,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_8009A70C",
@@ -22566,14 +22510,6 @@
   "created_at": 1795201116.773695,
   "score_before": 6482,
   "score_after": 6482
- },
- {
-  "function": "func_80006E78",
-  "text": "Restored historical saved_best candidate (score 140, not reverified) after an initial corrected candidate compiled at score 440. Pointer subtraction fixed using (s32) symbol-address difference but did not change emitted code. Target preloads function and data addresses/constants into registers before the loop, then loops over pointer table with index counter; straightforward C over Task-like struct produces repeated field pointer loads and different register allocation. No exact match. Next: inspect full historical saved source/current assembly diff, preserve the preloaded values and loop shape through local declarations/record offsets; consider a carefully designed struct pointer cache or explicit sequential scalar stores through a reused task pointer. Compile budget now 4/6 no-better for current claim.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795201144.724542,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "updateTrackMarkerEffect",
@@ -23510,14 +23446,6 @@
   "created_at": 1795202100.086299,
   "score_before": 820,
   "score_after": 820
- },
- {
-  "function": "func_80006E78",
-  "text": "Best current candidate revision 1dbd134f4e18c16ba34c is score 140, 79/79 instructions, 28 register/allocation differences. Initial compile reproduced historical score. Tried all six local repair families; only arithmetic operand reorder and signedness tied, others worsened. Candidate additionally represents ucode_boot_size as subtraction between pointers; machine draft initially had incompatible types. Target builds all task constants/pointers in t-registers ahead of loop; current source's array iteration and repeated D_8010A2BC[i] loads differ from the target's stable a0 base and a1 loop counter, plus constants assigned to other registers. Next experiment: use a pointer cursor over D_8010A2BC and increment it in loop, likely encouraging target's a0 base/a1 index allocation and reusable loaded pointer.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795202101.602622,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_80018364",
@@ -24902,14 +24830,6 @@
   "created_at": 1795204290.992587,
   "score_before": 3066,
   "score_after": 3066
- },
- {
-  "function": "func_80006E78",
-  "text": "Best candidate revision e14030f987d4e2cbce78 scores 140 (79 insns, same opcodes; 28 register differences). Remaining diff is register allocation: target keeps loop counter i in $a1 and buf (copy of v0) in $a2, ucode-boot address in $a3, buf+size in $t0; ours puts i in $a2, buf in $a3, ucode-boot address in $t0. Tried declaration-order permutations (size/buf/i): still 140. Untried: per-iteration Task6E78 *t = D_8010A2BC[i] pointer, reordering field assignments, or computing buf+size before the output_buff stores.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795204306.297405,
-  "score_before": 140,
-  "score_after": 140
  },
  {
   "function": "func_800AB330",
@@ -30358,15 +30278,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:eec889ffa1d1d591ab29855fe2860c1195fdc554864479b32e0471e91cd41030"
  },
  {
-  "function": "func_80006E78",
-  "text": "Current verified inherited best 140. One substantial rewrite to cache task pointer compiled 1685 (worse); restored last compiling 50438b69606f170183f5. A subsequent do-while patch failed C89 due declaration after statement and was discarded. Target preloads all constants before loop; $a1 is loop counter, $a2 heap buffer, $a3 boot start, $t0 buffer+size. Candidate leaves loads inside per-task field assignments, which likely drives different allocation/scheduling. Next try from saved best: introduce top-of-function declarations for Task6E78 *task and make per-iteration body set task = D_8010A2BC[i], then assign each member through task; restructure loop to place invariant initialization expressions before loop, matching target's preload pattern.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795213796.1301498,
-  "score_before": 1685,
-  "score_after": 1685,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8011CC3C",
   "text": "Saved candidate has an uninitialized base on the type 3 path; direct addressing fixes it semantically and yields target frame size, but worsened score.",
   "by": "codex-gpt-6.1-terra-4",
@@ -33896,15 +33807,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:91d0a198e27435e4fa5ad57f3eeb749ab9abc6e515f4f4bff6a7e67730a41ce6"
  },
  {
-  "function": "func_80006E78",
-  "text": "Reverified score 140 with 28 register differences. The no-improvement limit was reached. Explicit slot induction scored 540 in both initializer orders. Do-while and inline globals both scored 140. Restored saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795221638.946507,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8002AB6C",
   "text": "Saved best 140 remains. New finding: single-exit structure (r=0 at top; if(t){ if(x18==x19-1) return 1; loop; if(x1E==0) return sum<=x1B; } return 0/r) scores 405 with only 3 diff rows: target uses bnel (likely delay) at the x18==x19-1 test and `bnez v1` (x1E in v1, move v0,zero in delay) at end; ours bne / bnel v0. Variant with r assigned (not returned) in x1E branch scored 160 (regs only: r in t0 vs v0). if/else form scored 1035. Next step: from the 160 form try making r share v0 (e.g. declare r after sum, or use u8 sum cast) to fix register allocation.\nsingle-exit r=0 at top form\nscore 160, only register diffs (r in t0 instead of v0, extra move)",
   "by": "api-claude-sonnet-5-5-1",
@@ -36127,15 +36029,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "func_80006E78",
-  "text": "Still 140 (28 register-only diffs; i in $a1 target vs $a2, buf in $a2 vs $a3, boot addr $a3 vs $t0). Explicit pointer-walk loop (p=D_8010A2BC; p++) scored 540 (hoists address before the i=0 move). Local pointer to &D_8010A2BC[i] inside loop: no effect. Next step: try `register` hints or making i the heapAlloc zero arg (e.g. pass i as second arg of heapAlloc(size, i) after i=0).\npointer-walk loop, local &arr[i] pointer\n540 and unchanged 140",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795228016.268328,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8005C8C4",
   "text": "Unsigned comparison local, alternate zero initialization and literal early return\nScores 560, 640 and 160; early literal return retains baseline diff.",
   "by": "codex-gpt-6.1-terra-2",
@@ -37915,15 +37808,6 @@
   "score_before": 385,
   "score_after": 385,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0a2c6da483f556e2ddf451e6e7d42ec60409462bc1ca4f7a7e09a47e3f0fcc8c"
- },
- {
-  "function": "func_80006E78",
-  "text": "Still 140 (79/79 insns, 28 reg diffs). Target alloc order: ptr=a0,i=a1,buf=a2,boot=a3,buf+size=t0; ours: buf+size=a0,ptr=a1,i=a2,buf=a3,boot=t0. So buf+size gets allocated too early/high priority in ours. Tried this session: buf=heapAlloc then store (655, worse), hoisted buf=D_800DD340 (685), decl order, register i, do-while, size+buf, D_800DD340+size direct (all 140 same), dummy buf test (955). Next step: change refs/live-range of buf+size (e.g. compute end=buf+size via a pointer-typed local or a different expression shape) so it ranks below buf and boot.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795231768.1805398,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
   "function": "func_8005EF84",
@@ -43778,15 +43662,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
  },
  {
-  "function": "func_80006E78",
-  "text": "Changed count-up for loop to equivalent do-while.\nScore remained 140 with register-only differences.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795244246.615063,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8004D910",
   "text": "Verified score 310 on donor-derived C, equal instruction count. Historical score 305 source could not be recovered through saved_best or revision lookup. Remaining differences are an early rayDir.z load and f20/f22 exchange. Splitting y operands around the z load regressed to 2030/2045, and a y scalar with unchanged assignment order tied at 310.",
   "by": "codex-gpt-6.2-sol-9",
@@ -44181,15 +44056,6 @@
   "score_before": 630,
   "score_after": 620,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:7e0c47ef9a3aa38e8bd4524ff949c22955a3b515321e1c708cbf789d26a45114"
- },
- {
-  "function": "func_80006E78",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked 140. Swapping i/buf declarations and adding task local for null check tied; automatic repairs retained original. Remaining 28 differences are registers. Next step: test a loop pointer lifetime with all field accesses using the local, checking whether volatile reloads are needed.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245662.2632792,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
   "function": "func_8005E350",
@@ -44862,15 +44728,6 @@
   "score_before": 475,
   "score_after": 475,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:7e0c47ef9a3aa38e8bd4524ff949c22955a3b515321e1c708cbf789d26a45114"
- },
- {
-  "function": "func_80006E78",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nDo-while with preincrement and register-qualified counter both retained score 140; allocation remains the mismatch. Next step: investigate a different lifetime for the boot address and slot base.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795248018.933613,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
   "function": "func_800295F0",
@@ -46422,15 +46279,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:de10fd7de51103d0a51f00e628d975132dca2c2e1411a0c415dc1379a34b2c87"
  },
  {
-  "function": "func_80006E78",
-  "text": "Current best remains score 140 (rechecked); no untried applicable local repairs. Tested redundant post-allocation buf capture with compile_patch: score 685, worse; restored saved_best. Several prior agents explored 68 local/24 explicit repair attempts without exceeding 140. Target post-call setup retains heapAlloc return in v0/a2, preloads loop constants and addresses, and computes output limit in t0 before loop. My last candidate test has 4/6 no-improvement.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795253990.6900501,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8006899C",
   "text": "Callee func_80081AA4 reads only incoming a0/a1, but the first target call has outgoing stores at 0x18/0x1C/0x20. The later calls set only a0/a1. Keep the outgoing slots in the baseline while investigating first-site setup.",
   "by": "codex-gpt-6.2-sol-6",
@@ -47410,15 +47258,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
  },
  {
-  "function": "func_80006E78",
-  "text": "Capturing allocation return in buf before the global store scored 655; replacing size *= 8 with shift produced unchanged 140.\nCaptured allocation in buf and changed multiplication to shift\n655 and unchanged 140 respectively",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795259900.4912179,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
- },
- {
   "function": "func_8002502C",
   "text": "Current saved candidate score 46345. Checked func_8002778C assembly: it has no incoming argument use (calls func_80026E9C with a0=0, then indirectly calls through gSaveMenuState fields). Caller target has move a0,s0 before the initial jal, seemingly stale/irrelevant arg setup; candidate emitted no setup. Casting that call to (void*)arg1 did not alter the diff, and introduced .rodata+0 linker diagnostic due syntax? Changing local prototype to func_8002778C(s32) failed because 8 later calls are argumentless. Restore saved_best. Remaining issue is broad 740-row mismatch / candidate only 621 vs target 778 instructions, with many control-flow differences; first mismatch at entry setup. Try revisiting whole function control flow and unused arg liveness while respecting truly zero-arg callee.",
   "by": "codex-gpt-6-luna-15",
@@ -47568,15 +47407,6 @@
   "score_before": 975,
   "score_after": 15,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:77cf1eaae71ca5710c31399fdbf551d440c849cf76e06d4aca23dacbe1ccfb3c"
- },
- {
-  "function": "func_80006E78",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795261118.5686789,
-  "score_before": 140,
-  "score_after": 140,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
   "function": "func_8002A7CC",
@@ -76627,5 +76457,175 @@
   "score_before": 653,
   "score_after": 653,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:cdfe6f62a352a55bb3d0cfacdf3ab66d20b9829a5f9cffb8da6232d6f5d86461"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Current source compiled score 515 (77 vs 79 instructions). Main semantic mismatch is task boot size: target loads func_800AC110 and D_800AC1E0 for pointer subtraction; source appears to compile the wrong address into registers despite correct expression, likely struct member type/layout/liveness. Also fields use repeated D_8010A2BC[i], causing significant register/order mismatch. Tried caching task pointer but incomplete edit had brace errors; restored saved compiling candidate. Continue by checking exact Task struct/assembly and correcting pointer field representation; no reusable knowledge established.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795178318.291753,
+  "score_before": 515,
+  "score_after": 515
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Reduced 515 to 140, all 79 instructions in target order. Keep allocation result written straight to D_800DD340 and source task output from that global inside the loop. Preserve distinct boot-end and main-ucode-start labels at 0x800AC1E0. Remaining allocation rotates task pointer a1\u2192a0, i a2\u2192a1, buf a3\u2192a2, boot start t0\u2192a3, output end a0\u2192t0. Output pointer types, separate end local before/after start store, global direct uses and indexed do/while were instruction-equivalent; manual pointer/counter for loop scored 540. Next vary the indexed loop's induction types and loop setup while preserving register-only baseline.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795182961.007885,
+  "score_before": 515,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Baseline score 140 rechecked initially; all 28 differences are register allocation in loop setup and stores. Swapping addition operands, declaration order, and register qualifier produced identical score; changing loop condition to != 3 worsened to 893. Consider lifetime staging of hoisted boot and buffer values; unsigned buf variant remains untested.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795188580.830404,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Baseline candidate rechecked score 140; its instruction stream matches target with register allocation differences only. Cleaned Task layout and pointer casts compile but score 440, with 44 register mismatches plus loop branch displacement. Local repairs (signedness, declaration order, target constant, symbol address local, assignment-at-use, global scalar type) did not beat baseline. Correct end pointer is D_800AC1E0, boot pointer is func_800AC110; target keeps both addresses live separately. Remaining work: recover saved best and influence register allocation/declaration lifetimes or loop setup ordering.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795191442.28911,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Rechecked best 140, 79 instructions with 28 register-only differences. Do-while loop, unsigned buf or size, and local declaration reorder remain 140; i != 3 scores 893. Explore lifetimes and original task pointer types; target loop index is a1 rather than candidate a2, with subsequent address temporaries shifted.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795193645.7419362,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Saved best current rechecked score 140. Tested compact local task pointer rewrite; score 440 (77/79 instructions), worse. Attempted symbol declaration edit, compile failed because func_800AC110 already declared as a function and replacing func_800AC1E0 extern removed needed symbol. Restored saved best. Saved candidate has conceptual issues that can be revisited: ucode_boot_size subtracts u8* addresses, but compiler warns invalid pointer subtraction due symbol types in one draft; proper declarations matter. Target emits code address func_800AC110 into $a3, ucode address D_800AC1E0 into $v1 then subtracts; it also keeps D_800AC1E0 and D_800D1710 as separate locals in $t8/$t7 and maintains repeated reloads of D_8010A2BC[i] through $a0. Best score 140 source otherwise. Move-on reached with six no-better trials.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198108.3458939,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Verified score 140, 28 register-only rows. Single-pass scopes on boot assignment, buffer load or end store each scored 900; allocator result captured into existing buf scored 655; early redundant index init 659; unsigned index comparison 335. Preserve signed loop and duplicated symbol linkage at AC1E0. Next inspect allocator priority between derived table cursor, index and end value; all machine operations already align.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795199494.047701,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Restored historical saved_best candidate (score 140, not reverified) after an initial corrected candidate compiled at score 440. Pointer subtraction fixed using (s32) symbol-address difference but did not change emitted code. Target preloads function and data addresses/constants into registers before the loop, then loops over pointer table with index counter; straightforward C over Task-like struct produces repeated field pointer loads and different register allocation. No exact match. Next: inspect full historical saved source/current assembly diff, preserve the preloaded values and loop shape through local declarations/record offsets; consider a carefully designed struct pointer cache or explicit sequential scalar stores through a reused task pointer. Compile budget now 4/6 no-better for current claim.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795201144.724542,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Best current candidate revision 1dbd134f4e18c16ba34c is score 140, 79/79 instructions, 28 register/allocation differences. Initial compile reproduced historical score. Tried all six local repair families; only arithmetic operand reorder and signedness tied, others worsened. Candidate additionally represents ucode_boot_size as subtraction between pointers; machine draft initially had incompatible types. Target builds all task constants/pointers in t-registers ahead of loop; current source's array iteration and repeated D_8010A2BC[i] loads differ from the target's stable a0 base and a1 loop counter, plus constants assigned to other registers. Next experiment: use a pointer cursor over D_8010A2BC and increment it in loop, likely encouraging target's a0 base/a1 index allocation and reusable loaded pointer.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795202101.602622,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Best candidate revision e14030f987d4e2cbce78 scores 140 (79 insns, same opcodes; 28 register differences). Remaining diff is register allocation: target keeps loop counter i in $a1 and buf (copy of v0) in $a2, ucode-boot address in $a3, buf+size in $t0; ours puts i in $a2, buf in $a3, ucode-boot address in $t0. Tried declaration-order permutations (size/buf/i): still 140. Untried: per-iteration Task6E78 *t = D_8010A2BC[i] pointer, reordering field assignments, or computing buf+size before the output_buff stores.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795204306.297405,
+  "score_before": 140,
+  "score_after": 140
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Current verified inherited best 140. One substantial rewrite to cache task pointer compiled 1685 (worse); restored last compiling 50438b69606f170183f5. A subsequent do-while patch failed C89 due declaration after statement and was discarded. Target preloads all constants before loop; $a1 is loop counter, $a2 heap buffer, $a3 boot start, $t0 buffer+size. Candidate leaves loads inside per-task field assignments, which likely drives different allocation/scheduling. Next try from saved best: introduce top-of-function declarations for Task6E78 *task and make per-iteration body set task = D_8010A2BC[i], then assign each member through task; restructure loop to place invariant initialization expressions before loop, matching target's preload pattern.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795213796.1301498,
+  "score_before": 1685,
+  "score_after": 1685,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Reverified score 140 with 28 register differences. The no-improvement limit was reached. Explicit slot induction scored 540 in both initializer orders. Do-while and inline globals both scored 140. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795221638.946507,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Still 140 (28 register-only diffs; i in $a1 target vs $a2, buf in $a2 vs $a3, boot addr $a3 vs $t0). Explicit pointer-walk loop (p=D_8010A2BC; p++) scored 540 (hoists address before the i=0 move). Local pointer to &D_8010A2BC[i] inside loop: no effect. Next step: try `register` hints or making i the heapAlloc zero arg (e.g. pass i as second arg of heapAlloc(size, i) after i=0).\npointer-walk loop, local &arr[i] pointer\n540 and unchanged 140",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228016.268328,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Still 140 (79/79 insns, 28 reg diffs). Target alloc order: ptr=a0,i=a1,buf=a2,boot=a3,buf+size=t0; ours: buf+size=a0,ptr=a1,i=a2,buf=a3,boot=t0. So buf+size gets allocated too early/high priority in ours. Tried this session: buf=heapAlloc then store (655, worse), hoisted buf=D_800DD340 (685), decl order, register i, do-while, size+buf, D_800DD340+size direct (all 140 same), dummy buf test (955). Next step: change refs/live-range of buf+size (e.g. compute end=buf+size via a pointer-typed local or a different expression shape) so it ranks below buf and boot.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795231768.1805398,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Changed count-up for loop to equivalent do-while.\nScore remained 140 with register-only differences.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795244246.615063,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked 140. Swapping i/buf declarations and adding task local for null check tied; automatic repairs retained original. Remaining 28 differences are registers. Next step: test a loop pointer lifetime with all field accesses using the local, checking whether volatile reloads are needed.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245662.2632792,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nDo-while with preincrement and register-qualified counter both retained score 140; allocation remains the mismatch. Next step: investigate a different lifetime for the boot address and slot base.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795248018.933613,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Current best remains score 140 (rechecked); no untried applicable local repairs. Tested redundant post-allocation buf capture with compile_patch: score 685, worse; restored saved_best. Several prior agents explored 68 local/24 explicit repair attempts without exceeding 140. Target post-call setup retains heapAlloc return in v0/a2, preloads loop constants and addresses, and computes output limit in t0 before loop. My last candidate test has 4/6 no-improvement.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795253990.6900501,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Capturing allocation return in buf before the global store scored 655; replacing size *= 8 with shift produced unchanged 140.\nCaptured allocation in buf and changed multiplication to shift\n655 and unchanged 140 respectively",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795259900.4912179,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
+ },
+ {
+  "function": "func_80006E78",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795261118.5686789,
+  "score_before": 140,
+  "score_after": 140,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  }
 ]
