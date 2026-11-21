@@ -6,48 +6,46 @@ void func_800315E0(s16);
 void func_80073AF8(s32,s32,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_80074F04(void);
 s32 func_80087100(s32);
-extern s32 gTrackMarkerSerial, gTrackMarkerTable;
+extern s32 D_8010302C, gTrackMarkerTable;
 
-/* Shows the track marker for markerId: 0-9 and 10-19 are two banks of
-   entries (with their own state checks), 20+ are the special markers. */
-void showTrackMarker(u32 markerId) {
-    if (!markerId) return;
-    if (markerId < 10) {
-        s16 entryId = markerId;
-        s32 label, *markerTable;
-        if (func_800312F4(entryId,0)==3 || func_800312F4(entryId,0)==1) return;
-        func_80031548(entryId,1,0);
-        gTrackMarkerSerial++;
-        label = func_800313DC(entryId,0);
-        markerTable = &gTrackMarkerTable;
-        func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
-        label = func_800314E0(entryId,0);
-        func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);
-    } else if (markerId < 20) {
-        s16 entryId;
-        s32 label, *markerTable;
-        markerId -= 10;
-        entryId = markerId;
-        if (func_800312F4(entryId,0)==3 || func_800312F4(entryId,0)==2) return;
+void showTrackMarker(u32 arg0) {
+    if (!arg0) return;
+    if (arg0 < 10) {
+        s16 n = arg0;
+        s32 result, *table;
+        if (func_800312F4(n,0)==3 || func_800312F4(n,0)==1) return;
+        func_80031548(n,1,0);
+        D_8010302C++;
+        result = func_800313DC(n,0);
+        table = &gTrackMarkerTable;
+        func_80073AF8(0,*table,result,-1,-1,0,0,0,3,0,0);
+        result = func_800314E0(n,0);
+        func_80073AF8(0,*table,result,-1,-1,1,0,0,3,0,0);
+    } else if (arg0 < 20) {
+        s16 n;
+        s32 result, *table;
+        arg0 -= 10;
+        n = arg0;
+        if (func_800312F4(n,0)==3 || func_800312F4(n,0)==2) return;
         func_80074F04();
-        func_80031548(entryId,2,0);
-        gTrackMarkerSerial++;
-        label = func_800313DC(entryId,0);
-        markerTable = &gTrackMarkerTable;
-        func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
-        label = func_800314E0(entryId,0);
-        func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);
+        func_80031548(n,2,0);
+        D_8010302C++;
+        result = func_800313DC(n,0);
+        table = &gTrackMarkerTable;
+        func_80073AF8(0,*table,result,-1,-1,0,0,0,3,0,0);
+        result = func_800314E0(n,0);
+        func_80073AF8(0,*table,result,-1,-1,1,0,0,3,0,0);
     } else {
-        s16 entryId;
-        s32 label, *markerTable;
-        markerId -= 20;
-        entryId = markerId;
-        func_800315E0(entryId);
-        gTrackMarkerSerial++;
-        label = func_80087100(0xA3);
-        markerTable = &gTrackMarkerTable;
-        func_80073AF8(0,*markerTable,label,-1,-1,0,0,0,3,0,0);
-        label = func_800314E0(entryId,0);
-        func_80073AF8(0,*markerTable,label,-1,-1,1,0,0,3,0,0);
+        s16 n;
+        s32 result, *table;
+        arg0 -= 20;
+        n = arg0;
+        func_800315E0(n);
+        D_8010302C++;
+        result = func_80087100(0xA3);
+        table = &gTrackMarkerTable;
+        func_80073AF8(0,*table,result,-1,-1,0,0,0,3,0,0);
+        result = func_800314E0(n,0);
+        func_80073AF8(0,*table,result,-1,-1,1,0,0,3,0,0);
     }
 }
