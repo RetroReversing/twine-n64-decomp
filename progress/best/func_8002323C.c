@@ -101,6 +101,7 @@ void func_8002323C(void) {
     void *temp_s3;
     void *temp_s4;
     void *var_s0;
+    s32 slotB;
 
     temp_s2 = findEntryById(&D_800BDBF8, 0x53);
     temp_s3 = findEntryById(&D_800BDBF8, 0xB);
@@ -194,9 +195,9 @@ void func_8002323C(void) {
             func_8002A7CC(&D_800E0EF0, &D_800E0FC0, 0, 1);
             if (gSaveTotalSlots > 0) {
                 do {
-                    temp_s1 = getSaveSlotIndex(var_s4 & 0xFFFF) & 0xFFFF;
-                    temp_s5 = temp_s1 * 0x18;
-                    if (D_801001A1[temp_s1].flag == 0) {
+                    slotB = getSaveSlotIndex(var_s4 & 0xFFFF) & 0xFFFF;
+                    temp_s5 = slotB * 0x18;
+                    if (D_801001A1[slotB].flag == 0) {
                         temp_v0_10 = spawnTrackMarker(sMenuListKind);
                         {
                             u8 channel = sMenuListKind;
@@ -217,7 +218,7 @@ void func_8002323C(void) {
                         success3:
                             temp_v0_4 = lookupDataEntry((var_s2 + 0x4003) & 0xFFFF);
                             temp_a0_4 = temp_v0_4;
-                            sprintf(temp_a0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
+                            sprintf(temp_a0_4, D_800D2AB0, (&D_800E1068)[slotB]);
                             var_s2 += 1;
                             func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_5), temp_s5 + (u8 *)&D_801001A4, 0x40);
                             func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5), temp_v0_4, 0x240);

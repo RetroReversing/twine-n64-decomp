@@ -481,9 +481,9 @@ block_80:
                     M2C_FIELD(temp_v0_2, s8 *, 0x2B) = (s8) M2C_FIELD(var_s2, u16 *, -0xA);
                     M2C_FIELD(temp_v0_2, PlacementVec *, 4) = *(PlacementVec *)&locals.sp40;
                     M2C_FIELD(temp_v0_2, PlacementVec *, 0x10) = *(PlacementVec *)&locals.sp40;
-                    temp_fv0 = (s32) locals.sp58;
                     locals.spB0 = (s16) (s32) locals.sp50;
                     locals.spB2 = (s16) (s32) locals.sp54;
+                    temp_fv0 = (s32) locals.sp58;
                     locals.spB4 = (s16) temp_fv0;
                     buildRotationMatrixS16(&locals.spB0, locals.sp80, temp_fv0);
                     rotateVec3ByMat3(locals.sp80, locals.spDC);
@@ -494,9 +494,9 @@ block_80:
                     M2C_FIELD(temp_v0_2, f32 *, 0x14) = (f32) (M2C_FIELD(temp_v0_2, f32 *, 0x14) + (locals.spBC * 20.0f));
                     M2C_FIELD(temp_v0_2, f32 *, 0x18) = (f32) (M2C_FIELD(temp_v0_2, f32 *, 0x18) + (locals.spC0 * 20.0f));
                     if (((s32) M2C_FIELD(var_s2, u16 *, -0x10) == 0) && (M2C_FIELD(var_s2, u16 *, -0xC) == 0)) {
-                        M2C_FIELD(temp_v0_2, s8 *, 0x28) = 0xFF;
-                        M2C_FIELD(temp_v0_2, s8 *, 0x29) = 0xFF;
-                        M2C_FIELD(temp_v0_2, s8 *, 0x2A) = 0xFF;
+                        M2C_FIELD(temp_v0_2, u8 *, 0x28) = 0xFF;
+                        M2C_FIELD(temp_v0_2, u8 *, 0x29) = 0xFF;
+                        M2C_FIELD(temp_v0_2, u8 *, 0x2A) = 0xFF;
                     } else {
                         M2C_FIELD(temp_v0_2, s8 *, 0x28) = (s8) M2C_FIELD(var_s2, u16 *, -0x10);
                         M2C_FIELD(temp_v0_2, s8 *, 0x29) = (s8) M2C_FIELD(var_s2, u16 *, -0xE);
@@ -537,7 +537,7 @@ block_95:
                 temp_v0_3 = M2C_FIELD(var_s2, s32 *, 0);
                 D_801096A0 = (s8) temp_v0_3;
                 if (!(temp_v0_3 & 0xFF)) {
-                    D_801096A0 = 0xFF;
+                    *(u8 *)&D_801096A0 = 0xFF;
                 }
                 temp_v0_4 = M2C_FIELD(var_s2, u16 *, -4);
                 if (temp_v0_4 != 0) {

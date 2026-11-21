@@ -15,7 +15,7 @@ void func_800389F0(void *arg0) {
     s32 y;
     f32 position, edge;
     s32 right, bottom;
-    unsigned long var_t8;
+    s32 var_t8;
     s32 var_v0;
     
     
@@ -45,8 +45,8 @@ void func_800389F0(void *arg0) {
         sDisplayListCursor = temp_v0 + 0x10;
         sDisplayListCursor = temp_v0 + 0x18;
         temp_v1 = temp_v0 + 0x20;
-        sDisplayListCursor = temp_v1;
         sDisplayListCursor = temp_v1 + 8;
+        sDisplayListCursor = temp_v1;
         temp_fv1 = position + edge;
         y = ((D_8010D6F8 - 1) & 0x3FF) << 14;
         var_v0 = (u32)temp_fv1 & 0x3FF;
@@ -74,8 +74,8 @@ void func_800389F0(void *arg0) {
         (*(s32 *)((char *)(temp_v1_2) + 0x28)) = 0xD9C0F9FA;
         (*(s32 *)((char *)(temp_v1_2) + 0x2C)) = 0;
         (*(s32 *)((char *)(temp_v1_2) + 0x30)) = 0xD9FFFFFF;
-        (*(s32 *)((char *)(temp_v1_2) + 0x38)) = 0xE7000000;
         (*(s32 *)((char *)(temp_v1_2) + 0x34)) = 0x200004;
+        (*(s32 *)((char *)(temp_v1_2) + 0x38)) = 0xE7000000;
         (*(s32 *)((char *)(temp_v1_2) + 0x3C)) = 0;
         (*(s32 *)((char *)(temp_v1_2) + 0x40)) = 0xE3001001;
         (*(s32 *)((char *)(temp_v1_2) + 0x44)) = 0x8000;
