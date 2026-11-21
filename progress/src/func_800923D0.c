@@ -37,6 +37,13 @@ void func_800923D0(void)
   s32 d;
   register s32 e;
   s32 f;
+  s32 n3;
+  s32 n2;
+  s32 n1;
+  s32 t3;
+  s32 t2;
+  s32 t1;
+  s32 l74;
   s32 e2;
   u32 g;
   unsigned long h;
@@ -83,7 +90,7 @@ void func_800923D0(void)
         *((s32 *) (((char *) n) + 0x120)) = ((s32) i) >> 1;
         if (((unsigned) e) != 0)
         {
-          h = *((s32 *) (((char *) n) + 0xF70)) + (*((s32 *) (((char *) n) + 0x118))); a = h & 0xFFFF; *((s32 *) (((char *) n) + 0xF70)) = a; m = (*((void **) (((char *) n) + 0x11C))); *((s32 *) (((char *) n) + 0xF74)) += (h >> 16) + (u32) m;
+          m = (*((void **) (((char *) n) + 0x11C)));  h = *((s32 *) (((char *) n) + 0xF70)); t1 = (*((s32 *) (((char *) n) + 0x118))); h += t1; a = (u16) h; t1 = *((s32 *) (((char *) n) + 0xF74)); t1 += (h >> 16) + (u32) m; *((s32 *) (((char *) n) + 0xF74)) = t1; *((s32 *) (((char *) n) + 0xF70)) = a;
         }
         d = func_80090464(); c = func_8008FB20();
         func_8009010C();

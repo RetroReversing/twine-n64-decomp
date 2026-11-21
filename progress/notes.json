@@ -75719,14 +75719,6 @@
   "score_after": null
  },
  {
-  "function": "func_800923D0",
-  "text": "Improved 2151 to 700: reload temp_a2 on loop backedge, unsigned multiplication/division by 60, correct call order, reorder independent stores. Remaining differences: target uses separate saved -1 in loop, delays D_800EDA88 store into branch delay slot, and allocates a2 for arithmetic base; tune loop structure and lifetimes. Six scalar type/cast variants yielded identical code; initialization reordering regressed.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795164301.921546,
-  "score_before": 2151,
-  "score_after": 700
- },
- {
   "function": "func_80032978",
   "text": "Baseline verified at 26748 (62.5%). Tried local repair families cfg_integer_lifetimes, signedness, declaration_order; cfg lifetime worsened to 27618 and others tied. Candidate has 0x58 frame vs target 0x48. Draft contains separate sp1C and __repair_phase_sp1C, but simply reordering sp1C declaration did not change output; consider consolidating lifetime only if assembly supports it. Major mismatch is register allocation: target keeps arg0 in $s4, arg2 in $s5 and flag temps $s7/$s6; candidate uses $s7/$fp and spills temp flags. Initial draft compiler errors (undeclared globals) were resolved in current candidate. Several pointer-from-integer warnings and .rodata+0 reference warning remain. Next step: inspect target prologue and simplify pointer arithmetic/type declarations before spending more trials.",
   "by": "codex-gpt-6-luna-20",
@@ -75759,44 +75751,12 @@
   "score_after": 23881
  },
  {
-  "function": "func_800923D0",
-  "text": "Saved best baseline remains score 700 after fresh recheck. Tried volatile global reload, explicit linked-list backedge, scalar temp register reuse, inferred event record fields, flipped list unlink branch, and split integer lifetimes. None improved baseline; two variants tied but generated different source and require diff inspection. Mismatch advisory focuses early prologue register allocation (target initializes $fp=-1 before loading slot base); target has 216 instructions. Continue by inspecting full instruction diff and restructuring loop/index locals or applying focused register-lifetime experiments.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795203546.192323,
-  "score_before": 700,
-  "score_after": 700
- },
- {
-  "function": "func_800923D0",
-  "text": "Saved best rechecked at score 555 (revision f984834dfc63459df937), 198 instructions. Tried the inherited 700 candidate with a second scoped -1 local; it improved to 555 by moving the second loop sentinel comparison to $s0 and removing an extra branch. A scoped status local had no effect. A +1 comparison worsened to 1147 and was discarded. Remaining notable mismatches: initial FP=-1 should precede slot-base setup; loop branch target off by one due missing nop; early queue test branches on $v0 instead of $v1; arithmetic uses $a1 base and reversed temp registers relative to target. No reusable convention established.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795206128.3230112,
-  "score_before": 700,
-  "score_after": 555
- },
- {
-  "function": "func_800923D0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 555 (best saved revision f984834dfc63459df937, 198 insns). Prior work: 20 local repair trials and 6 explicit patches; the best is the scoped second-loop sentinel version. Remaining mismatch is prologue register allocation: target sets $fp=-1 before loading the slot base, and the loop branch target is off by one. Not tried in this session. Next step is to check whether the loop sentinel comparison should be against the loaded value rather than a separate minus_one local, or to restructure the list-unlink loop.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208121.113462,
-  "score_before": 555,
-  "score_after": 555
- },
- {
   "function": "func_80048F10",
   "text": "Rechecked current saved candidate: placeholder `s32 func_80048F10(void) { return 0; }`, score 192665 (2 instructions vs target 1928). One fresh compile confirmed no baseline improvement. Prior agents' m2c drafts failed due missing locals, pointer/float types, and bad func_800455CC / func_80082FE4 prototypes; their source is no longer available through the candidate/history tools. This function is too large to reconstruct from the brief alone in this pass. Need obtain/regenerate a complete m2c draft, fix those diagnostics, then compare. Current candidate has no useful implementation.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795209230.5377579,
   "score_before": 192665,
   "score_after": 192665
- },
- {
-  "function": "func_800923D0",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 555 (best revision f984834dfc63459df937, 198 insns) after 20 local repair trials and 6 explicit patches in prior sessions. Remaining mismatch: prologue register allocation (target sets $fp=-1 before loading the slot base) and loop branch target off by one. No new compile made this session; low-effort release.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795209815.066135,
-  "score_before": 555,
-  "score_after": 555
  },
  {
   "function": "func_80048F10",
@@ -75949,15 +75909,6 @@
   "score_after": 192665
  },
  {
-  "function": "func_800923D0",
-  "text": "Ran six independent local repair variants on rechecked 555 candidate: five tied; raw_store_width regressed to 1861. Tool reports 14/4 compiles and move-on eligibility. Repeated earlier handoffs identify prologue sentinel/register allocation and loop branch target as remaining mismatch. Next step: test a carefully typed entry sentinel initialized to -1 in an explicit signed local, then inspect whether it maps to $fp.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795215940.5465238,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
- },
- {
   "function": "func_80048F10",
   "text": "[Released without compiling it once; notes not checked by a compile.] No meaningful C reconstruction yet; machine draft is massive (1928 insns), inherited stub. redraft with Actor/Vec3 declarations succeeds but output has unknown types and malformed recovered member expressions. Initial target confirms prototype actor + three Vec3 pointers, float stack arg, then ints. Target uses many complex geometry loops and many callees. Next agent should fix callee prototypes/types progressively and compile real draft; avoid wasting compile on stub.",
   "by": "codex-gpt-6-luna-17",
@@ -75998,15 +75949,6 @@
   "score_before": 68175,
   "score_after": 55540,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:ea99c20939b17b5badf4726628c529e0d072138fae7fb022dc225d7aa1375636"
- },
- {
-  "function": "func_800923D0",
-  "text": "Rechecked 555. Register sentinel and staging call return did not improve. Moving the active flag load ahead of the return store worsened to 657. Judge reached move-on.\nStaged call return, slot base and active flag before byte store\nStaging just base and return produced identical output at 555. Staging active flag too scored 657.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795226712.275616,
-  "score_before": 555,
-  "score_after": 555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
  },
  {
   "function": "func_80048F10",
@@ -76112,33 +76054,6 @@
   "score_before": 192665,
   "score_after": 192665,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:9eab3db7e63cf5ed6f53d23cb4b151321680e05129cf85d51f34067e4ddfe18a"
- },
- {
-  "function": "func_800923D0",
-  "text": "Two compilation attempts used reduced/incomplete source and scored 19660; this does not provide meaningful decompilation progress. Historical source was complete but failed to compile from missing declarations. Previous sessions have a 555-score scoped-loop candidate; restore that candidate from history before edits and include its required declarations. Next step: get_function(section=\"history\") or saved_best and recompile the historical best complete source after addressing only compiler diagnostics.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795251932.276216,
-  "score_before": 19660,
-  "score_after": 19660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
- },
- {
-  "function": "func_800923D0",
-  "text": "Rechecked saved_best: it is the empty stub, score 19660; historical 555 candidate is not accessible through saved_best. Restore revision f984834dfc63459df937 if possible before continuing; machine draft lacks declarations.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795251972.9275541,
-  "score_before": 19660,
-  "score_after": 19660,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
- },
- {
-  "function": "func_800923D0",
-  "text": "Service reset claim. Compiling machine draft with gSoundEntities and corrected byte strides scored 3516 (revision 293d74726088e817e492); historical 555 source remains inaccessible. Next step: test unsigned arithmetic against target multu.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252644.1484969,
-  "score_before": 19660,
-  "score_after": 3516,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
  },
  {
   "function": "func_80032978",
@@ -76672,5 +76587,90 @@
   "score_before": 3360,
   "score_after": 3360,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:65259f918bd579c71a2d18944b02b1efd15b2cf87b6e1aedb1a6516864a7d278"
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Improved 2151 to 700: reload temp_a2 on loop backedge, unsigned multiplication/division by 60, correct call order, reorder independent stores. Remaining differences: target uses separate saved -1 in loop, delays D_800EDA88 store into branch delay slot, and allocates a2 for arithmetic base; tune loop structure and lifetimes. Six scalar type/cast variants yielded identical code; initialization reordering regressed.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795164301.921546,
+  "score_before": 2151,
+  "score_after": 700
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Saved best baseline remains score 700 after fresh recheck. Tried volatile global reload, explicit linked-list backedge, scalar temp register reuse, inferred event record fields, flipped list unlink branch, and split integer lifetimes. None improved baseline; two variants tied but generated different source and require diff inspection. Mismatch advisory focuses early prologue register allocation (target initializes $fp=-1 before loading slot base); target has 216 instructions. Continue by inspecting full instruction diff and restructuring loop/index locals or applying focused register-lifetime experiments.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795203546.192323,
+  "score_before": 700,
+  "score_after": 700
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Saved best rechecked at score 555 (revision f984834dfc63459df937), 198 instructions. Tried the inherited 700 candidate with a second scoped -1 local; it improved to 555 by moving the second loop sentinel comparison to $s0 and removing an extra branch. A scoped status local had no effect. A +1 comparison worsened to 1147 and was discarded. Remaining notable mismatches: initial FP=-1 should precede slot-base setup; loop branch target off by one due missing nop; early queue test branches on $v0 instead of $v1; arithmetic uses $a1 base and reversed temp registers relative to target. No reusable convention established.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795206128.3230112,
+  "score_before": 700,
+  "score_after": 555
+ },
+ {
+  "function": "func_800923D0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 555 (best saved revision f984834dfc63459df937, 198 insns). Prior work: 20 local repair trials and 6 explicit patches; the best is the scoped second-loop sentinel version. Remaining mismatch is prologue register allocation: target sets $fp=-1 before loading the slot base, and the loop branch target is off by one. Not tried in this session. Next step is to check whether the loop sentinel comparison should be against the loaded value rather than a separate minus_one local, or to restructure the list-unlink loop.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208121.113462,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_800923D0",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 555 (best revision f984834dfc63459df937, 198 insns) after 20 local repair trials and 6 explicit patches in prior sessions. Remaining mismatch: prologue register allocation (target sets $fp=-1 before loading the slot base) and loop branch target off by one. No new compile made this session; low-effort release.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795209815.066135,
+  "score_before": 555,
+  "score_after": 555
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Ran six independent local repair variants on rechecked 555 candidate: five tied; raw_store_width regressed to 1861. Tool reports 14/4 compiles and move-on eligibility. Repeated earlier handoffs identify prologue sentinel/register allocation and loop branch target as remaining mismatch. Next step: test a carefully typed entry sentinel initialized to -1 in an explicit signed local, then inspect whether it maps to $fp.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795215940.5465238,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Rechecked 555. Register sentinel and staging call return did not improve. Moving the active flag load ahead of the return store worsened to 657. Judge reached move-on.\nStaged call return, slot base and active flag before byte store\nStaging just base and return produced identical output at 555. Staging active flag too scored 657.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795226712.275616,
+  "score_before": 555,
+  "score_after": 555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Two compilation attempts used reduced/incomplete source and scored 19660; this does not provide meaningful decompilation progress. Historical source was complete but failed to compile from missing declarations. Previous sessions have a 555-score scoped-loop candidate; restore that candidate from history before edits and include its required declarations. Next step: get_function(section=\"history\") or saved_best and recompile the historical best complete source after addressing only compiler diagnostics.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795251932.276216,
+  "score_before": 19660,
+  "score_after": 19660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Rechecked saved_best: it is the empty stub, score 19660; historical 555 candidate is not accessible through saved_best. Restore revision f984834dfc63459df937 if possible before continuing; machine draft lacks declarations.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795251972.9275541,
+  "score_before": 19660,
+  "score_after": 19660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
+ },
+ {
+  "function": "func_800923D0",
+  "text": "Service reset claim. Compiling machine draft with gSoundEntities and corrected byte strides scored 3516 (revision 293d74726088e817e492); historical 555 source remains inaccessible. Next step: test unsigned arithmetic against target multu.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252644.1484969,
+  "score_before": 19660,
+  "score_after": 3516,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:4fac411f9ee447c95200428c35f0f9af42ce506e1544710967ba5af5936d5bf1"
  }
 ]
