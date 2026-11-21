@@ -10,21 +10,21 @@ void func_80017454();
 void func_800734B8();
 void func_800072B8(void) {
     u32 count;
-    s64 limit;
+    union { s64 value; struct { s32 high; u32 low; } words; } limit;
     s32 high;
     D_80109DD8 = osGetTime() - D_80115320;
     D_80115320 = osGetTime();
     D_80102CC8 += D_80109DD8;
     if (D_8010A4E0) {
-        limit = sFrameTime * 8;
+        limit.value = sFrameTime * 8;
         high = *(volatile s32 *)&D_80102CC8;
     } else {
-        limit = sFrameTime * 2;
+        limit.value = sFrameTime * 2;
         high = *(volatile s32 *)&D_80102CC8;
     }
-    if (high > (s32)(limit >> 32) ||
-        (high == (s32)(limit >> 32) && ((u32 *)&D_80102CC8)[1] > (u32)limit))
-        D_80102CC8 = limit;
+    if (high > limit.words.high ||
+        (high == limit.words.high && ((u32 *)&D_80102CC8)[1] > limit.words.low))
+        D_80102CC8 = limit.value;
     count = 0;
     D_8010A398 = osGetTime();
     while (D_80102CC8 >= sFrameTime * 2) {
@@ -39,3 +39,4 @@ void func_800072B8(void) {
     func_80017454();
     func_800734B8();
 }
+
