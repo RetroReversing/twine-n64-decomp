@@ -39,8 +39,7 @@ spawn:
                 if (kind == 2 && gSaveKeyRelaxed == 1) {
                     flag = sSaveSlotTable[getSaveSlotIndex(slot & 0xffff) & 0xffff].kind;
                     if (!(marker & 1)) {
-                        if (flag != 1) { marker++; goto advance_marker; }
-                        goto type_three;
+                        if (flag != 1) { marker++; continue; }
                     }
                     if (flag != 0) { marker++; goto advance_marker; }
                 }

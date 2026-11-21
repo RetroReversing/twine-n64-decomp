@@ -20,9 +20,9 @@ extern u16 D_800C7C16[];
 extern u8 D_80112F6C;
 
 void func_80064630(void *arg0) {
-    u8 *flag;
+    union { u8 * pointer; s32 value; } __repair_phase_storage;
     s32 first_offset;
-    s32 var_a0;
+    
     
     s32 var_s4;
     u32 temp_a0;
@@ -33,12 +33,12 @@ void func_80064630(void *arg0) {
 
     var_s2 = 0;
     temp_s5 = M2C_FIELD(arg0, void **, 0x6C);
-    flag = &D_80112F6C;
+    __repair_phase_storage.pointer = &D_80112F6C;
     first_offset = 0;
     var_v1 = temp_s5;
 first_loop:
     {
-        if (*flag != 0) {
+        if (*__repair_phase_storage.pointer != 0) {
             M2C_FIELD(var_v1, u16 *, 0x1BC) = (u16) *(u16 *)((u8 *)D_800C7C16 + first_offset);
         } else {
             M2C_FIELD(var_v1, u16 *, 0x1BC) = 0U;
@@ -49,23 +49,23 @@ first_loop:
     }
     if (var_s2 < 0x20U) goto first_loop;
     var_s2 = 0;
-    var_a0 = 0;
     var_s4 = 0;
+    __repair_phase_storage.value = 0;
     var_v1 = temp_s5;
 second_loop:
     {
         if (D_80112F6C != 0) {
-            M2C_FIELD(var_v1, u8 *, 0x1FC) = (u8) D_800C46A1[var_a0];
-            M2C_FIELD(var_v1, u8 *, 0x1FF) = (u8) D_800C471E[var_a0];
+            M2C_FIELD(var_v1, u8 *, 0x1FC) = (u8) D_800C46A1[__repair_phase_storage.value];
+            M2C_FIELD(var_v1, u8 *, 0x1FF) = (u8) D_800C471E[__repair_phase_storage.value];
         } else {
             M2C_FIELD(var_v1, u8 *, 0x1FC) = 0U;
             M2C_FIELD(var_v1, u8 *, 0x1FF) = 0U;
         }
-        if (!(*(u16 *)((u8 *)sEnemyDefTable + var_a0) & 0x8000)) {
+        if (!(*(u16 *)((u8 *)sEnemyDefTable + __repair_phase_storage.value) & 0x8000)) {
             M2C_FIELD((temp_s5 + var_s4), s8 *, 0x1FC) = 0;
         }
-        var_a0 += 0xE8;
-        temp_s0 = temp_s5 + var_s4;
+        __repair_phase_storage.value += 0xE8;
+        temp_s0 = (void *) ((var_s4) + (s32) temp_s5);
         var_s4 += 8;
         var_v1 += 8;
         temp_a0 = var_s2;

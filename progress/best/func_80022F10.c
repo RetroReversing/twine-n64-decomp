@@ -1,126 +1,83 @@
-typedef struct SaveRowSprites {
-    void *label;
-    void *value;
-} SaveRowSprites;
-typedef struct SaveRow {
-    SaveRowSprites *sprites;
-    u16 x, y;
-    u8 slot;
-} SaveRow;
-typedef struct SaveSlotRecord {
-    u8 occupied;
-    u8 rest[23];
-} SaveSlotRecord;
-extern SaveSlotRecord sSaveSlotTable[];
-extern s32 sMenuItemParamTable[];
-extern s32 D_800BD65C, D_800BD650;
-extern s32 sSaveMenuColorActive, sSaveMenuColorIdle;
-extern void *gSaveMenuState;
-extern u8 gSaveKeyRelaxed;
+
+typedef struct MenuSprite22F {
+    char pad[0x10];
+    u32 color;
+    char pad14[0xC];
+    u16 x;
+    volatile u16 y;
+    u32 unk24;
+    u32 highFlags:24;
+    u32 mode:6;
+    u32 lowFlags:2;
+} MenuSprite22F;
+typedef struct MenuPair22F { MenuSprite22F *first, *second; } MenuPair22F;
+typedef struct MenuEntry22F { MenuPair22F *pair; u16 x, y; u8 slot; } MenuEntry22F;
 extern void func_80022B60(s32);
-
-#define FIELD(ptr, type, offset) (*(type *)((u8 *)(ptr) + (offset)))
-
-void func_80022F10(SaveRow *row, u8 enabled) {
-    SaveRowSprites *sprites;
-    void *element, *menu, *destination;
-    s32 color, flags, mode;
-    s32 *selected;
-
-    if (!row || !(sprites = row->sprites))
-        return;
-    element = sprites->label;
-    if (element != NULL) {
-        flags = FIELD(element, s32, 0x28) & ~0xFC;
-        mode = (-(!enabled) & 7) | 1;
-        FIELD(element, s32, 0x28) = flags | (mode << 2);
-        FIELD(sprites->label, u16, 0x20) = row->x;
-        FIELD(sprites->label, u16, 0x22) = row->y;
-        if (gSaveKeyRelaxed) {
-            switch (row->slot) {
-            case 0:
-                menu = gSaveMenuState;
-                destination = sprites->label;
-                color = D_800BD65C;
-                goto apply_label;
-            case 1:
-                menu = gSaveMenuState;
-                destination = sprites->label;
-                color = D_800BD650;
-                goto apply_label;
-            case 255:
-                menu = gSaveMenuState;
-                destination = sprites->label;
-                color = sSaveMenuColorActive;
-                goto apply_label;
+extern s32 D_800BD650, D_800BD65C, sMenuItemParamTable, sSaveMenuColorActive, sSaveMenuColorIdle, sSaveSlotTable;
+extern u8 gSaveKeyRelaxed;
+extern void *gSaveMenuState;
+#define SET_COLOR(member, value) pair->member->color = ((value) & ~0xFF) | ((u8 *)gSaveMenuState)[0x30]
+void func_80022F10(MenuEntry22F *entry, u8 enabled) {
+    u8 *__base_gSaveKeyRelaxed;
+    MenuPair22F *pair;
+    register MenuSprite22F *sprite;
+    s32 *color;
+    if (!entry) return;
+    pair = entry->pair;
+    if (!pair) return;
+    sprite = pair->first;
+    if (sprite) {
+        sprite->mode = 1 | (-(enabled == 0) & 7);
+        pair->first->x = entry->x;
+        pair->first->y = entry->y;
+        __base_gSaveKeyRelaxed = &gSaveKeyRelaxed;
+        if ((*__base_gSaveKeyRelaxed)) {
+            switch (entry->slot) {
+            case 0: SET_COLOR(first, D_800BD65C); break;
+            case 1: SET_COLOR(first, D_800BD650); break;
+            case 255: SET_COLOR(first, sSaveMenuColorActive); break;
             default:
                 {
-                    s32 *table = sMenuItemParamTable;
-                    u8 occupied = sSaveSlotTable[row->slot - 1].occupied;
-                    destination = sprites->label;
-                    selected = table + 4;
-                    if (occupied == 0)
-                        selected = table + 7;
+                    s32 index = entry->slot - 1;
+                    u8 used = ((u8 *)&sSaveSlotTable)[index * 24];
+                    s32 *base = &sMenuItemParamTable;
+                    MenuSprite22F *dest = pair->first;
+                    color = used ? base + 4 : base + 7;
+                    dest->color = (*color & ~0xFF) | ((u8 *)gSaveMenuState)[0x30];
                 }
-
-                menu = gSaveMenuState;
-                color = *selected;
-                goto apply_label;
+                break;
             }
+        } else {
+            SET_COLOR(first, sSaveMenuColorIdle);
         }
-        menu = gSaveMenuState;
-        destination = sprites->label;
-        color = sSaveMenuColorIdle;
-    apply_label:
-        FIELD(destination, s32, 0x10) = (color & ~0xFF) | FIELD(menu, u8, 0x30);
     }
-    element = sprites->value;
-    if (element != NULL) {
-        flags = FIELD(element, s32, 0x28) & ~0xFC;
-        mode = (-(!enabled) & 7) | 1;
-        FIELD(element, s32, 0x28) = flags | (mode << 2);
-        if (gSaveKeyRelaxed) {
-            switch (row->slot) {
-            case 0:
-                menu = gSaveMenuState;
-                destination = sprites->value;
-                color = D_800BD65C;
-                goto apply_value;
-            case 1:
-                menu = gSaveMenuState;
-                destination = sprites->value;
-                color = D_800BD650;
-                goto apply_value;
-            case 255:
-                menu = gSaveMenuState;
-                destination = sprites->value;
-                color = sSaveMenuColorActive;
-                goto apply_value;
+    sprite = pair->second;
+    if (sprite) {
+        sprite->mode = 1 | (-(enabled == 0) & 7);
+        if ((*__base_gSaveKeyRelaxed)) {
+            switch (entry->slot) {
+            case 0: SET_COLOR(second, D_800BD65C); break;
+            case 1: SET_COLOR(second, D_800BD650); break;
+            case 255: SET_COLOR(second, sSaveMenuColorActive); break;
             default:
                 {
-                    s32 *table = sMenuItemParamTable;
-                    u8 occupied = sSaveSlotTable[row->slot - 1].occupied;
-                    destination = sprites->value;
-                    selected = table + 4;
-                    if (occupied == 0)
-                        selected = table + 7;
+                    s32 index = entry->slot - 1;
+                    u8 used = ((u8 *)&sSaveSlotTable)[index * 24];
+                    s32 *base = &sMenuItemParamTable;
+                    MenuSprite22F *dest = pair->second;
+                    color = used ? base + 4 : base + 7;
+                    dest->color = (*color & ~0xFF) | ((u8 *)gSaveMenuState)[0x30];
                 }
-
-                menu = gSaveMenuState;
-                color = *selected;
-                goto apply_value;
+                break;
             }
+        } else {
+            SET_COLOR(second, sSaveMenuColorIdle);
         }
-        menu = gSaveMenuState;
-        destination = sprites->value;
-        color = sSaveMenuColorIdle;
-    apply_value:
-        FIELD(destination, s32, 0x10) = (color & ~0xFF) | FIELD(menu, u8, 0x30);
-        if (row->slot == 255)
-            FIELD(sprites->value, u16, 0x20) = 160;
+        if (entry->slot == 255)
+            pair->second->x = 160;
         else
-            FIELD(sprites->value, u16, 0x20) = row->x + 144;
-        FIELD(sprites->value, u16, 0x22) = row->y;
+            pair->second->x = entry->x + 144;
+        pair->second->y = entry->y;
     }
     func_80022B60(1);
 }

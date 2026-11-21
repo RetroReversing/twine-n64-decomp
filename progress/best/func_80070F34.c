@@ -23,12 +23,12 @@ M2C_UNK func_80070ECC(void *, void *, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800AB9B0(void *);                      /* extern */
 s32 heapAllocTagged(M2C_UNK, M2C_UNK);              /* extern */
 M2C_UNK initObjectFromBankEntry(void *, u8, M2C_UNK); /* extern */
-s16 lookupDataEntry(u16);                           /* extern */
+char *lookupDataEntry(u16);                           /* extern */
 M2C_UNK memset(s32, M2C_UNK, M2C_UNK);              /* extern */
 f32 sinApprox(f32);                                 /* extern */
 void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 void *spawnTrackMarker(s8);                         /* extern */
-M2C_UNK sprintf(void *, M2C_UNK *, s16);            /* extern */
+s32 sprintf(char *, const char *, ...);            /* extern */
 s16 strlen(void *);                                 /* extern */
 extern M2C_UNK D_800C46FC;
 extern s16 D_800C7E10;
@@ -37,6 +37,8 @@ extern s32 D_800C7E14;
 extern u16 D_800C7E18;
 extern u8 D_800C7E40;
 extern M2C_UNK D_800D47A0;
+extern char D_800D47A4[];
+extern char D_800D47A8[];
 extern f64 D_800D47F8;
 extern f64 D_800D4800;
 extern f64 D_800D4808;
@@ -51,7 +53,8 @@ extern M2C_UNK sTrackMarkerTable;
 
 void func_80070F34(void *arg0) {
     void *sp1C;
-    M2C_UNK *temp_s0;
+    volatile s32 frameSpace[2];
+    char *temp_s0;
     f32 temp_fs0;
     f32 temp_ft0;
     f32 temp_fv1;
@@ -66,6 +69,7 @@ void func_80070F34(void *arg0) {
     f32 temp_fv1_7;
     f32 temp_fv1_8;
     f32 temp_fv1_9;
+    f32 width, height;
     f32 var_fs1;
     f32 var_fs2;
     f32 var_fs2_2;
@@ -121,10 +125,10 @@ void func_80070F34(void *arg0) {
     u8 *temp_v1_20;
     u8 *temp_v1_21;
     u8 *var_v1_6;
-    u8 temp_a0_2;
-    u8 temp_s6;
+    s32 temp_a0_2;
+    u32 temp_s6;
     u8 temp_v1_19;
-    u8 var_s1_2;
+    s16 var_s1_2;
     u8 var_v0_5;
     void *temp_a0;
     void *temp_a0_13;
@@ -177,21 +181,25 @@ void func_80070F34(void *arg0) {
     void *var_v1_5;
 
     temp_s2 = M2C_FIELD(arg0, void **, 0x6C);
-    var_fs2 = 160.0f;
+    width = 160.0f;
+    var_fs2 = width;
     temp_v0 = (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 0xE8) + (u8 *)&sEnemyDefTable;
     sp1C = temp_v0;
     temp_s6 = M2C_FIELD(temp_v0, u8 *, 0x80);
-    var_fs1 = 120.0f;
+    height = 120.0f;
+    var_fs1 = height;
     if (gBorderSkipActive != 0) {
         if (gVisibleSaveSlotCount != 2) {
             if ((gVisibleSaveSlotCount >= 3) && (gVisibleSaveSlotCount < 5)) {
                 var_fs2 = 80.0f;
                 var_fs1 = 60.0f;
+                width = var_fs2;
+                height = var_fs1;
             }
         } else if (gBorderFlipFlag == 1) {
-            var_fs2 = 80.0f;
+            width = var_fs2 = 80.0f;
         } else {
-            var_fs1 = 60.0f;
+            height = var_fs1 = 60.0f;
         }
         if (gBorderSkipActive == 0) {
             goto block_10;
@@ -257,30 +265,29 @@ block_10:
             case 0:                                 /* switch 1 */
                 temp_v1_3 = M2C_FIELD(temp_s2, void **, 0x428);
                 M2C_FIELD(temp_v1_3, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v1_3, u16 *, 0x1E) | 2);
-                var_v0 = -1;
+                M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = -1;
                 break;
             case 15:                                /* switch 1 */
                 temp_v1_4 = M2C_FIELD(temp_s2, void **, 0x428);
                 M2C_FIELD(temp_v1_4, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v1_4, u16 *, 0x1E) | 2);
-                var_v0 = 0xFFFFFF;
+                M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = 0xFFFFFF;
                 break;
             case 16:                                /* switch 1 */
                 temp_v1_5 = M2C_FIELD(temp_s2, void **, 0x428);
                 M2C_FIELD(temp_v1_5, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v1_5, u16 *, 0x1E) | 2);
-                var_v0 = 0xFF00FF;
+                M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = 0xFF00FF;
                 break;
             case 17:                                /* switch 1 */
                 temp_v1_6 = M2C_FIELD(temp_s2, void **, 0x428);
                 M2C_FIELD(temp_v1_6, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v1_6, u16 *, 0x1E) | 2);
-                var_v0 = 0xFF0000FF;
+                M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = 0xFF0000FF;
                 break;
             default:                                /* switch 1 */
                 temp_v1_7 = M2C_FIELD(temp_s2, void **, 0x428);
                 M2C_FIELD(temp_v1_7, u16 *, 0x1E) = (u16) (M2C_FIELD(temp_v1_7, u16 *, 0x1E) & 0xFFFD);
-                var_v0 = -0x60;
+                M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = -0x60;
                 break;
             }
-            M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = var_v0;
             initObjectFromBankEntry(M2C_FIELD(temp_s2, void **, 0x428), M2C_FIELD(&D_800C7E40, u8 *, temp_s6), 0x1B);
             temp_a0_3 = M2C_FIELD(temp_s2, void **, 0x428);
             temp_fv1_5 = ((2.0f * var_fs1) - 16.0f) - (f32) M2C_FIELD(temp_a0_3, u8 *, 0x28);
@@ -303,13 +310,13 @@ block_10:
                 M2C_FIELD(temp_v0_6, s8 *, 0) = (s8) M2C_FIELD(&D_800D47A0, s8 *, 0);
                 M2C_FIELD(temp_v0_6, s8 *, 1) = (s8) M2C_FIELD(&D_800D47A0, s8 *, 1);
             } else {
-                temp_s0 = "%d";
+                temp_s0 = D_800D47A4;
                 sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x418), void **, 0x18), temp_s0, M2C_FIELD((temp_s2 + (temp_s6 * 2)), s16 *, 0x1BC));
                 sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x41C), void **, 0x18), temp_s0, (s16) M2C_FIELD((temp_s2 + ((s32) (func_80063C7C(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE)) << 0x10) >> 0xD)), s8 *, 0x1FF));
             }
-            sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x420), void **, 0x18), "%s", lookupDataEntry(M2C_FIELD(((M2C_FIELD((temp_s2 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 8)), u8 *, 0x1FD) * 2) + sp1C), u16 *, 0x2C)));
+            sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x420), void **, 0x18), D_800D47A8, lookupDataEntry(M2C_FIELD(((M2C_FIELD((temp_s2 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 8)), u8 *, 0x1FD) * 2) + sp1C), u16 *, 0x2C)));
         }
-        M2C_FIELD(temp_s2, s8 *, 0x18C) = 0x80;
+        M2C_FIELD(temp_s2, u8 *, 0x18C) = 0x80;
         temp_fv1_6 = M2C_FIELD(arg0, f32 *, 0x74);
         if ((temp_fv1_6 != M2C_FIELD(temp_s2, f32 *, 0x68)) && (M2C_FIELD(temp_s2, u8 *, 0x18D) != 1)) {
             M2C_FIELD(temp_s2, f32 *, 0x68) = temp_fv1_6;
@@ -415,17 +422,17 @@ block_10:
         case 10:                                    /* switch 2 */
         case 11:                                    /* switch 2 */
             if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) < 0x37) {
-                temp_fv1_10 = (2.0f * var_fs1) - 44.0f;
+                temp_fv1_10 = (2.0f * height) - 44.0f;
                 var_v1_3 = (u32) temp_fv1_10;
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x20) = 0x20;
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x22) = (s16) var_v1_3;
                 temp_s0_3 = temp_s2 + 0x494;
-                sprintf(temp_s0_3, "%s", lookupDataEntry(((s8) (u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) | 0x6000) & 0xFFFF));
+                sprintf(temp_s0_3, D_800D47A8, lookupDataEntry(((s8) (u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) | 0x6000) & 0xFFFF));
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), void **, 0x18) = temp_s0_3;
                 temp_s0_4 = M2C_FIELD(temp_s2, void **, 0x490);
                 M2C_FIELD(temp_s0_4, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_4, void **, 0x18));
                 if (gBorderSkipActive != 0) {
-                    temp_fv1_11 = (2.0f * var_fs1) - 34.0f;
+                    temp_fv1_11 = (2.0f * height) - 34.0f;
                     M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x20) = 0x16;
                     temp_a0_7 = M2C_FIELD(temp_s2, void **, 0x490);
                     M2C_FIELD(temp_a0_7, s16 *, 0x22) = (u16)(u32)temp_fv1_11;
@@ -470,17 +477,17 @@ block_10:
                 temp_v0_12 = heapAllocTagged(0x1000, 0x1A);
                 M2C_FIELD(temp_s2, s32 *, 0x5A4) = temp_v0_12;
                 M2C_FIELD(temp_v0_11, s32 *, 8) = temp_v0_12;
-                temp_fv1_12 = 2.0f * var_fs2;
+                temp_fv1_12 = 2.0f * width;
                 M2C_FIELD(temp_v0_11, s16 *, 0x24) = 0x40;
                 M2C_FIELD(temp_v0_11, s32 *, 0x28) = 0x80;
                 M2C_FIELD(temp_v0_11, s16 *, 0x20) = 0;
                 M2C_FIELD(temp_v0_11, s16 *, 0x22) = 0;
                 if (!(temp_fv1_12 >= 2.1474836e9f)) {
                     var_v1_4 = (s32) temp_fv1_12;
-                    var_fv1_2 = 2.0f * var_fs1;
+                    var_fv1_2 = 2.0f * height;
                 } else {
                     var_v1_4 = (s32) (temp_fv1_12 - 2.1474836e9f) | 0x80000000;
-                    var_fv1_2 = 2.0f * var_fs1;
+                    var_fv1_2 = 2.0f * height;
                 }
                 M2C_FIELD(temp_v0_11, s16 *, 0x26) = (s16) var_v1_4;
                 var_a1 = (u32) var_fv1_2;
@@ -602,6 +609,8 @@ loop_154:
             M2C_FIELD(temp_s0_5, u32 *, 0x10) = (u32) (var_a1_3 | ((temp_v0_14 & ((s32) ~temp_v0_14 >> 0x1F)) << 0x18));
             return;
         }
+        break;
+    case 1:
         break;
     case 4:                                         /* switch 3 */
         temp_a1_3 = M2C_FIELD(temp_s2, void **, 0x514);

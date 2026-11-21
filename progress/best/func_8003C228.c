@@ -54,8 +54,8 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                 temp_v1 = (*(u16 *)((char *)(var_s0) + 0x1E));
                 temp_s2 = (((__repair_field_14 *)var_s0)->value);
                 if (temp_v1 & 0x1000) {
-                    var_a1 = (*(u16 *)((char *)(var_s0) + 0x22));
-                    var_a3 = *(u8 *)((char *)var_s0 + 0x28);
+                    var_a1 = (*(volatile u16 *)((char *)(var_s0) + 0x22));
+                    var_a3 = *(volatile u8 *)((char *)var_s0 + 0x28);
                     if (gHiResScreen) {
                         var_a1 *= 2;
                         var_a3 *= 2;
