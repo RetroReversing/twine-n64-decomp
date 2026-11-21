@@ -75,13 +75,26 @@ void func_8006FDF8(void *arg0, s32 arg1)
   full_size:
   var_s2 = 0;
 
-  var_s4 = &D_800C7E08;
-  var_s3 = (s8 *) (&positions);
-  var_s1 = arg0;
-  positions.x.half[3] = var_s7;
-  positions.x.half[1] = var_s7;
-  positions.y.half[2] = var_s6;
-  positions.y.half[3] = var_s6;
+  if (var_s3)
+  {
+    var_s4 = &D_800C7E08;
+    var_s3 = (s8 *) (&positions);
+    var_s1 = arg0;
+    positions.x.half[3] = var_s7;
+    positions.x.half[1] = var_s7;
+    positions.y.half[2] = var_s6;
+    positions.y.half[3] = var_s6;
+  }
+  else
+  {
+    var_s4 = &D_800C7E08;
+    var_s3 = (s8 *) (&positions);
+    var_s1 = arg0;
+    positions.x.half[3] = var_s7;
+    positions.x.half[1] = var_s7;
+    positions.y.half[2] = var_s6;
+    positions.y.half[3] = var_s6;
+  }
   do
   {
     if (((*((void * volatile *) (((char *) var_s1) + 0x3D4))) != NULL) || ((temp_v0 = func_80015F0C(), *((void * volatile *) (((char *) var_s1) + 0x3D4)) = temp_v0, temp_v0 != NULL)))
@@ -116,7 +129,14 @@ void func_8006FDF8(void *arg0, s32 arg1)
           *((void * volatile *) (((char *) var_s0) + 0x3E4)) = func_80015F0C();
         }
         *((s32 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x10)) = 0xFF008F;
- do { temp_a0 = *((void * volatile *) (((char *) var_s0) + 0x3E4)); *((s32 *) (((char *) temp_a0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0) + 0x28))) & (~0xFC)) | 0x10); func_800165E0(*((void * volatile *) (((char *) var_s0) + 0x3E4)), (&sTrackMarkerTable)[sp2C]); *((u16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x1E)) = 2U; } while (0);
+        do
+        {
+          temp_a0 = *((void * volatile *) (((char *) var_s0) + 0x3E4));
+          *((s32 *) (((char *) temp_a0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_a0) + 0x28))) & (~0xFC)) | 0x10);
+          func_800165E0(*((void * volatile *) (((char *) var_s0) + 0x3E4)), (&sTrackMarkerTable)[sp2C]);
+          *((u16 *) (((char *) (*((void * volatile *) (((char *) var_s0) + 0x3E4)))) + 0x1E)) = 2U;
+        }
+        while (0);
         {
           switch (var_s1_2)
           {
@@ -220,3 +240,4 @@ void func_8006FDF8(void *arg0, s32 arg1)
     }
   }
 }
+

@@ -11,7 +11,7 @@ extern s8 D_800D4870;
 extern void *D_80100B20;
 extern u16 D_80112EBC;
 extern s32 gTrackMarkerSerial;
-inline static s8 inline_fn(u8 arg0)
+inline static s8 inline_fn(unsigned int arg0)
 {
   return (s8) arg0;
 }

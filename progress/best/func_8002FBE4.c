@@ -12,6 +12,11 @@ inline static char *inline_fn()
   return (char *) (&D_800E157C);
 }
 
+inline static int inline_fn2(s32 arg0, int arg1)
+{
+  return (arg0 + arg1) - D_800E1570;
+}
+
 void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
 {
   int __repair_literal;
@@ -97,7 +102,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
         else
           if (((D_800E1570 - 1) - 1) <= ((var_a0_3 - 1) - 1))
         {
-          var_v0 = (var_a0_3 + 1) - D_800E1570;
+          var_v0 = inline_fn2(var_a0_3, 1);
         }
         else
         {
@@ -141,7 +146,7 @@ void func_8002FBE4(s8 *arg0, u16 *arg1, u16 *arg2)
             *((s32 *) (inline_fn() + 0)) = (s32) __repair_phase_temp_v0_2;
             temp_v1_2 = __repair_phase_temp_v0_2 + (*(temp_s0 + (var_a0_4 + temp_lo_2)));
             *((s32 *) (((char *) (&D_800E157C)) + 0)) = temp_v1_2;
-            temp_v1_3 = temp_v1_2 + (*(temp_s0 + (D_800E1564 + __repair_phase_storage.value)));
+            temp_v1_3 = (*(temp_s0 + (D_800E1564 + __repair_phase_storage.value))) + temp_v1_2;
             *((s32 *) (inline_fn() + 0)) = temp_v1_3;
             temp_v1_4 = temp_v1_3 + (*(temp_s0 + (D_800E1564 + temp_lo_2)));
             temp_fv1 = ((f32) temp_v1_4) * 0.24691357f;

@@ -10,17 +10,17 @@ s32 freeMenuItemRecord(void *, void *);
 s32 func_80002BD0(void *, s32);
 s32 func_8000C91C(s32);
 void *func_80015F0C();
-s32 func_800165E0(void *, s32);
+unsigned int func_800165E0(void *, s32);
 s32 func_800452E0(void *, void *, s32 *);
 f32 func_80045764(s32 *, s32 *);
 s32 func_80047B14(s32 *, f32, s32 *);
 s32 func_800635BC(void *, s32);
 s32 func_80065684(void *);
 s32 func_8006CD34(void *);
-s32 func_8006D224(void *);
+s32 func_8006D224(void *, s32);
 s32 func_8006E648(s32, void *, s32, s32 *, void **, void **, s32 *, s32 *);
 s32 func_80070730(void *, s32, s32);
-s32 func_80073A30(void *);
+s32 func_80073A30(void);
 s32 func_80082834(char, s32, s32);
 s32 func_800843CC(void *, s32, s32);
 s32 func_800848EC(void *, s32, s32);
@@ -85,10 +85,15 @@ inline static s32 inline_fn()
   return (s32) sDifficultyLevel;
 }
 
+inline static f32 inline_fn2(f32 *arg0)
+{
+  return arg0[1];
+}
+
 void func_8006D2E4(void *arg0)
 {
   char sp20[0x10];
-  s32 sp30;
+  volatile unsigned int sp30;
   void *sp34;
   void *sp38;
   s32 sp3C;
@@ -297,20 +302,24 @@ void func_8006D2E4(void *arg0)
       }
       if (!((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000))
       {
-        if ((*((u16 *) (((char *) arg0) + 0x78))) == 2)
+        do
         {
-          var_a2 = (((*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
-          if (var_a2 <= 0)
+          if ((*((u16 *) (((char *) arg0) + 0x78))) == 2)
           {
-            var_a2 = 1;
+            var_a2 = (((*(D_800C7DAC + ((((u32) (*((u32 *) (((char *) temp_s3) + 0x18C)))) >> 0xC) & 0xF))) * 0x46) / 25) + 0x1E;
+            if (var_a2 <= 0)
+            {
+              var_a2 = 1;
+            }
+            else
+              if (var_a2 >= 0x65)
+            {
+              var_a2 = 0x64;
+            }
+            func_80082834(temp_s4, 8, var_a2);
           }
-          else
-            if (var_a2 >= 0x65)
-          {
-            var_a2 = 0x64;
-          }
-          func_80082834(temp_s4, 8, var_a2);
         }
+        while (0);
         if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000)
         {
           goto block_62;
@@ -325,6 +334,12 @@ void func_8006D2E4(void *arg0)
           *((s8 *) (((char *) temp_s3) + 0x198)) = 0;
           switch (sDifficultyLevel)
           {
+            case 3:
+
+            case 4:
+
+            case 5:
+
             default:
               var_fs0 = 1.1f;
               break;
@@ -368,14 +383,7 @@ void func_8006D2E4(void *arg0)
             var_fs0 = 2.0f;
           }
           temp_fv1_2 = *((f32 *) (((char *) arg0) + 0x74));
-          if (temp_fv1_2 >= 2.1474836e9f)
-          {
-            var_v0 = (((s32) (temp_fv1_2 - 2.1474836e9f)) | 0x80000000) & 3;
-          }
-          else
-          {
-            var_v0 = ((s32) temp_fv1_2) & 3;
-          }
+          var_v0 = (u32) temp_fv1_2;
           if (!var_v0)
           {
             func_8008558C(arg0);
@@ -466,7 +474,7 @@ void func_8006D2E4(void *arg0)
               *((s16 *) (((char *) temp_v0_6) + 0x1E)) = (s16) (D_800C7DCC[temp_s1].f0 | 0x4402);
             }
           }
-          func_8006D224(arg0);
+          func_8006D224(arg0, 0xA0);
         }
         if ((!((*((s32 *) (((char *) arg0) + 0x60))) & 0x02000000)) || (gWheelsGrounded != 0))
         {
@@ -548,7 +556,7 @@ void func_8006D2E4(void *arg0)
       {
         D_800E19F4 = 1;
         ((__repair_record_sp38 *) sp38)->field_60 = (s32) (((__repair_record_sp38 *) sp38)->field_60 | 1);
-        func_80073A30(sp38);
+        func_80073A30();
         func_8000C91C(7);
       }
       if ((sp34 != NULL) && (sp30 & 1))
@@ -565,14 +573,14 @@ void func_8006D2E4(void *arg0)
           sp58[2] = *((f32 *) (((char *) sp34) + 0x2C));
           sp58[0] -= sinAngle(temp_fa0) * 0.43f;
           sp58[2] -= cosAngle(temp_fa0) * 0.43f;
-          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < sp58[1])) && (!(sp58[1] < (*((f32 *) (((char *) temp_s3) + 0x18))))))
+          if ((!((*((f32 *) (((char *) temp_s3) + 0x14))) < inline_fn2(sp58))) && (!(inline_fn2(sp58) < (*((f32 *) (((char *) temp_s3) + 0x18))))))
           {
             *((f32 *) (((char *) arg0) + 0x24)) = sp58[0];
-            *((f32 *) (((char *) arg0) + 0x28)) = sp58[1];
+            *((f32 *) (((char *) arg0) + 0x28)) = inline_fn2(sp58);
             *((f32 *) (((char *) arg0) + 0x2C)) = sp58[2];
             *((f32 *) (((char *) arg0) + 0x3C)) = 0.0f;
             *((f32 *) (((char *) arg0) + 0x44)) = 0.0f;
-            *((f32 *) (((char *) arg0) + 0x40)) = sp48[1];
+            *((f32 *) (((char *) arg0) + 0x40)) = inline_fn2(sp48);
             *((f32 *) (((char *) temp_s3) + 0x90)) = (f32) (*((f32 *) (((char *) arg0) + 0x40)));
             if (absFloat((*((f32 *) (((char *) arg0) + 0x28))) - (*((f32 *) (((char *) temp_s3) + 0x18)))) < 0.15f)
             {
@@ -675,7 +683,7 @@ void func_8006D2E4(void *arg0)
               sp48[0] = (*((f32 *) (((char *) temp_s3) + 0xEC))) + (sinAngle(temp_fa0_2) * 0.22500001f);
               sp48[2] = (*((f32 *) (((char *) temp_s3) + 0xF4))) + (cosAngle(D_800E19F8) * 0.22500001f);
               *((f32 *) (((char *) arg0) + 0x24)) = sp48[0];
-              *((f32 *) (((char *) arg0) + 0x28)) = sp48[1];
+              *((f32 *) (((char *) arg0) + 0x28)) = inline_fn2(sp48);
               *((f32 *) (((char *) arg0) + 0x2C)) = sp48[2];
               func_80065684(arg0);
               func_800635BC(arg0, 3);

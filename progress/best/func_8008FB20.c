@@ -9,6 +9,16 @@ typedef struct
 {
   s32 w[2];
 } __repair_words2;
+inline static s32 inline_fn(char *arg0)
+{
+  return *((s32 *) (arg0 + 0x574));
+}
+
+inline static int inline_fn2(s32 arg0)
+{
+  return arg0 == 1;
+}
+
 s32 func_8008FB20(void)
 {
   s32 temp_a0;
@@ -92,7 +102,7 @@ s32 func_8008FB20(void)
                 temp_a0_3 = *((u8 *) (((char *) (temp_a0 + temp_t0)) + 0x8C));
                 if (temp_a0_3 != 0xFF)
                 {
-                  temp_v0_3 = (temp_a0_3 * 8) + (*((char **) (((char *) temp_t0) + 0x88)));
+                  temp_v0_3 = (void *) (temp_a0_3 * 8); temp_v0_3 = (void *) (((char *) temp_v0_3) + ((s32) (*((char **) (((char *) temp_t0) + 0x88)))));
                   *((s32 *) (((char *) temp_t0) + 0xFA4)) = (s32) ((((*((u16 *) (((char *) temp_v0_3) + 0))) << 0x10) | ((*((u8 *) (((char *) temp_v0_3) + 2))) << 8)) | (*((u8 *) (((char *) temp_v0_3) + 3))));
                 }
               }
@@ -100,7 +110,7 @@ s32 func_8008FB20(void)
             else
             {
               var_a0 = 0x82;
-              if (temp_v1 & (temp_t1 == 1))
+              if (temp_v1 & inline_fn2(temp_t1))
               {
                 voiceStoreParam(var_a0, temp_a1, D_800EDA87, temp_a3 & 0x7F);
               }
@@ -132,6 +142,15 @@ s32 func_8008FB20(void)
                   var_v0 = temp_t2;
                 }
                 else
+                  if (gSeqPlayer)
+                {
+                  temp_t0 = gSeqPlayer;
+                  temp_t0_2 = temp_t0 + var_s2;
+                  var_s4 = 6;
+                  temp_t2 = *((u8 *) (((char *) temp_t0_2) + 0x58F));
+                  var_v0 = temp_t2;
+                }
+                else
                 {
                   temp_t0 = gSeqPlayer;
                   temp_t0_2 = temp_t0 + var_s2;
@@ -143,15 +162,15 @@ s32 func_8008FB20(void)
                 {
                   var_v0 = ((s32) temp_t2) + 0x1F;
                 }
-                if ((*((s32 *) (((char *) (((((s32) var_v0) >> 5) * 4) + temp_t0)) + 0x110))) & (1 << (temp_t2 & 0x1F)))
+                if ((*((s32 *) (((char *) (((((s32) var_v0) >> 5) * 4) + temp_t0)) + 0x110))) & ((unsigned short) (1 << (temp_t2 & 0x1F))))
                 {
                   temp_a0_4 = *((s32 *) (((char *) ((temp_a1 * 4) + temp_t0)) + 0xF80));
                   if (temp_a0_4 != (-1))
                   {
-                    temp_a3_2 = temp_a3 + (*((s8 *) (((char *) temp_t0_2) + 0x58E)));
-                    if (temp_a3_2 < 0x80)
+                    temp_a3 = temp_a3 + (*((s8 *) (((char *) temp_t0_2) + 0x58E)));
+                    if (temp_a3 < 0x80)
                     {
-                      var_v1 = temp_a3_2 & (((s32) (~temp_a3_2)) >> 0x1F);
+                      var_v1 = temp_a3 & (((s32) (~temp_a3)) >> 0x1F);
                     }
                     else
                     {
@@ -224,7 +243,7 @@ s32 func_8008FB20(void)
               }
             }
             temp_v1_5 = gSeqPlayer + var_s2;
-            *((s32 *) (((char *) temp_v1_5) + 0x574)) = (s32) ((*((s32 *) (((char *) temp_v1_5) + 0x574))) + var_s4);
+            *((s32 *) (((char *) temp_v1_5) + 0x574)) = (s32) (inline_fn((char *) temp_v1_5) + var_s4);
           }
           temp_t0 = gSeqPlayer;
           var_a2 = temp_t0 + var_s2;

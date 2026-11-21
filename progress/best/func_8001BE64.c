@@ -68,7 +68,7 @@ void func_8001BE64(void)
   temp_s3 = findEntryPayload(&D_800BD9A0, 0x61);
   temp_s7 = findEntryById(&D_800BD9A0, 0xC);
   D_801002F4 = func_80018BE0(D_801002C4);
-  if (((((temp_fp != NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL))) && ((var_s1 != NULL) & (temp_s3 != NULL))) && ((temp_s2 != NULL) & (temp_s7 != NULL)))
+  if (((((temp_s6 != NULL) & (temp_fp != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL))) && ((var_s1 != NULL) & (temp_s3 != NULL))) && ((temp_s2 != NULL) & (temp_s7 != NULL)))
   {
     switch (gSceneType)
     {
@@ -79,6 +79,9 @@ void func_8001BE64(void)
         var_v0 = 0x19;
         if (D_80102FD4 != var_v1)
       {
+        {
+          long long phantom_wide = var_a0;
+        }
         D_80117730 = 0;
       }
         break;
@@ -92,6 +95,9 @@ void func_8001BE64(void)
         var_v0 = 0x14;
         if (D_80102FD4 != (&D_8011AC34))
       {
+        {
+          long long phantom_wide2 = var_a0;
+        }
         D_80117730 = 0;
       }
         break;
