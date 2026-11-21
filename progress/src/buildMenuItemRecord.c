@@ -65,12 +65,11 @@ void *buildMenuItemRecord(void *arg0, s32 arg1) {
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x100) {
         (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x20);
     }
-    if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x80) {
-        var_v0_3 = gMenuSoundParams;
+    if ((*(u16 *)((char *)arg0 + 0xC)) & 0x80) {
+        *(s32 *)((char *)temp_v0 + 0x10) = (gMenuSoundParams & ~0xFF) | (u8)arg1;
     } else {
-        var_v0_3 = D_80102EC4;
+        *(s32 *)((char *)temp_v0 + 0x10) = (D_80102EC4 & ~0xFF) | (u8)arg1;
     }
-    (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((var_v0_3 & ~0xFF) | (arg1 & 0xFF));
     temp_v0_2 = (*(u16 *)((char *)(arg0) + 0xC)) & 0xF;
     if (temp_v0_2 != 0) {
         (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&D_800BD640 + temp_v0_2) & ~0xFF) | (u8)arg1);
@@ -105,3 +104,4 @@ void *buildMenuItemRecord(void *arg0, s32 arg1) {
     }
     return temp_v0;
 }
+
