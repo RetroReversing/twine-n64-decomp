@@ -283,8 +283,8 @@ block_21:
                                     }
                                 } else {
                                     var_s6_2 = (*(u8 **)((char *)(temp_s1) + 0x3C));
-                                    var_s4_2 = 0;
                                     if (temp_v1_2 < (u16) (*(u16 *)((char *)(temp_s1) + 0x40))) {
+                                        var_s4_2 = 0;
                                         var_s3_2 = var_s6_2 + 2;
                                         do {
                                             temp_v1_6 = (*(u16 *)((char *)((*(void **)((char *)(temp_s1) + 0x38))) + ((var_s4_2 & 0xFFFF) * 2)));

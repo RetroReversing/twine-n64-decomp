@@ -25,7 +25,6 @@ extern char D_54D910[];
 extern u8 gColorFadeLevel;
 
 void func_80041F68(void *arg0) {
-    volatile int padding[8];
     s32 sp14;
     u16 *sp1C;
     s32 temp_a0;
@@ -46,9 +45,6 @@ void func_80041F68(void *arg0) {
     u32 var_a0;
     u32 var_s0;
     u32 var_s1;
-    u32 var_s1_2;
-    u32 var_s1_3;
-    u32 var_s1_4;
     u8 *temp_a3;
     char *var_a0_4;
     u8 temp_a1;
@@ -58,11 +54,13 @@ void func_80041F68(void *arg0) {
     void *temp_v1_2;
     void *temp_v1_3;
 
+    volatile int padding[8];
+
     sp14 = func_80083E24();
     sp1C = heapAllocTagged(M2C_FIELD(arg0, u32 *, 0x14) * 8, 0x18);
+    temp_fp = heapAllocTagged(M2C_FIELD(arg0, u32 *, 0x1C) * 0xC, 0x19);
     var_a0 = M2C_FIELD(arg0, u32 *, 0x2C);
     temp_v1 = M2C_FIELD(arg0, u32 *, 0x24);
-    temp_fp = heapAllocTagged(M2C_FIELD(arg0, u32 *, 0x1C) * 0xC, 0x19);
     if (var_a0 < temp_v1) {
         var_a0 = temp_v1;
     }
@@ -70,9 +68,9 @@ void func_80041F68(void *arg0) {
     dmaRomToRamUnaligned(sp1C, (char *)D_54D910 + M2C_FIELD(arg0, u32 *, 0x10), M2C_FIELD(arg0, u32 *, 0x14) * 8);
     dmaRomToRamUnaligned(temp_fp, (char *)D_54D910 + M2C_FIELD(arg0, u32 *, 0x18), M2C_FIELD(arg0, u32 *, 0x1C) * 0xC);
     dmaRomToRamUnaligned(temp_s4, M2C_FIELD(arg0, s32 *, 0x28) + D_54D910, M2C_FIELD(arg0, u32 *, 0x2C));
-    var_a0 = func_8001499C(temp_s4);
-    if (var_a0 != 0) {
-        var_s7 = heapAllocTagged(var_a0, 0x1A);
+    var_s0 = func_8001499C(temp_s4);
+    if (var_s0 != 0) {
+        var_s7 = heapAllocTagged(var_s0, 0x1A);
         func_80014A0C(var_s7, temp_s4);
     } else {
         var_s7 = heapAllocTagged(M2C_FIELD(arg0, u32 *, 0x2C), 0x1A);
@@ -103,30 +101,30 @@ void func_80041F68(void *arg0) {
         }
     }
     func_80084048(temp_s4, 0x2D);
-    var_s1_2 = 0;
+    var_s1 = 0;
     M2C_FIELD(arg0, u16 **, 0x10) = sp1C;
     M2C_FIELD(arg0, u16 **, 0x18) = temp_fp;
     if (M2C_FIELD(arg0, u32 *, 0x14) != 0) {
         do {
-            temp_a0 = var_s1_2 * 8;
+            temp_a0 = var_s1 * 8;
             temp_v1_2 = temp_a0 + (char *)M2C_FIELD(arg0, u16 **, 0x10);
             M2C_FIELD(temp_v1_2, s32 *, 4) = (s32) (M2C_FIELD(temp_v1_2, s32 *, 4) * 2);
             __repair_phase_storage.pointer = temp_a0 + (char *)M2C_FIELD(arg0, u16 **, 0x10);
             M2C_FIELD(__repair_phase_storage.pointer, void **, 4) = (void *) (M2C_FIELD(__repair_phase_storage.pointer, u32 *, 4) + (char *)var_s5);
-            var_s1_2 += 1;
-        } while (var_s1_2 < (u32) M2C_FIELD(arg0, u32 *, 0x14));
+            var_s1 += 1;
+        } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x14));
     }
-    var_s1_3 = 0;
+    var_s1 = 0;
     if (M2C_FIELD(arg0, u32 *, 0x1C) != 0) {
         __repair_phase_storage.value = 0;
         do {
             temp_v0_3 = __repair_phase_storage.value + (char *)M2C_FIELD(arg0, u16 **, 0x18);
             M2C_FIELD(temp_v0_3, void **, 8) = (void *) (M2C_FIELD(temp_v0_3, u32 *, 8) + (char *)var_s7);
-            var_s1_3 += 1;
+            var_s1 += 1;
             __repair_phase_storage.value += 0xC;
-        } while (var_s1_3 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
+        } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
     }
-    var_s1_4 = 0;
+    var_s1 = 0;
     if (M2C_FIELD(arg0, u32 *, 0x1C) != 0) {
         var_t0 = 0;
         do {
@@ -148,9 +146,9 @@ void func_80041F68(void *arg0) {
                 } while ((u32) var_a0_4 < (u32) (temp_v1_4 + temp_a3));
             }
             }
-            var_s1_4 += 1;
+            var_s1 += 1;
             var_t0 += 0xC;
-        } while (var_s1_4 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
+        } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
     }
     func_80083E44(sp14);
 }

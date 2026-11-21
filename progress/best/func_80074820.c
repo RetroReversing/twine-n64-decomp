@@ -23,7 +23,7 @@ extern s32 gTrackMarkerSerial;
 
 void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     char sp30[0x200];
-    s8 sp230[0x208];
+    s8 sp230[0x220];
     f32 var_fv1;
     s16 count;
     union { s32 * pointer; s32 value; } __repair_phase_storage;
@@ -39,8 +39,8 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5) {
     s8 *var_s1;
     s8 *var_t0;
     s8 temp_v0;
-    s8 temp_v0_2;
-    s8 var_v0;
+    s32 temp_v0_2;
+    s32 var_v0;
     u8 *var_s0;
     u8 var_a0;
     s32 var_v1;
@@ -109,7 +109,7 @@ block_14:
         var_a0_2 = 0;
         do {
             temp_a1 = var_s1;
-            if (!((var_v0 == 0) | (var_v0 == '\n'))) goto scan;
+            if (((var_v0 == 0) | (var_v0 == '\n')) == 0) goto scan;
             goto advance;
 emit:
             temp_s0 = var_s1 - temp_a1;
@@ -127,11 +127,14 @@ emit:
 check:
             if (temp_v1 | (var_a0_2 >= arg3)) goto emit;
 scan:
-            do {
+            ++var_s1;
+scan_byte:
+            temp_v0_2 = *var_s1;
+            temp_v1 = temp_v0_2 == 0;
+            if ((temp_v1 | (temp_v0_2 == '\n')) == 0) {
                 ++var_s1;
-                temp_v0_2 = *var_s1;
-                temp_v1 = temp_v0_2 == 0;
-            } while (!(temp_v1 | (temp_v0_2 == '\n')));
+                goto scan_byte;
+            }
             if (var_s1 != temp_a1) {
                 ++var_a0_2;
                 goto check;
