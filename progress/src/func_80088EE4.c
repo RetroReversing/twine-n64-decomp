@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8009D94C();
-extern u8 sDataBankEnabled;
+extern u8 sDataBankInitialised;
 extern char sDataBanks[];
 extern char D_800E2CDC[];
 
@@ -21,7 +21,7 @@ s32 func_80088EE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp_s0;
     s32 temp_s1;
 
-    if (sDataBankEnabled != 0) {
+    if (sDataBankInitialised != 0) {
         temp_s0 = arg4 * 0x1228;
         func_8009D94C(temp_s0 + sDataBanks, (temp_s1 = arg1 + arg3));
         *(s32 *)(D_800E2CDC + temp_s0) = *(s32 *)(D_800E2CDC + temp_s0) + temp_s1;

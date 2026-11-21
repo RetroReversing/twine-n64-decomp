@@ -4,12 +4,12 @@ f32 func_80082908(f32 x) {
     return result;
 }
 
-extern u8 sDataBankEnabled, sDataBankFlags;
+extern u8 sDataBankInitialised, sDataBankFlags;
 extern s32 D_800E2CE4;
 s32 isSlotActiveById(s32 id) {
     u32 i;
     s32 offset, index;
-    if (sDataBankEnabled != 0) {
+    if (sDataBankInitialised != 0) {
         i = 0;
         offset = 0;
         do {

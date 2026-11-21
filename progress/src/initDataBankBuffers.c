@@ -17,7 +17,7 @@ s32 func_8009D510();
 s32 flushDCacheRange();
 s32 osCreateMesgQueue();
 s32 osSendMesg();
-extern s8 sDataBankEnabled;
+extern s8 sDataBankInitialised;
 extern char D_800E1AC0[];
 extern char D_800E2CC0[];
 extern s32 D_800E3F10;
@@ -71,6 +71,6 @@ extern s32 func_8008863C;
         } while (j < 2);
     }
     D_8010D428 = &func_8008863C;
-    sDataBankEnabled = 1;
+    sDataBankInitialised = 1;
     D_800E3F10 = 0;
 }

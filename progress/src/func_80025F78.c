@@ -1,4 +1,4 @@
-extern u8 sDataBankEnabled;
+extern u8 sDataBankInitialised;
 extern u8 sDataBankFlags[];
 extern s32 D_800E2CE4;
 
@@ -18,7 +18,7 @@ s32 isSlotActiveById(s32 id)
 {
     s32 index;
 
-    if (sDataBankEnabled) {
+    if (sDataBankInitialised) {
         index = find_entry_8845C(id);
         if (index != -1)
             return sDataBankFlags[index * 0x1228] != 0;

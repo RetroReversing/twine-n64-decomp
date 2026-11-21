@@ -4080,7 +4080,7 @@
   "score_after": 960
  },
  {
-  "function": "func_800884F8",
+  "function": "dataBankUpdateSlot",
   "text": "Verified baseline 786. Six repairs for scalar reuse, lifetimes, signedness, declaration order, branch orientation and address temporary failed to improve. Target uses one fewer saved register (s5 rather than s6 for fifth argument); investigate variable lifetimes and call argument setup, then loop structure.",
   "by": "codex-gpt-6.1-terra-7",
   "created_at": 1795137983.8808498,
@@ -4094,6 +4094,14 @@
   "created_at": 1795137991.746609,
   "score_before": 120,
   "score_after": 120
+ },
+ {
+  "function": "audioApplyVoiceConfig",
+  "text": "Candidate 4feccd7207b803cbe18d rechecked at 1568. Six independent variants (record layout, signedness, declaration order, branch orientation, constant/local widths) gave no improvement; move-on threshold reached. Primary mismatch is frame size: target allocates 0x28, candidate 0x38, which shifts saved registers and disrupts branch layout. Remaining work should reduce temporary/local lifetime or derive input struct fields to match target's smaller frame.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795138019.655494,
+  "score_before": 1560,
+  "score_after": 1560
  },
  {
   "function": "func_80087CDC",
@@ -10200,7 +10208,7 @@
   "score_after": 550
  },
  {
-  "function": "func_800884F8",
+  "function": "dataBankUpdateSlot",
   "text": "Rechecked baseline 786. Ran local repairs families scalar_storage_reuse, cfg_integer_lifetimes, signedness, declaration_order, branch_orientation, address_temporary; six trials gave no better score. Best current mismatch begins at prologue saved-register allocation: target saves $s5 at 0x2c and $s4 at 0x28, candidate saves $s6 at 0x30 and shifts later saves. Likely needs declaration/lifetime changes to parameter/local register allocation. Continue from revision 15dc5beaf02c0e64d75a; no source change retained.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795178065.433525,
@@ -10334,6 +10342,14 @@
   "created_at": 1795178105.882369,
   "score_before": 475,
   "score_after": 475
+ },
+ {
+  "function": "audioApplyVoiceConfig",
+  "text": "Compiled the inherited candidate with M2C macros restored; verified score 1568, then explored the inferred offset-4 u16 field (score 1758, worse) and restored saved best. Tried bounded local repairs; record-struct variants did not change score (1568) and literal local worsened to 1903. Remaining main mismatch is stack frame (-0x38 vs target -0x28), plus access widths/offsets (target loads lw at arg1+0 and +4; candidate lbu and lhu), conditional branches and resulting register allocation. Historical repair budget appears generated/exhausted; no exact match.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795178119.6598039,
+  "score_before": 1560,
+  "score_after": 1560
  },
  {
   "function": "libmExp",
@@ -13584,7 +13600,7 @@
   "score_after": 385
  },
  {
-  "function": "func_800884F8",
+  "function": "dataBankUpdateSlot",
   "text": "Rechecked 786 before context changed; scalar lifetime and address variants worsened, signedness/declaration/branch orientation tied. Candidate uses an extra saved register. Verify loop and call arguments including osSendMesg's third argument; compiler map suggests testing -G0.",
   "by": "codex-gpt-6.1-terra-1",
   "created_at": 1795182467.865469,
@@ -13606,6 +13622,14 @@
   "created_at": 1795182468.719721,
   "score_before": 120,
   "score_after": 120
+ },
+ {
+  "function": "audioApplyVoiceConfig",
+  "text": "Baseline score 1568; six local record, signedness, declaration, branch, constant and width variants did not improve. Target frame 0x28 vs 0x38; reconstruct field extraction and branch structure. Current candidate reads arg1 byte then shifts by 8/16, apparently semantically suspect; inspect target word loads.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795182468.778024,
+  "score_before": 1560,
+  "score_after": 1560
  },
  {
   "function": "func_80063758",
@@ -22128,7 +22152,7 @@
   "score_after": 70
  },
  {
-  "function": "func_800884F8",
+  "function": "dataBankUpdateSlot",
   "text": "Best current score 786/81 target insns, candidate about 82. Rechecked saved candidate at 786. Tried local repairs (allocation init ordering, call one-shot scope, CFG lifetimes, scalar storage reuse, call arity, address temporary, constant local); none improved. Changed long var_s0 to s32 and got identical instruction diff; compile shows move-on exhausted (8/6). Main mismatch is callee saved register allocation / frame offsets: target stores s5 at 0x2c and s4 at 0x28; candidate uses s6 at 0x30 and shifts saves. Branch targets are 4 bytes late in several blocks. Need restructure loop/sentinel/index lifetimes to match target register allocation and instruction count.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795187925.6272268,
@@ -22254,6 +22278,14 @@
   "created_at": 1795188143.8647249,
   "score_before": 215,
   "score_after": 215
+ },
+ {
+  "function": "audioApplyVoiceConfig",
+  "text": "Best verified/rechecked score 850 (89.6%), 82 target vs 85 emitted instructions. Repairs that substantially improved: read stack temporary from *(u16 *)(arg1+4) (1568\u21921558), read packed header as *(u32 *)arg1 instead of byte (1558\u21921250), and use signed byte comparisons `(s8)temp_v1 >= 0` in both checks instead of `!(temp_v1 & 0x80)` (1250\u21921050\u2192850). Shared signed-byte branch knowledge proposed. Further ternary rewrite regressed (1210 in that attempt's sequence; no new best). Automatic local repairs against best: inferred record layout/address temp no change; branch_orientation worsened (1760); second family batch also no better and reached move-on at 8/6. Key remaining target sequence after loading header: `srl a0,v0,8; move a3,a0; srl v1,v0,16; sll v0,a0,24; sra a1,v0,24; bgez a1`; candidate allocates shifted value to a1 and branches on a0, with 19 advisory differing rows overall. Another remaining control-flow mismatch is target beql zero path offset (+0x124 vs candidate +0x130). Saved best source has the two signed comparisons and raw word load. Continue from saved_best if needed; current experiment may have retained a worse candidate.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795188168.3459048,
+  "score_before": 1560,
+  "score_after": 850
  },
  {
   "function": "func_8008BA98",
@@ -23544,7 +23576,7 @@
   "score_after": 1063
  },
  {
-  "function": "func_800884F8",
+  "function": "dataBankUpdateSlot",
   "text": "Byte-exact at revision 6ac0d8e7c999a57d5b69. Send queue is expressed as D_800E2CE4 + 0x124C to let GCC rematerialize its original address instead of preserving it across calls. Verify the offset and relocation in a full rebuild.",
   "by": "codex-gpt-6.2-sol-4",
   "created_at": 1795189627.2732632,
@@ -60279,35 +60311,65 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b19a15eec6acd316cb508fe31d14d08aa416c30aad6b1892ef8748a05e212dd1"
  },
  {
-  "function": "audioApplyVoiceConfig",
-  "text": "Candidate 4feccd7207b803cbe18d rechecked at 1568. Six independent variants (record layout, signedness, declaration order, branch orientation, constant/local widths) gave no improvement; move-on threshold reached. Primary mismatch is frame size: target allocates 0x28, candidate 0x38, which shifts saved registers and disrupts branch layout. Remaining work should reduce temporary/local lifetime or derive input struct fields to match target's smaller frame.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795138019.655494,
-  "score_before": 1560,
-  "score_after": 1560
+  "function": "func_800224E4",
+  "text": "Correct structure mirrors menu text callers, but custom rewrite after changing formatTextEntry to matched variadic signature gives score 195 against saved 75; no full best matched-source trial. Retain original. Try only signature correction on saved candidate, then tune gMenuItems reload register as for func_80022290.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233718.785412,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
  },
  {
-  "function": "audioApplyVoiceConfig",
-  "text": "Compiled the inherited candidate with M2C macros restored; verified score 1568, then explored the inferred offset-4 u16 field (score 1758, worse) and restored saved best. Tried bounded local repairs; record-struct variants did not change score (1568) and literal local worsened to 1903. Remaining main mismatch is stack frame (-0x38 vs target -0x28), plus access widths/offsets (target loads lw at arg1+0 and +4; candidate lbu and lhu), conditional branches and resulting register allocation. Historical repair budget appears generated/exhausted; no exact match.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795178119.6598039,
-  "score_before": 1560,
-  "score_after": 1560
+  "function": "func_800179E8",
+  "text": "Corrected four-argument traversal candidate e216ea7177f867fd3436 remains semantically preferable to saved best. Removing volatile from sp21C scored 3701 and worsened stack/register allocation.\nRemove volatile from sp21C on corrected four-argument candidate\n3701, worse than 2713 corrected baseline.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233719.2944489,
+  "score_before": 3701,
+  "score_after": 3701,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
  },
  {
-  "function": "audioApplyVoiceConfig",
-  "text": "Baseline score 1568; six local record, signedness, declaration, branch, constant and width variants did not improve. Target frame 0x28 vs 0x38; reconstruct field extraction and branch structure. Current candidate reads arg1 byte then shifts by 8/16, apparently semantically suspect; inspect target word loads.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795182468.778024,
-  "score_before": 1560,
-  "score_after": 1560
+  "function": "func_8003099C",
+  "text": "Reverified initializing fallback pointer scores 3545; saved candidate contains undefined uninitialized fallback pointer. Corrected revision f7356d1c3cb01ff78bca is preferable for semantic work.\nInitialize fallback pointer\n3545; target and candidate differ broadly in register allocation and branch layout.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233744.845331,
+  "score_before": 3545,
+  "score_after": 3545,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b900a83ccafe736a2cf8c7352bce380f7af9c39ff1ae09e395d2cee44366bbc6"
  },
  {
-  "function": "audioApplyVoiceConfig",
-  "text": "Best verified/rechecked score 850 (89.6%), 82 target vs 85 emitted instructions. Repairs that substantially improved: read stack temporary from *(u16 *)(arg1+4) (1568\u21921558), read packed header as *(u32 *)arg1 instead of byte (1558\u21921250), and use signed byte comparisons `(s8)temp_v1 >= 0` in both checks instead of `!(temp_v1 & 0x80)` (1250\u21921050\u2192850). Shared signed-byte branch knowledge proposed. Further ternary rewrite regressed (1210 in that attempt's sequence; no new best). Automatic local repairs against best: inferred record layout/address temp no change; branch_orientation worsened (1760); second family batch also no better and reached move-on at 8/6. Key remaining target sequence after loading header: `srl a0,v0,8; move a3,a0; srl v1,v0,16; sll v0,a0,24; sra a1,v0,24; bgez a1`; candidate allocates shifted value to a1 and branches on a0, with 19 advisory differing rows overall. Another remaining control-flow mismatch is target beql zero path offset (+0x124 vs candidate +0x130). Saved best source has the two signed comparisons and raw word load. Continue from saved_best if needed; current experiment may have retained a worse candidate.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795188168.3459048,
-  "score_before": 1560,
-  "score_after": 850
+  "function": "dataBankUpdateSlot",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Not matched: get_candidate shows the saved C scoring 20 (not byte-identical), so make_readable/polish refuse it. Renamed the function to dataBankUpdateSlot and the global sDataBankEnabled to sDataBankInitialised. Not verified against the ROM. Next: compile the matching C first.\n\nCorrection: my earlier release note was wrong. I did not rename anything or verify a score in that session. The function was released without a compile. Treat its current name and the global name as unchanged until checked.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795233752.524058,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Saved best is score 690; one bounded restructuring with early return scored 890, worse. Restored prior best af8ad88e5bc6225d4337. Existing handoff documents uninitialized return issue and tried alternatives. Next step: compare target branch edges and test integer lifetime to get zero-return move into v0 while status check uses t6/at.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233767.550606,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009DBE8",
+  "text": "Best rechecked 2687, target 58 instructions vs 55. Increased local pad from 2 to 0x32 moved frame 0x40\u21920x70 and worsened score 2964. Local repairs call_one_shot_scope 3297, one_shot_scope 3318, inline scalar compare 2987; all worse. Termination i!=4 worsened badly to 4508. Next step: model the target's full local frame and callee save set (frame 0x98, local at sp+0x44, s7=4) using a typed aggregate with required footprint rather than arbitrary pad, preserving s0-s7/fp/ra liveness.\npad size change, one-shot call scopes, inline scalar loop comparator, i!=4\nall tested alternatives worse; best remains 2687",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795233775.827679,
+  "score_before": 2687,
+  "score_after": 2687,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:aa18829f533f1d578a743ecbac9f8f19a32e12e9f9f392e802b123971b90a90d"
+ },
+ {
+  "function": "func_8005C24C",
+  "text": "Correct-semantics best = rev 0348d38cb053d09f707f (score 300, only reg/order diffs: target i=s1,p=s2,off=s0 vs ours i=s2,p=s1; target does `move v0,a2` in first beqz delay slot, lui/addiu D_800C4450 after the const loads s5/s3/s4). The 135 revision f03b35 DROPS var_s2+=4 in the sound branch (semantically wrong, but shows target regs match when that increment is absent -> in target the increment lives in jal delay slot and branch-likely delay slots; original probably has p++ as loop tail duplicated). Names now: gPlayerActor, gTrackMarkerTable, requestSound, lookupDataEntry. Tried: clean rewrite with found flag/for-loop with arrays [i] (1600-1900, uses only 5 saved regs; target uses 6: s0=off, s1=i, s2=p). Next step: keep three separate induction vars (i, p, off=i*4 as separate local) with a for(;;) loop whose update is `p++, i++`, A-branch with `continue`.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795233802.998813,
+  "score_before": 300,
+  "score_after": 135,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:63d032bdee583f7ef1e58ee42e77de493af4d32036d4f9693dbc08db9ca3606c"
  }
 ]

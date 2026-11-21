@@ -1,6 +1,6 @@
 s32 dmaRomToRam();
 
-extern u8 sDataBankEnabled;
+extern u8 sDataBankInitialised;
 extern u8 sDataBankLoaded;
 extern s32 sDataBankBase;
 extern s32 sDataBankAux;
@@ -16,7 +16,7 @@ s32 loadDataBank(s32 romAddr, s32 auxAddr) {
     s32 *tableBuf;
     s32 base;
 
-    if (sDataBankEnabled != 0) {
+    if (sDataBankInitialised != 0) {
         if ((sDataBankTable != NULL) && (sDataBankLoaded != 0)) {
             gDataBankFree(sDataBankTable);
         }

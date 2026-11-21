@@ -1,9 +1,9 @@
-extern u8 sDataBankEnabled, sDataBankFlags[];
+extern u8 sDataBankInitialised, sDataBankFlags[];
 extern char D_800E2CE4[];
 s32 isSlotActiveById(s32 i) {
     s32 key = i;
     s32 offset;
-    if (sDataBankEnabled) {
+    if (sDataBankInitialised) {
         i = 0;
         offset = 0;
         do {

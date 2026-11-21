@@ -25,7 +25,7 @@ extern Node *D_800E425C;
 extern Node *D_800E4260;
 extern Node *D_800E4264;
 extern Ent *D_80103EB4;
-extern u16 D_80108F70;
+extern u16 sSlotLogCount;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 
@@ -75,11 +75,11 @@ Ent *e;
                         sp38 = t0;
                         D_80109BF8 += 0xC;
                         D_80109BA0 = func_800CEEE0(D_80109BA0, D_80109BF8);
-                        e = &D_80103EB4[(*(u16 *)&D_80108F70)];
+                        e = &D_80103EB4[(*(u16 *)&sSlotLogCount)];
                         e->b = s0->addr + s0->len;
                         e->a = s1;
                         e->c = s0->data + s0->len;
-                        D_80108F70++;
+                        sSlotLogCount++;
                         s0->len += s1;
                     }
                 }
@@ -169,12 +169,12 @@ Ent *e;
     p = &sp10[__repair_phase_storage.value];
                 s3++;
                 D_80109BA0 = v0;
-                e = &D_80103EB4[D_80108F70];
+                e = &D_80103EB4[sSlotLogCount];
                 e->b = s0->addr;
                 e->a = 0x600;
                 e->c = s0->data;
                 s2 = s2 - 0x600 + s1_2;
-                D_80108F70 += 1;
+                sSlotLogCount += 1;
                 p[0] = s0->data + s1_2;
                 s4 -= s1_2 - 0x600;
                 p[4] = 0x600 - s1_2;
@@ -185,14 +185,14 @@ Ent *e;
                 s0->len = (__repair_phase_storage.value + 0xFF) & ~0xFF;
                 D_80109BF8 += 0xC;
                 v0 = func_800CEEE0(D_80109BA0, D_80109BF8);
-                e = &D_80103EB4[D_80108F70];
+                e = &D_80103EB4[sSlotLogCount];
                 e->b = s0->addr;
                 e->a = s0->len;
                 e->c = s0->data;
                 p = &sp10[(u16)s3];
                 p[0] = s0->data + s1_2;
                 D_80109BA0 = v0;
-                D_80108F70 += 1;/*__repair_loop_weight*/do {
+                sSlotLogCount += 1;/*__repair_loop_weight*/do {
                 s3++;} while (0);
                 p[2] = s2;
                 s2 = 0;

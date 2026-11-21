@@ -1,4 +1,4 @@
-extern u8 sDataBankEnabled;
+extern u8 sDataBankInitialised;
 extern u8 sDataBankFlags;
 extern s32 D_800E2CE4;
 
@@ -17,7 +17,7 @@ static inline s32 find_active_slot(s32 id) {
 
 s32 isSlotActiveById(s32 id) {
     s32 offset;
-    if (sDataBankEnabled != 0) {
+    if (sDataBankInitialised != 0) {
         register s32 key = id;
         id = 0;
         offset = 0;

@@ -2,8 +2,8 @@ typedef struct N89C10 { struct N89C10 *next; struct N89C10 *prev; u8 *buf; s32 a
 extern N89C10 *D_800E4240;
 extern u8 *D_800E4244;
 extern s32 D_800E4248;
-extern s32 D_800E424C;
-extern N89C10 *D_800E4250;
+extern s32 sSlotActiveList;
+extern N89C10 *sSlotFreeList;
 extern void *(*gDataBankAlloc)(s32, s32);
 void flushDCacheRange(void *, s32);
 
@@ -16,8 +16,8 @@ void func_80089C10(s32 arg0) {
     size = arg0 << 8;
     D_800E4244 = (*alloc)(size, 0);
     flushDCacheRange(D_800E4244, size);
-    D_800E424C = 0;
-    D_800E4250 = D_800E4240;
+    sSlotActiveList = 0;
+    sSlotFreeList = D_800E4240;
     D_800E4240[0].buf = D_800E4244;
     D_800E4240[0].prev = NULL;
     for (i = 1; i < arg0; i++) {

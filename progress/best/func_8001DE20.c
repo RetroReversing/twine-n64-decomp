@@ -55,7 +55,7 @@ s32 __repair_phase_var_a0;
             (*(s8 *)((char *)((*(void **)((char *)(gMenuItems) + 0x10))) + 4)) = func_800263B8(temp_s2, 0x1F);
         } else {
             (*(s16 *)((char *)(var_s3) + -0x28)) = 0x1C;
-            func_80025D84(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C);
+            func_80025D84(var_s3 - 0x28, var_s3, temp_s1 - 0x28, temp_s4 - 0x28, 0x1C, 1);
             var_a0 = 0x1B3;
             if (D_8010A4FF != 0) var_a0 = 0x1D;
             { formatTextEntry(var_s3, "%s", lookupDataEntry(var_a0)); }

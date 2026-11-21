@@ -15,7 +15,7 @@ extern u8 func_80088F6C;
 extern s32 (*gDataBankAlloc)(s32,s32);
 extern s32 sDataBankAux;
 extern u32 sDataBankCount;
-extern u8 sDataBankEnabled;
+extern u8 sDataBankInitialised;
 extern u32 *sDataBankTable;
 s32 func_80088040(u32 arg0,s32 arg1,s8 arg2,s8 arg3,u8 arg4,u8 arg5,u8 arg6) {
     s32 temp_a0;
@@ -26,7 +26,7 @@ s32 func_80088040(u32 arg0,s32 arg1,s8 arg2,s8 arg3,u8 arg4,u8 arg5,u8 arg6) {
     s32 var_v1;
     u32 var_v1_2;
     u8 *temp_s1;
-    if (sDataBankEnabled && arg0<sDataBankCount) {
+    if (sDataBankInitialised && arg0<sDataBankCount) {
         var_s2=0; var_v1=0;
 loop:
         if (*(u8 *)(D_800E2CC0+var_v1)!=0) {

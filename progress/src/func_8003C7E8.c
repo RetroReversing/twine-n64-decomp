@@ -1,4 +1,4 @@
-extern u8 sDataBankEnabled, sDataBankFlags[];
+extern u8 sDataBankInitialised, sDataBankFlags[];
 extern char D_800E2CE4[];
 static __inline__ s32 lookup_8845C(s32 key) {
     u32 i = 0;
@@ -11,7 +11,7 @@ static __inline__ s32 lookup_8845C(s32 key) {
 }
 s32 isSlotActiveById(s32 key) {
     s32 found;
-    if (sDataBankEnabled) {
+    if (sDataBankInitialised) {
         found = lookup_8845C(key);
         if (found != -1) return sDataBankFlags[found * 0x1228] != 0;
     }

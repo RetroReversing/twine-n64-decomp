@@ -42,14 +42,14 @@ extern s16 *D_800E4218;
 extern u16 *D_800E421C;
 extern s16 *D_800E4220[];
 extern u8 D_800E4228[];
-extern void *D_800E424C;
+extern void *sSlotActiveList;
 extern u16 D_800E4268;
 extern u16 sWorkerAckCounter;
 extern s32 (*D_80100164)(s32 *);
 extern s32 (*D_80100168)(s16 *, u8);
 extern s32 (*D_80100174)(s32, u16, s32 *);
 extern s32 D_80103EB4;
-extern u16 D_80108F70;
+extern u16 sSlotLogCount;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
 extern s32 D_8010D378;
@@ -108,12 +108,12 @@ void func_8008B25C(void) {
             osRecvMesg(&D_800E41F8, 0, 1);
             sWorkerBusy = 0; osYieldThread();
         }
-        D_80108F70 = 0;
+        sSlotLogCount = 0;
         D_80109BA0 = D_80103EB4 & ~0xF;
         D_80109BF8 = D_80103EB4; if (dmaHandlerInit != NULL) {
             ((s32 (*)())dmaHandlerInit)();
         }
-        var_v1 = D_800E424C;
+        var_v1 = sSlotActiveList;
         if (var_v1 != NULL) {
             do {
                 temp_v0 = (*(u16 *)((char *)(var_v1) + 0x10));
@@ -233,9 +233,9 @@ block_41:
                     }
                 }
             }
-            if (D_80108F70) {
+            if (sSlotLogCount) {
                 sWorkerBusy = 1;
-                D_80100174(D_80103EB4, D_80108F70, &D_800E41F8);
+                D_80100174(D_80103EB4, sSlotLogCount, &D_800E41F8);
             }
             D_800E4268 = var_s0;
             sWorkerAckCounter -= var_s3;
