@@ -154,7 +154,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   u16 temp_v1;
   s32 temp_v1_13;
   u16 temp_v1_15;
-  u16 temp_v1_3;
+  int temp_v1_3;
   int temp_v1_6;
   register u32 temp_s1_2;
   u32 temp_s3;

@@ -44,8 +44,8 @@ void func_800821B4(void)
 {
   volatile u64 frame_pad;
   s32 sp2C;
-  short sp16;
   unsigned sp24;
+  short sp16;
   s32 *var_a0_2;
   s16 *var_s2;
   s32 temp_s0;
@@ -392,6 +392,7 @@ void func_800821B4(void)
             break;
 
           case 1:
+            ;
             ;
             ;
             ;

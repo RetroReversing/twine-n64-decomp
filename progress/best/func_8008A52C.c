@@ -3,7 +3,7 @@ s32 advanceLoopPosition();
 s32 slotFindOrAlloc();
 s32 func_80089F7C();
 f64 func_8008CD54();
-s32 func_800CEEE0();
+long long func_800CEEE0();
 extern f64 D_800D6760;
 extern f64 D_800D6768;
 extern f64 D_800D6770;

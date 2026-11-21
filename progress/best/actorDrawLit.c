@@ -120,7 +120,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   u8 temp_a2_2;
   register u8 temp_a2_3;
   u8 temp_t1;
-  u8 temp_t1_2;
+  char temp_t1_2;
   u8 temp_v0_4;
   u8 temp_v0_9;
   u8 temp_v1;
@@ -312,11 +312,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         temp_a0_5 = temp_a1_5 * sPrimTintR;
         temp_v0_5 = temp_a1_5 * sPrimTintG;
         var_a0_2 = D_80115328;
-        var_a2 = sPrimTintB;
-        D_80115328 = var_a0_2 + 2;
-        ((__repair_field_0 *) var_a0_2)->value = 0xFA000000;
-        var_a1 = (temp_a1_5 * var_a2) & 0xFF00;
-        *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82))));
+ do { var_a2 = sPrimTintB; D_80115328 = var_a0_2 + 2; ((__repair_field_0 *) var_a0_2)->value = 0xFA000000; var_a1 = (temp_a1_5 * var_a2) & 0xFF00; *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82)))); } while (0);
       }
       else
         if (temp_v1_8 & 1)
@@ -483,4 +479,3 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
     }
   }
 }
-

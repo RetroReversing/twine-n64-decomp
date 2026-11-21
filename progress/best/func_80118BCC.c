@@ -55,6 +55,11 @@ inline static long inline_fn23(long arg0)
   return arg0 << 0x18;
 }
 
+inline static int inline_fn234(int arg0)
+{
+  return arg0;
+}
+
 void func_80118BCC(void *arg0)
 {
   s32 sp38;
@@ -106,7 +111,7 @@ void func_80118BCC(void *arg0)
   long var_s3;
   s32 temp_v0_4;
   int temp_v0_5;
-  long var_s3_2;
+  char var_s3_2;
   u16 *temp_v0_6;
   s32 temp_v1_4;
   long temp_v1_5;
@@ -689,7 +694,7 @@ void func_80118BCC(void *arg0)
       {
         if (temp_v1_13 >= 3)
         {
-          if ((temp_v1_13 == 4) || (temp_v1_13 == 8))
+          if (inline_fn234(temp_v1_13 == 4) || (temp_v1_13 == 8))
           {
             goto block_179;
           }

@@ -10,7 +10,7 @@ extern u8 D_80102D60;
 extern s16 gSaveSlotValid[];
 extern s32 saveSubmitCommand(s32, void *, s32, s32, s32, s32, s32, s32);
 extern s32 saveWaitCommand(void);
-extern s32 func_80010B60(s32);
+extern s32 func_80010B60(unsigned short);
 typedef struct 
 {
   u32 v;

@@ -44,7 +44,14 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
   var_a0 = 0;
   if (arg0 != NULL)
   {
-    *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) | 0x10000000);
+    if (temp_v0_2)
+    {
+      *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) | 0x10000000);
+    }
+    else
+    {
+      *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) | 0x10000000);
+    }
   }
   if (inline_fn() > 0)
   {
@@ -63,7 +70,12 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
   }
   if (var_a0 == 0)
   {
- do { D_80100314[D_8010D294].f0 = arg2; temp_v1 = D_8010D294 * 8; *((void **) (D_80100310 + temp_v1)) = arg1; } while (0);
+    do
+    {
+      D_80100314[D_8010D294].f0 = arg2; temp_v1 = D_8010D294 * 8;
+      *((void **) (D_80100310 + temp_v1)) = arg1;
+    }
+    while (0);
     D_8010D294 += 1;
   }
   gTrackMarkerSerial += 1;
@@ -89,7 +101,11 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
       func_80074820(sTrackMarkerTable, lookupDataEntry(*((u16 *) (((char *) var_s4) + 6))), 0x20, 2, var_fs0, D_800C7EE4);
       if (D_80112EBC)
       {
-        var_s1_2 = 0;
+        do
+        {
+          var_s1_2 = 0;
+        }
+        while (0);
         if (D_80112EBC > 0)
         {
           var_s2 = __base_D_80100B20;
@@ -118,7 +134,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
               }
             }
             temp_v1_2 = *((s32 *) (((char *) var_s4) + 0));
-            if (temp_v1_2 & 0x80000000)
+            if (0x80000000 & temp_v1_2)
             {
               var_v0 = *__base_D_80100B20;
             }
@@ -136,6 +152,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2)
       }
       var_s4 += 8;
     }
-    while ((((u32) var_s4) - ((u32) arg1)) < (((u32) arg2) * 8));
+    while ((((u32) var_s4) - ((u32) arg1)) < ((((u32) arg2) * 4) * 2));
   }
 }
+

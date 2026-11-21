@@ -144,8 +144,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
   void *temp_v1;
   f32 *sp1B4;
   f32 *sp1BC;
-  f32 *sp1C4;
   f32 *sp1CC;
+  f32 *sp1C4;
   f32 *sp1D4;
   u16 sp1DE;
   u16 sp1E6;

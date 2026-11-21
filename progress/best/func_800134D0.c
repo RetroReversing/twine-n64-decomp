@@ -699,11 +699,11 @@ u32 __repair_phase_var_s3;
 
     if (var_t4_2 < 0)
     {
-      temp_t2_11 = var_s4;
+      var_s3 = var_s4;
       var_s4 = *var_s1;
       var_s1++;
-      var_a2_10 = (var_t2_2 + (temp_t2_11 << (var_t4_2 + 1))) & 1;
-      var_t2 = temp_t2_11 >> (-var_t4_2);
+      var_a2_10 = (var_t2_2 + (var_s3 << (var_t4_2 + 1))) & 1;
+      var_t2 = var_s3 >> (-var_t4_2);
       var_t4_2 += 0x20;
     }
     else

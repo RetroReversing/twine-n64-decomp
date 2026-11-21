@@ -425,15 +425,15 @@ void func_80065D90(void *arg0)
             var_v1 = 0x3F3FFFFF;
             break;
 
-          default:
-            var_v1 = 0xFF0000FF;
-            break;
-
           case 1:
             var_v1 = 0x3FFF3FFF;
             break;
 
-        }
+        default:
+            var_v1 = 0xFF0000FF;
+            break;
+
+          }
 
         *((s32 *) (((char *) temp_s0) + 0x10)) = var_v1;
         *((s32 *) (((char *) temp_s0) + 0x28)) = (s32) (((*((s32 *) (((char *) temp_s0) + 0x28))) & (~0xFC)) | 0x10);
