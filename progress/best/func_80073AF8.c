@@ -31,6 +31,12 @@ typedef struct
   unsigned char pad[36];
   int value;
 } __repair_field_24;
+typedef struct { f32 v; } Field_f32;
+typedef struct { s16 v; } Field_s16;
+typedef struct { s32 v; } Field_s32;
+typedef struct { s8 v; } Field_s8;
+typedef struct { u16 v; } Field_u16;
+typedef struct { u8 v; } Field_u8;
 void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 arg5, s32 arg6, u8 arg7, u8 arg8, s32 arg9, s32 arg10)
 {
   s32 sp10[64];
@@ -79,7 +85,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
   sp13C = sp114;
   if (gBorderSkipActive != 0)
   {
-    temp_v0 = *((s16 *) (((char *) sp114) + 0x140));
+    temp_v0 = (((Field_s16 *) (((char *) sp114) + 0x140))->v);
     if (gVisibleSaveSlotCount > temp_v0)
     {
       goto block_10;
@@ -103,34 +109,34 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
   {
     temp_s1 = *((void **) (((char *) temp_s3) + 0x6C));
     temp_v0_2 = strlen(sp10);
-    *((s32 *) (((char *) temp_s1) + 0x20)) = (s32) gTrackMarkerSerial;
-    *((s8 *) (((char *) temp_s1) + 0x135)) = 1;
+    (((Field_s32 *) (((char *) temp_s1) + 0x20))->v) = (s32) gTrackMarkerSerial;
+    (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 1;
     {
       u16 caption = *(u16 *)((char *)sp114 + 0x140);
-      *((s8 *) (((char *) temp_s1) + 0x136)) = 0;
-      *((u8 *) (((char *) temp_s1) + 0x33)) = caption;
+      (((Field_s8 *) (((char *) temp_s1) + 0x136))->v) = 0;
+      (((Field_u8 *) (((char *) temp_s1) + 0x33))->v) = caption;
     }
     temp_v1 = var_s7 & 0xFF;
-    *((s16 *) (((char *) temp_s3) + 0x7C)) = 0;
-    *((u8 *) (((char *) temp_s1) + 0x35)) = var_s7;
+    (((Field_s16 *) (((char *) temp_s3) + 0x7C))->v) = 0;
+    (((Field_u8 *) (((char *) temp_s1) + 0x35))->v) = var_s7;
     sp14E = temp_v0_2;
     switch (temp_v1)
     {
       case 5:
-        temp_v0_3 = (*((u8 *) (((char *) temp_s1) + 0x33))) * 0x1C;
+        temp_v0_3 = ((((Field_u8 *) (((char *) temp_s1) + 0x33))->v)) * 0x1C;
         var_s7 = 3;
         if ((*((s32 *) (((char *) (&D_8010D38C)) + temp_v0_3))) != (*((s32 *) (((char *) (&D_8010D2CC)) + temp_v0_3))))
       {
-        *((s32 *) (((char *) temp_s3) + 0x60)) = (s32) ((*((s32 *) (((char *) temp_s3) + 0x60))) | 1);
+        (((Field_s32 *) (((char *) temp_s3) + 0x60))->v) = (s32) (((((Field_s32 *) (((char *) temp_s3) + 0x60))->v)) | 1);
         return NULL;
       }
 
       case 3:
-        *((s8 *) (((char *) temp_s1) + 0x135)) = 0;
+        (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 0;
         var_fp = 0x96;
         if (((s8) sp12F) == 0)
       {
-        *((s8 *) (((char *) temp_s1) + 0x136)) = 1;
+        (((Field_s8 *) (((char *) temp_s1) + 0x136))->v) = 1;
       }
         var_s4 = 0xA0;
         var_s2 = 0x24;
@@ -143,7 +149,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
       case 2:
 
       case 4:
-        *((s8 *) (((char *) temp_s1) + 0x135)) = 0;
+        (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 0;
         if ((var_s7 & 0xFF) == 4)
       {
         var_s4 = 0x20;
@@ -179,7 +185,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         {
           if (gBorderFlipFlag != 1)
           {
-            *((s8 *) (((char *) temp_s1) + 0x135)) = 0;
+            (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 0;
           }
           else
           {
@@ -197,7 +203,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         var_s2 = 0x3A;
 
         block_34:
-        *((s8 *) (((char *) temp_s1) + 0x135)) = 0;
+        (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 0;
 
       }
         goto block_50;
@@ -215,7 +221,7 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
 
       default:
         var_fp = 0x1E;
-        *((s8 *) (((char *) temp_s1) + 0x135)) = 0;
+        (((Field_s8 *) (((char *) temp_s1) + 0x135))->v) = 0;
         __repair_phase_storage.value = 0xA0;
         var_a0 = 0x78;
         if (gBorderSkipActive != 0)
@@ -286,22 +292,22 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
     {
       *((CaptionPosition *) (((char *) temp_s1) + 8)) = *((CaptionPosition *) arg0);
       temp_fv0 = func_80045590(temp_s1 + 8, sBonusObjectTable + 0x24);
-      *((f32 *) (((char *) temp_s1) + 0x28)) = temp_fv0;
+      (((Field_f32 *) (((char *) temp_s1) + 0x28))->v) = temp_fv0;
       if (temp_fv0 < 4.0f)
       {
-        *((f32 *) (((char *) temp_s1) + 0x28)) = 4.0f;
+        (((Field_f32 *) (((char *) temp_s1) + 0x28))->v) = 4.0f;
       }
     }
     else
     {
-      *((f32 *) (((char *) temp_s1) + 0xC)) = 65536.0f;
+      (((Field_f32 *) (((char *) temp_s1) + 0xC))->v) = 65536.0f;
     }
-    *((s32 *) (((char *) temp_s1) + 0x1C)) = 0;
+    (((Field_s32 *) (((char *) temp_s1) + 0x1C))->v) = 0;
     ((__repair_field_24 *) temp_s1)->value = arg6;
     temp_s6 = temp_s1 + 0x36;
-    *((u8 *) (((char *) temp_s1) + 0x32)) = sp137;
-    *((u8 *) (((char *) temp_s1) + 0x34)) = var_s7;
-    *((s32 *) (((char *) temp_s1) + 0x2C)) = arg9;
+    (((Field_u8 *) (((char *) temp_s1) + 0x32))->v) = sp137;
+    (((Field_u8 *) (((char *) temp_s1) + 0x34))->v) = var_s7;
+    (((Field_s32 *) (((char *) temp_s1) + 0x2C))->v) = arg9;
     func_800AB880(temp_s6, sp10);
     temp_v0_4 = func_80015F0C();
     if (temp_v0_4 != NULL)
@@ -310,59 +316,57 @@ void *func_80073AF8(void *arg0, void *arg1, s32 *arg2, u16 arg3, u16 arg4, u8 ar
         long long phantom_wide = arg3;
       }
       *((s32 **) (((char *) temp_v0_4) + 0x18)) = temp_s6;
-      *((u16 *) (((char *) temp_v0_4) + 0x1C)) = sp14E;
-      *((s16 *) (((char *) temp_v0_4) + 0x20)) = var_s4;
-      *((s16 *) (((char *) temp_v0_4) + 0x22)) = var_s2;
-      *((s32 *) (((char *) temp_v0_4) + 0x10)) = 0;
-      *((s32 *) (((char *) temp_v0_4) + 0x14)) = 0;
-      *((s16 *) (((char *) temp_v0_4) + 0x1E)) = var_s5;
+      (((Field_u16 *) (((char *) temp_v0_4) + 0x1C))->v) = sp14E;
+      (((Field_s16 *) (((char *) temp_v0_4) + 0x20))->v) = var_s4;
+      (((Field_s16 *) (((char *) temp_v0_4) + 0x22))->v) = var_s2;
+      (((Field_s32 *) (((char *) temp_v0_4) + 0x10))->v) = 0;
+      (((Field_s32 *) (((char *) temp_v0_4) + 0x14))->v) = 0;
+      (((Field_s16 *) (((char *) temp_v0_4) + 0x1E))->v) = var_s5;
       func_800165E0(temp_v0_4, sp114);
       var_fv1 = (f64) var_fp;
-      *((s16 *) (((char *) temp_s3) + 0x78)) = 0x19;
+      (((Field_s16 *) (((char *) temp_s3) + 0x78))->v) = 0x19;
       *((void **) (((char *) temp_s1) + 4)) = temp_v0_4;
-      *((s16 *) (((char *) temp_s1) + 0x30)) = (s16) var_fp;
+      (((Field_s16 *) (((char *) temp_s1) + 0x30))->v) = (s16) var_fp;
       if (var_fp < 0)
       {
         var_fv1 += D_800D4860;
       }
-      *((f32 *) (((char *) temp_s1) + 0x14)) = (f32) (4096.0f / ((f32) var_fv1));
+      (((Field_f32 *) (((char *) temp_s1) + 0x14))->v) = (f32) (4096.0f / ((f32) var_fv1));
     }
     else
     {
-      *((s32 *) (((char *) temp_s3) + 0x60)) = (s32) ((*((s32 *) (((char *) temp_s3) + 0x60))) | 1);
+      (((Field_s32 *) (((char *) temp_s3) + 0x60))->v) = (s32) (((((Field_s32 *) (((char *) temp_s3) + 0x60))->v)) | 1);
     }
     if (((s16) sp11E) != (-1))
     {
-      *((s32 *) (((char *) temp_s1) + 0)) = (s32) (*((s32 *) (((char *) sp13C) + 0x138)));
-      do
+      (((Field_s32 *) (((char *) temp_s1) + 0))->v) = (s32) ((((Field_s32 *) (((char *) sp13C) + 0x138))->v));
       {
         effectSetAnimFrame(temp_s3, (s16) sp11E, (s16) sp126);
       }
-      while (0);
-      scale = ((f64) (0.0625f / (*((f32 *) (((char *) temp_s3) + 0x64))))) * D_800D4868;
+      scale = ((f64) (0.0625f / ((((Field_f32 *) (((char *) temp_s3) + 0x64))->v)))) * D_800D4868;
       ((__repair_field_24 *) temp_s3)->value = 0;
-      *((s32 *) (((char *) temp_s3) + 0x3C)) = 0;
-      *((s32 *) (((char *) temp_s3) + 0x28)) = 0;
-      *((s32 *) (((char *) temp_s3) + 0x40)) = 0;
-      *((s16 *) (((char *) temp_s3) + 0x7A)) = 0;
-      *((s32 *) (((char *) temp_s3) + 0x20)) = 0;
-      *((f32 *) (((char *) temp_s3) + 0x2C)) = 0.5f;
-      *((f32 *) (((char *) temp_s3) + 0x44)) = -2048.0f;
-      *((s32 *) (((char *) temp_s3) + 0x58)) = (s32) ((*((s32 *) (((char *) temp_s3) + 0x58))) | 0x1000);
-      *((f32 *) (((char *) temp_s3) + 0x54)) = (f32) scale;
+      (((Field_s32 *) (((char *) temp_s3) + 0x3C))->v) = 0;
+      (((Field_s32 *) (((char *) temp_s3) + 0x28))->v) = 0;
+      (((Field_s32 *) (((char *) temp_s3) + 0x40))->v) = 0;
+      (((Field_s16 *) (((char *) temp_s3) + 0x7A))->v) = 0;
+      (((Field_s32 *) (((char *) temp_s3) + 0x20))->v) = 0;
+      (((Field_f32 *) (((char *) temp_s3) + 0x2C))->v) = 0.5f;
+      (((Field_f32 *) (((char *) temp_s3) + 0x44))->v) = -2048.0f;
+      (((Field_s32 *) (((char *) temp_s3) + 0x58))->v) = (s32) (((((Field_s32 *) (((char *) temp_s3) + 0x58))->v)) | 0x1000);
+      (((Field_f32 *) (((char *) temp_s3) + 0x54))->v) = (f32) scale;
     }
     else
     {
-      *((s32 *) (((char *) temp_s1) + 0)) = 0;
+      (((Field_s32 *) (((char *) temp_s1) + 0))->v) = 0;
     }
-    *((s32 *) (((char *) temp_s1) + 0x18)) = D_8010D2C0[*((u8 *) (((char *) temp_s1) + 0x33))][*((u8 *) (((char *) temp_s1) + 0x34))];
+    (((Field_s32 *) (((char *) temp_s1) + 0x18))->v) = D_8010D2C0[(((Field_u8 *) (((char *) temp_s1) + 0x33))->v)][(((Field_u8 *) (((char *) temp_s1) + 0x34))->v)];
     if (sp12F == 0)
     {
       return temp_s3;
     }
     {
-      *((s32 *) (((char *) temp_s1) + 0x1C)) = (s32) ((*((s32 *) (((char *) temp_s1) + 0x1C))) | 1);
-      temp_v1_2 = &D_8010D2C0[*((u8 *) (((char *) temp_s1) + 0x33))][*((u8 *) (((char *) temp_s1) + 0x34))];
+      (((Field_s32 *) (((char *) temp_s1) + 0x1C))->v) = (s32) (((((Field_s32 *) (((char *) temp_s1) + 0x1C))->v)) | 1);
+      temp_v1_2 = &D_8010D2C0[(((Field_u8 *) (((char *) temp_s1) + 0x33))->v)][(((Field_u8 *) (((char *) temp_s1) + 0x34))->v)];
       *temp_v1_2 += 1;
     }
     return temp_s3;

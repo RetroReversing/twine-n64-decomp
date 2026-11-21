@@ -613,7 +613,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                             }
                           }
                         }
-                        sp204 += 3; sp1C6 += 1; var_fp_2 += 3;
+                        sp204 += 3; var_fp_2 += 3; sp1C6 += 1;
                       }
                       while (sp1C6 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40)))));
                     }

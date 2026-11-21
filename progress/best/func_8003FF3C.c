@@ -24,8 +24,9 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   s32 a2;
   s32 a2_c;
   s32 __repair_result_a2;
-  s32 a3;
+  
   s32 __repair_phase_v1;
+s32 __repair_phase___repair_phase_v1;
   unsigned int base;
   unsigned int __repair_phase_base;
   u32 sp10[3];
@@ -143,7 +144,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             tmp8 = var_s1[var_s2[var_fp * 3]];
             a2 = first & 0xFF;
             var_s5 += 3;
-            a3 = second & 0xFF;
+            a2_c = second & 0xFF;
             v1_2 = tmp8 & 0xFF;
             var_s3[0] = tmp8;
             var_s3 += 3;
@@ -160,7 +161,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             tmp8 = var_s2[var_fp * 3];
             t16c = BE16(var_s1 + (tmp8 * 2));
             v1_2 = t16c & 0xFFFF;
-            a3 = t16b & 0xFFFF;
+            a2_c = t16b & 0xFFFF;
             var_s4[0] = t16c;
             var_s4 += 3;
             break;
@@ -175,7 +176,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             tmp8 = var_s1[var_s2[var_fp * 3] * 3];
             a2 = first & 0xFF;
             var_s5 += 3;
-            a3 = second & 0xFF;
+            a2_c = second & 0xFF;
             v1_2 = tmp8 & 0xFF;
             var_s3[0] = tmp8;
             var_s3 += 3;
@@ -191,7 +192,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             var_s6 += 3;
             tmp8 = var_s2[var_fp * 3] * 3;
             t16c = BE16(var_s1 + (tmp8 * 2));
-            a3 = t16b & 0xFFFF;
+            a2_c = t16b & 0xFFFF;
             v1_2 = t16c & 0xFFFF;
             var_s4[0] = t16c;
             var_s4 += 3;
@@ -203,7 +204,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 
 
         base = *((s32 *) (((u8 *) arg0) + 0x34));
-        buildPlaneFromPoints(&sp10, base + (a2 * 12), base + (a3 * 12), base + (v1_2 * 12));
+        buildPlaneFromPoints(&sp10, base + (a2 * 12), base + (a2_c * 12), base + (v1_2 * 12));
         var_s0 += 3;
         var_fp += 1;
         *var_t0 = 0;
@@ -252,11 +253,11 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           var_s5[0] = first;
           a2_c = first;
         }
-          __repair_phase_v1 = var_s1[var_s0[2] * 3];
-          var_s5[1] = (u8) __repair_phase_v1;
+          __repair_phase___repair_phase_v1 = var_s1[var_s0[2] * 3];
+          var_s5[1] = (u8) __repair_phase___repair_phase_v1;
           tmp8 = var_s1[var_s0[3] * 3];
           __repair_result_a2 = inline_fn(var_s1, var_s0[1] * 3);
-          a3_2 = __repair_phase_v1 & 0xFF;
+          a3_2 = __repair_phase___repair_phase_v1 & 0xFF;
           v1_2 = tmp8 & 0xFF;
           var_s5[2] = tmp8;
           var_s5 += 3;
@@ -297,6 +298,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   loop_48:
   if (var_s0[0] != 12)
   {
+      { long long phantom_wide = var_s7; }
     goto dispatch;
   }
 

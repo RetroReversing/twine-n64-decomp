@@ -27,6 +27,11 @@ extern s32 gVisibleSaveSlotCount;
 extern s32 gSaveTotalSlots;
 extern void *lookupDataEntry(volatile int);
 extern s32 sprintf(char *, const char *, ...);
+inline static char *inline_fn(char *arg0, s32 arg1)
+{
+  return arg0 + (arg1 >> 14);
+}
+
 void func_8011D158(unsigned short slot)
 {
   volatile s32 *count = &gVisibleSaveSlotCount;
@@ -111,7 +116,7 @@ void func_8011D158(unsigned short slot)
         id = 0x2E5;
       }
       sprintf(D_8011F2B8[index], lookupDataEntry(id));
-      label = (Label **) (((char *) D_8011F3E8) + (((s32) (((u32) slot) << 16)) >> 14));
+      label = (Label **) inline_fn((char *) D_8011F3E8, (s32) (((u32) slot) << 16));
       (*label)->flags = ((*label)->flags & (~0xFC)) | 0xC;
       if (kind == 0)
       {
