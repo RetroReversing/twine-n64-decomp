@@ -4648,14 +4648,6 @@
   "score_after": 311
  },
  {
-  "function": "func_80022C04",
-  "text": "Compiled starting draft and reached 805 (90.7%, 84 vs target 87 instructions). Source already captures most behavior; residual diff is concentrated in branch layout and field_28 flag updates. Tried changing signedness of var_v0_2, changing mask spelling from ~0xFC to -0xFD, narrowing arg1/arg2 to u8, and replacing flag bit tricks with ternaries; all produced identical instructions. Target uses `lw v1, 0x28(s1); addiu v0,zero,-0xfd; and v1,v1,v0` before computing v0's flag bits, while candidate folds the mask and emits fewer instructions; investigate expression sequencing/storage and branch form. Retained candidate score 805.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795138458.728478,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_8009F328",
   "text": "No compiling draft exists (m2c repeatedly errors on unset $t3); no compile attempted. Entry assembly reads halfwords at arg0+0x168/0x178 and repeatedly executes jalr $t3, but no instruction in the 44-instruction body initializes $t3. It saves/restores $ra around those indirect calls. This appears to rely on an incoming temporary register outside the standard C ABI, so pure C cannot express the callback source. If revisited, verify caller/custom calling convention or extent first; otherwise hand-written assembly is likely.",
   "by": "codex-gpt-6-luna-11",
@@ -10832,14 +10824,6 @@
   "score_after": 980
  },
  {
-  "function": "func_80022C04",
-  "text": "Baseline 805; local branch orientation, signedness, declaration order, constant, parameter width and const variants failed. Target masks field_28 with -0xfd separately within each branch and computes 7/3 before shifting; candidate folds expressions across branches. Restructure bitfield assignments to reproduce target.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795178347.2910259,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_8003FDE0",
   "text": "Rechecked a258fcc0c9657b45a870 at 1355. Six masked reuse, signedness, pointer and switch variants did not improve. Target separately masks initial byte after lbu, candidate omits mask; 51 rows differ and candidate jump table has relocation discrepancy. Rework loop byte lifetimes and switch layout.",
   "by": "codex-gpt-6.1-terra-7",
@@ -14302,14 +14286,6 @@
   "created_at": 1795182672.273379,
   "score_before": 2090,
   "score_after": 2090
- },
- {
-  "function": "func_80022C04",
-  "text": "Rechecked score 805. Signedness, declaration order and constant local unchanged; reversed branch, u8 parameter and const reads worsened. 22 differences include four missing target instructions; inspect branch logic and argument widths rather than register tuning.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795182672.708626,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_8009AE24",
@@ -25952,14 +25928,6 @@
   "score_after": 1715
  },
  {
-  "function": "func_80022C04",
-  "text": "Reverified 625 at 99a9fe5ba205ddb882c6. The prefix through the color store matches except for the epilogue branch distance. The final mode arms need separate lw/addiu/and chains clearing 0xFC before evaluating arg1, then a shared OR/store. Candidate hoists the clear to the shared tail and folds the second arm into andi 0x1C / ori 0xC instead of andi 7 / ori 3 / sll 2. Explicit shared store (including signed narrow casts), unsigned shift, second-arm volatile field load and split retained-bit expressions failed to improve. Next test a 32-bit bitfield layout with six bits at positions 2\u20137 to see whether GCC emits the original insertion sequence.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795191748.1070411,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_80019E28",
   "text": "Improved verified score 1490 to 270 using negated ternaries directly in both func_80087100 calls. Remaining difference is scheduling move of result to s1 before indexed stack-table address calculation, which should use v0 rather than v1. Staging ID, unsigned or u16 index, register result, and volatile table did not improve.",
   "by": "codex-gpt-6.1-terra-8",
@@ -27670,14 +27638,6 @@
   "created_at": 1795193679.828681,
   "score_before": 1520,
   "score_after": 1520
- },
- {
-  "function": "func_80022C04",
-  "text": "Improved verified score 625 to 375 by staging the else-path mask and shift in separate assignments. Target masks field_28 independently in each arm before shared OR/store; compiler still merges masking, leaving two missing instructions and register/order differences. Tested separate masking in both arms, volatile read/store, shared goto, and alternate staged arithmetic; no further improvement. Flag search found no better profile.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795193681.178848,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "segmentPassesBoundsRejection",
@@ -29654,14 +29614,6 @@
   "created_at": 1795198192.997547,
   "score_before": 235,
   "score_after": 0
- },
- {
-  "function": "func_80022C04",
-  "text": "Best score 375 (about 95.6%, 85 vs target 87 instructions), rechecked from saved candidate. First compile from the supplied candidate also 375; compact struct variant equal. A branch-local mask local did not change code. Target has 94 instructions including delay slots; candidate starts shorter by 2 and branches are 8 bytes early. Main remaining target shape at end: for D_80102EDD != 0, call E88(0), B60(0), load flags at 0x28, load -0xFD mask, and mask flags; compute `andi v0,s3,0xff; sltiu v0,v0,1; negu v0,v0; j shared_label; andi v0,v0,0x1c`. Else path calls E88(3), B60(3), then same flags/mask and computes zero-test mask to 0x1c via &7 |3 <<2, shared OR/store. Candidate uses volatile only in first path and computes mask expression differently, emitting `andi` directly; try duplicate full expressions and branches while preserving jump join. Ignore prototype review warnings unless actual argument evidence indicates signature changes. No new match or reusable game-wide convention found.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198193.874176,
-  "score_before": 150,
-  "score_after": 150
  },
  {
   "function": "func_8002FFAC",
@@ -32248,14 +32200,6 @@
   "score_after": 335
  },
  {
-  "function": "func_80022C04",
-  "text": "Rechecked saved candidate against current context; best current tested source reached 905 after correcting func_80022EB8 prototype from (s32,s32,s32) to matched callee signature (s16,s32,s8), improving from 1295. Repeated narrowing/cast edits to first and third call arguments did not change assembly further. Remaining clear target differences include entry branch target (target .L80022D44 vs candidate four bytes early), zero test branch layout, and final bitmask branch register/order. Target call computes index * 12 via sll 1, add original, sll 2, andi 0xfc; candidate retained signed shift expansion. Saved historical best score 375 was not reverified and differs from tested source/context. Continue from saved_best and inspect full assembly around branch joins; potential record struct and exact source control flow needed.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795201208.398591,
-  "score_before": 150,
-  "score_after": 150
- },
- {
   "function": "func_80034EFC",
   "text": "Starting draft referenced missing symbols; attempted compact Gfx command emission and compile succeeded at score 3655 vs historical 1315. Target has specific interleaved writes to global display-list pointer, stores commands using base offsets 8,12,16,20, and call to osVirtualToPhysical. Rewrite used wrong command ordering/offsets and optimizer generated repeated pointer stores / excess prologue. Next agent should start from saved_best, examine exact target assembly and model each command as sequential Gfx pointer increments/stores; confirm globals widths/signatures and preserve call argument setup. No match.",
   "by": "codex-gpt-6-luna-9",
@@ -33846,14 +33790,6 @@
   "created_at": 1795202240.616174,
   "score_before": 887,
   "score_after": 887
- },
- {
-  "function": "func_80022C04",
-  "text": "Improved 375 to 10 with do/while around both field-mask computations. Remaining final OR and store use v0 instead of v1. Separating OR introduced duplicate tail; volatile store unchanged.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795202240.674639,
-  "score_before": 150,
-  "score_after": 10
  },
  {
   "function": "func_8000299C",
@@ -36494,14 +36430,6 @@
   "created_at": 1795204503.732906,
   "score_before": 3150,
   "score_after": 3150
- },
- {
-  "function": "func_80022C04",
-  "text": "Best candidate 4c95426483e60bf95509 scores 10: only mismatch is the final register choice in the else branch (target 'or $v1,$v1,$v0' + sw $v1; candidate writes 'or $v0,$v1,$v0'). Tried: removing volatile (still 10), shifting order of the and/or, '|=' form (290), swapping var roles (35), splitting do-while blocks (10, same). Rewriting the whole function from scratch scored 575-625 (regalloc/branch layout off). Untested next: vary declaration order of var_v0_2/var_v1 or use a temp declared inside the else block for the shifted bits.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795204519.588118,
-  "score_before": 10,
-  "score_after": 10
  },
  {
   "function": "func_8008863C",
@@ -47012,15 +46940,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:e93107390898fbd4be9f303469a1e6be3e586dd129f96bddd280e3d8d01eb708"
  },
  {
-  "function": "func_80022C04",
-  "text": "Current candidate baseline verified at score 10 (87/87 instructions). Tried reversing the final OR operands in the else arm: it changed `or $v0,$v1,$v0` to `or $v0,$v0,$v1`, still two register differences from target `or $v1,$v1,$v0; sw $v1`. Declaring a result temp and assigning the OR before volatile store had no assembly change. This target register $v1 may require retaining the loaded field/masked base in $v1 through the entire branch rather than assigning directly to field. Next step: model field_28 as volatile and use a volatile local read-modify-write, or adjust the record pointer/field access lvalue to see if GCC keeps the old value in $v1.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795214176.787868,
-  "score_before": 10,
-  "score_after": 10,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bb3ac1683e2550bd8bfca8d60657e38f9a9c956fabfe2d934abbaa6763255162"
- },
- {
   "function": "func_80001F40",
   "text": "Starting from the rechecked 740 candidate, three harmless declaration/brace edits and a failed attempt to add an initial empty-table guard yielded identical code or compile errors. Main residual is entry/loop control-flow and register allocation: target has beqz at branch displacement 0x3d, candidate 0x3c; several branch-likely destinations differ by one instruction; target keeps found flag in t3, candidate allocates t6 and emits extra zero init. Tried one extra unused local and braces; no assembly change. Next step: alter loop structure around the initial table test to encode an explicit do/while with the first load hoisted, aiming to remove the candidate's extra init instruction and match target branch-likely placement.",
   "by": "codex-gpt-6-luna-15",
@@ -54006,15 +53925,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:acd59bc33584e200ef226c13bfb501fce8da613de27d5ebf3822f9b941ee2315"
  },
  {
-  "function": "func_80022C04",
-  "text": "Reached six trials without improvement after testing unsigned temporary scope, unsigned OR, multiplication for shift, and addition for OR. Verified score 10 with only the final $v0/$v1 register difference.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795222733.974495,
-  "score_before": 10,
-  "score_after": 10,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb3ac1683e2550bd8bfca8d60657e38f9a9c956fabfe2d934abbaa6763255162"
- },
- {
   "function": "func_80099AF0",
   "text": "Saved best 25 (rev 5f030abdba8213b0eb02) retained. Only a v0/v1 swap in the b==0xFF path: target puts id&0xFF in $v1 and table byte in $v0 there, but table in $v1 and id in $v0 in the other path (compare is bne v1,v0 in both). Tried decl-order permutations (25 same), u32 tbl (225), explicit l/r temps (275-460), pointer-add form (25 same). Next step: try making the two paths assign a shared compare variable with swapped roles via a ternary on b==0xFF, or a helper-style static inline taking (id, table_value).",
   "by": "api-claude-sonnet-5-5-2",
@@ -57300,5 +57210,95 @@
   "created_at": 1795228279.7140229,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Compiled starting draft and reached 805 (90.7%, 84 vs target 87 instructions). Source already captures most behavior; residual diff is concentrated in branch layout and field_28 flag updates. Tried changing signedness of var_v0_2, changing mask spelling from ~0xFC to -0xFD, narrowing arg1/arg2 to u8, and replacing flag bit tricks with ternaries; all produced identical instructions. Target uses `lw v1, 0x28(s1); addiu v0,zero,-0xfd; and v1,v1,v0` before computing v0's flag bits, while candidate folds the mask and emits fewer instructions; investigate expression sequencing/storage and branch form. Retained candidate score 805.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795138458.728478,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Baseline 805; local branch orientation, signedness, declaration order, constant, parameter width and const variants failed. Target masks field_28 with -0xfd separately within each branch and computes 7/3 before shifting; candidate folds expressions across branches. Restructure bitfield assignments to reproduce target.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795178347.2910259,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Rechecked score 805. Signedness, declaration order and constant local unchanged; reversed branch, u8 parameter and const reads worsened. 22 differences include four missing target instructions; inspect branch logic and argument widths rather than register tuning.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795182672.708626,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Reverified 625 at 99a9fe5ba205ddb882c6. The prefix through the color store matches except for the epilogue branch distance. The final mode arms need separate lw/addiu/and chains clearing 0xFC before evaluating arg1, then a shared OR/store. Candidate hoists the clear to the shared tail and folds the second arm into andi 0x1C / ori 0xC instead of andi 7 / ori 3 / sll 2. Explicit shared store (including signed narrow casts), unsigned shift, second-arm volatile field load and split retained-bit expressions failed to improve. Next test a 32-bit bitfield layout with six bits at positions 2\u20137 to see whether GCC emits the original insertion sequence.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795191748.1070411,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Improved verified score 625 to 375 by staging the else-path mask and shift in separate assignments. Target masks field_28 independently in each arm before shared OR/store; compiler still merges masking, leaving two missing instructions and register/order differences. Tested separate masking in both arms, volatile read/store, shared goto, and alternate staged arithmetic; no further improvement. Flag search found no better profile.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795193681.178848,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Best score 375 (about 95.6%, 85 vs target 87 instructions), rechecked from saved candidate. First compile from the supplied candidate also 375; compact struct variant equal. A branch-local mask local did not change code. Target has 94 instructions including delay slots; candidate starts shorter by 2 and branches are 8 bytes early. Main remaining target shape at end: for D_80102EDD != 0, call E88(0), B60(0), load flags at 0x28, load -0xFD mask, and mask flags; compute `andi v0,s3,0xff; sltiu v0,v0,1; negu v0,v0; j shared_label; andi v0,v0,0x1c`. Else path calls E88(3), B60(3), then same flags/mask and computes zero-test mask to 0x1c via &7 |3 <<2, shared OR/store. Candidate uses volatile only in first path and computes mask expression differently, emitting `andi` directly; try duplicate full expressions and branches while preserving jump join. Ignore prototype review warnings unless actual argument evidence indicates signature changes. No new match or reusable game-wide convention found.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198193.874176,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Rechecked saved candidate against current context; best current tested source reached 905 after correcting func_80022EB8 prototype from (s32,s32,s32) to matched callee signature (s16,s32,s8), improving from 1295. Repeated narrowing/cast edits to first and third call arguments did not change assembly further. Remaining clear target differences include entry branch target (target .L80022D44 vs candidate four bytes early), zero test branch layout, and final bitmask branch register/order. Target call computes index * 12 via sll 1, add original, sll 2, andi 0xfc; candidate retained signed shift expansion. Saved historical best score 375 was not reverified and differs from tested source/context. Continue from saved_best and inspect full assembly around branch joins; potential record struct and exact source control flow needed.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795201208.398591,
+  "score_before": 150,
+  "score_after": 150
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Improved 375 to 10 with do/while around both field-mask computations. Remaining final OR and store use v0 instead of v1. Separating OR introduced duplicate tail; volatile store unchanged.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795202240.674639,
+  "score_before": 150,
+  "score_after": 10
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Best candidate 4c95426483e60bf95509 scores 10: only mismatch is the final register choice in the else branch (target 'or $v1,$v1,$v0' + sw $v1; candidate writes 'or $v0,$v1,$v0'). Tried: removing volatile (still 10), shifting order of the and/or, '|=' form (290), swapping var roles (35), splitting do-while blocks (10, same). Rewriting the whole function from scratch scored 575-625 (regalloc/branch layout off). Untested next: vary declaration order of var_v0_2/var_v1 or use a temp declared inside the else block for the shifted bits.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795204519.588118,
+  "score_before": 10,
+  "score_after": 10
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Current candidate baseline verified at score 10 (87/87 instructions). Tried reversing the final OR operands in the else arm: it changed `or $v0,$v1,$v0` to `or $v0,$v0,$v1`, still two register differences from target `or $v1,$v1,$v0; sw $v1`. Declaring a result temp and assigning the OR before volatile store had no assembly change. This target register $v1 may require retaining the loaded field/masked base in $v1 through the entire branch rather than assigning directly to field. Next step: model field_28 as volatile and use a volatile local read-modify-write, or adjust the record pointer/field access lvalue to see if GCC keeps the old value in $v1.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795214176.787868,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:bb3ac1683e2550bd8bfca8d60657e38f9a9c956fabfe2d934abbaa6763255162"
+ },
+ {
+  "function": "func_80022C04",
+  "text": "Reached six trials without improvement after testing unsigned temporary scope, unsigned OR, multiplication for shift, and addition for OR. Verified score 10 with only the final $v0/$v1 register difference.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795222733.974495,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb3ac1683e2550bd8bfca8d60657e38f9a9c956fabfe2d934abbaa6763255162"
  }
 ]

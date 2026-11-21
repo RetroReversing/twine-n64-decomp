@@ -23,6 +23,7 @@ extern u8 D_80102EDD;
 extern void *gMenuState;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; int field_28; } __repair_record_temp_s1;
+typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; unsigned int hi:24; unsigned int bits:6; unsigned int lo:2; } __bf;
 void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
     s32 var_v0_2;
     s32 var_v1;
@@ -42,15 +43,11 @@ void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
         if (D_80102EDD != 0) {
             func_80022E88(0);
             func_80022B60(0);
-            do { var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28 & ~0xFC; } while (0);
-            var_v0_2 = -((arg1 & 0xFF) == 0) & 0x1C;
-            ((volatile __repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
+            ((__bf*)temp_s1)->bits = -((arg1 & 0xFF) == 0) & 7;
         } else {
             func_80022E88(3);
             func_80022B60(3);
-            do { var_v1 = ((__repair_record_temp_s1*)temp_s1)->field_28; var_v1 &= ~0xFC; } while (0);
-            var_v0_2 = ((-((arg1 & 0xFF) == 0) & 7) | 3); var_v0_2 <<= 2;
-            ((__repair_record_temp_s1*)temp_s1)->field_28 = var_v1 | var_v0_2;
+            ((__bf*)temp_s1)->bits = (-((arg1 & 0xFF) == 0) & 7) | 3;
         }
     }
 }
