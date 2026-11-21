@@ -15,5 +15,5 @@ typedef s32 M2C_UNK32;
 s32 angleDelta12();
 
 void func_8007AABC(void *arg0, s32 arg1, f32 arg2) {
-    M2C_FIELD(arg0, f32 *, 0x40) = (angleDelta12((s32) M2C_FIELD(arg0, f32 *, 0x40)) * (f32) arg2) + M2C_FIELD(arg0, f32 *, 0x40);
+    s32 d; f32 v; f32 t; d = angleDelta12((s32) M2C_FIELD(arg0, f32 *, 0x40)); do { t = (f32) d * arg2; } while (0); v = M2C_FIELD(arg0, f32 *, 0x40); M2C_FIELD(arg0, f32 *, 0x40) = v + t;
 }
