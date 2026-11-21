@@ -14,15 +14,15 @@ typedef s32 M2C_UNK32;
 
 s32 func_80015F0C();                                /* extern */
 M2C_UNK func_800165E0(s32, s32);                    /* extern */
-extern s32 gTrackMarkerTable[];
+extern s32 D_80109688[];
 
-s32 spawnTrackMarker(s32 arg0) {
+s32 func_800162BC(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = func_80015F0C();
     if (temp_v0 == 0) {
         return 0;
     }
-    func_800165E0(temp_v0, gTrackMarkerTable[arg0]);
+    func_800165E0(temp_v0, D_80109688[arg0]);
     return temp_v0;
 }
