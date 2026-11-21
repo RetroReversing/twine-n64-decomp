@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80001D80(M2C_UNK, void *);             /* extern */
+M2C_UNK func_80001D80(M2C_UNK);             /* extern */
 M2C_UNK func_8000C8BC(s32);                         /* extern */
 M2C_UNK func_8000C97C();                            /* extern */
 M2C_UNK func_8000CF14(M2C_UNK);                     /* extern */
@@ -48,7 +48,7 @@ void beginSceneTransition(void) {
     { u8 *mask = &gTrackMarkerActiveMask; *mask |= 1; }
     gSceneFlagsB |= 1;
     M2C_FIELD(sTrackMarkerTable, s32 *, 0x100) = (s32) (M2C_FIELD(sTrackMarkerTable, s32 *, 0x100) & ~0x100);
-    func_80001D80(0, sTrackMarkerTable);
+    func_80001D80(0);
     gObjectRecords = NULL;
     var_v0 = temp_s1 ^ 0x20;
     if (temp_s1 == 0x26) {

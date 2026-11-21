@@ -26,6 +26,7 @@ s32 func_80090464(void) {
     s32 var_s2;
     s32 var_s4;
     s32 var_s5;
+    s32 invalidPatch;
     s32 var_s6;
     s32 var_s1;
     u16 temp_a1;
@@ -57,6 +58,7 @@ s32 func_80090464(void) {
     var_s4 = 1;
     var_s6 = 0;
     var_s1 = 0;
+    invalidPatch = 0xFF;
     var_s2 = 0;
     var_s5 = 0;
     do {
@@ -67,8 +69,8 @@ s32 func_80090464(void) {
             var_s6 = 1;
             if ((u32) (M2C_FIELD(temp_v0, s32 *, 0x134) + M2C_FIELD(temp_t0, s32 *, 0x120)) >= (u32) *temp_a0) {
                 var_s0 = var_s5;
-                var_a0 = temp_t0 + var_s2;
 loop_4:
+                var_a0 = temp_t0 + var_s2;
                 temp_a3 = M2C_FIELD(var_a0, void **, 0x12C);
                 temp_a1 = M2C_FIELD(temp_a3, u16 *, 8);
                 if (temp_a1 == 0xFFFE) goto rewind;
@@ -82,10 +84,10 @@ rewind:
                         M2C_FIELD(var_a0, void **, 0x12C) = NULL;
                         goto next_track;
                     }
-                temp_a2_2 = M2C_FIELD(temp_a3, u16 *, 0xA);
-                M2C_FIELD(var_a0, void **, 0x12C) = (void *) (M2C_FIELD(var_a0, s32 *, 0x128) + (temp_a2_2 * 0xC));
+                temp_v1 = (u16)(M2C_FIELD(temp_a3, u16 *, 0xA));
+                M2C_FIELD(var_a0, void **, 0x12C) = (void *) (M2C_FIELD(var_a0, s32 *, 0x128) + (temp_v1 * 0xC));
+                M2C_FIELD(var_a0, s32 *, 0x134) = M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14);
                 M2C_FIELD(var_a0, s32 *, 0x130) = 0;
-                M2C_FIELD(var_a0, s32 *, 0x134) = (s32) M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14);
                 if (var_s4 & 0xFF) {
                     var_s4 = 0;
                     reset_timed_sequence(M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14));
@@ -103,48 +105,48 @@ play:
                   temp_a2 = (u8 *)temp_a0_2 + instrumentOffset;
                   M2C_FIELD(temp_a1_2, void **, 0x574) = (void *) (temp_a2 + 0xC);
                   temp_v1 = M2C_FIELD(temp_a2, s32 *, 4);
-                  if (temp_v1 == 0) {
-                      M2C_FIELD(temp_a1_2, void **, 0x578) = NULL;
-                  } else {
+                  if (temp_v1 != 0) {
                       M2C_FIELD(temp_a1_2, void **, 0x578) = (void *) (temp_v1 + M2C_FIELD(temp_t0, void **, 0x10C));
+                  } else {
+                      M2C_FIELD(temp_a1_2, void **, 0x578) = NULL;
                   }
                   temp_a0_3 = gSeqPlayer + var_s0;
                   M2C_FIELD(temp_a0_3, s32 *, 0x584) = 0;
                   M2C_FIELD(temp_a0_3, s16 *, 0x580) = 0x2000;
                   temp_v1_2 = M2C_FIELD(temp_a2, s32 *, 8);
-                  if (temp_v1_2 == 0) {
-                      M2C_FIELD(temp_a0_3, s32 *, 0x57C) = 0;
-                  } else {
+                  if (temp_v1_2 != 0) {
                       M2C_FIELD(temp_a0_3, s32 *, 0x57C) = (s32) (temp_v1_2 + M2C_FIELD(gSeqPlayer, void **, 0x10C));
+                  } else {
+                      M2C_FIELD(temp_a0_3, s32 *, 0x57C) = 0;
                   }
                   temp_a0_4 = gSeqPlayer + var_s0;
                   M2C_FIELD(temp_a0_4, s32 *, 0x588) = 0;
                   M2C_FIELD(temp_a0_4, s16 *, 0x582) = 0;
                   temp_v1_3 = M2C_FIELD(gSeqPlayer, void **, 0x10C);
-                  M2C_FIELD(temp_a0_4, u8 *, 0x58C) = M2C_FIELD(temp_v1_3, u8 *, M2C_FIELD(temp_v1_3, s32 *, 8) + var_s1);
+                  M2C_FIELD(temp_a0_4, u8 *, 0x58C) = *((u8 *)temp_v1_3 + M2C_FIELD(temp_v1_3, s32 *, 8) + var_s1);
                   M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58D) = (u8) M2C_FIELD(temp_a3, u8 *, 0xB);
                   M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58E) = (u8) M2C_FIELD(temp_a3, u8 *, 0xA);
                   M2C_FIELD((gSeqPlayer + var_s0), s8 *, 0x58F) = var_s1;
                   temp_v1_4 = M2C_FIELD(temp_a3, u8 *, 4);
-                  if (temp_v1_4 != 0xFF) {
+                  if (temp_v1_4 != invalidPatch) {
                       temp_a1_3 = M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58C);
                       temp_v0_2 = gSeqPlayer + temp_v1_4;
                       if (temp_a1_3 != 9) {
                           temp_v0_3 = M2C_FIELD(temp_v0_2, u8 *, 8);
-                          if (temp_v0_3 != 0xFF) {
+                          if (temp_v0_3 != invalidPatch) {
                               temp_v0_4 = (temp_v0_3 * 8) + M2C_FIELD(gSeqPlayer, u8 **, 4);
                               M2C_FIELD(((temp_a1_3 * 4) + gSeqPlayer), s32 *, 0xF80) = (s32) ((M2C_FIELD(temp_v0_4, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_4, u8 *, 2) << 8) | M2C_FIELD(temp_v0_4, u8 *, 3));
                           }
                       } else {
                           temp_v0_5 = M2C_FIELD(temp_v0_2, u8 *, 0x8C);
-                          if (temp_v0_5 != 0xFF) {
+                          if (temp_v0_5 != invalidPatch) {
                               temp_v0_6 = (temp_v0_5 * 8) + M2C_FIELD(gSeqPlayer, u8 **, 0x88);
                               M2C_FIELD(gSeqPlayer, s32 *, 0xFA4) = (s32) ((M2C_FIELD(temp_v0_6, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_6, u8 *, 2) << 8) | M2C_FIELD(temp_v0_6, u8 *, 3));
                           }
                       }
                   }
                   temp_a3_2 = M2C_FIELD(temp_a3, u8 *, 5);
-                  if (temp_a3_2 != 0xFF) {
+                  if (temp_a3_2 != invalidPatch) {
                       voiceStoreParam(7, M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58C), D_800EDA87, temp_a3_2);
                   }
                   temp_v1_5 = gSeqPlayer + var_s2;
@@ -152,7 +154,6 @@ play:
 block_29:
                     temp_t0 = gSeqPlayer;
                     temp_v0_7 = temp_t0 + (var_s1 * 0x10);
-                    var_a0 = temp_t0 + var_s2;
                     if ((u32) (M2C_FIELD(temp_v0_7, s32 *, 0x134) + M2C_FIELD(temp_t0, s32 *, 0x120)) < (u32) *M2C_FIELD(temp_v0_7, u32 **, 0x12C)) {
                         goto block_30;
                     }
@@ -166,9 +167,10 @@ block_30:
             }
         }
 next_track:
-        var_s2 += 0x10;
-        var_s1 += 1;
+        var_s2 += 0x10;/*__repair_loop_weight*/do {
+        var_s1 += 1;} while (0);
         var_s5 += 0x28;
     } while (var_s1 < 0x40);
     return var_s6;
 }
+

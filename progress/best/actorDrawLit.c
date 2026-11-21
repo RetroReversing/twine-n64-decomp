@@ -24,7 +24,7 @@ extern u8 D_801032AC;
 extern u8 D_80103EB1;
 extern u32 sMatrixPoolUsed;
 extern u8 D_80107ECD;
-extern u8 D_80107ECE;
+extern s8 D_80107ECE;
 extern u8 D_80108F94;
 extern u8 D_8010957C;
 extern u8 sPrimTintB;

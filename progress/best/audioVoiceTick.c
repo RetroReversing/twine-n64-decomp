@@ -20,7 +20,7 @@ s32 audioVoiceIsActive(u8);                /* extern */
 void *audioVoiceStepTimer(void *, u32 *);           /* extern */
 M2C_UNK func_8008C380(u8, M2C_UNK);                 /* extern */
 M2C_UNK func_8008C590(u8);                          /* extern */
-s32 func_8008C7E0(s16);                             /* extern */
+s32 func_8008C7E0(s32);                             /* extern */
 M2C_UNK func_8008CE38(void *);                      /* extern */
 M2C_UNK func_800957A8(u32 *);                       /* extern */
 M2C_UNK func_800957B8(u32 *, void *);               /* extern */
@@ -30,7 +30,7 @@ M2C_UNK func_8009692C(u8, u8, M2C_UNK);             /* extern */
 M2C_UNK func_800969B4(void *);                      /* extern */
 u32 func_80096D9C(void *);                          /* extern */
 s32 func_80096E1C(s32);                      /* extern */
-M2C_UNK func_80096F44(void *, s32, s16);            /* extern */
+M2C_UNK func_80096F44(void *, s32, s32);            /* extern */
 s32 func_800982B4(u32);                             /* extern */
 void *func_8009846C(s32);                           /* extern */
 M2C_UNK func_80098B14(void *, u8);                  /* extern */
@@ -41,7 +41,7 @@ void *func_8009A804(void *, u32 *, s32);            /* extern */
 void *func_8009A990(void *, u32 *);                 /* extern */
 void *func_8009ABD4(void *, u32 *, M2C_UNK);        /* extern */
 void *func_8009AE24(void *, u32 *, M2C_UNK);        /* extern */
-s32 randomU16Next(void *);                          /* extern */
+s32 randomU16Next();                               /* extern */
 M2C_UNK releaseAudioVoice(void *);                  /* extern */
 M2C_UNK voiceListRemove(void *);                    /* extern */
 extern u32 D_800FDB9C;
@@ -60,6 +60,7 @@ extern u8 sVoiceCount;
 
 void audioVoiceTick(void *arg0, u8 arg1, s32 arg2) {
     union { u16 params[4]; u32 value; } scratch;
+    volatile u32 frameSpace[14];
     M2C_UNK var_a2_4;
     M2C_UNK var_a2_5;
     s16 temp_v0_20;
@@ -199,7 +200,7 @@ void audioVoiceTick(void *arg0, u8 arg1, s32 arg2) {
         if ((temp_v0 & 0xFF) != 0xFF) {
             M2C_FIELD(arg0, u8 *, 0xC1) = temp_v0;
         } else {
-            M2C_FIELD(arg0, u8 *, 0xC1) = (u8) M2C_FIELD(arg0, u16 *, 0x4E);
+            M2C_FIELD(arg0, u8 *, 0xC1) = (u8) M2C_FIELD(arg0, volatile u16 *, 0x4E);
         }
         func_800968A4(M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B), M2C_FIELD(arg0, u8 *, 0x4F));
         temp_v1_3 = M2C_FIELD(arg0, s32 *, 0x60);
@@ -236,12 +237,12 @@ void audioVoiceTick(void *arg0, u8 arg1, s32 arg2) {
         M2C_FIELD(arg0, s16 *, 0xC2) = 0;
         M2C_FIELD(arg0, u8 *, 0xBE) = var_a1;
         M2C_FIELD(arg0, s32 *, 0x24) = (s32) (M2C_FIELD(arg0, s32 *, 0x24) & 8);
-        var_v0 = 0 & 0xFF;
-        do {
-            M2C_FIELD(((var_v0 * 2) + arg0), s16 *, 0x180) = 0;
-            var_a2 += 1;
-            var_v0 = var_a2 & 0xFF;
-        } while ((u32) (var_a2 & 0xFF) < 0x10U);
+        {
+            u8 __repair_i;
+            for (__repair_i = 0; __repair_i < 0x10; __repair_i++) {
+                M2C_FIELD(((__repair_i * 2) + arg0), s16 *, 0x180) = 0;
+            }
+        }
         M2C_FIELD(arg0, u32 *, 0xA0) = 0U;
         M2C_FIELD(arg0, u32 *, 0xA4) = 0U;
         goto block_19;
@@ -265,7 +266,7 @@ loop_25:
         D_800FDB9C = M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 0);
         M2C_FIELD(&D_800FDBA0, u32 *, 0) = (u32) M2C_FIELD(M2C_FIELD(arg0, void **, 4), u32 *, 4);
         M2C_FIELD(arg0, void **, 4) = (void *) (M2C_FIELD(arg0, void **, 4) + 8);
-        temp_v1_5 = D_800FDB9C & 0x7F;
+        temp_v1_5 = *(volatile u32 *)&D_800FDB9C & 0x7F;
         switch (temp_v1_5) {
         case 0x1:
             if ((D_800FDB9E != 0) && (temp_v1_6 = M2C_FIELD(arg0, s32 *, 8), var_a0 = NULL, (temp_v1_6 != 0))) {
@@ -435,7 +436,7 @@ block_75:
             M2C_FIELD(arg0, s32 *, 0x24) = (s32) (M2C_FIELD(arg0, s32 *, 0x24) | 0x80);
             break;
         case 0x13:
-            if ((u32) (randomU16Next(var_a0) & 0xFF) >= (u8) D_800FDB9E) {
+            if ((u32) (randomU16Next() & 0xFF) >= (u8) D_800FDB9E) {
                 temp_v0_15 = func_800982B4((u32) D_800FDB9C >> 0x10);
                 var_a0 = NULL;
                 if (temp_v0_15 != 0) {
@@ -545,7 +546,7 @@ block_95:
             M2C_FIELD(arg0, s8 *, 0x48) = (s8) temp_v0_17;
             M2C_FIELD(arg0, s8 *, 0xB0) = (s8) temp_v0_17;
             if ((s16) D_800FDB9C >= 0) {
-                var_v0_4 = func_8008C7E0((s16) D_800FDB9C);
+                var_v0_4 = func_8008C7E0(D_800FDB9C);
             } else {
                 var_v0_4 = -func_8008C7E0(-(s16) D_800FDB9C);
             }
@@ -858,7 +859,7 @@ block_144:
         case 0x65:
             temp_v1_23 = (u32) D_800FDB9C >> 0x10;
             if (((u32) D_800FDB9C >> 8) & 0xFF) {
-                func_80096F44(arg0, temp_v1_23 & 0xFF, (s16) M2C_FIELD(&D_800FDBA0, u32 *, 0));
+                func_80096F44(arg0, temp_v1_23 & 0xFF, M2C_FIELD(&D_800FDBA0, u32 *, 0));
                 var_a0 = NULL;
             } else {
                 temp_v1_24 = temp_v1_23 & 0x1F;

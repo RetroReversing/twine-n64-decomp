@@ -105,8 +105,6 @@ void func_80070F34(void *arg0) {
     s32 var_s5;
     s32 var_v0;
     s32 var_v0_2;
-    s32 var_v0_3;
-    s32 var_v0_4;
     s32 var_v1;
     s32 var_v1_2;
     s32 var_v1_3;
@@ -190,11 +188,13 @@ void func_80070F34(void *arg0) {
     var_fs1 = height;
     if (gBorderSkipActive != 0) {
         if (gVisibleSaveSlotCount != 2) {
-            if ((gVisibleSaveSlotCount >= 3) && (gVisibleSaveSlotCount < 5)) {
-                var_fs2 = 80.0f;
-                var_fs1 = 60.0f;
-                width = var_fs2;
-                height = var_fs1;
+            if ((gVisibleSaveSlotCount >= 3)) {
+                if ((gVisibleSaveSlotCount < 5)) {
+                    var_fs2 = 80.0f;
+                    var_fs1 = 60.0f;
+                    width = var_fs2;
+                    height = var_fs1;
+                }
             }
         } else if (gBorderFlipFlag == 1) {
             width = var_fs2 = 80.0f;
@@ -336,13 +336,12 @@ block_10:
         if (M2C_FIELD(temp_s2, f32 *, 0x60) > 0.0f) {
             temp_v1_8 = M2C_FIELD(temp_s2, void **, 0x488);
             M2C_FIELD(temp_v1_8, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v1_8, s32 *, 0x28) & ~0xFC) | 0x10);
-            var_v0_3 = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) & ~0xFC) | 0x10;
+            M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) & ~0xFC) | 0x10;
         } else {
             temp_v1_9 = M2C_FIELD(temp_s2, void **, 0x488);
             M2C_FIELD(temp_v1_9, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v1_9, s32 *, 0x28) & ~0xFC) | 0x1C);
-            var_v0_3 = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) & ~0xFC) | 0x1C;
+            M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) & ~0xFC) | 0x1C;
         }
-        M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x47C), s32 *, 0x28) = var_v0_3;
         if (M2C_FIELD(arg0, f32 *, 0x74) > 0.0f) {
             temp_v1_10 = M2C_FIELD(temp_s2, void **, 0x478);
             if (M2C_FIELD(temp_v1_10, u16 *, 0x26) == 0) {
@@ -522,12 +521,11 @@ block_10:
         temp_a1_2 = (s32) M2C_FIELD(temp_s2, f32 *, 0x51C);
         if (gBorderSkipActive != 0) {
             var_fv1_3 = 2.45f;
-            var_v0_4 = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) & ~0xFC) | 4;
+            M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) = (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) & ~0xFC) | 4;
         } else {
             var_fv1_3 = 0.8f;
-            var_v0_4 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) & ~0xFC;
+            M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) & ~0xFC;
         }
-        M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x514), s32 *, 0x28) = var_v0_4;
         M2C_FIELD(temp_s2, f32 *, 0x51C) = (f32) (M2C_FIELD(temp_s2, f32 *, 0x51C) + var_fv1_3);
         if (M2C_FIELD(temp_s2, f32 *, 0x51C) > 175.0f) {
             M2C_FIELD(temp_s2, u8 *, 0x5A8) = 3U;

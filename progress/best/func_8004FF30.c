@@ -6,80 +6,63 @@ typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(s32)(expr))
+#define M2C_BITWISE(type, expr) ((type)(expr))
 #define M2C_ERROR(desc) (0)
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 Sphere_OverlapsPoint(void *, void *, f32);      /* extern */
-M2C_UNK func_800455CC(f32 *, s32, s32, f32 *);      /* extern */
-M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
-s32 triangleContainsPoint(void *, s32, s32, s32, f32 *);    /* extern */
+s8 Sphere_OverlapsPoint(void *, void *, f32);      /* extern */
+M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32); /* extern */
+M2C_UNK buildRotationMatrix(s16 *, f32 *);          /* extern */
+M2C_UNK buildRotationMatrixCopy(s16 *, f32 *);      /* extern */
+M2C_UNK buildRotationMatrixS16(s16 *, f32 *);       /* extern */
+M2C_UNK buildRotationMatrixS16Copy(s16 *, f32 *);   /* extern */
 f32 func_80047AB0(f32 *, f32 *);                    /* extern */
-s32 func_800487F0(void *, void *, f32);             /* extern */
+s8 func_800487F0(void *, void *, f32);             /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
-f32 func_80082908(f32, f32);                        /* extern */
-M2C_UNK buildRotationMatrix(s16 *, f32 *);                /* extern */
-M2C_UNK buildRotationMatrixCopy(s16 *, f32 *);                /* extern */
-M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
-M2C_UNK buildRotationMatrixS16Copy(s16 *, f32 *);                /* extern */
-M2C_UNK func_80083B64(f32 *, f32 *, f32 *);         /* extern */
-M2C_UNK rotateVec3ByMat3(f32 *, f32 *, f32 *);      /* extern */
-extern u16 D_800B35B0;
+f32 func_80082908(f32);                        /* extern */
+M2C_UNK func_80083B64(f32 *, f32 *);         /* extern */
+M2C_UNK rotateVec3ByMat3(f32 *, f32 *);      /* extern */
+M2C_UNK segmentClosestPoint(f32 *, s32, s32, f32 *); /* extern */
+s8 triangleContainsPoint(void *, s32, s32, s32, f32 *); /* extern */
 extern f64 D_800D3E70;
 extern f64 D_800D3E78;
 extern f64 D_800D3E80;
 extern f64 D_800D3E88;
+extern u16 gSurfaceQueryStamp;
 
+typedef struct { f32 x, y, z; } SurfaceVec3;
 s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *arg5, void **arg6, s32 arg7) {
-    f32 sp94, sp98, sp9C, spB4, spB8, spC4, spCC, spD4, sp12C, sp130, sp13C, sp140, sp14C, sp150;
-    f32 sp18;
-    f32 sp1C;
-    f32 sp20;
-    f32 sp28;
-    f32 sp2C;
-    f32 sp30;
-    f32 sp38;
-    f32 sp3C;
-    f32 sp40;
+    union {
+        f32 vsp18[3];
+        struct { u8 pad[0x10]; f32 values[9]; } vsp28;
+        struct { u8 pad[0x20]; f32 values[3]; } vsp38;
+        struct { u8 pad[0x40]; f32 values[9]; } vsp58;
+        struct { u8 pad[0x70]; s16 values[3]; } vsp88;
+        struct { u8 pad[0x78]; f32 values[4]; } vsp90;
+        struct { u8 pad[0x88]; f32 values[9]; } vspA0;
+        struct { u8 pad[0x98]; f32 values[3]; } vspB0;
+        struct { u8 pad[0xa8]; f32 values[3]; } vspC0;
+        struct { u8 pad[0xb0]; f32 values[4]; } vspC8;
+        struct { u8 pad[0xb8]; f32 values[3]; } vspD0;
+        struct { u8 pad[0xc0]; f32 values[3]; } boundsMin;
+        struct { u8 pad[0xc8]; f32 values[3]; } correction;
+        struct { u8 pad[0xd8]; f32 values[3]; } vspF0;
+        struct { u8 pad[0xe8]; f32 values[9]; } vsp100;
+        struct { u8 pad[0x110]; f32 values[3]; } vsp128;
+        struct { u8 pad[0x120]; f32 values[3]; } vsp138;
+        struct { u8 pad[0x130]; f32 values[3]; } vsp148;
+        struct { u8 pad[0x140]; f32 values[3]; } vsp158;
+        struct { u8 pad[0x150]; f32 values[3]; } vsp168;
+    } scratch;
     f32 sp48;
     f32 sp4C;
     f32 sp50;
-    f32 sp58;
-    s16 sp88;
-    s16 sp8A;
-    s16 sp8C;
-    f32 sp90;
-    f32 spA0;
-    f32 spA4;
-    f32 spA8;
-    f32 spB0;
-    f32 spC0;
-    f32 spC8;
-    f32 spD0;
-    f32 spD8;
-    f32 spDC;
-    f32 spE0;
-    f32 spE4;
-    f32 spE8;
-    f32 spF0;
-    f32 spF4;
-    f32 spF8;
-    f32 sp100;
-    f32 sp128;
-    f32 sp138;
-    f32 sp148;
-    f32 sp158;
-    f32 sp15C;
-    f32 sp160;
-    f32 sp168;
-    f32 sp16C;
-    f32 sp170;
     void *sp17C;
     u8 sp187;
     void *sp18C;
-    u16 sp196;
+    volatile u16 sp196;
     f32 *sp19C;
     s16 *sp1A4;
     f32 *sp1AC;
@@ -196,7 +179,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     s32 var_v1_8;
     s32 var_v1_9;
     u16 *var_fp;
-    u16 *var_fp_2;
+    u8 *var_fp_2;
     u16 temp_a0;
     u16 temp_v1_9;
     u32 temp_s0;
@@ -225,52 +208,50 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     if (var_s0 == NULL) {
         return 0;
     }
-    sp19C = &sp18;
-    sp1A4 = &sp88;
-    sp1AC = &sp28;
-    sp1B4 = &sp90;
-    D_800B35B0 += 1;
+    sp19C = &scratch.vsp18[0];
+    sp1A4 = &scratch.vsp88.values[0];
+    sp1AC = &scratch.vsp28.values[0];
+    sp1B4 = &scratch.vsp90.values[0];
+    gSurfaceQueryStamp += 1;
     sp18C = M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), void **, 0x58);
 loop_3:
     var_s6 = var_s0;
-    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) D_800B35B0;
+    M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) = (u16) gSurfaceQueryStamp;
     if (var_s0 != NULL) {
         var_s4 = M2C_FIELD(var_s0, void **, 0);
         if (var_s4 != NULL) {
-            sp1BC = &spB0;
-            sp1C4 = &spC0;
-            sp1CC = &spD0;
+            sp1BC = &scratch.vspB0.values[0];
+            sp1C4 = &scratch.vspC0.values[0];
+            sp1CC = &scratch.vspD0.values[0];
             do {
                 if (var_s4 != arg7) {
                     temp_v1 = M2C_FIELD(var_s4, void **, 0x70);
                     if (temp_v1 != NULL) {
                         temp_s0 = M2C_FIELD(var_s4, s32 *, 0x58) & 0x400;
-                        if ((temp_s0 == 0) && (M2C_FIELD(var_s4, s32 *, 0x5C) & 0x200) && ((func_800487F0(var_s4, arg1, arg3) << 0x18) != 0)) {
-                            sp18 = M2C_FIELD(arg1, f32 *, 0);
-                            sp1C = M2C_FIELD(arg1, f32 *, 4);
-                            sp20 = M2C_FIELD(arg1, f32 *, 8);
-                            sp88 = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x3C);
-                            sp8A = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x40);
-                            sp8C = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x44);
+                        if ((temp_s0 == 0) && (M2C_FIELD(var_s4, s32 *, 0x5C) & 0x200) && (func_800487F0(var_s4, arg1, arg3) != 0)) {
+                            *(SurfaceVec3 *) scratch.vsp18 = *(SurfaceVec3 *) arg1;
+                            scratch.vsp88.values[0] = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x3C);
+                            scratch.vsp88.values[1] = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x40);
+                            scratch.vsp88.values[2] = (s16) (s32) -M2C_FIELD(var_s4, f32 *, 0x44);
                             buildRotationMatrix(sp1A4, sp1AC);
-                            sp18 -= M2C_FIELD(var_s4, f32 *, 0x24);
-                            sp1C -= M2C_FIELD(var_s4, f32 *, 0x28);
-                            sp20 -= M2C_FIELD(var_s4, f32 *, 0x2C);
-                            rotateVec3ByMat3((f32 *)0, sp1AC, sp19C);
-                            sp88 = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x3C);
-                            sp8A = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x40);
-                            sp8C = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x44);
-                            func_80082FE4(sp1A4, &sp58);
+                            scratch.vsp18[0] -= M2C_FIELD(var_s4, f32 *, 0x24);
+                            scratch.vsp18[1] -= M2C_FIELD(var_s4, f32 *, 0x28);
+                            scratch.vsp18[2] -= M2C_FIELD(var_s4, f32 *, 0x2C);
+                            rotateVec3ByMat3(sp1AC, sp19C);
+                            scratch.vsp88.values[0] = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x3C);
+                            scratch.vsp88.values[1] = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x40);
+                            scratch.vsp88.values[2] = (s16) (s32) M2C_FIELD(var_s4, f32 *, 0x44);
+                            buildRotationMatrixS16(sp1A4, scratch.vsp58.values);
                             temp_v1_2 = M2C_FIELD(temp_v1, u8 *, 0x48) & 4;
                             if (temp_v1_2 != 0) {
                                 var_fp = M2C_FIELD(temp_v1, u16 **, 0x3C);
                                 sp196 = 0;
                                 if (temp_s0 < (u16) M2C_FIELD(temp_v1, u16 *, 0x40)) {
-                                    var_s5 = (s8 *) var_fp + 4;
+                                    var_s5 = var_fp + 2;
                                     do {
                                         temp_v1_3 = M2C_FIELD(temp_v1, s32 *, 0x34);
-                                        func_800458C0(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC));
-                                        temp_fs0 = (sp90 * sp18) + (sp94 * sp1C) + (sp98 * sp20) + sp9C;
+                                        buildPlaneFromPoints(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC));
+                                        temp_fs0 = (scratch.vsp90.values[0] * scratch.vsp18[0]) + (scratch.vsp90.values[1] * scratch.vsp18[1]) + (scratch.vsp90.values[2] * scratch.vsp18[2]) + scratch.vsp90.values[3];
                                         var_v0 = 1;
                                         if (!(temp_fs0 > 0.0f)) {
                                             var_v0 = 0;
@@ -280,37 +261,35 @@ loop_3:
                                             var_v1 = 0;
                                         }
                                         if (var_v0 & var_v1) {
-                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (sp18 - (temp_fs0 * sp90));
-                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (sp1C - (temp_fs0 * sp94));
-                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (sp20 - (temp_fs0 * sp98));
+                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (scratch.vsp18[0] - (temp_fs0 * scratch.vsp90.values[0]));
+                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (scratch.vsp18[1] - (temp_fs0 * scratch.vsp90.values[1]));
+                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (scratch.vsp18[2] - (temp_fs0 * scratch.vsp90.values[2]));
                                             temp_a3 = M2C_FIELD(temp_v1, s32 *, 0x34);
                                             temp_s2 = temp_a3 + (*var_fp * 0xC);
                                             temp_s0_2 = temp_a3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC);
                                             temp_s1 = temp_a3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC);
-                                            if ((triangleContainsPoint(sp17C, temp_s2, temp_s0_2, temp_s1, sp1B4) << 0x18) != 0) {
+                                            if (triangleContainsPoint(sp17C, temp_s2, temp_s0_2, temp_s1, sp1B4) != 0) {
                                                 var_fa0 = arg3 - temp_fs0;
-                                                temp_ft1 = var_fa0 * sp90;
-                                                temp_ft0 = var_fa0 * sp94;
-                                                temp_fv0 = var_fa0 * sp98;
-                                                spE0 = temp_ft1;
-                                                spE4 = temp_ft0;
-                                                spE8 = temp_fv0;
-                                                sp18 += temp_ft1;
-                                                sp1C += temp_ft0;
-                                                sp20 += temp_fv0;
+                                                temp_ft1 = var_fa0 * scratch.vsp90.values[0];
+                                                temp_ft0 = var_fa0 * scratch.vsp90.values[1];
+                                                temp_fv0 = var_fa0 * scratch.vsp90.values[2];
+                                                scratch.correction.values[0] = temp_ft1;
+                                                scratch.correction.values[1] = temp_ft0;
+                                                scratch.correction.values[2] = temp_fv0;
+                                                scratch.vsp18[0] += temp_ft1;
+                                                scratch.vsp18[1] += temp_ft0;
+                                                scratch.vsp18[2] += temp_fv0;
                                                 goto block_37;
                                             }
-                                            func_800455CC(sp1BC, temp_s2, temp_s0_2, &sp18);
-                                            temp_fs0_2 = func_80047AB0(sp1BC, &sp18);
-                                            func_800455CC(sp1C4, temp_s0_2, temp_s1, &sp18);
-                                            temp_fs1 = func_80047AB0(sp1C4, &sp18);
-                                            func_800455CC(sp1CC, temp_s1, temp_s2, &sp18);
-                                            temp_fv0_2 = func_80047AB0(sp1CC, &sp18);
+                                            segmentClosestPoint(sp1BC, temp_s2, temp_s0_2, &scratch.vsp18[0]);
+                                            temp_fs0_2 = func_80047AB0(sp1BC, &scratch.vsp18[0]);
+                                            segmentClosestPoint(sp1C4, temp_s0_2, temp_s1, &scratch.vsp18[0]);
+                                            temp_fs1 = func_80047AB0(sp1C4, &scratch.vsp18[0]);
+                                            segmentClosestPoint(sp1CC, temp_s1, temp_s2, &scratch.vsp18[0]);
+                                            temp_fv0_2 = func_80047AB0(sp1CC, &scratch.vsp18[0]);
                                             var_fa0_2 = temp_fs0_2;
-                                            var_a0 = spB8;
-                                            spA0 = spB0;
-                                            spA4 = spB4;
-                                            spA8 = var_a0;
+                                            var_a0 = scratch.vspB0.values[2];
+                                            *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspB0.values;
                                             var_v0_2 = 1;
                                             if (!(temp_fs1 < var_fa0_2)) {
                                                 var_v0_2 = 0;
@@ -320,10 +299,8 @@ loop_3:
                                                 var_v1_2 = 0;
                                             }
                                             if (var_v0_2 & var_v1_2) {
-                                                var_a0 = spC8;
-                                                spA0 = spC0;
-                                                spA4 = spC4;
-                                                spA8 = var_a0;
+                                                var_a0 = scratch.vspC0.values[2];
+                                                *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspC0.values;
                                                 var_fa0_2 = temp_fs1;
                                             } else {
                                                 var_v0_3 = 1;
@@ -335,29 +312,27 @@ loop_3:
                                                     var_v1_3 = 0;
                                                 }
                                                 if (var_v0_3 & var_v1_3) {
-                                                    var_a0 = spD8;
-                                                    spA0 = spD0;
-                                                    spA4 = spD4;
-                                                    spA8 = var_a0;
+                                                    var_a0 = scratch.vspD0.values[2];
+                                                    *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspD0.values;
                                                     var_fa0_2 = temp_fv0_2;
                                                 }
                                             }
                                             if (var_fa0_2 < temp_fs4) {
-                                                var_fa0 = (f32) (D_800D3E70 - (f64) (func_80082908(var_fa0_2, var_a0) / arg3));
-                                                temp_ft0_2 = var_fa0 * (sp18 - spA0);
-                                                temp_fv0_3 = var_fa0 * (sp20 - spA8);
-                                                temp_fv1 = var_fa0 * (sp1C - spA4);
-                                                spE0 = temp_ft0_2;
-                                                spE8 = temp_fv0_3;
-                                                sp18 += temp_ft0_2;
-                                                spE4 = temp_fv1;
-                                                sp20 += temp_fv0_3;
-                                                sp1C += temp_fv1;
+                                                var_fa0 = (f32) (D_800D3E70 - (f64) (func_80082908(var_fa0_2) / arg3));
+                                                temp_ft0_2 = var_fa0 * (scratch.vsp18[0] - scratch.vspA0.values[0]);
+                                                temp_fv0_3 = var_fa0 * (scratch.vsp18[2] - scratch.vspA0.values[2]);
+                                                temp_fv1 = var_fa0 * (scratch.vsp18[1] - scratch.vspA0.values[1]);
+                                                scratch.correction.values[0] = temp_ft0_2;
+                                                scratch.correction.values[2] = temp_fv0_3;
+                                                scratch.vsp18[0] += temp_ft0_2;
+                                                scratch.correction.values[1] = temp_fv1;
+                                                scratch.vsp18[2] += temp_fv0_3;
+                                                scratch.vsp18[1] += temp_fv1;
 block_37:
-                                                rotateVec3ByMat3(M2C_BITWISE(f32 *, var_fa0), &sp58, &spE0);
-                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + spE0);
-                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + spE4);
-                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + spE8);
+                                                rotateVec3ByMat3(scratch.vsp58.values, &scratch.correction.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + scratch.correction.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + scratch.correction.values[1]);
+                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + scratch.correction.values[2]);
                                                 sp187 = 1;
                                                 M2C_FIELD(var_s4, s32 *, 0x60) = (s32) (M2C_FIELD(var_s4, s32 *, 0x60) | arg4);
                                             }
@@ -368,14 +343,14 @@ block_37:
                                     } while (sp196 < (u16) M2C_FIELD(temp_v1, u16 *, 0x40));
                                 }
                             } else {
-                                var_fp_2 = M2C_FIELD(temp_v1, u16 **, 0x3C);
+                                var_fp_2 = M2C_FIELD(temp_v1, u8 **, 0x3C);
                                 sp196 = 0;
                                 if (temp_v1_2 < (u16) M2C_FIELD(temp_v1, u16 *, 0x40)) {
                                     var_s5_2 = var_fp_2 + 2;
                                     do {
                                         temp_v1_4 = M2C_FIELD(temp_v1, s32 *, 0x34);
-                                        func_800458C0(sp1B4, temp_v1_4 + (*var_fp_2 * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC));
-                                        temp_fs0_3 = (sp90 * sp18) + (sp94 * sp1C) + (sp98 * sp20) + sp9C;
+                                        buildPlaneFromPoints(sp1B4, temp_v1_4 + (*var_fp_2 * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC));
+                                        temp_fs0_3 = (scratch.vsp90.values[0] * scratch.vsp18[0]) + (scratch.vsp90.values[1] * scratch.vsp18[1]) + (scratch.vsp90.values[2] * scratch.vsp18[2]) + scratch.vsp90.values[3];
                                         var_v0_4 = 1;
                                         if (!(temp_fs0_3 > 0.0f)) {
                                             var_v0_4 = 0;
@@ -385,37 +360,35 @@ block_37:
                                             var_v1_4 = 0;
                                         }
                                         if (var_v0_4 & var_v1_4) {
-                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (sp18 - (temp_fs0_3 * sp90));
-                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (sp1C - (temp_fs0_3 * sp94));
-                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (sp20 - (temp_fs0_3 * sp98));
+                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (scratch.vsp18[0] - (temp_fs0_3 * scratch.vsp90.values[0]));
+                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (scratch.vsp18[1] - (temp_fs0_3 * scratch.vsp90.values[1]));
+                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (scratch.vsp18[2] - (temp_fs0_3 * scratch.vsp90.values[2]));
                                             temp_a3_2 = M2C_FIELD(temp_v1, s32 *, 0x34);
                                             temp_s2_2 = temp_a3_2 + (*var_fp_2 * 0xC);
                                             temp_s0_3 = temp_a3_2 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC);
                                             temp_s1_2 = temp_a3_2 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC);
-                                            if ((triangleContainsPoint(sp17C, temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) << 0x18) != 0) {
+                                            if (triangleContainsPoint(sp17C, temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) != 0) {
                                                 var_fa0_3 = arg3 - temp_fs0_3;
-                                                temp_ft1_2 = var_fa0_3 * sp90;
-                                                temp_ft0_3 = var_fa0_3 * sp94;
-                                                temp_fv0_4 = var_fa0_3 * sp98;
-                                                spF0 = temp_ft1_2;
-                                                spF4 = temp_ft0_3;
-                                                spF8 = temp_fv0_4;
-                                                sp18 += temp_ft1_2;
-                                                sp1C += temp_ft0_3;
-                                                sp20 += temp_fv0_4;
+                                                temp_ft1_2 = var_fa0_3 * scratch.vsp90.values[0];
+                                                temp_ft0_3 = var_fa0_3 * scratch.vsp90.values[1];
+                                                temp_fv0_4 = var_fa0_3 * scratch.vsp90.values[2];
+                                                scratch.vspF0.values[0] = temp_ft1_2;
+                                                scratch.vspF0.values[1] = temp_ft0_3;
+                                                scratch.vspF0.values[2] = temp_fv0_4;
+                                                scratch.vsp18[0] += temp_ft1_2;
+                                                scratch.vsp18[1] += temp_ft0_3;
+                                                scratch.vsp18[2] += temp_fv0_4;
                                                 goto block_65;
                                             }
-                                            func_800455CC(sp1BC, temp_s2_2, temp_s0_3, &sp18);
-                                            temp_fs0_4 = func_80047AB0(sp1BC, &sp18);
-                                            func_800455CC(sp1C4, temp_s0_3, temp_s1_2, &sp18);
-                                            temp_fs1_2 = func_80047AB0(sp1C4, &sp18);
-                                            func_800455CC(sp1CC, temp_s1_2, temp_s2_2, &sp18);
-                                            temp_fv0_5 = func_80047AB0(sp1CC, &sp18);
+                                            segmentClosestPoint(sp1BC, temp_s2_2, temp_s0_3, &scratch.vsp18[0]);
+                                            temp_fs0_4 = func_80047AB0(sp1BC, &scratch.vsp18[0]);
+                                            segmentClosestPoint(sp1C4, temp_s0_3, temp_s1_2, &scratch.vsp18[0]);
+                                            temp_fs1_2 = func_80047AB0(sp1C4, &scratch.vsp18[0]);
+                                            segmentClosestPoint(sp1CC, temp_s1_2, temp_s2_2, &scratch.vsp18[0]);
+                                            temp_fv0_5 = func_80047AB0(sp1CC, &scratch.vsp18[0]);
                                             var_fa0_4 = temp_fs0_4;
-                                            var_a0_2 = spB8;
-                                            spA0 = spB0;
-                                            spA4 = spB4;
-                                            spA8 = var_a0_2;
+                                            var_a0_2 = scratch.vspB0.values[2];
+                                            *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspB0.values;
                                             var_v0_5 = 1;
                                             if (!(temp_fs1_2 < var_fa0_4)) {
                                                 var_v0_5 = 0;
@@ -425,10 +398,8 @@ block_37:
                                                 var_v1_5 = 0;
                                             }
                                             if (var_v0_5 & var_v1_5) {
-                                                var_a0_2 = spC8;
-                                                spA0 = spC0;
-                                                spA4 = spC4;
-                                                spA8 = var_a0_2;
+                                                var_a0_2 = scratch.vspC0.values[2];
+                                                *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspC0.values;
                                                 var_fa0_4 = temp_fs1_2;
                                             } else {
                                                 var_v0_6 = 1;
@@ -440,29 +411,27 @@ block_37:
                                                     var_v1_6 = 0;
                                                 }
                                                 if (var_v0_6 & var_v1_6) {
-                                                    var_a0_2 = spD8;
-                                                    spA0 = spD0;
-                                                    spA4 = spD4;
-                                                    spA8 = var_a0_2;
+                                                    var_a0_2 = scratch.vspD0.values[2];
+                                                    *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspD0.values;
                                                     var_fa0_4 = temp_fv0_5;
                                                 }
                                             }
                                             if (var_fa0_4 < temp_fs4) {
-                                                var_fa0_3 = (f32) (D_800D3E78 - (f64) (func_80082908(var_fa0_4, var_a0_2) / arg3));
-                                                temp_ft0_4 = var_fa0_3 * (sp18 - spA0);
-                                                temp_fv0_6 = var_fa0_3 * (sp20 - spA8);
-                                                temp_fv1_2 = var_fa0_3 * (sp1C - spA4);
-                                                spF0 = temp_ft0_4;
-                                                spF8 = temp_fv0_6;
-                                                sp18 += temp_ft0_4;
-                                                spF4 = temp_fv1_2;
-                                                sp20 += temp_fv0_6;
-                                                sp1C += temp_fv1_2;
+                                                var_fa0_3 = (f32) (D_800D3E78 - (f64) (func_80082908(var_fa0_4) / arg3));
+                                                temp_ft0_4 = var_fa0_3 * (scratch.vsp18[0] - scratch.vspA0.values[0]);
+                                                temp_fv0_6 = var_fa0_3 * (scratch.vsp18[2] - scratch.vspA0.values[2]);
+                                                temp_fv1_2 = var_fa0_3 * (scratch.vsp18[1] - scratch.vspA0.values[1]);
+                                                scratch.vspF0.values[0] = temp_ft0_4;
+                                                scratch.vspF0.values[2] = temp_fv0_6;
+                                                scratch.vsp18[0] += temp_ft0_4;
+                                                scratch.vspF0.values[1] = temp_fv1_2;
+                                                scratch.vsp18[2] += temp_fv0_6;
+                                                scratch.vsp18[1] += temp_fv1_2;
 block_65:
-                                                rotateVec3ByMat3(M2C_BITWISE(f32 *, var_fa0_3), &sp58, &spF0);
-                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + spF0);
-                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + spF4);
-                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + spF8);
+                                                rotateVec3ByMat3(scratch.vsp58.values, &scratch.vspF0.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + scratch.vspF0.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + scratch.vspF0.values[1]);
+                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + scratch.vspF0.values[2]);
                                                 sp187 = 1;
                                                 M2C_FIELD(var_s4, s32 *, 0x60) = (s32) (M2C_FIELD(var_s4, s32 *, 0x60) | arg4);
                                             }
@@ -480,43 +449,41 @@ block_65:
             } while (var_s4 != NULL);
         }
         if (var_s6 != NULL) {
-            sp1D4 = &spA0;
-            sp1EC = &spC8;
-            sp1F4 = &sp128;
-            sp1FC = &sp138;
+            sp1D4 = &scratch.vspA0.values[0];
+            sp1EC = scratch.vspC8.values;
+            sp1F4 = &scratch.vsp128.values[0];
+            sp1FC = &scratch.vsp138.values[0];
             do {
                 temp_s4 = M2C_FIELD(var_s6, void **, 0x3C);
                 if (M2C_FIELD(var_s6, s32 *, 0x50) & 0x200) {
                     temp_s1_3 = ((u32) M2C_FIELD(var_s6, u32 *, 0x5C) >> 0x17) & 0x20;
-                    if ((temp_s1_3 == 0) && ((Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg3) << 0x18) != 0)) {
-                        sp28 = M2C_FIELD(arg1, f32 *, 0);
-                        sp2C = M2C_FIELD(arg1, f32 *, 4);
-                        sp30 = M2C_FIELD(arg1, f32 *, 8);
-                        sp28 -= M2C_FIELD(var_s6, f32 *, 0x24);
-                        sp2C -= M2C_FIELD(var_s6, f32 *, 0x28);
-                        sp30 -= M2C_FIELD(var_s6, f32 *, 0x2C);
-                        sp88 = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
-                        sp8A = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
-                        sp8C = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
+                    if ((temp_s1_3 == 0) && (Sphere_OverlapsPoint(var_s6 + 0x40, arg1, arg3) != 0)) {
+                        *(SurfaceVec3 *) scratch.vsp28.values = *(SurfaceVec3 *) arg1;
+                        scratch.vsp28.values[0] -= M2C_FIELD(var_s6, f32 *, 0x24);
+                        scratch.vsp28.values[1] -= M2C_FIELD(var_s6, f32 *, 0x28);
+                        scratch.vsp28.values[2] -= M2C_FIELD(var_s6, f32 *, 0x2C);
+                        scratch.vsp88.values[0] = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
+                        scratch.vsp88.values[1] = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
+                        scratch.vsp88.values[2] = (s16) (s32) -(M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
                         buildRotationMatrixCopy(sp1A4, sp1D4);
-                        sp88 = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
-                        sp8A = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
-                        sp8C = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
-                        buildRotationMatrixS16Copy(sp1A4, &sp100);
-                        func_80083B64((f32 *)0, sp1D4, sp1AC);
+                        scratch.vsp88.values[0] = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
+                        scratch.vsp88.values[1] = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
+                        scratch.vsp88.values[2] = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
+                        buildRotationMatrixS16Copy(sp1A4, scratch.vsp100.values);
+                        func_80083B64(sp1D4, sp1AC);
                         temp_v0 = M2C_FIELD(var_s6, void **, 0x3C);
-                        if ((M2C_FIELD(temp_v0, f32 *, 0x18) < (sp28 + arg3)) && ((sp28 - arg3) < M2C_FIELD(temp_v0, f32 *, 0x1C)) && (M2C_FIELD(temp_v0, f32 *, 0x28) < (sp30 + arg3)) && ((sp30 - arg3) < M2C_FIELD(temp_v0, f32 *, 0x2C)) && (M2C_FIELD(temp_v0, f32 *, 0x20) < (sp2C + arg3)) && ((sp2C - arg3) < M2C_FIELD(temp_v0, f32 *, 0x24))) {
-                            sp38 = sp28;
-                            sp3C = sp2C;
-                            sp40 = sp30;
-                            spD8 = sp28;
-                            spDC = sp2C;
-                            spE0 = sp30;
-                            spD8 -= arg3;
-                            spE0 -= arg3;
-                            sp38 += arg3;
-                            sp40 += arg3;
-                            temp_v0_2 = func_8004E418(M2C_FIELD(var_s6, void **, 0x3C) + 0x18, &spD8, &sp38);
+                        if ((M2C_FIELD(temp_v0, f32 *, 0x18) < (scratch.vsp28.values[0] + arg3)) && ((scratch.vsp28.values[0] - arg3) < M2C_FIELD(temp_v0, f32 *, 0x1C)) && (M2C_FIELD(temp_v0, f32 *, 0x28) < (scratch.vsp28.values[2] + arg3)) && ((scratch.vsp28.values[2] - arg3) < M2C_FIELD(temp_v0, f32 *, 0x2C)) && (M2C_FIELD(temp_v0, f32 *, 0x20) < (scratch.vsp28.values[1] + arg3)) && ((scratch.vsp28.values[1] - arg3) < M2C_FIELD(temp_v0, f32 *, 0x24))) {
+                            scratch.vsp38.values[0] = scratch.vsp28.values[0];
+                            scratch.vsp38.values[1] = scratch.vsp28.values[1];
+                            scratch.vsp38.values[2] = scratch.vsp28.values[2];
+                            scratch.boundsMin.values[0] = scratch.vsp28.values[0];
+                            scratch.boundsMin.values[1] = scratch.vsp28.values[1];
+                            scratch.boundsMin.values[2] = scratch.vsp28.values[2];
+                            scratch.boundsMin.values[0] -= arg3;
+                            scratch.boundsMin.values[2] -= arg3;
+                            scratch.vsp38.values[0] += arg3;
+                            scratch.vsp38.values[2] += arg3;
+                            temp_v0_2 = func_8004E418(M2C_FIELD(var_s6, void **, 0x3C) + 0x18, &scratch.boundsMin.values[0], &scratch.vsp38.values[0]);
                             sp1DE = temp_v0_2 & 0xFF;
                             temp_v1_5 = M2C_FIELD(temp_s4, u8 *, 0x48) & 4;
                             sp1E6 = temp_v0_2 & 0xFF00;
@@ -525,12 +492,12 @@ block_65:
                                 if (temp_s1_3 < (u16) M2C_FIELD(temp_s4, u16 *, 0x40)) {
 loop_81:
                                     temp_v1_6 = var_s5_3 & 0xFFFF;
-                                    temp_a0 = *(u16 *)((temp_v1_6 * 2) + M2C_FIELD(temp_s4, s32 *, 0x38));
+                                    temp_a0 = M2C_FIELD(M2C_FIELD(temp_s4, void **, 0x38), u16 *, (temp_v1_6 * 2));
                                     temp_s1_4 = M2C_FIELD(temp_s4, s32 *, 0x3C) + (temp_v1_6 * 6);
                                     if ((sp1DE & temp_a0) && (sp1E6 & temp_a0)) {
                                         temp_v1_7 = M2C_FIELD(temp_s4, s32 *, 0x34);
-                                        func_800458C0(sp1EC, temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC));
-                                        temp_fs0_5 = (spC8 * sp28) + (spCC * sp2C) + (spD0 * sp30) + spD4;
+                                        buildPlaneFromPoints(sp1EC, temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC));
+                                        temp_fs0_5 = (scratch.vspC8.values[0] * scratch.vsp28.values[0]) + (scratch.vspC8.values[1] * scratch.vsp28.values[1]) + (scratch.vspC8.values[2] * scratch.vsp28.values[2]) + scratch.vspC8.values[3];
                                         var_v0_7 = 1;
                                         if (!(temp_fs0_5 > 0.0f)) {
                                             var_v0_7 = 0;
@@ -540,36 +507,36 @@ loop_81:
                                             var_v1_7 = 0;
                                         }
                                         if (var_v0_7 & var_v1_7) {
-                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (sp28 - (temp_fs0_5 * spC8));
-                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (sp2C - (temp_fs0_5 * spCC));
-                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (sp30 - (temp_fs0_5 * spD0));
+                                            M2C_FIELD(sp17C, f32 *, 0) = (f32) (scratch.vsp28.values[0] - (temp_fs0_5 * scratch.vspC8.values[0]));
+                                            M2C_FIELD(sp17C, f32 *, 4) = (f32) (scratch.vsp28.values[1] - (temp_fs0_5 * scratch.vspC8.values[1]));
+                                            M2C_FIELD(sp17C, f32 *, 8) = (f32) (scratch.vsp28.values[2] - (temp_fs0_5 * scratch.vspC8.values[2]));
                                             temp_a3_3 = M2C_FIELD(temp_s4, s32 *, 0x34);
                                             temp_s2_3 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC);
                                             temp_s0_4 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC);
                                             temp_s1_5 = temp_a3_3 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC);
-                                            if ((triangleContainsPoint(sp17C, temp_s2_3, temp_s0_4, temp_s1_5, sp1EC) << 0x18) != 0) {
+                                            if (triangleContainsPoint(sp17C, temp_s2_3, temp_s0_4, temp_s1_5, sp1EC) != 0) {
                                                 var_fa0_5 = arg3 - temp_fs0_5;
-                                                temp_ft1_3 = var_fa0_5 * spC8;
-                                                temp_ft0_5 = var_fa0_5 * spCC;
-                                                temp_fv0_7 = var_fa0_5 * spD0;
-                                                sp158 = temp_ft1_3;
-                                                sp15C = temp_ft0_5;
-                                                sp160 = temp_fv0_7;
-                                                sp28 += temp_ft1_3;
-                                                sp2C += temp_ft0_5;
-                                                sp30 += temp_fv0_7;
+                                                temp_ft1_3 = var_fa0_5 * scratch.vspC8.values[0];
+                                                temp_ft0_5 = var_fa0_5 * scratch.vspC8.values[1];
+                                                temp_fv0_7 = var_fa0_5 * scratch.vspC8.values[2];
+                                                scratch.vsp158.values[0] = temp_ft1_3;
+                                                scratch.vsp158.values[1] = temp_ft0_5;
+                                                scratch.vsp158.values[2] = temp_fv0_7;
+                                                scratch.vsp28.values[0] += temp_ft1_3;
+                                                scratch.vsp28.values[1] += temp_ft0_5;
+                                                scratch.vsp28.values[2] += temp_fv0_7;
                                                 goto block_106;
                                             }
-                                            func_800455CC(sp1F4, temp_s2_3, temp_s0_4, sp1AC);
+                                            segmentClosestPoint(sp1F4, temp_s2_3, temp_s0_4, sp1AC);
                                             temp_fs0_6 = func_80047AB0(sp1F4, sp1AC);
-                                            func_800455CC(sp1FC, temp_s0_4, temp_s1_5, sp1AC);
+                                            segmentClosestPoint(sp1FC, temp_s0_4, temp_s1_5, sp1AC);
                                             temp_fs1_3 = func_80047AB0(sp1FC, sp1AC);
-                                            func_800455CC(&sp148, temp_s1_5, temp_s2_3, sp1AC);
-                                            temp_fv0_8 = func_80047AB0(&sp148, sp1AC);
+                                            segmentClosestPoint(&scratch.vsp148.values[0], temp_s1_5, temp_s2_3, sp1AC);
+                                            temp_fv0_8 = func_80047AB0(&scratch.vsp148.values[0], sp1AC);
                                             var_fa0_6 = temp_fs0_6;
-                                            var_a0_3 = sp130;
-                                            sp48 = sp128;
-                                            sp4C = sp12C;
+                                            var_a0_3 = scratch.vsp128.values[2];
+                                            sp48 = scratch.vsp128.values[0];
+                                            sp4C = scratch.vsp128.values[1];
                                             sp50 = var_a0_3;
                                             var_v0_8 = 1;
                                             if (!(temp_fs1_3 < var_fa0_6)) {
@@ -580,9 +547,9 @@ loop_81:
                                                 var_v1_8 = 0;
                                             }
                                             if (var_v0_8 & var_v1_8) {
-                                                var_a0_3 = sp140;
-                                                sp48 = sp138;
-                                                sp4C = sp13C;
+                                                var_a0_3 = scratch.vsp138.values[2];
+                                                sp48 = scratch.vsp138.values[0];
+                                                sp4C = scratch.vsp138.values[1];
                                                 sp50 = var_a0_3;
                                                 var_fa0_6 = temp_fs1_3;
                                             } else {
@@ -595,29 +562,29 @@ loop_81:
                                                     var_v1_9 = 0;
                                                 }
                                                 if (var_v0_9 & var_v1_9) {
-                                                    var_a0_3 = sp150;
-                                                    sp48 = sp148;
-                                                    sp4C = sp14C;
+                                                    var_a0_3 = scratch.vsp148.values[2];
+                                                    sp48 = scratch.vsp148.values[0];
+                                                    sp4C = scratch.vsp148.values[1];
                                                     sp50 = var_a0_3;
                                                     var_fa0_6 = temp_fv0_8;
                                                 }
                                             }
                                             if (var_fa0_6 < temp_fs4) {
-                                                var_fa0_5 = (f32) (D_800D3E80 - (f64) (func_80082908(var_fa0_6, var_a0_3) / arg3));
-                                                temp_ft0_6 = var_fa0_5 * (sp28 - sp48);
-                                                temp_fv0_9 = var_fa0_5 * (sp30 - sp50);
-                                                temp_fv1_3 = var_fa0_5 * (sp2C - sp4C);
-                                                sp158 = temp_ft0_6;
-                                                sp160 = temp_fv0_9;
-                                                sp28 += temp_ft0_6;
-                                                sp15C = temp_fv1_3;
-                                                sp30 += temp_fv0_9;
-                                                sp2C += temp_fv1_3;
+                                                var_fa0_5 = (f32) (D_800D3E80 - (f64) (func_80082908(var_fa0_6) / arg3));
+                                                temp_ft0_6 = var_fa0_5 * (scratch.vsp28.values[0] - sp48);
+                                                temp_fv0_9 = var_fa0_5 * (scratch.vsp28.values[2] - sp50);
+                                                temp_fv1_3 = var_fa0_5 * (scratch.vsp28.values[1] - sp4C);
+                                                scratch.vsp158.values[0] = temp_ft0_6;
+                                                scratch.vsp158.values[2] = temp_fv0_9;
+                                                scratch.vsp28.values[0] += temp_ft0_6;
+                                                scratch.vsp158.values[1] = temp_fv1_3;
+                                                scratch.vsp28.values[2] += temp_fv0_9;
+                                                scratch.vsp28.values[1] += temp_fv1_3;
 block_106:
-                                                func_80083B64(M2C_BITWISE(f32 *, var_fa0_5), &sp100, &sp158);
-                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + sp158);
-                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + sp15C);
-                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + sp160);
+                                                func_80083B64(scratch.vsp100.values, &scratch.vsp158.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + scratch.vsp158.values[0]);
+                                                M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + scratch.vsp158.values[1]);
+                                                M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + scratch.vsp158.values[2]);
                                                 temp_v1_8 = M2C_FIELD(var_s6, u32 *, 0x5C);
                                                 if (temp_v1_8 & 0x7E0000) {
                                                     if (arg5 != NULL) {
@@ -641,12 +608,12 @@ block_106:
                                 if (temp_v1_5 < (u16) M2C_FIELD(temp_s4, u16 *, 0x40)) {
                                     do {
                                         temp_a0_2 = var_s5_4 & 0xFFFF;
-                                        temp_v1_9 = *(u16 *)((temp_a0_2 * 2) + M2C_FIELD(temp_s4, s32 *, 0x38));
+                                        temp_v1_9 = M2C_FIELD(M2C_FIELD(temp_s4, void **, 0x38), u16 *, (temp_a0_2 * 2));
                                         temp_s1_6 = M2C_FIELD(temp_s4, s32 *, 0x3C) + (temp_a0_2 * 3);
                                         if ((sp1DE & temp_v1_9) && (sp1E6 & temp_v1_9)) {
                                             temp_v1_10 = M2C_FIELD(temp_s4, s32 *, 0x34);
-                                            func_800458C0(sp1EC, temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC));
-                                            temp_fs0_7 = (spC8 * sp28) + (spCC * sp2C) + (spD0 * sp30) + spD4;
+                                            buildPlaneFromPoints(sp1EC, temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC));
+                                            temp_fs0_7 = (scratch.vspC8.values[0] * scratch.vsp28.values[0]) + (scratch.vspC8.values[1] * scratch.vsp28.values[1]) + (scratch.vspC8.values[2] * scratch.vsp28.values[2]) + scratch.vspC8.values[3];
                                             var_v0_10 = 1;
                                             if (!(temp_fs0_7 > 0.0f)) {
                                                 var_v0_10 = 0;
@@ -656,36 +623,36 @@ block_106:
                                                 var_v1_10 = 0;
                                             }
                                             if (var_v0_10 & var_v1_10) {
-                                                M2C_FIELD(sp17C, f32 *, 0) = (f32) (sp28 - (temp_fs0_7 * spC8));
-                                                M2C_FIELD(sp17C, f32 *, 4) = (f32) (sp2C - (temp_fs0_7 * spCC));
-                                                M2C_FIELD(sp17C, f32 *, 8) = (f32) (sp30 - (temp_fs0_7 * spD0));
+                                                M2C_FIELD(sp17C, f32 *, 0) = (f32) (scratch.vsp28.values[0] - (temp_fs0_7 * scratch.vspC8.values[0]));
+                                                M2C_FIELD(sp17C, f32 *, 4) = (f32) (scratch.vsp28.values[1] - (temp_fs0_7 * scratch.vspC8.values[1]));
+                                                M2C_FIELD(sp17C, f32 *, 8) = (f32) (scratch.vsp28.values[2] - (temp_fs0_7 * scratch.vspC8.values[2]));
                                                 temp_a3_4 = M2C_FIELD(temp_s4, s32 *, 0x34);
                                                 temp_s2_4 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC);
                                                 temp_s0_5 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC);
                                                 temp_s1_7 = temp_a3_4 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC);
-                                                if ((triangleContainsPoint(sp17C, temp_s2_4, temp_s0_5, temp_s1_7, sp1EC) << 0x18) != 0) {
+                                                if (triangleContainsPoint(sp17C, temp_s2_4, temp_s0_5, temp_s1_7, sp1EC) != 0) {
                                                     var_fa0_7 = arg3 - temp_fs0_7;
-                                                    temp_ft1_4 = var_fa0_7 * spC8;
-                                                    temp_ft0_7 = var_fa0_7 * spCC;
-                                                    temp_fv0_10 = var_fa0_7 * spD0;
-                                                    sp168 = temp_ft1_4;
-                                                    sp16C = temp_ft0_7;
-                                                    sp170 = temp_fv0_10;
-                                                    sp28 += temp_ft1_4;
-                                                    sp2C += temp_ft0_7;
-                                                    sp30 += temp_fv0_10;
+                                                    temp_ft1_4 = var_fa0_7 * scratch.vspC8.values[0];
+                                                    temp_ft0_7 = var_fa0_7 * scratch.vspC8.values[1];
+                                                    temp_fv0_10 = var_fa0_7 * scratch.vspC8.values[2];
+                                                    scratch.vsp168.values[0] = temp_ft1_4;
+                                                    scratch.vsp168.values[1] = temp_ft0_7;
+                                                    scratch.vsp168.values[2] = temp_fv0_10;
+                                                    scratch.vsp28.values[0] += temp_ft1_4;
+                                                    scratch.vsp28.values[1] += temp_ft0_7;
+                                                    scratch.vsp28.values[2] += temp_fv0_10;
                                                     goto block_141;
                                                 }
-                                                func_800455CC(sp1F4, temp_s2_4, temp_s0_5, sp1AC);
+                                                segmentClosestPoint(sp1F4, temp_s2_4, temp_s0_5, sp1AC);
                                                 temp_fs0_8 = func_80047AB0(sp1F4, sp1AC);
-                                                func_800455CC(sp1FC, temp_s0_5, temp_s1_7, sp1AC);
+                                                segmentClosestPoint(sp1FC, temp_s0_5, temp_s1_7, sp1AC);
                                                 temp_fs1_4 = func_80047AB0(sp1FC, sp1AC);
-                                                func_800455CC(&sp148, temp_s1_7, temp_s2_4, sp1AC);
-                                                temp_fv0_11 = func_80047AB0(&sp148, sp1AC);
+                                                segmentClosestPoint(&scratch.vsp148.values[0], temp_s1_7, temp_s2_4, sp1AC);
+                                                temp_fv0_11 = func_80047AB0(&scratch.vsp148.values[0], sp1AC);
                                                 var_fa0_8 = temp_fs0_8;
-                                                var_a0_4 = sp130;
-                                                sp48 = sp128;
-                                                sp4C = sp12C;
+                                                var_a0_4 = scratch.vsp128.values[2];
+                                                sp48 = scratch.vsp128.values[0];
+                                                sp4C = scratch.vsp128.values[1];
                                                 sp50 = var_a0_4;
                                                 var_v0_11 = 1;
                                                 if (!(temp_fs1_4 < var_fa0_8)) {
@@ -696,9 +663,9 @@ block_106:
                                                     var_v1_11 = 0;
                                                 }
                                                 if (var_v0_11 & var_v1_11) {
-                                                    var_a0_4 = sp140;
-                                                    sp48 = sp138;
-                                                    sp4C = sp13C;
+                                                    var_a0_4 = scratch.vsp138.values[2];
+                                                    sp48 = scratch.vsp138.values[0];
+                                                    sp4C = scratch.vsp138.values[1];
                                                     sp50 = var_a0_4;
                                                     var_fa0_8 = temp_fs1_4;
                                                 } else {
@@ -711,29 +678,29 @@ block_106:
                                                         var_v1_12 = 0;
                                                     }
                                                     if (var_v0_12 & var_v1_12) {
-                                                        var_a0_4 = sp150;
-                                                        sp48 = sp148;
-                                                        sp4C = sp14C;
+                                                        var_a0_4 = scratch.vsp148.values[2];
+                                                        sp48 = scratch.vsp148.values[0];
+                                                        sp4C = scratch.vsp148.values[1];
                                                         sp50 = var_a0_4;
                                                         var_fa0_8 = temp_fv0_11;
                                                     }
                                                 }
                                                 if (var_fa0_8 < temp_fs4) {
-                                                    var_fa0_7 = (f32) (D_800D3E88 - (f64) (func_80082908(var_fa0_8, var_a0_4) / arg3));
-                                                    temp_ft0_8 = var_fa0_7 * (sp28 - sp48);
-                                                    temp_fv0_12 = var_fa0_7 * (sp30 - sp50);
-                                                    temp_fv1_4 = var_fa0_7 * (sp2C - sp4C);
-                                                    sp168 = temp_ft0_8;
-                                                    sp170 = temp_fv0_12;
-                                                    sp28 += temp_ft0_8;
-                                                    sp16C = temp_fv1_4;
-                                                    sp30 += temp_fv0_12;
-                                                    sp2C += temp_fv1_4;
+                                                    var_fa0_7 = (f32) (D_800D3E88 - (f64) (func_80082908(var_fa0_8) / arg3));
+                                                    temp_ft0_8 = var_fa0_7 * (scratch.vsp28.values[0] - sp48);
+                                                    temp_fv0_12 = var_fa0_7 * (scratch.vsp28.values[2] - sp50);
+                                                    temp_fv1_4 = var_fa0_7 * (scratch.vsp28.values[1] - sp4C);
+                                                    scratch.vsp168.values[0] = temp_ft0_8;
+                                                    scratch.vsp168.values[2] = temp_fv0_12;
+                                                    scratch.vsp28.values[0] += temp_ft0_8;
+                                                    scratch.vsp168.values[1] = temp_fv1_4;
+                                                    scratch.vsp28.values[2] += temp_fv0_12;
+                                                    scratch.vsp28.values[1] += temp_fv1_4;
 block_141:
-                                                    func_80083B64(M2C_BITWISE(f32 *, var_fa0_7), &sp100, &sp168);
-                                                    M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + sp168);
-                                                    M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + sp16C);
-                                                    M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + sp170);
+                                                    func_80083B64(scratch.vsp100.values, &scratch.vsp168.values[0]);
+                                                    M2C_FIELD(arg1, f32 *, 0) = (f32) (M2C_FIELD(arg1, f32 *, 0) + scratch.vsp168.values[0]);
+                                                    M2C_FIELD(arg1, f32 *, 4) = (f32) (M2C_FIELD(arg1, f32 *, 4) + scratch.vsp168.values[1]);
+                                                    M2C_FIELD(arg1, f32 *, 8) = (f32) (M2C_FIELD(arg1, f32 *, 8) + scratch.vsp168.values[2]);
                                                     temp_v1_11 = M2C_FIELD(var_s6, u32 *, 0x5C);
                                                     if (temp_v1_11 & 0x7E0000) {
                                                         if (arg5 != NULL) {
@@ -762,9 +729,9 @@ block_141:
 loop_153:
 loop_154:
         var_s0 = M2C_FIELD(sp18C, void **, 8);
-        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != D_800B35B0) {
+        if (M2C_FIELD(M2C_FIELD(var_s0, void **, 0x20), u16 *, 0x60) != gSurfaceQueryStamp) {
             if (sp18C != NULL) {
-                if ((Sphere_OverlapsPoint(M2C_FIELD(sp18C, s32 *, 4) + 0x40, arg1, arg3) << 0x18) != 0) {
+                if (Sphere_OverlapsPoint(M2C_FIELD(sp18C, s32 *, 4) + 0x40, arg1, arg3) != 0) {
                     sp18C = M2C_FIELD(sp18C, void **, 0);
                     goto block_160;
                 }

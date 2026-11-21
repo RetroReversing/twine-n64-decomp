@@ -47,18 +47,18 @@ void func_80059944(void *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;
-    s16 temp_v0_4;
-    s16 temp_v1_18;
-    s16 temp_v1_2;
-    s16 temp_v1_3;
-    s16 temp_v1_4;
-    s16 temp_v1_5;
-    s16 temp_v1_6;
-    s16 temp_v1_7;
-    s16 temp_v1_9;
-    s16 var_v0_2;
-    s16 var_v0_5;
-    s16 var_v0_6;
+    s32 temp_v0_4;
+    s32 temp_v1_18;
+    s32 temp_v1_2;
+    s32 temp_v1_3;
+    s32 temp_v1_4;
+    s32 temp_v1_5;
+    s32 temp_v1_6;
+    s32 temp_v1_7;
+    s32 temp_v1_9;
+    s32 var_v0_2;
+    s32 var_v0_5;
+    s32 var_v0_6;
     s32 temp_a0;
     s32 temp_v1_20;
     s32 var_a2;
@@ -67,58 +67,58 @@ void func_80059944(void *arg0) {
     s32 var_v0_4;
     s32 var_v0_7;
     u32 var_v1;
-    u16 temp_a0_2;
-    u16 temp_a0_3;
-    u16 temp_a0_4;
-    u16 temp_a0_5;
-    u16 temp_a0_6;
-    u16 temp_a1;
-    u16 temp_a1_2;
-    u16 temp_a1_3;
-    u16 temp_a1_4;
-    u16 temp_v0;
-    u16 temp_v0_10;
-    u16 temp_v0_11;
-    u16 temp_v0_12;
-    u16 temp_v0_13;
-    u16 temp_v0_14;
-    u16 temp_v0_15;
-    u16 temp_v0_16;
-    u16 temp_v0_17;
-    u16 temp_v0_18;
-    u16 temp_v0_19;
-    u16 temp_v0_20;
-    u16 temp_v0_21;
-    u16 temp_v0_22;
-    u16 temp_v0_23;
-    u16 temp_v0_24;
-    u16 temp_v0_2;
-    u16 temp_v0_3;
-    u16 temp_v0_5;
-    u16 temp_v0_6;
-    u16 temp_v0_7;
-    u16 temp_v0_8;
-    u16 temp_v0_9;
-    u16 temp_v1_10;
-    u16 temp_v1_11;
-    u16 temp_v1_12;
-    u16 temp_v1_13;
-    u16 temp_v1_14;
-    u16 temp_v1_15;
-    u16 temp_v1_16;
-    u16 temp_v1_17;
-    u16 temp_v1_19;
-    u16 temp_v1_21;
-    u16 temp_v1_22;
-    u16 temp_v1_23;
-    u16 temp_v1_24;
-    u16 temp_v1_25;
-    u16 temp_v1_26;
-    u16 var_a0;
+    s32 temp_a0_2;
+    s32 temp_a0_3;
+    s32 temp_a0_4;
+    s32 temp_a0_5;
+    s32 temp_a0_6;
+    s32 temp_a1;
+    s32 temp_a1_2;
+    s32 temp_a1_3;
+    s32 temp_a1_4;
+    s32 temp_v0;
+    s32 temp_v0_10;
+    s32 temp_v0_11;
+    s32 temp_v0_12;
+    s32 temp_v0_13;
+    s32 temp_v0_14;
+    s32 temp_v0_15;
+    s32 temp_v0_16;
+    s32 temp_v0_17;
+    s32 temp_v0_18;
+    s32 temp_v0_19;
+    s32 temp_v0_20;
+    s32 temp_v0_21;
+    s32 temp_v0_22;
+    s32 temp_v0_23;
+    s32 temp_v0_24;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 temp_v0_5;
+    s32 temp_v0_6;
+    s32 temp_v0_7;
+    s32 temp_v0_8;
+    s32 temp_v0_9;
+    s32 temp_v1_10;
+    s32 temp_v1_11;
+    s32 temp_v1_12;
+    s32 temp_v1_13;
+    s32 temp_v1_14;
+    s32 temp_v1_15;
+    s32 temp_v1_16;
+    s32 temp_v1_17;
+    s32 temp_v1_19;
+    s32 temp_v1_21;
+    s32 temp_v1_22;
+    s32 temp_v1_23;
+    s32 temp_v1_24;
+    s32 temp_v1_25;
+    s32 temp_v1_26;
+    s32 var_a0;
     u32 var_v0_8;
     u32 var_v0_9;
-    u8 temp_v1;
-    u8 temp_v1_8;
+    s32 temp_v1;
+    s32 temp_v1_8;
     void *temp_s0;
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
@@ -280,10 +280,10 @@ block_66:
                         temp_v1_8 = M2C_FIELD(temp_s0, u8 *, 0x4A);
                         var_v0_4 = temp_a0 & 8;
                         if (((u32) (temp_v1_8 - 0xA) < 2U) || (var_v0_4 = temp_a0 & 8, (((u32) (temp_v1_8 - 0xC) < 2U) != 0))) {
-                            if (var_v0_4 != 0) {
-                                M2C_FIELD(temp_s0, s8 *, 0x4D) = 0;
-                            } else {
+                            if (var_v0_4 == 0) {
                                 M2C_FIELD(temp_s0, s8 *, 0x4D) = 1;
+                            } else {
+                                M2C_FIELD(temp_s0, s8 *, 0x4D) = 0;
                             }
                         }
                         temp_a0_2 = M2C_FIELD(temp_s0, u16 *, 0x3A);
@@ -294,16 +294,7 @@ block_66:
                         var_v0_5 = 1;
                         goto block_227;
                     }
-                } else if (*(gTrackMarkerDone + temp_v0_3) != M2C_FIELD(temp_s0, u16 *, 0x36)) {
-                    if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x100800) == 0x800) {
-                        temp_v0_4 = (s16) M2C_FIELD(temp_s0, u16 *, 0x48);
-                        if (temp_v0_4 != -1) {
-                            var_a2 = lookupDataEntry(temp_v0_4 & 0xFFFF);
-                            func_80073AF8(0, sTrackMarkerTable, var_a2, -1, -1, 1, 0, 0, 5, 0, 0x3C);
-                            func_80084338(9U, arg0 + 0x24);
-                        }
-                    }
-                } else {
+                } else if (*(gTrackMarkerDone + temp_v0_3) == M2C_FIELD(temp_s0, u16 *, 0x36)) {
                     temp_a0_3 = M2C_FIELD(temp_s0, u16 *, 0x3A);
                     M2C_FIELD(temp_s0, u16 *, 0x46) = (u16) M2C_FIELD(temp_s0, u16 *, 0x44);
                     if (temp_a0_3 != 0) {
@@ -313,6 +304,15 @@ block_66:
 block_227:
                     M2C_FIELD(arg0, s16 *, 0x7A) = var_v0_5;
                     M2C_FIELD(temp_s0, f32 *, 8) = 0.0f;
+                } else {
+                    if ((M2C_FIELD(arg0, s32 *, 0x60) & 0x100800) == 0x800) {
+                        temp_v0_4 = (s16) M2C_FIELD(temp_s0, u16 *, 0x48);
+                        if (temp_v0_4 != -1) {
+                            var_a2 = lookupDataEntry(temp_v0_4 & 0xFFFF);
+                            func_80073AF8(0, sTrackMarkerTable, var_a2, -1, -1, 1, 0, 0, 5, 0, 0x3C);
+                            func_80084338(9U, arg0 + 0x24);
+                        }
+                    }
                 }
             }
             break;
