@@ -11,21 +11,21 @@ M2C_UNK func_800643C8(void *);
 M2C_UNK func_800643D8(void *);
 M2C_UNK func_80073508(void *, f32);
 M2C_UNK func_800853D4(void *);
-void func_8005FBC0(void *arg0) {
-s16 temp_v1; s32 *temp_s0; s32 temp_v1_2; void *temp_s0_2;
-temp_v1=M2C_FIELD(arg0,s16 *,0x7A); temp_s0=M2C_FIELD(arg0,s32 **,0x6C);
-switch(temp_v1) {
+/* Timed two-state object update: state 0 counts a 900-frame timer then re-arms it randomly; state 3 runs a triggered effect. */ void updateTimedObjectState(void *obj) {
+s16 state; s32 *timer; s32 flags; void *effectPos;
+state=M2C_FIELD(obj,s16 *,0x7A); timer=M2C_FIELD(obj,s32 **,0x6C);
+switch(state) {
 case 0:
-M2C_FIELD(arg0,s32 *,0x60)=M2C_FIELD(arg0,s32 *,0x60)&~2;
-*temp_s0+=1; func_800643D8(arg0);
-if(*temp_s0>=0x384) { func_80060AA8(arg0); func_800643C8(arg0); func_8005FBB8(temp_s0); *temp_s0=(u32)func_80045CC4()%450U; M2C_FIELD(arg0,s16 *,0x7A)=3; return; } return;
+M2C_FIELD(obj,s32 *,0x60)=M2C_FIELD(obj,s32 *,0x60)&~2;
+*timer+=1; func_800643D8(obj);
+if(*timer>=0x384) { func_80060AA8(obj); func_800643C8(obj); func_8005FBB8(timer); *timer=(u32)func_80045CC4()%450U; M2C_FIELD(obj,s16 *,0x7A)=3; return; } return;
 case 3:
-temp_v1_2=M2C_FIELD(arg0,s32 *,0x60);
-if(temp_v1_2&2) { temp_s0_2=arg0+0x24; M2C_FIELD(arg0,s32 *,0x60)=temp_v1_2&~2;
-func_80054FEC(0,250.0f,5.0f,arg0,temp_s0_2,0x20,0);
-func_800624A8(arg0,temp_s0_2,1.0f,1); func_80073508(temp_s0_2,0.001f); func_800853D4(temp_s0_2); goto block_8;
+flags=M2C_FIELD(obj,s32 *,0x60);
+if(flags&2) { effectPos=obj+0x24; M2C_FIELD(obj,s32 *,0x60)=flags&~2;
+func_80054FEC(0,250.0f,5.0f,obj,effectPos,0x20,0);
+func_800624A8(obj,effectPos,1.0f,1); func_80073508(effectPos,0.001f); func_800853D4(effectPos); goto block_8;
 }
-if((func_8005FD28(arg0)<<0x18)!=0) { block_8: func_80060968(arg0); }
+if((func_8005FD28(obj)<<0x18)!=0) { block_8: func_80060968(obj); }
 break;
 }
 }

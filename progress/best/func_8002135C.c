@@ -3,7 +3,7 @@
 s32 func_8000237C(void *, int, s32, s32); /* extern */
 s32 func_80002D30(void *, u16);                 /* extern */
 s32 func_80002EF0(void *);                      /* extern */
-u8 func_80006560();                                 /* extern */
+s32 func_80006560();                                 /* extern */
 void *spawnEffectObject(s32, s32, s32);     /* extern */
 s32 actorUnlinkFromSurface(void *);                      /* extern */
 s32 objectListInsert(void *, s32);                 /* extern */
@@ -28,8 +28,9 @@ extern void *gMenuState;
 extern s32 gBootState;
 extern s32 gBonusSceneHandle;
 
-typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; signed char field_82; } __repair_record_D_800B7CE8;
+typedef struct { unsigned char pad_0[36]; float field_24; float field_28; float field_2C; unsigned char pad_30[12]; float field_3C; float field_40; unsigned char pad_44[16]; float field_54; int field_58; unsigned char pad_5C[8]; float field_64; unsigned char pad_68[16]; short field_78; unsigned char pad_7A[4]; signed char field_7E; unsigned char pad_7F[3]; unsigned char field_82; } __repair_record_D_800B7CE8;
 void func_8002135C(void) {
+    register f32 one = 1.0f;
     register u32 var_v0;
     register u32 temp_v0_2;
     register s32 var_s1;
@@ -57,9 +58,15 @@ void func_8002135C(void) {
             }
         } else {
 block_9:
-            var_v0 = (int)var_s0 >> 0x1F;
-            if ((D_800B7CE8 != (unsigned)NULL) || ((gBootState = 1, temp_v0_3 = spawnEffectObject(0, 0, 0), D_800B7CE8 = temp_v0_3, (temp_v0_3 != NULL)) && (func_8000237C(D_800B7CE8, func_80006560(), 2, 0), var_v0 = var_s0 >> 0x1F, (D_800B7CE8 != NULL)))) {
-                if ((var_v0 | ((u32) var_s1 >> 0x1F)) != 0) {
+            if (D_800B7CE8 == NULL) {
+                gBootState = 1;
+                D_800B7CE8 = spawnEffectObject(0, 0, 0);
+                if (D_800B7CE8 == NULL) return;
+                func_8000237C(D_800B7CE8, func_80006560(), 2, 0);
+                if (D_800B7CE8 == NULL) return;
+            }
+            {
+                if (((var_s0 >> 31) | ((u32)var_s1 >> 31)) != 0) {
                     actorUnlinkFromSurface(D_800B7CE8);
                     return;
                 }
@@ -69,10 +76,10 @@ block_9:
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = -0.0315f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 170.66667f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = -113.77778f;
-                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = 0xC4EAAAAB;
+                    (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = -1877.3333740234375f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 & ~0x400);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.5f;
-                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) ((f64) ((1.0f / ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64) * 0.09f) * D_800D2A98);
+                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) ((f64) ((one / ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_64) * 0.09f) * D_800D2A98);
                 } else {
                     gBootState = 1;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x400);
@@ -81,8 +88,8 @@ block_9:
                     func_80002EF0(D_800B7CE8);
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_24 = (f32) *((f32 *)((s8 *)&D_800C4774 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_28 = (f32) *((f32 *)((s8 *)&D_800C4778 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
-                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.022f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_54 = (f32) *((f32 *)((s8 *)&D_800C477C + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8)));
+                    ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_2C = 0.022f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_3C = 2048.0f;
                     ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_40 = (f32) ((*((f32 *)((s8 *)&D_800C4780 + ((*(u8 *)((char *)(temp_v0) + 8)) * 0xE8))) * 11.377778f) + -1024.0f);
                     (*(f32 *)((char *)(D_800B7CE8) + 0x44)) = 0;
@@ -93,8 +100,9 @@ block_9:
                 ((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 = (s32) (((__repair_record_D_800B7CE8*)D_800B7CE8)->field_58 | 0x1100);
                 actorUnlinkFromSurface(D_800B7CE8);
                 objectListInsert(D_800B7CE8, (*(s32 *)((char *)(D_80109698) + 0xF4)));
-                (*(s8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
+                (*(u8 *)((char *)(gMenuState) + 0x30)) = 0xFF;
             }
         }
     }
 }
+
