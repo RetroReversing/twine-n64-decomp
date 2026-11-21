@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_8008292C(f32);                             /* extern */
+f32 sinTableLookup(f32);                             /* extern */
 
 void motionUpdateObject(void *arg0) {
     f32 temp_fv0;
     void *temp_s1;
 
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
-    temp_fv0 = func_8008292C((M2C_FIELD(temp_s1, f32 *, 8) / M2C_FIELD(temp_s1, f32 *, 0xC)) * 3.1415927f);
+    temp_fv0 = sinTableLookup((M2C_FIELD(temp_s1, f32 *, 8) / M2C_FIELD(temp_s1, f32 *, 0xC)) * 3.1415927f);
     M2C_FIELD(arg0, f32 *, 0x24) = (f32) (M2C_FIELD(arg0, f32 *, 0x24) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x10)));
     M2C_FIELD(arg0, f32 *, 0x28) = (f32) (M2C_FIELD(arg0, f32 *, 0x28) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x14)));
     M2C_FIELD(arg0, f32 *, 0x2C) = (f32) (M2C_FIELD(arg0, f32 *, 0x2C) + (temp_fv0 * M2C_FIELD(temp_s1, f32 *, 0x18)));

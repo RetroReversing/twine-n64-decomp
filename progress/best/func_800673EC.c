@@ -17,8 +17,8 @@ s32 func_8006832C(void *arg0, void *);              /* extern */
 s32 func_80070870(void *, s32 *);           /* extern */
 s32 func_8008194C(int, s32);                     /* extern */
 s32 func_80081D20(s8, s32);                 /* extern */
-f32 func_8008292C(f32);                             /* extern */
-f32 func_80082968(f32);                             /* extern */
+f32 sinTableLookup(f32);                             /* extern */
+f32 cosTableLookup(f32);                             /* extern */
 extern s32 D_800C469C;
 extern s32 D_800C46FC;
 extern s32 gBorderSkipFlag;
@@ -174,11 +174,11 @@ func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4)
                     if (temp_v0 != NULL) {
                         temp_s0_2 = (temp_s0 * 4) + &gTrackMarkerTable;
                         temp_s1_2 = (*(void **)((char *)(temp_v0) + 0x6C));
-                        temp_fs1 = func_8008292C((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
-                        temp_fs2 = func_80082968((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
-                        temp_fs0 = func_8008292C((*(f32 *)((char *)(*temp_s0_2) + 0x34)));
-                        (*(f32 *)((char *)(temp_s1_2) + 0xC)) = (f32) (func_80082968((*(f32 *)((char *)(*temp_s0_2) + 0x34))) * temp_fs1);
-                        temp_fv0 = func_80082968((*(f32 *)((char *)(*temp_s0_2) + 0x34))) * temp_fs2;
+                        temp_fs1 = sinTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
+                        temp_fs2 = cosTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
+                        temp_fs0 = sinTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x34)));
+                        (*(f32 *)((char *)(temp_s1_2) + 0xC)) = (f32) (cosTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x34))) * temp_fs1);
+                        temp_fv0 = cosTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x34))) * temp_fs2;
                         (*(s32 *)((char *)(temp_s1_2) + 0x18)) = 0x96;
                         (*(s8 *)((char *)(temp_s1_2) + 0x2D)) = 0;
                         (*(s8 *)((char *)(temp_s1_2) + 0x2F)) = 0;

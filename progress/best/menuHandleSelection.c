@@ -46,6 +46,8 @@ void menuHandleSelection(void) {
     u16 temp_a1;
     u8 slot;
     s32 mode;
+    void *state;
+    void *callbackState;
     u8 temp_v1_2;
     void *temp_a0;
     void *temp_a0_2;
@@ -120,12 +122,14 @@ block_15:
                     }
                     slot = gMenuSlot;
                     temp_a2 = *(u16 *)((slot * 2) + (u8 *)&D_800E0ECC);
-                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (temp_a2 + M2C_FIELD(((temp_a2 * 8) + temp_a0_2), u8 *, 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
+                    func_8007089C(*(s32 *)((slot * 4) + (u8 *)&gBonusSceneHandle), 0, (temp_a2 + M2C_FIELD(((u8 (*)[8])temp_a0_2 + temp_a2), u8 *, 0x1FE)) & 0xFFFF, &gBonusSceneHandle);
                     if (M2C_FIELD(gMenuState, void **, 0x18) != NULL) {
                         temp_v0_3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0xC), 0xE);
-                        M2C_FIELD(gMenuState, s8 *, 0x2C) = 1;
-                        M2C_FIELD(gMenuState, void **, 0x18) = temp_v0_3;
-                        M2C_FIELD(M2C_FIELD(gMenuState, void *volatile *, 0x18), M2C_UNK (**)(void *), 4)(gMenuState);
+                        state = gMenuState;
+                        M2C_FIELD(state, s8 *, 0x2C) = 1;
+                        callbackState = gMenuState;
+                        M2C_FIELD(state, void **, 0x18) = temp_v0_3;
+                        M2C_FIELD(M2C_FIELD(callbackState, void *volatile *, 0x18), M2C_UNK (**)(void *), 4)(state);
                         return;
                     }
                 }

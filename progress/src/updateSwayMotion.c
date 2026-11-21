@@ -3,8 +3,8 @@
 s32 func_800673EC(void *, f32 *);               /* extern */
 void func_80067BB8(void *, f32 *);               /* extern */
 f32 absFloat(f32);                             /* extern */
-f32 func_8008292C(f32);                             /* extern */
-f32 func_80082968(f32);                             /* extern */
+f32 sinTableLookup(f32);                             /* extern */
+f32 cosTableLookup(f32);                             /* extern */
 extern f64 D_800D4498;
 extern f64 D_800D44A0;
 
@@ -35,8 +35,8 @@ extern f64 D_800D44A0;
         (*(f32 *)((char *)(sway) + 0x6C)) = (f32) (posY + ((*(f32 *)((char *)(linked) + 0x4C)) * 0.2f));
     }
     speed = 0.01f;
-    offset[0] += func_8008292C(*(f32 *)((char *)sway + 0x6C)) * speed;
-    offset[1] += absFloat(func_80082968(*(f32 *)((char *)sway + 0x6C))) * speed;
+    offset[0] += sinTableLookup(*(f32 *)((char *)sway + 0x6C)) * speed;
+    offset[1] += absFloat(cosTableLookup(*(f32 *)((char *)sway + 0x6C))) * speed;
     offset[2] += (*(f32 *)((char *)(sway) + 0x70));
     decay = D_800D44A0;
     wobble = 0.001f;
@@ -44,8 +44,8 @@ extern f64 D_800D44A0;
     (*(f32 *)((char *)(sway) + 0x70)) = (f32) ((f64) (*(f32 *)((char *)(sway) + 0x70)) * decay);
     (*(f32 *)((char *)(sway) + 0x78)) = angle;
     (*(f32 *)((char *)(sway) + 0x74)) = (f32) ((f64) (*(f32 *)((char *)(sway) + 0x74)) * decay);
-    offset[0] += func_8008292C(angle) * wobble;
-    offset[1] += func_80082968(*(f32 *)((char *)sway + 0x78) * 1.7f) * wobble;
+    offset[0] += sinTableLookup(angle) * wobble;
+    offset[1] += cosTableLookup(*(f32 *)((char *)sway + 0x78) * 1.7f) * wobble;
     func_80067BB8(obj, offset);
     func_800673EC(obj, offset);
 }

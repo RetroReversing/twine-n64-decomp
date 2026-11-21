@@ -1,6 +1,6 @@
 void *func_80047B44(s32, void *, f32 *, s32);
 s32 func_8004AD30(s32, f32 *, s32 *, f32, s32, s32, s32, s32);
-f32 func_8008292C(f32);
+f32 sinTableLookup(f32);
 f32 sinAngle(f32);
 f32 cosAngle(f32);
 f32 approximateAtan2(f32, f32);
@@ -36,7 +36,7 @@ f32 probeTrackSteerAngle(s32 scene, void *actor) {
             steerAngle = approximateAtan2(hit.f - *(f32 *)((char *)trackState + 0xE4), 1.5f);
             steerPos = probePos;
             steerPos.x += sinAngle(*(f32 *)((char *)actor + 0x40));
-            steerPos.y += func_8008292C(steerAngle);
+            steerPos.y += sinTableLookup(steerAngle);
             steerPos.z += cosAngle(*(f32 *)((char *)actor + 0x40));
             steerAngle *= 0.47746482f;
         }

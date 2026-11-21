@@ -21,10 +21,8 @@ s32 func_80099CA8(void *arg0, void *arg1) {
             *(s32 *)((s8 *)arg0 + 0x24) &= 0xFFEFFFFF;
         }
         if (*(u16 *)arg1 & 1) sp10 = (func_80095638() & 0xFFFF) % sp10;
-        if (sp10 == 0xFFFF) {
-            *(u32 *)((s8 *)arg0 + 0x9C) = -1;
-        } else {
-            s1 = (*(u32 *)((s8 *)arg1 + 4) >> 8) & 1;
+        if (sp10 != 0xFFFF) {
+            s1 = *(u32 *)((s8 *)arg1 + 4) >> 8;
             if (s1 & 0xFF) func_800957A8(&sp10);
             else func_800957B8(&sp10, arg0);
             if (s1 & 0xFF) {
@@ -37,6 +35,8 @@ s32 func_80099CA8(void *arg0, void *arg1) {
                     *(u32 *)((s8 *)arg0 + 0x9C) = 0;
                 }
             }
+        } else {
+            *(u32 *)((s8 *)arg0 + 0x9C) = -1;
         }
         return *(u32 *)((s8 *)arg0 + 0x9C) != 0;
     }

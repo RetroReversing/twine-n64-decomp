@@ -4,8 +4,8 @@ s32 func_8000BB50(void *, f32, f32, f32, f32);
 s32 func_80043FA0();
 void *func_80044818();
 f32 func_80046140(f32, f32, s32);
-f32 func_8008292C(f32);
-f32 func_80082968(f32);
+f32 sinTableLookup(f32);
+f32 cosTableLookup(f32);
 f32 approximateAtan2(f32, f32);
 s32 func_800A37C0();
 extern f32 D_800AE4D8;
@@ -105,8 +105,8 @@ s32 __repair_phase_var_s1;
         }
         if (arg1 != NULL) {
             temp_fv0 = approximateAtan2((*(f32 *)((char *)(arg0) + 0x24)) - (*(f32 *)((char *)(arg1) + 4)), (*(f32 *)((char *)(arg0) + 0x2C)) - (*(f32 *)((char *)(arg1) + 0xC)));
-            var_fs1 = func_8008292C(temp_fv0);
-            var_ft1 = func_80082968(temp_fv0);
+            var_fs1 = sinTableLookup(temp_fv0);
+            var_ft1 = cosTableLookup(temp_fv0);
         } else {
             var_fs1 = 1.0f;
             var_ft1 = 0.0f;

@@ -18,48 +18,48 @@ void formatTextEntry(s32, char *, s32, u16);
 s32 sprintf(char *, const char *, ...);
 s16 strlen(const char *);
 
-void func_80024D78(void) {
-    u16 i;
-    Item4D78 **pp;
-    Item4D78 *it;
-    char buf[3];
-    s32 n;
-    Txt4D78 *t;
-    s32 p;
+/* Rebuilds the text of each slot menu entry (number, marker, slot info) and refreshes the footer label. */ void refreshSlotMenuLabels(void) {
+    u16 slotIdx;
+    Item4D78 **entryPtr;
+    Item4D78 *entry;
+    char marker[3];
+    s32 footerId;
+    Txt4D78 *label;
+    s32 footerEntry;
 
-    for (i = 0; i < 16; i++) {
-        pp = func_8002A920(&D_80107EA8, i);
-        if (pp == NULL) {
+    for (slotIdx = 0; slotIdx < 16; slotIdx++) {
+        entryPtr = func_8002A920(&D_80107EA8, slotIdx);
+        if (entryPtr == NULL) {
             continue;
         }
-        it = *pp;
-        if (it == NULL) {
+        entry = *entryPtr;
+        if (entry == NULL) {
             continue;
         }
-        if (it->txt->text == NULL) {
+        if (entry->txt->text == NULL) {
             continue;
         }
-        buf[2] = 0;
-        buf[1] = 0;
-        buf[0] = 0;
-        buf[1] = func_8002CB98(i);
-        if (buf[1]) {
-            buf[0] = '.';
+        marker[2] = 0;
+        marker[1] = 0;
+        marker[0] = 0;
+        marker[1] = func_8002CB98(slotIdx);
+        if (marker[1]) {
+            marker[0] = '.';
         } else {
-            buf[0] = ' ';
+            marker[0] = ' ';
         }
-        sprintf(it->txt->text, D_800D2AD0, i + 1, func_8002CB7C(i), buf, func_8002CBB8(i));
-        t = it->txt;
-        t->len = strlen(t->text);
-        if (func_8002D09C(i)) {
-            func_800448A4(it->f4, 0xF, 0x24);
+        sprintf(entry->txt->text, D_800D2AD0, slotIdx + 1, func_8002CB7C(slotIdx), marker, func_8002CBB8(slotIdx));
+        label = entry->txt;
+        label->len = strlen(label->text);
+        if (func_8002D09C(slotIdx)) {
+            func_800448A4(entry->f4, 0xF, 0x24);
         } else {
-            func_800448A4(it->f4, 0x10, 0x24);
+            func_800448A4(entry->f4, 0x10, 0x24);
         }
     }
-    p = findEntryById(gMenuState->f10, 0x4010);
-    if (p != 0) {
-        n = lookupDataEntry(0x300E);
-        formatTextEntry(p, D_800D2AE0, n, func_8002D1F8());
+    footerEntry = findEntryById(gMenuState->f10, 0x4010);
+    if (footerEntry != 0) {
+        footerId = lookupDataEntry(0x300E);
+        formatTextEntry(footerEntry, D_800D2AE0, footerId, func_8002D1F8());
     }
 }
