@@ -25,6 +25,11 @@ inline static char *inline_fn(s32 arg0, int arg1, char *arg2)
   return (arg0 * arg1) + arg2;
 }
 
+inline static __repair_vec3 *inline_fn2(void *arg0)
+{
+  return (__repair_vec3 *) (((s8 *) arg0) + 0x10);
+}
+
 void func_8006CD34(void *arg0)
 {
   float *__base_D_800D461C;
@@ -67,7 +72,7 @@ void func_8006CD34(void *arg0)
       func_800480A0(arg0, *temp_s0);
       temp_v1 = *temp_s0;
       temp_v0 = *((void **) (((char *) temp_s2) + 0xBC));
-      *((__repair_vec3 *) (((s8 *) temp_v1) + 0x10)) = *((__repair_vec3 *) (((s8 *) temp_v0) + 0x24));
+      *inline_fn2(temp_v1) = *((__repair_vec3 *) (((s8 *) temp_v0) + 0x24));
       var_v0 = *temp_s0;
       *((f32 *) (((char *) var_v0) + 0x14)) = (f32) (((f64) (*((f32 *) (((char *) var_v0) + 0x14)))) + D_800D4628);
     }
@@ -154,7 +159,7 @@ void func_8006CD34(void *arg0)
       sp58[1] = (s16) ((s32) (*((f32 *) (((char *) temp_s2) + 0x40))));
       sp58[2] = (s16) ((s32) (*((f32 *) (((char *) temp_s2) + 0x44))));
       buildRotationMatrixS16(sp58, sp28);
-      arg0 = sp18;
+ do { arg0 = sp18; } while (0);
       rotateVec3ByMat3(sp28);
       sp18[0] += *((f32 *) (((char *) temp_s2) + 0x24));
       do
@@ -171,4 +176,3 @@ void func_8006CD34(void *arg0)
     }
   }
 }
-

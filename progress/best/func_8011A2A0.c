@@ -105,7 +105,7 @@ s32 func_8011A2A0(void)
         if (1)
         {
         }
-        while (((s32) ((u16) i)) < slots)
+        while (((s32) ((u16) i)) < gSaveTotalSlots)
         {
           BonusObject *object = sBonusObjectTable[inline_fn(i)];
           if (object != 0)

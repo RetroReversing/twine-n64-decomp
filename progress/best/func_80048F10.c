@@ -1099,9 +1099,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     }
     if (arg6 != NULL)
     {
-      *((f32 *) (((char *) arg6) + 0)) = sp180;
-      *((f32 *) (((char *) arg6) + 4)) = sp184;
-      *((f32 *) (((char *) arg6) + 8)) = sp188;
+      *(CollisionVec *)arg6 = *(CollisionVec *)&sp180;
       return 1;
     }
     return 1;
@@ -1110,4 +1108,5 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   return 0;
 
 }
+
 
