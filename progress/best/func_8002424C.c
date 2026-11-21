@@ -19,7 +19,7 @@ extern s32 D_800BD554;
 extern u16 D_800BD558;
 extern s8 D_800BD55A;
 extern char D_800BD5D0[];
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern s8 D_800BD690;
 extern char D_80107EA8[];
 extern void *gMenuState;
@@ -48,13 +48,13 @@ int __repair_constant;
     
     temp_s2 = D_800BD5D0 - 0x4C;
     temp_s3 = D_800BD5D0 - 0x34;
-    func_80022A30((var_s1 = 0, D_800BD68E), 0x20, 0x3C, 0xF8, 0x78);
+    func_80022A30((var_s1 = 0, gMenuParamC), 0x20, 0x3C, 0xF8, 0x78);
     D_800BD554 = func_80015F74(D_800BD5D0);
     D_800BD550 = func_80015F74(D_800BD5D0 - 0x24);
     do {
         temp_a0 = var_s1 & 0xFFFF;
-        ((__repair_record_temp_s2*)temp_s2)->field_0 = (s16) D_800BD68E;
-        ((__repair_record_temp_s2*)temp_s2)->field_24 = (s16) D_800BD68E;
+        ((__repair_record_temp_s2*)temp_s2)->field_0 = (s16) gMenuParamC;
+        ((__repair_record_temp_s2*)temp_s2)->field_24 = (s16) gMenuParamC;
         temp_v0 = temp_a0 * 8;
         *(s32 *)(D_80109C18 + temp_v0) = 0;
         *(s32 *)(D_80109C1C + temp_v0) = 0;
@@ -72,7 +72,7 @@ int __repair_constant;
     func_80024D78();
     D_800BD55A = 0;
     D_800BD558 = 1;
-    func_80022AD8(D_800BD68E);
+    func_80022AD8(gMenuParamC);
     temp_v1 = (*(u16 *)((char *)(gMenuState) + 0x14));
     if (temp_v1 != 0x1A) {
         if ((s32) temp_v1 < 0x1B) {

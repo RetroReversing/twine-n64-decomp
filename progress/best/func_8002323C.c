@@ -32,7 +32,7 @@ void *memset(void *, s32, u32);            /* extern */
 s32 sprintf(char *, const char *, ...);            /* extern */
 extern s8 D_800B60E0;
 extern s8 D_800B60E1;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern M2C_UNK D_800BDBF8;
 extern u8 D_800BDBFC;
 extern M2C_UNK D_800D2AAC;
@@ -165,11 +165,11 @@ void func_8002323C(void) {
             var_s4++;
         } while ((u16)var_s4 < 2);
         func_8002A644(&D_800E0EF0, &D_800E0F18, 0xA8, 7, 0x4E, 0x64, 0x6E, 0xB, 0, &func_80022F10, &func_800231F4);
-        func_80022A30(D_800BD68E, 0x4C, 0x69, 0x98, 0x5A);
+        func_80022A30(gMenuParamC, 0x4C, 0x69, 0x98, 0x5A);
         if (D_801002AC != 0) {
             s32 *row = &D_800E1008;
             *row = 0;
-            temp_v0_3 = func_800162BC(D_800BD68E);
+            temp_v0_3 = func_800162BC(gMenuParamC);
             D_800E100C = temp_v0_3;
             D_800E101C = 0;
             if (temp_v0_3 != 0) {
@@ -181,8 +181,8 @@ void func_8002323C(void) {
         temp_v0_2 = M2C_FIELD(&gSaveKeyRelaxed, u8 *, 0);
         if (temp_v0_2 != 0) {
             var_s2 = 1;
-            D_800E0FC0 = func_800162BC(D_800BD68E);
-            D_800E0FC4 = func_800162BC(D_800BD68E);
+            D_800E0FC0 = func_800162BC(gMenuParamC);
+            D_800E0FC4 = func_800162BC(gMenuParamC);
             temp_v0_4 = func_80087100(0x4001);
             sprintf(temp_v0_4, D_800D2AB0, D_800E107E);
             func_800160FC(D_800E0FC0, func_80087100(0x6E), 0x40);
@@ -193,9 +193,9 @@ void func_8002323C(void) {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5) == 0) {
-                        temp_v0_10 = func_800162BC(D_800BD68E);
+                        temp_v0_10 = func_800162BC(gMenuParamC);
                         {
-                            u8 channel = D_800BD68E;
+                            u8 channel = gMenuParamC;
                             temp_a1 = var_s2 & 0xFFFF;
                             temp_s0_5 = temp_a1 * 0xC;
 
@@ -224,9 +224,9 @@ void func_8002323C(void) {
                 } while ((var_s4 & 0xFFFF) < D_801002B4);
             }
             var_s4 = 0;
-            temp_v0_10 = func_800162BC(D_800BD68E);
+            temp_v0_10 = func_800162BC(gMenuParamC);
             {
-                u8 channel = D_800BD68E;
+                u8 channel = gMenuParamC;
                 temp_s0_6 = (var_s2 & 0xFFFF) * 0xC;
                 M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6) = temp_v0_10;
                 var_s2++;
@@ -243,9 +243,9 @@ void func_8002323C(void) {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5_2 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
-                            temp_v0_10 = func_800162BC(D_800BD68E);
+                            temp_v0_10 = func_800162BC(gMenuParamC);
                             {
-                                u8 channel = D_800BD68E;
+                                u8 channel = gMenuParamC;
                                 temp_a1_2 = var_s2 & 0xFFFF;
                                 temp_s0_7 = temp_a1_2 * 0xC;
 
@@ -278,9 +278,9 @@ success5:
                 do {
                     var_s0_4 = (u16)var_s4;
                     temp_s1 = func_80022DBC(var_s0_4);
-                    temp_v0_10 = func_800162BC(D_800BD68E);
+                    temp_v0_10 = func_800162BC(gMenuParamC);
                     {
-                        u8 channel = D_800BD68E;
+                        u8 channel = gMenuParamC;
                         temp_s3_2 = var_s0_4 * 0xC;
                         M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2) = temp_v0_10;
                         temp_v0_10 = func_800162BC(channel);
@@ -305,7 +305,7 @@ success5:
                 } while ((var_s4 & 0xFFFF) < D_801002B4);
             }
         }
-        func_80022AD8(D_800BD68E);
+        func_80022AD8(gMenuParamC);
         func_8002A9A8(&D_800E0EF0, 0);
         func_8002AC04(&D_800E0EF0, 1);
     }

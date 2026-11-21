@@ -21,7 +21,7 @@ s32 func_8002EBB8(u8);                              /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 s32 createTextMenu(u8);                              /* extern */
 M2C_UNK func_80081D20(M2C_UNK, M2C_UNK);            /* extern */
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern M2C_UNK D_800BF458;
 extern s32 D_80102EBC;
 extern u8 D_80102EDD;
@@ -34,9 +34,9 @@ void func_80027FF4(void) {
 
     if (M2C_FIELD(gMenuState, s32 *, 0x20) == 0) {
         if (D_80102EDD == 0) {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8002EBB8(D_800BD68E);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8002EBB8(gMenuParamC);
         } else {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(D_800BD68E);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(gMenuParamC);
         }
     }
     func_80026450();

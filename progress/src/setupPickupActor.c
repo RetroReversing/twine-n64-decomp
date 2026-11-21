@@ -28,7 +28,7 @@ s32 func_80087100();
 extern void *volatile gPickupActor;
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern char D_800C3CF8[];
 extern s32 *gProbeObjectList;
 extern char D_80100408[];
@@ -79,14 +79,14 @@ extern char D_800D2864[];
           actorLinkToSurface(*(volatile s32 *)probe, *pickup, 1); }
         i = 0;
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 1, 0x32, 0xB4, 0x34, 0xF, 1, &func_80022C04, &func_8001AC88);
-        func_80022A30(D_800BD68E, 0x30, 0x30, 0x6E, 0xF);
+        func_80022A30(gMenuParamC, 0x30, 0x30, 0x6E, 0xF);
         itemList = func_800316C8();
         for (;;) {
             index = i & 0xFFFF;
             if (!((index < (u32) (func_800316E4() & 0xFFFF)) && (itemList != NULL))) {
                 break;
             }
-            result = func_800162BC(D_800BD68E);
+            result = func_800162BC(gMenuParamC);
             ((s32 (*)[0x1]) D_80102F48)[index][0x0] = result;
             if (result) {
                 func_800160FC(((s32 (*)[0x1]) D_80102F48)[index][0x0], func_8002BA6C(func_8002B9FC(((u8 (*)[0x4]) itemList)[index][0x2])), 0x40);
@@ -95,8 +95,8 @@ extern char D_800D2864[];
             func_8002A7CC(D_8010A488, ((s32 *)D_80102F48)[index], i & 0xFF, result & 0xFF);
             i++;
         }
-        func_80022E18(D_800BD68E);
-        func_80022AD8(D_800BD68E);
+        func_80022E18(gMenuParamC);
+        func_80022AD8(gMenuParamC);
         func_8002A9A8(D_8010A488, 0);
         func_8002AC04(D_8010A488, 1);
         func_8002ACB4(D_8010A488);

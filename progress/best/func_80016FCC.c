@@ -18,7 +18,7 @@ void func_800167B4(void *);
 void objectListInsert(void *, s32);
 void func_80016A34(void *);
 void func_80016EE0(void);
-void func_80027260(void *);
+void dispatchMenuState(void *);
 void func_8002B050(void *, s32);
 void func_8002EAC4(void *);
 void func_8004830C(void);
@@ -98,7 +98,7 @@ void func_80016FCC(s8 arg0) {
         } else {
             while (node != NULL) {
                 switch (*(u16 *)((u8 *)node + 0x78)) {
-                case 0x25: func_80027260(node); break;
+                case 0x25: dispatchMenuState(node); break;
                 default: func_8002EAC4(node); break;
                 case 0x4D:
                 case 0x2: func_80069DCC(node); break;

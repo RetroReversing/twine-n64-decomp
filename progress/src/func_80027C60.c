@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_800819EC(u16, s32);                         /* extern */
 extern u8 D_800BD690;
-extern u8 D_800BD691;
+extern u8 gMenuParamB;
 
 s32 func_80027C60(s32 arg0) {
     u16 var_s0;
@@ -27,5 +27,5 @@ s32 func_80027C60(s32 arg0) {
         }
         return 0;
     }
-    return func_800819EC(D_800BD691, arg0) != 0;
+    return func_800819EC(gMenuParamB, arg0) != 0;
 }

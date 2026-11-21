@@ -9,7 +9,8 @@ extern TableEntry D_800F8168[];
 void func_8008C0D4(void);
 void func_8008C11C(void);
 
-s32 func_800972A4(u16 key, const void *value, u16 extra) {
+/* Inserts a key/value entry into the key-sorted table (max 256), or bumps the existing entry's refcount; returns 1 if added or bumped. */
+s32 insertSortedKeyEntry(u16 key, const void *value, u16 extra) {
     s32 count, i, j, off, newCount;
     u32 wanted;
     TableEntry *dst, *src;

@@ -35,7 +35,7 @@ extern void *volatile gPickupActor;
 extern char D_800BD640[];
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern s8 D_800BD690;
 extern u8 D_800BF688[];
 extern char D_800C3CF8[];
@@ -110,13 +110,13 @@ s32 __repair_phase_var_a0;
     sp34 = findEntryById(((__repair_field_10 *)gMenuState)->value, 0x400C);
     if (((temp_fp != NULL) & (temp_s7 != NULL)) && ((temp_s6 != (int)NULL) & (temp_s5 != NULL)) && (sp34)) {
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x2C, 0xB4, 0x32, 0xE, 1, &func_80022C04, &func_8001AC88);
-        func_80022A30(D_800BD68E, 0x27, 0x2E, 0x3C, 0x98);
+        func_80022A30(gMenuParamC, 0x27, 0x2E, 0x3C, 0x98);
         var_s2 = 0;
         if (D_801002B4 > 0) {
             var_s0 = 0 & 0xFFFF;
             do {
                 temp_a0_2 = func_80022DBC(var_s0);
-                temp_v0 = func_800162BC(D_800BD68E);
+                temp_v0 = func_800162BC(gMenuParamC);
                 *(s32 *)((var_s0 * 4) + (s32)D_80102F48) = temp_v0;
                 if (temp_v0) {
                     temp_s1 = func_80087100((var_s2 + 0x4008) & 0xFFFF);
@@ -137,8 +137,8 @@ s32 __repair_phase_var_a0;
                 var_s0 = var_s2 & 0xFFFF;
             } while ((var_s2 & 0xFFFF) < D_801002B4);
         }
-        func_80022E18(D_800BD68E);
-        func_80022AD8(D_800BD68E);
+        func_80022E18(gMenuParamC);
+        func_80022AD8(gMenuParamC);
         func_8002A9A8(D_8010A488, func_80022DE8(D_801002AD));
         func_8002AC04(D_8010A488, 1);
         func_8002ACB4(D_8010A488);

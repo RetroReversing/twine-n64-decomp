@@ -5,7 +5,7 @@ s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 func_80087100(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 extern s32 D_800BD640;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern s32 D_80102EBC;
 extern s32 D_80102EC4;
 extern u8 D_80102EDD;
@@ -22,7 +22,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     u32 temp_v1;
     void *temp_v0;
 
-    if ((arg0 == NULL) || (temp_v0 = func_800162BC(D_800BD68E), (temp_v0 == NULL))) {
+    if ((arg0 == NULL) || (temp_v0 = func_800162BC(gMenuParamC), (temp_v0 == NULL))) {
         return NULL;
     }
     if (D_80102EDD == 0) {

@@ -15,7 +15,7 @@ s32 sprintf(s32, s32 *, s32);               /* extern */
 extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern u16 D_800B60E8;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern s32 D_800D2A90;
 extern s32 D_800E0C70;
 extern s32 D_800E0C98;
@@ -40,7 +40,7 @@ extern s32 func_8001EAF0;
     D_800B60E8 = 0;
     entry_index = 0;
     func_8002A700(gMenuList);
-    func_80022A30(D_800BD68E, 0x2D, 0x46, 0xDC, 0x7F);
+    func_80022A30(gMenuParamC, 0x2D, 0x46, 0xDC, 0x7F);
     D_800B60E8 = 0;
     if (D_8010D294) {
         do {
@@ -48,7 +48,7 @@ extern s32 func_8001EAF0;
             if (D_80100310[D_800B60E8].count != 0) {
                 do {
                     if (entry_index < 0x23) {
-                        if ((*(slot_ptr = &D_800E0E40[entry_index]) = func_800162BC(D_800BD68E)) != 0) {
+                        if ((*(slot_ptr = &D_800E0E40[entry_index]) = func_800162BC(gMenuParamC)) != 0) {
                             label_buf = func_80087100((entry_index + 0x4000) & 0xFFFF);
                             sprintf(label_buf, &D_800D2A90, func_80087100(D_80100310[D_800B60E8].entries[group_entry].id));
                             func_800160FC(*slot_ptr, label_buf, 0x40);
@@ -59,14 +59,14 @@ extern s32 func_8001EAF0;
                     group_entry++;
                 } while (group_entry < D_80100310[D_800B60E8].count);
             }
-            if ((*(last_ptr = &D_800E0E40[entry_index]) = func_800162BC(D_800BD68E)) != 0) {
+            if ((*(last_ptr = &D_800E0E40[entry_index]) = func_800162BC(gMenuParamC)) != 0) {
                 func_800160FC(*last_ptr, func_80087100(3), 0x40);
                 func_8002A7CC(gMenuList, *last_ptr, entry_index & 0xFF, 1);
             }
             D_800B60E8++;
         } while (D_800B60E8 < D_8010D294);
     }
-    func_80022AD8(D_800BD68E);
+    func_80022AD8(gMenuParamC);
     func_8002A9A8(gMenuList, 0);
     func_8002AC04(gMenuList, 1);
 }

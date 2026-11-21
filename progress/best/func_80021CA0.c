@@ -23,7 +23,7 @@ u8 func_8002D13C(M2C_UNK);                          /* extern */
 s8 *func_80087100(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern u8 D_80100198[];
 extern u8 D_801002AD;
 extern s32 gSaveSlotCount;
@@ -95,10 +95,10 @@ void func_80021CA0(void) {
         if (D_80102EDD != 0) {
             var_a3 = 0x37;
         
-        func_80022A30(D_800BD68E, 0x19, 0x30, var_a3, 0x50);} else {
+        func_80022A30(gMenuParamC, 0x19, 0x30, var_a3, 0x50);} else {
             var_a3 = 0x33;
         
-        func_80022A30(D_800BD68E, 0x19, 0x30, var_a3, 0x50);}
+        func_80022A30(gMenuParamC, 0x19, 0x30, var_a3, 0x50);}
         if ((D_80102EDD == 0) || (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0)) {
             D_80102EB8 = func_8002D13C(0xA3);
             if (M2C_FIELD(&gBorderSkipFlag, s32 *, 0) != 0) {
@@ -111,7 +111,7 @@ void func_80021CA0(void) {
             if (D_80102EB8 != 0) {
                 do {
                     temp_s1_3 = var_s0 & 0xFFFF;
-                    temp_v0_3 = func_800162BC(D_800BD68E);
+                    temp_v0_3 = func_800162BC(gMenuParamC);
                     D_80102F48[temp_s1_3] = temp_v0_3;
                     if (temp_v0_3 != 0) {
                         temp_s2 = func_80087100((var_s0 + 0x4008) & 0xFFFF);
@@ -130,8 +130,8 @@ void func_80021CA0(void) {
                     var_s0 += 1;
                 } while ((u32) (var_s0 & 0xFFFF) < (u8) D_80102EB8);
             }
-            func_80022E18(D_800BD68E);
+            func_80022E18(gMenuParamC);
         }
-        func_80022AD8(D_800BD68E);
+        func_80022AD8(gMenuParamC);
     }
 }

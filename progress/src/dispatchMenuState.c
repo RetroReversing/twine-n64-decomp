@@ -17,13 +17,13 @@ extern void func_80028A7C(void);
 extern void func_80028E6C(void);
 extern void func_80028EC8(void);
 extern void func_80028F90(void);
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern u8 gMenuSlot;
-extern u8 D_800BD691;
+extern u8 gMenuParamB;
 extern void *sActiveMenu;
 extern void *gMenuState;
 
-void func_80027260(void *arg0) {
+void dispatchMenuState(void *arg0) {
     s32 temp_a1;
     void *temp_v1;
 
@@ -31,8 +31,8 @@ void func_80027260(void *arg0) {
         temp_v1 = *(void **)((u8 *)arg0 + 0x6C);
         temp_a1 = *(s16 *)((u8 *)arg0 + 0x7A);
         gMenuSlot = *(u8 *)((u8 *)temp_v1 + 4);
-        D_800BD691 = *(u8 *)((u8 *)temp_v1 + 5);
-        D_800BD68E = *(u8 *)((u8 *)temp_v1 + 6);
+        gMenuParamB = *(u8 *)((u8 *)temp_v1 + 5);
+        gMenuParamC = *(u8 *)((u8 *)temp_v1 + 6);
         sActiveMenu = arg0;
         gMenuState = temp_v1;
         switch (temp_a1) {

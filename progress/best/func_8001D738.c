@@ -32,7 +32,7 @@ s32 sprintf();
 extern char D_800D285C[];
 extern char D_800D2864[];
 extern u8 D_800B7CF0;
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern s8 D_800BD690;
 extern char D_800BD914[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
@@ -202,13 +202,13 @@ block_31:
         var_s1_2 = 0;
         formatTextEntry(temp_s5, D_800D2864, func_80087100(var_a0_9));
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &func_80022C04, &func_8001AC88);
-        func_80022A30(D_800BD68E, 0x23, 0x2C, 0x33, 0x9A);
+        func_80022A30(gMenuParamC, 0x23, 0x2C, 0x33, 0x9A);
         temp_v0_7 = func_8002D13C(0xA3);
         D_80102EB8 = temp_v0_7;
         if (temp_v0_7 & 0xFF) {
             do {
                 temp_s0_2 = var_s1_2 & 0xFFFF;
-                temp_v0_8 = func_800162BC(D_800BD68E);
+                temp_v0_8 = func_800162BC(gMenuParamC);
                 *(s32 *)((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
                 if (temp_v0_8 != 0) {
                     temp_s5 = func_80087100((var_s1_2 + 0x400D) & 0xFFFF);
@@ -227,8 +227,8 @@ block_31:
                 var_s1_2 += 1;
             } while ((u32) (var_s1_2 & 0xFFFF) < (u8) D_80102EB8);
         }
-        func_80022E18(D_800BD68E);
-        func_80022AD8(D_800BD68E);
+        func_80022E18(gMenuParamC);
+        func_80022AD8(gMenuParamC);
         func_8002A9A8(D_8010A488, D_801002AD);
         func_8002AC04(D_8010A488, 1);
     }

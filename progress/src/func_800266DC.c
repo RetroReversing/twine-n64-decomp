@@ -5,7 +5,7 @@ s32 func_80016314(void *);                      /* extern */
 s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 func_80087100(u16, void *);                     /* extern */
 s32 strlen(s8 *);                                    /* extern */
-extern u8 D_800BD68E;
+extern u8 gMenuParamC;
 extern void *gMenuState;
 
 void func_800266DC(void *arg0) {
@@ -24,7 +24,7 @@ void func_800266DC(void *arg0) {
     }
     (*(void **)((char *)(gMenuState) + 0x24)) = NULL;
     if (arg0 != NULL) {
-        if (((*(void **)((char *)(gMenuState) + 0)) != NULL) || (temp_v0 = func_800162BC(D_800BD68E), (*(void **)((char *)(gMenuState) + 0)) = temp_v0, (temp_v0 != NULL))) {
+        if (((*(void **)((char *)(gMenuState) + 0)) != NULL) || (temp_v0 = func_800162BC(gMenuParamC), (*(void **)((char *)(gMenuState) + 0)) = temp_v0, (temp_v0 != NULL))) {
             (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x1E)) = (u16) (*(u16 *)((char *)(arg0) + 2));
             temp_a1 = (*(void **)((char *)(gMenuState) + 0));
             (*(s32 *)((char *)(temp_a1) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_a1) + 0x28)) & ~0xFC) | 0xC);
@@ -41,7 +41,7 @@ void func_800266DC(void *arg0) {
         }
         (*(void **)((char *)(gMenuState) + 0x24)) = NULL;
         if ((*(s16 *)((char *)(arg0) + 0x10)) >= 0) {
-            temp_v0_2 = func_800162BC(D_800BD68E);
+            temp_v0_2 = func_800162BC(gMenuParamC);
             (*(s32 *)((char *)(temp_v0_2) + 0x10)) = (s32) (*(s32 *)((char *)(arg0) + 8));
             flags = (*(s32 *)((char *)(temp_v0_2) + 0x28));
             temp_a0_2 = (*(s32 *)((char *)(arg0) + 0xC));
