@@ -28,6 +28,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   unsigned int base;
   unsigned int __repair_phase_base;
   u32 sp10[3];
+  u32 unused[2];
   register unsigned long tmp8;
   u16 t16;
   u16 __repair_result_t16;
@@ -136,23 +137,26 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             u8 first = var_s1[var_s0[0]];
             u8 second;
             *var_s5 = first;
-            second = var_s1[var_s2[-1]];
+            second = var_s1[var_s2[(s32)(var_fp * 3) - 1]];
             var_s3[-1] = second;
-            tmp8 = var_s1[var_s2[0]];
+            tmp8 = var_s1[var_s2[var_fp * 3]];
             a2 = first & 0xFF;
             var_s5 += 3;
             a3 = second & 0xFF;
-            goto block_27;
+            v1_2 = tmp8 & 0xFF;
+            var_s3[0] = tmp8;
+            var_s3 += 3;
+            goto after;
           }
 
           case 2:
             t16 = BE16(var_s1 + (var_s0[0] * 2));
             *var_s6 = t16;
-            t16b = BE16(var_s1 + (var_s2[-1] * 2));
+            t16b = BE16(var_s1 + (var_s2[(s32)(var_fp * 3) - 1] * 2));
             var_s4[-1] = t16b;
             a2 = t16 & 0xFFFF;
             var_s6 += 3;
-            tmp8 = var_s2[0];
+            tmp8 = var_s2[var_fp * 3];
             t16c = BE16(var_s1 + (tmp8 * 2));
             v1_2 = t16c & 0xFFFF;
             a3 = t16b & 0xFFFF;
@@ -165,23 +169,26 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
             u8 first = var_s1[var_s0[0] * 3];
             u8 second;
             *var_s5 = first;
-            second = var_s1[var_s2[-1] * 3];
+            second = var_s1[var_s2[(s32)(var_fp * 3) - 1] * 3];
             var_s3[-1] = second;
-            tmp8 = var_s1[var_s2[0] * 3];
+            tmp8 = var_s1[var_s2[var_fp * 3] * 3];
             a2 = first & 0xFF;
             var_s5 += 3;
             a3 = second & 0xFF;
-            goto block_27;
+            v1_2 = tmp8 & 0xFF;
+            var_s3[0] = tmp8;
+            var_s3 += 3;
+            goto after;
           }
 
           default:
             t16 = BE16(var_s1 + (var_s0[0] * 6));
             *var_s6 = t16;
-            t16b = BE16(var_s1 + (var_s2[-1] * 6));
+            t16b = BE16(var_s1 + (var_s2[(s32)(var_fp * 3) - 1] * 6));
             var_s4[-1] = t16b;
             a2 = t16 & 0xFFFF;
             var_s6 += 3;
-            tmp8 = var_s2[0] * 3;
+            tmp8 = var_s2[var_fp * 3] * 3;
             t16c = BE16(var_s1 + (tmp8 * 2));
             a3 = t16b & 0xFFFF;
             v1_2 = t16c & 0xFFFF;
@@ -191,14 +198,8 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 
         }
 
-        goto after;
-        block_27:
-        v1_2 = tmp8 & 0xFF;
-
-        var_s3[0] = tmp8;
-        var_s3 += 3;
         after:
-        var_s2 += 3;
+
 
         base = *((s32 *) (((u8 *) arg0) + 0x34));
         buildPlaneFromPoints(&sp10, base + (a2 * 12), base + (a3 * 12), base + (v1_2 * 12));
@@ -231,12 +232,12 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           break;
 
         case 2:
-          __repair_result_t16 = BE16(var_s1 + (var_s0[1] * 2));
-          var_s6[0] = __repair_result_t16;
+          __repair_phase_v1 = (u16)(BE16(var_s1 + (var_s0[1] * 2)));
+          var_s6[0] = __repair_phase_v1;
           __repair_result_t16b = BE16(var_s1 + (var_s0[2] * 2));
           var_s6[1] = __repair_result_t16b;
           tmp8 = var_s0[3];
-          a2 = __repair_result_t16 & 0xFFFF;
+          a2 = __repair_phase_v1 & 0xFFFF;
           t16c = BE16(var_s1 + (tmp8 * 2));
           a3_2 = __repair_result_t16b & 0xFFFF;
           v1_2 = t16c & 0xFFFF;
@@ -301,5 +302,6 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   }
 
 }
+
 
 

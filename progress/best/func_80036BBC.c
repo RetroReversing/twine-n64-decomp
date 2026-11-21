@@ -112,16 +112,18 @@ void func_80036BBC(void *arg0)
     D_801032A0 = 1;
     if (((__repair_field_100 *) arg0)->value & 3)
     {
+      s32 command = 0xFC40FE03;
       temp_v1_3 = D_80115328;
       D_80115328 = ((s8 *) temp_v1_3) + 8;
+            ((__repair_field_0 *) temp_v1_3)->value = command;
       *((s32 *) (((char *) temp_v1_3) + 4)) = -0xC88;
-      ((__repair_field_0 *) temp_v1_3)->value = 0xFC40FE03;
     }
     else
     {
+      s32 command = 0xFC40FE03;
       __repair_phase_storage.pointer = D_80115328;
       D_80115328 = ((s8 *) __repair_phase_storage.pointer) + 8;
-      ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xFC40FE03;
+      ((__repair_field_0 *) __repair_phase_storage.pointer)->value = command;
       *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = 0xFF0FF37F;
     }
   }

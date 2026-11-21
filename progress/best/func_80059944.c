@@ -31,7 +31,6 @@ void func_80059944(void *arg0)
     f32 y;
     f32 z;
   } delta;
-  u32 unused[2];
   f32 temp_fs0;
   f32 temp_fs0_2;
   f32 temp_fv0;
@@ -183,8 +182,8 @@ void func_80059944(void *arg0)
     {
       case 0:
         actorUnlinkFromSurface(arg0);
-        var_v0_2 = 1;
-        goto block_259;
+        *((s16 *) (((char *) arg0) + 0x7A)) = 1;
+        break;
 
       case 1:
         if (temp_v0_4)
@@ -197,8 +196,9 @@ void func_80059944(void *arg0)
       }
         if ((temp_v0 != 0) && ((*(gTrackMarkerDone + temp_v0)) != 0))
       {
+        s32 *probe = gProbeObjectList;
         *((s16 *) (((char *) arg0) + 0x7A)) = 2;
-        actorLinkToSurface(*gProbeObjectList, arg0, 0);
+        actorLinkToSurface(*probe, arg0, 0);
         case 2:
           D_80109CB4 = arg0;
 
@@ -678,9 +678,8 @@ void func_80059944(void *arg0)
         break;
 
       case 7:
-        goto block_shared_state_7;
-
       case 9:
+        if (temp_v1_9 == 7) goto block_shared_state_7;
         goto block_shared_state_9;
 
     }
@@ -941,4 +940,5 @@ void func_80059944(void *arg0)
 
   *((s32 *) (((char *) arg0) + 0x60)) = (s32) ((*((s32 *) (((char *) arg0) + 0x60))) & 1);
 }
+
 
