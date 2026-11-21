@@ -54,7 +54,7 @@ void func_80041F68(void *arg0) {
     void *temp_v1_2;
     void *temp_v1_3;
 
-    volatile int padding[8];
+    volatile int padding[7];
 
     sp14 = func_80083E24();
     sp1C = heapAllocTagged(M2C_FIELD(arg0, u32 *, 0x14) * 8, 0x18);
@@ -115,17 +115,17 @@ void func_80041F68(void *arg0) {
         } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x14));
     }
     var_s1 = 0;
-    if (M2C_FIELD(arg0, u32 *, 0x1C) != 0) {
+    if (M2C_FIELD(arg0, volatile u32 *, 0x1C) != 0) {
         __repair_phase_storage.value = 0;
         do {
             temp_v0_3 = __repair_phase_storage.value + (char *)M2C_FIELD(arg0, u16 **, 0x18);
             M2C_FIELD(temp_v0_3, void **, 8) = (void *) (M2C_FIELD(temp_v0_3, u32 *, 8) + (char *)var_s7);
             var_s1 += 1;
             __repair_phase_storage.value += 0xC;
-        } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
+        } while (var_s1 < (u32) M2C_FIELD(arg0, volatile u32 *, 0x1C));
     }
     var_s1 = 0;
-    if (M2C_FIELD(arg0, u32 *, 0x1C) != 0) {
+    if (M2C_FIELD(arg0, volatile u32 *, 0x1C) != 0) {
         var_t0 = 0;
         do {
             temp_v1_3 = var_t0 + (char *)M2C_FIELD(arg0, u16 **, 0x18);
@@ -148,7 +148,7 @@ void func_80041F68(void *arg0) {
             }
             var_s1 += 1;
             var_t0 += 0xC;
-        } while (var_s1 < (u32) M2C_FIELD(arg0, u32 *, 0x1C));
+        } while (var_s1 < (u32) M2C_FIELD(arg0, volatile u32 *, 0x1C));
     }
     func_80083E44(sp14);
 }

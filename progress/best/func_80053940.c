@@ -33,14 +33,14 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     #define spB0Buf bbox.lower
     #define spC0Buf bbox.upper
     f32 spD0Buf[3];
-    void *spE4;
+    void *temp_s3_3;
     void *spEC;
     u8 spF7;
     void *spFC;
     void *sp104;
     f32 sp10C;
     f32 *sp114;
-    s16 *sp11C;
+    register s16 *sp11C;
     s32 *sp124;
     u16 sp12E;
     s32 temp_v1_16;
@@ -61,7 +61,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     f32 temp_fs0_4;
     f32 temp_fs0_5;
     f32 temp_fs2;
-    f32 temp_ft0;
+    s32 temp_v1_8;
     f32 temp_ft0_2;
     f32 temp_ft1;
     f32 temp_ft1_2;
@@ -93,10 +93,10 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     s32 temp_v1_4;
     s32 temp_v1_5;
     s32 temp_v1_7;
-    s32 temp_v1_8;
+    f32 temp_ft0;
     s32 temp_v1_9;
     s32 var_s4;
-    s32 var_s4_2;
+    register s32 var_s4_2;
     s32 var_s6_3;
     s32 var_s6_4;
     s32 var_v0;
@@ -113,7 +113,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     u16 temp_v1_15;
     u16 temp_v1_3;
     u16 temp_v1_6;
-    u32 temp_s1_2;
+    register u32 temp_s1_2;
     u32 temp_s3;
     u32 temp_v1_10;
     u32 temp_v1_12;
@@ -127,7 +127,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     void *temp_s1_3;
     void *temp_s1_4;
     void *temp_s3_2;
-    void *temp_s3_3;
+    void *spE4;
     void *var_fp;
     void *temp_s4;
     void *var_s0;

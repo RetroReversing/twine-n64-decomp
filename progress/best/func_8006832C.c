@@ -40,6 +40,7 @@ void func_8006832C(void *arg0, f32 *arg1) {
     void (*temp_a1_2)(void *);
     f32 temp_a0;
     f32 temp_a1;
+    f32 cameraAim;
     f32 temp_fa0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -79,9 +80,9 @@ void func_8006832C(void *arg0, f32 *arg1) {
         temp_v0_2 = *temp_s4;
         sp58[0] = -(((*(f32 *)((char *)(temp_v0_2) + 0x78)) * (*(f32 *)((char *)(temp_s2) + 0x24))) / (*(f32 *)((char *)(temp_v0_2) + 0x4C))) / (*(f32 *)((char *)(temp_v0_2) + 0x68));
         temp_v0_3 = *temp_s4;
-        temp_a1 = (((*(f32 *)((char *)(temp_v0_3) + 0x7C)) * (*(f32 *)((char *)(temp_s2) + 0x28))) / (*(f32 *)((char *)(temp_v0_3) + 0x4C))) / (*(f32 *)((char *)(temp_v0_3) + 0x6C));
+        cameraAim = (((*(f32 *)((char *)(temp_v0_3) + 0x7C)) * (*(f32 *)((char *)(temp_s2) + 0x28))) / (*(f32 *)((char *)(temp_v0_3) + 0x4C))) / (*(f32 *)((char *)(temp_v0_3) + 0x6C));
         sp58[2] = 1.0f;
-        sp58[1] = temp_a1;
+        sp58[1] = cameraAim;
         sp88[0] = cosAngle(temp_fa0);
         temp_fs0 = sinAngle(sp38[0]);
         sp88[1] = -temp_fs0 * sinAngle(sp38[1]);
