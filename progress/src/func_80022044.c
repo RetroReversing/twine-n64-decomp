@@ -20,7 +20,7 @@ s32 func_8002A9A8();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 lookupDataEntry();
-extern char D_80100198[];
+extern char sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern void *gMenuItems;
 extern char gPickupSearchBox[];
@@ -35,7 +35,7 @@ void func_80022044(void) {
     if (M2C_FIELD(gMenuItems, u8 *, 0x2D) != 0) {
         temp_s0 = M2C_FIELD(gMenuItems, s32 *, 0x18) + 0x28;
         __base_D_801002AD = &gPickupSavedByte;
-        var_s1 = *(D_80100198 + ((*__base_D_801002AD) * 0x18));
+        var_s1 = *(sPickupSlotTable + ((*__base_D_801002AD) * 0x18));
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }

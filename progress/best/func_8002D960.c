@@ -23,7 +23,7 @@ M2C_UNK func_80048734(f32);                     /* extern */
 M2C_UNK func_80081BC4(u32, u8);                     /* extern */
 extern u16 D_800E1112;
 extern M2C_UNK D_800E1310;
-extern u8 D_80100198;
+extern u8 sPickupSlotTable;
 extern M2C_UNK gSaveSlotInfo;
 extern u8 D_801001A0;
 extern u8 D_801001A1;
@@ -113,7 +113,7 @@ void func_8002D960(void) {
             {
                 s32 value = func_8002E98C(&D_800E1310, 1, 4);
                 temp_s0_2 = temp_s1 * 0x18;
-                *(&D_80100198 + temp_s0_2) = value;
+                *(&sPickupSlotTable + temp_s0_2) = value;
             }
             *(s32 *)((u8 *)&gSaveSlotInfo + temp_s0_2) = func_8002E98C(&D_800E1310, 4, 0x10);
             *(&D_801001A0 + temp_s0_2) = func_8002E98C(&D_800E1310, 1, 8);

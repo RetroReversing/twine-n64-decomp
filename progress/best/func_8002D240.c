@@ -22,7 +22,7 @@ s32 func_8008173C();
 s32 func_80081BC4();
 s32 memset();
 extern char D_800BFC38[];
-extern char D_80100198[];
+extern char sPickupSlotTable[];
 extern s32 gSaveSlotInfo;
 extern char D_801001A0[];
 extern char D_801001A1[];
@@ -198,7 +198,7 @@ int __repair_phase___repair_phase_var_s2_2;
             func_80081BC4(var_s0, 2);
         }
         temp_v1 = (s32)var_s0 * 0x18;
-        *(D_80100198 + temp_v1) = 2;
+        *(sPickupSlotTable + temp_v1) = 2;
         *(D_801001A0 + temp_v1) = (s32)0x64;
         temp_s3 = __repair_phase_var_s2_2 & 1;
         *(sSaveSlotInfo + temp_v1) = 1;

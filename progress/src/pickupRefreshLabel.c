@@ -19,7 +19,7 @@ s32 func_8002A644();
 s32 func_8002A9A8();
 s32 func_8002AC04();
 s32 lookupDataEntry();
-extern char D_80100198[];
+extern char sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern s32 gBorderSkipActive;
@@ -40,7 +40,7 @@ extern s32 bindMenuItemRecord;
     if (labelEntry != NULL) {
         savedBytePtr = &gPickupSavedByte;
         kindOffset = (*savedBytePtr) * 0x18;
-        kindLevel = *(D_80100198 + kindOffset);
+        kindLevel = *(sPickupSlotTable + kindOffset);
         if (kindLevel >= 8U) {
             kindLevel = 7;
         }

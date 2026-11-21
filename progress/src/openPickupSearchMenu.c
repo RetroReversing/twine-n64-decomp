@@ -21,7 +21,7 @@ s32 func_8002AC04();
 s32 lookupDataEntry();
 extern s8 D_800BD690;
 extern char D_800BD928[];
-extern char D_80100198[];
+extern char sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern char gPickupSearchBox[];
@@ -29,7 +29,7 @@ extern s32 func_8001AC88;
 extern s32 bindMenuItemRecord;
 
 extern char sFmtEntryName[];
-void func_8001E23C(void) {
+void openPickupSearchMenu(void) {
     u8 *__base_D_801002AD;
     u8 *__repair_offset;
     s32 temp_v1;
@@ -41,7 +41,7 @@ void func_8001E23C(void) {
     if (temp_v0 != NULL) {
         __base_D_801002AD = &gPickupSavedByte;
         temp_v1 = (*__base_D_801002AD) * 0x18;
-        var_s1 = *(D_80100198 + temp_v1);
+        var_s1 = *(sPickupSlotTable + temp_v1);
         if (var_s1 >= 8U) {
             var_s1 = 7;
         }

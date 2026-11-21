@@ -5,7 +5,7 @@ s32 func_8002E93C(s32 *, s32, s32, s32); /* extern */
 s32 func_8002E9C0(s32 *);                   /* extern */
 extern s32 D_800E1114;
 extern s32 D_800E1310;
-extern s32 D_80100198;
+extern s32 sPickupSlotTable;
 extern s32 gSaveSlotInfo;
 extern s32 D_801001A0;
 extern s32 D_801001A1;
@@ -87,7 +87,7 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *(&D_8011508E + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508F + temp_s0), 1, 1);
         temp_s0_2 = var_s1_5 * 24;
-        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_80100198 + temp_s0_2)), 1, 4);
+        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&sPickupSlotTable + temp_s0_2)), 1, 4);
         func_8002E93C(&D_800E1310, *((s32 *)((s8 *)&gSaveSlotInfo + temp_s0_2)), 4, 0x10);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);

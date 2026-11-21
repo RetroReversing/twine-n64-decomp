@@ -24,7 +24,7 @@ s8 *lookupDataEntry(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
 extern u8 sMenuListKind;
-extern u8 D_80100198[];
+extern u8 sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern u8 D_80102EB8;
@@ -57,7 +57,7 @@ extern M2C_UNK gPickupSearchBox;
     labelEntry = menuEntry;
     if (labelEntry != NULL) {
         labelEntry += 0x28;
-        labelId = *(D_80100198 + gPickupSavedByte * 0x18) + 0x185;
+        labelId = *(sPickupSlotTable + gPickupSavedByte * 0x18) + 0x185;
         M2C_FIELD(labelEntry, u16 *, 0) = labelId;
         if (M2C_FIELD(labelEntry, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(labelEntry, void **, 8), s8 **, 0x18) = lookupDataEntry(labelId);
@@ -86,7 +86,7 @@ extern M2C_UNK gPickupSearchBox;
             }
         }
         labelEntry += 0x28; nextEntry = labelEntry;
-        labelIdB = *(D_80100198 + gPickupSavedByte * 0x18) + 0x18D;
+        labelIdB = *(sPickupSlotTable + gPickupSavedByte * 0x18) + 0x18D;
         M2C_FIELD(labelEntry, u16 *, 0) = labelIdB;
         if (M2C_FIELD(nextEntry, void **, 8) != NULL) {
             M2C_FIELD(M2C_FIELD(nextEntry, void **, 8), s8 **, 0x18) = lookupDataEntry(labelIdB);

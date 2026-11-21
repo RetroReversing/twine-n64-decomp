@@ -16,7 +16,7 @@ s32 cache_release_block();
 s32 func_80022BB8();
 s32 func_8002A700();
 s32 func_80081BC4();
-extern u8 D_80100198[];
+extern u8 sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern char gPickupSearchBox[];
 
@@ -24,7 +24,7 @@ void func_80021B94(void) {
     u8 *__base_D_801002AD;
     func_8002A700(gPickupSearchBox);
     __base_D_801002AD = &gPickupSavedByte;
-    func_80081BC4((*__base_D_801002AD), *(D_80100198 + ((*__base_D_801002AD) * 0x18)));
+    func_80081BC4((*__base_D_801002AD), *(sPickupSlotTable + ((*__base_D_801002AD) * 0x18)));
     (*__base_D_801002AD) = 0;
     func_80022BB8();
     cache_release_block();

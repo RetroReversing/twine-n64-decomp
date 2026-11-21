@@ -27,17 +27,17 @@ extern OSThread *__osPopThread(OSThread **);
 extern void osStartThread(OSThread *);
 
 /* Sends a message to the front of a queue, jamming it in ahead of others. If the queue is full, flag 1 blocks the current thread until there is room; otherwise returns -1. Wakes the first waiting receiver. */
-s32 osJamMesg(OSMesgQueue *mq, OSMesg msg, s32 flag) {
-    register u32 saveMask;
+/* Sends a message to the front of a message queue, blocking (flag 1) or failing (-1) when full, and wakes the first waiting receiver. */ s32 osJamMesg(OSMesgQueue *mq, OSMesg msg, s32 flag) {
+    register u32 savedInterruptMask;
 
-    saveMask = __osDisableInt();
+    savedInterruptMask = __osDisableInt();
 
     while (mq->validCount >= mq->msgCount) {
         if (flag == 1) {
             __osRunningThread->state = (1 << 3);
             __osEnqueueAndYield(&mq->fullqueue);
         } else {
-            __osRestoreInt(saveMask);
+            __osRestoreInt(savedInterruptMask);
             return -1;
         }
     }
@@ -50,6 +50,6 @@ s32 osJamMesg(OSMesgQueue *mq, OSMesg msg, s32 flag) {
         osStartThread(__osPopThread(&mq->mtqueue));
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(savedInterruptMask);
     return 0;
 }

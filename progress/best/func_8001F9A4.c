@@ -21,7 +21,7 @@ s32 sprintf();
 extern u8 gCurrentSaveSlot;
 extern u8 sMenuListKind;
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
-extern Slot_80100198 D_80100198[];
+extern Slot_80100198 sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveSlotCount;
 extern char D_80100408[];
@@ -127,7 +127,7 @@ void func_8001F9A4(void) {
             func_80025E9C(temp_s4, temp_s2, temp_s3, temp_s1_2, 1, 0xD);
         }
         D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
-        temp_v1 = D_80100198[gCurrentSaveSlot].f0;
+        temp_v1 = sPickupSlotTable[gCurrentSaveSlot].f0;
         temp_a0 = var_s0 - 0x28;
         if (((s32) temp_v1 < 2) && ((s32) temp_v1 >= 0)) {
             func_80025E9C(temp_a0, var_s0, temp_s2 - 0x28, temp_s7 - 0x28, 1, 0xD);
@@ -161,7 +161,7 @@ void func_8001F9A4(void) {
         }
         formatTextEntry(temp_fp, D_800D2A80, lookupDataEntry(var_a0_6));
         D_80108960 = *(D_8011508F + (gCurrentSaveSlot * 0xA0));
-        temp_v1_2 = D_80100198[gCurrentSaveSlot].f0;
+        temp_v1_2 = sPickupSlotTable[gCurrentSaveSlot].f0;
         if ((s32) temp_v1_2 >= 0) {
             var_a0_7 = temp_s6 - 0x28;
             if ((s32) temp_v1_2 >= 2) {

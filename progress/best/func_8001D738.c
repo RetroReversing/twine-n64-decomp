@@ -36,7 +36,7 @@ extern u8 sMenuListKind;
 extern s8 D_800BD690;
 extern char D_800BD914[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_80100198;
-extern Slot_80100198 D_80100198[];
+extern Slot_80100198 sPickupSlotTable[];
 extern u8 gPickupSavedByte;
 extern char D_80100408[];
 extern u8 D_801007C1;
@@ -114,7 +114,7 @@ void func_8001D738(void) {
     if (((temp_s6 != 0) & (temp_s2 != 0)) && ((var_s1 != 0) & (temp_s3 != 0)) && ((temp_s7 != 0) & (temp_s4 != 0)) && ((temp_s5 != 0) & (temp_s0 != 0))) {
         gCurrentSaveSlot = gPickupSavedByte;
         temp_v1 = gPickupSavedByte & 0xFF;
-        D_80100198[temp_v1].f0 = *(D_80115091 + (temp_v1 * 0xA0));
+        sPickupSlotTable[temp_v1].f0 = *(D_80115091 + (temp_v1 * 0xA0));
         temp_v0 = *(D_80115088 + (gCurrentSaveSlot * 0xA0));
         D_80109E20 = temp_v0;
         var_a0 = 0x10;
@@ -130,7 +130,7 @@ void func_8001D738(void) {
         }
         formatTextEntry(temp_s2, sFmtEntryName, lookupDataEntry(var_a0_2));
         D_8010D2B1 = *(D_8011508A + (gCurrentSaveSlot * 0xA0));
-        temp_v1_2 = D_80100198[gCurrentSaveSlot].f0;
+        temp_v1_2 = sPickupSlotTable[gCurrentSaveSlot].f0;
         temp_a0 = var_s1 - 0x28;
         if (((s32) temp_v1_2 < 2) && ((s32) temp_v1_2 >= 0)) {
             func_80025E9C(temp_a0, var_s1, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
@@ -164,7 +164,7 @@ void func_8001D738(void) {
         }
         formatTextEntry(temp_s4, sFmtEntryName, lookupDataEntry(var_a0_6));
         D_80108960 = *(D_8011508F + (gCurrentSaveSlot * 0xA0));
-        temp_v1_3 = D_80100198[gCurrentSaveSlot].f0;
+        temp_v1_3 = sPickupSlotTable[gCurrentSaveSlot].f0;
         if ((s32) temp_v1_3 >= 0) {
             var_a0_7 = temp_s0 - 0x28;
             if ((s32) temp_v1_3 >= 2) {
