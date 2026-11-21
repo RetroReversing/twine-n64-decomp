@@ -33,7 +33,7 @@ block_16: sprintf((arg0*0xC)+D_8011F2B8,func_80087100(var_a0,(u8)var_a1,var_a2,t
  M2C_FIELD(temp_a2,s32*,0x28)=(M2C_FIELD(temp_a2,s32*,0x28)&~0xFC)|0xC; M2C_FIELD(*temp_a0_2,s32*,0x10)=-1; *(s16*)(D_8011F3E0+temp_a1*2)=0x3C; return;
  }
  var_a0_2=0x2E6;
- if(*((temp_s2*2)+D_8011F15C)>=*(((1-temp_s2)*2)+D_8011F15C)) var_a0_2=0x2E5;
+ if(D_8011F15C[temp_s2]>=D_8011F15C[1-temp_s2]) var_a0_2=0x2E5;
  sprintf((arg0*0xC)+D_8011F2B8,func_80087100(var_a0_2,temp_s2,(s32)&D_80102CD0));
  temp_a1_2=((s32)(arg0<<16)>>14)+D_8011F3E8; temp_a0_3=*temp_a1_2;
  M2C_FIELD(temp_a0_3,s32*,0x28)=(M2C_FIELD(temp_a0_3,s32*,0x28)&~0xFC)|0xC;

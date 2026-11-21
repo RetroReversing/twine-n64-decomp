@@ -20,7 +20,7 @@ extern u16 D_800C79AA;
 extern f64 D_800D27E0;
 extern char gTrackDoneFlags[];
 
-void func_80018A18(void *arg0) {
+void updateTrackMarkerState(void *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     s16 temp_v1;

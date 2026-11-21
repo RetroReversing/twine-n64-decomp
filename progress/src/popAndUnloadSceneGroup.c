@@ -19,11 +19,11 @@ s32 func_80097B1C();
 s32 func_80097E14();
 s32 func_8009811C();
 extern u8 gWorkerActive;
-extern s16 D_800EDAA0;
-extern char D_800EDAA4[];
+extern s16 sSceneGroupStackCount;
+extern char sSceneGroupStack[];
 
 typedef struct { unsigned char pad_0[4]; unsigned short field_4; unsigned short field_6; int field_8; int field_C; int field_10; int field_14; int field_18; } __repair_record_temp_s2;
-s32 func_80092DD4(void) {
+s32 popAndUnloadSceneGroup(void) {
     s16 temp_v1;
     s32 var_v0;
     u16 *temp_s1_2;
@@ -45,10 +45,10 @@ s32 func_80092DD4(void) {
     void *temp_v0_3;
     void *temp_v0_4;
 
-    if ((gWorkerActive != 0) && (D_800EDAA0 != 0)) {
-        temp_v1 = D_800EDAA0 - 1;
-        temp_s2 = *((s32 *)((s8 *)D_800EDAA4 + ((s32) (temp_v1 << 0x10) >> 0xE)));
-        D_800EDAA0 = temp_v1;
+    if ((gWorkerActive != 0) && (sSceneGroupStackCount != 0)) {
+        temp_v1 = sSceneGroupStackCount - 1;
+        temp_s2 = *((s32 *)((s8 *)sSceneGroupStack + ((s32) (temp_v1 << 0x10) >> 0xE)));
+        sSceneGroupStackCount = temp_v1;
         temp_v0 = (void *)(((__repair_record_temp_s2*)temp_s2)->field_8); temp_v0 = (void *)((char *)temp_v0 + (s32)(temp_s2));
         temp_v0 = (char *)temp_v0 + 8;
         var_s0 = temp_v0;

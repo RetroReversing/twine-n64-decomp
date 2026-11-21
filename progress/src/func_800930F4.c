@@ -3,8 +3,8 @@ s32 func_8008C0D4();
 s32 func_8008C11C();
 s32 func_8008F520();
 extern u8 gWorkerActive;
-extern s16 D_800EDAA0;
-extern u8 D_800EDAA4[];
+extern s16 sSceneGroupStackCount;
+extern u8 sSceneGroupStack[];
 
 s32 func_800930F4(s32 id, s32 arg1, s32 arg2, s32 arg3) {
     s32 sub;
@@ -19,10 +19,10 @@ s32 func_800930F4(s32 id, s32 arg1, s32 arg2, s32 arg3) {
 
     if (gWorkerActive != 0) {
         i = 0;
-        if (i < D_800EDAA0) {
+        if (i < sSceneGroupStackCount) {
         id &= 0xFFFF;
         do {
-            b = *(Bank **)((i << 2) + D_800EDAA4);
+            b = *(Bank **)((i << 2) + sSceneGroupStack);
             if (b->id == id) {
                 if (b->busy != 0) {
                     return -1;
@@ -43,7 +43,7 @@ s32 func_800930F4(s32 id, s32 arg1, s32 arg2, s32 arg3) {
                 break;
             }
             i++;
-        } while (i < D_800EDAA0);
+        } while (i < sSceneGroupStackCount);
         }
     }
     return -1;

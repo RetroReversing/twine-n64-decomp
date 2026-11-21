@@ -1,6 +1,6 @@
 extern u8 gWorkerActive;
-extern s16 D_800EDAA0;
-extern char *D_800EDAA4[];
+extern s16 sSceneGroupStackCount;
+extern char *sSceneGroupStack[];
 void func_8008C0D4(void);
 void func_8008C11C(void);
 s32 func_8008F520();
@@ -9,8 +9,8 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
  char *p, *a, *b, *c;
  u16 n;
  if (gWorkerActive) {
-  { s32 offset=0; for (i=0; i<D_800EDAA0; i++, offset+=4) {
-   p=*(char **)((char *)D_800EDAA4+offset);
+  { s32 offset=0; for (i=0; i<sSceneGroupStackCount; i++, offset+=4) {
+   p=*(char **)((char *)sSceneGroupStack+offset);
    if (*(u16 *)(p+4)==id) {
     if (*(u16 *)(p+6)) return -1;
     c=p+(*(s32 *)(p+0x24)+8);
