@@ -1496,14 +1496,6 @@
   "score_after": 8455
  },
  {
-  "function": "func_80019E28",
-  "text": "Best score 2960 at revision ad8a3688599ba5a813d4 (sp10[32] declared before sp30 (Pk8 8-byte struct from D_800D2914), temp_a0/temp_s0 scalar, var_a0 u16). Target frame is 0x48: sp+0x10 is the 32-byte char buffer, sp+0x30 the 8-byte copy of D_800D2914 (copied with lwl/lwr/swl/swr). Remaining diff: stack order/regs and the 'lbu $v1' of D_801002AD being hoisted before the lui of D_801002B8; the first branch uses D_801002AD*6 index (sll/addu/sll 3 = *24). Untried: D_8010019C as a struct array of stride 24 (index D_801002AD directly), and an explicit local arg2 for the sprintf-result pointer; D_800BF688 indexed as u8 stride 12 (temp*12 = (temp*3)<<2) produced wrong shifts in a few trials, so check it.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049653.098186,
-  "score_before": 5056,
-  "score_after": 2960
- },
- {
   "function": "func_8009F1D4",
   "text": "Not C: the body is hand-written assembly. It uses bltzal $zero / bal with return-address arithmetic (addiu $t3,$ra,imm) and calls to func_8009F328, func_8009F010 are marked \"handwritten instruction\" in the target. Needs return-address builtins, which C cannot express. Leave for manual review.\n\nCorrection: the earlier not_c=true release was made without reading the assembly. The handwritten-assembly claim is unverified. Re-check the disassembly before judging it not C.",
   "by": "permuter-25769804951",
@@ -8998,14 +8990,6 @@
   "created_at": 1795178348.094908,
   "score_before": 600,
   "score_after": 600
- },
- {
-  "function": "func_80019E28",
-  "text": "Rechecked saved best score 1490 (85 instructions). Call predicate inversion variants for both func_8002BC28 checks scored 1495 and 1500, replacing bnez with branch-likely forms; local repair batch on 1500 baseline did not improve (move-on 6/6). Current candidate is worse 1500; preserve saved_best 1490. Remaining differences include target bnez vs candidate beql/bnel, call argument setup timing, and registers storing 0x15B/0x15C. Missing sp10 compiler diagnostic was stale; compiling the full candidate source succeeded.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795178355.527154,
-  "score_before": 1310,
-  "score_after": 1310
  },
  {
   "function": "func_80037C84",
@@ -21680,14 +21664,6 @@
   "score_after": 1715
  },
  {
-  "function": "func_80019E28",
-  "text": "Improved verified score 1490 to 270 using negated ternaries directly in both func_80087100 calls. Remaining difference is scheduling move of result to s1 before indexed stack-table address calculation, which should use v0 rather than v1. Staging ID, unsigned or u16 index, register result, and volatile table did not improve.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795191759.816821,
-  "score_before": 1310,
-  "score_after": 270
- },
- {
   "function": "resetPickupActorState",
   "text": "Rechecked saved revision 54ff574d34f6c9f095e5 at 80. Signedness, declaration order, call arity, saved local widening and volatile global pointer yielded identical mismatch; introducing an address local for D_801002AD worsened to 225. Remaining four rows concern scheduling/address setup around D_80109688 and a2=1. Try other scheduling or source arrangements; unused address-local proposals remain.",
   "by": "codex-gpt-6.1-terra-4",
@@ -23102,14 +23078,6 @@
   "created_at": 1795193636.268872,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_80019E28",
-  "text": "Verified score 270. The target saves first lookup result in s1 before the second index shift, computes the address in v0, and moves lhu into the second jal delay slot. Candidate keeps the first result in v0 until that delay slot, uses v1 for the address, and emits lhu before jal. Aggregate/union layout, staged and inline index addressing, lookup argument reuse, first predicate u8 prototype, and scheduling flag changes did not improve. Preserve the 270 baseline and look for a source shape or scheduling profile which advances the first return copy before the second address chain.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795193639.184277,
-  "score_before": 270,
-  "score_after": 270
  },
  {
   "function": "func_80077C00",
@@ -24878,14 +24846,6 @@
   "created_at": 1795198140.5614989,
   "score_before": 85,
   "score_after": 85
- },
- {
-  "function": "func_80019E28",
-  "text": "Verified score 40, 85 instructions; best candidate retained. The undeclared sp10 was draft-only and resolved by using the proper local `sp10[32]`. Experiments changing ternary, sprintf wrapper and aggregate copy regressed or left same score. All 8 remaining differences are register-allocation only: target puts `andi $s0,$v0,3` after the call to func_8002BC28, candidate uses $s1. Most likely restructure declarations/use of `temp_s0` and `temp_s1` to align lifetime: target retains selector in $s0, later moves returned first string pointer into $s1, then uses $s0 for second lookup. Current C assigns selector temp_s0 before call and temp_s1 to returned text; compiler chose reverse registers. Target unaligned lwl/lwr/swl/swr aggregate handling for D_800D2914 is already represented by `sp30 = D_800D2914`; avoid changing it.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795198147.445229,
-  "score_before": 40,
-  "score_after": 40
  },
  {
   "function": "updateSaveMenuEntries",
@@ -27152,14 +27112,6 @@
   "score_after": 335
  },
  {
-  "function": "func_80019E28",
-  "text": "Started from saved source and ran six independent local repair variants. Best current score improved from 1190 to 270 by introducing a local pointer to D_801002AD and reading through it; other tested branch orientation, callee parameter width, terminal guard layout, global signedness, and one-shot call scope did not improve. Remaining mismatch is localized to two register assignments and two instruction-order differences around the second func_80087100 call: target moves return into $s1 while candidate shifts index in $v1. Seek a C evaluation/storage arrangement that loads/reorders the table index after the call and puts that shift in $v0.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795201213.952099,
-  "score_before": 40,
-  "score_after": 40
- },
- {
   "function": "func_8002FFAC",
   "text": "Verified best 1255. Direct nonvolatile u16 at +0x10 on the second channel recovers exact lhu and clamp registers; the prior word-to-u16 cast addressed the wrong half. Volatile u16 introduces a redundant andi 0xffff. Remaining initial word+shift collapses to lbu; volatile word with shift inside the guard reduced mismatch rows but worsened byte score. Next isolate that load's schedule and test reusing one clamp accumulator for the second/third channels with a saved copy between them (target move a2,a0). Final clamp needs bnez/addiu delay and its pointer reload before pack; signed accumulator reuse alone and moving the pointer assignment alone worsened the score.",
   "by": "codex-gpt-6.2-sol-6",
@@ -28406,14 +28358,6 @@
   "created_at": 1795202171.0110788,
   "score_before": 440,
   "score_after": 435
- },
- {
-  "function": "func_80019E28",
-  "text": "Verified score 40, eight s0/s1 register swaps. Declaration order and u16 index did not change output.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795202178.661421,
-  "score_before": 40,
-  "score_after": 40
  },
  {
   "function": "func_8002FFAC",
@@ -30494,14 +30438,6 @@
   "created_at": 1795204416.8737211,
   "score_before": 997,
   "score_after": 997
- },
- {
-  "function": "func_80019E28",
-  "text": "Best candidate d465d32b9ef86f3c18ab scores 40 (99.5%): 8 register-only diffs. Structure matches (__base_D_801002AD = &D_801002AD for addiu/lbu pattern; do{sprintf}while(0) wrapper; sp30 struct copy). Remaining: target keeps andi index result (temp_s0 = D_800BF688[..]&3) in $s0 and func_80087100 result in $s1; mine swapped. Declaration-order swap kept 40; statement-order swap gave 40 too. Untested: explicit u16/s16 type for temp_s0 or a cast on the &3 result.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795204417.539147,
-  "score_before": 40,
-  "score_after": 40
  },
  {
   "function": "func_8009846C",
@@ -38482,15 +38418,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:141af8ad8e396a680308977e6aa79675dc631532b11cc10555074a6528e14719"
  },
  {
-  "function": "func_80019E28",
-  "text": "Rechecked best is score 40 with eight register-only differences. Automatic local pass retained candidate. Explicit local repair variants pointer/int phase union, scope wrapping/unwrapping, duplicated balanced call, branch inversion all worsened (1980, 270, 295, 1790). Best already had declaration and statement reorder variants tried; both remained 40. Register exchange: target keeps masked selector in s0 and call result in s1; candidate swaps them. regional_alternative may be examined from the one-shot scope variant, though it shares 270 score.\nLocal repair batch and prior handoffs' declaration/statement ordering; changes did not improve score 40.\nCurrent best remains 40 with exact instruction sequence except s0/s1 allocation; automated proposals caused regressions.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795214094.119005,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
- },
- {
   "function": "func_8009D9F0",
   "text": "Restored best verified score 6030 (52.1%); further experiments showed argument volatility and unsigned casts do not alter output. Constant replacement to 0x04003C00 worsened to 6585, while correcting the third coefficient's FCCD1000 term improved to 6030. Remaining difference starts in prologue and first coefficient: target saves ra then s0, loads arg0 offset 0x188, computes stride, uses unsigned multu; candidate saves s0 then ra, early copies arg0, uses signed mult and immediate stores at 0x168. Next step: express an s16 selector load from arg0+0x188 and calculate a typed record pointer (selector*16 + arg0 + 0x168) while retaining target coefficient constants; adjust multiplier operands to u32 only after pointer structure aligns.",
   "by": "codex-gpt-6-luna-12",
@@ -43571,15 +43498,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:36066120dd1ca80e97e684ef9f451eb000bcd8078fd9013095c8114559221101"
  },
  {
-  "function": "func_80019E28",
-  "text": "Rechecked score 40 with eight s0/s1 register operands swapped. Pointer/integer phase union scored 295 and balanced pointer calls scored 1980. Branch orientation trial stopped on concurrent progress.\nPointer/integer phase union and balanced pointer calls\nWorsened score to 295 and 1980 respectively; retained verified 40",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795222374.793057,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
- },
- {
   "function": "spawnTrackMarkerEffect",
   "text": "Starting candidate 1400. Making w40, f2C, w3C volatile improved sequentially to 1190, 870, 795; f44 nonvolatile worsened. Current best 795. Remaining mismatch is mostly statement scheduling/registers, null-path join +4 bytes, and one call/delay-slot ordering around func_8002B6BC. Structured next step: revision 14b042031061deba7cf8; tried three volatile stores; changed score to 795; title: inspect tail around 0x678 and adjust expression/statement ordering to recover target delay-slot loads.",
   "by": "codex-gpt-6-luna-15",
@@ -46406,15 +46324,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8c20999937abf9eef5e141487fe8f7a8fa60a0cec04a3cdf5a56b228f0b543aa"
  },
  {
-  "function": "func_80019E28",
-  "text": "Stays 40 (s0/s1 swap only: target idx in $s0, ptr-from-lookup in $s1, sp10 addr reuses $s0). Tried u32/volatile/declaration order/&3 masking/trailing temp_s0=0/extra char *p: all 40. Single struct {char s[32]; u16 t[4]} local lost the D_801002AD base-pointer trick (1190). Next step: combine the struct local with the __base_D_801002AD pointer trick.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795228214.588674,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
- },
- {
   "function": "func_800984CC",
   "text": "Inherited saved candidate rechecked at score 120. Two compiles exploring pointer type/prototype/address details scored worse (530, then 830); get_candidate(saved_best) restored the 120 candidate. Existing handoff identifies unresolved D_800F38C8 / D_800F38CC / D_800F7954 / D_800F7958 address discrepancies and final branch register choice. Next step: use full target assembly and resolve the symbol addresses/signature against exact callee/caller evidence before any further compile.",
   "by": "codex-gpt-6-luna-20",
@@ -48808,15 +48717,6 @@
   "score_before": 875,
   "score_after": 875,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
- },
- {
-  "function": "func_80019E28",
-  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 54; 8 differing rows (8 register; advisory).\nTarget: andi $s0, $v0, 3\nCandidate: andi $s1, $v0, 3\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lhu $v0, -0x978($at)\n  = jal 0x2bc28\nr T: andi $s0, $v0, 3 | C: andi $s1, $v0, 3\n  = andi $v0, $v0, 0xff\n  = bnez $v0, 0xec\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795232050.651734,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
  },
  {
   "function": "func_8008863C",
@@ -57095,15 +56995,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:56721f5bd063d39b33ac8f18b7a1e309275d3eca6a52ad78be0c5d676239b618"
  },
  {
-  "function": "func_80019E28",
-  "text": "Explicit second lookup temporary scored 270 with correct saved registers but reordered instructions; volatile pointer worsened to 909.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795245739.1329842,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
- },
- {
   "function": "func_8003FDE0",
   "text": "Changing long raw to s32 tied 260; moving masked opcode assignment before initial condition scored 295 and generated an unmapped jump table.",
   "by": "codex-gpt-6.1-terra-5",
@@ -62136,15 +62027,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5c966a014ac9440149bbfe4e0dc73e489b721953364b7d332a00bd50732372f6"
  },
  {
-  "function": "func_80019E28",
-  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRegister qualifiers on temp_s0 and temp_s1 leave score 40 unchanged. Next step: test shortening the index lifetime by calculating the selected halfword before the first lookup call.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795259949.971755,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
- },
- {
   "function": "func_8006832C",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 1; 58 differing rows (54 register, 4 operand; advisory).\nTarget: sw $s3, 0xe4($sp)\nCandidate: sw $s6, 0xf0($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x108\ni T: sw $s3, 0xe4($sp) | C: sw $s6, 0xf0($sp)\nr T: move $s3, $a0 | C: move $s6, $a0\n  = sw $ra, 0xfc($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 7a7e8e55e55f6cf663d4 rechecked at 310/412 target instructions. Corrected vector copies, stack frame and narrowing at spawnEffect, and shared volatile threshold address. Remaining diff is register allocation/operand ordering. Rewriting marker lookup as casted byte-offset arithmetic scored unchanged at 310. Next step: test an actor argument alias used only after the initial disabled gate, to change saved-register lifetimes (target the s3/s4/s6 permutation).",
   "by": "codex-gpt-6.2-sol-9",
@@ -62429,15 +62311,6 @@
   "score_before": 2171,
   "score_after": 2158,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:da21e0f8225b955bb7d8ccf94d420b1778cd3dbb46fb5102337f90d28460d918"
- },
- {
-  "function": "func_80019E28",
-  "text": "Selected halfword before first call scored 1428, adding saved register and frame space. Separate second lookup local scored 270 but corrected index register allocation; remaining order differed.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795261167.239095,
-  "score_before": 40,
-  "score_after": 40,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
  },
  {
   "function": "func_8009DF60",
@@ -75758,5 +75631,132 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Best score 2960 at revision ad8a3688599ba5a813d4 (sp10[32] declared before sp30 (Pk8 8-byte struct from D_800D2914), temp_a0/temp_s0 scalar, var_a0 u16). Target frame is 0x48: sp+0x10 is the 32-byte char buffer, sp+0x30 the 8-byte copy of D_800D2914 (copied with lwl/lwr/swl/swr). Remaining diff: stack order/regs and the 'lbu $v1' of D_801002AD being hoisted before the lui of D_801002B8; the first branch uses D_801002AD*6 index (sll/addu/sll 3 = *24). Untried: D_8010019C as a struct array of stride 24 (index D_801002AD directly), and an explicit local arg2 for the sprintf-result pointer; D_800BF688 indexed as u8 stride 12 (temp*12 = (temp*3)<<2) produced wrong shifts in a few trials, so check it.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049653.098186,
+  "score_before": 5056,
+  "score_after": 2960
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Rechecked saved best score 1490 (85 instructions). Call predicate inversion variants for both func_8002BC28 checks scored 1495 and 1500, replacing bnez with branch-likely forms; local repair batch on 1500 baseline did not improve (move-on 6/6). Current candidate is worse 1500; preserve saved_best 1490. Remaining differences include target bnez vs candidate beql/bnel, call argument setup timing, and registers storing 0x15B/0x15C. Missing sp10 compiler diagnostic was stale; compiling the full candidate source succeeded.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795178355.527154,
+  "score_before": 1310,
+  "score_after": 1310
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Improved verified score 1490 to 270 using negated ternaries directly in both func_80087100 calls. Remaining difference is scheduling move of result to s1 before indexed stack-table address calculation, which should use v0 rather than v1. Staging ID, unsigned or u16 index, register result, and volatile table did not improve.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795191759.816821,
+  "score_before": 1310,
+  "score_after": 270
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Verified score 270. The target saves first lookup result in s1 before the second index shift, computes the address in v0, and moves lhu into the second jal delay slot. Candidate keeps the first result in v0 until that delay slot, uses v1 for the address, and emits lhu before jal. Aggregate/union layout, staged and inline index addressing, lookup argument reuse, first predicate u8 prototype, and scheduling flag changes did not improve. Preserve the 270 baseline and look for a source shape or scheduling profile which advances the first return copy before the second address chain.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795193639.184277,
+  "score_before": 270,
+  "score_after": 270
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Verified score 40, 85 instructions; best candidate retained. The undeclared sp10 was draft-only and resolved by using the proper local `sp10[32]`. Experiments changing ternary, sprintf wrapper and aggregate copy regressed or left same score. All 8 remaining differences are register-allocation only: target puts `andi $s0,$v0,3` after the call to func_8002BC28, candidate uses $s1. Most likely restructure declarations/use of `temp_s0` and `temp_s1` to align lifetime: target retains selector in $s0, later moves returned first string pointer into $s1, then uses $s0 for second lookup. Current C assigns selector temp_s0 before call and temp_s1 to returned text; compiler chose reverse registers. Target unaligned lwl/lwr/swl/swr aggregate handling for D_800D2914 is already represented by `sp30 = D_800D2914`; avoid changing it.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795198147.445229,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Started from saved source and ran six independent local repair variants. Best current score improved from 1190 to 270 by introducing a local pointer to D_801002AD and reading through it; other tested branch orientation, callee parameter width, terminal guard layout, global signedness, and one-shot call scope did not improve. Remaining mismatch is localized to two register assignments and two instruction-order differences around the second func_80087100 call: target moves return into $s1 while candidate shifts index in $v1. Seek a C evaluation/storage arrangement that loads/reorders the table index after the call and puts that shift in $v0.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795201213.952099,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Verified score 40, eight s0/s1 register swaps. Declaration order and u16 index did not change output.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795202178.661421,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Best candidate d465d32b9ef86f3c18ab scores 40 (99.5%): 8 register-only diffs. Structure matches (__base_D_801002AD = &D_801002AD for addiu/lbu pattern; do{sprintf}while(0) wrapper; sp30 struct copy). Remaining: target keeps andi index result (temp_s0 = D_800BF688[..]&3) in $s0 and func_80087100 result in $s1; mine swapped. Declaration-order swap kept 40; statement-order swap gave 40 too. Untested: explicit u16/s16 type for temp_s0 or a cast on the &3 result.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795204417.539147,
+  "score_before": 40,
+  "score_after": 40
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Rechecked best is score 40 with eight register-only differences. Automatic local pass retained candidate. Explicit local repair variants pointer/int phase union, scope wrapping/unwrapping, duplicated balanced call, branch inversion all worsened (1980, 270, 295, 1790). Best already had declaration and statement reorder variants tried; both remained 40. Register exchange: target keeps masked selector in s0 and call result in s1; candidate swaps them. regional_alternative may be examined from the one-shot scope variant, though it shares 270 score.\nLocal repair batch and prior handoffs' declaration/statement ordering; changes did not improve score 40.\nCurrent best remains 40 with exact instruction sequence except s0/s1 allocation; automated proposals caused regressions.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795214094.119005,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Rechecked score 40 with eight s0/s1 register operands swapped. Pointer/integer phase union scored 295 and balanced pointer calls scored 1980. Branch orientation trial stopped on concurrent progress.\nPointer/integer phase union and balanced pointer calls\nWorsened score to 295 and 1980 respectively; retained verified 40",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795222374.793057,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Stays 40 (s0/s1 swap only: target idx in $s0, ptr-from-lookup in $s1, sp10 addr reuses $s0). Tried u32/volatile/declaration order/&3 masking/trailing temp_s0=0/extra char *p: all 40. Single struct {char s[32]; u16 t[4]} local lost the D_801002AD base-pointer trick (1190). Next step: combine the struct local with the __base_D_801002AD pointer trick.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795228214.588674,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 54; 8 differing rows (8 register; advisory).\nTarget: andi $s0, $v0, 3\nCandidate: andi $s1, $v0, 3\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lhu $v0, -0x978($at)\n  = jal 0x2bc28\nr T: andi $s0, $v0, 3 | C: andi $s1, $v0, 3\n  = andi $v0, $v0, 0xff\n  = bnez $v0, 0xec\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232050.651734,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Explicit second lookup temporary scored 270 with correct saved registers but reordered instructions; volatile pointer worsened to 909.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795245739.1329842,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:75cbc161c2074adf8b540e17d2e38dad806c7c15dfafd93eeab73bb09e4e3e21:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRegister qualifiers on temp_s0 and temp_s1 leave score 40 unchanged. Next step: test shortening the index lifetime by calculating the selected halfword before the first lookup call.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795259949.971755,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Selected halfword before first call scored 1428, adding saved register and frame space. Separate second lookup local scored 270 but corrected index register allocation; remaining order differed.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795261167.239095,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
  }
 ]
