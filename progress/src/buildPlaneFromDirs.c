@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800478B4(void *arg0, void *arg1, void *arg2, void *arg3) {
+void buildPlaneFromDirs(void *arg0, void *arg1, void *arg2, void *arg3) {
     f32 temp_ft1;
 
     M2C_FIELD(arg0, f32 *, 0) = (f32) ((M2C_FIELD(arg1, f32 *, 4) * M2C_FIELD(arg2, f32 *, 8)) - (M2C_FIELD(arg1, f32 *, 8) * M2C_FIELD(arg2, f32 *, 4)));

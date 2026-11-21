@@ -121,7 +121,8 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
     volatile s64 stack_pad;
 
     sp14 = arg2;
-    if ((gBorderSkipActive != 0) || (var_v0 = NULL, ((*(u16 *)((char *)(arg3) + 0x40)) == sDifficultyLevel))) {
+    if (!gBorderSkipActive && (*(u16 *)((char *)arg3 + 0x40) != sDifficultyLevel)) return NULL;
+    {
         temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;

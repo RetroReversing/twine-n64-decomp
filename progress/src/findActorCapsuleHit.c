@@ -24,7 +24,7 @@ f32 Vec3_DistanceSq(Vec *, Vec *);
 void segmentClosestPoint(Vec *, Vec *, Vec *, Vec *);
 f32 func_80045764(Vec *, Vec *);
 f32 approxDistance(Vec *, Vec *);
-s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
+s32 testRayCapsulePart(void *, void *, void *, void *, void *, void *, f32, f32);
 
 /* Tests segment start..end against actors' capsule parts in list, returns the nearest actor hit (or NULL) and writes the hit point to result. */
 Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *result, u8 update, u8 mark, Actor *skip)
@@ -84,7 +84,7 @@ Actor *findActorCapsuleHit(Actor **list, Vec *start, Vec *end, s32 mask, Vec *re
                             partEnd.x -= insetX;
                             partEnd.y -= insetY;
                             partEnd.z -= insetZ;
-                            if ((func_80047998(&hitPoint, &otherPoint, start, &rayDir, &partStart, &partAxis, rayLength, partLength) << 24) &&
+                            if ((testRayCapsulePart(&hitPoint, &otherPoint, start, &rayDir, &partStart, &partAxis, rayLength, partLength) << 24) &&
                                 Vec3_DistanceSq(&hitPoint, &otherPoint) < partRadius) {
                                 *result = hitPoint;
                                 hitPart = part;

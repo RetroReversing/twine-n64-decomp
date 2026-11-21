@@ -97,7 +97,7 @@ void mat3_mul(const f32 a[3][3], const f32 b[3][3], f32 out[3][3]);
 
 void func_80085160(f32 *);
 
-s32 func_80047998(void *, void *, void *, void *, void *, void *, f32, f32);
+s32 testRayCapsulePart(void *, void *, void *, void *, void *, void *, f32, f32);
 
 extern f64 D_800D66C0;
 extern f32 D_800CEE98[6];
