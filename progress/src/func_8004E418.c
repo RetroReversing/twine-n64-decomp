@@ -33,14 +33,15 @@ s32 func_8004E418(void *arg0, void *arg1, void *arg2)
   temp_ft1 = (((__repair_record_arg0 *) arg0)->field_14 - ((__repair_record_arg0 *) arg0)->field_10) * 0.125f;
   if (temp_ft2 == 0.0f)
   {
-    D_80109BAC = (D_80109CBC = 0.0f);
+    D_80109CBC = 0.0f;
+    D_80109BAC = 0.0f;
   }
   else
   {
-    x = ((*((f32 *) (((char *) arg1) + 0))) - temp_ft3) / temp_ft2;
-    y = (((__repair_record_arg2 *) arg2)->field_0 - ((volatile __repair_record_arg0 *) arg0)->field_0) / temp_ft2;
-    D_80109CBC = x;
-    D_80109BAC = y;
+    f32 x1 = ((*((f32 *) (((char *) arg1) + 0))) - temp_ft3) / temp_ft2;
+    f32 y1 = (((__repair_record_arg2 *) arg2)->field_0 - ((volatile __repair_record_arg0 *) arg0)->field_0) / temp_ft2;
+    D_80109CBC = x1;
+    D_80109BAC = y1;
   }
   if (temp_ft1 == 0.0f)
   {
@@ -103,14 +104,8 @@ s32 func_8004E418(void *arg0, void *arg1, void *arg2)
   {
     s32 high = (0xFF << ((s32) D_80109CBC)) & (0xFF >> (7 - ((s32) D_80109BAC)));
     s32 low = (0xFF << ((s32) D_80100780)) & (0xFF >> (7 - ((s32) D_80100160)));
-    if (arg2)
-    {
-      return ((high & 0xFF) << 8) | (low & 0xFF);
-    }
-    else
-    {
-      return ((high & 0xFF) << 8) | (low & 0xFF);
-    }
+    do { } while (0);
+    high = (high & 0xFF) << 8;
+    return high | (low & 0xFF);
   }
 }
-
