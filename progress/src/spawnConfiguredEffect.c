@@ -17,7 +17,7 @@ typedef struct { f32 x, y, z; } Point3;
 void *spawnEffectObject();
 s32 objectListInsert();
 s32 actorLinkToSurface();
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 s32 func_80045278();
 extern s32 *gProbeObjectList;
 
@@ -48,7 +48,7 @@ void *spawnConfiguredEffect(s32 listIndex, s32 arg1, s32 arg2, Point3 *pos, f32 
         M2C_FIELD(effectState, s8 *, 0x24) = (s8) ((colorTint >> 0x10) + 0x80);
         M2C_FIELD(effectState, s8 *, 0x25) = (s8) ((colorTint >> 8) + 0x80);
         M2C_FIELD(effectState, s8 *, 0x26) = (s8) colorTint;
-        objectSetAnimFrame(effect, animArg6, animArg7);
+        effectSetAnimFrame(effect, animArg6, animArg7);
         if (listIndex != 0) {
             objectListInsert(effect, listIndex);
             return effect;

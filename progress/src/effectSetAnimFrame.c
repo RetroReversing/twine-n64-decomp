@@ -16,7 +16,7 @@ extern M2C_UNK D_800C0784;
 extern M2C_UNK D_800C0788;
 extern M2C_UNK D_800C078C;
 
-void objectSetAnimFrame(void *arg0, s32 arg1, s32 arg2) {
+void effectSetAnimFrame(void *arg0, s32 arg1, s32 arg2) {
     s32 temp_a2;
     void *temp_v1;
 

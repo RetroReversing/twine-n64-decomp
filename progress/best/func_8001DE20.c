@@ -46,7 +46,6 @@ void func_8001DE20(void) {
             temp_s0 = temp_s4 - 0x28;
             (*(s16 *)((char *)(var_s3) + -0x28)) = 3;
             func_80025E9C(temp_s2, var_s3, temp_s1 - 0x28, temp_s0, 1, 9);
-            temp_s0 = 0; temp_s2 = 0;
             formatTextEntry(var_s3, D_800D2A74);
             menuSetItemLabelIndices(temp_s0, temp_s4, temp_s2, temp_s5 - 0x28, 0x1F, 1);
             temp_s2 = (*(void **)((char *)(gSaveMenuState) + 0x10));

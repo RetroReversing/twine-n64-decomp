@@ -12,46 +12,47 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80015DAC();                              /* extern */
-f32 func_80045E34(void *, void *);                  /* extern */
-M2C_UNK func_80047AEC(void *, void *, void *);      /* extern */
+void *getObjectListHead();                              /* extern */
+f32 approxDistance(void *, void *);                  /* extern */
+M2C_UNK copyVec3Pair(void *, void *, void *);      /* extern */
 
-void func_8005B42C(void *arg0) {
-    f32 temp_fv0;
-    f32 var_fs0;
-    s16 temp_v1;
-    void *var_s0;
-    void *var_s2;
+/* Follows a target actor: state 0 searches the object list for the nearest actor that is not type 0x50 and adopts it as target; state 1 copies the target's link value and its position vectors. */
+void updateFollowTargetActor(void *actor) {
+    f32 dist;
+    f32 nearestDist;
+    s16 state;
+    void *object;
+    void *nearest;
 
-    temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
-    switch (temp_v1) {                              /* irregular */
+    state = M2C_FIELD(actor, s16 *, 0x7A);
+    switch (state) {
     case 0:
-        var_s2 = NULL;
-        var_s0 = func_80015DAC();
-        var_fs0 = 65536.0f;
-        if (var_s0 != NULL) {
+        nearest = NULL;
+        object = getObjectListHead();
+        nearestDist = 65536.0f;
+        if (object != NULL) {
             do {
-                if (M2C_FIELD(var_s0, u16 *, 0x78) != 0x50) {
-                    temp_fv0 = func_80045E34(var_s0 + 0x24, arg0 + 0x24);
-                    if (temp_fv0 < var_fs0) {
-                        var_fs0 = temp_fv0;
-                        var_s2 = var_s0;
+                if (M2C_FIELD(object, u16 *, 0x78) != 0x50) {
+                    dist = approxDistance(object + 0x24, actor + 0x24);
+                    if (dist < nearestDist) {
+                        nearestDist = dist;
+                        nearest = object;
                     }
                 }
-                var_s0 = M2C_FIELD(var_s0, void **, 0x10);
-            } while (var_s0 != NULL);
+                object = M2C_FIELD(object, void **, 0x10);
+            } while (object != NULL);
         }
-        if (var_s2 != NULL) {
-            M2C_FIELD(arg0, void **, 0x18) = var_s2;
-            M2C_FIELD(arg0, s16 *, 0x7A) = 1;
+        if (nearest != NULL) {
+            M2C_FIELD(actor, void **, 0x18) = nearest;
+            M2C_FIELD(actor, s16 *, 0x7A) = 1;
             return;
         }
-        M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
+        M2C_FIELD(actor, s32 *, 0x60) = (s32) (M2C_FIELD(actor, s32 *, 0x60) | 1);
         return;
     case 1:
-        M2C_FIELD(arg0, s32 *, 0x20) = (s32) M2C_FIELD(M2C_FIELD(arg0, void **, 0x18), s32 *, 0x20);
-        func_80047AEC(M2C_FIELD(arg0, void **, 0x18) + 0x24, arg0 + 0x24, arg0 + 0x30);
-        func_80047AEC(M2C_FIELD(arg0, void **, 0x18) + 0x3C, arg0 + 0x3C, arg0 + 0x48);
+        M2C_FIELD(actor, s32 *, 0x20) = (s32) M2C_FIELD(M2C_FIELD(actor, void **, 0x18), s32 *, 0x20);
+        copyVec3Pair(M2C_FIELD(actor, void **, 0x18) + 0x24, actor + 0x24, actor + 0x30);
+        copyVec3Pair(M2C_FIELD(actor, void **, 0x18) + 0x3C, actor + 0x3C, actor + 0x48);
         return;
     }
 }

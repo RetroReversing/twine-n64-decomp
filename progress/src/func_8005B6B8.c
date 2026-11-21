@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *spawnEffectObject(M2C_UNK, s32, s32);             /* extern */
 M2C_UNK objectListInsert(void *, s32);                 /* extern */
-M2C_UNK objectSetAnimFrame(void *, s16, s16);            /* extern */
+M2C_UNK effectSetAnimFrame(void *, s16, s16);            /* extern */
 extern M2C_UNK D_800C4478;
 extern M2C_UNK D_800C447A;
 
@@ -46,7 +46,7 @@ void func_8005B6B8(void *arg0, u16 arg1) {
         M2C_FIELD(temp_v0_2, f32 *, 0x1C) = offsetHeight;
         temp_v0_3 = arg1 * 0x10;
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
-        objectSetAnimFrame(temp_v0, *((s16 *)((s8 *)&D_800C4478 + temp_v0_3)), *((s16 *)((s8 *)&D_800C447A + temp_v0_3)));
+        effectSetAnimFrame(temp_v0, *((s16 *)((s8 *)&D_800C4478 + temp_v0_3)), *((s16 *)((s8 *)&D_800C447A + temp_v0_3)));
         M2C_FIELD(temp_v0, f32 *, 0x54) = 0.015625f;
         objectListInsert(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));
     }

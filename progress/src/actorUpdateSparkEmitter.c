@@ -1,4 +1,4 @@
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 s32 randomIntBelow();
 s32 func_80045DB4(f32 *, f32, f32);
 s32 updateNearestTargets();
@@ -19,7 +19,7 @@ void actorUpdateSparkEmitter(Obj62F34 *arg0) {
             arg0->field_60 |= 1;
         }
     } else {
-        objectSetAnimFrame(arg0, t >> 1, 0xFB);
+        effectSetAnimFrame(arg0, t >> 1, 0xFB);
     }
     if (gBorderSkipActive == 0) {
         if (!(arg0->field_7A & 1) && arg0->field_7A < 0x16) {

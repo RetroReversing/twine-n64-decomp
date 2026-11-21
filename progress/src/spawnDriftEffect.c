@@ -3,7 +3,7 @@ typedef struct { V61578 pos; s32 c; u8 pad[0xC]; unsigned hi:12; unsigned mid:16
 typedef struct { u8 pad0[0x20]; s32 v20; u8 pad24[0x20]; f32 f44; u8 pad48[0xC]; f32 f54; u8 pad58[0x14]; P61578 *p; u8 pad70[8]; s16 t78; u8 pad7A[5]; u8 c7F, c80, c81, c82; } O61578;
 void *spawnEffectObject(s32, s32, s32);
 void objectListInsert(O61578 *, s32);
-void objectSetAnimFrame(O61578 *, s32, s32);
+void effectSetAnimFrame(O61578 *, s32, s32);
 u32 randomIntBelow(s32);
 f32 randomFloatScaled(f32);
 
@@ -29,7 +29,7 @@ void spawnDriftEffect(O61578 *srcEffect, s32 arg1) {
         o->c7F = srcEffect->c7F;
         o->c80 = srcEffect->c80;
         o->c81 = srcEffect->c81;
-        objectSetAnimFrame(o, src->mid, src->hi);
+        effectSetAnimFrame(o, src->mid, src->hi);
         objectListInsert(o, srcEffect->v20);
     }
 }

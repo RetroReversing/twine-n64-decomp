@@ -16,7 +16,7 @@ void *spawnEffectObject();
 s32 objectListInsert();
 s32 applyNearbyActorImpact(s32, f32, f32);
 s32 actorLinkToSurface();
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 u16 randomIntBelow();
 s32 updateSplinePosition();
 s32 releaseTrackRecord();
@@ -51,7 +51,7 @@ void actorUpdateStateMachine(void *actor) {
         return;
     case 1:
         if (M2C_FIELD(actor, s32 *, 0x60) & 0x7000) {
-            objectSetAnimFrame(actor, M2C_FIELD(record, u16 *, 0x2C), D_800C2942);
+            effectSetAnimFrame(actor, M2C_FIELD(record, u16 *, 0x2C), D_800C2942);
             frameCounter = M2C_FIELD(record, u16 *, 0x2C) + 1;
             M2C_FIELD(record, u16 *, 0x2C) = frameCounter;
             if ((u32) (frameCounter & 0xFFFF) >= 0x1DU) {
@@ -68,7 +68,7 @@ void actorUpdateStateMachine(void *actor) {
                     M2C_FIELD(child, s8 *, 0x81) = 0;
                     M2C_FIELD(child, u8 *, 0x82) = 0xFF;
                     M2C_FIELD(child, f32 *, 0x54) = 0.5f;
-                    objectSetAnimFrame(child, *childDataPtr, D_800C2942);
+                    effectSetAnimFrame(child, *childDataPtr, D_800C2942);
                     objectListInsert(child, M2C_FIELD(actor, s32 *, 0x20));
                 }
             }

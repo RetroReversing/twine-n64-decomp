@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80082164();
-extern char D_8011508B[];
+extern char sBonusSlotEntries[];
 extern char D_80115091[];
 extern char D_80115092[];
 extern char D_80115094[];
@@ -20,14 +20,14 @@ void func_80081BC4(s32 arg0, s32 arg1, s32 arg2) {
         case 6:
         case 7:
         default:
-            *(D_8011508B + (arg0 * 0xA0)) = 0;
+            *(sBonusSlotEntries + (arg0 * 0xA0)) = 0;
             var_a2 = 0;
             break;
         case 0:
         case 1:
         case 4:
         case 5:
-            *(D_8011508B + (arg0 * 0xA0)) = 1;
+            *(sBonusSlotEntries + (arg0 * 0xA0)) = 1;
             var_a2 = 0;
             break;
         }

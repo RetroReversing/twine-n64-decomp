@@ -1,6 +1,6 @@
 void *spawnEffectObject();
 s32 objectListInsert();
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 s32 randomIntBelow();
 f32 randomFloatScaled(f32);
 f32 randomFloatMinusOffset(f32, f32);
@@ -22,7 +22,7 @@ void actorSpawnRandomEffect(void *actor) {
         effect = spawnEffectObject(0xC, &pos, 0);
         if (effect != 0) {
             effectState = *(void **)((char *)effect + 0x6C);
-            objectSetAnimFrame(effect, 2, 0x1B);
+            effectSetAnimFrame(effect, 2, 0x1B);
             *(f32 *)((char *)effectState + 4) = *(f32 *)((char *)effectParams + 4);
             *(f32 *)((char *)effectState + 8) = -randomFloatScaled(0.32666668f);
             *(s16 *)((char *)effect + 0x78) = 0x65;

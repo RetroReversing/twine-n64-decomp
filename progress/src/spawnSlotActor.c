@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 s32 spawnTextNode(void *);
 void *spawnEffectObject(M2C_UNK, s32, M2C_UNK, M2C_UNK);
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);
-M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);
+M2C_UNK effectSetAnimFrame(void *, M2C_UNK, M2C_UNK);
 M2C_UNK func_800643C8(void *);
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
@@ -55,13 +55,13 @@ void *spawnSlotActor(s32 modelId, M2C_UNK unusedArg, u16 slot) {
                 if (slotCopy == 0) {
                     animId = 7;
                 
-                objectSetAnimFrame(actor, animId, 0xF4);} else {
+                effectSetAnimFrame(actor, animId, 0xF4);} else {
                     animId = 8;
                 
-                objectSetAnimFrame(actor, animId, 0xF4);}
+                effectSetAnimFrame(actor, animId, 0xF4);}
             } else {
                 *(&D_8011ED08 + slotCopy * 0x9) = 0x14;
-                objectSetAnimFrame(actor, 1, 0xF4);
+                effectSetAnimFrame(actor, 1, 0xF4);
                 {
                     u8 intensity = 0xB4;
                     if (slotCopy != 0) goto alternate;

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *spawnEffectObject(M2C_UNK, s32, void *);          /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
-M2C_UNK objectSetAnimFrame(void *, u16, s16);            /* extern */
+M2C_UNK effectSetAnimFrame(void *, u16, s16);            /* extern */
 M2C_UNK func_80045278(void *);                 /* extern */
 extern s32 **D_800CA31C_dummy;
 extern s32 *gProbeObjectList;
@@ -35,7 +35,7 @@ void *func_80018630(s32 arg0, void *arg1, void *arg2) {
         M2C_FIELD(temp_a0, __repair_words3 *, 0xC) = *(__repair_words3 *) ((s8 *) arg1 + 0x0);
         M2C_FIELD(temp_a0, s32 *, 0x18) = -1;
         func_80045278(temp_a0);
-        objectSetAnimFrame(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
+        effectSetAnimFrame(temp_v0, M2C_FIELD(arg2, u16 *, 0), *M2C_FIELD(arg2, s16 **, 0x28));
         { s32 *p = gProbeObjectList;
         M2C_FIELD(temp_v0, s32 *, 0x5C) |= 0x200;
         actorLinkToSurface(*p, temp_v0, 1); }

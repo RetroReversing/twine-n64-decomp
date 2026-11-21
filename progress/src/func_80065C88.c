@@ -7,7 +7,7 @@ s32 func_800643D8(s32);
 extern s32 gSaveSlotCount;
 extern u8 D_8010A4C0[];
 extern Obj65C88 *gBonusObjectTable[];
-extern Ent65C88 D_8011508B[];
+extern Ent65C88 sBonusSlotEntries[];
 
 void func_80065C88(void) {
     s32 i;
@@ -19,7 +19,7 @@ void func_80065C88(void) {
         if (p != NULL) {
             s = p->sub;
             if (p->h7C == 5) {
-                D_8011508B[i].flag = 1;
+                sBonusSlotEntries[i].flag = 1;
             }
             if (p->h7C == 7) {
                 func_800643D8(s->wA8);

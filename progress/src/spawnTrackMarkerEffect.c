@@ -3,7 +3,7 @@ typedef struct { u8 pad[0xF4]; s32 wF4; } Def;
 Obj *spawnEffectObject(s32, s32, s32);
 void objectListInsert(Obj *, s32);
 void updateTrackMarkerEffect(Obj *);
-void objectSetAnimFrame(Obj *, s32, s32);
+void effectSetAnimFrame(Obj *, s32, s32);
 void func_80064318(Obj *, u8);
 extern Obj *volatile gTrackMarkerEffectObject;
 extern s32 gTrackMarkerEffectTimer;
@@ -36,7 +36,7 @@ Obj *spawnTrackMarkerEffect(u8 kind, u16 mode) {
     effectSlot = &gTrackMarkerEffectObject;
     effect = *effectSlot;
     if (effect != NULL) {
-        objectSetAnimFrame(effect, 1, 0x2A);
+        effectSetAnimFrame(effect, 1, 0x2A);
         gTrackMarkerEffectObject->b7E = 1;
         *(volatile s16 *)&gTrackMarkerEffectObject->h78 = 0x56;
         *(volatile u8 *)&gTrackMarkerEffectObject->b82 = 0xFF;

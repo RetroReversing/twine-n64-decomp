@@ -16,7 +16,7 @@ s32 func_8002D0BC();
 extern u16 D_800C9D40;
 extern u8 D_800CEEB0;
 extern s32 D_80112E98;
-extern s32 D_8011508B;
+extern s32 sBonusSlotEntries;
 
 void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     long temp_a2;
@@ -66,7 +66,7 @@ void func_80081D50(s8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
             if ((D_800CEEB0 == 2) || (func_8002D0BC(arg0, 0xA3, arg1 & 0xFF) & 0xFFFF)) {
                 var_a2 = 0;
                 if ((*(u8 *)((char *)(temp_s0) + 1)) & 0x10) {
-                    var_a2 = *((s32 *)((s8 *)D_8011508B + ((arg1 & 0xFF) * 0xA0)));
+                    var_a2 = *((s32 *)((s8 *)sBonusSlotEntries + ((arg1 & 0xFF) * 0xA0)));
                 }
                 temp_a1 = (void *) ((((var_s4 & 0xFFFF) * 8)) + (s32) arg0);
                 temp_a0 = (*(u16 *)((char *)(temp_a1) + 2));

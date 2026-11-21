@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK objectListInsert(void *, s32);                 /* extern */
-M2C_UNK objectSetAnimFrame(void *, s32, s32);            /* extern */
+M2C_UNK effectSetAnimFrame(void *, s32, s32);            /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 randomFloatScaled(f32);                         /* extern */
 f32 randomFloatMinusOffset(f32, f32);                        /* extern */
@@ -50,7 +50,7 @@ void spawnSparkleBurst(void *arg0, M2C_UNK arg1, f32 arg2, u32 arg3, s32 arg4, s
                 M2C_FIELD(temp_s0, f32 *, 0x14) = (u32) (randomIntBelow(0x100) - 0x80);
                 M2C_FIELD(temp_s0, f32 *, 0x18) = (u32) (randomIntBelow(0x100) - 0x80);
                 M2C_FIELD(temp_v0, s32 *, 0x58) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x58) | 0x10000);
-                objectSetAnimFrame(temp_v0, arg4, arg5);
+                effectSetAnimFrame(temp_v0, arg4, arg5);
                 objectListInsert(temp_v0, M2C_FIELD(arg0, s32 *, 0x20));
             }
         }

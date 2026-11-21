@@ -16,7 +16,7 @@ extern void listUnlinkFree(s32);
 extern OverlayObject *spawnEffectObject(s32, OverlayPosition *, void *);
 extern void func_8002B000(void *, s32);
 extern void actorLinkToSurface(s32, OverlayObject *, s32);
-extern void objectSetAnimFrame(OverlayObject *, s32, s32);
+extern void effectSetAnimFrame(OverlayObject *, s32, s32);
 extern s32 *gProbeObjectList;
 extern u8 gSceneType;
 extern u32 sProbeTimers[][2];
@@ -35,7 +35,7 @@ OverlayObject *spawnProbeObject(register OverlayPosition *position, void *orient
         if (probe != NULL) {
             register u32 slotIndex = (u16)slot;
             register void *timerRec;
-            do { objectSetAnimFrame(probe, 6, 0xF4); } while (0);
+            do { effectSetAnimFrame(probe, 6, 0xF4); } while (0);
             sProbePositions[slotIndex] = *position;
             timerRec = sProbeTimers[slotIndex];
             probe->kind = 0x45;

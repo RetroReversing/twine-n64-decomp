@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 s32 randomU32Next();
 extern f64 D_800D4258;
 extern u8 gTrackMarkerDone[];
@@ -32,7 +32,7 @@ extern u8 gTrackMarkerDone[];
         if (*(gTrackMarkerDone + M2C_FIELD(track, u8 *, 4)) == M2C_FIELD(track, u8 *, 5)) {
             *(gTrackMarkerDone + M2C_FIELD(track, u8 *, 6)) = 1;
             animWord = M2C_FIELD(track, u32 *, 0);
-            objectSetAnimFrame(obj, ((animWord >> 4) & 0xFFFF) + 1, animWord >> 0x14);
+            effectSetAnimFrame(obj, ((animWord >> 4) & 0xFFFF) + 1, animWord >> 0x14);
             M2C_FIELD(obj, s16 *, 0x7A) = 1;
             M2C_FIELD(obj, u16 *, 0x7C) = 0U;
             return;
@@ -49,7 +49,7 @@ extern u8 gTrackMarkerDone[];
         M2C_FIELD(obj, u8 *, 0x82) = (u8) ((u32) (M2C_FIELD(obj, u8 *, 0x82) + (randomU32Next() & 0xFF)) >> 1);
         if ((s16) M2C_FIELD(obj, u16 *, 0x7C) >= 0xA8D) {
             animWord2 = M2C_FIELD(track, u32 *, 0);
-            objectSetAnimFrame(obj, (animWord2 >> 4) & 0xFFFF, animWord2 >> 0x14);
+            effectSetAnimFrame(obj, (animWord2 >> 4) & 0xFFFF, animWord2 >> 0x14);
             *(gTrackMarkerDone + M2C_FIELD(track, u8 *, 6)) = 0;
             M2C_FIELD(obj, s16 *, 0x7A) = 2;
         }

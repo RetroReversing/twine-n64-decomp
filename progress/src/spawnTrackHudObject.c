@@ -150,7 +150,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
         (*(s8 *)((char *)((((TrackHudState *)objState)->markerObj)) + 0x80)) = 0;
         (*(s8 *)((char *)((((TrackHudState *)objState)->markerObj)) + 0x81)) = 0;
         (*(f32 *)((char *)((((TrackHudState *)objState)->markerObj)) + 0x54)) = 0.95f;
-        objectSetAnimFrame((((TrackHudState *)objState)->markerObj), 2, 0x24);
+        effectSetAnimFrame((((TrackHudState *)objState)->markerObj), 2, 0x24);
         trackIdx = trackIndex & 0xFFFF;
         func_80064318((((TrackHudState *)objState)->markerObj), trackIdx);
         objectListInsert((((TrackHudState *)objState)->markerObj), (*(s32 *)((char *)(*(s32 *)(gTrackMarkers + (trackIdx * 4))) + 0xF4)));

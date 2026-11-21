@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 objectSetAnimFrame();
+s32 effectSetAnimFrame();
 s32 randomIntBelow();
 extern char gTrackMarkerDone[];
 
@@ -41,7 +41,7 @@ extern char gTrackMarkerDone[];
                 *(gTrackMarkerDone + flagIndex) = 0;
             }
             packedAnim = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, ((packedAnim >> 4) & 0xFFFF) + 1, packedAnim >> 0x14);
+            effectSetAnimFrame(marker, ((packedAnim >> 4) & 0xFFFF) + 1, packedAnim >> 0x14);
             M2C_FIELD(marker, s16 *, 0x7A) = 1;
         }
         return;
@@ -52,7 +52,7 @@ extern char gTrackMarkerDone[];
                 *(gTrackMarkerDone + flagIndex1) = 1;
             }
             packedAnim1 = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, (packedAnim1 >> 4) & 0xFFFF, packedAnim1 >> 0x14);
+            effectSetAnimFrame(marker, (packedAnim1 >> 4) & 0xFFFF, packedAnim1 >> 0x14);
             M2C_FIELD(marker, s16 *, 0x7A) = 0;
             return;
         }
@@ -64,7 +64,7 @@ extern char gTrackMarkerDone[];
                 *(gTrackMarkerDone + flagIndex2) = 0;
             }
             packedAnim2 = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, ((packedAnim2 >> 4) & 0xFFFF) + 1, packedAnim2 >> 0x14);
+            effectSetAnimFrame(marker, ((packedAnim2 >> 4) & 0xFFFF) + 1, packedAnim2 >> 0x14);
             M2C_FIELD(marker, s16 *, 0x7A) = 3;
         }
         if (randomIntBelow(5) == 0) {
@@ -78,7 +78,7 @@ extern char gTrackMarkerDone[];
             *(gTrackMarkerDone + flagIndex3) = 1;
         }
         packedAnim3 = M2C_FIELD(entry, u32 *, 0);
-        objectSetAnimFrame(marker, (packedAnim3 >> 4) & 0xFFFF, packedAnim3 >> 0x14);
+        effectSetAnimFrame(marker, (packedAnim3 >> 4) & 0xFFFF, packedAnim3 >> 0x14);
         M2C_FIELD(marker, s16 *, 0x7A) = 2;
         return;
     }
