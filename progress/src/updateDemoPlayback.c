@@ -17,7 +17,7 @@ extern void *D_801005AC;
 extern s8 D_80102CC8;
 extern s32 D_80102CCC;
 extern s8 *gDemoInputData;
-extern void *volatile D_80109698;
+extern void *volatile gMenuRootObject;
 extern s32 gDemoFrame;
 extern s32 gDemoFadeTimer;
 extern u16 D_8010D430;
@@ -57,8 +57,8 @@ extern u16 D_8010D436;
 block_6:
     if (gDemoFadeTimer != -1) {
 block_7:
-        M2C_FIELD(D_80109698, f32 *, 0x12C) = (f32) ((f32) (gDemoFadeTimer - 6) * 0.1f);
-        { f32 *value = &M2C_FIELD(D_80109698, f32 *, 0x12C);
+        M2C_FIELD(gMenuRootObject, f32 *, 0x12C) = (f32) ((f32) (gDemoFadeTimer - 6) * 0.1f);
+        { f32 *value = &M2C_FIELD(gMenuRootObject, f32 *, 0x12C);
         f32 fade = *(volatile f32 *)value;
         gDemoFadeTimer -= 1;
         if (fade < 0.0f) *value = 0.0f; }

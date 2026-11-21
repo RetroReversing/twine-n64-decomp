@@ -14,25 +14,25 @@ typedef s32 M2C_UNK32;
 
 s32 actorUnlinkFromSurface();
 extern u16 gMenuMode;
-extern void *D_800B7CE8;
+extern void *gMenuCursorActor;
 extern void *gMenuState;
 
 void func_8002175C(void) {
     s32 temp_v0;
     void *temp_v1;
 
-    if (D_800B7CE8 != NULL) {
+    if (gMenuCursorActor != NULL) {
         if (M2C_FIELD(gMenuState, u8 *, 0x30) != 0xFF) {
-            actorUnlinkFromSurface(D_800B7CE8);
-            temp_v1 = D_800B7CE8;
+            actorUnlinkFromSurface(gMenuCursorActor);
+            temp_v1 = gMenuCursorActor;
             temp_v0 = M2C_FIELD(temp_v1, s32 *, 0x60);
-            D_800B7CE8 = NULL;
+            gMenuCursorActor = NULL;
             M2C_FIELD(temp_v1, s32 *, 0x60) = (s32) (temp_v0 | 1);
             return;
         }
-        M2C_FIELD(D_800B7CE8, u8 *, 0x82) = 0xFF;
+        M2C_FIELD(gMenuCursorActor, u8 *, 0x82) = 0xFF;
         if (gMenuMode == 1) {
-            M2C_FIELD(D_800B7CE8, f32 *, 0x40) += 34.133335f;
+            M2C_FIELD(gMenuCursorActor, f32 *, 0x40) += 34.133335f;
         }
     }
 }

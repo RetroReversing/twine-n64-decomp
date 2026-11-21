@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80084048(void *, M2C_UNK);             /* extern */
 extern void *D_800B7CE4;
-extern s8 D_800B7CEC;
+extern s8 gMenuCursorActive;
 extern s32 gBootState;
 
 void func_80021938(void) {
@@ -30,5 +30,5 @@ void func_80021938(void) {
         D_800B7CE4 = NULL;
     }
     gBootState = 0;
-    D_800B7CEC = 0;
+    gMenuCursorActive = 0;
 }

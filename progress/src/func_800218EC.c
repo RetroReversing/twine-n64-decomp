@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK actorUnlinkFromSurface(void *);                      /* extern */
-extern void *D_800B7CE8;
+extern void *gMenuCursorActor;
 extern s32 gBootState;
 
 void func_800218EC(void) {
@@ -21,11 +21,11 @@ void func_800218EC(void) {
     void *temp_v1;
 
     gBootState = 0;
-    if (D_800B7CE8 != NULL) {
-        actorUnlinkFromSurface(D_800B7CE8);
-        temp_v1 = D_800B7CE8;
+    if (gMenuCursorActor != NULL) {
+        actorUnlinkFromSurface(gMenuCursorActor);
+        temp_v1 = gMenuCursorActor;
         temp_v0 = M2C_FIELD(temp_v1, s32 *, 0x60);
-        D_800B7CE8 = NULL;
+        gMenuCursorActor = NULL;
         M2C_FIELD(temp_v1, s32 *, 0x60) = (s32) (temp_v0 | 1);
     }
 }

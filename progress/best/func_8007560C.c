@@ -15,7 +15,7 @@ extern s32 gSaveTotalSlots;
 extern s32 gVisibleSaveSlots;
 extern s32 gBorderSkipFlag;
 extern char gTrackMarkerTable[];
-extern void *D_80109698;
+extern void *gMenuRootObject;
 extern void *D_8010969C;
 extern u8 gSceneFlagsB;
 extern u8 gBorderFlipFlag;
@@ -61,17 +61,17 @@ f32 __repair_var_a1_1;
     if (D_80000300 != 0) {
 
     }
-    if (D_80109698 == NULL) {
+    if (gMenuRootObject == NULL) {
         func_80048794(4, gProbeObjectList);
     }
     var_fv1 = (f64) 0;
     if (0 < 0) {
         var_fv1 += D_800D48B0;
     }
-    { do { func_8004844C(D_80109698, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1, (f32) (f64) 0); } while (0); }
+    { do { func_8004844C(gMenuRootObject, 160.0f, 120.0f, 320.0f, 240.0f, (f32) var_fv1, (f32) (f64) 0); } while (0); }
     (*__base_D_8010A4C3) = (u8) ((*__base_D_8010A4C3) & 0xEF);
     (*(u8 *)((char *)(__base_D_8010A4C3) + -2)) &= 0xEF;
-    (*(s32 *)((char *)(D_80109698) + 0x100)) |= __repair_constant;
+    (*(s32 *)((char *)(gMenuRootObject) + 0x100)) |= __repair_constant;
     if (D_8010969C == (int)NULL) {
         func_80048794(5, gProbeObjectList);
     }
@@ -104,7 +104,7 @@ f32 __repair_var_a1_1;
         var_s0 = 0;
         temp_s4 = __base_D_8010A4C3 - 1;
         temp_fs0 = D_800D48D0;
-        var_s1 = &D_80109698 - 0x10;
+        var_s1 = &gMenuRootObject - 0x10;
         do {
             if (*var_s1 == NULL) {
                 func_80048794(var_s0, gProbeObjectList);

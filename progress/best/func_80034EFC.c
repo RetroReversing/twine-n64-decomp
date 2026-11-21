@@ -10,7 +10,7 @@ void func_80034EFC(void) {
  s32 render=0xE200001C; u32 modes=0x0F0A4000; cycle=0xE3000A01;
  sDisplayListCursor=base+1; base[0].w0=0xE7000000;
  sDisplayListCursor=base+2; base[1].w1=0x300000;
- sDisplayListCursor=base+3; height=D_8010D6F8-1; width=D_80108F80-1;
+ sDisplayListCursor=base+3; width=D_8010D6F8-1; height=D_80108F80-1;
  base[1].w0=cycle; base[0].w1=0; base[2].w1=modes; size=2; base[2].w0=render;
  if (D_8010A4EC) size=(-(gHiResScreen==0)&3)|2;
  tag=0xFF000000; base[3].w0=(size<<19)|((width&0xFFF)|tag);

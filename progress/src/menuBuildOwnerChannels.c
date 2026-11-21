@@ -4,7 +4,7 @@ s32 func_800160FC(s32, s32, s32);           /* extern */
 s32 func_800162BC(u8);                              /* extern */
 s32 func_80018318(s32);                             /* extern */
 s16 func_8001E760(s32, u8);                     /* extern */
-s32 func_8002135C(s16, s16);                    /* extern */
+s32 menuUpdateCursorActor(s16, s16);                    /* extern */
 s32 func_80022A30(u8, s32, s32, s32, s32); /* extern */
 s32 func_80022AD8(u8);                          /* extern */
 s32 func_80022E18(u8);                          /* extern */
@@ -78,7 +78,7 @@ extern s32 func_8001EAF0;
                 widget = func_80026314((*(s32 *)((char *)(gMenuState) + 0x10)), 0xA6, 2);
                 kind = (*(u8 *)((char *)(found) + 8));
                 offset = kind * 0x8;
-                func_8002135C(*(&D_800C4478 + offset), *(&D_800C447A + offset));
+                menuUpdateCursorActor(*(&D_800C4478 + offset), *(&D_800C447A + offset));
                 if (widget != NULL) {
                     (*(s16 *)((char *)(widget) + 0x28)) = func_8001E760(2, kind);
                 }

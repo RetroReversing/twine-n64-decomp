@@ -16,7 +16,7 @@ void *findEntryById(s32, M2C_UNK);                  /* extern */
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
 s32 func_8001E760(M2C_UNK, u8);                     /* extern */
 M2C_UNK func_8001F4B8(u8, u8);                      /* extern */
-M2C_UNK func_8002135C(s16, s16);                    /* extern */
+M2C_UNK menuUpdateCursorActor(s16, s16);                    /* extern */
 void *func_80026314(s32, M2C_UNK, M2C_UNK);         /* extern */
 void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
@@ -79,7 +79,7 @@ extern void *gMenuState;
                         M2C_FIELD(valueText, s16 *, 0x1C) = strlen(M2C_FIELD(valueText, s32 *, 0x18));
                     }
                     itemIndex = M2C_FIELD(selectedItem, u8 *, 8) * 0xE8;
-                    func_8002135C(*((s16 *)((u8 *)&D_800C46D8 + itemIndex)), *((s16 *)((u8 *)&D_800C46DA + itemIndex)));
+                    menuUpdateCursorActor(*((s16 *)((u8 *)&D_800C46D8 + itemIndex)), *((s16 *)((u8 *)&D_800C46DA + itemIndex)));
                     if (idEntry != NULL) {
                         itemData = M2C_FIELD(idEntry, void **, 8);
                         if (itemData != NULL) {
@@ -94,7 +94,7 @@ extern void *gMenuState;
                 case 1:                             /* switch 1 */
                     itemEntry = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
                     itemIndex2 = M2C_FIELD(selectedItem, u8 *, 8) * 0x10;
-                    func_8002135C(*((s16 *)((u8 *)&D_800C4478 + itemIndex2)), *((s16 *)((u8 *)&D_800C447A + itemIndex2)));
+                    menuUpdateCursorActor(*((s16 *)((u8 *)&D_800C4478 + itemIndex2)), *((s16 *)((u8 *)&D_800C447A + itemIndex2)));
                     if (itemEntry != NULL) {
                         M2C_FIELD(M2C_FIELD(itemEntry, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(2, M2C_FIELD(selectedItem, u8 *, 8)) & 0xFFFF);
                         itemText = M2C_FIELD(itemEntry, void **, 0x30);

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8003C7E8(void *, M2C_UNK);             /* extern */
 void *func_80083E90(M2C_UNK, M2C_UNK);              /* extern */
 extern void *D_800B7CE4;
-extern s8 D_800B7CEC;
+extern s8 gMenuCursorActive;
 extern u8 gMenuSlot;
 extern void * volatile D_80109698;
 extern s32 gBootState;
@@ -27,7 +27,7 @@ void func_800217F4(void) {
     void *p;
 
     gBootState = 1;
-    D_800B7CEC = 1;
+    gMenuCursorActive = 1;
     if ((*(&gBonusSceneHandle + gMenuSlot) != 0) && (D_800B7CE4 == NULL)) {
         temp_v0 = func_80083E90(0x60, 0);
         D_800B7CE4 = temp_v0;
