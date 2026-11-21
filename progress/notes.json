@@ -2616,14 +2616,6 @@
   "score_after": 240
  },
  {
-  "function": "func_800882D0",
-  "text": "Improved to 420 with volatile byte and argument loads; remaining 13 mismatches are instruction scheduling in prologue and send path. Flag search found no improvement; expression and store-order variants did not help.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795137418.462715,
-  "score_before": 845,
-  "score_after": 420
- },
- {
   "function": "func_8000A724",
   "text": "Improved to 915 using word array and post-decrement count, initializing index before count. Still differs in base/register allocation and loop branch sequence; candidate changes semantics at count boundary, inspect target before retaining.",
   "by": "codex-gpt-6.1-terra-1",
@@ -7536,14 +7528,6 @@
   "score_after": 7230
  },
  {
-  "function": "func_800882D0",
-  "text": "Fixed undeclared-data compile errors by declaring the accessed globals as byte arrays (D_800E1AC0, D_800E2CC0, D_800E2CD0, D_800E2CD8) and D_800E3F30 as a byte array; this compiled to 420, matching the saved best. Tested changing the osSendMesg zero argument type with no instruction change and rewrote switch as if/else, worsening to 1140. Four-compile no-better threshold reached. Best candidate is score 420; 13 ordering differences remain (prologue saves, call argument placement, trailing D_800E2CD8 store delay-slot order). Next inspect exact candidate assembly around mismatch and tune statement scheduling/locals while retaining the switch; data offsets depend on byte-pointer arrays plus byte stride off=arg0*0x1228.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795176944.733859,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_80022AD8",
   "text": "Best current rechecked baseline remains 555 from the prior candidate; corrected declaration/layout trials scored 1750, 1865, 780 and 885. Confirmed target loads D_800E0EE0/E2/E4 as halfwords, reads D_800E0EE6 as a halfword, loads a word from object+0x28, writes masked word then byte at +0x28. Better layout pass reached 780 with all operations present, but register allocation/order mismatches remain, especially target keeping three global values in a1/a2/a3 before stores and pointer in v1; preserve initial allocator/callee checks. No score improvement; saved candidate has a suspicious byte-vs-word field overlap interpretation.",
   "by": "codex-gpt-6-luna-13",
@@ -10302,14 +10286,6 @@
   "created_at": 1795182095.3197381,
   "score_before": 510,
   "score_after": 510
- },
- {
-  "function": "func_800882D0",
-  "text": "Verified score 420; instructions match except prologue save ordering and osSendMesg argument setup before byte stores, including target delay-slot store. Removing redundant mask and embedding stores in different call arguments all emitted identical code. Investigate scheduler/compiler profile or a source form that schedules call setup ahead of stores.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795182105.037164,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_80097A40",
@@ -13304,14 +13280,6 @@
   "score_after": 4115
  },
  {
-  "function": "func_800882D0",
-  "text": "Verified inherited 420 baseline, with 13 reordered rows. Local trials for narrowing, explicit case 0, unsigned switch cast and unsigned D_800E3F2C gave 685/670/420/420. Keep existing volatile byte switch and volatile callback argument. Remaining problem is scheduling, including early s0/ra saves and queue argument setup around the two state stores. Prior comma-expression store placements also scored 420. For a future pass compare compiler scheduling options against this address range\u2019s -O1 profile using the same source.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795183729.6324532,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_8000CCE4",
   "text": "Improved 1611 to 1411 (8a7fca34ec3e5b1481f9). Object's +0x68 pointer must be loaded twice; first +0xB1 byte drives special=3 for 0x33, second supplies stack arg at +0x28 in jal slot. Unsigned inline XOR restores xori, but KMC turns all tested negated, multiplied, shifted and complemented Boolean masks into a branch. Flags sweep did not improve. Next try a nested expression or alternate known compiler profile that retains setcc/negate/and before tuning t0/v1 allocation.",
   "by": "codex-gpt-6.2-sol-8",
@@ -14976,14 +14944,6 @@
   "score_after": 180
  },
  {
-  "function": "func_800882D0",
-  "text": "Rechecked 420 with range -O1. Explicit queue/zero register locals, volatile state stores, register offset, and typed external call declarations each produced identical code. Diagnostic -O1 -fschedule-insns -fschedule-insns2 and -O2 -fno-expensive-optimizations both give 120. With the latter the prologue and all but the osSendMesg delay slot match: target zeros a2 immediately after a1 and fills delay with D_800E2CD8 byte store; output places that store immediately before jal and zeros a2 in the delay slot. Combining same-line g3 or comma third-argument placement with that profile stayed 120; no-delayed-branch worsened. Investigate source arranging final store as the selected delay-slot operation under the 120 profile. Offset is a 0x1228-byte record stride.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795184805.743412,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "guMtxF2L",
   "text": "Handwritten matrix packer. Verified complete extent through jr/nop; all eight operations use consecutive t0\u2013t7 fresh destinations with no reuse, alongside a deliberate bank of six distinct even FPRs, two reserved t8/t9 loop constants, and input/output cursors staying in a0/a1. Correct eight-pair C was tested under KMC and alternatives without reproducing that register/schedule structure. Inherited 805 draft has an incorrect truncated end pointer; use the typed 900-point checkpoint as semantic reference.",
   "by": "codex-gpt-6.2-sol-7",
@@ -16168,14 +16128,6 @@
   "score_after": 3017
  },
  {
-  "function": "func_800882D0",
-  "text": "Reverified 420 under the active -O1 profile. Explicit signed shift/add decomposition worsened to 655; unsigned multiply, sequencing byte store in osSendMesg's message argument, and explicit switch default all produced the same assembly as baseline. Remaining differences are prologue save and send-call scheduling; previous -O2 -fno-expensive-optimizations trial at 120 isolates a2 setup vs the final byte store in jal's delay slot.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795185786.783763,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_8007BAF8",
   "text": "A compile changing func_800461D4's prototype to an old-style declaration scored 13338, but the claim ended unexpectedly and the revision was not retained. The draft uses separate scalar stack locals where the target needs arrays/matrices: target stack frame 0x148 versus candidate 0x90; reconstruct contiguous vectors and matrices before tuning.",
   "by": "codex-gpt-6.1-terra-4",
@@ -17350,14 +17302,6 @@
   "created_at": 1795186978.044914,
   "score_before": 705,
   "score_after": 705
- },
- {
-  "function": "func_800882D0",
-  "text": "Reverified 420 baseline. Volatile final byte store and shared zero local did not change assembly; explicit additive shift decomposition worsened to 665. Remaining differences are prologue and final send-call scheduling; prior notes identify -O2 -fno-expensive-optimizations at 120, with delay-slot store remaining. Explore scheduler/source forms under that profile.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795186987.160404,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_80082908",
@@ -18544,14 +18488,6 @@
   "score_after": 745
  },
  {
-  "function": "func_800882D0",
-  "text": "Verified best 420. Correct callee prototype and local queue pointer do not alter scheduling. Explicitly expanded stride multiplication worsens register allocation. Remaining differences are prologue save scheduling and late message-call argument setup relative to byte stores; investigate compiler scheduling or original structure.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795188890.557694,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "soundResolveHandle",
   "text": "Baseline score 220 (90.8%), 24 target instructions and 24 candidate. One compile rechecked it; local repairs inferred_record_layout was identical and explicit guard-forward jump worsened to 915; 3/3 move-on reached. Remaining differences are five rows largely register allocation: target initializes `$v0=0` on empty/loop paths and uses `$v0` as current match pointer; candidate uses `$a1`. This changes branch-likely and final field load registers. Revisit by changing result/current node variable representation or control flow so GCC keeps match pointer/result in v0. Struct field layout rewrite did not help.",
   "by": "codex-gpt-6-luna-13",
@@ -19552,14 +19488,6 @@
   "score_after": 170
  },
  {
-  "function": "func_800882D0",
-  "text": "Rechecked baseline 420. Independent explicit shift/add staging 455, nonvolatile u8 selector without mask 585, and inline nonvolatile callback word load 720; leave existing baseline. Target interleaves s0/ra saves into the stride computation and places the second byte store in the send delay slot; current profile puts both saves at entry. A targeted compiler experiment with -O1 -fschedule-insns -fschedule-insns2, if not previously tried under the current profile, can isolate scheduling before more source edits. Confirm exact callee prototype void func_8009D9D8(void *).",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795189989.359892,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "libmLog",
   "text": "Current verified baseline remains score 120 (four reordered instructions around zero comparison/branch); no improvement after four compile attempts. Tried signedness, declaration order (no code change), target call arity (worse), guard inversion (worse), assignment-at-use (invalid C), and byte table signedness (link/address failure). Next inspect get_assembly(focus=\"mismatch\") for the zero comparison branch delay-slot schedule; candidate revision 63d85dc2cac25f3ed13c. No reusable discovery.",
   "by": "codex-gpt-6-luna-7",
@@ -20536,14 +20464,6 @@
   "score_after": 252
  },
  {
-  "function": "func_800882D0",
-  "text": "Best 420 unchanged, all instructions present but prologue and final call setup reordered. Proper prototypes and embedded final store made no difference; swapping stores worsened. -O1 with both scheduling passes gives score 120, leaving only a2 zero setup versus final byte store in call delay slot; not an exact match.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795191046.912263,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "guMtxF2L",
   "text": "Rechecked score 805 on best legacy source, but quality review flags it invalid due pointer-to-int truncation in end calculation. Proper typed-pointer checkpoint scores 900; equivalent typed loop also scores 900. Target is handwritten SDK routine: fixed FPR allocation and instruction order, retains a0/a1, end=a1+0x20, 25 insns. No promising C-only register path found; typed source preserves behavior, saved 805 remains non-equivalent risk. Explore explicit temporaries/conversion order or leave assembly boundary.",
   "by": "codex-gpt-6-luna-9",
@@ -21342,14 +21262,6 @@
   "created_at": 1795192256.977964,
   "score_before": 580,
   "score_after": 580
- },
- {
-  "function": "func_800882D0",
-  "text": "Saved candidate rechecks at 420. Repairs for narrowing, switch layout, unsigned switch, global scalar type and inline shape gave no improvement; explicit arithmetic rewrite worsened to 740. Target computes index via staged 9/16/4/8 arithmetic, retains $v0 until late, and saves $s0 for scaled offset; source should express this index shape and avoid early address temporaries to recover register allocation. Calls through D_80100180 currently schedule before indexed load in candidate; target loads argument first.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795192271.898196,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_8008B1C0",
@@ -23592,14 +23504,6 @@
   "score_after": 820
  },
  {
-  "function": "func_800882D0",
-  "text": "Baseline 662. Both volatile access adjustments tie. Passing explicit third osSendMesg argument worsens, even with both stores moved before call. Target definitely passes zero in a2 and performs both stores before call, with second in jal slot; keep those semantics in future rewrite. Frame target 0x18 vs candidate 0x20; inspect extra saved register and try fixed-stride record fields to avoid maintaining a separate base across calls.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795197487.265696,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_800988D8",
   "text": "Rechecked baseline 220. Local repair families explicit_loop_backedge, inferred_record_layout and cfg_integer_lifetimes did not improve; explicit local variants exhausted move-on budget at 4/4. Target at 0x80098950 loads free-list head into $a1, and places return default -1 in $v0 as the delay slot of the null-head branch; candidate initializes return temp in $v1. Further work should model return value directly in the return register / restructure null-head path, preserving later $v0 use for popped node. No C rewrite tested for that specific return-register lifetime.",
   "by": "codex-gpt-6-luna-17",
@@ -24510,14 +24414,6 @@
   "created_at": 1795198465.3400269,
   "score_before": 1367,
   "score_after": 1367
- },
- {
-  "function": "func_800882D0",
-  "text": "Rechecked candidate at score 662 (63 target instructions vs 64 candidate). Primary mismatches: target frame is 0x18 and saves computed stride in s0; candidate frame 0x20, saves s1 and has one extra instruction. Branch labels differ by four bytes due frame/code layout. Explicitly spelling the target stride arithmetic as (((arg0<<3)+arg0)<<4 + arg0)*4+arg0 then <<3 worsened to 862. Tried local repairs switch_layout, narrowing, unsigned_switch, global_scalar_type, single_use_inline with no improvement. Further work should focus on matching s0 computed index lifetime and reducing saved locals/frame, plus exact callback/global prototypes.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795198472.632778,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_800ABE20",
@@ -25896,14 +25792,6 @@
   "score_after": 0
  },
  {
-  "function": "func_800882D0",
-  "text": "Saved source rechecks at 662. Six local repairs tested (switch_layout, narrowing, unsigned_switch, global_scalar_type, single_use_inline): no improvement; several worsened. Main mismatch begins with target 0x18-byte frame vs candidate 0x20, then call/argument/register differences; likely function pointer/global and N64 message prototypes or switch path shape. Candidate has imperfect declarations but compiles. Resume by reading full assembly and target prototypes; do not repeat these repairs.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795200605.4583511,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_80096F44",
   "text": "Near exact at score 10 (99.8%, 53 instructions). Four local variants covered switch layout, record typing, declaration order and signedness; one manual `register` change for the saved arg also left the exact same instruction diff. Only two registers differ: target starts `move $a3,$a2`; candidate uses `$v1,$a2`, subsequent arithmetic/branches match. Try staging the original arg2 in a branch-local lifetime/register that targets $a3; prioritize the clamp's original-vs-narrowed values. Best candidate remains 10.",
   "by": "codex-gpt-6-luna-11",
@@ -26910,14 +26798,6 @@
   "created_at": 1795201793.536292,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_800882D0",
-  "text": "Four compiles without improvement. Rechecked inherited candidate score 662. Explicit SDK message prototypes increased score to 787 and produced 65 instructions vs target 63. Returning to old unprototyped signatures and adding osSendMesg's third argument left output unchanged at 787. Current best restored to saved revision bf85244e8debc3a368b6. Main mismatch: target frame 0x18; source emits 0x20, $s1 in place of $s0, shifted branches; target call arg setup appears inline.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795201793.688202,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_800A97A0",
@@ -29000,14 +28880,6 @@
   "score_after": 1540
  },
  {
-  "function": "func_800882D0",
-  "text": "Rechecked current candidate at 662 (89.4%). Six local repair variants (switch layout, narrowing, unsigned switch, global scalar widths, inline index) produced no improvement; move-on threshold triggered. Target builds index scaling in steps into saved $s0, has 0x18 frame; candidate uses direct multiply/u32 offset, 0x20 frame and $s1. Address/branches then differ by small offsets, and one target bnez immediate differs. No reusable discovery confirmed.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795203958.918897,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_8003FF3C",
   "text": "Recovered saved_best and rechecked score 7230 (368 candidate instructions vs 359 target), unchanged. Two attempted rewrites failed parsing because switch/function braces were unbalanced; recovered best afterward. Candidate retains unresolved `.rodata+0` linker diagnostic, likely jump-table reference/switch reconstruction. Diff hints persistent indexing/byte signedness and control-flow lowering mismatch. No verified repair.",
   "by": "codex-gpt-6-luna-20",
@@ -30280,14 +30152,6 @@
   "score_after": 1540
  },
  {
-  "function": "func_800882D0",
-  "text": "Rechecked inherited source at 662 (89.4%; 64 vs 63 instructions). First compile same score. Tried moving state writes before osSendMesg and adding break: worsened to 717; restored saved_best. Added unused scaled local, score remained 662 but instructions differ and no improvement. Remaining consistent differences include target frame 0x18 vs candidate 0x20, saved s0 vs s1/extra saved ra, sll target in s0, branch offsets +4, callable queue address should use $a0 not $s0; target OS send moves after stores and passes queue as a0, msg 0, flags 0. Existing C uses incorrect argument ordering via osSendMesg(D_800E3F30,0) unprototyped. Next try exact OSTypes/prototypes and pass all args explicitly; also model per-record type size 0x1228 to get stride and frame/register allocation.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795204991.3254242,
-  "score_before": 420,
-  "score_after": 420
- },
- {
   "function": "func_800055CC",
   "text": "Rechecked baseline 2955; explicit signed-to-double conversions with conditional D_800D2008 removed anonymous relocation and improved to 2740. Assigning masked index back to arg2 improved to 2730. Register allocation and loop structure still differ. Removing register or volatile qualifiers and stride rearrangement did not change code; replacing second mask with arg2 worsened it.",
   "by": "codex-gpt-6.1-terra-2",
@@ -31190,14 +31054,6 @@
   "created_at": 1795205924.911832,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_800882D0",
-  "text": "Stalled at 662 (best, same as inherited). This session tried off=((arg0*581)<<3), arg0*0x245*8, (arg0*9*16+arg0)*32, and s32 off: 662, 662, 917 (worse), 662 (no change). Target frame is 0x18 with only s0/ra saved; candidate always gets 0x20 with s1 saved. Target computes 0x1228 via shift chain (9a<<4 +a)<<2 +a <<3, i.e. off=581*8*a. Untested next: keep off as a u32 but split the switch case 2 calls so the offset is recomputed per case, or move the D_800E3F30 queue address into a local to drop s1.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205963.972702,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_8002E7A0",
@@ -32358,14 +32214,6 @@
   "created_at": 1795207649.181062,
   "score_before": 2275,
   "score_after": 2275
- },
- {
-  "function": "func_800882D0",
-  "text": "Stalled at 662 (64 vs 63 instr). Extra tries this session: local repairs (narrowing, switch_layout, unsigned_switch, global_scalar_type, single_use_inline) worse or unchanged; signed s32 off instead of u32 still 662 with s1 save and 0x20 frame. Target frame 0x18 with only s0/ra; candidate always 0x20 with s1. Next idea: restructure so no value must live across both calls (e.g. recompute arg0*0x1228 at each store) to drop the s1 save.",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795207664.437923,
-  "score_before": 420,
-  "score_after": 420
  },
  {
   "function": "func_8011A098",
@@ -33616,14 +33464,6 @@
   "score_after": 1345
  },
  {
-  "function": "func_800882D0",
-  "text": "Reexpressed second queue address as adjacent global +4 and supplied osSendMesg third argument; score improved 662 to 60. Only jal scheduling differs: target places jal after address/value preparation with final byte store in delay slot. Moving stores before call gives 120; placing call between stores worsens to 750.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795208972.0343459,
-  "score_before": 420,
-  "score_after": 60
- },
- {
   "function": "updateObjectColor",
   "text": "Recovered and compiled a clearer typed rewrite at score 8955, then corrected D_801007B8 from s32 to s16, which reduced score to 2825 (candidate revision 58e4555907cbf4169651). Further local repairs (callee arity, record layout, branch orientation, address temporary, constant local, const read) tied or worsened. Rewriting conversion expression and branches worsened to 6590. Restored saved_best score 2625 revision 59bfdddeef61e168abd9. Target mismatch still branch/control layout: leading equality branch lands at +0x3bc, candidate +0x39c; candidate's early return and nested if arrangement shortens code by ~8 instructions. Also target uses bc1tl and repeated reload of parent->field20, candidate differs. Next experiment: preserve saved version but remove early return in the 0x80 arm, allowing common tail to rejoin as target.",
   "by": "codex-gpt-6-luna-6",
@@ -34870,14 +34710,6 @@
   "created_at": 1795210088.357579,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_800882D0",
-  "text": "Saved best reverified at score 60; sole change needed is jal osSendMesg after the state=3 store and the last state=4 store address preparation, with state=4 store in the delay slot. Moving stores before the call with final store in a comma expression in argument 1 or 3 scored 120; standalone do/while scored 300 and volatile lvalues scored 870. Restored saved best.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795210089.742541,
-  "score_before": 60,
-  "score_after": 60
  },
  {
   "function": "setupTrackMarkers",
@@ -36838,15 +36670,6 @@
   "score_before": 95,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
- },
- {
-  "function": "func_800882D0",
-  "text": "Saved candidate rechecks at score 60. Target and candidate match operations; only call ordering differs at final osSendMesg (target jal after preparing second global address and with the state=4 byte store in the jal delay slot; candidate jal precedes both state stores). Moving osSendMesg back before both stores recovered 60 from an erroneous arg change. Prior variants moving stores before call also scored worse. Next try a C expression/statement arrangement that leaves state=3 store before call but schedules state=4 store in delay slot after call setup, while preserving queue pointer argument.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795213145.834641,
-  "score_before": 792,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  },
  {
   "function": "func_80096F44",
@@ -39528,15 +39351,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:f03bd80230de1e5322a52eeda061ee18083956bff173da5708253e51018d7236"
  },
  {
-  "function": "func_800882D0",
-  "text": "Best remains saved 60 (osSendMesg before stores). Stores-before-call variant (f3af7b33e3603ed38e38: func_8009D9D8, then D_800E2CC0[off]=3, D_800E2CD8[off]=4, then osSendMesg) scores 120; remaining diff: target emits move $a2,$zero early (after a1 zero, before v0=3 load) and sb state=4 in jal delay slot; ours puts sb 4 before the a2 move. Tried: swapping store order, (void*)0/(s32)0 args, do{}while(0) placements (180-310). Next step: try writing osSendMesg's args as explicit locals (s32 zero=0) assigned before the stores so a2 is materialized before v0=3.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795216733.761035,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
- },
- {
   "function": "func_80098710",
   "text": "Best score remains 130; current candidate has 22 vs target 23 instructions. The only missing target op is move $a1,$v0 after taking &D_800FD974; destination registers then cause branch target offsets to differ. Explicit var_v0 local followed by var_a1=var_v0 still optimized into direct load to a1; reordering declarations had no effect. No match.\nAdded separate var_v0 address local, copied to var_a1, and stored var_v0 into D_800FDB78; compiler eliminated the move. Reordering local declarations changed nothing.\nDiff remains one missing move and two branch target offsets, due 4 byte code-size shift.",
   "by": "codex-gpt-6-luna-9",
@@ -41309,15 +41123,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:14c914730d90e797a93c10c03ed536507af83cfb0e57415d6e3cdb8cad092bd2"
  },
  {
-  "function": "func_800882D0",
-  "text": "Best stays 60. Alt: stores-before-call with local char *q=(char*)&D_800E3F2C+4 gives 120 (only differs: move a2 placed in jal delay slot vs target's sb in delay slot, a2 move earlier). Tried third arg (void*)0, q-q, int z: unchanged 120. Next step: make the compiler set a2 earlier, e.g. pass a2 via a variable assigned before the first store (after osRecvMesg) that is also used elsewhere.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795221264.759938,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
- },
- {
   "function": "func_8001E898",
   "text": "Saved C rechecks 1440; repairs yielded no gains. One switch_layout expansion made score 4740; avoid. Mismatch begins at target move $a3,$a1 missing from candidate. Next step: inspect full target assembly, focus on argument preservation and switch lowering, then make a narrow patch.",
   "by": "codex-gpt-6-luna-15",
@@ -42616,15 +42421,6 @@
   "score_before": 25,
   "score_after": 25,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
- },
- {
-  "function": "func_800882D0",
-  "text": "Saved best remains 60. Stores-before-call (state=3, state=4, then osSendMesg((char*)&D_800E3F2C+4,0,0)) gives 120: only diff is move a2 placed in jal delay slot vs target a2 early + sb(state=4) in delay slot. Store order swapped: 310. Using D_800E3F30 directly for send: 792 (extra s1 reg). Next step: find a source form making a2=0 emitted before the stores (e.g. a2 from a variable/arg).\nstores before call, swapped store order, comma exprs\n120 -> only a2 move/sb delay-slot order differs",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795224053.3532338,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  },
  {
   "function": "func_80076E98",
@@ -49038,15 +48834,6 @@
   "created_at": 1795164162.4910479,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_800882D0",
-  "text": "Rechecked saved candidate score 60. Six independent local repairs (symbol_address_local, narrowing, switch_layout, unsigned_switch, single_use_inline) did not improve it. The two remaining mismatches are around osSendMesg setup; target uses sDataBankMesgQueue as a0 and places the D_800E2CD8=4 byte store in jal delay slot. Earlier pointer-base edit worsened score to 402.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795235202.901304,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  },
  {
   "function": "updateWobbleAnim",
@@ -57401,15 +57188,6 @@
   "score_before": 30,
   "score_after": 30,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:19122d272434356e944e43d28a078b1aeb59b5b0669a6dd7300bfc601fc7e96e"
- },
- {
-  "function": "func_800882D0",
-  "text": "Saved baseline differs only in scheduling jal osSendMesg relative to two stores.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795254963.302069,
-  "score_before": 60,
-  "score_after": 60,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  },
  {
   "function": "func_80097A40",
@@ -74735,5 +74513,263 @@
   "score_before": 1395,
   "score_after": 1195,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:2beed609bddd97cc11d0e4237d0ae7a04c05b407e6f71eee2d213224a8aca336"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Improved to 420 with volatile byte and argument loads; remaining 13 mismatches are instruction scheduling in prologue and send path. Flag search found no improvement; expression and store-order variants did not help.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795137418.462715,
+  "score_before": 845,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Fixed undeclared-data compile errors by declaring the accessed globals as byte arrays (D_800E1AC0, D_800E2CC0, D_800E2CD0, D_800E2CD8) and D_800E3F30 as a byte array; this compiled to 420, matching the saved best. Tested changing the osSendMesg zero argument type with no instruction change and rewrote switch as if/else, worsening to 1140. Four-compile no-better threshold reached. Best candidate is score 420; 13 ordering differences remain (prologue saves, call argument placement, trailing D_800E2CD8 store delay-slot order). Next inspect exact candidate assembly around mismatch and tune statement scheduling/locals while retaining the switch; data offsets depend on byte-pointer arrays plus byte stride off=arg0*0x1228.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795176944.733859,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Verified score 420; instructions match except prologue save ordering and osSendMesg argument setup before byte stores, including target delay-slot store. Removing redundant mask and embedding stores in different call arguments all emitted identical code. Investigate scheduler/compiler profile or a source form that schedules call setup ahead of stores.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795182105.037164,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Verified inherited 420 baseline, with 13 reordered rows. Local trials for narrowing, explicit case 0, unsigned switch cast and unsigned D_800E3F2C gave 685/670/420/420. Keep existing volatile byte switch and volatile callback argument. Remaining problem is scheduling, including early s0/ra saves and queue argument setup around the two state stores. Prior comma-expression store placements also scored 420. For a future pass compare compiler scheduling options against this address range\u2019s -O1 profile using the same source.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795183729.6324532,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked 420 with range -O1. Explicit queue/zero register locals, volatile state stores, register offset, and typed external call declarations each produced identical code. Diagnostic -O1 -fschedule-insns -fschedule-insns2 and -O2 -fno-expensive-optimizations both give 120. With the latter the prologue and all but the osSendMesg delay slot match: target zeros a2 immediately after a1 and fills delay with D_800E2CD8 byte store; output places that store immediately before jal and zeros a2 in the delay slot. Combining same-line g3 or comma third-argument placement with that profile stayed 120; no-delayed-branch worsened. Investigate source arranging final store as the selected delay-slot operation under the 120 profile. Offset is a 0x1228-byte record stride.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795184805.743412,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Reverified 420 under the active -O1 profile. Explicit signed shift/add decomposition worsened to 655; unsigned multiply, sequencing byte store in osSendMesg's message argument, and explicit switch default all produced the same assembly as baseline. Remaining differences are prologue save and send-call scheduling; previous -O2 -fno-expensive-optimizations trial at 120 isolates a2 setup vs the final byte store in jal's delay slot.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795185786.783763,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Reverified 420 baseline. Volatile final byte store and shared zero local did not change assembly; explicit additive shift decomposition worsened to 665. Remaining differences are prologue and final send-call scheduling; prior notes identify -O2 -fno-expensive-optimizations at 120, with delay-slot store remaining. Explore scheduler/source forms under that profile.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795186987.160404,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Verified best 420. Correct callee prototype and local queue pointer do not alter scheduling. Explicitly expanded stride multiplication worsens register allocation. Remaining differences are prologue save scheduling and late message-call argument setup relative to byte stores; investigate compiler scheduling or original structure.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795188890.557694,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked baseline 420. Independent explicit shift/add staging 455, nonvolatile u8 selector without mask 585, and inline nonvolatile callback word load 720; leave existing baseline. Target interleaves s0/ra saves into the stride computation and places the second byte store in the send delay slot; current profile puts both saves at entry. A targeted compiler experiment with -O1 -fschedule-insns -fschedule-insns2, if not previously tried under the current profile, can isolate scheduling before more source edits. Confirm exact callee prototype void func_8009D9D8(void *).",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795189989.359892,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Best 420 unchanged, all instructions present but prologue and final call setup reordered. Proper prototypes and embedded final store made no difference; swapping stores worsened. -O1 with both scheduling passes gives score 120, leaving only a2 zero setup versus final byte store in call delay slot; not an exact match.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795191046.912263,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved candidate rechecks at 420. Repairs for narrowing, switch layout, unsigned switch, global scalar type and inline shape gave no improvement; explicit arithmetic rewrite worsened to 740. Target computes index via staged 9/16/4/8 arithmetic, retains $v0 until late, and saves $s0 for scaled offset; source should express this index shape and avoid early address temporaries to recover register allocation. Calls through D_80100180 currently schedule before indexed load in candidate; target loads argument first.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795192271.898196,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Baseline 662. Both volatile access adjustments tie. Passing explicit third osSendMesg argument worsens, even with both stores moved before call. Target definitely passes zero in a2 and performs both stores before call, with second in jal slot; keep those semantics in future rewrite. Frame target 0x18 vs candidate 0x20; inspect extra saved register and try fixed-stride record fields to avoid maintaining a separate base across calls.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795197487.265696,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked candidate at score 662 (63 target instructions vs 64 candidate). Primary mismatches: target frame is 0x18 and saves computed stride in s0; candidate frame 0x20, saves s1 and has one extra instruction. Branch labels differ by four bytes due frame/code layout. Explicitly spelling the target stride arithmetic as (((arg0<<3)+arg0)<<4 + arg0)*4+arg0 then <<3 worsened to 862. Tried local repairs switch_layout, narrowing, unsigned_switch, global_scalar_type, single_use_inline with no improvement. Further work should focus on matching s0 computed index lifetime and reducing saved locals/frame, plus exact callback/global prototypes.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795198472.632778,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved source rechecks at 662. Six local repairs tested (switch_layout, narrowing, unsigned_switch, global_scalar_type, single_use_inline): no improvement; several worsened. Main mismatch begins with target 0x18-byte frame vs candidate 0x20, then call/argument/register differences; likely function pointer/global and N64 message prototypes or switch path shape. Candidate has imperfect declarations but compiles. Resume by reading full assembly and target prototypes; do not repeat these repairs.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795200605.4583511,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Four compiles without improvement. Rechecked inherited candidate score 662. Explicit SDK message prototypes increased score to 787 and produced 65 instructions vs target 63. Returning to old unprototyped signatures and adding osSendMesg's third argument left output unchanged at 787. Current best restored to saved revision bf85244e8debc3a368b6. Main mismatch: target frame 0x18; source emits 0x20, $s1 in place of $s0, shifted branches; target call arg setup appears inline.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795201793.688202,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked current candidate at 662 (89.4%). Six local repair variants (switch layout, narrowing, unsigned switch, global scalar widths, inline index) produced no improvement; move-on threshold triggered. Target builds index scaling in steps into saved $s0, has 0x18 frame; candidate uses direct multiply/u32 offset, 0x20 frame and $s1. Address/branches then differ by small offsets, and one target bnez immediate differs. No reusable discovery confirmed.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795203958.918897,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked inherited source at 662 (89.4%; 64 vs 63 instructions). First compile same score. Tried moving state writes before osSendMesg and adding break: worsened to 717; restored saved_best. Added unused scaled local, score remained 662 but instructions differ and no improvement. Remaining consistent differences include target frame 0x18 vs candidate 0x20, saved s0 vs s1/extra saved ra, sll target in s0, branch offsets +4, callable queue address should use $a0 not $s0; target OS send moves after stores and passes queue as a0, msg 0, flags 0. Existing C uses incorrect argument ordering via osSendMesg(D_800E3F30,0) unprototyped. Next try exact OSTypes/prototypes and pass all args explicitly; also model per-record type size 0x1228 to get stride and frame/register allocation.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795204991.3254242,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Stalled at 662 (best, same as inherited). This session tried off=((arg0*581)<<3), arg0*0x245*8, (arg0*9*16+arg0)*32, and s32 off: 662, 662, 917 (worse), 662 (no change). Target frame is 0x18 with only s0/ra saved; candidate always gets 0x20 with s1 saved. Target computes 0x1228 via shift chain (9a<<4 +a)<<2 +a <<3, i.e. off=581*8*a. Untested next: keep off as a u32 but split the switch case 2 calls so the offset is recomputed per case, or move the D_800E3F30 queue address into a local to drop s1.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205963.972702,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Stalled at 662 (64 vs 63 instr). Extra tries this session: local repairs (narrowing, switch_layout, unsigned_switch, global_scalar_type, single_use_inline) worse or unchanged; signed s32 off instead of u32 still 662 with s1 save and 0x20 frame. Target frame 0x18 with only s0/ra; candidate always 0x20 with s1. Next idea: restructure so no value must live across both calls (e.g. recompute arg0*0x1228 at each store) to drop the s1 save.",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795207664.437923,
+  "score_before": 420,
+  "score_after": 420
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Reexpressed second queue address as adjacent global +4 and supplied osSendMesg third argument; score improved 662 to 60. Only jal scheduling differs: target places jal after address/value preparation with final byte store in delay slot. Moving stores before call gives 120; placing call between stores worsens to 750.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795208972.0343459,
+  "score_before": 420,
+  "score_after": 60
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved best reverified at score 60; sole change needed is jal osSendMesg after the state=3 store and the last state=4 store address preparation, with state=4 store in the delay slot. Moving stores before the call with final store in a comma expression in argument 1 or 3 scored 120; standalone do/while scored 300 and volatile lvalues scored 870. Restored saved best.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795210089.742541,
+  "score_before": 60,
+  "score_after": 60
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved candidate rechecks at score 60. Target and candidate match operations; only call ordering differs at final osSendMesg (target jal after preparing second global address and with the state=4 byte store in the jal delay slot; candidate jal precedes both state stores). Moving osSendMesg back before both stores recovered 60 from an erroneous arg change. Prior variants moving stores before call also scored worse. Next try a C expression/statement arrangement that leaves state=3 store before call but schedules state=4 store in delay slot after call setup, while preserving queue pointer argument.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795213145.834641,
+  "score_before": 792,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Best remains saved 60 (osSendMesg before stores). Stores-before-call variant (f3af7b33e3603ed38e38: func_8009D9D8, then D_800E2CC0[off]=3, D_800E2CD8[off]=4, then osSendMesg) scores 120; remaining diff: target emits move $a2,$zero early (after a1 zero, before v0=3 load) and sb state=4 in jal delay slot; ours puts sb 4 before the a2 move. Tried: swapping store order, (void*)0/(s32)0 args, do{}while(0) placements (180-310). Next step: try writing osSendMesg's args as explicit locals (s32 zero=0) assigned before the stores so a2 is materialized before v0=3.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795216733.761035,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Best stays 60. Alt: stores-before-call with local char *q=(char*)&D_800E3F2C+4 gives 120 (only differs: move a2 placed in jal delay slot vs target's sb in delay slot, a2 move earlier). Tried third arg (void*)0, q-q, int z: unchanged 120. Next step: make the compiler set a2 earlier, e.g. pass a2 via a variable assigned before the first store (after osRecvMesg) that is also used elsewhere.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795221264.759938,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved best remains 60. Stores-before-call (state=3, state=4, then osSendMesg((char*)&D_800E3F2C+4,0,0)) gives 120: only diff is move a2 placed in jal delay slot vs target a2 early + sb(state=4) in delay slot. Store order swapped: 310. Using D_800E3F30 directly for send: 792 (extra s1 reg). Next step: find a source form making a2=0 emitted before the stores (e.g. a2 from a variable/arg).\nstores before call, swapped store order, comma exprs\n120 -> only a2 move/sb delay-slot order differs",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795224053.3532338,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked saved candidate score 60. Six independent local repairs (symbol_address_local, narrowing, switch_layout, unsigned_switch, single_use_inline) did not improve it. The two remaining mismatches are around osSendMesg setup; target uses sDataBankMesgQueue as a0 and places the D_800E2CD8=4 byte store in jal delay slot. Earlier pointer-base edit worsened score to 402.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235202.901304,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Saved baseline differs only in scheduling jal osSendMesg relative to two stores.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795254963.302069,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Move-on threshold reached. Scheduling of send and the state stores remains.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795267117.139403,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Stalled on send call and state-store order. Both stores before call scored 120, a split scored 750, second-argument comma tied 120, volatile last store scored 605. Scheduler and delayed-branch diagnostics worsened 120.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795268135.044226,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "At threshold. Score 60 has jal too early. Third-argument comma moves call later but puts a2 setup in delay slot, score 120. Offset reuse and zero-message pointer cast tied.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795270109.571073,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked saved 60. First-argument comma with both state stores scored 120, keeping jal after the first store but placing a2 setup in its delay slot. Splitting stores across args with one queue symbol scored 792 and grew frame. Local repairs yielded no improvement.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795271816.216529,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
  }
 ]

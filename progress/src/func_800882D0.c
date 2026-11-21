@@ -15,8 +15,9 @@ void func_800882D0(s32 arg0) {
   osRecvMesg(D_800E3F30, 0, 1);
   do {} while (0);
   func_8009D9D8(sDataBanks + off);
-  osSendMesg((char *)&sDataBankMode + 4, 0, 0);
-  D_800E2CC0[arg0 * 0x1228] = 3;
+  ((volatile char *)D_800E2CC0)[off] = 3;
   D_800E2CD8[arg0 * 0x1228] = 4;
+  osSendMesg((char *)&sDataBankMode + 4, 0, 0);
  }
 }
+
