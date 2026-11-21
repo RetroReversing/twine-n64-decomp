@@ -225,9 +225,9 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     u8 *var_s3_2;
     u16 *var_s3_5;
     u16 *var_s3_6;
-    u16 temp_a0;
-    u16 temp_v1_11;
-    u16 temp_v1_20;
+    s32 temp_a0;
+    s32 temp_v1_11;
+    s32 temp_v1_20;
     u16 temp_v1_27;
     u16 temp_v1_2;
     u16 temp_v1_4;

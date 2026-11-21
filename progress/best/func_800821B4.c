@@ -109,11 +109,11 @@ void func_800821B4(void) {
             var_s0 = temp_s0 - 4;
             var_v0 = (s32) ~var_s0 >> 0x1F;
         } else {
-            var_v0 = -(var_s0 < 1);
             var_s0 = temp_s0 + 4;
+            var_v0 = -(var_s0 < 1);
         }
         var_s0_2 = ((var_s0 & var_v0) << 0x10) / 76;
-        if (0xFFFF0000 > var_s0_2) {
+        if ((-0x10000) > var_s0_2) {
             var_s0_2 = -0x10000;
         } else if (var_s0_2 > 0x10000) {
             var_s0_2 = 0x10000;
@@ -130,14 +130,14 @@ void func_800821B4(void) {
         }
         temp_s0_3 = *var_s2;
         if (temp_s0_3 < 0) {
-            var_v0_2 = -(1 > var_s0_3);
             var_s0_3 = temp_s0_3 + 4;
+            var_v0_2 = -(1 > var_s0_3);
         } else {
             var_s0_3 = temp_s0_3 - 4;
             var_v0_2 = (s32) ~var_s0_3 >> 0x1F;
         }
         var_s0_4 = ((var_s0_3 & var_v0_2) << 0x10) / 76;
-        if (var_s0_4 < 0xFFFF0000) {
+        if (var_s0_4 < (-0x10000)) {
             var_s0_4 = -0x10000;
         } else if (var_s0_4 > 0x10000) {
             var_s0_4 = 0x10000;
@@ -167,15 +167,16 @@ void func_800821B4(void) {
         var_s6 = 0;
         var_s7 = 0;
         sp24 = 0;
+        sp2C = 0;
         
         do {
             memset(&D_80112E98, 0, 0x24);
-            temp_s5 = *(&D_8010A500 + sp24);
-            temp_fp = *(&D_80115091 + var_s7);
+            temp_s5 = *(void **)((u8 *)&D_8010A500 + sp24);
+            temp_fp = *((u8 *)&D_80115091 + var_s7);
             var_a1 = 1;
             if (temp_s5 != NULL) {
                 var_s3_2 = (*(s8 *)((char *)((*(void **)((char *)(temp_s5) + 0x6C))) + 0x183));
-                var_s2_2 = *(&D_8010D430 + (var_s3_2 * 8));
+                var_s2_2 = *(u16 *)((u8 *)&D_8010D430 + var_s3_2 * 8);
                 var_a0 = ((s16 *)&D_800E1A80)[var_s3_2];
                 temp_a2 = var_s2_2 & 0x2000;
                 temp_a3 = var_s2_2 & 0x4000;

@@ -55,7 +55,6 @@ void func_80036BBC(void *arg0) {
     void *temp_v1_6;
     void *var_s0;
     void *var_s2;
-    s32 *__base_D_800B1D20;
 
     
 
@@ -93,13 +92,11 @@ void func_80036BBC(void *arg0) {
             (*(s32 *)((char *)(__repair_phase_storage.pointer) + 4)) = 0xFF0FF37F;
         }
     }
-    if (var_s2 != NULL) {
-loop_12:
+    while (var_s2 != NULL) {
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
         do { func_80034630(var_s2, arg0); } while (0);
         emitPrimColor(var_s2, arg0);
-        if (var_s0 != NULL) {
-loop_13:
+        while (var_s0 != NULL) {
             temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;
             if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 1) && ((IsSphereVisible(var_s0 + 0x40, ((__repair_record_var_s0*)var_s0)->field_4C, var_s2, arg0) << 0x18) != 0)) {
                 temp_v1_5 = (u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2;
@@ -141,6 +138,7 @@ block_26:
                         ((__repair_field_0 *)var_a0)->value = 0xDA380003;
                         goto block_34;
                     }
+                    return;
                 } else {
                     var_a0 = D_80115328;
                     ((__repair_field_0 *)var_a0)->value = 0xDA380003;
@@ -152,53 +150,51 @@ block_34:
                         if (D_8010A924 != 5) {
                             D_8010A924 = 5;
                             __repair_phase_storage.value = ((__repair_field_100 *)arg0)->value & 7;
-                            switch (__repair_phase_storage.value) {
-case 1:                 /* switch 1 */
-                            case 4:                 /* switch 1 */
+                            if (__repair_phase_storage.value == 1) goto emit_first_mode;
+                            if (__repair_phase_storage.value == 2) {
                                 var_v0 = D_80115328;
-                                D_80115328 = (s8 *) var_v0 + 8;
-                                var_v1_2 = __base_D_800B1D20;
-                                (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
-                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
-                                break;
-                            case 0: break;
-    /* switch 1; irregular */
-                            case 2:                 /* switch 1 */
-                                D_80115328 = (s8 *) var_v0 + 8;
-                                var_v0 = D_80115328;
+                                D_80115328 = var_v0 + 2;
                                 var_v1_2 = &D_800B1D48;
-                                ((__repair_field_0 *)var_v0)->value = 0xDE000000;
-                                (*(s32 **)((char *)(var_v0) + 4)) = var_v1_2;
-                                break;
+                                var_v0[0] = 0xDE000000;
+                                goto finish_first_mode;
+                            }
+                            if (__repair_phase_storage.value == 4) {
+emit_first_mode:
+                                var_v0 = D_80115328;
+                                D_80115328 = var_v0 + 2;
+                                var_v1_2 = &D_800B1D20;
+                                var_v0[0] = 0xDE000000;
+finish_first_mode:
+                                ((s32 **)var_v0)[1] = var_v1_2;
                             }
                         }
                         if (D_801032A0 != 4) {
                             D_801032A0 = 4;
                             temp_v1_9 = ((__repair_field_100 *)arg0)->value & 7;
-                            switch (temp_v1_9) {    /* switch 2; irregular */
-                            case 2:                 /* switch 2 */
-                            case 4:                 /* switch 2 */
-                                var_a1 = 0xFC119823;
-                                var_a0_2 = 0xFF32FF7F;
-                                D_80115328 += 8;
-                                ((__repair_field_0 *)D_80115328)->value = var_a1;
-                                (*(s32 *)((char *)(D_80115328) + 4)) = var_a0_2;
-                                break;
-                            case 1:                 /* switch 2 */
+                            if (temp_v1_9 == 1) {
                                 var_a1 = 0xFC121824;
-                                D_80115328 += 8;
+                                temp_v1_3 = D_80115328;
                                 var_a0_2 = 0xFF33FFFF;
-                                ((__repair_field_0 *)D_80115328)->value = var_a1;
-                                (*(s32 *)((char *)(D_80115328) + 4)) = var_a0_2;
-                                break;
+                                goto emit_combine;
+                            }
+                            if (temp_v1_9 == 2) goto emit_other_combine;
+                            if (temp_v1_9 == 4) {
+emit_other_combine:
+                                var_a1 = 0xFC119823;
+                                temp_v1_3 = D_80115328;
+                                var_a0_2 = 0xFF32FF7F;
+emit_combine:
+                                D_80115328 = temp_v1_3 + 2;
+                                temp_v1_3[0] = var_a1;
+                                temp_v1_3[1] = var_a0_2;
                             }
                         }
                         func_80032630(((__repair_record_var_s0*)var_s0)->field_3C);
                         if (D_8010A924 != 0) {
                             D_8010A924 = 0;
                             if (((__repair_field_100 *)arg0)->value & 3) {
-                                D_80115328 = (s8 *) var_v0_2 + 8;
                                 var_v0_2 = D_80115328;
+                                D_80115328 = var_v0_2 + 2;
                                 var_v1_3 = &D_800B1A00;
                                 ((__repair_field_0 *)var_v0_2)->value = 0xDE000000;
                             } else {
@@ -228,20 +224,10 @@ case 1:                 /* switch 1 */
                     }
                     goto block_59;
                 }
-            } else {
+            }
 block_59:
-                var_s0 = ((__repair_record_var_s0*)var_s0)->field_14;
-                if (var_s0 == NULL) {
-                    goto block_60;
-                }
-                goto loop_13;
-            }
-        } else {
-block_60:
-            var_s2 = (*(void **)((char *)(var_s2) + 0x1C));
-            if (var_s2 != NULL) {
-                goto loop_12;
-            }
+            var_s0 = ((__repair_record_var_s0*)var_s0)->field_14;
         }
+        var_s2 = (*(void **)((char *)(var_s2) + 0x1C));
     }
 }
