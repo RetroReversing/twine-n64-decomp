@@ -21,7 +21,7 @@ typedef struct {
     u16 id;
     s32 index,bank;
 } Template;
-extern char *func_80087100(s32);
+extern char *lookupDataEntry(s32);
 extern void func_800448A4(Text *, s32, s32);
 extern unsigned int strlen(const char *);
 void func_80016160(Text *dst, Template *src) {
@@ -31,11 +31,11 @@ void func_80016160(Text *dst, Template *src) {
         dst->state.word = (dst->state.word & ~0xfc) | ((src->style.word >> 29) << 2);
         dst->style = src->style.halves[1];
         if (src->id) {
-            dst->len = strlen(dst->text = func_80087100(src->id));
+            dst->len = strlen(dst->text = lookupDataEntry(src->id));
         } else if (src->bank >= 0) {
             func_800448A4(dst, src->index, src->bank);
         } else {
-            dst->text = func_80087100(3);
+            dst->text = lookupDataEntry(3);
             dst->len = 0;
         }
         dst->size = src->size;

@@ -10,7 +10,7 @@ s32 func_8002A7CC();
 s32 func_8002A9A8();
 s32 func_8002AC04();
 s32 func_8002ACB4();
-void *func_80087100();
+void *lookupDataEntry();
 s32 sprintf();
 extern s16 gMenuMode;
 extern s32 *gMenuList;
@@ -48,7 +48,7 @@ void menuPopulateItems(void) {
     if (textHandle) {
         { func_80022A30(gMenuParamC, 0x2D, 0x46, 0xDC, 0x7F); }
         itemTable = NULL;
-        formatTextEntry(textHandle, "%s", func_80087100(*(u16 *)(D_800E0ED4 + (gMenuSlot * 2)) | 0x7000));
+        formatTextEntry(textHandle, "%s", lookupDataEntry(*(u16 *)(D_800E0ED4 + (gMenuSlot * 2)) | 0x7000));
         itemCount = 0;
         switch (D_80102EE8) {                       /* irregular */
         case 0:
@@ -72,10 +72,10 @@ void menuPopulateItems(void) {
                 slotPtr = (itemIndex * 4) + D_800E0E40;
                 *slotPtr = slotHandle;
                 if (slotHandle != 0) {
-                    itemText = func_80087100((itemCounter + 0x4002) & 0xFFFF);
+                    itemText = lookupDataEntry((itemCounter + 0x4002) & 0xFFFF);
                     (*(s8 *)((char *)(itemText) + 0)) = 3;
                     (*(s8 *)((char *)(itemText) + 1)) = 0x6E;
-                    sprintf(itemText + 2, D_800D2A80, func_80087100((*(u16 *)((char *)itemTable + itemIndex * 8 + 6))));
+                    sprintf(itemText + 2, D_800D2A80, lookupDataEntry((*(u16 *)((char *)itemTable + itemIndex * 8 + 6))));
                     func_800160FC(*slotPtr, itemText, 0x40);
                     func_8002A7CC(gMenuList, *slotPtr, itemCounter & 0xFF, func_80018318(*slotPtr) & 0xFF);
                 }

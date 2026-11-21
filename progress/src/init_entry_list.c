@@ -10,7 +10,7 @@ s32 func_8002A700(s32 *);                   /* extern */
 s32 func_8002A7CC(s32 *, s32, s32, s32);    /* extern */
 s32 func_8002A9A8(s32 *, s32);          /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
-s32 func_80087100(u16);                             /* extern */
+s32 lookupDataEntry(u16);                             /* extern */
 s32 sprintf(s32, s32 *, s32);               /* extern */
 extern s16 gMenuMode;
 extern s32 *gMenuList;
@@ -49,8 +49,8 @@ extern s32 func_8001EAF0;
                 do {
                     if (entry_index < 0x23) {
                         if ((*(slot_ptr = &D_800E0E40[entry_index]) = func_800162BC(gMenuParamC)) != 0) {
-                            label_buf = func_80087100((entry_index + 0x4000) & 0xFFFF);
-                            sprintf(label_buf, &D_800D2A90, func_80087100(D_80100310[D_800B60E8].entries[group_entry].id));
+                            label_buf = lookupDataEntry((entry_index + 0x4000) & 0xFFFF);
+                            sprintf(label_buf, &D_800D2A90, lookupDataEntry(D_80100310[D_800B60E8].entries[group_entry].id));
                             func_800160FC(*slot_ptr, label_buf, 0x40);
                             func_8002A7CC(gMenuList, *slot_ptr, entry_index & 0xFF, func_80018318(*slot_ptr) & 0xFF);
                         }
@@ -60,7 +60,7 @@ extern s32 func_8001EAF0;
                 } while (group_entry < D_80100310[D_800B60E8].count);
             }
             if ((*(last_ptr = &D_800E0E40[entry_index]) = func_800162BC(gMenuParamC)) != 0) {
-                func_800160FC(*last_ptr, func_80087100(3), 0x40);
+                func_800160FC(*last_ptr, lookupDataEntry(3), 0x40);
                 func_8002A7CC(gMenuList, *last_ptr, entry_index & 0xFF, 1);
             }
             D_800B60E8++;

@@ -5,7 +5,7 @@ extern Vec3 gProbeDirAlt;
 extern void *D_80108F84;
 extern s32 Ray_TriangleIntersect;
 s32 Ray_CastObjects(void *, void *, Vec3 *, Vec3 *, Vec3 *, f32, s32, s32, s32);
-void func_800458C0(Vec4 *, void *, void *, void *);
+void buildPlaneFromPoints(Vec4 *, void *, void *, void *);
 s8 Probe_BoundsContainPoint(Vec3 *, void *);
 
 #define FLIP_VECTOR() do { \
@@ -55,7 +55,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4) {
         t2 = *(u8 *)((u8 *)pb + 2);
     }
     vbase = *(s32 *)((u8 *)b + 0x34);
-    func_800458C0(&r, (void *)((*(s32 *)((u8 *)b + 0x34)) + t0 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t1 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t2 * 12));
+    buildPlaneFromPoints(&r, (void *)((*(s32 *)((u8 *)b + 0x34)) + t0 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t1 * 12), (void *)((*(s32 *)((u8 *)b + 0x34)) + t2 * 12));
     arg3->x = r.x;
     arg3->y = r.y;
     arg3->z = r.z;

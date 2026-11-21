@@ -39,7 +39,7 @@ typedef struct {
 TextNode15F74 *func_80015F0C(void);
 void func_800165E0(TextNode15F74 *, s32);
 void func_800448A4(TextNode15F74 *, const char *, s32);
-const char *func_80087100(u16);
+const char *lookupDataEntry(u16);
 unsigned int strlen(const char *);
 extern s32 gTrackMarkerTable[];
 
@@ -64,7 +64,7 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
     node->flags.word = (node->flags.word & ~0xFC) | ((args->style.word >> 29) << 2);
     node->style = args->style.halves[1];
     if (args->stringId != 0) {
-        const char *text = func_80087100(args->stringId);
+        const char *text = lookupDataEntry(args->stringId);
         node->text = text;
         node->length = strlen(text);
     } else {
@@ -72,7 +72,7 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
         if (length >= 0) {
             func_800448A4(node, args->text, length);
         } else {
-            node->text = func_80087100(3);
+            node->text = lookupDataEntry(3);
             node->length = 0;
         }
     }

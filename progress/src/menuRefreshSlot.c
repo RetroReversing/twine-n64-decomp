@@ -26,7 +26,7 @@ M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
 void *func_8002A9A8(M2C_UNK *, s16);                /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
-s32 func_80087100(s32);                             /* extern */
+s32 lookupDataEntry(s32);                             /* extern */
 extern s16 gMenuMode;
 extern M2C_UNK *D_800B60E4;
 extern u8 gMenuParamC;
@@ -89,7 +89,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                     __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;
                     if (temp_v0_2 != 0) {
-                        func_800160FC(*__repair_phase_storage.pointer, func_80087100((var_s2 | 0x6000) & 0xFFFF), 0x40);
+                        func_800160FC(*__repair_phase_storage.pointer, lookupDataEntry((var_s2 | 0x6000) & 0xFFFF), 0x40);
                         func_8002A7CC(D_800B60E4, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
                     }
                     if (var_s1 == *((u16 *)&D_800E0ECC + gMenuSlot)) {

@@ -25,7 +25,7 @@ s32 func_80065684();
 s32 func_80070870();
 s32 func_800770E4();
 s32 func_80084D88();
-void *func_80087100();
+void *lookupDataEntry();
 s32 func_8011AA9C();
 s32 func_8011B368();
 s32 func_8011B3D8();
@@ -104,8 +104,8 @@ void *var_a2;
 
 void *var_a0;
 
-                        temp_s1 = func_80087100(temp_a0_3 & 0xFFFF);
-                        temp_s0_2 = func_80087100(0x1B1);
+                        temp_s1 = lookupDataEntry(temp_a0_3 & 0xFFFF);
+                        temp_s0_2 = lookupDataEntry(0x1B1);
                         var_a0 = temp_s1;
                         var_a1_2 = D_800D42E0;
                         var_a2 = temp_s0_2;
@@ -116,12 +116,12 @@ void *var_a2;
 
 void *var_a0;
 
-                        temp_s1_2 = func_80087100(temp_a0_3 & 0xFFFF);
+                        temp_s1_2 = lookupDataEntry(temp_a0_3 & 0xFFFF);
                         temp_s0_3 = ((func_80022DBC((s8) M2C_FIELD(temp_s3, u8 *, 0x182) & 0xFFFF) & 0xFFFF) * 0x18) + D_801001A4;
                         var_a0 = temp_s1_2;
                         var_a1_2 = D_800D42E8;
                         var_a2 = temp_s0_3;
-                        var_a3 = func_80087100(0x1B2);
+                        var_a3 = lookupDataEntry(0x1B2);
                     
                     sprintf(var_a0, var_a1_2, var_a2, var_a3);}
                     func_8011B368(D_800C7CAC, D_800C7CAC + 2, M2C_FIELD(temp_s3, u8 *, 0x182));

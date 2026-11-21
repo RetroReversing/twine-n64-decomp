@@ -25,7 +25,7 @@ s32 func_80063C7C(s8);                              /* extern */
 M2C_UNK func_80064318(void *, s8);                  /* extern */
 M2C_UNK func_80070ECC(void *, void *, s32, s32, s32, s32); /* extern */
 s32 func_80083E90(M2C_UNK, M2C_UNK);                /* extern */
-s16 func_80087100(u16);                             /* extern */
+s16 lookupDataEntry(u16);                             /* extern */
 M2C_UNK func_800AB9B0(void *);                      /* extern */
 M2C_UNK memset(s32, M2C_UNK, M2C_UNK);              /* extern */
 M2C_UNK sprintf(void *, M2C_UNK *, s16);            /* extern */
@@ -322,7 +322,7 @@ block_10:
                 sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x418), void **, 0x18), temp_s0, M2C_FIELD((temp_s2 + (temp_s6 * 2)), s16 *, 0x1BC));
                 sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x41C), void **, 0x18), temp_s0, (s16) M2C_FIELD((temp_s2 + ((s32) (func_80063C7C(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE)) << 0x10) >> 0xD)), s8 *, 0x1FF));
             }
-            sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x420), void **, 0x18), "%s", func_80087100(M2C_FIELD(((M2C_FIELD((temp_s2 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 8)), u8 *, 0x1FD) * 2) + sp1C), u16 *, 0x2C)));
+            sprintf(M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x420), void **, 0x18), "%s", lookupDataEntry(M2C_FIELD(((M2C_FIELD((temp_s2 + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xE) * 8)), u8 *, 0x1FD) * 2) + sp1C), u16 *, 0x2C)));
         }
         M2C_FIELD(temp_s2, s8 *, 0x18C) = 0x80;
         temp_fv1_6 = M2C_FIELD(arg0, f32 *, 0x74);
@@ -447,7 +447,7 @@ block_10:
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x20) = 0x20;
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), s16 *, 0x22) = (s16) var_v1_3;
                 temp_s0_3 = temp_s2 + 0x494;
-                sprintf(temp_s0_3, "%s", func_80087100(((s8) (u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) | 0x6000) & 0xFFFF));
+                sprintf(temp_s0_3, "%s", lookupDataEntry(((s8) (u8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) | 0x6000) & 0xFFFF));
                 M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x490), void **, 0x18) = temp_s0_3;
                 temp_s0_4 = M2C_FIELD(temp_s2, void **, 0x490);
                 M2C_FIELD(temp_s0_4, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_4, void **, 0x18));

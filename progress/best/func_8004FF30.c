@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800455CC(f32 *, s32, s32, f32 *);      /* extern */
-M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
+M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32);        /* extern */
 s32 func_80045B58(void *, s32, s32, s32, f32 *);    /* extern */
 f32 func_80047AB0(f32 *, f32 *);                    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
@@ -268,7 +268,7 @@ loop_3:
                                     var_s5 = (s8 *) var_fp + 4;
                                     do {
                                         temp_v1_3 = M2C_FIELD(temp_v1, s32 *, 0x34);
-                                        func_800458C0(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC));
+                                        buildPlaneFromPoints(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC));
                                         temp_fs0 = (sp90 * sp18) + (sp94 * sp1C) + (sp98 * sp20) + sp9C;
                                         var_v0 = 1;
                                         if (!(temp_fs0 > 0.0f)) {
@@ -373,7 +373,7 @@ block_37:
                                     var_s5_2 = var_fp_2 + 2;
                                     do {
                                         temp_v1_4 = M2C_FIELD(temp_v1, s32 *, 0x34);
-                                        func_800458C0(sp1B4, temp_v1_4 + (*var_fp_2 * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC));
+                                        buildPlaneFromPoints(sp1B4, temp_v1_4 + (*var_fp_2 * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, -1) * 0xC), temp_v1_4 + (M2C_FIELD(var_s5_2, u8 *, 0) * 0xC));
                                         temp_fs0_3 = (sp90 * sp18) + (sp94 * sp1C) + (sp98 * sp20) + sp9C;
                                         var_v0_4 = 1;
                                         if (!(temp_fs0_3 > 0.0f)) {
@@ -528,7 +528,7 @@ loop_81:
                                     temp_s1_4 = M2C_FIELD(temp_s4, s32 *, 0x3C) + (temp_v1_6 * 6);
                                     if ((sp1DE & temp_a0) && (sp1E6 & temp_a0)) {
                                         temp_v1_7 = M2C_FIELD(temp_s4, s32 *, 0x34);
-                                        func_800458C0(sp1EC, temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC));
+                                        buildPlaneFromPoints(sp1EC, temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 0) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 2) * 0xC), temp_v1_7 + (M2C_FIELD(temp_s1_4, u16 *, 4) * 0xC));
                                         temp_fs0_5 = (spC8 * sp28) + (spCC * sp2C) + (spD0 * sp30) + spD4;
                                         var_v0_7 = 1;
                                         if (!(temp_fs0_5 > 0.0f)) {
@@ -644,7 +644,7 @@ block_106:
                                         temp_s1_6 = M2C_FIELD(temp_s4, s32 *, 0x3C) + (temp_a0_2 * 3);
                                         if ((sp1DE & temp_v1_9) && (sp1E6 & temp_v1_9)) {
                                             temp_v1_10 = M2C_FIELD(temp_s4, s32 *, 0x34);
-                                            func_800458C0(sp1EC, temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC));
+                                            buildPlaneFromPoints(sp1EC, temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 0) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 1) * 0xC), temp_v1_10 + (M2C_FIELD(temp_s1_6, u8 *, 2) * 0xC));
                                             temp_fs0_7 = (spC8 * sp28) + (spCC * sp2C) + (spD0 * sp30) + spD4;
                                             var_v0_10 = 1;
                                             if (!(temp_fs0_7 > 0.0f)) {

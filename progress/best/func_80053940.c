@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 f32 func_80045590(void *, void *);                  /* extern */
 M2C_UNK func_80045764(f32 *, f32 *);                /* extern */
-M2C_UNK func_800458C0(f32 *, void *, void *, void *); /* extern */
+M2C_UNK buildPlaneFromPoints(f32 *, void *, void *, void *); /* extern */
 s32 func_80045B58(void *, void *, void *, void *, f32 *); /* extern */
 M2C_UNK func_80047E4C(void *, f32 *, M2C_UNK *);    /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
@@ -261,7 +261,7 @@ block_21:
     temp_v1_3 = *(u16 *)(((var_s4_2) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                             if ((sp12E & temp_v1_3) && (sp136 & temp_v1_3)) {
                                                 temp_v1_4 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                func_800458C0(sp13C, temp_v1_4 + (*var_s6 * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, 0) * 0xC));
+                                                buildPlaneFromPoints(sp13C, temp_v1_4 + (*var_s6 * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s3, u16 *, 0) * 0xC));
                                                 temp_fs0_2 = (spA0[0] * sp28[0]) + (spA0[1] * sp28[1]) + (spA8[0] * sp28[2]) + spA8[1];
                                                 var_v0_2 = 1;
                                                 if (!(temp_fs0_2 < arg5)) {
@@ -311,7 +311,7 @@ block_21:
                                             temp_v1_6 = *(u16 *)(((var_s4_2 & 0xFFFF) * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                             if ((sp12E & temp_v1_6) && (sp136 & temp_v1_6)) {
                                                 temp_v1_7 = M2C_FIELD(temp_s1, s32 *, 0x34);
-                                                func_800458C0(sp13C, temp_v1_7 + (*var_s6_2 * 0xC), temp_v1_7 + (M2C_FIELD(var_s3_2, u8 *, -1) * 0xC), temp_v1_7 + (M2C_FIELD(var_s3_2, u8 *, 0) * 0xC));
+                                                buildPlaneFromPoints(sp13C, temp_v1_7 + (*var_s6_2 * 0xC), temp_v1_7 + (M2C_FIELD(var_s3_2, u8 *, -1) * 0xC), temp_v1_7 + (M2C_FIELD(var_s3_2, u8 *, 0) * 0xC));
                                                 temp_fs0_3 = (spA0[0] * sp28[0]) + (spA0[1] * sp28[1]) + (spA8[0] * sp28[2]) + spA8[1];
                                                 var_v0_3 = 1;
                                                 if (!(temp_fs0_3 < arg5)) {
@@ -425,7 +425,7 @@ loop_77:
                                 temp_s3_2 = temp_a3 + (M2C_FIELD(temp_a2, u16 *, 0) * 0xC);
                                 temp_s1_3 = temp_a3 + (M2C_FIELD(temp_a2, u16 *, 2) * 0xC);
                                 temp_s0 = temp_a3 + (M2C_FIELD(temp_a2, u16 *, 4) * 0xC);
-                                func_800458C0((f32 *) sp98, temp_s3_2, temp_s1_3, temp_s0);
+                                buildPlaneFromPoints((f32 *) sp98, temp_s3_2, temp_s1_3, temp_s0);
                                 if ((M2C_FIELD(var_s2, f32 *, 0x30) == 0.0f) && (M2C_FIELD(var_s2, f32 *, 0x38) == 0.0f)) {
                                     temp_fv1 = (M2C_FIELD(temp_s3_2, f32 *, 4) + M2C_FIELD(temp_s1_3, f32 *, 4) + M2C_FIELD(temp_s0, f32 *, 4)) * 0.33333334f;
                                     temp_fv0_4 = temp_fs2 - arg6;
@@ -504,7 +504,7 @@ loop_106:
                             temp_s3_3 = temp_a3_2 + (M2C_FIELD(temp_a2_2, u8 *, 0) * 0xC);
                             temp_s1_4 = temp_a3_2 + (M2C_FIELD(temp_a2_2, u8 *, 1) * 0xC);
                             temp_s0_2 = temp_a3_2 + (M2C_FIELD(temp_a2_2, u8 *, 2) * 0xC);
-                            func_800458C0((f32 *) sp98, temp_s3_3, temp_s1_4, temp_s0_2);
+                            buildPlaneFromPoints((f32 *) sp98, temp_s3_3, temp_s1_4, temp_s0_2);
                             if ((M2C_FIELD(var_s2, f32 *, 0x30) == 0.0f) && (M2C_FIELD(var_s2, f32 *, 0x38) == 0.0f)) {
                                 temp_fv1_4 = (M2C_FIELD(temp_s3_3, f32 *, 4) + M2C_FIELD(temp_s1_4, f32 *, 4) + M2C_FIELD(temp_s0_2, f32 *, 4)) * 0.33333334f;
                                 temp_fv0_6 = temp_fs2 - arg6;

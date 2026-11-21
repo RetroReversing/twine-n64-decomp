@@ -1,4 +1,4 @@
-char *func_80087100(s32);
+char *lookupDataEntry(s32);
 void *memset(void *, s32, s32);
 s32 sprintf(char *, const char *, ...);
 extern u8 D_800B2750[];
@@ -12,7 +12,7 @@ void func_800103B0(u8 *dst, s8 *src, u8 len) {
             break;
         }
         if ((u8)src[i] >= 0x42) {
-            sprintf(dst, func_80087100(0x3003));
+            sprintf(dst, lookupDataEntry(0x3003));
             return;
         }
     }

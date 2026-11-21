@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
+M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32);        /* extern */
 void *func_80047B44(void **, f32 *, f32 *, f32 *);  /* extern */
 M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
 s32 func_800487F0(void *, void *, f32);             /* extern */
@@ -403,7 +403,7 @@ if (var_a0 != NULL) goto __repair_rows;
                                                     var_a2 = M2C_FIELD(temp_v1_10, u8 *, 1) * 3;
                                                     var_v0 = (u16) M2C_FIELD(temp_v1_10, u8 *, 2);
                                                 }
-                                                func_800458C0(&spF8, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0 * 0xC));
+                                                buildPlaneFromPoints(&spF8, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0 * 0xC));
                                                 M2C_FIELD(arg7, f32 *, 0) = spF8;
                                                 M2C_FIELD(arg7, f32 *, 4) = spFC;
                                                 M2C_FIELD(arg7, f32 *, 8) = sp100;

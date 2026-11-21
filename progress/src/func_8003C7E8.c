@@ -20,7 +20,7 @@ s32 isSlotActiveById(s32 key) {
 
 extern void formatTextEntry(void *, s32, ...);
 extern void updateActiveMenuState(void);
-extern char *func_80087100(s32);
+extern char *lookupDataEntry(s32);
 extern s16 D_80109B9C;
 extern void *gMenuState;
 extern u8 D_8010A4FF;
@@ -36,7 +36,7 @@ void func_800224E4(void) {
         D_80109B9C = !flag;
         id = 0x1B3;
         if (flag) id = 0x1D;
-        text = func_80087100(id);
+        text = lookupDataEntry(id);
         buffer = *(char **)((u8 *)gMenuState + 0x18);
         formatTextEntry(buffer + 0x28, (s32)D_800D2AA0, text);
     }

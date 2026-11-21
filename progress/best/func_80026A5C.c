@@ -2,7 +2,7 @@
 
 void *func_800162BC(u8);                            /* extern */
 s32 func_800448A4(void *, u32, s32);            /* extern */
-s32 func_80087100(u16);                             /* extern */
+s32 lookupDataEntry(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 extern s32 D_800BD640;
 extern u8 gMenuParamC;
@@ -93,7 +93,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
         if ((s32)var_a0 == 0) {
             var_a0 = 3;
         }
-        (*(s32 *)((char *)(temp_v0) + 0x18)) = func_80087100(var_a0);
+        (*(s32 *)((char *)(temp_v0) + 0x18)) = lookupDataEntry(var_a0);
         (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen((*(s32 *)((char *)(temp_v0) + 0x18)));
     }
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x8000) {

@@ -9,7 +9,7 @@ void formatTextEntry(void *, char *, s32);
 s16 func_8002B278(void *);
 s32 func_8002B248(void *);
 void func_8003099C(u8, u8);
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 
 extern u8 D_800BD690;
 extern u8 D_800BD9A0[];
@@ -116,30 +116,30 @@ void func_8001BE64(void) {
             var_v0_3 = func_8002B248(temp_s0);
         
         formatTextEntry(temp_s3, D_800D2864, var_v0_3);} else {
-            var_v0_3 = func_80087100(0x5F);
+            var_v0_3 = lookupDataEntry(0x5F);
         
         formatTextEntry(temp_s3, D_800D2864, var_v0_3);}
         if ((*__base_D_801002A8) != 0) {
             formatTextEntry(var_s1, D_800D2858, (*__base_D_801002A8));
         } else {
-            var_v0_4 = func_80087100(0x5F);
+            var_v0_4 = lookupDataEntry(0x5F);
             formatTextEntry(var_s1, D_800D2864, var_v0_4);
         }
         var_a0 = 0x67;
         if (gBorderFlipFlag != 0) {
             var_a0 = 0x68;
         }
-        formatTextEntry(temp_s5, D_800D2864, func_80087100(var_a0));
+        formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0));
         var_a0 = 0xA;
         if (D_801002D5 != 0) {
             var_a0 = 9;
         }
-        formatTextEntry(temp_s4, D_800D2864, func_80087100(var_a0));
+        formatTextEntry(temp_s4, D_800D2864, lookupDataEntry(var_a0));
         switch (gPauseFlag) {
-        case 0: var_v0_4 = func_80087100(0xA); break;
-        case 1: var_v0_4 = func_80087100(0x2E2); break;
-        case 2: var_v0_4 = func_80087100(0x2E3); break;
-        default: var_v0_4 = func_80087100(0x2E4); break;
+        case 0: var_v0_4 = lookupDataEntry(0xA); break;
+        case 1: var_v0_4 = lookupDataEntry(0x2E2); break;
+        case 2: var_v0_4 = lookupDataEntry(0x2E3); break;
+        default: var_v0_4 = lookupDataEntry(0x2E4); break;
         }
         formatTextEntry(temp_s2, D_800D2864, var_v0_4);
         if (gSaveKeyRelaxed != 0) {

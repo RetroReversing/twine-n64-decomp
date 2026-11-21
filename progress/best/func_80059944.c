@@ -13,7 +13,7 @@ s32 func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80084338(u16, void *);                     /* extern */
 s32 updateActorTrackingState(void *, s32);                 /* extern */
 s32 func_8008622C(u16, f32, f32);                   /* extern */
-s32 func_80087100(u16);                             /* extern */
+s32 lookupDataEntry(u16);                             /* extern */
 extern f32 D_800C43A0;
 extern s32 *gProbeObjectList;
 extern u8 D_800CA338;
@@ -247,7 +247,7 @@ block_66:
         goto block_66;
     case 20:                                        /* switch 1 */
         if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x100800) == 0x800) {
-            var_a2 = func_80087100((*(u16 *)((char *)(temp_s0) + 0x48)));
+            var_a2 = lookupDataEntry((*(u16 *)((char *)(temp_s0) + 0x48)));
 block_85:
             func_80073AF8(0, gTrackMarkerTable, var_a2, -1, 0, 0, 0, 0x3C);
             func_80084338(9U, arg0 + 0x24);
@@ -301,7 +301,7 @@ block_227:
                     if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x100800) == 0x800) {
                         temp_v0_4 = (s16) (*(u16 *)((char *)(temp_s0) + 0x48));
                         if (temp_v0_4 != -1) {
-                            var_a2 = func_80087100(temp_v0_4 & 0xFFFF);
+                            var_a2 = lookupDataEntry(temp_v0_4 & 0xFFFF);
                             goto block_85;
                         }
                     }

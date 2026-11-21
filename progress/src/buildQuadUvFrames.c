@@ -1,4 +1,4 @@
-s32 func_800458C0(void *, s32 *, f32 *, f32 *);
+s32 buildPlaneFromPoints(void *, s32 *, f32 *, f32 *);
 typedef struct { s32 x, y, z; } Vec3i;
 typedef struct {
     Vec3i vector;
@@ -24,8 +24,8 @@ void buildQuadUvFrames(void *arg0, void *arg1) {
     local.d[0] = (*(f32 *)((char *)((*(void **)((char *)arg0 + 0x20))) + 4)) / (*(f32 *)((char *)arg1 + 0x68));
     local.d[1] = (*(f32 *)((char *)((*(void **)((char *)arg0 + 0x20))) + 0xC)) / (*(f32 *)((char *)arg1 + 0x6C));
     local.d[2] = 1.0f;
-    func_800458C0((*(void **)((char *)arg0 + 0x20)) + 0x10, (s32 *)&local.vector, local.a, local.b);
-    func_800458C0((*(void **)((char *)arg0 + 0x20)) + 0x20, (s32 *)&local.vector, local.c, local.d);
-    func_800458C0((*(void **)((char *)arg0 + 0x20)) + 0x30, (s32 *)&local.vector, local.a, local.c);
-    func_800458C0((*(void **)((char *)arg0 + 0x20)) + 0x40, (s32 *)&local.vector, local.b, local.d);
+    buildPlaneFromPoints((*(void **)((char *)arg0 + 0x20)) + 0x10, (s32 *)&local.vector, local.a, local.b);
+    buildPlaneFromPoints((*(void **)((char *)arg0 + 0x20)) + 0x20, (s32 *)&local.vector, local.c, local.d);
+    buildPlaneFromPoints((*(void **)((char *)arg0 + 0x20)) + 0x30, (s32 *)&local.vector, local.a, local.c);
+    buildPlaneFromPoints((*(void **)((char *)arg0 + 0x20)) + 0x40, (s32 *)&local.vector, local.b, local.d);
 }

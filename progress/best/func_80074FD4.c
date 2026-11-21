@@ -2,7 +2,7 @@ typedef union { u32 word; u8 bytes[4]; } TextColor;
 typedef struct { u8 pad[16]; TextColor color; u32 other; char *volatile string; s16 length; } Text;
 typedef struct { u32 pad; Text *text; } Widget;
 typedef struct { u8 pad[0x6c]; Widget *widget; u8 rest[0xa]; s16 phase; } Panel;
-extern char *func_80087100(s32);
+extern char *lookupDataEntry(s32);
 extern u32 strlen(const char *);
 
 void func_80074FD4(Panel *arg0) {
@@ -27,12 +27,12 @@ void func_80074FD4(Panel *arg0) {
         next = adjusted;
         if (adjusted < 0) {
             ((Panel *)carrier)->phase = 0;
-            first = func_80087100(0xf8);
+            first = lookupDataEntry(0xf8);
             next = 0;
             id = 0xf8;
             if (text->string == first)
                 id = 0x2ab;
-            text->string = func_80087100(id);
+            text->string = lookupDataEntry(id);
             text->length = strlen(text->string);
         }
         break;

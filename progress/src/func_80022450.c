@@ -1,6 +1,6 @@
 extern void updateActiveMenuState(void);
 extern void formatTextEntry(void *, const char *, ...);
-extern char *func_80087100(int);
+extern char *lookupDataEntry(int);
 extern unsigned char D_801002F2;
 extern char *gMenuState;
 void func_80022450(void) {
@@ -13,6 +13,6 @@ void func_80022450(void) {
  case 2: id=0x27; break;
  default: return;
  }
- formatTextEntry(*(char **)(gMenuState+0x18)+0x28, "%s", func_80087100(id));
+ formatTextEntry(*(char **)(gMenuState+0x18)+0x28, "%s", lookupDataEntry(id));
  }
 }

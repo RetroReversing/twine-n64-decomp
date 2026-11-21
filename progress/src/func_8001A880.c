@@ -17,7 +17,7 @@ M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 s32 func_8002B248(u32 *);                           /* extern */
 s32 func_8002B278(u32 *);                           /* extern */
-s32 func_80087100(M2C_UNK);                         /* extern */
+s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern u32 D_801002C4;
 extern u32 D_801002F4;
 extern void *gMenuState;
@@ -56,7 +56,7 @@ void func_8001A880(void) {
         }
         D_801002C4 = var_v0;
         if ((func_8002B278(&D_801002C4) << 0x10) == 0) {
-            var_v0_2 = func_80087100(0x5F);
+            var_v0_2 = lookupDataEntry(0x5F);
         
         formatTextEntry(M2C_FIELD(gMenuState, s32 *, 0x18) + 0x28, D_800D2864, var_v0_2);} else {
             var_v0_2 = func_8002B248(&D_801002C4);

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8000A894(M2C_UNK);             /* extern */
 M2C_UNK formatTextEntry(void *, char *, ...);      /* extern */
-s32 func_80087100(M2C_UNK);                         /* extern */
+s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern void *gMenuState;
 
 void func_800295F0(s32 arg0) {
@@ -59,7 +59,7 @@ void func_800295F0(s32 arg0) {
             if ((var_s1 << 0x10) != 0) {
                 var_a0 = 9;
             }
-            formatTextEntry(temp_s3, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s3, "%s", lookupDataEntry(var_a0));
         }
     }
 }

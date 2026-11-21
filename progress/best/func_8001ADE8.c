@@ -29,7 +29,7 @@ void *func_8002BA6C();
 s32 getKeyEntryFlag();
 s32 actorLinkToSurface();
 s32 func_80044D28();
-void *func_80087100();
+void *lookupDataEntry();
 s32 sprintf();
 extern void *volatile gPickupActor;
 extern char D_800BD640[];
@@ -119,13 +119,13 @@ s32 __repair_phase_var_a0;
                 temp_v0 = func_800162BC(gMenuParamC);
                 *(s32 *)((var_s0 * 4) + (s32)D_80102F48) = temp_v0;
                 if (temp_v0) {
-                    temp_s1 = func_80087100((var_s2 + 0x4008) & 0xFFFF);
+                    temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
                     temp_s0 = temp_a0_2 & 0xFFFF;
                     if (temp_s0 < 4U) {
-                        var_a2 = func_80087100(0xAD);
+                        var_a2 = lookupDataEntry(0xAD);
                         sprintf(temp_s1, "%s %d", var_a2, temp_s0 + 1);
                     } else {
-                        var_a2 = func_80087100(0x158);
+                        var_a2 = lookupDataEntry(0x158);
                         sprintf(temp_s1, "%s %d", var_a2, temp_s0 - 3);
                     }
                     func_800160FC(*(((var_s2 & 0xFFFF) * 4) + D_80102F48), temp_s1, 0x40);
@@ -157,27 +157,27 @@ s32 __repair_phase_var_a0;
         switch (temp_v1_2) {
         case 0:
             var_a0 = 0xA;
-            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(var_a0));
             break;
         case 1:
             var_a0 = 9;
             {
-            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(var_a0));break;}
         case 2:
             var_a0 = 0x6B;
             {
-            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));break;}
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(var_a0));break;}
         case 3:
             var_a0 = 0x6C;
-            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(var_a0));
             break;
         case 4:
             var_a0 = 0x296;
-            formatTextEntry(temp_s5, "%s", func_80087100(var_a0));
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(var_a0));
             break;
         case 5:
             __repair_phase_var_a0 = 0x297;
-            formatTextEntry(temp_s5, "%s", func_80087100(__repair_phase_var_a0));
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(__repair_phase_var_a0));
             break;
         }
         if ((*(u8 *)((char *)(gMenuState) + 8)) != 1) {
@@ -225,7 +225,7 @@ s32 __repair_phase_var_a0;
             func_80025F78(temp_s5 - 0x28, 0xD);
             func_80025F78(temp_s5, 0xD);
             formatTextEntry(temp_s6, "%d", (void *) (*(u16 *)(D_800BF688 + (gSaveSlotInfo[D_801002AD].f0 * 0xC)) * 5));
-            formatTextEntry(temp_s5, "%s", func_80087100(0x13));
+            formatTextEntry(temp_s5, "%s", lookupDataEntry(0x13));
         } else {
             (*(s8 *)((char *)(temp_s7) + -1)) = 3;
             (*(s8 *)((char *)(temp_fp) + -2)) = 5;

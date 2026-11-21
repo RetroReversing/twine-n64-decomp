@@ -27,7 +27,7 @@ s32 func_8002A7CC();
 s32 func_8002A9A8();
 s32 func_8002AC04();
 u8 func_8002D13C();
-s32 func_80087100();
+s32 lookupDataEntry();
 s32 sprintf();
 extern char D_800D285C[];
 extern char D_800D2864[];
@@ -121,14 +121,14 @@ void func_8001D738(void) {
         if (temp_v0 != 0) {
             var_a0 = 0xF;
         }
-        do { formatTextEntry(temp_s6, D_800D2864, func_80087100(var_a0)); } while (0);
+        do { formatTextEntry(temp_s6, D_800D2864, lookupDataEntry(var_a0)); } while (0);
         temp_v0_2 = *(D_80115089 + (D_800B7CF0 * 0xA0));
         D_8010D454 = temp_v0_2;
         var_a0_2 = 0xA;
         if (temp_v0_2 != 0) {
             var_a0_2 = 9;
         }
-        formatTextEntry(temp_s2, D_800D2864, func_80087100(var_a0_2));
+        formatTextEntry(temp_s2, D_800D2864, lookupDataEntry(var_a0_2));
         D_8010D2B1 = *(D_8011508A + (D_800B7CF0 * 0xA0));
         temp_v1_2 = D_80100198[D_800B7CF0].f0;
         temp_a0 = var_s1 - 0x28;
@@ -140,7 +140,7 @@ void func_8001D738(void) {
             if (D_8010D2B1 != 0) {
                 var_a0_3 = 0x12;
             }
-            formatTextEntry(var_s1, D_800D2864, func_80087100(var_a0_3));
+            formatTextEntry(var_s1, D_800D2864, lookupDataEntry(var_a0_3));
         }
         temp_v0_3 = *(D_80115090 + (D_800B7CF0 * 0xA0));
         D_80102EB0 = temp_v0_3;
@@ -148,21 +148,21 @@ void func_8001D738(void) {
         if (temp_v0_3 != 0) {
             var_a0_4 = 9;
         }
-        formatTextEntry(temp_s3, D_800D2864, func_80087100(var_a0_4));
+        formatTextEntry(temp_s3, D_800D2864, lookupDataEntry(var_a0_4));
         temp_v0_4 = *(D_8011508D + (D_800B7CF0 * 0xA0));
         D_801007C1 = temp_v0_4;
         var_a0_5 = 0xA;
         if (temp_v0_4 != 0) {
             var_a0_5 = 9;
         }
-        do { formatTextEntry(temp_s7, D_800D2864, func_80087100(var_a0_5)); } while (0);
+        do { formatTextEntry(temp_s7, D_800D2864, lookupDataEntry(var_a0_5)); } while (0);
         temp_v0_5 = *(D_8011508C + (D_800B7CF0 * 0xA0));
         D_8010A394 = temp_v0_5;
         var_a0_6 = 0xA;
         if (temp_v0_5 != 0) {
             var_a0_6 = 9;
         }
-        formatTextEntry(temp_s4, D_800D2864, func_80087100(var_a0_6));
+        formatTextEntry(temp_s4, D_800D2864, lookupDataEntry(var_a0_6));
         D_80108960 = *(D_8011508F + (D_800B7CF0 * 0xA0));
         temp_v1_3 = D_80100198[D_800B7CF0].f0;
         if ((s32) temp_v1_3 >= 0) {
@@ -191,7 +191,7 @@ block_31:
             if (D_80108960 != 0) {
                 var_a0_8 = 9;
             }
-            formatTextEntry(temp_s0, D_800D2864, func_80087100(var_a0_8));
+            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0_8));
         }
         temp_v0_6 = *(D_8011508E + (D_800B7CF0 * 0xA0));
         D_80104310 = temp_v0_6;
@@ -200,7 +200,7 @@ block_31:
             var_a0_9 = 9;
         }
         var_s1_2 = 0;
-        formatTextEntry(temp_s5, D_800D2864, func_80087100(var_a0_9));
+        formatTextEntry(temp_s5, D_800D2864, lookupDataEntry(var_a0_9));
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x25, 0xB4, 0x34, 0xE, 1, &func_80022C04, &func_8001AC88);
         func_80022A30(gMenuParamC, 0x23, 0x2C, 0x33, 0x9A);
         temp_v0_7 = func_8002D13C(0xA3);
@@ -211,13 +211,13 @@ block_31:
                 temp_v0_8 = func_800162BC(gMenuParamC);
                 *(s32 *)((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
                 if (temp_v0_8 != 0) {
-                    temp_s5 = func_80087100((var_s1_2 + 0x400D) & 0xFFFF);
+                    temp_s5 = lookupDataEntry((var_s1_2 + 0x400D) & 0xFFFF);
                     if (temp_s0_2 < 4U) {
-                        var_a2 = func_80087100(0xAD);
+                        var_a2 = lookupDataEntry(0xAD);
                         var_a3 = temp_s0_2 + 1;
                     
                     sprintf(temp_s5, D_800D285C, var_a2, var_a3);} else {
-                        var_a2 = func_80087100(0x158);
+                        var_a2 = lookupDataEntry(0x158);
                         var_a3 = temp_s0_2 - 3;
                     
                     sprintf(temp_s5, D_800D285C, var_a2, var_a3);}

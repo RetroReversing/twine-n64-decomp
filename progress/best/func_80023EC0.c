@@ -8,7 +8,7 @@ extern u8 D_80107EC0;
 extern SaveHeader ***func_8002A980(void *);
 extern SaveHeader ***func_8002A920(void *, s8);
 extern s8 *func_800AB950(s8 *, s8 *);
-extern s8 *func_80087100(s32);
+extern s8 *lookupDataEntry(s32);
 extern s32 func_8001226C(u8);
 
 s32 func_80023EC0(s32 arg0) {
@@ -45,7 +45,7 @@ s32 func_80023EC0(s32 arg0) {
     case 2:
         if (func_800AB950(name, "TWINE") == NULL ||
             func_8001226C(D_80107EC0) == 0) {
-            message = func_80087100(0x3004);
+            message = lookupDataEntry(0x3004);
             if (func_800AB950((*header)->name, message) == NULL) {
                 return arg0 | 0x1000;
             }
@@ -65,14 +65,14 @@ s32 func_80023EC0(s32 arg0) {
             if ((*header)->name == NULL) {
                 return result | 0x1000;
             }
-            message = func_80087100(0x3004);
+            message = lookupDataEntry(0x3004);
             if (func_800AB950((*header)->name, message) != NULL) {
                 return result | 0x1000;
             }
         }
         return result;
     case 3:
-        message = func_80087100(0x3004);
+        message = lookupDataEntry(0x3004);
         if (func_800AB950((*header)->name, message) == NULL) {
             return result;
         }

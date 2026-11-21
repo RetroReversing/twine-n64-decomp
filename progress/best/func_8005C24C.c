@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A894();
 s32 func_8005B5A8();
 s32 func_80073AF8();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern s32 D_800C4450;
 extern char D_800C4458[];
 extern char D_800C4462[];
@@ -45,11 +45,11 @@ void func_8005C24C(void) {
                         M2C_FIELD(D_80108788, s16 *, 0x7C) = 1;
                         func_8000A894(0x110);
                         var_s2 += 4;
-                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
+                        func_80073AF8(0, D_80109688, lookupDataEntry(*(u16 *)(D_800C4462 + temp_s0)), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
                         M2C_FIELD(D_80108788, s32 *, 0x60) |= 0x08000000;
                     } else {
-                        func_80073AF8(0, D_80109688, func_80087100(*(u16 *)(D_800C446A + temp_s0), D_80108788, var_a2), -1, -1, 1, 0, 0, 3, 0, 0);
+                        func_80073AF8(0, D_80109688, lookupDataEntry(*(u16 *)(D_800C446A + temp_s0), D_80108788, var_a2), -1, -1, 1, 0, 0, 3, 0, 0);
                         var_a2 = 1;
                         goto block_9;
                     }

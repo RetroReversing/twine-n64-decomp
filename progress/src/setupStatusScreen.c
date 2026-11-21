@@ -14,7 +14,7 @@ s32 getCurrentMapIdx();
 s32 func_80030C7C();
 s32 func_80030D40();
 s32 func_800316B8();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern s16 D_800B5B24;
 extern s16 D_800B5B26;
 extern s8 D_800BD690;
@@ -59,13 +59,13 @@ typedef struct { unsigned char pad_0[12]; unsigned short field_C; unsigned char 
     if (((mapNameEntry != NULL) & (headerEntry != (s32)NULL)) && ((selectedEntry != (short)NULL) & (labelEntry != NULL)) && ((int)infoEntry != NULL)) {
         D_800B5B24 = 0;
         D_800B5B26 = 1;
-        formatTextEntry(mapNameEntry, "%s", func_80087100(getCurrentMapIdx() & 0xFFFF));
+        formatTextEntry(mapNameEntry, "%s", lookupDataEntry(getCurrentMapIdx() & 0xFFFF));
         msgIndex = func_80030C7C() & 0xFFFF;
         if ((*(u8 *)((char *)(&func_8011A7C8) + 0x3C)) != 0) {
             msgIndex = 0x9E;
         }
-        msgText = func_80087100(msgIndex);
-        formatTextEntry(infoEntry, "%s : %s", msgText, func_80087100((func_800316B8() + 0x72) & 0xFFFF));
+        msgText = lookupDataEntry(msgIndex);
+        formatTextEntry(infoEntry, "%s : %s", msgText, lookupDataEntry((func_800316B8() + 0x72) & 0xFFFF));
         if (selectedEntry != NULL) {
             (((__repair_record_temp_s1*)selectedEntry)->field_C) &= 0xFFF0;
             if (func_80030D40() != 5) {

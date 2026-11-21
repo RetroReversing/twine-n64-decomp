@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 _Printf();
-s32 func_80087100();
+s32 lookupDataEntry();
 s16 strlen();
 extern s32 func_80025D50;
 
@@ -24,9 +24,9 @@ void formatTextEntry(void *arg0, s32 arg1, ...) {
 
     if (arg0 != NULL) {
         __repair_ap = (char *) __builtin_next_arg(arg1);
-        temp_v0 = _Printf(&func_80025D50, func_80087100(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, __repair_ap);
+        temp_v0 = _Printf(&func_80025D50, lookupDataEntry(M2C_FIELD(arg0, u16 *, 0), arg1), arg1, __repair_ap);
         if (temp_v0 >= 0) {
-            *(s8 *)(func_80087100(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
+            *(s8 *)(lookupDataEntry(M2C_FIELD(arg0, u16 *, 0)) + temp_v0) = 0;
         }
         temp_s0 = M2C_FIELD(arg0, void **, 8);
         if (temp_s0 != NULL) {

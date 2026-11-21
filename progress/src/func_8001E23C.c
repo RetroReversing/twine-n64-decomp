@@ -18,7 +18,7 @@ void *func_8002638C();
 s32 func_8002A644();
 s32 func_8002A9A8();
 s32 func_8002AC04();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern s8 D_800BD690;
 extern char D_800BD928[];
 extern char D_80100198[];
@@ -47,7 +47,7 @@ void func_8001E23C(void) {
         }
         __repair_offset = __base_D_801002AD - 0x115;
         M2C_FIELD(temp_v0, void **, -0x18) = (void *) (temp_v1 + __repair_offset);
-        formatTextEntry(temp_v0, D_800D2864, func_80087100((unsigned short)(var_s1 + 0x96)));
+        formatTextEntry(temp_v0, D_800D2864, lookupDataEntry((unsigned short)(var_s1 + 0x96)));
         func_8002A644(D_8010A488, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &func_80022C04, &func_8001AC88);
         func_80021CA0(var_s1);
         func_8002A9A8(D_8010A488, (*__base_D_801002AD));

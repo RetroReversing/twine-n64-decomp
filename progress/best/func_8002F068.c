@@ -9,7 +9,7 @@ s32 func_80027CE0(s32);
 void func_8002B050(void *, s32, DisplayItem *);
 void func_8002B150(void *, s32, s8);
 void func_8002FBD4(void *, s16);
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 extern u32 D_800BD640[];
 extern u8 D_800BD8C4[];
 extern u16 D_800BFC92;
@@ -32,7 +32,7 @@ void func_8002F068(void *unused, void *arg1)
     DisplayItem *current;
 
     if (!(u8)func_80027CE0(0x23) && !(u8)func_80027CE0(0x2A) && !D_80102EDE) {
-        asset = func_80087100(0x2E9);
+        asset = lookupDataEntry(0x2E9);
         mode = D_800BFC92 & 1;
         x = mode ? 0xA0 : 0xDC;
         y = mode ? 0xB0 : 0x45;
@@ -61,7 +61,7 @@ void func_8002F068(void *unused, void *arg1)
         D_800BFC94 = 0;
         gMenuState->display = D_800BD8C4;
         func_800278AC(1, D_80102EBC & ~255, sActiveMenu->value);
-        func_80027408(func_80087100(3), 0x40, 0xA0, 0xCC);
+        func_80027408(lookupDataEntry(3), 0x40, 0xA0, 0xCC);
         func_8002B150(D_800E1584, 0, 0);
         func_8002FBD4(arg1, 4);
     }

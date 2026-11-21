@@ -2,7 +2,7 @@ typedef struct { u16 id; u16 flags; s32 data; } Ent8;
 typedef struct { u16 id; u16 count; } Hdr;
 typedef struct { u8 pad[8]; Hdr *a; Hdr *b; Hdr *c; } Tbl;
 extern Ent8 *gEntryTable;
-extern Tbl *D_800BFF08;
+extern Tbl *gTextRefTable;
 extern u16 gEntryCount;
 extern u16 D_800E160A;
 
@@ -28,13 +28,13 @@ u16 func_80031028(u16 kind, u16 mode) {
         }
         return gEntryCount;
     case 2:
-        h = D_800BFF08->b;
+        h = gTextRefTable->b;
         break;
     case 3:
-        h = D_800BFF08->c;
+        h = gTextRefTable->c;
         break;
     case 1:
-        h = D_800BFF08->a;
+        h = gTextRefTable->a;
         break;
     default:
         return 0;

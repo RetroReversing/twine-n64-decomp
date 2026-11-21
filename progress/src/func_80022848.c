@@ -18,7 +18,7 @@ s32 findEntryById(s32, M2C_UNK);                    /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
 s32 func_80027CE0(M2C_UNK);                         /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-s32 func_80087100(u16);                             /* extern */
+s32 lookupDataEntry(u16);                             /* extern */
 extern void *gMenuState;
 
 void func_80022848(void) {
@@ -29,7 +29,7 @@ void func_80022848(void) {
     }
     temp_v0 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x4000);
     if (temp_v0 != 0) {
-        formatTextEntry(temp_v0, "%s", func_80087100(*M2C_FIELD(gMenuState, u16 **, 0x18)));
+        formatTextEntry(temp_v0, "%s", lookupDataEntry(*M2C_FIELD(gMenuState, u16 **, 0x18)));
     }
     updateActiveMenuState();
     if (func_80027C60(0x2A) & 0xFF) {

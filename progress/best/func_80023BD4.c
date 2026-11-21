@@ -1,4 +1,4 @@
-extern char *func_80087100(s32);
+extern char *lookupDataEntry(s32);
 extern s32 func_80022DBC(s32);
 extern s32 sprintf(char *, const char *, ...);
 extern char D_800D2AB4[], D_800D2ABC[];
@@ -20,9 +20,9 @@ char *func_80023BD4(void) {
     s32 scratch[4];
 
     if (!D_801002AC)
-        return func_80087100(3);
+        return lookupDataEntry(3);
 
-    buffer = func_80087100(0x4000);
+    buffer = lookupDataEntry(0x4000);
     best = -9999;
     if (gSaveKeyRelaxed) {
         if (D_800E107E > D_800E1080)
@@ -31,12 +31,12 @@ char *func_80023BD4(void) {
             message = 0x6F;
         else
             goto draw;
-        name = func_80087100(message);
-        suffix = func_80087100(0xEE);
+        name = lookupDataEntry(message);
+        suffix = lookupDataEntry(0xEE);
         sprintf(buffer, D_800D2AB4, name, suffix);
         return buffer;
 draw:
-        sprintf(buffer, D_800D2ABC, func_80087100(0xEF));
+        sprintf(buffer, D_800D2ABC, lookupDataEntry(0xEF));
         return buffer;
     }
     player = 0;
@@ -90,7 +90,7 @@ draw:
 decided:
     if (best > 0)
         goto draw;
-    suffix = func_80087100(0xEE);
+    suffix = lookupDataEntry(0xEE);
     name = D_801001A4 + player * 24;
     sprintf(buffer, D_800D2AB4, name, suffix);
     return buffer;

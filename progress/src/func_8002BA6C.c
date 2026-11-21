@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80087100(u16);                         /* extern */
+M2C_UNK lookupDataEntry(u16);                         /* extern */
 typedef struct { u16 f0; u8 pad[10]; } Slot_800BF680;
 extern Slot_800BF680 D_800BF680[];
 
 void func_8002BA6C(s32 arg0) {
-    func_80087100(D_800BF680[arg0].f0);
+    lookupDataEntry(D_800BF680[arg0].f0);
 }

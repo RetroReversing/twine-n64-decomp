@@ -5,7 +5,7 @@ extern void *D_80108788;
 extern void *gTrackMarkerTable;
 extern u8 D_8010A91C;
 s32 func_80073AF8();
-s32 func_80087100();
+s32 lookupDataEntry();
 s32 sprintf();
 
 void func_8005BAB0(void) {
@@ -27,9 +27,9 @@ void func_8005BAB0(void) {
                 temp_a1 = *(u32 *)(*(s8 **)((s8 *)D_80108788 + 0x70) + 0x30);
                 if ((((temp_a1 >> 4) & 0xFFFF) == *(s32 *)(&D_800C4428 + var_s2)) && ((temp_a1 >> 0x14) == *(s32 *)(D_800C4434 + var_s2 * 4))) {
                     D_8010A91C += 1;
-                    temp_s1 = func_80087100(0xFA, temp_a1);
-                    temp_s0 = func_80087100(0xFF);
-                    sprintf(buf, D_800D4110, temp_s1, D_8010A91C, temp_s0, (s32)D_80102F28, func_80087100(0xFE));
+                    temp_s1 = lookupDataEntry(0xFA, temp_a1);
+                    temp_s0 = lookupDataEntry(0xFF);
+                    sprintf(buf, D_800D4110, temp_s1, D_8010A91C, temp_s0, (s32)D_80102F28, lookupDataEntry(0xFE));
                     *(s16 *)((s8 *)D_80108788 + 0x7A) = 1;
                     func_80073AF8(0, gTrackMarkerTable, buf, -1, -1, 1, 0, 0, 3, 0, 0);
                 }

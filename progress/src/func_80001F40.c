@@ -37,10 +37,12 @@ s32 func_80001F40(s16 id, s8 code, s32 *out) {
             }
             return 1;
         }
-        return 0;
+        goto rejected;
     }
     return 0;
 accepted:
     return 1;
+rejected:
+    return 0;
 }
 

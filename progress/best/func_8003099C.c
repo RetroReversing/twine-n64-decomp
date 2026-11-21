@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80030680();                            /* extern */
-void *func_80087100(u16, void *);                   /* extern */
+M2C_UNK updateTextLineCounts();                            /* extern */
+void *lookupDataEntry(u16, void *);                   /* extern */
 extern s16 D_800BFF02;
-extern void *D_800BFF08;
+extern void *gTextRefTable;
 extern u16 D_800BFF0C;
 extern M2C_UNK D_800C02C0;
 extern M2C_UNK D_800C02D4;
@@ -58,7 +58,7 @@ void func_8003099C(s8 arg0, s32 arg1) {
             var_s2 += 1;
             if (*(u16 *)((u8 *)&D_800C02DA + temp_a1) == (arg0 & 0xFF)) {
                 temp_a0 = *(s32 *)((u8 *)&D_800C02D4 + temp_a1);
-                D_800BFF08 = temp_a1 + (u8 *)&D_800C02C0;
+                gTextRefTable = temp_a1 + (u8 *)&D_800C02C0;
                 gEntryTable = temp_a0;
                 temp_v1 = *(u8 *)((u8 *)&D_800C02DC + temp_a1);
                 D_800BFF0C = *(&D_800C02D8 + temp_a1);
@@ -93,13 +93,13 @@ loop_10:
                         temp_v1_3 = M2C_FIELD(temp_a1_3, u16 *, 2);
                         if (!(temp_v1_3 & 0x200) && ((u16) D_800E160A >= (u32) (temp_v1_3 & 0xF000))) {
                             M2C_FIELD(temp_a1_3, s16 *, 0) = var_s2_2;
-                            temp_v0_2 = func_80087100(M2C_FIELD(temp_a1_3, u16 *, 4), temp_a1_3);
+                            temp_v0_2 = lookupDataEntry(M2C_FIELD(temp_a1_3, u16 *, 4), temp_a1_3);
                             if (temp_v0_2 != NULL) {
                                 M2C_FIELD(temp_v0_2, s8 *, 0) = 6;
                                 M2C_FIELD(temp_v0_2, s8 *, 1) = -1;
                                 M2C_FIELD(temp_v0_2, s8 *, 2) = (s8) (M2C_FIELD((temp_s1 + gEntryTable), u8 *, 1) + 0x41);
                             }
-                            temp_v0_3 = func_80087100(M2C_FIELD((temp_s1 + gEntryTable), u16 *, 6), temp_a1_3);
+                            temp_v0_3 = lookupDataEntry(M2C_FIELD((temp_s1 + gEntryTable), u16 *, 6), temp_a1_3);
                             var_s2_2 += 1;
                             if (temp_v0_3 != NULL) {
                                 M2C_FIELD(temp_v0_3, s8 *, 0) = 6;
@@ -113,7 +113,7 @@ loop_10:
                         }
                     }
                 }
-                func_80030680();
+                updateTextLineCounts();
                 return;
             }
             var_v0 = var_s2 & 0xFFFF;

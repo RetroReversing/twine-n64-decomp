@@ -24,7 +24,7 @@ void *func_800316C8();
 s32 func_800316E4();
 s32 actorLinkToSurface();
 s32 func_80044D28();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern void *volatile gPickupActor;
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
@@ -101,7 +101,7 @@ extern char D_800D2864[];
         func_8002AC04(D_8010A488, 1);
         func_8002ACB4(D_8010A488);
         if (entryText != 0) {
-            formatTextEntry(entryText, D_800D2864, func_80087100((*(u16 *)((char *)(itemList) + 0))));
+            formatTextEntry(entryText, D_800D2864, lookupDataEntry((*(u16 *)((char *)(itemList) + 0))));
         }
         func_8002B8AC();
         itemId = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(func_8002B9FC((*(u8 *)((char *)(itemList) + 2)))) * 0xC));

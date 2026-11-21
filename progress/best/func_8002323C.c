@@ -27,7 +27,7 @@ M2C_UNK func_8002A7CC(M2C_UNK *, s32 *, s32, M2C_UNK); /* extern */
 M2C_UNK func_8002A9A8(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s16 func_8002B278(void *);                          /* extern */
-void *func_80087100(s32);                           /* extern */
+void *lookupDataEntry(s32);                           /* extern */
 void *memset(void *, s32, u32);            /* extern */
 s32 sprintf(char *, const char *, ...);            /* extern */
 extern s8 D_800B60E0;
@@ -183,9 +183,9 @@ void func_8002323C(void) {
             var_s2 = 1;
             D_800E0FC0 = func_800162BC(gMenuParamC);
             D_800E0FC4 = func_800162BC(gMenuParamC);
-            temp_v0_4 = func_80087100(0x4001);
+            temp_v0_4 = lookupDataEntry(0x4001);
             sprintf(temp_v0_4, D_800D2AB0, D_800E107E);
-            func_800160FC(D_800E0FC0, func_80087100(0x6E), 0x40);
+            func_800160FC(D_800E0FC0, lookupDataEntry(0x6E), 0x40);
             func_800160FC(D_800E0FC4, temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, &D_800E0FC0, 0, 1);
             if (D_801002B4 > 0) {
@@ -211,7 +211,7 @@ void func_8002323C(void) {
                             func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5));
                             goto next3;
                         success3:
-                            temp_v0_4 = func_80087100((var_s2 + 0x4003) & 0xFFFF);
+                            temp_v0_4 = lookupDataEntry((var_s2 + 0x4003) & 0xFFFF);
                             temp_a0_4 = temp_v0_4;
                             sprintf(temp_a0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
                             var_s2 += 1;
@@ -233,9 +233,9 @@ void func_8002323C(void) {
                 temp_v0_10 = func_800162BC(channel);
                 M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6) = temp_v0_10;
             }
-            temp_v0_4 = func_80087100(0x4002);
+            temp_v0_4 = lookupDataEntry(0x4002);
             sprintf(temp_v0_4, D_800D2AB0, D_800E1080);
-            func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6), func_80087100(0x6F), 0x40);
+            func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6), lookupDataEntry(0x6F), 0x40);
             func_800160FC(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6), temp_v0_4, 0x240);
             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_6), 1, 1);
             if (D_801002B4 > 0) {
@@ -261,7 +261,7 @@ cleanup5:
                                 func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7));
                                 goto next5;
 success5:
-                                temp_v0_4 = func_80087100((var_s2 + 0x400B) & 0xFFFF);
+                                temp_v0_4 = lookupDataEntry((var_s2 + 0x400B) & 0xFFFF);
                                 temp_a0_6 = temp_v0_4;
                                 sprintf(temp_a0_6, D_800D2AB0, (&D_800E1068)[temp_s1]);
                                 var_s2 += 1;
@@ -294,7 +294,7 @@ success5:
                         func_80016314(M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2));
                         goto next7;
                     success7:
-                        temp_v0_4 = func_80087100((var_s4 + 0x4003) & 0xFFFF);
+                        temp_v0_4 = lookupDataEntry((var_s4 + 0x4003) & 0xFFFF);
                         temp_s1 = temp_s1 & 0xFFFF;
                         sprintf(temp_v0_4, D_800D2AB0, (&D_800E1068)[temp_s1]);
                         func_800160FC(M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2), (temp_s1 * 0x18) + (u8 *)&D_801001A4, 0x40);

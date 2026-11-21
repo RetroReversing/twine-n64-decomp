@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 f32 func_8000A4F4();
 f32 func_80045E34();
 s32 func_80074820(s32, s32, s32, s32, f32, s32);
-s32 func_80087100();
+s32 lookupDataEntry();
 extern s32 D_800C7EE4;
 extern char D_80100310[];
 extern char D_80100314[];
@@ -82,8 +82,8 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
             if (temp_v0 & 0x80000000) {
                 var_fs0 = func_8000A4F4(temp_v0 & 0xFFFFFF);
             }/*__repair_call_balance*/if(var_a0){
-            func_80074820(D_80109688, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);}else{
-            func_80074820(D_80109688, func_80087100(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);}
+            func_80074820(D_80109688, lookupDataEntry(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);}else{
+            func_80074820(D_80109688, lookupDataEntry(M2C_FIELD(var_s4, u16 *, 6)), 0x20, 2, var_fs0 + 0.5f, D_800C7EE4);}
             if (D_80112EBC != 0) {
                 var_s1_2 = 0;
                 if (D_80112EBC > 0) {

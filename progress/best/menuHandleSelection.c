@@ -23,7 +23,7 @@ s32 func_80027C60(M2C_UNK);                         /* extern */
 s32 func_80029C08(s32, M2C_UNK, M2C_UNK);           /* extern */
 void *func_8002A980(s32);                           /* extern */
 M2C_UNK func_8007089C(s32, M2C_UNK, s32, M2C_UNK *); /* extern */
-s32 func_80087100(s32);                             /* extern */
+s32 lookupDataEntry(s32);                             /* extern */
 s16 strlen(s32);                                    /* extern */
 M2C_UNK updateActiveMenuState();                    /* extern */
 extern M2C_UNK D_800C4478;
@@ -68,10 +68,10 @@ void menuHandleSelection(void) {
                     temp_s1 = func_8002638C(M2C_FIELD(gMenuState, s32 *, 0x10), 0x62);
                     temp_s3 = findEntryById(M2C_FIELD(gMenuState, s32 *, 0x10), 0x1E);
                     if (temp_s1 != NULL) {
-                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s32 *, 0x18) = func_80087100(func_8001E760(0, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s32 *, 0x18) = lookupDataEntry(func_8001E760(0, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
                         temp_s0 = M2C_FIELD(temp_s1, void **, 8);
                         M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s32 *, 0x18));
-                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x30), s32 *, 0x18) = func_80087100(func_8001E760(1, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        M2C_FIELD(M2C_FIELD(temp_s1, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(1, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
                         temp_s0_2 = M2C_FIELD(temp_s1, void **, 0x30);
                         M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s32 *, 0x18));
                     }
@@ -93,7 +93,7 @@ void menuHandleSelection(void) {
                     temp_s0_3 = func_80026314(M2C_FIELD(gMenuState, s32 *, 0x10), 0xA6, 2);
                     func_8002135C(*(&D_800C4478 + temp_v1), *(&D_800C447A + temp_v1));
                     if (temp_s0_3 != NULL) {
-                        M2C_FIELD(M2C_FIELD(temp_s0_3, void **, 0x30), s32 *, 0x18) = func_80087100(func_8001E760(2, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
+                        M2C_FIELD(M2C_FIELD(temp_s0_3, void **, 0x30), s32 *, 0x18) = lookupDataEntry(func_8001E760(2, M2C_FIELD(temp_s2, u8 *, 8)) & 0xFFFF);
                         temp_s0_4 = M2C_FIELD(temp_s0_3, void **, 0x30);
                         M2C_FIELD(temp_s0_4, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_4, s32 *, 0x18));
                     }

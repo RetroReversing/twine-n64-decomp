@@ -4,7 +4,7 @@ static __inline__ u8 __repair_inline(u8 a) { return a; }
 
 s32 formatTextEntry();
 s32 updateActiveMenuState();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern char D_801001A2[];
 extern u8 D_801002AD;
 extern void *gMenuState;
@@ -24,7 +24,7 @@ void func_8001AA98(void) {
         case 0:
             var_a0 = 0xA;
 block_9:
-            formatTextEntry(temp_s0, D_800D2864, func_80087100(var_a0));
+            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0));
             break;
         case 1:
             var_a0 = 9;
@@ -35,15 +35,15 @@ block_9:
         case 3:
             var_a0 = 0x6C;
             {
-            formatTextEntry(temp_s0, D_800D2864, func_80087100(var_a0));break;}
+            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0));break;}
         case 4:
             var_a0 = 0x296;
             {
-            formatTextEntry(temp_s0, D_800D2864, func_80087100(var_a0));break;}
+            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0));break;}
         case 5:
             var_a0 = 0x297;
             {
-            formatTextEntry(temp_s0, D_800D2864, func_80087100(var_a0));break;}
+            formatTextEntry(temp_s0, D_800D2864, lookupDataEntry(var_a0));break;}
         }
         *(D_801001A2 + (D_801002AD * 0x18)) = temp_s1;
     }

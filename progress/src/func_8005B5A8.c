@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
-s32 func_80087100(M2C_UNK);                         /* extern */
+s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern s16 gTrackMarkerTable;
 
 void func_8005B5A8(void) {
-    func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), func_80087100(0xF2), -1, -1, 1, 0, 0, 5, 0, 0x3C);
+    func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), lookupDataEntry(0xF2), -1, -1, 1, 0, 0, 5, 0, 0x3C);
 }

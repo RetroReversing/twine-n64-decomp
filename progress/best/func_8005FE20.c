@@ -18,7 +18,7 @@ s32 func_80063C7C();
 s32 setActionSlot();
 s32 func_80073AF8();
 s32 func_80084338();
-s32 *func_80087100();
+s32 *lookupDataEntry();
 s32 func_8011B0FC();
 s32 func_8011B460();
 s32 sprintf();
@@ -130,8 +130,8 @@ block_15:
                 temp_v1 = temp_a0 & 0xFFFF;
                 var_v0 = 0;
                 if (M2C_FIELD((temp_s1 + (temp_v1 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
-                    __repair_phase_storage.pointer = func_80087100(temp_a0 | 0x9000, var_a1);
-                    sprintf(&sp30, D_800D41E0, __repair_phase_storage.pointer, func_80087100(0x16A));
+                    __repair_phase_storage.pointer = lookupDataEntry(temp_a0 | 0x9000, var_a1);
+                    sprintf(&sp30, D_800D41E0, __repair_phase_storage.pointer, lookupDataEntry(0x16A));
                     gTrackMarkerSerial += 1;
                     func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                     temp_v0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
@@ -194,7 +194,7 @@ block_15:
         temp_s3_2 = M2C_FIELD(temp_s4, u8 *, 0x80);
         if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + __repair_phase_storage.value)) {
             gTrackMarkerSerial += 1;
-            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000, D_800C469C), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
@@ -207,8 +207,8 @@ block_15:
         }
         var_v0 = 0;
         if (M2C_FIELD((temp_s1 + (temp_s3_2 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_s3_2 * 4))) {
-            temp_s0_3 = func_80087100(temp_s3_2 | 0x9000, D_800C469C);
-            sprintf(&sp30, jtbl_800D41E8, temp_s0_3, func_80087100(0x16A));
+            temp_s0_3 = lookupDataEntry(temp_s3_2 | 0x9000, D_800C469C);
+            sprintf(&sp30, jtbl_800D41E8, temp_s0_3, lookupDataEntry(0x16A));
             gTrackMarkerSerial += 1;
             func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
@@ -266,7 +266,7 @@ block_45:
     }
     setActionSlot(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
     gTrackMarkerSerial += 1;
-    func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), func_80087100(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
+    func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
         var_a0_3 = *(u16 *)(D_800C4484 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
 block_63:

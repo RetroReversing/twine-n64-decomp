@@ -4,7 +4,7 @@ typedef struct { u8 pad0[0x60]; s32 w60; u8 pad64[8]; Sub5C8C4 *sub; u8 pad70[8]
 void func_8000A894(s32, s32);
 void func_8005B5A8(void);
 void func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 extern Obj5C8C4 *gPlayerActor;
 extern s32 gTrackMarkerTable;
 
@@ -28,7 +28,7 @@ static inline s32 check_5C8C4(void) {
                 if (sub->w2C & mask) {
                     p->w60 |= mask;
                     func_8000A894(sound, mask);
-                    func_80073AF8(0, gTrackMarkerTable, func_80087100(0x160), -1, -1, 1, 0, 0, 3, 0, 0);
+                    func_80073AF8(0, gTrackMarkerTable, lookupDataEntry(0x160), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
             r = 1;

@@ -20,7 +20,7 @@ M2C_UNK func_80022E18(u8);                          /* extern */
 void *findEntryById(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, M2C_UNK); /* extern */
 u8 func_8002D13C(M2C_UNK);                          /* extern */
-s8 *func_80087100(u16);                             /* extern */
+s8 *lookupDataEntry(u16);                             /* extern */
 M2C_UNK sprintf(s8 *, M2C_UNK *, s8 *, s32);        /* extern */
 s16 strlen(s8 *);                                   /* extern */
 extern u8 gMenuParamC;
@@ -59,11 +59,11 @@ void func_80021CA0(void) {
         temp_a0 = *(D_80100198 + D_801002AD * 0x6) + 0x185;
         M2C_FIELD(temp_v0, u16 *, 0x28) = temp_a0;
         if (M2C_FIELD(temp_s1, void **, 8) != NULL) {
-            M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s8 **, 0x18) = func_80087100(temp_a0);
+            M2C_FIELD(M2C_FIELD(temp_s1, void **, 8), s8 **, 0x18) = lookupDataEntry(temp_a0);
             temp_s0 = M2C_FIELD(temp_s1, void **, 8);
             M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0, s8 **, 0x18));
         }
-        var_v1 = func_80087100(M2C_FIELD(temp_v0, u16 *, 0x28));
+        var_v1 = lookupDataEntry(M2C_FIELD(temp_v0, u16 *, 0x28));
         if (var_v1 != NULL) {
             for (;;) {
                 temp_v0_2 = *var_v1;
@@ -88,7 +88,7 @@ void func_80021CA0(void) {
         temp_a0_2 = *(D_80100198 + D_801002AD * 0x6) + 0x18D;
         M2C_FIELD(temp_s1, u16 *, 0x28) = temp_a0_2;
         if (M2C_FIELD(temp_s1_2, void **, 8) != NULL) {
-            M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 8), s8 **, 0x18) = func_80087100(temp_a0_2);
+            M2C_FIELD(M2C_FIELD(temp_s1_2, void **, 8), s8 **, 0x18) = lookupDataEntry(temp_a0_2);
             temp_s0_2 = M2C_FIELD(temp_s1_2, void **, 8);
             M2C_FIELD(temp_s0_2, s16 *, 0x1C) = strlen(M2C_FIELD(temp_s0_2, s8 **, 0x18));
         }
@@ -114,13 +114,13 @@ void func_80021CA0(void) {
                     temp_v0_3 = func_800162BC(gMenuParamC);
                     D_80102F48[temp_s1_3] = temp_v0_3;
                     if (temp_v0_3 != 0) {
-                        temp_s2 = func_80087100((var_s0 + 0x4008) & 0xFFFF);
+                        temp_s2 = lookupDataEntry((var_s0 + 0x4008) & 0xFFFF);
                         if (temp_s1_3 < 4U) {
-                            var_a2 = func_80087100(0xADU);
+                            var_a2 = lookupDataEntry(0xADU);
                             var_a3_2 = temp_s1_3 + 1;
                         
                         sprintf(temp_s2, "%s %d", var_a2, var_a3_2);} else {
-                            var_a2 = func_80087100(0x158U);
+                            var_a2 = lookupDataEntry(0x158U);
                             var_a3_2 = temp_s1_3 - 3;
                         
                         sprintf(temp_s2, "%s %d", var_a2, var_a3_2);}

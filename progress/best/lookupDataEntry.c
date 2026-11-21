@@ -1,5 +1,5 @@
 extern s32 D_800CE800; extern s32 D_800CE804; extern s32 D_800CE808; extern s32 D_800CE80C; extern s32 D_800CE810; extern s32 D_800CE814; extern s32 D_800CE818; extern s32 D_800CE81C; extern s32 D_800CE820; extern s32 D_800CE824; extern s32 D_800CE828; extern s32 D_800CE82C; extern char D_8010A960[];
-void *func_80087100(s32 arg0,s32 arg1) {
+void *lookupDataEntry(s32 arg0,s32 arg1) {
  s32 group=(u32)arg0&0xf000;
  s32 *base;
  switch(group) {
@@ -20,5 +20,5 @@ void *func_80087100(s32 arg0,s32 arg1) {
 tab:
  if(base) return (void*)(D_800CE800+base[(u32)arg0&0xffff]);
 fail:
- return func_80087100(3,arg1);
+ return lookupDataEntry(3,arg1);
 }

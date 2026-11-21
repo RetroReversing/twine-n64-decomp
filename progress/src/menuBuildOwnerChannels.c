@@ -14,7 +14,7 @@ s32 func_8002A7CC(s32 *, s32, s32, s32);    /* extern */
 void *func_8002A9A8(s32 *, s16);                /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 func_80070844(void *, s32);                     /* extern */
-s32 func_80087100(s32);                             /* extern */
+s32 lookupDataEntry(s32);                             /* extern */
 extern s16 gMenuMode;
 extern s32 *gMenuList;
 extern s8 D_800B60EA;
@@ -64,7 +64,7 @@ extern s32 func_8001EAF0;
                     slot = (idx * 4) + D_80109D28;
                     *slot = handle;
                     if (handle) {
-                        func_800160FC(*slot, func_80087100(val | 0x7000), 0x40);
+                        func_800160FC(*slot, lookupDataEntry(val | 0x7000), 0x40);
                         func_8002A7CC(gMenuList, *slot, val, func_80018318(*slot) & 0xFF);
                     }
                     if ((*(u16 *)((char *)(rec) + 0x174)) == idx) {

@@ -3,7 +3,7 @@
 void *func_800162BC(u8);                            /* extern */
 s32 func_80016314(void *);                      /* extern */
 s32 func_800448A4(void *, u32, s32);            /* extern */
-s32 func_80087100(u16, void *);                     /* extern */
+s32 lookupDataEntry(u16, void *);                     /* extern */
 s32 strlen(s8 *);                                    /* extern */
 extern u8 gMenuParamC;
 extern void *gMenuState;
@@ -31,7 +31,7 @@ void func_800266DC(void *arg0) {
             (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x20)) = (u16) (*(u16 *)((char *)(arg0) + 0x16));
             (*(u16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x22)) = (u16) (*(u16 *)((char *)(arg0) + 0x18));
             (*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x10)) = -0x100;
-            (*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x18)) = func_80087100((*(u16 *)((char *)(arg0) + 0x14)), temp_a1);
+            (*(s32 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x18)) = lookupDataEntry((*(u16 *)((char *)(arg0) + 0x14)), temp_a1);
             (*(s16 *)((char *)((*(void **)((char *)(gMenuState) + 0))) + 0x1C)) = 0;
             temp_s0 = (*(void **)((char *)(gMenuState) + 0));
             temp_a0_2 = (*(s32 *)((char *)(temp_s0) + 0x18));

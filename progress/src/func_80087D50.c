@@ -17,7 +17,7 @@ s32 copyStateTablesToRam();
 s32 func_8002D850();
 s32 func_80045CA0();
 s32 func_8007560C();
-s32 func_80087100();
+s32 lookupDataEntry();
 s16 strlen();
 extern s8 D_800CEEB0;
 extern s8 D_800CEEB1;
@@ -44,7 +44,7 @@ void func_80087D50(void) {
     D_8010A3C0 = -1;
     func_80045CA0();
     D_801005AC = func_800162BC(4);
-    temp_v0 = func_80087100(0xD);
+    temp_v0 = lookupDataEntry(0xD);
     temp_s0 = D_801005AC;
     M2C_FIELD(temp_s0, s32 *, 0x18) = temp_v0;
     M2C_FIELD(temp_s0, s16 *, 0x1C) = strlen(temp_v0);

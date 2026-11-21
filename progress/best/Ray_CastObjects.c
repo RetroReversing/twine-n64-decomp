@@ -28,7 +28,7 @@ typedef union {
 
 f32 Vec3_DistanceSq(void *, void *);              /* extern */
 s32 func_800455CC(void *, void *, void *, void *); /* extern */
-void func_800458C0(void *, s32, s32, s32);        /* extern */
+void buildPlaneFromPoints(void *, s32, s32, s32);        /* extern */
 s32 randomIntBelow(s32);                         /* extern */
 void func_80047E4C(void *, s32, void *);     /* extern */
 s32 func_800488D4(void *, void *, void *);            /* extern */
@@ -255,13 +255,13 @@ s32 __repair_phase_var_a2;
                                             var_v0_2 = M2C_FIELD(temp_v1_7, u16 *, 4);
                                             var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_7, u16 *, 0) * 0xC);
                                         
-                                        func_800458C0(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));} else {
+                                        buildPlaneFromPoints(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));} else {
                                             temp_v1_8 = M2C_FIELD(temp_s1, u8 **, 0x3C) + (var_s6 * 3);
                                             var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_8, u8 *, 0) * 0xC);
                                             __repair_phase_var_a2 = M2C_FIELD(temp_v1_8, u8 *, 1) * 3;
                                             var_v0_2 = (u16) M2C_FIELD(temp_v1_8, u8 *, 2);
                                         
-                                        func_800458C0(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (__repair_phase_var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));}
+                                        buildPlaneFromPoints(&work.plane.plane, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (__repair_phase_var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));}
                                         gPlayerActor = var_s3;
                                         D_80108F84 = NULL;
                                         if (arg6 != NULL) {
@@ -370,7 +370,7 @@ s32 __repair_phase_var_a2;
                                                     var_a2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
                                                     var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
                                                 }
-                                                func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
+                                                buildPlaneFromPoints(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
                                             }
                                         }
@@ -411,7 +411,7 @@ s32 __repair_phase_var_a2;
                                                     var_a2 = M2C_FIELD(temp_v1_17, u8 *, 1) * 3;
                                                     var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
                                                 }
-                                                func_800458C0(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
+                                                buildPlaneFromPoints(&work.roomPlane, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 *arg6 = work.roomPlane;
                                             }
                                         }

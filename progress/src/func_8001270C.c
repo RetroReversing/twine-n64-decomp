@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80087100();
+void *lookupDataEntry();
 extern char D_80107B7B[];
 
 void *func_8001270C(s32 arg0) {
@@ -23,7 +23,7 @@ void *func_8001270C(s32 arg0) {
     if (temp_a0 < 0x10U) {
         ret = (temp_a0 * 0x18) + D_80107B7B;
     } else {
-        ret = func_80087100(3);
+        ret = lookupDataEntry(3);
     }
     return ret;
 }

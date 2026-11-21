@@ -25,7 +25,7 @@ extern char D_800D2864[];
 void func_8001A4F4(void);
 void formatTextEntry(void *, s32, ...);
 s32 func_8002638C(s32, s32);
-char *func_80087100(s32);
+char *lookupDataEntry(s32);
 void func_8001A434(void) {
     char *entry = (char *)func_8002638C((s32)D_800BDA68, 0x92);
     D_800BD690 = 1;
@@ -39,10 +39,10 @@ void func_8001A434(void) {
         func_8001A4F4();
         gMenuState->flag2F = 0;
         index = &D_801002A2;
-        text = func_80087100(*index + 0x16D);
+        text = lookupDataEntry(*index + 0x16D);
         format = D_800D2864;
         formatTextEntry(entry, (s32)format, text);
-        text = func_80087100(*index + 0x177);
+        text = lookupDataEntry(*index + 0x177);
         formatTextEntry(entry + 0x28, (s32)format, text);
     }
 }

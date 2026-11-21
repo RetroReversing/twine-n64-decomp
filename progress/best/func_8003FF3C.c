@@ -1,7 +1,7 @@
 #define FLD(p, t, o) (*(t *)((u8 *)(p) + (o)))
 #define BE16(p) ((u16)(((p)[0] << 8) | (p)[1]))
 
-void func_800458C0(void *, s32, s32, s32);
+void buildPlaneFromPoints(void *, s32, s32, s32);
 
 void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2) {
     register void *var_t1 = arg0;
@@ -125,7 +125,7 @@ block_27:
 after:
                 var_s2 += 3;
                 base = FLD(var_t1, s32, 0x34);
-                func_800458C0(&sp10, base + a2 * 12, base + a3 * 12, base + v1 * 12);
+                buildPlaneFromPoints(&sp10, base + a2 * 12, base + a3 * 12, base + v1 * 12);
                 var_s0 += 3;
                 var_fp += 1;
                 *var_t0 = 0;
@@ -195,7 +195,7 @@ after:
             break;
         }
         base = FLD(var_t1, s32, 0x34);
-        func_800458C0(&sp10, base + a2_2 * 12, base + a3_2 * 12, base + v1_2 * 12);
+        buildPlaneFromPoints(&sp10, base + a2_2 * 12, base + a3_2 * 12, base + v1_2 * 12);
         var_s0 += 4;
         *var_t0 = 0;
         var_t0++;

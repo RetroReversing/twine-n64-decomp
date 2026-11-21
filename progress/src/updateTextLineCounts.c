@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s8 *func_80087100(u16);                             /* extern */
-extern u16 D_800BFF00;
-extern void *D_800BFF08;
+s8 *lookupDataEntry(u16);                             /* extern */
+extern u16 gMaxTextLineCount;
+extern void *gTextRefTable;
 
-void func_80030680(void) {
+void updateTextLineCounts(void) {
     s8 *var_v1;
     s8 *var_v1_2;
     s8 *var_v1_3;
@@ -28,10 +28,10 @@ void func_80030680(void) {
     u16 *temp_v0_5;
     u16 var_a0;
 
-    temp_v0 = M2C_FIELD(D_800BFF08, u16 **, 8);
+    temp_v0 = M2C_FIELD(gTextRefTable, u16 **, 8);
     var_a0 = 0;
     if (temp_v0 != NULL) {
-        var_v1 = func_80087100(*temp_v0);
+        var_v1 = lookupDataEntry(*temp_v0);
         var_a0 = var_v1 != NULL;
         if (var_v1 != NULL) {
             for (;;) {
@@ -48,14 +48,14 @@ void func_80030680(void) {
                 break;
             }
         }
-        M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 8), u16 *, 2) = var_a0;
+        M2C_FIELD(M2C_FIELD(gTextRefTable, u16 **, 8), u16 *, 2) = var_a0;
     }
-    if ((u16) D_800BFF00 < (u32) (var_a0 & 0xFFFF)) {
-        D_800BFF00 = var_a0;
+    if ((u16) gMaxTextLineCount < (u32) (var_a0 & 0xFFFF)) {
+        gMaxTextLineCount = var_a0;
     }
-    temp_v0_3 = M2C_FIELD(D_800BFF08, u16 **, 0xC);
+    temp_v0_3 = M2C_FIELD(gTextRefTable, u16 **, 0xC);
     if (temp_v0_3 != NULL) {
-        var_v1_2 = func_80087100(*temp_v0_3);
+        var_v1_2 = lookupDataEntry(*temp_v0_3);
         var_a0 = var_v1_2 != NULL;
         if (var_v1_2 != NULL) {
             for (;;) {
@@ -72,14 +72,14 @@ void func_80030680(void) {
                 break;
             }
         }
-        M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 0xC), u16 *, 2) = var_a0;
+        M2C_FIELD(M2C_FIELD(gTextRefTable, u16 **, 0xC), u16 *, 2) = var_a0;
     }
-    if ((u16) D_800BFF00 < (u32) (var_a0 & 0xFFFF)) {
-        D_800BFF00 = var_a0;
+    if ((u16) gMaxTextLineCount < (u32) (var_a0 & 0xFFFF)) {
+        gMaxTextLineCount = var_a0;
     }
-    temp_v0_5 = M2C_FIELD(D_800BFF08, u16 **, 0x10);
+    temp_v0_5 = M2C_FIELD(gTextRefTable, u16 **, 0x10);
     if (temp_v0_5 != NULL) {
-        var_v1_3 = func_80087100(*temp_v0_5);
+        var_v1_3 = lookupDataEntry(*temp_v0_5);
         var_a0 = var_v1_3 != NULL;
         if (var_v1_3 != NULL) {
             for (;;) {
@@ -96,9 +96,9 @@ void func_80030680(void) {
                 break;
             }
         }
-        M2C_FIELD(M2C_FIELD(D_800BFF08, u16 **, 0x10), u16 *, 2) = var_a0;
+        M2C_FIELD(M2C_FIELD(gTextRefTable, u16 **, 0x10), u16 *, 2) = var_a0;
     }
-    if ((u16) D_800BFF00 < (u32) (var_a0 & 0xFFFF)) {
-        D_800BFF00 = var_a0;
+    if ((u16) gMaxTextLineCount < (u32) (var_a0 & 0xFFFF)) {
+        gMaxTextLineCount = var_a0;
     }
 }

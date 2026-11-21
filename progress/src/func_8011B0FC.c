@@ -3,7 +3,7 @@ extern void *gBonusSceneHandle[], *gTrackMarkerTable[];
 extern char D_8011F3AC[];
 void func_8000A894(s32);
 void func_8002B150(void *,s32,s32);
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 void func_80073AF8(s32,void *,s32,s32,s32,s32,s32,s32,s32,s32,s32);
 void func_8007089C(void *,s32,s32);
 void func_8011B0FC(void *p) {
@@ -21,7 +21,7 @@ void func_8011B0FC(void *p) {
  }
  *(s8*)((char*)p+0x32c)=1;
  gTrackMarkerSerial++;
- x=func_80087100(0x6026);
+ x=lookupDataEntry(0x6026);
  func_80073AF8(0,gTrackMarkerTable[*(s8*)((char*)p+0x183)],x,-1,-1,1,0,0,0,0,0);
  *(s16*)((char*)p+0x1d8)=500;
  *(s8*)((char*)p+0x32f)=5;

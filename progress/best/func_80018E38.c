@@ -20,7 +20,7 @@ s32 func_80027C60();
 s32 func_80027CE0();
 s32 func_80029000();
 s32 func_80029AC8();
-void *func_80087100();
+void *lookupDataEntry();
 s32 func_800AB880();
 s32 func_800AB950();
 s32 func_800AB9B0();
@@ -149,11 +149,11 @@ block_16:
                     }
                     if (func_800AB950(sp10, sp20, var_a2) != 0) {
                         if ((u8) (*__base_D_801002AD) < 4U) {
-                            var_a2_2 = func_80087100(0xAD);
+                            var_a2_2 = lookupDataEntry(0xAD);
                             var_a3 = (*__base_D_801002AD) + 1;
 
                         sprintf(temp_s1, D_800D285C, var_a2_2, var_a3);} else {
-                            var_a2_2 = func_80087100(0x158);
+                            var_a2_2 = lookupDataEntry(0x158);
                             var_a3 = (*__base_D_801002AD) - 3;
 
                         sprintf(temp_s1, D_800D2864, var_a2_2, var_a3);}

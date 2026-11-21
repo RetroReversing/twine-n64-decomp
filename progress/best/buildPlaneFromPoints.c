@@ -2,7 +2,7 @@
 
 f32 func_80082908(void);                        /* extern */
 
-s32 func_800458C0(void *arg0, void *arg1, void *arg2, void *arg3) {
+s32 buildPlaneFromPoints(void *arg0, void *arg1, void *arg2, void *arg3) {
     long ret;
     register f32 __repair_temp_fv1_2_temp_ft1;
     f32 sp10[3];

@@ -31,6 +31,7 @@ extern M2C_UNK D_800C9A1E;
 
 typedef struct { s32 w[2]; } __repair_words2;
 void func_80076E98(void *arg0) {
+    volatile s32 frame_pad[8];
     M2C_UNK var_a1;
     s16 temp_v1;
     s16 temp_v1_2;

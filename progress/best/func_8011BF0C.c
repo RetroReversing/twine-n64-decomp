@@ -17,7 +17,7 @@ s32 func_8002B150();
 f32 approxDistance();
 s32 func_800643C8();
 s32 func_80073AF8();
-s32 func_80087100();
+s32 lookupDataEntry();
 s32 sprintf();
 extern u8 gSceneType;
 extern s32 D_8010969C;
@@ -62,8 +62,8 @@ void func_8011BF0C(void *arg0) {
         temp_a0 = *(s32 *)(D_8011F2B0 + temp_s1);
         if ((temp_a0 != 0) && (approxDistance(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
             if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
-                temp_s1_2 = func_80087100((-(temp_s0 == 0) & 0x6F) | 0x6E);
-                temp_v0 = func_80087100(0x28D);
+                temp_s1_2 = lookupDataEntry((-(temp_s0 == 0) & 0x6F) | 0x6E);
+                temp_v0 = lookupDataEntry(0x28D);
                 var_a2 = 0xC;
                 if (temp_s0 == 0) {
                     var_a2 = 5;

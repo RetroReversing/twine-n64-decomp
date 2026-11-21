@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 *D_800BFF08;
+extern s32 *gTextRefTable;
 
 s32 func_800316C8(void) {
     s32 var_v0;
 
     var_v0 = 0;
-    if (D_800BFF08 != NULL) {
-        var_v0 = *D_800BFF08;
+    if (gTextRefTable != NULL) {
+        var_v0 = *gTextRefTable;
     }
     return var_v0;
 }

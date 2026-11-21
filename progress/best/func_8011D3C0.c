@@ -3,7 +3,7 @@
 s32 func_800162BC(s32);                            /* extern */
 s32 func_800448A4(void *, s32, s32);    /* extern */
 s32 func_80070ECC(s32, s32, s32, s32);          /* extern */
-s32 *func_80087100(s32);                    /* extern */
+s32 *lookupDataEntry(s32);                    /* extern */
 s32 func_8011CFB0();                            /* extern */
 void *func_8011E304(s32, s32, void *, s8);          /* extern */
 s32 sprintf(void *, s32 *);                 /* extern */
@@ -226,7 +226,7 @@ var_a1_2 = var_a1_2 & 0xFFFF;
                 temp_s0_3 = (temp_s3 * 0xC) + D_8011F2B8;
                 temp_v0 = func_8011E304(var_a0_3 & 0xFFFF, var_a1_2, temp_s0_3, temp_s3);
                 (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x20);
-                sprintf(temp_s0_3, func_80087100(0x2E5));
+                sprintf(temp_s0_3, lookupDataEntry(0x2E5));
                 temp_s0_4 = temp_s3 * 4;
                 (*(s16 *)((char *)(temp_v0) + 0x1C)) = 3;
                 (*(s32 *)((char *)(temp_v0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_v0) + 0x28)) & ~0xFC) | 0x1C);

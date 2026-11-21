@@ -13,7 +13,7 @@ s32 func_8002B9CC();
 s32 func_8002B9FC();
 s32 func_800316C8();
 s32 func_80044D28();
-s32 func_80087100();
+s32 lookupDataEntry();
 extern void *volatile gPickupActor;
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
@@ -49,7 +49,7 @@ void actorSetupItemPickup(void) {
                 itemTable = func_800316C8();
                 if (itemTable != 0) {
                     if (msgBuffer) {
-                        formatTextEntry(msgBuffer, D_800D2864, func_80087100(*(u16 *)(((*(u8 *)((char *)(pickupEntry) + 8)) * 4) + itemTable)));
+                        formatTextEntry(msgBuffer, D_800D2864, lookupDataEntry(*(u16 *)(((*(u8 *)((char *)(pickupEntry) + 8)) * 4) + itemTable)));
                     }
                     func_8002B8AC();
                     itemIdValue = *(u16 *)*(s32 *)(D_800C3CF8 + (func_8002B9CC(func_8002B9FC((*(u8 *)((char *)((((*(u8 *)((char *)(pickupEntry) + 8)) * 4) + (int)itemTable)) + 2)))) * 0xC));

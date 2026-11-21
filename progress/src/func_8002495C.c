@@ -6,7 +6,7 @@ s32 func_8002AF30(void *);
 void func_8002CA90(void *);
 void func_8002CB2C(u8);
 u16 func_8002CC14();
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 s32 func_800AB950(s32, s32);
 extern s16 gSaveStatus;
 extern s32 sActiveMenu;
@@ -37,7 +37,7 @@ s32 func_8002495C(u16 arg0, u8 arg1) {
         if ((*p)->key == 0) {
             return 0x8002;
         }
-        if (func_800AB950((*p)->key, func_80087100(0x3004)) != 0) {
+        if (func_800AB950((*p)->key, lookupDataEntry(0x3004)) != 0) {
             return 0x2002;
         }
         gSaveStatus = 0x10E;

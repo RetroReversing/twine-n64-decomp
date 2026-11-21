@@ -9,7 +9,7 @@ s8 func_800263B8(MenuList1F5C4 *, s32);
 void func_80025D84(void *, char *, void *, void *, u16, u16);
 void func_80025E9C(void *, char *, void *, void *, u16, u16);
 void formatTextEntry(char *, const char *, ...);
-const char *func_80087100(s32);
+const char *lookupDataEntry(s32);
 
 /* Rebuilds the three option rows of the menu list, choosing labels and selections from Expansion Pak presence and saved option flags. */ /* Rebuilds the three option rows of the menu list, choosing labels and selections based on Expansion Pak presence and saved option flags. */ void menuRefreshOptionRows(void) {
     char *a, *b, *c;
@@ -24,9 +24,9 @@ const char *func_80087100(s32);
     if (((a != NULL) & (b != NULL)) && (c != NULL)) {
     labelId = 0x1B;
     if (gOptionFlagA == 0) {
-        formatTextEntry(b, D_800D2A80, func_80087100(0x1A));
+        formatTextEntry(b, D_800D2A80, lookupDataEntry(0x1A));
     } else {
-        formatTextEntry(b, D_800D2A80, func_80087100(labelId));
+        formatTextEntry(b, D_800D2A80, lookupDataEntry(labelId));
     }
     if (gExpansionPakPresent != 0) {
         u16 enabled = 1;
@@ -42,20 +42,20 @@ const char *func_80087100(s32);
         *(s16 *)(c - 0x28) = 0x1C;
         func_80025D84(c - 0x28, c, b - 0x28, a - 0x28, 0x1C, 1);
         if (D_8010A4FF != 0) {
-            formatTextEntry(c, D_800D2A80, func_80087100(0x1D));
+            formatTextEntry(c, D_800D2A80, lookupDataEntry(0x1D));
         } else {
-            formatTextEntry(c, D_800D2A80, func_80087100(0x1B3));
+            formatTextEntry(c, D_800D2A80, lookupDataEntry(0x1B3));
         }
         func_80025E9C(a - 0x28, a, c - 0x28, b - 0x28, 1, 0xD);
         gMenuState->list->selection = func_800263B8(gMenuState->list, 0x19);
     }
 
     if (D_8010A4C0 == 0) {
-        formatTextEntry(a, D_800D2A80, func_80087100(0x16));
+        formatTextEntry(a, D_800D2A80, lookupDataEntry(0x16));
     } else if (D_8010A4C0 == 1) {
-        formatTextEntry(a, D_800D2A80, func_80087100(0x17));
+        formatTextEntry(a, D_800D2A80, lookupDataEntry(0x17));
     } else {
-        formatTextEntry(a, D_800D2A80, func_80087100(0x16));
+        formatTextEntry(a, D_800D2A80, lookupDataEntry(0x16));
     }
     }
 }

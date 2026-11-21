@@ -13,7 +13,7 @@ u16 func_8002D09C(u16);
 u16 func_8002D1F8(void);
 s32 func_800448A4(s32, s32, s32);
 s32 findEntryById(s32, s32);
-s32 func_80087100(s32);
+s32 lookupDataEntry(s32);
 void formatTextEntry(s32, char *, s32, u16);
 s32 sprintf(char *, const char *, ...);
 s16 strlen(const char *);
@@ -59,7 +59,7 @@ void func_80024D78(void) {
     }
     p = findEntryById(gMenuState->f10, 0x4010);
     if (p != 0) {
-        n = func_80087100(0x300E);
+        n = lookupDataEntry(0x300E);
         formatTextEntry(p, D_800D2AE0, n, func_8002D1F8());
     }
 }
