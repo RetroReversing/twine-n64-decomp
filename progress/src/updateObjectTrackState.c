@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 s32 objectSetAnimFrame();
 s32 func_80084338();
-extern char gTrackDoneFlags[];
+extern char sTrackDoneFlags[];
 
-void func_8005DAD4(void *arg0) {
+void updateObjectTrackState(void *arg0) {
     s16 temp_v1_2;
     u16 temp_a0;
     u16 temp_v0;
@@ -27,7 +27,7 @@ void func_8005DAD4(void *arg0) {
 
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     if (M2C_FIELD(temp_s0, u16 *, 0x3A) == 1) {
-        temp_v1 = *(gTrackDoneFlags + M2C_FIELD(temp_s0, u16 *, 0x34));
+        temp_v1 = *(sTrackDoneFlags + M2C_FIELD(temp_s0, u16 *, 0x34));
         if (temp_v1 < 2U) {
             objectSetAnimFrame(arg0, M2C_FIELD(temp_s0, u16 *, 0x3C) + temp_v1, M2C_FIELD(temp_s0, u16 *, 0x3E));
         }
@@ -42,14 +42,14 @@ void func_8005DAD4(void *arg0) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 1;
             temp_v1_3 = M2C_FIELD(temp_s0, u16 *, 0x34);
             if (temp_v1_3 != 0) {
-                *(gTrackDoneFlags + temp_v1_3) = 2;
+                *(sTrackDoneFlags + temp_v1_3) = 2;
             }
         }
         break;
     case 1:
         temp_v1_4 = M2C_FIELD(temp_s0, u16 *, 0x34);
         if (temp_v1_4 != 0) {
-            *(gTrackDoneFlags + temp_v1_4) = 1;
+            *(sTrackDoneFlags + temp_v1_4) = 1;
         }
         temp_a0 = M2C_FIELD(temp_s0, u16 *, 0x36);
         if (temp_a0 != 0) {
@@ -60,7 +60,7 @@ void func_8005DAD4(void *arg0) {
     case 2:
         temp_v0 = M2C_FIELD(temp_s0, u16 *, 0x34);
         if (temp_v0 != 0) {
-            *(gTrackDoneFlags + temp_v0) = 0;
+            *(sTrackDoneFlags + temp_v0) = 0;
         }
         if (!(M2C_FIELD(arg0, s32 *, 0x60) & M2C_FIELD(temp_s0, s32 *, 0x2C))) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 0;

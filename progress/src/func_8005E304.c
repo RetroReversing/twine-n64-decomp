@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char gTrackDoneFlags[];
+extern char sTrackDoneFlags[];
 
 void func_8005E304(void *arg0) {
     u8 * __repair_hoisted;
@@ -26,7 +26,7 @@ void func_8005E304(void *arg0) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (temp_v1 & 0xFFBFFFFF);
         temp_v1_2 = *__repair_hoisted;
         if (temp_v1_2 != 0) {
-            *(gTrackDoneFlags + temp_v1_2) = 1;
+            *(sTrackDoneFlags + temp_v1_2) = 1;
         }
     }
 }

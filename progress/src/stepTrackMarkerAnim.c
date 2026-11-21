@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 s32 objectSetAnimFrame();
 s32 randomIntBelow();
-extern char gTrackDoneFlags[];
+extern char sTrackDoneFlags[];
 
-/* Advances a track marker's animation state machine; sets gTrackDoneFlags for its track entry as it plays. */ void stepTrackMarkerAnim(void *marker) {
+/* Advances a track marker's animation state machine; sets sTrackDoneFlags for its track entry as it plays. */ void stepTrackMarkerAnim(void *marker) {
     s16 state;
     u32 packedAnim;
     u32 packedAnim1;
@@ -38,7 +38,7 @@ extern char gTrackDoneFlags[];
         if (randomIntBelow(0x3C) == 0) {
             flagIndex = M2C_FIELD(entry, u8 *, 4);
             if (flagIndex != 0) {
-                *(gTrackDoneFlags + flagIndex) = 0;
+                *(sTrackDoneFlags + flagIndex) = 0;
             }
             packedAnim = M2C_FIELD(entry, u32 *, 0);
             objectSetAnimFrame(marker, ((packedAnim >> 4) & 0xFFFF) + 1, packedAnim >> 0x14);
@@ -49,7 +49,7 @@ extern char gTrackDoneFlags[];
         if (randomIntBelow(7) == 0) {
             flagIndex1 = M2C_FIELD(entry, u8 *, 4);
             if (flagIndex1 != 0) {
-                *(gTrackDoneFlags + flagIndex1) = 1;
+                *(sTrackDoneFlags + flagIndex1) = 1;
             }
             packedAnim1 = M2C_FIELD(entry, u32 *, 0);
             objectSetAnimFrame(marker, (packedAnim1 >> 4) & 0xFFFF, packedAnim1 >> 0x14);
@@ -61,7 +61,7 @@ extern char gTrackDoneFlags[];
         if (randomIntBelow(7) != 0) {
             flagIndex2 = M2C_FIELD(entry, u8 *, 4);
             if (flagIndex2 != 0) {
-                *(gTrackDoneFlags + flagIndex2) = 0;
+                *(sTrackDoneFlags + flagIndex2) = 0;
             }
             packedAnim2 = M2C_FIELD(entry, u32 *, 0);
             objectSetAnimFrame(marker, ((packedAnim2 >> 4) & 0xFFFF) + 1, packedAnim2 >> 0x14);
@@ -75,7 +75,7 @@ extern char gTrackDoneFlags[];
     case 3:
         flagIndex3 = M2C_FIELD(entry, u8 *, 4);
         if (flagIndex3 != 0) {
-            *(gTrackDoneFlags + flagIndex3) = 1;
+            *(sTrackDoneFlags + flagIndex3) = 1;
         }
         packedAnim3 = M2C_FIELD(entry, u32 *, 0);
         objectSetAnimFrame(marker, (packedAnim3 >> 4) & 0xFFFF, packedAnim3 >> 0x14);

@@ -23,7 +23,7 @@ s32 releaseTrackRecord();
 s32 updateActorTrackingState();
 extern s16 D_800C2942;
 extern s32 *gProbeObjectList;
-extern u8 gTrackDoneFlags[];
+extern u8 sTrackDoneFlags[];
 
 /* Two-state actor update. State 0 waits until its spawn group's done flag is set, then starts
  * state 1, which animates, spawns a child every 8 frames, and sets the done flag near the end. */
@@ -41,7 +41,7 @@ void actorUpdateStateMachine(void *actor) {
     switch (state) {                              /* irregular */
     case 0:
         doneFlagIndex = M2C_FIELD(record, u8 *, 0x2E);
-        if ((doneFlagIndex == 0) || (*(gTrackDoneFlags + doneFlagIndex) != 0)) {
+        if ((doneFlagIndex == 0) || (*(sTrackDoneFlags + doneFlagIndex) != 0)) {
             M2C_FIELD(actor, s16 *, 0x7A) = 1;
         }
         if (M2C_FIELD(actor, s16 *, 0x7A) == 1) {
@@ -82,7 +82,7 @@ void actorUpdateStateMachine(void *actor) {
         M2C_FIELD(actor, s32 *, 0x40) = 0;
         M2C_FIELD(actor, f32 *, 0x44) = 2048.0f;
         if (M2C_FIELD(record, s16 *, 0xE) >= (M2C_FIELD(record, s16 *, 0xC) - 4)) {
-            *(gTrackDoneFlags + M2C_FIELD(record, u8 *, 0x2F)) = 1;
+            *(sTrackDoneFlags + M2C_FIELD(record, u8 *, 0x2F)) = 1;
             releaseTrackRecord(subRecord);
             M2C_FIELD(actor, s32 *, 0x60) |= 1;
         }

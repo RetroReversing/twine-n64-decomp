@@ -148,7 +148,7 @@ typedef struct TrackMarkerTrigger {
     f32 scale;        /* 0x00 */
     s16 timer;        /* 0x04 */
     u16 sfxId;        /* 0x06 */
-    u8 trackIndex;    /* 0x08 index into gTrackDoneFlags */
+    u8 trackIndex;    /* 0x08 index into sTrackDoneFlags */
     u8 expectedState; /* 0x09 */
     u8 soundParam;    /* 0x0A */
     u8 doneFlagIndex; /* 0x0B */

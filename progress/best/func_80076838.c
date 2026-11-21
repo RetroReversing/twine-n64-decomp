@@ -30,7 +30,7 @@ extern s32 gBonusSceneHandle;
 extern s32 gProbeObjectList;
 extern u8 gSceneFlagsA;
 extern u8 gSceneFlagsB;
-extern s32 gTrackDoneFlags;
+extern s32 sTrackDoneFlags;
 
 void func_80076838(void *arg0) {
     s16 temp_v1;
@@ -46,7 +46,7 @@ void func_80076838(void *arg0) {
     temp_s1 = M2C_FIELD(arg0, void **, 0x6C);
     switch (temp_v1) {                              /* irregular */
     case 0:
-        if (*(&gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
+        if (*(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) != 0) {
             if (D_80103EB0 == 0) {
                 var_v0 = M2C_FIELD(arg0, s32 *, 0x60) | 1;
 block_24:
@@ -99,13 +99,13 @@ loop_16:
         M2C_FIELD(temp_s1, f32 *, 8) += M2C_FIELD(temp_s1, f32 *, 0xC);
         updateSplinePosition(arg0, temp_s1 + 4);
         func_80047F50(arg0, D_80109690);
-        if ((*(&gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
+        if ((*(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;
             return;
         }
         break;
     case 3:
-        *(&gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
+        *(&sTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 1)) = 1;
         gSceneFlagsA |= 1;
         gSceneFlagsB |= 1;
         func_80084048(D_80109690, 0xE, &gSceneFlagsA);

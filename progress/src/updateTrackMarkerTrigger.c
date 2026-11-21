@@ -19,7 +19,7 @@ M2C_UNK func_80073508(void *, f32);                 /* extern */
 M2C_UNK func_80084338(u16, void *);                 /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
 extern s8 gTransitionPhase;
-extern u8 gTrackDoneFlags[];
+extern u8 sTrackDoneFlags[];
 
 void updateTrackMarkerTrigger(register void *arg0) {
     s16 temp_v0;
@@ -33,7 +33,7 @@ void updateTrackMarkerTrigger(register void *arg0) {
     temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
     switch (temp_v1) {                              /* irregular */
     case 0x40:
-        if (*(gTrackDoneFlags + M2C_FIELD(temp_s0, u8 *, 8)) == M2C_FIELD(temp_s0, u8 *, 9)) {
+        if (*(sTrackDoneFlags + M2C_FIELD(temp_s0, u8 *, 8)) == M2C_FIELD(temp_s0, u8 *, 9)) {
             temp_v0 = M2C_FIELD(temp_s0, s16 *, 4);
             if (temp_v0 > 0) {
                 M2C_FIELD(temp_s0, s16 *, 4) = (s16) (temp_v0 - 1);
@@ -57,7 +57,7 @@ void updateTrackMarkerTrigger(register void *arg0) {
             }
             temp_a2 = M2C_FIELD(temp_s0, u8 *, 0xB);
             if (temp_a2 != 0) {
-                *(gTrackDoneFlags + temp_a2) = 1;
+                *(sTrackDoneFlags + temp_a2) = 1;
             }
             M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
             return;

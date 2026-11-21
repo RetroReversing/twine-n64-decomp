@@ -5,7 +5,7 @@ s32 IsSphereVisible(f32 *, s32, void *, void *);      /* extern */
 s32 func_800158A4(void *, f32 *, s32, s32 *, s32, s32, s32, s32, s32); /* extern */
 s32 func_80032630(s32, void *);                 /* extern */
 s32 func_80034928(void *, s32);                 /* extern */
-f32 func_800357C8(s32, s32, s32);       /* extern */
+f32 func_800357C8(f32);       /* extern */
 s32 func_80039068();                            /* extern */
 s32 func_80043FA0(s32 *, void *);               /* extern */
 s32 func_8004478C(s32, s32);                /* extern */
@@ -31,7 +31,7 @@ extern u8 D_800C2B40;
 extern s32 D_801032A0;
 extern void *gObjectListHead;
 extern u32 sMatrixPoolUsed;
-extern s32 gTrackDoneFlags;
+extern s32 sTrackDoneFlags;
 extern s32 sParentMatrixF;
 extern void *D_80109CB8;
 extern s32 D_8010A4D8;
@@ -87,7 +87,7 @@ void func_800358D4(void *arg0) {
             
             
              
-    volatile long long unused_frame;
+
     s32 var_a0;
     void *temp_v0_5;
     f32 *temp_s1;
@@ -146,14 +146,14 @@ void func_800358D4(void *arg0) {
     temp_v1_3 = (*(s32 *)((char *)(arg0) + 0x100));
     if (temp_v1_3 & 1) {
         m2c_initial_frame.view_spAF.value = 0xFF;
-        var_fv0 = func_800357C8(0x3D4CCCCD, var_a0, var_a1) + 1.0f;
+        var_fv0 = func_800357C8(0.05f) + 1.0f;
         m2c_initial_frame.view_spA7.value = 0xFF;
         m2c_initial_frame.view_sp9F.value = 0xFF;
         goto block_10;
     }
     if (!(temp_v1_3 & 4)) {
         m2c_initial_frame.view_spAF.value = 0;
-        temp_fv0 = func_800357C8(0x3DCCCCCD, var_a0, var_a1);
+        temp_fv0 = func_800357C8(0.1f);
         m2c_initial_frame.view_sp9F.value = 0;
         m2c_initial_frame.view_spA7.value = 0xFF;
         var_fv0 = temp_fv0 + 3.0f;
@@ -165,7 +165,7 @@ block_10:
                 if (var_s3 != NULL) {
                     m2c_initial_frame.view_spB4.value = m2c_initial_frame.view_sp9F.value << 0x18;
                     for (;;) {
-                        if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 1) && ((temp_v0 = (*(u8 *)((char *)(var_s3) + 0x54)), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&gTrackDoneFlags + temp_v0)) != (*(u8 *)((char *)(var_s3) + 0x55)))) && ((IsSphereVisible(temp_s1, (*(s32 *)((char *)(var_s3) + 0x4C)), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), rotateVec3ByMat3(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
+                        if ((((u32) (*(s32 *)((char *)(var_s3) + 0x58)) >> 2) & 1) && ((temp_v0 = (*(u8 *)((char *)(var_s3) + 0x54)), temp_s1 = var_s3 + 0x24, (temp_v0 == 0)) || (*((u8 *)((s8 *)&sTrackDoneFlags + temp_v0)) != (*(u8 *)((char *)(var_s3) + 0x55)))) && ((IsSphereVisible(temp_s1, (*(s32 *)((char *)(var_s3) + 0x4C)), var_fp, arg0) << 0x18) != 0) && (func_80034928(arg0, 2), func_800452E0(temp_s1, arg0 + 0x1C, &m2c_initial_frame.view_sp28.value), rotateVec3ByMat3(arg0 + 0xB8, &m2c_initial_frame.view_sp28.value), (m2c_initial_frame.view_sp30.value > 0.0f))) {
                             if ((u32) (*(s32 *)&sMatrixPoolUsed) < (u32) (*(s32 *)&sMatrixPoolLimit)) {
                                 temp_v0_2 = (*(s32 *)&sMatrixPoolUsed) + 1;
                                 (*(s32 *)&sMatrixPoolUsed) = temp_v0_2;
@@ -302,3 +302,4 @@ block_49:
         }
     }
 }
+

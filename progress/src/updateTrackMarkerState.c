@@ -18,7 +18,7 @@ s32 aimTrackMarkerAngles();
 s32 func_80084338();
 extern u16 D_800C79AA;
 extern f64 D_800D27E0;
-extern char gTrackDoneFlags[];
+extern char sTrackDoneFlags[];
 
 void updateTrackMarkerState(void *arg0) {
     f32 temp_fv1;
@@ -77,7 +77,7 @@ void updateTrackMarkerState(void *arg0) {
         func_80018744(arg0);
         temp_a0 = M2C_FIELD(temp_s1, u8 *, 0x1C);
         if (temp_a0 != 0) {
-            *(gTrackDoneFlags + temp_a0) = 1;
+            *(sTrackDoneFlags + temp_a0) = 1;
             return;
         }
         break;

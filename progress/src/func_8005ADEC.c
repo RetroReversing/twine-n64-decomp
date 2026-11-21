@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 objectSetAnimFrame();
-extern char gTrackDoneFlags[];
+extern char sTrackDoneFlags[];
 
 void func_8005ADEC(void *arg0) {
     s32 temp_a3;
@@ -22,6 +22,6 @@ void func_8005ADEC(void *arg0) {
 
     temp_v0 = M2C_FIELD(arg0, void **, 0x6C);
     temp_a2 = M2C_FIELD(temp_v0, u32 *, 0);
-    temp_a3 = M2C_FIELD(temp_v0, u8 *, 5) ^ (*(gTrackDoneFlags + M2C_FIELD(temp_v0, u8 *, 4)) & 1);
+    temp_a3 = M2C_FIELD(temp_v0, u8 *, 5) ^ (*(sTrackDoneFlags + M2C_FIELD(temp_v0, u8 *, 4)) & 1);
     objectSetAnimFrame(arg0, ((temp_a2 >> 4) & 0xFFFF) + temp_a3, temp_a2 >> 0x14, temp_a3);
 }

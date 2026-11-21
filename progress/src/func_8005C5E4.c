@@ -5,7 +5,7 @@ s32 markObjectsNearPos();
 s32 func_8005B5A8();
 s32 func_8005C508();
 s32 func_8007092C();
-extern u8 gTrackDoneFlags[];
+extern u8 sTrackDoneFlags[];
 
 void func_8005C5E4(s32 arg0) {
     s32 var_s0;
@@ -19,7 +19,7 @@ void func_8005C5E4(s32 arg0) {
     var_s0 = 0;
     if (var_s1 != NULL) {
         do {
-            if (((*(u16 *)((char *)(var_s1) + 0x78)) == 0x24) && ((temp_v1 = (*(void **)((char *)(var_s1) + 0x6C)), temp_v0 = (*(u16 *)((char *)(temp_v1) + 0x24)), (temp_v0 == 0)) || (*(gTrackDoneFlags + temp_v0) != 0))) {
+            if (((*(u16 *)((char *)(var_s1) + 0x78)) == 0x24) && ((temp_v1 = (*(void **)((char *)(var_s1) + 0x6C)), temp_v0 = (*(u16 *)((char *)(temp_v1) + 0x24)), (temp_v0 == 0)) || (*(sTrackDoneFlags + temp_v0) != 0))) {
                 temp_a0 = (*(u16 *)((char *)(temp_v1) + 0x26));
                 if ((temp_a0 == 1) && ((*(u16 *)((char *)(temp_v1) + 0x28)) == 3)) {
                     temp_s0 = var_s1 + 0x24;

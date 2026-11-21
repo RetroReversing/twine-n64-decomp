@@ -18,7 +18,7 @@ extern f32 D_800C43A0;
 extern s32 *gProbeObjectList;
 extern u8 D_800CA338;
 extern s32 gTrackMarkerTable;
-extern u8 gTrackDoneFlags;
+extern u8 sTrackDoneFlags;
 extern void *D_80109CB4;
 
 void func_80059944(void *arg0) {
@@ -161,7 +161,7 @@ block_17:
             goto block_259;
         case 1:                                     /* switch 4 */
             temp_v0 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((temp_v0 != 0) && (*(&gTrackDoneFlags + temp_v0) != 0)) {
+            if ((temp_v0 != 0) && (*(&sTrackDoneFlags + temp_v0) != 0)) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
                 actorLinkToSurface(*gProbeObjectList, arg0, 0);
             case 2:                                 /* switch 4 */
@@ -170,7 +170,7 @@ block_17:
                     temp_a1 = (*(u16 *)((char *)(temp_s0) + 0x36));
                     D_80109CB4 = (int)NULL;
                     if (temp_a1) {
-                        *(&gTrackDoneFlags + temp_a1) = 1;
+                        *(&sTrackDoneFlags + temp_a1) = 1;
                     }
                     (*(s16 *)((char *)(arg0) + 0x7A)) = 3;
                 }
@@ -186,7 +186,7 @@ block_66:
             if ((func_80059658(arg0, 1) << 0x18) != 0) {
                 temp_a1_2 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_a1_2 != 0) {
-                    *(&gTrackDoneFlags + temp_a1_2) = 1;
+                    *(&sTrackDoneFlags + temp_a1_2) = 1;
                 }
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 1;
             }
@@ -265,7 +265,7 @@ block_85:
         switch (temp_v1_7) {                        /* switch 7 */
         case 0:                                     /* switch 7 */
             temp_v0_2 = (*(u16 *)((char *)(temp_s0) + 0x42));
-            if (((u32)temp_v0_2 == 0) || (*(&gTrackDoneFlags + temp_v0_2) == 0)) {
+            if (((u32)temp_v0_2 == 0) || (*(&sTrackDoneFlags + temp_v0_2) == 0)) {
                 temp_v0_3 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_v0_3 == 0) {
                     temp_a0 = (*(s32 *)((char *)(arg0) + 0x60));
@@ -287,7 +287,7 @@ block_85:
                         var_v0_5 = 1;
                         goto block_227;
                     }
-                } else if (*(&gTrackDoneFlags + (int)temp_v0_3) == (*(u16 *)((char *)(temp_s0) + 0x36))) {
+                } else if (*(&sTrackDoneFlags + (int)temp_v0_3) == (*(u16 *)((char *)(temp_s0) + 0x36))) {
                     temp_a0_3 = (*(u16 *)((char *)(temp_s0) + 0x3A));
                     (*(u16 *)((char *)(temp_s0) + 0x46)) = (u16) (*(u16 *)((char *)(temp_s0) + 0x44));
                     if (temp_a0_3 != 0) {
@@ -330,16 +330,16 @@ block_233:
         case 3:                                     /* switch 7 */
             temp_a1_3 = (*(u16 *)((char *)(temp_s0) + 0x38));
             if (temp_a1_3 != 0) {
-                *(&gTrackDoneFlags + temp_a1_3) = 1;
+                *(&sTrackDoneFlags + temp_a1_3) = 1;
             }
             var_v0_2 = 4;
             goto block_259;
         case 4:                                     /* switch 7 */
             temp_v0_5 = (*(u16 *)((char *)(temp_s0) + 0x42));
-            if ((temp_v0_5 == 0) || (*(&gTrackDoneFlags + temp_v0_5) == 0)) {
+            if ((temp_v0_5 == 0) || (*(&sTrackDoneFlags + temp_v0_5) == 0)) {
                 temp_v0_6 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_v0_6 != 0) {
-                    if (*(&gTrackDoneFlags + temp_v0_6) != (*(u16 *)((char *)(temp_s0) + 0x36))) {
+                    if (*(&sTrackDoneFlags + temp_v0_6) != (*(u16 *)((char *)(temp_s0) + 0x36))) {
                         temp_a0_4 = (*(u16 *)((char *)(temp_s0) + 0x3E));
                         (*(u16 *)((char *)(temp_s0) + 0x46)) = (u16) (*(u16 *)((char *)(temp_s0) + 0x44));
                         if (temp_a0_4 != 0) {
@@ -391,7 +391,7 @@ block_233:
             if (temp_a1_4 == 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 0;
             } else {
-                *(&gTrackDoneFlags + temp_a1_4) = 0;
+                *(&sTrackDoneFlags + temp_a1_4) = 0;
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 0;
             }
             break;
@@ -404,14 +404,14 @@ block_233:
         case 0:                                     /* switch 8 */
             temp_v0_7 = (*(u16 *)((char *)(temp_s0) + 0x3A));
             if (temp_v0_7 != 0) {
-                *(&gTrackDoneFlags + temp_v0_7) = 0;
+                *(&sTrackDoneFlags + temp_v0_7) = 0;
             }
             temp_v1_10 = (*(u16 *)((char *)(temp_s0) + 0x36));
             if (temp_v1_10 != 0) {
-                *(&gTrackDoneFlags + temp_v1_10) = 1;
+                *(&sTrackDoneFlags + temp_v1_10) = 1;
             }
             temp_v0_8 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((!temp_v0_8) || (*(&gTrackDoneFlags + temp_v0_8) != 1)) {
+            if ((!temp_v0_8) || (*(&sTrackDoneFlags + temp_v0_8) != 1)) {
                 if (!((*(s32 *)((char *)(arg0) + 0x60)) & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))))) {
                     (*(s16 *)((char *)(arg0) + 0x7A)) = 1;
                 }
@@ -419,15 +419,15 @@ block_233:
 block_140:
                 temp_v0_9 = (*(u16 *)((char *)(temp_s0) + 0x36));
                 if ((int)temp_v0_9 != 0) {
-                    *(&gTrackDoneFlags + (s32)temp_v0_9) = 0;
+                    *(&sTrackDoneFlags + (s32)temp_v0_9) = 0;
                 }
                 temp_v1_11 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_v1_11) {
-                    *(&gTrackDoneFlags + temp_v1_11) = 1;
+                    *(&sTrackDoneFlags + temp_v1_11) = 1;
                 }
                 temp_v1_12 = (*(u16 *)((char *)(temp_s0) + 0x3A));
                 if (temp_v1_12 != 0) {
-                    *(&gTrackDoneFlags + temp_v1_12) = 2;
+                    *(&sTrackDoneFlags + temp_v1_12) = 2;
                 }
                 var_v0_5 = 2;
                 goto block_227;
@@ -435,7 +435,7 @@ block_140:
             break;
         case 1:                                     /* switch 8 */
             temp_v0_10 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if (((temp_v0_10 != 0) && (*(&gTrackDoneFlags + temp_v0_10) == 1)) || ((*(s32 *)((char *)(arg0) + 0x60)) & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))))) {
+            if (((temp_v0_10 != 0) && (*(&sTrackDoneFlags + temp_v0_10) == 1)) || ((*(s32 *)((char *)(arg0) + 0x60)) & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))))) {
                 goto block_140;
             }
             break;
@@ -448,7 +448,7 @@ block_231:
                 {var_a0 = (*(u16 *)((char *)(temp_s0) + 0x3E));
                 goto block_233;}
             }
-            if (*(&gTrackDoneFlags + temp_v0_11) == 0) {
+            if (*(&sTrackDoneFlags + temp_v0_11) == 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 3;
 block_232:
                 var_a0 = (*(u16 *)((char *)(temp_s0) + 0x3E));
@@ -465,7 +465,7 @@ block_232:
             temp_v1_13 = (*(u16 *)((char *)(temp_s0) + 0x38));
             (*(s16 *)((char *)(arg0) + 0x7A)) = 5;
             if (temp_v1_13 != 0) {
-                *(&gTrackDoneFlags + temp_v1_13) = 1;
+                *(&sTrackDoneFlags + temp_v1_13) = 1;
             }
             (*(f32 *)((char *)(temp_s0) + 8)) = 300.0f;
 block_240:
@@ -476,14 +476,14 @@ block_240:
         case 5:                                     /* switch 8 */
             temp_v1_14 = (*(u16 *)((char *)(temp_s0) + 0x3A));
             if (temp_v1_14 != 0) {
-                *(&gTrackDoneFlags + temp_v1_14) = 1;
+                *(&sTrackDoneFlags + temp_v1_14) = 1;
             }
             temp_v1_15 = (*(u16 *)((char *)(temp_s0) + 0x38));
             if (temp_v1_15 != 0) {
-                *(&gTrackDoneFlags + temp_v1_15) = 1;
+                *(&sTrackDoneFlags + temp_v1_15) = 1;
             }
             temp_v0_12 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((temp_v0_12 == 0) || (*(&gTrackDoneFlags + temp_v0_12) != 0)) {
+            if ((temp_v0_12 == 0) || (*(&sTrackDoneFlags + temp_v0_12) != 0)) {
                 if (((*(u8 *)((char *)(temp_s0) + 0x4A)) != 0xE) || (temp_fv0_2 = (*(f32 *)((char *)(temp_s0) + 8)) - 1.0f, (*(f32 *)((char *)(temp_s0) + 8)) = temp_fv0_2, !(temp_fv0_2 <= 0.0f))) {
                     if (!((*(s32 *)((char *)(arg0) + 0x60)) & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))))) {
                         (*(s16 *)((char *)(arg0) + 0x7A)) = 6;
@@ -497,15 +497,15 @@ block_211:
 block_220:
                 temp_v0_13 = (*(u16 *)((char *)(temp_s0) + 0x38));
                 if (temp_v0_13 != 0) {
-                    *(&gTrackDoneFlags + temp_v0_13) = 0;
+                    *(&sTrackDoneFlags + temp_v0_13) = 0;
                 }
                 temp_v0_14 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_v0_14 != 0) {
-                    *(&gTrackDoneFlags + temp_v0_14) = 0;
+                    *(&sTrackDoneFlags + temp_v0_14) = 0;
                 }
                 temp_v1_16 = (*(u16 *)((char *)(temp_s0) + 0x3A));
                 if (temp_v1_16) {
-                    *(&gTrackDoneFlags + temp_v1_16) = 2;
+                    *(&sTrackDoneFlags + temp_v1_16) = 2;
                 }
                 var_v0_5 = 7;
                 goto block_227;
@@ -513,7 +513,7 @@ block_220:
             break;
         case 6:                                     /* switch 8 */
             temp_v0_15 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if (((unsigned)temp_v0_15 == 0) || (*(&gTrackDoneFlags + temp_v0_15) != 0)) {
+            if (((unsigned)temp_v0_15 == 0) || (*(&sTrackDoneFlags + temp_v0_15) != 0)) {
                 var_v0_7 = 0xE;
 block_217:
                 if ((((*(u8 *)((char *)(temp_s0) + 0x4A)) == var_v0_7) && (temp_fv0_3 = (*(f32 *)((char *)(temp_s0) + 8)) - 1.0f, (*(f32 *)((char *)(temp_s0) + 8)) = temp_fv0_3, (temp_fv0_3 <= 0.0f))) || ((*(s32 *)((char *)(arg0) + 0x60)) & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))))) {
@@ -531,7 +531,7 @@ block_217:
             break;
         case 7:                                     /* switch 8 */
             temp_v0_16 = (*(u16 *)((char *)(temp_s0) + 0x3C));
-            if ((temp_v0_16 == 0) || (*(&gTrackDoneFlags + temp_v0_16) == 0)) {
+            if ((temp_v0_16 == 0) || (*(&sTrackDoneFlags + temp_v0_16) == 0)) {
                 var_v0_6 = 8;
                 goto block_231;
             }
@@ -540,7 +540,7 @@ block_217:
             (*(s16 *)((char *)(arg0) + 0x7A)) = 0;
             temp_v1_17 = (*(u16 *)((char *)(temp_s0) + 0x36));
             if (temp_v1_17) {
-                *(&gTrackDoneFlags + temp_v1_17) = 1;
+                *(&sTrackDoneFlags + temp_v1_17) = 1;
             }
             goto block_240;
         }
@@ -552,14 +552,14 @@ block_217:
         case 0:                                     /* switch 9 */
             temp_v0_17 = (*(u16 *)((char *)(temp_s0) + 0x3A));
             if (temp_v0_17 != 0) {
-                *(&gTrackDoneFlags + temp_v0_17) = 0;
+                *(&sTrackDoneFlags + temp_v0_17) = 0;
             }
             temp_v1_19 = (*(u16 *)((char *)(temp_s0) + 0x36));
             if (temp_v1_19) {
-                *(&gTrackDoneFlags + (s32)temp_v1_19) = 1;
+                *(&sTrackDoneFlags + (s32)temp_v1_19) = 1;
             }
             temp_v0_18 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((temp_v0_18 == 0) || (*(&gTrackDoneFlags + temp_v0_18) != 1)) {
+            if ((temp_v0_18 == 0) || (*(&sTrackDoneFlags + temp_v0_18) != 1)) {
                 temp_v1_20 = (*(s32 *)((char *)(arg0) + 0x60));
                 if (!(temp_v1_20 & getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40)))) || (temp_v1_20 & 0x200000)) {
                     var_v0_2 = 1;
@@ -569,15 +569,15 @@ block_217:
 block_186:
                 temp_v0_19 = (*(u16 *)((char *)(temp_s0) + 0x36));
                 if (temp_v0_19 != 0) {
-                    *(&gTrackDoneFlags + temp_v0_19) = 0;
+                    *(&sTrackDoneFlags + temp_v0_19) = 0;
                 }
                 temp_v1_21 = (*(u16 *)((char *)(temp_s0) + 0x34));
                 if (temp_v1_21 != 0) {
-                    *(&gTrackDoneFlags + temp_v1_21) = 1;
+                    *(&sTrackDoneFlags + temp_v1_21) = 1;
                 }
                 temp_v1_22 = (*(u16 *)((char *)(temp_s0) + 0x3A));
                 if (temp_v1_22 != 0) {
-                    *(&gTrackDoneFlags + temp_v1_22) = 2;
+                    *(&sTrackDoneFlags + temp_v1_22) = 2;
                 }
                 var_v0_5 = 2;
                 goto block_227;
@@ -585,7 +585,7 @@ block_186:
             break;
         case 1:                                     /* switch 9 */
             temp_v0_20 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if (((temp_v0_20 != 0) && (*(&gTrackDoneFlags + temp_v0_20) == 1)) || ((*(s32 *)((char *)(arg0) + 0x60)) & (getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))) | 0x200000))) {
+            if (((temp_v0_20 != 0) && (*(&sTrackDoneFlags + temp_v0_20) == 1)) || ((*(s32 *)((char *)(arg0) + 0x60)) & (getTrackTriggerMask((*(u16 *)((char *)(temp_s0) + 0x40))) | 0x200000))) {
                 goto block_186;
             }
             break;
@@ -595,7 +595,7 @@ block_186:
                 var_v0_6 = 3;
                 goto block_231;
             }
-            if (*(&gTrackDoneFlags + temp_v0_21) == 0) {
+            if (*(&sTrackDoneFlags + temp_v0_21) == 0) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 3;
                 {var_a0 = (*(u16 *)((char *)(temp_s0) + 0x3E));
                 goto block_233;}
@@ -611,21 +611,21 @@ block_186:
             (*(s16 *)((char *)(arg0) + 0x7A)) = 5;
             temp_v1_23 = (*(u16 *)((char *)(temp_s0) + 0x38));
             if (temp_v1_23 != 0) {
-                *(&gTrackDoneFlags + temp_v1_23) = 1;
+                *(&sTrackDoneFlags + temp_v1_23) = 1;
             }
             (*(f32 *)((char *)(temp_s0) + 8)) = 300.0f;
             goto block_240;
         case 5:                                     /* switch 9 */
             temp_v1_24 = (*(u16 *)((char *)(temp_s0) + 0x3A));
             if (temp_v1_24 != 0) {
-                *(&gTrackDoneFlags + temp_v1_24) = 1;
+                *(&sTrackDoneFlags + temp_v1_24) = 1;
             }
             temp_v1_25 = (*(u16 *)((char *)(temp_s0) + 0x38));
             if (temp_v1_25) {
-                *(&gTrackDoneFlags + temp_v1_25) = 1;
+                *(&sTrackDoneFlags + temp_v1_25) = 1;
             }
             temp_v0_22 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((temp_v0_22 == 0) || (*(&gTrackDoneFlags + (unsigned)temp_v0_22) != 0)) {
+            if ((temp_v0_22 == 0) || (*(&sTrackDoneFlags + (unsigned)temp_v0_22) != 0)) {
                 if ((*(u8 *)((char *)(temp_s0) + 0x4A)) == 0xF) {
                     temp_fv0_4 = (*(f32 *)((char *)(temp_s0) + 8)) - 1.0f;
                     (*(f32 *)((char *)(temp_s0) + 8)) = temp_fv0_4;
@@ -642,7 +642,7 @@ block_186:
             break;
         case 6:                                     /* switch 9 */
             temp_v0_23 = (*(u16 *)((char *)(temp_s0) + 0x34));
-            if ((temp_v0_23 == 0) || (*(&gTrackDoneFlags + temp_v0_23) != 0)) {
+            if ((temp_v0_23 == 0) || (*(&sTrackDoneFlags + temp_v0_23) != 0)) {
                 var_v0_7 = 0xF;
                 goto block_217;
             }
@@ -675,7 +675,7 @@ block_186:
         temp_fv1_3 = (f32) (*(u16 *)((char *)(arg0) + 0x7C)) + (*(f32 *)((char *)(arg0) + 0x24)) + (*(f32 *)((char *)(arg0) + 0x2C));
         var_v0_9 = (u32) temp_fv1_3;
         (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) ((*(f32 *)((char *)(arg0) + 0x3C)) + ((f32) *(&D_800C43A0 + (var_v0_9 & 0x7F)) * 0.0015625f));
-        if (((*(s16 *)((char *)(arg0) + 0x7A)) == 0) && ((*(s32 *)((char *)(temp_s0) + 4)) != 0) && ((temp_v0_24 = (*(u16 *)((char *)(temp_s0) + 0x34)), (temp_v0_24 == 0)) || (*(&gTrackDoneFlags + temp_v0_24) != 0))) {
+        if (((*(s16 *)((char *)(arg0) + 0x7A)) == 0) && ((*(s32 *)((char *)(temp_s0) + 4)) != 0) && ((temp_v0_24 = (*(u16 *)((char *)(temp_s0) + 0x34)), (temp_v0_24 == 0)) || (*(&sTrackDoneFlags + temp_v0_24) != 0))) {
             (*(s32 *)((char *)(arg0) + 0x58)) = (s32) ((*(s32 *)((char *)(arg0) + 0x58)) | 1);
             goto block_256;
         }

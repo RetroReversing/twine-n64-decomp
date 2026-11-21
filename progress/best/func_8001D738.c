@@ -96,8 +96,8 @@ void func_8001D738(void) {
     u8 temp_v0_5;
     u8 temp_v0_6;
     u8 temp_v0_7;
-    s8 temp_v1_2;
-    s8 temp_v1_3;
+    s32 temp_v1_2;
+    s32 temp_v1_3;
 
     D_800BD690 = 1;
     temp_s6 = findEntryPayload(D_800BD914, 0x78);

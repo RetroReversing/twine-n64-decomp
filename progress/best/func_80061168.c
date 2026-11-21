@@ -6,7 +6,7 @@ s32 randomIntBelow(s32);
 s32 spawnDriftEffect(void *, s32 *);
 s32 buildRotationMatrixS16(s16 *, void *);
 s32 rotateVec3ByMat3(void *, s32 *);
-extern u8 gTrackDoneFlags[];
+extern u8 sTrackDoneFlags[];
 
 void func_80061168(void *arg0) {
     s32 sp10[3];
@@ -39,7 +39,7 @@ void func_80061168(void *arg0) {
             break;
         case 1:
             t = *(u8 *)((char *)s2 + 0x22);
-            if ((!t) || (gTrackDoneFlags[t] != 0)) {
+            if ((!t) || (sTrackDoneFlags[t] != 0)) {
                 if (randomIntBelow((*(s16 *)((char *)arg0 + 0x7C))) == 0) {
                     *(VecWords *)sp58 = *(VecWords *)((char *)arg0 + 0x24);
                     *(VecWords *)sp68 = *(VecWords *)((char *)arg0 + 0x3C);
