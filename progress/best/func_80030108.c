@@ -1,168 +1,58 @@
+#define PTR(n) (*(void * volatile *)((char *)arg0 + (n)))
+#define B(p, o) (*(u8 *)((char *)(p) + (o)))
+#define H(p, o) (*(volatile u16 *)((char *)(p) + (o)))
+#define W(p, o) (*(volatile u32 *)((char *)(p) + (o)))
 s32 func_80030108(void *arg0)
 {
-  u8 __repair_frame[8];
-  s32 temp_v0;
-  s32 __repair_phase_temp_v0;
-  s32 __repair_phase___repair_phase_temp_v0;
-  s32 temp_v0_6;
-  s32 temp_v0_8;
-  s32 temp_v0_9;
-  s32 temp_v1_5;
-  s32 var_a0;
-  s32 var_a0_2;
-  s32 var_a2;
-  s32 var_a2_2;
-  s32 var_t0;
-  short var_v0;
-  s32 __repair_phase_var_v0;
-  s32 var_v1;
-  short var_v1_2;
-  u16 temp_a0;
-  
-  u32 temp_v1_2;
-  u8 temp_a0_2;
-  u8 temp_a1_3;
-  u8 temp_v1_3;
-  void *temp_a1_2;
-  void *temp_a1_4;
-  void *temp_v0_7;
-  union 
-  {
-    void *pointer;
-    s32 value;
-  } __repair_phase_storage;
-  __repair_phase_storage.pointer = *((void **) (((char *) arg0) + 4));
-  var_t0 = 1;
-  if (__repair_phase_storage.pointer != NULL)
-  {
-    temp_v1_2 = ((u32) (*((u32 *) (((char *) __repair_phase_storage.pointer) + 0x10)))) >> 0x18;
-    if ((*((u8 *) (((char *) __repair_phase_storage.pointer) + 0x11))) != 0)
-    {
-      temp_v0 = temp_v1_2 - 0x20;
-      if (temp_v0 >= 0)
-      {
-        var_v1 = temp_v1_2 - 0x20;
-        if ((temp_v0 + 1) >= (0x25 + 1))
-        {
-          var_v1 = 0x24;
-        }
-      }
-      else
-      {
-        var_v1 = 0;
-      }
-      var_t0 = (u16) ((u16) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0x10))));
-      temp_v0 = (var_t0 & 0xFF) - 0x20;
-      if (temp_v0 >= 0)
-      {
-        var_a0 = var_t0 - 0x20;
-        if (temp_v0 >= 0x6C)
-        {
-          var_a0 = 0x6B;
-        }
-      }
-      else
-      {
-        var_a0 = 0;
-      }
-      temp_v1_2 = ((u32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 4)))) + 0x10)))) >> 8;
-      __repair_phase_var_v0 = temp_v1_2 & 0xFF;
-      temp_v0 = __repair_phase_var_v0 - 0x20;
-      if (temp_v0 >= 0)
-      {
-        var_a2 = temp_v1_2 - 0x20;
-        if (temp_v0 >= 0x61)
-        {
-          var_a2 = 0x60;
-        }
-      }
-      else
-      {
-        var_a2 = 0;
-      }
-      temp_a1_2 = *((void **) (((char *) arg0) + 4));
-      *((u32 *) (((char *) temp_a1_2) + 0x10)) = (u32) ((((var_v1 << 0x18) | ((var_a0 & 0xFF) << 0x10)) | ((var_a2 & 0xFF) << 8)) | (*((u8 *) (((char *) temp_a1_2) + 0x13))));
-      temp_v0 = (u8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0xC)))) + 0x10)));
-      temp_v0 -= 0x20;
-      if (temp_v0 >= 0)
-      {
-        var_v1_2 = temp_v0_8 - 0x20;
-        if (temp_v0 >= 0x100)
-        {
-          var_v1_2 = 0xFF;
-        }
-      }
-      else
-      {
-        var_v1_2 = 0;
-      }
-      temp_v0 = __repair_phase_temp_v0 - 0x20;
-      __repair_phase_temp_v0 = (u8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0xC)))) + 0x10)));
-      if (temp_v0 >= 0)
-      {
-        var_a0_2 = __repair_phase_temp_v0 - 0x20;
-        if (temp_v0 >= 0x100)
-        {
-          var_a0_2 = 0xFF;
-        }
-      }
-      else
-      {
-        var_a0_2 = 0;
-      }
-      temp_v0 = (u8) (*((u8 *) (((char *) (*((void **) (((char *) arg0) + 0xC)))) + 0x10)));
-      temp_v0 = temp_v0 - 0x20;
-      if (temp_v0 >= 0)
-      {
-        var_a2_2 = temp_v0 - 0x20;
-        if (temp_v0 >= 0x100)
-        {
-          var_a2_2 = 0xFF;
-        }
-      }
-      else
-      {
-        var_a2_2 = 0;
-      }
-      temp_a1_4 = *((void **) (((char *) arg0) + 0xC));
-      var_t0 = 0;
-      *((u32 *) (((char *) temp_a1_4) + 0x10)) = (u32) ((((var_v1_2 << 0x18) | ((var_a0_2 & 0xFF) << 0x10)) | ((var_a2_2 & 0xFF) << 8)) | (*((u8 *) (((char *) temp_a1_4) + 0x13))));
+  s32 ret, t; u32 p0, p1, p2, p3, p4, p5, p6, p7, p8, g, ee, xb; u16 h0, h1; u32 b0, b1, b2; void *q2, *q3, *q4;
+  u8 pad[8];
+  ret = 1;
+  p3 = (u32)PTR(4);
+  if (p3 != 0) {
+    g = B((void *)p3, 0x11);
+    p3 = W((void *)p3, 0x10);
+    if (g != 0) {
+      p3 = p3 >> 24;
+      t = (s16)p3 - 0x20;
+      if (t >= 0) { p3 = p3 - 0x20; if (t >= 37) p3 = 36; } else p3 = 0;
+      h0 = H(PTR(4), 0x10);
+      t = (h0 & 0xFF) - 0x20;
+      if (t >= 0) { h0 = h0 - 0x20; if (t >= 108) h0 = 107; } else h0 = 0;
+      ee = W(PTR(4), 0x10) >> 8;
+      t = (ee & 0xFF) - 0x20;
+      if (t >= 0) { p4 = ee - 0x20; if (t >= 97) p4 = 96; } else p4 = 0;
+      q2 = PTR(4);
+      W(q2, 0x10) = (p3 << 24) | ((h0 & 0xFF) << 16) | ((p4 & 0xFF) << 8) | B(q2, 0x13);
+      p8 = B(PTR(0xC), 0x10);
+      t = (s16)p8 - 0x20;
+      if (t >= 0) { p8 = p8 - 0x20; if (t >= 256) p8 = 255; } else p8 = 0;
+      p0 = B(PTR(0xC), 0x10);
+      t = (s16)p0 - 0x20;
+      if (t >= 0) { p0 = p0 - 0x20; if (t >= 256) p0 = 255; } else p0 = 0;
+      p7 = B(PTR(0xC), 0x10);
+      t = (s16)p7 - 0x20;
+      if (t >= 0) { p4 = p7 - 0x20; if (t >= 256) p4 = 255; } else p4 = 0;
+      ret = 0;
+      q3 = PTR(0xC);
+      W(q3, 0x10) = (p8 << 24) | ((p0 & 0xFF) << 16) | ((p4 & 0xFF) << 8) | B(q3, 0x10);
     }
   }
-  temp_v0_7 = *((void **) (((char *) arg0) + 0x10));
-  if (temp_v0_7 != NULL)
-  {
-    __repair_phase_storage.value = *((u8 *) (((char *) temp_v0_7) + 0x10));
-    temp_v0_8 = __repair_phase_storage.value - 0x20;
-    if (__repair_phase_storage.value != 0)
-    {
-      if (temp_v0_8 >= 0)
-      {
-        var_v0 = __repair_phase_storage.value - 0x20;
-        if (temp_v0_8 >= 0x100)
-        {
-          var_v0 = 0xFF;
-        }
-      }
-      else
-      {
-        var_v0 = 0;
-      }
-      temp_v0 = var_v0 & 0xFF;
-      do
-      {
-        __repair_phase_temp_v0 = (((temp_v0 << 0x18) | (temp_v0 << 0x10)) | (temp_v0 << 8)) | 0xFF;
-      }
-      while (0);
-      *((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x10)))) + 0x10)) = __repair_phase_temp_v0;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x14)))) + 0x10)) = (int) __repair_phase_temp_v0;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x18)))) + 0x10)) = __repair_phase_temp_v0;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x1C)))) + 0x10)) = __repair_phase_temp_v0;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x10)) = __repair_phase_temp_v0;
-      var_t0 = 0;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x24)))) + 0x10)) = __repair_phase_temp_v0;
+  q4 = PTR(0x10);
+  if (q4 != NULL) {
+    xb = *(u8 *)((char *)q4 + 0x10);
+    if (xb != 0) {
+      t = (s16)xb - 0x20;
+      if (t >= 0) { p0 = xb - 0x20; if (t >= 256) p0 = 255; } else p0 = 0;
+      p0 &= 0xFF;
+      ee = (p0 << 24) | (p0 << 16) | (p0 << 8) | 0xFF;
+      W(PTR(0x10), 0x10) = ee;
+      W(PTR(0x14), 0x10) = ee;
+      W(PTR(0x18), 0x10) = ee;
+      W(PTR(0x1C), 0x10) = ee;
+      W(PTR(0x20), 0x10) = ee;
+      ret = 0;
+      W(PTR(0x24), 0x10) = ee;
     }
   }
-  return var_t0;
+  return ret;
 }
-

@@ -98,13 +98,20 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   f32 stack_sp38[3];
   f32 stack_sp48[3];
   f32 stack_sp58[3];
-  f32 matrix[9];
-  union 
-  {
-    s16 angles[3];
-    CollisionVec point;
-  } angleOrPoint;
-  f32 stack_spA0[3];
+  struct {
+    f32 rotation[12];
+    union {
+      s16 angles[3];
+      CollisionVec point;
+      struct {
+        f32 prefix[2];
+        f32 vec[3];
+      } overlap;
+    } vector;
+  } scratch;
+#define matrix scratch.rotation
+#define angleOrPoint scratch.vector
+#define stack_spA0 scratch.vector.overlap.vec
   f32 stack_spB0[2];
   f32 stack_spB8[3];
   f32 stack_spC8[3];
@@ -121,7 +128,6 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   f32 stack_sp180[3];
   f32 spF0;
   f32 sp178;
-  void **sp194;
   void *sp1AC;
   union 
   {
@@ -261,12 +267,11 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   void *var_s1;
   void *var_s2;
   void *var_s2_2;
-  sp194 = arg0;
   gPlayerActor = NULL;
   D_80108F84 = NULL;
   D_80103F00 = NULL;
   var_fs2 = arg4;
-  if (sp194 != NULL)
+  if (arg0 != NULL)
   {
     sp18 = 0.0f;
     sp1C = 0.0f;
@@ -280,9 +285,9 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     sp30 = *((f32 *) (((char *) arg1) + 8));
     do
     {
-      var_s7 = sp194;
-      var_a0 = sp194;
-      sp1AC = *((void **) (((char *) (*((void **) (((char *) sp194) + 0x20)))) + 0x58));
+      var_s7 = arg0;
+      var_a0 = arg0;
+      sp1AC = *((void **) (((char *) (*((void **) (((char *) arg0) + 0x20)))) + 0x58));
       __repair_phase_storage.pointer = sp1AC;
       if (var_a0 != NULL)
       {
@@ -956,24 +961,24 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
       }
       if (sp1AC == NULL)
       {
-        sp194 = NULL;
+        arg0 = NULL;
       }
       else
         if (gPlayerActor != NULL)
       {
-        sp194 = NULL;
+        arg0 = NULL;
       }
       else
         if (D_80108F84 != NULL)
       {
-        sp194 = NULL;
+        arg0 = NULL;
       }
       else
       {
-        temp_v0_3 = func_80047B44(sp194, &sp38, &sp28, &sp180);
+        temp_v0_3 = func_80047B44(arg0, &sp38, &sp28, &sp180);
         if (temp_v0_3 == NULL)
         {
-          sp194 = NULL;
+          arg0 = NULL;
         }
         else
         {
@@ -997,16 +1002,16 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
               var_fs2 = temp_fv1_2;
               if (absFloat(*((f32 *) (((char *) temp_v0_3) + 0x10))) < 0.5f)
               {
-                prepareLinkedObjectPair(temp_v0_3, arg1, sp194);
+                prepareLinkedObjectPair(temp_v0_3, arg1, arg0);
               }
             }
           }
           sp3C = sp184 - 0.01f;
-          sp194 = *((void ***) (((char *) temp_v0_3) + 8));
+          arg0 = *((void ***) (((char *) temp_v0_3) + 8));
         }
       }
     }
-    while (sp194 != NULL);
+    while (arg0 != NULL);
     if (var_fs2 == arg4)
     {
       if (0 == 0)

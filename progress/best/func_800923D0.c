@@ -37,6 +37,7 @@ void func_800923D0(void)
   s32 d;
   register s32 e;
   s32 f;
+  s32 e2;
   u32 g;
   unsigned long h;
   u32 i;
@@ -49,7 +50,7 @@ void func_800923D0(void)
   void *p;
   void *q;
   void *r;
-  s8 rv;
+  s32 rv;
   s32 t0;
   if (D_801002D8 != 0)
   {
@@ -76,14 +77,13 @@ void func_800923D0(void)
             n = D_800EDA8C;
           }
         }
-        n = D_800EDA8C; g = (*((u16 *) (((char *) n) + 0xFC2))) * ((((u32) ((((T *) n)->value * 0xC00U) / 60)) * (((s32) (D_801002D8 << 16)) / ((s32) D_8010A514))) >> 3); e = *((s32 *) (((char *) n) + 0xF68)); i = g >> 24;
+        n = D_800EDA8C; rv = ((((u32) ((((T *) n)->value * 0xC00U) / 60)) * (((s32) (D_801002D8 << 16)) / ((s32) D_8010A514))) >> 3); g = rv * (*((u16 *) (((char *) n) + 0xFC2))); e = *((s32 *) (((char *) n) + 0xF68)); i = g >> 24;
         *((s32 *) (((char *) n) + 0x118)) = ((g >> 7) >> 1) & 0xFFFF;
         *((u32 *) (((char *) n) + 0x11C)) = i;
         *((s32 *) (((char *) n) + 0x120)) = ((s32) i) >> 1;
         if (((unsigned) e) != 0)
         {
-          h = (*((s32 *) (((char *) n) + 0xF70))) + (*((s32 *) (((char *) n) + 0x118))); e = h & 0xFFFF; *((s32 *) (((char *) n) + 0xF70)) = e;
-          *((s32 *) (((char *) n) + 0xF74)) += (h >> 16) + (*((u32 *) (((char *) n) + 0x11C)));
+          h = *((s32 *) (((char *) n) + 0xF70)) + (*((s32 *) (((char *) n) + 0x118))); a = h & 0xFFFF; *((s32 *) (((char *) n) + 0xF70)) = a; m = (*((void **) (((char *) n) + 0x11C))); *((s32 *) (((char *) n) + 0xF74)) += (h >> 16) + (u32) m;
         }
         d = func_80090464(); c = func_8008FB20();
         func_8009010C();

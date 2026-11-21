@@ -46,12 +46,15 @@ extern u8 D_8010D2B0;
 extern f32 gCullFarDistance;
 extern s32 gObjectList;
 extern s32 sCurrentMatrixSlot;
-extern void *sDisplayListCursor;
+typedef struct { u32 w0; void *w1; } Gfx;
+typedef struct { s16 h[8]; } Vp;
+typedef struct RS { u8 p0[0x300]; Vp a[31]; Vp b[31]; Vp c[6]; u8 p7[0xC]; s32 s74c; } RS;
+extern Gfx *sDisplayListCursor;
 extern u32 sMatrixPoolLimit;
 extern u32 sMatrixPoolUsed;
 extern s32 sObjectMatrixF;
 extern f32 sParentMatrixF;
-extern void *sRenderState;
+extern RS *sRenderState;
 typedef struct 
 {
   unsigned char pad[244];
@@ -71,7 +74,40 @@ inline static char *inline_fn2(void *arg0)
   return (char *) arg0;
 }
 
-void func_80038000(void *arg0, s32 arg1)
+typedef struct { u32 a, b, c; } W3;
+typedef union { W3 w; f32 f[3]; s32 i[3]; } U3;
+typedef union { f32 values[4]; u32 words[4]; } ClipB;
+typedef struct Cam {
+  u8 p0[0x10];
+  U3 u10;
+  U3 u1C;
+  u8 p28[0xC];
+  U3 u34;
+  U3 u40;
+  f32 f4C;
+  ClipB clip;
+  f32 f60;
+  f32 f64;
+  u8 p68[0x18];
+  s32 s80;
+  f32 f84;
+  u8 b88[0x24];
+  f32 fAC;
+  f32 fB0;
+  f32 fB4;
+  u8 bB8[0x30];
+  f32 fE8;
+  f32 fEC;
+  f32 fF0;
+  s32 sF4;
+  u8 pF8[8];
+  s32 flags;
+  u8 p104[0x1C];
+  f32 f120;
+  u8 p124[0x24];
+  f32 f148;
+} Cam;
+void func_80038000(Cam *arg0, s32 arg1)
 {
   typedef struct 
   {
@@ -82,7 +118,7 @@ void func_80038000(void *arg0, s32 arg1)
     f32 values[4];
     u32 words[4];
   } ClipBounds;
-  unsigned short temp_v0;
+  u32 temp_v0;
   f32 *var_s0;
   register f32 *var_v1;
   f32 temp_fs3;
@@ -90,10 +126,8 @@ void func_80038000(void *arg0, s32 arg1)
   void *var_s0_2;
   f32 temp_fv1_2;
   int temp_s0_2;
-  short temp_s1;
-  unsigned char temp_s3;
   register void *temp_v1_3;
-  ClipBounds clipBounds;
+  ClipB clipBounds;
   s32 var_a0;
   u32 var_a1;
   void *temp_v1_2;
@@ -106,8 +140,8 @@ void func_80038000(void *arg0, s32 arg1)
     void *temp_a1;
     int temp_s7;
     f32 temp_fv1;
-    temp_fs3 = *((f32 *) (((char *) arg0) + 0x4C));
-    if ((*((s32 *) (((char *) arg0) + 0x100))) & 4)
+    temp_fs3 = arg0->f4C;
+    if ((arg0->flags) & 4)
     {
       gCullFarDistance = 15.0f;
       if (D_8010D2B0 != 0)
@@ -118,95 +152,90 @@ void func_80038000(void *arg0, s32 arg1)
     else
     {
       gCullFarDistance = D_800C0740;
-      *((f32 *) (((char *) arg0) + 0x148)) = 2.0f;
+      arg0->f148 = 2.0f;
     }
-    *((ThreeWords *) (((char *) arg0) + 0x1C)) = *((ThreeWords *) (((char *) arg0) + 0x10));
-    *((ThreeWords *) (((char *) arg0) + 0x40)) = *((ThreeWords *) (((char *) arg0) + 0x34)); temp_fv1 = *((f32 *) (((char *) arg0) + 0x120));
+    arg0->u1C.w = arg0->u10.w;
+    arg0->u40.w = arg0->u34.w; temp_fv1 = arg0->f120;
     if (temp_fv1 > 0.0f)
     {
       f32 horizontal = temp_fv1 * 0.4f;
       f32 vertical = temp_fv1 * 0.2f;
       temp_fv0 = 2.0f * temp_fv1;
-      func_80035854(arg0 + 0x1C, temp_fv0, temp_fv0);
-      func_80035854(arg0 + 0x40, horizontal, vertical);
-      temp_fv1_2 = (*((f32 *) (((char *) arg0) + 0x120))) - func_800357C8((*((f32 *) (((char *) arg0) + 0x120))) * 0.25f);
-      *((f32 *) (((char *) arg0) + 0x120)) = temp_fv1_2;
+      func_80035854(&arg0->u1C, temp_fv0, temp_fv0);
+      func_80035854(&arg0->u40, horizontal, vertical);
+      temp_fv1_2 = (arg0->f120) - func_800357C8((arg0->f120) * 0.25f);
+      arg0->f120 = temp_fv1_2;
       if (temp_fv1_2 < 0.0f)
       {
-        *((f32 *) (((char *) arg0) + 0x120)) = 0.0f;
+        arg0->f120 = 0.0f;
       }
     }
     func_8006F90C(arg0);
     D_800E1714 = func_80034EAC((s32) arg1); D_800E1710 = (int) arg1; D_80107E9C = NULL; gObjectList = 0; D_800B35B0 += 1;
-    if (((__repair_field_F4 *) arg0)->value != 0)
+    if (arg0->sF4 != 0)
     {
-      clipBounds = *((ClipBounds *) (((u8 *) arg0) + 0x50)); temp_s7 = ((__repair_field_F4 *) arg0)->value;
-      cameraUpdateProjection(arg0, *((f32 *) (((char *) arg0) + 0x84)));
-      temp_s0 = arg0 + 0x88;
-      func_80045180(arg0 + 0x40, arg0 + 0xB8, temp_s0, temp_fs3);
-      func_800839F0(temp_s0, arg0 + 0x1C, arg0 + 0xE8);
-      temp_s0_2 = ((s32) arg1) * 0x10; temp_a1 = sRenderState + temp_s0_2;
-      *((f32 *) (((char *) arg0) + 0xB0)) = (f32) (-(*((f32 *) (((char *) arg0) + 0xEC))));
-      *((f32 *) (((char *) arg0) + 0xAC)) = (f32) (-(*((f32 *) (((char *) arg0) + 0xE8))));
-      *((f32 *) (((char *) arg0) + 0xB4)) = (f32) (-(*((f32 *) (((char *) arg0) + 0xF0))));
-      *((s16 *) (((char *) temp_a1) + 0x300)) = (s16) inline_fn(temp_fs3, (*((f32 *) (((char *) arg0) + 0x54))) - (*((f32 *) (((char *) arg0) + 0x50))));
-      *((s16 *) (((char *) temp_a1) + 0x304)) = 0x2FF;
-      *((s16 *) (((char *) temp_a1) + 0x306)) = 0;
-      *((s16 *) (((char *) temp_a1) + 0x302)) = (s16) ((s32) (2.0f * (temp_fs3 * ((*((f32 *) (((char *) arg0) + 0x5C))) - (*((f32 *) (((char *) arg0) + 0x58)))))));
-      if ((*((s32 *) (((char *) arg0) + 0x100))) & 8)
+      clipBounds = arg0->clip; temp_s7 = arg0->sF4;
+      cameraUpdateProjection(arg0, arg0->f84);
+      temp_s0 = arg0->b88;
+      func_80045180(&arg0->u40, arg0->bB8, temp_s0, temp_fs3);
+      func_800839F0(temp_s0, &arg0->u1C, &arg0->fE8);
+      arg0->fAC = (f32) (-(arg0->fE8));
+      arg0->fB4 = (f32) (-(arg0->fF0));
+      arg0->fB0 = (f32) (-(arg0->fEC));
+      sRenderState->a[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->a[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->a[arg1].h[2] = 0x2FF;
+      sRenderState->a[arg1].h[3] = 0;
+      if (arg0->flags & 8)
       {
-        *((s16 *) (((char *) temp_a1) + 0x300)) = (s16) ((s32) (((f32) (*((s16 *) (((char *) temp_a1) + 0x300)))) + (((f32) ((*(D_800C43A0 + (D_801007B8 & 0x7F))) + 0x80)) * 0.078125f)));
-        *((s16 *) (((char *) temp_a1) + 0x302)) = (s16) ((s32) (((f32) (*((s16 *) (((char *) temp_a1) + 0x302)))) + (((f32) ((*(D_800C43A0 + ((D_801007B8 + 0x2AB) & 0x7F))) + 0x80)) * 0.0390625f)));
+        sRenderState->a[arg1].h[0] = (s16) ((s32) (((f32) sRenderState->a[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
+        sRenderState->a[arg1].h[1] = (s16) ((s32) (((f32) sRenderState->a[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
       }
-      temp_s3 = arg1 << 6; temp_v1 = sRenderState + temp_s0_2;
-      *((s16 *) (((char *) temp_v1) + 0x308)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x60))) * 4.0f)); temp_s1 = arg1 * 2;
-      *((s16 *) (((char *) temp_v1) + 0x30C)) = 0xFF;
-      *((s16 *) (((char *) temp_v1) + 0x30E)) = 0;
-      do
+      sRenderState->a[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->a[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->a[arg1].h[6] = 255;
+      sRenderState->a[arg1].h[7] = 0;
+      sDisplayListCursor->w0 = 0xDC080008;
+      sDisplayListCursor->w1 = &sRenderState->a[arg1];
+      sDisplayListCursor++;
+      func_800325E4((char *) sRenderState + (arg1 << 6), (char *) sRenderState + ((arg1 * 2) + 0x360), arg0->f84, arg0->s80, 12.8f, gCullFarDistance * 64.0f, 1.0f);
+      sRenderState->b[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->b[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->b[arg1].h[2] = 0x2EF;
+      sRenderState->b[arg1].h[3] = 0;
+      if (arg0->flags & 8)
       {
-        *((s16 *) (((char *) temp_v1) + 0x30A)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x64))) * 4.0f));
- do { ((__repair_field_0 *) sDisplayListCursor)->value = 0xDC080008; *((void **) (((char *) sDisplayListCursor) + 4)) = (void *) (sRenderState + (((unsigned) (((s32) arg1) * 0x10)) + 0x300)); sDisplayListCursor += 8; func_800325E4(sRenderState + temp_s3, sRenderState + (temp_s1 + 0x360), *((f32 *) (((char *) arg0) + 0x84)), *((s32 *) (((char *) arg0) + 0x80)), 12.8f, gCullFarDistance * 64.0f, 1.0f); } while (0);
-        temp_a1_2 = sRenderState + ((unsigned) temp_s0_2);
-        *((s16 *) (inline_fn2(temp_a1_2) + 0x4F0)) = (s16) inline_fn(temp_fs3, (*((f32 *) (((char *) arg0) + 0x54))) - (*((f32 *) (((char *) arg0) + 0x50))));
-        *((s16 *) (((char *) temp_a1_2) + 0x4F4)) = 0x2EF;
-        *((s16 *) (((char *) temp_a1_2) + 0x4F2)) = (s16) ((s32) (2.0f * (temp_fs3 * ((*((f32 *) (((char *) arg0) + 0x5C))) - (*((f32 *) (((char *) arg0) + 0x58)))))));
-        *((s16 *) (((char *) temp_a1_2) + 0x4F6)) = 0;
-        if ((*((s32 *) (((char *) arg0) + 0x100))) & 8)
-        {
-          *((s16 *) (((char *) temp_a1_2) + 0x4F0)) = (s16) ((s32) (((f32) (*((s16 *) (((char *) temp_a1_2) + 0x4F0)))) + (((f32) ((*(D_800C43A0 + (D_801007B8 & 0x7F))) + 0x80)) * 0.078125f)));
-          *((s16 *) (((char *) temp_a1_2) + 0x4F2)) = (s16) ((s32) (((f32) (*((s16 *) (((char *) temp_a1_2) + 0x4F2)))) + (((f32) ((*(D_800C43A0 + ((D_801007B8 + 0x2AB) & 0x7F))) + 0x80)) * 0.0390625f)));
-        }
-        temp_v1_2 = sRenderState + temp_s0_2;
-        *((s16 *) (((char *) temp_v1_2) + 0x4F8)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x60))) * 4.0f));
-        *((s16 *) (((char *) temp_v1_2) + 0x4FC)) = 0xFF;
+        sRenderState->b[arg1].h[0] = (s16) ((s32) (((f32) sRenderState->b[arg1].h[0]) + (((f32) (D_800C43A0[D_801007B8 & 0x7F] + 0x80)) * 0.078125f)));
+        sRenderState->b[arg1].h[1] = (s16) ((s32) (((f32) sRenderState->b[arg1].h[1]) + (((f32) (D_800C43A0[(D_801007B8 + 0x2AB) & 0x7F] + 0x80)) * 0.0390625f)));
       }
-      while (0);
-      *((s16 *) (((char *) temp_v1_2) + 0x4FE)) = 0;
-      *((s16 *) (((char *) temp_v1_2) + 0x4FA)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x64))) * 4.0f));
-      ((__repair_field_0 *) sDisplayListCursor)->value = 0xDC080008;
-      *((void **) (((char *) sDisplayListCursor) + 4)) = (void *) (sRenderState + (temp_s0_2 + 0x4F0)); sDisplayListCursor += 8;
-      func_800325E4(sRenderState + (temp_s3 + 0x370), sRenderState + (temp_s1 + 0x550), *((f32 *) (((char *) arg0) + 0x84)), *((s32 *) (((char *) arg0) + 0x80)), 12.8f, gCullFarDistance * 64.0f, 1.0f);
-      temp_v1_3 = sRenderState + temp_s0_2;
-      *((s16 *) (((char *) temp_v1_3) + 0x6E0)) = (s16) inline_fn(*((f32 *) (((char *) arg0) + 0x4C)), (*((f32 *) (((char *) arg0) + 0x54))) - (*((f32 *) (((char *) arg0) + 0x50))));
-      *((s16 *) (((char *) temp_v1_3) + 0x6E4)) = 0xFF;
-      *((s16 *) (((char *) temp_v1_3) + 0x6E6)) = 0;
-      *((s16 *) (((char *) temp_v1_3) + 0x6E2)) = (s16) inline_fn(temp_fs3, (*((f32 *) (((char *) arg0) + 0x5C))) - (*((f32 *) (((char *) arg0) + 0x58))));
-      *((s16 *) (((char *) temp_v1_3) + 0x6E8)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x60))) * 4.0f));
-      *((s16 *) (((char *) temp_v1_3) + 0x6EC)) = 0;
-      *((s16 *) (((char *) temp_v1_3) + 0x6EE)) = 0;
-      ((__repair_field_0 *) sDisplayListCursor)->value = 0xDC080008;
-      *((s16 *) (((char *) temp_v1_3) + 0x6EA)) = (s16) ((s32) ((*((f32 *) (((char *) arg0) + 0x64))) * 4.0f)); sDisplayListCursor += 8;
-      *((void **) (((char *) sDisplayListCursor) + 4)) = (void *) (sRenderState + ((((s32) arg1) * 0x10) + 0x6E0));
-      func_800325E4(sRenderState + (temp_s3 + 0x560), sRenderState + (temp_s1 + 0x740), *((f32 *) (((char *) arg0) + 0x84)), *((s32 *) (((char *) arg0) + 0x80)), 0.64f, 64.0f, 1.0f);
-      temp_v0 = sMatrixPoolUsed + 1;
-      if (sMatrixPoolUsed < ((sMatrixPoolLimit - 1) + 1))
+      sRenderState->b[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->b[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->b[arg1].h[6] = 255;
+      sRenderState->b[arg1].h[7] = 0;
+      sDisplayListCursor->w0 = 0xDC080008;
+      sDisplayListCursor->w1 = &sRenderState->b[arg1];
+      sDisplayListCursor++;
+      func_800325E4((char *) sRenderState + ((arg1 << 6) + 0x370), (char *) sRenderState + ((arg1 * 2) + 0x550), arg0->f84, arg0->s80, 12.8f, gCullFarDistance * 64.0f, 1.0f);
+      sRenderState->c[arg1].h[0] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[1] - arg0->clip.values[0]))));
+      sRenderState->c[arg1].h[1] = (s16) ((s32) (2.0f * (temp_fs3 * (arg0->clip.values[3] - arg0->clip.values[2]))));
+      sRenderState->c[arg1].h[2] = 0xFF;
+      sRenderState->c[arg1].h[3] = 0;
+      sRenderState->c[arg1].h[4] = (s16) ((s32) (arg0->f60 * 4.0f));
+      sRenderState->c[arg1].h[5] = (s16) ((s32) (arg0->f64 * 4.0f));
+      sRenderState->c[arg1].h[6] = 0;
+      sRenderState->c[arg1].h[7] = 0;
+      sDisplayListCursor->w0 = 0xDC080008;
+      sDisplayListCursor->w1 = &sRenderState->c[arg1];
+      sDisplayListCursor++;
+      func_800325E4((char *) sRenderState + ((arg1 << 6) + 0x560), (char *) sRenderState + ((arg1 * 2) + 0x740), arg0->f84, arg0->s80, 0.64f, 64.0f, 1.0f);
+      if (sMatrixPoolUsed < sMatrixPoolLimit)
       {
-        f32 yaw = (*((f32 *) (((char *) arg0) + 0x48))) + 3.1415927f;
-        f32 pitch = -((*((f32 *) (((char *) arg0) + 0x44))) + 3.1415927f);
-        s32 roll = *((s32 *) (((char *) arg0) + 0x40));
-        sMatrixPoolUsed = temp_v0; sCurrentMatrixSlot = (temp_v0 << 6) + (*((s32 *) (((char *) sRenderState) + 0x74C)));
+        f32 yaw = (arg0->u40.f[2]) + 3.1415927f;
+        f32 pitch = -((arg0->u40.f[1]) + 3.1415927f);
+        s32 roll = arg0->u40.i[0];
+        sMatrixPoolUsed = sMatrixPoolUsed + 1; sCurrentMatrixSlot = (sMatrixPoolUsed << 6) + sRenderState->s74c;
         func_8000BBB4(&sObjectMatrixF, yaw, pitch, roll);
-        guTranslateF(&D_80109E28, (-(*((f32 *) (((char *) arg0) + 0x1C)))) * 64.0f, (-(*((f32 *) (((char *) arg0) + 0x20)))) * 64.0f, (-(*((f32 *) (((char *) arg0) + 0x24)))) * 64.0f);
+        guTranslateF(&D_80109E28, (-(arg0->u1C.f[0])) * 64.0f, (-(arg0->u1C.f[1])) * 64.0f, (-(arg0->u1C.f[2])) * 64.0f);
         func_800A3840(&D_80109E28, &sObjectMatrixF, &sParentMatrixF);
         var_s0 = &sParentMatrixF; var_a1 = 0;
         do
@@ -224,18 +253,18 @@ void func_80038000(void *arg0, s32 arg1)
           var_s0 += 4;
         }
         while (var_a1 < 4U);
-        guMtxF2L(&sParentMatrixF, sRenderState + ((arg1 << 6) + 0x180));
+        guMtxF2L(&sParentMatrixF, (char *) sRenderState + ((arg1 << 6) + 0x180));
         func_80014E30(arg0);
-        if ((*((s32 *) (((char *) arg0) + 0x100))) & 3)
+        if ((arg0->flags) & 3)
         {
           func_80014EB0(temp_s7, clipBounds.values);
           func_800156F4();
         }
-        if ((*((s32 *) (((char *) arg0) + 0x100))) & 4)
+        if ((arg0->flags) & 4)
         {
-          func_80015BA8(arg0 + 0x10, temp_s7, clipBounds.values);
+          func_80015BA8(&arg0->u10, temp_s7, clipBounds.values);
         }
-        temp_s0_3 = arg0 + 0x88; D_800B35B0 += 1;
+        temp_s0_3 = arg0->b88; D_800B35B0 += 1;
         func_80082C8C(temp_s0_3);
         func_80082CFC(temp_s0_3);
         func_800349B4(arg0);
