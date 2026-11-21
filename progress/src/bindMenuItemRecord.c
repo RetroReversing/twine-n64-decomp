@@ -19,12 +19,12 @@ M2C_UNK func_80022E88(M2C_UNK);                     /* extern */
 M2C_UNK func_80022EB8(s32, s32, s32);               /* extern */
 extern s32 D_800BD64C;
 extern s32 D_800BD664;
-extern u8 gMenuUseTextList;
+extern u8 D_80102EDD;
 extern void *gMenuState;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; int field_28; } __repair_record_temp_s1;
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[12]; unsigned short field_20; unsigned short field_22; unsigned char pad_24[4]; unsigned int hi:24; unsigned int bits:6; unsigned int lo:2; } __bf;
-void bindMenuItemRecord(void *arg0, s32 arg1, s32 arg2) {
+void func_80022C04(void *arg0, s32 arg1, s32 arg2) {
     s32 var_v0_2;
     s32 var_v1;
     void *temp_s1;
@@ -40,7 +40,7 @@ void bindMenuItemRecord(void *arg0, s32 arg1, s32 arg2) {
         } else {
             ((__repair_record_temp_s1*)temp_s1)->field_10 = (s32) ((D_800BD64C & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
         }
-        if (gMenuUseTextList != 0) {
+        if (D_80102EDD != 0) {
             func_80022E88(0);
             func_80022B60(0);
             ((__bf*)temp_s1)->bits = -((arg1 & 0xFF) == 0) & 7;
