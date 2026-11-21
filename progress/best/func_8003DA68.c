@@ -21,7 +21,7 @@ extern void *D_80108F84;
 extern s32 Ray_TriangleIntersect;
 s32 Ray_CastObjects(void *, void *, Vec3 *, Vec3 *, Vec3 *, f32, s32, s32, s32);
 void buildPlaneFromPoints(Vec4 *, void *, void *, void *);
-volatile unsigned long long Probe_BoundsContainPoint(Vec3 *, void *);
+s8 Probe_BoundsContainPoint(Vec3 *, void *);
 inline static f32 inline_fn(f32 arg0)
 {
   return arg0;

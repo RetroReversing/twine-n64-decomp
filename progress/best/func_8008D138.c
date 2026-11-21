@@ -94,7 +94,7 @@ void func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 a
           var_t0 = var_v1;
         }
         temp_s0 = ((arg0 >> 8) & 0xFF) + (*((s16 *) (((char *) var_s1) + 6)));
-        temp_a3 = (((arg3 & 0xFF) * (*((u8 *) (((char *) var_s1) + 5)))) / 127) & 0xFF;
+        temp_a3 = (((*((u8 *) (((char *) var_s1) + 5))) * (arg3 & 0xFF)) / 127) & 0xFF;
         if (temp_s0 < 0x100)
         {
           var_v1_2 = temp_s0 & (((s32) (~temp_s0)) >> 0x1F);
@@ -117,7 +117,11 @@ void func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 a
               }
               do
               {
- do { var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + sVoiceTable); } while (0);
+                do
+                {
+                  var_s6 = func_800988D8(((temp_s0 & 0xFF) * 0x1A0) + sVoiceTable);
+                }
+                while (0);
               }
               while (0);
             }
@@ -162,3 +166,4 @@ void func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 a
   }
   return var_s6;
 }
+

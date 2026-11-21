@@ -84,7 +84,7 @@ void func_8000C34C(char *actor, char *viewer)
   f32 *matrix;
   s32 count;
   s32 i;
-  s32 mode;
+  short mode;
   register u32 *cmd;
   u32 used;
   u32 address;
@@ -194,7 +194,7 @@ void func_8000C34C(char *actor, char *viewer)
         z = p->z * unit;
         address = *((u32 *) (D_80117728 + 0x74C));
         D_80107EA0 = used + 1;
-        D_8010D538 = address + ((used + 1) << 6);
+        D_8010D538 = address + (((used + 1) << 1) << 5);
         func_8000BB50(matrix, x, y, z, yaw);
         m0 = (*matrix) * scale;
         m1 = D_80112FA0 * scale;

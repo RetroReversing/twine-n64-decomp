@@ -209,7 +209,7 @@ void func_800673EC(void *arg0, void *arg1)
             *((f32 *) (((char *) temp_s1_2) + 0x10)) = (f32) (-temp_fs0);
             *((f32 *) (((char *) temp_s1_2) + 0x14)) = temp_fv0;
           }
-          *((s8 *) (((char *) (temp_s2 + ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) * 8))) + 0x1FC)) = 0;
+          *((s8 *) (((char *) (temp_s2 - (-((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) * 8)))) + 0x1FC)) = 0;
         }
         else
           if ((*((s8 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x10))) == 0x1B)

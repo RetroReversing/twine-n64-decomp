@@ -293,7 +293,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           if (((__repair_field_58 *) arg0)->value & 0x8000)
           {
             func_80008434(arg0, 0.015625f);
-            D_80112FB0 *= *((f32 *) (((char *) arg0) + 0x54));
+            { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); }
             D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
             D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
           }
@@ -303,7 +303,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
           }
           if (((__repair_field_58 *) arg0)->value & 0x4000)
           {
-            D_80112F90 = -D_80112F90;
+            { volatile f32 *matrixX = &D_80112F90; *matrixX = -*matrixX; }
             D_80112F94 = -D_80112F94;
             D_80112F98 = -D_80112F98;
             if (D_8010A924 != 0xB)
@@ -364,7 +364,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               if (temp_v1_11 & 0x8000)
             {
               func_80008434(arg0, 0.015625f);
-              D_80112FB0 *= *((f32 *) (((char *) arg0) + 0x54));
+              { volatile f32 *scaleX = &D_80112FB0; *scaleX *= *((f32 *) (((char *) arg0) + 0x54)); }
               D_80112FB4 *= *((f32 *) (((char *) arg0) + 0x54));
               D_80112FB8 *= *((f32 *) (((char *) arg0) + 0x54));
             }
