@@ -46,11 +46,11 @@ void *func_800723C0(s32 *arg0, s32 *arg1, s32 *arg2, void *arg3, s32 arg4) {
     long temp_s0_2;
 
     s = arg0; d = sp58.w;
-    __repair_rows: {
+    do { {
         d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = s[3];
         s += 4; d += 4;
     }
-if (s != arg0 + 8) goto __repair_rows;
+} while (s != arg0 + 8);
     d[0] = s[0];
     s = arg1; d = sp80.w;
     do {

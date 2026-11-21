@@ -31,7 +31,7 @@ s32 func_800702AC();
 s32 func_80070528();
 s32 findActionSlot();
 s32 func_8007092C();
-s32 func_80070B40();
+s32 advanceActorPhaseSound();
 s32 func_80070CA4();
 s32 func_800818AC();
 f32 func_80081B44();
@@ -267,7 +267,7 @@ block_30:
     temp_v1_8 = M2C_FIELD(arg0, s16 *, 0x7C);
     if ((temp_v1_8 != 5) && (temp_v1_8 != 7)) {
         if (func_800819EC((s32) temp_s3, 0xF) != 0) {
-            func_80070B40(arg0);
+            advanceActorPhaseSound(arg0);
         }
         if (func_800819EC((s32) temp_s3, 0x14) != 0) {
             func_8007092C(arg0, 0);

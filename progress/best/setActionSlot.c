@@ -1,5 +1,5 @@
 typedef struct { s16 index; u8 pad[14]; } ActionRecord706;
-extern ActionRecord706 D_800C4486[];
+extern ActionRecord706 gPhaseSlotIds[];
 s32 setActionSlot(u8 *object, u8 action, s32 value) {
     u8 frame[16];
     s16 i;
@@ -17,7 +17,7 @@ s32 setActionSlot(u8 *object, u8 action, s32 value) {
             }
             i++;
         } while (i < 30);
-        index = D_800C4486[action].index;
+        index = gPhaseSlotIds[action].index;
         if (index != -1) {
             object[0x1fc + index * 8] = 1;
         }

@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 typedef struct { s16 f0; u8 pad[14]; } Slot_800C4486;
-extern Slot_800C4486 D_800C4486[];
+extern Slot_800C4486 gPhaseSlotIds[];
 
 s32 func_80070730(s32 arg0, s32 arg1, s32 arg2) {
 char *__repair_addr;
@@ -34,7 +34,7 @@ char *__repair_addr;
         temp_v1 = temp_v0 & 0xFF;
         if (temp_v1 == arg1 && (temp_v0 >> 8) == arg2) {
             M2C_FIELD((void *)((var_t0 & 0xFFFF) * 2 + arg0), u16 *, 0x138) = 0x100;
-            temp_v0_2 = D_800C4486[temp_v1].f0;
+            temp_v0_2 = gPhaseSlotIds[temp_v1].f0;
             if (temp_v0_2 != -1) {
                 __repair_addr = (char *)arg0;
                 __repair_addr += temp_v0_2 * 8;
