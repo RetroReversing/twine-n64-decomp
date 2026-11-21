@@ -146,7 +146,7 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2)
               sDisplayListCursor = temp_a3 + 8;
               sDisplayListCursor = temp_a3 + 0x10;
               ((__repair_field_0 *) temp_a3)->value = 0xFA000000;
-              *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) ((((temp_s2 >> 0x18) << 0x18) | (temp_s2 & (0xFF0000 & 0xFFFFu))) | (temp_s2 & 0xFF00));
+              *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) ((temp_s2 & 0xFF00) | (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & (0xFF0000 & 0xFFFFu))));
               ((__repair_field_8 *) temp_a3)->value = 0xFB000000;
               func_8003B954(temp_s7, temp_s6, var_s0);
             }

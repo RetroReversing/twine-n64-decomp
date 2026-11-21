@@ -149,9 +149,9 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   u8 *sp204;
   u8 sp20F;
   void *sp214;
-  u16 sp21E;
   u16 sp226;
   f32 *sp22C;
+  u16 sp21E;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -882,7 +882,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                         sp1AF = 1;
                         goto block_205;
                       }
-                      if (((((spF0 * spE0) + (spF4 * spE4)) + (spF8 * spE8)) + spFC) > 0.0f)
+                      if ((spFC + (((spF0 * spE0) + (spF4 * spE4)) + (spF8 * spE8))) > 0.0f)
                       {
                         goto block_258;
                       }
@@ -1042,7 +1042,8 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                     if (((((spF0 * spE0) + (spF4 * spE4)) + (spF8 * spE8)) + spFC) > 0.0f)
                     {
                       block_258:
-                      *(Vec3Copy *)arg3 = *(Vec3Copy *)sp19C;
+                      *((Vec3Copy *) arg3) = *((Vec3Copy *) sp19C);
+
                       return 1;
                     }
                     goto block_269;
@@ -1165,5 +1166,4 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   return (s8) sp1AF;
 
 }
-
 

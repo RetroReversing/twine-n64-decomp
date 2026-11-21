@@ -56,7 +56,7 @@ s32 func_8009A990(u8 *obj, u8 *p)
   {
     u32 t = *((u16 *) (obj + 0x50));
     s32 a = t + p[0];
-    s32 d = (unsigned short) (t - p[2]);
+    unsigned short d = (unsigned short) (t - p[2]);
     if (((s16) d) >= 0)
     {
       lo = 0x7F;

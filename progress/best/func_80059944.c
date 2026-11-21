@@ -25,7 +25,6 @@ void func_80059944(void *arg0)
     f32 x;
     f32 y;
     f32 z;
-    u8 reserved1[12];
   } delta;
   f32 temp_fs0;
   f32 temp_fs0_2;
@@ -103,7 +102,7 @@ void func_80059944(void *arg0)
   s32 temp_v1_24;
   s32 temp_v1_25;
   s32 temp_v1_26;
-  volatile unsigned int var_a0;
+  unsigned int var_a0;
   u32 var_v0_8;
   u32 var_v0_9;
   s32 temp_v1;

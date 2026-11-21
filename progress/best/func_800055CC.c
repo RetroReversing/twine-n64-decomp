@@ -4,6 +4,11 @@ extern s16 D_800C3928[];
 extern f64 D_800D2008;
 extern s32 (*D_800D9424)(f32 *, void *);
 extern char D_000F8D70[];
+inline static int inline_fn(s32 arg0, int arg1)
+{
+  return arg0 > arg1;
+}
+
 void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3)
 {
   volatile f32 sp10[3];
@@ -69,12 +74,24 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3)
   }
   temp_s0 = var_s5 * 6; var_s1 = 0; temp_a0_2 = arg2 & (-(arg2 < ((u32) (*((s16 *) ((char *) temp_v0))))));
   romDmaRead((s32) (((s8 *) arg0) + 8), (((*((s32 *) (((char *) temp_v0) + 4))) + ((((var_s5 * 3) + (temp_s4 * 2)) * temp_a0_2) * 2)) - temp_s0) + ((s32) D_000F8D70), temp_fp * 4);
-  if (var_s5 > 0)
+  if (inline_fn(var_s5, 0))
   {
     var_a0_2 = temp_s3; var_v1_2 = temp_s3 + temp_s0;
     do
     {
- do { do { *((f32 *) ((char *) var_a0_2)) = (((f32) (*((u16 *) ((char *) var_v1_2)))) * (*((f32 *) (((char *) temp_v0) + 8)))) + (*((f32 *) (((char *) temp_v0) + 0x14))); *((f32 *) (((char *) var_a0_2) + 4)) = (((f32) (*((u16 *) (((char *) var_v1_2) + 2)))) * (*((f32 *) (((char *) temp_v0) + 0xc)))) + (*((f32 *) (((char *) temp_v0) + 0x18))); temp_fv1 = (((f32) (*((u16 *) (((char *) var_v1_2) + 4)))) * (*((f32 *) (((char *) temp_v0) + 0x10)))) + (*((f32 *) (((char *) temp_v0) + 0x1c))); var_s1++; var_v1_2 += 6; *((f32 *) (((char *) var_a0_2) + 8)) = temp_fv1; var_a0_2 += 0xc; } while (var_s1 < var_s5); } while (0);
+      do
+      {
+        do
+        {
+          *((f32 *) ((char *) var_a0_2)) = (((f32) (*((u16 *) ((char *) var_v1_2)))) * (*((f32 *) (((char *) temp_v0) + 8)))) + (*((f32 *) (((char *) temp_v0) + 0x14)));
+          *((f32 *) (((char *) var_a0_2) + 4)) = (((f32) (*((u16 *) (((char *) var_v1_2) + 2)))) * (*((f32 *) (((char *) temp_v0) + 0xc)))) + (*((f32 *) (((char *) temp_v0) + 0x18))); temp_fv1 = (((f32) (*((u16 *) (((char *) var_v1_2) + 4)))) * (*((f32 *) (((char *) temp_v0) + 0x10)))) + (*((f32 *) (((char *) temp_v0) + 0x1c)));
+          var_s1++;
+          var_v1_2 += 6;
+          *((f32 *) (((char *) var_a0_2) + 8)) = temp_fv1; var_a0_2 += 0xc;
+        }
+        while (var_s1 < var_s5);
+      }
+      while (0);
     }
     while (0);
   }
@@ -111,3 +128,4 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3)
     }
   }
 }
+

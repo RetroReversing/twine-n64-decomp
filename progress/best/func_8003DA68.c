@@ -200,7 +200,7 @@ s32 func_8003DA68(void *arg0, void *arg1, void *arg2, Vec3 *arg3, f32 *arg4)
     sum.z = pos.z + arg3->z;
     c1 = Probe_BoundsContainPoint(&sum, arg1);
     c2 = Probe_BoundsContainPoint(&sum, arg2);
-    if ((c1 != 0) & (c2 == 0))
+    if ((c2 == 0) & (c1 != 0))
     {
       return 1;
     }
