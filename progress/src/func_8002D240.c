@@ -157,11 +157,9 @@ void func_8002D240(void)
   D_801002F3 = 1;
   D_801002F2 = 0;
   D_801002F0 = 0xA;
-  func_8000A22C(0xA);
+  do { func_8000A22C(0xA); } while (0);
+  func_8000A18C(D_801002F1);
   ci = 0;
-  c2 = 2;
-  do { func_8000A18C(D_801002F1); } while (0);
-  c64 = 0x64; c1 = 1;
   D_8010A4C0 = 0;
   D_8010A4C4 = 1;
   gSceneFlagsB = 0x1F;
@@ -185,11 +183,7 @@ void func_8002D240(void)
   gBorderFlipFlag = 0;
   D_8010A4FF = D_80109B9C == 0;
   func_80007160();
-  do
-  {
-    func_8002B000((&D_801002AE) + 0x16, 0x1E);
-  }
-  while (0);
+  func_8002B000((&D_801002AE) + 0x16, 0x1E);
   func_8002B000((&D_801002AE) + 0x1E, 0x1E);
   *((s8 *) (((char *) (&D_801002AE)) + (-0xE))) = 0;
   *((s8 *) (((char *) (&D_801002AE)) + (-0xD))) = 0;
@@ -214,9 +208,9 @@ void func_8002D240(void)
       func_80081BC4(var_s0, 2);
     }
     temp_v1 = ((s32) var_s0) * 0x18;
-    *(D_80100198 + temp_v1) = c2;
-    *(D_801001A0 + temp_v1) = c64;
-    *(D_801001A2 + temp_v1) = c1;
+    *(D_80100198 + temp_v1) = 2;
+    *(D_801001A0 + temp_v1) = 0x64;
+    *(D_801001A2 + temp_v1) = 1;
     *(D_801001A3 + temp_v1) = 0;
     if (temp_s1)
     {
@@ -229,7 +223,7 @@ void func_8002D240(void)
     if (ci & 1)
     {
       block_7:
-      *(D_801001A1 + temp_v1) = c1;
+      *(D_801001A1 + temp_v1) = 1;
 
       ci += 1;
     }

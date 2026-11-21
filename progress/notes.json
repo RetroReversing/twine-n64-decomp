@@ -57907,105 +57907,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:01373c06c8bad58a2cdfe6fe68cbe058a4c94cecb35b07332659162093e21354"
  },
  {
-  "function": "func_8002D240",
-  "text": "Claim arrived with a complete m2c machine draft. Attempted compile_and_diff with empty source as a baseline check; compiler reported no function named func_8002D240 and budget is now 3/3 without improvement. No valid C compile attempt or source improvement was made. Next agent should get candidate and compile full draft, then structurally fix suspicious pointer arithmetic (notably memset(D_80112F68 + offsets) from an int declaration and table indexing) against assembly.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795172405.843064,
-  "score_before": 5910,
-  "score_after": 5910
- },
- {
-  "function": "func_8002D240",
-  "text": "Restored candidate revision f1f82e8b56775153a70e, rechecked 5130. Ran cached independent local repairs local_width, explicit_loop_backedge, structured_backedge, call_initialization, masked_value_reuse, cfg_integer_lifetimes. None improved; at 6/10 compiles, move-on not yet reached. Remaining: inspect mismatches beginning entry register allocation (target initializes $s1=1, candidate $s0=1), missing stack locals noted in prior handoff; use assembly and callee signatures to reason about integer/pointer access and frame shape.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795184180.034979,
-  "score_before": 5130,
-  "score_after": 5130
- },
- {
-  "function": "func_8002D240",
-  "text": "Recovered candidate f1f82e... at 5130 and improved via explicit cached byte base pointers. Declaring s8 *base_801002AE at function scope then assigning it near its original initialization and replacing D_801002AE..B1 assignments with base[0..3] improved 5130\u21924605. Then declared char *base_80112F68; cached D_80112F68 and used this base for the initial zero word, byte zeros, memset offsets, and byte 8 assignment, improving to 4305 (best saved revision b3f16811868eaebd78d3). Target wants base register for D_80112F68 ($s2) and for D_801002AE ($s0); latest candidate currently allocated $s1 and $s3 respectively. Target stores byte 8 via sb $s3,8($s2). Further cleanup may focus declaration/lifetime order and loop source; pointer edits preserve score gain.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795185233.8970208,
-  "score_before": 5130,
-  "score_after": 4305
- },
- {
-  "function": "func_8002D240",
-  "text": "Resumed prior candidate revision 67f67869ff03b00f80d1 (score 4605). try_local_repairs found masked_value_reuse variant that improved to 4585 with `__repair_phase_var_s2_2 = var_s2 & 0xFFFF; var_s2_2 = __repair_phase_var_s2_2;` before copying into temp_s1_2. Subsequent repair batch had no scored candidate before claim was lost. Current remaining big mismatch begins at target instruction 15: target uses `addiu $s1,$zero,1` in jal delay slot after func_8002CA90, candidate uses $s0; score 4585, 131 diff rows. Latest candidate revision b3f16811868eaebd78d3. Initial m2c string literal \"TWINE.\" likely differs target global D_800D2D44.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795185489.5602078,
-  "score_before": 4305,
-  "score_after": 4305
- },
- {
-  "function": "func_8002D240",
-  "text": "Parallel repair trial on b3f16811868eaebd78d3: reusing temp_v1 for the u16 table load and the subsequent two arguments scored 10965 versus 11342; converting backward goto to do loop scored 11417. Claim changed during trial.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795185543.501447,
-  "score_before": 4305,
-  "score_after": 4305
- },
- {
-  "function": "func_8002D240",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Baseline current score 11342. try_local_repairs tested six independent families; scalar_storage_reuse improved to 10965, branch_orientation to 11147; structured_backedge/combined scheduling repeated same output, other variants worse. Candidate was concurrently restored to baseline before follow-up; no further experiments could be applied. Major remaining differences are prologue/frame (target 56 bytes, candidate 64), early scheduling/lifetime and control flow. Brief identifies likely useful next avenue: narrow_snapshot_branches and repairing explicit prototypes/layouts. Function is 352 instructions; no exact match.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795185604.330772,
-  "score_before": 4305,
-  "score_after": 4305
- },
- {
-  "function": "func_8002D240",
-  "text": "Rechecked 4415 baseline. Loop structure, local lifetimes, counter width and initialization variants did not improve; 128 mismatch rows remain, mostly registers and instruction order.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795203842.463207,
-  "score_before": 4305,
-  "score_after": 4305
- },
- {
-  "function": "func_8002D240",
-  "text": "Current candidate f703dc86bca02c8b50ae rechecked at 3800. Tried local repairs explicit_loop_backedge, call_initialization, masked_value_reuse, cfg_integer_lifetimes, copy_register_reuse, signedness; none improved (scores 5405, 3800, 3835, 3800, 3800, 3800). Handoff inherits baseline. Large 1408-byte function with 117 mismatch rows primarily registers/order; first observed mismatch near prologue/call setup is saved $s1 versus candidate $s0, suggesting local lifetime/register allocation differences. Prior history has 37 repairs, so retrieve full history before repeating. No reusable general convention established.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795207195.999199,
-  "score_before": 3800,
-  "score_after": 3800
- },
- {
-  "function": "func_8002D240",
-  "text": "Grouped D_80112F68 flag bytes under table base, improving 3800 to 3555. Reusing D_801002AE pointer wholesale was 5655 alone or 6525 combined; first call alone was identical at 3555, word store alone 3660. First mismatch remains prologue constant in s0 vs s1.\nApply D_801002AE base reuse to first call or word store independently.\nFirst call 3555 with identical output; word store 3660.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795216399.875774,
-  "score_before": 6525,
-  "score_after": 3555,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
- },
- {
-  "function": "func_8002D240",
-  "text": "Three non-improving trials reached the move-on threshold. The exact countValidSaveSlots prototype leaves the baseline score at 3185. The target retains the save-state base across calls and addresses byte and word stores through it.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795237356.4747121,
-  "score_before": 3970,
-  "score_after": 3185,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
- },
- {
-  "function": "func_8002D240",
-  "text": "Cannot reliably recover prior 3800 candidate: service resets claim tokens and source across calls. Current a7dd1c085998423e2d2f scored 10215 after fixing gTrackMarkerActiveMask and byte pointer arithmetic; recover prior candidate and compare loop address expressions.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795241640.783534,
-  "score_before": 11357,
-  "score_after": 10215,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
- },
- {
-  "function": "func_8002D240",
-  "text": "Candidate freshly rechecked at 11342; this is worse than prior agents' historical 3185/3800 sources, unavailable for recovery in this claim. A placeholder compile was rejected for missing function and provides no score evidence. No meaningful new matching attempt completed; this is a complex 1408-byte startup routine with many unresolved field types and calls.\nRead carried machine draft; no source-level experiment with usable result. Placeholder was rejected due no defined function.\nCurrent candidate score 11342; prior historical attempts were substantially better but not available via saved_best.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795257878.2894568,
-  "score_before": 3185,
-  "score_after": 3185
- },
- {
   "function": "func_8001ED10",
   "text": "Rechecked baseline 3253. Explicit loop backedge repair improved to 2711; materializing D_800BD680 into a local pointer improved to 2695, now best candidate revision 4dd029019e01ae9c33b3. Subsequent local repair batch had no better result through the 8-compile move-on threshold. Remaining mismatch is broad; first difference is stack layout (target frame 0x20 vs candidate 0x28), with 61 differing rows. Next agent should inspect target prologue and saved-register/local lifetimes, then test a source structure that reduces frame size while retaining the explicit backedge and pointer local.",
   "by": "codex-gpt-6-luna-9",
@@ -76537,5 +76438,104 @@
   "created_at": 1795288911.5203378,
   "score_before": 2158,
   "score_after": 2158
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Claim arrived with a complete m2c machine draft. Attempted compile_and_diff with empty source as a baseline check; compiler reported no function named func_8002D240 and budget is now 3/3 without improvement. No valid C compile attempt or source improvement was made. Next agent should get candidate and compile full draft, then structurally fix suspicious pointer arithmetic (notably memset(D_80112F68 + offsets) from an int declaration and table indexing) against assembly.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795172405.843064,
+  "score_before": 5910,
+  "score_after": 5910
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Restored candidate revision f1f82e8b56775153a70e, rechecked 5130. Ran cached independent local repairs local_width, explicit_loop_backedge, structured_backedge, call_initialization, masked_value_reuse, cfg_integer_lifetimes. None improved; at 6/10 compiles, move-on not yet reached. Remaining: inspect mismatches beginning entry register allocation (target initializes $s1=1, candidate $s0=1), missing stack locals noted in prior handoff; use assembly and callee signatures to reason about integer/pointer access and frame shape.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795184180.034979,
+  "score_before": 5130,
+  "score_after": 5130
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Recovered candidate f1f82e... at 5130 and improved via explicit cached byte base pointers. Declaring s8 *base_801002AE at function scope then assigning it near its original initialization and replacing D_801002AE..B1 assignments with base[0..3] improved 5130\u21924605. Then declared char *base_80112F68; cached D_80112F68 and used this base for the initial zero word, byte zeros, memset offsets, and byte 8 assignment, improving to 4305 (best saved revision b3f16811868eaebd78d3). Target wants base register for D_80112F68 ($s2) and for D_801002AE ($s0); latest candidate currently allocated $s1 and $s3 respectively. Target stores byte 8 via sb $s3,8($s2). Further cleanup may focus declaration/lifetime order and loop source; pointer edits preserve score gain.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795185233.8970208,
+  "score_before": 5130,
+  "score_after": 4305
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Resumed prior candidate revision 67f67869ff03b00f80d1 (score 4605). try_local_repairs found masked_value_reuse variant that improved to 4585 with `__repair_phase_var_s2_2 = var_s2 & 0xFFFF; var_s2_2 = __repair_phase_var_s2_2;` before copying into temp_s1_2. Subsequent repair batch had no scored candidate before claim was lost. Current remaining big mismatch begins at target instruction 15: target uses `addiu $s1,$zero,1` in jal delay slot after func_8002CA90, candidate uses $s0; score 4585, 131 diff rows. Latest candidate revision b3f16811868eaebd78d3. Initial m2c string literal \"TWINE.\" likely differs target global D_800D2D44.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795185489.5602078,
+  "score_before": 4305,
+  "score_after": 4305
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Parallel repair trial on b3f16811868eaebd78d3: reusing temp_v1 for the u16 table load and the subsequent two arguments scored 10965 versus 11342; converting backward goto to do loop scored 11417. Claim changed during trial.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795185543.501447,
+  "score_before": 4305,
+  "score_after": 4305
+ },
+ {
+  "function": "func_8002D240",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Baseline current score 11342. try_local_repairs tested six independent families; scalar_storage_reuse improved to 10965, branch_orientation to 11147; structured_backedge/combined scheduling repeated same output, other variants worse. Candidate was concurrently restored to baseline before follow-up; no further experiments could be applied. Major remaining differences are prologue/frame (target 56 bytes, candidate 64), early scheduling/lifetime and control flow. Brief identifies likely useful next avenue: narrow_snapshot_branches and repairing explicit prototypes/layouts. Function is 352 instructions; no exact match.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795185604.330772,
+  "score_before": 4305,
+  "score_after": 4305
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Rechecked 4415 baseline. Loop structure, local lifetimes, counter width and initialization variants did not improve; 128 mismatch rows remain, mostly registers and instruction order.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795203842.463207,
+  "score_before": 4305,
+  "score_after": 4305
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Current candidate f703dc86bca02c8b50ae rechecked at 3800. Tried local repairs explicit_loop_backedge, call_initialization, masked_value_reuse, cfg_integer_lifetimes, copy_register_reuse, signedness; none improved (scores 5405, 3800, 3835, 3800, 3800, 3800). Handoff inherits baseline. Large 1408-byte function with 117 mismatch rows primarily registers/order; first observed mismatch near prologue/call setup is saved $s1 versus candidate $s0, suggesting local lifetime/register allocation differences. Prior history has 37 repairs, so retrieve full history before repeating. No reusable general convention established.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795207195.999199,
+  "score_before": 3800,
+  "score_after": 3800
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Grouped D_80112F68 flag bytes under table base, improving 3800 to 3555. Reusing D_801002AE pointer wholesale was 5655 alone or 6525 combined; first call alone was identical at 3555, word store alone 3660. First mismatch remains prologue constant in s0 vs s1.\nApply D_801002AE base reuse to first call or word store independently.\nFirst call 3555 with identical output; word store 3660.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795216399.875774,
+  "score_before": 6525,
+  "score_after": 3555,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Three non-improving trials reached the move-on threshold. The exact countValidSaveSlots prototype leaves the baseline score at 3185. The target retains the save-state base across calls and addresses byte and word stores through it.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795237356.4747121,
+  "score_before": 3970,
+  "score_after": 3185,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Cannot reliably recover prior 3800 candidate: service resets claim tokens and source across calls. Current a7dd1c085998423e2d2f scored 10215 after fixing gTrackMarkerActiveMask and byte pointer arithmetic; recover prior candidate and compare loop address expressions.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795241640.783534,
+  "score_before": 11357,
+  "score_after": 10215,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:cace62370670041cf5b6bb78d89d7f07acb56f8c72eaa69718c92edaa52cc4e9"
+ },
+ {
+  "function": "func_8002D240",
+  "text": "Candidate freshly rechecked at 11342; this is worse than prior agents' historical 3185/3800 sources, unavailable for recovery in this claim. A placeholder compile was rejected for missing function and provides no score evidence. No meaningful new matching attempt completed; this is a complex 1408-byte startup routine with many unresolved field types and calls.\nRead carried machine draft; no source-level experiment with usable result. Placeholder was rejected due no defined function.\nCurrent candidate score 11342; prior historical attempts were substantially better but not available via saved_best.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795257878.2894568,
+  "score_before": 3185,
+  "score_after": 3185
  }
 ]
