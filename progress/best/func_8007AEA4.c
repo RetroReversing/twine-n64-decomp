@@ -21,11 +21,11 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count) {
 retry:
     index = 0;
     threshold = randomIntBelow(weight);
-    limit = count - 1;
-    if (!limit) {
+    if (count == 1) {
         ++attempt;
         goto check_attempt;
     }
+    limit = count - 1;
     entry = (u8 *)entries;
 scan:
     if (entry[4] < threshold) {

@@ -26,8 +26,9 @@ void func_80005868(s16 *arg0,void *arg1,void *arg2,s32 arg3){
  func_800839F0(temp_s0,&vec[0],temp_s1+0x24);
  M2C_FIELD(temp_s1,f32 *,0x24)+=M2C_FIELD(temp_s0,f32 *,0x24);M2C_FIELD(temp_s1,f32 *,0x28)+=M2C_FIELD(temp_s0,f32 *,0x28);M2C_FIELD(temp_s1,f32 *,0x2c)+=M2C_FIELD(temp_s0,f32 *,0x2c);MatMul3x3InPlace(temp_s0,temp_s1);}
  { s32 next; f32 x = M2C_FIELD(temp_s1,f32 *,0x24);
- var_s2 += 16;
- next = *var_s2;
+ var_s2 += 16;/*__repair_loop_weight*/__repair_rows_: {do {do {
+ next = *var_s2;} while (0);} while (0);}
+if (0) goto __repair_rows_;
  M2C_FIELD(var_s3,f32 *,0)=x;M2C_FIELD(var_s3,f32 *,4)=M2C_FIELD(temp_s1,f32 *,0x28);var_s5+=4;var_s6++;M2C_FIELD(var_s3,f32 *,8)=M2C_FIELD(temp_s1,f32 *,0x2c);var_s3+=0xc;
  if (next >= 0) goto __repair_rows;
  } }}

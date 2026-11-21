@@ -9,6 +9,7 @@ typedef struct { unsigned char pad_0[88]; float field_58; float field_5C; unsign
 typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 void func_800389F0(__repair_record_arg0 *arg0) {
     f32 temp_fv1;
+    u32 rightEdge;
     f32 temp_fv1_2;
     u32 var_v0;
     register f32 temp_fv1_3;
@@ -43,9 +44,12 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         sDisplayListCursor = temp_v0 + 0x18;
         sDisplayListCursor = temp_v1;
         sDisplayListCursor = temp_v0 + 0x28;
-        (*(s32 *)((char *)(temp_v0) + 0x20)) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | (((var_v0 = (u32) (temp_fv1 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58)) * 4) | 0xF6000000));
-        ((__repair_field_4 *)temp_v1)->value = 0;
+        temp_fv1 = arg0->field_64 + arg0->field_58;
+        rightEdge = ((D_8010D6F8 - 1) & 0x3FF) << 14;
+        var_v0 = (u32)temp_fv1 & 0x3FF;
         temp_a0 = sDisplayListCursor;
+        (*(u32 *)temp_v1) = rightEdge | ((var_v0 * 4) | 0xF6000000);
+        ((__repair_field_4 *)temp_v1)->value = 0;
         (*(s32 *)((char *)(temp_a0) + 0)) = (s32) ((((D_8010D6F8 - 1) & 0x3FF) << 0xE) | ((((D_80108F80 - 1) & 0x3FF) * 4) | 0xF6000000));
         temp_fv1_2 = (((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_5C) - 1.0f;
         sDisplayListCursor = temp_a0 + 8;
@@ -82,11 +86,11 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         sDisplayListCursor = temp_v1_2 + 0x40;
         temp_a0_2 = temp_v1_2 + 0x50;
         sDisplayListCursor = temp_v1_2 + 0x48;
-        sDisplayListCursor = temp_v1_2 + 0x58;
         sDisplayListCursor = temp_a0_2;
         temp_fv1_3 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58 + 2.0f;
-        var_t8 = (u32) (int)temp_fv1_3 & 0x3FF;
-        (*(s32 *)((char *)(temp_v1_2) + 0x50)) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_t8 * 4) | 0xF6000000));
+        sDisplayListCursor = temp_v1_2 + 0x58;
+        var_t8 = (u32)temp_fv1_3 & 0x3FF;
+        (*(s32 *)((char *)(temp_a0_2) + 0)) = (s32) ((((u16) D_8010D6F8 & 0x3FF) << 0xE) | ((var_t8 * 4) | 0xF6000000));
         temp_fv1_4 = ((__repair_record_arg0*)arg0)->field_64 + ((__repair_record_arg0*)arg0)->field_58;
         var_v0 = (u32) temp_fv1_4 & 0x3FF;
         ((__repair_field_4 *)temp_a0_2)->value = (s32) (var_v0 * 4);
@@ -99,3 +103,4 @@ void func_800389F0(__repair_record_arg0 *arg0) {
         ((__repair_field_4 *)temp_v1_3)->value = (s32) (var_v0_5 * 4);
     }
 }
+

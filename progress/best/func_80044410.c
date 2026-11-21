@@ -15,7 +15,7 @@ typedef struct {
 } TimerObject;
 
 void func_80044410(s8 arg0) {
-    volatile s32 padding[4];
+    volatile s32 padding[3];
     s32 var_s2;
     u32 temp_v0_2;
     u32 var_s1;
@@ -38,9 +38,9 @@ u32 __block_var_s3;
                 if (*((s32 *)((s8 *)&D_800C0784 + var_s2)) != 0) {
                     count = *(volatile u32 *)(var_s2 + (u32)&D_800C078C);
                     objects = *(TimerObject *volatile *)(var_s2 + (u32)&D_800C0788);
+                    innerOffset = var_s2;
                     if (count != 0) {
                         var_s1 = 0;
-                        innerOffset = var_s2;
                         var_s0 = objects;
                         do { {
                             temp_v1 = (*(volatile u8 *)&var_s0->timer);
