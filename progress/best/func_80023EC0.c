@@ -27,7 +27,7 @@ s32 func_80023EC0(s32 arg0) {
     }
     header = *entry;
     if (header == NULL) {
-        return arg0 | 0x1000;
+        goto invalid;
     }
     name = (*header)->name;
     if (name == NULL) {

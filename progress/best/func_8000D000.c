@@ -53,7 +53,7 @@ extern u8 gTrackMarkerActiveMask;
 extern u8 gSceneFlagsB;
 extern s8 gSceneObjectsLoaded;
 extern s8 gSceneSkipLoad;
-extern void *sTrackMarkerTable;
+extern void *volatile sTrackMarkerTable;
 extern s8 gTransitionEnabled;
 extern s8 gTransitionPhase;
 
@@ -107,6 +107,7 @@ s32 func_8000D000(void) {
     do {
         temp_v0_3 = gObjectRecords + var_a0_2;
         M2C_FIELD(temp_v0_3, s8 *, 0x9A) = 0;
+        temp_v1 = gObjectRecords + var_a0_2;
         M2C_FIELD(temp_v0_3, s16 *, 0x80) = 1;
         M2C_FIELD(temp_v0_3, s16 *, 0x82) = 1;
         M2C_FIELD(temp_v0_3, s16 *, 0x84) = 1;
@@ -120,7 +121,6 @@ s32 func_8000D000(void) {
         M2C_FIELD(temp_v0_3, f32 *, 0x74) = 255.0f;
         M2C_FIELD(temp_v0_3, f32 *, 0x78) = 255.0f;
         M2C_FIELD(temp_v0_3, s16 *, 0x90) = -1;
-        temp_v1 = gObjectRecords + var_a0_2;
         ((__repair_record_temp_v1*)temp_v1)->field_99 = 0xFF;
         ((__repair_record_temp_v1*)temp_v1)->field_38 = 999.0f;
         temp_v0_4 = gObjectRecords + var_a0_2;
@@ -134,7 +134,7 @@ s32 func_8000D000(void) {
     } while (var_a2 < 0x38);
     D_800E0748 = 0;
     D_800E074C = 0;
-    collectObjectRecordIds(var_a0_2, 1, var_a2, -1);
+    collectObjectRecordIds();
     D_800CA338 = 1;
     if (temp_s1 == 0) {
         func_80044D84(D_800E0740);
@@ -147,18 +147,27 @@ s32 func_8000D000(void) {
         func_8000CF14(0);
     }
     func_80048794(2, gProbeObjectList);
-    func_8003C710(D_80109690);
-    func_8004844C(D_80109690, 160.0f, 120.0f, 320.0f, 180.0f, 0.0f, 0.0f);
+    {
+    void *volatile *camera = &D_80109690;
+    func_8003C710(*camera);
+    func_8004844C(*camera, 160.0f, 120.0f, 320.0f, 180.0f, 0.0f, 0.0f);
+        }
+    {
+    volatile u8 *mask = &gTrackMarkerActiveMask;
+    void *records = gObjectRecords;
     M2C_FIELD(D_80109690, s32 *, 0x100) |= 0x10;
-    temp_v0_5 = gTrackMarkerActiveMask | 4;
-    temp_v1_3 = gSceneFlagsB | 4;
-    gTrackMarkerActiveMask = temp_v0_5;
+    temp_v0_5 = *mask;
+    temp_v1_3 = gSceneFlagsB;
+    temp_v0_5 |= 4;
+    temp_v1_3 |= 4;
+    *mask = temp_v0_5;
     gSceneFlagsB = temp_v1_3;
-    gTrackMarkerActiveMask = temp_v0_5 & 0xFE;
+    *mask = temp_v0_5 & 0xFE;
     gSceneFlagsB = temp_v1_3 & 0xFE;
-    M2C_FIELD(gObjectRecords, s32 *, 0x2B30) = 0;
-    M2C_FIELD(gObjectRecords, s32 *, 0x2B3C) = 0;
-    func_8000CC38(0x34, &gTrackMarkerActiveMask, gObjectRecords);
+    M2C_FIELD(records, s32 *, 0x2B30) = 0;
+    M2C_FIELD(records, s32 *, 0x2B3C) = 0;
+    func_8000CC38(0x34, mask, records);
+    }
     gTransitionEnabled = 1;
     gTransitionPhase = 0;
     D_800E0744 = 0;
@@ -173,8 +182,12 @@ s32 func_8000D000(void) {
         M2C_FIELD(temp_v1_4, s32 *, 0x60) = (s32) (temp_v0_6 | 1);
     }
     updateTransitionState();
-    ((__repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_100 |= 0x40;
-    ((__repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_142 = 7;
-    ((__repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_100 |= 0x100;
+    ((volatile __repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_100 |= 0x40;
+    ((volatile __repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_142 = 7;
+    ((volatile __repair_record_gTrackMarkerTable*)sTrackMarkerTable)->field_100 |= 0x100;
     return 1;
 }
+
+
+
+

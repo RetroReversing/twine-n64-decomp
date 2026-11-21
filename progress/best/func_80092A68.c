@@ -1,34 +1,140 @@
-static __inline__ u16 __repair_inline(u16 a) { return a; }
-s32 func_8008C758(); s32 insertOrCountEntry(); s32 insertSortedKeyEntry(); s32 insertOrRefSortedEntry(); s32 keyTableRegister(); s32 func_80097A40(); s32 registerWorkerEntry(); s32 func_80097EF8();
-extern u8 gWorkerThreadActive; extern s16 sSceneGroupStackCount; extern char sSceneGroupStack[];
-s32 func_80092A68(s32 *arg0,u16 arg1,s32 arg2,s32 arg3,void *arg4) {
- char *__repair_addr; s32 *var_a1,*var_a1_3,*var_a1_4,*var_s1,*var_v0,*var_v0_2,*var_v0_3,*var_v0_4; u16 *temp_s0; char *var_s0,*var_s0_2,*var_s0_3,*var_s0_4,*var_s0_5; u16 var_a0,var_v1,var_v1_2,var_v1_3,var_v1_4; void *temp_a1,*temp_v0,*temp_v0_2,*temp_v0_3,*temp_v0_4;
- if(gWorkerThreadActive&&sSceneGroupStackCount<0x80){var_s1=arg0;if(*arg0!=-1){__repair_addr=(char *)(var_s1+1);  for (;;) {
-     if(*(u16 *)__repair_addr==(arg1&0xffff)){*((s32 *)((s8 *)sSceneGroupStack+sSceneGroupStackCount))=var_s1;
-     temp_v0=(void *)(var_s1[2]+(s32)var_s1); var_s0=(char *)temp_v0+8; var_v1=*(u16 *)((char *)temp_v0+8);
-     if(var_v1!=0xffff) do {var_a1=(s32 *)((char *)arg4+*(s32 *)arg4);var_v0=0;if(*var_a1!=-1){     for (;;) {
-         var_v0=var_a1;if(*(u16 *)((char *)var_a1+4)!=(var_v1&0xffff)){var_v0=0;var_a1=(s32 *)((char *)var_a1+*var_a1);if(*var_a1!=-1)continue;}
-         break;
-     }
-}if(var_v0)func_80097EF8(*(u16 *)var_s0,(s8 *)var_v0+8);var_s0+=2;var_v1=__repair_inline(*(u16 *)var_s0);}while(var_v1!=0xffff);
-     temp_s0=(u16 *)((char *)var_s1+var_s1[3]+8);if(keyTableRegister(arg3,func_8008C758(arg2))&0xff){var_a0=*temp_s0;var_s0_2=(char *)temp_s0+2;if(var_a0!=0xffff)do{func_80097A40(var_a0,arg3);var_a0=*(u16 *)var_s0_2;var_s0_2+=2;}while(var_a0!=0xffff);}
-     temp_v0_2=(void *)(var_s1[4]+var_s1);var_s0_3=(char *)temp_v0_2+8;var_v1_2=*(u16 *)((char *)temp_v0_2+8);if(var_v1_2!=0xffff)do{var_v0_2=0;var_a1=(s32 *)((char *)arg4+*(s32 *)((char *)arg4+4));if(*var_a1!=-1){     for (;;) {
-         var_v0_2=var_a1;if(*(u16 *)((char *)var_a1+4)!=(var_v1_2&0xffff)){var_a1=(s32 *)((char *)var_a1+*var_a1);var_v0_2=0;if(*var_a1!=-1)continue;}
-         break;
-     }
-}if(var_v0_2)insertOrRefSortedEntry(*(u16 *)var_s0_3,(s8 *)var_v0_2+8);var_s0_3+=2;var_v1_2=*(u16 *)var_s0_3;}while(var_v1_2!=0xffff);
-     temp_v0_3=(void *)(var_s1[5]+(s32)var_s1);var_s0_4=(char *)temp_v0_3+8;var_v1_3=*(u16 *)((char *)temp_v0_3+8);if(var_v1_3!=0xffff)do{var_a1_3=(s32 *)((char *)arg4+*(s32 *)((char *)arg4+8));var_v0_3=0;if(*var_a1_3!=-1){     for (;;) {
-         var_v0_3=var_a1_3;if(*(u16 *)((char *)var_a1_3+4)!=(var_v1_3&0xffff)){var_a1_3=(s32 *)((char *)var_a1_3+*var_a1_3);var_v0_3=0;if(*var_a1_3!=-1)continue;}
-         break;
-     }
-}if(var_v0_3)insertOrCountEntry(*(u16 *)var_s0_4,(s8 *)var_v0_3+8);var_s0_4+=2;var_v1_3=*(u16 *)var_s0_4;}while(var_v1_3!=0xffff);
-     temp_v0_4=(void *)(var_s1[6]+(s32)var_s1);var_s0_5=(char *)temp_v0_4+8;var_v1_4=*(u16 *)((char *)temp_v0_4+8);if(var_v1_4!=0xffff)do{var_a1_4=(s32 *)((char *)arg4+*(s32 *)((char *)arg4+12));var_v0_4=0;if(*var_a1_4!=-1){     for (;;) {
-         var_v0_4=var_a1_4;if(*(u16 *)((char *)var_a1_4+4)!=(var_v1_4&0xffff)){var_a1_4=(s32 *)((char *)var_a1_4+*var_a1_4);var_v0_4=0;if(*var_a1_4!=-1)continue;}
-         break;
-     }
-}if(var_v0_4)insertSortedKeyEntry(*(u16 *)var_s0_5,(s8 *)var_v0_4+12,*(u16 *)((char *)var_v0_4+10));var_s0_5+=2;var_v1_4=*(u16 *)var_s0_5;}while(var_v1_4!=0xffff);
-     if(*(u16 *)((char *)var_s1+6)==1){do { registerWorkerEntry(arg1&0xffff,temp_a1+12,*(u16 *)((char *)temp_a1+8)); } while (0);temp_a1=(void *)(var_s1[7]+(s32)var_s1);}sSceneGroupStackCount=(u16)sSceneGroupStackCount+1;return 1;}var_s1=(s32 *)((char *)var_s1+*var_s1);if(*var_s1==-1)goto block_49;continue;
-     break;
- }
-}return 0;}block_49:return 0;
+typedef struct {
+    s32 next;
+    u16 key, kind;
+    s32 offsets[6];
+} SceneGroup;
+
+typedef struct {
+    s32 next;
+    u16 key, field6, field8, extra;
+} SceneEntry;
+
+extern u8 gWorkerActive;
+extern s16 sSceneGroupStackCount;
+extern SceneGroup *sSceneGroupStack[];
+extern s32 func_8008C758(s32);
+extern void func_80097EF8(u16, void *);
+extern s32 keyTableRegister(void *, s32);
+extern void func_80097A40(u16, void *);
+extern s32 insertOrRefSortedEntry(u16, s32);
+extern s32 insertOrCountEntry(u16, s32);
+extern s32 insertSortedKeyEntry(u16, const void *, u16);
+extern void registerWorkerEntry(u16, void *, u16);
+
+s32 func_80092A68(SceneGroup *initial, u16 id, s32 arg2, void *arg3, s32 *tables) {
+    SceneGroup *group;
+    if (!gWorkerActive || sSceneGroupStackCount >= 128) {
+        return 0;
+    }
+    group = initial;
+    if (group->next == -1) {
+        return 0;
+    }
+    do {
+        if (group->key == id) {
+            sSceneGroupStack[sSceneGroupStackCount] = group;
+            {
+                u16 *keys = (u16 *)((u8 *)group + group->offsets[0] + 8);
+                u32 key = *keys;
+                while (key != 0xFFFF) {
+                        SceneEntry *entry = (SceneEntry *)((u8 *)tables + tables[0]);
+                        SceneEntry *found = NULL;
+                        while (entry->next != -1) {
+                                found = entry;
+                                if (entry->key == (u16)key) {
+                                    break;
+                                }
+                                entry = (SceneEntry *)((u8 *)entry + entry->next);
+                                found = NULL;
+                        }
+                        if (found != NULL) {
+                            key = *keys;
+                            func_80097EF8(key, (u8 *)found + 8);
+                        }
+                        key = *++keys;
+                }
+            }
+            {
+                u16 *keys = (u16 *)((u8 *)group + group->offsets[1] + 8);
+                if ((u8)keyTableRegister(arg3, func_8008C758(arg2))) {
+                    u16 key = *keys++;
+                    while (key != 0xFFFF) {
+                            func_80097A40(key, arg3);
+                            key = *keys++;
+                    }
+                }
+            }
+            {
+                u16 *keys = (u16 *)((u8 *)group + group->offsets[2] + 8);
+                u32 key = *keys;
+                while (key != 0xFFFF) {
+                        SceneEntry *entry = (SceneEntry *)((u8 *)tables + tables[1]);
+                        SceneEntry *found = NULL;
+                        while (entry->next != -1) {
+                                found = entry;
+                                if (entry->key == (u16)key) {
+                                    break;
+                                }
+                                entry = (SceneEntry *)((u8 *)entry + entry->next);
+                                found = NULL;
+                        }
+                        if (found != NULL) {
+                            key = *keys;
+                            insertOrRefSortedEntry(key, (s32)((u8 *)found + 8));
+                        }
+                        key = *++keys;
+                }
+            }
+            {
+                u16 *keys = (u16 *)((u8 *)group + group->offsets[3] + 8);
+                u32 key = *keys;
+                while (key != 0xFFFF) {
+                        SceneEntry *entry = (SceneEntry *)((u8 *)tables + tables[2]);
+                        SceneEntry *found = NULL;
+                        while (entry->next != -1) {
+                                found = entry;
+                                if (entry->key == (u16)key) {
+                                    break;
+                                }
+                                entry = (SceneEntry *)((u8 *)entry + entry->next);
+                                found = NULL;
+                        }
+                        if (found != NULL) {
+                            key = *keys;
+                            insertOrCountEntry(key, (s32)((u8 *)found + 8));
+                        }
+                        key = *++keys;
+                }
+            }
+            {
+                u16 *keys = (u16 *)((u8 *)group + group->offsets[4] + 8);
+                u32 key = *keys;
+                while (key != 0xFFFF) {
+                        SceneEntry *entry = (SceneEntry *)((u8 *)tables + tables[3]);
+                        SceneEntry *found = NULL;
+                        while (entry->next != -1) {
+                                found = entry;
+                                if (entry->key == (u16)key) {
+                                    break;
+                                }
+                                entry = (SceneEntry *)((u8 *)entry + entry->next);
+                                found = NULL;
+                        }
+                        if (found != NULL) {
+                            key = *keys;
+                            insertSortedKeyEntry(key, (u8 *)found + 12, found->extra);
+                        }
+                        key = *++keys;
+                }
+            }
+            if (group->kind == 1) {
+                u8 *data = (u8 *)group + group->offsets[5] + 8;
+                registerWorkerEntry(id, data + 4, *(u16 *)data);
+            }
+            sSceneGroupStackCount++;
+            return 1;
+        }
+        group = (SceneGroup *)((u8 *)group + group->next);
+    } while (group->next != -1);
+    return 0;
 }

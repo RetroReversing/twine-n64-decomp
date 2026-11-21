@@ -50,7 +50,7 @@ s8 __repair_result_var_v0;
             var_v1 = var_a0;
             if (var_a0 != 0) {
 loop_3:
-                if ((s8) var_a0 != 0) {
+                if ((s8) var_v1 != 0) {
                     temp_v1 = 0;
                     if (((((s8) var_v1 == 0x2E) | ((s8) var_v1 == 0x21)) != 0) || ((s8) var_v1 == 0x3F)) {
                         temp_v1 = 1;

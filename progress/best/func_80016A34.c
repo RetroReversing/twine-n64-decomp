@@ -1,103 +1,119 @@
-extern int Probe_BoundsContainPoint(void *, int);
-extern int actorLinkToSurface(void *, void *, unsigned char);
-extern void actorUnlinkFromSurface(void *);
-extern void *func_80047B44(int, void *, void *, int);
-extern int prepareLinkedObjectPair(void *, void *, int);
-extern void markObjectsNearPos(void **, int, int, void *, float, int);
-extern void objectListInsert(void *, void *);
-extern void **gProbeObjectList;
-extern unsigned char gTrackMarkerDone[];
-struct V3 { int x,y,z; };
-void func_80016A34(void *arg0) {
- int temp_s0, temp_s0_2;
- unsigned short temp_v1_2,temp_v1_3;
- unsigned char temp_v0_2,temp_v1;
- void *temp_s2,*temp_v0;
- temp_s2=(char *)arg0+0x24;
- temp_v0=func_80047B44(*(int *)((char *)arg0+0x20),(char *)arg0+0x30,temp_s2,0);
- if(temp_v0) {
-  if(*(unsigned short *)((char *)temp_v0+0x26)&0x1000) {
-   markObjectsNearPos((void **)*(int *)((char *)arg0+0x20),2,0x20000,temp_s2,0.0f,1);
-   prepareLinkedObjectPair(temp_v0,temp_s2,*(int *)((char *)arg0+0x20));
-  }
-  if(*(unsigned short *)((char *)arg0+0x78)==2 &&
-     ((temp_v0_2=*((unsigned char *)temp_v0+0x29))==0 || gTrackMarkerDone[temp_v0_2]!=0)) {
-   temp_v1=*((unsigned char *)temp_v0+0x28);
-   if(temp_v1) gTrackMarkerDone[temp_v1]=1;
-  }
-  temp_s0=*(int *)((char *)temp_v0+8);
-  actorUnlinkFromSurface(arg0);
-  objectListInsert(arg0,(void *)temp_s0);
-  *(int *)((char *)arg0+0x20)=temp_s0;
-  *(int *)((char *)arg0+0x60)|=0x400;
-  goto block_36;
- }
- temp_s0_2=*(int *)((char *)arg0+0x20);
- if(!temp_s0_2) {
-  temp_v1_2=*(unsigned short *)((char *)arg0+0x78);
-  if(temp_v1_2!=0x1f && temp_v1_2!=0x46) goto finish;
-  goto block_39;
- } else if((Probe_BoundsContainPoint(temp_s2,temp_s0_2)<<24)==0) {
-  actorUnlinkFromSurface(arg0);
-  temp_v1_3=*(unsigned short *)((char *)arg0+0x78);
-  if(temp_v1_3<8) {
-   switch(temp_v1_3) {
-   case 0:
-    if((actorLinkToSurface(*gProbeObjectList,arg0,0)<<24)==0) goto block_38;
-    goto block_36;
-   }
-  } else {
-   switch(temp_v1_3) {
-   case 0x24:
-    if((actorLinkToSurface(*gProbeObjectList,arg0,0)<<24)==0) {
-     *(int *)((char *)arg0+0x24)=*(int *)((char *)arg0+0x30);
-     *(int *)((char *)arg0+0x28)=*(int *)((char *)arg0+0x34);
-     *(int *)((char *)arg0+0x2c)=*(int *)((char *)arg0+0x38);
-     *(int *)((char *)arg0+0x3c)=*(int *)((char *)arg0+0x48);
-     *(int *)((char *)arg0+0x40)=*(int *)((char *)arg0+0x4c);
-     *(int *)((char *)arg0+0x44)=*(int *)((char *)arg0+0x50);
-block_38:
-     objectListInsert(arg0,(void *)temp_s0_2);
-    } else goto block_36;
-    break;
-   case 0x4c:
-   case 1:
-    if(!(*(int *)((char *)arg0+0x58)&0x80000)) {
-     *(int *)((char *)arg0+0x24)=*(int *)((char *)arg0+0x30);
-     *(int *)((char *)arg0+0x28)=*(int *)((char *)arg0+0x34);
-     *(int *)((char *)arg0+0x2c)=*(int *)((char *)arg0+0x38);
-     *(int *)((char *)arg0+0x3c)=*(int *)((char *)arg0+0x48);
-     *(int *)((char *)arg0+0x40)=*(int *)((char *)arg0+0x4c);
-     *(int *)((char *)arg0+0x44)=*(int *)((char *)arg0+0x50);
-     goto block_38;
+typedef struct { s32 x,y,z; } ProbeVec;
+typedef struct {
+    char pad[0x20];
+    s32 surface;
+    ProbeVec pos, oldPos, angles, oldAngles;
+    char pad54[4];
+    u32 flags;
+    char pad5c[4];
+    u32 state;
+    char pad64[0x14];
+    u16 type;
+} SurfaceUpdateActor;
+typedef struct {
+    char pad[8];
+    s32 surface;
+    char pad0c[0x1a];
+    u16 flags;
+    u8 marker, prerequisite;
+} ProbeHit;
+extern ProbeHit *func_80047B44(s32, ProbeVec *, ProbeVec *, s32);
+extern s32 Probe_BoundsContainPoint(ProbeVec *, s32);
+extern s32 actorLinkToSurface(s32, SurfaceUpdateActor *, s32);
+extern void actorUnlinkFromSurface(SurfaceUpdateActor *);
+extern void objectListInsert(SurfaceUpdateActor *, s32);
+extern void markObjectsNearPos(s32, s32, s32, ProbeVec *, s32, s32);
+extern void func_80073304(ProbeHit *, ProbeVec *, s32);
+extern s32 *gProbeObjectList;
+extern u8 gTrackMarkerDone[];
+
+void func_80016A34(SurfaceUpdateActor *actor) {
+    union { ProbeHit *hit; s32 surface; } collision;
+    u8 marker;
+    ProbeVec *pos = &actor->pos;
+    collision.hit = func_80047B44(actor->surface, &actor->oldPos, pos, 0);
+    if (collision.hit) {
+        if (collision.hit->flags & 0x1000) {
+            markObjectsNearPos(actor->surface, 2, 0x20000, pos, 0, 1);
+            func_80073304(collision.hit, pos, actor->surface);
+        }
+        if (actor->type == 2 &&
+            ((marker = collision.hit->prerequisite) == 0 || gTrackMarkerDone[marker])) {
+            marker = collision.hit->marker;
+            if (marker) {
+                gTrackMarkerDone[marker] = 1;
+            }
+        }
+        collision.surface = collision.hit->surface;
+        actorUnlinkFromSurface(actor);
+        objectListInsert(actor, collision.surface);
+        actor->surface = collision.surface;
+        actor->state |= 0x400;
+        goto save;
     }
-block_34:
-    if((actorLinkToSurface(*gProbeObjectList,arg0,0)<<24)==0) objectListInsert(arg0,(void *)temp_s0_2);
-    goto block_36;
-   case 0x4d:
-   case 0x61:
-    if(*(int *)((char *)arg0+0x58)&0x80000) goto block_34;
-    *(int *)((char *)arg0+0x24)=*(int *)((char *)arg0+0x30);
-    *(int *)((char *)arg0+0x28)=*(int *)((char *)arg0+0x34);
-    *(int *)((char *)arg0+0x2c)=*(int *)((char *)arg0+0x38);
-    *(int *)((char *)arg0+0x3c)=*(int *)((char *)arg0+0x48);
-    *(int *)((char *)arg0+0x40)=*(int *)((char *)arg0+0x4c);
-    *(int *)((char *)arg0+0x44)=*(int *)((char *)arg0+0x50);
-    if((Probe_BoundsContainPoint((char *)arg0+0x24,temp_s0_2)<<24)!=0) goto block_38;
-block_39:
-    actorLinkToSurface(*gProbeObjectList,arg0,0);
-    break;
-   }
-  }
- } else {
-block_36:
-  *(int *)((char *)arg0+0x30)=*(int *)((char *)arg0+0x24);
-  *(int *)((char *)arg0+0x34)=*(int *)((char *)arg0+0x28);
-  *(int *)((char *)arg0+0x38)=*(int *)((char *)arg0+0x2c);
-  *(int *)((char *)arg0+0x48)=*(int *)((char *)arg0+0x3c);
-  *(int *)((char *)arg0+0x4c)=*(int *)((char *)arg0+0x40);
-  *(int *)((char *)arg0+0x50)=*(int *)((char *)arg0+0x44);
- }
-finish:
- *(int *)((char *)arg0+0x58)&=~1;
+
+    collision.surface = actor->surface;
+    if (collision.surface == 0) {
+        u16 type = actor->type;
+        if (type == 0x1F) goto link;
+        if (type == 0x46) goto link;
+        goto done;
+    }
+    if (((u32)Probe_BoundsContainPoint(pos, collision.surface) << 24)) {
+        goto save;
+    }
+    actorUnlinkFromSurface(actor);
+    switch (actor->type) {
+    case 0x24:
+        if (((u32)actorLinkToSurface(*gProbeObjectList, actor, 0) << 24)) {
+            goto save;
+        }
+        actor->pos = actor->oldPos;
+        actor->angles = actor->oldAngles;
+        goto insert;
+    default:
+        if (((u32)actorLinkToSurface(*gProbeObjectList, actor, 0) << 24)) {
+            goto save;
+        }
+        goto insert;
+    case 1:
+    case 0x4C:
+        if (actor->flags & 0x80000) {
+            goto relink;
+        }
+        actor->pos = actor->oldPos;
+        actor->angles = actor->oldAngles;
+        goto insert;
+    case 2:
+    case 3:
+    case 0x4D:
+    case 0x61:
+        if (!(actor->flags & 0x80000)) {
+            goto restore;
+        }
+relink:
+        if (!((u32)actorLinkToSurface(*gProbeObjectList, actor, 0) << 24)) {
+            objectListInsert(actor, collision.surface);
+        }
+save:
+        actor->oldPos = actor->pos;
+        actor->oldAngles = actor->angles;
+        break;
+restore:
+        actor->pos = actor->oldPos;
+        actor->angles = actor->oldAngles;
+        if (((u32)Probe_BoundsContainPoint(&actor->pos, collision.surface) << 24)) {
+insert:
+            objectListInsert(actor, collision.surface);
+            break;
+        }
+link:
+        actorLinkToSurface(*gProbeObjectList, actor, 0);
+        break;
+    case 6:
+    case 7:
+        break;
+    }
+done:
+    actor->flags &= ~1;
 }

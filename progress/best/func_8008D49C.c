@@ -56,8 +56,9 @@ u32 __repair_phase_temp_s3_2;
     void *temp_a0;
 
     sp3E = arg6;
+    temp_s3 = arg0;
     var_s4 = arg3;
-    temp_s6 = arg0 >> 0x10;
+    temp_s6 = temp_s3 >> 0x10;
     sp46 = arg7;
     sp37 = arg2;
     temp_s0 = ((arg0 >> 8) & 0xFF) + (s16)arg9;
@@ -70,7 +71,7 @@ u32 __repair_phase_temp_s3_2;
     } else {
         var_v1 = 0;
     }
-    temp_s3 = (arg0 & 0xFFFF00FF) | (var_v1 << 8);
+    temp_s3 = (temp_s3 & 0xFFFF00FF) | (var_v1 << 8);
     temp_v1 = temp_s6 & 0xC000;
     if (temp_v1 != 0x4000) {
         if (temp_v1 >= 0x4001) {
@@ -159,3 +160,4 @@ block_41:
     __repair_phase_var_v0 = -1;
     return __repair_phase_var_v0;
 }
+
