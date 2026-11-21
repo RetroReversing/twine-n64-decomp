@@ -165,7 +165,7 @@ __repair_literal = 0;
             if ((*(s32 *)((char *)(arg4) + 0)) & 4) {
                 func_8008EB80((*(u8 *)((char *)(arg4) + 0x10)), (*(u16 *)((char *)(arg4) + 0xE)), (*(u8 *)((char *)(temp_s2) + 0xFC4)), 0, 0);
                 var_s1_3 = 0;
-                if ((s32) (*(u8 *)((char *)(arg4) + 0x18)) > 0) {
+                if (var_s1_3 < (s32) (*(u8 *)((char *)(arg4) + 0x18))) {
                     do {
                         func_8008EB80((*(u8 *)((char *)(arg4) + 0x10)), (*(u16 *)((char *)(arg4) + 0xE)), (*(u8 **)((char *)(arg4) + 0x1C))[var_s1_3], 0, 0);
                         var_s1_3 += 1;

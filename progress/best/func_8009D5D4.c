@@ -7,7 +7,8 @@ s32 osRecvMesg(void *, s32, s32);           /* extern */
 typedef struct { unsigned char pad[412]; int value; } __repair_field_19C;
 static inline short __repair_store_halfword(int x){x=(unsigned int)x<<16;x=(int)x>>16;return x;}
 
-void func_8009D5D4(void *arg0) {
+void func_8009D5D4(void *arg0_in) {
+  void * arg0;
     s32 temp_v0_2;
     u32 temp_v0_3;
     u32 temp_v1_2;
@@ -27,6 +28,7 @@ u32 __repair_result_var_s1;
     u32 var_v1;
 
     var_s3 = (*(s8 *)((char *)(arg0) + 0x11DE));
+  arg0 = arg0_in;
     if (((*(s8 *)((char *)(arg0) + 0x11DC)) != 0) && (osRecvMesg(arg0 + 0x11AC, 0, 0) >= 0)) {
         if ((*(s32 *)((char *)(arg0) + 0x11D0)) == 0) {
             __repair_phase_temp_v1_3 = (*(u32 *)((char *)(arg0) + 0x1A4));

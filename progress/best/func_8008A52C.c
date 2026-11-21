@@ -3,7 +3,7 @@ s32 advanceLoopPosition();
 s32 slotFindOrAlloc();
 s32 func_80089F7C();
 f64 func_8008CD54();
-long long func_800CEEE0();
+s32 func_800CEEE0();
 extern f64 D_800D6760;
 extern f64 D_800D6768;
 extern f64 D_800D6770;
@@ -28,7 +28,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   s32 var_s5;
   f64 temp_fv0;
   register f64 temp_fv1_9;
-  s16 var_a0_2;
+  s32 var_a0_2;
   s16 var_s6;
   s16 var_v0_2;
   s32 temp_a1;
@@ -71,7 +71,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   temp_s0_2 = *temp_v0;
   temp_a1 = D_8010D42C + 0x50;
   D_8010D42C = temp_a1;
-  temp_s1 = ((char *) temp_v0) + ((temp_s0_2 * 0x50) + 0x10);
+  temp_s0 = ((temp_s0_2 * 0x50) + 0x10); temp_s1 = ((char *) temp_v0) + temp_s0;
   D_8010D378 = func_800CEEE0(old, temp_a1);
   temp_s0 = ((u32) (((*((u16 *) (((char *) arg0) + 4))) * 0xC0) + 0xFFF)) >> 0xC;
   temp_fv0 = func_8008CD54(*((f64 *) (((char *) arg0) + 8)));

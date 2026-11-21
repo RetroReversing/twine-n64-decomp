@@ -55,11 +55,12 @@ void func_80013F74(void *arg0)
 
   if (0 > var_a2)
   {
-    u32 old_word = var_a1;
+    var_v1 = var_a1;
     var_a1 = var_t1;
     var_t1 = *((u32 *) var_t0);
     var_t0 += 4;
-    var_v1 = (old_word + (var_a1 << (var_a2 + 1))) & 1;
+    var_v1 += var_a1 << (var_a2 + 1);
+    var_v1 &= 1;
     var_a1 = var_a1 >> (-var_a2);
     var_a2 += 0x20;
   }
@@ -73,11 +74,12 @@ void func_80013F74(void *arg0)
     var_v1 = var_a1 & 0xFF;
     if (var_a2 < 0)
     {
-      u32 old_word = var_a1;
-    var_a1 = var_t1;
+      var_v1 = var_a1;
+      var_a1 = var_t1;
       var_t1 = *((u32 *) var_t0);
       var_t0 += 4;
-      var_v1 = (old_word + (var_a1 << (var_a2 + 8))) & 0xFF;
+      var_v1 += var_a1 << (var_a2 + 8);
+      var_v1 &= 0xFF;
       var_a1 = var_a1 >> (-var_a2);
       var_a2 += 0x20;
     }

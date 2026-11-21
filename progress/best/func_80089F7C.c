@@ -28,6 +28,11 @@ extern Ent *D_80103EB4;
 extern u16 D_80108F70;
 extern s32 D_80109BA0;
 extern s32 D_80109BF8;
+inline static Ent *inline_fn(Ent *arg0)
+{
+  return arg0;
+}
+
 void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
   u32 sp2C;
@@ -124,7 +129,14 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
           p[4] = s0->addr;
           do
           {
-            p[0] = s0->data;
+            if (s0->len)
+            {
+              p[0] = s0->data;
+            }
+            else
+            {
+              p[0] = s0->data;
+            }
           }
           while (0);
           s3 += 1;
@@ -231,7 +243,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         s0->len = (__repair_phase_storage.value + 0xFF) & (~0xFF);
         D_80109BF8 += 0xC;
         sp38 = func_800CEEE0(D_80109BA0, D_80109BF8);
-        e = &D_80103EB4[D_80108F70];
+        e = inline_fn(&D_80103EB4[D_80108F70]);
         do
         {
           e->b = s0->addr; e->a = s0->len; e->c = s0->data; __repair_phase_p = &sp10[(u16) s3]; __repair_phase_p[0] = s0->data + s1_2; D_80109BA0 = sp38; D_80108F70 += 1;
