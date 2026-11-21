@@ -38,6 +38,7 @@ s32 __repair_phase_var_a1;
     s16 temp_v0_2;
     s16 temp_v0_4;
     s16 temp_v0_6;
+    s16 addition;
     s32 temp_v0_3;
     u32 var_a0;
     s32 var_s0;
@@ -87,8 +88,9 @@ __repair_literal = 2;
                 ++gTrackMarkerSerial;
                 func_80073AF8(0, (&sTrackMarkerTable)[(*(s8 *)((char *)(temp_s1) + 0x182))], sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                 temp_v1_2 = ((__repair_record_temp_s3*)temp_s3)->field_28;
-                (*(u16 *)((char *)(temp_v1_3) + 0x1BC)) += D_800C7C14[temp_v1_2 * 2];
+                addition = ((const volatile s16 *)D_800C7C14)[temp_v1_2 * 2];
                 temp_v1_3 = temp_s1 + (temp_v1_2 * 2);
+                (*(s16 *)((char *)temp_v1_3 + 0x1BC)) += addition;
                 temp_s2 = (u16)(((__repair_record_temp_s3*)temp_s3)->field_28);
                 temp_a0 = temp_s1 + (temp_s2 * 2);
                 temp_v0_2 = D_800C7C16[temp_s2 * 2];
@@ -155,7 +157,7 @@ block_28:
             } else {
                 temp_fv1_2 = (temp_fv1 * (f32) (*(u8 *)((char *)(temp_s5) + 0x82))) + 1.0f;
                 var_s0 = (u32)temp_fv1_2;
-                ((u16 (*)[0x1]) temp_s1)[temp_s2][0xde] += var_s0;
+                (*(u16 *)((u8 *)temp_s1 + temp_s2 * 2 + 0x1BC)) += var_s0;
             }
             temp_a1_2 = temp_s1 + (temp_s2 * 2);
             temp_v0_4 = D_800C7C16[temp_s2 * 2];
@@ -223,4 +225,5 @@ block_66:
         return 1;
     }
 }
+
 

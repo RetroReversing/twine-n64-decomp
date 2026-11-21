@@ -123,14 +123,14 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 *sp1DC;
     f32 *sp1E4;
     f32 *sp1EC;
-    u16 sp1F6;
+    register u16 sp1F6;
     u16 sp1FE;
     f32 *sp204;
     f32 *sp20C;
     f32 *sp214;
     f32 *sp21C;
     f32 *sp224;
-    s32 sp22C;
+    u32 sp22C;
     f32 *sp234;
     s32 sp238;
     s32 sp23C;
@@ -157,7 +157,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     f32 var_fs2;
     s32 temp_s0;
     s32 temp_s0_2;
-    s32 temp_s1_2;
+    u32 temp_s1_2;
     long temp_s1_3;
     s32 temp_s1_4;
     s32 temp_s1_5;
@@ -168,14 +168,14 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     u32 temp_v0;
     register s32 temp_v0_2;
     s32 temp_v1_10;
-    s32 temp_v1_12;
+    u32 temp_v1_12;
     s32 temp_v1_13;
     s32 temp_v1_14;
     int temp_v1_15;
     s32 temp_v1_16;
     s32 temp_v1_21;
     s32 temp_v1_23;
-    s32 temp_v1_24;
+    int temp_v1_24;
     s32 temp_v1_25;
     s32 temp_v1_26;
     s32 temp_v1_28;
@@ -185,14 +185,14 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 temp_v1_33;
     s32 temp_v1_3;
     s32 temp_v1_5;
-    s32 temp_v1_6;
+    long temp_v1_6;
     s32 temp_v1_7;
-    register unsigned temp_v1_8;
+    register long temp_v1_8;
     s32 temp_v1_9;
     s32 var_a1;
     unsigned int var_a2;
     unsigned var_s0;
-    s32 var_s0_2;
+    long var_s0_2;
     s32 var_s3_3;
     s32 var_s3_4;
     s32 var_s4;
@@ -206,7 +206,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 var_v0_11;
     s32 var_v0_2;
     s32 var_v0_3;
-    s32 var_v0_4;
+    register s32 var_v0_4;
     unsigned var_v0_6;
     int var_v0_7;
     s32 var_v0_8;
@@ -217,9 +217,9 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 var_v1_3;
     s32 var_v1_4;
     s32 var_v1_5;
-    u32 var_v1_6;
+    unsigned long var_v1_6;
     s32 var_v1_7;
-    s32 var_v1_8;
+    unsigned int var_v1_8;
     s32 var_v1_9;
     u16 *var_s3;
     u8 *var_s3_2;
@@ -327,7 +327,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                         sp23C = var_t3;
                                                         var_t2 = sp238;
                                                         var_t3 = sp23C;
-                                                        if ((func_8004D910(&sp48, &spA0, temp_v1_3 + (*var_s3 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s2) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s2) + 0)) * 0xC), sp1DC) & 0xFF) && (spB0 >= 0.0f) && ((u32)spB0 < var_fs2)) {
+                                                        if ((func_8004D910(&sp48, &spA0, temp_v1_3 + (*var_s3 * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s2) + -2)) * 0xC), (int)temp_v1_3 + ((*(u16 *)((char *)(var_s2) + 0)) * 0xC), sp1DC) & 0xFF) && (spB0 >= 0.0f) && ((u32)spB0 < var_fs2)) {
                                                             var_fs2 = spB0;
                                                             var_s6 = temp_s5;
                                                         }
@@ -451,8 +451,8 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                     segmentClosestPoint((CollisionVec *)(sp204), (CollisionVec *)(temp_v1_8 + ((*(u16 *)((char *)(temp_s0_3) + 0)) * 0xC)), (CollisionVec *)( temp_v1_8 + ((*(u16 *)((char *)(temp_s0_3) + 2)) * 0xC)), (CollisionVec *)(&sp108));
                                                                     var_fs0 = func_80047AB0(sp204, &sp108);
                                                                     temp_v1_9 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
-                                                                    segmentClosestPoint((CollisionVec *)(sp20C), (CollisionVec *)(temp_v1_9 + ((*(u16 *)((char *)(temp_s0_3) + 2)) * 0xC)), (CollisionVec *)(temp_v1_9 + ((*(u16 *)((char *)(temp_s0_3) + 4)) * 0xC)), (CollisionVec *)(&sp108));
                                                                     temp_fs1 = func_80047AB0(sp20C, &sp108);
+                                                                    segmentClosestPoint((CollisionVec *)(sp20C), (CollisionVec *)(temp_v1_9 + ((*(u16 *)((char *)(temp_s0_3) + 2)) * 0xC)), (CollisionVec *)(temp_v1_9 + ((*(u16 *)((char *)(temp_s0_3) + 4)) * 0xC)), (CollisionVec *)(&sp108));
                                                                     temp_v1_10 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                                     segmentClosestPoint((CollisionVec *)(sp214), (CollisionVec *)(temp_v1_10 + ((*(u16 *)((char *)(temp_s0_3) + 4)) * 0xC)), (CollisionVec *)(temp_v1_10 + ((*(u16 *)((char *)(temp_s0_3) + 0)) * 0xC)), (CollisionVec *)(&sp108));
                                                                     temp_fv0_2 = func_80047AB0(sp214, &sp108);
@@ -474,7 +474,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                             var_v0_2 = 0;
                                                                         }
                                                                         var_v1_2 = 1;
-                                                                        if (!(temp_fv0_2 < temp_fs1)) {
+                                                                        if (!(temp_fs1 > temp_fv0_2)) {
                                                                             var_v1_2 = 0;
                                                                         }
                                                                         if (var_v0_2 & var_v1_2) {
@@ -496,8 +496,8 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                         } else {
                                             var_s3_4 = 0;
                                             if (temp_s1 < (u16) (*(u16 *)((char *)(temp_s2_2) + 0x40))) {
-                                                sp21C = &sp158;
                                                 sp224 = &sp168;
+                                                sp21C = &sp158;
                                                 do {
                                                     temp_s1_3 = (s32)var_s3_4 & 0xFFFF;
                                                     temp_v1_11 = *(u16 *)((temp_s1_3 * 2) + (*(s32 *)((char *)(temp_s2_2) + 0x38)));
@@ -553,7 +553,7 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                             var_v0_4 = 0;
                                                                         }
                                                                         var_v1_4 = 1;
-                                                                        if (!(temp_fv0_4 < temp_fs1_2)) {
+                                                                        if (!(temp_fs1_2 > temp_fv0_4)) {
                                                                             var_v1_4 = 0;
                                                                         }
                                                                         if (var_v0_4 & var_v1_4) {
@@ -718,8 +718,8 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                                         sp120 = sp60 - (temp_fv0_7 * sp100);
                                                                         temp_v1_31 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                                         segmentClosestPoint((CollisionVec *)(sp20C), (CollisionVec *)(temp_v1_31 + (*var_s3_6 * 0xC)), (CollisionVec *)(temp_v1_31 + ((*(u8 *)((char *)(var_s0_4) + -1)) * 0xC)), (CollisionVec *)(&sp118));
-                                                                        temp_v1_32 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                                         var_fs0_4 = func_80047AB0(sp20C, &sp118);
+                                                                        temp_v1_32 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                                         segmentClosestPoint((CollisionVec *)(sp214), (CollisionVec *)(temp_v1_32 + ((*(u8 *)((char *)(var_s0_4) + -1)) * 0xC)), (CollisionVec *)(temp_v1_32 + ((*(u8 *)((char *)(var_s0_4) + 0)) * 0xC)), (CollisionVec *)(&sp118));
                                                                         temp_v1_33 = (*(s32 *)((char *)(temp_s2_2) + 0x34));
                                                                         temp_fs1_4 = func_80047AB0(sp214, &sp118);

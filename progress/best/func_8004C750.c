@@ -77,7 +77,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v1_13;
-    s32 temp_v1_15;
+    register s32 temp_v1_15;
     s32 temp_v1_3;
     long temp_v1_5;
     s32 temp_v1_6;
@@ -86,7 +86,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 var_a2;
     s32 var_s0;
     u32 var_s0_2;
-    s32 var_s0_3;
+    unsigned int var_s0_3;
     s32 var_s0_4;
     f32 *sp174;
     int var_s0_6;
@@ -96,7 +96,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     s32 var_t2;
     s32 var_t3;
     s32 var_s3_3;
-    s32 var_v0_3;
+    u32 var_v0_3;
     s32 var_v1;
     s32 var_v1_2;
     s32 sp198;
@@ -104,7 +104,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     u16 *var_s3_4;
     u16 *var_s3_5;
     u16 temp_a0;
-    register u16 temp_v1_12;
+    u16 temp_v1_12;
     u16 temp_v1_14;
     register u16 temp_v1_2;
     u16 temp_v1_4;
@@ -259,8 +259,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                 } while (var_a0 != NULL);
             }
             if (var_s6 != NULL) {
-                sp17C = (s16 *) rotationInput.point;
                 sp184 = secondPoint.overlap.point;
+                sp17C = (s16 *) rotationInput.point;
                 sp194 = &sp108;
                 do {
                     if ((*(s32 *)((char *)(var_s6) + 0x50)) & 0x200) {
@@ -340,7 +340,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                     temp_a1_2 = (u8 *)(*(u16 **)((char *)(temp_s1) + 0x3C)) + (temp_s2_4 * 3);
                                                     if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7)) {
                                                         temp_v1_8 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                                        if ((rayHitsTriangleXZ(&localEnd[0], secondPoint.overlap.point, temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 0)) * 0xC), temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 1)) * 0xC), temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 2)) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (spF0 < var_fs0)) {
+                                                        if ((rayHitsTriangleXZ(&localEnd[0], secondPoint.overlap.point, temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 0)) * 0xC), temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 1)) * 0xC), temp_v1_8 + ((*(u8 *)((char *)(temp_a1_2) + 2)) * 0xC), &spF0) & 0xFF) && (spF0 >= 0.0f) && (var_fs0 > spF0)) {
                                                             if (!(((u32) (*(u32 *)((char *)(var_s6) + 0x5C)) >> 0x17) & 0x20)) {
                                                                 var_fs0 = spF0;
                                                                 var_s3_3 = temp_s2_4;
@@ -413,7 +413,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                                                     temp_v1_14 = (*(u16 **)((char *)(temp_s1) + 0x38))[temp_s4_3];
                                                     if ((sp18E & temp_v1_14) && (temp_s7 & temp_v1_14)) {
                                                         temp_v1_15 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                                        if ((func_8004D910(&localEnd[0], secondPoint.overlap.point, temp_v1_15 + (*(u8 *)var_s3_5 * 0xC), temp_v1_15 + ((*(u8 *)((char *)(var_s2_4) + -1)) * 0xC), temp_v1_15 + ((*(u8 *)((char *)(var_s2_4) + 0)) * 0xC), sp194) & 0xFF) && (sp108 >= 0.0f) && (sp108 < var_fs0)) {
+                                                        if ((func_8004D910(&localEnd[0], secondPoint.overlap.point, temp_v1_15 + (*(u8 *)var_s3_5 * 0xC), temp_v1_15 + ((*(u8 *)((char *)(var_s2_4) + -1)) * 0xC), temp_v1_15 + ((*(u8 *)((char *)(var_s2_4) + 0)) * 0xC), sp194) & 0xFF) && (sp108 >= 0.0f) && (var_fs0 > sp108)) {
                                                             var_fs0 = sp108;
                                                             var_s5 = temp_s4_3;
                                                         }
