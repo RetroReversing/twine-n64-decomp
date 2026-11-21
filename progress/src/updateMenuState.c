@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80026450();                            /* extern */
+M2C_UNK setupMenuListFlags();                            /* extern */
 M2C_UNK func_800269B4(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_8002778C();                            /* extern */
 M2C_UNK func_800278AC(u8, s32, u16);                /* extern */
@@ -39,7 +39,7 @@ extern void *gMenuState;
             M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(gMenuListParam);
         }
     }
-    func_80026450();
+    setupMenuListFlags();
     func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     if (M2C_FIELD(gMenuState, s32 *, 0x10) == 0) {
         command = gPendingMenuCommand;

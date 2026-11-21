@@ -2,7 +2,7 @@
 
 s32 func_8000A310();
 s32 func_8000A5D0();
-void *func_80015F74();
+void *func_80015F74(void *);
 void *func_800162BC();
 void *spawnEffectObject();
 s32 objectListInsert();
@@ -82,31 +82,21 @@ void *func_8002EBB8(s32 arg0) {
     D_800BFD70 = arg0;
     __base_D_800BFD08 = D_800BFD08;
     var_a2 = (void *) ((((D_800BFC92 & 1) * 0x24)) + (s32) __base_D_800BFD08);
-    temp_t0 = (void *) ((0x20) + (s32) var_a2);
-    do { {
-        __repair_store_0 = (*(s32 *)((char *)(var_a2) + 0));
-        __repair_store_1 = (s32) (*(s32 *)((char *)(var_a2) + 4));
-        __repair_store_2 = (s32) (*(s32 *)((char *)(var_a2) + 8));
-        __repair_store_3 = (s32) (*(s32 *)((char *)(var_a2) + 0xC));
-        (*(s32 *)((char *)(var_a3) + 0)) = __repair_store_0;
-        (*(s32 *)((char *)(var_a3) + 4)) = __repair_store_1;
-        (*(s32 *)((char *)(var_a3) + 8)) = __repair_store_2;
-        (*(s32 *)((char *)(var_a3) + 0xC)) = __repair_store_3;
-        var_a2 += 0x10;
-        var_a3 += 0x10;
+    {
+        typedef struct { u32 words[9]; } MenuDescriptor;
+        *(MenuDescriptor *)var_a3 = *(MenuDescriptor *)var_a2;
     }
-} while (var_a2 != temp_t0);
-    *(s32 *)var_a3 = *(s32 *)var_a2;
-    D_800BFD94 = arg0;
+    {
+        s16 *descriptorMode = &D_800BFD94;
+        *descriptorMode = arg0;
     D_800BFDB8 = arg0;
     D_800BFC92 += 1;
-    var_a1 = (char *)&D_800BFD94;
-    if (gPendingMenuCommand != 0) {
-        var_a1 += 4;
-    } else {
-        var_a1 -= 0x20;
+        var_a1 = (char *)descriptorMode - 0x20;
+        if (gPendingMenuCommand != 0) {
+            var_a1 = (char *)descriptorMode + 4;
+        }
     }
-    (((__repair_record_temp_s1*)temp_s1)->field_2C) = func_80015F74(var_a1, var_a1, var_a2, var_a3);
+    (((__repair_record_temp_s1*)temp_s1)->field_2C) = func_80015F74(var_a1);
     __base_D_800BFD04 = &D_800BFD04;
     var_a1 = (char *)__base_D_800BFD04;
     (*__base_D_800BFD04) = arg0;
@@ -176,3 +166,4 @@ void *func_8002EBB8(s32 arg0) {
     }
     return temp_v0;
 }
+

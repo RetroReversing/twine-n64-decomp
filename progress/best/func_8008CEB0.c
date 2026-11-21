@@ -13,7 +13,7 @@ extern M2C_UNK gVoiceChannelTable;
 extern u8 D_801176E8;
 s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
     M2C_UNK *__base_D_8010D724;
-    u8 sp17, sp1F;
+    u8 sp1F, sp17;
     M2C_UNK *var_s1, *var_s6;
     register s32 temp_fp;
     s32 temp_a0, temp_a1_2, temp_a2, temp_a2_2, temp_hi;

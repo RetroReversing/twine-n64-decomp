@@ -5,8 +5,8 @@ extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
 void func_8000A368(void);
 void func_8000A3AC(void);
-void func_8001E7A4(u16);
-void func_80026450(void) {
+void updateBonusSceneSlot(u16);
+void setupMenuListFlags(void) {
     u8 *flags = gSceneFlagsA;
     s32 mask;
     *flags = 0;
@@ -30,5 +30,5 @@ void func_80026450(void) {
     }
     if (gMenuUseTextList != 0) func_8000A368();
     else func_8000A3AC();
-    if (gMenuUseTextList != 0) func_8001E7A4(gMenuSlot);
+    if (gMenuUseTextList != 0) updateBonusSceneSlot(gMenuSlot);
 }

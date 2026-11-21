@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80007160();                            /* extern */
-M2C_UNK func_80026450();                            /* extern */
+M2C_UNK setupMenuListFlags();                            /* extern */
 M2C_UNK func_8007560C();                            /* extern */
 extern s16 gExpansionPakPresent;
 extern s8 D_8010A4C0;
@@ -56,7 +56,7 @@ s32 func_800219A0(s8 arg0) {
     func_80007160();
     func_8007560C();
     M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 1;
-    func_80026450();
+    setupMenuListFlags();
     return var_s0;
 }
 
