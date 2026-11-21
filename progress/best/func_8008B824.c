@@ -3,7 +3,7 @@ s32 audioSetupRateBuffer(s32,s32,s32);
 s32 func_80054FEC(s32,s32,f32,void*,void*,s32,s32);
 extern f64 D_800D6798;
 extern char D_800D6780[];
-extern s32 D_800E41E8,D_800E41EC,D_800E4230,D_800E4238,D_800E423C,D_801002D8,D_80103098,D_8010D428,D_8011772C;
+extern s32 D_800E41E8,D_800E41EC,D_800E4230,D_800E4238,D_800E423C,D_801002D8,D_80103098,D_8010D428,dmaHandlerInit;
 extern s8 sWorkerPendingCallback,D_8010309C;
 extern u8 D_8010309D[0x101];
 extern u8 D_8010319E[0x102];
@@ -20,7 +20,7 @@ func_80089384(temp_s0,*arg0);
 audioSetupRateBuffer(temp_s0,*arg0,arg3&0xff);
 temp_v0=*arg0; temp_a2=arg2&0xffff;
 if(temp_a2!=0){u32 q=(u32)(temp_v0*temp_a2)/1000U;D_800E4230=0;temp_a2_2=((q/192U)*0xC0)+0xC0;D_800E423C=temp_a2_2;D_800E4238=gDataBankAlloc(temp_a2_2*2,0,temp_a2_2);}else{D_800E4238=0;}
-(*(u16 *)&D_800E4268)=0xffff;D_8011772C=0;D_8010D428=0;D_8010016C(&func_8008B25C);
+(*(u16 *)&D_800E4268)=0xffff;dmaHandlerInit=0;D_8010D428=0;D_8010016C(&func_8008B25C);
 temp_v0=*arg0;var_ft0=(f64)temp_v0;if(temp_v0<0)var_ft0+=D_800D6798;
 temp_fv1=((f32)var_ft0*0.016666668f*0.0052083335f)+0.5f;
 var_v1=(u32)temp_fv1;var_v0=var_v1*2;

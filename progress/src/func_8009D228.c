@@ -13,16 +13,16 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK osCreateMesgQueue(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
-extern s8 D_800FDBB0;
-extern M2C_UNK D_800FDBE8;
-extern M2C_UNK D_800FDC00;
-extern M2C_UNK *D_8011772C;
+extern s8 dmaQueueCount;
+extern M2C_UNK dmaMesgQueue;
+extern M2C_UNK dmaMesgBuf;
+extern M2C_UNK *dmaHandlerInit;
 extern M2C_UNK func_8009D100;
 
 void func_8009D228(void) {
-    if (D_8011772C == NULL) {
-        osCreateMesgQueue(&D_800FDBE8, &D_800FDC00, 1);
-        D_800FDBB0 = 0;
-        D_8011772C = &func_8009D100;
+    if (dmaHandlerInit == NULL) {
+        osCreateMesgQueue(&dmaMesgQueue, &dmaMesgBuf, 1);
+        dmaQueueCount = 0;
+        dmaHandlerInit = &func_8009D100;
     }
 }

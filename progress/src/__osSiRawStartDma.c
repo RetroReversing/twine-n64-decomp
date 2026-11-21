@@ -7,7 +7,7 @@
 
 s32 osVirtualToPhysical(void *);
 void func_800A0220(void *, s32);
-void func_800A0170(void *, s32);
+void flushDCacheRange(void *, s32);
 
 /* Starts an SI DMA of 64 bytes between buf and PIF RAM. dir 1 writes buf back to memory
  * first and sends it to the PIF; dir 0 reads PIF RAM into buf and invalidates the cache
@@ -26,7 +26,7 @@ s32 __osSiRawStartDma(s32 dir, void *buf) {
         SI_PIF_ADDR_WR64B = PIF_RAM_PHYS;
     }
     if (dir == 0) {
-        func_800A0170(buf, 0x40);
+        flushDCacheRange(buf, 0x40);
     }
     return 0;
 }

@@ -9,8 +9,8 @@ extern int lookupDataEntry(int);
 extern void formatTextEntry(void *, int, ...);
 
 void func_8001D204(void) {
-  int __repair_call_argument;
     unsigned char *index;
+    unsigned char *index2;
     char *item;
     char *second;
     const char *format;
@@ -57,14 +57,11 @@ void func_8001D204(void) {
         }
         break;
     }
-    index = &D_801002A2;
-    __repair_call_argument = *index + 0x16D;
-    do {
-      name = lookupDataEntry(__repair_call_argument);
-    } while (0);
+    index2 = &D_801002A2;
+    name = lookupDataEntry(*index2 + 0x16D);
     format = D_800D2864;
     formatTextEntry(item, (int)format, name);
-    formatTextEntry(second, (int)format, lookupDataEntry(*index + 0x177));
+    formatTextEntry(second, (int)format, lookupDataEntry(*index2 + 0x177));
 clear:
     gMenuState[0x2F] = 0;
 }

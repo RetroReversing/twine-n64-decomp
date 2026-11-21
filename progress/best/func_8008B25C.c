@@ -55,7 +55,7 @@ extern s32 D_80109BF8;
 extern s32 D_8010D378;
 extern s32 (*D_8010D428)();
 extern s32 D_8010D42C;
-extern s32 (*D_8011772C)(s32);
+extern s32 (*dmaHandlerInit)(s32);
 extern s32 func_800AC110;
 
 void func_8008B25C(void) {
@@ -110,8 +110,8 @@ void func_8008B25C(void) {
         }
         D_80108F70 = 0;
         D_80109BA0 = D_80103EB4 & ~0xF;
-        D_80109BF8 = D_80103EB4; if (D_8011772C != NULL) {
-            ((s32 (*)())D_8011772C)();
+        D_80109BF8 = D_80103EB4; if (dmaHandlerInit != NULL) {
+            ((s32 (*)())dmaHandlerInit)();
         }
         var_v1 = D_800E424C;
         if (var_v1 != NULL) {

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_800936A8();
 s32 func_8009D510();
-s32 func_800A0170();
+s32 flushDCacheRange();
 s32 osCreateMesgQueue();
 s32 osSendMesg();
 extern s8 sDataBankEnabled;
@@ -66,7 +66,7 @@ void func_80088C50(s32 arg0) {
             temp_v0 = gDataBankAlloc(temp_s2, 0);
             var_s1_2 += 1;
             *(s32 *)var_s0_2 = temp_v0;
-            func_800A0170(temp_v0, temp_s2);
+            flushDCacheRange(temp_v0, temp_s2);
             var_s0_2 += 4;
         } while (var_s1_2 < 2);
     }

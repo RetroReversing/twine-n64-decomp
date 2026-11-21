@@ -44,7 +44,7 @@ extern void *volatile sRenderState;
 
 void func_800358D4(void *arg0) {
     union {
-        unsigned char bytes[144];
+        unsigned char bytes[152];
         struct { f32 value; } view_sp28;
         struct { unsigned char pad[4]; f32 value; } view_sp2C;
         struct { unsigned char pad[8]; f32 value; } view_sp30;

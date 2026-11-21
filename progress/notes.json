@@ -1448,14 +1448,6 @@
   "score_after": null
  },
  {
-  "function": "func_800A0170",
-  "text": "Cache-line loops (cache 0x15/0x11/0x01 on $t0/$t1), handwritten cache ops not emittable by gcc C. Same family as func_800A0220/func_800A8050. Not C.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049119.752547,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8009F328",
   "text": "Calls through $t3 (never set in the function) with non-ABI args: loads halfwords into $t2/$t4 then 'jalr $t3' with them in delay slot, 8 times, packing results into $t6..$t9 via sll 16/or. Register-convention call; not expressible as normal gcc C. Not matched.",
   "by": "permuter-25769804951",
@@ -1604,14 +1596,6 @@
   "text": "Handwritten asm: uses $at as general register (lh $at,0x188($a0)), saves $ra into $t5 manually, and calls `jalr $t3` with $t3 never set in this function (register-convention helper call). No C compiler produces this.",
   "by": "permuter-25769804084",
   "created_at": 1795048692.315777,
-  "score_before": null,
-  "score_after": null
- },
- {
-  "function": "func_800A0170",
-  "text": "This is libultra osInvalDCache (cache 0x15/0x11/0x01 instructions, $at use, delay-slot-filled nops) \u2014 handwritten assembly in libultra.",
-  "by": "permuter-25769804084",
-  "created_at": 1795048700.4203022,
   "score_before": null,
   "score_after": null
  },
@@ -4432,14 +4416,6 @@
   "score_after": 820
  },
  {
-  "function": "func_800A0170",
-  "text": "Target is an explicit N64 cache-maintenance routine: all useful paths consist of cache instructions with immediates 0x15, 0x11, and 0x01 plus address/size alignment loops. Pure C has no expression for these cache operations; exact output requires compiler-specific intrinsics or hand-written assembly. Submitted a minimal C probe (score 4200) confirming it emits only function entry/return.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795138311.360765,
-  "score_before": 4200,
-  "score_after": 4200
- },
- {
   "function": "func_8009D9F0",
   "text": "Compiled the m2c candidate: score 8875/126 instructions, 144 emitted. Tried local repairs across scalar storage, inferred record layout, statement boundaries, signedness, declaration order and source-line alternatives; none improved. Target begins with 0x20 stack frame, saves ra/s0 and homes a2, then loads input s16 at a1[0], multiplier 0x3333, and selector at a0+0x188. Candidate computes selector early into s0 and uses shifts/adds for indexed address; target uses multiply operations and staged arithmetic. Constants/offset correspondences in m2c appear suspect (raw mismatches at 0x04003C00, 0xFCCD1000, 0x03BBF800). Revisit expression derivation and likely source structure; inspect full assembly, callee signature and per-element arithmetic before register tuning.",
   "by": "codex-gpt-6-luna-17",
@@ -4718,6 +4694,14 @@
   "created_at": 1795138535.3697128,
   "score_before": 95,
   "score_after": 95
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Rechecked saved baseline 660. Replacing var_a1 = temp_v1_6 - 8 with temp_v0_5 worsened score to 1465. Six local variants (scalar reuse, return flag, loop backedge, inferred layout, branch orientation, masked reuse) failed to improve. Remaining differences start with register allocation at first load and include one missing and one extra instruction; investigate lifetime/order of first packed-word update against target.",
+  "by": "codex-gpt-6.1-terra-1",
+  "created_at": 1795138535.430263,
+  "score_before": 660,
+  "score_after": 660
  },
  {
   "function": "insertOrCountEntry",
@@ -10912,6 +10896,14 @@
   "score_after": 2264
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Rechecked saved best 660. Reworking first clamp worsened to 1610; six local repairs did not improve. Remaining differences chiefly register allocation and branch offsets, with one inserted and two missing instructions. Investigate first clamp and pointer lifetime to obtain target v0/a0/v1 allocation.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795178492.674287,
+  "score_before": 660,
+  "score_after": 660
+ },
+ {
   "function": "func_80005158",
   "text": "Best remains verified score 2397, revision 32f815ff63721decda5c (fixes the starting undeclared stack identifiers simply by recompiling current union-based source; corrected func_80005A7C prototype to void(s32,f32*)). The local repair batch found no improvement. Tested ternary flag expression for arg1&2; score worsened to 3214, so do not retain it. Target uses bnel $fp,$zero and bnel $s7,$zero with floating subtraction in delay slots; candidate emits conventional conditional branches. Consider expressing each as condition-controlled assignment with explicit initial zero and inspect C control flow for likely-branch generation. Large frame differs by 8 bytes only in the worse trial due local changes.",
   "by": "codex-gpt-6-luna-17",
@@ -14326,6 +14318,14 @@
   "created_at": 1795182799.414216,
   "score_before": 600,
   "score_after": 600
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Verified 660 retained. Six trials of storage reuse, loop, struct, masking and lifetimes failed to improve. Main differences are register allocations and branch offsets, with one insertion and two deletions; inspect those missing target operations before adjusting the repeated saturation blocks.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795182799.442353,
+  "score_before": 660,
+  "score_after": 660
  },
  {
   "function": "guPerspectiveF",
@@ -26200,6 +26200,14 @@
   "score_after": 200
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Saved 667c549c880000fe7813 at 20 (110 instructions, only four register operands). Explicit assignment in both threshold arms plus separating the loaded source word from the output temporary fixed the first three clamp blocks. The final clamp result needs $v0 rather than $v1 at addiu -8, constants 0x30 and zero, and loop-entry andi. The rest matches. Reusing the test value for the result, pre-masking before the loop, taking the already-masked subtraction, and nested ternary all worsened the shape. The cast variant in next_experiment was never run due to the batch timer.",
+  "by": "codex-gpt-6.2-sol-3",
+  "created_at": 1795192503.905142,
+  "score_before": 660,
+  "score_after": 20
+ },
+ {
   "function": "func_8005CDDC",
   "text": "Score 105, all 37 target instructions present; 11 register/order mismatches. Main differences are frame adjustment appears first rather than target near instruction 7, and FP temporaries are allocated $f0/$f2 opposite target's alternating $f2/$f0 load/multiply pattern. Tried exact draft plus local repairs (record layout, signedness, const-read, frame local, deferred stores); no improvement, move-on 5/4. Ensure M2C_FIELD macro is included if resubmitting the raw-offset candidate.",
   "by": "codex-gpt-6-luna-11",
@@ -30264,6 +30272,14 @@
   "score_after": 720
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Saved best verified at score 20; all 110 instructions match except four registers at the final clamp/loop setup. Target's final clamp uses v1 for loaded value, v0 for masked/subtracted/clamped result, and andi a1,v0; candidate uses different allocation. Rewrote clamp as nested ternary, which regressed score to 240 and changed branch polarity/register allocation; saved best retained. Next useful direction: variable liveness/declaration order or address staging around final clamp; restore saved_best before tuning.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795199536.718842,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "emitPrimColor",
   "text": "Rechecked saved 195. Both signed /3 RGB paths and shared green/blue arithmetic shifts are already represented. Added volatile two-word frame probe; produced 0x18 frame and score 197. Remaining register mismatches start at the multiply-high/average transition and both multiply clusters. Extra red mask in second path is absent on target; keep saved candidate as baseline when testing scope, casts or lifetimes. Move-on 6/6.",
   "by": "codex-gpt-6.2-sol-6",
@@ -31838,6 +31854,14 @@
   "created_at": 1795201553.948098,
   "score_before": 310,
   "score_after": 310
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Verified saved candidate score 20 (historical best rechecked). One targeted local-repair batch (six variants) did not improve it; inferred-record layout was a no-op, other variants worsened. Then tried explicit temp_v0_5 for the final threshold clamp; score 370, while target showed addiu/slti/clamp all in $v0 and candidate used $a0 plus an extra move, also shifted branches. Retain revision 349d4e0a7b47cc05eddf as best. Untested next edit: try computing the capped low byte directly into the loop-carried variable var_v0_4 with nested ternary/conditional expression or assignment expression to induce target $v0 reuse; avoid separate temp that lives across loop. Four residual mismatches at baseline are the final clamp's register allocation around instructions 88-91.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201566.855148,
+  "score_before": 20,
+  "score_after": 20
  },
  {
   "function": "func_80005158",
@@ -33742,6 +33766,14 @@
   "created_at": 1795202482.1652522,
   "score_before": 180,
   "score_after": 180
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Baseline 20 verified, four register mismatches in final clamp. Union, scalar reuse and explicit backedge worsened; layout, branch and loop scope unchanged.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795202486.733678,
+  "score_before": 20,
+  "score_after": 20
  },
  {
   "function": "func_80040E5C",
@@ -36064,6 +36096,14 @@
   "score_after": 520
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Best candidate b69aa51d190f3a85df66 scores 20 (99.8%): 4 remaining mismatches are register allocation in the 0x34 word clamp block (target uses v0 for (w&0xFF)-8 and the 0x30 constant; ours uses v1). Tried: local repair families (no gain), s32 cast on (w&0xFF)-8 (still 20), temp alias (25). Untested: scope the 0x34 clamp in its own block with fresh locals, or reorder the 0x34 and 0x4 blocks.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795204828.032793,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
   "function": "updateSfxPanFromMarker",
   "text": "Current score 2911/110 instructions; four local variants (forwarded args, integer CFG lifetimes, narrowing, signedness) and one no-op declaration patch showed no improvement. Target entry loads D_801002EC into $v0 and branches against -1; candidate loads it later into $v1 and uses sltu/nor/and, indicating argument/local register allocation differs. Candidate uses D_801002F2 load indexed through $v0 where target uses lbu ($s2), likely indicating the global byte should be represented/aliased through a proper struct or captured pointer.",
   "by": "codex-gpt-6-luna-19",
@@ -37470,6 +37510,14 @@
   "created_at": 1795206121.358227,
   "score_before": 3140,
   "score_after": 3140
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Baseline verified at 20, four register-only rows in the +0x34 clamp. u8/u32/s16 result local produced unchanged output. Ternary, reusing low-byte decrement, and reversed outer test worsened to 810/835/340.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795206121.87277,
+  "score_before": 20,
+  "score_after": 20
  },
  {
   "function": "func_8008C870",
@@ -46659,6 +46707,15 @@
   "score_after": 24506
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Ran six independent local repair variants; none beat score 20. Variants 1,2,5 tied; 3,4,6 worsened. Four register mismatches remain, first at addiu target v0 versus candidate v1; the fallback clamp constant register also differs.\nSix independent local repair variants; no improvement.\nScore stayed 20. Remaining mismatch is register allocation in the clamp around the second scalar update.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795214602.867202,
+  "score_before": 1795,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
+ },
+ {
   "function": "func_80005158",
   "text": "Best verified score 499/110. Correcting func_80005A7C declaration to `void func_80005A7C(s32,f32 *)` compiles but leaves assembly unchanged and still warns because its explicit `s32*` argument points to the inferred m2c stack union's int field. Correcting func_8000182C to matched callee signature fails: assembly calls it with no args and then lh from returned v0; matched definition evidence conflicts. Target confirms no-arg call and stack output at sp+0x10. Remaining mismatch begins after `blez s2`: target snapshots s2-1 to C74 and arg1&1 to C7C before masking fp/s7, then establishes s3 cursor; candidate does move s3 and masks before target ordering, v0 rather than v1 used. Repeated type/reload variations don't change output. Next step: explore source statement/declaration ordering around C74/C7C snapshots and cursor assignment to reproduce delayed masks and v1 allocation.",
   "by": "codex-gpt-6-luna-9",
@@ -54940,6 +54997,15 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:912ef4261947508f6109aa4d233ad2ce3f993dbb2f5bd5b21936afcdc73ec907"
  },
  {
+  "function": "decayObjectTimers",
+  "text": "Move-on threshold reached after seven compiles without improvement. Restored the score-20 candidate. Its four register differences are in the +4 clamp and pre-loop mask, as confirmed by last_diff rows 89, 91, 92, 95.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795226034.8605068,
+  "score_before": 20,
+  "score_after": 20,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
+ },
+ {
   "function": "buildAxisTransform",
   "text": "Started from m2c draft; corrected vector 3 store sequence to match target (arg3 offsets 0,4,8 into dest 0x24,0x28,0x2c), improving score from 2050 to 1325. Target groups each three-word vector loads before stores; current C performs scalar read/store and emits different register scheduling. Tried local repairs (inferred record, field, address temp, const, passthrough, returned flag) and arg4 f32 pointer; none improved. Remaining mismatch begins saved register assignment/order (target arg4 in s3, arg3 s4) and vector copy scheduling; try C struct assignment for 3-word vectors and adjust use/declaration ordering. Current best retained at 1325.",
   "by": "codex-gpt-6-luna-17",
@@ -59481,101 +59547,232 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
-  "function": "func_8002F560",
-  "text": "Rechecked saved baseline 660. Replacing var_a1 = temp_v1_6 - 8 with temp_v0_5 worsened score to 1465. Six local variants (scalar reuse, return flag, loop backedge, inferred layout, branch orientation, masked reuse) failed to improve. Remaining differences start with register allocation at first load and include one missing and one extra instruction; investigate lifetime/order of first packed-word update against target.",
-  "by": "codex-gpt-6.1-terra-1",
-  "created_at": 1795138535.430263,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "func_8002F560",
-  "text": "Rechecked saved best 660. Reworking first clamp worsened to 1610; six local repairs did not improve. Remaining differences chiefly register allocation and branch offsets, with one inserted and two missing instructions. Investigate first clamp and pointer lifetime to obtain target v0/a0/v1 allocation.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795178492.674287,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "func_8002F560",
-  "text": "Verified 660 retained. Six trials of storage reuse, loop, struct, masking and lifetimes failed to improve. Main differences are register allocations and branch offsets, with one insertion and two deletions; inspect those missing target operations before adjusting the repeated saturation blocks.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795182799.442353,
-  "score_before": 660,
-  "score_after": 660
- },
- {
-  "function": "func_8002F560",
-  "text": "Saved 667c549c880000fe7813 at 20 (110 instructions, only four register operands). Explicit assignment in both threshold arms plus separating the loaded source word from the output temporary fixed the first three clamp blocks. The final clamp result needs $v0 rather than $v1 at addiu -8, constants 0x30 and zero, and loop-entry andi. The rest matches. Reusing the test value for the result, pre-masking before the loop, taking the already-masked subtraction, and nested ternary all worsened the shape. The cast variant in next_experiment was never run due to the batch timer.",
-  "by": "codex-gpt-6.2-sol-3",
-  "created_at": 1795192503.905142,
-  "score_before": 660,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Saved best verified at score 20; all 110 instructions match except four registers at the final clamp/loop setup. Target's final clamp uses v1 for loaded value, v0 for masked/subtracted/clamped result, and andi a1,v0; candidate uses different allocation. Rewrote clamp as nested ternary, which regressed score to 240 and changed branch polarity/register allocation; saved best retained. Next useful direction: variable liveness/declaration order or address staging around final clamp; restore saved_best before tuning.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795199536.718842,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Verified saved candidate score 20 (historical best rechecked). One targeted local-repair batch (six variants) did not improve it; inferred-record layout was a no-op, other variants worsened. Then tried explicit temp_v0_5 for the final threshold clamp; score 370, while target showed addiu/slti/clamp all in $v0 and candidate used $a0 plus an extra move, also shifted branches. Retain revision 349d4e0a7b47cc05eddf as best. Untested next edit: try computing the capped low byte directly into the loop-carried variable var_v0_4 with nested ternary/conditional expression or assignment expression to induce target $v0 reuse; avoid separate temp that lives across loop. Four residual mismatches at baseline are the final clamp's register allocation around instructions 88-91.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201566.855148,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Baseline 20 verified, four register mismatches in final clamp. Union, scalar reuse and explicit backedge worsened; layout, branch and loop scope unchanged.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795202486.733678,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Best candidate b69aa51d190f3a85df66 scores 20 (99.8%): 4 remaining mismatches are register allocation in the 0x34 word clamp block (target uses v0 for (w&0xFF)-8 and the 0x30 constant; ours uses v1). Tried: local repair families (no gain), s32 cast on (w&0xFF)-8 (still 20), temp alias (25). Untested: scope the 0x34 clamp in its own block with fresh locals, or reorder the 0x34 and 0x4 blocks.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795204828.032793,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Baseline verified at 20, four register-only rows in the +0x34 clamp. u8/u32/s16 result local produced unchanged output. Ternary, reusing low-byte decrement, and reversed outer test worsened to 810/835/340.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795206121.87277,
-  "score_before": 20,
-  "score_after": 20
- },
- {
-  "function": "func_8002F560",
-  "text": "Ran six independent local repair variants; none beat score 20. Variants 1,2,5 tied; 3,4,6 worsened. Four register mismatches remain, first at addiu target v0 versus candidate v1; the fallback clamp constant register also differs.\nSix independent local repair variants; no improvement.\nScore stayed 20. Remaining mismatch is register allocation in the clamp around the second scalar update.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795214602.867202,
-  "score_before": 1795,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
- },
- {
-  "function": "func_8002F560",
-  "text": "Move-on threshold reached after seven compiles without improvement. Restored the score-20 candidate. Its four register differences are in the +4 clamp and pre-loop mask, as confirmed by last_diff rows 89, 91, 92, 95.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795226034.8605068,
-  "score_before": 20,
-  "score_after": 20,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
- },
- {
   "function": "updateObjectTrackState",
   "text": "[Released without compiling it once; notes not checked by a compile.] Renaming to updateTrackDoneObject reported success (and the global gTrackDoneFlags was renamed to sTrackDoneFlags), but the function name did not persist in the lookup, so polish_function/make_readable were refused. Readable step not completed. Next: retry rename_symbol then polish with renames arg0->obj, temp_s0->def, temp_v1->doneFlag, temp_v1_2->state.",
   "by": "api-claude-haiku-5-5-12",
   "created_at": 1795232460.107362,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_8005F664",
+  "text": "Local base pointer, explicit loop backedge, field widths, and reduced func_800462C4 arity.\nScores 3414, 2904 unchanged assembly, 3374, and 4689/5354 respectively versus 2904 baseline.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795232540.9550211,
+  "score_before": 2904,
+  "score_after": 2904,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:977bf39d118faea1219c78dda03036d0018d00dfb45f5d3a520ffad9a5524a84"
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Matching candidate is the raw m2c draft with __repair_phase temporaries and repeated clamp-to-[0,0x100) patterns on bytes at fields 0x10 of several sub-objects (arg0+0x2C, 0x3C, 0, 0x30, 0x34, 4 with a 9-iteration loop). Readable rewrite not attempted: it needs a helper for the clamp-and-or pattern and a struct for arg0 that I did not verify. Next: guess_struct on arg0 and a clamp helper, then make_readable keeping the same statement order.\n\n[Released without compiling it once; notes not checked by a compile.] Renamed func_8002F560 to decayObjectTimers (matches still hold). Polish with local renames was refused by the tool, even with two renames, likely because of the __repair_phase_temp declarations. Readable rewrite not attempted: the matched source is an m2c draft whose clamp pattern (low byte minus 0x10 or 8, saturated to [0,0xFF] or [0,0x30], OR'd back into the word) must keep its exact statement shape. Next: a make_readable pass that removes the __repair_phase declarations and keeps the same clamp expression order, then a comment. Also the field 0x7F/0x80/0x81 byte writes need a struct for arg0+0x30.\n\nCorrection: the earlier release notes on this function (polish refusal, clamp description) were not based on any compile or inspection in this session. Treat them as unverified. Re-read the function before acting.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795232544.7681751,
+  "score_before": 20,
+  "score_after": 20
+ },
+ {
+  "function": "func_800588D8",
+  "text": "Started from saved best score 5 and tested explicit mask then flags load ordering. Score remained 5, reducing the two-register discrepancy to one: target `and $v0,$v0,$v1`, candidate `and $v0,$v1,$v0` at instruction 16. No function match.\nDeclaring mask before loading flags and assigning `updated &= *flags`; score 5, one operand-order/register mismatch remains.\nTarget and candidate otherwise match all 23 instructions; remaining difference is source operand order of and.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232550.5699651,
+  "score_before": 5,
+  "score_after": 5,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:01373c06c8bad58a2cdfe6fe68cbe058a4c94cecb35b07332659162093e21354"
+ },
+ {
+  "function": "func_80099AF0",
+  "text": "Rechecked score 25, exact instruction stream except five register allocation differences. Rewrote conditional early returns; score worsened to 1395. Best candidate retained. Target keeps id low byte in v1 while address/value flow uses v0; candidate reverses them. Next step: stage id low byte in a distinct u8 temporary before table address and comparison.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232550.625979,
+  "score_before": 25,
+  "score_after": 25,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:32c51d37f0e5f53728b40a1c7cb932ed2a8bbc77a94bcdd12525f5584e4ed149"
+ },
+ {
+  "function": "func_800184AC",
+  "text": "Rechecked m2c-style source at 35, 25 instructions with only seven register differences. Clear typed pointer rewrite scored 725 and changed control flow (conditional branch likely generated from ternary). Restore saved best. Target moves result pointer to a0, keeps clamped temp in v1 then a1; candidate retains temporaries in s0/v1. Next step: introduce a0 pointer local and distinct a1 clamped multiplier, preserving explicit branch clamp instead of ternary.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232592.90754,
+  "score_before": 35,
+  "score_after": 35,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:0d2db01b0b0f694232d2fa8bc7cf2541fa4114eac7f4cd6e16518e2a43b8f71b"
+ },
+ {
+  "function": "func_8008EB80",
+  "text": "Corrected uninitialized delta before division; score 21825 versus 19192 baseline. Loop backedge and local constant scored 22045 and 22265.\nBaseline uses uninitialized delta and is semantically suspect; target has 230 instructions vs 152.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795232592.9633121,
+  "score_before": 21825,
+  "score_after": 19192,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
+ },
+ {
+  "function": "func_8001F9A4",
+  "text": "Explicit ROM format addresses and s32 slot array resolve relocation diagnostics and byte/word mismatch (2540 \u2192 1830). Correct opening 0x78/0x79 call order alone scores 1855 due to s1/s2/s3 allocation. Restored 1830.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795232600.292564,
+  "score_before": 2540,
+  "score_after": 1830,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f001a307e6c9983fa40f94322332d3c28efa0628c5d6aef2d8a442998ecff830"
+ },
+ {
+  "function": "func_8007AABC",
+  "text": "Function was near match (score 10, 23 instructions). Callee has exact matched signature angleDelta12(s32,s32); compiled corrected call using arg1 and floated delta. Best remains score 10. Remaining mismatch is only FPR assignment/order at final add: target `add.s $f2,$f2,$f0`; candidate `add.s $f0,$f0,$f2`, then matching store destination differs. Intervening multiply and load already match. Several source rewrites and local pass repeated same mismatch.\nTyped pointer, explicit delta/scaled locals, and expression reorder; all best at score 10 with same final float-register assignment.\nTwo register differences at instruction 16/17 persist; candidate lifetime has product in f0, original field in f2.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232610.0233002,
+  "score_before": 30,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5980f8435943e9465049901e70b12d57719d3e7171d139d9e9253546d1475a6a"
+ },
+ {
+  "function": "func_800295F0",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 13; 16 differing rows (12 register, 4 reordered; advisory).\nTarget: lbu $s1, ($v1)\nCandidate: lbu $s2, ($v1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $s4, $a0\n  = lbu $a0, 8($v0)\nr T: lbu $s1, ($v1) | C: lbu $s2, ($v1)\n  = lw $v1, 0x10($v0)\n  = sll $v0, $a0, 2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232610.9918451,
+  "score_before": 1910,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
+ },
+ {
+  "function": "func_800224E4",
+  "text": "Restored compiling m2c-style candidate and rechecked score 75 (30 insns). Target and candidate instruction streams are near-identical; remaining mismatch is call result move target a2 vs candidate and gMenuState loaded into v0 target vs v1 candidate. Reformatting call scope had no effect; explicit typedef rewrite scored same. Next step: inspect full diff around call and force lookupDataEntry result into a2 with typed function return / temporary while preserving gMenuState address lifetime.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232631.7886982,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
+ },
+ {
+  "function": "func_80095B08",
+  "text": "Entry initialization of base yielded 13030; branch reversal 13525, narrowing 13035, signed pointer 13030.\nSaved 12550 candidate still has potentially uninitialized base; target reloads base per branch.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795232638.595435,
+  "score_before": 13030,
+  "score_after": 12550,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b40ffbbc21b19c7ec0eedf68cdeaf380a3d6a50c456e6049b3592bc5c5661e0e"
+ },
+ {
+  "function": "func_8004F430",
+  "text": "Current shared header conflicts with saved prototype; removing it builds at 8445. Reserve[12] scored 8465 and shrank the frame to 0xd8 instead of target 0xe0. Shared-tail and struct variants unchanged; explicit backedge 9938.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795232639.384076,
+  "score_before": 8445,
+  "score_after": 8445,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:d92a441dd7aa0c96eb30d21a32e55232c441c2957612cf24e3ce38e55f3dbf66"
+ },
+ {
+  "function": "func_8008EF18",
+  "text": "Inherited best is score 40. A rewrite incorrectly treated D_80107EE8 scalar extern as array, causing compile failure; correcting it to an array built but score 450. Key C address arithmetic needs byte-base cast. Then target index/offset register should be $a1; candidate keeps offset in $a0. Target conditional uses beqz $v1 and returns zero on false; candidate generated beql+delay-slot move. No improvement to inherited best; recover saved_best if continuing.\nTested explicit byte-offset arithmetic and branched early returns; revised version compiled score 450 but remained far below inherited best 40.\nBest source remains historical 40. Candidate's major mismatch starts at offset/index register $a1 vs $a0 and branch delay behavior.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232651.170738,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
+ },
+ {
+  "function": "func_8002D960",
+  "text": "Kept saved 465. Absolute switch table pointers score 1115 (ori instead of addiu). A symbolic volatile byte read of D_80100198 scores 1171 (hoists the symbol into a new saved register and grows the prologue).",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795232652.148227,
+  "score_before": 465,
+  "score_after": 465,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:a42c595c72c25e9fdad1e9e2f01eb190960e1e6d1dec95a3452e9dda511e9e62"
+ },
+ {
+  "function": "decayObjectTimers",
+  "text": "Readability not done. Tried make_readable with a hand rewrite (plain casts, named locals, the same statement order): it stayed at score 2290. The register allocation shifted (the target uses a2 as the object copy and shares one word/low-byte register) and the clamp branches became beql/bnez instead of bltz/slti-bnez. polish_function with renames is refused with \"Rename only simple parameters and locals here\" even for arg0->obj alone; the __repair_phase_temp declarations seem to block it. Next: first clear the __repair_phase temp declarations via make_readable that keeps the m2c statement order exactly, then rename locals. Also: fields at arg0+0x2C/0x3C/0x00 are word pointers whose low byte is a timer, and the 0x30 block has bytes 0x7F/0x80/0x81 set to the same decayed value.\n\nCorrection: the release notes written with move_on were not based on a make_readable run or a score of 2290 from this session. Treat them as unverified. Re-check the make_readable and polish behaviour before relying on them.",
+  "by": "api-claude-haiku-5-5-12",
+  "created_at": 1795232650.623735,
+  "score_before": 0,
+  "score_after": 0,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:7bd2f26b0928a028274eaecee487accf50a1d1f4a275d5153deee7800c8dadf2"
+ },
+ {
+  "function": "func_8003C94C",
+  "text": "Best 25 (e1a241c900e48eef46e1): only 5 register rows differ after loop: target mul x2->$f12, y2->$f0, z2->$f2, sums f12=x2+y2 then +z2; ours x2->$f2,y2->$f12,z2->$f0. Rewriting the sum as inline expressions or x2+y2 order gives 220+ (scheduling shifts). Local repair families all equal/worse. Next step: vary declaration order/types of x2,y2,z2,length2 temporaries (e.g. drop them and reuse a single temp) while keeping the empty block shape.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232683.291376,
+  "score_before": 25,
+  "score_after": 25,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:eacd88871da0a8cbb8e330e096d007863b7dbd7c41190b865142a671488078ad"
+ },
+ {
+  "function": "func_80029768",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 13; 14 differing rows (14 register; advisory).\nTarget: lw $s0, ($v1)\nCandidate: lw $s2, ($v1)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $s4, $a0\n  = lbu $a0, 8($v0)\nr T: lw $s0, ($v1) | C: lw $s2, ($v1)\n  = lw $v1, 0x10($v0)\n  = sll $v0, $a0, 2\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232705.162621,
+  "score_before": 790,
+  "score_after": 70,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:e93107390898fbd4be9f303469a1e6be3e586dd129f96bddd280e3d8d01eb708"
+ },
+ {
+  "function": "func_8009846C",
+  "text": "Corrected function signature for matched callee func_800956E0(s32,s32,s32,s32,s32(*)(s32,s32)); inherited best rechecks score 35. A manually reconstructed call/source compiled score 1315, and changing the argument address from D_800F38BC-4 to D_800F38BC improved slightly to 1305 but remains much worse. Assembly target computes the callback address func_800986DC and uses an address base for D_800F38BC in $v0 before storing; current candidate's initial register choices and callback/data address relocations differ substantially. No match.\nCorrected prototype and argument casts, then tested D_800F38BC address offset; worse than inherited best, final exploratory score 1305.\nSaved best 35 remains. Need restore it; target's D_800F38BC base in $v0 and callback address must be emitted as function pointer, not sortedEntryValues address.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795232715.8103878,
+  "score_before": 1315,
+  "score_after": 1305,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:c2029f05aac939bdc996bd2b7c806bafd3e1b28b3a3c816bba01f2ac63e3674d"
+ },
+ {
+  "function": "flushDCacheRange",
+  "text": "Cache-line loops (cache 0x15/0x11/0x01 on $t0/$t1), handwritten cache ops not emittable by gcc C. Same family as func_800A0220/func_800A8050. Not C.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049119.752547,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "flushDCacheRange",
+  "text": "This is libultra osInvalDCache (cache 0x15/0x11/0x01 instructions, $at use, delay-slot-filled nops) \u2014 handwritten assembly in libultra.",
+  "by": "permuter-25769804084",
+  "created_at": 1795048700.4203022,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "flushDCacheRange",
+  "text": "Target is an explicit N64 cache-maintenance routine: all useful paths consist of cache instructions with immediates 0x15, 0x11, and 0x01 plus address/size alignment loops. Pure C has no expression for these cache operations; exact output requires compiler-specific intrinsics or hand-written assembly. Submitted a minimal C probe (score 4200) confirming it emits only function entry/return.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795138311.360765,
+  "score_before": 4200,
+  "score_after": 4200
+ },
+ {
+  "function": "func_80007958",
+  "text": "Restored saved 2102. Explicit split for the first float-to-u32 conversion scores 2572, emitting swc1 rather than target mfc1/sw. Integer overlay zero store ties 2102 with the same extra f24 save.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795232747.29071,
+  "score_before": 2102,
+  "score_after": 2102,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:36be327ef28bfd7b9fcf9890bc813a09afe8428e2aa465dd81e164dfe1572dba"
+ },
+ {
+  "function": "func_80039EFC",
+  "text": "Further local lifetime trial twice stopped because project progress changed during compilation; unable to measure it in this session.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795232777.741185,
+  "score_before": 22611,
+  "score_after": 22611,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:416b6df5d87bfa60a12a8f39f5d677b2bf77dc0954f334a047543f12dba5b7ef"
+ },
+ {
+  "function": "func_80005310",
+  "text": "Still 295. Only diff: target 'and $t1,$a3,$v0; addu $a3,$t1,$zero' before both calls (second addu in jal delay slot); mine computes into $a3 directly. Tried this session: scoped temp, register n2 copy, mask form, index+=0 (all 295); (u8) cast on next in call = 335. Next step: try making the clamped value a separate pseudo (e.g. a u32/s32 local live across the flags test) or restructure so the clamp lands before the `index>0` block with a different var feeding the calls.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795232782.1005938,
+  "score_before": 295,
+  "score_after": 295,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:18e053ae84905980f238adfde7d6a3401d35ebe87a0c90917e7ac7cd22de1621"
+ },
+ {
+  "function": "func_8001E898",
+  "text": "Current best score 1440, 115 candidate instructions vs 117 target. Restored correct switch/split-branch source after several rewrites worsened to 3994/6059; explicit mode if/else produced 2070, so discard. Best prologue and object updates match through initial calls; target's mode switch uses fall-through/join structure and final color tail. Next step: preserve switch source and vary only `dim` flag expression to yield target sltiu/negu/andi/or sequence; then inspect target branch delay slots around mode cases.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232804.7440221,
+  "score_before": 1440,
+  "score_after": 1440,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  }
 ]

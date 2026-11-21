@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_800A0170();
+s32 flushDCacheRange();
 s32 osPiStartDma();
 s32 osRecvMesg();
 s32 osYieldThread();
@@ -29,7 +29,7 @@ void func_8000B900(s32 arg0, s32 arg1, u32 arg2) {
     var_s2 = arg0;
     var_s3 = arg1;
     var_s1 = arg2;
-    func_800A0170(arg0, var_s1);
+    flushDCacheRange(arg0, var_s1);
     var_v0 = var_s1 < 0x1001U;
     if (var_s1 != 0) {
         do {

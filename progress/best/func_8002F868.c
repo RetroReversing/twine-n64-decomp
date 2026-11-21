@@ -22,7 +22,7 @@ s32 func_8002F068();
 s32 func_8002F240();
 s32 func_8002F2EC();
 s32 updateObjectFade();
-s32 func_8002F560();
+s32 decayObjectTimers();
 s32 func_8002F718();
 s32 func_8002FBD4();
 s32 func_8003099C();
@@ -81,13 +81,13 @@ void func_8002F868(void *arg0, void *arg1) {
         func_8002F2EC(arg0, arg1);
         return;
     case 1:
-        if (func_8002F560(arg0) & 0xFF) {
+        if (decayObjectTimers(arg0) & 0xFF) {
             func_8002FBD4(arg1, 2);
         }
         func_8002F2EC(arg0, arg1);
         return;
     case 7:
-        if (func_8002F560(arg0) & 0xFF) {
+        if (decayObjectTimers(arg0) & 0xFF) {
             var_a3 = &D_800BFD74;
             temp_v1_2 = D_800BFC92 + 1;
             __base_D_800BFD08 = D_800BFD08;
@@ -117,7 +117,7 @@ block_19:
         func_8002F2EC(arg0, arg1);
         return;
     case 11:
-        if (func_8002F560(arg0) & 0xFF) {
+        if (decayObjectTimers(arg0) & 0xFF) {
             func_8002B02C(D_80102EFC);
             func_800283B0();
             D_800CEEB1 = 2;

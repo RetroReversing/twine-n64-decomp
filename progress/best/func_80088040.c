@@ -1,7 +1,7 @@
 extern s32 func_80087F60(u32 arg0, s32);
 extern s32 func_800936A8(s32);
 extern s32 func_8009D510(void *,s32,s32,s32,void *);
-extern s32 func_800A0170(s32,s32);
+extern s32 flushDCacheRange(s32,s32);
 extern s32 osCreateMesgQueue(void *,void *,s32);
 extern s32 osRecvMesg(void *,s32,s32);
 extern s32 osSendMesg(void *,s32,s32);
@@ -44,7 +44,7 @@ loop:
             temp_a0=(((var_v1_2/30)+0x9F)/160)*0xA0;
             *(s32 *)(temp_s1+0x1214)=temp_a0;
             if (D_800E3F2C&1) *(s32 *)(temp_s1+0x1210)=D_800E3F24[var_s2];
-            else { temp_v0=func_800936A8(temp_a0); temp_v0_2=gDataBankAlloc(temp_v0,0); *(s32 *)(temp_s1+0x1210)=temp_v0_2; func_800A0170(temp_v0_2,temp_v0); }
+            else { temp_v0=func_800936A8(temp_a0); temp_v0_2=gDataBankAlloc(temp_v0,0); *(s32 *)(temp_s1+0x1210)=temp_v0_2; flushDCacheRange(temp_v0_2,temp_v0); }
             if (*(s32 *)(temp_s1+0x1210)) {
                 osRecvMesg(D_800E3F30,0,1);
                 func_8009D510(temp_s1,(sDataBankTable[arg0]&0xFFFFFF)+sDataBankAux,*(s32 *)(temp_s1+0x1210),*(s32 *)(temp_s1+0x1214),&func_80088F6C);

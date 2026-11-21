@@ -5,7 +5,7 @@ extern s32 D_800E4248;
 extern s32 D_800E424C;
 extern N89C10 *D_800E4250;
 extern void *(*gDataBankAlloc)(s32, s32);
-void func_800A0170(void *, s32);
+void flushDCacheRange(void *, s32);
 
 void func_80089C10(s32 arg0) {
     s32 i;
@@ -15,7 +15,7 @@ void func_80089C10(s32 arg0) {
     D_800E4240 = (*alloc)(arg0 * sizeof(N89C10), 0);
     size = arg0 << 8;
     D_800E4244 = (*alloc)(size, 0);
-    func_800A0170(D_800E4244, size);
+    flushDCacheRange(D_800E4244, size);
     D_800E424C = 0;
     D_800E4250 = D_800E4240;
     D_800E4240[0].buf = D_800E4244;

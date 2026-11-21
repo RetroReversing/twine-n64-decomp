@@ -14,30 +14,30 @@ typedef s32 M2C_UNK32;
 
 s32 workerLockAcquire();
 s32 workerLockRelease();
-s32 func_800A0170();
+s32 flushDCacheRange();
 s32 osCreateMesgQueue();
 extern volatile u8 D_800FDBB0;
-extern char D_800FDBB4[];
-extern char D_800FDBB8[];
-extern char D_800FDBBC[];
-extern char D_800FDBE8[];
-extern char D_800FDC00[];
-extern s32 *D_8011772C;
+extern char dmaQueueRomAddr[];
+extern char dmaQueueRamAddr[];
+extern char dmaQueueSize[];
+extern char dmaMesgQueue[];
+extern char dmaMesgBuf[];
+extern s32 *dmaHandlerInit;
 extern s32 func_8009D100;
 
 void enqueue_buffer_request(s32 arg0, s32 arg1, s32 arg2) {
     workerLockAcquire(arg0);
-    if (D_8011772C == NULL) {
-        osCreateMesgQueue(D_800FDBE8, D_800FDC00, 1);
+    if (dmaHandlerInit == NULL) {
+        osCreateMesgQueue(dmaMesgQueue, dmaMesgBuf, 1);
         D_800FDBB0 = 0;
-        D_8011772C = &func_8009D100;
+        dmaHandlerInit = &func_8009D100;
     }
     if ((u8) D_800FDBB0 < 4U) {
-        *(s32 *)(D_800FDBB4 + (D_800FDBB0 * 0xC)) = arg0;
-        *(s32 *)(D_800FDBB8 + (D_800FDBB0 * 0xC)) = arg1;
-        *(s32 *)(D_800FDBBC + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
+        *(s32 *)(dmaQueueRomAddr + (D_800FDBB0 * 0xC)) = arg0;
+        *(s32 *)(dmaQueueRamAddr + (D_800FDBB0 * 0xC)) = arg1;
+        *(s32 *)(dmaQueueSize + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
         D_800FDBB0++;
-        func_800A0170(arg0, arg2);
+        flushDCacheRange(arg0, arg2);
     }
     workerLockRelease();
 }
