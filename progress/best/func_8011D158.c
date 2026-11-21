@@ -25,9 +25,9 @@ extern char D_8011F2B8[][12];
 extern Label *D_8011F3E8[];
 extern s32 gVisibleSaveSlotCount;
 extern s32 gSaveTotalSlots;
-extern void *lookupDataEntry(s32);
+extern void *lookupDataEntry(volatile int);
 extern s32 sprintf(char *, const char *, ...);
-void func_8011D158(short slot)
+void func_8011D158(unsigned short slot)
 {
   volatile s32 *count = &gVisibleSaveSlotCount;
   short index = (s16) slot;
@@ -51,7 +51,7 @@ void func_8011D158(short slot)
       temp = 0;
       if (rank > 0)
       {
-        s32 limit = rank;
+        unsigned char limit = rank;
         do
         {
           if ((temp++) != index)
@@ -59,7 +59,7 @@ void func_8011D158(short slot)
             Save *other = (*cursor)->save;
             do
             {
-              rank -= delta >= (other->start - other->end);
+              rank -= (other->start - other->end) <= delta;
             }
             while (0);
           }
@@ -81,16 +81,8 @@ void func_8011D158(short slot)
           goto format;
 
         case 2:
-          if (label)
-        {
           id = 0x2E6;
           goto format;
-        }
-        else
-        {
-          id = 0x2E6;
-          goto format;
-        }
 
         case 3:
           id = 0x2E7;

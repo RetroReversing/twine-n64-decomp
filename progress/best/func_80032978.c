@@ -127,9 +127,9 @@ void func_80032978(void *arg0, u32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 *arg5
         width_log = func_80032830(temp_s2);
         var_a3 = 0x800;
         { u32 mask = (temp_s6 << 18); u32 height = ((temp_s0 & 15) << 14) | 0x07000000; u32 tile = (mask | height) | (temp_s7 << 8);
-        temp_a1_2 = gGfxPtr;
         ((__repair_field_C *) temp_s1)->value = tile | ((width_log & 15) << 4); }
         temp_a0 = temp_s2 >> 3;
+        temp_a1_2 = gGfxPtr;
         gGfxPtr = temp_a1_2 + 8;
         *((s32 *) (((char *) temp_a1_2) + 0)) = 0xE6000000;
         gGfxPtr = temp_a1_2 + 0x10;

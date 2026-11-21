@@ -96,7 +96,7 @@ void func_80118BCC(void *arg0)
   f32 var_fv1;
   f64 var_ft0;
   s32 temp_v1_13;
-  s32 temp_v1_3;
+  
   s32 temp_v1_6;
   u32 temp_v1_7;
   s32 temp_v1_8;
@@ -149,8 +149,8 @@ void func_80118BCC(void *arg0)
     }
   }
   *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0x34)) = 0;
-  temp_v1_3 = *((s16 *) (((char *) arg0) + 0x7A));
-  switch (temp_v1_3)
+  temp_v1_2 = *((s16 *) (((char *) arg0) + 0x7A));
+  switch (temp_v1_2)
   {
     case 0:
 
@@ -497,7 +497,7 @@ void func_80118BCC(void *arg0)
       {
         if ((*((s32 *) (((char *) sp44) + 0x20))) == (*((s32 *) (((char *) arg0) + 0x20))))
         {
-          *((s32 *) (((char *) sp44) + 0x60)) = (*((s32 *) (((char *) sp44) + 0x60))) | 8;
+          temp_v0 = (*((s32 *) (((char *) sp44) + 0x60))); *((s32 *) (((char *) sp44) + 0x60)) = temp_v0 | 8;
         }
         else
         {

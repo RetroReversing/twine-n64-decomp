@@ -22,6 +22,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   s32 a3_2;
   s32 v1_2;
   s32 a2;
+  s32 a2_c;
   s32 __repair_result_a2;
   s32 a3;
   s32 __repair_phase_v1;
@@ -126,8 +127,8 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
     {
       var_fp = 0;
       var_s2 = var_s0 + 2;
-      var_s4 = var_s6 + 2;
       var_s3 = var_s5 + 2;
+      var_s4 = var_s6 + 2;
       do
       {
         switch (var_s7)
@@ -223,8 +224,8 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           v1_2 = var_s1[var_s0[2]];
           var_s5[1] = (u8) v1_2;
           tmp8 = var_s1[var_s0[3]];
-          a2 = inline_fn(var_s1, var_s0[1]);
-          a2 = var_s5[0];
+          a2_c = inline_fn(var_s1, var_s0[1]);
+          a2_c = var_s5[0];
           a3_2 = v1_2 & 0xFF;
           v1_2 = tmp8 & 0xFF;
           var_s5[2] = tmp8;
@@ -237,7 +238,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           __repair_result_t16b = BE16(var_s1 + (var_s0[2] * 2));
           var_s6[1] = __repair_result_t16b;
           tmp8 = var_s0[3];
-          a2 = __repair_phase_v1 & 0xFFFF;
+          a2_c = __repair_phase_v1 & 0xFFFF;
           t16c = BE16(var_s1 + (tmp8 * 2));
           a3_2 = __repair_result_t16b & 0xFFFF;
           v1_2 = t16c & 0xFFFF;
@@ -249,7 +250,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
         {
           u8 first = var_s1[var_s0[1] * 3];
           var_s5[0] = first;
-          a2 = first;
+          a2_c = first;
         }
           __repair_phase_v1 = var_s1[var_s0[2] * 3];
           var_s5[1] = (u8) __repair_phase_v1;
@@ -262,17 +263,15 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           break;
 
         default:
-          do
-        {
-          t16 = BE16(var_s1 + (var_s0[1] * 6)); var_s6[0] = t16; t16b = BE16(var_s1 + (var_s0[2] * 6)); var_s6[1] = t16b; tmp8 = var_s0[3] * 3; a2 = t16 & 0xFFFF; t16c = BE16(var_s1 + (tmp8 * 2)); v1_2 = t16c & 0xFFFF; a3_2 = t16b & 0xFFFF; var_s6[2] = t16c; var_s6 += 3;
+          {
+          t16 = BE16(var_s1 + (var_s0[1] * 6)); var_s6[0] = t16; t16b = BE16(var_s1 + (var_s0[2] * 6)); var_s6[1] = t16b; tmp8 = var_s0[3] * 3; a2_c = t16 & 0xFFFF; t16c = BE16(var_s1 + (tmp8 * 2)); v1_2 = t16c & 0xFFFF; a3_2 = t16b & 0xFFFF; var_s6[2] = t16c; var_s6 += 3;
         }
-        while (0);
           break;
 
       }
 
       __repair_phase_base = *((s32 *) (((u8 *) arg0) + 0x34));
-      buildPlaneFromPoints(&sp10, __repair_phase_base + (a2 * 12), __repair_phase_base + (a3_2 * 12), __repair_phase_base + (v1_2 * 12));
+      buildPlaneFromPoints(&sp10, __repair_phase_base + (a2_c * 12), __repair_phase_base + (a3_2 * 12), __repair_phase_base + (v1_2 * 12));
       var_s0 += 4;
       *var_t0 = 0;
     }

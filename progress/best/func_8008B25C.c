@@ -155,9 +155,20 @@ void func_8008B25C(void)
       *D_800E4218 = 0;
       if (D_800E4268 != temp_s2)
       {
-        var_s1 = 0;
-        func_8008B1C0(temp_a0_2);
-        var_s3 = 0; var_v0_3 = D_800E4268;
+        if (var_s0)
+        {
+          var_s1 = 0;
+          func_8008B1C0(temp_a0_2);
+          var_s3 = 0;
+          var_v0_3 = D_800E4268;
+        }
+        else
+        {
+          var_s1 = 0;
+          func_8008B1C0(temp_a0_2);
+          var_s3 = 0;
+          var_v0_3 = D_800E4268;
+        }
         if (var_v0_3 < temp_s2)
         {
           s32 *buffers = &gAudioBufferPtrs;
@@ -228,7 +239,26 @@ void func_8008B25C(void)
             {
               s32 *buffers = &gAudioBufferPtrs;
               u32 limit = (u16) temp_s4;
- do { do { u32 index; if (((u16) var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } if (gAudioBufferIndex) { temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } else { temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } } while (inline_fn23(var_s0) < limit); } while (0);
+              do
+              {
+                u32 index;
+                if (((u16) var_s3) >= sMixBufferUnits)
+                {
+                  break;
+                }
+                index = var_s0++;
+                if (inline_fn(gWorkerActive, 0))
+                {
+                  D_800E41E8 = D_800E41EC;
+                  func_800923D0();
+                  func_8008E374();
+                }
+                temp_a1 = inline_fn23(var_s1);
+                var_s1 += 0xC0;
+                ++var_s3;
+                func_8008AECC(buffers[(u16) index], temp_a1);
+              }
+              while (inline_fn23(var_s0) < limit);
             }
           }
           while (0);
@@ -287,3 +317,4 @@ void func_8008B25C(void)
   }
   func_8008C188();
 }
+

@@ -110,18 +110,22 @@ void func_80007958(void)
   s32 commandBytes;
   FrameView **entry;
   FrameView *view;
+FrameView *__repair_phase_view;
   FrameSlot *submittedSlot;
   FrameView **layerEntry;
   u64 stamp;
   FrameCommand *cmd;
+FrameCommand *__repair_phase_cmd;
   u32 i;
   u32 mask;
-  u32 alpha;
+  
   u32 __repair_phase_alpha;
+u32 __repair_phase___repair_phase_alpha;
   register s32 transitioning;
-  s32 layer;
+  
   s32 __repair_phase_layer;
-  s32 token;
+s32 __repair_phase___repair_phase_layer;
+  
   f32 opacity;
   u8 *modeFlags;
   sRenderState = slot->buffer;
@@ -201,23 +205,23 @@ void func_80007958(void)
         }
         if (modeFlags[-2] & mask)
         {
-          cmd = sDisplayListCursor;
-          cmd->w0 = 0xDE000000;
-          cmd->w1 = (u32) D_800B1BE0;
+          __repair_phase_cmd = sDisplayListCursor;
+          __repair_phase_cmd->w0 = 0xDE000000;
+          __repair_phase_cmd->w1 = (u32) D_800B1BE0;
           view = *entry;
-          sDisplayListCursor = cmd + 1;
+          sDisplayListCursor = __repair_phase_cmd + 1;
           func_80038000(view, i);
         }
         if (modeFlags[-1] & mask)
         {
-          layer = 4;
+          __repair_phase_layer = 4;
           layerEntry = entry;
           emitScissorFromWindow(*entry);
           do
           {
-            func_8003C228(*layerEntry, i, layer);
+            func_8003C228(*layerEntry, i, __repair_phase_layer);
           }
-          while ((--layer) >= 0);
+          while ((--__repair_phase_layer) >= 0);
         }
       }
       mask = 1U << i;
@@ -225,19 +229,19 @@ void func_80007958(void)
       {
         goto next_view;
       }
-      view = *entry;
-      if (view->overlay > 0.01f)
+      __repair_phase_view = *entry;
+      if (__repair_phase_view->overlay > 0.01f)
       {
         do
         {
-          alpha = (u32) (view->overlay * 255.0f);
+          __repair_phase_alpha = (u32) (__repair_phase_view->overlay * 255.0f);
           if ((*entry)->flags & 2)
           {
-            func_800075C4(alpha, i, 0, 255, 0);
+            func_800075C4(__repair_phase_alpha, i, 0, 255, 0);
           }
           else
           {
-            func_800075C4(alpha, i, 255, 255, 255);
+            func_800075C4(__repair_phase_alpha, i, 255, 255, 255);
           }
           (*entry)->overlay *= 0.9f;
         }
@@ -245,12 +249,12 @@ void func_80007958(void)
       }
       else
       {
-        view->overlay = 0.0f;
+        __repair_phase_view->overlay = 0.0f;
       }
-      __repair_phase_alpha = (*entry)->alpha;
-      if (__repair_phase_alpha != 255)
+      __repair_phase___repair_phase_alpha = (*entry)->alpha;
+      if (__repair_phase___repair_phase_alpha != 255)
       {
-        func_800075C4(255 - __repair_phase_alpha, i, 0, 0, 0);
+        func_800075C4(255 - __repair_phase___repair_phase_alpha, i, 0, 0, 0);
       }
       func_800389F0(*entry);
       next_view:
@@ -280,13 +284,13 @@ void func_80007958(void)
   {
     func_8000B260();
     osRecvMesg(D_8010A2A0, NULL, 1);
-    layer = ((u32) D_8010A4B0) - 1;
-    if (layer < 0)
+    __repair_phase_layer = ((u32) D_8010A4B0) - 1;
+    if (__repair_phase_layer < 0)
     {
-      layer += sMatrixPoolSlotCount;
+      __repair_phase_layer += sMatrixPoolSlotCount;
     }
-    osViSwapBuffer(D_80100304[layer]);
-    D_800DD768[layer] = osGetTime() - D_800DD750[layer];
+    osViSwapBuffer(D_80100304[__repair_phase_layer]);
+    D_800DD768[__repair_phase_layer] = osGetTime() - D_800DD750[__repair_phase_layer];
     switch (D_80109B9C)
     {
       default:
@@ -297,9 +301,9 @@ void func_80007958(void)
         osRecvMesg(sGfxSyncQueue, NULL, 1);
       }
 
-        token = __osDisableInt();
+        __repair_phase_layer = __osDisableInt();
         vi_apply_context();
-        __osRestoreInt(token);
+        __osRestoreInt(__repair_phase_layer);
         break;
 
       case 0:
@@ -325,9 +329,9 @@ void func_80007958(void)
 
     }
 
-    __repair_phase_layer = ((u16) D_800B1D72) + 1;
+    __repair_phase___repair_phase_layer = ((u16) D_800B1D72) + 1;
     D_80100C04 = (s32) gRetraceFrameCount;
-    D_800B1D72 = __repair_phase_layer;
+    D_800B1D72 = __repair_phase___repair_phase_layer;
   }
   if (!D_800AE4B0)
   {

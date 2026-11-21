@@ -5,7 +5,7 @@ extern unsigned short D_800BD55E;
 s32 func_8001F064();
 s32 func_8001F08C();
 s32 func_80024D78();
-void func_8002778C();
+void func_8002778C(void);
 s32 func_800277E4();
 s32 func_800278AC();
 s32 func_8002AD60();
@@ -91,7 +91,7 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
             if (arg0 != NULL) {
                 do {*arg0 = 0;}while(0);
             }
-            func_8002778C(arg1);
+            func_8002778C();
             switch ((s16)arg1) {
             case 0:
                         D_800BD55C = 0U;
@@ -465,3 +465,4 @@ sound_ten_3:
         return 0xFF;
     }
 }
+
