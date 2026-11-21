@@ -59242,6 +59242,51 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:2f1bd23cee408b3a32c95a82be1a0fdcfa9553748c8c354700e3038b36bcc356"
  },
  {
+  "function": "func_80005158",
+  "text": "Revision 55c56637dc7b9857c4c3 (score 625 but only 16 diff rows; reordering the FP loads/ifs: ax,ay,az, bx,by,bz loaded in order, ifs ordered &1 (spilled mask), &2, &4 fixed the FP load/branch order). Remaining: preheader order (target: addiu n-1; sw 0xC74; andi &1; andi &2; andi &4; move s3,s4; sw 0xC7C) vs ours (move s3; andi 2; andi 4; then addiu/andi 1 using $v0 instead of $v1), and `lw 0xC7C` should be scheduled after lwc1 f8/mtc1 into $v1. Moving statement order in preheader and using arg1&1 inline didn't help (latter worse 1274). Next step: try declaring mask locals (m2=arg1&2, m4=arg1&4) outside the if and using them in the loop.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795232078.2155032,
+  "score_before": 499,
+  "score_after": 499,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6b51b63aba6316416b00639149deece5165e44c2c74268e991f51ffa42ff2161"
+ },
+ {
+  "function": "func_8000628C",
+  "text": "Recovered all instruction forms including final clamp shift using explicit if/else-if stores and offset-first typed return. Saved 125, 25 register-only rows.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795232079.4836328,
+  "score_before": 340,
+  "score_after": 125,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d70e2b0dc1973645fc32456961cfc009cae879599a787b76eb265e262239edc1"
+ },
+ {
+  "function": "func_8004BCC0",
+  "text": "Rechecked stub baseline 65999. Three local variants (operand order and const parameter) all remained 65999; target has 673 instructions versus 18, so local repairs cannot reconstruct missing traversal. No matched twin is available.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795232081.93619,
+  "score_before": 65999,
+  "score_after": 65999,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b14b5195b00271917ebb01f6374075d2b55ec5287e74f2e99c3c119b8b23e8"
+ },
+ {
+  "function": "func_8011B5F0",
+  "text": "Remaining loop control and second notification semantics require deeper reconstruction; null p reaches that branch in assembly but later apparent p dereference needs investigation. Added both paths and timeout fallback, and grouped copies; score 35315 to 12470.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795232087.353663,
+  "score_before": 35315,
+  "score_after": 12470,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0ed5ea5c32b5dbaa0fc5709ed3034853e04a13a72595c1e6e4e002275e2dbecb"
+ },
+ {
+  "function": "func_80064630",
+  "text": "Current verified best remains 3430 after six compiles without improvement; 55 rows differ, notably prologue/register allocation and target uses direct global re-addressing in second loop rather than long-lived flag pointer. Retained candidate is the pointer-based local-loop rewrite. Tried local unused keep variables (neutral or worse), literal volatile pointer (neutral), and volatile zero local (worse). First loop source and semantics likely need reformulation to induce target s2 counter, a0 table offset and v1 record cursor; one follow-up is to describe field access with a typed record pointer and branch-likely source shape for table load.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232093.110689,
+  "score_before": 3430,
+  "score_after": 3430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
+ },
+ {
   "function": "findOrLoadStreamSlot",
   "text": "Baseline was rechecked 2266. Local repair variant changed base D_800D9510 pointer u8* to s8*, yielding 2256 (best revision b70fe5f34ecb6e38702c); further six repair variants made no gains. Manual var_s4 s32->s16 worsened to 3838; restore saved best. Target sets up a 0x30 frame and saves s5/s4, then loads loop index D_800D94FA into s4; current saved candidate's first mismatch is stack/register setup. Remaining large differences in loop branch and cache miss path; examine assembly pages 40 onward. Move-on count exceeded function limit (11/6).",
   "by": "codex-gpt-6-luna-7",
@@ -59337,50 +59382,5 @@
   "score_before": 10,
   "score_after": 10,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:c972d44bf5094c75fb2b27ea00805fb279b0b2d94cd4247034d1b0dd97fe1583"
- },
- {
-  "function": "func_80005158",
-  "text": "Revision 55c56637dc7b9857c4c3 (score 625 but only 16 diff rows; reordering the FP loads/ifs: ax,ay,az, bx,by,bz loaded in order, ifs ordered &1 (spilled mask), &2, &4 fixed the FP load/branch order). Remaining: preheader order (target: addiu n-1; sw 0xC74; andi &1; andi &2; andi &4; move s3,s4; sw 0xC7C) vs ours (move s3; andi 2; andi 4; then addiu/andi 1 using $v0 instead of $v1), and `lw 0xC7C` should be scheduled after lwc1 f8/mtc1 into $v1. Moving statement order in preheader and using arg1&1 inline didn't help (latter worse 1274). Next step: try declaring mask locals (m2=arg1&2, m4=arg1&4) outside the if and using them in the loop.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795232078.2155032,
-  "score_before": 499,
-  "score_after": 499,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6b51b63aba6316416b00639149deece5165e44c2c74268e991f51ffa42ff2161"
- },
- {
-  "function": "func_8000628C",
-  "text": "Recovered all instruction forms including final clamp shift using explicit if/else-if stores and offset-first typed return. Saved 125, 25 register-only rows.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795232079.4836328,
-  "score_before": 340,
-  "score_after": 125,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d70e2b0dc1973645fc32456961cfc009cae879599a787b76eb265e262239edc1"
- },
- {
-  "function": "func_8004BCC0",
-  "text": "Rechecked stub baseline 65999. Three local variants (operand order and const parameter) all remained 65999; target has 673 instructions versus 18, so local repairs cannot reconstruct missing traversal. No matched twin is available.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795232081.93619,
-  "score_before": 65999,
-  "score_after": 65999,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b14b5195b00271917ebb01f6374075d2b55ec5287e74f2e99c3c119b8b23e8"
- },
- {
-  "function": "func_8011B5F0",
-  "text": "Remaining loop control and second notification semantics require deeper reconstruction; null p reaches that branch in assembly but later apparent p dereference needs investigation. Added both paths and timeout fallback, and grouped copies; score 35315 to 12470.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795232087.353663,
-  "score_before": 35315,
-  "score_after": 12470,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0ed5ea5c32b5dbaa0fc5709ed3034853e04a13a72595c1e6e4e002275e2dbecb"
- },
- {
-  "function": "func_80064630",
-  "text": "Current verified best remains 3430 after six compiles without improvement; 55 rows differ, notably prologue/register allocation and target uses direct global re-addressing in second loop rather than long-lived flag pointer. Retained candidate is the pointer-based local-loop rewrite. Tried local unused keep variables (neutral or worse), literal volatile pointer (neutral), and volatile zero local (worse). First loop source and semantics likely need reformulation to induce target s2 counter, a0 table offset and v1 record cursor; one follow-up is to describe field access with a typed record pointer and branch-likely source shape for table load.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795232093.110689,
-  "score_before": 3430,
-  "score_after": 3430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
  }
 ]

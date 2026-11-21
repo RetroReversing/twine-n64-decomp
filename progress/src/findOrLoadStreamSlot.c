@@ -7,11 +7,11 @@ typedef struct { s16 f0; u8 pad[6]; } Slot_800C3928;
 extern Slot_800C3928 D_800C3928[];
 extern s16 D_800D94F8;
 extern s16 D_800D94FA;
-extern char sStreamSlotIds[];
-extern u16 sStreamSlotPool[];
+extern char D_800D9500[];
+extern u16 D_800D9510[];
 extern char D_F8D70[];
 
-void *findOrLoadStreamSlot(s32 arg0) {
+void *func_80001928(s32 arg0) {
     s8 *__base_D_800D9510;
 char * __repair_loop_constant;
 
@@ -27,12 +27,12 @@ int __repair_constant = 7;
     void *temp_s2;
     register void *var_a0;
 
-    __repair_loop_constant = sStreamSlotIds;
+    __repair_loop_constant = D_800D9500;
 var_s4 = D_800D94FA;
     temp_a3 = var_s4;
-    __base_D_800D9510 = (s8 *)sStreamSlotPool;
+    __base_D_800D9510 = (s8 *)D_800D9510;
     { s32 offset = var_s4 * 25; offset <<= 6; var_a0 = (void *)(offset + (s32)__base_D_800D9510); }
-    var_v1 = (var_s4 * 2) + sStreamSlotIds;
+    var_v1 = (var_s4 * 2) + D_800D9500;
 loop_1:
     if (*(s16 *)var_v1 == arg0) {
         D_800D94FA = var_s4;
@@ -56,12 +56,12 @@ loop_1:
             }
             indexBytes = var_s4 * 2;do{
             temp_s0 = (((indexBytes + var_s4) * 8) + var_s4) * 64;}while(0);
-            temp_s2 = (void *)((u8 *)sStreamSlotPool); temp_s2 = (void *)((char *)temp_s2 + (s32)(temp_s0));
+            temp_s2 = (void *)((u8 *)D_800D9510); temp_s2 = (void *)((char *)temp_s2 + (s32)(temp_s0));
             temp_v0 = D_800C3924[arg0].f0;
             D_800D94F8 = var_s4;
             func_8000B900(temp_s2, temp_v0 + D_F8D70, temp_s1 * 32);
-            *(s16 *)((temp_s1 * 32 + temp_s0) + (u8 *)sStreamSlotPool) = -1;
-            *(s16 *)(sStreamSlotIds + (var_s4 * 2)) = arg0;
+            *(s16 *)((temp_s1 * 32 + temp_s0) + (u8 *)D_800D9510) = -1;
+            *(s16 *)(D_800D9500 + (var_s4 * 2)) = arg0;
             D_800D94FA = var_s4;
             return temp_s2;
         }
