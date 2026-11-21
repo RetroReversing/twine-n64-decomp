@@ -47,7 +47,7 @@ void func_80019F7C(void) {
     u16 *list;
     void **actor;
     s32 id;
-    s32 temp_a0;
+    
     s32 temp_v0;
     s32 var_s1;
     u16 temp_v1;
@@ -65,7 +65,7 @@ void func_80019F7C(void) {
     temp_s3 = temp_s0 + 0x28;
     if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2D) != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0)) {
         slot = &gPickupSavedByte;
-        *(&D_801001A3 + (*slot * 0x18)) = 0;
+        { extern char D_8010019C[]; M2C_FIELD(D_8010019C, u8 *, *slot * 0x18 + 7) = 0; }
         if (menuItemIsActive(0x20) & 0xFF) {
             var_s1 = func_8002B930(var_s1, -1);
         }
@@ -87,10 +87,10 @@ void func_80019F7C(void) {
             func_8000237C(*actor, id, 0, *(&D_801001A3 + (*slot * 0x18)));
             func_80002BD0(*actor, 0x14D);
             M2C_FIELD(M2C_FIELD(gPickupActor, void **, 0x68), f32 *, 0x34) = 0.05f;
-            if (getKeyEntryFlag(M2C_FIELD(&gSaveSlotInfo, s32 *, *slot * 0x18)) & 0xFF) {
-                clearProbeState(*actor, 0x327);
-            } else {
+            if (!(getKeyEntryFlag(M2C_FIELD(&gSaveSlotInfo, s32 *, *slot * 0x18)) & 0xFF)) {
                 clearProbeState(*actor, 0x2A9);
+            } else {
+                clearProbeState(*actor, 0x327);
             }
             goto block_11;
         }
@@ -98,11 +98,11 @@ void func_80019F7C(void) {
 block_11:
         M2C_FIELD(gSaveMenuState, u8 *, 0x2D) = 0U;
         if (func_80027C60(0x28) & 0xFF) {
-            slot = &gPickupSavedByte;
-            temp_a0 = *slot * 0x18;
-            temp_v1_2 = *(&D_801001A3 + temp_a0);
+            u8 *decrementSlot = &gPickupSavedByte;
+            id = *decrementSlot * 0x18;
+            temp_v1_2 = *(&D_801001A3 + id);
             if (temp_v1_2 != 0) {
-                M2C_FIELD((temp_a0 + (slot - 0x115)), s8 *, 0xB) = (s8) (temp_v1_2 - 1);
+                M2C_FIELD((id + (decrementSlot - 0x115)), s8 *, 0xB) = (s8) (temp_v1_2 - 1);
                 M2C_FIELD(gSaveMenuState, u8 *, 0x2D) = 1U;
             }
         }

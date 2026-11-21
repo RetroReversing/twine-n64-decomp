@@ -138,8 +138,8 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
 
     var_s0 = arg1;
     spE4 = arg0;
-    spF7 = 0;
     sp104 = NULL;
+    spF7 = 0;
     gPlayerActor = NULL;
     D_80108404 = NULL;
     spEC = arg2;
