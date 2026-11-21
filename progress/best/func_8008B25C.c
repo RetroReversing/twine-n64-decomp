@@ -35,7 +35,7 @@ extern u8 D_800E41E6;
 extern s32 D_800E41E8;
 extern s32 D_800E41EC;
 extern s32 D_800E41F8;
-extern u8 D_800E4214;
+extern u8 sWorkerBusy;
 extern u8 D_800E4215;
 extern u16 D_800E4216;
 extern s16 *D_800E4218;
@@ -44,7 +44,7 @@ extern s16 *D_800E4220[];
 extern u8 D_800E4228[];
 extern void *D_800E424C;
 extern u16 D_800E4268;
-extern u16 D_800E426A;
+extern u16 sWorkerAckCounter;
 extern s32 (*D_80100164)(s32 *);
 extern s32 (*D_80100168)(s16 *, u8);
 extern s32 (*D_80100174)(s32, u16, s32 *);
@@ -104,9 +104,9 @@ void func_8008B25C(void) {
         UpdateSlotList();
     }
     if (D_800E4268 != 0xFFFF) {
-        if (D_800E4214 != 0) {
+        if (sWorkerBusy != 0) {
             osRecvMesg(&D_800E41F8, 0, 1);
-            D_800E4214 = 0; osYieldThread();
+            sWorkerBusy = 0; osYieldThread();
         }
         D_80108F70 = 0;
         D_80109BA0 = D_80103EB4 & ~0xF;
@@ -234,11 +234,11 @@ block_41:
                 }
             }
             if (D_80108F70) {
-                D_800E4214 = 1;
+                sWorkerBusy = 1;
                 D_80100174(D_80103EB4, D_80108F70, &D_800E41F8);
             }
             D_800E4268 = var_s0;
-            D_800E426A -= var_s3;
+            sWorkerAckCounter -= var_s3;
         }
         func_80093410();
         temp_v0_8 = D_800E41E6 ^ 1;

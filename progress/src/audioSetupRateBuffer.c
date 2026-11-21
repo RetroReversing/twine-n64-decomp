@@ -1,7 +1,7 @@
 extern volatile u16 gAudioSampleCount;
 extern u32 D_800E41F4;
 extern char D_800E41F8[], D_800E4210[];
-extern s8 D_800E4214;
+extern s8 sWorkerBusy;
 extern s32 (*D_8010017C)(s32,s32);
 extern u8 D_8010086C;
 extern s32 D_80103EB4;
@@ -30,7 +30,7 @@ void osCreateMesgQueue(void *, void *, s32);
     D_800E41F4 = (((((u32)((f32)d * 0.9f) + 63) >> 6) * 0x28) + 15) & 0xFFF0; }
     D_80103EB4 = D_8010017C(gAudioSampleCount * 0x18, 0);
     osCreateMesgQueue(D_800E41F8, D_800E4210, 1);
-    D_800E4214 = 0;
+    sWorkerBusy = 0;
     func_80089C10(gAudioSampleCount);
     func_80089E64(D_800CEED0[index] * rate);
 }

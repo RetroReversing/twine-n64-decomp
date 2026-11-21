@@ -17,7 +17,7 @@ M2C_UNK osYieldThread();                            /* extern */
 extern u8 gWorkerActive;
 extern u16 D_800E41DA;
 extern s32 D_800E41E0;
-extern volatile u8 D_800E4214;
+extern volatile u8 sWorkerBusy;
 extern u8 D_800E4215;
 extern s32 D_800E4220;
 extern s32 D_800E4224;
@@ -28,19 +28,19 @@ extern s32 D_800E4240;
 extern s32 D_800E4244;
 extern s32 D_800E4254;
 extern s32 D_800E4258;
-extern volatile u16 D_800E426A;
+extern volatile u16 sWorkerAckCounter;
 extern M2C_UNK (*D_80100168)();
 extern M2C_UNK (*D_80100170)(M2C_UNK *);
 extern M2C_UNK (*D_80100180)(s32);
 extern s32 D_80103EB4;
 extern M2C_UNK func_8008B25C;
 
-void func_8008BEC4(void) {
+void workerShutdownDrain(void) {
     if (gWorkerActive != 0) {
-        D_800E426A = D_800E41DA;
+        sWorkerAckCounter = D_800E41DA;
         do {
 
-        } while ((D_800E426A << 0x10) > 0);
+        } while ((sWorkerAckCounter << 0x10) > 0);
         D_80100170(&func_8008B25C);
         if (D_800E4215 != 0) {
             D_80100168();
@@ -57,7 +57,7 @@ void func_8008BEC4(void) {
         }
         do {
 
-        } while (D_800E4214 != 0);
+        } while (sWorkerBusy != 0);
         D_80100180(D_80103EB4);
         D_80100180(D_800E4244);
         D_80100180(D_800E4240);

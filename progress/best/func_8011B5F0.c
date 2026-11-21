@@ -123,7 +123,7 @@ void func_8011B5F0(void *arg0) {
         }
     } else {
         sp34 = temp_a0 + &sProbeHandles;
-        temp_s7 = temp_a0 + D_8011F288;
+        temp_s7 = temp_a0 + &sProbeHandles;
         sp3C = temp_s3;
         var_v0 = 0 & 0xFFFF;
 loop_6:

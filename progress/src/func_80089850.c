@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK osYieldThread();                            /* extern */
-extern u8 D_800E4215;
+extern u8 sWorkerPendingCallback;
 extern M2C_UNK (*D_80100168)();
 
 void func_80089850(void) {
-    if (D_800E4215 != 0) {
+    if (sWorkerPendingCallback != 0) {
         D_80100168();
         osYieldThread();
-        D_800E4215 = 0;
+        sWorkerPendingCallback = 0;
     }
 }
