@@ -1,6 +1,6 @@
 s32 actorLinkToSurface(s32, void *, s32);
 s32 actorUnlinkFromSurface(void *);
-s32 advanceActorMotion(void *, s32);
+s32 advanceActorMotion(void *, u32);
 s32 advanceMotionPath(void *, s32, s32, s8);
 s32 func_80059120(s8, void *);
 s32 func_80073AF8(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -126,31 +126,24 @@ void func_80059944(void *arg0)
   {
     case 0:
       temp_v1_2 = *((s16 *) (((char *) arg0) + 0x7A));
-      switch (temp_v1_2)
-    {
-      case 0:
-        goto block_start_motion;
+      if (temp_v1_2 == 0)
+        goto start_positive;
+      if (temp_v1_2 == 1)
+        goto start_negative;
+      break;
 
-      case 1:
-        var_v0_3 = advanceActorMotion(arg0, -1) << 0x18;
-        block_17:
+    start_positive:
+      var_v0 = advanceActorMotion(arg0, 1) << 0x18;
+      goto block_257;
+
+    start_negative:
+      var_v0_3 = advanceActorMotion(arg0, -1) << 0x18;
       if (var_v0_3 != 0)
       {
         *((f32 *) (((char *) temp_s0) + 8)) = 0.0f;
         *((s16 *) (((char *) arg0) + 0x7A)) = 0;
       }
-
-        break;
-
-      default:
-        break;
-
-    }
-
       break;
-      block_start_motion:
-    goto block_256;
-
 
     case 1:
       temp_v1_3 = *((s16 *) (((char *) arg0) + 0x7A));

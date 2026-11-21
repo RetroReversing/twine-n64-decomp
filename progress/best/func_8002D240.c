@@ -99,7 +99,8 @@ inline static char *inline_fn()
 
 void func_8002D240(void)
 {
-  char *q, *b1, *b2, *b3;
+  char *q, *b2;
+  unsigned int b1, b3;
   unsigned int i, v, t3, t0, a2;
   int ci, cj;
   u16 *rowp;
@@ -260,7 +261,7 @@ void func_8002D240(void)
     cj += 1;
   } while ((u16)cj < 2U);
   ci = 0;
-  b1 = D_80117428;
+  b1 = (unsigned int)D_80117428;
   b3 = b1 + 0x150;
   b2 = D_800BFC38;
   do {

@@ -40,11 +40,6 @@ s32 __repair_result_a2;
     var_s6 = *((s16 **) (((u8 *) var_t1) + 0x3C));
   }
   else
-    if (var_s2)
-  {
-    var_s5 = *((u8 **) (((u8 *) var_t1) + 0x3C));
-  }
-  else
   {
     var_s5 = *((u8 **) (((u8 *) var_t1) + 0x3C));
   }
@@ -119,15 +114,18 @@ s32 __repair_result_a2;
         switch (var_s7)
         {
           case 3:
-            tmp8 = var_s1[var_s0[0]];
-            *var_s5 = tmp8;
-            tmp8 = var_s1[var_s2[-1]];
-            a2 = var_s1[var_s0[0]] & 0xFF;
-            var_s3[-1] = tmp8;
-            var_s5 += 3;
-            tmp8 = var_s1[var_s2[0]];
-            a3 = tmp8 & 0xFF;
-            goto block_27;
+            {
+              u8 first = var_s1[var_s0[0]];
+              u8 second;
+              *var_s5 = first;
+              second = var_s1[var_s2[-1]];
+              var_s3[-1] = second;
+              tmp8 = var_s1[var_s2[0]];
+              a2 = first & 0xFF;
+              var_s5 += 3;
+              a3 = second & 0xFF;
+              goto block_27;
+            }
 
           case 2:
             t16 = BE16(var_s1 + (var_s0[0] * 2));
@@ -145,15 +143,18 @@ s32 __repair_result_a2;
             break;
 
           case 0:
-            tmp8 = var_s1[var_s0[0] * 3];
-            a2 = var_s1[var_s0[0] * 3] & 0xFF;
-            *var_s5 = tmp8;
-            tmp8 = var_s1[var_s2[-1] * 3];
-            var_s3[-1] = tmp8;
-            var_s5 += 3;
-            a3 = tmp8 & 0xFF;
-            tmp8 = var_s1[var_s2[0] * 3];
-            goto block_27;
+            {
+              u8 first = var_s1[var_s0[0] * 3];
+              u8 second;
+              *var_s5 = first;
+              second = var_s1[var_s2[-1] * 3];
+              var_s3[-1] = second;
+              tmp8 = var_s1[var_s2[0] * 3];
+              a2 = first & 0xFF;
+              var_s5 += 3;
+              a3 = second & 0xFF;
+              goto block_27;
+            }
 
           default:
             t16 = BE16(var_s1 + (var_s0[0] * 6));
@@ -280,4 +281,5 @@ s32 __repair_result_a2;
   }
 
 }
+
 
