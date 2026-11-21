@@ -14,83 +14,129 @@ typedef s32 M2C_UNK32;
 
 s32 func_80096460(u8, u8, u8);                  /* extern */
 
+typedef struct { unsigned char field_0; unsigned char field_1; short field_2; } __repair_record_var_s2;
 s32 func_80096A70(void *arg0, void *arg1) {
-    u32 index = 0;
-    u32 result = 0;
-    s32 centered;
-    u8 *cursor;
-    u32 padding[2];
+int __repair_literal;
 
-    if (M2C_FIELD(arg1, u8 *, 0x10)) {
+    s32 temp_a0_2;
+    s32 var_a0;
+    s32 var_a0_2;
+    s32 var_a1;
+    s32 var_s0;
+    s32 var_s1;
+    s32 var_s1_2;
+    s32 var_v0;
+    s32 var_v1;
+    s32 var_v1_2;
+    u32 var_s0_2;
+    u32 var_s4;
+    u32 var_v1_3;
+    u8 temp_a0;
+    u8 temp_a3;
+    u8 temp_v1;
+    u8 temp_v1_2;
+    void *var_s2;
+
+    var_s4 = 0;
+    var_s0 = 0;
+    if (M2C_FIELD(arg1, u8 *, 0x10) != 0) {
+        var_s2 = arg1;
         do {
-            u8 raw;
-            s32 kind, value, scaled, mode;
-            cursor = (u8 *)arg1 + index * 4;
-            raw = cursor[0];
-            kind = (u8)raw;
-            if (((kind == 0x80) | (kind == 1)) ||
-                ((kind == 0xA) | (kind == 0xA0)) ||
-                ((kind == 0xA1) | (kind == 0x83)) || kind == 0x84) {
-                switch ((u8)raw) {
-                case 0xA0: value = M2C_FIELD(arg0, s16 *, 0x170) * 2; break;
-                case 0xA1: value = M2C_FIELD(arg0, s16 *, 0x17C) * 2; break;
-                default:
-                    value = (u16)func_80096460(raw, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) - 0x2000;
+            temp_a3 = ((__repair_record_var_s2*)var_s2)->field_0;
+            temp_a0 = temp_a3 & 0xFF;
+            var_v1 = temp_a3 & 0xFF;
+            if ((((temp_a0 == 0x80) | (temp_a0 == 1)) != 0) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA) | (temp_a0 == 0xA0)) != 0)) || (var_v1 = temp_a3 & 0xFF, (((temp_a0 == 0xA1) | (temp_a0 == 0x83)) != 0)) || (temp_a0 == 0x84)) {
+                switch (var_v1) {                   /* switch 1; irregular */
+                case 0xA0:                          /* switch 1 */
+                    var_a0 = M2C_FIELD(arg0, s16 *, 0x170) * 2;
+                    break;
+                case 0xA1:                          /* switch 1 */
+                    var_a0 = M2C_FIELD(arg0, s16 *, 0x17C) * 2;
+                    break;
+                default:                            /* switch 1 */
+                    var_a0 = (func_80096460(temp_a3, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) & 0xFFFF) - 0x2000;
                     break;
                 }
-                scaled = (value * M2C_FIELD(cursor, s16 *, 2)) >> 8;
-                if (scaled < -0x2000) value = -0x2000;
-                else if (scaled < 0x2000) value = scaled;
-                else value = 0x1FFF;
-                scaled = value;
-                mode = cursor[1];
-                switch (mode) {
-                case 0:
-                    centered = scaled;
-                    break;
-                case 1:
-                    centered = (s32)result + (scaled - 0x2000);
-                    if (centered >= -0x2000) goto upper_centered;
-                    value = -0x2000;
-                    goto finish_centered;
-                case 2:
-                    centered = ((s32)(result - 0x2000) * scaled) >> 13;
-                    if (centered < -0x2000) {
-                        value = -0x2000;
-                        goto finish_centered;
+                temp_a0_2 = (s32) (var_a0 * ((__repair_record_var_s2*)var_s2)->field_2) >> 8;
+                if (temp_a0_2 < -0x2000) {
+                    var_a1 = -0x2000;
+                } else {
+                    var_a1 = 0x1FFF;
+                    if (temp_a0_2 < 0x2000) {
+                        var_a1 = temp_a0_2;
                     }
-upper_centered:
-                    value = 0x1FFF;
-                    if (centered < 0x2000) value = centered;
-finish_centered:
-                    centered = value;
-                    break;
                 }
-                result = centered + 0x2000;
+                temp_v1 = ((__repair_record_var_s2*)var_s2)->field_1;
+                if (temp_v1 != 1) {
+__repair_literal = 2;
+
+                    if ((s32) temp_v1 < __repair_literal) {
+                        if (temp_v1 == 0) {
+                            var_s1 = var_a1;
+                            goto block_33;
+                        }
+                        var_s0 = var_s1 + 0x2000;
+                    } else if (temp_v1 != 2) {
+                        var_s0 = var_s1 + 0x2000;
+                    } else {
+                        var_s1_2 = (s32) ((var_s0 - 0x2000) * var_a1) >> 0xD;
+                        if (var_s1_2 < -0x2000) {
+                            var_v1_2 = -0x2000;
+                        } else {
+                            var_v0 = var_s1_2 < 0x2000;
+                            goto block_30;
+                        }
+                        goto block_32;
+                    }
+                } else {
+                    var_s1_2 = var_s0 + (var_a1 - 0x2000);
+                    var_v0 = var_s1_2 < 0x2000;
+                    if (var_s1_2 < -0x2000) {
+                        var_v1_2 = -0x2000;
+                    } else {
+block_30:
+                        var_v1_2 = 0x1FFF;
+                        if (var_v0 != 0) {
+                            var_v1_2 = var_s1_2;
+                        }
+                    }
+block_32:
+                    var_s1 = var_v1_2;
+block_33:
+                    var_s0 = var_s1 + 0x2000;
+                }
             } else {
-                scaled = ((u16)func_80096460(kind, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) * M2C_FIELD(cursor, s16 *, 2)) >> 8;
-                if (scaled >= 0x4000) scaled = 0x3FFF;
-                mode = cursor[1];
-                switch (mode) {
-                case 0: result = scaled; break;
-                case 1:
-                    result += scaled;
-                    goto clamp_result;
-                case 2:
-                    result = (result * scaled) >> 14;
-clamp_result:
-                    {
-                        u32 capped = 0x3FFF;
-                        if (result < 0x4000U) capped = result;
-                        result = capped;
+                var_a0_2 = (s32) ((func_80096460(temp_a0, M2C_FIELD(arg0, u8 *, 0x4A), M2C_FIELD(arg0, u8 *, 0x4B)) & 0xFFFF) * ((__repair_record_var_s2*)var_s2)->field_2) >> 8;
+                if (var_a0_2 >= 0x4000) {
+                    var_a0_2 = 0x3FFF;
+                }
+                temp_v1_2 = ((__repair_record_var_s2*)var_s2)->field_1;
+                switch (temp_v1_2) {                /* switch 2; irregular */
+                case 0:                             /* switch 2 */
+                    var_s0 = var_a0_2;
+                    break;
+                default:                            /* switch 2 */
+                    var_v1_3 = 0x3FFF;
+                    if (temp_v1_2 != 2) {
+
+                    } else {
+                        var_s0_2 = (u32) (var_s0 * var_a0_2) >> 0xE;
+block_46:
+                        if (var_s0_2 < 0x4000U) {
+                            var_v1_3 = var_s0_2;
+                        }
+                        var_s0 = (s32) var_s0_2;
                     }
                     break;
+                case 1:                             /* switch 2 */
+                    var_s0_2 = var_s0 + var_a0_2;
+                    var_v1_3 = 0x3FFF;
+                    goto block_46;
                 }
             }
-            ++index;
-            if (index >= M2C_FIELD(arg1, u8 *, 0x10)) break;
-        } while (1);
+            var_s4 += 1;
+            var_s2 += 4;
+        } while (var_s4 < (u8) M2C_FIELD(arg1, u8 *, 0x10));
     }
-    return (u16)result;
+    return var_s0 & 0xFFFF;
 }
-

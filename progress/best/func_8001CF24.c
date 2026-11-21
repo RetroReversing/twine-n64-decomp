@@ -20,11 +20,11 @@ s32 func_80022E88();
 s32 func_80022EB8();
 s32 func_80087100();
 s16 strlen();
-extern s32 sSaveMenuColorIdle;
+extern s32 D_800BD64C;
 extern s32 D_800BD654;
 extern s32 D_800BD65C;
 extern s32 D_800BD664;
-extern u8 sSaveSlotTable[];
+extern u8 D_801001A1[];
 extern u8 D_801002A0;
 extern s32 D_80102EBC;
 extern void *D_80109BB0;
@@ -53,7 +53,7 @@ void func_8001CF24(void *arg0, s32 arg1, s32 arg2) { /* baseline */
             M2C_FIELD(var_a1, s32 *, 0x10) = (s32) ((D_800BD664 & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
         } else {
             var_a1 = M2C_FIELD(temp_s1, void **, 0);
-            M2C_FIELD(var_a1, s32 *, 0x10) = (s32) ((sSaveMenuColorIdle & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
+            M2C_FIELD(var_a1, s32 *, 0x10) = (s32) ((D_800BD64C & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
         }
         if (M2C_FIELD(temp_s1, void **, 4) != NULL) {
             M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x18) = func_80087100(func_80019B34(M2C_FIELD(arg0, u8 *, 8), var_a1) & 0xFFFF);
@@ -69,7 +69,7 @@ void func_8001CF24(void *arg0, s32 arg1, s32 arg2) { /* baseline */
                 if (var_v0_2 != 0) {
                     M2C_FIELD(M2C_FIELD(temp_s1, void **, 4), s32 *, 0x10) = (s32) ((D_800BD664 & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30));
                 } else {
-                    s32 entry = sSaveSlotTable[M2C_FIELD(arg0, u8 *, 8) * 0x18];
+                    s32 entry = D_801001A1[M2C_FIELD(arg0, u8 *, 8) * 0x18];
                     var_a1 = M2C_FIELD(temp_s1, void **, 4);
                     if (entry == 0) {
                         M2C_FIELD(var_a1, s32 *, 0x10) = (D_800BD65C & ~0xFF) | M2C_FIELD(D_80109BB0, u8 *, 0x30);

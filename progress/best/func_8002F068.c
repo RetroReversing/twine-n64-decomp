@@ -1,50 +1,68 @@
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-void *func_80027408(s32, s32, s32, s32);
-s32 func_800278AC(s32, s32, u16);
-s32 func_8002B050(s32 *, s32, void *);
-s32 func_8002B150(s32 *, s32, s32);
-s32 func_8002FBD4(s32, s32);
-s32 lookupDataEntry(s32);
-s32 menuItemIsActive(s32);
-extern s32 D_800BD8C4, D_800BD640, D_800BFC94;
-extern void *D_800E1560, *D_800E1584;
-extern u8 D_80102EDC, D_80102EBC, gPendingMenuCommand;
-extern s32 gMenuSoundParams;
-extern void *gSaveMenuState, *sActiveMenu, gMenuState;
-extern u16 sMenuAnimFlags;
-extern s32 sMenuItemParamTable, sMenuTimer;
-void func_8002F068(s32 unused, s32 arg1) {
-    s32 var_a2;
-    s32 var_a3;
-    s32 *var_v0;
-    s32 temp_v0;
-    s32 temp_v1;
-    u16 temp_v1_2;
-    void *temp_v0_2;
-    if (!(menuItemIsActive(0x23) & 0xFF) && !(menuItemIsActive(0x2A) & 0xFF) && (gPendingMenuCommand == 0)) {
-        temp_v0 = lookupDataEntry(0x2E9);
-        temp_v1 = sMenuAnimFlags & 1;
-        var_a2 = 0xDC;
-        if (temp_v1 != 0) var_a2 = 0xA0;
-        var_a3 = 0x45;
-        if (temp_v1 != 0) var_a3 = 0xB0;
-        temp_v0_2 = func_80027408(temp_v0, 0, var_a2, var_a3);
-        D_800E1560 = temp_v0_2;
-        temp_v1_2 = *(u16 *)&D_800BFC94 & 0x3F;
-        *(u16 *)((s8 *)&D_800BFC94 + 2) = temp_v1_2;
-        if (temp_v1_2 >= 0x20U) *(u16 *)((s8 *)&D_800BFC94 + 2) = 0x3F - temp_v1_2;
-        if (sMenuAnimFlags & 1) var_v0 = &sMenuItemParamTable + 4;
-        else var_v0 = &sMenuItemParamTable + 0x24;
-        M2C_FIELD(temp_v0_2, s32 *, 0x10) = *var_v0 & ~0xFF;
-        M2C_FIELD(D_800E1560, s32 *, 0x10) = (M2C_FIELD(D_800E1560, s32 *, 0x10) & ~0xFF) | (*(u16 *)((s8 *)&D_800BFC94 + 2) * 8);
-        *(u16 *)&D_800BFC94 = *(u16 *)&D_800BFC94 + 1;
-        if (D_80102EDC != 0) func_8002B050(&sMenuTimer, 1, temp_v0_2);
+typedef struct { u8 pad[16]; u32 color; } DisplayItem;
+typedef struct { u16 tick, alpha; } Pulse;
+typedef struct { u8 pad[0x7A]; u16 value; } MenuData;
+typedef struct { u8 pad[12]; void *display; } MenuObject;
+
+DisplayItem *func_80027408(s32, s32, s16, u8);
+void func_800278AC(s32, u32, u16);
+s32 func_80027CE0(s32);
+void func_8002B050(void *, s32, DisplayItem *);
+void func_8002B150(void *, s32, s8);
+void func_8002FBD4(void *, s16);
+s32 func_80087100(s32);
+extern u32 D_800BD640[];
+extern u8 D_800BD8C4[];
+extern u16 D_800BFC92;
+extern u16 D_800BFC94, D_800BFC96;
+extern DisplayItem *volatile D_800E1560;
+extern u8 D_800E1584[];
+extern u32 D_80102EBC;
+extern u8 D_80102EDC, D_80102EDE;
+extern MenuData *D_80102F2C;
+extern MenuObject *D_80109BB0;
+
+void func_8002F068(void *unused, void *arg1)
+{
+    s32 asset;
+    s32 mode;
+    s32 x, y;
+    DisplayItem *item;
+    u32 phase;
+    u32 *color, *palette;
+    DisplayItem *current;
+
+    if (!(u8)func_80027CE0(0x23) && !(u8)func_80027CE0(0x2A) && !D_80102EDE) {
+        asset = func_80087100(0x2E9);
+        mode = D_800BFC92 & 1;
+        x = mode ? 0xA0 : 0xDC;
+        y = mode ? 0xB0 : 0x45;
+        item = func_80027408(asset, 0, x, y);
+        D_800E1560 = item;
+
+        phase = D_800BFC94 & 63;
+        D_800BFC96 = phase;
+        if (phase >= 32) {
+            D_800BFC96 = 63 - phase;
+        }
+        palette = D_800BD640;
+        if (D_800BFC92 & 1) {
+            color = palette + 1;
+        } else {
+            color = palette + 9;
+        }
+        current = D_800E1560;
+        item->color = *color & ~255;
+        *(volatile u32 *)&current->color = (current->color & ~255) | (D_800BFC96 << 3);
+        D_800BFC94++;
+        if (D_80102EDC) {
+            func_8002B050(D_800E1584, 1, item);
+        }
     } else {
-        *(u16 *)&D_800BFC94 = 0;
-        M2C_FIELD(gSaveMenuState, s32 *, 0xC) = (s32)&D_800BD8C4;
-        func_800278AC(1, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
-        func_80027408(lookupDataEntry(3), 0x40, 0xA0, 0xCC);
-        func_8002B150(&sMenuTimer, 0, 0);
+        D_800BFC94 = 0;
+        D_80109BB0->display = D_800BD8C4;
+        func_800278AC(1, D_80102EBC & ~255, D_80102F2C->value);
+        func_80027408(func_80087100(3), 0x40, 0xA0, 0xCC);
+        func_8002B150(D_800E1584, 0, 0);
         func_8002FBD4(arg1, 4);
     }
 }

@@ -65,6 +65,8 @@ static __inline__ f32 clamp_opacity(f32 value)
 
 void func_80007958(void)
 {
+short __repair_constant = -1;
+
     FrameSlot *slot = sMatrixPoolSlots[D_8010A4B0];
     register FrameCommand *start = slot->start;
     s32 *renderMode;
@@ -116,15 +118,15 @@ void func_80007958(void)
             *(u8 **)(buffer + 0x1B68) = segment3;
             *(u8 **)(buffer + 0x1C70) = segment4;
             view = *entry;
-            D_801032A0 = -1;
-            D_8010A924 = -1;
-            gRenderMode = -1;
-            D_8010A920 = -1;
+            D_801032A0 = __repair_constant;
+            D_8010A924 = __repair_constant;
+            gRenderMode = __repair_constant;
+            D_8010A920 = __repair_constant;
 
             if (view == NULL) {
                 goto next_view;
             }
-            opacity = clamp_opacity(view->opacity);
+            opacity = view->opacity > 0.0f ? view->opacity : 0.0f;
             view->alpha = (u32)(opacity * 255.0f);
             func_800344DC(view);
             if ((*entry)->flags & 0x40) {

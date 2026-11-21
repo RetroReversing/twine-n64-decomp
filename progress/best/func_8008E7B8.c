@@ -1,28 +1,31 @@
-extern int func_80095A80(int, int, unsigned char, int);
-extern int func_800989B8(void);
-extern int D_8010D734, D_8010D748, D_8010D76F, D_8010D779, D_8010D784;
-int func_8008E7B8(int arg1) {
- int ret=-1;
- int v=func_800989B8();
- if(v!=-1) {
-  unsigned int s4=((unsigned int)(arg1&0xffff))>>7;
-  do {
-   unsigned int idx=(unsigned char)v;
-   unsigned int off=idx*0x1a0;
-   if (*(int *)((char *)&D_8010D784+off)==v) {
-    unsigned char a2;
-    if (*(unsigned char *)((char *)&D_8010D748+off)&2) {
-     func_80095A80(0x80,idx,*(unsigned char *)((char *)&D_8010D779+off),s4&0xff);
-     a2=*(unsigned char *)((char *)&D_8010D779+off);
+extern s32 soundResolveHandle(u32);
+extern s32 voiceStoreParam(s32, s32, u8, s32);
+extern s32 gVoiceChannelTable, D_8010D748, D_8010D784;
+extern u8 D_8010D76F, D_8010D779;
+s32 func_8008E7B8(u32 arg0, s32 arg1) {
+    s32 index, offset, handle, result;
+    u32 high, low;
+    result = -1;
+    handle = soundResolveHandle(arg0);
+    if (handle == result) goto done;
+    high = (u32)(arg1 & 0xffff) >> 7;
+    low = arg1 & 0x7f;
+again:
+    index = handle & 0xff;
+    offset = index * 0x1a0;
+    if (*(s32 *)((s8 *)&D_8010D784 + offset) != handle) goto done;
+    if (*(s32 *)((s8 *)&D_8010D748 + offset) & 2) {
+        voiceStoreParam(0x80, index, *(&D_8010D779 + offset), high & 0xff);
+        offset = index * 0x1a0;
+        do { voiceStoreParam(0x81, index, *(&D_8010D779 + offset), low); } while (0);
     } else {
-     func_80095A80(0x80,idx,*(unsigned char *)((char *)&D_8010D76F+off),s4&0xff);
-     a2=*(unsigned char *)((char *)&D_8010D76F+off);
+        do { voiceStoreParam(0x80, index, *(&D_8010D76F + offset), high & 0xff); } while (0);
+        offset = index * 0x1a0;
+        voiceStoreParam(0x81, index, *(&D_8010D76F + offset), low);
     }
-    func_80095A80(0x81,idx,a2,arg1&0x7f);
-    v=*(int *)((char *)&D_8010D734+off);
-    ret=0;
-   } else break;
-  } while(v!=-1);
- }
- return ret;
+    handle = *(s32 *)((s8 *)&gVoiceChannelTable + index * 0x1a0);
+    result = 0;
+    if (handle != -1) goto again;
+done:
+    return result;
 }

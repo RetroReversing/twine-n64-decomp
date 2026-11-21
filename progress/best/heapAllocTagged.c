@@ -21,7 +21,7 @@ extern HeapBlock *volatile D_800E1AB0;
 extern volatile u32 D_80102CB8;
 extern volatile u32 D_80109A90;
 
-s32 heapAllocTagged(s32 size, s32 tag) {
+s32 func_80083E90(s32 size, s32 tag) {
     if (D_800E1A90 == 0) {
         s32 mask = D_800CE354[tag].alignment - 1;
         s32 inverse = ~mask;

@@ -12,26 +12,24 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000A3AC(s32, s32, u8 *, s32 *);       /* extern */
+struct FourWords { s32 a,b,c,d; };
+M2C_UNK func_8000A3AC(void);       /* extern */
 extern M2C_UNK D_800E1098;
 extern M2C_UNK D_801007C8;
-extern u8 D_80102EDD;
-extern u8 D_8010A4C2;
-extern s32 gBorderMode;
-extern s32 gBorderSkipFlag;
+extern s32 gBorderSkipActive;
+extern u8 gMenuUseTextList;
+extern u8 gSceneFlagsB;
 extern u8 gTrackMarkerActiveMask;
-#define gSceneFlagsA gTrackMarkerActiveMask
-#define gBorderMode gVisibleSaveSlotCount
 extern s32 gVisibleSaveSlotCount;
 
 void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
-int __repair_literal;
-
+    u8 *__base_gSceneFlagsB;
     s32 *var_a3;
     s32 var_a0;
+s32 __repair_phase_var_a0;
     s32 var_a1;
     
-    s32 var_v1;
+    
     s32 var_v1_2;
     u8 *var_a2;
 
@@ -39,44 +37,42 @@ int __repair_literal;
     var_a1 = arg1;
     var_a2 = arg2;
     var_a3 = arg3;
-    M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 0;
-    M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0;
-    if (gBorderSkipFlag != 0) {
-        var_a3 = &gBorderMode;
-        var_a1 = 0;
-__repair_literal = 0;
-
-        if (*var_a3 > __repair_literal) {
-            var_a2 = &gSceneFlagsA;
-            var_v1 = 1;
+    M2C_FIELD(&gTrackMarkerActiveMask, u8 *, 0) = 0;
+    M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 0;
+    if (gBorderSkipActive != 0) {
+        var_a3 = &gVisibleSaveSlotCount;
+        __repair_phase_var_a0 = 0;
+        if (*var_a3 > 0) {
+            var_a2 = &gTrackMarkerActiveMask;
+            var_a1 = 1;
             do {
                 var_a0 = *var_a3;
-                var_a1 += 1;
-                *var_a2 |= var_v1;
-                var_v1 = 1 << var_a1;
-            } while ((var_a1 & 0xFFFF) < var_a0);
-            var_a3 = &gBorderMode;
+                __repair_phase_var_a0 += 1;
+                M2C_FIELD(&gTrackMarkerActiveMask, u8 *, 0) |= var_a1;do{do{do{do{do{do{
+                var_a1 = 1 << __repair_phase_var_a0;}while(0);}while(0);}while(0);}while(0);}while(0);}while(0);
+            } while ((__repair_phase_var_a0 & 0xFFFF) < var_a0);
+            var_a3 = &gVisibleSaveSlotCount;
         }
         var_a1 = 0;
         if (*var_a3 > 0) {
-            var_a2 = &D_8010A4C2;
-            var_v1_2 = 1;
+            __base_gSceneFlagsB = &gSceneFlagsB;
+            var_a2 = __base_gSceneFlagsB;
+            var_v1_2 = 1 << 0;
             do {
-                var_a0 = *var_a3;
+                __repair_phase_var_a0 = *var_a3;
                 var_a1 += 1;
-                *var_a2 |= var_v1_2;
+                (*__base_gSceneFlagsB) |= var_v1_2;
                 var_v1_2 = 1 << var_a1;
-            } while ((var_a1 & 0xFFFF) < var_a0);
+            } while ((var_a1 & 0xFFFF) < __repair_phase_var_a0);
         }
-        var_a2 = &D_8010A4C2;
-        *var_a2 |= 0x30;
+        gSceneFlagsB |= 0x30;
     } else {
-        M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 1;
-        M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 1;
-        M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0x21;
+        M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 1;
+        M2C_FIELD(&gTrackMarkerActiveMask, u8 *, 0) = 1;
+        M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 0x21;
     }
-    func_8000A3AC(var_a0, var_a1, var_a2, var_a3);
-    if (D_80102EDD != 0) {
-        { struct Copy { s32 a,b,c,d; }; *(struct Copy *)&D_801007C8 = *(struct Copy *)&D_800E1098; }
+    func_8000A3AC();
+    if (gMenuUseTextList != 0) {
+        *(struct FourWords *)&D_801007C8 = *(struct FourWords *)&D_800E1098;
     }
 }

@@ -1,36 +1,37 @@
+extern void workerLockAcquire(void), workerLockRelease(void);
 extern s32 soundResolveHandle(s32);
-extern s32 voiceStoreParam(s32,s32,u8,s32);
-extern void workerLockAcquire(void),workerLockRelease(void);
-extern s32 D_8010D748,D_8010D784,gVoiceChannelTable;
-extern u8 D_8010D76F,D_8010D779,gWorkerActive;
-s32 func_8009C660(s32 arg0,s32 arg1) {
- s32 index,offset,handle,ret=-1;
- u32 high;
- u8 channel;
- if(gWorkerActive) {
+extern void voiceStoreParam(u8,u8,u8,u8);
+extern u8 gWorkerActive;
+extern s32 gVoiceChannelTable,D_8010D748,D_8010D784;
+extern u8 D_8010D76F,D_8010D779;
+s32 func_8009C660(s32 handle, s32 paramValue) {
+ register s32 voiceIndex;
+ s32 voiceOffset,voiceHandle,result,low,value,high;
+ result=-1;
+ voiceHandle=handle;
+ value=paramValue;
+ if(gWorkerActive != 0) {
   workerLockAcquire();
-  handle=soundResolveHandle(arg0);
-  if(handle!=-1) {
-   high=(u32)(arg1&0xffff)>>7;
-   again: {
-    index=handle&255;
-    offset=index*0x1a0;
-    if(*(s32*)((u8*)&D_8010D784+offset)!=handle) goto done;
-    if(*(s32*)((u8*)&D_8010D748+offset)&2) {
-     voiceStoreParam(1,index,*(&D_8010D779+offset),high&255);
-     channel=*(&D_8010D779+offset);
-    } else {
-     voiceStoreParam(1,index,*(&D_8010D76F+offset),high&255);
-     channel=*(&D_8010D76F+offset);
-    }
-    voiceStoreParam(0x21,index,channel,arg1&127);
-    handle=*(s32*)((u8*)&gVoiceChannelTable+offset);
-    ret=0;
-   if(handle!=-1) goto again;
-   }
-   done:;
+  voiceHandle=soundResolveHandle(voiceHandle);
+  if(voiceHandle == result) goto unlock;
+  high=(u16)value >> 7;
+  low=value & 0x7f;
+again:
+  voiceIndex=voiceHandle & 0xff;
+  voiceOffset=(s32)voiceIndex * 0x1a0;
+  if(*(s32 *)((s8 *)&D_8010D784+voiceOffset) != voiceHandle) goto unlock;
+  if(*(s32 *)((s8 *)&D_8010D748+voiceOffset)&2) {
+   do { voiceStoreParam(1,voiceIndex,*(&D_8010D779+voiceOffset),high); } while (0);
+   voiceStoreParam(33,voiceIndex,*(&D_8010D779+voiceOffset),low);
+  } else {
+   voiceStoreParam(1,voiceIndex,*(&D_8010D76F+voiceOffset),high);
+   voiceStoreParam(33,voiceIndex,*(&D_8010D76F+voiceIndex*0x1a0),low);
   }
+  result=0;
+  voiceHandle=*(s32 *)((s8 *)&gVoiceChannelTable+voiceIndex*0x1a0);
+  if(voiceHandle != -1) goto again;
+unlock:
   workerLockRelease();
  }
- return ret;
+ return result;
 }

@@ -77,8 +77,8 @@ s32 func_8003EC70(s32 arg0) {
     D_800E19CC = 0;
     D_800E19CA = 0;
     D_800E19C8 = 0;
-    var_a0 = 0;
     if (var_t2 > 0) {
+        var_a0 = 0;
         var_v1 = 0;
         do {
             temp_fv0 = *((f32 *)((s8 *)&D_800E1778 + var_v1));
@@ -258,12 +258,12 @@ block_46:
                                         var_a3 += 4;
                                         var_a2 += 4;
                                     } while (var_a2 != temp_t0);
-                                    *var_a3 = *var_a2;
-                                    var_t1++;
+                                    *var_a3 = *var_a2;/*__repair_loop_weight*/do {do {do {
+                                    var_t1++;} while (0);} while (0);} while (0);
                                 }
-                                temp_a1 = var_t3;
-                                temp_v0 = temp_a1 + 1;
-                                var_v0_5 = temp_a1;
+                                temp_a3 = var_t3;
+                                temp_v0 = temp_a3 + 1;
+                                var_v0_5 = temp_a3;
                                 var_t3 = temp_v0;
                             } while (temp_v0 < var_t2);
                         }

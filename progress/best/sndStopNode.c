@@ -18,14 +18,10 @@ extern VNode *gVoiceListHead;
 static inline VNode *voiceFind(u32 key) {
     VNode *n;
     for (n = gVoiceListHead; n != NULL; n = n->next) {
-        if (n->key == key) {
-            return n;
-        }
-        if (key < n->key) {
-            return NULL;
-        }
+        if (n->key == key) break;
+        if (key < n->key) return NULL;
     }
-    return NULL;
+    return n;
 }
 
 typedef struct { unsigned char field_0; unsigned char field_1; unsigned short field_2; } __repair_record_temp_a0;
@@ -37,6 +33,7 @@ s32 sndStopNode(u32 arg0) {
     VNode *found;
     char *voice;
     void *rec;
+    int noSlot = 255;
 
     ret = -1;
     if (gWorkerActive != 0) {

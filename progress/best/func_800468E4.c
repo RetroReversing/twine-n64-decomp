@@ -2,7 +2,7 @@ typedef struct { f32 x, y, z, w; } RotationQuat;
 void func_800468E4(const RotationQuat *q, f32 m[3][3]) {
     volatile f64 scratch[1];
     f32 y = q->y;
-    f32 y2 = y + y;
+    register f32 y2 = y + y;
     f32 x = q->x;
     f32 z = q->z;
     f32 xy = y2 * x;
@@ -28,9 +28,9 @@ void func_800468E4(const RotationQuat *q, f32 m[3][3]) {
     f32 i = xx + yy;
     m[0][0] = 1.0f - a;
     m[0][1] = b;
+    m[1][0] = d;
     m[0][2] = c;
     m[1][1] = 1.0f - e;
-    m[1][0] = d;
     m[1][2] = f;
     m[2][1] = h;
     m[2][0] = g;

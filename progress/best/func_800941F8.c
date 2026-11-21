@@ -11,58 +11,57 @@ extern s32 gStaticSoundSlot;
 extern s32 *gActiveSoundList;
 
 typedef struct { s32 x, y, z; } V3_93FE8;
-s32 func_800941F8(s32 *arg0, void *arg1, void *arg2, f32 arg3, f32 arg4, s32 arg5, u16 arg6, u16 argK, u8 arg7, u8 arg8) {
-    f32 sp18;
-    f32 sp1C;
-    s32 sp20;
-    s32 sp24;
-    f32 sp28;
-    s32 *var_s0;
-    s32 temp_v0;
+/* Starts a sound effect: fills a voice slot with its position, pitch and gains, then starts it or queues it on the active list. */ s32 func_800941F8(s32 *voice, void *pos, void *vel, f32 pitch, f32 reverb, s32 flags, u16 soundId, u16 keyArg, u8 leftGain, u8 rightGain) {
+    f32 outA;
+    f32 outB;
+    s32 outC;
+    s32 outD;
+    f32 outE;
+    s32 *slot;
+    s32 channel;
     s32 key;
-    s32 *head;
-    s32 fl;
+    s32 *oldHead;
+    s32 slotFlags;
 
     if (gWorkerThreadActive) {
-        key = argK;
-        key = (u16)key;
+        key = keyArg; 
         workerLockAcquire();
-        var_s0 = arg0;
-        if (var_s0 == NULL) {
-            var_s0 = &gStaticSoundSlot;
+        slot = voice;
+        if (slot == NULL) {
+            slot = &gStaticSoundSlot;
         }
-        (*(s32 *)((char *)(var_s0) + 8)) = arg5;
-        *(V3_93FE8 *)((char *)var_s0 + 0xC) = *(V3_93FE8 *)arg1;
-        *(V3_93FE8 *)((char *)var_s0 + 0x18) = *(V3_93FE8 *)arg2;
-        (*(f32 *)((char *)(var_s0) + 0x24)) = arg3;
-        (*(u16 *)((char *)(var_s0) + 0x3C)) = arg6;
-        (*(f32 *)((char *)(var_s0) + 0x30)) = arg4;
-        (*(s32 *)((char *)(var_s0) + 0x38)) = key;
-        (*(f32 *)((char *)(var_s0) + 0x28)) = (f32) arg7 * 0.007874016f;
-        (*(f32 *)((char *)(var_s0) + 0x2C)) = (f32) arg8 * 0.007874016f;
-        if (arg0 == NULL) {
-            computeSourceAttenuation(var_s0, &sp18, &sp1C, &sp20, &sp24, &sp28);
-            if (sp18 != 0.0f) {
-                temp_v0 = func_8009CC3C((*(u16 *)((char *)(var_s0) + 0x3C)), 0x7F, 0x40);
-                (*(s32 *)((char *)(var_s0) + 0x34)) = temp_v0;
-                if (temp_v0 != -1) {
-                    soundVoiceStart(var_s0, sp18, sp20, sp24, sp28, sp1C);
+        (*(s32 *)((char *)(slot) + 8)) = flags;
+        *(V3_93FE8 *)((char *)slot + 0xC) = *(V3_93FE8 *)pos;
+        *(V3_93FE8 *)((char *)slot + 0x18) = *(V3_93FE8 *)vel;
+        (*(f32 *)((char *)(slot) + 0x24)) = pitch;
+        (*(u16 *)((char *)(slot) + 0x3C)) = soundId;
+        (*(f32 *)((char *)(slot) + 0x30)) = reverb;
+        (*(s32 *)((char *)(slot) + 0x38)) = key;
+        (*(f32 *)((char *)(slot) + 0x28)) = (f32) leftGain * 0.007874016f;
+        (*(f32 *)((char *)(slot) + 0x2C)) = (f32) rightGain * 0.007874016f;
+        if (voice == NULL) {
+            computeSourceAttenuation(slot, &outA, &outB, &outC, &outD, &outE);
+            if (outA != 0.0f) {
+                channel = func_8009CC3C((*(u16 *)((char *)(slot) + 0x3C)), 0x7F, 0x40);
+                (*(s32 *)((char *)(slot) + 0x34)) = channel;
+                if (channel != -1) {
+                    soundVoiceStart(slot, outA, outC, outD, outE, outB);
                     workerLockRelease();
-                    return (*(s32 *)((char *)(var_s0) + 0x34));
+                    return (*(s32 *)((char *)(slot) + 0x34));
                 }
             }
         } else {
-            head = gActiveSoundList;
-            (*(s32 *)((char *)(var_s0) + 0)) = (s32) head;
-            if (head != NULL) {
-                *(s32 **)((char *)head + 4) = var_s0;
+            oldHead = gActiveSoundList;
+            (*(s32 *)((char *)(slot) + 0)) = (s32) oldHead;
+            if (oldHead != NULL) {
+                *(s32 **)((char *)oldHead + 4) = slot;
             }
-            fl = (*(s32 *)((char *)(var_s0) + 8));
-            (*(s32 *)((char *)(var_s0) + 0x34)) = -1;
-            (*(s32 *)((char *)(var_s0) + 4)) = 0;
-            gActiveSoundList = var_s0;
-            (*(s16 *)((char *)(var_s0) + 0x3E)) = 0;
-            (*(s32 *)((char *)(var_s0) + 8)) = fl | 0x30000;
+            slotFlags = (*(s32 *)((char *)(slot) + 8));
+            (*(s32 *)((char *)(slot) + 0x34)) = -1;
+            (*(s32 *)((char *)(slot) + 4)) = 0;
+            gActiveSoundList = slot;
+            (*(s16 *)((char *)(slot) + 0x3E)) = 0;
+            (*(s32 *)((char *)(slot) + 8)) = slotFlags | 0x30000;
         }
         workerLockRelease();
     }

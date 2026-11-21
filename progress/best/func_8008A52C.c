@@ -19,7 +19,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     u8 sp28;
     s32 var_s5;
     f64 temp_fv0;
-    f64 temp_fv1_9;
+    register f64 temp_fv1_9;
     s16 var_a0_2;
     s16 var_s6;
     s16 var_v0_2;
@@ -28,22 +28,22 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
     s32 temp_a3_4;
     s32 temp_a3_5;
     register s32 temp_fv1_2;
+    register s32 temp_a3_6;
     s32 temp_fv1;
-    s32 temp_a3_6;
     s32 temp_fv1_3;
     s32 temp_fv1_4;
     s32 temp_fv1_5;
-    s32 temp_fv1_6;
+    s32 var_v0;
     s32 temp_fv1_7;
     s32 temp_fv1_8;
     s32 temp_s0_2;
     s32 var_a1;
     s32 var_a0;
-    s32 var_v0;
+    s32 temp_fv1_6;
     u16 *temp_v0;
     
     u16 temp_a3;
-    u32 temp_a0;
+    register u32 temp_a0;
     u32 temp_a0_2;
     u32 temp_a2;
     u32 temp_a3_2;
@@ -83,7 +83,7 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2) {
         if (temp_a0 < (u32) (var_a1 + temp_s0_2)) {
             temp_v1_2 = (*(u32 *)((char *)(arg0) + 0x34));
             temp_a0_2 = temp_a0 - var_a1;
-            if (temp_v1_2 >= (u32) var_a1) {
+            if (temp_v1_2 >= var_a1) {
                 sp10[0] = (u32) var_a1;
                 sp10[3] = 0;
                 sp10[2] = ((*(u32 *)((char *)(arg0) + 0x34)) - var_a1) + (*(u32 *)((char *)(arg0) + 0x38));
@@ -206,8 +206,8 @@ block_38:
                 var_s4 = sp10[1] & 3 & 0xFF;
                 (*(s16 *)((char *)(temp_s1) + 0x3A)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x38)) = (s16) (((var_s4 + sp10[5] + 3) & 0xFFFC) * 2);
-                (*(u8 *)((char *)(temp_s1) + 0x3F)) = var_s4;
                 (*(s16 *)((char *)(temp_s1) + 0x42)) = (s16) sp10[5];
+                (*(u8 *)((char *)(temp_s1) + 0x3F)) = var_s4;
             }
             (*(s32 *)((char *)(temp_s1) + 0x24)) = (s32) ((*(s32 *)((char *)(arg0) + 0x2C)) + ((sp10[0] & 0xFFFC) * 2));
             var_s3 = sp10[0] & 3 & 0xFF;

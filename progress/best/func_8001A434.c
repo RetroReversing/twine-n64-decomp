@@ -22,18 +22,20 @@ extern M2C_UNK sFmtEntryName;
 extern u8 sOptionCursor;
 extern M2C_UNK sOptionEntryTable;
 
+typedef struct { unsigned char pad_0[45]; signed char field_2D; unsigned char pad_2E[1]; signed char field_2F; } __repair_record_gSaveMenuState;
 void func_8001A434(void) {
+    u8 *__base_sOptionCursor;
     s32 temp_s2;
-    u8 *cursor;
 
     temp_s2 = findEntryPayload(&sOptionEntryTable, 0x92);
     gMenuNeedsRedraw = 1;
     if (temp_s2 != 0) {
-        M2C_FIELD(gSaveMenuState, s8 *, 0x2F) = 1;
-        M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 1;
+        ((__repair_record_gSaveMenuState*)gSaveMenuState)->field_2F = 1;
+        ((__repair_record_gSaveMenuState*)gSaveMenuState)->field_2D = 1;
         func_8001A4F4();
-        M2C_FIELD(gSaveMenuState, s8 *, 0x2F) = 0;
-        formatTextEntry(temp_s2, &sFmtEntryName, lookupDataEntry(*cursor + 0x16D));
-        formatTextEntry(temp_s2 + 0x28, &sFmtEntryName, lookupDataEntry(*cursor + 0x177));
+        ((__repair_record_gSaveMenuState*)gSaveMenuState)->field_2F = 0;
+        __base_sOptionCursor = &sOptionCursor;
+        formatTextEntry(temp_s2, &sFmtEntryName, lookupDataEntry((*__base_sOptionCursor) + 0x16D));
+        formatTextEntry(temp_s2 + 0x28, &sFmtEntryName, lookupDataEntry((*__base_sOptionCursor) + 0x177));
     }
 }

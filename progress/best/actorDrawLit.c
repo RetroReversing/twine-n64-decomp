@@ -51,13 +51,13 @@ typedef struct { int value; } __repair_field_0;
 void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
     volatile u64 padding;
     u8 sp2E;
-    u8 sp2D;
+    u8 sp27;
     u8 sp2C;
     u8 sp2B;
     u8 sp2A;
     u8 sp29;
     u8 sp28;
-    u8 sp27;
+    u8 sp2D;
     u8 sp26;
     u8 sp25;
     u8 sp24;
@@ -104,7 +104,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
     
     u8 temp_a1;
     u8 temp_a2_2;
-    u8 temp_a2_3;
+    register u8 temp_a2_3;
     u8 temp_t1;
     u8 temp_t1_2;
     u8 temp_v0_4;
@@ -236,8 +236,8 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                     (*(u8 *)((char *)(arg0) + 0x81)) = temp_t1_2;
                     temp_t2 = (*(void **)((char *)(temp_s4) + 0x20));
                     temp_t3_3 = D_80115328;
-                    D_80115328 = temp_t3_3 + 2;
                     ((__repair_field_0 *)temp_t3_3)->value = 0xFA000000;
+                    D_80115328 = temp_t3_3 + 2;
                     (*(s32 *)((char *)(temp_t3_3) + 4)) = (s32) ((((u32) ((*(u8 *)((char *)(arg0) + 0x7F)) * (*(u8 *)((char *)(temp_t2) + 0x64))) >> 8) << 0x18) | (((u32) ((*(u8 *)((char *)(arg0) + 0x80)) * (*(u8 *)((char *)(temp_t2) + 0x65))) >> 8) << 0x10) | (((temp_t1_2 & 0xFF) * (*(u8 *)((char *)(temp_t2) + 0x66))) & 0xFF00) | (*(u8 *)((char *)(arg0) + 0x82)));
                     func_80000A40(arg0, arg1, 0, 0, 0, (s32) arg3);
                     if ((arg3 == 0) && ((u8) D_80113022 < 0xAU)) {
@@ -290,7 +290,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                     D_80115328 = var_a0_2 + 2;
                     ((__repair_field_0 *)var_a0_2)->value = 0xFA000000;
                     var_v0_2 = (var_a2 << 0x18) | (var_a1 << 0x10) | (var_a3_2 << 8) | 0x80;
-                    goto block_43;
+                    (*(s32 *)((char *)(var_a0_2) + 4)) = var_v0_2;
                 }
             } else {
                 var_a0_2 = D_80115328;
@@ -298,9 +298,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3) {
                 ((__repair_field_0 *)var_a0_2)->value = 0xFA000000;
                 temp_v0_6 = (var_a2 << 0x18) | (var_a1 << 0x10);
                 var_a1 = (*(u8 *)((char *)(arg0) + 0x82));
-                var_v0_2 = temp_v0_6 | (var_a3_2 << 8) | var_a1;
-block_43:
-                (*(s32 *)((char *)(var_a0_2) + 4)) = var_v0_2;
+                (*(s32 *)((char *)(var_a0_2) + 4)) = (temp_v0_6 | (var_a3_2 << 8) | var_a1);
             }
             if (((__repair_field_58 *)arg0)->value & 0x1000) {
                 if (gRenderMode != 1) {
@@ -354,7 +352,7 @@ block_43:
                     case 0:
                     case 1:
                     default:
-                        if (gRenderMode != 0) {
+                        if (gRenderMode) {
                             gRenderMode = 0;
                             emit_projection_viewport_commands(temp_a0_6, var_a1, var_a2, (s32 *) var_a3_2);
                         }

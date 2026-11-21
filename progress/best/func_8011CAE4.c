@@ -12,57 +12,56 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK actorSteerTowardTarget(void *, s32, void *, s32); /* extern */
+M2C_UNK func_8011E95C(void *, s32, void *, s32);    /* extern */
 extern s32 D_800BD644;
 extern s32 D_800BD650;
 extern s32 D_800BD678;
-extern M2C_UNK sBonusObjectTable;
-extern M2C_UNK D_8011F118;
+extern s32 D_801002C0;
+extern M2C_UNK D_8010A500;
+extern u8 D_8011F118[];
 extern M2C_UNK D_8011F150;
-extern M2C_UNK sSaveSlotMarkerTable;
-extern s32 gVisibleSaveSlotCount;
+extern M2C_UNK D_8011F338;
 
 void func_8011CAE4(void) {
+    M2C_UNK *__base_D_8011F338;
     s16 temp_v1;
     s32 temp_s4;
     s32 temp_s5;
     s32 var_s1;
-    s32 var_s2;
     s32 var_s3;
     void *temp_s0;
+    u8 *__base_D_8011F118;
+
+    __base_D_8011F118 = D_8011F118;
 
     var_s3 = 0;
-    if (gVisibleSaveSlotCount > 0) {
-        var_s2 = 0;
+    if (D_801002C0 > 0) {
         do {
             temp_s5 = var_s3 & 0xFFFF;
-            temp_s4 = temp_s5 * 4;
-            var_s1 = var_s2 & 0xFFFF;
-loop_3:
-            temp_s0 = *(void **)((s8 *)&sSaveSlotMarkerTable + temp_s4 + var_s1 * 0x10);
-            if (temp_s0 != NULL) {
-                actorSteerTowardTarget(temp_s0, *(s32 *)((s8 *)&sBonusObjectTable + temp_s4), (s8 *)&D_8011F118 + var_s1 * 0xC, temp_s5);
-                temp_v1 = M2C_FIELD(*(void **)((s8 *)&D_8011F150 + var_s1 * 4), s16 *, 0x7C);
-                switch (temp_v1) {                  /* irregular */
-                case 0:
-                    M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD678;
-                    break;
-                case 1:
-                    M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD650;
-                    break;
-                default:
-                    M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD644;
-                    break;
-                }
-            }
-            var_s2 += 1;
-            var_s1 = var_s2 & 0xFFFF;
-            if ((u32) (var_s2 & 0xFFFF) < 3U) {
-                goto loop_3;
-            }
-            var_s3 += 1;
-            var_s2 = 0;
-        } while ((var_s3 & 0xFFFF) < gVisibleSaveSlotCount);
+            temp_s4 = temp_s5;
+{
+    u16 __repair_i;
+    for (__repair_i = 0; __repair_i < 3; __repair_i++) {
+        __base_D_8011F338 = &D_8011F338;
+        temp_s0 = (void *)*(temp_s4 + ((__repair_i * 4) + __base_D_8011F338));
+        if (temp_s0 != NULL) {
+        func_8011E95C(temp_s0, ((u32 *) &D_8010A500)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);
+        temp_v1 = M2C_FIELD((&D_8011F150)[__repair_i], s16 *, 0x7C);
+        switch (temp_v1) {                  /* irregular */
+        case 0:
+        M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD678;
+        break;
+        case 1:
+        M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD650;
+        break;
+        default:
+        M2C_FIELD(temp_s0, s32 *, 0x10) = (s32) D_800BD644;
+        break;
+        }
+        }
     }
 }
-
+            var_s3 += 1;
+        } while ((var_s3 & 0xFFFF) < D_801002C0);
+    }
+}

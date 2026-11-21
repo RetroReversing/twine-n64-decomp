@@ -78,15 +78,15 @@ extern u16 gSharedItemId;
 extern char D_800D2858[], D_800D285C[], sFmtEntryName[];
 
 void func_8001ADE8(void) {
-    s32 padding;
-    s32 sp34;
-    volatile s32 *entrySlot = &sp34;
+    volatile struct { s32 unused; s32 entry; } scratch;
+#define sp34 scratch.entry
     char *temp_s0_3;
-    u8 *savedByte;
-    u8 *savedByteLate;
+    volatile u8 *savedByte;
+    volatile u8 *savedByteLate;
     void *menuState;
+    void *actor;
     s32 entry;
-    u8 *slotField;
+    volatile u8 *slotField;
     s32 menuRoot;
     void *volatile *actorSlot;
     s32 model;
@@ -109,7 +109,7 @@ void func_8001ADE8(void) {
     u16 temp_v0_2;
     u16 temp_v1_4;
     u32 temp_s0;
-    u8 *temp_s0_4;
+    volatile u8 *temp_s0_4;
     u8 temp_v1_2;
     s32 var_a0_3;
     void *temp_a0_3;
@@ -183,6 +183,9 @@ void func_8001ADE8(void) {
         M2C_FIELD(temp_s5, void **, -0x18) = (void *) ((*savedByte * 0x18) + (savedByte - 0x10B));
         temp_v1_2 = *(&sSaveSlotInfo + (*savedByte * 0x18));
         switch (temp_v1_2) {
+        case 0:
+            var_a0 = 0xA;
+            goto block_19;
         case 1:
             var_a0 = 9;
             goto block_19;
@@ -197,32 +200,34 @@ void func_8001ADE8(void) {
             goto block_19;
         case 5:
             var_a0 = 0x297;
-            goto block_19;
-        case 0:
-            var_a0 = 0xA;
 block_19:
             formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0));
             break;
         }
         if (M2C_FIELD(gSaveMenuState, u8 *, 8) != 1) {
+            void *sound;
             temp_v1_3 = M2C_FIELD(gSaveMenuState, void **, 0x18);
             temp_v0_2 = M2C_FIELD(temp_v1_3, u16 *, 0xC);
             temp_a0_2 = temp_v0_2 & 0xF;
             if (temp_a0_2 != 0) {
+                sound = M2C_FIELD(temp_v1_3, void **, 8);
                 var_v0 = *(&sMenuItemParamTable + temp_a0_2);
-                M2C_FIELD(M2C_FIELD(temp_v1_3, void **, 8), s32 *, 0x10) = (s32) ((var_v0 & ~0xFF) | M2C_FIELD(gSaveMenuState, u8 *, 0x30));
+                var_a0 = M2C_FIELD(gSaveMenuState, u8 *, 0x30);
             } else {
                 if (temp_v0_2 & 0x80) {
+                    sound = M2C_FIELD(temp_v1_3, void **, 8);
                     var_v0 = D_80102EBC;
                 } else {
+                    sound = M2C_FIELD(temp_v1_3, void **, 8);
                     var_v0 = D_80102EC4;
                 }
-                M2C_FIELD(M2C_FIELD(temp_v1_3, void **, 8), s32 *, 0x10) = (s32) ((var_v0 & ~0xFF) | M2C_FIELD(M2C_FIELD(temp_v1_3, void **, 8), u8 *, 0x13));
+                var_a0 = M2C_FIELD(sound, u8 *, 0x13);
             }
+            M2C_FIELD(sound, s32 *, 0x10) = (var_v0 & ~0xFF) | var_a0;
             M2C_FIELD(gSaveMenuState, u8 *, 8) = 1U;
             menuState = gSaveMenuState;
             M2C_FIELD(gSaveMenuState, void **, 0x18) = (void *) (temp_s7 - 0x28);
-            temp_v0_3 = M2C_FIELD(menuState, void **, 0x18);
+            temp_v0_3 = M2C_FIELD(menuState, void *volatile *, 0x18);
             temp_a1 = M2C_FIELD(temp_v0_3, void **, 8);
             if (temp_a1 != NULL) {
                 temp_v0_4 = M2C_FIELD(temp_v0_3, u16 *, 0xC) & 0xF;
@@ -266,12 +271,13 @@ block_19:
         }
         actorSlot = &gPickupActor;
         if (*actorSlot == NULL) {
-            *actorSlot = spawnEffectObject(0, 0, 0);
-            if (*actorSlot == NULL) return;
+            actor = spawnEffectObject(0, 0, 0);
+            *actorSlot = actor;
+            if (actor == NULL) return;
         }
         {
             M2C_FIELD(gPickupActor, s16 *, 0x78) = 0x1F;
-            M2C_FIELD(gPickupActor, s32 *, 0x58) = (s32) (M2C_FIELD(gPickupActor, s32 *, 0x58) | 0x400);
+            M2C_FIELD(gPickupActor, s32 *, 0x58) |= 0x400;
             M2C_FIELD(gPickupActor, s8 *, 0x7E) = 1;
             M2C_FIELD(gPickupActor, s16 *, 0x7A) = 0;
             M2C_FIELD(gPickupActor, f32 *, 0x54) = 1.05f;
@@ -305,4 +311,6 @@ block_19:
             }
         }
     }
+#undef sp34
 }
+

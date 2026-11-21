@@ -12,10 +12,10 @@ extern s32 sprintf(char *, const char *, ...);
 void func_8011D158(s32 slot) {
     volatile s32 *count = &gVisibleSaveSlotCount;
     s32 index = (s16)slot;
-    Save *save;
-    s32 kind;
-    Slot **cursor;
     s32 id;
+    s32 kind;
+    Save *save;
+    Slot **cursor;
     s32 temp;
     s32 unused[2];
     Label **label;
@@ -47,7 +47,7 @@ void func_8011D158(s32 slot) {
             sprintf(D_8011F2B8[(s16)slot], lookupDataEntry(id));
         }
         index = (s16)slot;
-        label = D_8011F3E8 + index;
+        label = (u32)D_8011F3E8 + index;
         (*label)->flags = ((*label)->flags & ~0xFC) | 0xC;
         (*label)->color = -1;
         D_8011F3E0[index] = 60;

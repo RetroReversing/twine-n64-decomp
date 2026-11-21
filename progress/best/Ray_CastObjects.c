@@ -8,31 +8,31 @@ typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
 #define M2C_BITWISE(type, expr) ((type)(expr))
 #define M2C_ERROR(desc) (0)
+#define spB4 (*(s32 *)((s8 *)&spB0 + 4))
+#define spD4 (*(f32 *)((s8 *)&spD0 + 4))
+#define spD8 (*(f32 *)((s8 *)&spD0 + 8))
+#define spDC (*(s32 *)((s8 *)&spD0 + 12))
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
 
 s32 Ray_TriangleIntersect(f32 *, f32 *, s32, s32, s32, f32 *); /* extern */
 f32 Vec3_DistanceSq(void **, M2C_UNK *);            /* extern */
-M2C_UNK func_800455CC(M2C_UNK *, f32 *, f32 *, void **); /* extern */
-M2C_UNK func_800458C0(f32 *, s32, s32, s32);        /* extern */
-M2C_UNK func_80047E4C(void **, M2C_UNK, f32 *);     /* extern */
-s32 func_800488D4(void *, f32 *, f32 *);            /* extern */
-s32 func_8004DEE0(void **);           /* extern */
+M2C_UNK applyObjectRotation(void **, M2C_UNK, f32 *); /* extern */
+M2C_UNK buildPlaneFromPoints(f32 *, s32, s32, s32); /* extern */
+M2C_UNK buildRotationMatrix(s16 *, M2C_UNK *);      /* extern */
+s32 clipSegmentToObjectBox(void **);  /* extern */
 s32 func_8004E418(void *, f32 *, f32 *);            /* extern */
-M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *);                /* extern */
 s32 randomIntBelow(M2C_UNK);                        /* extern */
 M2C_UNK rotateVec3ByMat3(M2C_UNK *, f32 *);         /* extern */
+M2C_UNK segmentClosestPoint(M2C_UNK *, f32 *, f32 *, void **); /* extern */
+s32 segmentOverlapsBox(void *, f32 *, f32 *);       /* extern */
 extern void **D_80108F84;
 extern void *gPlayerActor;
 
 s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1, f32 *arg2, f32 *arg3, void *arg4, f32 arg5, void *arg6, u8 arg7, s32 arg8) {
-    f32 spD4, spD8;
-    s32 spB4, spDC;
-    f32 sp18;
-    f32 sp1C;
-    f32 sp20;
+    f32 sp18[3];
     M2C_UNK sp28;
     f32 sp38;
     f32 sp3C;
@@ -129,6 +129,7 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
     u16 temp_v1_5;
     u16 var_v0_2;
     u16 var_v0_3;
+u16 __repair_result_var_v0_3;
     u32 temp_v1_10;
     u32 temp_v1_2;
     void **temp_s0;
@@ -154,10 +155,10 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
     spFC = arg3;
     var_fs1 = arg5;
     sp107 = arg7;
-    sp18 = *arg2 + (*arg3 * var_fs1);
-    sp1C = M2C_FIELD(spF4, f32 *, 4) + (M2C_FIELD(spFC, f32 *, 4) * var_fs1);
+    sp18[0] = *arg2 + (*arg3 * var_fs1);
+    sp18[1] = M2C_FIELD(spF4, f32 *, 4) + (M2C_FIELD(spFC, f32 *, 4) * var_fs1);
     var_s7 = arg1;
-    sp20 = M2C_FIELD(spF4, f32 *, 8) + (M2C_FIELD(spFC, f32 *, 8) * var_fs1);
+    sp18[2] = M2C_FIELD(spF4, f32 *, 8) + (M2C_FIELD(spFC, f32 *, 8) * var_fs1);
     sp10C = var_s7;
     gPlayerActor = NULL;
     D_80108F84 = NULL;
@@ -184,20 +185,20 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                 var_fs0 = M2C_FIELD(var_s3, f32 *, 0x64) * M2C_FIELD(var_s3, f32 *, 0x54);
                             }
                             temp_s0 = var_s3 + 0x24;
-                            func_800455CC(sp11C, spF4, &sp18, temp_s0);
+                            segmentClosestPoint(sp11C, spF4, sp18, temp_s0);
                             temp_fv0 = Vec3_DistanceSq(temp_s0, sp11C);
                             spA4 = temp_fv0;
                             if (temp_fv0 < var_fs0) {
                                 sp38 = M2C_FIELD(spF4, f32 *, 0);
                                 sp3C = M2C_FIELD(spF4, f32 *, 4);
                                 sp40 = M2C_FIELD(spF4, f32 *, 8);
-                                sp48 = sp18;
-                                sp4C = sp1C;
-                                sp50 = sp20;
+                                sp48 = sp18[0];
+                                sp4C = sp18[1];
+                                sp50 = sp18[2];
                                 sp88 = (s16) (s32) -M2C_FIELD(var_s3, f32 *, 0x3C);
                                 sp8A = (s16) (s32) -M2C_FIELD(var_s3, f32 *, 0x40);
                                 sp8C = (s16) (s32) -M2C_FIELD(var_s3, f32 *, 0x44);
-                                func_80082D24(&sp88, sp134);
+                                buildRotationMatrix(&sp88, sp134);
                                 sp38 -= M2C_FIELD(var_s3, f32 *, 0x24);
                                 sp3C -= M2C_FIELD(var_s3, f32 *, 0x28);
                                 sp40 -= M2C_FIELD(var_s3, f32 *, 0x2C);
@@ -206,8 +207,12 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                 sp50 -= M2C_FIELD(var_s3, f32 *, 0x2C);
                                 rotateVec3ByMat3(sp134, sp124);
                                 temp_s0_2 = temp_s1 + 0x18;
-                                rotateVec3ByMat3(sp134, sp12C);
-                                if ((func_800488D4(temp_s0_2, sp124, sp12C) << 0x18) != 0) {
+                                /*__repair_pointer_balance*/if ((unsigned long)sp11C & 0x100) {
+rotateVec3ByMat3(sp134, sp12C);
+} else {
+rotateVec3ByMat3(sp134, sp12C);
+}
+                                if ((segmentOverlapsBox(temp_s0_2, sp124, sp12C) << 0x18) != 0) {
                                     sp90 = M2C_FIELD(spFC, f32 *, 0);
                                     sp94 = M2C_FIELD(spFC, f32 *, 4);
                                     sp98 = M2C_FIELD(spFC, f32 *, 8);
@@ -221,10 +226,10 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                         var_s4 = M2C_FIELD(temp_s1, u16 **, 0x3C);
                                         var_s0 = 0;
                                         if (M2C_FIELD(temp_s1, u16 *, 0x40) != 0) {
-                                            var_s2 = var_s4 + 2;
+                                            var_s2 = (u8 *)var_s4 + 4;
                                             do {
                                                 temp_s5 = var_s0 & 0xFFFF;
-                                                temp_v1_3 = *(s16 *)((temp_s5 * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
+                                                temp_v1_3 = *(u16 *)((temp_s5 * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                                 if ((sp146 & temp_v1_3) && (sp14E & temp_v1_3)) {
                                                     temp_v1_4 = M2C_FIELD(temp_s1, s32 *, 0x34);
                                                     if ((spEC(&sp38, &sp90, temp_v1_4 + (*var_s4 * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, -2) * 0xC), temp_v1_4 + (M2C_FIELD(var_s2, u16 *, 0) * 0xC), sp154) & 0xFF) && (spA0 >= 0.0f) && (spA0 < var_fs1)) {
@@ -241,10 +246,10 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                         var_s4_2 = M2C_FIELD(temp_s1, u16 **, 0x3C);
                                         var_s0_2 = 0;
                                         if (temp_v1_2 < (u16) M2C_FIELD(temp_s1, u16 *, 0x40)) {
-                                            var_s2_2 = var_s4_2 + 2;
+                                            var_s2_2 = (u8 *)var_s4_2 + 2;
                                             do {
                                                 temp_s5_2 = var_s0_2 & 0xFFFF;
-                                                temp_v1_5 = *(s16 *)((temp_s5_2 * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
+                                                temp_v1_5 = *(u16 *)((temp_s5_2 * 2) + M2C_FIELD(temp_s1, s32 *, 0x38));
                                                 if ((sp146 & temp_v1_5) && (sp14E & temp_v1_5)) {
                                                     temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34);
                                                     if ((spEC(&sp38, &sp90, temp_v1_6 + (*var_s4_2 * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, -1) * 0xC), temp_v1_6 + (M2C_FIELD(var_s2_2, u8 *, 0) * 0xC), sp15C) & 0xFF) && (spA4 >= 0.0f) && (spA4 < var_fs1)) {
@@ -254,7 +259,7 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                                 }
                                                 var_s2_2 += 3;
                                                 var_s0_2 += 1;
-                                                var_s4_2 += 3;
+                                                var_s4_2 = (u16 *)((u8 *)var_s4_2 + 3);
                                             } while ((u32) (var_s0_2 & 0xFFFF) < (u16) M2C_FIELD(temp_s1, u16 *, 0x40));
                                         }
                                     }
@@ -264,13 +269,14 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                             var_a2 = M2C_FIELD(temp_v1_7, u16 *, 2) * 3;
                                             var_v0_2 = M2C_FIELD(temp_v1_7, u16 *, 4);
                                             var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_7, u16 *, 0) * 0xC);
-                                        } else {
+                                        
+                                        buildPlaneFromPoints(&spA8, temp_v1_6, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));} else {
                                             temp_v1_8 = M2C_FIELD(temp_s1, u16 **, 0x3C) + (var_s6 * 3);
-                                            var_a1 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_8, u8 *, 0) * 0xC);
+                                            temp_v1_6 = M2C_FIELD(temp_s1, s32 *, 0x34) + (M2C_FIELD(temp_v1_8, u8 *, 0) * 0xC);
                                             var_a2 = M2C_FIELD(temp_v1_8, u8 *, 1) * 3;
                                             var_v0_2 = (u16) M2C_FIELD(temp_v1_8, u8 *, 2);
-                                        }
-                                        func_800458C0(&spA8, var_a1, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));
+                                        
+                                        buildPlaneFromPoints(&spA8, temp_v1_6, M2C_FIELD(temp_s1, s32 *, 0x34) + (var_a2 * 4), M2C_FIELD(temp_s1, s32 *, 0x34) + (var_v0_2 * 0xC));}
                                         gPlayerActor = var_s3;
                                         D_80108F84 = NULL;
                                         if (arg6 != NULL) {
@@ -309,39 +315,39 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                     temp_v1_9 = M2C_FIELD(var_s7, s32 *, 0x50);
                     if ((temp_v1_9 & 0x400) && (!(temp_v1_9 & 0x800) || (randomIntBelow(2) != 0) || (sp107 != 0))) {
                         temp_s0_3 = var_s7 + 0x40;
-                        func_800455CC(sp164, spF4, &sp18, temp_s0_3);
+                        segmentClosestPoint(sp164, spF4, sp18, temp_s0_3);
                         temp_fv0_2 = Vec3_DistanceSq(temp_s0_3, sp164);
                         spA4 = temp_fv0_2;
                         if (temp_fv0_2 < M2C_FIELD(var_s7, f32 *, 0x4C)) {
                             spA8 = M2C_FIELD(spF4, f32 *, 0);
                             spAC = M2C_FIELD(spF4, f32 *, 4);
                             spB0 = M2C_FIELD(spF4, f32 *, 8);
-                            sp60 = sp18;
-                            sp64 = sp1C;
-                            sp68 = sp20;
+                            sp60 = sp18[0];
+                            sp64 = sp18[1];
+                            sp18[2] = sp18[2];
                             if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 1) {
                                 spA8 -= M2C_FIELD(var_s7, f32 *, 0x24);
                                 spAC -= M2C_FIELD(var_s7, f32 *, 0x28);
                                 spB0 -= M2C_FIELD(var_s7, f32 *, 0x2C);
                                 sp60 -= M2C_FIELD(var_s7, f32 *, 0x24);
                                 sp64 -= M2C_FIELD(var_s7, f32 *, 0x28);
-                                sp68 -= M2C_FIELD(var_s7, f32 *, 0x2C);
+                                sp18[2] -= M2C_FIELD(var_s7, f32 *, 0x2C);
                             }
                             if (((u32) M2C_FIELD(var_s7, u32 *, 0x5C) >> 0x17) & 2) {
-                                func_80047E4C(var_s7, 0, sp17C);
+                                applyObjectRotation(var_s7, 0, sp17C);
                                 func_80083B64(sp17C, sp16C);
                                 func_80083B64(sp17C, sp174);
                             }
                             temp_s0_4 = temp_s2 + 0x18;
-                            if ((func_800488D4(temp_s0_4, sp16C, sp174) << 0x18) != 0) {
+                            if ((segmentOverlapsBox(temp_s0_4, sp16C, sp174) << 0x18) != 0) {
                                 sp70 = spA8;
                                 sp74 = spAC;
                                 sp78 = spB0;
                                 sp80 = sp60;
                                 sp84 = sp64;
-                                sp88 = sp68;
+                                sp88 = sp18[2];
                                 var_s4_3 = -1;
-                                if ((func_8004DEE0(var_s7) << 0x18) != 0) {
+                                if ((clipSegmentToObjectBox(var_s7) << 0x18) != 0) {
                                     spB8 = M2C_FIELD(spFC, f32 *, 0);
                                     spBC = M2C_FIELD(spFC, f32 *, 4);
                                     spC0 = M2C_FIELD(spFC, f32 *, 8);
@@ -361,7 +367,7 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                         var_s5 = M2C_FIELD(temp_s2, u16 **, 0x38);
                                         var_s0_3 = 0;
                                         if (M2C_FIELD(temp_s2, u16 *, 0x40) != 0) {
-                                            var_s1 = var_s3_2 + 4;
+                                            var_s1 = (u8 *)var_s3_2 + 4;
                                             do {
                                                 temp_v1_11 = *var_s5;
                                                 if ((temp_v1_11 & sp19E) && (temp_v1_11 & sp1A6)) {
@@ -371,10 +377,10 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                                         var_s4_3 = var_s0_3 & 0xFFFF;
                                                     }
                                                 }
-                                                var_s5 += 2;
+                                                var_s5 += 1;
                                                 var_s1 += 6;
                                                 var_s0_3 += 1;
-                                                var_s3_2 += 6;
+                                                var_s3_2 += 3;
                                             } while ((u32) (var_s0_3 & 0xFFFF) < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
                                         }
                                         if (var_s4_3 != -1) {
@@ -397,7 +403,7 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                         var_s5_2 = M2C_FIELD(temp_s2, u16 **, 0x38);
                                         var_s0_4 = 0;
                                         if (temp_v1_10 < (u16) M2C_FIELD(temp_s2, u16 *, 0x40)) {
-                                            var_s1_2 = var_s3_3 + 2;
+                                            var_s1_2 = (u8 *)var_s3_3 + 2;
                                             do {
                                                 temp_v1_14 = *var_s5_2;
                                                 if ((temp_v1_14 & sp19E) && (temp_v1_14 & sp1A6)) {
@@ -408,9 +414,9 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                                     }
                                                 }
                                                 var_s1_2 += 3;
-                                                var_s3_3 += 3;
+                                                var_s3_3 = (u16 *)((u8 *)var_s3_3 + 3);
                                                 var_s0_4 += 1;
-                                                var_s5_2 += 2;
+                                                var_s5_2 += 1;
                                             } while ((u32) (var_s0_4 & 0xFFFF) < (u16) M2C_FIELD(temp_s2, u16 *, 0x40));
                                         }
                                         if (var_s4_3 != -1) {
@@ -420,7 +426,7 @@ s32 Ray_CastObjects(s32 (*arg0)(f32 *, f32 *, s32, s32, s32, f32 *), void **arg1
                                                 if (M2C_FIELD(temp_s2, u8 *, 0x48) & 4) {
                                                     temp_v1_16 = M2C_FIELD(temp_s2, u16 **, 0x3C) + (var_s4_3 * 6);
                                                     var_a2_2 = M2C_FIELD(temp_v1_16, u16 *, 2) * 3;
-                                                    var_v0_3 = M2C_FIELD(temp_v1_16, u16 *, 4);
+                                                    __repair_result_var_v0_3 = M2C_FIELD(temp_v1_16, u16 *, 4);
                                                     var_a1_2 = M2C_FIELD(temp_s2, s32 *, 0x34) + (M2C_FIELD(temp_v1_16, u16 *, 0) * 0xC);
                                                 } else {
 block_95:
@@ -430,7 +436,7 @@ block_95:
                                                     var_v0_3 = (u16) M2C_FIELD(temp_v1_17, u8 *, 2);
                                                 }
 block_96:
-                                                func_800458C0(&spD0, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2_2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
+                                                buildPlaneFromPoints(&spD0, var_a1_2, M2C_FIELD(temp_s2, s32 *, 0x34) + (var_a2_2 * 4), M2C_FIELD(temp_s2, s32 *, 0x34) + (var_v0_3 * 0xC));
                                                 M2C_FIELD(arg6, f32 *, 0) = spD0;
                                                 M2C_FIELD(arg6, f32 *, 4) = spD4;
                                                 M2C_FIELD(arg6, f32 *, 8) = spD8;

@@ -22,14 +22,14 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
     unsigned sp14;
     u8 sp1F;
     s32 temp_s7;
-    f32 temp_fs1;
+    register f32 temp_fs1;
     s32 temp_s6;
     f32 temp_fs0;
     void *temp_v1_4;
     void *temp_v1_3;
     u16 var_a1;
-    u32 temp_s1;
-    u32 temp_s2;
+    unsigned int temp_s1;
+    unsigned temp_s2;
     u32 var_a3;
     void *var_s0;
     s32 var_v0;
@@ -57,8 +57,8 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                     var_a1 = (*(volatile u16 *)((char *)(var_s0) + 0x22));
                     var_a3 = *(volatile u8 *)((char *)var_s0 + 0x28);
                     if (gHiResScreen) {
-                        var_a1 *= 2;
                         var_a3 *= 2;
+                        var_a1 *= 2;
                     }
                     SetScissorRect((*(u16 *)((char *)(var_s0) + 0x20)), var_a1 & 0xFFFF, (*(u16 *)((char *)(var_s0) + 0x24)), var_a3);
                 } else if (temp_v1 & 0x2000) {
@@ -69,11 +69,11 @@ void func_8003C228(void *arg0, s32 arg1, s32 arg2) {
                         func_800399D0(arg0);
                         sp1F = 0;
                         func_80034928(arg0, D_8010A4D8);
-                        var_v0 = temp_s1 & 0xFF;
+                        var_v0 = (u32)temp_s1 & 0xFF;
                     }
                     if (var_v0) {
                         if ((*(u16 *)((char *)(var_s0) + 0x1E)) & 0x400) {
-                            if (D_800E176C == 0) {
+                            if (!D_800E176C) {
                                 temp_v1_2 = sDisplayListCursor;
                                 D_800E176C = 1;
                                 sDisplayListCursor = temp_v1_2 + 8;
@@ -135,10 +135,10 @@ void *temp_a0;
                             }
                             (*(s32 *)((char *)(sDisplayListCursor) + 4)) = (s32) (((temp_s1 >> 0x18) << 0x18) | (temp_s1 & 0xFF0000) | (temp_s1 & 0xFF00) | (temp_s1 & 0xFF));
                             (((__repair_field_8 *)sDisplayListCursor)->value) = 0xFB000000;
-                            ((__repair_field_0 *)sDisplayListCursor)->value = 0xFA000000;
                             (*(s32 *)((char *)(sDisplayListCursor) + 0xC)) = (s32) (((temp_s2 >> 0x18) << 0x18) | (temp_s2 & 0xFF0000) | (temp_s2 & 0xFF00));
-                            temp_a0 = sDisplayListCursor + 0x10;
                             sDisplayListCursor += 8;
+                            ((__repair_field_0 *)sDisplayListCursor)->value = 0xFA000000;
+                            temp_a0 = sDisplayListCursor + 0x10;
                             sDisplayListCursor = temp_a0;
                             if ((((__repair_field_28 *)var_s0)->value & 3) == 1) {
                                 func_8003AF20(temp_s7, temp_s6, var_s0);
@@ -152,7 +152,7 @@ void *temp_a0;
             var_s0 = (*(void **)((char *)(var_s0) + 4));
         } while (var_s0 != NULL);
     }
-    if (D_800E176C == 0) {
+    if (!D_800E176C) {
         temp_v1_4 = sDisplayListCursor;
         sDisplayListCursor = temp_v1_4 + 8;
         ((__repair_field_0 *)temp_v1_4)->value = 0xE3001201;

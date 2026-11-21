@@ -24,7 +24,7 @@ void func_80064630(void *arg0) {
     s32 first_offset;
     
     
-    s32 var_s4;
+    
     u32 temp_a0;
     u32 var_s2;
     void *temp_s0;
@@ -43,13 +43,13 @@ first_loop:
         } else {
             M2C_FIELD(var_v1, u16 *, 0x1BC) = 0U;
         }
-        var_v1 += 2;
-        var_s2 += 1;
+        var_v1 += 2;/*__repair_loop_weight*/do {
+        var_s2 += 1;} while (0);
         first_offset += 4;
     }
     if (var_s2 < 0x20U) goto first_loop;
     var_s2 = 0;
-    var_s4 = 0;
+    first_offset = 0;
     __repair_phase_storage.value = 0;
     var_v1 = temp_s5;
 second_loop:
@@ -62,11 +62,11 @@ second_loop:
             M2C_FIELD(var_v1, u8 *, 0x1FF) = 0U;
         }
         if (!(*(u16 *)((u8 *)sEnemyDefTable + __repair_phase_storage.value) & 0x8000)) {
-            M2C_FIELD((temp_s5 + var_s4), s8 *, 0x1FC) = 0;
+            M2C_FIELD((temp_s5 + first_offset), s8 *, 0x1FC) = 0;
         }
         __repair_phase_storage.value += 0xE8;
-        temp_s0 = (void *) ((var_s4) + (s32) temp_s5);
-        var_s4 += 8;
+        temp_s0 = (void *) ((first_offset) + (s32) temp_s5);
+        first_offset += 8;
         var_v1 += 8;
         temp_a0 = var_s2;
         var_s2 += 1;

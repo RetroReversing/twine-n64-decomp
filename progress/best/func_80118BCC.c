@@ -27,7 +27,7 @@ M2C_UNK func_8006CD34(void *);                      /* extern */
 M2C_UNK func_8006E648(s32, void *, M2C_UNK, s32 *, s32 *, void **, s32 *, s32 *); /* extern */
 M2C_UNK func_80070730(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_80070F34(void *);                      /* extern */
-s32 func_8007A9CC(void *, void *, M2C_UNK *, M2C_UNK); /* extern */
+s32 func_8007A9CC(void *, s32, s32 *, f32); /* extern */
 M2C_UNK func_8007AB18(void *, void *, M2C_UNK);     /* extern */
 M2C_UNK func_800843CC(void *, M2C_UNK, M2C_UNK);    /* extern */
 M2C_UNK func_800848EC(void *, M2C_UNK, M2C_UNK);    /* extern */
@@ -198,7 +198,7 @@ block_33:
         temp_s0 = arg0 + 0x24;
         if ((u32) (M2C_FIELD(temp_a1_3, u16 *, 0x78) - 2) < 2U) {
             temp_fv0_2 = approxDistance(temp_s0, temp_a1_3 + 0x24);
-            if ((temp_fv0_2 < 25.0f) && ((temp_fv0_2 < 6.0f) || (temp_s4 & 1) || ((func_8007A9CC(arg0, temp_s0, &sp38, 0x448E38E4) << 0x18) != 0)) && ((func_800158A4(*(s32 *)((u8 *)&sTrackMarkerTable + ((s8) M2C_FIELD(temp_s2, u8 *, 0x182) * 4)) + 0x10, M2C_FIELD(temp_s2, void **, 0xC0) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), &sp28, 0, 0, 0x20000, 1, 0) << 0x18) != 0)) {
+            if ((temp_fv0_2 < 25.0f) && ((temp_fv0_2 < 6.0f) || (temp_s4 & 1) || ((func_8007A9CC(arg0, (s32)temp_s0, &sp38, 1137.77783203125f) << 0x18) != 0)) && ((func_800158A4(*(s32 *)((u8 *)&sTrackMarkerTable + ((s8) M2C_FIELD(temp_s2, u8 *, 0x182) * 4)) + 0x10, M2C_FIELD(temp_s2, void **, 0xC0) + 0x24, M2C_FIELD(arg0, s32 *, 0x20), &sp28, 0, 0, 0x20000, 1, 0) << 0x18) != 0)) {
                 var_s3 = 1;
             }
         }
@@ -498,7 +498,7 @@ block_94:
                     var_s3_2 = 0;
                 }
                 if (randomIntBelow(0x64) < (u32) var_s0_3) {
-                    var_s3_2 = (func_8007A9CC(arg0, M2C_FIELD(temp_s2, void **, 0xC0) + 0x24, &sp38, 0x432AAAAB) << 0x18) != 0;
+                    var_s3_2 = (func_8007A9CC(arg0, (s32)M2C_FIELD(temp_s2, void **, 0xC0) + 0x24, &sp38, 170.6666717529296875f) << 0x18) != 0;
                 }
             }
             func_8006899C(arg0, var_s3_2);

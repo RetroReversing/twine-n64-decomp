@@ -24,32 +24,27 @@ extern s32 D_8010A4F8;
 extern s16 gExpansionPakPresent;
 extern s32 gHiResScreen;
 
-s32 func_800219A0(u8 arg0) {
+s32 func_800219A0(s8 arg0) {
+    M2C_UNK *__base_D_8010A4E4;
     s32 var_s0;
-    s32 present;
-    s8 *flag = &D_8010A4C0;
-    s32 *mode;
+    s8 *__base_D_8010A4C0;
+
+    __base_D_8010A4C0 = &D_8010A4C0;
 
     var_s0 = 1;
-    present = gExpansionPakPresent;
-    *flag = arg0;
-    if (present != 0) goto configure;
-    if ((arg0 & 0xFF) == 0) goto configure;
-    {
-        *flag = 0;
+    (*__base_D_8010A4C0) = arg0;
+    if ((gExpansionPakPresent == 0) && (arg0 & 0xFF)) {
+        (*__base_D_8010A4C0) = 0;
         var_s0 = 0;
     }
-configure:
-    mode = (s32 *)((u8 *)flag + 0x24);
-    {
-        u8 enabled = *((volatile u8 *)mode - 0x24);
-        *mode = 0;
-        if (!enabled) {
-        mode[1] = 0;
-        mode[2] = 0;
-        mode[3] = 1;
-        mode[4] = 0;
-        mode[5] = 0;
+    __base_D_8010A4E4 = &D_8010A4E4;
+    M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 0;
+    if (M2C_FIELD(__base_D_8010A4E4, u8 *, -0x24) == 0) {
+        M2C_FIELD(__base_D_8010A4E4, s32 *, 4) = 0;
+        M2C_FIELD(__base_D_8010A4E4, s32 *, 8) = 0;
+        M2C_FIELD(__base_D_8010A4E4, s32 *, 0xC) = 1;
+        M2C_FIELD(__base_D_8010A4E4, s32 *, 0x10) = 0;
+        M2C_FIELD(__base_D_8010A4E4, s32 *, 0x14) = 0;
     } else {
         gHiResScreen = 0;
         D_8010A4EC = 1;
@@ -57,10 +52,9 @@ configure:
         D_8010A4F4 = 1;
         D_8010A4F8 = 0;
     }
-    }
     func_80007160();
     func_8007560C();
-    D_8010A4E4 = 1;
+    M2C_FIELD(__base_D_8010A4E4, s32 *, 0) = 1;
     func_80026450();
     return var_s0;
 }

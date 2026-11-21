@@ -1,78 +1,117 @@
-s32 saveWaitCommand(void);
-s32 saveFindTaggedSlot(void);
-u16 func_80010B60(u32);
-u16 saveVerifySlot(void);
-s32 saveSubmitCommand(u16, s32, s32, s32, s32, s32, s32, s32);
-u16 func_80012F50(void);
-extern u16 gSaveStatus;
-extern u16 D_800E0768[4];
-extern u8 D_800E076A[16];
-extern u8 D_800E076B[16];
-extern u8 gSaveSlotTable[];
-extern s16 D_800E0938, gSaveSlot, D_800E093C, D_800E093E;
-extern s16 gSaveSlotFlags[4];
-extern s32 gSaveCmdResult;
-extern volatile s16 D_801083D4[4];
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+s32 func_80010B60(s32);                             /* extern */
+s32 func_80012F50();                                /* extern */
+s32 saveFindTaggedSlot();                           /* extern */
+M2C_UNK saveSubmitCommand(M2C_UNK, void *, s16, M2C_UNK, s32, s32, s32, s32); /* extern */
+s32 saveVerifySlot(s32, s16, s16 *);                /* extern */
+M2C_UNK saveWaitCommand();                          /* extern */
+extern M2C_UNK D_800E0768;
+extern M2C_UNK D_800E076A;
+extern M2C_UNK D_800E076B;
+extern s16 D_800E0938;
+extern s16 D_800E093C;
+extern s16 D_800E093E;
+extern M2C_UNK D_801083D4;
 extern u8 D_80108F75;
-extern s16 gSaveSlotLoaded[4], gSaveSlotValid[4];
-extern s8 gSaveSlotCodeBuf, D_8010A3C6, D_8010A3C7, D_8010A3C8;
+extern s8 D_8010A3C6;
+extern s8 D_8010A3C7;
+extern s8 D_8010A3C8;
+extern s32 gSaveCmdResult;
+extern s16 gSaveSlot;
+extern s8 gSaveSlotCodeBuf;
+extern M2C_UNK gSaveSlotFlags;
+extern s16 gSaveSlotLoaded;
+extern M2C_UNK gSaveSlotTable;
+extern M2C_UNK gSaveSlotValid;
+extern u16 gSaveStatus;
+
 u16 func_80012C70(void) {
-    s16 *flags, *loaded;
-    s32 state = -1;
-    gSaveSlotCodeBuf = 0; D_8010A3C6 = 0; D_8010A3C7 = 0; D_8010A3C8 = 0;
+    M2C_UNK *__base_D_800E0768;
+    s16 *temp_a2;
+    s16 temp_v0_2;
+    s32 temp_a0;
+    s32 temp_v0;
+    s32 var_s0;
+    int temp_v1;
+
+    var_s0 = -1;
+    gSaveSlotCodeBuf = 0;
+    D_8010A3C6 = 0;
+    D_8010A3C7 = 0;
+    D_8010A3C8 = 0;
     D_800E093E = 0;
     gSaveSlot = 0;
     D_800E093C = -1;
     D_800E093E = 0;
     D_800E0938 = -1;
-    saveSubmitCommand(0xD, 0, 0, 0, 0, 0, 0, 0);
+    saveSubmitCommand(0xD, NULL, 0, 0, 0, 0, 0, 0);
     saveWaitCommand();
-    flags = gSaveSlotFlags;
-    loaded = gSaveSlotLoaded;
     gSaveSlot = 0;
-    for (;;) {
-        s32 i = gSaveSlot;
-        s16 *slotFlags = &flags[i];
-        s16 *slotLoaded = &loaded[i];
-        *slotFlags = 0;
-        *slotLoaded = 0;
-        gSaveSlotValid[i] = 0;
-        D_801083D4[i] = 0;
-        if (D_800E076B[i * 4] == 0 &&
-            (D_80108F75 >> i) != 0 &&
-            ((D_800E0768[i * 2] & 0x1F07) != 5 || (*slotFlags = 1, (D_800E076A[i * 4] & 1) != 0))) {
-            u32 state2 = saveVerifySlot();
-            switch (state2) {
-            case 0xA4:
-                if (state != 0 && gSaveSlot == 0) {
-                    state = 0;
-                    *loaded = 1;
-                    if (func_80012F50() == 0 && (u16)saveFindTaggedSlot() != 0) gSaveStatus = 0x30;
+loop_1:
+    temp_v0 = gSaveSlot * 2;
+    temp_a2 = (void *)(temp_v0); temp_a2 = (void *)((char *)temp_a2 + (s32)(&gSaveSlotFlags));
+    temp_a0 = gSaveSlot * 4;
+    *temp_a2 = 0;
+    (&gSaveSlotLoaded)[gSaveSlot] = 0;
+    ((u16 *) &gSaveSlotValid)[gSaveSlot] = 0;
+    ((s16 *) &D_801083D4)[gSaveSlot] = 0;
+    __base_D_800E0768 = &D_800E0768;
+    if ((*(&D_800E076B + temp_a0) == 0) && (((s32) D_80108F75 >> gSaveSlot) != 0) && (((*(__base_D_800E0768 + temp_a0) & 0x1F07) != 5) || (*temp_a2 = 1, ((*(&D_800E076A + temp_a0) & 1) != 0)))) {
+        temp_v1 = saveVerifySlot(temp_a0, gSaveSlot, temp_a2) & 0xFFFF;
+        switch (temp_v1) {                          /* irregular */
+        case 0xA4:
+            if ((var_s0 != 0) && (gSaveSlot == 0)) {
+                var_s0 = 0;
+                gSaveSlotLoaded = 1;
+                if (!(func_80012F50() & 0xFFFF) && (saveFindTaggedSlot() & 0xFFFF)) {
+                    gSaveStatus = 0x30;
                 }
-                break;
-            case 0xA5:
-                saveSubmitCommand(0xC, (s32)(gSaveSlotTable + gSaveSlot * 0x68), gSaveSlot, 0, 0, 0, 0, 0);
-                saveWaitCommand();
-                break;
-            case 0x12:
-            case 0x62:
-            case 0x63:
-                if (gSaveSlot == 0) return state2;
-                break;
-            case 0x20:
-                if (gSaveSlot == 0) goto ret20;
-                break;
             }
+            goto block_22;
+        case 0xA5:
+            saveSubmitCommand(0xC, (gSaveSlot * 0x68) + &gSaveSlotTable, gSaveSlot, 0, 0, 0, 0, 0);
+            saveWaitCommand();
+            goto block_22;
+        default:
+        case 0x12:
+            if (gSaveSlot == 0) {
+                return temp_v1;
+            }
+            goto block_22;
+        case 0x20:
+            if (gSaveSlot != 0) {
+                goto block_22;
+            }
+            return func_80010B60(gSaveCmdResult) & 0xFFFF;
         }
-        if (++gSaveSlot >= 4) {
-            if (state == 0) gSaveSlot = 0;
-            else state = -1;
-            if (0) {
-ret20:
-                return func_80010B60(gSaveCmdResult);
+    } else {
+block_22:
+        temp_v0_2 = (u16) gSaveSlot + 1;
+        gSaveSlot = temp_v0_2;
+        if (temp_v0_2 >= 4) {
+            if (var_s0 == 0) {
+                gSaveSlot = 0;
+            } else {
+                var_s0 = -1;
             }
-            if (state < 0) gSaveStatus = 0x10;
+            if (var_s0 < 0) {
+                gSaveStatus = 0x10;
+            }
             return gSaveStatus;
         }
+        goto loop_1;
     }
 }

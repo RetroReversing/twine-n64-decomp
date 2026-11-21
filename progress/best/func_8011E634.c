@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80076168(s32);                         /* extern */
-u16 func_8011A2A0(void);                                /* extern */
-M2C_UNK updateMenuCountdown();                            /* extern */
+s32 func_8011A2A0();                                /* extern */
+M2C_UNK func_8011C580();                            /* extern */
 M2C_UNK func_8011C674(M2C_UNK);                     /* extern */
 M2C_UNK func_8011C890();                            /* extern */
 M2C_UNK func_8011CAE4();                            /* extern */
@@ -33,40 +33,43 @@ extern s32 gBorderSkipFlag;
 extern u8 gSceneType;
 
 void func_8011E634(void) {
+    u32 *__base_D_801002B4;
     s16 var_v0;
     s32 temp_s1;
     s32 var_a0;
     s32 var_s0;
     s32 var_v0_2;
     s32 temp_v1;
-    u8 *flag;
     void *temp_s1_2;
 
     D_8011F0EE = 0x78;
     if (gVisibleSaveSlotCount >= 3) {
         var_v0 = 0xA0;
-        goto block_4;
-    }
-    var_v0 = 0x140;
-    if (gBorderFlipFlag == 1) {
-        D_8011F0EC = 0xA0;
-        D_8011F0EE = 0xF0;
-    } else {
-block_4:
         D_8011F0EC = var_v0;
+    } else {
+        var_v0 = 0x140;
+        if (gBorderFlipFlag == 1) {
+            D_8011F0EC = 0xA0;
+            D_8011F0EE = 0xF0;
+        } else {
+            D_8011F0EC = var_v0;
+        }
     }
-    flag = &D_801002AE;
+    {
+    volatile u8 *flag = &D_801002AE;
     if (*flag == 0) {
         func_8011C674(-1);
         if (*flag == 0) {
-            updateMenuCountdown();
+            func_8011C580();
         }
+    }
     }
     temp_v1 = gSceneType;
     if ((s32) temp_v1 < 6) {
         var_v0_2 = (s32) temp_v1 < 2;
         if ((s32) temp_v1 >= 4) {
             func_8011C890();
+            temp_v1 = gSceneType;
             goto block_11;
         }
     } else {
@@ -83,12 +86,13 @@ block_11:
         }
     }
     func_8011DC18();
-    if ((((gBorderSkipFlag != 0) && (D_801002AC != 0)) || func_8011A2A0()) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
+    if ((((gBorderSkipFlag != 0) && (D_801002AC != 0)) || (func_8011A2A0() & 0xFFFF)) && (temp_s1 = D_8011F3A8 - 1, D_8011F3A8 = temp_s1, (temp_s1 <= 0))) {
         if (temp_s1 == 0) {
             var_s0 = 0;
             func_8011E894();
-            temp_s1_2 = (u8 *)&D_801002B4 - 6;
-            if (temp_s1 < D_801002B4) {
+            __base_D_801002B4 = &D_801002B4;
+            temp_s1_2 = __base_D_801002B4 - 6;
+            if (temp_s1 < (*__base_D_801002B4)) {
                 var_a0 = 0 & 0xFF;
                 do {
                     M2C_FIELD(temp_s1_2, s8 *, 0) = 1;
@@ -102,6 +106,3 @@ block_11:
         }
     }
 }
-
-
-

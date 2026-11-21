@@ -37,7 +37,8 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
     temp_s1 = arg1 & 0xFFFF;
     temp_s0 = temp_s1 * 0x10;
     temp_v0 = *(M2C_UNK (**)(void *))((u8 *)&D_800C447C + temp_s0);
-    var_s7 = var_s4 = -1;
+    var_s7 = -1;
+    var_s4 = -1;
     if (temp_v0 != NULL) {
         temp_v0(arg0);
     }
@@ -52,6 +53,5 @@ void func_8005E350(void *arg0, s32 arg1, s32 arg2) {
         func_80084338(*(u16 *)((u8 *)&D_800C4484 + temp_s0), arg0 + 0x24);
         return;
     }
-    func_8000A894(*(u16 *)((u8 *)&D_800C4484 + temp_s0));
+    func_8000A894(*(&D_800C4484 + temp_s0));
 }
-

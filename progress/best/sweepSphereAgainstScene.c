@@ -72,10 +72,10 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     s32 temp_s4_4;
     s32 temp_s5;
     s32 temp_s5_2;
-    s32 temp_s7;
-    s32 temp_t2;
+    register unsigned temp_s7;
+    register s32 temp_t2;
     s32 temp_v0;
-    s32 temp_v0_2;
+    register s32 temp_v0_2;
     s32 temp_v1_10;
     s32 temp_v1_12;
     s32 temp_v1_15;
@@ -91,7 +91,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     s32 var_s5;
     s32 var_s7;
     s32 var_t2;
-    s32 var_v0;
+    register s32 var_v0;
     s32 var_v1;
     u16 *var_s3;
     u8 *var_s3_2;
@@ -110,11 +110,11 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     u32 temp_v1_3;
     u32 temp_v1_8;
     u32 var_s2;
-    u8 temp_v1_2;
+    s32 temp_v1_2;
     void **var_a0;
     void **var_s6;
     void *temp_s1;
-    void *temp_s4;
+    register void *temp_s4;
     void *temp_v0_3;
     void *var_s1;
     void *var_s2_2;
@@ -127,8 +127,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     sp12C = arg0;
     sp134 = arg1;
     sp13C = arg2;
-    gPlayerActor = NULL;
     D_80108F84 = NULL;
+    gPlayerActor = NULL;
     var_fs0 = arg3;
     if (sp12C != NULL) {
         sp18[0] = 0.0f;
@@ -136,8 +136,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
         sp18[2] = 0.0f;
         vec28.x = (*(f32 *)((char *)(sp134) + 0));
         vec28.y = (*(f32 *)((char *)(sp134) + 4)) - var_fs0;
-        sp154 = matrix;
         sp15C = &vec38.x;
+        sp154 = matrix;
         vec28.z = (*(f32 *)((char *)(sp134) + 8));
         sp164 = &vec48.x;
         sp16C = &scratch.first.direction.x;
@@ -166,7 +166,7 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
 
                                         } else {
                                             temp_v1_2 = (*(u8 *)((char *)((*(void **)((char *)(var_s1) + 0x6C))) + 0x4A));
-                                            if (((s32) temp_v1_2 >= 0xE) || (var_s2 = 1, (((s32) temp_v1_2 < 0xA) != 0))) {
+                                            if (((s32) temp_v1_2 >= 0xE) || (var_s2 = 1, ((temp_v1_2 < 0xA) != 0))) {
                                                 goto block_16;
                                             }
                                         }
@@ -176,7 +176,7 @@ block_16:
 block_17:
                                     var_s2 = 0;
                                 }
-                                if ((var_s2 == 0) && ((func_800487F0(var_s1, sp134, arg3) << 0x18) != 0)) {
+                                if ((!var_s2) && ((func_800487F0(var_s1, sp134, arg3) << 0x18) != 0)) {
                                     temp_s4 = (*(void **)((char *)(var_s1) + 0x70));
                                     scratch.angles[0] = (s16) (s32) -(*(f32 *)((char *)(var_s1) + 0x3C));
                                     scratch.angles[1] = (s16) (s32) -(*(f32 *)((char *)(var_s1) + 0x40));
@@ -215,14 +215,14 @@ block_17:
                                                         temp_v1_5 = (*(s32 *)((char *)(temp_s4) + 0x34));
                                                         sp1A0 = var_t2;
                                                         var_t2 = sp1A0;
-                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_5 + (*var_s3 * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s2_2) + -2)) * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s2_2) + 0)) * 0xC), sp174) & 0xFF) && (spA0 >= 0.0f) && (var_fs0 > spA0)) {
+                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_5 + (*var_s3 * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s2_2) + -2)) * 0xC), temp_v1_5 + ((*(u16 *)((char *)(var_s2_2) + 0)) * 0xC), sp174) & 0xFF) && (spA0 >= 0.0f) && (spA0 < var_fs0)) {
                                                             var_fs0 = spA0;
                                                             var_s7 = temp_s5;
                                                         }
                                                     }
                                                     var_s2_2 += 6;
-                                                    var_s0 += 1;
                                                     var_s3 += 3;
+                                                    var_s0 += 1;
                                                 } while ((u32) (var_s0 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s4) + 0x40)));
                                             }
                                         } else {
@@ -234,17 +234,17 @@ block_17:
                                                     temp_s5_2 = var_s0_2 & 0xFFFF;
                                                     temp_v1_6 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_s5_2 * 2)));
                                                     if ((var_t2 & temp_v1_6) && (temp_fp & temp_v1_6)) {
-                                                        sp1A0 = var_t2;
                                                         temp_v1_7 = (*(s32 *)((char *)(temp_s4) + 0x34));
+                                                        sp1A0 = var_t2;
                                                         var_t2 = sp1A0;
-                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + (*var_s3_2 * 0xC), temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + -1)) * 0xC), temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + 0)) * 0xC), sp174) & 0xFF) && (spA0 >= 0.0f) && (spA0 < var_fs0)) {
+                                                        if ((func_8004D910(&vec38.x, &scratch.first.direction.x, temp_v1_7 + (*var_s3_2 * 0xC), (u32)temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + -1)) * 0xC), temp_v1_7 + ((*(u8 *)((char *)(var_s2_3) + 0)) * 0xC), sp174) & 0xFF) && ((s32)spA0 >= 0.0f) && (spA0 < var_fs0)) {
                                                             var_fs0 = spA0;
                                                             var_s7 = temp_s5_2;
                                                         }
                                                     }
                                                     var_s2_3 += 3;
-                                                    var_s0_2 += 1;
                                                     var_s3_2 += 3;
+                                                    var_s0_2 += 1;
                                                 } while ((u32) (var_s0_2 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s4) + 0x40)));
                                             }
                                         }
@@ -260,7 +260,7 @@ block_17:
                         } while (var_s1 != NULL);
                     }
                     var_a0 = NULL;
-                    if (sp14C != NULL) {
+                    if (sp14C != (int)NULL) {
                         var_a0 = (*(void ***)((char *)(sp14C) + 8));
                         sp14C = (*(void **)((char *)(sp14C) + 0));
                     }
@@ -268,10 +268,10 @@ block_17:
             }
             if (var_s6 != NULL) {
                 sp17C = (s16 *) &scratch.point;
-                sp184 = &result.second.end.x;
-                sp18C = &vecA8.x;
                 sp194 = &spE0;
                 sp19C = &spE4;
+                sp184 = &result.second.end.x;
+                sp18C = &vecA8.x;
                 do {
                     if (((*(s32 *)((char *)(var_s6) + 0x50)) & 0x200) && (((u32) (*(u32 *)((char *)(var_s6) + 0x5C)) >> 0x11) & 0x3F & arg7) && ((Sphere_OverlapsPoint((void **)((u8 *)var_s6 + 0x40), sp134, arg3) << 0x18) != 0)) {
                         vec48 = *(SweepVec *)&D_800D3E18;
@@ -327,7 +327,7 @@ block_17:
                                             temp_v1_11 = (*(u16 *)((char *)((*(void **)((char *)(temp_s1) + 0x38))) + (temp_s4_2 * 2)));
                                             if ((temp_fp_2 & temp_v1_11) && (temp_s7 & temp_v1_11)) {
                                                 temp_v1_12 = (*(s32 *)((char *)(temp_s1) + 0x34));
-                                                if ((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_12 + (*var_s3_4 * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + -1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (spE0 < var_fs0)) {
+                                                if ((rayHitsTriangleXZ(&scratch.point.x, &vec48.x, temp_v1_12 + (*var_s3_4 * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + -1)) * 0xC), temp_v1_12 + ((*(u8 *)((char *)(var_s2_5) + 0)) * 0xC), sp194) & 0xFF) && (spE0 >= 0.0f) && (var_fs0 > spE0)) {
                                                     var_fs0 = spE0;
                                                     var_s5 = temp_s4_2;
                                                 }
@@ -337,7 +337,10 @@ block_17:
                                             var_s3_4 += 3;
                                         } while ((u32) (var_s0_4 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s1) + 0x40)));
                                     }
-                                    goto block_102;
+                                    if (var_s5 != -1) {
+                                        gPlayerActor = NULL;
+                                        D_80108F84 = var_s6;
+                                    }
                                 }
                             } else {
                                 temp_v1_13 = (*(u8 *)((char *)(temp_s1) + 0x48)) & 4;
@@ -368,7 +371,7 @@ block_17:
                                     if (temp_v1_13 < (u16) (*(u16 *)((char *)(temp_s1) + 0x40))) {
                                         var_s2_7 = var_s3_6 + 2;
                                         do {
-                                            temp_s4_4 = var_s0_6 & 0xFFFF;
+                                            temp_s4_4 = (int)var_s0_6 & 0xFFFF;
                                             temp_v1_16 = (*(u16 *)((char *)((*(void **)((char *)(temp_s1) + 0x38))) + (temp_s4_4 * 2)));
                                             if ((temp_fp_2 & temp_v1_16) && (temp_s7 & temp_v1_16)) {
                                                 temp_v1_17 = (*(s32 *)((char *)(temp_s1) + 0x34));
@@ -378,12 +381,11 @@ block_17:
                                                 }
                                             }
                                             var_s2_7 += 3;
-                                            var_s0_6 += 1;
                                             var_s3_6 += 3;
+                                            var_s0_6 += 1;
                                         } while ((u32) (var_s0_6 & 0xFFFF) < (u16) (*(u16 *)((char *)(temp_s1) + 0x40)));
                                     }
                                 }
-block_102:
                                 if (var_s5 != -1) {
                                     gPlayerActor = NULL;
                                     D_80108F84 = var_s6;
@@ -402,7 +404,7 @@ block_102:
                         var_v0 = 0;
                     }
                     var_v1 = 1;
-                    if (!(temp_fv1 < var_fs0)) {
+                    if (!(var_fs0 > temp_fv1)) {
                         var_v1 = 0;
                     }
                     if (var_v0 & var_v1) {
@@ -433,7 +435,7 @@ block_102:
             (*(f32 *)((char *)(sp13C) + 0)) = (f32) (*(f32 *)((char *)(sp134) + 0));
             (*(f32 *)((char *)(sp13C) + 4)) = (f32) ((*(f32 *)((char *)(sp134) + 4)) - var_fs0);
             (*(f32 *)((char *)(sp13C) + 8)) = (f32) (*(f32 *)((char *)(sp134) + 8));
-            goto hit;
+            return 1;
         }
         vecA8.x = (*(f32 *)((char *)(gPlayerActor) + 0x3C)) - (*(f32 *)((char *)(gPlayerActor) + 0x48));
         vecA8.y = (*(f32 *)((char *)(gPlayerActor) + 0x40)) - (*(f32 *)((char *)(gPlayerActor) + 0x4C));
@@ -476,7 +478,6 @@ block_102:
             (*(f32 *)((char *)(arg5) + 4)) = vecA8.y;
             (*(f32 *)((char *)(arg5) + 8)) = vecA8.z;
         }
-hit:
         return 1;
     }
 block_131:

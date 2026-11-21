@@ -96,7 +96,7 @@ void func_80036BBC(void *arg0) {
     if (var_s2 != NULL) {
 loop_12:
         var_s0 = (*(void **)((char *)(var_s2) + 0x14));
-        func_80034630(var_s2, arg0);
+        do { func_80034630(var_s2, arg0); } while (0);
         emitPrimColor(var_s2, arg0);
         if (var_s0 != NULL) {
 loop_13:

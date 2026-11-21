@@ -12,27 +12,27 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 requestSound();
-s32 func_8002B150();
-f32 approxDistance();
-s32 setActorStatusBits();
-s32 func_80073AF8();
-s32 lookupDataEntry();
-s32 sprintf();
-extern u8 gSceneType;
+f32 approxDistance(s32, void *);                    /* extern */
+M2C_UNK func_8002B150(void *, s32, M2C_UNK);        /* extern */
+M2C_UNK func_80073AF8(M2C_UNK, s32, M2C_UNK *, M2C_UNK, s32, s32, s32, s32, s32, s32, s32); /* extern */
+s32 lookupDataEntry(s32);                           /* extern */
+M2C_UNK requestSound(M2C_UNK);                      /* extern */
+M2C_UNK setActorStatusBits(void *, s32, s32, s32);  /* extern */
+M2C_UNK sprintf(M2C_UNK *, M2C_UNK *, M2C_UNK, s32, s32); /* extern */
 extern s32 D_8010969C;
-extern char D_8011F000[];
-extern char D_8011F140[];
-extern u8 D_8011F168[];
-extern char D_8011F170[];
-extern char D_8011F280[];
-extern char sProbeStates[];
-extern char sProbePositions[];
-extern char sProbeActors[];
+extern M2C_UNK D_8011F000;
+extern M2C_UNK D_8011F170;
+extern u8 gSceneType;
+extern M2C_UNK sProbeActive;
+extern M2C_UNK sProbeActors;
+extern M2C_UNK sProbeOriginTable;
+extern M2C_UNK sProbePositions;
+extern M2C_UNK sProbeStates;
+extern M2C_UNK sProbeTimers;
 
 typedef struct { s32 w[3]; } __repair_words3;
 void func_8011BF0C(void *arg0) {
-    s32 var_a2;
+    M2C_UNK var_a2;
     s32 temp_a0;
     s32 temp_a0_2;
     s32 temp_a1;
@@ -40,11 +40,9 @@ void func_8011BF0C(void *arg0) {
     s32 temp_a3;
     s32 temp_s0;
     s32 temp_s0_2;
-    s32 temp_s1;
     s32 temp_s1_2;
     s32 temp_s4;
     s32 temp_v0;
-    s32 temp_v0_5;
     s32 temp_v1;
     void **temp_a0_3;
     void *temp_a0_4;
@@ -54,51 +52,57 @@ void func_8011BF0C(void *arg0) {
     void *temp_v0_4;
     void *temp_v1_2;
     void *temp_v1_3;
+    M2C_UNK *__base_D_8011F170;
 
-    if ((gSceneType != 3) || (*(D_8011F168 + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
+    __base_D_8011F170 = &D_8011F170;
+
+    if ((gSceneType != 3) || (*(&sProbeActive + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
         temp_s4 = M2C_FIELD(arg0, u8 *, 0x7B) ^ 1;
-        temp_s0 = temp_s4 & 0xFF;
-        temp_s1 = temp_s0 * 4;
-        temp_a0 = *(s32 *)(sProbeActors + temp_s1);
+        temp_v1 = temp_s4 & 0xFF;
+    temp_s0 = temp_v1;
+        temp_a0 = ((u32 *) &sProbeActors)[temp_s0];
         if ((temp_a0 != 0) && (approxDistance(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
-            if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
+            if (((u32 *) &sProbeOriginTable)[temp_s0] != 0) {
                 temp_s1_2 = lookupDataEntry((-(temp_s0 == 0) & 0x6F) | 0x6E);
                 temp_v0 = lookupDataEntry(0x28D);
                 var_a2 = 0xC;
                 if (temp_s0 == 0) {
                     var_a2 = 5;
                 }
-                sprintf(D_8011F170, D_8011F000, var_a2, temp_s1_2, temp_v0);
-                func_80073AF8(0, D_8010969C, D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+                sprintf(__base_D_8011F170, &D_8011F000, var_a2, temp_s1_2, temp_v0);
+                /*__repair_pointer_balance*/if ((unsigned long)__base_D_8011F170 & 0x100) {
+func_80073AF8(0, D_8010969C, __base_D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+} else {
+func_80073AF8(0, D_8010969C, __base_D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+}
                 requestSound(0x21A);
             }
             temp_a0_2 = M2C_FIELD(arg0, s16 *, 0x7A) * 8;
-            func_8002B150(temp_a0_2 + D_8011F140, (*(s32 *)(D_8011F140 + temp_a0_2) + 1) & 0xFF, 0);
+            func_8002B150(temp_a0_2 + &sProbeTimers, (*(&sProbeTimers + temp_a0_2) + 1) & 0xFF, 0);
             temp_v1 = temp_s4 & 0xFF;
             temp_s0_2 = temp_v1 * 4;
-            temp_a0_3 = temp_s0_2 + sProbeActors;
+            temp_a0_3 = temp_s0_2 + &sProbeActors;
             temp_a2 = *temp_a0_3;
-            temp_v0_2 = (temp_v1 * 0xC) + sProbePositions;
+            temp_v0_2 = (void *)((temp_v1 * 0xC)); temp_v0_2 = (void *)((char *)temp_v0_2 + (s32)(&sProbePositions));
             M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
             temp_v1_2 = *temp_a0_3;
-            temp_s0 = M2C_FIELD(temp_v0_2, s32 *, 0);
+            temp_a1 = M2C_FIELD(temp_v0_2, s32 *, 0);
             temp_a2_2 = M2C_FIELD(temp_v0_2, s32 *, 4);
             temp_a3 = M2C_FIELD(temp_v0_2, s32 *, 8);
-            M2C_FIELD(temp_v1_2, s32 *, 0x30) = temp_s0;
+            M2C_FIELD(temp_v1_2, s32 *, 0x30) = temp_a1;
             M2C_FIELD(temp_v1_2, s32 *, 0x34) = temp_a2_2;
             M2C_FIELD(temp_v1_2, s32 *, 0x38) = temp_a3;
-            setActorStatusBits(*temp_a0_3);
-            temp_v0_3 = *(s32 *)(D_8011F280 + temp_s0_2);
+            setActorStatusBits(*temp_a0_3, temp_a1, temp_a2_2, temp_a3);
+            temp_v0_3 = ((u32 *) &sProbeOriginTable)[temp_v1];
             if (temp_v0_3 != NULL) {
                 temp_v0_4 = M2C_FIELD(temp_v0_3, void **, 0x6C);
                 if (temp_v0_4 != NULL) {
                     temp_v1_3 = M2C_FIELD(temp_v0_4, void **, 0xB4);
-                    M2C_FIELD(temp_v1_3, u16 *, 0xC) += 0xA;
+                    M2C_FIELD(temp_v1_3, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_3, u16 *, 0xC) + 0xA);
                 }
             }
-            temp_v0_5 = temp_s4 * 4;
-            temp_a0_4 = *(s32 *)(sProbeStates + temp_v0_5);
-            *(s32 *)(D_8011F280 + temp_v0_5) = 0;
+            temp_a0_4 = ((u32 *) &sProbeStates)[temp_s4];
+            ((u32 *) &sProbeOriginTable)[temp_s4] = 0;
             M2C_FIELD(temp_a0_4, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_a0_4, s32 *, 0x28) & ~0xFC) | 0x1C);
             M2C_FIELD(arg0, s32 *, 0x3C) = 0;
             M2C_FIELD(arg0, s32 *, 0x40) = 0;

@@ -39,7 +39,7 @@ M2C_UNK func_80064264(f32 *, f32 *, u16);           /* extern */
 void *func_80064A18(s16, f32 *, f32 *, u16 *);      /* extern */
 M2C_UNK func_80073634(u16 *, s32);                  /* extern */
 void *func_800750B0(f32 *, f32 *, u16 *);           /* extern */
-void *func_80079CB4(f32 *, f32 *, u16 *, u8, s32, s32, s32); /* extern */
+void *func_80079CB4(f32 *, f32 *, u16 *, u8, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80083E24(s32);                                /* extern */
 M2C_UNK func_80083E44(s32);                         /* extern */
 M2C_UNK func_80084048(u16 *, M2C_UNK);              /* extern */
@@ -134,7 +134,7 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     M2C_UNK var_a3_2;
     f32 *var_s0;
     f32 *var_s1_2;
-    s16 var_s7_2;
+    u16 var_s7_2;
     s32 *var_s0_2;
     s32 temp_a0;
     s32 temp_fv0;
@@ -159,8 +159,8 @@ void func_80042CFC(s32 arg0, s32 arg1) {
     u32 var_s1_3;
     u8 temp_v1;
     u8 temp_v1_2;
-    u8 temp_v1_4;
-    u8 temp_v1_5;
+    s32 temp_v1_4;
+    s32 temp_v1_5;
     void *temp_fp;
     void *temp_v0;
     void *var_s3;
@@ -196,9 +196,7 @@ void func_80042CFC(s32 arg0, s32 arg1) {
             switch (temp_v1) {                      /* switch 1 */
             case 0x39:                              /* switch 1 */
                 var_a0 = 0xD;
-block_31:
-                var_s3 = func_800592D0(var_a0, &locals.sp40, &locals.sp50, var_s4, var_s1, (s32) M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x38));
-                break;
+                goto block_31;
             case 0x37:                              /* switch 1 */
             case 0xA2:                              /* switch 1 */
             case 0xA4:                              /* switch 1 */
@@ -282,7 +280,9 @@ block_31:
                 goto block_31;
             case 0x2:                               /* switch 1 */
                 var_a0 = 7;
-                goto block_31;
+block_31:
+                var_s3 = func_800592D0(var_a0, &locals.sp40, &locals.sp50, var_s4, var_s1, (s32) M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x38));
+                break;
             case 0x58:                              /* switch 1 */
                 func_80119D4C(M2C_FIELD(var_s2, u16 *, -0x10), var_s1, M2C_FIELD(var_s2, u16 *, -0x3A));
                 break;
@@ -294,22 +294,18 @@ block_31:
                     var_s3 = func_801178D0(var_s4, var_s1, M2C_FIELD(var_s2, u16 *, -0x3A));
                 }
                 break;
-            case 0x1C:                              /* switch 1 */
-                var_a3 = 0x35;
-block_38:
-                var_s3 = func_8005AD00(&locals.sp40, &locals.sp50, var_s4, var_a3);
+            case 0x1C:
+                var_s3 = func_8005AD00(&locals.sp40, &locals.sp50, var_s4, 0x35);
                 break;
-            case 0x1D:                              /* switch 1 */
-                var_a3 = 0x36;
-                goto block_38;
-            case 0x62:                              /* switch 1 */
-                var_a2 = 0x40;
-block_41:
-                var_s3 = spawnTrackMarkerObject(&locals.sp40, var_s4, var_a2);
+            case 0x1D:
+                var_s3 = func_8005AD00(&locals.sp40, &locals.sp50, var_s4, 0x36);
                 break;
-            case 0x7B:                              /* switch 1 */
-                var_a2 = 0x51;
-                goto block_41;
+            case 0x62:
+                var_s3 = spawnTrackMarkerObject(&locals.sp40, var_s4, 0x40);
+                break;
+            case 0x7B:
+                var_s3 = spawnTrackMarkerObject(&locals.sp40, var_s4, 0x51);
+                break;
             case 0x9:                               /* switch 1 */
             case 0xA:                               /* switch 1 */
             case 0xB:                               /* switch 1 */
@@ -336,16 +332,6 @@ block_41:
             case 0x11:                              /* switch 1 */
                 temp_v1_3 = M2C_FIELD(var_s2, u16 *, -8);
                 switch (temp_v1_3) {                /* switch 3 */
-                case 2:                             /* switch 3 */
-                case 3:                             /* switch 3 */
-                case 28:                            /* switch 3 */
-                case 29:                            /* switch 3 */
-                case 30:                            /* switch 3 */
-                case 50:                            /* switch 3 */
-                    if (temp_s6 == 0) {
-                        var_s3 = spawnProbeEffect(&locals.sp40, &locals.sp50, var_s1, M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x10), (s32) M2C_FIELD(var_s2, u16 *, -0xE), (s32) M2C_FIELD(var_s2, u16 *, -0xC), (s32) M2C_FIELD(var_s2, u16 *, -0xA), (s32) M2C_FIELD(var_s2, u16 *, -8), (s32) M2C_FIELD(var_s2, u16 *, -6), (s32) M2C_FIELD(var_s2, u16 *, -4), (s32) M2C_FIELD(var_s2, u16 *, -2), 0, (s32) M2C_FIELD(var_s2, u8 *, 3), (s32) M2C_FIELD(var_s2, u16 *, 4));
-                    }
-                    break;
                 case 0:                             /* switch 3 */
                 case 1:                             /* switch 3 */
                 case 4:                             /* switch 3 */
@@ -392,15 +378,24 @@ block_41:
                 case 48:                            /* switch 3 */
                 case 49:                            /* switch 3 */
                     if (temp_s6 == 0) {
-block_64:
-                        var_s3 = func_80079CB4(&locals.sp40, &locals.sp50, var_s1, M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u8 *, 3), (s32) M2C_FIELD(var_s2, u16 *, 4), 0);
+                        var_s3 = func_80079CB4(&locals.sp40, &locals.sp50, var_s1, M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x10), (s32) M2C_FIELD(var_s2, u16 *, -0xE), (s32) M2C_FIELD(var_s2, u16 *, -0xC), (s32) M2C_FIELD(var_s2, u16 *, -0xA), (s32) M2C_FIELD(var_s2, u16 *, -8), (s32) M2C_FIELD(var_s2, u16 *, -6), (s32) M2C_FIELD(var_s2, u16 *, -4), (s32) M2C_FIELD(var_s2, u16 *, -2), 0, (s32) M2C_FIELD(var_s2, u8 *, 3), (s32) M2C_FIELD(var_s2, u16 *, 4), 0);
+                    }
+                    break;
+                case 2:                             /* switch 3 */
+                case 3:                             /* switch 3 */
+                case 28:                            /* switch 3 */
+                case 29:                            /* switch 3 */
+                case 30:                            /* switch 3 */
+                case 50:                            /* switch 3 */
+                    if (temp_s6 == 0) {
+                        var_s3 = spawnProbeEffect(&locals.sp40, &locals.sp50, var_s1, M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x10), (s32) M2C_FIELD(var_s2, u16 *, -0xE), (s32) M2C_FIELD(var_s2, u16 *, -0xC), (s32) M2C_FIELD(var_s2, u16 *, -0xA), (s32) M2C_FIELD(var_s2, u16 *, -8), (s32) M2C_FIELD(var_s2, u16 *, -6), (s32) M2C_FIELD(var_s2, u16 *, -4), (s32) M2C_FIELD(var_s2, u16 *, -2), 0, (s32) M2C_FIELD(var_s2, u8 *, 3), (s32) M2C_FIELD(var_s2, u16 *, 4));
                     }
                     break;
                 }
                 break;
-            case 0xF:                               /* switch 1 */
+            case 0xF:
                 if (temp_s6 == 0) {
-                    goto block_64;
+                    var_s3 = func_80079CB4(&locals.sp40, &locals.sp50, var_s1, M2C_FIELD(var_s2, u8 *, -0x39), (s32) M2C_FIELD(var_s2, u16 *, -0x10), (s32) M2C_FIELD(var_s2, u16 *, -0xE), (s32) M2C_FIELD(var_s2, u16 *, -0xC), (s32) M2C_FIELD(var_s2, u16 *, -0xA), (s32) M2C_FIELD(var_s2, u16 *, -8), (s32) M2C_FIELD(var_s2, u16 *, -6), (s32) M2C_FIELD(var_s2, u16 *, -4), (s32) M2C_FIELD(var_s2, u16 *, -2), 2, (s32) M2C_FIELD(var_s2, u8 *, 3), (s32) M2C_FIELD(var_s2, u16 *, 4), 0);
                 }
                 break;
             case 0x54:                              /* switch 1 */
@@ -740,19 +735,19 @@ advance_record:
     }
     if (gBorderSkipActive != 0) {
         temp_v0_7 = gSaveTotalSlots;
-        var_s7_2 = 0;
+        var_s7 = 0;
         if (temp_v0_7 > 0) {
             var_s1_2 = &gTrackMarkerRotTable;
             var_s0 = &gTrackMarkerPosTable;
             do {
-                func_80064A18(var_s7_2, var_s0, var_s1_2, var_s4);
+                func_80064A18((s16)var_s7, var_s0, var_s1_2, var_s4);
                 var_s1_2 += 3;
-                var_s7_2 += 1;
+                var_s7 += 1;
                 var_s0 += 3;
-            } while (var_s7_2 < gSaveTotalSlots);
+            } while (var_s7 < gSaveTotalSlots);
         }
         var_s7_3 = 0;
-        if (temp_v0_7 > 0) {
+        if (gSaveTotalSlots > 0) {
             var_s0_2 = &sBonusObjectTable;
             do {
                 temp_a0 = *var_s0_2;

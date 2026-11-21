@@ -64,14 +64,16 @@ void func_80091A24(void *arg0, s32 *arg1, s32 arg2) {
     s32 temp_s2_4;
     s32 temp_t0;
     s32 temp_v0;
-    s32 temp_v0_10;
-    s32 temp_v0_2;
+    
+    
     s32 temp_v0_3;
+s32 __repair_phase_temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
     s32 temp_v0_6;
     s32 temp_v0_7;
     s32 temp_v0_8;
+s32 __repair_phase_temp_v0_8;
     s32 temp_v0_9;
     s32 temp_v1_2;
     s32 var_a1_2;
@@ -143,16 +145,16 @@ loop_1:
         var_t0 = var_a0 | (temp_a2 & 0x80000000);
         goto have_index;
     handle_flags:
-        temp_v0_2 = temp_v1 & 1;
+        temp_v0 = temp_v1 & 1;
         if (arg2 & 0xFF) {
-            if (temp_v0_2 != 0) {
+            if (temp_v0 != 0) {
                 func_80091654(0U, M2C_FIELD(arg0, u16 *, 4), M2C_FIELD(arg0, s32 *, 0), 2);
             } else if (temp_v1 & 0x40) {
                 func_80091654(0U, M2C_FIELD(arg0, u16 *, 4), M2C_FIELD(arg0, s32 *, 0), 3);
             } else {
                 func_80091654(0U, M2C_FIELD(arg0, u16 *, 4), M2C_FIELD(arg0, s32 *, 0), 1);
             }
-        } else if (temp_v0_2 != 0) {
+        } else if (temp_v0 != 0) {
             temp_s1 = M2C_FIELD(arg0, u16 *, 4);
             temp_s2 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
@@ -161,11 +163,11 @@ loop_1:
                 workerLockRelease();
             }
         } else if (temp_v1 & 0x40) {
-            temp_s1_2 = M2C_FIELD(arg0, u16 *, 4);
+            temp_s1 = M2C_FIELD(arg0, u16 *, 4);
             temp_s2_2 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
                 workerLockAcquire();
-                func_80091654(0U, temp_s1_2, temp_s2_2, 3);
+                func_80091654(0U, temp_s1, temp_s2_2, 3);
                 workerLockRelease();
             }
         } else {
@@ -173,11 +175,11 @@ loop_1:
 found_33: var_v1_3 = var_a0_2 | (temp_a2_2 & 0x80000000); goto join_33;
 found_40: var_v0 = var_a0_3 | (temp_a1_3 & 0x80000000); goto join_40;
 skip_33:
-            temp_s1_3 = M2C_FIELD(arg0, u16 *, 4);
+            temp_s1 = M2C_FIELD(arg0, u16 *, 4);
             temp_s2_3 = M2C_FIELD(arg0, s32 *, 0);
             if (gWorkerActive != 0) {
                 workerLockAcquire();
-                func_80091654(0U, temp_s1_3, temp_s2_3, 1);
+                func_80091654(0U, temp_s1, temp_s2_3, 1);
                 workerLockRelease();
             }
         }
@@ -204,19 +206,21 @@ loop_33:
                     var_a0_3 = 0;
                     if (arg2 & 0xFF) {
                         temp_a1_3 = M2C_FIELD(arg0, s32 *, 8);
-                        temp_v0_2 = temp_a1_3 & 0x7FFFFFFF;
+                        temp_v0 = temp_a1_3 & 0x7FFFFFFF;
                         var_v1_4 = 0;
-loop_40:
-                        if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_4) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_4) != temp_v0_2)) {
-                            var_a0_3 += 1;
-                            var_v1_4 += 0xFF8;
-                            if (var_a0_3 >= 8U) {
-                                var_v0 = -1;
+                        for (;;) {
+                            if ((M2C_FIELD(&D_800E6A85, u8 *, var_v1_4) != 0) || (M2C_FIELD(&gSoundEntities, s32 *, var_v1_4) != temp_v0)) {
+                                var_a0_3 += 1;
+                                var_v1_4 += 0xFF8;
+                                if (var_a0_3 >= 8U) {
+                                    var_v0 = -1;
+                                } else {
+                                    continue;
+                                }
                             } else {
-                                goto loop_40;
+                                goto found_40;
                             }
-                        } else {
-                            goto found_40;
+                            break;
                         }
                         join_40:
                         if (var_v0 != -1) {
@@ -253,9 +257,9 @@ loop_51:
                             join_51:
                             if (var_v0_2 != -1) {
                                 if (var_v0_2 >= 0) {
-                                    temp_v0_3 = var_v0_2 * 0xFF8;
-                                    M2C_FIELD(&D_800E5BD4, s32 *, temp_v0_3) = temp_a3;
-                                    M2C_FIELD(&D_800E5BD8, s32 *, temp_v0_3) = temp_t0;
+                                    __repair_phase_temp_v0_3 = var_v0_2 * 0xFF8;
+                                    M2C_FIELD(&D_800E5BD4, s32 *, __repair_phase_temp_v0_3) = temp_a3;
+                                    M2C_FIELD(&D_800E5BD8, s32 *, __repair_phase_temp_v0_3) = temp_t0;
                                 } else {
                                     temp_v0_4 = (var_v0_2 & 0x7FFFFFFF) * 0xFF8;
                                     M2C_FIELD(&D_800E6AA8, s32 *, temp_v0_4) = temp_a3;
@@ -392,9 +396,9 @@ loop_100:
                     join_100:
                     if (var_v0_5 != -1) {
                         if (var_v0_5 >= 0) {
-                            temp_v0_8 = var_v0_5 * 0xFF8;
-                            M2C_FIELD(&D_800E5BD4, s32 *, temp_v0_8) = 0;
-                            M2C_FIELD(&D_800E5BD8, s32 *, temp_v0_8) = 0;
+                            __repair_phase_temp_v0_8 = var_v0_5 * 0xFF8;
+                            M2C_FIELD(&D_800E5BD4, s32 *, __repair_phase_temp_v0_8) = 0;
+                            M2C_FIELD(&D_800E5BD8, s32 *, __repair_phase_temp_v0_8) = 0;
                             return;
                         }
                         temp_v0_9 = (var_v0_5 & 0x7FFFFFFF) * 0xFF8;
@@ -407,10 +411,10 @@ loop_100:
 goto skip_100;
 found_100: var_v0_5 = var_a0_7 | (temp_v0_7 & 0x80000000); goto join_100;
 skip_100:
-                temp_v0_10 = runSceneGroupEntry(M2C_FIELD(arg0, u16 *, 0x14), M2C_FIELD(arg0, u16 *, 0x16), M2C_FIELD(arg0, s32 *, 0x10), &options.flags);
-                *arg1 = temp_v0_10;
-                if ((temp_v0_10 != -1) && (M2C_FIELD(arg0, u8 *, 0x26) & 0x80)) {
-                    setSoundEntityParams(temp_v0_10, 0, 0);
+                temp_v0 = runSceneGroupEntry(M2C_FIELD(arg0, u16 *, 0x14), M2C_FIELD(arg0, u16 *, 0x16), M2C_FIELD(arg0, s32 *, 0x10), &options.flags);
+                *arg1 = temp_v0;
+                if ((temp_v0 != -1) && (M2C_FIELD(arg0, u8 *, 0x26) & 0x80)) {
+                    setSoundEntityParams(temp_v0, 0, 0);
                 }
             }
         }

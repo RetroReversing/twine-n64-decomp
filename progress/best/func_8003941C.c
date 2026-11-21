@@ -10,7 +10,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     f32 spF8[12];
     s16 sp128[3];
     unsigned long var_s2;
-    s32 offset;
+    unsigned offset;
     register s32 flags = arg4;
     register f32 *ent;
     s32 var_s1;
@@ -43,8 +43,8 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
             buildRotationMatrixS16(sp128, spF8);
         }
         }
-        state.flags = (s8)flags;
         var_s7 = var_s6 + 1;
+        state.flags = (s8)flags;
         do {
             switch (var_s6[0] & 0xFF000000) {
             case 0x1000000:
@@ -77,7 +77,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                         ent[2] = ent[2] + arg2[2];
                     }
                     offset += 36;
-                } while (var_s2 < 6U);
+                } while (6U > var_s2);
                 if (state.flags) {
                     subdivideTriangle(0.0f, &sp18[27], &sp18[36], &sp18[45], arg0, state.mode);
                 } else {
@@ -105,13 +105,13 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                         rotateVec3ByMat3(spF8, ent);
                     }
                     var_s2 += 1;
-                    if (arg2 != (unsigned)NULL) {
+                    if (arg2 != NULL) {
                         ent[0] = ent[0] + arg2[0];
                                                 ent[1] = ent[1] + arg2[1];
                         ent[2] = ent[2] + arg2[2];
                     }
                     offset += 36;
-                } while (var_s2 < 3U);
+                } while (3U > var_s2);
                 if (state.flags != 0) {
                     subdivideTriangle(0.0f, &sp18[0], &sp18[9], &sp18[18], arg0, state.mode);
                 } else {
@@ -122,8 +122,8 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
                 state.done = 1;
                 break;
             }
-            var_s6 += 2;
             var_s7 += 2;
+            var_s6 += 2;
         } while (!state.done);
     }
 }

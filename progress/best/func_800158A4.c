@@ -1,52 +1,32 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-struct vec { f32 x,y,z; };
-extern u16 gSurfaceQueryStamp;
-s8 Ray_CastObjects(void *, void *, f32 *, f32 *, f32 *, f32, s32, s32, s32);
-s32 findActorCapsuleHit();
+s32 Ray_CastObjects(s32 *, void *, f32 *, f32 *, f32 *, f32, s32, s32, s32);
 f32 Vec3_DistanceSq(f32 *, f32 *);
-f32 func_80045764();
-void *func_80047B44();
-extern void func_8004D910(void);
-#define FIELD(p,t,o) (*(t *)((s8 *)(p)+(o)))
-s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
- f32 r[3], out[3], p[3], d[3], q[3], next[3]; s32 mode=0; void *obj=arg2; f32 limit=65536.0f; f32 v;
+s32 findActorCapsuleHit(void *, f32 *, f32 *, s32, f32 *, s32, s32, s32);
+f32 func_80045764(f32 *, f32 *);
+void *func_80047B44(void *, f32 *, f32 *, f32 *);
+extern s32 func_8004D910;
+extern u16 gSurfaceQueryStamp;
+typedef struct { f32 x,y,z; } V3;
+s32 func_800158A4(const void *a, const void *b, const void *c, void *out, s32 *hit, s32 flags, s32 mask, s32 mode, s32 arg8) {
+ V3 hitPoint, zeroPoint, start, end, dir, nextPoint;
+ f32 limit=65536.0f, distance;
+ s32 result=0;
+ void *obj=(void*)c, *saved=obj;
  gSurfaceQueryStamp++;
- *(struct vec *)p=*(struct vec *)arg0;
- *(struct vec *)d=*(struct vec *)arg1; out[0]=0.0f;
- if(!obj){*(struct vec *)arg3=*(struct vec *)arg0;__shared_return_0:
-    return 0;}
- do {
-  q[0]=d[0]-p[0];q[1]=d[1]-p[1];q[2]=d[2]-p[2];
-  v=func_80045764(q,q);
-  if(FIELD(obj,u16,0x58)==0x46){
-   if(Ray_CastObjects(func_8004D910,obj,p,q,r,v,arg5,(s8)arg7,arg8)){limit=Vec3_DistanceSq(p,r);mode=1;}
-   if(arg6 && findActorCapsuleHit(obj,p,d,arg6,out,0,0,arg8) && (mode!=1 || Vec3_DistanceSq(p,out)<limit)) mode=2;
-   if(mode) {
-    if(mode==1){*(struct vec *)arg3=*(struct vec *)r;}
-    if(mode==2){*(struct vec *)arg3=*(struct vec *)out;}
-    if(arg4)*arg4=mode;
-    goto __shared_return_0;
+ start=*(V3*)a; end=*(V3*)b; zeroPoint.x=0.0f;
+ if(saved==0){*(V3*)out=*(V3*)a; return 0;}
+ while(1){
+   dir.x=end.x-start.x; dir.y=end.y-start.y; dir.z=end.z-start.z;
+   distance=func_80045764(&dir.x,&dir.x);
+   if(*(u16*)((char*)obj+0x58)==0x46){
+     if(Ray_CastObjects(&func_8004D910,obj,&start.x,&dir.x,&hitPoint.x,distance,flags,(s8)mode,arg8)!=0){limit=Vec3_DistanceSq(&start.x,&hitPoint.x);result=1;}
+     if(mask && findActorCapsuleHit(obj,&start.x,&end.x,mask,&zeroPoint.x,0,0,arg8)!=0 && (result!=1 || Vec3_DistanceSq(&start.x,&zeroPoint.x)<limit)) result=2;
+     if(result==1){*(V3*)out=hitPoint;} else if(result==2){*(V3*)out=zeroPoint;}
+     if(hit) *hit=result;
+     return 0;
    }
-  }
-  {
-   void *portal=func_80047B44(obj,p,d,next);
-   obj=0;
-   if(portal){
-    *(struct vec *)p=*(struct vec *)next;
-    obj=FIELD(portal,void*,8);
-   }
-  }
- } while(obj);
- return 1;
+   obj=func_80047B44(obj,&start.x,&end.x,&nextPoint.x);
+   saved=0;
+   if(obj){start=nextPoint;saved=*(void**)((char*)obj+8);}
+   if(!saved)return 1;
+ }
 }
