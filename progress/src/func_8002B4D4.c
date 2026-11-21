@@ -37,9 +37,12 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
     if (o != NULL) {
         objectSetAnimFrame(o, 1, 0x2A);
         D_800BF5BC->b7E = 1;
-        D_800BF5BC->h78 = 0x56;
-        o = (unsigned)D_800BF5BC; o->flags = o->flags | 0x1000;
-        D_800BF5BC->b82 = 0xFF;
+        *(volatile s16 *)&D_800BF5BC->h78 = 0x56;
+        *(volatile u8 *)&D_800BF5BC->b82 = 0xFF;
+        {
+            Obj *object = D_800BF5BC;
+            *(volatile s32 *)&object->flags |= 0x1000;
+        }
         *(volatile f32 *)&D_800BF5BC->f24 = 0.015f;
         *(volatile f32 *)&D_800BF5BC->f28 = 0.02f;
         *(volatile f32 *)&D_800BF5BC->f2C = 0.1f;
@@ -49,11 +52,13 @@ Obj *func_8002B4D4(u8 kind, u16 mode) {
         D_800BF5BC->f54 = scale;
         func_80064318(*p, kind);
         objectListInsert(*p, gTrackMarkerTable[kind]->wF4);
+        o = *p;
     }
-    func_8002B6BC(*p);
-    D_800BF5C8 = (s32)mode;
+    D_800BF5C8 = mode;
+    func_8002B6BC(o);
     func_8002B6BC(*p);
     func_8002B6BC(*p);
     func_8002B6BC(*p);
     return *p;
 }
+

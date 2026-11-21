@@ -11304,14 +11304,6 @@
   "score_after": 577
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Reverified 1520 baseline. Local repairs and switch layout, unsigned switch, widened kind, nonvolatile global variants did not improve. Remaining 35 diff rows mainly instruction scheduling, 3 inserted and 4 missing; inspect prologue and call argument scheduling under O1. Callee prototype review suggests func_80016990 second argument is pointer and func_80064318 second is u32; validate against assembly.",
-  "by": "codex-gpt-6.1-terra-8",
-  "created_at": 1795178539.769402,
-  "score_before": 1520,
-  "score_after": 1520
- },
- {
   "function": "func_8000D3AC",
   "text": "Verified candidate compiles at score 7195; no local repair improved it. The current declaration treats D_800B2710 as f32 **, and the resulting code repeatedly loads/stores through that global; many target repeated float operations instead use stack spill slots and derive the per-record address in registers. First indexing region differs at sll $t0,$v0,2 / addu $a2,$v1,$t0 while candidate allocates a2/v1 differently. Candidate has pointer-from-integer warnings due draft casts. Investigate true global type/layout and model input float stream advancing as a local pointer; compare full assembly around target offsets 0x20-0x50. Best source remains initial m2c C with revision baseline.",
   "by": "codex-gpt-6-luna-17",
@@ -27992,14 +27984,6 @@
   "score_after": 20
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Baseline 1520. Inverting first guard with goto or returning a conditional null did not recover target's beqz then jump; replacing mode switch by if worsened to 1850. Standard flag search and O1 with both scheduling passes did not improve. Investigate enclosing initialization body in success branch and shared return label, plus target's scheduling of repeated global pointer reloads.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795193679.828681,
-  "score_before": 1520,
-  "score_after": 1520
- },
- {
   "function": "func_80022C04",
   "text": "Improved verified score 625 to 375 by staging the else-path mask and shift in separate assignments. Target masks field_28 independently in each arm before shared OR/store; compiler still merges masking, leaving two missing instructions and register/order differences. Tested separate masking in both arms, volatile read/store, shared goto, and alternate staged arithmetic; no further improvement. Flag search found no better profile.",
   "by": "codex-gpt-6.1-terra-2",
@@ -31272,14 +31256,6 @@
   "score_after": 20
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Recompiled saved draft candidate at 3450 (122 target vs 120 candidate instructions), then tried six independent local repair variants; none improved. The callee_parameter_width (func_80064318 int) and unsigned_switch changes regressed. Target assembly shows mode switch loads 0.00078125f/0.0171875f into saved $fs0 before global object access; then it reloads D_800BF5BC repeatedly and stores fields at 0x24,0x28,0x2C. Diff flags raw address/constants around rows 82/89: target literals are 0x3CA3D70A and 0x3DCCCCCD; investigate floating-point local/register scheduling and ensure global-pointer type/reference is correct. Best source retained.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795199687.294053,
-  "score_before": 1520,
-  "score_after": 1520
- },
- {
   "function": "func_80007160",
   "text": "180 rechecked with exact instructions except store/call scheduling. Qualifying only D_8011740C store using a volatile pointer cast reached 175 and placed move a0,zero before destination address setup and the store in the jal delay slot. Cast introduced the remaining extra addiu for the symbol's low relocation, using v1 instead of at. Try a volatile-qualified declaration for the destination to see whether it keeps the delay-slot store with direct relocations. func_800081C4 is matched with s32 fill; D_80100304 is a void * array in its matched source.",
   "by": "codex-gpt-6.2-sol-6",
@@ -33054,14 +33030,6 @@
   "created_at": 1795201751.4247282,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_8002B4D4",
-  "text": "Baseline saved_best restored at revision 7e998d85a8a72a36166d (historical 3450, recheck needed after header changes). Six local repairs attempted; no better. Target mismatch is control-flow/calls: null object skips setup and joins at +0x678; initial guard branches while saving mode in a delay slot. Try restructuring guard and mode switch.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795201754.917969,
-  "score_before": 1520,
-  "score_after": 1520
  },
  {
   "function": "func_80082BD0",
@@ -36392,14 +36360,6 @@
   "score_after": 6475
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Current best score 3450, candidate has 120 instructions vs target 122. Rewrote switch as if/else (regressed to 4660), restored saved best, corrected selected callee declarations, and tried declaration/local no-op edits; later trials did not alter the diff. Remaining differences cluster in register/order scheduling and early return branch target (+1cc target, +1c4 candidate). Try restructuring global pointer/local lifetimes; inspect complete target and candidate diff. Callee prototype evidence remains ambiguous.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795204184.915521,
-  "score_before": 1520,
-  "score_after": 1520
- },
- {
   "function": "func_8002FFAC",
   "text": "Best candidate revision 8c314ed281148223f077, score 875 (improved from verified 890 via masked_value_reuse: explicitly store (temp_v0_7 & 0xFF) in temp_v0_3 before assigning temp_a0_2). Tested six independent local repair families: only masked value reuse improved; struct layout and inline scheduling tied; branch orientation, scalar storage reuse, cfg lifetimes worsened. Then tested alternative reorder/early-exit shapes and packed-byte clamp signedness/cast/combined-store forms; none improved. Current mismatch advisory starts at initial null check: target branches to 0xd8, candidate 0xd4, with 31 differences (2 opcode, 17 register, 8 branch targets, one operand, one insertion, two deletions). Target first operations: load arg0+4 then allocate 8-byte frame, beqz with return-value initialization in delay slot. Best next experiment: inspect exact diff against revision 8c314... after targeting the entry branch; try retaining the null-pointer test as a distinct outer guard while moving initialization of t0=1 into a single-iteration control construct or branch delay-eligible expression to recover target branch destination and delay slot. Remaining main body transforms three packed color bytes with clamping and updates up to four sibling records. No evidence supports a hand-written assembly verdict.",
   "by": "codex-gpt-6-luna-17",
@@ -37766,14 +37726,6 @@
   "created_at": 1795205352.293288,
   "score_before": 3097,
   "score_after": 3097
- },
- {
-  "function": "func_8002B4D4",
-  "text": "Stalled at best 3450 (saved_best revision 7e998d85a8a72a36166d; 71.7%). Target: 122 insns, ours 120. Structure is right (volatile D_800BF5BC reloads, store order, scale in $fs0 computed before the if). Remaining diffs: (1) target loads each float literal lui/ori/mtc1 right before its store (0.1 reused in fv0), ours hoists 0.015/0.02/0.1 to block start into $f4/$f2/$f0. Block-local f32 temps did not change this. (2) switch(mode) layout: target uses beqz $v1 + beq $v1,1 with case 0 path ending in j over case-1 block; the if/else rewrite of the scale selection (eaf282e3...) scored worse (4660), so keep the switch. Next idea: try default-first switch ordering or float constants written inline with separate scale temp per case.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795205365.656224,
-  "score_before": 1520,
-  "score_after": 1520
  },
  {
   "function": "func_800984CC",
@@ -39488,14 +39440,6 @@
   "score_after": 200
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Staging the volatile global pointer before flags update improved 1545 to 1420. Removing volatile from each float store worsened; replacing the second p assignment with direct global worsened. Remaining register and scheduling differences around volatile accesses.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795207034.814077,
-  "score_before": 1520,
-  "score_after": 1420
- },
- {
   "function": "func_80012F50",
   "text": "Best candidate 6393d31e95833eae4719, score 5935. Target at scan uses u16 base D_80107B68 + byte offset, and signed byte from D_80108412 + 0x20 index. Explicit u16/s8 loads improved baseline 6335\u21925935. Further staged base pointer did not change score and was discarded. Remaining 125 mismatches; early call/jump paths, function call arg types, and traversal loop branches still differ. Resolved D_80107B68 is 2-byte BSS immediately before D_80107B6A. Continue from this saved-best revision.",
   "by": "codex-gpt-6-luna-18",
@@ -40710,14 +40654,6 @@
   "created_at": 1795208033.584011,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8002B4D4",
-  "text": "Stalled at 1420 (33 differing rows). Local repairs (callee_parameter_width/int func_80064318 param, switch reorder, read-before-assign reorder, switch((u32)mode), u16 casts for D_800BF5CA/C8, s32 kind) gave no improvement: 1420 best, others 1895-1970 or compile error. Remaining diffs: branch target off by one instruction (j +0x1cc target vs +0x1c8), register and scheduling differences around volatile global pointer D_800BF5BC accesses. Next untested idea: reorder the scale-select block so the mtc1 constants load after the D_800BF5BC null test, or write the first if-body stores as separate statements per their asm order.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795208034.7652822,
-  "score_before": 1420,
-  "score_after": 1420
  },
  {
   "function": "func_80070CA4",
@@ -42472,14 +42408,6 @@
   "score_after": 5930
  },
  {
-  "function": "func_8002B4D4",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 1420 (33 differing rows) after ~87 prior attempts and 21 local repairs; no further compile made this session. Remaining diffs: branch target off by one instruction (j +0x1cc vs +0x1c8), register and scheduling differences around volatile accesses to D_800BF5BC. Staging the global pointer before the flag update helped (1545->1420); removing volatile from float stores and direct-global second p assignment both worsened. Untested idea: restructure the if(o!=NULL) body so the flags |= 0x1000 update uses a fresh volatile read instead of the 'o' local.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795209336.0385752,
-  "score_before": 1420,
-  "score_after": 1420
- },
- {
   "function": "func_8001E898",
   "text": "[Released without compiling it once; notes not checked by a compile.] Released at low effort without a new compile. Saved_best 6de1966917cb07840083 (historical 1630) has the right prologue, field stores (flags/x/y/size/color), and the func_80022B60/E88/E5C call sequence. The remaining mismatch is in switch lowering on D_800B60E2 and in how the 'selected' temp and the final color tail are allocated. Prior agents ran about 60 local repair trials and 10 explicit patches without getting below 1630. Next untested step: rewrite the switch as an if/else chain on D_800B60E2 (0 and 1) so the draw/dim argument is preserved in a different register, then compare the diff.",
   "by": "api-claude-haiku-5-5-4",
@@ -44230,14 +44158,6 @@
   "created_at": 1795210527.498448,
   "score_before": 35,
   "score_after": 35
- },
- {
-  "function": "func_8002B4D4",
-  "text": "Stalled; best remains saved_best at 1420 (original f98415df79f808f86ec9 source). This session I tried hoisting the volatile global into local 'o' in the non-null block (compile 387f7da696fe91bf1fbc): it scored 4730 and changed the frame (addiu -0x30 vs target -0x28, ra/s-register saves shifted), so it is worse. Next step if someone retries: from saved_best, only change the if-block's field stores while keeping the frame layout; the target frame is -0x28 with ra at 0x1c, so the callee-save set is smaller than the candidate's. Do not reuse the local-hoist variant.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795210530.425642,
-  "score_before": 1420,
-  "score_after": 1420
  },
  {
   "function": "func_800458C0",
@@ -48408,15 +48328,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:3a6c4183157d2fc32bdeb4edcd8b8e9a2875c15bfee3b5193b306a252510c81f"
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Current saved best is 1400 (rechecked); own full candidate rewrite confirmed 1400. Inserted duplicate b82 assignment worsened to 1975; restored saved best. Local repair variants (callee signature width, switch layout, read-before-assign, unsigned switch, field width, parameter widening) gave no improvement; switch layout and s32 kind worsened. Remaining mismatch begins at the early jump (+1 instruction), then register/scheduling differences and float literal loading. Target branch returns at +0x1cc; candidate +0x1c8. Next step: inspect target assembly around target lines 36-70 and restructure the mode switch/literal materialization to reproduce branch layout and delayed float constant loads.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795214702.681775,
-  "score_before": 7009,
-  "score_after": 1400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
- },
- {
   "function": "func_800515D0",
   "text": "Verified score 225320 for the minimal probe (29 instructions of 2,267 target instructions). The 0xA2-word volatile local successfully preserves the target's 0x288 stack frame. Local const_read and width_promotion variants both compiled to unchanged output; retained saved candidate. Next step: reconstruct the collision routine from assembly blocks, starting by decoding the stack locals and callee prototypes, then compile semantic sections.",
   "by": "codex-gpt-6-luna-13",
@@ -51929,15 +51840,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:e7b32adfd34ce9cb0586ee93d7096aaed8174691c7839ec2a7a6b4794d371682"
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Saved best rechecked score 1400. Trial reordered b82 byte store before flags OR, score worsened to 1420; restored saved_best. Target uses constants initialized in f register fs0 selected by mode switch; flags OR occurs after loading existing flags and is scheduled before f24 store. Main unresolved: jump around 0x1cc vs candidate 0x1c8 and register/scheduling differences around global pointer reloads. Next step: experiment only with the mode-switch constant initialization/control flow or pointer local lifetime, retaining saved_best; avoid field store reorder.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795217574.51936,
-  "score_before": 1400,
-  "score_after": 1400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
- },
- {
   "function": "func_800984CC",
   "text": "No improvement from current repair batch; historical best preserved. Target appears to load D_800F7954 early into a2 before source global/address setup; alter evaluation order by assigning it to a local before the side-effect store.",
   "by": "codex-gpt-6-luna-22",
@@ -52152,15 +52054,6 @@
   "score_before": 74630,
   "score_after": 74630,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:29268441c29fae0aa30c7c7e1c68694aa4f6697baf390ca82b0401bd9b2cea2f"
- },
- {
-  "function": "func_8002B4D4",
-  "text": "Current verified saved baseline remains 1400. Independent variants replacing the mode switch with if/else worsened substantially (score 2610); changing global pointer reload shape also worsened (1575); reorder of b82 and flags reached 1420 but did not beat baseline. Target mismatch begins with branch layout: target jumps to +0x1cc; saved candidate +0x1c8. Remaining differences show redundant global pointer loads assigned to $a0 instead of target $v1 around b82/flags. Next useful hypothesis: use a typed global pointer temp in that block and restructure flag access as a separate fresh global dereference after b82, avoiding reuse of function-local `o`; do not change switch mode constant. Candidate existing 1400 is best.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795217904.2273412,
-  "score_before": 1400,
-  "score_after": 1400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
  },
  {
   "function": "menuHandleSelection",
@@ -54061,15 +53954,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a95bf94646d3dc674872fc3a32561b937d827e079424997678a3bdc6f8bf8bdf"
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Best verified 1400. Local repairs neutral/worse; exploratory signature rewrite scored 4805. Mismatch branch join target off by one instruction; D_800BF5BC volatile pointer reload patterns differ. Next step: patch saved best to express volatile flag update via a distinct global lvalue or adjust block store ordering, then compile.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795221373.827481,
-  "score_before": 4805,
-  "score_after": 1400,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
- },
- {
   "function": "func_80098710",
   "text": "Saved verified baseline score 60 is still best. Local repairs (allocation order, explicit loop backedge, signedness) did not help. Reordered the global initializations to target order and compiled a full rewrite: score 130; it shifts address materialization to $a1 directly, losing target's `lui/addiu $v0` followed by `move $a1,$v0`. Restored saved best; explicit cast variant equal score. Target full body is 27 instructions; initialization stores target order D_800FD970=0, D_800FDB74=0, D_800FDB78=&D_800FD974. A variable declaration must be before statements under this old C compiler. Remaining score-60 mismatch originally had offsets/control-flow about 4-byte discrepancy; next agent should inspect get_assembly mismatch + saved best source and possibly tune loop shape / initialization sequencing without losing materialization move.",
   "by": "codex-gpt-6-luna-17",
@@ -54619,15 +54503,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
  },
  {
-  "function": "func_8002B4D4",
-  "text": "Starting candidate 1400. Making w40, f2C, w3C volatile improved sequentially to 1190, 870, 795; f44 nonvolatile worsened. Current best 795. Remaining mismatch is mostly statement scheduling/registers, null-path join +4 bytes, and one call/delay-slot ordering around func_8002B6BC. Structured next step: revision 14b042031061deba7cf8; tried three volatile stores; changed score to 795; title: inspect tail around 0x678 and adjust expression/statement ordering to recover target delay-slot loads.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795222375.9311948,
-  "score_before": 1400,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
- },
- {
   "function": "func_80099AF0",
   "text": "Saved best 25 (rev 5f030abdba8213b0eb02): only 5 register diffs (target andi $v1,$a0,0xff / lui $v0 for D_80100C7C path; ours v0/v1 swapped). Key insights: table index is b*16 + a (b=byte 0x4B, a=byte 0x4A), id copied into id2 after loading b, compare `(id2 & 0xFF) == tbl` (operand order mattered: 480\u219225). Next: vary declaration order of id2/a/b/tbl, or `tbl` type.",
   "by": "api-claude-sonnet-5-5-2",
@@ -55107,5 +54982,130 @@
   "created_at": 1795188281.1515222,
   "score_before": 895,
   "score_after": 450
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Reverified 1520 baseline. Local repairs and switch layout, unsigned switch, widened kind, nonvolatile global variants did not improve. Remaining 35 diff rows mainly instruction scheduling, 3 inserted and 4 missing; inspect prologue and call argument scheduling under O1. Callee prototype review suggests func_80016990 second argument is pointer and func_80064318 second is u32; validate against assembly.",
+  "by": "codex-gpt-6.1-terra-8",
+  "created_at": 1795178539.769402,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Baseline 1520. Inverting first guard with goto or returning a conditional null did not recover target's beqz then jump; replacing mode switch by if worsened to 1850. Standard flag search and O1 with both scheduling passes did not improve. Investigate enclosing initialization body in success branch and shared return label, plus target's scheduling of repeated global pointer reloads.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795193679.828681,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Recompiled saved draft candidate at 3450 (122 target vs 120 candidate instructions), then tried six independent local repair variants; none improved. The callee_parameter_width (func_80064318 int) and unsigned_switch changes regressed. Target assembly shows mode switch loads 0.00078125f/0.0171875f into saved $fs0 before global object access; then it reloads D_800BF5BC repeatedly and stores fields at 0x24,0x28,0x2C. Diff flags raw address/constants around rows 82/89: target literals are 0x3CA3D70A and 0x3DCCCCCD; investigate floating-point local/register scheduling and ensure global-pointer type/reference is correct. Best source retained.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795199687.294053,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Baseline saved_best restored at revision 7e998d85a8a72a36166d (historical 3450, recheck needed after header changes). Six local repairs attempted; no better. Target mismatch is control-flow/calls: null object skips setup and joins at +0x678; initial guard branches while saving mode in a delay slot. Try restructuring guard and mode switch.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795201754.917969,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Current best score 3450, candidate has 120 instructions vs target 122. Rewrote switch as if/else (regressed to 4660), restored saved best, corrected selected callee declarations, and tried declaration/local no-op edits; later trials did not alter the diff. Remaining differences cluster in register/order scheduling and early return branch target (+1cc target, +1c4 candidate). Try restructuring global pointer/local lifetimes; inspect complete target and candidate diff. Callee prototype evidence remains ambiguous.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795204184.915521,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Stalled at best 3450 (saved_best revision 7e998d85a8a72a36166d; 71.7%). Target: 122 insns, ours 120. Structure is right (volatile D_800BF5BC reloads, store order, scale in $fs0 computed before the if). Remaining diffs: (1) target loads each float literal lui/ori/mtc1 right before its store (0.1 reused in fv0), ours hoists 0.015/0.02/0.1 to block start into $f4/$f2/$f0. Block-local f32 temps did not change this. (2) switch(mode) layout: target uses beqz $v1 + beq $v1,1 with case 0 path ending in j over case-1 block; the if/else rewrite of the scale selection (eaf282e3...) scored worse (4660), so keep the switch. Next idea: try default-first switch ordering or float constants written inline with separate scale temp per case.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795205365.656224,
+  "score_before": 1520,
+  "score_after": 1520
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Staging the volatile global pointer before flags update improved 1545 to 1420. Removing volatile from each float store worsened; replacing the second p assignment with direct global worsened. Remaining register and scheduling differences around volatile accesses.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795207034.814077,
+  "score_before": 1520,
+  "score_after": 1420
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Stalled at 1420 (33 differing rows). Local repairs (callee_parameter_width/int func_80064318 param, switch reorder, read-before-assign reorder, switch((u32)mode), u16 casts for D_800BF5CA/C8, s32 kind) gave no improvement: 1420 best, others 1895-1970 or compile error. Remaining diffs: branch target off by one instruction (j +0x1cc target vs +0x1c8), register and scheduling differences around volatile global pointer D_800BF5BC accesses. Next untested idea: reorder the scale-select block so the mtc1 constants load after the D_800BF5BC null test, or write the first if-body stores as separate statements per their asm order.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795208034.7652822,
+  "score_before": 1420,
+  "score_after": 1420
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 1420 (33 differing rows) after ~87 prior attempts and 21 local repairs; no further compile made this session. Remaining diffs: branch target off by one instruction (j +0x1cc vs +0x1c8), register and scheduling differences around volatile accesses to D_800BF5BC. Staging the global pointer before the flag update helped (1545->1420); removing volatile from float stores and direct-global second p assignment both worsened. Untested idea: restructure the if(o!=NULL) body so the flags |= 0x1000 update uses a fresh volatile read instead of the 'o' local.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795209336.0385752,
+  "score_before": 1420,
+  "score_after": 1420
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Stalled; best remains saved_best at 1420 (original f98415df79f808f86ec9 source). This session I tried hoisting the volatile global into local 'o' in the non-null block (compile 387f7da696fe91bf1fbc): it scored 4730 and changed the frame (addiu -0x30 vs target -0x28, ra/s-register saves shifted), so it is worse. Next step if someone retries: from saved_best, only change the if-block's field stores while keeping the frame layout; the target frame is -0x28 with ra at 0x1c, so the callee-save set is smaller than the candidate's. Do not reuse the local-hoist variant.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795210530.425642,
+  "score_before": 1420,
+  "score_after": 1420
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Current saved best is 1400 (rechecked); own full candidate rewrite confirmed 1400. Inserted duplicate b82 assignment worsened to 1975; restored saved best. Local repair variants (callee signature width, switch layout, read-before-assign, unsigned switch, field width, parameter widening) gave no improvement; switch layout and s32 kind worsened. Remaining mismatch begins at the early jump (+1 instruction), then register/scheduling differences and float literal loading. Target branch returns at +0x1cc; candidate +0x1c8. Next step: inspect target assembly around target lines 36-70 and restructure the mode switch/literal materialization to reproduce branch layout and delayed float constant loads.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795214702.681775,
+  "score_before": 7009,
+  "score_after": 1400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Saved best rechecked score 1400. Trial reordered b82 byte store before flags OR, score worsened to 1420; restored saved_best. Target uses constants initialized in f register fs0 selected by mode switch; flags OR occurs after loading existing flags and is scheduled before f24 store. Main unresolved: jump around 0x1cc vs candidate 0x1c8 and register/scheduling differences around global pointer reloads. Next step: experiment only with the mode-switch constant initialization/control flow or pointer local lifetime, retaining saved_best; avoid field store reorder.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795217574.51936,
+  "score_before": 1400,
+  "score_after": 1400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Current verified saved baseline remains 1400. Independent variants replacing the mode switch with if/else worsened substantially (score 2610); changing global pointer reload shape also worsened (1575); reorder of b82 and flags reached 1420 but did not beat baseline. Target mismatch begins with branch layout: target jumps to +0x1cc; saved candidate +0x1c8. Remaining differences show redundant global pointer loads assigned to $a0 instead of target $v1 around b82/flags. Next useful hypothesis: use a typed global pointer temp in that block and restructure flag access as a separate fresh global dereference after b82, avoiding reuse of function-local `o`; do not change switch mode constant. Candidate existing 1400 is best.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795217904.2273412,
+  "score_before": 1400,
+  "score_after": 1400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Best verified 1400. Local repairs neutral/worse; exploratory signature rewrite scored 4805. Mismatch branch join target off by one instruction; D_800BF5BC volatile pointer reload patterns differ. Next step: patch saved best to express volatile flag update via a distinct global lvalue or adjust block store ordering, then compile.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795221373.827481,
+  "score_before": 4805,
+  "score_after": 1400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Starting candidate 1400. Making w40, f2C, w3C volatile improved sequentially to 1190, 870, 795; f44 nonvolatile worsened. Current best 795. Remaining mismatch is mostly statement scheduling/registers, null-path join +4 bytes, and one call/delay-slot ordering around func_8002B6BC. Structured next step: revision 14b042031061deba7cf8; tried three volatile stores; changed score to 795; title: inspect tail around 0x678 and adjust expression/statement ordering to recover target delay-slot loads.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795222375.9311948,
+  "score_before": 1400,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
  }
 ]
