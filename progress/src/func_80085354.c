@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, s32, M2C_UNK);      /* extern */
-f32 func_80084270(s32, u16 *);                           /* extern */
+f32 findNearestTrackMarker(s32, u16 *);                           /* extern */
 extern M2C_UNK D_800CE75C;
 extern M2C_UNK gTrackMarkerTable;
 
@@ -22,6 +22,6 @@ void func_80085354(s32 arg0, u32 arg1) {
     u16 sp10;
 
     if (arg1 < 2U) {
-        updateSfxPanFromMarker(func_8000A8B4(*((u16 *)((s8 *)&D_800CE75C + (arg1 * 2))), func_80084270(arg0, &sp10), 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), arg0, 0);
+        updateSfxPanFromMarker(func_8000A8B4(*((u16 *)((s8 *)&D_800CE75C + (arg1 * 2))), findNearestTrackMarker(arg0, &sp10), 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), arg0, 0);
     }
 }

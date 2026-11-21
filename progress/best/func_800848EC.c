@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A8B4(s32, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, void *, M2C_UNK);   /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
-f32 func_80084270(s32, u16 *);                      /* extern */
+f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
 extern u16 D_800CE644;
 extern u16 D_800CE64C;
 extern u16 D_800CE654;
@@ -43,7 +43,7 @@ void func_800848EC(void *arg0, s32 arg1, s32 arg2) {
     s32 var_a0;
     u8 temp_v1;
 
-    temp_fs0 = func_80084270(arg0 + 0x24, &sp10);
+    temp_fs0 = findNearestTrackMarker(arg0 + 0x24, &sp10);
     temp_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1);
     switch (temp_v1) {
     case 0xB:

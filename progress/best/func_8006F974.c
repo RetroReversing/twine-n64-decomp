@@ -108,9 +108,7 @@ block_29:
                                 sp40 = temp_fv1;
                                 if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(sp3C - var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                     M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
-                                    M2C_FIELD(arg0, M2C_UNK32 *, 0x104) = sp28;
-                                    M2C_FIELD(arg0, f32 *, 0x108) = sp2C;
-                                    M2C_FIELD(arg0, M2C_UNK32 *, 0x10C) = sp30;
+                                    { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)arg0 + 0x104) = *(struct vec *)&in; }
                                     M2C_FIELD(arg0, f32 *, 0x114) = sp3C;
                                     if (D_80108F78 != 0x19) {
                                         if (!(sp40 < D_800C7C98)) {

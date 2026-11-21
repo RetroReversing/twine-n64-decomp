@@ -31,7 +31,7 @@ int __repair_constant = 7;
 var_s4 = D_800D94FA;
     temp_a3 = var_s4;
     __base_D_800D9510 = (s8 *)D_800D9510;
-    var_a0 = (void *)((var_s4 * 0x640)); var_a0 = (void *)((char *)var_a0 + (s32)(__base_D_800D9510));
+    { s32 offset = var_s4 * 25; offset <<= 6; var_a0 = (void *)(offset + (s32)__base_D_800D9510); }
     var_v1 = (var_s4 * 2) + D_800D9500;
 loop_1:
     if (*(s16 *)var_v1 == arg0) {

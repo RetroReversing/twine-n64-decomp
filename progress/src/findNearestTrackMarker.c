@@ -2,7 +2,7 @@ typedef struct { u8 pad[0x10]; u8 pos[0xF0]; s32 flags; } O84270;
 f32 approxDistance(void *, s32);
 extern O84270 *gTrackMarkerTable[];
 
-f32 func_80084270(s32 arg0, s16 *arg1) {
+f32 findNearestTrackMarker(s32 arg0, s16 *arg1) {
     f32 best = 65536.0f;
     s16 i;
     f32 d;

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, void *, M2C_UNK);   /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
-f32 func_80084270(s32, u16 *);                      /* extern */
+f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
 extern M2C_UNK D_800CE5E0;
 extern M2C_UNK D_800CE5F0;
 extern M2C_UNK D_800CE5FC;
@@ -24,36 +24,36 @@ extern M2C_UNK D_800CE614;
 extern u32 D_80108F78;
 extern M2C_UNK gTrackMarkerTable;
 
-void playNearestMarkerSound(void *arg0) {
-    u16 sp10;
-    f32 temp_fs0;
-    s32 var_s0;
-    u16 var_a0;
-    u8 temp_v0;
+/* Plays a random sfx for the current state at the distance to the nearest track marker, then pans it toward that marker */ void playNearestMarkerSound(void *obj) {
+    u16 markerIdx;
+    f32 dist;
+    s32 channel;
+    u16 sfxId;
+    u8 objType;
 
-    var_s0 = -1;
-    temp_fs0 = func_80084270(arg0 + 0x24, &sp10);
+    channel = -1;
+    dist = findNearestTrackMarker(obj + 0x24, &markerIdx);
     switch (D_80108F78) {                           /* switch 1; irregular */
     case 29:                                        /* switch 1 */
-        var_a0 = *((u16 *)((s8 *)&D_800CE614 + (randomIntBelow(9) * 2)));
+        sfxId = *((u16 *)((s8 *)&D_800CE614 + (randomIntBelow(9) * 2)));
         goto block_15;
     case 38:                                        /* switch 1 */
-        if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1) != 0x33) {
-            var_a0 = *((u16 *)((s8 *)&D_800CE5FC + (randomIntBelow(7) * 2)));
-            var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);
+        if (M2C_FIELD(M2C_FIELD(obj, void **, 0x68), u8 *, 0xB1) != 0x33) {
+            sfxId = *((u16 *)((s8 *)&D_800CE5FC + (randomIntBelow(7) * 2)));
+            channel = func_8000A8B4(sfxId, dist, 0xFF);
             break;
         } else {
-            var_a0 = *((u16 *)((s8 *)&D_800CE60C + (randomIntBelow(3) * 2)));
-            var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);
+            sfxId = *((u16 *)((s8 *)&D_800CE60C + (randomIntBelow(3) * 2)));
+            channel = func_8000A8B4(sfxId, dist, 0xFF);
             break;
         }
     case 1:                                         /* switch 1 */
-        var_a0 = *((u16 *)((s8 *)&D_800CE5F0 + (randomIntBelow(6) * 2)));
+        sfxId = *((u16 *)((s8 *)&D_800CE5F0 + (randomIntBelow(6) * 2)));
         {
-        var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);break;}
+        channel = func_8000A8B4(sfxId, dist, 0xFF);break;}
     default:                                        /* switch 1 */
-        temp_v0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xB1);
-        switch (temp_v0) {                          /* switch 2 */
+        objType = M2C_FIELD(M2C_FIELD(obj, void **, 0x68), u8 *, 0xB1);
+        switch (objType) {                          /* switch 2 */
         case 0x43:                                  /* switch 2 */
         case 0x53:                                  /* switch 2 */
         case 0x5A:                                  /* switch 2 */
@@ -62,7 +62,7 @@ void playNearestMarkerSound(void *arg0) {
         case 0x69:                                  /* switch 2 */
         case 0x6A:                                  /* switch 2 */
         case 0x6B:                                  /* switch 2 */
-            var_a0 = *((u16 *)((s8 *)&D_800CE60C + (randomIntBelow(3) * 2)));
+            sfxId = *((u16 *)((s8 *)&D_800CE60C + (randomIntBelow(3) * 2)));
             goto block_15;
         case 0x15:                                  /* switch 2 */
         case 0x2D:                                  /* switch 2 */
@@ -71,13 +71,13 @@ void playNearestMarkerSound(void *arg0) {
         case 0x36:                                  /* switch 2 */
         case 0x37:                                  /* switch 2 */
         case 0x58:                                  /* switch 2 */
-            var_a0 = *((u16 *)((s8 *)&D_800CE5E0 + (randomIntBelow(8) * 2)));
+            sfxId = *((u16 *)((s8 *)&D_800CE5E0 + (randomIntBelow(8) * 2)));
 block_15:
-            var_s0 = func_8000A8B4(var_a0, temp_fs0, 0xFF);
+            channel = func_8000A8B4(sfxId, dist, 0xFF);
             break;
         }
         break;
     }
-    updateSfxPanFromMarker(var_s0, *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), arg0 + 0x24, 0);
+    updateSfxPanFromMarker(channel, *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (markerIdx * 4))), obj + 0x24, 0);
 }
 

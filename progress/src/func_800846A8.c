@@ -3,7 +3,7 @@ typedef struct { u8 pad0[0x24]; u8 pos[0x44]; Sub846A8 *sub; } Obj846A8;
 
 void func_8000A8B4(u16, f32, s32);
 u32 randomIntBelow(s32);
-f32 func_80084270(s32, s16 *);
+f32 findNearestTrackMarker(s32, s16 *);
 extern u16 D_800CE634[];
 extern u16 D_800CE638[];
 extern u32 D_80108F78;
@@ -13,7 +13,7 @@ void func_800846A8(s32 arg0, Obj846A8 *arg1) {
     f32 vol;
     u16 id;
 
-    vol = func_80084270((s32)arg1->pos, &sp10);
+    vol = findNearestTrackMarker((s32)arg1->pos, &sp10);
     switch (D_80108F78) {
     case 2:
         id = 0x179;

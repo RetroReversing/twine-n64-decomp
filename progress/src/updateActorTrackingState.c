@@ -4,16 +4,16 @@ s32 func_8000A9CC(u16, s32, u8);
 s32 updateSfxPanFromMarker(s32, s32, void *, f32);
 s32 func_8000AD5C(s32, s32);
 s32 markObjectsNearPos(s32, s32, s32, void *, f32, s32);
-f32 func_80084270(void *, u16 *);
+f32 findNearestTrackMarker(void *, u16 *);
 extern s32 gTrackMarkerTable;
 extern s32 gTrackDoneFlags;
-/* Advances a tracking state record for an actor: eases a blend value toward the target from func_80084270, or cancels when the done flag matches. */ void updateActorTrackingState(void *actor, void *track) {
+/* Advances a tracking state record for an actor: eases a blend value toward the target from findNearestTrackMarker, or cancels when the done flag matches. */ void updateActorTrackingState(void *actor, void *track) {
 u16 sp18; s32 axisIndex; f32 temp_fv0,temp_fv1,temp_fv1_2,temp_fv1_3,var_fs0,var_fv0,var_fv1;
 s32 temp_v0,temp_v0_3,temp_v0_4; u8 temp_v0_2,temp_v1; register s32 temp_v1_2; void *temp_a0,*temp_s0;
 if (track && (*(u16 *)((char*)track+0x14))) {
 temp_a0=(char*)actor+0x24;
 if (*(u16*)((char*)actor+0x78)==0xF) {
-var_fv1=func_80084270(temp_a0,&sp18)-*(f32*)((char*)track+0xC);
+var_fv1=findNearestTrackMarker(temp_a0,&sp18)-*(f32*)((char*)track+0xC);
 if ((*(s32*)((char*)(*(s32*)((char*)&gTrackMarkerTable+sp18*4))+0x100))&8) { if (*(u8*)((char*)track+0x1A)!=1) {} else goto block_7; }
 else if (*(u8*)((char*)track+0x1A)==0) { block_7: var_fv1=65536.0f; }
 temp_v1=*(u8*)((char*)track+0x18);
@@ -24,7 +24,7 @@ case 1: if (*(f32*)((char*)track+0x10)<var_fv1) { *(s32*)track=-1; *(u8*)((char*
 } else {
 temp_v0_2=*(u8*)((char*)track+0x16);
 if(temp_v0_2 && *((u8*)((char*)&gTrackDoneFlags+temp_v0_2))==*(u8*)((char*)track+0x17)) {listUnlinkFree(*(s32*)track); *(s32*)track=-1; return;}
-var_fs0=func_80084270(temp_a0,&sp18); temp_fv1=*(volatile f32*)((char*)track+0xC); temp_fv1_2=*(volatile f32*)((char*)track+0x10);
+var_fs0=findNearestTrackMarker(temp_a0,&sp18); temp_fv1=*(volatile f32*)((char*)track+0xC); temp_fv1_2=*(volatile f32*)((char*)track+0x10);
 if ((*(s32*)((char*)(*(s32*)((char*)&gTrackMarkerTable+sp18*4))+0x100))&8) {if(*(u8*)((char*)track+0x1A)==1)var_fs0=65536.0f;}
 else if(*(u8*)((char*)track+0x1A)==0)var_fs0=65536.0f;
 var_fv0=var_fs0-temp_fv1; if(var_fv0<0.0f)var_fv0=0.0f;
