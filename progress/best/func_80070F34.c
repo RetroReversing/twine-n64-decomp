@@ -386,14 +386,13 @@ void func_80070F34(void *arg0)
       *((s32 *) (((char *) (*((void **) (((char *) temp_s2) + 0x478)))) + 0x10)) = 0xAA0000FF;
     }
     var_s3_2 = 0;
-    var_a0 = temp_s2;
     do
     {
       if (var_s3_2 != 3)
       {
         if ((*((u8 *) (((char *) (&D_8011508D)) + ((*((s8 *) (((char *) temp_s2) + 0x182))) * 0xA0)))) == 0)
         {
-          *((s32 *) (((char *) (*((void **) (((char *) var_a0) + 0x418)))) + 0x10)) = 0;
+          *((s32 *) (((char *) (*((void **) (((char *) (((char *) temp_s2) + (var_s3_2 * 4))) + 0x418)))) + 0x10)) = 0;
         }
         else
           if (var_s3_2 == 4)
@@ -408,11 +407,10 @@ void func_80070F34(void *arg0)
         }
         else
         {
-          *((s32 *) (((char *) (*((void **) (((char *) var_a0) + 0x418)))) + 0x10)) = (s32) (((s16) var_s1_2) | 0xFF0000);
+          *((s32 *) (((char *) (*((void **) (((char *) (((char *) temp_s2) + (var_s3_2 * 4))) + 0x418)))) + 0x10)) = (s32) (((s16) var_s1_2) | 0xFF0000);
         }
       }
       var_s3_2 += 1;
-      var_a0 += 4;
     }
     while (var_s3_2 < 5U);
     var_s3_3 = 0;
@@ -580,12 +578,10 @@ void func_80070F34(void *arg0)
       }
     }
       var_a0_2 = 0;
-      var_v1_5 = temp_s2;
       do
     {
-      *((s16 *) (((char *) var_v1_5) + 0x522)) = 2;
+      *((s16 *) (((char *) (((char *) temp_s2) + (var_a0_2 * 2))) + 0x522)) = 2;
       ++var_a0_2;
-      var_v1_5 += 2;
     }
     while (var_a0_2 < 0x40U);
       memset(*((s32 *) (((char *) temp_s2) + 0x5A4)), 0, 0x1000);
@@ -704,12 +700,12 @@ void func_80070F34(void *arg0)
       temp_v0_13 = *((u32 *) (((char *) temp_s0_5) + 0x10));
       temp_a0_14 = (temp_v0_13 & 0xFF) + 4;
       var_a1_3 = temp_a0_14;
-      temp_v0_14 = (temp_v0_13 >> 0x18) - 4;
+      ;
       if (temp_a0_14 >= 0x100)
       {
         var_a1_3 = 0xFF;
       }
-      *((u32 *) (((char *) temp_s0_5) + 0x10)) = (u32) (var_a1_3 | ((temp_v0_14 & (((s32) (~temp_v0_14)) >> 0x1F)) << 0x18));
+      *((u32 *) (((char *) temp_s0_5) + 0x10)) = (u32) (var_a1_3 | ((((temp_v0_13 >> 0x18) - 4) & (((s32) (~((temp_v0_13 >> 0x18) - 4))) >> 0x1F)) << 0x18));
       return;
     }
       break;

@@ -56,8 +56,8 @@ inline static int inline_fn2345(s16 arg0, s32 arg1)
 void func_8011A7C8(void)
 {
   s16 i;
-  s16 chosen = -1;
   s32 index;
+  s16 chosen = -1;
   SaveSlot **slot;
   SaveSlot *entry;
   BonusSlot *bonus;
@@ -92,9 +92,7 @@ void func_8011A7C8(void)
               (*slot)->meta->count++;
             }
             while (0);
-            next_scene:
-            i++;
-
+ do { next_scene: i++; } while (0);
           }
           while (((s16) i) < (*((volatile s32 *) inline_fn2((u8 *) (&gSaveTotalSlots), inline_fn234()))));
         }
@@ -108,30 +106,34 @@ void func_8011A7C8(void)
   {
     i = 0;
     count = gSaveTotalSlots;
-    if (count <= 0)
-    {
-      goto done;
-    }
     do
     {
-      bonus = sBonusObjectTable[(s16) i];
-      if (bonus == 0)
+      if (count <= 0)
       {
-        goto next_bonus;
+        goto done;
       }
-      state = bonus->state;
-      if (inline_fn((state < 2) & (state != 6)))
+      do
       {
-        goto next_bonus;
-      }
-      chosen = i;
-      goto update;
-      next_bonus:
-      i++;
+        bonus = sBonusObjectTable[(s16) i];
+        if (bonus == 0)
+        {
+          goto next_bonus;
+        }
+        state = bonus->state;
+        if (inline_fn((state < 2) & (state != 6)))
+        {
+          goto next_bonus;
+        }
+        chosen = i;
+        goto update;
+        next_bonus:
+        i++;
 
+      }
+      while (inline_fn2345(i, gSaveTotalSlots));
+      goto done;
     }
-    while (inline_fn2345(i, count));
-    goto done;
+    while (0);
   }
   update:
   i = 0;
@@ -166,4 +168,3 @@ void func_8011A7C8(void)
   }
 
 }
-

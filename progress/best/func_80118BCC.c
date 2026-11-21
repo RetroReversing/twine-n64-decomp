@@ -107,9 +107,9 @@ void func_80118BCC(void *arg0)
   s32 temp_v1_10;
   s32 temp_v1_2;
   s32 var_s0_2;
-  s32 var_s0_3;
+  
   long var_s3;
-  s32 temp_v0_4;
+  
   int temp_v0_5;
   char var_s3_2;
   u16 *temp_v0_6;
@@ -466,12 +466,13 @@ void func_80118BCC(void *arg0)
         if (randomIntBelow(0x64) < 0x42U)
         {
           var_a1_3 = 0xA;
-        }
+        
+        func_80117EC8(arg0, var_a1_3);}
         else
         {
           var_a1_3 = 3;
-        }
-        func_80117EC8(arg0, var_a1_3);
+        
+        func_80117EC8(arg0, var_a1_3);}
       }
       else
         if (temp_v1_8 == 0xA)
@@ -514,10 +515,10 @@ void func_80118BCC(void *arg0)
         *((s32 *) (((char *) arg0) + 0x60)) = inline_fn2((*((s32 *) (((char *) arg0) + 0x60))) & (~0x62));
       }
     }
-    temp_v0_4 = *((s8 *) (((char *) temp_s2) + 0x198));
-    if (temp_v0_4 > 0)
+    temp_v1_9 = *((s8 *) (((char *) temp_s2) + 0x198));
+    if (temp_v1_9 > 0)
     {
-      *((s8 *) (((char *) temp_s2) + 0x198)) = (s8) (temp_v0_4 - 1);
+      *((s8 *) (((char *) temp_s2) + 0x198)) = (s8) (temp_v1_9 - 1);
     }
     if ((*((s32 *) (((char *) arg0) + 0x60))) & 0x20)
     {
@@ -673,9 +674,9 @@ void func_80118BCC(void *arg0)
           var_ft0 += D_8011EF78;
         }
         temp_fv1_5 = ((f32) var_ft0) * (*((f32 *) (((char *) (((u8 *) (&coefficients)) + (((*((u16 *) ((&D_800BF688) + (((s16) temp_v1) * 0xC)))) >> 3) & 0x1C))) + 0)));
-        var_s0_3 = (u32) temp_fv1_5;
+        var_s0_2 = (u32) temp_fv1_5;
         var_s3_2 = 0;
-        if (randomIntBelow(0x64) < var_s0_3)
+        if (randomIntBelow(0x64) < var_s0_2)
         {
           var_s3_2 = inline_fn23(func_8007A9CC(arg0, ((s32) (*((void **) (((char *) temp_s2) + 0xC0)))) + 0x24, &sp38, 170.6666717529296875f)) != 0;
         }

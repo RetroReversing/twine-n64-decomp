@@ -57,7 +57,7 @@ void func_800821B4(void)
   s32 temp_a3;
   s32 temp_s0_5;
   s32 temp_s0_6;
-  register volatile unsigned int temp_s0_7;
+  register volatile unsigned char temp_s0_7;
   unsigned int temp_s0_8;
   long temp_t0;
   s32 temp_t1;
@@ -70,7 +70,7 @@ void func_800821B4(void)
   s32 var_s0_2;
   register s32 var_s0_3;
   int var_s0_4;
-  s32 var_s0_5;
+  short var_s0_5;
   s32 var_s1;
   s32 var_s4;
   s32 var_s7;
@@ -117,7 +117,7 @@ void func_800821B4(void)
         {
           var_s0 = temp_s0 + 4; var_v0 = -(var_s0 < 1);
         }
-        var_s0_2 = ((var_s0 & var_v0) << 0x10) / 76;
+        temp_a3 = (var_s0 & var_v0) << 0x10; var_s0_2 = temp_a3 / 76;
         if ((-0x10000) > var_s0_2)
         {
           var_s0_2 = -0x10000;
@@ -158,7 +158,9 @@ void func_800821B4(void)
           var_s0_4 = 0x10000;
         }
         *((&D_80115114) + var_s1) = var_s0_4 - (*var_a0_2);
-        *var_a0_2 = var_s0_4; var_s0_4 = (s16) (*var_s2); temp_v0_2 = func_800828EC(var_s0_4 & (-(func_800828D8(var_s0_4) >= 0x21))); var_s2 += 4;
+        *var_a0_2 = var_s0_4; var_s0_4 = (s16) (*var_s2);
+        temp_v0_2 = func_800828EC(var_s0_4 & (-(func_800828D8(var_s0_4) >= ((int) 0x21))));
+        var_s2 += 4;
         if (temp_v0_2 != (*((&D_80115124) + var_s1)))
         {
           *((&D_80115124) + var_s1) = temp_v0_2;
@@ -185,7 +187,6 @@ void func_800821B4(void)
     s32 __block_sp2C;
     s32 __block_var_s7;
     s32 __block_var_s6;
-    __block_var_s7 = 0;
     __block_var_s6 = 0;
     sp24 = 0;
     __block_sp2C = 0;
@@ -193,7 +194,7 @@ void func_800821B4(void)
     {
       memset(&D_80112E98, 0, 0x24);
       temp_s5 = *((void **) (((u8 *) (&D_8010A500)) + sp24));
-      temp_fp = *(((u8 *) (&D_80115091)) + __block_var_s7);
+      temp_fp = *(((u8 *) (&D_80115091)) + (__block_var_s6 * 0xA0));
       var_a1 = 1;
       if (temp_s5 != NULL)
       {
@@ -377,7 +378,7 @@ void func_800821B4(void)
         var_s3_2 = __block_var_s6;
         var_s2_2 = *((u16 *) (((u8 *) (&D_8010D430)) + __block_sp2C));
       }
-      temp_s1 = __block_var_s7 + (&D_80115094);
+      temp_s1 = (__block_var_s6 * 0xA0) + (&D_80115094);
       var_s0_5 = var_s3_2 & 0xFF;
       func_80081D50(&D_800CA278, var_s0_5, var_s2_2, temp_s1);
       if ((temp_s5 != NULL) && (D_801002AE == 0))
@@ -392,6 +393,9 @@ void func_800821B4(void)
             break;
 
           case 1:
+            ;
+            ;
+            ;
             ;
             ;
             ;
@@ -465,7 +469,6 @@ void func_800821B4(void)
       sp24 += 4;
       __block_sp2C += 8;
       __block_var_s6 += 1;
-      __block_var_s7 += 0xA0;
     }
     while (__block_var_s6 < ((s16) sp16));
   }

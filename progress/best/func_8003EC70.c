@@ -140,7 +140,7 @@ s32 func_8003EC70(s32 vert_count)
         plane = D_800C0758;
         clip_cursor = clip_src_verts;
         flag_ptr = outside;
-        for (remaining = vert_count; remaining > 0;)
+        for (remaining = vert_count ^ 0; remaining > 0;)
       {
         u8 value = plane < clip_cursor->y;
         remaining--;
@@ -172,8 +172,16 @@ s32 func_8003EC70(s32 vert_count)
 
     }
 
-    out_idx = 0;
-    prev_idx = vert_count - 1;
+    if (i)
+    {
+      out_idx = 0;
+      prev_idx = vert_count - 1;
+    }
+    else
+    {
+      out_idx = 0;
+      prev_idx = vert_count - 1;
+    }
     for (in_idx = 0; in_idx < vert_count; in_idx++)
     {
       if (outside[prev_idx] != outside[in_idx])
@@ -218,7 +226,11 @@ s32 func_8003EC70(s32 vert_count)
           base = cur->x;
           numerator = plane - base;
           fraction = numerator / (prev->x - base);
- do { others = prev->y; value = cur->y; new_vtx->y = value + ((others - value) * fraction); } while (0);
+          do
+          {
+            others = prev->y; value = cur->y; new_vtx->y = value + ((others - value) * fraction);
+          }
+          while (0);
           new_vtx->z = cur->z + ((prev->z - cur->z) * fraction);
         }
         out_idx++;
@@ -243,3 +255,4 @@ s32 func_8003EC70(s32 vert_count)
   clip_result_verts = clip_src_verts;
   return vert_count;
 }
+

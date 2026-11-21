@@ -11,7 +11,7 @@ extern s8 D_800D4870;
 extern void *D_80100B20;
 extern u16 D_80112EBC;
 extern s32 gTrackMarkerSerial;
-inline static s8 inline_fn(unsigned int arg0)
+inline static s8 inline_fn(char arg0)
 {
   return (s8) arg0;
 }
@@ -98,12 +98,15 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
             {
               if (var_a2 != 0)
               {
-                if (var_a3 < arg2 / 2)
+                if (var_a3 < (arg2 / 2))
+                {
                   goto copy_next;
+                }
                 var_t1 = 1;
               }
               copy_next:
               var_s0 += 1;
+
               block_14:
               *var_t0 = (s8) var_v1;
 
@@ -169,24 +172,24 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
       while (var_s1 != temp_a1)
       {
         ++var_a0_2;
-      if (temp_v1 | inline_fn234(var_a0_2, arg3))
-      {
-        goto emit;
-      }
-
-      scan:
-      ++var_s1;
-
-      scan_byte:
-      temp_v0_2 = *var_s1;
-
-      temp_v1 = temp_v0_2 == 0;
-      if (inline_fn2(temp_v1, temp_v0_2) == 0)
-      {
+        if (temp_v1 | inline_fn234(var_a0_2, arg3))
+        {
+          goto emit;
+        }
+        scan:
         ++var_s1;
-        goto scan_byte;
+
+        scan_byte:
+        temp_v0_2 = *var_s1;
+
+        temp_v1 = temp_v0_2 == 0;
+        if (inline_fn2(temp_v1, temp_v0_2) == 0)
+        {
+          ++var_s1;
+          goto scan_byte;
+        }
       }
-      }
+
       advance:
       var_s1 += (*var_s1) != 0;
 
@@ -217,7 +220,7 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
           *((s16 *) (((char *) temp_v0_5) + 0x30)) = (s16) ((s32) var_fv1);
           *((f32 *) (((char *) temp_v0_5) + 0x14)) = (f32) (4096.0f / var_fv1);
         }
-        var_a0_3 += 1;
+        var_a0_3 = var_a0_3 + 1;
       }
       while (__repair_phase_storage.value < count);
     }

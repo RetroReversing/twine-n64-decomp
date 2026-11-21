@@ -55,8 +55,8 @@ u16 __repair_result_spA5C;
     u8 spA67;
     void *spA6C;
     s32 *spA74;
-    s32 spA84;
     s32 spA7C;
+    s32 spA84;
     s32 spA8C;
     s32 spA94;
     s32 *spA9C;
@@ -180,7 +180,7 @@ do {
                     temp_s1 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 0) * 0x30);
                     if (spA94 == 0) {
                         temp_v1_4 = *(u32 *)(((spA8C + __repair_phase_var_s4) * 4) + spA6C);
-                        spA58[0] = (temp_v1_4 >> 0x16) * 4;
+                        var_a2 = (temp_v1_4 >> 0x16); spA58[0] = var_a2 * 4;
                         spA58[1] = (temp_v1_4 >> 0xA) & 0xFFE;
                         spA58[2] = (temp_v1_4 * 2) & 0xFFE;
                         D_800D9420(spA58, temp_s1);

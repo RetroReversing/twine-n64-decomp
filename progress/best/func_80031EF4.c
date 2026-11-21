@@ -26,10 +26,14 @@ inline static f32 *inline_fn(char *arg0)
   return (f32 *) arg0;
 }
 
+inline static s32 *inline_fn2(char *arg0)
+{
+  return (s32 *) arg0;
+}
+
 void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
 {
   volatile char pad;
-  void **paramSlot = &gWobbleParams;
   void * volatile sp24;
   f32 temp_fv0;
   f32 temp_fv0_2;
@@ -41,6 +45,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
   void *temp_v0;
   if (gBorderSkipActive == 0)
   {
+    void **paramSlot = &gWobbleParams;
     if ((*paramSlot) != NULL)
     {
       func_80084048(*paramSlot, 0xE);
@@ -72,7 +77,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
         volatile s32 width = 0xE6;
         func_8004844C(*paramSlot, (f32) ((f64) width), (f32) ((f64) ((u32) var_s0)), (f32) ((f64) height), (f32) ((f64) ((u32) var_s2)), 0.0f, 0.0f);
       }
-      *((s32 *) (((char *) gWobbleParams) + 0x100)) |= 0x100;
+      *inline_fn2(((char *) gWobbleParams) + 0x100) |= 0x100;
       *((VecCopy *) (((char *) gWobbleParams) + 0x10)) = *((VecCopy *) (((char *) arg0) + 0));
       {
         u8 a = D_8010A4C3;
@@ -82,12 +87,12 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2)
         D_8010A4C3 = a | 2;
         gSceneFlagsB = b | 2;
         gTrackMarkerActiveMask = c | 2;
-        *((s32 *) (((char *) params) + 0x100)) &= ~7;
+        *inline_fn2(((char *) params) + 0x100) &= ~7;
       }
-      *((s32 *) (((char *) gWobbleParams) + 0x100)) |= 2;
+      *inline_fn2(((char *) gWobbleParams) + 0x100) |= 2;
       if (arg1 != NULL)
       {
-        func_800464B8((*paramSlot) + 0x34, *((s32 *) (((char *) arg1) + 0)), *((s32 *) (((char *) arg1) + 4)), *((s32 *) (((char *) arg1) + 8)));
+        func_800464B8((*paramSlot) + 0x34, *((s32 *) (((char *) arg1) + 0)), *inline_fn2(((char *) arg1) + 4), *inline_fn2(((char *) arg1) + 8));
         *((f32 *) (((char *) gWobbleParams) + 0x34)) = (f32) (-(*inline_fn(((char *) gWobbleParams) + 0x34)));
         *((f32 *) (((char *) gWobbleParams) + 0x3C)) = 3.1415927f;
       }

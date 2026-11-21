@@ -177,14 +177,7 @@ void func_8011B5F0(void *arg0)
         }
         temp_v0_7 = lookupDataEntry(var_a0_3);
         var_a2_2 = 5;
-        if (temp_s0 == 0)
-        {
-          var_a2_2 = 0xC;
-        }
-        sprintf((char *) (&D_8011F170), (char *) (&D_8011EFE0), var_a2_2, temp_s3_3, temp_s0_6, temp_v0_7);
-        requestSound(0x219);
-        func_80073AF8(0, D_8010969C, &D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C);
-        temp_v0_8 = temp_s0 * 0xC;
+ do { if (temp_s0 == 0) { var_a2_2 = 0xC; } sprintf((char *) (&D_8011F170), (char *) (&D_8011EFE0), var_a2_2, temp_s3_3, temp_s0_6, temp_v0_7); requestSound(0x219); func_80073AF8(0, D_8010969C, &D_8011F170, -1, -1, 1, 0, 0, 6, 0, 0x3C); temp_v0_8 = temp_s0 * 0xC; } while (0);
         *(((u8 *) (&sProbeActive)) + temp_s0) = 1;
         *((ProbeTriple *) (((char *) arg0) + 0x30)) = *((ProbeTriple *) (((char *) (&sProbePositions)) + temp_v0_8));
         *((ProbeTriple *) (((char *) arg0) + 0x24)) = *((ProbeTriple *) (((char *) arg0) + 0x30));
@@ -280,4 +273,3 @@ void func_8011B5F0(void *arg0)
     }
   }
 }
-

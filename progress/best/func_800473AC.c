@@ -34,7 +34,11 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
   }
   else
   {
- do { var_fv1 = var_ft0; var_ft0 = temp_ft1; } while (0);
+    do
+    {
+      var_fv1 = var_ft0; var_ft0 = temp_ft1;
+    }
+    while (0);
   }
   if (temp_ft3 > 0.0f)
   {
@@ -63,6 +67,12 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       var_fv1_2 = temp_ft2;
     }
     else
+      if (arg2)
+    {
+      var_fv1_2 = var_ft0_2;
+      var_ft0_2 = temp_ft2;
+    }
+    else
     {
       var_fv1_2 = var_ft0_2;
       var_ft0_2 = temp_ft2;
@@ -74,11 +84,14 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
       {
         if ((*((f32 *) (((char *) arg2) + 8))) < var_ft0_2)
         {
+          if (1)
+          {
+          }
           return 0;
         }
         goto block_18;
       }
-      return var_condition_bit;
+      return 0;
     }
     __repair_phase_var_v0 = 0;
     if ((!(var_fv1_2 < (*((f32 *) (((char *) arg2) + 8))))) && (!((*((f32 *) (((char *) arg3) + 8))) < var_ft0_2)))
@@ -170,3 +183,4 @@ s32 func_800473AC(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4)
   }
   return __repair_phase_var_condition_bit;
 }
+

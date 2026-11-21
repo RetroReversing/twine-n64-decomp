@@ -511,7 +511,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                             }
                           }
                         }
-                        sp1EC += 3; sp1C6 += 1; var_fp += 3;
+                        sp1EC += 3; var_fp += 3; sp1C6 += 1;
                       }
                       while (sp1C6 < ((u16) (*((u16 *) (((char *) temp_s7) + 0x40)))));
                     }
@@ -682,9 +682,11 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
             sp226 = temp_v0_3 & 0xFF00;
             if (temp_v1_7 != 0)
             {
+              do {
+                  var_fp_3 = 0;
+              } while (0);
               if (temp_s0 < ((u16) (*((u16 *) (((char *) temp_s5) + 0x40)))))
               {
-                var_fp_3 = 0;
                 loop_145:
                 temp_v1_8 = var_fp_3 & 0xFFFF;
 
@@ -839,9 +841,11 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
               }
               goto block_270;
             }
+            do {
+                var_fp_4 = 0;
+            } while (0);
             if (temp_v1_7 < ((u16) (*((u16 *) (((char *) temp_s5) + 0x40)))))
             {
-              var_fp_4 = 0;
               loop_208:
               temp_a0_2 = var_fp_4 & 0xFFFF;
 

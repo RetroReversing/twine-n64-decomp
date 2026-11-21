@@ -142,16 +142,17 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
   temp_a2 = temp_v0 & arg2;
   if (temp_a2 == 0)
   {
+    u8 temp_a1_arm;
     if (temp_v0 & 0x400)
     {
       trackFindNearestLight(arg0, &sp20, &sp21, &sp22);
       temp_v1 = *((u8 *) (((char *) arg0) + 0x7F));
       *((u8 *) (((char *) arg0) + 0x7F)) = (u8) (temp_v1 + ((sp20 >> 1) - (temp_v1 >> 1)));
       temp_v1_2 = *((u8 *) (((char *) arg0) + 0x80));
-      temp_a1 = *((u8 *) (((char *) arg0) + 0x81));
+      temp_a1_arm = *((u8 *) (((char *) arg0) + 0x81));
       *((u8 *) (((char *) arg0) + 0x80)) = (u8) (temp_v1_2 + ((sp21 >> 1) - (temp_v1_2 >> 1)));
       ((__repair_field_58 *) arg0)->value &= ~4;
-      *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a1 + ((sp22 >> 1) - (temp_a1 >> 1)));
+      *((u8 *) (((char *) arg0) + 0x81)) = (u8) (temp_a1_arm + ((sp22 >> 1) - (temp_a1_arm >> 1)));
     }
   }
   else
@@ -312,7 +313,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
         temp_a0_5 = temp_a1_5 * sPrimTintR;
         temp_v0_5 = temp_a1_5 * sPrimTintG;
         var_a0_2 = D_80115328;
- do { var_a2 = sPrimTintB; D_80115328 = var_a0_2 + 2; ((__repair_field_0 *) var_a0_2)->value = 0xFA000000; var_a1 = (temp_a1_5 * var_a2) & 0xFF00; *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82)))); } while (0);
+ do { { long long phantom_wide = arg2; } var_a2 = sPrimTintB; D_80115328 = var_a0_2 + 2; ((__repair_field_0 *) var_a0_2)->value = 0xFA000000; var_a1 = (temp_a1_5 * var_a2) & 0xFF00; *((s32 *) (((char *) var_a0_2) + 4)) = (s32) (((((temp_a0_5 >> 8) << 0x18) | (((temp_v0_5 >> 8) & 0xFF) << 0x10)) | var_a1) | (*((u8 *) (((char *) arg0) + 0x82)))); } while (0);
       }
       else
         if (temp_v1_8 & 1)

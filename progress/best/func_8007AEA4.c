@@ -30,13 +30,28 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   threshold = randomIntBelow(weight);
   do
   {
-    if (count == 1)
     {
-      ++attempt;
-      goto check_attempt;
+      u32 remaining = count - 1;
+      if (remaining == 0)
+      {
+        ++attempt;
+        goto check_attempt;
+      }
+      limit = remaining;
     }
-    limit = count - 1;
- do { entry = (u8 *) entries; scan: if (inline_fn(entry, threshold)) { index++; goto advance; } id = *((u16 *) (entry + 2)); } while (0);
+    do
+    {
+      entry = (u8 *) entries;
+      scan:
+      if (inline_fn(entry, threshold))
+      {
+        index++;
+        goto advance;
+      }
+
+      id = *((u16 *) (entry + 2));
+    }
+    while (0);
     if (id == 0)
     {
       return 0;
@@ -46,7 +61,7 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
       index++;
       goto advance;
     }
-    if (entry || entries)
+    if ((entry || entries) != 0.0f)
     {
       details[0x7F] = entry[1];
       func_80002BD0(actor, *((u16 *) (entry + 2)));
@@ -76,3 +91,4 @@ s32 func_8007AEA4(void *actor, SelectionEntry *entries, s32 count)
   while (0);
   return 0;
 }
+

@@ -49,7 +49,7 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
   sp10[0] = temp_fv1;
   temp_fv1_2 = (*((f32 *) (((char *) arg4) + 4))) - (*((f32 *) (((char *) arg2) + 4)));
   sp10[1] = temp_fv1_2;
-  temp_fs5 = *((f32 *) (((char *) arg1) + 8));
+  temp_fs5 = *((const volatile f32 *) (((char *) arg1) + 8));
   temp_fs2 = (*((f32 *) (((char *) arg4) + 8))) - (*((f32 *) (((char *) arg2) + 8)));
   temp_t3 = *((f32 *) (((char *) arg1) + 4));
   temp_t2 = *((f32 *) (((char *) arg1) + 0));
@@ -141,3 +141,4 @@ s32 Ray_TriangleIntersect(void *arg0, void *arg1, void *arg2, void *arg3, void *
   }
   return var_v0;
 }
+

@@ -71,33 +71,54 @@ void func_8001BE64(void)
   D_801002F4 = func_80018BE0(D_801002C4);
   if (((((temp_fp != NULL) & (temp_s6 != NULL)) && ((temp_s4 != NULL) & (temp_s5 != NULL))) && ((var_s1 != NULL) & (temp_s3 != NULL))) && ((temp_s2 != NULL) & (temp_s7 != NULL)))
   {
-    switch (gSceneType) {
-    case 5: case 6:
-      var_v1 = (s32 *)((u8 *)&updateActorPartnerLink + 0x1C4);
-      if (D_80102FD4 != var_v1)
+    switch (gSceneType)
+    {
+      case 5:
+
+      case 6:
+        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x1C4);
+        if (D_80102FD4 != var_v1)
+      {
         D_80117730 = 0;
-      var_v0 = 0x19;
-      goto selected;
-    case 2: case 3: case 4:
-      var_v1 = &D_8011AC34;
-      if (D_80102FD4 != var_v1)
+      }
+        var_v0 = 0x19;
+        goto selected;
+
+      case 2:
+
+      case 3:
+
+      case 4:
+        var_v1 = &D_8011AC34;
+        if (D_80102FD4 != var_v1)
+      {
         D_80117730 = 0;
-      var_v0 = 0x14;
-      goto selected;
-    case 7:
-      var_v1 = &D_8011AC94;
-      if (D_80102FD4 != var_v1)
+      }
+        var_v0 = 0x14;
+        goto selected;
+
+      case 7:
+        var_v1 = &D_8011AC94;
+        if (D_80102FD4 != var_v1)
+      {
         D_80117730 = 9;
-      var_v0 = 0xF;
-      goto selected;
-    default:
-      var_v1 = (s32 *)((u8 *)&updateActorPartnerLink + 0x180);
-      if (D_80102FD4 != var_v1)
+      }
+        var_v0 = 0xF;
+        goto selected;
+
+      default:
+        var_v1 = (s32 *) (((u8 *) (&updateActorPartnerLink)) + 0x180);
+        if (D_80102FD4 != var_v1)
+      {
         D_80117730 = 0;
-      var_v0 = 0xB;
+      }
+        var_v0 = 0xB;
+
     }
-selected:
+
+    selected:
     D_80102FD4 = var_v1;
+
     *((u32 *) (((char *) var_s1) + (-0x14))) = var_v0;
     var_v0_2 = 0xB1;
     if (gSceneType == 7)
@@ -106,7 +127,7 @@ selected:
     }
     *((s16 *) (((char *) var_s1) + (-0x28))) = var_v0_2;
     var_v0 = D_80117730;
-    temp_v1 = *(volatile u32 *)((char *)var_s1 - 0x14);
+    temp_v1 = *((volatile u32 *) (((char *) var_s1) - 0x14));
     if (temp_v1 < var_v0)
     {
       D_80117730 = temp_v1;
@@ -149,38 +170,7 @@ selected:
       var_a0 = 0x68;
     }
     formatTextEntry(temp_s5, &sFmtEntryName, lookupDataEntry(var_a0));
-    var_a0_2 = 0xA;
-    if (D_801002D5)
-    {
-      var_a0_2 = 9;
-    }
-    formatTextEntry(temp_s4, &sFmtEntryName, lookupDataEntry(var_a0_2));
-    switch (gPauseFlag) {
-    case 0: var_a0_3 = 0xA; goto pause_lookup;
-    default: var_a0_3 = 0x2E4; goto pause_lookup;
-    case 1:
-      var_v0_4 = lookupDataEntry(0x2E2);
-      var_a1 = &sFmtEntryName;
-      goto pause_format;
-    case 2:
-      var_v0_4 = lookupDataEntry(0x2E3);
-      var_a1 = &sFmtEntryName;
-      goto pause_format;
-    }
-pause_lookup:
-    var_v0_4 = lookupDataEntry(var_a0_3);
-    var_a1 = &sFmtEntryName;
-pause_format:
-    formatTextEntry(temp_s2, var_a1, var_v0_4);
-    temp_a0 = temp_s4 - 0x28;
-    if (gSaveKeyRelaxed)
-    {
-      menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1);
-    }
-    else
-    {
-      func_80025E9C(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD);
-    }
+ do { var_a0_2 = 0xA; if (D_801002D5) { var_a0_2 = 9; } formatTextEntry(temp_s4, &sFmtEntryName, lookupDataEntry(var_a0_2)); switch (gPauseFlag) { case 0: var_a0_3 = 0xA; goto pause_lookup; default: var_a0_3 = 0x2E4; goto pause_lookup; case 1: var_v0_4 = lookupDataEntry(0x2E2); var_a1 = &sFmtEntryName; goto pause_format; case 2: var_v0_4 = lookupDataEntry(0x2E3); var_a1 = &sFmtEntryName; goto pause_format; } pause_lookup: var_v0_4 = lookupDataEntry(var_a0_3) & 0xFF; var_a1 = &sFmtEntryName; pause_format: formatTextEntry(temp_s2, var_a1, var_v0_4); temp_a0 = temp_s4 - 0x28; if (gSaveKeyRelaxed) { if (var_a1) { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } else if (temp_s6) { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } else { menuSetItemLabelIndices(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 0x16C, 1); } } else { func_80025E9C(temp_a0, temp_s4, temp_s2 - 0x28, temp_s3 - 0x28, 1, 0xD); } } while (0);
     temp_a0_2 = temp_s5 - 0x28;
     if (gSaveSlotCount == 2)
     {
@@ -198,8 +188,8 @@ pause_format:
     if (gSceneType == 7)
     {
       var_a2_2 = temp_s3 - 0x28;
-      var_v0_5 = 0x1AD;
-      menuSetItemLabelIndices(var_s1 - 0x28, var_s1, var_a2_2, temp_s7, var_v0_5, 1);
+      ;
+      menuSetItemLabelIndices(var_s1 - 0x28, var_s1, var_a2_2, temp_s7, 0x1AD, 1);
     }
     else
     {

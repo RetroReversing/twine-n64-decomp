@@ -191,7 +191,47 @@ void func_8008B25C(void)
         else
         {
           var_s0 = D_800E4268;
- do { if (var_s0 < gAudioBufferCount) { s32 *buffers = &gAudioBufferPtrs; do { u32 index; if (inline_fn23(var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } temp_a1 = (u16) var_s1; var_s1 += 0xC0; func_8008AECC(buffers[inline_fn23(index)], temp_a1); ++var_s3; } while (inline_fn23(var_s0) < gAudioBufferCount); } if (temp_s4 || D_8010D428) { var_s0 = 0; } else { var_s0 = 0; } if (((u16) temp_s4) != 0) { s32 *buffers = &gAudioBufferPtrs; u32 limit = (u16) temp_s4; do { u32 index; if (((u16) var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } while (inline_fn23(var_s0) < limit); } } while (0);
+          do
+          {
+            if (var_s0 < gAudioBufferCount)
+            {
+              s32 *buffers = &gAudioBufferPtrs;
+              do
+              {
+                u32 index;
+                if (inline_fn23(var_s3) >= sMixBufferUnits)
+                {
+                  break;
+                }
+                index = var_s0++;
+                if (inline_fn(gWorkerActive, 0))
+                {
+                  D_800E41E8 = D_800E41EC;
+                  func_800923D0();
+                  func_8008E374();
+                }
+                temp_a1 = (u16) var_s1; var_s1 += 0xC0;
+                func_8008AECC(buffers[inline_fn23(index)], temp_a1);
+                ++var_s3;
+              }
+              while (inline_fn23(var_s0) < gAudioBufferCount);
+            }
+            if (temp_s4 || D_8010D428)
+            {
+              var_s0 = 0;
+            }
+            else
+            {
+              var_s0 = 0;
+            }
+            if (((u16) temp_s4) != 0)
+            {
+              s32 *buffers = &gAudioBufferPtrs;
+              u32 limit = (u16) temp_s4;
+ do { do { u32 index; if (((u16) var_s3) >= sMixBufferUnits) { break; } index = var_s0++; if (inline_fn(gWorkerActive, 0)) { D_800E41E8 = D_800E41EC; func_800923D0(); func_8008E374(); } if (gAudioBufferIndex) { temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } else { temp_a1 = inline_fn23(var_s1); var_s1 += 0xC0; ++var_s3; func_8008AECC(buffers[(u16) index], temp_a1); } } while (inline_fn23(var_s0) < limit); } while (0);
+            }
+          }
+          while (0);
         }
         if (sSlotLogCount != 0)
         {

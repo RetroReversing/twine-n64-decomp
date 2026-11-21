@@ -93,7 +93,7 @@ void func_8008D138(u32 arg0, u16 arg1, u8 arg2, volatile int arg3, u8 arg4, u8 a
           }
           var_t0 = var_v1;
         }
-        temp_s0 = ((arg0 >> 8) & 0xFF) + (*((s16 *) (((char *) var_s1) + 6)));
+        var_v0 = ((arg0 >> 8) & 0xFF); temp_s0 = var_v0 + (*((s16 *) (((char *) var_s1) + 6)));
         temp_a3 = (((*((u8 *) (((char *) var_s1) + 5))) * (arg3 & 0xFF)) / 127) & 0xFF;
         if (temp_s0 < 0x100)
         {

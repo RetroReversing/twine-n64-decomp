@@ -13,7 +13,7 @@ extern void func_800328CC(s32, s32, s32, s32, s32, s32, s32, f32);
 extern void func_80032978(u8 *, s32, s32, s32, s32, s32 *);
 extern void gfxAppendTexture(u8 *, s32 *, s32, s32, s32, s32, s32 *);
 extern void func_800A0220(GfxPair **, s32);
-void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale, s32 a6, s32 a7, s32 enable, s32 *vertices, s32 *commands)
+void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, long long a4, register f32 scale, s32 a6, s32 a7, s32 enable, s32 *vertices, s32 *commands)
 {
   struct 
   {
@@ -39,7 +39,7 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
   u32 n;
   u32 pairs;
   u32 advance;
-  s32 draw;
+  unsigned short draw;
   state.vertexTransform = a3;
   state.texture = -1;
   state.start = gGfxPtr;
@@ -69,11 +69,13 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
             u32 x;
             u32 y;
             u32 z;
-            u32 xHigh, xLow, yHigh, yLow, zHigh, zLow;
-            VERTICES(6, (xHigh = q[0], xLow = q[1], yHigh = q[2],
-                         zLow = q[5], x = (xHigh << 8) + xLow,
-                         yLow = q[3], zHigh = q[4],
-                         y = (yHigh << 8) + yLow, z = (zHigh << 8) + zLow));
+            u32 xHigh;
+            volatile unsigned int xLow;
+            u32 yHigh;
+            u32 yLow;
+            u32 zHigh;
+            u32 zLow;
+            VERTICES(6, (xHigh = q[0], xLow = q[1], (double) (yHigh = q[2]), zLow = q[5], x = (xHigh << 8) + xLow, yLow = q[3], zHigh = q[4], y = (yHigh << 8) + yLow, z = (zHigh << 8) + zLow));
             advance = (*p) * 3;
             goto double_advance;
           }
@@ -88,7 +90,11 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
             u32 x;
             u32 y;
             u32 z;
- do { VERTICES(2, x = (y = (z = WORD(q)))); } while (0);
+            do
+            {
+              VERTICES(2, x = (y = (z = WORD(q))));
+            }
+            while (0);
           }
             advance = *p;
             double_advance:
@@ -243,3 +249,4 @@ void func_800336FC(u8 *p, s32 model, s32 a2, s32 a3, s32 a4, register f32 scale,
     ++(*commands);
   }
 }
+

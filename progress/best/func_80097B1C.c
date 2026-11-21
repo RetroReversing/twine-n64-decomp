@@ -43,7 +43,14 @@ s32 func_80097B1C(s32 arg0)
     var_s4 = 0;
     if (((u16) var_a0) != 0xFFFF)
     {
-      var_s0 = var_s1 + 2;
+      if (sKeyTableCount)
+      {
+        var_s0 = var_s1 + 2;
+      }
+      else
+      {
+        var_s0 = var_s1 + 2;
+      }
       do
       {
         if (var_a0 == wanted)
@@ -70,10 +77,62 @@ s32 func_80097B1C(s32 arg0)
       }
       while (var_a0 != 0xFFFF);
     }
- do { if (var_a1 & 0xFF) { if (var_s4 & 0xFF) { goto success; } count = sKeyTableCount; temp_a1 = *var_s2; var_s0_2 = 0; if (count > 0) { var_v1 = 0; loop_16: if ((*((u16 **) (sKeyTableSlots + var_v1))) != temp_a1) { var_s0_2 += 1; var_v1 += 0xC; if (var_s0_2 < count) { goto loop_16; } } } var_v0 = 1; if (var_s0_2 != sKeyTableCount) { workerLockAcquire(count, temp_a1); var_a2 = var_s0_2 + 1; if (var_a2 < sKeyTableCount) { temp_v0_2 = var_a2 * 0xC; var_t0 = (void *) (((u32) temp_v0_2) + ((u32) base)); var_a3 = temp_v0_2 + sKeyTableSlots; do { *((__repair_words3 *) (((char *) var_t0) + 0x0)) = *((__repair_words3 *) (((s8 *) var_a3) + 0x0)); var_t0 += 0xC; var_a2 += 1; var_a3 += 0xC; } while (var_a2 < sKeyTableCount); } sKeyTableCount -= 1; workerLockRelease(); } success: return 1; } var_s3 += 1; var_s2 += 3; if (var_s3 >= ((u32) sKeyTableCount)) { goto block_24; } goto loop_2; } while (0);
+    do
+    {
+      if (var_a1 & 0xFF)
+      {
+        if (var_s4 & 0xFF)
+        {
+          goto success;
+        }
+        count = sKeyTableCount; temp_a1 = *var_s2; var_s0_2 = 0;
+        if (count > 0)
+        {
+          var_v1 = 0;
+          loop_16:
+          if ((*((u16 **) (sKeyTableSlots + var_v1))) != temp_a1)
+          {
+            var_s0_2 += 1; var_v1 += 0xC;
+            if (var_s0_2 < count)
+            {
+              goto loop_16;
+            }
+          }
+
+        }
+        var_v0 = 1;
+        if (var_s0_2 != sKeyTableCount)
+        {
+          workerLockAcquire(count, temp_a1);
+          var_a2 = var_s0_2 + 1;
+          if (var_a2 < sKeyTableCount)
+          {
+            temp_v0_2 = var_a2 * 0xC; var_t0 = (void *) (((u32) temp_v0_2) + ((u32) base)); var_a3 = temp_v0_2 + sKeyTableSlots;
+            do
+            {
+              *((__repair_words3 *) (((char *) var_t0) + 0x0)) = *((__repair_words3 *) (((s8 *) var_a3) + 0x0)); var_t0 += 0xC; var_a2 += 1; var_a3 += 0xC;
+            }
+            while (var_a2 < sKeyTableCount);
+          }
+          sKeyTableCount -= 1;
+          workerLockRelease();
+        }
+        success:
+        return 1;
+
+      }
+      var_s3 += 1; var_s2 += 3;
+      if (var_s3 >= ((u32) sKeyTableCount))
+      {
+        goto block_24;
+      }
+      goto loop_2;
+    }
+    while (0);
   }
   block_24:
   var_v0 = 0;
 
   return var_v0;
 }
+

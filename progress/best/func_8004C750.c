@@ -34,6 +34,26 @@ inline static u16 inline_fn2(void *arg0, int arg1)
   return (*((u16 **) (((char *) arg0) + 0x38)))[arg1];
 }
 
+typedef struct 
+{
+  f32 v;
+} Field_f32;
+typedef struct 
+{
+  s32 v;
+} Field_s32;
+typedef struct 
+{
+  u16 v;
+} Field_u16;
+typedef struct 
+{
+  u32 v;
+} Field_u32;
+typedef struct 
+{
+  u8 v;
+} Field_u8;
 s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, void *arg5, void *arg6, void *arg7)
 {
   struct 
@@ -185,13 +205,13 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     scratch.sp1C = 0.0f;
     scratch.sp20 = 0.0f;
     *((PointCopy *) scratch.endPoint) = *((PointCopy *) arg1);
-    scratch.startPoint[0] = *((f32 *) (((char *) arg1) + 0));
+    scratch.startPoint[0] = ((Field_f32 *) (((char *) arg1) + 0))->v;
     sp14C = scratch.matrix;
     sp154 = &scratch.localStart[0];
-    scratch.startPoint[1] = (*((f32 *) (((char *) arg1) + 4))) - var_fs0;
+    scratch.startPoint[1] = ((Field_f32 *) (((char *) arg1) + 4))->v - var_fs0;
     sp15C = &scratch.localEnd[0];
     sp164 = scratch.rotationInput.overlap.point;
-    scratch.startPoint[2] = *((f32 *) (((char *) arg1) + 8));
+    scratch.startPoint[2] = ((Field_f32 *) (((char *) arg1) + 8))->v;
     do
     {
       var_s6 = sp124;
@@ -213,22 +233,22 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
               {
                 do
                 {
-                  temp_s2 = (*((s32 *) (((char *) var_s1) + 0x58))) & 0x400;
+                  temp_s2 = ((Field_s32 *) (((char *) var_s1) + 0x58))->v & 0x400;
                 }
                 while (0);
-                if (((((s32) temp_s2) == 0) && ((*((s32 *) (((char *) var_s1) + 0x5C))) & 0x200)) && ((func_800487F0(var_s1, arg1, arg4) << 0x18) != 0))
+                if (((((s32) temp_s2) == 0) && (((Field_s32 *) (((char *) var_s1) + 0x5C))->v & 0x200)) && ((func_800487F0(var_s1, arg1, arg4) << 0x18) != 0))
                 {
                   temp_s4 = *((void **) (((char *) var_s1) + 0x70));
-                  scratch.rotationInput.angles[0] = (s16) ((s32) (-(*((f32 *) (((char *) var_s1) + 0x3C)))));
-                  scratch.rotationInput.angles[1] = (s16) ((s32) (-(*((f32 *) (((char *) var_s1) + 0x40)))));
-                  scratch.rotationInput.angles[2] = (s16) ((s32) (-(*((f32 *) (((char *) var_s1) + 0x44)))));
+                  scratch.rotationInput.angles[0] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x3C))->v));
+                  scratch.rotationInput.angles[1] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x40))->v));
+                  scratch.rotationInput.angles[2] = (s16) ((s32) (-((Field_f32 *) (((char *) var_s1) + 0x44))->v));
                   buildRotationMatrix(&scratch.rotationInput.angles[0], sp14C);
-                  scratch.localStart[0] = (*((f32 *) (((char *) arg1) + 0))) - (*((f32 *) (((char *) var_s1) + 0x24)));
-                  scratch.localStart[1] = (*((f32 *) (((char *) arg1) + 4))) - (*((f32 *) (((char *) var_s1) + 0x28)));
-                  scratch.localStart[2] = (*((f32 *) (((char *) arg1) + 8))) - (*((f32 *) (((char *) var_s1) + 0x2C)));
-                  scratch.localEnd[0] = scratch.startPoint[0] - (*((f32 *) (((char *) var_s1) + 0x24)));
-                  scratch.localEnd[1] = scratch.startPoint[1] - (*((f32 *) (((char *) var_s1) + 0x28)));
-                  scratch.localEnd[2] = scratch.startPoint[2] - (*((f32 *) (((char *) var_s1) + 0x2C)));
+                  scratch.localStart[0] = ((Field_f32 *) (((char *) arg1) + 0))->v - ((Field_f32 *) (((char *) var_s1) + 0x24))->v;
+                  scratch.localStart[1] = ((Field_f32 *) (((char *) arg1) + 4))->v - ((Field_f32 *) (((char *) var_s1) + 0x28))->v;
+                  scratch.localStart[2] = ((Field_f32 *) (((char *) arg1) + 8))->v - ((Field_f32 *) (((char *) var_s1) + 0x2C))->v;
+                  scratch.localEnd[0] = scratch.startPoint[0] - ((Field_f32 *) (((char *) var_s1) + 0x24))->v;
+                  scratch.localEnd[1] = scratch.startPoint[1] - ((Field_f32 *) (((char *) var_s1) + 0x28))->v;
+                  scratch.localEnd[2] = scratch.startPoint[2] - ((Field_f32 *) (((char *) var_s1) + 0x2C))->v;
                   temp_s0 = temp_s4 + 0x18;
                   rotateVec3ByMat3(sp14C, sp154);
                   rotateVec3ByMat3(sp14C, sp15C);
@@ -239,18 +259,12 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                     temp_t3 = temp_v0 & 0xFF;
                     temp_t2 = temp_v0 & 0xFF00;
                     sp198 = temp_t2;
-                    rotateVec3ByMat3(sp14C, sp164);
-                    sp19C = temp_t3;
-                    scratch.sp18 = scratch.localStart[0];
-                    scratch.sp20 = scratch.localStart[2];
-                    var_t3 = temp_t3;
-                    var_t2 = (int) temp_t2;
-                    temp_v1 = (*((u8 *) (((char *) temp_s4) + 0x48))) & 4;
+ do { rotateVec3ByMat3(sp14C, sp164); sp19C = temp_t3; scratch.sp18 = scratch.localStart[0]; scratch.sp20 = scratch.localStart[2]; var_t3 = temp_t3; var_t2 = (int) temp_t2; temp_v1 = ((Field_u8 *) (((char *) temp_s4) + 0x48))->v & 4; } while (0);
                     var_s7 = -1;
                     if (temp_v1 != 0)
                     {
                       var_s3 = *((u16 **) (((char *) temp_s4) + 0x3C));
-                      if ((temp_s2 - 1) < (((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))) - 1))
+                      if ((temp_s2 - 1) < (((u16) ((Field_u16 *) (((char *) temp_s4) + 0x40))->v) - 1))
                       {
                         var_s0_4 = 0;
                         var_s2 = ((u8 *) var_s3) + 4;
@@ -260,12 +274,12 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           temp_v1_2 = inline_fn2(temp_s4, temp_s5);
                           if ((var_t3 & temp_v1_2) && (var_t2 & temp_v1_2))
                           {
-                            temp_v1_3 = *((s32 *) (((char *) temp_s4) + 0x34));
+                            temp_v1_3 = ((Field_s32 *) (((char *) temp_s4) + 0x34))->v;
                             sp198 = var_t2;
                             sp19C = var_t3;
                             var_t2 = (s32) sp198;
                             var_t3 = sp19C;
-                            if (((func_8004D910(&scratch.localStart[0], scratch.rotationInput.overlap.point, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + 0))) * 0xC), sp16C) & 0xFF) && (scratch.spB0 >= 0.0f)) && (scratch.spB0 < var_fs0))
+                            if (((func_8004D910(&scratch.localStart[0], scratch.rotationInput.overlap.point, temp_v1_3 + ((*var_s3) * 0xC), temp_v1_3 + ((*((u16 *) (((char *) var_s2) + (-2)))) * 0xC), temp_v1_3 + (((Field_u16 *) (((char *) var_s2) + 0))->v * 0xC), sp16C) & 0xFF) && (scratch.spB0 >= 0.0f)) && (scratch.spB0 < var_fs0))
                             {
                               var_fs0 = scratch.spB0;
                               var_s7 = temp_s5;
@@ -275,14 +289,14 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           var_s3 = (void *) (((u8 *) var_s3) + 6);
                           var_s0_4 += 1;
                         }
-                        while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
+                        while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s4) + 0x40))->v));
                       }
                     }
                     else
                     {
                       var_s3_2 = *((u16 **) (((char *) temp_s4) + 0x3C));
                       var_s0_2 = 0;
-                      if (temp_v1 < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))))
+                      if (temp_v1 < ((u16) ((Field_u16 *) (((char *) temp_s4) + 0x40))->v))
                       {
                         if (gPlayerActor || temp_s4)
                         {
@@ -298,12 +312,12 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           temp_v1_4 = inline_fn2(temp_s4, temp_s5_2);
                           if ((var_t3 & temp_v1_4) && (var_t2 & temp_v1_4))
                           {
-                            temp_v1_5 = *((s32 *) (((char *) temp_s4) + 0x34));
+                            temp_v1_5 = ((Field_s32 *) (((char *) temp_s4) + 0x34))->v;
                             sp198 = var_t2;
                             sp19C = (unsigned) var_t3;
                             var_t2 = sp198;
                             var_t3 = sp19C;
-                            if (((func_8004D910(&scratch.localStart[0], scratch.rotationInput.overlap.point, temp_v1_5 + ((*((u8 *) var_s3_2)) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_s2_2) + (-1)))) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_s2_2) + 0))) * 0xC), sp174) & 0xFF) && (scratch.spB4 >= 0.0f)) && (scratch.spB4 < var_fs0))
+                            if (((func_8004D910(&scratch.localStart[0], scratch.rotationInput.overlap.point, temp_v1_5 + ((*((u8 *) var_s3_2)) * 0xC), temp_v1_5 + ((*((u8 *) (((char *) var_s2_2) + (-1)))) * 0xC), temp_v1_5 + (((Field_u8 *) (((char *) var_s2_2) + 0))->v * 0xC), sp174) & 0xFF) && (scratch.spB4 >= 0.0f)) && (scratch.spB4 < var_fs0))
                             {
                               var_fs0 = scratch.spB4;
                               var_s7 = temp_s5_2;
@@ -313,7 +327,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           var_s0_2 += 1;
                           var_s3_2 = (void *) (((u8 *) var_s3_2) + 3);
                         }
-                        while (((u32) (var_s0_2 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s4) + 0x40)))));
+                        while (((u32) (var_s0_2 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s4) + 0x40))->v));
                       }
                     }
                     if (var_s7 != (-1))
@@ -345,12 +359,12 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
         sp194 = &scratch.sp108;
         do
         {
-          if ((*((s32 *) (((char *) var_s6) + 0x50))) & 0x200)
+          if (((Field_s32 *) (((char *) var_s6) + 0x50))->v & 0x200)
           {
-            temp_s2_2 = (((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 4;
+            temp_s2_2 = (((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 4;
             if (temp_s2_2)
             {
-              temp_fv1 = (*((f32 *) (((char *) arg1) + 4))) - (*((f32 *) (((char *) (*((void **) (((char *) var_s6) + 0x3C)))) + 0x20)));
+              temp_fv1 = ((Field_f32 *) (((char *) arg1) + 4))->v - (*((f32 *) (((char *) (*((void **) (((char *) var_s6) + 0x3C)))) + 0x20)));
               var_v0_2 = 1;
               if (!(temp_fv1 >= 0.0f))
               {
@@ -374,16 +388,16 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
               temp_s1 = *((void **) (((char *) var_s6) + 0x3C));
               *((PointCopy *) scratch.localEnd) = *((PointCopy *) arg1);
               *((PointCopy *) scratch.rotationInput.point) = *((PointCopy *) scratch.startPoint);
-              if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 1)
+              if ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 1)
               {
-                scratch.localEnd[0] -= *((f32 *) (((char *) var_s6) + 0x24));
-                scratch.localEnd[1] -= *((f32 *) (((char *) var_s6) + 0x28));
-                scratch.localEnd[2] -= *((f32 *) (((char *) var_s6) + 0x2C));
-                scratch.rotationInput.point[0] -= *((f32 *) (((char *) var_s6) + 0x24));
-                scratch.rotationInput.point[1] -= *((f32 *) (((char *) var_s6) + 0x28));
-                scratch.rotationInput.point[2] -= *((f32 *) (((char *) var_s6) + 0x2C));
+                scratch.localEnd[0] -= ((Field_f32 *) (((char *) var_s6) + 0x24))->v;
+                scratch.localEnd[1] -= ((Field_f32 *) (((char *) var_s6) + 0x28))->v;
+                scratch.localEnd[2] -= ((Field_f32 *) (((char *) var_s6) + 0x2C))->v;
+                scratch.rotationInput.point[0] -= ((Field_f32 *) (((char *) var_s6) + 0x24))->v;
+                scratch.rotationInput.point[1] -= ((Field_f32 *) (((char *) var_s6) + 0x28))->v;
+                scratch.rotationInput.point[2] -= ((Field_f32 *) (((char *) var_s6) + 0x2C))->v;
               }
-              if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)
+              if ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 2)
               {
                 applyObjectRotation(var_s6, 0, &scratch.translation[0]);
                 func_80083B64(&scratch.translation[0], sp15C);
@@ -405,14 +419,14 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                   temp_v0_2 = func_8004E418(temp_s0_2, sp15C, (f32 *) sp17C);
                   temp_s7 = temp_v0_2 & 0xFF00;
                   sp18E = temp_v0_2 & 0xFF;
-                  if ((!((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2)) || ((func_80083B64(&scratch.translation[0], sp184), ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 2) == 0)))
+                  if ((!((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 2)) || ((func_80083B64(&scratch.translation[0], sp184), ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 2) == 0)))
                   {
                     var_s3_3 = -1;
-                    if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
+                    if (((Field_u8 *) (((char *) temp_s1) + 0x48))->v & 4)
                     {
-                      var_s0_3 = 0;
-                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      if (temp_s2_2 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v))
                       {
+                        var_s0_3 = 0;
                         do
                         {
                           temp_s2_3 = var_s0_3 & 0xFFFF;
@@ -420,18 +434,18 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           temp_a1 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (((u32) temp_s2_3) * 6);
                           if ((sp18E & temp_a0) && (temp_s7 & temp_a0))
                           {
-                            temp_v1_6 = *((s32 *) (((char *) temp_s1) + 0x34));
-                            if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, ((s32) temp_v1_6) + ((*((u16 *) (((char *) temp_a1) + 0))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 2))) * 0xC), temp_v1_6 + ((*((u16 *) (((char *) temp_a1) + 4))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (scratch.spF0 < var_fs0))
+                            temp_v1_6 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
+                            if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, ((s32) temp_v1_6) + (((Field_u16 *) (((char *) temp_a1) + 0))->v * 0xC), temp_v1_6 + (((Field_u16 *) (((char *) temp_a1) + 2))->v * 0xC), temp_v1_6 + (((Field_u16 *) (((char *) temp_a1) + 4))->v * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (scratch.spF0 < var_fs0))
                             {
-                              if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20)
+                              if ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 0x20)
                               {
                                 if (sp134 != NULL)
                                 {
-                                  *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-                                  *((f32 *) (((char *) sp134) + 4)) = inline_fn(arg1, scratch.spF0);
+                                  ((Field_f32 *) (((char *) sp134) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+                                  ((Field_f32 *) (((char *) sp134) + 4))->v = inline_fn(arg1, scratch.spF0);
                                   gPlayerActor = NULL;
                                   D_80103F00 = var_s6;
-                                  *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+                                  ((Field_f32 *) (((char *) sp134) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
                                 }
                               }
                               else
@@ -443,11 +457,11 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           }
                           var_s0_3 += 1;
                         }
-                        while (((u32) (var_s0_3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                        while (((u32) (var_s0_3 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
                       }
                     }
                     else
-                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      if (temp_s2_2 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v))
                     {
                       var_s0_4 = 0;
                       do
@@ -457,18 +471,18 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         temp_a1_2 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (temp_s2_4 * 3);
                         if ((sp18E & temp_v1_7) && (temp_s7 & temp_v1_7))
                         {
-                          temp_v1_8 = *((s32 *) (((char *) temp_s1) + 0x34));
-                          if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 0))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 1))) * 0xC), temp_v1_8 + ((*((u8 *) (((char *) temp_a1_2) + 2))) * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (var_fs0 > scratch.spF0))
+                          temp_v1_8 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
+                          if (((rayHitsTriangleXZ(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_8 + (((Field_u8 *) (((char *) temp_a1_2) + 0))->v * 0xC), temp_v1_8 + (((Field_u8 *) (((char *) temp_a1_2) + 1))->v * 0xC), temp_v1_8 + (((Field_u8 *) (((char *) temp_a1_2) + 2))->v * 0xC), &scratch.spF0) & 0xFF) && (scratch.spF0 >= 0.0f)) && (var_fs0 > scratch.spF0))
                           {
-                            if ((((u32) (*((u32 *) (((char *) var_s6) + 0x5C)))) >> 0x17) & 0x20)
+                            if ((((u32) ((Field_u32 *) (((char *) var_s6) + 0x5C))->v) >> 0x17) & 0x20)
                             {
                               if (sp134 != NULL)
                               {
-                                *((f32 *) (((char *) sp134) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-                                *((f32 *) (((char *) sp134) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - scratch.spF0);
+                                ((Field_f32 *) (((char *) sp134) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+                                ((Field_f32 *) (((char *) sp134) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - scratch.spF0);
                                 gPlayerActor = NULL;
                                 D_80103F00 = var_s6;
-                                *((f32 *) (((char *) sp134) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+                                ((Field_f32 *) (((char *) sp134) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
                               }
                             }
                             else
@@ -480,7 +494,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                         }
                         ++var_s0_4;
                       }
-                      while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                      while (((u32) (var_s0_4 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
                     }
                     if (var_s3_3 != (-1))
                     {
@@ -488,38 +502,38 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                       D_80108F84 = var_s6;
                       if (arg7 != NULL)
                       {
-                        if ((*((u8 *) (((char *) temp_s1) + 0x48))) & 4)
+                        if (((Field_u8 *) (((char *) temp_s1) + 0x48))->v & 4)
                         {
                           temp_v1_9 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 6);
-                          var_a2 = (*((u16 *) (((char *) temp_v1_9) + 2))) * 3;
-                          var_v0 = *((u16 *) (((char *) temp_v1_9) + 4));
-                          var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u16 *) (((char *) temp_v1_9) + 0))) * 0xC);
-                          buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
+                          var_a2 = ((Field_u16 *) (((char *) temp_v1_9) + 2))->v * 3;
+                          var_v0 = ((Field_u16 *) (((char *) temp_v1_9) + 4))->v;
+                          var_a1 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u16 *) (((char *) temp_v1_9) + 0))->v * 0xC);
+                          buildPlaneFromPoints(&scratch.plane[0], var_a1, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (var_a2 * 4), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (var_v0 * 0xC));
                         }
                         else
                         {
                           temp_v1_10 = ((u8 *) (*((u16 **) (((char *) temp_s1) + 0x3C)))) + (var_s3_3 * 3);
-                          var_a1 = (*((s32 *) (((char *) temp_s1) + 0x34))) + ((*((u8 *) (((char *) temp_v1_10) + 0))) * 0xC);
-                          var_a2 = (*((u8 *) (((char *) temp_v1_10) + 1))) * 3;
-                          var_v0 = (u16) (*((u8 *) (((char *) temp_v1_10) + 2)));
-                          buildPlaneFromPoints(&scratch.plane[0], var_a1, (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_a2 * 4), (*((s32 *) (((char *) temp_s1) + 0x34))) + (var_v0 * 0xC));
+                          var_a1 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (((Field_u8 *) (((char *) temp_v1_10) + 0))->v * 0xC);
+                          var_a2 = ((Field_u8 *) (((char *) temp_v1_10) + 1))->v * 3;
+                          var_v0 = (u16) ((Field_u8 *) (((char *) temp_v1_10) + 2))->v;
+                          buildPlaneFromPoints(&scratch.plane[0], var_a1, ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (var_a2 * 4), ((Field_s32 *) (((char *) temp_s1) + 0x34))->v + (var_v0 * 0xC));
                         }
-                        *((f32 *) (((char *) arg7) + 0)) = scratch.plane[0];
-                        *((f32 *) (((char *) arg7) + 4)) = scratch.plane[1];
-                        *((f32 *) (((char *) arg7) + 8)) = scratch.plane[2];
-                        *((f32 *) (((char *) arg7) + 0xC)) = scratch.plane[3];
+                        ((Field_f32 *) (((char *) arg7) + 0))->v = scratch.plane[0];
+                        ((Field_f32 *) (((char *) arg7) + 4))->v = scratch.plane[1];
+                        ((Field_f32 *) (((char *) arg7) + 8))->v = scratch.plane[2];
+                        ((Field_f32 *) (((char *) arg7) + 0xC))->v = scratch.plane[3];
                       }
                     }
                   }
                   else
                   {
-                    temp_v1_11 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4;
+                    temp_v1_11 = ((Field_u8 *) (((char *) temp_s1) + 0x48))->v & 4;
                     var_s5 = -1;
                     if (temp_v1_11 != 0)
                     {
                       var_s3_4 = *((u16 **) (((char *) temp_s1) + 0x3C));
                       var_s0_5 = 0;
-                      if (temp_s2_2 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      if (temp_s2_2 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v))
                       {
                         var_s2_3 = ((u8 *) var_s3_4) + 4;
                         do
@@ -528,8 +542,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           temp_v1_12 = inline_fn2(temp_s1, temp_s4_2);
                           if ((sp18E & temp_v1_12) && (temp_s7 & temp_v1_12))
                           {
-                            temp_v1_13 = *((s32 *) (((char *) temp_s1) + 0x34));
-                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_13 + ((*var_s3_4) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + (-2)))) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (scratch.sp108 < var_fs0))
+                            temp_v1_13 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
+                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_13 + ((*var_s3_4) * 0xC), temp_v1_13 + ((*((u16 *) (((char *) var_s2_3) + (-2)))) * 0xC), temp_v1_13 + (((Field_u16 *) (((char *) var_s2_3) + 0))->v * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (scratch.sp108 < var_fs0))
                             {
                               var_fs0 = scratch.sp108;
                               var_s5 = temp_s4_2;
@@ -539,14 +553,14 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           ++var_s0_5;
                           var_s3_4 = (void *) (((u8 *) var_s3_4) + 6);
                         }
-                        while (((u32) (var_s0_5 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                        while (((u32) (var_s0_5 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
                       }
                     }
                     else
                     {
                       var_s3_5 = *((u16 **) (((char *) temp_s1) + 0x3C));
                       var_s0_6 = 0;
-                      if (temp_v1_11 < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))))
+                      if (temp_v1_11 < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v))
                       {
                         var_s2_4 = ((u8 *) var_s3_5) + 2;
                         do
@@ -555,8 +569,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           temp_v1_14 = inline_fn2(temp_s1, temp_s4_3);
                           if ((sp18E & temp_v1_14) && (temp_s7 & temp_v1_14))
                           {
-                            temp_v1_15 = *((s32 *) (((char *) temp_s1) + 0x34));
-                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_15 + ((*((u8 *) var_s3_5)) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + (-1)))) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + 0))) * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (var_fs0 > scratch.sp108))
+                            temp_v1_15 = ((Field_s32 *) (((char *) temp_s1) + 0x34))->v;
+                            if (((func_8004D910(&scratch.localEnd[0], scratch.secondPoint.overlap.point, temp_v1_15 + ((*((u8 *) var_s3_5)) * 0xC), temp_v1_15 + ((*((u8 *) (((char *) var_s2_4) + (-1)))) * 0xC), temp_v1_15 + (((Field_u8 *) (((char *) var_s2_4) + 0))->v * 0xC), sp194) & 0xFF) && (scratch.sp108 >= 0.0f)) && (var_fs0 > scratch.sp108))
                             {
                               var_fs0 = scratch.sp108;
                               do
@@ -570,7 +584,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                           var_s3_5 = (void *) (((u8 *) var_s3_5) + 3);
                           var_s0_6 += 1;
                         }
-                        while (((u32) (var_s0_6 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+                        while (((u32) (var_s0_6 & 0xFFFF)) < ((u16) ((Field_u16 *) (((char *) temp_s1) + 0x40))->v));
                       }
                     }
                     if (var_s5 != (-1))
@@ -614,16 +628,16 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
           }
           else
           {
-            if ((*((u16 *) (((char *) temp_v0_3) + 0x26))) & 0x1000)
+            if (((Field_u16 *) (((char *) temp_v0_3) + 0x26))->v & 0x1000)
             {
               if (arg5)
               {
-                temp_fv1_2 = (*((f32 *) (((char *) arg1) + 4))) - scratch.plane[1];
+                temp_fv1_2 = ((Field_f32 *) (((char *) arg1) + 4))->v - scratch.plane[1];
                 var_v0_3 = 1;
               }
               else
               {
-                temp_fv1_2 = (*((f32 *) (((char *) arg1) + 4))) - scratch.plane[1];
+                temp_fv1_2 = ((Field_f32 *) (((char *) arg1) + 4))->v - scratch.plane[1];
                 var_v0_3 = 1;
               }
               if (!(temp_fv1_2 >= 0.0f))
@@ -670,74 +684,74 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     {
       if (arg5 != NULL)
       {
-        *((f32 *) (((char *) arg5) + 0)) = 0.0f;
-        *((f32 *) (((char *) arg5) + 4)) = 0.0f;
-        *((f32 *) (((char *) arg5) + 8)) = 0.0f;
-        if ((*((s32 *) (((char *) D_80108F84) + 0x50))) & 0x02000000)
+        ((Field_f32 *) (((char *) arg5) + 0))->v = 0.0f;
+        ((Field_f32 *) (((char *) arg5) + 4))->v = 0.0f;
+        ((Field_f32 *) (((char *) arg5) + 8))->v = 0.0f;
+        if (((Field_s32 *) (((char *) D_80108F84) + 0x50))->v & 0x02000000)
         {
-          *((f32 *) (((char *) arg5) + 0)) = (f32) ((*((f32 *) (((char *) arg5) + 0))) - 0.1f);
+          ((Field_f32 *) (((char *) arg5) + 0))->v = (f32) (((Field_f32 *) (((char *) arg5) + 0))->v - 0.1f);
         }
-        if ((*((s32 *) (((char *) D_80108F84) + 0x50))) & 0x04000000)
+        if (((Field_s32 *) (((char *) D_80108F84) + 0x50))->v & 0x04000000)
         {
-          *((f32 *) (((char *) arg5) + 0)) = (f32) ((*((f32 *) (((char *) arg5) + 0))) + 0.1f);
+          ((Field_f32 *) (((char *) arg5) + 0))->v = (f32) (((Field_f32 *) (((char *) arg5) + 0))->v + 0.1f);
         }
-        if ((*((s32 *) (((char *) D_80108F84) + 0x50))) & 0x08000000)
+        if (((Field_s32 *) (((char *) D_80108F84) + 0x50))->v & 0x08000000)
         {
-          *((f32 *) (((char *) arg5) + 8)) = (f32) ((*((f32 *) (((char *) arg5) + 8))) - 0.1f);
+          ((Field_f32 *) (((char *) arg5) + 8))->v = (f32) (((Field_f32 *) (((char *) arg5) + 8))->v - 0.1f);
         }
-        if ((*((s32 *) (((char *) D_80108F84) + 0x50))) & 0x10000000)
+        if (((Field_s32 *) (((char *) D_80108F84) + 0x50))->v & 0x10000000)
         {
-          *((f32 *) (((char *) arg5) + 8)) = (f32) ((*((f32 *) (((char *) arg5) + 8))) + 0.1f);
+          ((Field_f32 *) (((char *) arg5) + 8))->v = (f32) (((Field_f32 *) (((char *) arg5) + 8))->v + 0.1f);
         }
       }
       if (arg6 != NULL)
       {
-        *((f32 *) (((char *) arg6) + 0)) = 0.0f;
-        *((f32 *) (((char *) arg6) + 4)) = 0.0f;
-        *((f32 *) (((char *) arg6) + 8)) = 0.0f;
+        ((Field_f32 *) (((char *) arg6) + 0))->v = 0.0f;
+        ((Field_f32 *) (((char *) arg6) + 4))->v = 0.0f;
+        ((Field_f32 *) (((char *) arg6) + 8))->v = 0.0f;
       }
-      *((f32 *) (((char *) sp12C) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-      *((f32 *) (((char *) sp12C) + 4)) = (f32) ((*((f32 *) (((char *) arg1) + 4))) - var_fs0);
-      *((f32 *) (((char *) sp12C) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+      ((Field_f32 *) (((char *) sp12C) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+      ((Field_f32 *) (((char *) sp12C) + 4))->v = (f32) (((Field_f32 *) (((char *) arg1) + 4))->v - var_fs0);
+      ((Field_f32 *) (((char *) sp12C) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
       block_162:
       return 1;
 
     }
-    scratch.plane[0] = (*((f32 *) (((char *) gPlayerActor) + 0x3C))) - (*((f32 *) (((char *) gPlayerActor) + 0x48)));
-    scratch.plane[1] = (*((f32 *) (((char *) gPlayerActor) + 0x40))) - (*((f32 *) (((char *) gPlayerActor) + 0x4C)));
-    scratch.plane[2] = (*((f32 *) (((char *) gPlayerActor) + 0x44))) - (*((f32 *) (((char *) gPlayerActor) + 0x50)));
-    *((f32 *) (((char *) sp12C) + 0)) = (f32) (*((f32 *) (((char *) arg1) + 0)));
-    *((f32 *) (((char *) sp12C) + 4)) = inline_fn(arg1, var_fs0);
-    *((f32 *) (((char *) sp12C) + 8)) = (f32) (*((f32 *) (((char *) arg1) + 8)));
+    scratch.plane[0] = ((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x48))->v;
+    scratch.plane[1] = ((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x4C))->v;
+    scratch.plane[2] = ((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x50))->v;
+    ((Field_f32 *) (((char *) sp12C) + 0))->v = (f32) ((Field_f32 *) (((char *) arg1) + 0))->v;
+    ((Field_f32 *) (((char *) sp12C) + 4))->v = inline_fn(arg1, var_fs0);
+    ((Field_f32 *) (((char *) sp12C) + 8))->v = (f32) ((Field_f32 *) (((char *) arg1) + 8))->v;
     if (arg5 != NULL)
     {
       scratch.translation[0] = scratch.sp18;
       scratch.translation[1] = scratch.sp1C;
       scratch.translation[2] = scratch.sp20;
-      scratch.rotationInput.angles[0] = (s16) ((s32) (*((f32 *) (((char *) gPlayerActor) + 0x3C))));
-      scratch.rotationInput.angles[1] = (s16) ((s32) (*((f32 *) (((char *) gPlayerActor) + 0x40))));
-      scratch.rotationInput.angles[2] = (s16) ((s32) (*((f32 *) (((char *) gPlayerActor) + 0x44))));
+      scratch.rotationInput.angles[0] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v);
+      scratch.rotationInput.angles[1] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v);
+      scratch.rotationInput.angles[2] = (s16) ((s32) ((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v);
       buildRotationMatrixS16(&scratch.rotationInput.angles[0], scratch.matrix);
       func_800839F0(scratch.matrix, &scratch.translation[0], &scratch.rotatedA[0]);
-      scratch.rotationInput.angles[0] = (s16) ((s32) ((*((f32 *) (((char *) gPlayerActor) + 0x3C))) + scratch.plane[0]));
-      scratch.rotationInput.angles[1] = (s16) ((s32) ((*((f32 *) (((char *) gPlayerActor) + 0x40))) + scratch.plane[1]));
-      scratch.rotationInput.angles[2] = (s16) ((s32) ((*((f32 *) (((char *) gPlayerActor) + 0x44))) + scratch.plane[2]));
+      scratch.rotationInput.angles[0] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x3C))->v + scratch.plane[0]));
+      scratch.rotationInput.angles[1] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x40))->v + scratch.plane[1]));
+      scratch.rotationInput.angles[2] = (s16) ((s32) (((Field_f32 *) (((char *) gPlayerActor) + 0x44))->v + scratch.plane[2]));
       buildRotationMatrixS16(&scratch.rotationInput.angles[0], scratch.matrix);
       func_800839F0(scratch.matrix, &scratch.translation[0], &scratch.secondPoint.rotated[0]);
-      temp_ft1 = (*((f32 *) (((char *) gPlayerActor) + 0x24))) - (*((f32 *) (((char *) gPlayerActor) + 0x30)));
+      temp_ft1 = ((Field_f32 *) (((char *) gPlayerActor) + 0x24))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x30))->v;
       scratch.sp110[0] = temp_ft1;
-      temp_fv0 = (*((f32 *) (((char *) gPlayerActor) + 0x28))) - (*((f32 *) (((char *) gPlayerActor) + 0x34)));
+      temp_fv0 = ((Field_f32 *) (((char *) gPlayerActor) + 0x28))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x34))->v;
       scratch.sp110[1] = temp_fv0;
-      scratch.sp110[2] = (*((f32 *) (((char *) gPlayerActor) + 0x2C))) - (*((f32 *) (((char *) gPlayerActor) + 0x38)));
-      *((f32 *) (((char *) arg5) + 0)) = (f32) (temp_ft1 + (scratch.secondPoint.rotated[0] - scratch.rotatedA[0]));
-      *((f32 *) (((char *) arg5) + 4)) = (f32) (scratch.sp110[1] + (scratch.secondPoint.rotated[1] - scratch.rotatedA[1]));
-      *((f32 *) (((char *) arg5) + 8)) = (f32) (scratch.sp110[2] + (scratch.secondPoint.rotated[2] - scratch.rotatedA[2]));
+      scratch.sp110[2] = ((Field_f32 *) (((char *) gPlayerActor) + 0x2C))->v - ((Field_f32 *) (((char *) gPlayerActor) + 0x38))->v;
+      ((Field_f32 *) (((char *) arg5) + 0))->v = (f32) (temp_ft1 + (scratch.secondPoint.rotated[0] - scratch.rotatedA[0]));
+      ((Field_f32 *) (((char *) arg5) + 4))->v = (f32) (scratch.sp110[1] + (scratch.secondPoint.rotated[1] - scratch.rotatedA[1]));
+      ((Field_f32 *) (((char *) arg5) + 8))->v = (f32) (scratch.sp110[2] + (scratch.secondPoint.rotated[2] - scratch.rotatedA[2]));
     }
     if (arg6 != NULL)
     {
-      *((f32 *) (((char *) arg6) + 0)) = scratch.plane[0];
-      *((f32 *) (((char *) arg6) + 4)) = scratch.plane[1];
-      *((f32 *) (((char *) arg6) + 8)) = scratch.plane[2];
+      ((Field_f32 *) (((char *) arg6) + 0))->v = scratch.plane[0];
+      ((Field_f32 *) (((char *) arg6) + 4))->v = scratch.plane[1];
+      ((Field_f32 *) (((char *) arg6) + 8))->v = scratch.plane[2];
       return 1;
     }
     return 1;
@@ -746,4 +760,3 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   return 0;
 
 }
-

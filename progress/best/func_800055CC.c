@@ -36,24 +36,22 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3)
   s32 __repair_var_v1_1;
   u32 temp_v0_2;
   u32 temp_v1;
-  u32 var_a0;
   void *temp_a1;
   void *temp_s3;
   void *temp_v0;
   register void *var_a0_2;
   void *var_v1_2;
-  var_a0 = arg1;
-  if (var_a0 >= 0x40b)
+  if (arg1 >= 0x40b)
   {
-    var_a0 = 0x71;
+    arg1 = 0x71;
   }
   if (var_s5)
   {
-    temp_v0 = findOrLoadCacheBlock(var_a0);
+    temp_v0 = findOrLoadCacheBlock(arg1);
   }
   else
   {
-    temp_v0 = findOrLoadCacheBlock(var_a0);
+    temp_v0 = findOrLoadCacheBlock(arg1);
   }
   do
   {
@@ -68,7 +66,14 @@ void func_800055CC(s32 *arg0, u32 arg1, u32 arg2, s32 arg3)
           var_s6 = temp_s4 * 3;
           if (arg3)
           {
-            __repair_var_v1_1 |= 3;
+            if (temp_v0)
+            {
+              __repair_var_v1_1 |= 3;
+            }
+            else
+            {
+              __repair_var_v1_1 |= 3;
+            }
           }
           else
           {

@@ -448,8 +448,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         }
                       }
                       sp196 += 1;
-                      var_s5 += 6;
                       var_fp += 3;
+                      var_s5 += 6;
                     }
                     while (sp196 < inline_fn((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
                   }
@@ -567,8 +567,8 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                         }
                       }
                       __block_sp196 += 1;
-                      var_s5_2 += 3;
                       var_fp_2 += 3;
+                      var_s5_2 += 3;
                     }
                     while (__block_sp196 < ((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
                   }

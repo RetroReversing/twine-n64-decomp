@@ -53,87 +53,95 @@ u32 func_800180D4(u8 *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4)
           case 9:
             width = ((width >> 5) + 1) << 5;
             break;
-
-          case 10:
-            if (limit != 0)
+            do
           {
-            return total;
-          }
-            return width;
+            case 10:
+              if (limit != 0)
+            {
+              return total;
+            }
 
-          case 32:
-            width += font->spaceW;
+            return width;
+            case 32:
+              width += font->spaceW;
+
             total += font->spaceW;
             break;
+            case 1:
+              case 2:
+              case 5:
+              case 6:
+              case 7:
+              str++;
 
-          case 1:
 
-          case 2:
 
-          case 5:
 
-          case 6:
 
-          case 7:
-            str++;
             i++;
             break;
+            case 3:
+              case 4:
+              str++;
 
-          case 3:
 
-          case 4:
-            str++;
             i++;
             limit = (*((s8 *) str)) * 2;
             break;
+            default:
+              *str = ch;
 
-          default:
-            *str = ch;
-            c = ch;
-            idx = c - 0x21;
+            c = ch; idx = ch - 0x21;
             if ((limit != 0) && ((total + func_80018578(font, str)) >= limit))
-          {
-            return total;
-          }
+            {
+              return total;
+            }
             kern = font->kern;
             if (kern != 0)
-          {
-            off = idx * 8;
-            if (((KernTab *) (kern + off))->count != 0)
             {
-              k = 0;
-              for (;;)
+              if (limit || idx)
               {
-                if (ch)
-                {
-                  kt = (KernTab *) (off + kern);
-                  p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
-                  k++;
-                }
-                else
-                {
-                  kt = (KernTab *) (off + kern);
-                  p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
-                  k++;
-                }
-                if (p[0] == c)
-                {
-                  width -= (s8) p[1];
-                }
-                else
-                  if (k < kt->count)
-                {
-                  continue;
-                }
-                break;
+                off = idx * 8;
               }
+              else
+              {
+                off = idx * 8;
+              }
+              if (((KernTab *) (kern - (-(2 * (idx * 4)))))->count != 0)
+              {
+                k = 0;
+                for (;;)
+                {
+                  if (ch)
+                  {
+                    kt = (KernTab *) ((idx * 8) + kern);
+                    p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
+                    k++;
+                  }
+                  else
+                  {
+                    kt = (KernTab *) ((idx * 8) + kern);
+                    p = (u8 *) (((u32) (k * 2)) - (-((u32) (*((u8 * volatile *) (&kt->pairs))))));
+                    k++;
+                  }
+                  if (p[0] == c)
+                  {
+                    width -= (s8) p[1];
+                  }
+                  else
+                    if (k < kt->count)
+                  {
+                    continue;
+                  }
+                  break;
+                }
 
+              }
             }
-          }
-            adv = font->glyphs[(idx * 5) + 2] + font->extra;
-            width += adv;
-            total += adv;
+            adv = font->glyphs[(idx * 5) + 2] + font->extra; width += adv; total += adv;
             break;
+          }
+          while (0);
 
         }
 
