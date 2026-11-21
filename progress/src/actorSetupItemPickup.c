@@ -1,7 +1,7 @@
 /* Sets up the pickup actor and, when a matching entry exists, loads its item into the shared item slot and plays its animation. */
 s32 func_8000237C();
 s32 func_80002BD0();
-s32 func_80002D30();
+s32 clearProbeState();
 s32 func_80002EF0();
 s32 formatTextEntry();
 s32 findEntryById();
@@ -41,7 +41,7 @@ void actorSetupItemPickup(void) {
         (*(f32 *)((char *)(gPickupActor) + 0x28)) = 0.25f;
         (*(f32 *)((char *)(gPickupActor) + 0x2C)) = -3.0f;
         (*(f32 *)((char *)(gPickupActor) + 0x54)) = 1.05f;
-        func_80002D30((*pickupActorRef), 0x14D);
+        clearProbeState((*pickupActorRef), 0x14D);
         if (func_80029C08(gPickupSearchBox, 2, 0) & 0xFFFF) {
             pickupEntry = func_8002A980(gPickupSearchBox);
             if (pickupEntry != NULL) {

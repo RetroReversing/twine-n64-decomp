@@ -14,28 +14,25 @@ s32 func_8002FBD4();
 s32 func_8003099C();
 s32 func_80081730();
 s32 func_80087E74();
-extern u16 D_800BFC92;
-extern char D_800BFD08[];
-extern s32 D_800BFD74;
-extern s8 D_800CEEB1;
-extern char D_800E1584[];
+extern u16 sMenuAnimFlags;
+extern char sMenuTextTemplates[];
+extern s32 sMenuTextRecord;
+extern s8 gMenuOutcome;
+extern char sMenuTimer[];
 extern u8 D_80102EDC;
 extern u8 D_80102EE0;
 extern u8 sDifficultyLevel;
 extern char D_80102EFC[];
 
 typedef struct { s32 w[9]; } __W36;
+/* Runs one frame of the menu state machine: dispatches on the menu state at +0x7A, advances text, and sets the outcome when done. */
 void updateMenuStateMachine(void *arg0, void *arg1) {
-    char *__base_D_800BFD08;
-    s16 temp_v1;
-    char *var_a2;
-    char *var_a3;
-    u16 temp_v1_2;
-    void *temp_t0;
+    s16 menuState;
+    u16 nextFrame;
 
     updateMenuAnimation();
-    temp_v1 = *(s16 *)((char *)arg1 + 0x7A);
-    switch (temp_v1) {
+    menuState = *(s16 *)((char *)arg1 + 0x7A);
+    switch (menuState) {
     case 0:
         func_8002EFD8(arg0, arg1);
         menuTimeoutTransition(arg0, arg1);
@@ -56,7 +53,7 @@ void updateMenuStateMachine(void *arg0, void *arg1) {
     case 4:
         updateObjectFade(arg0);
         if (D_80102EDC != 0) {
-            func_8002B050(D_800E1584, 1);
+            func_8002B050(sMenuTimer, 1);
         }
         if (!(func_80081730() & 0xFFFF)) {
             goto tail;
@@ -74,13 +71,13 @@ void updateMenuStateMachine(void *arg0, void *arg1) {
         return;
     case 7:
         if (decayObjectTimers(arg0) & 0xFF) {
-            temp_v1_2 = D_800BFC92 + 1;
-            D_800BFC92 = temp_v1_2;
-            *(__W36 *)&D_800BFD74 = *(__W36 *)(D_800BFD08 + (temp_v1_2 & 1) * 0x24);
+            nextFrame = sMenuAnimFlags + 1;
+            sMenuAnimFlags = nextFrame;
+            *(__W36 *)&sMenuTextRecord = *(__W36 *)(sMenuTextTemplates + (nextFrame & 1) * 0x24);
             {
             s32 t = *(s32 *)((char *)arg0 + 0x2C);
-            D_800BFC92 += 1;
-            initTextFromTemplate(t, &D_800BFD74);
+            sMenuAnimFlags += 1;
+            initTextFromTemplate(t, &sMenuTextRecord);
             }
             func_8002FBD4(arg1, 0);
         }
@@ -93,14 +90,14 @@ void updateMenuStateMachine(void *arg0, void *arg1) {
     case 9:
         updateObjectFade(arg0);
 block_19:
-        func_8002B150(D_800E1584, 0, 0);
+        func_8002B150(sMenuTimer, 0, 0);
         menuTimeoutTransition(arg0, arg1);
         return;
     case 11:
         if (decayObjectTimers(arg0) & 0xFF) {
             func_8002B02C(D_80102EFC);
             func_800283B0();
-            D_800CEEB1 = 2;
+            gMenuOutcome = 2;
             func_80087E74();
             func_8003099C(D_80102EE0, sDifficultyLevel);
             return;

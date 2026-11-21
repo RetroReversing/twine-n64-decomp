@@ -19,7 +19,7 @@ s32 angleDelta12(s32, s32);                         /* extern */
 f32 approximateAtan2(f32, f32);                     /* extern */
 f32 cosAngle(f32);                                  /* extern */
 M2C_UNK func_80002BD0(void *, M2C_UNK);             /* extern */
-M2C_UNK func_80002D30(void *, M2C_UNK);             /* extern */
+M2C_UNK clearProbeState(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8000C91C(M2C_UNK);                     /* extern */
 void *func_80015F0C();                              /* extern */
 M2C_UNK func_80016314(void *, void *);              /* extern */
@@ -536,7 +536,7 @@ block_153:
                             M2C_FIELD(arg0, f32 *, 0x2C) = sp48[2];
                             func_80065684(arg0, sp48[2]);
                             func_800635BC(arg0, 3);
-                            func_80002D30(arg0, 0x159);
+                            clearProbeState(arg0, 0x159);
                             M2C_FIELD(temp_s3, s8 *, 0x17E) = 2;
                             M2C_FIELD(temp_s3, s8 *, 0x181) = 1;
                             M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x34) = 0;

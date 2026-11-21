@@ -18,7 +18,7 @@ void func_80064630(void *arg0) {
     s32 recOff;
 
     for (i = 0, off = 0; i < 32; i++, off += 4) {
-        if (D_80112F6C != 0) {
+        if (*(volatile u8 *)&D_80112F6C != 0) {
             __base_D_800C7C16 = D_800C7C16;
             *(u16 *)(record + 0x1BC + i * 2) = *(u16 *)(__base_D_800C7C16 + off);
         } else {

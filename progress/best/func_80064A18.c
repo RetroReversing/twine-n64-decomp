@@ -4,7 +4,7 @@ s32 func_800015AC();
 s32 func_80001D80();
 s32 func_8000237C();
 s32 func_80002BD0();
-s32 func_80002D30();
+s32 clearProbeState();
 void *spawnTextNode();
 void *spawnTrackMarker();
 void *func_800164F8();
@@ -351,7 +351,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             func_800643EC(temp_s4);
             temp_a1_2 = (*(s16 *)((char *)((*(void **)((char *)(temp_s4) + 0x68))) + 0xA2));
             if (temp_a1_2 != 0) {
-                func_80002D30(temp_s4, temp_a1_2);
+                clearProbeState(temp_s4, temp_a1_2);
             }
             func_80067AE8(temp_s4);
             temp_v0_10 = (*(void **)((char *)(temp_s4) + 0x68));

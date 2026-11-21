@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80002D30();                            /* extern */
+M2C_UNK clearProbeState();                            /* extern */
 
 void func_8000CC1C(void) {
-    func_80002D30();
+    clearProbeState();
 }

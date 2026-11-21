@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80002BD0(void *, u16);                 /* extern */
 M2C_UNK func_80002C74(void *, u16, u16);            /* extern */
 M2C_UNK func_80002CAC(void *, u16, u16);            /* extern */
-M2C_UNK func_80002D30(void *, M2C_UNK);             /* extern */
+M2C_UNK clearProbeState(void *, M2C_UNK);             /* extern */
 M2C_UNK func_80077960(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8007947C(void *);                      /* extern */
 s32 randomIntBelow(M2C_UNK);                        /* extern */
@@ -55,7 +55,7 @@ void func_80076E98(void *arg0) {
         M2C_FIELD(arg0, s16 *, 0x7C) = 0xC;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 0xC;
         M2C_FIELD(arg0, s32 *, 0x74) = 0;
-        func_80002D30(arg0, 0x205);
+        clearProbeState(arg0, 0x205);
         func_80077960(arg0, 0x71);
         return;
     }
@@ -82,8 +82,9 @@ void func_80076E98(void *arg0) {
     case 1:
         M2C_FIELD(arg0, s16 *, 0x7C) = 4;
         M2C_FIELD(temp_s1, s8 *, 0x7F) = 4;
-        func_80002BD0(arg0, *(u16 *)((u8 *)&D_800C99E8 + (M2C_FIELD(temp_s1, u16 *, 0x88) & 0x1E)));
+        var_a1_2 = *(u16 *)((u8 *)&D_800C99E8 + (M2C_FIELD(temp_s1, u16 *, 0x88) & 0x1E));
         var_s2 = 1;
+        func_80002BD0(arg0, var_a1_2);
         break;
     case 0:
     case 3:
@@ -123,3 +124,4 @@ block_23:
         func_80077960(arg0, var_a1);
     }
 }
+

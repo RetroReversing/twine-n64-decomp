@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80002D30();
+s32 clearProbeState();
 
 void func_80002E80(void *arg0) {
     s16 temp_a1;
 
     temp_a1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0xA2);
     if (temp_a1 != 0) {
-        func_80002D30(arg0, temp_a1);
+        clearProbeState(arg0, temp_a1);
     }
 }

@@ -12,7 +12,7 @@ u32 func_8008EF18(u8 index) {
 
 void func_8002D850(void);
 void func_80045CA0(void);
-extern s8 D_800CEEB0, D_800CEEB1;
+extern s8 D_800CEEB0, gMenuOutcome;
 extern u64 D_80102CC8;
 extern s32 gDemoFrame, gDemoFadeTimer;
 extern u8 D_80104320[];
@@ -26,7 +26,7 @@ void func_80087CDC(void) {
     gDemoFadeTimer = -1;
     func_80045CA0();
     func_8002D850();
-    D_800CEEB1 = 2;
+    gMenuOutcome = 2;
 }
 
 extern f32 D_80102E6C, D_80102E70, D_80102E74[], D_80102E78;

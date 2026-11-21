@@ -2,7 +2,7 @@
 
 s32 func_80001660(void *, s8);                  /* extern */
 s32 func_80001678(void *, s8);                  /* extern */
-s32 func_80002D30(void *, u16);                 /* extern */
+s32 clearProbeState(void *, u16);                 /* extern */
 s32 func_80002EB8(void *);                      /* extern */
 s32 func_80002EF0(void *, f32);                 /* extern */
 s32 func_8000A270(s32, s8);                     /* extern */
@@ -137,7 +137,7 @@ block_48:
     case 1:
     case 10:
         func_80065C70(arg0);
-        func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
+        clearProbeState((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4) + 0x9A)));
         func_80001660(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
         temp_a0_4 = (*(void **)((char *)(temp_s2) + 0xA8));
         var_v1 = (*(s16 *)((char *)(temp_a0_4) + 0x7A));
@@ -192,13 +192,13 @@ block_48:
         func_80001678(arg0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)));
         temp_a1 = (*(u16 *)((char *)(var_s4) + 0x98));
         if (temp_a1 != 0) {
-            do { func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1); } while (0);
+            do { clearProbeState((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1); } while (0);
             temp_v1 = 4;
             goto block_48;
         }
         temp_a1_2 = (*(u16 *)((char *)(var_s4) + 0x92));
         if (temp_a1_2 != 0) {
-            func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1_2);
+            clearProbeState((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1_2);
             temp_v1 = 4;
             goto block_48;
         }
@@ -216,7 +216,7 @@ block_41:
         temp_a1_3 = (*(u16 *)((char *)(var_s4) + 0x92));
         if (temp_a1_3 != 0) {
             temp_v1 = 2;
-            func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1_3);
+            clearProbeState((*(void **)((char *)(temp_s2) + 0xA8)), temp_a1_3);
             goto block_48;
         }
         goto block_41;

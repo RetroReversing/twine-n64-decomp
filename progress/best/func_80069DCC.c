@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 M2C_UNK func_80002BD0(void *, M2C_UNK);
-M2C_UNK func_80002D30(void *, u16);
+M2C_UNK clearProbeState(void *, u16);
 M2C_UNK func_80002D50(void *, M2C_UNK);
 M2C_UNK func_80002EF0(void *);
 M2C_UNK listUnlinkFree(s32);
@@ -636,7 +636,7 @@ var_v0_9 = var_s0 * 2;
 if ((var_v0_8 & var_v1_8) || (var_v0_9 = var_s0 * 2, (absFloat(var_fs1 - M2C_FIELD(temp_s1, f32 *, 0x8C)) > 0.03f))) {
 M2C_FIELD(temp_s1, f32 *, 0x8C) = var_fs1;
 M2C_FIELD(temp_s1, u8 *, 0x195) = var_s0;
-func_80002D30(arg0, *(&D_800C7C8E + var_v0_9));
+clearProbeState(arg0, *(&D_800C7C8E + var_v0_9));
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s32 *, 0x30) = 0;
 }
 }
@@ -655,7 +655,7 @@ if ((temp_fv0_4 <= 0.0002f) && (temp_fv0_4 >= -0.0002f)) {
 temp_fv0_5 = M2C_FIELD(temp_s1, f32 *, 0x50);
 if (temp_fv0_5 <= 0.0002f) {
 if (temp_fv0_5 >= -0.0002f) {
-func_80002D30(arg0, 0x1ADU);
+clearProbeState(arg0, 0x1ADU);
 }
 }
 }
@@ -686,7 +686,7 @@ if (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 8) {
 if ((func_800819EC(temp_s4, 0xD) != 0) && (M2C_FIELD(temp_s1, s8 *, 0x180) == 0)) {
 temp_v1_19 = M2C_FIELD(arg0, void **, 0x68);
 M2C_FIELD(temp_v1_19, u16 *, 0xC) = (u16) (M2C_FIELD(temp_v1_19, u16 *, 0xC) | 0x40);
-func_80002D30(arg0, 0x177U);
+clearProbeState(arg0, 0x177U);
 func_800635BC(arg0, 6);
 }
 }

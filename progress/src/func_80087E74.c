@@ -18,7 +18,7 @@ M2C_UNK func_80045CA0();                            /* extern */
 extern M2C_UNK D_1F282B0;
 extern M2C_UNK D_1F2BB00;
 extern M2C_UNK D_1F2F350;
-extern u8 D_800CEEB1;
+extern u8 gMenuOutcome;
 extern u8 D_800CEEB2;
 extern M2C_UNK D_80104320;
 
@@ -26,12 +26,12 @@ void func_80087E74(void) {
     s32 temp_a0;
 
     func_80045CA0();
-    if (D_800CEEB1 == 2) {
+    if (gMenuOutcome == 2) {
         temp_a0 = (D_800CEEB2 % 3) & 0xFF;
-if (temp_a0 != 1) { if ((temp_a0 < 2) || (temp_a0 != D_800CEEB1)) { func_80045130(0x22, D_800CEEB1);
- romDmaRead(&D_80104320, &D_1F282B0, 0x3840); } else goto b; } else { func_80045130(0x19, D_800CEEB1);
+if (temp_a0 != 1) { if ((temp_a0 < 2) || (temp_a0 != gMenuOutcome)) { func_80045130(0x22, gMenuOutcome);
+ romDmaRead(&D_80104320, &D_1F282B0, 0x3840); } else goto b; } else { func_80045130(0x19, gMenuOutcome);
  romDmaRead(&D_80104320, &D_1F2BB00, 0x3840); }
- if (0) { b: func_80045130(1, D_800CEEB1);
+ if (0) { b: func_80045130(1, gMenuOutcome);
  romDmaRead(&D_80104320, &D_1F2F350, 0x3840); }
         D_800CEEB2 += 1;
     }

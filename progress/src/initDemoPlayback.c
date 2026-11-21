@@ -20,7 +20,7 @@ s32 func_8007560C();
 s32 lookupDataEntry();
 s16 strlen();
 extern s8 D_800CEEB0;
-extern s8 D_800CEEB1;
+extern s8 gMenuOutcome;
 extern void *D_801005AC;
 extern s32 D_80102CC8;
 extern s32 D_80102CCC;
@@ -58,5 +58,5 @@ void initDemoPlayback(void) {
     do { copyStateTablesToRam(); } while (0);
     func_8002D850();
     func_8007560C();
-    D_800CEEB1 = 0;
+    gMenuOutcome = 0;
 }

@@ -2,7 +2,7 @@
 
 s32 func_8000237C();
 s32 func_80002BD0();
-s32 func_80002D30();
+s32 clearProbeState();
 s32 func_800160FC();
 s32 spawnTrackMarker();
 void *spawnEffectObject();
@@ -265,7 +265,7 @@ s32 __repair_phase_var_a0;
             if (!(getKeyEntryFlag(gSaveSlotInfo[gPickupSavedByte].f0) & 0xFF)) {
                 temp_a0_2 = 0x2A9;
             }
-            func_80002D30(gPickupActor, temp_a0_2);
+            clearProbeState(gPickupActor, temp_a0_2);
         }
     }
 }

@@ -3,7 +3,7 @@ static __inline__ s8 __repair_inline(s8 a) { return a; }
 
 s32 func_800015AC();
 s32 func_80002BD0();
-s32 func_80002D30();
+s32 clearProbeState();
 s32 func_8000A270();
 s32 func_8000A894();
 void *func_80015F0C();
@@ -223,7 +223,7 @@ active_mode:
                 (*(u8 *)((char *)(temp_v1_6) + 0xF)) = (u8) (*(s8 *)((char *)(temp_v1_6) + 0xE));
                 temp_a1_3 = *(u16 *)(D_800C4738 + ((*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0xE)) * 0xE8));
                 if (temp_a1_3 != 0) {
-                    func_80002D30((*(void **)((char *)(temp_s1) + 0xA8)), temp_a1_3);
+                    clearProbeState((*(void **)((char *)(temp_s1) + 0xA8)), temp_a1_3);
                     (*(s16 *)((char *)((*(void **)((char *)(temp_s1) + 0xA8))) + 0x7A)) = 6;
                 }
                 func_80065BC4(arg0);

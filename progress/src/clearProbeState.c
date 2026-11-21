@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80002BD0();                            /* extern */
 
-void func_80002D30(void *arg0) {
+void clearProbeState(void *arg0) {
     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s16 *, 0xA2) = 0;
     func_80002BD0();
 }

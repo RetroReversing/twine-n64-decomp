@@ -3,7 +3,7 @@
 s32 func_80001E28();
 s32 func_8000237C();
 s32 func_80002BD0();
-s32 func_80002D30();
+s32 clearProbeState();
 s32 func_80019E28();
 s32 formatTextEntry();
 void *findEntryById();
@@ -72,9 +72,9 @@ void func_80019F7C(void) {
             func_80002BD0((*__base_D_800B5B14), 0x14D);
             (*(f32 *)((char *)((*(void **)((char *)((*__base_D_800B5B14)) + 0x68))) + 0x34)) = 0.05f;
             if (getKeyEntryFlag(*(s32 *)(gSaveSlotInfo + (gPickupSavedByte * 0x18))) & 0xFF) {
-                func_80002D30((*__base_D_800B5B14), 0x327);
+                clearProbeState((*__base_D_800B5B14), 0x327);
             } else {
-                func_80002D30((*__base_D_800B5B14), 0x2A9);
+                clearProbeState((*__base_D_800B5B14), 0x2A9);
             }
             goto block_11;
         }

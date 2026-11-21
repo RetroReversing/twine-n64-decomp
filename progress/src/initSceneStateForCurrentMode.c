@@ -21,7 +21,7 @@ M2C_UNK DrawScreenBorderLines();                            /* extern */
 M2C_UNK func_80087CDC(void);                          /* extern */
 M2C_UNK initDemoPlayback(u8);                          /* extern */
 M2C_UNK func_80117BF4(u8);                          /* extern */
-extern u8 D_800CEEB1;
+extern u8 gMenuOutcome;
 extern s8 D_801002AE;
 extern s8 D_801002AF;
 extern s8 D_801002B0;
@@ -97,11 +97,11 @@ extern s32 D_8010A4E4;
     if (setupParam != -1) {
         func_8000A5F4(setupParam);
     }
-    if ((D_800CEEB1 != 0) & (prevMode != 0x24)) {
-        if (D_800CEEB1 == 1) {
+    if ((gMenuOutcome != 0) & (prevMode != 0x24)) {
+        if (gMenuOutcome == 1) {
             func_80087CDC();
             return;
         }
-        initDemoPlayback(D_800CEEB1);
+        initDemoPlayback(gMenuOutcome);
     }
 }

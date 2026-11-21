@@ -1,3 +1,5 @@
+typedef struct { s32 v; s32 pad[5]; } SlotInfo;
+typedef struct { u16 *p; s32 pad[2]; } ItemEnt;
 void func_8000A310(void);
 void func_80011938(s32, s16);
 void func_800218EC(void);
@@ -8,9 +10,9 @@ void func_8002B000(void *, s32);
 s32 func_8002B9CC(s32);
 void func_8003099C(u8, u8);
 void func_80045130(u8);
-extern s16 D_800BD680;
-extern s32 D_800C3CF8;
-extern s32 D_8010019C;
+extern s16 D_800BD680[];
+extern ItemEnt D_800C3CF8[];
+extern SlotInfo D_8010019C[];
 extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
@@ -40,9 +42,6 @@ void func_8001ED10(void) {
     s32 i;
     u8 b;
     s16 t;
-    s32 *__base_D_800C3CF8;
-
-    __base_D_800C3CF8 = &D_800C3CF8;
 
     D_80102EDD = 1;
     if (D_80102EEC == 0) {
@@ -75,13 +74,12 @@ void func_8001ED10(void) {
                     do {
                         s32 r;
                         r = getSaveSlotIndex(i & 0xFFFF);
-                        r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
-                        *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
-                            **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
+                        r = func_8002B9CC(D_8010019C[r & 0xFFFF].v);
+                        D_800BD680[i & 0xFFFF] = *D_800C3CF8[r].p;
                         i++;
                     } while ((i & 0xFFFF) < D_801002B4);
                 }
-                *(s16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) = -1;
+                D_800BD680[i & 0xFFFF] = -1;
                 b = D_801002A4;
             } else {
                 b = D_80102EE0;

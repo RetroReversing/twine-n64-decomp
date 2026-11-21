@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8000237C();
-s32 func_80002D30();
+s32 clearProbeState();
 s32 func_80064318();
 s32 func_800643D8();
 s32 func_80067A24();
@@ -36,7 +36,7 @@ void func_80067AE8(void *arg0) {
         func_8000237C(temp_s1, temp_a1, 2, 0);
         temp_a1_2 = M2C_FIELD(temp_s0, u16 *, 0x92);
         if (temp_a1_2 != 0) {
-            func_80002D30(temp_s1, temp_a1_2);
+            clearProbeState(temp_s1, temp_a1_2);
         } else {
             M2C_FIELD(M2C_FIELD(temp_s2, void **, 0xA8), s16 *, 0x7A) = 5;
             func_80067A24(temp_s1, M2C_FIELD(temp_s0, u16 *, 0x94));

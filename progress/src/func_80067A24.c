@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8000168C(s32);                         /* extern */
-M2C_UNK func_80002D30(void *, s32);                 /* extern */
+M2C_UNK clearProbeState(void *, s32);                 /* extern */
 extern s32 gBorderSkipActive;
 
 void func_80067A24(void *arg0, s32 arg1) {
@@ -25,6 +25,6 @@ void func_80067A24(void *arg0, s32 arg1) {
             var_s0 += 1;
             func_8000168C(M2C_FIELD(arg0, s32 *, 0x18));
         }
-        func_80002D30(arg0, var_s0);
+        clearProbeState(arg0, var_s0);
     }
 }
