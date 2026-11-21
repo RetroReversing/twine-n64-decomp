@@ -131,12 +131,8 @@ void func_8002323C(void) {
         D_801002E6 = M2C_FIELD((u8 *)temp_a2 + (u16)var_s0_2 * 0x28, UnalignedWord *, 0x24);
         formatTextEntry(temp_s4, &D_800D2AAC);
         {
-        s16 *totals;
-        s16 *scores;
         memset(&D_800E107E, 0, 4);
         memset(&D_800E1068, 0, 0x16);
-        scores = &D_800E1068;
-        totals = &D_800E107E;
         if (gSaveTotalSlots > 0) {
             var_s4 = 0;
             do {
@@ -147,12 +143,12 @@ void func_8002323C(void) {
                     temp_s0_2 = M2C_FIELD(temp_s0, void **, 0x6C);
                     if (temp_s0_2 != NULL) {
                         temp_a0 = M2C_FIELD(temp_s0_2, void **, 0xB4);
-                        scores[temp_s1 & 0xFFFF] = M2C_FIELD(temp_a0, u16 *, 0xC) - M2C_FIELD(temp_a0, u16 *, 0xE);
+                        (&D_800E1068)[temp_s1 & 0xFFFF] = M2C_FIELD(temp_a0, u16 *, 0xC) - M2C_FIELD(temp_a0, u16 *, 0xE);
                     }
                 }
                 temp_v0_2 = temp_s1 & 0xFFFF;
-                temp_a0_2 = &totals[D_801001A1[temp_v0_2].flag];
-                *temp_a0_2 = (u16) *temp_a0_2 + (u16) scores[temp_v0_2];
+                temp_a0_2 = &(&D_800E107E)[D_801001A1[temp_v0_2].flag];
+                *temp_a0_2 = (u16) *temp_a0_2 + (u16) (&D_800E1068)[temp_v0_2];
                 var_s4 += 1;
             } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
         }

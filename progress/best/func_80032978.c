@@ -160,25 +160,25 @@ block_17:
             if ((sp17 << 0x18) != 0) {
                 var_a1 = 0;
                 var_a2 = 0;
-                if (temp_v0_2 & (temp_s6 == 0)) {
+                if ((temp_s7 == 0) & (temp_s6 == 0)) {
                     temp_a3 = temp_s3 == 0x40;
-                    if ((temp_s2 == 0x40) & temp_a3) {
+                    if (temp_a3 && (temp_s2 == 0x40)) {
                         var_a1 = 1;
                         var_a2 = 5;
                     } else {
                         temp_a0_3 = temp_s2 == 0x20;
-                        if (temp_a0_3 & (temp_s3 == 0x80)) {
+                        if (temp_a0_3 && (temp_s3 == 0x80)) {
                             var_a1 = 1;
                             var_a2 = 4;
                         } else {
                             temp_v1_2 = temp_s3 == 0x20;
-                            if ((temp_s2 == 0x80) & temp_v1_2) {
+                            if (temp_v1_2 && (temp_s2 == 0x80)) {
                                 var_a1 = 1;
                                 var_a2 = 3;
-                            } else if (temp_a0_3 & temp_a3) {
+                            } else if (temp_a0_3 && temp_a3) {
                                 var_a1 = 1;
                                 var_a2 = 2;
-                            } else if (temp_a0_3 & temp_v1_2) {
+                            } else if (temp_a0_3 && temp_v1_2) {
                                 var_a1 = 1;
                                 var_a2 = 1;
                             }
@@ -205,12 +205,13 @@ block_17:
                     if (var_a0 >= 0x800U) {
                         var_a0 = 0x7FF;
                     }
+                    var_a0 = var_a2_2 | ((var_a0 & 0xFFF) << 0xC);
                     if (var_a1_2) {
                         var_v0_2 = (var_v1_2 / var_a1_2) & 0xFFF;
                     } else {
                         var_v0_2 = var_v1_2 & 0xFFF;
                     }
-                    (*(s32 *)((char *)(temp_s1_3) + 0x14)) = (s32) (var_a2_2 | ((var_a0 & 0xFFF) << 0xC) | var_v0_2);
+                    (*(s32 *)((char *)(temp_s1_3) + 0x14)) = var_a0 | var_v0_2;
                 } else {
                     gGfxPtr = temp_s1_3 + 0x10;
                     (*(s32 *)((char *)(temp_s1_3) + 8)) = 0xF5500000;
@@ -219,7 +220,7 @@ block_17:
                     var_a3_2 = 0x800;
                     var_a1_2 = (u32) gGfxPtr;
                     temp_a0_4 = temp_s2 >> 4;
-                    (((__repair_field_C *)temp_s1_3)->value) = (s32) ((temp_s6 << 0x12) | (((temp_s0_3 & 0xF) << 0xE) | 0x07000000) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
+                    (((__repair_field_C *)temp_s1_3)->value) = (s32) ((((temp_s0_3 & 0xF) << 0xE) | 0x07000000) | (temp_s6 << 0x12) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
                     gGfxPtr = var_a1_2 + 8;
                     (*(s32 *)((char *)(var_a1_2) + 0)) = 0xE6000000;
                     gGfxPtr = var_a1_2 + 0x10;
@@ -258,17 +259,17 @@ block_17:
                 return;
             }
             var_a1 = 0;
-            if (temp_v0_2 & (temp_s6 == 0)) {
+            if ((temp_s7 == 0) & (temp_s6 == 0)) {
                 temp_a2_2 = temp_s3 == 0x40;
-                if ((temp_s2 == 0x40) & temp_a2_2) {
+                if ((temp_s2 == 0x40) && temp_a2_2) {
                     var_a1 = 1;
                 } else {
                     temp_a0_6 = temp_s2 == 0x20;
-                    if (temp_a0_6 & (temp_s3 == 0x80)) {
+                    if (temp_a0_6 && (temp_s3 == 0x80)) {
                         var_a1 = 1;
                     } else {
                         temp_v1_3 = temp_s3 == 0x20;
-                        if ((temp_s2 == 0x80) & temp_v1_3) {
+                        if ((temp_s2 == 0x80) && temp_v1_3) {
                             var_a1 = 1;
                         } else if (temp_a0_6 & temp_a2_2) {
                             var_a1 = 1;
@@ -305,7 +306,7 @@ block_81:
                 var_a3_3 = 0x800;
                 temp_a1_3 = gGfxPtr;
                 temp_a0_7 = temp_s2 >> 3;
-                (((__repair_field_C *)temp_s1_4)->value) = (s32) ((temp_s6 << 0x12) | (((temp_s0_5 & 0xF) << 0xE) | 0x07000000) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
+                (((__repair_field_C *)temp_s1_4)->value) = (s32) ((((temp_s0_5 & 0xF) << 0xE) | 0x07000000) | (temp_s6 << 0x12) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
                 gGfxPtr = temp_a1_3 + 8;
                 (*(s32 *)((char *)(temp_a1_3) + 0)) = 0xE6000000;
                 gGfxPtr = temp_a1_3 + 0x10;
@@ -358,7 +359,7 @@ block_70:
                 var_a3_4 = 0x800;
                 var_a1_2 = (u32) gGfxPtr;
                 temp_a0_9 = temp_s2 >> 4;
-                (((__repair_field_C *)temp_s1_6)->value) = (s32) ((temp_s6 << 0x12) | (((temp_s0_7 & 0xF) << 0xE) | 0x07000000) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
+                (((__repair_field_C *)temp_s1_6)->value) = (s32) ((((temp_s0_7 & 0xF) << 0xE) | 0x07000000) | (temp_s6 << 0x12) | (temp_s7 << 8) | ((width_log & 0xF) * 0x10));
                 gGfxPtr = var_a1_2 + 8;
                 (*(s32 *)((char *)(var_a1_2) + 0)) = 0xE6000000;
                 gGfxPtr = var_a1_2 + 0x10;
@@ -401,5 +402,6 @@ block_70:
         break;
     }
 }
+
 
 
