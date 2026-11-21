@@ -104,7 +104,7 @@ void *func_8007847C(void *arg0) {
         }
         var_s4 = M2C_FIELD(M2C_FIELD(temp_s0, void **, 0x20), void **, 0x58);
         var_v1_3 = var_s3 ^ 1;
-        while ((var_s4 != NULL) & var_v1_3) {
+        while ((var_s4 != NULL) && var_v1_3) {
             if (M2C_FIELD(var_s4, u16 *, 0x26) & 0x2000) {
                             temp_a0 = M2C_FIELD(var_s4, void **, 8);
                             temp_v1_2 = M2C_FIELD(temp_a0, void **, 0x20);

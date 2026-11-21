@@ -1,3 +1,4 @@
+/* identical to func_800968A4 (matched), with its names changed by decompdecomp */
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -16,15 +17,13 @@ extern char D_800F37E0[];
 extern char D_800F3860[];
 
 void func_8009692C(s32 arg0, s32 arg1, s8 arg2) {
-    char *__base_D_800F37E0;
-    s32 temp_v1;
-
-    temp_v1 = arg1 & 0xFF;
-    if (temp_v1 != 0xFF) {
-        __base_D_800F37E0 = D_800F37E0;
-        __base_D_800F37E0 += temp_v1 * 0x10;
-        __base_D_800F37E0[arg0 & 0xFF] = arg2;
-        return;
+    s32 bank = (u8)arg1;
+    if (bank != 0xFF) {
+        char *base = D_800F37E0;
+        u8 column = arg0;
+        char *p = (char *)((bank << 4) + (s32)base);
+        *(p + column) = arg2;
+    } else {
+        D_800F3860[(u8)arg0] = arg2;
     }
-    *(D_800F3860 + (arg0 & 0xFF)) = arg2;
 }

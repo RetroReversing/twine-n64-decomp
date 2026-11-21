@@ -5048,7 +5048,7 @@
   "score_after": 875
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Improved 7550 to 295: corrected word-pointer increments and endpoints, replaced undefined unaligned helper with 10-byte aggregate, used Four struct copies and endpoint derived from source pointer, then split 32-byte copy into 3+3+2 word aggregates. Best has one extra address load, register allocation differences and two stores scheduled early. A reused dest pointer gives 105 instructions but score 405; temporary scalar loads worsen. Investigate aggregate/pointer lifetime and the two global stores.",
   "by": "codex-gpt-6.1-terra-3",
   "created_at": 1795138772.379901,
@@ -11224,7 +11224,7 @@
   "score_after": 1384
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Started from m2c candidate and rewrote bulk copies with Four-word assignments and explicit 3/3/2 word copies for D_800E1500. Best verified score 295/105 instructions (revision 156024b5373f0194e55c), 97.1% match. Candidate revision ec6ac4838d3ccc46c598 changed D_800E1500 declaration to s8 and globals volatile but had no instruction change. A further patch using volatile local snapshots regressed to 1485; saved best remains 295. Move-on budget exhausted. Remaining mismatch mainly register allocation/order around loading two globals into D_800E1368 and loop address setup; target reuses $v0 as D_800E1500 base then addiu $t2,$v0,0x20. Preserve saved_best, not latest regressed candidate.",
   "by": "codex-gpt-6-luna-19",
   "created_at": 1795178478.1997051,
@@ -15080,7 +15080,7 @@
   "score_after": 1040
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Best score 295 (97.1%) at revision f39f0f8bcf82a7b776e2, rechecked baseline. Target 105 insns vs candidate 106; remaining 28 differing rows, mostly register allocation/order. Tried staging global values (score worsened), scalar-by-scalar final copy (worsened substantially), declaration-order permutations (no assembly change), and changing global array declarations (score stayed 295). Reverted to saved best before final recheck. Key mismatch: target loads D_801002EC and D_801002F0 before storing them; final struct copy target keeps dest in $v0 and source in $a2, enabling `addiu $t2,$v0,0x20`, while current has extra `lui/addiu` for D_800E1500 and loop branch target differs by 4 bytes. Try source/control-flow or declaration shaping to preserve dest pointer register; avoid tried declaration-order and direct scalar-copy variants.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795182960.861323,
@@ -26520,7 +26520,7 @@
   "score_after": 0
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Verified inherited score 295. Typed Snapshot with Three/Three/Two members and indexed Ten records scored 365; staging both header loads through an explicit destination pointer scored 470. Remaining target loads both header words before its stores and reuses D_800E1500 base in addiu $t2,$v0,0x20 before the loop. Try a scoped typed snapshot with the Ten *records declaration at block entry and derive records from the already-used snapshot pointer after the copies; the trial declaring it after statements failed in C89.",
   "by": "codex-gpt-6.2-sol-7",
   "created_at": 1795192004.736337,
@@ -31104,7 +31104,7 @@
   "score_after": 150
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Best candidate score 1920 rechecked. Local repairs for shared constant/arithmetic operand order did not improve; a direct pointer-base rewrite around D_800E1368 worsened to 2635. Target wants base address D_800E1368 loaded once, then two global values loaded and stored as a pair, then output pointer advanced by 8. Candidate repeatedly forms field relocations. Remaining loops copy blocks of 16 bytes and a final 10-byte strided table; mismatch includes extra relocations/instructions and branch targets. Restore saved best before further work; try record/pointer base types for D_800E1368, and model later table copies with actual stride records.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795199294.622206,
@@ -32848,7 +32848,7 @@
   "score_after": 665
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Restored and verified best score 450 (revision dcb2818de8c769fc4c06). Starting best 1920; replacing three separate structure copies in D_800E1500 area with one Eight-word assignment improved substantially to 450. Target-matched operation evidence suggests this must be a three-word struct copy at offset 0, then 3-word copy at +12 and 2-word copy at +24, while end loop begins at +0x20; the wider copy moves following loop's source/destination address math and disagrees. Other remaining mismatch is direct scalar fields near D_800E1368 that should copy as pair. Continue inspect assembly around first 20 instructions and test correct typed struct assignment, avoiding combined source/dest alias.",
   "by": "codex-gpt-6-luna-17",
   "created_at": 1795201329.093291,
@@ -34568,7 +34568,7 @@
   "score_after": 1703
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Baseline 450, 10 mismatch rows involving order, extra/missing instructions and branch offsets. Shared constants and operand order repairs did not improve.",
   "by": "codex-gpt-6.1-terra-2",
   "created_at": 1795202336.144097,
@@ -37168,7 +37168,7 @@
   "score_after": 1110
  },
  {
-  "function": "func_8002CC74",
+  "function": "copyStateTablesToRam",
   "text": "Stalled at score 450 (95.7%). Target stores D_801002EC/D_801002F0 through one base v0=&D_800E1368 (sw v1,0(v0); sw a0,4(v0); addiu a3,v0,8). Our C with M2C_FIELD(&D_800E1368,...,4) or local s32* p gives separate lui $at,%hi(D_800E1368+4) for the second store. Tried: local_repair families (no gain); s32* p block (still lui $at, 450); direct *(s32*)var + *(s32*)((char*)var+4) (1165, worse). Untested next step: two-word struct assignment *(Two*)&D_800E1368=(Two){D_801002EC,D_801002F0} so both sw share one v0 base.",
   "by": "api-claude-haiku-5-5-6",
   "created_at": 1795204599.8413389,
@@ -54688,5 +54688,23 @@
   "score_before": 2230,
   "score_after": 2030,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
+ },
+ {
+  "function": "func_80019E28",
+  "text": "Rechecked score 40 with eight s0/s1 register operands swapped. Pointer/integer phase union scored 295 and balanced pointer calls scored 1980. Branch orientation trial stopped on concurrent progress.\nPointer/integer phase union and balanced pointer calls\nWorsened score to 295 and 1980 respectively; retained verified 40",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795222374.793057,
+  "score_before": 40,
+  "score_after": 40,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:82b2188875153f6bba00bf662ee0e2bb27719d62796e8533be3f916c12ac2577"
+ },
+ {
+  "function": "func_8002B4D4",
+  "text": "Starting candidate 1400. Making w40, f2C, w3C volatile improved sequentially to 1190, 870, 795; f44 nonvolatile worsened. Current best 795. Remaining mismatch is mostly statement scheduling/registers, null-path join +4 bytes, and one call/delay-slot ordering around func_8002B6BC. Structured next step: revision 14b042031061deba7cf8; tried three volatile stores; changed score to 795; title: inspect tail around 0x678 and adjust expression/statement ordering to recover target delay-slot loads.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795222375.9311948,
+  "score_before": 1400,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:13d8fcf03490a870ae95ffbc03d4ae161aeaaf338df15385f5a9c992836f93f8"
  }
 ]
