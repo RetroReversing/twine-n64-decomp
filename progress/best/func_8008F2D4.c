@@ -55,10 +55,8 @@ extern M2C_UNK sVoiceTable;
 void func_8008F2D4(s32 arg0) {
     s16 *var_v0_2;
     s32 var_a1;
-    
     s32 var_v0;
     s32 var_v1;
-    s32 var_v1_2;
 
     var_v1 = 0;
     var_a1 = 0;
@@ -93,16 +91,15 @@ void func_8008F2D4(s32 arg0) {
         var_v1 += 0x1A0;
     } while (++var_a1 < 0x20);
     var_a1 = 0;
-    var_v1_2 = 0;
+    var_v1 = 0;
     do {
-        *(s32 *)((u8 *)&D_80107ED4 + var_v1_2) = 0;
-        *(s32 *)((u8 *)&D_80107ED8 + var_v1_2) = 0;
-        *(s32 *)((u8 *)&D_80107EE0 + var_v1_2) = 0;
-        *(u8 *)((u8 *)&D_80107EE8 + var_v1_2) = 4;
-        *(s32 *)((u8 *)&D_80107EEC + var_v1_2) = 0x7F0000;
-        var_a1 += 1;
-        var_v1_2 += 0x28;
-    } while (var_a1 < 0x20);
+        *(s32 *)((u8 *)&D_80107ED4 + var_v1) = 0;
+        *(s32 *)((u8 *)&D_80107ED8 + var_v1) = 0;
+        *(s32 *)((u8 *)&D_80107EE0 + var_v1) = 0;
+        *(u8 *)((u8 *)&D_80107EE8 + var_v1) = 4;
+        *(s32 *)((u8 *)&D_80107EEC + var_v1) = 0x7F0000;
+        var_v1 += 0x28;
+    } while (++var_a1 < 0x20);
     D_801083C0 = 1;
     var_a1 = 7;
     var_v0 = 0x4B0;
