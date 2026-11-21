@@ -1,59 +1,62 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef struct VoiceHandle {
+    u8 slot;            /* 0: voice slot, 0xFF when none */
+    u8 chain;           /* 1: next handle in the owner chain, 0xFF when none */
+    u16 state;          /* 2: 1 while the handle is in use */
+} VoiceHandle;
 
-extern char D_80102CE0[];
-extern char D_80102CE1[];
-extern char D_8010957D[];
-extern u16 D_80109B1C;
-extern char D_8010A51A[];
-extern char D_8010A51C[];
+typedef struct VoiceLink {
+    u16 prev;           /* 0 */
+    u16 next;           /* 2 */
+} VoiceLink;
 
-void voiceReleaseHandles(void *arg0) {
-    s32 temp_a1_3;
-    u16 temp_a1_4;
-    u8 temp_a1;
-    u8 temp_a1_2;
-    void *temp_a0;
-    void *temp_a2;
+typedef struct VoiceUser {
+    u8 pad0[0x2E];
+    u8 owner;           /* 0x2E */
+    u8 pad1[0x63 - 0x2F];
+    u8 handleIndex;     /* 0x63 */
+} VoiceUser;
 
-    temp_a2 = (M2C_FIELD(arg0, u8 *, 0x63) * 4) + D_80102CE0;
-    if (M2C_FIELD(temp_a2, u16 *, 2) == 1) {
-        temp_a1 = M2C_FIELD(temp_a2, u8 *, 0);
-        if (temp_a1 != 0xFF) {
-            *(D_80102CE1 + (temp_a1 * 4)) = M2C_FIELD(temp_a2, u8 *, 1);
+extern VoiceHandle sVoiceHandles[];
+extern u8 sVoiceOwnerChains[];
+extern VoiceLink sVoiceLinks[];
+extern u16 sVoiceLinkHead;
+
+/* Releases a voice's handle: unlinks it from its owner chain and from the voice link list, then marks it unused. */
+void voiceReleaseHandles(VoiceUser *voice) {
+    s32 linkNext;
+    u16 linkPrev;
+    u8 chainNext;
+    u8 slot;
+    VoiceHandle *handle;
+    VoiceLink *ownerLink;
+
+    handle = &sVoiceHandles[voice->handleIndex];
+    if (handle->state == 1) {
+        slot = handle->slot;
+        if (slot != 0xFF) {
+            sVoiceHandles[slot].chain = handle->chain;
         } else {
-            *(D_8010957D + M2C_FIELD(arg0, u8 *, 0x2E)) = M2C_FIELD(temp_a2, u8 *, 1);
+            sVoiceOwnerChains[voice->owner] = handle->chain;
         }
-        temp_a1_2 = M2C_FIELD(temp_a2, u8 *, 1);
-        if (temp_a1_2 != 0xFF) {
-            *(D_80102CE0 + (temp_a1_2 * 4)) = M2C_FIELD(temp_a2, u8 *, 0);
-            M2C_FIELD(temp_a2, u16 *, 2) = 0U;
+        chainNext = handle->chain;
+        if (chainNext != 0xFF) {
+            sVoiceHandles[chainNext].slot = handle->slot;
+            handle->state = 0U;
             return;
         }
-        if (M2C_FIELD(temp_a2, u8 *, 0) == temp_a1_2) {
-            temp_a0 = (M2C_FIELD(arg0, u8 *, 0x2E) * 4) + D_8010A51A;
-            temp_a1_3 = M2C_FIELD(temp_a0, u16 *, 2);
-            if (temp_a1_3 != 0xFFFF) {
-                *(s16 *)(D_8010A51A + ((temp_a1_3 *= 4))) = M2C_FIELD(temp_a0, u16 *, 0);
+        if (handle->slot == chainNext) {
+            ownerLink = &sVoiceLinks[voice->owner];
+            linkNext = ownerLink->next;
+            if (linkNext != 0xFFFF) {
+                sVoiceLinks[linkNext].prev = ownerLink->prev;
             } else {
-                D_80109B1C = M2C_FIELD(temp_a0, u16 *, 0);
+                sVoiceLinkHead = ownerLink->prev;
             }
-            temp_a1_4 = M2C_FIELD(temp_a0, u16 *, 0);
-            if (temp_a1_4 != 0xFFFF) {
-                *(s16 *)(D_8010A51C + (temp_a1_4 * 4)) = M2C_FIELD(temp_a0, u16 *, 2);
+            linkPrev = ownerLink->prev;
+            if (linkPrev != 0xFFFF) {
+                sVoiceLinks[linkPrev].next = ownerLink->next;
             }
         }
-        M2C_FIELD(temp_a2, u16 *, 2) = 0U;
+        handle->state = 0U;
     }
 }

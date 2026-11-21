@@ -1,6 +1,6 @@
 extern s32 D_800C4470, D_800C4474;
-extern u8 gPlayerActor[];
-extern u8 gBonusObjectTable[];
+extern u8 *gPlayerActor;
+extern u8 *gBonusObjectTable;
 void func_8005B5A8(void);
 void func_8007092C(s32,s32);
 void requestSound(s32);
@@ -18,7 +18,7 @@ if (gPlayerActor != 0) {
  *(s32 *)(gPlayerActor+0x60)|=0x08000000;
  requestSound(0x1d2); found=1; func_8007092C((s32)gBonusObjectTable,1);
  }
- b+=4; i++; a+=4;
+ b++; i++; a++;
  } while(i==0);
  goto done;
  }

@@ -29,7 +29,7 @@ extern s16 D_80102CC0;
 extern u8 D_80102EE0;
 extern s32 D_80102EE4;
 extern M2C_UNK D_80102EFC;
-extern s8 gMenuRowEnabled;
+extern s8 sMenuRowEnabled;
 extern s8 gMenuFlagItem20;
 extern s8 gMenuFlagItem22;
 extern s8 gMenuFlagItem27;
@@ -163,7 +163,7 @@ block_59:
                 break;
             case 38:
                 if ((func_800316B8() & 0xFFFF) == 2) {
-                    gMenuRowEnabled = 1;
+                    sMenuRowEnabled = 1;
                     var_v0 = 0x2BD;
                     goto block_59;
                 }

@@ -17,7 +17,7 @@ M2C_UNK formatTextEntry(s32, M2C_UNK *, s32);       /* extern */
 s32 lookupDataEntry(u16);                           /* extern */
 extern M2C_UNK func_8001E5BC;
 extern s8 gMenuNeedsRedraw;
-extern u8 gMenuRowEnabled;
+extern u8 sMenuRowEnabled;
 extern void *gSaveMenuState;
 extern M2C_UNK sFmtEntryName;
 extern M2C_UNK updateSaveMenuRow;
@@ -47,12 +47,12 @@ void initMenuItemRows(void) {
             temp_a1 = var_a2 & 0xFFFF;
             M2C_FIELD(var_a0, u16 *, 0) = (u16) (M2C_FIELD(var_a0, u16 *, 0) & 0xFFF0);
             var_v1 = &updateSaveMenuRow;
-            if (*(&gMenuRowEnabled + temp_a1) != 0) {
+            if (*(&sMenuRowEnabled + temp_a1) != 0) {
                 var_v1 = &func_8001E5BC;
             }
             M2C_FIELD(var_a0, M2C_UNK **, -8) = var_v1;
             temp_v1 = M2C_FIELD(var_a0, u16 *, 0);
-            if (*(&gMenuRowEnabled + temp_a1) != 0) {
+            if (*(&sMenuRowEnabled + temp_a1) != 0) {
                 var_v0 = temp_v1 | 1;
             } else {
                 var_v0 = temp_v1 | 5;

@@ -32,7 +32,7 @@ extern u8 gBorderFlipFlag;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 extern s8 D_80112F70;
-extern s8 gMenuRowEnabled;
+extern s8 sMenuRowEnabled;
 extern s8 D_80112F7F;
 extern s8 sOptionReady7;
 extern u8 D_80115088;
@@ -157,7 +157,7 @@ void func_8002E114(void) {
         u16 __repair_i;
         for (__repair_i = 0; __repair_i < 4; __repair_i++) {
             var_s1_4 = (u32)__repair_i;
-            temp_a1_6 = *(&gMenuRowEnabled + (var_s1_4));
+            temp_a1_6 = *(&sMenuRowEnabled + (var_s1_4));
             func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
         }
     }

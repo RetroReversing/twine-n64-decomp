@@ -25,10 +25,12 @@ extern u8 gTrackMarkerActiveMask;
 extern s32 gVisibleSaveSlotCount;
 
 void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
+int __repair_literal;
+
     s32 *var_a3;
     s32 var_a0;
     s32 var_a1;
-    s32 var_a1_2;
+    
     s32 var_v1;
     s32 var_v1_2;
     u8 *var_a2;
@@ -41,22 +43,24 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0;
     if (gBorderSkipFlag != 0) {
         var_a3 = &gBorderMode;
-        var_a1_2 = 0;
-        if (gBorderMode > 0) {
+        var_a1 = 0;
+__repair_literal = 0;
+
+        if (*var_a3 > __repair_literal) {
             var_a2 = &gSceneFlagsA;
             var_v1 = 1;
             do {
                 var_a0 = *var_a3;
-                var_a1_2 += 1;
+                var_a1 += 1;
                 *var_a2 |= var_v1;
-                var_v1 = 1 << var_a1_2;
-            } while ((var_a1_2 & 0xFFFF) < var_a0);
+                var_v1 = 1 << var_a1;
+            } while ((var_a1 & 0xFFFF) < var_a0);
             var_a3 = &gBorderMode;
         }
         var_a1 = 0;
-        if (gBorderMode > 0) {
+        if (*var_a3 > 0) {
             var_a2 = &D_8010A4C2;
-            var_v1_2 = 1 << 0;
+            var_v1_2 = 1;
             do {
                 var_a0 = *var_a3;
                 var_a1 += 1;
@@ -64,7 +68,8 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
                 var_v1_2 = 1 << var_a1;
             } while ((var_a1 & 0xFFFF) < var_a0);
         }
-        D_8010A4C2 |= 0x30;
+        var_a2 = &D_8010A4C2;
+        *var_a2 |= 0x30;
     } else {
         M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 1;
         M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 1;
@@ -72,9 +77,6 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     }
     func_8000A3AC(var_a0, var_a1, var_a2, var_a3);
     if (D_80102EDD != 0) {
-        M2C_FIELD(&D_801007C8, s32 *, 0) = (s32) M2C_FIELD(&D_800E1098, s32 *, 0);
-        M2C_FIELD(&D_801007C8, s32 *, 4) = (s32) M2C_FIELD(&D_800E1098, s32 *, 4);
-        M2C_FIELD(&D_801007C8, s32 *, 8) = (s32) M2C_FIELD(&D_800E1098, s32 *, 8);
-        M2C_FIELD(&D_801007C8, s32 *, 0xC) = (s32) M2C_FIELD(&D_800E1098, s32 *, 0xC);
+        { struct Copy { s32 a,b,c,d; }; *(struct Copy *)&D_801007C8 = *(struct Copy *)&D_800E1098; }
     }
 }

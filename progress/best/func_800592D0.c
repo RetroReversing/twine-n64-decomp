@@ -13,12 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);   /* extern */
-M2C_UNK objectSetAnimFrame(void *, u16, s16);       /* extern */
+M2C_UNK effectSetAnimFrame(void *, u16, s16);       /* extern */
 void *spawnEffectObject(M2C_UNK);                   /* extern */
 extern s32 *gProbeObjectList;
 
-void *func_800592D0(s8 arg0, void *arg3, void *arg4, s32 arg5, u16 arg6) {
-    M2C_UNK32 temp_fv0;
+typedef struct { s32 w[3]; } __repair_words3;
+void *func_800592D0(s32 arg0, s32 arg1, s32 arg2, void *arg3, void *arg4, u8 arg5, u16 arg6) {
+    f32 temp_fv0;
     s16 var_v0;
     s32 temp_a0;
     u8 temp_v0_2;
@@ -28,7 +29,7 @@ void *func_800592D0(s8 arg0, void *arg3, void *arg4, s32 arg5, u16 arg6) {
     temp_v0 = spawnEffectObject(0x50);
     if (temp_v0 != NULL) {
         temp_s0 = M2C_FIELD(temp_v0, void **, 0x6C);
-        objectSetAnimFrame(temp_v0, M2C_FIELD(arg3, u16 *, 0), *M2C_FIELD(arg3, s16 **, 0x28));
+        effectSetAnimFrame(temp_v0, M2C_FIELD(arg3, u16 *, 0), *M2C_FIELD(arg3, s16 **, 0x28));
         temp_a0 = M2C_FIELD(temp_s0, s32 *, 0x4C) & ~0x40;
         M2C_FIELD(temp_s0, s32 *, 0x4C) = temp_a0;
         if (M2C_FIELD(arg3, s32 *, 0x3C) & 0x200000) {
@@ -45,23 +46,23 @@ void *func_800592D0(s8 arg0, void *arg3, void *arg4, s32 arg5, u16 arg6) {
         M2C_FIELD(temp_s0, u16 *, 0x40) = (u16) M2C_FIELD(arg3, u16 *, 0x38);
         M2C_FIELD(temp_s0, u16 *, 0x42) = (u16) M2C_FIELD(arg3, u16 *, 0x40);
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 8) = 0;
-        temp_fv0 = M2C_FIELD(temp_s0, M2C_UNK32 *, 8);
+        M2C_FIELD(temp_s0, f32 *, 8) = 0;
+        temp_fv0 = M2C_FIELD(temp_s0, f32 *, 8);
         M2C_FIELD(temp_s0, void **, 4) = arg4;
         M2C_FIELD(temp_s0, u16 *, 0x44) = arg6;
         M2C_FIELD(temp_s0, s8 *, 0x4B) = 0;
-        M2C_FIELD(temp_s0, s32 *, 0x4C) = (s8) (arg5 - 1);
+        M2C_FIELD(temp_s0, s8 *, 0x4C) = arg5 - 1;
         M2C_FIELD(temp_s0, s8 *, 0x4A) = arg0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x24) = temp_fv0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x20) = temp_fv0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x1C) = temp_fv0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x18) = temp_fv0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x14) = temp_fv0;
-        M2C_FIELD(temp_s0, M2C_UNK32 *, 0x10) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x24) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x20) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x1C) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x18) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x14) = temp_fv0;
+        M2C_FIELD(temp_s0, f32 *, 0x10) = temp_fv0;
         if (arg4 != NULL) {
-            M2C_FIELD(temp_v0, M2C_UNK32 *, 0x24) = (M2C_UNK32) M2C_FIELD(arg4, M2C_UNK32 *, 0);
-            M2C_FIELD(temp_v0, M2C_UNK32 *, 0x28) = (M2C_UNK32) M2C_FIELD(arg4, M2C_UNK32 *, 4);
-            M2C_FIELD(temp_v0, M2C_UNK32 *, 0x2C) = (M2C_UNK32) M2C_FIELD(arg4, M2C_UNK32 *, 8);
+            M2C_FIELD(temp_v0, f32 *, 0x24) = M2C_FIELD(arg4, f32 *, 0);
+            M2C_FIELD(temp_v0, f32 *, 0x28) = M2C_FIELD(arg4, f32 *, 4);
+            M2C_FIELD(temp_v0, f32 *, 0x2C) = M2C_FIELD(arg4, f32 *, 8);
             M2C_FIELD(temp_v0, f32 *, 0x3C) = (f32) (M2C_FIELD(arg4, f32 *, 0xC) * 0.0027777778f);
             M2C_FIELD(temp_v0, f32 *, 0x40) = (f32) (M2C_FIELD(arg4, f32 *, 0x10) * 0.0027777778f);
             M2C_FIELD(temp_v0, f32 *, 0x44) = (f32) (M2C_FIELD(arg4, f32 *, 0x14) * 0.0027777778f);
@@ -69,9 +70,7 @@ void *func_800592D0(s8 arg0, void *arg3, void *arg4, s32 arg5, u16 arg6) {
         M2C_FIELD(temp_v0, M2C_UNK32 *, 0x30) = (M2C_UNK32) M2C_FIELD(temp_v0, M2C_UNK32 *, 0x24);
         M2C_FIELD(temp_v0, M2C_UNK32 *, 0x34) = (M2C_UNK32) M2C_FIELD(temp_v0, M2C_UNK32 *, 0x28);
         M2C_FIELD(temp_v0, M2C_UNK32 *, 0x38) = (M2C_UNK32) M2C_FIELD(temp_v0, M2C_UNK32 *, 0x2C);
-        M2C_FIELD(temp_v0, f32 *, 0x48) = (f32) M2C_FIELD(temp_v0, f32 *, 0x3C);
-        M2C_FIELD(temp_v0, f32 *, 0x4C) = (f32) M2C_FIELD(temp_v0, f32 *, 0x40);
-        M2C_FIELD(temp_v0, f32 *, 0x50) = (f32) M2C_FIELD(temp_v0, f32 *, 0x44);
+        M2C_FIELD(temp_v0, __repair_words3 *, 0x48) = *(__repair_words3 *) ((s8 *) temp_v0 + 0x3C);
         M2C_FIELD(temp_s0, s8 *, 0x4D) = 0;
         M2C_FIELD(temp_s0, s32 *, 0) = 0;
         M2C_FIELD(temp_v0, s32 *, 0x5C) = (s32) (M2C_FIELD(temp_v0, s32 *, 0x5C) | 0x600);
@@ -111,3 +110,5 @@ void *func_800592D0(s8 arg0, void *arg3, void *arg4, s32 arg5, u16 arg6) {
     }
     return temp_v0;
 }
+
+

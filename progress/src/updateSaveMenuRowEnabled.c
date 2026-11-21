@@ -20,7 +20,7 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 extern void *gSaveMenuState;
 
-void func_8001E5BC(void) {
+void updateSaveMenuRowEnabled(void) {
     s32 temp_v0;
     s8 *temp_a0;
     u16 *temp_v1;

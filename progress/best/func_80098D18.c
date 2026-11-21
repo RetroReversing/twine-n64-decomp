@@ -4,9 +4,9 @@ extern u8 D_801002EA;
 extern u8 D_801005B0;
 extern u8 D_801007C0;
 extern u8 D_80102CE1[];
-extern u8 D_8010957D[];
-extern u16 D_80109B1C;
-extern char D_8010A51A[];
+extern u8 sVoiceOwnerChains[];
+extern u16 sVoiceLinkHead;
+extern char sVoiceLinks[];
 extern u8 D_8010A930;
 extern u8 D_8010D720;
 extern char D_8010D748[];
@@ -76,13 +76,13 @@ s32 __repair_phase___repair_phase_temp_a0;
         }
         var_t3 = 0;
         if ((u32) (arg1 & 0xFF) < var_v1) {
-            var_t2 = D_80109B1C;
+            var_t2 = sVoiceLinkHead;
             var_t1 = -1U;
             if ((var_t2 & 0xFFFF) != 0xFFFF) {
                 var_t0 = var_t2 & 0xFFFF;
                 for (;;) {
                     if (((u32) (arg0 & 0xFF) >= var_t0) & (~var_t1 == 0)) {
-                        var_t0_2 = *(D_8010957D + var_t0);
+                        var_t0_2 = *(sVoiceOwnerChains + var_t0);
                         var_v0_2 = var_t2 * 4;
                         if ((s32)var_t0_2 != 0xFF) {
                             var_v0_3 = var_t0_2 * 2;
@@ -112,7 +112,7 @@ block_20:
                             } while (var_t0_2 != 0xFF);
                             var_v0_2 = var_t2 * 4;
                         }
-                        var_t2 = *(u16 *)(D_8010A51A + var_v0_2);
+                        var_t2 = *(u16 *)(sVoiceLinks + var_v0_2);
                         var_t0 = var_t2 & 0xFFFF;
                         if ((var_t2 & 0xFFFF) != 0xFFFF) {
                             continue;
@@ -129,7 +129,7 @@ block_20:
                     for (;;) {
                         if (var_v0_6) {
                             temp_a0 = var_t2 & 0xFFFF;
-    var_t0_3 = *(D_8010957D + (temp_a0));
+    var_t0_3 = *(sVoiceOwnerChains + (temp_a0));
                             var_v0_7 = var_t2 * 4;
                             if (var_t0_3 != 0xFF) {
                                 var_v0_8 = var_t0_3 * 2;
@@ -144,7 +144,7 @@ block_20:
                                 } while (var_t0_3 != 0xFF);
                                 var_v0_7 = var_t2 * 4;
                             }
-                            var_t2 = *(u16 *)(D_8010A51A + var_v0_7);
+                            var_t2 = *(u16 *)(sVoiceLinks + var_v0_7);
                             var_v0_6 = var_t3 < temp_t0;
                             if (var_t2 == 0xFFFF) {
                                 var_v0_5 = arg1 & 0xFF;
@@ -172,14 +172,14 @@ block_37:
             goto block_57;
         }
         temp_a2 = arg0 & 0xFF;
-        temp_a1 = D_80109B1C & 0xFFFF;
+        temp_a1 = sVoiceLinkHead & 0xFFFF;
         if (temp_a2 >= temp_a1) {
-            var_t2_2 = D_80109B1C;
+            var_t2_2 = sVoiceLinkHead;
             if (temp_a1 != 0xFFFF) {
                 var_a1 = var_t2_2 & 0xFFFF;
                 for (;;) {
                     if ((temp_a2 >= var_a1) & (~var_t1 == 0)) {
-                        var_t0_4 = *(D_8010957D + var_a1);
+                        var_t0_4 = *(sVoiceOwnerChains + var_a1);
                         var_v0_10 = var_t2_2 * 4;
                         if (var_t0_4 != 0xFF) {
                             var_v0_11 = var_t0_4 * 2;
@@ -204,7 +204,7 @@ block_37:
                             } while (var_t0_4 != 0xFF);
                             var_v0_10 = var_t2_2 * 4;
                         }
-                        var_t2_2 = *(u16 *)(D_8010A51A + var_v0_10);
+                        var_t2_2 = *(u16 *)(sVoiceLinks + var_v0_10);
                         var_a1 = var_t2_2 & 0xFFFF;
                         if ((var_t2_2 & 0xFFFF) != 0xFFFF) {
                             continue;

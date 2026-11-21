@@ -17,7 +17,8 @@ extern u8 gColorFadeLevel;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 
-void func_8001DE20(void) {
+/* Redraws the save menu's label rows: finds the label entries, fills their text and option indices, and formats the status line. */
+void refreshSaveMenuLabels(void) {
     s32 var_a0;
     s32 var_a0_4;
     void *temp_s0;
@@ -67,4 +68,3 @@ updateLabel:
         do { formatTextEntry(temp_s4, sFmtEntryName, var_a0_4); } while (0);
     }
 }
-
