@@ -8,7 +8,7 @@ void *func_800588D8(void *arg0) {
         {
             u32 *flags = (u32 *)((u8 *)arg0 + 0x58);
             u32 old = *flags;
-            u32 updated = ~0x1c0U;
+            u32 updated = (old & ~0x1c0U) | ~0x1c0U;
             updated &= old;
             *flags = updated;
         }
