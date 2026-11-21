@@ -28,56 +28,56 @@ extern s32 gRenderMode;
 extern void *sDisplayListCursor;
 
 typedef struct { unsigned char pad[256]; int value; } __repair_field_100;
-/* Draws one render object: sets colour, scissor, render modes and calls its display list unless hidden */ void drawRenderObject(void *object) {
-    s32 objectFlags;
-    u8 alpha;
-    void *cmd;
+void drawRenderObject(void *arg0) {
+    s32 temp_v1;
+    u8 temp_a1;
+    void *temp_v1_2;
     
-    void *displayList;
-    void *cmdLo;
-    void *cmdHi;
+    void *temp_s2;
+    void *temp_v1_3;
+    void *temp_v1_4;
 
-    objectFlags = ((__repair_field_100 *)object)->value;
-    if (!(objectFlags & 4) && (D_8010D450 != NULL)) {
-        if (!(objectFlags & 0x20)) {
-            displayList = D_8010D450;
-            emitPrimColor(M2C_FIELD(object, s32 *, 0xF4), object);
-            emitScissorFromWindow(object);
+    temp_v1 = ((__repair_field_100 *)arg0)->value;
+    if (!(temp_v1 & 4) && (D_8010D450 != NULL)) {
+        if (!(temp_v1 & 0x20)) {
+            temp_s2 = D_8010D450;
+            emitPrimColor(M2C_FIELD(arg0, s32 *, 0xF4), arg0);
+            emitScissorFromWindow(arg0);
             if (D_8010A924 != 2) {
-                cmd = sDisplayListCursor;
+                temp_v1_2 = sDisplayListCursor;
                 D_8010A924 = 2;
-                sDisplayListCursor = cmd + 8;
-                M2C_FIELD(cmd, s32 *, 0) = 0xDE000000;
-                M2C_FIELD(cmd, M2C_UNK **, 4) = &D_800B1AA0;
+                sDisplayListCursor = temp_v1_2 + 8;
+                M2C_FIELD(temp_v1_2, s32 *, 0) = 0xDE000000;
+                M2C_FIELD(temp_v1_2, M2C_UNK **, 4) = &D_800B1AA0;
             }
             if (D_801032A0 != 1) {
                 D_801032A0 = 1;
-                if (((__repair_field_100 *)object)->value & 3) {
-                    cmdLo = sDisplayListCursor;
-                    sDisplayListCursor = cmdLo + 8;
-                    M2C_FIELD(cmdLo, s32 *, 0) = 0xFC40FE03;
-                    M2C_FIELD(cmdLo, s32 *, 4) = -0xC88;
+                if (((__repair_field_100 *)arg0)->value & 3) {
+                    temp_v1_3 = sDisplayListCursor;
+                    sDisplayListCursor = temp_v1_3 + 8;
+                    M2C_FIELD(temp_v1_3, s32 *, 0) = 0xFC40FE03;
+                    M2C_FIELD(temp_v1_3, s32 *, 4) = -0xC88;
                 } else {
-                    cmdHi = sDisplayListCursor;
-                    sDisplayListCursor = cmdHi + 8;
-                    M2C_FIELD(cmdHi, s32 *, 0) = 0xFC40FE03;
-                    M2C_FIELD(cmdHi, s32 *, 4) = 0xFF0FF37F;
+                    temp_v1_4 = sDisplayListCursor;
+                    sDisplayListCursor = temp_v1_4 + 8;
+                    M2C_FIELD(temp_v1_4, s32 *, 0) = 0xFC40FE03;
+                    M2C_FIELD(temp_v1_4, s32 *, 4) = 0xFF0FF37F;
                 }
             }
             if (gRenderMode != 3) {
                 gRenderMode = 3;
-                emitObjectMatrixCmd(object, D_8010D370);
+                emitObjectMatrixCmd(arg0, D_8010D370);
             }
-            func_80032630(displayList);
+            func_80032630(temp_s2);
             if (D_801003D8 != NULL) {
-                displayList = D_801003D8;
-                alpha = M2C_FIELD(displayList, u8 *, 0x45);
-                if (alpha != 1) {
-                    func_80008750(object, alpha, 0);
+                temp_s2 = D_801003D8;
+                temp_a1 = M2C_FIELD(temp_s2, u8 *, 0x45);
+                if (temp_a1 != 1) {
+                    func_80008750(arg0, temp_a1, 0);
                 }
                 gRenderMode = 3;
-                emitObjectMatrixCmd(object, D_80109CC0);
-                func_80032630(displayList);
+                emitObjectMatrixCmd(arg0, D_80109CC0);
+                func_80032630(temp_s2);
             }
         }
     }
