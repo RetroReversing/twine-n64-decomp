@@ -30,24 +30,27 @@ inline static s32 inline_fn(s32 arg0)
   return (s32) arg0;
 }
 
+inline static int inline_fn2(void *arg0)
+{
+  return (*((u16 *) (((char *) arg0) + 0))) * 0x4C;
+}
+
 void func_800411C0(void **arg0, void *arg1, s32 arg2)
 {
   s32 *__repair_hoisted;
   s32 __repair_store_0;
   s32 __repair_store_1;
   s32 __repair_store_2;
-  s32 sp30;
-  volatile long sp34;
-  register s32 sp38;
-  int sp3C;
-  s32 sp40;
-  s32 sp44;
-  s32 sp48;
-  register s32 sp4C;
-  s32 sp50;
+  struct {
+    s32 sp30;
+    s8 sp34;
+    s32 sp38, sp3C, sp40, sp44, sp48, sp4C, sp50;
+    char reserved[20];
+  } locals;
   s32 var_a1;
   unsigned var_a1_2;
   f32 var_fs1;
+  f32 rotationScale;
   register s32 *temp_a1;
   s32 *temp_a3_3;
   s32 *temp_a3_4;
@@ -72,12 +75,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
   s32 var_a0;
   register s32 var_a0_2;
   s32 var_s0;
-  register s32 var_s0_2;
+  register char var_s0_2;
   s32 var_s0_3;
   register s32 var_s1;
   register s32 var_s1_2;
-  register u16 temp_a0;
   register u16 temp_v1_4;
+  register u16 temp_a0;
   u32 temp_v1;
   u8 temp_v0_15;
   u8 temp_v0_3;
@@ -92,7 +95,6 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
   register void *temp_s4_2;
   void *temp_v0;
   void *temp_v0_11;
-  volatile char scratch[8];
   void *temp_v0_12;
   void *temp_v0_14;
   void *temp_v0_17;
@@ -105,17 +107,25 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
   register void *temp_v1_2;
   void *temp_v1_3;
   void *temp_v1_5;
-  volatile int pad;
   void *temp_v1_6;
   void *temp_v1_9;
   register void *var_a2;
   void *var_t0;
+#define sp30 locals.sp30
+#define sp34 locals.sp34
+#define sp38 locals.sp38
+#define sp3C locals.sp3C
+#define sp40 locals.sp40
+#define sp44 locals.sp44
+#define sp48 locals.sp48
+#define sp4C locals.sp4C
+#define sp50 locals.sp50
   sp30 = 1;
   sp34 = 1;
   temp_a0 = *((u16 *) (((char *) arg1) + 0));
   temp_s7 = *(D_800C0788 + ((*(*((s16 **) (((char *) arg1) + 0x28)))) * 4));
-  temp_v0 = (temp_a0 * 0x4C) + temp_s7;
-  *((s32 *) (((char *) ((temp_a0 * 0x4C) + temp_s7)) + 0x30)) = (s32) (((*((s32 *) (((char *) temp_v0) + 0x30))) & 0xFFF0000F) | (temp_a0 * 0x10));
+  ;
+  *((s32 *) (((char *) ((temp_a0 * 0x4C) + temp_s7)) + 0x30)) = (s32) (((*((s32 *) (((char *) ((temp_a0 * 0x4C) + temp_s7)) + 0x30))) & 0xFFF0000F) | (temp_a0 * 0x10));
   temp_v0_2 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
   *((s32 *) (((char *) temp_v0_2) + 0x30)) = inline_fn(((*((s32 *) (((char *) temp_v0_2) + 0x30))) & 0xFFFFF) | ((*(*((s16 **) (((char *) arg1) + 0x28)))) << 0x14));
   *((s8 *) (((char *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) + 0x47)) = (s8) (*((u16 *) (((char *) arg1) + 0x3A)));
@@ -253,7 +263,7 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
         default:
           temp_v0_6 = func_8003C860(*arg0, 0);
           *arg0 = temp_v0_6;
-          *((s32 *) (((char *) temp_v0_6) + 0x3C)) = inline_fn(temp_s7 + ((*((u16 *) (((char *) arg1) + 0))) * 0x4C));
+          *((s32 *) (((char *) temp_v0_6) + 0x3C)) = inline_fn(temp_s7 + inline_fn2(arg1));
           break;
 
       }
@@ -261,12 +271,13 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
       temp_s4 = *((void **) (((char *) (*arg0)) + 0x3C));
       sp30 = 1;
       func_80045278(&D_800E19E0);
+      rotationScale = 0.000004261058165866416f;
       *((f32 *) (((char *) (*arg0)) + 0x24)) = (f32) (*((f32 *) (((char *) arg1) + 0xC)));
       *((f32 *) (((char *) (*arg0)) + 0x28)) = (f32) (*((f32 *) (((char *) arg1) + 0x10)));
       *((f32 *) (((char *) (*arg0)) + 0x2C)) = (f32) (*((f32 *) (((char *) arg1) + 0x14)));
-      *((f32 *) (((char *) (*arg0)) + 0x30)) = (f32) ((*((f32 *) (((char *) arg1) + 0x18))) * 0.000004261058f);
-      *((f32 *) (((char *) (*arg0)) + 0x34)) = (f32) ((*((f32 *) (((char *) arg1) + 0x1C))) * 0.000004261058f);
-      *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * 0.000004261058f);
+      *((f32 *) (((char *) (*arg0)) + 0x30)) = (f32) ((*((f32 *) (((char *) arg1) + 0x18))) * rotationScale);
+      *((f32 *) (((char *) (*arg0)) + 0x34)) = (f32) ((*((f32 *) (((char *) arg1) + 0x1C))) * rotationScale);
+      *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * rotationScale);
       *((s32 *) (((char *) (*arg0)) + 0x50)) = func_8003FCF4(arg1);
       *((f32 *) (((char *) (*arg0)) + 0x54)) = 0.0f;
       if ((*((s32 *) (((char *) arg1) + 0x3C))) & 0x10000)
@@ -332,9 +343,9 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
           *((s32 *) (((char *) temp_v0_11) + 0xC)) = temp_a1_3;
           *((s32 *) (((char *) temp_v0_11) + 0x10)) = inline_fn(temp_a2);
           *((s32 *) (((char *) temp_v0_11) + 0x14)) = temp_a3_2;
-          buildTriangleGridMasks(*((void **) (((char *) (*arg0)) + 0x3C)), temp_a1_3, temp_a2, temp_a3_2);
+          buildTriangleGridMasks(*((void **) (((char *) (*arg0)) + 0x3C)));
           func_80041114(*arg0);
-          if (1.0f != 1.0f)
+          if (var_fs1 != 1.0f)
           {
             temp_v1_3 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
             *((u8 *) (((char *) temp_v1_3) + 0x48)) |= 0x10;
@@ -346,12 +357,12 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
             if (temp_v0_12 != NULL)
             {
               temp_s2 = *((s32 *) (((char *) temp_v0_12) + 0x10)); temp_s1 = *((s32 *) (((char *) temp_v0_12) + 0x18)); temp_a3_3 = *((s32 **) (((char *) arg1) + 0x24)); sp44 = 0; sp48 = 0;
-              func_800336FC(*((s32 *) (((char *) temp_a3_3) + 0x18)), *((s32 *) (((char *) ((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_3) + 8)), *((s32 *) (((char *) temp_a3_3) + 0x10)), sp30, 1.0f, temp_s1, temp_s2, 0, &sp44, &sp48);
+              func_800336FC(*((s32 *) (((char *) temp_a3_3) + 0x18)), *((s32 *) (((char *) ((temp_v1_4 * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_3) + 8)), *((s32 *) (((char *) temp_a3_3) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 0, &sp44, &sp48);
               temp_v0_13 = heapAllocTagged((sp44 * 0x10) + (sp48 * 8), 0x2E);
               func_800328B8(temp_v0_13 + (sp48 * 8), temp_v0_13);
               *((s32 *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) = temp_v0_13;
               *((s32 *) (((char *) temp_s4) + 0)) = temp_v0_13; temp_a3_4 = *((s32 **) (((char *) arg1) + 0x24));
-              func_800336FC(*((s32 *) (((char *) temp_a3_4) + 0x18)), *((s32 *) (((char *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_4) + 8)), *((s32 *) (((char *) temp_a3_4) + 0x10)), sp30, 1.0f, temp_s1, temp_s2, 1, NULL, NULL);
+              func_800336FC(*((s32 *) (((char *) temp_a3_4) + 0x18)), *((s32 *) (((char *) (((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7)) + 0x34)), *((s32 *) (((char *) temp_a3_4) + 8)), *((s32 *) (((char *) temp_a3_4) + 0x10)), sp30, var_fs1, temp_s1, temp_s2, 1, NULL, NULL);
               if (D_80109A94)
               {
                 temp_v1_5 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
@@ -389,9 +400,9 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
       *((f32 *) (((char *) (*arg0)) + 0x24)) = (f32) (*((f32 *) (((char *) arg1) + 0xC)));
       *((f32 *) (((char *) (*arg0)) + 0x28)) = (f32) (*((f32 *) (((char *) arg1) + 0x10)));
       *((f32 *) (((char *) (*arg0)) + 0x2C)) = (f32) (*((f32 *) (((char *) arg1) + 0x14)));
-      *((f32 *) (((char *) (*arg0)) + 0x30)) = (f32) ((*((f32 *) (((char *) arg1) + 0x18))) * 0.000004261058f);
-      *((f32 *) (((char *) (*arg0)) + 0x34)) = (f32) ((*((f32 *) (((char *) arg1) + 0x1C))) * 0.000004261058f);
-      *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * 0.000004261058f);
+      *((f32 *) (((char *) (*arg0)) + 0x30)) = (f32) ((*((f32 *) (((char *) arg1) + 0x18))) * rotationScale);
+      *((f32 *) (((char *) (*arg0)) + 0x34)) = (f32) ((*((f32 *) (((char *) arg1) + 0x1C))) * rotationScale);
+      *((f32 *) (((char *) (*arg0)) + 0x38)) = (f32) ((*((f32 *) (((char *) arg1) + 0x20))) * rotationScale);
       func_80041114(*arg0, temp_a1_4, temp_a2_2, temp_a3);
       func_800410E8(*arg0);
       return;
@@ -482,7 +493,14 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
         }
 
         case 0x76:
+          if (var_t0)
+        {
           *((s32 *) (((char *) arg1) + 0x3C)) |= 0x1000;
+        }
+        else
+        {
+          *((s32 *) (((char *) arg1) + 0x3C)) |= 0x1000;
+        }
 
         case 0x33:
           sp30 = 4;
@@ -527,12 +545,19 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
       temp_a2_3 = temp_s4_2 + 8;
       if (var_s0_2 == 0)
       {
-        *((s32 *) (((char *) temp_s4_2) + 0x34)) = heapAllocTagged((*((u16 *) (((char *) (*((s32 **) (((char *) arg1) + 0x24)))) + 4))) * 0xC, 2, temp_a2_3);
+        *((s32 *) (((char *) temp_s4_2) + 0x34)) = heapAllocTagged((*((u16 *) (((char *) (*((s32 **) (((char *) arg1) + 0x24)))) + 4))) * 0xC, 2);
         if (((u32) (sp40 - 1)) < 2U)
         {
           var_a1_2 = 4;
           var_a0_2 = (*((u16 *) (((char *) temp_s4_2) + 0x40))) * 6;
           var_v0_2 = (*((u8 *) (((char *) temp_s4_2) + 0x48))) | 4;
+        }
+        else
+          if (temp_s2)
+        {
+          var_a1_2 = 3;
+          var_a0_2 = (*((u16 *) (((char *) temp_s4_2) + 0x40))) * 3;
+          var_v0_2 = (*((u8 *) (((char *) temp_s4_2) + 0x48))) | 8;
         }
         else
         {
@@ -592,8 +617,16 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
           func_800336FC(*((s32 *) (((char *) temp_v1_8) + 0x18)), *((s32 *) (((char *) temp_v1_8) + 0)), *((s32 *) (((char *) temp_v1_8) + 8)), *((s32 *) (((char *) temp_v1_8) + 0x10)), sp30, var_fs1, temp_s1_2, temp_s2_2, 1, NULL, NULL);
           if (D_80109A94)
           {
-            temp_v1_9 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
-            *((u8 *) (((char *) temp_v1_9) + 0x46)) |= 0x80;
+            if (temp_s4_2)
+            {
+              temp_v1_9 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
+              *((u8 *) (((char *) temp_v1_9) + 0x46)) |= 0x80;
+            }
+            else
+            {
+              temp_v1_9 = ((*((u16 *) (((char *) arg1) + 0))) * 0x4C) + temp_s7;
+              *((u8 *) (((char *) temp_v1_9) + 0x46)) |= 0x80;
+            }
           }
         }
       }
@@ -603,4 +636,5 @@ void func_800411C0(void **arg0, void *arg1, s32 arg2)
   }
 
 }
+
 

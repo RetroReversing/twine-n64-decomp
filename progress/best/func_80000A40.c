@@ -271,7 +271,7 @@ s32 *temp_s0;
 s32 *temp_s0;
 
                         temp_s0 = (s32 *)((char *)spA9C + M2C_FIELD(var_a1, s16 *, 2) * 0x30);
-                        func_800839F0(temp_s0, sp20, temp_s1 + 0x24);
+                        func_800839F0(temp_s0, sp20, (char *)temp_s1 + 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x24) += M2C_FIELD(temp_s0, f32 *, 0x24);
                         M2C_FIELD(temp_s1, f32 *, 0x28) += M2C_FIELD(temp_s0, f32 *, 0x28);
                         M2C_FIELD(temp_s1, f32 *, 0x2C) += M2C_FIELD(temp_s0, f32 *, 0x2C);

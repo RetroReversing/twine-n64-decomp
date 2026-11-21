@@ -329,7 +329,7 @@ volatile unsigned int func_80069DCC(void *arg0)
   temp_s1 = *((void **) (((char *) arg0) + 0x6C));
   sp64 = *((void **) (((char *) arg0) + 0x20));
   temp_s4 = inline_fn((char *) temp_s1, 0x182);
-  __repair_hoisted = *((void **) (((char *) arg0) + 0x20));
+
   if (D_80103EB0 == 0)
   {
     temp_a0 = *((s32 *) (((char *) temp_s1) + 8));
@@ -339,6 +339,7 @@ volatile unsigned int func_80069DCC(void *arg0)
       listUnlinkFree(temp_a0);
       *((s32 *) (((char *) temp_s1) + 8)) = -1;
     }
+    __repair_hoisted = *((void **)((char *)arg0 + 0x20));
     func_8006E648(__repair_hoisted, arg0, 0, &probeOutputs[0], &probeOutputs[1], &probeOutputs[2], &probeOutputs[3], &probeOutputs[4]);
     func_80002EF0(arg0);
     func_80070F34(arg0);
