@@ -1,4 +1,5 @@
-void romDmaRead();
+/* Copies len bytes from ROM address src to RAM dst, using an aligned staging buffer when src or dst is misaligned. */
+void romDmaRead(u8 *dst, s32 src, u32 len);
 void *memcpy();
 void dmaRomToRamUnaligned(u8 *dst, s32 src, u32 len) {
     u8 buf[32];

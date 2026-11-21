@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 struct vec { f32 x,y,z; };
 extern u16 gSurfaceQueryStamp;
 s8 Ray_CastObjects(void *, void *, f32 *, f32 *, f32 *, f32, s32, s32, s32);
-s32 func_8004F990();
+s32 findActorCapsuleHit();
 f32 Vec3_DistanceSq(f32 *, f32 *);
 f32 func_80045764();
 void *func_80047B44();
@@ -31,7 +31,7 @@ s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32
   v=func_80045764(q,q);
   if(FIELD(obj,u16,0x58)==0x46){
    if(Ray_CastObjects(func_8004D910,obj,p,q,r,v,arg5,(s8)arg7,arg8)){limit=Vec3_DistanceSq(p,r);mode=1;}
-   if(arg6 && func_8004F990(obj,p,d,arg6,out,0,0,arg8) && (mode!=1 || Vec3_DistanceSq(p,out)<limit)) mode=2;
+   if(arg6 && findActorCapsuleHit(obj,p,d,arg6,out,0,0,arg8) && (mode!=1 || Vec3_DistanceSq(p,out)<limit)) mode=2;
    if(mode) {
     if(mode==1){*(struct vec *)arg3=*(struct vec *)r;}
     if(mode==2){*(struct vec *)arg3=*(struct vec *)out;}
