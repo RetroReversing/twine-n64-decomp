@@ -12,74 +12,74 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 objectSetAnimFrame();
-s32 randomIntBelow();
-extern char gTrackDoneFlags[];
+s32 func_80044670();
+s32 func_80045CF8();
+extern char D_80109A60[];
 
-/* Advances a track marker's animation state machine; sets gTrackDoneFlags for its track entry as it plays. */ void stepTrackMarkerAnim(void *marker) {
-    s16 state;
-    u32 packedAnim;
-    u32 packedAnim1;
-    u32 packedAnim2;
-    u32 packedAnim3;
-    u8 flagIndex;
-    u8 flagIndex2;
-    u8 flagIndex1;
-    u8 flagIndex3;
-    void *entry;
+void func_8005AE38(void *arg0) {
+    s16 temp_v1;
+    u32 temp_a2;
+    u32 temp_a2_2;
+    u32 temp_a2_3;
+    u32 temp_a2_4;
+    u8 temp_v0;
+    u8 temp_v0_2;
+    u8 temp_v1_2;
+    u8 temp_v1_3;
+    void *temp_s0;
 
-    state = M2C_FIELD(marker, s16 *, 0x7A);
-    entry = M2C_FIELD(marker, void **, 0x6C);
-    switch (state) {                              /* irregular */
+    temp_v1 = M2C_FIELD(arg0, s16 *, 0x7A);
+    temp_s0 = M2C_FIELD(arg0, void **, 0x6C);
+    switch (temp_v1) {                              /* irregular */
     case 0:
-        if (randomIntBelow(0x78) == 0) {
-            M2C_FIELD(marker, s16 *, 0x7A) = 2;
+        if (func_80045CF8(0x78) == 0) {
+            M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         }
-        if (randomIntBelow(0x3C) == 0) {
-            flagIndex = M2C_FIELD(entry, u8 *, 4);
-            if (flagIndex != 0) {
-                *(gTrackDoneFlags + flagIndex) = 0;
+        if (func_80045CF8(0x3C) == 0) {
+            temp_v0 = M2C_FIELD(temp_s0, u8 *, 4);
+            if (temp_v0 != 0) {
+                *(D_80109A60 + temp_v0) = 0;
             }
-            packedAnim = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, ((packedAnim >> 4) & 0xFFFF) + 1, packedAnim >> 0x14);
-            M2C_FIELD(marker, s16 *, 0x7A) = 1;
+            temp_a2 = M2C_FIELD(temp_s0, u32 *, 0);
+            func_80044670(arg0, ((temp_a2 >> 4) & 0xFFFF) + 1, temp_a2 >> 0x14);
+            M2C_FIELD(arg0, s16 *, 0x7A) = 1;
         }
         return;
     case 1:
-        if (randomIntBelow(7) == 0) {
-            flagIndex1 = M2C_FIELD(entry, u8 *, 4);
-            if (flagIndex1 != 0) {
-                *(gTrackDoneFlags + flagIndex1) = 1;
+        if (func_80045CF8(7) == 0) {
+            temp_v1_2 = M2C_FIELD(temp_s0, u8 *, 4);
+            if (temp_v1_2 != 0) {
+                *(D_80109A60 + temp_v1_2) = 1;
             }
-            packedAnim1 = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, (packedAnim1 >> 4) & 0xFFFF, packedAnim1 >> 0x14);
-            M2C_FIELD(marker, s16 *, 0x7A) = 0;
+            temp_a2_2 = M2C_FIELD(temp_s0, u32 *, 0);
+            func_80044670(arg0, (temp_a2_2 >> 4) & 0xFFFF, temp_a2_2 >> 0x14);
+            M2C_FIELD(arg0, s16 *, 0x7A) = 0;
             return;
         }
         break;
     case 2:
-        if (randomIntBelow(7) != 0) {
-            flagIndex2 = M2C_FIELD(entry, u8 *, 4);
-            if (flagIndex2 != 0) {
-                *(gTrackDoneFlags + flagIndex2) = 0;
+        if (func_80045CF8(7) != 0) {
+            temp_v0_2 = M2C_FIELD(temp_s0, u8 *, 4);
+            if (temp_v0_2 != 0) {
+                *(D_80109A60 + temp_v0_2) = 0;
             }
-            packedAnim2 = M2C_FIELD(entry, u32 *, 0);
-            objectSetAnimFrame(marker, ((packedAnim2 >> 4) & 0xFFFF) + 1, packedAnim2 >> 0x14);
-            M2C_FIELD(marker, s16 *, 0x7A) = 3;
+            temp_a2_3 = M2C_FIELD(temp_s0, u32 *, 0);
+            func_80044670(arg0, ((temp_a2_3 >> 4) & 0xFFFF) + 1, temp_a2_3 >> 0x14);
+            M2C_FIELD(arg0, s16 *, 0x7A) = 3;
         }
-        if (randomIntBelow(5) == 0) {
-            M2C_FIELD(marker, s16 *, 0x7A) = 0;
+        if (func_80045CF8(5) == 0) {
+            M2C_FIELD(arg0, s16 *, 0x7A) = 0;
             return;
         }
         return;
     case 3:
-        flagIndex3 = M2C_FIELD(entry, u8 *, 4);
-        if (flagIndex3 != 0) {
-            *(gTrackDoneFlags + flagIndex3) = 1;
+        temp_v1_3 = M2C_FIELD(temp_s0, u8 *, 4);
+        if (temp_v1_3 != 0) {
+            *(D_80109A60 + temp_v1_3) = 1;
         }
-        packedAnim3 = M2C_FIELD(entry, u32 *, 0);
-        objectSetAnimFrame(marker, (packedAnim3 >> 4) & 0xFFFF, packedAnim3 >> 0x14);
-        M2C_FIELD(marker, s16 *, 0x7A) = 2;
+        temp_a2_4 = M2C_FIELD(temp_s0, u32 *, 0);
+        func_80044670(arg0, (temp_a2_4 >> 4) & 0xFFFF, temp_a2_4 >> 0x14);
+        M2C_FIELD(arg0, s16 *, 0x7A) = 2;
         return;
     }
 }
