@@ -36,7 +36,7 @@ f32 func_80082908(f32);                             /* extern */
 s32 func_80083AE8(f32 *, f32 *, f32 *);         /* extern */
 s32 func_80083B64(f32 *, f32 *);                /* extern */
 s32 func_80084338(s32, f32 *);              /* extern */
-s32 func_800850E0(f32 *);                       /* extern */
+s32 func_800850E0(void *arg0, f32 *);                       /* extern */
 void func_800851E0(s32);            /* extern */
 s32 func_80085354(void *, u8);                  /* extern */
 s32 func_800853D4(f32 *);                       /* extern */
@@ -180,7 +180,7 @@ void func_800561BC(void *arg0) {
     f32 temp_fv1;
     f32 temp_fv1_2;
     f32 temp_fv1_3;
-    s32 var_a0;
+    
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fv0_2;
@@ -235,7 +235,7 @@ void func_800561BC(void *arg0) {
     u8 temp_a1;
     void *temp_a0;
     void *temp_a0_3;
-    void *temp_a0_5;
+    union { void * pointer; s32 value; } __repair_phase_storage;
     void *temp_a2_2;
     void *temp_a2_3;
     void *temp_s0;
@@ -280,15 +280,15 @@ void func_800561BC(void *arg0) {
         (*(s16 *)((char *)(arg0) + 0x7A)) = (s16) ((u16) (*(s16 *)((char *)(arg0) + 0x7A)) + 1);
         goto block_19;
     case 1:                                         /* switch 1 */
-        temp_a0_5 = (*(void **)((char *)(temp_s2) + 0x2C));
-        temp_a1_4 = (*(s32 *)((char *)(temp_a0_5) + 0x60));
+        __repair_phase_storage.pointer = (*(void **)((char *)(temp_s2) + 0x2C));
+        temp_a1_4 = (*(s32 *)((char *)(__repair_phase_storage.pointer) + 0x60));
         var_fs0 = (*(f32 *)((char *)(temp_s2) + 0x20));
         var_v1_3 = 0;
         if (temp_a1_4 & 0x10) {
             var_fv0_2 = (*(f32 *)((char *)(temp_s2) + 0x18)) - 0.08166667f;
             goto block_13;
         }
-        if ((*(f32 *)((char *)(temp_a0_5) + 0x18)) < (*(f32 *)((char *)(temp_s2) + 0x1C))) {
+        if ((*(f32 *)((char *)(__repair_phase_storage.pointer) + 0x18)) < (*(f32 *)((char *)(temp_s2) + 0x1C))) {
             if (temp_a1_4 & 0x200) {
                 (*(s16 *)((char *)(arg0) + 0x7A)) = 2;
             } else {
@@ -388,9 +388,9 @@ block_29:
                 var_v1 = 0;
             }
             if ((var_v1 | (var_s6 == 0)) != 0) {
-                var_s6 = 2;
                 var_fs1 = temp_fv0_2;
                 var_s7 = temp_a0;
+                var_s6 = 2;
                 var_s5 = gPlayerActor;
                 local.sp30 = local.hit60[0];
                 local.sp34 = local.hit60[1];
@@ -458,8 +458,8 @@ block_29:
                         (*(f32 *)((char *)(temp_s0) + 0xF0)) = local.sp44;
                         (*(f32 *)((char *)(temp_s0) + 0xF4)) = local.sp48;
                         (*(s8 *)((char *)(temp_s0) + 0x19C)) = 1;
-                        D_80100B18 = 0;
                         var_v0_2 = (*(s32 *)((char *)(arg0) + 0x60)) | 1;
+                        D_80100B18 = 0;
                         goto block_72;
                     }
                     goto block_73;
@@ -922,17 +922,17 @@ block_226:
                         }
                     }
                     if ((*(s32 *)((char *)((*(void **)((char *)(temp_s2) + 0x2C))) + 0x64)) & 8) {
-                        var_a0 = 12;
+                        __repair_phase_storage.value = 12;
                         if ((D_80108F84 != NULL) && ((*(s32 *)((char *)(D_80108F84) + 0x50)) & 4)) {
-                            var_a0 = 2;
+                            __repair_phase_storage.value = 2;
                         }
-                        if (randomIntBelow(var_a0) == 0) {
+                        if (randomIntBelow(__repair_phase_storage.value) == 0) {
                             (*(f32 *)((char *)(temp_s2) + 0xC)) = local.sp40;
                             (*(f32 *)((char *)(temp_s2) + 0x10)) = local.sp44;
                             (*(f32 *)((char *)(temp_s2) + 0x14)) = local.sp48;
                             func_80046424(arg0 + 0x3C, (*(f32 *)((char *)(temp_s2) + 0)), (*(f32 *)((char *)(temp_s2) + 4)), (*(f32 *)((char *)(temp_s2) + 8)));
                             (*(f32 *)((char *)(arg0) + 0x3C)) = (f32) -(*(f32 *)((char *)(arg0) + 0x3C));
-                            func_800850E0(&local.sp40);
+                            func_800850E0(arg0, &local.sp40);
                             (*(s32 *)((char *)(temp_s2) + 0x24)) = (s32) ((*(s32 *)((char *)(temp_s2) + 0x24)) | 0x80000);
                             (*(s32 *)((char *)(temp_s2) + 0x28)) = (s32) ((*(s32 *)((char *)(temp_s2) + 0x28)) | 0x20000000);
                             goto block_233;
@@ -977,6 +977,12 @@ block_234:
                 spawnConfiguredEffect((*(void **)((char *)(arg0) + 0x20)), &local.sp88, &local.sp98, 0, 2.0f, 1.1f, 8, 0x1B, 0x17, 0xFFC800FF, 0x80808040);
                 temp_v1_15 = (*(u16 *)((char *)(var_s7) + 0x78));
                 switch (temp_v1_15) {               /* switch 3; irregular */
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
                 default:                            /* switch 3 */
                     if (D_80103EB0 != 0) {
                         temp_a2_2 = (*(void **)((char *)(var_s7) + 0x6C));

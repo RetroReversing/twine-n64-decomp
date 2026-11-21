@@ -41,7 +41,6 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
   s32 *temp_v0_6;
   s32 *temp_v1;
   s32 *var_a2_2;
-  
   s32 temp_a0_2;
   s32 temp_a0_9;
   s32 temp_a1_3;
@@ -144,7 +143,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
       var_a1 = temp_t0 + 0x10;
     }
     temp_v0_4 = var_a1 >> 4;
-    if (temp_v0_4 > 0)
+    if ((temp_v0_4 - 1) >= 0)
     {
       var_a1 = (var_a2 / temp_v0_4) & 0xFFF;
     }
@@ -296,7 +295,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             temp_a3 = temp_t2_3 * 5;
             temp_v1_4 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
             temp_t3 = *((u8 *) (((char *) temp_v1_4) + 0));
-            temp_t4 = (*((u8 *) (((char *) temp_v1_4) + 1))) << 5;
+            temp_t4 = (float) ((*((u8 *) (((char *) temp_v1_4) + 1))) << 5);
             temp_a0_2 = (s8) (*((s8 *) (((char *) temp_v1_4) + 4)));
             if (gHiResScreen != 0)
           {
