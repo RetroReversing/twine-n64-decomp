@@ -19,6 +19,7 @@ void func_8005DED8(void *arg0)
   s32 __repair_phase_var_v0;
   u16 temp_a0_2;
   u16 temp_v0;
+  int cv;
   u16 temp_v0_2;
   u16 temp_v0_3;
   u16 temp_v1_3;
@@ -45,20 +46,22 @@ void func_8005DED8(void *arg0)
     {
       temp_v0 = (*((u16 *) (((char *) temp_s1) + 0x42))) + 1;
       *((u16 *) (((char *) temp_s1) + 0x42)) = temp_v0;
-      if (temp_v0 & 0x10)
+      if (!(temp_v0 & 0x10))
       {
-        goto L_ff;
+        cv = 0xBF;
+        goto L_tail;
       }
-      *((u8 *) (((char *) arg0) + 0x7F)) = 0xBF;
-      *((u8 *) (((char *) arg0) + 0x80)) = 0xBF;
-      *((u8 *) (((char *) arg0) + 0x81)) = 0xBF;
+      *((u8 *) (((char *) arg0) + 0x7F)) = 0xFF;
+      *((u8 *) (((char *) arg0) + 0x80)) = 0xFF;
+      *((u8 *) (((char *) arg0) + 0x81)) = 0xFF;
     }
     else
     {
-      L_ff:
-      *((u8 *) (((char *) arg0) + 0x81)) = 0xFF;
-      *((u8 *) (((char *) arg0) + 0x80)) = 0xFF;
-      *((u8 *) (((char *) arg0) + 0x7F)) = 0xFF;
+      cv = 0xFF;
+      L_tail:
+      *((u8 *) (((char *) arg0) + 0x81)) = cv;
+      *((u8 *) (((char *) arg0) + 0x80)) = cv;
+      *((u8 *) (((char *) arg0) + 0x7F)) = cv;
     }
   }
   temp_v1_2 = *((s16 *) (((char *) arg0) + 0x7A));
