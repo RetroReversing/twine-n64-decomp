@@ -53,41 +53,41 @@ void __osRestoreInt(u32);
 /* Turns VI special features on or off (bit set = on, bit clear = off) in the current
    VI context's control word, then marks the context as changed. Interrupts are
    disabled while the context is edited. */
-void osViSetSpecialFeatures(u32 func) {
+void osViSetSpecialFeatures(u32 features) {
     register u32 saveMask;
 
     saveMask = __osDisableInt();
 
-    if ((func & 0x0001) != 0) {
+    if ((features & 0x0001) != 0) {
         vi_active_ctx->control |= 0x00008;
     }
 
-    if ((func & 0x0002) != 0) {
+    if ((features & 0x0002) != 0) {
         vi_active_ctx->control &= ~0x00008;
     }
 
-    if ((func & 0x0004) != 0) {
+    if ((features & 0x0004) != 0) {
         vi_active_ctx->control |= 0x00004;
     }
 
-    if ((func & 0x0008) != 0) {
+    if ((features & 0x0008) != 0) {
         vi_active_ctx->control &= ~0x00004;
     }
 
-    if ((func & 0x0010) != 0) {
+    if ((features & 0x0010) != 0) {
         vi_active_ctx->control |= 0x00010;
     }
 
-    if ((func & 0x0020) != 0) {
+    if ((features & 0x0020) != 0) {
         vi_active_ctx->control &= ~0x00010;
     }
 
-    if ((func & 0x0040) != 0) {
+    if ((features & 0x0040) != 0) {
         vi_active_ctx->control |= 0x10000;
         vi_active_ctx->control &= ~0x00300;
     }
 
-    if ((func & 0x0080) != 0) {
+    if ((features & 0x0080) != 0) {
         vi_active_ctx->control &= ~0x10000;
         vi_active_ctx->control |= vi_active_ctx->modep->comRegs.ctrl & 0x00300;
     }

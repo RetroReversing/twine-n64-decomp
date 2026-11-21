@@ -1,4 +1,4 @@
-extern s32 gPiDomainCache[];
+extern s32 piDomainShadow[];
 extern s32 D_A0000000;
 /* Waits for PI DMA idle, syncs the device's PI domain timing, then reads a word from cart space at dev->address | offset. */ s32 piReadDomainWord(u8 *dev, s32 offset, s32 *outWord) {
     u8 *cfg;
@@ -11,7 +11,7 @@ extern s32 D_A0000000;
         } while (*(vu32 *)0xA4600010 & 3);
     }
     domain = dev[9];
-    cached = (u8 *)gPiDomainCache[domain];
+    cached = (u8 *)piDomainShadow[domain];
     if (cached[4] != dev[4]) {
         cfg = cached;
         if (domain == 0) {

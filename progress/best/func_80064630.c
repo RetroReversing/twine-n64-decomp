@@ -9,7 +9,7 @@ void func_80064630(void *arg0) {
     u8 *obj = (u8 *)arg0;
     u8 *record = *(u8 **)(obj + 0x6C);
     u8 *flag = &D_80112F6C;
-    s32 i;
+    u32 i;
     s32 off;
 
     for (i = 0, off = 0; i < 32; i++, off += 4) {

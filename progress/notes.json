@@ -1304,7 +1304,7 @@
   "score_after": 8455
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
   "by": "restored",
   "created_at": 1795049810.9206002,
@@ -1344,7 +1344,7 @@
   "score_after": 8455
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
   "by": "restored",
   "created_at": 1795049810.9206002,
@@ -1544,7 +1544,7 @@
   "score_after": null
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
   "by": "permuter-25769804951",
   "created_at": 1795049810.9206002,
@@ -4174,6 +4174,14 @@
   "created_at": 1795138082.743933,
   "score_before": 1745,
   "score_after": 1745
+ },
+ {
+  "function": "audioCmdNoteOn",
+  "text": "Candidate baseline score 1741; local repairs (record layout, masked reuse, integer lifetimes, signedness, declaration order, branch orientation) did not improve. Initial handwritten compile failed due missing typedef context. First target mismatch is stack frame size: target -0x40 vs candidate -0x38. Needs investigate locals/register lifetimes and call argument staging; no match.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795138086.62223,
+  "score_before": 1741,
+  "score_after": 1741
  },
  {
   "function": "func_80096758",
@@ -10320,6 +10328,14 @@
   "score_after": 728
  },
  {
+  "function": "audioCmdNoteOn",
+  "text": "Verified score 1741. Six trials of inferred record, masked reuse, lifetime, signedness, declaration order and branch orientation failed to improve. Target frame is 0x40 versus candidate 0x38; inspect call argument layout and full diff for control-flow and register lifetime restructuring.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795178070.222625,
+  "score_before": 1741,
+  "score_after": 1741
+ },
+ {
   "function": "func_8009C660",
   "text": "Baseline rechecked at 1590. Six local trials for masked value, lifetimes, signedness, declarations, index width and byte offsets did not improve. Candidate has a stale loop-carried identifier and word-scaled global offsets; correcting offsets alone scored 1775. Inspect target control flow and register lifetimes together.",
   "by": "codex-gpt-6.1-terra-4",
@@ -10552,7 +10568,7 @@
   "score_after": 250
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Initial saved C did not compile. Corrected pointer casts and got score 120, then corrected final operation from reading computed address into *arg2 to storing arg2 at computed address via D_A0000000 relocation; best score 110. Tried symbol-relative byte-pointer addition and array indexing variants (scores 270 and 510); retain best candidate fa2b9ff59a9158223eb4 / score 110. Remaining target tail is lw $v0,0xc($a0); lui $v1,%hi(D_A0000000); or $v0,$v0,$a1; or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). Best candidate adds addiu $v1,$v1,%lo(D_A0000000) then sw $a2,($v0), so focus on emitting relocation low half as store displacement without materializing it in a separate addiu.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795178217.4721,
@@ -13824,6 +13840,14 @@
   "score_after": 820
  },
  {
+  "function": "audioCmdNoteOn",
+  "text": "Baseline 1741 revision d6487b4b752cdcd80647, recheck after build input change. Six trials of arg1 struct, mask reuse, variable lifetimes, signedness, declaration order and branch orientation did not improve. Remaining mismatches include stack frame 0x38 vs target 0x40, register allocation and clamp control flow; inspect calls and stack arguments.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795182476.629364,
+  "score_before": 1741,
+  "score_after": 1741
+ },
+ {
   "function": "func_80087D50",
   "text": "Rechecked best 620. Correcting strlen prototype had no score effect; caching the record pointer worsened to 935, chained zero stores worsened to 655, assignment in call unchanged, and changing third argument worsened. Remaining target loads zero into t0/t1 for initial stores, and uses a2 for first record load and a0 for color across conversion; candidate duplicates color materialization. Investigate source structure/register allocation around these operations.",
   "by": "codex-gpt-6.1-terra-5",
@@ -13968,7 +13992,7 @@
   "score_after": 65
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Best candidate remains historical score 110 (fa2b9ff59a9158223eb4; candidate maps lookup arrays to byte pointers, MMIO writes conditional on byte differences). First compile rechecked at 110, 90 instructions vs target 89. Remaining key difference: target final store is `sw $a2, %lo(D_A0000000)($v0)`, while best had an extra `addiu $v1, $v1, %lo(D_A0000000)` and `sw $a2, ($v0)`. Tried replacing OR-combined full address with pointer addition from `&D_A0000000`; these reached 270 and mismatched final address construction (target `lui $v1`, `or $v0,$v0,$a1`, `or $v0,$v0,$v1`, reloc store). Repeated attempts reached move-on 6/6. Resume from fa2b9ff59a9158223eb4; try expressing final target address as bitwise combination while preserving base in $v0, or inspect full assembly near offsets 83\u201387.",
   "by": "codex-gpt-6-luna-11",
   "created_at": 1795182549.978997,
@@ -22464,7 +22488,7 @@
   "score_after": 50
  },
  {
-  "function": "func_800A7EC0",
+  "function": "piWriteDomainWord",
   "text": "Verified saved candidate score 110: all instructions match except extra addiu of %lo(D_A0000000) and store uses zero offset instead of relocation. Replacing final OR with pointer addition generated relocation store but used addu $at and changed order, scoring 270. Branch reversal and signed byte pointers worsened. Next investigate expression or symbol declaration that combines OR of high address with relocatable low offset in final store.",
   "by": "codex-gpt-6.1-terra-4",
   "created_at": 1795187964.066786,
@@ -22902,6 +22926,14 @@
   "created_at": 1795188648.6682072,
   "score_before": 1120,
   "score_after": 1120
+ },
+ {
+  "function": "audioCmdNoteOn",
+  "text": "Improved verified 631 to 60; all 89 target instructions present. Only remaining mismatch: andi a2,a2,0xff is scheduled just after lbu 0x2F instead of after lbu 0xBE, preceding jal func_8009C420. Preserve explicit packed key stages with distinct low/key locals, index*12 plus intervening state load then (scaled+index)*32, nested linked flag local, and the two-word local array that reproduces 0x40 frame. Typed u8 third arg + cast, volatile final load, and staging either the last or last three arguments made no improvement. Next avenue: compare final scheduling flags (especially scheduler clock/dependency options) on the current exact-except-order shape or test a dependency-preserving argument expression; avoid staging last arguments alone, which destabilizes other positions. Cleaned scoped flag without dead branch and typed third argument was separately verified at equal score 60 (revision 32e76cf49e774690a6ed).",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795188665.794362,
+  "score_before": 631,
+  "score_after": 60
  },
  {
   "function": "func_800070A4",
@@ -24094,6 +24126,14 @@
   "created_at": 1795189856.106517,
   "score_before": 320,
   "score_after": 320
+ },
+ {
+  "function": "audioCmdNoteOn",
+  "text": "Verified baseline 60 with 89/89 instructions. Only differing order is andi a2,a2,0xff: candidate after lbu state+0x2F; ROM after lbu state+0xBE immediately before jal. Staging all remaining stack argument loads regressed to 1090. Argument layout/newlines, an explicit u8 zero, and replacing the mask with u8 casts all generated identical mismatch. Six-trial move-on budget exhausted. Next meaningful avenue is a scheduler flag trial against the score-60 source or an actual data dependency, given simple source spellings leave RTL unchanged.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795189869.801464,
+  "score_before": 60,
+  "score_after": 60
  },
  {
   "function": "func_8009A804",
@@ -25326,6 +25366,14 @@
   "created_at": 1795191077.297513,
   "score_before": 225,
   "score_after": 220
+ },
+ {
+  "function": "audioCmdNoteOn",
+  "text": "Verified score 60: only andi $a2,$a2,0xff is scheduled four instructions too early. Explicit pre-mask, u8 parameter, u8 cast, local narrowing and split source line all generated identical instructions. Investigate argument evaluation/scheduling or compiler profile.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795191081.421376,
+  "score_before": 60,
+  "score_after": 60
  },
  {
   "function": "func_8009794C",
@@ -26926,6 +26974,14 @@
   "created_at": 1795192998.628799,
   "score_before": 1944,
   "score_after": 1944
+ },
+ {
+  "function": "audioCmdNoteOn",
+  "text": "Current profile rechecked score 60. The only residual is andi a2,a2,0xFF: target places it after lbu 0xBE(s0), candidate after lbu 0x2F(s0) before three intervening stack setup instructions. Debug-line joins across channel load/BD store and BD store/call produced identical output; explicit u8 cast plus volatile load at either 0x2F or 0xBE stayed at 60. Capturing both stack arguments into locals before the call regressed to 821. Keep saved best. Next compare post-reload scheduling flag behavior or look for a neighbouring matched 11-argument call with late argument narrowing; avoid repeating these source edits.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795193004.304217,
+  "score_before": 60,
+  "score_after": 60
  },
  {
   "function": "func_8009C660",
@@ -57872,59 +57928,84 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:66052e9aaa4aaf0080c689ddf1a56b4ec5ec471b39476eb1379203a310138866"
  },
  {
-  "function": "audioCmdNoteOn",
-  "text": "Candidate baseline score 1741; local repairs (record layout, masked reuse, integer lifetimes, signedness, declaration order, branch orientation) did not improve. Initial handwritten compile failed due missing typedef context. First target mismatch is stack frame size: target -0x40 vs candidate -0x38. Needs investigate locals/register lifetimes and call argument staging; no match.",
+  "function": "func_80082BD0",
+  "text": "Baseline candidate is 200 and one core issue is its pointer alignment mask: target begins with direct address of D_80102E74 and then loads floats via offsets from v0. A direct &D_80102E74 rewrite caused loads to resolve as separate globals (score 1110), while saved source retained pointer arithmetic. Local arithmetic reorder trials regressed. Candidate C includes earlier unrelated matched function definitions; leave them as supplied. Move-on threshold reached.\nArithmetic operand reorder variants worsened score; direct unmasked pointer caused separate global address loads and score 1110.\nSaved baseline 200 retained.",
   "by": "codex-gpt-6-luna-15",
-  "created_at": 1795138086.62223,
-  "score_before": 1741,
-  "score_after": 1741
+  "created_at": 1795229564.708881,
+  "score_before": 200,
+  "score_after": 200,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4ad45c000af6a7168fc7630ea279ac5bcebdb7e83e9714bea2f76085e112ef29"
  },
  {
-  "function": "audioCmdNoteOn",
-  "text": "Verified score 1741. Six trials of inferred record, masked reuse, lifetime, signedness, declaration order and branch orientation failed to improve. Target frame is 0x40 versus candidate 0x38; inspect call argument layout and full diff for control-flow and register lifetime restructuring.",
+  "function": "func_8002FFAC",
+  "text": "Rechecked saved candidate score 875. Tried a clean rewrite (score 6300); adding an 8-byte frame local store reduced it to 1025, still worse than saved. Restored saved_best. Three independent branch_orientation variants (scores 1190, 1315, 1360) also regressed. Main unresolved diff begins branch target at initial null guard (target beqz to +0xd8 vs candidate +0xd4), followed by clamp register/control flow. No improvement over 875. Next step: inspect try_local_repairs families guard_shape and delayed_narrow_capture on revision 02e5862db1d13520208b, or compare with its similar function, focusing early branch layout and the 0x10 increments' signed clamp.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229574.83491,
+  "score_before": 6300,
+  "score_after": 1025,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4a97ede651f7b4289baf8734cc99926cda3d27e36d8b5fc677232401494bc7e1"
+ },
+ {
+  "function": "func_800770E4",
+  "text": "Baseline 16015; local prototype variants were unchanged or worse. Extensive prior history and 307 differing rows remain; moving on after repeated attempts.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795229588.636655,
+  "score_before": 16015,
+  "score_after": 16015,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:60b486900e64e5a9d96cbe0e131fb69dd197060cc6605e2521355f02a196cd05"
+ },
+ {
+  "function": "func_800993A4",
+  "text": "Score 50, only 10 register rows: target keeps reloaded sVoiceCount in v1 (limit count<<2 in v1) and counter in a0; mine swaps (limit a0, counter v1). Tried: <<2 vs *4, declaration order, init order, u32 temp, s32 compare (245), local_repairs families (all worse). Next step: change the first loop's register usage (e.g. a1 constant/hoisting) so v1 is free-preferred, or make the counter pseudo more heavily used.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795229619.065726,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:7e0c47ef9a3aa38e8bd4524ff949c22955a3b515321e1c708cbf789d26a45114"
+ },
+ {
+  "function": "func_8005D444",
+  "text": "Reached the judge's 6/6 move-on threshold. Restored the score-400 candidate. Remaining mismatch is the failed-spawn branch-likely and its delay slot, with shifted branch offsets.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795229619.9743,
+  "score_before": 400,
+  "score_after": 400,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:b3d5629c25c50f9fc34deade54bf2aa85ef49398ffe0b64203bb4cf9831cfebd"
+ },
+ {
+  "function": "func_8011D3C0",
+  "text": "Rechecked baseline 15660 with frame 0x80 vs target 0x98. Three local variants tied or worsened after substantial previous trials; moving on.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795229632.537694,
+  "score_before": 15660,
+  "score_after": 15660,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:d217e8b2bb71d6b1a38476ad26b5d08534d6b6209e11fa9863d061348b7c39cc"
+ },
+ {
+  "function": "func_80044538",
+  "text": "Saved source rechecked score 875. Local repair search had no applicable candidates; IDO-7.1 score 5835. Added unused locals and explicit base/index expressions: both no-op at 875 (same instruction diff). Remaining 18 mismatches mainly allocator uses $a1 for D_800C0788 base where target uses $a3, plus cursor loop shape (target lbu/sb offset 0x46; candidate forms address separately; branch +0x90 vs +0x8c). Next step: change loop to index `p = base + i * 0x4C` instead of incrementing pointer, and use `D_800C0788[arg0].f0` directly after loop to see if base stays in $a3.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795229646.189187,
+  "score_before": 875,
+  "score_after": 875,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:3ac048ff94c047295a465d979e9456dbc2a89afb4f3263b28f12f975ec84dc7b"
+ },
+ {
+  "function": "func_80064630",
+  "text": "Unsigned first-loop index improves current verified score 3625 to 3430. Subsequent local variants failed to improve; move-on threshold reached. Prologue and saved-register allocation still differ.",
   "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795178070.222625,
-  "score_before": 1741,
-  "score_after": 1741
+  "created_at": 1795229676.522582,
+  "score_before": 4315,
+  "score_after": 3430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
  },
  {
-  "function": "audioCmdNoteOn",
-  "text": "Baseline 1741 revision d6487b4b752cdcd80647, recheck after build input change. Six trials of arg1 struct, mask reuse, variable lifetimes, signedness, declaration order and branch orientation did not improve. Remaining mismatches include stack frame 0x38 vs target 0x40, register allocation and clamp control flow; inspect calls and stack arguments.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795182476.629364,
-  "score_before": 1741,
-  "score_after": 1741
- },
- {
-  "function": "audioCmdNoteOn",
-  "text": "Improved verified 631 to 60; all 89 target instructions present. Only remaining mismatch: andi a2,a2,0xff is scheduled just after lbu 0x2F instead of after lbu 0xBE, preceding jal func_8009C420. Preserve explicit packed key stages with distinct low/key locals, index*12 plus intervening state load then (scaled+index)*32, nested linked flag local, and the two-word local array that reproduces 0x40 frame. Typed u8 third arg + cast, volatile final load, and staging either the last or last three arguments made no improvement. Next avenue: compare final scheduling flags (especially scheduler clock/dependency options) on the current exact-except-order shape or test a dependency-preserving argument expression; avoid staging last arguments alone, which destabilizes other positions. Cleaned scoped flag without dead branch and typed third argument was separately verified at equal score 60 (revision 32e76cf49e774690a6ed).",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795188665.794362,
-  "score_before": 631,
-  "score_after": 60
- },
- {
-  "function": "audioCmdNoteOn",
-  "text": "Verified baseline 60 with 89/89 instructions. Only differing order is andi a2,a2,0xff: candidate after lbu state+0x2F; ROM after lbu state+0xBE immediately before jal. Staging all remaining stack argument loads regressed to 1090. Argument layout/newlines, an explicit u8 zero, and replacing the mask with u8 casts all generated identical mismatch. Six-trial move-on budget exhausted. Next meaningful avenue is a scheduler flag trial against the score-60 source or an actual data dependency, given simple source spellings leave RTL unchanged.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795189869.801464,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "audioCmdNoteOn",
-  "text": "Verified score 60: only andi $a2,$a2,0xff is scheduled four instructions too early. Explicit pre-mask, u8 parameter, u8 cast, local narrowing and split source line all generated identical instructions. Investigate argument evaluation/scheduling or compiler profile.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795191081.421376,
-  "score_before": 60,
-  "score_after": 60
- },
- {
-  "function": "audioCmdNoteOn",
-  "text": "Current profile rechecked score 60. The only residual is andi a2,a2,0xFF: target places it after lbu 0xBE(s0), candidate after lbu 0x2F(s0) before three intervening stack setup instructions. Debug-line joins across channel load/BD store and BD store/call produced identical output; explicit u8 cast plus volatile load at either 0x2F or 0xBE stayed at 60. Capturing both stack arguments into locals before the call regressed to 821. Keep saved best. Next compare post-reload scheduling flag behavior or look for a neighbouring matched 11-argument call with late argument narrowing; avoid repeating these source edits.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795193004.304217,
-  "score_before": 60,
-  "score_after": 60
+  "function": "func_8001E898",
+  "text": "Current confirmed best 1440. First 35 target instructions show target copies dim/draw to a3/s3 in function prologue (move a3,a1; move s3,a2 delay slot at object null branch); source currently keeps dim/draw in incoming regs and later switch logic differs. Local repairs of matched_integer_prototype and callee_parameter_width regressed (2170 and 1600); store_value_lifetime unchanged at 1440. Switch reorganization unchanged. Remaining discrepancy includes 30 rows, branch targets and duplicate color stores/control flow. Threshold met.\nMatched prototype/store lifetime/parameter width repairs and alternate switch source; no better than 1440.\nCandidate retained; differences begin with arg copies in prologue and later switch paths.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795229682.401314,
+  "score_before": 1440,
+  "score_after": 1440,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:fc83a06804a54d67aa59de0f62b1214e450321f71193ade82558e3827295a5b4"
  }
 ]

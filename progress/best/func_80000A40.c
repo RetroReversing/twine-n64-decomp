@@ -12,16 +12,16 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern int D_800D1D60;
-extern int D_800D1D64;
+extern float D_800D1D60;
+extern float D_800D1D64;
 extern float D_800D1D68;
 s16 *func_80001928();
 s32 func_8000628C();
 s32 *func_8000DA08();
 s32 func_80043FA0();
-f32 approximate_hypot2();
+f32 approximate_hypot2(f32, f32);
 s32 func_800468E4();
-f32 approximateAtan2();
+f32 approximateAtan2(f32, f32);
 s32 func_80083410();
 s32 build_yz_rotation_matrix();
 s32 MatMul3x3InPlace();
@@ -45,7 +45,7 @@ void func_80000A40(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 arg5) 
     f32 sp10[3];
     f32 sp20[3];
     f32 sp30[3];
-    s32 sp40[3];
+    f32 sp40[3];
     f32 sp50[16];
     char sp90[0x30];
     s32 spC0;

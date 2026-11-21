@@ -9,7 +9,7 @@ extern s32      osSendMesg(OSMesgQueue *, OSMesg, s32);
 extern s32      osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 extern void     __osSetGlobalIntMask(u32);
 extern void     __osResetGlobalIntMask(u32);
-extern s32 func_800A7EC0 (struct OSPiHandle_s *, u32 , u32);
+extern s32 piWriteDomainWord (struct OSPiHandle_s *, u32 , u32);
 extern s32 piReadDomainWord (struct OSPiHandle_s *, u32 , u32 *);
 
 typedef struct {
@@ -126,7 +126,7 @@ typedef struct {
 
             osRecvMesg(devmgr->acsQueue, &acs_msg, 1);
             __osResetGlobalIntMask(LEO_INTR_MASK);
-            func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, (info->bmCtlShadow | LEO_BM_CTL_FAST));
+            piWriteDomainWord(io_msg->piHandle, LEO_BM_CTL_REG, (info->bmCtlShadow | LEO_BM_CTL_FAST));
 
         readblock1:
             osRecvMesg(devmgr->evtQueue, &event_msg, 1);
@@ -135,12 +135,12 @@ typedef struct {
 
             if (blockInfo->errStatus == LEO_ERR_SECTOR_SKIP) {
                 u32 piStat;
-                func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_RESET);
-                func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow);
+                piWriteDomainWord(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_RESET);
+                piWriteDomainWord(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow);
                 piReadDomainWord(io_msg->piHandle, LEO_STATUS_REG, &piStat);
 
                 if (piStat & LEO_BM_STAT_BUSY) {
-                    func_800A7EC0(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_STOP);
+                    piWriteDomainWord(io_msg->piHandle, LEO_BM_CTL_REG, info->bmCtlShadow | LEO_BM_CTL_STOP);
                 }
 
                 blockInfo->errStatus = 4;
