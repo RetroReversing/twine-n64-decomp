@@ -1,6 +1,6 @@
-/* identical to sinApprox in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
-/* identical to sinApprox in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
-/* identical to sinApprox in V-RALLY (matched), with its names changed by decompdecomp */
+/* identical to __sinf in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
+/* identical to __sinf in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
+/* identical to __sinf in V-RALLY (matched), with its names changed by decompdecomp */
  
 
 
@@ -3439,78 +3439,78 @@ static const fu	zero = {0x00000000};
 
 
 float
-sinApprox ( float angle )
+__sinf ( float x )
 {
-double	r, rSq, poly;
-double	quotient;
-int	quadrant;
-double	sinValue;
-int	bits, exponent;
+double	dx, xsq, poly;
+double	dn;
+int	n;
+double	result;
+int	ix, xpt;
 
 
-	bits = *(int *)&angle;
-	exponent = (bits >> 22);
-	exponent &= 0x1ff;
+	ix = *(int *)&x;
+	xpt = (ix >> 22);
+	xpt &= 0x1ff;
 
 	 
 
-	if ( exponent < 0xff )
+	if ( xpt < 0xff )
 	{
 		 
 
-		r = angle;
+		dx = x;
 
-		if ( exponent >= 0xe6 )
+		if ( xpt >= 0xe6 )
 		{
 			 
 
 			 
 
-			rSq = r*r;
+			xsq = dx*dx;
 
-			poly = ((P[4].d*rSq + P[3].d)*rSq + P[2].d)*rSq + P[1].d;
+			poly = ((P[4].d*xsq + P[3].d)*xsq + P[2].d)*xsq + P[1].d;
 
-			sinValue = r + (r*rSq)*poly;
+			result = dx + (dx*xsq)*poly;
 
-			return ( (float)sinValue );
+			return ( (float)result );
 		}
 
-		return ( angle );
+		return ( x );
 	}
 
-	if ( exponent < 0x136 )
+	if ( xpt < 0x136 )
 	{
 		 
 
-		r = angle;
+		dx = x;
 
 		 
 
-		quotient = r*rpi.d;
+		dn = dx*rpi.d;
 
-		quadrant = (int)((( quotient ) >= 0.0) ? (( quotient ) + 0.5) : (( quotient ) - 0.5)) ;
-		quotient = quadrant;
+		n = (int)((( dn ) >= 0.0) ? (( dn ) + 0.5) : (( dn ) - 0.5)) ;
+		dn = n;
 
-		r = r - quotient*pihi.d;
-		r = r - quotient*pilo.d;	 
+		dx = dx - dn*pihi.d;
+		dx = dx - dn*pilo.d;	 
 
 		 
 
 
-		rSq = r*r;
+		xsq = dx*dx;
 
-		poly = ((P[4].d*rSq + P[3].d)*rSq + P[2].d)*rSq + P[1].d;
+		poly = ((P[4].d*xsq + P[3].d)*xsq + P[2].d)*xsq + P[1].d;
 
-		sinValue = r + (r*rSq)*poly;
+		result = dx + (dx*xsq)*poly;
 
 
-		if ( (quadrant & 1) == 0 )
-			return ( (float)sinValue );
+		if ( (n & 1) == 0 )
+			return ( (float)result );
 
-		return ( -(float)sinValue );
+		return ( -(float)result );
 	}
 
-	if ( angle != angle )
+	if ( x != x )
 	{
 		 
 
