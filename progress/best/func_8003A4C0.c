@@ -37,6 +37,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_t0_3;
     s32 temp_t2;
     s32 temp_t6;
+s32 __repair_phase_temp_t6;
     s32 temp_v0_3;
     s32 temp_v0_4;
     s32 temp_v0_5;
@@ -61,7 +62,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
     s32 var_v1_3;
     u16 temp_a0;
     u16 temp_a1_2;
-    u16 temp_a1_3;
+    
     u16 temp_v1;
     u16 temp_v1_3;
     u32 temp_a0_3;
@@ -182,13 +183,13 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
         M2C_FIELD(temp_v1_4, s32 *, 4) = (s32) ((__repair_field_8 *)arg2)->value;
         temp_v0_2 = temp_v1_4 + 0x18;
         D_80115328 = temp_v0_2;
-        temp_a1_3 = ((__repair_record_arg2*)arg2)->field_24;
-        temp_a0_3 = temp_a1_3 >> 4;
+        temp_a1_2 = ((__repair_record_arg2*)arg2)->field_24;
+        temp_a0_3 = temp_a1_2 >> 4;
         D_80115328 = temp_v1_4 + 0x20;
         if (temp_a0_3 != 0) {
             var_a2 = temp_a0_3 + 0x7FF;
         }
-        var_v1 = ((s32) ((temp_a1_3 * ((__repair_record_arg2*)arg2)->field_28) + 3) >> 2) - 1;
+        var_v1 = ((s32) ((temp_a1_2 * ((__repair_record_arg2*)arg2)->field_28) + 3) >> 2) - 1;
         if (var_v1 >= 0x800) {
             var_v1 = 0x7FF;
         }
@@ -219,7 +220,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                 if ((var_v0_2 & 0xF) > 0) {
                     temp_t6 = var_t8 & 0xFFFF;
     temp_s4 = temp_t6;
-                    temp_t6 = sp4C >> 0x10;
+                    __repair_phase_temp_t6 = sp4C >> 0x10;
                     {
                     s32 packed_delta = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
                     do {
@@ -281,11 +282,11 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2) {
                                 var_v0_5 = var_a0_3 | temp_s4;
                             } else {
                                 temp_v0_3 = temp_t0 + arg1;
-                                if (temp_t6 < 0) {
-                                    temp_v0_4 = (s32) ((s16) (temp_v0_3 * 4) * temp_t6) >> 7;
-                                    var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_4 & ((s32) ~temp_v0_4 >> 0x1F))) & 0xFFFF);
+                                if (__repair_phase_temp_t6 < 0) {
+                                    temp_t2 = (s32) ((s16) (temp_v0_3 * 4) * __repair_phase_temp_t6) >> 7;
+                                    var_v0_5 = var_a0_3 | ((var_t8 - (temp_t2 & ((s32) ~temp_t2 >> 0x1F))) & 0xFFFF);
                                 } else {
-                                    temp_v0_5 = (s32) ((s16) (temp_v0_3 * 4) * temp_t6) >> 7;
+                                    temp_v0_5 = (s32) ((s16) (temp_v0_3 * 4) * __repair_phase_temp_t6) >> 7;
                                     var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_5 & -(temp_v0_5 < 1))) & 0xFFFF);
                                 }
                             }

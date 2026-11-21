@@ -332,14 +332,14 @@ void func_8008A52C(void *arg0, s32 arg1, s8 arg2)
   }
   *((u16 *) (((char *) temp_s1) + 0x22)) = (u16) (*((u16 *) (((char *) arg0) + 4)));
   temp_fv1_9 = ((*((f64 *) (((char *) arg0) + 8))) - func_8008CD54(*((f64 *) (((char *) arg0) + 8)))) * D_800D6768;
-  if (D_800D6770 <= temp_fv1_9)
+  if (!(D_800D6770 <= temp_fv1_9))
   {
-    var_a0_2 = ((s32) (temp_fv1_9 - D_800D6770)) | 0x80000000;
+    var_a0_2 = (s16) ((s32) temp_fv1_9);
     *((s16 *) (((char *) temp_s1) + 0x20)) = var_a0_2;
   }
   else
   {
-    var_a0_2 = (s16) ((s32) temp_fv1_9);
+    var_a0_2 = ((s32) (temp_fv1_9 - D_800D6770)) | 0x80000000;
     *((s16 *) (((char *) temp_s1) + 0x20)) = var_a0_2;
   }
   *((s32 *) (((char *) temp_s1) + 0x44)) = 0;
