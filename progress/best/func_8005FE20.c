@@ -5,7 +5,7 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_FIELD(expr, type_ptr, offset) (((struct { __typeof__(*(type_ptr)0) v; } *)((s8 *)(expr) + (offset)))->v)
 #define M2C_BITWISE(type, expr) ((type)(expr))
 #define M2C_ERROR(desc) (0)
 #define M2C_CARRY 0
@@ -35,6 +35,8 @@ extern void *sBonusObjectTable;
 
 extern char D_800D41E0[];
 s32 func_8005FE20(void *arg0, s32 *arg1) {
+int __repair_literal;
+
     char sp30[124];
     s32 (*temp_v0_10)(void *);
     s32 *formatName;
@@ -126,7 +128,9 @@ block_15:
                 temp_a0 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                 temp_v1 = temp_a0 & 0xFFFF;
                 var_v0 = 0;
-                if (M2C_FIELD((temp_s1 + (temp_v1 * 2)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
+__repair_literal = 2;
+
+                if (M2C_FIELD((temp_s1 + (temp_v1 * __repair_literal)), s16 *, 0x1BC) < *(s16 *)(D_800C7C16 + (temp_v1 * 4))) {
                     formatName = lookupDataEntry(temp_a0 | 0x9000);
                     sprintf(&sp30, D_800D41E0, formatName, lookupDataEntry(0x16A));
                     gTrackMarkerSerial += 1;

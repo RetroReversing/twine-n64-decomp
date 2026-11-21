@@ -66,8 +66,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   f32 spF0;
   f32 sp108;
   f32 sp110[3];
-  void **sp124;
   void *sp12C;
+  void **sp124;
   void *sp134;
   void *sp13C;
   void *sp144;
@@ -192,7 +192,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
             {
               if ((*((void **) (((char *) var_s1) + 0x70))) != NULL)
               {
-                temp_s2 = (*((s32 *) (((char *) var_s1) + 0x58))) & 0x400;
+ do { temp_s2 = (*((s32 *) (((char *) var_s1) + 0x58))) & 0x400; } while (0);
                 if (((((s32) temp_s2) == 0) && ((*((s32 *) (((char *) var_s1) + 0x5C))) & 0x200)) && ((func_800487F0(var_s1, arg1, arg4) << 0x18) != 0))
                 {
                   temp_s4 = *((void **) (((char *) var_s1) + 0x70));
@@ -470,7 +470,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
                 }
                 else
                 {
- do { temp_v1_11 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4; var_s5 = -1; } while (0);
+                  temp_v1_11 = (*((u8 *) (((char *) temp_s1) + 0x48))) & 4;
+                  var_s5 = -1;
                   if (temp_v1_11 != 0)
                   {
                     var_s3_4 = *((u16 **) (((char *) temp_s1) + 0x3C));
@@ -676,7 +677,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
       sp110[1] = temp_fv0;
       sp110[2] = (*((f32 *) (((char *) gPlayerActor) + 0x2C))) - (*((f32 *) (((char *) gPlayerActor) + 0x38)));
       *((f32 *) (((char *) arg5) + 0)) = (f32) (temp_ft1 + (secondPoint.rotated[0] - rotatedA[0]));
-      *((f32 *) (((char *) arg5) + 4)) = (f32) (temp_fv0 + (secondPoint.rotated[1] - rotatedA[1]));
+      *((f32 *) (((char *) arg5) + 4)) = (f32) ((secondPoint.rotated[1] - rotatedA[1]) + temp_fv0);
       *((f32 *) (((char *) arg5) + 8)) = (f32) (sp110[2] + (secondPoint.rotated[2] - rotatedA[2]));
     }
     if (arg6 != NULL)

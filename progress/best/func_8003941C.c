@@ -31,7 +31,11 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
   state.mode = arg1;
   state.rotation = arg3;
   state.done = 0;
- do { var_s1 = 0; } while (0);
+  do
+  {
+    var_s1 = 0;
+  }
+  while (0);
   if (((*arg0) != NULL) || ((func_80043FA0(), (*arg0) != NULL)))
   {
     var_s6 = *arg0;
@@ -92,6 +96,11 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
           subdivideTriangle(0.0f, &sp18[27], &sp18[36], &sp18[45], arg0, state.mode);
         }
         else
+          if (arg4 || var_s2)
+        {
+          func_800723C0(&sp18[27], &sp18[36], &sp18[45], arg0, state.mode);
+        }
+        else
         {
           func_800723C0(&sp18[27], &sp18[36], &sp18[45], arg0, state.mode);
         }
@@ -150,3 +159,4 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4)
     while (!state.done);
   }
 }
+

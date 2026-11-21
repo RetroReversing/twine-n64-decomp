@@ -34,7 +34,7 @@ typedef struct
 } __repair_record_temp_s2;
 void func_8002424C(void)
 {
-  int __repair_constant = 3;
+  unsigned long long __repair_constant = 3;
   char *__base_D_800BD5D0;
   s16 *temp_s3;
   s32 temp_a0;

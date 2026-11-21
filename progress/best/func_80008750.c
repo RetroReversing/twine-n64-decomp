@@ -321,8 +321,8 @@ block_9:
             temp_v1_14 = sDisplayListCursor;
             D_8010A924 = 0xD;
             sDisplayListCursor = temp_v1_14 + 8;
-            (*(s32 **)((char *)(temp_v1_14) + 4)) = &D_800B1B68;
             (*(s32 *)((char *)(temp_v1_14) + 0)) = 0xDE000000;
+            (*(s32 **)((char *)(temp_v1_14) + 4)) = &D_800B1B68;
         }
         if (D_801032A0 != 6) {
             var_a1_2 = 0xFC40C203;
@@ -358,8 +358,8 @@ block_9:
         if (D_8010A924 != 8) {
             temp_v1_16 = sDisplayListCursor;
             D_8010A924 = 8;
-            (*(s32 *)((char *)(temp_v1_16) + 0)) = 0xDE000000;
             sDisplayListCursor = temp_v1_16 + 8;
+            (*(s32 *)((char *)(temp_v1_16) + 0)) = 0xDE000000;
             (*(s32 **)((char *)(temp_v1_16) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 6) {
@@ -418,13 +418,13 @@ block_9:
         if (D_8010A924 != 8) {
             D_8010A924 = 8;
             temp_v1_18 = sDisplayListCursor;
-            (*(s32 **)((char *)(temp_v1_18) + 4)) = &D_800B1AC8;
             sDisplayListCursor = temp_v1_18 + 8;
             (*(s32 *)((char *)(temp_v1_18) + 0)) = 0xDE000000;
+            (*(s32 **)((char *)(temp_v1_18) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 4) {
-            D_801032A0 = 4;
             var_v1 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 4;
             if (var_v1 == 1) {
                 var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
@@ -463,8 +463,8 @@ block_9:
             (*(s32 **)((char *)(temp_v1_19) + 4)) = &D_800B1AC8;
         }
         if (D_801032A0 != 4) {
-            D_801032A0 = 4;
             var_v1 = (*(s32 *)((char *)(arg0) + 0x100)) & 7;
+            D_801032A0 = 4;
             if (var_v1 == 1) {
                 var_a1_2 = 0xFC121824;
                 temp_v1_10 = 0xFF33FFFF;
