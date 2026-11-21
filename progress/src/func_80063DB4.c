@@ -14,14 +14,14 @@ void *s=P(a,0x6c),*v; s32 i,off,n; volatile u32 frame[2];
 func_80016718(a); v=gTrackMarkerTable[B(s,0x182)];
 V(a,0x24)=D_80110B28[D_80102F3C]; V(a,0x30)=V(a,0x24); V(v,0x10)=V(a,0x30); V(v,0x28)=V(v,0x10);
 i=0; {void *p=P(a,0x68); if(B(p,0xb3)>0){off=0;do{
-*(f32 *)((s8 *)P(p,0)+off)=*(f32 *)((s8 *)a+0x24);
-*(f32 *)((s8 *)P(P(a,0x68),0)+off+4)=*(f32 *)((s8 *)a+0x28);
-*(f32 *)((s8 *)P(P(a,0x68),0)+off+8)=*(f32 *)((s8 *)a+0x2c);
-*(f32 *)((s8 *)P(P(a,0x68),4)+off)=*(f32 *)((s8 *)a+0x24);
-*(f32 *)((s8 *)P(P(a,0x68),4)+off+4)=*(f32 *)((s8 *)a+0x28);
-*(f32 *)((s8 *)P(P(a,0x68),4)+off+8)=*(f32 *)((s8 *)a+0x2c);
+*(f32 *)((u32)off+(u32)P(p,0))=*(f32 *)((s8 *)a+0x24);
+*(f32 *)((u32)off+(u32)P(P(a,0x68),0)+4)=*(f32 *)((s8 *)a+0x28);
+*(f32 *)((u32)off+(u32)P(P(a,0x68),0)+8)=*(f32 *)((s8 *)a+0x2c);
+*(f32 *)((u32)off+(u32)P(P(a,0x68),4))=*(f32 *)((s8 *)a+0x24);
+*(f32 *)((u32)off+(u32)P(P(a,0x68),4)+4)=*(f32 *)((s8 *)a+0x28);
+*(f32 *)((u32)off+(u32)P(P(a,0x68),4)+8)=*(f32 *)((s8 *)a+0x2c);
 i++;off+=12;
-}while(i<B(P(a,0x68),0xb3));}}
+}while(i<B((p=P(a,0x68)),0xb3));}}
 V(a,0x3c)=D_80108608[D_80102F3C]; V(a,0x48)=V(a,0x3c);
 actorLinkToSurface(*gProbeObjectList,a,0);
 n=++D_80102F3C;if(n==D_801002E0)D_80102F3C=0;

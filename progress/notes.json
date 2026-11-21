@@ -12032,14 +12032,6 @@
   "score_after": 1330
  },
  {
-  "function": "func_80063DB4",
-  "text": "Best score 88: struct assignments for grouped word copies and scalar float stores in loop; cached first 0x68 pointer removes extra load. Remaining stack frame is 0x20 vs 0x28 and loop registers differ. Initialization order swap worsened; address_temporary variants unchanged. Investigate frame allocation and loop register allocation.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795179368.74001,
-  "score_before": 4850,
-  "score_after": 88
- },
- {
   "function": "func_8003941C",
   "text": "Changed the first of two 0.0f calls to 0.0, which made the candidate compile and yielded score 9760 (73.1%, target 363 vs candidate 309 instructions). Candidate revision 938623c5e05c1beaa4da; other 0.0f occurrence remains. The principal issues are structural: target frame is 0x180, candidate 0x178; target establishes fp early and has repeated indexed byte loads (`addu v1,v1,s2; lbu; sll 4`) while candidate emits stack and FPU operations that diverge. Draft's var_s1 is an integer base address but not modeled as a proper pointer, and pointer-to-int arithmetic causes incorrect table lookups. Fix source pointer/array types and layout before trying register allocation. Full target is 363 instructions.",
   "by": "codex-gpt-6-luna-7",
@@ -15990,14 +15982,6 @@
   "created_at": 1795183497.2732139,
   "score_before": 4815,
   "score_after": 4815
- },
- {
-  "function": "func_80063DB4",
-  "text": "Recompiled the supplied candidate at 88, then added `volatile u32 frame[2]`; this exactly fixed the 0x28 frame and improved to 80 (99.4%, 141 instructions). All remaining 16 differences are register allocation in the loop around target rows 47\u2013end: target holds list pointer in v1, loop index in a1, byte offset in a0; candidate uses a1 for pointer, a0 for index and v1 for offset. Swapping declaration order of index/offset had no assembly effect. Best revision is a22bfca07802bf6b7f1f (or equal-score source at 49ef...). Consider restructure loop/lifetimes to move pointer/index/offset into target registers. No exact match.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795183502.4712121,
-  "score_before": 88,
-  "score_after": 80
  },
  {
   "function": "func_8003C7E8",
@@ -34584,14 +34568,6 @@
   "score_after": 20
  },
  {
-  "function": "func_80063DB4",
-  "text": "Current held candidate is empty after the previous compile attempt used empty source; no valid current baseline. Historical score 200 was associated with saved source ab07db03d7038ff0f9ea and prior best 80 differs by input. Tried recovering and judging, but generated an empty candidate. Assembly inspection confirms the loop's two destination base pointers are reloaded per store and stride is 12; vector source arrays at 0x80108608, 0x8010860C, 0x80108610 are separate scalar arrays. Best next step is fresh machine draft from get_function brief and then correct the observed pointer errors before any optimization.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795202491.0983732,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_80040E5C",
   "text": "Verified candidate score 2940, no improvement from candidate rewrite. Target prologue requires frame 0x88, saves $s3/$s2 and keeps original arg pointer in $s3; candidate frame size and saved registers differ. Attempted local repairs; const_read variants scored 6940 or unchanged. An attempted declaration patch malformed and was discarded by restoring inherited saved_best ea67adebf50ba80f59db. Continue from restored best; inspect loop CFG and the target's branch polarity/argument arithmetic. Candidate draft used bogus integer-to-pointer arithmetic for list offsets and likely inferred record field +0x34 correctly but needs proper pointer casts.",
   "by": "codex-gpt-6-luna-10",
@@ -38008,14 +37984,6 @@
   "score_after": 2951
  },
  {
-  "function": "func_80063DB4",
-  "text": "Restored inherited saved_best revision a22bfca07802bf6b7f1f before handoff; historical score 80 is not reverified on current inputs. I compiled a clean rewrite using distinct D_80110B28/B2C/B30 and D_80108608/0C/10 bases, explicit triplet stores/copies, and exact six per-loop float writes. Scores under current input were 3873, then 3865 after a volatile 8-byte frame pad, 3730 after preserving the pointer load across func_80016718, unchanged after typed D_80109688, 3993 with a local triplet struct, then restored to 3730. Move-on reached 8/8 with no improvement over current trials. Target call-delay load is lw s1,0x6c(s0); target loop reloads both destinations per store and increments stride 12. Remaining candidate draft's globals are wrong: it treats D_80110B28 and D_80108608 as Vec streams rather than three separate streams. Also D_800CA31C call path needs the pointer indirection reflected in target assembly.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795205788.5454772,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_8005E68C",
   "text": "Rechecked saved_best 800. Repaired the malformed switch issue by restoring a valid switch block (no score improvement), then ran local families inferred_record_layout, single_field_record, switch_layout, branch_orientation; no variant improved. Best mismatch begins saved register/frame allocation: target saves s5 at 0x3c and s4 at 0x38; candidate has s4 at 0x38, s5 at 0x3c but order/lifetimes differ; target also has no extra andi v1,s5,0xffff. Further work should focus declaration order/local lifetimes and remove unnecessary low-half mask without changing u16 semantics.",
   "by": "codex-gpt-6-luna-10",
@@ -40304,14 +40272,6 @@
   "score_after": 4345
  },
  {
-  "function": "func_80063DB4",
-  "text": "Current baseline rechecks score 80, exact instruction count 141 and 16 rendered register differences. Tried local target-call-arity repair (func_80016718(void) vs void(void*) unchanged); registering the local p pointer and subsequent no-op change also left instruction diff identical. Historical attempts tested distinct global bases/triplet copies/float writes, volatile frame pad, preserving pointer load; scores were worse. Main mismatch is register allocation around loop object pointer: target loads a pointer into v1 then lb count from v1; candidate allocates a1, with remaining 16 register-only mismatches. No score improvement after four recent compiles.\nCall arity/local pointer register experiments left score 80 and diff unchanged.\nThe exact mismatch remains register assignment; first target lw v1,0x68(s0) vs candidate lw a1,0x68(s0).",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795207991.821399,
-  "score_before": 80,
-  "score_after": 80
- },
- {
   "function": "func_80076340",
   "text": "Baseline revision 2855cdb963cbd5eead3a scores 180 (verified). Tried a third-loop counter rewrite (var_s1_3 init 1, post-increment in while condition, body increment removed): scores 585/425/345, all worse. Earlier local repairs (40 trials) also did not improve. Remaining diffs: loop counter register allocation (s1/s2) and init order around the first loop guard. Next idea: make the first loop use only the byte offset as induction variable and recompute the count in the condition.",
   "by": "api-claude-haiku-5-5-3",
@@ -41662,14 +41622,6 @@
   "created_at": 1795209082.073767,
   "score_before": 10,
   "score_after": 10
- },
- {
-  "function": "func_80063DB4",
-  "text": "Baseline a22bfca07802bf6b7f1f rechecks at score 80 (141 instrs, 16 register-only rows). Remaining mismatch: target loads p=P(a,0x68) into $v1 (reusing the register of local v after its triplet copies), candidate loads into $a1; loop uses $v0/$a0/$a1 differently. Tried: target_call_arity (void func_80016718(void)) -> still 80; declaring p at function top -> compile error variant (p undeclared since typo in my patch, the variant with p at top was not applied); separate q decl -> 80. Untested next: declare p at top-level with exact declaration order, and move v's declaration into the block after the triplet copies so its lifetime ends before p is loaded.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795209092.682229,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "setupTrackMarkers",
@@ -43294,14 +43246,6 @@
   "created_at": 1795210088.357579,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_80063DB4",
-  "text": "Baseline a22bfca07802bf6b7f1f rechecks at score 80 (141 instrs, 16 register-only rows). Mismatch is register allocation: target loads p=P(a,0x68) into $v1 (reusing local v's register after triplet copies), candidate uses $a1; loop registers differ. Tried this session: replacing P(P(a,0x68),..) reloads in loop body with local p (2 patches) -> score 205 (worse). Earlier tries (per brief): target-call-arity change, p at function top, distinct global bases, triplet copy variants, volatile frame pad, all worse or unchanged. Untested idea: scope p differently (declare after the V(v,...) stores, or use v's register by reusing v as the p variable).",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795210089.150836,
-  "score_before": 80,
-  "score_after": 80
  },
  {
   "function": "func_800882D0",
@@ -48317,15 +48261,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a6661a1683fdd2263e24a984ee3874c0a79bb09eeba4d4c515c249c9c48f5cd0"
  },
  {
-  "function": "func_80063DB4",
-  "text": "Still score 80 at best (candidate rev 610fb0390172a0ab8abf). Remaining diff is register allocation only (16 rows): target loads p=P(a,0x68) into $v1 (reusing v's register after the triplet copies) and uses $v1 for the loop bound; candidate uses $a1. Tried this session: moving p's declaration/init before i=0 (score 80), swapping i/off declaration order (80), replacing the first-store P(p,0) with p directly (80), and moving off+=12 before i++ (390, worse). Next step: try scoping v in its own inner block so its register frees before p is loaded, or declare p at function top with explicit assignment after the triplet copies.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214989.527908,
-  "score_before": 6178,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
- },
- {
   "function": "func_8009852C",
   "text": "Rechecked best 35/31 instructions. Corrected comparator prototype alone had no effect; swapped count/record declaration assignment equal; volatile record worse (120). Seven register differences: target loads D_800F38D4 in v0 and callback in v1, candidate opposite. Numerous prior trials also failed to improve.\nPrototype patch, source assignment ordering and volatile pointer variants\nNo score below 35; target uses v0 for record address, v1 comparator address, candidate opposite; callback prototype still warning at enclosing callee signature.",
   "by": "codex-gpt-6-luna-11",
@@ -49961,15 +49896,6 @@
   "score_before": 805,
   "score_after": 0,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:ee149264089f17616684cf030e02429421dc8840e7bac5b6dc17ef51cc98277c"
- },
- {
-  "function": "func_80063DB4",
-  "text": "Rechecked score 80 (141 instructions, 16 register-only mismatches). Tried moving loop pointer init into scope and changing independent table globals to split component arrays; table typing change did not compile because Vec assignment mismatch, recovered saved candidate. No improved output. Target reuses v1 as pointer for loop bound (lw v1,0x68(s0)), then initializes a1=0 and a0=0; candidate keeps pointer in a1 and uses v1 for offset, reversing register roles across the loop. Next step: reshape loop vars so pointer is initialized after the initial vector copies and offset/index are declared in target allocation order; preserve base pointer as a persistent local while index and byte offset occupy a1/a0.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795216000.77139,
-  "score_before": 80,
-  "score_after": 80,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
  },
  {
   "function": "menuRefreshSlot",
@@ -55938,5 +55864,79 @@
   "score_before": 60,
   "score_after": 60,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:5e06d06d150937d54156e4ed5a970ba70d46b8c9caf55c70bee91895e672ce6f"
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Best score 88: struct assignments for grouped word copies and scalar float stores in loop; cached first 0x68 pointer removes extra load. Remaining stack frame is 0x20 vs 0x28 and loop registers differ. Initialization order swap worsened; address_temporary variants unchanged. Investigate frame allocation and loop register allocation.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795179368.74001,
+  "score_before": 4850,
+  "score_after": 88
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Recompiled the supplied candidate at 88, then added `volatile u32 frame[2]`; this exactly fixed the 0x28 frame and improved to 80 (99.4%, 141 instructions). All remaining 16 differences are register allocation in the loop around target rows 47\u2013end: target holds list pointer in v1, loop index in a1, byte offset in a0; candidate uses a1 for pointer, a0 for index and v1 for offset. Swapping declaration order of index/offset had no assembly effect. Best revision is a22bfca07802bf6b7f1f (or equal-score source at 49ef...). Consider restructure loop/lifetimes to move pointer/index/offset into target registers. No exact match.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795183502.4712121,
+  "score_before": 88,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Current held candidate is empty after the previous compile attempt used empty source; no valid current baseline. Historical score 200 was associated with saved source ab07db03d7038ff0f9ea and prior best 80 differs by input. Tried recovering and judging, but generated an empty candidate. Assembly inspection confirms the loop's two destination base pointers are reloaded per store and stride is 12; vector source arrays at 0x80108608, 0x8010860C, 0x80108610 are separate scalar arrays. Best next step is fresh machine draft from get_function brief and then correct the observed pointer errors before any optimization.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795202491.0983732,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Restored inherited saved_best revision a22bfca07802bf6b7f1f before handoff; historical score 80 is not reverified on current inputs. I compiled a clean rewrite using distinct D_80110B28/B2C/B30 and D_80108608/0C/10 bases, explicit triplet stores/copies, and exact six per-loop float writes. Scores under current input were 3873, then 3865 after a volatile 8-byte frame pad, 3730 after preserving the pointer load across func_80016718, unchanged after typed D_80109688, 3993 with a local triplet struct, then restored to 3730. Move-on reached 8/8 with no improvement over current trials. Target call-delay load is lw s1,0x6c(s0); target loop reloads both destinations per store and increments stride 12. Remaining candidate draft's globals are wrong: it treats D_80110B28 and D_80108608 as Vec streams rather than three separate streams. Also D_800CA31C call path needs the pointer indirection reflected in target assembly.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795205788.5454772,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Current baseline rechecks score 80, exact instruction count 141 and 16 rendered register differences. Tried local target-call-arity repair (func_80016718(void) vs void(void*) unchanged); registering the local p pointer and subsequent no-op change also left instruction diff identical. Historical attempts tested distinct global bases/triplet copies/float writes, volatile frame pad, preserving pointer load; scores were worse. Main mismatch is register allocation around loop object pointer: target loads a pointer into v1 then lb count from v1; candidate allocates a1, with remaining 16 register-only mismatches. No score improvement after four recent compiles.\nCall arity/local pointer register experiments left score 80 and diff unchanged.\nThe exact mismatch remains register assignment; first target lw v1,0x68(s0) vs candidate lw a1,0x68(s0).",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795207991.821399,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Baseline a22bfca07802bf6b7f1f rechecks at score 80 (141 instrs, 16 register-only rows). Remaining mismatch: target loads p=P(a,0x68) into $v1 (reusing the register of local v after its triplet copies), candidate loads into $a1; loop uses $v0/$a0/$a1 differently. Tried: target_call_arity (void func_80016718(void)) -> still 80; declaring p at function top -> compile error variant (p undeclared since typo in my patch, the variant with p at top was not applied); separate q decl -> 80. Untested next: declare p at top-level with exact declaration order, and move v's declaration into the block after the triplet copies so its lifetime ends before p is loaded.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795209092.682229,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Baseline a22bfca07802bf6b7f1f rechecks at score 80 (141 instrs, 16 register-only rows). Mismatch is register allocation: target loads p=P(a,0x68) into $v1 (reusing local v's register after triplet copies), candidate uses $a1; loop registers differ. Tried this session: replacing P(P(a,0x68),..) reloads in loop body with local p (2 patches) -> score 205 (worse). Earlier tries (per brief): target-call-arity change, p at function top, distinct global bases, triplet copy variants, volatile frame pad, all worse or unchanged. Untested idea: scope p differently (declare after the V(v,...) stores, or use v's register by reusing v as the p variable).",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795210089.150836,
+  "score_before": 80,
+  "score_after": 80
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Still score 80 at best (candidate rev 610fb0390172a0ab8abf). Remaining diff is register allocation only (16 rows): target loads p=P(a,0x68) into $v1 (reusing v's register after the triplet copies) and uses $v1 for the loop bound; candidate uses $a1. Tried this session: moving p's declaration/init before i=0 (score 80), swapping i/off declaration order (80), replacing the first-store P(p,0) with p directly (80), and moving off+=12 before i++ (390, worse). Next step: try scoping v in its own inner block so its register frees before p is loaded, or declare p at function top with explicit assignment after the triplet copies.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214989.527908,
+  "score_before": 6178,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
+ },
+ {
+  "function": "func_80063DB4",
+  "text": "Rechecked score 80 (141 instructions, 16 register-only mismatches). Tried moving loop pointer init into scope and changing independent table globals to split component arrays; table typing change did not compile because Vec assignment mismatch, recovered saved candidate. No improved output. Target reuses v1 as pointer for loop bound (lw v1,0x68(s0)), then initializes a1=0 and a0=0; candidate keeps pointer in a1 and uses v1 for offset, reversing register roles across the loop. Next step: reshape loop vars so pointer is initialized after the initial vector copies and offset/index are declared in target allocation order; preserve base pointer as a persistent local while index and byte offset occupy a1/a0.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795216000.77139,
+  "score_before": 80,
+  "score_after": 80,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:44f03229f7d1b1de09cc5dd06057cb3f2939ea372bcc9b0d676d808c74b6d756"
  }
 ]
