@@ -14,13 +14,9 @@ typedef s32 M2C_UNK32;
 
 extern u32 D_800E1550;
 extern s8 D_800E1554;
-extern s8 D_800E1555;
+extern u8 D_800E1555;
 
 void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
-    s32 temp_v1_2;
-    s32 temp_a2;
-    u8 temp_v0_2;
-    s32 temp_t;
     u32 temp_v0;
     void *temp_v1;
     void *temp_v1_3;
@@ -28,22 +24,19 @@ void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
     D_800E1550 = 0;
     if (arg3 != 0) {
         do {
-            temp_v1_2 = 1 << M2C_FIELD(arg0, s32 *, 4);
-            temp_v0_2 = 1 << D_800E1550;
-            D_800E1555 = temp_v0_2;
-            D_800E1554 = temp_v1_2;
-            if (arg1 & temp_v0_2) {
+            D_800E1554 = 1 << M2C_FIELD(arg0, s32 *, 4);
+            D_800E1555 = 1 << D_800E1550;
+            if (arg1 & D_800E1555) {
                 temp_v1 = M2C_FIELD(arg0, void **, 0);
-                M2C_FIELD(temp_v1, u8 *, 0) |= temp_v1_2;
+                M2C_FIELD(temp_v1, u8 *, 0) |= D_800E1554;
             }
-            temp_v1_2 = M2C_FIELD(arg0, s32 *, 4);
-            if ((temp_v1_2 & 7) == 7) {
+            if ((M2C_FIELD(arg0, s32 *, 4) & 7) == 7) {
                 temp_v1_3 = M2C_FIELD(arg0, void **, 0);
                 M2C_FIELD(arg0, void **, 0) = (void *) (temp_v1_3 + 1);
                 M2C_FIELD(temp_v1_3, s8 *, 1) = 0;
                 M2C_FIELD(arg0, s32 *, 4) = 0;
             } else {
-                M2C_FIELD(arg0, s32 *, 4) = (s32) (temp_v1_2 + 1);
+                M2C_FIELD(arg0, s32 *, 4) = (s32) (M2C_FIELD(arg0, s32 *, 4) + 1);
             }
             temp_v0 = D_800E1550 + 1;
             D_800E1550 = temp_v0;
