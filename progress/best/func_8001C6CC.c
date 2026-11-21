@@ -92,7 +92,7 @@ void func_8001C6CC(void)
       func_8002B2FC(temp_s0_2, ((__repair_phase_temp_s0 & 0xFFFF) * 0x18) + inline_fn23(inline_fn(func_800316B8()) * 8, (&D_80117410) + 0x18));
       __repair_phase_temp_s0 += 1;
     }
-    while (((u32) (__repair_phase_temp_s0 & 0xFFFF)) < 0xEU);
+    while (((u32) ((temp_s0 = temp_v0 = __repair_phase_temp_s0) & 0xFFFF)) < 0xEU);
     temp_s0_3 = inline_fn(var_s2);
     if (((u8) (*((&D_801176C8) + temp_s0_3))) < ((u32) inline_fn(func_800316B8())))
     {

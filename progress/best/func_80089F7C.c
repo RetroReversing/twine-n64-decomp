@@ -42,6 +42,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
     u32 value;
   } __repair_phase_storage;
   s32 *p;
+s32 *__repair_phase_p;
   u32 a0;
   u32 a1;
   u32 a2;
@@ -50,7 +51,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
   s32 s2;
   u32 s4;
   s32 t0;
-  s32 v0;
+  
   u32 s1_2;
   s0 = D_800E4260;
   s4 = arg1;
@@ -135,7 +136,7 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
           p = &sp10[s1_2];
           p[0] = s0->data + (s4 - a1);
           p[4] = s4;
-          p[2] = (s0->addr + s0->len) - s4;
+          s1_2 = (s0->addr + s0->len); p[2] = s1_2 - s4;
           s3++;
           s2 -= (s0->addr + s0->len) - s4;
           s4 = ((unsigned short) s0->addr) + s0->len;
@@ -204,19 +205,17 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
       if (__repair_phase_storage.value >= 0x601U)
       {
         Ent *e;
-        do
         {
           s0->len = 0x600; D_80109BF8 += 0xC;
-          v0 = func_800CEEE0(D_80109BA0, D_80109BF8); __repair_phase_storage.value = (u16) s3; p = &sp10[__repair_phase_storage.value];
+          sp38 = func_800CEEE0(D_80109BA0, D_80109BF8); __repair_phase_storage.value = (u16) s3; p = &sp10[__repair_phase_storage.value];
         }
-        while (0);
         s3++;
         e = &D_80103EB4[D_80108F70];
-        D_80109BA0 = v0;
+        D_80109BA0 = sp38;
         e->b = s0->addr;
         e->a = 0x600;
         *(s32 *)((u8 *)e + 0x8) = s0->data;
-        s2 = (s2 - 0x600) + s1_2;
+        a0 = (s2 - 0x600); s2 = a0 + s1_2;
         D_80108F70 += 1;
         p[0] = s0->data + s1_2;
         s4 -= s1_2 - 0x600;
@@ -228,10 +227,10 @@ void func_80089F7C(Out *arg0, u32 arg1, s32 arg2, s32 arg3)
         Ent *e;
         s0->len = (__repair_phase_storage.value + 0xFF) & (~0xFF);
         D_80109BF8 += 0xC;
-        v0 = func_800CEEE0(D_80109BA0, D_80109BF8);
+        sp38 = func_800CEEE0(D_80109BA0, D_80109BF8);
         e = &D_80103EB4[D_80108F70];
- do { e->b = s0->addr; e->a = s0->len; e->c = s0->data; p = &sp10[(u16) s3]; p[0] = s0->data + s1_2; D_80109BA0 = v0; D_80108F70 += 1; do { s3++; } while (0); p[2] = s2; s2 = 0; } while (0);
-        p[4] = s0->addr + s1_2;
+ do { e->b = s0->addr; e->a = s0->len; e->c = s0->data; __repair_phase_p = &sp10[(u16) s3]; __repair_phase_p[0] = s0->data + s1_2; D_80109BA0 = sp38; D_80108F70 += 1; do { s3++; } while (0); __repair_phase_p[2] = s2; s2 = 0; } while (0);
+        __repair_phase_p[4] = s0->addr + s1_2;
       }
       s1_2 = 0;
     }
