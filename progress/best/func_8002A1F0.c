@@ -26,6 +26,7 @@ void func_8002A1F0(void *arg0) {
     s16 var_a2;
     s16 var_v0_4;
     s32 temp_a0;
+s32 __repair_phase_temp_a0;
     s32 temp_a0_3;
     s32 temp_a0_5;
     s32 temp_a1_3;
@@ -36,8 +37,8 @@ void func_8002A1F0(void *arg0) {
     s32 temp_v1_3;
     s32 temp_v1_6;
     s32 var_s2;
-    s32 var_v0;
-    s32 var_v0_3;
+    s16 var_v0;
+    s16 var_v0_3;
     u16 temp_a3;
     u16 temp_v0_9;
     u16 var_v0_5;
@@ -57,6 +58,7 @@ void func_8002A1F0(void *arg0) {
     s16 var_a1;
     u8 var_v0_2;
     u8 var_v1;
+u8 __repair_result_var_v1;
     void *temp_a0_4;
 
     var_a1 = 0;
@@ -113,21 +115,21 @@ void func_8002A1F0(void *arg0) {
                 if (var_s1 <= var_v1) {
                     s32 records = M2C_FIELD(arg0, s32 *, 0);
                     s32 scroll = var_a0 & 0xFF;
-                    var_v0 = 0 << 0x10;
+                    var_v0 = 0;
                     for (;;) {
-                        temp_a0 = var_v0 >> 0x10;
+                        temp_a0 = var_v0;
                         temp_v0_6 = var_a1_2 + M2C_FIELD(((temp_a0 * 0xC) + records), u8 *, 9);
                         var_a1_2 = temp_v0_6;
                         if (scroll >= temp_v0_6) {
                             temp_v0_7 = var_s1 + 1;
                             var_s1 = temp_v0_7;
-                            var_v1 = M2C_FIELD(arg0, u8 *, 0x18);
-                            var_v0 = var_s1 << 0x10;
-                            if ((s32) var_v1 >= temp_v0_7) {
+                            __repair_result_var_v1 = M2C_FIELD(arg0, u8 *, 0x18);
+                            var_v0 = var_s1;
+                            if ((s32) __repair_result_var_v1 >= temp_v0_7) {
                                 continue;
                             }
                         } else if (temp_a0 >= 0) {
-                            if ((s32) var_v1 >= temp_a0) {
+                            if ((s32) __repair_result_var_v1 >= temp_a0) {
                                 var_v1 = (u8) var_s1;
                             }
                             M2C_FIELD(arg0, u8 *, 0x18) = var_v1;
@@ -142,10 +144,10 @@ void func_8002A1F0(void *arg0) {
                 var_a1_3 = 0;
                 if ((s32) var_s1 < (s32) temp_v1_4) {
                     do {
-                        temp_a0 = (u8)(M2C_FIELD((((s16) var_s1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9));
+                        __repair_phase_temp_a0 = (u8)(M2C_FIELD((((s16) var_s1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9));
                         temp_v0_8 = var_s1 + 1;
                         var_s1 = temp_v0_8;
-                        var_a1_3 += temp_a0;
+                        var_a1_3 += __repair_phase_temp_a0;
                     } while ((s16) temp_v0_8 < (s32) temp_v1_4);
                 }
                 if ((s32) M2C_FIELD(arg0, u8 *, 0x1B) < var_a1_3) {
@@ -168,9 +170,9 @@ void func_8002A1F0(void *arg0) {
         M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + ((M2C_FIELD(arg0, u8 *, 0x1D) - temp_s3) * M2C_FIELD(arg0, u8 *, 0x21)));
         temp_s3 = M2C_FIELD(arg0, u8 *, 0x1D) * M2C_FIELD(arg0, u8 *, 0x21);
         if (M2C_FIELD(arg0, u8 *, 0x19) != 0) {
-            var_v0_3 = 0 << 0x10;
+            var_v0_3 = 0;
             do {
-                temp_t0 = var_v0_3 >> 0x10;
+                temp_t0 = var_v0_3;
                 temp_a0_3 = temp_t0 * 0xC;
                 M2C_FIELD((temp_a0_3 + M2C_FIELD(arg0, s32 *, 0)), s16 *, 6) = (s16) ((M2C_FIELD(arg0, u16 *, 0x14) + (var_s2 + M2C_FIELD(arg0, u8 *, 0x20))) - temp_s3);
                 temp_v1_7 = M2C_FIELD(arg0, u8 *, 0x21);
@@ -188,7 +190,7 @@ void func_8002A1F0(void *arg0) {
                     var_v0_4 = var_s1 + 1;
                 }
                 var_s1 = var_v0_4;
-                var_v0_3 = var_s1 << 0x10;
+                var_v0_3 = var_s1;
             } while (var_v0_4 < (s32) M2C_FIELD(arg0, u8 *, 0x19));
         }
         if (absFloat((f32) M2C_FIELD(arg0, s16 *, 0x14)) > 2.0f) {

@@ -246,7 +246,7 @@ block_51:
                     break;
                 case 7:
                     func_80032978(var_s1, arg4, arg6, arg7, (s32) (s8) arg8);
-                    gfxAppendTexture(var_s1, &sp20, arg4, arg6, arg7, (s32) (s8) arg8, arg10);
+                    gfxAppendTexture(var_s1, &sp20, arg4, arg6, arg7, (s32) (s8) arg8);
                     var_s1 += 1;
                     goto block_51;
                 case 8:

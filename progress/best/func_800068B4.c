@@ -92,22 +92,18 @@ block_10:
                         goto block_15;
                     }
                 } else {
-                    var_s0 = 0;
-                    if ((M2C_FIELD(&D_801002B8, s32 *, 0) > 0) && (D_801002AE == 0)) {
-loop_19:
-                        var_s0 += 1;
-                        if (func_8002D0BC(0xA3, var_s0 & 0xFFFF) & 0xFFFF) {
-                            if (var_s0 < M2C_FIELD(&D_801002B8, s32 *, 0)) {
-                                if (M2C_FIELD(&D_801002B8, u8 *, -0xA) != 0) {
-
-                                } else {
-                                    goto loop_19;
-                                }
-                            }
-                        } else {
+                    volatile s32 *slots = &D_801002B8;
+                    if (*slots > 0 && D_801002AE == 0) {
+                        var_s0 = 0;
+                        do {
+                            s32 result = func_8002D0BC(0xA3, var_s0 & 0xFFFF);
+                            var_s0++;
+                            if (!(result & 0xFFFF)) {
 block_15:
-                            func_80076168(0);
-                        }
+                                func_80076168(0);
+                                break;
+                            }
+                        } while (var_s0 < *slots && ((volatile u8 *)slots)[-10] == 0);
                     }
                 }
             }
@@ -130,8 +126,9 @@ block_39:
     case 10:
         if (D_801002AE == 0) {
             ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C - 0.033333335f);
+            temp_fv1 = ((__repair_record_D_80109688*)*(void *volatile *)&D_80109688)->field_12C;
             D_80103EB0 = 0;
-            if (((__repair_record_D_80109688*)D_80109688)->field_12C < 0.0f) {
+            if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
                 func_8000A310();
                 if (D_800B19F0 != 2) {
@@ -217,8 +214,7 @@ block_52:
         D_800DC739 = D_80103EB0;
     case 14:
         ((__repair_record_D_80109688*)D_80109688)->field_12C = (f32) (((__repair_record_D_80109688*)D_80109688)->field_12C + D_800DC734);
-        temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C;
-        if ((temp_fv1 <= 0.0f) || (temp_fv1 >= 1.0f)) {
+        if (((temp_fv1 = ((__repair_record_D_80109688*)D_80109688)->field_12C) <= 0.0f) || (temp_fv1 >= 1.0f)) {
             if (temp_fv1 < 0.0f) {
                 ((__repair_record_D_80109688*)D_80109688)->field_12C = 0.0f;
             } else if (temp_fv1 > 1.0f) {
