@@ -14,9 +14,8 @@ s32 buildPlaneFromPoints(void *arg0, void *arg1, void *arg2, void *arg3) {
     temp_fs0 = (*(f32 *)((char *)(arg1) + 0)); temp_fv0_3 = temp_fv0_2 - temp_fs0;
     __repair_temp_fv1_2_temp_ft1 = temp_fv1_2 * temp_ft1; temp_fa1_2 = (temp_fv0 - temp_fs1) * temp_ft0;
     temp_ft3 = (((s32)temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1;
-    temp_fv1_3 = (temp_fv1_2 * temp_ft0) - (temp_fv0_3 * temp_ft2);
     temp_fv0_4 = (temp_fv0_3 * temp_ft1) - temp_fa1_2;
-    sp10[0] = (((temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1); sp10[1] = temp_fv1_3; sp10[2] = temp_fv0_4;
+    sp10[0] = (((temp_fv0 - temp_fs1) * temp_ft2) - __repair_temp_fv1_2_temp_ft1); sp10[1] = (temp_fv1_3 = (temp_fv1_2 * temp_ft0) - (temp_fv0_3 * temp_ft2)); sp10[2] = temp_fv0_4;
     temp_fv0_5 = func_80082908();
     if (temp_fv0_5 == 0.0f) {
         (*(f32 *)((char *)(arg0) + 4)) = 0.0f; (*(f32 *)((char *)(arg0) + 0)) = 0.0f;

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80016160();
+s32 initTextFromTemplate();
 s32 func_800283B0();
 s32 func_8002B02C();
 s32 func_8002B050();
@@ -101,7 +101,7 @@ void func_8002F868(void *arg0, void *arg1) {
             } while (var_a2 != temp_t0);
             *(s32 *)var_a3 = *(s32 *)var_a2;
             D_800BFC92 += 1;
-            func_80016160(M2C_FIELD(arg0, const s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
+            initTextFromTemplate(M2C_FIELD(arg0, const s32 *, 0x2C), &D_800BFD74, var_a2, var_a3);
             func_8002FBD4(arg1, 0);
         }
         func_8002F2EC(arg0, arg1);

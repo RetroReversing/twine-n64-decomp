@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80016160(void *, M2C_UNK *, void *);   /* extern */
+M2C_UNK initTextFromTemplate(void *, M2C_UNK *, void *);   /* extern */
 extern u16 D_800BFC92;
 extern M2C_UNK D_800BFD98;
 extern s8 gPendingMenuCommand;
@@ -55,7 +55,7 @@ extern s8 gPendingMenuCommand;
             M2C_FIELD(M2C_FIELD(obj, void **, 0x2C), s32 *, 0x10) = (s32) ((M2C_FIELD(M2C_FIELD(obj, void **, 0x2C), s32 *, 0x10) & ~0xFF) | (newAlpha & 0xFF));
             goto block_22;
         }
-        func_80016160(sub, &D_800BFD98, obj);
+        initTextFromTemplate(sub, &D_800BFD98, obj);
         goto block_22;
     } else {
         subAlpha = M2C_FIELD(sub, s32 *, 0x10);

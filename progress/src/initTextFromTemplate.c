@@ -24,7 +24,8 @@ typedef struct {
 extern char *lookupDataEntry(s32);
 extern void func_800448A4(Text *, s32, s32);
 extern unsigned int strlen(const char *);
-void func_80016160(Text *dst, Template *src) {
+/* Fills a Text object from a Template: position, style, string (by id, or by index/bank, or empty), size, mode, width and colour state. */
+void initTextFromTemplate(Text *dst, Template *src) {
     if (dst != NULL) if (src != NULL) {
         dst->x = src->x;
         dst->y = src->y;

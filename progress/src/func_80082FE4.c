@@ -2,14 +2,14 @@ extern f32 gCosTable[];
 #define COS(x) gCosTable[(x) & 0xFFF]
 #define SIN(x) gCosTable[((x) - 0x400) & 0xFFF]
 void func_80082FE4(const s16 *arg0, f32 *arg1) {
-    s32 a = arg0[0];
     s32 b = arg0[1];
     s32 c = arg0[2];
     f32 cb = COS(b);
     f32 cc = COS(c);
     f32 sb = SIN(b);
-    f32 sc = SIN(c);
+    s32 a = arg0[0];
     f32 ca = COS(a);
+    f32 sc = SIN(c);
     f32 sa = SIN(a);
     arg1[0] = cc * cb;
     arg1[1] = cc * sb * sa - sc * ca;
