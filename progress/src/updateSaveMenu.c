@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 s32 func_80023EC0();
 u16 func_800248B4();
 u16 saveMenuHandleCommand();
-u16 func_80024AD0();
+u16 handleSaveMenuEvent();
 s32 findEntryById();
-s32 getSaveMenuCursor();
+s32 findTableIndexById();
 s32 func_80026424();
 s32 updateActiveMenuState();
 s32 func_80029C08();
@@ -38,7 +38,7 @@ typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
     sSaveMenuRefresh = 1;
     if (findEntryById(((__repair_field_10 *)gSaveMenuState)->value, 0x54) != 0) {
         if (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) {
-            M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), s8 *, 0x24) = (s8) ((sSaveMenuSlot + getSaveMenuCursor(((__repair_field_10 *)gSaveMenuState)->value, 0x54)) - 1);
+            M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), s8 *, 0x24) = (s8) ((sSaveMenuSlot + findTableIndexById(((__repair_field_10 *)gSaveMenuState)->value, 0x54)) - 1);
         }
     }
     if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0)) {
@@ -59,7 +59,7 @@ typedef struct { unsigned char pad[16]; int value; } __repair_field_10;
                 sSaveMenuAction = saveMenuHandleCommand(actionFlags, D_80107EC0);
                 return;
             case 3:
-                sSaveMenuAction = func_80024AD0(actionFlags, D_80107EC0);
+                sSaveMenuAction = handleSaveMenuEvent(actionFlags, D_80107EC0);
                 return;
             }
         }

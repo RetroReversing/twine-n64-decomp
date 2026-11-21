@@ -8,8 +8,9 @@ extern s32 sActiveMenu;
 extern u8 *gSaveMenuState;
 extern u8 D_8010A950;
 
-s32 func_80024AD0(u16 arg0, u8 arg1) {
-    switch (arg0) {
+/* Handles a save menu event code (0 = confirm, 0x2000 = apply option, 0x4000 = check slot, 0x8000 = refresh labels) and returns the next menu state code. */
+s32 handleSaveMenuEvent(u16 event, u8 arg1) {
+    switch (event) {
     case 0:
         if (func_8002CC14()) {
             gSaveMenuState[0x2C] = 0;

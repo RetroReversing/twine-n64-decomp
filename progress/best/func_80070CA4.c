@@ -15,10 +15,14 @@ typedef s32 M2C_UNK32;
 s32 requestSound();
 s32 func_80063D38();
 s32 func_80084338();
-extern char sEnemyDefTable[];
+typedef struct {
+    u16 flags;
+    u8 data[0xE6];
+} EnemyDefinition;
+extern EnemyDefinition sEnemyDefTable[];
 
 void func_80070CA4(void *arg0) {
-    void * __repair_hoisted;
+    volatile u32 framePad[2];
 
 int __repair_constant;
 
@@ -51,15 +55,18 @@ int __repair_constant;
             requestSound(0x118);
         }
         temp_a0 = M2C_FIELD(arg0, void **, 0x68);
-        M2C_FIELD(temp_a0, u8 *, 0x10) = (u8) M2C_FIELD(temp_a0, u8 *, 0xE);
+        M2C_FIELD(temp_a0, u8 *, 0x10) = M2C_FIELD(temp_a0, u8 *, 0xE);
         temp_a0 = M2C_FIELD(arg0, void **, 0x68);
         temp_v1_2 = M2C_FIELD(temp_a0, s8 *, 0xF);
         if (temp_v1_2 >= 0x27) {
             M2C_FIELD(temp_a0, s8 *, 0xF) = (s8) M2C_FIELD(temp_s4, u16 *, 0x134);
             return;
+restore_and_exit:
+            M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = temp_a1;
+            return;
         }
         __repair_constant = 0x26;
-        if (!(*(u16 *)(sEnemyDefTable + (temp_v1_2 * 0xE8)) & 0x8000)) {
+        if (!(sEnemyDefTable[temp_v1_2].flags & 0x8000)) {
             do {
                 temp_v1_3 = M2C_FIELD(arg0, void **, 0x68);
                 temp_v0_2 = (u8) M2C_FIELD(temp_v1_3, s8 *, 0xF) - 1;
@@ -67,7 +74,7 @@ int __repair_constant;
                 if (temp_v0_2 < 0) {
                     M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = __repair_constant;
                 }
-            } while (!(*(u16 *)(sEnemyDefTable + (M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) * 0xE8)) & 0x8000));
+            } while (!(sEnemyDefTable[M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF)].flags & 0x8000));
         }
 loop_13:
         temp_v1_4 = M2C_FIELD(arg0, void **, 0x68);
@@ -78,7 +85,7 @@ loop_13:
         }
         temp_a2 = M2C_FIELD(arg0, void **, 0x68);
         temp_a1 = M2C_FIELD(temp_a2, s8 *, 0xF);
-        if (!(*(u16 *)(sEnemyDefTable + (temp_a1 * 0xE8)) & 0x8000)) {
+        if (!(sEnemyDefTable[temp_a1].flags & 0x8000)) {
             goto loop_13;
         }
         M2C_FIELD(temp_a2, s8 *, 0xF) = (s8) (temp_a1 + M2C_FIELD((temp_s4 + (temp_a1 * 8)), u8 *, 0x1FE));
@@ -89,12 +96,11 @@ block_23:
             goto loop_13;
         }
         temp_a1_2 = M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF);
-        if ((temp_a1_2 != 0) && ((func_80063D38(temp_s4, temp_a1_2, temp_a2) << 0x18) == 0)) {
+        if ((temp_a1_2 != 0) && ((func_80063D38(temp_s4, temp_a1_2) << 0x18) == 0)) {
             if (M2C_FIELD(temp_a0, u8 *, 0x1FE) != 0) {
                 if ((func_80063D38(temp_s4, temp_a1) << 0x18) != 0) {
                     M2C_FIELD(temp_a0, u8 *, 0x1FE) = 0U;
-                    M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = temp_a1;
-                    return;
+                    goto restore_and_exit;
                 }
                 goto block_23;
             }
@@ -110,3 +116,4 @@ block_23:
         return;
     }
 }
+
