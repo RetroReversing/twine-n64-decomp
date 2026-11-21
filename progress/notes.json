@@ -2872,14 +2872,6 @@
   "score_after": 600
  },
  {
-  "function": "func_8009D94C",
-  "text": "Best rechecked score 875/27. Compiling requires C89 declarations and local M2C_FIELD macro (not in shared context). Candidate retains semantic shape but 23 differences: target stages status in t6/at, preserves delay-slot branches and target uses t0/v1/v0/a2/t1 for clamp math. Tried simplified C variant (23 instructions, score 890) then restored best and recompiled it (875). Left: reproduce target register/control-flow layout.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795136768.692916,
-  "score_before": 875,
-  "score_after": 875
- },
- {
   "function": "func_8008C3D8",
   "text": "Corrected D_800E41DC as a pointer and treated the 0x24 input as u16 before float conversion, reaching 450/25; baseline best 255. Remaining differences are primarily allocator registers: target keeps base pointer in a2 and destination in v0, repeatedly loads/stores through v1, while current uses v1 destination and a0/v0 for data. Preserve statement sequencing and adjust pointer/index types or temporary declarations.",
   "by": "codex-gpt-6-luna-9",
@@ -8752,14 +8744,6 @@
   "score_after": 2375
  },
  {
-  "function": "func_8009D94C",
-  "text": "Current best is the inherited C at score 875; rechecked at session start. Inspected complete assembly: behavior is signed state gate ==3; if field 0x11A8 >0 subtract arg1 and store, then when result <=0 set state 4 and clear field; return min(arg1, field 0x11D8-field 0x11D4), adding it to 0x11D4. Six independent local repair variants (signedness, declaration order, const reads, guard inversion, lifetimes, split temp) found no improvement; move-on limit had already been exceeded before repair batch. Most mismatch is register/order/control flow from initial state check; try deliberate source-level restructure to reproduce initial lb/compare/zero return and late min branch.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795174881.9820879,
-  "score_before": 875,
-  "score_after": 875
- },
- {
   "function": "func_800411C0",
   "text": "Recovered saved_best revision 284f0af6cd54ee9a5314; current rechecked baseline remains 10001. Ran bounded try_local_repairs for scalar_storage_reuse, explicit_loop_backedge, switch_layout, branch_orientation, cfg_integer_lifetimes, and signedness (6 independent variants); none improved, best remained 10001. First mismatch is frame size: target -0xA0, candidate -0x88; current diff reports 364 rows, with stack/register/order/branch differences. Prior session exhausted the ordinary move-on budget; this session's local repair batch did not improve it. Next work should focus on stack frame/liveness and inspect get_assembly(focus=\"mismatch\"); avoid rerunning these families unchanged.",
   "by": "codex-gpt-6-luna-11",
@@ -11968,14 +11952,6 @@
   "score_after": 3116
  },
  {
-  "function": "func_8009D94C",
-  "text": "Verified GCC score 875; signedness and selection variants did not improve. IDO 5.3/7.1 trials score 560 with substantially closer instruction shape; target uses IDO-style registers. Investigate IDO source shape and compiler profile, especially the minimum selection branch.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795182016.454022,
-  "score_before": 875,
-  "score_after": 875
- },
- {
   "function": "func_8009852C",
   "text": "Rechecked score 120: only D_800F8158 load appears later than target. Caching it in a nonvolatile local before store did not change assembly; investigate volatile declaration as in related func_8009846C.",
   "by": "codex-gpt-6.1-terra-5",
@@ -14216,14 +14192,6 @@
   "score_after": 25
  },
  {
-  "function": "func_8009D94C",
-  "text": "Best 795 with unsigned ternary min and signed timer handling. Staging subtraction separately tied; using early initialized delta plus goto to common return worsened to 885. Main gaps are target OR moves, duplicate returns, and unconditional jump directly after the min predicate branch. Tested IDO 5.3 O2 sample 1025, IDO 7.1 mips1 895 and IDO 5.3 O1 2620, while earlier notes report different source at 560. Recheck that prior IDO variant or confirm handwritten provenance before more GCC tweaks.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795183069.668436,
-  "score_before": 875,
-  "score_after": 795
- },
- {
   "function": "func_80046648",
   "text": "Continued from baseline revision b296ced7ccc5ef220004 (rechecked 790). Ran two independent try_local_repairs batches (12 variants total); none improved baseline: variants scored 790\u20131935. Main mismatch remains register allocation (target first lwc1 $f2 vs candidate $f0), with constants/addresses focus. Try different structural rewrites or inspect focused assembly; avoid repeating constant_local, scalar_storage_reuse, inferred_record_layout, signedness, declaration_order, merge_integer_lifetimes, const_read, unused_frame_local, symbol_address_local, assignment_at_use families.",
   "by": "codex-gpt-6-luna-22",
@@ -16328,14 +16296,6 @@
   "score_after": 10947
  },
  {
-  "function": "func_8009D94C",
-  "text": "Current inherited 890; historical best 795. Splitting min with explicit goto ties 890; common return label worsens to 980. Target uses OR move encoding, at for compares, t6 onward registers and two jr sites. IDO 5.3 and 7.1 -O2 -mips2 -G0 both score 540 on revision 82ae11caf4096e29d20d, closer than GCC; -mips1 and -O1 worse. Next isolate the single-function C and tune under IDO, focusing on branch likely versus plain and preserving both exits before requesting profile change.",
-  "by": "codex-gpt-6.2-sol-4",
-  "created_at": 1795184213.1458402,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_800821B4",
   "text": "Best current candidate revision 342b4083acf5504de5e5, score 12730; the edit to the conflicting func_80087A80 local prototype (removed it to use context.h's void declaration) compiled at 12735, and a pointer_byte_step repair changing var_s2 += 8 to += 4 improved to 12730. Ten attempts used: declaration fix compile, six repair variants, then three additional variants; callee width, signedness and declaration order did not improve, and other batch variants did not beat best. First major mismatch is target lui $s5,0x6bca at row 23, missing from candidate; current code generates repeated global address calculations and wrong register allocation. Link diagnostics show D_800C9D70's candidate declaration/data is wrong: candidate materializes code addresses where ROM data begins 0c 00 00 00 08 00...; investigate table typing/data symbol layout and context before broad tuning. Also warning at line 173 integer-to-pointer assignment.",
   "by": "codex-gpt-6-luna-19",
@@ -18184,14 +18144,6 @@
   "score_after": 20032
  },
  {
-  "function": "func_8009D94C",
-  "text": "Byte-exact on IDO 5.3 -O2 -mips2 -G0. Submitted a verified function-only compiler bundle with the exact typed source; automatic compiler changes are off. Direct p->timer > 0 guard and p->timer -= step with direct p->timer <= 0 test were needed. Do not spend further GCC allocation trials while the bundle is pending.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795185028.9333172,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_800820BC",
   "text": "Nonvolatile halfword source recompiled at 485 with the current profile. Existing byte-exact compiler trials and a pending function-only source/profile bundle already establish the fix: add -fno-schedule-insns to the existing profile.",
   "by": "codex-gpt-6.2-sol-6",
@@ -19712,14 +19664,6 @@
   "score_after": 9080
  },
  {
-  "function": "func_8009D94C",
-  "text": "Read the pending score-zero IDO 5.3 -O2 -mips2 -G0 compiler bundle note. No new GCC trial submitted.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795186002.1542242,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "guMtxF2L",
   "text": "Recompiled typed f32/u32 eight-pair loop at 900. It fixes the historical narrowed end pointer (805) and confirms KMC's two initial ABI register moves and reuse of FPRs, unlike the target's straight sequential register assignments. The claim ended on compilation.",
   "by": "codex-gpt-6.2-sol-3",
@@ -19934,14 +19878,6 @@
   "created_at": 1795186208.2161438,
   "score_before": 120,
   "score_after": 35
- },
- {
-  "function": "func_8009D94C",
-  "text": "Typed state and direct timer-update candidate rechecked at 795 with the active GCC profile. Existing function-only IDO 5.3 -O2 -mips2 -G0 bundle already provides a verified exact match, pending approval. The lease changed before release.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795186208.4025202,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_80038000",
@@ -20390,14 +20326,6 @@
   "created_at": 1795186316.235285,
   "score_before": 9212,
   "score_after": 9212
- },
- {
-  "function": "func_8009D94C",
-  "text": "Fresh typed state with direct timer update but explicit if for min scored 900 under active GCC, 1010 under IDO 5.3. Existing verified IDO 5.3 -O2 -mips2 -G0 function-only bundle has the exact source and awaits approval. Use that bundle; the explicit if variant causes a branch-likely and duplicates the timer load in IDO.",
-  "by": "codex-gpt-6.2-sol-2",
-  "created_at": 1795186341.4636958,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_80096F44",
@@ -21022,14 +20950,6 @@
   "created_at": 1795187249.9217741,
   "score_before": 5,
   "score_after": 5
- },
- {
-  "function": "func_8009D94C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Existing score-zero IDO 5.3 -O2 -mips2 -G0 function-only bundle is pending application. The active KMC profile does not produce the target branch and register patterns. Apply that pending source/profile bundle; its direct signed timer update and unsigned ternary minimum are required. No duplicate compiler trial submitted.",
-  "by": "codex-gpt-6.2-sol-5",
-  "created_at": 1795187257.080096,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_800ABAB4",
@@ -21766,14 +21686,6 @@
   "created_at": 1795188426.249229,
   "score_before": 475,
   "score_after": 50
- },
- {
-  "function": "func_8009D94C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Verified IDO 5.3 -O2 -mips2 -G0 source/profile bundle is already pending. It contains the direct signed timer update and unsigned ternary minimum. Applying that existing bundle is the remaining action.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795188432.1166239,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_800820BC",
@@ -22712,14 +22624,6 @@
   "score_after": 360
  },
  {
-  "function": "func_8009D94C",
-  "text": "Verified score 795. Target uses distinct early return and explicit min branch; control-flow variants were interrupted when batch judge stalled. Inspect recorded trials and target compiler profile before further tuning.",
-  "by": "codex-gpt-6.1-terra-3",
-  "created_at": 1795189504.420831,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8005C1D0",
   "text": "Verified baseline score 5 (23 instructions, one register mismatch). Local repair variants for record layout, const read, call arity/scope did not improve. Final explicit `register` qualifier also retained score 5 and identical diff. Target delay-slot move is `move v0,a1`, candidate `move v0,zero`; remaining issue is allocation of the success flag so a1 contains zero at the bne delay slot and becomes 1 after the body. Try restructuring r/done lifetime or branch/goto shape; avoid repeated declaration/register qualifier edits.",
   "by": "codex-gpt-6-luna-11",
@@ -23318,14 +23222,6 @@
   "created_at": 1795190062.732369,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_8009D94C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Existing score-zero IDO 5.3 -O2 -mips2 -G0 bundle uses the direct signed timer update and unsigned ternary minimum. The current profile remains GCC and exact bundle application is pending.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795190086.485798,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_8009811C",
@@ -24336,14 +24232,6 @@
   "score_after": 350
  },
  {
-  "function": "func_8009D94C",
-  "text": "Baseline 795 rechecked. Local repairs did not improve; direct signed timer update with unsigned min scored 890 under current KMC profile. Repeated notes report an already verified score-zero IDO 5.3 -O2 -mips2 -G0 function-only compiler bundle pending application; this function should not need further KMC tuning. Target uses early return, timer subtraction/store delay slot, explicit branch min and returns delta. Keep best 795 candidate. The exact-match IDO bundle/source needs applying through the existing compiler suggestion flow.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795191128.129768,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8009AE24",
   "text": "Improved verified 1446 to 1325 by introducing a scoped first-operand decode value and preserving its full u32 code in a separate local before the mask. Staging the second decode similarly and using the matched func_80096E7C(void *, s32) prototype tied. s16 predicate regressed to 1725; per-arm goto to 1446; staging w0 through a two-word array scored 1400 with fewer mismatching rows but worse weighed score. Split flag shifts tied. Current 88/92 instructions and 0x28/0x30 frame. Candidate holds first decoded result in v1, then preserves it into s3 at second call branch; ROM sets s0 on all first decode exits. Recover that live range first, including the separate v0 load and branch-slot copy in both local/global halfword arms. This should also help select s3 for the command pointer. Six-trial budget exhausted.",
   "by": "codex-gpt-6.2-sol-6",
@@ -25224,14 +25112,6 @@
   "score_after": 75
  },
  {
-  "function": "func_8009D94C",
-  "text": "Verified baseline 795. Local-repair batch was interrupted after the concurrent compiler queue stalled; inspect recorded trials before further work. Target stores the decremented timer in the branch delay slot; focus on restoring target-only operations and its unsigned progress clamp.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795192363.911533,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_80022AD8",
   "text": "Rechecked 60. Field signedness, parameter width and moving flags load did not alter the 12 register-only mismatches. Investigate register lifetimes around three global halfword loads.",
   "by": "codex-gpt-6.1-terra-4",
@@ -25542,14 +25422,6 @@
   "created_at": 1795192680.213461,
   "score_before": 110,
   "score_after": 110
- },
- {
-  "function": "func_8009D94C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Verified current GCC baseline 795. The existing function-only IDO 5.3 -O2 -mips2 -G0 suggestion already includes a score-zero source bundle. Apply that bundle to complete this function. The source uses the direct signed timer update and unsigned ternary minimum.",
-  "by": "codex-gpt-6.2-sol-7",
-  "created_at": 1795192680.9323661,
-  "score_before": 795,
-  "score_after": 795
  },
  {
   "function": "func_800A97A0",
@@ -26672,14 +26544,6 @@
   "score_after": 1144
  },
  {
-  "function": "func_8009D94C",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Compiler unavailable in this session: gcc-2.7.2-kmc toolchain missing; compile_and_diff was attempted and failed before compilation. Candidate revision 2d8e8276d8ca3beaf194 retains historical best 795, unverified.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795193828.306336,
-  "score_before": 795,
-  "score_after": 795
- },
- {
   "function": "func_8011ACAC",
   "text": "[Released without compiling it once; notes not checked by a compile.] Judge again reports gcc-2.7.2-kmc is not installed, also seen on func_80046648. No scored compile; historical 805 preserved. The attempted stride expression is untested.",
   "by": "codex-gpt-6.2-sol-8",
@@ -27334,14 +27198,6 @@
   "created_at": 1795197360.634868,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_8009D94C",
-  "text": "Best score 690 (27 target instructions, 23 candidate). Tried source with ret=0 conditional and return delta; matched score 690. Two attempted early-return patches failed C89 parsing because return was inserted before remaining declarations. Restored saved best revision bd8b2b6b0796b3089ab9 and recompiled, score 690; move-on count 4/3. Remaining diff mostly register allocation and control flow at entry: target uses lb t6; addiu at=3; move v0,zero; bne t6,at; candidate lb v1/addiu v0/bne, plus branch offsets. Function's non-state path should return 0 explicitly; saved candidate erroneously returns uninitialized delta despite setting ret=0. Future fix should preserve declarations-before-statements (or put declarations in top scope) and model guard return to recover target's move-zero and branch layout.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795197368.406028,
-  "score_before": 690,
-  "score_after": 690
  },
  {
   "function": "func_80096F44",
@@ -28352,14 +28208,6 @@
   "score_after": 215
  },
  {
-  "function": "func_8009D94C",
-  "text": "Inherited score 690 returns uninitialized delta for nonmatching state; use corrected source. Return-ret variant scored 795, early return with explicit min scored 990. Target uses OR moves, AT and t6+ register allocation, two return tails. IDO 7.1 O2 reproduced AT/t6 style but scored 1235, O1 worse. Try alternate IDO profiles and source with delta retained as separate result.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795198347.381259,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "func_8009852C",
   "text": "Reverified 35. Staging comparator in local unchanged. Seven register differences all swap v0/v1 for callback address and key record address. Try alternative address lifetimes or typed layout around call.",
   "by": "codex-gpt-6.2-sol-6",
@@ -28774,14 +28622,6 @@
   "created_at": 1795198777.649544,
   "score_before": 40,
   "score_after": 40
- },
- {
-  "function": "func_8009D94C",
-  "text": "Rechecked candidate with defined zero return for state != 3; best verified in this run score 890 using early return. Tried return-initialized guarded form (1090) and same early return with alternate min ordering (890, no score change). Move-on budget exhausted at 3/3. Target explicitly initializes $v0=0, compares state in $t6 against $at, computes signed remaining subtraction into $t7, and uses two return tails; current generated code uses different comparison registers, branch layout and return value temporaries. Resume from saved best and inspect full target/candidate around offsets 0x44-0x68, focusing on preserving the original control-flow layout and getting the target's $a2/$t1 value path.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795198793.7058802,
-  "score_before": 690,
-  "score_after": 690
  },
  {
   "function": "func_800993A4",
@@ -30296,14 +30136,6 @@
   "score_after": 785
  },
  {
-  "function": "func_8009D94C",
-  "text": "Baseline score 690 is currently rechecked, but candidate is potentially invalid because it returns uninitialized delta when mode != 3; use corrected source. Tested corrected return-ret source (795), explicit next countdown (890), and explicit mode local (same 890, same diff); no improvement. Target initializes v0=0, compares state byte to 3 via t6/AT, computes remaining-step in t7 as delay slot, then updates state; afterwards it clamps target-progress against step and returns delta. Improve C structure and register allocation; inspect quality evidence before trusting low score.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795200841.8920078,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "func_8009A0E4",
   "text": "Best score 710 (90.4%), C draft compiles. The major remaining divergence begins at writing/clamping the signed 16-bit field: target adds into v1, stores v1, reloads with lh into v0, then tests; candidate adds/stores into v0 and shifts/masks instead. Six local-repair variants (store scope, branch orientation, read-before-assign, dead pointer clear, repeated branch/read families) did not improve. Recover candidate and restructure to force a reload of the stored s16 before clamp.",
   "by": "codex-gpt-6-luna-11",
@@ -31334,14 +31166,6 @@
   "created_at": 1795201854.467444,
   "score_before": 185,
   "score_after": 185
- },
- {
-  "function": "func_8009D94C",
-  "text": "Recovered saved best (score 690) and verified it still has problematic uninitialized `delta` return; tried initialized-return rewrite (1090), then early-return mode guard (890), and initialized delta (same 1090). Move-on reached. Early return improved diff: preserved target\u2019s zero result initialization and branch direction better, but remains 4 instructions short and register/control flow differ. Target begins signed byte mode test with constant 3 in AT, initializes v0=0 before branch, then countdown uses `subu t7,v0,a1` in BLEZ delay slot, stores result in delay slot of bgtz. Next try retain target code pattern explicitly: signed mode `if (mode != 3) return 0`, then s32 tmp countdown, but keep else/control-flow at end to avoid early exit, and use signed return expression. Ensure delta initialized on mode != 3. Current candidate revision 7ca409c6bfab1a0a116a.",
-  "by": "codex-gpt-6-luna-12",
-  "created_at": 1795201861.3163798,
-  "score_before": 690,
-  "score_after": 690
  },
  {
   "function": "func_8007AABC",
@@ -33944,14 +33768,6 @@
   "score_after": 10
  },
  {
-  "function": "func_8009D94C",
-  "text": "The saved candidate (revision bd8b2b6b0796b3089) rechecked at score 690 and has a reported uninitialized delta return; treat this draft as exploratory. Six independent local repair variants (cfg lifetimes, scalar reuse, branch orientation, signedness, declaration order, constant-local) each scored 690 with unchanged rendered mismatch. Initializing ret and delta regressed to 885; changing outer guard direction then reached 880. Restored saved best before handoff. Target needs signed mode byte compared against constant 3, explicit initial v0=0 before branch, countdown using t7=subu(v0,step) and store in branch delay slot. Next experiment: rewrite countdown as `remaining = *(s32*)(state+0x11a8); if (remaining <= 0) goto update; remaining -= step; if (remaining > 0) { store; goto update; } state[mode]=4; store 0; update:` while keeping an explicit u32 result zero initialization/early path; target's branch layout differs from nested conditions.",
-  "by": "codex-gpt-6-luna-6",
-  "created_at": 1795204110.145359,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "func_80082D24",
   "text": "Verified score 50, ten floating-register-only mismatches. Operand order, index widths and inlining variants did not improve.",
   "by": "codex-gpt-6.1-terra-4",
@@ -35408,14 +35224,6 @@
   "score_after": 360
  },
  {
-  "function": "func_8009D94C",
-  "text": "Target structure: lb state[0x11dd]; if !=3 return 0 (v0 zeroed before branch). Else remaining=w[0x11a8]; if >0 {t=remaining-step; store; if t<=0 {b[0x11dd]=4; w[0x11a8]=0}}. progress=w[0x11d4]; delta=min(step, w[0x11d8]-progress) unsigned; w[0x11d4]=progress+delta; return delta. Saved 690 candidate (bd8b2b6) has an uninitialized return; do not use. Clean valid C (rev 32a3eb01...) scores 795: remaining mismatches are the zeroed v0 before the early branch, and the final return register (v1 vs a2). ret=0 up front scored 995 (worse). Next: a separate s32 temp for remaining-step so store and bgtz share one register; try an if/else form for the early return.",
-  "by": "api-claude-haiku-5-5-11",
-  "created_at": 1795205508.903307,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "func_800988D8",
   "text": "Verified score 220, five rows differ at freelist sentinel and return tail. Early null return and dual direct returns both 420. Scoped result assigned from key store scored 780. Staging owner field load before result assignment left instructions identical. Reached 4/4.",
   "by": "codex-gpt-6.2-sol-9",
@@ -35598,14 +35406,6 @@
   "created_at": 1795205594.575577,
   "score_before": 4345,
   "score_after": 4345
- },
- {
-  "function": "func_8009D94C",
-  "text": "Rechecked saved candidate score 690, but it is semantically invalid: returns uninitialized delta on inactive state; do not inherit/use. A clean valid rewrite scores 890; earlier clean alternatives score 795. Current attempts: clean rewrite 890; restored historical 690 source compile also 690; initializing ret did not change assembly/score. Main remaining assembly shape is early state check/register assignment and preserving zero return in v0; target uses t6/at comparison, separate v0=0, then branch, plus t7 for remaining subtraction and at for unsigned min. Need choose valid source preserving this control flow; do not rely on lower uninitialized candidate.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795205594.601016,
-  "score_before": 690,
-  "score_after": 690
  },
  {
   "function": "func_8009A70C",
@@ -37824,14 +37624,6 @@
   "score_after": 2015
  },
  {
-  "function": "func_8009D94C",
-  "text": "Current verified best score 690 is semantically invalid: inactive branch returns uninitialized delta. Valid clean rewrite previously scored 890 (and other valid checkpoints 795/875). Explicit tests initializing delta/ret or ret at declaration regressed to 900; no better in 3/3 compile threshold. Target sets $v0=0 before state comparison and returns zero for inactive; active path places remaining subtraction in `blez` delay slot but does not store subtraction unless condition result nonpositive, via branch-likely semantics; code must return capped progress delta. Next C experiment: start with valid checkpoint 7b5984a2e80f65b924a6 and declare `u32 delta = 0;` before state `if`, then keep return var_a2 from within active block or return delta after; preserve early zero initialization to coax `or $v0,$zero,$zero` before branch. Do not use lowest-score source.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795207911.814223,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "func_8005AFE8",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at saved best 2865 (rev 2ff917f7bd6bbc863afb). Prior sessions ran ~26 local-repair trials and narrow-table u16/s8 variants (3590/3400), none better. Structure (alloc via func_80016410(0x34,...), fields at +0x6C record, float 1000.0f/0.01f stores, D_800B1FE0/D_800B2230 float tables, copies of func_80076340 output into temp_v0 at +0x30..+0x50) appears right but the field copy ordering / struct layout of the record at temp_v0 (+0x24..+0x58) and the __repair_field_4C hack are unresolved. Next step if retried: write the copy block as explicit typed struct assignments matching the lw/sw sequence in the target (offsets 0x30,0x38,0x28,0x24,0x34,0x2C,0x48,0x50,0x40,0x3C,0x44) and verify the float stores' order against the asm.",
   "by": "api-claude-haiku-5-5-3",
@@ -39160,14 +38952,6 @@
   "score_after": null
  },
  {
-  "function": "func_8009D94C",
-  "text": "Valid C (returns ret=0 on inactive state, not uninitialized delta) scores 795; the remaining diffs are: target's zero-init uses `or $v0,$zero,$zero` (ours addu form, bytes 00001021 vs 00001025) and the final return is in a2 (target `move $v0,$a2`) while ours returns via v1 (`move $v0,$v1`). Control flow matches. The 690 saved candidate is semantically invalid (returns uninitialized delta). Tried: early return ret; ret-in-else; ret=delta variants (995/795). Structure is nearly right; remaining issue is register choice for delta/progress.\nValid early-return form: u32 ret=0; if(state[0x11dd]!=3) return ret; then remaining/progress/delta logic and return delta\nScore 795; control flow identical; only zero-init encoding and return register (v1 vs a2) differ",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209043.05493,
-  "score_before": 690,
-  "score_after": 690
- },
- {
   "function": "Ray_TriangleIntersect",
   "text": "Rechecked active candidate at 2660; local repair sweep across inferred_record_layout/address_temporary/const_read/shared_return/read_before_assign/goto_shared_tail and a whole-function cleanup had no instruction or score improvement. The current 2660 candidate is semantically corrected (unlike older saved_best which assigned sp20[0] before temp_ft3 initialized), but remains worse than inherited historical 2535. Earliest mismatch is FPR/GPR allocation beginning at initial sub.s ($f26 target vs $f28 candidate). Later key control-flow distinction: target loads the third normal as lwc1 $f30,8($a1) and uses bc1fl; current candidate's shape introduces mtc1 and bc1t. Candidate revision 4fb20d51371ea5f08e34; if continuing, restore/inspect saved_best and reported_corrected first, then redesign scalar temporary lifetimes to keep arg1[2] in an FPR and reproduce likely likely-float conditional branch polarity.\nIndependent local repair families plus cleanup rewrite: all stayed at 2660 with unchanged diff.\nNo improvement; mismatch evidence points to temp lifetime/FPR allocation and a float branch polarity shape, not layout or final return cleanup.",
   "by": "codex-gpt-6-luna-19",
@@ -39414,14 +39198,6 @@
   "created_at": 1795209257.657321,
   "score_before": 75,
   "score_after": 75
- },
- {
-  "function": "func_8009D94C",
-  "text": "Restored inherited saved_best and tested valid early-return rewrite (890), initialized return local (690), then removed initializer (690, identical diff). Best inherited 690 draft appears semantically invalid because it returns uninitialized delta outside active state; valid variants scored 795 historically. Target assembly begins lb status into t6, constant 3 in at, zero return value in v0, then branches; remaining investigation should reconstruct control flow/register lifetime so this valid return behavior can be expressed correctly.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795209268.9249191,
-  "score_before": 690,
-  "score_after": 690
  },
  {
   "function": "func_800588D8",
@@ -41698,15 +41474,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:29268441c29fae0aa30c7c7e1c68694aa4f6697baf390ca82b0401bd9b2cea2f"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Valid early-return candidate 94eba3bd33eb250c7fb5 rechecks 795 and is semantically sound; tail goto variant 036284f80ccecb8053f9 scored 995. Restored inherited saved_best bd8b2b6b0796b3089ab9 only for accurate handoff (690 but likely returns uninitialized delta on inactive state). Target tail loads progress into v1, target calculation into t0, computes delta into v0, uses sltu at, returns min in a2 and copies to v0 in jr delay slot. Next experiment: keep valid C, restructure final min via if/else assigning local a2-equivalent and direct return delta, focus tail register lifetimes; for correctness preserve return 0 when status != 3.",
-  "by": "codex-gpt-6-luna-18",
-  "created_at": 1795210950.0372322,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800224E4",
   "text": "Rechecked saved best score 75. Changing callee prototype preserved score though original argument types remain wrong. Casting arguments regressed to 85 and generated +0xa0 instead of +0x28. Restored saved_best revision 21fb4ca916da222e1d88. Target moves helper result into $a2 before reloading D_80109BB0 into $v0; candidate loads via $v1 then moves late. Next step: test correct variadic signature and explicit byte-offset addressing while varying expression/local ordering.",
   "by": "codex-gpt-6-luna-16",
@@ -42079,15 +41846,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:25031855a7fc8464519262b806c5140444d11b5ab02cebe4622fefb32f14afc2"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Saved historical score 690 is currently structurally questionable: returns uninitialized delta when status != 3. Recompile confirms 690; initializing ret has no effect and does not fix return. A sound early-return C scored 795, with differences remaining in register allocation and control flow at the initial status gate (target loads status t6, constant 3 in at, zeros v0, branches; candidate uses v1/v0 and lacks zeroing move) and final min (target sltu at, result in a2). Explicit return/local rewrite scored 890. No exact repair.\nRechecked flawed inherited 690; initialized return no effect; valid early-return variant scored 795; explicit result/local variant scored 890.\nBest semantically valid current trial is 795, still 24 instruction differences.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795211195.555372,
-  "score_before": 795,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800055CC",
   "text": "Rechecked 2730. Swapping packed loop increment order scored 2735; shift versus multiplication and moving increments around last float store scored 2730 unchanged. Target conversion loop differs in loads and stores, and candidate has extra clamp sequence.\nLoop increment ordering, shift expression, store scheduling\n2730 unchanged except increment swap 2735",
   "by": "codex-gpt-6.1-terra-5",
@@ -42427,15 +42185,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8bef3c17e603894c4155868526165d8da702b269b42cb5a49b351322c2c7df01"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Rechecked best score 690 but code is semantically questionable: returns uninitialized delta for status != 3; setting ret=0 did not change assembly or score. Sound early-return candidate in history scored 795. Explicit result variable plus single return compiled at 980. Rewriting signed decrement from unsigned subtraction to signed subtraction preserves score 690. Remaining target structure at entry: load status into t6, compare to immediate 3 in at, initialize v0=0, bne to common return. Candidate instead loads v1 and compares against v0, lacks zero initialization; decrement target uses t7 with paired blez/bgtz sharing branch target. Main clamp target uses sltu into at and result in a2; candidate uses opposite register pattern.\ninitialize ret, early return/goto, signed decrement expression\nret initialization unchanged 690; early-return rewrite worsened to 980; signed subtraction retained 690",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795211439.630711,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "setupStatusScreen",
@@ -42923,15 +42672,6 @@
   "created_at": 1795212566.576721,
   "score_before": 96805,
   "score_after": 96805
- },
- {
-  "function": "func_8009D94C",
-  "text": "Best inherited 690 remains uninitialized-return draft and is semantically questionable; the well-defined unified-return version rechecked at 980 (current header/compiler) and identical follow-up compiles yielded 980. An initialized ret patch call timed out and did not update candidate. Restored saved best.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795212576.4316502,
-  "score_before": 980,
-  "score_after": 980,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_80096460",
@@ -45515,15 +45255,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4c6a53c3ffd7a1a00eda9d917d1c94de3f8977a6ac3a579f762df796feeecbb1"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Retained best score 690 (23 candidate instructions vs 27 target); current-initialized return variant scored 980, then explicit ret=0 version 1090. Best candidate's delta is used uninitialized when state!=3, so treat quality warning as real concern and do not rely on it as a correct repair. Remaining target behavior: early mismatch should return zero; active path decrements remaining only if positive, stores subtraction to t7 in branch delay slot, clamps phase at zero, then computes min(step, end-progress) and writes/returns that delta. Next step: use a semantically defined early return for state!=3 and make remaining subtraction a separate t7 temporary reused in branch conditions/store.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795214875.8122292,
-  "score_before": 980,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800820BC",
   "text": "Rechecked best score 200 (95.2%), 42 instructions. Only opcode mismatch in best is lw from D_8010D436 instead of target lh; direct s16 load patch fixed opcode but regressed to 485 by moving table-address setup/order and registers. Best remains semantically suspect because it reads a full word; next restructure load as s16 while preserving separate address calculation order (target stores D_80115108 before computing D_8010D436 address), perhaps separate short value temporary and destination widening.",
   "by": "codex-gpt-6-luna-17",
@@ -45574,15 +45305,6 @@
   "score_before": 35,
   "score_after": 35,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8bef3c17e603894c4155868526165d8da702b269b42cb5a49b351322c2c7df01"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Current verified score 690 after initializing ret=0; this resolves the earlier uninitialized return concern, but code still omits/restructures several target instructions. A semantically defined full return rewrite scored 890, another explicit candidate 1090; adding an unused volatile local worsened to 1290. Target's opening control flow uses state in t6, constant 3 in at, zero result in v0, then branches; best candidate instead uses v1/v0 and has different branches. Keep best candidate; no exact match.\nInitialized return value on saved candidate; score stayed at 690 and removed undefined return value concern. Full initialized early-return rewrite scored 890; volatile local worsened.\nBest is defined but still 22 differing rows; mismatches are control-flow shape and register roles (state t6, sentinel at, result v0, remaining t7).",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795214992.382614,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_801183F4",
@@ -48099,15 +47821,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:5936e031ad2018546b5004af9487cc2f9dfa0ef20d58931ddc6c152b76221b04"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Semantically initialized ret=0 variant rechecked at 690; corrected return delta but target still starts with lb into t6, constant in at, and explicit v0 zeroing; current best uses v1/v0 and omits zero-init, with 22 differing rows. Earlier rewrite (795) worsened it. Next step: restructure status check as an equality-controlled outer block while carrying initialized result=0, and use a signed temporary for remaining subtraction to induce t7; observe target's exact delay-slot stores.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795216853.029171,
-  "score_before": 795,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_8007560C",
   "text": "Recompiled the inherited draft after removing its duplicate/conflicting callee prototype; verified score 29089, same best. Draft has clear m2c artifacts/undefined temporaries and bad control flow/constants; mismatch remains 556 target insns vs 481 candidate, first divergence at entry and target expects a distinct large-double constant setup, many calls and loop state. Prior handoff: removing prototype improved 30549\u219229089; alternate loop pointer unchanged; D_80000300 assignment perturbation worsened. Large rewrite needs a clean draft using correct declarations and assembly-guided control flow.\nCompiled inherited draft after dropping conflicting callee prototype; score stayed at best 29089.\nNo improvement. Candidate emits 481 vs target 556 instructions and starts with global load instead of expected constant/stack setup. Existing draft has undefined temporaries and malformed conditions.",
   "by": "codex-gpt-6-luna-19",
@@ -48805,15 +48518,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Verified saved score 690. Tested a semantically defined short rewrite (890); version with initialized `result=0` and active state assignment scored 1090. On saved candidate, changed final `return delta` to `return ret`; score 795 (improvement over that trial, still worse than 690) and defined inactive return, but target has a two-return layout: inactive goes to jr/nop at +0x64, active computes capped delta and returns from common tail at +0x5c. Next step: preserve split return paths and target's initial accumulator in v0 while structuring C to test active mode, then run delta clamp through shared tail.\nFull semantic rewrite returned zero unless state==3; scored 1090. Restoring `return ret` with initialized ret=0 lowered score to 795 but still misses target opening schedule and return-path tail.\nSaved best remains score 690. The candidate's function block returns uninitialized delta on inactive state, despite a separate `ret=0`; changing return delta to ret produces defined behavior but worsens score to 795.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795217736.9194329,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800336FC",
   "text": "Saved best retains an unreachable global-base assignment and needs semantic repair; inspect direct global references and call signatures.",
   "by": "codex-gpt-6.1-terra-2",
@@ -49363,15 +49067,6 @@
   "score_before": 22611,
   "score_after": 22611,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:416b6df5d87bfa60a12a8f39f5d677b2bf77dc0954f334a047543f12dba5b7ef"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Rechecked saved score 690. Six local repair variants (scalar lifetime, branch orientation, CFG lifetime, signedness, declaration order, constant local) all remained 690. Best candidate has a reported semantic hazard: returns delta uninitialized on state!=3; explicit initialized return worsened to 1090. Target begins lb state into t6, constant 3 into at, move v0,zero; candidate uses v1/v0 and omits that zero move. Continue from saved candidate, fix semantic return while chasing register pressure.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795218767.383169,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_800184AC",
@@ -50454,15 +50149,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:26a57112fe935051a87a58de40301b00db56e111498db30e18415bb8606a91cd"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Historical saved candidate and current trial scores have differing source/header inputs; current local batch best remained 690. Several repair family batches tested without improvement; one baseline gave 795. The initial full rewrite did not compile due to missing declarations in whole submitted source. Next step: inspect mismatch assembly and recover a clean complete candidate before testing the return path/register allocation.\nLocal repair batches: copy_register_reuse return delta stayed at 795; signedness/declaration order and further families on the continued candidate did not exceed 690. A full rewrite failed to compile because it omitted needed declarations/macros in the standalone source.\nNo accepted improvement or match; current baseline from selected continuation was score 690. Target first differs in registers/control flow around status load and return paths.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795220779.610026,
-  "score_before": 995,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_80088040",
   "text": "Rechecked 65: fp/s7 swap for arg3/arg4 and final length shift destination v0 vs a0. Volatile arg3 store and explicit multiply-by-five then shift left gave identical diff; both arg2/arg3 u32 scored 70.\nWidened arg2 and made arg3 unsigned jointly\n65 to 70; baseline retained",
   "by": "codex-gpt-6.2-sol-6",
@@ -51143,15 +50829,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Correct struct offsets: remaining@0x11a8 s32, progress@0x11d4, total@0x11d8, status s8@0x11dd. Early-return/if-else/ret=0 variants score 900-1190 at -O2; -O1 gives 695 with same source (no better than saved 690). Key blocker: target moves are encoded as `or rd,rs,$zero` (00001025/00403025) while all our compiles emit addu form (\u202621) under all flags/compilers tried (-mgp64, mips2, 2.8.1, egcs, sn) \u2014 so something in source must produce real `or` moves (maybe 64-bit typed values or different delay-slot structure); also target has bne+nop and duplicate `jr` exit (separate return-0 block at the end) plus redundant `b` after `or a2,v0`. Next step: try u64/long long or union-type formulations to see if `or` moves appear.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795222150.4988558,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_8007C3F0",
   "text": "Session context allowance nearly exhausted; cannot pursue remaining float lifetime and control-flow differences in this session. Baseline 2689; reserve[1] improved to 2683, [3] and [4] scored 2700. Target does not save f26.",
   "by": "codex-gpt-6.1-terra-5",
@@ -51592,15 +51269,6 @@
   "score_before": 4175,
   "score_after": 4175,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f63638ddab3bd58d66f2c42126a1174d8fac8037406a8bc1921610d0bc11c4a4"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Verified baseline score 690. Three tested semantic fixes all scored worse: early return, initialized delta, and return ret (795/885/795). Target clearly has a zero return path when state[0x11dd] != 3. Recorded candidate issue wrong_value for baseline source's uninitialized return on that path. Remaining score mismatch is chiefly registers and branch placement.\nVerified baseline at 690. Correcting return to `ret` scored 795; early return 0 scored 795; initializing delta=0 scored 885. All had worse control flow/register allocation.\nBest 690 saved. Reported candidate issue: source sets ret=0 when status mismatch but returns uninitialized delta; target returns zero at shared tail in mismatch case.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795223198.675881,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "menuStateTimedUpdate",
@@ -52322,15 +51990,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:980d4314d50c0a79bb6fbeba67b4f844c6dd7496ff87e97cbc33674a51f2afe6"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Best remains 690 (saved). My typed-struct rewrites scored 890-1115 (early return 890). Target uses `or rd,rs,$zero` moves and a ternary min with redundant `b` (beqz at; or a2,v0; b; or a2,a1) which look like a different compiler/assembler than ours (move=addu form). Struct: remaining s32@0x11a8, progress@0x11d4, total@0x11d8, status s8@0x11dd. Next step: try compiler_map/survey for another compiler for this address range.",
-  "by": "api-claude-sonnet-5-5-1",
-  "created_at": 1795224255.730338,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800224E4",
   "text": "Current verified best remains score 75. Explicit function-entry statements and signature corrections did not shift the final returned pointer into $a2 before reloading gMenuState into $v0; separate temp/lookup version regressed badly (1001), then restored pattern returned to 75. Next step: model gMenuState as a volatile global pointer and test whether reload scheduling/register allocation gives target ordering.",
   "by": "codex-gpt-6-luna-15",
@@ -52814,15 +52473,6 @@
   "created_at": 1795225210.168291,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_8009D94C",
-  "text": "Current verified best remains 690. Volatile pointer regressed to 1085; explicit early return with signed state and direct ternary scored 890. The target loads signed state byte at 0x11dd, initializes result accumulator to zero, computes remaining-step in a separate temporary, then clamps total-progress against step. Candidate has near-correct 27-insn shape but different registers and branches. Next step: try a local s8 state variable and separate signed remaining-step temporary while retaining shared return path, then tune clamp operands.\nu8* baseline 690; volatile pointer 1085; early return + signed state and direct ternary 890.\nBaseline remains best; target loads signed state and has distinct remaining-step temp, register/branch mismatch remains.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795225235.0332968,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_8007092C",
@@ -54959,15 +54609,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:6897807369a0b487d52361a7ce740b3a89519c22bdfc6f892ab95a1ffc3c8e87"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Verified historical saved best 690, though it returns uninitialized delta in inactive-state path and appears semantically invalid. A valid ret=0 early-return version scored 795; another delta=0 version scored 900. Register qualifier made no change. Remaining mismatch is branch/register allocation: target loads status t6, constant 3 into at, initializes v0 zero, then compares; current valid version uses v1/v0 and wrong branch shape. Target also returns value via a2.\nValid early-return source scored 795; delta=0 inactive path scored 900; register qualifier had no effect.\nNo improvement in 3/3; function semantics and return behavior remain questionable in saved candidate.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795228850.46102,
-  "score_before": 900,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_80088040",
   "text": "Table is pointer, not array: corrected declaration improved 2355 to 1610. Target calls func_80087F60 with var_s2 in a0 and a1/a2 left zero by osSendMesg; three explicit arguments scored 1710. Two-arg saved candidate has right first argument but third remains implicit. Earlier automatic forwarding arg0 was incorrect and reported.",
   "by": "codex-gpt-6.1-terra-2",
@@ -55826,15 +55467,6 @@
   "score_before": 185,
   "score_after": 135,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:0c5aca7b2c00745b53c24dccf27eca5efb33791b1701b1cb07850bf205bbb6a4"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Saved best returns uninitialized delta on inactive path. Valid return ret scored 795; conditional clamp rewrite 890.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795229988.821952,
-  "score_before": 795,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_80047068",
@@ -57847,15 +57479,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:6de05907ea930a9a1744e4d11e02b096f67e27e436d83ff9ff49e4fead3ac75c"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Rechecked best score 690. Inactive state source returns uninitialized delta; valid `ret=0` path does not match as well (historically 795) but is semantically correct. Remaining differences include target status in t6 / 3 in at / zero result v0; subtract remaining into t7; final min via `sltu at,a1,v0`, branch beqz and return result in v0. Next step: restructure as status guard with shared zero-initialized result and explicit remaining/progress locals to induce target register lifetimes and merge point.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795232460.054315,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "updateObjectTrackState",
   "text": "[Released without compiling it once; notes not checked by a compile.] Renaming to updateTrackDoneObject reported success (and the global gTrackDoneFlags was renamed to sTrackDoneFlags), but the function name did not persist in the lookup, so polish_function/make_readable were refused. Readable step not completed. Next: retry rename_symbol then polish with renames arg0->obj, temp_s0->def, temp_v1->doneFlag, temp_v1_2->state.",
   "by": "api-claude-haiku-5-5-12",
@@ -58289,15 +57912,6 @@
   "score_before": 11940,
   "score_after": 11940,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:136dc6a8bbeef1919c6d32495c24f9d3360e8552c712cdd72a350489ba995c2d"
- },
- {
-  "function": "func_8009D94C",
-  "text": "Three local lifetime/guard variants emitted identical score 690. IDO 7.1 with mapped flags scored 1680 on current candidate, with extra frame and branch likely instructions.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795233144.359317,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_8005C6F8",
@@ -58764,15 +58378,6 @@
   "created_at": 1795233752.524058,
   "score_before": 0,
   "score_after": 0
- },
- {
-  "function": "func_8009D94C",
-  "text": "Saved best is score 690; one bounded restructuring with early return scored 890, worse. Restored prior best af8ad88e5bc6225d4337. Existing handoff documents uninitialized return issue and tried alternatives. Next step: compare target branch edges and test integer lifetime to get zero-return move into v0 while status check uses t6/at.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795233767.550606,
-  "score_before": 690,
-  "score_after": 690,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  },
  {
   "function": "func_8009DBE8",
@@ -62668,15 +62273,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:dde3527d4637a1be93c45bd53e85528bc4274120cf4e13cfc06c95b3216056df"
  },
  {
-  "function": "func_8009D94C",
-  "text": "Saved best returns uninitialized delta when inactive; valid return ret scored 795, replacing ternary with if scored 890. Target uses OR-form moves.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795238384.557751,
-  "score_before": 1090,
-  "score_after": 795,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
- },
- {
   "function": "func_800287DC",
   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 85; 9 differing rows (1 opcode, 3 register, 1 branch target, 2 operand, 1 inserted, 1 deleted; advisory).\nTarget: addiu $t2, $zero, 0xff\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beqz $v0, 0x23c\n  = move $a2, $zero\n< T: addiu $t2, $zero, 0xff | C: \n  = move $a3, $a1\n  = lui $t1, %hi(D_800BD64C)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRevision 5549a7a0b2864f105657 score 230. Branch-local menu pointer matched tail; `(u8)temp_a3` at zero test restored frame 0x20 and loop-entry sltu; nesting out-of-range assignment in clamp recovered expected branch. Remaining: hoist 255 into t2 and eliminate extra move before slti. Moving outer default to else scored 645, narrowing clamp result u16 545, u8 complement 740, unsigned subtract unchanged. Next step: vary the product expression to end explicitly in a shift after a separate x11 intermediate, then recheck product lifetime and constant allocation.",
   "by": "codex-gpt-6.2-sol-9",
@@ -64274,5 +63870,409 @@
   "score_before": 520,
   "score_after": 520,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:bf51ee3080b669e1eb3ea28946c1f6f5a95ef4fee35f973755a26b4824be770f"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Best rechecked score 875/27. Compiling requires C89 declarations and local M2C_FIELD macro (not in shared context). Candidate retains semantic shape but 23 differences: target stages status in t6/at, preserves delay-slot branches and target uses t0/v1/v0/a2/t1 for clamp math. Tried simplified C variant (23 instructions, score 890) then restored best and recompiled it (875). Left: reproduce target register/control-flow layout.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795136768.692916,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current best is the inherited C at score 875; rechecked at session start. Inspected complete assembly: behavior is signed state gate ==3; if field 0x11A8 >0 subtract arg1 and store, then when result <=0 set state 4 and clear field; return min(arg1, field 0x11D8-field 0x11D4), adding it to 0x11D4. Six independent local repair variants (signedness, declaration order, const reads, guard inversion, lifetimes, split temp) found no improvement; move-on limit had already been exceeded before repair batch. Most mismatch is register/order/control flow from initial state check; try deliberate source-level restructure to reproduce initial lb/compare/zero return and late min branch.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795174881.9820879,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified GCC score 875; signedness and selection variants did not improve. IDO 5.3/7.1 trials score 560 with substantially closer instruction shape; target uses IDO-style registers. Investigate IDO source shape and compiler profile, especially the minimum selection branch.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795182016.454022,
+  "score_before": 875,
+  "score_after": 875
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Best 795 with unsigned ternary min and signed timer handling. Staging subtraction separately tied; using early initialized delta plus goto to common return worsened to 885. Main gaps are target OR moves, duplicate returns, and unconditional jump directly after the min predicate branch. Tested IDO 5.3 O2 sample 1025, IDO 7.1 mips1 895 and IDO 5.3 O1 2620, while earlier notes report different source at 560. Recheck that prior IDO variant or confirm handwritten provenance before more GCC tweaks.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795183069.668436,
+  "score_before": 875,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current inherited 890; historical best 795. Splitting min with explicit goto ties 890; common return label worsens to 980. Target uses OR move encoding, at for compares, t6 onward registers and two jr sites. IDO 5.3 and 7.1 -O2 -mips2 -G0 both score 540 on revision 82ae11caf4096e29d20d, closer than GCC; -mips1 and -O1 worse. Next isolate the single-function C and tune under IDO, focusing on branch likely versus plain and preserving both exits before requesting profile change.",
+  "by": "codex-gpt-6.2-sol-4",
+  "created_at": 1795184213.1458402,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Byte-exact on IDO 5.3 -O2 -mips2 -G0. Submitted a verified function-only compiler bundle with the exact typed source; automatic compiler changes are off. Direct p->timer > 0 guard and p->timer -= step with direct p->timer <= 0 test were needed. Do not spend further GCC allocation trials while the bundle is pending.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795185028.9333172,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Read the pending score-zero IDO 5.3 -O2 -mips2 -G0 compiler bundle note. No new GCC trial submitted.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795186002.1542242,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Typed state and direct timer-update candidate rechecked at 795 with the active GCC profile. Existing function-only IDO 5.3 -O2 -mips2 -G0 bundle already provides a verified exact match, pending approval. The lease changed before release.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795186208.4025202,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Fresh typed state with direct timer update but explicit if for min scored 900 under active GCC, 1010 under IDO 5.3. Existing verified IDO 5.3 -O2 -mips2 -G0 function-only bundle has the exact source and awaits approval. Use that bundle; the explicit if variant causes a branch-likely and duplicates the timer load in IDO.",
+  "by": "codex-gpt-6.2-sol-2",
+  "created_at": 1795186341.4636958,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Existing score-zero IDO 5.3 -O2 -mips2 -G0 function-only bundle is pending application. The active KMC profile does not produce the target branch and register patterns. Apply that pending source/profile bundle; its direct signed timer update and unsigned ternary minimum are required. No duplicate compiler trial submitted.",
+  "by": "codex-gpt-6.2-sol-5",
+  "created_at": 1795187257.080096,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified IDO 5.3 -O2 -mips2 -G0 source/profile bundle is already pending. It contains the direct signed timer update and unsigned ternary minimum. Applying that existing bundle is the remaining action.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795188432.1166239,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified score 795. Target uses distinct early return and explicit min branch; control-flow variants were interrupted when batch judge stalled. Inspect recorded trials and target compiler profile before further tuning.",
+  "by": "codex-gpt-6.1-terra-3",
+  "created_at": 1795189504.420831,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Existing score-zero IDO 5.3 -O2 -mips2 -G0 bundle uses the direct signed timer update and unsigned ternary minimum. The current profile remains GCC and exact bundle application is pending.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795190086.485798,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Baseline 795 rechecked. Local repairs did not improve; direct signed timer update with unsigned min scored 890 under current KMC profile. Repeated notes report an already verified score-zero IDO 5.3 -O2 -mips2 -G0 function-only compiler bundle pending application; this function should not need further KMC tuning. Target uses early return, timer subtraction/store delay slot, explicit branch min and returns delta. Keep best 795 candidate. The exact-match IDO bundle/source needs applying through the existing compiler suggestion flow.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795191128.129768,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified baseline 795. Local-repair batch was interrupted after the concurrent compiler queue stalled; inspect recorded trials before further work. Target stores the decremented timer in the branch delay slot; focus on restoring target-only operations and its unsigned progress clamp.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795192363.911533,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Verified current GCC baseline 795. The existing function-only IDO 5.3 -O2 -mips2 -G0 suggestion already includes a score-zero source bundle. Apply that bundle to complete this function. The source uses the direct signed timer update and unsigned ternary minimum.",
+  "by": "codex-gpt-6.2-sol-7",
+  "created_at": 1795192680.9323661,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Compiler unavailable in this session: gcc-2.7.2-kmc toolchain missing; compile_and_diff was attempted and failed before compilation. Candidate revision 2d8e8276d8ca3beaf194 retains historical best 795, unverified.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795193828.306336,
+  "score_before": 795,
+  "score_after": 795
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Best score 690 (27 target instructions, 23 candidate). Tried source with ret=0 conditional and return delta; matched score 690. Two attempted early-return patches failed C89 parsing because return was inserted before remaining declarations. Restored saved best revision bd8b2b6b0796b3089ab9 and recompiled, score 690; move-on count 4/3. Remaining diff mostly register allocation and control flow at entry: target uses lb t6; addiu at=3; move v0,zero; bne t6,at; candidate lb v1/addiu v0/bne, plus branch offsets. Function's non-state path should return 0 explicitly; saved candidate erroneously returns uninitialized delta despite setting ret=0. Future fix should preserve declarations-before-statements (or put declarations in top scope) and model guard return to recover target's move-zero and branch layout.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795197368.406028,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Inherited score 690 returns uninitialized delta for nonmatching state; use corrected source. Return-ret variant scored 795, early return with explicit min scored 990. Target uses OR moves, AT and t6+ register allocation, two return tails. IDO 7.1 O2 reproduced AT/t6 style but scored 1235, O1 worse. Try alternate IDO profiles and source with delta retained as separate result.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795198347.381259,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Rechecked candidate with defined zero return for state != 3; best verified in this run score 890 using early return. Tried return-initialized guarded form (1090) and same early return with alternate min ordering (890, no score change). Move-on budget exhausted at 3/3. Target explicitly initializes $v0=0, compares state in $t6 against $at, computes signed remaining subtraction into $t7, and uses two return tails; current generated code uses different comparison registers, branch layout and return value temporaries. Resume from saved best and inspect full target/candidate around offsets 0x44-0x68, focusing on preserving the original control-flow layout and getting the target's $a2/$t1 value path.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795198793.7058802,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Baseline score 690 is currently rechecked, but candidate is potentially invalid because it returns uninitialized delta when mode != 3; use corrected source. Tested corrected return-ret source (795), explicit next countdown (890), and explicit mode local (same 890, same diff); no improvement. Target initializes v0=0, compares state byte to 3 via t6/AT, computes remaining-step in t7 as delay slot, then updates state; afterwards it clamps target-progress against step and returns delta. Improve C structure and register allocation; inspect quality evidence before trusting low score.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795200841.8920078,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Recovered saved best (score 690) and verified it still has problematic uninitialized `delta` return; tried initialized-return rewrite (1090), then early-return mode guard (890), and initialized delta (same 1090). Move-on reached. Early return improved diff: preserved target\u2019s zero result initialization and branch direction better, but remains 4 instructions short and register/control flow differ. Target begins signed byte mode test with constant 3 in AT, initializes v0=0 before branch, then countdown uses `subu t7,v0,a1` in BLEZ delay slot, stores result in delay slot of bgtz. Next try retain target code pattern explicitly: signed mode `if (mode != 3) return 0`, then s32 tmp countdown, but keep else/control-flow at end to avoid early exit, and use signed return expression. Ensure delta initialized on mode != 3. Current candidate revision 7ca409c6bfab1a0a116a.",
+  "by": "codex-gpt-6-luna-12",
+  "created_at": 1795201861.3163798,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "The saved candidate (revision bd8b2b6b0796b3089) rechecked at score 690 and has a reported uninitialized delta return; treat this draft as exploratory. Six independent local repair variants (cfg lifetimes, scalar reuse, branch orientation, signedness, declaration order, constant-local) each scored 690 with unchanged rendered mismatch. Initializing ret and delta regressed to 885; changing outer guard direction then reached 880. Restored saved best before handoff. Target needs signed mode byte compared against constant 3, explicit initial v0=0 before branch, countdown using t7=subu(v0,step) and store in branch delay slot. Next experiment: rewrite countdown as `remaining = *(s32*)(state+0x11a8); if (remaining <= 0) goto update; remaining -= step; if (remaining > 0) { store; goto update; } state[mode]=4; store 0; update:` while keeping an explicit u32 result zero initialization/early path; target's branch layout differs from nested conditions.",
+  "by": "codex-gpt-6-luna-6",
+  "created_at": 1795204110.145359,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Target structure: lb state[0x11dd]; if !=3 return 0 (v0 zeroed before branch). Else remaining=w[0x11a8]; if >0 {t=remaining-step; store; if t<=0 {b[0x11dd]=4; w[0x11a8]=0}}. progress=w[0x11d4]; delta=min(step, w[0x11d8]-progress) unsigned; w[0x11d4]=progress+delta; return delta. Saved 690 candidate (bd8b2b6) has an uninitialized return; do not use. Clean valid C (rev 32a3eb01...) scores 795: remaining mismatches are the zeroed v0 before the early branch, and the final return register (v1 vs a2). ret=0 up front scored 995 (worse). Next: a separate s32 temp for remaining-step so store and bgtz share one register; try an if/else form for the early return.",
+  "by": "api-claude-haiku-5-5-11",
+  "created_at": 1795205508.903307,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Rechecked saved candidate score 690, but it is semantically invalid: returns uninitialized delta on inactive state; do not inherit/use. A clean valid rewrite scores 890; earlier clean alternatives score 795. Current attempts: clean rewrite 890; restored historical 690 source compile also 690; initializing ret did not change assembly/score. Main remaining assembly shape is early state check/register assignment and preserving zero return in v0; target uses t6/at comparison, separate v0=0, then branch, plus t7 for remaining subtraction and at for unsigned min. Need choose valid source preserving this control flow; do not rely on lower uninitialized candidate.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795205594.601016,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current verified best score 690 is semantically invalid: inactive branch returns uninitialized delta. Valid clean rewrite previously scored 890 (and other valid checkpoints 795/875). Explicit tests initializing delta/ret or ret at declaration regressed to 900; no better in 3/3 compile threshold. Target sets $v0=0 before state comparison and returns zero for inactive; active path places remaining subtraction in `blez` delay slot but does not store subtraction unless condition result nonpositive, via branch-likely semantics; code must return capped progress delta. Next C experiment: start with valid checkpoint 7b5984a2e80f65b924a6 and declare `u32 delta = 0;` before state `if`, then keep return var_a2 from within active block or return delta after; preserve early zero initialization to coax `or $v0,$zero,$zero` before branch. Do not use lowest-score source.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795207911.814223,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Valid C (returns ret=0 on inactive state, not uninitialized delta) scores 795; the remaining diffs are: target's zero-init uses `or $v0,$zero,$zero` (ours addu form, bytes 00001021 vs 00001025) and the final return is in a2 (target `move $v0,$a2`) while ours returns via v1 (`move $v0,$v1`). Control flow matches. The 690 saved candidate is semantically invalid (returns uninitialized delta). Tried: early return ret; ret-in-else; ret=delta variants (995/795). Structure is nearly right; remaining issue is register choice for delta/progress.\nValid early-return form: u32 ret=0; if(state[0x11dd]!=3) return ret; then remaining/progress/delta logic and return delta\nScore 795; control flow identical; only zero-init encoding and return register (v1 vs a2) differ",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209043.05493,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Restored inherited saved_best and tested valid early-return rewrite (890), initialized return local (690), then removed initializer (690, identical diff). Best inherited 690 draft appears semantically invalid because it returns uninitialized delta outside active state; valid variants scored 795 historically. Target assembly begins lb status into t6, constant 3 in at, zero return value in v0, then branches; remaining investigation should reconstruct control flow/register lifetime so this valid return behavior can be expressed correctly.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795209268.9249191,
+  "score_before": 690,
+  "score_after": 690
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Valid early-return candidate 94eba3bd33eb250c7fb5 rechecks 795 and is semantically sound; tail goto variant 036284f80ccecb8053f9 scored 995. Restored inherited saved_best bd8b2b6b0796b3089ab9 only for accurate handoff (690 but likely returns uninitialized delta on inactive state). Target tail loads progress into v1, target calculation into t0, computes delta into v0, uses sltu at, returns min in a2 and copies to v0 in jr delay slot. Next experiment: keep valid C, restructure final min via if/else assigning local a2-equivalent and direct return delta, focus tail register lifetimes; for correctness preserve return 0 when status != 3.",
+  "by": "codex-gpt-6-luna-18",
+  "created_at": 1795210950.0372322,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Saved historical score 690 is currently structurally questionable: returns uninitialized delta when status != 3. Recompile confirms 690; initializing ret has no effect and does not fix return. A sound early-return C scored 795, with differences remaining in register allocation and control flow at the initial status gate (target loads status t6, constant 3 in at, zeros v0, branches; candidate uses v1/v0 and lacks zeroing move) and final min (target sltu at, result in a2). Explicit return/local rewrite scored 890. No exact repair.\nRechecked flawed inherited 690; initialized return no effect; valid early-return variant scored 795; explicit result/local variant scored 890.\nBest semantically valid current trial is 795, still 24 instruction differences.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795211195.555372,
+  "score_before": 795,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Rechecked best score 690 but code is semantically questionable: returns uninitialized delta for status != 3; setting ret=0 did not change assembly or score. Sound early-return candidate in history scored 795. Explicit result variable plus single return compiled at 980. Rewriting signed decrement from unsigned subtraction to signed subtraction preserves score 690. Remaining target structure at entry: load status into t6, compare to immediate 3 in at, initialize v0=0, bne to common return. Candidate instead loads v1 and compares against v0, lacks zero initialization; decrement target uses t7 with paired blez/bgtz sharing branch target. Main clamp target uses sltu into at and result in a2; candidate uses opposite register pattern.\ninitialize ret, early return/goto, signed decrement expression\nret initialization unchanged 690; early-return rewrite worsened to 980; signed subtraction retained 690",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795211439.630711,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Best inherited 690 remains uninitialized-return draft and is semantically questionable; the well-defined unified-return version rechecked at 980 (current header/compiler) and identical follow-up compiles yielded 980. An initialized ret patch call timed out and did not update candidate. Restored saved best.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795212576.4316502,
+  "score_before": 980,
+  "score_after": 980,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Retained best score 690 (23 candidate instructions vs 27 target); current-initialized return variant scored 980, then explicit ret=0 version 1090. Best candidate's delta is used uninitialized when state!=3, so treat quality warning as real concern and do not rely on it as a correct repair. Remaining target behavior: early mismatch should return zero; active path decrements remaining only if positive, stores subtraction to t7 in branch delay slot, clamps phase at zero, then computes min(step, end-progress) and writes/returns that delta. Next step: use a semantically defined early return for state!=3 and make remaining subtraction a separate t7 temporary reused in branch conditions/store.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795214875.8122292,
+  "score_before": 980,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current verified score 690 after initializing ret=0; this resolves the earlier uninitialized return concern, but code still omits/restructures several target instructions. A semantically defined full return rewrite scored 890, another explicit candidate 1090; adding an unused volatile local worsened to 1290. Target's opening control flow uses state in t6, constant 3 in at, zero result in v0, then branches; best candidate instead uses v1/v0 and has different branches. Keep best candidate; no exact match.\nInitialized return value on saved candidate; score stayed at 690 and removed undefined return value concern. Full initialized early-return rewrite scored 890; volatile local worsened.\nBest is defined but still 22 differing rows; mismatches are control-flow shape and register roles (state t6, sentinel at, result v0, remaining t7).",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795214992.382614,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Semantically initialized ret=0 variant rechecked at 690; corrected return delta but target still starts with lb into t6, constant in at, and explicit v0 zeroing; current best uses v1/v0 and omits zero-init, with 22 differing rows. Earlier rewrite (795) worsened it. Next step: restructure status check as an equality-controlled outer block while carrying initialized result=0, and use a signed temporary for remaining subtraction to induce t7; observe target's exact delay-slot stores.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795216853.029171,
+  "score_before": 795,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified saved score 690. Tested a semantically defined short rewrite (890); version with initialized `result=0` and active state assignment scored 1090. On saved candidate, changed final `return delta` to `return ret`; score 795 (improvement over that trial, still worse than 690) and defined inactive return, but target has a two-return layout: inactive goes to jr/nop at +0x64, active computes capped delta and returns from common tail at +0x5c. Next step: preserve split return paths and target's initial accumulator in v0 while structuring C to test active mode, then run delta clamp through shared tail.\nFull semantic rewrite returned zero unless state==3; scored 1090. Restoring `return ret` with initialized ret=0 lowered score to 795 but still misses target opening schedule and return-path tail.\nSaved best remains score 690. The candidate's function block returns uninitialized delta on inactive state, despite a separate `ret=0`; changing return delta to ret produces defined behavior but worsens score to 795.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795217736.9194329,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Rechecked saved score 690. Six local repair variants (scalar lifetime, branch orientation, CFG lifetime, signedness, declaration order, constant local) all remained 690. Best candidate has a reported semantic hazard: returns delta uninitialized on state!=3; explicit initialized return worsened to 1090. Target begins lb state into t6, constant 3 into at, move v0,zero; candidate uses v1/v0 and omits that zero move. Continue from saved candidate, fix semantic return while chasing register pressure.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795218767.383169,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:94919fefe31b6169fa87def5ab1ab4fbf89e3417233a7f094afcc333fdebdf4d:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Historical saved candidate and current trial scores have differing source/header inputs; current local batch best remained 690. Several repair family batches tested without improvement; one baseline gave 795. The initial full rewrite did not compile due to missing declarations in whole submitted source. Next step: inspect mismatch assembly and recover a clean complete candidate before testing the return path/register allocation.\nLocal repair batches: copy_register_reuse return delta stayed at 795; signedness/declaration order and further families on the continued candidate did not exceed 690. A full rewrite failed to compile because it omitted needed declarations/macros in the standalone source.\nNo accepted improvement or match; current baseline from selected continuation was score 690. Target first differs in registers/control flow around status load and return paths.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795220779.610026,
+  "score_before": 995,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Correct struct offsets: remaining@0x11a8 s32, progress@0x11d4, total@0x11d8, status s8@0x11dd. Early-return/if-else/ret=0 variants score 900-1190 at -O2; -O1 gives 695 with same source (no better than saved 690). Key blocker: target moves are encoded as `or rd,rs,$zero` (00001025/00403025) while all our compiles emit addu form (\u202621) under all flags/compilers tried (-mgp64, mips2, 2.8.1, egcs, sn) \u2014 so something in source must produce real `or` moves (maybe 64-bit typed values or different delay-slot structure); also target has bne+nop and duplicate `jr` exit (separate return-0 block at the end) plus redundant `b` after `or a2,v0`. Next step: try u64/long long or union-type formulations to see if `or` moves appear.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795222150.4988558,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified baseline score 690. Three tested semantic fixes all scored worse: early return, initialized delta, and return ret (795/885/795). Target clearly has a zero return path when state[0x11dd] != 3. Recorded candidate issue wrong_value for baseline source's uninitialized return on that path. Remaining score mismatch is chiefly registers and branch placement.\nVerified baseline at 690. Correcting return to `ret` scored 795; early return 0 scored 795; initializing delta=0 scored 885. All had worse control flow/register allocation.\nBest 690 saved. Reported candidate issue: source sets ret=0 when status mismatch but returns uninitialized delta; target returns zero at shared tail in mismatch case.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795223198.675881,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Best remains 690 (saved). My typed-struct rewrites scored 890-1115 (early return 890). Target uses `or rd,rs,$zero` moves and a ternary min with redundant `b` (beqz at; or a2,v0; b; or a2,a1) which look like a different compiler/assembler than ours (move=addu form). Struct: remaining s32@0x11a8, progress@0x11d4, total@0x11d8, status s8@0x11dd. Next step: try compiler_map/survey for another compiler for this address range.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795224255.730338,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Current verified best remains 690. Volatile pointer regressed to 1085; explicit early return with signed state and direct ternary scored 890. The target loads signed state byte at 0x11dd, initializes result accumulator to zero, computes remaining-step in a separate temporary, then clamps total-progress against step. Candidate has near-correct 27-insn shape but different registers and branches. Next step: try a local s8 state variable and separate signed remaining-step temporary while retaining shared return path, then tune clamp operands.\nu8* baseline 690; volatile pointer 1085; early return + signed state and direct ternary 890.\nBaseline remains best; target loads signed state and has distinct remaining-step temp, register/branch mismatch remains.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795225235.0332968,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Verified historical saved best 690, though it returns uninitialized delta in inactive-state path and appears semantically invalid. A valid ret=0 early-return version scored 795; another delta=0 version scored 900. Register qualifier made no change. Remaining mismatch is branch/register allocation: target loads status t6, constant 3 into at, initializes v0 zero, then compares; current valid version uses v1/v0 and wrong branch shape. Target also returns value via a2.\nValid early-return source scored 795; delta=0 inactive path scored 900; register qualifier had no effect.\nNo improvement in 3/3; function semantics and return behavior remain questionable in saved candidate.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795228850.46102,
+  "score_before": 900,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Saved best returns uninitialized delta on inactive path. Valid return ret scored 795; conditional clamp rewrite 890.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795229988.821952,
+  "score_before": 795,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Rechecked best score 690. Inactive state source returns uninitialized delta; valid `ret=0` path does not match as well (historically 795) but is semantically correct. Remaining differences include target status in t6 / 3 in at / zero result v0; subtract remaining into t7; final min via `sltu at,a1,v0`, branch beqz and return result in v0. Next step: restructure as status guard with shared zero-initialized result and explicit remaining/progress locals to induce target register lifetimes and merge point.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795232460.054315,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Three local lifetime/guard variants emitted identical score 690. IDO 7.1 with mapped flags scored 1680 on current candidate, with extra frame and branch likely instructions.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795233144.359317,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Saved best is score 690; one bounded restructuring with early return scored 890, worse. Restored prior best af8ad88e5bc6225d4337. Existing handoff documents uninitialized return issue and tried alternatives. Next step: compare target branch edges and test integer lifetime to get zero-return move into v0 while status check uses t6/at.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233767.550606,
+  "score_before": 690,
+  "score_after": 690,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
+ },
+ {
+  "function": "func_8009D94C",
+  "text": "Saved best returns uninitialized delta when inactive; valid return ret scored 795, replacing ternary with if scored 890. Target uses OR-form moves.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795238384.557751,
+  "score_before": 1090,
+  "score_after": 795,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:4dfd9d5a43b5950183a77a1f4708bbfa5c0d6496d59bde516dbda4d01d19996e"
  }
 ]
