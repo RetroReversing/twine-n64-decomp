@@ -17,41 +17,40 @@ M2C_UNK freeNodeChain(s32);                         /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, f32, f32, s32, s32, s32, s32); /* extern */
 M2C_UNK func_800624A8(s32, s32, f32, M2C_UNK);  /* extern */
 
-/* Counts down the actor's timer (0x54) while its timer flags are set. On expiry it unlinks the actor from its chain or resets its node, marks state 0x200 and runs the follow-up effects. */
-void actorTickTimedState(s32 arg0, void *actor, s32 arg2, f32 arg3, s32 arg4) {
-    f32 timer;
-    u32 nodeInfo;
-    void *nodeHead;
+void func_800552E0(s32 arg0, void *arg1, s32 arg2, f32 arg3, s32 arg4) {
+    f32 temp_fv0;
+    u32 temp_a1;
+    void *temp_v0;
     void *var_s0;
 
-    if (M2C_FIELD(actor, s32 *, 0x50) & 0x300000) {
-        timer = M2C_FIELD(actor, f32 *, 0x54) - arg3;
-        M2C_FIELD(actor, f32 *, 0x54) = timer;
-        if (timer < 0.0f) {
-            if (M2C_FIELD(actor, s32 *, 0x50) & 0x100000) {
-                var_s0 = M2C_FIELD(actor, void **, 0x18);
-                freeNodeChain(M2C_FIELD(actor, s32 *, 8));
+    if (M2C_FIELD(arg1, s32 *, 0x50) & 0x300000) {
+        temp_fv0 = M2C_FIELD(arg1, f32 *, 0x54) - arg3;
+        M2C_FIELD(arg1, f32 *, 0x54) = temp_fv0;
+        if (temp_fv0 < 0.0f) {
+            if (M2C_FIELD(arg1, s32 *, 0x50) & 0x100000) {
+                var_s0 = M2C_FIELD(arg1, void **, 0x18);
+                freeNodeChain(M2C_FIELD(arg1, s32 *, 8));
                 if (var_s0 != NULL) {
 loop_4:
-                    nodeHead = M2C_FIELD(var_s0, void **, 0x14);
-                    if (nodeHead != actor) {
-                        var_s0 = nodeHead;
+                    temp_v0 = M2C_FIELD(var_s0, void **, 0x14);
+                    if (temp_v0 != arg1) {
+                        var_s0 = temp_v0;
                         if (var_s0 == NULL) {
 
                         } else {
                             goto loop_4;
                         }
                     } else {
-                        M2C_FIELD(var_s0, void **, 0x14) = (void *) M2C_FIELD(actor, void **, 0x14);
+                        M2C_FIELD(var_s0, void **, 0x14) = (void *) M2C_FIELD(arg1, void **, 0x14);
                     }
                 }
             } else {
-                nodeInfo = M2C_FIELD(M2C_FIELD(actor, void **, 0x3C), u32 *, 0x30);
-                M2C_FIELD(actor, void **, 0x3C) = func_8004478C(((nodeInfo >> 4) & 0xFFFF) + 1, nodeInfo >> 0x14);
+                temp_a1 = M2C_FIELD(M2C_FIELD(arg1, void **, 0x3C), u32 *, 0x30);
+                M2C_FIELD(arg1, void **, 0x3C) = func_8004478C(((temp_a1 >> 4) & 0xFFFF) + 1, temp_a1 >> 0x14);
             }
-            M2C_FIELD(actor, s32 *, 0x50) = (s32) ((M2C_FIELD(actor, s32 *, 0x50) & 0xFFCFFFFF) | 0x200);
+            M2C_FIELD(arg1, s32 *, 0x50) = (s32) ((M2C_FIELD(arg1, s32 *, 0x50) & 0xFFCFFFFF) | 0x200);
             func_800624A8(arg0, arg2, 0.5f, 1);
-            func_80054FEC(0, 250.0f, (2.0f * M2C_FIELD(M2C_FIELD(actor, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
+            func_80054FEC(0, 250.0f, (2.0f * M2C_FIELD(M2C_FIELD(arg1, void **, 0x3C), f32 *, 0x14)) + 4.0f, arg0, arg2, 0x20, arg4);
         }
     }
 }
