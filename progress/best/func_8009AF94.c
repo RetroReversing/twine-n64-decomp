@@ -28,7 +28,7 @@ void *func_80099CA8();
 void *func_80099E40();
 void *func_80099F80();
 void *func_8009A0E4();
-void *func_8009A20C();
+void *audioVoiceApplyEnvelope();
 void *func_8009A39C();
 void *func_8009A4E4();
 void *func_8009A70C();
@@ -411,7 +411,7 @@ block_75:
             var_a0 = func_8009A804(arg0, &D_800FDB9C, var_a2_3);
             break;
         case 0x10:
-            var_a0 = func_8009A20C(arg0, &D_800FDB9C);
+            var_a0 = audioVoiceApplyEnvelope(arg0, &D_800FDB9C);
             break;
         case 0x11:
             func_8008C380((*(u8 *)((char *)(arg0) + 0x63)), 1);
