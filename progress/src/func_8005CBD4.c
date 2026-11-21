@@ -21,11 +21,12 @@ void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
     if (arg4 != 0) {
         do {
             temp_v0 = spawnEffectObject(0x20, arg1, 0);
-            if (temp_v0 != NULL) {
+            if (!temp_v0) { var_s3 += 1; continue; }
+            {
                 temp_s1 = (*(void **)((char *)(temp_v0) + 0x6C));
                 (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
-                (*(s16 *)((char *)(temp_s1) + 0x1C)) = (s16) (randomIntBelow(4) + 4);
                 (*(s16 *)((char *)(temp_v0) + 0x78)) = 8;
+                (*(s16 *)((char *)(temp_s1) + 0x1C)) = (s16) (randomIntBelow(4) + 4);
                 (*(u8 *)((char *)(temp_v0) + 0x82)) = 0xFF;
                 (*(s8 *)((char *)(temp_s1) + 0x1E)) = (s8) (0xFF / (s16) (*(s16 *)((char *)(temp_s1) + 0x1C)));
                 (*(f32 *)((char *)(temp_v0) + 0x54)) = (f32) (randomFloatScaled(0.5f) + 0.5f);
@@ -41,11 +42,11 @@ void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
                 (*(s32 *)((char *)(temp_v0) + 0x58)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x58)) | 0x10000);
                 effectSetAnimFrame(temp_v0, randomIntBelow(3) + 0xF, 0x1B);
                 func_80046424(temp_v0 + 0x3C, (*(f32 *)((char *)(temp_s1) + 4)), (*(f32 *)((char *)(temp_s1) + 8)), (*(f32 *)((char *)(temp_s1) + 0xC)));
-                (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) -(*(f32 *)((char *)(temp_v0) + 0x3C));/*__repair_call_balance*/if(var_s3){
-                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));}else{
-                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));}
+                (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) -(*(f32 *)((char *)(temp_v0) + 0x3C));
+                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));
             }
-            var_s3 += 1;
+            do { var_s3 += 1; } while (0);
         } while (arg4 > var_s3);
     }
 }
+

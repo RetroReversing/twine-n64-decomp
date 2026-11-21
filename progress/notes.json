@@ -54751,28 +54751,12 @@
   "score_after": 19380
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Score 385 best: volatile 64-bit local fixes 8-byte frame discrepancy. Target uses s4=255 for both the byte store and signed division, whereas current code materializes -1 separately and uses different saved registers. Tried an explicit alpha local; it shifts register allocation and frame, worsening score. Next try arranging shared 255 lifetime and independent stores without introducing another live saved register.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795164434.868457,
-  "score_before": 412,
-  "score_after": 385
- },
- {
   "function": "func_8008C870",
   "text": "The inherited candidate is a 30-instruction stub against a 216-instruction target (score 19125), so this is not a local repair situation. Recompiled to verify and confirmed only the clamp plus one incomplete floating expression are emitted; compiler also creates unexpected .rodata constants. Target is repetitive fixed-point angle-to-trig interpolation: clamps unsigned angles to 0x7F0000, converts 16-bit angle fraction using double bias constants D_800D67C0..E8 for negative signed conversion, indexes D_800CF330/D_800CF334 and D_800CF534, interpolates adjacent float table entries, scales results by constants, and writes four s16 outputs via pointer args. Function args: arg0/arg1 outputs, arg2/arg3 angle-like words, arg4 likely an additional input, arg5 pointer output, arg6 another angle, arg7 output (confirm stack loads t0=arg4, t3=arg6,t6=arg5,t7=arg7; register args a0-a3). Need reconstruct complete repeated interpolation loops/expressions from full assembly before tuning. Last candidate revision d973914f771f1f1b3e53.",
   "by": "codex-gpt-6-luna-7",
   "created_at": 1795179249.632668,
   "score_before": 19125,
   "score_after": 19125
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Rechecked best score 385 (97%). Six local repairs were neutral; changing func_80046424 params from f32 to s32 temporarily worsened badly (1685) due to FPU conversions, then restoring original f32 prototype returned to 385. Key differences: target prologue saves $s5=$a2, then $s3=0; baseline swaps a saved register (s4 for s5). Target stack frame 0x58; target loads fifth arg to s6 from incoming stack. Most remaining semantic shape is close. Small remaining diff includes branch offsets due to one extra instruction, constant 0xFF register allocation and loop backedge byte difference (target bnez encoding ...ffa9 vs candidate ...ffa8). Continue from saved best.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795183464.889506,
-  "score_before": 385,
-  "score_after": 385
  },
  {
   "function": "func_8008C870",
@@ -54783,36 +54767,12 @@
   "score_after": 3081
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Best remains score 385, revision fdf7374193dc0a88079c. Ran local repairs (signedness, const, assignment timing, target call arity, pointer sum, assignment at use); no improvement. Corrected callee prototypes (16990, 44670, 45764) also left score/diff unchanged. A whole rewrite with persistent s32 color reused for byte stores and division worsened to 465; do not retain. Main baseline mismatch starts at the signed division setup: target keeps 0xFF in s4, loads short denominator into v0, div s4/v0; candidate uses a separate -1 for byte stores and div v0/v1 with extra 0xFF setup. Try a declaration/expression structure that preserves numerator as an int value across byte stores while keeping arg2 in s5; then tune call and operation ordering. The matched callee prototypes are evidence but need ABI-compatible corrections jointly.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795184551.4672499,
-  "score_before": 385,
-  "score_after": 385
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Baseline 385 rechecked; six local repairs no better. Current candidate restored to saved best revision fdf7374193dc0a88079c for handoff. Target prologue assigns arg2 to s5 and loads 0xFF into s4; current candidate maps arg2 to s4. Remaining mismatch is mostly registers and calls.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795202391.516216,
-  "score_before": 385,
-  "score_after": 385
- },
- {
   "function": "func_8008C870",
   "text": "Restored saved_best c536e29c37255ad31818 before handoff; score 1351 rechecked. A compact rewrite tied at 1351 and linked with .rodata +0x20/+0x28 references absent in target, likely literal constants. Saved candidate's most obvious issue is the float lookup tables: D_800CF330/334/534 declaration as f32 arrays maps wrong strides; data evidence shows D_800CF334 contains 128 bytes of entries and D_800CF534 only 12 bytes (likely a small table, not large sine table). Target stack loads four trailing args after 0x18 frame. In rewrite target has bgez while candidate generates bgezl, plus cvt.s.d and wrong 8-byte frame due unprototyped float conversions/precision. Need define exact globals and their element widths, remove invented float constants, inspect signature/ABI and conversion source.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795202580.4004438,
   "score_before": 1351,
   "score_after": 1351
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Candidate revision fdf7374193dc0a88079c, verified baseline score 385. Three local-repair batches explored balanced_call_references, target_call_arity (signature conflict with shared header), signedness, const_read, read_before_assign, integer_pointer_sum, assignment_at_use, single_use_inline; trials tied/worsened or failed to compile. No improvement through 10/8 threshold; assembly mismatch begins in saved-register allocation: target preserves arg2 in s5, candidate uses s4, and target uses s3 loop counter. Target prologue preserves s0-s7/fp plus fs0-fs2, stack 0x58. Historical candidate's extra local pad is suspicious; inspect remaining assembly and reconstruct typed record accesses/call sequence.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795205161.930397,
-  "score_before": 385,
-  "score_after": 385
  },
  {
   "function": "func_8008C870",
@@ -54823,14 +54783,6 @@
   "score_after": 95
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Stalled at score 385 (candidate fdf7374193dc0a88079c). Tried: 0.5f*arg3 reordering and no-op variants, all still 385. Mismatch starts at prologue: target saves arg2 (a2) into s5 and holds 0xFF in s4; candidate saves arg2 into s4. Remaining diffs are register allocation and branch targets in the loop. Next untested step: force a distinct live value for the 0xFF constant (e.g. a local s32 holding 0xFF used in the byte stores) so arg2 moves to s5.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795207898.884608,
-  "score_before": 385,
-  "score_after": 385
- },
- {
   "function": "func_8008C870",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at best 95 (revision bf6c7c7e0a01f9a80f43). Prior work: computing each table index before unsigned float conversion removed branch/relocation diffs; ~19 FPR register differences remain. Float temporaries and direct s16 casts gave identical output. Local random rewrites: 81 proposals, 0 improvements. Untested idea: the D_800CF534 table is small (12 bytes) and may be accessed via a different base/stride than the D_800CF330/334 pair; try a single float array with explicit offset arithmetic for the y/z lookups. Not re-verified in this session; no further compiles made here.",
   "by": "api-claude-haiku-5-5-11",
@@ -54839,38 +54791,12 @@
   "score_after": 95
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Stalled at 385 (97% match). Tried this session: adding a local s32 ff=0xFF before loop; no change (still 385, target keeps 0xFF in s4 and arg2 in s5; candidate puts arg2 in s4 and -1 in s5 via the 0xFF/(s16) divide path). Prior agents tried 0.5f reordering and many variants. Remaining diffs: saved-register allocation (arg2 and 0xFF) and branch-target offsets in the loop body; the loop body call ordering also differs (target calls func_80045CF8 after sh 0x78 store). Next untested: restructure the loop so the 0xFF/len division is computed before func_80016410 result is used, or split the byte stores into separate statements to change liveness.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795209511.835722,
-  "score_before": 385,
-  "score_after": 385
- },
- {
   "function": "func_8008C870",
   "text": "Best 95 (99.5%, 216 insns both). Re-verified candidate at bf6c7c7e0a01f9a80f43. Remaining diffs are only FPR allocation (19 rows): target uses $f0 for the first mul.s products where mine uses $f2/$f4, and trunc.w.s results go to $f2 vs my $f0. Prior work: per-index table computation before float conversion removed branch/relocation diffs; float temporaries and direct s16 casts gave identical output; ~81 local rewrites gave no improvement. Untested: reorder the v = r*-23195.76f branch (negate in the else arm) or split the y==0x800000 arm so the mul result lands in $f0 directly.",
   "by": "api-claude-haiku-5-5-7",
   "created_at": 1795209878.477056,
   "score_before": 95,
   "score_after": 95
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Still 385 (27 differing rows). Tried this session: alias local `void *src = arg2` for the three arg2 loads (compile error in a combined batch because the decl was in a separate patch; not retested alone), and 0.5f*arg3 reordering: no change. Target keeps 0xFF in s4 and arg2 in s5 (sw $s5,0x2c; move $s5,$a2 before sw $s3); candidate puts arg2 in s4. The divide `div $zero,$s4,$v0` means 0xFF is a live register value feeding a signed s16 division, not a folded constant. Next step: retest the standalone `void *src = arg2;` decl as a single compile_patch, and try a local s16/s32 holding 0xFF that is read in the divide only (not the byte store) to force a separate saved register.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214116.7935429,
-  "score_before": 385,
-  "score_after": 385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Four non-improving builds reached the move-on limit. Unsigned byte stores plus moving the mode=8 store before the RNG call scored 420; the saved 385 candidate is restored. The new form shared the 255 register across byte stores and division but changed counter allocation and lost the branch-likely delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795215714.866266,
-  "score_before": 385,
-  "score_after": 385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
  },
  {
   "function": "func_8008C870",
@@ -54882,15 +54808,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Move 0x78 store before randomIntBelow(4), with and without unsigned RGB/alpha stores, and unsigned alpha field numerator reload.\n510, 420 and 1196 respectively versus 385. Unsigned stores with reordered halfword stores reduced differing rows to 19, but increased weighted score. Target shares s4 for byte stores and signed division numerator.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795224939.085016,
-  "score_before": 385,
-  "score_after": 385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
- },
- {
   "function": "func_8008C870",
   "text": "Reached the four-compile stall threshold. Swapped product operands and tested explicit cast and intermediate products. Best stays 95; all 19 differences are FPR operands.",
   "by": "codex-gpt-6.2-sol-6",
@@ -54898,15 +54815,6 @@
   "score_before": 95,
   "score_after": 95,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Best 385/520 bytes, unchanged from inherited. Tried no-op patch after full compile; instruction diff unchanged. Target prologue maps arg2 into s5 at sp+0x2c and keeps 0xFF in s4; candidate maps arg2 to s4 and constant -1 to s5, with later divisor path placing randomIntBelow call/store differently. 27 diff rows, mostly regs/branches. Next step: recover saved best, model loop counter and reusable 0xFF as distinct signed locals initialized before loop, then reorder declarations to coax desired saved register allocation.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795237677.404695,
-  "score_before": 385,
-  "score_after": 385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
  },
  {
   "function": "func_8008C870",
@@ -54918,15 +54826,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
  },
  {
-  "function": "func_8005CBD4",
-  "text": "Low progress after 27 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 11; 20 differing rows (1 opcode, 12 register, 5 operand, 1 inserted, 1 deleted; advisory).\nTarget: sw $s5, 0x2c($sp)\nCandidate: sw $s4, 0x28($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $fp, 0x38($sp)\n  = move $fp, $a1\ni T: sw $s5, 0x2c($sp) | C: sw $s4, 0x28($sp)\nr T: move $s5, $a2 | C: move $s4, $a2\n  = sw $s3, 0x24($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCandidate 9f4748e4338034554400 verified 510: effectSetAnimFrame is the actual target, f32 argument 6.0f to func_80047B14, and unused volatile long long restores the frame. Remaining s4/s5 allocation and null-branch scheduling. Compare local repairs: const reads worsened to 1340, u16 field tied 510. Claim dropped during compare. Next step: test unsigned byte fields for 0xFF stores to encourage retaining 255 in s4.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240557.303484,
-  "score_before": 385,
-  "score_after": 385,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
- },
- {
   "function": "func_8008C870",
   "text": "Best remains 95, reverified; 216 instruction count matches target. Exactly 19 remaining FPR register discrepancies, starting at target row 63: target first product mul.s f0,f6,f2 where candidate uses f2; subsequent trunc.w.s / mfc1 destination shifts similarly. Three compiler profile trials: -fno-schedule-insns2 tied at 95; -fno-schedule-insns scored 1795; -fno-cse-skip-blocks 6563. Rewritten equivalent C ties 95. No untried applicable local repairs found.\nEquivalent rewrite and three flag trials including no schedule insns2; local register lifetime family scan yielded no candidates.\nNo improvements; FPR-only differences persist.",
   "by": "codex-gpt-6-luna-15",
@@ -54934,24 +54833,6 @@
   "score_before": 95,
   "score_after": 95,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:28f87370291951786996df92bfe07fb026c7a5cf638f2c5cb5e71ae6565b46f3"
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Current verified best 430; historical 385 source unavailable.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795252906.324152,
-  "score_before": 547,
-  "score_after": 430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
- },
- {
-  "function": "func_8005CBD4",
-  "text": "Unused eight-byte local recovered frame size and improved verified 717 to 690. Changing 0x82 store to u8 worsened to 1241 and increased frame. Remaining target uses s5 for arg2 and s4 for 255; candidate reverses them and differs on loop branch.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795256217.498846,
-  "score_before": 430,
-  "score_after": 430,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
  },
  {
   "function": "func_8008C870",
@@ -76744,5 +76625,124 @@
   "score_before": 432,
   "score_after": 432,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f893403517bba52590ec1e59ea24c0877aa607af9cf394a3b343b2c983a316f0"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Score 385 best: volatile 64-bit local fixes 8-byte frame discrepancy. Target uses s4=255 for both the byte store and signed division, whereas current code materializes -1 separately and uses different saved registers. Tried an explicit alpha local; it shifts register allocation and frame, worsening score. Next try arranging shared 255 lifetime and independent stores without introducing another live saved register.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795164434.868457,
+  "score_before": 412,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Rechecked best score 385 (97%). Six local repairs were neutral; changing func_80046424 params from f32 to s32 temporarily worsened badly (1685) due to FPU conversions, then restoring original f32 prototype returned to 385. Key differences: target prologue saves $s5=$a2, then $s3=0; baseline swaps a saved register (s4 for s5). Target stack frame 0x58; target loads fifth arg to s6 from incoming stack. Most remaining semantic shape is close. Small remaining diff includes branch offsets due to one extra instruction, constant 0xFF register allocation and loop backedge byte difference (target bnez encoding ...ffa9 vs candidate ...ffa8). Continue from saved best.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795183464.889506,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Best remains score 385, revision fdf7374193dc0a88079c. Ran local repairs (signedness, const, assignment timing, target call arity, pointer sum, assignment at use); no improvement. Corrected callee prototypes (16990, 44670, 45764) also left score/diff unchanged. A whole rewrite with persistent s32 color reused for byte stores and division worsened to 465; do not retain. Main baseline mismatch starts at the signed division setup: target keeps 0xFF in s4, loads short denominator into v0, div s4/v0; candidate uses a separate -1 for byte stores and div v0/v1 with extra 0xFF setup. Try a declaration/expression structure that preserves numerator as an int value across byte stores while keeping arg2 in s5; then tune call and operation ordering. The matched callee prototypes are evidence but need ABI-compatible corrections jointly.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795184551.4672499,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Baseline 385 rechecked; six local repairs no better. Current candidate restored to saved best revision fdf7374193dc0a88079c for handoff. Target prologue assigns arg2 to s5 and loads 0xFF into s4; current candidate maps arg2 to s4. Remaining mismatch is mostly registers and calls.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795202391.516216,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Candidate revision fdf7374193dc0a88079c, verified baseline score 385. Three local-repair batches explored balanced_call_references, target_call_arity (signature conflict with shared header), signedness, const_read, read_before_assign, integer_pointer_sum, assignment_at_use, single_use_inline; trials tied/worsened or failed to compile. No improvement through 10/8 threshold; assembly mismatch begins in saved-register allocation: target preserves arg2 in s5, candidate uses s4, and target uses s3 loop counter. Target prologue preserves s0-s7/fp plus fs0-fs2, stack 0x58. Historical candidate's extra local pad is suspicious; inspect remaining assembly and reconstruct typed record accesses/call sequence.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795205161.930397,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Stalled at score 385 (candidate fdf7374193dc0a88079c). Tried: 0.5f*arg3 reordering and no-op variants, all still 385. Mismatch starts at prologue: target saves arg2 (a2) into s5 and holds 0xFF in s4; candidate saves arg2 into s4. Remaining diffs are register allocation and branch targets in the loop. Next untested step: force a distinct live value for the 0xFF constant (e.g. a local s32 holding 0xFF used in the byte stores) so arg2 moves to s5.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795207898.884608,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Stalled at 385 (97% match). Tried this session: adding a local s32 ff=0xFF before loop; no change (still 385, target keeps 0xFF in s4 and arg2 in s5; candidate puts arg2 in s4 and -1 in s5 via the 0xFF/(s16) divide path). Prior agents tried 0.5f reordering and many variants. Remaining diffs: saved-register allocation (arg2 and 0xFF) and branch-target offsets in the loop body; the loop body call ordering also differs (target calls func_80045CF8 after sh 0x78 store). Next untested: restructure the loop so the 0xFF/len division is computed before func_80016410 result is used, or split the byte stores into separate statements to change liveness.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795209511.835722,
+  "score_before": 385,
+  "score_after": 385
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Still 385 (27 differing rows). Tried this session: alias local `void *src = arg2` for the three arg2 loads (compile error in a combined batch because the decl was in a separate patch; not retested alone), and 0.5f*arg3 reordering: no change. Target keeps 0xFF in s4 and arg2 in s5 (sw $s5,0x2c; move $s5,$a2 before sw $s3); candidate puts arg2 in s4. The divide `div $zero,$s4,$v0` means 0xFF is a live register value feeding a signed s16 division, not a folded constant. Next step: retest the standalone `void *src = arg2;` decl as a single compile_patch, and try a local s16/s32 holding 0xFF that is read in the divide only (not the byte store) to force a separate saved register.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214116.7935429,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Four non-improving builds reached the move-on limit. Unsigned byte stores plus moving the mode=8 store before the RNG call scored 420; the saved 385 candidate is restored. The new form shared the 255 register across byte stores and division but changed counter allocation and lost the branch-likely delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795215714.866266,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Move 0x78 store before randomIntBelow(4), with and without unsigned RGB/alpha stores, and unsigned alpha field numerator reload.\n510, 420 and 1196 respectively versus 385. Unsigned stores with reordered halfword stores reduced differing rows to 19, but increased weighted score. Target shares s4 for byte stores and signed division numerator.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795224939.085016,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Best 385/520 bytes, unchanged from inherited. Tried no-op patch after full compile; instruction diff unchanged. Target prologue maps arg2 into s5 at sp+0x2c and keeps 0xFF in s4; candidate maps arg2 to s4 and constant -1 to s5, with later divisor path placing randomIntBelow call/store differently. 27 diff rows, mostly regs/branches. Next step: recover saved best, model loop counter and reusable 0xFF as distinct signed locals initialized before loop, then reorder declarations to coax desired saved register allocation.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795237677.404695,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Low progress after 27 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 11; 20 differing rows (1 opcode, 12 register, 5 operand, 1 inserted, 1 deleted; advisory).\nTarget: sw $s5, 0x2c($sp)\nCandidate: sw $s4, 0x28($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sw $fp, 0x38($sp)\n  = move $fp, $a1\ni T: sw $s5, 0x2c($sp) | C: sw $s4, 0x28($sp)\nr T: move $s5, $a2 | C: move $s4, $a2\n  = sw $s3, 0x24($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nCandidate 9f4748e4338034554400 verified 510: effectSetAnimFrame is the actual target, f32 argument 6.0f to func_80047B14, and unused volatile long long restores the frame. Remaining s4/s5 allocation and null-branch scheduling. Compare local repairs: const reads worsened to 1340, u16 field tied 510. Claim dropped during compare. Next step: test unsigned byte fields for 0xFF stores to encourage retaining 255 in s4.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240557.303484,
+  "score_before": 385,
+  "score_after": 385,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Current verified best 430; historical 385 source unavailable.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795252906.324152,
+  "score_before": 547,
+  "score_after": 430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
+ },
+ {
+  "function": "func_8005CBD4",
+  "text": "Unused eight-byte local recovered frame size and improved verified 717 to 690. Changing 0x82 store to u8 worsened to 1241 and increased frame. Remaining target uses s5 for arg2 and s4 for 255; candidate reverses them and differs on loop branch.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795256217.498846,
+  "score_before": 430,
+  "score_after": 430,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f75706c6baf8c377f37b18fc106d903f7c8c5a4f707d3bde7852c933a2a37645"
  }
 ]
