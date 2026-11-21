@@ -16,6 +16,8 @@ u16 func_80012F50(void)
     u16 *used;
     s32 slot, i, rawOffset, headerOffset, j, value, result;
     u16 done;
+    s32 scan, scanOffset;
+    char *scanName;
     gSaveSlot = 0;
     gSaveFoundSlot = -1;
     if (saveRefreshStatus())
@@ -36,13 +38,13 @@ commandError:
 mapError:
     return func_80010B60(result);
 readSlots:
-    i = 0;
-    rawCode = D_80108408 + 10;
-    code = D_80107B6A + 17;
+    raw = D_80108408;
+    rawCode = raw + 10;
     name = D_80107B6A;
+    code = name + 17;
     used = (u16 *)(name - 2);
     rawOffset = 0;
-    raw = D_80108408;
+    i = 0;
     do {
         saveSubmitCommand(5,(s32)(gSaveSlotTable + gSaveSlot * 104),i,(s32)raw,0,0,0,0);
         if (saveWaitCommand() == 5) {
@@ -70,7 +72,7 @@ readSlots:
             if (result)
                 goto mapError;
             *used = 1;
-            decodeTextField(name, rawOffset + (D_80108408 + 14), 16);
+            decodeTextField(name, (char *)((s32)D_80108408 + 14) + rawOffset, 16);
             decodeTextField(code, rawCode, 4);
         }
         rawCode += 32;
@@ -90,28 +92,28 @@ readSlots:
         baseName = D_80107B6A;
         do {
             done = 1;
-            i = 0;
-            name = baseName;
-            rawOffset = 0;
+            scan = 0;
+            scanName = baseName;
+            scanOffset = 0;
             headerOffset = 0;
             do {
                 if (*(u16 *)(gSaveSlotHeaders + headerOffset) &&
-                    *(u32 *)(D_8010840C + rawOffset) == 0x4e4f3745 &&
-                    *(u16 *)(D_80108410 + rawOffset) == 0x3639 &&
-                    stringCompare(name,D_80115308)) {
-                    value = *(s8 *)(gSaveSlotCodes + rawOffset);
+                    *(u32 *)(D_8010840C + scanOffset) == 0x4e4f3745 &&
+                    *(u16 *)(D_80108410 + scanOffset) == 0x3639 &&
+                    stringCompare(scanName,D_80115308)) {
+                    value = *(s8 *)(gSaveSlotCodes + scanOffset);
                     if (value == *(s8 *)encoded) {
                         done = 0;
                         *encoded = value + 1;
                         break;
                     }
-                    gSaveFoundSlot = i;
+                    gSaveFoundSlot = scan;
                 }
-                name += 24;
-                rawOffset += 32;
-                ++i;
+                scanName += 24;
+                scanOffset += 32;
+                ++scan;
                 headerOffset += 24;
-            } while (i < 16);
+            } while (scan < 16);
         } while (!done);
         decodeTextField(gSaveSlotCodeBuf,gSaveSlotCodeByte,4);
     }

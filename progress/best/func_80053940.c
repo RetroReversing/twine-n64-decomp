@@ -43,7 +43,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     s16 *sp11C;
     s32 *sp124;
     u16 sp12E;
-    u16 sp136;
+    s32 temp_v1_16;
     f32 *sp13C;
     u8 sp147;
     void *sp14C;
@@ -53,11 +53,11 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     u16 sp16E;
     f32 temp_fa0;
     f32 temp_fa0_2;
-    register f32 temp_fa0_3;
+    f32 temp_fs0_3;
     f32 temp_fa0_4;
     f32 temp_fs0;
     f32 temp_fs0_2;
-    f32 temp_fs0_3;
+    register f32 temp_fa0_3;
     f32 temp_fs0_4;
     f32 temp_fs0_5;
     f32 temp_fs2;
@@ -89,7 +89,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     s32 temp_v0_2;
     s32 temp_v0_3;
     s32 temp_v1_11;
-    s32 temp_v1_16;
+    u16 sp136;
     s32 temp_v1_4;
     s32 temp_v1_5;
     s32 temp_v1_7;
@@ -109,7 +109,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
     u8 *var_s6_2;
     u16 temp_a0;
     u16 temp_v1;
-    u16 temp_v1_13;
+    s32 temp_v1_13;
     u16 temp_v1_15;
     u16 temp_v1_3;
     u16 temp_v1_6;
@@ -241,8 +241,8 @@ block_21:
                                             if ((sp12E & temp_v1_3) && (sp136 & temp_v1_3)) {
                                                 temp_v1_4 = (*(s32 *)((char *)(temp_s1) + 0x34));
                                                 buildPlaneFromPoints(sp13C, temp_v1_4 + (*var_s6 * 0xC), temp_v1_4 + ((*(u16 *)((char *)(var_s3) + -2)) * 0xC), temp_v1_4 + ((*(u16 *)((char *)(var_s3) + 0)) * 0xC));
-                                                temp_fs0_2 = (workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1]) + (workspace.data[4] * sp28Buf[2]) + workspace.data[5];
                                                 var_v0_2 = 1;
+                                                temp_fs0_2 = (workspace.data[2] * sp28Buf[0]) + (workspace.data[3] * sp28Buf[1]) + (workspace.data[4] * sp28Buf[2]) + workspace.data[5];
                                                 if (!(temp_fs0_2 < arg5)) {
                                                     var_v0_2 = 0;
                                                 }
