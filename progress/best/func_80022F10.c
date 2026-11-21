@@ -9,7 +9,7 @@ extern s32 D_800BD65C;
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A1;
 extern Slot_801001A1 D_801001A1[];
 extern u8 gSaveKeyRelaxed;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80022F10(void *arg0, s32 arg1) {
     unsigned temp_t0;
@@ -42,18 +42,18 @@ void func_80022F10(void *arg0, s32 arg1) {
                     temp_v1 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1) {              /* switch 1; irregular */
                     case 0xFF:                      /* switch 1 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         __base_D_800BD644 = &sSaveMenuFlagsA;
                         var_v0 = (*__base_D_800BD644);
                         break;
                     case 0x1:                       /* switch 1 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         var_v0 = D_800BD650;
                         break;
                     case 0x0:                       /* switch 1 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                         var_v0 = D_800BD65C;
                         break;
@@ -64,14 +64,14 @@ void func_80022F10(void *arg0, s32 arg1) {
                         if (D_801001A1[(*(u8 *)((char *)(arg0) + 8)) - 1].f0 == 0) {
                             var_v0_2 = __base_D_800BD640 + 0x1C;
                         }
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_v0 = *var_v0_2;
                         break;
                     }
                 } else {
                     var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
                     __base_D_800BD64C = &D_800BD64C;
-                    global_ptr = gMenuItems;
+                    global_ptr = gSaveMenuState;
                         var_v0 = (*__base_D_800BD64C);
                 }
                 (*(s32 *)((char *)(var_a1) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)(global_ptr) + 0x30)));
@@ -83,17 +83,17 @@ void func_80022F10(void *arg0, s32 arg1) {
                     temp_v1_2 = (*(u8 *)((char *)(arg0) + 8));
                     switch (temp_v1_2) {            /* switch 2; irregular */
                     case 0x0:                       /* switch 2 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                         temp_t0 = D_800BD65C;
                         break;
                     case 0x1:                       /* switch 2 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                         temp_t0 = D_800BD650;
                         break;
                     case 0xFF:                      /* switch 2 */
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                         temp_t0 = (*__base_D_800BD644);
                         break;
@@ -104,12 +104,12 @@ void func_80022F10(void *arg0, s32 arg1) {
                         if (D_801001A1[(*(u8 *)((char *)(arg0) + 8)) - 1].f0 == 0) {
                             var_v0_4 = __base_D_800BD640 + 0x1C;
                         }
-                        global_ptr = gMenuItems;
+                        global_ptr = gSaveMenuState;
                         temp_t0 = *var_v0_4;
                         break;
                     }
                 } else {
-                    global_ptr = gMenuItems;
+                    global_ptr = gSaveMenuState;
                         temp_t0 = (s32)&D_800BD64C;
                     var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
                 }

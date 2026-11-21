@@ -19,7 +19,7 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern u8 gSceneType;
 extern s8 gSaveKeyRelaxed;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern u8 D_80112F7F;
 extern u8 D_80112F80;
 extern u8 D_80112F81;
@@ -33,11 +33,11 @@ void func_8001A4F4(void) {
     s32 temp_v0;
     
 
-    if (M2C_FIELD(gMenuItems, u8 *, 0x2F) == 0) {
+    if (M2C_FIELD(gSaveMenuState, u8 *, 0x2F) == 0) {
         updateActiveMenuState();
     }
-    if (M2C_FIELD(gMenuItems, u8 *, 0x2D) != 0) {
-        temp_v0 = findEntryPayload(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x5D);
+    if (M2C_FIELD(gSaveMenuState, u8 *, 0x2D) != 0) {
+        temp_v0 = findEntryPayload(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x5D);
         if (temp_v0 != 0) {
             gSaveKeyRelaxed = 0;
             temp_s1 = temp_v0 + 0x28;
@@ -65,7 +65,7 @@ void func_8001A4F4(void) {
                 formatTextEntry(temp_v0, temp_s0, lookupDataEntry(0x85));
                 formatTextEntry(temp_s1, temp_s0, lookupDataEntry(0x8E));
                 if (D_80112F80 == 0) {
-                    M2C_FIELD(gMenuItems, u8 *, 0x2F) = 1U;
+                    M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 1U;
                     if (menuItemIsActive(0x21) & 0xFF) {
                         temp_s1 = gSceneType; temp_s1 += 1;
                     } else {
@@ -89,7 +89,7 @@ block_25:
                 formatTextEntry(temp_v0, temp_s0_2, lookupDataEntry(0x182));
                 formatTextEntry(temp_s1, temp_s0_2, lookupDataEntry(0x183));
                 if (D_80112F7F == 0) {
-                    M2C_FIELD(gMenuItems, u8 *, 0x2F) = 1U;
+                    M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 1U;
                     if (menuItemIsActive(0x21) & 0xFF) {
                         temp_s1 = gSceneType + 1;
                     } else {
@@ -114,7 +114,7 @@ block_25:
                 formatTextEntry(temp_v0, temp_s0_3, lookupDataEntry(0x88));
                 formatTextEntry(temp_s1, temp_s0_3, lookupDataEntry(0x91));
                 if (D_80112F81 == 0) {
-                    M2C_FIELD(gMenuItems, u8 *, 0x2F) = 1U;
+                    M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 1U;
                     if (menuItemIsActive(0x21) & 0xFF) {
                         gSceneType = 0;
                     } else {
@@ -130,6 +130,6 @@ block_25:
         }
     } else {
 block_26:
-        M2C_FIELD(gMenuItems, u8 *, 0x2F) = 0U;
+        M2C_FIELD(gSaveMenuState, u8 *, 0x2F) = 0U;
     }
 }

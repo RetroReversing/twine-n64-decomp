@@ -19,15 +19,15 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 extern u8 D_801002F0;
 extern u8 D_801002F1;
 extern u8 gMenuUseTextList;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80021AFC(void) {
     void *temp_a0;
     void *temp_v1;
 
     updateActiveMenuState();
-    if (M2C_FIELD(gMenuItems, u8 *, 0x2D) != 0) {
-        temp_v1 = M2C_FIELD(gMenuItems, void **, 0x18);
+    if (M2C_FIELD(gSaveMenuState, u8 *, 0x2D) != 0) {
+        temp_v1 = M2C_FIELD(gSaveMenuState, void **, 0x18);
         temp_a0 = M2C_FIELD(temp_v1, void **, 0x30);
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, s16 *, 0x26) = (s16) ((*M2C_FIELD(temp_v1, u8 **, 0x10) * M2C_FIELD(temp_v1, s32 *, 0x38)) + 2);

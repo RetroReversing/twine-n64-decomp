@@ -18,14 +18,14 @@ M2C_UNK func_80065C88(u8);                          /* extern */
 M2C_UNK func_800828B4();                            /* extern */
 extern u8 gMenuSlot;
 extern void *sActiveMenu;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_800283B0(void) {
     M2C_UNK (*temp_v0_2)();
     void *temp_v0;
 
-    if (gMenuItems != NULL) {
-        temp_v0 = M2C_FIELD(gMenuItems, void **, 0x18);
+    if (gSaveMenuState != NULL) {
+        temp_v0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
         if (temp_v0 != NULL) {
             temp_v0_2 = M2C_FIELD(temp_v0, M2C_UNK (**)(), 4);
             if (temp_v0_2 != NULL) {
@@ -35,15 +35,15 @@ void func_800283B0(void) {
     }
     func_80027970();
     func_800265AC();
-    if (gMenuItems != NULL) {
-        M2C_FIELD(gMenuItems, void **, 0x18) = NULL;
-        M2C_FIELD(gMenuItems, s32 *, 0x10) = 0;
+    if (gSaveMenuState != NULL) {
+        M2C_FIELD(gSaveMenuState, void **, 0x18) = NULL;
+        M2C_FIELD(gSaveMenuState, s32 *, 0x10) = 0;
     }
     if (sActiveMenu != NULL) {
         M2C_FIELD(sActiveMenu, s32 *, 0x60) = (s32) (M2C_FIELD(sActiveMenu, s32 *, 0x60) | 1);
     }
     sActiveMenu = NULL;
-    gMenuItems = NULL;
+    gSaveMenuState = NULL;
     func_80065C88(gMenuSlot);
     func_800828B4();
 }

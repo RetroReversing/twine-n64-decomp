@@ -9,7 +9,7 @@ extern Bank9835C sKeyTableSlots[];
 Hdr9835C *func_800956E0(void *, s32, s32, s32, void *);
 void compareU16Key(void);
 
-s32 func_8009835C(s16 arg0, Out9835C *out) {
+s32 findKeyRecord(s16 arg0, Out9835C *out) {
     s32 i;
     Hdr9835C *h;
 

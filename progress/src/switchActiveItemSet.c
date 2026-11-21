@@ -20,7 +20,7 @@ typedef struct MenuState {
     MenuItemSet *activeSet;   /* 0x10 */
 } MenuState;
 
-extern MenuState *gMenuItems;
+extern MenuState *gSaveMenuState;
 
 s32 freeMenuItemRecord(s32);
 s32 buildMenuItemRecord(void *, s32);
@@ -31,13 +31,13 @@ void switchActiveItemSet(MenuItemSet *newSet, s32 colorIndex) {
     MenuItem *item;
     s16 itemIndex;
 
-    oldSet = gMenuItems->activeSet;
+    oldSet = gSaveMenuState->activeSet;
     itemIndex = 0;
     if (oldSet != NULL) {
         if (oldSet->leave != NULL) {
             oldSet->leave();
         }
-        menu = gMenuItems;
+        menu = gSaveMenuState;
         if (menu->activeSet->itemCount != 0) {
             do {
                 item = &menu->activeSet->items[itemIndex];
@@ -45,12 +45,12 @@ void switchActiveItemSet(MenuItemSet *newSet, s32 colorIndex) {
                     freeMenuItemRecord(item->record);
                     item->record = 0;
                 }
-                menu = gMenuItems;
+                menu = gSaveMenuState;
                 itemIndex = itemIndex + 1;
             } while (itemIndex < menu->activeSet->itemCount);
         }
     }
-    gMenuItems->activeSet = newSet;
+    gSaveMenuState->activeSet = newSet;
     if (newSet != NULL) {
         if (newSet->enter != NULL) {
             newSet->enter();

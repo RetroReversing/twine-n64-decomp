@@ -7,7 +7,7 @@ s32 updateActiveMenuState();
 s32 lookupDataEntry();
 extern char sSaveSlotInfo[];
 extern u8 gPickupSavedByte;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_8001AA98(void) {
     s32 var_a0;
@@ -16,8 +16,8 @@ void func_8001AA98(void) {
     s32 temp_s1;
 
     updateActiveMenuState();
-    if ((*(u8 *)((char *)(gMenuItems) + 0x2D)) != 0) {
-        temp_s0 = (*(s32 *)((char *)(gMenuItems) + 0x18)) + 0x28;
+    if ((*(u8 *)((char *)(gSaveMenuState) + 0x2D)) != 0) {
+        temp_s0 = (*(s32 *)((char *)(gSaveMenuState) + 0x18)) + 0x28;
         temp_s1 = __repair_inline(*(sSaveSlotInfo + (gPickupSavedByte * 0x18)));
         temp_v1 = temp_s1 & 0xFFFF;
         switch (temp_v1) {

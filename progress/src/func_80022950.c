@@ -16,7 +16,7 @@ M2C_UNK requestSound(M2C_UNK);                     /* extern */
 s32 func_80027C60(s32);                             /* extern */
 M2C_UNK menuResolveCursorItem(s32, s32, s32);               /* extern */
 extern void *D_800BF5A0;
-extern s32 gMenuItems;
+extern s32 gSaveMenuState;
 
 void func_80022950(void) {
 s32 __repair_operand;
@@ -26,7 +26,7 @@ s32 __repair_operand;
     void *temp_v1;
 
     if (D_800BF5A0 != NULL) {
-        s32 base = gMenuItems;
+        s32 base = gSaveMenuState;
         var_s0 = 0;
         M2C_FIELD(M2C_FIELD(D_800BF5A0, void **, 8), s32 *, 0x10) = 0;
         menuResolveCursorItem(base + 0x2A, base + 0x28, base + 0x29);

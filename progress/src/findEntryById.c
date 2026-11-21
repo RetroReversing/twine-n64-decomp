@@ -1,4 +1,4 @@
-/* adapted from similar verified C in func_800263B8 in TWINE (matched), with its names changed by decompdecomp */
+/* adapted from similar verified C in getSaveMenuCursor in TWINE (matched), with its names changed by decompdecomp */
 typedef struct { u16 id; u8 pad[0x26]; } Ent263B8;
 typedef struct { Ent263B8 *arr; u8 pad4; u8 count; } Tbl263B8;
 

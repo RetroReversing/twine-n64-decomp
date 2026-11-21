@@ -16,12 +16,12 @@ M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
 extern s16 gSaveStatus;
 extern s32 sActiveMenu;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80022D60(void) {
     updateActiveMenuState();
-    if ((M2C_FIELD(gMenuItems, u8 *, 0x2C) != 0) && (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0)) {
-        gSaveStatus = (s16) M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), s32 *, 0x14);
+    if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2C) != 0) && (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0)) {
+        gSaveStatus = (s16) M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), s32 *, 0x14);
         func_80026424(sActiveMenu, 0x18);
     }
 }

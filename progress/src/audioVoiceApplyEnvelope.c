@@ -5,7 +5,7 @@ extern s32 D_800FDB80;
 extern s32 D_800FDB84;
 extern u32 sAudioVoiceVolume;
 extern u32 sAudioVolumeMax;
-s32 func_8009835C(u16, s32 *);
+s32 findKeyRecord(u16, s32 *);
 void audioVoiceSetup(u8, u32 *, s32);
 
 /* Computes the voice volume from an envelope entry (mode in byte 0, value in w4), clamps it, and sets up the voice. */
@@ -14,7 +14,7 @@ s32 audioVoiceApplyEnvelope(VoiceA20C *voice, EvA20C *envelope) {
     u32 *volumePtr;
     u8 channel;
 
-    if (func_8009835C(envelope->w0 >> 8, &D_800FDB80) != 0) {
+    if (findKeyRecord(envelope->w0 >> 8, &D_800FDB80) != 0) {
         goto __shared_return_0;
     }
     switch (*(u8 *)envelope) {

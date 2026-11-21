@@ -20,15 +20,15 @@ found:
 extern s32 formatTextEntry(s32, s32 *, s32);
 extern s32 updateActiveMenuState();
 extern s32 lookupDataEntry(s32);
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern u8 gBorderFlipFlag;
 void func_800223E4(void) {
     s32 id;
     updateActiveMenuState();
-    if (*((u8 *)gMenuItems + 0x2D) != 0) {
+    if (*((u8 *)gSaveMenuState + 0x2D) != 0) {
         id = 0x67;
         if (gBorderFlipFlag != 0) id = 0x68;
-        formatTextEntry(*(s32 *)((u8 *)gMenuItems + 0x18) + 0x28, "%s", lookupDataEntry(id));
+        formatTextEntry(*(s32 *)((u8 *)gSaveMenuState + 0x18) + 0x28, "%s", lookupDataEntry(id));
     }
 }
 extern s32 D_800E06B8[];

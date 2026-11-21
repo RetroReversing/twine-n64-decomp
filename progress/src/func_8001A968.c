@@ -18,14 +18,14 @@ typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
 extern u8 gPickupSavedByte;
 extern u8 D_80104311;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_8001A968(void) {
     u8 *__base_D_801002AD;
     do { updateActiveMenuState(); } while (0);
-    if (M2C_FIELD(gMenuItems, u8 *, 0x2D) != 0) {
+    if (M2C_FIELD(gSaveMenuState, u8 *, 0x2D) != 0) {
         __base_D_801002AD = &gPickupSavedByte;
         D_801001A0[(*__base_D_801002AD)].f0 = D_80104311 * 0xA;
-        formatTextEntry(M2C_FIELD(gMenuItems, s32 *, 0x18) + 0x28, "%d", D_801001A0[(*__base_D_801002AD)].f0);
+        formatTextEntry(M2C_FIELD(gSaveMenuState, s32 *, 0x18) + 0x28, "%d", D_801001A0[(*__base_D_801002AD)].f0);
     }
 }

@@ -15,14 +15,14 @@ typedef s32 M2C_UNK32;
 s32 actorUnlinkFromSurface();
 extern u16 gMenuMode;
 extern void *gMenuCursorActor;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_8002175C(void) {
     s32 temp_v0;
     void *temp_v1;
 
     if (gMenuCursorActor != NULL) {
-        if (M2C_FIELD(gMenuItems, u8 *, 0x30) != 0xFF) {
+        if (M2C_FIELD(gSaveMenuState, u8 *, 0x30) != 0xFF) {
             actorUnlinkFromSurface(gMenuCursorActor);
             temp_v1 = gMenuCursorActor;
             temp_v0 = M2C_FIELD(temp_v1, s32 *, 0x60);

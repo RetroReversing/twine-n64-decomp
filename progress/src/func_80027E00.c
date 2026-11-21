@@ -16,13 +16,13 @@ s32 func_80011938();
 s32 func_800269B4();
 s32 func_80027D60();
 extern void *sActiveMenu;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80027E00(void) {
     void *temp_a2;
 
-    func_800269B4(gMenuItems + 0x1C, 3, 0x2A);
-    temp_a2 = M2C_FIELD(gMenuItems, void **, 0x1C);
+    func_800269B4(gSaveMenuState + 0x1C, 3, 0x2A);
+    temp_a2 = M2C_FIELD(gSaveMenuState, void **, 0x1C);
     M2C_FIELD(temp_a2, s32 *, 0x10) &= ~0xFF;
     func_80011938(0, 1, temp_a2);
     func_80011938(1, 1);

@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8002778C();                            /* extern */
 M2C_UNK func_800278AC(M2C_UNK, M2C_UNK, M2C_UNK);   /* extern */
 s32 func_80027C60(M2C_UNK);                         /* extern */
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80028EC8(void) {
     M2C_UNK (*temp_v0_2)();
@@ -27,15 +27,15 @@ void func_80028EC8(void) {
         func_800278AC(0, 0, 0x12);
         return;
     }
-    M2C_FIELD(gMenuItems, s8 *, 0x2E) = 0;
-    if (gMenuItems != NULL) {
-        temp_v0 = M2C_FIELD(gMenuItems, void **, 0x18);
+    M2C_FIELD(gSaveMenuState, s8 *, 0x2E) = 0;
+    if (gSaveMenuState != NULL) {
+        temp_v0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
         temp_v1 = M2C_FIELD(temp_v0, M2C_UNK (**)(), 4);
         if ((temp_v1 != NULL) && (M2C_FIELD(temp_v0, u16 *, 0xC) & 0x80)) {
             temp_v1();
         }
-        if (gMenuItems != NULL) {
-            temp_v0_2 = M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x10), M2C_UNK (**)(), 0x10);
+        if (gSaveMenuState != NULL) {
+            temp_v0_2 = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), M2C_UNK (**)(), 0x10);
             if (temp_v0_2 != NULL) {
                 temp_v0_2();
             }

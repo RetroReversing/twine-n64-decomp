@@ -2,7 +2,7 @@ s32 func_800219A0(u8);
 s32 formatTextEntry(s32, s32 *, s32);
 s32 updateActiveMenuState();
 s32 lookupDataEntry(s32);
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern u8 D_8010A4C0;
 extern char D_800D2AA0[];
 
@@ -14,7 +14,7 @@ void func_80021A6C(void) {
     u8 *ctx;
 
     updateActiveMenuState();
-    ctx = (u8 *)gMenuItems;
+    ctx = (u8 *)gSaveMenuState;
     if (ctx[0x2D] != 0) {
         base = *(s32 *)(ctx + 0x18) + 0x28;
         p = &D_8010A4C0;

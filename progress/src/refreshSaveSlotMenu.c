@@ -31,7 +31,7 @@ extern u8 D_80102EB8;
 extern M2C_UNK gBorderSkipActive;
 extern u8 gMenuUseTextList;
 extern M2C_UNK D_80102F48[];
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern M2C_UNK gPickupSearchBox;
 
 /* Refreshes the save-slot menu: label text, slot-name strings and per-slot entries */ void refreshSaveSlotMenu(void) {
@@ -53,7 +53,7 @@ extern M2C_UNK gPickupSearchBox;
     void *nextEntry;
     void *menuEntry;
 
-    menuEntry = findEntryById(M2C_FIELD(gMenuItems, s32 *, 0x10), 0x4000);
+    menuEntry = findEntryById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x4000);
     labelEntry = menuEntry;
     if (labelEntry != NULL) {
         labelEntry += 0x28;

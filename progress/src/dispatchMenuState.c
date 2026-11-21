@@ -21,7 +21,7 @@ extern u8 sMenuListKind;
 extern u8 gMenuSlot;
 extern u8 gMenuParamB;
 extern void *sActiveMenu;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 /* Loads the menu's state data into globals and calls the handler for its state id, unless the menu's flag bit 0 is set. */ void dispatchMenuState(void *menu) {
     s32 stateId;
@@ -34,7 +34,7 @@ extern void *gMenuItems;
         gMenuParamB = *(u8 *)((u8 *)stateData + 5);
         sMenuListKind = *(u8 *)((u8 *)stateData + 6);
         sActiveMenu = menu;
-        gMenuItems = stateData;
+        gSaveMenuState = stateData;
         switch (stateId) {
         case 0:
             func_80027E00();

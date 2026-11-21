@@ -42,7 +42,7 @@ s32 initObjectFromBankEntry(void *, u32, s32);
 s32 lookupDataEntry(u16, void *);
 s32 strlen(s8 *);
 extern u8 sMenuListKind;
-extern MenuState *gMenuItems;
+extern MenuState *gSaveMenuState;
 
 /* Replaces the menu text request: frees the pending object, rebuilds the active text, and queues a sprite object. */
 void setMenuTextRequest(MenuTextRequest *request) {
@@ -56,28 +56,28 @@ void setMenuTextRequest(MenuTextRequest *request) {
     MenuTextObj *temp_v0_2;
     s32 temp_a0_2;
 
-    temp_a0 = gMenuItems->pendingText;
+    temp_a0 = gSaveMenuState->pendingText;
     if (temp_a0 != NULL) {
         freeMenuItemRecord(temp_a0);
     }
-    gMenuItems->pendingText = NULL;
+    gSaveMenuState->pendingText = NULL;
     if (request != NULL) {
-        if ((gMenuItems->activeText != NULL) || (temp_v0 = spawnTrackMarker(sMenuListKind), (gMenuItems->activeText = temp_v0), (temp_v0 != NULL))) {
-            gMenuItems->activeText->param1E = request->slot02;
-            temp_a1 = gMenuItems->activeText;
+        if ((gSaveMenuState->activeText != NULL) || (temp_v0 = spawnTrackMarker(sMenuListKind), (gSaveMenuState->activeText = temp_v0), (temp_v0 != NULL))) {
+            gSaveMenuState->activeText->param1E = request->slot02;
+            temp_a1 = gSaveMenuState->activeText;
             temp_a1->flags = (temp_a1->flags & ~0xFC) | 0xC;
-            gMenuItems->activeText->x = request->textX;
-            gMenuItems->activeText->y = request->textY;
-            gMenuItems->activeText->param10 = -0x100;
-            gMenuItems->activeText->text = (void *)lookupDataEntry(request->textId, temp_a1);
-            gMenuItems->activeText->textLength = 0;
-            temp_s0 = gMenuItems->activeText;
+            gSaveMenuState->activeText->x = request->textX;
+            gSaveMenuState->activeText->y = request->textY;
+            gSaveMenuState->activeText->param10 = -0x100;
+            gSaveMenuState->activeText->text = (void *)lookupDataEntry(request->textId, temp_a1);
+            gSaveMenuState->activeText->textLength = 0;
+            temp_s0 = gSaveMenuState->activeText;
             temp_a0_2 = (s32)temp_s0->text;
             if (temp_a0_2) {
                 temp_s0->textLength = strlen((s8 *)temp_a0_2);
             }
         }
-        gMenuItems->pendingText = NULL;
+        gSaveMenuState->pendingText = NULL;
         if (request->spriteArgs.hi >= 0) {
             temp_v0_2 = spawnTrackMarker(sMenuListKind);
             temp_v0_2->param10 = request->value08;
@@ -92,7 +92,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
             initObjectFromBankEntry(temp_v0_2, packed >> 0x10, packed & 0xFF);
             {
                 u16 x = request->spriteX;
-                MenuState *p = gMenuItems;
+                MenuState *p = gSaveMenuState;
                 temp_v0_2->x = x;
                 temp_v0_2->y = request->spriteY;
                 p->pendingText = temp_v0_2;

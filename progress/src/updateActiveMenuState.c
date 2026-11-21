@@ -28,7 +28,7 @@ extern u8 D_80102EC8;
 extern s32 D_80102ECC;
 extern f32 D_80102ED0;
 extern void *sActiveMenu;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 /* Per-frame update of the active menu/text state: applies pending value changes and fires cursor and sound events. */ /* Per-frame update of the active text/menu state: applies pending value changes and fires cursor/sound events. */ void updateActiveMenuState(void) {
     s16 kind_a;
@@ -40,25 +40,25 @@ extern void *gMenuItems;
     void *cur_entry_b;
     void *cur_entry;
 
-    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gMenuItems, s32 *, 0x1C), M2C_FIELD(gMenuItems, void **, 0x18), 0), M2C_FIELD(gMenuItems, s8 *, 0x2D) = 0, M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(gMenuItems, s32 *, 0x1C)), menuResolveCursorItem(gMenuItems + 0x2A, gMenuItems + 0x28, gMenuItems + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
+    if ((sActiveMenu != NULL) && (kind = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (kind != 0xE)) && (kind != 0xF) && ((layoutTextBox(M2C_FIELD(gSaveMenuState, s32 *, 0x1C), M2C_FIELD(gSaveMenuState, void **, 0x18), 0), M2C_FIELD(gSaveMenuState, s8 *, 0x2D) = 0, M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U, func_80029000(M2C_FIELD(gSaveMenuState, s32 *, 0x1C)), menuResolveCursorItem(gSaveMenuState + 0x2A, gSaveMenuState + 0x28, gSaveMenuState + 0x29), (sActiveMenu == NULL)) || (kind_a = M2C_FIELD(sActiveMenu, s16 *, 0x7A), (((kind_a != 0x11) & (kind_a != 0xA)) == 0)) || (kind_a == 0x13))) {
         if (func_80027C60(0x24) & 0xFF) {
-            if (M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x10), u16 *, 6) != 0) {
-                M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
+            if (M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6) != 0) {
+                M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U;
                 requestSound(0xED);
-                func_800278AC(M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x10), u16 *, 6), gMenuSoundParams, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
+                func_800278AC(M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x10), u16 *, 6), gMenuSoundParams, (u16) M2C_FIELD(sActiveMenu, s16 *, 0x7A));
             }
-        } else if (M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0) {
+        } else if (M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) {
             if (func_80027C60(0x2A) & 0xFF) {
-                M2C_FIELD(gMenuItems, u8 *, 0x2C) = (u8) (M2C_FIELD(gMenuItems, u8 *, 0x2C) ^ 1);
-                if (M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), u8 *, 0x1C) & 0x10) {
-                    requestSound((-(M2C_FIELD(gMenuItems, u8 *, 0x2C) == 0) & 0xE9) | 0xE8);
+                M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = (u8) (M2C_FIELD(gSaveMenuState, u8 *, 0x2C) ^ 1);
+                if (M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u8 *, 0x1C) & 0x10) {
+                    requestSound((-(M2C_FIELD(gSaveMenuState, u8 *, 0x2C) == 0) & 0xE9) | 0xE8);
                 }
-                if (M2C_FIELD(gMenuItems, u8 *, 0x2C) == 0) {
+                if (M2C_FIELD(gSaveMenuState, u8 *, 0x2C) == 0) {
                     goto block_14;
                 }
             } else {
 block_14:
-                cur_entry = M2C_FIELD(gMenuItems, void **, 0x18);
+                cur_entry = M2C_FIELD(gSaveMenuState, void **, 0x18);
                 entry_ptr = M2C_FIELD(cur_entry, u8 **, 0x10);
                 if (entry_ptr != NULL) {
                     flags_a = M2C_FIELD(cur_entry, u16 *, 0xC);
@@ -70,23 +70,23 @@ block_14:
                         D_80102ECC = *(s32 *)entry_ptr;
                     }
                 }
-                if ((menuItemIsActive(0x1E) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
+                if ((menuItemIsActive(0x1E) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                     func_800274BC(0x100, 2);
                 }
-                if ((menuItemIsActive(0x1F) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
+                if ((menuItemIsActive(0x1F) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                     func_800274BC(0x100, 3);
                 }
-                cur_entry_b = M2C_FIELD(gMenuItems, void **, 0x18);
+                cur_entry_b = M2C_FIELD(gSaveMenuState, void **, 0x18);
                 if (M2C_FIELD(cur_entry_b, u8 *, 0x1C) & 0x10) {
-                    if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
+                    if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         func_800274BC(0x100, 0);
                     }
-                    if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
+                    if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
                         func_800274BC(0x100, 1);
                     }
-                } else if ((M2C_FIELD(gMenuItems, u8 *, 0x2E) == 0) && (M2C_FIELD(cur_entry_b, s32 *, 0x10) != 0)) {
-                    if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
-                        flags_b = M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), u16 *, 0xC);
+                } else if ((M2C_FIELD(gSaveMenuState, u8 *, 0x2E) == 0) && (M2C_FIELD(cur_entry_b, s32 *, 0x10) != 0)) {
+                    if ((menuItemIsActive(0x21) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
+                        flags_b = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
                         if (flags_b & 0x800) {
                             func_800295F0(1);
                         } else if (flags_b & 0x1000) {
@@ -95,8 +95,8 @@ block_14:
                             func_80029768(1);
                         }
                     }
-                    if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gMenuItems, u8 *, 0x29) != 0)) {
-                        flags_c = M2C_FIELD(M2C_FIELD(gMenuItems, void **, 0x18), u16 *, 0xC);
+                    if ((menuItemIsActive(0x20) & 0xFF) && (M2C_FIELD(gSaveMenuState, u8 *, 0x29) != 0)) {
+                        flags_c = M2C_FIELD(M2C_FIELD(gSaveMenuState, void **, 0x18), u16 *, 0xC);
                         if (flags_c & 0x800) {
                             func_800295F0(-1);
                             return;

@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 M2C_UNK findEntryById(s32, M2C_UNK);                /* extern */
 M2C_UNK func_8002A104(M2C_UNK *);                   /* extern */
 M2C_UNK func_8002ACB4(M2C_UNK *);                   /* extern */
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern M2C_UNK D_80115060;
 
 void func_80020EAC(void) {
     func_8002A104(&D_80115060);
     func_8002ACB4(&D_80115060);
-    findEntryById(M2C_FIELD(gMenuItems, s32 *, 0x10), 4);
+    findEntryById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 4);
 }

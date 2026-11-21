@@ -1,5 +1,5 @@
 extern unsigned char sOptionCursor, sOptionReady7, sOptionReady8, sOptionReady9;
-extern unsigned char *gMenuItems;
+extern unsigned char *gSaveMenuState;
 extern int sOptionEntryTable;
 extern const char D_800D2864[];
 extern void updateActiveMenuState(void);
@@ -16,9 +16,9 @@ extern void formatTextEntry(void *, int, ...);
     const char *fmt;
     int nameId;
 
-    if (gMenuItems[0x2F] == 0)
+    if (gSaveMenuState[0x2F] == 0)
         updateActiveMenuState();
-    if (gMenuItems[0x2D] == 0)
+    if (gSaveMenuState[0x2D] == 0)
         goto clear;
     entry = (char *)findEntryPayload((int)&sOptionEntryTable, 0x92);
     if (entry == 0)
@@ -28,7 +28,7 @@ extern void formatTextEntry(void *, int, ...);
     switch (*cursor) {
     case 7:
         if (sOptionReady7 == 0) {
-            gMenuItems[0x2F] = 1;
+            gSaveMenuState[0x2F] = 1;
             if ((unsigned char)menuItemIsActive(0x21))
                 ++*cursor;
             else
@@ -38,7 +38,7 @@ extern void formatTextEntry(void *, int, ...);
         break;
     case 8:
         if (sOptionReady8 == 0) {
-            gMenuItems[0x2F] = 1;
+            gSaveMenuState[0x2F] = 1;
             if ((unsigned char)menuItemIsActive(0x21))
                 ++*cursor;
             else
@@ -48,7 +48,7 @@ extern void formatTextEntry(void *, int, ...);
         break;
     case 9:
         if (sOptionReady9 == 0) {
-            gMenuItems[0x2F] = 1;
+            gSaveMenuState[0x2F] = 1;
             if ((unsigned char)menuItemIsActive(0x21))
                 *cursor = 0;
             else
@@ -63,5 +63,5 @@ extern void formatTextEntry(void *, int, ...);
     formatTextEntry(entry, (int)fmt, nameId);
     formatTextEntry(subEntry, (int)fmt, lookupDataEntry(*cursorIdx + 0x177));
 clear:
-    gMenuItems[0x2F] = 0;
+    gSaveMenuState[0x2F] = 0;
 }

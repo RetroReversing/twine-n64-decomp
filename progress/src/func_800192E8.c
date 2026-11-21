@@ -16,19 +16,19 @@ M2C_UNK func_80019690();                            /* extern */
 s32 func_80019D68();                                /* extern */
 M2C_UNK func_800294E4(void *);                      /* extern */
 extern u8 gSaveKeyRelaxed;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_800192E8(void) {
     s32 var_v0;
     void *temp_v1;
     void *var_a0;
 
-    temp_v1 = M2C_FIELD(gMenuItems, void **, 0x18);
+    temp_v1 = M2C_FIELD(gSaveMenuState, void **, 0x18);
     M2C_FIELD(temp_v1, u8 *, 0x1C) = (u8) (M2C_FIELD(temp_v1, u8 *, 0x1C) | 0x10);
-    M2C_FIELD(gMenuItems, s8 *, 0x2F) = 1;
-    M2C_FIELD(gMenuItems, s8 *, 0x2C) = 1;
+    M2C_FIELD(gSaveMenuState, s8 *, 0x2F) = 1;
+    M2C_FIELD(gSaveMenuState, s8 *, 0x2C) = 1;
     if (gSaveKeyRelaxed != 0) {
-        var_a0 = M2C_FIELD(gMenuItems, void **, 0x18);
+        var_a0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
         var_v0 = (M2C_FIELD(var_a0, s32 *, 0x14) & ~0xFF) | 0x17;
         goto block_5;
     }
@@ -36,7 +36,7 @@ void func_800192E8(void) {
         func_80019690();
         return;
     }
-    var_a0 = M2C_FIELD(gMenuItems, void **, 0x18);
+    var_a0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
     var_v0 = (M2C_FIELD(var_a0, s32 *, 0x14) & ~0xFF) | 0x18;
 block_5:
     M2C_FIELD(var_a0, s32 *, 0x14) = var_v0;

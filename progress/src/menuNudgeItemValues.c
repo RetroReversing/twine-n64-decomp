@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void **gMenuItems;
+extern void **gSaveMenuState;
 
 /* Nudges the low byte of the value field of the first two menu items up (above 90) or down (below 30) by 8. */ void menuNudgeItemValues(s16 position) {
     f32 positionF;
@@ -26,7 +26,7 @@ extern void **gMenuItems;
     void *item2B;
     void *item;
 
-    item = M2C_FIELD(gMenuItems, void **, 0x24);
+    item = M2C_FIELD(gSaveMenuState, void **, 0x24);
     if (item != NULL) {
         itemValue = M2C_FIELD(item, s32 *, 0x10);
         lowByte = itemValue;
@@ -35,11 +35,11 @@ extern void **gMenuItems;
             M2C_FIELD(item, s32 *, 0x10) = (s32) ((itemValue & ~0xFF) | (lowByte + 8));
         }
         if (positionF < 30.0f) {
-            itemA = M2C_FIELD(gMenuItems, void **, 0x24);
+            itemA = M2C_FIELD(gSaveMenuState, void **, 0x24);
             M2C_FIELD(itemA, s32 *, 0x10) = (s32) ((M2C_FIELD(itemA, s32 *, 0x10) & ~0xFF) | (lowByte - 8));
         }
     }
-    item2A = M2C_FIELD(gMenuItems, void **, 0);
+    item2A = M2C_FIELD(gSaveMenuState, void **, 0);
     if (item2A != NULL) {
         item2 = M2C_FIELD(item2A, s32 *, 0x10);
         lowByte = item2;
@@ -48,7 +48,7 @@ extern void **gMenuItems;
             M2C_FIELD(item2A, s32 *, 0x10) = (s32) ((item2 & ~0xFF) | (lowByte + 8));
         }
         if (positionF2 < 30.0f) {
-            item2B = M2C_FIELD(gMenuItems, void **, 0);
+            item2B = M2C_FIELD(gSaveMenuState, void **, 0);
             M2C_FIELD(item2B, s32 *, 0x10) = (s32) ((M2C_FIELD(item2B, s32 *, 0x10) & ~0xFF) | (lowByte - 8));
         }
     }

@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 void func_80027EB4(void) {
     M2C_UNK (*temp_v0_2)();
     void *temp_v0;
 
-    if (gMenuItems != NULL) {
-        temp_v0 = M2C_FIELD(gMenuItems, void **, 0x18);
+    if (gSaveMenuState != NULL) {
+        temp_v0 = M2C_FIELD(gSaveMenuState, void **, 0x18);
         if (temp_v0 != NULL) {
             temp_v0_2 = M2C_FIELD(temp_v0, M2C_UNK (**)(), 4);
             if (temp_v0_2 != NULL) {

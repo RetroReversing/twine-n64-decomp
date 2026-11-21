@@ -28,7 +28,7 @@ extern s32 gSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern void *sActiveMenu;
 extern s32 gGameMode;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 
 /* Validates save slots before advancing the menu; on failure it plays a sound and clears the menu-ready flag */ void validateSaveSlotsStep(void) {
     s16 menuState7A;
@@ -36,7 +36,7 @@ extern void *gMenuItems;
     u8 slotLoop;
     s32 slotCursor;
 
-    if (M2C_FIELD(gMenuItems, u8 *, 0x2C) == 0) {
+    if (M2C_FIELD(gSaveMenuState, u8 *, 0x2C) == 0) {
         updateActiveMenuState();
         return;
     }
@@ -59,7 +59,7 @@ extern void *gMenuItems;
         }
         return;
     fail:
-        M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
+        M2C_FIELD(gSaveMenuState, u8 *, 0x2C) = 0U;
         requestSound(0xEA);
         return;
     } else {

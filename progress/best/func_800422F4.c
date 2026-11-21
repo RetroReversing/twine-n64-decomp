@@ -14,6 +14,7 @@ extern void *D_80109688;
 
 void func_800422F4(s32 arg0) {
     u8 sp10[0x18];
+    u8 unused[8];
     s32 temp_s6, temp_s0, temp_s2, c;
     u8 *temp_v0, *temp_v0_2, *var_s0;
     s16 id;
@@ -28,7 +29,7 @@ void func_800422F4(s32 arg0) {
     dmaRomToRamUnaligned(temp_v0_2, D_54D910 + *(s32 *)(temp_v0 + 0), *(s32 *)(temp_v0 + 4) * 0x44);
     if (temp_s2 != 0) {
         var_s0 = temp_v0_2;
-        do {
+        do { {
             id = **(s16 **)(var_s0 + 0x28);
             if (id != arg0) {
                 if (*(s32 *)(D_800C0784 + id * 0x10) == 0) {
@@ -92,7 +93,8 @@ void func_800422F4(s32 arg0) {
                 }
             }
             var_s0 += 0x44;
-        } while ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2));
+        }
+} while ((u32)var_s0 < (u32)(temp_s2 * 0x44 + temp_v0_2));
     }
     func_80084048(temp_v0_2, 0x2D);
     func_80084048(temp_v0, 0x2D);
