@@ -54,7 +54,7 @@ s32 func_8007AB60(void *arg0) {
                 return 0;
             case 2:
                 sel = a2[0x81];
-                if (sel == 0 || sel != 1) {
+                if (sel == 0 || (u8)sel != 1) {
                     tbl = D_800C9BD0;
                     n = 8;
                 } else {

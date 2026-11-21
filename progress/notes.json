@@ -6552,14 +6552,6 @@
   "score_after": 1665
  },
  {
-  "function": "func_8007AB60",
-  "text": "Best current candidate score 4815. Six local repair variants made no improvement. Structural probes improved the saved attempt: explicitly cast the D_800C9BE0 and D_800C9BF0 indexed byte-address expressions to u16*, reaching 5015 then 4815. Casting D_800C9BF4 similarly and changing its helper argument 5->1 did not preserve/improve the best. Remaining dominant mismatch is CFG/control flow: target has top switch jump-table branch to 0x210 (candidate 0x1e4), and inner switch dispatch/completion differs (target branches to shared call block around +0x130/+0x200; candidate emits extra jumps to +0x104/+0x114). Target loads table entries with lhu; D_800C9BF4 still emits lb in best. Inspect full assembly pages and restructure switch/call branches, keeping best saved candidate as starting point.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795165334.902285,
-  "score_before": 4900,
-  "score_after": 4815
- },
- {
   "function": "func_8004E418",
   "text": "Best current attempt score 1625 (historical saved best; current latest candidate regressed to 3220). First reordered initial range calculation to load field_4 before field_0, yielding a substantially better match; volatile global read improved score further. Tried local repairs (branch orientation, read-before-assign, const reads, address temp, assignment-at-use, inline) without advancing. Target computes four normalized bounds, swaps min/max, clamps each 0..7, returns packed bit masks. Remaining largest structural difference is target loads both D_80100780 and D_80100160 from globals in the compare; source may need an aliasing/volatile shape that makes GCC preserve those reloads. Target has repeated branch targets separated by two more instructions than candidate, likely cascading from this and an FPR allocation mismatch at div.s (target f0, candidate f12). Continue from saved_best and inspect around assembly rows 48-75. Do not rely on latest candidate.",
   "by": "codex-gpt-6-luna-22",
@@ -15008,14 +15000,6 @@
   "score_after": 4160
  },
  {
-  "function": "func_8007AB60",
-  "text": "Saved best rechecks at score 4815/138 target instructions. Recompiling the draft without its M2C_FIELD macro failed; restoring the macro exposed a worse 5275 score, so discard that attempt and use saved_best. Six local families (constant_local, inferred_record_layout, debug_statement_boundary, target_local_bundle, call_arity, cfg_integer_lifetimes) retained 4815 except constant_local worsened. Changing D_800C9BF4 element load to u16 worsened 5535; likely that source expression was intentionally byte-loaded per current declaration. Main remaining mismatch: switch/call CFG, target invokes func_80045CF8 and func_80002BD0 with move $a0,$s0 sequences and jumps to +0x130; candidate's case branches/jump destinations collapse/shorten. Do not re-use my incomplete-source compile.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795183497.2732139,
-  "score_before": 4815,
-  "score_after": 4815
- },
- {
   "function": "func_8003C7E8",
   "text": "Exact standalone recheck confirmed. Partial initializer record layout: f32 components at 0x24\u20130x38. MSB-first 0x58 word has field widths 16/14/2; 0x5C has 9/6/17. The initializer clears the 14-bit field and the 9- and 6-bit fields respectively. The inferred S_D_800B1A00 includes unrelated records and does not establish a common full layout.",
   "by": "codex-gpt-6.2-sol-6",
@@ -17054,14 +17038,6 @@
   "created_at": 1795184482.2666602,
   "score_before": 4160,
   "score_after": 4160
- },
- {
-  "function": "func_8007AB60",
-  "text": "Baseline rechecked at 4815. Fifteen local repairs covering record layouts, variable reuse, call arity, signedness and address temporaries did not improve it. Candidate has substantial control-flow and call mismatch; inspect target switch layout and halfword table accesses, especially var_s1 currently declared s32* despite byte-addressed tables.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795184482.42226,
-  "score_before": 4815,
-  "score_after": 4815
  },
  {
   "function": "setupTrackMarkers",
@@ -32496,14 +32472,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8007AB60",
-  "text": "Saved-best revision 65f4bee2254ff9ccc4fc restored and explicitly read; score 4345. Initial rewrite 4345, 125 instructions versus target 138. Large mismatch arises from shared label/default-case structure and call sites: target repeatedly moves arg0 to $a0, calls func_80002BD0 twice, then calls 80077960; candidate collapsed these into fewer calls and lost branch extent. Candidate has wrongly modeled initial function declarations (K&R-style only), and possible table base pointer indexing/types. Next focus explicit case-by-case calls and correct callee prototypes, then compile; first restore target's separate call paths before tuning registers.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795202413.691208,
-  "score_before": 4465,
-  "score_after": 4345
- },
- {
   "function": "updateMenuStateMachine",
   "text": "Restored saved_best b47c3676fb37998dd281 immediately before handoff. Historical score 560 remains unverified on current inputs. Target assembly confirms func_8002FBD4 takes (pointer, s32): case 6 call is (arg1,4), cases 3/1/7 use (arg1,1/2/0). Attempted only changing prototype to (void *, s32), but compile failed since case 6 still had 3 args; no fresh valid result. Separate broad rewrite with correct case 6 arity scored 7753 and was discarded. Saved draft also appears suspicious in case 7 (counter incremented twice; func_80016160 called with extra args), plus incorrect declarations for D_80102EE0/EE8 likely addresses, so prioritize signatures/global declarations and case 7 data copy.",
   "by": "codex-gpt-6-luna-13",
@@ -35592,14 +35560,6 @@
   "score_after": 3696
  },
  {
-  "function": "func_8007AB60",
-  "text": "Rechecked saved candidate 5295 (125 vs target 138 insns); targeted local repairs (record layout, scalar lifetime, signedness, declaration order, address temp, constant local) did not improve. Two substantial control-flow rewrites had C89 compile errors from mixed declarations and were abandoned. Corrected helper return declarations also left the output unchanged. Current mismatch is substantial: target switch dispatch branch at entry reaches offset 0x210, candidate reaches 0x1dc; target preserves separate call paths and uses lhu for table entries, while candidate collapses paths/uses lb and loses two jal func_80002BD0 instances. Concrete next experiment: rewrite mode 0/3 and mode 1 paths as separate nested switch/if logic preserving a shared call tail; for cases kind 0/1/2 emit each table lookup then func_80002BD0, followed by func_80077960(arg0, 0x81); default lookup constant 0x129 then same callee followed by state 4. Keep declarations at function start (GCC C89) and table reads as *(u16 *)(base + func_80045CF8(index)*2) to force lhu. No reusable compiler knowledge established.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795205594.575577,
-  "score_before": 4345,
-  "score_after": 4345
- },
- {
   "function": "func_8009D94C",
   "text": "Rechecked saved candidate score 690, but it is semantically invalid: returns uninitialized delta on inactive state; do not inherit/use. A clean valid rewrite scores 890; earlier clean alternatives score 795. Current attempts: clean rewrite 890; restored historical 690 source compile also 690; initializing ret did not change assembly/score. Main remaining assembly shape is early state check/register assignment and preserving zero return in v0; target uses t6/at comparison, separate v0=0, then branch, plus t7 for remaining subtraction and at for unsigned min. Need choose valid source preserving this control flow; do not rely on lower uninitialized candidate.",
   "by": "codex-gpt-6-luna-10",
@@ -37926,14 +37886,6 @@
   "created_at": 1795207972.117764,
   "score_before": 1345,
   "score_after": 1345
- },
- {
-  "function": "func_8007AB60",
-  "text": "Tried: (1) func_80077ED8 called with arg0 only (target AC98 passes only a0; prototype void f(void*)) -> score unchanged 5295, revision 57e71c542f570607a792. (2) Tables typed as u16 arrays (D_800C9BE0[idx] etc., lhu loads) -> worse, 5335 (rev 43823e0d40de74f2d897). Remaining first mismatch: switch-1 range check 'sltiu v0,a0,0xD; beqz v0,AD70' target branches to the return-0 block, candidate's default/return-0 block is placed elsewhere (branch 0x1d8 vs 0x210); second switch's dispatch and shared tail (AD50/AD60 jal func_80002BD0 / func_80077960) also differ in ordering. Untested ideas: switch((u16)temp_a0) or ordering default/case 2..12 differently; separate the case-1 block into its own if chain without goto block_31.\nCalled func_80077ED8(arg0) with one argument; u16-typed tables (worse)\nNo score change for the one-arg call (5295); u16 tables raised to 5335",
-  "by": "api-claude-haiku-5-5-8",
-  "created_at": 1795207980.314359,
-  "score_before": 4345,
-  "score_after": 4345
  },
  {
   "function": "func_80076340",
@@ -42761,15 +42713,6 @@
   "score_before": 45,
   "score_after": 45,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:4b4f8cb4baed2e3c31a75a0b350e19af81c8a1510aadc2287ea8128c0f6fb134:04d0a73345aa078e20e915c52d9c2f2df6e7e1859af143c18afaaab5968aad4b"
- },
- {
-  "function": "func_8007AB60",
-  "text": "Improved 4875 to 3975 by separating case 1 and default call exits and correcting u16 table pointer index. Candidate still produces incompatible pointer warnings for table assignments and target has 138 instructions versus candidate roughly 130.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795211756.891635,
-  "score_before": 4175,
-  "score_after": 4175,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:93baacb77d2227bd733e859bf3a3bfa34f61c8ed76c325d7273301147c094cb1:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
  },
  {
   "function": "func_8008EB80",
@@ -49943,15 +49886,6 @@
   "score_before": 71165,
   "score_after": 64593,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:1cff13f04b54181339522f7f396f358fbdda9ecc33aff6decb10d4303709f379"
- },
- {
-  "function": "func_8007AB60",
-  "text": "Separating switch default return retained score 2490 but shifted default branch closer; inferred layouts and local reuse left output unchanged.\nTarget has seven more instructions and distinct branching in case 1; default branch now targets 0x1f4 versus target 0x210.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795219926.136203,
-  "score_before": 5295,
-  "score_after": 2490,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
  },
  {
   "function": "func_8006F634",
@@ -58870,15 +58804,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:9fc49f2bf674c8f9698e732f1df2d7268b6d540657db44b688f475c5ae510292"
  },
  {
-  "function": "func_8007AB60",
-  "text": "The 2450 saved best removes the switch default and falls off a non-void function for out-of-range input; do not inherit it as correct. Revision a6affc9159b4992ac93e restores return 0 and scores 2490. Inferred struct layout generated identical output. The switch control-flow and call ordering remain different.\nRemove default then restore an explicit return 0 after switch\n2450 without return has undefined behavior; restored return scores 2490 and changes branch target placement.",
-  "by": "codex-gpt-6.1-terra-5",
-  "created_at": 1795234005.737343,
-  "score_before": 2490,
-  "score_after": 2450,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
- },
- {
   "function": "func_80082BD0",
   "text": "Rechecked saved source: score 200. Three remaining operand-order variants all worsened (645,675,740). Target starts by address-loading D_80102E74 into v0 with no alignment mask, while C's explicit &~3U emits v1=-4 and and. Direct address expression caused separate global accesses and score 1110, so restore pointer arithmetic candidate before future work.",
   "by": "codex-gpt-6-luna-15",
@@ -61468,15 +61393,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
  },
  {
-  "function": "func_8007AB60",
-  "text": "2450 source has undefined non-void fallthrough; don't use. Valid explicit return source scores 2490. Main mismatch is target jump-table/shared tails versus C switch/repeated calls.\nExplicit return restored: score 2490 vs saved 2450. call_arity and lifetime variants unchanged.\nTarget uses a jump table and shared call tails; C switch emits separate returns. func_80077ED8 is one-argument; arity tweak unchanged.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795236768.924382,
-  "score_before": 2450,
-  "score_after": 2450,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
- },
- {
   "function": "func_80022F10",
   "text": "Restored saved baseline rechecked at 3145. One compile_patch changing second palette case D_800BD65C value to its address worsened to 3340; recovered candidate not necessary since saved baseline remains superior. Target switch assembly has explicit irregular branch tree; next step inspect second palette selection address/value against full assembly and adjust only that branch based on operand loads.",
   "by": "codex-gpt-6-luna-15",
@@ -62715,15 +62631,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:32b5750632852e234b2215e881cc15947eac42cc2215674207d071a48358981c"
  },
  {
-  "function": "func_8007AB60",
-  "text": "Saved best 2450 rechecked but is not semantically sound: switch falls through end of non-void function for out-of-range input. Adding explicit return 0 produced 2490 (worse), so saved best should remain while semantic fix is revisited. Main mismatch is control flow/call arguments around inner switch: target has two beq $v1,$v0 to shared +0x130 path, while candidate branches to +0xc8. Distinct selector cases/default and call ordering remain different. Next step: inspect call declarations and target assembly around inner selector dispatch, then try a structured if/else chain preserving common call tail.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795238455.708192,
-  "score_before": 2450,
-  "score_after": 2450,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
- },
- {
   "function": "seqUpdateNoteList",
   "text": "Verified baseline 475. Six independent local repairs (loop backedge, inferred record, unsigned temporary, branch inversion, operand temporary, const reads) did not improve. First mismatch is initial null-check/control flow: target loads v0, branches nonzero and moves to s0; candidate loads s0 and branches zero. Investigate entry/return layout and remaining branch targets.",
   "by": "codex-gpt-6.1-terra-7",
@@ -63753,5 +63660,98 @@
   "created_at": 1795216456.188321,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Best current candidate score 4815. Six local repair variants made no improvement. Structural probes improved the saved attempt: explicitly cast the D_800C9BE0 and D_800C9BF0 indexed byte-address expressions to u16*, reaching 5015 then 4815. Casting D_800C9BF4 similarly and changing its helper argument 5->1 did not preserve/improve the best. Remaining dominant mismatch is CFG/control flow: target has top switch jump-table branch to 0x210 (candidate 0x1e4), and inner switch dispatch/completion differs (target branches to shared call block around +0x130/+0x200; candidate emits extra jumps to +0x104/+0x114). Target loads table entries with lhu; D_800C9BF4 still emits lb in best. Inspect full assembly pages and restructure switch/call branches, keeping best saved candidate as starting point.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795165334.902285,
+  "score_before": 4900,
+  "score_after": 4815
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Saved best rechecks at score 4815/138 target instructions. Recompiling the draft without its M2C_FIELD macro failed; restoring the macro exposed a worse 5275 score, so discard that attempt and use saved_best. Six local families (constant_local, inferred_record_layout, debug_statement_boundary, target_local_bundle, call_arity, cfg_integer_lifetimes) retained 4815 except constant_local worsened. Changing D_800C9BF4 element load to u16 worsened 5535; likely that source expression was intentionally byte-loaded per current declaration. Main remaining mismatch: switch/call CFG, target invokes func_80045CF8 and func_80002BD0 with move $a0,$s0 sequences and jumps to +0x130; candidate's case branches/jump destinations collapse/shorten. Do not re-use my incomplete-source compile.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795183497.2732139,
+  "score_before": 4815,
+  "score_after": 4815
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Baseline rechecked at 4815. Fifteen local repairs covering record layouts, variable reuse, call arity, signedness and address temporaries did not improve it. Candidate has substantial control-flow and call mismatch; inspect target switch layout and halfword table accesses, especially var_s1 currently declared s32* despite byte-addressed tables.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795184482.42226,
+  "score_before": 4815,
+  "score_after": 4815
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Saved-best revision 65f4bee2254ff9ccc4fc restored and explicitly read; score 4345. Initial rewrite 4345, 125 instructions versus target 138. Large mismatch arises from shared label/default-case structure and call sites: target repeatedly moves arg0 to $a0, calls func_80002BD0 twice, then calls 80077960; candidate collapsed these into fewer calls and lost branch extent. Candidate has wrongly modeled initial function declarations (K&R-style only), and possible table base pointer indexing/types. Next focus explicit case-by-case calls and correct callee prototypes, then compile; first restore target's separate call paths before tuning registers.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795202413.691208,
+  "score_before": 4465,
+  "score_after": 4345
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Rechecked saved candidate 5295 (125 vs target 138 insns); targeted local repairs (record layout, scalar lifetime, signedness, declaration order, address temp, constant local) did not improve. Two substantial control-flow rewrites had C89 compile errors from mixed declarations and were abandoned. Corrected helper return declarations also left the output unchanged. Current mismatch is substantial: target switch dispatch branch at entry reaches offset 0x210, candidate reaches 0x1dc; target preserves separate call paths and uses lhu for table entries, while candidate collapses paths/uses lb and loses two jal func_80002BD0 instances. Concrete next experiment: rewrite mode 0/3 and mode 1 paths as separate nested switch/if logic preserving a shared call tail; for cases kind 0/1/2 emit each table lookup then func_80002BD0, followed by func_80077960(arg0, 0x81); default lookup constant 0x129 then same callee followed by state 4. Keep declarations at function start (GCC C89) and table reads as *(u16 *)(base + func_80045CF8(index)*2) to force lhu. No reusable compiler knowledge established.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795205594.575577,
+  "score_before": 4345,
+  "score_after": 4345
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Tried: (1) func_80077ED8 called with arg0 only (target AC98 passes only a0; prototype void f(void*)) -> score unchanged 5295, revision 57e71c542f570607a792. (2) Tables typed as u16 arrays (D_800C9BE0[idx] etc., lhu loads) -> worse, 5335 (rev 43823e0d40de74f2d897). Remaining first mismatch: switch-1 range check 'sltiu v0,a0,0xD; beqz v0,AD70' target branches to the return-0 block, candidate's default/return-0 block is placed elsewhere (branch 0x1d8 vs 0x210); second switch's dispatch and shared tail (AD50/AD60 jal func_80002BD0 / func_80077960) also differ in ordering. Untested ideas: switch((u16)temp_a0) or ordering default/case 2..12 differently; separate the case-1 block into its own if chain without goto block_31.\nCalled func_80077ED8(arg0) with one argument; u16-typed tables (worse)\nNo score change for the one-arg call (5295); u16 tables raised to 5335",
+  "by": "api-claude-haiku-5-5-8",
+  "created_at": 1795207980.314359,
+  "score_before": 4345,
+  "score_after": 4345
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Improved 4875 to 3975 by separating case 1 and default call exits and correcting u16 table pointer index. Candidate still produces incompatible pointer warnings for table assignments and target has 138 instructions versus candidate roughly 130.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795211756.891635,
+  "score_before": 4175,
+  "score_after": 4175,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:93baacb77d2227bd733e859bf3a3bfa34f61c8ed76c325d7273301147c094cb1:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Separating switch default return retained score 2490 but shifted default branch closer; inferred layouts and local reuse left output unchanged.\nTarget has seven more instructions and distinct branching in case 1; default branch now targets 0x1f4 versus target 0x210.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795219926.136203,
+  "score_before": 5295,
+  "score_after": 2490,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9b6c5993e198be6f183121607bfd3a4467da1a47070b80a5d680196ab00790a7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "The 2450 saved best removes the switch default and falls off a non-void function for out-of-range input; do not inherit it as correct. Revision a6affc9159b4992ac93e restores return 0 and scores 2490. Inferred struct layout generated identical output. The switch control-flow and call ordering remain different.\nRemove default then restore an explicit return 0 after switch\n2450 without return has undefined behavior; restored return scores 2490 and changes branch target placement.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795234005.737343,
+  "score_before": 2490,
+  "score_after": 2450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "2450 source has undefined non-void fallthrough; don't use. Valid explicit return source scores 2490. Main mismatch is target jump-table/shared tails versus C switch/repeated calls.\nExplicit return restored: score 2490 vs saved 2450. call_arity and lifetime variants unchanged.\nTarget uses a jump table and shared call tails; C switch emits separate returns. func_80077ED8 is one-argument; arity tweak unchanged.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795236768.924382,
+  "score_before": 2450,
+  "score_after": 2450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
+ },
+ {
+  "function": "func_8007AB60",
+  "text": "Saved best 2450 rechecked but is not semantically sound: switch falls through end of non-void function for out-of-range input. Adding explicit return 0 produced 2490 (worse), so saved best should remain while semantic fix is revisited. Main mismatch is control flow/call arguments around inner switch: target has two beq $v1,$v0 to shared +0x130 path, while candidate branches to +0xc8. Distinct selector cases/default and call ordering remain different. Next step: inspect call declarations and target assembly around inner selector dispatch, then try a structured if/else chain preserving common call tail.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795238455.708192,
+  "score_before": 2450,
+  "score_after": 2450,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:2f8845e995b080f64be82e289c45b3066bb4c7235b3d07bde05f85ac05759830"
  }
 ]
