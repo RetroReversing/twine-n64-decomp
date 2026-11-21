@@ -178,9 +178,12 @@ void func_80038000(void *arg0, s32 arg1) {
         func_800325E4(sRenderState + (temp_s3 + 0x560), sRenderState + (temp_s1 + 0x740), (*(f32 *)((char *)(arg0) + 0x84)), (*(s32 *)((char *)(arg0) + 0x80)), 0.64f, 64.0f, 1.0f);
         temp_v0 = sMatrixPoolUsed + 1;
         if (sMatrixPoolUsed < sMatrixPoolLimit) {
+            f32 yaw = (*(f32 *)((char *)arg0 + 0x48)) + 3.1415927f;
+            f32 pitch = -((*(f32 *)((char *)arg0 + 0x44)) + 3.1415927f);
+            s32 roll = *(s32 *)((char *)arg0 + 0x40);
             sMatrixPoolUsed = temp_v0;
-            func_8000BBB4(&sObjectMatrixF, (*(f32 *)((char *)(arg0) + 0x48)) + 3.1415927f, -((*(f32 *)((char *)(arg0) + 0x44)) + 3.1415927f), (*(s32 *)((char *)(arg0) + 0x40)));
-            sCurrentMatrixSlot = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (temp_v0 << 6);
+            sCurrentMatrixSlot = (*(s32 *)((char *)sRenderState + 0x74C)) + (temp_v0 << 6);
+            func_8000BBB4(&sObjectMatrixF, yaw, pitch, roll);
             guTranslateF(&D_80109E28, -(*(f32 *)((char *)(arg0) + 0x1C)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x20)) * 64.0f, -(*(f32 *)((char *)(arg0) + 0x24)) * 64.0f);
             func_800A3840(&D_80109E28, &sObjectMatrixF, &sParentMatrixF);
             var_s0 = &sParentMatrixF;

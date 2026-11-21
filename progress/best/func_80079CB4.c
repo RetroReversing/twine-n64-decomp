@@ -25,7 +25,7 @@ extern s32 *gProbeObjectList;
 extern s32 gTrackMarkerDone;
 
 typedef struct { unsigned char pad[136]; int value; } __repair_field_88;
-void *func_80079CB4(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14, s32 arg15) {
+void *func_80079CB4(void *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, u8 arg13, s32 arg14, s32 arg15) {
     unsigned long var_a0;
     u8 var_v0_4;
     u8 var_v0_2;
@@ -381,6 +381,11 @@ block_76:
                 temp_v0_2 = (*(u8 *)((char *)(temp_s0) + 0x82));
                 var_s2 = 1;
                 switch (temp_v0_2) {                /* switch 2 */
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 44:
                 default:                            /* switch 2 */
                     var_a1_2 = 1;
                     func_80077960(var_s1, var_a1_2);

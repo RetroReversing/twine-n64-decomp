@@ -58,7 +58,7 @@ char func_80098D18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
   u32 temp_a2;
   register unsigned char var_a1;
   register u32 var_t0;
-  u8 temp_t0_3;
+  s32 temp_t0_3;
   s32 var_t0_2;
   u8 var_t0_3;
   u8 var_t0_4;
