@@ -28,7 +28,16 @@ inline static s16 inline_fn(int arg0)
   return (s16) arg0;
 }
 
-typedef struct { unsigned char pad[20]; int value; } __repair_field_14;
+typedef struct 
+{
+  unsigned char pad[20];
+  int value;
+} __repair_field_14;
+inline static int inline_fn2(s32 arg0, s32 arg1)
+{
+  return arg0 | arg1;
+}
+
 void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
 {
   s32 sp44;
@@ -74,6 +83,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
   u16 temp_v1_3;
   u32 temp_a0_3;
   u32 temp_a0_4;
+  volatile short pad;
   u32 temp_a0_5;
   u32 var_t2;
   u32 var_v0_2;
@@ -100,8 +110,7 @@ void func_8003A4C0(s32 arg0, s32 arg1, void *arg2)
       {
         if (D_800E176D == 1)
         {
-s32 __repair_branch_sp4C_0;
-
+          s32 __repair_branch_sp4C_0;
           D_800E176D = 0;
           D_80115328 += 8;
           *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
@@ -112,8 +121,7 @@ s32 __repair_branch_sp4C_0;
       else
         if (D_800E176D == 0)
       {
-s32 __repair_branch_sp4C_1;
-
+        s32 __repair_branch_sp4C_1;
         D_800E176D = 1;
         D_80115328 += 8;
         *((s32 *) (((char *) D_80115328) + 0)) = 0xE200001C;
@@ -139,7 +147,7 @@ s32 __repair_branch_sp4C_1;
       D_80115328 = temp_v0 + 0x10;
       ((__repair_field_8 *) temp_v0)->value = 0xE8000000;
       D_80115328 = temp_v0 + 0x18;
-      ((__repair_field_14 *)temp_v0)->value = 0x07000000;
+      ((__repair_field_14 *) temp_v0)->value = 0x07000000;
       D_80115328 = temp_v0 + 0x20;
       *((s32 *) (((char *) temp_v0) + 0x18)) = 0xE6000000;
       D_80115328 = temp_v0 + 0x28;
@@ -166,10 +174,15 @@ s32 __repair_branch_sp4C_1;
       temp_v1_3 = ((__repair_record_arg2 *) arg2)->field_26;
       if ((temp_v1_3 == temp_v1) && (((__repair_record_arg2 *) arg2)->field_29 == temp_a1))
       {
-        __repair_rows: {
+        __repair_rows:
+        {
           func_80039A10(&D_80115328, ((__repair_field_8 *) arg2)->value, var_t3, 0, (s32) temp_v1_3, (s32) ((__repair_record_arg2 *) arg2)->field_28, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (f32) (((__repair_record_arg2 *) arg2)->field_20 + arg0), (f32) (((__repair_record_arg2 *) arg2)->field_22 + arg1));
         }
-if (0) goto __repair_rows;
+
+        if (0)
+        {
+          goto __repair_rows;
+        }
         return;
       }
       func_80039EFC(&D_80115328, ((__repair_field_8 *) arg2)->value, var_t3, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (s32) ((__repair_record_arg2 *) arg2)->field_26, (s32) ((__repair_record_arg2 *) arg2)->field_29, 0x20, 0x40, 0, 0, (s32) ((__repair_record_arg2 *) arg2)->field_24, (s32) ((__repair_record_arg2 *) arg2)->field_28, (f32) (((__repair_record_arg2 *) arg2)->field_20 + arg0), (f32) (((__repair_record_arg2 *) arg2)->field_22 + arg1));
@@ -184,7 +197,7 @@ if (0) goto __repair_rows;
       var_s5 = 0x400;
     }
     temp_a1_2 = ((__repair_record_arg2 *) arg2)->field_24;
-    __repair_phase_temp_t6 = ((s32) ((__repair_record_arg2 *) arg2)->field_26); var_s6 = ((s32) (0x400 * temp_a1_2)) / __repair_phase_temp_t6; var_s1 = ((s32) ((__repair_record_arg2 *) arg2)->field_29); var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / var_s1;
+    __repair_phase_temp_t6 = (s32) ((__repair_record_arg2 *) arg2)->field_26; var_s6 = ((s32) (0x400 * temp_a1_2)) / __repair_phase_temp_t6; var_s1 = (s32) ((__repair_record_arg2 *) arg2)->field_29; var_s5_2 = ((s32) (var_s5 * ((__repair_record_arg2 *) arg2)->field_28)) / var_s1;
     var_s1 = temp_a1_2 << 5;
     if (((__repair_record_arg2 *) arg2)->field_1E & 0x80)
     {
@@ -208,8 +221,8 @@ if (0) goto __repair_rows;
     var_a2 = 0x800;
     *((s32 *) (((char *) temp_v1_4) + 0x18)) = 0xF3000000;
     D_80115328 = temp_v1_4 + 8;
-    ((__repair_field_8 *) temp_v1_4)->value = (s32) (temp_a0_2 | 0xF5100000);
-    ((__repair_field_14 *)temp_v1_4)->value = 0;
+    ((__repair_field_8 *) temp_v1_4)->value = (s32) inline_fn2(temp_a0_2, 0xF5100000);
+    ((__repair_field_14 *) temp_v1_4)->value = 0;
     D_80115328 = temp_v1_4 + 0x10;
     *((s32 *) (((char *) temp_v1_4) + 4)) = (s32) ((__repair_field_8 *) arg2)->value;
     temp_v0_2 = temp_v1_4 + 0x18;
@@ -235,16 +248,16 @@ if (0) goto __repair_rows;
       var_v0 = var_a2 & 0xFFF;
     }
     temp_a1_4 = D_80115328;
-    *((s32 *) (((char *) temp_v0_2) + 4)) = (s32) ((((var_v1 & 0xFFF) << 0xC) | 0x07000000) | var_v0);
+    *((s32 *) (((char *) temp_v0_2) + 4)) = (s32) inline_fn2(((var_v1 & 0xFFF) << 0xC) | 0x07000000, var_v0);
     *((s32 *) (((char *) temp_a1_4) + 0)) = 0xE7000000;
     *((s32 *) (((char *) temp_a1_4) + 4)) = 0;
     *((s32 *) (((char *) temp_a1_4) + 0xC)) = 0xC0300;
     *((s32 *) (((char *) temp_a1_4) + 0x10)) = 0xF2000000;
-    ((__repair_field_8 *) temp_a1_4)->value = (s32) ((var_t3 << 0x15) | ((((((s32) ((((u16) ((__repair_record_arg2 *) arg2)->field_24) >> 1) + 7)) >> 3) & 0x1FF) << 9) | 0xF5000000));
+    ((__repair_field_8 *) temp_a1_4)->value = (s32) inline_fn2(var_t3 << 0x15, (((((s32) ((((u16) ((__repair_record_arg2 *) arg2)->field_24) >> 1) + 7)) >> 3) & 0x1FF) << 9) | 0xF5000000);
     D_80115328 = temp_a1_4 + 8;
     D_80115328 = temp_a1_4 + 0x10;
     D_80115328 = temp_a1_4 + 0x18;
-    ((__repair_field_14 *)temp_a1_4)->value = (s32) (((((((__repair_record_arg2 *) arg2)->field_24 - 1) * 4) & 0xFFF) << 0xC) | (((((__repair_record_arg2 *) arg2)->field_28 - 1) * 4) & 0xFFF));
+    ((__repair_field_14 *) temp_a1_4)->value = (s32) inline_fn2((((((__repair_record_arg2 *) arg2)->field_24 - 1) * 4) & 0xFFF) << 0xC, ((((__repair_record_arg2 *) arg2)->field_28 - 1) * 4) & 0xFFF);
     temp_a0_4 = *((u32 *) (((char *) arg2) + 0x28));
     if ((temp_a0_4 >> 0xC) & 0xF)
     {
@@ -264,7 +277,7 @@ if (0) goto __repair_rows;
             s32 packed_delta = (s32) ((var_s6 << 0x10) | (var_s5_2 & 0xFFFF));
             do
             {
-              sp4C = (((__repair_record_arg2 *) arg2)->field_20 + arg0); temp_t2 = sp4C + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
+              sp4C = ((__repair_record_arg2 *) arg2)->field_20 + arg0; temp_t2 = sp4C + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
               temp_t0 = ((__repair_record_arg2 *) arg2)->field_22 + (((__repair_record_arg2 *) arg2)->field_29 * var_t9);
               if (gHiResScreen != 0)
               {
@@ -282,10 +295,10 @@ if (0) goto __repair_rows;
                 D_80115328 = temp_t0_2;
                 temp_a1_5 = temp_t2 + ((__repair_record_arg2 *) arg2)->field_26;
                 ((__repair_field_8 *) temp_a3)->value = 0xE1000000;
-                *((s32 *) (((char *) temp_a3) + 4)) = (s32) (((((temp_t2 * 4) & (((s32) (~temp_t2_2)) >> 0x1F)) & 0xFFC) << 0xC) | (((var_t1 * 4) & (((s32) (~((s16) (var_t1 * 4)))) >> 0x1F)) & 0xFFC));
+                *((s32 *) (((char *) temp_a3) + 4)) = (s32) inline_fn2((((temp_t2 * 4) & (((s32) (~temp_t2_2)) >> 0x1F)) & 0xFFC) << 0xC, ((var_t1 * 4) & (((s32) (~((s16) (var_t1 * 4)))) >> 0x1F)) & 0xFFC);
                 temp_a2 = var_t1 + (((__repair_record_arg2 *) arg2)->field_29 * 2);
                 D_80115328 = temp_a3 + 0x10;
-                *((s32 *) (((char *) temp_a3) + 0)) = (s32) (((((temp_a1_5 * 4) & (((s32) (~((s16) (temp_a1_5 * 4)))) >> 0x1F)) & 0xFFC) << 0xC) | ((((temp_a2 * 4) & (((s32) (~((s16) (temp_a2 * 4)))) >> 0x1F)) & 0xFFC) | 0xE4000000));
+                *((s32 *) (((char *) temp_a3) + 0)) = (s32) inline_fn2((((temp_a1_5 * 4) & (((s32) (~((s16) (temp_a1_5 * 4)))) >> 0x1F)) & 0xFFC) << 0xC, (((temp_a2 * 4) & (((s32) (~((s16) (temp_a2 * 4)))) >> 0x1F)) & 0xFFC) | 0xE4000000);
                 if (temp_t2_2 < 0)
                 {
                   if (((s16) var_s6) < 0)
@@ -317,7 +330,7 @@ if (0) goto __repair_rows;
                 *((s32 *) (((char *) temp_a3_2) + 4)) = (s32) (((((temp_t2 * 4) & (((s32) (~temp_t3)) >> 0x1F)) & 0xFFC) << 0xC) | (((temp_t0_3 * 4) & (((s32) (~((s16) (temp_t0_3 * 4)))) >> 0x1F)) & 0xFFC));
                 D_80115328 = temp_a3_2 + 0x10;
                 temp_a2_2 = ((__repair_record_arg2 *) arg2)->field_29 + temp_t0_3;
-                *((s32 *) (((char *) temp_a3_2) + 0)) = (s32) (((((temp_a1_6 * 4) & (((s32) (~((s16) (temp_a1_6 * 4)))) >> 0x1F)) & 0xFFC) << 0xC) | ((((temp_a2_2 * 4) & (((s32) (~((s16) (temp_a2_2 * 4)))) >> 0x1F)) & 0xFFC) | 0xE4000000));
+                *((s32 *) (((char *) temp_a3_2) + 0)) = (s32) inline_fn2((((temp_a1_6 * 4) & (((s32) (~((s16) (temp_a1_6 * 4)))) >> 0x1F)) & 0xFFC) << 0xC, inline_fn2(((temp_a2_2 * 4) & (((s32) (~((s16) (temp_a2_2 * 4)))) >> 0x1F)) & 0xFFC, 0xE4000000));
                 if (temp_t3 < 0)
                 {
                   if (((s16) var_s6) < 0)
@@ -352,7 +365,7 @@ if (0) goto __repair_rows;
                 }
                 else
                 {
-                  var_v0_5 = var_a0_3 | temp_s4;
+                  var_v0_5 = inline_fn2(var_a0_3, temp_s4);
                 }
                 *((s32 *) (((char *) temp_t1) + 4)) = var_v0_5;
               }

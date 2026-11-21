@@ -104,8 +104,8 @@ volatile unsigned int func_80069DCC(void *arg0)
   f32 sp20[3];
   s32 probeOutputs[5];
   CopyVec3 probe;
-  volatile f32 sp5C;
   void * volatile sp64;
+  volatile f32 sp5C;
   f32 temp_fa0;
   f32 temp_fa0_2;
   f32 temp_fa0_3;
@@ -442,21 +442,8 @@ volatile unsigned int func_80069DCC(void *arg0)
     }
     temp_v1_15 = *((s16 *) (((char *) arg0) + 0x7A));
     D_800E1A18 = (s32) (*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)));
-    if (temp_v1_15 != 1)
-    {
-      if (temp_v1_15 >= 2)
-      {
-        if (temp_v1_15 < 4)
-        {
-          if ((*((u8 *) (((char *) temp_s1) + 0x5A8))) == 3)
-          {
-            actorUpdateGatedState(arg0, 2);
-          }
-        }
-      }
-      else
-        if (temp_v1_15 == 0)
-      {
+    switch (temp_v1_15) {
+case 0: {
         *((f32 *) (((char *) temp_s1) + 0x20)) = 0.0f;
         temp_fs0 = *((f32 *) (((char *) temp_s1) + 0x20));
         *((s32 *) (((char *) temp_s1) + 0x1C)) = 0;
@@ -506,9 +493,14 @@ volatile unsigned int func_80069DCC(void *arg0)
           *((s16 *) (((char *) arg0) + 0x78)) = 3;
           *((s16 *) (((char *) arg0) + 0x7A)) = 0;
         }
+              break;
       }
-      goto block_474;
+case 1: goto actor_in_motion;
+case 2: case 3: goto out_of_line_actor;
     }
+    goto block_474;
+    actor_in_motion:
+
     sp5C = 0.0f;
     D_800E1A1C = 0.0f;
     var_s6 = 0.0f;
@@ -1841,6 +1833,12 @@ volatile unsigned int func_80069DCC(void *arg0)
         *((f32 *) (((char *) arg0) + 0x2C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x2C))) + var_s6);
         *((f32 *) (((char *) arg0) + 0x3C)) = (f32) ((*((f32 *) (((char *) arg0) + 0x3C))) + sp5C);
         *((f32 *) (((char *) arg0) + 0x44)) = (f32) ((*((f32 *) (((char *) arg0) + 0x44))) + 0.0f);
+        goto block_474;
+        out_of_line_actor:
+        if ((*((u8 *) (((char *) temp_s1) + 0x5A8))) == 3)
+        {
+          actorUpdateGatedState(arg0, 2);
+        }
         block_474:
       func_80002EF0(arg0);
 

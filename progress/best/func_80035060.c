@@ -198,7 +198,7 @@ void func_80035060(void *arg0)
         green = D_80100778;
         red = D_80100777;
         blue = D_80100779;
-        var_v1_2 = ((blue >> 2) & 0x3E) | (((red << 8) & 0xF800) | ((green * 8) & 0x7C0));
+        temp_a1 = (((red << 8) & 0xF800) | ((green * 8) & 0x7C0)); var_v1_2 = ((blue >> 2) & 0x3E) | temp_a1;
         block_26:
         var_v1_3 = var_v1_2 | 1;
 

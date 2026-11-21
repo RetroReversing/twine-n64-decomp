@@ -12,6 +12,11 @@ inline static volatile int inline_fn2(s32 arg0)
   return ((((unsigned short) arg0) - 1) & 0x3FF) << 0xE;
 }
 
+inline static int inline_fn23(int arg0, s32 arg1)
+{
+  return arg0 | arg1;
+}
+
 void func_800389F0(void *arg0)
 {
   f32 temp_fv1;
@@ -106,7 +111,7 @@ void func_800389F0(void *arg0)
     sDisplayListCursor = temp_v1_2 + 0x58;
     y = (y & 0x3FF) << 14;
     var_v0 = ((u32) temp_fv1_3) & 0x3FF;
-    *((s32 *) (((char *) temp_a0_2) + 0)) = (s32) (((var_v0 * 4) | 0xF6000000) | y);
+    *((s32 *) (((char *) temp_a0_2) + 0)) = (s32) inline_fn23((var_v0 * 4) | 0xF6000000, y);
     temp_fv1_4 = (*((f32 *) (((char *) arg0) + 0x64))) + (*((f32 *) (((char *) arg0) + 0x58)));
     var_v0 = ((u32) temp_fv1_4) & 0x3FF;
     *((s32 *) (((char *) temp_a0_2) + 4)) = (s32) (var_v0 * 4);
@@ -115,7 +120,7 @@ void func_800389F0(void *arg0)
     sDisplayListCursor = temp_v1_3 + 8;
     y = (((u16) D_8010D6F8) & 0x3FF) << 14;
     var_v0_4 = ((u32) temp_fv1_5) & 0x3FF;
-    *((s32 *) (((char *) temp_v1_3) + 0)) = (s32) (((var_v0_4 * 4) | 0xF6000000) | y);
+    *((s32 *) (((char *) temp_v1_3) + 0)) = (s32) inline_fn23((var_v0_4 * 4) | 0xF6000000, y);
     temp_fv1_6 = ((*((f32 *) (((char *) arg0) + 0x64))) + (*((f32 *) (((char *) arg0) + 0x5C)))) - 2.0f;
     var_v0_4 = ((u32) temp_fv1_6) & 0x3FF;
     *((s32 *) (((char *) temp_v1_3) + 4)) = (s32) (var_v0_4 * 4);
