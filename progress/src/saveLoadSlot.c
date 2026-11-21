@@ -12,45 +12,45 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 saveWaitCommand();
+s32 func_800109CC();
 s32 func_80010B60();
-s32 saveSubmitCommand();
+s32 func_80011800();
 s32 func_80012F50();
-extern u16 gSaveStatus;
-extern char gSaveSlotTable[];
-extern s16 gSaveSlot;
-extern s32 gSaveRequestSlot;
-extern s32 gSaveCmdResult;
+extern u16 D_800BFC32;
+extern char D_800E0790[];
+extern s16 D_800E093A;
+extern s32 D_800E0978;
+extern s32 D_801032A8;
 extern char D_80107B68[];
 extern char D_80108408[];
 extern char D_8010840C[];
 extern char D_80108410[];
 extern char D_80108416[];
 
-u16 saveLoadSlot(s32 arg0) {
+u16 func_800128C0(s32 arg0) {
     s32 temp_a0;
     s32 temp_a1;
 
     temp_a0 = arg0 & 0xFFFF;
-    gSaveRequestSlot = temp_a0;
-    gSaveStatus = 4;
+    D_800E0978 = temp_a0;
+    D_800BFC32 = 4;
     if (!(func_80012F50(temp_a0) & 0xFFFF)) {
-        if (*(u16 *)(D_80107B68 + (gSaveRequestSlot * 0x18)) == 0) {
-            gSaveStatus = 0x80;
+        if (*(u16 *)(D_80107B68 + (D_800E0978 * 0x18)) == 0) {
+            D_800BFC32 = 0x80;
             return 0x80U;
         }
-        temp_a1 = gSaveRequestSlot << 5;
-        saveSubmitCommand(6, (gSaveSlot * 0x68) + gSaveSlotTable, *(u16 *)(D_80108410 + temp_a1), *(s32 *)(D_8010840C + temp_a1), temp_a1 + D_80108416, temp_a1 + (D_80108416 - 4), 0, 0);
-        if (saveWaitCommand() != 0) {
-            return func_80010B60(gSaveCmdResult) & 0xFFFF;
+        temp_a1 = D_800E0978 << 5;
+        func_80011800(6, (D_800E093A * 0x68) + D_800E0790, *(u16 *)(D_80108410 + temp_a1), *(s32 *)(D_8010840C + temp_a1), temp_a1 + D_80108416, temp_a1 + (D_80108416 - 4), 0, 0);
+        if (func_800109CC() != 0) {
+            return func_80010B60(D_801032A8) & 0xFFFF;
         }
-        *(s32 *)(D_80108408 + (gSaveRequestSlot << 5)) = 0;
+        *(s32 *)(D_80108408 + (D_800E0978 << 5)) = 0;
         if (!(func_80012F50() & 0xFFFF)) {
-            gSaveStatus = 4;
+            D_800BFC32 = 4;
             return 4U;
         }
         goto block_7;
     }
 block_7:
-    return gSaveStatus;
+    return D_800BFC32;
 }
