@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_800162BC(s32);                           /* extern */
+void *spawnTrackMarker(s32);                           /* extern */
 extern void *D_800B7CF8;
 extern s16 D_800E0EE0;
 extern s16 D_800E0EE2;
@@ -22,7 +22,7 @@ extern u16 D_800E0EE6;
 void func_80022A30(u8 arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     void *temp_v0;
 
-    if ((D_800B7CF8 != NULL) || (temp_v0 = func_800162BC(arg0 & 0xFF), D_800B7CF8 = temp_v0, (temp_v0 != NULL))) {
+    if ((D_800B7CF8 != NULL) || (temp_v0 = spawnTrackMarker(arg0 & 0xFF), D_800B7CF8 = temp_v0, (temp_v0 != NULL))) {
         M2C_FIELD(D_800B7CF8, s16 *, 0x1E) = 0x2000;
         M2C_FIELD(D_800B7CF8, s32 *, 0x28) = (s32) ((M2C_FIELD(D_800B7CF8, s32 *, 0x28) & ~0xFC) | 0x1C);
     }

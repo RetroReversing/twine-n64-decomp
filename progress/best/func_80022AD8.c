@@ -31,7 +31,7 @@ typedef struct {
     u8 pad26[2];
     u32 flags;
 } TwineCachedObject;
-TwineCachedObject *func_800162BC(s32);
+TwineCachedObject *spawnTrackMarker(s32);
 extern TwineCachedObject *D_800B7CF4;
 extern u16 D_800E0EE0, D_800E0EE2, D_800E0EE4;
 extern volatile u16 D_800E0EE6;
@@ -40,7 +40,7 @@ void func_80022AD8(s32 id) {
     u16 x, y, z; u8 color;
     u32 flags;
     if (!D_800B7CF4) {
-        D_800B7CF4 = func_800162BC(id & 0xff);
+        D_800B7CF4 = spawnTrackMarker(id & 0xff);
         if (!D_800B7CF4) return;
     }
     obj = D_800B7CF4;

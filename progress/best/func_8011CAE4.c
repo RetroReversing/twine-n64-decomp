@@ -20,7 +20,7 @@ extern s32 gVisibleSaveSlots;
 extern M2C_UNK gBonusObjects;
 extern u8 D_8011F118[];
 extern M2C_UNK D_8011F150;
-extern M2C_UNK D_8011F338;
+extern M2C_UNK sSaveSlotMarkers;
 
 void func_8011CAE4(void) {
     M2C_UNK *__base_D_8011F338;
@@ -42,7 +42,7 @@ void func_8011CAE4(void) {
 {
     u16 __repair_i;
     for (__repair_i = 0; __repair_i < 3; __repair_i++) {
-        __base_D_8011F338 = &D_8011F338;
+        __base_D_8011F338 = &sSaveSlotMarkers;
         temp_s0 = (void *)*(temp_s4 + ((__repair_i * 4) + __base_D_8011F338));
         if (temp_s0 != NULL) {
         actorSteerTowardTarget(temp_s0, ((u32 *) &gBonusObjects)[temp_s5], (__repair_i * 0xC) + __base_D_8011F118, temp_s5);

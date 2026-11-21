@@ -38,12 +38,12 @@ typedef struct {
 
 TextNode15F74 *func_80015F0C(void);
 void func_800165E0(TextNode15F74 *, s32);
-void func_800448A4(TextNode15F74 *, const char *, s32);
+void initObjectFromBankEntry(TextNode15F74 *, const char *, s32);
 const char *lookupDataEntry(u16);
 unsigned int strlen(const char *);
 extern s32 gTrackMarkerTable[];
 
-TextNode15F74 *func_80015F74(TextArgs15F74 *args)
+TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
 {
     TextNode15F74 *node = func_80015F0C();
     u32 flags;
@@ -70,7 +70,7 @@ TextNode15F74 *func_80015F74(TextArgs15F74 *args)
     } else {
         length = args->length;
         if (length >= 0) {
-            func_800448A4(node, args->text, length);
+            initObjectFromBankEntry(node, args->text, length);
         } else {
             node->text = lookupDataEntry(3);
             node->length = 0;

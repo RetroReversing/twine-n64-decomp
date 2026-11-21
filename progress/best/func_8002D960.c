@@ -27,7 +27,7 @@ extern u8 D_80100198;
 extern M2C_UNK gSaveSlotInfo;
 extern u8 D_801001A0;
 extern u8 D_801001A1;
-extern u8 D_801001A2;
+extern u8 sSaveSlotInfo;
 extern u8 D_801001A4;
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
@@ -122,7 +122,7 @@ void func_8002D960(void) {
                 s32 value = func_8002E98C(&D_800E1310, 1, 4);
                 var_s1 = 0;
                 tail = (void *) ((temp_s0_2) + (s32) tailBase);
-                *(&D_801001A2 + temp_s0_2) = value;
+                *(&sSaveSlotInfo + temp_s0_2) = value;
             }
 loop_3:
             tail[var_s1 & 0xFFFF] = func_8002E98C(&D_800E1310, 1, 8);

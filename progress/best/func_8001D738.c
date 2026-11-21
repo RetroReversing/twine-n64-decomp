@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_800160FC();
-s32 func_800162BC();
+s32 spawnTrackMarker();
 s32 func_80022A30();
 s32 func_80022AD8();
 s32 func_80022E18();
@@ -208,7 +208,7 @@ block_31:
         if (temp_v0_7 & 0xFF) {
             do {
                 temp_s0_2 = var_s1_2 & 0xFFFF;
-                temp_v0_8 = func_800162BC(sMenuListKind);
+                temp_v0_8 = spawnTrackMarker(sMenuListKind);
                 *(s32 *)((temp_s0_2 * 4) + D_80102F48) = temp_v0_8;
                 if (temp_v0_8 != 0) {
                     temp_s5 = lookupDataEntry((var_s1_2 + 0x400D) & 0xFFFF);

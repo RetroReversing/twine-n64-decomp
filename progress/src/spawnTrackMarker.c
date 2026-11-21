@@ -16,7 +16,7 @@ s32 func_80015F0C();                                /* extern */
 M2C_UNK func_800165E0(s32, s32);                    /* extern */
 extern s32 gTrackMarkerTable[];
 
-s32 func_800162BC(s32 arg0) {
+s32 spawnTrackMarker(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = func_80015F0C();

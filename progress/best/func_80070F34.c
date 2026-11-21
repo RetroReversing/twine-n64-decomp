@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 f32 __cosf(f32);                                    /* extern */
 f32 sinApprox(f32);                                    /* extern */
 void *func_80015F0C(M2C_UNK);                       /* extern */
-void *func_800162BC(s8);                            /* extern */
+void *spawnTrackMarker(s8);                            /* extern */
 void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 M2C_UNK func_80016600(void *);                      /* extern */
 M2C_UNK func_80044670(void *, s16, s16);            /* extern */
-M2C_UNK func_800448A4(void *, u8, M2C_UNK);         /* extern */
+M2C_UNK initObjectFromBankEntry(void *, u8, M2C_UNK);         /* extern */
 s32 func_80063C7C(s8);                              /* extern */
 M2C_UNK func_80064318(void *, s8);                  /* extern */
 M2C_UNK func_80070ECC(void *, void *, s32, s32, s32, s32); /* extern */
@@ -206,7 +206,7 @@ block_10:
         var_s1 = temp_s2;
         do {
             if (M2C_FIELD(var_s1, void **, 0x418) == NULL) {
-                temp_v0_2 = func_800162BC(M2C_FIELD(temp_s2, s8 *, 0x182));
+                temp_v0_2 = spawnTrackMarker(M2C_FIELD(temp_s2, s8 *, 0x182));
                 M2C_FIELD(var_s1, void **, 0x418) = temp_v0_2;
                 if (temp_v0_2 != NULL) {
                     temp_fv1 = (2.0f * var_fs2) + (f32) *(&D_800C7E10 + var_s0);
@@ -231,7 +231,7 @@ block_10:
             var_s1 += 4;
         } while (var_s3 < 4U);
         if (M2C_FIELD(temp_s2, void **, 0x428) == NULL) {
-            temp_v0_3 = func_800162BC(M2C_FIELD(temp_s2, s8 *, 0x182));
+            temp_v0_3 = spawnTrackMarker(M2C_FIELD(temp_s2, s8 *, 0x182));
             M2C_FIELD(temp_s2, void **, 0x428) = temp_v0_3;
             if (temp_v0_3 != NULL) {
                 temp_v1 = (var_s3 * 4) + temp_s2;
@@ -257,7 +257,7 @@ block_10:
                 M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 0x418), s32 *, 0x10) = -0x60;
                 M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 0x418), s32 *, 0x14) = 0x20202000;
                 M2C_FIELD(M2C_FIELD(temp_v1_2, void **, 0x418), s16 *, 0x1E) = 0;
-                func_800448A4(M2C_FIELD(temp_v1_2, void **, 0x418), 0x19U, 0x1B);
+                initObjectFromBankEntry(M2C_FIELD(temp_v1_2, void **, 0x418), 0x19U, 0x1B);
             }
         }
         temp_a0_2 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x418), u8 *, 0x13);
@@ -296,7 +296,7 @@ block_10:
                 break;
             }
             M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x428), s32 *, 0x10) = var_v0;
-            func_800448A4(M2C_FIELD(temp_s2, void **, 0x428), *(&D_800C7E40 + temp_s6), 0x1B);
+            initObjectFromBankEntry(M2C_FIELD(temp_s2, void **, 0x428), *(&D_800C7E40 + temp_s6), 0x1B);
             temp_a0_3 = M2C_FIELD(temp_s2, void **, 0x428);
             temp_fv1_5 = ((2.0f * var_fs1) - 16.0f) - (f32) M2C_FIELD(temp_a0_3, u8 *, 0x28);
             if (temp_fv1_5 >= 2.1474836e9f) {
@@ -424,7 +424,7 @@ block_10:
     }
     if (M2C_FIELD(temp_s2, void **, 0x490) == NULL) {
         if ((gBorderSkipFlag == 0) || (gPauseFlag != 0)) {
-            M2C_FIELD(temp_s2, void **, 0x490) = func_800162BC(M2C_FIELD(temp_s2, s8 *, 0x182));
+            M2C_FIELD(temp_s2, void **, 0x490) = spawnTrackMarker(M2C_FIELD(temp_s2, s8 *, 0x182));
         }
     } else {
         temp_v1_14 = M2C_FIELD(M2C_FIELD(temp_s2, void **, 0xA8), s16 *, 0x7A);

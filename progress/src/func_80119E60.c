@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK requestSound(M2C_UNK);                     /* extern */
-extern M2C_UNK gMarkerEntry1;
+extern M2C_UNK sMarkerTextNode1;
 
 void func_80119E60(s32 arg0, s32 arg1, void *arg2) {
     s32 temp_v1;
@@ -55,7 +55,7 @@ void func_80119E60(s32 arg0, s32 arg1, void *arg2) {
         }
         requestSound(0x226);
         requestSound(0x21A);
-        temp_a0 = *((M2C_UNK *)((s8 *)&gMarkerEntry1 + ((arg0 & 0xFFFF) * 4)));
+        temp_a0 = *((M2C_UNK *)((s8 *)&sMarkerTextNode1 + ((arg0 & 0xFFFF) * 4)));
         if (temp_a0 != NULL) {
             M2C_FIELD(temp_a0, s32 *, 0x10) = (s32) ((var_s2 << 0x18) | (var_s1 << 0x10) | (var_s0 << 8) | 0xFF);
         }

@@ -1,4 +1,4 @@
-s32 func_80015F74(void *);
+s32 spawnTextNode(void *);
 extern s16 D_800B7D1C;
 extern s32 D_800B7D20;
 
@@ -7,6 +7,6 @@ void func_80022E18(s32 arg0) {
     if (D_800B7D20 == 0) {
         p = &D_800B7D1C;
         *p = arg0 & 0xFF;
-        D_800B7D20 = func_80015F74((char *)p - 0x20);
+        D_800B7D20 = spawnTextNode((char *)p - 0x20);
     }
 }

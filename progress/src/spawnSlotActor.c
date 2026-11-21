@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80015F74(void *);
+s32 spawnTextNode(void *);
 void *spawnEffectObject(M2C_UNK, s32, M2C_UNK, M2C_UNK);
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);
 M2C_UNK objectSetAnimFrame(void *, M2C_UNK, M2C_UNK);
@@ -79,7 +79,7 @@ void *spawnSlotActor(s32 modelId, M2C_UNK unusedArg, u16 slot) {
             func_800643C8(actor);
             slotCopy2 = slot;
             slotCopy3 = slotCopy2;
-            *(&D_8011F288 + slotCopy3) = func_80015F74((slotCopy2 * 0x24) + D_8011ECF0);
+            *(&D_8011F288 + slotCopy3) = spawnTextNode((slotCopy2 * 0x24) + D_8011ECF0);
             *(&D_8011F2B0 + slotCopy3) = actor;
             return actor;
         }

@@ -1,5 +1,5 @@
 s32 func_800160FC();
-s32 func_800162BC();
+s32 spawnTrackMarker();
 s32 func_80018318();
 s32 func_80022A30();
 s32 func_80022AD8();
@@ -67,7 +67,7 @@ void menuPopulateItems(void) {
         itemCounter = 0;
         if (itemCount) {
             do {
-                slotHandle = func_800162BC(sMenuListKind);
+                slotHandle = spawnTrackMarker(sMenuListKind);
                 itemIndex = itemCounter & 0xFFFF;
                 slotPtr = (itemIndex * 4) + D_800E0E40;
                 *slotPtr = slotHandle;

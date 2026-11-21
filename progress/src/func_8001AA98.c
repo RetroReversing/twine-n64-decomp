@@ -5,7 +5,7 @@ static __inline__ u8 __repair_inline(u8 a) { return a; }
 s32 formatTextEntry();
 s32 updateActiveMenuState();
 s32 lookupDataEntry();
-extern char D_801001A2[];
+extern char sSaveSlotInfo[];
 extern u8 gPickupSavedByte;
 extern void *gMenuItems;
 
@@ -18,7 +18,7 @@ void func_8001AA98(void) {
     updateActiveMenuState();
     if ((*(u8 *)((char *)(gMenuItems) + 0x2D)) != 0) {
         temp_s0 = (*(s32 *)((char *)(gMenuItems) + 0x18)) + 0x28;
-        temp_s1 = __repair_inline(*(D_801001A2 + (gPickupSavedByte * 0x18)));
+        temp_s1 = __repair_inline(*(sSaveSlotInfo + (gPickupSavedByte * 0x18)));
         temp_v1 = temp_s1 & 0xFFFF;
         switch (temp_v1) {
         case 0:
@@ -45,6 +45,6 @@ block_9:
             {
             formatTextEntry(temp_s0, sFmtEntryName, lookupDataEntry(var_a0));break;}
         }
-        *(D_801001A2 + (gPickupSavedByte * 0x18)) = temp_s1;
+        *(sSaveSlotInfo + (gPickupSavedByte * 0x18)) = temp_s1;
     }
 }

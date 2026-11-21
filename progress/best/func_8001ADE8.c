@@ -4,7 +4,7 @@ s32 func_8000237C();
 s32 func_80002BD0();
 s32 func_80002D30();
 s32 func_800160FC();
-s32 func_800162BC();
+s32 spawnTrackMarker();
 void *spawnEffectObject();
 s32 func_80018318();
 s32 func_80019E28();
@@ -44,7 +44,7 @@ typedef struct { s32 f0; u8 pad[20]; } Slot_8010019C;
 extern Slot_8010019C gSaveSlotInfo[];
 typedef struct { u8 f0; u8 pad[23]; } Slot_801001A0;
 extern Slot_801001A0 D_801001A0[];
-extern char D_801001A2[];
+extern char sSaveSlotInfo[];
 extern char D_801001A3[];
 extern u8 gPickupSavedByte;
 extern s32 gSaveTotalSlots;
@@ -116,7 +116,7 @@ s32 __repair_phase_var_a0;
             var_s0 = 0 & 0xFFFF;
             do {
                 temp_a0_2 = func_80022DBC(var_s0);
-                temp_v0 = func_800162BC(sMenuListKind);
+                temp_v0 = spawnTrackMarker(sMenuListKind);
                 *(s32 *)((var_s0 * 4) + (s32)D_80102F48) = temp_v0;
                 if (temp_v0) {
                     temp_s1 = lookupDataEntry((var_s2 + 0x4008) & 0xFFFF);
@@ -153,7 +153,7 @@ s32 __repair_phase_var_a0;
         D_80104311 = D_801001A0[gPickupSavedByte].f0 / 10;
         formatTextEntry(temp_s6, "%d", (void *) D_801001A0[gPickupSavedByte].f0);
         (*(void **)((char *)(temp_s5) + -0x18)) = (void *) ((gPickupSavedByte * 0x18) + (&gPickupSavedByte - 0x10B));
-        temp_v1_2 = *(u16 *)(D_801001A2 + (gPickupSavedByte * 0x18));
+        temp_v1_2 = *(u16 *)(sSaveSlotInfo + (gPickupSavedByte * 0x18));
         switch (temp_v1_2) {
         case 0:
             var_a0 = 0xA;

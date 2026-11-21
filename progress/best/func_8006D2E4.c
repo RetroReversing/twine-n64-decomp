@@ -25,7 +25,7 @@ void *func_80015F0C();                              /* extern */
 M2C_UNK func_80016314(void *, void *);              /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 s32 func_80022DBC(s32);                             /* extern */
-M2C_UNK func_800448A4(void *, s32, M2C_UNK);        /* extern */
+M2C_UNK initObjectFromBankEntry(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_800452E0(void *, void *, M2C_UNK *);   /* extern */
 M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
 f32 func_80045764(M2C_UNK *, M2C_UNK *);            /* extern */
@@ -332,7 +332,7 @@ block_95:
                             temp_s1 = (angleDelta12((s32) (approximateAtan2(M2C_FIELD(arg0, f32 *, 0x24) - M2C_FIELD(temp_s3, f32 *, 0x1A0), M2C_FIELD(arg0, f32 *, 0x2C) - M2C_FIELD(temp_s3, f32 *, 0x1A8)) * 651.8986f), (s32) (M2C_FIELD(arg0, f32 *, 0x40) + 256.0f)) >> 9) & 7;
                             temp_v0_7 = temp_s1 * 8;
                             M2C_FIELD(temp_v0_6, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v0_6, s32 *, 0x28) & ~0xFC) | 0x10);
-                            func_800448A4(temp_v0_6, *(&D_800C7DC8 + temp_v0_7), 0x1B);
+                            initObjectFromBankEntry(temp_v0_6, *(&D_800C7DC8 + temp_v0_7), 0x1B);
                             func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&gTrackMarkerTable + (temp_s4 * 4)));
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;

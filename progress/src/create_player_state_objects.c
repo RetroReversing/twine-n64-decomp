@@ -3,11 +3,11 @@ typedef struct {
     u8 reserved[23];
 } MenuPlayerState;
 
-extern MenuPlayerState D_801001A2[];
+extern MenuPlayerState sSaveSlotInfo[];
 extern s32 gVisibleSaveSlots;
 extern s16 D_8011EE4C;
-extern void *D_8011F338[];
-void *func_80015F74(void *);
+extern void *sSaveSlotMarkers[];
+void *spawnTextNode(void *);
 
 void create_player_state_objects(void)
 {
@@ -19,9 +19,9 @@ void create_player_state_objects(void)
     if (gVisibleSaveSlots > 0) {
         special = 5;
         paramIndex = &D_8011EE4C;
-        results = D_8011F338;
+        results = sSaveSlotMarkers;
         do {
-            s32 state = D_801001A2[i].state;
+            s32 state = sSaveSlotInfo[i].state;
             if (state != 0) {
                 if (state < 4) {
                     goto create;
@@ -31,7 +31,7 @@ void create_player_state_objects(void)
                 }
 create:
                 *paramIndex = i;
-                results[i] = func_80015F74((u8 *)paramIndex - 0x20);
+                results[i] = spawnTextNode((u8 *)paramIndex - 0x20);
             } else {
 clear:
                 results[i] = NULL;

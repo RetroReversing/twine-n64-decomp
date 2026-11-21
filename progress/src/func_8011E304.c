@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_800162BC(s32);                           /* extern */
+void *spawnTrackMarker(s32);                           /* extern */
 
 void *func_8011E304(s16 arg0, s16 arg1, s8 *arg2, s32 arg3) {
     s32 var_a1;
     void *temp_v0;
 
-    temp_v0 = func_800162BC(arg3);
+    temp_v0 = spawnTrackMarker(arg3);
     if (temp_v0 != NULL) {
         var_a1 = 3;
         if (arg3 == 4) {

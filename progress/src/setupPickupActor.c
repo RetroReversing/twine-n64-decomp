@@ -3,7 +3,7 @@
 s32 func_8000237C();
 s32 func_80002BD0();
 s32 func_800160FC();
-s32 func_800162BC();
+s32 spawnTrackMarker();
 void *spawnEffectObject();
 s32 func_80018318();
 s32 func_80022A30();
@@ -86,7 +86,7 @@ extern char sFmtEntryName[];
             if (!((index < (u32) (func_800316E4() & 0xFFFF)) && (itemList != NULL))) {
                 break;
             }
-            result = func_800162BC(sMenuListKind);
+            result = spawnTrackMarker(sMenuListKind);
             ((s32 (*)[0x1]) D_80102F48)[index][0x0] = result;
             if (result) {
                 func_800160FC(((s32 (*)[0x1]) D_80102F48)[index][0x0], func_8002BA6C(func_8002B9FC(((u8 (*)[0x4]) itemList)[index][0x2])), 0x40);

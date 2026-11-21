@@ -15,8 +15,7 @@ typedef s32 M2C_UNK32;
 f32 absFloat(f32);                             /* extern */
 
 void func_8002A1F0(void *arg0) {
-    volatile u64 stack_pad;
-    s32 old_scroll;
+    s16 var_s1;
     s32 temp_lo;
     s16 temp_v0_2;
     s16 temp_v0_4;
@@ -25,10 +24,6 @@ void func_8002A1F0(void *arg0) {
     s16 var_a1_2;
     s16 var_a1_3;
     s16 var_a2;
-    s16 var_s1;
-    s16 var_s1_2;
-    s16 var_s1_3;
-    s16 var_s1_5;
     s16 var_v0_4;
     s32 temp_a0;
     s32 temp_a0_3;
@@ -60,7 +55,6 @@ void func_8002A1F0(void *arg0) {
     u8 temp_v1_7;
     u8 var_a0;
     s16 var_a1;
-    s16 var_s1_4;
     u8 var_v0_2;
     u8 var_v1;
     void *temp_a0_4;
@@ -68,7 +62,7 @@ void func_8002A1F0(void *arg0) {
     var_a1 = 0;
     if ((arg0 != NULL) && (M2C_FIELD(arg0, M2C_UNK (**)(void *, M2C_UNK, s32, u16), 4) != NULL)) {
         temp_v0 = M2C_FIELD(arg0, u8 *, 0x18);
-        old_scroll = M2C_FIELD(arg0, u8 *, 0x1D);
+        temp_s3 = M2C_FIELD(arg0, u8 *, 0x1D);
         var_s1 = 0;
         if (temp_v0 != 0) {
             do {
@@ -80,12 +74,12 @@ void func_8002A1F0(void *arg0) {
         }
         temp_v0_3 = M2C_FIELD(arg0, u8 *, 0x19);
         var_a2 = 0;
-        var_s1_2 = 0;
+        var_s1 = 0;
         if (temp_v0_3 != 0) {
             do {
-                temp_v1_2 = M2C_FIELD(((var_s1_2 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9);
-                temp_v0_4 = var_s1_2 + 1;
-                var_s1_2 = temp_v0_4;
+                temp_v1_2 = M2C_FIELD(((var_s1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9);
+                temp_v0_4 = var_s1 + 1;
+                var_s1 = temp_v0_4;
                 var_a2 += temp_v1_2;
             } while (temp_v0_4 < (s32) temp_v0_3);
         }
@@ -115,24 +109,26 @@ void func_8002A1F0(void *arg0) {
             if (M2C_FIELD(arg0, u8 *, 0x1E) == 0) {
                 var_a1_2 = 0;
                 var_v1 = M2C_FIELD(arg0, u8 *, 0x18);
-                var_s1_3 = 0;
-                if (0 == 0) {
+                var_s1 = 0;
+                if (var_s1 <= var_v1) {
+                    s32 records = M2C_FIELD(arg0, s32 *, 0);
+                    s32 scroll = var_a0 & 0xFF;
                     var_v0 = 0 << 0x10;
                     for (;;) {
                         temp_a0 = var_v0 >> 0x10;
-                        temp_v0_6 = var_a1_2 + M2C_FIELD(((temp_a0 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9);
+                        temp_v0_6 = var_a1_2 + M2C_FIELD(((temp_a0 * 0xC) + records), u8 *, 9);
                         var_a1_2 = temp_v0_6;
-                        if ((var_a0 & 0xFF) >= temp_v0_6) {
-                            temp_v0_7 = var_s1_3 + 1;
-                            var_s1_3 = temp_v0_7;
+                        if (scroll >= temp_v0_6) {
+                            temp_v0_7 = var_s1 + 1;
+                            var_s1 = temp_v0_7;
                             var_v1 = M2C_FIELD(arg0, u8 *, 0x18);
-                            var_v0 = var_s1_3 << 0x10;
+                            var_v0 = var_s1 << 0x10;
                             if ((s32) var_v1 >= temp_v0_7) {
                                 continue;
                             }
                         } else if (temp_a0 >= 0) {
                             if ((s32) var_v1 >= temp_a0) {
-                                var_v1 = (u8) var_s1_3;
+                                var_v1 = (u8) var_s1;
                             }
                             M2C_FIELD(arg0, u8 *, 0x18) = var_v1;
                         } else {
@@ -141,14 +137,14 @@ void func_8002A1F0(void *arg0) {
                         break;
                     }
                 }
-                var_s1_4 = M2C_FIELD(arg0, u8 *, 0x18);
+                var_s1 = M2C_FIELD(arg0, u8 *, 0x18);
                 temp_v1_4 = M2C_FIELD(arg0, u8 *, 0x19);
                 var_a1_3 = 0;
-                if ((s32) var_s1_4 < (s32) temp_v1_4) {
+                if ((s32) var_s1 < (s32) temp_v1_4) {
                     do {
-                        temp_a0 = (u8)(M2C_FIELD((((s16) var_s1_4 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9));
-                        temp_v0_8 = var_s1_4 + 1;
-                        var_s1_4 = temp_v0_8;
+                        temp_a0 = (u8)(M2C_FIELD((((s16) var_s1 * 0xC) + M2C_FIELD(arg0, s32 *, 0)), u8 *, 9));
+                        temp_v0_8 = var_s1 + 1;
+                        var_s1 = temp_v0_8;
                         var_a1_3 += temp_a0;
                     } while ((s16) temp_v0_8 < (s32) temp_v1_4);
                 }
@@ -167,10 +163,10 @@ void func_8002A1F0(void *arg0) {
                 }
             }
         }
-        var_s1_5 = 0;
+        var_s1 = 0;
         var_s2 = 0;
+        M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + ((M2C_FIELD(arg0, u8 *, 0x1D) - temp_s3) * M2C_FIELD(arg0, u8 *, 0x21)));
         temp_s3 = M2C_FIELD(arg0, u8 *, 0x1D) * M2C_FIELD(arg0, u8 *, 0x21);
-        M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + ((M2C_FIELD(arg0, u8 *, 0x1D) - old_scroll) * M2C_FIELD(arg0, u8 *, 0x21)));
         if (M2C_FIELD(arg0, u8 *, 0x19) != 0) {
             var_v0_3 = 0 << 0x10;
             do {
@@ -186,29 +182,31 @@ void func_8002A1F0(void *arg0) {
                 var_s2 += temp_lo;
                 if (((temp_a3 + temp_lo) >= (temp_a2 - temp_a1_3)) && ((s32) temp_a3 < (temp_a2 + (temp_a1_3 * M2C_FIELD(arg0, u8 *, 0x1B))))) {
                     M2C_FIELD(arg0, M2C_UNK (**)(void *, M2C_UNK, s32, u16), 4)(temp_a0_4, 1, M2C_FIELD(arg0, u8 *, 0x18) == temp_t0, temp_a3);
-                    var_v0_4 = var_s1_5 + 1;
+                    var_v0_4 = var_s1 + 1;
                 } else {
-                    M2C_FIELD(arg0, M2C_UNK (**)(void *, M2C_UNK, s32, u16), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_s1_5 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1_5, temp_a3);
-                    var_v0_4 = var_s1_5 + 1;
+                    M2C_FIELD(arg0, M2C_UNK (**)(void *, M2C_UNK, s32, u16), 4)(M2C_FIELD(arg0, s32 *, 0) + (var_s1 * 0xC), 0, M2C_FIELD(arg0, u8 *, 0x18) == var_s1, temp_a3);
+                    var_v0_4 = var_s1 + 1;
                 }
-                var_s1_5 = var_v0_4;
-                var_v0_3 = var_s1_5 << 0x10;
+                var_s1 = var_v0_4;
+                var_v0_3 = var_s1 << 0x10;
             } while (var_v0_4 < (s32) M2C_FIELD(arg0, u8 *, 0x19));
         }
-        if (!(absFloat((f32) (s16) M2C_FIELD(arg0, u16 *, 0x14)) > 2.0f)) {
-            M2C_FIELD(arg0, u16 *, 0x14) = 0U;
-            return;
-        }
-        temp_v0_9 = M2C_FIELD(arg0, u16 *, 0x14);
-        temp_a1_4 = (s32) (temp_v0_9 << 0x10) >> 0x12;
-        temp_a0_5 = -temp_a1_4;
-        var_v0_5 = (s16) temp_v0_9 - 8;
-        if (temp_a0_5 >= -8) {
-            var_v0_5 = (s16) temp_v0_9 - temp_a1_4;
-            if (temp_a0_5 >= 9) {
-                var_v0_5 = (s16) temp_v0_9 + 8;
+        if (absFloat((f32) M2C_FIELD(arg0, s16 *, 0x14)) > 2.0f) {
+            temp_v0_9 = M2C_FIELD(arg0, u16 *, 0x14);
+            temp_a1_4 = (s32) (temp_v0_9 << 0x10) >> 0x12;
+            temp_a0_5 = -temp_a1_4;
+            temp_v1_6 = (s32)(temp_v0_9 << 16) >> 16;
+            var_v0_5 = temp_v1_6 - 8;
+            if (temp_a0_5 >= -8) {
+                var_v0_5 = (s16) temp_v0_9 - temp_a1_4;
+                if (temp_a0_5 >= 9) {
+                    var_v0_5 = (s16) temp_v0_9 + 8;
+                }
             }
+            M2C_FIELD(arg0, u16 *, 0x14) = var_v0_5;
+        } else {
+            M2C_FIELD(arg0, u16 *, 0x14) = 0U;
         }
-        M2C_FIELD(arg0, u16 *, 0x14) = var_v0_5;
     }
 }
+

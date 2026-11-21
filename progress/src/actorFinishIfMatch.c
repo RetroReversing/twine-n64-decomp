@@ -16,7 +16,7 @@ s32 func_80001624();
 s32 listUnlinkFree();
 s32 func_8000A344();
 s32 requestSound();
-s32 func_80015F74();
+s32 spawnTextNode();
 s32 func_80022DBC();
 s32 func_8005F664();
 s32 actorSetField7A();
@@ -125,7 +125,7 @@ void *var_a0;
                     
                     sprintf(var_a0, var_a1_2, var_a2, var_a3);}
                     func_8011B368(D_800C7CAC, D_800C7CAC + 2, M2C_FIELD(temp_s3, u8 *, 0x182));
-                    M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), s32 *, 8) = func_80015F74(D_800C7CAC - 0xC);
+                    M2C_FIELD(M2C_FIELD(temp_s3, void **, 0xB4), s32 *, 8) = spawnTextNode(D_800C7CAC - 0xC);
                 }
                 M2C_FIELD(arg0, s32 *, 0x5C) &= ~0x200;
             }

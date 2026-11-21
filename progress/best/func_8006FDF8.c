@@ -2,7 +2,7 @@
 
 void *func_80015F0C();                              /* extern */
 s32 func_800165E0(void *, s32);                 /* extern */
-s32 func_800448A4(void *, s32, s32);        /* extern */
+s32 initObjectFromBankEntry(void *, s32, s32);        /* extern */
 extern u16 D_800C7E08;
 typedef struct { s16 x[4]; } __attribute__((packed, aligned(2))) Quad;
 extern Quad D_800D46E4, D_800D46EC;
@@ -74,7 +74,7 @@ block_8:
     do {
         if (((*(void **)((char *)(var_s1) + 0x3D4)) != NULL) || (temp_v0 = func_80015F0C(), (*(void **)((char *)(var_s1) + 0x3D4)) = temp_v0, (temp_v0 != NULL))) {
             temp_s0 = (*(void **)((char *)(var_s1) + 0x3D4));
-            func_800448A4(temp_s0, sp24, 0x2A);
+            initObjectFromBankEntry(temp_s0, sp24, 0x2A);
             (*(s32 *)((char *)(temp_s0) + 0x10)) = 0xFF;
             (*(s32 *)((char *)(temp_s0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_s0) + 0x28)) & ~0xFC) | 0x10);
             (*(u16 *)((char *)(temp_s0) + 0x20)) = (u16) (*(u16 *)((char *)(var_s3) + 0));
@@ -106,7 +106,7 @@ block_8:
                     switch (var_s1_2 / 4) {
                     case 0:
                     case 1:
-                        func_800448A4((*(void **)((char *)(var_s0) + 0x3E4)), 0xF, 0x2A);
+                        initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0xF, 0x2A);
                         if (var_s1_2 == 0) {
                             (*(s16 *)((char *)((*(void **)((char *)(arg0) + 0x3E4))) + 0x20)) = 0x50;
                         } else {
@@ -118,7 +118,7 @@ block_8:
                         break;
                     case 2:
                     case 3:
-                        func_800448A4((*(void **)((char *)(var_s0) + 0x3E4)), 0x10, 0x2A);
+                        initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0x10, 0x2A);
                         if (var_s0 == ((2 * 4) + arg0)) {
                             (*(s16 *)((char *)((*(void **)((char *)(arg0) + 0x3EC))) + 0x20)) = 0x58;
                         } else {
@@ -129,12 +129,12 @@ block_8:
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x78;
                         break;
                     case 4:
-                        func_800448A4((*(void **)((char *)(var_s0) + 0x3E4)), 0x11, 0x2A);
+                        initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 0x11, 0x2A);
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x20)) = 0x80;
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x20;
                         break;
                     case 5:
-                        func_800448A4((*(void **)((char *)(var_s0) + 0x3E4)), 3, 0x2A);
+                        initObjectFromBankEntry((*(void **)((char *)(var_s0) + 0x3E4)), 3, 0x2A);
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x20)) = 0;
                         (*(s16 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x22)) = 0x78;
                         (*(s8 *)((char *)((*(void **)((char *)(var_s0) + 0x3E4))) + 0x29)) = 8;
@@ -175,7 +175,7 @@ block_8:
                 temp_a0_2 = (*(void **)((char *)(var_s0_2) + 0x3E4));
                 var_s2 += 1;
                 var_s0_2 += 4;
-                func_800448A4(temp_a0_2, 0x12, 0x2A);
+                initObjectFromBankEntry(temp_a0_2, 0x12, 0x2A);
             } while (var_s2 < 4U);
         }
     }

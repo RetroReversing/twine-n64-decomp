@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800160FC(s32, s8 *, M2C_UNK);          /* extern */
-s32 func_800162BC(u8);                              /* extern */
+s32 spawnTrackMarker(u8);                              /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
 M2C_UNK func_80022E18(u8);                          /* extern */
@@ -112,7 +112,7 @@ extern M2C_UNK gPickupSearchBox;
             if (D_80102EB8 != 0) {
                 do {
                     slotIndexU16 = slotIndex & 0xFFFF;
-                    slotHandle = func_800162BC(sMenuListKind);
+                    slotHandle = spawnTrackMarker(sMenuListKind);
                     D_80102F48[slotIndexU16] = slotHandle;
                     if (slotHandle != 0) {
                         slotText = lookupDataEntry((slotIndex + 0x4008) & 0xFFFF);

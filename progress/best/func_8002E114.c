@@ -9,7 +9,7 @@ extern s32 D_80100198;
 extern s32 gSaveSlotInfo;
 extern s32 D_801001A0;
 extern s32 D_801001A1;
-extern s32 D_801001A2;
+extern s32 sSaveSlotInfo;
 extern s32 D_801001A4;
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
@@ -91,7 +91,7 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *((s32 *)((s8 *)&gSaveSlotInfo + temp_s0_2)), 4, 0x10);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);
-        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A2 + temp_s0_2)), 1, 4);
+        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&sSaveSlotInfo + temp_s0_2)), 1, 4);
         var_s3 = 0;
         do {
         temp_a1 = *((u8 *)&D_801001A4 + temp_s0_2 + (var_s3 & 0xFFFF));

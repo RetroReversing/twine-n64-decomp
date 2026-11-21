@@ -36,9 +36,9 @@ typedef struct MenuState {
     MenuTextObj *pendingText;
 } MenuState;
 
-void *func_800162BC(u8);
+void *spawnTrackMarker(u8);
 void freeMenuItemRecord(void *);
-s32 func_800448A4(void *, u32, s32);
+s32 initObjectFromBankEntry(void *, u32, s32);
 s32 lookupDataEntry(u16, void *);
 s32 strlen(s8 *);
 extern u8 sMenuListKind;
@@ -62,7 +62,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
     }
     gMenuItems->pendingText = NULL;
     if (request != NULL) {
-        if ((gMenuItems->activeText != NULL) || (temp_v0 = func_800162BC(sMenuListKind), (gMenuItems->activeText = temp_v0), (temp_v0 != NULL))) {
+        if ((gMenuItems->activeText != NULL) || (temp_v0 = spawnTrackMarker(sMenuListKind), (gMenuItems->activeText = temp_v0), (temp_v0 != NULL))) {
             gMenuItems->activeText->param1E = request->slot02;
             temp_a1 = gMenuItems->activeText;
             temp_a1->flags = (temp_a1->flags & ~0xFC) | 0xC;
@@ -79,7 +79,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
         }
         gMenuItems->pendingText = NULL;
         if (request->spriteArgs.hi >= 0) {
-            temp_v0_2 = func_800162BC(sMenuListKind);
+            temp_v0_2 = spawnTrackMarker(sMenuListKind);
             temp_v0_2->param10 = request->value08;
             flags = temp_v0_2->flags;
             temp_a0_2 = request->value0C;
@@ -89,7 +89,7 @@ void setMenuTextRequest(MenuTextRequest *request) {
             temp_v0_2->param14 = temp_a0_2;
             temp_v0_2->param1E = request->slot02;
             packed = (u32)request->spriteArgs.word;
-            func_800448A4(temp_v0_2, packed >> 0x10, packed & 0xFF);
+            initObjectFromBankEntry(temp_v0_2, packed >> 0x10, packed & 0xFF);
             {
                 u16 x = request->spriteX;
                 MenuState *p = gMenuItems;

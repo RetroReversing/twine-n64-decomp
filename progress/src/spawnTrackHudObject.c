@@ -71,7 +71,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
     {
         s16 *argsIndex = &D_800BFDDC;
         *argsIndex = trackIndex;
-        (((TrackHudState *)objState)->lapNode) = func_80015F74((char *)argsIndex - 0x20);
+        (((TrackHudState *)objState)->lapNode) = spawnTextNode((char *)argsIndex - 0x20);
     }
     descriptorDst = (char *)&D_800BFD74;
     D_800BFD70 = trackIndex;
@@ -91,11 +91,11 @@ void *spawnTrackHudObject(s32 trackIndex) {
             descriptorArg = (char *)descriptorMode + 4;
         }
     }
-    (((TrackHudState *)objState)->counterNode) = func_80015F74(descriptorArg);
+    (((TrackHudState *)objState)->counterNode) = spawnTextNode(descriptorArg);
     {
         s16 *argsIndex = &D_800BFD04;
         *argsIndex = trackIndex;
-        textNode = func_80015F74((char *)argsIndex - 0x20);
+        textNode = spawnTextNode((char *)argsIndex - 0x20);
     }
     (((TrackHudState *)objState)->valueNode) = textNode;
     glyphBuf = (*(s32 *)((char *)(textNode) + 8));
@@ -104,7 +104,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
     }
     {
         for (i = 0; i < 9; i++) {
-            textNode = func_800162BC(trackIndex & 0xFFFF);
+            textNode = spawnTrackMarker(trackIndex & 0xFFFF);
             slot = i;
             slotPtr = (void *) (((slot * 4)) + (s32) objState);
             (*(void **)((char *)(slotPtr) + 4)) = textNode;
@@ -136,7 +136,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
     }
     argsBase = &D_800BFCBC;
     (*argsBase) = (s32)trackIndex;
-    (((TrackHudState *)objState)->titleNode) = func_80015F74((char *)argsBase - 0x20);
+    (((TrackHudState *)objState)->titleNode) = spawnTextNode((char *)argsBase - 0x20);
     markerObj = spawnEffectObject(0, 0, 0);
     (((TrackHudState *)objState)->markerObj) = markerObj;
     if (markerObj != NULL) {
@@ -157,7 +157,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
         {
             s16 *argsIndex = &D_800BFCE0;
             *argsIndex = trackIndex;
-            (((TrackHudState *)objState)->subtitleNode) = func_80015F74((char *)argsIndex - 0x20);
+            (((TrackHudState *)objState)->subtitleNode) = spawnTextNode((char *)argsIndex - 0x20);
         }
         func_8002B000(D_800E1584, 0x1E);
     }

@@ -16,7 +16,7 @@ M2C_UNK actorSteerTowardTarget(void *, void *, M2C_UNK *, s32); /* extern */
 extern s32 gVisibleSaveSlots;
 extern M2C_UNK gBonusObjects;
 extern M2C_UNK D_8011F108;
-extern M2C_UNK D_8011F338;
+extern M2C_UNK sSaveSlotMarkers;
 
 void func_8011C890(void) {
     u16 i;
@@ -26,7 +26,7 @@ void func_8011C890(void) {
     for (i = 0; i < gVisibleSaveSlots; i++) {
         temp_a1 = ((void **) &gBonusObjects)[i];
         if ((temp_a1 != NULL) && (M2C_FIELD(temp_a1, s32 *, 0x6C) != 0)) {
-            temp_s0 = ((void **) &D_8011F338)[i];
+            temp_s0 = ((void **) &sSaveSlotMarkers)[i];
             if (temp_s0 != NULL) {
                 actorSteerTowardTarget(temp_s0, temp_a1, &D_8011F108, i);
                 M2C_FIELD(temp_s0, u16 *, 0x20) -= 4;

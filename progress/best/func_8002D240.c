@@ -26,7 +26,7 @@ extern char D_80100198[];
 extern s32 gSaveSlotInfo;
 extern char D_801001A0[];
 extern char D_801001A1[];
-extern char D_801001A2[];
+extern char sSaveSlotInfo[];
 extern char D_801001A3[];
 extern s32 D_801001B4;
 extern s32 D_801001CC;
@@ -201,7 +201,7 @@ int __repair_phase___repair_phase_var_s2_2;
         *(D_80100198 + temp_v1) = 2;
         *(D_801001A0 + temp_v1) = (s32)0x64;
         temp_s3 = __repair_phase_var_s2_2 & 1;
-        *(D_801001A2 + temp_v1) = 1;
+        *(sSaveSlotInfo + temp_v1) = 1;
         *(D_801001A3 + temp_v1) = 0;
         if (temp_s1) {
             if (temp_s3 != 0) {

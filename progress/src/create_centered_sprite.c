@@ -50,11 +50,11 @@ void func_8002E7A0(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
         } while (temp_v0 < arg3);
     }
 }
-extern void *func_800162BC(s32);
-extern void func_800448A4(void *, s32, s32);
+extern void *spawnTrackMarker(s32);
+extern void initObjectFromBankEntry(void *, s32, s32);
 
 s32 create_centered_sprite(s32 arg0, s32 arg1) {
-    void *widget = func_800162BC(5);
+    void *widget = spawnTrackMarker(5);
     u32 flags;
     u16 width;
     u8 height;
@@ -66,7 +66,7 @@ s32 create_centered_sprite(s32 arg0, s32 arg1) {
         M2C_FIELD(widget, s16 *, 0x1C) = 0;
         M2C_FIELD(widget, s16 *, 0x1E) = 0;
         M2C_FIELD(widget, s32 *, 0x10) = -1;
-        func_800448A4(widget, arg1, arg0);
+        initObjectFromBankEntry(widget, arg1, arg0);
         flags = M2C_FIELD(widget, volatile u32 *, 0x28);
         flags &= ~0xFC;
         width = M2C_FIELD(widget, volatile u16 *, 0x26);

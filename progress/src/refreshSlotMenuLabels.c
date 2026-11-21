@@ -11,7 +11,7 @@ s32 func_8002CB7C(u16);
 u16 func_8002CBB8(u16);
 u16 func_8002D09C(u16);
 u16 func_8002D1F8(void);
-s32 func_800448A4(s32, s32, s32);
+s32 initObjectFromBankEntry(s32, s32, s32);
 s32 findEntryById(s32, s32);
 s32 lookupDataEntry(s32);
 void formatTextEntry(s32, char *, s32, u16);
@@ -52,9 +52,9 @@ s16 strlen(const char *);
         label = entry->txt;
         label->len = strlen(label->text);
         if (func_8002D09C(slotIdx)) {
-            func_800448A4(entry->f4, 0xF, 0x24);
+            initObjectFromBankEntry(entry->f4, 0xF, 0x24);
         } else {
-            func_800448A4(entry->f4, 0x10, 0x24);
+            initObjectFromBankEntry(entry->f4, 0x10, 0x24);
         }
     }
     footerEntry = findEntryById(gMenuItems->f10, 0x4010);

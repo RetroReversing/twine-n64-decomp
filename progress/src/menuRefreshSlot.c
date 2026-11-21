@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800160FC(s32, s32, M2C_UNK);           /* extern */
-s32 func_800162BC(u8);                              /* extern */
+s32 spawnTrackMarker(u8);                              /* extern */
 s32 func_80018318(s32);                             /* extern */
 s16 func_8001E760(M2C_UNK, u8);                     /* extern */
 M2C_UNK menuUpdateCursorActor(s16, s16);                    /* extern */
@@ -85,7 +85,7 @@ void menuRefreshSlot(void) {
 __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
 
                 if (((M2C_FIELD(__repair_addr, u8 *, 0x1FC) != 0) | (var_s1 == 0)) != 0) {
-                    temp_v0_2 = func_800162BC(sMenuListKind);
+                    temp_v0_2 = spawnTrackMarker(sMenuListKind);
                     __repair_phase_storage.pointer = var_s1 + &D_80109D28;
                     *__repair_phase_storage.pointer = temp_v0_2;
                     if (temp_v0_2 != 0) {

@@ -22,7 +22,7 @@ typedef struct {
     s32 index,bank;
 } Template;
 extern char *lookupDataEntry(s32);
-extern void func_800448A4(Text *, s32, s32);
+extern void initObjectFromBankEntry(Text *, s32, s32);
 extern unsigned int strlen(const char *);
 /* Fills a Text object from a Template: position, style, string (by id, or by index/bank, or empty), size, mode, width and colour state. */
 void initTextFromTemplate(Text *dst, Template *src) {
@@ -34,7 +34,7 @@ void initTextFromTemplate(Text *dst, Template *src) {
         if (src->id) {
             dst->len = strlen(dst->text = lookupDataEntry(src->id));
         } else if (src->bank >= 0) {
-            func_800448A4(dst, src->index, src->bank);
+            initObjectFromBankEntry(dst, src->index, src->bank);
         } else {
             dst->text = lookupDataEntry(3);
             dst->len = 0;

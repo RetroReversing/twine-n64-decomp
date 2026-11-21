@@ -17,13 +17,13 @@ typedef struct {
 } Record22AD8;
 extern Record22AD8 *D_800B7CF4;
 extern u16 D_800E0EE0, D_800E0EE2, D_800E0EE4, D_800E0EE6;
-extern s32 func_800162BC(s32);
+extern s32 spawnTrackMarker(s32);
 
 void func_80022AD8(s32 id) {
     Record22AD8 *p;
     u16 a, b, c, d;
     u32 flags;
-    if (D_800B7CF4 == NULL && (D_800B7CF4 = (Record22AD8 *)func_800162BC(id & 0xff)) == NULL)
+    if (D_800B7CF4 == NULL && (D_800B7CF4 = (Record22AD8 *)spawnTrackMarker(id & 0xff)) == NULL)
         return;
     p = D_800B7CF4;
     a = D_800E0EE0;

@@ -21,9 +21,9 @@ extern M2C_UNK D_801002A3;
 extern s32 gSaveTotalSlots;
 extern M2C_UNK gBonusObjects;
 extern M2C_UNK D_8011F3AC;
-extern void *gMarkerEntry1;
+extern void *sMarkerTextNode1;
 extern void *gMarkerEntry2;
-extern void *gMarkerEntry3;
+extern void *sMarkerTextNode3;
 
 void func_8011AE4C(void *arg0, void *arg1, void *arg2) {
 s32 __repair_literal;
@@ -46,9 +46,9 @@ s32 __repair_literal;
         M2C_FIELD(arg1, s16 *, 0x1D8) = 0;
         M2C_FIELD(&D_801002A3, s8 *, 0) = 0;
         M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) = 0U;
-        M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(sMarkerTextNode1, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode1, const s32 *, 0x28) & ~0xFC) | 0x1C);
         M2C_FIELD(gMarkerEntry2, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry2, const s32 *, 0x28) & ~0xFC) | 0x1C);
-        M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
+        M2C_FIELD(sMarkerTextNode3, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode3, const s32 *, 0x28) & ~0xFC) | 0x1C);
         var_a0 = 0;
 __repair_literal = 0;
 
@@ -72,7 +72,7 @@ __repair_literal = 0;
             var_s0 = (u8)var_v0;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
-            M2C_FIELD(gMarkerEntry1, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry1, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(sMarkerTextNode1, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode1, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
                 relinkTrackMarker(arg2, 1);
             }
@@ -84,7 +84,7 @@ __repair_literal = 0;
             }
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 4) {
-            M2C_FIELD(gMarkerEntry3, s32 *, 0x28) = (s32) ((M2C_FIELD(gMarkerEntry3, const s32 *, 0x28) & ~0xFC) | 0x1C);
+            M2C_FIELD(sMarkerTextNode3, s32 *, 0x28) = (s32) ((M2C_FIELD(sMarkerTextNode3, const s32 *, 0x28) & ~0xFC) | 0x1C);
             if (var_s0 & 0xFF) {
                 relinkTrackMarker(arg2, 4);
                 goto block_23;

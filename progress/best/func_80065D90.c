@@ -9,7 +9,7 @@ s32 func_8000A894();
 void *func_80015F0C();
 s32 freeMenuItemRecord();
 s32 func_800165E0();
-s32 func_800448A4();
+s32 initObjectFromBankEntry();
 s32 func_800643EC();
 s32 func_80065684();
 s32 func_800656B0();
@@ -360,7 +360,7 @@ active_mode:
                 (*(s32 *)((char *)(temp_s0) + 0x10)) = var_v1;
                 (*(s32 *)((char *)(temp_s0) + 0x28)) = (s32) (((*(s32 *)((char *)(temp_s0) + 0x28)) & ~0xFC) | 0x10);
                 var_a1 = 0x1F;
-                func_800448A4((*(void **)((char *)(temp_s1) + 0x410)), var_a1, 0x1B);
+                initObjectFromBankEntry((*(void **)((char *)(temp_s1) + 0x410)), var_a1, 0x1B);
                 (*(s16 *)((char *)((*(void **)((char *)(temp_s1) + 0x410))) + 0x1E)) = 6;
             }
         } else {
@@ -387,7 +387,7 @@ active_mode:
         if ((D_80102ED8 != 0) && (D_801002C0 >= 2)) {
             var_a1 = 0x2A;
         }
-        func_800448A4((*(void **)((char *)(temp_s1) + 0x410)), var_a1, 0x1B);
+        initObjectFromBankEntry((*(void **)((char *)(temp_s1) + 0x410)), var_a1, 0x1B);
         (*(s16 *)((char *)((*(void **)((char *)(temp_s1) + 0x410))) + 0x1E)) = 6;
     }
     temp_v1_11 = (*(void **)((char *)(arg0) + 0x68));

@@ -63,13 +63,13 @@ typedef struct {
 } Object22AD8;
 extern Object22AD8 *D_800B7CF4;
 extern u16 D_800E0EE0, D_800E0EE2, D_800E0EE4, D_800E0EE6;
-extern s32 func_800162BC(s32);
+extern s32 spawnTrackMarker(s32);
 void func_80022AD8(u8 index) {
     Object22AD8 *obj;
     u16 x, y, z, color;
     u32 flags;
     if (D_800B7CF4 == 0) {
-        D_800B7CF4 = (Object22AD8 *)func_800162BC(index);
+        D_800B7CF4 = (Object22AD8 *)spawnTrackMarker(index);
         if (D_800B7CF4 == 0) return;
     }
     obj = D_800B7CF4;

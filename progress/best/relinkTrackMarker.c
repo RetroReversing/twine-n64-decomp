@@ -6,7 +6,7 @@ void requestSound(s32);
 void unlinkNode(Node *, Node *, void *);
 extern Node *gTrackMarkerTable[];
 extern s16 gMarkerLastIndex1, gMarkerLastIndex2, gMarkerLastIndex3;
-extern NodeEntry *gMarkerEntry1, *gMarkerEntry2, *gMarkerEntry3;
+extern NodeEntry *sMarkerTextNode1, *gMarkerEntry2, *sMarkerTextNode3;
 
 void relinkTrackMarker(EventActor *actor, u16 slot) {
     s16 *previous;
@@ -18,8 +18,8 @@ void relinkTrackMarker(EventActor *actor, u16 slot) {
     case 1:
         previous = &gMarkerLastIndex1;
         actor->event->flags |= 1;
-        unlinkNode(&gMarkerEntry1->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
-        entry = gMarkerEntry1;
+        unlinkNode(&sMarkerTextNode1->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
+        entry = sMarkerTextNode1;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     case 2:
@@ -32,8 +32,8 @@ void relinkTrackMarker(EventActor *actor, u16 slot) {
     default:
         previous = &gMarkerLastIndex3;
         actor->event->flags |= 4;
-        unlinkNode(&gMarkerEntry3->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
-        entry = gMarkerEntry3;
+        unlinkNode(&sMarkerTextNode3->node, gTrackMarkerTable[*previous], gTrackMarkerTable[actor->index]);
+        entry = sMarkerTextNode3;
         indexBits = (u32)(u8)actor->index << 24;
         break;
     }

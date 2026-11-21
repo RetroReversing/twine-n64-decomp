@@ -5,7 +5,7 @@ extern s32 gVisibleSaveSlots;
 extern s32 gBonusObjects;
 extern s32 D_8011F160;
 extern u8 sProbeFlags[];
-extern s32 D_8011F338;
+extern s32 sSaveSlotMarkers;
 
 void func_8011CEA0(void) {
     register s32 var_s1;
@@ -20,7 +20,7 @@ void func_8011CEA0(void) {
 {
     u16 __repair_i;
     for (__repair_i = 0; __repair_i < 4; __repair_i++) {
-        { char *q = (__repair_i * 0x10) + (char *)&D_8011F338; temp_a0 = *(s32 *)(temp_s2 + (s32)q); }
+        { char *q = (__repair_i * 0x10) + (char *)&sSaveSlotMarkers; temp_a0 = *(s32 *)(temp_s2 + (s32)q); }
         if (temp_a0 != 0) {
         actorSteerTowardTarget(temp_a0, (&gBonusObjects)[var_s1 & 0xFFFF], (2U > __repair_i) ? (void *) ((&D_8011F160)[__repair_i]) : (void *) ((__repair_i * 0xC) + sProbeFlags), var_s1 & 0xFFFF);
         }

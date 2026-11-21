@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800160FC(s32, void *, M2C_UNK);        /* extern */
-s32 func_800162BC(s32);                         /* extern */
+s32 spawnTrackMarker(s32);                         /* extern */
 M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
@@ -169,7 +169,7 @@ void func_8002323C(void) {
         if (D_801002AC != 0) {
             s32 *row = &D_800E1008;
             *row = 0;
-            temp_v0_3 = func_800162BC(sMenuListKind);
+            temp_v0_3 = spawnTrackMarker(sMenuListKind);
             D_800E100C = temp_v0_3;
             D_800E101C = 0;
             if (temp_v0_3 != 0) {
@@ -181,8 +181,8 @@ void func_8002323C(void) {
         temp_v0_2 = M2C_FIELD(&gSaveKeyRelaxed, u8 *, 0);
         if (temp_v0_2 != 0) {
             var_s2 = 1;
-            D_800E0FC0 = func_800162BC(sMenuListKind);
-            D_800E0FC4 = func_800162BC(sMenuListKind);
+            D_800E0FC0 = spawnTrackMarker(sMenuListKind);
+            D_800E0FC4 = spawnTrackMarker(sMenuListKind);
             temp_v0_4 = lookupDataEntry(0x4001);
             sprintf(temp_v0_4, D_800D2AB0, D_800E107E);
             func_800160FC(D_800E0FC0, lookupDataEntry(0x6E), 0x40);
@@ -193,14 +193,14 @@ void func_8002323C(void) {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5) == 0) {
-                        temp_v0_10 = func_800162BC(sMenuListKind);
+                        temp_v0_10 = spawnTrackMarker(sMenuListKind);
                         {
                             u8 channel = sMenuListKind;
                             temp_a1 = var_s2 & 0xFFFF;
                             temp_s0_5 = temp_a1 * 0xC;
 
                             M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_5) = temp_v0_10;
-                            temp_v0_6 = func_800162BC(channel);
+                            temp_v0_6 = spawnTrackMarker(channel);
                         }
                         temp_a0_3 = M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_5);
                         M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_5) = temp_v0_6;
@@ -224,13 +224,13 @@ void func_8002323C(void) {
                 } while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
             }
             var_s4 = 0;
-            temp_v0_10 = func_800162BC(sMenuListKind);
+            temp_v0_10 = spawnTrackMarker(sMenuListKind);
             {
                 u8 channel = sMenuListKind;
                 temp_s0_6 = (var_s2 & 0xFFFF) * 0xC;
                 M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_6) = temp_v0_10;
                 var_s2++;
-                temp_v0_10 = func_800162BC(channel);
+                temp_v0_10 = spawnTrackMarker(channel);
                 M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_6) = temp_v0_10;
             }
             temp_v0_4 = lookupDataEntry(0x4002);
@@ -243,14 +243,14 @@ void func_8002323C(void) {
                     temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5_2 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
-                            temp_v0_10 = func_800162BC(sMenuListKind);
+                            temp_v0_10 = spawnTrackMarker(sMenuListKind);
                             {
                                 u8 channel = sMenuListKind;
                                 temp_a1_2 = var_s2 & 0xFFFF;
                                 temp_s0_7 = temp_a1_2 * 0xC;
 
                                 M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7) = temp_v0_10;
-                                temp_v0_9 = func_800162BC(channel);
+                                temp_v0_9 = spawnTrackMarker(channel);
                             }
                             temp_a0_5 = M2C_FIELD(&D_800E0FC0, s32 *, temp_s0_7);
                             M2C_FIELD(&D_800E0FC4, s32 *, temp_s0_7) = temp_v0_9;
@@ -278,12 +278,12 @@ success5:
                 do {
                     var_s0_4 = (u16)var_s4;
                     temp_s1 = func_80022DBC(var_s0_4);
-                    temp_v0_10 = func_800162BC(sMenuListKind);
+                    temp_v0_10 = spawnTrackMarker(sMenuListKind);
                     {
                         u8 channel = sMenuListKind;
                         temp_s3_2 = var_s0_4 * 0xC;
                         M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2) = temp_v0_10;
-                        temp_v0_10 = func_800162BC(channel);
+                        temp_v0_10 = spawnTrackMarker(channel);
                     }
                     temp_a0_7 = M2C_FIELD(&D_800E0FC0, s32 *, temp_s3_2);
                     M2C_FIELD(&D_800E0FC4, s32 *, temp_s3_2) = temp_v0_10;

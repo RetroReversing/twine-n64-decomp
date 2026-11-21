@@ -38,7 +38,7 @@ typedef struct {
     } state;
 } Object448;
 extern Slot448 D_800C0784[];
-void func_800448A4(Object448 *object, s32 index, s32 bankIndex) {
+void initObjectFromBankEntry(Object448 *object, s32 index, s32 bankIndex) {
     Bank448 *bank;
     Entry448 *entry;
     Payload448 *payload;

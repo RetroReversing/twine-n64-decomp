@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_800162BC(M2C_UNK);                       /* extern */
-M2C_UNK func_800448A4(void *, M2C_UNK, M2C_UNK);    /* extern */
+void *spawnTrackMarker(M2C_UNK);                       /* extern */
+M2C_UNK initObjectFromBankEntry(void *, M2C_UNK, M2C_UNK);    /* extern */
 
 void DrawBorderRect(s16 arg0, s16 arg1, s16 arg2, s8 arg3) {
     void *temp_v0;
 
-    temp_v0 = func_800162BC(4);
+    temp_v0 = spawnTrackMarker(4);
     if (temp_v0 != NULL) {
-        func_800448A4(temp_v0, 3, 0x2A);
+        initObjectFromBankEntry(temp_v0, 3, 0x2A);
         M2C_FIELD(temp_v0, s32 *, 0x10) = 0xFF;
         M2C_FIELD(temp_v0, s16 *, 0x20) = arg0;
         M2C_FIELD(temp_v0, s16 *, 0x22) = arg1;

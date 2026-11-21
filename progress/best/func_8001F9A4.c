@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_800160FC();
-s32 func_800162BC();
+s32 spawnTrackMarker();
 s32 func_80022A30();
 s32 func_80022AD8();
 s32 func_80022E18();
@@ -205,7 +205,7 @@ block_36:
             if (gSaveSlotCount > 0) {
                 do {
                     temp_s1_3 = var_s0_2 & 0xFFFF;
-                    temp_v0_7 = func_800162BC(sMenuListKind);
+                    temp_v0_7 = spawnTrackMarker(sMenuListKind);
                     D_80102F48[temp_s1_3] = temp_v0_7;
                     if (temp_v0_7 != 0) {
                         temp_s2_2 = lookupDataEntry((var_s0_2 + 0x400C) & 0xFFFF);
