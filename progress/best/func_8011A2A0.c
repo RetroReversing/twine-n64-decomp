@@ -1,6 +1,6 @@
 #define ACCUMULATE() do {     slotPtr = &gSaveTotalSlots;     i = 0;     if (*slotPtr > 0) do {         BonusObject *object = sBonusObjectTable[(u16)i];         if (object != 0) {             BonusData *data = object->state->data;             totals[data->player] += data->total - data->remaining;         }         i++;     } while ((s32)(u16)i < *slotPtr); } while (0)
 #define CHECK_TOTALS() do {     thresholdPtr = &D_801002A8;     threshold = *thresholdPtr;     i = 0;     if (threshold == 0) goto finish;     do {         s32 index = (u16)i;         i++;         if (totals[index] >= threshold) {             D_8011F3A8 = 90;             *((volatile u8 *)thresholdPtr + 4) = 1;         }     } while ((u16)i < 2);     goto finish; } while (0)
-#define COUNT_FLAGS(value) do {     slotPtr = &gSaveTotalSlots;     slots = *slotPtr;     countPtr = slotPtr + 1;     i = 0;     if (slots > 0) do {         u16 index = (u16)i++;         BonusObject *object = sBonusObjectTable[index];         if (object != 0 && (object->state->data->flag != 0) == (value)) {             count++;             saved += (s32)index < *countPtr;         }     } while ((s32)(u16)i < slots);     countPtr = &gSaveSlotCount;     if (saved >= *countPtr) {         func_8011A7C8();         if (saved >= *countPtr) goto set_flag;     }     if (count < gSaveTotalSlots - 1) goto finish;     goto set_flag; } while (0)
+#define COUNT_FLAGS(value) do {     slotPtr = &gSaveTotalSlots;     slots = *slotPtr;         i = 0;     if (slots > 0) do {         u16 index = (u16)i++;         BonusObject *object = sBonusObjectTable[index];         if (object != 0 && (object->state->data->flag != 0) == (value)) {             count++;             saved += (s32)index < *(slotPtr + 1);         }     } while ((s32)(u16)i < slots);     countPtr = &gSaveSlotCount;     if (saved >= *countPtr) {         func_8011A7C8();         if (saved >= *countPtr) goto set_flag;     }     if (count < gSaveTotalSlots - 1) goto finish;     goto set_flag; } while (0)
 typedef struct 
 {
   u8 pad[12];
@@ -140,4 +140,5 @@ s32 func_8011A2A0(void)
   while (((u16) i) < 2);
   return D_801002AC;
 }
+
 

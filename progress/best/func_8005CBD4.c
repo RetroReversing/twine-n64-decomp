@@ -26,7 +26,7 @@ void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
                 (*(s16 *)((char *)(temp_v0) + 0x7A)) = 0;
                 (*(s16 *)((char *)(temp_s1) + 0x1C)) = (s16) (randomIntBelow(4) + 4);
                 (*(s16 *)((char *)(temp_v0) + 0x78)) = 8;
-                (*(s8 *)((char *)(temp_v0) + 0x82)) = 0xFF;
+                (*(u8 *)((char *)(temp_v0) + 0x82)) = 0xFF;
                 (*(s8 *)((char *)(temp_s1) + 0x1E)) = (s8) (0xFF / (s16) (*(s16 *)((char *)(temp_s1) + 0x1C)));
                 (*(f32 *)((char *)(temp_v0) + 0x54)) = (f32) (randomFloatScaled(0.5f) + 0.5f);
                 (*(f32 *)((char *)(temp_s1) + 4)) = (f32) (((*(f32 *)((char *)(arg2) + 0)) + randomFloatScaled(arg3)) - temp_fs1);
@@ -35,14 +35,15 @@ void func_8005CBD4(void *arg0, s32 arg1, void *arg2, f32 arg3, u32 arg4) {
                 (*(f32 *)((char *)(temp_s1) + 0xC)) = (f32) (((*(f32 *)((char *)(arg2) + 8)) + randomFloatScaled(arg3)) - temp_fs1);
                 func_80047B14(temp_s0, 6.0f, temp_s0);
                 (*(f32 *)((char *)(temp_s1) + 0)) = func_80045764(0, temp_s0);
-                (*(s8 *)((char *)(temp_v0) + 0x7F)) = 0xFF;
-                (*(s8 *)((char *)(temp_v0) + 0x80)) = 0xFF;
+                (*(u8 *)((char *)(temp_v0) + 0x7F)) = 0xFF;
+                (*(u8 *)((char *)(temp_v0) + 0x80)) = 0xFF;
                 (*(s8 *)((char *)(temp_v0) + 0x81)) = 0;
                 (*(s32 *)((char *)(temp_v0) + 0x58)) = (s32) ((*(s32 *)((char *)(temp_v0) + 0x58)) | 0x10000);
                 effectSetAnimFrame(temp_v0, randomIntBelow(3) + 0xF, 0x1B);
                 func_80046424(temp_v0 + 0x3C, (*(f32 *)((char *)(temp_s1) + 4)), (*(f32 *)((char *)(temp_s1) + 8)), (*(f32 *)((char *)(temp_s1) + 0xC)));
-                (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) -(*(f32 *)((char *)(temp_v0) + 0x3C));
-                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));
+                (*(f32 *)((char *)(temp_v0) + 0x3C)) = (f32) -(*(f32 *)((char *)(temp_v0) + 0x3C));/*__repair_call_balance*/if(var_s3){
+                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));}else{
+                objectListInsert(temp_v0, (*(s32 *)((char *)(arg0) + 0x20)));}
             }
             var_s3 += 1;
         } while (arg4 > var_s3);

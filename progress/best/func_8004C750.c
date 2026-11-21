@@ -66,8 +66,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     u32 pad10C;
     volatile f32 sp110[3];
   } scratch;
-  void *sp12C;
   void **sp124;
+  void *sp12C;
   void *sp134;
   void *sp13C;
   void *sp144;
@@ -76,6 +76,7 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   f32 *sp15C;
   f32 *sp164;
   f32 *sp16C;
+  f32 *sp174;
   s32 var_s0_5;
   s16 *sp17C;
   f32 *sp184;
@@ -113,7 +114,6 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   u32 var_s0_2;
   unsigned int var_s0_3;
   s32 var_s0_4;
-  f32 *sp174;
   int var_s0_6;
   s32 var_v0_2;
   s32 var_s5;
@@ -156,8 +156,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
   sp124 = arg0;
   sp12C = arg2;
   sp134 = arg3;
-  gPlayerActor = NULL;
   D_80103F00 = NULL;
+  gPlayerActor = NULL;
   D_80108F84 = NULL;
   var_fs0 = arg4;
   if (sp124 != NULL)
@@ -170,8 +170,8 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     sp14C = scratch.matrix;
     sp154 = &scratch.localStart[0];
     scratch.startPoint[1] = (*((f32 *) (((char *) arg1) + 4))) - var_fs0;
-    sp164 = scratch.rotationInput.overlap.point;
     sp15C = &scratch.localEnd[0];
+    sp164 = scratch.rotationInput.overlap.point;
     scratch.startPoint[2] = *((f32 *) (((char *) arg1) + 8));
     do
     {
@@ -604,13 +604,11 @@ s32 func_8004C750(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     while (sp124 != NULL);
     if (var_fs0 == arg4)
     {
-      if (0 == 0)
+      if (sp124 == NULL)
       {
         goto block_160;
       }
-      *((f32 *) (((char *) sp12C) + 0)) = scratch.startPoint[0];
-      *((f32 *) (((char *) sp12C) + 4)) = scratch.startPoint[1];
-      *((f32 *) (((char *) sp12C) + 8)) = scratch.startPoint[2];
+      *(PointCopy *)sp12C = *(PointCopy *)scratch.startPoint;
       goto block_162;
     }
     if (gPlayerActor == NULL)
