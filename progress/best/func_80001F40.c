@@ -22,6 +22,7 @@ s32 func_80001F40(s16 id, s8 code, s32 *out) {
                 if (code == 2) *out = 0;
                 if (code != 0x16) return 1;
                 *out = 1;
+                return 1;
             }
             j++;
         }

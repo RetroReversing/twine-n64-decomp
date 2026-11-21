@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795222537.139232,
- "revision": 16262,
+ "saved_at": 1795222572.3706932,
+ "revision": 16265,
  "title": "TWINE",
  "platform": "n64",
  "game": {
@@ -1626,19 +1626,6 @@
     "-mfp32",
     "-O1"
    ]
-  },
-  "544368:2148024944": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2"
-   ],
-   "timeout": 20,
-   "function": "findNearestTrackMarker",
-   "vram": 2148024944
   }
  },
  "instructions": "",
@@ -1682,6 +1669,7 @@
   "For KMC GCC 2.7.2, explicitly expressing an indexed float address as integer offset plus base can reverse the operands of the generated MIPS addu compared with ordinary pointer indexing.",
   "When the target reads three consecutive unaligned 32-bit words from a global byte table and copies them to a local stack buffer, model the source global as a three-u32 struct rather than u8[]: GCC 2.7.2 KMC can emit lwl/lwr pairs plus swl/swr copies matching the target.",
   "For KMC GCC 2.7.2, assigning three consecutive words through a typed three-word struct can force integer lw/sw copies where equivalent float field assignments use lwc1/swc1. This can recover raw word copies when the target first copies a float vector to stack before modifying one float member; further local layout tuning may still be needed.",
+  "At KMC GCC 2.7.2 -O2, expressing an index stride as an odd factor followed by a left shift can alter register allocation even when the arithmetic instruction sequence is equivalent.",
   "When a global address is used as a byte base plus an integer byte offset, cast the base to u8 * before addition (for example `(u8 *)&global_base + byte_offset`) to avoid MIPS GCC scaling the offset by the base pointee size. For 0xFF sentinels at byte fields, use u8 field types when the target forms a 255 immediate; s8 may produce the signed -1 form."
  ],
  "knowledge_evidence": {
@@ -2366,6 +2354,28 @@
     {
      "by": "codex-gpt-6.1-terra-5",
      "value": "func_8007BAF8: replacing three scalar float copies from arg1 to local pos with a typed three-word Vec3 assignment reduced current verified score 6446 to 5145 and reproduced raw word-copy shape."
+    }
+   ]
+  },
+  "At KMC GCC 2.7.2 -O2, expressing an index stride as an odd factor followed by a left shift can alter register allocation even when the arithmetic instruction sequence is equivalent.": {
+   "model": [
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "gpt-6.1-terra"
+    },
+    {
+     "by": "codex-gpt-6.2-sol-9",
+     "value": "gpt-6.2-sol"
+    }
+   ],
+   "text": [
+    {
+     "by": "codex-gpt-6.1-terra-2",
+     "value": "func_8008AECC: changing i * 0x68 to (i * 13) << 3 reduced score 665 to 585 and removed five register differences in the index loop."
+    },
+    {
+     "by": "codex-gpt-6.2-sol-9",
+     "value": "func_80001928 revision 515743d8981252fff7ec improved score 10 to exact by staging initial stride 0x640 as s32 offset = var_s4 * 25; offset <<= 6; then adding the base. The final shift destination changed from a0 to v0 as required."
     }
    ]
   },
@@ -3376,8 +3386,8 @@
   },
   "func_80001F40": {
    "vram": 2147491648,
-   "best_score": 740,
-   "best_by": "codex-gpt-6-luna-18"
+   "best_score": 580,
+   "best_by": "codex-gpt-6.2-sol-9"
   },
   "func_80002098": {
    "vram": 2147491992,
@@ -5371,8 +5381,8 @@
   },
   "func_80023BD4": {
    "vram": 2147630036,
-   "best_score": 1540,
-   "best_by": "permuter-25769804362"
+   "best_score": 465,
+   "best_by": "codex-gpt-6.2-sol-6"
   },
   "func_80023E60": {
    "vram": 2147630688,
@@ -11514,10 +11524,10 @@
    "matched_by": "autopilot",
    "readable": false
   },
-  "__sinf": {
+  "sinApprox": {
    "vram": 2148142592,
    "matched_by": "autopilot",
-   "readable": false
+   "readable": true
   },
   "strchr": {
    "vram": 2148143168,
@@ -23409,7 +23419,7 @@
    "status": "open"
   },
   {
-   "name": "__sinf",
+   "name": "sinApprox",
    "vram": 2148142592,
    "size": 416,
    "status": "open"
@@ -26045,7 +26055,7 @@
    "kind": "func"
   },
   {
-   "name": "__sinf",
+   "name": "sinApprox",
    "address": 2148142592,
    "size": 416,
    "kind": "func"

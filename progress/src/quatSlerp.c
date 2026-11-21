@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 __sinf(f32);                                    /* extern */
+f32 sinApprox(f32);                                    /* extern */
 
 /* Spherical linear interpolation of two unit quaternions into out, flipping sign when the dot product is negative. */ void quatSlerp(f32 t, const void *from, const void *to, void *out) {
     f32 blend0;
@@ -47,10 +47,10 @@ f32 __sinf(f32);                                    /* extern */
         quintic *= 0.32649f;
         theta = 1.5708f - linear - cubic - quintic;
         }
-        invSinTheta = 1.0f / __sinf(theta);
+        invSinTheta = 1.0f / sinApprox(theta);
         thetaT = theta * toWeight;
-        toWeight = __sinf(thetaT) * invSinTheta;
-        fromWeight = __sinf(theta - thetaT) * invSinTheta;
+        toWeight = sinApprox(thetaT) * invSinTheta;
+        fromWeight = sinApprox(theta - thetaT) * invSinTheta;
     } else {
         fromWeight = 1.0f - toWeight;
     }

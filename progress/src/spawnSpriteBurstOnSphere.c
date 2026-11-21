@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 __cosf(f32);                                    /* extern */
-f32 __sinf(f32);                                    /* extern */
+f32 sinApprox(f32);                                    /* extern */
 M2C_UNK func_8000A830(s16, s16, M2C_UNK);           /* extern */
 u32 randomIntBelow(s32);              /* extern */
 void *func_800617D8(s32, M2C_UNK, M2C_UNK, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
@@ -61,11 +61,11 @@ extern s16 D_80109A58;
             sp30 = zero;
             temp_fs2 = randomFloatScaled(6.2831855f);
             temp_fs1 = randomFloatScaled(6.2831855f);
-            temp_fs0 = __sinf(temp_fs2) * arg2;
+            temp_fs0 = sinApprox(temp_fs2) * arg2;
             sp30 = temp_fs0 * __cosf(temp_fs1);
             temp_fs0_2 = __cosf(temp_fs2) * arg2;
             sp38 = temp_fs0_2 * __cosf(temp_fs1);
-            sp34 = __sinf(temp_fs1) * arg2;
+            sp34 = sinApprox(temp_fs1) * arg2;
             spawned = func_800617D8(M2C_FIELD(arg0, s32 *, 0x20), arg1, 0, &sp30, 1.0f, zero, randomIntBelow(2) + 0x17, 0xFB, 0x68, tint_rgba, 4);
             func_80062450(spawned, &sp30);
             burst_i += 1;

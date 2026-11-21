@@ -1,6 +1,6 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
 f32 __cosf(f32);
-f32 __sinf(f32);
+f32 sinApprox(f32);
 void guMtxIdentF(f32 *);
 extern f64 D_800D2E00;
 extern f64 D_800D2E08;
@@ -14,7 +14,7 @@ guMtxIdentF(mtx);
 fovy=(f32)((f64)fovy*(D_800D2E00/(f64)scale));
 halfFovy=0.5f*fovy;
 cosHalf=__cosf(halfFovy);
-halfFovy=__sinf(halfFovy);
+halfFovy=sinApprox(halfFovy);
 cotangent=cosHalf/halfFovy; rangeDiff=nearPlane-farPlane; cotX=cotangent/aspect; i=0; row=mtx;
 M2C_FIELD(row,s32 *,0x3C)=0; M2C_FIELD(row,f32 *,0x2C)=-1.0f; M2C_FIELD(row,f32 *,0x14)=cotangent; M2C_FIELD(row,f32 *,0x28)=(f32)((nearPlane+farPlane)/(nearPlane-farPlane)); M2C_FIELD(row,f32 *,0x38)=(f32)((2.0f*nearPlane*farPlane)/(nearPlane-farPlane)); M2C_FIELD(row,f32 *,0)=cotX;
 scale=1.0f/scale;

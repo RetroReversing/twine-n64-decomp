@@ -2,7 +2,7 @@
 f32 __cosf(f32);
 extern void guNormalize(float *x, float *y, float *z);
 extern void guMtxIdentF(float mf[4][4]);
-extern float __sinf(float angle);
+extern float sinApprox(float angle);
 extern float __cosf(float angle);
 
 /* Builds a 4x4 float matrix that rotates by angle (degrees) about the axis (x, y, z).
@@ -19,7 +19,7 @@ void guRotateF(float mf[4][4], float angle, float x, float y, float z)
 
 	guNormalize(&x, &y, &z);
 	angle *= dtor;
-	sine = __sinf(angle);
+	sine = sinApprox(angle);
 	cosine = __cosf(angle);
 	t = (1 - cosine);
 	ab = x * y * t;

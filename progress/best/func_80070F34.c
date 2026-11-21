@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 f32 __cosf(f32);                                    /* extern */
-f32 __sinf(f32);                                    /* extern */
+f32 sinApprox(f32);                                    /* extern */
 void *func_80015F0C(M2C_UNK);                       /* extern */
 void *func_800162BC(s8);                            /* extern */
 void *func_80016410(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
@@ -568,8 +568,8 @@ block_10:
         temp_fs4 = D_800D4808;
         var_s1_4 = temp_s2;
         do {
-            temp_fs0 = __sinf(var_fs2_2);
-            temp_fs0_2 = (f64) (temp_fs0 + __sinf((f32) (((f64) var_fs2_2 + M2C_BITWISE(f64, temp_s5)) * temp_fs5)));
+            temp_fs0 = sinApprox(var_fs2_2);
+            temp_fs0_2 = (f64) (temp_fs0 + sinApprox((f32) (((f64) var_fs2_2 + M2C_BITWISE(f64, temp_s5)) * temp_fs5)));
             var_fs2_2 += 0.21f;
             temp_fs0_3 = temp_fs1 + ((temp_fs0_2 + ((f64) __cosf(var_fs3) * temp_fs4 * temp_fs1)) * D_800D4810);
             var_s0_2 += 1;
