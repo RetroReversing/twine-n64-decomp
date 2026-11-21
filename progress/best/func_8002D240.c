@@ -96,7 +96,6 @@ extern s16 D_801176E2;
 extern s16 D_801176E4;
 
 void func_8002D240(void) {
-    char *__base_D_800BFC38;
     s8 *base_801002AE;
     unsigned int temp_v0;
     char c2, c64, c1;
@@ -255,10 +254,9 @@ loop_14:
         func_8002B000(temp_s3 + (temp_s0 + D_80117428), 0x1E);
         temp_s0_2 = temp_s3 + (temp_s0 + (D_80117428 + 0x150));
         func_8002B000(temp_s0_2, 0x1E);
-        __base_D_800BFC38 = D_800BFC38;
-        temp_a2 = *(u16 *)((temp_s1_2 * 2) + (((unsigned)var_s2 * 6) + __base_D_800BFC38));
-        func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);
-        __repair_phase_var_s2_2 += 1;
+        temp_a2 = *(u16 *)((temp_s1_2 * 2) + (((unsigned)var_s2 * 6) + D_800BFC38));
+        func_8002B150(temp_s0_2, temp_a2 >> 8, temp_a2 & 0xFF);/*__repair_loop_weight*/do {
+        __repair_phase_var_s2_2 += 1;} while (0);
         if ((u32) (__repair_phase_var_s2_2 & 0xFFFF) < 3U) {
             goto loop_14;
         }

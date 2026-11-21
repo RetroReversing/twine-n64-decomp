@@ -540,7 +540,7 @@ void func_80069DCC(void *arg0)
             {
               var_v0 = 0;
             }
-            if (((var_v1 ^ 1) | (var_v0 ^ 1)) != 0)
+            if (((var_v0 ^ 1) | (var_v1 ^ 1)) != 0)
             {
               temp_fv0 = var_fs3 * var_fs3;
               if (var_fs3 > 0.0f)

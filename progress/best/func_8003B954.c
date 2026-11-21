@@ -45,6 +45,10 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
   s32 temp_a0_9;
   s32 temp_a1_3;
   s32 glyphWidth, glyphHeight;
+  u16 initialLength;
+  s32 remaining;
+  s32 nextIndex;
+  s32 lineStep;
   u32 packedStart;
   u32 rectangleOpcode;
   s32 initialWidth;
@@ -173,13 +177,14 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x20)) = 0xE3001001;
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x24)) = 0;
     *((s32 *) (((char *) __repair_phase_storage.pointer) + 0x14)) = (s32) (((((*((u16 *) (((char *) temp_v0_5) + 2))) * 4) & 0xFFF) << 0xC) | (((*((u16 *) (((char *) temp_v0_5) + 4))) * 4) & 0xFFF));
+    initialLength = *((u16 *) (((char *) arg2) + 0x1C));
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x10);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x18);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x20);
     sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 0x28);
     var_s0 = 0;
-    if ((*((u16 *) (((char *) arg2) + 0x1C))) != 0)
+    if (initialLength != 0)
     {
       do
       {
@@ -242,12 +247,16 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
           case 10:
             var_s1 = *((u16 *) (((char *) arg2) + 0x20));
             temp_a0_5 = *((u16 *) (((char *) arg2) + 0x1E));
+            lineStep = (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            var_s5 += 3;
             D_800E1760 = 0;
-            var_s5 = (var_s5 + 3) + (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            var_s5 += lineStep;
             if (temp_a0_5 & 1)
           {
             decoded = decodeButtonMask840(temp_a0_5);
-            var_s1 -= func_800180D4(((__repair_field_18 *) arg2)->value + (var_s0 + 1), (((*((u16 *) (((char *) arg2) + 0x1C))) - 1) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766) >> 1;
+            remaining = *((u16 *) (((char *) arg2) + 0x1C)) - 1;
+            nextIndex = var_s0 + 1;
+            var_s1 -= func_800180D4(((__repair_field_18 *) arg2)->value + nextIndex, (remaining - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766) >> 1;
           }
             break;
 
@@ -261,8 +270,10 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             if ((D_800E1764 != 0) && (((u32) (D_800E1760 + (func_80018578(temp_s4, ((__repair_field_18 *) arg2)->value + var_s0) & 0xFFFF))) >= ((u32) D_800E1764)))
           {
             temp_a0_6 = *((u16 *) (((char *) arg2) + 0x1E));
+            lineStep = (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            var_s5 += 3;
             D_800E1760 = 0;
-            var_s5 = (var_s5 + 3) + (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            var_s5 += lineStep;
             if (temp_a0_6 & 1)
             {
               u32 lineWidth;
