@@ -74,6 +74,7 @@ void func_8002323C(void)
   s32 temp_s5_2;
   s32 temp_v0_10;
   s32 temp_v0_2;
+  s32 keyMode;
   s32 temp_v0_3;
   s32 temp_v0_6;
   s32 temp_v0_9;
@@ -156,9 +157,10 @@ void func_8002323C(void)
         while ((var_s4 & 0xFFFF) < gSaveTotalSlots);
       }
     }
+    var_s4 = 0;
     {
       volatile u8 *mode = (u8 *) (&gSaveKeyRelaxed);
-      for (var_s4 = 0; ((u16) var_s4) < 2; var_s4++)
+      for (; ((u16) var_s4) < 2; var_s4++)
       {
         if (mode[0] == 0)
         {
@@ -188,8 +190,8 @@ void func_8002323C(void)
       }
     }
     var_s4 = 0;
-    temp_v0_2 = *((u8 *) (((char *) (&gSaveKeyRelaxed)) + 0));
-    if (temp_v0_2 != 0)
+    keyMode = *((u8 *) (((char *) (&gSaveKeyRelaxed)) + 0));
+    if (keyMode != 0)
     {
       var_s2 = 1;
       D_800E0FC0 = spawnTrackMarker(sMenuListKind);
@@ -314,7 +316,7 @@ void func_8002323C(void)
       }
     }
     else
-      if (temp_v0_2 < gSaveTotalSlots)
+      if (keyMode < gSaveTotalSlots)
     {
       do
       {

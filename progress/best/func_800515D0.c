@@ -454,10 +454,10 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                           temp_s2 = temp_a3 + ((*((u16 *) (((char *) var_fp) + 0))) * 0xC);
                           if ((triangleContainsPoint(arg4, temp_s3, temp_s1_2, temp_s2, sp1F4) << 0x18) != 0)
                           {
-                            temp_fa0 = arg5 - temp_fs0_3;
-                            temp_ft1 = temp_fa0 * spA0;
-                            temp_ft0 = temp_fa0 * spA4;
-                            temp_fv0 = temp_fa0 * spA8;
+                            temp_fs0_3 = arg5 - temp_fs0_3;
+                            temp_ft1 = temp_fs0_3 * spA0;
+                            temp_ft0 = temp_fs0_3 * spA4;
+                            temp_fv0 = temp_fs0_3 * spA8;
                             sp18 = temp_ft1;
                             sp1C = temp_ft0;
                             sp20 = temp_fv0;
@@ -587,10 +587,10 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                           temp_s2_2 = temp_a3_2 + ((*((u8 *) (((char *) var_fp_2) + 0))) * 0xC);
                           if ((triangleContainsPoint(arg4, temp_s3_2, temp_s1_3, temp_s2_2, sp1F4) << 0x18) != 0)
                           {
-                            temp_fa0_3 = arg5 - temp_fs0_5;
-                            temp_ft1_2 = temp_fa0_3 * spA0;
-                            temp_ft0_3 = temp_fa0_3 * spA4;
-                            temp_fv0_4 = temp_fa0_3 * spA8;
+                            temp_fs0_5 = arg5 - temp_fs0_5;
+                            temp_ft1_2 = temp_fs0_5 * spA0;
+                            temp_ft0_3 = temp_fs0_5 * spA4;
+                            temp_fv0_4 = temp_fs0_5 * spA8;
                             sp18 = temp_ft1_2;
                             sp1C = temp_ft0_3;
                             sp20 = temp_fv0_4;

@@ -44,6 +44,33 @@ void func_80073400(void)
     D_8010D370 = __repair_fzero;
   }
   else
+    if (__repair_constant || state)
+  {
+    *(state + (-1)) = 0;
+    __repair_fzero = 0.0f;
+    *(state + (-3)) = 0;
+    *(state + (-2)) = 0;
+    *(state + 2) = 0;
+    *(state + 1) = 0;
+    *(state + 0) = 0;
+    *(state + 3) = 0xFF;
+    *(state + 4) = (__repair_constant = 0xFF);
+    *(state + 5) = __repair_constant;
+    D_80100774 = 0xEB;
+    *((u8 *) (&D_80100776)) = 0x78;
+    *((u8 *) (&D_80100778)) = 0x30;
+    *((u8 *) (&D_80100779)) = 0x9B;
+    *((u8 *) (&D_8010077A)) = 0x28;
+    *((u8 *) (&D_80100775)) = 0;
+    *((u8 *) (&D_80100777)) = 0;
+    *((u8 *) (&D_8010077B)) = 0xCD;
+    *((u8 *) (&D_8010077C)) = __repair_constant;
+    D_8010D450 = 0;
+    D_801003D8 = 0;
+    D_80109CC0 = __repair_fzero;
+    D_8010D370 = __repair_fzero;
+  }
+  else
   {
     *(state + (-1)) = 0;
     __repair_fzero = 0.0f;

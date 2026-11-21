@@ -8,12 +8,12 @@ inline static unsigned char inline_fn(s32 arg0)
 s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
 {
   s32 temp_a3 = arg0;
-  char *__base_D_800F2720;
   union 
   {
     char *pointer;
     u32 value;
   } __repair_phase_storage;
+  char *__base_D_800F2720;
   s32 temp_a2;
   s32 __repair_phase_temp_a2;
   s32 var_v0_3;
@@ -36,7 +36,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
       var_v0_3 = (*((u8 *) (((char *) temp_v1) + 0))) << 7;
       goto block_19;
     }
-    if (((u32) ((temp_a3 + 0x80) & 0xFF)) < 2U)
+    if ((((u32) ((temp_a3 + 0x80) & 0xFF)) - 1) < (2U - 1))
     {
       __repair_phase_storage.pointer = D_800EE420;
       var_v1_2 = (void *) ((arg1 & 0xFF) * 0x86); var_v1_2 = (void *) (((char *) var_v1_2) + ((s32) ((temp_a2 * 0x860) + __repair_phase_storage.pointer)));
@@ -45,7 +45,7 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
     if (((u32) ((temp_a3 + 0x7C) & 0xFF)) < 2U)
     {
       __repair_phase_storage.pointer = D_800EE420;
-      var_v1_2 = ((arg1 & 0xFF) * 0x86) + ((temp_a2 * 0x860) + __repair_phase_storage.pointer);
+      var_v1_2 = (((arg1 & 0xFF) * 2) * 67) + ((temp_a2 * 0x860) + __repair_phase_storage.pointer);
       goto block_18;
     }
     if (temp_t0 < 0x46U)
@@ -90,7 +90,11 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   {
     __base_D_800F2720 = D_800F2720;
     var_v0_2 = (((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + __repair_phase_storage.value;
-    return (-(((u8) (*var_v0_2)) >= 0x40U)) & 0x3FFF;
+    do
+    {
+      return (-(((u8) (*var_v0_2)) >= 0x40U)) & 0x3FFF;
+    }
+    while (0);
   }
   if (((u32) ((temp_a3 - 0x60) & 0xFF)) < 6U)
   {
@@ -98,6 +102,6 @@ s32 func_80096460(s32 arg0, s32 arg1, s32 arg2)
   }
   __base_D_800F2720 = D_800F2720;
   var_v0 = (((arg1 & 0xFF) * 0x86) + __base_D_800F2720) + __repair_phase_storage.value;
-  return (*var_v0) << 7;
+  return ((*var_v0) << 5) << 2;
 }
 
