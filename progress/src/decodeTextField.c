@@ -1,26 +1,26 @@
 char *lookupDataEntry(s32);
 void *memset(void *, s32, s32);
 s32 sprintf(char *, const char *, ...);
-extern u8 D_800B2750[];
+extern u8 sCharMap[];
 
-void func_800103B0(u8 *dst, s8 *src, u8 len) {
-    s32 i;
+/* Decodes a fixed-length packed text field into outText; invalid codes print an error string instead. */ void decodeTextField(u8 *outText, s8 *packedText, u8 length) {
+    s32 index;
 
-    memset(dst, 0, len);
-    for (i = 0; i < len; i++) {
-        if (len == 4 && src[i] == 0) {
+    memset(outText, 0, length);
+    for (index = 0; index < length; index++) {
+        if (length == 4 && packedText[index] == 0) {
             break;
         }
-        if ((u8)src[i] >= 0x42) {
-            sprintf(dst, lookupDataEntry(0x3003));
+        if ((u8)packedText[index] >= 0x42) {
+            sprintf(outText, lookupDataEntry(0x3003));
             return;
         }
     }
-    for (i = 0; i < len; i++) {
-        if (src[i] == 0) {
-            dst[i] = ' ';
-        } else if ((u32)src[i] < 0x42) {
-            dst[i] = D_800B2750[(u16)src[i]];
+    for (index = 0; index < length; index++) {
+        if (packedText[index] == 0) {
+            outText[index] = ' ';
+        } else if ((u32)packedText[index] < 0x42) {
+            outText[index] = sCharMap[(u16)packedText[index]];
         }
     }
 }

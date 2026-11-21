@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 func_8001682C();
 s32 func_80016948();
 s32 func_80045278();
-s32 func_80047AEC();
+s32 copyVec3Pair();
 void *func_80083E90();
 extern s32 D_800B3928;
 extern char D_8010A400[];
@@ -34,13 +34,13 @@ void *func_800164F8(s32 arg0, s32 arg1, s32 arg2) {
             func_80045278(temp_v0 + 0x24);
             func_80045278(temp_v0 + 0x30);
         } else {
-            func_80047AEC(arg1, temp_v0 + 0x24, temp_v0 + 0x30);
+            copyVec3Pair(arg1, temp_v0 + 0x24, temp_v0 + 0x30);
         }
         if (arg2 == 0) {
             func_80045278(temp_v0 + 0x3C);
             func_80045278(temp_v0 + 0x48);
         } else {
-            func_80047AEC(arg2, temp_v0 + 0x3C, temp_v0 + 0x48);
+            copyVec3Pair(arg2, temp_v0 + 0x3C, temp_v0 + 0x48);
         }
         M2C_FIELD(temp_v0, void **, 0x6C) = p84;
         func_80016948(D_8010A400, temp_v0);

@@ -26,7 +26,7 @@ s32 objectListInsert();
 s32 objectSetAnimFrame();
 s32 vec3Add();
 f32 randomFloatScaled(f32);
-s32 func_80047AEC();
+s32 copyVec3Pair();
 s32 func_80047B14();
 f32 sinAngle(f32);
 f32 cosAngle();
@@ -160,7 +160,7 @@ void func_800589FC(void *arg0, void *arg1) {
         vec3Add(spC8, repair_stack_record.sp88, repair_stack_record.sp88);
         vec3Add(spD8, repair_stack_record.sp88, repair_stack_record.sp88);
         vec3Add(spE8, repair_stack_record.sp88, repair_stack_record.sp88);
-        do { func_80047AEC(repair_stack_record.sp88, temp_v0 + 0x24, temp_v0 + 0x30); } while (0);
+        do { copyVec3Pair(repair_stack_record.sp88, temp_v0 + 0x24, temp_v0 + 0x30); } while (0);
         vec3Add(repair_stack_record.sp88, &sp98, &sp98);
         vec3Add(repair_stack_record.sp88, &spA8, &spA8);
         vec3Add(repair_stack_record.sp88, sp10C, sp10C);

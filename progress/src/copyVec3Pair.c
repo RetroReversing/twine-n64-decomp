@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80047AEC(void *arg0, void *arg1, void *arg2) {
+void copyVec3Pair(void *arg0, void *arg1, void *arg2) {
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_fv0_3;

@@ -21,15 +21,16 @@ M2C_UNK updateActiveMenuState();                            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 extern void *gSaveMenuState;
 
-void func_80022848(void) {
-    s32 temp_v0;
+/* Per-frame update for a save menu row: clears the row's flag while a related item is active, refreshes its text, and plays a sound when the select input is pressed. */
+void updateSaveMenuRow(void) {
+    s32 entryText;
 
     if ((menuItemIsActive(0x20) & 0xFF) || (menuItemIsActive(0x21) & 0xFF) || (menuItemIsActive(0x1E) & 0xFF) || (menuItemIsActive(0x1F) & 0xFF) || (menuItemIsActive(0x24) & 0xFF)) {
         M2C_FIELD(gSaveMenuState, s8 *, 0x2C) = 0;
     }
-    temp_v0 = findEntryById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x4000);
-    if (temp_v0 != 0) {
-        formatTextEntry(temp_v0, "%s", lookupDataEntry(*M2C_FIELD(gSaveMenuState, u16 **, 0x18)));
+    entryText = findEntryById(M2C_FIELD(gSaveMenuState, s32 *, 0x10), 0x4000);
+    if (entryText != 0) {
+        formatTextEntry(entryText, "%s", lookupDataEntry(*M2C_FIELD(gSaveMenuState, u16 **, 0x18)));
     }
     updateActiveMenuState();
     if (func_80027C60(0x2A) & 0xFF) {
