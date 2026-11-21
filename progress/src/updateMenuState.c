@@ -21,29 +21,29 @@ s32 func_8002EBB8(u8);                              /* extern */
 M2C_UNK func_8002FBD4(s32, M2C_UNK);                /* extern */
 s32 createTextMenu(u8);                              /* extern */
 M2C_UNK func_80081D20(M2C_UNK, M2C_UNK);            /* extern */
-extern u8 gMenuListParam;
+extern u8 gMenuParamC;
 extern M2C_UNK D_800BF458;
-extern s32 gMenuSoundParams;
-extern u8 gMenuUseTextList;
-extern u8 gPendingMenuCommand;
+extern s32 D_80102EBC;
+extern u8 D_80102EDD;
+extern u8 D_80102EDE;
 extern void *sActiveMenu;
 extern void *gMenuState;
 
-/* Creates the menu's list object on first use, refreshes the active menu, and dispatches a pending menu command. */ void updateMenuState(void) {
-    s32 command;
+void func_80027FF4(void) {
+    s32 var_a0;
 
     if (M2C_FIELD(gMenuState, s32 *, 0x20) == 0) {
-        if (gMenuUseTextList == 0) {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8002EBB8(gMenuListParam);
+        if (D_80102EDD == 0) {
+            M2C_FIELD(gMenuState, s32 *, 0x20) = func_8002EBB8(gMenuParamC);
         } else {
-            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(gMenuListParam);
+            M2C_FIELD(gMenuState, s32 *, 0x20) = createTextMenu(gMenuParamC);
         }
     }
     func_80026450();
     func_80027D60(M2C_FIELD(sActiveMenu, u16 *, 0x7A));
     if (M2C_FIELD(gMenuState, s32 *, 0x10) == 0) {
-        command = gPendingMenuCommand;
-        if (command == 31) {
+        var_a0 = D_80102EDE;
+        if (var_a0 == 31) {
             M2C_FIELD(gMenuState, M2C_UNK **, 0xC) = &D_800BF458;
             func_80081D20(0, 0x2A);
             func_80081D20(0, 0x24);
@@ -51,12 +51,12 @@ extern void *gMenuState;
             func_800269B4(gMenuState + 0x1C, 0x26, 0x24);
             func_8002FBD4(M2C_FIELD(gMenuState, s32 *, 0x20), 9);
             M2C_FIELD(gMenuState, s16 *, 0x32) = 0;
-            func_800278AC(1U, gMenuSoundParams & ~0xFF, 0x16U);
+            func_800278AC(1U, D_80102EBC & ~0xFF, 0x16U);
             func_8002778C();
-        } else if (command != 0) {
-            func_800278AC(command, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+        } else if (var_a0 != 0) {
+            func_800278AC(var_a0, D_80102EBC & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         } else {
-            func_800278AC(1, gMenuSoundParams & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
+            func_800278AC(1, D_80102EBC & ~0xFF, M2C_FIELD(sActiveMenu, u16 *, 0x7A));
         }
     }
 }
