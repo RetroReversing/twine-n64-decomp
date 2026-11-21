@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CC4();                                /* extern */
+s32 randomU32Next();                                /* extern */
 
 u32 randomIntBelow(s32 arg0) {
-    return (u32) ((func_80045CC4() & 0xFFFF) * arg0) >> 0x10;
+    return (u32) ((randomU32Next() & 0xFFFF) * arg0) >> 0x10;
 }

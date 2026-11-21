@@ -133,6 +133,16 @@ typedef struct ProbeActor {
     u8 probeIndex;
 } ProbeActor;
 
+/* Double-buffered table of eight fixed-point samples per slot; idx selects the slot being written. */
+typedef struct {
+    u8 pad0[0x168];
+    s16 slot[2][8];
+    s16 slotIndex;
+} TwineSampleRing;
+
+/* Converts a sample to a 16-bit fixed-point value: offset by origin, scaled by 1024, multiplied by scale, biased, shifted by 15, then stored as a halfword count. */
+#define SAMPLE_TO_FIXED(sample, origin, scale, bias) (((((sample) - (origin)) << 10) * (scale) + (bias)) >> 15) * 2
+
 /* Track marker object (updateTrackMarkerTrigger): pos at 0x24, trigger data pointer at 0x6C, mode at 0x78. */
 typedef struct TrackMarkerTrigger {
     f32 scale;        /* 0x00 */

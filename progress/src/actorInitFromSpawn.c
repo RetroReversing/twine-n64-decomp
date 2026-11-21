@@ -13,8 +13,8 @@ s32 func_800705AC();
 extern s32 *gProbeObjectList;
 extern s8 D_800E1A0C;
 extern s32 D_800E1A10;
-extern s16 D_800E1A14;
-extern s8 D_800E1A16;
+extern s16 gAirTimeGauge;
+extern s8 gWheelsGrounded;
 extern s8 D_80100B18;
 extern char gTrackMarkerTable[];
 
@@ -54,8 +54,8 @@ void actorInitFromSpawn(void *actor, void *spawnPos, void *spawnVel) {
     (*(s8 *)((char *)(state) + 0x194)) = 0;
     (*(s8 *)((char *)(state) + 0x191)) = 0;
     linkedRecord = (*(void **)((char *)(actor) + 0x68));
-    D_800E1A14 = 0x546;
-    D_800E1A16 = 1;
+    gAirTimeGauge = 0x546;
+    gWheelsGrounded = 1;
     (((__repair_record_temp_a2_2*)linkedRecord)->field_C) &= 0xFDFF;
     (*(f32 *)((char *)(state) + 0x94)) = 1.0f;
     (*(s8 *)((char *)(state) + 0x196)) = 0;

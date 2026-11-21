@@ -19,10 +19,10 @@ typedef struct { u16 f0; u8 pad[230]; } Slot_800C469E;
 extern Slot_800C469E D_800C469E[];
 
 void func_8007092C(void *arg0, s8 arg1) {
-    register s32 var_s6 = 0;
-    volatile u32 pad[2];
+    register s8 var_s6 = 0;
+    volatile u32 pad[4];
     s32 savedIndex;
-    s8 temp_a1;
+    s32 temp_a1;
     s8 temp_a1_2;
     u8 temp_v0;
     u8 *temp_a2;
@@ -66,9 +66,9 @@ void func_8007092C(void *arg0, s8 arg1) {
             if (!(sEnemyDefTable[temp_a1].f0 & 0x8000)) {
                 continue;
             }
-            temp_a2[0xF] = (u8)(temp_a1 + temp_s4[temp_a1 * 8 + 0x1FE]);
             savedIndex = temp_a1;
-            temp_s2 = temp_s4 + savedIndex * 8;
+            temp_a2[0xF] = (u8)(temp_a1 + temp_s4[temp_a1 * 8 + 0x1FE]);
+            temp_s2 = temp_s4 + (s8)savedIndex * 8;
             if (temp_s2[0x1FC] == 0) {
                 continue;
             }
@@ -104,3 +104,4 @@ void func_8007092C(void *arg0, s8 arg1) {
         return;
     }
 }
+

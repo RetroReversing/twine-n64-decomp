@@ -16,7 +16,7 @@ s32 rotateVec3ByMat3();
 extern f32 D_800C9D4C;
 extern f64 D_800D4628;
 extern f64 D_800D4630;
-extern u8 D_800E1A16;
+extern u8 gWheelsGrounded;
 extern char D_80109688[];
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -65,7 +65,7 @@ f32 __repair_var_fv1_1;
             var_fv0 = (f32) ((f64) (*(f32 *)((char *)(var_v0) + 0x14)) + D_800D4628);
         } else {
             var_fv0_2 = 0.55f;
-            if (D_800E1A16 == 0) {
+            if (gWheelsGrounded == 0) {
                 var_fv0_2 = 0.0f;
             }
             temp_ft0 = (*(f32 *)((char *)(temp_s2) + 0x98));

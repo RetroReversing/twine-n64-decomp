@@ -40,7 +40,7 @@ M2C_UNK func_800698D8(void *, f32, f32);
 f32 func_80069998(f32);
 f32 func_80069A14(f32);
 s32 func_80069A90(void *);
-M2C_UNK func_80069BC8(void *);
+M2C_UNK updateAirTimeGauge(void *);
 M2C_UNK func_8006D2E4(void *);
 M2C_UNK func_8006E648(void *, void *, M2C_UNK, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *, M2C_UNK *);
 f32 probeTrackSteerAngle(void *, void *);
@@ -75,8 +75,8 @@ extern f32 D_800E1A04;
 extern f32 D_800E1A08;
 extern u8 D_800E1A0C;
 extern f32 D_800E1A10;
-extern s16 D_800E1A14;
-extern u8 D_800E1A16;
+extern s16 gAirTimeGauge;
+extern u8 gWheelsGrounded;
 extern s32 D_800E1A18;
 extern f32 D_800E1A1C;
 extern s8 D_800E1A20;
@@ -376,7 +376,7 @@ if (temp_v1_3 < 0x706U) {
 M2C_FIELD(temp_s1, u16 *, 0x520) = (u16) (temp_v1_3 + 2);
 }
 }
-if (D_800E1A14 != 0x546) {
+if (gAirTimeGauge != 0x546) {
 temp_v1_4 = M2C_FIELD(temp_s1, void **, 0x404);
 M2C_FIELD(temp_v1_4, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v1_4, s32 *, 0x28) & ~0xFC) | 0x10);
 temp_v1_5 = M2C_FIELD(temp_s1, void **, 0x408);
@@ -392,7 +392,7 @@ M2C_FIELD(temp_v1_8, s32 *, 0x10) = (s32) (M2C_FIELD(temp_v1_8, s32 *, 0x10) + 4
 temp_v1_9 = M2C_FIELD(temp_s1, void **, 0x40C);
 M2C_FIELD(temp_v1_9, s32 *, 0x10) = (s32) (M2C_FIELD(temp_v1_9, s32 *, 0x10) + 8);
 }
-temp_fv1 = (f32) D_800E1A14 * 0.035555556f;
+temp_fv1 = (f32) gAirTimeGauge * 0.035555556f;
 temp_a0_3 = M2C_FIELD(temp_s1, void **, 0x404);
 if (temp_fv1 >= 2.1474836e9f) {
 M2C_FIELD(temp_a0_3, s16 *, 0x26) = (s16) ((s32) (temp_fv1 - 2.1474836e9f) | 0x80000000);
@@ -472,11 +472,11 @@ var_s6 = 0.0f;
 func_80065D90(arg0);
 var_fp = 0.0f;
 var_s5 = 0.0f;
-if (D_800E1A16 != 0) {
-temp_v0 = (u16) D_800E1A14 + 8;
-D_800E1A14 = temp_v0;
+if (gWheelsGrounded != 0) {
+temp_v0 = (u16) gAirTimeGauge + 8;
+gAirTimeGauge = temp_v0;
 if (temp_v0 >= 0x547) {
-D_800E1A14 = 0x546;
+gAirTimeGauge = 0x546;
 }
 }
 temp_v0_2 = M2C_FIELD(temp_s1, u8 *, 0x186);
@@ -743,7 +743,7 @@ M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), f32 *, 0x34) = temp_fs3_3;
 }
 default:
 block_430:
-func_80069BC8(arg0);
+updateAirTimeGauge(arg0);
 if (!(M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u16 *, 0xC) & 8)) {
 temp_v1_20 = M2C_FIELD(temp_s1, u8 *, 0x196);
 if (temp_v1_20 < 8U) {
@@ -1393,7 +1393,7 @@ M2C_FIELD(temp_s1, f32 *, 0x48) = -32.0f;
 M2C_FIELD(temp_s1, f32 *, 0x48) = 32.0f;
 }
 var_fs3_8 = M2C_FIELD(temp_s1, f32 *, 0x48);
-if (D_800E1A16 != 0) {
+if (gWheelsGrounded != 0) {
 var_fs3_8 *= 2.0f;
 }
 var_s0_3 = 0;

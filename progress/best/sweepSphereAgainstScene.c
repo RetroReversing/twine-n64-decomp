@@ -27,7 +27,8 @@ s32 sweepSphereAgainstScene(void **arg0, void *arg1, void *arg2, f32 arg3, void 
     f32 sp58[3];
     s16 sp68[3];
     f32 sp70[3];
-    s16 sp88[3];
+    union { s16 shorts[3]; f32 floats[3]; } sp88_storage;
+#define sp88 sp88_storage.shorts
     f32 spA0;
     f32 sp90[3];
     f32 spA8[3];

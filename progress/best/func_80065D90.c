@@ -30,7 +30,7 @@ extern char sEnemyDefTable[];
 extern char D_800C46A0[];
 extern char D_800C46FC[];
 extern char D_800C4738[];
-extern u8 D_800E1A16;
+extern u8 gWheelsGrounded;
 extern f32 D_800E1A1C;
 extern s32 D_801002C0;
 extern s32 D_80102ED8;
@@ -514,7 +514,7 @@ f32 __repair_var_fs0_1;
         temp_fv0_13 = (*(f32 *)((char *)(temp_s1) + 0x3C));
         var_fs1_3 = temp_fs1_4 / temp_fv0_13;
         var_fs0_3 = (*(f32 *)((char *)(temp_s1) + 0x30)) / temp_fv0_13;
-        if (!D_800E1A16) {
+        if (!gWheelsGrounded) {
             var_fs1_3 *= 0.4f;
             var_fs0_3 *= 0.7f;
         }
@@ -557,7 +557,7 @@ f32 __repair_var_fs0_1;
                     var_fs0_3 = -var_fs0_3;
                 }
                 var_fs0_3 *= 0.048f;
-                if (D_800E1A16 == 0) {
+                if (gWheelsGrounded == 0) {
                     var_fs0_3 *= 0.6f;
                 }
                 (*(f32 *)((char *)(temp_s1) + 0x34)) += var_fs0_3;

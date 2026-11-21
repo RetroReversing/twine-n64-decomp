@@ -1,4 +1,4 @@
-extern u32 func_80045CC4(void);
+extern u32 randomU32Next(void);
 void func_8002E9D0(u8 *buffer, u32 lengthArg)
 {
     u32 index;
@@ -9,12 +9,12 @@ void func_8002E9D0(u8 *buffer, u32 lengthArg)
     length = lengthArg;
     buffer[1] = '0';
     buffer[2] = '0';
-    index = func_80045CC4() & 1;
+    index = randomU32Next() & 1;
     offset = (u16)index;
     if ((s32)offset < (s32)(u16)length - 3) {
         do {
             u8 *entry = buffer + offset;
-            u32 random = func_80045CC4();
+            u32 random = randomU32Next();
             s32 flag;
             random %= 255U;
             flag = (random < 128U) ^ 1;

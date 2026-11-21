@@ -1,5 +1,5 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-s32 func_80045CC4();
+s32 randomU32Next();
 s32 func_80054FEC(s32, f32, f32, void *, void *, s32, s32);
 s32 func_8005FBB8(void *);
 s32 func_8005FD28(void *);
@@ -29,7 +29,7 @@ void updateObjectFallState(void *obj) {
             func_800643C8(obj);
             func_8005FBB8(fallState);
             M2C_FIELD(fallState, f32 *, 0x2C) = -4.0f;
-            M2C_FIELD(fallState, s32 *, 0) = (u32)func_80045CC4() % 450;
+            M2C_FIELD(fallState, s32 *, 0) = (u32)randomU32Next() % 450;
             M2C_FIELD(obj, s16 *, 0x7A) = 1;
             return;
         }

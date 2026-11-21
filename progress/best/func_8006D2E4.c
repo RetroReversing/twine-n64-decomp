@@ -62,7 +62,7 @@ extern f32 D_800E19FC;
 extern s32 D_800E1A00;
 extern s32 D_800E1A04;
 extern s32 D_800E1A08;
-extern u8 D_800E1A16;
+extern u8 gWheelsGrounded;
 extern s32 D_800E1A24;
 extern u8 D_801002D5;
 extern u8 D_80100B18;
@@ -269,7 +269,7 @@ void func_8006D2E4(void *arg0) {
                 goto block_95;
             }
 block_62:
-            if (D_800E1A16 == 0) {
+            if (gWheelsGrounded == 0) {
                 if (randomIntBelow(0x1E) == 0) {
                     M2C_FIELD(temp_s3, s8 *, 0x198) = 0;
                     switch (D_80102EE8) {           /* switch 2; irregular */
@@ -368,7 +368,7 @@ block_108:
                     }
                     func_8006D224(arg0, 0xA0);
                 }
-                if (!(M2C_FIELD(arg0, s32 *, 0x60) & 0x02000000) || (D_800E1A16 != 0)) {
+                if (!(M2C_FIELD(arg0, s32 *, 0x60) & 0x02000000) || (gWheelsGrounded != 0)) {
                     var_a2_3 = 1;
                     if (!(M2C_FIELD(arg0, f32 *, 0x74) > 0.0f)) {
                         var_a2_3 = 0;

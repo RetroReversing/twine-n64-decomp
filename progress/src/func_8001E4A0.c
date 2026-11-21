@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8001E5BC();                            /* extern */
 s32 func_800260A0(s32);                        /* extern */
-s32 func_80045CC4();                                /* extern */
+s32 randomU32Next();                                /* extern */
 extern void *gMenuState;
 extern u8 D_80112F7B;
 extern u8 D_80112F7C;
@@ -28,7 +28,7 @@ void func_8001E4A0(void) {
     u8 var_v0;
 
     if (M2C_FIELD(gMenuState, u8 *, 0x2E) == 0) {
-        temp_ret = func_80045CC4();
+        temp_ret = randomU32Next();
         var_a0 = (temp_ret % 13) + 0xE;
         var_v1 = var_a0 & 0xFFFF;
         var_a0 = var_v1 < 14 ? 14 : var_v1 >= 28 ? 27 : var_a0;

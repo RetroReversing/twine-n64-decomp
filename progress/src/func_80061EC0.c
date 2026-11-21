@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 objectSetAnimFrame();
-s32 func_80045CC4();
+s32 randomU32Next();
 extern f64 D_800D4258;
 extern u8 gTrackDoneFlags[];
 
@@ -40,13 +40,13 @@ void func_80061EC0(void *arg0) {
         return;
     case 1:
         M2C_FIELD(arg0, u16 *, 0x7C) += 1;
-        temp_v0 = func_80045CC4() & 0xFF;
+        temp_v0 = randomU32Next() & 0xFF;
         var_ft0 = (f64) temp_v0;
         if (temp_v0 < 0) {
             var_ft0 += D_800D4258;
         }
         M2C_FIELD(arg0, f32 *, 0x54) = (f32) ((((f32) var_ft0 - 128.0f) * 0.00015625f) + 1.0f);
-        M2C_FIELD(arg0, u8 *, 0x82) = (u8) ((u32) (M2C_FIELD(arg0, u8 *, 0x82) + (func_80045CC4() & 0xFF)) >> 1);
+        M2C_FIELD(arg0, u8 *, 0x82) = (u8) ((u32) (M2C_FIELD(arg0, u8 *, 0x82) + (randomU32Next() & 0xFF)) >> 1);
         if ((s16) M2C_FIELD(arg0, u16 *, 0x7C) >= 0xA8D) {
             temp_a2_2 = M2C_FIELD(temp_s1, u32 *, 0);
             objectSetAnimFrame(arg0, (temp_a2_2 >> 4) & 0xFFFF, temp_a2_2 >> 0x14);

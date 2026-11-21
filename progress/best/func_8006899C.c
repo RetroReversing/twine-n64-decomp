@@ -19,7 +19,7 @@ s32 func_80081AA4();
 s32 func_80082834();
 s32 func_80084338();
 extern char sEnemyDefTable[];
-extern u8 D_800E1A16;
+extern u8 gWheelsGrounded;
 extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
 extern char gTrackMarkerTable[];
@@ -301,7 +301,7 @@ block_91:
                         }
                     } else {
 block_100:
-                        if ((D_800E1A16 == 0) && !((*(s32 *)((char *)(temp_s4) + 0x60)) & 0x80)) {
+                        if ((gWheelsGrounded == 0) && !((*(s32 *)((char *)(temp_s4) + 0x60)) & 0x80)) {
                             if (((__repair_record_arg0*)arg0)->field_78 == 3) {
                                 var_a0_2 = (*(u16 *)((char *)(temp_s4) + 0x56));
 block_104:

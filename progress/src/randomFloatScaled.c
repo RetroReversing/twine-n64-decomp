@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80045CC4();                                /* extern */
+s32 randomU32Next();                                /* extern */
 extern f64 D_800D3E00;
 
 f32 randomFloatScaled(f32 arg0) {
     f64 var_ft0;
     s32 temp_v0;
 
-    temp_v0 = func_80045CC4() & 0xFFFF;
+    temp_v0 = randomU32Next() & 0xFFFF;
     var_ft0 = (f64) temp_v0;
     if (temp_v0 < 0) {
         var_ft0 += D_800D3E00;
