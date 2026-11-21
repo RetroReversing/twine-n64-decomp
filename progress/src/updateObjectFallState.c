@@ -3,7 +3,7 @@ s32 randomU32Next();
 s32 func_80054FEC(s32, f32, f32, void *, void *, s32, s32);
 s32 func_8005FBB8(void *);
 s32 func_8005FD28(void *);
-s32 func_80060968(void *);
+s32 actorRespawnAtRandomPoint(void *);
 s32 objectUpdateAnimByState(void *);
 s32 func_800624A8(void *, void *, f32, s32);
 s32 func_800643C8(void *);
@@ -85,12 +85,12 @@ void updateObjectFallState(void *obj) {
             func_800624A8(obj, bounceRec, 1.0f, 1);
             func_80073508(bounceRec, 0.001f);
             func_800853D4(bounceRec);
-            func_80060968(obj);
+            actorRespawnAtRandomPoint(obj);
             break;
         }
         if ((func_8005FD28(obj) << 0x18) != 0) {
     case 4:
-            func_80060968(obj);
+            actorRespawnAtRandomPoint(obj);
         }
         break;
     }

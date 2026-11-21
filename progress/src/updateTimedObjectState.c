@@ -4,7 +4,7 @@ s32 randomU32Next();
 M2C_UNK func_80054FEC(M2C_UNK, f32, f32, void *, void *, s32, s32);
 M2C_UNK func_8005FBB8(s32 *);
 s32 func_8005FD28(void *);
-M2C_UNK func_80060968(void *);
+M2C_UNK actorRespawnAtRandomPoint(void *);
 M2C_UNK objectUpdateAnimByState(void *);
 M2C_UNK func_800624A8(void *, void *, f32, M2C_UNK);
 M2C_UNK func_800643C8(void *);
@@ -25,7 +25,7 @@ if(flags&2) { effectPos=obj+0x24; M2C_FIELD(obj,s32 *,0x60)=flags&~2;
 func_80054FEC(0,250.0f,5.0f,obj,effectPos,0x20,0);
 func_800624A8(obj,effectPos,1.0f,1); func_80073508(effectPos,0.001f); func_800853D4(effectPos); goto block_8;
 }
-if((func_8005FD28(obj)<<0x18)!=0) { block_8: func_80060968(obj); }
+if((func_8005FD28(obj)<<0x18)!=0) { block_8: actorRespawnAtRandomPoint(obj); }
 break;
 }
 }

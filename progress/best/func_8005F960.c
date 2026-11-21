@@ -5,7 +5,7 @@ s32 func_80045278();
 s32 randomU32Next();
 s32 func_80047AEC();
 s32 func_80060890();
-s32 func_80060968();
+s32 actorRespawnAtRandomPoint();
 s32 func_800643D8();
 extern u8 sOptionCursor;
 
@@ -85,7 +85,7 @@ void *func_8005F960(s32 arg0, void *arg1, s32 arg2, s32 arg3, u16 arg4, u16 arg5
               u16 half = tail.half;
               (*(s16 *)((char *)(temp_s2) + 0x3E)) = (s16) (var_s0 & 0xFFF);
             func_80060890(temp_s2, word, half, arg0); }
-            func_80060968(temp_v0);
+            actorRespawnAtRandomPoint(temp_v0);
             temp_ret = randomU32Next();
             (*(s32 *)((char *)(temp_s2) + 0)) = (s32) (0x384 - (temp_ret % 90));
             func_80047AEC(arg0, temp_v0 + 0x24, temp_v0 + 0x30, (temp_ret / 90) * 3);

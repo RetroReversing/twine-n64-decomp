@@ -71,7 +71,7 @@ loop_16:
                             var_a2 = temp_v0 + gTrackMarkerRotTable;
                         }
                     }
-                    actorInitFromSpawn(temp_s0, var_a3, var_a2, var_a3);
+                    do { actorInitFromSpawn(temp_s0, var_a3, var_a2, var_a3); } while (0);
                     func_80001D80(1);
                     M2C_FIELD(arg0, s16 *, 0x7A) = 1;
                     return;

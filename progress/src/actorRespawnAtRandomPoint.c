@@ -10,7 +10,7 @@ s32 func_800643D8(Obj60968 *);
 f32 absFloat(f32);
 extern s32 *gProbeObjectList;
 
-void func_80060968(Obj60968 *arg0) {
+void actorRespawnAtRandomPoint(Obj60968 *arg0) {
     Sub60968 *sub = arg0->sub;
     Sub60968 *e;
     Vec3_60968 v;
