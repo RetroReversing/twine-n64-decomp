@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
 s32 func_80022B60();
-extern char D_800BD640[];
+extern char sMenuItemParamTable[];
 extern s32 sSaveMenuFlagsA;
 extern s32 D_800BD64C;
 extern s32 D_800BD650;
@@ -59,7 +59,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                         break;
                     default:                        /* switch 1 */
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 0));
-                        __base_D_800BD640 = D_800BD640;
+                        __base_D_800BD640 = sMenuItemParamTable;
                         var_v0_2 = __base_D_800BD640 + 0x10;
                         if (D_801001A1[(*(u8 *)((char *)(arg0) + 8)) - 1].f0 == 0) {
                             var_v0_2 = __base_D_800BD640 + 0x1C;
@@ -99,7 +99,7 @@ void func_80022F10(void *arg0, s32 arg1) {
                         break;
                     default:                        /* switch 2 */
                         var_a1 = (s32) (*(void **)((char *)(temp_a2) + 4));
-                        __base_D_800BD640 = D_800BD640;
+                        __base_D_800BD640 = sMenuItemParamTable;
                         var_v0_4 = __base_D_800BD640 + 0x10;
                         if (D_801001A1[(*(u8 *)((char *)(arg0) + 8)) - 1].f0 == 0) {
                             var_v0_4 = __base_D_800BD640 + 0x1C;

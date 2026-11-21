@@ -10,7 +10,7 @@ void func_8002B050(void *, s32, DisplayItem *);
 void func_8002B150(void *, s32, s8);
 void func_8002FBD4(void *, s16);
 s32 lookupDataEntry(s32);
-extern u32 D_800BD640[];
+extern u32 sMenuItemParamTable[];
 extern u8 D_800BD8C4[];
 extern u16 D_800BFC92;
 extern u16 D_800BFC94, D_800BFC96;
@@ -44,7 +44,7 @@ void func_8002F068(void *unused, void *arg1)
         if (phase >= 32) {
             D_800BFC96 = 63 - phase;
         }
-        palette = D_800BD640;
+        palette = sMenuItemParamTable;
         if (D_800BFC92 & 1) {
             color = palette + 1;
         } else {

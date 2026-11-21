@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80082E84(s16 *, s32);                  /* extern */
-M2C_UNK func_800832BC(s16 *);                       /* extern */
+M2C_UNK buildRotationMatrixS16Copy(s16 *);                       /* extern */
 
 void func_80047E4C(void *arg0, s32 arg1, s32 arg2) {
     s16 sp10[3];
@@ -22,7 +22,7 @@ void func_80047E4C(void *arg0, s32 arg1, s32 arg2) {
         sp10[0] = (s16) (s32) (M2C_FIELD(arg0, f32 *, 0x30) * 651.8986f);
         sp10[1] = (s16) (s32) (M2C_FIELD(arg0, f32 *, 0x34) * 651.8986f);
         sp10[2] = (s16) (s32) (M2C_FIELD(arg0, f32 *, 0x38) * 651.8986f);
-        func_800832BC(sp10);
+        buildRotationMatrixS16Copy(sp10);
     }
     if (arg2 != 0) {
         sp10[0] = (s16) (s32) -(M2C_FIELD(arg0, f32 *, 0x30) * 651.8986f);

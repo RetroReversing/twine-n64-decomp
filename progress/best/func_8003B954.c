@@ -6,7 +6,7 @@ u32 func_800180D4();
 void *func_80018510();
 s32 func_80018578();
 s32 func_8003FA78();
-extern char D_800BD640[];
+extern char sMenuItemParamTable[];
 extern u8 D_800C0738;
 extern void *D_800C0A24;
 extern s32 D_800E1760;
@@ -186,7 +186,7 @@ s32 __repair_result_var_v1_3;
                     var_s0 += 1;
                     if (!D_800C0738) {
                         __repair_phase_storage.pointer = sDisplayListCursor;
-                        temp_t2 = *(u32 *)((*(s8 *)(((__repair_field_18 *)arg2)->value + var_s0) * 4) + D_800BD640);
+                        temp_t2 = *(u32 *)((*(s8 *)(((__repair_field_18 *)arg2)->value + var_s0) * 4) + sMenuItemParamTable);
                         sDisplayListCursor = (void *)((char *)__repair_phase_storage.pointer + 8);
                         ((__repair_field_0 *)__repair_phase_storage.pointer)->value = 0xFA000000;
                         (*(s32 *)((char *)(__repair_phase_storage.pointer) + 4)) = (s32) (((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000) | (temp_t2 & 0xFF00) | (temp_t2 & 0xFF));
@@ -195,7 +195,7 @@ s32 __repair_result_var_v1_3;
                 case 7:
                     var_s0 += 1;
                     if (D_800C0738 == 0) {
-                        temp_t2_2 = (*(u32 *)(((*(u8 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + D_800BD640) & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30));
+                        temp_t2_2 = (*(u32 *)(((*(u8 *)(((__repair_field_18 *)arg2)->value + var_s0) & 0xF) * 4) + sMenuItemParamTable) & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30));
                         temp_a1_2 = sDisplayListCursor;
                         sDisplayListCursor = (void *)((char *)temp_a1_2 + 8);
                         ((__repair_field_0 *)temp_a1_2)->value = 0xFA000000;

@@ -23,7 +23,7 @@ f32 func_80082908(f32, f32);                        /* extern */
 M2C_UNK func_80082D24(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082E84(s16 *, f32 *);                /* extern */
 M2C_UNK func_80082FE4(s16 *, f32 *);                /* extern */
-M2C_UNK func_800832BC(s16 *, f32 *);                /* extern */
+M2C_UNK buildRotationMatrixS16Copy(s16 *, f32 *);                /* extern */
 M2C_UNK func_80083B64(f32 *, f32 *, f32 *);         /* extern */
 M2C_UNK rotateVec3ByMat3(f32 *, f32 *, f32 *);      /* extern */
 extern u16 D_800B35B0;
@@ -502,7 +502,7 @@ block_65:
                         sp88 = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x30) * 651.8986f);
                         sp8A = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x34) * 651.8986f);
                         sp8C = (s16) (s32) (M2C_FIELD(var_s6, f32 *, 0x38) * 651.8986f);
-                        func_800832BC(sp1A4, &sp100);
+                        buildRotationMatrixS16Copy(sp1A4, &sp100);
                         func_80083B64((f32 *)0, sp1D4, sp1AC);
                         temp_v0 = M2C_FIELD(var_s6, void **, 0x3C);
                         if ((M2C_FIELD(temp_v0, f32 *, 0x18) < (sp28 + arg3)) && ((sp28 - arg3) < M2C_FIELD(temp_v0, f32 *, 0x1C)) && (M2C_FIELD(temp_v0, f32 *, 0x28) < (sp30 + arg3)) && ((sp30 - arg3) < M2C_FIELD(temp_v0, f32 *, 0x2C)) && (M2C_FIELD(temp_v0, f32 *, 0x20) < (sp2C + arg3)) && ((sp2C - arg3) < M2C_FIELD(temp_v0, f32 *, 0x24))) {

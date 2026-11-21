@@ -32,7 +32,7 @@ s32 activateIdList();
 void *lookupDataEntry();
 s32 sprintf();
 extern void *volatile gPickupActor;
-extern char D_800BD640[];
+extern char sMenuItemParamTable[];
 extern u16 gSharedItemId;
 extern s16 gSharedItemArg;
 extern u8 gMenuListParam;
@@ -185,7 +185,7 @@ s32 __repair_phase_var_a0;
             temp_v0_2 = (*(u16 *)((char *)(temp_v1_3) + 0xC));
             __repair_phase_storage.value = temp_v0_2 & 0xF;
             if (__repair_phase_storage.value != 0) {
-                var_v0 = *(s32 *)(D_800BD640 + (__repair_phase_storage.value * 4));
+                var_v0 = *(s32 *)(sMenuItemParamTable + (__repair_phase_storage.value * 4));
                 (*(s32 *)((char *)((*(void **)((char *)(temp_v1_3) + 8))) + 0x10)) = (s32) ((var_v0 & ~0xFF) | (*(u8 *)((char *)(gMenuState) + 0x30)));
             } else {
                 if (temp_v0_2 & 0x80) {
@@ -202,7 +202,7 @@ s32 __repair_phase_var_a0;
             if (temp_a1 != NULL) {
                 temp_v0_4 = (*(u16 *)((char *)(temp_v0_3) + 0xC)) & 0xF;
                 if (temp_v0_4) {
-                    temp_a0_2 = *(s32 *)(D_800BD640 + (temp_v0_4 * 4));
+                    temp_a0_2 = *(s32 *)(sMenuItemParamTable + (temp_v0_4 * 4));
                     __repair_phase_storage.value = (*(u8 *)((char *)(gMenuState) + 0x30));
                 } else {
                     temp_a0_2 = D_80102EC0;

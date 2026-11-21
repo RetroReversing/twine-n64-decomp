@@ -4,7 +4,7 @@ void *func_800162BC(u8);                            /* extern */
 s32 func_800448A4(void *, u32, s32);            /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 s16 strlen(s32);                                    /* extern */
-extern s32 D_800BD640;
+extern s32 sMenuItemParamTable;
 extern u8 gMenuListParam;
 extern s32 gMenuSoundParams;
 extern s32 D_80102EC4;
@@ -72,7 +72,7 @@ void *buildMenuItemRecord(void *arg0, s32 arg1) {
     }
     temp_v0_2 = (*(u16 *)((char *)(arg0) + 0xC)) & 0xF;
     if (temp_v0_2 != 0) {
-        (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&D_800BD640 + temp_v0_2) & ~0xFF) | (u8)arg1);
+        (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&sMenuItemParamTable + temp_v0_2) & ~0xFF) | (u8)arg1);
     }
     if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x20) {
         (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x80);

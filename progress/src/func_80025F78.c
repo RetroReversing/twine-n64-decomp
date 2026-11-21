@@ -43,7 +43,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800BD640;
+extern M2C_UNK sMenuItemParamTable;
 extern s32 gMenuSoundParams;
 extern s32 D_80102EC4;
 extern void *gMenuState;
@@ -61,7 +61,7 @@ void func_80025F78(void *arg0, u16 arg1) {
             M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) D_80102EC4;
             return;
         }
-        M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) ((*((M2C_UNK *)((s8 *)&D_800BD640 + ((arg1 & 0xF) * 4))) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
+        M2C_FIELD(temp_a2, s32 *, 0x10) = (s32) ((*((M2C_UNK *)((s8 *)&sMenuItemParamTable + ((arg1 & 0xF) * 4))) & ~0xFF) | M2C_FIELD(gMenuState, u8 *, 0x30));
     }
 }
 
