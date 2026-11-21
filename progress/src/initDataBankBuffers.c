@@ -31,44 +31,44 @@ extern u8 D_8010086C;
 extern s32 *D_8010D428;
 extern s32 func_8008863C;
 
-void func_80088C50(s32 arg0) {
-    char *var_s0;
-    char *var_s0_2;
-    s32 temp_s2;
-    s32 temp_v0;
-    s32 var_s1;
-    s32 var_s1_2;
-    s32 var_s2;
+/* Resets both data bank buffers, creates their message queue and enables data banks. */ void initDataBankBuffers(s32 mode) {
+    char *bank;
+    char *slot;
+    s32 bufSize;
+    s32 buf;
+    s32 i;
+    s32 j;
+    s32 bankOffset;
 
-    var_s1 = 0;
-    var_s0 = D_800E1AC0;
-    var_s2 = 0;
-    D_800E3F2C = arg0;
+    i = 0;
+    bank = D_800E1AC0;
+    bankOffset = 0;
+    D_800E3F2C = mode;
     sDataBankTable = 0;
     do {
-        func_8009D510(var_s0, 0, 0, 0, 0);
+        func_8009D510(bank, 0, 0, 0, 0);
         if (D_8010086C != 0) {
-            M2C_FIELD(var_s0, u8 *, 0x11DE) = (u8) (M2C_FIELD(var_s0, u8 *, 0x11DE) * 2);
+            M2C_FIELD(bank, u8 *, 0x11DE) = (u8) (M2C_FIELD(bank, u8 *, 0x11DE) * 2);
         }
-        *(D_800E2CC0 + var_s2) = 0;
-        var_s0 += 0x1228;/*__repair_loop_weight*/do {
-        var_s1 += 1;} while (0);
-        var_s2 += 0x1228;
-    } while (var_s1 < 2);/*__repair_call_balance*/if(var_s1){
+        *(D_800E2CC0 + bankOffset) = 0;
+        bank += 0x1228;/*__repair_loop_weight*/do {
+        i += 1;} while (0);
+        bankOffset += 0x1228;
+    } while (i < 2);/*__repair_call_balance*/if(i){
     osCreateMesgQueue(D_800E3F30, D_800E3F48, 1);}else{
     osCreateMesgQueue(D_800E3F30, D_800E3F48, 1);}
     osSendMesg(D_800E3F30, 0, 0);
     if (D_800E3F2C & 1) {
-        temp_s2 = func_800936A8(0x10E0);
-        var_s1_2 = 0;
-        var_s0_2 = &D_800E3F24;
+        bufSize = func_800936A8(0x10E0);
+        j = 0;
+        slot = &D_800E3F24;
         do {
-            temp_v0 = gDataBankAlloc(temp_s2, 0);
-            var_s1_2 += 1;
-            *(s32 *)var_s0_2 = temp_v0;
-            flushDCacheRange(temp_v0, temp_s2);
-            var_s0_2 += 4;
-        } while (var_s1_2 < 2);
+            buf = gDataBankAlloc(bufSize, 0);
+            j += 1;
+            *(s32 *)slot = buf;
+            flushDCacheRange(buf, bufSize);
+            slot += 4;
+        } while (j < 2);
     }
     D_8010D428 = &func_8008863C;
     sDataBankEnabled = 1;

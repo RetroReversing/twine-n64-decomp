@@ -266,7 +266,7 @@ loop_3:
                                 var_fp = M2C_FIELD(temp_v1, u16 **, 0x3C);
                                 sp196 = 0;
                                 if (temp_s0 < (u16) M2C_FIELD(temp_v1, u16 *, 0x40)) {
-                                    var_s5 = var_fp + 4;
+                                    var_s5 = (s8 *) var_fp + 4;
                                     do {
                                         temp_v1_3 = M2C_FIELD(temp_v1, s32 *, 0x34);
                                         func_800458C0(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, -2) * 0xC), temp_v1_3 + (M2C_FIELD(var_s5, u16 *, 0) * 0xC));

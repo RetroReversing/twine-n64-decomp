@@ -1,4 +1,4 @@
-extern u8 sDataBankEnabled, D_800E2CC0[];
+extern u8 sDataBankEnabled, sDataBankFlags[];
 extern char D_800E2CE4[];
 s32 isSlotActiveById(s32 i) {
     s32 key = i;
@@ -7,13 +7,13 @@ s32 isSlotActiveById(s32 i) {
         i = 0;
         offset = 0;
         do {
-            if (D_800E2CC0[offset] && *(s32 *)(D_800E2CE4 + offset) == key) goto found;
+            if (sDataBankFlags[offset] && *(s32 *)(D_800E2CE4 + offset) == key) goto found;
             offset += 0x1228;
         } while ((u32)++i < 2);
         i = -1;
 found:
         key = i;
-        if (key != -1) return D_800E2CC0[key * 0x1228] != 0;
+        if (key != -1) return sDataBankFlags[key * 0x1228] != 0;
     }
     return 0;
 }

@@ -1,4 +1,4 @@
-s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 func_8000B384(); s32 func_8000B534(); s32 func_8000B900(); s32 loadDataBank(); s32 func_80088C50(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
+s32 func_8000A18C(); s32 func_8000A22C(); s32 func_8000A6F4(); s32 func_8000B384(); s32 func_8000B534(); s32 func_8000B900(); s32 loadDataBank(); s32 initDataBankBuffers(); s32 func_80092A68(); s32 func_80095820(); s32 func_8009CE34(); s32 func_8009CF18(); s32 func_8009D030();
 extern char D_14CD630[],D_14D0ED0[],D_14DDC00[],D_14E2500[],D_1D69630[],D_800B2488[],D_800B256C[],D_800DD7D0[];
 extern char D_014D0ED0[], D_014DDC00[], D_014E2500[];
 extern s32 D_800B2480,D_800E06B0,D_800E06FC,D_800E0700,D_800E0704,D_800E0708; extern s32 *D_800E070C; extern s16 gExpansionPakPresent;
@@ -47,7 +47,7 @@ extern s32 D_800B2480,D_800E06B0,D_800E06FC,D_800E0700,D_800E0704,D_800E0708; ex
     func_8009CE34(0xEE, 0);
     func_8009CF18(0x7F, 0, 0);
     func_8009CE34(0x1B8, 1);
-    func_80088C50(1);
+    initDataBankBuffers(1);
     loadDataBank(D_1D69630, 0);
     func_8009D030(D_800B256C);
     D_800E0708 = -1;

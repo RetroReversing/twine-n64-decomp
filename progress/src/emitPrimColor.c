@@ -1,45 +1,45 @@
 extern u8 sAltPrimTintR;
 extern u8 sPrimTintB;
 extern u8 sPrimTintG;
-extern u8 D_8010A2CC;
-extern u8 D_8010D2B8;
 extern u8 sPrimTintR;
+extern u8 sAltPrimTintG;
+extern u8 sAltPrimTintB;
 extern void *sDisplayListCursor;
 
-void emitPrimColor(void *arg0, void *arg1) {
+/* Emits a G_SETPRIMCOLOR display-list command with the object's average vertex colour, scaled by the active prim tint. */
+void emitPrimColor(void *obj, void *state) {
     s32 flags;
-    s32 a1, a2, a3;
-    u16 avg;
-    
-    void *cmd;
+    s32 r, g, b;
+    u16 lum;
+    void *dl;
 
-    flags = *(s32 *)((char *)arg1 + 0x100);
+    flags = *(s32 *)((char *)state + 0x100);
     if (flags & 2) {
-u8 *p;
+u8 *colors;
 
-        p = *(u8 **)((char *)arg0 + 0x20);
-        avg = (p[0x64] + p[0x65] + p[0x66]) / 3;
-        a1 = (avg * sPrimTintR) >> 8;
-        a2 = (avg * sPrimTintG) >> 8;
-        a3 = (avg * sPrimTintB) >> 8;
+        colors = *(u8 **)((char *)obj + 0x20);
+        lum = (colors[0x64] + colors[0x65] + colors[0x66]) / 3;
+        r = (lum * sPrimTintR) >> 8;
+        g = (lum * sPrimTintG) >> 8;
+        b = (lum * sPrimTintB) >> 8;
     } else if (flags & 4) {
-u8 *p;
+u8 *colors;
 
-        p = *(u8 **)((char *)arg0 + 0x20);
-        avg = (p[0x64] + p[0x65] + p[0x66]) / 3;
-        a1 = (avg * sAltPrimTintR) >> 8;
-        a2 = (avg * D_8010D2B8) >> 8;
-        a3 = (avg * D_8010A2CC) >> 8;
+        colors = *(u8 **)((char *)obj + 0x20);
+        lum = (colors[0x64] + colors[0x65] + colors[0x66]) / 3;
+        r = (lum * sAltPrimTintR) >> 8;
+        g = (lum * sAltPrimTintG) >> 8;
+        b = (lum * sAltPrimTintB) >> 8;
     } else {
-u8 *p;
+u8 *colors;
 
-        p = *(u8 **)((char *)arg0 + 0x20);
-        a1 = p[0x64];
-        a2 = p[0x65];
-        a3 = p[0x66];
+        colors = *(u8 **)((char *)obj + 0x20);
+        r = colors[0x64];
+        g = colors[0x65];
+        b = colors[0x66];
     }
-    cmd = sDisplayListCursor;
-    sDisplayListCursor = (u8 *)cmd + 8;
-    ((s32 *)cmd)[0] = 0xFA000000;
-    ((s32 *)cmd)[1] = (a1 << 24) | ((a2 & 0xFF) << 16) | ((a3 & 0xFF) << 8) | 0x80;
+    dl = sDisplayListCursor;
+    sDisplayListCursor = (u8 *)dl + 8;
+    ((s32 *)dl)[0] = 0xFA000000;
+    ((s32 *)dl)[1] = (r << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0x80;
 }

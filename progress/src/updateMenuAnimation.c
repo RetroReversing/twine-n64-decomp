@@ -2,49 +2,49 @@
 
 s32 func_8002E9D0();
 s32 func_8002FBE4();
-extern u16 D_800BFC92;
-extern u16 D_800BFC98;
-extern char D_800E1590[];
+extern u16 sMenuAnimFlags;
+extern u16 sMenuAnimPhase;
+extern char sMenuAnimSlots[];
 extern u8 gPendingMenuCommand;
 
-void func_8002F718(void *arg0) {
-    f32 temp_fv0;
-    u16 temp_v0;
-    s32 var_v0;
-    void *temp_v0_2;
-    void *temp_a0;
-    void *temp_a0_2;
-    s32 var_s0;
+/* Per-frame menu animation: advances the frame counter, toggles the phase flag at frame 0x38, refreshes slots on phase 5, and wraps a rotating angle. */ void updateMenuAnimation(void *anim) {
+    f32 angle;
+    u16 frame;
+    s32 slot;
+    void *angleObj;
+    void *owner;
+    void *angleObj2;
+    s32 i;
 
-    temp_a0 = (*(void **)((char *)(arg0) + 0x34));
-    if (((*(u8 *)((char *)(temp_a0) + 0x13)) != 0) && (!gPendingMenuCommand) && (D_800BFC92 & 1)) {
-        func_8002FBE4(temp_a0, arg0 + 0x40, arg0 + 0x42);
+    owner = (*(void **)((char *)(anim) + 0x34));
+    if (((*(u8 *)((char *)(owner) + 0x13)) != 0) && (!gPendingMenuCommand) && (sMenuAnimFlags & 1)) {
+        func_8002FBE4(owner, anim + 0x40, anim + 0x42);
     }
-    temp_v0 = (*(u16 *)((char *)(arg0) + 0x40)) + 1;
-    (*(u16 *)((char *)(arg0) + 0x40)) = temp_v0;
-    if ((u32) (temp_v0 & 0xFFFF) >= 0x38U) {
-        (*(u16 *)((char *)(arg0) + 0x42)) = (u16) ((*(u16 *)((char *)(arg0) + 0x42)) == 0);
-        (*(u16 *)((char *)(arg0) + 0x40)) = 0U;
+    frame = (*(u16 *)((char *)(anim) + 0x40)) + 1;
+    (*(u16 *)((char *)(anim) + 0x40)) = frame;
+    if ((u32) (frame & 0xFFFF) >= 0x38U) {
+        (*(u16 *)((char *)(anim) + 0x42)) = (u16) ((*(u16 *)((char *)(anim) + 0x42)) == 0);
+        (*(u16 *)((char *)(anim) + 0x40)) = 0U;
     }
-    if ((D_800BFC98 & 0xFFFF) == 5) {
-        var_s0 = 0;
-        var_v0 = 0 & 0xFFFF;
+    if ((sMenuAnimPhase & 0xFFFF) == 5) {
+        i = 0;
+        slot = 0 & 0xFFFF;
         do {
-            var_v0 = var_s0 & 0xFFFF;
-            func_8002E9D0((var_v0 * 0xC) + D_800E1590, 0xB);
-            ++var_s0;
-        } while ((u32) (var_s0 & 0xFFFF) < 9U);
-        D_800BFC98 = 0;
+            slot = i & 0xFFFF;
+            func_8002E9D0((slot * 0xC) + sMenuAnimSlots, 0xB);
+            ++i;
+        } while ((u32) (i & 0xFFFF) < 9U);
+        sMenuAnimPhase = 0;
     } else {
-        ++D_800BFC98;
+        ++sMenuAnimPhase;
     }
-    temp_v0_2 = (*(void **)((char *)(arg0) + 0x30));
-    if (temp_v0_2 != NULL) {
-        (*(f32 *)((char *)(temp_v0_2) + 0x40)) += 2.0f;
-        temp_a0_2 = (*(void **)((char *)(arg0) + 0x30));
-        temp_fv0 = (*(f32 *)((char *)(temp_a0_2) + 0x40));
-        if (temp_fv0 > 4095.0f) {
-            (*(f32 *)((char *)(temp_a0_2) + 0x40)) = (f32) (temp_fv0 - 4095.0f);
+    angleObj = (*(void **)((char *)(anim) + 0x30));
+    if (angleObj != NULL) {
+        (*(f32 *)((char *)(angleObj) + 0x40)) += 2.0f;
+        angleObj2 = (*(void **)((char *)(anim) + 0x30));
+        angle = (*(f32 *)((char *)(angleObj2) + 0x40));
+        if (angle > 4095.0f) {
+            (*(f32 *)((char *)(angleObj2) + 0x40)) = (f32) (angle - 4095.0f);
         }
     }
 }

@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern u8 D_800E2CC0[];
 extern u8 D_800E2CE4[];
-extern s32 D_800E3F10;
+extern s32 sDataBankReady;
 
 s32 func_80087F60(s32 arg0) {
     u8 *__base_D_800E2CC0;
@@ -34,7 +34,7 @@ s32 cache;
         __block_var_v1 = 0;
 loop_2:
         ;
-        cache = D_800E3F10;
+        cache = sDataBankReady;
         __block___repair_phase_temp_a0 = 0;
         for (;;) {
             if ((*((__base_D_800E2CC0 = D_800E2CC0) + __block___repair_phase_temp_a0) == 0) || (__block_var_v1 == arg0) || (*(s32 *)(D_800E2CE4 + __block___repair_phase_temp_a0) != cache)) {
@@ -47,11 +47,11 @@ loop_2:
             break;
         }
         if (__block_var_v1 != 2) {
-            __repair_phase___repair_phase_temp_a0 = D_800E3F10 + 1;
-            D_800E3F10 = __repair_phase___repair_phase_temp_a0;
+            __repair_phase___repair_phase_temp_a0 = sDataBankReady + 1;
+            sDataBankReady = __repair_phase___repair_phase_temp_a0;
             __block_var_v1 = 0;
             if (__repair_phase___repair_phase_temp_a0 == -1) {
-                D_800E3F10 = 0;
+                sDataBankReady = 0;
                 continue;
             }
             goto loop_2;
@@ -59,11 +59,11 @@ loop_2:
         break;
     }
     __repair_phase_temp_a0 = arg0 * 0x1228;
-    *(s32 *)(D_800E2CE4 + __repair_phase_temp_a0) = D_800E3F10;
-    temp_v1 = D_800E3F10 + 1;
-    D_800E3F10 = temp_v1;
+    *(s32 *)(D_800E2CE4 + __repair_phase_temp_a0) = sDataBankReady;
+    temp_v1 = sDataBankReady + 1;
+    sDataBankReady = temp_v1;
     if (temp_v1 == -1) {
-        D_800E3F10 = 0;
+        sDataBankReady = 0;
     }
     return *(s32 *)(D_800E2CE4 + __repair_phase_temp_a0);
 }

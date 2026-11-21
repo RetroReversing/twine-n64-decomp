@@ -143,12 +143,12 @@ free_last:
             temp_s0_2 = func_80044968(D_800E1A64);
             func_800336FC(&D_800C7E60, (u8 *)temp_v0_3 + 0xC, temp_s3, temp_v0_3, 3, 1.0f, temp_s0_2, func_8004493C(D_800E1A64), 1, 0, 0);
             func_80084048(temp_v0_3, 0x2D);
-            *(s32 *)((u8 *)temp_v0 + 0x24) = ((s32 *)sp30)[0];
-            *(s32 *)((u8 *)temp_v0 + 0x28) = ((s32 *)sp30)[1];
-            *(s32 *)((u8 *)temp_v0 + 0x2C) = ((s32 *)sp30)[2];
-            *(s32 *)((u8 *)temp_v0 + 0x30) = *(s32 *)((u8 *)temp_v0 + 0x24);
-            *(s32 *)((u8 *)temp_v0 + 0x34) = *(s32 *)((u8 *)temp_v0 + 0x28);
-            *(s32 *)((u8 *)temp_v0 + 0x38) = *(s32 *)((u8 *)temp_v0 + 0x2C);
+            {
+                typedef struct { s32 words[3]; } Position;
+                Position *position = (Position *)((u8 *)temp_v0 + 0x24);
+                position[0] = *(Position *)sp30;
+                position[1] = position[0];
+            }
             func_80045278((u8 *)temp_v0 + 0x48);
             func_80045278((u8 *)temp_v0 + 0x3C);
             *(u8 *)((u8 *)temp_v0 + 0x7E) = 3;

@@ -4,13 +4,13 @@ s32 func_800936B4();
 s32 osRecvMesg();
 s32 osSendMesg();
 extern u8 sDataBankEnabled;
-extern u8 D_800E2CC0[];
+extern u8 sDataBankFlags[];
 extern char D_800E2CC1[];
 extern char D_800E2CC2[];
 extern char D_800E2CC3[];
 extern char D_800E2CCC[];
 extern char D_800E2CE4[];
-extern char D_800E3F30[];
+extern char sDataBankMesgQueue[];
 
 s32 func_800884F8(s32 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     s32 temp_a0;
@@ -20,7 +20,7 @@ s32 func_800884F8(s32 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
 
     if (sDataBankEnabled != 0) {
         for (var_a1 = 0, var_v1 = 0; var_a1 < 2U; ++var_a1, var_v1 += 0x1228) {
-            if (*(D_800E2CC0 + var_v1) != 0 && *(s32 *)(D_800E2CE4 + var_v1) == arg0) {
+            if (*(sDataBankFlags + var_v1) != 0 && *(s32 *)(D_800E2CE4 + var_v1) == arg0) {
                 var_s0 = var_a1;
                 goto found;
             }
@@ -28,7 +28,7 @@ s32 func_800884F8(s32 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
         var_s0 = -1;
 found:
         if (var_s0 != -1) {
-            osRecvMesg(D_800E3F30, 0, 1);
+            osRecvMesg(sDataBankMesgQueue, 0, 1);
             var_s0 *= 0x1228;
             temp_a0 = *(s32 *)(D_800E2CCC + var_s0);
             if (temp_a0 != -1) {

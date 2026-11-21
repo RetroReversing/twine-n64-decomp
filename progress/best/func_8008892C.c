@@ -5,12 +5,12 @@ s32 osSendMesg(s32 *, s32, s32);    /* extern */
 extern u8 sDataBankEnabled;
 extern f64 D_800D66D8;
 extern f64 D_800D66E0;
-extern s32 D_800E2CC0;
+extern s32 sDataBankFlags;
 extern s32 D_800E2CC8;
 extern s32 D_800E2CDC;
 extern s32 D_800E2CE0;
 extern s32 D_800E2CE4;
-extern s32 D_800E3F30;
+extern s32 sDataBankMesgQueue;
 
 f32 func_8008892C(s32 arg0, f32 *arg1) {
     f32 var_fs0;
@@ -27,7 +27,7 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
         if (sDataBankEnabled != 0) {
             var_v1 = 0;
             do {
-                if (*(u8 *)((u8 *)&D_800E2CC0 + var_v1) != 0) {
+                if (*(u8 *)((u8 *)&sDataBankFlags + var_v1) != 0) {
                     if (*(s32 *)((u8 *)&D_800E2CE4 + var_v1) == arg0) {
                         arg0 = var_a0;
                         goto found;
@@ -40,14 +40,14 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
             var_a0 = -1U;
 found:
             if (arg0 != -1) {
-                osRecvMesg(&D_800E3F30, 0, 1);
-                if ((u8)(*(u8 *)((u8 *)&D_800E2CC0 + (arg0 * 0x1228)) << 1) == 4) {
+                osRecvMesg(&sDataBankMesgQueue, 0, 1);
+                if ((u8)(*(u8 *)((u8 *)&sDataBankFlags + (arg0 * 0x1228)) << 1) == 4) {
                     var_fs0 = (f32)*(u32 *)((u8 *)&D_800E2CDC + (arg0 * 0x1228)) / (f32)*(u32 *)((u8 *)&D_800E2CC8 + (arg0 * 0x1228));
                 } else {
                     var_fs0 = 0.0f;
                 }
                 *arg1 = *(f32 *)((u8 *)&D_800E2CE0 + (arg0 * 0x1228));
-                osSendMesg(&D_800E3F30, 0, 0);
+                osSendMesg(&sDataBankMesgQueue, 0, 0);
                 return var_fs0;
             }
             goto block_16;
