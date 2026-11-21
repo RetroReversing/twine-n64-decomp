@@ -30,7 +30,7 @@ s32 __repair_literal;
     volatile struct __arg_copy { s32 a, b, c; } __stack_copy;
 
     s32 var_a0;
-    s32 var_s0;
+    u8 var_s0;
     s32 var_v0;
     void *temp_v0;
     void *temp_v0_2;
@@ -69,7 +69,7 @@ __repair_literal = 0;
         var_s0 = 0;
         if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&sBonusObjectTable + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
             var_v0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
-            var_s0 = (u8)var_v0;
+            var_s0 = var_v0;
         }
         if (M2C_FIELD(M2C_FIELD(arg1, void **, 0xB4), u8 *, 0x10) & 1) {
             M2C_FIELD(sBonusMarkerNodes, s32 *, 0x28) = (s32) ((M2C_FIELD(sBonusMarkerNodes, const s32 *, 0x28) & ~0xFC) | 0x1C);
