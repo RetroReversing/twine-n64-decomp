@@ -191,7 +191,7 @@ int __repair_phase___repair_phase_var_s2_2;
     (*(s32 *)((char *)(&D_801002AE) + 0xA)) = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     (*(s32 *)((char *)(&D_801002AE) + 0x12)) = (s32) (func_8002D13C(0xA3) & 0xFFFF);
     (*(s8 *)((char *)(&D_801002AE) + -1)) = 0;
-    var_s0 = 0 & 0xFFFF;
+    var_s0 = __repair_phase_var_s2_2 & 0xFFFF;
     do {
         temp_s1 = var_s0 < 4U;
         if ((int)temp_s1 != 0) {
@@ -200,16 +200,15 @@ int __repair_phase___repair_phase_var_s2_2;
         temp_v1 = (s32)var_s0 * 0x18;
         *(D_80100198 + temp_v1) = 2;
         *(D_801001A0 + temp_v1) = (s32)0x64;
-        temp_s3 = __repair_phase_var_s2_2 & 1;
         *(D_801001A2 + temp_v1) = 1;
         *(D_801001A3 + temp_v1) = 0;
         if (temp_s1) {
-            if (temp_s3 != 0) {
+            if ((__repair_phase_var_s2_2 & 1) != 0) {
                 goto block_8;
             }
             goto block_7;
         }
-        if (temp_s3) {
+        if (__repair_phase_var_s2_2 & 1) {
 block_7:
             *(D_801001A1 + temp_v1) = 1;
             __repair_phase_var_s2_2 += 1;

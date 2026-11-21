@@ -71,7 +71,7 @@ void func_800770E4(void *arg0) {
     s32 var_a0_2;
     s32 var_s0;
     u16 temp_v1;
-    u16 var_a1_2;
+    s32 var_a1_2;
     u16 var_v0;
     u32 temp_a0_2;
     u32 var_v1;
@@ -99,7 +99,8 @@ void func_800770E4(void *arg0) {
         M2C_FIELD(arg0, u16 *, 0x78) = 0x4CU;
         M2C_FIELD(arg0, s16 *, 0x7C) = 0xC;
         M2C_FIELD(temp_s0, u8 *, 0x7F) = 0xCU;
-        var_s0 = (actor_flags >> 0x11) & 0xF;
+        var_s0 = actor_flags >> 0x11;
+        var_s0 &= 0xF;
     } else if (temp_v1 == 2) {
         temp_v0_2 = M2C_FIELD(arg0, void **, 0x6C);
         origin_x = M2C_FIELD(arg0, f32 *, 0x24);
@@ -114,7 +115,8 @@ void func_800770E4(void *arg0) {
 block_8:
         var_fs1 = var_fv0 - origin_x;
         M2C_FIELD(arg0, u16 *, 0x78) = var_v0;
-        var_s0 = (var_v1_2 >> 0xC) & 0xF;
+        var_s0 = var_v1_2 >> 0xC;
+        var_s0 &= 0xF;
         var_fs0 = var_fv1_2 - origin_z;
         goto block_9;
     } else {
@@ -271,7 +273,7 @@ block_9:
                         var_a0_2 = 0xB;
                         break;
                     }
-                    var_a1_2 = *((randomIntBelow(var_a0_2) * 2) + var_s0_2);
+                    var_a1_2 = *(u16 *)(var_s0_2 + randomIntBelow(var_a0_2) * 2);
                     goto block_61;
                 case 1:                             /* switch 7 */
                     var_a1_2 = *(u16 *)(&D_800C9B64 + (randomIntBelow(3) * 2));
@@ -342,7 +344,7 @@ block_71:
                     } else {
                         var_a0 = (s32) var_fv1;
                     }
-                    if (randomIntBelow(var_a0) != 5) {
+                    if (randomIntBelow((u32)var_fv1) != 5) {
                         var_a1 = 0x15;
                     } else {
                         M2C_FIELD(temp_s0_2, s16 *, 0x7C) = 0;

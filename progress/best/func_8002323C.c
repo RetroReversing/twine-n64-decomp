@@ -56,7 +56,7 @@ extern u8 D_801002AC;
 extern s32 gSaveTotalSlots;
 typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
 extern UnalignedWord D_801002E6;
-extern void *gMenuItems;
+extern void *gSaveMenuState;
 extern void *gBonusObjects[];
 extern M2C_UNK sProbeTimers;
 extern M2C_UNK func_80022F10;
@@ -128,7 +128,7 @@ void func_8002323C(void) {
             M2C_FIELD(temp_s3, u8 *, 0x27) = func_800263B8(&D_800BDBF8, 0xE);
         }
         D_800BDBFC = var_s0_2;
-        temp_a2 = *M2C_FIELD(gMenuItems, s32 **, 0x10);
+        temp_a2 = *M2C_FIELD(gSaveMenuState, s32 **, 0x10);
         D_801002E6 = M2C_FIELD((u8 *)temp_a2 + (u16)var_s0_2 * 0x28, UnalignedWord *, 0x24);
         formatTextEntry(temp_s4, &D_800D2AAC);
         {
