@@ -19,8 +19,8 @@ typedef struct {
 } D891A8;
 void func_800A0FA0(void *, s32);
 void func_800A0220(void *, s32);
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 extern u32 D_800E41D4;
 extern void *D_800E4230;
 extern s32 D_800E4234;
@@ -63,9 +63,9 @@ void func_800891A8(S891A8 *arg0) {
             d->env[3] = 0x7FFF;
         }
         func_800A0220(d, 0x48);
-        func_8008C0D4();
+        workerLockAcquire();
         D_800E4234 = 0;
         D_800E4230 = d;
-        func_8008C11C();
+        workerLockRelease();
     }
 }

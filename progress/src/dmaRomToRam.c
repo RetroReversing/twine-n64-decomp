@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 s32 func_800A0170();
 s32 osCreateMesgQueue();
 s32 osRecvMesg();
@@ -28,7 +28,7 @@ extern s32 *D_8011772C;
 extern s32 func_8009D100;
 
 void dmaRomToRam(s32 arg0, s32 arg1, s32 arg2) {
-    func_8008C0D4(arg0);
+    workerLockAcquire(arg0);
     if (D_8011772C == NULL) {
         osCreateMesgQueue(D_800FDBE8, D_800FDC00, 1);
         D_800FDBB0 = 0;
@@ -40,10 +40,10 @@ void dmaRomToRam(s32 arg0, s32 arg1, s32 arg2) {
         *(s32 *)(D_800FDBBC + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
         D_800FDBB0++;
         func_800A0170(arg0, arg2);
-        func_8008C11C();
+        workerLockRelease();
         osRecvMesg(D_800FDBE8, 0, 1);
         osYieldThread();
         return;
     }
-    func_8008C11C();
+    workerLockRelease();
 }

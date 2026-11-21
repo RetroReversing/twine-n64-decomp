@@ -12,18 +12,26 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
-extern s32 D_800CEEDC;
-extern M2C_UNK D_800E426C;
+s32 getTrackTriggerMask(s32 arg0) {
+    s32 temp_a0;
 
-void func_8008C11C(void) {
-    s32 temp_v0;
-
-    if (D_800CEEDC > 0) {
-        temp_v0 = D_800CEEDC - 1;
-        D_800CEEDC = temp_v0;
-        if (temp_v0 == 0) {
-            osSendMesg(&D_800E426C, 0, 0);
-        }
+    temp_a0 = arg0 & 0xFFFF;
+    switch (temp_a0) {
+    default:
+        return 0x210;
+    case 2:
+        return 0x200;
+    case 1:
+        return 0x10;
+    case 4:
+        return 0x22;
+    case 5:
+        return 0x32;
+    case 8:
+        return 0x800;
+    case 16:
+        return 0;
+    case 32:
+        return 0x08000000;
     }
 }

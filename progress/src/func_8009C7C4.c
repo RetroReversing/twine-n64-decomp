@@ -1,5 +1,5 @@
-extern void func_8008C0D4(void);
-extern void func_8008C11C(void);
+extern void workerLockAcquire(void);
+extern void workerLockRelease(void);
 extern s32 func_800989B8(s32);
 extern void func_80095A80(u8, u8, u8, u8);
 extern u8 gWorkerActive;
@@ -13,7 +13,7 @@ s32 func_8009C7C4(s32 arg0, s32 arg1) {
     result = -1;
     parameter = arg1;
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         handle = func_800989B8(handle);
         if (handle == result) goto unlock;
         end = -1;
@@ -31,7 +31,7 @@ again:        {
             if (handle != end) goto again;
         }
 unlock:
-        func_8008C11C();
+        workerLockRelease();
     }
     return result;
 }

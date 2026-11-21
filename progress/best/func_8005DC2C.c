@@ -1,4 +1,4 @@
-s32 func_80015D40(s32);
+s32 getTrackTriggerMask(s32);
 void *spawnEffectObject(s32,s32,s32);
 s32 actorLinkToSurface(void *,void *,u8);
 void objectSetAnimFrame(void *,s32,s32);
@@ -23,7 +23,7 @@ case 0x90: D_80109B1E=1; ((R*)temp_v0)->t=0x60; break;
 }
   *(u16*)((char*)temp_s0+0x34)=*(u16*)((char*)arg2+0x2C);
   *(u16*)((char*)temp_s0+0x40)=*(u16*)((char*)arg2+0x2E);
-  *(s32*)((char*)temp_s0+0x2C)=func_80015D40(*(u16*)((char*)arg2+0x34));
+  *(s32*)((char*)temp_s0+0x2C)=getTrackTriggerMask(*(u16*)((char*)arg2+0x34));
   *(u16*)((char*)temp_s0+0x36)=*(u16*)((char*)arg2+0x36);
   *(u16*)((char*)temp_s0+0x38)=*(u16*)((char*)arg2+0x38);
   *(u16*)((char*)temp_s0+0x3A)=*(u16*)((char*)arg2+0x30);

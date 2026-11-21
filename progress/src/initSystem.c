@@ -19,7 +19,7 @@ s32 func_80006FB4();
 s32 func_80008258();
 s32 func_80009F04();
 s32 func_8000B828();
-s32 func_80011FA4();
+s32 initControllerAndSaveState();
 s32 heapInit();
 s32 heapAlloc(u32, u8);
 s32 func_80083C8C();
@@ -164,7 +164,7 @@ scale:
     func_80006E78();
     osViSwapBuffer(D_80100304);
     func_80086DA0(1);
-    func_80011FA4();
+    initControllerAndSaveState();
     func_80006FB4();
 loop_18:
     func_800068B4();

@@ -6,8 +6,8 @@ extern volatile s32 D_800F8158;
 extern s32 D_800F815C;
 extern u16 D_800F8160, D_800F8162, D_800F8164;
 extern TableEntry D_800F8168[];
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 
 /* Inserts a key/value entry into the key-sorted table (max 256), or bumps the existing entry's refcount; returns 1 if added or bumped. */
 s32 insertSortedKeyEntry(u16 key, const void *value, u16 extra) {
@@ -15,7 +15,7 @@ s32 insertSortedKeyEntry(u16 key, const void *value, u16 extra) {
     u32 wanted;
     TableEntry *dst, *src;
 
-    func_8008C0D4();
+    workerLockAcquire();
     count = D_800F8158;
     i = 0;
     if (count <= 0)
@@ -67,7 +67,7 @@ append:
         }
     }
 fail:
-    func_8008C11C();
+    workerLockRelease();
     return 0;
 insert:
     do { D_800F8158 = newCount; } while (0);
@@ -78,6 +78,6 @@ insert:
     *(u16 *)((u8 *)&D_800F8162 + insertOffset) = extra;
     *(u16 *)((u8 *)&D_800F8164 + insertOffset) = 1;
     }
-    func_8008C11C();
+    workerLockRelease();
     return 1;
 }

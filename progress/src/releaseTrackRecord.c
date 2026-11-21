@@ -12,26 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80015D40(s32 arg0) {
-    s32 temp_a0;
+M2C_UNK listUnlinkFree(s32);                         /* extern */
 
-    temp_a0 = arg0 & 0xFFFF;
-    switch (temp_a0) {
-    default:
-        return 0x210;
-    case 2:
-        return 0x200;
-    case 1:
-        return 0x10;
-    case 4:
-        return 0x22;
-    case 5:
-        return 0x32;
-    case 8:
-        return 0x800;
-    case 16:
-        return 0;
-    case 32:
-        return 0x08000000;
+void releaseTrackRecord(void *arg0) {
+    if (M2C_FIELD(arg0, s32 *, 0) != -1) {
+        M2C_FIELD(arg0, s8 *, 0x18) = 0;
+        listUnlinkFree(M2C_FIELD(arg0, s32 *, 0));
+        M2C_FIELD(arg0, s32 *, 0) = -1;
     }
 }

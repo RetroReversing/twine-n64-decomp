@@ -12,13 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
-extern s32 D_800CEEDC;
-extern M2C_UNK D_800E426C;
+M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
+extern s32 workerLockDepth;
+extern M2C_UNK workerLockQueue;
 
-void func_8008C0D4(void) {
-    if (D_800CEEDC == 0) {
-        osRecvMesg(&D_800E426C, 0, 1);
+void workerLockRelease(void) {
+    s32 temp_v0;
+
+    if (workerLockDepth > 0) {
+        temp_v0 = workerLockDepth - 1;
+        workerLockDepth = temp_v0;
+        if (temp_v0 == 0) {
+            osSendMesg(&workerLockQueue, 0, 0);
+        }
     }
-    D_800CEEDC += 1;
 }

@@ -57,7 +57,7 @@ M2C_UNK func_80085354(void *, u8);                  /* extern */
 M2C_UNK func_800853D4(f32 *);                       /* extern */
 M2C_UNK func_8008548C(f32 *, u32);                  /* extern */
 M2C_UNK func_80085D90(f32 *, s32);                  /* extern */
-M2C_UNK func_80085E30(void *);                      /* extern */
+M2C_UNK releaseTrackRecord(void *);                      /* extern */
 M2C_UNK markObjectsNearPos(void *, M2C_UNK, M2C_UNK, f32 *, s32, s32); /* extern */
 M2C_UNK objectListInsert(void *, void *);           /* extern */
 M2C_UNK objectSetAnimFrame(void *, s16, s16);       /* extern */
@@ -1046,7 +1046,7 @@ block_13:
         func_80032220(M2C_FIELD(temp_s2, s32 *, 0x30));
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 1);
         if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), u16 *, 0x52) != 0) {
-            func_80085E30(temp_s2 + 0x3C);
+            releaseTrackRecord(temp_s2 + 0x3C);
         }
         break;
     }

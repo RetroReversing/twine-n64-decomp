@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80015D40(u16);                             /* extern */
+s32 getTrackTriggerMask(u16);                             /* extern */
 void *spawnEffectObject(M2C_UNK, s32, M2C_UNK);         /* extern */
 M2C_UNK actorLinkToSurface(s32, void *, M2C_UNK);        /* extern */
 extern s32 *gProbeObjectList;
@@ -50,7 +50,7 @@ s32 __repair_phase_var_v0;
         }
         M2C_FIELD(temp_s1, u16 *, 0x34) = (u16) M2C_FIELD(arg3, u16 *, 0x2C);
         M2C_FIELD(temp_s1, u16 *, 0x36) = (u16) M2C_FIELD(arg3, u16 *, 0x2E);
-        M2C_FIELD(temp_s1, s32 *, 0x2C) = func_80015D40(M2C_FIELD(arg3, u16 *, 0x34));
+        M2C_FIELD(temp_s1, s32 *, 0x2C) = getTrackTriggerMask(M2C_FIELD(arg3, u16 *, 0x34));
         ((__repair_record_temp_v0*)temp_v0)->field_7A = 0;
         ((__repair_record_temp_v0*)temp_v0)->field_7C = 0;
         ((__repair_field_5C *)temp_v0)->value = (s32) (((__repair_field_5C *)temp_v0)->value | 0x600);

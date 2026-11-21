@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 s32 func_800A0170();
 s32 osCreateMesgQueue();
 extern volatile u8 D_800FDBB0;
@@ -26,7 +26,7 @@ extern s32 *D_8011772C;
 extern s32 func_8009D100;
 
 void enqueue_buffer_request(s32 arg0, s32 arg1, s32 arg2) {
-    func_8008C0D4(arg0);
+    workerLockAcquire(arg0);
     if (D_8011772C == NULL) {
         osCreateMesgQueue(D_800FDBE8, D_800FDC00, 1);
         D_800FDBB0 = 0;
@@ -39,5 +39,5 @@ void enqueue_buffer_request(s32 arg0, s32 arg1, s32 arg2) {
         D_800FDBB0++;
         func_800A0170(arg0, arg2);
     }
-    func_8008C11C();
+    workerLockRelease();
 }

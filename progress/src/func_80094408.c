@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008C0D4();                            /* extern */
-M2C_UNK func_8008C11C();                            /* extern */
+M2C_UNK workerLockAcquire();                            /* extern */
+M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK func_8008EA58(s32);                         /* extern */
 extern u8 gWorkerActive;
 extern void *gActiveSoundList;
@@ -24,7 +24,7 @@ s32 func_80094408(void *arg0) {
     void *temp_v1;
 
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         temp_v1 = M2C_FIELD(arg0, void **, 0);
         if (temp_v1 != NULL) {
             M2C_FIELD(temp_v1, void ***, 4) = (void **) M2C_FIELD(arg0, void ***, 4);
@@ -40,7 +40,7 @@ s32 func_80094408(void *arg0) {
         if (temp_a0 != -1) {
             func_8008EA58(temp_a0);
         }
-        func_8008C11C();
+        workerLockRelease();
         return 1;
     }
     return 0;

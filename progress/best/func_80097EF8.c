@@ -1,8 +1,8 @@
 static __inline__ u16 __repair_inline(u16 a) { return a; }
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 extern s32 D_800F8D5C;
 extern u16 D_800F8D5E;
 extern char D_800F8D60[];
@@ -33,7 +33,7 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
     u32 var_a0;
     u16 temp_v1_3;
 
-    func_8008C0D4();
+    workerLockAcquire();
     var_a0 = arg0;
     temp_t2 = var_a0 >> 6;
     temp_v1 = temp_t2 * 4;
@@ -105,10 +105,10 @@ block_11:
         D_800F9560[var_t1].f0 = arg1;
         *(u16 *)(D_800F8D60 + var_v0_2) = *(u16 *)(D_800F8D60 + var_v0_2) + 1;
         ++D_800F8D5C;
-        func_8008C11C(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
+        workerLockRelease(var_a0_2, var_v0_2, var_a2_2, (void *) var_a3);
         return 1;
     }
 block_21:
-    func_8008C11C(var_a0);
+    workerLockRelease(var_a0);
     return 0;
 }

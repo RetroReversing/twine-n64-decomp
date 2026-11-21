@@ -1,5 +1,5 @@
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 extern s32 D_800FD560;
 extern char D_800FD564[];
 extern char D_800FD566[];
@@ -39,7 +39,7 @@ s32 __repair_phase_var_v1_2;
     if (var_v1 == D_800FD560) {
         if (var_v1 < 0x80) {
             s32 entry_offset;
-            func_8008C0D4(var_a0);
+            workerLockAcquire(var_a0);
             __repair_phase_temp_a2 = temp_s2 & 0xFFFF;
             entry_offset = D_800FD560 * 8;
             *(u16 *)(D_800FD564 + (unsigned)entry_offset) = var_v1_2;
@@ -54,7 +54,7 @@ s32 __repair_phase_var_v1_2;
                 } while (__repair_phase_var_v1_2 < __repair_phase_temp_a2);
             }
             D_800FD560 += 1;
-            func_8008C11C();
+            workerLockRelease();
             return 1;
         }
     }

@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008C0D4();                            /* extern */
-M2C_UNK func_8008C11C();                            /* extern */
-M2C_UNK func_80095374(void *, void *, void *);      /* extern */
+M2C_UNK workerLockAcquire();                            /* extern */
+M2C_UNK workerLockRelease();                            /* extern */
+M2C_UNK vec3Cross(void *, void *, void *);      /* extern */
 M2C_UNK invertAffineTransform(void *, f32 *);               /* extern */
 extern u8 gWorkerActive;
 extern void *gWorkerListHead;
@@ -25,7 +25,7 @@ typedef struct { s32 x, y, z; } Vec3w;
     void *prevHead;
 
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         prevHead = gWorkerListHead;
         M2C_FIELD(worker, void **, 0) = prevHead;
         if (prevHead != NULL) {
@@ -42,7 +42,7 @@ typedef struct { s32 x, y, z; } Vec3w;
         M2C_FIELD(worker, f32 *, 0x78) = originX;
         M2C_FIELD(worker, f32 *, 0x7C) = originY;
         M2C_FIELD(worker, f32 *, 0x80) = originZ;
-        func_80095374(worker + 0x30, worker + 0x3C, worker + 0x24);
+        vec3Cross(worker + 0x30, worker + 0x3C, worker + 0x24);
         mtx[0] = M2C_FIELD(worker, f32 *, 0x30);
         mtx[3] = M2C_FIELD(worker, f32 *, 0x34);
         mtx[6] = M2C_FIELD(worker, f32 *, 0x38);
@@ -58,7 +58,7 @@ typedef struct { s32 x, y, z; } Vec3w;
         invertAffineTransform(worker + 0x48, mtx);
         M2C_FIELD(worker, s32 *, 8) = flags;
         M2C_FIELD(worker, f32 *, 0x84) = (f32) ((f32) intensity * 0.007874016f);
-        func_8008C11C();
+        workerLockRelease();
         return 1;
     }
     return 0;

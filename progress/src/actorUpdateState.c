@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80015D40();
+s32 getTrackTriggerMask();
 s32 markObjectsNearPos();
 s32 actorLinkToSurface();
-void func_8007659C(void *, void *);
-s32 func_80085E30();
+void updateSplinePosition(void *, void *);
+s32 releaseTrackRecord();
 s32 updateActorTrackingState();
 s32 func_80087380();
 extern s32 *gProbeObjectList;
@@ -60,7 +60,7 @@ typedef struct { unsigned char pad_0[32]; int field_20; unsigned char pad_24[52]
     case 1:
         flagIdx = M2C_FIELD(cfg, u8 *, 0x4A);
         if (flagIdx != 0) {
-            if (((__repair_record_arg0*)arg0)->field_60 & func_80015D40(flagIdx)) {
+            if (((__repair_record_arg0*)arg0)->field_60 & getTrackTriggerMask(flagIdx)) {
             timer = ((__repair_record_arg0*)arg0)->field_7C + 1;
             ((__repair_record_arg0*)arg0)->field_7C = (u16) timer;
             if ((f32) timer > 150.0f) {
@@ -80,7 +80,7 @@ block_22:
         }
         M2C_FIELD(cfg, f32 *, 0x20) += 0.033333335f;
         updateActorTrackingState(arg0, cfg);
-        func_8007659C(arg0, cfg + 0x1C);
+        updateSplinePosition(arg0, cfg + 0x1C);
         if (M2C_FIELD(cfg, s16 *, 0x2A) == M2C_FIELD(cfg, u8 *, 0x48)) {
             doneFlag = M2C_FIELD(cfg, u8 *, 0x49);
             if (doneFlag != 0) {
@@ -88,7 +88,7 @@ block_22:
             }
         }
         if (M2C_FIELD(cfg, s16 *, 0x2A) == (M2C_FIELD(cfg, s16 *, 0x28) - 4)) {
-            func_80085E30(cfg);
+            releaseTrackRecord(cfg);
             ((__repair_record_arg0*)arg0)->field_7A = 3;
         }
         markObjectsNearPos(((__repair_record_arg0*)arg0)->field_20, 0, 0x01200000, arg0 + 0x24, 0, 0);

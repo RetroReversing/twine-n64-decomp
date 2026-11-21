@@ -1,5 +1,5 @@
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 extern s32 D_800F7954;
 extern char D_800F7958[];
 extern char D_800F795C[];
@@ -10,7 +10,7 @@ int __repair_literal;
     s32 temp_v0, temp_v1, var_a0, var_a3, var_t1, var_v0, var_v1;
     u32 temp_a1;
     void *var_a2, *var_t0;
-    func_8008C0D4();
+    workerLockAcquire();
     var_a0 = D_800F7954;
     var_t1 = 0;
 __repair_literal = 0;
@@ -56,7 +56,7 @@ block_13:
         goto block_15;
     }
 block_14:
-    func_8008C11C();
+    workerLockRelease();
     return 0;
 block_15:
     D_800F7954 = var_v0;
@@ -64,6 +64,6 @@ block_15:
     *(u16 *)(D_800F795C + temp_v0) = arg0;
     *(s32 *)(D_800F7958 + temp_v0) = arg1;
     *(u16 *)(D_800F795C + 2 + temp_v0) = 1;
-    func_8008C11C();
+    workerLockRelease();
     return 1;
 }

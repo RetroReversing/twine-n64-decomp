@@ -50,7 +50,7 @@ M2C_UNK updateObjectColor(void *);                  /* extern */
 extern u32 D_800B1D84;
 extern u16 D_800B35B0;
 extern f32 D_800C0740;
-extern M2C_UNK D_800C43A0;
+extern s8 D_800C43A0;
 extern s32 D_800E1710;
 extern s32 gObjectDrawMask;
 extern s32 D_801007B8;
@@ -67,6 +67,7 @@ extern void *D_80117728;
 extern f32 gCullFarDistance;
 extern s32 gObjectList;
 
+typedef struct { f32 __repair_v[3]; } __repair_vec3;
 void func_80038000(void *arg0, s32 arg1) {
     f32 sp20;
     f32 sp24;
@@ -104,9 +105,7 @@ void func_80038000(void *arg0, s32 arg1) {
         gCullFarDistance = D_800C0740;
         M2C_FIELD(arg0, f32 *, 0x148) = 2.0f;
     }
-    M2C_FIELD(arg0, f32 *, 0x1C) = (f32) M2C_FIELD(arg0, f32 *, 0x10);
-    M2C_FIELD(arg0, f32 *, 0x20) = (f32) M2C_FIELD(arg0, f32 *, 0x14);
-    M2C_FIELD(arg0, f32 *, 0x24) = (f32) M2C_FIELD(arg0, f32 *, 0x18);
+    (*(__repair_vec3 *) ((s8 *) (arg0) + 0x1C)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x10));
     M2C_FIELD(arg0, s32 *, 0x40) = (s32) M2C_FIELD(arg0, s32 *, 0x34);
     M2C_FIELD(arg0, f32 *, 0x44) = (f32) M2C_FIELD(arg0, f32 *, 0x38);
     M2C_FIELD(arg0, f32 *, 0x48) = (f32) M2C_FIELD(arg0, f32 *, 0x3C);

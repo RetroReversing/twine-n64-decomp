@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK evalCatmullRomVec3(s32, s32, s32, s32, f32, f32 *); /* extern */
 
-void func_8007659C(void *arg0, void *arg1) {
+void updateSplinePosition(void *arg0, void *arg1) {
     union {
         unsigned char bytes[16];
         struct { f32 value; } view_sp18;

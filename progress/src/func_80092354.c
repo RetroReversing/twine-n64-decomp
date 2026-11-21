@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008C0D4();                            /* extern */
-M2C_UNK func_8008C11C();                            /* extern */
+M2C_UNK workerLockAcquire();                            /* extern */
+M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK func_80091A24(s32, M2C_UNK, M2C_UNK);       /* extern */
 extern u8 gWorkerActive;
 
 void func_80092354(s32 arg0, M2C_UNK arg1) {
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         func_80091A24(arg0, arg1, 0);
-        func_8008C11C();
+        workerLockRelease();
     }
 }

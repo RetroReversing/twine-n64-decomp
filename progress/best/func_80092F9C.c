@@ -1,8 +1,8 @@
 extern u8 gWorkerActive;
 extern s16 sSceneGroupStackCount;
 extern char *sSceneGroupStack[];
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 s32 func_8008F520();
 s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
  s32 i, result;
@@ -21,9 +21,9 @@ s32 func_80092F9C(u16 id, u16 sub, s32 arg2, s32 arg3, u8 flag) {
      if(n==sub) {
       if(flag) result=func_8008F520(a,b,c,arg2,arg3);
       else {
-       func_8008C0D4();
+       workerLockAcquire();
        result=func_8008F520(a,b,c,arg2,arg3);
-       func_8008C11C();
+       workerLockRelease();
       }
       return result;
      }

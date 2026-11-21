@@ -1,7 +1,7 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 s32 func_80091324();
 s32 func_80091518();
 s32 func_80091654();
@@ -149,34 +149,34 @@ loop_1:
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2 = ((__repair_field_0 *)arg0)->value;
             if (gWorkerActive != 0) {
-                func_8008C0D4(var_a0, temp_a1, temp_a2);
+                workerLockAcquire(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2;
                 var_a3_2 = 2;
                 func_80091654(0U, var_a1, var_a2_2, var_a3_2);
-                func_8008C11C();
+                workerLockRelease();
             }
         } else if (temp_v1 & 0x40) {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2_2 = ((__repair_field_0 *)arg0)->value;
             if (gWorkerActive != 0) {
-                func_8008C0D4(var_a0, temp_a1, temp_a2);
+                workerLockAcquire(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2_2;
                 var_a3_2 = 3;
                 func_80091654(0U, var_a1, var_a2_2, var_a3_2);
-                func_8008C11C();
+                workerLockRelease();
             }
         } else {
             temp_s1 = (*(u16 *)((char *)(arg0) + 4));
             temp_s2_3 = ((__repair_field_0 *)arg0)->value;
             if (gWorkerActive != 0) {
-                func_8008C0D4(var_a0, temp_a1, temp_a2);
+                workerLockAcquire(var_a0, temp_a1, temp_a2);
                 var_a1 = temp_s1;
                 var_a2_2 = temp_s2_3;
                 var_a3_2 = 1;
                 func_80091654(0U, var_a1, var_a2_2, var_a3_2);
-                func_8008C11C();
+                workerLockRelease();
             }
         }
         if (arg1 != NULL) {
@@ -291,9 +291,9 @@ loop_40:
                         temp_s1_4 = (*(u16 *)((char *)(arg0) + 0xC));
                         temp_s2_4 = (*(s32 *)((char *)(arg0) + 8));
                         if (gWorkerActive != 0) {
-                            func_8008C0D4();
+                            workerLockAcquire();
                             func_80091654(temp_s3, temp_s1_4, temp_s2_4, 0);
-                            func_8008C11C();
+                            workerLockRelease();
                         }
                         if ((*(u8 *)((char *)(arg0) + 0x26)) & 0x10) {
                             func_80091518((*(s32 *)((char *)(arg0) + 8)), (*(s32 *)((char *)(arg0) + 0x1C)), (*(s32 *)((char *)(arg0) + 0x20)));
@@ -302,7 +302,7 @@ loop_40:
                             temp_s1_5 = (*(s32 *)((char *)(arg0) + 8));
                             temp_s2_5 = (*(u16 *)((char *)(arg0) + 0x24));
                             if (gWorkerActive != 0) {
-                                func_8008C0D4();
+                                workerLockAcquire();
                                 var_a0_6 = 0;
                                 temp_a2_3 = temp_s1_5 & 0x7FFFFFFF;
                                 var_v1_7 = 0;
@@ -329,7 +329,7 @@ loop_78:
                                         *(D_800E6AB2 + temp_v0_6) = *(D_800E6AB2 + temp_v0_6) | 0x20;
                                     }
                                 }
-                                func_8008C11C(var_a0_6, var_a1_2, temp_a2_3);
+                                workerLockRelease(var_a0_6, var_a1_2, temp_a2_3);
                             }
                         }
                     }

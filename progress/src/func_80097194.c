@@ -2,13 +2,13 @@
 typedef struct { s32 data; u16 id; u16 ref; } E97704;
 extern s32 D_800F7954;
 extern E97704 D_800F7958[];
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 
 s32 func_80097194(u16 arg0) {
     s32 i, j;
 
-    func_8008C0D4();
+    workerLockAcquire();
     for (i = 0; i < D_800F7954; i++) {
         if (D_800F7958[i].id == arg0) {
             break;
@@ -20,10 +20,10 @@ s32 func_80097194(u16 arg0) {
                 D_800F7958[j - 1] = D_800F7958[j];
             }
             D_800F7954--;
-            func_8008C11C();
+            workerLockRelease();
             return 1;
         }
     }
-    func_8008C11C();
+    workerLockRelease();
     return 0;
 }

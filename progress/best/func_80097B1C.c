@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8008C0D4(s32, u16 *);
-void func_8008C11C(void);
+void workerLockAcquire(s32, u16 *);
+void workerLockRelease(void);
 void func_8008C7C0(void *, s32);
 extern char D_800F38E4[];
 extern s32 D_800F38EC;
@@ -92,7 +92,7 @@ loop_16:
             }
             var_v0 = 1;
             if (var_s0_2 != D_800F38EC) {
-                func_8008C0D4(count, temp_a1);
+                workerLockAcquire(count, temp_a1);
                 var_a2 = var_s0_2 + 1;
                 if (var_a2 < D_800F38EC) {
                     temp_v0_2 = var_a2 * 0xC;
@@ -106,7 +106,7 @@ loop_16:
                     } while (var_a2 < D_800F38EC);
                 }
                 D_800F38EC -= 1;
-                func_8008C11C();
+                workerLockRelease();
             }
 success:
             return 1;

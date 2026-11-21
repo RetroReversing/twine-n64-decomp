@@ -12,12 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK listUnlinkFree(s32);                         /* extern */
+M2C_UNK osRecvMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
+extern s32 workerLockDepth;
+extern M2C_UNK workerLockQueue;
 
-void func_80085E30(void *arg0) {
-    if (M2C_FIELD(arg0, s32 *, 0) != -1) {
-        M2C_FIELD(arg0, s8 *, 0x18) = 0;
-        listUnlinkFree(M2C_FIELD(arg0, s32 *, 0));
-        M2C_FIELD(arg0, s32 *, 0) = -1;
+void workerLockAcquire(void) {
+    if (workerLockDepth == 0) {
+        osRecvMesg(&workerLockQueue, 0, 1);
     }
+    workerLockDepth += 1;
 }

@@ -18,7 +18,7 @@ s32 func_8003C710();
 s32 func_80047F50();
 s32 func_80048794();
 s32 func_800658C0();
-s32 func_8007659C();
+s32 updateSplinePosition();
 s32 func_80084048();
 extern u32 gTrackMarkerCount;
 extern char D_80100BE0[];
@@ -97,7 +97,7 @@ loop_16:
     case 2:
         M2C_FIELD(arg0, s32 *, 0x58) |= 1;
         M2C_FIELD(temp_s1, f32 *, 8) += M2C_FIELD(temp_s1, f32 *, 0xC);
-        func_8007659C(arg0, temp_s1 + 4);
+        updateSplinePosition(arg0, temp_s1 + 4);
         func_80047F50(arg0, D_80109690);
         if ((*(&gTrackDoneFlags + M2C_FIELD(temp_s1, u8 *, 0)) == 0) || (M2C_FIELD(temp_s1, s16 *, 0x12) >= (M2C_FIELD(temp_s1, s16 *, 0x10) - 4))) {
             M2C_FIELD(arg0, s16 *, 0x7A) = 3;

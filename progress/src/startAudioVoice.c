@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008C0D4();                            /* extern */
-M2C_UNK func_8008C11C();                            /* extern */
+M2C_UNK workerLockAcquire();                            /* extern */
+M2C_UNK workerLockRelease();                            /* extern */
 M2C_UNK audioVoiceSetup(s32, s32 *, M2C_UNK);         /* extern */
 M2C_UNK func_8008C43C(s32);                         /* extern */
 M2C_UNK func_8008C4C0(s32, s32);                    /* extern */
@@ -40,7 +40,7 @@ extern s32 D_8010A514;
 
     sp3F = gain1;
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         voice = func_800994B4(voiceId & 0xFF);
         if (voice != -1) {
             voiceOffset = voice * 0x6;
@@ -64,7 +64,7 @@ extern s32 D_8010A514;
             func_8008C524(voice, gain0 << 0x10, gain1 << 0x10, gain2 << 0x10, gain3 << 0x10);
             func_8008C43C(voice);
         }
-        func_8008C11C();
+        workerLockRelease();
         return voice;
     }
     return -1;

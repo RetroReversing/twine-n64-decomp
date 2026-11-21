@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008C0D4();
-s32 func_8008C11C();
+s32 workerLockAcquire();
+s32 workerLockRelease();
 s32 func_8009959C();
 extern u8 gWorkerActive;
 extern u8 gVoiceTable[];
@@ -22,12 +22,12 @@ void func_80093758(s32 arg0) {
     s32 temp_a0;
 
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         temp_a0 = arg0 * 0x18;
         if (*(gVoiceTable + temp_a0) == 1) {
             *(gVoiceTable + temp_a0) = 0;
             func_8009959C(arg0);
         }
-        func_8008C11C();
+        workerLockRelease();
     }
 }

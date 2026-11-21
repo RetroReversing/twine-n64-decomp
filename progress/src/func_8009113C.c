@@ -27,8 +27,8 @@ static inline s32 find_snd(s32 id) {
     return -1;
 }
 
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 extern u8 gWorkerActive;
 
 static inline void set_snd_9113C(s32 arg0, s16 arg1) {
@@ -46,8 +46,8 @@ static inline void set_snd_9113C(s32 arg0, s16 arg1) {
 
 void func_8009113C(s32 arg0, s16 arg1) {
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         set_snd_9113C(arg0, arg1);
-        func_8008C11C();
+        workerLockRelease();
     }
 }

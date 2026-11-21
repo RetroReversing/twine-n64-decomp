@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 void *func_80015DAC();                              /* extern */
-M2C_UNK func_80085E30(s32);                         /* extern */
+M2C_UNK releaseTrackRecord(s32);                         /* extern */
 
 void func_80086424(void) {
     void *var_s0;
@@ -22,7 +22,7 @@ void func_80086424(void) {
     if (var_s0 != NULL) {
         do {
             if ((u32) (M2C_FIELD(var_s0, u16 *, 0x78) - 0xE) < 2U) {
-                func_80085E30(M2C_FIELD(var_s0, s32 *, 0x6C));
+                releaseTrackRecord(M2C_FIELD(var_s0, s32 *, 0x6C));
             }
             var_s0 = M2C_FIELD(var_s0, void **, 0x10);
         } while (var_s0 != NULL);

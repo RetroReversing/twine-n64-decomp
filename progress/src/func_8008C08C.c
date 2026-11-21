@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK osCreateMesgQueue(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 M2C_UNK osSendMesg(M2C_UNK *, M2C_UNK, M2C_UNK);    /* extern */
-extern M2C_UNK D_800E426C;
+extern M2C_UNK workerLockQueue;
 extern M2C_UNK D_800E4284;
 
 void func_8008C08C(void) {
-    osCreateMesgQueue(&D_800E426C, &D_800E4284, 1);
-    osSendMesg(&D_800E426C, 0, 0);
+    osCreateMesgQueue(&workerLockQueue, &D_800E4284, 1);
+    osSendMesg(&workerLockQueue, 0, 0);
 }

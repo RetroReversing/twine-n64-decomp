@@ -18,8 +18,8 @@ s32 applyNearbyActorImpact(s32, f32, f32);
 s32 actorLinkToSurface();
 s32 objectSetAnimFrame();
 u16 randomIntBelow();
-s32 func_8007659C();
-s32 func_80085E30();
+s32 updateSplinePosition();
+s32 releaseTrackRecord();
 s32 updateActorTrackingState();
 extern s16 D_800C2942;
 extern s32 *gProbeObjectList;
@@ -77,13 +77,13 @@ void actorUpdateStateMachine(void *actor) {
         updateActorTrackingState(actor, subRecord);
         M2C_FIELD(record, f32 *, 4) += M2C_FIELD(record, f32 *, 8);
         applyNearbyActorImpact(actor, 1.0f, 5.0f);
-        func_8007659C(actor, record);
+        updateSplinePosition(actor, record);
         M2C_FIELD(actor, s32 *, 0x3C) = 0;
         M2C_FIELD(actor, s32 *, 0x40) = 0;
         M2C_FIELD(actor, f32 *, 0x44) = 2048.0f;
         if (M2C_FIELD(record, s16 *, 0xE) >= (M2C_FIELD(record, s16 *, 0xC) - 4)) {
             *(gTrackDoneFlags + M2C_FIELD(record, u8 *, 0x2F)) = 1;
-            func_80085E30(subRecord);
+            releaseTrackRecord(subRecord);
             M2C_FIELD(actor, s32 *, 0x60) |= 1;
         }
         M2C_FIELD(actor, s32 *, 0x58) |= 1;

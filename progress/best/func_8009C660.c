@@ -1,5 +1,5 @@
-void func_8008C0D4(void);
-void func_8008C11C(void);
+void workerLockAcquire(void);
+void workerLockRelease(void);
 s32 func_80095A80(s32, s32, u8, s32);
 s32 func_800989B8(s32);
 extern u8 gWorkerActive, D_8010D76F, D_8010D779;
@@ -12,7 +12,7 @@ s32 func_8009C660(s32 handle, s32 original) {
     u8 channel;
 
     if (gWorkerActive != 0) {
-        func_8008C0D4();
+        workerLockAcquire();
         handle = func_800989B8(handle);
         if (handle != result) {
             high = (u32)(value & 0xffff) >> 7;
@@ -33,7 +33,7 @@ s32 func_8009C660(s32 handle, s32 original) {
             if (handle != -1) goto again;
         }
     done:
-        func_8008C11C();
+        workerLockRelease();
     }
     return result;
 }
