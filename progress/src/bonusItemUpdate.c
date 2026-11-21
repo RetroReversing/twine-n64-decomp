@@ -3,7 +3,7 @@
 s32 func_8002B050();
 f32 approxDistance();
 s32 func_80119E60();
-extern void *gBonusObject[];
+extern void *gBonusObjects[];
 extern char D_8011ECE0[];
 extern char sProbeTimers[];
 
@@ -29,9 +29,9 @@ extern char sProbeTimers[];
             }
         }
         for (i = 0; i < 4U; i++) {
-            other = gBonusObject[i];
+            other = gBonusObjects[i];
             if ((other != NULL) && ((*(s16 *)((char *)(other) + 0x7A)) != 2) && (approxDistance(other + 0x24, item + 0x24) < 2.5f)) {
-                func_80119E60((u16) (*(s16 *)((char *)(item) + 0x7A)), (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(gBonusObject[i]) + 0x6C))) + 0xB4))) + 0x12)), item);
+                func_80119E60((u16) (*(s16 *)((char *)(item) + 0x7A)), (*(u8 *)((char *)((*(void **)((char *)((*(void **)((char *)(gBonusObjects[i]) + 0x6C))) + 0xB4))) + 0x12)), item);
             }
         }
         itemTimerState = (*(s16 *)((char *)(item) + 0x7C));

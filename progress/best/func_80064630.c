@@ -9,6 +9,7 @@ typedef struct Ent { u8 a, b, c, d; f32 f; } Ent;
 typedef struct Rec { u8 pad[0x1BC]; u16 w[32]; Ent e[0x3B]; } Rec;
 
 void func_80064630(void *arg0) {
+    u8 *__base_D_800C7C16;
     Rec *rec = *(Rec **)((u8 *)arg0 + 0x6C);
     u8 *record = (u8 *)rec;
     u32 i;
@@ -18,7 +19,8 @@ void func_80064630(void *arg0) {
 
     for (i = 0, off = 0; i < 32; i++, off += 4) {
         if (D_80112F6C != 0) {
-            *(u16 *)(record + 0x1BC + i * 2) = *(u16 *)(D_800C7C16 + off);
+            __base_D_800C7C16 = D_800C7C16;
+            *(u16 *)(record + 0x1BC + i * 2) = *(u16 *)(__base_D_800C7C16 + off);
         } else {
             *(u16 *)(record + 0x1BC + i * 2) = 0;
         }

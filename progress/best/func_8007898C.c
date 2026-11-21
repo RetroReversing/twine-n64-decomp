@@ -34,7 +34,7 @@ s32 func_8007C214();
 s32 func_8007C3F0();
 extern char D_800C2E64[];
 extern s32 gGameMode;
-extern void *gBonusObject;
+extern void *gBonusObjects;
 extern s8 D_80115319;
 extern s16 D_80117386;
 
@@ -91,8 +91,8 @@ s32 func_8007898C(void *arg0) {
         temp_v1 = M2C_FIELD(temp_s1, u8 *, 0x82);
         if (((s32) temp_v1 < 0x15) && ((s32) temp_v1 >= 0x13) && (M2C_FIELD(temp_s1, u8 *, 0x81) != 0)) {
             var_a1 = 1;
-            if (M2C_FIELD(gBonusObject, s32 *, 0x20) == M2C_FIELD(arg0, s32 *, 0x20)) {
-                if ((func_8007C094(arg0, gBonusObject + 0x24) << 0x18) != 0) {
+            if (M2C_FIELD(gBonusObjects, s32 *, 0x20) == M2C_FIELD(arg0, s32 *, 0x20)) {
+                if ((func_8007C094(arg0, gBonusObjects + 0x24) << 0x18) != 0) {
                     var_a1 = 0x46;
                     goto block_113;
                 }

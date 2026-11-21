@@ -19,7 +19,7 @@ M2C_UNK startBonusSceneActor(void *);                      /* extern */
 M2C_UNK relinkTrackMarker(void *, M2C_UNK);             /* extern */
 extern M2C_UNK D_801002A3;
 extern s32 gSaveTotalSlots;
-extern M2C_UNK gBonusObject;
+extern M2C_UNK gBonusObjects;
 extern M2C_UNK D_8011F3AC;
 extern void *sMarkerTextNode1;
 extern void *gMarkerEntry2;
@@ -55,7 +55,7 @@ __repair_literal = 0;
         if (gSaveTotalSlots > 0) {
             do {
                 var_v0 = var_a0 & 0xFFFF;
-                temp_v0 = (&gBonusObject)[var_v0];
+                temp_v0 = (&gBonusObjects)[var_v0];
                 if (temp_v0 != NULL) {
                     temp_v0_2 = M2C_FIELD(temp_v0, void **, 0x6C);
                     if (temp_v0_2 != NULL) {
@@ -67,7 +67,7 @@ __repair_literal = 0;
         }
     } else {
         var_s0 = 0;
-        if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusObject + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
+        if ((arg2 != NULL) ) if ((arg2 != arg1) && (M2C_FIELD(*((M2C_UNK *)((s8 *)&gBonusObjects + (M2C_FIELD(arg2, const s8 *, 0x182) * 4))), f32 *, 0x74) > 0.0f)) {
             var_v0 = M2C_FIELD(M2C_FIELD(arg2, void **, 0xB4), u8 *, 0x10) != 7;
             var_s0 = (u8)var_v0;
         }

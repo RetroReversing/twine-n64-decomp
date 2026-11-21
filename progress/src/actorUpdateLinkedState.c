@@ -10,7 +10,7 @@ typedef s32 M2C_UNK; typedef s8 M2C_UNK8; typedef s16 M2C_UNK16; typedef s32 M2C
 void *func_8005D3D0(s32,u8);
 M2C_UNK spawnConfiguredEffect(s32,M2C_UNK,M2C_UNK,M2C_UNK,f32,f32,s32,s32,s32,s32,s32);
 M2C_UNK func_80084338(s32,s32);
-extern void *gTrackedActor; extern void *gPlayerActor; extern s32 gGameMode; extern u8 sTrackDoneFlags[]; extern void *gBonusObject;
+extern void *gTrackedActor; extern void *gPlayerActor; extern s32 gGameMode; extern u8 sTrackDoneFlags[]; extern void *gBonusObjects;
 typedef struct { s32 w[3]; } __repair_words3;
 /* Per-frame update for an actor: refreshes the player-linked state and, when the
  * tracked object gTrackedActor is active, copies its link data and clamps its position. */
@@ -26,7 +26,7 @@ typedef struct { s32 w[3]; } __repair_words3;
  if((gTrackedActor!=NULL)&&(M2C_FIELD(gTrackedActor,u16 *,0x78)==1)&&(M2C_FIELD(gTrackedActor,s16 *,0x7a)!=0x2d)) {
   obj=gTrackedActor;
   temp_t0=M2C_FIELD(obj,void **,0x6c); temp_v1_2=M2C_FIELD(actor,void **,0x6c);
-  M2C_FIELD(temp_t0,__repair_words3 *,0x50)=*(__repair_words3 *)((s8 *)gBonusObject+0x24);
+  M2C_FIELD(temp_t0,__repair_words3 *,0x50)=*(__repair_words3 *)((s8 *)gBonusObjects+0x24);
   M2C_FIELD(temp_t0,f32 *,0x60)+=M2C_FIELD(M2C_FIELD(temp_v1_2,void **,0x2c),f32 *,0xc);
   M2C_FIELD(temp_t0,s32 *,0x64)=M2C_FIELD(M2C_FIELD(temp_v1_2,void **,0x2c),u8 *,1);
   M2C_FIELD(temp_t0,s32 *,0x68)=M2C_FIELD(temp_v1_2,s32 *,0x24);

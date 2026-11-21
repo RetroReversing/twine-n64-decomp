@@ -1,5 +1,5 @@
 s32 listUnlinkFree(s32);
-s32 func_8000A8B4(u16, f32, u8);
+s32 playDistanceSound(u16, f32, u8);
 s32 func_8000A9CC(u16, s32, u8);
 s32 updateSfxPanFromMarker(s32, s32, void *, f32);
 s32 func_8000AD5C(s32, s32);
@@ -18,7 +18,7 @@ if ((*(s32*)((char*)(*(s32*)((char*)&gTrackMarkers+sp18*4))+0x100))&8) { if (*(u
 else if (*(u8*)((char*)track+0x1A)==0) { block_7: var_fv1=65536.0f; }
 temp_v1=*(u8*)((char*)track+0x18);
 switch(temp_v1) {
-case 0: if (var_fv1<*(f32*)((char*)track+0xC)) { temp_s0=(char*)actor+0x24; temp_v0=func_8000A8B4(*(u16*)((char*)track+0x14),0,*(u8*)((char*)track+0x19)); axisIndex=sp18 << 2; temp_a0=(void*)temp_v0; *(s32*)track=(s32)temp_a0; updateSfxPanFromMarker((s32)temp_a0,*(s32*)((char*)&gTrackMarkers+axisIndex),temp_s0,0.0f); markObjectsNearPos(*(s32*)((char*)actor+0x20),2,0x20000,temp_s0,0.0f,1); *(u8*)((char*)track+0x18)=1; return;} break;
+case 0: if (var_fv1<*(f32*)((char*)track+0xC)) { temp_s0=(char*)actor+0x24; temp_v0=playDistanceSound(*(u16*)((char*)track+0x14),0,*(u8*)((char*)track+0x19)); axisIndex=sp18 << 2; temp_a0=(void*)temp_v0; *(s32*)track=(s32)temp_a0; updateSfxPanFromMarker((s32)temp_a0,*(s32*)((char*)&gTrackMarkers+axisIndex),temp_s0,0.0f); markObjectsNearPos(*(s32*)((char*)actor+0x20),2,0x20000,temp_s0,0.0f,1); *(u8*)((char*)track+0x18)=1; return;} break;
 case 1: if (*(f32*)((char*)track+0x10)<var_fv1) { *(s32*)track=-1; *(u8*)((char*)track+0x18)=0; return;} break;
 }
 } else {

@@ -7,6 +7,7 @@ extern s32 osRecvMesg(void *,s32,s32);
 extern s32 osSendMesg(void *,s32,s32);
 extern u8 sDataBanks[];
 extern u8 D_800E2CC0[];
+extern u8 sDataBankFlags[];
 extern s32 D_800E3F24[];
 extern s32 sDataBankMode;
 extern u8 D_800E3F30[];
@@ -39,7 +40,7 @@ loop:
             var_v1_2=var_s0*8;
             if (!var_s0) { var_s0=0x3E80; if (!*((u8 *)&sDataBankTable[arg0])) var_s0=0x1F40; var_v1_2=var_s0*8; }
             *(s8 *)(temp_s1+0x1204)=arg2; *(s8 *)(temp_s1+0x1201)=arg3;
-            temp_s1[0x1202]=arg4; temp_s1[0x1203]=arg5; temp_s1[0x1219]=arg6;
+            temp_s1[0x1203]=arg5; temp_s1[0x1219]=arg6; temp_s1[0x1202]=arg4;
             *(s32 *)(temp_s1+0x1208)=var_s0;
             temp_a0=(((var_v1_2/30)+0x9F)/160)*0xA0;
             *(s32 *)(temp_s1+0x1214)=temp_a0;

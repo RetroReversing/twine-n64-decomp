@@ -11,12 +11,12 @@ M2C_UNK func_8000CBE0(void *, void *);
 extern void *gObjectRecords;
 extern s8 gTransitionPhase;
 extern void *D_80109CB4;
-extern void *gBonusObject;
+extern void *gBonusObjects;
 void func_8000DB28(void) {
  if ((M2C_FIELD(gObjectRecords,s16 *,0x10)==7) && D_80109CB4 != 0 &&
  (M2C_FIELD(M2C_FIELD(D_80109CB4,void **,0x6C),u8 *,0x4A)==0x13) &&
  (M2C_FIELD(D_80109CB4,f32 *,0x2C)>M2C_FIELD(M2C_FIELD(gObjectRecords,void **,0x3B8),f32 *,0x2C))) {
- M2C_FIELD(gBonusObject,f32 *,0x74)=-1.0f;
+ M2C_FIELD(gBonusObjects,f32 *,0x74)=-1.0f;
  func_8000CBE0(D_80109CB4,gObjectRecords);
  gTransitionPhase=2;
  }

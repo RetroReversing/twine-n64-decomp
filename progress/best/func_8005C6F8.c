@@ -18,7 +18,7 @@ s32 func_8007092C();
 extern s32 D_800C4470;
 extern s32 D_800C4474;
 extern void *gPlayerActor;
-extern s32 gBonusObject;
+extern s32 gBonusObjects;
 
 void func_8005C6F8(void) {
     char *var_s0;
@@ -39,7 +39,7 @@ void func_8005C6F8(void) {
                     M2C_FIELD(gPlayerActor, s32 *, 0x60) |= 0x08000000;
                     requestSound(0x1D2, gPlayerActor);
                     var_s3 = 1;
-                    func_8007092C(gBonusObject, 1);
+                    func_8007092C(gBonusObjects, 1);
                 }
             }
             goto block_9;

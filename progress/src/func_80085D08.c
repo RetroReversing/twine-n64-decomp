@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
+s32 playDistanceSound(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, s32, M2C_UNK);      /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 findNearestTrackMarker(s32, u16 *);                           /* extern */
@@ -26,5 +26,5 @@ void func_80085D08(s32 arg0) {
     f32 temp_fs0;
 
     temp_fs0 = findNearestTrackMarker(arg0, &sp10);
-    updateSfxPanFromMarker(func_8000A8B4(*((u16 *)((s8 *)&D_800CE7EC + (randomIntBelow(5) * 2))), temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkers + (sp10 * 4))), arg0, 0);
+    updateSfxPanFromMarker(playDistanceSound(*((u16 *)((s8 *)&D_800CE7EC + (randomIntBelow(5) * 2))), temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkers + (sp10 * 4))), arg0, 0);
 }

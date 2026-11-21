@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000A8B4(u16, f32, M2C_UNK);               /* extern */
+s32 playDistanceSound(u16, f32, M2C_UNK);               /* extern */
 M2C_UNK updateSfxPanFromMarker(s32, s32, void *, M2C_UNK);   /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
@@ -40,17 +40,17 @@ extern M2C_UNK gTrackMarkers;
     case 38:                                        /* switch 1 */
         if (M2C_FIELD(M2C_FIELD(obj, void **, 0x68), u8 *, 0xB1) != 0x33) {
             sfxId = *((u16 *)((s8 *)&D_800CE5FC + (randomIntBelow(7) * 2)));
-            channel = func_8000A8B4(sfxId, dist, 0xFF);
+            channel = playDistanceSound(sfxId, dist, 0xFF);
             break;
         } else {
             sfxId = *((u16 *)((s8 *)&D_800CE60C + (randomIntBelow(3) * 2)));
-            channel = func_8000A8B4(sfxId, dist, 0xFF);
+            channel = playDistanceSound(sfxId, dist, 0xFF);
             break;
         }
     case 1:                                         /* switch 1 */
         sfxId = *((u16 *)((s8 *)&D_800CE5F0 + (randomIntBelow(6) * 2)));
         {
-        channel = func_8000A8B4(sfxId, dist, 0xFF);break;}
+        channel = playDistanceSound(sfxId, dist, 0xFF);break;}
     default:                                        /* switch 1 */
         objType = M2C_FIELD(M2C_FIELD(obj, void **, 0x68), u8 *, 0xB1);
         switch (objType) {                          /* switch 2 */
@@ -73,7 +73,7 @@ extern M2C_UNK gTrackMarkers;
         case 0x58:                                  /* switch 2 */
             sfxId = *((u16 *)((s8 *)&D_800CE5E0 + (randomIntBelow(8) * 2)));
 block_15:
-            channel = func_8000A8B4(sfxId, dist, 0xFF);
+            channel = playDistanceSound(sfxId, dist, 0xFF);
             break;
         }
         break;

@@ -10,7 +10,7 @@ extern s8 D_80103EB0;
 extern s32 gGameMode;
 extern void *gTrackMarkers[];
 extern void *D_8010A410;
-extern void *gBonusObject;
+extern void *gBonusObjects;
 extern s8 D_80115319;
 void actorUnlinkFromSurface(void *, void *);
 void func_80016740(void *);
@@ -76,7 +76,7 @@ void func_80016FCC(s8 arg0) {
                 }
                 node = *(void **)((u8 *)node + 0x10);
             }
-            if (D_800CA338 == 0 && gBonusObject != NULL && ((t = *(s16 *)((u8 *)gBonusObject + 0x7A)) >= 4 || t < 2)) {
+            if (D_800CA338 == 0 && gBonusObjects != NULL && ((t = *(s16 *)((u8 *)gBonusObjects + 0x7A)) >= 4 || t < 2)) {
                 switch (gGameMode) {
                 case 25: s1 = 0; func_80118098(); break;
                 case 20: s1 = 0; func_801181B0(); break;

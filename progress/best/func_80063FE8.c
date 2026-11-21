@@ -20,7 +20,7 @@ extern s32 gSaveTotalSlots;
 extern u32 gTrackMarkerCount;
 extern u8 D_80100BE0[];
 extern s32 gTrackMarkerIndex;
-extern M2C_UNK gBonusObject;
+extern M2C_UNK gBonusObjects;
 extern M2C_UNK gTrackMarkerPosTable;
 
 void func_80063FE8(void *arg0) {
@@ -47,7 +47,7 @@ loop_1:
         temp_s1 = randomIntBelow(gTrackMarkerCount);
         if (gSaveTotalSlots > 0) {
             for (;;) {
-                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusObject)[var_s0] + 0x24) < 3.0f)) {
+                if ((var_s0 == M2C_FIELD(temp_s3, s8 *, 0x182)) || !(approxDistance(((temp_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusObjects)[var_s0] + 0x24) < 3.0f)) {
                     temp_v0 = var_s0 + 1;
                     var_s0 = temp_v0;
                     if (temp_v0 < gSaveTotalSlots) {
@@ -70,7 +70,7 @@ loop_1:
                     if (gSaveTotalSlots > 0) {
                         do {
                             if (var_s0_2 != M2C_FIELD(temp_s3, s8 *, 0x182)) {
-                                temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusObject)[var_s0_2] + 0x24);
+                                temp_fv0 = approxDistance(((var_s1 & 0xFFFF) * 0xC) + (char *)&gTrackMarkerPosTable, (&gBonusObjects)[var_s0_2] + 0x24);
                                 if (temp_fv0 < var_fs0) {
                                     var_fs0 = temp_fv0;
                                 }

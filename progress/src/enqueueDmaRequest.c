@@ -25,19 +25,19 @@ extern char dmaMesgBuf[];
 extern s32 *dmaHandlerInit;
 extern s32 func_8009D100;
 
-void enqueue_buffer_request(s32 arg0, s32 arg1, s32 arg2) {
-    workerLockAcquire(arg0);
+/* Adds a DMA request (ROM addr, RAM addr, size) to the queue under a worker lock. */ void enqueueDmaRequest(s32 romAddr, s32 ramAddr, s32 size) {
+    workerLockAcquire(romAddr);
     if (dmaHandlerInit == NULL) {
         osCreateMesgQueue(dmaMesgQueue, dmaMesgBuf, 1);
         D_800FDBB0 = 0;
         dmaHandlerInit = &func_8009D100;
     }
     if ((u8) D_800FDBB0 < 4U) {
-        *(s32 *)(dmaQueueRomAddr + (D_800FDBB0 * 0xC)) = arg0;
-        *(s32 *)(dmaQueueRamAddr + (D_800FDBB0 * 0xC)) = arg1;
-        *(s32 *)(dmaQueueSize + (D_800FDBB0 * 0xC)) = (arg2 + 0xF) & ~0xF;
+        *(s32 *)(dmaQueueRomAddr + (D_800FDBB0 * 0xC)) = romAddr;
+        *(s32 *)(dmaQueueRamAddr + (D_800FDBB0 * 0xC)) = ramAddr;
+        *(s32 *)(dmaQueueSize + (D_800FDBB0 * 0xC)) = (size + 0xF) & ~0xF;
         D_800FDBB0++;
-        flushDCacheRange(arg0, arg2);
+        flushDCacheRange(romAddr, size);
     }
     workerLockRelease();
 }

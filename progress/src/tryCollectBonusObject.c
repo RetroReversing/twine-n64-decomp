@@ -1,24 +1,25 @@
 typedef struct {
     s32 x, y, z;
-} Position78860;
+} BonusPos;
 
 s32 func_8007C094(void *, void *, f32);
 void func_80077960(void *, s32);
 void func_800779C4(void *);
 void func_80077A94(void *);
 void func_8008461C(s32);
-extern u8 *gBonusSceneHandle;
+extern u8 *gBonusObjects;
 
-s32 func_80078860(u8 *actor) {
-    s32 flags = *(s32 *)(actor + 0x60);
-    u8 *state = *(u8 **)(actor + 0x6C);
+/* Checks whether an actor touches the bonus object and, if its state allows, collects it or resets its state. */
+s32 tryCollectBonusObject(u8 *actor) {
+    s32 actorFlags = *(s32 *)(actor + 0x60);
+    u8 *actorState = *(u8 **)(actor + 0x6C);
 
-    if (!((flags & 0x3000) && ((u32)func_8007C094(actor, gBonusSceneHandle + 0x24, 2.0f) << 24)))
+    if (!((actorFlags & 0x3000) && ((u32)func_8007C094(actor, gBonusObjects + 0x24, 2.0f) << 24)))
         return 0;
-    if ((*(s32 *)(state + 0x88) & 0x41E00000) != 0x200000)
+    if ((*(s32 *)(actorState + 0x88) & 0x41E00000) != 0x200000)
         return 0;
 
-    switch (state[0x82]) {
+    switch (actorState[0x82]) {
     case 3:
     case 15:
     case 35:
@@ -41,7 +42,7 @@ s32 func_80078860(u8 *actor) {
     case 44:
         return 0;
     }
-    switch (((s8 *)*(u8 **)(gBonusSceneHandle + 0x68))[0xE]) {
+    switch (((s8 *)*(u8 **)(gBonusObjects + 0x68))[0xE]) {
     default:
         func_8008461C((s32)actor);
         func_80077960(actor, 0x38);
@@ -62,7 +63,7 @@ s32 func_80078860(u8 *actor) {
     case 0x37:
     case 0x38:
         func_80077A94(actor);
-        *(Position78860 *)(state + 0x18) = *(Position78860 *)(gBonusSceneHandle + 0x24);
+        *(BonusPos *)(actorState + 0x18) = *(BonusPos *)(gBonusObjects + 0x24);
         func_80077960(actor, 0xD);
         return 0;
     }

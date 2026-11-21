@@ -1,4 +1,4 @@
-s32 func_8000A8B4(u16, f32, s32);
+s32 playDistanceSound(u16, f32, s32);
 s32 updateSfxPanFromMarker(s32, s32, s32, s32);
 u32 randomIntBelow(s32);
 f32 findNearestTrackMarker(s32, s16 *);
@@ -15,7 +15,7 @@ void func_800843CC(s32 object, u32 variant) {
     } else {
         item = D_800CE5D8[randomIntBelow(4)];
     }
-    result = func_8000A8B4(item, factor, 255);
+    result = playDistanceSound(item, factor, 255);
     updateSfxPanFromMarker(result, gTrackMarkers[*(volatile u16 *)&index], object, 0);
 }
 

@@ -1,7 +1,7 @@
 typedef struct { u8 pad0[0x14]; s32 flags; } Sub847D4;
 typedef struct { u8 pad0[0x24]; u8 pos[0x44]; Sub847D4 *sub; } Obj847D4;
 
-void func_8000A8B4(u16, f32, s32);
+void playDistanceSound(u16, f32, s32);
 s32 randomIntBelow(s32);
 f32 findNearestTrackMarker(void *, s32 *);
 extern u16 D_800CE63C[];
@@ -42,7 +42,7 @@ void func_800847D4(s32 arg0, Obj847D4 *arg1) {
             id = D_800CE640[randomIntBelow(2)];
         }
     play:
-        func_8000A8B4(id, vol, 0xFF);
+        playDistanceSound(id, vol, 0xFF);
         break;
     }
 }

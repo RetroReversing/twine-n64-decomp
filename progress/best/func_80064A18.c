@@ -46,7 +46,7 @@ extern u8 sDifficultyLevel;
 extern s8 D_80103EB0;
 extern s32 gGameMode;
 extern char gTrackMarkers[];
-extern char gBonusObject[];
+extern char gBonusObjects[];
 extern u8 D_80112F6D;
 
 void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
@@ -125,7 +125,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;
-        *(s32 *)(gBonusObject + temp_s0) = temp_s4; if (temp_s4 != NULL) {
+        *(s32 *)(gBonusObjects + temp_s0) = temp_s4; if (temp_s4 != NULL) {
             temp_s3 = (*(void **)((char *)(temp_s4) + 0x6C));
             func_80077C00(temp_s4);
             temp_s1 = arg0 & 0xFF;
