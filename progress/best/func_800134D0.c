@@ -143,8 +143,8 @@ void func_800134D0(void *arg0) {
     var_fp = M2C_FIELD(arg0, u8 **, 0);
     sp1C = 0;
     temp_v0 = M2C_FIELD(arg0, void **, 4);
-    var_t2 = M2C_FIELD(temp_v0, u32 *, 0xC);
-    var_s4 = M2C_FIELD(temp_v0, u32 *, 0x10);
+    var_t2 = M2C_FIELD(temp_v0, s32 *, 0xC);
+    var_s4 = M2C_FIELD(temp_v0, s32 *, 0x10);
     var_s1 = temp_v0 + 0x14;
     var_t4 = 0x1F;
 loop_1:
@@ -262,7 +262,7 @@ loop_17:
             *temp_v1 += 1;
             var_a0 += 4;
         } while (var_a3_2 < var_a2_3);
-        D_80112EE0 = 0;
+        (*(s32 *)&D_80112EE0) = 0;
         var_t3 = 0;
         var_a3_3 = 1;
         do {
@@ -300,7 +300,7 @@ loop_17:
             var_a0_3 += 4;
         } while (var_t1_3 < 0x10U);
         (&D_800B283C)[var_t3_2] = 0;
-        var_t1_4 = D_800B283C;
+        var_t1_4 = (*(s32 *)&D_800B283C);
         var_a3_5 = 0;
         var_t3_3 = 0;
         if (var_t1_4 != 0) {
@@ -346,8 +346,8 @@ loop_51:
             var_t6_2 = &D_80112EE0 + 4;
             do {
                 var_a3_6 = 1;
-                if (*var_t6_2 != 0) {
-                    temp_t5 = 1 << var_t1_5;
+                if (*var_t6_2 != 0) {do{
+                    temp_t5 = 1 << var_t1_5;}while(0);
                     temp_v0_2 = var_t3_4 * 4;
                     var_a1_3 = temp_v0_2 + &D_800B3134;
                     var_a0_4 = temp_v0_2 + &D_800B2CB8;
@@ -495,7 +495,7 @@ loop_92:
             goto loop_91;
         }
         if (temp_t1 != 0x100) {
-            temp_v1_6 = *(&D_800B26BF + temp_t1);
+            temp_v1_6 = *((u8 *)((s8 *)&D_800B26BF + temp_t1));
             var_a2_8 = 0;
             if (temp_v1_6 != 0) {
                 var_t4 -= temp_v1_6;
@@ -511,7 +511,7 @@ loop_92:
                     var_t2_2 = var_t2_2 >> temp_v1_6;
                 }
             }
-            var_t1_8 = *(&D_800B269F + temp_t1) + var_a2_8 + 3;
+            var_t1_8 = *((M2C_UNK *)((s8 *)&D_800B269F + temp_t1)) + var_a2_8 + 3;
             if (var_t4 < 0xF) {
                 var_v1_7 = var_t2_2 + (var_s4 << var_t4);
             } else {
@@ -533,7 +533,7 @@ loop_92:
                 var_t4 += 0x20;
             }
             temp_a1_2 = var_a1_6 >> 7;
-            temp_v1_7 = *(&D_800B281C + temp_a1_2);
+            temp_v1_7 = *((M2C_UNK *)((s8 *)&D_800B281C + temp_a1_2));
             var_a2_9 = 0;
             if (temp_v1_7 != 0) {
                 var_t4 -= temp_v1_7;

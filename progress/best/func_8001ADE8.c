@@ -111,7 +111,7 @@ void func_8001ADE8(void) {
     u32 temp_s0;
     u8 *temp_s0_4;
     u8 temp_v1_2;
-    u8 var_a0_3;
+    s32 var_a0_3;
     void *temp_a0_3;
     void *temp_a1;
     void *temp_fp;
@@ -183,11 +183,6 @@ void func_8001ADE8(void) {
         M2C_FIELD(temp_s5, void **, -0x18) = (void *) ((*savedByte * 0x18) + (savedByte - 0x10B));
         temp_v1_2 = *(&sSaveSlotInfo + (*savedByte * 0x18));
         switch (temp_v1_2) {
-        case 0:
-            var_a0 = 0xA;
-block_19:
-            formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0));
-            break;
         case 1:
             var_a0 = 9;
             goto block_19;
@@ -203,6 +198,11 @@ block_19:
         case 5:
             var_a0 = 0x297;
             goto block_19;
+        case 0:
+            var_a0 = 0xA;
+block_19:
+            formatTextEntry(temp_s5, sFmtEntryName, lookupDataEntry(var_a0));
+            break;
         }
         if (M2C_FIELD(gSaveMenuState, u8 *, 8) != 1) {
             temp_v1_3 = M2C_FIELD(gSaveMenuState, void **, 0x18);

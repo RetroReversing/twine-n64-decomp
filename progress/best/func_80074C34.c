@@ -27,6 +27,7 @@ extern s16 D_80112EBC;
 extern s32 sTrackMarkerTable;
 
 void func_80074C34(void *arg0, void *arg1, s32 arg2) {
+    void **__base_D_80100B20;
     f32 temp_fv0;
     f32 var_fs0;
     s32 temp_v0, low;
@@ -48,8 +49,8 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
     if (arg0 != NULL) {
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) | 0x10000000);
     }
-    var_s1 = 0;
     if ((s32) D_8010D294 > 0) {
+        var_s1 = 0;
         var_v1 = 0;
         do {
             if (*(void **)(D_80100310 + var_v1) == arg1) {
@@ -68,7 +69,8 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
     gTrackMarkerSerial += 1;
     var_s4 = arg1;
     if (arg2 != 0) {
-        temp_s7 = &D_80100B20 - 1;
+        __base_D_80100B20 = &D_80100B20;
+        temp_s7 = __base_D_80100B20 - 1;
         do {
             var_fs0 = 5.0f;
             if (M2C_FIELD(var_s4, u16 *, 6) == 0x237) {
@@ -84,7 +86,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
             if (D_80112EBC != 0) {
                 var_s1_2 = 0;
                 if (D_80112EBC > 0) {
-                    var_s2 = &D_80100B20;
+                    var_s2 = __base_D_80100B20;
                     do {
                         temp_v0_2 = *var_s2;
                         if (temp_v0_2 != NULL) {
@@ -104,7 +106,7 @@ void func_80074C34(void *arg0, void *arg1, s32 arg2) {
                         }
                         temp_v1_2 = M2C_FIELD(var_s4, s32 *, 0);
                         if (temp_v1_2 & 0x80000000) {
-                            var_v0 = D_80100B20;
+                            var_v0 = (*__base_D_80100B20);
                         } else {
                             var_v0 = temp_s7[D_80112EBC];
                         }

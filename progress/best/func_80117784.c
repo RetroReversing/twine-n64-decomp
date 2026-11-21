@@ -34,13 +34,12 @@ void func_80117784(s32 arg0, s32 arg1, SVec3 *arg2, SVec3 *arg3) {
     i = 0;
     cur = NULL;
     if (count != 0) {
+        e = sSearchEntries;
         do {
-            e = &sSearchEntries[i];
             e->a = 0;
             e->next = 0;
             e->parent = 0;
             e->cost = -1.0f;
-            e++;
             i++;
         } while (i < count);
     }
