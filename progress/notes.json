@@ -5872,14 +5872,6 @@
   "score_after": 1119
  },
  {
-  "function": "func_8011A098",
-  "text": "Best current verified score 525 (95.8%, 128 instructions), down from 885 after inferring the second allocated record has field offsets 0x54, 0x78, 0x7A, 0x7C but no 0x6C link. Target's 9 remaining differences are late instruction order/register allocation. Current best revision 3eaace261341b04d09f9 uses a separate record layout for the second object and reads arg0's three words into locals before storing them into D_8011F118/11C/120 indexed by temp_s0*12. At the tail, target computes index as sll v0,s0,1; addu v0,v0,s0; sll v0,v0,2 before the three source loads, then stores all three globals, then reads D_800CA31C and stores temp_v0_2 at temp_v0+0x6C. Candidate computes those index operations after loading D_800CA31C; making D_800CA31C volatile did not change that schedule. Trying volatile destination writes regressed; scaling the index by 12 directly also regressed (665). Move-on budget exhausted at 8/8. Continue from saved_best 525; remaining work is scheduling the index calculation ahead of loads and aligning the final D_800CA31C load/register. No reusable game-wide knowledge confirmed.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795164224.522677,
-  "score_before": 885,
-  "score_after": 525
- },
- {
   "function": "func_80037DC0",
   "text": "Current rechecked baseline score 2940. Tried two local-repair variants (record layout and CFG integer lifetimes); both worsened to 3105/2975. The second loop of six stopped when project progress changed during the run; remaining generated candidates were not judged. Best candidate remains 557827ad1fc38fb9ede8. At the examined mismatch around the second func_80034928 call, target has `addiu a1,zero,2` while candidate places `addiu a2,zero,2`; other major differences include branch/control flow and pointer/address calculations. Continue from best candidate and inspect target assembly around mismatch; local repair families signedness, declaration_order, call_arity, const_read were proposed but not judged. Session claim limit reached.",
   "by": "codex-gpt-6-luna-13",
@@ -10624,14 +10616,6 @@
   "score_after": 1144
  },
  {
-  "function": "func_8011A098",
-  "text": "Current best 525 (95.8%, 128 instructions). Changing D_800CA31C to a volatile pointer improved prior candidate score 545\u2192525 but same displayed instruction discrepancy remains at output-table offset calculation; local families switch layout/unsigned switch/const read did not improve. Target explicitly forms 3*index as shift left one, add index, shift left two before writes to the three adjacent arrays at D_8011F118/11C/120; candidate multiplies index by 3 and pointer scales separately. Target loads coords via s4 pointer and fetches D_800CA31C only after those table writes for the second object. Inspect last_diff and keep volatile global pointer.",
-  "by": "codex-gpt-6-luna-21",
-  "created_at": 1795179058.520997,
-  "score_before": 525,
-  "score_after": 525
- },
- {
   "function": "func_8009ABD4",
   "text": "Session context limit approaching. Best 2735: corrected final selector load from u8 to u32, restoring output paths. Changing var_s1 from s16 to s32 worsens to 3935; target uses lh then moves into s1, but later sign-extends s1. Next inspect callee declarations and use an s32 intermediate before narrowing to s16 to force lh/move; also initial word load needs scheduling ahead of byte load. Switch lowering currently introduces unexpected rodata.",
   "by": "codex-gpt-6.1-terra-4",
@@ -13960,14 +13944,6 @@
   "score_after": 3255
  },
  {
-  "function": "func_8011A098",
-  "text": "Claim disappeared during work. Byte-offset index temp_s0*12 with byte-addressed word stores improved 525 to 240; automatic do-while scope variant scored 120, with only final call argument scheduling differing. Candidate was replaced by progress-judge revision before next patch. Recheck saved best; try changing final call argument scheduling.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795183172.317374,
-  "score_before": 525,
-  "score_after": 120
- },
- {
   "function": "func_800AB880",
   "text": "Saved score 1550 at revision 9fd686ea4dcb7fcb7fe2. Explicit byte load, store, source increment, then destination increment reproduces the first two copy loops, with only return branch offsets differing. Corrected alignment peel loops until destination aligned, then enters word loop. Current compiler hoists both high mask constants and moves the one- and two-byte tail stores after the word-loop backedge, inverting the two mask branches. -O1 -fno-strength-reduce ties; -O2 worse; -fno-loop-optimize trials did not compile. Next try alternate legal loop spelling, or compiler-specific loop-pass control if offered. Claim disappeared during diagnostic compiler experiments.",
   "by": "codex-gpt-6.2-sol-4",
@@ -14030,14 +14006,6 @@
   "created_at": 1795183228.617173,
   "score_before": 3573,
   "score_after": 3573
- },
- {
-  "function": "func_8011A098",
-  "text": "Current verified best 120, revision 3d131c9ffd7f169d0d82. Triple one-shot scope around index multiplication improved 240 to 120. Remaining four reordered rows at final func_8003E6EC call; inspect full diff and adjust call/epilogue scheduling. Six further local repairs tied or worsened.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795183246.268301,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "func_80096A70",
@@ -26344,14 +26312,6 @@
   "score_after": 130
  },
  {
-  "function": "func_8011A098",
-  "text": "Current baseline and candidate both score 120/128 instructions. Restored compiler gcc-2.7.2-kmc is functioning. Verified C has correct instruction set; remaining mismatch is four reordered instructions at final call: target loads D_800CA31C, sets second/third args and stores fields, then calls func_8003E6EC with arg2=1 in delay slot; candidate emits addiu a2=1 and jal before the target's intended adjacent scheduling (order-only). Tried candidate preserving the function pointer local, reverted; no improvement. Earlier large rewrite reduced historical 1025 to 120. Move-on budget reached. Next investigate statement/declaration order around final object field stores and call setup; avoid redoing exact same local pointer change.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795197332.079584,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "func_8008EF18",
   "text": "Current verified baseline score 40, target computation is index=(arg0&255), scale=index*40, compare byte table at D_80107EE8+scale to 4; then word at D_80107EE0+scale zero-check; return top bit of word at D_80107EDC+scale. Mismatch is solely register allocation beginning at scaled-index destination: target sll $a1,v0,3 then loads table via $a0; candidate uses $a0 for scale, shifting table base to $v1 and later registers. Local repairs signedness, parameter width, read-before-assign (compile error), symbol-address-local; tried independent extra volatile, pointer local, and scale alias variants, no improvements. Next candidate experiment should arrange an independent table base/load before final scale, e.g. evaluate byte test via pointer temp before scale temp; compare register allocation and reload sequence. No match.",
   "by": "codex-gpt-6-luna-17",
@@ -28744,14 +28704,6 @@
   "score_after": 805
  },
  {
-  "function": "func_8011A098",
-  "text": "Rechecked best 120/128 instructions; score only four reorders around final func_8003E6EC call. Target loads singleton, sets 0x1F local field, writes saved pointer, then loads call args, jal with addiu a2=1 in delay slot. Candidate schedules addiu a2 before jal and misses target instruction placement. Tried local repair families (branch constant, masked reuse, one-shot scope, scalar reuse, loop backedge, record layout) without improvement and changed callee return prototype s32\u2192void, no instruction change. Source already compiles. Need alter call expression or dependency to make constant setup issue into delay slot; rest is effectively exact.",
-  "by": "codex-gpt-6-luna-7",
-  "created_at": 1795200247.4739058,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "func_8011E634",
   "text": "Current-header first rewrite compiled poorly (2440); cleaner explicit control-flow version improved to 2295; six local repair variants on that revision included scalar global address local, shared constant, loop backedge, branch orientation, constant local, and signed global type. Best current-input score 1385 came from making a local pointer to D_801002B4 before subtraction/index use; still inferior to historical saved 740 because historical header differs. Restore/recheck current baseline and continue from best history if inputs match. Target uses s0 as retained &D_801002AE across call and second lbu, while current rewrite rematerializes it; D_801002A0 comparisons compile as slti (signed) and source must preserve sign-extended u8->int expression shape via m2c's declaration/temporary. Need recover target 0x8011E634 opening and final loop spans.",
   "by": "codex-gpt-6-luna-13",
@@ -30822,14 +30774,6 @@
   "created_at": 1795202052.144635,
   "score_before": 997,
   "score_after": 997
- },
- {
-  "function": "func_8011A098",
-  "text": "Best source score 120 retained; correcting the three callee prototypes to match selected definitions worsened to 240 with identical instruction count and call/arithmetic blocks reordered. Restored saved_best. Remaining differences: arithmetic indexing for a record and the final call argument setup/call are reordered by compiler relative to target. Check callee ABI signatures across callers before changing further; experiment with scoped address/index temp or move the final func_8003E6EC call into each branch tail.",
-  "by": "codex-gpt-6-luna-20",
-  "created_at": 1795202063.083319,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "selectItemAndUpdateAmount",
@@ -33384,14 +33328,6 @@
   "score_after": 60
  },
  {
-  "function": "func_8011A098",
-  "text": "Saved best score 120 (99%, 128/128 target instructions). Mismatch is final 4 instruction ordering: candidate emits addiu a2 then jal before preceding stores, target emits stores and places addiu a2=1 in jal delay slot. Tried result-use fence and removing float store; no improvement, removal worsens to 762. Restore saved best. Next try source-order/temporary-lifetime reshape around final call to schedule constant into delay slot.",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795204399.5816891,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "spawnTextNode",
   "text": "Score 495 to 200 by initializing lines to 1, then assigning the nonzero nibble. Remaining spacing path needs branch-likely with default 1 in delay slot, then srl and andi on the nonzero path, and a second mask after the join. Default-first spacing with reload then compound assignment scored 235; ternary, goto and ordinary if/else regressed.",
   "by": "codex-gpt-6.2-sol-6",
@@ -34358,14 +34294,6 @@
   "created_at": 1795205527.641123,
   "score_before": 215,
   "score_after": 215
- },
- {
-  "function": "func_8011A098",
-  "text": "Saved best remains score 120 (128/128 instructions; only final block ordering differs). This session tried: reordering field_78/field_54/field_6C stores before the final func_8003E6EC call (scores 180/180), and flattening the temp_v0_3 do-while wrapper (240). All worse; baseline restored. Remaining mismatch: target stores swc1 0x54 and lw a0 before addiu a2=1 in the jal delay slot; candidate schedules addiu a2 before the stores. Next idea untested: move the float store/field_6C store after the second func_8003E6EC-independent code, or use a separate temp for the record pointer for the final call.",
-  "by": "api-claude-haiku-5-5-6",
-  "created_at": 1795205533.012505,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "func_80044538",
@@ -36352,14 +36280,6 @@
   "score_after": 420
  },
  {
-  "function": "func_8011A098",
-  "text": "Rechecked inherited saved-best candidate at score 120/128 instructions. Experimented with moving the second record's float assignment after the final func_8003E6EC call; score worsened to 240, though it changed ordering; restored/retained best source remains revision 3d131c9ffd7f169d0d82 score 120. A volatile call-argument temporary caused a large regression (522), discarded. Best candidate mismatch is the final call setup: target stores swc1 field_54 and loads a0 before setting a2=1 in jal delay slot; candidate currently schedules addiu a2 before jal. Earlier handoff experiments tried field store reordering and wrapper flattening. Next step: try splitting final call into a small helper/prototype adjustment or change callee's third parameter type to a narrow unsigned value so constant setup can occupy delay slot, preserving store order.\nReordered field_54 assignment to after final call (score 240); volatile local passed to final call regressed to 522. Saved best score remains 120.\nCurrent best has correct 128 instructions but final call prep scheduled too early: constant addiu a2 emitted before jal instead of target delay slot; target has field stores and lw a0 before jal, addiu a2 in delay slot.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795207680.816972,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "func_8005E350",
   "text": "Stalled at 1575 (saved best e53cbb4812f5068f8fe4, 96 vs 94 insns). This session: tried inverting the condition to !((s1==0x1A)&(arg2&0xFFFF==1)) (worse/none), replacing M2C_FIELD for temp_s6 with a raw *(void**)cast (no change), splitting var init (no change). Remaining diff is callee-saved register assignment (target s2=arg0, s5=arg1, s3=arg2, s0=temp; C puts arg0 in s3 and spills s0 at 0x30 vs target s5 at 0x44) and the stack slot order of saved regs. Untested next: keep arg0/arg1/arg2 as separately typed u32 locals copied at entry to shift allocation; or model the frame with an extra local to shift saved-reg offsets.",
   "by": "api-claude-haiku-5-5-5",
@@ -37542,14 +37462,6 @@
   "created_at": 1795208648.377402,
   "score_before": 3360,
   "score_after": 3360
- },
- {
-  "function": "func_8011A098",
-  "text": "Best candidate 3d131c9ffd7f169d0d82 stays at score 120 (128/128 instructions; only final block ordering differs). Swapping field_78/field_54 store order before final func_8003E6EC gave 120 (no gain). Target stores swc1 0x54 and loads lw a0 before addiu a2=1 in the jal delay slot; candidate hoists addiu a2 earlier. Untested idea: load *D_800CA31C into a local after the field_54 store, then call with that local.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208661.190083,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "func_80090464",
@@ -39048,14 +38960,6 @@
   "score_after": 215
  },
  {
-  "function": "func_8011A098",
-  "text": "Stalled at score 120 (128/128 insns; only final block order differs: target has addiu a2=1 and jal func_8003E6EC after lw a0; candidate hoists addiu a2 before jal). Tried local pointer wrap for *D_800CA31C and field_54/field_78 store reorder: no change. Earlier: second float assignment moved after final call = 240; volatile temp = 522. Best source: saved_best 3d131c9ffd7f169d0d82.",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795209802.6048698,
-  "score_before": 120,
-  "score_after": 120
- },
- {
   "function": "func_800923D0",
   "text": "[Released without compiling it once; notes not checked by a compile.] Stalled at score 555 (best revision f984834dfc63459df937, 198 insns) after 20 local repair trials and 6 explicit patches in prior sessions. Remaining mismatch: prologue register allocation (target sets $fp=-1 before loading the slot base) and loop branch target off by one. No new compile made this session; low-effort release.",
   "by": "api-claude-haiku-5-5-3",
@@ -40478,15 +40382,6 @@
   "created_at": 1795210970.445306,
   "score_before": 60,
   "score_after": 60
- },
- {
-  "function": "func_8011A098",
-  "text": "Best candidate 3d131c9ffd7f169d0d82 stays at score 120 (128/128 insns). Only difference: in the final block (after the second func_80016410 path), target is `sw s1,0x6C(s2); sh 0x1F,0x78(s1); swc1 0x54(s1); lw a0,0(v1); addu a1,s1,zero; jal func_8003E6EC; addiu a2,zero,1` (a2 in jal delay slot), while candidate issues `addiu a2,1` before the jal. Tried this session (revision 3d131c9ffd7f169d0d82): swapping field_78/field_54 stores (variant 1: 180, worse); D_800CA31C[0] instead of *D_800CA31C (no change, 120); moving field_6C store after field_78 (180, worse); hoisting field_54 before field_6C (560, worse); extra no-op store after func_80119E60 (compile error). Untested next step: split the final call into a separate block with the field_54 store placed after `lw` of *D_800CA31C, e.g. load s32 *p = D_800CA31C first and call func_8003E6EC(p[0], temp_v0_2, 1) after the float store only in the second call site, or try a volatile-free temp for temp_v0_2 in the final block.",
-  "by": "api-claude-haiku-5-5-5",
-  "created_at": 1795210983.1614919,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
   "function": "func_80087580",
@@ -44090,15 +43985,6 @@
   "score_before": 19192,
   "score_after": 19192,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:eed0c80bcaed7bdfb35b4fd3887810f5c1d8abec9f918f1f9f2e1b95647f748f"
- },
- {
-  "function": "func_8011A098",
-  "text": "Move-on threshold reached. Verified score 120. Final jal uses a1 move in delay slot instead of the immediate a2 load. An argument cast to u8, volatile store/load, comma expression, and return expression each scored 120. do-while scoped pointer load scored 530.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795214816.045899,
-  "score_before": 3520,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
   "function": "vecSlerp",
@@ -50765,15 +50651,6 @@
   "score_before": 75,
   "score_after": 75,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:efe3450dcf34282620274d198b5fcec1b70f503576260df29e8397730493011c"
- },
- {
-  "function": "func_8011A098",
-  "text": "Four compiled candidates without improvement. The final surface local, volatile surface load and narrowed call prototype all reproduce score 120 with identical call scheduling.\nFinal surface load through a local, through a volatile pointee, and final call with u8 third-argument prototype\nAll three reproduced score 120 and the same four reordered rows. Target places a1 move before jal and a2 constant in the delay slot.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795224289.3793888,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
   "function": "func_8009532C",
@@ -58591,15 +58468,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4325797ddcca05b761ec7dac1d9929b129d6af1d1e3398ab7a3153553e4dc224"
  },
  {
-  "function": "func_8011A098",
-  "text": "Stays 120 (only final jal delay-slot order: target [lw a0; move a1,s1; jal; li a2=1 in delay], mine [lw a0; li a2; jal; move a1 in delay]). Additional failed trials this session: local `lst=*gProbeObjectList` before call (120), early-return after call (120), do-while(0) on last call (120/530), field_78/field_6C store swap (180), goto-label / dead if before the call (120), arg0 null-guard on copy (290), extra register local (120). Target asm has an unreferenced label .L8011A234 before the final `lui gProbeObjectList` (basic block boundary?) \u2013 no branch in the listing targets it; possible hint that original had a real join there. Next step: try forcing a real basic-block boundary (e.g. a genuine conditional around the vector copy that falls through) before the final call.",
-  "by": "api-claude-sonnet-5-5-2",
-  "created_at": 1795235348.168928,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
- },
- {
   "function": "func_8011DC18",
   "text": "Important: saved best fd673e4be9d83ab3e975 (10759) is invalid: actors is uninitialized. Use revision 06125593049059b09801 (11407), which restores initialization. Explicit u16 cast on lookupDataEntry had unchanged score; s16 kind and unsigned load cast improved valid baseline from 11852 to 11407. Automated comparisons repeatedly stopped due to concurrent project progress changes.\ns16 kind and unsigned byte load cast, then restoring initialized actors\nValid candidate scored 11407; uninitialized actors falsely scored 10759 and must not be used",
   "by": "codex-gpt-6.1-terra-4",
@@ -60009,14 +59877,6 @@
   "score_before": 765,
   "score_after": 765,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:2998426eed5baf6dc6e964e23186e768e44d10c5f41b1049c86ecbbe39fccbbe"
- },
- {
-  "function": "func_8011A098",
-  "text": "[Released without compiling it once; notes not checked by a compile.] Baseline verified score 120; exact instruction count. This is an almost-match with final operation ordering remaining. Prior attempted pointer-wrap and field reorder unchanged; store field_54/field_78 ordering changed worse. Try local load of *D_800CA31C after field_54 store to shift load into jal delay scheduling.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795237166.345841,
-  "score_before": 120,
-  "score_after": 120
  },
  {
   "function": "func_8001BE64",
@@ -61908,15 +61768,6 @@
   "score_before": 12566,
   "score_after": 12566,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
- },
- {
-  "function": "func_8011A098",
-  "text": "Claim receipt showed historical score 120 (revision 3d131c9ffd7f169d0d82), but subsequent calls said no claim held. A diagnostic compile acquired a different token and incorrectly replaced saved best with a NULL-return stub (score 12665). Candidate issue reported; recover historical revision before continuing.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795240033.3913522,
-  "score_before": 120,
-  "score_after": 120,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  },
  {
   "function": "func_80044538",
@@ -75713,5 +75564,154 @@
   "score_before": 17310,
   "score_after": 14636,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:3dd11ff44bd9c5b8ec511630acb4af6ff200d2c7f986bbb5e13a358f30a3df57"
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Best current verified score 525 (95.8%, 128 instructions), down from 885 after inferring the second allocated record has field offsets 0x54, 0x78, 0x7A, 0x7C but no 0x6C link. Target's 9 remaining differences are late instruction order/register allocation. Current best revision 3eaace261341b04d09f9 uses a separate record layout for the second object and reads arg0's three words into locals before storing them into D_8011F118/11C/120 indexed by temp_s0*12. At the tail, target computes index as sll v0,s0,1; addu v0,v0,s0; sll v0,v0,2 before the three source loads, then stores all three globals, then reads D_800CA31C and stores temp_v0_2 at temp_v0+0x6C. Candidate computes those index operations after loading D_800CA31C; making D_800CA31C volatile did not change that schedule. Trying volatile destination writes regressed; scaling the index by 12 directly also regressed (665). Move-on budget exhausted at 8/8. Continue from saved_best 525; remaining work is scheduling the index calculation ahead of loads and aligning the final D_800CA31C load/register. No reusable game-wide knowledge confirmed.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795164224.522677,
+  "score_before": 885,
+  "score_after": 525
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Current best 525 (95.8%, 128 instructions). Changing D_800CA31C to a volatile pointer improved prior candidate score 545\u2192525 but same displayed instruction discrepancy remains at output-table offset calculation; local families switch layout/unsigned switch/const read did not improve. Target explicitly forms 3*index as shift left one, add index, shift left two before writes to the three adjacent arrays at D_8011F118/11C/120; candidate multiplies index by 3 and pointer scales separately. Target loads coords via s4 pointer and fetches D_800CA31C only after those table writes for the second object. Inspect last_diff and keep volatile global pointer.",
+  "by": "codex-gpt-6-luna-21",
+  "created_at": 1795179058.520997,
+  "score_before": 525,
+  "score_after": 525
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Claim disappeared during work. Byte-offset index temp_s0*12 with byte-addressed word stores improved 525 to 240; automatic do-while scope variant scored 120, with only final call argument scheduling differing. Candidate was replaced by progress-judge revision before next patch. Recheck saved best; try changing final call argument scheduling.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795183172.317374,
+  "score_before": 525,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Current verified best 120, revision 3d131c9ffd7f169d0d82. Triple one-shot scope around index multiplication improved 240 to 120. Remaining four reordered rows at final func_8003E6EC call; inspect full diff and adjust call/epilogue scheduling. Six further local repairs tied or worsened.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795183246.268301,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Current baseline and candidate both score 120/128 instructions. Restored compiler gcc-2.7.2-kmc is functioning. Verified C has correct instruction set; remaining mismatch is four reordered instructions at final call: target loads D_800CA31C, sets second/third args and stores fields, then calls func_8003E6EC with arg2=1 in delay slot; candidate emits addiu a2=1 and jal before the target's intended adjacent scheduling (order-only). Tried candidate preserving the function pointer local, reverted; no improvement. Earlier large rewrite reduced historical 1025 to 120. Move-on budget reached. Next investigate statement/declaration order around final object field stores and call setup; avoid redoing exact same local pointer change.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795197332.079584,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Rechecked best 120/128 instructions; score only four reorders around final func_8003E6EC call. Target loads singleton, sets 0x1F local field, writes saved pointer, then loads call args, jal with addiu a2=1 in delay slot. Candidate schedules addiu a2 before jal and misses target instruction placement. Tried local repair families (branch constant, masked reuse, one-shot scope, scalar reuse, loop backedge, record layout) without improvement and changed callee return prototype s32\u2192void, no instruction change. Source already compiles. Need alter call expression or dependency to make constant setup issue into delay slot; rest is effectively exact.",
+  "by": "codex-gpt-6-luna-7",
+  "created_at": 1795200247.4739058,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Best source score 120 retained; correcting the three callee prototypes to match selected definitions worsened to 240 with identical instruction count and call/arithmetic blocks reordered. Restored saved_best. Remaining differences: arithmetic indexing for a record and the final call argument setup/call are reordered by compiler relative to target. Check callee ABI signatures across callers before changing further; experiment with scoped address/index temp or move the final func_8003E6EC call into each branch tail.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795202063.083319,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Saved best score 120 (99%, 128/128 target instructions). Mismatch is final 4 instruction ordering: candidate emits addiu a2 then jal before preceding stores, target emits stores and places addiu a2=1 in jal delay slot. Tried result-use fence and removing float store; no improvement, removal worsens to 762. Restore saved best. Next try source-order/temporary-lifetime reshape around final call to schedule constant into delay slot.",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795204399.5816891,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Saved best remains score 120 (128/128 instructions; only final block ordering differs). This session tried: reordering field_78/field_54/field_6C stores before the final func_8003E6EC call (scores 180/180), and flattening the temp_v0_3 do-while wrapper (240). All worse; baseline restored. Remaining mismatch: target stores swc1 0x54 and lw a0 before addiu a2=1 in the jal delay slot; candidate schedules addiu a2 before the stores. Next idea untested: move the float store/field_6C store after the second func_8003E6EC-independent code, or use a separate temp for the record pointer for the final call.",
+  "by": "api-claude-haiku-5-5-6",
+  "created_at": 1795205533.012505,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Rechecked inherited saved-best candidate at score 120/128 instructions. Experimented with moving the second record's float assignment after the final func_8003E6EC call; score worsened to 240, though it changed ordering; restored/retained best source remains revision 3d131c9ffd7f169d0d82 score 120. A volatile call-argument temporary caused a large regression (522), discarded. Best candidate mismatch is the final call setup: target stores swc1 field_54 and loads a0 before setting a2=1 in jal delay slot; candidate currently schedules addiu a2 before jal. Earlier handoff experiments tried field store reordering and wrapper flattening. Next step: try splitting final call into a small helper/prototype adjustment or change callee's third parameter type to a narrow unsigned value so constant setup can occupy delay slot, preserving store order.\nReordered field_54 assignment to after final call (score 240); volatile local passed to final call regressed to 522. Saved best score remains 120.\nCurrent best has correct 128 instructions but final call prep scheduled too early: constant addiu a2 emitted before jal instead of target delay slot; target has field stores and lw a0 before jal, addiu a2 in delay slot.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795207680.816972,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Best candidate 3d131c9ffd7f169d0d82 stays at score 120 (128/128 instructions; only final block ordering differs). Swapping field_78/field_54 store order before final func_8003E6EC gave 120 (no gain). Target stores swc1 0x54 and loads lw a0 before addiu a2=1 in the jal delay slot; candidate hoists addiu a2 earlier. Untested idea: load *D_800CA31C into a local after the field_54 store, then call with that local.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208661.190083,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Stalled at score 120 (128/128 insns; only final block order differs: target has addiu a2=1 and jal func_8003E6EC after lw a0; candidate hoists addiu a2 before jal). Tried local pointer wrap for *D_800CA31C and field_54/field_78 store reorder: no change. Earlier: second float assignment moved after final call = 240; volatile temp = 522. Best source: saved_best 3d131c9ffd7f169d0d82.",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795209802.6048698,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Best candidate 3d131c9ffd7f169d0d82 stays at score 120 (128/128 insns). Only difference: in the final block (after the second func_80016410 path), target is `sw s1,0x6C(s2); sh 0x1F,0x78(s1); swc1 0x54(s1); lw a0,0(v1); addu a1,s1,zero; jal func_8003E6EC; addiu a2,zero,1` (a2 in jal delay slot), while candidate issues `addiu a2,1` before the jal. Tried this session (revision 3d131c9ffd7f169d0d82): swapping field_78/field_54 stores (variant 1: 180, worse); D_800CA31C[0] instead of *D_800CA31C (no change, 120); moving field_6C store after field_78 (180, worse); hoisting field_54 before field_6C (560, worse); extra no-op store after func_80119E60 (compile error). Untested next step: split the final call into a separate block with the field_54 store placed after `lw` of *D_800CA31C, e.g. load s32 *p = D_800CA31C first and call func_8003E6EC(p[0], temp_v0_2, 1) after the float store only in the second call site, or try a volatile-free temp for temp_v0_2 in the final block.",
+  "by": "api-claude-haiku-5-5-5",
+  "created_at": 1795210983.1614919,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9e4127186535b305f50b58a4c46984e7865d36791a548bceffdcc6d96ebbfc36:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Move-on threshold reached. Verified score 120. Final jal uses a1 move in delay slot instead of the immediate a2 load. An argument cast to u8, volatile store/load, comma expression, and return expression each scored 120. do-while scoped pointer load scored 530.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795214816.045899,
+  "score_before": 3520,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Four compiled candidates without improvement. The final surface local, volatile surface load and narrowed call prototype all reproduce score 120 with identical call scheduling.\nFinal surface load through a local, through a volatile pointee, and final call with u8 third-argument prototype\nAll three reproduced score 120 and the same four reordered rows. Target places a1 move before jal and a2 constant in the delay slot.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795224289.3793888,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Stays 120 (only final jal delay-slot order: target [lw a0; move a1,s1; jal; li a2=1 in delay], mine [lw a0; li a2; jal; move a1 in delay]). Additional failed trials this session: local `lst=*gProbeObjectList` before call (120), early-return after call (120), do-while(0) on last call (120/530), field_78/field_6C store swap (180), goto-label / dead if before the call (120), arg0 null-guard on copy (290), extra register local (120). Target asm has an unreferenced label .L8011A234 before the final `lui gProbeObjectList` (basic block boundary?) \u2013 no branch in the listing targets it; possible hint that original had a real join there. Next step: try forcing a real basic-block boundary (e.g. a genuine conditional around the vector copy that falls through) before the final call.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795235348.168928,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
+ },
+ {
+  "function": "func_8011A098",
+  "text": "[Released without compiling it once; notes not checked by a compile.] Baseline verified score 120; exact instruction count. This is an almost-match with final operation ordering remaining. Prior attempted pointer-wrap and field reorder unchanged; store field_54/field_78 ordering changed worse. Try local load of *D_800CA31C after field_54 store to shift load into jal delay scheduling.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795237166.345841,
+  "score_before": 120,
+  "score_after": 120
+ },
+ {
+  "function": "func_8011A098",
+  "text": "Claim receipt showed historical score 120 (revision 3d131c9ffd7f169d0d82), but subsequent calls said no claim held. A diagnostic compile acquired a different token and incorrectly replaced saved best with a NULL-return stub (score 12665). Candidate issue reported; recover historical revision before continuing.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795240033.3913522,
+  "score_before": 120,
+  "score_after": 120,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fbb7aedc4498700659f419f60a0e15826b2f8a2884408d548d768e8be5457e7:8ca310f3d23936d78d1bd2b0c640a5ed9336c49692d6a8707fad19b9e4f1a639"
  }
 ]
