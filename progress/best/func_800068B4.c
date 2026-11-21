@@ -110,6 +110,7 @@ block_15:
                 if (D_800B19F0 != 2) {
                     var_a0_2 = 4;
                     if (D_800B19F0 == 0xA) {
+                        { long long phantom_wide = var_a0_2; }
                         goto block_29;
                     }
                 } else {

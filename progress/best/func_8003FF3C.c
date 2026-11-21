@@ -1,6 +1,11 @@
 #define FLD(p, t, o) (*(t *)((u8 *)(p) + (o)))
 #define BE16(p) ((u16)(((p)[0] << 8) | (p)[1]))
 void buildPlaneFromPoints(void *, s32, s32, s32);
+inline static int inline_fn(u8 *arg0, u8 arg1)
+{
+  return arg0[arg1] & 0xFF;
+}
+
 void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
 {
   register void *var_t1 = arg0;
@@ -18,6 +23,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   s32 a3_2;
   s32 v1_2;
   s32 a2;
+s32 __repair_result_a2;
   s32 a3;
   s32 __repair_phase_v1;
   unsigned int base;
@@ -197,7 +203,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           v1_2 = var_s1[var_s0[2]];
           var_s5[1] = (u8) v1_2;
           tmp8 = var_s1[var_s0[3]];
-          a2 = var_s1[var_s0[1]] & 0xFF;
+          a2 = inline_fn(var_s1, var_s0[1]);
           a2 = var_s5[0];
           a3_2 = v1_2 & 0xFF;
           v1_2 = tmp8 & 0xFF;
@@ -225,7 +231,7 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           __repair_phase_v1 = var_s1[var_s0[2] * 3];
           var_s5[1] = (u8) __repair_phase_v1;
           tmp8 = var_s1[var_s0[3] * 3];
-          a2 = var_s1[var_s0[1] * 3] & 0xFF;
+          __repair_result_a2 = inline_fn(var_s1, var_s0[1] * 3);
           a3_2 = __repair_phase_v1 & 0xFF;
           v1_2 = tmp8 & 0xFF;
           var_s5[2] = tmp8;
@@ -233,7 +239,11 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
           break;
 
         default:
- do { t16 = BE16(var_s1 + (var_s0[1] * 6)); var_s6[0] = t16; t16b = BE16(var_s1 + (var_s0[2] * 6)); var_s6[1] = t16b; tmp8 = var_s0[3] * 3; a2 = t16 & 0xFFFF; t16c = BE16(var_s1 + (tmp8 * 2)); v1_2 = t16c & 0xFFFF; a3_2 = t16b & 0xFFFF; var_s6[2] = t16c; var_s6 += 3; } while (0);
+          do
+        {
+          t16 = BE16(var_s1 + (var_s0[1] * 6)); var_s6[0] = t16; t16b = BE16(var_s1 + (var_s0[2] * 6)); var_s6[1] = t16b; tmp8 = var_s0[3] * 3; a2 = t16 & 0xFFFF; t16c = BE16(var_s1 + (tmp8 * 2)); v1_2 = t16c & 0xFFFF; a3_2 = t16b & 0xFFFF; var_s6[2] = t16c; var_s6 += 3;
+        }
+        while (0);
           break;
 
       }
@@ -269,3 +279,4 @@ void func_8003FF3C(void *arg0, u8 *arg1, s16 *arg2)
   }
 
 }
+

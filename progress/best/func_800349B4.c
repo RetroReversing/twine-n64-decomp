@@ -63,6 +63,7 @@ void func_800349B4(void *arg0)
   s32 averageB;
   s32 fogScale;
   s32 fogStart;
+s32 __repair_phase_fogStart;
   unsigned char fogEnd;
   u8 fogR;
   u8 fogG;
@@ -146,9 +147,9 @@ void func_800349B4(void *arg0)
       var_s3 = D_801007D1;
       *((s32 *) (((char *) temp_a3) + 8)) = 0xDB080000;
       __repair_branch_fogScale_1 = D_801007CC;
-      fogStart = D_801007CD;
+      __repair_phase_fogStart = D_801007CD;
       fogEnd = D_801007CE;
-      *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) inline_fn23(fogStart, __repair_branch_fogScale_1, 4, __repair_branch_fogScale_1, 8, __repair_branch_fogScale_1, __repair_branch_fogScale_1, 8, fogEnd);
+      *((s32 *) (((char *) temp_a3) + 0xC)) = (s32) inline_fn23(__repair_phase_fogStart, __repair_branch_fogScale_1, 4, __repair_branch_fogScale_1, 8, __repair_branch_fogScale_1, __repair_branch_fogScale_1, 8, fogEnd);
       fogR = D_801007D2;
       fogG = D_801007D3;
       fogB = D_801007D4;

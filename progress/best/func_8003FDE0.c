@@ -25,7 +25,8 @@ s32 __repair_phase_raw;
                 p += raw + 1;
                 break;
             case 1:
-                *arg1 = p[1] + *arg1;
+                { long long phantom_wide = raw; }
+                *arg1 = (*arg1) + (p[1]);
                 p++;
                 raw = *p;
                 *arg3 = 1;

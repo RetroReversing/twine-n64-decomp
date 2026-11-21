@@ -1042,10 +1042,7 @@ s8 func_800515D0(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                     if (((((spF0 * spE0) + (spF4 * spE4)) + (spF8 * spE8)) + spFC) > 0.0f)
                     {
                       block_258:
-                      *((f32 *) (((char *) arg3) + 0)) = (f32) (*((f32 *) (((char *) sp19C) + 0)));
-
-                      *((f32 *) (((char *) arg3) + 4)) = (f32) (*((f32 *) (((char *) sp19C) + 4)));
-                      *((f32 *) (((char *) arg3) + 8)) = (f32) (*((f32 *) (((char *) sp19C) + 8)));
+                      *(Vec3Copy *)arg3 = *(Vec3Copy *)sp19C;
                       return 1;
                     }
                     goto block_269;

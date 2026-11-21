@@ -5,7 +5,7 @@ typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
 typedef s16 M2C_UNK16;
 typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_FIELD(expr, type_ptr, offset) (((struct { __typeof__(*(type_ptr)0) v; } *)((s8 *)(expr) + (offset)))->v)
 #define M2C_BITWISE(type, expr) ((type)(expr))
 #define M2C_ERROR(desc) (0)
 #define M2C_CARRY 0
@@ -150,13 +150,15 @@ s32 __repair_phase_var_s4;
             var_a2 = 0;
             var_a1 = sp10;
             do {
-                var_a0 = 0;
+u32 __block_var_a0;
+
+                __block_var_a0 = 0;
                 var_v1 = var_a1 + 0xB0;
 do {
-                var_a0 += 1;
+                __block_var_a0 += 1;
                 *(f32 *)var_v1 *= M2C_FIELD(arg0, f32 *, 0x54);
                 var_v1 += 4;
-                } while (var_a0 < 3U);
+                } while (__block_var_a0 < 3U);
                 var_a2 += 1;
                 var_a1 += 0xC;
             } while (var_a2 < 3U);
@@ -218,6 +220,7 @@ do {
                                         goto block_42;
                                     }
                                 } else {
+                                    { long long phantom_wide = arg1; }
 block_42:
                                     spA58[2] = var_v0_2;
                                 }

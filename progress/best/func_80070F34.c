@@ -92,7 +92,7 @@ void func_80070F34(void *arg0)
   register s32 var_s0;
   s32 var_s5;
   register s32 var_v0;
-  s16 var_v0_2;
+  s32 var_v0_2;
   register unsigned char var_v1;
   s32 var_v1_2;
   s32 var_v1_3;
@@ -419,11 +419,10 @@ void func_80070F34(void *arg0)
     var_s1_3 = temp_s2;
     do
     {
-      temp_s0_2 = *((void **) (((char *) var_s1_3) + 0x418));
       ++var_s3_3;
-      if (temp_s0_2 != NULL)
+      if ((*((void **) (((char *) var_s1_3) + 0x418))) != NULL)
       {
-        *((s16 *) (((char *) temp_s0_2) + 0x1C)) = strlen(*((void **) (((char *) temp_s0_2) + 0x18)));
+        *((s16 *) (((char *) (*((void **) (((char *) var_s1_3) + 0x418)))) + 0x1C)) = strlen(*((void **) (((char *) (*((void **) (((char *) var_s1_3) + 0x418)))) + 0x18)));
       }
       var_s1_3 += 4;
     }

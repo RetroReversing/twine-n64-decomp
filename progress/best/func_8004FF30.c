@@ -23,6 +23,11 @@ typedef struct
   f32 y;
   f32 z;
 } SurfaceVec3;
+inline static u16 inline_fn(u16 arg0)
+{
+  return arg0;
+}
+
 s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *arg5, void **arg6, s32 arg7)
 {
   union 
@@ -380,7 +385,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                           var_v0_2 = 0;
                         }
                         var_v1_2 = 1;
-                        if (!(temp_fs1 < temp_fv0_2))
+                        if ((float) (!(temp_fs1 < temp_fv0_2)))
                         {
                           var_v1_2 = 0;
                         }
@@ -446,7 +451,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                       var_s5 += 6;
                       var_fp += 3;
                     }
-                    while (sp196 < ((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
+                    while (sp196 < inline_fn((u16) (*((u16 *) (((char *) temp_v1) + 0x40)))));
                   }
                 }
                 else

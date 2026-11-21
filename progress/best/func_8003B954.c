@@ -28,7 +28,7 @@ typedef struct
   unsigned char pad[4];
   int value;
 } __repair_field_4;
-void func_8003B954(s32 arg0, s32 arg1, void *arg2)
+void func_8003B954(s32 arg0, volatile unsigned int arg1, void *arg2)
 {
   volatile u64 padding[2];
   union 
@@ -44,7 +44,8 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
   s32 temp_a0_2;
   s32 temp_a0_9;
   s32 temp_a1_3;
-  s32 glyphWidth, glyphHeight;
+  s32 glyphWidth;
+  s32 glyphHeight;
   u16 initialLength;
   s32 remaining;
   s32 nextIndex;
@@ -54,7 +55,6 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
   s32 initialWidth;
   s32 firstWidthPlusOne;
   s32 textureCount;
-  s32 tileLine;
   s32 tileBits;
   u16 decoded;
   s32 temp_a1_5;
@@ -134,12 +134,18 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     firstWidthPlusOne = initialWidth + 1;
     var_v1 = firstWidthPlusOne;
     if (firstWidthPlusOne < 0)
-      var_v1 = initialWidth + 16;
-    tileLine = var_v1 >> 4;
-    var_a2 = 0x800;
-    if (tileLine > 0)
     {
-      var_a2 = tileLine + 0x7FF;
+      do
+      {
+        var_v1 = initialWidth + 16;
+      }
+      while (0);
+    }
+    firstWidthPlusOne = var_v1 >> 4;
+    var_a2 = 0x800;
+    if (firstWidthPlusOne > 0)
+    {
+      var_a2 = firstWidthPlusOne + 0x7FF;
     }
     temp_v0_3 = (((__repair_field_4 *) temp_s4)->value * 0xC) + ((__repair_field_18 *) temp_s3)->value;
     temp_t0 = *((u16 *) (((char *) temp_v0_3) + 2));
@@ -192,8 +198,16 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
         switch (temp_s3_2)
         {
           case 9:
+            if (arg0)
+          {
             var_s1 = ((var_s1 >> 4) + 1) * 0x10;
             break;
+          }
+          else
+          {
+            var_s1 = ((var_s1 >> 4) + 1) * 0x10;
+            break;
+          }
 
           case 1:
             var_s0 += 1;
@@ -225,36 +239,47 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             if (!D_800C0738)
           {
             __repair_phase_storage.pointer = sDisplayListCursor;
-            temp_t2 = *((u32 *) (((*((s8 *) (((__repair_field_18 *) arg2)->value + var_s0))) * 4) + sMenuItemParamTable));
-            sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8);
-            ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xFA000000;
-            *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = (s32) (((((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000)) | (temp_t2 & 0xFF00)) | (temp_t2 & 0xFF));
+ do { temp_t2 = *((u32 *) (((*((s8 *) (((__repair_field_18 *) arg2)->value + var_s0))) * 4) + sMenuItemParamTable)); sDisplayListCursor = (void *) (((char *) __repair_phase_storage.pointer) + 8); ((__repair_field_0 *) __repair_phase_storage.pointer)->value = 0xFA000000; *((s32 *) (((char *) __repair_phase_storage.pointer) + 4)) = (s32) (((((temp_t2 >> 0x18) << 0x18) | (temp_t2 & 0xFF0000)) | (temp_t2 & 0xFF00)) | (temp_t2 & 0xFF)); } while (0);
           }
             break;
 
           case 7:
+            do
+          {
             var_s0 += 1;
             if (D_800C0738 == 0)
-          {
-            temp_t2_2 = ((*((u32 *) ((((*((u8 *) (((__repair_field_18 *) arg2)->value + var_s0))) & 0xF) * 4) + sMenuItemParamTable))) & (~0xFF)) | (*((u8 *) (((char *) gSaveMenuState) + 0x30)));
-            temp_a1_2 = sDisplayListCursor;
-            sDisplayListCursor = (void *) (((char *) temp_a1_2) + 8);
-            ((__repair_field_0 *) temp_a1_2)->value = 0xFA000000;
-            ((__repair_field_4 *) temp_a1_2)->value = (s32) (((((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000)) | (temp_t2_2 & 0xFF00)) | (temp_t2_2 & 0xFF));
-          }
+            {
+              temp_t2_2 = ((*((u32 *) ((((*((u8 *) (((__repair_field_18 *) arg2)->value + var_s0))) & 0xF) * 4) + sMenuItemParamTable))) & (~0xFF)) | (*((u8 *) (((char *) gSaveMenuState) + 0x30))); temp_a1_2 = sDisplayListCursor; sDisplayListCursor = (void *) (((char *) temp_a1_2) + 8);
+              ((__repair_field_0 *) temp_a1_2)->value = 0xFA000000;
+              ((__repair_field_4 *) temp_a1_2)->value = (s32) (((((temp_t2_2 >> 0x18) << 0x18) | (temp_t2_2 & 0xFF0000)) | (temp_t2_2 & 0xFF00)) | (temp_t2_2 & 0xFF));
+            }
             break;
+          }
+          while (0);
 
           case 10:
+            if (((__repair_field_18 *) temp_s3)->value || var_s0)
+          {
             var_s1 = *((u16 *) (((char *) arg2) + 0x20));
             temp_a0_5 = *((u16 *) (((char *) arg2) + 0x1E));
-            lineStep = (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
             var_s5 += 3;
             D_800E1760 = 0;
             var_s5 += lineStep;
+          }
+          else
+          {
+            var_s1 = *((u16 *) (((char *) arg2) + 0x20));
+            temp_a0_5 = *((u16 *) (((char *) arg2) + 0x1E));
+            lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
+            var_s5 += 3;
+            D_800E1760 = 0;
+            var_s5 += lineStep;
+          }
             if (temp_a0_5 & 1)
           {
             decoded = decodeButtonMask840(temp_a0_5);
-            remaining = *((u16 *) (((char *) arg2) + 0x1C)) - 1;
+            remaining = (*((u16 *) (((char *) arg2) + 0x1C))) - 1;
             nextIndex = var_s0 + 1;
             var_s1 -= func_800180D4(((__repair_field_18 *) arg2)->value + nextIndex, (remaining - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766) >> 1;
           }
@@ -270,7 +295,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             if ((D_800E1764 != 0) && (((u32) (D_800E1760 + (func_80018578(temp_s4, ((__repair_field_18 *) arg2)->value + var_s0) & 0xFFFF))) >= ((u32) D_800E1764)))
           {
             temp_a0_6 = *((u16 *) (((char *) arg2) + 0x1E));
-            lineStep = (*((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148)));
+            lineStep = *((u8 *) (((char *) (*((void **) (((char *) temp_s4) + 8)))) + 0x148));
             var_s5 += 3;
             D_800E1760 = 0;
             var_s5 += lineStep;
@@ -279,7 +304,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
               u32 lineWidth;
               decoded = decodeButtonMask840(temp_a0_6);
               lineWidth = func_800180D4(((__repair_field_18 *) arg2)->value + var_s0, ((*((u16 *) (((char *) arg2) + 0x1C))) - var_s0) & 0xFFFF, *((u16 *) (((char *) arg2) + 0x1E)), decoded, (s32) D_800E1766);
-              var_s1 = *((u16 *) (((char *) arg2) + 0x20)) - (lineWidth >> 1);
+              var_s1 = (*((u16 *) (((char *) arg2) + 0x20))) - (lineWidth >> 1);
             }
             else
             {
@@ -300,16 +325,14 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
                 temp_a1_4 = temp_a2 + temp_v1_2;
                 temp_v1_3 = (var_a0 * 2) + ((__repair_field_0 *) temp_a1_4)->value;
                 var_a0 += 1;
-                if ((*((u8 *) (((char *) temp_v1_3) + 0))) != temp_a1_3)
-                {
-                  if (var_a0 < ((u8) (*((u8 *) (((char *) temp_a1_4) + 4)))))
-                  {
-                    continue;
-                  }
-                }
-                else
+                if ((*((u8 *) (((char *) temp_v1_3) + 0))) == temp_a1_3)
                 {
                   var_s1 -= *((s8 *) (((char *) temp_v1_3) + 1));
+                }
+                else
+                  if (var_a0 < ((u8) (*((u8 *) (((char *) temp_a1_4) + 4)))))
+                {
+                  continue;
                 }
                 break;
               }
@@ -318,8 +341,8 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
           }
             temp_a3 = temp_t2_3 * 5;
             temp_v1_4 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
-            temp_t3 = *((u8 *) (((char *) temp_v1_4) + 0)) << 5;
-            temp_t4 = ((*((u8 *) (((char *) temp_v1_4) + 1))) << 5);
+            temp_t3 = (*((u8 *) (((char *) temp_v1_4) + 0))) << 5;
+            temp_t4 = ((((((*((u8 *) (((char *) temp_v1_4) + 1))) << 5) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF;
             temp_a0_2 = (s8) (*((s8 *) (((char *) temp_v1_4) + 4)));
             if (gHiResScreen != 0)
           {
@@ -327,9 +350,9 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             __repair_phase_storage.value = arg1 + ((var_s5 - temp_a0_2) * 2);
             temp_v1_5 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 8);
-            glyphWidth = *((u8 *) temp_v1_5 + 2);
-            glyphHeight = *((u8 *) temp_v1_5 + 3);
-            packedStart = (((arg0 + var_s1) * 4 & 0xFFF) << 12) | ((__repair_phase_storage.value * 4) & 0xFFF);
+            glyphWidth = *(((u8 *) temp_v1_5) + 2);
+            glyphHeight = *(((u8 *) temp_v1_5) + 3);
+            packedStart = ((((arg0 + var_s1) * 4) & 0xFFF) << 12) | ((__repair_phase_storage.value * 4) & 0xFFF);
             sDisplayListCursor = ((s8 *) var_a2_2) + 0x10;
             *((s32 *) (((char *) var_a2_2) + 8)) = 0xE1000000;
             *((s32 *) (((char *) var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
@@ -349,9 +372,9 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
             temp_a0_9 = arg1 + (var_s5 - temp_a0_2);
             temp_v1_6 = temp_a3 + (*((void **) (((char *) temp_s4) + 8)));
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 8);
-            glyphWidth = *((u8 *) temp_v1_6 + 2);
-            glyphHeight = *((u8 *) temp_v1_6 + 3);
-            packedStart = (((temp_a1_5) * 4 & 0xFFF) << 12) | ((temp_a0_9 * 4) & 0xFFF);
+            glyphWidth = *(((u8 *) temp_v1_6) + 2);
+            glyphHeight = *(((u8 *) temp_v1_6) + 3);
+            packedStart = (((temp_a1_5 * 4) & 0xFFF) << 12) | ((temp_a0_9 * 4) & 0xFFF);
             sDisplayListCursor = (s32 *) (((char *) var_a2_2) + 0x10);
             *((s32 *) (((char *) var_a2_2) + 8)) = 0xE1000000;
             *((s32 *) (((char *) var_a2_2) + 0xC)) = (s32) ((temp_t3 << 0x10) | temp_t4);
@@ -365,7 +388,7 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
           }
             *var_a2_2 = var_a1_2 | (((var_a0_2 * 4) & 0xFFF) | rectangleOpcode);
             var_s7 = temp_t2_3;
-            __repair_result_var_v1_3 = (*((u8 *) (((char *) ((temp_t2_3 * 5) + (*((void **) (((char *) temp_s4) + 8))))) + 2))) + (*((s8 *) (((char *) temp_s4) + 0x11)));
+            __repair_result_var_v1_3 = (*((u8 *) (((char *) ((temp_t2_3 * 5) + (*((void **) (((char *) temp_s4) + 8))))) + 2))) + (*((s8 *) (((char *) temp_s4) - (-0x11))));
             var_s1 += __repair_result_var_v1_3;
             D_800E1760 += __repair_result_var_v1_3;
             break;
@@ -382,5 +405,3 @@ void func_8003B954(s32 arg0, s32 arg1, void *arg2)
     ((__repair_field_4 *) temp_v0_6)->value = 0;
   }
 }
-
-

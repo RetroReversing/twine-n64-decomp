@@ -8,49 +8,65 @@ s32 func_8000299C(Obj299C *o, s32 id) {
     s32 t;
 
     if ((o->info->f14 & 0x200000) && gBorderSkipActive == 0) {
+        s32 finalCase;
         other = 0;
-        switch (id) {
-        case 0x2:
-        case 0x15F:
-            id = 0x2FA;
-            break;
-        case 0x106:
-        case 0x124:
-        case 0x125:
-        case 0x128:
-        case 0x129:
-        case 0x14D:
-        case 0x153:
-        case 0x46D:
-            id = 0x2FC;
-            break;
-        case 0x7:
-        case 0x165:
-            id = 0x2FB;
-            break;
-        case 0x2A9:
-            id = 0x302;
-            break;
-        case 0x209:
-            id = 0x20B;
-            break;
-        case 0x20A:
-            id = 0x20C;
-            break;
-        case 0x2E9:
-            id = 0x304;
-            break;
-        case 0x2EA:
-            id = 0x305;
-            break;
-        case 0x2EB:
-            id = 0x306;
-            break;
-        default:
-            other = 1;
-            break;
+        if (id == 0x153) goto to2FC;
+        if (id < 0x154) {
+            if (id < 0x126) {
+                if (id >= 0x124) goto to2FC;
+                if (id == 7) goto to2FB;
+                if (id < 8) {
+                    if (id == 2) id = 0x2FA;
+                    else other = 1;
+                    goto joined;
+                }
+                if (id == 0x106) goto to2FC;
+                finalCase = 0x10B;
+                goto lastCheck;
+            }
+            if (id < 0x128) goto useOther;
+            if (id < 0x12A) goto setInline;
+            finalCase = 0x14D;
+            goto lastCheck;
         }
+        if (id == 0x2A9) goto to302;
+        if (id < 0x2AA) {
+            if (id == 0x165) goto to2FB;
+            if (id < 0x166) {
+                if (id == 0x15F) id = 0x2FA;
+                else other = 1;
+                goto joined;
+            }
+            if (id == 0x209) goto to20B;
+            if (id == 0x20A) id = 0x20C;
+            else other = 1;
+            goto joined;
+        }
+        if (id == 0x2EA) goto to305;
+        if (id < 0x2EB) {
+            if (id == 0x2E9) id = 0x304;
+            else other = 1;
+            goto joined;
+        }
+        if (id == 0x2EB) goto to306;
+        finalCase = 0x46D;
+    lastCheck:
+        if (id == finalCase) {
+    setInline:
+            id = 0x2FC;
+            goto joined;
+        }
+    useOther:
+        other = 1;
+        goto joined;
+    to2FC: id = 0x2FC; goto joined;
+    to2FB: id = 0x2FB; goto joined;
+    to302: id = 0x302; goto joined;
+    to20B: id = 0x20B; goto joined;
+    to305: id = 0x305; goto joined;
+    to306: id = 0x306;
     }
+joined:
     if (other && !(o->info->f14 & 0x20000)) {
         t = D_800C470A[o->info->sE * 0xE8];
         if ((u32)(id - 1) < 0x14C) {
@@ -64,3 +80,4 @@ s32 func_8000299C(Obj299C *o, s32 id) {
     }
     return id;
 }
+

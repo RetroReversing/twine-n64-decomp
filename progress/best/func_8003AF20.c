@@ -244,7 +244,7 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
         var_t9 = 0;
         temp_t6 = var_t8 & 0xFFFF;
         temp_s4 = temp_t6;
-        __repair_phase_temp_t6 = sp4C >> 0x10;
+        sp4C = sp4C >> 0x10;
         do
         {
           temp_t2 = (((__repair_record_arg2 *) arg2)->field_20 + arg0) + (((__repair_record_arg2 *) arg2)->field_26 * var_s2);
@@ -343,15 +343,15 @@ void func_8003AF20(s32 arg0, s32 arg1, void *arg2)
             if (((temp_t0 & 0xFFFF) + arg1) & 0x20000000)
             {
               temp_v0_3 = temp_t0 + arg1;
-              if (__repair_phase_temp_t6 < 0)
+              if (sp4C < 0)
               {
-                temp_v0_4 = ((s32) (((s16) (temp_v0_3 * 4)) * __repair_phase_temp_t6)) >> 7;
+                temp_v0_4 = ((s32) (((s16) (temp_v0_3 * 4)) * sp4C)) >> 7;
                 var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_4 & (((s32) (~temp_v0_4)) >> 0x1F))) & 0xFFFF);
               }
               else
               {
                 var_v0_5 = var_a0_3 | ((var_t8 - (temp_v0_5 & (-(1 > temp_v0_5)))) & 0xFFFF);
-                temp_v0_5 = ((s32) (((s16) (temp_v0_3 * 4)) * __repair_phase_temp_t6)) >> 7;
+                temp_v0_5 = ((s32) (((s16) (temp_v0_3 * 4)) * sp4C)) >> 7;
               }
             }
             else

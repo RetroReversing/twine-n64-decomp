@@ -103,8 +103,9 @@ s32 func_80048F10(void **arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
     CollisionVec point;
   } angleOrPoint;
   f32 stack_spA0[3];
-  f32 spB0;
-  f32 spB4;
+  f32 stack_spB0[2];
+#define spB0 stack_spB0[0]
+#define spB4 stack_spB0[1]
   f32 stack_spB8[3];
   f32 stack_spC8[3];
   f32 stack_spD8[3];

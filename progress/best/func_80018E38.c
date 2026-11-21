@@ -139,7 +139,14 @@ void func_80018E38(void)
         loop_30:
         __repair_byte_buffer = sp20;
 
-        sp20[0] = var_v1;
+        if (D_800BF5A0)
+        {
+          sp20[0] = var_v1;
+        }
+        else
+        {
+          sp20[0] = var_v1;
+        }
         if (var_v1 != 0)
         {
           var_a1 = var_s0;
@@ -149,8 +156,12 @@ void func_80018E38(void)
             temp_v0_2 = *temp_v1_3;
             var_a1 += 1;
             var_a2 += 1;
- do { *temp_v1_3 = temp_v0_2 - 1; temp_v1_2 = *var_a1; } while (0);
-            __repair_byte_buffer[var_a2] = temp_v1_2;
+            do
+            {
+              *temp_v1_3 = temp_v0_2 - 1; temp_v1_2 = *var_a1;
+            }
+            while (0);
+            __repair_byte_buffer[(unsigned char) var_a2] = temp_v1_2;
           }
           while (temp_v1_2 != 0);
         }
@@ -198,3 +209,4 @@ void func_80018E38(void)
     requestSound(0xE8);
   }
 }
+
