@@ -20,13 +20,13 @@ void *func_80047B44();
 extern void func_8004D910(void);
 #define FIELD(p,t,o) (*(t *)((s8 *)(p)+(o)))
 s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
- volatile s32 padding[6]; f32 p[3], d[3], q[3], r[3], out[3]; s32 mode=0; void *obj=arg2; f32 limit=65536.0f; f32 v;
+ f32 r[3], out[3], p[3], d[3], q[3], next[3]; s32 mode=0; void *obj=arg2; f32 limit=65536.0f; f32 v;
  gSurfaceQueryStamp++;
  *(struct vec *)p=*(struct vec *)arg0;
- *(struct vec *)d=*(struct vec *)arg1; q[0]=0.0f;
+ *(struct vec *)d=*(struct vec *)arg1; out[0]=0.0f;
  if(!obj){*(struct vec *)arg3=*(struct vec *)arg0;__shared_return_0:
     return 0;}
- for (;;) {
+ do {
   q[0]=d[0]-p[0];q[1]=d[1]-p[1];q[2]=d[2]-p[2];
   v=func_80045764(q,q);
   if(FIELD(obj,u16,0x58)==0x46){
@@ -39,10 +39,14 @@ s32 func_800158A4(void *arg0, void *arg1, void *arg2, void *arg3, s32 *arg4, s32
     goto __shared_return_0;
    }
   }
-  obj=func_80047B44(obj,p,d);
-  if(!obj)return 1;
-  *(struct vec *)p=*(struct vec *)out;
-  obj=FIELD(obj,void*,8);
-  if(!obj)return 1;
- }
+  {
+   void *portal=func_80047B44(obj,p,d,next);
+   obj=0;
+   if(portal){
+    *(struct vec *)p=*(struct vec *)next;
+    obj=FIELD(portal,void*,8);
+   }
+  }
+ } while(obj);
+ return 1;
 }

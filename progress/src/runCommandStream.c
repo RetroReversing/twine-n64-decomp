@@ -14,17 +14,17 @@ typedef s32 M2C_UNK32;
 
 s32 func_8000299C();
 s32 func_80005A7C();
-extern char D_800B0608[];
-extern char D_800B0618[];
+extern char sCommandSlotTable[];
+extern char sCommandLabelTable[];
 extern char D_800B19C8[];
 
-void func_80005018(s32 arg0, s32 arg1, s32 arg2) {
+void runCommandStream(s32 arg0, s32 arg1, s32 arg2) {
     char *var_s0;
     s32 temp_v1;
     s32 var_s1;
     u32 temp_a1;
 
-    var_s0 = *(s32 *)(D_800B0618 + (func_8000299C(arg0, arg1) * 4));
+    var_s0 = *(s32 *)(sCommandLabelTable + (func_8000299C(arg0, arg1) * 4));
     var_s1 = 1;
     do {
         temp_v1 = *(s16 *)var_s0;
@@ -35,11 +35,11 @@ void func_80005018(s32 arg0, s32 arg1, s32 arg2) {
         case 1:
         case 2:
         case 3:
-            var_s0 = *(char **)(((temp_v1 & 0x1F) * 4) + D_800B0608);
+            var_s0 = *(char **)(((temp_v1 & 0x1F) * 4) + sCommandSlotTable);
             *(s16 *)var_s0 = (*(s16 *)var_s0 & 0x1F) + ((u16)temp_v1 & 0xFFE0);
             break;
         case 27:
-            var_s0 = *(char **)((func_8000299C(arg0, *(s16 *)var_s0) * 4) + D_800B0618);
+            var_s0 = *(char **)((func_8000299C(arg0, *(s16 *)var_s0) * 4) + sCommandLabelTable);
             break;
         case 28:
             var_s0 = *(char **)((*(s16 *)var_s0 * 4) + D_800B19C8);

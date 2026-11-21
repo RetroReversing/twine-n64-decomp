@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80076168(s32);                         /* extern */
 s32 func_8011A2A0(void);                                /* extern */
 M2C_UNK func_8011C580();                            /* extern */
-M2C_UNK func_8011C674(M2C_UNK);                     /* extern */
+M2C_UNK updateRaceTimerHud(M2C_UNK);                     /* extern */
 M2C_UNK func_8011C890();                            /* extern */
 M2C_UNK func_8011CAE4();                            /* extern */
 M2C_UNK func_8011CEA0();                            /* extern */
@@ -58,7 +58,7 @@ void func_8011E634(void) {
     }
     __base_D_801002AE = &D_801002AE;
     if ((*__base_D_801002AE) == 0) {
-        func_8011C674(-1);
+        updateRaceTimerHud(-1);
         if ((*__base_D_801002AE) == 0) {
             func_8011C580();
         }
