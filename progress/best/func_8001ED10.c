@@ -14,18 +14,18 @@ extern s32 D_8010019C;
 extern s8 D_801002A3;
 extern u8 D_801002A4;
 extern s8 D_801002AC;
-extern s8 gPickupSavedByte;
-extern s32 gSaveTotalSlots;
+extern s8 D_801002AD;
+extern s32 D_801002B4;
 extern s32 D_801002C4;
 extern s32 D_801002C8;
 extern s32 D_801002CC;
 extern s32 D_801002D0;
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
-extern s8 gMenuUseTextList;
-extern s8 gPendingMenuCommand;
+extern s8 D_80102EDD;
+extern s8 D_80102EDE;
 extern u8 D_80102EE0;
-extern u8 sDifficultyLevel;
+extern u8 D_80102EE8;
 extern s32 D_80102EEC;
 extern s32 D_80102EF0;
 extern s32 D_80102EFC;
@@ -44,7 +44,7 @@ void func_8001ED10(void) {
 
     __base_D_800C3CF8 = &D_800C3CF8;
 
-    gMenuUseTextList = 1;
+    D_80102EDD = 1;
     if (D_80102EEC == 0) {
         if (D_80102F2C != NULL && (t = *(s16 *)((char *)D_80102F2C + 0x7A), t != 0xF)) {
             if (t != 0xE) {
@@ -66,21 +66,20 @@ void func_8001ED10(void) {
             if (D_80102ED8 != 0) {
                 D_801002AC = 0;
                 D_801002A3 = 0;
-                gPickupSavedByte = 0;
+                D_801002AD = 0;
                 D_801002CC = D_801002C4;
                 D_801002D0 = D_801002C8;
                 D_80102EF0 = 0;
                 i = 0;
-                if (gSaveTotalSlots > 0) {
-                    __repair_rows: {
+                if (D_801002B4 > 0) {
+                    do {
                         s32 r;
                         r = func_80022DBC(i & 0xFFFF);
                         r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
                         *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
                             **(u16 **)((char *)__base_D_800C3CF8 + r * 12);
                         i++;
-                    }
-if ((i & 0xFFFF) < gSaveTotalSlots) goto __repair_rows;
+                    } while ((i & 0xFFFF) < D_801002B4);
                 }
                 *(s16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) = -1;
                 b = D_801002A4;
@@ -89,12 +88,12 @@ if ((i & 0xFFFF) < gSaveTotalSlots) goto __repair_rows;
                 D_80102EF0 = 1;
             }
             func_80045130(b);
-            gPendingMenuCommand = 0;
+            D_80102EDE = 0;
             func_800283B0();
             func_8000A310();
             func_800218EC();
             func_80021938();
-            func_8003099C(D_80102EE0, sDifficultyLevel);
+            func_8003099C(D_80102EE0, D_80102EE8);
         }
     }
 }

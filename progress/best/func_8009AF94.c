@@ -29,7 +29,7 @@ void *func_80099E40();
 void *audioCmdNoteOn();
 void *func_8009A0E4();
 void *audioVoiceApplyEnvelope();
-void *func_8009A39C();
+void *audioApplyVoiceConfig();
 void *func_8009A4E4();
 void *func_8009A70C();
 void *func_8009A804();
@@ -524,7 +524,7 @@ block_95:
             }
             break;
         case 0x1C:
-            var_a0 = func_8009A39C(arg0, &D_800FDB9C);
+            var_a0 = audioApplyVoiceConfig(arg0, &D_800FDB9C);
             break;
         case 0x1D:
             (*(s32 *)((char *)(arg0) + 0x40)) = 0;

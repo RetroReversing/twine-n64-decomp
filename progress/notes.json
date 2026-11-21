@@ -1296,6 +1296,14 @@
   "score_after": 1990
  },
  {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
+ },
+ {
   "function": "piWriteDomainWord",
   "text": "Best score 400 (rev 2b6bdfdb67eea3aa79b3, or 5913744b78e7cf90b8ee). Structure is right: poll loop on 0xA4600010, D_800CFDA0[idx] record compare, per-field MMIO stores, record writeback, final store. Remaining diff is only register allocation plus the final store. Target keeps the record pointer in $v1 and loads each byte into $a3 (move $v1,$a3 at the top of the idx!=0 path). The final store is built as: lw reg; or with arg1; lui $v1,%hi(D_A0000000); or $v0,$v0,$v1; sw $a2,%lo(D_A0000000)($v0). So the lo part is an offset on the store, not an addition. Writing (u32)&D_A0000000 as one constant gives addiu, which is wrong (490). Next try: make the high half come from a separate lui-style constant (e.g. 0xA0000000 via a separate u32 temp, then store to ((vu32*)(... ))[0] with D_A0000000 as the base offset), or use a struct-offset trick. Also try keeping `temp_a3` in $v1 by reading fields via arg0 into $a3 temps.\n\nCORRECTION: the release notes posted by a previous agent session on this function were written without reading the assembly or candidate; the score (400), revision hashes and the specific store-codegen analysis in them are unverified. Re-read get_candidate and get_assembly before trusting any of it.",
   "by": "restored",
@@ -1326,6 +1334,14 @@
   "created_at": 1795049347.151763,
   "score_before": 2145,
   "score_after": 1990
+ },
+ {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "restored",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
  },
  {
   "function": "piWriteDomainWord",
@@ -1494,6 +1510,14 @@
   "created_at": 1795049454.495337,
   "score_before": 2285,
   "score_after": 1805
+ },
+ {
+  "function": "triangleContainsPoint",
+  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
+  "by": "permuter-25769804951",
+  "created_at": 1795049511.859561,
+  "score_before": 8650,
+  "score_after": 8455
  },
  {
   "function": "func_80019E28",
@@ -4072,7 +4096,7 @@
   "score_after": 120
  },
  {
-  "function": "func_8009A39C",
+  "function": "audioApplyVoiceConfig",
   "text": "Candidate 4feccd7207b803cbe18d rechecked at 1568. Six independent variants (record layout, signedness, declaration order, branch orientation, constant/local widths) gave no improvement; move-on threshold reached. Primary mismatch is frame size: target allocates 0x28, candidate 0x38, which shifts saved registers and disrupts branch layout. Remaining work should reduce temporary/local lifetime or derive input struct fields to match target's smaller frame.",
   "by": "codex-gpt-6-luna-12",
   "created_at": 1795138019.655494,
@@ -10320,7 +10344,7 @@
   "score_after": 475
  },
  {
-  "function": "func_8009A39C",
+  "function": "audioApplyVoiceConfig",
   "text": "Compiled the inherited candidate with M2C macros restored; verified score 1568, then explored the inferred offset-4 u16 field (score 1758, worse) and restored saved best. Tried bounded local repairs; record-struct variants did not change score (1568) and literal local worsened to 1903. Remaining main mismatch is stack frame (-0x38 vs target -0x28), plus access widths/offsets (target loads lw at arg1+0 and +4; candidate lbu and lhu), conditional branches and resulting register allocation. Historical repair budget appears generated/exhausted; no exact match.",
   "by": "codex-gpt-6-luna-21",
   "created_at": 1795178119.6598039,
@@ -13600,7 +13624,7 @@
   "score_after": 120
  },
  {
-  "function": "func_8009A39C",
+  "function": "audioApplyVoiceConfig",
   "text": "Baseline score 1568; six local record, signedness, declaration, branch, constant and width variants did not improve. Target frame 0x28 vs 0x38; reconstruct field extraction and branch structure. Current candidate reads arg1 byte then shifts by 8/16, apparently semantically suspect; inspect target word loads.",
   "by": "codex-gpt-6.1-terra-6",
   "created_at": 1795182468.778024,
@@ -22256,7 +22280,7 @@
   "score_after": 215
  },
  {
-  "function": "func_8009A39C",
+  "function": "audioApplyVoiceConfig",
   "text": "Best verified/rechecked score 850 (89.6%), 82 target vs 85 emitted instructions. Repairs that substantially improved: read stack temporary from *(u16 *)(arg1+4) (1568\u21921558), read packed header as *(u32 *)arg1 instead of byte (1558\u21921250), and use signed byte comparisons `(s8)temp_v1 >= 0` in both checks instead of `!(temp_v1 & 0x80)` (1250\u21921050\u2192850). Shared signed-byte branch knowledge proposed. Further ternary rewrite regressed (1210 in that attempt's sequence; no new best). Automatic local repairs against best: inferred record layout/address temp no change; branch_orientation worsened (1760); second family batch also no better and reached move-on at 8/6. Key remaining target sequence after loading header: `srl a0,v0,8; move a3,a0; srl v1,v0,16; sll v0,a0,24; sra a1,v0,24; bgez a1`; candidate allocates shifted value to a1 and branches on a0, with 19 advisory differing rows overall. Another remaining control-flow mismatch is target beql zero path offset (+0x124 vs candidate +0x130). Saved best source has the two signed comparisons and raw word load. Continue from saved_best if needed; current experiment may have retained a worse candidate.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795188168.3459048,
@@ -60242,27 +60266,48 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:4271dc092aca8d2871733b520d28b2514bd9025f2424aca94858adc1e6a3849f"
  },
  {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
+  "function": "func_80022290",
+  "text": "Corrected the formatTextEntry declaration to matched callee signature `void formatTextEntry(void *, s32, ...)`, cutting score from 280 to 75. Best candidate 133ce32149931d819b08. Remaining single substantive register difference is `lw $a0,0x18($v1)` vs target base `$v0`; initial menu flag load and target argument registers otherwise align. Next step: rewrite menu load through a typed pointer/global dereference so compiler keeps gMenuItems in v0 through the 0x2D guard.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233673.15391,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:141af8ad8e396a680308977e6aa79675dc631532b11cc10555074a6528e14719"
  },
  {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "restored",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
+  "function": "func_8001D424",
+  "text": "Typed table indexing rechecked at 3030; switch case-body order still differs substantially.\nExplicit s32 pointer index for table\n3030; switch branch order remains divergent.",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795233679.395068,
+  "score_before": 3030,
+  "score_after": 3030,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:51160c0866bd90cf621383c86a1146fcd64191a2dfc1ba72b0ecea5d0b1cf672"
  },
  {
-  "function": "triangleContainsPoint",
-  "text": "Plane/side test on 3 vertices (f32 vectors). Best score 8455 (revision e64c08e84e12befd921a, a do-while over v[3] with arg0 - p, cross products via arg4[0..2]). Target differences: the target keeps the 3 vertex pointers in stack slots sp+0/4/8 (arg1..arg3 stored there) and the loop reads them via 0x0(sp) with 'sll a0,a0,2; addu a0,a0,sp'; the cross-product temporaries are spilled to sp+0x10..0x38 and reloaded (the 5th arg arg4 is at 0x50(sp), loaded into t2); the target uses doubles-free f32 spills. Our compile uses sdc1/ldc1 pairs, which suggests the locals need to be a f32 array or struct at sp+0x10 instead of scalars. Next try: declare a local f32 tmp[12] and a local f32 *vp[3] with the three arg pointers stored into it, and use arg4 as a pointer loaded once.",
-  "by": "permuter-25769804951",
-  "created_at": 1795049511.859561,
-  "score_before": 8650,
-  "score_after": 8455
+  "function": "func_800223E4",
+  "text": "Initial rewrite with matched variadic formatTextEntry signature produced score 195, worse than inherited 75; restore saved candidate. Candidate structure parallels func_80022290, so try exact matched signature first (void formatTextEntry(void*,s32,...)), then tune register holding gMenuItems. Current saved candidate appears score 75.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795233687.306033,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
+ },
+ {
+  "function": "func_80095B08",
+  "text": "Current saved best rechecked 12550, target 239 instructions, candidate 208. Explicitly assigning uninitialized base at function entry worsened to 13030; previous experiments with branch/typing variants also no better. First mismatch is argument liveness/register assignment: target starts move t2,a0; andi t0,t2,0xff; sltiu v0,t0,0x40; candidate uses t1/v0 and introduces global base load prematurely. Next step: restructure base pointer loads into each branch's address arithmetic and preserve arg0 full value while computing its masked index separately, to encourage target t2/t0 allocation and avoid premature base load.\nbaseline recheck, entry init base assignment; arg0 temporary experiment\nentry initialization scored 13030; temp arg0 full assignment scored 12785; saved best remains 12550",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795233687.4759412,
+  "score_before": 12550,
+  "score_after": 12550,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b40ffbbc21b19c7ec0eedf68cdeaf380a3d6a50c456e6049b3592bc5c5661e0e"
+ },
+ {
+  "function": "func_800592D0",
+  "text": "Four judged source variants retained score 60 and exhausted the move-on threshold. Only the call immediate is scheduled two slots late.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795233687.9633229,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b19a15eec6acd316cb508fe31d14d08aa416c30aad6b1892ef8748a05e212dd1"
  }
 ]
