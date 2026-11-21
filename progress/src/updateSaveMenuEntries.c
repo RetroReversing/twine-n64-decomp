@@ -15,35 +15,35 @@ void func_80022B60(s32);
 u16 func_80023EC0(u16, s32, void *, void *);
 M2C_UNK updateSaveMenuSprites(s32, u16, u8, s32);
 extern u16 sSaveMenuAction; extern u8 sSaveMenuRefresh; extern s32 D_800BD644; extern s32 D_800BD648; extern void *gMenuState;
-/* Updates the two save-menu sprite entries (flags, position, size) from the menu object and refreshes the sprites when a sound/action is pending. */ void updateSaveMenuEntries(void *menu, s32 input, s32 cursorArg) {
- s32 posX; s32 inputByte; s32 flagBits; s32 actionArg; s32 spriteB; s32 inputLow; u16 action; void *spriteA; void *entryAFlags; void *entryA;
- actionArg=input; spriteB=cursorArg; entryA=M2C_FIELD(menu,void **,0); inputByte=actionArg; input=spriteB;
- if(entryA!=NULL) {
-  spriteA=M2C_FIELD(entryA,void **,4);
-  if(spriteA!=NULL) {
-   actionArg=-0xFD;
-   if(M2C_FIELD(entryA,void **,0)!=NULL) {
-    s32 oldFlags=M2C_FIELD(spriteA,s32 *,0x28);
-    flagBits=(-((inputByte&0xFF)==0)&7)|3;
-    flagBits<<=2;
-    M2C_FIELD(spriteA,s32 *,0x28)=(oldFlags&~0xFC)|flagBits;
-    entryAFlags=M2C_FIELD(entryA,void **,0);
-    M2C_FIELD(entryAFlags,s32 *,0x28)=(M2C_FIELD(entryAFlags,s32 *,0x28)&~0xFC)|flagBits;
-    spriteB=(s32)M2C_FIELD(entryA,void **,4); actionArg=-0x100;
-    M2C_FIELD(spriteB,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
-    M2C_FIELD(M2C_FIELD(entryA,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
-    M2C_FIELD(M2C_FIELD(entryA,void **,4),u16 *,0x22)=M2C_FIELD(menu,u16 *,6);
-    M2C_FIELD(M2C_FIELD(entryA,void **,0),s16 *,0x22)=M2C_FIELD(menu,u16 *,6)+8;
-    M2C_FIELD(M2C_FIELD(entryA,void **,4),u16 *,0x20)=M2C_FIELD(menu,u16 *,4);
-    M2C_FIELD(M2C_FIELD(entryA,void **,0),s16 *,0x20)=M2C_FIELD(menu,u16 *,4)+4;
+void updateSaveMenuEntries(void *arg0, s32 arg1, s32 arg2) {
+ s32 temp_s1; s32 temp_t0; s32 temp_v1; s32 var_a1; s32 var_a2; s32 var_v0; u16 temp_v0; void *temp_a0; void *temp_a0_2; void *temp_a3;
+ var_a1=arg1; var_a2=arg2; temp_a3=M2C_FIELD(arg0,void **,0); temp_t0=var_a1; arg1=var_a2;
+ if(temp_a3!=NULL) {
+  temp_a0=M2C_FIELD(temp_a3,void **,4);
+  if(temp_a0!=NULL) {
+   var_a1=-0xFD;
+   if(M2C_FIELD(temp_a3,void **,0)!=NULL) {
+    s32 flags=M2C_FIELD(temp_a0,s32 *,0x28);
+    temp_v1=(-((temp_t0&0xFF)==0)&7)|3;
+    temp_v1<<=2;
+    M2C_FIELD(temp_a0,s32 *,0x28)=(flags&~0xFC)|temp_v1;
+    temp_a0_2=M2C_FIELD(temp_a3,void **,0);
+    M2C_FIELD(temp_a0_2,s32 *,0x28)=(M2C_FIELD(temp_a0_2,s32 *,0x28)&~0xFC)|temp_v1;
+    var_a2=(s32)M2C_FIELD(temp_a3,void **,4); var_a1=-0x100;
+    M2C_FIELD(var_a2,s32 *,0x10)=(D_800BD644&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s32 *,0x10)=(D_800BD648&~0xFF)|M2C_FIELD(gMenuState,u8 *,0x30);
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,4),u16 *,0x22)=M2C_FIELD(arg0,u16 *,6);
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s16 *,0x22)=M2C_FIELD(arg0,u16 *,6)+8;
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,4),u16 *,0x20)=M2C_FIELD(arg0,u16 *,4);
+    M2C_FIELD(M2C_FIELD(temp_a3,void **,0),s16 *,0x20)=M2C_FIELD(arg0,u16 *,4)+4;
    }
   }
-  inputLow=input&0xFF;
-  if(inputLow!=0 && sSaveMenuRefresh!=0) {
-   action=func_80023EC0(sSaveMenuAction,actionArg,(void *)spriteB,entryA);
-   posX=M2C_FIELD(menu,u16 *,4);
-   sSaveMenuAction=action;
-   updateSaveMenuSprites(action&0xFFFF,posX,M2C_FIELD(menu,u8 *,7),inputByte&0xFF);
+  var_v0=arg1&0xFF;
+  if(var_v0!=0 && sSaveMenuRefresh!=0) {
+   temp_v0=func_80023EC0(sSaveMenuAction,var_a1,(void *)var_a2,temp_a3);
+   temp_s1=M2C_FIELD(arg0,u16 *,4);
+   sSaveMenuAction=temp_v0;
+   updateSaveMenuSprites(temp_v0&0xFFFF,temp_s1,M2C_FIELD(arg0,u8 *,7),temp_t0&0xFF);
   }
   func_80022B60(3);
  }
