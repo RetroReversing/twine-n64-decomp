@@ -26,6 +26,7 @@ void func_80059944(void *arg0)
     f32 y;
     f32 z;
   } delta;
+  u32 unused[2];
   f32 temp_fs0;
   f32 temp_fs0_2;
   f32 temp_fv0;
@@ -838,15 +839,11 @@ void func_80059944(void *arg0)
 
         if ((temp_v0_16 == 0) || ((*(gTrackMarkerDone + temp_v0_16)) == 0))
         {
-          if (temp_a1_3)
+          *((s16 *) (((char *) arg0) + 0x7A)) = 8;
+          var_a0 = *((u16 *) (((char *) temp_s0) + 0x3E));
+          if (var_a0 != 0)
           {
-            var_v0_6 = 8;
-            goto block_231;
-          }
-          else
-          {
-            var_v0_6 = 8;
-            goto block_231;
+            *((s32 *) (((char *) temp_s0) + 0x28)) = func_80084338(var_a0, arg0 + 0x24);
           }
         }
         break;

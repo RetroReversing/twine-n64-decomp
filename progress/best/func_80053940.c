@@ -162,8 +162,8 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   spE4 = arg0;
   sp104 = NULL;
   spF7 = 0;
-  gPlayerActor = NULL;
   D_80108404 = NULL;
+  gPlayerActor = NULL;
   spEC = arg2;
   spFC = var_s0;
   sp10C = (f32) (2.0 * (((f64) arg5) * D_800D3EC0));
@@ -283,8 +283,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                   {
                     var_s4 = 0;
                     var_s3 = var_s6 + 2;
-                    do
-                    {
+                    __repair_rows: {
                       temp_v1_3 = *((u16 *) (((char *) (*((void **) (((char *) temp_s1) + 0x38)))) + ((var_s4 & 0xFFFF) * 2)));
                       if ((sp12E & temp_v1_3) && (sp136 & temp_v1_3))
                       {
@@ -333,7 +332,7 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
                       var_s4 += 1;
                       var_s6 += 3;
                     }
-                    while (((u32) (var_s4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40)))));
+if (((u32) (var_s4 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) temp_s1) + 0x40))))) goto __repair_rows;
                   }
                 }
                 else
@@ -681,3 +680,4 @@ s8 func_80053940(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, f32
   return (s8) spF7;
 
 }
+

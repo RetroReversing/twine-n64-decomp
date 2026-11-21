@@ -1077,7 +1077,7 @@ volatile unsigned int func_80069DCC(void *arg0)
       case 6:
         if (actorUpdateBorderFade(arg0) == 0)
       {
-        if (!(((s32) (*((u16 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)))) & 0x410000))
+        if (!(((s32) (*((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x68)))) + 0xC)))) & 0x410000))
         {
           temp_fs3_4 = func_80081B44(temp_s4, 0, 1);
           func_800698D8(arg0, temp_fs3_4, probeTrackSteerAngle(sp64, arg0));

@@ -157,10 +157,11 @@ void func_8002D240(void)
   D_801002F3 = 1;
   D_801002F2 = 0;
   D_801002F0 = 0xA;
-  c64 = 0x64; c2 = 2; c1 = 1;
   func_8000A22C(0xA);
   ci = 0;
-  func_8000A18C(D_801002F1);
+  c2 = 2;
+  do { func_8000A18C(D_801002F1); } while (0);
+  c64 = 0x64; c1 = 1;
   D_8010A4C0 = 0;
   D_8010A4C4 = 1;
   gSceneFlagsB = 0x1F;

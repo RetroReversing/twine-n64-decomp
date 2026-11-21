@@ -14,7 +14,7 @@ typedef struct { unsigned char pad[4]; int value; } __repair_field_4;
 s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
 int __repair_literal;
 
-    u32 scratch[4];
+    u32 scratch[2];
     s32 *var_a1_3;
     unsigned temp_a0;
     s32 temp_a0_2;
@@ -194,8 +194,8 @@ __repair_literal = 0;
             *(&D_80102FDC + var_s1_4) = 0x7F;
             (*(s32 *)((char *)(var_v1_2) + 0x130)) = 0;
             (*(s32 *)((char *)(var_v1_2) + 0x134)) = 0;
-            (*(s32 *)((char *)(var_a0_6) + 0x578)) = 0;
             (*(s32 *)((char *)(var_a0_6) + 0x574)) = 0;
+            (*(s32 *)((char *)(var_a0_6) + 0x578)) = 0;
             (*(s32 *)((char *)(var_a0_6) + 0x57C)) = 0;
             temp_v0_4 = *var_a1_3;
             temp_v0_5 = temp_v0_4 + arg3;
@@ -206,7 +206,7 @@ __repair_literal = 0;
                 (*(void **)((char *)(var_v1_2) + 0x128)) = NULL;
                 (*(void **)((char *)(var_v1_2) + 0x12C)) = NULL;
             }
-            var_a1_3 += 4;
+            var_a1_3 = (s32 *)((u8 *)var_a1_3 + 4);
             var_a0_6 += 0x28;
             var_s1_4 += 1;
             var_v1_2 += 0x10;
@@ -270,14 +270,12 @@ loop_45:
                     }
                 }
                 temp_s0 = var_s1_7 & 0xFF;
-                temp_a1_3 = temp_s0;
+                voiceStoreParam(7, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 5)));
                 var_s1_7 += 1;
-                voiceStoreParam(7, temp_a1_3, temp_s4, (*(u8 *)((char *)(var_s3) + 5)));
                 voiceStoreParam(0xA, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 6)));
-                temp_a3_3 = (*(u8 *)((char *)(var_s3) + 8));
                 voiceStoreParam(0x5B, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 7)));
+                voiceStoreParam(0x5D, temp_s0, temp_s4, (*(u8 *)((char *)(var_s3) + 8)));
                 var_s3 += 8;
-                voiceStoreParam(0x5D, temp_s0, temp_s4, temp_a3_3);
             } while (var_s1_7 < 0x10);
         }
         (*(s16 *)((char *)(temp_s2) + 0xFC6)) = 0;
