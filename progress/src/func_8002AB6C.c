@@ -1,0 +1,2 @@
+s32 func_8002AB6C(void *p) { s16 i,sum; u8 start,end; if (!p) __shared_return_0:
+    return 0; start=*(u8 *)((char *)p+0x18); end=*(u8 *)((char *)p+0x19); if (start==end-1) return 1; i=start; sum=0; while(i<end) { sum+=*(u8 *)(*(char **)p+i*12+9); i++; } { int result = *(u8 *)((char *)p+0x1e); if (result == 0) result = sum <= *(u8 *)((char *)p+0x1b); else goto __shared_return_0; return result; } }
