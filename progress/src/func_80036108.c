@@ -69,8 +69,8 @@ void func_80036108(void *arg0) {
                 func_80039128(arg0, D_8010D370);
             }
             func_80032630(temp_s2);
-            temp_s2 = D_801003D8;
             if (D_801003D8 != NULL) {
+                temp_s2 = D_801003D8;
                 temp_a1 = M2C_FIELD(temp_s2, u8 *, 0x45);
                 if (temp_a1 != 1) {
                     func_80008750(arg0, temp_a1, 0);
