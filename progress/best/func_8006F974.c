@@ -32,7 +32,8 @@ void func_8006F974(void *arg0, void *arg1) {
 #define sp40 out[2]
     struct { M2C_UNK sp48; u32 padding[2]; } local;
 #define sp48 local.sp48
-    f32 temp_fv1;
+    f32 temp_fv1, height;
+    s32 mode;
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fs2;
@@ -111,9 +112,10 @@ block_29:
                                 if ((temp_fv1 > 0.0f) && (temp_fv1 < M2C_FIELD(arg0, f32 *, 0x11C)) && (func_80045514(&sp38, M2C_FIELD(arg0, f32 *, 0x68) / temp_fv1, M2C_FIELD(arg0, f32 *, 0x6C) / temp_fv1), (var_fs0 = sp3C - var_fs0, absFloat(sp38 - var_fs2) < (M2C_FIELD(arg0, f32 *, 0x54) / var_fs4))) && (absFloat(var_fs0) < (M2C_FIELD(arg0, f32 *, 0x5C) / var_fs1)) && ((func_800158A4(arg0 + 0x10, M2C_FIELD(M2C_FIELD(arg1, void **, 0x68), s32 *, 4) + 0xA8, M2C_FIELD(arg0, s32 *, 0xF4), &sp48, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                                     M2C_FIELD(arg0, f32 *, 0x11C) = sp40;
                                     { struct vec { u32 x, y, z; }; *(struct vec *)((s8 *)arg0 + 0x104) = *(struct vec *)&in; }
-                                    var_v0 = gGameMode;
-                                    M2C_FIELD(arg0, f32 *, 0x114) = sp3C;
-                                    if (var_v0 == 0x19 || sp40 < D_800C7C98) {
+                                    height = sp3C;
+                                    mode = gGameMode;
+                                    M2C_FIELD(arg0, f32 *, 0x114) = height;
+                                    if (mode == 0x19 || sp40 < D_800C7C98) {
                                         M2C_FIELD(arg0, f32 *, 0x110) = sp38;
                                     } else {
                                         M2C_FIELD(arg0, f32 *, 0x110) = 0.0f;
