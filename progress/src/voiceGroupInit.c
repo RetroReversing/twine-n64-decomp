@@ -19,7 +19,7 @@ extern s32 D_800BF5A0;
 extern s32 D_80102EBC;
 extern void *gMenuState;
 
-s32 func_8002AD60(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
+s32 voiceGroupInit(void *arg0, s32 arg1, u8 arg2, s8 arg3) {
     s32 temp_v1;
     s32 var_a0;
     s32 var_s2;

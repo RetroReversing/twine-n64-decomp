@@ -8,7 +8,7 @@ s32 refreshSlotMenuLabels();
 s32 func_8002778C();
 s32 func_800277E4();
 s32 func_800278AC();
-s32 func_8002AD60();
+s32 voiceGroupInit();
 s32 func_8002AEC8();
 s32 func_8002AF30();
 s32 func_8002CBF4();
@@ -110,7 +110,7 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         var_a1_2 = D_800BA990;
                         var_a3 = 1;
                         {
-                func_8002AD60(D_8010A950);return 2;}
+                voiceGroupInit(D_8010A950);return 2;}
                     case 0:                         /* switch 2 */
                         D_800BD55C = 0U;
                         func_800277E4(-(((u16) D_800BD68C >= 0xAU) & (D_800BD68C != 0x13)) & 0xFF);
@@ -127,27 +127,27 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                         var_a2 = 0xC;
                         var_a3 = 1;
                         {
-                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
+                voiceGroupInit(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 3:                         /* switch 2 */
                         func_800277E4(0xFF);
                         var_a1_2 = D_800BA5D0;
                         var_a2 = 0xC;
                         var_a3 = 1;
                         {
-                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
+                voiceGroupInit(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 4:                         /* switch 2 */
                         func_800277E4(0xFF);
                         var_a1_2 = D_800BAB98;
                         var_a2 = 0xC;
                         var_a3 = 1;
                         {
-                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
+                voiceGroupInit(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 34:                        /* switch 2 */
                         var_a1_2 = D_800BAFF8;
                         var_a2 = 0xC;
                         var_a3 = 1;
                         {
-                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
+                voiceGroupInit(D_8010A950, var_a1_2, var_a2, var_a3);return 2;}
                     case 15:                        /* switch 2 */
                         var_a1_2 = D_800B93B0;
                         var_a2 = 0xE;
@@ -158,11 +158,11 @@ s32 func_8002502C(s16 *arg0, s32 arg1) {
                             D_800BD560 = 0xF;
                             var_a1_3 = D_800B93B0;
                         
-                        func_8002AD60(D_8010A950, var_a1_3, var_a2_2, 0);} else {
+                        voiceGroupInit(D_8010A950, var_a1_3, var_a2_2, 0);} else {
                             var_a1_3 = D_800B91D0;
                             var_a2_2 = 0xC;
                         
-                        func_8002AD60(D_8010A950, var_a1_3, var_a2_2, 0);}
+                        voiceGroupInit(D_8010A950, var_a1_3, var_a2_2, 0);}
                         D_800BD55E = 3U;
                         return 2;
                     case 48:                        /* switch 2 */
@@ -279,7 +279,7 @@ block_95:
                 var_a2 = 0xA;
                 var_a3 = 1;
 block_96:
-                func_8002AD60(D_8010A950, var_a1_2, var_a2, var_a3);
+                voiceGroupInit(D_8010A950, var_a1_2, var_a2, var_a3);
                 return 2;
             }
         } else {
