@@ -17,7 +17,7 @@ M2C_UNK func_80098A18(void *);
 extern void *D_800FDB74; extern u8 D_801002EA; extern u8 D_8010A930; extern u8 D_8010D720;
 extern M2C_UNK D_8010D724, D_8010D734, D_8010D784;
 extern u8 D_80110DB0; extern M2C_UNK D_80117388, D_80117389; extern u8 gWorkerActive;
-s32 sndStopNode(u32 arg0) {
+s32 sndStopNode(register u32 arg0) {
     s32 temp_a0, temp_s1, temp_s3, var_a1, var_a2, var_v0;
     u32 temp_v0; void *temp_a0_2, *temp_s0, *var_v0_2, *var_v1;
     var_a2=-1;
@@ -32,16 +32,16 @@ loop_5: temp_v0=M2C_FIELD(var_v1,u32*,8);
       if(var_v0_2!=NULL)var_a1=M2C_FIELD(var_v0_2,s32*,0xC);else{block_11:var_a1=-1;}
       var_v0=-1;
       if(var_a1!=-1) do {
-        temp_s1=var_a1&0xFF; temp_a0=temp_s1*0x1A0; temp_s3=*(&D_8010D734+temp_a0);
-        if(*(&D_8010D784+temp_a0)==var_a1) {
-          if(*(&D_8010D724+temp_a0)!=0) {
+        temp_s1=var_a1&0xFF; temp_a0=temp_s1*0x1A0; temp_s3=*(s32 *)((u8 *)&D_8010D734+temp_a0);
+        if(*(s32 *)((u8 *)&D_8010D784+temp_a0)==var_a1) {
+          if(*(s32 *)((u8 *)&D_8010D724+temp_a0)!=0) {
             temp_s0=temp_a0+&D_8010D724; func_8009876C(temp_s0,var_a1,var_a2);
             M2C_FIELD(temp_s0,s32*,0x28)=0; M2C_FIELD(temp_s0,s32*,0x24)=M2C_FIELD(temp_s0,s32*,0x24)&~3;
             func_80098A18(temp_s0); var_a1=M2C_FIELD(temp_s0,u8*,0x63); M2C_FIELD(temp_s0,s32*,0)=0; M2C_FIELD(temp_s0,s8*,0x2E)=0;
             temp_a0_2=(var_a1*4)+&D_80117388;
             if(M2C_FIELD(temp_a0_2,u16*,2)==0) {
               M2C_FIELD(temp_a0_2,u16*,2)=1;
-              if(D_801002EA!=0xFF){M2C_FIELD(temp_a0_2,s8*,1)=0xFF;M2C_FIELD(temp_a0_2,u8*,0)=D_80110DB0;*(&D_80117389+(D_80110DB0*4))=(s8)var_a1;}
+              if(D_801002EA!=0xFF){M2C_FIELD(temp_a0_2,s8*,1)=0xFF;M2C_FIELD(temp_a0_2,u8*,0)=D_80110DB0;*((u8 *)&D_80117389+(D_80110DB0*4))=(s8)var_a1;}
               else{M2C_FIELD(temp_a0_2,s8*,1)=0xFF;M2C_FIELD(temp_a0_2,u8*,0)=0xFF;D_801002EA=var_a1;}
               D_80110DB0=var_a1;
               if(M2C_FIELD(temp_s0,u8*,0x4C)!=0){D_8010A930-=1;M2C_FIELD(temp_s0,s32*,0x60)=-1;}

@@ -24,11 +24,11 @@ void func_80098710(void) {
     s32 var_a0;
 
     var_v1 = NULL;
+    D_800FD970 = 0;
+    D_800FDB74 = 0;
     D_800FDB78 = &D_800FD974;
     var_a1 = &D_800FD974;
     var_a0 = 0;
-    D_800FD970 = 0;
-    D_800FDB74 = 0;
     do {
         *(s32 *)(D_800FD978 + var_a0) = var_v1;
         if (var_v1 != NULL) {

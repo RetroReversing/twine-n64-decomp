@@ -5,7 +5,6 @@ extern s8 D_800D1E58[];
 
 s32 func_80001F40(s16 id, s8 code, s32 *out) {
     s32 found = 0;
-    s32 result = 0;
         s32 i = 0;
     s32 j = 0;
 
@@ -22,6 +21,7 @@ s32 func_80001F40(s16 id, s8 code, s32 *out) {
                 if (code == 2) *out = 0;
                 if (code != 0x16) return 1;
                 *out = 1;
+                goto accepted;
             }
             j++;
         }
@@ -31,14 +31,16 @@ s32 func_80001F40(s16 id, s8 code, s32 *out) {
     if (!found) {
         if (code < 0x25) {
             if (code == 2) *out = 0;
-            result = 1;
             if (code == 0x14) {
                 *out = 1;
-                return 1;
+                goto accepted;
             }
-            return result;
+            return 1;
         }
         return 0;
     }
-    return result;
+    return 0;
+accepted:
+    return 1;
 }
+

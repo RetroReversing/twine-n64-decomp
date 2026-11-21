@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_800BF5BC;
+extern void *gEffectObject;
 extern void *D_800BF5C0;
 
 void func_8002B7F8(void) {
     void **__base_D_800BF5BC;
-    __base_D_800BF5BC = &D_800BF5BC;
+    __base_D_800BF5BC = &gEffectObject;
     if ((*__base_D_800BF5BC) != NULL) {
-        M2C_FIELD(D_800BF5BC, s32 *, 0x60) = (s32) (M2C_FIELD(D_800BF5BC, s32 *, 0x60) | 1);
+        M2C_FIELD(gEffectObject, s32 *, 0x60) = (s32) (M2C_FIELD(gEffectObject, s32 *, 0x60) | 1);
     }
     (*__base_D_800BF5BC) = NULL;
     if (D_800BF5C0 != NULL) {

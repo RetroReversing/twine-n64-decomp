@@ -26,7 +26,7 @@ typedef struct {
     u32 matrices;
 } RenderFrame;
 
-extern void func_80014A40(RenderNode *, RenderView *);
+extern void buildQuadUvFrames(RenderNode *, RenderView *);
 extern void func_80032630(void *);
 extern void emitPrimColor(RenderNode *, RenderView *);
 extern void func_80034630(RenderNode *, RenderView *);
@@ -77,7 +77,7 @@ void func_800362B4(RenderView *view) {
     cmd->w1 = sRenderState->matrices - 0x80000000;
 
     for (; node != NULL; node = node->next) {
-        func_80014A40(node, view);
+        buildQuadUvFrames(node, view);
         emitPrimColor(node, view);
         func_80034630(node, view);
         if (node->detail != NULL) {

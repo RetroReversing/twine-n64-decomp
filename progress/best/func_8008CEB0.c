@@ -33,7 +33,10 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
         var_s0 = (s8 *)__base_D_8010D724 + 0x24;
         var_s7 = 0;
         __repair_rows: {
-            if ((M2C_FIELD(var_s0, s32 *, 0x3C) != -1) && (M2C_FIELD(var_s0, u8 *, 0x26) == sp17) && (M2C_FIELD(var_s0, u8 *, 0x27) == sp1F)) {
+            if (M2C_FIELD(var_s0, s32 *, 0x3C) == -1) { var_s7 += 0x1A0; goto advance; }
+            if (M2C_FIELD(var_s0, u8 *, 0x26) != sp17) { var_s7 += 0x1A0; goto advance; }
+            if (M2C_FIELD(var_s0, u8 *, 0x27) != sp1F) { var_s7 += 0x1A0; goto advance; }
+            {
                 temp_a0 = M2C_FIELD(var_s0, s32 *, 0);
                 if ((temp_a0 & 0x10) && ((temp_a0 & 0x40000008) != 8) && (func_8008C1B0(var_s3) & 0xFF)) {
                     temp_a3 = M2C_FIELD(var_s0, u8 *, 0x2B);
@@ -63,7 +66,9 @@ s32 func_8008CEB0(s32 arg0, u8 arg1, u8 arg2) {
                     var_s5 = M2C_FIELD(var_s1, s32 *, 0x60);
                 }
             }
-            var_s7 += 0x1A0; var_s3 += 1; var_s0 += 0x1A0; var_s6 += 104;
+            var_s7 += 0x1A0;
+advance:
+            var_s3 += 1; var_s0 += 0x1A0; var_s6 += 104;
             if (var_s3 < (u8) D_801176E8) goto __repair_rows;
         }
     }

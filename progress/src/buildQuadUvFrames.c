@@ -9,7 +9,7 @@ typedef struct {
     f32 d[3];
 } LocalFrame;
 extern Vec3i D_800D2528;
-void func_80014A40(void *arg0, void *arg1) {
+void buildQuadUvFrames(void *arg0, void *arg1) {
     LocalFrame local;
     local.vector = D_800D2528;
     local.a[0] = (*(f32 *)((char *)((*(void **)((char *)arg0 + 0x20))) + 0)) / (*(f32 *)((char *)arg1 + 0x68));

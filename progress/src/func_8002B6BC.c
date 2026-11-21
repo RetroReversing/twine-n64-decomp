@@ -1,9 +1,9 @@
 typedef struct { u8 pad0[0x54]; f32 f54; s32 flags; } Obj2B6BC;
 typedef struct { u8 pad0[0xF4]; void *fF4; } Def2B6BC;
-extern Obj2B6BC * volatile D_800BF5BC;
-extern f32 D_800BF5C4;
-extern u16 D_800BF5C8;
-extern u16 D_800BF5CA;
+extern Obj2B6BC * volatile gEffectObject;
+extern f32 gEffectTimer;
+extern u16 gEffectMode;
+extern u16 gEffectKind;
 extern char D_800BF5CC[];
 extern Def2B6BC *gTrackMarkerTable[];
 s32 *func_8002B400(f32, s32, char *);
@@ -18,24 +18,24 @@ void func_8002B6BC(s32 arg0) {
     
 
     if (arg0 != 0) {
-        pp = &D_800BF5BC;
+        pp = &gEffectObject;
         if (*pp == NULL) {
             return;
         }
-        v = (f32 *)func_8002B400(D_800BF5C4, 0xE, D_800BF5CC);
+        v = (f32 *)func_8002B400(gEffectTimer, 0xE, D_800BF5CC);
         func_80016718(*pp);
-        objectListInsert(*pp, gTrackMarkerTable[D_800BF5CA]->fF4);
-        D_800BF5BC->flags |= 0x1000;
-        do { D_800BF5BC->f54 = *v; } while (0);
-        switch (D_800BF5C8) {
+        objectListInsert(*pp, gTrackMarkerTable[gEffectKind]->fF4);
+        gEffectObject->flags |= 0x1000;
+        do { gEffectObject->f54 = *v; } while (0);
+        switch (gEffectMode) {
         case 0:
-            D_800BF5C4 = D_800BF5C4 + 0.02f;
-            if (!(1.0f < D_800BF5C4))
+            gEffectTimer = gEffectTimer + 0.02f;
+            if (!(1.0f < gEffectTimer))
                 return;
             break;
         case 1:
-            D_800BF5C4 = D_800BF5C4 - 0.02f;
-            if (!(D_800BF5C4 < 0.0f))
+            gEffectTimer = gEffectTimer - 0.02f;
+            if (!(gEffectTimer < 0.0f))
                 return;
             break;
         default:
