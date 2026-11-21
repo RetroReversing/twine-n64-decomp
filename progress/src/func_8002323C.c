@@ -54,6 +54,11 @@ extern void *gBonusObjects[];
 extern s32 sProbeTimers;
 extern s32 func_80022F10;
 extern s32 func_800231F4;
+inline static int inline_fn(s32 arg0)
+{
+  return arg0 != 0;
+}
+
 void func_8002323C(void)
 {
   s16 *temp_a0_2;
@@ -176,14 +181,14 @@ void func_8002323C(void)
     }
     func_8002A644(&D_800E0EF0, &D_800E0F18, 0xA8, 7, 0x4E, 0x64, 0x6E, 0xB, 0, &func_80022F10, &func_800231F4);
     func_80022A30(sMenuListKind, 0x4C, 0x69, 0x98, 0x5A);
-    if (D_801002AC != 0)
+    if (inline_fn(D_801002AC))
     {
       s32 *row = &D_800E1008;
       *row = 0;
       temp_v0_3 = spawnTrackMarker(sMenuListKind);
       D_800E100C = temp_v0_3;
       D_800E101C = 0;
-      if (temp_v0_3 != 0)
+      if (inline_fn(temp_v0_3))
       {
         func_800160FC(D_800E100C, func_80023BD4(), 0x41);
         func_8002A7CC(&D_800E0EF0, row, 0xFF, 1);
@@ -191,7 +196,7 @@ void func_8002323C(void)
     }
     var_s4 = 0;
     keyMode = *((u8 *) (((char *) (&gSaveKeyRelaxed)) + 0));
-    if (keyMode != 0)
+    if (inline_fn(keyMode))
     {
       var_s2 = 1;
       D_800E0FC0 = spawnTrackMarker(sMenuListKind);
@@ -223,9 +228,12 @@ void func_8002323C(void)
             {
               goto cleanup3;
             }
-            if (temp_v0_6 != 0)
+            if (inline_fn(temp_v0_6))
             {
-              goto success3;
+              if (1)
+              {
+                goto success3;
+              }
             }
             cleanup3:
             freeMenuItemRecord(temp_a0_3);
@@ -244,6 +252,8 @@ void func_8002323C(void)
             next3:
             ;
 
+            ;
+            ;
             ;
           }
           var_s4 += 1;
@@ -287,7 +297,7 @@ void func_8002323C(void)
             {
               goto cleanup5;
             }
-            if (temp_v0_9 != 0)
+            if (inline_fn(temp_v0_9))
             {
               goto success5;
             }
@@ -308,6 +318,8 @@ void func_8002323C(void)
             next5:
             ;
 
+            ;
+            ;
             ;
           }
           var_s4 += 1;
@@ -335,7 +347,7 @@ void func_8002323C(void)
         {
           goto cleanup7;
         }
-        if (temp_v0_10 != 0)
+        if (inline_fn(temp_v0_10))
         {
           goto success7;
         }
@@ -355,6 +367,8 @@ void func_8002323C(void)
         next7:
         ;
 
+        ;
+        ;
         ;
         var_s4 += 1;
       }
