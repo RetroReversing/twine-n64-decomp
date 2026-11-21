@@ -6,7 +6,7 @@ s32 func_8002B150();
 s32 func_8002EFD8();
 s32 func_8002F068();
 s32 func_8002F240();
-s32 func_8002F2EC();
+s32 menuTimeoutTransition();
 s32 updateObjectFade();
 s32 decayObjectTimers();
 s32 updateMenuAnimation();
@@ -25,7 +25,7 @@ extern u8 sDifficultyLevel;
 extern char D_80102EFC[];
 
 typedef struct { s32 w[9]; } __W36;
-void func_8002F868(void *arg0, void *arg1) {
+void updateMenuStateMachine(void *arg0, void *arg1) {
     char *__base_D_800BFD08;
     s16 temp_v1;
     char *var_a2;
@@ -38,11 +38,11 @@ void func_8002F868(void *arg0, void *arg1) {
     switch (temp_v1) {
     case 0:
         func_8002EFD8(arg0, arg1);
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 5:
         func_8002F068(arg0, arg1);
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 6:
         if (updateObjectFade(arg0) & 0xFF) {
@@ -51,7 +51,7 @@ void func_8002F868(void *arg0, void *arg1) {
         default:
         tail:
         }
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 4:
         updateObjectFade(arg0);
@@ -64,13 +64,13 @@ void func_8002F868(void *arg0, void *arg1) {
         goto block_19;
     case 3:
         func_8002FBD4(arg1, 1);
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 1:
         if (decayObjectTimers(arg0) & 0xFF) {
             func_8002FBD4(arg1, 2);
         }
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 7:
         if (decayObjectTimers(arg0) & 0xFF) {
@@ -84,17 +84,17 @@ void func_8002F868(void *arg0, void *arg1) {
             }
             func_8002FBD4(arg1, 0);
         }
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 8:
         func_8002F240(arg0, arg1);
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 9:
         updateObjectFade(arg0);
 block_19:
         func_8002B150(D_800E1584, 0, 0);
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     case 11:
         if (decayObjectTimers(arg0) & 0xFF) {
@@ -105,7 +105,7 @@ block_19:
             func_8003099C(D_80102EE0, sDifficultyLevel);
             return;
         }
-        func_8002F2EC(arg0, arg1);
+        menuTimeoutTransition(arg0, arg1);
         return;
     }
 }

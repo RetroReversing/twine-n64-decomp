@@ -15,7 +15,7 @@ extern u8 D_800BD8C4[];
 extern u16 sMenuAnimFlags;
 extern u16 D_800BFC94, D_800BFC96;
 extern DisplayItem *volatile D_800E1560;
-extern u8 D_800E1584[];
+extern u8 sMenuTimer[];
 extern u32 gMenuSoundParams;
 extern u8 D_80102EDC, gPendingMenuCommand;
 extern MenuData *sActiveMenu;
@@ -55,14 +55,14 @@ void func_8002F068(void *unused, void *arg1)
         *(volatile u32 *)&current->color = (current->color & ~255) | (D_800BFC96 << 3);
         D_800BFC94++;
         if (D_80102EDC) {
-            func_8002B050(D_800E1584, 1, item);
+            func_8002B050(sMenuTimer, 1, item);
         }
     } else {
         D_800BFC94 = 0;
         gMenuItems->display = D_800BD8C4;
         func_800278AC(1, gMenuSoundParams & ~255, sActiveMenu->value);
         func_80027408(lookupDataEntry(3), 0x40, 0xA0, 0xCC);
-        func_8002B150(D_800E1584, 0, 0);
+        func_8002B150(sMenuTimer, 0, 0);
         func_8002FBD4(arg1, 4);
     }
 }

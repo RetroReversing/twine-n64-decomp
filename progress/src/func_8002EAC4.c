@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002F868(s32, void *);                 /* extern */
+M2C_UNK updateMenuStateMachine(s32, void *);                 /* extern */
 M2C_UNK func_800304E0(s32, void *);                 /* extern */
 
 void func_8002EAC4(void *arg0) {
@@ -25,7 +25,7 @@ void func_8002EAC4(void *arg0) {
             func_800304E0(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
             break;
         case 0x39:
-            func_8002F868(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
+            updateMenuStateMachine(M2C_FIELD(arg0, s32 *, 0x6C), arg0);
             break;
         }
     }
