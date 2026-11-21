@@ -28,21 +28,20 @@ void func_80117784(s32 arg0, s32 arg1, SVec3 *arg2, SVec3 *arg3) {
     SVec3 *b;
     f32 best;
     s32 found = 0;
-    u32 j;
     SNode *e;
 
     count = sSearchEntryCount;
     i = 0;
     cur = NULL;
     if (count != 0) {
-        e = sSearchEntries;
         do {
+            e = &sSearchEntries[i];
             e->a = 0;
             e->next = 0;
             e->parent = 0;
             e->cost = -1.0f;
-            i++;
             e++;
+            i++;
         } while (i < count);
     }
     if (arg0 == arg1) {
@@ -72,23 +71,22 @@ void func_80117784(s32 arg0, s32 arg1, SVec3 *arg2, SVec3 *arg3) {
             *arg3 = *sSearchEntries[arg0].pos;
             return;
         }
-        j = 0;
+        i = 0;
         if (cur == &sSearchEntries[arg1]) {
             found = 1;
         } else {
-            SNode **q = cur->nbr;
+            SNode **q = (SNode **)cur;
             do {
-                SNode *nb = ((SNode **)((u8 *)q - 0))[0];
-                nb = *(SNode **)((u8 *)q);
-                j++;
+                SNode *nb = q[5];
+                i++;
                 if (nb != NULL && nb->cost == -1.0f) {
-                    (*q)->cost = (s32)(cur->cost + func_800461D4(cur->pos, nb->pos));
-                    (*q)->parent = cur;
-                    func_80117740(&D_8011F070, *q);
+                    q[5]->cost = (s32)(cur->cost + func_800461D4(cur->pos, nb->pos));
+                    q[5]->parent = cur;
+                    func_80117740(&D_8011F070, q[5]);
                     D_8011F0C8 = D_8011F0C8 + 1;
                 }
                 q++;
-            } while (j < 16);
+            } while (i < 16);
             func_8011775C(cur);
             D_8011F0C8 -= 1;
         }

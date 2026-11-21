@@ -4,7 +4,7 @@ s32 func_800179E8(void *, void **, s32, u8); /* extern */
 f32 approxDistance(void *, void *);                  /* extern */
 s32 updateNearbyEntries(f32, void *, void *);         /* extern */
 s32 func_80073108(void *, void *, f32);     /* extern */
-s32 func_80073210(s32, void **, void *, s32, f32, f32, s32, s32); /* extern */
+s32 startSubdivision(s32, void **, void *, s32, f32, f32, s32, s32); /* extern */
 s32 func_800851E0(void *arg0);                      /* extern */
 extern s32 gBorderSkipActive;
 
@@ -81,7 +81,7 @@ void func_80054FEC(void *arg0, f32 arg1, f32 arg2, void *arg3, void *arg4, s32 a
                                 if ((*(s32 *)((char *)(var_s1) + 0x70)) != 0) {
                                     temp_s0 = var_s1 + 0x24;
                                     func_80073108(temp_s0, arg4, 5.0f);
-                                    func_80073210((*(s32 *)((char *)(var_s1) + 0x70)), var_s3, temp_s0, (*(s32 *)((char *)(var_s1) + 0x3C)), (*(f32 *)((char *)(var_s1) + 0x40)), (*(f32 *)((char *)(var_s1) + 0x44)), __repair_integer_one, __repair_integer_one);
+                                    startSubdivision((*(s32 *)((char *)(var_s1) + 0x70)), var_s3, temp_s0, (*(s32 *)((char *)(var_s1) + 0x3C)), (*(f32 *)((char *)(var_s1) + 0x40)), (*(f32 *)((char *)(var_s1) + 0x44)), __repair_integer_one, __repair_integer_one);
                                     func_800851E0(arg0);
                                 }
                             }

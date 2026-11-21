@@ -1,12 +1,15 @@
 extern u32 randomU32Next(void);
-void func_8002E9D0(u8 *buffer, u32 lengthArg)
+
+/* Fills a string buffer of bufferSize bytes with '0' padding and, every third byte from a random
+   start of 0 or 1, a random '2' or '7'; the last byte is the NUL terminator. */
+void fillRandomCodeString(u8 *buffer, u32 bufferSize)
 {
     u32 index;
     u32 offset;
     s32 limit;
     u32 length;
     buffer[0] = '0';
-    length = lengthArg;
+    length = bufferSize;
     buffer[1] = '0';
     buffer[2] = '0';
     index = randomU32Next() & 1;

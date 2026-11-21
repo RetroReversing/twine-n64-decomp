@@ -5,14 +5,8 @@ extern u16 D_80108F72;
 extern void *sBonusObjectTable;
 extern f32 D_80117408;
 
-typedef struct Node {
-    struct Node *next;
-    u8 pad4[4];
-    struct Node *obj;
-    u8 pad[0x1A - 0xC + 0x0];
-} Node;
-
 #define F(p, t, o) (*(t *)((s8 *)(p) + (o)))
+#define NF ((found ^ 1) & 1)
 
 void *func_8007847C(void *arg0) {
     void *sp10;
@@ -33,7 +27,7 @@ void *func_8007847C(void *arg0) {
                     return n;
             }
         }
-        return *(void **)&sBonusObjectTable;
+        goto block_49;
     }
     if (F(s5, u8, 0x82) == 0x1F) {
         n = F(F(arg0, void *, 0x20), void *, 0);
@@ -41,11 +35,12 @@ void *func_8007847C(void *arg0) {
             if (F(n, u16, 0x78) == 1 && (F(F(n, void *, 0x6C), s32, 0x88) & 0x01E00000) == 0x800000)
                 return n;
         }
-        return NULL;
+        goto block_48;
     }
     if ((F(s5, s32, 0x88) & 0x01E00000) == 0x200000) {
-        sp14 = approxDistance((s8 *)arg0 + 0x24, (s8 *)(*(void **)&sBonusObjectTable) + 0x24);
-        sp10 = *(void **)&sBonusObjectTable;
+        void **tbl = (void **)&sBonusObjectTable;
+        sp14 = approxDistance((s8 *)arg0 + 0x24, (s8 *)(*tbl) + 0x24);
+        sp10 = *tbl;
     } else {
         sp10 = NULL;
         sp14 = 65536.0f;
@@ -54,15 +49,15 @@ void *func_8007847C(void *arg0) {
     gSurfaceQueryStamp = stamp;
     found = 0;
     if (D_80108F72 != 0) {
-        s0 = F(arg0, void *, 0x20);
         F(arg0, s32, 0x60) &= 0xFFFE8FFF;
+        s0 = F(arg0, void *, 0x20);
         F(F(s0, void *, 0x20), u16, 0x60) = stamp;
         if ((findNearestMatchingObject(s0, arg0, &sp10, &sp14) << 24) != 0) {
             found = 1;
             F(arg0, s32, 0x60) |= 0x1000;
         }
         s4 = F(F(s0, void *, 0x20), void *, 0x58);
-        while ((s4 != NULL) & !found) {
+        while ((s4 != NULL) & NF) {
             if (F(s4, u16, 0x26) & 0x2000) {
                 a0 = F(s4, void *, 8);
                 v1 = F(a0, void *, 0x20);
@@ -73,7 +68,7 @@ void *func_8007847C(void *arg0) {
                         found = 1;
                         F(arg0, s32, 0x60) |= 0x2000;
                     }
-                    while ((s2 != NULL) & !found) {
+                    while ((s2 != NULL) & NF) {
                         if (F(s2, u16, 0x26) & 0x2000) {
                             a0 = F(s2, void *, 8);
                             v1 = F(a0, void *, 0x20);
@@ -84,7 +79,7 @@ void *func_8007847C(void *arg0) {
                                     found = 1;
                                     F(arg0, s32, 0x60) |= 0x4000;
                                 }
-                                while ((s0 != NULL) & !found) {
+                                while ((s0 != NULL) & NF) {
                                     if (F(s0, u16, 0x26) & 0x2000) {
                                         a0 = F(s0, void *, 8);
                                         v1 = F(a0, void *, 0x20);
@@ -114,7 +109,10 @@ void *func_8007847C(void *arg0) {
             return sp10;
         }
     }
-    if ((F(s5, s32, 0x88) & 0x01E00000) == 0x400000)
+    if ((F(s5, s32, 0x88) & 0x01E00000) == 0x400000) {
+block_48:
         return NULL;
+    }
+block_49:
     return *(void **)&sBonusObjectTable;
 }

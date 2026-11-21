@@ -131,7 +131,7 @@ void *spawnTrackHudObject(s32 trackIndex) {
             (*(s16 *)((char *)((*(void **)((char *)(slotEntry) + 4))) + 0x20)) = 0xF0;
             (*(s16 *)((char *)((*(void **)((char *)(slotEntry) + 4))) + 0x22)) = (s16) (((s32) ((s32)slotPtr * 5) * 2) + 0x28);
             }
-            func_8002E9D0((i * 0xC) + sMenuAnimSlots, 0xB, (s32) slotPtr);
+            fillRandomCodeString((i * 0xC) + sMenuAnimSlots, 0xB, (s32) slotPtr);
         }
     }
     argsBase = &D_800BFCBC;

@@ -1,6 +1,6 @@
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8002E9D0();
+s32 fillRandomCodeString();
 s32 func_8002FBE4();
 extern u16 sMenuAnimFlags;
 extern u16 sMenuAnimPhase;
@@ -31,7 +31,7 @@ extern u8 gPendingMenuCommand;
         slot = 0 & 0xFFFF;
         do {
             slot = i & 0xFFFF;
-            func_8002E9D0((slot * 0xC) + sMenuAnimSlots, 0xB);
+            fillRandomCodeString((slot * 0xC) + sMenuAnimSlots, 0xB);
             ++i;
         } while ((u32) (i & 0xFFFF) < 9U);
         sMenuAnimPhase = 0;
