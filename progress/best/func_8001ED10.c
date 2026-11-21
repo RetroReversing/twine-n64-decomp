@@ -2,7 +2,7 @@ void func_8000A310(void);
 void func_80011938(s32, s16);
 void func_800218EC(void);
 void func_80021938(void);
-s32 func_80022DBC(s32);
+s32 getSaveSlotIndex(s32);
 void func_800283B0(void);
 void func_8002B000(void *, s32);
 s32 func_8002B9CC(s32);
@@ -74,7 +74,7 @@ void func_8001ED10(void) {
                 if (D_801002B4 > 0) {
                     do {
                         s32 r;
-                        r = func_80022DBC(i & 0xFFFF);
+                        r = getSaveSlotIndex(i & 0xFFFF);
                         r = func_8002B9CC(*(s32 *)((char *)&D_8010019C + (r & 0xFFFF) * 0x18));
                         *(u16 *)((char *)&D_800BD680 + ((i & 0xFFFF) << 1)) =
                             **(u16 **)((char *)__base_D_800C3CF8 + r * 12);

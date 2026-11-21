@@ -12,52 +12,52 @@ typedef struct OSTimer_s {
 } OSTimer;
 extern OSTimer *D_800CFE90;
 extern u32 D_8010A3FC;
-extern u32 func_800A91F0(void);
+extern u32 __osGetCount(void);
 extern void func_800A9210(u32);
 extern void __osSetTimerIntr(OSTime);
 extern OSTime __osInsertTimer(OSTimer *);
 extern void osSendMesg(OSMesgQueue *, OSMesg, s32);
 
 /* Runs on the compare interrupt. Fires every timer whose time has come and reprograms the compare register for the next one. Periodic timers are re-inserted. */
-void __osTimerInterrupt(void) {
-    OSTimer *timer;
-    u32 count;
-    u32 elapsed;
+/* Runs on the compare interrupt: fires expired timers and reprograms the compare register for the next one. */ void __osTimerInterrupt(void) {
+    OSTimer *nextTimer;
+    u32 now;
+    u32 delta;
 
     if (D_800CFE90->next == D_800CFE90) {
         return;
     }
     for (;;) {
-        timer = D_800CFE90->next;
+        nextTimer = D_800CFE90->next;
 
-        if (timer == D_800CFE90) {
+        if (nextTimer == D_800CFE90) {
             func_800A9210(0);
             D_8010A3FC = 0;
             break;
         }
 
-        count = func_800A91F0();
-        elapsed = count - D_8010A3FC;
-        D_8010A3FC = count;
+        now = __osGetCount();
+        delta = now - D_8010A3FC;
+        D_8010A3FC = now;
 
-        if (elapsed < timer->value) {
-            timer->value -= elapsed;
-            __osSetTimerIntr(timer->value);
+        if (delta < nextTimer->value) {
+            nextTimer->value -= delta;
+            __osSetTimerIntr(nextTimer->value);
             break;
         }
 
-        timer->prev->next = timer->next;
-        timer->next->prev = timer->prev;
-        timer->next = 0;
-        timer->prev = 0;
+        nextTimer->prev->next = nextTimer->next;
+        nextTimer->next->prev = nextTimer->prev;
+        nextTimer->next = 0;
+        nextTimer->prev = 0;
 
-        if (timer->mq != 0) {
-            osSendMesg(timer->mq, timer->msg, 0);
+        if (nextTimer->mq != 0) {
+            osSendMesg(nextTimer->mq, nextTimer->msg, 0);
         }
 
-        if (timer->interval != 0) {
-            timer->value = timer->interval;
-            __osInsertTimer(timer);
+        if (nextTimer->interval != 0) {
+            nextTimer->value = nextTimer->interval;
+            __osInsertTimer(nextTimer);
         }
     }
 }

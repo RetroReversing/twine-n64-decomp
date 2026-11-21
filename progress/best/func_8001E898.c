@@ -35,10 +35,12 @@ extern OpacityState *gMenuItems;
 void func_8001E898(TextEntry *entry, u8 dim, u8 draw) {
     u8 *__base_D_800BD68F;
     TextObject *object = entry->object;
-    register u16 selected;
+    u16 selected;
 
     if (object != (u32)NULL) {
-        object->flags = (object->flags & ~0xFC) | (-(dim == 0) & 0x1C);
+        u32 f = object->flags & ~0xFC;
+        u32 m = -(dim == 0);
+        object->flags = f | (m & 0x1C);
         object->x = entry->x;
         object->y = entry->position.y;
         object->size = 0x40;

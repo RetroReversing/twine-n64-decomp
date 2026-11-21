@@ -18,7 +18,7 @@ extern u16 D_800E19CC;
 extern u16 D_800E19CE;
 
 s32 func_8003EC70(s32 arg0) {
-    u8 __repair_frame[16];
+
     s32 *temp_v0_4;
     f32 temp_ft0;
     f32 temp_ft0_2;

@@ -26,7 +26,7 @@ extern s32 gTrackMarkerTable;
 
 void func_800673EC(void *arg0, void *arg1) {
     s32 *__base_D_800C469C;
-    f32 sp10[3];
+    f32 sp10[3]; s32 reserve[2];
     f32 temp_fs0;
     f32 temp_fs1;
     f32 temp_fs2;
@@ -172,7 +172,7 @@ func_80002D30((*(void **)((char *)(temp_s2) + 0xA8)), (*(u16 *)((char *)(var_s4)
                 if (gBorderSkipFlag == 0) {
                     temp_v0 = func_8005F664(arg0, 0, (*(s8 *)((char *)((*(void **)((char *)(arg0) + 0x68))) + 0x10)));
                     if (temp_v0 != NULL) {
-                        temp_s0_2 = (temp_s0 * 4) + &gTrackMarkerTable;
+                        temp_s0_2 = (void **)((u8 *)&gTrackMarkerTable + temp_s0 * 4);
                         temp_s1_2 = (*(void **)((char *)(temp_v0) + 0x6C));
                         temp_fs1 = sinTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x38)));
                         temp_fs2 = cosTableLookup((*(f32 *)((char *)(*temp_s0_2) + 0x38)));

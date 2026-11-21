@@ -1,5 +1,5 @@
 extern char *lookupDataEntry(s32);
-extern s32 func_80022DBC(s32);
+extern s32 getSaveSlotIndex(s32);
 extern s32 sprintf(char *, const char *, ...);
 extern char D_800D2AB4[], D_800D2ABC[];
 extern s16 D_800E1068[], D_800E107E, D_800E1080;
@@ -50,7 +50,7 @@ draw:
                 if (entry && entry->state->active)
                     best++;
                 else
-                    player = (u16)func_80022DBC((u16)i);
+                    player = (u16)getSaveSlotIndex((u16)i);
                 i++;
                 table.players++;
             } while (i < gSaveTotalSlots);
@@ -67,7 +67,7 @@ draw:
     if (gSaveTotalSlots > 0) {
         table.scores = D_800E1068;
         do {
-            u16 slot = func_80022DBC((u16)i);
+            u16 slot = getSaveSlotIndex((u16)i);
             score = table.scores[slot];
             if (best < score) {
                 best = score;
@@ -82,7 +82,7 @@ draw:
         table.scores = D_800E1068;
         winner = &table.scores[player];
         do {
-            idx = (u16)func_80022DBC((u16)i);
+            idx = (u16)getSaveSlotIndex((u16)i);
             score = table.scores[idx];
             i++;
             best += *winner == score;

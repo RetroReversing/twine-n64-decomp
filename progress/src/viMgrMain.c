@@ -5,7 +5,7 @@ extern u32 D_80102F34, D_801002F8;
 extern u64 D_80108790;
 void *func_800A9780(void);
 void vi_apply_context(void);
-u32 func_800A91F0(void);
+u32 __osGetCount(void);
 void __osTimerInterrupt(void);
 void osRecvMesg(s32, void *, s32);
 void osSendMesg(s32, s32, s32);
@@ -41,11 +41,11 @@ void viMgrMain(void *arg0) {
             D_80102F34++;
             if (first) {
                 first = 0;
-                count = func_800A91F0();
+                count = __osGetCount();
                 D_80108790 = count;
             }
             count = D_801002F8;
-            D_801002F8 = func_800A91F0();
+            D_801002F8 = __osGetCount();
             count = D_801002F8 - count;
             D_80108790 += count;
             break;

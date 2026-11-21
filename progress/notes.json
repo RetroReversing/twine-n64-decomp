@@ -5160,14 +5160,6 @@
   "score_after": 560
  },
  {
-  "function": "func_80119AF4",
-  "text": "Rechecked inherited 675; sign-corrected D_800C469E.f0 from u16 to s16 improved to 635 (then constant-local family with 8 -> named local improved to 630). Current selected candidate is independent variant 2, score 630, still not exact. Target first difference is lbu 0x182 followed sll/sra sign conversion; source casts tend to compile as lb and omit shifts. Other principal remaining differences are loop branch layout and pointer-vs-integer declarations in table indexing. Avoid signed temp_s0 family (score 985).",
-  "by": "codex-gpt-6-luna-10",
-  "created_at": 1795139038.812403,
-  "score_before": 670,
-  "score_after": 630
- },
- {
   "function": "func_80097EF8",
   "text": "Widening var_a3 to unsigned int worsened 3848 to 3868; local constant, record layout and lifetime variants tied, loop rewrite worsened. Saved baseline retained. Candidate truncates a pointer through u16 var_a3; next investigate separating pointer and index lifetimes and correcting the halfword count D_800F8D5C. Repair batch ended with claim no longer held.",
   "by": "codex-gpt-6.1-terra-3",
@@ -5672,14 +5664,6 @@
   "score_after": 2000
  },
  {
-  "function": "func_80119AF4",
-  "text": "Exact match established: func_80063D38 gets the object loaded at arg0+0x6C and the current list byte. The byte at object+0x182 is sign-extended and then cast to u16 before func_80022DBC, and its result is separately masked to 16 bits. The volatile u8 read preserves the original lbu and shifts.",
-  "by": "codex-gpt-6.2-sol-1",
-  "created_at": 1795163919.473386,
-  "score_before": 630,
-  "score_after": 0
- },
- {
   "function": "func_8009DCD0",
   "text": "Diagnostic IDO 5.3 -O2 -mips2 -G 0 -non_shared -g3 reached 2496 versus GCC's 26068 and reproduced the 0xE0 frame, stack object offsets, and many opcodes. Source: s16 header[8], four s16[4] arrays, and flat s16 values[52], in that declaration order. Loop advances input by seven and output by 13 halfwords. Compute crossed-byte fields using int high = srcHigh >> n; int low = (srcLow & mask) << n; then (high & mask) | low. Non-shared removes GP setup. Remaining differences chiefly register assignment, arg0 home store, and address formation for the end pointer; next test volatile arg0 plus explicit end pointer and preincrement array traversal. This is diagnostic, compiler selection has not been verified by an exact match.",
   "by": "codex-gpt-6.2-sol-7",
@@ -6030,14 +6014,6 @@
   "created_at": 1795164160.224704,
   "score_before": 105,
   "score_after": 105
- },
- {
-  "function": "func_80119AF4",
-  "text": "Current best revision bb543e7c31ec8b09b875, score 565/78 target instructions; improved from 620. Changing selector expression from shifted unsigned-char expression to ((s32)(s8)M2C_FIELD(temp_s3,u8*,0x182)) & 0xffff improved comparison substantially. Remaining discrepancies: target expands selector as lbu + sll 24 + sra 24 + andi 0xffff; best still uses lb and omits shifts, and applies andi to wrong register/position. Control flow branches are also 4 bytes early around loop exits. Explore explicit unsigned byte temp then signed extension and mask, and preserve target loop top/back-edge structure. Initial compile failed only because I omitted M2C_FIELD macro from pasted source; full m2c macros fixed it.",
-  "by": "codex-gpt-6-luna-16",
-  "created_at": 1795164162.4910479,
-  "score_before": 0,
-  "score_after": 0
  },
  {
   "function": "func_800355BC",
@@ -60991,5 +60967,92 @@
   "score_before": 10311,
   "score_after": 10311,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:be3bfb18986f84646e4e4452ad3173548dc392435ff9905c1d6b2bbf8be8c8a4"
+ },
+ {
+  "function": "func_8009A70C",
+  "text": "Verified best 405 (target/candidate both 62 instructions), improved from 535 by preserving the early store of level for the nonzero curve path: after masked curve zero check, zero arm stores level and returns; nonzero arm stores level before lookup. Adding goto structure or masking variants didn't change output; a full rewrite to symmetric if/else scored 590. Remaining diff is only three instructions around curve test: target andi $a0,$v1,0xffff; beql $a0,$zero,...; candidate beqz $v1 and move $a0,$v1. Existing earlier candidates casting u16 or assigning u32 did not help. Next step: test a separate u32 masked curve local used for both zero check and callee argument, preserving store/return structure.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235107.845883,
+  "score_before": 535,
+  "score_after": 405,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:bf505ab63f8429ac3f0b287aa4c7981e05ff7ed3551721229db31daf325a801c"
+ },
+ {
+  "function": "func_80096F44",
+  "text": "Rebuilt the known m2c candidate and reverified score 10. Only remaining two rows are register allocation: target saves arg2 in $a3 at entry and copies $a3 back to $a2 in clamp middle arm; candidate uses $v1. Tried local repair families declaration_order, typed_temporary, value_lifetime; no applicable untried repairs. Next step: alter lifetime of original arg2 local (e.g. explicit function-scope copy initialized at entry, then use only in middle clamp arm) and judge, while preserving clamp/switch structure.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795235107.950679,
+  "score_before": 10,
+  "score_after": 10,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b82f7b0cab97c89b065d2ff98c20925df0a27771d7a11fb7a8043d23b39b19c6"
+ },
+ {
+  "function": "func_8011E634",
+  "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 4; 39 differing rows (10 register, 1 stack, 19 branch target, 3 operand, 2 reordered, 2 inserted, 2 deleted; advisory).\nTarget: sw $ra, 0x1c($sp)\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = addiu $sp, $sp, -0x20\n  = addiu $v1, $zero, 0x78\n< T: sw $ra, 0x1c($sp) | C: \nr T: sw $s2, 0x18($sp) | C: sw $ra, 0x18($sp)\n  = sw $s1, 0x14($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795235119.45201,
+  "score_before": 490,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:f3fc9225906c30da84e195dda9d1f25b334c61692b2f83bb3506a64e1612c588"
+ },
+ {
+  "function": "func_80011950",
+  "text": "Baseline 6441. Halving output stride scored 6446; halving input stride 6441 with changed instructions; halving halfword index stride 6451. Pointer arithmetic remains suspect and needs coordinated correction.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795235128.465387,
+  "score_before": 6446,
+  "score_after": 6441,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:b6ab4f9003a6d0d1152df33c71dad287f94474b5eaadd267d3b29a45a2f7dbf1"
+ },
+ {
+  "function": "func_800075C4",
+  "text": "Reached the four-compile move-on threshold. Reordered the rectangle packing and tested high-coordinate temporaries. Best score 30, four coordinate scheduling differences. High + (low | opcode) scores 200 with only addu instead of or; explicit high temporaries scored 460 or 740.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795235145.081641,
+  "score_before": 30,
+  "score_after": 30,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:14c914730d90e797a93c10c03ed536507af83cfb0e57415d6e3cdb8cad092bd2"
+ },
+ {
+  "function": "refreshSaveSlotSelection",
+  "text": "Rechecked inherited 675; sign-corrected D_800C469E.f0 from u16 to s16 improved to 635 (then constant-local family with 8 -> named local improved to 630). Current selected candidate is independent variant 2, score 630, still not exact. Target first difference is lbu 0x182 followed sll/sra sign conversion; source casts tend to compile as lb and omit shifts. Other principal remaining differences are loop branch layout and pointer-vs-integer declarations in table indexing. Avoid signed temp_s0 family (score 985).",
+  "by": "codex-gpt-6-luna-10",
+  "created_at": 1795139038.812403,
+  "score_before": 670,
+  "score_after": 630
+ },
+ {
+  "function": "refreshSaveSlotSelection",
+  "text": "Exact match established: func_80063D38 gets the object loaded at arg0+0x6C and the current list byte. The byte at object+0x182 is sign-extended and then cast to u16 before func_80022DBC, and its result is separately masked to 16 bits. The volatile u8 read preserves the original lbu and shifts.",
+  "by": "codex-gpt-6.2-sol-1",
+  "created_at": 1795163919.473386,
+  "score_before": 630,
+  "score_after": 0
+ },
+ {
+  "function": "refreshSaveSlotSelection",
+  "text": "Current best revision bb543e7c31ec8b09b875, score 565/78 target instructions; improved from 620. Changing selector expression from shifted unsigned-char expression to ((s32)(s8)M2C_FIELD(temp_s3,u8*,0x182)) & 0xffff improved comparison substantially. Remaining discrepancies: target expands selector as lbu + sll 24 + sra 24 + andi 0xffff; best still uses lb and omits shifts, and applies andi to wrong register/position. Control flow branches are also 4 bytes early around loop exits. Explore explicit unsigned byte temp then signed extension and mask, and preserve target loop top/back-edge structure. Initial compile failed only because I omitted M2C_FIELD macro from pasted source; full m2c macros fixed it.",
+  "by": "codex-gpt-6-luna-16",
+  "created_at": 1795164162.4910479,
+  "score_before": 0,
+  "score_after": 0
+ },
+ {
+  "function": "func_800882D0",
+  "text": "Rechecked saved candidate score 60. Six independent local repairs (symbol_address_local, narrowing, switch_layout, unsigned_switch, single_use_inline) did not improve it. The two remaining mismatches are around osSendMesg setup; target uses sDataBankMesgQueue as a0 and places the D_800E2CD8=4 byte store in jal delay slot. Earlier pointer-base edit worsened score to 402.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795235202.901304,
+  "score_before": 60,
+  "score_after": 60,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5fcbc642c8bc624ffc23ccc4e2f20071ae5a8440b862a9996b34932a0fad0c48"
+ },
+ {
+  "function": "func_8005C8C4",
+  "text": "Current best candidate remains historical score 160 at revision 8b28185c3d004324d0e8; current rebuilt variants scored 925. Direct-main rewrite led to 925 and helper-based rewrite also 925. Build fix requires removing undeclared arg1 by keeping whole logic in target function. Diff emphasizes control-flow and register allocation: target initializes a1=0 before null check and branches on v0; candidates use altered regs and likely branch-likely due inversion. Next step: restore saved best and try expressing result as a function-scope local initialized to zero, with positive nested conditions and a final call guarded by `if (result == 0)`, preserving target's initial a1 zero materialization.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795235211.034752,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:bbf14d1483c164b7d42c8388dd763de4054e0dd0486f1784c51c3f273450fe72:5283587a6f8c9938d9b65adc618079fbb97cc12d6e7630b8c674fe6817524dd3"
  }
 ]

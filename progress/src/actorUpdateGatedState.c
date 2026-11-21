@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_800066A0();
 s32 freeMenuItemRecord();
-s32 func_80022DBC();
+s32 getSaveSlotIndex();
 s32 actorSetField7A();
 s32 func_80063FE8();
 s32 func_80064630();
@@ -71,7 +71,7 @@ extern char gTrackMarkerTable[];
             axisIndex = M2C_FIELD(aiBlock, s8 *, 0x182);
             M2C_FIELD(aiBlock, s32 *, 0x60) = 0;
             M2C_FIELD(aiBlock, s32 *, 0x64) = 0;
-            M2C_FIELD(actor, f32 *, 0x74) = (axisIndex < gSaveSlotCount) ? *((u8 *)((s8 *)D_801001A0 + ((func_80022DBC(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) : (*(D_800BF688 + (*((s32 *)((s8 *)gSaveSlotInfo + ((func_80022DBC(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
+            M2C_FIELD(actor, f32 *, 0x74) = (axisIndex < gSaveSlotCount) ? *((u8 *)((s8 *)D_801001A0 + ((getSaveSlotIndex(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) : (*(D_800BF688 + (*((s32 *)((s8 *)gSaveSlotInfo + ((getSaveSlotIndex(axisIndex & 0xFFFF) & 0xFFFF) * 0x18))) * 0xC)) * 5);
             startY = M2C_FIELD(actor, volatile f32 *, 0x74);
             M2C_FIELD(aiBlock, u8 *, 0x18C) = 0;
             M2C_FIELD(aiBlock, u8 *, 0x18D) = 0x80;

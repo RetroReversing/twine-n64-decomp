@@ -10,7 +10,7 @@ s32 func_80018318();
 s32 func_80019E28();
 s32 func_80022A30();
 s32 func_80022AD8();
-s32 func_80022DBC();
+s32 getSaveSlotIndex();
 s16 func_80022DE8();
 s32 func_80022E18();
 s32 func_80025F78();
@@ -115,7 +115,7 @@ s32 __repair_phase_var_a0;
         if (gSaveTotalSlots > 0) {
             var_s0 = 0 & 0xFFFF;
             do {
-                temp_a0_2 = func_80022DBC(var_s0);
+                temp_a0_2 = getSaveSlotIndex(var_s0);
                 temp_v0 = spawnTrackMarker(sMenuListKind);
                 *(s32 *)((var_s0 * 4) + (s32)D_80102F48) = temp_v0;
                 if (temp_v0) {

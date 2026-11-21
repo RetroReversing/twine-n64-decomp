@@ -1,4 +1,4 @@
-extern s32 func_80022DBC(s32);
+extern s32 getSaveSlotIndex(s32);
 extern f32 approxDistance(void *, void *);
 extern s32 func_8007A9CC(void *, void *, f32 *, f32);
 extern s32 func_800158A4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
@@ -33,11 +33,11 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     volatile s8 __saved_arg1 = (s8)arg1;
 
     sub = (ObjSub *)arg0->field6c;
-    idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
+    idx = getSaveSlotIndex((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
     row = gSaveSlotInfo[idx * 6];
     kind = D_800BF688[row * 6] & 3;
     flags = D_8011ECB0[kind];
-    idx = func_80022DBC((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
+    idx = getSaveSlotIndex((s32)(s8)*(u8 *)((u8 *)sub + 0x182)) & 0xffff;
     row = gSaveSlotInfo[idx * 6];
     n = ((u8 *)D_800BF688)[row * 12 + 3];
     best = 0; fallback = 0; selected = 0; best1=0x270f;

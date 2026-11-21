@@ -8,7 +8,7 @@ s32 func_80002D30();
 void *spawnTextNode();
 void *spawnTrackMarker();
 void *func_800164F8();
-s32 func_80022DBC();
+s32 getSaveSlotIndex();
 s32 func_8002B9CC();
 s32 actorLinkToSurface();
 s32 initObjectFromBankEntry();
@@ -315,8 +315,8 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             func_80001D80(0);
             var_fv1 = arg0 & 0xFFFF;
             if (gBorderSkipFlag) {
-                __repair_phase_storage.value = func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18)));
-                var_a3 = *(D_801001A3 + ((func_80022DBC(var_fv1) & 0xFFFF) * 0x18));
+                __repair_phase_storage.value = func_8002B9CC(*(s32 *)(gSaveSlotInfo + ((getSaveSlotIndex(var_fv1) & 0xFFFF) * 0x18)));
+                var_a3 = *(D_801001A3 + ((getSaveSlotIndex(var_fv1) & 0xFFFF) * 0x18));
                 var_a1 = __repair_phase_storage.value;
             } else {
                 switch (gGameMode) {               /* switch 1 */
@@ -442,9 +442,9 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)(temp_s3) + 0x64)) = 0;
             if (gBorderSkipFlag != 0) {
                 if ((s16) arg0 < gSaveSlotCount) {
-                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) *(D_801001A0 + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18));
+                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) *(D_801001A0 + ((getSaveSlotIndex(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18));
                 } else {
-                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) (*(D_800BF688 + (*(s32 *)(gSaveSlotInfo + ((func_80022DBC(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18)) * 0xC)) * 5);
+                    (*(f32 *)((char *)(temp_s4) + 0x74)) = (f32) (*(D_800BF688 + (*(s32 *)(gSaveSlotInfo + ((getSaveSlotIndex(arg0 & 0xFFFF, temp_a1_3, (s16) arg0) & 0xFFFF) * 0x18)) * 0xC)) * 5);
                 }
             } else {
                 (*(f32 *)((char *)(temp_s4) + 0x74)) = 100.0f;

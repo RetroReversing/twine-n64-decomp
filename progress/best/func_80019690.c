@@ -3,7 +3,7 @@ s32 func_8000A29C();
 s32 requestSound();
 s32 func_8000C8BC();
 s32 func_80011938();
-s32 func_80022DBC();
+s32 getSaveSlotIndex();
 s32 func_80026424();
 s32 func_80027C60();
 s32 updateActiveMenuState();
@@ -86,7 +86,7 @@ void func_80019690(void) {
             i = 0;
             if (gSaveTotalSlots > 0) {
                 do {
-                    s32 row = func_80022DBC((u16)i);
+                    s32 row = getSaveSlotIndex((u16)i);
                     s32 key = *(s32 *)(((u16)row * 3 << 3) + (u32)gSaveSlotInfo);
                     s32 index = func_8002B9CC(key);
                     *(s16 *)(gSharedItemId + (u16)i * 2) = **(u16 **)(D_800C3CF8 + (index * 3 << 2));

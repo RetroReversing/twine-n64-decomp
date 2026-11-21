@@ -1,6 +1,6 @@
 extern void func_80065D90(void *arg0);
 extern void *func_801183F4(void *, s32);
-extern s32 func_80022DBC(s32, s32);
+extern s32 getSaveSlotIndex(s32, s32);
 extern u8 gSaveSlotInfo[];
 extern u8 D_800BF68B[];
 extern u8 D_800BF688[];
@@ -12,7 +12,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
     u8 *self = (u8 *)arg0;
     u8 *state = *(u8 **)(self + 0x6C);
     s32 entry = *(s32 *)(self + 0x20);
-    s32 slot = func_80022DBC(((s32)*(volatile u8 *)(state + 0x182) << 24) >> 24, arg1);
+    s32 slot = getSaveSlotIndex(((s32)*(volatile u8 *)(state + 0x182) << 24) >> 24, arg1);
     s32 rate = *(s32 *)(gSaveSlotInfo + (slot & 0xFFFF) * 0x18);
     u8 flags = D_800BF68B[(s16)rate * 12];
     f32 speed = *(f32 *)(self + 0x74);

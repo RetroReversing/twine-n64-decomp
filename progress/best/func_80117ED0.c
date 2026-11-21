@@ -3,7 +3,7 @@ extern u8 D_800BF688[];
 extern u8 D_8011EE68[];
 extern u8 D_8011EE70[];
 f32 func_800461D4(void *, f32 *);
-s32 func_80022DBC(s32);
+s32 getSaveSlotIndex(s32);
 s32 func_80002BD0(void *, s32);
 f32 approximateAtan2(f32, f32);
 f32 sinAngle(f32);
@@ -21,7 +21,7 @@ f32 func_80117ED0(u8 *arg0, f32 *arg1, f32 *arg2) {
     if (initial_dist < arg2[0]) {
         arg2[0] = initial_dist;
     }
-    x = func_80022DBC((u16)(s8)s1[0x182]) & 0xFFFF;
+    x = getSaveSlotIndex((u16)(s8)s1[0x182]) & 0xFFFF;
     k = *(u32 *)(gSaveSlotInfo + x * 24);
     t16 = *(u16 *)(D_800BF688 + k * 12);
     sel = (t16 >> 2) & 7;

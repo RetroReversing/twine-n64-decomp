@@ -17,7 +17,7 @@ s32 spawnTrackMarker(s32);                         /* extern */
 M2C_UNK freeMenuItemRecord(s32);                         /* extern */
 M2C_UNK func_80022A30(u8, M2C_UNK, M2C_UNK, M2C_UNK, s32); /* extern */
 M2C_UNK func_80022AD8(u8);                          /* extern */
-s32 func_80022DBC(s32);                             /* extern */
+s32 getSaveSlotIndex(s32);                             /* extern */
 void *func_80023BD4();                              /* extern */
 M2C_UNK formatTextEntry(void *, M2C_UNK *);      /* extern */
 void *findEntryById(M2C_UNK *, M2C_UNK);            /* extern */
@@ -136,7 +136,7 @@ void func_8002323C(void) {
         if (gSaveTotalSlots > 0) {
             do {
                 var_s0_3 = (u16)var_s4;
-                temp_s1 = func_80022DBC(var_s0_3);
+                temp_s1 = getSaveSlotIndex(var_s0_3);
                 temp_s0 = gBonusObjects[var_s0_3];
                 if (temp_s0 != NULL) {
                     temp_s0_2 = M2C_FIELD(temp_s0, void **, 0x6C);
@@ -190,7 +190,7 @@ void func_8002323C(void) {
             func_8002A7CC(&D_800E0EF0, &D_800E0FC0, 0, 1);
             if (gSaveTotalSlots > 0) {
                 do {
-                    temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
+                    temp_s1 = getSaveSlotIndex(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5) == 0) {
                         temp_v0_10 = spawnTrackMarker(sMenuListKind);
@@ -240,7 +240,7 @@ void func_8002323C(void) {
             func_8002A7CC(&D_800E0EF0, (s32 *)((u8 *)&D_800E0FC0 + temp_s0_6), 1, 1);
             if (gSaveTotalSlots > 0) {
                 do {
-                    temp_s1 = func_80022DBC(var_s4 & 0xFFFF) & 0xFFFF;
+                    temp_s1 = getSaveSlotIndex(var_s4 & 0xFFFF) & 0xFFFF;
                     temp_s5_2 = temp_s1 * 0x18;
                     if (*((u8 *)&D_801001A1 + temp_s5_2) == 1) {
                             temp_v0_10 = spawnTrackMarker(sMenuListKind);
@@ -277,7 +277,7 @@ success5:
             if (temp_v0_2 < gSaveTotalSlots) {
                 do {
                     var_s0_4 = (u16)var_s4;
-                    temp_s1 = func_80022DBC(var_s0_4);
+                    temp_s1 = getSaveSlotIndex(var_s0_4);
                     temp_v0_10 = spawnTrackMarker(sMenuListKind);
                     {
                         u8 channel = sMenuListKind;

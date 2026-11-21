@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern s32 gSaveSlotCount;
 
-s32 func_80022DBC(s32 arg0) {
+s32 getSaveSlotIndex(s32 arg0) {
     s32 temp_v1;
 
     temp_v1 = arg0 & 0xFFFF;

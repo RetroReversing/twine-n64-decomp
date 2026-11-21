@@ -24,7 +24,7 @@ M2C_UNK func_8000C91C(M2C_UNK);                     /* extern */
 void *func_80015F0C();                              /* extern */
 M2C_UNK func_80016314(void *, void *);              /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
-s32 func_80022DBC(s32);                             /* extern */
+s32 getSaveSlotIndex(s32);                             /* extern */
 M2C_UNK initObjectFromBankEntry(void *, s32, M2C_UNK);        /* extern */
 M2C_UNK func_800452E0(void *, void *, M2C_UNK *);   /* extern */
 M2C_UNK func_800455CC(f32 *, void *, void *, void *); /* extern */
@@ -188,7 +188,7 @@ void func_8006D2E4(void *arg0) {
                     if (temp_v0_3 != NULL) {
                         temp_a0 = M2C_FIELD(temp_v0_3, s8 *, 0x182);
                         if (temp_a0 >= gSaveSlotCount) {
-                            temp_v0_4 = ((u16) *(&D_800BF688 + (*(&gSaveSlotInfo + ((func_80022DBC(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)) * 0xC)) >> 5) & 7;
+                            temp_v0_4 = ((u16) *(&D_800BF688 + (*(&gSaveSlotInfo + ((getSaveSlotIndex(temp_a0 & 0xFFFF) & 0xFFFF) * 0x18)) * 0xC)) >> 5) & 7;
                             switch (temp_v0_4) {    /* switch 1 */
                             default:                /* switch 1 */
                                 var_s0 = 1;
