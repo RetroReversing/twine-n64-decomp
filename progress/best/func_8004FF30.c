@@ -156,18 +156,18 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
     s32 var_v1;
     long var_v1_10;
     s32 var_v1_11;
-    s32 var_v1_12;
+    unsigned int var_v1_12;
     s32 var_v1_2;
     int var_v1_3;
     s32 var_v1_4;
     s32 var_v1_5;
-    register s32 var_v1_6;
+    s32 var_v1_6;
     s32 var_v1_7;
     unsigned long var_v1_8;
     s32 var_v1_9;
     register u16 *var_fp;
     u8 *var_fp_2;
-    u16 temp_a0;
+    s32 temp_a0;
     s32 temp_v1_9;
     u32 temp_s0;
     u32 temp_s1_3;
@@ -234,7 +234,7 @@ s8 func_8004FF30(void *arg0, void *arg1, void *arg2, f32 arg3, s32 arg4, s32 *ar
                                         var_fp = (*(u16 **)((char *)(temp_v1) + 0x3C));
                                         if (temp_s0 < (u16) (*(u16 *)((char *)(temp_v1) + 0x40))) {
                                             sp196 = 0;
-                                            var_s5 = (void *) ((2) + (s32) var_fp);
+                                            var_s5 = (void *) ((2) + var_fp);
                                             do {
                                                 temp_v1_3 = (*(s32 *)((char *)(temp_v1) + 0x34));
                                                 buildPlaneFromPoints(sp1B4, temp_v1_3 + (*var_fp * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s5) + -2)) * 0xC), temp_v1_3 + ((*(u16 *)((char *)(var_s5) + 0)) * 0xC));
@@ -353,8 +353,8 @@ block_37:
                                                     (*(f32 *)((char *)(sp17C) + 4)) = (f32) (scratch.vsp18[1] - (temp_fs0_3 * scratch.vsp90.values[1]));
                                                     (*(f32 *)((char *)(sp17C) + 8)) = (f32) (scratch.vsp18[2] - (temp_fs0_3 * scratch.vsp90.values[2]));
                                                     temp_a3_2 = (*(s32 *)((char *)(temp_v1) + 0x34));
-                                                    temp_s2_2 = temp_a3_2 + (*var_fp_2 * 0xC);
                                                     temp_s1_2 = temp_a3_2 + ((*(u8 *)((char *)(var_s5_2) + 0)) * 0xC);
+                                                    temp_s2_2 = temp_a3_2 + (*var_fp_2 * 0xC);
                                                     temp_s0_3 = temp_a3_2 + ((*(u8 *)((char *)(var_s5_2) + -1)) * 0xC);
                                                     if (triangleContainsPoint(sp17C, (s32)temp_s2_2, temp_s0_3, temp_s1_2, sp1B4) != 0) {
                                                         var_fa0_3 = arg3 - temp_fs0_3;
@@ -374,8 +374,8 @@ block_37:
                                                     segmentClosestPoint(sp1C4, temp_s0_3, temp_s1_2, &scratch.vsp18[0]);
                                                     temp_fs1_2 = func_80047AB0(sp1C4, &scratch.vsp18[0]);
                                                     segmentClosestPoint(sp1CC, temp_s1_2, temp_s2_2, &scratch.vsp18[0]);
-                                                    temp_fv0_5 = func_80047AB0(sp1CC, &scratch.vsp18[0]);
                                                     var_fa0_4 = temp_fs0_4;
+                                                    temp_fv0_5 = func_80047AB0(sp1CC, &scratch.vsp18[0]);
                                                     var_a0_2 = scratch.vspB0.values[2];
                                                     *(SurfaceVec3 *) scratch.vspA0.values = *(SurfaceVec3 *) scratch.vspB0.values;
                                                     var_v0_5 = 1;
@@ -405,14 +405,14 @@ block_37:
                                                             var_fa0_4 = temp_fv0_5;
                                                         }
                                                     }
-                                                    if (var_fa0_4 < temp_fs4) {
+                                                    if (temp_fs4 > var_fa0_4) {
                                                         var_fa0_3 = (f32) (D_800D3E78 - (f64) (func_80082908(var_fa0_4) / arg3));
                                                         temp_ft0_4 = var_fa0_3 * (scratch.vsp18[0] - scratch.vspA0.values[0]);
                                                         temp_fv0_6 = var_fa0_3 * (scratch.vsp18[2] - scratch.vspA0.values[2]);
                                                         temp_fv1_2 = var_fa0_3 * (scratch.vsp18[1] - scratch.vspA0.values[1]);
                                                         scratch.vspF0.values[0] = temp_ft0_4;
-                                                        scratch.vspF0.values[2] = temp_fv0_6;
                                                         scratch.vsp18[0] += temp_ft0_4;
+                                                        scratch.vspF0.values[2] = temp_fv0_6;
                                                         scratch.vspF0.values[1] = temp_fv1_2;
                                                         scratch.vsp18[1] += temp_fv1_2;
                                                         scratch.vsp18[2] += temp_fv0_6;
@@ -477,8 +477,8 @@ block_65:
                                             var_s5_3 = 0;
                                             do {
                                                 temp_v1_6 = var_s5_3 & 0xFFFF;
-                                                temp_a0 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_v1_6 * 2)));
                                                 temp_s1_4 = (*(s32 *)((char *)(temp_s4) + 0x3C)) + (temp_v1_6 * 6);
+                                                temp_a0 = (*(u16 *)((char *)((*(void **)((char *)(temp_s4) + 0x38))) + (temp_v1_6 * 2)));
                                                 if ((sp1DE & temp_a0) && (sp1E6 & temp_a0)) {
                                                     temp_v1_7 = (*(s32 *)((char *)(temp_s4) + 0x34));
                                                     buildPlaneFromPoints(sp1EC, temp_v1_7 + ((*(u16 *)((char *)(temp_s1_4) + 0)) * 0xC), temp_v1_7 + ((*(u16 *)((char *)(temp_s1_4) + 2)) * 0xC), temp_v1_7 + ((*(u16 *)((char *)(temp_s1_4) + 4)) * 0xC));
@@ -537,7 +537,7 @@ block_65:
                                                             var_fa0_6 = temp_fs1_3;
                                                         } else {
                                                             var_v0_9 = 1;
-                                                            if (!(var_fa0_6 > temp_fv0_8)) {
+                                                            if (!(temp_fv0_8 < var_fa0_6)) {
                                                                 var_v0_9 = 0;
                                                             }
                                                             var_v1_9 = 1;
@@ -630,15 +630,15 @@ block_106:
                                                         temp_fs0_8 = func_80047AB0(sp1F4, sp1AC);
                                                         segmentClosestPoint(&scratch.vsp148.values[0], temp_s1_7, temp_s2_4, sp1AC);
                                                         temp_fv0_11 = func_80047AB0(&scratch.vsp148.values[0], sp1AC);
-                                                        var_fa0_8 = temp_fs0_8;
                                                         *(SurfaceVec3 *) scratch.chosenPoint.values = *(SurfaceVec3 *) scratch.vsp128.values;
+                                                        var_fa0_8 = temp_fs0_8;
 
                                                         var_v0_11 = 1;
                                                         if (!(temp_fs1_4 < var_fa0_8)) {
                                                             var_v0_11 = 0;
                                                         }
                                                         var_v1_11 = 1;
-                                                        if (!(temp_fs1_4 < temp_fv0_11)) {
+                                                        if (!(temp_fv0_11 > temp_fs1_4)) {
                                                             var_v1_11 = 0;
                                                         }
                                                         if (var_v0_11 & var_v1_11) {

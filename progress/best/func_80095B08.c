@@ -6,7 +6,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3) {
     s32 temp_a0;
     s32 temp_a2;
     s32 temp_t0_2;
-    u32 var_t0;
+    
     s32 temp_a3;
     s32 var_a3;
     u32 temp_t0;
@@ -56,7 +56,7 @@ void func_80095B08(u8 arg0, u8 arg1, u8 arg2, u16 arg3) {
         *(u8 *)(index + var_v0) = upper & 0x7F;
         temp_a2 = arg2 & 0xFF;
         var_a3 = arg3 & 0x7F;
-        var_t0 = arg0 | 1;
+        index = arg0 | 1;
         if (temp_a2 != 0xFF) {
 u32 __repair_branch_groupBase_2;
 
@@ -80,7 +80,7 @@ u32 __repair_branch_groupBase_2;
             var_v0 = rowOffset + (u32)D_800F2720;
         }
         *(u8 *)((arg0 & 0xFE) + var_v0) = (index >> 7) & 0x7F;
-        var_t0 = arg0 | 1;
+        index = arg0 | 1;
         temp_a2 = arg2 & 0xFF;
         var_a3 = arg3 & 0x7F;
         if (temp_a2 != 0xFF) {
@@ -93,7 +93,7 @@ block_19:
             var_v0 = rowOffset + (u32)D_800F2720;
         }
 block_20:
-        *(u8 *)(var_v0 + (var_t0 & 0xFF)) = var_a3;
+        *(u8 *)(var_v0 + (index & 0xFF)) = var_a3;
         return;
     }
     temp_a2 = (u32)arg2 & 0xFF;

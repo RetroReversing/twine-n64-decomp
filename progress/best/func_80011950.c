@@ -131,7 +131,7 @@ if (0) goto __repair_rows;
                             goto block_30;
                         }
                     } else {
-                        temp_v1 = var_s1 + &D_800E099E;
+                        temp_v1 = (void *)(var_s1); temp_v1 = (void *)((char *)temp_v1 + (s32)(&D_800E099E));
                         temp_v0_3 = *temp_v1 + 1;
                         *temp_v1 = temp_v0_3;
                         if ((u32) (temp_v0_3 & 0xFFFF) >= 0x258U) {
