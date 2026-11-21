@@ -209,7 +209,7 @@ void actorDrawLit(u8 *arg0, void *arg1, s32 arg2, s8 arg3)
               var_a3 = sp23;
               var_v0 = sp25;
               D_80113022 = var_v1;
-              func_8000C34C(arg0, var_s4, arg1, var_a3, (u32) sp27, inline_fn2(var_v0));
+              func_8000C34C(arg0, var_s4, arg1, var_a3, (u32) sp24, inline_fn2(var_v0));
             }
           }
         }

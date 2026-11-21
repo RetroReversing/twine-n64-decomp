@@ -107,8 +107,8 @@ void func_80041F68(void *arg0)
     do
     {
       *((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4)) = (s32) ((*((s32 *) (((char *) ((var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10))))) + 4))) * 2);
-      temp_a0_2 = (var_s1 * 8) + (*((u8 **) (((char *) arg0) + 0x10)));
-      *((void **) (((char *) temp_a0_2) + 4)) = (void *) ((*((u32 *) (((char *) temp_a0_2) + 4))) + ((u8 *) var_s5));
+      temp_a0_2 = (void *) ((var_s1 * 8) + *((u32 *) (((char *) arg0) + 0x10)));
+      *((void **) (((char *) temp_a0_2) + 4)) = (void *) ((*((u32 *) (((char *) temp_a0_2) + 4))) + ((u32) var_s5));
       var_s1 += 1;
     }
     while (var_s1 < ((u32) (*((u32 *) (((char *) arg0) + 0x14)))));
@@ -119,8 +119,8 @@ void func_80041F68(void *arg0)
     var_a0_2 = 0;
     do
     {
-      temp_v0_3 = var_a0_2 + (*((u8 **) (((char *) arg0) + 0x18)));
-      *((void **) (((char *) temp_v0_3) + 8)) = (void *) ((*((u32 *) (((char *) temp_v0_3) + 8))) + ((u8 *) var_s7));
+      temp_v0_3 = (void *) (var_a0_2 + *((u32 *) (((char *) arg0) + 0x18)));
+      *((void **) (((char *) temp_v0_3) + 8)) = (void *) ((*((u32 *) (((char *) temp_v0_3) + 8))) + ((u32) var_s7));
       var_s1 += 1;
       var_a0_2 += 0xC;
     }
@@ -153,7 +153,7 @@ void func_80041F68(void *arg0)
             *var_a0_4 = (temp_v0_4 >> 4) | ((temp_v0_4 & 0xF) * 0x10);
             ++var_a0_4;
           }
-          while (((u32) var_a0_4) < ((u32) (temp_v1_4 + temp_a3)));
+          while (((u32) var_a0_4) < ((u32) (temp_v1_4 + (u32) temp_a3)));
         }
       }
       var_s1_4 += 1;

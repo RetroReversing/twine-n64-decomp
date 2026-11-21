@@ -96,10 +96,13 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
             }
             else
             {
-              if ((var_a2 != 0) && inline_fn234(var_a3, arg2 / 2))
+              if (var_a2 != 0)
               {
+                if (var_a3 < arg2 / 2)
+                  goto copy_next;
                 var_t1 = 1;
               }
+              copy_next:
               var_s0 += 1;
               block_14:
               *var_t0 = (s8) var_v1;
@@ -163,7 +166,9 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
         *__repair_phase_storage.pointer = temp_v0_3;
       }
       goto advance;
-      check:
+      while (var_s1 != temp_a1)
+      {
+        ++var_a0_2;
       if (temp_v1 | inline_fn234(var_a0_2, arg3))
       {
         goto emit;
@@ -181,14 +186,6 @@ void func_80074820(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5)
         ++var_s1;
         goto scan_byte;
       }
-      if (var_s1 != temp_a1)
-      {
-        do
-        {
-          ++var_a0_2;
-        }
-        while (0);
-        goto check;
       }
       advance:
       var_s1 += (*var_s1) != 0;

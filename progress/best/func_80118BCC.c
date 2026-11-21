@@ -132,7 +132,7 @@ void func_80118BCC(void *arg0)
   temp_s5 = *((s32 *) (((char *) arg0) + 0x20));
   temp_v1 = *((s32 *) (((u8 *) (&gSaveSlotInfo)) + ((getSaveSlotIndex((u16) (((s32) ((*((volatile u8 *) (((char *) temp_s2) + 0x182))) << 24)) >> 24)) & 0xFFFF) * 0x18)));
   temp_fv1 = *((f32 *) (((char *) arg0) + 0x74));
-  temp_v1_2 = ((s16) temp_v1) * 0xC;
+  temp_v1_2 = ((s32)((u32)temp_v1 << 16) >> 16) * 0xC;
   temp_s4 = *((&D_800BF68B) + temp_v1_2);
   temp_v0 = temp_s4 & 0x10;
   if (temp_fv1 > 0.0f)
@@ -673,16 +673,8 @@ void func_80118BCC(void *arg0)
           var_ft0 += D_8011EF78;
         }
         temp_fv1_5 = ((f32) var_ft0) * (*((f32 *) (((char *) (((u8 *) (&coefficients)) + (((*((u16 *) ((&D_800BF688) + (((s16) temp_v1) * 0xC)))) >> 3) & 0x1C))) + 0)));
-        if (temp_fv1_5 >= 2.1474836e9f)
-        {
-          var_s0_3 = inline_fn2(temp_fv1_5 - 2.1474836e9f) | 0x80000000;
-          var_s3_2 = 0;
-        }
-        else
-        {
-          var_s0_3 = inline_fn2(temp_fv1_5);
-          var_s3_2 = 0;
-        }
+        var_s0_3 = (u32) temp_fv1_5;
+        var_s3_2 = 0;
         if (randomIntBelow(0x64) < var_s0_3)
         {
           var_s3_2 = inline_fn23(func_8007A9CC(arg0, ((s32) (*((void **) (((char *) temp_s2) + 0xC0)))) + 0x24, &sp38, 170.6666717529296875f)) != 0;
