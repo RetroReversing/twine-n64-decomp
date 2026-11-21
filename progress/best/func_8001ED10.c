@@ -14,14 +14,14 @@ extern s16 D_800BD680[];
 extern ItemEnt D_800C3CF8[];
 extern SlotInfo D_8010019C[];
 extern s8 D_801002A3;
-extern u8 D_801002A4;
-extern s8 D_801002AC;
-extern s8 D_801002AD;
-extern s32 D_801002B4;
-extern s32 D_801002C4;
-extern s32 D_801002C8;
-extern s32 sRaceTimer;
-extern s32 D_801002D0;
+extern struct { u8 a4; u8 p0[7]; s8 ac; s8 ad; u8 p1[6]; s32 b4; u8 p2[12]; s32 c4; s32 c8; s32 cc; s32 d0; } D_801002A4;
+#define D_801002AC D_801002A4.ac
+#define D_801002AD D_801002A4.ad
+#define D_801002B4 D_801002A4.b4
+#define D_801002C4 D_801002A4.c4
+#define D_801002C8 D_801002A4.c8
+#define sRaceTimer D_801002A4.cc
+#define D_801002D0 D_801002A4.d0
 extern s8 D_80102EB9;
 extern s32 D_80102ED8;
 extern s8 D_80102EDD;
@@ -80,7 +80,7 @@ void func_8001ED10(void) {
                     } while ((i & 0xFFFF) < D_801002B4);
                 }
                 D_800BD680[i & 0xFFFF] = -1;
-                b = D_801002A4;
+                b = D_801002A4.a4;
             } else {
                 b = D_80102EE0;
                 D_80102EF0 = 1;

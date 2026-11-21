@@ -10,7 +10,7 @@ u32 func_8008EF18(u8 index) {
     return *(u32 *)((u8 *)&D_80107EDC + offset) >> 31;
 }
 
-void func_8002D850(void);
+void resetDefaultGameSettings(void);
 void func_80045CA0(void);
 extern s8 D_800CEEB0, gMenuOutcome;
 extern u64 D_80102CC8;
@@ -25,7 +25,7 @@ void func_80087CDC(void) {
     gDemoFrame = 0;
     gDemoFadeTimer = -1;
     func_80045CA0();
-    func_8002D850();
+    resetDefaultGameSettings();
     gMenuOutcome = 2;
 }
 

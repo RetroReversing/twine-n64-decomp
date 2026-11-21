@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 void *spawnTrackMarker();
 s32 copyStateTablesToRam();
-s32 func_8002D850();
+s32 resetDefaultGameSettings();
 s32 func_80045CA0();
 s32 func_8007560C();
 s32 lookupDataEntry();
@@ -56,7 +56,7 @@ void initDemoPlayback(void) {
     ((__repair_record_D_801005AC*)D_801005AC)->field_1E = 0x21;
     ((__repair_record_D_801005AC*)D_801005AC)->field_10 = 0xFFFF00FF;
     do { copyStateTablesToRam(); } while (0);
-    func_8002D850();
+    resetDefaultGameSettings();
     func_8007560C();
     gMenuOutcome = 0;
 }

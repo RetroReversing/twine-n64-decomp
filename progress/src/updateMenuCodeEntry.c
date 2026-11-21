@@ -4,56 +4,57 @@ s32 func_8002778C();
 s32 func_800278AC(s32, s32, u16);
 s32 func_80027C60(s32);
 s32 menuItemIsActive(s32);
-extern u8 D_800B60A6;
-extern s32 D_800B60A8;
+extern u8 sMenuCodeStep;
+extern s32 sMenuCodeSequence;
 extern u8 D_800BD854;
 extern u8 D_800BD855;
 extern s32 D_80102EC0;
 extern u8 *sActiveMenu;
 extern u8 *gMenuItems;
 
+/* Advances the menu code entry through its four required item IDs; on completion, shows the reward text and resets the menu. */
 void updateMenuCodeEntry(void) {
-    u32 a, b, c, d;
-    s32 id;
+    u32 itemState20, itemState21, itemState1E, itemState1F;
+    s32 itemId;
 
-    a = func_80027C60(0x20);
-    b = func_80027C60(0x21);
-    c = func_80027C60(0x1E);
-    d = func_80027C60(0x1F);
+    itemState20 = func_80027C60(0x20);
+    itemState21 = func_80027C60(0x21);
+    itemState1E = func_80027C60(0x1E);
+    itemState1F = func_80027C60(0x1F);
     if (!(menuItemIsActive(0x2A) & 0xFF)) {
-        D_800B60A6 = 0;
+        sMenuCodeStep = 0;
     }
-    switch (*(&D_800B60A8 + D_800B60A6)) {
+    switch (*(&sMenuCodeSequence + sMenuCodeStep)) {
     case 32:
-        if (((b & 0xFF) != 0) | ((d & 0xFF) != 0) || (c & 0xFF)) goto fail;
-        id = 0x20;
+        if (((itemState21 & 0xFF) != 0) | ((itemState1F & 0xFF) != 0) || (itemState1E & 0xFF)) goto fail;
+        itemId = 0x20;
         goto ok;
     case 33:
-        if (((a & 0xFF) != 0) | ((d & 0xFF) != 0) || (c & 0xFF)) goto fail;
-        id = 0x21;
+        if (((itemState20 & 0xFF) != 0) | ((itemState1F & 0xFF) != 0) || (itemState1E & 0xFF)) goto fail;
+        itemId = 0x21;
         goto ok;
     case 30:
-        if (((b & 0xFF) != 0) | ((d & 0xFF) != 0) || (a & 0xFF)) goto fail;
-        id = 0x1E;
+        if (((itemState21 & 0xFF) != 0) | ((itemState1F & 0xFF) != 0) || (itemState20 & 0xFF)) goto fail;
+        itemId = 0x1E;
         goto ok;
     case 31:
-        if (((b & 0xFF) != 0) | ((a & 0xFF) != 0) || (c & 0xFF)) goto fail;
-        id = 0x1F;
+        if (((itemState21 & 0xFF) != 0) | ((itemState20 & 0xFF) != 0) || (itemState1E & 0xFF)) goto fail;
+        itemId = 0x1F;
         goto ok;
     default:
         goto done;
     }
 fail:
-    D_800B60A6 = 0;
+    sMenuCodeStep = 0;
     requestSound(0xED);
     goto done;
 ok:
-    if (func_80027C60(id) & 0xFF) {
+    if (func_80027C60(itemId) & 0xFF) {
         requestSound(0xED);
-        D_800B60A6 += 1;
+        sMenuCodeStep += 1;
     }
 done:
-    if (D_800B60A6 == 5) {
+    if (sMenuCodeStep == 5) {
         requestSound(0xE8);
         setMenuTextRequest(&D_800BD854);
         *(u16 *)(sActiveMenu + 0x7A) = D_800BD855;

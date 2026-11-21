@@ -109,9 +109,9 @@ s32 func_80096A70(void *arg0, void *arg1) {
                     break;
                 }
             }
-            var_s2 = (u8 *)arg1 + ((var_s4 + 1) << 2);
-            ++var_s4;
-        } while (var_s4 < (u8) (*(u8 *)((char *)(arg1) + 0x10)));
+            if (++var_s4 >= *(u8 *)((char *)arg1 + 0x10)) break;
+            var_s2 = (u8 *)arg1 + (var_s4 << 2);
+        } while (1);
     }
     return var_s0 & 0xFFFF;
 }
