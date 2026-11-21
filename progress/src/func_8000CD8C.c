@@ -58,7 +58,7 @@ void func_8000CD8C(void) {
         case 3: case 7: case 24: words = 12; break;
         }
         if (id >= 0) {
-            *out++ = id;
+            D_80100B60[count] = id;
             count++;
         }
         cursor += words;

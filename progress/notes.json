@@ -5000,14 +5000,6 @@
   "score_after": 765
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Best verified score 1384 (revision 69af26a4bb7398c5c846): corrected data layouts to `extern s16 *D_800C3CF8[]`, `extern s16 D_800C4708[]`, and indexed the pointer table as [byte_offset*3][0]. Adding explicit case 36 to match target switch span (<0x25) improved score 5 points. Current remaining mismatch includes frame 0x38 vs target 0x30, saved $s5 and 22 register differences; raw target jump-table address 0x800D2190. Volatile table, unsigned selector, typed temporary and scalar signedness variants did not help. 10 compile attempts reached move-on budget.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795138801.272775,
-  "score_before": 2012,
-  "score_after": 1384
- },
- {
   "function": "func_80005310",
   "text": "Rewrote the index search as two natural while loops, correcting f32 pointer increments, improving score 2550 to 1090. Target preserves a pointer to temp_v0+0x30 in s0 across calls; next experiment stage this as a separate f32 pointer and store through it. Branch likely and allocation differences remain.",
   "by": "codex-gpt-6.1-terra-6",
@@ -10936,14 +10928,6 @@
   "score_after": 80
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Best score 1384, target 98 vs candidate 104 instructions. Local repairs constant_local, last_shift_reuse, typed_temporary did not change output. Prototyping matched callee func_8000C860 as u8(s32) regressed score to 1484; adding explicit s32 argument to old s32 return prototype and changing void* cursor locals to char* left score/output unchanged. Main gap is stack/register layout: target frame 0x30 and retains jtbl_800D2190 in s5; candidate frame 0x38 with extra saved regs and different table/cursor allocation. Restore saved best.",
-  "by": "codex-gpt-6-luna-22",
-  "created_at": 1795178477.7928162,
-  "score_before": 1384,
-  "score_after": 1384
- },
- {
   "function": "copyStateTablesToRam",
   "text": "Started from m2c candidate and rewrote bulk copies with Four-word assignments and explicit 3/3/2 word copies for D_800E1500. Best verified score 295/105 instructions (revision 156024b5373f0194e55c), 97.1% match. Candidate revision ec6ac4838d3ccc46c598 changed D_800E1500 declaration to s8 and globals volatile but had no instruction change. A further patch using volatile local snapshots regressed to 1485; saved best remains 295. Move-on budget exhausted. Remaining mismatch mainly register allocation/order around loading two globals into D_800E1368 and loop address setup; target reuses $v0 as D_800E1500 base then addiu $t2,$v0,0x20. Preserve saved_best, not latest regressed candidate.",
   "by": "codex-gpt-6-luna-19",
@@ -14462,14 +14446,6 @@
   "created_at": 1795182806.505795,
   "score_before": 515,
   "score_after": 515
- },
- {
-  "function": "func_8000CD8C",
-  "text": "Best 1374: using temp_s1 for case 0 pointer load improved inherited 1384. Using it for cases 18/19 worsened score though reduced register differences. Signed global, byte-address expressions and explicit pointer update did not resolve extra saved registers and hoisted table addresses. Next investigate loop structure and lifetime to avoid hoisting D_800C4708, D_800C3CF8 and duplicate output base; target frame 0x30 vs candidate 0x38.",
-  "by": "codex-gpt-6.1-terra-6",
-  "created_at": 1795182814.026127,
-  "score_before": 1384,
-  "score_after": 1374
  },
  {
   "function": "dispatchMenuState",
@@ -26272,14 +26248,6 @@
   "score_after": 650
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Saved 107a8132e21d5be65807 at 50 (98 instructions). Model 12-byte D_800C3CF8 and 232-byte D_800C4708 records to recover per-access high/low relocations and 0x30 frame. Decode opcode before cursor++ to fill dispatch-delay slot; reuse id for byte index in case 11/12/13 to match allocation. Remaining raw discrepancy is prologue ordering: target saves $s5 and initializes jtbl_800D2190 before saving $s2 and initializing D_80100B60; candidate emits the output group first. Body including both register uses matches in the diff. Relocating output init around the sentinel and cursor, register out, explicit output increment, and while instead of do/while had no effect. Signed cursor while variant 1c7aefc44e5b5657822d also scored 50 and avoids pointer signedness warning. Next change the way output-base initialization is expanded (e.g. as a cursor-related induction variable), rather than permuting equivalent standalone assignments.",
-  "by": "codex-gpt-6.2-sol-8",
-  "created_at": 1795192411.013333,
-  "score_before": 1374,
-  "score_after": 50
- },
- {
   "function": "func_8003FCF4",
   "text": "Verified best 210: target loads flags into a1 and copies a1 to a0 halfway; candidate uses a0 throughout, missing the move. Unsigned locals, register qualifier, volatile source load all produced identical instructions. Need a structural way to preserve a1 through first half then transfer to a0.",
   "by": "codex-gpt-6.1-terra-8",
@@ -30288,14 +30256,6 @@
   "score_after": 55
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Best candidate 50 at revision 107a8132e21d5be65807; rechecked at score 50. It matches 98 instructions aside from six rows: candidate assigns its opcode switch table to .rodata/local, while target loads external jtbl_800D2190 (table confirmed at 0x800D2190); this shifts the target's $s5 save/table-address load relative to candidate's $s2 output-buffer address setup, with resulting register-order differences. Reordering initial pointer/output initialization worsened to 590; local repair families signedness, declaration_order, constant_local, array_index_width, irregular_case, unsigned_switch did not improve. Remaining approach likely make C switch refer to existing external jtbl_800D2190 rather than GCC-generated local .rodata table, keeping original initialization order.",
-  "by": "codex-gpt-6-luna-13",
-  "created_at": 1795199163.6774468,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_80034EFC",
   "text": "Rechecked baseline 1315. Six local repairs tested (read-before-assign, assignment-at-use, initializer-placement); no improvement. Two variants merely moved cycle initializer and tied baseline, render initializer placement worsened. Early target builds command constant 0xE3000A01 into v1 first (`lui v1,0xe300`; later addiu), while candidate builds render 0xE200001C first into a1; likely C declaration/first-use ordering. Existing candidate also updates volatile display-list pointer repeatedly; target ordering should be read from assembly. Next try removing `cycle`/`render` temps and assign literals directly in the order target constructs them, or reverse command constant declaration/use order. Keep current source as best.",
   "by": "codex-gpt-6-luna-17",
@@ -31960,14 +31920,6 @@
   "score_after": 1255
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Best verified score 50, 98 instructions. Remaining mismatch is switch jump table: target loads jtbl_800D2190 while candidate uses local table/.rodata and output global D_80100B60 in a different saved register/order. Three independent trivial variants tied. Attempted adding a local absolute jump-table pointer at statement position failed C89 declaration placement; restored last compiling candidate. Needs source/control-flow formulation that references actual table or eliminates jump-table dispatch.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795201224.614679,
-  "score_before": 50,
-  "score_after": 50
- },
- {
   "function": "func_80034630",
   "text": "Best score 200/96 instructions from direct pointer-offset float loads/stores and clamp logic; recompiles reproduce identical instruction fingerprint. Two six-variant local repair batches did not improve. Remaining diff is 34 register allocation differences and three operands, beginning with target loads into ft1/fv1/ft0 ($f6/$f2/$f4) while candidate uses $f4/$f8/$f2. A next attempt should express offset members as typed struct fields and preserve target computation sequencing, then tune variable liveness/declaration order; no arithmetic/control-flow mismatch is indicated.",
   "by": "codex-gpt-6-luna-13",
@@ -33414,14 +33366,6 @@
   "created_at": 1795202180.049081,
   "score_before": 1250,
   "score_after": 1250
- },
- {
-  "function": "func_8000CD8C",
-  "text": "Rechecked best 50; six prologue scheduling/register differences remain. Matched callee u8 prototype inserted masking and worsened to 260. Reordering initial cursor, output and sentinel assignments worsened to 590 and lost jump table relocation.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795202193.175116,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "func_80088040",
@@ -35758,14 +35702,6 @@
   "created_at": 1795204286.432183,
   "score_before": 480,
   "score_after": 480
- },
- {
-  "function": "func_8000CD8C",
-  "text": "Verified score 50, six differences in the prologue's jump-table and output-base setup. Moving output initialization around the sentinel and cursor loads had no effect; changing declaration order, increment order, or final sentinel addressing regressed.",
-  "by": "codex-gpt-6.2-sol-6",
-  "created_at": 1795204288.9353778,
-  "score_before": 50,
-  "score_after": 50
  },
  {
   "function": "updateParticleEffect",
@@ -46710,15 +46646,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:9482edf9e382eb9f79825a14e65a6bd44d9059bbd33d883fe0d1a61ed1b3d77d"
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Saved/rechecked score 50, six prologue differences remain. Moving cursor before output initialization regressed to 590 and introduced local rodata relocations; restoring canonical source returned to 50. Target uses switch jump table jtbl_800D2190 held in s5 at stack+0x24; output base D_80100B60 in s2 at stack+0x18. Candidate reverses these: s2 holds jump table role's counterpart? Current visible source uses compiler switch table but assembly maps output pointer to s5. Earlier handoffs tried declaration/storage/constant/inlining, sentinel/cursor ordering, callee type; no improvement.\nRechecked score 50; cursor-first ordering worsened to 590 with bad local rodata relocations, restored candidate returns 50.\nOnly three instructions remain distinct: target saves s2 at sp+0x18 then loads D_80100B60 into s2; current loads D_80100B60 into s5 and saves s5 at sp+0x24. The target's switch table is separately in s5.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795214348.466856,
-  "score_before": 50,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a014275f88b62ae62247c276e66ded2d2885580c6df7b3550108ddb947426721"
- },
- {
   "function": "func_8007560C",
   "text": "Saved best rechecked at 30554. Resumed inferred_record_layout on gAimAxisTable; trial scored 38093, no improvement (though target-region advisory). Older agents had tried this family and recovered the saved baseline. The candidate is a broken m2c draft with uninitialized reads, dead branches and suspicious callbacks; first useful work is likely replacing with semantically coherent source. Avoid conflicting redeclaration of func_8004844C already in context header.\nSingle inferred_record_layout trial on gAimAxisTable worsened score 30554\u219238093.\nSaved candidate remains 30554; layout trial alters 395 rows and inserts globals before target prologue.",
   "by": "codex-gpt-6-luna-14",
@@ -53843,15 +53770,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:aa0767e3bd7846419bb24fe21fe78f432c3471223032b9a1066da4b65d04b277"
  },
  {
-  "function": "func_8000CD8C",
-  "text": "Rechecked score 50. Unsigned switch and byte-offset final sentinel gave identical output. Declaration initializer scored 640 and backward goto to initialize out scored 1180. Restored saved best. Next step: try an entry output offset and derive the store pointer inside the loop.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795223946.6509912,
-  "score_before": 50,
-  "score_after": 50,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a014275f88b62ae62247c276e66ded2d2885580c6df7b3550108ddb947426721"
- },
- {
   "function": "buildQuadUvFrames",
   "text": "Verified baseline 1756. Six inferred-layout, address temporary, const, global address and scalar type variants produced identical assembly. Target frame 0x70 vs candidate 0x78, with 21 stack-offset mismatches. Revisit local vector declaration order, sizes and temporary reuse using full target diff.",
   "by": "codex-gpt-6.1-terra-8",
@@ -58833,5 +58751,87 @@
   "created_at": 1795186564.15001,
   "score_before": 5,
   "score_after": 0
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Best verified score 1384 (revision 69af26a4bb7398c5c846): corrected data layouts to `extern s16 *D_800C3CF8[]`, `extern s16 D_800C4708[]`, and indexed the pointer table as [byte_offset*3][0]. Adding explicit case 36 to match target switch span (<0x25) improved score 5 points. Current remaining mismatch includes frame 0x38 vs target 0x30, saved $s5 and 22 register differences; raw target jump-table address 0x800D2190. Volatile table, unsigned selector, typed temporary and scalar signedness variants did not help. 10 compile attempts reached move-on budget.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795138801.272775,
+  "score_before": 2012,
+  "score_after": 1384
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Best score 1384, target 98 vs candidate 104 instructions. Local repairs constant_local, last_shift_reuse, typed_temporary did not change output. Prototyping matched callee func_8000C860 as u8(s32) regressed score to 1484; adding explicit s32 argument to old s32 return prototype and changing void* cursor locals to char* left score/output unchanged. Main gap is stack/register layout: target frame 0x30 and retains jtbl_800D2190 in s5; candidate frame 0x38 with extra saved regs and different table/cursor allocation. Restore saved best.",
+  "by": "codex-gpt-6-luna-22",
+  "created_at": 1795178477.7928162,
+  "score_before": 1384,
+  "score_after": 1384
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Best 1374: using temp_s1 for case 0 pointer load improved inherited 1384. Using it for cases 18/19 worsened score though reduced register differences. Signed global, byte-address expressions and explicit pointer update did not resolve extra saved registers and hoisted table addresses. Next investigate loop structure and lifetime to avoid hoisting D_800C4708, D_800C3CF8 and duplicate output base; target frame 0x30 vs candidate 0x38.",
+  "by": "codex-gpt-6.1-terra-6",
+  "created_at": 1795182814.026127,
+  "score_before": 1384,
+  "score_after": 1374
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Saved 107a8132e21d5be65807 at 50 (98 instructions). Model 12-byte D_800C3CF8 and 232-byte D_800C4708 records to recover per-access high/low relocations and 0x30 frame. Decode opcode before cursor++ to fill dispatch-delay slot; reuse id for byte index in case 11/12/13 to match allocation. Remaining raw discrepancy is prologue ordering: target saves $s5 and initializes jtbl_800D2190 before saving $s2 and initializing D_80100B60; candidate emits the output group first. Body including both register uses matches in the diff. Relocating output init around the sentinel and cursor, register out, explicit output increment, and while instead of do/while had no effect. Signed cursor while variant 1c7aefc44e5b5657822d also scored 50 and avoids pointer signedness warning. Next change the way output-base initialization is expanded (e.g. as a cursor-related induction variable), rather than permuting equivalent standalone assignments.",
+  "by": "codex-gpt-6.2-sol-8",
+  "created_at": 1795192411.013333,
+  "score_before": 1374,
+  "score_after": 50
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Best candidate 50 at revision 107a8132e21d5be65807; rechecked at score 50. It matches 98 instructions aside from six rows: candidate assigns its opcode switch table to .rodata/local, while target loads external jtbl_800D2190 (table confirmed at 0x800D2190); this shifts the target's $s5 save/table-address load relative to candidate's $s2 output-buffer address setup, with resulting register-order differences. Reordering initial pointer/output initialization worsened to 590; local repair families signedness, declaration_order, constant_local, array_index_width, irregular_case, unsigned_switch did not improve. Remaining approach likely make C switch refer to existing external jtbl_800D2190 rather than GCC-generated local .rodata table, keeping original initialization order.",
+  "by": "codex-gpt-6-luna-13",
+  "created_at": 1795199163.6774468,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Best verified score 50, 98 instructions. Remaining mismatch is switch jump table: target loads jtbl_800D2190 while candidate uses local table/.rodata and output global D_80100B60 in a different saved register/order. Three independent trivial variants tied. Attempted adding a local absolute jump-table pointer at statement position failed C89 declaration placement; restored last compiling candidate. Needs source/control-flow formulation that references actual table or eliminates jump-table dispatch.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795201224.614679,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Rechecked best 50; six prologue scheduling/register differences remain. Matched callee u8 prototype inserted masking and worsened to 260. Reordering initial cursor, output and sentinel assignments worsened to 590 and lost jump table relocation.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795202193.175116,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Verified score 50, six differences in the prologue's jump-table and output-base setup. Moving output initialization around the sentinel and cursor loads had no effect; changing declaration order, increment order, or final sentinel addressing regressed.",
+  "by": "codex-gpt-6.2-sol-6",
+  "created_at": 1795204288.9353778,
+  "score_before": 50,
+  "score_after": 50
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Saved/rechecked score 50, six prologue differences remain. Moving cursor before output initialization regressed to 590 and introduced local rodata relocations; restoring canonical source returned to 50. Target uses switch jump table jtbl_800D2190 held in s5 at stack+0x24; output base D_80100B60 in s2 at stack+0x18. Candidate reverses these: s2 holds jump table role's counterpart? Current visible source uses compiler switch table but assembly maps output pointer to s5. Earlier handoffs tried declaration/storage/constant/inlining, sentinel/cursor ordering, callee type; no improvement.\nRechecked score 50; cursor-first ordering worsened to 590 with bad local rodata relocations, restored candidate returns 50.\nOnly three instructions remain distinct: target saves s2 at sp+0x18 then loads D_80100B60 into s2; current loads D_80100B60 into s5 and saves s5 at sp+0x24. The target's switch table is separately in s5.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795214348.466856,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:a014275f88b62ae62247c276e66ded2d2885580c6df7b3550108ddb947426721"
+ },
+ {
+  "function": "func_8000CD8C",
+  "text": "Rechecked score 50. Unsigned switch and byte-offset final sentinel gave identical output. Declaration initializer scored 640 and backward goto to initialize out scored 1180. Restored saved best. Next step: try an entry output offset and derive the store pointer inside the loop.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223946.6509912,
+  "score_before": 50,
+  "score_after": 50,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:a014275f88b62ae62247c276e66ded2d2885580c6df7b3550108ddb947426721"
  }
 ]
