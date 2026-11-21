@@ -23,8 +23,9 @@ void relinkTrackMarker(MarkerEventActor *actor, s32 slot) {
     MarkerNode *node;
     s32 marker;
 
+    u16 selected = slot;
     requestSound(0x223);
-    switch ((u16)slot) {
+    switch (selected) {
     case 1: {
         MarkerEventState *state = actor->state;
         last = &gMarkerLastIndex1;
