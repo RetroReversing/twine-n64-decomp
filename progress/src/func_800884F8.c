@@ -3,7 +3,7 @@
 s32 func_800936B4();
 s32 osRecvMesg();
 s32 osSendMesg();
-extern u8 D_800CEEC0;
+extern u8 sDataBankEnabled;
 extern u8 D_800E2CC0[];
 extern char D_800E2CC1[];
 extern char D_800E2CC2[];
@@ -18,7 +18,7 @@ s32 func_800884F8(s32 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     u32 var_a1;
     s32 var_s0;
 
-    if (D_800CEEC0 != 0) {
+    if (sDataBankEnabled != 0) {
         for (var_a1 = 0, var_v1 = 0; var_a1 < 2U; ++var_a1, var_v1 += 0x1228) {
             if (*(D_800E2CC0 + var_v1) != 0 && *(s32 *)(D_800E2CE4 + var_v1) == arg0) {
                 var_s0 = var_a1;

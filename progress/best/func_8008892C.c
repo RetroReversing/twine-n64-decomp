@@ -2,7 +2,7 @@
 
 s32 osRecvMesg(s32 *, s32, s32);    /* extern */
 s32 osSendMesg(s32 *, s32, s32);    /* extern */
-extern u8 D_800CEEC0;
+extern u8 sDataBankEnabled;
 extern f64 D_800D66D8;
 extern f64 D_800D66E0;
 extern s32 D_800E2CC0;
@@ -24,7 +24,7 @@ f32 func_8008892C(s32 arg0, f32 *arg1) {
 
     if (arg0 != -1) {
         var_a0 = 0;
-        if (D_800CEEC0 != 0) {
+        if (sDataBankEnabled != 0) {
             var_v1 = 0;
             do {
                 if (*(u8 *)((u8 *)&D_800E2CC0 + var_v1) != 0) {

@@ -1,4 +1,4 @@
-extern u8 D_800CEEC0;
+extern u8 sDataBankEnabled;
 extern u8 D_800E2CC0[];
 extern s32 D_800E2CE4;
 
@@ -18,7 +18,7 @@ s32 isSlotActiveById(s32 id)
 {
     s32 index;
 
-    if (D_800CEEC0) {
+    if (sDataBankEnabled) {
         index = find_entry_8845C(id);
         if (index != -1)
             return D_800E2CC0[index * 0x1228] != 0;

@@ -17,7 +17,7 @@ s32 func_8009D510();
 s32 func_800A0170();
 s32 osCreateMesgQueue();
 s32 osSendMesg();
-extern s8 D_800CEEC0;
+extern s8 sDataBankEnabled;
 extern char D_800E1AC0[];
 extern char D_800E2CC0[];
 extern s32 D_800E3F10;
@@ -71,6 +71,6 @@ void func_80088C50(s32 arg0) {
         } while (var_s1_2 < 2);
     }
     D_8010D428 = &func_8008863C;
-    D_800CEEC0 = 1;
+    sDataBankEnabled = 1;
     D_800E3F10 = 0;
 }

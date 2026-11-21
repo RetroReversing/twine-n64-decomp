@@ -31,7 +31,7 @@ extern s32 osRecvMesg(void *, void **, s32);
 extern s32 osSendMesg(void *, void *, s32);
 extern void func_80088F6C(void);
 
-extern u8 D_800CEEC0;
+extern u8 sDataBankEnabled;
 extern AudioSlot D_800E1AC0[];
 extern u8 D_800E2CC0[];
 extern u32 D_800E3F18;
@@ -52,7 +52,7 @@ s32 func_80088040(u32 file, u32 rate, u8 arg2, s32 arg3, u8 arg4, u8 arg5, u8 ar
     s32 allocationSize;
     void *buffer;
 
-    if (D_800CEEC0 && file < D_800E3F20) {
+    if (sDataBankEnabled && file < D_800E3F20) {
         for (index = 0, offset = 0; index < 2; offset += sizeof(AudioSlot)) {
             if (!D_800E2CC0[offset]) {
                 break;

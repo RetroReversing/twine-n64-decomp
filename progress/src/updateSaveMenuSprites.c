@@ -9,22 +9,24 @@ typedef struct {
     u32 flags;
 } MenuSprite;
 
-extern MenuSprite *D_800BD550;
-extern MenuSprite *D_800BD554;
-extern u16 D_800BD558;
-extern u8 D_800BD55A;
+extern MenuSprite *sSaveMenuSpriteFirst;
+extern MenuSprite *sSaveMenuSpriteSecond;
+extern u16 sSaveMenuAction;
+extern u8 sSaveMenuRefresh;
 
-void updatePairedSpriteState(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
+/* Applies the save menu's action code (arg0) to its two sprites, placing the first at
+ * x=arg1 and y=arg2 and the second beside it, and sets their flags. */
+void updateSaveMenuSprites(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     long var_a1;
     u32 temp_v1;
     MenuSprite *first;
 
-    if (D_800BD558 != (arg0 & (short)0xFFFF)) {
-        D_800BD558 = (arg0 & 0xFFFF);
+    if (sSaveMenuAction != (arg0 & (short)0xFFFF)) {
+        sSaveMenuAction = (arg0 & 0xFFFF);
     }
-    if (((first = D_800BD550) != NULL) && (D_800BD554 != NULL)) {
+    if (((first = sSaveMenuSpriteFirst) != NULL) && (sSaveMenuSpriteSecond != NULL)) {
         first->flags = (s32) ((first->flags & ~0xFC) | 0xC);
-        D_800BD554->flags = (s32) ((D_800BD554->flags & ~0xFC) | 0x1C);
+        sSaveMenuSpriteSecond->flags = (s32) ((sSaveMenuSpriteSecond->flags & ~0xFC) | 0x1C);
         temp_v1 = (arg0 & 0xFFFF) & 0xFFF;
         if (temp_v1 != 2) {
             if (3U > temp_v1) {
@@ -47,21 +49,21 @@ void updatePairedSpriteState(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 block_11:
             func_800448A4(first, var_a1, 0x24);
         }
-        if (D_800BD55A) {
+        if (sSaveMenuRefresh) {
             if ((arg0 & 0xFFFF) & 0x1000) {
-                D_800BD554->flags = (s32) ((D_800BD554->flags & ~0xFC) | 0xC);
+                sSaveMenuSpriteSecond->flags = (s32) ((sSaveMenuSpriteSecond->flags & ~0xFC) | 0xC);
             }
-            D_800BD550->x = (u16) ((arg1 & 0xFFFF) - 8);
-            D_800BD550->y = (arg2 & 0xFF) + 1;
+            sSaveMenuSpriteFirst->x = (u16) ((arg1 & 0xFFFF) - 8);
+            sSaveMenuSpriteFirst->y = (arg2 & 0xFF) + 1;
         } else {
-            D_800BD550->x = arg1;
-            D_800BD550->y = arg2 & 0xFF;
+            sSaveMenuSpriteFirst->x = arg1;
+            sSaveMenuSpriteFirst->y = arg2 & 0xFF;
         }
-        D_800BD554->x = (s16) (D_800BD550->x + 8);
-        D_800BD554->y = (u16) D_800BD550->y;
+        sSaveMenuSpriteSecond->x = (s16) (sSaveMenuSpriteFirst->x + 8);
+        sSaveMenuSpriteSecond->y = (u16) sSaveMenuSpriteFirst->y;
         if (!(arg3 & 0xFF)) {
-            D_800BD554->flags = (s32) ((D_800BD554->flags & ~0xFC) | 0x1C);
-            D_800BD550->flags = (s32) ((D_800BD550->flags & ~0xFC) | 0x1C);
+            sSaveMenuSpriteSecond->flags = (s32) ((sSaveMenuSpriteSecond->flags & ~0xFC) | 0x1C);
+            sSaveMenuSpriteFirst->flags = (s32) ((sSaveMenuSpriteFirst->flags & ~0xFC) | 0x1C);
         }
     }
 }

@@ -27,7 +27,7 @@ static inline s32 check_5C8C4(void) {
                 p->h7C = 1;
                 if (sub->w2C & mask) {
                     p->w60 |= mask;
-                    func_8000A894(sound, p->w60 & mask);
+                    func_8000A894(sound, p->w60 |= mask);
                     func_80073AF8(0, gTrackMarkerTable, lookupDataEntry(0x160), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
