@@ -32,7 +32,7 @@ typedef struct { int value; } __repair_field_0;
 typedef struct { unsigned char pad_0[20]; void * field_14; unsigned char pad_18[12]; float field_24; float field_28; float field_2C; int field_30; int field_34; int field_38; void * field_3C; unsigned char pad_40[24]; unsigned int field_58; } __repair_record_var_s0;
 void func_800374BC(void *arg0, s32 arg1) {
     s32 var_a1;
-    f32 temp_fv0;
+    f32 temp_fv0, planeY, delta;
     register s32 var_a0;
     
     
@@ -57,8 +57,9 @@ void *temp_v0;
         (*(s32 **)((char *)(temp_v0) + 4)) = &D_800B1A78;
     }
     if (D_801032A0 != 1) {
+        s32 flags = *(s32 *)((char *)arg0 + 0x100);
         D_801032A0 = 1;
-        if ((*(s32 *)((char *)(arg0) + 0x100)) & 3) {
+        if (flags & 3) {
             var_a0 = 0xFC40FE03;
             __repair_phase_storage.pointer = D_80115328;
             D_80115328 = __repair_phase_storage.pointer + 8;
@@ -87,12 +88,18 @@ void *temp_v0;
                 for (;;) {
                     temp_v0 = ((__repair_record_var_s0*)var_s0)->field_3C;
                     if ((temp_v0 != NULL) && ((*(u8 *)((char *)(temp_v0) + 0x45)) != 0xB) && !(((u32) ((__repair_record_var_s0*)var_s0)->field_58 >> 2) & 0xD)) {
-                        temp_fv0 = (*(f32 *)((char *)((*(void **)((char *)(var_s1) + 0x3C))) + 0x20));
-                        temp_fv0 = (temp_fv0 - (((__repair_record_var_s0*)var_s0)->field_28 - temp_fv0)) * scale;
+                        delta = ((__repair_record_var_s0 *)var_s0)->field_28;
+                        planeY = *(f32 *)((char *)(*(void **)((char *)var_s1 + 0x3C)) + 0x20);
+                        delta = delta - planeY;
+                        temp_fv0 = planeY - delta;
                         if (sMatrixPoolUsed < (u32) sMatrixPoolLimit) {
+                            f32 y = temp_fv0 * scale;
+                            f32 x = ((__repair_record_var_s0*)var_s0)->field_24 * scale;
+                            s32 base = *(s32 *)((char *)sRenderState + 0x74C);
+                            f32 z = ((__repair_record_var_s0*)var_s0)->field_2C * scale;
                             __repair_phase_storage.value = sMatrixPoolUsed;
                             sMatrixPoolUsed = __repair_phase_storage.value + 1;
-                            D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (sMatrixPoolUsed << 6); func_800347B0(matrix, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * scale, temp_fv0, ((__repair_record_var_s0*)var_s0)->field_2C * scale);
+                            D_8010D538 = (*(s32 *)((char *)(sRenderState) + 0x74C)) + (sMatrixPoolUsed << 6); func_800347B0(matrix, ((__repair_record_var_s0*)var_s0)->field_30, ((__repair_record_var_s0*)var_s0)->field_34, ((__repair_record_var_s0*)var_s0)->field_38, ((__repair_record_var_s0*)var_s0)->field_24 * scale, temp_fv0 * scale, ((__repair_record_var_s0*)var_s0)->field_2C * scale);
                             D_80112F94 = -D_80112F94;
                             D_80112FA4 = -D_80112FA4;
                             D_80112FB4 = -D_80112FB4;
@@ -124,3 +131,4 @@ block_18:
         }
     }
 }
+

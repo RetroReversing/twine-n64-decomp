@@ -11640,7 +11640,7 @@
   "score_after": 800
  },
  {
-  "function": "func_8007A7D8",
+  "function": "actorTargetInAngleRange",
   "text": "Current best score 315 from a full rewrite; corrected helper prototypes to func_80045E34(void*) and func_800828D0(f32), corrected arg0+0x24 byte address, and removed erroneous extra argument to func_800828D0. Six more compile attempts/repair variants did not improve; move-on threshold reached. First mismatch appears target sub.s into $f20 vs candidate $f24; remaining major issue likely FP register allocation and statement ordering, with target move $a0,$v0 positioned as delay slot/order around row 73/82. Tried inferred record layout, address temporary, const qualification, callee width, shared return, guard inversion; only guard inversion worsened.",
   "by": "codex-gpt-6-luna-22",
   "created_at": 1795178874.8041348,
@@ -28264,7 +28264,7 @@
   "score_after": 870
  },
  {
-  "function": "func_8007A7D8",
+  "function": "actorTargetInAngleRange",
   "text": "[Released without compiling it once; notes not checked by a compile.] Judge failed twice because gcc-2.7.2-kmc is reported uninstalled. Historical candidate 315 is unverified. After restoring compiler, rejudge candidate with existing extern for D_80102ED8; target loads it both before the pitch gate and after angle delta. If remaining mismatch is limit branch shape, test initializing lim=910.0f then overriding with 682.0f in an if.",
   "by": "codex-gpt-6.2-sol-5",
   "created_at": 1795193782.951823,
@@ -31624,7 +31624,7 @@
   "score_after": 870
  },
  {
-  "function": "func_8007A7D8",
+  "function": "actorTargetInAngleRange",
   "text": "Current baseline remains score 265. Tried six independent local repairs (address temporaries, shared return, split integer phase, paired integer lifetimes, split call result); none improved. Target first mismatch around coordinate loads: target groups lwc1 $f2,8($s0) and sub.s $f20,$f2,$f0 while candidate loads another coordinate into $f4 and uses $f24. Need rework coordinate load/arithmetic ordering and likely FP register lifetimes. Repeated condition reorder/nested checks were tried in prior session with no gain. Claim budget exhausted.",
   "by": "codex-gpt-6-luna-9",
   "created_at": 1795200107.637868,
@@ -33872,7 +33872,7 @@
   "score_after": 150
  },
  {
-  "function": "func_8007A7D8",
+  "function": "actorTargetInAngleRange",
   "text": "Best 265/103 instructions verified. Correcting func_80000A30 second parameter from s16 to s32, consistent with its exact-matched definition, preserves the same instructions/score; it does not improve. Supplying the conflicting matched definition signature func_80045E34(void*,void*) changed score to 475, so don't repeat that prototype change. Automatic branch/signedness/declaration repairs did not improve. Remaining 13 mismatch rows are mostly FPR register mapping and load order around dx/dz/dy; target loads dx, then dz, then dy and uses $fs0/$fs2/$fs1. Return to saved best revision ee87fcba98652083c2f8.",
   "by": "codex-gpt-6-luna-13",
   "created_at": 1795202011.172139,
@@ -55017,5 +55017,86 @@
   "created_at": 1795138691.049344,
   "score_before": 820,
   "score_after": 725
+ },
+ {
+  "function": "func_8009DBE8",
+  "text": "Not matched. Key layout finding: target has saves s0-s7/fp/ra at sp+0x18..0x3C (BELOW the 0x58-byte local region 0x40..0x98, buffer at sp+0x44, ~80 bytes = callee func_8009EE60 clears 40 s16 at a3), while every plain-local variant (buf[20], s16 buf[42], volatile pad + s32, struct locals) puts the locals below the saves (saves at top of frame). So the buffer is probably NOT an ordinary local; something other than var_size reserves the 0x58 bytes above the saves (extra_size/pretend-args-like or different compiler/frame mode). Also target hoists &buf into $s6 and constant 4 into $s7 and loads stack args s3/s4/s5 after the register moves; writes s5/s4/s3 back to 0xB0/0xA8/0xAC after the loop and saves a1 to 0x9C. Callee prototypes are missing in context (implicit int). Tried this session: s32 buf[20], s32 pad[19]+buf[3], s16 buf[42], extra bigfn decl: all 4693-5173 (frame 0x88-0x98, saves at top). search_flags: -fno-schedule-insns2 gives 3391 (closest). Next step: check compiler_map / try_compiler with other GCC profiles (e.g. gcc-2.8.1/egcs) for a frame layout with saves below locals, or whether this function belongs to a different compiler range.",
+  "by": "api-claude-sonnet-5-5-1",
+  "created_at": 1795223316.144342,
+  "score_before": 4137,
+  "score_after": 4137,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:eec889ffa1d1d591ab29855fe2860c1195fdc554864479b32e0471e91cd41030"
+ },
+ {
+  "function": "func_800295F0",
+  "text": "Verified 180; reversing address operands or capturing the menu index did not change the diff. Integer pointer arithmetic scored 815; swapping packed bound assignments scored 305. Next step: test u16 for the lower packed halfword with integer promotion in the comparison.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223318.224628,
+  "score_before": 180,
+  "score_after": 180,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2687c33146384b2c5ec9b7ff5399de203a8feb7941f96427e065d6160c60b364"
+ },
+ {
+  "function": "func_80018E38",
+  "text": "Verified 3492 from 3837 by full-width strlen return and pointer increment expression. Smaller 8-byte buffers worsened to 3506/3513; reversing increment expression unchanged. Stack frame remains 0x58 versus target 0x50; raw format address differs.\nChanged strlen return and pointer increment; reduced stack arrays\n3837 to 3492; 8-byte arrays worsened",
+  "by": "codex-gpt-6.1-terra-5",
+  "created_at": 1795223328.2622879,
+  "score_before": 3887,
+  "score_after": 3492,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8568b0d36d644f85f40f0578935a50588e6a2e59cb35a6a768e51456e18119ab"
+ },
+ {
+  "function": "func_80060AA8",
+  "text": "Six local repairs: branch_orientation, unsigned_switch, call_one_shot_scope, split_call_result; none improved 1920, one worsened to 2375. Baseline still 1920; first branch mismatch is bnel target 0x84 vs candidate 0x80.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795223337.219244,
+  "score_before": 1920,
+  "score_after": 1920,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:2e14163b99afdcad324aa7428f03588c43c387689e3d45f2264c21c3057ce939"
+ },
+ {
+  "function": "func_80022290",
+  "text": "Best 75 retained. Only diff: target does `move $a2,$v0` right after the call, then reloads gMenuState into $v0; ours reloads into $v1 and moves a2 later. Tried typed MenuState struct, explicit result temp, inline nested call, u8 cast (215), variadic/return-type prototype changes, u32 return, extra assignment: all 75 or worse. Next step: try the globals read as separate statements before call (e.g. `u8 *t = gMenuState->text` hoisted above the func_80087100 call is wrong\u2014instead try gMenuState declared as array/struct symbol `extern MenuState gMenuState[]`-style or a different arg pass order via a local `s32 (*fn)()`).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795223356.667855,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:141af8ad8e396a680308977e6aa79675dc631532b11cc10555074a6528e14719"
+ },
+ {
+  "function": "func_8006FDF8",
+  "text": "Baseline 4025. Reversing D_8010A4FD branch worsened to 4750. Reordering width/height declarations tied 4025; reversing their initial assignments scored 4035 and left registers swapped.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795223426.629626,
+  "score_before": 4025,
+  "score_after": 4025,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:776f7484bc99a6d1f7d633fd9848fefd8ebb916b917bfedaa51703b03d8a4940"
+ },
+ {
+  "function": "func_800347B0",
+  "text": "Session allowance nearly used. Baseline rechecked at 160; existing sine-sine temporary in either triple product separately scored 165. Staging the union calculation early tied at 160 and still starts with cos(arg2)*sin(arg3). Restored revision 691cfae9ac586edbe4cd. Next step: isolate a volatile spill for cos(arg3)*cos(arg1), then measure whether the first multiply and 0x50 frame agree.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795223544.993639,
+  "score_before": 160,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:24a37bf43fe2ff9314e8ab55d773ec25b1971d6c550825f8c6feaf00fb537cd8"
+ },
+ {
+  "function": "func_8009DCD0",
+  "text": "Rechecked best 12821; explicit &arg2 forwarding regressed to 12840. Local repairs gave no better; several generated variants did not compile. Target has 0xE0 frame, homes arg0/arg2, output pointers at B0/B8/C0/C8 and decoded values at D0..DE; saved candidate has frame size but its packed extraction compiles quite differently.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795223545.838795,
+  "score_before": 12840,
+  "score_after": 12821,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:def4773cc39b587730bff73adccf0051c6b9643a0ba20aeac6965a61929cccae"
+ },
+ {
+  "function": "func_800223E4",
+  "text": "Best 75 retained; same residual as sibling func_80022290 (target: move $a2,$v0 right after call, then gMenuState reload into $v0; ours reload into $v1 and move later). Tried typed MenuState struct, local id/r temps, variadic prototypes, void* params, s16/u32 result type (325 / 75), raw offset deref: all 75 or worse. Likely a shared source idiom for both wrappers (maybe gMenuState accessed through a macro/inline with different pointer type, or call result cast); fix one and apply to the other.",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795223603.957255,
+  "score_before": 75,
+  "score_after": 75,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:8254bd436cb29a623792d266517bd6c0a4851fc5af86068573940236ebbb231d"
  }
 ]

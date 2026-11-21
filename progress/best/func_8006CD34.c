@@ -76,7 +76,7 @@ f32 __repair_var_fv1_1;
             if ((*(s16 *)((char *)(arg0) + 0x7C)) == 6) {
                 temp_v0_2 = *temp_s0_2;
                 (*(f32 *)((char *)(temp_v0_2) + 0x130)) += 0.040000003f;
-                var_fv1 = 0.4f;
+                __repair_var_fv1_1 = 0.4f;
                 var_condition_bit = (*(f32 *)((char *)(*temp_s0_2) + 0x130)) > 0.4f;
             } else {
                 temp_v0_3 = *temp_s0_2;
@@ -125,9 +125,7 @@ f32 __repair_var_fv1_1;
         temp_s2_2 = (*(void **)((char *)(temp_s2) + 0xBC));
         if (temp_s2_2 != NULL) {
             __base_D_800D461C = &D_800D461C;
-            sp18[0] = (*__base_D_800D461C);
-            sp18[1] = D_800D4620;
-            sp18[2] = D_800D4624;
+            *(__repair_vec3 *)sp18 = *(__repair_vec3 *)__base_D_800D461C;
             do { func_800643C8(arg0, __base_D_800D461C); } while (0);
             sp58[0] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x3C));
             sp58[1] = (s16) (s32) (*(f32 *)((char *)(temp_s2_2) + 0x40));

@@ -24,7 +24,7 @@ s32 func_80077E00();
 s32 func_80077ED8();
 void *func_8007847C();
 s32 func_80078860();
-s32 func_8007A7D8(void *, void *, void *, f32);
+s32 actorTargetInAngleRange(void *, void *, void *, f32);
 s32 func_8007AA40();
 s32 func_8007AB18();
 s32 actorPlaySpeechLine();
@@ -176,7 +176,7 @@ block_40:
                 }
                 if (M2C_FIELD(arg0, s32 *, 0x60) & 0x800000) {
                     temp_s2 = temp_s1 + 0x50;
-                    if (((func_8007A7D8(arg0, temp_s2, &sp34, *(D_800C2E64 + (D_80108F78 * 4)) * 0.95f) << 0x18) != 0) && ((func_800158A4(*M2C_FIELD(arg0, s32 **, 0x68) + 0xA8, temp_s2, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
+                    if (((actorTargetInAngleRange(arg0, temp_s2, &sp34, *(D_800C2E64 + (D_80108F78 * 4)) * 0.95f) << 0x18) != 0) && ((func_800158A4(*M2C_FIELD(arg0, s32 **, 0x68) + 0xA8, temp_s2, M2C_FIELD(arg0, s32 *, 0x20), &sp38, 0, 0, 0, 1, 0) << 0x18) != 0)) {
                         func_800779C4(arg0);
                         M2C_FIELD(temp_s1, s32 *, 0x18) = (s32) M2C_FIELD(temp_s1, s32 *, 0x50);
                         M2C_FIELD(temp_s1, s32 *, 0x1C) = (s32) M2C_FIELD(temp_s1, s32 *, 0x54);
@@ -238,7 +238,7 @@ block_65:
                 if (M2C_FIELD(temp_s1, s32 *, 0x88) & 0x20000000) {
                     if (M2C_FIELD(arg0, s32 *, 0x60) & 0xF004) {
                         if ((func_8007C214(arg0, M2C_FIELD(temp_s1, void **, 0x40)) << 0x18) == 0) {
-                            if ((func_8007A7D8(arg0, M2C_FIELD(temp_s1, void **, 0x40) + 0x24, &sp4C, *(D_800C2E64 + (D_80117386 * 4)) * 0.75f) << 0x18) != 0) {
+                            if ((actorTargetInAngleRange(arg0, M2C_FIELD(temp_s1, void **, 0x40) + 0x24, &sp4C, *(D_800C2E64 + (D_80117386 * 4)) * 0.75f) << 0x18) != 0) {
                                 if (!(M2C_FIELD(temp_s1, s32 *, 0x88) & 0x40000000)) {
                                     func_80077ED8(arg0);
                                 }

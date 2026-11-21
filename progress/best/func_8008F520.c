@@ -175,7 +175,7 @@ s32 func_8008F520(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
                 var_s1_3 = 0;
                 if ((s32) M2C_FIELD(arg4, u8 *, 0x18) > 0) {
                     do {
-                        func_8008EB80(M2C_FIELD(arg4, u8 *, 0x10), M2C_FIELD(arg4, u16 *, 0xE), *(s32 *)(M2C_FIELD(arg4, s32 *, 0x1C) + var_s1_3), 0, 0);
+                        func_8008EB80(M2C_FIELD(arg4, u8 *, 0x10), M2C_FIELD(arg4, u16 *, 0xE), *(u8 *)(M2C_FIELD(arg4, s32 *, 0x1C) + var_s1_3), 0, 0);
                         var_s1_3 += 1;
                     } while (var_s1_3 < (s32) M2C_FIELD(arg4, u8 *, 0x18));
                 }
@@ -314,7 +314,7 @@ block_70:
                 }
             }
         } while (var_a0 == -1);
-        *(s8 *)(gSndEntities + (var_s5 * 0xFF8)) = var_a0;
+        *(s32 *)(gSndEntities + (var_s5 * 0xFF8)) = var_a0;
         M2C_FIELD(temp_s2, s8 *, 0xFC1) = 0;
         return var_a0;
     }
