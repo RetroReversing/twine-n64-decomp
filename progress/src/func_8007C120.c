@@ -19,7 +19,8 @@ s8 func_8007C120(Ent7C120 *arg0, s32 arg1, f32 arg2)
   f32 scale;
   if (((obj->state == 9) || (obj->state == 10)) || (obj->state == 11))
   {
-    scale = D_800C2E64[D_80117386] * arg2;
+    scale = D_800C2E64[D_80117386];
+    scale *= arg2;
   }
   else
   {
@@ -38,13 +39,13 @@ s8 func_8007C120(Ent7C120 *arg0, s32 arg1, f32 arg2)
     }
     else
     {
-      idx = D_80117386;
-      f = 0.25f;
+ do { idx = D_80117386; f = 0.25f; } while (0);
     }
-    f = D_800C2E64[idx] * f;
-    scale = f * arg2;
+    scale = D_800C2E64[idx];
+    scale *= f;
+    scale *= arg2;
   }
-  if (arg2 || D_80117386)
+  if (scale)
   {
     return func_8007C094(arg0, arg1, scale);
   }
@@ -53,4 +54,3 @@ s8 func_8007C120(Ent7C120 *arg0, s32 arg1, f32 arg2)
     return func_8007C094(arg0, arg1, scale);
   }
 }
-
