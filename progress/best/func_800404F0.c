@@ -333,8 +333,10 @@ block_29:
                 }
             }
         } else {
-            temp_v1_6 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
-            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((temp_v1_6 & 0xFFFF0003) | (((((u32)temp_v1_6 >> 2) & 0x3FFF) | 0x2000) * 4));
+s32 __repair_branch_temp_v1_6_0;
+
+            __repair_branch_temp_v1_6_0 = (u32) (*(s32 *)((char *)(arg1) + 0x58));
+            (*(s32 *)((char *)(arg1) + 0x58)) = (s32) ((__repair_branch_temp_v1_6_0 & 0xFFFF0003) | (((((u32)__repair_branch_temp_v1_6_0 >> 2) & 0x3FFF) | 0x2000) * 4));
             var_v0_6 = 0x88;
         }
         (*(s16 *)((char *)(arg1) + 0x58)) = var_v0_6;

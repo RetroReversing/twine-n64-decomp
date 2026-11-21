@@ -88,11 +88,11 @@ init_bonus:
         return;
     case 3:
         first = F(cursor,u8,1);
-        base = &D_80109690;
         mask = &gTrackMarkerActiveMask;
         gTrackMarkerDone[first] = 1;
         active = *mask;
         scene = gSceneFlagsB;
+        base = &D_80109690;
         pos = *(void **)base;
         active |= 1;
         scene |= 1;

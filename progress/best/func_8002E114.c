@@ -5,22 +5,22 @@ s32 func_8002E93C(s32 *, s32, s32, s32); /* extern */
 s32 func_8002E9C0(s32 *);                   /* extern */
 extern s32 D_800E1114;
 extern s32 D_800E1310;
-extern s32 sPickupSlotTable;
+extern s32 D_80100198;
 extern s32 gSaveSlotInfo;
 extern s32 D_801001A0;
-extern s32 sSaveSlotTable;
-extern s32 sSaveSlotInfo;
+extern s32 D_801001A1;
+extern s32 D_801001A2;
 extern s32 D_801001A4;
 extern u8 gSceneType;
 extern u8 gSaveKeyRelaxed;
-extern u8 sOptionCursor;
+extern u8 D_801002A2;
 extern u8 D_801002A4;
 extern s32 D_801002C4;
 extern u8 gPauseFlag;
 extern u8 D_801002D5;
-extern s32 sDistanceSoundsActive;
-extern u8 sOptionScaleY;
-extern u8 sOptionScaleX;
+extern s32 D_801002EC;
+extern u8 D_801002F0;
+extern u8 D_801002F1;
 extern u8 gOptionChoice;
 extern u8 gOptionFlag;
 extern u8 D_80102EE0;
@@ -32,13 +32,13 @@ extern u8 gBorderFlipFlag;
 extern u8 gOptionFlagA;
 extern u8 D_8010A4FF;
 extern s8 D_80112F70;
-extern s8 sMenuRowEnabled;
+extern s8 D_80112F7B;
 extern s8 D_80112F7F;
-extern s8 sOptionReady7;
+extern s8 D_80112F82;
 extern u8 D_80115088;
 extern u8 D_80115089;
 extern u8 D_8011508A;
-extern u8 sBonusSlots;
+extern u8 D_8011508B;
 extern u8 D_8011508C;
 extern u8 D_8011508D;
 extern u8 D_8011508E;
@@ -62,7 +62,7 @@ void func_8002E114(void) {
     s32 temp_s1;
     s32 var_s1_4;
     s32 var_s1_5;
-    s32 var_s3;
+s32 __repair_phase_var_s1_5;
     unsigned long var_s4;
     s8 temp_a1;
     u8 temp_a1_4;
@@ -79,7 +79,7 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *(&D_80115088 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115089 + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508A + temp_s0), 1, 1);
-        func_8002E93C(&D_800E1310, *(&sBonusSlots + temp_s0), 1, 1);
+        func_8002E93C(&D_800E1310, *(&D_8011508B + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508C + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508D + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_80115090 + temp_s0), 1, 1);
@@ -87,22 +87,23 @@ void func_8002E114(void) {
         func_8002E93C(&D_800E1310, *(&D_8011508E + temp_s0), 1, 1);
         func_8002E93C(&D_800E1310, *(&D_8011508F + temp_s0), 1, 1);
         temp_s0_2 = var_s1_5 * 24;
-        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&sPickupSlotTable + temp_s0_2)), 1, 4);
+        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_80100198 + temp_s0_2)), 1, 4);
         func_8002E93C(&D_800E1310, *((s32 *)((s8 *)&gSaveSlotInfo + temp_s0_2)), 4, 0x10);
         func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A0 + temp_s0_2)), 1, 8);
-        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&sSaveSlotTable + temp_s0_2)), 1, 1);
-        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&sSaveSlotInfo + temp_s0_2)), 1, 4);
-        var_s3 = 0;
-        do {
-        temp_a1 = *((u8 *)&D_801001A4 + temp_s0_2 + (var_s3 & 0xFFFF));
-        var_s3 += 1;
-        func_8002E93C(&D_800E1310, temp_a1, 1, 8);
-        } while ((u32) (var_s3 & 0xFFFF) < 9U);
+        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A1 + temp_s0_2)), 1, 1);
+        func_8002E93C(&D_800E1310, *((u8 *)((s8 *)&D_801001A2 + temp_s0_2)), 1, 4);
+        {
+            u16 __repair_i;
+            for (__repair_i = 0; __repair_i < 9; __repair_i++) {
+                temp_a1 = *((u8 *)&D_801001A4 + temp_s0_2 + __repair_i);
+                func_8002E93C(&D_800E1310, temp_a1, 1, 8);
+            }
+        }
         var_s4 += 1;
     } while ((u32) (var_s4 & 0xFFFF) < 0xBU);
     { func_8002E93C(&D_800E1310, gSceneType, 1, 4); }
     { func_8002E93C(&D_800E1310, gSaveKeyRelaxed, 1, 1); }
-    { func_8002E93C(&D_800E1310, sOptionCursor, 1, 4); }
+    { func_8002E93C(&D_800E1310, D_801002A2, 1, 4); }
     func_8002E93C(&D_800E1310, D_801002A4, 1, 8);
     func_8002E93C(&D_800E1310, gPauseFlag, 1, 4);
     func_8002E93C(&D_800E1310, D_801002D5, 1, 1);
@@ -116,9 +117,9 @@ void func_8002E114(void) {
     func_8002E93C(&D_800E1310, gBorderFlipFlag, 1, 1);
     func_8002E93C(&D_800E1310, gOptionFlagA, 1, 1);
     func_8002E93C(&D_800E1310, D_8010A4FF, 1, 2);
-    func_8002E93C(&D_800E1310, sDistanceSoundsActive, 4, 1);
-    func_8002E93C(&D_800E1310, sOptionScaleY, 1, 4);
-    func_8002E93C(&D_800E1310, sOptionScaleX, 1, 4);
+    func_8002E93C(&D_800E1310, D_801002EC, 4, 1);
+    func_8002E93C(&D_800E1310, D_801002F0, 1, 4);
+    func_8002E93C(&D_800E1310, D_801002F1, 1, 4);
     func_8002E93C(&D_800E1310, gOptionChoice, 1, 2);
     func_8002E93C(&D_800E1310, gOptionFlag, 1, 1);
     {
@@ -157,7 +158,7 @@ void func_8002E114(void) {
         u16 __repair_i;
         for (__repair_i = 0; __repair_i < 4; __repair_i++) {
             var_s1_4 = (u32)__repair_i;
-            temp_a1_6 = *(&sMenuRowEnabled + (var_s1_4));
+            temp_a1_6 = *(&D_80112F7B + (var_s1_4));
             func_8002E93C(&D_800E1310, temp_a1_6, 1, 1);
         }
     }
@@ -169,12 +170,12 @@ void func_8002E114(void) {
             func_8002E93C(&D_800E1310, temp_a1_7, 1, 1);
         }
     }
-    var_s1_5 = 0;
+    __repair_phase_var_s1_5 = 0;
     do {
-        temp_a1_8 = *(&sOptionReady7 + ((s32)var_s1_5 & 0xFFFF));
+        temp_a1_8 = *(&D_80112F82 + ((s32)__repair_phase_var_s1_5 & 0xFFFF));
         func_8002E93C(&D_800E1310, temp_a1_8, 1, 1);
-        ++var_s1_5;
-    } while ((u32) (var_s1_5 & 0xFFFF) < 3U);
+        ++__repair_phase_var_s1_5;
+    } while ((u32) (__repair_phase_var_s1_5 & 0xFFFF) < 3U);
     func_8002E9C0(&D_800E1310);
 }
 

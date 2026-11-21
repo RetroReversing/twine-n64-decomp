@@ -1,53 +1,68 @@
-typedef struct { u8 pad0[0xC]; u16 a; u16 b; u8 pad10[2]; u8 type; } SlotInfo;
-typedef struct { u8 pad0[0xB4]; SlotInfo *info; } SlotActor;
-typedef struct { u8 pad0[0x10]; s32 color; u8 pad14[0x14]; u32 flags; } SlotText;
-extern s32 gVisibleSaveSlotCount;
-extern s32 gSaveTotalSlots;
-extern SlotActor *D_80102CD0[];
-extern s16 D_8011F15C[];
-extern char D_8011F2B8[];
-extern s16 D_8011F3E0[];
-extern SlotText *D_8011F3E8[];
-char *lookupDataEntry();
-int sprintf();
-void func_8011D158(s16 arg0) {
-    s32 idx = arg0;
-    SlotInfo *info;
-    u32 t;
+typedef struct { char pad[12]; u16 start, end; char pad2[2]; u8 kind; } Save;
+typedef struct { char pad[0xB4]; Save *save; } Slot;
+typedef struct { char pad[0x10]; u32 color; char pad2[0x14]; u32 flags; } Label;
+extern Slot *D_80102CD0[];
+extern s16 D_8011F15C[], D_8011F3E0[];
+extern char D_8011F2B8[][12];
+extern Label *D_8011F3E8[];
+extern s32 gVisibleSaveSlotCount, gSaveTotalSlots;
+extern void *lookupDataEntry(s32);
+extern s32 sprintf(char *, const char *, ...);
+
+void func_8011D158(s32 slot) {
+    volatile s32 *count = &gVisibleSaveSlotCount;
+    s32 index = (s16)slot;
+    Save *save;
+    s32 kind;
+    Slot **cursor;
     s32 id;
-    s32 count;
-    s32 i;
-    if (idx < gVisibleSaveSlotCount) {
-        info = D_80102CD0[idx]->info;
-        t = info->type;
-        if (t == 2) {
-            s32 diff = info->a - info->b;
-            count = gSaveTotalSlots;
-            for (i = 0; i < gSaveTotalSlots; i++) {
-                if (i != idx) {
-                    SlotInfo *o = D_80102CD0[i]->info;
-                    count -= (diff >= (s32)(o->a - o->b));
+    s32 temp;
+    s32 unused[2];
+    Label **label;
+    if (index < *count) {
+    save = D_80102CD0[index]->save;
+    kind = save->kind;
+    temp = kind;
+    cursor = D_80102CD0;
+    if (temp == 2) {
+        s32 delta = save->start - save->end;
+        s32 rank = gSaveTotalSlots;
+        temp = 0;
+        if (rank > 0) {
+            s32 limit = rank;
+            do {
+                if (temp++ != index) {
+                    Save *other = (*cursor)->save;
+                    rank -= delta >= other->start - other->end;
                 }
-            }
-            switch (count) {
-            case 1: id = 0x2E5; goto doit;
-            case 2: id = 0x2E6; goto doit;
-            case 3: id = 0x2E7; goto doit;
-            case 4: id = 0x2E8;
-            doit:
-                sprintf(D_8011F2B8 + arg0 * 12, lookupDataEntry(id));
-            }
-            D_8011F3E8[arg0]->flags = (D_8011F3E8[arg0]->flags & ~0xFC) | 0xC;
-            D_8011F3E8[arg0]->color = -1;
-            D_8011F3E0[arg0] = 0x3C;
-        } else {
-            id = 0x2E6;
-            if (D_8011F15C[t] >= D_8011F15C[1 - t]) id = 0x2E5;
-            sprintf(D_8011F2B8 + idx * 12, lookupDataEntry(id));
-            D_8011F3E8[arg0]->flags = (D_8011F3E8[arg0]->flags & ~0xFC) | 0xC;
-            if (t == 0) D_8011F3E8[arg0]->color = 0xFF2020FF;
-            else D_8011F3E8[arg0]->color = 0x2020FFFF;
-            D_8011F3E0[arg0] = 0x3C;
+                cursor++;
+            } while (temp < limit);
         }
+        switch (rank) {
+        case 1: id = 0x2E5; goto format;
+        case 2: id = 0x2E6; goto format;
+        case 3: id = 0x2E7; goto format;
+        case 4: id = 0x2E8; goto format;
+        format:
+            sprintf(D_8011F2B8[(s16)slot], lookupDataEntry(id));
+        }
+        index = (s16)slot;
+        label = D_8011F3E8 + index;
+        (*label)->flags = ((*label)->flags & ~0xFC) | 0xC;
+        (*label)->color = -1;
+        D_8011F3E0[index] = 60;
+    } else {
+        id = 0x2E6;
+        if (D_8011F15C[temp] >= D_8011F15C[1-temp])
+            id = 0x2E5;
+        sprintf(D_8011F2B8[index], lookupDataEntry(id));
+        label = (Label **)((char *)D_8011F3E8 + ((s32)((u32)slot << 16) >> 14));
+        (*label)->flags = ((*label)->flags & ~0xFC) | 0xC;
+        if (kind == 0)
+            (*label)->color = 0xFF2020FF;
+        else
+            (*label)->color = 0x2020FFFF;
+        *(s16 *)((char *)D_8011F3E0 + ((s32)((u32)slot << 16) >> 15)) = 60;
+    }
     }
 }

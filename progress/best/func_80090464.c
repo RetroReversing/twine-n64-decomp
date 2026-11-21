@@ -12,18 +12,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80095A80(M2C_UNK, u8, u8, u8);         /* extern */
-M2C_UNK reset_timed_sequence(s32, u16, u16, void *); /* extern */
+void reset_timed_sequence(s32); /* extern */
+M2C_UNK voiceStoreParam(M2C_UNK, u8, u8, u8);       /* extern */
 extern u8 D_800EDA87;
-extern u8 * gSeqPlayer;
+extern void *gSeqPlayer;
 
 s32 func_80090464(void) {
+    s32 var_s0;
+    s32 instrumentOffset;
+    s32 instrumentIndex;
     s32 temp_v1;
     s32 temp_v1_2;
     s32 var_s2;
     s32 var_s4;
     s32 var_s5;
-    s32 voiceOffset;
     s32 var_s6;
     s32 var_s1;
     u16 temp_a1;
@@ -64,88 +66,89 @@ s32 func_80090464(void) {
         if (temp_a0 != NULL) {
             var_s6 = 1;
             if ((u32) (M2C_FIELD(temp_v0, s32 *, 0x134) + M2C_FIELD(temp_t0, s32 *, 0x120)) >= (u32) *temp_a0) {
-                voiceOffset = var_s5;
+                var_s0 = var_s5;
                 var_a0 = temp_t0 + var_s2;
 loop_4:
                 temp_a3 = M2C_FIELD(var_a0, void **, 0x12C);
                 temp_a1 = M2C_FIELD(temp_a3, u16 *, 8);
-                if (temp_a1 == 0xFFFE) {
-                    if (M2C_FIELD(temp_t0, u8 *, 0xFC5) != 0) {
-                    M2C_FIELD(var_a0, void **, 0x12C) = NULL;
-                    } else {
-                    temp_a2_2 = M2C_FIELD(temp_a3, u16 *, 0xA);
-                    M2C_FIELD(var_a0, void **, 0x12C) = (void *) (M2C_FIELD(var_a0, s32 *, 0x128) + (temp_a2_2 * 0xC));
-                    M2C_FIELD(var_a0, s32 *, 0x130) = 0;
-                    M2C_FIELD(var_a0, s32 *, 0x134) = (s32) M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14);
-                    if (var_s4 & 0xFF) {
-                        var_s4 = 0;
-                        reset_timed_sequence(M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14), M2C_FIELD(temp_a3, u16 *, 8), temp_a2_2, temp_a3);
-                        M2C_FIELD(gSeqPlayer, u16 *, 0xFC6) = (u16) (M2C_FIELD(gSeqPlayer, u16 *, 0xFC6) + 1);
-                    }
-                        goto block_29;
-                    }
-                } else {
-                    if (temp_a1 == 0xFFFF) {
-                        M2C_FIELD(var_a0, void **, 0x12C) = NULL;
-                    } else {
-                        temp_a0_2 = M2C_FIELD(temp_t0, void **, 0x10C);
-                        temp_a1_2 = temp_t0 + voiceOffset;
-                        M2C_FIELD(temp_a1_2, s32 *, 0x56C) = 0;
-                        M2C_FIELD(temp_a1_2, s32 *, 0x568) = 0;
-                        M2C_FIELD(temp_a1_2, s32 *, 0x570) = 0;
-                        temp_a2 = M2C_FIELD(temp_a0_2, s32 *, M2C_FIELD(temp_a0_2, s32 *, 4) + temp_a1 * 4) + temp_a0_2;
-                        M2C_FIELD(temp_a1_2, void **, 0x574) = (void *) (temp_a2 + 0xC);
-                        temp_v1 = M2C_FIELD(temp_a2, s32 *, 4);
-                        if (temp_v1 != 0) {
-                            M2C_FIELD(temp_a1_2, void **, 0x578) = (void *) (temp_v1 + M2C_FIELD(temp_t0, void **, 0x10C));
-                        } else {
-                            M2C_FIELD(temp_a1_2, void **, 0x578) = NULL;
-                        }
-                        temp_a0_3 = gSeqPlayer + voiceOffset;
-                        M2C_FIELD(temp_a0_3, s32 *, 0x584) = 0;
-                        M2C_FIELD(temp_a0_3, s16 *, 0x580) = 0x2000;
-                        temp_v1_2 = M2C_FIELD(temp_a2, s32 *, 8);
-                        if (temp_v1_2 != 0) {
-                            M2C_FIELD(temp_a0_3, s32 *, 0x57C) = (s32) (temp_v1_2 + M2C_FIELD(gSeqPlayer, void **, 0x10C));
-                        } else {
-                            M2C_FIELD(temp_a0_3, s32 *, 0x57C) = 0;
-                        }
-                        temp_a0_4 = gSeqPlayer + voiceOffset;
-                        M2C_FIELD(temp_a0_4, s32 *, 0x588) = 0;
-                        M2C_FIELD(temp_a0_4, s16 *, 0x582) = 0;
-                        temp_v1_3 = M2C_FIELD(gSeqPlayer, void **, 0x10C);
-                        M2C_FIELD(temp_a0_4, u8 *, 0x58C) = M2C_FIELD(temp_v1_3, u8 *, M2C_FIELD(temp_v1_3, s32 *, 8) + var_s1);
-                        M2C_FIELD((gSeqPlayer + voiceOffset), u8 *, 0x58D) = (u8) M2C_FIELD(temp_a3, u8 *, 0xB);
-                        M2C_FIELD((gSeqPlayer + voiceOffset), u8 *, 0x58E) = (u8) M2C_FIELD(temp_a3, u8 *, 0xA);
-                        M2C_FIELD((gSeqPlayer + voiceOffset), s8 *, 0x58F) = var_s1;
-                        temp_v1_4 = M2C_FIELD(temp_a3, u8 *, 4);
-                        if (temp_v1_4 != 0xFF) {
-                            temp_a1_3 = M2C_FIELD((gSeqPlayer + voiceOffset), u8 *, 0x58C);
-                            temp_v0_2 = gSeqPlayer + temp_v1_4;
-                            if (temp_a1_3 != 9) {
-                                temp_v0_3 = M2C_FIELD(temp_v0_2, u8 *, 8);
-                                if (temp_v0_3 != 0xFF) {
-                                    temp_v0_4 = (temp_v0_3 * 8) + M2C_FIELD(gSeqPlayer, s32 *, 4);
-                                    M2C_FIELD(((temp_a1_3 * 4) + gSeqPlayer), s32 *, 0xF80) = (s32) ((M2C_FIELD(temp_v0_4, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_4, u8 *, 2) << 8) | M2C_FIELD(temp_v0_4, u8 *, 3));
-                                }
-                            } else {
-                                temp_v0_5 = M2C_FIELD(temp_v0_2, u8 *, 0x8C);
-                                if (temp_v0_5 != 0xFF) {
-                                    temp_v0_6 = (temp_v0_5 * 8) + M2C_FIELD(gSeqPlayer, s32 *, 0x88);
-                                    M2C_FIELD(gSeqPlayer, s32 *, 0xFA4) = (s32) ((M2C_FIELD(temp_v0_6, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_6, u8 *, 2) << 8) | M2C_FIELD(temp_v0_6, u8 *, 3));
-                                }
-                            }
-                        }
-                        temp_a3_2 = M2C_FIELD(temp_a3, u8 *, 5);
-                        if (temp_a3_2 != 0xFF) {
-                            func_80095A80(7, M2C_FIELD((gSeqPlayer + voiceOffset), u8 *, 0x58C), D_800EDA87, temp_a3_2);
-                        }
-                        temp_v1_5 = gSeqPlayer + var_s2;
-                        M2C_FIELD(temp_v1_5, s32 *, 0x12C) = (s32) (M2C_FIELD(temp_v1_5, s32 *, 0x12C) + 0xC);
-                        goto block_29;
-                    }
-                }
+                if (temp_a1 == 0xFFFE) goto rewind;
+                instrumentIndex = temp_a1 * 4;
+                if (temp_a1 != 0xFFFF) goto play;
+                M2C_FIELD(var_a0, void **, 0x12C) = NULL;
                 goto next_track;
+rewind:
+                {
+                    if (M2C_FIELD(temp_t0, u8 *, 0xFC5) != 0) {
+                        M2C_FIELD(var_a0, void **, 0x12C) = NULL;
+                        goto next_track;
+                    }
+                temp_a2_2 = M2C_FIELD(temp_a3, u16 *, 0xA);
+                M2C_FIELD(var_a0, void **, 0x12C) = (void *) (M2C_FIELD(var_a0, s32 *, 0x128) + (temp_a2_2 * 0xC));
+                M2C_FIELD(var_a0, s32 *, 0x130) = 0;
+                M2C_FIELD(var_a0, s32 *, 0x134) = (s32) M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14);
+                if (var_s4 & 0xFF) {
+                    var_s4 = 0;
+                    reset_timed_sequence(M2C_FIELD(M2C_FIELD(temp_t0, void **, 0x10C), s32 *, 0x14));
+                    M2C_FIELD(gSeqPlayer, u16 *, 0xFC6) = (u16) (M2C_FIELD(gSeqPlayer, u16 *, 0xFC6) + 1);
+                }
+                    goto block_29;
+                }
+play:
+                  temp_a0_2 = M2C_FIELD(temp_t0, void **, 0x10C);
+                  instrumentOffset = M2C_FIELD((u8 *)temp_a0_2 + M2C_FIELD(temp_a0_2, s32 *, 4), s32 *, instrumentIndex);
+                  temp_a1_2 = temp_t0 + var_s0;
+                  M2C_FIELD(temp_a1_2, s32 *, 0x56C) = 0;
+                  M2C_FIELD(temp_a1_2, s32 *, 0x568) = 0;
+                  M2C_FIELD(temp_a1_2, s32 *, 0x570) = 0;
+                  temp_a2 = (u8 *)temp_a0_2 + instrumentOffset;
+                  M2C_FIELD(temp_a1_2, void **, 0x574) = (void *) (temp_a2 + 0xC);
+                  temp_v1 = M2C_FIELD(temp_a2, s32 *, 4);
+                  if (temp_v1 == 0) {
+                      M2C_FIELD(temp_a1_2, void **, 0x578) = NULL;
+                  } else {
+                      M2C_FIELD(temp_a1_2, void **, 0x578) = (void *) (temp_v1 + M2C_FIELD(temp_t0, void **, 0x10C));
+                  }
+                  temp_a0_3 = gSeqPlayer + var_s0;
+                  M2C_FIELD(temp_a0_3, s32 *, 0x584) = 0;
+                  M2C_FIELD(temp_a0_3, s16 *, 0x580) = 0x2000;
+                  temp_v1_2 = M2C_FIELD(temp_a2, s32 *, 8);
+                  if (temp_v1_2 == 0) {
+                      M2C_FIELD(temp_a0_3, s32 *, 0x57C) = 0;
+                  } else {
+                      M2C_FIELD(temp_a0_3, s32 *, 0x57C) = (s32) (temp_v1_2 + M2C_FIELD(gSeqPlayer, void **, 0x10C));
+                  }
+                  temp_a0_4 = gSeqPlayer + var_s0;
+                  M2C_FIELD(temp_a0_4, s32 *, 0x588) = 0;
+                  M2C_FIELD(temp_a0_4, s16 *, 0x582) = 0;
+                  temp_v1_3 = M2C_FIELD(gSeqPlayer, void **, 0x10C);
+                  M2C_FIELD(temp_a0_4, u8 *, 0x58C) = M2C_FIELD(temp_v1_3, u8 *, M2C_FIELD(temp_v1_3, s32 *, 8) + var_s1);
+                  M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58D) = (u8) M2C_FIELD(temp_a3, u8 *, 0xB);
+                  M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58E) = (u8) M2C_FIELD(temp_a3, u8 *, 0xA);
+                  M2C_FIELD((gSeqPlayer + var_s0), s8 *, 0x58F) = var_s1;
+                  temp_v1_4 = M2C_FIELD(temp_a3, u8 *, 4);
+                  if (temp_v1_4 != 0xFF) {
+                      temp_a1_3 = M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58C);
+                      temp_v0_2 = gSeqPlayer + temp_v1_4;
+                      if (temp_a1_3 != 9) {
+                          temp_v0_3 = M2C_FIELD(temp_v0_2, u8 *, 8);
+                          if (temp_v0_3 != 0xFF) {
+                              temp_v0_4 = (temp_v0_3 * 8) + M2C_FIELD(gSeqPlayer, u8 **, 4);
+                              M2C_FIELD(((temp_a1_3 * 4) + gSeqPlayer), s32 *, 0xF80) = (s32) ((M2C_FIELD(temp_v0_4, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_4, u8 *, 2) << 8) | M2C_FIELD(temp_v0_4, u8 *, 3));
+                          }
+                      } else {
+                          temp_v0_5 = M2C_FIELD(temp_v0_2, u8 *, 0x8C);
+                          if (temp_v0_5 != 0xFF) {
+                              temp_v0_6 = (temp_v0_5 * 8) + M2C_FIELD(gSeqPlayer, u8 **, 0x88);
+                              M2C_FIELD(gSeqPlayer, s32 *, 0xFA4) = (s32) ((M2C_FIELD(temp_v0_6, u16 *, 0) << 0x10) | (M2C_FIELD(temp_v0_6, u8 *, 2) << 8) | M2C_FIELD(temp_v0_6, u8 *, 3));
+                          }
+                      }
+                  }
+                  temp_a3_2 = M2C_FIELD(temp_a3, u8 *, 5);
+                  if (temp_a3_2 != 0xFF) {
+                      voiceStoreParam(7, M2C_FIELD((gSeqPlayer + var_s0), u8 *, 0x58C), D_800EDA87, temp_a3_2);
+                  }
+                  temp_v1_5 = gSeqPlayer + var_s2;
+                  M2C_FIELD(temp_v1_5, s32 *, 0x12C) = (s32) (M2C_FIELD(temp_v1_5, s32 *, 0x12C) + 0xC);
 block_29:
                     temp_t0 = gSeqPlayer;
                     temp_v0_7 = temp_t0 + (var_s1 * 0x10);
