@@ -133,8 +133,14 @@ void func_80016FCC(s8 arg0) {
                         } else {
 L71:
                             {
-                                void *t0 = gTrackMarkerTable[*(s8 *)((u8 *)*(void **)((u8 *)node + 0x18) + 0x6C) + 0x182 - 0x182];
-                                (void)t0;
+                                void *t0 = gTrackMarkerTable[*(s8 *)((u8 *)*(void **)((u8 *)tgt + 0x6C) + 0x182)];
+                                if (t0 != NULL) {
+                                    v = *(s32 *)((u8 *)t0 + 0xF4);
+                                    if (v != 0 && v != *(s32 *)((u8 *)node + 0x20)) {
+                                        func_80016718(node, tgt);
+                                        objectListInsert(node, v);
+                                    }
+                                }
                             }
                         }
                     } else {

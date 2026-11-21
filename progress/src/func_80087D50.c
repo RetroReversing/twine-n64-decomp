@@ -24,11 +24,11 @@ extern s8 D_800CEEB1;
 extern void *D_801005AC;
 extern s32 D_80102CC8;
 extern s32 D_80102CCC;
-extern s32 *D_80102F30;
+extern s32 *gDemoInputData;
 extern char D_80104320[];
 extern void *gTrackMarkerTable;
-extern s32 D_80109CB0;
-extern s32 D_8010A3C0;
+extern s32 gDemoFrame;
+extern s32 gDemoFadeTimer;
 
 typedef struct { unsigned char pad_0[16]; int field_10; unsigned char pad_14[10]; short field_1E; short field_20; short field_22; } __repair_record_D_801005AC;
 void func_80087D50(void) {
@@ -37,11 +37,11 @@ void func_80087D50(void) {
     s32 var_a1;
     void *temp_s0;
 
-    D_80102F30 = D_80104320;
+    gDemoInputData = D_80104320;
     D_800CEEB0 = 2;
     *(unsigned long long *)&D_80102CC8 = 0;
-    D_80109CB0 = 0;
-    D_8010A3C0 = -1;
+    gDemoFrame = 0;
+    gDemoFadeTimer = -1;
     func_80045CA0();
     D_801005AC = func_800162BC(4);
     temp_v0 = lookupDataEntry(0xD);

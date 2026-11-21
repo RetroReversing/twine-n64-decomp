@@ -73,7 +73,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
     (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((var_v0_3 & ~0xFF) | (arg1 & 0xFF));
     temp_v0_2 = (*(u16 *)((char *)(arg0) + 0xC)) & 0xF;
     if (temp_v0_2 != 0) {
-        (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&D_800BD640 + temp_v0_2) & ~0xFF) | (arg1 & 0xFF));
+        (*(s32 *)((char *)(temp_v0) + 0x10)) = (s32) ((*(&D_800BD640 + temp_v0_2) & ~0xFF) | (u8)arg1);
     }
     if ((*(u8 *)((char *)(arg0) + 0x1C)) & 0x20) {
         (*(u16 *)((char *)(temp_v0) + 0x1E)) = (u16) ((*(u16 *)((char *)(temp_v0) + 0x1E)) | 0x80);
@@ -94,7 +94,7 @@ void *func_80026A5C(void *arg0, s32 arg1) {
             var_a0 = 3;
         }
         (*(s32 *)((char *)(temp_v0) + 0x18)) = lookupDataEntry(var_a0);
-        (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen((*(s32 *)((char *)(temp_v0) + 0x18)));
+        (*(s16 *)((char *)(temp_v0) + 0x1C)) = strlen((*(volatile s32 *)((char *)(temp_v0) + 0x18)));
     }
     if ((*(u16 *)((char *)(arg0) + 0xC)) & 0x8000) {
         temp_v0_3 = (*(u32 *)((char *)(arg0) + 0x14));

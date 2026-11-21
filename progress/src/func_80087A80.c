@@ -24,7 +24,7 @@ s32 func_8009852C(s16 arg0, u16 *arg1) {
 }
 
 extern s8 D_800CEEB0;
-extern s32 D_80102CC8, D_80102CCC, D_80109CB0;
+extern s32 D_80102CC8, D_80102CCC, gDemoFrame;
 extern u16 D_8010D430, D_8010D432, D_8010D434;
 extern vu16 D_8010D436;
 
@@ -32,11 +32,11 @@ typedef struct {
     u16 field_0, field_2, field_4, field_6;
     s32 field_8, field_C;
 } CaptureRecord;
-extern CaptureRecord *D_80102F30;
+extern CaptureRecord *gDemoInputData;
 
 void func_80087A80(void) {
-    s32 index = D_80109CB0;
-    CaptureRecord *base = D_80102F30;
+    s32 index = gDemoFrame;
+    CaptureRecord *base = gDemoInputData;
     u16 field_0 = D_8010D430;
     s32 field_8 = D_80102CC8;
     s32 field_C = D_80102CCC;
@@ -47,7 +47,7 @@ void func_80087A80(void) {
     *(volatile u16 *)&record->field_2 = D_8010D432;
     *(volatile u16 *)&record->field_4 = D_8010D434;
     field_6 = D_8010D436;
-    D_80109CB0 = ++index;
+    gDemoFrame = ++index;
     *(volatile s32 *)&record->field_8 = field_8;
     *(volatile s32 *)&record->field_C = field_C;
     record->field_6 = field_6;

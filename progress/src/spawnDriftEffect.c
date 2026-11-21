@@ -7,14 +7,16 @@ void objectSetAnimFrame(O61578 *, s32, s32);
 u32 randomIntBelow(s32);
 f32 randomFloatScaled(f32);
 
-void func_80061578(O61578 *arg0, s32 arg1) {
+/* Spawns a drift effect object seeded from the source effect's position, with a jittered
+ * velocity, random spin and a short lifetime, then links it into the object list. */
+void spawnDriftEffect(O61578 *srcEffect, s32 arg1) {
     O61578 *o = spawnEffectObject(0x2C, arg1, 0);
     P61578 *p;
     P61578 *src;
 
     if (o != NULL) {
         p = o->p;
-        src = arg0->p;
+        src = srcEffect->p;
         o->t78 = 0x14;
         p->pos = src->pos;
         p->pos.x = p->pos.x * 0.06f + randomFloatScaled(0.02f) - 0.01f;
@@ -24,10 +26,10 @@ void func_80061578(O61578 *arg0, s32 arg1) {
         o->f54 = 0.2f;
         p->c = 0x20;
         o->c82 = 0xFF;
-        o->c7F = arg0->c7F;
-        o->c80 = arg0->c80;
-        o->c81 = arg0->c81;
+        o->c7F = srcEffect->c7F;
+        o->c80 = srcEffect->c80;
+        o->c81 = srcEffect->c81;
         objectSetAnimFrame(o, src->mid, src->hi);
-        objectListInsert(o, arg0->v20);
+        objectListInsert(o, srcEffect->v20);
     }
 }

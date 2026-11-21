@@ -32,9 +32,11 @@ u32 __repair_phase_var_v1_3;
         if (temp_a0 < temp_a1) {
             temp_lo = (u32) (temp_a1 << 0xC) / temp_a0;
             var_a1 = 0;
-            while (var_a1 < 11 && ((temp_lo >> 12) >> (var_a1 + 1)) != 0) {
-                var_a1++;
-            }
+            do {
+                u32 next = var_a1 + 1;
+                if (((temp_lo >> 12) >> next) == 0) break;
+                var_a1 = next;
+            } while (var_a1 < 11);
             var_a2 = 0xB;
             __base_D_800CFD60 = &D_800CFD60;
             temp_lo_2 = temp_lo / (u32)(1 << var_a1);
@@ -46,9 +48,11 @@ loop_9:
             (*(s8*)((char *)(arg0) + 0xC0))=(s8)((u32)((temp_lo_2-temp_a1_2)*0x64)/(u32)((*(u16*)((char *)__base_D_800CFD60 + temp_v1 + 2))-temp_a1_2));
         } else {
             temp_lo_3=(u32)(temp_a0<<0xC)/temp_a1; var_a1_2=0; var_v1=1;
-            while (var_a1_2 < 10 && ((temp_lo_3 >> 12) >> (var_a1_2 + 1)) != 0) {
-                var_a1_2++;
-            }
+            do {
+                u32 next = var_a1_2 + 1;
+                if (((temp_lo_3 >> 12) >> next) == 0) break;
+                var_a1_2 = next;
+            } while (var_a1_2 < 11);
             var_a2_2=0xB; __base_D_800CFD60 = &D_800CFD60; var_v1_4=(u16 *)((s8 *) __base_D_800CFD60+0x16); temp_lo_4=temp_lo_3/(u32)(1<<var_a1_2);
 loop_16:
             if((u16)*var_v1_4-->=temp_lo_4){var_a2_2-=1;goto loop_16;}
@@ -59,3 +63,4 @@ loop_16:
     }
     (*(s32*)((char *)(arg0) + 0x24))=(s32)((*(s32*)((char *)(arg0) + 0x24))|0x100); return 0;
 }
+

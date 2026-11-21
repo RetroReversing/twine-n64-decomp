@@ -3,7 +3,7 @@ extern VecWords D_800D4240;
 s32 func_8001751C(s32, u8, s32 *, f32 *);
 void applyNearbyActorImpact(void *, f32, f32);
 s32 randomIntBelow(s32);
-s32 func_80061578(void *, s32 *);
+s32 spawnDriftEffect(void *, s32 *);
 s32 func_80082FE4(s16 *, void *);
 s32 rotateVec3ByMat3(void *, s32 *);
 extern u8 gTrackDoneFlags[];
@@ -43,7 +43,7 @@ void func_80061168(void *arg0) {
                     *(VecWords *)sp58 = *(VecWords *)((char *)arg0 + 0x24);
                     *(VecWords *)sp68 = *(VecWords *)((char *)arg0 + 0x3C);
                     func_8001751C(*(s32 *)((char *)s2 + 0x18), *(u8 *)((char *)s2 + 0x21), sp58, (f32 *)sp68);
-                    func_80061578(arg0, sp58);
+                    spawnDriftEffect(arg0, sp58);
                     applyNearbyActorImpact(arg0, 1.5f, 10.0f);
                     s0 = 0;
                     if ((s32)*(u16 *)((char *)arg0 + 0x78) >= 0x47) {

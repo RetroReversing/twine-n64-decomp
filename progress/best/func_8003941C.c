@@ -6,7 +6,7 @@ void rotateVec3ByMat3(f32 *, f32 *);
 
 void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     f32 sp18[54];
-    u8 spF0[6];
+    volatile u8 spF0[6];
     f32 spF8[12];
     s16 sp128[3];
     long var_s2;
@@ -17,7 +17,7 @@ void func_8003941C(void **arg0, s32 arg1, f32 *arg2, f32 *arg3, s32 arg4) {
     register u8 *p;
     u32 *var_s6;
     u32 *var_s7;
-    volatile u64 pad;
+    u32 pad[2];
 
     sp147 = 0;
     var_s1 = 0;

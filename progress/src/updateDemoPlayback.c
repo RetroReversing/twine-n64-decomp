@@ -16,60 +16,60 @@ M2C_UNK func_800066A0(M2C_UNK);                     /* extern */
 extern void *D_801005AC;
 extern s8 D_80102CC8;
 extern s32 D_80102CCC;
-extern s8 *D_80102F30;
+extern s8 *gDemoInputData;
 extern void *volatile D_80109698;
-extern s32 D_80109CB0;
-extern s32 D_8010A3C0;
+extern s32 gDemoFrame;
+extern s32 gDemoFadeTimer;
 extern u16 D_8010D430;
 extern u16 D_8010D432;
 extern u16 D_8010D434;
 extern u16 D_8010D436;
 
-void updateDemoPlayback(void) {
-    s32 temp_a0;
-    s32 temp_v1;
-    s32 var_a1;
-    void *temp_v0;
+/* Steps demo playback one frame: loads recorded pad input, runs the end fade, and updates the demo colour cycle */ void updateDemoPlayback(void) {
+    s32 frame;
+    s32 frameCounter;
+    s32 stickSign;
+    void *inputEntry;
 
     if ((D_8010D430 & 0x1000)) {
-        if ((D_8010A3C0 == -1)) {
-            D_8010A3C0 = 0xF;
+        if ((gDemoFadeTimer == -1)) {
+            gDemoFadeTimer = 0xF;
         }
     }
-    temp_a0 = D_80109CB0;
-    temp_v0 = (s8 *)((u32)(temp_a0 * 0x10) + (u32)D_80102F30);
-    D_8010D430 = M2C_FIELD(temp_v0, u16 *, 0);
-    D_8010D432 = M2C_FIELD(temp_v0, u16 *, 2);
-    D_8010D434 = M2C_FIELD(temp_v0, u16 *, 4);
-    D_8010D436 = M2C_FIELD(temp_v0, u16 *, 6);
-    temp_a0 = D_80109CB0 + 1;
-    { s32 b = M2C_FIELD(temp_v0, s32 *, 0xC); s32 a = M2C_FIELD(temp_v0, s32 *, 8);
+    frame = gDemoFrame;
+    inputEntry = (s8 *)((u32)(frame * 0x10) + (u32)gDemoInputData);
+    D_8010D430 = M2C_FIELD(inputEntry, u16 *, 0);
+    D_8010D432 = M2C_FIELD(inputEntry, u16 *, 2);
+    D_8010D434 = M2C_FIELD(inputEntry, u16 *, 4);
+    D_8010D436 = M2C_FIELD(inputEntry, u16 *, 6);
+    frame = gDemoFrame + 1;
+    { s32 b = M2C_FIELD(inputEntry, s32 *, 0xC); s32 a = M2C_FIELD(inputEntry, s32 *, 8);
     (*(s32 *)&D_80102CC8) = a;
     D_80102CCC = b; }
-    D_80109CB0 = temp_a0;
-    if (temp_a0 >= 0x375) {
-        if (D_8010A3C0 == -1) {
-            D_8010A3C0 = 0xF;
+    gDemoFrame = frame;
+    if (frame >= 0x375) {
+        if (gDemoFadeTimer == -1) {
+            gDemoFadeTimer = 0xF;
             goto block_6;
         }
         goto block_7;
     }
 block_6:
-    if (D_8010A3C0 != -1) {
+    if (gDemoFadeTimer != -1) {
 block_7:
-        M2C_FIELD(D_80109698, f32 *, 0x12C) = (f32) ((f32) (D_8010A3C0 - 6) * 0.1f);
+        M2C_FIELD(D_80109698, f32 *, 0x12C) = (f32) ((f32) (gDemoFadeTimer - 6) * 0.1f);
         { f32 *value = &M2C_FIELD(D_80109698, f32 *, 0x12C);
         f32 fade = *(volatile f32 *)value;
-        D_8010A3C0 -= 1;
+        gDemoFadeTimer -= 1;
         if (fade < 0.0f) *value = 0.0f; }
     }
-    if (D_8010A3C0 == 0) {
+    if (gDemoFadeTimer == 0) {
         func_800066A0(0x11);
     }
-    temp_v1 = D_80109CB0 & 0x3F;
-    var_a1 = (s16)temp_v1;
-    if (temp_v1 >= 0x20) {
-        var_a1 = 0x3F - temp_v1;
+    frameCounter = gDemoFrame & 0x3F;
+    stickSign = (s16)frameCounter;
+    if (frameCounter >= 0x20) {
+        stickSign = 0x3F - frameCounter;
     }
-    M2C_FIELD(D_801005AC, s32 *, 0x10) = (s32) ((M2C_FIELD(D_801005AC, s32 *, 0x10) & ~0xFF) | ((s32) (var_a1 << 0x10) >> 0xD));
+    M2C_FIELD(D_801005AC, s32 *, 0x10) = (s32) ((M2C_FIELD(D_801005AC, s32 *, 0x10) & ~0xFF) | ((s32) (stickSign << 0x10) >> 0xD));
 }

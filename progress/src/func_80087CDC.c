@@ -14,16 +14,16 @@ void func_8002D850(void);
 void func_80045CA0(void);
 extern s8 D_800CEEB0, D_800CEEB1;
 extern u64 D_80102CC8;
-extern s32 D_80109CB0, D_8010A3C0;
+extern s32 gDemoFrame, gDemoFadeTimer;
 extern u8 D_80104320[];
-extern u8 *D_80102F30;
+extern u8 *gDemoInputData;
 
 void func_80087CDC(void) {
-    D_80102F30 = D_80104320;
+    gDemoInputData = D_80104320;
     D_800CEEB0 = 1;
     D_80102CC8 = 0;
-    D_80109CB0 = 0;
-    D_8010A3C0 = -1;
+    gDemoFrame = 0;
+    gDemoFadeTimer = -1;
     func_80045CA0();
     func_8002D850();
     D_800CEEB1 = 2;

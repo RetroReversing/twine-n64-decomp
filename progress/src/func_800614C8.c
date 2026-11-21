@@ -13,7 +13,7 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 applyNearbyActorImpact(void *, f32, f32);
-s32 func_80061578();
+s32 spawnDriftEffect();
 s32 func_80085E30();
 s32 updateActorTrackingState();
 
@@ -26,7 +26,7 @@ void func_800614C8(void *arg0) {
     temp_s2 = temp_s1 + 0x2C;
     updateActorTrackingState(arg0, temp_s2);
     if (!(M2C_FIELD(temp_s1, s32 *, 0xC) & 3)) {
-        func_80061578(arg0, arg0 + 0x24);
+        spawnDriftEffect(arg0, arg0 + 0x24);
     }
     temp_v0 = M2C_FIELD(temp_s1, s32 *, 0xC) - 1;
     M2C_FIELD(temp_s1, s32 *, 0xC) = temp_v0;
