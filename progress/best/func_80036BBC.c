@@ -18,7 +18,7 @@ extern u32 sMatrixPoolLimit;
 extern u8 D_800C2B40;
 extern void *D_801007BC;
 extern s32 D_801032A0;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern u32 sMatrixPoolUsed;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
@@ -59,7 +59,7 @@ void func_80036BBC(void *arg0) {
 
     
 
-    var_s2 = D_80107E9C;
+    var_s2 = gObjectListHead;
     D_801007BC = NULL;
     if (gRenderMode != 0) {
         gRenderMode = 0;

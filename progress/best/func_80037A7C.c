@@ -18,7 +18,7 @@ M2C_UNK func_80034630(void *, s32);                 /* extern */
 M2C_UNK func_80037788(void *, s32);                 /* extern */
 M2C_UNK func_800378C0(void *, void *, s32);         /* extern */
 M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern s32 D_80112E40;
 
 void func_80037A7C(s32 arg0) {
@@ -28,7 +28,7 @@ void func_80037A7C(s32 arg0) {
     void *var_s2;
     void *var_s3;
 
-    var_s3 = D_80107E9C;
+    var_s3 = gObjectListHead;
     if (D_80112E40 != 4) {
         D_80112E40 = 4;
         emit_matrices_viewport_and_persp_norm();

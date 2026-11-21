@@ -29,7 +29,7 @@ extern s32 D_800C06DC;
 extern s32 D_800C06E8;
 extern u8 D_800C2B40;
 extern s32 D_801032A0;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern u32 sMatrixPoolUsed;
 extern s32 gTrackDoneFlags;
 extern s32 sParentMatrixF;
@@ -119,7 +119,7 @@ void func_800358D4(void *arg0) {
     void *var_fp;
     void *var_s3;
 
-    var_fp = D_80107E9C;
+    var_fp = gObjectListHead;
     if (gRenderMode != 2) {
         gRenderMode = 2;
         func_80039068();

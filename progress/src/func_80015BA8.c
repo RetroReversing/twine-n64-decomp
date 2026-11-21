@@ -5,7 +5,7 @@ s32 func_80015B4C();
 f32 approxDistance();
 extern u16 D_800B35B0;
 extern void **gProbeObjectList;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 
 void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
     s32 temp_a1;
@@ -19,7 +19,7 @@ void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
 
     temp_v0 = (*(void **)((char *)(arg1) + 0x20));
     (*(s32 *)((char *)(arg1) + 0x1C)) = 0;
-    D_80107E9C = arg1;
+    gObjectListHead = arg1;
     *(struct Copy16 *)temp_v0 = *(struct Copy16 *)arg2;
     temp_a1 = D_800B35B0;
     var_s0 = *gProbeObjectList;
@@ -28,9 +28,9 @@ void func_80015BA8(s32 arg0, void *arg1, void *arg2) {
     if (var_s0 != NULL) {
         do {
             if ((var_s0 != arg1) && ((*(void **)((char *)(var_s0) + 0x20)) != NULL) && ((approxDistance(arg0, var_s0 + 0x40) - (*(f32 *)((char *)(var_s0) + 0x4C))) < 15.0f) && ((*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) != D_800B35B0)) {
-                temp_v0_2 = D_80107E9C;
+                temp_v0_2 = gObjectListHead;
                 temp_v1 = (*(void * volatile *)((char *)(var_s0) + 0x20));
-                D_80107E9C = var_s0;
+                gObjectListHead = var_s0;
                 (*(void **)((char *)(var_s0) + 0x1C)) = temp_v0_2;
                 *(struct Copy16 *)temp_v1 = *(struct Copy16 *)arg2;
                 (*(u16 *)((char *)((*(void **)((char *)(var_s0) + 0x20))) + 0x60)) = (u16) D_800B35B0;

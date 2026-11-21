@@ -9,7 +9,7 @@ s32 guMtxF2L(s32 *, s32);              /* extern */
 extern s32 D_800B1A78;
 extern u32 sMatrixPoolLimit;
 extern s32 D_801032A0;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern u32 sMatrixPoolUsed;
 extern s32 D_8010A924;
 extern s32 D_8010D538;
@@ -45,7 +45,7 @@ void func_800374BC(void *arg0, s32 arg1) {
     f32 scale;
 
     var_a1 = arg1;
-    var_s1 = D_80107E9C;
+    var_s1 = gObjectListHead;
     var_a0 = 3;
     if (D_8010A924 != 3) {
 void *temp_v0;

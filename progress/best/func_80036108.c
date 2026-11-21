@@ -39,8 +39,8 @@ void func_80036108(void *arg0) {
 
     temp_v1 = ((__repair_field_100 *)arg0)->value;
     if (!(temp_v1 & 4) && (D_8010D450 != NULL)) {
-        temp_s2 = D_8010D450;
         if (!(temp_v1 & 0x20)) {
+            temp_s2 = D_8010D450;
             emitPrimColor(M2C_FIELD(arg0, s32 *, 0xF4), arg0);
             emitScissorFromWindow(arg0);
             if (D_8010A924 != 2) {

@@ -16,7 +16,7 @@ M2C_UNK func_80082C8C(s32, s32);                    /* extern */
 M2C_UNK func_80082CFC(s32);                         /* extern */
 extern u16 D_800B35B0;
 extern s32 D_800E09F0;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern s32 D_80109E1C;
 extern s32 D_8010D53C;
 
@@ -24,7 +24,7 @@ void func_80014E30(s32 arg0) {
     s32 temp_s0;
     void *var_v1;
 
-    var_v1 = D_80107E9C;
+    var_v1 = gObjectListHead;
     if (var_v1 != NULL) {
         do {
             M2C_FIELD(M2C_FIELD(var_v1, void **, 0x20), s32 *, 0x54) = 0;

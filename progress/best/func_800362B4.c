@@ -37,7 +37,7 @@ extern void guMtxIdentF(f32 *);
 extern RenderCommand D_800B1A00[], D_800B1A78[], D_800B1B18[];
 extern u32 sMatrixPoolLimit[3];
 extern s32 D_801032A0, D_8010A924, gRenderMode;
-extern RenderNode *D_80107E9C;
+extern RenderNode *gObjectListHead;
 extern u32 sMatrixPoolUsed, D_8010D538;
 extern f32 D_80112F90[16];
 extern f32 D_80112FC4;
@@ -47,7 +47,7 @@ extern RenderFrame *sRenderState;
 #define EMIT(a, b) { RenderCommand *cmd = D_80115328++; cmd->w0 = (a); cmd->w1 = (b); }
 
 void func_800362B4(RenderView *view) {
-    RenderNode *node = D_80107E9C;
+    RenderNode *node = gObjectListHead;
     RenderCommand *cmd;
 
     if (D_801032A0 != 1) {
@@ -89,7 +89,7 @@ void func_800362B4(RenderView *view) {
         EMIT(0xDE000000, (u32)D_800B1A78);
     }
 
-    node = D_80107E9C;
+    node = gObjectListHead;
     if (node != NULL) {
         f32 one = 1.0f;
         f32 scale = 64.0f;

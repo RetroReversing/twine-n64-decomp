@@ -21,7 +21,7 @@ M2C_UNK emitScissorFromWindow(void *);                      /* extern */
 M2C_UNK emitObjectMatrix(void *, void *, void *);      /* extern */
 M2C_UNK emit_projection_viewport_commands();                            /* extern */
 M2C_UNK emit_matrices_viewport_and_persp_norm();                            /* extern */
-extern s32 D_800E1714;
+extern s32 gObjectDrawMask;
 extern void *gObjectList;
 extern s32 gRenderMode;
 
@@ -73,9 +73,9 @@ typedef struct { unsigned char pad_0[8]; void * field_8; unsigned char pad_C[16]
             emitPrimColor(target, view);
             if ((IsSphereVisible(node + 0x24, ((__repair_record_var_s1*)node)->field_64 * ((__repair_record_var_s1*)node)->field_54, M2C_FIELD(view, void **, 0xF4), view) << 0x18) != 0) {
                 ((__repair_record_var_s1*)node)->field_58 = (s32) (((__repair_record_var_s1*)node)->field_58 | 4);
-                func_80009DCC(object, node, view, D_800E1714, 0);
+                func_80009DCC(object, node, view, gObjectDrawMask, 0);
                 if (((u32) M2C_FIELD(object, u32 *, 0x58) >> 2) & 0x200) {
-                    func_80009DCC(object, node, view, D_800E1714, 1);
+                    func_80009DCC(object, node, view, gObjectDrawMask, 1);
                 }
                 object = ((__repair_record_var_s1*)node)->field_8;
                 if (object != NULL) {

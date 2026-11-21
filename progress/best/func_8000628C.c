@@ -19,7 +19,10 @@ if(__repair_phase_storage.value< -0x40)__repair_phase_storage.value=-0x40;else i
 temp_v1_5=(void*)((arg2*2)+temp_s1);temp_v0_3=(*(u16*)((char*)temp_v1_5+0x98))+__repair_phase_storage.value;(*(u16*)((char*)temp_v1_5+0x98))=temp_v0_3;
 if(__repair_phase_storage.value>=0)var_v0_4=var_a1<(s16)temp_v0_3;else var_v0_4=(s16)temp_v0_3<var_a1;
 if(var_v0_4!=0)(*(u16*)((char*)temp_v1_5+0x98))=(u16)var_a1;
-temp_v1_6=(void*)((arg2*2)+(s32)temp_s1);temp_a0_2=(*(s16*)((char*)temp_v1_6+0x98));var_v0_5=-0x258;
-if(temp_a0_2>=-0x258){var_v0=arg2*2;if(temp_a0_2>=0x259){var_v0_5=0x258;(*(s16*)((char*)temp_v1_6+0x98))=var_v0_5;var_v0=arg2*2;}}else{(*(s16*)((char*)temp_v1_6+0x98))=var_v0_5;var_v0=arg2*2;}
-return (*(s16*)((char*)(var_v0+temp_s1)+0x94));
+temp_v1_6 = (void *)((s32)temp_s1 + (arg2 << 1));
+temp_a0_2 = *(s16 *)((char *)temp_v1_6 + 0x98);
+var_v0_5 = -0x258;
+if (temp_a0_2 < -0x258 || (var_v0_5 = 0x258, temp_a0_2 >= 0x259)) {
+    *(s16 *)((char *)temp_v1_6 + 0x98) = var_v0_5;
 }
+return *(s16 *)((char *)temp_s1 + (arg2 << 1) + 0x94);}

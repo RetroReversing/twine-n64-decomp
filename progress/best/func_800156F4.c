@@ -19,7 +19,7 @@ typedef struct Entry156 {
 extern u16 D_800B35B0;
 extern Entry156 *D_80102D68[];
 extern Bounds156 D_80103F10[];
-extern Entry156 *D_80107E9C;
+extern Entry156 *gObjectListHead;
 extern u32 D_80109E1C;
 
 void func_800156F4(void) {
@@ -69,19 +69,19 @@ void func_800156F4(void) {
                 goto advance;
             }
 
-            current = D_80107E9C;
+            current = gObjectListHead;
             previous = NULL;
             if (current == NULL) {
                 entry->next = NULL;
                 ++bounds;
-                D_80107E9C = entry;
+                gObjectListHead = entry;
                 goto nextEntry;
             } else {
                 do {
                     if (entry->data->depth < current->data->depth) {
                         entry->next = current;
                         if (previous == NULL) {
-                            D_80107E9C = entry;
+                            gObjectListHead = entry;
                             goto advance;
                         }
                         previous->next = entry;

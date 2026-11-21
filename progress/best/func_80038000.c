@@ -27,7 +27,7 @@ M2C_UNK func_80035854(void *, f32, f32);            /* extern */
 M2C_UNK func_800358D4(void *);                      /* extern */
 M2C_UNK func_80036108(void *);                      /* extern */
 M2C_UNK func_800362B4(void *);                      /* extern */
-M2C_UNK func_80036820(void *);                      /* extern */
+M2C_UNK drawObjectListPass(void *);                      /* extern */
 M2C_UNK func_800369B8(void *);                      /* extern */
 M2C_UNK func_80036B38(void *);                      /* extern */
 M2C_UNK func_80036BBC(void *);                      /* extern */
@@ -52,9 +52,9 @@ extern u16 D_800B35B0;
 extern f32 D_800C0740;
 extern M2C_UNK D_800C43A0;
 extern s32 D_800E1710;
-extern s32 D_800E1714;
+extern s32 gObjectDrawMask;
 extern s32 D_801007B8;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern u32 D_80107EA0;
 extern f32 D_80109BB8;
 extern M2C_UNK D_80109E28;
@@ -122,9 +122,9 @@ void func_80038000(void *arg0, s32 arg1) {
         }
     }
     func_8006F90C(arg0);
-    D_800E1714 = func_80034EAC(arg1);
+    gObjectDrawMask = func_80034EAC(arg1);
     D_800E1710 = arg1;
-    D_80107E9C = NULL;
+    gObjectListHead = NULL;
     gObjectList = 0;
     D_800B35B0 += 1;
     if (M2C_FIELD(arg0, s32 *, 0xF4) != 0) {
@@ -228,7 +228,7 @@ loop_15:
             func_80082C8C(temp_s0_3);
             func_80082CFC(temp_s0_3);
             func_800349B4(arg0);
-            var_s0_2 = D_80107E9C;
+            var_s0_2 = gObjectListHead;
             if (var_s0_2 != NULL) {
                 do {
                     updateObjectColor(var_s0_2);
@@ -244,7 +244,7 @@ loop_15:
             func_80034928(arg0, D_8010A4D8);
             func_80036BBC(arg0);
             func_80034928(arg0, D_8010A4D8);
-            func_80036820(arg0);
+            drawObjectListPass(arg0);
             func_80034928(arg0, D_8010A4D8);
             renderObjectList(arg0);
             func_80034928(arg0, D_8010A4D8);

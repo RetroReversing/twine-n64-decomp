@@ -5,7 +5,7 @@ s32 emitPrimColor(void *, void *);              /* extern */
 s32 emit_projection_viewport_commands(void *);                      /* extern */
 extern s32 D_800B1AC8;
 extern s32 D_801032A0;
-extern void *D_80107E9C;
+extern void *gObjectListHead;
 extern s32 D_8010A924;
 extern s32 gRenderMode;
 extern s32 *sDisplayListCursor;
@@ -24,7 +24,7 @@ void func_800355BC(void *arg0) {
     void *var_s1;
     void *var_s2;
 
-    var_s2 = D_80107E9C;
+    var_s2 = gObjectListHead;
     var_s3 = 1;
     if (var_s2 != NULL) {
         do {

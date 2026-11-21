@@ -21,7 +21,7 @@ extern s8 D_801032A4;
 extern s8 D_801032AC;
 extern s8 D_80103EB1;
 extern s8 D_80107B60;
-extern s32 D_80107E9C;
+extern s32 gObjectListHead;
 extern s8 gSharedItemBusy;
 extern s8 D_80107ECD;
 extern s8 D_80107ECE;
@@ -114,7 +114,7 @@ loop_6:
     (*(u8 *)&D_80109A34) = 0xEF;
     (*(u8 *)&D_80109684) = 0x40;
     (*(u8 *)&D_8010A4B8) = 0x10;
-    D_80107E9C = 0;
+    gObjectListHead = 0;
     (*(u8 *)&D_801032A4) = 0xFF;
     (*(u8 *)&D_80108F74) = 0xFF;
     (*(u8 *)&D_80102F38) = 0xFF;
