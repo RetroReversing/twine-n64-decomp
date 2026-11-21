@@ -27,7 +27,7 @@ extern void *D_800E1A70[4];
 extern s32 D_80109B98;
 extern s32 D_8010D2C0[3];
 extern s32 D_8010D380[3];
-extern s32 gBonusObjects;
+extern s32 gBonusObject;
 extern u8 sTrackDoneFlags[19];
 void func_800740D0(void *arg0) {
     s16 *__base_D_800C7EA0;
@@ -39,7 +39,7 @@ void func_800740D0(void *arg0) {
  case 0:
  if(*(s32*)((M2C_FIELD(temp_s1,u8*,0x34)*4)+((M2C_FIELD(temp_s1,u8*,0x33)*0x1C)+(u8*)&D_8010D380))==M2C_FIELD(temp_s1,s32*,0x18)) {
  temp_s3=M2C_FIELD(temp_s1,void**,4);
- if(M2C_FIELD(temp_s1,f32*,0xC)!=65536.0f && 2.0f*M2C_FIELD(temp_s1,f32*,0x28)<func_80045590((u8*)temp_s1+8,gBonusObjects+0x24)) {
+ if(M2C_FIELD(temp_s1,f32*,0xC)!=65536.0f && 2.0f*M2C_FIELD(temp_s1,f32*,0x28)<func_80045590((u8*)temp_s1+8,gBonusObject+0x24)) {
  var_s0=func_80015DAC(); if(var_s0!=NULL) do { if(M2C_FIELD(var_s0,u16*,0x78)==0x19 && M2C_FIELD(M2C_FIELD(var_s0,void**,0x6C),s32*,0x20)==M2C_FIELD(temp_s1,s32*,0x20)) { temp_a0=M2C_FIELD(temp_s1,u8*,0x32); if(temp_a0) showTrackMarker(temp_a0); temp_v1_2=M2C_FIELD(temp_s1,s32*,0x24); if(temp_v1_2!=0 && !(temp_v1_2&0x80000000)) {temp_v1_3=temp_v1_2&0xFF; sTrackDoneFlags[temp_v1_3]^=1;} M2C_FIELD(var_s0,s16*,0x7A)=8;} var_s0=M2C_FIELD(var_s0,void**,0x10);} while(var_s0!=NULL);
  } else { temp_v0_2=M2C_FIELD(temp_s1,s32*,0x24); if(temp_v0_2<0) D_80109B98=func_8000A454(temp_v0_2&0xFFFFFF,0x64); M2C_FIELD(temp_s3,s32*,0x28)&=~0xFC; temp_v1_4=M2C_FIELD(temp_s1,u8*,0x34); if(temp_v1_4==3){var_v0=1;M2C_FIELD(temp_s3,s32*,0x10)=0;}else{M2C_FIELD(temp_s3,s32*,0x10)=(*(&D_800C7EC4+temp_v1_4*4)|0xF0);var_v0=7;} M2C_FIELD(arg0,s16*,0x7A)=var_v0; M2C_FIELD(arg0,void**,0x18)=M2C_FIELD(temp_s1,void**,0);
  __base_D_800C7EA0 = &D_800C7EA0;

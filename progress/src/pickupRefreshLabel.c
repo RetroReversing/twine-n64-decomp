@@ -16,7 +16,7 @@ s32 refreshSaveSlotMenu();
 s32 formatTextEntry();
 void *findEntryPayload();
 s32 func_8002A644();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 lookupDataEntry();
 extern char sPickupSlotTable[];
@@ -53,7 +53,7 @@ extern s32 bindMenuItemRecord;
         }
         refreshSaveSlotMenu(kindLevel);
         if ((*skipFlagPtr) != 0) {
-            func_8002A9A8(gPickupSearchBox, (*savedBytePtr));
+            selectItemAndUpdateAmount(gPickupSearchBox, (*savedBytePtr));
             func_8002AC04(gPickupSearchBox, 1);
         }
     }

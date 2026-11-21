@@ -7,7 +7,7 @@ s32 formatTextEntry();
 s32 findEntryById();
 s32 func_8002A644();
 s32 func_8002A7CC();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 void *lookupDataEntry();
@@ -83,7 +83,7 @@ void menuPopulateItems(void) {
             } while ((u32) (itemCounter & 0xFFFF) < itemCount);
         }
         func_80022AD8(sMenuListKind);
-        func_8002A9A8(gMenuList, 0);
+        selectItemAndUpdateAmount(gMenuList, 0);
         func_8002AC04(gMenuList, 1);
         func_8002ACB4(gMenuList);
     }

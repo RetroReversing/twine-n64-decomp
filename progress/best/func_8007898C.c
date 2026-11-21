@@ -23,7 +23,7 @@ s32 func_80077B58();
 s32 func_80077E00();
 s32 func_80077ED8();
 void *func_8007847C();
-s32 func_80078860();
+s32 tryCollectBonusObject();
 s32 actorTargetInAngleRange(void *, void *, void *, f32);
 s32 func_8007AA40();
 s32 func_8007AB18(s32, s32, f32);
@@ -34,7 +34,7 @@ s32 func_8007C214();
 s32 func_8007C3F0();
 extern char D_800C2E64[];
 extern s32 gGameMode;
-extern void *gBonusObjects;
+extern void *gBonusObject;
 extern s8 D_80115319;
 extern s16 D_80117386;
 
@@ -91,8 +91,8 @@ s32 func_8007898C(void *arg0) {
         temp_v1 = M2C_FIELD(temp_s1, u8 *, 0x82);
         if (((s32) temp_v1 < 0x15) && ((s32) temp_v1 >= 0x13) && (M2C_FIELD(temp_s1, u8 *, 0x81) != 0)) {
             var_a1 = 1;
-            if (M2C_FIELD(gBonusObjects, s32 *, 0x20) == M2C_FIELD(arg0, s32 *, 0x20)) {
-                if ((func_8007C094(arg0, gBonusObjects + 0x24) << 0x18) != 0) {
+            if (M2C_FIELD(gBonusObject, s32 *, 0x20) == M2C_FIELD(arg0, s32 *, 0x20)) {
+                if ((func_8007C094(arg0, gBonusObject + 0x24) << 0x18) != 0) {
                     var_a1 = 0x46;
                     goto block_113;
                 }
@@ -260,7 +260,7 @@ block_65:
                             }
 block_77:
                             var_a1 = 1;
-                            if ((func_80078860(arg0) << 0x18) == 0) {
+                            if ((tryCollectBonusObject(arg0) << 0x18) == 0) {
                                 goto block_78;
                             }
                             /* Duplicate return node #120. Try simplifying control flow for better match */
@@ -293,7 +293,7 @@ block_81:
                         }
                         if (!(M2C_FIELD(arg0, s32 *, 0x60) & 0x20000) || ((func_8007C120(arg0, temp_s1 + 0x50, 3.0f) << 0x18) == 0)) {
                             var_a1 = 1;
-                            if ((func_80078860(arg0) << 0x18) == 0) {
+                            if ((tryCollectBonusObject(arg0) << 0x18) == 0) {
                                 goto block_92;
                             }
                             /* Duplicate return node #120. Try simplifying control flow for better match */
@@ -406,7 +406,7 @@ block_114:
                     return 1;
                 }
                 var_a1 = 1;
-                if ((func_80078860(arg0) << 0x18) == 0) {
+                if ((tryCollectBonusObject(arg0) << 0x18) == 0) {
                     return 0;
                 }
                 /* Duplicate return node #120. Try simplifying control flow for better match */

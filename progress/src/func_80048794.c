@@ -2,12 +2,12 @@
 
 s32 func_8003C78C();                                /* extern */
 void *func_8003C934(s32, s32);                  /* extern */
-extern s32 gTrackMarkerTable[];
+extern s32 gTrackMarkers[];
 
 void func_80048794(s32 arg0, s32 arg1) {
     void *temp_v0;
 
     temp_v0 = func_8003C934(func_8003C78C(), arg1);
-    gTrackMarkerTable[arg0] = temp_v0;
+    gTrackMarkers[arg0] = temp_v0;
     (*(s16 *)((char *)(temp_v0) + 0x140)) = arg0;
 }

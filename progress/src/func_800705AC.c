@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 s32 freeTrackSpriteSlots();
 s32 func_8006FDF8();
-extern char gTrackMarkerTable[];
+extern char gTrackMarkers[];
 
 void func_800705AC(s32 arg0, void *arg1) {
     s32 temp_v1;
@@ -28,7 +28,7 @@ void func_800705AC(s32 arg0, void *arg1) {
     if (arg1 != NULL) {
         temp_v1 = M2C_FIELD(arg1, s8 *, 0x182);
         if (!(arg0 & 0xFFFF)) {
-            { u32 base = (u32)gTrackMarkerTable; temp_a0 = (void **)(base + (u32)temp_v1 * 4); }
+            { u32 base = (u32)gTrackMarkers; temp_a0 = (void **)(base + (u32)temp_v1 * 4); }
             M2C_FIELD(arg1, s8 *, 0x185) = 0;
             temp_a1 = *temp_a0;
             M2C_FIELD(temp_a1, s32 *, 0x100) &= ~7;
@@ -38,7 +38,7 @@ void func_800705AC(s32 arg0, void *arg1) {
             return;
         }
         M2C_FIELD(arg1, s8 *, 0x185) = 2;
-        { u32 base = (u32)gTrackMarkerTable; temp_a0_2 = (void **)(base + (u32)temp_v1 * 4); }
+        { u32 base = (u32)gTrackMarkers; temp_a0_2 = (void **)(base + (u32)temp_v1 * 4); }
         temp_a1_2 = *temp_a0_2;
         M2C_FIELD(temp_a1_2, s32 *, 0x100) &= ~7;
         temp_v1_3 = *temp_a0_2;

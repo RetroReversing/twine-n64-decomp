@@ -13,7 +13,7 @@ s32 formatTextEntry();
 s32 findEntryById();
 s32 func_8002A644();
 s32 func_8002A7CC();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 func_8002B8AC();
@@ -97,7 +97,7 @@ extern char sFmtEntryName[];
         }
         func_80022E18(sMenuListKind);
         func_80022AD8(sMenuListKind);
-        func_8002A9A8(gPickupSearchBox, 0);
+        selectItemAndUpdateAmount(gPickupSearchBox, 0);
         func_8002AC04(gPickupSearchBox, 1);
         func_8002ACB4(gPickupSearchBox);
         if (entryText != 0) {

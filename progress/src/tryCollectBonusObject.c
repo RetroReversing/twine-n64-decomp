@@ -7,13 +7,13 @@ void func_80077960(void *, s32);
 void func_800779C4(void *);
 void func_80077A94(void *);
 void func_8008461C(s32);
-extern u8 *gBonusObjects;
+extern u8 *gBonusObject;
 
-s32 func_80078860(u8 *actor) {
+s32 tryCollectBonusObject(u8 *actor) {
     s32 flags = *(s32 *)(actor + 0x60);
     u8 *state = *(u8 **)(actor + 0x6C);
 
-    if (!((flags & 0x3000) && ((u32)func_8007C094(actor, gBonusObjects + 0x24, 2.0f) << 24)))
+    if (!((flags & 0x3000) && ((u32)func_8007C094(actor, gBonusObject + 0x24, 2.0f) << 24)))
         return 0;
     if ((*(s32 *)(state + 0x88) & 0x41E00000) != 0x200000)
         return 0;
@@ -41,7 +41,7 @@ s32 func_80078860(u8 *actor) {
     case 44:
         return 0;
     }
-    switch (((s8 *)*(u8 **)(gBonusObjects + 0x68))[0xE]) {
+    switch (((s8 *)*(u8 **)(gBonusObject + 0x68))[0xE]) {
     default:
         func_8008461C((s32)actor);
         func_80077960(actor, 0x38);
@@ -62,7 +62,7 @@ s32 func_80078860(u8 *actor) {
     case 0x37:
     case 0x38:
         func_80077A94(actor);
-        *(Position78860 *)(state + 0x18) = *(Position78860 *)(gBonusObjects + 0x24);
+        *(Position78860 *)(state + 0x18) = *(Position78860 *)(gBonusObject + 0x24);
         func_80077960(actor, 0xD);
         return 0;
     }

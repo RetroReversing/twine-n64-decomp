@@ -17,7 +17,7 @@ s32 lookupDataEntry(u16);                             /* extern */
 extern f32 D_800C43A0;
 extern s32 *gProbeObjectList;
 extern u8 D_800CA338;
-extern s32 gTrackMarkerTable;
+extern s32 gTrackMarkers;
 extern u8 sTrackDoneFlags;
 extern void *D_80109CB4;
 
@@ -249,7 +249,7 @@ block_66:
         if (((*(s32 *)((char *)(arg0) + 0x60)) & 0x100800) == 0x800) {
             var_a2 = lookupDataEntry((*(u16 *)((char *)(temp_s0) + 0x48)));
 block_85:
-            func_80073AF8(0, gTrackMarkerTable, var_a2, -1, 0, 0, 0, 0x3C);
+            func_80073AF8(0, gTrackMarkers, var_a2, -1, 0, 0, 0, 0x3C);
             func_80084338(9U, arg0 + 0x24);
         }
         break;

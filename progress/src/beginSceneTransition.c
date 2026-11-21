@@ -9,7 +9,7 @@ extern void *gObjectRecords;
 extern s8 D_800B2715;
 extern s8 gSceneObjectsLoaded;
 extern u8 gSceneSkipLoad;
-extern void *gTrackMarkerTable;
+extern void *gTrackMarkers;
 extern void *D_80109690;
 extern u8 D_8010A4C1;
 extern u8 gSceneFlagsB;
@@ -36,7 +36,7 @@ extern s32 D_8010A500;
         *sceneFlagsPtr |= 1;
     }
     gSceneFlagsB |= 1;
-    *(s32 *)((char *)gTrackMarkerTable + 0x100) &= ~0x100;
+    *(s32 *)((char *)gTrackMarkers + 0x100) &= ~0x100;
     func_80001D80(0);
     gObjectRecords = NULL;
     if (currentSceneId == 0x26 && D_8010A500) {

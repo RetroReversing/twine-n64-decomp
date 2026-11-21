@@ -9,7 +9,7 @@ typedef struct {
     u8 pad[8];
     s32 handle;
 } Object44D28;
-extern Object44D28 *gTrackMarkerTable;
+extern Object44D28 *gTrackMarkers;
 void func_800422F4(s16);
 void func_800426B8(s32, s16, s32);
 void activateIdList(s16 *ids) {
@@ -18,7 +18,7 @@ void activateIdList(s16 *ids) {
             s16 id;
             s32 handle;
             func_800422F4(*ids);
-            handle = gTrackMarkerTable->handle;
+            handle = gTrackMarkers->handle;
             id = *ids++;
             func_800426B8(handle, id, 1);
         } while (*ids >= 0);

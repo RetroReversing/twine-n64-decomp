@@ -30,8 +30,8 @@ extern char D_800C471C[];
 extern char D_800C7C16[];
 extern u8 gSceneType;
 extern s32 gTrackMarkerSerial;
-extern char gTrackMarkerTable[];
-extern void *gBonusObjects;
+extern char gTrackMarkers[];
+extern void *gBonusObject;
 
 extern char D_800D41E0[];
 s32 func_8005FE20(void *arg0, s32 *arg1) {
@@ -84,7 +84,7 @@ s32 func_8005FE20(void *arg0, s32 *arg1) {
         var_s0 = 0;
         markerLinked = 0;
         var_a0 = 0;
-        var_v1 = &gBonusObjects;
+        var_v1 = &gBonusObject;
         do {
             temp_v0 = *var_v1;
             if (temp_v0 != NULL) {
@@ -130,7 +130,7 @@ block_15:
                     formatName = lookupDataEntry(temp_a0 | 0x9000);
                     sprintf(&sp30, D_800D41E0, formatName, lookupDataEntry(0x16A));
                     gTrackMarkerSerial += 1;
-                    func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+                    func_80073AF8(0, *(s32 *)(gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
                     temp_v0_3 = M2C_FIELD(temp_s2, u16 *, 0x3E);
                     switch (temp_v0_3) {
                     case 3:
@@ -186,7 +186,7 @@ block_15:
         temp_s3_2 = M2C_FIELD(temp_s4, u8 *, 0x80);
         if ((u8) M2C_FIELD((temp_s1 + (temp_v1_3 * 8)), u8 *, 0x1FC) < (u8) *(D_800C46A1 + enemyOffset)) {
             gTrackMarkerSerial += 1;
-            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000), -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x6000), -1, -1, 1, 0, 0, 0, 0, 0);
             temp_v1_4 = temp_s1 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 8);
             M2C_FIELD(temp_v1_4, u8 *, 0x1FC) += 1;
             var_a0_4 = 0xD9;
@@ -202,7 +202,7 @@ block_15:
             temp_s0_3 = lookupDataEntry(temp_s3_2 | 0x9000);
             sprintf(&sp30, D_800D41E0, temp_s0_3, lookupDataEntry(0x16A));
             gTrackMarkerSerial += 1;
-            func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
+            func_80073AF8(0, *(s32 *)(gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), &sp30, -1, -1, 1, 0, 0, 0, 0, 0);
             var_a0_4 = 0xD8;
             if (M2C_FIELD(arg0, u16 *, 0x78) != 3) {
                 requestSound(0xD8U);
@@ -258,7 +258,7 @@ block_45:
     }
     setActionSlot(temp_s1, M2C_FIELD(temp_s2, u8 *, 0x3F), M2C_FIELD(temp_s2, u8 *, 0x3D), 0);
     gTrackMarkerSerial += 1;
-    func_80073AF8(0, *(s32 *)(gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
+    func_80073AF8(0, *(s32 *)(gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), lookupDataEntry(M2C_FIELD(temp_s2, u16 *, 0x3E) | 0x7000), -1, -1, (s32) temp_s0, 0, 0, 0, 0, 0);
     if (M2C_FIELD(arg0, u16 *, 0x78) == 3) {
         var_a0_3 = *(u16 *)(D_800C4484 + (M2C_FIELD(temp_s2, u16 *, 0x3E) * 0x10));
 block_63:

@@ -4,7 +4,7 @@ s32 updateSfxPanFromMarker(s32, s32, s32, s32);
 u32 randomIntBelow(s32);
 f32 findNearestTrackMarker(s32, s16 *);
 extern u16 D_800CE6E8[], D_800CE6F0[];
-extern s32 gTrackMarkerTable[];
+extern s32 gTrackMarkers[];
 
 void func_80084CD8(s32 object, u32 variant) {
     s16 index;
@@ -19,7 +19,7 @@ void func_80084CD8(s32 object, u32 variant) {
         item = D_800CE6F0[randomIntBelow(3)];
     
     result = func_8000A8B4(item, factor, 255);}
-    entry = gTrackMarkerTable + (u16)index;
+    entry = gTrackMarkers + (u16)index;
     updateSfxPanFromMarker(result, *entry, object, 0);
 }
 

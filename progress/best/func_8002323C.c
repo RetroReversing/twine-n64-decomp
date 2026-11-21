@@ -24,7 +24,7 @@ void *findEntryById(M2C_UNK *, M2C_UNK);            /* extern */
 s32 func_800263B8(M2C_UNK *, M2C_UNK);               /* extern */
 M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32 *, s32, M2C_UNK); /* extern */
-M2C_UNK func_8002A9A8(M2C_UNK *, M2C_UNK);          /* extern */
+M2C_UNK selectItemAndUpdateAmount(M2C_UNK *, M2C_UNK);          /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s16 timerGetTotalSeconds(void *);                          /* extern */
 void *lookupDataEntry(s32);                           /* extern */
@@ -55,7 +55,7 @@ extern s32 gSaveTotalSlots;
 typedef struct { u32 word; } __attribute__((packed)) UnalignedWord;
 extern UnalignedWord D_801002E6;
 extern void *gMenuItems;
-extern void *gBonusObjects[];
+extern void *gBonusObject[];
 extern M2C_UNK sProbeTimers;
 extern M2C_UNK func_80022F10;
 extern M2C_UNK func_800231F4;
@@ -137,7 +137,7 @@ void func_8002323C(void) {
             do {
                 var_s0_3 = (u16)var_s4;
                 temp_s1 = getSaveSlotIndex(var_s0_3);
-                temp_s0 = gBonusObjects[var_s0_3];
+                temp_s0 = gBonusObject[var_s0_3];
                 if (temp_s0 != NULL) {
                     temp_s0_2 = M2C_FIELD(temp_s0, void **, 0x6C);
                     if (temp_s0_2 != NULL) {
@@ -306,7 +306,7 @@ success5:
             }
         }
         func_80022AD8(sMenuListKind);
-        func_8002A9A8(&D_800E0EF0, 0);
+        selectItemAndUpdateAmount(&D_800E0EF0, 0);
         func_8002AC04(&D_800E0EF0, 1);
     }
 }

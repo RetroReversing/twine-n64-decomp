@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 s32 randomIntBelow(s32);                             /* extern */
 M2C_UNK func_80054FEC(M2C_UNK, M2C_UNK, f32, void *, void *, s32, s32); /* extern */
 M2C_UNK func_800624A8(void *, void *, f32, u8);     /* extern */
-M2C_UNK func_80073508(void *, f32);                 /* extern */
+M2C_UNK updateTrackMarkerProximity(void *, f32);                 /* extern */
 M2C_UNK func_80084338(u16, void *);                 /* extern */
 M2C_UNK func_800853D4(void *);                      /* extern */
 extern s8 gTransitionPhase;
@@ -46,7 +46,7 @@ void updateTrackMarkerTrigger(register void *arg0) {
                 func_800624A8(arg0, arg0 + 0x24, M2C_FIELD(temp_s0, f32 *, 0), M2C_FIELD(temp_s0, u8 *, 0xA));
             } else {
                 temp_s2 = arg0 + 0x24;
-                func_80073508(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
+                updateTrackMarkerProximity(temp_s2, M2C_FIELD(temp_s0, f32 *, 0) * 0.001f);
                 if ((M2C_FIELD(temp_s0, u8 *, 0xA) != 0) && (gTransitionPhase == 0)) {
                     func_800853D4(temp_s2);
                 }

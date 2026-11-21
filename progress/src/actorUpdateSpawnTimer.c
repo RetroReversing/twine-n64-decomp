@@ -17,7 +17,7 @@ s32 func_800312F4();
 s32 randomIntBelow();
 void *func_80079CB4();
 extern u8 sTrackDoneFlags[];
-extern void *gBonusObjects;
+extern void *gBonusObject;
 
 
 /* Counts down the actor's respawn timer; when it expires and the spawn check passes, creates a child actor and flags the spawn. */ void actorUpdateSpawnTimer(void *actor) {
@@ -48,7 +48,7 @@ extern void *gBonusObjects;
     flagIndex = M2C_FIELD(subRec, u8 *, 0x16);
     if (((flagIndex == 0) || (*(sTrackDoneFlags + flagIndex) == 1)) && (actorFlags = M2C_FIELD(actor, s32 *, 0x60), ((actorFlags & 0x1000) == 0)) && (posVec = actor + 0x24, ((actorFlags & 0x6000) != 0))) {
         M2C_FIELD(actor, s32 *, 0x60) = 0;
-        if ((func_800158A4(posVec, *M2C_FIELD(gBonusObjects, s32 **, 0x68) + 0xA8, M2C_FIELD(actor, s32 *, 0x20), hitPos, 0, 0, 0, 1, 0) << 0x18) != 0) {
+        if ((func_800158A4(posVec, *M2C_FIELD(gBonusObject, s32 **, 0x68) + 0xA8, M2C_FIELD(actor, s32 *, 0x20), hitPos, 0, 0, 0, 1, 0) << 0x18) != 0) {
             M2C_FIELD(subRec, s16 *, 0x10) = (s16) (randomIntBelow(0x96) + 0x96);
             return;
         }

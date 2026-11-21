@@ -18,7 +18,7 @@ s8 func_800263B8(s32, M2C_UNK);                     /* extern */
 M2C_UNK func_80026424(s32, M2C_UNK);                /* extern */
 M2C_UNK func_800274BC(M2C_UNK, M2C_UNK);            /* extern */
 M2C_UNK updateActiveMenuState();                            /* extern */
-M2C_UNK func_8002A9A8(M2C_UNK *, s32);              /* extern */
+M2C_UNK selectItemAndUpdateAmount(M2C_UNK *, s32);              /* extern */
 s32 func_8002CC14();                                /* extern */
 extern u16 sSaveMenuAction;
 extern s8 sSaveMenuRefresh;
@@ -41,7 +41,7 @@ void func_800247A8(void) {
         }
         temp_v0_2 = M2C_FIELD(gMenuItems, void **, 0x18);
         updateSaveMenuSprites(M2C_FIELD(temp_v0_2, s32 *, 0x14), M2C_FIELD(temp_v0_2, u16 *, 0x18), M2C_FIELD(temp_v0_2, u8 *, 0x1B), 1);
-        func_8002A9A8(&D_80107EA8, findSaveSlotByMode(sSaveMenuAction) & 0xFF);
+        selectItemAndUpdateAmount(&D_80107EA8, findSaveSlotByMode(sSaveMenuAction) & 0xFF);
         M2C_FIELD(gMenuItems, s8 *, 8) = func_800263B8(M2C_FIELD(gMenuItems, s32 *, 0x10), 3);
         M2C_FIELD(gMenuItems, u8 *, 0x2C) = 0U;
         func_800274BC(0x101, 0xFF);

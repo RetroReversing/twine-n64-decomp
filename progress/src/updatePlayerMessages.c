@@ -20,8 +20,8 @@ M2C_UNK func_80073AF8(M2C_UNK, s32, s32, M2C_UNK, s32, s32, s32, s32, s32, s32, 
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 extern s32 gTrackMarkerSerial;
 extern void *gPlayerActor;
-extern s8 gTrackMarkerTable;
-extern void *gBonusObjects;
+extern s8 gTrackMarkers;
+extern void *gBonusObject;
 
 /* Plays cue sounds and sets message flags based on the player's state and action slots */ void updatePlayerMessages(void) {
     s32 actionTable;
@@ -30,7 +30,7 @@ extern void *gBonusObjects;
     void *player;
 
     player = gPlayerActor;
-    actionTable = M2C_FIELD(gBonusObjects, s32 *, 0x6C);
+    actionTable = M2C_FIELD(gBonusObject, s32 *, 0x6C);
     if ((player != NULL) && (playerState = M2C_FIELD(player, u16 *, 0x78), (((s32) playerState < 0x13) != 0))) {
         if ((s32) playerState >= 0x11) {
             if (M2C_FIELD(M2C_FIELD(player, void **, 0x6C), s32 *, 0x2C) & 0x08000000) {
@@ -38,7 +38,7 @@ extern void *gBonusObjects;
                     requestSound(0x12C);
                     M2C_FIELD(player, s32 *, 0x60) = (s32) (M2C_FIELD(player, s32 *, 0x60) | 0x08000000);
                 } else {
-                    func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), lookupDataEntry(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
+                    func_80073AF8(0, (*(s32 *)&gTrackMarkers), lookupDataEntry(0x100), -1, -1, 1, 0, 0, 3, 0, 0);
                 }
             }
         }
@@ -50,7 +50,7 @@ extern void *gBonusObjects;
             func_80070664(actionTable, 0xD, 1, 0);
             gTrackMarkerSerial += 1;
             requestSound(0x12B);
-            func_80073AF8(0, (*(s32 *)&gTrackMarkerTable), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
+            func_80073AF8(0, (*(s32 *)&gTrackMarkers), lookupDataEntry(0xB0), -1, -1, 1, 0, 0, 3, 0, 0);
         }
     }
 }

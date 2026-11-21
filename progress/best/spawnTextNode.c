@@ -41,7 +41,7 @@ void func_800165E0(TextNode15F74 *, s32);
 void initObjectFromBankEntry(TextNode15F74 *, const char *, s32);
 const char *lookupDataEntry(u16);
 unsigned int strlen(const char *);
-extern s32 gTrackMarkerTable[];
+extern s32 gTrackMarkers[];
 
 TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
 {
@@ -104,7 +104,7 @@ TextNode15F74 *spawnTextNode(TextArgs15F74 *args)
     node->flags.word = (flags & ~0xF00) | (lines << 8);
     index = args->index;
     if (index >= 0) {
-        func_800165E0(node, gTrackMarkerTable[index]);
+        func_800165E0(node, gTrackMarkers[index]);
     }
     return node;
 }

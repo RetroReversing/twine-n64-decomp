@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 
 void func_8002AB34(void *arg0) {
-    func_8002A9A8(arg0, M2C_FIELD(arg0, u8 *, 0x18) - 1);
+    selectItemAndUpdateAmount(arg0, M2C_FIELD(arg0, u8 *, 0x18) - 1);
 }

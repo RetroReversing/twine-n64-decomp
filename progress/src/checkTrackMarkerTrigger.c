@@ -10,7 +10,7 @@ s32 sprintf(char *, const char *, ...);
 extern u8 sMarkerMessageCount;
 extern u8 D_801007D8;
 extern PlayerActor *gPlayerActor;
-extern s32 gTrackMarkerTable;
+extern s32 gTrackMarkers;
 extern char D_800D4110[];
 
 /* Shows the track-marker message once the player actor is in the trigger state; returns 1 when shown. */
@@ -45,7 +45,7 @@ static inline s32 showTrackMarkerMessage(void) {
     idA = lookupDataEntry(0xF3);
     idB = lookupDataEntry(0xFF);
     sprintf(buf, D_800D4110, idA, sMarkerMessageCount, idB, D_801007D8, lookupDataEntry(0xFD));
-    func_80073AF8(0, gTrackMarkerTable, buf, none, none, 1, 0, 0, 3, 0, 0);
+    func_80073AF8(0, gTrackMarkers, buf, none, none, 1, 0, 0, 3, 0, 0);
     *(s16 *)((u8 *)gPlayerActor + 0x7A) = 1;
     requestSound(0x111);
     shown = 1;

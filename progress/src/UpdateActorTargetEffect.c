@@ -23,7 +23,7 @@ s32 rotateVec3ByMat3();
 extern char sEnemyDefTable[];
 extern u8 gPauseFlag;
 extern s32 gBorderSkipActive;
-extern char gTrackMarkerTable[];
+extern char gTrackMarkers[];
 
 typedef struct { f32 x, y, z; } Vec3;
 /* Per-frame update of an actor's aim/target state: computes its aim direction from the axis table, places the aim point, and spawns or updates the aim effect. */ void UpdateActorTargetEffect(void *actor, void *target_pos) {
@@ -60,7 +60,7 @@ s32 __repair_operand;
         }
         M2C_FIELD(M2C_FIELD(actor, void **, 0x68), s32 *, 0x74) = func_8004478C(M2C_FIELD(actor_def, s16 *, 0x4A), M2C_FIELD(actor_def, s16 *, 0x40));
         if (((M2C_FIELD(actor_def, s32 *, 0x60) & 0xC00) != 0) & (target_pos != NULL)) {
-            axis_entry = (axis_idx * 4) + gTrackMarkerTable;
+            axis_entry = (axis_idx * 4) + gTrackMarkers;
             actor_data_b = M2C_FIELD(actor_data, void **, 0xA8);
             angles[0] = -(M2C_FIELD(*axis_entry, f32 *, 0x34) * 651.8986f);
             angles[1] = M2C_FIELD(*axis_entry, f32 *, 0x38) * 651.8986f;

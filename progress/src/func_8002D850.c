@@ -17,7 +17,7 @@ M2C_UNK func_8008173C();                            /* extern */
 M2C_UNK func_80081BC4(s32, M2C_UNK);                /* extern */
 extern s8 sDifficultyLevel;
 extern s8 D_8010A4C0;
-extern s8 gSceneFlagsA;
+extern s8 gTrackMarkerActiveMask;
 extern s8 gSceneFlagsB;
 extern s8 D_8010A4C3;
 extern s8 D_8010A4C4;
@@ -44,7 +44,7 @@ void func_8002D850(void) {
 
     func_8008173C();
     D_8010A4C4 = 1;
-    gSceneFlagsA = 1;
+    gTrackMarkerActiveMask = 1;
     gSceneFlagsB = 0x1F;
     D_8010A4C3 = 0xF;
     sDifficultyLevel = 0;

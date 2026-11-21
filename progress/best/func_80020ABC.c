@@ -9,7 +9,7 @@ s32 func_80022AD8();
 s32 func_8002A644();
 s32 func_8002A700();
 s32 func_8002A7CC();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 getCurrentMapIdx();
@@ -115,7 +115,7 @@ block_13:
         }
     }
     func_80022AD8(sMenuListKind);
-    func_8002A9A8(D_80115060, 0);
+    selectItemAndUpdateAmount(D_80115060, 0);
     func_8002AC04(D_80115060, 1);
     func_8002ACB4(D_80115060);
 }

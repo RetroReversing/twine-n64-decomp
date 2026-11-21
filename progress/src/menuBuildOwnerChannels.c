@@ -11,7 +11,7 @@ s32 func_80022E18(u8);                          /* extern */
 void *func_80026314(s32, s32, s32);         /* extern */
 s32 func_8002A644(s32 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32 *, s32 *); /* extern */
 s32 func_8002A7CC(s32 *, s32, s32, s32);    /* extern */
-void *func_8002A9A8(s32 *, s16);                /* extern */
+void *selectItemAndUpdateAmount(s32 *, s16);                /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 func_80070844(void *, s32);                     /* extern */
 s32 lookupDataEntry(s32);                             /* extern */
@@ -26,7 +26,7 @@ extern s32 D_801003E0;
 extern s32 D_801093A8;
 extern void *gMenuItems;
 extern u8 D_80109D28[];
-extern s32 gBonusObjects;
+extern s32 gBonusObject;
 extern s32 func_8001E898;
 extern s32 func_8001EAF0;
 
@@ -48,7 +48,7 @@ extern s32 func_8001EAF0;
     D_800B60EA = 1;
     gMenuList = &D_801003E0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    owner = *(&gBonusObjects + gMenuSlot);
+    owner = *(&gBonusObject + gMenuSlot);
     found = (s32)NULL;
     if (owner != NULL) {
         rec = (*(void **)((char *)(owner) + 0x6C));
@@ -68,7 +68,7 @@ extern s32 func_8001EAF0;
                         func_8002A7CC(gMenuList, *slot, val, func_80018318(*slot) & 0xFF);
                     }
                     if ((*(u16 *)((char *)(rec) + 0x174)) == idx) {
-                        found = func_8002A9A8(gMenuList, count);
+                        found = selectItemAndUpdateAmount(gMenuList, count);
                     }
                     ++count;
                 }

@@ -24,7 +24,7 @@ s32 findEntryPayload();
 s32 func_800274BC();
 s32 func_8002A644();
 s32 func_8002A7CC();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 u8 countValidSaveSlots();
 s32 lookupDataEntry();
@@ -229,7 +229,7 @@ block_31:
         }
         func_80022E18(sMenuListKind);
         func_80022AD8(sMenuListKind);
-        func_8002A9A8(gPickupSearchBox, gPickupSavedByte);
+        selectItemAndUpdateAmount(gPickupSearchBox, gPickupSavedByte);
         func_8002AC04(gPickupSearchBox, 1);
     }
 }

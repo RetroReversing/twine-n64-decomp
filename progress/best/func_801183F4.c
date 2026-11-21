@@ -9,7 +9,7 @@ extern u8 gSceneType;
 extern s32 gSaveTotalSlots;
 extern void *D_80102CD0[4];
 extern void *D_8010A410;
-extern void *gBonusObjects[4];
+extern void *gBonusObject[4];
 extern u16 D_800BF688[];
 extern s32 D_8011ECB0[];
 extern void *sProbeFlags[];
@@ -53,7 +53,7 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
     if(best1<=0) best1=1;
     i=0;
     for(entry=0;entry<4;entry++) {
-        if(!(candidate = gBonusObjects[entry]) || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
+        if(!(candidate = gBonusObject[entry]) || candidate==(ObjCandidate *)arg0 || candidate->dist<=0.0f) continue;
         p=*(void **)((u8 *)candidate+0x6c);
         if(*(u16 *)((u8 *)candidate+0x78)==0x4d || *(u16 *)((u8 *)candidate+0x78)==0x61) continue;
         v=*(u8 *)((u8 *)sub->field_b4+0x12);
@@ -63,16 +63,16 @@ void *func_801183F4(ObjMain *arg0, s32 arg1) {
         tmp=tmp*scale;
         state=*(u8 *)((u8 *)sub->field_b4+0x12);
         if(gSceneType>=2 && gSceneType<=3) {
-            if(sProbeFlags[state] == gBonusObjects[entry]) tmp*=0.33333334f;
+            if(sProbeFlags[state] == gBonusObject[entry]) tmp*=0.33333334f;
         }
-        if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)gBonusObjects[entry]+0x74));
+        if((unsigned)n&4) tmp=tmp*0.01f*(*(f32 *)((u8 *)gBonusObject[entry]+0x74));
         if(n&2) {
             v=*(u16 *)((u8 *)*(void **)((u8 *)D_80102CD0[entry]+0xb4)+0xc);
             if(v<=0) v=1;
             tmp=tmp/((f32)v/(f32)best1);
         }
         if(n&8 && entry==D_8011F100[*(s8 *)((u8 *)sub+0x182)]) tmp*=0.25f;
-        if(tmp<limit1) { limit1=tmp; fallback=gBonusObjects[entry]; }
+        if(tmp<limit1) { limit1=tmp; fallback=gBonusObject[entry]; }
         if(tmp<100.0f) {
             if(tmp<6.0f) goto scan_select;
             if(!(n&1)) {

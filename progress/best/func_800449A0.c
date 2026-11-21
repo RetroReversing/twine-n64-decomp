@@ -31,7 +31,7 @@ extern s8 D_80108F94;
 extern s8 D_801093A0;
 extern s8 D_8010957C;
 extern s8 sPrimTintB;
-extern s32 gTrackMarkerTable;
+extern s32 gTrackMarkers;
 extern s8 sPrimTintG;
 extern s8 D_80109A35;
 extern s8 D_80109B1E;
@@ -40,7 +40,7 @@ extern s8 D_8010A2B8;
 extern s8 D_8010A2CC;
 extern s8 D_8010A3C4;
 extern s8 D_8010A4B8;
-extern s32 gBonusObjects;
+extern s32 gBonusObject;
 extern s8 gAnnounceCount;
 extern s8 D_8010D2B0;
 extern s8 D_8010D2B8;
@@ -72,14 +72,14 @@ void func_800449A0(void) {
     func_80064250();
     func_80073400();
     var_a2 = 0;
-    var_v1 = &gTrackMarkerTable;
+    var_v1 = &gTrackMarkers;
     do {
         *(s32 *)var_v1 = 0;
         ++var_a2;
         var_v1 += 4;
     } while (6U > var_a2);
     var_a2 = 0;
-    var_v1_2 = &gBonusObjects;
+    var_v1_2 = &gBonusObject;
     do {
         *(s32 *)var_v1_2 = 0;
         ++var_a2;

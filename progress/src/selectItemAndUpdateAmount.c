@@ -17,7 +17,8 @@ typedef struct {
 
 void func_8002A1F0(Obj2A9A8 *);
 
-Item2A9A8 *func_8002A9A8(Obj2A9A8 *obj, s16 index) {
+/* Clamps the requested selection to the item count, refreshes the list, and updates the progress amount before returning the selected item. */
+Item2A9A8 *selectItemAndUpdateAmount(Obj2A9A8 *obj, s16 index) {
     u8 count;
     u8 i;
     s32 sum;

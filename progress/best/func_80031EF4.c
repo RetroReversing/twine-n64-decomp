@@ -25,7 +25,7 @@ extern f64 D_800D2DE8;
 extern f64 D_800D2DF0;
 extern s32 gBorderSkipActive;
 extern void *gWobbleParams;
-extern u8 gSceneFlagsA;
+extern u8 gTrackMarkerActiveMask;
 extern u8 gSceneFlagsB;
 extern u8 D_8010A4C3;
 extern s32 gHiResScreen;
@@ -73,7 +73,7 @@ void *func_80031EF4(void *arg0, void *arg1, s16 arg2) {
             M2C_FIELD(gWobbleParams, __repair_words3 *, 0x10) = *(__repair_words3 *) ((s8 *) arg0 + 0x0);
             D_8010A4C3 |= 2;
             gSceneFlagsB |= 2;
-            gSceneFlagsA |= 2;
+            gTrackMarkerActiveMask |= 2;
             M2C_FIELD(gWobbleParams, s32 *, 0x100) = (s32) (M2C_FIELD(gWobbleParams, s32 *, 0x100) & ~7);
             M2C_FIELD(gWobbleParams, s32 *, 0x100) = (s32) (M2C_FIELD(gWobbleParams, s32 *, 0x100) | 2);
             if (arg1 != NULL) {

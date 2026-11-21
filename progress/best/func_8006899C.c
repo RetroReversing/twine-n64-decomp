@@ -22,7 +22,7 @@ extern char sEnemyDefTable[];
 extern u8 gWheelsGrounded;
 extern s32 D_800E1A28;
 extern s32 D_800E1A2C;
-extern char gTrackMarkerTable[];
+extern char gTrackMarkers[];
 
 typedef struct { unsigned char pad_0[32]; void * field_20; unsigned char pad_24[68]; void * field_68; void * field_6C; unsigned char pad_70[8]; unsigned short field_78; } __repair_record_arg0;
 void func_8006899C(void *arg0, u8 arg1) {
@@ -67,7 +67,7 @@ void func_8006899C(void *arg0, u8 arg1) {
 
     temp_s2 = ((__repair_record_arg0*)arg0)->field_6C;
     temp_fp = (*(s8 *)((char *)(temp_s2) + 0x182));
-    temp_v0 = (void **) gTrackMarkerTable;
+    temp_v0 = (void **) gTrackMarkers;
     temp_v0 = (void **)((char *)temp_v0 + (temp_fp * 4));
     var_s6 = 1;
     sp37 = arg1;

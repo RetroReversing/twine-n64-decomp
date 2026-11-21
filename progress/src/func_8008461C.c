@@ -18,7 +18,7 @@ M2C_UNK updateSfxPanFromMarker(s32, s32, s32, M2C_UNK);      /* extern */
 s32 randomIntBelow(M2C_UNK);                         /* extern */
 f32 findNearestTrackMarker(s32, u16 *);                      /* extern */
 extern M2C_UNK D_800CE628;
-extern M2C_UNK gTrackMarkerTable;
+extern M2C_UNK gTrackMarkers;
 
 void func_8008461C(s32 arg0) {
     u16 sp10;
@@ -27,5 +27,5 @@ void func_8008461C(s32 arg0) {
 
     temp_s0 = arg0 + 0x24;
     temp_fs0 = findNearestTrackMarker(temp_s0, &sp10);
-    updateSfxPanFromMarker(func_8000A8B4(*((u16 *)((s8 *)&D_800CE628 + (randomIntBelow(5) * 2))), temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkerTable + (sp10 * 4))), temp_s0, 0);
+    updateSfxPanFromMarker(func_8000A8B4(*((u16 *)((s8 *)&D_800CE628 + (randomIntBelow(5) * 2))), temp_fs0, 0xFF), *((M2C_UNK *)((s8 *)&gTrackMarkers + (sp10 * 4))), temp_s0, 0);
 }

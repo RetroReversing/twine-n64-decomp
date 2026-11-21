@@ -1,5 +1,5 @@
 typedef struct { u32 a, b, c, d; } FourWords;
-extern u8 sMenuListKind, gMenuSlot, gMenuUseTextList, D_801007D2, D_801007D3, D_801007D4, gSceneFlagsA[], gSceneFlagsB;
+extern u8 sMenuListKind, gMenuSlot, gMenuUseTextList, D_801007D2, D_801007D3, D_801007D4, gTrackMarkerActiveMask[], gSceneFlagsB;
 extern u16 gBorderSkipActive;
 extern FourWords D_800E1098, D_801007C8;
 void func_8000A2B8(void);
@@ -7,7 +7,7 @@ void func_8000A368(void);
 void func_8000A3AC(void);
 void updateBonusSceneSlot(u16);
 /* Resets menu scene flags, then sets the selected list bit and text-list state (text lists also refresh slot data). */ void setupMenuListFlags(void) {
-    u8 *sceneFlagsA = gSceneFlagsA;
+    u8 *sceneFlagsA = gTrackMarkerActiveMask;
     s32 listBit;
     *sceneFlagsA = 0;
     gSceneFlagsB = 0;

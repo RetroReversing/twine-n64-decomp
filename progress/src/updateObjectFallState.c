@@ -8,7 +8,7 @@ s32 objectUpdateAnimByState(void *);
 s32 func_800624A8(void *, void *, f32, s32);
 s32 func_800643C8(void *);
 s32 func_800643D8(void *);
-s32 func_80073508(void *, f32);
+s32 updateTrackMarkerProximity(void *, f32);
 s32 func_800853D4(void *);
 /* Per-frame state machine for one falling object: counts down a timer, falls, bounces or launches, and resets when finished. */
 void updateObjectFallState(void *obj) {
@@ -66,7 +66,7 @@ void updateObjectFallState(void *obj) {
                 launchRec = (u8 *)obj + 0x24;
                 func_80054FEC(0, 250.0f, 5.0f, obj, launchRec, 0x20, 0);
                 func_800624A8(obj, launchRec, 1.0f, 1);
-                func_80073508(launchRec, 0.001f);
+                updateTrackMarkerProximity(launchRec, 0.001f);
                 func_800853D4(launchRec);
                 M2C_FIELD(obj, s16 *, 0x7A) = 4;
                 return;
@@ -83,7 +83,7 @@ void updateObjectFallState(void *obj) {
             M2C_FIELD(obj, s32 *, 0x60) = flags & ~2;
             func_80054FEC(0, 250.0f, 5.0f, obj, bounceRec, 0x20, 0);
             func_800624A8(obj, bounceRec, 1.0f, 1);
-            func_80073508(bounceRec, 0.001f);
+            updateTrackMarkerProximity(bounceRec, 0.001f);
             func_800853D4(bounceRec);
             actorRespawnAtRandomPoint(obj);
             break;

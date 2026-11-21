@@ -2,7 +2,7 @@ f32 approxDistance();
 s8 func_8005EF84();
 extern const f64 D_800D4190;
 extern u8 sTrackDoneFlags[];
-extern void *gBonusObjects;
+extern void *gBonusObject;
 
 /* Checks the four bonus object slots for one close to this actor and runs the pickup handler when the track allows it. */
 s8 checkBonusObjectPickup(void *actor) {
@@ -18,7 +18,7 @@ s8 checkBonusObjectPickup(void *actor) {
         return 0;
     }
     for (i = 0; i < 4; i++) {
-        slot = (void **) &gBonusObjects + i;
+        slot = (void **) &gBonusObject + i;
         object = *slot;
         if (object == NULL) {
             continue;

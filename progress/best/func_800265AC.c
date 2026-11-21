@@ -18,7 +18,7 @@ extern s32 gVisibleSaveSlots;
 extern M2C_UNK D_801007C8;
 extern s32 gBorderSkipActive;
 extern u8 gMenuUseTextList;
-extern u8 gSceneFlagsA;
+extern u8 gTrackMarkerActiveMask;
 extern u8 gSceneFlagsB;
 
 void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
@@ -34,13 +34,13 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
     var_a1 = arg1;
     var_a2 = arg2;
     var_a3 = arg3;
-    M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 0;
-    M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0;
+    M2C_FIELD(&gTrackMarkerActiveMask, u8 *, 0) = 0;
+    M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 0;
     if (gBorderSkipActive != 0) {
         s32 *limit = &gVisibleSaveSlots;
         s32 i = 0;
         if (*limit > 0) {
-            u8 *flags = &gSceneFlagsA;
+            u8 *flags = &gTrackMarkerActiveMask;
             s32 one = 1;
             do {
                 s32 bit = one << i;
@@ -65,9 +65,9 @@ void func_800265AC(s32 arg0, s32 arg1, u8 *arg2, s32 *arg3) {
         }
         { u8 *flags = &gSceneFlagsB; *flags |= 0x30; }
     } else {
-        M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 1;
-        M2C_FIELD(&gSceneFlagsA, u8 *, 0) = 1;
-        M2C_FIELD(&gSceneFlagsA, s8 *, 1) = 0x21;
+        M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 1;
+        M2C_FIELD(&gTrackMarkerActiveMask, u8 *, 0) = 1;
+        M2C_FIELD(&gTrackMarkerActiveMask, s8 *, 1) = 0x21;
     }
     func_8000A3AC();
     if (gMenuUseTextList != 0) {

@@ -16,7 +16,7 @@ s32 refreshSaveSlotMenu();
 s32 formatTextEntry();
 s32 updateActiveMenuState();
 s32 func_8002A700();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 lookupDataEntry();
@@ -43,7 +43,7 @@ void func_80022044(void) {
         func_8002A700(gPickupSearchBox);
         refreshSaveSlotMenu(var_s1);
         func_8002AC04(gPickupSearchBox, 1);
-        func_8002A9A8(gPickupSearchBox, (*__base_D_801002AD));
+        selectItemAndUpdateAmount(gPickupSearchBox, (*__base_D_801002AD));
         func_8002ACB4(gPickupSearchBox);
     }
 }

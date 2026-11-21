@@ -8,9 +8,9 @@ extern s8 gBorderSkipActive;
 extern u8 D_80102EFC[];
 extern s8 D_80103EB0;
 extern s32 gGameMode;
-extern void *gTrackMarkerTable[];
+extern void *gTrackMarkers[];
 extern void *D_8010A410;
-extern void *gBonusObjects;
+extern void *gBonusObject;
 extern s8 D_80115319;
 void actorUnlinkFromSurface(void *, void *);
 void func_80016740(void *);
@@ -76,7 +76,7 @@ void func_80016FCC(s8 arg0) {
                 }
                 node = *(void **)((u8 *)node + 0x10);
             }
-            if (D_800CA338 == 0 && gBonusObjects != NULL && ((t = *(s16 *)((u8 *)gBonusObjects + 0x7A)) >= 4 || t < 2)) {
+            if (D_800CA338 == 0 && gBonusObject != NULL && ((t = *(s16 *)((u8 *)gBonusObject + 0x7A)) >= 4 || t < 2)) {
                 switch (gGameMode) {
                 case 25: s1 = 0; func_80118098(); break;
                 case 20: s1 = 0; func_801181B0(); break;
@@ -105,9 +105,9 @@ void func_80016FCC(s8 arg0) {
             s1 = 0;
         }
     }
-    p = (void *)gTrackMarkerTable;
+    p = (void *)gTrackMarkers;
     do {
-        p = gTrackMarkerTable[s1];
+        p = gTrackMarkers[s1];
         s1 += 1;
         if (p != NULL && *(s32 *)((u8 *)p + 0xFC) == 0) {
             cameraTrackTarget();
@@ -133,7 +133,7 @@ void func_80016FCC(s8 arg0) {
                         } else {
 L71:
                             {
-                                void *t0 = gTrackMarkerTable[*(s8 *)((u8 *)*(void **)((u8 *)tgt + 0x6C) + 0x182)];
+                                void *t0 = gTrackMarkers[*(s8 *)((u8 *)*(void **)((u8 *)tgt + 0x6C) + 0x182)];
                                 if (t0 != NULL) {
                                     v = *(s32 *)((u8 *)t0 + 0xF4);
                                     if (v != 0 && v != *(s32 *)((u8 *)node + 0x20)) {

@@ -62,7 +62,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
         extern f32 approxDistance(void *, void *);
         extern s32 func_8007A9CC(void *, void *, void *, s32);
         extern s32 func_800158A4(void *, void *, s32, void *, s32, s32, s32, s32, s32);
-        extern void *gTrackMarkerTable[];
+        extern void *gTrackMarkers[];
         s32 lock = 0;
         func_8006CD34(arg0);
         target = *(void **)(state + 0xC0);
@@ -73,7 +73,7 @@ void func_80118BCC(void *arg0, s32 arg1) {
                 if ((distance < 25.0f) &&
                     ((distance < 6.0f) || (flags & 1) ||
                      func_8007A9CC(arg0, self + 0x24, (u8 *)target + 0x24, 0x448E38E4)) &&
-                    func_800158A4((u8 *)gTrackMarkerTable[(s8)state[0x182]] + 0x10,
+                    func_800158A4((u8 *)gTrackMarkers[(s8)state[0x182]] + 0x10,
                                   (u8 *)target + 0x24, entry, frame, 0, 0, 0x20000, 1, 0)) {
                     lock = 1;
                 }

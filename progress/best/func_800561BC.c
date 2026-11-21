@@ -46,7 +46,7 @@ M2C_UNK func_800624A8(void *, f32 *, f32, M2C_UNK); /* extern */
 M2C_UNK func_800643C8(void *);                      /* extern */
 M2C_UNK func_80073108(void *, f32 *, M2C_UNK);      /* extern */
 M2C_UNK func_80073210(void *, void *, void *, f32, f32, f32, s32, s32); /* extern */
-M2C_UNK func_80073508(f32 *, M2C_UNK);              /* extern */
+M2C_UNK updateTrackMarkerProximity(f32 *, M2C_UNK);              /* extern */
 f32 func_80082908(f32);                             /* extern */
 M2C_UNK func_80082D24(s16 *, M2C_UNK *);            /* extern */
 M2C_UNK func_80083AE8(f32 *, f32 *, f32 *);         /* extern */
@@ -86,7 +86,7 @@ extern void *gWobbleParams;
 extern M2C_UNK D_80109A98;
 extern M2C_UNK D_80109A9C;
 extern M2C_UNK D_80109AA0;
-extern M2C_UNK gBonusObjects;
+extern M2C_UNK gBonusObject;
 extern s32 D_801176DC;
 extern M2C_UNK func_8004D910;
 extern s32 gBorderSkipActive;
@@ -383,7 +383,7 @@ block_29:
             if (M2C_FIELD(M2C_FIELD(temp_s2, void **, 0x2C), s32 *, 0x64) & 0x20) {
                 func_80084338(0x116, &vsp40[0]);
                 if ((D_80108F84 != NULL) && (M2C_FIELD(D_80108F84, s32 *, 0x50) & 0x01000000)) {
-                    temp_s0 = M2C_FIELD(*(&gBonusObjects + (M2C_FIELD(temp_s2, s16 *, 0x34) * 4)), void **, 0x6C);
+                    temp_s0 = M2C_FIELD(*(&gBonusObject + (M2C_FIELD(temp_s2, s16 *, 0x34) * 4)), void **, 0x6C);
                     vsp40[1] -= 0.1f;
                     if ((func_80048F10(sp174, &vsp40[0], temp_s0 + 0xF8, 0, 100.0f, 0, 0, 0) << 0x18) != 0) {
                         func_80084338(0x117, &vsp40[0]);
@@ -565,7 +565,7 @@ block_126:
                         temp_v1_10 = M2C_FIELD(temp_s2, void **, 0x2C);
                         func_80054FEC(M2C_FIELD(temp_s2, void **, 0x2C), M2C_FIELD(temp_v1_10, f32 *, 8), M2C_FIELD(temp_v1_10, f32 *, 0xC), arg0, var_s0, 0x04000000, M2C_FIELD(temp_s2, s32 *, 0x24));
 block_131:
-                        func_80073508(var_s0, 0x3B03126F);
+                        updateTrackMarkerProximity(var_s0, 0x3B03126F);
                         func_800853D4(var_s0);
                         goto block_263;
                     }

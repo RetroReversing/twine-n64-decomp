@@ -27,14 +27,16 @@ s32 func_80097EF8(u16 arg0, s32 arg1) {
         start = idx;
     } else {
         start = D_800F8D60[b].start;
-        for (i = 0; i < cnt && D_800F9560[start + i].key < key; i++) ;
-        idx = start + i;
+        for (i = 0; i < D_800F8D60[b].cnt && D_800F9560[start + i].key < key; i++) ;
         if (i < D_800F8D60[b].cnt) {
+            idx = start + i;
             if (D_800F9560[idx].key == key) {
                 D_800F9560[idx].count++;
                 workerLockRelease();
                 return 0;
             }
+        } else {
+            idx = start + i;
         }
     }
     if (D_800F8D5C < 0x800) {

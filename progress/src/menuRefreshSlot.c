@@ -24,7 +24,7 @@ void *func_800262A8(s32, M2C_UNK);                  /* extern */
 void *findEntryPayload(s32, M2C_UNK);                  /* extern */
 M2C_UNK func_8002A644(M2C_UNK *, M2C_UNK *, M2C_UNK, M2C_UNK, s32, s32, s32, s32, s32, M2C_UNK *, M2C_UNK *); /* extern */
 M2C_UNK func_8002A7CC(M2C_UNK *, s32, s32, s32);    /* extern */
-void *func_8002A9A8(M2C_UNK *, s16);                /* extern */
+void *selectItemAndUpdateAmount(M2C_UNK *, s16);                /* extern */
 M2C_UNK func_8002AC04(M2C_UNK *, M2C_UNK);          /* extern */
 s32 lookupDataEntry(s32);                             /* extern */
 extern s16 gMenuMode;
@@ -39,7 +39,7 @@ extern M2C_UNK D_801003E0;
 extern M2C_UNK D_801093A8;
 extern void *gMenuItems;
 extern M2C_UNK D_80109D28;
-extern M2C_UNK gBonusObjects;
+extern M2C_UNK gBonusObject;
 extern M2C_UNK func_8001E898;
 extern M2C_UNK func_8001EAF0;
 
@@ -63,7 +63,7 @@ void menuRefreshSlot(void) {
     D_800B60E4 = &D_801003E0;
     (*(u16 *)&gMenuMode) = 0;
     func_8002A644(&D_801003E0, &D_801093A8, 0x1D4, 6, 0x22, 0xB4, 0x46, 0xD, 1, &func_8001E898, &func_8001EAF0);
-    temp_v0 = *((M2C_UNK *)((s8 *)&gBonusObjects + (gMenuSlot * 4)));
+    temp_v0 = *((M2C_UNK *)((s8 *)&gBonusObject + (gMenuSlot * 4)));
     var_s4 = NULL;
     if (temp_v0 != NULL) {
         temp_s5 = M2C_FIELD(temp_v0, s32 *, 0x6C);
@@ -93,7 +93,7 @@ __repair_addr = (char *)((temp_s5 + (var_s1 * 8)));
                         func_8002A7CC(D_800B60E4, *__repair_phase_storage.pointer, var_s2 & 0xFF, func_80018318(*__repair_phase_storage.pointer) & 0xFF);
                     }
                     if (var_s1 == *((u16 *)&D_800E0ECC + gMenuSlot)) {
-                        var_s4 = func_8002A9A8(D_800B60E4, var_s3);
+                        var_s4 = selectItemAndUpdateAmount(D_800B60E4, var_s3);
                     }
                     var_s3 += 1;
                 }

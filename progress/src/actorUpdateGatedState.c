@@ -31,7 +31,7 @@ extern char D_801001A0[];
 extern u8 gSceneType;
 extern s32 gSaveSlotCount;
 extern s32 gBorderSkipActive;
-extern char gTrackMarkerTable[];
+extern char gTrackMarkers[];
 
 /* Per-frame actor update: clamps aim speed in state 0x4D, or on a state change resets the AI block, reloads axis data and sets the new state. */ /* Per-frame update for an actor in an update-gated state: clamps speed for state 0x4D, and on a state change resets the AI block, reloads axis data and sets the new state. */ void actorUpdateGatedState(void *actor, s32 newState) {
     s32 zeroF;
@@ -49,7 +49,7 @@ extern char gTrackMarkerTable[];
     }
     if (gBorderSkipActive == 0) {
         if (M2C_FIELD(actor, u16 *, 0x78) == 0x4D) {
-            axisEntry = *((s32 *)((s8 *)gTrackMarkerTable + (M2C_FIELD(aiBlock, s8 *, 0x182) * 4)));
+            axisEntry = *((s32 *)((s8 *)gTrackMarkers + (M2C_FIELD(aiBlock, s8 *, 0x182) * 4)));
             speed = (f64) M2C_FIELD(axisEntry, f32 *, 0x12C);
             if (D_800D4818 < speed) {
                 M2C_FIELD(axisEntry, f32 *, 0x12C) = (f32) (speed * D_800D4820);

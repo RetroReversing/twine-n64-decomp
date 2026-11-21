@@ -43,7 +43,7 @@ extern void func_8000B224(FrameSlot *);
 extern s32 __osDisableInt(void);
 extern void __osRestoreInt(s32);
 extern void vi_apply_context(void);
-extern u8 D_800AE4B0, gSceneFlagsA, gSceneFlagsB, D_80113022;
+extern u8 D_800AE4B0, gTrackMarkerActiveMask, gSceneFlagsB, D_80113022;
 extern u32 D_800B1BE0[];
 extern s16 D_800B1D70, D_800B1D72, D_8010A4B0;
 extern u16 D_80109B9C, D_8010A518;
@@ -54,7 +54,7 @@ extern void *D_80100304[];
 extern u32 D_80109C98[], D_8010A2A0[];
 extern s32 D_801032A0, D_8010A924, D_8010A920, D_8010A4E4;
 extern s32 D_80100C04, D_8011740C, gRenderMode;
-extern FrameView *gTrackMarkerTable[];
+extern FrameView *gTrackMarkers[];
 extern FrameSlot *D_8010A2BC[];
 extern FrameCommand *sDisplayListCursor;
 
@@ -103,7 +103,7 @@ void func_80007958(void)
         transitioning = 0;
         modeFlags = (u8 *)renderMode - 0x21;
         i = 0;
-        entry = gTrackMarkerTable;
+        entry = gTrackMarkers;
         D_80113022 = 0;
         do {
             buffer = sRenderState;
@@ -165,7 +165,7 @@ void func_80007958(void)
                 }
             }
             mask = 1U << i;
-            if (!(gSceneFlagsA & mask) && !(gSceneFlagsB & mask)) {
+            if (!(gTrackMarkerActiveMask & mask) && !(gSceneFlagsB & mask)) {
                 goto next_view;
             }
 

@@ -16,7 +16,7 @@ s32 refreshSaveSlotMenu();
 s32 formatTextEntry();
 void *findEntryPayload();
 s32 func_8002A644();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 lookupDataEntry();
 extern s8 D_800BD690;
@@ -50,7 +50,7 @@ void openPickupSearchMenu(void) {
         formatTextEntry(menuEntry, sFmtEntryName, lookupDataEntry((unsigned short)(slotLevel + 0x96)));
         func_8002A644(gPickupSearchBox, D_80100408, 0x1A4, 0xB, 0x1E, 0xB4, 0x34, 0xB, 1, &bindMenuItemRecord, &func_8001AC88);
         refreshSaveSlotMenu(slotLevel);
-        func_8002A9A8(gPickupSearchBox, (*savedByte));
+        selectItemAndUpdateAmount(gPickupSearchBox, (*savedByte));
         func_8002AC04(gPickupSearchBox, 1);
     }
 }

@@ -8,7 +8,7 @@ s32 func_80022AD8(u8);                          /* extern */
 s32 func_8002A644(s32 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32 *, s32 *); /* extern */
 s32 func_8002A700(s32 *);                   /* extern */
 s32 func_8002A7CC(s32 *, s32, s32, s32);    /* extern */
-s32 func_8002A9A8(s32 *, s32);          /* extern */
+s32 selectItemAndUpdateAmount(s32 *, s32);          /* extern */
 s32 func_8002AC04(s32 *, s32);          /* extern */
 s32 lookupDataEntry(u16);                             /* extern */
 s32 sprintf(s32, s32 *, s32);               /* extern */
@@ -67,6 +67,6 @@ extern s32 func_8001EAF0;
         } while (D_800B60E8 < D_8010D294);
     }
     func_80022AD8(sMenuListKind);
-    func_8002A9A8(gMenuList, 0);
+    selectItemAndUpdateAmount(gMenuList, 0);
     func_8002AC04(gMenuList, 1);
 }

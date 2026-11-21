@@ -88,7 +88,7 @@ extern s32 gSaveSlotCount;
 extern s32 gBorderSkipActive;
 extern s8 D_80103EB0;
 extern s32 gGameMode;
-extern M2C_UNK gTrackMarkerTable;
+extern M2C_UNK gTrackMarkers;
 extern u8 gSceneFlagsB;
 extern M2C_UNK D_8011508B;
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -873,7 +873,7 @@ break;
 }
 func_800179E8(arg0 + 0x24, sp64, D_800E1A28, D_800E1A2C);
 }
-func_80047FB4(*(M2C_UNK *)((u8 *)&gTrackMarkerTable + (temp_s4 * 4)), *(M2C_UNK *)((u8 *)&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
+func_80047FB4(*(M2C_UNK *)((u8 *)&gTrackMarkers + (temp_s4 * 4)), *(M2C_UNK *)((u8 *)&D_800C4710 + ((s8) M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), u8 *, 0xE) * 0xE8)));
 func_80069250(arg0);
 break;
 case 6:
@@ -1328,11 +1328,11 @@ M2C_FIELD(temp_v1_33, u8 *, 0x10) = (u8) M2C_FIELD(temp_v1_33, u8 *, 0xE);
 M2C_FIELD(M2C_FIELD(arg0, void **, 0x68), s8 *, 0xF) = (s8) M2C_FIELD(temp_s1, u16 *, 0x134);
 gSceneFlagsB |= 0x21;
 func_80064318(M2C_FIELD(temp_s1, s32 *, 0xA8), M2C_FIELD(temp_s1, s8 *, 0x182));
-temp_v0_10 = *(M2C_UNK *)((u8 *)&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
+temp_v0_10 = *(M2C_UNK *)((u8 *)&gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4));
 (*(__repair_vec3 *) ((s8 *) (arg0) + 0x30)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x24));
 (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10)) = (*(__repair_vec3 *) ((s8 *) (arg0) + 0x30));
 (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x28)) = (*(__repair_vec3 *) ((s8 *) (temp_v0_10) + 0x10));
-M2C_FIELD(*(M2C_UNK *)((u8 *)&gTrackMarkerTable + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
+M2C_FIELD(*(M2C_UNK *)((u8 *)&gTrackMarkers + (M2C_FIELD(temp_s1, s8 *, 0x182) * 4)), void **, 0xF4) = (void *) M2C_FIELD(arg0, void **, 0x20);
 func_80081D20(temp_s4, 0x12);
 return;
 }

@@ -17,7 +17,7 @@ void *spawnEffectObject(M2C_UNK, M2C_UNK, M2C_UNK);     /* extern */
 M2C_UNK func_800165E0(void *, s32);                 /* extern */
 s32 lookupDataEntry(M2C_UNK);                         /* extern */
 s16 strlen(s32);                                    /* extern */
-extern s32 gTrackMarkerTable;
+extern s32 gTrackMarkers;
 extern s8 D_8010A2B8;
 
 void func_80074F04(void) {
@@ -41,7 +41,7 @@ void func_80074F04(void) {
                 M2C_FIELD(temp_v0_2, s32 *, 0x10) = -0x100;
                 M2C_FIELD(temp_v0_2, s32 *, 0x14) = 0;
                 M2C_FIELD(temp_v0_2, s16 *, 0x1E) = 1;
-                func_800165E0(temp_v0_2, gTrackMarkerTable);
+                func_800165E0(temp_v0_2, gTrackMarkers);
                 M2C_FIELD(temp_s2, void **, 4) = temp_v0_2;
             }
             M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;

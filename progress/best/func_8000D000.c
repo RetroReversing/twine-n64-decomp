@@ -49,11 +49,11 @@ extern void *D_80109690;
 extern u8 D_80109E68;
 extern void *gObjectRecords;
 extern s32 gProbeObjectList;
-extern u8 gSceneFlagsA;
+extern u8 gTrackMarkerActiveMask;
 extern u8 gSceneFlagsB;
 extern s8 gSceneObjectsLoaded;
 extern s8 gSceneSkipLoad;
-extern void *gTrackMarkerTable;
+extern void *gTrackMarkers;
 extern s8 gTransitionEnabled;
 extern s8 gTransitionPhase;
 
@@ -140,7 +140,7 @@ s32 func_8000D000(void) {
         func_80044D84(D_800E0740);
         activateIdList(sObjectIdList);
         func_80044FF0();
-        func_80042CFC(((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_8, D_800E0740);
+        func_80042CFC(((__repair_record_gTrackMarkerTable*)gTrackMarkers)->field_8, D_800E0740);
         func_8004505C();
     } else {
         activateIdList(sObjectIdList);
@@ -150,15 +150,15 @@ s32 func_8000D000(void) {
     func_8003C710(D_80109690);
     func_8004844C(D_80109690, 160.0f, 120.0f, 320.0f, 180.0f, 0.0f, 0.0f);
     M2C_FIELD(D_80109690, s32 *, 0x100) |= 0x10;
-    temp_v0_5 = gSceneFlagsA | 4;
+    temp_v0_5 = gTrackMarkerActiveMask | 4;
     temp_v1_3 = gSceneFlagsB | 4;
-    gSceneFlagsA = temp_v0_5;
+    gTrackMarkerActiveMask = temp_v0_5;
     gSceneFlagsB = temp_v1_3;
-    gSceneFlagsA = temp_v0_5 & 0xFE;
+    gTrackMarkerActiveMask = temp_v0_5 & 0xFE;
     gSceneFlagsB = temp_v1_3 & 0xFE;
     M2C_FIELD(gObjectRecords, s32 *, 0x2B30) = 0;
     M2C_FIELD(gObjectRecords, s32 *, 0x2B3C) = 0;
-    func_8000CC38(0x34, &gSceneFlagsA, gObjectRecords);
+    func_8000CC38(0x34, &gTrackMarkerActiveMask, gObjectRecords);
     gTransitionEnabled = 1;
     gTransitionPhase = 0;
     D_800E0744 = 0;
@@ -173,8 +173,8 @@ s32 func_8000D000(void) {
         M2C_FIELD(temp_v1_4, s32 *, 0x60) = (s32) (temp_v0_6 | 1);
     }
     updateTransitionState();
-    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_100 |= 0x40;
-    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_142 = 7;
-    ((__repair_record_gTrackMarkerTable*)gTrackMarkerTable)->field_100 |= 0x100;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkers)->field_100 |= 0x40;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkers)->field_142 = 7;
+    ((__repair_record_gTrackMarkerTable*)gTrackMarkers)->field_100 |= 0x100;
     return 1;
 }

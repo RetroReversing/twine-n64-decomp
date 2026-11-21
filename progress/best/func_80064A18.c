@@ -45,8 +45,8 @@ extern s32 gBorderSkipActive;
 extern u8 sDifficultyLevel;
 extern s8 D_80103EB0;
 extern s32 gGameMode;
-extern char gTrackMarkerTable[];
-extern char gBonusObjects[];
+extern char gTrackMarkers[];
+extern char gBonusObject[];
 extern u8 D_80112F6D;
 
 void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
@@ -125,7 +125,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
         temp_s4 = func_800164F8(0x5AC, arg1, 0);
         temp_s0 = (s32) (arg0 << 0x10) >> 0xE;
         D_800E19F4 = 0;
-        *(s32 *)(gBonusObjects + temp_s0) = temp_s4; if (temp_s4 != NULL) {
+        *(s32 *)(gBonusObject + temp_s0) = temp_s4; if (temp_s4 != NULL) {
             temp_s3 = (*(void **)((char *)(temp_s4) + 0x6C));
             func_80077C00(temp_s4);
             temp_s1 = arg0 & 0xFF;
@@ -294,7 +294,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
             (*(s32 *)((char *)((*(void **)((char *)(temp_s3) + 0x408))) + 0x10)) = 0;
             func_8007080C(temp_s3);
             func_800649E4(temp_s4);
-            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + gTrackMarkerTable;
+            temp_v1_17 = ((s32) (arg0 << 0x10) >> 0xE) + gTrackMarkers;
             (*(f32 *)((char *)(*temp_v1_17) + 0x4C)) = 1.0f;
             temp_v0_7 = *temp_v1_17;
             temp_fv0 = (*(f32 *)((char *)(arg1) + 0));
@@ -427,7 +427,7 @@ void *func_80064A18(s32 arg0, void *arg1, void *arg2, void *arg3) {
                 break;
             }
             (*(s32 *)((char *)(temp_s4) + 0x58)) |= 0x2400;
-            temp_a0_2 = ((s16) arg0 * 4) + gTrackMarkerTable;
+            temp_a0_2 = ((s16) arg0 * 4) + gTrackMarkers;
             (*(s32 *)((char *)(temp_s4) + 0x5C)) |= 0x600;
             temp_a1_3 = *temp_a0_2;
             (*(s32 *)((char *)(temp_a1_3) + 0x100)) &= ~7;

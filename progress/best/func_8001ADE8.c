@@ -20,7 +20,7 @@ void *findEntryPayload();
 s32 layoutTextBox();
 s32 func_8002A644();
 s32 func_8002A7CC();
-s32 func_8002A9A8();
+s32 selectItemAndUpdateAmount();
 s32 func_8002AC04();
 s32 func_8002ACB4();
 s32 func_8002B8AC();
@@ -139,7 +139,7 @@ s32 __repair_phase_var_a0;
         }
         func_80022E18(sMenuListKind);
         func_80022AD8(sMenuListKind);
-        func_8002A9A8(gPickupSearchBox, func_80022DE8(gPickupSavedByte));
+        selectItemAndUpdateAmount(gPickupSearchBox, func_80022DE8(gPickupSavedByte));
         func_8002AC04(gPickupSearchBox, 1);
         func_8002ACB4(gPickupSearchBox);
         temp_s0_3 = "%s";

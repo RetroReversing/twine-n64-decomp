@@ -10,7 +10,7 @@ f32 randomFloatMinusOffset(f32, f32);                        /* extern */
 s32 func_80045DB4(f32 *, f32, f32);             /* extern */
 s32 spawnConfiguredEffect(s32, s32, void *, f32 *, f32, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_80062450(s32, f32 *);                  /* extern */
-s32 func_80073508(s32, f32);                    /* extern */
+s32 updateTrackMarkerProximity(s32, f32);                    /* extern */
 s32 func_800853D4(s32);                         /* extern */
 extern s8 gTransitionPhase;
 extern f64 D_800D4270;
@@ -45,7 +45,7 @@ void func_800624A8(void *arg0, s32 arg1, f32 arg2, s32 arg3) {
         var_fp = 3; var_s6 = 4;
     }
     spawnConfiguredEffect((*(s32 *)((char *)(arg0) + 0x20)), arg0 + 0x24, arg0 + 0x3C, NULL, 0.75f, 1.05f, 0x1D, 0xFB, 0x22, 0xFFFF00FF, 0x7F7F8110);
-    func_80073508(arg1, arg2 * 0.001f);
+    updateTrackMarkerProximity(arg1, arg2 * 0.001f);
     if ((arg3 & 0xFF) && (gTransitionPhase == 0)) {
         func_800853D4(arg1);
     }

@@ -21,9 +21,9 @@ extern void osStartThread(OSThread *);
 /* Sends msg to mq. If the queue is full, OS_MESG_BLOCK (flags == 1) sleeps the
  * running thread until there is room; otherwise returns -1. Wakes a thread
  * waiting to receive. Returns 0 on success. */
-s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
+/* Sends a message to a queue, blocking or failing when it is full, and wakes a waiting receiver. */ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
     register u32 saveMask;
-    register s32 last;
+    register s32 writeIndex;
 
     saveMask = __osDisableInt();
 
@@ -37,8 +37,8 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
         }
     }
 
-    last = (mq->first + mq->validCount) % mq->msgCount;
-    mq->msg[last] = msg;
+    writeIndex = (mq->first + mq->validCount) % mq->msgCount;
+    mq->msg[writeIndex] = msg;
     mq->validCount++;
 
     if (mq->mtqueue->next != 0 ) {

@@ -75,7 +75,7 @@ extern s32 gGameMode;
 extern u8 gSaveKeyRelaxed;
 extern s32 gSaveSlotCount;
 extern M2C_UNK gSaveSlotInfo;
-extern M2C_UNK gTrackMarkerTable;
+extern M2C_UNK gTrackMarkers;
 extern s32 gVisibleSaveSlots;
 
 typedef struct { f32 __repair_v[3]; } __repair_vec3;
@@ -333,7 +333,7 @@ block_95:
                             temp_v0_7 = temp_s1 * 8;
                             M2C_FIELD(temp_v0_6, s32 *, 0x28) = (s32) ((M2C_FIELD(temp_v0_6, s32 *, 0x28) & ~0xFC) | 0x10);
                             initObjectFromBankEntry(temp_v0_6, *(&D_800C7DC8 + temp_v0_7), 0x1B);
-                            func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&gTrackMarkerTable + (temp_s4 * 4)));
+                            func_800165E0(M2C_FIELD(temp_s3, void **, 0x414), *(&gTrackMarkers + (temp_s4 * 4)));
                             var_a1 = 0x140;
                             var_a0_3 = 0xF0;
                             if (gBorderSkipActive != 0) {
@@ -553,7 +553,7 @@ block_153:
             }
         }
         M2C_FIELD(arg0, s32 *, 0x60) = (s32) (M2C_FIELD(arg0, s32 *, 0x60) & 0xBDFFFF9D);
-        M2C_FIELD(*(&gTrackMarkerTable + (temp_s4 * 4)), s32 *, 0xFC) = (s32) M2C_FIELD(temp_s3, u8 *, 0x184);
+        M2C_FIELD(*(&gTrackMarkers + (temp_s4 * 4)), s32 *, 0xFC) = (s32) M2C_FIELD(temp_s3, u8 *, 0x184);
         M2C_FIELD(arg0, s32 *, 0x58) = (s32) (M2C_FIELD(arg0, s32 *, 0x58) | 1);
         func_8006CD34(arg0);
         M2C_FIELD(temp_s3, s32 *, 4) = 0;

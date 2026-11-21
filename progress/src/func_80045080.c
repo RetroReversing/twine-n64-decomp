@@ -20,14 +20,14 @@ M2C_UNK func_80044FF0();                            /* extern */
 M2C_UNK func_8004505C();                            /* extern */
 M2C_UNK sceneSetupScreenLayout();                            /* extern */
 extern s32 gBorderSkipActive;
-extern void *gTrackMarkerTable;
+extern void *gTrackMarkers;
 
 void func_80045080(s32 arg0) {
     func_80044BE4();
     func_80044D84(arg0);
     setupTrackMarkers(arg0);
     func_80044FF0();
-    func_80042CFC(M2C_FIELD(gTrackMarkerTable, s32 *, 8), arg0);
+    func_80042CFC(M2C_FIELD(gTrackMarkers, s32 *, 8), arg0);
     func_8004505C();
     if (gBorderSkipActive != 0) {
         sceneSetupScreenLayout();

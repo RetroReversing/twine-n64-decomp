@@ -20,15 +20,15 @@ M2C_UNK func_80016370();                            /* extern */
 M2C_UNK Obj_UpdateContactPairs(s32);                         /* extern */
 M2C_UNK Obj_AttachToFloorObjects(s32);                         /* extern */
 M2C_UNK func_80083D04(M2C_UNK);                     /* extern */
-extern void *gTrackMarkerTable;
+extern void *gTrackMarkers;
 
 void func_80044FF0(void) {
-    Obj_UpdateContactPairs(*M2C_FIELD(gTrackMarkerTable, s32 **, 8));
+    Obj_UpdateContactPairs(*M2C_FIELD(gTrackMarkers, s32 **, 8));
     func_80015DFC();
     func_80015E54();
     func_80016370();
     func_80015DB8();
     initAssetHandles();
-    Obj_AttachToFloorObjects(*M2C_FIELD(gTrackMarkerTable, s32 **, 8));
+    Obj_AttachToFloorObjects(*M2C_FIELD(gTrackMarkers, s32 **, 8));
     func_80083D04(1);
 }
