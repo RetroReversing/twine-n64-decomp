@@ -76,8 +76,9 @@ void func_800589FC(void *arg0, void *arg1) {
         void * volatile atFC;
         u32 pad100;
         void * volatile at104;
+        u32 pad108;
+        f32 * volatile at10C;
     } local;
-    f32 *sp10C;
     f32 *temp_s0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -138,11 +139,13 @@ void func_800589FC(void *arg0, void *arg1) {
         temp_fs0_4 = cosAngle(local.at7C);
         local.at2C = -(temp_fs0_4 * sinAngle(local.at78));
         temp_fs0_5 = cosAngle(local.at78);
+        do {
         temp_fs0_6 = temp_fs0_5 * cosAngle(local.at7C);
         local.at8C = -local.at8C;
         local.at88 = -local.at88;
         local.at30 = temp_fs0_6;
         rotateVec3ByMat3(&local.at10, &local.at88);
+        } while (0);
         {
             void **markers = sTrackMarkerTable;
             temp_v1 = temp_s2 + markers;
@@ -160,11 +163,11 @@ void func_800589FC(void *arg0, void *arg1) {
         func_80082FE4(&local.at70, &local.at40);
         rotateVec3ByMat3(&local.at40, &local.at98);
         rotateVec3ByMat3(&local.at40, &local.atA8);
-        sp10C = &local.atB8;
-        rotateVec3ByMat3(&local.at40, sp10C);
+        owner = &local.atB8; local.at10C = owner;
+        rotateVec3ByMat3(&local.at40, local.at10C);
         rotateVec3ByMat3(&local.at10, &local.at98);
         rotateVec3ByMat3(&local.at10, &local.atA8);
-        rotateVec3ByMat3(&local.at10, sp10C);
+        rotateVec3ByMat3(&local.at10, local.at10C);
         {
             void *def = local.at104;
             func_80047B14(&local.at98, M2C_FIELD(def, s32 *, 0xC4), &local.atC8, def);
@@ -175,7 +178,7 @@ void func_800589FC(void *arg0, void *arg1) {
         }
         {
             void *def = local.at104;
-            func_80047B14(sp10C, M2C_FIELD(def, s32 *, 0xCC), &local.atE8, def);
+            func_80047B14(local.at10C, M2C_FIELD(def, s32 *, 0xCC), &local.atE8, def);
         }
         temp_s0 = temp_s7 + 4;
         M2C_FIELD(temp_s7, f32 *, 4) = 0.0f;
@@ -201,7 +204,7 @@ void func_800589FC(void *arg0, void *arg1) {
         }
         {
             void *def = local.at104;
-            func_80047B14(sp10C, M2C_FIELD(def, s32 *, 0xC0), &local.atE8, def);
+            func_80047B14(local.at10C, M2C_FIELD(def, s32 *, 0xC0), &local.atE8, def);
         }
         vec3Add(&local.atC8, &local.at88, &local.at88);
         vec3Add(&local.atD8, &local.at88, &local.at88);
@@ -209,7 +212,7 @@ void func_800589FC(void *arg0, void *arg1) {
         func_80047AEC(&local.at88, temp_v0 + 0x24, temp_v0 + 0x30);
         vec3Add(&local.at88, &local.at98, &local.at98);
         vec3Add(&local.at88, &local.atA8, &local.atA8);
-        vec3Add(&local.at88, sp10C, sp10C);
+        { f32 *ptr = local.at10C; vec3Add(&local.at88, ptr, ptr); }
         M2C_FIELD(temp_v0, f32 *, 0x3C) = (f32) -local.at78;
         M2C_FIELD(temp_v0, f32 *, 0x40) = local.at7C;
         {
@@ -237,3 +240,4 @@ void func_800589FC(void *arg0, void *arg1) {
         M2C_FIELD(temp_v0, s16 *, 0x7A) = 0;
     }
 }
+
