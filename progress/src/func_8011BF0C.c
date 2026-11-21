@@ -58,8 +58,8 @@ void func_8011BF0C(void *arg0) {
 
     if ((D_801002A0 != 3) || (*(D_8011F168 + M2C_FIELD(arg0, s16 *, 0x7A)) != 0)) {
         temp_s4 = M2C_FIELD(arg0, u8 *, 0x7B) ^ 1;
-        temp_s0 = temp_s4 & 0xFF;do{
-        temp_s1 = temp_s0 * 4;}while(0);
+        temp_s0 = temp_s4 & 0xFF;
+        temp_s1 = temp_s0 * 4;
         temp_a0 = *(s32 *)(D_8011F2B0 + temp_s1);
         if ((temp_a0 != 0) && (func_80045E34(temp_a0 + 0x24, arg0 + 0x24) < 2.0f)) {
             if (*(s32 *)(D_8011F280 + temp_s1) != 0) {
@@ -71,16 +71,26 @@ void func_8011BF0C(void *arg0) {
                     var_a2 = 5;
                 }
                 sprintf(message, D_8011F000, var_a2, temp_s1_2, temp_v0);
-                func_80073AF8(0, D_8010969C, message, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+                {
+                    s32 *state = &D_8010969C;
+                    func_80073AF8(0, *state, message, -1, -1, 1, 0, 0, 6, 0, 0x3C);
+                }
                 func_8000A894(0x21A);
             }
             temp_a0_2 = M2C_FIELD(arg0, s16 *, 0x7A) * 8;
             func_8002B150(temp_a0_2 + D_8011F140, (*(s32 *)(D_8011F140 + temp_a0_2) + 1) & 0xFF, 0);
             temp_v1 = temp_s4 & 0xFF;
-            temp_s0_2 = temp_v1 * 4;
-            temp_v0_2 = (temp_v1 * 0xC) + D_8011F298;
-            temp_a0_3 = temp_s0_2 + D_8011F2B0;
-            temp_a2 = *temp_a0_3;
+            {
+                char *actorBase = D_8011F2B0;
+                char *positionBase;
+                s32 positionOffset;
+                temp_s0_2 = temp_v1 * 4;
+                temp_a0_3 = (void **)(temp_s0_2 + actorBase);
+                temp_a2 = *temp_a0_3;
+                positionBase = D_8011F298;
+                positionOffset = temp_v1 * 0xC;
+                temp_v0_2 = positionOffset + positionBase;
+            }
             M2C_FIELD(temp_a2, __repair_words3 *, 0x24) = *(__repair_words3 *) ((s8 *) temp_v0_2 + 0x0);
             temp_v1_2 = *temp_a0_3;
             temp_a1 = M2C_FIELD(temp_v0_2, s32 *, 0);
