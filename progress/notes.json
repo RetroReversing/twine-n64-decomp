@@ -5208,14 +5208,6 @@
   "score_after": 4505
  },
  {
-  "function": "func_80002098",
-  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 17; 46 differing rows (1 opcode, 3 register, 17 branch target, 23 reordered, 2 deleted; advisory).\nTarget: beqz $v0, 0x2b8\nCandidate: beqz $v0, 0x2b4\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sltiu $v0, $v0, 0x1c\n  = sw $a0, 0x10($sp)\ni T: beqz $v0, 0x2b8 | C: beqz $v0, 0x2b4\n  = sw $v1, 0x18($sp)\n  = lui $v0, %hi(D_80102ED8)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nImproved 3666 to 1345 by casting arg2 to s8 for func_80001F40 and repeating arg2==0x27 explicitly in each bitwise condition. Target has bgez in sentinel traversal; best score uses unsigned var_v0 and incorrectly optimizes that branch away. Signed var_v0 or signed cast restores it at score 1355; next restructure traversal to match target's out-of-line hit block.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795164376.790554,
-  "score_before": 3666,
-  "score_after": 1345
- },
- {
   "function": "showTrackMarker",
   "text": "Best score 7516 at revision 160a321690db310da96d; move-on reached at 12/8. Tried supplied draft plus local repairs call_one_shot_scope, branch_orientation, scalar_storage_reuse, target_local_bundle, call_forwarded_arguments, cfg_integer_lifetimes, and cast variants. Scores only tied or worsened. Main problem: target prologue saves s0-s4 and ra (0x48 frame), tests arg0 directly in $a0, and narrows into $s2; candidate moves arg0 into $s0 immediately and saves only s0-s2. Current source keeps the wide arg live across branches/calls. Brief notes confirmed matched callee signatures: func_800312F4(short,unsigned short), func_800313DC(s16,s32) returning s32*, func_800314E0(s16,s32) returning void, func_80031548(s32,s32,s32). Candidate wrongly assigns func_800314E0 return values and uses conflict-prone old-style prototypes. Rebuild with accurate callee prototypes and branch-local narrowed indices; avoid reusing the 7516 source unchanged.",
   "by": "codex-gpt-6-luna-22",
@@ -11752,14 +11744,6 @@
   "score_after": 3623
  },
  {
-  "function": "func_80002098",
-  "text": "Rechecked baseline 1345; eight independent layout, lifetime, signedness, branch orientation, address and constant trials did not improve. Remaining mismatch is largely instruction order/control flow (23 reordered rows, two deleted); inspect full diff, especially loop and branch layout. Candidate 57cdffc4fe5fe9abaca0 retained.",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795183412.121366,
-  "score_before": 1345,
-  "score_after": 1345
- },
- {
   "function": "func_800287DC",
   "text": "Verified baseline 2419; 18 local trials of loop control, scalar reuse, struct typing and branch orientation failed to improve. Target stack frame 0x20 vs candidate 0x28 and 63 mismatch rows. Reconstruct loop and lifetimes from target, including the duplicated flag stores, before further register tuning.",
   "by": "codex-gpt-6.1-terra-6",
@@ -13086,14 +13070,6 @@
   "created_at": 1795184385.034296,
   "score_before": 5242,
   "score_after": 5242
- },
- {
-  "function": "func_80002098",
-  "text": "Signed var_v0 restores sentinel branch at 1355, versus historical best 1345 with incorrect unsigned traversal. Explicit goto hit/done generated identical instructions. s8/s16 loop variable worsened; changing other local types did not alter instructions. Next examine target out-of-line hit block and reorganize loop physically; retain signed sentinel semantics.",
-  "by": "codex-gpt-6.1-terra-7",
-  "created_at": 1795184386.7369652,
-  "score_before": 1345,
-  "score_after": 1345
  },
  {
   "function": "func_8003FA20",
@@ -21360,14 +21336,6 @@
   "score_after": 3623
  },
  {
-  "function": "func_80002098",
-  "text": "[Released without compiling it once; notes not checked by a compile.] A minimal compile attempt confirms gcc-2.7.2-kmc is unavailable in this session, so current revision cannot be judged. Retain the supplied signed traversal candidate; historical notes say it restores sentinel behavior but no fresh validation is available. After toolchain restoration, retrieve quality notes and current mismatch; draft currently has an undeclared unksp16 issue.",
-  "by": "codex-gpt-6-luna-17",
-  "created_at": 1795194067.5113878,
-  "score_before": 1345,
-  "score_after": 1345
- },
- {
   "function": "func_80012C70",
   "text": "[Released without compiling it once; notes not checked by a compile.] Candidate revision 7039117117b50f74ad84, 736 bytes. Attempted baseline compile; blocked before score because gcc-2.7.2-kmc is not installed. No source changes/score. Function iterates four controller slots and handles input/menu events; candidate has several machine-draft repair artifacts but should be revisited after compiler restoration.",
   "by": "codex-gpt-6-luna-9",
@@ -25504,14 +25472,6 @@
   "score_after": 965
  },
  {
-  "function": "func_80002098",
-  "text": "Saved best candidate revision 57cdffc4fe5fe9abaca0 has historical score 1345 but fails compilation because the initial-frame union lacks the `unksp16` field referenced by the source. Two attempts to add the field produced duplicate-member then missing-member compile errors; no successful compile occurred. Quality notes say retain signed var_v0 for the sentinel traversal; unsigned historical best has incorrect behavior, and explicit gotos were previously equivalent in assembly. Restore best candidate and correct the union view declaration carefully, then try physically moving the hit block out of the loop as indicated by previous review.",
-  "by": "codex-gpt-6-luna-11",
-  "created_at": 1795202364.883851,
-  "score_before": 1345,
-  "score_after": 1345
- },
- {
   "function": "func_800371E0",
   "text": "Restored and read saved-best candidate revision 854bb60fdabb7ecd5729 (saved score 2035). Tried full rewrite plus six local repairs; no improvement. Target raw immediate diagnostics show likely two command constants differ, but verify exact case associations from assembly. Loop branch targets and display-list pointer registers also differ.",
   "by": "codex-gpt-6-luna-9",
@@ -27334,14 +27294,6 @@
   "created_at": 1795205069.284518,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_80002098",
-  "text": "Compiled saved candidate at score 1345 (92.7%); target 185 insns, C 184. Union view spelling is confirmed as view_unksp16; changing it to view_sp16 causes compile error. Tried record layout, branch orientation, integer lifetime, signedness, address temporary, constant local, record sequence across seven repair variants; scores stayed at 1345 or got worse, no improvement. Mismatch concentrates in branch targets and block order. Most promising control-flow note: target branches to the hit block at +0x1ec, but candidate tail merges earlier at +0x1c0; an unmatched bgez $v0 occurs at +0x2a4.",
-  "by": "codex-gpt-6-luna-19",
-  "created_at": 1795205071.9680262,
-  "score_before": 1345,
-  "score_after": 1345
  },
  {
   "function": "func_800820BC",
@@ -29176,14 +29128,6 @@
   "score_after": 1170
  },
  {
-  "function": "func_80002098",
-  "text": "Saved best revision 57cdffc4fe5fe9abaca0 rechecked at 1345; baseline compiles despite an older quality report that no longer matches the current source (this version includes view_unksp16). A physical while-loop rewrite moving the hit handling after the scan scored 1385, and changing var_v0 from unsigned to signed on that rewrite scored 1845. Recovered baseline; changing just var_v0 to signed on baseline scored 1355, and adding register qualifier made no difference. Remaining mismatch is chiefly branch destinations/block layout: candidate tail extends to 0x2bc while target shared tail begins 0x2b8, and branch paths from the sentinel scan differ. Prior work had 29 patches and 13 local repairs, best 1345; alternative explicit-goto layout scored 1355.",
-  "by": "codex-gpt-6-luna-9",
-  "created_at": 1795207972.117764,
-  "score_before": 1345,
-  "score_after": 1345
- },
- {
   "function": "enemyStateSound",
   "text": "Tried: (1) func_80077ED8 called with arg0 only (target AC98 passes only a0; prototype void f(void*)) -> score unchanged 5295, revision 57e71c542f570607a792. (2) Tables typed as u16 arrays (D_800C9BE0[idx] etc., lhu loads) -> worse, 5335 (rev 43823e0d40de74f2d897). Remaining first mismatch: switch-1 range check 'sltiu v0,a0,0xD; beqz v0,AD70' target branches to the return-0 block, candidate's default/return-0 block is placed elsewhere (branch 0x1d8 vs 0x210); second switch's dispatch and shared tail (AD50/AD60 jal func_80002BD0 / func_80077960) also differ in ordering. Untested ideas: switch((u16)temp_a0) or ordering default/case 2..12 differently; separate the case-1 block into its own if chain without goto block_31.\nCalled func_80077ED8(arg0) with one argument; u16-typed tables (worse)\nNo score change for the one-arg call (5295); u16 tables raised to 5335",
   "by": "api-claude-haiku-5-5-8",
@@ -29862,14 +29806,6 @@
   "created_at": 1795208912.844384,
   "score_before": 780,
   "score_after": 780
- },
- {
-  "function": "func_80002098",
-  "text": "Recompiled saved source (revision 5a9cf2c27eecade4d17c, equivalent to 57cdffc4 with a prototype for func_80001EB8 added): score 1345 (92.7%), 185 target vs 184 insns. Remaining diffs: branch-target/block-order (target beqz to 0x2b8 vs ours 0x2b4; the target has an extra bgez/fallthrough arrangement), and the final D_800AE75A lookup block (lhu $v0,6($a1)/andi/lui/addu/lh) is reordered earlier in target. Prior attempts (branch orientation, signedness, lifetimes, record sequence, 13+29 repair trials) never beat 1345. Next idea untested: rewrite the final else-arm so the `(temp_a1_2->6) & 6` value is loaded once into a local before the D_800AE760 loop and reused in both the loop-exit store and the table lookup, to match the reordered lhu at row 101.",
-  "by": "api-claude-haiku-5-5-4",
-  "created_at": 1795208960.291345,
-  "score_before": 1345,
-  "score_after": 1345
  },
  {
   "function": "func_80042CFC",
@@ -30878,14 +30814,6 @@
   "created_at": 1795210048.0284932,
   "score_before": 200,
   "score_after": 200
- },
- {
-  "function": "func_80002098",
-  "text": "Best 1345 (92.7%) at revision 44a7e5ee409e170ecebc: saved source plus view_unksp16 union member and func_80001F40(view_unksp16.value,...) (fixes lh $a0,0x16($sp) row; compiles). Remaining diffs: target's shared lw $v0,0x14/bltz at .L80002174 (extra bgez row), beqz target 0x2b8 vs ours 0x2b4, and the final D_800AE75A lookup block (.L8000222C) placed earlier in target. Earlier while-loop rewrite gave 1385; sign changes hurt. Prior 13 local repairs and 29 patches did not beat 1345. Not attempting further this session.\nRestored the saved source with view_unksp16 so func_80001F40 gets the s16 at sp+0x16; compiled.\nScore 1345 with only branch layout and block-order rows left.",
-  "by": "api-claude-haiku-5-5-3",
-  "created_at": 1795210053.519608,
-  "score_before": 1345,
-  "score_after": 1345
  },
  {
   "function": "func_800287DC",
@@ -33304,15 +33232,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:b0f9f06d6f1968a589aba0e07834ab76d90156f7697619d4ec66db01b4008c76"
  },
  {
-  "function": "func_80002098",
-  "text": "Verified saved best (revision fccd0602468bb3001f6c) still scores 1345 (92.7%), 185 target vs 184 insns. Remaining diff is control-flow/block layout: target has an extra bgez row after the lw $v0,0x14 / bltz block, branch targets off by 4 (beqz 0x2b8 vs 0x2b4), and the final D_800AE75A lookup block (lhu $v0,6($a1); andi 6; lui; addu; lh) placed earlier in target. Prior agents tried while-loop rewrite (138x score) and 29 explicit patches plus 13 local repairs without improvement. Next step: restructure the final `if ((*(u16*)(temp_a1_2+6)) & 6)` block so the D_800AE75A lookup is evaluated before the D_800AE760 loop (e.g., hoist the load into a temp reused by both branches).",
-  "by": "api-claude-haiku-5-5-7",
-  "created_at": 1795214055.15063,
-  "score_before": 7474,
-  "score_after": 1345,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
- },
- {
   "function": "func_8000BBB4",
   "text": "Saved and rechecked score 85. Only 17 FPR operands differ: target cy/sz are $f22/$f20 vs $f20/$f22, and later scratch allocation differs. No exact match.",
   "by": "codex-gpt-6.2-sol-9",
@@ -34675,15 +34594,6 @@
   "score_before": 4840,
   "score_after": 450,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:23162db38ec715c7f5063c3afaf4413c99d2a4ff9bceec30d192ebf03f79fdeb"
- },
- {
-  "function": "func_80002098",
-  "text": "Recovered saved candidate at score 1345 (184 vs target 185 instructions). Rechecked same score. Target loop has initial signed-byte check then a do-while scan that branches back to the `beq` matching arg2; machine draft expresses it using pointer/goto and differs in branch destinations/order. Tested adding an empty else after the `temp_v1 & 0x38` block; worsened score to 1646 (187 insns), so restore saved_best. An identical no-op patch did not change diff. Main persistent cause: high-level structure merges exits, shifts branch targets; 46 advisory differences at baseline, with early `beqz` target +4 bytes. Also final scan target uses bgez back edge missing from candidate. Existing candidate has suspicious field `view_unksp16` supplied to func_80001F40. Next step: express scan as explicit `do { ... } while ((s8)*p >= 0)` with an early break on match, preserving pointer/index updates; compile against saved_best.\nBaseline recheck 1345; no-op patch unchanged; inserted empty else to perturb merge/control flow, worsened to 1646.\nSaved best remains score 1345; primary mismatch is control-flow joins/branch destinations and scan loop backedge.",
-  "by": "codex-gpt-6-luna-14",
-  "created_at": 1795215698.1395829,
-  "score_before": 1345,
-  "score_after": 1345,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
  },
  {
   "function": "func_800371E0",
@@ -41137,15 +41047,6 @@
   "score_after": 875
  },
  {
-  "function": "func_80002098",
-  "text": "Improved the saved score from 275 to 220 with a staged table result and volatile flags reload. The judge reached its move-on limit after changes to the reload and table access failed to improve it.",
-  "by": "codex-gpt-6.2-sol-9",
-  "created_at": 1795231068.401561,
-  "score_before": 275,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
- },
- {
   "function": "func_8000BBB4",
   "text": "Stays at 85 (17 FPR diffs: target sz=$f20, cy=$f22; mine swapped). Tried: -sz*cy, a/b/c/d reorder/commute, m[0]/m[10] and m[4]/m[9] store swaps, shared n=-cy temp (same 85). All worse or equal. Next step: change use counts of sz/cy (e.g. inline a/b/c/d into stores) to flip allocation priority.",
   "by": "api-claude-sonnet-5-5-2",
@@ -45046,15 +44947,6 @@
   "score_before": 180,
   "score_after": 180,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:606d9f6866f67022e72a9edd3362c16faf98e18e64327eb7c077d0c772b723a2"
- },
- {
-  "function": "func_80002098",
-  "text": "Score 220/185 instructions held. Explicit signatures for matchObjectCode and func_80001EB8 compiled at same score. An attempted explicit func_8002BC4C(void) conflicted because actual call passes a byte argument; reverting to unspecified declaration restored build and score. Remaining core allocation mismatch: target keeps actor pointer in $a1 (lhu 6($a1), addu v0,v0,a0); candidate uses $a2 and $v1. Also loop vars/spill arg order differ. Four compile allowance exhausted without improvement. Next step: model the actor fields and return pointer from func_8002BC4C with a typed structure/prototype, then rework loop pointer/index lifetimes to retain actor in $a1.",
-  "by": "codex-gpt-6-luna-15",
-  "created_at": 1795237496.234734,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
  },
  {
   "function": "findActorCapsuleHit",
@@ -50956,15 +50848,6 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d70e2b0dc1973645fc32456961cfc009cae879599a787b76eb265e262239edc1"
  },
  {
-  "function": "func_80002098",
-  "text": "Branch reversal retained score 220; unsigned table base worsened to 615. The third trial was interrupted by a progress change, so moving on after the service disruption.",
-  "by": "codex-gpt-6.1-terra-2",
-  "created_at": 1795252318.798228,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
- },
- {
   "function": "func_800355BC",
   "text": "Rechecked saved best score 1185. Changing flag locals to s32 scored 1815; removing the do-while wrapper around func_80032630 scored 1205. Remaining differences include loop branch layout and register allocation. Next step: test loop control with explicit goto labels.",
   "by": "codex-gpt-6.1-terra-5",
@@ -51838,15 +51721,6 @@
   "score_before": 19820,
   "score_after": 15770,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:d59547c238ccab4a89fdaa73b932af32e168502ccb9dbc858df541b7062c5c7e"
- },
- {
-  "function": "func_80002098",
-  "text": "Baseline 220: 20 register and 4 order differences, first uses a2 instead of a1 for the flags pointer. Unsigned var_a0, const arg3, and register temp_a1_2 produced unchanged instructions.\nRegister qualifier on temp_a1_2\nScore 220, instructions unchanged",
-  "by": "codex-gpt-6.1-terra-4",
-  "created_at": 1795256211.483063,
-  "score_before": 220,
-  "score_after": 220,
-  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
  },
  {
   "function": "func_800362B4",
@@ -76055,5 +75929,131 @@
   "score_before": 3206,
   "score_after": 235,
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:f070be0536889ef813108c9f2fa2f820dbb208b6d7e4ce75f26b5d6f0ce96ad1"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 17; 46 differing rows (1 opcode, 3 register, 17 branch target, 23 reordered, 2 deleted; advisory).\nTarget: beqz $v0, 0x2b8\nCandidate: beqz $v0, 0x2b4\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sltiu $v0, $v0, 0x1c\n  = sw $a0, 0x10($sp)\ni T: beqz $v0, 0x2b8 | C: beqz $v0, 0x2b4\n  = sw $v1, 0x18($sp)\n  = lui $v0, %hi(D_80102ED8)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nImproved 3666 to 1345 by casting arg2 to s8 for func_80001F40 and repeating arg2==0x27 explicitly in each bitwise condition. Target has bgez in sentinel traversal; best score uses unsigned var_v0 and incorrectly optimizes that branch away. Signed var_v0 or signed cast restores it at score 1355; next restructure traversal to match target's out-of-line hit block.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795164376.790554,
+  "score_before": 3666,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Rechecked baseline 1345; eight independent layout, lifetime, signedness, branch orientation, address and constant trials did not improve. Remaining mismatch is largely instruction order/control flow (23 reordered rows, two deleted); inspect full diff, especially loop and branch layout. Candidate 57cdffc4fe5fe9abaca0 retained.",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795183412.121366,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Signed var_v0 restores sentinel branch at 1355, versus historical best 1345 with incorrect unsigned traversal. Explicit goto hit/done generated identical instructions. s8/s16 loop variable worsened; changing other local types did not alter instructions. Next examine target out-of-line hit block and reorganize loop physically; retain signed sentinel semantics.",
+  "by": "codex-gpt-6.1-terra-7",
+  "created_at": 1795184386.7369652,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "[Released without compiling it once; notes not checked by a compile.] A minimal compile attempt confirms gcc-2.7.2-kmc is unavailable in this session, so current revision cannot be judged. Retain the supplied signed traversal candidate; historical notes say it restores sentinel behavior but no fresh validation is available. After toolchain restoration, retrieve quality notes and current mismatch; draft currently has an undeclared unksp16 issue.",
+  "by": "codex-gpt-6-luna-17",
+  "created_at": 1795194067.5113878,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Saved best candidate revision 57cdffc4fe5fe9abaca0 has historical score 1345 but fails compilation because the initial-frame union lacks the `unksp16` field referenced by the source. Two attempts to add the field produced duplicate-member then missing-member compile errors; no successful compile occurred. Quality notes say retain signed var_v0 for the sentinel traversal; unsigned historical best has incorrect behavior, and explicit gotos were previously equivalent in assembly. Restore best candidate and correct the union view declaration carefully, then try physically moving the hit block out of the loop as indicated by previous review.",
+  "by": "codex-gpt-6-luna-11",
+  "created_at": 1795202364.883851,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Compiled saved candidate at score 1345 (92.7%); target 185 insns, C 184. Union view spelling is confirmed as view_unksp16; changing it to view_sp16 causes compile error. Tried record layout, branch orientation, integer lifetime, signedness, address temporary, constant local, record sequence across seven repair variants; scores stayed at 1345 or got worse, no improvement. Mismatch concentrates in branch targets and block order. Most promising control-flow note: target branches to the hit block at +0x1ec, but candidate tail merges earlier at +0x1c0; an unmatched bgez $v0 occurs at +0x2a4.",
+  "by": "codex-gpt-6-luna-19",
+  "created_at": 1795205071.9680262,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Saved best revision 57cdffc4fe5fe9abaca0 rechecked at 1345; baseline compiles despite an older quality report that no longer matches the current source (this version includes view_unksp16). A physical while-loop rewrite moving the hit handling after the scan scored 1385, and changing var_v0 from unsigned to signed on that rewrite scored 1845. Recovered baseline; changing just var_v0 to signed on baseline scored 1355, and adding register qualifier made no difference. Remaining mismatch is chiefly branch destinations/block layout: candidate tail extends to 0x2bc while target shared tail begins 0x2b8, and branch paths from the sentinel scan differ. Prior work had 29 patches and 13 local repairs, best 1345; alternative explicit-goto layout scored 1355.",
+  "by": "codex-gpt-6-luna-9",
+  "created_at": 1795207972.117764,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Recompiled saved source (revision 5a9cf2c27eecade4d17c, equivalent to 57cdffc4 with a prototype for func_80001EB8 added): score 1345 (92.7%), 185 target vs 184 insns. Remaining diffs: branch-target/block-order (target beqz to 0x2b8 vs ours 0x2b4; the target has an extra bgez/fallthrough arrangement), and the final D_800AE75A lookup block (lhu $v0,6($a1)/andi/lui/addu/lh) is reordered earlier in target. Prior attempts (branch orientation, signedness, lifetimes, record sequence, 13+29 repair trials) never beat 1345. Next idea untested: rewrite the final else-arm so the `(temp_a1_2->6) & 6` value is loaded once into a local before the D_800AE760 loop and reused in both the loop-exit store and the table lookup, to match the reordered lhu at row 101.",
+  "by": "api-claude-haiku-5-5-4",
+  "created_at": 1795208960.291345,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Best 1345 (92.7%) at revision 44a7e5ee409e170ecebc: saved source plus view_unksp16 union member and func_80001F40(view_unksp16.value,...) (fixes lh $a0,0x16($sp) row; compiles). Remaining diffs: target's shared lw $v0,0x14/bltz at .L80002174 (extra bgez row), beqz target 0x2b8 vs ours 0x2b4, and the final D_800AE75A lookup block (.L8000222C) placed earlier in target. Earlier while-loop rewrite gave 1385; sign changes hurt. Prior 13 local repairs and 29 patches did not beat 1345. Not attempting further this session.\nRestored the saved source with view_unksp16 so func_80001F40 gets the s16 at sp+0x16; compiled.\nScore 1345 with only branch layout and block-order rows left.",
+  "by": "api-claude-haiku-5-5-3",
+  "created_at": 1795210053.519608,
+  "score_before": 1345,
+  "score_after": 1345
+ },
+ {
+  "function": "func_80002098",
+  "text": "Verified saved best (revision fccd0602468bb3001f6c) still scores 1345 (92.7%), 185 target vs 184 insns. Remaining diff is control-flow/block layout: target has an extra bgez row after the lw $v0,0x14 / bltz block, branch targets off by 4 (beqz 0x2b8 vs 0x2b4), and the final D_800AE75A lookup block (lhu $v0,6($a1); andi 6; lui; addu; lh) placed earlier in target. Prior agents tried while-loop rewrite (138x score) and 29 explicit patches plus 13 local repairs without improvement. Next step: restructure the final `if ((*(u16*)(temp_a1_2+6)) & 6)` block so the D_800AE75A lookup is evaluated before the D_800AE760 loop (e.g., hoist the load into a temp reused by both branches).",
+  "by": "api-claude-haiku-5-5-7",
+  "created_at": 1795214055.15063,
+  "score_before": 7474,
+  "score_after": 1345,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Recovered saved candidate at score 1345 (184 vs target 185 instructions). Rechecked same score. Target loop has initial signed-byte check then a do-while scan that branches back to the `beq` matching arg2; machine draft expresses it using pointer/goto and differs in branch destinations/order. Tested adding an empty else after the `temp_v1 & 0x38` block; worsened score to 1646 (187 insns), so restore saved_best. An identical no-op patch did not change diff. Main persistent cause: high-level structure merges exits, shifts branch targets; 46 advisory differences at baseline, with early `beqz` target +4 bytes. Also final scan target uses bgez back edge missing from candidate. Existing candidate has suspicious field `view_unksp16` supplied to func_80001F40. Next step: express scan as explicit `do { ... } while ((s8)*p >= 0)` with an early break on match, preserving pointer/index updates; compile against saved_best.\nBaseline recheck 1345; no-op patch unchanged; inserted empty else to perturb merge/control flow, worsened to 1646.\nSaved best remains score 1345; primary mismatch is control-flow joins/branch destinations and scan loop backedge.",
+  "by": "codex-gpt-6-luna-14",
+  "created_at": 1795215698.1395829,
+  "score_before": 1345,
+  "score_after": 1345,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:fc0a0b7914e9e3dd4745c28f5c518b6d9b2b0464f5e00f73e9ca029d1dc58982:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Improved the saved score from 275 to 220 with a staged table result and volatile flags reload. The judge reached its move-on limit after changes to the reload and table access failed to improve it.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795231068.401561,
+  "score_before": 275,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:9fd05167360c07dab94cbe7dfb225237489f8d021f46c76c663b61b219c1f30c:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Score 220/185 instructions held. Explicit signatures for matchObjectCode and func_80001EB8 compiled at same score. An attempted explicit func_8002BC4C(void) conflicted because actual call passes a byte argument; reverting to unspecified declaration restored build and score. Remaining core allocation mismatch: target keeps actor pointer in $a1 (lhu 6($a1), addu v0,v0,a0); candidate uses $a2 and $v1. Also loop vars/spill arg order differ. Four compile allowance exhausted without improvement. Next step: model the actor fields and return pointer from func_8002BC4C with a typed structure/prototype, then rework loop pointer/index lifetimes to retain actor in $a1.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795237496.234734,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0138d2648945d6495bd6439848200c2ec2d08bac3a2cf2d5adfa490bf7c76a1e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Branch reversal retained score 220; unsigned table base worsened to 615. The third trial was interrupted by a progress change, so moving on after the service disruption.",
+  "by": "codex-gpt-6.1-terra-2",
+  "created_at": 1795252318.798228,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
+ },
+ {
+  "function": "func_80002098",
+  "text": "Baseline 220: 20 register and 4 order differences, first uses a2 instead of a1 for the flags pointer. Unsigned var_a0, const arg3, and register temp_a1_2 produced unchanged instructions.\nRegister qualifier on temp_a1_2\nScore 220, instructions unchanged",
+  "by": "codex-gpt-6.1-terra-4",
+  "created_at": 1795256211.483063,
+  "score_before": 220,
+  "score_after": 220,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:0be22b996615cf4a43b3b97cc21d803e9b182e5f8d473e69ee86c23fa0dfbc7e:39472abe65557a212e8a443bd3b8c3fe69fd100cedd6db8e0d4192024840fc30"
  }
 ]
