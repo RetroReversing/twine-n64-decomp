@@ -56896,7 +56896,7 @@
   "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:60b14b5195b00271917ebb01f6374075d2b55ec5287e74f2e99c3c119b8b23e8"
  },
  {
-  "function": "func_800635E0",
+  "function": "updateSwingAnimation",
   "text": "[Released without compiling it once; notes not checked by a compile.] Not readable yet: the body is a per-frame angle/swing update. D_800E1A00 is an accumulated phase, the callees func_8008292C/func_80082968/func_80082A2C look like sin/cos/clamp helpers (not yet read), and the arg0 fields (+0x28, +0x6C, +0x7C) and object +0xF0/+0xFC/+0xC4 have no confirmed meaning. Next step: get_function on the three callees and the caller func_8006D2E4 to confirm what the float fields are before naming.",
   "by": "api-claude-haiku-5-5-12",
   "created_at": 1795227610.992594,
@@ -56963,5 +56963,41 @@
   "created_at": 1795139144.13851,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_80064630",
+  "text": "Verified 160 with distinct first halfword cursor, explicit backedges for both loops, flags loaded before the 0xE8 stride, and second-loop counter increment expressed from the saved call argument. 84/84 instructions, 28 register and two saved-slot operand differences. Project progress invalidated the claim during the next batch. Next step: complete the interrupted test of a typed second-loop record cursor with byte-wise increment to change register allocation.",
+  "by": "codex-gpt-6.2-sol-9",
+  "created_at": 1795227754.296725,
+  "score_before": 375,
+  "score_after": 160,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:e269ca133208b173862e74f2690fe47bb06d37b78f1f68461c8b63f110dff16d"
+ },
+ {
+  "function": "func_8009DF60",
+  "text": "Saved candidate d057a637a100c6b33dad rechecks 60587. Tried explicit bzero(void *,s32) plus removing spurious extra args; it compiled but scored 62322 (worse). Restored best. Changing arg1 declaration s32 to void* produced exactly unchanged instruction diff and score 60587. Local repair variants were all ties. Current baseline has structural mismatch: target frame 0xF8 and 960 insns, candidate frame 0x38 and 753 insns; generated loop structure differs. Next step: inspect full target around bzero and repeated decode loop, then rewrite loop to preserve shared control flow rather than expanded temp-based draft.\nExplicit bzero prototype/correct arity worsened score; changing arg1 to void* kept exact same diff; local repair variants tied.\nNo lasting improvement; saved baseline remains 60587. Frame 0x38 vs target 0xF8, and candidate 753 insns vs target 960.",
+  "by": "codex-gpt-6-luna-20",
+  "created_at": 1795227772.411984,
+  "score_before": 62322,
+  "score_after": 60587,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:cd165bf6c1990a966ab8c4e760bc6d60761fb2b010b990210ce47d7af567edb8"
+ },
+ {
+  "function": "func_80099CA8",
+  "text": "Inherited handoff's shifted u32 mode value improved 1050 to 1045. Local branch_orientation variant inverted the sentinel condition, improving to 325 (15 mismatch rows). Guard-forward-jump and shared-return repairs tied the 1045 baseline; inferred layout worsened. Moving the outer zero guard to an early return scored 885, also worse. Best remains saved at 325. Remaining diffs are largely branch offsets/orientation and mode-bit register flow; no verified match.",
+  "by": "codex-gpt-6-luna-15",
+  "created_at": 1795227782.536694,
+  "score_before": 1050,
+  "score_after": 325,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:bb001ea5202bfe79c01b5e3a8d49d04dca2f9082a01394075711642d04b57d08"
+ },
+ {
+  "function": "func_8001F4B8",
+  "text": "Saved candidate rechecks at 1592 (not 165; historical score stale). Diff: target frame 0x20 saves s0,s1,ra with s1=raw a1 (action, moved in bnez delay slot) and s0 = andi s1,0xff computed AFTER the null check, then `andi v0,s1,0xff` recomputed at every return path (5x); ours CSEs return into s0 (move v0,s0), frame 0x18, no s1. Tried (all 1592 or worse): u8 param, u8/s32 return type, index as u8, `action & 0xFF`, removing index temp and using (u8)action everywhere (1707). Next step: find a form where gcc 2.7 does not CSE (u8)action across the call - e.g. action reassigned/modified in some path, or the return expression coming through a separate variable/helper; the callback tail `gMenuState->handler->enter(state)` also differs (target loads gMenuState again into v1 and lw 0x18($v1) after sw to 0x18($a0)).",
+  "by": "api-claude-sonnet-5-5-2",
+  "created_at": 1795227810.22195,
+  "score_before": 1592,
+  "score_after": 1592,
+  "handoff_inputs": "53ac714285bdfe5afde383645032da10a8c0fb56f2e548b3c101c0a14735fe69:a057ac01bd86b5af68574cf8a28e5dd32bfa99490855a6bc9daa3a596a0e7c50:77cf1eaae71ca5710c31399fdbf551d440c849cf76e06d4aca23dacbe1ccfb3c"
  }
 ]

@@ -44,7 +44,7 @@ store_selection:
     sum = 0;
     if (count != 0) {
         i = 0;
-        if (count != 0) {
+        if (obj->count != count || count != 0) {
             Item2A9A8 *items = obj->items;
             do {
                 sum += items[i].weight;

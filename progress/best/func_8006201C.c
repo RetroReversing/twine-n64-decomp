@@ -11,6 +11,7 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
     void *temp_v0;
         u16 ticks;
         u16 color;
+    u16 inputColor;
         u16 mode;
         s32 kind;
         f32 inverse;
@@ -30,12 +31,12 @@ void *func_8006201C(s32 arg0, void *arg1, s32 arg2, s16 arg3) {
             *(u16 *)((char *)arg1 + 4) = 0x1E;
         }
         (*(s8 *)((char *)(temp_a3) + 0x2E)) = (s8) (*(u16 *)((char *)(arg1) + 0x2C));
-        color = *(u16 *)((char *)arg1 + 0x2E);
+        inputColor = *(u16 *)((char *)arg1 + 0x2E);
         (*(s32 *)((char *)(temp_a3) + 0)) = (unsigned)arg2;
         (*(s16 *)((char *)(temp_a3) + 0xC)) = arg3;
         (*(s16 *)((char *)(temp_a3) + 0xE)) = 0;
         (*(s32 *)((char *)(temp_a3) + 4)) = 0;
-        *(s8 *)((char *)temp_a3 + 0x2F) = color;
+        *(s8 *)((char *)temp_a3 + 0x2F) = inputColor;
         inverse = 1.0f / (f32)*(u16 *)((char *)arg1 + 4);
         (*(u16 *)((char *)(temp_a3) + 0x2C)) = 0U;
         mode = *(volatile u16 *)((char *)temp_a3 + 0x2C);
